@@ -90,7 +90,7 @@ class Changed_Cart_Quantity_Event extends Universal_Analytics_Event {
 
 			$this->record_via_api( [
 				'eventCategory' => 'Cart',
-				'eventLabel'    => htmlentities( $product->get_title(), ENT_QUOTES, 'UTF-8' ),
+				'eventLabel'    => htmlentities( $product->get_name(), ENT_QUOTES, 'UTF-8' ),
 			] );
 		}
 	}

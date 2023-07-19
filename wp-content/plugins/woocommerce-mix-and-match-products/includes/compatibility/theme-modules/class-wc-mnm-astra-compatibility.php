@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Theme Compatibility
  * @since    2.0.0
- * @version  2.4.5
+ * @version  2.4.9
  */
 
 // Exit if accessed directly.
@@ -37,6 +37,9 @@ class WC_MNM_Astra_Compatibility {
 		// Quickview support.
 		add_action( 'woocommerce_shop_loop', array( __CLASS__, 'init_quick_view' ) );
 		add_action( 'astra_woo_quick_view_product_summary', array( __CLASS__, 'attach_hooks' ), 0 );
+
+		// Use astra plus/minus buttons.
+		add_filter( 'pre_option_wc_mnm_display_plus_minus_buttons', array( __CLASS__, 'filter_plus_minus_buttons' ) );
 
 	}
 
@@ -131,6 +134,22 @@ class WC_MNM_Astra_Compatibility {
 	 */
 	public static function filter_form_location( $location ) {
 		return 'default';
+	}
+
+
+	/**
+	 * Force use of Astra plus/minus buttons
+	 * 
+	 * @since 2.4.9
+	 *
+	 * @param string $value
+	 * @return string
+	 */
+	public static function filter_plus_minus_buttons( $value ) {
+		if ( function_exists( 'astra_add_to_cart_quantity_btn_enabled' ) && astra_add_to_cart_quantity_btn_enabled() ) {
+			$value = 'no';
+		}
+		return $value;
 	}
 
 

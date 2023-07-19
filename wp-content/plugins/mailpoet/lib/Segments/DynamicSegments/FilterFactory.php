@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) exit;
 use MailPoet\Entities\DynamicSegmentFilterData;
 use MailPoet\Entities\DynamicSegmentFilterEntity;
 use MailPoet\Segments\DynamicSegments\Exceptions\InvalidFilterException;
+use MailPoet\Segments\DynamicSegments\Filters\AutomationsEvents;
 use MailPoet\Segments\DynamicSegments\Filters\EmailAction;
 use MailPoet\Segments\DynamicSegments\Filters\EmailActionClickAny;
 use MailPoet\Segments\DynamicSegments\Filters\EmailOpensAbsoluteCountAction;
@@ -23,6 +24,7 @@ use MailPoet\Segments\DynamicSegments\Filters\UserRole;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceAverageSpent;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceCategory;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceCountry;
+use MailPoet\Segments\DynamicSegments\Filters\WooCommerceCustomerTextField;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceMembership;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceNumberOfOrders;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceProduct;
@@ -31,6 +33,7 @@ use MailPoet\Segments\DynamicSegments\Filters\WooCommerceSingleOrderValue;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceSubscription;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceTotalSpent;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceUsedPaymentMethod;
+use MailPoet\Segments\DynamicSegments\Filters\WooCommerceUsedShippingMethod;
 
 class FilterFactory {
   /** @var EmailAction */
@@ -99,6 +102,15 @@ class FilterFactory {
   /** @var WooCommerceUsedPaymentMethod */
   private $wooCommerceUsedPaymentMethod;
 
+  /** @var WooCommerceUsedShippingMethod */
+  private $wooCommerceUsedShippingMethod;
+
+  /** @var WooCommerceCustomerTextField */
+  private $wooCommerceCustomerTextField;
+
+  /** @var AutomationsEvents */
+  private $automationsEvents;
+
   public function __construct(
     EmailAction $emailAction,
     EmailActionClickAny $emailActionClickAny,
@@ -107,6 +119,7 @@ class FilterFactory {
     WooCommerceProduct $wooCommerceProduct,
     WooCommerceCategory $wooCommerceCategory,
     WooCommerceCountry $wooCommerceCountry,
+    WooCommerceCustomerTextField $wooCommerceCustomerTextField,
     EmailOpensAbsoluteCountAction $emailOpensAbsoluteCount,
     WooCommerceNumberOfOrders $wooCommerceNumberOfOrders,
     WooCommerceTotalSpent $wooCommerceTotalSpent,
@@ -121,7 +134,9 @@ class FilterFactory {
     WooCommerceSingleOrderValue $wooCommerceSingleOrderValue,
     WooCommerceAverageSpent $wooCommerceAverageSpent,
     WooCommerceUsedPaymentMethod $wooCommerceUsedPaymentMethod,
-    SubscriberTextField $subscriberTextField
+    WooCommerceUsedShippingMethod $wooCommerceUsedShippingMethod,
+    SubscriberTextField $subscriberTextField,
+    AutomationsEvents $automationsEvents
   ) {
     $this->emailAction = $emailAction;
     $this->userRole = $userRole;
@@ -145,6 +160,9 @@ class FilterFactory {
     $this->subscribedViaForm = $subscribedViaForm;
     $this->wooCommerceAverageSpent = $wooCommerceAverageSpent;
     $this->wooCommerceUsedPaymentMethod = $wooCommerceUsedPaymentMethod;
+    $this->wooCommerceUsedShippingMethod = $wooCommerceUsedShippingMethod;
+    $this->wooCommerceCustomerTextField = $wooCommerceCustomerTextField;
+    $this->automationsEvents = $automationsEvents;
   }
 
   public function getFilterForFilterEntity(DynamicSegmentFilterEntity $filter): Filter {
@@ -152,6 +170,8 @@ class FilterFactory {
     $filterType = $filterData->getFilterType();
     $action = $filterData->getAction();
     switch ($filterType) {
+      case DynamicSegmentFilterData::TYPE_AUTOMATIONS:
+        return $this->automationsEvents;
       case DynamicSegmentFilterData::TYPE_USER_ROLE:
         return $this->userRole($action);
       case DynamicSegmentFilterData::TYPE_EMAIL:
@@ -234,6 +254,10 @@ class FilterFactory {
       return $this->wooCommerceAverageSpent;
     } elseif ($action === WooCommerceUsedPaymentMethod::ACTION) {
       return $this->wooCommerceUsedPaymentMethod;
+    } elseif ($action === WooCommerceUsedShippingMethod::ACTION) {
+      return $this->wooCommerceUsedShippingMethod;
+    } elseif (in_array($action, WooCommerceCustomerTextField::ACTIONS)) {
+      return $this->wooCommerceCustomerTextField;
     }
     return $this->wooCommerceCategory;
   }

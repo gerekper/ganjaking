@@ -667,6 +667,28 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 	 * Payment_fields function.
 	 */
 	public function payment_fields() {
+		$allowed_html        = array(
+			'br'     => array(),
+			'p'      => array(
+				'style' => array(),
+				'class' => array(),
+				'id'    => array(),
+			),
+			'span'   => array(
+				'style' => array(),
+				'class' => array(),
+				'id'    => array(),
+			),
+			'strong' => array(),
+			'a'      => array(
+				'href'   => array(),
+				'title'  => array(),
+				'class'  => array(),
+				'id'     => array(),
+				'target' => array(),
+			),
+		);
+		$allowed_html_filter = apply_filters( 'redsys_kses_descripcion', $allowed_html );
 		echo '<style>
 		#bizum-movil {
 			display: flex;
@@ -679,6 +701,7 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 			max-height: 2.8em !important;
 		}
 		</style>';
+		echo '<p>' . wp_kses( $this->description, $allowed_html_filter ) . '</p>';
 		echo '<p>' . esc_html__( 'Mobil number associated with Bizum. The format should be +345555555', 'woocommerce-redsys' ) . '</p>';
 		echo '<div id="bizum-movil">';
 		echo '<img class="movil" src="' . esc_url( REDSYS_PLUGIN_URL_P ) . 'assets/images/ico-movil.png" alt="Mobile Icon">';
@@ -995,17 +1018,17 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 
 			$bizum_data_send = apply_filters( 'bizum_modify_data_to_send', $bizum_data_send );
 
-			if ( 'yes' === $redsys->debug ) {
-				$redsys->log->add( 'bizumcheckout', ' ' );
-				$redsys->log->add( 'bizumcheckout', 'Using filter bizum_modify_data_to_send' );
-				$redsys->log->add( 'bizumcheckout', ' ' );
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'bizumcheckout', ' ' );
+				$this->log->add( 'bizumcheckout', 'Using filter bizum_modify_data_to_send' );
+				$this->log->add( 'bizumcheckout', ' ' );
 			}
 		}
 
-		if ( 'yes' === $redsys->debug ) {
-			$redsys->log->add( 'bizumcheckout', ' ' );
-			$redsys->log->add( 'bizumcheckout', 'Date sent to Bizum, $bizum_data_send: ' . print_r( $bizum_data_send, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
-			$redsys->log->add( 'bizumcheckout', ' ' );
+		if ( 'yes' === $this->debug ) {
+			$this->log->add( 'bizumcheckout', ' ' );
+			$this->log->add( 'bizumcheckout', 'Data sent to Bizum, $bizum_data_send: ' . print_r( $bizum_data_send, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			$this->log->add( 'bizumcheckout', ' ' );
 		}
 
 		// redsys Args.
@@ -1412,7 +1435,7 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 						<title>Esperando Autenticación</title>
 						<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 						<script>'
-						. $script .
+						. $script . // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						'</script>
 						<style type="text/css">
 							html, body {
@@ -1503,7 +1526,7 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 			header( 'HTTP/1.1 200 OK' );
 			do_action( 'valid_' . $this->id . '_standard_ipn_request', $_POST ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		} else {
-			wp_die( 'Bizum Notification Request Failure' );
+			wp_die( 'There is nothing to see here, do not access this page directly (Bizum checkout)' );
 		}
 	}
 	/**
@@ -1764,9 +1787,6 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 			$order->add_order_note( __( 'Authorization code: ', 'woocommerce-redsys' ) . $authorisation_code );
 			$order->payment_complete();
 
-			if ( 'completed' === $this->orderdo ) {
-				$order->update_status( 'completed', __( 'Order Completed by Bizum', 'woocommerce-redsys' ) );
-			}
 			set_transient( $order->get_id() . '_bizum_payment', 'yes', 3600 );
 
 			if ( 'yes' === $this->debug ) {
@@ -2264,7 +2284,7 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 					$(document).ready(function() {
 						if ( $( '#payment_method_bizumcheckout' ).is( ':checked' ) ) {
 							var order_id = $.urlParam('order_id');
-						var domain   = '<?php echo $final_notify_url; ?>';
+						var domain   = '<?php echo esc_url( $final_notify_url ); ?>';
 						var url = domain + '&bizum-order-id=' + order_id + '&bizum-iframe=yes';
 							if ( order_id != null ) {
 								console.log('order_id = ' + order_id );

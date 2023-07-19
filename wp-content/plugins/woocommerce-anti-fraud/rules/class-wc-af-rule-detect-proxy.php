@@ -14,6 +14,7 @@ class WC_AF_Rule_Detect_Proxy extends WC_AF_Rule {
 		$this->is_enabled  = get_option('wc_af_proxy_order');
 		$this->rule_weight = get_option('wc_settings_anti_fraud_proxy_order_weight');
 		parent::__construct( 'detect_proxy', 'Customer ordered from behind a proxy.', $this->rule_weight );
+
 	}
 
 	/**
@@ -30,7 +31,7 @@ class WC_AF_Rule_Detect_Proxy extends WC_AF_Rule {
 		global $wpdb;
 		//$ip = WC_AF_Score_Helper::get_ip_address();
 		$data = $order->get_id();
-		$ip = get_post_meta( $data, '_customer_ip_address', true );
+		$ip = opmc_hpos_get_post_meta( $data, '_customer_ip_address', true );
 		/*if ( ! empty( $_SERVER['HTTP_CLIENT_IP'] ) ) {
 			//check ip from share internet
 			$ip = $_SERVER['HTTP_CLIENT_IP'];

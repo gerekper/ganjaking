@@ -1,5 +1,25 @@
 *** WooCommerce Google Analytics Pro ***
 
+2023.07.17 - version 2.0.9
+ * Tweak - Enabling debug mode will now show events in GA4 DebugView
+ * Tweak - Pass visitor session ID & number to GA4 when tracking events via API to improve session attribution in reports
+ * Fix - Only check for duplicate tracking codes if UA tracking is enabled
+ * Fix - Prevent a JS error when product name contains quotes by ensuring double quotes are escaped in event parameters
+
+2023.07.10 - version 2.0.8
+ * Fix - Do not set the `user_id` parameter to `0` when tracking events for non-logged-in users
+
+2023.06.29 - version 2.0.7
+ * Fix - Ensure refund events are tracked using positive amounts
+
+2023.06.20 - version 2.0.6
+ * Tweak - Avoid clearing selected GA properties when re-authenticating with Google using an account that has access to selected properties
+ * Tweak - Pass visitor user-agent to GA4 when tracking events via API
+ * Tweak - Include full order data in GA4 `place_order` event
+ * Tweak - Ensure product names include variation name when tracking product events
+ * Fix - Address an issue where tracked item variant details were incomplete
+ * Misc - Revert changes from v2.0.1 to leverage an edit scope in the API to allow data stream creation during onboarding
+
 2023.06.12 - version 2.0.5
  * Tweak - Send page_location and page_referrer parameters to GA4 when tracking events via API
  * Fix - Ensure events are not sent to GA4 via API when visitor identity is not available

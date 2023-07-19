@@ -23,8 +23,10 @@ class WC_Instagram_Meta_Box_Product_Data {
 	public function __construct() {
 		add_filter( 'woocommerce_product_data_tabs', array( $this, 'product_data_tabs' ) );
 		add_action( 'woocommerce_product_data_panels', array( $this, 'product_data_panels' ) );
+		add_action( 'woocommerce_after_product_attribute_settings', array( $this, 'product_attribute_settings' ), 10, 2 );
 		add_action( 'woocommerce_process_product_meta', array( $this, 'save_product_data' ), 15 );
-		add_action( 'woocommerce_after_product_attribute_settings', array( $this, 'product_attribute_settings' ) );
+		add_action( 'woocommerce_admin_process_product_object', array( $this, 'save_product' ) );
+		add_action( 'wp_ajax_woocommerce_save_attributes', array( $this, 'save_attributes' ), 5 );
 	}
 
 	/**
@@ -68,6 +70,37 @@ class WC_Instagram_Meta_Box_Product_Data {
 	 */
 	public function product_data_panels() {
 		include 'views/html-product-data-instagram.php';
+	}
+
+	/**
+	 * Adds custom settings to the attribute in the product data metabox.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @param WC_Product_Attribute $attribute Attribute object.
+	 * @param int                  $index     Attribute index.
+	 */
+	public function product_attribute_settings( $attribute, $index ) {
+		$google_pa = '';
+
+		if ( $attribute->get_id() ) {
+			$google_pa = WC_Instagram_Attributes::get_meta( $attribute->get_id(), 'google_pa' );
+		} else {
+			$product_id = ( isset( $_REQUEST['post'] ) ? absint( wp_unslash( $_REQUEST['post'] ) ) : ( isset( $_REQUEST['post_id'] ) ? absint( wp_unslash( $_REQUEST['post_id'] ) ) : 0 ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+			if ( $product_id > 0 ) {
+				$attribute_slug            = sanitize_title( $attribute->get_name() );
+				$google_product_attributes = get_post_meta( $product_id, '_google_product_attributes', true );
+				$google_pa                 = ( isset( $google_product_attributes[ $attribute_slug ] ) ? $google_product_attributes[ $attribute_slug ] : '' );
+			}
+		}
+
+		// A product attribute without a Google product attribute associated.
+		if ( $attribute->get_id() && ! $google_pa ) {
+			return;
+		}
+
+		include 'views/html-product-attribute-settings.php';
 	}
 
 	/**
@@ -138,31 +171,74 @@ class WC_Instagram_Meta_Box_Product_Data {
 	}
 
 	/**
-	 * Adds custom settings to the attribute in the product data metabox.
+	 * Updates the product before saving it.
 	 *
-	 * @since 3.7.0
+	 * @since 4.4.0
 	 *
-	 * @param WC_Product_Attribute $attribute Attribute object.
+	 * @param WC_Product $product Product object.
 	 */
-	public function product_attribute_settings( $attribute ) {
-		// It's a custom attribute.
-		if ( ! $attribute->get_id() ) {
+	public function save_product( $product ) {
+		// phpcs:disable WordPress.Security.NonceVerification
+		if ( ! isset( $_POST['attribute_google_pa'], $_POST['attribute_names'] ) ) {
 			return;
 		}
 
-		$google_pa = WC_Instagram_Attributes::get_meta( $attribute->get_id(), 'google_pa' );
+		$attribute_names     = wc_clean( wp_unslash( $_POST['attribute_names'] ) );
+		$attribute_google_pa = wc_clean( wp_unslash( $_POST['attribute_google_pa'] ) );
+		// phpcs:enable WordPress.Security.NonceVerification
 
-		if ( ! $google_pa ) {
+		$attributes = $this->prepare_google_product_attributes( $attribute_google_pa, $attribute_names );
+
+		$product->update_meta_data( '_google_product_attributes', $attributes );
+	}
+
+	/**
+	 * Saves product attributes via ajax.
+	 *
+	 * @since 4.4.0
+	 */
+	public function save_attributes() {
+		check_ajax_referer( 'save-attributes', 'security' );
+
+		if ( ! isset( $_POST['data'], $_POST['post_id'] ) ) {
 			return;
 		}
-		?>
-		<tr>
-			<td>
-				<label><?php echo esc_html__( 'Google attribute', 'woocommerce-instagram' ); ?>:</label>
-				<strong><?php echo esc_html( WC_Instagram_Google_Product_Attributes::get_label( $google_pa ) ); ?></strong>
-			</td>
-		</tr>
-		<?php
+
+		parse_str( wp_unslash( $_POST['data'] ), $data ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+
+		if ( ! isset( $data['attribute_google_pa'], $data['attribute_names'] ) ) {
+			return;
+		}
+
+		$attribute_names     = wc_clean( $data['attribute_names'] );
+		$attribute_google_pa = wc_clean( $data['attribute_google_pa'] );
+
+		$attributes = $this->prepare_google_product_attributes( $attribute_google_pa, $attribute_names );
+
+		update_post_meta( absint( $_POST['post_id'] ), '_google_product_attributes', $attributes );
+	}
+
+	/**
+	 * Prepares the Google product attributes.
+	 *
+	 * @since 4.4.0
+	 *
+	 * @param array $attribute_google_pa An array with the posted Google attributes.
+	 * @param array $attribute_names     An array with the posted attribute names.
+	 * @return array An array with pairs [attribute_name => google_pa].
+	 */
+	protected function prepare_google_product_attributes( array $attribute_google_pa, array $attribute_names ) {
+		$attributes = array();
+
+		foreach ( $attribute_google_pa as $index => $value ) {
+			$attribute_slug = ( isset( $attribute_names[ $index ] ) ? sanitize_title( $attribute_names[ $index ] ) : '' );
+
+			if ( $attribute_slug ) {
+				$attributes[ $attribute_slug ] = $value;
+			}
+		}
+
+		return $attributes;
 	}
 }
 

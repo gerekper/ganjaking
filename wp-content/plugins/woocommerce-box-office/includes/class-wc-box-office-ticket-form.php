@@ -484,7 +484,7 @@ class WC_Box_Office_Ticket_Form {
 	 */
 	public function get_clean_data() {
 		if ( ! $this->_validated ) {
-			_doing_it_wrong( __FUNCTION__, sprintf( __( 'Call %s::validate first', 'woocommerce-box-office' ), __CLASS__ ), WCBO()->_version );
+			_doing_it_wrong( __FUNCTION__, esc_html( sprintf( __( 'Call %s::validate first', 'woocommerce-box-office' ), __CLASS__ ) ), esc_html( WCBO()->_version ) );
 		}
 
 		return $this->_clean_data;

@@ -52,7 +52,7 @@ if ( ! $wc_emails_enabled ) {
 			id="email-subject"
 			name="email_subject"
 			placeholder="<?php esc_html_e( 'Email subject', 'woocommerce-box-office' ); ?>"
-			value="<?php ! empty( $_POST['email_subject'] ) ? esc_attr( $_POST['email_subject'] ) : ''; ?>">
+			value="<?php ! empty( $_POST['email_subject'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_POST['email_subject'] ) ) ) : ''; ?>">
 	</p>
 
 	<p>

@@ -80,7 +80,7 @@ class WC_XR_Payment_Manager {
 	/**
 	 * Detect the payment method with order status change and create Xero payment.
 	 *
-	 * @since x.x.x
+	 * @since 1.7.43
 	 * @version 1.0.0
 	 *
 	 * @param int    $order_id Order ID.
@@ -99,7 +99,7 @@ class WC_XR_Payment_Manager {
 		 *
 		 * @param array $xero_payment_completion Order statuses with their respective payment methods.
 		 *
-		 * @since x.x.x
+		 * @since 1.7.43
 		 */
 		$xero_payment_completion = apply_filters( 'woocommerce_xero_payment_creation', $xero_payment_completion );
 
@@ -138,7 +138,7 @@ class WC_XR_Payment_Manager {
 		if( 0 == $order->get_total() ) {
 			$order->add_order_note( __( 'Xero Invoice amount is zero, no payment necessary.', 'woocommerce-xero' ) );
 			return false;
-		} 
+		}
 
 		// Try to do the request.
 		try {

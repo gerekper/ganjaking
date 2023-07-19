@@ -246,7 +246,7 @@ class WC_Box_Office {
 	 * @since 1.0.0
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'woocommerce-box-office' ), $this->_version );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'woocommerce-box-office' ), esc_html( $this->_version ) );
 	}
 
 	/**
@@ -255,7 +255,7 @@ class WC_Box_Office {
 	 * @since 1.0.0
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'woocommerce-box-office' ), $this->_version );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'woocommerce-box-office' ), esc_html( $this->_version ) );
 	}
 
 	/**
@@ -284,7 +284,7 @@ class WC_Box_Office {
 	/**
 	 * Declare compatibility with High-Performance Order Storage.
 	 *
-	 * @since x.x.x
+	 * @since 1.1.42
 	 */
 	public function declare_hpos_compatibility() {
 		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {

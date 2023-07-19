@@ -4,6 +4,7 @@
  *
  * @package  WooCommerce Free Gift Coupons
  * @since    2.0.0
+ * @version  3.4.4
  */
 
 // Exit if accessed directly.
@@ -84,12 +85,8 @@ class WC_Free_Gift_Coupons_Admin_Notices {
 	 * Save errors to an option.
 	 */
 	public static function save_notices() {
-
-		delete_option( 'wc_fgc_meta_box_notices' );
-		delete_option( 'wc_fgc_maintenance_notices' );
-
-		add_option( 'wc_fgc_meta_box_notices', self::$meta_box_notices );
-		add_option( 'wc_fgc_maintenance_notices', self::$maintenance_notices );
+		update_option( 'wc_fgc_meta_box_notices', self::$meta_box_notices );
+		update_option( 'wc_fgc_maintenance_notices', self::$maintenance_notices );
 	}
 
 	/**

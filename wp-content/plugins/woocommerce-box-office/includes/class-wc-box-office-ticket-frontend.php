@@ -57,11 +57,11 @@ class WC_Box_Office_Ticket_Frontend {
 				throw new Exception( __( 'Missing nonce to update the ticket.', 'woocommerce-box-office' ) );
 			}
 
-			if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'woocommerce-box-office_update_ticket' ) ) {
+			if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'woocommerce-box-office_update_ticket' ) ) {
 				throw new Exception( __( 'We were unable to update your ticket, please try again.', 'woocommerce-box-office' ) );
 			}
 
-			$ticket = wc_box_office_get_ticket_by_token( $_GET['token'] );
+			$ticket = wc_box_office_get_ticket_by_token( sanitize_text_field( wp_unslash( $_GET['token'] ?? '' ) ) );
 			if ( ! $ticket ) {
 				throw new Exception( __( 'Invalid ticket.', 'woocommerce-box-office' ) );
 			}
@@ -129,7 +129,8 @@ class WC_Box_Office_Ticket_Frontend {
 	 * @return void
 	 */
 	public function print_ticket() {
-		$ticket = wc_box_office_get_ticket_by_token( $_GET['token'] );
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$ticket = wc_box_office_get_ticket_by_token( sanitize_text_field( wp_unslash( $_GET['token'] ?? '' ) ) );
 		if ( ! $ticket ) {
 			// @TODO(gedex) Probably send it 404 page?
 			return;

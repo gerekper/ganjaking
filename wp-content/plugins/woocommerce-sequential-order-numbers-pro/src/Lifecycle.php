@@ -25,7 +25,7 @@ namespace SkyVerge\WooCommerce\Sequential_Order_Numbers_Pro;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 /**
  * Sequential Order Numbers Pro lifecycle handler.
@@ -133,10 +133,14 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 			// while full set of results returned  (meaning there may be more results still to retrieve)
 			} while ( count( $order_ids ) === $posts_per_page );
 
+			$orders_meta = Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled()
+				? $wpdb->prefix.'wc_orders_meta'
+				: $wpdb->postmeta;
+
 			// set the best order number start value that we can
 			$order_number = (int) $wpdb->get_var( "
 				SELECT MAX( CAST( meta_value AS SIGNED ) )
-				FROM {$wpdb->postmeta}
+				FROM {$orders_meta}
 				WHERE meta_key='_order_number'
 			" );
 

@@ -3,7 +3,7 @@
  * WC_MNM_PIP_Compatibility class
  *
  * @package  WooCommerce Mix and Match Products/Compatibility
- * @since    1.4.0
+ * @since    2.4.10
  */
 
 // Exit if accessed directly.
@@ -50,19 +50,19 @@ class WC_MNM_PIP_Compatibility {
 		// Re-sort PIP table rows so that child items are always below their container.
 		add_filter( 'wc_pip_document_table_rows', array( __CLASS__, 'table_rows' ), 52, 5 );
 
-		// Add 'bundled-product' class to pip row classes.
+		// Add 'mnm-child-item' class to pip row classes.
 		add_filter( 'wc_pip_document_table_product_class', array( __CLASS__, 'bundled_item_class' ), 10, 4 );
 
 		// Add assembly info to child item meta.
 		add_action( 'wc_pip_order_item_meta_end', array( __CLASS__, 'add_assembled_order_item_meta' ), 10, 2 );
 
-		// Ensure bundle container line items are always displayed.
+		// Ensure container line items are always displayed.
 		add_filter( 'wc_pip_packing-list_hide_virtual_item', array( __CLASS__, 'hide_item' ), 10, 4 );
 
 		// Prevent child order items from being sorted/categorized.
 		add_filter( 'wc_pip_packing-list_list_group_item_as_uncategorized', array( __CLASS__, 'group_bundled_items_as_uncategorized' ), 10, 3 );
 
-		// Add bundled item class CSS rule.
+		// Add child item class CSS rule.
 		add_action( 'wc_pip_styles', array( __CLASS__, 'add_styles' ) );
 
 	}
@@ -277,7 +277,7 @@ class WC_MNM_PIP_Compatibility {
 	}
 
 	/**
-	 * Add 'bundled-product' class to pip row classes.
+	 * Add 'mnm-child-item' class to pip row classes.
 	 *
 	 * @param  array       $classes
 	 * @param  WC_Product  $product
@@ -288,7 +288,7 @@ class WC_MNM_PIP_Compatibility {
 	public static function bundled_item_class( $classes, $product, $item, $type ) {
 
 		if ( wc_mnm_get_order_item_container( $item ) ) {
-			$classes[] = 'bundled-product';
+			$classes[] = 'mnm-child-item';
 		}
 
 		return $classes;
@@ -393,10 +393,10 @@ class WC_MNM_PIP_Compatibility {
 		.quantity .assembled, .weight .assembled {
 			display: none;
 		}
-		.product .bundled-product {
+		.product .mnm-child-item {
 			padding-left: 2.5em;
 		}
-		.bundled-product-subtotal {
+		.mnm-child-item-subtotal {
 			font-size: 0.875em;
 			padding-right: 2em;
 			display: block;
@@ -404,7 +404,7 @@ class WC_MNM_PIP_Compatibility {
 		.product-bundle.product-meta dl {
 			margin-top: 0.5em;
 		}
-		.bundled-product dl.variation.assembled {
+		.mnm-child-item dl.variation.assembled {
 			margin-top: 0.5em;
 		}
 		<?php

@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <ul class="wcpv-vendor-list-shortcode">
 	<?php if ( ! empty( $vendors ) ) :
 		foreach( $vendors as $vendor ) {
-			$vendor_data = get_term_meta( $vendor->term_id, 'vendor_data', true );
+			$vendor_data = WC_Product_Vendors_Utils::get_vendor_data_by_id( $vendor->term_id );
 
 			?>
 			<li>

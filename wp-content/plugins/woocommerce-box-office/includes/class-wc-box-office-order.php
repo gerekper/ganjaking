@@ -653,7 +653,7 @@ class WC_Box_Office_Order {
 
 		global $wpdb;
 
-		foreach ( $_POST['ticket_barcodes'] as $key => $tickets ) {
+		foreach ( wc_clean( wp_unslash( $_POST['ticket_barcodes'] ) ) as $key => $tickets ) {
 			foreach ( $tickets as $index => $barcode ) {
 				$meta_key  = sprintf( '_ticket_id_for_%1$s_%2$s', $key, $index );
 				$ticket_id = absint( $wpdb->get_var( $wpdb->prepare( "SELECT meta_value FROM {$wpdb->prefix}woocommerce_order_itemmeta WHERE meta_key = %s", $meta_key ) ) );

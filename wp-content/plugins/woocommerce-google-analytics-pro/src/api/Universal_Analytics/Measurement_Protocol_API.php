@@ -135,7 +135,7 @@ class Measurement_Protocol_API extends Framework\SV_WC_API_Base {
 						$item_key = ! empty( $args['cart_item_key'] ) ? $args['cart_item_key'] : '';
 						$quantity = ! empty( $args['quantity'] ) ? $args['quantity'] : 1;
 
-						$request->track_ec_add_to_cart( $product, $quantity, $item_key );
+						$request->track_ec_add_to_cart( $product, $quantity, $item_key, $args['variation'] ?? [] );
 
 					break;
 
@@ -190,15 +190,9 @@ class Measurement_Protocol_API extends Framework\SV_WC_API_Base {
 	 *
 	 * @return string
 	 */
-	protected function get_request_user_agent() {
+	protected function get_request_user_agent(): string {
 
-		if ( ! empty( $_SERVER['HTTP_USER_AGENT'] ) ) {
-			$user_agent = $_SERVER['HTTP_USER_AGENT'];
-		} else {
-			$user_agent = parent::get_request_user_agent();
-		}
-
-		return $user_agent;
+		return wc_get_user_agent() ?: parent::get_request_user_agent();
 	}
 
 
@@ -208,7 +202,7 @@ class Measurement_Protocol_API extends Framework\SV_WC_API_Base {
 	 * @see Framework\SV_WC_API_Base::get_plugin()
 	 *
 	 * @since 1.0.0
-	 * 
+	 *
 	 * @return Plugin
 	 */
 	protected function get_plugin(): Plugin {

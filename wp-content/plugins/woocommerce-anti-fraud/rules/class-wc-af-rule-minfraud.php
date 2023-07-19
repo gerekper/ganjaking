@@ -16,7 +16,6 @@ class WC_AF_Rule_MinFraud extends WC_AF_Rule {
 		$this->is_enabled  =  get_option('wc_af_maxmind_type');
 		$this->rule_weight = get_option('wc_settings_anti_fraud_minfraud_order_weight');
 		parent::__construct( 'minfraud', 'Score returned by Minfraud exceeds the allowed value.', $this->rule_weight );
-		
 	}
 
 	/**
@@ -81,7 +80,7 @@ class WC_AF_Rule_MinFraud extends WC_AF_Rule {
 			$item_quantity = wc_get_order_item_meta($item_id, '_qty', true);
 			$product_id = $item_data['product_id'];
 			$product_cat = get_the_terms( $product_id, 'product_cat', true );
-			$price = get_post_meta( $product_id, '_regular_price', true);
+			$price = opmc_hpos_get_post_meta( $product_id, '_regular_price', true);
 		}
 		//$agent = $_SERVER["HTTP_USER_AGENT"];
 		

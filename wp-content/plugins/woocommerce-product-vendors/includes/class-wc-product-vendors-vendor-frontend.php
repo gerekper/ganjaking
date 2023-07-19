@@ -221,7 +221,7 @@ class WC_Product_Vendors_Vendor_Frontend {
 		}
 
 		if ( is_tax( WC_PRODUCT_VENDORS_TAXONOMY, $term->term_id ) ) {
-			$vendor_data = get_term_meta( $term->term_id, 'vendor_data', true );
+			$vendor_data = WC_Product_Vendors_Utils::get_vendor_data_by_id( $term->term_id );
 
 			// logo
 			if ( ! empty( $vendor_data['logo'] ) && 'yes' === get_option( 'wcpv_vendor_settings_vendor_display_logo', 'yes' ) ) {

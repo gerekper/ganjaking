@@ -97,7 +97,7 @@ class Order_Refunded_Event extends Universal_Analytics_Event {
 		/* this filter is documented in class-wc-google-analytics-pro-integration.php */
 		$use_cents = (bool) apply_filters( 'wc_google_analytics_pro_purchase_event_use_cents', true, 'order_refunded', $refund );
 
-		$refund_amount = $refund->get_amount();
+		$refund_amount = abs( $refund->get_amount() );
 		$properties    = [
 			'eventCategory' => 'Orders',
 			'eventLabel'    => $order->get_order_number(),

@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the WooCommerce Xero Integration package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Xero Integration 1.7.57\n"
+"Project-Id-Version: WooCommerce Xero Integration 1.7.58\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-xero\n"
-"POT-Creation-Date: 2023-05-12 18:01:25+00:00\n"
+"POT-Creation-Date: 2023-07-18 15:51:55+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -132,8 +132,8 @@ msgstr ""
 msgid "HTTPS for WordPress page"
 msgstr ""
 
-#: includes/class-wc-xr-privacy.php:22 includes/class-wc-xr-settings.php:587
-#: includes/class-wc-xr-settings.php:588 includes/class-wc-xr-settings.php:619
+#: includes/class-wc-xr-privacy.php:22 includes/class-wc-xr-settings.php:589
+#: includes/class-wc-xr-settings.php:590 includes/class-wc-xr-settings.php:621
 msgid "Xero"
 msgstr ""
 
@@ -435,65 +435,65 @@ msgstr ""
 msgid "Using %1$s uploaded at %2$s"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:431
+#: includes/class-wc-xr-settings.php:433
 msgid "Nonce verification failed!"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:507
+#: includes/class-wc-xr-settings.php:509
 msgid "Xero Settings"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:641 includes/class-wc-xr-settings.php:642
-#: includes/class-wc-xr-settings.php:672 includes/class-wc-xr-settings.php:681
-#: includes/class-wc-xr-settings.php:700
+#: includes/class-wc-xr-settings.php:643 includes/class-wc-xr-settings.php:644
+#: includes/class-wc-xr-settings.php:674 includes/class-wc-xr-settings.php:683
+#: includes/class-wc-xr-settings.php:702
 msgid "Xero OAuth"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:720
+#: includes/class-wc-xr-settings.php:722
 msgid "Xero for WooCommerce"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:724
+#: includes/class-wc-xr-settings.php:726
 msgid "Your settings have been saved."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:737
+#: includes/class-wc-xr-settings.php:739
 msgid "Missing required fields"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:743
+#: includes/class-wc-xr-settings.php:745
 msgid "There was an error saving your settings."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:760
+#: includes/class-wc-xr-settings.php:762
 msgid ""
 "Settings for your Xero account including security keys and default account "
 "numbers."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:763
+#: includes/class-wc-xr-settings.php:765
 #. translators: %1$s: opening anchor tag; %2$s: closing anchor tag
 msgid "Please ensure you're following all %1$srequirements%2$s prior to setup."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:766
+#: includes/class-wc-xr-settings.php:768
 #. translators: %1$s: opening strong tag; %2$s: closing strong tag
 msgid "%1$sAll%2$s text fields are required for the integration to work properly."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:790
+#: includes/class-wc-xr-settings.php:792
 msgid "Key not set"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:828
+#: includes/class-wc-xr-settings.php:830
 msgid "Disconnect from Xero"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:836
+#: includes/class-wc-xr-settings.php:838
 msgid "Sign in with Xero"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:841
+#: includes/class-wc-xr-settings.php:843
 #. translators: %1$s: line break tag; %2$s: opening anchor tag; %3$s: closing
 #. anchor tag;
 msgid ""
@@ -502,49 +502,53 @@ msgid ""
 "%2$srequirements%3$s prior to setup."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:867
+#: includes/class-wc-xr-settings.php:869
 msgid ""
 "Please use the following url as your redirect url when creating a Xero "
 "application:"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:1026
+#: includes/class-wc-xr-settings.php:1028
 msgid ""
 "Xero has securely saved the contents of key file %s to the database and no "
 "longer requires it."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:1029
+#: includes/class-wc-xr-settings.php:1031
 msgid "Delete %s"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:1044
+#: includes/class-wc-xr-settings.php:1046
 msgid "Xero could not delete %s. Check permissions and try again."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:1052
+#: includes/class-wc-xr-settings.php:1054
 msgid "Xero successfully deleted %s."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:1072
+#: includes/class-wc-xr-settings.php:1076
 msgid ""
 "Xero authentication using keys is in the process of being deprecated and "
 "new private apps can no longer be created."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:1073
+#: includes/class-wc-xr-settings.php:1077
 msgid ""
 "Please use new flow and the button available in Xero settings to authorize "
 "your application."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:1090
+#: includes/class-wc-xr-settings.php:1079
+msgid "Go to Xero settings page"
+msgstr ""
+
+#: includes/class-wc-xr-settings.php:1096
 msgid ""
 "Unable to fetch the Branding Theme details. Please ensure your Xero "
 "connection is properly authenticated."
 msgstr ""
 
-#: includes/requests/class-wc-xr-request.php:464
+#: includes/requests/class-wc-xr-request.php:465
 #. translators: %1$d - response code, %2$s - response message.
 msgid "Xero request failed due to error: %1$d (%2$s)"
 msgstr ""

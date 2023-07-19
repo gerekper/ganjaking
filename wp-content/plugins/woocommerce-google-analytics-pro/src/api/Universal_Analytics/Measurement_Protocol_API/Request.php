@@ -23,6 +23,7 @@
 
 namespace SkyVerge\WooCommerce\Google_Analytics_Pro\API\Universal_Analytics\Measurement_Protocol_API;
 
+use SkyVerge\WooCommerce\Google_Analytics_Pro\Helpers\Order_Helper;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Helpers\Product_Helper;
 use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
@@ -125,7 +126,7 @@ class Request implements Framework\SV_WC_API_Request {
 	 *     @type string $client_id the anonymous GA client ID, usually from GA cookie (cid)
 	 *     @type string $user_id (optional) identified user ID (uid)
 	 *     @type string $ip (optional) the visitor's IP
-	 *     @type string $ip (optional) the visitor's User-Agent (browser)
+	 *     @type string $ua (optional) the visitor's User-Agent (browser)
 	 * }
 	 */
 	public function identify( $args ) {
@@ -197,7 +198,7 @@ class Request implements Framework\SV_WC_API_Request {
 		$this->add_parameters( apply_filters( 'wc_google_analytics_pro_api_ec_impression_parameters', array(
 			'il1nm'     => '',                                                  // impression list 1, required
 			'il1pi1id'  => $product_identifier,                                 // product impression 1 ID, either ID or name must be set
-			'il1pi1nm'  => $product->get_title(),                               // product impression 1 name, either ID or name must be set
+			'il1pi1nm'  => $product->get_name(),                                // product impression 1 name, either ID or name must be set
 			'il1pi1ca'  => $category_hierarchy,                                 // product impression 1 category
 			'il1pi1pr'  => $product->get_price(),                               // product impression 1 price
 			'il1pi1br'  => '',                                                  // product impression 1 brand
@@ -216,12 +217,13 @@ class Request implements Framework\SV_WC_API_Request {
 	 * @param \WC_Product $product the product object
 	 * @param int|float $quantity the product cart quantity
 	 * @param string $cart_item_key the item key of the product added to cart
+	 * @param array $variation_attributes the product variation attributes, if known
 	 */
-	public function track_ec_add_to_cart( $product, $quantity, $cart_item_key = '' ) {
+	public function track_ec_add_to_cart( $product, $quantity, $cart_item_key = '', array $variation_attributes = [] ) {
 
 		$product_identifier = Product_Helper::get_product_identifier( $product );
 		$category_hierarchy = Product_Helper::get_category_hierarchy( $product );
-		$product_variant    = Product_Helper::get_product_variation_attributes( $product );
+		$product_variant    = Product_Helper::get_product_variation_attributes( $product, $variation_attributes );
 
 		if ( $parent_id = $product->get_parent_id() ) {
 			$product_id = $parent_id;
@@ -250,7 +252,7 @@ class Request implements Framework\SV_WC_API_Request {
 			'pa'    => 'add',                 // product action
 			'pal'   => $product_list,         // product list
 			'pr1id' => $product_identifier,   // product id
-			'pr1nm' => $product->get_title(), // product name
+			'pr1nm' => $product->get_name(),  // product name
 			'pr1ca' => $category_hierarchy,   // product category
 			'pr1pr' => $product->get_price(), // product price
 			'pr1qt' => $quantity,             // product quantity
@@ -271,7 +273,7 @@ class Request implements Framework\SV_WC_API_Request {
 
 		$product_identifier = Product_Helper::get_product_identifier( $product );
 		$category_hierarchy = Product_Helper::get_category_hierarchy( $product );
-		$product_variant    = Product_Helper::get_product_variation_attributes( $product );
+		$product_variant    = Product_Helper::get_product_variation_attributes( $product, $cart_item['variation'] ?? [] );
 
 		/**
 		 * Filters the enhanced ecommerce remove from cart event parameters.
@@ -286,7 +288,7 @@ class Request implements Framework\SV_WC_API_Request {
 			'pa'    => 'remove',              // product action
 			'pal'   => '',                    // product list
 			'pr1id' => $product_identifier,   // product id
-			'pr1nm' => $product->get_title(), // product name
+			'pr1nm' => $product->get_name(),  // product name
 			'pr1ca' => $category_hierarchy,   // product category
 			'pr1pr' => $product->get_price(), // product price
 			'pr1qt' => '1',                   // product quantity
@@ -328,7 +330,7 @@ class Request implements Framework\SV_WC_API_Request {
 
 			$product_identifier = Product_Helper::get_product_identifier( $product );
 			$category_hierarchy = Product_Helper::get_category_hierarchy( $product );
-			$product_variant    = Product_Helper::get_product_variation_attributes( $product );
+			$product_variant    = Order_Helper::get_order_item_variant( $item );
 
 			$params["pr{$c}id"] = $product_identifier;             // product ID
 			$params["pr{$c}nm"] = $item['name'];                   // product name
@@ -379,7 +381,7 @@ class Request implements Framework\SV_WC_API_Request {
 
 			$product_identifier = Product_Helper::get_product_identifier( $product );
 			$category_hierarchy = Product_Helper::get_category_hierarchy( $product );
-			$product_variant    = Product_Helper::get_product_variation_attributes( $product );
+			$product_variant    = Order_Helper::get_order_item_variant( $item );
 
 			$params["pr{$c}id"] = $product_identifier;                          // product ID
 			$params["pr{$c}nm"] = $item['name'];                                // product name

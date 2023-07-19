@@ -162,7 +162,12 @@ class Purchase_Event extends GA4_Event {
 			return;
 		}
 
-		$properties = array_merge( [ 'category' => 'Checkout' ], ( new Order_Event_Data_Adapter( $order ) )->convert_from_source() );
+		$properties = array_merge(
+			[ 'category' => 'Checkout' ],
+			( new Order_Event_Data_Adapter( $order ) )->convert_from_source(),
+			Order_Helper::get_order_ga_session_params( $order->get_id() )
+		);
+
 		$identities = Order_Helper::get_order_identities( $order );
 
 		if ( $this->record_via_api( $properties, $identities ) ) {

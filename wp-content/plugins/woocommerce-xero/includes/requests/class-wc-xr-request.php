@@ -368,6 +368,7 @@ abstract class WC_XR_Request {
 	 * Get API url.
 	 */
 	private function get_url() {
+		// nosemgrep:audit.php.wp.security.xss.query-arg -- this URL is only used for a wp_remote_request() below, which uses esc_url_raw().
 		return add_query_arg( $this->get_query(), self::API_URL . $this->get_endpoint() . '/' );
 	}
 
@@ -408,7 +409,7 @@ abstract class WC_XR_Request {
 
 			// Do the request.
 			$this->response = wp_remote_request(
-				$this->get_url(),
+				esc_url_raw( $this->get_url() ),
 				array(
 					'method'     => $this->get_method(),
 					'headers'    => array(

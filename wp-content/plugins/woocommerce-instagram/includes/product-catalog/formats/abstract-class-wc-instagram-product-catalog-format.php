@@ -225,10 +225,10 @@ abstract class WC_Instagram_Product_Catalog_Format {
 			$props['quantity_to_sell_on_facebook'] = 'esc_attr';
 		}
 
-		$relationships = WC_Instagram_Attribute_Relationships::get_relationships();
+		$google_product_attributes = WC_Instagram_Google_Product_Attributes::get_attributes();
 
-		foreach ( $relationships as $google_pa ) {
-			$props[ $google_pa ] = 'esc_attr';
+		foreach ( $google_product_attributes as $google_pa_name => $google_pa_value ) {
+			$props[ $google_pa_name ] = 'esc_attr';
 		}
 
 		/**

@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Classes/Products
  * @since    1.0.0
- * @version  2.2.2
+ * @version  2.4.10
  */
 
 // Exit if accessed directly.
@@ -286,6 +286,11 @@ class WC_Product_Mix_and_Match extends WC_Product_Mix_and_Match_Legacy {
 	 * @return string
 	 */
 	public function get_add_to_cart_form_location( $context = 'view' ) {
+
+		if ( ! wc_mnm_has_legacy_product_template( $this ) ) {
+			return 'default';
+		}
+
 		return $this->get_prop( 'add_to_cart_form_location', $context );
 	}
 

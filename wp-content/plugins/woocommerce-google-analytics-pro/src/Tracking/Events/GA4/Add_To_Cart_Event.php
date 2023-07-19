@@ -76,12 +76,7 @@ class Add_To_Cart_Event extends GA4_Event {
 	 */
 	public function register_hooks() : void {
 
-		add_action( 'woocommerce_add_to_cart', [ $this, 'handle_add_to_cart' ], 10, 4 );
-
-		// AJAX add to cart
-		if ( wp_doing_ajax() ) {
-			add_action( 'woocommerce_ajax_added_to_cart', [ $this, 'handle_add_to_cart_ajax' ] );
-		}
+		add_action( 'woocommerce_add_to_cart', [ $this, 'handle_add_to_cart' ], 10, 5 );
 	}
 
 
@@ -96,30 +91,11 @@ class Add_To_Cart_Event extends GA4_Event {
 	 * @param int $product_id the product ID
 	 * @param int $quantity the quantity added to the cart
 	 * @param int $variation_id the variation ID
+	 * @param array $variation the variation data
 	 */
-	public function handle_add_to_cart( $cart_item_key, $product_id, $quantity, $variation_id ) : void {
+	public function handle_add_to_cart( $cart_item_key, $product_id, $quantity, $variation_id, $variation ) : void {
 
-		// don't track add to cart from AJAX here
-		if ( wp_doing_ajax() ) {
-			return;
-		}
-
-		$this->track( wc_get_product( $variation_id ?: $product_id ), $quantity );
-	}
-
-
-	/**
-	 * Handles the add to cart via AJAX hook.
-	 *
-	 * @internal
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param int $product_id the product ID
-	 */
-	public function handle_add_to_cart_ajax( $product_id ) : void {
-
-		$this->track( wc_get_product( $product_id ) ); // ajax event always uses quantity of 1
+		$this->track( wc_get_product( $variation_id ?: $product_id ), $quantity, $variation );
 	}
 
 
@@ -128,8 +104,9 @@ class Add_To_Cart_Event extends GA4_Event {
 	 *
 	 * @param WC_Product $product the product that was added to cart
 	 * @param int $quantity the quantity added to the cart, defaults to 1
+	 * @param array $variation the variation data, defaults to an empty array
 	 */
-	public function track( $product = null, $quantity = 1 ): void {
+	public function track( $product = null, $quantity = 1, $variation = [] ): void {
 
 		if ( ! $product ) {
 			return;
@@ -139,7 +116,7 @@ class Add_To_Cart_Event extends GA4_Event {
 			'category'       => 'Products',
 			'currency'       => get_woocommerce_currency(),
 			'value'          => $quantity * $product->get_price(),
-			'items'          => [ ( new Product_Item_Event_Data_Adapter( $product ) )->convert_from_source( $quantity ) ],
+			'items'          => [ ( new Product_Item_Event_Data_Adapter( $product ) )->convert_from_source( $quantity, (array) $variation ) ],
 		] );
 	}
 

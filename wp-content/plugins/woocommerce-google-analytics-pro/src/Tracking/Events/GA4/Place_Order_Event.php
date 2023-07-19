@@ -24,6 +24,7 @@
 namespace SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Events\GA4;
 
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Helpers\Identity_Helper;
+use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Adapters\Order_Event_Data_Adapter;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Events\GA4_Event;
 
 defined( 'ABSPATH' ) or exit;
@@ -81,10 +82,10 @@ class Place_Order_Event extends GA4_Event {
 			return;
 		}
 
-		$this->record_via_api( [
-			'category'       => 'Checkout',
-			'transaction_id' => $order->get_order_number(),
-		] );
+		$this->record_via_api( array_merge(
+			[ 'category' => 'Checkout' ],
+			( new Order_Event_Data_Adapter( $order ) )->convert_from_source()
+		) );
 	}
 
 

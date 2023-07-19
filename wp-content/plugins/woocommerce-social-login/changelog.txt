@@ -1,5 +1,8 @@
 *** WooCommerce Social Login Changelog ***
 
+2023.07.13 - version 2.13.0
+ * Misc - Add compatibility for WooCommerce High Performance Order Storage (HPOS)
+
 2022.12.13 - version 2.12.0
  * Misc - Remove Yahoo provider
  * Misc - Require PHP 7.4 and WordPress 5.6

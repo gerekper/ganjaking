@@ -1,5 +1,20 @@
 *** WooCommerce Box Office Changelog ***
 
+2023-07-03 - version 1.1.54
+* Dev - Bump WooCommerce "tested up to" version 7.8.
+* Dev - Bump WooCommerce minimum supported version from 6.8 to 7.2.
+* Dev - Bump WordPress minimum supported version from 5.8 to 6.1.
+* Dev - Resolve coding standards issues.
+* Fix - SKU retrieval for variations in ticket export.
+
+2023-06-14 - version 1.1.53
+* Dev - Improve escaping in Create Ticket workflow.
+* Dev - Improve escaping in Ticket Fields panel (product editor).
+* Dev - Improve escaping in the Tickets > Tools UI.
+* Dev - PHP Coding Standards updates.
+* Dev - Added new GitHub Workflow to run Quality Insights Toolkit tests.
+* Fix - Update code used to handle shortcode attributes.
+
 2023-05-22 - version 1.1.52
 * Fix - Fatal error in short-code `[ticket_private_content]` while editing it in the block editor.
 * Fix - Remove unused Ajax endpoints.

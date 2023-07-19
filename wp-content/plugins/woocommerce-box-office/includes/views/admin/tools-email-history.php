@@ -1,14 +1,14 @@
-<h3><?php _e( 'Previously sent emails', 'woocommerce-box-office' ); ?></h3>
+<h3><?php esc_html_e( 'Previously sent emails', 'woocommerce-box-office' ); ?></h3>
 
 <table class="widefat past-emails">
 	<thead>
 		<tr>
-			<th class="row-title"><?php _e( 'Subject', 'woocommerce-box-office' ); ?></th>
-			<th><?php _e( 'Product', 'woocommerce-box-office' ); ?></th>
-			<th><?php _e( 'Sent', 'woocommerce-box-office' ); ?></th>
-			<th><?php _e( 'Remaining', 'woocommerce-box-office' ); ?></th>
-			<th><?php _e( 'Total targetted', 'woocommerce-box-office' ); ?></th>
-			<th><?php _e( 'Date sent', 'woocommerce-box-office' ); ?></th>
+			<th class="row-title"><?php esc_html_e( 'Subject', 'woocommerce-box-office' ); ?></th>
+			<th><?php esc_html_e( 'Product', 'woocommerce-box-office' ); ?></th>
+			<th><?php esc_html_e( 'Sent', 'woocommerce-box-office' ); ?></th>
+			<th><?php esc_html_e( 'Remaining', 'woocommerce-box-office' ); ?></th>
+			<th><?php esc_html_e( 'Total targetted', 'woocommerce-box-office' ); ?></th>
+			<th><?php esc_html_e( 'Date sent', 'woocommerce-box-office' ); ?></th>
 		</tr>
 	</thead>
 
@@ -55,19 +55,19 @@
 			<?php endforeach; ?>
 		<?php else : ?>
 			<tr>
-				<td colspan="6"><em><?php _e( 'No emails have been sent yet.', 'woocommerce-box-office' ); ?></em></td>
+				<td colspan="6"><em><?php esc_html_e( 'No emails have been sent yet.', 'woocommerce-box-office' ); ?></em></td>
 			</tr>
 		<?php endif; ?>
 	</tbody>
 
 	<tfoot>
 		<tr>
-			<th class="row-title"><?php _e( 'Subject', 'woocommerce-box-office' ); ?></th>
-			<th><?php _e( 'Product', 'woocommerce-box-office' ); ?></th>
-			<th><?php _e( 'Sent', 'woocommerce-box-office' ); ?></th>
-			<th><?php _e( 'Remaining', 'woocommerce-box-office' ); ?></th>
-			<th><?php _e( 'Total targetted', 'woocommerce-box-office' ); ?></th>
-			<th><?php _e( 'Date sent', 'woocommerce-box-office' ); ?></th>
+			<th class="row-title"><?php esc_html_e( 'Subject', 'woocommerce-box-office' ); ?></th>
+			<th><?php esc_html_e( 'Product', 'woocommerce-box-office' ); ?></th>
+			<th><?php esc_html_e( 'Sent', 'woocommerce-box-office' ); ?></th>
+			<th><?php esc_html_e( 'Remaining', 'woocommerce-box-office' ); ?></th>
+			<th><?php esc_html_e( 'Total targetted', 'woocommerce-box-office' ); ?></th>
+			<th><?php esc_html_e( 'Date sent', 'woocommerce-box-office' ); ?></th>
 		</tr>
 	</tfoot>
 </table>

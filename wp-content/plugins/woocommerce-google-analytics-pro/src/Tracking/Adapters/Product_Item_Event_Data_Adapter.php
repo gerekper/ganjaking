@@ -62,13 +62,14 @@ class Product_Item_Event_Data_Adapter extends Event_Data_Adapter {
 	 * @param float|int $quantity
 	 * @return array
 	 */
-	public function convert_from_source( $quantity = 1 ) : array {
+	public function convert_from_source( $quantity = 1, array $variation = [] ) : array {
 
 		$product = $this->product;
 
 		$data = [
 			'item_id'       => Product_Helper::get_product_identifier( $product ),
-			'item_name'     => $product->get_title(),
+			'item_name'     => $product->get_name(),
+      'item_variant'  => Product_Helper::get_product_variation_attributes( $product, $variation ),
 			'item_variant'  => Product_Helper::get_product_variation_attributes( $product ),
 			// we should always use per-unit prices, hence using qty=1 below when getting the price
 			'price'         => NumberUtil::round( wc_get_price_excluding_tax( $product,  [ 'qty' => 1, 'price' => $product->get_price() ] ), wc_get_price_decimals() ),

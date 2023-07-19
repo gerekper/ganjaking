@@ -73,6 +73,16 @@ jQuery(
 
 		} );
 
+		// Hide/Show Customizer Link description
+		$( '#woocommerce-product-data' ).on( 'wc_mnm_layout_override_changed', function( e, value ) {
+
+			if ( value === 'yes' ) {
+				$( '.wc_mnm_layout_override_field .description' ).hide();
+			} else {
+				$( '.wc_mnm_layout_override_field .description' ).show();
+			}
+
+		} );
 
 		// Mix and Match type specific options.
 		$( document.body ).on(

@@ -17,7 +17,6 @@ class WC_AF_Rule_Ip_Multiple_Order_Details extends WC_AF_Rule {
 		$this->is_enabled  =  get_option('wc_af_ip_multiple_check');
 		$this->rule_weight = get_option('wc_settings_anti_fraud_ip_multiple_weight');
 		$this->time_span = get_option('wc_settings_anti_fraud_ip_multiple_time_span');
-
 		parent::__construct( 'ip_multiple_order_Details', 'IP address ordered with multiple order details in the past ' . $this->time_span . ' days', $this->rule_weight );
 	}
 
@@ -56,7 +55,7 @@ class WC_AF_Rule_Ip_Multiple_Order_Details extends WC_AF_Rule {
 		$pre_wc_30  = version_compare( WC_VERSION, '3.0', '<' );
 		$order_id   = $pre_wc_30 ? $order->id : $order->get_id();
 		$order_date = $pre_wc_30 ? $order->order_date : ( $order->get_date_created() ? gmdate( 'Y-m-d H:i:s', $order->get_date_created()->getOffsetTimestamp() ) : '' );
-		$order_ip   = $pre_wc_30 ? get_post_meta( $order_id, '_customer_ip_address', true ) : $order->get_customer_ip_address();
+		$order_ip   = $pre_wc_30 ? opmc_hpos_get_post_meta( $order_id, '_customer_ip_address', true ) : $order->get_customer_ip_address();
 
 		if ( empty( $order_ip ) ) {
 			return false;

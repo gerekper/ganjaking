@@ -7,7 +7,7 @@ namespace Composer\Autoload;
 if (!defined('ABSPATH')) exit;
 
 
-class ComposerStaticInit65f53129f8efb32a49540d26edbe6607
+class ComposerStaticInit0304202eca3819d4dc105f2f701366ad
 {
     public static $prefixLengthsPsr4 = array (
         'M' => 
@@ -48,6 +48,8 @@ class ComposerStaticInit65f53129f8efb32a49540d26edbe6607
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveTagAction' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Actions/RemoveTagAction.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UnsubscribeAction' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Actions/UnsubscribeAction.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UpdateSubscriberAction' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Actions/UpdateSubscriberAction.php',
+        'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Analytics\\Controller\\PremiumOrderController' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Analytics/Controller/PremiumOrderController.php',
+        'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Analytics\\Storage\\OrderStatistics' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Analytics/Storage/OrderStatistics.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\ContextFactory' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/ContextFactory.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/MailPoetPremiumIntegration.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Templates\\PremiumTemplatesFactory' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php',
@@ -75,9 +77,9 @@ class ComposerStaticInit65f53129f8efb32a49540d26edbe6607
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit65f53129f8efb32a49540d26edbe6607::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit65f53129f8efb32a49540d26edbe6607::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit65f53129f8efb32a49540d26edbe6607::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit0304202eca3819d4dc105f2f701366ad::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit0304202eca3819d4dc105f2f701366ad::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit0304202eca3819d4dc105f2f701366ad::$classMap;
 
         }, null, ClassLoader::class);
     }

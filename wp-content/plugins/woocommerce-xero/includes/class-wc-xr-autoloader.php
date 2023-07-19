@@ -47,7 +47,7 @@ class WC_XR_Autoloader {
 
 			// Check & load file
 			if ( file_exists( $file_path ) ) {
-				require_once( $file_path );
+				require_once( $file_path ); // nosemgrep:audit.php.lang.security.file.inclusion-arg
 			}
 
 		}

@@ -163,7 +163,7 @@ class Initializer {
   }
 
   public function dynamicSegmentCombinations() {
-    $this->renderView('segments/dynamic.html');
+    $this->renderView('segments/dynamic_premium_translations.html');
   }
 
   public function includePremiumStyles() {

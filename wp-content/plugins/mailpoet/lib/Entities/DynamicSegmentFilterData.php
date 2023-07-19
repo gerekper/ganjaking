@@ -13,6 +13,7 @@ use MailPoetVendor\Doctrine\ORM\Mapping as ORM;
  * @ORM\Embeddable()
  */
 class DynamicSegmentFilterData {
+  const TYPE_AUTOMATIONS = 'automations';
   const TYPE_USER_ROLE = 'userRole';
   const TYPE_EMAIL = 'email';
   const TYPE_WOOCOMMERCE = 'woocommerce';
@@ -25,6 +26,25 @@ class DynamicSegmentFilterData {
   public const OPERATOR_ALL = 'all';
   public const OPERATOR_ANY = 'any';
   public const OPERATOR_NONE = 'none';
+
+  public const OPERATOR_STARTS_WITH = 'startsWith';
+  public const OPERATOR_NOT_ENDS_WITH = 'notEndsWith';
+  public const OPERATOR_IS = 'is';
+  public const OPERATOR_CONTAINS = 'contains';
+  public const OPERATOR_NOT_CONTAINS = 'notContains';
+  public const OPERATOR_NOT_STARTS_WITH = 'notStartsWith';
+  public const OPERATOR_IS_NOT = 'isNot';
+  public const OPERATOR_ENDS_WITH = 'endsWith';
+  public const TEXT_FIELD_OPERATORS = [
+    DynamicSegmentFilterData::OPERATOR_IS,
+    DynamicSegmentFilterData::OPERATOR_IS_NOT,
+    DynamicSegmentFilterData::OPERATOR_CONTAINS,
+    DynamicSegmentFilterData::OPERATOR_NOT_CONTAINS,
+    DynamicSegmentFilterData::OPERATOR_STARTS_WITH,
+    DynamicSegmentFilterData::OPERATOR_NOT_STARTS_WITH,
+    DynamicSegmentFilterData::OPERATOR_ENDS_WITH,
+    DynamicSegmentFilterData::OPERATOR_NOT_ENDS_WITH,
+  ];
 
   /**
    * @ORM\Column(type="serialized_array")

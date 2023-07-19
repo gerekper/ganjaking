@@ -1,5 +1,8 @@
 *** WooCommerce Anti Fraud ***
 
+2023-07-13 - version 5.5.1
+* Upgrade: PLUGINS-1902 - Woo HPOS Compatibility Audit/Upgrade.
+
 2023-05-08 - version 5.5.0
 * Fix: PLUGINS-2093 - Fix bug on the rule Limit Number of Orders between Time about proper time format.
 * Fix: PLUGINS-2105 - Fix whitelist features to be not being dependent on each other to skip specific rule fraud check.

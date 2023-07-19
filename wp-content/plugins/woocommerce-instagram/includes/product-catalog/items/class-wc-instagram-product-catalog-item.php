@@ -390,34 +390,49 @@ class WC_Instagram_Product_Catalog_Item {
 	 * @since 3.7.0
 	 */
 	protected function load_google_attributes() {
-		$attributes = $this->get_product()->get_attributes();
+		$attributes        = $this->get_product()->get_attributes();
+		$custom_attributes = $this->get_product()->get_meta( '_google_product_attributes' );
+
+		if ( ! $custom_attributes ) {
+			$custom_attributes = array();
+		}
 
 		foreach ( $attributes as $name => $attribute ) {
 			$attribute_id = ( $attribute instanceof WC_Product_Attribute ? $attribute->get_id() : wc_attribute_taxonomy_id_by_name( $name ) );
 			$google_pa    = WC_Instagram_Attribute_Relationships::get_relationship( $attribute_id );
 
+			$is_custom_attribute = false;
+			if ( ! $google_pa && isset( $custom_attributes[ $name ] ) ) {
+				$google_pa           = $custom_attributes[ $name ];
+				$is_custom_attribute = true;
+			}
+
 			if ( ! $google_pa ) {
 				continue;
 			}
 
-			if ( $attribute instanceof WC_Product_Attribute ) {
-				$terms = $attribute->get_terms();
+			if ( $is_custom_attribute ) {
+				$values = $attribute->get_options();
 			} else {
-				$terms = array(
-					get_term_by( 'slug', $attribute, $name ),
-				);
-			}
+				if ( $attribute instanceof WC_Product_Attribute ) {
+					$terms = $attribute->get_terms();
+				} else {
+					$terms = array(
+						get_term_by( 'slug', $attribute, $name ),
+					);
+				}
 
-			if ( empty( $terms ) ) {
-				return;
-			}
+				if ( empty( $terms ) ) {
+					return;
+				}
 
-			$has_options = WC_Instagram_Google_Product_Attributes::has_options( $google_pa );
-			$values      = array();
+				$has_options = WC_Instagram_Google_Product_Attributes::has_options( $google_pa );
+				$values      = array();
 
-			foreach ( $terms as $term ) {
-				if ( $term instanceof WP_Term ) {
-					$values[] = ( $has_options ? get_term_meta( $term->term_id, 'google_pa_value', true ) : $term->name );
+				foreach ( $terms as $term ) {
+					if ( $term instanceof WP_Term ) {
+						$values[] = ( $has_options ? get_term_meta( $term->term_id, 'google_pa_value', true ) : $term->name );
+					}
 				}
 			}
 

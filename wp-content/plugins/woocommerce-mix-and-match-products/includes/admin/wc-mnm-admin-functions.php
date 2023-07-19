@@ -6,15 +6,13 @@
  *
  * @package  WooCommerce Mix and Match Products/Admin/Functions
  * @since    2.2.0
- * @version  2.2.0
+ * @version  2.4.10
  */
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
-use Automattic\WooCommerce\Utilities\OrderUtil;
 
 /*--------------------------------------------------------*/
 /*  Mix and Match admin functions     */
@@ -32,7 +30,7 @@ function wc_mnm_wp_radio_images( $field, WC_Data $data = null ) {
 	$field['class']         = isset( $field['class'] ) ? $field['class'] : 'select short';
 	$field['style']         = isset( $field['style'] ) ? $field['style'] : '';
 	$field['wrapper_class'] = isset( $field['wrapper_class'] ) ? $field['wrapper_class'] : '';
-	$field['value']         = $field['value'] ?? OrderUtil::get_post_or_object_meta( $post, $data, $field['id'], true );
+	$field['value']         = $field['value'] ?? WC_MNM_Core_Compatibility::get_post_or_object_meta( $post, $data, $field['id'], true );
 	$field['name']          = isset( $field['name'] ) ? $field['name'] : $field['id'];
 	$field['desc_tip']      = isset( $field['desc_tip'] ) ? $field['desc_tip'] : false;
 
@@ -77,19 +75,48 @@ function wc_mnm_wp_radio_images( $field, WC_Data $data = null ) {
 
 /**
  * Output a toggle checkbox input box.
- * Wrapper for woocommerce_wp_checkbox()
  *
  * @param array   $field Field data.
  * @param WC_Data $data WC_Data object, will be preferred over post object when passed.
  */
 function wc_mnm_wp_toggle( $field, WC_Data $data = null ) {
 
+	global $post;
+
+	$field['class']         = isset( $field['class'] ) ? $field['class'] : 'checkbox screen-reader-text';
+	$field['style']         = isset( $field['style'] ) ? $field['style'] : '';
 	$field['wrapper_class'] = isset( $field['wrapper_class'] ) ? $field['wrapper_class'] : '';
-	$field['wrapper_class'] .= ' wc_mnm_toggle';
+	$field['value']         = $field['value'] ?? WC_MNM_Core_Compatibility::get_post_or_object_meta( $post, $data, $field['id'], true );
+	$field['cbvalue']       = isset( $field['cbvalue'] ) ? $field['cbvalue'] : 'yes';
+	$field['name']          = isset( $field['name'] ) ? $field['name'] : $field['id'];
+	$field['desc_tip']      = isset( $field['desc_tip'] ) ? $field['desc_tip'] : false;
 
-	$field['description'] = '<label for="' . $field['id' ]. '"></label>';
+	// Custom attribute handling
+	$custom_attributes = array();
 
-	woocommerce_wp_checkbox( $field, $data );
+	if ( ! empty( $field['custom_attributes'] ) && is_array( $field['custom_attributes'] ) ) {
+
+		foreach ( $field['custom_attributes'] as $attribute => $value ) {
+			$custom_attributes[] = esc_attr( $attribute ) . '="' . esc_attr( $value ) . '"';
+		}
+	}
+
+	echo '<p class="wc_mnm_toggle form-field ' . esc_attr( $field['id'] ) . '_field ' . esc_attr( $field['wrapper_class'] ) . '">
+		<label for="' . esc_attr( $field['id'] ) . '">' . wp_kses_post( $field['label'] ) . '</label>';
+
+	if ( ! empty( $field['description'] ) && false !== $field['desc_tip'] ) {
+		echo wc_help_tip( $field['description'] );
+	}
+
+	echo '<input type="checkbox" class="' . esc_attr( $field['class'] ) . '" style="' . esc_attr( $field['style'] ) . '" name="' . esc_attr( $field['name'] ) . '" id="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $field['cbvalue'] ) . '" ' . checked( $field['value'], $field['cbvalue'], false ) . '  ' . implode( ' ', $custom_attributes ) . '/> ';
+
+	echo '<label for="' . $field['id' ]. '" class="wc_mnm_toggle_element"></label>';
+
+	if ( ! empty( $field['description'] ) && false === $field['desc_tip'] ) {
+		echo '<span class="description">' . wp_kses_post( $field['description'] ) . '</span>';
+	}
+
+	echo '</p>';
 }
 
 /**

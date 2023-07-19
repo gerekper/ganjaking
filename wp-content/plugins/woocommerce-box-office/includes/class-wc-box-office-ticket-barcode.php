@@ -79,7 +79,7 @@ class WC_Box_Office_Ticket_Barcode {
 		}
 
 		$barcode .= '</div>';
-		echo $barcode;
+		echo $barcode; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**

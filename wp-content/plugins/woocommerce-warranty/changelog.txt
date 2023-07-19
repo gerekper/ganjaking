@@ -1,5 +1,8 @@
 *** Warranty Requests Changelog ***
 
+2023-07-18 - version 2.2.1
+* Fix - Empty column in completed warranties report table.
+
 2023-06-22 - version 2.2.0
 * Update - Security update.
 * Tweak  - WC tested up to 7.8

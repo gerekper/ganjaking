@@ -141,7 +141,7 @@ class Warranty_Completed_Reports_List_Table extends WP_List_Table {
 			/**
 			 * @var $product \WC_Product
 			 */
-			$out .= '<a href="' . esc_url( admin_url( 'post.php?post=' . $product->get_id() . '&action=edit' ) . '">' . esc_html( $product->get_title() ) ) . '</a> &times; ' . esc_html( $warranty_product['quantity'] ) . '<br/>';
+			$out .= '<a href="' . esc_url( admin_url( 'post.php?post=' . $product->get_id() . '&action=edit' ) ) . '">' . esc_html( $product->get_title() ) . '</a> &times; ' . esc_html( $warranty_product['quantity'] ) . '<br/>';
 		}
 
 		return $out;

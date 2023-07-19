@@ -1,5 +1,11 @@
 *** WooCommerce Instagram Changelog ***
 
+2023-07-13 - version 4.4.0
+* Feature - Associate Google product attributes with custom product attributes.
+* Tweak - Tested compatibility up to WC 7.9.
+* Tweak - Tested compatibility with WP 6.2.
+* Dev - Dropped `woo-includes/` files.
+
 2023-03-02 - version 4.3.4
 * Tweak - Tested compatibility up to WC 7.4.
 
@@ -263,18 +269,18 @@
 * Dev - Rewritten the entire extension.
 
 2018-09-26 - version 1.1.1
-* Update - WC tested up to 3.5
+* Update - WC tested up to 3.5.
 
 2018-05-23 - version 1.1.0
-* New   - Adds API methods to retrieve recent Instagram images for the connected user.
+* New - Adds API methods to retrieve recent Instagram images for the connected user.
 * Tweak - Adjusts several API properties and methods to be easier to extend.
-* Update - WC tested up to 3.4
+* Update - WC tested up to 3.4.
 
 2017-12-15 - version 1.0.15
-* Update - WC 3.3 Compatibility
+* Update - WC 3.3 Compatibility.
 
 2017-09-07 - version 1.0.14
- * Fix - Cleans up the Product Data tab styling, to ensure the styling is consistent with the other tabs. Removes the tooltip, to ensure the description is clearly visible.
+* Fix - Cleans up the Product Data tab styling, to ensure the styling is consistent with the other tabs. Removes the tooltip, to ensure the description is clearly visible.
 
 2017-05-27 - version 1.0.13
 * Fix - Instagram photos won't load.
@@ -288,45 +294,38 @@
 * Fix - Update for WC 3.0 compatibility.
 
 2016-07-29 - version 1.0.10
-* Fix - Broken Instagram integration. Instagram authentication now works on OAuth 2.0. No need for username and Password in WP-Admin.
+* Fix - Broken Instagram integration. Instagram's authentication now works on OAuth 2.0. No need for username and Password in WP-Admin.
 
 2016-04-29 - version 1.0.9
-* Fix - Strict standard notice caused by signature changes on WooCommerce 2.6
-* Tweak - Add filter, `woocommerce_instagram_transient_expire_time`, for transient expire time
+* Fix - Strict standard notice caused by signature changes on WooCommerce 2.6.
+* Tweak - Add filter, `woocommerce_instagram_transient_expire_time`, for transient expire time.
 
 2016-02-29 - version 1.0.8
 * Fix - Added translation support by loading plugin textdomain.
 
 2015-07-23 - version 1.0.7
- * Fix - Avoids "headers" error when connecting to Instagram.
- /classes/class-woocommerce-instagram-integration.php
+* Fix - Avoids "headers" error when connecting to Instagram.
 
 2014-09-19 - version 1.0.6
- * Tweak - Improve the WooCommerce is active check to use the most recent recommended method
- /classes/class-woocommerce-instagram.php
- * Fix   - Remove the strict standards error notice
- /classes/class-woocommerce-instagram-integration.php
+* Tweak - Improve the WooCommerce is active check to use the most recent recommended method.
+* Fix - Remove the strict standards error notice.
 
 2014-09-19 - version 1.0.5
- * Fix - Adds a check to see if WooCommerce has been network activated, when checking for the presence of WooCommerce.
-   /classes/class-woocommerce-instagram.php
+* Fix - Adds a check to see if WooCommerce has been network activated, when checking for the presence of WooCommerce.
 
 2014-08-27 - version 1.0.4
- * Fix - Display the Instagram message even if no Instagram images are found for the specified hashtag. This helps to stimulate social interaction on Instagram.
-   /classes/class-woocommerce-instagram-frontend.php
+* Fix - Display the Instagram message even if no Instagram images are found for the specified hashtag. This helps to stimulate social interaction on Instagram.
 
 2014-04-10 - version 1.0.3
 * Fix - Ensures the 'headers already sent' notice does not display, by starting the output buffer.
 * Fix - Fixes the connect/disconnect redirect URL to point to the correct admin screen if using WooCommerce 2.1 or higher.
-  /classes/class-woocommerce-instagram-integration.php
 
 2014-04-01 - version 1.0.2
 * Fix - Corrects the "page" parameter in the admin notice URL, for WooCommerce 2.1+ users.
-  /classes/class-woocommerce-instagram-admin.php
 
 2013-11-06 - version 1.0.1
-* /assets/css/admin.css - Optimises CSS to use correct LESS syntax and to correctly style the write panel icon in WooCommerce 2.0.x.
-* /classes/class-woocommerce-instagram-admin.php - Optimises WooCommerce 2.0.x and 2.1.x compatibility switching.
+* Tweak - Optimises CSS to use correct LESS syntax and to correctly style the write panel icon in WooCommerce 2.0.x.
+* Tweak - Optimises WooCommerce 2.0.x and 2.1.x compatibility switching.
 
 2013-10-29 - version 1.0.0
- * First release. Woo!
+* First release. Woo!.

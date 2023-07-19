@@ -106,6 +106,7 @@ class WC_Box_Office_Ticket_Admin {
 			$output .= '</select>';
 		}
 
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $output;
 	}
 
@@ -244,6 +245,7 @@ class WC_Box_Office_Ticket_Admin {
 			return;
 		}
 
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		if ( ! wp_verify_nonce( $_POST['event_ticket_meta_box_nonce'], 'woocommerce_box_office_ticket_info' ) ) {
 			return;
 		}
@@ -264,7 +266,7 @@ class WC_Box_Office_Ticket_Admin {
 			add_action( 'save_post', array( $this, 'event_ticket_meta_box_save' ), 10, 1 );
 
 			if ( isset( $_POST['_attended'] ) ) {
-				update_post_meta( $post_id, '_attended', $_POST['_attended'] );
+				update_post_meta( $post_id, '_attended', sanitize_text_field( wp_unslash( $_POST['_attended'] ) ) );
 			} else {
 				delete_post_meta( $post_id, '_attended' );
 			}
@@ -327,7 +329,7 @@ class WC_Box_Office_Ticket_Admin {
 	 * @return void
 	 */
 	public function event_ticket_email_content_meta_box_content( $post ) {
-		echo wpautop( $post->post_content );
+		echo wp_kses_post( wpautop( $post->post_content ) );
 	}
 
 	public function event_ticket_email_log_meta_box_content( $post ) {
@@ -383,8 +385,8 @@ class WC_Box_Office_Ticket_Admin {
 					',
 					esc_url( admin_url( 'post.php?post=' . $post_id . '&action=edit' ) ),
 					esc_html( get_the_title( $post_id ) ),
-					( 'pending' === get_post_status( $post_id ) ) ? sprintf( ' - <span class="post-state">%s</span>', __( 'Pending', 'woocommerce-box-office' ) ) : '',
-					wc_box_office_get_ticket_description( $post_id )
+					( 'pending' === get_post_status( $post_id ) ) ? sprintf( ' - <span class="post-state">%s</span>', esc_html__( 'Pending', 'woocommerce-box-office' ) ) : '',
+					wp_kses_post( wc_box_office_get_ticket_description( $post_id ) )
 				);
 				break;
 			case 'order':
@@ -395,7 +397,7 @@ class WC_Box_Office_Ticket_Admin {
 						'<strong><a href="%1$s">%2$s</a> - %3$s</strong>',
 						esc_url( $order->get_edit_order_url() ),
 						esc_html( '#' . $order_id ),
-						wc_get_order_status_name( $order->get_status() )
+						esc_html( wc_get_order_status_name( $order->get_status() ) )
 					);
 				} else {
 					echo '-';
@@ -403,7 +405,7 @@ class WC_Box_Office_Ticket_Admin {
 				break;
 			case 'checked-in':
 				if ( get_post_meta( $post_id, '_attended', true ) ) {
-					printf( '<strong>%s</strong>', __( 'Yes', 'woocommerce-box-office' ) );
+					printf( '<strong>%s</strong>', esc_html__( 'Yes', 'woocommerce-box-office' ) );
 				}
 		}
 	}
@@ -452,11 +454,11 @@ class WC_Box_Office_Ticket_Admin {
 		?>
 		<script>
 		jQuery(function() {
-			jQuery( '<option>' ).val( 'mark_attended' ).text( '<?php _e( 'Mark as attended', 'woocommerce-box-office' )?>').appendTo('select[name="action"]' );
-			jQuery( '<option>' ).val( 'mark_attended' ).text( '<?php _e( 'Mark as attended', 'woocommerce-box-office' )?>').appendTo('select[name="action2"]' );
+			jQuery( '<option>' ).val( 'mark_attended' ).text( '<?php esc_html_e( 'Mark as attended', 'woocommerce-box-office' )?>').appendTo('select[name="action"]' );
+			jQuery( '<option>' ).val( 'mark_attended' ).text( '<?php esc_html_e( 'Mark as attended', 'woocommerce-box-office' )?>').appendTo('select[name="action2"]' );
 
-			jQuery( '<option>' ).val( 'mark_not_checked_in' ).text( '<?php _e( 'Mark as not checked-in yet', 'woocommerce-box-office' )?>').appendTo('select[name="action"]' );
-			jQuery( '<option>' ).val( 'mark_not_checked_in' ).text( '<?php _e( 'Mark as not checked-in yet', 'woocommerce-box-office' )?>').appendTo('select[name="action2"]' );
+			jQuery( '<option>' ).val( 'mark_not_checked_in' ).text( '<?php esc_html_e( 'Mark as not checked-in yet', 'woocommerce-box-office' )?>').appendTo('select[name="action"]' );
+			jQuery( '<option>' ).val( 'mark_not_checked_in' ).text( '<?php esc_html_e( 'Mark as not checked-in yet', 'woocommerce-box-office' )?>').appendTo('select[name="action2"]' );
 		});
 		</script>
 		<?php
@@ -475,7 +477,7 @@ class WC_Box_Office_Ticket_Admin {
 
 		check_admin_referer( 'bulk-posts' );
 
-		$post_ids = array_map( 'absint', (array) $_REQUEST['post'] );
+		$post_ids = array_map( 'absint', (array) ( $_REQUEST['post'] ?? array() ) );
 		$updated  = 0;
 		foreach ( $post_ids as $post_id ) {
 			$succeed = false;
@@ -496,10 +498,10 @@ class WC_Box_Office_Ticket_Admin {
 		$sendback = add_query_arg( array( 'post_type' => 'event_ticket', $action => true, 'updated' => $updated, 'ids' => join( ',', $post_ids ) ), '' );
 
 		if ( isset( $_GET['post_status'] ) ) {
-			$sendback = add_query_arg( 'post_status', sanitize_text_field( $_GET['post_status'] ), $sendback );
+			$sendback = add_query_arg( 'post_status', sanitize_text_field( wp_unslash( $_GET['post_status'] ) ), $sendback );
 		}
 
-		wp_redirect( esc_url_raw( $sendback ) );
+		wp_safe_redirect( esc_url_raw( $sendback ) );
 		exit();
 	}
 
@@ -540,8 +542,11 @@ class WC_Box_Office_Ticket_Admin {
 		global $pagenow;
 
 		$type = '';
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( isset( $_GET['post_type'] ) ) {
-			$type = esc_attr( $_GET['post_type'] );
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$type = esc_attr( sanitize_text_field( wp_unslash( $_GET['post_type'] ) ) );
 		}
 
 		if ( ! $type ) {
@@ -580,7 +585,7 @@ class WC_Box_Office_Ticket_Admin {
 	 */
 	public function create_ticket_page() {
 		$create_page = new WC_Box_Office_Ticket_Create_Admin();
-		$create_page->render( $_POST );
+		$create_page->render( $_POST ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 	}
 
 	/**

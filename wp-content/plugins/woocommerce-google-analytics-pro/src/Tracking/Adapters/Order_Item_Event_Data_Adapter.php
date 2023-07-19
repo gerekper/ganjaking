@@ -24,9 +24,11 @@
 namespace SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Adapters;
 
 use Automattic\WooCommerce\Utilities\NumberUtil;
+use SkyVerge\WooCommerce\Google_Analytics_Pro\Helpers\Order_Helper;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Helpers\Product_Helper;
 use WC_Abstract_Order;
 use WC_Order_Item;
+use WC_Product;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -74,10 +76,10 @@ class Order_Item_Event_Data_Adapter extends Event_Data_Adapter {
 		$data = [
 			'item_id'      => Product_Helper::get_product_identifier( $product ),
 			'item_name'    => $this->item['name'],
-			'item_variant' => Product_Helper::get_product_variation_attributes( $product ),
-			'price'        => NumberUtil::round( $this->order->get_item_subtotal( $this->item ), wc_get_price_decimals() ),
-			'discount'     => NumberUtil::round( $this->order->get_item_subtotal( $this->item ) - $this->order->get_item_total( $this->item ), wc_get_price_decimals() ),
-			'quantity'     => $this->item['qty'],
+			'item_variant' => Order_Helper::get_order_item_variant( $this->item ),
+			'price'        => abs( NumberUtil::round( $this->order->get_item_subtotal( $this->item ), wc_get_price_decimals() ) ),
+			'discount'     => abs( NumberUtil::round( $this->order->get_item_subtotal( $this->item ) - $this->order->get_item_total( $this->item ), wc_get_price_decimals() ) ),
+			'quantity'     => abs( $this->item['qty'] ),
 		];
 
 		$index = '';

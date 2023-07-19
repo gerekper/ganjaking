@@ -13,6 +13,6 @@
 	<dt>
 		<a href="<?php echo esc_url( wcbo_get_my_ticket_url( $ticket->ID ) ); ?>"><?php echo esc_html( $ticket->post_title ); ?></a>
 	</dt>
-	<dd class="description"><?php echo wc_box_office_get_ticket_description( $ticket->ID, $fields_format ); ?></dd>
+	<dd class="description"><?php echo wp_kses_post( wc_box_office_get_ticket_description( $ticket->ID, $fields_format ) ); ?></dd>
 <?php endforeach; ?>
 </dl>

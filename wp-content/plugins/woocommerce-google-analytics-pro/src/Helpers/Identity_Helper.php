@@ -23,6 +23,8 @@
 
 namespace SkyVerge\WooCommerce\Google_Analytics_Pro\Helpers;
 
+use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking;
+
 defined( 'ABSPATH' ) or exit;
 
 /**
@@ -38,8 +40,6 @@ class Identity_Helper {
 	/**
 	 * Gets a unique identity for the current user.
 	 *
-	 * @link http://www.stumiller.me/implementing-google-analytics-measurement-protocol-in-php-and-wordpress/
-	 *
 	 * @since 2.0.0
 	 *
 	 * @param bool $force_generate_uuid (optional) whether to force generating a UUID if no CID can be found from cookies, defaults to false
@@ -52,7 +52,7 @@ class Identity_Helper {
 		// get identity via GA cookie
 		if ( isset( $_COOKIE['_ga'] ) ) {
 
-			[, , $cid1, $cid2] = explode('.', $_COOKIE['_ga'], 4);
+			[, , $cid1, $cid2] = explode( '.', $_COOKIE['_ga'], 4 );
 
 			$identity = $cid1 . '.' . $cid2;
 		}
@@ -89,6 +89,7 @@ class Identity_Helper {
 
 		return $identity;
 	}
+
 
 	/**
 	 * Get current user ID, if logged in.
@@ -170,6 +171,34 @@ class Identity_Helper {
 				mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
 			);
 		}
+	}
+
+
+	/**
+	 * Gets session params (ID, number) from GA cookie.
+	 *
+	 * @link https://dodov.dev/blog/how-to-get-google-analytics-session-id-and-session-number
+	 *
+	 * @since 2.0.9
+	 *
+	 * @return array {session_id?: int|string, session_number?: int|string}
+	 */
+	public static function get_session_params() : array {
+
+		$session_cookie = '_ga_' . str_replace( 'G-', '', Tracking::get_measurement_id() );
+
+		if ( isset( $_COOKIE[ $session_cookie ] ) ) {
+
+			[, , $session_id, $session_number] = explode( '.', $_COOKIE[ $session_cookie ], 5 );
+
+			return [
+				'session_id'     => $session_id,
+				'session_number' => $session_number,
+			];
+
+		}
+
+		return [];
 	}
 
 

@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Admin/Meta-Boxes/Product
  * @since    1.2.0
- * @version  2.2.0
+ * @version  2.4.10
  */
 
 // Exit if accessed directly.
@@ -299,6 +299,8 @@ class WC_MNM_Meta_Box_Product_Data {
 	 */
 	public static function container_layout_options( $post_id, $mnm_product_object ) {
 
+		$customizer_url = admin_url( 'customize.php?autofocus[section]=wc_mnm' );
+
 		// Override option.
 		wc_mnm_wp_toggle(
 			array(
@@ -306,6 +308,8 @@ class WC_MNM_Meta_Box_Product_Data {
 				'wrapper_class' => 'wc_mnm_display_toggle',
 				'value'         => wc_bool_to_string( $mnm_product_object->get_layout_override( 'edit' ) ),
 				'label'         => esc_html__( 'Override global layout', 'woocommerce-mix-and-match-products' ),
+				// translators: %s is a link to the Customizer.
+				'description'   => wp_kses_post( sprintf( __( 'Set the <a href="%s">global layout options</a>',  'woocommerce-mix-and-match-products' ), $customizer_url ) ),
 			)
 		);
 
@@ -323,16 +327,23 @@ class WC_MNM_Meta_Box_Product_Data {
 
 		<?php
 
-		// Add to cart form location option.
-		wc_mnm_wp_radio_images(
-			array(
-				'id'      => 'wc_mnm_form_location',
-				'wrapper_class' => 'mnm_container_layout_options show_if_wc_mnm_layout_override_yes hide_if_wc_mnm_layout_override_no hidden',
-				'label'   => esc_html__( 'Add to cart form location', 'woocommerce-mix-and-match-products' ),
-				'value'	  => $mnm_product_object->get_add_to_cart_form_location( 'edit' ),
-				'options' => WC_Product_Mix_and_Match::get_add_to_cart_form_location_options(),
-			)
-		);
+		/*
+		 * Only render the "Form Location" option when a classic theme is in use.
+		 */
+		if ( wc_mnm_has_legacy_product_template( $mnm_product_object ) ) {
+
+			// Add to cart form location option.
+			wc_mnm_wp_radio_images(
+				array(
+					'id'      => 'wc_mnm_form_location',
+					'wrapper_class' => 'mnm_container_layout_options show_if_wc_mnm_layout_override_yes hide_if_wc_mnm_layout_override_no hidden',
+					'label'   => esc_html__( 'Add to cart form location', 'woocommerce-mix-and-match-products' ),
+					'value'	  => $mnm_product_object->get_add_to_cart_form_location( 'edit' ),
+					'options' => WC_Product_Mix_and_Match::get_add_to_cart_form_location_options(),
+				)
+			);
+
+		}
 
 		?>
 

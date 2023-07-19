@@ -1,5 +1,15 @@
 === WooCommerce Free Gift Coupons ===
 
+2023.07.11 - version 3.4.5
+* Fix: Misspelling of update_option()
+
+2023.07.11 - version 3.4.4
+* Fix: Switch to `update_option` on shutdown hook to save notices resolving issues with caching plugins.
+
+2023.07.03 - version 3.4.3
+* Update: Tested up to WooCommerce 7.8.0.
+* Fix: Use `registerCheckoutFilters` graduated filter in Blocks plugin. #117.
+
 2023.01.12 - version 3.4.2
 * Fix: Prevent display of All Products for Subscriptions' radio subscription schemes on free gifts in cart. #115.
 

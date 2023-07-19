@@ -74,10 +74,6 @@ class Added_To_Cart_Event extends Universal_Analytics_Event {
 
 		add_action( 'woocommerce_add_to_cart', [ $this, 'handle_add_to_cart' ], 10, 5 );
 
-		// AJAX add to cart
-		if ( wp_doing_ajax() ) {
-			add_action( 'woocommerce_ajax_added_to_cart', [ $this, 'handle_ajax_add_to_cart' ] );
-		}
 	}
 
 
@@ -96,29 +92,9 @@ class Added_To_Cart_Event extends Universal_Analytics_Event {
 	 */
 	public function handle_add_to_cart( $cart_item_key, $product_id, $quantity, $variation_id, $variation ) : void {
 
-		// don't track add to cart from AJAX here
-		if ( wp_doing_ajax() ) {
-			return;
-		}
-
 		$product = $variation_id ? wc_get_product( $variation_id ) : wc_get_product( $product_id );
 
 		$this->track( $product, $cart_item_key, $variation, $quantity );
-	}
-
-
-	/**
-	 * Tracks the (ajax) add-to-cart event.
-	 *
-	 * @internal
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param int $product_id the product ID
-	 */
-	public function handle_ajax_add_to_cart( $product_id ) : void {
-
-		$this->track( wc_get_product( $product_id ) );
 	}
 
 
@@ -138,7 +114,7 @@ class Added_To_Cart_Event extends Universal_Analytics_Event {
 
 		$properties = [
 			'eventCategory' => 'Products',
-			'eventLabel'    => htmlentities( $product->get_title(), ENT_QUOTES, 'UTF-8' ),
+			'eventLabel'    => htmlentities( $product->get_name(), ENT_QUOTES, 'UTF-8' ),
 			'eventValue'    => (int) $quantity,
 		];
 
@@ -158,6 +134,7 @@ class Added_To_Cart_Event extends Universal_Analytics_Event {
 					'product'       => $product,
 					'quantity'      => $quantity,
 					'cart_item_key' => $cart_item_key,
+					'variation'     => $variation,
 				],
 			]
 		);

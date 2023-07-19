@@ -55,9 +55,9 @@ class WC_AF_Rule_Velocities extends WC_AF_Rule {
 		$pre_wc_30  = version_compare( WC_VERSION, '3.0', '<' );
 		$order_id   = $pre_wc_30 ? $order->id : $order->get_id();
 		$order_date = $pre_wc_30 ? $order->order_date : ( $order->get_date_created() ? gmdate( 'Y-m-d H:i:s', $order->get_date_created()->getOffsetTimestamp() ) : '' );
-		$order_ip   = $pre_wc_30 ? get_post_meta( $order_id, '_customer_ip_address', true ) : $order->get_customer_ip_address();
-		$email = $pre_wc_30 ? get_post_meta( $order_id, '_billing_email', true ) : $order->get_billing_email();
-		$phone = $pre_wc_30 ? get_post_meta( $order_id, '_billing_phone', true ) : $order->get_billing_phone();
+		$order_ip   = $pre_wc_30 ? opmc_hpos_get_post_meta( $order_id, '_customer_ip_address', true ) : $order->get_customer_ip_address();
+		$email = $pre_wc_30 ? opmc_hpos_get_post_meta( $order_id, '_billing_email', true ) : $order->get_billing_email();
+		$phone = $pre_wc_30 ? opmc_hpos_get_post_meta( $order_id, '_billing_phone', true ) : $order->get_billing_phone();
 
 		
 

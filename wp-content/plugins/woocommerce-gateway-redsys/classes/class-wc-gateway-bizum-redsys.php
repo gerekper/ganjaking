@@ -77,7 +77,6 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 		// add_filter( 'woocommerce_available_payment_gateways', array( $this, 'disable_bizum' ) );
 		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'show_payment_method' ) );
 		// La siguiente línea carga el JS para el iframe. Por si algun dia deja Bizum estar en un iframe
-		// add_action( 'woocommerce_after_checkout_form', array( $this, 'custom_jquery_checkout' ) );
 
 		// Payment listener/API hook.
 		add_action( 'woocommerce_api_wc_gateway_' . $this->id, array( $this, 'check_ipn_response' ) );
@@ -1000,7 +999,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 			header( 'HTTP/1.1 200 OK' );
 			do_action( 'valid_' . $this->id . '_standard_ipn_request', $_POST ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		} else {
-			wp_die( 'Bizum Notification Request Failure' );
+			wp_die( 'There is nothing to see here, do not access this page directly (Bizum redirection)' );
 		}
 	}
 	/**
@@ -1649,123 +1648,6 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 			}
 		}
 		return $available_gateways;
-	}
-	/**
-	 * Add custom jQuery to checkout page.
-	 */
-	public function custom_jquery_checkout() {
-
-		if ( 'yes' === $this->not_use_https ) {
-			$final_notify_url = $this->notify_url_not_https;
-		} else {
-			$final_notify_url = $this->notify_url;
-		}
-		if ( isset( $_GET['order_id'] ) && ! empty( $_GET['order_id'] ) ) {
-			$order_id     = sanitize_text_field( wp_unslash( $_GET['order_id'] ) );
-			$url          = $final_notify_url;
-			$current_page = get_permalink( wc_get_page_id( 'checkout' ) );
-			$order        = WCRed()->get_order( $order_id );
-			?>
-			<style>
-				#bizum-open-popup {
-					display: none;
-					position: fixed;
-					top: 0;
-					bottom: 0;
-					left: 0;
-					right: 0;
-					background-color: rgba(0, 0, 0, 0.5);
-					z-index: 9999;
-				}
-				.bizum-popup-content {
-					position: absolute;
-					top: 50%;
-					left: 50%;
-					transform: translate(-50%, -50%);
-					height: 550px;
-					background-color: #fff;
-				}
-				#bizum-iframe {
-					width: 100%;
-					height: 100%;
-				}
-				@media only screen and (min-width: 280px) {
-					.bizum-popup-content {
-						width: 270px;
-					}
-				}
-				@media only screen and (min-width: 320px) {
-					.bizum-popup-content {
-						width: 300px;
-					}
-				}
-				@media only screen and (min-width: 400px) {
-					.bizum-popup-content {
-						width: 380px;
-					}
-				}
-				@media only screen and (min-width: 480px) {
-					.bizum-popup-content {
-						width: 470px;
-					}
-				}
-				@media only screen and (min-width: 768px) {
-					.bizum-popup-content {
-						width: 760px;
-					}
-				}
-				@media only screen and (min-width: 992px) {
-					.bizum-popup-content {
-						width: 900px;
-					}
-				}
-				@media only screen and (min-width: 1200px) {
-					.bizum-popup-content {
-						width: 900px;
-					}
-				}
-			</style>
-			<div id="bizum-open-popup">
-				<div class="bizum-popup-content">
-					<iframe id="bizum-iframe" src="" frameborder="0"></iframe>
-					<button id="bizum-close-popup"><?php esc_html_e( 'Close', 'woocommerce-redsys' ); ?></button>
-				</div>
-			</div>
-			<script type="text/javascript">
-				jQuery(document).ready(function($) {
-					$.urlParam = function(name){
-						var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-						if (results==null){
-						return null;
-						}
-						else{
-						console.log('order_id = ' + results[1] || 0 + '');
-						return results[1] || 0;
-						}
-					}
-					$(document).ready(function() {
-						if ( $( '#payment_method_bizumredsys' ).is( ':checked' ) ) {
-							var order_id = $.urlParam('order_id');
-						var domain   = '<?php echo $final_notify_url; ?>';
-						var url = domain + '&bizum-order-id=' + order_id + '&bizum-iframe=yes';
-							if ( order_id != null ) {
-								console.log('order_id = ' + order_id );
-								$('#bizum-iframe').attr('src', url );
-								$('#bizum-open-popup').fadeIn();
-							}
-						}
-					});
-					$(document).ready(function() {
-						$( 'body' ).on( 'click', '#bizum-close-popup', function() {
-							var url = '<?php echo esc_url( $current_page ); ?>';
-							$('#bizum-open-popup').fadeOut();
-							window.location.href = url;
-						});
-					});
-				});
-			</script>
-			<?php
-		}
 	}
 }
 /**

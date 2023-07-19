@@ -6,7 +6,7 @@
 	?>
 	<?php if ( $show_email_form ) : ?>
 	<p>
-		<?php _e( 'If you\'ve purchased the ticket use the form below to send link for unlocking content to your email.', 'woocommerce-box-office' ); ?>
+		<?php esc_html_e( 'If you\'ve purchased the ticket use the form below to send link for unlocking content to your email.', 'woocommerce-box-office' ); ?>
 	</p>
 	<form method="POST" action="#ticket-private-content">
 		<input name="ticket_send_link_for_private_content" type="hidden" value="1" />

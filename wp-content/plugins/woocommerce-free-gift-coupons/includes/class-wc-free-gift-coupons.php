@@ -19,7 +19,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	 *
 	 * @var string
 	 */
-	public static $version = '3.4.2';
+	public static $version = '3.4.5';
 
 	/**
 	 * The required WooCommerce version

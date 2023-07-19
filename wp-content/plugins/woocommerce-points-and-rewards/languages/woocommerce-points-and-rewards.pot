@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Points and Rewards 1.7.35\n"
+"Project-Id-Version: WooCommerce Points and Rewards 1.7.38\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-points-and-rewards\n"
-"POT-Creation-Date: 2023-06-21 07:38:10+00:00\n"
+"POT-Creation-Date: 2023-07-12 17:38:36+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,28 +14,32 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.7\n"
 
-#: includes/class-wc-points-rewards-actions.php:62
+#: includes/class-wc-points-rewards-actions.php:64
 msgid "Points earned for account signup"
 msgstr ""
 
-#: includes/class-wc-points-rewards-actions.php:63
+#: includes/class-wc-points-rewards-actions.php:65
 msgid "Enter the amount of points earned when a customer signs up for an account."
 msgstr ""
 
-#: includes/class-wc-points-rewards-actions.php:74
+#: includes/class-wc-points-rewards-actions.php:76
 msgid "Points earned for writing a review"
 msgstr ""
 
-#: includes/class-wc-points-rewards-actions.php:75
+#: includes/class-wc-points-rewards-actions.php:77
 msgid "Enter the amount of points earned when a customer first reviews a product."
 msgstr ""
 
-#: includes/class-wc-points-rewards-actions.php:108
+#: includes/class-wc-points-rewards-actions.php:110
 msgid "%s earned for product review"
 msgstr ""
 
-#: includes/class-wc-points-rewards-actions.php:109
+#: includes/class-wc-points-rewards-actions.php:111
 msgid "%s earned for account signup"
+msgstr ""
+
+#: includes/class-wc-points-rewards-actions.php:159
+msgid "ReviewsUtil class not found"
 msgstr ""
 
 #: includes/class-wc-points-rewards-admin.php:45
@@ -629,6 +633,23 @@ msgid "Change Renewal Points"
 msgstr ""
 
 #: includes/class-wc-points-rewards-product-admin.php:145
+msgid ""
+"For Subscription renewals with a different point value than the signup, "
+"enter either a fixed number of points, or a percentage which assigns points "
+"based on the price. For example, enter 5 to award 5 points, or enter 50% to "
+"award points equal to half the normal rate."
+msgstr ""
+
+#: includes/class-wc-points-rewards-product-admin.php:212
+msgid ""
+"This can either be a fixed number of points earned for purchasing this "
+"variation, or a percentage which assigns points based on the price. For "
+"example, if you want to award points equal to double the the normal rate, "
+"enter 200%.  This setting modifies the global Points Conversion Rate and "
+"overrides any category value.  Use 0 to assign no points for this "
+"variation, and empty to use the global/category settings."
+msgstr ""
+
 #: includes/class-wc-points-rewards-product-admin.php:214
 #: includes/class-wc-points-rewards-product-admin.php:447
 msgid ""
@@ -640,16 +661,6 @@ msgid ""
 "discount to $5.  This setting overrides the global/category defaults, use 0 "
 "to disable point discounts for this product, and blank to use the "
 "global/category default."
-msgstr ""
-
-#: includes/class-wc-points-rewards-product-admin.php:212
-msgid ""
-"This can either be a fixed number of points earned for purchasing this "
-"variation, or a percentage which assigns points based on the price. For "
-"example, if you want to award points equal to double the the normal rate, "
-"enter 200%.  This setting modifies the global Points Conversion Rate and "
-"overrides any category value.  Use 0 to assign no points for this "
-"variation, and empty to use the global/category settings."
 msgstr ""
 
 #: includes/class-wc-points-rewards-product-admin.php:219

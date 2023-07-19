@@ -1,3 +1,14 @@
+### 2.7.10.1
+- Fixed an issue that causes JavaScript errors in the theme if certain script optimization plugins are used.
+- Fixed an issue where honeypot validation was failing on multipage forms if the last page was hidden by conditional logic.
+- Fixed an issue where printing an entry with the nested form field is causing a fatal error.
+- Fixed errors that occur when attempting to install translations and the WordPress filesystem requires credentials.
+- Fixed the "no route found" error when performing an OPTIONS request to the REST API v2 endpoints
+- Fixed an issue where license validation fails when using a non-standard license key.
+- Added a theme framework utility class of `.gform-theme__disable-reset` to disable theme framework reset styles.
+- Added a theme framework utility class of `.gform-theme__disable-framework` to disable theme framework styles.
+- Added a theme framework utility class of `.gform-theme__disable` to disable theme framework and reset styles.
+
 ### 2.7.10 | 2023-07-12
 - Added security enhancements.
 - Fixed a PHP fatal error that occurs when the theme or another plugin sets an invalid property value on the $wp_filter global variable.

@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    1.0.5
- * @version  1.7.0
+ * @version  2.4.10
  */
 
 // Exit if accessed directly.
@@ -140,16 +140,21 @@ class WC_MNM_PnR_Compatibility {
 
 				$mnm_points = WC_Points_Rewards_Product::get_points_earned_for_product_purchase( $product );
 
-				if ( '' !== $max_mnm_price ) {
-					if ( $min_mnm_price === $max_mnm_price ) {
-						self::$single_product_message_filter_active = false;
-						$message = $points_n_rewards->render_product_message();
-						self::$single_product_message_filter_active = true;
+				// Do not print any PnR message if 0 points are earned from the purchase of the containter.
+				if ( 0 !== absint( $mnm_points ) ) {
+
+					if ( '' !== $max_mnm_price ) {
+						if ( $min_mnm_price === $max_mnm_price ) {
+							self::$single_product_message_filter_active = false;
+							$message = $points_n_rewards->render_product_message();
+							self::$single_product_message_filter_active = true;
+						} else {
+							$message = $points_n_rewards->create_variation_message_to_product_summary( $mnm_points );
+						}
 					} else {
-						$message = $points_n_rewards->create_variation_message_to_product_summary( $mnm_points );
+						$message = $points_n_rewards->create_at_least_message_to_product_summary( $mnm_points );
 					}
-				} else {
-					$message = $points_n_rewards->create_at_least_message_to_product_summary( $mnm_points );
+
 				}
 
 				remove_filter( 'woocommerce_product_get_price', array( __CLASS__, 'replace_price' ), 9999, 2 );

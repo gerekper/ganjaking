@@ -1,16 +1,16 @@
 <?php
 /**
  * Plugin Name: WooCommerce Product Vendors
- * Version: 2.1.79
+ * Version: 2.1.80
  * Plugin URI: https://woocommerce.com/products/product-vendors/
  * Description: Set up a multi-vendor marketplace that allows vendors to manage their own products and earn commissions. Run stores similar to Amazon or Etsy.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
- * Requires at least: 5.8
+ * Requires at least: 6.1
  * Requires PHP: 7.2
  * Tested up to: 6.2
- * WC requires at least: 6.8
- * WC tested up to: 7.6
+ * WC requires at least: 7.2
+ * WC tested up to: 7.8
  * Text Domain: woocommerce-product-vendors
  * Domain Path: /languages
  *
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'WC_Product_Vendors' ) ) {
-	define( 'WC_PRODUCT_VENDORS_VERSION', '2.1.79' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_PRODUCT_VENDORS_VERSION', '2.1.80' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Main class.
@@ -82,6 +82,7 @@ if ( ! class_exists( 'WC_Product_Vendors' ) ) {
 		private function __construct() {
 			add_action( 'plugins_loaded', array( $this, 'init' ), 0 );
 			add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
+			add_action( 'init', array( $this, 'init_cli' ) );
 
 			// Subscribe to automated translations.
 			add_filter( 'woocommerce_translations_updates_for_woocommerce-product-vendors', '__return_true' );
@@ -162,6 +163,8 @@ if ( ! class_exists( 'WC_Product_Vendors' ) ) {
 			require_once( dirname( __FILE__ ) . '/includes/shipping/per-product/class-wc-product-vendors-per-product-shipping.php' );
 			require_once( dirname( __FILE__ ) . '/includes/class-wc-product-vendors-payout-scheduler.php' );
 
+			require_once( dirname( __FILE__ ) . '/includes/compatibility/class-wc-product-vendors-admin-storage-compatibility.php' );
+
 			// check for bookings.
 			if ( class_exists( 'WC_Bookings' ) ) {
 				require_once __DIR__ . '/includes/integrations/class-wc-product-vendors-bookings.php';
@@ -193,6 +196,18 @@ if ( ! class_exists( 'WC_Product_Vendors' ) ) {
 			register_deactivation_hook( __FILE__, array( 'WC_Product_Vendors_Deactivation', 'deactivate' ) );
 
 			return true;
+		}
+
+		/**
+		 * Initializes the CLI
+		 *
+		 * @access private
+		 * @since 2.0.0
+		 * @version 2.0.0
+		 * @return bool
+		 */
+		public function init_cli() {
+			require_once( dirname( __FILE__ ) . '/includes/class-wc-product-vendors-cli.php' );
 		}
 
 		/**

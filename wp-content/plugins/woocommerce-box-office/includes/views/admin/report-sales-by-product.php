@@ -1,11 +1,11 @@
 <table class="widefat wp-list-table">
 	<thead>
 		<tr>
-			<th><?php _e( 'Ticket Product', 'woocommerce-box-office' ); ?></th>
-			<th><?php _e( 'Sold Tickets', 'woocommerce-box-office' ); ?></th>
-			<th><?php _e( 'Stock', 'woocommerce-box-office' ); ?></th>
-			<th><?php _e( 'Price', 'woocommerce-box-office' ); ?></th>
-			<th><?php _e( 'Total Sales', 'woocommerce-box-office' ); ?></th>
+			<th><?php esc_html_e( 'Ticket Product', 'woocommerce-box-office' ); ?></th>
+			<th><?php esc_html_e( 'Sold Tickets', 'woocommerce-box-office' ); ?></th>
+			<th><?php esc_html_e( 'Stock', 'woocommerce-box-office' ); ?></th>
+			<th><?php esc_html_e( 'Price', 'woocommerce-box-office' ); ?></th>
+			<th><?php esc_html_e( 'Total Sales', 'woocommerce-box-office' ); ?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -18,15 +18,15 @@
 				</a>
 			</td>
 			<td><?php echo esc_html( $row['sold'] ); ?></td>
-			<td><?php echo $row['stock']; // xss ok ?></td>
-			<td><?php echo $row['price']; // xss ok ?></td>
-			<td><strong><?php echo wc_price( $row['total_sales'] ); ?></strong></td>
+			<td><?php echo wp_kses_post( $row['stock'] ); ?></td>
+			<td><?php echo wp_kses_post( $row['price'] ); ?></td>
+			<td><strong><?php echo wp_kses_post( wc_price( $row['total_sales'] ) ); ?></strong></td>
 		</tr>
 		<?php endforeach; ?>
 	<?php else: ?>
 		<tr>
 			<td colspan="5">
-				<?php _e( 'No data to show. Start selling your tickets!', 'woocommerce-box-office' ); ?>
+				<?php esc_html_e( 'No data to show. Start selling your tickets!', 'woocommerce-box-office' ); ?>
 			</td>
 		</tr>
 	<?php endif; ?>

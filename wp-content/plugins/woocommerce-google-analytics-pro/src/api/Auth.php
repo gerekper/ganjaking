@@ -23,6 +23,7 @@
 
 namespace SkyVerge\WooCommerce\Google_Analytics_Pro\API;
 
+use SkyVerge\WooCommerce\Google_Analytics_Pro\Properties_Handler;
 use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 defined( 'ABSPATH' ) or exit;
@@ -246,11 +247,22 @@ class Auth {
 			return;
 		}
 
-		$this->clear_account_related_settings();
-
 		// update access token
 		update_option( 'wc_google_analytics_pro_access_token', $json_token );
 		update_option( 'wc_google_analytics_pro_account_id', md5( $json_token ) );
+
+		$this->token = $this->parse_json_token();
+
+		// if we can't fetch the existing property, it probably means the authenticated user does not have access to it,
+		// so we need to clear the account related settings
+		if ( $ga4_property = wc_google_analytics_pro()->get_properties_handler_instance()->get_ga_property_id() ) {
+			try {
+				wc_google_analytics_pro()->get_api_client_instance()->get_admin_api()->get_property( $ga4_property );
+			} catch ( Framework\SV_WC_API_Exception $e ) {
+				// clear everything except account ID and token (as we've already overwritten these)
+				$this->clear_account_related_settings( false );
+			}
+		}
 
 		echo '<script>window.opener.wc_google_analytics_pro.auth_callback(' . $json_token . ')</script>';
 		exit();
@@ -330,9 +342,10 @@ class Auth {
 	 *
 	 * @since 2.0.0
 	 *
+	 * @param bool $clear_token_and_id whether to clear the access token and account ID
 	 * @return void
 	 */
-	private function clear_account_related_settings() : void {
+	private function clear_account_related_settings( bool $clear_token_and_id = true ) : void {
 
 		$settings = get_option( 'woocommerce_google_analytics_pro_settings', [] );
 
@@ -345,13 +358,16 @@ class Auth {
 
 		update_option( 'woocommerce_google_analytics_pro_settings', $settings );
 
-		delete_option( 'wc_google_analytics_pro_access_token' );
-		delete_option( 'wc_google_analytics_pro_account_id' );
 		delete_option( 'wc_google_analytics_pro_ga4_data_streams' );
-		delete_option( 'wc_google_analytics_pro_ga4_data_streams' );
+		delete_option( 'wc_google_analytics_pro_ga4_data_stream_api_secrets' );
 		delete_option( 'wc_google_analytics_pro_mp_api_secret' );
 		delete_transient( 'wc_google_analytics_pro_properties' );
 		delete_transient( 'wc_google_analytics_pro_ga4_properties' );
+
+		if ( $clear_token_and_id ) {
+			delete_option( 'wc_google_analytics_pro_access_token' );
+			delete_option( 'wc_google_analytics_pro_account_id' );
+		}
 	}
 
 

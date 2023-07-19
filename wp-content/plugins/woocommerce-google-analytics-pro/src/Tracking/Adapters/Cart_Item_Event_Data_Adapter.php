@@ -65,7 +65,7 @@ class Cart_Item_Event_Data_Adapter extends Event_Data_Adapter {
 
 		$item    = $this->item;
 		$product = wc_get_product( $item['variation_id'] ?: $item['product_id'] );
-		$data    = $product ? ( new Product_Item_Event_Data_Adapter( $product ) )->convert_from_source( $item['quantity'] ) : [];
+		$data    = $product ? ( new Product_Item_Event_Data_Adapter( $product ) )->convert_from_source( $item['quantity'], $item['variation'] ?? [] ) : [];
 
 		return array_merge( $data, [
 			'discount' => NumberUtil::round( ( $item['line_subtotal'] - $item['line_total'] ) / $item['quantity'], wc_get_price_decimals() ),

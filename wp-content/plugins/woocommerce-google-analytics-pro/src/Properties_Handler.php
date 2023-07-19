@@ -131,12 +131,16 @@ class Properties_Handler {
 
 			if ( ! wc_google_analytics_pro()->get_api_client_instance()->get_auth_instance()->get_mp_api_secret() ) {
 
-				$url = "{$base_url}/admin/streams/table/4699708520";
+				$data_stream       = self::get_ga4_property_data_stream( $this->get_ga_property_id() );
+				$data_stream_parts = explode( '/', $data_stream->name );
+				$data_stream_id    = end( $data_stream_parts );
+				$url               = "{$base_url}/admin/streams/table/{$data_stream_id}";
 
 				$message = sprintf(
-					/* translators: Placeholders: %1$s - plugin name, %2$s - <a> tag, %3$s - </a> tag */
-					__( '%1$s: The selected Data Stream for your Analytics property is missing a Measurement Protocol API secret. Please create a secret %2$son your Google Analytics Data Stream details page%3$s and then re-save settings.', 'woocommerce-google-analytics-pro' ),
+					/* translators: Placeholders: %1$s - plugin name, %2$s - data stream name %3$s - <a> tag, %4$s - </a> tag */
+					__( '%1$s: The selected Analytics property is missing a Measurement Protocol API secret for the %2$s data stream. Please try re-saving settings to automatically create the secret, or manually create one %3$son your Google Analytics Data Stream details page%4$s and then re-save settings.', 'woocommerce-google-analytics-pro' ),
 					$plugin_name,
+					$data_stream->displayName,
 					'<a href="' . $url . '" target="_blank">', '</a>'
 				);
 
@@ -360,7 +364,7 @@ class Properties_Handler {
 	 * @param int $key the array key
 	 * @return string|null
 	 */
-	private function get_property_part( string $option_name, int $key ) {
+	private function get_property_part( string $option_name, int $key ): ?string {
 
 		if ( ! ( $property = wc_google_analytics_pro()->get_integration()->get_option( $option_name ) ) ) {
 			return null;
@@ -591,7 +595,7 @@ class Properties_Handler {
 	 * @param string $parent
 	 * @return stdClass|null
 	 */
-	public static function get_ga4_property_data_stream(string $parent ) : ?stdClass {
+	public static function get_ga4_property_data_stream( string $parent ) : ?stdClass {
 
 		$data_streams = (array) get_option( 'wc_google_analytics_pro_ga4_data_streams', [] );
 

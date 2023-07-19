@@ -115,45 +115,45 @@ class WC_Box_Office_Product_Admin {
 
 		// Ticket printing options
 		if ( isset( $_POST['_print_tickets'] ) ) {
-			update_post_meta( $post_id, '_print_tickets', $_POST['_print_tickets'] );
+			update_post_meta( $post_id, '_print_tickets', sanitize_text_field( wp_unslash( $_POST['_print_tickets'] ) ) );
 		} else {
 			delete_post_meta( $post_id, '_print_tickets' );
 		}
 
 		// Ticket editable options
 		if ( isset( $_POST['_disable_edit_tickets'] ) ) {
-			update_post_meta( $post_id, '_disable_edit_tickets', $_POST['_disable_edit_tickets'] );
+			update_post_meta( $post_id, '_disable_edit_tickets', sanitize_text_field( wp_unslash( $_POST['_disable_edit_tickets'] ) ) );
 		} else {
 			delete_post_meta( $post_id, '_disable_edit_tickets' );
 		}
 
 		if ( isset( $_POST['_print_barcode'] ) ) {
-			update_post_meta( $post_id, '_print_barcode', $_POST['_print_barcode'] );
+			update_post_meta( $post_id, '_print_barcode', sanitize_text_field( wp_unslash(  $_POST['_print_barcode'] ) ) );
 		} else {
 			delete_post_meta( $post_id, '_print_barcode' );
 		}
 
 		if ( isset( $_POST['ticket-content'] ) ) {
-			update_post_meta( $post_id, '_ticket_content', $_POST['ticket-content'] );
+			update_post_meta( $post_id, '_ticket_content', wp_kses_post( wp_unslash( $_POST['ticket-content'] ) ) );
 		}
 
 		// Ticket email options
 		if ( isset( $_POST['_email_tickets'] ) ) {
-			update_post_meta( $post_id, '_email_tickets', $_POST['_email_tickets'] );
+			update_post_meta( $post_id, '_email_tickets', sanitize_text_field( wp_unslash( $_POST['_email_tickets'] ) ) );
 		} else {
 			delete_post_meta( $post_id, '_email_tickets' );
 		}
 
 		if ( isset( $_POST['_email_ticket_subject'] ) ) {
-			update_post_meta( $post_id, '_email_ticket_subject', $_POST['_email_ticket_subject'] );
+			update_post_meta( $post_id, '_email_ticket_subject', sanitize_text_field( wp_unslash( $_POST['_email_ticket_subject'] ) ) );
 		}
 
 		if ( isset( $_POST['ticket-email'] ) ) {
-			update_post_meta( $post_id, '_ticket_email_html', $_POST['ticket-email'] );
+			update_post_meta( $post_id, '_ticket_email_html', wp_kses_post( wp_unslash( $_POST['ticket-email'] ) ) );
 		}
 
 		if ( isset( $_POST['_ticket_email_plain'] ) ) {
-			update_post_meta( $post_id, '_ticket_email_plain', $_POST['_ticket_email_plain'] );
+			update_post_meta( $post_id, '_ticket_email_plain', sanitize_text_field( wp_unslash( $_POST['_ticket_email_plain'] ) ) );
 		}
 	}
 }

@@ -2591,17 +2591,17 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				</fieldset>
 				<fieldset class="redsys-new-card-data">
 					<div>
-						<label class="cardinfo-label" for="card-number" autocomplete="cc-number">' . esc_html__( 'CREDIT CARD NUMBER', 'woocommerce-redsys' ) . '</label>
-						<div class="input-wrap" id="card-number" autocomplete="cc-number"></div>
+						<label class="cardinfo-label" for="card-number">' . esc_html__( 'CREDIT CARD NUMBER', 'woocommerce-redsys' ) . '</label>
+						<div class="input-wrap" id="card-number"></div>
 					</div>
 					<div class="date-wrap">
 						<div>
-							<label class="cardinfo-label" for="expiration-date" autocomplete="cc-exp-month">' . esc_html__( 'EXPIRATION', 'woocommerce-redsys' ) . '</label>
-							<div class="input-wrap" id="expiration-month" autocomplete="cc-exp-month"></div>
+							<label class="cardinfo-label" for="expiration-date">' . esc_html__( 'EXPIRATION', 'woocommerce-redsys' ) . '</label>
+							<div class="input-wrap" id="expiration-month"></div>
 						</div>
 						<div class="cvv-wrap">
-							<label class="cardinfo-label" for="cvv" autocomplete="cc-csc">' . esc_html__( 'CVC', 'woocommerce-redsys' ) . '</label>
-							<div class="input-wrap" id="cvv" autocomplete="cc-csc"></div>
+							<label class="cardinfo-label" for="cvv">' . esc_html__( 'CVC', 'woocommerce-redsys' ) . '</label>
+							<div class="input-wrap" id="cvv"></div>
 						</div>
 					</div>
 					<div class="input-wrapper" id="redsys-submit"></div>
@@ -5282,7 +5282,8 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			}
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'insite', 'HTTP Notification received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				$this->log->add( 'insite', 'HTTP Notification received POST: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				$this->log->add( 'insite', 'HTTP Notification received GET: ' . print_r( $_GET, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
 			if ( 'yes' === $this->not_use_https ) {
 				$final_notify_url = $this->notify_url_not_https;
@@ -5580,12 +5581,19 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'insite', '$authorisationcode: ' . $authorisationcode );
 			}
 			if ( 'ChallengeRequest' === $three_ds_info ) {
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'insite', 'Doing ChallengeRequest' );
+				}
 				WCRed()->print_overlay_image();
 				if ( $par_eq ) {
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'insite', 'Doing ChallengeRequest: $par_eq' );
+						$this->log->add( 'insite', 'Doing ChallengeRequest $par_eq: ' . $acs_url );
+					}
 					?>
-					<form method="POST" action="<?php echo esc_url( $acs_url ); ?>"  enctype = "application/x-www-form-urlencoded">
-						<input type="hidden" name="PaReq" value="<?php echo esc_attr( $par_eq ); ?>" />
-						<input type="hidden" name="MD" value="<?php echo esc_attr( $md ); ?>" />
+					<form method="POST" action="<?php echo esc_url( $acs_url ); ?>"  enctype="application/x-www-form-urlencoded">
+						<input type="hidden" name="PaReq" value="<?php echo esc_html( $par_eq ); ?>" />
+						<input type="hidden" name="MD" value="<?php echo esc_html( $md ); ?>" />
 						<input type="hidden" name="TermUrl" value="<?php echo esc_attr( $final_notify_url ); ?>" />
 						<input name="submit_3ds" type="submit" class="button-alt" id="submit_pareq" value="' . __( 'Press here if you are not redirected', 'woocommerce-redsys' ) . '" />
 					</form>
@@ -5595,8 +5603,12 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					<?php
 				}
 				if ( $creq ) {
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'insite', 'Doing ChallengeRequest: $creq' );
+						$this->log->add( 'insite', 'Doing ChallengeRequest $acs_url: ' . $acs_url );
+					}
 					?>
-					<form method="POST" action="<?php echo esc_url( $acs_url ); ?>" enctype = "application/xwww-form-urlencoded">
+					<form method="POST" action="<?php echo esc_url( $acs_url ); ?>" enctype="application/x-www-form-urlencoded">
 						<input type="hidden" name="creq" value="<?php echo esc_html( $creq ); ?>" />
 						<input name="submit_3ds" type="submit" class="button-alt" id="submit_creq" value="<?php __( 'Press here if you are not redirected', 'woocommerce-redsys' ); ?>" />
 					</form>
@@ -5654,13 +5666,6 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				wp_safe_redirect( $url_ok );
 				exit;
 			}
-			$respuesta = $xml_retorno->OPERACION->Ds_Response; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'insite', '$respuesta: ' . $respuesta );
-			}
-			wp_safe_redirect( wc_get_checkout_url() . '?error=' . $respuesta );
-			exit;
-
 		}
 
 		$three_ds_info     = get_transient( 'threeDSInfo_' . $order );
@@ -5687,7 +5692,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					$this->log->add( 'insite', 'Doing Creq Form POST ' );
 				}
 				?>
-				<form method="POST" action="<?php echo esc_url( $acsurl2 ); ?>" enctype = "application/xwww-form-urlencoded">
+				<form method="POST" action="<?php echo esc_url( $acsurl2 ); ?>" enctype="application/x-www-form-urlencoded">
 					<input type="hidden" name="creq" value="<?php echo esc_html( $creq ); ?>" />
 					<input name="submit_3ds" type="submit" class="button-alt" id="submit_creq" value="<?php __( 'Press here if you are not redirected', 'woocommerce-redsys' ); ?>" />
 				</form>
@@ -5734,7 +5739,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 						$this->log->add( 'insite', '$creq: ' . $creq );
 					}
 					?>
-				<form method="POST" action="<?php echo esc_url( $acsurl2 ); ?>" enctype = "application/xwww-form-urlencoded">
+				<form method="POST" action="<?php echo esc_url( $acsurl2 ); ?>" enctype="application/x-www-form-urlencoded">
 					<input type="hidden" name="creq" value="<?php echo esc_html( $creq ); ?>" />
 					<input name="submit_3ds" type="submit" class="button-alt" id="submit_creq" value="<?php __( 'Press here if you are not redirected', 'woocommerce-redsys' ); ?>" />
 				</form>
@@ -6922,7 +6927,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				header( 'HTTP/1.1 200 OK' );
 				do_action( 'valid_' . $this->id . '_standard_ipn_request', $_POST ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			} else {
-				wp_die( 'InSite Notification Request Failure' );
+				wp_die( 'There is nothing to see here, do not access this page directly (InSite)' );
 			}
 		}
 	}

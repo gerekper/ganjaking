@@ -7,12 +7,48 @@ import {
 	registerCheckoutFilters as graduatedFilters,
 } from '@woocommerce/blocks-checkout';
 
+import { dispatch } from '@wordpress/data';
+import { addAction } from '@wordpress/hooks';
+
+/**
+ * Internal dependencies
+ */
+import { actionPrefix, namespace } from '../constants';
+
+/**
+ * Remove item from the cart
+ */
+addAction(
+	'experimental__woocommerce_blocks-cart-remove-item',
+	'mix-and-match',
+	( {
+		product,
+		quantity = 1,
+	} ) => {
+		
+		if ( 'undefined' !== typeof product.extensions.mix_and_match.child_items && product.extensions.mix_and_match.child_items.length ) {
+
+			const { itemIsPendingDelete } = dispatch( 'wc/store/cart' );
+
+			for (const childCartItemKey of product.extensions.mix_and_match.child_items) {
+				itemIsPendingDelete(childCartItemKey, true);
+				// @Todo: If there's ever an event for after the cart it updated, we should technically set the items back to false.
+			}
+
+		}
+	}
+);
+
+
+/**
+ * Set cart item classes for styling
+ */
 const registerCheckoutFilters =
 	typeof graduatedFilters !== 'undefined'
 		? graduatedFilters
 		: experimentalFilters;
 
-registerCheckoutFilters( 'mix-and-match', {
+registerCheckoutFilters( namespace, {
 
 	itemName: ( context, { mix_and_match }, { cartItem } ) => {
 

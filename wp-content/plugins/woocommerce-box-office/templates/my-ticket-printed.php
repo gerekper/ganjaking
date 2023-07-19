@@ -25,7 +25,7 @@ do_action( 'woocommerce_box_office_before_print_ticket' );
 
 <div id="ticket-print-content-container">
 	<div id="ticket-print-content">
-		<?php echo $printed_content; ?>
+		<?php echo wp_kses_post( $printed_content ); ?>
 
 		<?php if ( $print_barcode ) : ?>
 		<div id="ticket-print-content-barcode">

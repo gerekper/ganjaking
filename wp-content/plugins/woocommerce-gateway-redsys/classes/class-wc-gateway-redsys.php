@@ -400,7 +400,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					'redirection' => __( 'Redirect to Redsys for payment', 'woocommerce-redsys' ),
 					'iframe'      => __( 'Modal in the checkout.', 'woocommerce-redsys' ),
 				),
-			),
+			), 
 			'buttoncheckout'        => array(
 				'title'       => __( 'Button Checkout Text', 'woocommerce-redsys' ),
 				'type'        => 'text',
@@ -5899,6 +5899,19 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				}
 				set_transient( $order->get_id() . '_redsys_save_token', 'yes', 36000 );
 				$redirect = WCRed()->get_url_redsys_payment( $order_id, $final_notify_url );
+				if ( 'iframe' === $this->usebrowserreceipt ) {
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'redsys', ' ' );
+						$this->log->add( 'redsys', 'Utilizando Modal para pago' );
+						$this->log->add( 'redsys', ' ' );
+					}
+					return array(
+						'result'   => 'success',
+						'redirect' => '?order_id=' . $order_id . '&method=redsys#open-popup',
+						'order_id' => $order_id,
+						'url'      => WCRed()->get_url_redsys_payment( $order_id, $final_notify_url ),
+					);
+				}
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'redsys', ' ' );
 					$this->log->add( 'redsys', '$redirect: ' . $redirect );
@@ -5926,7 +5939,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				}
 				return array(
 					'result'   => 'success',
-					'redirect' => '?order_id=' . $order_id . '#open-popup',
+					'redirect' => '?order_id=' . $order_id . '&method=redsys#open-popup',
 					'order_id' => $order_id,
 					'url'      => WCRed()->get_url_redsys_payment( $order_id, $final_notify_url ),
 				);
@@ -6451,7 +6464,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						$this->log->add( 'redsys', '$creq: ' . esc_html( $creq ) );
 					}
 					?>
-					<form method="POST" action="<?php echo esc_url( $acs_url ); ?>" enctype = "application/xwww-form-urlencoded">
+					<form method="POST" action="<?php echo esc_url( $acs_url ); ?>" enctype="application/x-www-form-urlencoded">
 						<input type="hidden" name="creq" value="<?php echo esc_html( $creq ); ?>" />
 						<input name="submit_3ds" type="submit" class="button-alt" id="submit_creq" value="<?php __( 'Press here if you are not redirected', 'woocommerce-redsys' ); ?>" />
 					</form>
@@ -6543,7 +6556,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					$this->log->add( 'redsys', 'Doing Creq Form POST ' );
 				}
 				?>
-				<form method="POST" action="<?php echo esc_url( $acsurl2 ); ?>" enctype="application/xwww-form-urlencoded">
+				<form method="POST" action="<?php echo esc_url( $acsurl2 ); ?>" enctype="application/x-www-form-urlencoded">
 					<input type="hidden" name="creq" value="<?php echo esc_html( $creq ); ?>" />
 					<input name="submit_3ds" type="submit" class="button-alt" id="submit_creq" value="<?php __( 'Press here if you are not redirected', 'woocommerce-redsys' ); ?>" />
 				</form>
@@ -6594,7 +6607,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						$this->log->add( 'redsys', '$creq: ' . $creq );
 					}
 					?>
-				<form method="POST" action="<?php echo esc_url( $acsurl2 ); ?>" enctype="application/xwww-form-urlencoded">
+				<form method="POST" action="<?php echo esc_url( $acsurl2 ); ?>" enctype="application/x-www-form-urlencoded">
 					<input type="hidden" name="creq" value="<?php echo esc_html( $creq ); ?>" />
 					<input name="submit_3ds" type="submit" class="button-alt" id="submit_creq" value="<?php __( 'Press here if you are not redirected', 'woocommerce-redsys' ); ?>" />
 				</form>
@@ -8010,7 +8023,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				header( 'HTTP/1.1 200 OK' );
 				do_action( 'valid-redsys-standard-ipn-request', $post ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 			} else {
-				wp_die( 'Servired/RedSys Notification Request Failure' );
+				wp_die( 'There is nothing to see here, do not access this page directly (Redsys redirection)' );
 			}
 		}
 	}
@@ -11758,7 +11771,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		} else {
 			$final_notify_url = $this->notify_url;
 		}
-		if ( isset( $_GET['order_id'] ) && ! empty( $_GET['order_id'] ) ) {
+		if ( isset( $_GET['order_id'] ) && ! empty( $_GET['order_id'] && 'redsys' === $_GET['method'] ) ) {
 			$order_id     = sanitize_text_field( wp_unslash( $_GET['order_id'] ) );
 			$url          = $final_notify_url;
 			$current_page = get_permalink( wc_get_page_id( 'checkout' ) );

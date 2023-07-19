@@ -245,7 +245,10 @@ class WC_Product_Vendors_Registration {
 				$vendor_data['profile'] = $form_items['vendor_description'];
 			}
 
-			update_term_meta( $term['term_id'], 'vendor_data', apply_filters( 'wcpv_registration_default_vendor_data', $vendor_data ) );
+			WC_Product_Vendors_Utils::set_vendor_data(
+				$term['term_id'],
+				apply_filters( 'wcpv_registration_default_vendor_data', $vendor_data )
+			);
 
 			// change this user's role to pending vendor
 			wp_update_user( apply_filters( 'wcpv_registration_default_user_data', array(
@@ -350,7 +353,7 @@ class WC_Product_Vendors_Registration {
 	public function create_user_on_vendor_term_creation( $term_id ) {
 		// Get term and vendor data
 		$term         = get_term( $term_id );
-		$vendor_data  = get_term_meta( $term_id, 'vendor_data', true );
+		$vendor_data  = WC_Product_Vendors_Utils::get_vendor_data_by_id( $term_id );
 		$vendor_data  = ! is_array( $vendor_data ) ? array() : $vendor_data;
 		$vendor_email = empty( $vendor_data['email'] ) ? null : $vendor_data['email'];
 
@@ -377,7 +380,7 @@ class WC_Product_Vendors_Registration {
 			$admins[]              = $user_id;
 			$vendor_data['admins'] = array_unique( $admins );
 
-			update_term_meta( $term_id, 'vendor_data', $vendor_data );
+			WC_Product_Vendors_Utils::set_vendor_data( $term_id, $vendor_data );
 		}
 	}
 }

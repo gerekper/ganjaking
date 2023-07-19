@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.8.2] - 2023-07-18
+### Changed:
+- Improved notifications formatting and styles.
+- Sendinblue rebranded to Brevo.
+
+### Fixed:
+- Explicitly set "Content-Type" header for the HTML test email.
+
 ## [3.8.1] - 2023-06-23
 ### Fixed:
 - Print email log headers data security issue.

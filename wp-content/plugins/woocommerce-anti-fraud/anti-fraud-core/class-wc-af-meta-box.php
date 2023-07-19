@@ -9,8 +9,9 @@ if ( ! class_exists( 'WC_AF_Meta_Box' ) ) {
 	class WC_AF_Meta_Box {
 
 		public function __construct() {
+
 			foreach ( wc_get_order_types( 'order-meta-boxes' ) as $type ) {
-				add_meta_box( 'woocommerce-af-risk', __( 'Fraud Risk', 'woocommerce-anti-fraud' ), array( $this, 'output' ), $type, 'side', 'high' );
+				opmc_hpos_add_meta_box( 'woocommerce-af-risk', __( 'Fraud Risk', 'woocommerce-anti-fraud' ), array( $this, 'output' ), $type, 'side', 'high' );
 			}
 		}
 
@@ -29,7 +30,7 @@ if ( ! class_exists( 'WC_AF_Meta_Box' ) ) {
 			$order_id = sanitize_text_field( $_GET['post'] );
 
 			// Create Score object and calculate score
-			$score_points = get_post_meta( $order_id, 'wc_af_score', true );
+			$score_points = opmc_hpos_get_post_meta( $order_id, 'wc_af_score', true );
 
 			// Get meta
 			$meta = WC_AF_Score_Helper::get_score_meta( $score_points, $order_id );
@@ -47,8 +48,8 @@ if ( ! class_exists( 'WC_AF_Meta_Box' ) ) {
 				echo '<input class="knob" data-fgColor="' . esc_attr($meta['color']) . '" data-thickness=".4" data-readOnly=true value="0" rel="' . esc_attr($circle_points) . '">';
 
 				// The rules
-				$json_rules = get_post_meta( $order_id, 'wc_af_failed_rules', true );
-				$whitelist_action = get_post_meta( $order_id, 'whitelist_action', true );
+				$json_rules = opmc_hpos_get_post_meta( $order_id, 'wc_af_failed_rules', true );
+				$whitelist_action = opmc_hpos_get_post_meta( $order_id, 'whitelist_action', true );
 				$whitelist_action_style = ( 'user_email_whitelisted' == $whitelist_action ) ? 'style="color:grey"' : '';
 				//echo '<pre>'; print_r($json_rules); echo '</pre>';
 

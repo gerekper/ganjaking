@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/REST API
  * @since    2.0.0
- * @version  2.5.0
+ * @version  2.4.10
  */
 
 // Exit if accessed directly.
@@ -214,10 +214,12 @@ class WC_MNM_Store_API {
 			return;
 		}
 
-		$item_data[ 'totals' ]->line_total        = self::prepare_money_response( WC_Mix_and_Match()->display->get_container_cart_item_subtotal_amount( $cart_item, 'total' ) );
-		$item_data[ 'totals' ]->line_total_tax    = self::prepare_money_response( WC_Mix_and_Match()->display->get_container_cart_item_subtotal_amount( $cart_item, 'tax' ) );
-		$item_data[ 'totals' ]->line_subtotal     = self::prepare_money_response( WC_Mix_and_Match()->display->get_container_cart_item_subtotal_amount( $cart_item, 'subtotal' ) );
-		$item_data[ 'totals' ]->line_subtotal_tax = self::prepare_money_response( WC_Mix_and_Match()->display->get_container_cart_item_subtotal_amount( $cart_item, 'subtotal_tax' ) );
+		$decimals = isset( $item_data[ 'totals' ]->currency_minor_unit ) ? $item_data[ 'totals' ]->currency_minor_unit : wc_get_price_decimals();
+
+		$item_data[ 'totals' ]->line_total        = self::prepare_money_response( WC_Mix_and_Match()->display->get_container_cart_item_subtotal_amount( $cart_item, 'total' ), $decimals );
+		$item_data[ 'totals' ]->line_total_tax    = self::prepare_money_response( WC_Mix_and_Match()->display->get_container_cart_item_subtotal_amount( $cart_item, 'tax' ), $decimals );
+		$item_data[ 'totals' ]->line_subtotal     = self::prepare_money_response( WC_Mix_and_Match()->display->get_container_cart_item_subtotal_amount( $cart_item, 'subtotal' ), $decimals );
+		$item_data[ 'totals' ]->line_subtotal_tax = self::prepare_money_response( WC_Mix_and_Match()->display->get_container_cart_item_subtotal_amount( $cart_item, 'subtotal_tax' ), $decimals );
 	}
 
 	/**
@@ -277,7 +279,7 @@ class WC_MNM_Store_API {
 				}
 
 				$edit_in_cart_link = esc_url( $container->get_cart_edit_link( $cart_item ) );
-				$item_data[ 'short_description' ] = '<p class="wc-block-cart-item__edit"><a class="components-button wc-block-components-button wc-block-cart-item__edit-link contained" href="' . $edit_in_cart_link . '"><span class="wc-block-components-button__text">' .  _x( 'Edit selections', 'edit in cart link text', 'woocommerce-mix-and-match-products' ) . '</span></a></p>' . $trimmed_short_description;
+				$item_data[ 'short_description' ] = '<p class="wc-block-cart-item__edit"><a class="components-button wc-block-components-button wp-element-button outlined wc-block-cart-item__edit-link contained" href="' . $edit_in_cart_link . '"><span class="wc-block-components-button__text">' .  _x( 'Edit selections', 'edit in cart link text', 'woocommerce-mix-and-match-products' ) . '</span></a></p>' . $trimmed_short_description;
 			}
 
 		}

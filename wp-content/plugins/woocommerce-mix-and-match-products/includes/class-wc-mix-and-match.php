@@ -33,7 +33,7 @@ class WC_Mix_and_Match {
 	 *
 	 * @var str
 	 */
-	public $version = '2.4.7';
+	public $version = '2.4.10';
 
 	/**
 	 * Required Version of WooCommerce.

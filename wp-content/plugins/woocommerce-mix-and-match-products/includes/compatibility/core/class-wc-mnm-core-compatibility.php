@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    1.2.0
- * @version  2.4.0
+ * @version  2.4.10
  */
 
 // Exit if accessed directly.
@@ -245,6 +245,44 @@ class WC_MNM_Core_Compatibility {
 		}
 
 		return '';
+	}
+
+	/**
+	 * Returns true if site is using block theme.
+	 *
+	 * @since  2.4.10
+	 *
+	 * @return boolean
+	 */
+	public static function wc_current_theme_is_fse_theme() {
+		return function_exists( 'wc_current_theme_is_fse_theme' ) ? wc_current_theme_is_fse_theme() : false;
+	}
+
+	/**
+	*
+	* Gets value of a meta key from WC_Data object if passed, otherwise from the post object.
+	* This helper function support backward compatibility for meta box functions, when moving from posts based store to custom tables.
+	*
+	* @param WP_Post|null  $post Post object, meta will be fetched from this only when `$data` is not passed.
+	* @param \WC_Data|null $data WC_Data object, will be preferred over post object when passed.
+	* @param string        $key Key to fetch metadata for.
+	* @param bool          $single Whether metadata is single.
+	*
+	* @since 2.4.10
+	*
+	* @return array|mixed|string Value of the meta key.
+	*/
+	public static function get_post_or_object_meta( ?WP_Post $post, ?\WC_Data $data, string $key, bool $single ) {
+		if ( class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) ) {
+			return Automattic\WooCommerce\Utilities\OrderUtil::get_post_or_object_meta( $post, $data, $key, $single );
+		} elseif ( isset( $data ) ) {
+			if ( method_exists( $data, "get$key" ) ) {
+				return $data->{"get$key"}();
+			}
+			return $data->get_meta( $key, $single );
+		} else {
+			return isset( $post->ID ) ? get_post_meta( $post->ID, $key, $single ) : false;
+		}
 	}
 
 	/*

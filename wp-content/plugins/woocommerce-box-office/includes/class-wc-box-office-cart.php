@@ -53,7 +53,7 @@ class WC_Box_Office_Cart {
 			//
 			// See https://github.com/woocommerce/woocommerce-box-office/pull/177#issuecomment-281755382.
 			$posted_fields = ( ! empty( $_POST['ticket_fields'] ) && is_product() )
-				? $_POST['ticket_fields']
+				? wc_clean( wp_unslash( $_POST['ticket_fields'] ) )
 				: null;
 
 			// Prepare form.

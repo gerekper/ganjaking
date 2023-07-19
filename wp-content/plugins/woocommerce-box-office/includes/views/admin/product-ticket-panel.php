@@ -43,7 +43,7 @@
 									ob_start();
 									include( WCBO()->dir . 'includes/views/admin/ticket-field.php' );
 									echo esc_attr( ob_get_clean() );
-								?>"><?php _e( 'Add Field', 'woocommerce-box-office' ); ?></a>
+								?>"><?php esc_html_e( 'Add Field', 'woocommerce-box-office' ); ?></a>
 							</th>
 						</tr>
 					</tfoot>
@@ -138,7 +138,7 @@
 			?>
 		</div>
 		<div class="options_group show_if_ticket">
-			<p class="ticket_email"><?php _e( 'This is the content that will make up each email.', 'woocommerce-box-office' ); ?>
+			<p class="ticket_email"><?php esc_html_e( 'This is the content that will make up each email.', 'woocommerce-box-office' ); ?>
 			</p>
 			<p class="ticket-label-variables-info">
 				<?php esc_html_e( 'Add ticket fields to the content by using following labels: ', 'woocommerce-box-office' ); ?>

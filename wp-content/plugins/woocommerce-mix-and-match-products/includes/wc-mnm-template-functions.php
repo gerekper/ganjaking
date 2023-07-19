@@ -6,7 +6,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Functions
  * @since    1.0.0
- * @version  2.4.6
+ * @version  2.4.10
  */
 
 // Exit if accessed directly.
@@ -17,6 +17,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 /*--------------------------------------------------------*/
 /*  Mix and Match single product template functions     */
 /*--------------------------------------------------------*/
+
+/**
+ * Checks whether this product is rendered using a legacy template; an indication that a classic theme is in use.
+ * Although a legacy PHP template might be in use with a block theme (via the "Legacy PHP Product Block", the extension does not account for this scenario when gating template features.
+ *
+ * @since  2.4.10
+ *
+ * @param  WC_Product  $product
+ * @return boolean
+ */
+function wc_mnm_has_legacy_product_template( $product ) {
+	$is_block_theme = WC_MNM_Core_Compatibility::wc_current_theme_is_fse_theme();
+	return (bool) apply_filters( 'wc_mnm_has_legacy_product_template', $is_block_theme === false, $product );
+}
+
 
 
 /**

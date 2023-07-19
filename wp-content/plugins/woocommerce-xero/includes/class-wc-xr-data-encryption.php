@@ -14,14 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class WC_XR_Data_Encryption.
  *
- * @since x.x.x
+ * @since 1.7.51
  */
 class WC_XR_Data_Encryption {
 
 	/**
 	 * Encryption Key.
 	 *
-	 * @since x.x.x
+	 * @since 1.7.51
 	 * @var string
 	 */
 	private $key;
@@ -29,7 +29,7 @@ class WC_XR_Data_Encryption {
 	/**
 	 * Encryption Salt.
 	 *
-	 * @since x.x.x
+	 * @since 1.7.51
 	 * @var string
 	 */
 	private $salt;
@@ -37,7 +37,7 @@ class WC_XR_Data_Encryption {
 	/**
 	 * Class constructor.
 	 *
-	 * @since x.x.x
+	 * @since 1.7.51
 	 */
 	public function __construct() {
 		$this->key  = $this->get_default_key();
@@ -47,7 +47,7 @@ class WC_XR_Data_Encryption {
 	/**
 	 * Get the Logged-in key for encryption.
 	 *
-	 * @since x.x.x
+	 * @since 1.7.51
 	 */
 	private function get_default_key(): string {
 		if ( '' !== wp_salt( 'logged_in' ) ) {
@@ -61,7 +61,7 @@ class WC_XR_Data_Encryption {
 	/**
 	 * Get the SALT key for encryption.
 	 *
-	 * @since x.x.x
+	 * @since 1.7.51
 	 */
 	private function get_default_salt(): string {
 		if ( defined( 'LOGGED_IN_SALT' ) && '' !== LOGGED_IN_SALT ) {
@@ -77,7 +77,7 @@ class WC_XR_Data_Encryption {
 	 *
 	 * @param string $value Value to encryption.
 	 *
-	 * @since x.x.x
+	 * @since 1.7.51
 	 */
 	public function encrypt( string $value ): string {
 		if ( ! extension_loaded( 'openssl' ) ) {
@@ -100,7 +100,7 @@ class WC_XR_Data_Encryption {
 	 * The decryption method.
 	 *
 	 * @param string $raw_value Encrypted value for decryption.
-	 * @since x.x.x
+	 * @since 1.7.51
 	 */
 	public function decrypt( string $raw_value ): string {
 		if ( ! extension_loaded( 'openssl' ) ) {

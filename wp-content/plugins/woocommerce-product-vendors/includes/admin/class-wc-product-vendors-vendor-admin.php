@@ -1390,8 +1390,7 @@ class WC_Product_Vendors_Vendor_Admin {
 				// merge the changes with existing settings
 				$posted_vendor_data = array_merge( $vendor_data, $posted_vendor_data );
 
-				if ( update_term_meta( WC_Product_Vendors_Utils::get_logged_in_vendor(), 'vendor_data', $posted_vendor_data ) ) {
-
+				if ( WC_Product_Vendors_Utils::set_vendor_data( WC_Product_Vendors_Utils::get_logged_in_vendor(), $posted_vendor_data ) ) {
 					// grab the newly saved settings
 					$vendor_data = WC_Product_Vendors_Utils::get_vendor_data_from_user();
 				}

@@ -40,7 +40,7 @@ class WC_AF_Rule_Billing_Method extends WC_AF_Rule {
 			if (get_option('wc_settings_anti_fraud_whitelist_payment_method') && null != get_option('wc_settings_anti_fraud_whitelist_payment_method')) {
 
 				$whitelist_payment_method = get_option('wc_settings_anti_fraud_whitelist_payment_method');
-				$payment_method = get_post_meta( $order_id, '_payment_method', true );
+				$payment_method = opmc_hpos_get_post_meta( $order_id, '_payment_method', true );
 
 				if ( !in_array( $payment_method, $whitelist_payment_method ) ) {
 					$risk = true;
@@ -52,7 +52,7 @@ class WC_AF_Rule_Billing_Method extends WC_AF_Rule {
 			if (get_option('wc_settings_anti_fraud_bypass_payment_method') && null != get_option('wc_settings_anti_fraud_bypass_payment_method')) {
 
 				$bypass_payment_method = get_option('wc_settings_anti_fraud_bypass_payment_method');
-				$payment_method_bypass = get_post_meta( $order_id, '_payment_method', true );
+				$payment_method_bypass = opmc_hpos_get_post_meta( $order_id, '_payment_method', true );
 				$bypass_payment_method = explode( ',', $bypass_payment_method );
 
 				if ( !in_array( $payment_method_bypass, $bypass_payment_method ) ) {

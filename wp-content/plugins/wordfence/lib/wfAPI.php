@@ -37,9 +37,7 @@ class wfAPI {
 		}
 
 		$dat = json_decode($json, true);
-		$dat['_isPaidKey']=true;
-		$dat['_keyExpDays']=365;
-		$dat['_nextRenewAttempt']=365;
+
 		if (!is_array($dat)) {
 			throw new wfAPICallInvalidResponseException(sprintf(/* translators: API call/action/endpoint. */ __("We received a data structure that is not the expected array when contacting the Wordfence scanning servers and calling the '%s' function.", 'wordfence'), $action));
 		}
@@ -47,7 +45,7 @@ class wfAPI {
 		//Only process key data for responses that include it
 		if (array_key_exists('_isPaidKey', $dat))
 			$this->processKeyData($dat);
-
+		
 		if (isset($dat['_touppChanged'])) {
 			wfConfig::set('touppPromptNeeded', wfUtils::truthyToBoolean($dat['_touppChanged']));
 		}
@@ -72,9 +70,9 @@ class wfAPI {
 			wfConfig::setOrRemove('premiumPaymentExpiring', isset($dat['_paymentExpiring']) ? wfUtils::truthyToInt($dat['_paymentExpiring']) : null);
 			wfConfig::setOrRemove('premiumPaymentExpired', isset($dat['_paymentExpired']) ? wfUtils::truthyToInt($dat['_paymentExpired']) : null);
 			wfConfig::setOrRemove('premiumPaymentMissing', isset($dat['_paymentMissing']) ? wfUtils::truthyToInt($dat['_paymentMissing']) : null);
-			wfConfig::setOrRemove('premiumPaymentHold', isset($dat['_paymentHold']) ? wfUtils::truthyToInt($dat['_paymentHold']) : null);
+			wfConfig::setOrRemove('premiumPaymentHold', isset($dat['_paymentHold']) ? wfUtils::truthyToInt($dat['_paymentHold']) : null);	
 		}
-
+		
 		$hasKeyConflict = false;
 		if (isset($dat['_hasKeyConflict'])) {
 			$hasKeyConflict = ($dat['_hasKeyConflict'] == 1);
@@ -83,9 +81,9 @@ class wfAPI {
 				$license->setConflicting();
 			}
 		}
-
+		
 		$license->setDeleted(isset($dat['_keyNoLongerValid']) && $dat['_keyNoLongerValid'] == 1);
-
+		
 		if (!$hasKeyConflict) {
 			$license->setConflicting(false);
 			$n = wfNotification::getNotificationForCategory('wfplugin_keyconflict');
@@ -132,7 +130,7 @@ class wfAPI {
 
 			throw new wfAPICallFailedException($apiExceptionMessage);
 		}
-
+		
 		$dateHeader = @$response['headers']['date'];
 		if (!empty($dateHeader) && (time() - wfConfig::get('timeoffset_wf_updated', 0) > 3600)) {
 			if (function_exists('date_create_from_format')) {
@@ -183,7 +181,7 @@ class wfAPI {
 			$cv = $curl['version'];
 			$cs = $curl['ssl_version'];
 		}
-
+		
 		$values = array(
 			'wp' => $wordpressVersion,
 			'wf' => WORDFENCE_VERSION,
@@ -227,7 +225,7 @@ class wfAPI {
 		}
 		return wp_http_supports(array('ssl'));
 	}
-
+	
 	public function getTextImageURL($text) {
 		$apiURL = $this->getAPIURL();
 		return rtrim($apiURL, '/') . '/v' . WORDFENCE_API_VERSION . '/?' . $this->makeAPIQueryString() . '&' . self::buildQuery(array('action' => 'image', 'txt' => base64_encode($text)));

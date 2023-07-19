@@ -168,6 +168,10 @@ class WC_Product_Vendors_Store_Admin {
 		// saves the vendor to the product.
 		add_action( 'save_post', array( self::$self, 'save_product_vendor' ) );
 
+
+		// output a notice to migrate to new admin storage.
+		add_action( 'admin_notices', array( self::$self, 'migrate_admin_storage_notice' ) );
+
 		return true;
 	}
 
@@ -409,7 +413,7 @@ class WC_Product_Vendors_Store_Admin {
 		wp_enqueue_script( 'wc-enhanced-select' );
 		wp_enqueue_script( 'jquery-tiptip' );
 
-		$vendor_data = get_term_meta( $term->term_id, 'vendor_data', true );
+		$vendor_data = WC_Product_Vendors_Utils::get_vendor_data_by_id( $term->term_id );
 
 		$description          = ! empty( $vendor_data['description'] ) ? $vendor_data['description'] : '';
 		$notes                = ! empty( $vendor_data['notes'] ) ? $vendor_data['notes'] : '';
@@ -433,19 +437,11 @@ class WC_Product_Vendors_Store_Admin {
 			$tzstring = WC_Product_Vendors_Utils::get_default_timezone_string();
 		}
 
-		if ( ! empty( $admins ) ) {
-			if ( is_array( $vendor_data['admins'] ) ) {
-				$admin_ids = array_map( 'absint', $vendor_data['admins'] );
-			} else {
-				$admin_ids = array_filter( array_map( 'absint', explode( ',', $vendor_data['admins'] ) ) );
-			}
+		foreach ( $admins as $admin_id ) {	
+			$admin = get_user_by( 'id', $admin_id );
 
-			foreach ( $admin_ids as $admin_id ) {
-				$admin = get_user_by( 'id', $admin_id );
-
-				if ( is_object( $admin ) ) {
-					$selected_admins[ $admin_id ] = esc_html( $admin->display_name ) . ' (#' . absint( $admin->ID ) . ') &ndash; ' . esc_html( $admin->user_email );
-				}
+			if ( is_object( $admin ) ) {
+				$selected_admins[ $admin_id ] = esc_html( $admin->display_name ) . ' (#' . absint( $admin->ID ) . ') &ndash; ' . esc_html( $admin->user_email );
 			}
 		}
 
@@ -528,7 +524,7 @@ class WC_Product_Vendors_Store_Admin {
 				$sanitized_vendor_data['admins'] = array();
 			}
 
-			update_term_meta( $term_id, 'vendor_data', $sanitized_vendor_data );
+			WC_Product_Vendors_Utils::set_vendor_data( $term_id, $sanitized_vendor_data );
 		}
 
 		WC_Product_Vendors_Utils::clear_vendor_error_list_transient();
@@ -602,8 +598,8 @@ class WC_Product_Vendors_Store_Admin {
 
 			// check all vendors to ensure they have an email associated
 			foreach ( $vendors as $vendor ) {
-				$vendor_data = get_term_meta( $vendor->term_id, 'vendor_data', true );
-
+				$vendor_data = WC_Product_Vendors_Utils::get_vendor_data_by_id( $vendor->term_id );
+				
 				if ( empty( $vendor_data['email'] ) ) {
 					$errors[] = sprintf( '<a href="%1$s">%2$s</a>', get_edit_term_link( $vendor->term_id ), $vendor->name );
 				}
@@ -678,7 +674,7 @@ class WC_Product_Vendors_Store_Admin {
 	 * @return string $value
 	 */
 	public function render_vendor_columns( $value, $column_name, $term_id ) {
-		$vendor_data = get_term_meta( $term_id, 'vendor_data', true );
+		$vendor_data = WC_Product_Vendors_Utils::get_vendor_data_by_id( $term_id );
 
 		if ( 'vendor_id' === $column_name ) {
 			$value .= esc_html( $term_id );
@@ -2039,6 +2035,29 @@ class WC_Product_Vendors_Store_Admin {
 		WC_Product_Vendors_Utils::clear_reports_transients();
 
 		return true;
+	}
+
+	/**
+	 * Maybe show a migrate admin storage notice.
+	 */
+	public function migrate_admin_storage_notice() {
+		// only show to admin users
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+		
+		if ( WC_Product_Vendors_Utils::is_vendor_admin_meta_storage_enabled() ) {
+			return;
+		}
+
+		$admin_storage = new WC_Product_Vendors_Admin_Storage_Compatibility();
+		$migration_started = $admin_storage->is_migration_scheduled();
+
+		if ( isset( $_POST['wcpv_migrate_admin_storage_migrate'] ) && ! $migration_started ) {
+			$migration_started = $admin_storage->schedule_migration();
+		}
+		
+		include_once( 'views/html-migrate-admin-storage-notice.php' );
 	}
 }
 

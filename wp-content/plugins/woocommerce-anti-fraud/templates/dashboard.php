@@ -7,6 +7,16 @@
  * @package WordPress
  */
 
+ // Code for HPOS. Build Generic code fix and test it.
+ add_action(
+	'before_woocommerce_init',
+	function() {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
+	}
+);
+
 $afp_args = array(
 	'limit' => -1,
 	'return' => 'ids',
@@ -20,8 +30,8 @@ $afp_args = array(
 	$number_of_high_risk_orders = 0;
 foreach ($afp_orders as $order_id) {
 	$number_of_orders++;
-	$wc_af_score = intval(get_post_meta($order_id, 'wc_af_score', true));
-	$total_transaction_amt += round(get_post_meta($order_id, '_order_total', true), 2);
+	$wc_af_score = intval(opmc_hpos_get_post_meta($order_id, 'wc_af_score', true));
+	$total_transaction_amt += round(opmc_hpos_get_post_meta($order_id, '_order_total', true), 2);
 	$meta = WC_AF_Score_Helper::get_score_meta($wc_af_score);
 	if ('Low Risk' == $meta['label']) {
 		$number_of_low_risk_orders++;
@@ -63,11 +73,11 @@ foreach ($afp_orders as $order_id) {
 	$block_emails = array();
 	foreach ($result as $found_order) {
 		$total_orders++;
-		$email = get_post_meta($found_order->ID, '_billing_email', true);
-		$total_transaction_amt24 += get_post_meta($found_order->ID, '_order_total', true);
-		$order_currency = get_post_meta($found_order->ID, '_order_currency', true);
-		$wc_af_score = intval(get_post_meta($found_order->ID, 'wc_af_score', true));
-		$paypal_status = get_post_meta($found_order->ID, '_paypal_status', true);
+		$email = opmc_hpos_get_post_meta($found_order->ID, '_billing_email', true);
+		$total_transaction_amt24 += opmc_hpos_get_post_meta($found_order->ID, '_order_total', true);
+		$order_currency = opmc_hpos_get_post_meta($found_order->ID, '_order_currency', true);
+		$wc_af_score = intval(opmc_hpos_get_post_meta($found_order->ID, 'wc_af_score', true));
+		$paypal_status = opmc_hpos_get_post_meta($found_order->ID, '_paypal_status', true);
 		$meta = WC_AF_Score_Helper::get_score_meta($wc_af_score);
 		if ('Low Risk' == $meta['label']) {
 			$number_of_low_risk_orders24++;
@@ -82,14 +92,14 @@ foreach ($afp_orders as $order_id) {
 			$number_of_high_risk_orders_cancelled24++;
 		}
 		if ('High Risk' == $meta['label']) {
-			$high_risk_transaction_amt24 += get_post_meta($found_order->ID, '_order_total', true);
+			$high_risk_transaction_amt24 += opmc_hpos_get_post_meta($found_order->ID, '_order_total', true);
 			$number_of_high_risk_orders24++;
 		}
 		if (in_array($email, $wc_settings_anti_fraudblacklist_emails)) {
 			$block_emails[] = $email;
 		}
 		if (0 == $wc_af_score && 'wc-cancelled' == $found_order->post_status) {
-			$high_risk_transaction_amt24 += get_post_meta($found_order->ID, '_order_total', true);
+			$high_risk_transaction_amt24 += opmc_hpos_get_post_meta($found_order->ID, '_order_total', true);
 			$number_of_high_risk_orders_cancelled24++;
 		}
 		if ('pending' == $paypal_status) {
@@ -122,7 +132,7 @@ foreach ($afp_orders as $order_id) {
 
 		foreach ($last7_days as $day) {
 			if ($day == $order_date) {
-				$wc_af_score = intval(get_post_meta($found_order->ID, 'wc_af_score', true));
+				$wc_af_score = intval(opmc_hpos_get_post_meta($found_order->ID, 'wc_af_score', true));
 				$meta = WC_AF_Score_Helper::get_score_meta($wc_af_score);
 				if ('Low Risk' == $meta['label']) {
 					$low_score_arr[] = $order_date;
@@ -362,13 +372,13 @@ $result = $wpdb->get_results(
 );
 if (! empty($result)) {
 	foreach ($result as $recent_order) {
-		$billing_first_name = get_post_meta($recent_order->ID, '_billing_first_name', true);
-		$billing_last_name = get_post_meta($recent_order->ID, '_billing_last_name', true);
-		$order_total = get_post_meta($recent_order->ID, '_order_total', true);
-		$order_currency = get_post_meta($recent_order->ID, '_order_currency', true);
-		$order_status = $recent_order->post_status;
+		$billing_first_name = opmc_hpos_get_post_meta($recent_order->ID, '_billing_first_name', true);
+		$billing_last_name  = opmc_hpos_get_post_meta($recent_order->ID, '_billing_last_name', true);
+		$order_total        = opmc_hpos_get_post_meta($recent_order->ID, '_order_total', true);
+		$order_currency     = opmc_hpos_get_post_meta($recent_order->ID, '_order_currency', true);
+		$order_status       = $recent_order->post_status;
 
-		$wc_af_score = intval(get_post_meta($recent_order->ID, 'wc_af_score', true));
+		$wc_af_score = intval(opmc_hpos_get_post_meta($recent_order->ID, 'wc_af_score', true));
 		$meta = WC_AF_Score_Helper::get_score_meta($wc_af_score);
 		$risk_score_class = '';
 		if ('Low Risk' == $meta['label']) {

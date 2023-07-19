@@ -67,10 +67,10 @@ class Order_Event_Data_Adapter extends Event_Data_Adapter {
 			'currency'       => $this->order->get_currency(),
 			'transaction_id' => $this->order instanceof WC_Order ? $this->order->get_order_number() : $this->order->get_id(), // refunds do not have a number
 			// unfortunately order has no method for getting the total without shipping and tax
-			'value'          => NumberUtil::round( $this->order->get_total() - $this->order->get_shipping_total() - $this->order->get_total_tax(), wc_get_price_decimals() ),
+			'value'          => abs( NumberUtil::round( $this->order->get_total() - $this->order->get_shipping_total() - $this->order->get_total_tax(), wc_get_price_decimals() ) ),
 			'coupon'         => implode( ',', $this->order->get_coupon_codes() ),
-			'shipping'       => NumberUtil::round( $this->order->get_shipping_total(), wc_get_price_decimals() ),
-			'tax'            => NumberUtil::round( $this->order->get_total_tax(), wc_get_price_decimals() ),
+			'shipping'       => abs( NumberUtil::round( $this->order->get_shipping_total(), wc_get_price_decimals() ) ),
+			'tax'            => abs( NumberUtil::round( $this->order->get_total_tax(), wc_get_price_decimals() ) ),
 			'items'          => array_values( array_map(
 				function ($item) {
 					return ( new Order_Item_Event_Data_Adapter( $this->order, $item ) )->convert_from_source();

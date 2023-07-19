@@ -59,7 +59,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<ul class="chart-legend">
 							<?php foreach ( $legends as $legend ) : ?>
 								<li style="border-color: <?php echo esc_attr( $legend['color'] ); ?>" <?php if ( isset( $legend['highlight_series'] ) ) echo 'class="highlight_series ' . ( isset( $legend['placeholder'] ) ? 'tips' : '' ) . '" data-series="' . esc_attr( $legend['highlight_series'] ) . '"'; ?> data-tip="<?php echo isset( $legend['placeholder'] ) ? wc_sanitize_tooltip( $legend['placeholder'] ) : ''; ?>">
-									<?php echo esc_html( $legend['title'] ); ?>
+									<?php echo $legend['title']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 								</li>
 							<?php endforeach; ?>
 						</ul>

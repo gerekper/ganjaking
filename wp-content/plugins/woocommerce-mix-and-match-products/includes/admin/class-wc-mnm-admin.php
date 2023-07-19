@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Admin
  * @since    1.0.0
- * @version  2.4.0
+ * @version  2.4.10
  */
 
 // Exit if accessed directly.
@@ -149,7 +149,7 @@ class WC_Mix_and_Match_Admin {
 			wp_enqueue_style( 'wc-mnm-admin-product-panel' );
 			wp_enqueue_script( 'wc-mnm-admin-product-panel' );
 
-		} elseif ( isset( $_GET[ 'action' ] ) && 'edit' === $_GET[ 'action' ] && in_array( $screen_id, array( 'shop_order', 'shop_subscription', 'woocommerce_page_wc-orders' ) ) ) {
+		} elseif ( in_array( $screen_id, array( 'shop_order', 'shop_subscription', 'woocommerce_page_wc-orders' ) ) ) {
 
 			if ( WC_MNM_Core_Compatibility::is_wc_version_gte( '3.6' ) ) {
 

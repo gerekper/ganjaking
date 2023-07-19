@@ -117,6 +117,23 @@ class Measurement_Protocol_API extends Framework\SV_WC_API_Base {
 
 
 	/**
+	 * Gets the request user agent.
+	 *
+	 * Checks for the presence of a browser to send to Google Analytics.
+	 *
+	 * @see Framework\SV_WC_API_Base::get_request_user_agent() for the default
+	 *
+	 * @since 2.0.6
+	 *
+	 * @return string
+	 */
+	protected function get_request_user_agent(): string {
+
+		return wc_get_user_agent() ?: parent::get_request_user_agent();
+	}
+
+
+	/**
 	 * Gets the plugin instance.
 	 *
 	 * @see Framework\SV_WC_API_Base::get_plugin()

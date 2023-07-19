@@ -4,8 +4,8 @@
 	<table class="widefat">
 		<thead>
 			<tr>
-				<th><?php _e( 'Date', 'woocommerce-box-office' ); ?></th>
-				<th><?php _e( 'Log Message', 'woocommerce-box-office' ); ?></th>
+				<th><?php esc_html_e( 'Date', 'woocommerce-box-office' ); ?></th>
+				<th><?php esc_html_e( 'Log Message', 'woocommerce-box-office' ); ?></th>
 		</thead>
 		<tbody>
 			<?php foreach ( $logs as $log ) : ?>

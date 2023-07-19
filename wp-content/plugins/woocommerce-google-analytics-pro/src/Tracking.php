@@ -257,4 +257,22 @@ class Tracking {
 	}
 
 
+	/**
+	 * Gets event params for debug mode.
+	 *
+	 * Only returns the debug mode property if debug mode is enabled. Note that setting `{ debug_mode: false }` does not
+	 * disable debug mode - the property must not exist.
+	 *
+	 * @link https://support.google.com/analytics/answer/7201382?hl=en
+	 *
+	 * @since 2.0.9
+	 *
+	 * @return array { debug_mode: true } if debug mode is enabled, otherwise an empty array
+	 */
+	public static function get_debug_mode_params(): array {
+
+		return wc_google_analytics_pro()->get_integration()->debug_mode_on() ? [ 'debug_mode' => true ] : [];
+	}
+
+
 }

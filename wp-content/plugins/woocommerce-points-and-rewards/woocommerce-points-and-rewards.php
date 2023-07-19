@@ -5,11 +5,11 @@
  * Description: Reward customers for purchases and other actions with points which can be redeemed for discounts
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
- * Version: 1.7.35
+ * Version: 1.7.38
  * Text Domain: woocommerce-points-and-rewards
  * Domain Path: /languages/
  * Tested up to: 6.2
- * WC tested up to: 7.8
+ * WC tested up to: 7.9
  * WC requires at least: 4.5
  *
  * Copyright: © 2023 WooCommerce
@@ -155,7 +155,7 @@ register_activation_hook( __FILE__, 'wc_points_rewards_activate' );
  */
 
 if ( ! class_exists( 'WC_Points_Rewards' ) ) :
-	define( 'WC_POINTS_REWARDS_VERSION', '1.7.35' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_POINTS_REWARDS_VERSION', '1.7.38' ); // WRCS: DEFINED_VERSION.
 	define( 'WC_POINTS_REWARDS_ENDPOINT', 'points-and-rewards' );
 
 	class WC_Points_Rewards {
@@ -273,7 +273,7 @@ if ( ! class_exists( 'WC_Points_Rewards' ) ) :
 			// Add warning for private properties.
 			if ( in_array( $key, array( 'product', 'cart', 'order', 'discount' ), true ) ) {
 				/* translators: %s property name. */
-				_doing_it_wrong( __FUNCTION__, sprintf( esc_html__( 'The %s property is private and should not be accessed outside its class.', 'woocommerce-points-and-rewards' ), esc_html( $key ) ), 'x.x.x' );
+				_doing_it_wrong( __FUNCTION__, sprintf( esc_html__( 'The %s property is private and should not be accessed outside its class.', 'woocommerce-points-and-rewards' ), esc_html( $key ) ), '1.7.36' );
 				return $this->$key;
 			}
 
@@ -803,3 +803,14 @@ if ( ! class_exists( 'WC_Points_Rewards' ) ) :
 endif;
 
 WC_Points_Rewards::init();
+
+if ( ! function_exists( 'wc_points_rewards' ) ) :
+	/**
+	 * The main plugin function to get the main plugin instance.
+	 *
+	 * @return WC_Points_Rewards
+	 */
+	function wc_points_rewards() {
+		return WC_Points_Rewards::instance();
+	}
+endif;

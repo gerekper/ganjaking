@@ -156,30 +156,24 @@ class Product_Helper {
 	 * @since 2.0.0
 	 *
 	 * @param \WC_Product|int $product the product object or ID
+	 * @param array $variation_attributes the variation attributes, if known
 	 * @return string comma-separated list of variation attributes
 	 */
-	public static function get_product_variation_attributes( $product ): string {
+	public static function get_product_variation_attributes( $product, array $variation_attributes = [] ): string {
 
-		if ( ! $product instanceof \WC_Product ) {
-			$product = wc_get_product( $product );
+		if ( empty( $variation_attributes ) && $product = wc_get_product( $product ) ) {
+
+			if ( $product->is_type( 'variation' ) ) {
+
+				$variation_attributes = $product->get_variation_attributes();
+
+			} elseif ( $product->is_type( 'variable' ) ) {
+
+				$variation_attributes = $product->get_default_attributes();
+			}
 		}
 
-		if ( ! $product ) {
-			return '';
-		}
-
-		$variant = '';
-
-		if ( $product->is_type( 'variation' ) ) {
-
-			$variant = implode( ',', array_values( $product->get_variation_attributes() ) );
-
-		} elseif ( $product->is_type( 'variable' ) ) {
-
-			$variant = implode( ', ', array_values( $product->get_default_attributes() ) );
-		}
-
-		return $variant;
+		return implode( ', ', array_filter( array_values( $variation_attributes ) ) );
 	}
 
 

@@ -7,6 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 	class WC_AF_Score_Helper {
+
 		/**
 		 * Get score meta
 		 * 
@@ -33,7 +34,7 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 
 			$low_threshold = get_option('wc_settings_anti_fraud_low_risk_threshold');
 			$score_points = self::invert_score($score_points);
-			$whitelist_action = get_post_meta( $order_id, 'whitelist_action', true );
+			$whitelist_action = opmc_hpos_get_post_meta( $order_id, 'whitelist_action', true );
 			if ( $score_points <= $high_threshold && $score_points >= $low_threshold ) {
 				
 				$meta['label'] = __( 'Medium Risk', 'woocommerce-anti-fraud' );				
@@ -79,7 +80,7 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 		 */
 		public function schedule_fraud_check( $order_id, $checknow = false ) {
 			// Try to get the Anti Fraud score
-			$score = get_post_meta( $order_id, 'wc_af_score', true );
+			$score = opmc_hpos_get_post_meta( $order_id, 'wc_af_score', true );
 
 			// Check if the order is already checked
 			if ( '' != $score ) {
@@ -88,7 +89,7 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 
 			// Get the order
 			$order = wc_get_order( $order_id );
-			update_post_meta( $order_id, '_wc_af_waiting', true );
+			opmc_hpos_update_post_meta( $order_id, '_wc_af_waiting', true );
 
 			if ( $checknow ) {
 							
@@ -106,14 +107,14 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 		 */
 		public function cancel_schedule_fraud_check( $order_id) {
 			// Try to get the Anti Fraud score
-			$score = get_post_meta($order_id, 'wc_af_score', true);
+			$score = opmc_hpos_get_post_meta($order_id, 'wc_af_score', true);
 
 			if ($this->is_fraud_check_queued($order_id)) {
 				wp_clear_scheduled_hook('wc-af-check', array('order_id' => $order_id));
 				
 				// Get the order
 				$order = wc_get_order($order_id);
-				update_post_meta($order_id, '_wc_af_waiting', false);
+				opmc_hpos_update_post_meta($order_id, '_wc_af_waiting', false);
 			}
 			
 		}
@@ -127,7 +128,7 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 		 */
 		public static function is_fraud_check_queued( $order_id ) {
 
-			$waiting = get_post_meta( $order_id, '_wc_af_waiting', true );
+			$waiting = opmc_hpos_get_post_meta( $order_id, '_wc_af_waiting', true );
 			return ( ! empty( $waiting ) );
 
 		}
@@ -141,7 +142,7 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 		 */
 		public static function is_fraud_check_complete( $order_id ) {
 
-			$score = get_post_meta( $order_id, 'wc_af_score', true );
+			$score = opmc_hpos_get_post_meta( $order_id, 'wc_af_score', true );
 			return ( ! empty( $score ) );
 
 		}
@@ -179,8 +180,8 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 
 			if ($this->whitelistedEmail($order_email) || isset($wildcard) && 'true' == $wildcard) {
 				Af_Logger::debug('Fraud Check exited.');
-				update_post_meta($order_id, 'wc_af_score', 100);
-				update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
+				opmc_hpos_update_post_meta($order_id, 'wc_af_score', 100);
+				opmc_hpos_update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
 				$order->add_order_note(__('Order fraud checks skipped due to whitelisted email.', 'woocommerce-anti-fraud'));
 				return;
 			}
@@ -192,8 +193,8 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 			if (isset($is_whitelisted_roles) && 'true' == $is_whitelisted_roles ) {
 
 				Af_Logger::debug('Fraud Check exited.');
-				update_post_meta($order_id, 'wc_af_score', 100);
-				update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
+				opmc_hpos_update_post_meta($order_id, 'wc_af_score', 100);
+				opmc_hpos_update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
 				$order->add_order_note(__('Order fraud checks skipped due to whitelisted user role.', 'woocommerce-anti-fraud'));
 				return;
 
@@ -202,8 +203,8 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 			if (isset($payment_methods_whitelist) && 'true' == $payment_methods_whitelist ) {
 
 				Af_Logger::debug('Fraud Check exited.');
-				update_post_meta($order_id, 'wc_af_score', 100);
-				update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
+				opmc_hpos_update_post_meta($order_id, 'wc_af_score', 100);
+				opmc_hpos_update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
 				$order->add_order_note(__('Order fraud checks skipped due to whitelisted payment method.', 'woocommerce-anti-fraud'));
 				return;
 			}
@@ -211,8 +212,8 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 			if (isset($not_whitelisted_email) && true == $not_whitelisted_email ) {
 
 				Af_Logger::debug('Fraud Check exited.');
-				update_post_meta($order_id, 'wc_af_score', 100);
-				update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
+				opmc_hpos_update_post_meta($order_id, 'wc_af_score', 100);
+				opmc_hpos_update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
 				$order->add_order_note(__('Order fraud checks skipped due to whitelisted email.', 'woocommerce-anti-fraud'));
 				return;
 			}
@@ -226,7 +227,7 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 			// The score points
 			$score_points = $score->get_score();
 			// Save score to order
-			update_post_meta( $order_id, 'wc_af_score', $score_points );
+			opmc_hpos_update_post_meta( $order_id, 'wc_af_score', $score_points );
 
 			// Rules in JSON
 			$json_rules = array();
@@ -237,10 +238,10 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 			}
 
 			// Save the failed rules as JSON
-			update_post_meta( $order_id, 'wc_af_failed_rules', $json_rules );
+			opmc_hpos_update_post_meta( $order_id, 'wc_af_failed_rules', $json_rules );
 
 			// Clear the pending flag from meta
-			delete_post_meta( $order_id, '_wc_af_waiting' );
+			opmc_hpos_delete_post_meta( $order_id, '_wc_af_waiting', '' );
 
 			// Get the order
 			$order = wc_get_order( $order_id );
@@ -286,18 +287,18 @@ $loop->the_post();
 				foreach ( $results as $note ) {
 					if ( (strpos($note->comment_content, 'declined') !== false) || (strpos($note->comment_content, 'authentication failed') !== false)) {
 						Af_Logger::debug('Note '.$ic .' '. $note->comment_content);
-						$_card_decline_times = get_post_meta( $order_id, '_card_decline_times', true );
+						$_card_decline_times = opmc_hpos_get_post_meta( $order_id, '_card_decline_times', true );
 						if( isset( $_card_decline_times ) && !empty( $_card_decline_times ) ) {
 							$_card_decline_times = $_card_decline_times + 1;
-							update_post_meta( $order_id, '_card_decline_times', $_card_decline_times );
+							opmc_hpos_update_post_meta( $order_id, '_card_decline_times', $_card_decline_times );
 						} else {
-							update_post_meta( $order_id, '_card_decline_times', 1 );
+							opmc_hpos_update_post_meta( $order_id, '_card_decline_times', 1 );
 						}
 						break;
 					} $ic++;
 				}
 			}
-			$_card_decline_times = get_post_meta( $order_id, '_card_decline_times', true );
+			$_card_decline_times = opmc_hpos_get_post_meta( $order_id, '_card_decline_times', true );
 			Af_Logger::debug('Card declined '.$_card_decline_times.' time');*/
 			$is_enable_blacklist = get_option('wc_settings_anti_fraudenable_automatic_email_blacklist');
 			$is_enable_ip_blacklist = get_option('wc_settings_anti_fraudenable_automatic_ip_blacklist');
@@ -352,16 +353,16 @@ $loop->the_post();
 			$new_status = null;
 
 			//check payment method
-			/*$payment_method = get_post_meta( $order_id, '_payment_method', true );
+			/*$payment_method = opmc_hpos_get_post_meta( $order_id, '_payment_method', true );
 			
-			if('paypal' == $payment_method || 'ppec_paypal' == $payment_method && null == get_post_meta($order_id,'wc_af_paypal_email_status')) {
+			if('paypal' == $payment_method || 'ppec_paypal' == $payment_method && null == opmc_hpos_get_post_meta($order_id,'wc_af_paypal_email_status')) {
 				
 				$paypal_verification = $this->paypal_email_verification($order,10);
 			}*/
 
 			// If a payment for this order has already completed, use the payment requested
 			// status as the default
-			$payment_requested_status = get_post_meta( $order_id, '_wc_af_post_payment_status', true );
+			$payment_requested_status = opmc_hpos_get_post_meta( $order_id, '_wc_af_post_payment_status', true );
 			if ( ! empty( $payment_requested_status ) ) {
 				$new_status = $payment_requested_status;
 			}
@@ -386,8 +387,8 @@ $loop->the_post();
 				$cancel_score = 0 >= intval( $cancel_score ) ? 0 : self::invert_score( $cancel_score );
 				$hold_score   = 0 >= intval( $hold_score ) ? 0 : self::invert_score( $hold_score );
 
-				//update_post_meta( $order_id, 'wc_af_score', 100 );
-				//update_post_meta( $order_id, 'wc_af_failed_rules', '' );
+				//opmc_hpos_update_post_meta( $order_id, 'wc_af_score', 100 );
+				//opmc_hpos_update_post_meta( $order_id, 'wc_af_failed_rules', '' );
 				
 				if ( $score_points <= $cancel_score && 0 !== $cancel_score ) {
 					$new_status = 'processing'; 
@@ -396,10 +397,10 @@ $loop->the_post();
 					$new_status = 'processing';
 					
 				}
-				$wc_af_failed_rules = get_post_meta( $order_id, 'wc_af_failed_rules', true ); 
+				$wc_af_failed_rules = opmc_hpos_get_post_meta( $order_id, 'wc_af_failed_rules', true ); 
 				$wc_af_failed_rules[] = '{"id":"whitelist","label":"User Email is Whitelisted."}';
-				update_post_meta( $order_id, 'wc_af_failed_rules', $wc_af_failed_rules );
-				update_post_meta( $order_id, 'whitelist_action', 'user_email_whitelisted' );
+				opmc_hpos_update_post_meta( $order_id, 'wc_af_failed_rules', $wc_af_failed_rules );
+				opmc_hpos_update_post_meta( $order_id, 'whitelist_action', 'user_email_whitelisted' );
 
 				$order->add_order_note( __( 'User Email is Whitelisted.', 'woocommerce-anti-fraud' ) );
 			} else if ( ( in_array($userRole, $wc_af_whitelist_user_roles) ) && ( 'yes' == $is_enable_whitelist_user_roles ) ) {
@@ -413,8 +414,8 @@ $loop->the_post();
 				$cancel_score = 0 >= intval( $cancel_score ) ? 0 : self::invert_score( $cancel_score );
 				$hold_score   = 0 >= intval( $hold_score ) ? 0 : self::invert_score( $hold_score );
 
-				update_post_meta( $order_id, 'wc_af_score', 100 );
-				update_post_meta( $order_id, 'wc_af_failed_rules', '' );
+				opmc_hpos_update_post_meta( $order_id, 'wc_af_score', 100 );
+				opmc_hpos_update_post_meta( $order_id, 'wc_af_failed_rules', '' );
 
 				$order->add_order_note( __( $userRole . ' User Role is Whitelisted.', 'woocommerce-anti-fraud' ) );
 				
@@ -441,7 +442,7 @@ $loop->the_post();
 					if (get_option('wc_settings_anti_fraud_whitelist_payment_method') && null != get_option('wc_settings_anti_fraud_whitelist_payment_method')) {
 
 						$whitelist_payment_method = get_option('wc_settings_anti_fraud_whitelist_payment_method');
-						$payment_method = get_post_meta( $order_id, '_payment_method', true );
+						$payment_method = opmc_hpos_get_post_meta( $order_id, '_payment_method', true );
 						if ( !in_array( $payment_method, $whitelist_payment_method ) ) {
 							// Check for automated action rules
 							if ( $score_points <= $cancel_score && 0 !== $cancel_score ) {
@@ -573,7 +574,7 @@ $loop->the_post();
 
 			// Possibly update the order status
 			if ( $new_status ) {
-				update_post_meta( $order_id, '_wc_af_recommended_status', $new_status );
+				opmc_hpos_update_post_meta( $order_id, '_wc_af_recommended_status', $new_status );
 
 				/**
 				 * Filter: 'wc_anti_fraud_skip_order_statuses' - Skip status change for these statuses
@@ -598,7 +599,7 @@ $loop->the_post();
 					$order->add_order_note( __( 'Fraud check done.', 'woocommerce-anti-fraud' ) );
 				}
 			} else {
-				delete_post_meta( $order_id, '_wc_af_recommended_status' );
+				opmc_hpos_delete_post_meta( $order_id, '_wc_af_recommended_status' );
 			}
 
 			$email_score  = get_option( 'wc_settings_anti_fraud_email_score' );
@@ -682,15 +683,15 @@ $loop->the_post();
 			$order_details = new WC_Order( $order );
 			$order_id = $order_details->get_id();
 
-			$payment_method = get_post_meta( $order_id, '_payment_method', true );
+			$payment_method = opmc_hpos_get_post_meta( $order_id, '_payment_method', true );
 
 			if ('ppec_paypal' == $payment_method ) {
 
-				$orderemail = get_post_meta( $order_id, '_paypal_express_payer_email', true );
+				$orderemail = opmc_hpos_get_post_meta( $order_id, '_paypal_express_payer_email', true );
 			
 			} else {
 
-				$orderemail = get_post_meta( $order_id, '_paypal_payer_email', true );
+				$orderemail = opmc_hpos_get_post_meta( $order_id, '_paypal_payer_email', true );
 
 			}
 
@@ -708,7 +709,7 @@ $loop->the_post();
 					$email_status = $email->send_notification();
 					
 					if ($email_status) {
-						update_post_meta($order, 'wc_af_paypal_email_status', true);
+						opmc_hpos_update_post_meta($order, 'wc_af_paypal_email_status', true);
 						Af_Logger::debug('paypal_email_verification notification send to  ' . $orderemail);
 					}
 				}	
@@ -720,7 +721,7 @@ $loop->the_post();
 				$email_status = $email->send_notification();
 				
 				if ($email_status) {
-					update_post_meta($order, 'wc_af_paypal_email_status', true);
+					opmc_hpos_update_post_meta($order, 'wc_af_paypal_email_status', true);
 					Af_Logger::debug('paypal_email_verification notification send to  ' . $orderemail);
 				}
 			}

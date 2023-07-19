@@ -249,7 +249,7 @@ class WC_Product_Vendors_Vendor_Dashboard {
 			<?php if ( WC_Product_Vendors_Utils::is_admin_vendor() ) { ?>
 				<li class="sales-this-month">
 					<a href="<?php echo esc_url( admin_url( 'admin.php?page=wcpv-vendor-reports&range=month' ) ); ?>">
-						<?php printf( esc_html__( "<strong>%s</strong> net sales this month", 'woocommerce-product-vendors' ), wc_price( $total_product_amount ) ); ?>
+						<?php printf( esc_html__( '%s net sales this month', 'woocommerce-product-vendors' ), '<strong>' . wc_price( $total_product_amount ) . '</strong>' ); ?>
 					</a>
 				</li>
 			<?php } ?>
@@ -274,7 +274,7 @@ class WC_Product_Vendors_Vendor_Dashboard {
 			<?php if ( WC_Product_Vendors_Utils::is_admin_vendor() ) { ?>
 				<li class="commission">
 					<a href="<?php echo esc_url( admin_url( 'admin.php?page=wcpv-vendor-orders' ) ); ?>">
-						<?php printf( esc_html__( "<strong>%s</strong> commission this month", 'woocommerce-product-vendors' ), wc_price( $commission ) ); ?>
+						<?php printf( esc_html__( '%s commission this month', 'woocommerce-product-vendors' ), '<strong>' . wc_price( $commission ) . '</strong>' ); ?>
 					</a>
 				</li>
 			<?php } ?>

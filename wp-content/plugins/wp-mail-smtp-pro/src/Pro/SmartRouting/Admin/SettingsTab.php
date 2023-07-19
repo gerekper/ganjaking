@@ -139,7 +139,7 @@ class SettingsTab extends SmartRoutingTab {
 
 		wp_enqueue_style(
 			'wp-mail-smtp-smart-routing',
-			wp_mail_smtp()->plugin_url . "/assets/css/smtp-smart-routing{$min}.css",
+			wp_mail_smtp()->plugin_url . '/assets/css/smtp-smart-routing.min.css',
 			[],
 			WPMS_PLUGIN_VER
 		);

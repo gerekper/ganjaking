@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Display
  * @since    1.0.0
- * @version  2.3.0
+ * @version  2.4.9
  */
 
 // Exit if accessed directly.
@@ -69,8 +69,11 @@ class WC_Mix_and_Match_Display {
 		 // Add wrapper info to child products.
 		add_filter( 'woocommerce_cart_item_thumbnail', array( $this, 'cart_item_wrap' ), 10, 2 );
 
-		// Add edit button to cart container.
+		// Add wrapper arrows to child products.
 		add_filter( 'woocommerce_cart_item_name', array( $this, 'in_cart_item_title' ), 10, 3 );
+
+		// Add edit button to cart container.
+		add_filter( 'woocommerce_after_cart_item_name', array( $this, 'edit_selections_button' ), 10, 2 );
 
 		// Disable Cart permalink for child items.
 		add_filter( 'woocommerce_cart_item_permalink', array( $this, 'cart_item_permalink' ), 10, 2 );
@@ -335,7 +338,7 @@ class WC_Mix_and_Match_Display {
 
 
 	/**
-	 * Adds edit button to container cart items.
+	 * Adds arrows to child products.
 	 *
 	 * @param  string   $content
 	 * @param  array    $cart_item
@@ -343,19 +346,6 @@ class WC_Mix_and_Match_Display {
 	 * @return string
 	 */
 	public function in_cart_item_title( $content, $cart_item, $cart_item_key ) {
-
-		if ( wc_mnm_is_container_cart_item( $cart_item ) ) {
-
-			$container = $cart_item['data'];
-
-			if ( function_exists( 'is_cart' ) && is_cart() && ! $this->is_cart_widget() && apply_filters( 'wc_mnm_show_edit_it_cart_link', true, $cart_item, $cart_item_key ) ) {
-
-				$edit_in_cart_link = esc_url( $container->get_cart_edit_link( $cart_item ) );
-				$edit_in_cart_text = _x( 'Edit selections', 'edit in cart link text', 'woocommerce-mix-and-match-products' );
-				$content           = sprintf( '%1$s<div class="actions"><a class="button edit_container_in_cart_text edit_in_cart_text" href="%2$s">%3$s</a>', $content, $edit_in_cart_link, $edit_in_cart_text );
-
-			}
-		}
 
 		if ( wc_mnm_maybe_is_child_cart_item( $cart_item ) && '' !== $content ) {
 			$content = '<small class="mnm_child_item_arrow_wrap">' . $content . '</small>';
@@ -365,6 +355,32 @@ class WC_Mix_and_Match_Display {
 
 	}
 
+
+	/**
+	 * Adds edit button to container cart items.
+	 * 
+	 * @since 2.4.8
+	 *
+	 * @param  array    $cart_item
+	 * @param  string   $cart_item_key
+	 */
+	public function edit_selections_button( $cart_item, $cart_item_key ) {
+
+		if ( wc_mnm_is_container_cart_item( $cart_item ) ) {
+
+			$container = $cart_item['data'];
+
+			if ( function_exists( 'is_cart' ) && is_cart() && ! $this->is_cart_widget() && apply_filters( 'wc_mnm_show_edit_it_cart_link', true, $cart_item, $cart_item_key ) ) {
+
+				$edit_in_cart_link = esc_url( $container->get_cart_edit_link( $cart_item ) );
+				$edit_in_cart_text = esc_html_x( 'Edit selections', 'edit in cart link text', 'woocommerce-mix-and-match-products' );
+				$button_class      = esc_attr( WC_MNM_Core_Compatibility::wp_theme_get_element_class_name( 'button' ) );
+				printf( '<div class="actions"><a class="button edit_container_in_cart_text edit_in_cart_text %1$s" href="%2$s">%3$s</a>', $button_class, $edit_in_cart_link, $edit_in_cart_text );
+
+			}
+		}
+
+	}
 
 
 	/**

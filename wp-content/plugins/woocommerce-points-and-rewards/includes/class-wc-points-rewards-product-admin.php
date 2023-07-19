@@ -142,7 +142,7 @@ class WC_Points_Rewards_Product_Admin {
 					'class'         => 'short',
 					'wrapper_class' => 'show_if_simple show_if_subscription',
 					'label'         => __( 'Change Renewal Points', 'woocommerce-points-and-rewards' ),
-					'description'   => __( 'For Subscription renewals with a different point value than the signup, enter either a fixed maximum discount amount or percentage which restricts the amount of points that can be redeemed for a discount based on the product price. For example, if you want to restrict the discount on this product to a maximum of 50%, enter 50%, or enter 5 to restrict the maximum discount to $5.  This setting overrides the global/category defaults, use 0 to disable point discounts for this product, and blank to use the global/category default.', 'woocommerce-points-and-rewards' ),
+					'description'   => __( 'For Subscription renewals with a different point value than the signup, enter either a fixed number of points, or a percentage which assigns points based on the price. For example, enter 5 to award 5 points, or enter 50% to award points equal to half the normal rate.', 'woocommerce-points-and-rewards' ),
 					'desc_tip'      => true,
 					'type'          => 'text',
 					'data_type'     => 'decimal',

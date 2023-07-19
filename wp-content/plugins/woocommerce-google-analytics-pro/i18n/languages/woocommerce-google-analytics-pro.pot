@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Google Analytics Pro 2.0.5\n"
+"Project-Id-Version: WooCommerce Google Analytics Pro 2.0.9\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2023-06-12 08:30:39+00:00\n"
+"POT-Creation-Date: 2023-07-17 09:56:05+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -51,27 +51,27 @@ msgstr ""
 msgid "A valid Web Property ID is required to list user profiles."
 msgstr ""
 
-#: src/Helpers/Product_Helper.php:199
+#: src/Helpers/Product_Helper.php:193
 msgid "Search"
 msgstr ""
 
-#: src/Helpers/Product_Helper.php:203
+#: src/Helpers/Product_Helper.php:197
 msgid "Product category"
 msgstr ""
 
-#: src/Helpers/Product_Helper.php:207
+#: src/Helpers/Product_Helper.php:201
 msgid "Product tag"
 msgstr ""
 
-#: src/Helpers/Product_Helper.php:211
+#: src/Helpers/Product_Helper.php:205
 msgid "Archive"
 msgstr ""
 
-#: src/Helpers/Product_Helper.php:215
+#: src/Helpers/Product_Helper.php:209
 msgid "Related/Up sell"
 msgstr ""
 
-#: src/Helpers/Product_Helper.php:219
+#: src/Helpers/Product_Helper.php:213
 msgid "Cross sell (cart)"
 msgstr ""
 
@@ -105,17 +105,18 @@ msgstr ""
 msgid "Debug Mode"
 msgstr ""
 
-#: src/Integration.php:281
+#: src/Integration.php:283
+#. translators: %1$s - opening <a> tag, %2$s - closing </a> tag
 msgid ""
-"Log API requests, responses, and errors for debugging. Only enable this if "
-"you experience issues!"
+"Log all API requests, responses, and errors locally, and monitor GA4 events "
+"in %1$sGA4 DebugView%2$s. Only enable this if you experience issues!"
 msgstr ""
 
-#: src/Integration.php:299
+#: src/Integration.php:304
 msgid "JavaScript function name"
 msgstr ""
 
-#: src/Integration.php:301
+#: src/Integration.php:306
 #. translators: %1$s - function name, %2$s - function name
 msgid ""
 "Set the global tracker function name. %1$s is deprecated and support for it "
@@ -123,23 +124,23 @@ msgid ""
 "%2$s only after any custom code is updated to use %2$s."
 msgstr ""
 
-#: src/Integration.php:305
+#: src/Integration.php:310
 msgid "(Recommended)"
 msgstr ""
 
-#: src/Integration.php:344
+#: src/Integration.php:349
 msgid "Get Connected"
 msgstr ""
 
-#: src/Integration.php:351
+#: src/Integration.php:356
 msgid "Re-authenticate with your Google account"
 msgstr ""
 
-#: src/Integration.php:351
+#: src/Integration.php:356
 msgid "Connect your Google account"
 msgstr ""
 
-#: src/Integration.php:357
+#: src/Integration.php:362
 #. translators: Placeholder: %s - plugin name, in bold; %2$s opening <a> tag,
 #. %3$s - closing </a> tag
 msgid ""
@@ -148,112 +149,106 @@ msgid ""
 "reload this page."
 msgstr ""
 
-#: src/Integration.php:406
-msgid ""
-"Please follow the steps found %1$shere%2$s to add a Data Stream and API "
-"Secret and then click \"Save changes\" below to complete setup"
-msgstr ""
-
-#: src/Integration.php:408
-msgid ""
-"Please follow the steps found %1$shere%2$s to add a Data Stream API Secret "
-"and then click \"Save changes\" below to complete setup"
-msgstr ""
-
-#: src/Integration.php:421
+#: src/Integration.php:380 src/Integration.php:395
 msgid "Google Analytics 4 Property"
 msgstr ""
 
-#: src/Integration.php:427 src/Integration.php:448
-msgid "Select a property&hellip;"
+#: src/Integration.php:383
+msgid ""
+"Please re-authenticate & allow edit access to your Google Analytics account "
+"to see GA4 properties"
 msgstr ""
 
-#: src/Integration.php:429
+#: src/Integration.php:384 src/Integration.php:403
 msgid "Choose which Google Analytics property you want to track"
 msgstr ""
 
-#: src/Integration.php:442
+#: src/Integration.php:401 src/Integration.php:422
+msgid "Select a property&hellip;"
+msgstr ""
+
+#: src/Integration.php:416
 msgid "Universal Analytics Property"
 msgstr ""
 
-#: src/Integration.php:450
+#: src/Integration.php:424
 msgid "Choose which Universal Analytics property you want to track."
 msgstr ""
 
-#: src/Integration.php:451
+#: src/Integration.php:425
 msgid ""
 "Clear this setting to disconnect Universal Analytics once you have migrated "
 "to GA4. This setting will stop working after %1$sGoogle retires Universal "
 "Analytics%2$s (expected mid-2023)."
 msgstr ""
 
-#: src/Integration.php:460
+#: src/Integration.php:434
 msgid ""
 "We need view & edit access to your Analytics account so we can display "
 "reports and automatically configure Analytics settings for you."
 msgstr ""
 
-#: src/Integration.php:461
+#: src/Integration.php:435
 msgid ""
 "You'll be prompted to choose an existing Google Analytics account. Click "
 "\"Allow\" to complete the connection and return here to choose a property "
 "to link to this website"
 msgstr ""
 
-#: src/Integration.php:465
+#: src/Integration.php:439
 msgid "Google Analytics account"
 msgstr ""
 
-#: src/Integration.php:470
+#: src/Integration.php:444
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid "or %1$srevoke authorization%2$s"
 msgstr ""
 
-#: src/Integration.php:488
+#: src/Integration.php:462
 msgid "Tracking Settings"
 msgstr ""
 
-#: src/Integration.php:502
+#: src/Integration.php:476
 msgid "Google Analytics measurement ID"
 msgstr ""
 
-#: src/Integration.php:503
+#: src/Integration.php:477
 msgid ""
 "To change your Google Analytics measurement ID, please connect a Google "
 "account."
 msgstr ""
 
-#: src/Integration.php:523
+#: src/Integration.php:497
 msgid "Google Analytics tracking ID"
 msgstr ""
 
-#: src/Integration.php:524
+#: src/Integration.php:498
 msgid ""
 "To change your Google Analytics tracking ID, please connect a Google "
 "account."
 msgstr ""
 
-#: src/Integration.php:537
+#: src/Integration.php:511
 msgid "Track Administrators?"
 msgstr ""
 
-#: src/Integration.php:540
+#: src/Integration.php:514
 msgid "Check to enable tracking when logged in as Administrator or Shop Manager."
 msgstr ""
 
-#: src/Integration.php:544
+#: src/Integration.php:518
 msgid "Tracking Options"
 msgstr ""
 
-#: src/Integration.php:545
+#: src/Integration.php:519
 msgid "Use Advertising Features"
 msgstr ""
 
-#: src/Integration.php:545 src/Integration.php:555 src/Integration.php:564
+#: src/Integration.php:519 src/Integration.php:529 src/Integration.php:538
 msgid "(UA only)"
 msgstr ""
 
-#: src/Integration.php:551
+#: src/Integration.php:525
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid ""
 "Set the Google Analytics code to support Demographics and Interests Reports "
@@ -261,93 +256,93 @@ msgid ""
 "Features%2$s."
 msgstr ""
 
-#: src/Integration.php:555
+#: src/Integration.php:529
 msgid "Use Enhanced Link Attribution"
 msgstr ""
 
-#: src/Integration.php:560
+#: src/Integration.php:534
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid ""
 "Set the Google Analytics code to support Enhanced Link Attribution. "
 "%1$sRead more about Enhanced Link Attribution%2$s."
 msgstr ""
 
-#: src/Integration.php:564
+#: src/Integration.php:538
 msgid "Anonymize IP addresses"
 msgstr ""
 
-#: src/Integration.php:570
+#: src/Integration.php:544
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid ""
 "Enabling this option is mandatory in certain countries due to national "
 "privacy laws. %1$sRead more about IP Anonymization%2$s."
 msgstr ""
 
-#: src/Integration.php:574
+#: src/Integration.php:548
 msgid "Track User ID"
 msgstr ""
 
-#: src/Integration.php:579
+#: src/Integration.php:553
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid "Enable User ID tracking. %1$sRead more about the User ID feature%2$s."
 msgstr ""
 
-#: src/Integration.php:583
+#: src/Integration.php:557
 msgid "Google Optimize"
 msgstr ""
 
-#: src/Integration.php:584
+#: src/Integration.php:558
 msgid "Enable Google Optimize"
 msgstr ""
 
-#: src/Integration.php:588
+#: src/Integration.php:562
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid ""
 "Google Optimize will be %1$sretired on September 30, 2023%2$s. Your "
 "experiences can continue to run until that date."
 msgstr ""
 
-#: src/Integration.php:588
+#: src/Integration.php:562
 msgid "%1$sRead more about Google Optimize%2$s."
 msgstr ""
 
-#: src/Integration.php:592
+#: src/Integration.php:566
 msgid "Google Optimize Code"
 msgstr ""
 
-#: src/Integration.php:596
+#: src/Integration.php:570
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid "e.g. \"GTM-XXXXXX\". %1$sRead more about this code%2$s"
 msgstr ""
 
-#: src/Integration.php:601
+#: src/Integration.php:575
 msgid "Track product list views (impressions) on:"
 msgstr ""
 
-#: src/Integration.php:602
+#: src/Integration.php:576
 msgid "Control where product list views are tracked."
 msgstr ""
 
-#: src/Integration.php:603
+#: src/Integration.php:577
 msgid ""
 "If you're running into issues, particularly if you see the \"No HTTP "
 "response detected\" error, try disabling product impressions on archive "
 "pages."
 msgstr ""
 
-#: src/Integration.php:607
+#: src/Integration.php:581
 msgid "Single Product Pages"
 msgstr ""
 
-#: src/Integration.php:608
+#: src/Integration.php:582
 msgid "Archive Pages"
 msgstr ""
 
-#: src/Integration.php:629
+#: src/Integration.php:603
 msgid "Recommended Events"
 msgstr ""
 
-#: src/Integration.php:632
+#: src/Integration.php:606
 msgid ""
 "These events are %1$srecommended by Google%2$s to help you measure features "
 "and behavior as well as generate more useful reports. %3$sCustomizing these "
@@ -355,68 +350,71 @@ msgid ""
 "Google Analytics. Leave a field blank to disable tracking for the event."
 msgstr ""
 
-#: src/Integration.php:648
+#: src/Integration.php:622
 msgid "Custom Events"
 msgstr ""
 
-#: src/Integration.php:649
+#: src/Integration.php:623
 msgid ""
 "Customize the event names you wish to track in Google Analytics. Leave a "
 "field blank to disable tracking for the event."
 msgstr ""
 
-#: src/Integration.php:659
+#: src/Integration.php:633
 msgid "Universal Analytics Events"
 msgstr ""
 
-#: src/Integration.php:660
+#: src/Integration.php:634
 msgid ""
 "Customize the event names you wish to track in Google Universal Analytics. "
 "Leave a field blank to disable tracking for the event."
 msgstr ""
 
-#: src/Integration.php:748
+#: src/Integration.php:722
 msgid "Checkout Funnel (UA-only)"
 msgstr ""
 
-#: src/Integration.php:750
+#: src/Integration.php:724
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid ""
 "Configure your Analytics account to match the checkout funnel steps below "
 "to take advantage of %1$sCheckout Behavior Analysis%2$s."
 msgstr ""
 
-#: src/Integration.php:755
+#: src/Integration.php:729
 msgid "Funnel Steps"
 msgstr ""
 
-#: src/Integration.php:838
+#: src/Integration.php:812
 msgid "Step"
 msgstr ""
 
-#: src/Integration.php:839
+#: src/Integration.php:813
 msgid "Event"
 msgstr ""
 
-#: src/Integration.php:840
+#: src/Integration.php:814
 msgid "Name"
 msgstr ""
 
-#: src/Integration.php:841
+#: src/Integration.php:815
 msgid "Enabled"
 msgstr ""
 
-#: src/Integration.php:894
+#: src/Integration.php:868
 msgid "Yes"
 msgstr ""
 
-#: src/Integration.php:895
+#: src/Integration.php:869
 msgid "Currently disabled, because the event name is not set."
 msgstr ""
 
-#: src/Integration.php:1197
+#: src/Integration.php:1154
 #. translators: Placeholder: %1$s - plugin name, in bold; %2$s - error message
-msgid "%1$s: Please follow the steps found %2$shere%3$s to complete setup."
+msgid ""
+"%1$s: Something went wrong when trying to set up API access for the "
+"selected GA4 property - a Google API error occurred: %2$s. Please try again "
+"in a few minutes or try re-authenticating with your Google account."
 msgstr ""
 
 #: src/Integrations/Subscriptions/Events/GA4/Activate_Subscription.php:58
@@ -624,16 +622,17 @@ msgid ""
 "Property Settings%5$s."
 msgstr ""
 
-#: src/Properties_Handler.php:138
-#. translators: Placeholders: %1$s - plugin name, %2$s - <a> tag, %3$s - </a>
-#. tag
+#: src/Properties_Handler.php:141
+#. translators: Placeholders: %1$s - plugin name, %2$s - data stream name %3$s
+#. - <a> tag, %4$s - </a> tag
 msgid ""
-"%1$s: The selected Data Stream for your Analytics property is missing a "
-"Measurement Protocol API secret. Please create a secret %2$son your Google "
-"Analytics Data Stream details page%3$s and then re-save settings."
+"%1$s: The selected Analytics property is missing a Measurement Protocol API "
+"secret for the %2$s data stream. Please try re-saving settings to "
+"automatically create the secret, or manually create one %3$son your Google "
+"Analytics Data Stream details page%4$s and then re-save settings."
 msgstr ""
 
-#: src/Properties_Handler.php:228
+#: src/Properties_Handler.php:232
 #. translators: Placeholders: %1$s - plugin name (bold), %2$s - opening HTML
 #. <a> link tag, %3$s - closing HTML </a> link tag
 msgid ""
@@ -642,7 +641,7 @@ msgid ""
 "View%3$s."
 msgstr ""
 
-#: src/Properties_Handler.php:235
+#: src/Properties_Handler.php:239
 #. translators: Placeholders: %1$s - plugin name (bold), %2$s - a list of links
 msgid ""
 "%1$s: WooCommerce Google Analytics Pro requires Enhanced Ecommerce to be "
@@ -650,7 +649,7 @@ msgid ""
 "Views: %2$s"
 msgstr ""
 
-#: src/Properties_Handler.php:255
+#: src/Properties_Handler.php:259
 #. translators: Placeholders: %1$s - plugin name, %2$s and %3$s - currency
 #. code, e.g. USD, %4$s - <a> tag, %5$s - </a> tag
 msgid ""
@@ -658,7 +657,7 @@ msgid ""
 "currency (%3$s). You can change it %4$son your Google Analytics View%5$s."
 msgstr ""
 
-#: src/Properties_Handler.php:264
+#: src/Properties_Handler.php:268
 #. translators: Placeholders: %1$s - plugin name, %2$s - currency code, %3$s -
 #. a list of links
 msgid ""
@@ -667,7 +666,7 @@ msgid ""
 "%3$s"
 msgstr ""
 
-#: src/Properties_Handler.php:567
+#: src/Properties_Handler.php:571
 #. translators: Placeholder: %s - plugin name, in bold
 msgid ""
 "%s: The currently authenticated Google account does not have access to any "
@@ -675,7 +674,7 @@ msgid ""
 "to Google Analytics."
 msgstr ""
 
-#: src/Properties_Handler.php:579
+#: src/Properties_Handler.php:583
 #. translators: Placeholder: %s - plugin name, in bold
 msgid ""
 "%s: Something went wrong with the request to list the Google Analytics "
@@ -683,11 +682,11 @@ msgid ""
 "in a few minutes or try re-authenticating with your Google account."
 msgstr ""
 
-#: src/Tracking/Duplicate_Tracking_Code_Detector.php:236
+#: src/Tracking/Duplicate_Tracking_Code_Detector.php:240
 msgid "Google Analytics Pro:"
 msgstr ""
 
-#: src/Tracking/Duplicate_Tracking_Code_Detector.php:237
+#: src/Tracking/Duplicate_Tracking_Code_Detector.php:241
 msgid ""
 "Heads up! We've detected that another plugin is sending duplicated events "
 "to Google Analytics, which can result in duplicated tracking data. Please "
@@ -803,11 +802,11 @@ msgstr ""
 msgid "Triggered when a customer signs out."
 msgstr ""
 
-#: src/Tracking/Events/GA4/Place_Order_Event.php:51
+#: src/Tracking/Events/GA4/Place_Order_Event.php:52
 msgid "Place Order"
 msgstr ""
 
-#: src/Tracking/Events/GA4/Place_Order_Event.php:60
+#: src/Tracking/Events/GA4/Place_Order_Event.php:61
 #: src/Tracking/Events/Universal_Analytics/Placed_Order_Event.php:59
 msgid "Triggered when a customer places an order via checkout."
 msgstr ""

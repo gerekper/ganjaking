@@ -16,6 +16,7 @@ use MailPoet\ConflictException;
 use MailPoet\Doctrine\Validator\ValidationException;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\SubscriberEntity;
+use MailPoet\Entities\TagEntity;
 use MailPoet\Exception;
 use MailPoet\Listing;
 use MailPoet\Segments\SegmentsRepository;
@@ -25,6 +26,7 @@ use MailPoet\Subscribers\SubscriberListingRepository;
 use MailPoet\Subscribers\SubscriberSaveController;
 use MailPoet\Subscribers\SubscribersRepository;
 use MailPoet\Subscribers\SubscriberSubscribeController;
+use MailPoet\Tags\TagRepository;
 use MailPoet\UnexpectedValueException;
 use MailPoet\Util\Helpers;
 
@@ -54,6 +56,9 @@ class Subscribers extends APIEndpoint {
   /** @var SegmentsRepository */
   private $segmentsRepository;
 
+  /** @var TagRepository */
+  private $tagRepository;
+
   /** @var SubscriberSaveController */
   private $saveController;
 
@@ -70,6 +75,7 @@ class Subscribers extends APIEndpoint {
     SubscribersResponseBuilder $subscribersResponseBuilder,
     SubscriberListingRepository $subscriberListingRepository,
     SegmentsRepository $segmentsRepository,
+    TagRepository $tagRepository,
     SubscriberSaveController $saveController,
     SubscriberSubscribeController $subscribeController,
     SettingsController $settings
@@ -80,6 +86,7 @@ class Subscribers extends APIEndpoint {
     $this->subscribersResponseBuilder = $subscribersResponseBuilder;
     $this->subscriberListingRepository = $subscriberListingRepository;
     $this->segmentsRepository = $segmentsRepository;
+    $this->tagRepository = $tagRepository;
     $this->saveController = $saveController;
     $this->subscribeController = $subscribeController;
     $this->settings = $settings;
@@ -261,6 +268,16 @@ class Subscribers extends APIEndpoint {
       }
     }
 
+    $tag = null;
+    if (isset($data['tag_id'])) {
+      $tag = $this->getTag($data);
+      if (!$tag) {
+        return $this->errorResponse([
+          APIError::NOT_FOUND => __('This tag does not exist.', 'mailpoet'),
+        ]);
+      }
+    }
+
     if ($data['action'] === 'trash') {
       $count = $this->subscribersRepository->bulkTrash($ids);
     } elseif ($data['action'] === 'restore') {
@@ -277,6 +294,10 @@ class Subscribers extends APIEndpoint {
       $count = $this->subscribersRepository->bulkMoveToSegment($segment, $ids);
     } elseif ($data['action'] === 'unsubscribe') {
       $count = $this->subscribersRepository->bulkUnsubscribe($ids);
+    } elseif ($data['action'] === 'addTag' && $tag instanceof TagEntity) {
+      $count = $this->subscribersRepository->bulkAddTag($tag, $ids);
+    } elseif ($data['action'] === 'removeTag' && $tag instanceof TagEntity) {
+      $count = $this->subscribersRepository->bulkRemoveTag($tag, $ids);
     } else {
       throw UnexpectedValueException::create()
         ->withErrors([APIError::BAD_REQUEST => "Invalid bulk action '{$data['action']}' provided."]);
@@ -287,6 +308,9 @@ class Subscribers extends APIEndpoint {
 
     if ($segment) {
       $meta['segment'] = $segment->getName();
+    }
+    if ($tag) {
+      $meta['tag'] = $tag->getName();
     }
     return $this->successResponse(null, $meta);
   }
@@ -304,6 +328,12 @@ class Subscribers extends APIEndpoint {
   private function getSegment(array $data): ?SegmentEntity {
     return isset($data['segment_id'])
       ? $this->segmentsRepository->findOneById((int)$data['segment_id'])
+      : null;
+  }
+
+  private function getTag(array $data): ?TagEntity {
+    return isset($data['tag_id'])
+      ? $this->tagRepository->findOneById((int)$data['tag_id'])
       : null;
   }
 

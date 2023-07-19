@@ -229,9 +229,53 @@ class WC_Product_Vendors_Utils {
 			$vendor_data['description']      = $vendor_term->description;
 			$vendor_data['parent']           = $vendor_term->parent;
 			$vendor_data['count']            = $vendor_term->count;
+
+
+			$vendor_admins = $vendor_data['admins'] ?? null;
+			if ( self::is_vendor_admin_meta_storage_enabled() ) {
+				$admin_ids = self::get_vendor_admins( $vendor_id );
+			} else if ( is_array( $vendor_admins ) ) {
+				$admin_ids = array_filter( array_map( 'absint', $vendor_admins ) );
+			} else {
+				$admin_ids = array_filter( array_map( 'absint', explode( ',', $vendor_admins ) ) );
+			}
+			$vendor_data['admins'] = $admin_ids;
 		}
 
 		return apply_filters( 'wcpv_get_vendor_data_by_id', $vendor_data ?? array() , $vendor_id );
+	}
+
+	/**
+	 * Sets the data for a specific vendor
+	 *
+	 * @access public
+	 * @since future
+	 * @version future
+	 * @param int $vendor_id
+	 * @param array $vendor_data
+	 * @return bool
+	 */
+	public static function set_vendor_data( $vendor_id, $vendor_data ) {
+		if ( empty( $vendor_data['admins'] ) ) {
+			$vendor_data['admins'] = array();
+		} else if ( ! is_array( $vendor_data['admins'] ) ) {
+			$vendor_data['admins'] = [
+				$vendor_data['admins'],
+			];
+		}
+
+		if ( ! update_term_meta( $vendor_id, 'vendor_data', $vendor_data ) ) {
+			return false;
+		}
+
+		if ( self::is_vendor_admin_meta_storage_enabled() ) {
+			return self::update_vendor_admins(
+				$vendor_id,
+				array_map( 'absint', $vendor_data['admins'] )
+			);
+		}
+
+		return true;
 	}
 
 	/**
@@ -254,7 +298,22 @@ class WC_Product_Vendors_Utils {
 			return $vendors;
 		}
 
-		$terms = get_terms( WC_PRODUCT_VENDORS_TAXONOMY, array( 'hide_empty' => false ) );
+		$args = array(
+			'taxonomy'   => WC_PRODUCT_VENDORS_TAXONOMY,
+			'hide_empty' => false,
+		);
+
+		if ( self::is_vendor_admin_meta_storage_enabled() ) {
+			$args['meta_query'] = array(
+				array(
+					'key'     => '_wcpv_admin_id',
+					'value'   => $user_id,
+					'compare' => '=',
+				),
+			);
+		}
+
+		$terms = get_terms( $args );
 
 		$vendor_data = array();
 
@@ -264,16 +323,10 @@ class WC_Product_Vendors_Utils {
 
 		// loop through to see which one has assigned passed in user
 		foreach ( $terms as $term ) {
-			$vendor_data = get_term_meta( $term->term_id, 'vendor_data', true );
+			$vendor_data = self::get_vendor_data_by_id( $term->term_id );
 
 			if ( ! empty( $vendor_data['admins'] ) ) {
-				if ( is_array( $vendor_data['admins'] ) ) {
-					$admin_ids = array_map( 'absint', $vendor_data['admins'] );
-				} else {
-					$admin_ids = array_filter( array_map( 'absint', explode( ',', $vendor_data['admins'] ) ) );
-				}
-
-				if ( in_array( $user_id, $admin_ids ) ) {
+				if ( self::is_vendor_admin_meta_storage_enabled() || in_array( $user_id, $vendor_data['admins'] ) ) {
 					$vendor_data['term_id']          = $term->term_id;
 					$vendor_data['name']             = $term->name;
 					$vendor_data['slug']             = $term->slug;
@@ -327,7 +380,7 @@ class WC_Product_Vendors_Utils {
 				return false;
 			}
 
-			$vendor_data = get_term_meta( $term->term_id, 'vendor_data', true );
+			$vendor_data = self::get_vendor_data_by_id( $term->term_id );
 
 			if ( is_array( $vendor_data['admins'] ) ) {
 				$admin_ids = array_map( 'absint', $vendor_data['admins'] );
@@ -1476,7 +1529,8 @@ class WC_Product_Vendors_Utils {
 	 * @return bool
 	 */
 	public static function is_bookings_enabled( $user_id = null ) {
-		$vendor_data = get_term_meta( intval( self::get_user_active_vendor( $user_id ) ), 'vendor_data', true );
+		$vendor_id   = self::get_user_active_vendor( $user_id );
+		$vendor_data = self::get_vendor_data_by_id( $vendor_id );
 
 		if ( ! empty( $vendor_data['enable_bookings'] ) && 'yes' === $vendor_data['enable_bookings'] && class_exists( 'WC_Bookings' ) ) {
 			return true;
@@ -1588,6 +1642,104 @@ class WC_Product_Vendors_Utils {
 		}
 
 		return 'partial-refunded';
+	}
+
+	/**
+	 * Set a vendor admin user
+	 *
+	 * @since future
+	 * @version future
+	 * @param int $vendor_id
+	 * @param int $user_id
+	 * return bool
+	 */
+	public static function set_vendor_admin( $vendor_id, $user_id ) {
+		if ( self::is_vendor_admin( $vendor_id, $user_id ) ) {
+			return true;
+		}
+		return add_term_meta( $vendor_id, '_wcpv_admin_id', $user_id );
+	}
+
+	/**
+	 * Update vendor admin users
+	 *
+	 * @since future
+	 * @version future
+	 * @param int $vendor_id
+	 * @param array $user_ids
+	 * return bool
+	 */
+	public static function update_vendor_admins( $vendor_id, $user_ids ) {
+		$old_admins = self::get_vendor_admins( $vendor_id );
+
+		$admins_to_add    = array_diff( $user_ids, $old_admins );
+		$admins_to_remove = array_diff( $old_admins, $user_ids );
+
+		foreach ( $admins_to_add as $admin_id ) {
+			self::set_vendor_admin( $vendor_id, $admin_id );
+		}
+
+		foreach ( $admins_to_remove as $admin_id ) {
+			self::remove_vendor_admin( $vendor_id, $admin_id );
+		}
+
+		return true;
+	}
+
+	/**
+	 * Remove a vendor admin user
+	 *
+	 * @since future
+	 * @version future
+	 * @param int $vendor_id
+	 * @param int $user_id
+	 * return bool
+	 */
+	public static function remove_vendor_admin( $vendor_id, $user_id ) {
+		return delete_term_meta( $vendor_id, '_wcpv_admin_id', $user_id );
+	}
+
+	/**
+	 * Get a vendor admin users
+	 *
+	 * @since future
+	 * @version future
+	 * @param int $vendor_id
+	 * return array
+	 */
+	public static function get_vendor_admins( $vendor_id ) {
+		$admins = get_term_meta( $vendor_id, '_wcpv_admin_id' );
+
+		if ( empty( $admins ) ) {
+			return array();
+		}
+
+		return array_map( 'absint', $admins );
+	}
+
+	/**
+	 * Check if a user is a vendor admin
+	 *
+	 * @since future
+	 * @version future
+	 * @param int $vendor_id
+	 * @param int $user_id
+	 * return bool
+	 */
+	public static function is_vendor_admin( $vendor_id, $user_id ) {
+		$admins = self::get_vendor_admins( $vendor_id );
+		return in_array( $user_id, $admins );
+	}
+
+	/**
+	 * Check if the site uses term meta to store vendor admin instead of the vendor data object.
+	 *
+	 * @since future
+	 * @version future
+	 * @return bool
+	 */
+	public static function is_vendor_admin_meta_storage_enabled() {
+		return '1' === get_option( 'wcpv_admin_storage_migrated' );
 	}
 
 	/**

@@ -85,6 +85,22 @@ class Helper {
     return null;
   }
 
+  public function wcGetPriceDecimals(): int {
+    return wc_get_price_decimals();
+  }
+
+  public function wcGetPriceDecimalSeperator(): string {
+    return wc_get_price_decimal_separator();
+  }
+
+  public function wcGetPriceThousandSeparator(): string {
+    return wc_get_price_thousand_separator();
+  }
+
+  public function getWoocommercePriceFormat(): string {
+    return get_woocommerce_price_format();
+  }
+
   public function getWoocommerceCurrency() {
     return get_woocommerce_currency();
   }
@@ -229,6 +245,44 @@ class Helper {
 
   public function getPaymentGateways() {
     return $this->WC()->payment_gateways();
+  }
+
+  /**
+   * Returns a list of all available shipping methods formatted
+   * in a way to be used in the 'used shipping method' segment.
+   */
+  public function getShippingMethodInstancesData(): array {
+    $shippingZones = \WC_Shipping_Zones::get_zones();
+    $formattedShippingMethodData = [];
+
+    foreach ($shippingZones as $shippingZone) {
+      $formattedShippingMethodData = array_merge(
+        $formattedShippingMethodData,
+        $this->formatShippingMethods($shippingZone['shipping_methods'], $shippingZone['zone_name'])
+      );
+    }
+
+    // special shipping zone that includes locations not covered by the configured shipping zones
+    $outOfCoverageShippingZone = new \WC_Shipping_Zone(0);
+    $formattedShippingMethodData = array_merge(
+      $formattedShippingMethodData,
+      $this->formatShippingMethods($outOfCoverageShippingZone->get_shipping_methods(), $outOfCoverageShippingZone->get_zone_name())
+    );
+
+    return $formattedShippingMethodData;
+  }
+
+  protected function formatShippingMethods(array $shippingMethods, string $shippingZoneName): array {
+    $formattedShippingMethods = [];
+
+    foreach ($shippingMethods as $shippingMethod) {
+      $formattedShippingMethods[] = [
+        'instanceId' => $shippingMethod->instance_id, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+        'name' => "{$shippingMethod->title} ({$shippingZoneName})",
+      ];
+    }
+
+    return $formattedShippingMethods;
   }
 
   /**

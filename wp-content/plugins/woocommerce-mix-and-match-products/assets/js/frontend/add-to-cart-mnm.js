@@ -1603,7 +1603,7 @@ jQuery.fn.wc_get_mnm_script = function () {
 		this.validate = function(qty) {
 
 			// Restrict to min/max limits.
-			var current_qty = 'undefined' !== typeof qty && parseFloat(qty) ? parseFloat(qty): this.get_quantity(),
+			var current_qty = isNaN(qty) ? this.get_quantity() : parseFloat(qty),
 			new_qty         = current_qty,
 			prev_qty        = this.get_prev_quantity(),
 			min             = parseFloat(this.$mnm_item_qty.attr('min')),

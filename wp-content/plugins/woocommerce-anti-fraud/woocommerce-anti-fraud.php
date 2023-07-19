@@ -4,13 +4,13 @@
  * Plugin Name: WooCommerce Anti Fraud
  * Plugin URI: https://woocommerce.com/products/woocommerce-anti-fraud/
  * Description: Score each of your transactions, checking for possible fraud, using a set of advanced scoring rules.
- * Version: 5.5.0
+ * Version: 5.5.1
  * Author: OPMC Australia Pty Ltd
  * Author URI: https://opmc.biz/
  * Text Domain: woocommerce-anti-fraud
  * Domain Path: /languages
  * License: GPL v3
- * WC tested up to: 7.6
+ * WC tested up to: 7.8
  * WC requires at least: 2.6
  * Woo: 500217:955da0ce83ea5a44fc268eb185e46c41
  *
@@ -122,6 +122,16 @@ function wc_antifraud_plugin_links( $links ) {
 	define( 'WOOCOMMERCE_ANTI_FRAUD_VERSION', '4.4.0' );
 	define( 'WOOCOMMERCE_ANTI_FRAUD_PLUGIN_URL', plugin_dir_url(__FILE__) );
 	define( 'WOOCOMMERCE_ANTI_FRAUD_PLUGIN_DIR', plugin_dir_path(__FILE__) );
+	/**
+	 * Include the Opmc-hpos-compatibility-helper.php file if it hasn't been included before.
+	 *
+	 * This code includes the Opmc-hpos-compatibility-helper.php file in the current PHP script. It uses the include_once
+	 * function to ensure that the file is included only once, even if this code is executed multiple times.
+	 *
+	 * @param string $file_path The path to the Opmc-hpos-compatibility-helper.php file.
+	 * @return bool True if the file is successfully included, false otherwise.
+	 */
+	include_once( 'opmc-hpos-compatibility-helper.php' );
 
 class WooCommerce_Anti_Fraud {
 
@@ -228,6 +238,16 @@ class WooCommerce_Anti_Fraud {
 		add_action( 'woocommerce_after_checkout_validation', array($this, 'too_many_order_attempt_validation'), 10, 2 );
 		add_action( 'woocommerce_checkout_order_processed', array($this, 'wh_pre_paymentcall'), 10, 2);
 		add_action( 'woocommerce_after_checkout_validation', array($this, 'max_order_attempt_between_timespan'), 10, 2 );
+
+		// Code for HPOS. Build Generic code fix and test it.
+		add_action(
+			'before_woocommerce_init',
+			function() {
+				if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+					\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+				}
+			}
+		);
 	}
 
 	/* Related to Wildcard email */
@@ -923,8 +943,8 @@ class WooCommerce_Anti_Fraud {
 		$whitelist_array = isset($_POST['billing_email']) ? sanitize_text_field($_POST['billing_email'] ) : '';
 		if (in_array($whitelist_array, $whitelist)) {
 			$selected_whitelisted_email = true;
-			update_post_meta($order_id, 'wc_af_score', 100);
-			update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
+			opmc_hpos_update_post_meta($order_id, 'wc_af_score', 100);
+			opmc_hpos_update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
 			$order->add_order_note(__('Order fraud checks skipped due to whitelisted email.', 'woocommerce-anti-fraud'));
 			return;
 		}
@@ -946,8 +966,8 @@ class WooCommerce_Anti_Fraud {
 				if ( in_array( $role, $wc_af_whitelist_user_roles ) ) {
 					$selected_whitelisted_role = 'true';
 					$selected_whitelisted_role = 'true';
-					update_post_meta($order_id, 'wc_af_score', 100);
-					update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
+					opmc_hpos_update_post_meta($order_id, 'wc_af_score', 100);
+					opmc_hpos_update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
 					$order->add_order_note(__('Order fraud checks skipped due to whitelisted user role.', 'woocommerce-anti-fraud'));
 					break;
 					return;
@@ -969,8 +989,8 @@ class WooCommerce_Anti_Fraud {
 				 
 				if ( in_array( $payment_method, $whitelist_payment_method ) ) {
 					$selected_whitelist_payment_method = 'true';
-					update_post_meta($order_id, 'wc_af_score', 100);
-					update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
+					opmc_hpos_update_post_meta($order_id, 'wc_af_score', 100);
+					opmc_hpos_update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
 					$order->add_order_note(__('Order fraud checks skipped due to whitelisted payment method.', 'woocommerce-anti-fraud'));
 					return;
 				}
@@ -994,7 +1014,7 @@ class WooCommerce_Anti_Fraud {
 			$score_helper = new WC_AF_Score_Helper();
 			$score_helper->schedule_fraud_check( $order_id, true );
 
-			$score_points = get_post_meta( $order_id, 'wc_af_score', true );
+			$score_points = opmc_hpos_get_post_meta( $order_id, 'wc_af_score', true );
 			$circle_points = WC_AF_Score_Helper::invert_score( $score_points );
 
 			if ($high_risk <= $circle_points) {
@@ -1347,19 +1367,21 @@ class WooCommerce_Anti_Fraud {
 			if (isset($response)) {
 
 				$output = json_decode($response['body'], true);
+				if (!empty($output)) {
 
-				if (!empty($output['city'])) {
-					$g_city = strtolower($output['city']);
-					update_option('html_geo_loc_city', $g_city);
-				} else {
-					$g_countryCode = strtolower($output['countryCode']);
-					update_option('html_geo_loc_cntry', $g_countryCode);
+					if (!empty($output['city'])) {
+						$g_city = strtolower($output['city']);
+						update_option('html_geo_loc_city', $g_city);
+					} else {
+						$g_countryCode = strtolower($output['countryCode']);
+						update_option('html_geo_loc_cntry', $g_countryCode);
+					}
+
+					$g_state = strtolower($output['principalSubdivision']);
+					update_option('html_geo_loc_state', $g_state);
+					echo 'success';		
+					die();
 				}
-
-				$g_state = strtolower($output['principalSubdivision']);
-				update_option('html_geo_loc_state', $g_state);
-				echo 'success';		
-				die();
 			}
 		} else {
 			delete_option('html_geo_loc_state');
@@ -1431,18 +1453,18 @@ $loop->the_post();
 			foreach ( $results as $note ) {
 				if ( ( strpos($note->comment_content, 'declined') !== false ) || ( strpos($note->comment_content, 'authentication failed') !== false )) { 
 					Af_Logger::debug('Note ' . $ic . ' ' . $note->comment_content);
-					$_card_decline_times = get_post_meta( $order_id, '_card_decline_times', true );
+					$_card_decline_times = opmc_hpos_get_post_meta( $order_id, '_card_decline_times', true );
 					if ( isset( $_card_decline_times ) && !empty( $_card_decline_times ) ) {
 						++$_card_decline_times;
-						update_post_meta( $order_id, '_card_decline_times', $_card_decline_times );
+						opmc_hpos_update_post_meta( $order_id, '_card_decline_times', $_card_decline_times );
 					} else {
-						update_post_meta( $order_id, '_card_decline_times', 1 );
+						opmc_hpos_update_post_meta( $order_id, '_card_decline_times', 1 );
 					}
 					break;
 				} $ic++;
 			}
 		}
-		$_card_decline_times = get_post_meta( $order_id, '_card_decline_times', true );
+		$_card_decline_times = opmc_hpos_get_post_meta( $order_id, '_card_decline_times', true );
 		Af_Logger::debug('Card declined ' . $_card_decline_times . ' times');
 
 		if ( ( $_card_decline_times >= 5 ) && ( $order_date == $currentDate ) ) {
@@ -1880,7 +1902,7 @@ $loop->the_post();
 	public function paypal_verification() {
 		if (isset($_REQUEST['order_id']) && isset($_REQUEST['paypal_verification'])) {
 			$order_id = base64_decode( sanitize_text_field( $_REQUEST['order_id'] ) );
-			update_post_meta($order_id, 'wc_af_paypal_verification', true);
+			opmc_hpos_update_post_meta($order_id, 'wc_af_paypal_verification', true);
 			$order = new WC_Order($order_id);
 			echo "<script type='text/javascript'>
 			alert('Your Paypal Email verified Successfully')</script>";

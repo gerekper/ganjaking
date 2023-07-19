@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Customizer
  * @since    2.0.0
- * @version  2.4.0
+ * @version  2.4.10
  */
 
 // Exit if accessed directly.
@@ -181,28 +181,33 @@ class WC_MNM_Customizer {
 		/**
 		 * Form location
 		 */
-		$wp_customize->add_setting(
-			'wc_mnm_add_to_cart_form_location',
-			array(
-				'default'    => 'default',
-				'type'       => 'option',
-				'capability' => 'manage_woocommerce',
-				'sanitize_callback'    => array( 'KIA_Customizer_Radio_Image_Control', 'sanitize' ),
-			)
-		);
 
-		$wp_customize->add_control(
-			new KIA_Customizer_Radio_Image_Control(
-				$wp_customize,
+		if ( wc_mnm_has_legacy_product_template( new WC_Product_Mix_and_Match() ) ) {
+
+			$wp_customize->add_setting(
 				'wc_mnm_add_to_cart_form_location',
 				array(
-					'label'    => esc_html__( 'Add to cart location', 'woocommerce-mix-and-match-products' ),
-					'section'  => 'wc_mnm',
-					'settings' => 'wc_mnm_add_to_cart_form_location',
-					'choices'     => WC_Product_Mix_and_Match::get_add_to_cart_form_location_options(),
+					'default'    => 'default',
+					'type'       => 'option',
+					'capability' => 'manage_woocommerce',
+					'sanitize_callback'    => array( 'KIA_Customizer_Radio_Image_Control', 'sanitize' ),
 				)
-			)
-		);
+			);
+
+			$wp_customize->add_control(
+				new KIA_Customizer_Radio_Image_Control(
+					$wp_customize,
+					'wc_mnm_add_to_cart_form_location',
+					array(
+						'label'    => esc_html__( 'Add to cart location', 'woocommerce-mix-and-match-products' ),
+						'section'  => 'wc_mnm',
+						'settings' => 'wc_mnm_add_to_cart_form_location',
+						'choices'     => WC_Product_Mix_and_Match::get_add_to_cart_form_location_options(),
+					)
+				)
+			);
+
+		}
 
 		/**
 		 * Display thumbnails

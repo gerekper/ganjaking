@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MailPoet Premium plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet Premium 4.20.0\n"
+"Project-Id-Version: MailPoet Premium 4.21.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-06-26T16:03:28+00:00\n"
+"POT-Creation-Date: 2023-07-17T13:24:25+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -139,22 +139,22 @@ msgctxt "A fallback for an email of a deleted subscriber"
 msgid "Deleted subscriber"
 msgstr ""
 
-#: views/segments/dynamic.html:2
+#: views/segments/dynamic_premium_translations.html:2
 msgctxt "Dynamic segment creation: The user can select join between condition when he has more than one"
 msgid "<strong>All</strong> of the following conditions"
 msgstr ""
 
-#: views/segments/dynamic.html:3
+#: views/segments/dynamic_premium_translations.html:3
 msgctxt "Dynamic segment creation: The user can select join between condition when he has more than one"
 msgid "<strong>Any</strong> of the following conditions"
 msgstr ""
 
-#: views/segments/dynamic.html:4
+#: views/segments/dynamic_premium_translations.html:4
 msgctxt "Dynamic segment creation: The user can see logical operator between condition when has more than one"
 msgid "and"
 msgstr ""
 
-#: views/segments/dynamic.html:5
+#: views/segments/dynamic_premium_translations.html:5
 msgctxt "Dynamic segment creation: The user can see logical operator between condition when has more than one"
 msgid "or"
 msgstr ""
@@ -318,36 +318,36 @@ msgstr ""
 msgid "Failed to render template \"%1$s\". Please ensure the template cache folder \"%2$s\" exists and has write permissions. Terminated with error: \"%3$s\""
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:338
+#: lib/Newsletter/Stats/SubscriberEngagement.php:327
 msgid "Filter by link clicked"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:370
+#: lib/Newsletter/Stats/SubscriberEngagement.php:359
 msgctxt "Subscriber engagement filter - filter those who clicked on a newsletter link"
 msgid "Clicked"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:375
+#: lib/Newsletter/Stats/SubscriberEngagement.php:364
 msgctxt "Subscriber engagement filter - filter those who opened a newsletter"
 msgid "Opened"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:380
+#: lib/Newsletter/Stats/SubscriberEngagement.php:369
 msgctxt "Subscriber engagement filter - shows machine-opens for a given newsletter"
 msgid "Machine-opened"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:385
+#: lib/Newsletter/Stats/SubscriberEngagement.php:374
 msgctxt "Subscriber engagement filter - filter those who unsubscribed from a newsletter"
 msgid "Unsubscribed"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:394
+#: lib/Newsletter/Stats/SubscriberEngagement.php:383
 msgctxt "Subscriber engagement filter - filter those who performed any action (e.g., clicked, opened, unsubscribed)"
 msgid "All engaged"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:405
+#: lib/Newsletter/Stats/SubscriberEngagement.php:390
 msgctxt "Subscriber engagement filter - filter those who did not open a newsletter"
 msgid "Unopened"
 msgstr ""

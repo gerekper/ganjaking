@@ -1,5 +1,27 @@
 *** Redsys Gateway Change Log ***
 
+2023.07.16 - version 22.0.0
+
+* NEW: Google Pay in Checkout.
+* NEW: Added pay.google.com to dns-prefetch
+* NEW: Added GPay logo to Payments methods block.
+* UPDATE: Updated GPay redirection Strings.
+* UPDATE: Updated GPay redirection Logo.
+* FIX: Undefined variable $redsys.
+* FIX: Attempt to read property "debug" on null.
+* FIX: Undefined property: WC_Gateway_Bizum_Checkout_Redsys::$orderdo.
+
+2023.07.12 - version 21.2.1
+
+* FIX: Fix enctype in creq form (InSite).
+
+2023.06.30 - version 21.2.0
+
+* NEW: Google Pay redirection.
+* UPDATE: Updated all endpoint menssages when are visited.
+* UPDATE: Added subscriptions into checkout modal.
+* FIX: Credit card v2.1 with InSIte.
+
 2023.06.19 - version 21.1.0
 
 * NEW: Bizum in the Checkout.

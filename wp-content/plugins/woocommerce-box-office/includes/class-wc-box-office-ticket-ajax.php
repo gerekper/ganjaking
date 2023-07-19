@@ -23,13 +23,13 @@ class WC_Box_Office_Ticket_Ajax {
 	public function scan_ticket () {
 		// Security check.
 		$do_nonce_check = apply_filters( 'woocommerce_box_office_do_nonce_check', true );
-		if ( $do_nonce_check && ! wp_verify_nonce( $_POST[ 'woocommerce_box_office_scan_nonce' ], 'scan-barcode' ) ) {
+		if ( $do_nonce_check && ! wp_verify_nonce( $_POST[ 'woocommerce_box_office_scan_nonce' ] ?? '', 'scan-barcode' ) ) { // phpcs:ignore
 			WC_Order_Barcodes()->display_notice( __( 'Permission denied: Security check failed', 'woocommerce-box-office' ), 'error' );
 			exit;
 		}
 
 		// Retrieve ticket ID from barcode.
-		$ticket_id = WCBO()->components->ticket_barcode->get_ticket_id_from_barcode_text( $_POST['barcode_input'] );
+		$ticket_id = WCBO()->components->ticket_barcode->get_ticket_id_from_barcode_text( $_POST['barcode_input'] ?? '' ); // phpcs:ignore
 		if ( ! $ticket_id ) {
 			WC_Order_Barcodes()->display_notice( __( 'Invalid ticket', 'woocommerce-box-office' ), 'error' );
 			exit;
@@ -48,7 +48,7 @@ class WC_Box_Office_Ticket_Ajax {
 		$attended_status = get_post_meta( $ticket_id, '_attended', true );
 
 		// Get selected action and process accordingly
-		$action = esc_attr( $_POST['scan_action'] );
+		$action = esc_attr( $_POST['scan_action'] ?? '' ); // phpcs:ignore
 		$response = '';
 		$response_type = 'success';
 		switch ( $action ) {

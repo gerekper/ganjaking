@@ -197,6 +197,10 @@ class Duplicate_Tracking_Code_Detector {
 	 */
 	private function should_check_for_duplicate_tracking_codes(): bool {
 
+		if ( ! Tracking::get_tracking_id() ) {
+			return false;
+		}
+
 		$should_check = false === get_transient( $this->transient_name );
 
 		// tracking Administrators or Shop Managers may not be enabled on other plugins

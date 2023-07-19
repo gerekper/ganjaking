@@ -17,17 +17,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-echo $ticket_description;
+echo wp_kses_post( $ticket_description );
 ?>
 
 <p class="buttons">
 	<a href="<?php echo esc_url( $edit_ticket_url ); ?>" target="_blank" class="button">
-		<?php _e( 'Edit', 'woocommerce-box-office' ); ?>
+		<?php esc_html_e( 'Edit', 'woocommerce-box-office' ); ?>
 	</a>
 
 	<?php if ( $print_ticket_enabled ) : ?>
 		<a href="<?php echo esc_url( $print_ticket_url ); ?>" target="_blank" class="button">
-			<?php _e( 'Print ticket', 'woocommerce-box-office' ); ?>
+			<?php esc_html_e( 'Print ticket', 'woocommerce-box-office' ); ?>
 		</a>
 	<?php endif; ?>
 </p>

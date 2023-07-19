@@ -47,7 +47,7 @@ foreach( $vendors as $vendor ) {
 			$new_vendor_data['email'] = implode( ',', $admin_emails );
 		}
 		
-		update_term_meta( $vendor->term_id, 'vendor_data', $new_vendor_data );	
+		WC_Product_Vendors_Utils::set_vendor_data( $vendor->term_id, $new_vendor_data );	
 	}
 
 	// delete option

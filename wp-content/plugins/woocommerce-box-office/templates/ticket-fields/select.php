@@ -1,4 +1,4 @@
-<?php echo $before_field; ?>
+<?php echo $before_field; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 	<label class="<?php echo esc_attr( $label_class ); ?>" for="<?php echo esc_attr( $id ); ?>">
 		<?php echo esc_html( $label ); ?>:
 		<?php if ( $required ) : ?>
@@ -10,4 +10,4 @@
 		<option <?php selected( $option, $value ) ?> value="<?php echo esc_attr( $option ); ?>"><?php echo esc_html( $option ); ?></option>
 	<?php endforeach; ?>
 	</select>
-<?php echo $after_field; ?>
+<?php echo $after_field; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>

@@ -2,16 +2,16 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Free Gift Coupons 3.4.2\n"
+"Project-Id-Version: WooCommerce Free Gift Coupons 3.4.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc_free_gift_coupons\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-01-12T17:30:48+00:00\n"
+"POT-Creation-Date: 2023-07-11T19:10:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: wc_free_gift_coupons\n"
 
 #. Plugin Name of the plugin
@@ -34,57 +34,57 @@ msgstr ""
 msgid "http://kathyisawesome.com"
 msgstr ""
 
-#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:116
+#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:113
 msgid "Dismiss"
 msgstr ""
 
-#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:174
+#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:171
 msgid "Your database is being updated in the background."
 msgstr ""
 
-#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:184
+#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:181
 msgid "Your database needs to be updated to the latest version."
 msgstr ""
 
-#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:189
+#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:186
 msgid "Database update incomplete."
 msgstr ""
 
-#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:194
+#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:191
 msgid "WooCommerce Free Gift Coupons Data Update"
 msgstr ""
 
-#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:200
+#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:197
 msgid "WooCommerce Free Gift Coupons data update complete."
 msgstr ""
 
-#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:214
+#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:211
 msgid "Run the updater"
 msgstr ""
 
-#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:234
+#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:231
 msgid "run the update process manually"
 msgstr ""
 
 #. translators: %s: Fallback link to force update
-#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:237
+#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:234
 msgid "&hellip;Taking a while? You may need to %s."
 msgstr ""
 
-#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:252
+#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:249
 msgid "get in touch with us"
 msgstr ""
 
 #. translators: %s: Link to support
-#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:254
+#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:251
 msgid "If this message persists, please restore your database from a backup, or %s."
 msgstr ""
 
-#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:266
+#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:263
 msgid "Action failed. Please refresh the page and retry."
 msgstr ""
 
-#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:270
+#: includes/admin/class-wc-free-gift-coupons-admin-notices.php:267
 msgid "You do not have permission to dismiss this notice."
 msgstr ""
 
@@ -303,7 +303,7 @@ msgstr ""
 
 #: includes/class-wc-free-gift-coupons.php:730
 #: assets/dist/frontend/checkout-blocks.js:1
-#: assets/js/frontend/blocks/checkout/index.js:52
+#: assets/js/frontend/blocks/checkout/index.js:61
 msgid "Free!"
 msgstr ""
 
@@ -362,11 +362,11 @@ msgid "Awaiting product image"
 msgstr ""
 
 #. translators: %1$s: Opening link tag, %2$s: Closing link tag, %3$s: Required version of WooCommerce
-#: woocommerce-free-gift-coupons.php:48
+#: woocommerce-free-gift-coupons.php:47
 msgid "<strong>WooCommerce Free Gift Coupons is inactive.</strong> The %1$sWooCommerce plugin%2$s must be active and at least version %3$s for Free Gift Coupons to function. Please upgrade or activate WooCommerce."
 msgstr ""
 
 #. translators: %1$s: Opening link tag, %2$s: Closing link tag, %3$s: Required version of PHP
-#: woocommerce-free-gift-coupons.php:57
+#: woocommerce-free-gift-coupons.php:56
 msgid "WooCommerce Free Gift Coupons requires at least PHP <strong>%1$s</strong>. Learn <a href=\"%2$s\">how to update PHP</a>."
 msgstr ""

@@ -13,7 +13,7 @@ if ( ! $product->is_purchasable() ) {
 }
 ?>
 
-<noscript><?php _e( 'Your browser must support JavaScript in order to purchase ticket(s).', 'woocommerce-box-office' ); ?></noscript>
+<noscript><?php esc_html_e( 'Your browser must support JavaScript in order to purchase ticket(s).', 'woocommerce-box-office' ); ?></noscript>
 
 <div class="wc-box-office-ticket-form">
 
@@ -23,7 +23,7 @@ if ( ! $product->is_purchasable() ) {
 
 	<div class="wc-box-office-ticket-fields" data-index="0" style="display: none">
 		<h3 class="wc-box-office-ticket-fields-title">
-			<a href="#"><?php echo wcbo_get_ticket_title_prefix() . '1'; ?></a>
+			<a href="#"><?php echo esc_html( wcbo_get_ticket_title_prefix() ) . '1'; ?></a>
 		</h3>
 		<div class="wc-box-office-ticket-fields-body">
 			<?php

@@ -4,7 +4,7 @@
 	<input type="hidden" name="tab" value="export">
 	<input type="hidden" name="action" value="export_tickets">
 
-	<p><?php _e( 'Export attendee data for the following chosen tickets:', 'woocommerce-box-office' ); ?></p>
+	<p><?php esc_html_e( 'Export attendee data for the following chosen tickets:', 'woocommerce-box-office' ); ?></p>
 
 	<select name="tickets[]" class="chosen_select ticket-product-select" style="width:300px" required multiple>
 		<?php foreach ( wc_box_office_get_all_ticket_products( true ) as $product ) : ?>
@@ -18,11 +18,11 @@
 	<p>
 		<label>
 			<input type="checkbox" name="only_published_tickets" checked />
-			<?php _e( 'Only export published tickets', 'woocommerce-box-office' ); ?>
+			<?php esc_html_e( 'Only export published tickets', 'woocommerce-box-office' ); ?>
 		</label>
 	</p>
 
 	<p class="buttons">
-		<input type="submit" value="<?php _e( 'Download Export File (CSV)', 'woocommerce-box-office' ); ?>" class="button-primary">
+		<input type="submit" value="<?php esc_attr_e( 'Download Export File (CSV)', 'woocommerce-box-office' ); ?>" class="button-primary">
 	</p>
 </form>

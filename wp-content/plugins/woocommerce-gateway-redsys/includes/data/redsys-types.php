@@ -30,5 +30,7 @@ function redsys_return_types() {
 		'webserviceredsys',
 		'paygold',
 		'bizumcheckout',
+		'googlepayredirecredsys',
+		'googlepayredsys',
 	);
 }

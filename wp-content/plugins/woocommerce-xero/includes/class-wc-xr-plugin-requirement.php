@@ -49,7 +49,7 @@ class WC_XR_PLUGIN_REQUIREMENT {
 	/**
 	 * Should return result about site SSL certificate status.
 	 *
-	 * @since x.x.x Implement static ssl verification.
+	 * @since 1.7.55 Implement static ssl verification.
 	 * @since 1.7.52
 	 */
 	public function is_ssl_active(): bool {

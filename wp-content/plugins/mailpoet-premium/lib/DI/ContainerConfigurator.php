@@ -63,6 +63,9 @@ class ContainerConfigurator implements IContainerConfigurator {
     $this->registerFreeService($container, \MailPoet\Util\License\Features\Subscribers::class);
     $this->registerFreeService($container, \MailPoet\Mailer\MailerFactory::class);
     $this->registerFreeService($container, \MailPoet\Settings\SettingsController::class);
+    $this->registerFreeService($container, \MailPoet\Automation\Integrations\WooCommerce\WooCommerce::class);
+    $this->registerFreeService($container, \MailPoet\Automation\Engine\WordPress::class);
+    $this->registerFreeService($container, \MailPoet\Automation\Integrations\MailPoet\Analytics\Controller\AutomationEmailController::class);
 
     // API
     $container->autowire(\MailPoet\Premium\API\JSON\v1\Bounces::class)->setPublic(true);
@@ -96,6 +99,10 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerce\WooCommerceIntegration::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerce\Triggers\AbandonedCart\AbandonedCartTrigger::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerce\Triggers\AbandonedCart\AbandonedCartHandler::class)->setPublic(true);
+
+    // Automation - Analytics
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Analytics\Storage\OrderStatistics::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Analytics\Controller\PremiumOrderController::class)->setPublic(true);
 
     // Config
     $container->autowire(\MailPoet\Premium\Config\Hooks::class);

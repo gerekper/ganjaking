@@ -573,7 +573,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 			header( 'HTTP/1.1 200 OK' );
 			do_action( 'valid_redsysbank_standard_ipn_request', $_POST ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		} else {
-			wp_die( 'Servired/RedSys Notification Request Failure' );
+			wp_die( 'There is nothing to see here, do not access this page directly (Bank Transfer)' );
 		}
 	}
 	/**

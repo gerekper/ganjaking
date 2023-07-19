@@ -395,11 +395,9 @@ class Frontend_Handler {
 	 */
 	private function get_gtag_options(): array {
 
-		$options = [
-			'cookie_domain' => 'auto'
-		];
+		$options = array_merge( [ 'cookie_domain' => 'auto' ], Tracking::get_debug_mode_params() );
 
-		if ( Tracking::is_user_id_tracking_enabled() && $user = wp_get_current_user() ) {
+		if ( Tracking::is_user_id_tracking_enabled() && ( $user = wp_get_current_user() ) && $user->ID ) {
 
 			$options['user_id']         = $user->ID;
 			$options['user_properties'] = [
@@ -745,7 +743,7 @@ class Frontend_Handler {
 		// sanity check
 		if ( $product instanceof \WC_Product ) {
 			$product_details['id']       = Product_Helper::get_product_identifier( $product );
-			$product_details['name']     = $product->get_title();
+			$product_details['name']     = $product->get_name();
 			$product_details['category'] = Product_Helper::get_category_hierarchy( $product );
 			$product_details['variant']  = Product_Helper::get_product_variation_attributes( $product );
 			$product_details['price']    = $product->get_price();
@@ -842,7 +840,7 @@ class Frontend_Handler {
 		// set up impression data as associative array and merge attributes to be sent as custom dimensions
 		$impression_data = array_merge( [
 				'id'       => Product_Helper::get_product_identifier( $product ),
-				'name'     => $product->get_title(),
+				'name'     => $product->get_name(),
 				'list'     => Product_Helper::get_list_type(),
 				'brand'    => '',
 				'category' => Product_Helper::get_category_hierarchy( $product ),

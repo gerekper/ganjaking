@@ -278,7 +278,12 @@ class Integration extends \WC_Integration {
 
 		$form_fields['debug_mode'] = [
 			'title'   => __( 'Debug Mode', 'woocommerce-google-analytics-pro' ),
-			'label'   => __( 'Log API requests, responses, and errors for debugging. Only enable this if you experience issues!', 'woocommerce-google-analytics-pro' ),
+			'label'   => sprintf(
+				/* translators: %1$s - opening <a> tag, %2$s - closing </a> tag */
+				__( 'Log all API requests, responses, and errors locally, and monitor GA4 events in %1$sGA4 DebugView%2$s. Only enable this if you experience issues!', 'woocommerce-google-analytics-pro' ),
+				'<a href="https://support.google.com/analytics/answer/7201382?hl=en">',
+				'</a>'
+			),
 			'type'    => 'checkbox',
 			'default' => 'no',
 		];
@@ -368,50 +373,19 @@ class Integration extends \WC_Integration {
 			);
 		}
 
-/** @TODO restore the code block below after the GA proxy app update has been approved by Google */
+		if ( $this->is_authenticated() && ! $this->has_edit_scope() ) {
 
-		// if ( $this->is_authenticated() && ! $this->has_edit_scope() ) {
-		// 	$auth_fields = array_merge($auth_fields, [
-		// 		'ga4_property' => [
-		// 			'title'       => __( 'Google Analytics 4 Property', 'woocommerce-google-analytics-pro' ),
-		// 			'type'        => 'hidden',
-		// 			'default'     => '',
-		// 			'description' => __( 'Please re-authenticate & allow edit access to your Google Analytics account to see GA4 properties', 'woocommerce-google-analytics-pro' ),
-		// 			'desc_tip'    => __( 'Choose which Google Analytics property you want to track', 'woocommerce-google-analytics-pro' ),
-		// 		],
-		// 	]);
-		// } else if ( ! empty( $ga_properties ) ) {
+			$auth_fields = array_merge($auth_fields, [
+				'ga4_property' => [
+					'title'       => __( 'Google Analytics 4 Property', 'woocommerce-google-analytics-pro' ),
+					'type'        => 'hidden',
+					'default'     => '',
+					'description' => __( 'Please re-authenticate & allow edit access to your Google Analytics account to see GA4 properties', 'woocommerce-google-analytics-pro' ),
+					'desc_tip'    => __( 'Choose which Google Analytics property you want to track', 'woocommerce-google-analytics-pro' ),
+				],
+			]);
 
-/** v2.0.1 temporary code -- start */
-
-		$ga4_property = Framework\SV_WC_Helper::get_posted_value( $this->get_field_key( 'ga4_property' ) );
-
-		if ( ! $ga4_property ) {
-			$ga4_property = $this->get_option( 'ga4_property', '' );
-		}
-
-		if ( $ga4_property ) {
-			[ , $ga4_property ] = explode( '|', $ga4_property );
-		}
-
-		if ( $this->is_authenticated() && $ga4_property ) {
-
-			// this will ensure that the wc_google_analytics_pro_ga4_data_streams and wc_google_analytics_pro_ga4_data_stream_api_secrets are populated
-			// so at that point we are able to determine if to show a notice or not if a data stream for the matching property is there
-			$this->ensure_ga4_property_setup( $ga4_property );
-
-			$ga4_property_data_stream = $this->get_plugin()->get_properties_handler_instance()->get_ga4_property_data_stream( $ga4_property );
-
-			if ( ! $ga4_property_data_stream ) {
-				$auth_fields['auth_section']['description'] = sprintf( __( 'Please follow the steps found %1$shere%2$s to add a Data Stream and API Secret and then click "Save changes" below to complete setup', 'woocommerce-google-analytics-pro' ), '<a target="_blank" href="' . ( $this->get_plugin()->get_documentation_url() ) . '#data-stream">', '</a>' );
-			} elseif ( ! $this->get_plugin()->get_properties_handler_instance()->get_ga4_data_stream_api_secret( $ga4_property_data_stream->name ) ) {
-				$auth_fields['auth_section']['description'] = sprintf( __( 'Please follow the steps found %1$shere%2$s to add a Data Stream API Secret and then click "Save changes" below to complete setup', 'woocommerce-google-analytics-pro' ), '<a target="_blank" href="' . ( $this->get_plugin()->get_documentation_url() ) . '#data-stream">', '</a>' );
-			}
-		}
-
-		if ( ! empty( $ga_properties ) ) {
-
-/** v2.0.1 temporary code -- end */
+		} elseif ( ! empty( $ga_properties ) ) {
 
 			// add empty option so clearing the field is possible
 			$ga_properties = array_merge( [ '' => '' ], $ga_properties );
@@ -1174,38 +1148,19 @@ class Integration extends \WC_Integration {
 			// log the error
 			wc_google_analytics_pro()->log( $e->getMessage() );
 
-/** @TODO restore the notice below after the GA proxy app update has been approved by Google */
-
-			// // possibly a timeout, or other issue
-			// wc_google_analytics_pro()->get_admin_notice_handler()->add_admin_notice(
-			// 	/* translators: Placeholder: %1$s - plugin name, in bold; %2$s - error message */
-			// 	sprintf( esc_html__( '%1$s: Something went wrong when trying to set up API access for the selected GA4 property - a Google API error occurred: %2$s. Please try again in a few minutes or try re-authenticating with your Google account.', 'woocommerce-google-analytics-pro' ), '<strong>' . wc_google_analytics_pro()->get_plugin_name() . '</strong> ', $e->getMessage() ),
-			// 	wc_google_analytics_pro()->get_id() . '-account-' . get_option( 'wc_google_analytics_pro_account_id', '' ) . '-setup-error',
-			// 	[
-			// 		'always_show_on_settings' => true,
-			// 		'notice_class'            => 'error'
-			// 	]
-			// );
-
-			// return null;
+			// possibly a timeout, or other issue
+			wc_google_analytics_pro()->get_admin_notice_handler()->add_admin_notice(
+				/* translators: Placeholder: %1$s - plugin name, in bold; %2$s - error message */
+				sprintf( esc_html__( '%1$s: Something went wrong when trying to set up API access for the selected GA4 property - a Google API error occurred: %2$s. Please try again in a few minutes or try re-authenticating with your Google account.', 'woocommerce-google-analytics-pro' ), '<strong>' . wc_google_analytics_pro()->get_plugin_name() . '</strong> ', $e->getMessage() ),
+				wc_google_analytics_pro()->get_id() . '-account-' . get_option( 'wc_google_analytics_pro_account_id', '' ) . '-setup-error',
+				[
+					'always_show_on_settings' => true,
+					'notice_class'            => 'error'
+				]
+			);
 		}
 
-/** v2.0.1 temporary code -- start */
-
-		wc_google_analytics_pro()->get_admin_notice_handler()->add_admin_notice(
-		/* translators: Placeholder: %1$s - plugin name, in bold; %2$s - error message */
-			sprintf( esc_html__( '%1$s: Please follow the steps found %2$shere%3$s to complete setup.', 'woocommerce-google-analytics-pro' ), '<strong>' . wc_google_analytics_pro()->get_plugin_name() . '</strong> ', '<a target="_blank" href="' . ( $this->get_plugin()->get_documentation_url() ) . '#data-stream">', '</a>' ),
-			wc_google_analytics_pro()->get_id() . '-account-' . get_option( 'wc_google_analytics_pro_account_id', '' ) . '-setup-error',
-			[
-				'always_show_on_settings' => true,
-				'dismissible'             => false,
-				'notice_class'            => 'error'
-			]
-		);
-
 		return null;
-
-/** v2.0.1 temporary code -- end */
 	}
 
 

@@ -50,7 +50,7 @@ function redsys_create_block_bloques_redsys_block_init() {
 				),
 				'showMastercard' => array(
 					'type'    => 'boolean',
-					'default' => false,
+					'default' => 1,
 				),
 				'mastercardSize' => array(
 					'type'    => 'number',
@@ -66,9 +66,17 @@ function redsys_create_block_bloques_redsys_block_init() {
 				),
 				'showVisa'       => array(
 					'type'    => 'boolean',
-					'default' => false,
+					'default' => 1,
 				),
 				'visaSize'       => array(
+					'type'    => 'number',
+					'default' => 50,
+				),
+				'showGPay'       => array(
+					'type'    => 'boolean',
+					'default' => 1,
+				),
+				'gpaySize'       => array(
 					'type'    => 'number',
 					'default' => 50,
 				),

@@ -1,10 +1,19 @@
-/**
+ /**
  * External dependencies
+ * NB: registerCheckoutFilters was "graduated" in Woo 7.5.0 or Woo Blocks 9.6.0
  */
- import { __, sprintf } from '@wordpress/i18n';
- import { __experimentalRegisterCheckoutFilters } from '@woocommerce/blocks-checkout';
- 
- __experimentalRegisterCheckoutFilters( 'free-gift-coupons', {
+import { __, sprintf } from '@wordpress/i18n';
+import {
+	__experimentalRegisterCheckoutFilters as experimentalFilters,
+	registerCheckoutFilters as graduatedFilters,
+} from '@woocommerce/blocks-checkout';
+
+const registerCheckoutFilters =
+	typeof graduatedFilters !== 'undefined'
+		? graduatedFilters
+		: experimentalFilters;
+
+ registerCheckoutFilters( 'free-gift-coupons', {
 
     itemName: ( context, { free_gift_coupons }, { cartItem } ) => {
 

@@ -1,5 +1,13 @@
 *** Product Vendors Changelog ***
 
+2023-07-17 - version 2.1.80
+* Dev - Added filter hooks when deciding whether to send order/cancelled order emails to vendors.
+* Dev - Bump WooCommerce "tested up to" version 7.8.
+* Dev - Bump WooCommerce minimum supported version from 6.8 to 7.2.
+* Dev - Bump WordPress minimum supported version from 5.8 to 6.1.
+* Fix - Resolves over-aggressive escaping in the vendor report view.
+* Update - Migrate vendor admin storage to term meta.
+
 2023-06-14 - version 2.1.79
 * Dev - Coding standards updates.
 * Dev - Added new GitHub Workflow to run Quality Insights Toolkit tests.

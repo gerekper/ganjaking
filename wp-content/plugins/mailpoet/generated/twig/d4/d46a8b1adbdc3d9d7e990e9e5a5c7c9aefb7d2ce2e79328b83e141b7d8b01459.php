@@ -113,7 +113,7 @@ class __TwigTemplate_9641d7769a94575cd44aaeff4df310da82a8fe07490b66905fc1e575dba
         echo ";
       var mailpoet_date_display_format = \"";
         // line 22
-        echo $this->extensions['MailPoet\Twig\Functions']->getWPDateFormat();
+        echo \MailPoetVendor\twig_escape_filter($this->env, $this->extensions['MailPoet\Twig\Functions']->getWPDateTimeFormat(), "js");
         echo "\";
       var mailpoet_date_storage_format = \"Y-m-d\";
       var mailpoet_product_categories = ";

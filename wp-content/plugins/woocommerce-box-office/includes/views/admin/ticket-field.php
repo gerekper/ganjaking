@@ -26,13 +26,13 @@ if ( 'email' != $field['type'] ) {
 	$email_style = 'display:none';
 }
 ?>
-<tr class="<?php echo isset( $row ) ? $row : ''; ?>">
+<tr class="<?php echo esc_attr( $row ?? '' ); ?>">
 	<td class="field_label"><input type="text" class="input_text" placeholder="<?php esc_attr_e( 'Field Label', 'woocommerce-box-office' ); ?>" name="_ticket_field_labels[]" value="<?php echo esc_attr( $field['label'] ); ?>" required="required" /></td>
-	<td class="field_type"><select name="_ticket_field_types[]"><?php echo $type_options; ?></select></td>
+	<td class="field_type"><select name="_ticket_field_types[]"><?php echo $type_options; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></select></td>
 	<td class="field_options">
-		<?php echo $autofill_select; ?>
-		<textarea style="<?php echo $options_style; ?>" placeholder="<?php esc_attr_e( 'Comma-separated list of available options', 'woocommerce-box-office' ); ?>" name="_ticket_field_options[]"><?php echo esc_html( $field['options'] ); ?></textarea>
-		<div class="email-options" style="<?php echo $email_style; ?>">
+		<?php echo $autofill_select; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		<textarea style="<?php echo esc_attr( $options_style ); ?>" placeholder="<?php esc_attr_e( 'Comma-separated list of available options', 'woocommerce-box-office' ); ?>" name="_ticket_field_options[]"><?php echo esc_html( $field['options'] ); ?></textarea>
+		<div class="email-options" style="<?php echo esc_attr( $email_style ); ?>">
 			<span class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Use this email address to contact the ticket holder.', 'woocommerce-box-office' ) ); ?>">
 				<?php esc_html_e( 'Contact: ', 'woocommerce-box-office' ); ?>
 				<select id="" name="_ticket_field_email_contact[]">

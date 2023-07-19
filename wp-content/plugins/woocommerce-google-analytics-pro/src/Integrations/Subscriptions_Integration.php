@@ -203,9 +203,7 @@ class Subscriptions_Integration {
 					$subscription_cid = Order_Helper::store_ga_identity( $subscription_id );
 				}
 
-				$related_orders = $subscription->get_related_orders( 'ids' );
-
-				if ( $subscription_cid && ! empty( $related_orders ) ) {
+				if ( $subscription_cid && ! empty( $related_orders = $subscription->get_related_orders( 'ids' ) ) ) {
 
 					foreach ( $related_orders as $related_order_id ) {
 

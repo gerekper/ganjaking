@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Servired/RedSys Spain Gateway
  * Plugin URI: https://woocommerce.com/products/redsys-gateway/
  * Description: Extends WooCommerce with RedSys gateway.
- * Version: 21.1.0
+ * Version: 22.0.0
  * Author: José Conti
  * Author URI: https://www.joseconti.com/
  * Tested up to: 6.3
@@ -24,7 +24,7 @@
 use Automattic\WooCommerce\Utilities\OrderUtil;
 
 if ( ! defined( 'REDSYS_VERSION' ) ) {
-	define( 'REDSYS_VERSION', '21.1.0' );
+	define( 'REDSYS_VERSION', '22.0.0' );
 }
 if ( ! defined( 'REDSYS_LICENSE_SITE_ID' ) ) {
 	define( 'REDSYS_LICENSE_SITE_ID', 1 );
@@ -66,7 +66,7 @@ if ( ! defined( 'REDSYS_CHECK_WOO_CONNECTION' ) ) {
 }
 
 if ( ! defined( 'REDSYS_POST_UPDATE_URL_P' ) ) {
-	define( 'REDSYS_POST_UPDATE_URL_P', 'https://redsys.joseconti.com/2023/06/19/woocommerce-redsys-gateway-21-1-x/' );
+	define( 'REDSYS_POST_UPDATE_URL_P', 'https://redsys.joseconti.com/2023/07/16/woocommerce-redsys-gateway-22-0-x-google-pay-en-el-checkout/' );
 }
 
 if ( ! defined( 'REDSYS_POST_PSD2_URL' ) ) {
@@ -544,8 +544,11 @@ function woocommerce_gateway_redsys_premium_init() {
 
 	require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-rest-redsys.php'; // Version 17.1.0.
 
-	// Adding Google Pay
-	// require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-gateway-googlepay-redsys.php'; // Google Pay version 12.0.
+	// Adding Google Pay redirection.
+	require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-gateway-googlepay-redirection-redsys.php'; // Google Pay version 21.2.0.
+
+	// Adding Google Pay Checkout.
+	require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-gateway-googlepay-checkout.php'; // Google Pay version 22.0.0.
 	/**
 	 * Add Paygold page.
 	 */
@@ -559,8 +562,14 @@ function woocommerce_gateway_redsys_premium_init() {
 	function paygold_menu() {
 		global $paygold_page;
 
-		$paygold_page = add_submenu_page( 'woocommerce', __( 'Pay Gold Tools', 'woocommerce-redsys' ), __( 'Pay Gold Tools', 'woocommerce-redsys' ), 'manage_options', 'paygold-page', 'paygold_page' );
-
+		$paygold_page = add_submenu_page(
+			'woocommerce',
+			esc_html__( 'Pay Gold Tools', 'woocommerce-redsys' ),
+			esc_html__( 'Pay Gold Tools', 'woocommerce-redsys' ),
+			'manage_options',
+			'paygold-page',
+			'paygold_page'
+		);
 	}
 	/**
 	 * Paygold Ajax Callback.
@@ -652,244 +661,17 @@ function woocommerce_gateway_redsys_premium_init() {
 			echo '<link rel="dns-prefetch" href="https://sis-t.redsys.es:25443/">';
 			echo '<link rel="dns-prefetch" href="https://sis-i.redsys.es:25443/">';
 		}
+		if ( WCRed()->is_gateway_enabled( 'googlepayredsys' ) ) {
+			echo '<!-- Added by WooCommerce Redsys Gateway v.' . esc_html( REDSYS_VERSION ) . ' - https://woocommerce.com/products/redsys-gateway/ -->';
+			echo '<link rel="dns-prefetch" href="https://pay.google.com/">';
+		}
 		echo '<!-- This site is powered by WooCommerce Redsys Gateway v.' . esc_html( REDSYS_VERSION ) . ' - https://woocommerce.com/products/redsys-gateway/ -->';
 	}
 	add_action( 'wp_head', 'redsys_woo_add_head_text' );
 	add_action( 'parse_request', array( 'WC_Redsys_Profile', 'redsys_handle_requests_add_method' ) );
 
-	/**
-	 * Checkout buton text
-	 *
-	 * @param string $order_button_text Button text.
-	 */
-	function redsys_chekout_button_text( $order_button_text ) {
-
-		$chosen_payment_method = WC()->session->get( 'chosen_payment_method' );
-
-		if ( 'redsys' === $chosen_payment_method ) {
-			$text = WCRed()->get_redsys_option( 'buttoncheckout', 'redsys' );
-			if ( ! empty( $text ) ) {
-				$order_button_text = $text;
-			} else {
-				$order_button_text = $order_button_text;
-			}
-		} elseif ( 'insite' === $chosen_payment_method ) {
-			$text = WCRed()->get_redsys_option( 'buttontext', 'insite' );
-			if ( ! empty( $text ) ) {
-				$order_button_text = $text;
-			} else {
-				$order_button_text = $order_button_text;
-			}
-		} elseif ( 'masterpass' === $chosen_payment_method ) {
-			$text = WCRed()->get_redsys_option( 'buttoncheckout', 'masterpass' );
-			if ( ! empty( $text ) ) {
-				$order_button_text = $text;
-			} else {
-				$order_button_text = $order_button_text;
-			}
-		} elseif ( 'redsysbank' === $chosen_payment_method ) {
-			$text = WCRed()->get_redsys_option( 'buttoncheckout', 'redsysbank' );
-			if ( ! empty( $text ) ) {
-				$order_button_text = $text;
-			} else {
-				$order_button_text = $order_button_text;
-			}
-		} elseif ( 'bizumredsys' === $chosen_payment_method ) {
-			$text = WCRed()->get_redsys_option( 'buttoncheckout', 'bizumredsys' );
-			if ( ! empty( $text ) ) {
-				$order_button_text = $text;
-			} else {
-				$order_button_text = $order_button_text;
-			}
-		} elseif ( 'redsysdirectdebit' === $chosen_payment_method ) {
-			$text = WCRed()->get_redsys_option( 'buttoncheckout', 'redsysdirectdebit' );
-			if ( ! empty( $text ) ) {
-				$order_button_text = $text;
-			} else {
-				$order_button_text = $order_button_text;
-			}
-		} elseif ( 'paygold' === $chosen_payment_method ) {
-			$text = WCRed()->get_redsys_option( 'buttoncheckout', 'paygold' );
-			if ( ! empty( $text ) ) {
-				$order_button_text = $text;
-			} else {
-				$order_button_text = $order_button_text;
-			}
-		} elseif ( 'bizumcheckout' === $chosen_payment_method ) {
-			$text = WCRed()->get_redsys_option( 'buttoncheckout', 'bizumcheckout' );
-			if ( ! empty( $text ) ) {
-				$order_button_text = $text;
-			} else {
-				$order_button_text = $order_button_text;
-			}
-		}
-		return $order_button_text;
-	}
-	add_filter( 'woocommerce_order_button_text', 'redsys_chekout_button_text' );
-
-	/**
-	 * Button color text
-	 *
-	 * @param string $html Button text.
-	 */
-	function redsys_color_button_text( $html ) {
-
-		$chosen_payment_method = WC()->session->get( 'chosen_payment_method' );
-
-		if ( 'redsys' === $chosen_payment_method ) {
-			$textb = WCRed()->get_redsys_option( 'butonbgcolor', 'redsys' );
-			$text  = WCRed()->get_redsys_option( 'butontextcolor', 'redsys' );
-
-			if ( ! empty( $textb ) ) {
-				$textb = 'background-color:' . $textb . ';';
-			} else {
-				$textb = '';
-			}
-			if ( ! empty( $text ) ) {
-				$text = 'color:' . $text . ';';
-			} else {
-				$text = '';
-			}
-
-			if ( '' !== $textb || '' !== $text ) {
-				$cssbutton = 'style="' . $textb . '' . $text . '" ';
-				$html      = str_replace( '<button type="submit"', '<button type="submit" ' . $cssbutton, $html );
-			}
-		} elseif ( 'insite' === $chosen_payment_method ) {
-			$textb = WCRed()->get_redsys_option( 'colorbutton', 'insite' );
-			$text  = WCRed()->get_redsys_option( 'colortextbutton', 'insite' );
-
-			if ( ! empty( $textb ) ) {
-				$textb = 'background-color:' . $textb . ';';
-			} else {
-				$textb = '';
-			}
-			if ( ! empty( $text ) ) {
-				$text = 'color:' . $text . ';';
-			} else {
-				$text = '';
-			}
-
-			if ( '' !== $textb || '' !== $text ) {
-				$cssbutton = 'style="' . $textb . ' ' . $text . 'display:none; visibility: hidden;" ';
-				$html      = str_replace( '<button type="submit"', '<button type="submit" ' . $cssbutton, $html );
-			}
-		} elseif ( 'masterpass' === $chosen_payment_method ) {
-			$textb = WCRed()->get_redsys_option( 'butonbgcolor', 'masterpass' );
-			$text  = WCRed()->get_redsys_option( 'butontextcolor', 'masterpass' );
-
-			if ( ! empty( $textb ) ) {
-				$textb = 'background-color:' . $textb . ';';
-			} else {
-				$textb = '';
-			}
-			if ( ! empty( $text ) ) {
-				$text = 'color:' . $text . ';';
-			} else {
-				$text = '';
-			}
-
-			if ( '' !== $textb || '' !== $text ) {
-				$cssbutton = 'style="' . $textb . '' . $text . '" ';
-				$html      = str_replace( '<button type="submit"', '<button type="submit" ' . $cssbutton, $html );
-			}
-		} elseif ( 'redsysbank' === $chosen_payment_method ) {
-			$textb = WCRed()->get_redsys_option( 'butonbgcolor', 'redsysbank' );
-			$text  = WCRed()->get_redsys_option( 'butontextcolor', 'redsysbank' );
-
-			if ( ! empty( $textb ) ) {
-				$textb = 'background-color:' . $textb . ';';
-			} else {
-				$textb = '';
-			}
-			if ( ! empty( $text ) ) {
-				$text = 'color:' . $text . ';';
-			} else {
-				$text = '';
-			}
-
-			if ( '' !== $textb || '' !== $text ) {
-				$cssbutton = 'style="' . $textb . '' . $text . '" ';
-				$html      = str_replace( '<button type="submit"', '<button type="submit" ' . $cssbutton, $html );
-			}
-		} elseif ( 'bizumredsys' === $chosen_payment_method ) {
-			$textb = WCRed()->get_redsys_option( 'butonbgcolor', 'bizumredsys' );
-			$text  = WCRed()->get_redsys_option( 'butontextcolor', 'bizumredsys' );
-
-			if ( ! empty( $textb ) ) {
-				$textb = 'background-color:' . $textb . ';';
-			} else {
-				$textb = '';
-			}
-			if ( ! empty( $text ) ) {
-				$text = 'color:' . $text . ';';
-			} else {
-				$text = '';
-			}
-
-			if ( '' !== $textb || '' !== $text ) {
-				$cssbutton = 'style="' . $textb . '' . $text . '" ';
-				$html      = str_replace( '<button type="submit"', '<button type="submit" ' . $cssbutton, $html );
-			}
-		} elseif ( 'paygold' === $chosen_payment_method ) {
-			$textb = WCRed()->get_redsys_option( 'butonbgcolor', 'paygold' );
-			$text  = WCRed()->get_redsys_option( 'butontextcolor', 'paygold' );
-
-			if ( ! empty( $textb ) ) {
-				$textb = 'background-color:' . $textb . ';';
-			} else {
-				$textb = '';
-			}
-			if ( ! empty( $text ) ) {
-				$text = 'color:' . $text . ';';
-			} else {
-				$text = '';
-			}
-
-			if ( '' !== $textb || '' !== $text ) {
-				$cssbutton = 'style="' . $textb . '' . $text . '" ';
-				$html      = str_replace( '<button type="submit"', '<button type="submit" ' . $cssbutton, $html );
-			}
-		} elseif ( 'redsysdirectdebit' === $chosen_payment_method ) {
-			$textb = WCRed()->get_redsys_option( 'butonbgcolor', 'redsysdirectdebit' );
-			$text  = WCRed()->get_redsys_option( 'butontextcolor', 'redsysdirectdebit' );
-
-			if ( ! empty( $textb ) ) {
-				$textb = 'background-color:' . $textb . ';';
-			} else {
-				$textb = '';
-			}
-			if ( ! empty( $text ) ) {
-				$text = 'color:' . $text . ';';
-			} else {
-				$text = '';
-			}
-			if ( '' !== $textb || '' !== $text ) {
-				$cssbutton = 'style="' . $textb . '' . $text . '" ';
-				$html      = str_replace( '<button type="submit"', '<button type="submit" ' . $cssbutton, $html );
-			}
-		} elseif ( 'bizumcheckout' === $chosen_payment_method ) {
-			$textb = WCRed()->get_redsys_option( 'butonbgcolor', 'bizumcheckout' );
-			$text  = WCRed()->get_redsys_option( 'butontextcolor', 'bizumcheckout' );
-
-			if ( ! empty( $textb ) ) {
-				$textb = 'background-color:' . $textb . ';';
-			} else {
-				$textb = '';
-			}
-			if ( ! empty( $text ) ) {
-				$text = 'color:' . $text . ';';
-			} else {
-				$text = '';
-			}
-			if ( '' !== $textb || '' !== $text ) {
-				$cssbutton = 'style="' . $textb . '' . $text . '" ';
-				$html      = str_replace( '<button type="submit"', '<button type="submit" ' . $cssbutton, $html );
-			}
-		}
-		return $html;
-	}
-	add_filter( 'woocommerce_order_button_html', 'redsys_color_button_text' );
+	// Customization of the checkout buttons.
+	include_once REDSYS_PLUGIN_PATH_P . 'loader/checkout-buttons.php';
 
 	/**
 	 * Refresh checkout on payment methods change.
@@ -979,11 +761,91 @@ function woocommerce_gateway_redsys_premium_init() {
 						toggleRedsysFields( e.target.value === 'add' );
 					} );
 				}( jQuery ) );
+				</script>
+				<?php
+		}
+		if ( WCRed()->is_gateway_enabled( 'googlepayredsys' ) ) {
+			?>
+			<script type="text/javascript">
+				// Added by WooCommerce Redsys Gateway https://woocommerce.com/products/redsys-gateway/
+				(function($) {
+					$('form.checkout').on('change', 'input[name^="payment_method"]', function() {
+						var t = {
+							updateTimer: false,
+							dirtyInput: false,
+							reset_update_checkout_timer: function() {
+								clearTimeout(t.updateTimer);
+							},
+							trigger_update_checkout: function() {
+								t.reset_update_checkout_timer();
+								t.dirtyInput = false;
+								$(document.body).trigger("update_checkout");
+							}
+						};
+						var paymentMethod = $(this).attr('id');
+						if (paymentMethod === 'payment_method_googlepayredsys') {
+							onGooglePayLoaded();
+						} else {
+							t.trigger_update_checkout();
+						}
+					});
+				})(jQuery);
+				/*
+				jQuery(document.body).on('updated_checkout', function() {
+				// Obtener el nuevo valor del total del precio en el checkout
+				var nuevoTotalPrecio = obtenerNuevoTotalPrecio();
+
+				// Actualizar el valor de 'totalPrice' en el objeto 'gpay_redsys'
+				jQuery('#gpay-redsys-js-extra').html('var gpay_redsys = ' + JSON.stringify(Object.assign({}, gpay_redsys, {totalPrice: nuevoTotalPrecio})) + ';');
+				});
+
+				// Función para obtener el nuevo total del precio en el checkout utilizando WC()
+				function obtenerNuevoTotalPrecio() {
+					var nuevoTotal = jQuery('#checkout-total').text(); // Obtener el nuevo total del precio desde el elemento con el id 'checkout-total'
+					return nuevoTotal;
+				}
+				*/
 			</script>
 			<?php
 		}
 	}
 	add_action( 'woocommerce_review_order_after_payment', 'redsys_refresh_checkout_on_payment_methods_change' );
+
+	/**
+	 * Add Checkout Price to custom rest.
+	 */
+	function redsys_register_gpay_route_final_price() {
+		if ( null === WC()->cart && function_exists( 'wc_load_cart' ) ) {
+			wc_load_cart();
+		}
+		register_rest_route(
+			'redsysgpay',
+			'/get-cart-total',
+			array(
+				'methods'             => 'GET',
+				'callback'            => 'redsys_gpay_get_cart_total',
+				'permission_callback' => '__return_true',
+
+			)
+		);
+	}
+	add_action( 'rest_api_init', 'redsys_register_gpay_route_final_price' );
+	/**
+	 * Get Checkout Price to custom rest.
+	 *
+	 * @param WP_REST_Request $request Request.
+	 * @return WP_REST_Response
+	 */
+	function redsys_gpay_get_cart_total( WP_REST_Request $request ) {
+
+		$total = WC()->cart->total;
+
+		return new WP_REST_Response(
+			array(
+				'total' => $total,
+			)
+		);
+	}
 }
 
 /**

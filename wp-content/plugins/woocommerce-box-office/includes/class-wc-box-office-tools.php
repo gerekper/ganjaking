@@ -70,6 +70,7 @@ class WC_Box_Office_Tools {
 	 * @return void
 	 */
 	public function dispatch_tools_action() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$tab = ! empty( $_GET['tab'] ) ? $_GET['tab'] : 'export';
 		switch ( $tab ) {
 			case 'export':
@@ -88,14 +89,15 @@ class WC_Box_Office_Tools {
 			return false;
 		}
 
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 		if ( ! wp_verify_nonce( $_POST['wc_box_office_admin_test_email_nonce'], 'test-email' ) ) {
 			return false;
 		}
 
 		// Get email details.
 		$product_id = ! empty( $_POST['product_id'] ) ? absint( $_POST['product_id'] ) : '';
-		$content    = isset( $_POST['content'] ) ? wp_unslash( trim( $_POST['content'] ) ) : '';
-		$subject    = isset( $_POST['subject'] ) ? trim( $_POST['subject'] ) : '';
+		$content    = isset( $_POST['content'] ) ? trim( wp_kses_post( wp_unslash( $_POST['content'] ) ) ) : '';
+		$subject    = isset( $_POST['subject'] ) ? trim( wp_kses_post( wp_unslash( $_POST['subject'] ) ) ) : '';
 
 		if ( empty( $product_id ) || empty( $content ) ) {
 			exit;
@@ -155,7 +157,7 @@ class WC_Box_Office_Tools {
 			$response .= wc_box_office_get_parsed_ticket_content( $ticket_id, $content ) . "\n";
 		}
 
-		echo $response;
+		echo wp_kses_post( $response );
 
 		exit;
 	}
@@ -168,6 +170,7 @@ class WC_Box_Office_Tools {
 			return false;
 		}
 
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 		if ( ! wp_verify_nonce( $_POST['wc_box_office_admin_ticket_fields_nonce'], 'get-ticket-field-options' ) ) {
 			return false;
 		}
@@ -178,7 +181,7 @@ class WC_Box_Office_Tools {
 		}
 
 		// Get HTML for product options.
-		echo wc_box_office_get_product_ticket_fields_options( $product_id );
+		echo wp_kses_post( wc_box_office_get_product_ticket_fields_options( $product_id ) );
 
 		// Exit function to prevent 0 being printed out at end of ajax request.
 		exit;
@@ -195,7 +198,7 @@ class WC_Box_Office_Tools {
 			return false;
 		}
 
-		$products    = $_GET['tickets'];
+		$products    = array_map( 'absint', $_GET['tickets'] );
 		$post_status = isset( $_GET['only_published_tickets'] ) ? 'publish' : 'any';
 
 		$filename = sprintf( 'ticket-export-%1$s.csv', date( 'Y-m-d' ) );
@@ -276,7 +279,7 @@ class WC_Box_Office_Tools {
 					continue;
 				}
 
-				$product = wc_get_product( $product_id );
+				$product = wc_get_product($variation_id) ?: wc_get_product($product_id);
 
 				// Get customer user ID.
 				$user_id = get_post_meta( $ticket_id, '_user', true );
@@ -345,6 +348,7 @@ class WC_Box_Office_Tools {
 		fclose( $export );
 		$export = ob_get_clean();
 
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $export;
 		die();
 	}
@@ -376,6 +380,7 @@ class WC_Box_Office_Tools {
 				}
 			}
 
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 			if ( ! wp_verify_nonce( $_POST['tools_send_emails_nonce'], 'woocommerce_box_office_tools_send_emails' ) ) {
 				throw new Exception( __( 'Invalid security nonce for this request. Please try again.', 'woocommerce-box-office' ) );
 			}
@@ -388,8 +393,9 @@ class WC_Box_Office_Tools {
 				'post_content' => wp_kses_post( $_POST['email_body'] ),
 			) );
 
-			if ( $job_id ) {
-				add_post_meta( $job_id, '_product_id', $_POST['product_id'] );
+			if ( $job_id && isset( $_POST['product_id'] ) ) {
+				$product_id = absint( $_POST['product_id'] );
+				add_post_meta( $job_id, '_product_id', $product_id );
 
 				$product = wc_get_product( absint( $_POST['product_id'] ) );
 
@@ -404,7 +410,7 @@ class WC_Box_Office_Tools {
 					'meta_query'     => array(
 						array(
 							'key'   => '_product_id',
-							'value' => absint( $_POST['product_id'] ),
+							'value' => $product_id,
 						),
 					),
 				);
@@ -413,14 +419,14 @@ class WC_Box_Office_Tools {
 					$ticket_args['meta_query'] = array(
 						array(
 							'key'   => '_variation_id',
-							'value' => absint( $_POST['product_id'] ),
+							'value' => $product_id,
 						),
 					);
 				} else {
 					$ticket_args['meta_query'] = array(
 						array(
 							'key'   => '_product_id',
-							'value' => absint( $_POST['product_id'] ),
+							'value' => $product_id,
 						),
 					);
 				}
@@ -438,7 +444,7 @@ class WC_Box_Office_Tools {
 				add_action( 'admin_notices', array( $this, 'notice_email_job_queued' ) );
 
 			} else {
-				throw new Except( 'Failed to create email job. Please try again.', 'woocommerce-box-office' );
+				throw new Exception( 'Failed to create email job. Please try again.', 'woocommerce-box-office' );
 			}
 		} catch ( Exception $e ) {
 			$this->_errors[] = $e->getMessage();
@@ -451,7 +457,7 @@ class WC_Box_Office_Tools {
 	public function notice_email_job_queued() {
 		?>
 		<div class="updated">
-			<p><?php _e( 'Sending email job is successfully queued.', 'woocommerce-box-office' ); ?></p>
+			<p><?php esc_html_e( 'Sending email job is successfully queued.', 'woocommerce-box-office' ); ?></p>
 		</div>
 		<?php
 	}

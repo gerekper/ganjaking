@@ -6,22 +6,22 @@
  * Description: One-click registration and login via social networks like Facebook, Google, Twitter and Amazon
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 2.12.0
+ * Version: 2.13.0
  * Text Domain: woocommerce-social-login
  * Domain Path: /i18n/languages/
- * Copyright: (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
+ * Copyright: (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @package   WC-Social-Login
  * @author    SkyVerge
  * @category  Integration
- * @copyright Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 473617:b231cd6367a79cc8a53b7d992d77525d
  * WC requires at least: 3.9.4
- * WC tested up to: 7.1.1
+ * WC tested up to: 7.8.2
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -44,7 +44,7 @@ class WC_Social_Login_Loader {
 	const MINIMUM_WC_VERSION = '3.9.4';
 
 	/** SkyVerge plugin framework version used by this plugin */
-	const FRAMEWORK_VERSION = '5.10.12';
+	const FRAMEWORK_VERSION = '5.11.3';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Social Login';

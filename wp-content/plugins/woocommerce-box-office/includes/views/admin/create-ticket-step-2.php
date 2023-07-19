@@ -8,7 +8,7 @@ $data    = $this->_clean_data;
 $product = $this->_current_product;
 ?>
 <div class="wrap woocommerce">
-	<h2><?php _e( 'Create Ticket', 'woocommerce-box-office' ); ?></h2>
+	<h2><?php esc_html_e( 'Create Ticket', 'woocommerce-box-office' ); ?></h2>
 
 	<?php $this->maybe_print_errors(); ?>
 
@@ -19,7 +19,7 @@ $product = $this->_current_product;
 					<?php foreach ( $product->get_variation_attributes() as $attribute_name => $options ) : ?>
 					<tr valign="top">
 						<th scope="row">
-							<label for="<?php echo sanitize_title( $attribute_name ); ?>"><?php echo wc_attribute_label( $attribute_name ); ?></label>
+							<label for="<?php echo esc_attr( sanitize_title( $attribute_name ) ); ?>"><?php echo esc_html( wc_attribute_label( $attribute_name ) ); ?></label>
 						</th>
 						<td>
 							<?php
@@ -40,14 +40,14 @@ $product = $this->_current_product;
 
 				<tr valign="top">
 					<th scope="row">
-						<label><?php _e( 'Tickets', 'woocommerce-box-office' ); ?></label>
+						<label><?php esc_html_e( 'Tickets', 'woocommerce-box-office' ); ?></label>
 					</th>
 					<td>
 						<?php if ( $ticket_form ) : ?>
 						<div class="wc-box-office-ticket-form">
 							<div class="wc-box-office-ticket-fields" data-index="0" style="display: none">
 								<h3 class="wc-box-office-ticket-fields-title">
-									<a href="#"><?php echo wcbo_get_ticket_title_prefix() . '1'; ?></a>
+									<a href="#"><?php echo esc_html( wcbo_get_ticket_title_prefix() ) . '1'; ?></a>
 								</h3>
 								<div class="wc-box-office-ticket-fields-body">
 									<?php
@@ -69,12 +69,12 @@ $product = $this->_current_product;
 						<p style="margin-bottom: 10px">
 							<label>
 								<input type="checkbox" name="send_confirmation_email" value="1">
-								<?php _e( 'Send confirmation email to each ticket?', 'woocommerce-box-office' ); ?>
+								<?php esc_html_e( 'Send confirmation email to each ticket?', 'woocommerce-box-office' ); ?>
 								<?php echo wc_help_tip( __( 'The content in the email is based on the content of Ticket Emails panel found in selected ticket product.', 'woocommerce-box-office' ) ); ?>
 							</label>
 						</p>
 
-						<input type="submit" name="submit_create_ticket" class="button-primary" value="<?php _e( 'Create Ticket', 'woocommerce-box-office' ); ?>" />
+						<input type="submit" name="submit_create_ticket" class="button-primary" value="<?php esc_html_e( 'Create Ticket', 'woocommerce-box-office' ); ?>" />
 						<input type="hidden" name="customer_id" value="<?php echo esc_attr( $data['customer_id'] ); ?>" />
 						<input type="hidden" name="product_id" value="<?php echo esc_attr( $data['product_id'] ); ?>" />
 						<input type="hidden" name="quantity" value="<?php echo esc_attr( $data['quantity'] ); ?>" />

@@ -18,8 +18,6 @@ use MailPoet\Listing;
 use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\NotFoundException;
 use MailPoet\Premium\Newsletter\StatisticsClicksRepository;
-use MailPoet\Premium\Newsletter\StatisticsOpensRepository;
-use MailPoet\Premium\Newsletter\StatisticsUnsubscribesRepository;
 use MailPoetVendor\Doctrine\DBAL\Driver\Statement;
 use MailPoetVendor\Doctrine\ORM\EntityManager;
 
@@ -42,12 +40,6 @@ class SubscriberEngagement {
   /** @var NewslettersRepository */
   private $newslettersRepository;
 
-  /** @var StatisticsOpensRepository */
-  private $statisticsOpensRepository;
-
-  /** @var StatisticsUnsubscribesRepository */
-  private $statisticsUnsubscribesRepository;
-
   /** @var NewsletterLinkRepository */
   private $newsletterLinkRepository;
 
@@ -55,8 +47,6 @@ class SubscriberEngagement {
     Listing\Handler $listingHandler,
     EntityManager $entityManager,
     StatisticsClicksRepository $statisticsClicksRepository,
-    StatisticsOpensRepository $statisticsOpensRepository,
-    StatisticsUnsubscribesRepository $statisticsUnsubscribesRepository,
     NewsletterLinkRepository $newsletterLinkRepository,
     NewslettersRepository $newslettersRepository
   ) {
@@ -64,8 +54,6 @@ class SubscriberEngagement {
     $this->entityManager = $entityManager;
     $this->statisticsClicksRepository = $statisticsClicksRepository;
     $this->newslettersRepository = $newslettersRepository;
-    $this->statisticsOpensRepository = $statisticsOpensRepository;
-    $this->statisticsUnsubscribesRepository = $statisticsUnsubscribesRepository;
     $this->newsletterLinkRepository = $newsletterLinkRepository;
   }
 
@@ -164,8 +152,8 @@ class SubscriberEngagement {
     $queries = [];
 
     $fields = [
-      'opens.id',
       'opens.subscriber_id',
+      'opens.newsletter_id',
       '"' . self::STATUS_OPENED . '" as status',
       'opens.created_at',
       'subscribers.email',
@@ -173,7 +161,7 @@ class SubscriberEngagement {
       'subscribers.last_name',
     ];
 
-    $queries[self::STATUS_OPENED] = '(SELECT '
+    $queries[self::STATUS_OPENED] = '(SELECT DISTINCT '
       . self::getColumnList($fields, $count) . ' '
       . 'FROM ' . $opensTable . ' opens '
       . 'LEFT JOIN ' . $subscriberTable . ' subscribers ON subscribers.id = opens.subscriber_id '
@@ -181,8 +169,8 @@ class SubscriberEngagement {
       . 'AND opens.user_agent_type = "' . UserAgentEntity::USER_AGENT_TYPE_HUMAN . '") ';
 
     $fields = [
-      'opens.id',
       'opens.subscriber_id',
+      'opens.newsletter_id',
       '"' . self::STATUS_MACHINE_OPENED . '" as status',
       'opens.created_at',
       'subscribers.email',
@@ -190,7 +178,7 @@ class SubscriberEngagement {
       'subscribers.last_name',
     ];
 
-    $queries[self::STATUS_MACHINE_OPENED] = '(SELECT '
+    $queries[self::STATUS_MACHINE_OPENED] = '(SELECT DISTINCT '
       . self::getColumnList($fields, $count) . ' '
       . 'FROM ' . $opensTable . ' opens '
       . 'LEFT JOIN ' . $subscriberTable . ' subscribers ON subscribers.id = opens.subscriber_id '
@@ -198,8 +186,8 @@ class SubscriberEngagement {
       . 'AND opens.user_agent_type = "' . UserAgentEntity::USER_AGENT_TYPE_MACHINE . '") ';
 
     $fields = [
-      'clicks.id',
       'clicks.subscriber_id',
+      'clicks.newsletter_id',
       '"' . self::STATUS_CLICKED . '" as status',
       'clicks.created_at',
       'subscribers.email',
@@ -207,15 +195,15 @@ class SubscriberEngagement {
       'subscribers.last_name',
     ];
 
-    $queries[self::STATUS_CLICKED] = '(SELECT '
+    $queries[self::STATUS_CLICKED] = '(SELECT DISTINCT '
       . self::getColumnList($fields, $count) . ' '
       . 'FROM ' . $clicksTable . ' clicks '
       . 'LEFT JOIN ' . $subscriberTable . ' subscribers ON subscribers.id = clicks.subscriber_id '
       . 'WHERE clicks.newsletter_id = "' . $newsletterId . '" ' . $searchConstraint . $filterConstraint . ') ';
 
     $fields = [
-      'unsubscribes.id',
       'unsubscribes.subscriber_id',
+      'unsubscribes.newsletter_id',
       '"' . self::STATUS_UNSUBSCRIBED . '" as status',
       'unsubscribes.created_at',
       'subscribers.email',
@@ -223,15 +211,15 @@ class SubscriberEngagement {
       'subscribers.last_name',
     ];
 
-    $queries[self::STATUS_UNSUBSCRIBED] = '(SELECT '
+    $queries[self::STATUS_UNSUBSCRIBED] = '(SELECT DISTINCT '
       . self::getColumnList($fields, $count) . ' '
       . 'FROM ' . $unsubscribeTable . ' unsubscribes '
       . 'LEFT JOIN ' . $subscriberTable . ' subscribers ON subscribers.id = unsubscribes.subscriber_id '
       . 'WHERE unsubscribes.newsletter_id = "' . $newsletterId . '" ' . $searchConstraint . ') ';
 
     $fields = [
-      'sent.id',
       'sent.subscriber_id',
+      'sent.newsletter_id',
       '"' . self::STATUS_UNOPENED . '" as status',
       'sent.sent_at as created_at',
       'subscribers.email',
@@ -323,8 +311,9 @@ class SubscriberEngagement {
    * @return string
    */
   private static function getColumnList(array $fields, bool $count = false): string {
-    // Select ID field only for counting
-    return $count ? (string)reset($fields) : join(', ', $fields);
+    // Select with DISTINCT on subscriber_id and newsletter_id to avoid duplicates
+    // because due to race condition we can have multiple records for the same subscriber_id and newsletter_id
+    return $count ? "{$fields[0]}, {$fields[1]}" : join(', ', $fields);
   }
 
   /**
@@ -371,22 +360,22 @@ class SubscriberEngagement {
       [
         'name' => self::STATUS_CLICKED,
         'label' => _x('Clicked', 'Subscriber engagement filter - filter those who clicked on a newsletter link', 'mailpoet-premium'),
-        'count' => $this->statisticsClicksRepository->countBy(['newsletter' => $newsletter]),
+        'count' => $this->fetchStatsCount($definition, self::STATUS_CLICKED),
       ],
       [
         'name' => self::STATUS_OPENED,
         'label' => _x('Opened', 'Subscriber engagement filter - filter those who opened a newsletter', 'mailpoet-premium'),
-        'count' => $this->statisticsOpensRepository->countBy(['newsletter' => $newsletter, 'userAgentType' => UserAgentEntity::USER_AGENT_TYPE_HUMAN]),
+        'count' => $this->fetchStatsCount($definition, self::STATUS_OPENED),
       ],
       [
         'name' => self::STATUS_MACHINE_OPENED,
         'label' => _x('Machine-opened', 'Subscriber engagement filter - shows machine-opens for a given newsletter', 'mailpoet-premium'),
-        'count' => $this->statisticsOpensRepository->countBy(['newsletter' => $newsletter, 'userAgentType' => UserAgentEntity::USER_AGENT_TYPE_MACHINE]),
+        'count' => $this->fetchStatsCount($definition, self::STATUS_MACHINE_OPENED),
       ],
       [
         'name' => self::STATUS_UNSUBSCRIBED,
         'label' => _x('Unsubscribed', 'Subscriber engagement filter - filter those who unsubscribed from a newsletter', 'mailpoet-premium'),
-        'count' => $this->statisticsUnsubscribesRepository->countBy(['newsletter' => $newsletter]),
+        'count' => $this->fetchStatsCount($definition, self::STATUS_UNSUBSCRIBED),
       ],
     ];
 
@@ -399,16 +388,18 @@ class SubscriberEngagement {
       ]
     );
 
-    $subQuery = $this->getStatsQuery($definition, true, self::STATUS_UNOPENED, false);
-    $query = ' SELECT COUNT(*) as cnt FROM ( ' . $subQuery . ' ) t ';
-    $unopenedCount = intval($this->entityManager->getConnection()->executeQuery($query)->fetchOne());
-
     $groups[] = [
       'name' => self::STATUS_UNOPENED,
       'label' => _x('Unopened', 'Subscriber engagement filter - filter those who did not open a newsletter', 'mailpoet-premium'),
-      'count' => $unopenedCount,
+      'count' => $this->fetchStatsCount($definition, self::STATUS_UNOPENED),
     ];
 
     return $groups;
+  }
+
+  private function fetchStatsCount(Listing\ListingDefinition $definition, string $group): int {
+    $subQuery = $this->getStatsQuery($definition, true, $group, false);
+    $query = ' SELECT COUNT(*) as cnt FROM ( ' . $subQuery . ' ) t ';
+    return intval($this->entityManager->getConnection()->executeQuery($query)->fetchOne());
   }
 }

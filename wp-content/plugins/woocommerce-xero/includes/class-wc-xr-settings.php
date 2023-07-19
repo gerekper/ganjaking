@@ -399,10 +399,12 @@ class WC_XR_Settings {
 	public function delete_old_key_file() {
 		$key_file_path = '';
 		$result        = '';
-		if ( isset( $_POST['delete_key_file'] ) && current_user_can( 'manage_options' ) ) {
-			$key_name      = sanitize_text_field( $_POST['delete_key_file'] );
+		$key_name      = sanitize_text_field( wp_unslash( $_POST['delete_key_file'] ?? '' ) );
+
+		if ( $key_name && in_array( $key_name, array( 'wc_xero_public_key', 'wc_xero_private_key' ), true ) && current_user_can( 'manage_options' ) ) {
 			$key_file_path = get_option( $key_name );
 			if ( ! empty( $key_file_path ) ) {
+				// nosemgrep:audit.php.lang.security.file.read-write-delete,audit.php.lang.security.file.phar-deserialization -- $key_name is checked to be known to WC Xero.
 				$delete_result = unlink( $key_file_path );
 				if ( false === $delete_result ) {
 					$result = 'error';
@@ -426,7 +428,7 @@ class WC_XR_Settings {
 		if ( isset( $_POST['disconnect_from_xero'] ) && current_user_can( 'manage_options' ) ) {
 			if (
 				! isset( $_POST['wc_xero_disconnect_nonce'] )
-				|| ! wp_verify_nonce( $_POST['wc_xero_disconnect_nonce'], 'wc_xero_disconnect' )
+				|| ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['wc_xero_disconnect_nonce'] ) ), 'wc_xero_disconnect' )
 			) {
 				echo '<div>' . esc_html__( 'Nonce verification failed!', 'woocommerce-xero' ) . '</div>';
 				exit;
@@ -669,7 +671,7 @@ class WC_XR_Settings {
 			?>
 			<div class="wrap woocommerce">
 			<div class="icon32 icon32-woocommerce-settings" id="icon-woocommerce"><br/></div>
-					<h2><?php _e( 'Xero OAuth', 'woocommerce-xero' ); ?></h2>
+					<h2><?php esc_html_e( 'Xero OAuth', 'woocommerce-xero' ); ?></h2>
 					Something went wrong - token not received!
 			</div>
 			<?php
@@ -678,13 +680,13 @@ class WC_XR_Settings {
 			?>
 			<div class="wrap woocommerce">
 			<div class="icon32 icon32-woocommerce-settings" id="icon-woocommerce"><br/></div>
-					<h2><?php _e( 'Xero OAuth', 'woocommerce-xero' ); ?></h2>
+					<h2><?php esc_html_e( 'Xero OAuth', 'woocommerce-xero' ); ?></h2>
 					Something went wrong - previous state is different. CSRF prevention.
 			</div>
 			<?php
 		} else {
 			try {
-				$authorization_code = $_GET['code'];
+				$authorization_code = sanitize_text_field( $_GET['code'] );
 				$xero_oauth->get_access_token_using_authorization_code( $authorization_code );
 				$this->print_xero_connection_status( $xero_oauth->get_connection_status() );
 				// From now on OAuth20 will be used exclusively.
@@ -697,7 +699,7 @@ class WC_XR_Settings {
 					?>
 					<div class="wrap woocommerce">
 					<div class="icon32 icon32-woocommerce-settings" id="icon-woocommerce"><br/></div>
-							<h2><?php _e( 'Xero OAuth', 'woocommerce-xero' ); ?></h2>
+							<h2><?php esc_html_e( 'Xero OAuth', 'woocommerce-xero' ); ?></h2>
 							Callback failed:<br/>
 							<?php var_dump( $e ); ?>
 					</div>
@@ -706,7 +708,7 @@ class WC_XR_Settings {
 			}
 		}
 		// Go back link.
-		echo '</br><a href="' . admin_url( 'admin.php?page=woocommerce_xero' ) . '">Go back to Xero settings page.</a>';
+		echo '</br><a href="' . esc_url( admin_url( 'admin.php?page=woocommerce_xero' ) ) . '">Go back to Xero settings page.</a>';
 	}
 
 	/**
@@ -717,11 +719,11 @@ class WC_XR_Settings {
 		<div class="wrap woocommerce">
 			<form method="post" id="mainform" enctype="multipart/form-data" action="options.php">
 				<div class="icon32 icon32-woocommerce-settings" id="icon-woocommerce"><br/></div>
-				<h2><?php _e( 'Xero for WooCommerce', 'woocommerce-xero' ); ?></h2>
+				<h2><?php esc_html_e( 'Xero for WooCommerce', 'woocommerce-xero' ); ?></h2>
 
 				<?php
 				if ( isset( $_GET['settings-updated'] ) && ( $_GET['settings-updated'] == 'true' ) ) {
-					echo '<div id="message" class="updated fade"><p><strong>' . __( 'Your settings have been saved.', 'woocommerce-xero' ) . '</strong></p></div>';
+					echo '<div id="message" class="updated fade"><p><strong>' . esc_html__( 'Your settings have been saved.', 'woocommerce-xero' ) . '</strong></p></div>';
 
 					// Show errors if missing any mandatory fields.
 					$mandatory_fields = array();
@@ -740,7 +742,7 @@ class WC_XR_Settings {
 						</div>';
 					}
 				} elseif ( isset( $_GET['settings-updated'] ) && ( $_GET['settings-updated'] == 'false' ) ) {
-					echo '<div id="message" class="error fade"><p><strong>' . __( 'There was an error saving your settings.', 'woocommerce-xero' ) . '</strong></p></div>';
+					echo '<div id="message" class="error fade"><p><strong>' . esc_html__( 'There was an error saving your settings.', 'woocommerce-xero' ) . '</strong></p></div>';
 				}
 				?>
 
@@ -781,13 +783,13 @@ class WC_XR_Settings {
 		// File input field.
 		echo '<input type="file" name="' . esc_attr( $input_name ) . '" id="' . esc_attr( $input_name ) . '" accept="' . esc_attr( $file_ext ) . '"/>';
 
-		echo '<p class="description">' . esc_html( $args['option']['description'] ) . '</p>';
+		echo '<p class="description">' . wp_kses_post( $args['option']['description'] ) . '</p>';
 
 		$key_content = $this->get_option( $args['key'] );
 		if ( ! empty( $key_content ) ) {
 			echo '<p style="margin-top:15px;"><span style="padding: .5em; background-color: #4AB915; color: #fff; font-weight: bold;">' . esc_html( $this->get_upload_info_string( $input_name ) ) . '</span></p>';
 		} else {
-			echo '<p style="margin-top:15px;"><span style="padding: .5em; background-color: #bc0b0b; color: #fff; font-weight: bold;">' . __( 'Key not set', 'woocommerce-xero' ) . '</span></p>';
+			echo '<p style="margin-top:15px;"><span style="padding: .5em; background-color: #bc0b0b; color: #fff; font-weight: bold;">' . esc_html__( 'Key not set', 'woocommerce-xero' ) . '</span></p>';
 		}
 	}
 
@@ -833,7 +835,7 @@ class WC_XR_Settings {
 		} elseif ( $data_complete ) {
 			echo '<div class="wc-xero-oauth-data-complete">';
 			// Redirect the user to the authorization URL.
-			echo '<span data-xero-sso data-href="' . $authorization_url . '" data-label="' . esc_html__( 'Sign in with Xero', 'woocommerce-xero' ) . '"></span>';
+			echo '<span data-xero-sso data-href="' . esc_url( $authorization_url ) . '" data-label="' . esc_html__( 'Sign in with Xero', 'woocommerce-xero' ) . '"></span>';
 			echo '<script src="https://edge.xero.com/platform/sso/xero-sso.js" async defer></script>';
 			echo '</div>';
 		} else {
@@ -852,8 +854,8 @@ class WC_XR_Settings {
 	 * @param array $args
 	 */
 	public function input_text( $args ) {
-		echo '<input type="text" name="' . self::OPTION_PREFIX . $args['key'] . '" id="' . self::OPTION_PREFIX . $args['key'] . '" value="' . $this->get_option( $args['key'] ) . '" />';
-		echo '<p class="description">' . $args['option']['description'] . '</p>';
+		echo '<input type="text" name="' . esc_attr( self::OPTION_PREFIX . $args['key'] ) . '" id="' . esc_attr( self::OPTION_PREFIX . $args['key'] ) . '" value="' . esc_attr( $this->get_option( $args['key'] ) ) . '" />';
+		echo '<p class="description">' . wp_kses_post( $args['option']['description'] ) . '</p>';
 	}
 
 	/**
@@ -864,8 +866,8 @@ class WC_XR_Settings {
 	public function input_text_oauth( $args ) {
 		require_once 'class-wc-xr-oauth20.php';
 		$this->input_text( $args );
-		echo '<p>' . _e( 'Please use the following url as your redirect url when creating a Xero application:', 'woocommerce-xero' ) . '</p>';
-		echo WC_XR_OAuth20::build_redirect_uri();
+		echo '<p>' . esc_html__( 'Please use the following url as your redirect url when creating a Xero application:', 'woocommerce-xero' ) . '</p>';
+		echo esc_url( WC_XR_OAuth20::build_redirect_uri() );
 		echo '<br/></br>';
 	}
 
@@ -876,8 +878,8 @@ class WC_XR_Settings {
 	 * @param array $args
 	 */
 	public function input_checkbox( $args ) {
-		echo '<input type="checkbox" name="' . self::OPTION_PREFIX . $args['key'] . '" id="' . self::OPTION_PREFIX . $args['key'] . '" ' . checked( 'on', $this->get_option( $args['key'] ), false ) . ' /> ';
-		echo '<p class="description">' . $args['option']['description'] . '</p>';
+		echo '<input type="checkbox" name="' . esc_attr( self::OPTION_PREFIX . $args['key'] ) . '" id="' . esc_attr( self::OPTION_PREFIX . $args['key'] ) . '" ' . checked( 'on', $this->get_option( $args['key'] ), false ) . ' /> ';
+		echo '<p class="description">' . wp_kses_post( $args['option']['description'] ) . '</p>';
 	}
 
 	/**
@@ -890,17 +892,17 @@ class WC_XR_Settings {
 
 		$name = esc_attr( self::OPTION_PREFIX . $args['key'] );
 		$id   = esc_attr( self::OPTION_PREFIX . $args['key'] );
-		echo "<select name='$name' id='$id'>";
+		echo "<select name='$name' id='$id'>"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, escaped above.
 
 		foreach ( $args['option']['options'] as $key => $value ) {
 			$selected = selected( $option, $key, false );
 			$text     = esc_html( $value );
 			$val      = esc_attr( $key );
-			echo "<option value='$val' $selected>$text</option>";
+			echo "<option value='$val' $selected>$text</option>"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, escaped above.
 		}
 
 		echo '</select>';
-		echo '<p class="description">' . esc_html( $args['option']['description'] ) . '</p>';
+		echo '<p class="description">' . wp_kses_post( $args['option']['description'] ) . '</p>';
 	}
 
 	/**
@@ -911,11 +913,11 @@ class WC_XR_Settings {
 	public function print_xero_connection_status( $status ) {
 		echo '<div class="wc-xero-oauth-redirect-page">WooCommerce Xero authorization redirect page.</div>';
 		echo '<div class="wc-xero-status">';
-		echo '<img class="wc-xero-logo" src= ' . WC_XERO_ABSURL . 'assets/xero_logo_blue.png>';
+		echo '<img class="wc-xero-logo" src= ' . esc_attr( WC_XERO_ABSURL ) . 'assets/xero_logo_blue.png>';
 		echo '</br><span><b>Connection status:</b>';
 		if ( array_key_exists( 'correctRequest', $status ) ) {
 			echo '<span class="wc-xero-oauth-connection-ok"><b> [OK]</b></span></span>';
-			echo '<div>You are connected to <b>' . $status['connectedCompany'] . '</b> organisation.</div>';
+			echo '<div>You are connected to <b>' . esc_html( $status['connectedCompany'] ) . '</b> organisation.</div>';
 		} else {
 			if ( $status['errorMessage'] === 'invalid_grant' ) {
 				echo '<span class="wc-xero-oauth-connection-error"><b> [ERROR]</b></span></span>';
@@ -924,7 +926,7 @@ class WC_XR_Settings {
 			} elseif ( $status['errorMessage'] === 'no_connection' ) {
 				echo '<div>Application not authorized with Xero! Pleas click Sign in with Xero button.</div>';
 			} else {
-				echo $status['errorMessage'] . '</span>';
+				echo esc_html( $status['errorMessage'] ) . '</span>';
 			}
 		}
 		echo '</div">';
@@ -939,7 +941,7 @@ class WC_XR_Settings {
 		echo '</br><span><b>Connection status:</b>';
 		if ( array_key_exists( 'correctRequest', $status ) && $status['correctRequest'] ) {
 			echo '<span class="wc-xero-oauth-connection-ok"><b> [OK]</b></span></span>';
-			echo '<div>You are connected to <b>' . $status['connectedCompany'] . '</b> organisation.</div>';
+			echo '<div>You are connected to <b>' . esc_html( $status['connectedCompany'] ) . '</b> organisation.</div>';
 		} else {
 			if ( $status['errorMessage'] === 'invalid_grant' ) {
 				echo '<span class="wc-xero-oauth-connection-error"><b> [ERROR]</b></span></span>';
@@ -948,7 +950,7 @@ class WC_XR_Settings {
 			} elseif ( $status['errorMessage'] === 'no_connection' ) {
 				echo '<div>Application not authorized with Xero! Please click Sign in with Xero button.</div>';
 			} else {
-				echo $status['errorMessage'] . '</span>';
+				echo esc_html( $status['errorMessage'] ) . '</span>';
 			}
 		}
 	}
@@ -992,7 +994,7 @@ class WC_XR_Settings {
 			'test_form' => false,
 			'mimes'     => $this->valid_filetypes,
 		);
-		$import    = $_FILES[ $option_name ];
+		$import    = $_FILES[ $option_name ]; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 		$upload    = wp_handle_upload( $import, $overrides );
 
 		if ( isset( $upload['error'] ) ) {
@@ -1066,12 +1068,16 @@ class WC_XR_Settings {
 	 * @return void
 	 */
 	public function oauth20_migration_notice() {
+		global $pagenow;
+
 		if ( current_user_can( 'manage_options' ) && ! WC_XR_OAuth20::can_use_oauth20() && $this->oauth10_setup_params_exist() ) {
 			?>
 			<div class="notice notice-warning">
 				<p><?php echo esc_html( __( 'Xero authentication using keys is in the process of being deprecated and new private apps can no longer be created.', 'woocommerce-xero' ) ); ?></br>
 				<?php echo esc_html( __( 'Please use new flow and the button available in Xero settings to authorize your application.', 'woocommerce-xero' ) ); ?></p>
-				<?php echo '<a href="' . admin_url( 'admin.php?page=woocommerce_xero' ) . '">Go to Xero settings page.</a>'; ?></br>
+				<?php if ( 'admin.php' !== $pagenow || empty( $_GET['page'] ) || 'woocommerce_xero' !== $_GET['page'] ) : ?>
+				<p><?php echo '<a href="' . esc_url( admin_url( 'admin.php?page=woocommerce_xero' ) ) . '">' . esc_html__( 'Go to Xero settings page', 'woocommerce-xero' ) . '</a>.'; ?></p>
+				<?php endif; ?>
 			</div>
 			<?php
 		}

@@ -12,6 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsUtil;
+
 /**
  * # WooCommerce Core Actions Integration Class
  *
@@ -137,19 +139,40 @@ class WC_Points_Rewards_Actions {
 		}
 
 		// Check if there are no approved reviews for the customer already.
-		$can_reward    = false;
-		$args          = array(
+		$can_reward = false;
+		$args       = array(
 			'user_id' => $comment->user_id,
 			'count'   => true,
 		);
+
+		/**
+		 * The `comments_clauses_without_product_reviews` filter adds additional joins and where clauses
+		 * causing the `get_approved_comments` function to return 0 on bulk approval. Hence, we remove this filter
+		 * before the `get_approved_comments` function call and add it back for the rest of the execution.
+		 */
+		remove_filter( 'comments_clauses', array( ReviewsUtil::class, 'comments_clauses_without_product_reviews' ), 10, 1 );
 		$reviews_count = get_approved_comments( $comment->comment_post_ID, $args );
+		add_filter( 'comments_clauses', array( ReviewsUtil::class, 'comments_clauses_without_product_reviews' ), 10, 1 );
+
+		// ReviewsUtil is a class from WooCommerce internal namespace. We'd want to log if that class no longer exists.
+		if ( ! class_exists( ReviewsUtil::class ) ) {
+			wc_points_rewards()->log( esc_html__( 'ReviewsUtil class not found', 'woocommerce-points-and-rewards' ) );
+		}
 
 		// Points are rewarded after the review is approved. Hence there should be only one approved review.
 		if ( 1 === $reviews_count ) {
 			$can_reward = true;
 		}
 
-		return $can_reward;
+		/**
+		 * Filter to determine if a reward point can be applied to a review.
+		 *
+		 * @since 1.7.37
+		 *
+		 * @param bool       $can_reward Whether a reward point can be applied to a review.
+		 * @param WP_Comment $comment    Review to evaluate.
+		 */
+		return apply_filters( 'wc_points_rewards_can_reward_review', $can_reward, $comment );
 	}
 
 	/**

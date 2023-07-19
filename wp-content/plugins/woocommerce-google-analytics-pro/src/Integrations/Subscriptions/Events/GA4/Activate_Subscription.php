@@ -94,14 +94,15 @@ class Activate_Subscription extends GA4_Event implements Subscription_Event {
 			return;
 		}
 
-		$identities = Order_Helper::get_order_identities( $order );
+		$identities     = Order_Helper::get_order_identities( $order );
+		$session_params = Order_Helper::get_order_ga_session_params( $order->get_id() );
 
 		foreach ( $subscriptions as $subscription ) {
 
-			$this->track_subscription_event( $subscription, $identities, [
+			$this->track_subscription_event( $subscription, $identities, array_merge( [
 				'currency' => $subscription->get_currency(),
 				'value'    => $subscription->get_total_initial_payment()
-			] );
+			], $session_params ) );
 		}
 	}
 

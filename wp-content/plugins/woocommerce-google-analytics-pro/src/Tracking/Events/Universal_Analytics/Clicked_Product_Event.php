@@ -86,7 +86,7 @@ class Clicked_Product_Event extends Universal_Analytics_Event {
 
 		$properties = [
 			'eventCategory' => 'Products',
-			'eventLabel'    => htmlentities( $product->get_title(), ENT_QUOTES, 'UTF-8' ),
+			'eventLabel'    => htmlentities( $product->get_name(), ENT_QUOTES, 'UTF-8' ),
 		];
 
 		if ($parent_id = $product->get_parent_id()) {

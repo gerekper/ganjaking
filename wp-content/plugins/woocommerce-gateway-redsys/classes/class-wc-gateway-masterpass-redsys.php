@@ -445,7 +445,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'masterpass', 'Generating payment form for order ' . $order->get_order_number() . '. Sent data: ' . print_r( $masterpass_args, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 		}
-		$masterpass_args = apply_filters( 'woocommerce_masterpass_args', $masterpass_args );
+		$masterpass_args = apply_filters( 'woocommerce_' . $this->id . '_args', $masterpass_args );
 		return $masterpass_args;
 	}
 	/**
@@ -601,7 +601,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 			header( 'HTTP/1.1 200 OK' );
 			do_action( 'valid_' . $this->id . '_standard_ipn_request', $_POST ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		} else {
-			wp_die( 'MasterPass Notification Request Failure' );
+			wp_die( 'There is nothing to see here, do not access this page directly (MasterPass)' );
 		}
 	}
 

@@ -14,13 +14,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class WC_XR_Encrypt_Legacy_Tokens_Migration.
  *
- * @since x.x.x
+ * @since 1.7.51
  */
 class WC_XR_Encrypt_Legacy_Tokens_Migration {
 	/**
 	 * Migration id.
 	 *
-	 * @since x.x.x
+	 * @since 1.7.51
 	 * @var string
 	 */
 	private $migration_id = 'wc_xr_encrypt_legacy_tokens_migration';
@@ -28,7 +28,7 @@ class WC_XR_Encrypt_Legacy_Tokens_Migration {
 	/**
 	 * Register migration.
 	 *
-	 * @since x.x.x
+	 * @since 1.7.51
 	 * @return void
 	 */
 	public function setup_hook() {
@@ -38,7 +38,7 @@ class WC_XR_Encrypt_Legacy_Tokens_Migration {
 	/**
 	 * Should run migration.
 	 *
-	 * @since x.x.x
+	 * @since 1.7.51
 	 * @return void
 	 */
 	public function run() {
@@ -75,7 +75,7 @@ class WC_XR_Encrypt_Legacy_Tokens_Migration {
 	/**
 	 * Should return result whether migration completed or not.
 	 *
-	 * @since x.x.x
+	 * @since 1.7.51
 	 */
 	private function is_completed(): bool {
 		return (bool) get_option( $this->migration_id, 0 );

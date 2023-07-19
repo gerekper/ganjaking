@@ -65,7 +65,6 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 			// TODO check this event
 			add_action('wp_af_my_hourly_event', array($this, 'do_this_hourly'));
 
-
 		}
 
 
@@ -164,9 +163,9 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 		}
 
 		public function payment_complete_order_status( $new_status, $order_id ) {
-			if (get_post_meta($order_id, '_payment_method', true) == 'cod') {
+			if (opmc_hpos_get_post_meta($order_id, '_payment_method', true) == 'cod') {
 				$new_status = 'on-hold';
-				update_post_meta( $order_id, '_wc_af_post_payment_status', $new_status );
+				opmc_hpos_update_post_meta( $order_id, '_wc_af_post_payment_status', $new_status );
 			} else {
 				// If the fraud check hasn't finished yet, don't advance to completed
 				if ( ! WC_AF_Score_Helper::is_fraud_check_complete( $order_id ) ) {
@@ -177,13 +176,13 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 					}
 
 					// Save the payment recommended state so we can apply it when fraud check completes
-					update_post_meta( $order_id, '_wc_af_post_payment_status', $new_status );
+					opmc_hpos_update_post_meta( $order_id, '_wc_af_post_payment_status', $new_status );
 
 				} else {
 					// if anti fraud has already recommended this order to be cancelled or held
 					// don't allow the payment to override that state
 
-					$af_recommended_status = get_post_meta( $order_id, '_wc_af_recommended_status', true );
+					$af_recommended_status = opmc_hpos_get_post_meta( $order_id, '_wc_af_recommended_status', true );
 
 					if ( ! empty( $af_recommended_status ) ) {
 						$new_status = $af_recommended_status;
@@ -234,7 +233,7 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 			if ( 'anti_fraud' == $column ) {
 
 				// Get the score points
-				$score_points = get_post_meta( $post->ID, 'wc_af_score', true );
+				$score_points = opmc_hpos_get_post_meta( $post->ID, 'wc_af_score', true );
 
 				// Get meta
 				$meta = WC_AF_Score_Helper::get_score_meta( $score_points, $post->ID );
@@ -391,9 +390,9 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 					foreach ($orders as $value) {
 
 						$id = $value->get_id();
-						$score_points = get_post_meta( $id, 'wc_af_score', true );
+						$score_points = opmc_hpos_get_post_meta( $id, 'wc_af_score', true );
 
-						$risk_waiting = get_post_meta( $id, '_wc_af_waiting', true );
+						$risk_waiting = opmc_hpos_get_post_meta( $id, '_wc_af_waiting', true );
 
 						if ('' != $score_points) {
 
@@ -466,7 +465,7 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 			if ( 'wc_af_payment_method_list' === $column ) {
 				$order = wc_get_order( $post->ID );
 				$order_id = $order->get_id();
-				$payment_method = get_post_meta( $order_id, '_payment_method', true );
+				$payment_method = opmc_hpos_get_post_meta( $order_id, '_payment_method', true );
 				echo '<span class="wc_af_payment_method">' . esc_attr($payment_method) . ' </span><br>';
 			}
 		}

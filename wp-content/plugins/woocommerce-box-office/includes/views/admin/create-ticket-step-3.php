@@ -7,7 +7,7 @@
 $tickets = $this->_created_tickets;
 ?>
 <div class="wrap woocommerce">
-	<h2><?php _e( 'Created Tickets', 'woocommerce-box-office' ); ?></h2>
+	<h2><?php esc_html_e( 'Created Tickets', 'woocommerce-box-office' ); ?></h2>
 
 	<div class="notice notice-success">
 		<p>
@@ -15,7 +15,7 @@ $tickets = $this->_created_tickets;
 		</p>
 		<?php if ( ! empty( $order_url ) ) : ?>
 		<p>
-			<?php printf( __( '<a href="%s">View order</a>.', 'woocommerce-box-office' ), $order_url ); ?>
+			<a href="<?php echo esc_url( $order_url ); ?>"><?php esc_html_e( 'View order.', 'woocommerce-box-office' ); ?></a>
 		</p>
 		<?php endif; ?>
 	</div>
@@ -23,8 +23,8 @@ $tickets = $this->_created_tickets;
 	<table class="widefat wp-list-table">
 		<thead>
 			<tr>
-				<th><?php _e( 'No', 'woocommerce-box-office' ); ?></th>
-				<th><?php _e( 'Ticket', 'woocommerce-box-office' ); ?></th>
+				<th><?php esc_html_e( 'No', 'woocommerce-box-office' ); ?></th>
+				<th><?php esc_html_e( 'Ticket', 'woocommerce-box-office' ); ?></th>
 			</tr>
 		</thead>
 		<tbody>

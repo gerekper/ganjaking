@@ -78,7 +78,6 @@ abstract class GA4_Event extends Event {
 	 * @return bool whether the event was successfully tracked or not
 	 */
 	protected function record_via_api( array $properties = [], array $identities = [], array $user_properties = [] ): bool {
-		global $wp;
 
 		$user_id = $identities['uid'] ?? Identity_Helper::get_uid();
 
@@ -97,10 +96,17 @@ abstract class GA4_Event extends Event {
 				 */
 				apply_filters( 'wc_google_analytics_pro_api_event_item', [
 					'name'   => $this->get_name(),
-					'params' => array_merge( [
-						'page_location' => preg_replace( '/(_wpnonce=)[^&]+/', '$1***', home_url() . ( $_SERVER['REQUEST_URI'] ?? '' ) ),
-						'page_referrer' => $_SERVER['HTTP_REFERER'] ?? '',
-					], $properties ),
+					'params' => array_merge(
+						[
+							'page_location' => preg_replace( '/(_wpnonce=)[^&]+/', '$1***', home_url() . ( $_SERVER['REQUEST_URI'] ?? '' ) ),
+							'page_referrer' => $_SERVER['HTTP_REFERER'] ?? '',
+						],
+						/** @link https://www.simoahava.com/analytics/session-attribution-with-ga4-measurement-protocol/ */
+						Identity_Helper::get_session_params(),
+						Tracking::get_debug_mode_params(),
+						// add event properties last, so that they can override any of the above
+						$properties
+					),
 				] ),
 			]
 		];
@@ -140,7 +146,12 @@ abstract class GA4_Event extends Event {
 		}
 
 		$event_name   = esc_js( $this->get_name() );
-		$event_params = ! empty( $properties ) ? json_encode( $properties ) : '{}';
+
+		// We need to double-escape the double quotes in the JSON string - first by `json_encode` and then by `wp_slash`.
+		// This is because the escape characters are processed twice - first by string interpolation and then by JSON.parse.
+		// Escaping only once would result in the escape characters being removed by string interpolation, resulting in
+		// an invalid JSON string.
+		$event_params = ! empty( $properties ) ? wp_slash( json_encode( $properties ) ) : '{}';
 
 		// Using a template literal and then parsing the result as JSON allows us to use JS variables inside event parameters.
 		// This is helpful in cases where some parameter value cannot be determined in backend and must be provided by the frontend.

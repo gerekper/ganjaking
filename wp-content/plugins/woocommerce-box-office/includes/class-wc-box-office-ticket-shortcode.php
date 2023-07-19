@@ -94,20 +94,32 @@ class WC_Box_Office_Ticket_Shortcode {
 	 */
 	public function user_ticket_list( $params = array() ) {
 		// Get shortcode parameters.
-		extract( shortcode_atts( array(
-			'user_id'       => get_current_user_id(),
-			'amount'        => 'all',
-			'fields_format' => 'flat',
-			'title'         => __( 'My Tickets', 'woocommerce-box-office' ),
-		), $params ) );
+		$attributes = shortcode_atts(
+			array(
+				'user_id'       => get_current_user_id(),
+				'amount'        => 'all',
+				'fields_format' => 'flat',
+				'title'         => __( 'My Tickets', 'woocommerce-box-office' ),
+			),
+			$params
+		);
 
-		$tickets = wc_box_office_get_tickets_by_user( $user_id, $amount );
+		$tickets = wc_box_office_get_tickets_by_user( $attributes['user_id'], $attributes['amount'] );
 		if ( 0 == count( $tickets ) ) {
 			return;
 		}
 
 		ob_start();
-		wc_get_template( 'ticket/user-tickets.php', array( 'title' => $title, 'tickets' => $tickets, 'fields_format' => $fields_format ), 'woocommerce-box-office', WCBO()->dir . 'templates/' );
+		wc_get_template(
+			'ticket/user-tickets.php',
+			array(
+				'title'         => $attributes['title'],
+				'tickets'       => $tickets,
+				'fields_format' => $attributes['fields_format'],
+			),
+			'woocommerce-box-office',
+			WCBO()->dir . 'templates/'
+		);
 
 		return ob_get_clean();
 	}
@@ -120,23 +132,34 @@ class WC_Box_Office_Ticket_Shortcode {
 	 */
 	public function order_ticket_list( $params = array() ) {
 		// Get shortcode parameters.
-		extract( shortcode_atts( array(
-			'order_id'      => 0,
-			'amount'        => 'all',
-			'fields_format' => 'flat',
-		), $params ) );
+		$attributes = shortcode_atts(
+			array(
+				'order_id'      => 0,
+				'amount'        => 'all',
+				'fields_format' => 'flat',
+			),
+			$params
+		);
 
-		if ( ! $order_id ) {
+		if ( ! $attributes['order_id'] ) {
 			return;
 		}
 
-		$tickets = WCBO()->components->order->get_tickets_by_order( $order_id, $amount );
+		$tickets = WCBO()->components->order->get_tickets_by_order( $attributes['order_id'], $attributes['amount'] );
 		if ( 0 == count( $tickets ) ) {
 			return;
 		}
 
 		ob_start();
-		wc_get_template( 'order/order-tickets.php', array( 'tickets' => $tickets, 'fields_format' => $fields_format ), 'woocommerce-box-office', WCBO()->dir . 'templates/' );
+		wc_get_template(
+			'order/order-tickets.php',
+			array(
+				'tickets'       => $tickets,
+				'fields_format' => $attributes['fields_format'],
+			),
+			'woocommerce-box-office',
+			WCBO()->dir . 'templates/'
+		);
 
 		return ob_get_clean();
 	}
@@ -149,26 +172,29 @@ class WC_Box_Office_Ticket_Shortcode {
 	 */
 	public function display_tickets( $params = array() ) {
 		// Get shortcode parameters.
-		extract( shortcode_atts( array(
-			'products' 		=> 0,
-			'amount' 		=> 'all',
-			'order' 		=> 'date',
-			'avatar_size' 	=> 96,
-			'columns'		=> 3,
-		), $params ) );
+		$attributes = shortcode_atts(
+			array(
+				'products' 		=> 0,
+				'amount' 		=> 'all',
+				'order' 		=> 'date',
+				'avatar_size' 	=> 96,
+				'columns'		=> 3,
+			),
+			$params
+		);
 
-		if ( 'all' === $amount ) {
-			$amount = -1;
+		if ( 'all' === $attributes['amount'] ) {
+			$attributes['amount'] = -1;
 		}
 
 		$args = array(
 			'post_type' 		=> 'event_ticket',
 			'post_status' 		=> 'publish',
-			'posts_per_page' 	=> $amount,
+			'posts_per_page' 	=> $attributes['amount'],
 		);
 
-		if ( $products ) {
-			$products_array     = explode( ',', $products );
+		if ( $attributes['products']  ) {
+			$products_array     = explode( ',', $attributes['products']  );
 			$args['meta_query'] = array(
 				array(
 					'key'     => '_product',
@@ -184,14 +210,14 @@ class WC_Box_Office_Ticket_Shortcode {
 
 		$i = 0;
 
-		$html = '<ul class="ticket-list columns-' . esc_attr( $columns ) . '">' . "\n";
+		$html = '<ul class="ticket-list columns-' . esc_attr( $attributes['columns'] ) . '">' . "\n";
 
 		foreach ( $tickets as $ticket ) {
 			$position = '';
 
-			if ( 0 == $i % $columns ) {
+			if ( 0 == $i % $attributes['columns'] ) {
 				$position = 'first';
-			} elseif ( 0 == ( $i + 1 ) % $columns ) {
+			} elseif ( 0 == ( $i + 1 ) % $attributes['columns'] ) {
 				$position = 'last';
 			}
 
@@ -219,7 +245,7 @@ class WC_Box_Office_Ticket_Shortcode {
 
 					case 'email':
 						if ( 'yes' === $field['email_gravatar'] ) {
-							$avatar = get_avatar( $ticket_meta, $avatar_size );
+							$avatar = get_avatar( $ticket_meta, absint( $attributes['avatar_size'] )  );
 						}
 					break;
 
@@ -307,15 +333,18 @@ class WC_Box_Office_Ticket_Shortcode {
 		}
 
 		// Get shortcode parameters
-		extract( shortcode_atts( array(
-			'action' => '',
-		), $params ) );
+		$attributes = shortcode_atts(
+			array(
+				'action' => '',
+			),
+			$params
+		);
 
 		WCBO()->components->assets->enqueue_scripts( true );
 		WC_Order_Barcodes()->load_onscan_js();
 
 		ob_start();
-		wc_get_template( 'ticket/scan.php', array( 'action' => $action ), 'woocommerce-box-office', WCBO()->dir . 'templates/' );
+		wc_get_template( 'ticket/scan.php', array( 'action' => $attributes['action'] ), 'woocommerce-box-office', WCBO()->dir . 'templates/' );
 
 		return ob_get_clean();
 	}
