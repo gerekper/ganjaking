@@ -59,7 +59,7 @@ abstract class Abstract_Integration {
 		add_filter( 'wp_smush_settings', array( $this, 'register' ) );
 
 		// Disable setting.
-		add_filter( 'wp_smush_integration_status_' . $this->module, array( $this, 'setting_status' ) );		  						 		  		 			
+		add_filter( 'wp_smush_integration_status_' . $this->module, array( $this, 'setting_status' ) );
 
 		// Show submit button if one of the integrations available.
 		add_filter( 'wp_smush_integration_show_submit', array( $this, 'enable_submit_button' ) );

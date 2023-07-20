@@ -40,7 +40,7 @@ class Smush_Optimization extends Media_Item_Optimization {
 	/**
 	 * @var bool
 	 */
-	private $lossy;
+	private $lossy_level;
 	/**
 	 * @var string
 	 */
@@ -55,7 +55,7 @@ class Smush_Optimization extends Media_Item_Optimization {
 		'size_stats',
 		'smush_meta',
 		'keep_exif',
-		'lossy',
+		'lossy_level',
 		'api_version',
 	);
 	/**
@@ -125,7 +125,8 @@ class Smush_Optimization extends Media_Item_Optimization {
 		$meta = $this->make_smush_meta();
 		if ( ! empty( $meta ) ) {
 			update_post_meta( $this->media_item->get_id(), self::SMUSH_META_KEY, $meta );
-			if ( $this->is_lossy() ) {
+			// TODO: the separate lossy meta is only necessary for the backup global stats, if enough time has passed and enough people have moved to the new stats then we can remove it
+			if ( $this->get_lossy_level() ) {
 				update_post_meta( $this->media_item->get_id(), self::LOSSY_META_KEY, 1 );
 			} else {
 				delete_post_meta( $this->media_item->get_id(), self::LOSSY_META_KEY );
@@ -195,7 +196,7 @@ class Smush_Optimization extends Media_Item_Optimization {
 			? array()
 			: $smush_meta['stats'];
 		$stats->from_array( $stats_data );
-		$stats->set_lossy( $this->is_lossy() );
+		$stats->set_lossy( (bool) $this->get_lossy_level() );
 
 		return $stats;
 	}
@@ -236,22 +237,24 @@ class Smush_Optimization extends Media_Item_Optimization {
 		$this->keep_exif = (int) $keep_exif;
 	}
 
-	public function is_lossy() {
-		if ( is_null( $this->lossy ) ) {
-			$this->lossy = $this->prepare_lossy();
+	public function get_lossy_level() {
+		if ( is_null( $this->lossy_level ) ) {
+			$this->lossy_level = $this->prepare_lossy_level();
 		}
 
-		return $this->lossy;
+		return $this->lossy_level;
 	}
 
-	private function prepare_lossy() {
+	private function prepare_lossy_level() {
 		$smush_meta = $this->get_smush_meta();
 
-		return ! empty( $smush_meta['stats']['lossy'] );
+		return empty( $smush_meta['stats']['lossy'] )
+			? 0
+			: (int) $smush_meta['stats']['lossy'];
 	}
 
-	public function set_lossy( $lossy ) {
-		$this->lossy = (boolean) $lossy;
+	public function set_lossy_level( $lossy ) {
+		$this->lossy_level = (int) $lossy;
 	}
 
 	public function get_api_version() {
@@ -285,7 +288,7 @@ class Smush_Optimization extends Media_Item_Optimization {
 				$media_item_stats->to_array(),
 				array(
 					'keep_exif'   => $this->keep_exif(),
-					'lossy'       => $this->is_lossy(),
+					'lossy'       => $this->get_lossy_level(),
 					'api_version' => $this->get_api_version(),
 				)
 			);
@@ -306,7 +309,7 @@ class Smush_Optimization extends Media_Item_Optimization {
 			return false;
 		}
 
-		if ( $this->settings->get( 'lossy' ) && ! $this->is_lossy() ) {
+		if ( $this->is_next_level_available() ) {
 			return true;
 		}
 
@@ -322,6 +325,13 @@ class Smush_Optimization extends Media_Item_Optimization {
 		}
 
 		return false;
+	}
+
+	public function is_next_level_available() {
+		$current_lossy_level  = $this->get_lossy_level();
+		$required_lossy_level = $this->settings->get_lossy_level_setting();
+
+		return $current_lossy_level < $required_lossy_level;
 	}
 
 	private function is_file_smushed( $file_path ) {
@@ -343,7 +353,7 @@ class Smush_Optimization extends Media_Item_Optimization {
 		$size_stats = $this->get_size_stats( $size_key );
 
 		$this->set_api_version( $data->api_version );
-		$this->set_lossy( $data->lossy );
+		$this->set_lossy_level( (int) $data->lossy );
 		$this->set_keep_exif( empty( $data->keep_exif ) ? 0 : $data->keep_exif );
 
 		// Update the size stats
@@ -351,7 +361,8 @@ class Smush_Optimization extends Media_Item_Optimization {
 
 		// Add the size stats to the media item stats
 		$media_item_stats->add( $size_stats );
-		$media_item_stats->set_lossy( ! empty( $data->lossy ) );
+		// TODO: maybe remove the lossy count from smush stats
+		$media_item_stats->set_lossy( (bool) $this->get_lossy_level() );
 	}
 
 	/**

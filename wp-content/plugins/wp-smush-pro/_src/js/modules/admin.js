@@ -952,4 +952,77 @@ jQuery(function ($) {
 	$( 'input#original' ).on( 'change', function() {
 		$( '#backup-notice' ).toggleClass( 'sui-hidden', $( this ).is(':checked') );
 	} );
+
+
+	/**
+	 * Bulk compression level notice.
+	 */
+	const handleCompressionLevelNotice = () => {
+		const compressionLevelNotice = document.querySelector( '.wp-smush-compression-type' );
+		if ( ! compressionLevelNotice ) {
+			return;
+		}
+		const compressionNoticeContent = compressionLevelNotice.querySelector( '.wp-smush-compression-type_note p' );
+		if ( ! compressionNoticeContent ) {
+			return;
+		}
+		compressionLevelNotice.querySelector('.wp-smush-compression-type_slider').addEventListener('change', (e) => {
+			if ( 'INPUT' !== e?.target?.nodeName ) {
+				return;
+			}
+			const note = e.target.dataset?.note;
+			if ( ! note ) {
+				return;
+			}
+
+			compressionNoticeContent.innerHTML = note.trim();
+		} );
+	}
+	handleCompressionLevelNotice();
+
+
+	/**
+	 * Close modal and redirect to the href link.
+	 */
+	$('.wp-smush-modal-link-close').on( 'click', function( e ) {
+		e.preventDefault();
+		SUI.closeModal();
+		const href = $(this).attr('href');
+		let openNewTab = '_blank' === $(this).attr('target');
+		if ( href ) {
+			if ( openNewTab ) {
+				window.open( href, '_blank' );
+			} else {
+				window.location.href = href;
+			}
+		}
+	});
+
+	// Update Smush mode on lossy level change.
+	const updateLossyLevelInSummaryBox = () => {
+		const lossyLevelSummaryBox = document.querySelector('.wp-smush-current-compression-level');
+		const currentLossyLevelTab = document.querySelector( '.wp-smush-lossy-level-tabs button.active' );
+		if ( ! lossyLevelSummaryBox || ! currentLossyLevelTab ) {
+			return;
+		}
+		// Update lossy label.
+		lossyLevelSummaryBox.innerText = currentLossyLevelTab.innerText.trim();
+
+		// Toggle Ultra notice/upsell link.
+		const upsellLink = lossyLevelSummaryBox.nextElementSibling;
+		if ( upsellLink ) {
+			if ( currentLossyLevelTab.id.includes('ultra') ) {
+				upsellLink.classList.add( 'sui-hidden' );
+			} else {
+				upsellLink.classList.remove( 'sui-hidden' );
+			}
+		}
+	}
+
+	document.addEventListener( 'onSavedSmushSettings', function( e ) {
+		if ( ! e?.detail?.is_outdated_stats ) {
+			return;
+		}
+		updateLossyLevelInSummaryBox();
+	} );
 });

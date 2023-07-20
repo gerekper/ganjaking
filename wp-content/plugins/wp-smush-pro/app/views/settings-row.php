@@ -20,7 +20,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 ?>
 
-<div class="sui-box-settings-row <?php echo $upsell ? 'sui-box-upsell-row' : '';?> <?php echo $disable && ! $upsell ? 'sui-disabled' : ''; ?> <?php echo esc_attr( $name ); ?>-settings-row" id="<?php echo esc_attr( $name ); ?>-settings-row">
+<div class="sui-box-settings-row <?php echo $upsell ? 'sui-box-upsell-row' : ''; ?> <?php echo $disable && ! $upsell ? 'sui-disabled' : ''; ?> <?php echo esc_attr( $name ); ?>-settings-row" id="<?php echo esc_attr( $name ); ?>-settings-row">
 	<div class="sui-box-settings-col-1">
 		<span class="sui-settings-label <?php echo 'gutenberg' === $name ? 'sui-settings-label-with-tag' : ''; ?>">
 			<?php echo esc_html( Settings::get_setting_data( $name, 'short-label' ) ); ?>
@@ -31,7 +31,25 @@ if ( ! defined( 'WPINC' ) ) {
 		</span>
 	</div>
 	<div class="sui-box-settings-col-2" id="column-<?php echo esc_attr( $name ); ?>">
-		<?php if ( 'bulk' !== $name ) : ?>
+		<?php if ( 'lossy' === $name ) : ?>
+			<span style="font-weight:500" id="<?php echo esc_attr( $name . '-label' ); ?>" class="sui-toggle-label">
+				<?php echo esc_html( Settings::get_setting_data( $name, 'label' ) ); ?>
+			</span>
+			<div class="sui-form-field">
+				<?php
+					$this->view(
+						'lossy-level',
+						array(
+							'name'  => $name,
+						),
+						'views/bulk'
+					);
+				?>
+				<!-- Print/Perform action in right setting column -->
+				<?php do_action( 'smush_setting_column_right_inside', $name ); ?>
+			</div>
+			<?php do_action( 'smush_setting_column_right_additional', $name ); ?>
+		<?php elseif ( 'bulk' !== $name ) : ?>
 			<div class="sui-form-field">
 				<label for="<?php echo esc_attr( $name ); ?>" class="sui-toggle">
 					<input

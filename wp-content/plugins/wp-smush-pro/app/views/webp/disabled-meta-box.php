@@ -14,7 +14,8 @@ if ( ! defined( 'WPINC' ) ) {
 
 <div class="sui-message sui-no-padding">
 	<?php if ( ! apply_filters( 'wpmudev_branding_hide_branding', false ) ) : ?>
-		<img src="<?php echo esc_url( WP_SMUSH_URL . 'app/assets/images/smush-no-media.png' ); ?>" alt="<?php esc_html_e( 'Smush WebP', 'wp-smushit' ); ?>" class="sui-image" />
+		<img src="<?php echo esc_url( WP_SMUSH_URL . 'app/assets/images/graphic-smush-webp-default.png' ); ?>"
+		srcset="<?php echo esc_url( WP_SMUSH_URL . 'app/assets/images/graphic-smush-webp-default@2x.png' ); ?> 2x" alt="<?php esc_html_e( 'Smush WebP', 'wp-smushit' ); ?>" class="sui-image" />
 	<?php endif; ?>
 	<div class="sui-message-content">
 		<p>

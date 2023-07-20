@@ -187,7 +187,8 @@ class Ajax {
 		$settings = $this->settings->get();
 
 		// Available settings for free/pro version.
-		$available = array( 'auto', 'lossy', 'strip_exif', 'original', 'lazy_load', 'usage' );
+		$available           = array( 'auto', 'lossy', 'strip_exif', 'original', 'lazy_load', 'usage' );
+		$highest_lossy_level = $this->settings->get_highest_lossy_level();
 
 		foreach ( $settings as $name => $values ) {
 			// Update only specified settings.
@@ -201,7 +202,11 @@ class Ajax {
 			}
 
 			// Update value in settings.
-			$settings[ $name ] = (bool) $quick_settings->{$name};
+			if ( 'lossy' === $name ) {
+				$settings['lossy'] = ! empty( $quick_settings->{$name} ) ? $highest_lossy_level : Settings::LEVEL_LOSSLESS;
+			} else {
+				$settings[ $name ] = (bool) $quick_settings->{$name};
+			}
 
 			// If Smush originals is selected, enable backups.
 			if ( 'original' === $name && $settings[ $name ] && WP_Smush::is_pro() ) {

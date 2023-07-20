@@ -46,6 +46,7 @@ require( './smush/webp' );
 require( './smush/lazy-load' );
 require( './modules/bulk-restore' );
 require( './smush/settings' );
+require( './smush/product-analytics' );
 
 /**
  * Notice scripts.

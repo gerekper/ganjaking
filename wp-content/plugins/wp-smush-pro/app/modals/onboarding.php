@@ -14,6 +14,11 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 $should_show_tracking_confirmation = ! is_multisite();
+$is_pro                            = WP_Smush::is_pro();
+$lossy_title                       = $is_pro ? __( 'Ultra Smush', 'wp-smushit' ) : __( 'Super Smush', 'wp-smushit' );
+$lossy_description                 = $is_pro ? esc_html__( 'Optimize images up to 5x more than Super Smush with our professional grade multi-pass lossy compression.', 'wp-smushit' )
+												: esc_html__( 'Optimize images up to 2x more than regular smush with our multi-pass lossy compression.', 'wp-smushit' );
+$lossy_action_label                = $is_pro ? __( 'Enable Ultra Smush', 'wp-smushit' ) : __( 'Enable Super Smush', 'wp-smushit' );
 ?>
 
 <script type="text/template" id="smush-onboarding" data-cta-url="<?php echo esc_js( $cta_url ); ?>" data-type="<?php echo WP_Smush::is_pro() ? 'pro' : 'free'; ?>">
@@ -37,7 +42,7 @@ $should_show_tracking_confirmation = ! is_multisite();
 			<# } else if ( 'auto' === data.slide ) { #>
 			<?php esc_html_e( 'Automatic Compression', 'wp-smushit' ); ?>
 			<# } else if ( 'lossy' === data.slide ) { #>
-			<?php esc_html_e( 'Advanced Compression', 'wp-smushit' ); ?>
+			<?php echo esc_html( $lossy_title ); ?>
 			<# } else if ( 'strip_exif' === data.slide ) { #>
 			<?php esc_html_e( 'EXIF Metadata', 'wp-smushit' ); ?>
 			<# } else if ( 'original' === data.slide ) { #>
@@ -49,11 +54,11 @@ $should_show_tracking_confirmation = ! is_multisite();
 
 		<p class="sui-description" id="smush-description-onboarding-dialog">
 			<# if ( data.first_slide === data.slide ) { #>
-			<?php esc_html_e( 'Nice work installing Smush! Let’s get started by choosing how you want this plugin to work, and then let Smush do all the heavy lifting for you.', 'wp-smushit' ); ?>
+			<?php esc_html_e( "Nice work installing Smush! Let's get started by choosing how you want this plugin to work, and then let Smush do all the heavy lifting for you.", 'wp-smushit' ); ?>
 			<# } else if ( 'auto' === data.slide ) { #>
 			<?php esc_html_e( 'When you upload images to your site, Smush can automatically optimize and compress them for you saving you having to do this manually.', 'wp-smushit' ); ?>
 			<# } else if ( 'lossy' === data.slide ) { #>
-			<?php esc_html_e( 'Optimize images up to 2x more than regular smush with our multi-pass lossy compression.', 'wp-smushit' ); ?>
+			<?php echo esc_html( $lossy_description ); ?>
 			<# } else if ( 'strip_exif' === data.slide ) { #>
 			<?php esc_html_e( 'Photos often store camera settings in the file, i.e., focal length, date, time and location. Removing EXIF data reduces the file size. Note: it does not strip SEO metadata.', 'wp-smushit' ); ?>
 			<# } else if ( 'original' === data.slide ) { #>
@@ -67,7 +72,7 @@ $should_show_tracking_confirmation = ! is_multisite();
 
 	<div class="sui-box-body sui-content-center sui-spacing-sides--0">
 		<# if ( data.first_slide === data.slide ) { #>
-			<?php if( $should_show_tracking_confirmation ) : ?>
+			<?php if ( $should_show_tracking_confirmation ) : ?>
 				<div class="smush-onboarding-tracking-box">
 					<label for="{{{ data.slide }}}" class="sui-checkbox">
 						<input
@@ -100,7 +105,7 @@ $should_show_tracking_confirmation = ! is_multisite();
 					<# if ( 'auto' === data.slide ) { #>
 					<?php esc_html_e( 'Automatically optimize new uploads', 'wp-smushit' ); ?>
 					<# } else if ( 'lossy' === data.slide ) { #>
-					<?php esc_html_e( 'Enable enhanced multi-pass lossy compression', 'wp-smushit' ); ?>
+					<?php echo esc_html( $lossy_action_label ); ?>
 					<# } else if ( 'strip_exif' === data.slide ) { #>
 					<?php esc_html_e( 'Strip my image metadata', 'wp-smushit' ); ?>
 					<# } else if ( 'original' === data.slide ) { #>
@@ -149,7 +154,7 @@ $should_show_tracking_confirmation = ! is_multisite();
 				<?php esc_html_e( 'Automatic Compression', 'wp-smushit' ); ?>
 			</button>
 			<button onclick="WP_Smush.onboarding.goTo('lossy')" class="<# if ( 'lossy' === data.slide ) { #>sui-current<# } #>" <# if ( 'lossy' === data.slide ) { #>disabled<# } #>>
-				<?php esc_html_e( 'Advanced Compression', 'wp-smushit' ); ?>
+				<?php echo esc_html( $lossy_title ); ?>
 			</button>
 			<button onclick="WP_Smush.onboarding.goTo('strip_exif')" class="<# if ( 'strip_exif' === data.slide ) { #>sui-current<# } #>" <# if ( 'strip_exif' === data.slide ) { #>disabled<# } #>>
 				<?php esc_html_e( 'EXIF Metadata', 'wp-smushit' ); ?>

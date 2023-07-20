@@ -160,6 +160,9 @@
 				width: 45% !important;
 			}
 		}
+		.sui-upgrade-page .sui-upgrade-page-header__image{
+			background-size: contain;
+		}
 
 		.sui-upgrade-page {
 			.sui-upgrade-page-cta__inner {
@@ -590,13 +593,13 @@
 			.smush-bulk-errors {
 				&.overflow-box{
 					overflow-y: scroll;
-            		height: 260px;
+					height: 260px;
 				}
 				max-height: 260px;
 				overflow-y: auto;
 				overflow-x:hidden;
-            	padding-left: 30px;
-    			padding-right: 30px;
+				padding-left: 30px;
+				padding-right: 30px;
 				margin: 0 -30px;
 
 				.smush-bulk-error-row {
@@ -1100,28 +1103,153 @@
 				}
 			}
 		}
+
+		.smush-summary-row-compression-type {
+			.sui-list-detail {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-end!important;
+				a {
+					font-size: 11px;
+				}
+			}
+		}
 	}
 
 	.sui-box-footer .sui-icon-loader {
 		line-height: 18px;
 		vertical-align: middle;
 	}
-	
-	.smush-updated-dialog {
-		&.wp-smush-upgrade-modal-dark-background{
+
+	.sui-modal-content {
+		&.wp-smush-modal-dark-background{
 			> .sui-box {
-				background: transparent;
+				background: transparent!important;
+				border-radius: 8px;
+				overflow: hidden;
 				.sui-box-header figure {
+					margin-top: -14px!important;
 					margin-bottom: 0;
 				}
-				.sui-box-body {
-					padding-top:40px;
+				.sui-box-body, .sui-box-footer {
 					background-color:#fff;
+				}
+
+			}
+		}
+	}
+
+	.wp-smush-ultra-compression-modal {
+		@media screen and (min-width: 782px) {
+			max-width: 660px !important;
+		}
+		.sui-box-body {
+			.sui-description {
+				margin-top: 8px!important;
+				margin-bottom: 30px!important;
+			}
+			.smush-footer-link {
+				font-size: 13px;
+				line-height: 21px;
+			}
+		}
+		.sui-box-footer {
+			flex-direction: column;
+		}
+		.sui-box-footer {
+			.sui-box-title {
+				font-size: 13px;
+				font-weight: 500;
+				width:100%;
+				margin-bottom: 11px;
+				// padding-left: 7px;
+			}
+			.wp-smush-pro-features {
+				display: flex;
+				ul {
+					font-size: 12px;
+					margin:0;
+					padding:0;
+					li {
+						display: flex;
+						flex-direction: column;
+						.wp-smush-pro-features_item {
+							display: flex;
+							align-self: stretch;
+							align-items: flex-start;
+							width: 100%;
+							gap: 10px;
+							margin-bottom: 7px;
+							// padding-left: 7px;
+							.sui-icon-box{
+								display: block;
+								border-radius: 6px;
+								padding:3px;
+								border: 1px solid #ddd;
+								justify-content: center;
+								>span{
+									width:20px;
+									height: 20px;
+									justify-content: center;
+									align-items: center;
+									display: flex;
+								}
+							}
+							.sui-content-box {
+								margin:0;
+								h5 {
+									line-height: 16px;
+									margin:0 0 3px 0;
+									font-weight: 600;
+									font-size: inherit;
+									display: flex;
+									align-self: stretch;
+									letter-spacing: 0;
+								}
+								p {
+									margin:0;
+									font-size: 12px;
+									line-height: 20px;
+								}
+							}
+						}
+						@media screen and (min-width: 480px) {
+							flex-direction: row;
+							.wp-smush-pro-features_item {
+								width: 50%;
+								&:last-child{
+									padding-left: 7px;
+								}
+							}
+						}
+					}
+				}
+			}
+			> p {
+				--purple: #8D00B1;
+				width:100%;
+				margin-top: 16px;
+				.sui-button-ghost {
+					font-size: 13px;
+					display: block;
+					color: var( --purple );
+					background-color: #F8F8F8;
+					text-align: center;
+					padding: 7px 12px;
+					transition: all 0.3s ease;
+					line-height: 22px;
+					span {
+						&:before {
+							color: var( --purple );
+						}
+					}
+					&:hover{
+						text-decoration: underline;
+					}
 				}
 			}
 		}
 	}
-	
 
 	.wp-smush-scan-progress-bar-wrapper {
 		--progress-bar-height: 12px;
@@ -1246,6 +1374,70 @@
 			.sui-notice-message {
 				text-align: left;
 			}
+		}
+	}
+
+	.sui-tag.smush-sui-tag-new {
+		min-height: 12px;
+		padding: 2px 8px 1px;
+		border: 0;
+		border-radius: 6px;
+		font-size: 8px;
+		line-height: 9px;
+		text-align: center;
+		text-transform: uppercase;
+		background-color: #1ABC9C;
+		color:#fff;
+	}
+	.wp-smush-sui-cross-sell-modules {
+		[class*=sui-cross-] {
+			position: relative;
+			>span {
+				width: 60px!important;
+				height: 60px!important;
+				border:none !important;
+				border-radius: unset !important;
+				box-shadow: none !important;
+				background-size: 60px 60px!important;
+			}
+			@media screen and ( min-width:600px ) {
+				&>span {
+					position: absolute!important;
+					top: 50% !important;
+					left: 50% !important;
+					transform: translate( -50%, -50% )!important;
+				}
+			}
+		}
+	}
+	.wp-smush-link-in-progress {
+		cursor: progress !important;
+	}
+
+	.wp-smush-lossy-level-tabs {
+		margin-top:8px!important;
+		.sui-tab-content {
+			p {
+				font-size: 13px;
+				line-height: 22px;
+				.sui-notice-icon {
+					position: relative;
+					top:2px;
+					margin-right: 5px;
+				}
+			}
+		}
+	}
+
+	/**
+	 * Temporary hide pro tags for all features on Configs page.
+	 *
+	 * @todo Remove when there's a fix for this in SUI.
+	 * @since 3.14.0
+	 */
+	#smush-box-configs {
+		.sui-accordion-item .sui-accordion-item-body .sui-tag-pro {
+			display:none;
 		}
 	}
 

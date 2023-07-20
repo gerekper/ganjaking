@@ -86,11 +86,12 @@ class WebP extends Abstract_Summary_Page implements Interface_Page {
 				'isS3Enabled'    => $this->settings->get( 's3' ) && ! WP_Smush::get_instance()->core()->s3->setting_status(),
 				'thirdStepMsg'   => $third_step_message,
 				'urls'           => array(
-					'bulkPage' => esc_url( admin_url( 'admin.php?page=smush-bulk' ) ),
-					'support'  => 'https://wpmudev.com/hub2/support/#get-support',
-					'freeImg'  => esc_url( WP_SMUSH_URL . 'app/assets/images/smush-no-media.png' ),
-					'webpDoc'  => 'https://wpmudev.com/blog/local-webp-support-smush/',
-					'upsell'   => add_query_arg(
+					'bulkPage'  => esc_url( admin_url( 'admin.php?page=smush-bulk' ) ),
+					'support'   => 'https://wpmudev.com/hub2/support/#get-support',
+					'freeImg'   => esc_url( WP_SMUSH_URL . 'app/assets/images/graphic-smush-webp-free-tier.png' ),
+					'freeImg2x' => esc_url( WP_SMUSH_URL . 'app/assets/images/graphic-smush-webp-free-tier@2x.png' ),
+					'webpDoc'   => 'https://wpmudev.com/blog/local-webp-support-smush/',
+					'upsell'    => add_query_arg(
 						array(
 							'utm_source'   => 'smush',
 							'utm_medium'   => 'plugin',

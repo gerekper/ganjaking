@@ -43,7 +43,7 @@ import {GlobalStats, UpsellManger} from "../common/globalStats";
             return;
         }
 
-        const mixPanel = new MixPanel();
+        const mixPanel = MixPanel.getInstance();
         const BO = new BackgroundProcess();
         const bulkWrapper = $('.bulk-smush-wrapper');
         const reScanImagesButton = $('.wp-smush-scan');

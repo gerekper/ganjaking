@@ -88,7 +88,7 @@ jQuery(function ($) {
 		};
 		const title = decodeHtml($tutorial.attr('title'));
 
-		(new MixPanel()).track('Tutorial Opened', {
+		MixPanel.getInstance().track('Tutorial Opened', {
 			'Tutorial Name': title,
 			'Triggered From': isDashPage ? 'Dashboard' : 'Tutorials Tab'
 		});

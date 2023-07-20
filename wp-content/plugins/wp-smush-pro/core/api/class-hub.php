@@ -81,7 +81,7 @@ class Hub {
 		$settings = Settings::get_instance();
 
 		$status['cdn']   = $core->mod->cdn->is_active();
-		$status['super'] = $settings->get( 'lossy' );
+		$status['lossy'] = $settings->get_lossy_level_setting();
 
 		$lazy = $settings->get_setting( 'wp-smush-lazy_load' );
 

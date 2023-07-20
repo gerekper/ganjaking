@@ -15,7 +15,7 @@ if ( ! defined( 'WPINC' ) ) {
 	<div><span class="sui-icon-plugin-2"></span></div>
 	<h3><?php esc_html_e( 'Check out our other free wordpress.org plugins!', 'wp-smushit' ); ?></h3>
 </div>
-<div class="sui-row sui-cross-sell-modules">
+<div class="sui-row sui-cross-sell-modules wp-smush-sui-cross-sell-modules">
 	<div class="sui-col-md-4">
 		<div class="sui-cross-1 sui-cross-hummingbird"><span></span></div>
 		<div class="sui-box">
@@ -64,10 +64,9 @@ if ( ! defined( 'WPINC' ) ) {
 		esc_url( 'https://wpmudev.com' )
 	);
 	?>
-	<h3><?php esc_html_e( 'Your All-in-One WordPress Platform', 'wp-smushit' ); ?></h3>
-	<p><?php esc_html_e( 'Pretty much everything you need for developing and managing WordPress based websites, and then some.', 'wp-smushit' ); ?></p>
-	<a class="sui-button sui-button-green" href="<?php echo esc_url( $site_url ); ?>" id="dash-uptime-update-membership" target="_blank">
+	<h3><?php esc_html_e( 'WPMU DEV - Your WordPress Toolkit', 'wp-smushit' ); ?></h3>
+	<p><?php esc_html_e( 'Pretty much everything you need for developing and managing WordPress based websites, and then some more.', 'wp-smushit' ); ?></p>
+	<a class="sui-button sui-button-blue" href="<?php echo esc_url( $site_url ); ?>" id="dash-uptime-update-membership" target="_blank">
 		<?php esc_html_e( 'Learn more', 'wp-smushit' ); ?>
 	</a>
-	<img class="sui-image" src="<?php echo esc_url( WP_SMUSH_URL . 'app/assets/images/dev-team.png' ); ?>" srcset="<?php echo esc_url( WP_SMUSH_URL . 'app/assets/images/dev-team@2x.png' ); ?> 2x" alt="<?php esc_attr_e( 'Try pro features for free!', 'wp-smushit' ); ?>">
 </div>

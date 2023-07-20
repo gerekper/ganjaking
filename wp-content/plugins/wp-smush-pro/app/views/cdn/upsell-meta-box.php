@@ -15,8 +15,8 @@ if ( ! defined( 'WPINC' ) ) {
 ?>
 
 <div class="sui-block-content-center">
-	<img src="<?php echo esc_url( WP_SMUSH_URL . 'app/assets/images/graphic-smush-cdn-default.png' ); ?>"
-		srcset="<?php echo esc_url( WP_SMUSH_URL . 'app/assets/images/graphic-smush-cdn-default@2x.png' ); ?> 2x"
+	<img src="<?php echo esc_url( WP_SMUSH_URL . 'app/assets/images/graphic-smush-cdn-free-tier.png' ); ?>"
+		srcset="<?php echo esc_url( WP_SMUSH_URL . 'app/assets/images/graphic-smush-cdn-free-tier@2x.png' ); ?> 2x"
 		alt="<?php esc_html_e( 'Smush CDN', 'wp-smushit' ); ?>">
 
 	<p>
@@ -39,6 +39,6 @@ if ( ! defined( 'WPINC' ) ) {
 	</ol>
 
 	<a href="<?php echo esc_url( Helper::get_url( 'smush_cdn_upgrade_button' ) ); ?>" class="sui-button sui-button-purple sui-margin-top" target="_blank">
-		<?php esc_html_e( 'Try CDN for free', 'wp-smushit' ); ?>
+		<?php esc_html_e( 'UNLOCK NOW WITH PRO', 'wp-smushit' ); ?>
 	</a>
 </div>

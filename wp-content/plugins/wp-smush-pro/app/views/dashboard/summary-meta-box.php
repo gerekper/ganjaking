@@ -137,5 +137,6 @@ $this->view(
 				<?php endif; ?>
 			</span>
 		</li>
+		<?php $this->view( 'summary/lossy-level' ); ?>
 	</ul>
 </div>

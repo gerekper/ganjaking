@@ -416,20 +416,24 @@ class CDN extends Abstract_Module {
 			return $src;
 		}
 
-		// Arguments for CDN.
-		$pro_args = array(
-			'lossy' => $this->settings->get( 'lossy' ) ? 1 : 0,
-			'strip' => $this->settings->get( 'strip_exif' ) ? 1 : 0,
-			'webp'  => $this->settings->get( 'webp' ) ? 1 : 0,
-		);
-
-		$args = wp_parse_args( $pro_args, $args );
+		$args = wp_parse_args( $this->get_cdn_parameters(), $args );
 
 		// Replace base url with cdn base.
 		$url = $this->cdn_base . ltrim( $url_parts['path'], '/' );
 
 		// Now we need to add our CDN parameters for resizing.
 		return add_query_arg( $args, $url );
+	}
+
+	private function get_cdn_parameters() {
+		$webp_cdn            = $this->settings->get( 'webp' );
+		$lossy_level_setting = $this->settings->get_lossy_level_setting();
+		$strip_exif          = $this->settings->get( 'strip_exif' );
+		return array(
+			'lossy' => $lossy_level_setting,
+			'strip' => (int) $strip_exif,
+			'webp'  => (int) $webp_cdn,
+		);
 	}
 
 	/**
@@ -1304,27 +1308,32 @@ class CDN extends Abstract_Module {
 		 * @see https://core.trac.wordpress.org/ticket/41281
 		 */
 		$attachment_id = attachment_url_to_postid( $src );
+		$image_meta    = array();
+		$width         = 0;
+		$height        = 0;
 
 		// Try to get width and height from image.
 		if ( $attachment_id ) {
 			list( $src, $width, $height ) = wp_get_attachment_image_src( $attachment_id, 'full' );
+			$image_meta                   = wp_get_attachment_metadata( $attachment_id );
+		}
 
-			// Revolution slider fix: images will always return 0 height and 0 width.
-			if ( 0 === $width && 0 === $height ) {
-				// Try to get the dimensions directly from the file.
-				list( $width, $height ) = $this->get_image_size( $src );
-			}
-
-			$image_meta = wp_get_attachment_metadata( $attachment_id );
-		} else {
+		// Revolution slider fix: images will always return 0 height and 0 width.
+		if ( $src && ( empty( $width ) || empty( $height ) ) ) {
 			// Try to get the dimensions directly from the file.
 			list( $width, $height ) = $this->get_image_size( $src );
+		}
 
-			// This is an image placeholder - do not generate srcset.
-			if ( $width === $height && 1 === $width ) {
-				return false;
-			}
+		if ( empty( $width ) || empty( $height ) ) {
+			return false;
+		}
 
+		// This is an image placeholder - do not generate srcset.
+		if ( $width === $height && 1 === $width ) {
+			return false;
+		}
+
+		if ( empty( $image_meta ) ) {
 			$image_meta = array(
 				'width'  => $width,
 				'height' => $height,
@@ -1544,7 +1553,7 @@ class CDN extends Abstract_Module {
 			return false;
 		}
 
-		return getimagesize( $path );
+		return wp_getimagesize( $path );
 	}
 
 }

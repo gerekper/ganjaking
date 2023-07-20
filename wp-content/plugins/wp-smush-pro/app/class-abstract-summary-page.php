@@ -27,6 +27,7 @@ abstract class Abstract_Summary_Page extends Abstract_Page {
 	 */
 	public function on_load() {
 		add_action( 'stats_ui_after_resize_savings', array( $this, 'conversion_savings_stats' ), 15 );
+		add_action( 'stats_ui_after_resize_savings', array( $this, 'add_lossy_level' ), 25 );
 		add_action( 'stats_ui_after_resize_savings', array( $this, 'cdn_stats_ui' ), 20 );
 		if ( Abstract_Page::should_render( 'directory' ) ) {
 			add_action( 'stats_ui_after_resize_savings', array( $this, 'directory_stats_ui' ), 10 );
@@ -213,5 +214,9 @@ abstract class Abstract_Summary_Page extends Abstract_Page {
 			</span>
 		</li>
 		<?php
+	}
+
+	public function add_lossy_level() {
+		return $this->view( 'summary/lossy-level' );
 	}
 }

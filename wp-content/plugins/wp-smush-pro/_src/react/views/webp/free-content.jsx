@@ -15,6 +15,7 @@ export default ({ smushData }) => {
 				<img
 					className="sui-image"
 					src={smushData.urls.freeImg}
+					srcset={smushData.urls.freeImg2x + ' 2x'}
 					alt={__('Smush WebP', 'wp-smushit')}
 				/>
 
@@ -67,7 +68,7 @@ export default ({ smushData }) => {
 							target="_blank"
 							rel="noreferrer"
 						>
-							{__('Try WebP for free', 'wp-smushit')}
+							{__('UNLOCK WEBP WITH PRO', 'wp-smushit')}
 						</a>
 						<a
 							href={smushData.urls.webpDoc}

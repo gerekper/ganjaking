@@ -848,6 +848,8 @@ class Media_Item extends Smush_File {
 				'file'      => $this->file_name_from_path( $file_path ),
 				// Size data is expected to have 'mime-type'
 				'mime-type' => $this->get_mime_type(),
+				// Some older WP versions don't have filesize in wp_metadata
+				'filesize'  => $this->fs->filesize( $file_path ),
 			)
 		);
 	}

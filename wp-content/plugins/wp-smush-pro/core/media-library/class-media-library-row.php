@@ -122,7 +122,7 @@ class Media_Library_Row {
 		}
 
 		return $this->get_html_utm_link(
-			__( 'Try Pro to Serve GIFs with our global CDN.', 'wp-smushit' ),
+			__( 'Upgrade to Serve GIFs faster with CDN.', 'wp-smushit' ),
 			'smush_bulksmush_library_gif_cdn'
 		);
 	}
@@ -153,7 +153,7 @@ class Media_Library_Row {
 		);
 		$utm_link    = add_query_arg( $args, $upgrade_url );
 
-		return sprintf( '<a class="smush-upgrade-link" href="%s" target="_blank">%s</a>', esc_url( $utm_link ), esc_html( $utm_message ) );
+		return sprintf( '<a class="smush-upgrade-link" href="%1$s" target="_blank">%2$s</a>', esc_url( $utm_link ), esc_html( $utm_message ) );
 	}
 
 	private function get_html_markup_for_failed_item_with_utm_link( $error_message, $utm_link = '' ) {
@@ -179,13 +179,14 @@ class Media_Library_Row {
 
 	private function get_revert_link( $class_names = array() ) {
 		$nonce         = wp_create_nonce( 'wp-smush-remove-skipped' );
-		$class_names[] = 'wp-smush-remove-skipped'; //smush-revert-utm
+		$class_names[] = 'wp-smush-remove-skipped'; // smush-revert-utm
 
-		return sprintf( '<a href="#" class="%s" data-id="%d" data-nonce="%s">%s</a>',
+		return sprintf(
+			'<a href="#" class="%1$s" data-id="%2$d" data-nonce="%3$s">%4$s</a>',
 			esc_attr( join( ' ', $class_names ) ),
 			$this->attachment_id,
 			$nonce,
-			esc_html__( 'Revert back to previous state', 'wp-smushit' ) . "</a>"
+			esc_html__( 'Revert back to previous state', 'wp-smushit' ) . '</a>'
 		);
 	}
 
@@ -246,7 +247,7 @@ class Media_Library_Row {
 		$utm_link = '';
 		if ( ! WP_Smush::is_pro() ) {
 			$utm_link = $this->get_html_utm_link(
-				__( 'Try Pro to Smush larger images.', 'wp-smushit' ),
+				__( 'Upgrade to Pro to Smush larger images.', 'wp-smushit' ),
 				'smush_bulksmush_library_filesizelimit'
 			);
 		}
@@ -470,8 +471,8 @@ class Media_Library_Row {
 	}
 
 	private function get_detailed_stats_content() {
-		$stats_rows    = [];
-		$savings_sizes = [];
+		$stats_rows    = array();
+		$savings_sizes = array();
 
 		// Show Sizes and their compression.
 		foreach ( $this->media_item->get_sizes() as $size_key => $size ) {
@@ -494,9 +495,12 @@ class Media_Library_Row {
 			$savings_sizes[ $size_key ] = $total_size_stats->get_bytes();
 		}
 
-		uksort( $stats_rows, function( $size_key1, $size_key2 ) use( $savings_sizes ) {
-			return $savings_sizes[ $size_key2 ] - $savings_sizes[ $size_key1 ];
-		} );
+		uksort(
+			$stats_rows,
+			function( $size_key1, $size_key2 ) use ( $savings_sizes ) {
+				return $savings_sizes[ $size_key2 ] - $savings_sizes[ $size_key1 ];
+			}
+		);
 
 		return join( '', $stats_rows );
 	}
@@ -524,9 +528,9 @@ class Media_Library_Row {
 			return;
 		}
 
-		$super_smush_link = $this->get_super_smush_link();
-		if ( ! empty( $super_smush_link ) ) {
-			return $super_smush_link;
+		$next_level_smush_link = $this->get_next_level_smush_link();
+		if ( ! empty( $next_level_smush_link ) ) {
+			return $next_level_smush_link;
 		}
 
 		return sprintf(
@@ -541,21 +545,59 @@ class Media_Library_Row {
 	/**
 	 * @return string|void
 	 */
-	private function get_super_smush_link() {
+	private function get_next_level_smush_link() {
 		if (
 			$this->errors->has_errors()
 			|| $this->is_first_optimization_required()
-			|| $this->is_media_item_super_smushed()
-			|| ! $this->settings->get( 'lossy' )
+			|| ! $this->is_next_level_smush_required()
 		) {
+			return;
+		}
+
+		$anchor_text = $this->get_next_level_smush_anchor_text();
+		if ( ! $anchor_text ) {
 			return;
 		}
 
 		return sprintf(
 			'<a href="#" class="wp-smush-send" data-id="%d">%s</a>',
 			$this->attachment_id,
-			esc_html__( 'Super-Smush', 'wp-smushit' )
+			$anchor_text
 		);
+	}
+
+	/**
+	 * @return bool
+	 */
+	private function is_next_level_smush_required() {
+		$smush_optimization = $this->get_smush_optimization();
+
+		return $smush_optimization && $smush_optimization->is_next_level_available();
+	}
+
+	private function get_next_level_smush_anchor_text() {
+		$required_level = $this->settings->get_lossy_level_setting();
+		switch ( $required_level ) {
+			case Settings::LEVEL_ULTRA_LOSSY:
+				return esc_html__( 'Ultra Smush', 'wp-smushit' );
+
+			case Settings::LEVEL_SUPER_LOSSY:
+				return esc_html__( 'Super Smush', 'wp-smushit' );
+
+			default:
+				return false;
+		}
+	}
+
+	/**
+	 * @return Smush_Optimization|null
+	 */
+	private function get_smush_optimization() {
+		/**
+		 * @var $smush_optimization Smush_Optimization|null
+		 */
+		$smush_optimization = $this->optimizer->get_optimization( Smush_Optimization::KEY );
+		return $smush_optimization;
 	}
 
 	/**
@@ -585,17 +627,5 @@ class Media_Library_Row {
 
 	private function get_array_value( $array, $key ) {
 		return isset( $array[ $key ] ) ? $array[ $key ] : null;
-	}
-
-	/**
-	 * @return bool
-	 */
-	private function is_media_item_super_smushed() {
-		/**
-		 * @var $smush_optimization Smush_Optimization
-		 */
-		$smush_optimization = $this->optimizer->get_optimization( Smush_Optimization::KEY );
-
-		return $smush_optimization && $smush_optimization->is_lossy();
 	}
 }

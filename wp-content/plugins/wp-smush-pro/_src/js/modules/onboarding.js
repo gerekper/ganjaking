@@ -42,7 +42,6 @@
 		touchX: null,
 		touchY: null,
 		recheckImagesLink: '',
-
 		/**
 		 * Init module.
 		 */
@@ -325,16 +324,18 @@
 
 		/**
 		 * Hide new features modal.
-		 *
-		 * @param {string} redirectUrl Redirect url after dismissing the new feature modal.
 		 * @since 3.7.0
 		 * @since 3.12.2 Add a new parameter redirectUrl
 		 */
-		hideUpgradeModal: ( redirectUrl ) => {
-			window.SUI.closeModal( 'smush-updated-dialog' );
+		hideUpgradeModal: ( e, button ) => {
+			e.preventDefault();
+			button.classList.add( 'wp-smush-link-in-progress' );
+			const redirectUrl = button?.href;
 			const xhr = new XMLHttpRequest();
 			xhr.open( 'POST', ajaxurl + '?action=hide_new_features&_ajax_nonce=' + window.wp_smush_msgs.nonce );
 			xhr.onload = () => {
+				window.SUI.closeModal();
+				button.classList.remove( 'wp-smush-link-in-progress' );
 				if ( 200 === xhr.status ) {
 					if ( redirectUrl ) {
 						window.location.href = redirectUrl;

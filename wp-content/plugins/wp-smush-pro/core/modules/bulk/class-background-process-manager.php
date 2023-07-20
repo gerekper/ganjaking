@@ -98,7 +98,7 @@ class Background_Process_Manager {
 		}
 
 		// Divide the available slots between the active processes
-		$tasks_per_request = intval( floor( self::MAX_TASKS_PER_REQUEST / $active_processes_count ) );
+		$tasks_per_request = intval( floor( self::MAX_TASKS_PER_REQUEST / $active_processes_count ) );		  						 		  		 			
 
 		// At least 1 task per request
 		return max( $tasks_per_request, 1 );

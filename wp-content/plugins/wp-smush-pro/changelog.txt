@@ -6,6 +6,15 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+= 3.14.0 ( 2023-07-17 ) =
+- New: Ultra Smush - Level up your image compression, while preserving remarkable image quality
+- Fix: Resolved issue with image resize in WP versions < 6.0
+- Fix: Resolved PHP 8.x error on GoDaddy Managed WP Hosting
+- Fix: Other minor bug fixes and UI improvements
+
+= 3.13.2 ( 2023-07-05 ) =
+- Improvement: Small code and text improvements
+
 = 3.13.1 ( 2023-06-13 ) =
 - Improvement: Better memory management during scans
 - Fix: Dot added to file path when year and month directories disabled
@@ -38,17 +47,17 @@ Change Log:
 = 3.12.4 ( 2022-11-17 ) =
 - Improvement: Code and compatibility improvements
 
-= 3.12.3 ( 2022-10-24 )
+= 3.12.3 ( 2022-10-24 ) =
 - Fix: Free to pro upgrade issue
 
-= 3.12.2 ( 2022-10-19 )
+= 3.12.2 ( 2022-10-19 ) =
 - Improvement: Security hardening
 - Fix: Issues on older PHP versions
 
-= 3.12.1 ( 2022-10-11 )
+= 3.12.1 ( 2022-10-11 ) =
 - Fix: PHP error on non-English language sites
 
-= 3.12.0 ( 2022-10-11 )
+= 3.12.0 ( 2022-10-11 ) =
 - New: Bulk smush images in the background!
 - New: Revised limits on bulk image optimization
 - New: Better GDPR compliance by replacing Google fonts with Bunny fonts

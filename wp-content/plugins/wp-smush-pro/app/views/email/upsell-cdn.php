@@ -38,7 +38,7 @@
 						<span class="smush-dark-img" style="display:inline-block;display:none;width:0;height:0;visibility:hidden;margin:0;padding:0">
 							<img onerror="arguments[0].currentTarget.style.display='none'" style="width:16px;margin-top:16px;margin-right:12px;" src="<?php echo WP_SMUSH_URL . 'app/assets/images/email/valid-dark.png'; ?>" />
 						</span>
-						<?php esc_html_e( 'Trial free for 7 days', 'wp-smushit' ); ?>
+						<?php esc_html_e( 'Includes better GIF performance', 'wp-smushit' ); ?>
 					</p>
 					<p style="padding-left:4px;letter-spacing:0px;font-family:Roboto, Arial, sans-serif;margin:0;line-height:24px;text-decoration:none;font-size:13px;maring:0;font-weight:600;font-style:normal;">
 						<span class="smush-light-img">

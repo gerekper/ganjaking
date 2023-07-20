@@ -192,7 +192,7 @@ class Resize_Optimization extends Media_Item_Optimization {
 		}
 
 		$original_path = $size_to_resize->get_file_path();
-		if ( empty( $data['file'] ) || empty( $data['filesize'] ) ) {
+		if ( empty( $data['file'] ) ) {
 			/* translators: 1: Original path, 2: Image id. */
 			$this->add_error( 'resize_failed', sprintf( __( 'Cannot resize image [%1$s(%2$d)].', 'wp-smushit' ), $this->upload_dir->get_human_readable_path( $original_path ), $id ) );
 
@@ -208,7 +208,9 @@ class Resize_Optimization extends Media_Item_Optimization {
 		}
 
 		$original_filesize = $size_to_resize->get_filesize();
-		$new_filesize      = $data['filesize'];
+		$new_filesize      = ! empty( $data['filesize'] )
+			? $data['filesize']
+			: $this->fs->filesize( $new_path );
 		if ( $new_filesize > $original_filesize ) {
 			$this->delete_file( $new_path );
 			$this->add_error(

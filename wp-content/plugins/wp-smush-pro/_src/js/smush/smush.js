@@ -37,7 +37,7 @@ class Smush {
 
 		this.setIds();
 
-		this.mixPanel = new MixPanel();
+		this.mixPanel = MixPanel.getInstance();
 
 		this.is_bulk_resmush =
 			0 < wp_smushit_data.resmush.length && ! this.skip_resmush;
@@ -420,29 +420,6 @@ class Smush {
 			if ( conversionSavings.length > 0 ) {
 				conversionSavings.html(
 					WP_Smush.helpers.formatBytes( wp_smushit_data.savings_conversion, 1 )
-				);
-			}
-		}
-
-		// Update resize savings.
-		const smushResizeSavings = jQuery( '.smush-resize-savings' );
-		if (
-			smushResizeSavings.length > 0 &&
-			'undefined' !== typeof wp_smushit_data.savings_resize &&
-			wp_smushit_data.savings_resize !== ''
-		) {
-			// Get the resize savings in number.
-			const savingsValue = parseInt( wp_smushit_data.savings_resize );
-			const resizeSavings = smushResizeSavings.find( '.wp-smush-stats' );
-			const resizeMessage = smushResizeSavings.find( '.wp-smush-stats-label-message' );
-			// Replace only if value is grater than 0.
-			if ( savingsValue > 0 && resizeSavings.length > 0 ) {
-				// Hide message.
-				if ( resizeMessage.length > 0 ) {
-					resizeMessage.hide();
-				}
-				resizeSavings.html(
-					WP_Smush.helpers.formatBytes( wp_smushit_data.savings_resize, 1 )
 				);
 			}
 		}

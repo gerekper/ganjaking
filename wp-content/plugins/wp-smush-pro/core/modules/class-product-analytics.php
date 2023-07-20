@@ -127,7 +127,6 @@ class Product_Analytics {
 	public function get_bulk_properties() {
 		$bulk_property_labels = array(
 			'auto'       => 'Automatic Compression',
-			'lossy'      => 'Super-Smush',
 			'strip_exif' => 'Metadata',
 			'resize'     => 'Resize Original Images',
 			'original'   => 'Compress original images',
@@ -138,7 +137,9 @@ class Product_Analytics {
 
 		$image_sizes     = Settings::get_instance()->get_setting( 'wp-smush-image_sizes' );
 		$bulk_properties = array(
-			'Image Sizes' => empty( $image_sizes ) ? 'All' : 'Custom',
+			'Image Sizes'         => empty( $image_sizes ) ? 'All' : 'Custom',
+			'Mode'                => $this->settings->get_current_lossy_level_label(),
+			'Parallel Processing' => defined( 'WP_SMUSH_PARALLEL' ) && WP_SMUSH_PARALLEL ? 'Enabled' : 'Disabled',
 		);
 		foreach ( $bulk_property_labels as $bulk_setting => $bulk_property_label ) {
 			$property_value                          = Settings::get_instance()->get( $bulk_setting )

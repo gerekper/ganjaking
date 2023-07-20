@@ -45,7 +45,7 @@ import MixPanel from "../mixpanel";
 				errors: [],
 			};
 
-			this.mixPanel = new MixPanel();
+			this.mixPanel = MixPanel.getInstance();
 
 			this.resetModalWidth();
 			this.renderTemplate();

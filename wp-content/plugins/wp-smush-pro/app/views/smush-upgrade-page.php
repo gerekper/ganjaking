@@ -24,10 +24,19 @@ $can_use_background = $bg_optimization->can_use_background();
 		<div class="sui-upgrade-page__container">
 			<div class="sui-upgrade-page-header__content">
 				<h1><?php esc_html_e( 'Upgrade to Smush Pro', 'wp-smushit' ); ?></h1>
-				<p><?php esc_html_e( 'Get Smush Pro and bulk optimize every image you’ve ever added to your site with one click. Smush images without having to keep the plugin open and serve stunning, high-quality images from 114 locations around the globe with our blazing-fast CDN.', 'wp-smushit' ); ?></p>
-				<p><?php esc_html_e( 'Automatically compress and resize huge photos without any size limitations. Double your savings and fix your Google PageSpeed with the best image optimizer WordPress has ever known.', 'wp-smushit' ); ?></p>
+				<p><?php esc_html_e( "Get Smush Pro and bulk optimize every image you've ever added to your site with one click. Smush images in the background and serve them in stunning high quality from 114 locations around the globe with our blazing-fast CDN.", 'wp-smushit' ); ?></p>
+				<p>
+				<?php
+				printf(
+					/* translators: 1: Opening <strong>, 2: Closing </strong> */
+					esc_html__( 'Automatically compress and resize huge images without any size limitations. %1$sGet up to 5x better savings with Ultra compression%2$s and fix your Google PageSpeed score with the best image optimizer WordPress has ever known.', 'wp-smushit' ),
+					'<strong>',
+					'</strong>'
+				);
+				?>
+				</p>
 				<a href="<?php echo esc_url( add_query_arg( 'utm_campaign', 'smush_propage_topbutton', $upgrade_url ) ); ?>" class="sui-button sui-button-lg sui-button-purple" target="_blank">
-					<?php esc_html_e( 'TRY SMUSH PRO NOW', 'wp-smushit' ); ?>
+					<?php esc_html_e( 'UPGRADE TO PRO', 'wp-smushit' ); ?>
 				</a>
 				<div class="sui-reviews">
 					<span class="sui-reviews__stars"></span>
@@ -104,6 +113,11 @@ $can_use_background = $bg_optimization->can_use_background();
 
 	<div class="sui-upgrade-page__container">
 		<div class="sui-upgrade-page-features__items">
+			<div class="sui-upgrade-page-features__item">
+				<i class="sui-icon-performance" aria-hidden="true"></i>
+				<h3><?php esc_html_e( 'Serve images faster with Ultra Compression', 'wp-smushit' ); ?></h3>
+				<p><?php esc_html_e( 'Experience up to 5x better compression than Super Smush. Optimize your images even further and make your pages load faster than ever.', 'wp-smushit' ); ?></p>
+			</div>
 			<?php if( ! $can_use_background ) : ?>
 			<div class="sui-upgrade-page-features__item">
 				<i class="sui-icon-unlock" aria-hidden="true"></i>
@@ -122,19 +136,19 @@ $can_use_background = $bg_optimization->can_use_background();
 				<p><?php esc_html_e( 'Use the blazing-fast Smush image CDN to automatically resize your files to the perfect size and serve WebP files (25% smaller than PNG and JPG) from 114 locations around the globe.', 'wp-smushit' ); ?></p>
 			</div>
 			<div class="sui-upgrade-page-features__item">
-				<i class="sui-icon-wand-magic" aria-hidden="true"></i>
-				<h3><?php esc_html_e( 'Auto-convert PNGs to JPEGs (lossy)', 'wp-smushit' ); ?></h3>
-				<p><?php esc_html_e( "Smush looks for additional savings and automatically converts PNG files to JPEG if it will further reduce the size without a visible drop in quality. Now that's smart image compression.", 'wp-smushit' ); ?></p>
-			</div>
-			<div class="sui-upgrade-page-features__item">
 				<i class="sui-icon-photo-picture" aria-hidden="true"></i>
 				<h3><?php esc_html_e( 'Serve next-gen WebP images (without Smush CDN)', 'wp-smushit' ); ?></h3>
 				<p><?php esc_html_e( "Prefer not to use Smush CDN? Our standalone WebP feature allows you to serve next-gen images without sacrificing quality. You can also gracefully fall back to the older image formats for browsers that aren't compatible.", 'wp-smushit' ); ?></p>
 			</div>
 			<div class="sui-upgrade-page-features__item">
-				<i class="sui-icon-gdpr" aria-hidden="true"></i>
-				<h3><?php esc_html_e( 'Premium WordPress plugins', 'wp-smushit' ); ?></h3>
-				<p><?php esc_html_e( 'Along with Smush, you get WPMU DEV’s (the developers of Smush) full suite of premium WP plugins. Covering everything from security and backups, to marketing and SEO. Use these bonus tools on unlimited sites and keep them free, forever!', 'wp-smushit' ); ?></p>
+				<i class="sui-icon-wand-magic" aria-hidden="true"></i>
+				<h3><?php esc_html_e( 'Auto-convert PNGs to JPEGs (lossy)', 'wp-smushit' ); ?></h3>
+				<p><?php esc_html_e( "Smush looks for additional savings and automatically converts PNG files to JPEG if it will further reduce the size without a visible drop in quality. Now that's smart image compression.", 'wp-smushit' ); ?></p>
+			</div>
+			<div class="sui-upgrade-page-features__item">
+				<i class="sui-icon-hummingbird" aria-hidden="true"></i>
+				<h3><?php esc_html_e( 'Get faster sites with Hummingbird Pro', 'wp-smushit' ); ?></h3>
+				<p><?php esc_html_e( 'Optimize the performance of your site and ace that Google PageSpeed score with a full caching suite, automatic asset optimization, and our blazing-fast 114-point CDN.', 'wp-smushit' ); ?></p>
 			</div>
 			<div class="sui-upgrade-page-features__item">
 				<i class="sui-icon-graph-bar" aria-hidden="true"></i>
@@ -145,6 +159,11 @@ $can_use_background = $bg_optimization->can_use_background();
 				<i class="sui-icon-hub" aria-hidden="true"></i>
 				<h3><?php esc_html_e( 'Manage unlimited WP sites with The Hub', 'wp-smushit' ); ?></h3>
 				<p><?php esc_html_e( 'Automate site updates, backups, security, and performance – all from one central site management dashboard. Call on our expert 24/7 live support directly from your interface at anytime.', 'wp-smushit' ); ?></p>
+			</div>
+			<div class="sui-upgrade-page-features__item">
+				<i class="sui-icon-gdpr" aria-hidden="true"></i>
+				<h3><?php esc_html_e( 'Premium WordPress plugins', 'wp-smushit' ); ?></h3>
+				<p><?php esc_html_e( 'Along with Smush, you get WPMU DEV’s (the developers of Smush) full suite of premium WP plugins. Covering everything from security and backups, to marketing and SEO. Use these bonus tools on unlimited sites and keep them free, forever!', 'wp-smushit' ); ?></p>
 			</div>
 			<div class="sui-upgrade-page-features__item">
 				<i class="sui-icon-help-support" aria-hidden="true"></i>
@@ -160,8 +179,8 @@ $can_use_background = $bg_optimization->can_use_background();
 	</div>
 	<div class="sui-upgrade-page-cta">
 		<div class="sui-upgrade-page-cta__inner">
-			<h2><?php esc_html_e( 'Join 936,586 Happy Members', 'wp-smushit' ); ?></h2>
-			<p><?php esc_html_e( "97% of customers are happy with WPMU DEV's service. See what all the fuss is about.", 'wp-smushit' ); ?></p>
+			<h2><?php esc_html_e( 'Join 1 Million+ Happy Users', 'wp-smushit' ); ?></h2>
+			<p><?php esc_html_e( "Discover why we're trusted by 97% of our customers and unlock the ultimate image optimization capabilities to deliver blazing-fast websites with stunning visuals.", 'wp-smushit' ); ?></p>
 			<div>
 				<a href="<?php echo esc_url( add_query_arg( 'utm_campaign', 'smush_propage_bottombutton', $upgrade_url ) ); ?>" class="sui-button sui-button-lg sui-button-purple" target="_blank">
 					<?php esc_html_e( 'Get Smush Pro for a faster WP SITE', 'wp-smushit' ); ?>

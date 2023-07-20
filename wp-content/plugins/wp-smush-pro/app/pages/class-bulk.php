@@ -35,9 +35,9 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 		if ( ! WP_Smush::is_pro() ) {
 			// Reset transient.
 			Core::check_bulk_limit( true );
-			add_action( 'smush_setting_column_tag', array( $this, 'add_lossy_new_tag' ) );
 			add_action( 'smush_setting_column_tag', array( $this, 'add_pro_tag' ) );
 		}
+		add_action( 'smush_setting_column_tag', array( $this, 'add_lossy_new_tag' ) );
 
 		add_action( 'smush_setting_column_right_inside', array( $this, 'settings_desc' ), 10, 2 );
 		add_action( 'smush_setting_column_right_inside', array( $this, 'auto_smush' ), 15, 2 );
@@ -293,14 +293,13 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 						);
 						$bg_email_desc    = sprintf(
 							/* translators: 1: Open link tag <a>, 2: Close link tag </a> */
-							esc_html__( 'Get the email notification as part of the Background Optimization feature. You don’t have to keep the bulk smush page open when it is in progress. Be notified when Background Optimization completes. %1$sTry it with Smush Pro%2$s', 'wp-smushit' ),
+							esc_html__( 'Get the email notification as part of the Background Optimization feature. You don’t have to keep the bulk smush page open when it is in progress. Be notified when Background Optimization completes. %1$sUnlock now with Pro%2$s', 'wp-smushit' ),
 							'<a href="' . esc_url( $bulk_upgrade_url ) . '" class="smush-upsell-link" target="_blank">',
 							'</a>'
 						);
 					}
 					echo wp_kses_post( $bg_email_desc );
 					break;
-
 				default:
 					break;
 			}
@@ -558,7 +557,7 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 			$upsell_text = sprintf(
 				/* translators: %s: Upsell Link */
 				__( 'Want to exit the page? Background Optimization is available with Smush Pro, allowing you to leave while Smush continues to work its magic. %s', 'wp-smushit' ),
-				'<a class="smush-upsell-link" target="_blank" href="' . esc_url( $in_progress_upsell_url ) . '"><strong>' . esc_html__( 'Try Smush Pro today and get 30% off', 'wp-smushit' ) . '</strong></a>'
+				'<a class="smush-upsell-link" target="_blank" href="' . esc_url( $in_progress_upsell_url ) . '"><strong>' . esc_html__( 'Upgrade to Pro and get 30% off', 'wp-smushit' ) . '</strong></a>'
 			);
 		}
 		$in_processing_notice = sprintf(
@@ -627,6 +626,7 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 	 * Show a "new" tag near the super-smush option for free users.
 	 *
 	 * @since 3.10.0
+	 * @since 3.14.0 Showing the new tag for all users after adding Ultra level.
 	 *
 	 * @param string $name Option name.
 	 *
@@ -637,7 +637,7 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 			return;
 		}
 		?>
-		<span class="sui-tag sui-tag-beta"><?php esc_html_e( 'New', 'wp-smushit' ); ?></span>
+		<span class="sui-tag smush-sui-tag-new"><?php esc_html_e( 'New', 'wp-smushit' ); ?></span>
 		<?php
 	}
 

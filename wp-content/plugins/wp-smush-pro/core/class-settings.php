@@ -23,6 +23,9 @@ if ( ! defined( 'WPINC' ) ) {
 class Settings {
 
 	const SUBSITE_CONTROLS_OPTION_KEY = 'wp-smush-networkwide';
+	const LEVEL_LOSSLESS = 0;
+	const LEVEL_SUPER_LOSSY = 1;
+	const LEVEL_ULTRA_LOSSY = 2;
 
 	/**
 	 * Plugin instance.
@@ -53,15 +56,15 @@ class Settings {
 	 * @var array
 	 */
 	private $defaults = array(
-		'auto'              => true, // works with CDN.
-		'lossy'             => false, // works with CDN.
-		'strip_exif'        => true, // works with CDN.
+		'auto'              => true,    // works with CDN.
+		'lossy'             => 0,   // works with CDN.
+		'strip_exif'        => true,    // works with CDN.
 		'resize'            => false,
 		'detection'         => false,
 		'original'          => false,
 		'backup'            => false,
 		'no_scale'          => false,
-		'png_to_jpg'        => false, // works with CDN.
+		'png_to_jpg'        => false,   // works with CDN.
 		'nextgen'           => false,
 		's3'                => false,
 		'gutenberg'         => false,
@@ -75,8 +78,8 @@ class Settings {
 		'keep_data'         => true,
 		'lazy_load'         => false,
 		'background_images' => true,
-		'rest_api_support'  => false, // CDN option.
-		'webp_mod'          => false, // WebP module.
+		'rest_api_support'  => false,   // CDN option.
+		'webp_mod'          => false,   // WebP module.
 		'background_email'  => false,
 	);
 
@@ -103,7 +106,7 @@ class Settings {
 	 *
 	 * @var array
 	 */
-	private $bulk_fields = array( 'bulk', 'auto', 'lossy', 'strip_exif', 'resize', 'original', 'backup', 'png_to_jpg', 'no_scale', 'background_email' );
+	private $bulk_fields = array( 'lossy', 'bulk', 'auto', 'strip_exif', 'resize', 'original', 'backup', 'png_to_jpg', 'no_scale', 'background_email' );
 
 	/**
 	 * @since 3.12.6
@@ -261,9 +264,14 @@ class Settings {
 				'desc'        => esc_html__( 'When you upload images to your site, we will automatically optimize and compress them for you.', 'wp-smushit' ),
 			),
 			'lossy'             => array(
-				'label'       => esc_html__( 'Super-Smush my images', 'wp-smushit' ),
-				'short_label' => esc_html__( 'Super-Smush', 'wp-smushit' ),
-				'desc'        => esc_html__( 'Optimize images up to 2x more than regular smush with our multi-pass lossy compression.', 'wp-smushit' ),
+				'label'       => esc_html__( 'Choose Compression Level', 'wp-smushit' ),
+				'short_label' => esc_html__( 'Smush Mode', 'wp-smushit' ),
+				'desc'        => sprintf(
+				/* translators: 1: Opening <strong> 2: Closing </strong> */
+					esc_html__( 'Choose the level of compression that suits your needs. We recommend %1$sUltra%2$s for faster sites and impressive image quality.', 'wp-smushit' ),
+					'<strong>',
+					'</strong>'
+				),
 			),
 			'strip_exif'        => array(
 				'label'       => esc_html__( 'Strip my image metadata', 'wp-smushit' ),
@@ -429,9 +437,7 @@ class Settings {
 
 			// Make sure we're not missing any settings.
 			$global_settings = get_site_option( 'wp-smush-settings', array() );
-			$undefined       = array_diff( $global_settings, $site_settings );
-
-			$site_settings = array_merge( $site_settings, $undefined );
+			$site_settings   = array_merge( $global_settings, $site_settings );
 
 			// Settings are taken from global settings.
 			if ( ! empty( $global_settings ) ) {
@@ -710,6 +716,10 @@ class Settings {
 			foreach ( $this->get_bulk_fields() as $field ) {
 				// Skip the module enable/disable option.
 				if ( 'bulk' === $field ) {
+					continue;
+				}
+				if ( 'lossy' == $field ) {
+					$new_settings['lossy'] = filter_input( INPUT_POST, $field, FILTER_SANITIZE_NUMBER_INT );
 					continue;
 				}
 				$new_settings[ $field ] = filter_input( INPUT_POST, $field, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
@@ -1054,6 +1064,7 @@ class Settings {
 			'png_to_jpg',
 			'webp_mod',
 			's3',
+			'ultra',
 		);
 
 		$module_active = self::get_instance()->get( $module );
@@ -1062,6 +1073,50 @@ class Settings {
 		}
 
 		return $module_active;
+	}
+
+	public function get_lossy_level_setting() {
+		$current_level = $this->get( 'lossy' );
+		return $this->sanitize_lossy_level( $current_level );
+	}
+
+	public function sanitize_lossy_level( $lossy_level ) {
+		$highest_level = $this->get_highest_lossy_level();
+
+		if ( $lossy_level > $highest_level ) {
+			return $highest_level;
+		}
+
+		if ( $lossy_level > self::LEVEL_LOSSLESS ) {
+			return (int) $lossy_level;
+		}
+
+		return self::LEVEL_LOSSLESS;
+	}
+
+	public function get_highest_lossy_level() {
+		if( WP_Smush::is_pro() ) {
+			return self::LEVEL_ULTRA_LOSSY;
+		}
+		return self::LEVEL_SUPER_LOSSY;
+	}
+
+	public function get_current_lossy_level_label() {
+		$current_level = $this->get_lossy_level_setting();
+		return $this->get_lossy_level_label( $current_level );
+	}
+
+	public function get_lossy_level_label( $lossy_level ) {
+		$smush_modes = array(
+			self::LEVEL_LOSSLESS    => __( 'Basic', 'wp-smushit' ),
+			self::LEVEL_SUPER_LOSSY => __( 'Super', 'wp-smushit' ),
+			self::LEVEL_ULTRA_LOSSY => __( 'Ultra', 'wp-smushit' ),
+		);
+		if ( ! isset( $smush_modes[ $lossy_level ] ) ) {
+			$lossy_level = self::LEVEL_LOSSLESS;
+		}
+
+		return $smush_modes[ $lossy_level ];
 	}
 
 	public function has_bulk_smush_page() {

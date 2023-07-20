@@ -18,6 +18,6 @@
         <p>
         <?php esc_html_e( 'Want to serve images even faster? Get up to 2x more speed with Smush Pro’s CDN, which spans 45 servers worldwide.', 'wp-smushit' ); ?>
         </p>
-        <a href="<?php echo esc_url( $bulk_upgrade_url ); ?>" class="smush-upsell-link" target="_blank"><?php esc_html_e( 'Try it now for FREE.', 'wp-smushit' ); ?></a>
+        <a href="<?php echo esc_url( $bulk_upgrade_url ); ?>" class="smush-upsell-link" target="_blank"><?php esc_html_e( 'Unlock now with Pro.', 'wp-smushit' ); ?></a>
     </div>
 </div>

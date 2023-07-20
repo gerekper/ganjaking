@@ -187,7 +187,7 @@ class Admin extends NextGen {
 			// Check Image metadata, if smushed, print the stats or super smush button.
 			if ( ! empty( $image->meta_data['wp_smush'] ) ) {
 				// Echo the smush stats.
-				return $this->ng_stats->show_stats( $image->pid, $image->meta_data['wp_smush'], $image_type );
+				return $this->show_stats( $image->pid, $image->meta_data['wp_smush'], $image_type );
 			}
 
 			// Print the status of image, if Not smushed.
@@ -595,8 +595,9 @@ class Admin extends NextGen {
 		$attachments  = $this->ng_stats->get_ngg_images();
 		// Check if any of the smushed image needs to be resmushed.
 		if ( ! empty( $attachments ) && is_array( $attachments ) ) {
-			foreach ( $attachments as $attachment_k => $attachment ) {
-				if ( $this->should_resmush( $attachment ) ) {
+			foreach ( $attachments as $attachment_k => $metadata ) {
+				$smush_data = ! empty( $metadata['wp_smush'] ) ? $metadata['wp_smush'] : array();
+				if ( $this->should_resmush( $smush_data ) ) {
 					$resmush_list[] = $attachment_k;
 				}
 			}// End of Foreach Loop
@@ -613,11 +614,10 @@ class Admin extends NextGen {
 		return $this->get_global_stats_with_bulk_smush_content_and_notice();
 	}
 
-	private function should_resmush( $attachment ) {
-		if ( empty( $attachment['wp_smush']['stats'] ) ) {
+	private function should_resmush( $smush_data ) {
+		if ( empty( $smush_data['stats'] ) ) {
 			return false;
 		}
-		$smush_data = $attachment['wp_smush'];
 
 		return $this->lossy_optimization_required( $smush_data )
 			   || $this->strip_exif_optimization_required( $smush_data )
@@ -625,7 +625,9 @@ class Admin extends NextGen {
 	}
 
 	private function lossy_optimization_required( $smush_data ) {
-		return $this->settings->get( 'lossy' ) && empty( $smush_data['stats']['lossy'] );
+		$required_lossy_level = $this->settings->get_lossy_level_setting();
+		$current_lossy_level  = ! empty( $smush_data['stats']['lossy'] ) ? (int) $smush_data['stats']['lossy'] : 0;
+		return $current_lossy_level < $required_lossy_level;
 	}
 
 	private function strip_exif_optimization_required( $smush_data ) {
@@ -634,5 +636,231 @@ class Admin extends NextGen {
 
 	private function original_optimization_required( $smush_data ) {
 		return $this->settings->get( 'original' ) && empty( $smush_data['sizes']['full'] );
+	}
+
+	/**
+	 * Display the smush stats for the image
+	 *
+	 * @param int        $pid            Image Id stored in nextgen table.
+	 * @param bool|array $wp_smush_data  Stats, stored after smushing the image.
+	 * @param string     $image_type     Used for determining if not gif, to show the Super Smush button.
+	 *
+	 * @uses Admin::column_html(), WP_Smush::get_restore_link(), WP_Smush::get_resmush_link()
+	 *
+	 * @return bool|array|string
+	 */
+	public function show_stats( $pid, $wp_smush_data = false, $image_type = '' ) {
+		if ( empty( $wp_smush_data ) ) {
+			return false;
+		}
+		$button_txt   = '';
+		$show_button  = false;
+		$show_resmush = false;
+
+		$bytes          = isset( $wp_smush_data['stats']['bytes'] ) ? $wp_smush_data['stats']['bytes'] : 0;
+		$bytes_readable = ! empty( $bytes ) ? size_format( $bytes, 1 ) : '';
+		$percent        = isset( $wp_smush_data['stats']['percent'] ) ? $wp_smush_data['stats']['percent'] : 0;
+		$percent        = $percent < 0 ? 0 : $percent;
+
+		$status_txt = '';
+		if ( isset( $wp_smush_data['stats']['size_before'] ) && $wp_smush_data['stats']['size_before'] == 0 && ! empty( $wp_smush_data['sizes'] ) ) {
+			$status_txt = __( 'Already Optimized', 'wp-smushit' );
+		} else {
+			if ( 0 === (int) $bytes || 0 === (int) $percent ) {
+				$status_txt = __( 'Already Optimized', 'wp-smushit' );
+
+				// Add resmush option if needed.
+				$show_resmush = $this->should_resmush( $wp_smush_data );
+				if ( $show_resmush ) {
+					$status_txt .= '<div class="sui-smush-media smush-status-links">';
+					$status_txt .= $this->get_resmsuh_link( $pid );
+					$status_txt .= '</div>';
+				}
+			} elseif ( ! empty( $percent ) && ! empty( $bytes_readable ) ) {
+				$status_txt  = sprintf( /* translators: %1$s: reduced by bytes, %2$s: size format */
+					__( 'Reduced by %1$s (%2$01.1f%%)', 'wp-smushit' ),
+					$bytes_readable,
+					number_format_i18n( $percent, 2 )
+				);
+				$status_txt .= '<div class="sui-smush-media smush-status-links">';
+
+				$show_resmush = $this->should_resmush( $wp_smush_data );
+
+				if ( $show_resmush ) {
+					$status_txt .= $this->get_resmsuh_link( $pid );
+				}
+
+				// Restore Image: Check if we need to show the restore image option.
+				$show_restore = $this->show_restore_option( $pid, $wp_smush_data );
+
+				if ( $show_restore ) {
+					if ( $show_resmush ) {
+						// Show Separator.
+						$status_txt .= ' | ';
+					}
+					$status_txt .= $this->get_restore_link( $pid );
+				}
+				// Show detailed stats if available.
+				if ( ! empty( $wp_smush_data['sizes'] ) ) {
+					if ( $show_resmush || $show_restore ) {
+						// Show Separator.
+						$status_txt .= ' | ';
+					} else {
+						// Show the link in next line.
+						$status_txt .= '<br />';
+					}
+					// Detailed Stats Link.
+					$status_txt .= '<a href="#" class="smush-stats-details">' . esc_html__( 'Smush stats', 'wp-smushit' ) . ' [<span class="stats-toggle">+</span>]</a>';
+
+					// Get metadata For the image
+					// Registry Object for NextGen Gallery.
+					$registry = C_Component_Registry::get_instance();
+
+					/**
+					 * Gallery Storage Object.
+					 *
+					 * @var C_Gallery_Storage $storage
+					 */
+					$storage = $registry->get_utility( 'I_Gallery_Storage' );
+
+					// get an array of sizes available for the $image.
+					$sizes = $storage->get_image_sizes();
+
+					$image = $storage->object->_image_mapper->find( $pid );
+
+					$full_image = $storage->get_image_abspath( $image, 'full' );
+
+					// Stats.
+					$stats = $this->get_detailed_stats( $pid, $wp_smush_data, array( 'sizes' => $sizes ), $full_image );
+
+					$status_txt .= $stats;
+					$status_txt .= '</div>';
+				}
+			}
+		}
+
+		// If show button is true for some reason, column html can print out the button for us.
+		return $this->column_html( $pid, $status_txt, $button_txt, $show_button, true );
+	}
+
+	/**
+	 * Returns the Stats for a image formatted into a nice table
+	 *
+	 * @param int    $image_id             Image ID.
+	 * @param array  $wp_smush_data        Smush data.
+	 * @param array  $attachment_metadata  Attachment metadata.
+	 * @param string $full_image           Full sized image.
+	 *
+	 * @return string
+	 */
+	private function get_detailed_stats( $image_id, $wp_smush_data, $attachment_metadata, $full_image ) {
+		$stats      = '<div id="smush-stats-' . $image_id . '" class="smush-stats-wrapper hidden">
+			<table class="wp-smush-stats-holder">
+				<thead>
+					<tr>
+						<th><strong>' . esc_html__( 'Image size', 'wp-smushit' ) . '</strong></th>
+						<th><strong>' . esc_html__( 'Savings', 'wp-smushit' ) . '</strong></th>
+					</tr>
+				</thead>
+				<tbody>';
+		$size_stats = $wp_smush_data['sizes'];
+
+		// Reorder Sizes as per the maximum savings.
+		uasort( $size_stats, array( $this, 'cmp' ) );
+
+		// Show Sizes and their compression.
+		foreach ( $size_stats as $size_key => $size_value ) {
+			$size_value = ! is_object( $size_value ) ? (object) $size_value : $size_value;
+			if ( $size_value->bytes > 0 ) {
+				$stats .= '<tr>
+				<td>' . strtoupper( $size_key ) . '</td>
+				<td>' . size_format( $size_value->bytes, 1 );
+
+			}
+
+			// Add percentage if set.
+			if ( isset( $size_value->percent ) && $size_value->percent > 0 ) {
+				$stats .= " ( $size_value->percent% )";
+			}
+
+			$stats .= '</td>
+			</tr>';
+		}
+		$stats .= '</tbody>
+			</table>
+		</div>';
+
+		return $stats;
+	}
+
+	/**
+	 * Compare Values
+	 *
+	 * @param object|array $a  First object.
+	 * @param object|array $b  Second object.
+	 *
+	 * @return int
+	 */
+	public function cmp( $a, $b ) {
+		if ( is_object( $a ) ) {
+			// Check and typecast $b if required.
+			$b = is_object( $b ) ? $b : (object) $b;
+
+			return $b->bytes - $a->bytes ;
+		} elseif ( is_array( $a ) ) {
+			$b = is_array( $b ) ? $b : (array) $b;
+
+			return $b['bytes'] - $a['bytes'];
+		}
+	}
+
+	/**
+	 * Generates a Resmush link for a image.
+	 *
+	 * @param int    $image_id  Attachment ID.
+	 * @param string $type      Type of attachment.
+	 *
+	 * @return bool|string
+	 */
+	private function get_resmsuh_link( $image_id ) {
+		if ( empty( $image_id ) ) {
+			return false;
+		}
+
+		$class = 'wp-smush-action wp-smush-title sui-tooltip sui-tooltip-constrained wp-smush-nextgen-resmush';
+
+		return sprintf(
+			'<a href="#" data-tooltip="%s" data-id="%d" data-nonce="%s" class="%s">%s</a>',
+			esc_html__( 'Smush image including original file', 'wp-smushit' ),
+			$image_id,
+			wp_create_nonce( 'wp-smush-resmush-' . $image_id ),
+			$class,
+			esc_html__( 'Resmush', 'wp-smushit' )
+		);
+	}
+
+	/**
+	 * Returns a restore link for given image id
+	 *
+	 * @param int    $image_id  Attachment ID.
+	 * @param string $type      Attachment type.
+	 *
+	 * @return bool|string
+	 */
+	private function get_restore_link( $image_id ) {
+		if ( empty( $image_id ) ) {
+			return false;
+		}
+
+		$class  = 'wp-smush-action wp-smush-title sui-tooltip wp-smush-nextgen-restore';
+
+		return sprintf(
+			'<a href="#" data-tooltip="%s" data-id="%d" data-nonce="%s" class="%s">%s</a>',
+			esc_html__( 'Restore original image', 'wp-smushit' ),
+			$image_id,
+			wp_create_nonce( 'wp-smush-restore-' . $image_id ),
+			$class,
+			esc_html__( 'Restore', 'wp-smushit' )
+		);
 	}
 }

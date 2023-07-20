@@ -33,7 +33,7 @@ if ( ! defined( 'WPINC' ) ) {
 						<?php esc_html_e( 'Delete WebP files', 'wp-smushit' ); ?>
 					</h3>
 				</div>
-				<div class="sui-box-body sui-flatten sui-content-center sui-spacing-top--20">
+				<div class="sui-box-body sui-flatten sui-content-center sui-spacing-top--20 sui-spacing-bottom--50">
 					<p class="sui-description" id="smush-dawif-description" style="margin-bottom:15px;">
 						<?php esc_html_e( 'Are you sure you want to delete all WebP files?', 'wp-smushit' ); ?>
 					</p>
@@ -58,11 +58,6 @@ if ( ! defined( 'WPINC' ) ) {
 						</button>
 					</div>
 				</div>
-				<?php if ( ! apply_filters( 'wpmudev_branding_hide_branding', false ) ) : ?>
-					<div class="sui-box-footer sui-flatten sui-spacing-bottom--0">
-						<img class="sui-image sui-image-center" src="<?php echo esc_url( WP_SMUSH_URL . 'app/assets/images/onboarding/graphic-onboarding.png' ); ?>" srcset="<?php echo esc_url( WP_SMUSH_URL . 'app/assets/images/onboarding/graphic-onboarding@2x.png' ); ?> 2x" alt="<?php esc_attr_e( 'WP Smush', 'wp-smushit' ); ?>">
-					</div>
-				<?php endif; ?>
 			</div>
 		</div>
 	</div>

@@ -47,8 +47,8 @@ export const GlobalStats = ( () => {
 		percent_optimized: 0,
 		remaining_count: 0,
 		human_bytes: '',
-		savings_resize_human: '',
 		savings_conversion_human: '',
+		savings_conversion: 0,
 	};
 
 	const imageScore = $( '#smush-image-score' );
@@ -129,9 +129,6 @@ export const GlobalStats = ( () => {
 				resizeCountElement.classList.add( 'sui-hidden' );
 			}
 			resizeCountElement.querySelector( '.wp-smush-total-optimised' ).innerHTML = globalStats.count_resize;
-			// Image Resize Savings.
-			const resizeSavingsElement = summarySmush.querySelector( '.smush-resize-savings .wp-smush-stats' );
-			resizeSavingsElement && ( resizeSavingsElement.innerHTML = globalStats.savings_resize_human );
 		},
 		renderConversionSavings() {
 			// PNG2JPG Savings.

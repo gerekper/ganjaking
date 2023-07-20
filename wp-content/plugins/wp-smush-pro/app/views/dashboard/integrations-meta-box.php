@@ -64,7 +64,7 @@ if ( ! defined( 'WPINC' ) ) {
 	<p>
 		<?php
 		printf( /* translators: %1$s - opening <a>, %2$s - closing </a> */
-			esc_html__( '%1$sTry it free%2$s with a WPMU DEV membership today!', 'wp-smushit' ),
+			esc_html__( '%1$sUnlock now%2$s with a WPMU DEV membership today!', 'wp-smushit' ),
 			'<a href="' . esc_url( $upsell_url ) . '" target="_blank" class="smush-upsell-link">',
 			'</a>'
 		);

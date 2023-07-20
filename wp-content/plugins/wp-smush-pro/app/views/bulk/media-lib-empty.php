@@ -1,6 +1,7 @@
 <div class="sui-message">
     <?php if ( ! apply_filters( 'wpmudev_branding_hide_branding', false ) ) : ?>
         <img src="<?php echo esc_url( WP_SMUSH_URL . 'app/assets/images/smush-no-media.png' ); ?>"
+            srcset="<?php echo esc_url( WP_SMUSH_URL . 'app/assets/images/smush-no-media.png' ); ?>, <?php echo esc_url( WP_SMUSH_URL . 'app/assets/images/smush-no-media@2x.png' ); ?> 2x"
             alt="<?php esc_attr_e( 'No attachments found - Upload some images', 'wp-smushit' ); ?>"
             class="sui-image"
         >

@@ -15,6 +15,6 @@
         <p>
             <?php echo esc_html( $global_upsell_desc ); ?>
         </p>
-        <a href="<?php echo esc_url( $bulk_upgrade_url ); ?>" class="smush-upsell-link" target="_blank"><?php echo esc_html__( 'Try Smush Pro today and get 30% off', 'wp-smushit' ); ?></a>
+        <a href="<?php echo esc_url( $bulk_upgrade_url ); ?>" class="smush-upsell-link" target="_blank"><?php echo esc_html__( 'Upgrade to Pro and get 30% off', 'wp-smushit' ); ?></a>
     </div>
 </div>

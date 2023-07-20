@@ -155,8 +155,12 @@ class Installer {
 				self::upgrade_3_10_3();
 			}
 
+			if ( version_compare( $version, '3.14.0', '<' ) ) {
+				self::upgrade_3_14_0();
+			}
+
 			$hide_new_feature_highlight_modal = apply_filters( 'wpmudev_branding_hide_doc_link', false );
-			if ( ! $hide_new_feature_highlight_modal && version_compare( $version, '3.13.0', '<' ) ) {
+			if ( ! $hide_new_feature_highlight_modal && version_compare( $version, '3.14.0', '<' ) ) {
 				// Add the flag to display the new feature background process modal.
 				add_site_option( 'wp-smush-show_upgrade_modal', true );
 			}
@@ -315,5 +319,24 @@ class Installer {
 			$version = 0;
 		}
 		update_site_option( 'wp_smush_pre_3_12_6_site', $version );
+	}
+
+
+	private static function upgrade_3_14_0() {
+		// Update Smush mode for display on Configs page.
+		$stored_configs = get_site_option( 'wp-smush-preset_configs', array() );
+		if ( empty( $stored_configs ) || ! is_array( $stored_configs ) ) {
+			return;
+		}
+
+		$configs_handler = new Configs();
+		foreach ( $stored_configs as $key => $preset_config ) {
+			if ( empty( $preset_config['config']['configs']['settings'] ) ) {
+				continue;
+			}
+			$preset_config['config'] = $configs_handler->sanitize_and_format_configs( $preset_config['config']['configs'] );
+			$stored_configs[ $key ]  = $preset_config;
+		}
+		update_site_option( 'wp-smush-preset_configs', $stored_configs );
 	}
 }

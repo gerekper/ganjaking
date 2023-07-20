@@ -453,9 +453,10 @@ class Smusher {
 		$headers = array(
 			'accept'       => 'application/json',   // The API returns JSON.
 			'content-type' => 'application/binary', // Set content type to binary.
-			'lossy'        => $this->settings->get( 'lossy' ) ? 'true' : 'false',
 			'exif'         => $this->settings->get( 'strip_exif' ) ? 'false' : 'true',
 		);
+
+		$headers['lossy'] = $this->settings->get_lossy_level_setting();
 
 		// Check if premium member, add API key.
 		$api_key = Helper::get_wpmudev_apikey();

@@ -30,6 +30,15 @@ class Configs {
 	private $pro_features = array( 'png_to_jpg', 's3', 'nextgen', 'cdn', 'webp', 'webp_mod' );
 
 	/**
+	 * @var Settings
+	 */
+	private $settings;
+
+	public function __construct() {
+		$this->settings = Settings::get_instance();
+	}
+
+	/**
 	 * Gets the local list of configs via Smush endpoint.
 	 *
 	 * @since 3.8.6
@@ -94,7 +103,7 @@ class Configs {
 				'configs' => array(
 					'settings' => array(
 						'auto'              => true,
-						'lossy'             => true,
+						'lossy'             => Settings::LEVEL_SUPER_LOSSY,
 						'strip_exif'        => true,
 						'resize'            => false,
 						'detection'         => false,
@@ -145,20 +154,12 @@ class Configs {
 				$description = sanitize_text_field( $config_data['description'] );
 			}
 
+			$configs        = isset( $config_data['config']['configs'] ) ? $config_data['config']['configs'] : array();
 			$sanitized_data = array(
 				'id'          => filter_var( $config_data['id'], FILTER_VALIDATE_INT ),
 				'name'        => empty( $name ) ? __( 'Undefined', 'wp-smushit' ) : $name,
 				'description' => empty( $description ) ? '' : $description,
-				'config'      => array(
-					'configs' => $this->sanitize_config( $config_data['config']['configs'] ),
-					'strings' => filter_var(
-						$config_data['config']['strings'],
-						FILTER_CALLBACK,
-						array(
-							'options' => 'sanitize_text_field',
-						)
-					),
-				),
+				'config'      => $this->sanitize_and_format_configs( $configs ),
 			);
 
 			if ( ! empty( $config_data['hub_id'] ) ) {
@@ -462,6 +463,9 @@ class Configs {
 
 		if ( ! empty( $config['settings'] ) ) {
 			$sanitized['settings'] = filter_var( $config['settings'], FILTER_VALIDATE_BOOLEAN, FILTER_REQUIRE_ARRAY );
+			if ( isset( $config['settings']['lossy'] ) ) {
+				$sanitized['settings']['lossy'] = $this->settings->sanitize_lossy_level( $config['settings']['lossy'] );
+			}
 		}
 
 		if ( isset( $config['resize_sizes'] ) ) {
@@ -619,6 +623,11 @@ class Configs {
 					$label = ! empty( $extra_labels[ $name ] ) ? $extra_labels[ $name ] : $name;
 				}
 
+				if ( 'lossy' === $name ) {
+					$formatted_rows[] = $label . ' - ' . $this->settings->get_lossy_level_label( $config['settings'][ $name ] );
+					continue;
+				}
+
 				$formatted_rows[] = $label . ' - ' . $this->format_boolean_setting_value( $name, $config['settings'][ $name ] );
 			}
 		}
@@ -719,5 +728,13 @@ class Configs {
 			return implode( ', ', $config['networkwide'] );
 		}
 		return '1' === (string) $config['networkwide'] ? __( 'All', 'wp-smushit' ) : __( 'None', 'wp-smushit' );
+	}
+
+
+	public function sanitize_and_format_configs( $configs ) {
+		return array(
+			'configs' => $this->sanitize_config( $configs ),
+			'strings' => $this->format_config_to_display( $configs ),
+		);
 	}
 }

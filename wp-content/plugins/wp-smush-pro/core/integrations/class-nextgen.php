@@ -374,7 +374,7 @@ class NextGen extends Abstract_Integration {
 
 		$status = '';
 		if ( ! is_wp_error( $smush ) ) {
-			$status = $this->ng_stats->show_stats( $pid, $smush );
+			$status = $this->ng_admin->show_stats( $pid, $smush );
 		}
 
 		if ( ! $is_bulk ) {

@@ -61,8 +61,8 @@ class Smush_Controller extends Controller {
 	}
 
 	public function maybe_mark_global_stats_as_outdated( $old_settings, $settings ) {
-		$old_lossy_status     = ! empty( $old_settings['lossy'] );
-		$new_lossy_status     = ! empty( $settings['lossy'] );
+		$old_lossy_status     = ! empty( $old_settings['lossy'] ) ? (int) $old_settings['lossy'] : 0;
+		$new_lossy_status     = ! empty( $settings['lossy'] ) ? (int) $settings['lossy'] : 0;
 		$lossy_status_changed = $old_lossy_status !== $new_lossy_status;
 
 		$old_exif_status     = ! empty( $old_settings['strip_exif'] );
