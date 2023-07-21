@@ -71,7 +71,7 @@ class WC_Dropshipping_Checkout {
 
 		if ( ! empty( $_POST['_wc_dropshipping_order_number'] ) ) {
 
-			update_post_meta( $order_id, '_wc_dropshipping_order_number', sanitize_text_field( $_POST['_wc_dropshipping_order_number'] ) );
+			opmc_hpos_update_post_meta( $order_id, '_wc_dropshipping_order_number', sanitize_text_field( $_POST['_wc_dropshipping_order_number'] ) );
 
 		}
 
@@ -86,7 +86,7 @@ class WC_Dropshipping_Checkout {
 				?> <h3>Order Number</h3>
 				<?php
 
-				echo get_post_meta( $order->get_id(), '_wc_dropshipping_order_number', true );
+				echo opmc_hpos_get_post_meta( $order->get_id(), '_wc_dropshipping_order_number', true );
 
 			}
 		}
@@ -130,7 +130,7 @@ class WC_Dropshipping_Checkout {
 
 			$order_id = is_callable( array( $order, 'get_id' ) ) ? $order->get_id() : $order->id;
 
-			$order_number = get_post_meta( $order_id, '_wc_dropshipping_order_number', true );
+			$order_number = opmc_hpos_get_post_meta( $order_id, '_wc_dropshipping_order_number', true );
 
 			echo $order_number;
 
@@ -185,7 +185,7 @@ class WC_Dropshipping_Checkout {
 
 							$user_id = $user->ID;
 
-							$tracking_number = get_post_meta( $post->ID, 'dropshipper_shipping_info_' . $user_id, true );
+							$tracking_number = opmc_hpos_get_post_meta( $post->ID, 'dropshipper_shipping_info_' . $user_id, true );
 
 							if ( isset( $tracking_number ) ) {
 
@@ -254,7 +254,7 @@ class WC_Dropshipping_Checkout {
 
 							$supplier_pod_id = '_supplier_pod_' . $user_id;
 
-							$pod_status = get_post_meta( $post->ID, $post->ID . '_' . $supplier_pod_id . '_status', true );
+							$pod_status = opmc_hpos_get_post_meta( $post->ID, $post->ID . '_' . $supplier_pod_id . '_status', true );
 
 							if ( ! empty( $pod_status ) && ( '' == in_array( $supplier_nickname, $suppliers_list ) ) ) {
 
@@ -275,7 +275,7 @@ class WC_Dropshipping_Checkout {
 
 		if ( $this->order_options['checkout_order_number'] == 1 ) {
 
-			$order_number = get_post_meta( $order_id->get_id(), '_wc_dropshipping_order_number', true );
+			$order_number = opmc_hpos_get_post_meta( $order_id->get_id(), '_wc_dropshipping_order_number', true );
 
 			if ( $order_number !== '' ) {
 
@@ -290,7 +290,7 @@ class WC_Dropshipping_Checkout {
 
 		if ( $this->order_options['checkout_order_number'] == 1 ) {
 
-			$order_number = get_post_meta( $order->get_id(), '_wc_dropshipping_order_number', true );
+			$order_number = opmc_hpos_get_post_meta( $order->get_id(), '_wc_dropshipping_order_number', true );
 
 			if ( $order_number !== '' ) {
 
@@ -326,7 +326,7 @@ class WC_Dropshipping_Checkout {
 
 		if ( ! empty( $cod_total ) ) {
 
-			update_post_meta( $order_id, 'cost_of_goods_total', $cod_total );
+			opmc_hpos_update_post_meta( $order_id, 'cost_of_goods_total', $cod_total );
 
 		}
 
@@ -357,7 +357,7 @@ class WC_Dropshipping_Checkout {
 
 		if ( ! empty( $cod_total ) ) {
 
-			update_post_meta( $order_id, 'cost_of_goods_total', $cod_total );
+			opmc_hpos_update_post_meta( $order_id, 'cost_of_goods_total', $cod_total );
 
 		}
 
@@ -376,8 +376,8 @@ class WC_Dropshipping_Checkout {
 				$item_data = $item->get_data();
 
 				// get order item meta data (in an unprotected array)
-				$item_meta_data = $item->get_meta_data();
-				 $supplier_id = get_post_meta( $item_id, 'supplierid', true );
+				// $item_meta_data = $item->opmc_hpos_get_post_meta();
+				 $supplier_id = opmc_hpos_get_post_meta( $item_id, 'supplierid', true );
 				$arg = array(
 					'meta_key'    => 'supplier_id',
 					'meta_value'    => $supplier_id,
@@ -394,7 +394,7 @@ class WC_Dropshipping_Checkout {
 
 					$postid = $order->get_id();
 				foreach ( $uniqe_userid as $key => $value ) {
-					$dropshipper_shipping_info = get_post_meta( $postid, 'dropshipper_shipping_info_' . $value, true );
+					$dropshipper_shipping_info = opmc_hpos_get_post_meta( $postid, 'dropshipper_shipping_info_' . $value, true );
 
 					$supplier_id = get_user_meta( $value, 'supplier_id', true );
 					$term = get_term_by( 'id', $supplier_id, 'dropship_supplier' );

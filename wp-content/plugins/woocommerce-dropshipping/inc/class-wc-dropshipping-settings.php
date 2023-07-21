@@ -886,20 +886,21 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 						$options['dynamic_profit_margin'] = '';
 				}
 
-				/* Pricing and Profit Calculation staeted here */
-				//$Fee = [ {100+ (8.5% *100) + 0.5 + 0.30} x 100 / (100 - 2.9 ) ] - {100+ (8.5% * 100) + 0.5 + 0.30};
+				/*
+				 Pricing and Profit Calculation staeted here */
+				// $Fee = [ {100+ (8.5% *100) + 0.5 + 0.30} x 100 / (100 - 2.9 ) ] - {100+ (8.5% * 100) + 0.5 + 0.30};
 				// $prft_prcnt_val = $options['profit_percent_value'];
 				// $prft_dolr_val = $options['profit_doller_value'];
 				// $fee_prcnt_val = $options['fee_percent_value'];
 				// $fee_dolr_val = $options['fee_doller_value'];
 
-				if ( isset ( $options['profit_percent_value'] ) ) {
+				if ( isset( $options['profit_percent_value'] ) ) {
 					$profit_percent_value = $options['profit_percent_value'];
 				} else {
 					$profit_percent_value = '';
 				}
 
-				if( !empty ( $profit_percent_value ) || '' != $profit_percent_value) {
+				if ( ! empty( $profit_percent_value ) || '' != $profit_percent_value ) {
 
 					$prft_prcnt_val = $profit_percent_value;
 				} else {
@@ -907,13 +908,13 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 					$prft_prcnt_val = 0;
 				}
 
-				if( isset ( $options[ 'profit_doller_value' ] ) ) {
+				if ( isset( $options['profit_doller_value'] ) ) {
 					$profit_doller_value = $options['profit_doller_value'];
 				} else {
 					$profit_doller_value = '';
 				}
 
-				if( !empty ( $profit_doller_value ) || '' != $profit_doller_value) {
+				if ( ! empty( $profit_doller_value ) || '' != $profit_doller_value ) {
 
 					$prft_dolr_val = $profit_doller_value;
 				} else {
@@ -921,14 +922,13 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 					$prft_dolr_val = 0;
 				}
 
-
-				if( isset ( $options[ 'fee_percent_value' ] ) ) {
+				if ( isset( $options['fee_percent_value'] ) ) {
 					$fee_percent_value = $options['fee_percent_value'];
 				} else {
 					$fee_percent_value = '';
 				}
 
-				if( !empty ( $fee_percent_value ) || '' != $fee_percent_value ) {
+				if ( ! empty( $fee_percent_value ) || '' != $fee_percent_value ) {
 
 					$fee_prcnt_val = $fee_percent_value;
 				} else {
@@ -936,13 +936,13 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 					$fee_prcnt_val = 0;
 				}
 
-				if( isset ( $options[ 'fee_doller_value' ] ) ) {
+				if ( isset( $options['fee_doller_value'] ) ) {
 					$fee_doller_value = $options['fee_doller_value'];
 				} else {
 					$fee_doller_value = '';
 				}
 
-				if( !empty ( $fee_doller_value ) || '' != $fee_doller_value ) {
+				if ( ! empty( $fee_doller_value ) || '' != $fee_doller_value ) {
 
 					$fee_dolr_val = $fee_doller_value;
 				} else {
@@ -957,8 +957,8 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
 				$devide_left = 100 - $fee_prcnt_val;
 
-				$right_calculesn = number_format($final_some * 100 / $devide_left, 2);
-				$final_prcnt_fee = number_format($right_calculesn - $final_some, 2);
+				$right_calculesn = number_format( $final_some * 100 / $devide_left, 2 );
+				$final_prcnt_fee = number_format( $right_calculesn - $final_some, 2 );
 
 				// if (isset($options['ali_cbe_price_rate_value_name'])) { // $ali_cbe_price_rate_value_setting = $options['ali_cbe_price_rate_value_name']; // } else { // $ali_cbe_price_rate_value_setting = ''; // } // For Checked Checkbox
 
@@ -966,7 +966,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
 				if ( $options['dynamic_profit_margin'] == '1' ) {
 
-					$dynamic_profit_margin_setting =' checked="checked" ';
+					$dynamic_profit_margin_setting = ' checked="checked" ';
 				} else {
 
 					$dynamic_profit_margin_setting = ' ';
@@ -1427,7 +1427,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
                                             <option value="ali_cbe_fixed_price_offset"' . $ali_cbe_price_rate_selected_2 . '>Fixed Amount Offset</option>';
 						}
-                                    	echo '   </select>
+										echo '   </select>
                                         </td>
                                     </span>
                                 <td>
@@ -1991,13 +1991,13 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
 							// echo '<p></p>
 
-                            //     <table>
-                            //         <tr>
-                            //             <td><input name="billing_phone" id="show_customer_phone" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $phone_billing . '  /></td>
+							// <table>
+							// <tr>
+							// <td><input name="billing_phone" id="show_customer_phone" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $phone_billing . '  /></td>
 
-                            //             <td><label for="show_customer_phone">Include the customer&apos;s phone number in the packing slip:</label></td>
-                            //         </tr>
-                            //     </table>';
+							// <td><label for="show_customer_phone">Include the customer&apos;s phone number in the packing slip:</label></td>
+							// </tr>
+							// </table>';
 
 							echo '<p></p>
 
@@ -2484,8 +2484,8 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 										                progress-bar-stripped progress-bar-animated" id="blue_progress"  role="progressbar" style="width:' . $blue . '%">
 										                ';
 
-				if ($options['profit_percent_value'] > 0 || $options['profit_doller_value'] > 0 ) {
-				echo '<span id="profir_margin">Profit Margin </span>';
+				if ( $options['profit_percent_value'] > 0 || $options['profit_doller_value'] > 0 ) {
+					echo '<span id="profir_margin">Profit Margin </span>';
 				}
 
 													  echo $blue . '%
@@ -2584,7 +2584,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 				        				<h4>Profit Margin : </h4>';
 
 				if ( $dynamic_profit_margin_setting == ' checked="checked" ' ) {
-				echo '<table>
+					echo '<table>
 						<tr>
                         	<td>
                         		<label for="title_profit_percent" >% Profit:</label>
@@ -2649,7 +2649,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 					</table>';
 				}
 
-				if ($dynamic_profit_margin_setting == ' checked="checked" ') {
+				if ( $dynamic_profit_margin_setting == ' checked="checked" ' ) {
 					$dynamic_profit = 'yes';
 				} else {
 					$dynamic_profit = 'no';
@@ -2672,7 +2672,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 								<legend class="screen-reader-text"><span>Dynamic Profit Margin: </span></legend>
 								<label for="dynamic_profit_margin" class="opmc-toggle-control">
 
-								<input name="dynamic_profit_margin" id="dynamic_profit_margin" type="checkbox" value="1"'; ?> <?php checked( $dynamic_profit, 'yes'); ?> <?php
+								<input name="dynamic_profit_margin" id="dynamic_profit_margin" type="checkbox" value="1"'; ?> <?php checked( $dynamic_profit, 'yes' ); ?> <?php
 								echo '>
 									<span class="opmc-control"></span>
 								</label>
@@ -2683,9 +2683,9 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
 								if ( $dynamic_profit_margin_setting == ' checked="checked" ' ) {
 
-									$textAreaValue = trim(@$options['profit_margin_hidden_textarea']);
+									$textAreaValue = trim( @$options['profit_margin_hidden_textarea'] );
 
-									if ($textAreaValue == '') { // i.e. no dynamic profit margin set yet
+									if ( $textAreaValue == '' ) { // i.e. no dynamic profit margin set yet
 
 										echo '<div class="dynamic_profit_margin_section">
 									<textarea id="profit_margin_hidden" name="profit_margin_hidden_textarea" hidden="hidden"></textarea>
@@ -2747,8 +2747,8 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
 									} else { // if($textAreaValue == "") // i.e. dynamic profit margin has already been set
 
-										$allElements = explode('~', $textAreaValue);
-										$nRows = count($allElements);
+										$allElements = explode( '~', $textAreaValue );
+										$nRows = count( $allElements );
 
 										$elementsHtml = '
 								<div class="dynamic_profit_margin_section">
@@ -2757,7 +2757,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 										<tbody>
 										<p class="p_cost_range">Product Cost Range</p>';
 										$rowCount = 0;
-										foreach ($allElements as $row) {
+										foreach ( $allElements as $row ) {
 											$rowCount++;
 
 											$elementsHtml .= '
@@ -2765,11 +2765,11 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 										<div class="rows">
 									';
 
-											$allTds = explode('_', $row);
+											$allTds = explode( '_', $row );
 											$tdCount = 0;
-											foreach ($allTds as $td) {
+											foreach ( $allTds as $td ) {
 												$tdCount++;
-												switch ($tdCount) {
+												switch ( $tdCount ) {
 													case 1:
 														$elementsHtml .= '
 													<td><label id="title_dynamic" for="title_from" >From:</label><fieldset><input name="dynamic_from_value[' . $rowCount . ']" class="dynamic_from_value clone_tds from_val " id="dynamic_from_value_' . $rowCount . '" type="number" data="vfrom" min="0" step="0.01" style="width:100px;" value="' . $td . '" required="required" /></fieldset></td>
@@ -2829,12 +2829,12 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 				            </tr>
 				       	</table>
 				    </div>';
-				/* Price Calculator End */
+								/* Price Calculator End */
 
-					echo '<div class="slidesection_bkp">
+								echo '<div class="slidesection_bkp">
 					 <p></p>';
 
-				return apply_filters( 'woocommerce_get_settings_' . $this->id, array(), $current_section );
+								return apply_filters( 'woocommerce_get_settings_' . $this->id, array(), $current_section );
 			}
 
 			/**

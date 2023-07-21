@@ -36,39 +36,41 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 
 		public function pub_ali_draft_prod() {
 
-
-			//Define Array to Store Draft Product's id
+			// Define Array to Store Draft Product's id
 			$ali_draft_id = array();
 
-			//Parameters to fetch all draft products
+			// Parameters to fetch all draft products
 			$params = array(
-			'posts_per_page' => -1,
-			'post_type' => array('product', 'product_variation'),
-			'post_status' => 'draft',
+				'posts_per_page' => -1,
+				'post_type' => array( 'product', 'product_variation' ),
+				'post_status' => 'draft',
 			);
 
 			// Query firing
-			$dp_query = new WP_Query($params);
-			if ($dp_query->have_posts()) :
-			//While loop through all the posts to identify products imported from Aliexpress
-				while ($dp_query->have_posts()) :
+			$dp_query = new WP_Query( $params );
+			if ( $dp_query->have_posts() ) :
+				// While loop through all the posts to identify products imported from Aliexpress
+				while ( $dp_query->have_posts() ) :
 					  $dp_query->the_post();
-				 // Condition to check if Aliexpress Product Url exists in postmeta to confirm product is imported from Aliexpress
-					if (get_post_meta(get_the_id(), 'ali_product_url', true)) {
+					// Condition to check if Aliexpress Product Url exists in postmeta to confirm product is imported from Aliexpress
+					if ( get_post_meta( get_the_id(), 'ali_product_url', true ) ) {
 
-					// Declaring temp array to prepare data for publishing the product.
-					$temp_post_data = array();
+						// Declaring temp array to prepare data for publishing the product.
+						$temp_post_data = array();
 
-					// Preparing data in array for publising
-					$temp_post_data = [ 'ID' => get_the_id(), 'post_status' => 'publish' ];
+						// Preparing data in array for publising
+						$temp_post_data = array(
+							'ID' => get_the_id(),
+							'post_status' => 'publish',
+						);
 
-					// Publishing Products which is in Draft
-					wp_update_post( $temp_post_data );
+						// Publishing Products which is in Draft
+						wp_update_post( $temp_post_data );
 					}
-				// End While
+					// End While
 		   endwhile;
-		   // Reset Post data
-		   wp_reset_postdata();
+				// Reset Post data
+				wp_reset_postdata();
 		   endif;
 
 			wp_die(); // this is required to terminate immediately and return a proper response
@@ -480,7 +482,7 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 
 					foreach ( $supplier_ids as $supplier_id ) {
 
-						$supplier_name = get_post_meta( $order_id->ID, 'supplier_' . $supplier_id->term_id );
+						$supplier_name = opmc_hpos_get_post_meta( $order_id->ID, 'supplier_' . $supplier_id->term_id );
 
 						if ( ! empty( $supplier_name ) ) {
 
@@ -520,7 +522,7 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 					 // echo $order_id->ID;
 					foreach ( $supplier_ids as $supplier_id ) {
 
-						$supplier_name = get_post_meta( $order_id->ID, 'supplier_' . $supplier_id->term_id );
+						$supplier_name = opmc_hpos_get_post_meta( $order_id->ID, 'supplier_' . $supplier_id->term_id );
 
 						if ( ! empty( $supplier_name ) ) {
 
@@ -538,7 +540,7 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 
 					   $total_sales += $order_total->get_total();
 
-					   $cost_of_goods += get_post_meta( $order, 'cost_of_goods_total', true ) ? get_post_meta( $order, 'cost_of_goods_total', true ) : 0;
+					   $cost_of_goods += opmc_hpos_get_post_meta( $order, 'cost_of_goods_total', true ) ? opmc_hpos_get_post_meta( $order, 'cost_of_goods_total', true ) : 0;
 
 					   $total_tax_price += $order_total->get_total_tax() ? $order_total->get_total_tax() : 0;
 
@@ -775,7 +777,7 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 
 				foreach ( $supplier_ids as $supplier_id ) {
 
-					$supplier_name = get_post_meta( $order_id, 'supplier_' . $supplier_id->term_id );
+					$supplier_name = opmc_hpos_get_post_meta( $order_id, 'supplier_' . $supplier_id->term_id );
 
 					if ( ! empty( $supplier_name ) ) {
 
@@ -793,7 +795,7 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 
 				$total_sales = $order_total->get_total();
 
-				$cost_of_goods = get_post_meta( $order, 'cost_of_goods_total', true );
+				$cost_of_goods = opmc_hpos_get_post_meta( $order, 'cost_of_goods_total', true );
 
 				$total_tax_price = $order_total->get_total_tax();
 
@@ -851,7 +853,7 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 
 			foreach ( $order_ids as $order_id ) {
 
-				$is_ali = get_post_meta( $order_id, 'status_of_aliexpress' );
+				$is_ali = opmc_hpos_get_post_meta( $order_id, 'status_of_aliexpress' );
 
 				if ( ! empty( $is_ali ) ) {
 
@@ -922,7 +924,7 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 
 				foreach ( $supplier_ids as $supplier_id ) {
 
-					$supplier_name = get_post_meta( $order_id, 'supplier_' . $supplier_id->term_id );
+					$supplier_name = opmc_hpos_get_post_meta( $order_id, 'supplier_' . $supplier_id->term_id );
 
 					if ( ! empty( $supplier_name ) ) {
 
@@ -1156,7 +1158,7 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 
 				$new_current_month = date( 'm' );
 
-				$date_paid = get_post_meta( $order_id, '_date_paid', true );
+				$date_paid = opmc_hpos_get_post_meta( $order_id, '_date_paid', true );
 
 				$date_paid = intval( $date_paid );
 
@@ -1368,26 +1370,26 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 
 			// Parameters to get draft products
 			$params = array(
-			'posts_per_page' => -1,
-			'post_type' => array('product', 'product_variation'),
-			'post_status' => 'draft',
+				'posts_per_page' => -1,
+				'post_type' => array( 'product', 'product_variation' ),
+				'post_status' => 'draft',
 			);
 
-			$dp_query = new WP_Query($params);
+			$dp_query = new WP_Query( $params );
 
-			if ($dp_query->have_posts()) :
+			if ( $dp_query->have_posts() ) :
 
-				while ($dp_query->have_posts()) :
+				while ( $dp_query->have_posts() ) :
 					$dp_query->the_post();
 
-				// Checking if Aliexpress Product Url exists in postmeta to confirm that product is imported from Aliexpress
-					if (get_post_meta(get_the_id(), 'ali_product_url', true)) {
-						array_push($ali_draft_id, get_the_id());
+					// Checking if Aliexpress Product Url exists in postmeta to confirm that product is imported from Aliexpress
+					if ( get_post_meta( get_the_id(), 'ali_product_url', true ) ) {
+						array_push( $ali_draft_id, get_the_id() );
 					}
 			endwhile;
-			wp_reset_postdata();
+				wp_reset_postdata();
 			endif;
-			return count($ali_draft_id);
+			return count( $ali_draft_id );
 
 		}
 

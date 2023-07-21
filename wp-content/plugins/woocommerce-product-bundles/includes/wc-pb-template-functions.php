@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Product Bundles
  * @since    4.11.0
- * @version  6.21.0
+ * @version  6.22.0
  */
 
 // Exit if accessed directly.
@@ -17,6 +17,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 | Single-product.
 |--------------------------------------------------------------------------
 */
+
+/**
+ * Checks whether this product is rendered using a legacy template; an indication that a classic theme is in use.
+ * Although a legacy PHP template might be in use with a block theme (via the "Legacy PHP Product Block", the extension does not account for this scenario when gating template features.
+ *
+ * @since  6.22.0
+ *
+ * @param  WC_Product  $product
+ * @return boolean
+ */
+function wc_pb_has_legacy_product_template( $product ) {
+	$is_block_theme = WC_PB_Core_Compatibility::wc_current_theme_is_fse_theme();
+	return (bool) apply_filters( 'woocommerce_bundle_has_legacy_product_template', $is_block_theme === false, $product );
+}
 
 /**
  * Add-to-cart template for Product Bundles. Handles the 'Form location > After summary' case.

@@ -2,16 +2,16 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Subscribe to Newsletter 3.6.0\n"
+"Project-Id-Version: WooCommerce Subscribe to Newsletter 3.7.0\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-01-30T12:37:42+00:00\n"
+"POT-Creation-Date: 2023-07-19T08:29:44+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: woocommerce-subscribe-to-newsletter\n"
 
 #. Plugin Name of the plugin
@@ -790,18 +790,18 @@ msgstr ""
 
 #: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:77
 msgctxt "setting title"
-msgid "Sendinblue API Key"
+msgid "Brevo API Key"
 msgstr ""
 
-#. translators: %s: Sendinblue URL for getting the API key
+#. translators: %s: Brevo URL for getting the API key
 #: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:80
 msgctxt "setting desc"
-msgid "You can obtain your API key by logging in to your <a href=\"%s\" target=\"_blank\">Sendinblue account</a>."
+msgid "You can obtain your API key by logging into your <a href=\"%s\" target=\"_blank\">Brevo account</a>."
 msgstr ""
 
 #: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:83
 msgctxt "setting desc"
-msgid "Enter your Sendinblue API key"
+msgid "Enter your Brevo API key"
 msgstr ""
 
 #: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:89
@@ -810,7 +810,7 @@ msgstr ""
 
 #: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:96
 msgctxt "setting title"
-msgid "Sendinblue List"
+msgid "Brevo List"
 msgstr ""
 
 #: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:102
@@ -841,7 +841,7 @@ msgstr ""
 
 #: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:116
 msgctxt "setting title"
-msgid "TAGS attribute"
+msgid "Tags attribute"
 msgstr ""
 
 #: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:117

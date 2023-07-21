@@ -24,9 +24,9 @@ class Ali_Product_Filter {
 
 	public function ali_product_panel_save( $post_id ) {
 		if ( isset( $_POST['_is_ali_product'] ) ) {
-			update_post_meta( $post_id, '_is_ali_product', 'yes' );
+			opmc_hpos_update_post_meta( $post_id, '_is_ali_product', 'yes' );
 		} else {
-			update_post_meta( $post_id, '_is_ali_product', 'no' );
+			opmc_hpos_update_post_meta( $post_id, '_is_ali_product', 'no' );
 		}
 	}
 

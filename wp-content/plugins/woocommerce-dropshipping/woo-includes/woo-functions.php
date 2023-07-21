@@ -2,37 +2,41 @@
 /**
  * Functions used by plugins
  */
-if ( ! class_exists( 'WC_Dependencies' ) )
+if ( ! class_exists( 'WC_Dependencies' ) ) {
 	require_once 'class-wc-dependencies.php';
+}
 
 /**
  * WC Detection
  */
 
  add_filter( 'woocommerce_locate_template', 'woo_adon_plugin_template', 1, 3 );
-   function woo_adon_plugin_template( $template, $template_name, $template_path ) {
-     global $woocommerce;
-     $_template = $template;
-     if ( ! $template_path ) 
-        $template_path = $woocommerce->template_url;
- 
-     $plugin_path  = untrailingslashit( plugin_dir_path( __FILE__ ) )  . '/template/woocommerce/';
- 
-    // Look within passed path within the theme - this is priority
-    $template = locate_template(
-    array(
-      $template_path . $template_name,
-      $template_name
-    )
-   );
- 
-   if( ! $template && file_exists( $plugin_path . $template_name ) )
-    $template = $plugin_path . $template_name;
- 
-   if ( ! $template )
-    $template = $_template;
- 
-   return $template;
+function woo_adon_plugin_template( $template, $template_name, $template_path ) {
+	global $woocommerce;
+	$_template = $template;
+	if ( ! $template_path ) {
+		 $template_path = $woocommerce->template_url;
+	}
+
+	$plugin_path  = untrailingslashit( plugin_dir_path( __FILE__ ) ) . '/template/woocommerce/';
+
+	// Look within passed path within the theme - this is priority
+	$template = locate_template(
+		array(
+			$template_path . $template_name,
+			$template_name,
+		)
+	);
+
+	if ( ! $template && file_exists( $plugin_path . $template_name ) ) {
+		$template = $plugin_path . $template_name;
+	}
+
+	if ( ! $template ) {
+		$template = $_template;
+	}
+
+	return $template;
 }
 
 
@@ -49,8 +53,9 @@ if ( ! function_exists( 'woothemes_queue_update' ) ) {
 	function woothemes_queue_update( $file, $file_id, $product_id ) {
 		global $woothemes_queued_updates;
 
-		if ( ! isset( $woothemes_queued_updates ) )
+		if ( ! isset( $woothemes_queued_updates ) ) {
 			$woothemes_queued_updates = array();
+		}
 
 		$plugin             = new stdClass();
 		$plugin->file       = $file;
@@ -63,6 +68,7 @@ if ( ! function_exists( 'woothemes_queue_update' ) ) {
 
 /**
  * Load installer for the WooThemes Updater.
+ *
  * @return $api Object
  */
 if ( ! class_exists( 'WooThemes_Updater' ) && ! function_exists( 'woothemes_updater_install' ) ) {
@@ -73,7 +79,9 @@ if ( ! class_exists( 'WooThemes_Updater' ) && ! function_exists( 'woothemes_upda
 			false !== $api ||
 			! isset( $args->slug ) ||
 			'woothemes-updater' != $args->slug
-		) return $api;
+		) {
+			return $api;
+		}
 
 		$api = new stdClass();
 		$api->name = 'WooThemes Updater';
@@ -92,11 +100,14 @@ if ( ! class_exists( 'WooThemes_Updater' ) && ! function_exists( 'woothemes_upda
 
 	/**
 	 * Display a notice if the "WooThemes Updater" plugin hasn't been installed.
+	 *
 	 * @return void
 	 */
 	function woothemes_updater_notice() {
-		$active_plugins = apply_filters( 'active_plugins', get_option('active_plugins' ) );
-		if ( in_array( 'woothemes-updater/woothemes-updater.php', $active_plugins ) ) return;
+		$active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
+		if ( in_array( 'woothemes-updater/woothemes-updater.php', $active_plugins ) ) {
+			return;
+		}
 
 		$slug = 'woothemes-updater';
 		$install_url = wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=' . $slug ), 'install-plugin_' . $slug );
@@ -121,5 +132,6 @@ if ( ! class_exists( 'WooThemes_Updater' ) && ! function_exists( 'woothemes_upda
  * Prevent conflicts with older versions
  */
 if ( ! class_exists( 'WooThemes_Plugin_Updater' ) ) {
-	class WooThemes_Plugin_Updater { function init() {} }
+	class WooThemes_Plugin_Updater {
+		function init() {} }
 }

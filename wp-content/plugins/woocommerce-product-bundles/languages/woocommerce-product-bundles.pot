@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product Bundles 6.21.1\n"
+"Project-Id-Version: WooCommerce Product Bundles 6.22.2\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-06-22T11:47:05+00:00\n"
+"POT-Creation-Date: 2023-07-19T13:50:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "language-team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -415,7 +415,7 @@ msgstr ""
 
 #: includes/admin/class-wc-pb-admin-post-types.php:51
 #: includes/admin/class-wc-pb-admin.php:420
-#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1458
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1465
 #: includes/class-wc-bundled-item.php:2239
 #: includes/class-wc-pb-display.php:215
 #: includes/class-wc-product-bundle.php:1358
@@ -871,66 +871,66 @@ msgstr ""
 msgid "Select the <strong>Tabular</strong> option to have the thumbnails, descriptions and quantities of bundled products arranged in a table. Recommended for displaying multiple bundled products with configurable quantities."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1342
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1349
 msgid "Form Location"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1371
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1378
 msgid "Item Grouping"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1372
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1379
 msgid "Controls the grouping of parent/child line items in cart/order templates."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1388
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1395
 msgid "Edit in Cart"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1390
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1397
 msgid "Enable this option to allow changing the configuration of this bundle in the cart. Applicable to bundles with configurable attributes and/or quantities."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1465
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1472
 msgid "Low stock"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1481
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1488
 msgid "You have not added any products to this bundle."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1482
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1489
 msgid "Add some now?"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1500
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1507
 msgid "Add a bundled product&hellip;"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1507
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1514
 msgctxt "new bundled product button"
 msgid "Add Product"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1508
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1515
 msgid "Search for a product&hellip;"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1535
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1542
 msgid "Basic Settings"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1539
+#: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1546
 msgid "Advanced Settings"
 msgstr ""
 
 #: includes/admin/meta-boxes/views/html-bundle-edit-form.php:17
-#: includes/wc-pb-template-functions.php:613
+#: includes/wc-pb-template-functions.php:627
 msgid "Product"
 msgstr ""
 
 #: includes/admin/meta-boxes/views/html-bundle-edit-form.php:18
-#: includes/wc-pb-template-functions.php:614
+#: includes/wc-pb-template-functions.php:628
 msgid "Quantity"
 msgstr ""
 
@@ -1279,11 +1279,11 @@ msgstr ""
 msgid "ID of this bundled item."
 msgstr ""
 
-#: includes/api/class-wc-pb-store-api.php:429
+#: includes/api/class-wc-pb-store-api.php:431
 msgid "Edit item"
 msgstr ""
 
-#: includes/api/class-wc-pb-store-api.php:610
+#: includes/api/class-wc-pb-store-api.php:612
 #: includes/class-wc-pb-cart.php:1895
 msgid "This product is a mandatory part of a bundle and cannot be removed."
 msgstr ""
@@ -1553,7 +1553,7 @@ msgid "%1$s%2$s%3$s%4$s"
 msgstr ""
 
 #: includes/class-wc-pb-display.php:261
-#: includes/wc-pb-template-functions.php:93
+#: includes/wc-pb-template-functions.php:107
 msgid "This product is currently unavailable."
 msgstr ""
 
@@ -1750,43 +1750,43 @@ msgstr ""
 msgid "Update Cart"
 msgstr ""
 
-#: includes/class-wc-product-bundle.php:2909
+#: includes/class-wc-product-bundle.php:2912
 msgid "Default"
 msgstr ""
 
-#: includes/class-wc-product-bundle.php:2910
+#: includes/class-wc-product-bundle.php:2913
 msgid "The add-to-cart form is displayed inside the single-product summary."
 msgstr ""
 
-#: includes/class-wc-product-bundle.php:2913
+#: includes/class-wc-product-bundle.php:2916
 msgid "Before Tabs"
 msgstr ""
 
-#: includes/class-wc-product-bundle.php:2914
+#: includes/class-wc-product-bundle.php:2917
 msgid "The add-to-cart form is displayed before the single-product tabs. Usually allocates the entire page width for displaying form content. Note that some themes may not support this option."
 msgstr ""
 
-#: includes/class-wc-product-bundle.php:2929
+#: includes/class-wc-product-bundle.php:2932
 msgid "Standard"
 msgstr ""
 
-#: includes/class-wc-product-bundle.php:2930
+#: includes/class-wc-product-bundle.php:2933
 msgid "Tabular"
 msgstr ""
 
-#: includes/class-wc-product-bundle.php:2931
+#: includes/class-wc-product-bundle.php:2934
 msgid "Grid"
 msgstr ""
 
-#: includes/class-wc-product-bundle.php:3003
+#: includes/class-wc-product-bundle.php:3006
 msgid "Grouped"
 msgstr ""
 
-#: includes/class-wc-product-bundle.php:3008
+#: includes/class-wc-product-bundle.php:3011
 msgid "Flat"
 msgstr ""
 
-#: includes/class-wc-product-bundle.php:3013
+#: includes/class-wc-product-bundle.php:3016
 msgid "None"
 msgstr ""
 
@@ -2112,35 +2112,35 @@ msgid "<span class=\"bundled_items_selection_status\">%s</span>"
 msgstr ""
 
 #. translators: Ticket form URL
-#: includes/wc-pb-template-functions.php:102
+#: includes/wc-pb-template-functions.php:116
 msgid "The Product Bundles database is updating in the background. During this time, all bundles on your site will be unavailable. If this message persists, please <a href=\"%s\" target=\"_blank\">get in touch</a> with our support team. Note: This message is visible to store managers only."
 msgstr ""
 
 #. translators: %1$s: Product title %, %2$s: Pricing options doc URL
-#: includes/wc-pb-template-functions.php:105
+#: includes/wc-pb-template-functions.php:119
 msgid "&quot;%1$s&quot; is not purchasable just yet. But, fear not &ndash; setting up <a href=\"%2$s\" target=\"_blank\">pricing options</a> only takes a minute! <ul class=\"pb_notice_list\"><li>To give &quot;%1$s&quot; a static base price, navigate to <strong>Product Data > General</strong> and fill in the <strong>Regular Price</strong> field.</li><li>To preserve the prices and taxes of individual bundled products, go to <strong>Product Data > Bundled Products</strong> and enable <strong>Priced Individually</strong> for each bundled product whose price must be preserved.</li></ul>Note: This message is visible to store managers only."
 msgstr ""
 
-#: includes/wc-pb-template-functions.php:107
+#: includes/wc-pb-template-functions.php:121
 msgid "Please make sure that all products contained in this bundle have a price. WooCommerce does not allow products with a blank price to be purchased. Note: This message is visible to store managers only."
 msgstr ""
 
-#: includes/wc-pb-template-functions.php:109
+#: includes/wc-pb-template-functions.php:123
 msgid "Please enable <strong>Mixed Checkout</strong> under <strong>WooCommerce > Settings > Subscriptions</strong>. Bundles that contain subscription-type products cannot be purchased when <strong>Mixed Checkout</strong> is disabled. Note: This message is visible to store managers only."
 msgstr ""
 
 #. translators: Product price
-#: includes/wc-pb-template-functions.php:449
+#: includes/wc-pb-template-functions.php:463
 msgid " for %s"
 msgstr ""
 
 #. translators: Product price
-#: includes/wc-pb-template-functions.php:454
+#: includes/wc-pb-template-functions.php:468
 msgid " from %s"
 msgstr ""
 
 #. translators: Product title
-#: includes/wc-pb-template-functions.php:469
+#: includes/wc-pb-template-functions.php:483
 msgid " &quot;%s&quot;"
 msgstr ""
 

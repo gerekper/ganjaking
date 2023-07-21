@@ -43,7 +43,7 @@ class WC_Dropshipping_CSV_Import {
 		wp_nonce_field( 'CSV_upload_form' );
 
 		echo '<p>If your supplier provides a spreadsheet in .CSV format indicating their inventory levels (Quantity on Hand) or whether or not their products are in stock (In-Stock Indicator) you can import the .CSV file here to update your inventory status.Before uploading a .CSV file, please configure which columns to use on the spreadsheet by mousing over the supplier&apos;s name and select "Edit"</p>';
-			
+
 		echo '<table>
 			<tr>
 				<th>CSV File Location:</th>

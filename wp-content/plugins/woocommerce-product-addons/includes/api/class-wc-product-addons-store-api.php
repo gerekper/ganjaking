@@ -11,13 +11,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
 use Automattic\WooCommerce\StoreApi\Schemas\V1\CartItemSchema;
 
 /**
  * Extends the store public API with add-ons related data.
  *
- * @version 6.4.2
+ * @version 6.4.4
  */
 class WC_Product_Addons_Store_API {
 
@@ -180,13 +179,15 @@ class WC_Product_Addons_Store_API {
 			$product_sale_price    = $cart_item[ 'data' ]->get_sale_price( 'edit' );
 
 			// Subtract flat fees from product prices and set new prices to the product object.
-			$product_price         = $product_price - $flat_fees;
-			$product_regular_price = $product_regular_price - $flat_fees;
-
+			$product_price = $product_price - $flat_fees;
 			$cart_item[ 'data' ]->set_price( $product_price );
-			$cart_item[ 'data' ]->set_regular_price( $product_regular_price );
 
-			if ( '' !== $product_sale_price ) {
+			if ( is_numeric( $product_regular_price ) ) {
+				$product_regular_price = $product_regular_price - $flat_fees;
+				$cart_item[ 'data' ]->set_regular_price( $product_regular_price );
+			}
+
+			if ( is_numeric( $product_sale_price ) ) {
 				$product_sale_price = $product_sale_price - $flat_fees;
 				$cart_item[ 'data' ]->set_sale_price( $product_sale_price );
 			}
@@ -223,12 +224,12 @@ class WC_Product_Addons_Store_API {
 
 		$flat_fees = $item_data[ 'extensions' ]->addons[ 'addons_data' ][ 'addons_flat_fees_sum' ];
 
-		// Composite Products compatibility: remove flat fees from the price offset that Composite Products uses to calculate discounted prices.
+		// Composite Products compatibility: re-add flat fees to the price offset that Composite Products uses to calculate discounted prices.
 		if ( isset( $cart_item[ 'data' ]->composited_price_offset ) ) {
 
 			$cart_item[ 'data' ]->composited_price_offset += $flat_fees;
 
-			// Product Bundles compatibility: remove flat fees from the price offset that Product Bundles uses to calculate discounted prices.
+		// Product Bundles compatibility: re-add flat fees to the price offset that Product Bundles uses to calculate discounted prices.
 		} elseif ( isset( $cart_item[ 'data' ]->bundled_price_offset ) ) {
 
 			$cart_item[ 'data' ]->bundled_price_offset += $flat_fees;
@@ -240,14 +241,16 @@ class WC_Product_Addons_Store_API {
 			$product_regular_price = $cart_item[ 'data' ]->get_regular_price( 'edit' );
 			$product_sale_price    = $cart_item[ 'data' ]->get_sale_price( 'edit' );
 
-			// Subtract flat fees from product prices and set new prices to the product object.
-			$product_price         = $product_price + $flat_fees;
-			$product_regular_price = $product_regular_price + $flat_fees;
-
+			// Re-add flat fees to product prices and set new prices to the product object.
+			$product_price = $product_price + $flat_fees;
 			$cart_item[ 'data' ]->set_price( $product_price );
-			$cart_item[ 'data' ]->set_regular_price( $product_regular_price );
 
-			if ( '' !== $product_sale_price ) {
+			if ( is_numeric( $product_regular_price ) ) {
+				$product_regular_price = $product_regular_price + $flat_fees;
+				$cart_item[ 'data' ]->set_regular_price( $product_regular_price );
+			}
+
+			if ( is_numeric( $product_sale_price ) ) {
 				$product_sale_price = $product_sale_price + $flat_fees;
 				$cart_item[ 'data' ]->set_sale_price( $product_sale_price );
 			}

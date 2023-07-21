@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Display-related functions and filters.
  *
  * @class    WC_PB_BS_Display
- * @version  6.21.0
+ * @version  6.22.2
  */
 class WC_PB_BS_Display {
 
@@ -144,7 +144,7 @@ class WC_PB_BS_Display {
 				<div class="bundle_data bundle_data_<?php echo esc_attr( $bundle->get_id() ); ?>" data-bundle_form_data="<?php echo wc_esc_json( json_encode( $bundle->get_bundle_form_data() ) ); ?>" data-bundle_id="<?php echo esc_attr( $bundle->get_id() ); ?>">
 					<div class="bundle_wrap">
 						<div class="bundle_error" style="display:none">
-							<?php wc_print_notice( '<ul class="msg"></ul>', 'notice' ); ?>
+							<?php if ( ! is_admin() && ! WC_PB_Core_Compatibility::is_rest_api_request() ) { wc_print_notice( '<ul class="msg"></ul>', 'notice' ); } ?>
 						</div>
 					</div>
 				</div>

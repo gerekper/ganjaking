@@ -1,5 +1,10 @@
 *** Product Addons Changelog ***
 
+2023-07-20 - version 6.4.4
+* Fix - Resolved a fatal error caused by missing regular prices in the product object.
+* Fix - Resolved incorrect subtotals in the single product page when a tax suffix was used. 
+* Tweak - Removed duplicate filters.
+
 2023-06-27 - version 6.4.3
 * Tweak - Important: Updated the 'addon-start' template and added the tax status data attribute.
 * Fix - Fixed an issue that made tax suffixes show up in non-taxable products with add-ons.

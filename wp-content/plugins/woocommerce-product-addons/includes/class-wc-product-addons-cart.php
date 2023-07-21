@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * WC_Product_Addons_Cart class.
  *
  * @class    WC_Product_Addons_Cart
- * @version  6.4.3
+ * @version  6.4.4
  */
 class WC_Product_Addons_Cart {
 	/**
@@ -226,7 +226,7 @@ class WC_Product_Addons_Cart {
 
 				/*
 				 * Deprecated 'woocommerce_addons_add_price_to_name' since v6.4.0.
-				 * New filter: 'woocommerce_addons_add_price_to_value'
+				 * New filter: 'woocommerce_addons_add_order_price_to_value'
 				 *
 				 * Use this filter to display the price next to each selected add-on option.
 				 * By default, add-on prices show up only next to flat fee add-ons.
@@ -266,9 +266,9 @@ class WC_Product_Addons_Cart {
 				 * If there is an add-on price, add the price of the add-on
 				 * to the selected option.
 				 */
-				if ( 'flat_fee' === $price_type && $addon['price'] && apply_filters( 'woocommerce_addons_add_price_to_value', $add_price_to_value ) ) {
+				if ( 'flat_fee' === $price_type && $addon['price'] && $add_price_to_value ) {
 					$value .= sprintf( _x( ' (+ %1$s)', 'flat fee addon price in order', 'woocommerce-product-addons' ), $price );
-				} elseif ( ( 'quantity_based' === $price_type || 'percentage_based' === $price_type ) && $addon['price'] && apply_filters( 'woocommerce_addons_add_price_to_value', $add_price_to_value ) ) {
+				} elseif ( ( 'quantity_based' === $price_type || 'percentage_based' === $price_type ) && $addon['price'] && $add_price_to_value ) {
 					$value .= sprintf( _x( ' (%1$s)', 'addon price in order', 'woocommerce-product-addons' ), $price );
 				} elseif ( 'custom_price' === $addon['field_type'] ) {
 					$value = sprintf( _x( ' (%1$s)', 'custom addon price in order', 'woocommerce-product-addons' ), $price );
@@ -635,7 +635,7 @@ class WC_Product_Addons_Cart {
 
 				/*
 				 * Deprecated 'woocommerce_addons_add_price_to_name' since v6.4.0.
-				 * New filter: 'woocommerce_addons_add_price_to_value'
+				 * New filter: 'woocommerce_addons_add_cart_price_to_value'
 				 *
 				 * Use this filter to display the price next to each selected add-on option.
 				 * By default, add-on prices show up only next to flat fee add-ons.
@@ -662,11 +662,11 @@ class WC_Product_Addons_Cart {
 					$addon_price        = wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $addon[ 'price' ], $cart_item[ 'data' ], true ) );
 					$value             .= sprintf( _x( ' (%1$s)', 'custom price addon price in cart', 'woocommerce-product-addons' ), $addon_price );
 					$addon[ 'display' ] = $value;
-				} elseif ( 'quantity_based' === $addon['price_type'] && $addon['price'] && apply_filters( 'woocommerce_addons_add_price_to_value', $add_price_to_value ) ) {
+				} elseif ( 'quantity_based' === $addon['price_type'] && $addon['price'] && $add_price_to_value ) {
 					$addon_price = wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $addon[ 'price' ], $cart_item[ 'data' ], true ) );
 					$value      .= sprintf( _x( ' (%1$s)', 'quantity based addon price in cart', 'woocommerce-product-addons' ), $addon_price );
 
-				} elseif ( 'percentage_based' === $addon['price_type'] && $addon['price'] && apply_filters( 'woocommerce_addons_add_price_to_value', $add_price_to_value ) ) {
+				} elseif ( 'percentage_based' === $addon['price_type'] && $addon['price'] && $add_price_to_value ) {
 
 					$_product = wc_get_product( $cart_item['product_id'] );
 					$_product->set_price( $price * ( $addon['price'] / 100 ) );

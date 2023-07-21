@@ -421,6 +421,7 @@
 
 			// The product base price. For Variable Products, this is the minimum variation price.
 			this.base_price             = this.$totals.data( 'price' ),
+			this.raw_price              = this.$totals.data( 'raw-price' ),
 			this.product_type           = this.$totals.data( 'type' ),
 			this.qty                    = parseFloat( this.$form.find( 'input.qty' ).val() ),
 			this.addons_price_data      = [];
@@ -504,6 +505,7 @@
 			self.total             = 0;
 			self.total_raw         = 0;
 			self.base_price        = self.$totals.data( 'price' );
+			self.raw_price         = self.$totals.data( 'raw-price' );
 			self.product_id        = self.is_variable ? self.$variation_input.val() : self.$totals.data( 'product-id' );
 
 			/**
@@ -748,7 +750,7 @@
 							addon_data.cost_pct *
 							self.qty;
 						addon_data.cost_raw     =
-							parseFloat( self.base_price ) *
+							parseFloat( self.raw_price ) *
 							addon_data.cost_raw_pct *
 							self.qty;
 						break;
@@ -965,11 +967,7 @@
 									'</span></div></li>';
 							} else {
 
-								if ( 'percentage_based' !== addon.price_type ) {
-									cost = addon.cost;
-								} else {
-									cost = addon.cost_raw;
-								}
+								cost = addon.cost;
 
 								formatted_value =
 									0 === cost

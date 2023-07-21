@@ -1,5 +1,16 @@
 *** WooCommerce Product Bundles ***
 
+2023.07.19 - version 6.22.2
+* Fix - Prevent a fatal error concerning the 'wc_print_notice' function when editing a single product block with a bundle product.
+
+2023.07.05 - version 6.22.1
+* Fix - Resolved an issue with Bundle totals in the block-based cart when the number of displayed decimals was 0. 
+
+2023.07.03 - version 6.22.0
+* Tweak - Important: The 'Form Location' option is no longer supported when using a block theme. Use the following snippet to force its use: 'add_filter( 'woocommerce_bundle_has_legacy_product_template', '__return_true' );'
+* Fix - Improvements in block support for the single product template.
+* Fix - Resolved a compatibility issue with Points and Rewards that made a 'Earn at least 0 points by purchasing this product' message show up when purchasing a Product Bundle with optional components.
+
 2023.06.22 - version 6.21.1
 * Fix - Removed duplicate tooltip under Product Data > Inventory.
 * Tweak - Changed the Product Data > Inventory > Sold Individually dropdown to radio buttons for Product Bundles. 

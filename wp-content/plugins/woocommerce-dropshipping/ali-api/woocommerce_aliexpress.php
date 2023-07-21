@@ -16,26 +16,33 @@
 
 // End point for user bug report.
 function myapi_send_email( $data ) {
-    $to = $data['to'];
+	$to = $data['to'];
 	$user_email = $data['user_email'];
-    $subject = $data['subject'];
-    $message = $data['message'];
-	$new_message = "Sent By : " .$user_email."<br><br> Bug Report: ".$message;
-    $headers = array('Content-Type: text/html; charset=UTF-8');
+	$subject = $data['subject'];
+	$message = $data['message'];
+	$new_message = 'Sent By : ' . $user_email . '<br><br> Bug Report: ' . $message;
+	$headers = array( 'Content-Type: text/html; charset=UTF-8' );
 
-    $result = wp_mail( $to, $subject, $new_message, $headers );
-    if ( $result ) {
-        return array( 'success' => true );
-    } else {
-        return array( 'success' => false );
-    }
+	$result = wp_mail( $to, $subject, $new_message, $headers );
+	if ( $result ) {
+		return array( 'success' => true );
+	} else {
+		return array( 'success' => false );
+	}
 }
-add_action( 'rest_api_init', function () {
-    register_rest_route( 'myapi/v1', '/send-email', array(
-        'methods' => 'POST',
-        'callback' => 'myapi_send_email',
-    ) );
-} );
+add_action(
+	'rest_api_init',
+	function () {
+		register_rest_route(
+			'myapi/v1',
+			'/send-email',
+			array(
+				'methods' => 'POST',
+				'callback' => 'myapi_send_email',
+			)
+		);
+	}
+);
 // End point for user bug report.
 
 
@@ -2606,7 +2613,7 @@ function place_order_automatically_meta_boxes() {
 
 			if ( $ali_cbe_enable_setting == '1' ) {
 
-				add_meta_box(
+				opmc_hpos_add_meta_box(
 					'woocommerce',
 					__( 'AliExpress Action' ),
 					'place_Order_automatically_meta_box_content',
@@ -2741,7 +2748,7 @@ function status_save_metabox() {
 
 		// END OF UPDATE
 
-		update_post_meta( $post->ID, 'status_of_aliexpress', $meta_element_class );
+		opmc_hpos_update_post_meta( $post->ID, 'status_of_aliexpress', $meta_element_class );
 
 		// If you don't have the WC_Order object (from a dynamic $order_id)
 
@@ -2765,7 +2772,7 @@ function status_of_aliexpress( $post ) {
 
 	global $post;
 
-	$meta_element_class = get_post_meta( $post->ID, 'status_of_aliexpress', true ); // true ensures you get just one value instead of an array
+	$meta_element_class = opmc_hpos_get_post_meta( $post->ID, 'status_of_aliexpress', true ); // true ensures you get just one value instead of an array
 
 	setup_postdata( $post );
 
@@ -2849,7 +2856,7 @@ function custom_woo_admin_value( $column ) {
 
 	global $post;
 
-	$zip_value = get_post_meta( $post->ID, 'status_of_aliexpress', true );
+	$zip_value = opmc_hpos_get_post_meta( $post->ID, 'status_of_aliexpress', true );
 
 	setup_postdata( $post );
 
@@ -3032,8 +3039,7 @@ function aliexpress_status_filter_to_shop_order_page( $query ) {
 	/***********
 	/*
 	  END    *
-
-	/***********/
+	*/
 
 if ( ! function_exists( 'get_product_sku_from_woo' ) ) {
 
@@ -3155,8 +3161,7 @@ if ( ! function_exists( 'insert_hidden_fields_for_check_cbe' ) ) {
 	/*****************************************************
 	/*
 	 API for update AliExpress order status            *
-
-	/*****************************************************/
+	*/
 
 if ( ! function_exists( 'get_order_status_by_id' ) ) {
 
@@ -3196,11 +3201,11 @@ if ( ! function_exists( 'get_order_status_by_id' ) ) {
 
 		}
 
-		// $alistatus = get_post_meta($orderid, 'status_of_aliexpress', true);
+		// $alistatus = opmc_hpos_get_post_meta($orderid, 'status_of_aliexpress', true);
 
 		if ( $status == 'placed' ) {
 
-			update_post_meta( $orderid, 'status_of_aliexpress', 'Order Placed' );
+			opmc_hpos_update_post_meta( $orderid, 'status_of_aliexpress', 'Order Placed' );
 
 			// Following should be used whenever we want to return success:
 
@@ -3220,7 +3225,7 @@ if ( ! function_exists( 'get_order_status_by_id' ) ) {
 
 		} else {
 
-			update_post_meta( $orderid, 'status_of_aliexpress', 'Order Pending' );
+			opmc_hpos_update_post_meta( $orderid, 'status_of_aliexpress', 'Order Pending' );
 
 			$response = array(
 
@@ -3249,6 +3254,5 @@ if ( ! function_exists( 'get_order_status_by_id' ) ) {
 	/***********
 	/*
 	  END    *
-
-	/***********/
+	*/
 ?>

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product meta-box data for the 'Bundle' type.
  *
  * @class    WC_PB_Meta_Box_Product_Data
- * @version  6.21.1
+ * @version  6.22.0
  */
 class WC_PB_Meta_Box_Product_Data {
 
@@ -1320,6 +1320,13 @@ class WC_PB_Meta_Box_Product_Data {
 	 * @param  WC_Product_Bundle  $product_bundle_object
 	 */
 	public static function bundled_products_admin_config_form_location( $product_bundle_object ) {
+
+		/*
+		 * Only render the "Form Location" option when a classic theme is in use.
+		 */
+		if ( ! wc_pb_has_legacy_product_template( $product_bundle_object ) ) {
+			return;
+		}
 
 		$options  = WC_Product_Bundle::get_add_to_cart_form_location_options();
 		$help_tip = '';

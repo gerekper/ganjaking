@@ -1,6 +1,6 @@
 <?php
 /**
- * Provider: Sendinblue
+ * Provider: Brevo (formerly Sendinblue)
  *
  * @package WC_Newsletter_Subscription/Providers
  * @since   3.4.0
@@ -29,8 +29,8 @@ class WC_Newsletter_Subscription_Provider_Sendinblue extends WC_Newsletter_Subsc
 	 */
 	public function __construct( $credentials = array() ) {
 		$this->id          = 'sendinblue';
-		$this->name        = 'Sendinblue';
-		$this->privacy_url = 'https://sendinblue.com/legal/privacypolicy/';
+		$this->name        = 'Brevo (formerly Sendinblue)';
+		$this->privacy_url = 'https://www.brevo.com/legal/privacypolicy/';
 		$this->supports    = array(
 			'stats',
 			'tags',
@@ -74,13 +74,13 @@ class WC_Newsletter_Subscription_Provider_Sendinblue extends WC_Newsletter_Subsc
 		$fields = array(
 			'woocommerce_sendinblue_api_key' => array(
 				'type'        => 'text',
-				'title'       => _x( 'Sendinblue API Key', 'setting title', 'woocommerce-subscribe-to-newsletter' ),
+				'title'       => _x( 'Brevo API Key', 'setting title', 'woocommerce-subscribe-to-newsletter' ),
 				'description' => sprintf(
-					/* translators: %s: Sendinblue URL for getting the API key */
-					_x( 'You can obtain your API key by logging in to your <a href="%s" target="_blank">Sendinblue account</a>.', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
-					esc_url( 'https://account.sendinblue.com/advanced/api' )
+					/* translators: %s: Brevo URL for getting the API key */
+					_x( 'You can obtain your API key by logging into your <a href="%s" target="_blank">Brevo account</a>.', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
+					esc_url( 'https://app.brevo.com/settings/keys/api' )
 				),
-				'desc_tip'    => _x( 'Enter your Sendinblue API key', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
+				'desc_tip'    => _x( 'Enter your Brevo API key', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
 				'disabled'    => $connected,
 			),
 		);
@@ -93,7 +93,7 @@ class WC_Newsletter_Subscription_Provider_Sendinblue extends WC_Newsletter_Subsc
 				array(
 					'woocommerce_sendinblue_list' => array(
 						'type'     => 'provider_lists',
-						'title'    => _x( 'Sendinblue List', 'setting title', 'woocommerce-subscribe-to-newsletter' ),
+						'title'    => _x( 'Brevo List', 'setting title', 'woocommerce-subscribe-to-newsletter' ),
 						'desc_tip' => _x( 'Choose a list customers can subscribe to.', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
 						'options'  => array( '' => __( 'Select a list...', 'woocommerce-subscribe-to-newsletter' ) ) + $this->get_lists(),
 					),
@@ -113,7 +113,7 @@ class WC_Newsletter_Subscription_Provider_Sendinblue extends WC_Newsletter_Subsc
 					),
 					'woocommerce_sendinblue_tags_attribute' => array(
 						'type'     => 'select',
-						'title'    => _x( 'TAGS attribute', 'setting title', 'woocommerce-subscribe-to-newsletter' ),
+						'title'    => _x( 'Tags attribute', 'setting title', 'woocommerce-subscribe-to-newsletter' ),
 						'desc_tip' => _x( "Select the attribute where to store the product's tags.", 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
 						'options'  => $attr_choices,
 					),
@@ -304,7 +304,7 @@ class WC_Newsletter_Subscription_Provider_Sendinblue extends WC_Newsletter_Subsc
 	}
 
 	/**
-	 * Makes a request to the Sendinblue API.
+	 * Makes a request to the API.
 	 *
 	 * @since 3.4.0
 	 *
@@ -339,6 +339,6 @@ class WC_Newsletter_Subscription_Provider_Sendinblue extends WC_Newsletter_Subsc
 	 * @return string
 	 */
 	protected function get_api_url( $version, $endpoint ) {
-		return 'https://api.sendinblue.com/v' . wp_normalize_path( $version . '/' . untrailingslashit( $endpoint ) );
+		return 'https://api.brevo.com/v' . wp_normalize_path( $version . '/' . untrailingslashit( $endpoint ) );
 	}
 }

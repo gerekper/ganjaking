@@ -7,7 +7,7 @@
 	$from_email = $_GET['from'];
 	$sup_name = $_GET['sup_name'];
 	// $order = wc_get_order($id);
-	$get_id = get_post_meta( $id, '_' . $id . '_' . $suppid );
+	$get_id = opmc_hpos_get_post_meta( $id, '_' . $id . '_' . $suppid );
 
 if ( empty( $get_id ) || ! isset( $get_id ) ) {
 	$to_email = get_option( 'admin_email' );
@@ -24,6 +24,6 @@ if ( empty( $get_id ) || ! isset( $get_id ) ) {
 	// $headers .= 'From: ' .$from_email ."\r\n";
 
 	wp_mail( $to, $subject, $message );
-	update_post_meta( $id, '_' . $id . '_' . $suppid, $id . '_' . $suppid );
+	opmc_hpos_update_post_meta( $id, '_' . $id . '_' . $suppid, $id . '_' . $suppid );
 }
 

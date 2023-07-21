@@ -113,7 +113,7 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 	$misc_colspan = $product_price_colspan + 1;
 	$woocommerce_price_decimal_sep = get_option( 'woocommerce_price_decimal_sep' );
 	$woocommerce_price_thousand_sep = get_option( 'woocommerce_price_thousand_sep' );
-	$order_currency = get_post_meta( $order_info['id'], '_order_currency', true );
+	$order_currency = get_post_meta( $order_info['id'], '_currency', true );
 
 ?>
 

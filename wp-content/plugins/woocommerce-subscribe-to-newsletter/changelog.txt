@@ -1,5 +1,11 @@
 *** Subscribe to Newsletter Changelog ***
 
+2023-07-19 - version 3.7.0
+* Feature - Sendinblue is now Brevo.
+* Tweak - Tested compatibility up to WC 7.9.
+* Tweak - Tested compatibility with WP 6.2.
+* Dev - Dropped `woo-includes/` files.
+
 2023-01-30 - version 3.6.0
 * Feature - Tags subscribers with the purchased products (Mailchimp and Sendinblue only).
 * Tweak - Tested compatibility with WC 7.3.
@@ -161,8 +167,8 @@
 * Update - WC 3.5 compatibility.
 
 2018-05-22 - version 2.3.12
-* Fix    - Compatibility with Points and Rewards was increasing points multiple times on subscribe.
-* Fix    - Text domain not set causing external translation app not to work.
+* Fix - Compatibility with Points and Rewards was increasing points multiple times on subscribe.
+* Fix - Text domain not set causing external translation app not to work.
 * Update - Privacy policy notification.
 * Update - WC 3.4 compatibility.
 
@@ -201,12 +207,12 @@
 * Fix - Deprecated method calls with same name as class by updating Campaign Monitor library to 5.0.1.
 
 2015-12-09 - version 2.3.1
-* Remove - Text in settings that requires API for Mailchimp only as all APIs will need this
+* Remove - Text in settings that requires API for Mailchimp only as all APIs will need this.
 
 2015-08-07 - version 2.3.0
-* Feature - MailPoet Integration
-* Fix - Fire the wc_subscribed_to_newsletter hook on a successful CampaignMonitor signup, not when an error is sent
-* Fix - Added more output sanitization
+* Feature - MailPoet Integration.
+* Fix - Fire the wc_subscribed_to_newsletter hook on a successful CampaignMonitor signup, not when an error is sent.
+* Fix - Added more output sanitization.
 
 2015-05-13 - version 2.2.7
 * Fix - 2.4 Compatibility.
@@ -215,7 +221,7 @@
 * Fix - Disable process_register_form on checkout.
 
 2015-03-18 - version 2.2.5
-* Fix - array merge warnings when mailchimp lists were not set up yet
+* Fix - array merge warnings when mailchimp lists were not set up yet.
 
 2015-02-24 - version 2.2.4
 * 2.3 Compatibility.
@@ -224,92 +230,92 @@
 * 2.2 Compatibility.
 
 2014-04-22 - version 2.2.2
-* Don't send emails for error 214
+* Don't send emails for error 214.
 * If a user has subscribed, store a value in meta and stop showing newsletter field to prevent double subscription.
 
 2014-04-08 - version 2.2.1
-* Prevent errors with incorrect API keys
+* Prevent errors with incorrect API keys.
 
 2014-04-08 - version 2.2.0
-* MailChimp API v2 update
+* MailChimp API v2 update.
 
 2014-03-14 - version 2.1.4
-* Fix registration hooks
-* Set double opt in to yes by default
+* Fix registration hooks.
+* Set double opt in to yes by default.
 
 2014-01-17 - version 2.1.3
-* 2.1 compat
+* 2.1 compat.
 
 2013-09-12 - version 2.1.2
-* Add button class to widget subscribe button
+* Add button class to widget subscribe button.
 
 2013-06-19 - version 2.1.1
-* Clear transient when changing api keys
+* Clear transient when changing api keys.
 
 2013-06-19 - version 2.1.0
-* Double opt-in option for MailChimp
-* Added optional name field to widget
+* Double opt-in option for MailChimp.
+* Added optional name field to widget.
 
 2013-06-19 - version 2.0.4
-* Points and rewards integration
+* Points and rewards integration.
 
 2013-03-15 - version 2.0.3
-* wc_mailchimp_subscribe_vars hook
+* wc_mailchimp_subscribe_vars hook.
 
 2013-03-07 - version 2.0.2
 * Fix error on settings page.
 
 2013-02-25 - version 2.0.1
-* Fix error when API keys are not entered
+* Fix error when API keys are not entered.
 
 2013-02-22 - version 2.0
 * Rewrote extension to be class based.
-* Support MailChimp ecommerce360
+* Support MailChimp ecommerce360.
 
 2013-01-21 - version 1.3.1
-* Fixed global error in widget
+* Fixed global error in widget.
 
 2013-01-11 - version 1.3.0
-* WC 2.0 Compat
-* Cleanup
+* WC 2.0 Compat.
+* Cleanup.
 
 2012-12-04 - version 1.2.1
-* New updater
+* New updater.
 
 2012-10-03 - version 1.2
 * Add subscription to woocommerce registration pages.
 
 2012-10-03 - version 1.1.5
-* Support PP Express Checkout - shows on the return page
+* Support PP Express Checkout - shows on the return page.
 
 2012-07-12 - version 1.1.4
-* Made widget only available for users with manage_woocommerce caps
+* Made widget only available for users with manage_woocommerce caps.
 
 2012-05-30 - version 1.1.3
-* Ignore error code 214 (list already subscribed)
+* Ignore error code 214 (list already subscribed).
 
 2012-05-18 - version 1.1.2
-* Fixed errors if another plugin uses JSON class already
+* Fixed errors if another plugin uses JSON class already.
 
 2012-03-30 - version 1.1.1
-* Jump to widget success message after subscribing
+* Jump to widget success message after subscribing.
 
 2012-03-03 - version 1.1
-* Updated woo updater
-* Show subscribe on my account signup form
+* Updated woo updater.
+* Show subscribe on my account signup form.
 
 2012-02-06 - version 1.0.4
-* Default status
+* Default status.
 
 2012-01-26 - version 1.0.3
-* WC 1.4 Compatibility
+* WC 1.4 Compatibility.
 
 2011-12-11 - version 1.0.2
-* Added Drop Down to widget settings
+* Added Drop Down to widget settings.
 
 2011-12-01 - version 1.0.1
-* Changed textdomain
-* Added WooUpdater
+* Changed textdomain.
+* Added WooUpdater.
 
 2011-10-13 - version 1.0
-* First Release
+* First Release.

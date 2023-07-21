@@ -173,7 +173,7 @@ class WC_Dropshipping_Admin {
 
 			$info = $_POST['info'];
 
-			update_post_meta( $_POST['id'], 'dropshipper_shipping_info_' . get_current_user_id(), $info );
+			opmc_hpos_update_post_meta( $_POST['id'], 'dropshipper_shipping_info_' . get_current_user_id(), $info );
 
 			echo 'true';
 		} else {
@@ -223,41 +223,41 @@ class WC_Dropshipping_Admin {
 
 		$address_line1 = '';
 
-		if (isset($ds["address_line1"])) {
-			$address_line1 = $ds["address_line1"];
-		}else{
+		if ( isset( $ds['address_line1'] ) ) {
+			$address_line1 = $ds['address_line1'];
+		} else {
 			$address_line1 = '';
 		}
 
 		$address_line2 = '';
 
-		if (isset($ds["address_line2"])) {
-			$address_line2 = $ds["address_line2"];
-		}else{
+		if ( isset( $ds['address_line2'] ) ) {
+			$address_line2 = $ds['address_line2'];
+		} else {
 			$address_line2 = '';
 		}
 
 		$supplier_city = '';
 
-		if (isset($ds["supplier_city"])) {
-			$supplier_city = $ds["supplier_city"];
-		}else{
+		if ( isset( $ds['supplier_city'] ) ) {
+			$supplier_city = $ds['supplier_city'];
+		} else {
 			$supplier_city = '';
 		}
 
 		$country_state = '';
 
-		if (isset($ds["country_state"])) {
-			$country_state = $ds["country_state"];
-		}else{
+		if ( isset( $ds['country_state'] ) ) {
+			$country_state = $ds['country_state'];
+		} else {
 			$country_state = '';
 		}
 
 		$postcode_zip = '';
 
-		if (isset($ds["postcode_zip"])) {
-			$postcode_zip = $ds["postcode_zip"];
-		}else{
+		if ( isset( $ds['postcode_zip'] ) ) {
+			$postcode_zip = $ds['postcode_zip'];
+		} else {
 			$postcode_zip = '';
 		}
 
@@ -459,17 +459,16 @@ class WC_Dropshipping_Admin {
 			$options = get_option( 'wc_dropship_manager' );
 			$speci_del_style_disply = 'style="display:none"';
 
-			if (isset($data['specific_delivery_location'])) {
-				$specific_delivery_location = $data['specific_delivery_location'];
-			} else {
-				$specific_delivery_location = '';
-			}
+		if ( isset( $data['specific_delivery_location'] ) ) {
+			$specific_delivery_location = $data['specific_delivery_location'];
+		} else {
+			$specific_delivery_location = '';
+		}
 
 		$csv_types = array(
 			'quantity' => 'Quantity on Hand',
 			'indicator' => 'In-Stock Indicator',
 		);
-
 
 		if ( $data['address_line1'] != '' ) {
 			echo 'Hiii
@@ -543,9 +542,6 @@ class WC_Dropshipping_Admin {
 							<td><input type="number" class="td_address" size="40" name="postcode_zip" value="' . $data['postcode_zip'] . '"  /></td></br></br>
 
 						</tr>';
-
-
-
 
 				echo '</table>
 

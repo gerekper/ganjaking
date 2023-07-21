@@ -17,7 +17,7 @@ use Automattic\WooCommerce\StoreApi\Schemas\V1\CartItemSchema;
 /**
  * Extends the store public API with bundle related data for each bundle parent and child item.
  *
- * @version 6.20.0
+ * @version 6.22.1
  */
 class WC_PB_Store_API {
 
@@ -349,10 +349,12 @@ class WC_PB_Store_API {
 			return;
 		}
 
-		$item_data[ 'totals' ]->line_total        = self::prepare_money_response( WC_PB()->display->get_container_cart_item_subtotal_amount( $cart_item, 'total' ) );
-		$item_data[ 'totals' ]->line_total_tax    = self::prepare_money_response( WC_PB()->display->get_container_cart_item_subtotal_amount( $cart_item, 'tax' ) );
-		$item_data[ 'totals' ]->line_subtotal     = self::prepare_money_response( WC_PB()->display->get_container_cart_item_subtotal_amount( $cart_item, 'subtotal' ) );
-		$item_data[ 'totals' ]->line_subtotal_tax = self::prepare_money_response( WC_PB()->display->get_container_cart_item_subtotal_amount( $cart_item, 'subtotal_tax' ) );
+		$decimals = isset( $item_data[ 'totals' ]->currency_minor_unit ) ? $item_data[ 'totals' ]->currency_minor_unit : wc_get_price_decimals();
+
+		$item_data[ 'totals' ]->line_total        = self::prepare_money_response( WC_PB()->display->get_container_cart_item_subtotal_amount( $cart_item, 'total' ), $decimals );
+		$item_data[ 'totals' ]->line_total_tax    = self::prepare_money_response( WC_PB()->display->get_container_cart_item_subtotal_amount( $cart_item, 'tax' ), $decimals );
+		$item_data[ 'totals' ]->line_subtotal     = self::prepare_money_response( WC_PB()->display->get_container_cart_item_subtotal_amount( $cart_item, 'subtotal' ), $decimals );
+		$item_data[ 'totals' ]->line_subtotal_tax = self::prepare_money_response( WC_PB()->display->get_container_cart_item_subtotal_amount( $cart_item, 'subtotal_tax' ), $decimals );
 	}
 
 	/**

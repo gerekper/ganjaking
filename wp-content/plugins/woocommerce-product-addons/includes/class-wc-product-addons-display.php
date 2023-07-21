@@ -11,8 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Product_Addon_Display class.
- * 
- * @version 6.3.1
+ *
+ * @version 6.4.4
  */
 class WC_Product_Addons_Display {
 	public $show_num_chars;
@@ -640,13 +640,15 @@ class WC_Product_Addons_Display {
 				$product_sale_price    = $cart_item[ 'data' ]->get_sale_price( 'edit' );
 
 				// Subtract flat fees from product prices and set new prices to the product object.
-				$product_price         = $product_price - $cart_item[ 'addons_flat_fees_sum' ];
-				$product_regular_price = $product_regular_price - $cart_item[ 'addons_flat_fees_sum' ];
-
+				$product_price = $product_price - $cart_item[ 'addons_flat_fees_sum' ];
 				$cart_item[ 'data' ]->set_price( $product_price );
-				$cart_item[ 'data' ]->set_regular_price( $product_regular_price );
 
-				if ( '' !== $product_sale_price ) {
+				if ( is_numeric( $product_regular_price ) ) {
+					$product_regular_price = $product_regular_price - $cart_item[ 'addons_flat_fees_sum' ];
+					$cart_item[ 'data' ]->set_regular_price( $product_regular_price );
+				}
+
+				if ( is_numeric( $product_sale_price ) ) {
 					$product_sale_price = $product_sale_price - $cart_item[ 'addons_flat_fees_sum' ];
 					$cart_item[ 'data' ]->set_sale_price( $product_sale_price );
 				}
@@ -704,13 +706,15 @@ class WC_Product_Addons_Display {
 				$product_sale_price    = $cart_item[ 'data' ]->get_sale_price( 'edit' );
 
 				// Re-add flat fees to product prices and set new prices to the product object.
-				$product_price         = $product_price + $cart_item[ 'addons_flat_fees_sum' ];
-				$product_regular_price = $product_regular_price + $cart_item[ 'addons_flat_fees_sum' ];
-
+				$product_price = $product_price + $cart_item[ 'addons_flat_fees_sum' ];
 				$cart_item[ 'data' ]->set_price( $product_price );
-				$cart_item[ 'data' ]->set_regular_price( $product_regular_price );
 
-				if ( '' !== $product_sale_price ) {
+				if ( is_numeric( $product_regular_price ) ) {
+					$product_regular_price = $product_regular_price + $cart_item[ 'addons_flat_fees_sum' ];
+					$cart_item[ 'data' ]->set_regular_price( $product_regular_price );
+				}
+
+				if ( is_numeric( $product_sale_price ) ) {
 					$product_sale_price = $product_sale_price + $cart_item[ 'addons_flat_fees_sum' ];
 					$cart_item[ 'data' ]->set_sale_price( $product_sale_price );
 				}

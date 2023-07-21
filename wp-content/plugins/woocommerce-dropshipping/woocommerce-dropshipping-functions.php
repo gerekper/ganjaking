@@ -4,15 +4,13 @@
  * Dropshipping use this function for packing slip
  *
  * @package WC_Dropshipping
- *
  */
 
-add_action('admin_head', 'wp_my_custom_fonts');
+add_action( 'admin_head', 'wp_my_custom_fonts' );
 
 /**
  *
  * Function use for wp_my_custom_fonts
- *
  */
 
 error_reporting();
@@ -20,7 +18,7 @@ function wp_my_custom_fonts() {
 
 	if ( is_user_logged_in() ) {
 		$user = wp_get_current_user();
-		$roles = ( array ) $user->roles;
+		$roles = (array) $user->roles;
 
 		if ( 'dropshipper' == $roles[0] ) {
 			echo '<style>
@@ -53,27 +51,26 @@ function wp_my_custom_fonts() {
 	}
 }
 
-if (!function_exists('supplier_admins_mobile_menu')) {
+if ( ! function_exists( 'supplier_admins_mobile_menu' ) ) {
 
 	/**
 	 *
 	 * Function use for supplier_admins_mobile_menu
-	 *
 	 */
 	function supplier_admins_mobile_menu() {
 		if ( is_user_logged_in() ) {
 			$user = wp_get_current_user();
-			$roles = ( array ) $user->roles;
+			$roles = (array) $user->roles;
 
 			if ( 'dropshipper' == $roles[0] ) {
-				wp_enqueue_style('admin-styles', plugins_url( '/assets/css/supplier_mobile_menu.css', __FILE__ ));
+				wp_enqueue_style( 'admin-styles', plugins_url( '/assets/css/supplier_mobile_menu.css', __FILE__ ) );
 			}
 		}
 	}
-	add_action('admin_enqueue_scripts', 'supplier_admins_mobile_menu');
+	add_action( 'admin_enqueue_scripts', 'supplier_admins_mobile_menu' );
 }
 
-if (!function_exists('generate_aliexpress_key')) {
+if ( ! function_exists( 'generate_aliexpress_key' ) ) {
 
 	/**
 	 *
@@ -81,30 +78,28 @@ if (!function_exists('generate_aliexpress_key')) {
 	 *
 	 *  @param domain $domain is a veriable used in dropshipping.
 	 */
-	function generate_aliexpress_key( $domain) {
+	function generate_aliexpress_key( $domain ) {
 
 		$passphrase = '107029c9969d644eca7321f9c4df2e6b';
 
-		$key = md5($domain . $passphrase);
+		$key = md5( $domain . $passphrase );
 
 		return $key;
 
 	}
-
 } // Generate aliexpress api key and send to the admin mailbox.
 
-if (!function_exists('get_dropship_option')) {
+if ( ! function_exists( 'get_dropship_option' ) ) {
 
 	/**
 	 *
 	 * Function use for get_dropship_option
-	 *
 	 */
 	function get_dropship_option() {
 
-		$d_options = get_option('opmc_dropshipping_options');
+		$d_options = get_option( 'opmc_dropshipping_options' );
 
-		if ( false !== $d_options && is_array($d_options) && !empty($d_options)) {
+		if ( false !== $d_options && is_array( $d_options ) && ! empty( $d_options ) ) {
 
 			return $d_options;
 
@@ -115,46 +110,42 @@ if (!function_exists('get_dropship_option')) {
 		}
 
 	}
-
 }
 
-if (!function_exists('update_dropship_option')) {
+if ( ! function_exists( 'update_dropship_option' ) ) {
 
 	 /**
-	 *
-	 * Function for update_dropship_option
-	 *
-	 * @param d_options $d_options is a veriable used in dropshipping.
-	 *
-	 */
-	function update_dropship_option( $d_options) {
+	  *
+	  * Function for update_dropship_option
+	  *
+	  * @param d_options $d_options is a veriable used in dropshipping.
+	  */
+	function update_dropship_option( $d_options ) {
 
-		if (is_array($d_options)) {
+		if ( is_array( $d_options ) ) {
 
-			update_option('opmc_dropshipping_options', $d_options);
+			update_option( 'opmc_dropshipping_options', $d_options );
 
 		}
 
 	}
-
 }
 
-if (!function_exists('wc_dropshipping_get_dropship_supplier')) {
+if ( ! function_exists( 'wc_dropshipping_get_dropship_supplier' ) ) {
 
 	 /**
-	 *
-	 * Function for wc_dropshipping_get_dropship_supplier
-	 *
-	 * @param id $id is a veriable used in dropshipping.
-	 *
-	 */
-	function wc_dropshipping_get_dropship_supplier( $id = '') {
+	  *
+	  * Function for wc_dropshipping_get_dropship_supplier
+	  *
+	  * @param id $id is a veriable used in dropshipping.
+	  */
+	function wc_dropshipping_get_dropship_supplier( $id = '' ) {
 
-		$term = get_term(intval($id), 'dropship_supplier');
+		$term = get_term( intval( $id ), 'dropship_supplier' );
 
-		$supplier = get_term_meta(intval($id), 'meta', true);
+		$supplier = get_term_meta( intval( $id ), 'meta', true );
 
-		if (isset($term->term_id)) {
+		if ( isset( $term->term_id ) ) {
 
 			$supplier['id'] = $term->term_id;
 
@@ -166,80 +157,71 @@ if (!function_exists('wc_dropshipping_get_dropship_supplier')) {
 
 		}
 
-
 		return $supplier;
 
 	}
-
 }
 
-if (!function_exists('wc_dropshipping_get_dropship_supplier_by_product_id')) {
+if ( ! function_exists( 'wc_dropshipping_get_dropship_supplier_by_product_id' ) ) {
 
 	/**
 	 *
 	 * Function for wc_dropshipping_get_dropship_supplier_by_product_id
 	 *
 	 * @param product_id $product_id is a veriable used in dropshipping.
-	 *
 	 */
-	function wc_dropshipping_get_dropship_supplier_by_product_id( $product_id) {
+	function wc_dropshipping_get_dropship_supplier_by_product_id( $product_id ) {
 
 		$supplier = array();
 
-		$productdata = get_post_meta($product_id, '_virtual', true);
+		$productdata = get_post_meta( $product_id, '_virtual', true );
 
 		if ( 'yes' != $productdata ) {
 
-			$terms = get_the_terms(intval($product_id), 'dropship_supplier');
+			$terms = get_the_terms( intval( $product_id ), 'dropship_supplier' );
 
 		}
 
-		if (isset($terms)) {
+		if ( isset( $terms ) ) {
 
-			if ($terms && !is_wp_error($terms) && 0 < count($terms)) {
+			if ( $terms && ! is_wp_error( $terms ) && 0 < count( $terms ) ) {
 
-				$supplier = wc_dropshipping_get_dropship_supplier(intval($terms[0]->term_id));
+				$supplier = wc_dropshipping_get_dropship_supplier( intval( $terms[0]->term_id ) );
 				// load the term. there can only be one supplier notified per product.
 
 			}
-
 		}
 
 		return $supplier;
 
 	}
-
-
 }
 
-if (!function_exists('wc_dropshipping_get_base_path')) {
+if ( ! function_exists( 'wc_dropshipping_get_base_path' ) ) {
 
 	/**
 	 *
 	 * Function for wc_dropshipping_get_base_path
-	 *
 	 */
 	function wc_dropshipping_get_base_path() {
 
-		return plugin_dir_path(__FILE__);
+		return plugin_dir_path( __FILE__ );
 
 	}
-
 }
 
-add_action('wp_ajax_woocommerce_dropshippers_pod_received', 'pod_received_callback');
+add_action( 'wp_ajax_woocommerce_dropshippers_pod_received', 'pod_received_callback' );
 
-add_action('wp_ajax_nopriv_woocommerce_dropshippers_pod_received', 'pod_received_callback');
+add_action( 'wp_ajax_nopriv_woocommerce_dropshippers_pod_received', 'pod_received_callback' );
 
-add_action('wp_ajax_woocommerce_dropshippers_mark_as_shipped', 'woocommerce_dropshippers_mark_as_shipped_callback');
+add_action( 'wp_ajax_woocommerce_dropshippers_mark_as_shipped', 'woocommerce_dropshippers_mark_as_shipped_callback' );
 
-add_action('wp_ajax_nopriv_woocommerce_dropshippers_mark_as_shipped', 'woocommerce_dropshippers_mark_as_shipped_callback');
+add_action( 'wp_ajax_nopriv_woocommerce_dropshippers_mark_as_shipped', 'woocommerce_dropshippers_mark_as_shipped_callback' );
 
 
 /**
  *
  * Function for pod_received_callback
- *
  */
 function pod_received_callback() {
 
@@ -249,9 +231,9 @@ function pod_received_callback() {
 
 	$order_number = $_GET['order_number'];
 
-	update_post_meta($order_id, $order_number . '_' . $supplier_id . '_status', 'received');
+	opmc_hpos_update_post_meta( $order_id, $order_number . '_' . $supplier_id . '_status', 'received' );
 
-	header('Location:' . $_GET['return'] . 'admin.php?page=dropshipper-order-list');
+	header( 'Location:' . $_GET['return'] . 'admin.php?page=dropshipper-order-list' );
 
 	die;
 
@@ -269,7 +251,7 @@ function woocommerce_dropshippers_mark_as_shipped_callback() {
 
 	$d_options = get_dropship_option();
 
-	if (!isset($d_options[$d_key])) {
+	if ( ! isset( $d_options[ $d_key ] ) ) {
 
 		echo '<p style="color:red;">Sorry for inconvenience: This link will work only for the newly placed orders!</p>';
 
@@ -277,65 +259,62 @@ function woocommerce_dropshippers_mark_as_shipped_callback() {
 
 	}
 
-	$shipping_status = $d_options[$d_key]['shipping_status'];
+	$shipping_status = $d_options[ $d_key ]['shipping_status'];
 
-	$my_wc_order = new WC_Order($order_id);
+	$my_wc_order = new WC_Order( $order_id );
 
 	$my_wc_order_number = $my_wc_order->get_order_number();
 
 	if ( 'completed' == $shipping_status ) {
 
-		$my_wc_order->update_status('completed');
+		$my_wc_order->update_status( 'completed' );
 
 	} else {
 
-		$d_options[$d_key][$supplier_id] = 'completed';
+		$d_options[ $d_key ][ $supplier_id ] = 'completed';
 
 		$dFlag = true;
 
 		$d_flag1 = 'yes';
 
-		foreach ($d_options[$d_key] as $k => $v) {
+		foreach ( $d_options[ $d_key ] as $k => $v ) {
 
-			if ( 'shipping_status' != $k && 'processing' == $v) {
+			if ( 'shipping_status' != $k && 'processing' == $v ) {
 
 				$dFlag = false;
 
 				$d_flag1 = 'no';
 
 			}
+		}
+
+		if ( $dFlag === true ) {
+
+			$d_options[ $d_key ]['shipping_status'] = 'completed';
+
+			$my_wc_order->update_status( 'completed' );
 
 		}
 
-		if ($dFlag === true) {
-
-			$d_options[$d_key]['shipping_status'] = 'completed';
-
-			$my_wc_order->update_status('completed');
-
-		}
-
-		update_dropship_option($d_options);
+		update_dropship_option( $d_options );
 
 	}
 
-
-	echo _e('<h1>Order #' . $order_id . '</h1>');
+	echo _e( '<h1>Order #' . $order_id . '</h1>' );
 
 	echo '<p style="color:green;">Order has been notified as shipped for this supplier, and Marked as Completed if required.</p>';
 
-	if (isset($_GET['return'])) {
+	if ( isset( $_GET['return'] ) ) {
 
 		if ( 'no' == $d_flag1 ) {
 
-			header('Location:' . $_GET['return'] . 'admin.php?page=dropshipper-order-list&success=' . $d_flag1);
+			header( 'Location:' . $_GET['return'] . 'admin.php?page=dropshipper-order-list&success=' . $d_flag1 );
 
 		} else {
 
-			header('Location:' . $_GET['return'] . 'admin.php?page=dropshipper-order-list&success=' . $d_flag1);
+			header( 'Location:' . $_GET['return'] . 'admin.php?page=dropshipper-order-list&success=' . $d_flag1 );
 
 		}
-
 	}
 
 	die;
@@ -346,14 +325,12 @@ function woocommerce_dropshippers_mark_as_shipped_callback() {
 /**
  *
  *  Function for dropshipper_order_list
- *
  */
 function dropshipper_order_list() {
 
-	$base_name = explode('/', plugin_basename(__FILE__));
+	$base_name = explode( '/', plugin_basename( __FILE__ ) );
 
-	wp_enqueue_style('wc_dropshipping_checkout_style', plugins_url() . '/' . $base_name[0] . '/assets/css/custom.css');
-
+	wp_enqueue_style( 'wc_dropshipping_checkout_style', plugins_url() . '/' . $base_name[0] . '/assets/css/custom.css' );
 
 	global $wpdb;
 
@@ -363,16 +340,15 @@ function dropshipper_order_list() {
 
 	$uemail = $current_user->user_email;
 
-	$sid = get_user_meta($uid, 'supplier_id', true);
+	$sid = get_user_meta( $uid, 'supplier_id', true );
 
-	$term = get_term_by('id', $sid, 'dropship_supplier');
+	$term = get_term_by( 'id', $sid, 'dropship_supplier' );
 
+	if ( ! empty( $term ) ) {
 
-	if (!empty($term)) {
-
-		$paged = isset($_GET['paged']) ? $_GET['paged'] : 1;
-		$post_status = array('wc-processing', 'wc-completed', 'wc-on-hold');
-		$sup = wc_dropshipping_get_dropship_supplier($sid);
+		$paged = isset( $_GET['paged'] ) ? $_GET['paged'] : 1;
+		$post_status = array( 'wc-processing', 'wc-completed', 'wc-on-hold' );
+		$sup = wc_dropshipping_get_dropship_supplier( $sid );
 
 		$specific_delivery_location = @$sup['specific_delivery_location'];
 
@@ -381,34 +357,31 @@ function dropshipper_order_list() {
 		$hide_client_info_Suppliers = $options['hide_client_info_Suppliers'];
 		$hide_contact_info_Suppliers = $options['hide_contact_info_Suppliers'];
 
-
-
-
-		if ( isset ( $_POST['dateFrom'] ) && isset( $_POST['dateTo'] ) ) {
+		if ( isset( $_POST['dateFrom'] ) && isset( $_POST['dateTo'] ) ) {
 			$get_fromdate_in = $_POST['dateFrom'];
 			$get_todate_in = $_POST['dateTo'];
 			$post_per_page = $_POST['order_per_page'];
-		} else if ( isset ( $_GET['fromDate'] ) && isset( $_GET['toDate'] ) ) {
+		} else if ( isset( $_GET['fromDate'] ) && isset( $_GET['toDate'] ) ) {
 			$get_fromdate_in = $_GET['fromDate'];
 			$get_todate_in = $_GET['toDate'];
 			$post_per_page = $_GET['perPage'];
 		} else {
-			$get_fromdate_in = gmdate('Y-m-d', strtotime('-7 days'));
-			$get_todate_in = gmdate('Y-m-d');
+			$get_fromdate_in = gmdate( 'Y-m-d', strtotime( '-7 days' ) );
+			$get_todate_in = gmdate( 'Y-m-d' );
 			$post_per_page = 10;
 		}
 
-		$get_fromdate_inp = strtotime($get_fromdate_in);
-		$get_fromdate_inp = gmdate('Y-m-d', strtotime('-1 day', $get_fromdate_inp));
-		$get_todate_inp = strtotime($get_todate_in);
-		$get_todate_inp = gmdate('Y-m-d', strtotime('+1 day', $get_todate_inp));
+		$get_fromdate_inp = strtotime( $get_fromdate_in );
+		$get_fromdate_inp = gmdate( 'Y-m-d', strtotime( '-1 day', $get_fromdate_inp ) );
+		$get_todate_inp = strtotime( $get_todate_in );
+		$get_todate_inp = gmdate( 'Y-m-d', strtotime( '+1 day', $get_todate_inp ) );
 
-		if (isset($_POST['dateFrom']) && isset($_POST['dateTo'])) {
+		if ( isset( $_POST['dateFrom'] ) && isset( $_POST['dateTo'] ) ) {
 
 			$date_from = $_POST['dateFrom'];
 
 			$date_to = $_POST['dateTo'];
-			//update_option( 'dateTo', $date_to ).
+			// update_option( 'dateTo', $date_to ).
 
 			$args = array(
 
@@ -419,16 +392,16 @@ function dropshipper_order_list() {
 				'posts_per_page' => $post_per_page,
 
 				'date_query' => array(
-						'column' => 'post_date',
-						'after' =>  $get_fromdate_inp,
-						'before' => $get_todate_inp
-					),
+					'column' => 'post_date',
+					'after' => $get_fromdate_inp,
+					'before' => $get_todate_inp,
+				),
 				'meta_query' => array(
 					array(
 						'key' => 'dropship_supplier_' . $term->term_id,
-						'value' => $term->term_id
-					)
-				)
+						'value' => $term->term_id,
+					),
+				),
 			);
 
 		} else {
@@ -441,26 +414,25 @@ function dropshipper_order_list() {
 				'paged' => $paged,
 				'date_query' => array(
 					'column' => 'post_date',
-					'after' =>  $get_fromdate_inp,
-					'before' => $get_todate_inp
+					'after' => $get_fromdate_inp,
+					'before' => $get_todate_inp,
 				),
 				'meta_query' => array(
 					array(
 						'key' => 'dropship_supplier_' . $term->term_id,
-						'value' => $term->term_id
-					)
-				)
+						'value' => $term->term_id,
+					),
+				),
 			);
 		}
 
-
-		$the_query = new WP_Query($args);
+		$the_query = new WP_Query( $args );
 
 		echo '<div class="wrap">';
 
 		echo '<h1>Supplier Orders</h1>';
 
-		echo '<form name="Filter" method="POST" action="' . get_site_url() . '/wp-admin/admin.php?page=dropshipper-order-list">';
+		echo '<form name="Filter" method="POST" action="' . get_admin_url() . 'admin.php?page=dropshipper-order-list">';
 				echo '<table>';
 					echo '<tr>
                         From:
@@ -483,7 +455,6 @@ function dropshipper_order_list() {
 						echo '<th scope="col" id="date" class="manage-column column-date" style="width: 7%;">Date</th>';
 						echo '<th scope="col" id="product" class="manage-column column-product">Product</th>';
 
-
 		if ( 1 == $hide_client_info_Suppliers ) {
 
 			echo'<th scope="col" id="client" class="manage-column column-client-info" style="display:none;">Client Info</th>';
@@ -499,8 +470,6 @@ function dropshipper_order_list() {
 			echo'<th scope="col" id="contact_info" class="manage-column column-contact-info">Contact Info</th>';
 		}
 
-
-
 						echo '
                         <th scope="col" id="shipping" class="manage-column column-shipping-info">Shipping Info</th>';
 						echo '<th scope="col" id="pod_header" class="manage-column column-pod">POD</th>';
@@ -515,25 +484,23 @@ function dropshipper_order_list() {
 
 				$client_info_supp = '';
 
-				$supplier_id = get_user_meta($user_id, 'supplier_id');
-
+				$supplier_id = get_user_meta( $user_id, 'supplier_id' );
 
 				/**
 				 *
 				 *  Dropshipping for show_pod_content
 				 *
-				 * @param meta_value $meta_value is a veriable used in dropshipping.
+				 * @param meta_value      $meta_value is a veriable used in dropshipping.
 				 *
-				 * @param order_id $order_id is a veriable used in dropshipping.
+				 * @param order_id        $order_id is a veriable used in dropshipping.
 				 *
 				 * @param supplier_pod_id $supplier_pod_id is a veriable used in dropshipping.
 				 *
-				 * @param pod_ajax_url $pod_ajax_url is a veriable used in dropshipping.
-				 *
+				 * @param pod_ajax_url    $pod_ajax_url is a veriable used in dropshipping.
 				 */
-		function show_pod_content( $meta_value, $order_id, $supplier_pod_id, $pod_ajax_url) {
+		function show_pod_content( $meta_value, $order_id, $supplier_pod_id, $pod_ajax_url ) {
 
-			if ( 'received' == $meta_value) {
+			if ( 'received' == $meta_value ) {
 
 				return 'Received';
 
@@ -545,16 +512,16 @@ function dropshipper_order_list() {
 
 		}
 
-		if ($the_query->have_posts()) {
+		if ( $the_query->have_posts() ) {
 
-			while ($the_query->have_posts()) :
-$the_query->the_post();
+			while ( $the_query->have_posts() ) :
+				$the_query->the_post();
 
-				$order = wc_get_order(get_the_ID());
+				$order = wc_get_order( get_the_ID() );
 				$new_order_id = $order->get_order_number();
 				$order_number = $new_order_id;
 				$supplier_pod_id = '_supplier_pod_' . get_current_user_id();
-				$supplier_pod = get_post_meta($order_number, $order_number . '_' . $supplier_pod_id . '_status', true);
+				$supplier_pod = get_post_meta( $order_number, $order_number . '_' . $supplier_pod_id . '_status', true );
 				$items = $order->get_items();
 
 				$store_add_shipping_add = $options['store_add_shipping_add'];
@@ -564,33 +531,31 @@ $the_query->the_post();
 				$store_city        = get_option( 'woocommerce_store_city' );
 				$store_postcode    = get_option( 'woocommerce_store_postcode' );
 
-				$admin_email = get_option('admin_email');
+				$admin_email = get_option( 'admin_email' );
 
 				$packing_slip_customer_service_email = $options['packing_slip_customer_service_email'];
 
-
 				// $supplier1 = wc_dropshipping_get_dropship_supplier(intval($terms[0]->term_id));
 
+				$fake_ajax_url = wp_nonce_url( admin_url( 'admin-ajax.php?action=woocommerce_dropshippers_mark_as_shipped&return=' . admin_url() . '&orderid=' . get_the_ID() . '&supplierid=' . @$supplier_id[0] ), 'woocommerce_dropshippers_mark_as_shipped' );
 
-				$fake_ajax_url = wp_nonce_url(admin_url('admin-ajax.php?action=woocommerce_dropshippers_mark_as_shipped&return=' . admin_url() . '&orderid=' . get_the_ID() . '&supplierid=' . @$supplier_id[0]), 'woocommerce_dropshippers_mark_as_shipped');
-
-				$pod_ajax_url = wp_nonce_url(admin_url('admin-ajax.php?action=woocommerce_dropshippers_pod_received&return=' . admin_url() . '&orderid=' . get_the_ID() . '&supplierid=' . $supplier_pod_id . '&order_number=' . $order_number), 'woocommerce_dropshippers_pod_received');
+				$pod_ajax_url = wp_nonce_url( admin_url( 'admin-ajax.php?action=woocommerce_dropshippers_pod_received&return=' . admin_url() . '&orderid=' . get_the_ID() . '&supplierid=' . $supplier_pod_id . '&order_number=' . $order_number ), 'woocommerce_dropshippers_pod_received' );
 
 				$upload_dir = wp_get_upload_dir();
 
 				$pdfpath = $upload_dir['baseurl'] . '/' . $new_order_id . '/' . $new_order_id . '_' . $term->slug . '.pdf';
 
-				$dropshipper_shipping_info = get_post_meta($new_order_id, 'dropshipper_shipping_info_' . get_current_user_id(), true);
+				$dropshipper_shipping_info = get_post_meta( $new_order_id, 'dropshipper_shipping_info_' . get_current_user_id(), true );
 
 				$supplier_id = 'dropshipper_shipping_info_' . get_current_user_id();
 
-				if (!$dropshipper_shipping_info) {
+				if ( ! $dropshipper_shipping_info ) {
 
 					$dropshipper_shipping_info = array(
 						'date' => '',
 						'tracking_number' => '',
 						'shipping_company' => '',
-						'notes' => ''
+						'notes' => '',
 					);
 
 				}
@@ -601,16 +566,15 @@ $the_query->the_post();
 
 				echo '<td class="product column-product" data-colname="product">';
 
-				if (count($items) > 0) {
+				if ( count( $items ) > 0 ) {
 
-					foreach ($items as $item_id => $item) {
+					foreach ( $items as $item_id => $item ) {
 
-						$ds = wc_dropshipping_get_dropship_supplier_by_product_id(intval($item['product_id']));
+						$ds = wc_dropshipping_get_dropship_supplier_by_product_id( intval( $item['product_id'] ) );
 
+						if ( is_array( $ds ) && ! empty( $ds ) ) {
 
-						if ( is_array ( $ds ) && !empty( $ds ) ) {
-
-							if ($ds['order_email_addresses'] == $uemail) {
+							if ( $ds['order_email_addresses'] == $uemail ) {
 
 								echo '<p>' . $product_name = $item->get_name() . '</p>';
 
@@ -624,14 +588,11 @@ $the_query->the_post();
 					$sup['specific_delivery_location'] = '1';
 				}
 
-
-
-
 				echo '</td> ';
 
 				if ( 1 == $hide_client_info_Suppliers ) {
 					echo '<td class="client column-client" data-colname="client" style="display:none;" >' . $order->get_formatted_shipping_address() . '</td>';
-				} elseif ( 1 == $sup['specific_delivery_location'] && 0 == $store_add_shipping_add) {
+				} elseif ( 1 == $sup['specific_delivery_location'] && 0 == $store_add_shipping_add ) {
 
 							echo '<td class="client column-client" data-colname="client">' . $sup['address_line1'] . '<br>' . $sup['address_line2'] . '<br>' . $sup['supplier_city'] . '<br>' . $sup['country_state'] . '<br>' . $sup['postcode_zip'] . '</td>';
 				} elseif ( 1 == $store_add_shipping_add ) {
@@ -644,10 +605,10 @@ $the_query->the_post();
 
 				if ( 1 == $hide_contact_info_Suppliers ) {
 					echo'<td class="client-email column-client-email" data-colname="client-email" style="display:none;">' . $order->get_billing_email() . '<br><div class="row-actions"><span><a href="mailto:' . $order->get_billing_email() . '">Send an Email</a></span></div></td>';
-				} elseif ( ( $options['packing_slip_customer_service_email'] == '' ) && ( 1 == $store_add_shipping_add )) {
+				} elseif ( ( $options['packing_slip_customer_service_email'] == '' ) && ( 1 == $store_add_shipping_add ) ) {
 
 					echo'<td class="client-email column-client-email" data-colname="client-email">' . $admin_email . '<br><div class="row-actions"><span><a href="mailto:' . $admin_email . '">Send an Email</a></span></div></td>';
-				} elseif ( ( $packing_slip_customer_service_email != '' ) && ( 1 == $store_add_shipping_add )) {
+				} elseif ( ( $packing_slip_customer_service_email != '' ) && ( 1 == $store_add_shipping_add ) ) {
 
 					echo'<td class="client-email column-client-email" data-colname="client-email">' . $packing_slip_customer_service_email . '<br><div class="row-actions"><span><a href="mailto:' . $packing_slip_customer_service_email . '">Send an Email</a></span></div></td>';
 				} else {
@@ -672,11 +633,11 @@ $the_query->the_post();
 
                             </td>
 
-                            <td class="client-email column-client-email" data-colname="client-email">' . show_pod_content($supplier_pod, $new_order_id, $supplier_pod_id, $pod_ajax_url) . '<br><div class="row-actions"><span></div></td>
+                            <td class="client-email column-client-email" data-colname="client-email">' . show_pod_content( $supplier_pod, $new_order_id, $supplier_pod_id, $pod_ajax_url ) . '<br><div class="row-actions"><span></div></td>
 
                             <td class="status column-status" data-colname="status">' . $order->get_status() . '<br>';
 
-				if ($order->get_status() != 'completed') {
+				if ( $order->get_status() != 'completed' ) {
 
 					echo '<a id="mark_dropshipped_' . $new_order_id . '" class="button button-primary" href="' . $fake_ajax_url . '" style="margin-top:2px">Mark as Complete</a>
                                     <br>';
@@ -707,23 +668,20 @@ $the_query->the_post();
 
                         <th scope="col" id="product" class="manage-column column-product">Product</th>';
 
-
 		if ( 1 == $hide_client_info_Suppliers || 0 == $store_add_shipping_add ) {
 
 			echo'<th scope="col" id="client" class="manage-column column-client-info" style="display:none;">Client Info</th>';
-		} elseif ( 0 == $hide_client_info_Suppliers || 1 ==  $store_add_shipping_add ) {
+		} elseif ( 0 == $hide_client_info_Suppliers || 1 == $store_add_shipping_add ) {
 			echo'<th scope="col" id="client" class="manage-column column-client-info" >Client Info</th>';
-		} elseif ( 0 == $hide_client_info_Suppliers && 0 == $store_add_shipping_add && 1 == $sup['specific_delivery_location']) {
+		} elseif ( 0 == $hide_client_info_Suppliers && 0 == $store_add_shipping_add && 1 == $sup['specific_delivery_location'] ) {
 			echo'<th scope="col" id="client" class="manage-column column-client-info" >Client Info</th>';
 		}
 
-		if ( 1 == $hide_contact_info_Suppliers) {
+		if ( 1 == $hide_contact_info_Suppliers ) {
 			echo'<th scope="col" id="contact_info" class="manage-column column-contact-info" style="display:none;">Contact Info</th>';
 		} else {
 			echo'<th scope="col" id="contact_info" class="manage-column column-contact-info">Contact Info</th>';
 		}
-
-
 
 						echo '
                         <th scope="col" id="shipping" class="manage-column column-shipping-info">Shipping Info</th>
@@ -737,14 +695,20 @@ $the_query->the_post();
 
 			echo '<nav class="sw-pagination">';
 			$big = 999999999;
-			$link = str_replace($big, '%#%', esc_url(get_pagenum_link($big)));
-			$link = str_replace('#038;', '&', $link);
-			echo paginate_links(array(
-			   'base' => $link,
-			   'add_args' => array('fromDate'=>$get_fromdate_in,'toDate'=>$get_todate_in,'perPage'=>$post_per_page),
-			   'current' => max(1, $paged),
-			   'total' => $the_query->max_num_pages
-			));
+			$link = str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) );
+			$link = str_replace( '#038;', '&', $link );
+			echo paginate_links(
+				array(
+					'base' => $link,
+					'add_args' => array(
+						'fromDate' => $get_fromdate_in,
+						'toDate' => $get_todate_in,
+						'perPage' => $post_per_page,
+					),
+					'current' => max( 1, $paged ),
+					'total' => $the_query->max_num_pages,
+				)
+			);
 
 			echo '</nav></div>';
 
@@ -767,7 +731,6 @@ $the_query->the_post();
                         <th scope="col" id="product" class="manage-column column-product">Product</th>
                         <th scope="col" id="client" class="manage-column column-client-info" >Client Info</th>';
 
-
 						echo '<th scope="col" id="contact_info" class="manage-column column-contact-info">Contact Info</th>
                         <th scope="col" id="shipping" class="manage-column column-shipping-info">Shipping Info</th>
                         <th scope="col" id="pod_header" class="manage-column column-pod">POD</th>
@@ -783,7 +746,6 @@ $the_query->the_post();
             </table>
 
         </div>';
-
 
 	}
 
@@ -810,7 +772,7 @@ $the_query->the_post();
     </div>';
 }
 
-if (isset($_GET['success'])) {
+if ( isset( $_GET['success'] ) ) {
 
 	if ( 'no' == @$_GET['success'] ) {
 
@@ -859,5 +821,4 @@ if (isset($_GET['success'])) {
         </div>';
 
 	}
-
 }
