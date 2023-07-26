@@ -5,6 +5,8 @@
  */
 
 class EVOTX_WC{
+	public $current_user, $fnc, $opt2, $eotx;
+
 	public function __construct(){
 
 		$this->current_user = wp_get_current_user();
@@ -54,7 +56,7 @@ class EVOTX_WC{
 			
 			add_action('woocommerce_checkout_order_processed', array($this, 'create_evo_tickets'), 10, 1);
 			add_action('woocommerce_checkout_order_processed', array($this, 'reduce_stock_at_checkout'), 10, 1);
-			//add_action('woocommerce_reduce_order_stock', array($this, 'reduce_stock'), 10, 1);
+			add_action('woocommerce_reduce_order_stock', array($this, 'reduce_order_stock_action'), 10, 1);
 			//add_action('woocommerce_restore_order_stock', array($this, 'restock_stock'), 10, 1);
 
 		// Additional order fields - guest names
@@ -118,6 +120,8 @@ class EVOTX_WC{
 				) as $status){
 					add_action('woocommerce_order_status_'.$status['old'] .'_to_'. $status['new'], 
 						array($this, 're_process_order_items'), 10,2);
+					add_action('woocommerce_order_status_'.$status['old'] .'_to_'. $status['new'], 
+						array($this, 'reduce_stock_from_orderid'), 10,2);
 				}
 
 			// when refunded orders were repurchased or completed
@@ -246,6 +250,7 @@ class EVOTX_WC{
 				$cart_item_data['wcid'] = $DATA['event_data']['wcid'];
 
 			$data[$cart_item_key] = $cart_item_data;
+			//print_r($data);
 
 			WC()->session->set( '_evotx_cart_data', $data );
 		}
@@ -370,7 +375,7 @@ class EVOTX_WC{
 
 		// cart item validation
 			function cart_validation(){
-				global $evotx;
+				
 				foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 
 					//print_r($cart_item['evotx_event_id_wc']);
@@ -468,6 +473,7 @@ class EVOTX_WC{
 
 				// restock ticket
 				do_action('evotx_cart_ticket_removed', $cart_item_key, $data[$cart_item_key] );
+				
 
 				// remove deleted cart item data from ticket cart session
 				unset( $data[$cart_item_key] );
@@ -540,19 +546,20 @@ class EVOTX_WC{
 				if( $type=='restock' && !evo_settings_val( 'evotx_restock',EVOTX()->evotx_opt)) return false;
 				
 				// check if the stock was reduced when order placed
-				$evo_stock_reduced = get_post_meta($order_id, 'evo_stock_reduced',true);
-				$evo_stock_reduced = empty($evo_stock_reduced)? false: $evo_stock_reduced;
+					//$evo_stock_reduced = get_post_meta($order_id, 'evo_stock_reduced',true);
+					//$evo_stock_reduced = empty($evo_stock_reduced)? false: $evo_stock_reduced;
+					$evo_stock_reduced = $order->get_meta('evo_stock_reduced') =='yes' ? true : false;
 
-				$proceed = false;
-				
-				if(!$evo_stock_reduced) $proceed = true;
-				if( $evo_stock_reduced && 
-					( ($evo_stock_reduced == 'yes'&& $type =='restock') ||	
-					($evo_stock_reduced == 'no'&& $type=='reduce') ) 
-				){					
-					$proceed = true;
-				}
+					$proceed = false;
+					
+					if(!$evo_stock_reduced) $proceed = true;
+					if( $type == 'restock' && $evo_stock_reduced ) $proceed = true;
+					if( $type == 'restock' && !$evo_stock_reduced ) $proceed = false;
+					if( $type == 'reduce' && $evo_stock_reduced ) $proceed = false;
+					if( $type == 'reduce' && !$evo_stock_reduced ) $proceed = true;
+					
 
+				// BAIL
 				if(!$proceed) return false;
 			
 				$stock_reduced = false;
@@ -633,6 +640,11 @@ class EVOTX_WC{
 
 			    $stock_reduced = ($type=='reduce')? true:false;
 			    update_post_meta($order_id, 'evo_stock_reduced',($stock_reduced?'yes':'no'));				
+			}
+
+		// reduce order stock after WC action
+			function reduce_order_stock_action($order){
+
 			}
 
 		// re process order with order items for tickets
@@ -884,15 +896,17 @@ class EVOTX_WC{
 			if(!$ticket_holders) return $order;	
 
 			//print_r(get_post_meta(668));
+
+				// print styles
+				$TA->__print_ticketholder_styles();
 			?>
 				<header><h2><?php evo_lang_e( 'Ticket Holder Details' ); ?></h2></header>
-				<table class="shop_table ticketholder_details" cellspacing="0">
+				<table class="shop_table ticketholder_details" cellspacing="0" style='width:100%;'>
 					<?php 
 					foreach($ticket_holders as $e=>$dd){
 						?><tr><td><?php
 						foreach($dd as $tn=>$nm){ 
 							echo $TA->__display_one_ticket_data($tn, $nm, array(
-								'inlineStyles'=>true,
 								'showExtra'=>false								
 							));
 						}
@@ -917,7 +931,7 @@ class EVOTX_WC{
 				$ticket_holders = $TA->_get_tickets_for_order($order_id, 'event');
 				
 				if(!$ticket_holders) return $order;	
-
+					$TA->__print_ticketholder_styles();
 				?>	
 					<section class='eventon-ticket-holder-details'>
 						<h2><?php evo_lang_e( 'Ticket Holder Details' ); ?></h2>
@@ -927,7 +941,6 @@ class EVOTX_WC{
 								
 								foreach($dd as $tn=>$nm){ 
 									echo $TA->__display_one_ticket_data($tn, $nm, array(
-										'inlineStyles'=>true,
 										'showExtra'=>false								
 									));
 								}
@@ -1161,6 +1174,8 @@ class EVOTX_WC{
 			if(!$ticket_holders) return false;
 			if(sizeof($ticket_holders) < 1 ) return false;
 
+				// print styles
+				$TA->__print_ticketholder_styles();
 			?>
 			<div style='margin-bottom:40px'>
 			<h2><?php evo_lang_e('Ticket Holder Details');?></h2>
@@ -1171,7 +1186,6 @@ class EVOTX_WC{
         			?><tr><td style='border:1px solid #e5e5e5'><?php
         			foreach($dd as $tn=>$nm){ 
 						echo $TA->__display_one_ticket_data($tn, $nm, array(
-							'inlineStyles'=>true,
 							'orderStatus'=>$order->get_status(),								
 						));
 					}

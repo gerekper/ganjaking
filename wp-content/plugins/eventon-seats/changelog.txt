@@ -1,5 +1,30 @@
 ﻿Event Seats (ST) addon for EventON Plugin
 ====================================
+v 1.2.1 (2023-7-20)
+ADDED: new seat map size 650x600
+ADDED: seat shape option with box and circle seat shapes
+ADDED: Booth name visible on booth shape
+ADDED: lightbox based seat map
+FIXED: seat editor highlight color
+FIXED: static seat details alignment
+FIXED: font styles
+UPDATED: seat editor design and layout
+UPDATED: seat design and layout
+
+v 1.2 (2023-7-12)
+ADDED: admin seat map editor moved to new lightbox system
+ADDED: delete section button to main editor view
+ADDED: fixed tooltip on hover to show a default message
+ADDED: booth seat type - Beta
+ADDED: more clear data for the type of seat 
+ADDED: Seats in progress count to admin seat map editor
+FIXED: loading scripts after eventon dependant scripts
+FIXED: seat map not loading on lightbox loaded via ajax
+FIXED: scaled seat map to fit well in the viewable window
+FIXED: unstranslated text in cart for unassigned seat
+FIXED: mobile seat map layout issues
+UPDATED: compatibility with tickets 2.1.1
+
 v 1.1.1 (2022-10-25)
 FIXED: Missing text translations
 FIXED: compatibility with variations and options for unassigned seats capacity

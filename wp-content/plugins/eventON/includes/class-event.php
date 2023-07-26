@@ -848,11 +848,16 @@ class EVO_Event extends EVO_Data_Store{
 		function virtual_type(){
 			return $this->get_prop('_virtual_type');
 		}
-		function virtual_url(){
+
+		/* type = direct (by pass event page direct to url) or view (link to event page to access url) */
+		function virtual_url( $type = 'direct'){
 			$url = $this->get_virtual_url();
 			if(!$url) return false;
 
-			if( $this->check_yn('_vir_nohiding')) return $url;
+			// process youtube live links
+			$url = $this->_process_vir_url($url);
+
+			if( $this->check_yn('_vir_nohiding') && $type == 'direct') return $url;
 
 			$event_link = get_the_permalink($this->event_id);
 			$append = 'event_access';
@@ -861,17 +866,26 @@ class EVO_Event extends EVO_Data_Store{
 
 			return $event_link;
 		}
-		function get_vir_url(){
-			if(!$this->is_virtual()) return false;
-			$url = $this->get_virtual_url();
-			if(!$url) return false;
 
+		// @4.5
+		function virtual_can_show_other_info(){
+			$when_to_show = $this->get_prop('_vir_show');
+			if( $when_to_show == 'always') return true;
+
+			$current_time = EVO()->calendar->get_current_time();
+
+			$event_start_time = $this->get_event_time('start');
+			if( $event_start_time - $when_to_show < $current_time ) return true;
+
+			return false;
+		}
+
+		function _process_vir_url($url){
 			$VT = $this->get_prop('_virtual_type');
 			
 			if($VT == 'youtube_live'){
 				$url = (strpos($url, '/') === false)? 'https://www.youtube.com/channel/'. $url .'/live': $url;
 			}
-
 			return $url;
 		}
 

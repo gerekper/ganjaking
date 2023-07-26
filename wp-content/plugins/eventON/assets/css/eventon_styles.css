@@ -1269,8 +1269,11 @@
 
 
 	.eventon_events_list .eventon_list_event .evcal_desc span, 
-	.evo_pop_body .evcal_desc span{
-		display:block; color:var(--evo_color_1);
+	.evo_pop_body .evcal_desc span,
+	.evcal_list_a .evoet_cx span.evoet_subtitle
+	{
+		display:block; 
+		color:var(--evo_color_1);
 	}
 	.eventon_events_list .eventon_list_event .evcal_desc .evcal_desc3 > *,
 	.evo_pop_body .evcal_desc .evcal_desc3 > *{
@@ -1851,6 +1854,11 @@
 	    50%{background-position:100% 81%}
 	    100%{background-position:0% 20%}
 	}
+	.evo_metarow_virtual .evo_vir_main_content{
+		background-color: #dedede;
+    	border-radius: 10px;
+    	padding:20px;
+	}
 	.evo_metarow_virtual .evo_vir_access{
 		background: rgb(78,93,73);		
 		display: flex;
@@ -2301,7 +2309,7 @@
 		{display:inline-block;background-color: #2eb4dc; border-radius: 12px;padding:2px 9px 2px 5px;	}
 	.eventon_list_event .evcal_evdata_cell .evo_mytime i{display:inline-block;}
 	.eventon_list_event .evo_eventcard_time_t{margin-right: 8px;    margin-bottom: 5px; display: inline-flex;}
-	.evo_vir_confim{    background-color: #cfe6d3; padding: 5px 20px;border-radius: 10px;}
+	.evo_vir_confim{    background-color: #82c985; padding: 5px 20px;border-radius: 10px;}
 
 /* jitsi */
 	.evcal_evdata_row .evcal_evdata_cell .evo-jitsi-wrapper{overflow: hidden;border-radius: 10px; margin-bottom:10x;

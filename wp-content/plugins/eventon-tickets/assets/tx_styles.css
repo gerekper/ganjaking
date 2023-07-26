@@ -1,37 +1,43 @@
-/**
- * Event Ticket styles
- * @version 1.7.11
- */
+/* Event Ticket styles */
+/* @version 2.2.1 */
+
 /* cart notification */	
 	.ajde_evcal_calendar .evotx_ticket_purchase_section .evotx_next_event{padding-top: 10px;}
 	
 /* added to cart notices */
-	.evcal_eventcard .evo_metarow_tix .tx_wc_notic, .evoTX_wc .tx_wc_notic{
+	.evcal_eventcard .evo_metarow_tix .tx_wc_notic, 
+	.evotx_ticket_purchase_section .tx_wc_notic{
 		margin-top: 20px; 
 		background-color: #93d48c;
-		text-align: center;
-		border-radius: 10px;
+		border-radius: 20px;
 		color:#fff;
-	}
-
-	.evcal_eventcard .evo_metarow_tix .tximg .tx_wc_notic{
-		margin: 15px -45px 0px -55px; 
 	}
 	
 	.evcal_eventcard .evo_metarow_tix .tx_wc_notic.error, 
-	.evo_metarow_tix .evotx_success_msg.bad{background-color:#fb9287; margin-top: 20px; }
-	body #evcal_list .evo_metarow_tix .tx_wc_notic .error, .evo_lightbox_content .tx_wc_notic .error{display: none;}
+	.evo_metarow_tix .evotx_success_msg.bad,
+	.evotx_ticket_purchase_section .evotx_success_msg.bad
+	{background-color:#f05f50; margin-top: 20px; }
+
+	body #evcal_list .evo_metarow_tix .tx_wc_notic .error, 
+	.evo_lightbox_content .tx_wc_notic .error,
+	.evotx_ticket_purchase_section .tx_wc_notic .error,
+	{display: none;}
 	body #evcal_list .evo_metarow_tix .tx_wc_notic.error .error, 
-	.evo_lightbox_content .tx_wc_notic.error .error{display: block; font-size: 14px; margin: 0;}
+	.evo_lightbox_content .tx_wc_notic.error .error,
+	.evotx_ticket_purchase_section .tx_wc_notic.error .error
+	{display: block; font-size: 14px; margin: 0;}
 	.evo_metarow_tix .tx_wc_notic.error .evo-success{display: none;}
 	
 	body .evorow.evcalevdata.row .evotx_success_msg.bad,
 	#evcal_list .eventon_list_event .event_description p.evotx_success_msg.bad,
-	.evo_lightbox_content .evcal_evdata_row p.evotx_success_msg.bad
+	.evo_lightbox_content .evcal_evdata_row p.evotx_success_msg.bad,
+	.evotx_ticket_purchase_section p.evotx_success_msg.bad
 	{padding:20px;}
 	
 	.evo_metarow_tix .evotx_success_msg.bad:before{display: none;}
-	.evo_metarow_tix .evotx_success_msg:before{
+	.evo_metarow_tix .evotx_success_msg:before,
+	.evotx_ticket_purchase_section .evotx_success_msg:before
+	{
 		content: "L";
 	    font-family: arial;
 	    color: #fff;
@@ -39,29 +45,30 @@
 	    background-color: transparent;
 	    font-weight: normal;
 	    padding-left: 0px;
-	    height: 90px;
-	    width: 90px;
-	    line-height: 80px;
+	    height: 70px;
+	    width: 70px;
+	    line-height: 60px;
 	    border-radius: 50%;
 	    position: absolute;
-	    top: 0; left: 50%;
-	    margin: 50px 0 0 -50px;
+	    top: 0px;
+	    left: 0px;
+	    margin: 25px 0 0 30px;
 	    -ms-transform: scaleX(-1) rotate(-45deg);
 	    -webkit-transform: scaleX(-1) rotate(-45deg);
 	    transform: scaleX(-1) rotate(-45deg);
 	    box-sizing: border-box;
 	    text-align: center;
-	    font-size: 50px;
+	    font-size: 42px;
 	    font-style: normal;
 	    border: 4px solid #fff;
 	}
 	body .evorow.evcalevdata.row .evotx_success_msg,
+	.evotx_ticket_purchase_section .evotx_success_msg,
 	#evcal_list .eventon_list_event .event_description p.evotx_success_msg,
 	.evo_lightbox_content .evcal_evdata_row p.evotx_success_msg{
-		padding: 190px 0 50px 0px;
-	    font-size: 24px;
+		padding: 50px 0 50px 120px;
+	    font-size: 18px; 
 	    font-style: normal;
-	    text-transform: uppercase;
 	    position: relative;
 	    color:#fff; border-radius: 10px;
 	}
@@ -90,6 +97,10 @@
 
 	/* smaller screens */
 	@media (max-width: 600px){}
+/* lightbox */
+	.evo_lightbox .tx_wc_notic, .evo_lightbox .evotx_cart_actions{margin-left:20px; margin-right:20px;}
+	.evo_lightbox .evotx_cart_actions{padding-bottom: 20px;}
+	.evo_lightbox .evotx_ticket_purchase_section.evoloading:before{border-radius: 20px;}
 
 /* event top add to cart buttons */
 	#evcal_list .eventon_list_event .evcal_desc .evotx_add_to_cart em,
@@ -198,7 +209,9 @@
 	}
 	.evoTX_wc_section .evotx_quantity .qty b.plu.reached, .evotx_qty_adjuster b.plu.reached{background-color:#dadada }
 	.evoTX_wc_section .evotx_quantity .qty b:hover, .evotx_qty_adjuster b:hover{opacity: 0.8;}
-	.evoTX_wc_section .evotx_quantity .qty b.plu, .evotx_qty_adjuster b.plu{background-color:#3091d4 ;top: 1px;line-height: 28px}
+	.evoTX_wc_section .evotx_quantity .qty b.plu, .evotx_qty_adjuster b.plu{
+		background-color: var(--evo_color_prime);top: 2px;line-height: 28px;
+	}
 	.evoTX_wc_section .evotx_quantity .qty em, .evotx_qty_adjuster em{
 		font-style: normal;
 		font-size: 20px;
@@ -226,47 +239,83 @@
 		user-select: none;
 	}
 
+/* Attendees anywhere */
+	.evotx_ed{
+		    background-color: #d5d5d5;
+	    padding: 20px 30px;
+	    border-radius: 20px;
+	}
+	.evotx_ed:hover{opacity: 0.8}
+	.evotx_ed.light, .evotx_ed.light a , .evotx_ed.light > *{color: #fff!important}
+	.evotx_ed h3{font-family: var(--evo_font_1);margin-bottom: 0}
+	.evotx_ed h3 a{text-decoration: none!important;}
+	.evotx_ed p{margin: 0}
+	.evotx_attendees_anywhere .evotx_ea{
+		display: flex;flex-wrap: wrap;
+	}
+	.evotx_attendees_anywhere .evotx_ea p{
+		padding: 20px;
+	    display: flex;
+	    flex-direction: column;
+	    align-items: center;
+	    /* text-align: center; */
+	    margin: 0;
+	}
+	.evotx_attendees_anywhere .evotx_ea p span{
+		background-color: #b7b7b7;
+	    flex: 0;
+	    border-radius: 30px;
+	    padding: 20px;
+	    color: #fff;
+	    width: 30px;
+	    box-sizing: content-box;
+	    text-align: center;
+	    text-transform: uppercase;
+	}
+
 /* inqury section */
-	.evotx_inquery{padding-top: 10px;}
-	.evotx_inquery .evotxINQ_box{overflow:hidden;padding: 0px;border-radius: 12px;margin-top: 8px;background-color: rgba(0, 0, 0, 0.07);	}
-	.evotx_inquery .evotxINQ_box p{padding: 0;margin: 0; padding-bottom: 5px;}
-	.evotx_inquery .evotxINQ_box .evotxINQ_form, .evotx_inquery .evotxINQ_box .evotxINQ_msg{padding: 15px;}
+	.evotx_inqure_form p.message{display: none!important}
+	.evotx_inqure_form .evolb_content p.message{display: block!important}
+	.evotx_inqure_form .evolb_content p.message{
+		padding: 20px;
+	    margin: 20px -50px -50px;
+	    color: #fff;
+	}
+	.evotx_inqure_form .evolb_content p.message.bad{background-color: #fc4844;}
+	.evotx_inquery{padding:50px;}
 	.evotx_inquery .evotxINQ_box label{
 		display: block;line-height: 1; margin:5px 0;
 	}
 	.evotx_inquery .evotxINQ_box input, .evotx_inquery .evotxINQ_box textarea{
-		    box-sizing: border-box;
+		box-sizing: border-box;
 	    width: 100%;
-	    border-radius: 20px;
+	    border-radius: 10px;
 	    color: #141412;
-	    padding: 3px 10px;
+	    padding: 10px 15px;
 	    box-shadow: none;
-	    background-color: #fff;
+	    background-color: #e1e1e1;
 	    margin: 2px 0 0;
-	    font-style: normal;
-	    font-size: 13px;
+	    /* font-style: normal; */
+	    font-size: 16px;
 	    border: none;
+	    font-family: var(--evo_font_2), 'san serif';
 	}
 	.evotx_inquery .evotxINQ_box input:focus, .evotx_inquery .evotxINQ_box textarea:focus{
-		outline:none; background-color: #fffded
+		outline:none; background-color: #c6c6c6
 	}
 	.evotx_inquery .notification{background-color: #f3f3f3; padding: 10px 20px; margin: 10px -15px -15px;display: block;}
 	.evotx_inquery .evotxINQ_box textarea{border-radius: 8px;}
 	.evotxINQ_form .evotxinq_field.error{	background-color:#ff9292; }
-	.eventon_list_event .evotx_inquery .evotxINQ_msg p, .evo_pop_body .evcal_evdata_row .evotxINQ_msg p{
-		padding: 0;margin: 0;
-		font-size: 16px;
-		font-style: normal;
-	}
+	
 	body .evcal_evdata_row .evotx_inquery p.verifyhuman{
 		text-align: center;background-color: #f5f5f5; border-radius: 12px; padding: 10px; margin: 10px 0;
 	}
-	.evotx_inquery p.submit_row, .evotx_inquery .notification,
-	.evotx_inquery .evotxINQ_msg
-	{text-align: center;}
-	.evotx_inquery .evotxINQ_msg{background-color: #84e47e; color:#fff;}
-	.evotxINQ_msg_in{display: flex;justify-content: center;align-items: center;}
-	.evotx_inquery .evotxINQ_msg em{
+	.evotxINQ_msg_in{
+		background-color: #50c848; color:#fff;
+		display: flex;justify-content: center;align-items: center;
+		padding:50px;
+	}
+	.evotxINQ_msg_in em{
 		position: relative;
 		  display: inline-block;
 		  vertical-align: top;
@@ -276,7 +325,7 @@
 		  border: 2px solid #fff;
 		  border-radius: 50%;
 	}
-	.evotx_inquery .evotxINQ_msg em:before{
+	.evotxINQ_msg_in em:before{
 		content: '';
 		  display: block;
 		  position: absolute;
@@ -291,17 +340,6 @@
 		  -ms-transform: rotate(-45deg);
 		  -o-transform: rotate(-45deg);
 		  transform: rotate(-45deg);
-	}
-	.evotxINQ_box .evotxINQ_form.loading{
-		opacity: 0.4; position: relative;
-	}
-	.evotxINQ_box .evotxINQ_form.loading:before{
-		content:"";
-		background: url(evo-loader.gif) center center no-repeat;
-		position: absolute;
-		top: 0; left: 0;
-		width: 100%;
-		height: 100%;		
 	}
 	/* captcha */
 		.evotxINQ_form .verifyhuman span{display:block; position:relative; margin-top:5px;}
@@ -323,6 +361,7 @@
 	{
 		padding-bottom: 10px; padding-top: 10px;
 		border-bottom:1px solid #dadada;
+		margin-top: 0px;
 	}
 	.evotx_ticket_purchase_section p.price.tx_price_line{padding-left: 10px;padding-right: 10px;}
 	.eventon_list_event .event_description p.evotx_remaining, 
@@ -341,11 +380,16 @@
 	}
 	.evoTX_wc .tx_price_line{margin-bottom: 5px;}
 
-	.evoTX_wc .evotx_ticket_other_data_line, body #evcal_list .evoTX_wc .evotx_ticket_other_data_line{padding:10px;}
+	.evoTX_wc .evotx_ticket_other_data_line, 
+	.evotx_ticket_purchase_section .evotx_ticket_other_data_line, 
+	body #evcal_list .evoTX_wc .evotx_ticket_other_data_line
+	{padding:10px;}
 	body #evcal_list .eventon_list_event .evoTX_wc .evotx_addtocart_total,
+	.evotx_ticket_purchase_section h4.evotx_addtocart_total.evo_h4,
 	.evcal_evdata_row .evoTX_wc .evotx_addtocart_total{
 		padding: 15px 10px 0;
-		font-size: 16px; font-style: normal; font-weight: bold;}
+		font-size: 16px; font-style: normal; font-weight: bold;
+	}
 
 	.evo_pop_body .evorow.evo_metarow_tix{padding: 25px;}
 	body .evotx_ticket_purchase_section .tx_orderonline_add_cart .evotx_already_purchased{
@@ -361,13 +405,16 @@
 	.evo_lightbox_body .evost_seats_preview p{margin:0;}
 
 	.evoTX_wc .evotx_addtocart_total span.value,
+	.evotx_ticket_purchase_section .evotx_addtocart_total span.value,
 	.evoTX_wc .tx_price_line span.value,
+	.evotx_ticket_purchase_section .tx_price_line span.value,
 	.evotx_item_price_line span.value,
 	.evotx_ticket_purchase_section p.evotx_ticket_other_data_line span.value,
 	.evoTX_wc .tx_price_line input.value.nyp
 	{float: right;}
 
 	.evoTX_wc .tx_price_line span.evo_label,
+	.evotx_ticket_purchase_section .tx_price_line span.evo_label,
 	.evotx_ticket_purchase_section p.evotx_addtocart_total .evo_label,
 	.evotx_quantity .evotx_label
 	{
@@ -399,7 +446,7 @@
 			border-radius: 25px;
 			border: 1px solid #cccccc;
 			padding: 6px 20px;
-			background-color: transparent; color: #6a6a6a;
+			background-color: transparent; color: var(--evo_color_1);
 			display: inline-block;
 		}
 		p.evotx_remaining span.evotx_remaining_stock span{font-weight: bold;}
@@ -662,7 +709,10 @@
 	.event_tix_attendee_list .evotxVA_ticket:last-child{border:none;}
 	.evotxVA_ticket .evotxVA_data{width: 100%; padding-left: 20px;}
 	.evotxVA_ticket .evotxVA_data span b{font-size: 14px; font-weight: bold;}
-	.evotxVA_ticket .evotxVA_tn{font-weight: bold; font-size: 18px;width: 150px;}
+	.evotxVA_ticket .evotxVA_tn{
+		font-weight: bold; font-size: 18px;
+		display: flex; justify-content: space-between;
+	}
 	.evotxVA_ticket .etxva_tag, .evotxVA_ticket .evotx_status{
 		display: inline-block;
 		border-radius: 20px;
@@ -697,7 +747,9 @@
 		padding: 20px;
 		background-color: #e7e7e7;
 	    border-radius: 15px;
-	    margin-bottom: 5px;}
+	    margin-bottom: 5px;
+	    flex-direction: column;
+	}
 	.eventon-ticket-holder-details .evotxVA_ticket.refunded,
 	.shop_table.ticketholder_details .evotxVA_ticket.refunded{
 		background-color: #ff6f6f;

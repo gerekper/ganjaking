@@ -1,6 +1,7 @@
 <?php
 /** 
  * Extension to eventon seats class just for frontend functions
+ * @version 1.2
  */
 
 class EVOST_Seats_Seat extends EVOST_Expirations{
@@ -25,7 +26,7 @@ class EVOST_Seats_Seat extends EVOST_Expirations{
 		}
 		function get_max_capacity(){
 			if($this->seat_type=='seat') return 1;
-			return $this->una_get_available_seats();
+			return $this->nonseat_get_available_seats( $this->seat_type );
 		}
 		function get_readable_seat_number(){
 			$O = array();
@@ -58,6 +59,8 @@ class EVOST_Seats_Seat extends EVOST_Expirations{
 			}
 			return false;
 		}
+
+		// check if seat is available 
 		function is_seat_available($qty=1){
 			$seat = $this->item_data;
 
@@ -71,8 +74,14 @@ class EVOST_Seats_Seat extends EVOST_Expirations{
 				}
 				if( $status == 'av'  ) return true;
 			}else{
-				// get available unassigned seats 				
-				$available = $this->una_get_available_seats();				
+				// get available non seats quantity		
+				$available = $this->nonseat_get_available_seats( $this->seat_type );		
+
+				// for booth seats
+				if( $this->seat_type == 'booseat'){
+					return ( $available && $available > 0 ) ? true: false;
+				}
+	
 				if($available  && $available >= $qty) return true;
 			}
 			return false;

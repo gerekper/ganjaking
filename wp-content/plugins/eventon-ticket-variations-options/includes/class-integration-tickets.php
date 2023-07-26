@@ -1,10 +1,11 @@
 <?php
 /** 
  * Event Tickets Integration
- * @v 0.3
+ * @version 1.1.1
  */
 
 class EVOVO_tx{
+	public $help;
 	public function __construct(){		
 
 		// frontend view
@@ -50,114 +51,8 @@ class EVOVO_tx{
 			add_filter('evotx_sales_insight_after', array($this, 'evotx_sales_insight_print'), 10, 3);
 		}
 
-		$this->help = new evo_helper();
+		$this->help = class_exists('evotx_helper') ? new evotx_helper() : false;
 	}
-
-	// sales insight
-		function evotx_sales_insight_data_item($A, $item_id, $item, $EVENT, $order){
-
-			$vo_data = wc_get_order_item_meta($item_id ,'_evovo_data');  
-			if(!$vo_data) return $A;
-
-			$TXHelp = new evotx_helper();
-
-			if( isset($vo_data['vart'])):
-				$VTs = new EVOVO_Var_opts($EVENT->ID, $item_id ,'variation_type');
-				foreach($vo_data['vart'] as $vt_id=>$vt_val){
-					$VTs->set_item_data($vt_id);
-					$A['evovo']['_'.$vt_id] = array(
-						'name'=>		$VTs->get_item_prop('name'),
-						'value'=>	$vt_val
-					);
-				}
-			endif;
-
-			if( isset($vo_data['po']) && sizeof($vo_data['po'])>0):
-				$POs = new EVOVO_Var_opts($EVENT->ID, $item_id ,'option');
-				
-				foreach($vo_data['po'] as $po_id=>$po_val){
-					$POs->set_item_data($po_id);
-
-					$po_qty = isset($po_val['qty'])? $po_val['qty']: 1;
-					$po_price = $POs->get_item_prop('regular_price') * $po_qty;
-
-					$A['evovo']['_p'.$po_id] = array(
-						'name'=>		$POs->get_item_prop('name'),
-						'qty'=> $po_qty,
-						'total_price'=>	$po_price
-					);
-				}
-			endif;
-
-			return $A;
-		}
-
-		function evotx_sales_insight_print($EVENT, $orders, $sales_data){
-
-			$VTs = new EVOVO_Var_opts($EVENT->ID, '' ,'variation_type');
-			if(!$VTs->is_vo()) return;
-
-			$TXHelp = new evotx_helper();
-
-			?>
-
-			<div class='evotxsi_row sales_by_variations'>
-				<h2 style='font-weight:bold'><?php _e('Sales by Ticket Variations & Options','evotx');?></h2>	
-				<h3 style='padding-bottom: 10px'><?php _e('Generated using ticket variations from variations and options addon','evotx');?></h3>
-
-				<?php
-
-				$_vts = array();
-				$variation_types = $VTs->dataset;
-				//print_r($VTs);
-
-
-				foreach($variation_types as $vt_id=>$vt){
-					$vts = $VTs->_process_vt_options( $vt);
-					if(!$vts) continue;
-
-					?>
-					<div class='evovosi_var_type'>
-						<span class='name'><?php echo $vt['name'];?></span>
-						<span class='items'>
-					<?php
-					foreach($vts as $vto){
-
-						$qty = 0;
-						$cost = 0;
-						foreach($sales_data as $sd){
-							if( !isset($sd['evovo']) ) continue;
-
-							foreach($sd['evovo'] as $sdd ){
-								if( $sdd['name'] != $vt['name']) continue;
-								if( $sdd['value'] != $vto) continue;
-
-								$qty += (int)$sd['qty']; 
-								$cost += $sd['cost'];
-							}
-							
-						}
-
-						echo "<span class='item'>
-						<span class='item_name'>{$vto}</span>
-						<span class='item_val'><em>{$qty}</em>". $TXHelp->convert_to_currency($cost). "</span>
-						</span>";
-					}
-
-					echo "</span></div>";
-					$_vts[] = array(
-						'name'=> $vt['name'],
-						'options'=>$vts,
-					);
-				}
-
-
-				?>	
-			</div>
-
-			<?php
-		}
-
 
 	// front end show VO content
 		function frontend_temp($boolean, $event, $product){
@@ -202,7 +97,6 @@ class EVOVO_tx{
 			return $data;
 		}
 
-
 	// ADD TO CART
 		function is_in_stock($return, $event){
 
@@ -217,213 +111,198 @@ class EVOVO_tx{
 		function text_strings($array){
 			$array['tvo1'] = evo_lang('Out of Stock').'!';
 			$array['tvo2'] = evo_lang('Selected options not available for sale').'!';
+			$array['tvo3'] = evo_lang('Current selection is out of stock, please make new selection').'!';
 			return $array;
 		}
 
 		function add_to_cart($cart_item_data, $EVENT, $product_price, $DATA){
-
-			if( !isset($DATA['evovo_data'])) return $cart_item_data;	
-
-
-			$evovo_data = $DATA['evovo_data'];
-			$event_data = $DATA['event_data'];
-			$evovo_data_prices = isset( $DATA['evovo_data']['prices']) ? $DATA['evovo_data']['prices']: array();
-
-			if( !isset($event_data['wcid'])) return $cart_item_data;
-			$wcid = $event_data['wcid'];
-			//$po = isset($evovo_data['po'])? $evovo_data['po']:false;
-
-			// addditional price inclusions
-				$ind_pos = $ind_vars = array();
-				if( count($evovo_data_prices) > 0 ){
-					foreach($evovo_data_prices as $id=>$dd){
-						if( $dd['type'] =='price_option') $ind_pos[$id] = $dd;
-						if( $dd['type'] =='ind_variation') $ind_vars[$id] = $dd;
-					}
-				}
-
-			$po = isset($evovo_data['po'])? $evovo_data['po']:false;
-			$vart = isset($evovo_data['vart'])?$evovo_data['vart'] : false;
 			
-			$po_sep = isset($evovo_data['pomethod']) && $evovo_data['pomethod'] == 'separate'? true: false;
-			$var_sep = isset($evovo_data['varmethod']) && $evovo_data['varmethod'] == 'separate'? true: false;
+			if( !isset($DATA['other_data'])) return $cart_item_data;	
+			if( !isset( $DATA['other_data']['parent_id'] )) return $cart_item_data;	
+			if( !isset( $DATA['other_data']['parent_type'] )) return $cart_item_data;	
+			if( !isset($DATA['other_data']['has_vo']) && $DATA['other_data']['has_vo']) return $cart_item_data;	
 
-			$var_id = isset($evovo_data['var_id'])? $evovo_data['var_id']:'';
-			$qty = $DATA['qty'];
+			//return;
 
+			$PO = new EVOVO_Var_opts($EVENT, $EVENT->wcid, 'option');
 
-			// check for vart
-			if( $vart && !is_array($vart) ) return $cart_item_data;
-			if( $vart && is_array($vart) && sizeof($vart)==0 ) return $cart_item_data;
+			// prelim values
+				$po_sep = $EVENT->check_yn('_evovo_po_sep_sold')? true: false;
+				$var_sep = $EVENT->check_yn('_evovo_var_sep_sold')? true: false;
+				$po_uncor = $po_sep ? false: $EVENT->check_yn('_evovo_po_uncor_qty');
+				
+				$outofstock = false;
+				$item_price_additions = $sep_price_additions = 0;
 
-			// check for pot
-			if( $po && !is_array($po) ) return $cart_item_data;
+				$parent_id = $DATA['other_data']['parent_id'];
+				$parent_type = $DATA['other_data']['parent_type'];
+		
+			// price options
+			if( isset( $DATA['other_data']['options']) && is_array( $DATA['other_data']['options'] ) && count($DATA['other_data']['options']) > 0 ){
 
+				$price_options = $DATA['other_data']['options'];
 
-			$status = 'good'; $output = ''; $cart_item_keys = array();
+				// if PO as SEPARATE ticket
+				if($po_sep ){
 
-			$item_price_additions = 0;
-			$outofstock = false;
+					$ind_pos = $DATA['other_data']['options'];
 
-			// for each variation types
-				if($vart && sizeof($vart)>0){
-					$cart_item_data['evovo_data']['vart'] = $vart;
-				}
+					$CID = $cart_item_data;
+					$CID['evovo_data']['po'] = array();
 
-			// each PRICE OPTIONS			
-				if($po && sizeof($po)>0){
+					foreach($ind_pos as $po_id=>$po_qty){
+						
+						if( $po_qty == 0) continue;
 
-					$OPs = new EVOVO_Var_opts($EVENT, $wcid,'option');
-
-					$c = 0;
-
-					// if PO as SEPARATE ticket
-					if($po_sep ){
-
-						foreach($ind_pos as $po_id=>$po_val){
-							$c++;
-
-							// use a fresh cart item data copy
-							$CID = $cart_item_data;
-							
-							$OPs->set_item_data( $po_id);
-							$sin_price = $OPs->get_item_prop('regular_price');
-							$sin_stock = $OPs->get_item_prop('stock');
-
-							// get total ticket qty with this option
-							$po_tix_qty = 0;
-							if( isset($po_val['qty'])) $po_tix_qty = (int)$po_val['qty'];
-							
-							if( $po_tix_qty  == 0) continue;
-
-							// price option qty is more than available stock
-							if( $sin_stock && $po_tix_qty > $sin_stock){
-								$outofstock = true; continue;
-							}
-
-							// price option price addition
-							$po_price = $sin_price * 1;
-							
-							$CID['evovo_data']['po'] = array();
-							$CID['evovo_data']['po'][$po_id]['price'] = $sin_price;
-							// setting individual PO qty for this ticket to 1
-							$CID['evovo_data']['po'][$po_id]['qty'] = 1;
-
-							$CID['evovo_data']['def_price'] = $product_price;
-							$CID['evovo_price'] = $product_price + $po_price;
-							
-							$cart_item_keys = WC()->cart->add_to_cart(
-								$wcid,
-								$po_tix_qty,0,array(),
-								$CID
-							);
-						}
-
-						// return cart key so the ticket will not be added again
-						return $cart_item_keys;
-
-					// price option as part of single ticket
-					}else{
-
-						$price_options = array();
-
-						foreach($po as $po_id=>$po_val){
-							$c++;
-
-							$OPs->set_item_data( $po_id);
-							$sin_price = $OPs->get_item_prop('regular_price');
-							$sin_stock = $OPs->get_item_prop('stock');
-
-							// get total ticket qty with this option
-							$po_qty = 0;
-							if( isset($po_val['qty'])) $po_qty = (int)$po_val['qty'];
-							if( isset($evovo_data_prices[ $po_id ]['qty']) ) $po_qty = (int)$evovo_data_prices[ $po_id ]['qty'];
-
-							if( $po_qty  == 0) continue;
-
-							// price option qty is more than available stock
-							if( $sin_stock && $po_qty > $sin_stock){
-								$outofstock = true; continue;
-							}
-
-							// calculate price option price X qty
-							$item_price_additions += $sin_price * $po_qty;
-							$price_options[$po_id] = $po_val; // reconstruct POT array for cart
-
-							// move qty value into po array
-							$price_options[$po_id]['qty'] = $po_qty;
-						}
-					
-						$cart_item_data['evovo_data']['po'] = $price_options;
-					}					
-					
-				}
-
-			// Variations
-				$VOs = new EVOVO_Var_opts($EVENT, $wcid ,'variation');
-
-			// Variations as SEPARATE
-				if( $var_sep && count($ind_vars)>0){
-					
-					$cart_item_keys = false;
-
-					$c = 0; 
-					foreach($ind_vars as $vid=>$var_val){
-						$c++;
-
-						$CID = $cart_item_data; // use fresh CIDs
-
-						$VOs->set_item_data( $vid);
-						$sin_price = $VOs->get_item_prop('regular_price');
-						$sin_stock = $VOs->get_item_prop('stock');
-
-						$vt_qty = ( isset($var_val['qty'])? $var_val['qty']:1);
-
-						// qty is more than available stock
-						if( $sin_stock && $vt_qty > $sin_stock){
+						// use a fresh cart item data copy
+						$CID = $cart_item_data;
+						
+						$PO->set_item_data( $po_id);
+						$sin_price = $PO->get_item_prop('regular_price');
+						$sin_stock = $PO->get_item_prop('stock');
+						
+						// price option qty is more than available stock
+						if( $sin_stock && $po_qty > $sin_stock){
 							$outofstock = true; continue;
 						}
+
+						// price option price addition
+						$po_price = $sin_price * 1;
 						
-						$CID['evovo_data']['var_id'] = $vid;
-						$CID['evovo_data']['type'] = 'ind_variation';
+						$CID['evovo_data']['po'][$po_id]['price'] = $sin_price;
 
-						$CID['evovo_data']['vart'] = $var_val['variations'];
+						$CID['evovo_data']['po'][$po_id]['qty'] = 1;
 
-						$CID['evovo_data']['def_price'] = $sin_price;
-						$CID['evovo_price'] = $sin_price + $item_price_additions;
-					
+						$CID['evovo_data']['def_price'] = $product_price;
+						$CID['evovo_price'] = $product_price + $po_price;
+
+						// pass options values to cart
+						$CID['evovo_data']['options'][$po_id] = 1;
 						
 						$cart_item_keys = WC()->cart->add_to_cart(
-							$wcid,	$vt_qty, 0, array(),
+							$EVENT->wcid,
+							$po_qty,0,array(),
 							$CID
 						);
 					}
 
-					// Successfully added to cart
-						return $cart_item_keys;
+					// return cart key so the ticket will not be added again
+					return $cart_item_keys;
 
-					return false;
-
-				}
-
-			// ticket variations
-				if(!empty($var_id)){
-					$cart_item_data['evovo_data']['var_id'] = $var_id;
-					$VOs->set_item_data($var_id);
-					if($VOs->get_item_prop('regular_price'))
-						$product_price = $VOs->get_item_prop('regular_price');
+				// price option as part of single ticket
 				}else{
-					// if there are no variations, only price option and if default price is passed
-					$product_price = isset($evovo_data['defp'] ) ? $evovo_data['defp']: $product_price;
+
+					foreach($price_options as $po_id=>$po_qty){
+
+						$PO->set_item_data( $po_id);
+						$sin_price = $PO->get_item_prop('regular_price');
+						$sin_stock = $PO->get_item_prop('stock');
+						
+						// price option qty is more than available stock
+						if( $sin_stock && $po_qty > $sin_stock){
+							$outofstock = true; 
+							continue;
+						}
+
+						// calculate price option price X qty
+						$item_price_additions += $sin_price * $po_qty;
+						$price_options[$po_id] = $PO->get_parent_vos_by_id( $po_id ); 
+
+						// move qty value into po array
+						$price_options[$po_id]['qty'] = $po_qty;
+						$price_options[$po_id]['uncor'] = $po_uncor;
+
+						// pass options values to cart
+						$cart_item_data['evovo_data']['options'][$po_id] = $po_qty;
+					}
+				
+					$cart_item_data['evovo_data']['po'] = $price_options;
+					
+				}	
+			}
+
+			// variations
+			if( isset($DATA['other_data']['var_ids']) && is_array( $DATA['other_data']['var_ids'] ) && count( $DATA['other_data']['var_ids'] ) > 0 ){
+
+				$variations = $DATA['other_data']['var_ids'];
+
+				$VO = new EVOVO_Var_opts($EVENT, $EVENT->wcid ,'variation');
+
+				$all_variations_data = $PO->get_all_variation_types_dataset( $parent_id, $parent_type );
+				
+				$c = 0; 
+				foreach($variations as $var_id => $var_qty ){
+
+					if( empty( $var_id )) continue;
+
+					// sell variations as separate
+					if( $var_sep){
+
+						$cart_item_keys = false; // flush previous data
+						
+						if( $var_qty == 0 ) continue;
+
+						$CID = $cart_item_data; // use fresh CIDs
+
+						$VO->set_item_data( $var_id);
+						$sin_price = $VO->get_item_prop('regular_price');
+						$sin_stock = $VO->get_item_prop('stock');
+
+						// qty is more than available stock
+						if( $sin_stock && $var_qty > $sin_stock){
+							$outofstock = true; continue;
+						}
+
+						$item_price_additions = $sin_price * $var_qty;
+						
+						$CID['evovo_data']['var_id'] = $var_id;
+						$CID['evovo_data']['type'] = 'ind_variation';
+
+						$CID['evovo_data']['vart'] = $all_variations_data['variations'][ $var_id ]['variations'];
+
+						$CID['evovo_data']['def_price'] = $sin_price;
+						$CID['evovo_price'] = $item_price_additions;
+						
+						
+						$cart_item_keys = WC()->cart->add_to_cart(
+							$EVENT->wcid,	$var_qty, 0, array(),
+							$CID
+						);
+						
+
+					}else{
+
+						$cart_item_data['evovo_data']['var_id'] = $var_id;
+						$VO->set_item_data($var_id);
+						
+						if($VO->get_item_prop('regular_price'))
+							$product_price = $VO->get_item_prop('regular_price');				
+
+					}
 				}
 
+				if( $var_sep){
+					// Successfully added to cart
+					return $cart_item_keys;
+				}
+				
+
+				// pass variation type values to cart
+				if( isset( $DATA['other_data']['vart'] ) )
+					$cart_item_data['evovo_data']['vart'] = $DATA['other_data']['vart'];
+				
+			}else{
+				// if there are no variations, only price option and if default price is passed
+				$product_price = isset($DATA['other_data']['defp'] ) ? $DATA['other_data']['defp']: $product_price;
+			}
+			
 			// default price				
 				$cart_item_data['evovo_data']['def_price'] = $product_price;
 
 			// set item base data
 				$total_item_price = $product_price + $item_price_additions;
-
 				$cart_item_data['evovo_price'] = $total_item_price;
+				$cart_item_data['evovo_price_adds'] = $item_price_additions;
 
 				//print_r($cart_item_data);
 
@@ -492,21 +371,24 @@ class EVOVO_tx{
 	   	}
 	   	// cart validation
 			function cart_validation($cart_item_key, $cart_item, $event_id){
+
 				if( !isset($cart_item['evovo_data'])) return false;
 				
 				$evovo_data = $cart_item['evovo_data']; 
+
 
 				// grab the prices data array 
 				$evovo_data_prices = isset($evovo_data['prices']) ? isset($evovo_data['prices']): array();
 
 				$EVENT = new EVO_Event($event_id);
 
+
 				// check if variation in stock
 				if( isset($evovo_data['var_id']) ){
 					$Vs = new EVOVO_Var_opts($EVENT, $cart_item['product_id'] ,'variation');
 					$Vs->set_item_data( $evovo_data['var_id']);
 
-					$var_stock = apply_filters('evovo_var_in_stock', $Vs->in_stock(), $Vs, $EVENT);
+					$var_stock = apply_filters('evovo_var_in_stock', $Vs->in_stock(), $Vs, $EVENT, $cart_item);
 
 					if( $var_stock && $var_stock< $cart_item['quantity'] || !$var_stock){
 						WC()->cart->remove_cart_item($cart_item_key);
@@ -536,6 +418,7 @@ class EVOVO_tx{
 
 						$po_stock = apply_filters('evovo_po_in_stock',$POs->in_stock() , $POs, $EVENT);
 
+						
 						if( $po_stock && $po_stock < $po_qty || !$po_stock && $po_stock !== true){
 							WC()->cart->remove_cart_item($cart_item_key);
 							wc_add_notice( 'Ticket removed from cart, no longer available for sale!', 'error' );
@@ -627,12 +510,13 @@ class EVOVO_tx{
 		function get_vo_display_html($evovo_data, $EVENT, $wcid=''){
 			if( is_numeric($EVENT)) $EVENT = new EVO_Event( $EVENT);
 
-
 			$vo_data = $evovo_data;        	
    			$TXHelp = new evotx_helper();
    			$ticket_time = $EVENT->get_formatted_smart_time();
 
    			$separate_po = $EVENT->check_yn('_evovo_po_sep_sold');
+
+   			//print_r($vo_data);
 
    			ob_start();
         	?>
@@ -648,6 +532,7 @@ class EVOVO_tx{
 				// variations		
 				if( !empty($vo_data['vart'])):
 					$VTs = new EVOVO_Var_opts($EVENT, $wcid ,'variation_type');
+					
 					echo "<span class='evovo_subtitle'>".evo_lang('Variations for ticket')."</span>";
 					foreach($vo_data['vart'] as $vt_id=>$vt_val){
 						$VTs->set_item_data($vt_id);
@@ -656,19 +541,19 @@ class EVOVO_tx{
 				endif;
 
 				// price options
-				if( !empty($vo_data['po']) && sizeof($vo_data['po'])>0):
+				if( !empty($vo_data['options']) && sizeof($vo_data['options'])>0):
 					$POs = new EVOVO_Var_opts($EVENT, $wcid ,'option');
 					if(!$separate_po) echo "<span class='evovo_subtitle'>".evo_lang('Optional Additions')."</span>";
 
-					foreach($vo_data['po'] as $po_id=>$po_val){
+					foreach($vo_data['options'] as $po_id => $po_qty){
 						$POs->set_item_data($po_id);
 
-						$po_qty = isset($po_val['qty'])? $po_val['qty']: 1;
+						if( $po_qty == 0 ) continue;
 						$po_price = $POs->get_item_prop('regular_price') * $po_qty;
 
-						$qty_add = $po_qty>1? ' x '.$po_qty:'';
+						$qty_add = $po_qty > 1? ' x '.$po_qty:'';
 
-						echo "<span class='evovo_po evovo_spread '>". $POs->get_item_prop('name') .$qty_add. "<em style='padding-left:5px'>".$TXHelp->convert_to_currency($po_price)."</em></span>";
+						echo "<span class='evovo_po evovo_spread po_{$po_id}'>". $POs->get_item_prop('name') .$qty_add. "<em style='padding-left:5px'>".$TXHelp->convert_to_currency($po_price)."</em></span>";
 					}
 				endif;
 			?>
@@ -754,6 +639,115 @@ class EVOVO_tx{
 				}				
 			endif;
 		}
+
+	// sales insight
+		function evotx_sales_insight_data_item($A, $item_id, $item, $EVENT, $order){
+
+			$vo_data = wc_get_order_item_meta($item_id ,'_evovo_data');  
+			if(!$vo_data) return $A;
+
+			$TXHelp = new evotx_helper();
+
+			if( isset($vo_data['vart'])):
+				$VTs = new EVOVO_Var_opts($EVENT->ID, $item_id ,'variation_type');
+				foreach($vo_data['vart'] as $vt_id=>$vt_val){
+					$VTs->set_item_data($vt_id);
+					$A['evovo']['_'.$vt_id] = array(
+						'name'=>		$VTs->get_item_prop('name'),
+						'value'=>	$vt_val
+					);
+				}
+			endif;
+
+			if( isset($vo_data['po']) && sizeof($vo_data['po'])>0):
+				$POs = new EVOVO_Var_opts($EVENT->ID, $item_id ,'option');
+				
+				foreach($vo_data['po'] as $po_id=>$po_val){
+					$POs->set_item_data($po_id);
+
+					$po_qty = isset($po_val['qty'])? $po_val['qty']: 1;
+					$po_price = $POs->get_item_prop('regular_price') * $po_qty;
+
+					$A['evovo']['_p'.$po_id] = array(
+						'name'=>		$POs->get_item_prop('name'),
+						'qty'=> $po_qty,
+						'total_price'=>	$po_price
+					);
+				}
+			endif;
+
+			return $A;
+		}
+
+		function evotx_sales_insight_print($EVENT, $orders, $sales_data){
+
+			$VTs = new EVOVO_Var_opts($EVENT->ID, '' ,'variation_type');
+			if(!$VTs->is_vo()) return;
+
+			$TXHelp = new evotx_helper();
+
+			?>
+
+			<div class='evotxsi_row sales_by_variations'>
+				<h2 style='font-weight:bold'><?php _e('Sales by Ticket Variations & Options','evotx');?></h2>	
+				<h3 style='padding-bottom: 10px'><?php _e('Generated using ticket variations from variations and options addon','evotx');?></h3>
+
+				<?php
+
+				$_vts = array();
+				$variation_types = $VTs->dataset;
+				//print_r($VTs);
+
+				if( is_array($variation_types)):
+					foreach($variation_types as $vt_id=>$vt){
+						$vts = $VTs->_process_vt_options( $vt);
+						if(!$vts) continue;
+
+						?>
+						<div class='evovosi_var_type'>
+							<span class='name'><?php echo $vt['name'];?></span>
+							<span class='items'>
+						<?php
+						foreach($vts as $vto){
+
+							$qty = 0;
+							$cost = 0;
+							foreach($sales_data as $sd){
+								if( !isset($sd['evovo']) ) continue;
+								// exclude not completed orders.
+								if( isset($sd['order_status']) && $sd['order_status'] != 'completed' ) continue; 
+
+								foreach($sd['evovo'] as $sdd ){
+									if( $sdd['name'] != $vt['name']) continue;
+									if( $sdd['value'] != $vto) continue;
+
+									$qty += (int)$sd['qty']; 
+									$cost += $sd['cost'];
+								}
+								
+							}
+
+							echo "<span class='item'>
+							<span class='item_name'>{$vto}</span>
+							<span class='item_val'><em>{$qty}</em>". $TXHelp->convert_to_currency($cost). "</span>
+							</span>";
+						}
+
+						echo "</span></div>";
+						$_vts[] = array(
+							'name'=> $vt['name'],
+							'options'=>$vts,
+						);
+					}
+				endif;
+
+
+				?>	
+			</div>
+
+			<?php
+		}
+
 
 	// ADMIN
 		// CSV download attendees
@@ -846,7 +840,7 @@ class EVOVO_tx{
 				}
 				if( isset($evovo_display_data['po'])){
 					foreach($evovo_display_data['po'] as $name=>$val){
-						$output['oD'][$name] = $val;
+						$output['oD'][$name] = html_entity_decode( $val );
 						$output['oDD']['evovo'][$name] = $val;
 					}
 				}

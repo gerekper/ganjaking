@@ -1,92 +1,49 @@
 /**
  * Javascript: Seats Admin scripts
- * @version  v 1.1.1
+ * @version  1.2.1
  */
 jQuery(document).ready(function($){	
 
 	// INIT
 	runningAJAX = false;
-	lb1 = $('.evost_lightbox');
+	const body = BODY = $('body');
+	LBS = $('#evo_lightboxes');
+	lb1 = body.find('.evost_lightbox');
 	lb2 = $('.evost_lightbox_secondary');
 	json_map_data = '';
 	var map_temp = '';
 	var local_attendees = ''; var temp_attendees = '';
 
 	// LOAD seat map editor HTML view
-		$('.evost_open_seat_map_editor').on('click',function(){
-			OBJ = $(this);
-			var ajaxdataa = {};
-			ajaxdataa['action']='evost_editor_content';
-			ajaxdataa['event_id'] = OBJ .data('eid');
-			ajaxdataa['wcid'] = OBJ.data('product_id');
-			ajaxdataa['end'] = 'backend';
-			
-			$.ajax({
-				beforeSend: function(){ $('.evost_lightbox .ajde_popup_text').addClass('loading');	},	
-				url:	evost_admin_ajax_script.ajaxurl,
-				data: 	ajaxdataa,	dataType:'json', type: 	'POST',
-				success:function(data){
-					if(data.status=='good'){
-						//localize
-						json_map_data = data.j;
-						map_temp = data.template;
-						
-						temp_attendees = data.temp_attendees;
-						local_attendees = data.attendees;
+		body.on('evo_ajax_success_evost_seatmap_editor',function(event, OO, data){
+			json_map_data = data.j;
+			map_temp = data.template;
+		
+			lb1 = $('body').find('.evo_lightbox.evost_lightbox');
 
-						$('.evost_lightbox').find('.ajde_popup_text').html( data.content );
-						$('body').trigger('evost_draw_seat_map');
-						$('body').trigger('evost_process_settings');						
-					}else{}
-				},complete:function(){ $('.evost_lightbox .ajde_popup_text').removeClass('loading');	}
-			});
+			temp_attendees = data.temp_attendees;
+			local_attendees = data.attendees;
+
+			$('body').trigger('evost_draw_seat_map');
+			$('body').trigger('evost_process_settings');	
+
 		});
 
 	// when changes made the seat map
-		$('body').on('seatmap_changed', function(){
+		body.on('seatmap_changed', function(){
 			$('body').find('.evosteditor_footer').addClass('needsave');
 		});
-		$('body').on('seatmap_saved', function(){
+		body.on('seatmap_saved', function(){
 			$('body').find('.evosteditor_footer').removeClass('needsave');
 		});
 
-
-	// re-load seat editor with new seat map data
-		$('body').on('change', '.evost_trig_new_map',function(){
-			
-			OBJ = $(this);
-
-			const map_header = $('body').find('.evosteditor_header');
-
-			var ajaxdataa = {};
-			ajaxdataa['action']='evost_get_seat_map_data';
-			ajaxdataa['j'] = map_header.data('j');
-			ajaxdataa['type'] = OBJ.data('type');
-			ajaxdataa['cid'] = OBJ.val();
-			
-			$.ajax({
-				beforeSend: function(){ $('.evost_lightbox .ajde_popup_text').addClass('loading');	},	
-				url:	evost_admin_ajax_script.ajaxurl,
-				data: 	ajaxdataa,	dataType:'json', type: 	'POST',
-				success:function(data){
-					if(data.status=='good'){
-						//localize
-						json_map_data = data.j;
-						
-						temp_attendees = data.temp_attendees;
-						local_attendees = data.attendees;
-
-						$('.evost_lightbox').find('.ajde_popup_text').html( data.content );
-						$('body').trigger('evost_draw_seat_map');
-						$('body').trigger('evost_process_settings');						
-					}else{}
-				},complete:function(){ $('.evost_lightbox .ajde_popup_text').removeClass('loading');	}
-			});
-		});	
-
 	// OPEN FORMS
-		$('body').on('evost_open_form', function(event, type, method, OBJ){
-			if(runningAJAX) return false;
+		BODY.on('click','.evost_trigger_lb2',function(event){
+			const d = $(this).data('d');
+			BODY.trigger('evost_open_form',[ d.type, d.method, $(this), d.t ]);
+		});
+		$('body').on('evost_open_form', function(event, type, method, OBJ, o_title){
+		
 			h = $('.evosteditor_header');
 			j = get_hj();
 
@@ -135,94 +92,102 @@ jQuery(document).ready(function($){
 					});
 				}
 			}
-			
-			runningAJAX = true;
-			$.ajax({
-				beforeSend: function(){ 
-					$('.evost_lightbox_secondary .ajde_popup_text').addClass('loading').html('');	
-				},	
-				url:	evost_admin_ajax_script.ajaxurl,
-				data: 	ajaxdataa,	dataType:'json', type: 	'POST',
-				success:function(data){
-					if(data.status=='good'){
-						$('.evost_lightbox_secondary').find('.ajde_popup_text').html( data.content );
 
-						// for section condition based fields
-						if(ajaxdataa.data.item_type != 'settings'){
-							f = $('.evost_lightbox_secondary').find('.evost_editor_form');
-							f.find('.evost_form_if_start').each(function(){
-								v = f.find('select[name="'+ $(this).attr('name')+'"]').val();
-								a = $(this).data('val');
+			var title = 'Seat Map Editing';
+			if( o_title !='' && o_title !== undefined ) title = o_title;
 
-								c = false;
-								$.each(a, function(i, val){
-									if( val == v) c = true;
-								});
+			$('body').trigger('evo_lightbox_trigger',[{
+				'uid':'evost_seatmap_editing',
+				't': title,
+				'lbc':'evost_lightbox_secondary',
+				'lightbox_loader':false,
+				'ajax':'yes',
+				'd':ajaxdataa
+			}]);
 
-								$(this).toggle(c);
-							});
-
-							// for on change
-							f.find('select').on('change',function(){
-								v = $(this).val();
-								n = $(this).attr('name');
-
-								f.find('.evost_form_if_start[name="'+n+'"]').each(function(){
-									a = $(this).data('val');
-
-									c = false;
-									$.each(a, function(i, val){
-										if( val == v) c = true;
-									});
-
-									$(this).toggle(c);
-								});
-							});
-
-							// icon selection
-							f.find('.evost_icon').on('click','i.fa', function(){
-								fa = $(this).data('val');
-								icp = $(this).closest('p');
-								icp.find('.selected_icons i').attr('class','fa '+fa);
-								icp.find('.selected_icons').show();
-								icp.find('.icon_area').hide();
-								icp.find('input').val( fa );
-							});
-							f.on('click','.evost_form_change_icon',function(){
-								$(this).closest('p').find('.icon_area').toggle();
-							});
-							f.on('click','.evost_form_remove_icon',function(){
-								p = $(this).closest('p');
-								p.find('input').val('');
-								p.find('.selected_icons').hide();
-								p.find('.selected_icons i').attr('class','fa');
-								p.find('.icon_area').show();
-
-							});
-
-							// number change
-							f.on('click','.evost_form_number_change',function(){
-								p = $(this).closest('p');
-								c = parseInt(p.find('input').val());
-								add = $(this).hasClass('plus')? true: false;
-
-								c = add? c+1: c-1;
-								c = c<1? 1: c;
-								p.find('input').val( c );
-								p.find('i').html( c );
-							});
-						}
-
-
-					}else{}
-				},complete:function(){ 
-					$('.evost_lightbox_secondary .ajde_popup_text').removeClass('loading');	
-					runningAJAX = false;
-				}
-			});
 		});
 
+		body.on('evo_ajax_success_evost_seatmap_editing',function(event, OO, data){
+			if(data.status=='good'){
 
+				LB2 = $('body').find('.evo_lightbox.evost_lightbox_secondary');
+				//console.log(OO);
+
+				ajaxdataa = OO.ajaxdata;
+
+				// hide delete button
+					if( ajaxdataa.method == 'new'){
+						LB2.find('.evost_delete_item').hide();
+					}else{
+						LB2.find('.evost_delete_item').show();
+					}
+
+				// for section condition based fields
+				if(ajaxdataa.data.item_type != 'settings'){
+					f = LB2.find('.evost_editor_form');
+					f.find('.evost_form_if_start').each(function(){
+						v = f.find('select[name="'+ $(this).attr('name')+'"]').val();
+						a = $(this).data('val');
+
+						c = false;
+						$.each(a, function(i, val){
+							if( val == v) c = true;
+						});
+
+						$(this).toggle(c);
+					});
+
+					// for on change
+					f.find('select').on('change',function(){
+						v = $(this).val();
+						n = $(this).attr('name');
+
+						f.find('.evost_form_if_start[name="'+n+'"]').each(function(){
+							a = $(this).data('val');
+
+							c = false;
+							$.each(a, function(i, val){
+								if( val == v) c = true;
+							});
+
+							$(this).toggle(c);
+						});
+					});
+
+					// icon selection
+					f.find('.evost_icon').on('click','i.fa', function(){
+						fa = $(this).data('val');
+						icp = $(this).closest('p');
+						icp.find('.selected_icons i').attr('class','fa '+fa);
+						icp.find('.selected_icons').show();
+						icp.find('.icon_area').hide();
+						icp.find('input').val( fa );
+					});
+					f.on('click','.evost_form_remove_icon',function(){
+						p = $(this).closest('p');
+						p.find('input').val('');
+						p.find('.selected_icons').hide();
+						p.find('.selected_icons i').attr('class','fa');
+						p.find('.icon_area').show();
+
+					});
+
+					// number change
+					f.on('click','.evost_form_number_change',function(){
+						p = $(this).closest('p');
+						c = parseInt(p.find('input').val());
+						add = $(this).hasClass('plus')? true: false;
+
+						c = add? c+1: c-1;
+						c = c<1? 1: c;
+						p.find('input').val( c );
+						p.find('i').html( c );
+					});
+				}
+
+
+			}else{}
+		});
 	
 	// SUBMIT FORM
 		$('body').on('click','.evost_save_form',function(){
@@ -236,23 +201,27 @@ jQuery(document).ready(function($){
 			ajaxdataa['otherdata'] = {};
 
 			// validate required fields
-			validated = true;
-				f.find('.req').each(function(){
-					if($(this).is(':visible') && !$(this).val()){						
-						$(this).addClass('error');
-						validated = false;
-					}else{
-						$(this).removeClass('error');
-					}
-				});
+				validated = true;
+					f.find('.req').each(function(){
+						if($(this).is(':visible') && !$(this).val()){						
+							$(this).addClass('error');
+							validated = false;
+						}else{
+							$(this).removeClass('error');
+						}
+					});
 
-			if(!validated){
-				show_lb_msg('Required Fields Missing!', 'bad', '', false);
-				return false;
-			}
+				if(!validated){
+					show_lb_msg('Required Fields Missing!', 'bad', '', false);
+					return false;
+				}
 
 			// generate data
 				f.find('input').each( function(index, data){
+					if( $(this).attr('name') === undefined) return true;
+					ajaxdataa.formdata[ $(this).attr('name') ] = $(this).val();
+				});
+				f.find('textarea').each( function(index, data){
 					if( $(this).attr('name') === undefined) return true;
 					ajaxdataa.formdata[ $(this).attr('name') ] = $(this).val();
 				});
@@ -262,52 +231,64 @@ jQuery(document).ready(function($){
 				});
 
 				ajaxdataa['data'] = j;
+
+			$(this).evo_admin_get_ajax({
+				'ajaxdata':ajaxdataa,
+				'lightbox_key':'evost_lightbox_secondary',
+				'uid':'evost_submit_form',
+				'load_new_content':false,
+				'hide_lightbox':2000
+			});		
 			
-			runningAJAX = true;
-			$.ajax({
-				beforeSend: function(){ $('.evost_lightbox_secondary .ajde_popup_text').addClass('loading');	},	
-				url:	evost_admin_ajax_script.ajaxurl,
-				data: 	ajaxdataa,	dataType:'json', type: 	'POST',
-				success:function(data){
-					if(data.status=='good'){
-						afd = ajaxdataa.formdata;
+		});
 
-						// when settings saved
-						if( afd.item_type == 'settings'){
-							b = $('.evost_lightbox').find('.evost_settings_btn');
-							b.data('j', data.settings_data);							
-							show_lb_msg(data.msg);
-						}else{ 
+		body.on('evo_ajax_success_evost_submit_form',function(event, OO, data){
+			if(data.status=='good'){
 
-							// redraw map 
-							json_map_data = data.j;
-							_classes = 'editing '+ (afd.item_type=='row'?'rowedit':'') + (afd.item_type=='seat'?'seatedit':'');
-							$('body').trigger('evost_draw_seat_map', [ afd.section_id, _classes]);
-												
-							if(afd.item_type=='section' && afd.method != 'new' && data.j[ afd.section_id ]['section_name']!== undefined){
-								sn = data.j[ afd.section_id ]['section_name'];
-								$('.evost_lightbox').find('.primary_stage b').html( sn );
-							}
+				afd = OO.ajaxdata.formdata;
 
-							show_lb_msg(data.msg, '', '', false);
-						}
+				// when settings saved
+				if( afd.item_type == 'settings'){
+					b = LBS.find('.evost_settings_btn');
+					b.data('j', data.settings_data);							
+					show_lb_msg(data.msg);
+				}else{ 
 
-						$('body').trigger('evost_process_settings'); // update map settings
-					}else{}
-				},complete:function(){ 
-					$('.evost_lightbox_secondary .ajde_popup_text').removeClass('loading');	
-					runningAJAX = false;
+					// redraw map 
+					json_map_data = data.j;
+					_classes = 'editing '+ (afd.item_type=='row'?'rowedit':'') + 
+						(afd.item_type=='seat'?'seatedit':'');
+					$('body').trigger('evost_draw_seat_map', [ afd.section_id, _classes]);
+										
+					if(afd.item_type=='section' && afd.method != 'new' && data.j[ afd.section_id ]['section_name']!== undefined){
+						sn = data.j[ afd.section_id ]['section_name'];
+						LBS.find('.primary_stage b').html( sn );
+					}
 
-					// hide secondary form lightbox
-					setTimeout( function(){ 
-						$('body').trigger('evoadmin_lightbox_hide',['evost_lightbox_secondary']);
-					},3000);
+					show_lb_msg(data.msg, '', '', false);
 				}
-			});
+
+				$('body').trigger('evost_process_settings'); // update map settings
+			}else{}
 		});
 
 	// DELETE item
-		$('.evost_lightbox_secondary').on('click','.evost_delete_item',function(){
+		LBS.on('click','.evost_delete_section',function(){
+			s_id = _hj_get_prop( 'section_id');
+			var ajaxdataa =  {}
+			ajaxdataa['action']= 'evost_delete_item';
+			ajaxdataa['formdata']= get_hj();
+						
+			$(this).evo_admin_get_ajax({
+				'ajaxdata':ajaxdataa,
+				'lightbox_key':'evost_lightbox',
+				'uid':'evost_delete_item',
+				'load_new_content':false,
+				'hide_lightbox':false
+			});		
+
+		});
+		LBS.on('click','.evost_delete_item',function(){
 			if(runningAJAX) return false;
 			var ajaxdataa = {};
 			ajaxdataa['action']='evost_delete_item';
@@ -321,28 +302,25 @@ jQuery(document).ready(function($){
 				}
 			});
 
-			runningAJAX = true;
-			$.ajax({
-				beforeSend: function(){ $('.evost_lightbox_secondary .ajde_popup_text').addClass('loading');	},	
-				url:	evost_admin_ajax_script.ajaxurl,
-				data: 	ajaxdataa,	dataType:'json', type: 	'POST',
-				success:function(data){
-					if(data.status=='good'){
-						_hj_clear();
-						json_map_data = data.j;
-						$('body').trigger('evost_draw_seat_map');
-						$('.evost_lightbox').find('.evosteditor_content').trigger('click');	// go back to main editor
-						show_lb_msg(data.msg);
-					}else{}
-				},complete:function(){ 
-					$('.evost_lightbox_secondary .ajde_popup_text').removeClass('loading');	
-					runningAJAX = false;
-				}
-			});
+			$(this).evo_admin_get_ajax({
+				'ajaxdata':ajaxdataa,
+				'lightbox_key':'evost_lightbox_secondary',
+				'uid':'evost_delete_item',
+				'load_new_content':false,
+				'hide_lightbox':false
+			});			
+		});
+		body.on('evo_ajax_success_evost_delete_item',function(event, OO, data){
+			if(data.status=='good'){
+				_hj_clear();
+				json_map_data = data.j;
+				$('body').trigger('evost_draw_seat_map');
+				LBS.find('.evosteditor_content').trigger('click');	// go back to main editor
+			}else{}
 		});
 	
 	// CLICK on SECTION
-		$('.evost_lightbox').on('click','.evosteditor_content',function(event){
+		LBS.on('click','.evosteditor_content',function(event){
 			event.stopPropagation();
 			if($(this).hasClass('editing')){
 				// HIDE
@@ -456,8 +434,11 @@ jQuery(document).ready(function($){
 				sd = $('.evosteditor_header').find('.secondary');
 				sd.show();
 
+				// hide add new button
+				$('.evosteditor_header').find('.evost_new_section').hide();
+
 				// hide row and seat selection for sections
-				cond = ( s_type == 'una' || s_type == 'aoi')? false: true;
+				cond = ( s_type == 'una' || s_type == 'aoi' || s_type == 'boo')? false: true;
 
 				sd.find('.evost_focus_item').toggle(cond);
 				$('.evosteditor_content').addClass('editing');			
@@ -469,6 +450,9 @@ jQuery(document).ready(function($){
 				$('.evosteditor_header').find('.secondary').hide();
 				$('.evosteditor_content').removeClass('editing');
 				$('.evosteditor_header').find('a.evost_focus_item.evost_edit_section').trigger('click');
+				// show add new button
+				$('.evosteditor_header').find('.evost_new_section').show();
+
 				
 				_hj_clear();
 			});
@@ -480,7 +464,7 @@ jQuery(document).ready(function($){
 
 		
 		// section editing
-			$('.evost_lightbox').on('click','.evosteditor_header .evost_edit_section',function(){
+			$('.evo_lightboxes').on('click','.evosteditor_header .evost_edit_section',function(){
 				h = $('.evosteditor_header');
 				s_id = _hj_get_prop( 'section_id');
 				s = lb1.find('#evost_section_'+s_id);				
@@ -506,7 +490,7 @@ jQuery(document).ready(function($){
 			});
 
 		// row editing
-			$('.evost_lightbox').on('click','.evosteditor_header .evost_edit_row',function(){
+			$('.evo_lightboxes').on('click','.evosteditor_header .evost_edit_row',function(){
 				h = $('.evosteditor_header');
 				s_id = _hj_get_prop( 'section_id');
 				s = lb1.find('#evost_section_'+s_id);		
@@ -532,12 +516,11 @@ jQuery(document).ready(function($){
 			});
 
 			// click on a row to open row edit form
-			$('.evost_lightbox').on('click','.rowedit .evost_row',function(){
-				$('body').find('.evost_load_lightbox').trigger('click');
+			LBS.on('click','.rowedit .evost_row',function(){
 				$('body').trigger('evost_open_form',['row','edit', $(this)]);
 			});
 		// seat editing
-			$('.evost_lightbox').on('click','.evosteditor_header .evost_edit_seat',function(){
+			LBS.on('click','.evosteditor_header .evost_edit_seat',function(){
 				s_id = _hj_get_prop( 'section_id');
 				s = lb1.find('#evost_section_'+s_id);		
 
@@ -562,27 +545,25 @@ jQuery(document).ready(function($){
 					});
 
 			});
-			$('.evost_lightbox').on('click','.seatedit .seat',function(){
-				$('body').find('.evost_load_lightbox').trigger('click');
+			LBS.on('click','.seatedit .seat',function(){
 				$('body').trigger('evost_open_form',['seat','edit', $(this)]);
 			});
 
 		// ADD NEW section
-			lb1.on('click','.evost_new_section',function(){
+			body.on('click','.evost_new_section',function(){
 				_hj_set_prop('item_type','section');
-				$('body').find('.evost_load_lightbox').trigger('click');
-				$('body').trigger('evost_open_form',['section','new']);
+				$('body').trigger('evost_open_form',['section','new', $(this)]);
 			});
-			lb1.on('click','.evost_edit_selected_section',function(){
+			body.on('click','.evost_edit_selected_section',function(){
 				_hj_set_prop('item_type','section');
-				$('body').find('.evost_load_lightbox').trigger('click');
-				$('body').trigger('evost_open_form',['section','edit']);
+				$('body').trigger('evost_open_form',['section','edit', $(this), $(this).data('t')]);
 			});
 
 		// ROTATE
-			$('.ajde_popup_text').on('click','.evost_rotate_l',function(){
+			LBS.on('click','.evost_rotate_l',function(){
+				this_LB = $(this).closest('.evo_lightbox');
 				s_id = _hj_get_prop( 'section_id');
-				s = lb1.find('#evost_section_'+s_id);		
+				s = this_LB.find('#evost_section_'+s_id);		
 				
 				if(s === undefined) return false;
 
@@ -592,9 +573,10 @@ jQuery(document).ready(function($){
 				_rotate_section(s,current_angle, new_angle);
 
 			});
-			$('.ajde_popup_text').on('click','.evost_rotate_r',function(){
+			LBS.on('click','.evost_rotate_r',function(){
+				this_LB = $(this).closest('.evo_lightbox');
 				s_id = _hj_get_prop( 'section_id');
-				s = lb1.find('#evost_section_'+s_id);
+				s = this_LB.find('#evost_section_'+s_id);
 				if(s === undefined) return false;
 
 				current_angle = parseInt(s.data('ang'));
@@ -611,16 +593,19 @@ jQuery(document).ready(function($){
 			}
 
 		// Duplicate
-			$('.ajde_popup_text').on('click','.evost_dup',function(){
+			LBS.on('click','.evost_dup',function(){
+				this_LB = $(this).closest('.evo_lightbox');
 				s_id = _hj_get_prop( 'section_id');
-				hj = lb1.find('.evosteditor_header').data('j');
+				hj = this_LB.find('.evosteditor_header').data('j');
 
 				var ajaxdataa = {};
 				ajaxdataa['action']='evost_duplicate_section';
 				ajaxdataa['data'] = hj;
 				
 				$.ajax({
-					beforeSend: function(){ $('.evost_lightbox .ajde_popup_text').addClass('loading');	},	
+					beforeSend: function(){ 
+						this_LB.find('.evolb_content').addClass( 'loading');
+					},	
 					url:	evost_admin_ajax_script.ajaxurl,
 					data: 	ajaxdataa,	dataType:'json', type: 	'POST',
 					success:function(data){
@@ -629,12 +614,14 @@ jQuery(document).ready(function($){
 							$('body').trigger('evost_draw_seat_map', [s_id, 'editing']);
 							show_lb_msg(data.msg,'good','ed');
 						}else{}
-					},complete:function(){ $('.evost_lightbox .ajde_popup_text').removeClass('loading');	}
+					},complete:function(){ 
+						this_LB.find('.evolb_content').removeClass( 'loading');
+					}
 				});
 			});
 
 		// view attendees
-			$('.ajde_popup_text').on('click','.evost_attendees',function(){
+			LBS.on('click','.evost_attendees',function(){
 				$('body').trigger('evo_open_admin_lightbox',['evotx_lightbox']);
 
 				s_id = _hj_get_prop( 'section_id');
@@ -670,11 +657,10 @@ jQuery(document).ready(function($){
 
 	// Save editor changes
 		$('body').on('click','.evost_save_seating_changes',function(){
-			lb = $('.evost_seating_map');
 			j = json_map_data;
 
-			e = lb.find('.evost_sections_container');
-			hj = lb.find('.evosteditor_header').data('j');
+			e = LBS.find('.evost_sections_container');
+			hj = LBS.find('.evosteditor_header').data('j');
 
 			s = {};
 			// section positions and location data
@@ -694,27 +680,26 @@ jQuery(document).ready(function($){
 			ajaxdataa['action']='evost_editor_save_changes';
 			ajaxdataa['data'] = hj;
 			ajaxdataa['s'] = s;
-			if( $('body').find('.evobost_block_id').length>0) ajaxdataa['block_id'] = $('body').find('.evobost_block_id').val();
-			
-			$.ajax({
-				beforeSend: function(){ $('.evost_lightbox .ajde_popup_text').addClass('loading');	},	
-				url:	evost_admin_ajax_script.ajaxurl,
-				data: 	ajaxdataa,	dataType:'json', type: 	'POST',
-				success:function(data){
-					if(data.status=='good'){
-						show_lb_msg(data.msg,'good','ed');
-					}else{}
-				},complete:function(){ 
-					$('.evost_lightbox .ajde_popup_text').removeClass('loading');
-					$('body').trigger('seatmap_saved');
-				}
-			});
+			if( $('body').find('.evobost_block_id').length>0) 
+				ajaxdataa['block_id'] = $('body').find('.evobost_block_id').val();
 
+			$(this).evo_admin_get_ajax({
+				'ajaxdata':ajaxdataa,
+				'lightbox_key':'evost_lightbox',
+				'uid':'evost_editor_save_changes',
+				'load_new_content':false,
+			});	
+			
 		});	
+		body.on('evo_ajax_success_evost_editor_save_changes',function(event, OO, data){
+			if(data.status=='good'){
+				$('body').trigger('seatmap_saved');
+			}else{}
+		});
 	
 	// MAP DRAWING
 		$('body').on('evost_draw_seat_map',function(event, section_id, classes){
-			c = lb1.find('.evost_sections_container');
+			c = LBS.find('.evost_sections_container');
 			c.evostMapDrawer({
 				json: json_map_data,
 				section_id: section_id,
@@ -741,9 +726,12 @@ jQuery(document).ready(function($){
 			j = json_map_data;
 			ed = lb1.find('.evost_section.editing').length;
 
-			ps = ed>0 ? lb1.find('.evost_section.editing').data('id'): false; // current section id
+			// current section id
+			ps = ed>0 ? lb1.find('.evost_section.editing').data('id'): false;
 
 			sold_count = 0;
+			inprogress_count = 0;
+
 
 			// sold seats count
 			if(local_attendees ){
@@ -752,14 +740,18 @@ jQuery(document).ready(function($){
 					if(!td.hasOwnProperty('oDD')) return true;
 					if(!td.hasOwnProperty('oS')) return true;
 
-					if( td.oS != 'completed') return true;
+					if( td.oS != 'completed'){
+						return true;
+					}else{
+						inprogress_count++;
+						if( ps && !oDD.seat_slug.match( ps)) return true;						
+					} 
 					
 					oDD = td.oDD;
 
 					if(!oDD.hasOwnProperty('seat_slug')) return true;
 					if(!oDD.seat_slug) return true;
 
-					//console.log(tn+' '+oDD.seat_slug+' '+ps);
 					if( ps && !oDD.seat_slug.match( ps)) return true;
 
 					sold_count++;
@@ -787,16 +779,11 @@ jQuery(document).ready(function($){
 			// add to html
 			sh.find('.seat_count b').html( seat );
 			sh.find('.seat_sold b').html( sold_count );
+			sh.find('.seat_inprogress b').html( inprogress_count );
 
 		});
 
 	// SETTINGS
-		// toggle
-			$('.evost_lightbox').on('click','.evost_settings_btn',function(){
-				$('body').find('.evost_load_lightbox').trigger('click');
-				$('body').trigger('evost_open_form',['settings','edit']);
-				//$(this).closest('.ajde_popup_text').find('.evost_settings').slideToggle();
-			});
 		
 		// process seat map settings
 			$('body').on('evost_process_settings', function(event){
@@ -812,6 +799,9 @@ jQuery(document).ready(function($){
 		  
 		    $('body').on('click','.evost_select_image ',function(event) {
 		    	var obj = jQuery(this);
+
+		    	const LB = obj.closest('.evo_lightbox');
+		    	const LB1 = $('body').find('.evo_lightbox.evost_lightbox');
 
 		    	IMG_URL = '';
 
@@ -836,10 +826,10 @@ jQuery(document).ready(function($){
 					file_frame.on( 'select', function() {
 
 						attachment = file_frame.state().get('selection').first().toJSON();
-						console.log(attachment);
-
-						lb2.find('.evost_seat_img').val( attachment.id );
-						lb1.find('.evost_sections_container').css('background-image', 'url('+attachment.url+')' );
+						
+						LB.find('.evost_seat_img').val( attachment.id );
+						LB.find('.evost_img_holder').html( '<img src="'+attachment.url+'" style="width:200px"/>' );
+						LB1.find('.evost_sections_container').css('background-image', 'url('+attachment.url+')' );
 						var old_text = obj.attr('value');
 						var new_text = obj.data('txt');
 
@@ -851,8 +841,9 @@ jQuery(document).ready(function($){
 
 				}else{
 					
-					lb2.find('.evost_seat_img').val( '' );
-			  		lb1.find('.evost_sections_container').css('background-image', '' );
+					LB.find('.evost_seat_img').val( '' );
+					LB.find('.evost_img_holder').html('');
+			  		LB1.find('.evost_sections_container').css('background-image', '' );
 
 			  		var old_text = obj.attr('value');
 					var new_text = obj.attr('data-txt');
@@ -925,11 +916,7 @@ jQuery(document).ready(function($){
 			$('body').on('evo_data_uploader_submitted', function(event, reader_event, msg_elm, upload_box){
 
 				if( $(upload_box).data('id') != 'evo_seatdata_upload') return;
-
-				const LB = $('body').find('.evost_lightbox_secondary');
-				const LB1 = $('.evost_seating_map');
-
-				msg_elm.html('Reading Seat map data.');  
+				
 				               
                 var new_json_map_data = $.parseJSON(reader_event.target.result);
 
@@ -940,29 +927,22 @@ jQuery(document).ready(function($){
                 // redraw the seat map using new seat data				                
                 $('body').trigger('evost_draw_seat_map');				               
 
-	        	msg_elm.html('Seat map data updated. Please save changes.'); 
-
 	        	// save new map into meta field 
 	        	var ajaxdataa = {};
 				ajaxdataa['action']='evost_save_uploaded_map';
 				ajaxdataa['data'] = json_map_data;
 				ajaxdataa['data_back'] = get_hj();
 
-				
-				$.ajax({
-					beforeSend: function(){ 
-						LB.find('.ajde_popup_text').addClass('loading');	},	
-					url:	evost_admin_ajax_script.ajaxurl,
-					data: 	ajaxdataa,	dataType:'json', type: 	'POST',
-					success:function(data){
-						if(data.status=='good'){
-							show_lb_msg(data.msg,'good');
-						}else{}
-					},complete:function(){ 
-						LB.find('.ajde_popup_text').removeClass('loading');
-						$('body').trigger('seatmap_saved');
-					}
-				});
+				$(this).evo_admin_get_ajax({
+					'ajaxdata':ajaxdataa,
+					'lightbox_key':'evost_upload_data',
+					'uid':'evost_upload_data',
+					'load_new_content':false,
+				});	
+
+			});
+			BODY.on('evo_ajax_success_evost_upload_data',function(event, OO, data){
+				$('body').trigger('seatmap_saved');
 			});
 
 		// clear all seat map data
@@ -973,72 +953,61 @@ jQuery(document).ready(function($){
 				ajaxdataa['action']='evost_clear_map';
 				ajaxdataa['data'] = get_hj();
 
-				$.ajax({
-					beforeSend: function(){ 
-						LB.find('.ajde_popup_text').addClass('loading');	},	
-					url:	evost_admin_ajax_script.ajaxurl,
-					data: 	ajaxdataa,	dataType:'json', type: 	'POST',
-					success:function(data){
-						if(data.status=='good'){
-
-							json_map_data = '';
-							$('body').trigger('evost_draw_seat_map');			
-
-							show_lb_msg(data.msg,'good');
-						}else{show_lb_msg(data.msg,'bad');}
-					},complete:function(){ 
-						LB.find('.ajde_popup_text').removeClass('loading');
-						$('body').trigger('seatmap_saved');
-					}
-				});
+				$(this).evo_admin_get_ajax({
+					'ajaxdata':ajaxdataa,
+					'lightbox_key':'evost_lightbox_secondary',
+					'uid':'evost_clear_all_data',
+					'load_new_content':false,
+				});	
+				
+			});
+			BODY.on('evo_ajax_success_evost_clear_all_data',function(event, OO, data){
+				if(data.status=='good'){
+					json_map_data = '';
+					$('body').trigger('evost_draw_seat_map');
+					$('body').trigger('seatmap_saved');	
+				}else{}
 			});
 
 		// make all seats available for reserve
 			$('body').on('click','.evo_data_av_trigger',function(){
-				const LB = $('body').find('.evost_lightbox_secondary');
-
+				
 				var ajaxdataa = {};
 				ajaxdataa['action']='evost_make_all_av';
 				ajaxdataa['data'] = get_hj();
 
-				$.ajax({
-					beforeSend: function(){ 
-						LB.find('.ajde_popup_text').addClass('loading');	},	
-					url:	evost_admin_ajax_script.ajaxurl,
-					data: 	ajaxdataa,	dataType:'json', type: 	'POST',
-					success:function(data){
-						if(data.status=='good'){
+				$(this).evo_admin_get_ajax({
+					'ajaxdata':ajaxdataa,
+					'lightbox_key':'evost_lightbox_secondary',
+					'uid':'evost_all_available',
+					'load_new_content':false,
+				});					
+			});
+			BODY.on('evo_ajax_success_evost_all_available',function(event, OO, data){
 
-							json_map_data = data.new_map_data;
-							$('body').trigger('evost_draw_seat_map');			
-
-							show_lb_msg(data.msg,'good');
-							
-						}else{show_lb_msg(data.msg,'bad');}
-					},complete:function(){ 
-						LB.find('.ajde_popup_text').removeClass('loading');
-						$('body').trigger('seatmap_saved');
-					}
-				});
+				if(data.status=='good'){
+					json_map_data = data.new_map_data;
+					$('body').trigger('evost_draw_seat_map');
+				}
+				$('body').trigger('seatmap_saved');
 			});
 			
 	// ADDONS
-		// Evo VO integration
-		$('body').on('evovo_admin_voform_submitted',function(event, data, BTN){
-			var new_stock = 0;
-			if( 'all_vo_data' in data){
-				if( 'variation' in data.all_vo_data){
-					$.each(data.all_vo_data.variation, function(ind, itm){
-						new_stock += parseInt(itm.stock);
-					});
-				}
-			}
+		// bookings for seats
+			$('body').on('evo_ajax_success_evobs_load_block_seats',function(event, OO, data){
+			if(data.status=='good'){
+				json_map_data = data.j;
+				map_temp = data.template;
+						
+				temp_attendees = data.temp_attendees;
+				local_attendees = data.attendees;
 
-			if( new_stock >0){
-				$('body').find('.evost_editor_form').find('input[name="capacity"]').val( new_stock );
+				$('body').trigger('evost_draw_seat_map');
 			}
-
 		});
+	
+
+
 
 	// SUPPORTIVE
 		// drag and resize
@@ -1052,6 +1021,13 @@ jQuery(document).ready(function($){
 				}
 			});
 			$('.evost_section.editing.type_una').resizable({
+				disabled: false,
+				containment: $('.evosteditor_content'),
+				stop: function(event, ui){
+					$('body').trigger('seatmap_changed');
+				}
+			});
+			$('.evost_section.editing.type_boo').resizable({
 				disabled: false,
 				containment: $('.evosteditor_content'),
 				stop: function(event, ui){
@@ -1074,9 +1050,10 @@ jQuery(document).ready(function($){
 			$('.evost_section.type_aoi').resizable('disable');
 		}
 		// tool tips
-		$('.evost_lightbox').tooltip({
+		$('.evo_lightboxes').tooltip({
 			selector:'[tip]',
 			items:'[tip]',
+			track:false,
 			tooltipClass: "evost_tooltip",
 			content: function(){
 				return $(this).attr('tip');

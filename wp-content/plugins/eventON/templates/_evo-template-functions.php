@@ -97,7 +97,7 @@ function evotemp_before_header(){
 			// virtual event access
 			if($_url_var == 'event_access'){					
 				
-				$vir_url = $EVENT->get_vir_url();
+				$vir_url = $EVENT->virtual_url();
 				
 				if($vir_url){
 					wp_redirect( $vir_url ); exit;

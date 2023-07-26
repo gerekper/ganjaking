@@ -1,6 +1,7 @@
 <?php
 /**
  * Templates for seat
+ * @version 1.2
  */
 
 class EVOST_Temp{
@@ -36,7 +37,7 @@ class EVOST_Temp{
 	function seat_map($is_admin= true){
 		?>
 			{{#each sections}}
-			<span id='evost_section_{{@key}}' class='evost_section turn{{ang}} align_{{align}} type_{{type}} {{avail type capacity}} {{#ifE shape}}shape_{{shape}}{{/ifE}} <?php echo $is_admin? 'editable':'';?>' data-id='{{@key}}' data-ang='{{ang}}' data-index='{{section_index}}' data-name='{{section_name}}' tip='{{section_name}}' style='top:{{top}}px; left:{{left}}px; background-color:#{{bgc}}; {{#ifCOND bgcA '==' 'yes'}}background-color:transparent;{{/ifCOND}} {{#ifCOND brd '==' 'yes'}}border:none;{{/ifCOND}} {{#ifE h}}height:{{h}}px;{{/ifE}} {{#ifE w}}width:{{w}}px{{/ifE}}'>
+			<span id='evost_section_{{@key}}' class='evost_section turn{{ang}} align_{{align}} type_{{type}} {{avail type available}} {{#ifE shape}}shape_{{shape}}{{/ifE}} ss_{{seat_shape}} <?php echo $is_admin? 'editable':'';?>' data-id='{{@key}}' data-ang='{{ang}}' data-index='{{section_index}}' data-name='{{section_name}}' tip='{{section_name}}' style='top:{{top}}px; left:{{left}}px; background-color:#{{bgc}}; {{#ifCOND bgcA '==' 'yes'}}background-color:transparent;{{/ifCOND}} {{#ifCOND brd '==' 'yes'}}border:none;{{/ifCOND}} {{#ifE h}}height:{{h}}px;{{/ifE}} {{#ifE w}}width:{{w}}px{{/ifE}}'>
 				<u style='color:#{{fc}}'>{{section_name}}
 					{{#ifCOND type "==" "aoi"}}
 						{{#ifE icon}}
@@ -54,6 +55,10 @@ class EVOST_Temp{
 					</span>
 				{{/each}}
 				{{/ifCOND}}
+
+				{{#ifCOND type "==" "boo"}}
+
+				{{/ifCOND}}
 			</span>
 			{{/each}}
 		<?php
@@ -69,11 +74,12 @@ class EVOST_Temp{
 			<li id='{{@key}}' data-seat_slug='{{seat_slug}}' data-qty='{{seat_qty}}'>
 				<span class="evost_remove_tix">x</span>
 				<div class="evost_tix_stub_content" style="display:block">
-					<div class="evost_tt_content">
-						<div class="evost_ttc_data section">
-							<span class="label"><?php evo_lang_e('SEC');?></span>
-							<span class="value sectionvalue">{{section}}</span></div>
-						{{#ifCOND seat_type "==" "seat"}}
+					{{#ifCOND seat_type "==" "seat"}}
+						<div class="evost_tt_content">
+							<div class="evost_ttc_data section">
+								<span class="label"><?php evo_lang_e('SEC');?></span>
+								<span class="value sectionvalue">{{section}}{{seat_type}}</span>
+							</div>
 							<div class="evost_ttc_data row">
 								<span class="label"><?php evo_lang_e('ROW');?></span>
 								<span class="value rowvalue">{{row}}</span></div>
@@ -81,14 +87,35 @@ class EVOST_Temp{
 								<span class="label"><?php evo_lang_e('SEAT');?></span>
 								<span class="value seatvalue">{{seat_number}}</span>
 							</div>
-						{{/ifCOND}}
-					</div>
+						</div>
+					{{/ifCOND}}
+						
 					{{#ifCOND seat_type "==" "unaseat"}}
+						<div class="evost_tt_content">
+							<div class="evost_ttc_data section">
+								<span class="label"><?php evo_lang_e('Unassigned Seating');?>: {{section}}</span>
+							</div>
+						</div>
+						<div class="evost_tt_data otherdata {{@key}}">
+							<span class="label"><?php evo_lang_e('Section');?></span><span class="valiue">{{seat_slug}}</span>
+						</div>
 						<div class="evost_tt_content unaseat_qty">
 							<span><?php evo_lang_e('Number of Seats');?></span>
 							<span>x {{seat_qty}}</span>
 						</div>	
 					{{/ifCOND}}
+					{{#ifCOND seat_type "==" "booseat"}}
+						<div class="evost_tt_content">
+							<div class="evost_ttc_data section">
+								<span class="label"><?php evo_lang_e('Booth');?>: {{section}}</span>
+							</div>
+						</div>
+						<div class="evost_tt_data otherdata {{@key}}">
+							<span class="label"><?php evo_lang_e('Booth ID');?></span><span class="valiue">{{seat_slug}}</span>
+						</div>
+					{{/ifCOND}}
+
+
 					{{#each otherdata}}
 						<div class="evost_tt_data otherdata {{@key}}">
 							<span class="label">{{label}}</span><span class="price">{{price}}</span>
@@ -120,28 +147,52 @@ class EVOST_Temp{
 	// tool tips
 	function tooltips(){
 		?>
-		<div class="evost_tt_content">
-			<div class="evost_ttc_data section"><span class="label"><?php evo_lang_e('SEC');?></span><span class="value sectionvalue">{{section}}</span></div>
-			<div class="evost_ttc_data row"><span class="label"><?php evo_lang_e('ROW');?></span><span class="value rowvalue">{{row}}</span></div>
-			<div class="evost_ttc_data seat"><span class="label"><?php evo_lang_e('SEAT');?></span><span class="value seatvalue">{{seat}}</span></div>
-		</div>
 		{{#ifCOND type '==' 'seat'}}
-		<div class="evost_section_information">
-			<span>{{section_name}}</span>
-			{{#ifCOND hand '==' true}}
-			<span class="icon"><i class="fa fa-wheelchair"></i></span>
-			{{/ifCOND}}
-		</div>
+			<div class="evost_tt_content">
+				<div class="evost_ttc_data section"><span class="label"><?php evo_lang_e('SEC');?></span><span class="value sectionvalue">{{section}}</span></div>
+				<div class="evost_ttc_data row"><span class="label"><?php evo_lang_e('ROW');?></span><span class="value rowvalue">{{row}}</span></div>
+				<div class="evost_ttc_data seat"><span class="label"><?php evo_lang_e('SEAT');?></span><span class="value seatvalue">{{seat}}</span></div>
+			</div>
+			
+			<div class="evost_section_information">
+				<span>{{section_name}}</span>
+				{{#ifCOND hand '==' true}}
+				<span class="icon"><i class="fa fa-wheelchair"></i></span>
+				{{/ifCOND}}
+			</div>
 		{{/ifCOND}}
 
 		{{#ifCOND type '==' 'unaseat'}}
-		<div class="evost_section_information_2"><span><?php evo_lang_e('Seats available');?></span><span>{{available}}</span></div>
+			<div class="evost_tt_content">
+				<div class="evost_ttc_data section"><span class="label"><?php evo_lang_e('Unassigned Seating');?></span><span class="value sectionvalue">{{section}} / #{{seat_slug}}</span></div>
+			</div>
+			<div class="evost_section_information_2">
+				{{#is_avail available}}
+					<span><?php evo_lang_e('Seats available');?></span><span>{{available}}</span>
+				{{else}}
+					<span><?php evo_lang_e('Seats not available');?></span>
+				{{/is_avail}}
+				
+			</div>
+		{{/ifCOND}}
+
+		{{#ifCOND type '==' 'booseat'}}
+			<div class="evost_tt_content">
+				<div class="evost_ttc_data section"><span class="label"><?php evo_lang_e('Booth');?></span><span class="value sectionvalue">{{section}} / #{{seat_slug}}</span></div>
+			</div>
+			<div class="evost_section_information_2">
+				{{#is_avail available}}
+					<span><?php evo_lang_e('Booth Still Available');?></span>
+				{{else}}
+					<span><?php evo_lang_e('Booth Not Available');?></span>
+				{{/is_avail}}
+			</div>
 		{{/ifCOND}}
 
 		{{#ifCOND canbuy '==' true}}
-		<div class="evost_tt_data">
-			<span class="label"><?php evo_lang_e('Ticket Price');?></span><span class="price">{{price}}</span>
-		</div>
+			<div class="evost_tt_data">
+				<span class="label"><?php evo_lang_e('Ticket Price');?></span><span class="price">{{price}}</span>
+			</div>
 		{{/ifCOND}}
 		<?php
 	}

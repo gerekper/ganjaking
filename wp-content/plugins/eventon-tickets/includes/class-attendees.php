@@ -5,7 +5,7 @@
  */
 
 class EVOTX_Attendees{
-
+	public $ETX;
 	private $evotix_id;
 	public function __construct($evotx_tix = ''){
 		$this->ETX = empty($evotx_tix)? new evotx_tix() : $evotx_tix;
@@ -254,6 +254,8 @@ class EVOTX_Attendees{
 						'email'=>			$email,
 						'event_time'=>		$EVENT->get_formatted_smart_time($RI),						
 						'event_title'=>		$EVENT->get_title(),						
+						'event_start_raw'=>		$EVENT->start_unix,						
+						'event_duration'=>		$EVENT->duration,						
 					),
 					'oDD'=>array( // other data that are not shown by default
 						'_order_item_id' => $TIX->get_prop('_order_item_id'),
@@ -461,6 +463,24 @@ class EVOTX_Attendees{
 		}
 
 // DISPLAY
+	function __print_ticketholder_styles($flex = true){
+		?>
+		<style type="text/css">
+			.evotxVA_ticket{
+				display:<?php echo $flex? 'flex':'block';?>;flex-direction: column;
+				    background-color: #e5e5e5;
+			    margin: 0 0 10px;
+			    padding: 20px;
+			    border-radius: 15px;
+			}
+			.evotxVA_data{padding-left:20px;}
+			.etxva_main{display:block;}
+			.etxva_other span{display:block;  font-size:12px;}
+			.etxva_other em{text-transform: capitalize;}
+			.evotxVA_tn{font-weight: bold;display:flex; justify-content: space-between;}
+		</style>
+		<?php 
+	}
 	function __display_one_ticket_data($ticket_number, $td, $args = array()){
 		if(!is_array($td)) return false;
 
@@ -470,10 +490,8 @@ class EVOTX_Attendees{
 		$def = array(
 			'orderStatus'=> $td['oS'],
 			'showOrderStatus'=>false,
-			'inlineStyles'=> false,
 			'showStatus'=>false,
 			'linkTicketNumber'=>false,
-			'flex'=>true,
 			'showExtra'=>true,
 			'show_signin'=>false,
 			'guestsCheckable'=>false
@@ -485,21 +503,19 @@ class EVOTX_Attendees{
 		if($orderStatus == 'refunded') $status = $orderStatus;
 
 		?>
-			<?php if($inlineStyles):?>
-			<style type="text/css">
-				.evotxVA_ticket{display:<?php echo $flex? 'flex':'block';?>;}
-				.evotxVA_data{padding-left:20px;}
-				.etxva_main{display:block;}
-				.etxva_other span{display:block; opacity:0.7; font-size:12px;}
-				.etxva_other em{text-transform: capitalize;}
-				.evotxVA_tn{font-weight: bold; opacity: 0.7;}
-			</style>
-			<?php endif;?>
 			<span class='evotxVA_ticket <?php echo $status;?>'>
-				<span class='evotxVA_tn'><?php if($linkTicketNumber ): echo "<a href='". get_edit_post_link($td['id'])."' class='evo_admin_btn btn_triad'>"; endif;?><?php echo  apply_filters('evotx_tixPost_tixid', $ticket_number, $td);?><?php if($linkTicketNumber ): echo "</a>"; endif;?></span>
+				
+				<span class='evotxVA_tn'>
+					<span class='evotxVA_name'><?php echo $td['name'];?></span>
+					<?php 
+					if($linkTicketNumber ): 
+						echo "<a href='". get_edit_post_link($td['id'])."' class='evo_admin_btn btn_triad'>"; 
+					endif;?>
+					<?php echo '#'. apply_filters('evotx_tixPost_tixid', $ticket_number, $td);?>
+					<?php if($linkTicketNumber ): echo "</a>"; endif;?>
+				</span>
 				<span class='evotxVA_data'>
 					<span class='etxva_main'>
-						<b><?php echo $td['name'];?></b> 
 						<?php
 						// signin status
 						if($show_signin && isset($td['oDD']) && isset($td['oDD']['signin']) && $td['oDD']['signin'] == 'y'){
@@ -520,7 +536,7 @@ class EVOTX_Attendees{
 					<span class='etxva_other'>
 						<?php
 						foreach( $td['oD'] as $kk=>$k){
-							if(in_array($kk, array('ordered_date'))) continue;
+							if(in_array($kk, array('ordered_date','event_duration','event_start_raw'))) continue;
 							$_kk = str_replace('_', ' ', $kk);
 							// capitalize event time
 							if($kk == 'event_time') $k = ucfirst($k);

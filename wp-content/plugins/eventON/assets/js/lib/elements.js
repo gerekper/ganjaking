@@ -1,6 +1,6 @@
 /**
  * EventON elements
- * version: 4.3.5
+ * version: 4.4.3
  */
 jQuery(document).ready(function($){
 
@@ -11,7 +11,9 @@ jQuery(document).ready(function($){
 
 		if( $('body').find('.evoelm_trumbowyg').length > 0 ){
 			$('body').find('.evoelm_trumbowyg').each(function(){
-				$(this).trumbowyg();
+				if ( $.isFunction($.fn.trumbowyg) ) {
+					$(this).trumbowyg();
+				}
 			});	
 		}
 	}

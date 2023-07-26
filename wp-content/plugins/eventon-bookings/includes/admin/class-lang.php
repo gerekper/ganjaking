@@ -28,6 +28,7 @@ class EVOBO_Lang{
 					array('label'=>'Today','var'=>1),
 					array('label'=>'Out of stock','var'=>1),
 					array('label'=>'Can not add more! You have already added all the available spaces to your cart!','var'=>1),
+					array('label'=>'Time Block successfully added to cart','var'=>1),
 			array('type'=>'togend'),
 		);
 		return (is_array($_existen))? array_merge($_existen, $new_ar): $_existen;

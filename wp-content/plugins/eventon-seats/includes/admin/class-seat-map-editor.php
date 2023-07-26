@@ -1,7 +1,7 @@
 <?php
 /**
  * Seat Map Editor
- * @version 2.0
+ * @version 1.2.1
  */
 
 class EVOST_Seat_Map_Editor{
@@ -17,7 +17,7 @@ class EVOST_Seat_Map_Editor{
 			'evost_delete_item'=>'delete_item',
 			'evost_editor_save_changes'=>'editor_save_changes',
 			'evost_duplicate_section'=>'duplicate_section',
-			'evost_get_seat_map_data'=>'get_seat_map_data',
+			'evost_get_upload_form'=>'get_upload_form',
 			'evost_save_uploaded_map'=>'save_uploaded_map_data',
 			'evost_clear_map'=>'clear_map_data',
 			'evost_make_all_av'=>'make_all_seats_available',
@@ -50,27 +50,23 @@ class EVOST_Seat_Map_Editor{
 			'd'=> $SEATS->seats_data
 		)); exit;
 	}
-
-	public function get_seat_map_data(){
-		$event_id = $_POST['j']['event_id'];
-		$wcid = $_POST['j']['wcid'];
-		
-		$SEATS = new EVOST_Seats_Json($event_id, $wcid, '', 
-			(isset($_POST['cid'])? $_POST['cid']:''), 
-			(isset($_POST['cid2'])? $_POST['cid2']:'')
-		);
-
-		$EA = new EVOTX_Attendees();
-		$json = $EA->get_tickets_for_event($event_id);
-
-		echo json_encode(array(
-			'j'=> $SEATS->__j_get_all_sections(),
-			'attendees'=> array('tickets'=>$json, 'od_gc'=>$EA->_user_can_check() ),
-			'temp_attendees'=> EVO()->temp->get('evotx_view_attendees'),
-		));exit;
-	}
+	
 
 	// save uploaded seat map data
+		function get_upload_form(){
+			ob_start();
+			EVO()->elements->print_import_box_html(array(
+				'box_id'=>'evo_seatdata_upload',
+				'title'=>__('Upload JSON Seat Map Data Form'),
+				'message'=>__('NOTE: You can only upload seatmap data as .json file. If you are uploading a big seat map, max_input_vars value in php ini will need to be increased to allow upload of big file.'),
+				'file_type'=>'.json',
+				'type'=> 'lightbox',
+			));
+			echo json_encode(array(
+				'content'=> ob_get_clean(), 
+				'status'=>'good', 
+			));exit;
+		}
 		public function save_uploaded_map_data(){
 			$postdata = $this->help->sanitize_array($_POST);
 
@@ -87,7 +83,8 @@ class EVOST_Seat_Map_Editor{
 			echo json_encode(array(
 				'j'=> $seat_map_data, 
 				'j2'=> $data, 
-				'status'=>'good', 'msg'=> __('Seat map data cleared out'), 
+				'status'=>'good', 
+				'msg'=> __('New seat map data processed'), 
 			));exit;
 		}
 
@@ -102,7 +99,7 @@ class EVOST_Seat_Map_Editor{
 			$SEATS->save_seat_map_data( array() );
 
 			echo json_encode(array(
-				'status'=>'good', 'msg'=> __('Seat map data cleared out'), 
+				'status'=>'good', 'msg'=> __('Seat map data cleared out','evost'), 
 			));exit;
 
 		}
@@ -146,11 +143,14 @@ class EVOST_Seat_Map_Editor{
 							'type',
 							'bgc','fc','bgcA', 'brd',
 							'align',
+							'seat_shape',
 							'section_index',
 							'capacity',
 							'sold',
+							'inprogress',
 							'icon',
-							'shape'
+							'shape',
+							'desc',
 						) as $field){
 							$data[$field] = $SEATS->get_item_prop($field);
 						}
@@ -199,8 +199,8 @@ class EVOST_Seat_Map_Editor{
 			$SEATS->section = $duplicate_section_id;
 
 			// update location
-			$item_data['top'] = (int)$item_data['top']+50;
-			$item_data['left'] = (int)$item_data['left']+50;
+			$item_data['top'] = (int)$item_data['top']+100;
+			$item_data['left'] = (int)$item_data['left']+100;
 
 			// update name and id
 			$item_data['section_name'] = $item_data['section_name'].' (copy)';
@@ -236,8 +236,12 @@ class EVOST_Seat_Map_Editor{
 				$item_data['sold'] = 0;
 			}
 			
+			// plug
+			$item_data = apply_filters('evost_duplicate_section', $item_data, $SEATS);
 
 			$SEATS->save_item_data($item_data);
+
+			do_action('evost_duplicate_section_after_save', $item_data, $section_id, $duplicate_section_id, $SEATS);
 
 			echo json_encode(array(
 				'status'=>'good',
@@ -363,6 +367,9 @@ class EVOST_Seat_Map_Editor{
 		$formdata = $_POST['formdata'];
 
 		$SEATS = $this->set_up_seats_obj($formdata);
+
+		do_action('evost_delete_item', $SEATS, $formdata);
+
 		$SEATS->delete_item();
 
 		echo json_encode(array(
@@ -399,10 +406,14 @@ class EVOST_Seat_Map_Editor{
 
 		do_action('evost_mapeditor_before', $EVO_Seats);
 
+		$settings_d = array('d'=> 
+			array('type'=>'settings','method'=>'edit','t'=>__('General Seat Map Settings','evost')) 
+		);
+
 		?>
 		<div class="evosteditor_header" data-j='<?php echo $j;?>' >
-			<a class='ajde_popup_trig evost_load_lightbox' data-popc='evost_lightbox_secondary' style='display:none'></a>
-			<a class='evost_new_section' tip='<?php _e('Add New','evost');?>' ><b><i class="fa fa-plus"></i></b></a>
+			
+			<a class='evost_new_section' tip='<?php _e('Add New','evost');?>' data-t="<?php _e('Add New Section','evost');?>"><b><i class="fa fa-plus"></i></b></a>
 			<div class='secondary' style='display:none'>
 				<span class="stages primary_stage"><i><?php _e('Section','evost');?></i><b></b></span>
 				<span class="stages secondary_stage" style='display:none'><i><?php _e('Row','evost');?></i><b>C</b></span>
@@ -411,19 +422,23 @@ class EVOST_Seat_Map_Editor{
 				<a class='evost_edit_row evost_focus_item' tip='<?php _e('Select Rows','evost');?>'><i class="fa fa-ellipsis-h"></i></a>
 				<a class='evost_edit_seat evost_focus_item' tip='<?php _e('Select Seats','evost');?>'><i class="fa fa-square"></i></a>
 
-				<a class='evost_edit_selected_section evost_section_only' tip='<?php _e('Edit');?>'><b><i class="fa fa-pencil"></i></b></a>
-				<a class='evost_rotate_l evost_section_only' tip='<?php _e('Rotate Counter Clockwise','evost');?>'><i class="fa fa-undo"></i></a>
-				<a class='evost_rotate_r evost_section_only' tip='<?php _e('Rotate Clockwise','evost');?>'><i class="fa fa-rotate-right"></i></a>
-				<a class='evost_dup evost_section_only' tip='<?php _e('Duplicate','evost');?>'><i class="fa fa-window-restore"></i></a>
-				<a class='evost_attendees evost_section_only' tip='<?php _e('View Attendees','evost');?>'><i class="fa fa-user"></i></a>
+				<div class='evost_section_only_actions'>
+					<a class='evost_edit_selected_section evost_section_only' tip='<?php _e('Edit');?>' data-t="<?php _e('Edit Section','evost');?>"><b><i class="fa fa-pencil"></i></b></a>
+					<a class='evost_rotate_l evost_section_only' tip='<?php _e('Rotate Counter Clockwise','evost');?>'><i class="fa fa-undo"></i></a>
+					<a class='evost_rotate_r evost_section_only' tip='<?php _e('Rotate Clockwise','evost');?>'><i class="fa fa-rotate-right"></i></a>
+					<a class='evost_dup evost_section_only' tip='<?php _e('Duplicate','evost');?>'><i class="fa fa-window-restore"></i></a>
+					<a class='evost_attendees evost_section_only' tip='<?php _e('View Attendees','evost');?>'><i class="fa fa-user"></i></a>
+					<a class='evost_delete_section evost_section_only' tip='<?php _e('Delete Section','evost');?>'><i class="fa fa-trash"></i></a>
+				</div>
 			</div>
-			<a class='evost_settings_btn ' tip='<?php _e('Seating Settings','evost');?>' data-j='<?php echo json_encode($seat_settings);?>'><i class="fa fa-cog"></i></a>
+			<a class='evost_settings_btn evost_trigger_lb2' tip='<?php _e('Seating Settings','evost');?>' data-j='<?php echo json_encode($seat_settings);?>' <?php echo $this->help->array_to_html_data($settings_d);?>><i class="fa fa-cog"></i></a>
 		</div>
 		<div class='evosteditor_sub_header'>
-			<span><?php _e('Stats','evost');?></span>
-			<span class='seat_count'><b>0</b> <em><?php _e('Total Seats','evost');?></em></span>
-			<span class='seat_sold'><b>0</b> <em><?php _e('Seats Sold','evost');?></em></span>
-			<span class='section_id hidden'><b>0</b> <em><?php _e('Section ID','evost');?></em></span>		
+			<span><i><?php _e('Stats','evost');?></i></span>
+			<span class='seat_count'><em><?php _e('Total Seats','evost');?></em> <b>0</b></span>
+			<span class='seat_sold'><em><?php _e('Seats Sold','evost');?></em> <b>0</b></span>
+			<span class='seat_inprogress'><em><?php _e('Seats In Progress','evost');?></em> <b>0</b></span>
+			<span class='section_id hidden'><em><?php _e('Section ID','evost');?></em> <b>0</b></span>		
 		</div>
 		<p class="evost_msg" style='display:none'></p>
 		<?php
@@ -442,9 +457,12 @@ class EVOST_Seat_Map_Editor{
 		</div>
 		<div class="evosteditor_footer">
 			<a class='evo_admin_btn btn_prime evost_save_seating_changes' data-product_id='<?php echo $wcid;?>' data-eid='<?php echo $event_id;?>'><?php _e('Save Changes','eventon');?></a>
-			<span class='evosteditor_btn_msg' style='padding-left: 10px;'>Need Saved!</span>
+			<span class='evosteditor_btn_msg' style='padding-left: 10px;'><?php _e('Need Saved','evost');?>!</span>
+			<div class='evost_gen_data' style='display:none' <?php echo $this->help->array_to_html_data(array(
+
+			));?>></div>
 		</div>
-		<div id='evost_tip' style='display:none'>testing</div>
+		<div id='evost_tip' style='display:none'>---</div>
 	
 		<?php
 
@@ -461,28 +479,47 @@ class EVOST_Seat_Map_Editor{
 		//$EVO_Seats->event->del_prop('_evost_sections');
 		
 		ob_start();
-		?><div class='evost_editor_form' style='padding:20px'><?php
 
-		//print_r($data);
+		?>
+		<div class='evost_editor_form' style='padding:20px'>
+			<form class='evost_editor_form'>
+		<?php
+
 		$fields = array();
+		
 		switch($item_type){
 			case 'section':
 
-				$fields = array(
-					'subheader'=>array(
-						'type'=>'subheader','text'=> ($method=='new'? __('Add New Section','evost'):__('Edit Section','evost') ) 
-					),
+				$section_id = (!empty($data['section_id']))? $data['section_id']:'0';
+				$fields = array(					
 					'ri'=>array('type'=>'hidden','val'=> 'ri0'),
 					'event_id'=>array('type'=>'hidden','val'=> $event_id),
 					'wcid'=>array('type'=>'hidden','val'=> $wcid),
-					'section_id'=>array('type'=>'hidden','val'=> (!empty($data['section_id']))? $data['section_id']:'0' ),
+					'section_id'=>array('type'=>'hidden','val'=> $section_id),
 					'item_type'=>array('type'=>'hidden','val'=> $item_type),
 					'method'=>array('type'=>'hidden','val'=> $method),
 					'top'=>array('type'=>'hidden','val'=> ( !empty($top) ?$top:'')),
 					'left'=>array('type'=>'hidden','val'=> ( !empty($left) ?$left:'')),
 					'ang'=>array('type'=>'hidden','val'=> ( !empty($ang) ?$ang:'')),
 					
-					'if0'=>array('type'=>'if','name'=>'type','val'=>array('def')	),
+					'type'=>array(
+						'type'	=>'select',
+						'label'=>__('Section Type','evost'),
+						'req'=> true,
+						'options'=>array(
+							'def'=>__('Assigned Seating','evost'),
+							'una'=>__('Unassigned Seating','evost'),
+							'boo'=>__('Single Space Booth (BETA)','evost'),
+							'aoi'=>__('Areas of Interest','evost'),
+						),
+						'val'=>	(!empty($data['type']))? $data['type']:''
+					),
+					'subheader'=>array(
+						'type'=>'subheader',
+						'text'=> ($section_id ? __('Section ID','evost') : null) , 
+						'data'=>$section_id
+					),
+					'if0'=>array('type'=>'if','name'=>'type','val'=>array('def','boo')	),
 						'section_index'=>array(
 							'type'	=>'text',
 							'label'=>__('Section Index','evost'),
@@ -496,24 +533,31 @@ class EVOST_Seat_Map_Editor{
 						'label'=>__('Section Name','evost'),
 						'req'=> true,
 						'val'=>	(!empty($data['section_name']))? $data['section_name']:''
-					),'type'=>array(
-						'type'	=>'select',
-						'label'=>__('Section Type','evost'),
-						'req'=> true,
-						'options'=>array(
-							'def'=>__('Assigned Seating','evost'),
-							'una'=>__('Unassigned Seating','evost'),
-							'aoi'=>__('Areas of Interest','evost')
-						),
-						'val'=>	(!empty($data['type']))? $data['type']:''
-					),
-					'if1'=>array(	'type'=>'if','name'=>'type','val'=>array('una')	),
-						'capacity'=>array(
-							'type'	=>'number',
-							'label'=>__('Total capacity for unassigned seating','evost'),
+					),					
+
+					/*
+					'if_a'=>array(	'type'=>'if','name'=>'type','val'=>array('boo')	),
+						'booth_size'=>array(
+							'type'	=>'select',
+							'label'=>__('Set booth design size','evost'),
 							'req'=> true,
-							'val'=>	(!empty($data['capacity']))? $data['capacity']:'0'
-						),
+							'options'=>array(
+								'def'=>__('20 x 20','evost'),
+							),
+							'val'=>	(!empty($data['booth_size']))? $data['booth_size']:'0'
+						),						
+					'endif_a'=>array(	'type'=>'endif'	),
+					*/
+
+					'if1'=>array(	'type'=>'if','name'=>'type','val'=>array('una')	),
+						'sec2'=>array('type'=>'startsection','name'=>'s1'),
+							'capacity'=>array(
+								'type'	=>'number',
+								'label'=>__('Total capacity for unassigned seating','evost'),
+								'req'=> true,
+								'val'=>	(!empty($data['capacity']))? $data['capacity']:'0'
+							),
+							'sec2e'=>array(	'type'=>'endsection'	),
 						'sold'=>array(
 							'type'	=>'readable',
 							'label'=>__('Seats sold so far','evost'),
@@ -543,28 +587,42 @@ class EVOST_Seat_Map_Editor{
 					'endif2'=>array(	'type'=>'endif'	),
 
 					'if3'=>array('type'=>'if','name'=>'type','val'=>array('def')	),
-						'align'=>array(
-							'type'	=>'select',
-							'label'=>__('Seat Alignment','evost'),
-							'req'=> true,
-							'options'=>array(
-								'def'=>__('Center','evost'),
-								'l'=>__('Left Align','evost'),
-								'r'=>__('Right Align','evost')
+						'sec1'=>array('type'=>'startsection','name'=>'s1'),
+							'align'=>array(
+								'type'	=>'select',
+								'label'=>__('Seat Alignment','evost'),
+								'req'=> true,
+								'options'=>array(
+									'def'=>__('Center','evost'),
+									'l'=>__('Left Align','evost'),
+									'r'=>__('Right Align','evost')
+								),
+								'val'=>	(!empty($data['align']))? $data['align']:''
 							),
-							'val'=>	(!empty($data['align']))? $data['align']:''
-						),
-						'rows'=>array(
-							'type'	=>'number',
-							'label'=>__('Rows','evost'),
-							'req'=> true,
-							'val'=>	(!empty($data['rows']))? $data['rows']:''
-						),'seats'=>array(
-							'type'	=>'number',
-							'label'=>__('Seats','evost'),
-							'req'=> true,
-							'val'=>	(!empty($data['seats']))? $data['seats']:''
-						),
+							'seat_shape'=>array(
+								'type'	=>'select',
+								'label'=>__('Seat Shape Style','evost'),
+								'req'=> true,
+								'options'=>array(
+									'def'=>__('Border radius 5px box','evost'),
+									'circ'=>__('Circle','evost'),									
+									'box'=> __('Box','evost')
+								),
+								'val'=>	(!empty($data['seat_shape']))? $data['seat_shape']:''
+							),						
+						
+							'rows'=>array(
+								'type'	=>'number',
+								'label'=>__('Rows','evost'),
+								'req'=> true,
+								'val'=>	(!empty($data['rows']))? $data['rows']:''
+							),'seats'=>array(
+								'type'	=>'number',
+								'label'=>__('Seats','evost'),
+								'req'=> true,
+								'val'=>	(!empty($data['seats']))? $data['seats']:''
+							),
+						'sec1e'=>array(	'type'=>'endsection'	),
 						
 						'note'=>array(
 							'type'	=>'note',
@@ -573,7 +631,7 @@ class EVOST_Seat_Map_Editor{
 
 					'endif3'=>array(	'type'=>'endif'	),
 
-					'if4'=>array('type'=>'if','name'=>'type','val'=> array('def','una')	),
+					'if4'=>array('type'=>'if','name'=>'type','val'=> array('def','una','boo')	),
 						'def_price'=>array(
 							'type'	=>'text',
 							'label'=>__('Default Seat Price','evost'),
@@ -594,16 +652,25 @@ class EVOST_Seat_Map_Editor{
 						'type'	=>'yesno',
 						'label'=>__('Transparent section background','evost'),
 						'val'=>	((!empty($data['bgcA']))? $data['bgcA']:'no')
-					),'brd'=>array(
+					),
+					'brd'=>array(
 						'type'	=>'yesno',
-						'label'=>__('Remove section border','evost'),
+						'label'=>__('No section border','evost'),
 						'val'=>	((!empty($data['brd']))? $data['brd']:'no')
-					),'section_plug'=>array(
+					),
+					'desc'=>array(
+						'type'	=>'textarea',
+						'label'=>__('Details','evost'),
+						'val'=>	((!empty($data['desc']))? $data['desc']:'')
+					),
+					'section_plug'=>array(
 						'type'	=>'plugabble',
 						'form_data'=>	$data
 					),
-					'submit'=>array('type'=>'submit_button','text'=>__('Save changes','evost')),
-					'delete_button'=>array('type'=>'delete_button','text'=>__('Delete Section','evost')),
+					'submit'=>array(
+						'type'=>'submit_button','text'=>__('Save changes','evost'),
+						'show_delete'=> true, 'del_text'=> __('Delete Section','evost')
+					),
 				);
 
 			break;
@@ -633,8 +700,10 @@ class EVOST_Seat_Map_Editor{
 						'val'=>	(!empty($data['row_price']))? $data['row_price']:'',
 						'desc'=> ($method == 'edit'? __('Changing the price here will effect price of all seats in this row','evost') :'')
 					),
-					'submit_button'=>array('type'=>'submit_button','text'=>__('Save changes','evost')),
-					'delete_button'=>array('type'=>'delete_button','text'=>__('Delete Row','evost')),
+					'submit_button'=>array(
+						'type'=>'submit_button','text'=>__('Save changes','evost'),
+						'show_delete'=> true, 'del_text'=> __('Delete Row','evost')
+					),
 				);
 			break;
 			case 'seat':
@@ -690,7 +759,6 @@ class EVOST_Seat_Map_Editor{
 				$fields = array(
 					'event_id'=>array('type'=>'hidden','val'=> $event_id),
 					'item_type'=>array('type'=>'hidden','val'=> $item_type),
-					'subheader'=>array('type'=>'subheader','text'=>__('Seat Map Settings','evost')),
 					'_evost_seat_bg_img_id'=>array(
 						'type'	=>'image',
 						'label'=>__('Select background image','evost'),
@@ -713,6 +781,7 @@ class EVOST_Seat_Map_Editor{
 						'req'=> true,
 						'options'=> apply_filters('evost_settings_map_area',array(
 							'650-350'=>'650 x 350',
+							'650-600'=>'650 x 600',
 							'800-600'=>'800 x 600',
 							'900-700'=>'900 x 700',
 							'1000-800'=>'1000 x 800',
@@ -733,9 +802,15 @@ class EVOST_Seat_Map_Editor{
 					
 					'tooltip'=>array(
 						'type'	=>'yesno',
-						'label'=>__('Show static seat details box above map, on seat hover','evost'),
-						'guide'=>__('This will show seat details in a static fixed box above seat map, instead of the moving dynamic tooltip.','evost'),
+						'label'=>__('Show static seat details under map (on seat hover)','evost'),
+						'guide'=>__('This will show seat details in a static fixed box under seat map, instead of the moving dynamic tooltip.','evost'),
 						'val'=>	$EVO_Seats->get_seatmap_settings_prop('tooltip'),	
+					),
+					'lightbox_map'=>array(
+						'type'	=>'yesno',
+						'label'=>__('Show seat map as a in-page lightbox window','evost'),
+						'guide'=>__('This will load the seat map on a lightbox instead of within the eventcard.','evost'),
+						'val'=>	$EVO_Seats->get_seatmap_settings_prop('lightbox_map'),	
 					),
 					'custom_code_1'=>array(
 						'type'	=>'custom_code_1',
@@ -751,6 +826,7 @@ class EVOST_Seat_Map_Editor{
 		echo $this->__process_form_fields($fields);
 
 		?>
+		</form>
 		</div>
 		<?php
 		return ob_get_clean();
@@ -777,23 +853,21 @@ class EVOST_Seat_Map_Editor{
 							<p>
 								<label><?php _e('Seat map data download/upload settings','evost');?></label>
 								<a class='evo_admin_btn btn_grey evost_download_data' data-eid='<?php echo $data['event_id'];?>'><?php _e('Download Seat Map Data');?></a>	
-								<a class='evo_admin_btn btn_grey evo_data_upload_trigger' data-eid='<?php echo $data['event_id'];?>'><?php _e('Upload JSON Seat Map Data');?></a>
+								<?php
+								EVO()->elements->print_trigger_element(array(
+									'class_attr'=>'evo_admin_btn evolb_trigger btn_grey',
+									'title'=>__('Upload JSON Seat Map Data'),
+									'dom_element'=> 'span',
+									'lb_class' =>'evost_upload_data',
+									'lb_title'=> __('Upload JSON Seat Map Data'),	
+									'ajax_data'=>array(
+										'action'=>'evost_get_upload_form',
+										'eid'=>$data['event_id']
+									),
+								),'trig_lb');
+
+								?>
 							</p>
-
-							
-							
-							<?php 
-							EVO()->elements->print_import_box_html(array(
-								'box_id'=>'evo_seatdata_upload',
-								'title'=>__('Upload JSON Seat Map Data Form'),
-								'message'=>__('NOTE: You can only upload seatmap data as .json file. If you are uploading a big seat map, max_input_vars value in php ini will need to be increased to allow upload of big file.'),
-								'file_type'=>'.json',
-								'yesno_buttons'=> array(
-
-								)
-							));
-
-							?>
 
 							<p>
 								<label><?php _e('Seat map data alterations','evost');?></label>
@@ -808,6 +882,8 @@ class EVOST_Seat_Map_Editor{
 						?><div class='evost_form_if_start' name='<?php echo $name;?>' data-val='<?php echo json_encode($val);?>'><?php
 					break;
 					case 'endif':	?></div><?php break;
+					case 'startsection': ?><div class='evost_form_sec_start <?php echo $name;?>'><?php break;
+					case 'endsection':	?></div><?php break;
 					case 'attendee':
 						if(!empty($data)):
 						?>
@@ -824,8 +900,9 @@ class EVOST_Seat_Map_Editor{
 						endif;
 					break;
 					case 'subheader':
+						if( empty($text)) break;
 						?>
-						<h3 style='padding-bottom: 10px'><?php echo $text.( !empty($data) && !is_array($data)? ' <em style="opacity:0.3;font-style:normal" title="">'.$data.'</em>':'');?></h3>					
+						<h3 style='font-size: 18px;' class='evopadb20'><?php echo $text.( !empty($data) && !is_array($data)? ' <em style="opacity:0.3;font-style:normal" title="">'.$data.'</em>':'');?></h3>					
 						<?php
 					break;
 					case 'hidden':
@@ -837,7 +914,7 @@ class EVOST_Seat_Map_Editor{
 						do_action('evost_admin_formfields', $key, $form_data, $this->SEATS);
 					break;
 					case 'note':
-						?><p><em><?php echo $note;?></em></p><?php
+						?><p class='evost_sm_note'><em><?php echo $note;?></em></p><?php
 					break;
 					case 'readable':
 						?>
@@ -853,6 +930,15 @@ class EVOST_Seat_Map_Editor{
 						<p>
 							<label><?php echo $label;?> <?php echo $req?'*':'';?></label>
 							<input class='<?php echo $req?'req':'';?>' name='<?php echo $key;?>' type="text" value='<?php echo !empty($value)? $value:''?>'>
+							<?php echo $desc;?>
+						</p>
+						<?php
+					break;
+					case 'textarea':
+						?>
+						<p>
+							<label><?php echo $label;?> <?php echo $req?'*':'';?></label>
+							<textarea class='<?php echo $req?'req':'';?>' name='<?php echo $key;?>' style='width:100%'><?php echo !empty($value)? $value:''?></textarea>
 							<?php echo $desc;?>
 						</p>
 						<?php
@@ -897,7 +983,7 @@ class EVOST_Seat_Map_Editor{
 							
 							<span class="selected_icons" style='display:<?php echo empty($value)?'none':'block';?>'>
 								<i class='fa <?php echo !empty($value)? $value:''?>'></i>
-								<a class='evo_admin_btn btn_triad evost_form_change_icon'><?php _e('Change Icon','evost');?></a> <a class='evo_admin_btn btn_triad evost_form_remove_icon'><?php _e('Remove Icon','evost');?></a>
+								<a class='evo_admin_btn btn_triad evost_form_remove_icon'><?php _e('Change Icon','evost');?></a>
 							</span>
 							<span class='icon_area' style='display:<?php echo empty($value)?'block':'none';?>'>
 							<?php
@@ -915,6 +1001,12 @@ class EVOST_Seat_Map_Editor{
 						<p>
 							<label><?php echo $label;?> <?php echo $req?'*':'';?></label>
 							<input type="hidden" class='evost_seat_img' name='<?php echo $key;?>' value='<?php echo !empty($value)? $value:''?>'/>
+							<span class='evost_img_holder' style='display: block;'><?php
+							if( !empty($value)){
+								$ii = wp_get_attachment_image_url($value, 'thumbnail');
+								if( $ii) echo "<img src='{$ii}'/>";
+							}
+							?></span>
 							<input type="button" class='evost_select_image evo_admin_btn <?php echo !empty($value)? 'removeimg':'chooseimg';?>' data-txt='<?php echo !empty($value)?'Select Image':'Remove Image';?>' value='<?php echo !empty($value)?'Remove Image':'Select Image';?>'/>
 							<i class='note' style='display:block'><?php echo $note;?></i>
 						</p>
@@ -948,19 +1040,15 @@ class EVOST_Seat_Map_Editor{
 					break;
 					case 'submit_button':
 						?>
-						<p style='text-align:center' class='evost_actions'>
+						<p style='' class='evost_actions'>
 							<a class='evo_admin_btn btn_prime evost_save_form'><?php echo $text;?></a>
+							<?php if( !empty($show_delete) && $show_delete):?>
+								<a class='evo_admin_btn btn_triad evost_delete_item'><?php echo $del_text;?></a>
+							<?php endif;?>
 						</p>				
 						<?php
 					break;
-					case 'delete_button':
-						?>
-						<p style='text-align:center' class='evost_actions'>
-							<a class='evo_admin_btn btn_triad evost_delete_item'><?php echo $text;?></a>
-						</p>				
-						<?php
-					break;
-
+					
 				}
 			}
 
@@ -1018,6 +1106,15 @@ class EVOST_Seat_Map_Editor{
 
 				$section_data['row_count'] = $r;
 
+			// booth seating
+			}elseif( $formdata['type'] == 'boo'){
+				$section_data['sold'] = '0';
+				$section_data['h'] = '50';
+				$section_data['w'] = '50';
+
+				// update section ID to be unique to booth with B infront
+				$seciton_id = 'B' . $seciton_id;
+				$section_data['section_id'] = $seciton_id;
 			// create seats for unassigned area
 			}elseif($formdata['type'] == 'una'){
 				$section_data['sold'] = '0';
@@ -1030,6 +1127,8 @@ class EVOST_Seat_Map_Editor{
 
 			// UPDATE other values
 				$section_data = $this->__process_other_formdata($section_data, $formdata);
+
+			//print_r($section_data);
 								
 			// set top and left for new section
 			$section_data['top'] = '50';
@@ -1191,7 +1290,6 @@ class EVOST_Seat_Map_Editor{
 			//print_r($formdata['def_price']);
 			//print_r($item_data);
 			$ST->save_item_data($item_data);
-			//print_r($this->seats_data);
 
 			// reload item data
 			switch($ST->item_type){
@@ -1212,6 +1310,7 @@ class EVOST_Seat_Map_Editor{
 		foreach( $formdata as $key=>$val){
 			if(in_array($key, array('wcid','event_id','section','row','seat','item_type','method','rows','seats', 'section_id','row_id','seat_id','sold'))) continue;
 			if(empty($val)) $array[$key] = '';
+
 			$array[$key] = $val;
 		}
 

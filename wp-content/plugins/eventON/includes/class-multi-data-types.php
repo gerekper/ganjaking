@@ -395,31 +395,34 @@ class evo_mdt{
 		function save_custom_field($term_id){
 			$help = new evo_helper();
 			$postdata = $help->sanitize_array( $_POST );
-			
-			if ( isset( $postdata['tax'] ) && strpos($postdata['tax'], 'multi') !== false ) {
 
-				$taxonomy = $postdata['tax'];
+			if( !isset( $postdata['term_meta'] ) ) return;
+			if( !isset( $postdata['taxonomy'] ) ) return;
+
+			$taxonomy = $postdata['taxonomy'];
+			
+			if (  strpos($taxonomy, 'multi') !== false ) {
+
+
 				$mdt_index = str_replace('_', '', ( strrchr($taxonomy, '_') ) );
 
 				$term_meta_fields = array();
 				$term_meta_fields[] = 'evcal_mdt_img' . $mdt_index;
 				for( $z=1; $z <= $this->evo_max_mdt_addfield_count(); $z++){
 					$term_meta_fields[] = 'evcal_mdta_' . $mdt_index. '_'. $z;
-				}				
-								
+				}			
 
 				$term_meta = evo_get_term_meta($taxonomy ,$term_id);
 
 				foreach( $term_meta_fields as $field ){
-					if( !isset( $postdata[ $field ] )) continue;
+					if( !isset( $postdata['term_meta'][ $field ] )) continue;
 
 					// image field fix
 					if( strpos($field, 'evcal_mdt_img') !== false){
-						$term_meta[ 'image' ] = $postdata[ $field ];
-						continue;
+						$term_meta[ 'image' ] = $postdata['term_meta'][ $field ];
 					}
 
-					$term_meta[ $field ] = $postdata[ $field ];
+					$term_meta[ $field ] = $postdata['term_meta'][ $field ];
 				}
 
 				evo_save_term_metas($taxonomy, $term_id, $term_meta);

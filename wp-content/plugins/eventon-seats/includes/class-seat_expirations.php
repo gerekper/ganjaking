@@ -10,8 +10,8 @@ class EVOST_Expirations extends EVOST_Seats{
 	public $expirations = array();
 	public $event_exp = false; // expirations for this event
 
-	public function __construct($EVENT, $wcid){
-		parent::__construct($EVENT, $wcid);
+	public function __construct($EVENT, $wcid, $ri=0){
+		parent::__construct($EVENT, $wcid, $ri);
 		$this->set();
 		$this->event_id = $this->event->ID;
 	}
@@ -20,6 +20,7 @@ class EVOST_Expirations extends EVOST_Seats{
 	function set(){
 		$this->expirations =  get_option('_evost_expiration');
 		if(isset($this->expirations[$this->event->ID])) $this->event_exp = $this->expirations[$this->event->ID];
+		//print_r($this->expirations);
 	}
 	function update_exp($new_exp){
 		update_option('_evost_expiration', $new_exp);
@@ -320,36 +321,42 @@ class EVOST_Expirations extends EVOST_Seats{
 		$this->update_locals();
 	}
 
-	
-
-// unassigned seating	
+// non seat seating - @since 1.2
 	// check if expirations already exist in cart update expiration qty
-	// if unaseat is in cart and adding more of same item to cart update qty
-		function unaseat_set_cart_expirations($cart_item_key, $seat_slug, $qty){
+	// if non seat is in cart and adding more of same item to cart update qty
+		function nonseat_set_cart_expirations($cart_item_key, $seat_slug, $qty, $seat_type){
 			// get all existing expirations for this seat slug
 			$this_exps = $this->get_seat_expiration_data($seat_slug);
 			if(!$this_exps) return false;
 
-			$this->_get_seat_type_by_slug($seat_slug); 
-
 			// skip for regular seats
-			if($this->seat_type=='seat') return false;
+			if($seat_type =='seat') return false;
+
 			
 			// check if cart expiration already set
 			if(isset($this_exps[$cart_item_key])){	
-				$this->expirations[$this->event_id][$seat_slug][$cart_item_key]['qty'] = $qty;
-				$this->update_locals();
+				// unaseat
+				if($seat_type == 'unaseat'){
+					$this->expirations[$this->event_id][$seat_slug][$cart_item_key]['qty'] = $qty;
+					$this->update_locals();
+				}
+
+				// booth seat
+				if($seat_type == 'booseat'){
+					// booth seat is always qty = 1
+					$this->expirations[$this->event_id][$seat_slug][$cart_item_key]['qty'] = 1;
+					$this->update_locals();
+				}
 			}
 		}
 
 	// UNA match cart seat qty to onhold, if seat already exists in cart expirations
-		function unaseat_match_cart_qty($cart_item_key, $seat_slug, $new_cart_qty){
+		function nonseat_match_cart_qty($cart_item_key, $seat_slug, $new_cart_qty, $seat_type){
 			$this_exps = $this->get_seat_expiration_data($seat_slug);
 			if(!$this_exps) return false;
 		
 			// skip regular seats
-			$this->_get_seat_type_by_slug($seat_slug);
-			if($this->seat_type=='seat') return false; 
+			if($seat_type =='seat') return false; 
 
 			if(isset($this_exps[$cart_item_key]) && isset($this_exps[$cart_item_key]['qty'])){
 				$old_qty = $this_exps[$cart_item_key]['qty'];
@@ -363,14 +370,14 @@ class EVOST_Expirations extends EVOST_Seats{
 
 			}
 		}
-	
 
-	function get_unaseats_onhold($section_id){
-		$onhold = '0';
-		if(!$this->event_exp) return '0';
-		if(!isset($this->event_exp[$section_id])) return '0';
-		return count($this->event_exp[$section_id]);
-	}
+	// unassigned seating	
+		function get_unaseats_onhold($section_id){
+			$onhold = '0';
+			if(!$this->event_exp) return '0';
+			if(!isset($this->event_exp[$section_id])) return '0';
+			return count($this->event_exp[$section_id]);
+		}
 	
 	
 // SUPPROTIVE

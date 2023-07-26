@@ -1,4 +1,7 @@
-/* EVOVO styles*/
+/* 
+* EVOVO styles
+* @version 1.0.3
+*/
 
 .evotx_ticket_purchase_section .evovo_variation_types, 
 .evotx_ticket_purchase_section .evovo_variation_types_ind,
@@ -32,6 +35,7 @@ body #evcal_list .evotx_ticket_purchase_section .evovo_variation_types p.evovo_v
 	border-radius: 5px;
 	padding: 2px 20px 2px 5px;
 	margin-left: 8px;
+	max-width: 125px;
 }
 
 .evoto_ticket_options li, #evcal_list .eventon_list_event .event_description .evoto_ticket_options li{
@@ -66,6 +70,7 @@ body #evcal_list .evotx_ticket_purchase_section .evovo_variation_types p.evovo_v
 
 
 /* price options */
+	.evovo_price_option .evovo_soldout{color:#ff6060;}
 	.evovo_addremove{
 		border-radius: 20px;
 	    background-color: #3091d4;
@@ -95,6 +100,7 @@ body #evcal_list .evotx_ticket_purchase_section .evovo_variation_types p.evovo_v
 		background-color: #fbfbfb;
 		border-radius: 5px;
 		width: 100%;
+		box-sizing: border-box;margin: 0 0 5px;
 	}
 	.evovo_price_options p.evovo_price_option label{font-weight: normal;}
 	.evovo_price_options p.evovo_price_option.add em.a{display: block;} 

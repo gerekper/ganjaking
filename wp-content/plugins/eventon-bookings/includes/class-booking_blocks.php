@@ -1,6 +1,7 @@
 <?php
 /**
  * Booking Blocks and single block for event
+ * @version 1.4
  */
 class EVOBO_Blocks{
 	public $dataset = array(); // all blocks data for the event
@@ -9,6 +10,7 @@ class EVOBO_Blocks{
 	public $date_format = 'Y-m-d';
 	public $time_format = 'H:i';
 	public $is_admin = false;
+	public $event, $event_id, $wcid, $DD, $timezone0, $current_time;
 
 	// methods option, variation_type, variation
 	public function __construct($EVENT, $wcid=''){
@@ -112,9 +114,6 @@ class EVOBO_Blocks{
 				if(empty($data['end'])) continue;
 				$AT = '';
 
-				//echo ' '.$data['start'].' ';
-				//print_r($data);
-
 				// if booking slot is past 
 				if( $data['end'] < $current_time && !$show_past) continue;
 
@@ -145,13 +144,18 @@ class EVOBO_Blocks{
 						$this_date = date('Y-F-n-j-N',  $this_date_unix);
 						$this_date = explode('-',$this_date);
 
-						if($attendees && !empty($AT)) $json[ $this_date[0] ][ $this_date[2] ][ $this_date[3] ][$count]['a'] = $AT;
-						$json[ $this_date[0] ][ $this_date[2] ][ $this_date[3] ][$count]['data'] = $this_date[3];
-						$json[ $this_date[0] ][ $this_date[2] ][ $this_date[3] ][$count]['index'] = $index;
-						$json[ $this_date[0] ][ $this_date[2] ][ $this_date[3] ][$count]['c'] = $data['capacity'];
-						$json[ $this_date[0] ][ $this_date[2] ][ $this_date[3] ][$count]['p'] = $_CUR. $this->_convert_str_to_cur($data['price']);
-						$json[ $this_date[0] ][ $this_date[2] ][ $this_date[3] ][$count]['times'] = 
-							$this->get_formatted_block_times($data['start'], $data['end']);
+						$json[ $this_date[0] ][ $this_date[2] ][ $this_date[3] ][$count] = apply_filters('evobo_blocks_json',
+								array(
+									'data'=>$this_date[3],
+									'c'=>$data['capacity'],
+									'index'=> $index,
+									'p'=>	$_CUR. $this->_convert_str_to_cur($data['price']),
+									'times'=> $this->get_formatted_block_times($data['start'], $data['end']),
+						), $index, $this);
+
+						if($attendees && !empty($AT)) 
+							$json[ $this_date[0] ][ $this_date[2] ][ $this_date[3] ][$count]['a'] = $AT;
+
 						$json[ $this_date[0] ][ $this_date[2] ][ $this_date[3] ]['day'] = $days[ $this_date[4] ];
 						$json[ $this_date[0] ][ $this_date[2] ]['name'] = $months[ $this_date[2]];
 						$count++;
@@ -159,15 +163,22 @@ class EVOBO_Blocks{
 
 				// block start and end on same date
 				}else{
-					if($attendees && !empty($AT)) $json[ $start[0] ][ $start[2] ][ $start[3] ][$count]['a'] = $AT;
-					$json[ $start[0] ][ $start[2] ][ $start[3] ][$count]['index'] = $index;					
-					$json[ $start[0] ][ $start[2] ][ $start[3] ][$count]['c'] = $data['capacity'];
-					$json[ $start[0] ][ $start[2] ][ $start[3] ][$count]['p'] = $_CUR. $this->_convert_str_to_cur($data['price']);
-					$json[ $start[0] ][ $start[2] ][ $start[3] ][$count]['times'] = $this->get_formatted_block_times($data['start'], $data['end']);
+					$json[ $start[0] ][ $start[2] ][ $start[3] ][$count] = apply_filters('evobo_blocks_json',
+						array(
+							'c'=>$data['capacity'],
+							'index'=> $index,
+							'p'=>	$_CUR. $this->_convert_str_to_cur($data['price']),
+							'times'=> $this->get_formatted_block_times($data['start'], $data['end']),
+					), $index, $this);
+
+					if($attendees && !empty($AT)) 
+						$json[ $start[0] ][ $start[2] ][ $start[3] ][$count]['a'] = $AT;
+
 					$json[ $start[0] ][ $start[2] ][ $start[3] ]['day'] = isset($days[ $start[4] ]) ? $days[ $start[4] ] :'';
 					$json[ $start[0] ][ $start[2] ]['name'] = $months[ $start[2]];
 					$count++;
 				}	
+
 			}
 
 			return $encode? json_encode($json) : $json;
@@ -509,6 +520,16 @@ class EVOBO_Blocks{
 		public function get_next_block_id(){
 			
 		}
+		// @since 1.4
+		function get_block_prop($block_id, $field){
+			$dataset = $this->dataset;
+
+			// set block data if they exist
+			if( is_array($dataset) && isset( $dataset[$block_id]) && isset( $dataset[$block_id][$field] ) ){
+				return $dataset[$block_id][$field];
+			}
+			return false;
+		}
 		function get_item_prop($field){
 			if( count($this->item_data) == 0) return false;
 			if( !isset($this->item_data[$field])) return false;
@@ -563,6 +584,8 @@ class EVOBO_Blocks{
 		function save_block_prop($block_id, $field, $value){
 			$dataset = $this->dataset;
 
+			if( !isset($dataset[$block_id])) return false;
+
 			$dataset[$block_id][$field] = $value;
 			$this->save_dataset( $dataset );
 			return true;
@@ -596,82 +619,6 @@ class EVOBO_Blocks{
 		}
 	
 
-// HTML
-	// ADMIN: GET HTML for all the blocks
-	function admin_get_all_blocks_html(){
-		$_wp_date_format = EVO()->calendar->date_format;
-		$blocks = $this->is_blocks_ready();
-
-		ob_start();
-		if($blocks){			
-
-			foreach($blocks as $index=>$data){
-				if(empty($index)) continue;
-				if(!is_array($data)) continue;
-
-				$data['date_format'] = $_wp_date_format;
-				$data['time_format'] = $this->get_time_format();	
-				$data['eid'] = $this->event_id;
-				$data['wcid'] = $this->wcid;
-				
-				echo $this->get_single_block_html($data, $index);
-			}
-		}else{
-			echo "<p class='none'>".__('You do not have any booking blocks yet!','eventon')."</p>";
-		}
-
-		return ob_get_clean();
-	}
-
-	function get_single_block_html($args, $index){
-		ob_start();
-		global $evobo;
-
-		$__woo_currencySYM = get_woocommerce_currency_symbol();
-
-		// Set single block data for object
-		$this->set_block_data($index);	
-				
-		$this->set_timezone();
-		$block_time = $this->get_unix_time();
-
-		// common attrs
-			$data_attr = '';
-			foreach(array(
-				'eid'	=>	$this->event_id,
-				'wcid'	=>	$this->wcid
-			) as $k=>$v){
-				$data_attr .= "data-{$k}='{$v}' ";
-			}
-
-		// if new generate a random index
-			if(!empty($args['type']) && $args['type']=='new'){
-				$index = rand(100000, 900000);
-			}
-		?>
-		<li data-cnt="<?php echo $index;?>" class="new">
-			<em alt="Edit" class='evobo_block_item edit ajde_popup_trig' data-popc='evobo_lightbox' <?php echo $data_attr;?> data-type='edit'><i class='fa fa-pencil'></i></em>
-			<em alt="Delete" class='delete' <?php echo $data_attr;?>>x</em>
-	
-			<span class='details'>				
-				<span class='data'>
-					<span class='booking_id'>#<?php echo $index;?></span>
-					<span class='time'><?php echo $this->get_formatted_block_times($block_time['start'], $block_time['end'], true);?></span>
-					<span class='price'><i><?php _e('Price','eventon');?></i> <?php echo $this->check_data($args, 'price')? 
-						$__woo_currencySYM. ($this->check_data($args, 'price')):'';?></span>
-					<span class="cap"><i><?php _e('Cap','eventon');?></i> <?php echo $this->check_data($args, 'capacity')? 	($this->check_data($args, 'capacity')): 0;?> </span>
-
-					<?php do_action('evobo_admin_booking_slot_data',$index,$this);?>
-
-				</span>
-			</span>
-				
-			
-		</li>
-		<?php
-		return ob_get_clean();
-	}
-
 // SUPPRTIVE
 	function check_data($data, $key){
 		return !empty($data[$key])? $data[$key]: false;
@@ -701,7 +648,5 @@ class EVOBO_Blocks{
 			$this->block_id = $block_id;
 			$this->item_data = $dataset[$block_id];
 		} 
-			
-
 	}
 }

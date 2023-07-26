@@ -1,7 +1,7 @@
 <?php
 /**
  * Tickets admin settings
- * @version 0.1
+ * @version 2.2
  */
 
 class evotx_settings{
@@ -93,7 +93,7 @@ function content(){
 								'legend'=> 'This will set the default event ticket stop selling time base.'
 							),
 
-							array('id'=>'subheader','type'=>'subheader',
+							array('id'=>'subheader','type'=>'sub_section_open',
 								'name'=>__('Ticket WC Product Title','evotx')
 							),
 								array(
@@ -109,8 +109,23 @@ function content(){
 									'legend'=>'When creating custom ticket product titles, please use {} so proper value will replace those fields. Changes made in here will apply new products created after the changes.',
 									'default'=>'Ticket: {event_name} {event_start_date} - {event_end_date}'
 								),
+							array('type'=>'sub_section_close'),
 
-							array('id'=>'subheader','type'=>'subheader',
+							
+							
+							array('id'=>'evotx_tix_inquiries',
+								'type'=>'sub_section_open',
+								'name'=>'Ticket Inquiries Settings'
+							),
+								array('id'=>'evotx_tix_inquiries_def_email',
+									'type'=>'text',
+									'name'=>'Default Email Address to <b>Receive</b> Ticket Inquiries. eg. YourName &#60;you@mail.com&#62;','default'=>get_option('admin_email'), 
+								),
+								array('id'=>'evotx_tix_inquiries_def_subject','type'=>'text','name'=>'Default Subject for Ticket Inquiries Email','default'=>'New Ticket Sale Inquery'),
+
+							array('type'=>'sub_section_close'),
+
+							array('id'=>'subheader','type'=>'sub_section_open',
 								'name'=>__('Event Manager (<a href="http://www.myeventon.com/addons/action-user/" target="_blank">ActionUser Addon</a> required)','evotx')
 							),
 								array('id'=>'evotx_checkin_guests',
@@ -118,21 +133,9 @@ function content(){
 									'name'=>'Allow users with permission to check-in guests via event manager',
 									'legend'=>__('This will allow users who have permission within actionUser to edit events, also be able to check in guests for tickets','evotx')
 								),
-							
-							array('id'=>'evotx_tix_inquiries',
-								'type'=>'subheader',
-								'name'=>'Ticket Inquiries Settings'
-							),
-							array('id'=>'evotx_tix_inquiries_def_email',
-								'type'=>'text',
-								'name'=>'Default Email Address to <b>Receive</b> Ticket Inquiries. eg. YourName &#60;you@mail.com&#62;','default'=>get_option('admin_email'), 
-							),
-							array('id'=>'evotx_tix_inquiries_def_subject','type'=>'text','name'=>'Default Subject for Ticket Inquiries Email','default'=>'New Ticket Sale Inquery'),
+							array('type'=>'sub_section_close'),
 
-							array('id'=>'evcal_additional','type'=>'note',
-								'name'=>__('Check out how your ticket sales are doing','evotx') . '<br/>
-									<a href="'. get_admin_url(). 'admin.php?show_categories%5B0%5D=13&range&start_date&end_date&page=wc-reports&tab=orders&report=sales_by_category'. '" style="margin-top:5px;" class="evo_admin_btn btn_triad">'. __('Ticket Sales Report','evotx'). "</a>",
-							),
+							
 							
 					)),
 					array(
@@ -172,33 +175,38 @@ function content(){
 								'legend'=>__('This will stop auto sending ticket email to customers upon their purchase of tickets. However it will still send out WC order complete and other WC auto emails.','evotx')
 							),
 
-							array('type'=>'subheader','name'=>'Event Ticket Confirmation Email'),	
-							array('id'=>'evotx_notfiemailfromN','type'=>'text','name'=>'"From" Name','default'=>$site_name),
-							array('id'=>'evotx_notfiemailfrom','type'=>'text','name'=>'"From" Email Address' ,'default'=>$site_email),
-							
-							array('id'=>'evotx_notfiesubjest','type'=>'text','name'=>'Email Subject line','default'=>'Event Ticket'),
+							array('type'=>'sub_section_open','name'=>'Event Ticket Confirmation Email'),	
+								array('id'=>'evotx_notfiemailfromN','type'=>'text','name'=>'"From" Name','default'=>$site_name),
+								array('id'=>'evotx_notfiemailfrom','type'=>'text','name'=>'"From" Email Address' ,'default'=>$site_email),
+								
+								array('id'=>'evotx_notfiesubjest','type'=>'text','name'=>'Email Subject line','default'=>'Event Ticket'),
 
-							array('id'=>'evotx_termsc','type'=>'text','name'=>'Terms & Conditions statement on bottom of ticket','default'=>'Terms and condition statement for the ticket','legend'=>'This text will go in the bottom of the ticket email ticket itself as terms and conditions.'),
+								array('id'=>'evotx_termsc','type'=>'text','name'=>'Terms & Conditions statement on bottom of ticket','default'=>'Terms and condition statement for the ticket','legend'=>'This text will go in the bottom of the ticket email ticket itself as terms and conditions.'),
 
-							array('id'=>'evotx_conlink','type'=>'text','name'=>'Contact Us for questions Link URL in ticket email','default'=>site_url(),'legend'=>'This is the link used in ticket email footer for contact us for questions text. If left blank will use your website link.'),
+								array('id'=>'evotx_conlink','type'=>'text','name'=>'Contact Us for questions Link URL in ticket email','default'=>site_url(),'legend'=>'This is the link used in ticket email footer for contact us for questions text. If left blank will use your website link.'),
 
-							/*
-							array('id'=>'evcal_fcx','type'=>'subheader','name'=>'Supported Dynamic Tags'),
-							array('id'=>'evcal_fcx','type'=>'note',
-								'name'=>'<code>{event-name}</code>'),
-							*/
+								/*
+								array('id'=>'evcal_fcx','type'=>'subheader','name'=>'Supported Dynamic Tags'),
+								array('id'=>'evcal_fcx','type'=>'note',
+									'name'=>'<code>{event-name}</code>'),
+								*/
 
-							array('id'=>'evcal_fcx','type'=>'subheader','name'=>'HTML Template'),
-							array('id'=>'evcal_fcx','type'=>'note','name'=>'To override and edit the email template copy "eventon-tickets/templates/email/ticket_confirmation_email.php" to  "yourtheme/eventon/templates/email/tickets/ticket_confirmation_email.php.'),
+								array('id'=>'evcal_fcx','type'=>'subheader','name'=>'HTML Template'),
+								array('id'=>'evcal_fcx','type'=>'note','name'=>'To override and edit the email template copy "eventon-tickets/templates/email/ticket_confirmation_email.php" to  "yourtheme/eventon/templates/email/tickets/ticket_confirmation_email.php.'),
+							array('type'=>'sub_section_close'),
 					)),
 
 					array(
 						'id'=>'evotx3',
-						'name'=>'Quick Search for tickets',
-						'tab_name'=>'Ticket Search','icon'=>'ticket',
+						'name'=>'Ticket Extras',
+						'tab_name'=>'Ticket Extra','icon'=>'ticket',
 						'fields'=>array(
 							array('id'=>'evcal_fcx','type'=>'subheader','name'=>'Search for ticket information by ticket number & Check-in those tickets.'),
 							array('type'=>'customcode','code'=>$this->searchcustomcode() ),	
+							array('id'=>'evcal_additional','type'=>'note',
+								'name'=>__('Check out how your ticket sales are doing. - On this page, under Category select <b>Tickets</b>','evotx') . '<br/>
+									<a href="'. get_admin_url(). 'admin.php?page=wc-reports&tab=orders&report=sales_by_category'. '" style="margin-top:5px;" class="evo_admin_btn btn_triad">'. __('Ticket Sales Report','evotx'). "</a>",
+							),
 						)
 					)
 				));

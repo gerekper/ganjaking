@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MailPoet Premium plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet Premium 4.21.0\n"
+"Project-Id-Version: MailPoet Premium 4.22.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-07-17T13:24:25+00:00\n"
+"POT-Creation-Date: 2023-07-25T08:40:41+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -268,6 +268,26 @@ msgstr ""
 msgid "Custom field '%1$s' with ID '%2$d' expects type '%3$s' but type '%4$s' was provided."
 msgstr ""
 
+#: lib/Automation/Integrations/MailPoetPremium/Analytics/Storage/SubscriberStatistics.php:200
+#: assets/dist/js/premium.js:2
+msgid "Failed"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/Analytics/Storage/SubscriberStatistics.php:202
+#: assets/dist/js/premium.js:2
+msgid "In Progress"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/Analytics/Storage/SubscriberStatistics.php:204
+#: assets/dist/js/premium.js:2
+msgid "Cancelled"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/Analytics/Storage/SubscriberStatistics.php:206
+#: assets/dist/js/premium.js:2
+msgid "Completed"
+msgstr ""
+
 #: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:31
 #: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:38
 msgid "Welcome series for new subscribers"
@@ -318,36 +338,36 @@ msgstr ""
 msgid "Failed to render template \"%1$s\". Please ensure the template cache folder \"%2$s\" exists and has write permissions. Terminated with error: \"%3$s\""
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:327
+#: lib/Newsletter/Stats/SubscriberEngagement.php:328
 msgid "Filter by link clicked"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:359
+#: lib/Newsletter/Stats/SubscriberEngagement.php:360
 msgctxt "Subscriber engagement filter - filter those who clicked on a newsletter link"
 msgid "Clicked"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:364
+#: lib/Newsletter/Stats/SubscriberEngagement.php:365
 msgctxt "Subscriber engagement filter - filter those who opened a newsletter"
 msgid "Opened"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:369
+#: lib/Newsletter/Stats/SubscriberEngagement.php:370
 msgctxt "Subscriber engagement filter - shows machine-opens for a given newsletter"
 msgid "Machine-opened"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:374
+#: lib/Newsletter/Stats/SubscriberEngagement.php:375
 msgctxt "Subscriber engagement filter - filter those who unsubscribed from a newsletter"
 msgid "Unsubscribed"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:383
+#: lib/Newsletter/Stats/SubscriberEngagement.php:384
 msgctxt "Subscriber engagement filter - filter those who performed any action (e.g., clicked, opened, unsubscribed)"
 msgid "All engaged"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:390
+#: lib/Newsletter/Stats/SubscriberEngagement.php:391
 msgctxt "Subscriber engagement filter - filter those who did not open a newsletter"
 msgid "Unopened"
 msgstr ""
@@ -732,4 +752,16 @@ msgstr ""
 
 #: assets/dist/js/premium.js:2
 msgid "An unknown error occurred."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Clear all filters"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Select Email"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "All emails"
 msgstr ""

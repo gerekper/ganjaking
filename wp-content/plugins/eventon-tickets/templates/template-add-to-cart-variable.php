@@ -104,10 +104,7 @@
 					$tix_helper->remaining_stock_html($tix_inStock, $this->langX('Tickets remaining!', 'evoTX_013') );
 				endif;
 			?>
-
-			<?php $tix_helper->print_add_to_cart_data();?>
 		
-			<?php $tix_helper->__get_addtocart_msg_footer();?>
 		</div>
 
 	 	

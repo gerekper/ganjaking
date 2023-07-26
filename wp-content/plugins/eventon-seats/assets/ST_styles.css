@@ -1,18 +1,33 @@
 /**
  * EventON Seats styles
- * @version 0.1
+ * @version 1.2.1
  */
 
+:root{
+	--evost_c_white:#fff;
+}
 .evost_seat_selection, .evost_inline_seat_map{
 	position: relative;
 	padding: 0px; margin: 0;
 }
 
+/* fonts */
+	.evost_tt_content .evost_ttc_data .label
+	{ font-family: var(--evo_font_1) }
+
+	.evost_tix_stub_content,
+	.evost_seat_selection .evost_seat_legends, .evost_seat_legends,
+	.evost_seats_footer p,
+	.evost_selected_seats .evost_remove_tix, .evost_seats_in_cart .evost_remove_tix,
+	.evost_tooltip
+	{font-family: var(--evo_font_2)}
+
 /* inline seating map */
 	.evost_inline_seat_map{margin: 10px 0;}
+	.evost_inline_seat_map .evost_map_information{margin-bottom: 20px;}
 	.evost_inline_seat_map .evost_seat_layout_outter{
 		background-color: #f7f7f7; 
-		position: relative;    border-radius: 5px;
+		position: relative;    border-radius: 15px;
 	    border: 1px solid #dedede;
 	    overflow: hidden;
 	}
@@ -20,6 +35,7 @@
 	.evost_inline_seat_map .evost_seat_layout.map_area1000-800{width: 1000px;height: 800px;max-width: 1000px}
 	.evost_inline_seat_map .evost_seat_layout.map_area900-700{width: 900px;height: 700px;max-width: 900px}
 	.evost_inline_seat_map .evost_seat_layout.map_area800-600{width: 800px;height: 600px;max-width: 800px}
+	.evost_inline_seat_map .evost_seat_layout.map_area650-600{width: 650px;height: 600px;max-width: 650px}
 	.evost_inline_seat_map .evost_seat_layout.map_area650-350{width: 650px;height: 350px;max-width: 650px}
 	
 
@@ -45,6 +61,11 @@
 	border-radius: 5px;
 	box-sizing:border-box;
 }
+.evost_inline_seat_map .evost_section.type_boo{
+	 display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .evost_inline_seat_map .evost_section.align_l .evost_row{justify-content:flex-start;}
 .evost_inline_seat_map .evost_section.align_r .evost_row{justify-content:flex-end;}
 .evost_inline_seat_map .evost_section{margin: 0;}
@@ -65,8 +86,10 @@
 }
 .evost_seat_map_section .evost_section.shape_none{border-radius: 0px;}
 .evost_seat_map_section .evost_section.shape_50per{border-radius: 50%;}
-.evost_section.type_una{cursor: pointer;}
-.evost_section.type_aoi u, .evost_section.type_una u{
+.evost_section.type_boo,.evost_section.type_una{cursor: pointer;}
+.evost_section.type_aoi u, 
+.evost_section.type_boo u, 
+.evost_section.type_una u{
 	display: block;
     position: relative;
     left: auto;
@@ -75,6 +98,7 @@
     background-color: transparent;
     color: #868686;
 }
+.evost_section.type_boo u{padding: 0}
 
 body .evorow.evoloading:before{
 	background: #FAFAFA url(../../eventON/assets/images/evo-loader.gif) center center no-repeat;
@@ -133,6 +157,11 @@ body .evorow.evoloading{position: relative;}
     padding: 0;
     text-indent: -99999px
 }
+.evost_inline_seat_map .evost_section.ss_circ .evost_row .seat{border-radius: 20px}
+.evost_inline_seat_map .evost_section.ss_box .evost_row .seat{border-radius: 0px}
+.evost_inline_seat_map .evost_row .seat:before{
+	content:"";
+}
 .evost_inline_seat_map .evost_row .seat:hover{
 	    box-shadow: 0px 0px 0px 1px rgb(90, 90, 90)
 }
@@ -151,6 +180,7 @@ body .evorow.evoloading{position: relative;}
 {background-color: #5da951;}
 .evost_section .evost_row .evost_seat.selected.av,  
 .evost_seat_legends span.selected b{background-color: #ff5722;}
+.evost_section .evost_row .evost_seat.mine,  
 .evost_section .evost_row .evost_seat.mine.tuav,  
 .evost_seat_legends span.mine b
 {background-color: #ff9800;}
@@ -167,6 +197,36 @@ body .evorow.evoloading{position: relative;}
 .evost_seat_selection .evost_seat_legends span.hand b, 
 .evost_seat_legends span.hand b{background-color: #82cee8;}
 
+/* mine seats - seats in cart */
+	.evost_section.type_una.mine{}
+	.evost_section.type_una.mine i.fa,
+	.evost_section.type_boo.mine i.fa{
+		position: absolute;
+	    right: 0;
+	    top: 0;
+	    background-color: #ff9800;
+	    color: #fff;
+	    font-size: 12px;
+	    padding: 3px;
+	    border-radius: 20px;
+	    margin: -5px -5px 0;
+	}
+
+/* not available seats */
+	.evost_section.type_una.notav i.fa,
+	.evost_section.type_boo.notav i.fa
+	{
+		position: absolute;
+	    right: 0;
+	    top: 0;
+	    background-color: #808080;
+	    color: #fff;
+	    font-size: 12px;
+	    padding: 3px;
+	    border-radius: 20px;
+	    margin: -5px -5px 0;
+	}
+
 .evost_map_information{
 	width: 100%; 
     display: -webkit-flex;
@@ -179,7 +239,7 @@ body .evorow.evoloading{position: relative;}
 }
 .evost_seat_legends span.legends_trig, 
 .evost_view_control span{
-	border: 1px solid #cacaca;
+	border: 1px solid var(--evo_color_2);
     padding: 4px 15px;
     display: block;
     margin: 0;
@@ -218,7 +278,8 @@ body .evorow.evoloading{position: relative;}
     box-shadow: 0px 0px 15px -5px #808080;
     margin: 0 0 10px 0;
 }
-.evost_seat_legends span.legends_trig:hover, .evost_view_control span:hover{background-color:#cacaca; color:#fff; }
+.evost_seat_legends span.legends_trig:hover, .evost_view_control span:hover
+{background-color:var(--evo_color_2); color:#fff; }
 .evost_view_control{display:flex;}
 .evost_view_control span.zoomin{border-radius:25px 0 0 25px;border-right:none;}
 .evost_view_control span.zoomout{border-radius:0 25px 25px 0 }
@@ -231,12 +292,9 @@ body .evorow.evoloading{position: relative;}
 	text-align: center;
     margin: 0px;
     background-color: transparent;
-    /* margin-right: -5px; */
-    /* opacity: 0.7; */
-    color: #a0a0a0;
-    font-family: 'open sans'
+    color: var(--evo_color_1);
 }
-.evost_seat_legends span{margin: 0 5px; font-size: 13px;}
+.evost_seat_legends span{margin: 0 5px; font-size: 13px;z-index: 2; position: relative;}
 .evost_seat_legends span b{
 	height: 10px; width: 10px; 
 	margin-right: 5px;
@@ -267,6 +325,8 @@ body .evorow.evoloading{position: relative;}
 	}
 	.evost_lightbox .evost_seat_layout.map_area650-350{ width: 650px;}
 	.evost_lightbox .evost_seat_layout.map_area650-350 .evost_seat_layout{width: 650px; height: 350px;}
+	.evost_lightbox .evost_seat_layout.map_area650-600{ width: 650px;}
+	.evost_lightbox .evost_seat_layout.map_area650-600 .evost_seat_layout{width: 650px; height: 600px;}
 	.evost_lightbox .evost_seat_layout.map_area800-600{max-width: 800px; width: 800px;}
 	.evost_lightbox .evost_seat_layout.map_area800-600 .evost_seat_layout{width: 800px; height: 600px;}
 	.evost_lightbox .evost_seat_layout.map_area900-700{max-width: 900px; width: 900px;}
@@ -287,18 +347,41 @@ body .evorow.evoloading{position: relative;}
 		opacity: 0.5;
 		z-index: 90002;
 	}
+	.evo_lightbox.evost_seat_map .evolb_content{background-color: #f0f0f0; overflow: visible;}
+	.evo_lightbox .evost_inline_seat_map{
+		margin:0;
+	}
+	.evo_lightbox .evost_inline_seat_map .evost_seat_layout_outter{border-radius: 15px 15px 0 0;
+		border:none; border-bottom: 1px solid var(--evo_color_2);
+	}
+	.evo_lightbox .evost_inline_seat_map .evost_map_information{padding: 0 20px}
+	.evo_lightbox .evost_seats_preview, .evo_lightbox .evost_seats_in_cart{
+		margin:20px;
+	}
+	.evo_lightbox .evotx_ticket_purchase_section,
+	.evo_lightbox .evost_seat_map_section
+	{padding-bottom: 1px;}
+	.evo_lightbox .evost_seat_map_section.evoloading:before{border-radius: 20px;}
+	.evo_lightbox .evost_view_control .zoomin{padding-top: 2px;}
+	.evo_lightbox .evost_seat_selection.fixed_tt .evost_tooltip{margin: 10px 20px;}
+	
+
 /* countdown timer */
 	.evost_cart_expirations .countdown-amount{font-size: 16px; font-weight: bold;}
 /* tooltip */
 	.evost_seat_selection.fixed_tt .evost_tooltip{
 		position: relative;
 		visibility: visible;
-		margin-bottom: 5px;
     	box-shadow: none;
 	    display: flex;
 	    justify-content: space-between;
+	    border:none; border-radius: 10px; margin-top: 10px;
+	    z-index: 1; min-height: 55px;
 	}
 
+	.evost_seat_selection.fixed_tt .evost_seat_layout_outter{
+		border:none;padding:10px; background-color: var(--evost_c_white);
+	}
 	.evost_seat_selection.fixed_tt .evost_tooltip .evost_tt_content{border:none;}
 	.evost_seat_selection.fixed_tt .evost_tooltip .evost_tt_data,
 	.evost_seat_selection.fixed_tt .evost_tooltip .evost_section_information_2,
@@ -313,6 +396,9 @@ body .evorow.evoloading{position: relative;}
 	.evost_seat_selection.fixed_tt .evost_tooltip .evost_tt_content{
 		width: 33.3%; padding: 10px 20px;
 	}
+	.evost_seat_selection.fixed_tt .evost_tooltip .evost_section_information,
+	.evost_seat_selection.fixed_tt .evost_tooltip .evost_section_information_2
+	{min-width: auto}
 
 	@media (max-width: 600px){
 		.evost_seat_selection.fixed_tt .evost_tooltip{
@@ -334,22 +420,17 @@ body .evorow.evoloading{position: relative;}
 		position: fixed; 
 		display: block;
 		visibility:hidden;
-		font-family: 'roboto','open sans';
-		background-color: #fff;
+		background-color: var(--evost_c_white);
 		z-index: 99999;
 		border:1px solid #d8d8d8;
 		border-radius: 5px;
 		pointer-events:none;
 		-webkit-box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.08);
 		box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.08);
-		-webkit-transition: all .5s ease;
-		-moz-transition: all .5s ease;
-		-ms-transition: all .5s ease;
-		-o-transition: all .5s ease;
-		transition: all .5s ease;
 	}
 	.evost_tooltip .evost_tt_data{font-size: 14px;}
 	.evost_tooltip.visible{visibility: visible;}
+	.evost_tt_content{flex-basis: 400px;flex:1;}
 	.evost_tt_content .label, 
 	.evost_tt_content .value{display: block;}
 	.evost_tt_content .evost_ttc_data{
@@ -379,7 +460,7 @@ body .evorow.evoloading{position: relative;}
 	}
 	.evost_tt_content .evost_ttc_data .label{
 		text-transform: uppercase;
-		font-size: 14px;
+		font-size: 16px;font-weight: 800;
 		line-height: 1;
 	}
 	.evost_tt_content .evost_ttc_data{text-align: center;}
@@ -387,15 +468,15 @@ body .evorow.evoloading{position: relative;}
 	.evost_tt_content .evost_ttc_data:last-child{text-align: right;}
 	.evost_tt_content .evost_ttc_data:first-child{text-align: left;}
 	.evost_tt_content .evost_ttc_data .value{
-		font-size: 18px;
+		font-size: 12px;
 		line-height: 1;
 		font-weight: bold;
 		padding-top: 5px;
 	}
 	.evost_tix_stub_content{
-		font-family: 'roboto','open sans';
 		background-color: #fff;
 		border:1px solid #d8d8d8;
+		border-radius: 10px;
 	}
 	.evost_selected_seats{
 		padding: 0px;
@@ -408,7 +489,6 @@ body .evorow.evoloading{position: relative;}
 		padding: 12px 5px 5px;
 	    text-align: center;
 	    font-size: 12px;
-	    font-family: 'open sans','arial'
 	}
 	body .evost_seat_map_section p.evost_msg, 
 	body #evcal_list .evost_seat_map_section p.evost_msg{
@@ -422,20 +502,20 @@ body .evorow.evoloading{position: relative;}
 	    font-size: 14px;
 	}
 	body #evcal_list .evost_seat_map_section p.evost_msg.error{background-color:#ff7b7b }
+	.evost_seats_preview, .evost_seats_in_cart{
+		background-color: #fff;
+	    border-radius: 15px;
+	    padding: 20px; margin-bottom: 20px
+	}
 	.evost_selected_seats p.evost_tix_title, 
 	body .evost_seat_map_section p.evost_tix_title{ 
-		border-top: 1px solid #c5c5c5;
-	    margin-top: 30px;
-	    margin-bottom: 20px;
-	    border-bottom: 1px solid #c5c5c5;
-	    padding: 10px;
-	    background-color: #eeee;
+		margin-bottom: 20px;
 	    text-transform: uppercase;
 	    font-style: normal;
 	    font-size: 16px;
 	    font-weight: bold;
 	}
-	.evost_selected_seats li, .evost_seats_in_cart li{position: relative; margin-bottom: 5px;}
+	.evost_selected_seats li, .evost_seats_in_cart li{position: relative; margin-bottom: 10px;}
 	.evost_selected_seats .evost_remove_tix, .evost_seats_in_cart .evost_remove_tix{
 		position: absolute;
 		right: 0;
@@ -455,7 +535,6 @@ body .evorow.evoloading{position: relative;}
 	    font-weight: 300;
 	    box-sizing: content-box;
 	    -moz-box-sizing: content-box;
-	    font-family: 'open sans',arial
 	}
 	.evost_selected_seats .evost_remove_tix:hover, .evost_seats_in_cart .evost_remove_tix:hover{background-color: #808080}
 	.evost_stub_action{
@@ -468,8 +547,6 @@ body .evorow.evoloading{position: relative;}
 		padding: 10px 0;
 	}
 
-
-	
 
 /* responsive for smaller screens */
 	.evo_lightboxes .evost_lightbox .evo_lightbox_content.compact .evost_seat_legends{display: none;}
@@ -557,6 +634,8 @@ body .evorow.evoloading{position: relative;}
 	}
 	.evost_tix_stub_content .evost_tt_data.otherdata,
 	.evost_tix_stub_content .evost_tt_data.hastotal{font-size: 14px;}
+	body .evotx_ticket_purchase_section .evost_seats_preview .evovo_price_options p.evovo_price_option
+		{background-color: #f0f0f0!important;}
 
 /* cart pages */
 	p.evost_cart_timer{
@@ -572,4 +651,5 @@ body .evorow.evoloading{position: relative;}
 	.evo_lightboxes .evo_lightbox_content.compact .evost_seat_selection .evost_section .evost_row .seat{
 		font-size: 14px;
 	}
+	.evost_inline_seat_map .evost_map_information{flex-wrap: wrap;}
 }

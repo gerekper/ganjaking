@@ -38,7 +38,7 @@ class Foo
         if ($this->logger) {
             $this->logger->info('Doing work');
         }
-           
+
         try {
             $this->doSomethingElse();
         } catch (Exception $exception) {

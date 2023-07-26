@@ -142,7 +142,26 @@
 	.checked.evotx_status{background-color: #69c33b;}
 	.evotx_status.checkable:hover{background-color: #A0A0A0}
 
-	
+/* repeats */
+	.evolb_content .evotx_ri_cap_inputs p input{
+		    font-family: 'open sans','arial';
+	    font-weight: 300;
+	    font-size: 18px;
+	    padding: 0;
+	    text-align: center;
+	    border-radius: 12px;
+	    width: 85px;
+	    line-height: 1;
+	    margin-right: 10px;
+	}
+	.evolb_content .evotx_ri_cap_inputs p{
+		    align-items: center;
+	    display: flex;
+	    background-color: #c3c3c3;
+	    margin-bottom: 10px;
+	    padding: 10px;
+	    border-radius: 10px;
+	}
 	
 /* evo-tix ticket list */
 	#evotx_ticketItem_tickets{font-style: normal;}
@@ -234,9 +253,7 @@
 	  	-o-transform: rotate(-45deg);
 	  	transform: rotate(-45deg);
 	}
-	.evotx_details.evomb_body table .innersection td:first-child{border-left:4px solid #F9CA8D;}
 	.evomb_body table .innersection tr:first-child td{border-top:3px solid #d6d6d6;}
-	.evotx_details.evomb_body table .innersection td{background-color:#e8e8e8; border-color:#d6d6d6;}
 
 /* WC Order page with tickets */
 	.evotx_wc_order_cpt .evotxVA_ticket,
@@ -270,15 +287,32 @@
 	.evotx_wcorderstatus.failed{background-color:#eba3a3 }
 
 /* view attendees v2 */
-	.evotx_filter {
-		padding: 15px;
-		background-color: #f4f4f4;
-		border-bottom: 1px solid #ededed;
+	.config_evotx_viewattend .evolb_title{
+		    display: flex; align-items: center;
 	}
-	.evotx_filter .main_filters{display: flex}
-	.evotx_filter .other_filters{padding-top: 10px;}
+	.config_evotx_viewattend .evolb_title .evotx_attendee_count{
+		background-color: var(--evo_color_prime);
+	    color: #fff;
+	    padding: 5px 10px; margin-left: 10px;
+	    font-size: 14px;
+	    border-radius: 15px;
+	}
+	.evotx_filter .evohidden, .evotx_filter .other_filters.evohidden, .evotx_filter .evotx_admin_search_bar.evohidden
+	{display: none}
+	.evotx_filter {
+		    padding: 15px;
+	    background-color: #e6e6e6;
+	    border-radius: 15px;
+	    margin: 0 20px 20px;
+	}
+	.evotx_filter .main_filters{display: flex;gap:10px;}
+	.evotx_filter .other_filters, .evotx_filter .evotx_admin_search_bar
+	{padding-top: 10px;display: flex}
 	.evotx_filter .other_filters span{display: inline-block;}
-	.evotx_filter span select{display:block;margin: 0 8px 5px 0; text-transform: capitalize;}
+	.evotx_filter span select, .evotx_filter span input[type="text"]{
+		background-color: #fff; border-radius: 10px;
+	}
+	.evotx_filter span select{display:block;margin: 0 8px 5px 0!important; text-transform: capitalize;}
 	.evotx_filter span em{font-size: 12px; font-style: normal; opacity: 0.6; text-transform: capitalize;}
 	
 	.evotx_filter .evotx_search{
@@ -323,17 +357,23 @@
 	.evotxVA_ticket .etxva_tag:hover{opacity: 0.7;}
 	.evotxVA_ticket .etxva_main{display: block;padding-bottom: 5px;}
 	.evotxVA_ticket .etxva_other span{font-size: 14px;opacity: 0.7;
-		display: block; margin:0px}
-	.evotxVA_ticket .etxva_other span em{text-transform: capitalize;}
+		display: block; margin:0px; padding-bottom: 5px;}
+	.evotxVA_ticket .etxva_other span em{text-transform: capitalize; font-style: normal; font-weight: bold;}
+	.evotxVA_ticket .etxva_other span i{text-transform: capitalize;padding-left: 10px;}
 
 /* ticket stats */
 	.evotx_ticket_data{
 		margin-bottom:-10px;
-	    padding: 15px 25px 20px;
-	    background-color: #fff;
+	    padding: 10px;
+	}
+	.evotx_ticket_data .evotx_stats_bar{
+		background-color: #00aafb;
+	    padding: 20px;
+	    border-radius: 15px;
+	    color: #fff;
 	}
 	.evomb_body .evotx_stats_bar p.stat_bar {
-	    background-color: #9d9d9d;border-radius:15px;height: 12px;padding: 0;overflow: hidden;
+	    background-color: #1994de;border-radius:15px;height: 12px;padding: 0;overflow: hidden;
 	}
 	.evotx_stats_bar p.stat_bar span {
 	    display: inline-block;
@@ -348,7 +388,7 @@
 	.evotx_stats_bar p.stat_bar span.processing , .evotx_stat_text em.processing{background-color: #FFE88E;}
 	.evotx_stats_bar p.stat_bar span.refunded , .evotx_stat_text em.refunded{background-color: #E69168;}
 	.evotx_stat_text em.instock{background-color: #9d9d9d;}
-	.evotx_stat_text{padding-top: 10px; font-size: 11px; text-transform: uppercase;color:#b1b1b1;}
+	.evotx_stat_text{padding-top: 10px; font-size: 11px; text-transform: uppercase;}
 	.evotx_stat_text span{margin-right: 5px;}
 	.evotx_stat_text em{
 		display: inline-block;
@@ -360,7 +400,7 @@
 
 /* sales insight */
 	.evotxsi_row{padding: 35px 20px; border-bottom:1px solid #e6e6e6;}
-	.evotxsi_row > * {color:#808080;}
+	.evotxsi_row > * {color:#444444;}
 	.evotxsi_row h2{text-transform: uppercase;}
 	.evotxsi_row.sales_by_status span i{font-style: normal; font-size: 11px; text-transform: uppercase;}
 	.evotxsi_row h2, .evotxsi_row h3{text-align: center;}
@@ -375,11 +415,11 @@
 	.evotxsi_row p{text-align: center;}
 	.evotxsi_row h3{font-weight: normal; font-size: 14px; opacity: 0.6;}
 	
-	.evotxsi_row.sales_by_status p{display:flex;justify-content:space-around; color:#cfcfcf;}
-	.evotxsi_row.sales_by_status span b{ display: block; font-size: 30px; font-weight: bold;color:#808080;}
+	.evotxsi_row.sales_by_status p{display:flex;justify-content:space-around; flex-wrap: wrap;}
+	.evotxsi_row.sales_by_status span b{ display: block; font-size: 30px; font-weight: bold;}
 	.evotxsi_row.sales_by_status span em{ display: block; font-size: 16px; font-weight: bold;font-style: normal; opacity: 0.8;}
 	.sales_by_time p span{display:flex;padding: 5px 0;justify-content:space-between;	}
-	.sales_by_time p span b{width: 95px; padding-right: 10px; color:#d0d0d0;}
+	.sales_by_time p span b{width: 95px; padding-right: 10px;opacity: 0.8 }
 	.sales_by_time p span i{flex-basis:90px; text-align: right;font-style: normal}
 	.sales_by_time p span em b{background-color: #7fdbfb;padding: 0; height: 10px;display: block;}
 	.sales_by_time p span em{width:350px; height: 10px;background-color: #f0f0f0; border-radius: 20px; overflow: hidden; margin-right: 10px; margin-top: 7px;}

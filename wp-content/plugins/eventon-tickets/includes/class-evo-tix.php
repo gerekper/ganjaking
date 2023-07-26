@@ -59,10 +59,16 @@ class evotx_tix{
 					if(!empty($item['variation_id'])){
 						$_product = new WC_Product_Variation($item['variation_id'] );
 	        			foreach($_product->get_variation_attributes( ) as $f=>$v){	$type = $v;	}
-	        		}        	
+	        		}       
+
+	        	// total tickets in order item 
+	        		$total_tickets =  	(int)$item['qty'];
 
 			    // create event ticket for each order item qty
 			    for($Q=0; $Q<$item['qty']; $Q++){
+
+			    	// if running for more than whats in the quantity stop
+			    	if( $Q >= $total_tickets) continue;
 
 			    	if($created_tix_id = $EH->create_posts(array(
 						'post_type'=>'evo-tix',
@@ -118,6 +124,8 @@ class evotx_tix{
 			if( $order_has_event_tickets){
 				update_post_meta($order_id, '_order_type','evotix');	
 				update_post_meta($order_id, '_order_tix','created'); 
+
+				do_action('evotx_order_with_tickets_created', $order_id, $order_ticket_numbers);
 			}
 		// add all ticket numbers for this order
 			if(count($order_ticket_numbers)>0){
@@ -155,12 +163,9 @@ class evotx_tix{
 	    				$TNN = explode('-', $ticket_number);
 	    				$evotix_post_id = (int) $TNN[0];
 
-	    				//echo $ticket_number.'/';
-
 	    				if( $TNN[1]== $order_id && $TNN[2] == $__prod_key.'T'.$Q){
 	    					$TIX = new EVO_Evo_Tix_CPT( $evotix_post_id, false );
 
-	    					//echo '<'.$item_id.'>';
 
 	    					$TIX->set_prop('_order_item_id', $item_id);
 	    				}
@@ -234,11 +239,11 @@ class evotx_tix{
 	}
 	function get_product_id_by_ticketnumber($ticket_number){
 		$tt = explode('-', $ticket_number);
-		return (int)$tt[2];
+		return isset( $tt[2] ) ? (int)$tt[2] : false;
 	}
 	function get_evotix_id_by_ticketnumber($ticket_number){
 		$tt = explode('-', $ticket_number);
-		return (int)$tt[0];
+		return isset($tt[0]) ? (int)$tt[0] : false;
 	}
 	
 	function get_ticket_purchaser_info($ticket_number){

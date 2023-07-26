@@ -5,7 +5,7 @@
  * @author 		AJDE
  * @category 	Admin
  * @package 	eventon-st/classes
- * @version     0.1
+ * @version     1.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -156,11 +156,13 @@ class evost_admin{
 					array('label'=>'Select Seats', 'var'=>1),				
 					array('label'=>'Find Seats', 'var'=>1),				
 					array('label'=>'SEC', 'var'=>1),				
-					array('label'=>'Section', 'var'=>1),				
+					array('label'=>'Section', 'var'=>1),	
 					array('label'=>'ROW', 'var'=>1),				
 					array('label'=>'SEAT', 'var'=>1),					
 					array('label'=>'Seats', 'var'=>1),				
 					array('label'=>'Seat Number', 'var'=>1),				
+					array('label'=>'Seat Type', 'var'=>1),				
+					array('label'=>'Regular Seat', 'var'=>1),				
 					array('label'=>'Ticket Price', 'var'=>1),				
 					array('label'=>'Your Tickets', 'var'=>1),			
 					array('label'=>'Number of Seats', 'var'=>1),			
@@ -178,10 +180,20 @@ class evost_admin{
 					array('label'=>"Your Tickets In Cart", 'var'=>1),			
 					array('label'=>"Seats in your cart", 'var'=>1),			
 					array('label'=>'Seat not available at the moment', 'var'=>1),			
+					array('label'=>'Seats not available', 'var'=>1),			
 					array('label'=>'Your seats will expire in', 'var'=>1),			
 					array('label'=>'Seat Information', 'var'=>1),			
-					array('label'=>'Seats added to cart will expire in [time] minutes of inactivity in cart.', 'var'=>1),			
+					array('label'=>'Unassigned Seating at', 'var'=>1),	
+					array('label'=>'Unassigned Seating', 'var'=>1),	
+					array('label'=>'Unassigned Seat Section ID', 'var'=>1),	
+					array('label'=>'Seats added to cart will expire in [time] minutes of inactivity in cart.', 'var'=>1),		
+					array('label'=>'Booth', 'var'=>1),				
+					array('label'=>'Booth ID', 'var'=>1),	
+					array('label'=>'Booth Still Available', 'var'=>1),	
+					array('label'=>'Booth Not Available', 'var'=>1),	
+					array('label'=>'Booth Seating at', 'var'=>1),		
 					array('label'=>'Reset Map', 'var'=>1),			
+					array('label'=>'Hover over a seat to see the pricing information.', 'var'=>1),			
 				array('type'=>'togend'),
 			);
 			return (is_array($_existen))? array_merge($_existen, $new_ar): $_existen;

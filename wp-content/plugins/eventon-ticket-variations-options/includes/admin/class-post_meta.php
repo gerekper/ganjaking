@@ -48,60 +48,26 @@ class evovo_meta_boxes{
 			<tr class='innersection' id='evovo_section' style='display:<?php echo evo_meta_yesno($epmv,'_evovo_activate','yes','','none' );?>'>
 				<td style='padding:20px 25px;' colspan='2'>
 					
-					<div id='evovo_options_selection' style='display:block' >
-						<div class='evovo_vos_container_event evovo_vos_container' data-eid='<?php echo $EVENT->ID;?>' data-wcid='<?php echo $wooproduct_id;?>' data-pid='<?php echo $EVENT->ID;?>' data-pt='event'>
-							<?php
-							$VO = new EVOVO_Var_opts($EVENT, $wooproduct_id);
-							echo $VO->get_all_vos_html('', 'event');
-							?>		
-						</div>
-						
-						<?php if(!$EVENT->check_yn('_evobo_activate')):?>
-							<p class='yesno_leg_line ' >
-								<?php echo eventon_html_yesnobtn(array(
-									'id'=>		'_evovo_var_sep_sold',
-									'var'=>		$EVENT->get_prop('_evovo_var_sep_sold'), 
-									'input'=>	true,
-									'label'=>	__('Sell Variations as separate ticket (Only when you have single variation type)','evovo'),
-									'guide'=>	__('This will allow customers to add each variation type to cart as separate tickets, this is only available when there is only single variation type. When this is enabled price options will not display.','evovo')
-								)); ?>
-							</p>
-							<p class='yesno_leg_line ' >
-								<?php echo eventon_html_yesnobtn(array(
-									'id'=>		'_evovo_po_sep_sold',
-									'var'=>		evo_meta_yesno($epmv, '_evovo_po_sep_sold'), 
-									'input'=>	true,
-									'label'=>	__('Sell Price Options as Separate Tickets','evovo'),
-									'guide'=>	__('This will enable you to sell price options as separate tickets instead of a single ticket. Variations will be disabled when this is active.','evovo')
-								)); ?>
-							</p>
-						<?php endif;?>
-						<p class='yesno_leg_line ' >
-							<?php echo eventon_html_yesnobtn(array(
-								'id'=>		'_evovo_v_hide_sold',
-								'var'=>		evo_meta_yesno($epmv, '_evovo_v_hide_sold'), 
-								'input'=>	true,
-								'label'=>	__('Hide variations that are out of stock','evovo'),
-								'guide'=>	__('This option will not show variations that are sold out, when page first loads.','evovo')
-							)); ?>
-						</p>
-
-						<p style='opacity:0.5;display:none'><i><?php _e('NOTE: ','evovo');?></i></p>				
-						<p style='margin-top:20px'><?php	echo $VO->get_vos_action_btn_html($eventid,'event'); ?></p>					
+					<div id='evovo_options_selection' style='display:block' >						
+						<p>
+						<?php
+							EVO()->elements->print_trigger_element(array(
+								'title'=>__('Variations & Options Settings','evovo'),
+								'dom_element'=> 'span',
+								'uid'=>'evovo_settings',
+								'lb_class' =>'evovo_lightbox',
+								'lb_title'=>__('Variations & Options Settings','evovo'),	
+								'ajax_data'=>array(					
+									'event_id'=> $EVENT->ID,
+									'wcid'=> $wooproduct_id,
+									'a'=> 'evovo_get_settings',
+								),
+							), 'trig_lb');
+						?></p>										
 					</div>
 				</td>
 			</tr>
 			<?php
-
-			global $ajde;
-			echo $ajde->wp_admin->lightbox_content(array(
-				'class'=>'evovo_lightbox', 
-				'content'=>"<p class='evo_lightbox_loading'></p>",
-				'title'=>__('Ticket Options','evovo'),
-				'width'=>'500',
-				'outside_click'=>false
-				)
-			);
 
 		else:
 			?>
@@ -124,8 +90,6 @@ class evovo_meta_boxes{
 	// save fields
 		function event_ticket_save($array){
 			$array[] = '_evovo_activate';
-			$array[] = '_evovo_po_sep_sold';
-			$array[] = '_evovo_v_hide_sold';
 			return $array;
 		}
 		// save block capacities to sync with ticket data

@@ -15,6 +15,7 @@ class evost_meta_boxes{
 	// Event Tickets
 		function event_tickets_metabox($eventid, $epmv, $wooproduct_id, $product_type, $EVENT){
 			global $eventon, $evost, $ajde;
+			$help = new evo_helper();
 
 			$show_content = apply_filters('evost_before_tickets_meta_box', true, $EVENT);
 
@@ -28,7 +29,6 @@ class evost_meta_boxes{
 
 			// get lightbox content
 				$this->lightbox_content($eventid, $epmv, $wooproduct_id, $product_type);
-
 				$SYM = get_woocommerce_currency_symbol();
 
 			?>
@@ -46,10 +46,25 @@ class evost_meta_boxes{
 				</td></tr>
 				<tr class='innersection' id='evotx_seat_chart' style='display:<?php echo evo_meta_yesno($epmv,'_enable_seat_chart','yes','','none' );?>'>
 
-					<td style='padding:5px 25px;' colspan='2'>
-						<div style='padding:5px 0 9px'>
-							<p><?php _e('Set up seat chart with sections', 'evost'); ?></p>
-							<a class='button_evo ajde_popup_trig evost_open_seat_map_editor' data-eid='<?php echo $eventid;?>' data-product_id='<?php echo $wooproduct_id;?>' data-popc='evost_lightbox' style='    background-color: #007cba;width: 100%;box-sizing: border-box;text-align: center; padding: 10px;'><?php _e('Open Seat Map Editor');?></a>
+					<td colspan='2'>
+						<div >
+							<p><?php _e('Set up Seat Map in the editor below', 'evost'); ?></p>
+							<p>
+							<?php
+								EVO()->elements->print_trigger_element(array(
+									'title'=>__('Seat Map Editor','eventon'),
+									'dom_element'=> 'span',
+									'uid'=>'evost_seatmap_editor',
+									'lb_class' =>'evost_lightbox',
+									'lb_padding' =>'evopad0',
+									'lb_title'=>__('Configure Seat Map','eventon'),	
+									'ajax_data'=>array(					
+										'event_id'=> $EVENT->ID,
+										'wcid'=> $wooproduct_id,
+										'action'=> 'evost_editor_content',
+									),
+								), 'trig_lb');
+							?></p>
 
 							<p class='yesno_leg_line ' style='margin-top:10px;'>
 								<?php 

@@ -1,6 +1,7 @@
 <?php
 /** 
  * Integration with event tickets addon
+ * @version 1.4
  */
 
 class EVOBO_Tickets_Int{
@@ -9,6 +10,7 @@ class EVOBO_Tickets_Int{
 			// ADD to cart
 				add_filter('evotx_cart_session_item_values', array($this,'cart_session_item_data'), 10, 1 );
 				add_filter('evotx_add_cart_item_meta', array($this, 'add_to_cart'),10,4);
+				add_filter('evotx_ticket_added_cart_ajax_data', array($this, 'add_to_cart_ajax_return'),10,3);
 				add_filter('evotx_ticket_item_price_for_cart', array($this, 'cart_ticket_price'),10,4);
 
 			// Cart view
@@ -31,7 +33,7 @@ class EVOBO_Tickets_Int{
 				add_action('evotix_confirmation_email_data', array($this, 'tix_confirmation_email'), 10, 6);
 		// frontend template
 			add_filter('evotx_single_product_temp', array($this, 'frontend_temp'), 10,2);
-
+			add_filter('evotx_addtocart_text_strings', array($this, 'fe_text_strings'), 10,1);
 			add_filter('evotx_get_attendees_for_event', array($this, 'view_attendees'), 10, 2);
 
 		// ADMIN ONLY
@@ -46,79 +48,85 @@ class EVOBO_Tickets_Int{
 		add_filter('evotx_hidden_order_itemmeta', array($this,'hide_order_item_metafields'),10,1);
 	}
 
-	// FRONTEND
-		function frontend_temp($boolean, $event){
+	// FRONTEND	
+		function fe_text_strings( $arg){
+			$arg['evobo1'] = evo_lang('Time Block successfully added to cart');
+			return $arg;
+		}	
+		function frontend_temp($boolean, $event, $other_classes = ''){
 
 			$BLOCKS = new EVOBO_Blocks( $event);
 
 			if( !$BLOCKS->is_blocks_active()) return $boolean;
 
+			$help = new evotx_helper();
+
 			ob_start();
-
-			$data = $BLOCKS->event->get_data();
 			
-			$select_year = $select_month = $select_date = '';
-			$current_time = current_time('timestamp');
-
-			$EVO_Cal = new EVO_Calendar('evcal_2');
-
-			global $EVOLANG; // get global evo lang value set via tickets addon
-			
-			$dataset = array(
-				'event_id'=>$event->ID,
-				'wcid'=> $event->wcid,
-				'l'=> $EVOLANG				
-			);
-
 			$style = $event->get_prop('_evobo_style');
 			if(!$style) $style = 'def';
 
+			// get booking data
+				$evobo_data = array();
+				$evobo_data['evobo_json'] = $BLOCKS->get_frontend_block_json( false, false);
+				$style = $event->get_prop('_evobo_style');
 
-			//$style = 'def';
+				if($style == 'slot'):
+					$evobo_data['evobo_dataset'] = array(					
+						'hide_end'=> $event->check_yn('_evobo_hide_end'),		
+						't2'=> __( evo_lang('Select an available time slot')),
+						't3'=> __( evo_lang('No available slots, please try another date!')),
+						't3n'=> __( evo_lang('There are no available time slots at the moment!')),
+					);
+				else:
+					$lang = EVO()->lang;
+					$current_time = current_time('timestamp');
+					$EVO_Cal = new EVO_Calendar('evcal_2');
+
+					$evobo_data['evobo_dataset'] = array(
+						'sow'=> get_option('start_of_week'),
+						'cty'=> date('Y',$current_time),
+						'ctm'=> date('n',$current_time),
+						'ctd'=> date('j',$current_time),
+						'hide_end'=> $event->check_yn('_evobo_hide_end'),
+						'm'=> 	EVO()->cal->_get_all_month_names(),
+						'df'=> 	EVO()->cal->get_all_day_names('full'),
+						'd3'=> 	EVO()->cal->get_all_day_names('three'),
+						'd1'=> 	EVO()->cal->get_all_day_names('one'),
+						't1'=> __( evo_lang('Select a date')),
+						't2'=> __( evo_lang('Select an available time slot')),
+						't3'=> __( evo_lang('No available slots, please try another date!')),
+						't3n'=> __( evo_lang('There are no available time slots at the moment!')),
+						't4'=> __( evo_lang('Today')),
+					);
+				endif;
+
 			?>
-			<div class='tx_single evobo_booking_section <?php echo $style;?>' data-s='<?php echo $style;?>'>
-				<div class='evobo_main_selection evotx_hidable_box evotx_hidable_section'>
-					<?php					
+			<div class='evobo_booking_section <?php echo $style;?> <?php echo $other_classes;?> tx_single' data-s='<?php echo $style;?>'>
+				<div class='evobo_loading_section'>
+					<div class='evo_loading_bar_holder h100'>
+						<div class="evo_loading_bar hi_150"></div>
+						<div class="evo_loading_bar hi_50"></div>
+						<div class="evo_loading_bar wid_40 hi_50"></div>
+					</div>
+				</div>
 
-
-					if($style == 'slot'):
-						$cal_dataset = array(					
-							'hide_end'=> $event->check_yn('_evobo_hide_end'),		
-							't2'=> __( evo_lang('Select an available time slot')),
-							't3'=> __( evo_lang('No available slots, please try another date!')),
-							't3n'=> __( evo_lang('There are no available time slots at the moment!')),
-						);
-					?>
-						<div class='evobo_selections' data-dataset='<?php echo json_encode($cal_dataset);?>' ></div>					
-					<?php else:
-
-						$lang = EVO()->lang;
-
-						$cal_dataset = array(
-							'sow'=> get_option('start_of_week'),
-							'cty'=> date('Y',$current_time),
-							'ctm'=> date('n',$current_time),
-							'ctd'=> date('j',$current_time),
-							'hide_end'=> $event->check_yn('_evobo_hide_end'),
-							'm'=> 	$EVO_Cal->get_all_months( $lang ),
-							'df'=> 	$EVO_Cal->get_all_days( $lang ,'full',true),
-							'd3'=> 	$EVO_Cal->get_all_days( $lang ,'three',true),
-							'd1'=> 	$EVO_Cal->get_all_days( $lang ,'one',true),
-							't1'=> __( evo_lang('Select a date')),
-							't2'=> __( evo_lang('Select an available time slot')),
-							't3'=> __( evo_lang('No available slots, please try another date!')),
-							't3n'=> __( evo_lang('There are no available time slots at the moment!')),
-							't4'=> __( evo_lang('Today')),
-						);
-					?>
-						<div class='evobo_calendar' data-dataset='<?php echo json_encode($cal_dataset);?>' ></div>
-						<div class='evobo_selections'></div>
-					<?php endif;?>
-					<div class='evobo_slots' data-json='<?php echo $BLOCKS->get_frontend_block_json();?>' data-dataset='<?php echo json_encode($dataset);?>'></div>
-					
+				<div class='evobo_main_selection evotx_hidable_section'>					
+					<?php if($style != 'slot'):?> <div class='evobo_calendar'></div><?php endif;?>
+					<div class='evobo_selections'></div>					
 				</div>
 				<?php /* this is where price info & added to cart msg will go */?>
-				<div class="evobo_price_values evobo_style1" style='display:none'></div>	
+				<div class="evobo_price_values " style='display:none'></div>
+
+				<?php 
+				$help->print_select_data_element( array(
+					'class'=>'evotx_other_data evobo',
+					'data'=> array(
+						'block_id'=>'',
+					)
+				) );
+				?>
+				<div class='evobo_data' <?php echo $help->array_to_html_data( $evobo_data );?>></div>	
 			</div>
 
 			<?php 
@@ -127,15 +135,24 @@ class EVOBO_Tickets_Int{
 		}
 
 	// add to CART via AJAX
+		function add_to_cart_ajax_return( $ajaxdata, $EVENT, $DATA){
+			if( !isset($DATA)) return $ajaxdata;
+			if( !isset($DATA['other_data'])) return $ajaxdata;
+			if( !isset($DATA['other_data']['block_id'])) return $ajaxdata;
+
+			$ajaxdata['msg'] = 'evobo1';
+			return $ajaxdata;
+
+		}
 		function add_to_cart($cart_item_data, $EVENT, $def_price, $DATA){
 
-			$event_data = $DATA['event_data'];
+			
+			if( !isset($DATA['other_data'])) return $cart_item_data;
+			if( !isset($DATA['other_data']['block_id'])) return $cart_item_data;
 
-			if( !isset($event_data['booking_index'])) return $cart_item_data;
+			$booking_index = $DATA['other_data']['block_id'];
 
-			$booking_index = $event_data['booking_index'];
-
-			$BLOCKS = new EVOBO_Blocks($EVENT, $event_data['wcid']);
+			$BLOCKS = new EVOBO_Blocks( $EVENT, $EVENT->wcid );
 			$BLOCKS->set_block_data($booking_index);
 
 			$max_stock = $BLOCKS->get_item_prop('capacity')? (int)$BLOCKS->get_item_prop('capacity'): 0;
@@ -407,4 +424,3 @@ class EVOBO_Tickets_Int{
 
 		}
 }
-new EVOBO_Tickets_Int();

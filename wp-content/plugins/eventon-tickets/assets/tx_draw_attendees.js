@@ -1,6 +1,6 @@
 /**
  * EVOTX draw attendees
- * @version  0.1
+ * @version  2.1.1
  */
 
 (function($){
@@ -12,6 +12,16 @@
 		if(temp === undefined) return false;
 
 		template = Handlebars.compile( temp );
+
+		LB = $('body').find('.evo_lightbox.config_evotx_viewattend');
+		if( LB.length == 0){
+			$('body').trigger('evo_lightbox_trigger',[{
+				't':'View Attendees',
+				'uid':'evotx_view_attendees',
+				'lbc':'config_evotx_viewattend',
+				'lb_padding':'evopad0'
+			}]);
+		}
 
 		// additions
 			Handlebars.registerHelper('ifCond',function(v1,operator, v2, options){
@@ -33,7 +43,7 @@
 
 		// build
 			if(attendees === undefined){
-				$('.evotx_lightbox').find('.ajde_popup_text').html( 'No Attendees');
+				LB.evo_lightbox_populate_content({content: 'No Attendees' });
 			}else{	
 				// pass can checkable value
 				Handlebars.registerHelper("gC", function() {	
@@ -45,10 +55,14 @@
 				HTML = template( attendees );				
 			}
 			
-			$('.evotx_lightbox').find('.ajde_popup_text').html( HTML );
+			LB.evo_lightbox_populate_content({content: HTML });
+
+			// attendee count
+			LB.find('.evolb_title').append("<span class='evotx_attendee_count'></span>");
+			update_attendee_count();
 
 		// build filter
-			F = $('.evotx_lightbox').find('.evotx_filter');
+			F = LB.find('.evotx_filter');
 			fil = {};
 
 			if(attendees !== undefined){
@@ -110,7 +124,7 @@
 						$.each( V, function(ind,D){
 							if(ind == 'display') return true;
 							if(ind == 'oD') return true;
-							_HTML += "<option value='"+D+"'>"+D+"</option>";
+							_HTML += "<option value='"+  D  +"' x>"+ decodehtml( D ) +"</option>";
 						});
 					}
 					
@@ -126,29 +140,80 @@
 					}
 
 				});
-
+				
+				HTML += "<span>";
 				// button to see more filters if available
 				if(oHTML!= ''){
-					HTML += "<span><a class='evo_admin_btn btn_triad toggle_other_filters'>More Filters</a></span>";
+					HTML += "<a class='evo_admin_btn toggle_other_filters evomarr10'><i class='fa fa-sliders evomarr10'></i> "+ evotx_admin_ajax_script.text.t2 +"</a>";
 				}
+				HTML += "<a class='evo_admin_btn toggle_search'><i class='fa fa-search'></i></a>";
+				HTML += "</span>";
 
 				HTML += "</span>";
-				HTML += '<span class="other_filters" style="display:none">'+oHTML+"</span>";
+				HTML += '<span class="other_filters evohidden" style="">'+oHTML+"</span>";
+				HTML += '<span class="evotx_admin_search_bar evomart10 evohidden" style=""><input class="evotx_admin_search_input" type="text" name="s" placeholder="'+ evotx_admin_ajax_script.text.t1 +'"/></span>';
 
 				F.html( HTML ).data('j', attendees);
 
 				// when filtes changed
-				$('.evotx_lightbox').find('.evotx_filter select').on('change',function(){
+				LB.find('.evotx_filter select').on('change',function(){
 					_filter_tickets();
 				});
 
 				// toggle other filters
-				$('.evotx_lightbox .toggle_other_filters').on('click',function(){
-					$(this).closest('.evotx_filter').find('.other_filters').toggle();
+				LB.
+				on('click','.toggle_other_filters', function(){
+					$(this).closest('.evotx_filter').find('.other_filters').toggleClass('evohidden');
+				})
+				// toggle search bar
+				.on('click','.toggle_search', function(){
+					$(this).closest('.evotx_filter').find('.evotx_admin_search_bar').toggleClass('evohidden');
+				});
+
+				// search tickets on key press
+				$('body').on('keypress', '.evotx_admin_search_input',function(event){
+					var keycode = (event.keyCode ? event.keyCode : event.which);
+					if( keycode == '13' ){
+						_search_tickets();
+					}
 				});
 			}
 
 		// supportive
+			function _search_tickets(){				
+				J = F.data('j');
+				TNS = [];
+				var search_val = LB.find('.evotx_admin_search_input').val();
+
+				$.each(J, function(tickets, tixx){
+					if(tickets != 'tickets') return true;
+					$.each(tixx, function(tn, td){
+						// if ticket number match
+						if( tn.indexOf( search_val ) !== -1) TNS.push(tn);
+
+						// attendee name match
+						name = td.name;
+						if( name.indexOf( search_val ) !== -1 ) TNS.push(tn);
+
+						// email match
+						email = td.email;
+						if( email.indexOf( search_val ) !== -1 ) TNS.push(tn);
+					});
+				});
+
+				// show matching attendees
+				LB.find('.evotxVA_ticket').each(function(){
+					if( $.inArray($(this).data('tn'), TNS)<0){
+						$(this).hide();
+					}else{	$(this).show();	}
+				});
+				update_attendee_count()
+			}
+
+			// @since 2.2
+			function update_attendee_count(){
+				LB.find('.evotx_attendee_count').html( LB.find('.evotxVA_ticket:visible').length );
+			}
 			function checkCondition(v1, operator, v2) {
 		        switch(operator) {
 		            case '==':
@@ -179,8 +244,9 @@
 
 		    // on filter, filter attendees
 		    function _filter_tickets(){
-				F = $('.evotx_lightbox').find('.evotx_filter');
+				F = LB.find('.evotx_filter');
 				J = F.data('j');
+
 
 				TNS = [];
 
@@ -195,25 +261,41 @@
 
 							if( O.val() == 'All') return true;
 
+
 							oD = O.data('od');
 							field = O.data('f');
 							td_val = oD? td.oD[field] : td[field];
+
+							td_val = decodehtml( td_val);
+
+							//console.log(O.val() +' '+td_val);
+
 							if( O.val() != 'All' && O.val() != td_val){
 								skip = true;
 							}
+							
+
 						});
 
 						if(!skip) TNS.push(tn);
+						
 					});
 				});
 				
-				$('.evotx_lightbox').find('.evotxVA_ticket').each(function(){
+				LB.find('.evotxVA_ticket').each(function(){
 					if( $.inArray($(this).data('tn'), TNS)<0){
 						$(this).hide();
 					}else{
 						$(this).show();
 					}
-				});				
+				});	
+				update_attendee_count();			
+			}
+
+			// decode html
+			function decodehtml(text){
+				var html = typeof text ==='string' ? text.replace(/&nbsp;/g, ' ') : text;
+				return html;
 			}
 	}
 

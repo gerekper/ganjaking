@@ -22,6 +22,7 @@ class evovo_lang{
 				array('label'=>'Added', 'var'=>1),				
 				array('label'=>'remove', 'var'=>1),				
 				array('label'=>'Out of Stock', 'var'=>1),				
+				array('label'=>'Current selection is out of stock, please make new selection', 'var'=>1),				
 				array('label'=>'Selected options not available for sale', 'var'=>1),				
 			array('type'=>'togend'),
 		);

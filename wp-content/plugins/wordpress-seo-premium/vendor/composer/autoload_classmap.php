@@ -181,6 +181,7 @@ return array(
     'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_PostType_Archive' => $baseDir . '/src/integrations/opengraph-posttype-archive.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Post_Type' => $baseDir . '/src/integrations/opengraph-post-type.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Term_Archive' => $baseDir . '/src/integrations/opengraph-term-archive.php',
+    'Yoast\\WP\\SEO\\Premium\\Integrations\\Publishing_Principles_Schema_Integration' => $baseDir . '/src/integrations/publishing-principles-schema-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Routes\\Workouts_Routes_Integration' => $baseDir . '/src/integrations/routes/workouts-routes-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Algolia' => $baseDir . '/src/integrations/third-party/algolia.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\EDD' => $baseDir . '/src/integrations/third-party/edd.php',

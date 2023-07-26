@@ -40,7 +40,12 @@ class EVO_Evo_Tix_CPT{
 		}		
 	}
 	
-
+	public function get_event_id(){
+		return $this->get_prop('_eventid');
+	}
+	public function get_order_id(){
+		return $this->get_prop('_orderid');
+	}
 	public function get_repeat_interval(){
 		$ri = $this->get_prop('repeat_interval');
 		return ($ri && $ri>0) ? $ri : 0; 
@@ -130,12 +135,7 @@ class EVO_Evo_Tix_CPT{
 		$ids = $this->get_ticket_ids_array();
 		return count($ids) > 1? true: false;
 	}
-	public function get_event_id(){
-		return $this->get_prop('_eventid');
-	}
-	public function get_order_id(){
-		return $this->get_prop('_orderid');
-	}
+	
 	public function get_order_status(){
 		return get_post_status( $this->get_order_id() );
 	}

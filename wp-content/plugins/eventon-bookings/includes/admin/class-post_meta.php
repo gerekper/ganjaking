@@ -1,6 +1,7 @@
 <?php 
 /** 
  * Post Meta Boxes
+ * @version 1.4
  */
 
 class evobo_meta_boxes{
@@ -9,7 +10,7 @@ class evobo_meta_boxes{
 		add_filter('evotx_save_eventedit_page',array($this, 'event_ticket_save'), 10, 1);
 		add_filter('evotx_after_saving_ticket_data',array($this, 'after_main_save'), 10, 1);
 
-		//add_filter('evost_before_tickets_meta_box', array($this, 'event_ticket_metabox_before'),10, 2);
+		add_filter('evost_before_tickets_meta_box', array($this, 'event_ticket_metabox_before'),10, 2);
 	}
 
 	// disable seats if booking blocks are enabled
@@ -69,21 +70,24 @@ class evobo_meta_boxes{
 			<td style='padding:20px 25px;' colspan='2'>
 
 				<div id='evobo_block_selection' style='display:block'>					
+				
+					<p>
 					<?php
-						$attrs = '';
-						foreach(array(
-							'data-popc'=>'evobo_lightbox',
-							'data-type'=>'new',
-							'data-eid'=>$eventid,
-							'data-wcid'=>$wooproduct_id,
-							'title'=>__('Open Booking Block Manager','evobo')
-						) as $key=>$val){
-							$attrs .= $key .'="'. $val .'" ';
-						}
-
 						$blocks_count = $BLOCKS->get_total_block_count();
-					?>
-					<p><a class='evobo_block_item ajde_popup_trig button_evo' <?php echo $attrs;?>><?php _e('Booking Block Manager','evobo');?>  <?php if($blocks_count>0):?><em style='background-color: #f56f47; padding: 5px 20px;margin-left: 10px;border-radius: 15px;'><?php echo $blocks_count ;?></em><?php endif;?> </a></p>
+						EVO()->elements->print_trigger_element(array(
+							'title'=>__('Open Booking Block Manager','evobo'). ($blocks_count>0 ? "<em style='background-color: #f56f47; padding: 1px 5px;margin-left: 10px;border-radius: 15px;font-size:12px'>{$blocks_count }</em>":'' ),
+							'uid'=>'evobo_manager',
+							'lb_class' =>'evobo_lightbox',
+							'lb_padding' =>'evopad0',
+							'lb_title'=>__('Booking Block Manager','eventon'),	
+							'ajax_data'=>array(					
+								'eid'=> $EVENT->ID,
+								'wcid'=> $wooproduct_id,
+								'action'=> 'evobo_load_editor',
+							),
+						), 'trig_lb');
+					?></p>
+					
 					<div style='margin-top: 20px;'>						
 						<?php 
 
@@ -119,6 +123,9 @@ class evobo_meta_boxes{
 								)
 							)
 						);
+
+						do_action('evobo_after_event_settings',$BLOCKS);
+
 						?>
 					</div>	
 
@@ -126,22 +133,6 @@ class evobo_meta_boxes{
 			</td>
 		</tr>
 		<?php
-
-			global $ajde;
-			echo $ajde->wp_admin->lightbox_content(array(
-				'class'=>'evobo_lightbox', 
-				'content'=>"<p class='evo_lightbox_loading'></p>",
-				'title'=>__('Ticket Booking Block Manager','evobo'),
-				'width'=>'900'
-				)
-			);
-			echo $ajde->wp_admin->lightbox_content(array(
-				'class'=>'evobo_lightbox_2', 
-				'content'=>"<p class='evo_lightbox_loading'></p>",
-				'title'=>__('Ticket Booking Block Manager','evobo'),
-				'width'=>'500'
-				)
-			);
 
 		endif;
 	}

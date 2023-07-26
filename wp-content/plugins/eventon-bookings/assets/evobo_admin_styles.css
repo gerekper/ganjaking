@@ -37,7 +37,7 @@
     .evobo_BE_body .editor_header
     {
         display: block;
-        padding: 5px 15px;
+        padding: 5px 30px;
         border-bottom: 1px solid #f5f5f5;
         font-size: 16px; width: 100%; box-sizing: border-box;
     }
@@ -55,13 +55,18 @@
     }
     .evobo_editor .evoboE_slots .slot.select{background-color: #bbbbbb;color:#ffffff;}    
     .evobo_editor .evoboE_slots .slot{
-        color:#9a9a9a;border:1px solid #dadada;
+        border:1px solid var(--evo_color_1);
         position: relative;
         padding-left: 50px; cursor: pointer;
         display: inline-block; flex-basis: 180px; text-align: center;
         padding: 4px 15px;
         border-radius: 20px;
         font-size: 13px; font-style: normal;
+    }
+    .evobo_editor .evoboE_slots em.bid{
+        font-size: 12px;
+        margin-right: 10px;
+        font-style: normal;
     }
     .evobo_editor .evoboE_slots .slot:hover{background-color: #fff8dd;color:#6d6d6d;}
     .evobo_editor .evoboE_slots .line{display: flex;align-items: center;font-size: 13px;box-sizing: border-box;position: relative;}
@@ -95,7 +100,7 @@
     .evobo_customers .evotxVA_ticket{padding: 10px 0;}
 
 /* structure */
-    .evobo_BE_foot{    text-align: center;padding: 10px;background-color: #007cba;}
+    .evobo_BE_foot{ padding: 20px;background-color: #007cba;}
 
 /* generator */
     .evobo_auto_date_selector, .evobo_auto_time_selector{

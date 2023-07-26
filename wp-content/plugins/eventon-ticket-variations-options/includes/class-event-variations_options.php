@@ -1,6 +1,7 @@
 <?php
 /** 
  * Ticket Variations and Options
+ * @version 1.1.1
  */
 
 class EVOVO_Var_opts{
@@ -8,6 +9,8 @@ class EVOVO_Var_opts{
 	public $item_data = array();
 	private $user_loggedin = false;
 	private $vo_id;
+
+	public $event, $wcid, $method;
 
 	// methods option, variation_type, variation
 	public function __construct($EVENT, $wcid='' , $method= 'option'){
@@ -141,6 +144,9 @@ class EVOVO_Var_opts{
 	function get_parent_vos($parent_id, $parent_type){
 		$parent_vos = array();
 		$all_vo = $this->dataset;
+
+		if( !is_array($all_vo)) return false;
+
 		foreach($all_vo as $vo_id=>$data){
 			if( !isset($data['parent_type']) ) continue;
 			if( $data['parent_type'] != $parent_type) continue;
@@ -152,6 +158,25 @@ class EVOVO_Var_opts{
 
 		return $parent_vos;
 	}
+
+	// @since 1.1
+	function get_parent_vos_by_id( $passed_vo_id){
+		$return = array();
+		$all_vo = $this->dataset;
+
+		if( !is_array($all_vo)) return false;
+
+		if( !empty($this->item_data) && is_array($this->item_data))
+			return $this->item_data;
+
+		foreach($all_vo as $vo_id => $data){
+			if( $passed_vo_id != $vo_id ) continue;
+			$return = $data;
+		}
+
+		return $return;
+	}
+
 	function get_vo_icon_class($method){
 		$d = array(
 			'variation_type'=>'sliders',
@@ -212,11 +237,7 @@ class EVOVO_Var_opts{
 			return $vo_data;
 		}
 
-// ACTIONS	
-	public function set_new_method($method){
-		$this->method = $method;
-		$this->set_data();
-	}
+// ACTIONS		
 	function get_item_prop($field){
 		if( count($this->item_data) == 0) return false;
 		if( !isset($this->item_data[$field])) return false;
@@ -343,8 +364,8 @@ class EVOVO_Var_opts{
 		}
 
 		// delete all the vo items for a parent or parent type
-		public function delete_allitems_for_parent($parent_id='', $parent_type){
-			foreach( array('variation','option') as $method ){
+		public function delete_allitems_for_parent($parent_id, $parent_type){
+			foreach( array('variation','option') as $method ){				
 				
 				$existing_data = $this->event->get_prop( '_evovo_'. $method);
 				
@@ -383,6 +404,134 @@ class EVOVO_Var_opts{
 		}
 
 // HTML
+	function get_all_variation_types_dataset($parent_id, $parent_type ){
+
+		$VOs = new EVOVO_Var_opts($this->event, $this->wcid,'variation');
+		
+		if($VOs->is_set()):
+
+			// get tickets with vo alredy in cart
+			$cart_vos = $this->get_vos_in_cart();
+			
+			$VTs = new EVOVO_Var_opts($this->event, $this->wcid,'variation_type');
+			$variation_types = $VTs->dataset;
+
+			$variations = $VOs->get_parent_vos($parent_id, $parent_type);
+
+			// BUILD an array of VTs used for making existing Vs
+			$vts_exists = array(); 
+			$variation_types_array = array();
+
+			foreach($variations as $v_id=>$v){
+
+				$variation_types_array = array();
+
+				if(!isset($v['variations'])) continue;
+				if(sizeof($v['variations'])==0) continue;
+
+				// check if user can see variation
+				if( !$this->_can_user_see($v) ) continue;
+
+				$variation_data[$v_id] = $v;
+
+				// adjust with cart existing stock
+				if( $cart_vos && count($cart_vos)>0 && isset( $cart_vos['vars']) && isset( $cart_vos['vars'][$v_id] )){
+					$this_var_cart_stock = $cart_vos['vars'][$v_id];
+
+					$v_stock = 0;
+					if( isset($v['stock'])) $v_stock = $v['stock'];
+
+					$new_var_stock = $v_stock - $this_var_cart_stock;
+					if( $new_var_stock < 0 ) $new_var_stock = 0;
+
+					$variations[$v_id]['stock'] = $new_var_stock;
+
+				}
+
+				// hide out of stock variations
+				if( $this->event->check_yn('_evovo_v_hide_sold') && $v['stock_status'] == 'outofstock') continue;
+				if( $this->event->check_yn('_evovo_v_hide_sold') && isset($v['stock']) && $v['stock'] < 1) continue;
+
+				// run through each existing variation types
+				// Add ALL value for variations that doesnt have matches
+				foreach($variation_types as $vt_id=>$vt){
+					
+					// variation types after processed
+						$vts = $this->_process_vt_options($vt);
+						
+					foreach($vts as $vtv){
+						$variation_types_array[$vt_id][] = $vtv;
+
+						if( !array_key_exists($vt_id, $v['variations'])){
+							$variations[$v_id]['variations'][$vt_id] = 'All';
+							$v['variations'][$vt_id] = 'All';
+						}
+					}
+				}
+
+				//print_r($variation_types_array);
+				//print_r($variation_types);
+
+				foreach($v['variations'] as $vt_id=>$vval){
+
+					// decode url encoding of signs
+					$vval = urldecode($vval);
+
+					// update variations array with decoded values
+					$variations[$v_id]['variations'][$vt_id] = $vval;
+					
+					// check if variation types exists
+					if(isset($vts_exists[$vt_id]) && in_array($vval, $vts_exists[$vt_id])) continue;
+
+					if(!isset($variation_types[$vt_id])) continue;
+
+					// All value
+					if($vval == 'All'){
+						$vts_exists[$vt_id][$vval][] = $v_id;
+						continue;
+					}
+
+					// check if set variation's vts actually exists in vts
+					$vval__ = str_replace('-', ' ', $vval);
+					if(strpos($variation_types[$vt_id]['options'], $vval__) === false) continue;
+					
+					$vts_exists[$vt_id][$vval][] = $v_id;
+				}
+			}
+
+			return array(
+				'variations'=> $variations,
+				'vts_exists'=> $vts_exists,
+				'variation_types_array'=> $variation_types_array
+			);
+
+		endif;
+
+		return false;
+	}
+
+	function get_vos_in_cart(){
+		$vo_in_cart = array();
+		if( !WC()->cart) return false;
+
+		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+			//print_r($cart_item);
+
+			//print_r($cart_item['evotx_event_id_wc']);
+			// if event id and repeat interval missing skip those cart items
+			if(empty($cart_item['evotx_event_id_wc'])) continue;	
+ 
+			if( $cart_item['evotx_event_id_wc'] != $this->event->ID ) continue;
+
+			if( isset($cart_item[ 'evovo_data'])){
+				if( $cart_item['evovo_data'][ 'var_id'] ){
+					$vo_in_cart[ 'vars' ][ $cart_item['evovo_data'][ 'var_id'] ] = $cart_item['quantity'];
+				}				
+			}
+			
+		}
+		return $vo_in_cart;
+	}
 	function print_frontend_html($parent_id, $parent_type, $evotx_data= array(), $product='', $args = array()){
 		
 		// initials
@@ -393,8 +542,6 @@ class EVOVO_Var_opts{
 		$VOs = new EVOVO_Var_opts($this->event, $this->wcid,'variation');
 		//$VTs = new EVOVO_Var_opts($this->event, $this->wcid,'variation_type');
 
-		//print_r($VTs->dataset);
-		//print_r($VOs->dataset);
 
 		// DEFAULTS
 			// get WC Product
@@ -426,6 +573,7 @@ class EVOVO_Var_opts{
 
 		$VTs = new EVOVO_Var_opts($this->event, $this->wcid,'variation_type');
 		$variation_types = $VTs->dataset;
+		//print_r($variation_types);
 
 
 		$curSYM = get_woocommerce_currency_symbol();
@@ -438,95 +586,30 @@ class EVOVO_Var_opts{
 
 		$op_as_separate = $this->event->check_yn('_evovo_po_sep_sold');
 		$var_as_separate = $this->event->check_yn('_evovo_var_sep_sold');
+		$_evovo_po_uncor_qty = $op_as_separate ? false: $this->event->check_yn('_evovo_po_uncor_qty');
 
 		$initials = array();
 		$i = array();
 
-		$Helper = $H = new evotx_helper();
+		$help = $Helper = new evotx_helper();
 
 		ob_start();
 
-		if($hidableSection) echo "<div class='evotx_hidable_box'>";
+		if($hidableSection) echo "<div class='evotx_hidable_section with_evovo'>";
 
 		$using_single_variation = false;
 
+		
+
 		// variations
 			if($VOs->is_set() && !$op_as_separate):
-				$variations = $VOs->get_parent_vos($parent_id, $parent_type);
+
+				$variations_data = $this->get_all_variation_types_dataset( $parent_id , $parent_type );
+				extract( $variations_data );
+				//print_r($variations_data);
 
 				// if there are no variations for parent
 				if(count($variations)>0):
-
-					// BUILD an array of VTs used for making existing Vs
-						$vts_exists = $v_exists = array(); 
-						$variation_types_array = array();
-
-						foreach($variations as $v_id=>$v){
-
-
-							$variation_types_array = array();
-
-							if(!isset($v['variations'])) continue;
-							if(sizeof($v['variations'])==0) continue;
-
-							// check if user can see variation
-							if( !$this->_can_user_see($v) ) continue;
-
-							$variation_data[$v_id] = $v;
-
-
-							// hide out of stock variations
-							if( $this->event->check_yn('_evovo_v_hide_sold') && $v['stock_status'] == 'outofstock') continue;
-
-							//print_r($variation_types);
-
-							// run through each existing variation types
-							// Add ALL value for variations that doesnt have matches
-							foreach($variation_types as $vt_id=>$vt){
-								
-								// variation types after processed
-									$vts = $this->_process_vt_options($vt);
-									
-								foreach($vts as $vtv){
-									$variation_types_array[$vt_id][] = $vtv;
-
-									if( !array_key_exists($vt_id, $v['variations'])){
-										$variations[$v_id]['variations'][$vt_id] = 'All';
-										$v['variations'][$vt_id] = 'All';
-									}
-								}
-							}
-
-							//print_r($variation_types_array);
-							//print_r($variation_types);
-
-							foreach($v['variations'] as $vt_id=>$vval){
-
-								// decode url encoding of signs
-								$vval = urldecode($vval);
-
-								// update variations array with decoded values
-								$variations[$v_id]['variations'][$vt_id] = $vval;
-								
-								// check if variation types exists
-								if(isset($vts_exists[$vt_id]) && in_array($vval, $vts_exists[$vt_id])) continue;
-
-								if(!isset($variation_types[$vt_id])) continue;
-
-								// All value
-								if($vval == 'All'){
-									$vts_exists[$vt_id][$vval][] = $v_id;
-									continue;
-								}
-
-								// check if set variation's vts actually exists in vts
-								$vval__ = str_replace('-', ' ', $vval);
-								if(strpos($variation_types[$vt_id]['options'], $vval__) === false) continue;
-								
-								$vts_exists[$vt_id][$vval][] = $v_id;
-							}
-						}
-
 
 					// Variation types exists
 					if( count($vts_exists)>0){
@@ -600,7 +683,7 @@ class EVOVO_Var_opts{
 									// get values for the variation type
 									$vt_data = $variation_types[$vte_id];
 
-									echo "<p class='evovo_var_types evovo_vt_style1'><label>".$vt_data['name']. "</label>";
+									echo "<p class='evovo_var_types evovo_vt_style1' data-vt_id='{$vte_id}'><label>".$vt_data['name']. "</label>";
 									echo "<select name='{$vte_id}'>";
 
 									// for each vt value
@@ -656,8 +739,7 @@ class EVOVO_Var_opts{
 
 					
 					// set initial default values
-						$initial_v = (isset($i[0]) && isset($variations[$i[0]])) ? $variations[$i[0]]: false;
-						
+						$initial_v = (isset($i[0]) && isset($variations[$i[0]])) ? $variations[$i[0]]: false;						
 						
 						$default_price = isset($initial_v['regular_price']) ? $initial_v['regular_price']:'';
 						$default_var_id = isset($i[0])? $i[0]: false;
@@ -687,9 +769,10 @@ class EVOVO_Var_opts{
 				
 
 				if(!$op_as_separate):?>
-					<h4 class='evo_h4' style='margin-bottom:5px;'><?php evo_lang_e('Optional Ticket Additions');?></h4>
+					<h4 class='evo_h4' style='margin-bottom:5px;padding:10px'><?php evo_lang_e('Optional Ticket Additions');?></h4>
 				<?php endif;
 
+				// for each option
 				foreach($price_options as $po_id=>$po_data){
 
 					foreach($po_data as $f=>$v){
@@ -697,12 +780,20 @@ class EVOVO_Var_opts{
 					}
 
 					$POs->set_item_data($po_id);
-					$PO_Stock = $POs->in_stock();
-					if( !$PO_Stock) continue;
+
+					// stock check
+					$sellable = true;
+
+					if( isset($po_data['stock']) && $po_data['stock'] < 1) $sellable = false;
+					if( isset($po_data['stock_status']) && $po_data['stock_status'] == 'outofstock') $sellable = false;
+
+					if( $this->event->check_yn('_evovo_op_hide_sold') && !$sellable ) continue;
+					
+					//if( !$PO_Stock) continue;
 
 					$sold_style = isset($po_data['sold_style']) && $po_data['sold_style']=='mult'? 'mult': 'one';
 
-					echo "<p class='evovo_price_option evovo_po_style1 add {$sold_style}' data-poid='{$po_id}'>";
+					echo "<p class='evovo_price_option evovo_po_style1 add {$sold_style} ".( !$sellable ? 'soldout':'' )."' data-poid='{$po_id}'>";
 					echo "<label>".$po_data['name']. "<span class='value'>". $Helper->convert_to_currency($po_data['regular_price']) .  "</span>";
 
 					if(isset($po_data['description'])){
@@ -710,25 +801,30 @@ class EVOVO_Var_opts{
 					}
 					echo "</label>";
 
-					if( $sold_style == 'one'):
-						?>
-						<span class='evovo_addremove' >
-							<em class='a'><?php evo_lang_e( 'Add');?></em>
-							<em class='ad'><?php evo_lang_e('Added');?></em>
-							<em class='rm'><?php evo_lang_e('remove');?></em>
-							<input type="hidden" name='po_quantity' value='0' max=''/>
-						</span>
-						<?php
+
+					if( $sellable ):
+						if( $sold_style == 'one'):
+							?>
+							<span class='evovo_addremove' >
+								<em class='a'><?php evo_lang_e( 'Add');?></em>
+								<em class='ad'><?php evo_lang_e('Added');?></em>
+								<em class='rm'><?php evo_lang_e('remove');?></em>
+								<input type="hidden" name='po_quantity' value='0' max=''/>
+							</span>
+							<?php
+						else:
+							$max = isset($po_data['stock'])? (int)$po_data['stock']: '';
+							?>
+							<span class="qty evotx_qty_adjuster">
+								<b class="min evotx_qty_change zpos evovo_addremove">-</b>
+								<em>0</em>
+								<b class="plu evotx_qty_change evovo_addremove">+</b>
+								<input type="hidden" name='po_quantity' value='0' max='<?php echo $max;?>'/>
+							</span>
+							<?php
+						endif;
 					else:
-						$max = isset($po_data['stock'])? (int)$po_data['stock']: '';
-						?>
-						<span class="qty evotx_qty_adjuster">
-							<b class="min evotx_qty_change zpos evovo_addremove">-</b>
-							<em>0</em>
-							<b class="plu evotx_qty_change evovo_addremove">+</b>
-							<input type="hidden" name='po_quantity' value='0' max='<?php echo $max;?>'/>
-						</span>
-						<?php
+						?><span class='evovo_soldout'><?php evo_lang_e('Sold Out');?></span><?php
 					endif;
 					echo "</p>";
 				}
@@ -739,9 +835,61 @@ class EVOVO_Var_opts{
 			}
 
 		
+		// pluggable function 
+		do_action('evovo_add_to_cart_before', $this);
+
+		// if final price feilds
+			if($show_pricing_fields):
+				?>		
+				<div class='evovo_add_to_cart_bottom evotx_add_to_cart_bottom' style='display:<?php echo $outofstock?'none':'';?>'>
+					
+					<?php	
+					// base price
+					$Helper->base_price_html( $default_price );	
+					?>
+
+					<div class='evovo_price_option_prices_container'></div>
+					
+					<?php 
+					// ticket quantity fields
+					if ( ! $product->is_sold_individually() && !$op_as_separate && !$using_single_variation):
+						$Helper->ticket_qty_html( $default_max_qty );	
+					else:
+						$Helper->ticket_qty_one_hidden();
+					endif;?>
+
+					<?php
+						if( $default_stock && $default_stock>0 && $using_single_variation){
+							?><input type='hidden' name='all_max_qty' value='<?php echo $default_stock;?>'/><?php
+						}
+					?>
+					
+					<div class='evovo_price_option_prices_container_extra'></div>
+
+					<?php	
+
+					$Helper->total_price_html( $default_price ,'evovo_total_price' );
+					$Helper->add_to_cart_btn_html( 'evotx_addtocart');
+
+
+					// show remaining stock
+					if( isset($this->evotx_data['event_data']['showRem']) && $this->evotx_data['event_data']['showRem'] && $default_max_qty != 'na' 
+					){
+						$showRem = $this->evotx_data['event_data']['showRem'];
+						$visible = ( $showRem === false) ? false: true;
+						$Helper->remaining_stock_html($default_max_qty,'', $visible);
+					}
+			
+
+				?></div>
+				
+				<?php		
+			endif;
+
 		// PASS data to evotx data array in tix helper
+			echo "<div class='evotx_addon_data'>";
 			if( $has_vos){
-				$this->evotx_data = array(
+				$new_evotx_data = array(
 					'evovo_data'=>array(
 						'defp'=>$default_price,
 						'var_id'=>$default_var_id,
@@ -749,119 +897,33 @@ class EVOVO_Var_opts{
 						'vart'=>$initials,
 						'po'=>	$json_po,
 						'pomethod'=> $op_as_separate? 'separate':'combined',
+						'po_uncor_qty'=> $_evovo_po_uncor_qty ? 'yes':'no',
 						'varmethod'=> $var_as_separate? 'separate':'combined',
 						'outofstock'=>$outofstock
-				));
+					),
+				);
 
-				//print_r($this->evotx_data);
-				$this->evotx_data = array_merge_recursive ($this->evotx_data, $evotx_data);
+				$this->evotx_data = array_merge_recursive ($this->evotx_data, $new_evotx_data);
+
+				$Helper->print_select_data_element( array(
+					'class'=>'evotx_other_data evovo',
+					'data'=> array(
+						'has_vo'=>true,
+						'defp'=> $default_price,
+						'var_ids'=> array( $default_var_id => 1),
+						'vart'=>$initials, // initial variation types and variation option names
+						'options'=> array(),
+						'parent_id'=> $parent_id,
+						'parent_type'=> $parent_type,
+					)
+				) );
 			}
-			
-		// include VO event data for inclusion in evotx_data
-			add_filter('evotx_add_to_cart_evotxdata', function($data){
-				
-				if(  count($this->evotx_data) < 1 ) return $data;
 
-				extract($this->evotx_data);
-				$data['event_data']['eid'] = $this->event->ID;
-				$data['event_data']['wcid'] = $this->wcid;
-				$data['event_data']['ri'] = $this->event->ri;	
-				if(!empty(EVO()->lang)) $data['event_data']['l'] = EVO()->lang;	
-				$data['msg_interaction']['hide_after'] = 'false';
-
-				$new_data = $this->evotx_data;
-				$this->evotx_data = array();
-
-				//print_r($new_data);
-
-				// include passed on evotx data
-				if(count($new_data)>0){
-					foreach($new_data as $field=>$val){
-						if(count($val)>0){
-							foreach($val as $f=>$v){
-								$data[$field][$f] = $new_data[$field][$f];
-							}
-						}				
-					}
-				}
-
-				$this->evotx_data = array();
-
-				return $data;
-			});
-
-
-
-
-		// pluggable function 
-		do_action('evovo_add_to_cart_before', $this);
-
-		// if final price feilds
-		if($show_pricing_fields):
-			?>		
-			<div class='evovo_add_to_cart_bottom evotx_add_to_cart_bottom' style='display:<?php echo $outofstock?'none':'';?>'>
-				
-				<?php	
-
-				$Helper->base_price_html( $default_price );	
-				?>
-
-				<div class='evovo_price_option_prices_container'></div>
-				
-				<?php if ( ! $product->is_sold_individually() && !$op_as_separate && !$using_single_variation):?>
-					<?php $Helper->ticket_qty_html( $default_max_qty );?>		
-				<?php else:?>
-					<input type="hidden" name='quantity' value='1'/>
-				<?php endif;?>
-
-				<?php
-					if( $default_stock && $default_stock>0 && $using_single_variation){
-						?><input type='hidden' name='all_max_qty' value='<?php echo $default_stock;?>'/><?php
-					}
-				?>
-				
-				<div class='evovo_price_option_prices_container_extra'></div>
-
-				<?php	
-
-				$Helper->total_price_html( $default_price ,'evovo_total_price' );
-				$Helper->add_to_cart_btn_html( 'evotx_addtocart');
-
-
-				// show remaining stock
-				if( isset($evotx_data['event_data']['showRem']) && $evotx_data['event_data']['showRem'] && $default_max_qty != 'na' 
-				){
-					$showRem = $evotx_data['event_data']['showRem'];
-					$visible = ( $showRem === false) ? false: true;
-					$Helper->remaining_stock_html($default_max_qty,'', $visible);
-				}
-		
-				$evotx_data = sizeof($evotx_data)>0? $evotx_data: array();
-				
-				//print_r($evotx_data);
-				$Helper->print_add_to_cart_data($evotx_data);		
-
-			?></div>
-			
-			<?php		
-		endif;
-
+		// include VO json data - used for client calculation
+			echo "<div class='evovo_data' ". $help->array_to_html_data( $this->evotx_data ) .'></div></div>';
+	
 		if($hidableSection) echo "</div>";
-
-		// FOOTER
-			$_show_footer_msg = ( $pluggable)? false:true;
-
-			if($_show_footer_msg){
-				if($outofstock){
-					$Helper->__get_addtocart_msg_footer('bad', evo_lang('Out of stock').'!' );
-				}else{
-					$Helper->__get_addtocart_msg_footer();
-				}
-			}else{// if pluggable set new filter with outof stock value
-				if($outofstock) add_filter('evotx_footer_msg',function(){ return false; } );
-			}
-
-
+	
 		// OUTPUT
 		$new_content = ob_get_clean();
 		if( !empty($new_content)) return $new_content;
@@ -874,6 +936,8 @@ class EVOVO_Var_opts{
 		function get_all_vos_html($parent_id, $parent_type, $skip_vt = false, $all_vo_data = ''){
 
 			ob_start();
+
+			$has_content = false;
 
 			foreach( array(
 				'variation_type'=> __('Variation Types','evovo'),
@@ -893,6 +957,7 @@ class EVOVO_Var_opts{
 					$this->dataset = $all_vo_data[ $key];
 				}
 				
+				//print_r($this->dataset);
 					
 				if( $this->is_set() ){
 					foreach($this->dataset as $index=>$data){
@@ -900,6 +965,8 @@ class EVOVO_Var_opts{
 						$output .= $this->get_item_html($index, $parent_id, $parent_type);
 					}
 				}
+
+				if(!empty($output)) $has_content = true;
 				
 			?>
 				<div class='evovo_<?php echo $key;?>' style='display:<?php echo (!empty($output))? 'block':'none'; ?>;margin-bottom:10px'>	
@@ -911,7 +978,23 @@ class EVOVO_Var_opts{
 			<?php
 			endforeach;
 
+			if( !$has_content) echo "<span>". __('There are no Variations & Options') . "</span>";
+
 			return ob_get_clean();
+		}
+		function print_all_vos_container_html( $parent_id, $parent_type, $skip_vt = false, $all_vo_data =''){
+			$help = new evo_helper();
+			$data = $help->array_to_html_data(array(
+				'd'=> array(
+					'eid'=>$this->event->ID,
+					'wcid'=>$this->wcid,
+					'parent_type'=> $parent_type,
+					'parent_id'=> $parent_id
+				)
+			));
+			echo "<div id='evovo_items_content' class='evovo_vos_container_event evovo_vos_container' {$data}>";
+			echo  $this->get_all_vos_html( $parent_id, $parent_type, $skip_vt, $all_vo_data );
+			echo "</div>";
 		}
 
 	// get action buttons html
@@ -935,18 +1018,64 @@ class EVOVO_Var_opts{
 			ob_start();						
 			?>	
 
-				<?php if(!$skip_vt):?>
-					<?php	$json['method'] = 'variation_type';	?>
-					<a class='evovo_options_item ajde_popup_trig button_evo' <?php echo $attrs;?> data-json='<?php echo htmlentities(json_encode($json));?>'>+ <?php _e('New Variation Type','evovo');?></a> 
-				<?php endif;?>
+				<?php 
 
-				<?php	$json['method'] = 'variation';	?>
-				<a class='evovo_options_item ajde_popup_trig button_evo' <?php echo $attrs;?> data-json='<?php echo htmlentities(json_encode($json));?>'>+ <?php _e('New Variation','evovo');?></a>
-								
+				// variations type
+				if(!$skip_vt):
+
+					EVO()->elements->print_trigger_element(array(
+						'title'=> '+ ' .__('New Variation Type','evovo'),
+						'uid'=>'evovo_editor',
+						'lb_class' =>'evovo_editor',
+						'lb_title'=>__('Variations & Options Editor','evovo'),	
+						'ajax_data'=>array(					
+							'event_id'=> $this->event->ID,
+							'wcid'=> 	$this->wcid,
+							'parent_id'=> $parent_id,
+							'parent_type'=> $parent_type,
+							'save'=> $save, 'type'=>'new',
+							'method'=> 'variation_type',
+							'a'=> 'evovo_get_vo_form',
+						),
+					), 'trig_lb');
+
+				endif;	
+
+				// variation
+				EVO()->elements->print_trigger_element(array(
+					'title'=> '+ ' .__('New Variation','evovo'),
+					'uid'=>'evovo_editor',
+					'lb_class' =>'evovo_editor',
+					'lb_title'=>__('Variations & Options Editor','evovo'),	
+					'ajax_data'=>array(					
+						'event_id'=> $this->event->ID,
+						'wcid'=> 	$this->wcid,
+						'parent_id'=> $parent_id,
+						'parent_type'=> $parent_type,
+						'save'=> $save, 'type'=>'new',
+						'method'=> 'variation',
+						'a'=> 'evovo_get_vo_form',
+					),
+				), 'trig_lb');
+
+				// options
+				EVO()->elements->print_trigger_element(array(
+					'title'=> '+ ' .__('New Price Option','evovo'),
+					'uid'=>'evovo_editor',
+					'lb_class' =>'evovo_editor',
+					'lb_title'=>__('Variations & Options Editor','evovo'),	
+					'ajax_data'=>array(					
+						'event_id'=> $this->event->ID,
+						'wcid'=> 	$this->wcid,
+						'parent_id'=> $parent_id,
+						'parent_type'=> $parent_type,
+						'save'=> $save, 'type'=>'new',
+						'method'=> 'option',
+						'a'=> 'evovo_get_vo_form',
+					),
+				), 'trig_lb');
+
 				
-				<?php	$json['method'] = 'option';	?>
-				<a class='evovo_options_item ajde_popup_trig button_evo' <?php echo $attrs;?> data-json='<?php echo htmlentities(json_encode($json));?>'>+ <?php _e('New Price Option','evovo');?></a>
-			<?php
 			return ob_get_clean();
 		}
 
@@ -963,17 +1092,6 @@ class EVOVO_Var_opts{
 				$this->set_item_data($index);
 			}
 
-			// common attrs
-				$json = array(
-					'type'=>		($this->get_item_prop('save') =='no'? 'temp':'edit'),
-					'event_id'=>	$this->event->ID,
-					'wcid'=>		$this->wcid,
-					'parent_type'=>	$this->get_item_prop('parent_type'),
-					'parent_id'=>	($this->get_item_prop('parent_id') ? $this->get_item_prop('parent_id') :''),
-					'method'=>		$this->method,
-					'vo_id' =>		$index
-				);
-				$data_attr = 'data-json="'. htmlentities(json_encode($json))  .'"';
 
 			// stock alteration
 				if( !$this->get_item_prop('stock') && $this->method == 'variation') $stock = 0;
@@ -1083,10 +1201,45 @@ class EVOVO_Var_opts{
 				</span>
 				<span class='evovo_actions'>	
 					<?php
+
+					// common attrs
+					$btn_data = array(
+						'type'=>		($this->get_item_prop('save') =='no'? 'temp':'edit'),
+						'event_id'=>	$this->event->ID,
+						'wcid'=>		$this->wcid,
+						'parent_type'=>	$this->get_item_prop('parent_type'),
+						'parent_id'=>	($this->get_item_prop('parent_id') ? $this->get_item_prop('parent_id') :''),
+						'method'=>		$this->method,
+						'vo_id' =>		$index,
+					);
+
 					$edit_title = __('Edit','evovo'). ' '. ( $this->get_item_prop('save') =='no'? 'Temp ':''). $this->method.' #'. $index;
-					?>			
-					<em alt="Edit" class='evovo_options_item edit ajde_popup_trig' data-popc='evovo_lightbox' <?php echo $data_attr;?> title='<?php echo $edit_title?>'><i class='fa fa-pencil'></i></em>
-					<em alt="Delete" class='delete' <?php echo $data_attr;?>>x</em>					
+
+					$btn_data['a'] = 'evovo_get_vo_form';
+					EVO()->elements->print_trigger_element(array(
+						'class_attr'=>'edit evolb_trigger',
+						'title'=> "<i class='fa fa-pencil'></i>",
+						'dom_element'=> 'em',
+						'uid'=>'evovo_edit_editor',
+						'lb_class' =>'evovo_editor',
+						'lb_title'=> __('Edit') . ' '. $this->method,
+						'ajax_data' =>$btn_data,
+					), 'trig_lb');
+
+					$btn_data['a'] = 'evovo_delete_item';
+					EVO()->elements->print_trigger_element(array(
+						'class_attr'=>'delete evo_trigger_ajax_run',
+						'title'=> "x",
+						'dom_element'=> 'em',
+						'uid'=>'evovo_delete_vo',
+						'lb_class' =>'evovo_lightbox',
+						'lb_loader'=>true,
+						'lb_load_new_content'=> true,			
+						'load_new_content_id'=> 'evovo_items_content',	
+						'ajax_data' =>$btn_data,
+					), 'trig_ajax');
+
+					?>							
 				</span>
 							
 			</li>
@@ -1094,7 +1247,11 @@ class EVOVO_Var_opts{
 			return ob_get_clean();
 		}
 
-// data setting
+// data setting	
+	public function set_new_method($method, $load_data = true){
+		$this->method = $method;
+		if( $load_data) $this->set_data();
+	}
 	function set_item_prop($field, $value){
 		if( count($this->item_data) == 0) return false;
 
@@ -1102,7 +1259,7 @@ class EVOVO_Var_opts{
 
 		return $this->save_item( $this->vo_id, $this->item_data);
 	}
-	private function save_dataset($data, $save = true){
+	public function save_dataset($data, $save = true){
 		$this->dataset = $data;
 		if( $save){
 			$this->event->set_prop( '_evovo_'. $this->method, $data);

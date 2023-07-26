@@ -1719,6 +1719,7 @@ jQuery(document).ready(function($){
 
 				// display filter informer	
 					if( !( CAL.hasClass('flhi') ) ){
+						//console.log( CAL.attr('class'));
 						//console.log(set_new_filter_val+' '+ filter_def_val);
 						if( set_new_filter_val == filter_def_val){
 							filter_set_val.removeClass('set');						

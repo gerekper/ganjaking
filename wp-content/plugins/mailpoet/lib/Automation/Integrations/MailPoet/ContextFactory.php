@@ -21,6 +21,7 @@ class ContextFactory {
   public function getContextData(): array {
     return [
       'segments' => $this->getSegments(),
+      'userRoles' => $this->getUserRoles(),
     ];
   }
 
@@ -34,5 +35,16 @@ class ContextFactory {
       ];
     }
     return $segments;
+  }
+
+  private function getUserRoles(): array {
+    $userRoles = [];
+    foreach (wp_roles()->roles as $role => $details) {
+      $userRoles[] = [
+        'id' => $role,
+        'name' => $details['name'],
+      ];
+    }
+    return $userRoles;
   }
 }

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit37c0d497c7bd56fbb7f8f3ae232f03cc
+class ComposerStaticInit17d59b4aa2c13d59e6ffb4f97d65eb06
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -196,6 +196,7 @@ class ComposerStaticInit37c0d497c7bd56fbb7f8f3ae232f03cc
         'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_PostType_Archive' => __DIR__ . '/../..' . '/src/integrations/opengraph-posttype-archive.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Post_Type' => __DIR__ . '/../..' . '/src/integrations/opengraph-post-type.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Term_Archive' => __DIR__ . '/../..' . '/src/integrations/opengraph-term-archive.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Publishing_Principles_Schema_Integration' => __DIR__ . '/../..' . '/src/integrations/publishing-principles-schema-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Routes\\Workouts_Routes_Integration' => __DIR__ . '/../..' . '/src/integrations/routes/workouts-routes-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Algolia' => __DIR__ . '/../..' . '/src/integrations/third-party/algolia.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\EDD' => __DIR__ . '/../..' . '/src/integrations/third-party/edd.php',
@@ -232,9 +233,9 @@ class ComposerStaticInit37c0d497c7bd56fbb7f8f3ae232f03cc
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit37c0d497c7bd56fbb7f8f3ae232f03cc::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit37c0d497c7bd56fbb7f8f3ae232f03cc::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit37c0d497c7bd56fbb7f8f3ae232f03cc::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit17d59b4aa2c13d59e6ffb4f97d65eb06::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit17d59b4aa2c13d59e6ffb4f97d65eb06::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit17d59b4aa2c13d59e6ffb4f97d65eb06::$classMap;
 
         }, null, ClassLoader::class);
     }

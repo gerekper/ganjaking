@@ -195,7 +195,8 @@ class SubscriberEngagement {
       'subscribers.last_name',
     ];
 
-    $queries[self::STATUS_CLICKED] = '(SELECT DISTINCT '
+    // Avoiding duplicates is managed during the insert process, so we don't need use DISTINCT here
+    $queries[self::STATUS_CLICKED] = '(SELECT '
       . self::getColumnList($fields, $count) . ' '
       . 'FROM ' . $clicksTable . ' clicks '
       . 'LEFT JOIN ' . $subscriberTable . ' subscribers ON subscribers.id = clicks.subscriber_id '

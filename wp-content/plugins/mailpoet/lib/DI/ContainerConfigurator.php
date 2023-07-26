@@ -200,12 +200,18 @@ class ContainerConfigurator implements IContainerConfigurator {
 
     //Automation Analytics
     $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Analytics\Analytics::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Analytics\Endpoints\AutomationFlowEndpoint::class)->setPublic(true);
     $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Analytics\Endpoints\OverviewEndpoint::class)->setPublic(true);
-    $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Analytics\Controller\AutomationEmailController::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Analytics\Controller\AutomationTimeSpanController::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Analytics\Controller\StepStatisticController::class)->setPublic(true);
     $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Analytics\Controller\OverviewStatisticsController::class)->setPublic(true);
     $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Analytics\Controller\FreeOrderController::class)->setPublic(true);
     $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Analytics\Factories\OrderControllerFactory::class)->setPublic(true);
     $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Analytics\Endpoints\OrderEndpoint::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Analytics\Controller\FreeSubscriberController::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Analytics\Factories\SubscriberControllerFactory::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Analytics\Endpoints\SubscriberEndpoint::class)->setPublic(true);
+
     // Config
     $container->autowire(\MailPoet\Config\AccessControl::class)->setPublic(true);
     $container->autowire(\MailPoet\Config\Activator::class)->setPublic(true);

@@ -1,27 +1,29 @@
 /**
  * frontend script 
- * @version 1.3.2
+ * @version 1.4
  */
 jQuery(document).ready(function($){
 
-    // load booking cal for ajax loaded events 
-        $( document ).ajaxComplete(function(event, xhr, settings) {
+const BB = $('body');
+
+
+// load booking cal for ajax loaded events 
+    $( document ).ajaxComplete(function(event, xhr, settings) {
+        
+        if( !( 'data' in settings) ) return false;
+        var data = settings.data;
+
+        if( typeof data ==='object') return false;
+
+        if( data !== undefined && data && data != ''){     
             
-            if( !( 'data' in settings) ) return false;
-            var data = settings.data;
-
-            if( typeof data ==='object') return false;
-
-            if( data !== undefined && data && data != ''){     
-                
-                if(data.indexOf('action=eventon_init_load') != -1)   load_evobo_calendar();
-                if(data.indexOf('action=the_ajax_hook') != -1)   load_evobo_calendar();
-                if(data.indexOf('action=new_week') != -1)   load_evobo_calendar();
-                if(data.indexOf('action=eventon_load_single_eventcard_content') != -1)   
-                    load_evobo_calendar();
-            }
-        });
-  
+            if(data.indexOf('action=eventon_init_load') != -1)   load_evobo_calendar();
+            if(data.indexOf('action=the_ajax_hook') != -1)   load_evobo_calendar();
+            if(data.indexOf('action=new_week') != -1)   load_evobo_calendar();
+            if(data.indexOf('action=eventon_load_single_eventcard_content') != -1)   
+                load_evobo_calendar();
+        }
+    });
 
 // primary function
     $.fn.bookify_event = function (options) {
@@ -33,21 +35,25 @@ jQuery(document).ready(function($){
         };
         var settings = $.extend({}, defaults, options);
 
-        var evobo_section = $el.closest('.evobo_booking_section');
-        var eventRow = $el.closest('.evorow');
-        var C = $el.siblings('.evobo_calendar');
-        var TS = $el.siblings('.evobo_selections');
-        var mainSEL = $el.closest('.evobo_main_selection');
-        var CalDATA = C.data('dataset');
-        var slotsDATA = $el.data('json');
+        var evobo_section = $el;
+        var eventRow = evobo_section.closest('.evorow');
+        var C = evobo_section.find('.evobo_calendar');
+        var TS = evobo_section.find('.evobo_selections');
+        var mainSEL = evobo_section.find('.evobo_main_selection');
+        
+        const tx_data = $el.evotx_get_custom_data('evobo_data');
+
+        var CalDATA =   tx_data.evobo_dataset;
+        var slotsDATA = tx_data.evobo_json;
         var selectDate = {};
         var _today = new Date();
-        var __today = moment();
+        var __today = moment();        
 
         var style = evobo_section.data('s');
 
         $( window ).resize(function() {
             var w = mainSEL.width();
+            console.log(w);
             if(w< 650){
                 mainSEL.addClass('trim');
             }else{
@@ -106,8 +112,6 @@ jQuery(document).ready(function($){
                 // time slot view
                 }else{
 
-                    CalDATA = TS.data('dataset');
-
                     if( slotsDATA != '') HTML += '<span class="evobo_section_header">'+ CalDATA.t2+'</span>';
                     HTML += "<div class='evobo_slot_selection evobo_selection_row'>";
 
@@ -151,6 +155,11 @@ jQuery(document).ready(function($){
                     TS.html( HTML );
 
                 }
+
+                // hide loading
+                evobo_section.find('.evobo_loading_section').hide();
+
+                $el.evotx_hide_loading();
 
             },
             getCalHeader:function(y, mm){
@@ -255,6 +264,9 @@ jQuery(document).ready(function($){
             interaction: function(){
                 // click on a date
                 C.on('click','.evoGC_date',function(event){
+                    
+                    $(this).evotx_hide_msg();
+
                     _click_y = selectDate['y'] = $(this).data('y');
                     _click_m = selectDate['m'] = $(this).data('m');
                     _click_d = selectDate['d'] = $(this).data('d');
@@ -310,8 +322,7 @@ jQuery(document).ready(function($){
                         D.subtract(1, 'month'); 
                     }else{    D.add(1, 'month');    }
 
-                    works.goToMonth( D.year(), D.month()+1); 
-                 
+                    works.goToMonth( D.year(), D.month()+1);                  
                 });
 
                 // click on a timeslot
@@ -320,30 +331,53 @@ jQuery(document).ready(function($){
                     
                     TS.find('.slot').removeClass('select');
                     SPAN.addClass('select');
+
+                    // conditional wait
+                        if( evobo_section.hasClass('wait')){
+
+                            BB.trigger('evobo_click_on_block', [ eventRow, $(this) ]);
+                            return;
+                        }
+
+                    // set the new block id for other_data
+                    SPAN.evotx_set_select_data('evobo', { 'block_id':SPAN.data('val') });
                     
+                    // proceed
                     var ajaxdataa = { };
                         ajaxdataa['action']='evobo_get_prices';
-                        ajaxdataa['dataset']=  $el.data('dataset');
-                        ajaxdataa['index']=  SPAN.data('val');
+                        ajaxdataa['block_id']=  SPAN.data('val');
+                        ajaxdataa['event_data']=  $el.evotx_get_event_data();
 
-                    $.ajax({
-                        beforeSend: function(){
-                            eventRow.addClass('evoloading');
-                        },
-                        type: 'POST',
-                        url:evobo_ajax_obj.ajaxurl,
-                        data: ajaxdataa,
-                        dataType:'json',
-                        success:function(data){
-                            if(data.status=='good'){                        
-                                eventRow.find('.evobo_price_values').html( data.content).fadeIn();
-                            }else{}
-                        },complete:function(){
-                            eventRow.removeClass('evoloading');
-                        }
-                    });
-                    
+                    $(this).evo_admin_get_ajax({
+                        'ajaxdata':ajaxdataa,
+                        'uid':'evobo_get_prices',
+                        'end':'client',
+                        'loader_el': eventRow
+                    }); 
                 });
+
+                $('body')
+                .on('evo_ajax_success_evobo_get_prices', function(event, OO, data){
+                    if(data.status=='good'){    
+
+                        eventRow.find('.evobo_price_values').html( data.content).show();
+                        $('body').trigger('evobo_block_prices_loaded', [eventRow, data, OO.ajaxdata ]);
+
+                    }else{
+                        $el.evotx_show_msg({ 
+                            'status': data.status, 'msg': data.msg, 
+                            'hide_hidables':false });
+                    }
+                })
+                // after ticket added to cart
+                .on('evotx_added_to_cart', function(event, data, SECTION, ajaxdata){
+                    if( 'other_data' in ajaxdata && 'block_id' in ajaxdata.other_data){
+                        console.log('d');
+                        $( SECTION ).find('.evobo_price_values').hide();
+                    }
+                })
+                ;
+
             }
         };
 
@@ -361,8 +395,8 @@ jQuery(document).ready(function($){
 // RUN
     load_evobo_calendar();
     function load_evobo_calendar(){
-        if($('body').find('.evobo_slots').length>0){
-            $('body').find('.evobo_slots').each(function(){
+        if($('body').find('.evobo_booking_section').length>0){
+            $('body').find('.evobo_booking_section').each(function(){
                 $(this).bookify_event();                
             });
         }
@@ -373,9 +407,15 @@ jQuery(document).ready(function($){
         load_evobo_calendar();
     });
 
+    // load booking cal after ticket standalone button -- @since 1.4
+    $('body').on('evotx_standlone_loaded',function(event, LB){
+        load_evobo_calendar();
+    });
+
+
     $('body').on('evolightbox_end', function(){
-        if($('body').find('.evobo_slots').length>0){
-            $('body').find('.evobo_slots').each(function(){
+        if($('body').find('.evobo_booking_section').length>0){
+            $('body').find('.evobo_booking_section').each(function(){
                 $(this).bookify_event({action:'lightbox'});             
             });
         }

@@ -29,7 +29,7 @@ class EVOTX_Temp{
 						</span>
 						<span class='etxva_other'>
 						{{#each oD}}
-							<span><em>{{noDash @key}}</em>: {{this}}</span>
+							<span><em>{{noDash @key}}</em>: <i>{{{this}}}</i></span>
 						{{/each}}
 						</span>
 					</span>

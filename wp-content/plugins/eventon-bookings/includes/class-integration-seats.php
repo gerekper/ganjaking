@@ -1,7 +1,7 @@
 <?php
 /** 
  * Integration with event seats addon
- * still working progress
+ * still working progress - @version 1.3.3
  */
 
 class EVOBO_Seats_Int{
@@ -16,6 +16,7 @@ class EVOBO_Seats_Int{
 		if( is_admin()){
 			add_action('evost_mapeditor_before', array($this, 'editor'), 10, 1);
 			add_action('evost_admin_formfields', array($this, 'form'), 10, 3);
+			add_action('evobo_block_manager_btns', array($this, 'block_manager'), 10, 1);
 		}
 
 		$ajax_events = array(
@@ -142,29 +143,18 @@ class EVOBO_Seats_Int{
 
 
 // ADMIN
-	public function editor($SEATS){
-		$BLOCKS = new EVOBO_Blocks( $SEATS->event);
-		if( !$BLOCKS->is_blocks_active()) return false;
+	public function block_manager($BLOCKS){
+		// if seats enabled
+		if($BLOCKS->event->check_yn('_enable_seat_chart') ):
 
-		// if apply blocks to seat not enabled
-		if( !$SEATS->event->get_prop('_evobost')) return false;
-
-		$block_dates  = $BLOCKS->get_all_block_dates(false, true);
-
-		?>
-		<div class="evosteditor_booking_header" data-j='' style='background-color: #52b4e4;color: #fff; padding: 10px;margin: 0;'>
-			<span>Select Booking Block <select class='evobost_block_id evost_trig_new_map' data-type='blocks' name='_evost_block'>
-				<option value='def'>Default</option>
-				<?php foreach($block_dates as $id=>$dt){
-					echo "<option value='{$id}'>". $dt. "</option>";
-				}?>
-				</select>
-			</span>
-		</div>
-
-		<?php
-		
+			if( $BLOCKS->event->get_prop('_evobost')):
+				?><a class="evo_admin_btn btn_triad evobo_apply_toseats " ><?php _e('Update Seat Blocks','evobo');?></a><?php
+			else:										
+				?><a class="evo_admin_btn btn_triad evobo_apply_toseats " data-t="<?php _e('Apply blocks to seats','evobo');?>?"><?php _e('Apply Blocks to Seats','evobo');?></a><?php
+			endif;
+		endif; 
 	}
+	
 	public function form($key, $form_data, $SEATS){
 		// do not show vos for new form without section ID
 		if(!isset($form_data['section_id'])) return false;

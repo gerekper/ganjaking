@@ -80,7 +80,7 @@ class evotx_admin{
 			}
 
 			// include ticket id in the search
-				if($typenow =='' || $typenow == 'evo-tix'){
+				if($typenow =='' || $typenow == 'evo-tix' && !wp_doing_ajax()){
 					// Filter the search page
 					add_filter('pre_get_posts', array($this, 'evotx_search_pre_get_posts'));		
 				}
@@ -148,6 +148,37 @@ class evotx_admin{
 							'placeholder'=>'eg. 2',
 							'guide'=>__('Enter the repeat interval instance ID of the event you want to show from the repeating events series (the number at the end of the single event URL)  eg. 3. This is only for repeating events','eventon')
 						)
+					)
+				),
+				array(
+					'id'=>'s_TX2',
+					'name'=>'Show All Attendees (Beta)',
+					'code'=>'evotx_attendees',
+					'variables'=>array(
+						array(
+							'name'=>'<i>NOTE: This will display all the attendees of the event on frontend.</i>',
+							'type'=>'note',
+						),						
+						array(
+							'name'=>'Event ID',
+							'type'=>'select','var'=>'id',
+							'placeholder'=>'eg. 234',	
+							'options'=>	$this->get_event_ids(),
+							'guide'=> __('These are the events that have tickets enabled','evotx')	
+						),
+						array(
+							'name'=>'Repeat Interval ID',
+							'type'=>'text',
+							'var'=>'ri',
+							'placeholder'=>'eg. 2',
+							'guide'=>__('Enter the repeat interval instance ID of the event you want to show from the repeating events series (the number at the end of the single event URL)  eg. 3. This is only for repeating events','eventon')
+						),array(
+							'name'=>'Show event details header',
+							'type'=>'YN',
+							'var'=>'event_details',
+							'default'=>'no'
+						)
+
 					)
 				)
 			);
@@ -350,17 +381,21 @@ class evotx_admin{
 			wp_localize_script( 
 				'evotx_admin_post_script', 
 				'evotx_admin_ajax_script', 
-				array( 
+				apply_filters('evotx_admin_localize_data', array( 
 					'ajaxurl' => admin_url( 'admin-ajax.php' ) , 
-					'postnonce' => wp_create_nonce( 'evotx_nonce' )
-				)
+					'postnonce' => wp_create_nonce( 'evotx_nonce' ),
+					'text'=> array(
+						't1'=> __('Search Attendees ticket id, name, email','evotx'),
+						't2'=> __('More Filters','evotx'),
+					)
+				))
 			);
 
 		}
 		function evotx_admin_styles(){
 			global $evotx;
-			wp_enqueue_style( 'evotx_admin_css',$evotx->assets_path.'tx_admin.css');
-			wp_enqueue_script( 'evotx_admin_script',$evotx->assets_path.'tx_admin_script.js');
+			wp_enqueue_style( 'evotx_admin_css', EVOTX()->assets_path.'tx_admin.css');
+			wp_enqueue_script( 'evotx_admin_script', EVOTX()->assets_path.'tx_admin_script.js');
 			wp_localize_script( 
 				'evotx_admin_script', 
 				'evotx_admin_ajax_script', 

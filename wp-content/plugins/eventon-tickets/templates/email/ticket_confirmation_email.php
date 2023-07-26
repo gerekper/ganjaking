@@ -1,7 +1,7 @@
 <?php
 /**
  * Ticket Confirmation email Template
- * @version 2.1
+ * @version 2.2
  *
  * To customize: copy this file to your theme folder as below path
  * path: your-theme-dir/eventon/templates/email/tickets/
@@ -297,7 +297,7 @@ foreach($args['tickets'] as $ticket_number):
 	endforeach;
 ?>
 	
-<?php do_action('evotx_before_footer', $EVENT, $order); ?>
+<?php do_action('evotx_before_footer',  $order); ?>
 
 <?php if($email):?>
 	<tr>

@@ -1,10 +1,11 @@
 <?php
 /**
  * Admin booking block editor & manager
+ * @version 1.3.3
  */
 
 class EVOBO_Admin_Editor{
-
+	public $HELP, $postdata;
 	public function __construct(){
 		$ajax_events = array(
 			'evobo_load_editor'=>'editor',
@@ -20,7 +21,9 @@ class EVOBO_Admin_Editor{
 			add_action( 'wp_ajax_nopriv_'.  $ajax_event, array( $this, $class ) );
 		}
 
-		$this->HELP = new evo_helper();
+		$this->HELP = $this->help = new evo_helper();
+		$this->postdata = $this->help->process_post( $_POST);
+
 	}
 
 	// time slot generator
@@ -35,11 +38,20 @@ class EVOBO_Admin_Editor{
 
 			ob_start();
 
-			$rand_id = rand(10000,99999);
+			$generator_id = 'G123456';
+			$rand_id = rand(100000, 900000);
 
-			//print_r($BLOCKS->dataset);
 			?>
 			<div class='evobo_form' style='padding:20px;'>
+				<form class='evobo_generator_form'>
+				<?php 
+				EVO()->elements->print_hidden_inputs( array(
+					'eid'=> $event_id,
+					'wcid'=> $wcid,
+					'index'	=> $generator_id,
+					'action'=> 'evobo_generate_slots'
+				));
+				?>
 				<h3 style="padding-bottom: 10px"><?php _e('Auto Generate Booking Time Blocks','evobo');?></h3>
 				<?php  EVO()->elements->_print_date_picker_values(); ?>
 				<p>
@@ -98,9 +110,7 @@ class EVOBO_Admin_Editor{
 					?>
 					</span>
 				</p>
-
-				
-				
+								
 				<p><em><?php _e('NOTE: You can delete unwanted time blocks after the generator creates them.');?></em></p>
 				<p>
 					<label><?php _e('Duration of each time block ');?></label>
@@ -122,15 +132,21 @@ class EVOBO_Admin_Editor{
 				<p>
 					<label><?php _e('Capacity of each time block ');?></label>
 					<input type="text" name='capacity' value='1' placeholder="<?php _e('Capacity');?>"/>
-				</p>
-				
+				</p>			
 
-				<?php 
+				<?php 	do_action('evobo_auto_generator_form', $BLOCKS, $generator_id);	?>
 
-				do_action('evobo_auto_generator_form', $BLOCKS);
-				?>
-
-				<p><a class='evobo_submit evo_btn evobo_generate_slots'><?php _e('Generate');?></a></p>
+				<p><?php 
+				// save changes
+					EVO()->elements->print_trigger_element(array(
+						'title'=>__('Generate Blocks','evobo'),
+						'uid'=>'evobo_generate_blocks',
+						'lb_class' =>'evobo_generator',
+						'lb_loader'=>true,
+						'lb_hide'=> 2000,
+					), 'trig_form_submit');
+				?></p>
+			</form>
 			</div>
 			<?php
 
@@ -242,42 +258,42 @@ class EVOBO_Admin_Editor{
 			$post = array();	
 			if(!isset($_POST['eid'])){ echo json_encode(array('status'=>'bad'));exit;}
 
-			$processed_post = $this->HELP->recursive_sanitize_array_fields( $_POST);
+			$processed_post = $this->postdata;
 
 			// process all post variables
-			foreach($processed_post as $key=>$val){
-				if(in_array($key, array('action','index','type'))) continue;
-				if( !is_array($val)) $val = urldecode($val);
+				foreach($processed_post as $key=>$val){
+					if(in_array($key, array('action','index','type'))) continue;
+					if( !is_array($val)) $val = urldecode($val);
 
-				$post[$key] = $val;
-			}
+					$post[$key] = $val;
+				}
+
+			$index = !empty($processed_post['index']) ? $processed_post['index'] :rand(100000, 900999);
 
 			// save new or update this block
-			$index = rand(100000, 900000);
-			if(!empty($processed_post['index'])) $index = $processed_post['index'] ;
-
 			$BLOCKS = new EVOBO_Blocks( $post['eid'], $post['wcid']);
-
 
 			unset($post['event_start_date']);
 			unset($post['event_end_date']);
+
+			// capacity value fix
+			if( !isset( $post['capacity'] )) $post['capacity'] = '0';
 			
 			// Save the booking block data
-			$result = $BLOCKS->save_item($index, 
-				apply_filters('evobo_save_booking_block_data',$post, $index, $BLOCKS) );
+			$result = $BLOCKS->save_item($index, apply_filters('evobo_save_booking_block_data',$post, $index, $BLOCKS) );
+
+			do_action('evobo_after_save_block', $index, $BLOCKS, $post);
 
 			// update the new all available block capacity and return value
-			$all_blocks_count = $BLOCKS->update_wc_block_stock( );
+			//$all_blocks_count = $BLOCKS->update_wc_block_stock( );
 			
 			echo json_encode(array(
 				'json'=>	json_decode($BLOCKS->get_backend_block_json(true, true, true)), 
-				'all_block_capacity'=> $all_blocks_count,
 				'status'=>	'good',
 				'msg'=>	($processed_post['type'] == 'edit'? __('Successfully editted item!','evobo'): __('Successfully Added New Item','evobo') )
 			)); exit;
 		}
 	
-
 	// DELETE
 		// delete block
 			function evobo_delete_block(){
@@ -299,7 +315,7 @@ class EVOBO_Admin_Editor{
 			}
 		// delete all slots
 			public function delete_all(){
-				$post = $this->HELP->recursive_sanitize_array_fields( $_POST);
+				$post = $this->postdata;
 
 				$event_id = (int)$post['eid'];
 				$wcid = (int)$post['wcid'];
@@ -349,25 +365,28 @@ class EVOBO_Admin_Editor{
 			ob_start();
 
 			?>
-			<div class='evobo_editor' style='display:flex;flex-direction: column;'>			
+			<div class='evobo_editor evomart20' style='display:flex;flex-direction: column;'>			
 				<div class='evobo_BE_body'>
 					<div class='evoboE_slots'></div>
 				</div>
 				<div class='evobo_BE_foot'>
-					<a class="evo_admin_btn btn_triad evobo_add_new_slot " ><?php _e('Add New','evobo');?></a>
-					<a class="evo_admin_btn btn_triad evobo_slot_generator ajde_popup_trig" data-popc='evobo_lightbox_2'><?php _e('Generate Blocks','evobo');?></a>
+					<a class="evo_admin_btn evobo_add_new_slot " ><?php _e('Add New','evobo');?></a>
+					<?php
+					EVO()->elements->print_trigger_element(array(
+						'title'=>__('Generate Blocks','evobo'),
+						'uid'=>'evobo_generate_slots',
+						'lb_class' =>'evobo_generator',
+						'lb_title'=>__('Block Generator','evobo'),	
+						'ajax_data'=>array('a'=>'evobo_load_generator','eid'=>$event_id, 'wcid'=>$wcid),
+					),'trig_lb');
+					?>
 					<a class="evo_admin_btn btn_triad evobo_slot_delete_all " data-t='<?php _e('Delete all time blocks','evobo');?>?'><?php _e('Delete All Blocks','evobo');?></a>
 
 					<?php 
-					// if seats enabled
-					if($BLOCKS->event->check_yn('_enable_seat_chart') ):
 
-						if( $BLOCKS->event->get_prop('_evobost')):
-							?><a class="evo_admin_btn btn_triad evobo_apply_toseats " ><?php _e('Update Seat Blocks','evobo');?></a><?php
-						else:										
-							?><a class="evo_admin_btn btn_triad evobo_apply_toseats " data-t="<?php _e('Apply blocks to seats','evobo');?>?"><?php _e('Apply Blocks to Seats','evobo');?></a><?php
-						endif;
-					endif; ?>
+					do_action('evobo_block_manager_btns', $BLOCKS);
+
+					?>
 				</div>
 				<div class='evoboE_form_container'></div>
 				
@@ -383,190 +402,218 @@ class EVOBO_Admin_Editor{
 			)); exit;
 		}
 
-
-	// Single time slot form
-	function get_form(){
-		
-		if( !isset($_POST['eid'])) return false;
-
-		$post = $this->HELP->recursive_sanitize_array_fields( $_POST);
-
-		ob_start();
-
-		$date_format = 'Y/m/d';		
-		$__woo_currencySYM = get_woocommerce_currency_symbol();
-		$event_id 	= (int)$post['eid'];
-		$wc_id 		= (int)$post['wcid'];
-		$EVENT = new EVO_Event( $event_id );
-		$_edit_slot = $post['type'] == 'edit'? true:false;
-				
-		// data for edit form	
-			$values = array();
-			if($_edit_slot && !empty($post['index'])){	
-				$BLOCKS = new EVOBO_Blocks($EVENT, $wc_id);			
-				$BLOCKS->set_block_data( $post['index']);
-				$values = $BLOCKS->item_data;
-			}
-
-		// date time data
-			$DT = EVO()->elements->_get_date_picker_data();
-			extract($DT);
-
-		// get start and end time of event
-			$event_start = $EVENT->get_start_unix();
-			$event_end = $EVENT->get_end_unix();
-	
-		// if unix sent
-			$dates_sent = false;
-			if(!empty($values['start']) && !empty($values['end'])){				
-				//date_default_timezone_set($tzstring);
-				$dates_sent = true;
-			}
-
-		// block ID
-			$rand_id = rand(100000,999990);
-			$block_index = !empty($post['index'])? $post['index']:$rand_id;
+	// Block Form
+		function get_form(){
 			
+			$post = $this->postdata;
+			extract($post);
 
-		?>
-		<div class="evobo_add_block_form" style='padding:20px;'>
-			<h3 style='padding-bottom: 10px;'><?php _e('Booking Block Information','evobo'); echo !empty($block_index)? " <i style='opacity:0.5'>#".$block_index ."</i>" :''; ?></h3>
-			
-			<?php EVO()->elements->_print_date_picker_values(); ?>
-			
-			<div class='evobo_fields'>
-				<p>
-					<span><?php _e('Block Start','evobo');?>: *</span>				
-					<?php 
-					EVO()->elements->print_date_time_selector(array(
-						'disable_date_editing'=> false,
-						'time_format'=> $time_format,
-						'date_format'=>$date_format,
-						'date_format_x'=>$date_format,
-						'unix'=> ($dates_sent? $values['start']: $event_start),				
-						'type'=>'start',
-						'assoc'=>'reg',
-						'names'=>true,
-						'rand'=> $rand_id
-					));				
-					?>
-					<span><?php _e('Block End','evobo');?>: *</span>
-					<?php 
-					EVO()->elements->print_date_time_selector(array(
-						'disable_date_editing'=> false,
-						'time_format'=> $time_format,
-						'date_format'=>$date_format,
-						'date_format_x'=>$date_format,
-						'unix'=> ($dates_sent? $values['end']: $event_start),					
-						'type'=>'end',
-						'assoc'=>'reg',
-						'names'=>true,
-						'rand'=> $rand_id
-					));				
-					?>
-				</p>
-		
-				<div class='evobo_pricing'>
-					<p><b><?php _e('Other Block Data','evobo');?></b></p>
-					<?php 
+			ob_start();
 
-						$regular_price = get_post_meta($wc_id, '_regular_price',true);
-						$manage_stock = get_post_meta($event_id, '_manage_stock',true);
-						$stock = get_post_meta($wc_id, '_stock',true);
-						$capacity = ($manage_stock && $manage_stock =='yes' && !empty($stock))? $stock:0;
-					?>
-					<p>
-						<label><?php _e('Block Price','evobo');?>: * (<?php echo $__woo_currencySYM;?>) <em style='opacity: 0.5'><?php _e('Default Price:','evobo');?> <?php echo $__woo_currencySYM.$regular_price;?></em></label>
-						<input name='price' type="text" value='<?php echo !empty($values['price'])? $BLOCKS->_convert_str_to_cur($values['price']): $regular_price;?>'/>					
-					</p>
-					<p>
-						<label><?php _e('Block Capacity','evobo');?>: *</label>
-						<input name='capacity' type="text" value='<?php echo !empty($values['capacity'])? $values['capacity']:$capacity;?>'>
-					</p>
-				</div>
-				
-				<?php do_action('evobo_new_block_form', $EVENT, $block_index, $post);?>		
-			</div>			
-
-			<?php
-			// attendee details
-			if($_edit_slot){
-				$this->_print_attendee( $BLOCKS, $block_index);
-			}
-
-			// action JSON data
-				$attrs = '';
-				foreach(array(
-					'data-type'=>$post['type'],
-					'data-bid'=> $block_index,
-				) as $key=>$val){
-					$attrs .= $key .'="'. $val .'" ';
+			$date_format = 'Y/m/d';		
+			$__woo_currencySYM = get_woocommerce_currency_symbol();
+			$event_id 	= (int)$post['eid'];
+			$wc_id 		= (int)$post['wcid'];
+			$EVENT = new EVO_Event( $event_id );
+			$_edit_slot = $type == 'edit'? true:false;
+					
+			// data for edit form	
+				$values = array();
+				if($_edit_slot && !empty($post['index'])){	
+					$BLOCKS = new EVOBO_Blocks($EVENT, $wc_id);			
+					$BLOCKS->set_block_data( $post['index']);
+					$values = $BLOCKS->item_data;
 				}
+
+			// date time data
+				$DT = EVO()->elements->_get_date_picker_data();
+				extract($DT);
+
+			// get start and end time of event
+				$event_start = $EVENT->get_start_unix();
+				$event_end = $EVENT->get_end_unix();
+		
+			// if unix sent
+				$dates_sent = false;
+				if(!empty($values['start']) && !empty($values['end'])){				
+					//date_default_timezone_set($tzstring);
+					$dates_sent = true;
+				}
+
+			// block ID
+				$rand_id = rand(100000,999990);
+				$block_index = !empty($post['index'])? $post['index']:$rand_id;
+				
+
 			?>
-			<p class='actions'>
-				<?php if(!$_edit_slot):?>
-					<a class='evobo_form_submission evo_admin_btn btn_prime' <?php echo $attrs;?>><?php _e("Add New",'evobo');?></a>
-				<?php else:?>
-					<a class='evobo_form_submission evo_admin_btn btn_prime' <?php echo $attrs;?>><?php _e("Save Changes",'evobo');?></a>
-					<a class='evobo_delete_slot evo_admin_btn btn_secondary' <?php echo $attrs;?>><?php _e("Delete",'evobo');?></a>
-				<?php endif;?>
-			</p>
-		</div>
-		<?php
-		
-		// print json
-		echo json_encode(array(
-			'content'=> ob_get_clean(),
-			'status'=>'good'
-		)); exit;
-	}
+			<div class="evobo_add_block_form" style='padding:20px;'>
+				<form class='evobo_block_editor_form'>				
+				<?php 
+				EVO()->elements->print_hidden_inputs( array(
+					'eid'=> $eid,
+					'wcid'=> $wcid,
+					'type'	=> $type,
+					'index'	=> $block_index,
+					'action'=> 'evobo_save_booking_block'
+				));
 
-	function _print_attendee($B, $BI){
-		$block_cap = $B->has_stock();
-			$block_cap = $block_cap>0? $block_cap:0;
-		$customers = $B->get_attendees($BI);
 
-		$TA = new EVOTX_Attendees();
+				echo EVO()->elements->get_element(array(
+					'type'=>'notice','row_class'=>'evopadb10',
+					'name'=>__("Booking Block ID") .': <b>'. $block_index .'</b>'
+				));
+				
+				EVO()->elements->_print_date_picker_values(); 
 
-		echo "<div class='evobo_admin_attendees_section'>";
-
-		?><h3 style='padding-bottom: 10px;'><?php _e('Attendee Information','evobo');?></h3><?php	
-
-		if($customers){		
-
-			$purchased_slots = 0;	
-			$purchased_slots = count($customers);
-		
-			$w = ($purchased_slots>0 && $block_cap>0)? ($purchased_slots/ ($purchased_slots+ $block_cap))*100: 0;
-			$w = $w>0? (int)$w: 0;
-
-			echo "<span class='evoboE_top_data'>
-				<span class='evoboED_top'><em><b>{$purchased_slots}</b> ".__('sold','evobo')."</em> <em>".__('Remaining','evobo')." <b>{$block_cap}</b></em></span>
-				<span class='evoboED_bar'><em style='width:{$w}%'></em></span>
-			</span>";
-
-			echo "<span class='evobo_customers'>";
-			foreach($customers as $tn=>$td){
-
-				echo $TA->__display_one_ticket_data($tn, $td, array(
-					'showExtra'=>false,
-					'showOrderStatus'=>true,
-					'showStatus'=>true
-				));				
-			}	
-			echo "</span>";	
+				?>
+				
+				<div class='evobo_fields'>
+					<p>
+						<span><?php _e('Block Start','evobo');?>: *</span>				
+						<?php 
+						EVO()->elements->print_date_time_selector(array(
+							'disable_date_editing'=> false,
+							'time_format'=> $time_format,
+							'date_format'=>$date_format,
+							'date_format_x'=>$date_format,
+							'unix'=> ($dates_sent? $values['start']: $event_start),				
+							'type'=>'start',
+							'assoc'=>'reg',
+							'names'=>true,
+							'rand'=> $rand_id
+						));				
+						?>
+						<span><?php _e('Block End','evobo');?>: *</span>
+						<?php 
+						EVO()->elements->print_date_time_selector(array(
+							'disable_date_editing'=> false,
+							'time_format'=> $time_format,
+							'date_format'=>$date_format,
+							'date_format_x'=>$date_format,
+							'unix'=> ($dates_sent? $values['end']: $event_start),					
+							'type'=>'end',
+							'assoc'=>'reg',
+							'names'=>true,
+							'rand'=> $rand_id
+						));				
+						?>
+					</p>
 			
-		}else{
+					<div class='evobo_pricing'>
+						<p><b><?php _e('Other Block Data','evobo');?></b></p>
+						<?php 
 
-			echo "<span class='evoboE_top_data'>
-				<span class='evoboED_top'><em><b>0</b> ".__('sold','evobo')."</em> <em>".__('Remaining','evobo')." <b>{$block_cap}</b></em></span>
-				<span class='evoboED_bar'></span>
-			</span>";
+							$regular_price = get_post_meta($wc_id, '_regular_price',true);
+							$manage_stock = get_post_meta($event_id, '_manage_stock',true);
+							$stock = get_post_meta($wc_id, '_stock',true);
+							$capacity = ($manage_stock && $manage_stock =='yes' && !empty($stock))? $stock:0;
+						?>
+						<p>
+							<label><?php _e('Block Price','evobo');?>: * (<?php echo $__woo_currencySYM;?>) <em style='opacity: 0.5'><?php _e('Default Price:','evobo');?> <?php echo $__woo_currencySYM.$regular_price;?></em></label>
+							<input name='price' type="text" value='<?php echo isset($values['price'])? $BLOCKS->_convert_str_to_cur($values['price']): $regular_price;?>'/>					
+						</p>
+						<p>
+							<label><?php _e('Block Capacity','evobo');?>: *</label>
+							<input name='capacity' type="text" value='<?php echo isset($values['capacity'])? $values['capacity']:$capacity;?>'>
+						</p>
+					</div>
+					
+					<?php do_action('evobo_new_block_form', $EVENT, $block_index, $post);?>		
+				</div>			
 
-			echo "<p>". __('No Attendees Found','evobo') . "</p>";
+				<?php
+				// attendee details
+					if($_edit_slot){
+						$this->_print_attendee( $BLOCKS, $block_index);
+					}
+
+				?>
+				<p><?php
+					// save changes
+					EVO()->elements->print_trigger_element(array(
+						'class_attr'=> 'evo_btn evolb_trigger_save',
+						'title'=>__('Save Changes','evobo'),
+						'uid'=>'evobo_save_block',
+						'lb_class' =>'evobo_editor',
+						'lb_loader'=>true,
+						'lb_hide'=> 2000,
+					), 'trig_form_submit');
+
+					if( $type != 'new'):
+						// delete button
+						EVO()->elements->print_trigger_element(array(
+							'class_attr'=> 'evo_admin_btn btn_triad evo_trigger_ajax_run',
+							'title'=>__('Delete','evobo'),
+							'uid'=>'evobo_delete_block',
+							'lb_class' =>'evobo_editor',
+							'lb_loader'=>true,
+							'lb_hide'=> 2000,
+							'ajax_data'=>array(
+								'a'=>'evobo_delete_block',
+								'eid'=> $eid, 'wcid'=> $wcid, 'index'=> $block_index
+							),
+						), 'trig_ajax');
+					endif;
+				?></p>
+
+			</form>
+			</div>
+			<?php
+			
+			// print json
+			echo json_encode(array(
+				'content'=> ob_get_clean(),
+				'status'=>'good'
+			)); exit;
 		}
-		echo "</div>";
-	}
+
+	// get attendees HTML
+		function _print_attendee($B, $BI){
+			$block_cap = $B->has_stock();
+				$block_cap = $block_cap>0? $block_cap:0;
+			$customers = $B->get_attendees($BI);
+
+			$TA = new EVOTX_Attendees();
+
+			echo "<div class='evobo_admin_attendees_section'>";
+
+			?><h3 style='padding-bottom: 10px;'><?php _e('Attendee Information','evobo');?></h3><?php	
+
+			if($customers){		
+
+				$purchased_slots = 0;	
+				$purchased_slots = count($customers);
+			
+				$w = ($purchased_slots>0 && $block_cap>0)? ($purchased_slots/ ($purchased_slots+ $block_cap))*100: 0;
+				$w = $w>0? (int)$w: 0;
+
+				echo "<span class='evoboE_top_data'>
+					<span class='evoboED_top'><em><b>{$purchased_slots}</b> ".__('sold','evobo')."</em> <em>".__('Remaining','evobo')." <b>{$block_cap}</b></em></span>
+					<span class='evoboED_bar'><em style='width:{$w}%'></em></span>
+				</span>";
+
+				echo "<span class='evobo_customers'>";
+				foreach($customers as $tn=>$td){
+
+					echo $TA->__display_one_ticket_data($tn, $td, array(
+						'showExtra'=>false,
+						'showOrderStatus'=>true,
+						'showStatus'=>true
+					));				
+				}	
+				echo "</span>";	
+				
+			}else{
+
+				echo "<span class='evoboE_top_data'>
+					<span class='evoboED_top'><em><b>0</b> ".__('sold','evobo')."</em> <em>".__('Remaining','evobo')." <b>{$block_cap}</b></em></span>
+					<span class='evoboED_bar'></span>
+				</span>";
+
+				echo "<p>". __('No Attendees Found','evobo') . "</p>";
+			}
+			echo "</div>";
+		}
 
 
 // SUPPORT

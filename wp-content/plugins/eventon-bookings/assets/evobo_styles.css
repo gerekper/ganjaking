@@ -1,4 +1,7 @@
-/* evobo styles*/
+/* 
+ *	EventON Booking Blocks styles
+ *	@version 1.4
+ */
 
 /* selection style 2 */
 	.evobo_selections .evobo_selection_row{
@@ -23,19 +26,23 @@
 	    margin-bottom: 5px;
 	    background-color: #ffffff;
 	    font-size: 14px;
+	    border: 1px solid var(--evo_color_2);
 	}
 	.evobo_selections .evobo_selection_row.evobo_slot_selection span:hover{background-color: #d6d6d6}
 	.evobo_selections .evobo_selection_row.evobo_slot_selection span em{font-style: normal;}
 	.evobo_selections .evobo_selection_row.evobo_slot_selection span.select{
 		background-color: #82da95; color:#fff;
 	}
+
 /* fonts */
-	.evobo_main_selection{font-family:'open sans','arial';}
+	.evobo_main_selection
+	{font-family: var(--evo_font_1), 'open sans','arial';}
 	.evoGC .evoGC_week span em,
 	.evobo_selections .evobo_selection_row.evobo_slot_selection span,
 	.evobo_main_selection .evobo_section_header,
 	.evoGC .evoGC_header .evoGC_month, .evoGC .evoGC_header .evoGC_year
-	{font-family: 'roboto';}
+	{font-family: var(--evo_font_2), 'roboto';}
+
 /* block preview */
 	.evobo_price_values .evovo_price_options{margin-top: 10px;}
 /* calendar date style mod */
@@ -57,6 +64,12 @@
 		font-weight: 700;font-size: 14px;
 		display: block;margin-bottom: 15px; text-transform: uppercase;
 	}
+	.evobo_booking_section .evobo_price_values{
+		background-color: #fff;
+	    border-radius: 15px;
+	    padding: 20px;
+	}
+
 /* calendar style slots */
 	.evobo_booking_section.def .evobo_selection_row.evobo_slot_selection{
 		display: flex;
@@ -97,11 +110,11 @@
 		background-color: #fff;
 		padding:20px;
 		border-radius:12px;
-		box-shadow: 0px 0px 20px 0 #0000000f
+		border: 1px solid var(--evo_color_1);
 	}
 	.evoGC .evoGC_header, .evoGC .evoGC_days, .evoGC .evoGC_dates{display: block}
 	.evoGC .evoGC_header{padding-bottom: 20px; display:flex;justify-content:space-between; 
-		border-bottom: 1px solid #e8e8e8;
+		border-bottom: 1px solid var(--evo_color_2);
 		margin-bottom: 15px;
 		-webkit-user-select: none; /* Chrome all / Safari all */
 	  -moz-user-select: none;   /* Firefox all */
@@ -117,8 +130,8 @@
 	.evoGC .evoGC_today{
 		text-transform: uppercase;
 		font-size: 12px;
-		border-radius: 5px;
-		background-color: #cecece;color:#fff;
+		border-radius: 12px;
+		background-color: var(--evo_color_1);color:#fff;
 		padding: 3px 10px;
 		margin-right: 10px;
 		cursor: pointer;
@@ -133,19 +146,18 @@
 	    height: 25px;
 	    width: 25px;
 	    cursor: pointer;
-	    border: 1px solid #c5c5c5;
+	    border: 1px solid var(--evo_color_2);
 	    border-radius: 50%;
-	    color: #c5c5c5;
+	    color: var(--evo_color_2);
 	    position: relative;
 	    margin-right: 10px;
 	}
 	.evoGC .evoGC_header .evoGC_ar:hover{
-		color: #c5c5c5;
-	    border-color: #c5c5c5;
-	    background-color: #ededed;
+		color: #fff;
+	    background-color: var(--evo_color_2);
 	}
 	.evoGC .evoGC_header .evoGC_ar i.fa{
-		font-size: 16px;
+		font-size: 14px;
 	    margin-top: 4px;
 	    position: absolute;
 	    width: auto;
@@ -156,6 +168,7 @@
 	    left: 50%;
 	    transform: translate(-50%, -50%);
 	}
+	.evo_lightbox .evoGC .evoGC_header .evoGC_ar i.fa{margin-top: 5px;}
 	.evoGC .evoGC_days{
 		display:flex;
 		justify-content:space-around;
@@ -214,7 +227,7 @@
 	    -webkit-transform: translate(-50%, -50%);
 	    border-radius: 50%;
 	    -webkit-border-radius: 50%;
-	    color: #a7a7a7;
+	    color: var(--evo_color_2);
 	}
 	.evoGC .evoGC_week span i{
 		position: absolute;
@@ -229,7 +242,14 @@
 	    -webkit-transform: translate(-50%, -50%);
 	    border-radius: 50%;
 	}
-	.evotx_hidable_box.trim .evoGC .evoGC_week span i{width: 100%; height: 100%}
+	.evotx_hidable_section.trim .evoGC .evoGC_week span i{width: 100%; height: 100%}
+	.evotx_hidable_section.trim .evoGC .evoGC_week span i em{
+		    height: 90%;
+	    width: 90%;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	}
 	.evoGC .evoGC_week .evoGC_date.today i{border:2px solid #ffafaf}
 	.evoGC .evoGC_week .evoGC_date:hover i{background-color: #f3f3f3;}
 	.evoGC .evoGC_week .evoGC_date.select i{border:2px solid #616161}
@@ -275,16 +295,21 @@
 }
 @media (max-width: 550px){
 	.evoGC .evoGC_week span.select{}
-	.evoGC .evoGC_week span em{
+	.evoGC .evoGC_week span em,
+	.evo_lightbox_body .evoGC .evoGC_week span em{
 		width: 25px; height: 25px; 
 		line-height: 25px;
 		font-size: 12px;
 		background-color: transparent;
 	}
-	.evoGC .evoGC_week span.today em{
+	.evoGC .evoGC_week span.today em,
+	.evo_lightbox_body .evoGC .evoGC_week span.today em{
 		border:none;
-		line-height: 25px;
+		width: 100%;
+	    height: 100%;line-height: 26px;
 	}
+	.evoGC .evoGC_week .evoGC_date.today i,
+	.evoGC .evoGC_week .evoGC_date.select i{height: 100%;width: 100%}
 
 	.evobo_booking_section.slot .evobo_main_selection .evobo_selections{padding:10px 15px 0}
 	.evobo_selections .evobo_selection_row.evobo_slot_selection .date{flex-direction: column;}

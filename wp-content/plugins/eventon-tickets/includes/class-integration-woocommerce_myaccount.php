@@ -107,7 +107,7 @@ class EVOTX_WC_my_account{
 
 							if( $is_past){ $row .= "<span>". $TD['name'] ."</span>";}
 							else{
-								$row .= "<span><span class='evotx_view_ticket evcal_btn' data-tn='". $TIX->get_enc_ticket_number( $ticket_number )."'><i class='fa fa-eye' title='". __('View Ticket','evotx'). "'></i> View Ticket</span> ". $TD['name'] ."</span>";
+								$row .= "<span><span class='evotx_view_ticket evcal_btn' data-tn='". ( $ticket_number )."'><i class='fa fa-eye' title='". __('View Ticket','evotx'). "'></i> View Ticket</span> ". $TD['name'] ."</span>";
 							}
 							
 							//$row .= "<span>#". $TIX->get_enc_ticket_number( $ticket_number ) .'</span>';

@@ -1,13 +1,13 @@
 <?php
-/*
+/**
  * Plugin Name: EventON - Bookings
  * Plugin URI: http://www.myeventon.com/addons/bookings
  * Description: Sell event tickets as time slot based bookings or appointments
  * Author: Ashan Jay
- * Version: 1.3.2
+ * Version: 1.4
  * Author URI: http://www.ashanjay.com/
  * Requires at least: 5.0
- * Tested up to: 5.9
+ * Tested up to: 6.2.2
  * 
  * Text Domain: evobo
  * Domain Path: /lang/
@@ -16,13 +16,15 @@
 
 class eventon_bo{
 	
-	public $version='1.3.2';
-	public $eventon_version = '4.0'; 
-	public $evotx_version = '2.0';
+	public $version='1.4';
+	public $eventon_version = '4.4'; 
+	public $evotx_version = '2.2';
 	public $name = 'Bookings';
+	public $frontend, $admin, $assets_path, $int_tix;
 
 	public $addon_data = array();
-	public $slug, $plugin_slug , $plugin_url , $plugin_path ;
+	public $slug, $plugin_slug , $plugin_url , $plugin_path;
+	private $addon;
 	
 	// Instanace
 		protected static $_instance = null;
@@ -90,7 +92,6 @@ class eventon_bo{
 
 			include_once( 'includes/class-integration-tickets.php' );	
 			include_once( 'includes/class-integration-qrcode.php' );	
-			include_once( 'includes/class-integration-seats.php' );	
 			include_once( 'includes/class-booking_blocks.php' );	
 			include_once( 'includes/class-functions.php' );	
 			include_once( 'includes/class-frontend.php' );	
@@ -100,6 +101,7 @@ class eventon_bo{
 			}
 
 			$this->frontend = new evobo_frontend();
+			$this->int_tix = new EVOBO_Tickets_Int();
 			
 			// Deactivation
 			register_deactivation_hook( __FILE__, array($this,'deactivate'));

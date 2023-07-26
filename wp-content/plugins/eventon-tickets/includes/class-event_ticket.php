@@ -6,6 +6,7 @@
 
 class evotx_event extends EVO_Event{
 
+	public $wcid, $wcmeta, $product, $ri;
 	public function __construct($event_id, $event_pmv='', $RI=0, $wcid=''){
 		parent::__construct($event_id, $event_pmv);
 		$this->wcid = empty($wcid)? $this->get_wcid(): $wcid;
@@ -70,10 +71,11 @@ class evotx_event extends EVO_Event{
 		$default_ticket_price = $this->product->get_price();
 
 		$cart_item_keys = false;
-		$status = 'good'; $output = $msg_var = '';
+		$status = 'good'; $output = '';
 
 		$qty = $DATA['qty'];
-		$event_data = $DATA['event_data'];
+
+		//print_r( $DATA);
 
 		// hook for ticket addons
 		$plug = apply_filters('evotx_add_ticket_to_cart_before',false, $this,$DATA);
@@ -89,16 +91,32 @@ class evotx_event extends EVO_Event{
 					'evotx_event_id_wc'			=> $this->ID,
 					'evotx_repeat_interval_wc'	=> $this->ri,
 					'evotx_elocation'			=> $location_name,
-					'evotx_lang'				=> (isset($event_data['l'])? $event_data['l']: 'L1')
+					'evotx_lang'				=> (isset($DATA['l'])? $DATA['l']: 'L1')
 				);
 
 			// name your price
-			if( isset($DATA['nyp'])) $_cart_item_data_array['evotx_yprice'] = $DATA['nyp'];
+			if( isset($DATA['nyp'])){
+
+				if( $this->check_yn('_name_yprice')){
+					$min_nyp = $this->get_prop('_evotx_nyp_min');
+
+					if( $DATA['nyp'] < $min_nyp ){
+						return json_encode( array(
+							'msg'=> __('Your price is lower than minimum price','evotx'), 
+							'status'=> 'bad'
+						));exit;
+					}
+				}else{
+					return json_encode( array(
+						'msg'=> __('Name your price is not enabled','evotx'), 
+						'status'=> 'bad' 
+					));exit;
+				}
+
+				$_cart_item_data_array['evotx_yprice'] = $DATA['nyp'];
+			} 
 			
 			$cart_item_data = apply_filters('evotx_add_cart_item_meta', $_cart_item_data_array, $this, $default_ticket_price, $DATA);
-
-			//print_r($cart_item_data);
-
 			
 		// Add ticket to cart
 			if( is_array($cart_item_data)  ){
@@ -115,6 +133,7 @@ class evotx_event extends EVO_Event{
 
 			if($cart_item_keys){
 
+				
 				// get total cart quantity for this item
 				$DATA['cart_qty'] = WC()->cart->cart_contents[ $cart_item_keys ]['quantity'];
 				do_action('evotx_after_ticket_added_to_cart', $cart_item_keys, $this, $DATA, $cart_item_data);
@@ -129,17 +148,33 @@ class evotx_event extends EVO_Event{
 		}else{
 			$status = 'bad';
 			$msg = evo_lang('Could not add ticket to cart, please try later!');
-			$msg_var = 't4';
 		}
 
 		return json_encode( apply_filters('evotx_ticket_added_cart_ajax_data', array(
 			'msg'=>$msg, 
-			'msg_var' => $msg_var,
 			'status'=> $status,
 			'html'=>$output,
 			't'=>$DATA
 		), $this, $DATA));exit;
 
+	}
+
+	// check if an event ticket is already in cart 
+	function is_ticket_in_cart_already(){
+
+		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+
+			// if event id and repeat interval missing skip those cart items
+			if(empty($cart_item['evotx_event_id_wc'])) continue;
+			if(!isset($cart_item['evotx_repeat_interval_wc'])) continue;
+
+			if ( $cart_item['product_id'] > 0 ) {
+
+				if( $cart_item['evotx_event_id_wc'] == $this->ID && $cart_item['evotx_repeat_interval_wc'] == $this->ri) return true;
+			}
+		}
+
+		return false;
 	}
 
 // WC Ticket Product
@@ -229,6 +264,12 @@ class evotx_event extends EVO_Event{
 		if(!empty($this->wcmeta['_stock_status']) && $this->wcmeta['_stock_status'][0]=='outofstock')
 			return true;
 		return false;
+	}
+
+	// check if ticket is sold individually - @since 2.2
+	function is_sold_individually(){
+		$val = $this->get_wc_prop( '_sold_individually');
+		return ($val == 'yes') ? true : false;		
 	}
 
 	// show remaining stop or not

@@ -1,9 +1,10 @@
 <?php
 /** 
  * AJAX for only backend of the tickets
- * @version 2.0
+ * @version 2.2
  */
 class evotx_admin_ajax{
+	public $help, $post_data;
 	public function __construct(){
 		$ajax_events = array(
 			'the_ajax_evotx_a1'=>'evotx_get_attendees',			
@@ -15,6 +16,10 @@ class evotx_admin_ajax{
 			'evotx_save_assign_wc_products'=>'save_assign_wc_products',
 			'evotx_sales_insight'=>'evotx_sales_insight',
 			'evotx_sync_with_order'=>'evotx_sync_with_order',
+			'evotx_emailing_form'=>'evotx_emailing_form',
+
+			'evotx_get_event_tix_settings'=>'get_event_settings',
+			'evotx_save_event_tix_settings'=>'save_event_settings',
 		);
 		foreach ( $ajax_events as $ajax_event => $class ) {
 			add_action( 'wp_ajax_'.  $ajax_event, array( $this, $class ) );
@@ -22,7 +27,118 @@ class evotx_admin_ajax{
 			$nopriv_class = method_exists($this, 'nopriv_'. $class )? 'nopriv_'. $class: $class;
 			add_action( 'wp_ajax_nopriv_'.  $ajax_event, array( $this, $nopriv_class ) );
 		}
+
+		$this->help = new evo_helper();
+		$this->post_data = $this->help->sanitize_array( $_POST );
 	}
+
+	// event settings
+		function get_event_settings(){
+
+			$EVENT = new evotx_event( $this->post_data['eid'] );
+
+			ob_start();
+
+			include_once('views-event_settings.php');
+
+			echo json_encode(array(
+				'status'=>'good',
+				'content'=> ob_get_clean()
+			));exit;
+
+		}
+
+		function save_event_settings(){
+
+			global $evotx_admin;
+
+			$post_data = $this->help->sanitize_array( $_POST);
+			$EVENT = new evotx_event( $post_data['event_id'] );
+
+			$woo_data = array('_manage_stock','_stock','_stock_status','_sold_individually','_tx_text','_tx_subtiltle_text','tx_woocommerce_product_id');
+
+			// woo product update
+				$create_new = false;
+
+				// check if woocommerce product id exist
+				if(isset($post_data['tx_woocommerce_product_id']) && !empty($post_data['tx_woocommerce_product_id'])){
+					
+					$wcid = (int)$post_data['tx_woocommerce_product_id'];
+
+					$post_exists = $evotx_admin->post_exist($wcid);
+
+					// make sure woocommerce stock management is turned on
+						update_option('woocommerce_manage_stock','yes');								
+					
+					if($post_exists){
+						$evotx_admin->update_woocommerce_product($wcid, $EVENT->ID);
+					}else{
+						$create_new = true;	
+					}						
+					
+				}else{					
+
+					// check if wc prod association already made
+						$post_wc = $EVENT->get_wcid(); 
+						
+						if($post_wc){
+							$wcid = (int)$post_wc;
+							$post_exists = $evotx_admin->post_exist($wcid);
+
+							if($post_exists){								
+								$evotx_admin->update_woocommerce_product($wcid, $EVENT->ID);	
+							}else{	$create_new = true;	}
+
+						}else{	$create_new = true;	}					
+				}
+
+
+				// create new wc associate post
+				if($create_new){				
+					$wcid = EVOTX()->functions->add_new_woocommerce_product($EVENT->ID);
+					$_stock_status = (!empty($post_data['_stock_status']) && $post_data['_stock_status']=='yes')? 'outofstock': 'instock';
+					update_post_meta($wcid, '_stock_status', $_stock_status);
+				}
+
+
+			// save all values to event
+			foreach($post_data as $key=>$val){
+				if( in_array($key, $woo_data)) continue;
+				$EVENT->set_prop( $key, $val);
+			}
+			// save woo product values
+			foreach($woo_data as $key){
+				if( !isset( $post_data[ $key ])) continue;
+
+				$value = $post_data[$key];
+				if( $key == '_stock_status' ){
+					$value = (!empty($post_data['_stock_status']) && $post_data['_stock_status']=='yes')? 'outofstock': 'instock';
+				}
+				
+				update_post_meta($wcid, $key , $value );
+			}
+			
+
+			// Save repeat capacity
+				if(!empty($post_data['ri_capacity']) && evo_settings_check_yn($post_data, '_manage_repeat_cap')){
+
+					// get total
+					$count = 0; 
+					foreach($post_data['ri_capacity'] as $cap){
+						$count = $count + ( (int)$cap);
+					}
+					// update product capacity
+					update_post_meta( $wcid, '_stock',$count);
+					$EVENT->set_prop('ri_capacity',$post_data['ri_capacity']);
+				}
+
+			echo json_encode(array(
+				'status'=>'good',
+				'content'=> '',
+				'msg'=> __('Event Ticket Values Saved Successfully!')
+			));exit;
+
+		}
 
 // assign WC Product to event ticket
 	function assign_wc_products(){
@@ -41,31 +157,47 @@ class evotx_admin_ajax{
 
 		ob_start();
 
-		?><div style='text-align:center;padding:15px'><?php
+		?><div class='evopad20' style=''><?php
 
 		if($wc_prods->have_posts()):
 			?>
-			<p><?php _e('Select a WC Product to assign this event ticket, instead of the already assigned WC Product','evotx');?><br/><br/>
-			<i><?php _e('This event ticket is currently assigned to the below WC Product!','eventon');?></i><br/><code> (ID: <?php echo $_POST['wcid'];?>) <?php echo get_the_title($_POST['wcid']);?></code></p>
+			<form class='evotx_assign_wc_form'>
+				<?php
+					EVO()->elements->print_hidden_inputs( array(
+						'eid'=> $this->post_data['eid'],
+						'action'=>'evotx_save_assign_wc_products',
+					));
+				?>
+				<p><?php _e('Select a WC Product to assign this event ticket, instead of the already assigned WC Product','evotx');?><br/><br/>
+				<i><?php _e('This event ticket is currently assigned to the below WC Product!','eventon');?></i><br/><code> (ID: <?php echo $_POST['wcid'];?>) <?php echo get_the_title($_POST['wcid']);?></code></p>
 
-			<select class='field' name='evotx_wcid'><?php
+				<select class='field' name='wcid'><?php
 
-			while($wc_prods->have_posts()): $wc_prods->the_post();
+					while($wc_prods->have_posts()): $wc_prods->the_post();
 
-				$selected = (!empty($_POST['wcid']) && $wc_prods->post->ID == $_POST['wcid'])? 'selected="selected"':'';
+						$selected = (!empty($_POST['wcid']) && $wc_prods->post->ID == $_POST['wcid'])? 'selected="selected"':'';
 
-				?><option <?php echo $selected;?> value="<?php echo $wc_prods->post->ID;?>">(ID: <?php echo $wc_prods->post->ID;?>) <?php the_title();?></option><?php
-			endwhile;
+						?><option <?php echo $selected;?> value="<?php echo $wc_prods->post->ID;?>">(ID: <?php echo $wc_prods->post->ID;?>) <?php the_title();?></option><?php
+					endwhile;
 
-			?></select>
+				?></select>
 
 				<br/><br/><p><i><?php _e('NOTE: When selecting a new WC Product be sure the product is published and can be assessible on frontend of your website','evotx');?></i></p>
-				<p style='text-align:center; padding-top:10px;'>
-					<span class='evo_btn evotx_submit_manual_wc_prod' data-eid="<?php echo $_POST['eid'];?>"><?php _e('Save Changes','eventon');?></span>
-				</p>
-				<?php
+				
+				<p><?php
+				// send emails button
+					EVO()->elements->print_trigger_element(array(
+						'title'=>__('Save Changes','evotx'),
+						'uid'=>'evotx_assign_wc_submit',
+						'lb_class' =>'evotx_manual_wc_product',
+					), 'trig_form_submit');
+				?></p>
+				
+			</form>
 
+			<?php
 			wp_reset_postdata();
+
 		else:
 			?><p><?php _e('You do not have any items saved! Please add new!','eventon');?></p><?php
 		endif;
@@ -77,10 +209,19 @@ class evotx_admin_ajax{
 	}
 
 	function save_assign_wc_products(){
-		$wcid = (int)$_POST['wcid'];
-		$eid = (int)$_POST['eid'];
+		$wcid = (int)$this->post_data['wcid'];
+		$eid = (int)$this->post_data['eid'];
 
-		update_post_meta( $eid, 'tx_woocommerce_product_id', $wcid);
+		$EVENT = new evotx_event( $eid );
+
+		$current_wcid = $EVENT->get_wcid();
+
+		if( $current_wcid == $wcid ){
+			echo json_encode(array('msg'=> __('Already assigned to this Product','evotx'), 'status'=>'good')); 
+			exit;
+		}
+
+		$EVENT->set_prop('tx_woocommerce_product_id', $wcid);
 
 		EVOTX()->functions->save_product_meta_values($wcid, $eid);
 		EVOTX()->functions->assign_woo_cat($wcid);
@@ -94,57 +235,52 @@ class evotx_admin_ajax{
 		function evotx_get_attendees(){	
 			global $evotx;
 
-			$nonce = $_POST['postnonce'];
 			$status = 0;
 			$message = $content = $json = '';
 			$filter_vals = array();
 
-			if(! wp_verify_nonce( $nonce, 'evotx_nonce' ) ){
-				$status = 1;	$message ='Invalid Nonce';
+			$postdata = $this->post_data;
+
+			ob_start();
+
+			$source = isset($postdata['source'])? $postdata['source']: false;
+
+			$event_id = sanitize_text_field($postdata['eid']);
+			$ri = (isset($postdata['ri']) )? $postdata['ri']:'all'; // repeat interval
+
+			$EA = new EVOTX_Attendees();
+			$json = $EA->get_tickets_for_event( $event_id);
+
+
+			if(!count($json)>0){
+				echo "<div class='evotx'>";
+				echo "<p class='header nada'>".__('Could not find attendees with completed orders.','evotx')."</p>";	
+				echo "</div>";
 			}else{
 
-				ob_start();
-
-				$source = isset($_POST['source'])? $_POST['source']: false;
-
-				$event_id = sanitize_text_field($_POST['eid']);
-				$ri = (!empty($_POST['ri']) || $_POST['ri']=='0')? sanitize_text_field($_POST['ri']):'all'; // repeat interval
-
-				$EA = new EVOTX_Attendees();
-				$json = $EA->get_tickets_for_event( $event_id, $source);
-
-
-				if(!count($json)>0){
-					echo "<div class='evotx'>";
-					echo "<p class='header nada'>".__('Could not find attendees with completed orders.','evotx')."</p>";	
-					echo "</div>";
-				}else{
-
-					/// get sorted event time list
-					$event_start_time = array();
-					foreach($json as $tidx=>$td){
-						if(!isset($td['oD'])) continue;
-						if(!isset($td['oD']['event_time'])) continue;
-						
-
-						$ET = $td['oD']['event_time'];
-						if( strpos($ET, '-') !== false )$ET = explode(' - ', $ET);
-						if( strpos($ET[0], '(') !== false ) $ET = explode(' (', $ET[0]);
-
-						if( in_array($ET[0], $event_start_time)) continue;
-
-						$event_start_time[ $td['oD']['event_time'] ] = $ET[0];
-					}
-
-					uasort($event_start_time, array($this, "compareByTimeStamp") );
-
-					$filter_vals['event_time'] = $event_start_time;
-				}
-				
-				$content = ob_get_clean();
-			}
-
+				/// get sorted event time list
+				$event_start_time = array();
+				foreach($json as $tidx=>$td){
+					if(!isset($td['oD'])) continue;
+					if(!isset($td['oD']['event_time'])) continue;
 					
+
+					$ET = $td['oD']['event_time'];
+					if( strpos($ET, '-') !== false )$ET = explode(' - ', $ET);
+					if( strpos($ET[0], '(') !== false ) $ET = explode(' (', $ET[0]);
+
+					if( in_array($ET[0], $event_start_time)) continue;
+
+					$event_start_time[ $td['oD']['event_time'] ] = $ET[0];
+				}
+
+				uasort($event_start_time, array($this, "compareByTimeStamp") );
+
+				$filter_vals['event_time'] = $event_start_time;
+			}
+			
+			$content = ob_get_clean();
+
 			$return_content = array(
 				'attendees'=> array(
 					'tickets'=>$json, 
@@ -156,7 +292,8 @@ class evotx_admin_ajax{
 				'message'=> $message,
 				'status'=>$status,
 				'content'=>$content,
-			);
+			);		
+			
 			
 			echo json_encode($return_content);		
 			exit;
@@ -241,6 +378,85 @@ class evotx_admin_ajax{
 	}
 
 // Email attendee list to someone
+	function evotx_emailing_form(){
+
+		$post_data = $this->post_data;
+		$EVENT = new evotx_event($post_data['e_id']);
+
+		ob_start();?>
+		<div id='evotx_emailing' class='' style=''>
+			<form class='evotx_emailing_form'>
+			<?php
+				EVO()->elements->print_hidden_inputs( array(
+					'eid'=>$EVENT->ID,
+					'wcid'=>$EVENT->get_wcid(),
+					'action'=>'the_ajax_evotx_a8',
+				));
+			?>
+			<p><label><?php _e('Select emailing option','evotx');?></label>
+				<select name="type" id="evotx_emailing_options">
+					<option value="someone"><?php _e('Email Attendees List to someone','evotx');?></option>
+					<option value="completed"><?php _e('Email only to completed order guests','evotx');?></option>
+					<option value="pending"><?php _e('Email only to pending order guests','evotx');?></option>
+				</select>
+			</p>
+			<?php
+				// if repeat interval count separatly						
+				if($EVENT->is_ri_count_active() && $EVENT->get_repeats() ){
+					$repeat_intervals = $EVENT->get_repeats();
+					if(count($repeat_intervals)>0){
+
+						$datetime = new evo_datetime();
+						$wp_date_format = get_option('date_format');
+						$pmv = $EVENT->get_data();	
+
+						echo "<p><label>". __('Select Event Repeat Instance','evotx')."</label> ";
+						echo "<select name='repeat_interval' id='evotx_emailing_repeat_interval'>
+							<option value='all'>".__('All','evotx')."</option>";																
+						$x=0;								
+						foreach($repeat_intervals as $interval){
+							$time = $datetime->get_correct_formatted_event_repeat_time($pmv,$x, $wp_date_format);
+							echo "<option value='".$x."'>".$time['start']."</option>"; $x++;
+						}
+						echo "</select>";
+						echo $eventon->throw_guide("Select which instance of repeating events of this event you want to use for this emailing action.", '',false);
+						echo "</p>";
+					}
+				}
+			?>
+			<p style='' class='text'>
+				<label for=""><?php _e('Email Addresses (separated by commas)','evotx');?></label>
+				<input name='emails' style='width:100%' type="text"></p>
+			<p style='' class='subject'>
+				<label for=""><?php _e('Subject for email','evotx');?> *</label>
+				<input name='subject' style='width:100%' type="text"></p>
+			<p style='' class='textarea'>
+				<label for=""><?php _e('Message for the email','evotx');?></label>
+				<textarea name='message' id='evotx_emailing_message' cols="30" rows="5" style='width:100%'></textarea>
+				
+			</p>
+			<p><?php
+			// send emails button
+				EVO()->elements->print_trigger_element(array(
+					'title'=>__('Send Email','evotx'),
+					'uid'=>'evotx_send_emails',
+					'lb_class' =>'evotx_emailing',
+				), 'trig_form_submit');
+			?></p>
+
+		</form>
+		</div>
+		
+		<?php $emailing_content = ob_get_clean();
+		$return_content = array(
+			'status'=> 'good',
+			'content'=>$emailing_content,
+		);
+		
+		echo json_encode($return_content);		
+		exit;
+
+	}
 	function emailing_attendees_admin(){
 		global $evotx, $eventon;
 
@@ -362,7 +578,9 @@ class evotx_admin_ajax{
 		}			
 
 		$return_content = array(
-			'status'=> ($EMAILED?'0':'did not go'),	'other'=>$args
+			'status'=> ($EMAILED?'good':'bad'),	
+			'msg'=> $EMAILED ? __('Email Sent Successfully') : __('Could not send email'),
+			'other'=>$args
 		);		
 		echo json_encode($return_content);		
 		exit;

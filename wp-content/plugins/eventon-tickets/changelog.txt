@@ -1,5 +1,32 @@
 Tickets (TX) addon for EventON Plugin
 ====================================
+v 2.2.1 (2023-7-20)
+FIXED: ticket data loading function for js
+FIXED: ticket concatenated styles not loading correct
+
+v 2.2 (2022-7-12)
+ADDED: checkedin guest count to sales insight 
+ADDED: name your price double check before adding to cart
+ADDED: new shortcode [evotx_attendees] to show all attendees names on frontend
+ADDED: all tickets posts in admin side to be filterable by events
+ADDED: webhooks for eventON automation
+ADDED: lightbox based inqure before buy form
+ADDED: message on eventcard when ticket is already in cart for sold individually 
+ADDED: admin view attendees to have search
+ADDED: admin view attendees to show count real time
+FIXED: View attendee not showing prior to sales
+FIXED: sales insight font color darker for clearer view
+FIXED: postponed event showing event top tags
+FIXED: failed order completing not adjusting tickets.
+FIXED: my account event tickets not loading
+FIXED: failed orders are restocked twice
+FIXED: inquire before buy form XSS validation
+FIXED: scripts enqueue order and js localized data for page
+FIXED: tickets settings layout and formatting
+FIXED: attendees anywhere not showing anything for no completed orders
+UPDATED: Moved event settings to lightbox for faster loading
+UPDATED: PHP 8.2 code updates
+
 v 2.1 (2022-3-30)
 ADDED: clear notice on editting repeats after manage stock for repeats is set
 FIXED: empty price value error on evotx_helper->convert_to_currency()

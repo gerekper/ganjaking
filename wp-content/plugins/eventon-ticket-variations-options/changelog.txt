@@ -1,5 +1,27 @@
 Variations & Options (EVOVO) addon for EventON Plugin
 ====================================
+v 1.1.1 (2023-7-20)
+FIXED: tooltip for variations setting not working
+FIXED: variations for seats not getting added
+FIXED: cleaned up the code on frontend
+
+v 1.1 (2022-7-12)
+ADDED: option to hide sold out price options
+ADDED: delete all variations option when seat section is deleted
+FIXED: price options filter not working for view attendees
+FIXED: hide variations for new booking form
+FIXED: unavailable variation showing error
+FIXED: sales insight to only include completed orders - thanks @davidlopezdj
+UPDATED: moved variations settings into lightbox
+
+v 1.0.4 (2022-7-5)
+FIXED: Booking initial variations load not setting the correct max capacity
+FIXED: compatibility issues with seats using unassigned seats with variations
+
+v 1.0.3 (2022-3-30)
+FIXED: variation types with long names pushingpage outside
+FIXED: event edit UI adding new variation removed old ones
+
 v 1.0.2 (2022-2-18)
 FIXED: price options as separate ticket minor add to cart error
 FIXED: booking variation deleted still shows up after saving changes

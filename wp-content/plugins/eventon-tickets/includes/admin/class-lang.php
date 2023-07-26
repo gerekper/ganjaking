@@ -55,6 +55,7 @@ class evotx_lang{
 				array('label'=>'Ticket sales are closed now','var'=>'1'),
 				array('label'=>'My Account','var'=>'1'),
 				array('label'=>'You have already purchased this ticket','var'=>'1'),
+				array('label'=>'Ticket already in cart','var'=>'1'),
 
 				array('label'=>'Additional Ticket Information','type'=>'subheader'),
 					array('label'=>'Additional Ticket Information', 'var'=>'1'),
@@ -71,13 +72,15 @@ class evotx_lang{
 				array('label'=>'This order has been refunded!', 'var'=>1),
 
 				array('label'=>'Ticket Inquiries Front-end Form','type'=>'subheader'),
+					array('label'=>'Submit a Ticket Inquiry Before Purchase','var'=>1),
 					array('label'=>'Inquire before buy','name'=>'evoTX_inq_01','legend'=>''),
 					array('label'=>'Your Name','name'=>'evoTX_inq_02','legend'=>''),
 					array('label'=>'Email Address','name'=>'evoTX_inq_03','legend'=>''),
 					array('label'=>'Question','name'=>'evoTX_inq_04'),
-					array('label'=>'Phone Number','name'=>'evoTX_inq_04a'),
-					array('label'=>'**All Fields are Required','name'=>'evoTX_inq_05','legend'=>''),
+					array('label'=>'Phone Number','name'=>'evoTX_inq_04a'),					
 					array('label'=>'Verify Your Inquiry','name'=>'evoTX_inq_02a','legend'=>''),
+					array('label'=>'**All Fields are Required','name'=>'evoTX_inq_05','legend'=>''),
+					array('label'=>'Invalid verification code','var'=>1),
 					array('label'=>'Required Fields are Missing, Please Try Again!','name'=>'evoTX_inq_06','legend'=>''),
 					array('label'=>'Submit','name'=>'evoTX_inq_07','legend'=>''),
 					array('label'=>'Event','var'=>1),
@@ -107,6 +110,7 @@ class evotx_lang{
 					array('label'=>'Please purchase ticket to receive access information to virtual event', 'var'=>1),
 					array('label'=>'instock', 'var'=>1),
 				array('type'=>'togend'),
+
 			array('type'=>'togend'),
 		);
 		return (is_array($_existen))? array_merge($_existen, $new_ar): $_existen;

@@ -20,6 +20,12 @@ class evotx_tix_cpt{
 			add_filter( 'manage_edit-evo-tix_columns', array($this,'evo_tx_edit_event_columns') );
 			add_action("admin_init", array($this,"_evo_tx_remove_box"));
 
+			// custom filters
+			add_action('restrict_manage_posts',array($this,'evo_restrict_manage_posts'));
+			add_filter('query_vars', array($this,'register_query_vars' ));
+			add_filter('months_dropdown_results', array($this,'remove_date_filter' ),10,2);
+			add_action( 'pre_get_posts', array($this,'pre_get_posts' ));
+
 			// woocommerce Orders columns
 		    $posttype = "shop_order";
 		    add_filter( "manage_edit-{$posttype}_columns", array($this, 'SO_edit_columns'), 20, 1 );
@@ -63,9 +69,21 @@ class evotx_tix_cpt{
 		    	// if searching by event name
 		    	else{
 
+		    		// searching by attendee name
 		    		if( is_numeric($search_term)){
 		    			$query->query_vars['p'] = $search_term;
 		    		}else{
+
+		    			$meta_query = array( 
+			    			'relation' => 'OR',
+			    			array(
+			    				'key'=> 'name',
+			    				'value'=> $search_term,
+			    				'compare'=> 'IN'
+			    			)
+			    		);
+
+		    			/*
 		    			$event_ids = $this->_get_eventid_by_name( $search_term );
 		    				    		
 			    		$meta_query = array( 
@@ -76,10 +94,13 @@ class evotx_tix_cpt{
 			    				'compare'=> 'IN'
 			    			)
 			    		);
+			    		*/
 			 
 				        $query->set( 'meta_query', $meta_query );
 		    		}		    		
 		    	}
+
+
 		    };
 		}
 
@@ -315,6 +336,65 @@ class evotx_tix_cpt{
 			endif;
 
 			return $vars;
+		}
+
+	// custom filter
+		function remove_date_filter($A, $post_type){
+			//if($post_type == 'evo-tix')	return $A;
+			return $A;
+		}
+		function evo_restrict_manage_posts() {
+			global $typenow;
+
+			if ($typenow=='evo-tix'){
+	           	$event_id = (isset($_GET['event_id'])? sanitize_text_field($_GET['event_id']):null);
+				?>
+				<select name="event_id">
+					<option value="all"><?php _e('All Events','evotx');?></option>
+					<?php 
+					// get all events with tickets on
+					$ev = new WP_Query(array(
+						'posts_per_page'=>-1,
+						'post_type'=>'ajde_events',
+						'meta_query'=>array(
+							'key'=>'evotx_tix',
+							'value'=>'yes'
+						)
+					));
+					if( $ev->have_posts()):
+						foreach( $ev->posts as $post){
+							$selected = $event_id == $post->ID ? 'selected="selected"' : null;
+							echo "<option value='{$post->ID}' {$selected}>(#{$post->ID}) {$post->post_title}</option>";
+						}
+
+					endif;
+					?>
+				</select>
+				<?php
+	        }
+		}
+		function register_query_vars( $Q ){
+		    //Add these query variables
+		    $Q[] = 'event_id';
+		    return $Q;
+		}
+		function pre_get_posts( $query ) {
+
+		    //Only alter query if custom variable is set.
+		    $event_id = $query->get('event_id');
+		    if( !empty($event_id) && $event_id != 'all'){
+
+		        $meta_query = $query->get('meta_query');
+		        if( empty($meta_query) )    $meta_query = array();
+
+		        // add event id to query
+		        	$meta_query[] = array(
+			            'key' => '_eventid',
+			            'value' => $event_id,
+			        );
+		        
+		        $query->set('meta_query',$meta_query);
+		    }
 		}
 }
 new evotx_tix_cpt();

@@ -1,5 +1,15 @@
 Bookings addon for EventON Plugin
 ====================================
+v 1.4 (2023-7-12)
+FIXED: public released incompleted seat feature by accident
+FIXED: sold individually not honored in booking blocks
+FIXED: Mobile syles
+FIXED: lightbox booking calendar responsive styles
+FIXED: PHP 8.2 errors
+FIXED: calendar circle highlight overlaying on others
+FIXED: tickets standalone button for events with booking not working
+UPDATED: Moved booking manager to new dynamic lightbox system
+
 v 1.3.2 (2022-1-25)
 FIXED: ux_val=3a not loading booking calendar on event
 FIXED: deleting block from block lightbox not showing success message

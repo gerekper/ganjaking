@@ -1,6 +1,6 @@
 /** 
  * EVO ST map drawing method
- * @version 1.0
+ * @version 1.2.1
  */
 
 (function($){
@@ -14,6 +14,7 @@
 
 			styles = '';
 
+
 			// background color 
 			if(j.bg_color !== undefined) c.css('background-color', '#'+j.bg_color);
 
@@ -24,7 +25,7 @@
 				});
 				c.addClass('map_area'+j.map_area);
 
-				lb = c.closest('.evost_seating_map');
+				lb = c.closest('.evo_lightbox.evost_lightbox');
 				if(lb.length>0){
 					lb.removeClass(function (index, className) {
 					    return (className.match (/(^|\s)map_area\S+/g) || []).join(' ');
@@ -77,10 +78,17 @@
 			data = opt.j_cart;
 			c = $(this);
 
+			//console.log(data);
+
 			HTML = '';		
 			HTML = $(this).evo_HB_process_template({TD: data ,part: temp_part});
 
-			c.html( HTML );	
+			c.html( HTML );
+			if( data.total_seats != 0 ){
+				c.show();
+			}else{
+				c.hide();
+			}
 
 			// expiration time				
 				E = c.find('.evost_cart_expirations span');
@@ -154,7 +162,10 @@
 
 				// set width small to get actual space available 
 				OUT.width(200);
-				OUT.width( MAPSEC.width()-3 );
+				if( OUT.parent().hasClass('fixed_tt') ) 
+					OUT.width( MAPSEC.width()-20 );
+				else
+					OUT.width( MAPSEC.width()-0 );
 
 				MscaleXY = (OUT.width() >l.width()) ? 1: ( OUT.width()/ l.width() ) ;
 				
@@ -163,9 +174,17 @@
 
 				opt.minScale = (OUT.width() / l.width() )-0.5;
 
+				// adjust container height to new scalled map height
+				const new_layout_height = parseInt(l.height() * MscaleXY);
+				l.parent().height( new_layout_height - 1 );
+
+				// move the map up
+				MtranslateY = l.position().top * -1;
+				
+
 				MtranslateX = l.position().left *-1;
 				l.css('transform','matrix('+MscaleXY+',0,0,'+MscaleXY+','+MtranslateX+','+MtranslateY+')');
-							
+					
 
 			// window resized
 				$(window).resize(function(){					
@@ -273,17 +292,17 @@
 						l.css('transform-origin', '50% 50% 0');
 
 						opt.minScale = (OUT.width() / l.width() )-0.5;
+						
+						// move the map up
+						MtranslateY = l.position().top * -1;
 
 						MtranslateX = l.position().left *-1;
 						l.css('transform','matrix('+MscaleXY+',0,0,'+MscaleXY+','+MtranslateX+','+MtranslateY+')');
 					});
 			}
-
-							
-
+			
 			// mark the map as being processed for interaction
 				l.addClass('pro');
-
 
 			// supportive
 				function _cal_matrix(){
@@ -304,7 +323,6 @@
 							MtranslateY = parseInt(MtranslateY[0]);					
 					}
 				}
-
 		}
 
 	// Seats Map
@@ -349,10 +367,26 @@
 				});
 				// pass avaiability class to sections
 				Handlebars.registerHelper('avail',function(v1, v2){
-					if(v1 != 'una') return false;
-					if(parseInt(v2)<1) return false;
-					return 'av';
+					
+					if(v1 == 'boo'){
+						return (parseInt(v2) <1) ? 'notav' : 'av';
+					}
+
+					if(v1 == 'una'){
+						return (parseInt(v2) <1) ? 'notav' : 'av';
+					}
+
+					return false;					
 				});
+
+				// check availability
+				Handlebars.registerHelper('is_avail',function(v1, options){
+					var fnTrue = options.fn, 
+        				fnFalse = options.inverse;
+					return v1 >0 ? fnTrue(this) : fnFalse(this);
+				});
+
+				// custom if condition
 				Handlebars.registerHelper('ifCOND',function(v1, operator, v2, options){
 					return checkCondition(v1, operator, v2)
 		                ? options.fn(this)
@@ -375,11 +409,46 @@
 				c.find('#evost_section_'+section_id).addClass(classes);
 
 			// only for frontend mark seats in cart	
-			if(end == 'front' && opt.j_cart !== undefined){
+			if(end == 'front' && opt.j_cart !== undefined && opt.j_cart.seat !== undefined){
+
 				$.each(opt.j_cart.seat, function(key, dd){
+
+					// unaseat
+					if( dd.seat_type == 'unaseat'){
+						c.find('#evost_section_'+ dd.seat_slug ).addClass('mine')
+							.append('<i class="fa fa-check"></i>');
+					}
+
+					// booseat
+					if( dd.seat_type == 'booseat'){
+						c.find('#evost_section_'+ dd.seat_slug ).addClass('mine')
+							.append('<i class="fa fa-check"></i>');
+					}
+
 					c.find('.evost_seat[data-sid="'+ dd.seat_slug +'"]').addClass('mine');
 				});
 			}
+
+			// not available booth and unassigned seating
+				if( j !== undefined ){
+					$.each(j , function(section_id, dd){
+
+						if( dd.available > 0) return;
+
+						// unaseat
+						if( dd.type == 'una'){
+							c.find('#evost_section_'+ section_id )
+								.append('<i class="fa fa-check"></i>');
+						}
+
+						// booseat
+						if( dd.type == 'boo'){
+							c.find('#evost_section_'+ section_id )
+								.append('<i class="fa fa-check"></i>');
+						}
+
+					});
+				}
 
 			// only for admin
 			if(end == 'admin'){

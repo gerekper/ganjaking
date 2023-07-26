@@ -50,6 +50,8 @@ class EVOTX_Sales_Insight{
 
 			$sales_data = array();
 			$total_tickets_sold = 0;
+			$total_tickets_sold_ready = 0;
+			$checked_count = 0;
 
 			$processed_order_ids = array();
 
@@ -58,18 +60,21 @@ class EVOTX_Sales_Insight{
 
 					$order_id = get_post_meta($orders->post->ID, '_orderid', true);
 
+					// checked count
+						$status = get_post_meta($orders->post->ID, 'status', true);
+						if( $status == 'checked') $checked_count ++;
+
 					// check if order post exists
 					$order_status = get_post_status($order_id);
 					if(!$order_status) continue;
 
-					if(in_array($order_id, $processed_order_ids)) continue;
-
-					$order = new WC_Order( $order_id );	
-
-					if(sizeof( $order->get_items() ) <= 0) continue;
-
+					// Process 1 order once only
+						if(in_array($order_id, $processed_order_ids)) continue;
+						$order = new WC_Order( $order_id );	
+						if(sizeof( $order->get_items() ) <= 0) continue;
+				
 					// for each ticket item in the order
-					$_order_qty = $_order_cost = 0;
+						$_order_qty = $_order_cost = 0;
 
 					// order information
 						$order_time = get_the_date('U', $order_id);
@@ -100,6 +105,11 @@ class EVOTX_Sales_Insight{
 
 					}
 
+					// completed & ready to go orders
+					if( $order_status == 'completed'){
+						$total_tickets_sold_ready += $_order_qty ;
+					}
+
 					$total_tickets_sold += $_order_qty;
 					$processed_order_ids[] = $order_id;				
 
@@ -107,6 +117,7 @@ class EVOTX_Sales_Insight{
 				endwhile;
 				wp_reset_postdata();
 			endif;
+
 
 		//print_r($sales_data);
 
@@ -151,6 +162,29 @@ class EVOTX_Sales_Insight{
 				</span>
 				<?php endforeach;?>
 				</p>
+			</div>
+
+			<div class='evotxsi_row sales_by_status'>
+				<h2 style='margin:10px 0 30px; font-weight:bold'><?php _e('Guest Attendance Data','evotx');?></h2>				
+				<p>				
+				
+				<?php 
+				$attendance_perc = 0;
+				if( $total_tickets_sold_ready >0 )
+					$attendance_perc = round( ($checked_count/$total_tickets_sold_ready) *100 , 2) ;
+
+				foreach(array(
+					'completed'=> array( __('Tickets Sold','evotx'), $total_tickets_sold_ready),
+					'checked'=> array( __('Checked in Count','evotx'), $checked_count),
+					'perc'=> array( __('Attendance %','evotx'), $attendance_perc.'%'),
+				) as $FF=>$VV):?>
+				<span class='<?php echo $type;?>'>					
+					<b><?php echo $VV[1];?></b></em>
+					<i><?php echo $VV[0];?></i>
+				</span>
+				<?php endforeach;?>
+				</p>
+
 			</div>
 			<div class='evotxsi_row sales_by_time'>
 				<h2 style='font-weight:bold'><?php _e('Ticket sales based on the time of ticket sale','evotx');?></h2>	
@@ -246,6 +280,8 @@ class EVOTX_Sales_Insight{
 				?>
 				</p>
 			</div>
+
+			<div class='evotxsi_row sales_msg'><p><?php _e('NOTE: Sales insight data is calculated using evo-tix posts as primary measure count.','evotx');?></p></div>
 			<?php
 		}
 

@@ -5,6 +5,8 @@
  */
 class evotx_functions{
 	private $evohelper;
+	public $EH;
+	
 	function __construct(){
 		$this->EH = new evo_helper();
 	}

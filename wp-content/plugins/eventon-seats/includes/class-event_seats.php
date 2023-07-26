@@ -1,7 +1,7 @@
 <?php
 /**
  * Event Seats class extension
- * @version 1.1.1
+ * @version 1.2
  */
 
 class EVOST_Seats{
@@ -17,13 +17,14 @@ class EVOST_Seats{
 	public $custom_id = false; // pass custom id to further separate data
 	public $custom_id2 = false; // pass custom id to further separate data
 	public $section_key = '_evost_sections';
+	public $event, $event_id, $wcid, $ri;
 
 	public function __construct($EVENT, $wcid='', $RI=0, $cid='', $cid2=''){
-		if( is_numeric($EVENT)) $EVENT = new EVO_Event( $EVENT);
+		if( is_numeric($EVENT)) $EVENT = new EVO_Event( $EVENT, '', $RI);
 
 		$this->event = $EVENT;
 		$this->event_id = $this->event->ID;
-		if(!empty($wcid)) $this->wcid = $wcid;
+		if(!empty($wcid)) $this->wcid = $this->event->wcid = $wcid;
 		$this->ri = $RI;
 
 		if(!empty($cid)) $this->custom_id = $cid;
@@ -131,7 +132,7 @@ class EVOST_Seats{
 								$total ++;
 							}
 						}
-					// type una
+					// type non seat
 					}else{
 						if(isset($section['capacity'])){
 							$total += (int)$section['capacity'] - ( isset($section['sold']) ? $section['sold']:0);
@@ -189,6 +190,10 @@ class EVOST_Seats{
 				$sData[$this->section][$field] = $value;
 				$this->save_seat_map_data($sData);
 			}
+		// put nonseat as in progress
+			function set_nonseat_inprogress($qty){
+
+			}
 
 		// set UNA new sold value
 			function una_adjust_sold($type, $by_qty){
@@ -237,10 +242,11 @@ class EVOST_Seats{
 		// get seat status by seat slug, return false if no status
 		function get_seat_status($seat_slug){
 			$seat_data = $this->get_seat_data($seat_slug);
+
 			if($this->seat_type == 'seat'){
 				return (isset($seat_data['status']))? $seat_data['status']: false;
 			}else{
-				return $this->una_get_available_seats();
+				return $this->nonseat_get_available_seats($this->seat_type);
 			}
 		}
 
@@ -487,19 +493,21 @@ class EVOST_Seats{
 	// Localize seat slug, process seat slug based on seat type and set local values including seat type
 		function _localize_seat_slug($slug){
 			$this->_get_seat_type_by_slug($slug);
+
 			if( $this->seat_type == 'seat'){
 				$this->process_seat_slug();
-			}else{// unassigned seating
+			// unassigned seating & booth seating
+			}else{
 				$this->set_section($this->seat_slug);
 			}
 			return $this->seat_type;
 		}
-	// get seat type
+	// get seat type @u 1.2
 		function _get_seat_type_by_slug($slug){
-			if(is_array($slug)) return false;
 			$this->seat_slug = $slug;
-			$seat_type = strpos($slug, '-') === false? 'unaseat':'seat';
-			$this->seat_type = $seat_type;
+
+			$seat_type = $this->seat_type = EVOST()->frontend->get_seat_type( $slug );
+
 			return $seat_type;
 		}
 
@@ -554,48 +562,74 @@ class EVOST_Seats{
 
 		}
 
-// UNASEAT Functions
-	function una_get_available_seats(){
+	// get tickets by seat section
+		function get_tickets_by_section(){
+			$EA = new EVOTX_Attendees();
+			$json = $EA->get_tickets_for_event($this->event_id);
+
+			$return = array();
+
+			foreach($json as $ticket_number => $td){
+				if( !isset($td['oDD'] ) ) continue;
+				if( !isset($td['oDD']['seat_slug'] ) ) continue;
+				$section_id = explode('-', $td['oDD']['seat_slug'] );
+
+				$return[ $section_id[0] ][$ticket_number] = $td; 
+			}
+
+			return $return;
+		}
+
+		function get_ticket_for_section($_section_id){
+			$EA = new EVOTX_Attendees();
+			$json = $EA->get_tickets_for_event($this->event_id);
+
+			$return = array();
+
+			foreach($json as $ticket_number => $td){
+				if( !isset($td['oDD'] ) ) continue;
+				if( !isset($td['oDD']['seat_slug'] ) ) continue;
+				$section_id = explode('-', $td['oDD']['seat_slug'] );
+
+				if( $section_id[0] != $_section_id) continue;
+
+				$return[$ticket_number] = $td; 
+			}
+
+			return $return;
+		}
+
+// NON-seat Functions
+	function get_nonseat_capacity($type){
+		if( $type == 'boo') return 1;
+
+		if( $type == 'una'){
+			if(!$this->section) return false;
+			return $this->get_item_prop('capacity');
+		}
+	}
+	function nonseat_get_available_seats( $type){
+
+		if( $type == 'seat') return;
+
 		if(!$this->section) return false;
-		$sold = $this->get_item_prop('sold');
-		if(!$sold) $sold = 0;
+
+		// fetch current sold ticket data
+		$tickets = $this->get_ticket_for_section( $this->section );
+		$sold = 0;
+		$inprogress = 0;
+
+		foreach( $tickets  as $TN=>$TD){
+			if( $TD['oS'] == 'completed') $sold++;
+			if( $TD['oS'] != 'completed') $inprogress++;
+		}
+		
 		$cap = $this->get_item_prop('capacity');
-		return $cap - $sold;
+
+		return $cap - $sold - $inprogress;
 	}
 
 // VIEWS
-	function frontend_init(){
-		ob_start();
-		$Helper = new evotx_helper();
-		$evotx_data = array();
-
-		global $EVOLANG;// get global evo lang value set via tickets addon
-
-		$evotx_data['event_data']['eid'] = $this->event_id;
-		$evotx_data['event_data']['wcid'] = $this->wcid;
-		$evotx_data['event_data']['l'] = $EVOLANG;
-
-		$cal_shortcodes = EVO()->evo_generator->shortcode_args;
-		//print_r($cal_shortcodes);
-		
-		// show seat map on load
-		$showmap = ((isset($cal_shortcodes['ux_val']) && $cal_shortcodes['ux_val'] == '3') || is_single())? 'true': 'false';
-
-		$directadd = $this->event->check_yn('_allow_direct_add')? 'cart':'prev';
-
-		?>
-		<div class="evost_seat_map_section" data-showmap='<?php echo $showmap;?>' data-adds='<?php echo $directadd;?>'>
-			<p><span class="evcal_btn evost_show_inline_seats"><?php evo_lang_e('Find Seats');?></span></p>
-			<div class="evost_inline_seat_map evost_seat_selection"></div>	
-			<div class="evost_seats_preview"></div>
-			<div class='evost_seats_in_cart'></div>
-			<div class='evost_seats_msg'><p class='evost_msg'></p></div>
-			<?php echo $Helper->print_add_to_cart_data($evotx_data);?>
-			<?php echo $Helper->__get_addtocart_msg_footer();?>
-		</div>
-		<?php
-		return ob_get_clean();
-	}
 	function get_frontend_seats_view($event_id, $wcid){
 
 		$OPT = EVOST()->opt;
@@ -603,53 +637,59 @@ class EVOST_Seats{
 			$dis_accrd = evo_settings_check_yn($OPT, 'evost_seat_accordion')? true: false;
 
 		ob_start();
-		$data = array();
-		$data['currency'] = get_woocommerce_currency_symbol();
-		$data['event_id'] = $event_id;
-		$data['wcid'] = $wcid;
-		$data['accord'] = $dis_accrd;
+		
 		?>
 		<div class='evost_seat_selection'>
-			<div class='evost_tooltip'></div>			
+					
 			<style type="text/css" class='evost_seat_map_styles'></style>
 			<div class='evost_seat_layout_outter'>
 				<div class='evost_seat_layout'></div>
-			</div>		
-	
-		<div class='evost_map_information'>
+			</div>	
+			<div class='evost_tooltip'></div>		
+		
+			<div class='evost_map_information'>
 
-			<div class="evost_seat_legends">	
-				<span class='legends_trig'><?php evo_lang_e('Seat Legends');?>
-					<span class='evost_seat_legends_box'>		
-						<?php /*<span class='av'><b></b> <?php evo_lang_e('Available');?></span>*/?>
-						<span class='uav'><b></b> <?php evo_lang_e('Unavailable (Sold Out)');?></span>
-						<span class='tuav'><b></b> <?php evo_lang_e("In someone's cart");?></span>
-						<span class='selected'><b></b> <?php evo_lang_e('Your selected seats');?></span>
-						<span class='mine'><b></b> <?php evo_lang_e('Seats in your cart');?></span>
-						<span class='res'><b></b> <?php evo_lang_e('Reserved');?></span>
-						<span class='hand'><b></b> <?php evo_lang_e('Handicap Accessible');?></span>
-					</span>
-				</span>	
+				<div class="evost_seat_legends">	
+					<span class='legends_trig'><?php evo_lang_e('Seat Legends');?>
+						<span class='evost_seat_legends_box'>		
+							<?php /*<span class='av'><b></b> <?php evo_lang_e('Available');?></span>*/?>
+							<span class='uav'><b></b> <?php evo_lang_e('Unavailable (Sold Out)');?></span>
+							<span class='tuav'><b></b> <?php evo_lang_e("In someone's cart");?></span>
+							<span class='selected'><b></b> <?php evo_lang_e('Your selected seats');?></span>
+							<span class='mine'><b></b> <?php evo_lang_e('Seats in your cart');?></span>
+							<span class='res'><b></b> <?php evo_lang_e('Reserved');?></span>
+							<span class='hand'><b></b> <?php evo_lang_e('Handicap Accessible');?></span>
+						</span>
+					</span>	
+				</div>
+				<div class='evost_view_control'>
+					<span class='fit'><?php evo_lang_e('Reset Map');?></span>
+					<span class='zoomin'>+</span>
+					<span class='zoomout'>-</span>
+					<?php /*<input type="range" class='zoom-range' step="0.05" min='0.3' max="6"/>
+					<button class="reset">Reset</button>*/?>
+				</div>
 			</div>
-			<div class='evost_view_control'>
-				<span class='fit'><?php evo_lang_e('Reset Map');?></span>
-				<span class='zoomin'>+</span>
-				<span class='zoomout'>-</span>
-				<?php /*<input type="range" class='zoom-range' step="0.05" min='0.3' max="6"/>
-				<button class="reset">Reset</button>*/?>
+			<div class="evost_seats_footer">
+				<?php
+					// seat expiration time
+					$expiration = !empty($OPT['evost_session_time'])?	$OPT['evost_session_time']  : false;
+					if($expiration):
+						$string = str_replace('[time]', $expiration, evo_lang('Seats added to cart will expire in [time] minutes of inactivity in cart.'));
+				?>
+				<p style='margin-top:15px;border-top:1px solid #dadada;padding-top:10px'><?php echo $string;?></p>
+			<?php endif;?>
 			</div>
-		</div>
-		<div class="evost_seats_footer">
-			<?php
-				// seat expiration time
-				$expiration = !empty($OPT['evost_session_time'])?	$OPT['evost_session_time']  : false;
-				if($expiration):
-					$string = str_replace('[time]', $expiration, evo_lang('Seats added to cart will expire in [time] minutes of inactivity in cart.'));
+			<?php 
+				$data = array(
+					'currency'=>get_woocommerce_currency_symbol(),
+					'event_id'=> $event_id,
+					'wcid'=> $wcid,
+					'accord'=> $dis_accrd
+				);
+
 			?>
-			<p style='margin-top:15px;border-top:1px solid #dadada;padding-top:10px'><?php echo $string;?></p>
-		<?php endif;?>
-		</div>
-		<div class='evost_data' data-s='<?php echo json_encode($data);?>'></div>
+			<div class='evost_data' data-s='<?php echo json_encode($data);?>'></div>
 		</div>
 		<?php
 		return ob_get_clean();

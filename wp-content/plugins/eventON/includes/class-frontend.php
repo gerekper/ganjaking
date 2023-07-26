@@ -41,7 +41,7 @@ class evo_frontend {
 				add_action( 'wp_enqueue_scripts', array( $this, 'load_dynamic_evo_styles' ), 10 );
 			}else{
 				// if load eventON scripts/styles to only eventon pages
-				add_action( 'wp_enqueue_scripts', array( $this, 'denqueue_scripts' ), 90 );
+				//add_action( 'wp_enqueue_scripts', array( $this, 'denqueue_scripts' ), 90 );
 			}
 
 

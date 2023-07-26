@@ -1,6 +1,6 @@
 /**
  * AJDE backender styles
- * @version 4.4.2
+ * @version 4.4.3
  */
 
 /* General Appearace */
@@ -270,7 +270,8 @@
 		background-color: #d6d6d6; border-radius: 10px;
 		margin: 0;padding: 10px 15px;
 	}
-	.backender_yn_sec .backender_yn_sec{background-color: #c6c6c6}
+	.backender_yn_sec .backender_yn_sec{background-color: #c6c6c6; border-radius: 10px;}
+	.backender_yn_sec .backender_yn_sec .evosettings_field_child{background-color: transparent;}
 	.evosettings_field_child em.hr_line:last-child{display: none;}
 
 /* fonts */

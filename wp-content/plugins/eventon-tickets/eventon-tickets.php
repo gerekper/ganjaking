@@ -4,12 +4,12 @@
  * Plugin URI: http://www.myeventon.com/
  * Description: Sell Event Tickets using Woocommerce
  * Author: Ashan Jay
- * Version: 2.1
+ * Version: 2.2.1
  * Author URI: http://www.ashanjay.com/
- * Requires at least: 5.5
- * Tested up to: 5.9.2
- * WC tested up to: 6.1.1
- * WC requires at least: 5.0
+ * Requires at least: 6.0
+ * Tested up to: 6.2.2
+ * WC tested up to: 7.9
+ * WC requires at least: 7.0
  *
  * Text Domain: evotx
  * Domain Path: /lang/
@@ -24,15 +24,16 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 //Event tickets main class
 if ( ! class_exists( 'evotx' ) ):
 class evotx{	
-	public $version='2.1';
-	public $eventon_version = '4.0';
-	public $wc_version = '6.0';
-	public $wc_max_version = '6.3.1';
+	public $version='2.2.1';
+	public $eventon_version = '4.4.2';
+	public $wc_version = '7.9';
+	public $wc_max_version = '7.0';
 	public $name = 'Tickets';
 			
 	public $addon_data = array();
-	public $slug, $plugin_slug , $plugin_url , $plugin_path, $assets_path ;
-	private $urls;
+	public $slug, $plugin_slug , $plugin_url , $plugin_path, $assets_path;
+	public $functions, $email, $frontend, $evotx_tix;
+	private $urls, $addon;
 	public $template_url ;
 
 	public $evotx_opt;
@@ -50,7 +51,7 @@ class evotx{
 		}
 		public function __construct(){
 			$this->super_init();
-			add_action('plugins_loaded', array($this, 'plugin_init'));
+			add_action('plugins_loaded', array($this, 'plugin_init'), 10);
 		}
 
 		public function plugin_init(){			
@@ -136,7 +137,10 @@ class evotx{
 			include_once( $this->plugin_path . '/includes/class-integration-actionuser.php' );
 			include_once( $this->plugin_path . '/includes/class-integration-countdown.php' );
 			include_once( $this->plugin_path . '/includes/class-integration-virtualevents.php' );
+			include_once( $this->plugin_path . '/includes/class-integration-webhooks.php' );
 			include_once( $this->plugin_path . '/includes/class-appearance.php' );
+
+			include_once( $this->plugin_path . '/includes/class-ajax.php' );
 			
 			include_once($this->plugin_path . '/includes/class-functions.php');
 			$this->functions = new evotx_functions();
@@ -147,13 +151,15 @@ class evotx{
 				include_once( $this->plugin_path . '/includes/admin/class-lang.php' );				
 				include_once( $this->plugin_path . '/includes/admin/class-admin.php' );				
 			}
-			//frontend includes
+
+			include_once( $this->plugin_path . '/includes/class-frontend.php' );
+			$this->frontend = new evotx_front();
+
 			if ( ! is_admin() || defined('DOING_AJAX') ){
-				include_once( $this->plugin_path . '/includes/class-frontend.php' );
-				$this->frontend = new evotx_front();
+				
 			}
 			if ( defined('DOING_AJAX') ){
-				include_once( $this->plugin_path . '/includes/class-ajax.php' );
+				
 			}
 
 			include_once( $this->plugin_path . '/includes/class-integration-woocommerce.php' );
@@ -186,12 +192,12 @@ class evotx{
 		}
 		function _wc_eventon_warning(){
 	        ?>
-	        <div class="message error"><p><?php _e('Eventon Tickets need woocommerce plugin to function properly. Please install woocommerce', 'evotx'); ?></p></div>
+	        <div class="message error"><p><?php _e('Eventon Tickets needs WooCommerce plugin to function properly. Please install WooCommerce', 'evotx'); ?></p></div>
 	        <?php
 	    }
 	    function _wc_version_warning(){
 	        ?>
-	        <div class="message error"><p><?php printf(__('Tickets addon require Woocommerce version %s or above to fully function! Until a compatible Woocommerce version is installed tickets addon will be inactive.','evotx'), $this->wc_version); ?></p></div>
+	        <div class="message error"><p><?php printf(__('Tickets addon require WooCommerce version %s or above to fully function! Until a compatible WooCommerce version is installed tickets addon will be inactive.','evotx'), $this->wc_version); ?></p></div>
 	        <?php
 	    }	
 	    public function notice(){

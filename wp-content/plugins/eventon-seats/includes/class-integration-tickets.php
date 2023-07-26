@@ -5,13 +5,15 @@
  * @author 		AJDE
  * @category 	Admin
  * @package 	EventON-st/classes
- * @version     1.0
+ * @version     1.2
  */
 class evost_tickets{
 	
 	function __construct(){
 
 		// frontend
+		add_filter('evotx_add_to_cart_evotxdata', array($this, 'evotx_data_adds'), 10, 2);
+
 		add_filter('evotx_single_product_temp', array($this, 'frontend_temp'), 10,2);
 		add_action('woocommerce_before_cart', array($this, 'before_cart'), 10);
 		add_action('woocommerce_before_checkout_form', array($this, 'before_cart'), 10);
@@ -54,6 +56,18 @@ class evost_tickets{
 	}
 
 	// FRONTEND
+		function evotx_data_adds($data, $event){
+			if( !$event->check_yn('_enable_seat_chart')) return $data;
+
+			$cal_shortcodes = EVO()->evo_generator->shortcode_args;
+
+			$showmap = ((isset($cal_shortcodes['ux_val']) && $cal_shortcodes['ux_val'] == '3') || is_single())? 'true': 'false';
+			$directadd = $event->check_yn('_allow_direct_add')? 'cart':'prev';
+
+			$data['event_data']['showmap'] = $showmap;
+			$data['event_data']['directadd'] = $directadd;
+			return $data;
+		}
 		function before_cart(){
 
 			$OPT = EVOST()->opt;
@@ -86,45 +100,54 @@ class evost_tickets{
 			echo "<p class='evost_cart_timer' data-s='".$_exp_time."'>".evo_lang('Your seats will expire in').' <b>'. $ST->get_human_time( $_exp_time) .'</b></p>';
 		}
 
+		// front event card
 		function frontend_temp($boolean, $event){
-
-			$seats = new EVOST_Expirations($event->ID, $event->wcid);
-			add_filter('evo_frontend_lightbox', array($this, 'lightbox'),10,1);
-
-			//print_r($seats->seats_data);
 	
 			// if seats are good to go 			
-			if($seats->event->check_yn('_enable_seat_chart')  && $seats->event->get_prop('_evost_sections') && !$seats->event->is_repeating_event()){				
-				// /print_r(get_post_meta(1,'aaX'));
-				//print_r($seats->expirations);
-				//print_r(get_option('_evost_expiration'));
+			if($event->check_yn('_enable_seat_chart')  && $event->get_prop('_evost_sections') && !$event->is_repeating_event()){	
 
-				//echo 'yy';
-				//print_r($seats->event->get_prop('_evost_sections'));
+				$seats = new EVOST_Expirations($event->ID, $event->wcid);
+								
+				ob_start();
+				do_action('evost_front_before_seat_map', $seats);
 				
-				$output = $seats->frontend_init();
-				return $output;
+				$class = apply_filters('evost_front_seat_map_class','evost_seat_map_section' ,$seats);
+
+				// if show seats as lightbox
+				$seats->load_seatmap_settings();
+				$LB = $seats->get_seatmap_settings_prop('lightbox_map');
+				
+				if( $LB == 'yes'):
+
+					echo "<p class=''>";					
+
+					echo "<span class='evcal_btn evost_show_lightbox_seats marb10'>". evo_lang('Find Seats') ."</span></p>";
+
+					$class .= ' evost_lb_on';
+				else:
+
+				?>
+				<div class="<?php echo $class;?>">
+					<?php echo EVOST()->frontend->print_init_html_content();?>
+				</div>
+				<?php
+				endif;
+
+				return ob_get_clean();
 			}
 
 			return $boolean;
 
 		}
-		function lightbox($array){
-			$array['evost_lightbox']= array(
-				'id'=>'evost_lightbox',
-				'CLclosebtn'=> 'evost_lightbox',
-				'CLin'=> 'evost_lightbox_body',
-			);
-			return $array;
-		}
 
 	// CART
 		// verify before adding to cart
 			function before_adding_to_cart($boolean, $EVENT, $DATA){
-				if( !isset($DATA['event_data'])) return $boolean;
-				if( !isset($DATA['event_data']['seat_slug'])) return $boolean;
+				if( !isset($DATA)) return $boolean;
+				if( !isset($DATA['other_data'])) return $boolean;
+				if( !isset($DATA['other_data']['seat_slug'])) return $boolean;
 
-				$SEATS = new EVOST_Seats_Seat($EVENT, $DATA['event_data']['wcid'], $DATA['event_data']['seat_slug']);
+				$SEATS = new EVOST_Seats_Seat($EVENT, $EVENT->wcid, $DATA['other_data']['seat_slug']);
 
 				if(!$SEATS->is_seat_available(1)){
 					$output['status'] = 'bad';				
@@ -136,17 +159,15 @@ class evost_tickets{
 
 		// adding seat data to cart
 			function adding_to_cart($cart_item_data, $EVENT, $def_price, $DATA){
-				if( !isset($DATA['event_data'])) return $cart_item_data;
-				if( !isset($DATA['event_data']['seat_slug'])) return $cart_item_data;
+				if( !isset($DATA)) return $cart_item_data;
+				if( !isset($DATA['other_data'])) return $cart_item_data;	
+				if( !isset($DATA['other_data']['seat_slug'])) return $cart_item_data;
 
-				$cart_item_data['evost_data']['seat_slug'] = $DATA['event_data']['seat_slug'];
-				$cart_item_data['evost_data']['seat_number'] = $DATA['event_data']['seat_number'];
-				$cart_item_data['evost_data']['seat_type'] = $DATA['event_data']['seat_type'];
-				//$cart_item_data['_evost_seat_slug'] = $DATA['event_data']['seat_slug'];
-				//$cart_item_data['_evost_seat_number'] = $DATA['event_data']['seat_number'];
-				//$cart_item_data['_evost_seat_type'] = $DATA['event_data']['seat_type'];
+				$cart_item_data['evost_data']['seat_slug'] = $DATA['other_data']['seat_slug'];
+				$cart_item_data['evost_data']['seat_number'] = $DATA['other_data']['seat_number'];
+				$cart_item_data['evost_data']['seat_type'] = $DATA['other_data']['seat_type'];
 
-				$SEATS = new EVOST_Seats_Seat($EVENT, $DATA['event_data']['wcid'], $DATA['event_data']['seat_slug']);	
+				$SEATS = new EVOST_Seats_Seat($EVENT, $EVENT->wcid , $DATA['other_data']['seat_slug']);	
 
 				$cart_item_data['_evost_seat_price'] = $SEATS->get_price();
 
@@ -165,11 +186,11 @@ class evost_tickets{
 			}
 		// ajax after addin to cart 
 			function ajax_return($ajaxdata, $EVENT, $DATA){
-				if( !isset($DATA['event_data'])) return $ajaxdata;
-				if( !isset($DATA['event_data']['wcid'])) return $ajaxdata;
-				if( !isset($DATA['event_data']['seat_slug'])) return $ajaxdata;
+				if( !isset($DATA)) return $ajaxdata;
+				if( !isset($DATA['other_data'])) return $ajaxdata;
+				if( !isset($DATA['other_data']['seat_slug'])) return $ajaxdata;
 
-				$SEATS = new EVOST_Seats_Json($EVENT, $DATA['event_data']['wcid']);
+				$SEATS = new EVOST_Seats_Json($EVENT, $EVENT->wcid);
 				
 				$ajaxdata['j'] = $SEATS->__j_get_all_sections();			
 				$ajaxdata['j_cart'] = $SEATS->_get_cart_seats_for_events();				
@@ -178,11 +199,11 @@ class evost_tickets{
 			}
 		// after added to cart
 			function after_added($cart_item_key, $EVENT, $DATA){
-				if( !isset($DATA['event_data'])) return false;
-				if( !isset($DATA['event_data']['wcid'])) return false;
-				if( !isset($DATA['event_data']['seat_slug'])) return false;
+				if( !isset($DATA)) return false;
+				if( !isset($DATA['other_data'])) return false;
+				if( !isset($DATA['other_data']['seat_slug'])) return false;
 
-				$SEATS = new EVOST_Seats_Seat($EVENT, $DATA['event_data']['wcid'], $DATA['event_data']['seat_slug']);
+				$SEATS = new EVOST_Seats_Seat($EVENT, $EVENT->wcid, $DATA['other_data']['seat_slug']);
 
 				// put seat on temp hold while the seat is in cart
 				$SEATS->add_seat_temphold( $cart_item_key, $DATA['qty'], $SEATS->seat_slug);	
@@ -192,7 +213,8 @@ class evost_tickets{
 
 				if($seat_type != 'seat'){
 					// if seat qty was updated make those changes in expirations
-					$SEATS->unaseat_set_cart_expirations( $cart_item_key, $SEATS->seat_slug, $DATA['cart_qty']);						
+					$SEATS->nonseat_set_cart_expirations( 
+						$cart_item_key, $SEATS->seat_slug, $DATA['cart_qty'], $seat_type);						
 				}
 
 				// update expirations for all existsing seats in cart
@@ -210,10 +232,11 @@ class evost_tickets{
 			if($SEAT->seat_type == 'seat') return; // skip regular seats
 			
 			// update qty with unaseat values
-			$SEAT->unaseat_match_cart_qty($cart_item_key, $cart_item['evost_data']['seat_slug'],$cart_item['quantity']);
+			$SEAT->nonseat_match_cart_qty($cart_item_key, $cart_item['evost_data']['seat_slug'],$cart_item['quantity'], $SEAT->seat_type);
 
 			// update expirations qty
-			$SEAT->unaseat_set_cart_expirations($cart_item_key, $cart_item['evost_data']['seat_slug'],$cart_item['quantity']);
+			$SEAT->nonseat_set_cart_expirations(
+				$cart_item_key, $cart_item['evost_data']['seat_slug'],$cart_item['quantity'], $SEAT->seat_type);
 
 		}
 
@@ -221,9 +244,32 @@ class evost_tickets{
 		function cart_ticket_meta_data($data, $values, $EVENT){
 			if(!isset($values['evost_data'])) return $data;
 			if(isset($values['evost_data']['seat_slug'])){
-				$add = (isset($values['evost_data']['seat_type']) && $values['evost_data']['seat_type']=='unaseat')? 
-					evo_lang('Unassigned Seating at').' ':'';
-				$data['evost_data'] = array(evo_lang('Seat'), $add . $values['evost_data']['seat_number']);
+
+				// additional text in checkout seat item meta data
+					$add = '';
+
+				// una seat
+				if( (isset($values['evost_data']['seat_type']) && $values['evost_data']['seat_type']=='unaseat') ){
+					$add = evo_lang('Unassigned Seating at') . ' ';
+					$data['evost_data_2'] = array(
+						evo_lang('Unassigned Seat Section ID'),  $values['evost_data']['seat_slug']
+					);
+				}
+
+				// booth seat
+				if( (isset($values['evost_data']['seat_type']) && $values['evost_data']['seat_type']=='booseat') ){
+					$add = evo_lang('Booth Seating at') . ' ';
+
+					$data['evost_data_2'] = array(
+						evo_lang('Booth ID'),  $values['evost_data']['seat_slug']
+					);
+				}
+				
+
+				$data['evost_data'] = array(
+					evo_lang('Seat Information'),  
+					$add . $values['evost_data']['seat_number']
+				);
 			}
 			return $data;
 		}
@@ -235,12 +281,8 @@ class evost_tickets{
 	   		$seat_slug = $cart_item['evost_data']['seat_slug'];
 	   		
 	   		$SEAT = new EVOST_Seats_Seat( $cart_item['evotx_event_id_wc'], $cart_item['product_id'], $seat_slug);
+	   		//$SEAT->_get_seat_type_by_slug( $seat_slug ); 
 
-	   		//echo date('Y-m-d H:i',$SEAT->get_seat_expiration_time( $seat_slug, $cart_item_key) ).'</br> '.date('Y-m-d H:i',time());
-	   		//delete_option('_evost_expiration');
-	   		//print_r($SEAT->expirations);
-	   		//print_r($cart_item);
-	   		
 	   		$product_quantity = woocommerce_quantity_input( array(
 				'input_name'  => "cart[{$cart_item_key}][qty]",
 				'input_value' => $cart_item['quantity'],
@@ -283,6 +325,12 @@ class evost_tickets{
 			function order_item_meta_update_new($item, $cart_item_key, $values, $order){
 				if(!isset($values['evost_data'])) return false;
 
+				$seat_slug = $values['evost_data']['seat_slug'];
+				$SEAT = new EVOST_Seats_Seat( $values['evotx_event_id_wc'], $values['product_id'], $seat_slug);
+
+				// save seat type for oreder item meta
+				$item->add_meta_data('_seat_type', $SEAT->seat_type ,true);
+
 				if(isset($values['evost_data']['seat_number']) ){	  
 					// convert to a proper seat number
 					$item->add_meta_data('Seat-Number', $values['evost_data']['seat_number'] ,true);
@@ -294,17 +342,22 @@ class evost_tickets{
 
 		// If item removed from cart
 			function update_removed_cart_items($cart_item_key, $cart_session_data){	
+
 				if(!isset($cart_session_data['evost_data'])) return false;
+				if(!isset($cart_session_data['wcid'])) return false;
 				if( !isset($cart_session_data['evost_data']['seat_slug'])) return false;
+
 				
 				$seat_slug = $cart_session_data['evost_data']['seat_slug'];
 
 		        // ticket with seat removed from cart
-		        $SEAT = new EVOST_Seats_Seat($cart_session_data['evotx_event_id_wc'], $cart_session_data['wcid'], $seat_slug);
+		        $SEAT = new EVOST_Seats_Seat(
+		        	$cart_session_data['evotx_event_id_wc'], 
+		        	$cart_session_data['wcid'], $seat_slug);
 
 		        $SEAT->restock_temphold_seat($cart_item_key, $cart_session_data['quantity'], $seat_slug);    
 		    }
-		// additional ticekt information at the checkout additions from VO
+		// additional ticket information at the checkout additions from VO
 			function add_ticket_infor_adds( $O, $V, $EVENT){
 				
 				if(!isset($V['evost_data'])) return $O;
@@ -363,6 +416,7 @@ class evost_tickets{
 
 		function ticket_meta_slug_replace($array){
 			$array['Seat-Number'] = evo_lang('Seat Number');
+			$array['_seat_type'] = evo_lang('Seat Type');
 			return $array;
 		}
 
@@ -378,9 +432,10 @@ class evost_tickets{
 		}
 
 // OTHER
-	// order item meta fields that are hidden from view
+	// order item meta fields that are hidden from view - admin order edit page
 		function hide_order_item_metafields($array){
 			$array[] = '_evost_seat_slug';
+			//$array[] = '_seat_type';
 			return $array;
 		}
 
@@ -392,40 +447,23 @@ class evost_tickets{
 			$seat_num = get_post_meta($evo_tix_id, 'Seat-Number',true);
 			if( !$seat_num) return $array;
 
+			$seat_slug = get_post_meta( $evo_tix_id , '_evost_seat_slug' , true );
+
+			$array['oD']['seat_type'] = EVOST()->frontend->get_seat_type( $seat_slug , true);
 			$array['oD']['seat_number'] = $seat_num;
-			$array['oDD']['seat_slug'] = get_post_meta($evo_tix_id,'_evost_seat_slug',true);
+			$array['oDD']['seat_slug'] = $seat_slug;
 
 			return $array;
 		}
 
 	// show ticket seat number information for evo-tix cpt
 	function evo_tix_table_row($post_id, $ticketItem_meta, $event_id, $ET){
-		if(!empty($ticketItem_meta['Seat-Number'])): ?>
-		
-		<?php
-			/*
-			$EVENT = new EVO_Event( $event_id);
-
-			$wcid = $ET->get_prop('wcid');
-
-			$SEATS = new EVOST_Seats_Json($event_id,$wcid);
-
-			$seat_slug = $ET->get_prop('_evost_seat_slug');
-			$ssl = explode('-', $seat_slug);
-
-			foreach($SEATS->seats_data as $section=>$sd){
-				if( $sd['type'] == 'una') continue;
-
-
-			}
-
-			print_r($ticketItem_meta);
-
-			print_r($SEATS->seats_data);
-			*/
-		?>
-		<tr><td><?php _e('Seat Number','eventon');?>: </td>
-		<td><?php echo $ticketItem_meta['Seat-Number'][0];?></td></tr>
+		if(!empty($ticketItem_meta['Seat-Number'])): ?>		
+			
+			<tr><td><?php _e('Seat Number','eventon');?>: </td>
+			<td><?php echo $ticketItem_meta['Seat-Number'][0];?></td></tr>
+			<tr><td><?php _e('Seat Type','eventon');?>: </td>
+			<td><?php echo EVOST()->frontend->get_seat_type( $ticketItem_meta['_evost_seat_slug'][0] , true );?></td></tr>
 
 		<?php endif;
 	}

@@ -4,7 +4,7 @@
  * @version 0.1
  */
 class evobo_admin{
-	public function __construct(){\
+	public function __construct(){
 		add_action('admin_init', array($this, 'admin_init'));		
 	}
 
@@ -20,7 +20,7 @@ class evobo_admin{
 
 		// appearance
 		add_filter( 'eventon_appearance_add', array($this, 'appearance_settings' ), 10, 1);
-		add_filter( 'eventon_inline_styles_array',array($this, 'dynamic_styles') , 10, 1);
+		add_filter( 'eventon_inline_styles_array',array($this, 'dynamic_styles') , 10, 2);
 
 		// eventon
 		add_filter('evo_addons_details_list',array($this, 'addon_list'),10,1);
@@ -45,7 +45,9 @@ class evobo_admin{
 		}
 
 	// Appearance
-		function appearance_settings($array){			
+		function appearance_settings($array){	
+			extract( EVO()->elements->get_def_css() );
+
 			$new[] = array('id'=>'evobo','type'=>'hiddensection_open',
 				'name'=>__('Booking Styles','evobo'), 'display'=>'none');
 			$new[] = array('id'=>'evobo','type'=>'fontation','name'=>__('Date circles ','evobo'),
@@ -75,7 +77,7 @@ class evobo_admin{
 					array('id'=>'evobo9a', 'name'=>'Background color','type'=>'color', 'default'=>'ffffff'),
 					array('id'=>'evobo9b', 'name'=>'Month header text color','type'=>'color', 'default'=>'808080'),
 					array('id'=>'evobo9c', 'name'=>'Day Letter text color','type'=>'color', 'default'=>'e4e4e4'),
-					array('id'=>'evobo9d', 'name'=>'Date text color','type'=>'color', 'default'=>'a7a7a7'),
+					array('id'=>'evobo9d', 'name'=>'Date text color','type'=>'color', 'default'=> $evo_color_2),
 				)
 			);
 			
@@ -83,7 +85,10 @@ class evobo_admin{
 			return array_merge($array, $new);
 		}
 
-		function dynamic_styles($_existen){
+		function dynamic_styles($_existen, $def_css){
+
+			extract($def_css);
+
 			$new= array(
 				array(
 					'item'=>'.evoTX_wc .evobo_calendar .evoGC .evoGC_week span.hasslots em',
@@ -119,7 +124,7 @@ class evobo_admin{
 				array('item'=>'.evoTX_wc .evoGC','css'=>'color:#$', 'var'=>'evobo9a','default'=>'ffffff'),
 				array('item'=>'.evoTX_wc .evoGC_monthyear','css'=>'color:#$', 'var'=>'evobo9b','default'=>'808080'),
 				array('item'=>'.evoTX_wc .evoGC .evoGC_days','css'=>'color:#$', 'var'=>'evobo9c','default'=>'e4e4e4'),
-				array('item'=>'.evoTX_wc .evoGC .evoGC_week span em','css'=>'color:#$', 'var'=>'evobo9d','default'=>'a7a7a7'),
+				array('item'=>'.evoTX_wc .evoGC .evoGC_week span em','css'=>'color:#$', 'var'=>'evobo9d','default'=> $evo_color_2),
 			);			
 
 			return (is_array($_existen))? array_merge($_existen, $new): $_existen;

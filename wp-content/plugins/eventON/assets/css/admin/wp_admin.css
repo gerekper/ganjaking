@@ -1,10 +1,11 @@
 /**
  * EventON wp-admin all styles
- * @version 4.4.2
+ * @version 4.4.3
  */
 
 :root{
 	--evo_color_1: #202124;
+	--evo_color_2: #656565;
 	--evo_color_second: #fed584;
 	--evo_color_prime: #00aafb;
 	--evo_color_white: #ffffff;

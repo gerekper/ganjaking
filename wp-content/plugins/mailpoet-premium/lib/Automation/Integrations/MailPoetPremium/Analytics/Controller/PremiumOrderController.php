@@ -7,10 +7,11 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Automation\Engine\Data\Automation;
 use MailPoet\Automation\Engine\WordPress;
-use MailPoet\Automation\Integrations\MailPoet\Analytics\Controller\AutomationEmailController;
+use MailPoet\Automation\Integrations\MailPoet\Analytics\Controller\AutomationTimeSpanController;
 use MailPoet\Automation\Integrations\MailPoet\Analytics\Controller\OrderController;
 use MailPoet\Automation\Integrations\MailPoet\Analytics\Entities\Query;
 use MailPoet\Automation\Integrations\WooCommerce\WooCommerce;
+use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Analytics\Storage\OrderStatistics;
 use WC_Order;
 use WC_Order_Item;
@@ -33,19 +34,19 @@ class PremiumOrderController implements OrderController {
   /** @var WordPress */
   private $wp;
 
-  /** @var AutomationEmailController */
-  private $automationEmailController;
+  /** @var AutomationTimeSpanController */
+  private $automationTimeSpanController;
 
   public function __construct(
     OrderStatistics $statisticsRepository,
     WooCommerce $woocommerce,
     WordPress $wp,
-    AutomationEmailController $automationEmailController
+    AutomationTimeSpanController $automationTimeSpanController
   ) {
     $this->statisticsRepository = $statisticsRepository;
     $this->woocommerce = $woocommerce;
     $this->wp = $wp;
-    $this->automationEmailController = $automationEmailController;
+    $this->automationTimeSpanController = $automationTimeSpanController;
   }
 
   /**
@@ -55,7 +56,29 @@ class PremiumOrderController implements OrderController {
    */
   public function getOrdersForAutomation(Automation $automation, Query $query): array {
 
-    $emails = $this->automationEmailController->getAutomationEmailsInTimeSpan($automation, $query->getAfter(), $query->getBefore());
+    $allEmails = $this->automationTimeSpanController->getAutomationEmailsInTimeSpan($automation, $query->getAfter(), $query->getBefore());
+    if (!$allEmails) {
+      return [
+        'results' => 0,
+        'items' => [],
+        'emails' => [],
+      ];
+    }
+    $filters = $query->getFilter();
+    $emailFilter = isset($filters['emails']) ? array_filter($filters['emails']) : [];
+    $emails = count($emailFilter) ? array_filter(
+        $allEmails,
+        function(NewsletterEntity $email) use ($filters): bool {
+          return in_array((string)$email->getId(), $filters['emails'], true);
+        }
+      ) : $allEmails;
+    if (!$emails) {
+      return [
+        'items' => [],
+        'results' => 0,
+        'emails' => $allEmails,
+      ];
+    }
     $items = $this->statisticsRepository->getOrdersForNewsletters(
       $emails,
       $query
@@ -86,6 +109,14 @@ class PremiumOrderController implements OrderController {
       'results' => $this->statisticsRepository->getLastCount(
         $emails,
         $query
+      ),
+      'emails' => array_map(
+        function(NewsletterEntity $email): array {
+          return [
+            'id' => (string)$email->getId(),
+            'name' => $email->getSubject(),
+          ];
+        }, $allEmails
       ),
     ];
   }

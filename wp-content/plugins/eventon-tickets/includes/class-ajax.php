@@ -10,18 +10,20 @@
  */
 
 class evo_tix_ajax{
+	public $help, $postdata;
 	/**
 	 * Hook into ajax events
 	 */
 	public function __construct(){
-		$ajax_events = array(
-			'evoTX_ajax_06'=>'submit_inquiry',
+		$ajax_events = array(			
 			'evoTX_ajax_08'=>'evoTX_ajax_08',
 			'the_ajax_evotx_a5'=>'evoTX_checkin_',
 			'evoTX_ajax_09'=>'wc_cart_updates',
 			'evotx_add_to_cart'=>'evotx_add_to_cart',
 			'evotx_standalone_form'=>'evotx_standalone_form',
 			'evotx_my_account_ticket'=>'evotx_my_account_ticket',
+			'evotx_inquire_before_buy_form'=>'evotx_inquire_before_buy_form',
+			'evotx_ajax_06'=>'submit_inquiry',
 		);
 		foreach ( $ajax_events as $ajax_event => $class ) {
 			add_action( 'wp_ajax_'.  $ajax_event, array( $this, $class ) );
@@ -29,30 +31,28 @@ class evo_tix_ajax{
 		}
 
 		$this->help = new evo_helper();
+		$this->postdata = $this->help->sanitize_array( $_POST );
+
+		add_action('evo_ajax_evotx_inquire_before_buy_form', array($this, 'evotx_inquire_before_buy_form'));
 	}
 
 	// Add event ticket to cart custom AJAX
 	// @since 1.6.7 @U 1.7.2
 		function evotx_add_to_cart(){			
-			if( !isset($_POST['data'])) return false;
-
-			// validate nonce
-			$post_data = $this->help->recursive_sanitize_array_fields( $_POST);
 			
-			$DATA = $post_data['data'];
-			$event_data = $DATA['event_data'];
-			$DATA['qty'] = $qty = (int)$post_data['qty'];
+			$data = $this->postdata;
+			extract($data);
 
-			// name your price
-			if(isset($post_data['nyp'])) $DATA['nyp'] = sanitize_text_field( $post_data['nyp']);
+			unset($data['action']);			
 
 			$event_id = $event_data['eid'];
 			$wcid = $event_data['wcid'];
-			$RI = isset($event_data['ri'])?$event_data['ri']:'0';			
+			$RI = isset($event_data['ri']) ? $event_data['ri'] : '0';			
 
 			$TICKET = new evotx_event($event_id, '', $RI, $wcid);
 
-			$adding = $TICKET->add_ticket_to_cart($DATA);
+			// $data include event_data and other_data
+			$adding = $TICKET->add_ticket_to_cart($data);
 
 			echo $adding;
 			exit;
@@ -84,7 +84,7 @@ class evo_tix_ajax{
 			$html =  EVOTX()->frontend->frontend_box($object, $helpers, $EVENT);
 			$return_content = array(
 				'status'=>'good',
-				'html'=>$html,
+				'content'=>$html,
 			);
 			
 			echo json_encode($return_content);		
@@ -99,6 +99,7 @@ class evo_tix_ajax{
 			if( function_exists( 'EVOQR' ) ){
 				$ticket_number = EVOQR()->checkin->decrypt_ticket_number( $ticket_number );
 			}
+
 			
 			$TIX = new EVO_Evo_Tix_CPT( $ticket_number );
 
@@ -164,60 +165,106 @@ class evo_tix_ajax{
 		}
 
 	// submit inquiry form
+		function evotx_inquire_before_buy_form(){
+
+			$EVENT = new evotx_event( $this->postdata['event_id'], '', $this->postdata['event_ri']);
+
+			if( !$EVENT->check_yn('_allow_inquire')){
+				wp_send_json(array(
+					'content'=> __('Inqure form not enabled') , 'status'=> 'good'
+				));
+			};
+
+			ob_start();
+
+			include_once('html-ticket-inquery.php');
+
+			$content = ob_get_clean();
+
+			wp_send_json(array(
+				'content'=> $content, 'status'=> 'good'
+			));wp_die();
+		}
 		function submit_inquiry(){
-			global $evotx;
 
-			$evoOpt = get_evoOPT_array('tx');
-
-			$event_id = $_POST['event_id'];
-			$ri = $_POST['ri'];
-
-			$_event_pmv = get_post_custom($event_id);
+			$EVENT = new evotx_event( $this->postdata['event_id'], '', $this->postdata['ri']);
+			
+			// verify nonce
+				if(! wp_verify_nonce( $this->postdata['evotx_inqure_nonce'] , 'evotx_inqure_form')){
+					wp_send_json(array(
+						'content'=>'Nonce Verification Failed',
+						'status'=>'bad'
+					)); wp_die();
+				}
 			
 			// get email address
-			$_to_mail = (!empty($_event_pmv['_tx_inq_email']))? $_event_pmv['_tx_inq_email'][0]:
-				( !empty($evoOpt['evotx_tix_inquiries_def_email'])? $evoOpt['evotx_tix_inquiries_def_email']:
-					get_option('admin_email'));
-			// get subject
-			$subject = (!empty($_event_pmv['_tx_inq_subject']))? 
-				$_event_pmv['_tx_inq_subject'][0]:
-				( !empty($evoOpt['evotx_tix_inquiries_def_subject'])? $evoOpt['evotx_tix_inquiries_def_subject']:'New Ticket Sale Inquery');
+				$_to_mail = $EVENT->get_prop('_tx_inq_email');
+				if( !$_to_mail ){
+					$email = EVO()->cal->get_prop('evotx_tix_inquiries_def_email','evcal_tx');
+					if( !$email ) $email = get_option('admin_email');
 
-			$from_email = $_POST['email'];
-			$headers = 'From: '.$_POST['email'];	
+					$_to_mail = $email;
+				}
+
+			// get subject
+				$subject = $EVENT->get_prop('_tx_inq_subject');
+				if( !$subject ){
+					$sub = EVO()->cal->get_prop('evotx_tix_inquiries_def_subject','evcal_tx');
+					if( !$sub ) $sub = 'New Ticket Sale Inquery';
+
+					$subject = $sub;
+				}
+
+			$from_email = $this->postdata['email'];
+			$headers = 'From: '.$from_email;	
 
 
 			$helper = new evo_helper();
 
+			// email body
+				ob_start();
+				?>
+					<div style='padding:20px;color:#777777'>
+					<p><?php evo_lang_e('Event');?>: <b><?php echo $EVENT->get_title(); ?></b></p>
+					<p><?php evo_lang_e('From');?>: <b><?php echo $this->postdata['name'].' ('. $from_email .')';?></b></p>
+					<p><?php evo_lang_e('Message');?>: <br/><?php echo $this->postdata['message'];?></p>
+				<?php
+					// Other data collected from the form
+					foreach(EVOTX()->frontend->inqure_form_fields() as $key=>$val){
+						if(in_array($key, array('name','email','message'))) continue;
+						if(empty($this->postdata[$key])) continue;
+
+						echo "<p>".$val[1].": <br/>".$this->postdata[$key] . "</p>";
+					}
+				?>
+					</div>
+				<?php
+				$body = ob_get_clean();
+
+			// SENDING EMAIL
+				$email_body = $helper->get_email_body_content($body);
+				$send_email = $helper->send_email(array(
+					'to'=> $_to_mail,
+					'from'=>$from_email,
+					'subject'=>$subject,
+					'html'=>'yes',
+					'message'=> $email_body,
+					'reply-to'=> $from_email
+				));
+
 			ob_start();
 			?>
-				<div style='padding:20px;color:#777777'>
-				<p><?php evo_lang_e('Event');?>: <b><?php echo get_the_title( $event_id ); ?></b></p>
-				<p><?php evo_lang_e('From');?>: <b><?php echo $_POST['name'].' ('.$_POST['email'].')';?></b></p>
-				<p><?php evo_lang_e('Message');?>: <br/><?php echo $_POST['message'];?></p>
-			<?php
-				// Other data collected from the form
-				foreach($evotx->frontend->inquire_fields() as $key=>$val){
-					if(in_array($key, array('name','email','message'))) continue;
-					if(empty($_POST[$key])) continue;
-
-					echo "<p>".$val[1].": <br/>".$_POST[$key] . "</p>";
-				}
-			?>
+				<div class='evotxINQ_msg_in'>
+					<em></em>
+					<span><?php echo eventon_get_custom_language('', 'evoTX_inq_08','GOT IT! -- We will get back to you as soon as we can.');?></span>
 				</div>
-			<?php
-			$body = ob_get_clean();
+			<?php 
+			$content = ob_get_clean();
 
-			$email_body = $helper->get_email_body_content($body);
-			$send_email = $helper->send_email(array(
-				'to'=> $_to_mail,
-				'from'=>$from_email,
-				'subject'=>$subject,
-				'html'=>'yes',
-				'message'=> $email_body,
-				'reply-to'=> $from_email
-			));
-
+			wp_send_json(array(
+				'content'=> $content,
+				'status'=>'good'
+			)); wp_die();
 		}
 
 	// WC Cart updated data
@@ -240,7 +287,7 @@ class evo_tix_ajax{
 	            'cart_hash' => apply_filters( 'woocommerce_add_to_cart_hash', WC()->cart->get_cart_for_session() ? md5( json_encode( WC()->cart->get_cart_for_session() ) ) : '', WC()->cart->get_cart_for_session() )
 	        );
 	       
-	       	echo wp_json_encode($data);
+	       	wp_send_json($data);
 			wp_die();
 		}
 
@@ -325,12 +372,10 @@ class evo_tix_ajax{
 			
 			*/
 		
-			$output = array(
+			wp_send_json( array(
 				'key'=>$cart_item_key,
 				'variation'=>WC()->cart->cart_contents_total
-			);
-			echo json_encode( $output );
-			exit;
+			)); wp_die();
 		 }
 	
 	// make sure proper amount of tickets are created for all past shop_orders

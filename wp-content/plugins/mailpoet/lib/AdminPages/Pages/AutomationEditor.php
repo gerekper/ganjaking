@@ -80,7 +80,6 @@ class AutomationEditor {
       exit();
     }
 
-    $roles = new \WP_Roles();
     $this->pageRenderer->displayPage('automation/editor.html', [
       'registry' => $this->buildRegistry(),
       'context' => $this->buildContext(),
@@ -93,7 +92,6 @@ class AutomationEditor {
       'jsonapi' => [
         'root' => rtrim($this->wp->escUrlRaw(admin_url('admin-ajax.php')), '/'),
       ],
-      'user_roles' => $roles->get_names(),
     ]);
   }
 

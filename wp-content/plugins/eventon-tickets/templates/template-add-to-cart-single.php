@@ -1,7 +1,7 @@
 <?php
 /**
  * Single Ticket add to cart section 
- * @updated 1.8
+ * @updated 2.2
  */
 
 $GLOBALS['product'] = $product;
@@ -32,7 +32,7 @@ $GLOBALS['product'] = $product;
 
 				$base_price =  wc_get_price_to_display( $product ); //$product->get_price()
 				$label_adds = '';
-			
+				
 				// Base Price HTML
 				if($event->check_yn('_name_yprice')){
 					$base_price = 0;
@@ -86,23 +86,11 @@ $GLOBALS['product'] = $product;
 			}
 
 			?>
-			<?php $tix_helper->print_add_to_cart_data(array(
-				'event_data'=> array(
-					'eid'=> $event->ID,
-					'wcid'=> $event->wcid,
-					'ri'=> $event->ri,
-					'l'=> EVO()->lang,
-				)
-			));?>
 		
-		</div>
-
-		<?php $tix_helper->__get_addtocart_msg_footer();?>
-	 	
+		</div>	 	
 		
 		<?php do_action('evotx_after_single_addtocart', $woo_product_id, $object->event_id);?>
 
-	 	<div class="clear"></div>
  	</div>
  	<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
 </form>

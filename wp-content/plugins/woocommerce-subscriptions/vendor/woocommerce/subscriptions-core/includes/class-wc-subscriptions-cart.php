@@ -981,20 +981,19 @@ class WC_Subscriptions_Cart {
 	}
 
 	/**
-	 * Display the recurring totals for items in the cart
+	 * Displays the recurring totals for items in the cart.
 	 *
 	 * @since 1.0.0 - Migrated from WooCommerce Subscriptions v2.0
 	 */
 	public static function display_recurring_totals() {
 
-		if ( self::cart_contains_subscription() ) {
-
-			// We only want shipping for recurring amounts, and they need to be calculated again here
+		if ( self::cart_contains_subscription() && ! empty( WC()->cart->recurring_carts ) ) {
+			// We only want shipping for recurring amounts, and they need to be calculated again here.
 			self::$calculation_type       = 'recurring_total';
 			$carts_with_multiple_payments = 0;
 
 			foreach ( WC()->cart->recurring_carts as $recurring_cart ) {
-				// Cart contains more than one payment
+				// Cart contains more than one payment.
 				if ( 0 != $recurring_cart->next_payment_date ) {
 					$carts_with_multiple_payments++;
 				}
@@ -1151,6 +1150,7 @@ class WC_Subscriptions_Cart {
 
 				$package_rates_match = false;
 				if ( isset( $standard_packages[ $package_index ] ) ) {
+					// phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
 					$package_rates_match = apply_filters( 'wcs_recurring_shipping_package_rates_match_standard_rates', $package['rates'] == $standard_packages[ $package_index ]['rates'], $package['rates'], $standard_packages[ $package_index ]['rates'], $recurring_cart_key );
 				}
 

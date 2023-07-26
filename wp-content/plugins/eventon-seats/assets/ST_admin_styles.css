@@ -1,5 +1,6 @@
 /** 
  * EventON Seats Backend Styles
+ * @version 1.2
  */
 
 /* tooltip */
@@ -40,18 +41,13 @@
 	    text-transform: uppercase;
 	  }
 
-	.evost_lightbox_secondary .ajde_popup_text .yesno_row .ajdeToolTip{
-		pointer-events: auto
-	}
 
 /* General */
 	.evost_hide{display: none} 
 	.evosteditor_footer .evosteditor_btn_msg{display: none}
 	.evosteditor_footer.needsave .evosteditor_btn_msg{display: inline-block;}
 	.evosteditor_footer.needsave .evost_save_seating_changes{position: relative;}
-	.evosteditor_footer.needsave .evost_save_seating_changes:after{
-		
-	}
+	.evosteditor_footer.needsave .evost_save_seating_changes:after{}
 
 
 /* header */
@@ -61,13 +57,14 @@
 		box-sizing:border-box;
 	}
 	.evosteditor_header, .evosteditor_sub_header{
-		background-color: #d2d2d2;
 		padding: 0px;
 		position: relative;
 		display:flex;
 		text-align: left;
 		height: 45px;
+		border-bottom:1px solid var(--evo_border_c);
 	}
+	.evosteditor_header{border-top:1px solid var(--evo_border_c);margin-top: 20px;}
 
 	p.evost_msg{
 		margin: 0;padding: 6px 10px;
@@ -82,34 +79,43 @@
 	}
 	.evosteditor_header a{
 		cursor: pointer;
-		padding: 10px;
-		display: inline-block;
-		position: relative;
-		box-sizing:border-box;
+	    display: flex;
+	    position: relative;
+	    box-sizing: border-box;
+	    margin: 5px;
+	    justify-content: center;
+	    align-items: center;
+	    padding: 5px;
+	    border-radius: 10px;
 	}
-	.evosteditor_header a.select{background-color: #999999;    color: #d2d2d2;}
+	.evosteditor_header a.select{background-color: var(--evo_color_4);    color: var(--evo_color_prime);}
 	.evosteditor_header a b{
 		border: 2px solid;
 	    /* line-height: 24px; */
 	    font-size: 14px;
 	    padding: 0 5px;
-	    border-radius: 5px;
-	    margin-top: 1px;
+	    border-radius: 10px;
 	    position: relative;
 	    display: block;
 	    height: 24px;
 	    box-sizing: border-box;
 	    width: 25px;
 	}
+	.evost_section_only_actions{
+		display: flex;
+		background-color: #ddd;
+	    border-radius: 15px;
+	    margin-left: 10px;
+	    margin: 5px 5px 5px 20px;
+	}
 	.evosteditor_header a i.fa-ellipsis-h{font-size: 42px;line-height: 22px}
-	.evosteditor_header a b i{font-size: 14px;}
-	.evosteditor_header a i{font-size: 18px; margin-top: 3px;}
+	.evosteditor_header a b i{font-size: 14px; margin-top: 3px;}
+	.evosteditor_header a i{font-size: 18px; }
 	.evosteditor_header a, .evosteditor_footer a{
 		background-color: transparent;
-		color:#969696;
+		color: var(--evo_color_1);
 	}
-	.evosteditor_header a:hover b{border-color:#f1f1f1 }
-	.evosteditor_header a:hover i{color:#f1f1f1 }
+	.evosteditor_header a:hover {opacity: 0.5}
 	.evosteditor_header .evost_settings_btn{
 		display: inline-block;
 	    position: absolute; right: 10px; top: 7px;
@@ -118,14 +124,20 @@
 	    padding: 0;
 	    cursor: pointer;
 	}
-	.ajde_popup .evost_download_upload_row form input{border:none;box-shadow:none;background-color: transparent;
+	.evo_lightbox .evost_download_upload_row form input{border:none;box-shadow:none;background-color: transparent;
     color: #fff;}
-	.evosteditor_header .secondary{display:flex;}
+	.evosteditor_header .secondary{display:flex;background-color: transparent;}
 	.evosteditor_header .evost_settings_btn i{font-size: 24px;}
-	.evosteditor_header .evost_settings_btn:hover{color: #fff;background-color: transparent;}
-	.stages{background-color: #5c5c5c; color:#fff; 
-		padding: 3px 10px;position: relative;margin-right: 30px;
-		max-width: 100px
+	.stages{    
+		background-color: var(--evo_color_1);
+	    color: #fff;
+	    padding: 3px 20px;
+	    position: relative;
+	    margin-right: 30px;
+	    max-width: 100px;
+	    margin: 5px 10px 5px 5px;
+	    border-radius: 20px;
+	    display: flex; align-items: center;
 	}
 	.stages.primary_stage b{
 		width: 100%;
@@ -135,27 +147,14 @@
 	    display: block;
 	}
 	.stages.secondary_stage{background-color: #7ebd73;  padding-left: 25px; margin-left: -20px;}
-	.stages.secondary_stage:after{ border-color: transparent transparent transparent #7ebd73;}
-	.stages:after{
-		content: "";
-	    display: block;
-	    width: 0;
-	    height: 0;
-	    border-style: solid;
-	    border-width: 22px 0 22px 15px;
-	    border-color: transparent transparent transparent #5c5c5c;
-	    position: absolute;
-	    top: 0;
-	    right: -15px;
-	    z-index: 1;
-	}
-	.stages i{display: block;opacity: 0.6;}
+	
+	.stages i{display: none;opacity: 0.6; line-height: 1; font-size: 10px;}
 /* sub header */
 	.evosteditor_sub_header span{ text-transform: uppercase; color:#c7c7c7; margin-right: 15px;font-weight: bold;}
-	.evosteditor_sub_header span b{font-weight: bold; color:#808080;padding-right: 5px;}
+	.evosteditor_sub_header span b{font-weight: bold; color:var(--evo_color_1);padding-left: 5px;}
 	.evosteditor_sub_header span em{font-style: normal;color:#adadad;}
 	.evosteditor_sub_header{
-		background-color: #e6e6e6; height: 35px;
+		height: 35px;
 		display:flex;
 		padding: 8px 10px;
 		box-sizing:border-box;
@@ -166,7 +165,7 @@
 	background-color:#f7f7f7;
 	position: relative;
 	min-height: 350px;
-	width: 650px;
+	width: 100%;
 	border-top:1px solid #e0e0e0;
 }
 .evosteditor_content.editing:before{
@@ -177,23 +176,25 @@
 	top: 0;left: 0;z-index: 10;
 }
 
-.ajde_popup.evost_lightbox{width: 650px; max-width: none; }
-.ajde_popup.evost_lightbox .evosteditor_content{
-	background-size:cover;
-	background-position: center center
-}
-.ajde_popup.evost_lightbox.map_area800-600{width: 800px; max-width: none}
-.ajde_popup.evost_lightbox.map_area800-600 .evosteditor_content{height: 600px;width: 100%;}
-.ajde_popup.evost_lightbox.map_area900-700{width: 900px;max-width: none}
-.ajde_popup.evost_lightbox.map_area900-700 .evosteditor_content{height: 700px; width: 100%;}
-.ajde_popup.evost_lightbox.map_area1000-800 {width: 1000px;max-width: none}
-.ajde_popup.evost_lightbox.map_area1000-800 .evosteditor_content{height: 800px; width: 100%;}
 
-.evost_sections_container{width: 650px; height: 350px; position: relative;}
-.ajde_popup.evost_lightbox .map_area800-600.evost_sections_container{width: 800px; height: 600px;}
-.ajde_popup.evost_lightbox .map_area900-700.evost_sections_container{width: 900px; height: 700px;}
-.ajde_popup.evost_lightbox .map_area1000-800.evost_sections_container{width: 1000px; height: 800px;}
+.evo_lightbox.evost_lightbox.map_area650-350 .evolb_box{width: 650px; max-width: none}
+.evo_lightbox.evost_lightbox.map_area650-600 .evolb_box{width: 650px; max-width: none}
+.evo_lightbox.evost_lightbox.map_area800-600 .evolb_box{width: 800px; max-width: none}
+.evo_lightbox.evost_lightbox.map_area650-600 .evosteditor_content{height: 600px;width: 100%;}
+.evo_lightbox.evost_lightbox.map_area800-600 .evosteditor_content{height: 600px;width: 100%;}
+.evo_lightbox.evost_lightbox.map_area900-700 .evolb_box{width: 900px;max-width: none}
+.evo_lightbox.evost_lightbox.map_area900-700 .evosteditor_content{height: 700px; width: 100%;}
+.evo_lightbox.evost_lightbox.map_area1000-800 .evolb_box {width: 1000px;max-width: none}
+.evo_lightbox.evost_lightbox.map_area1000-800 .evosteditor_content{height: 800px; width: 100%;}
+
+.evost_sections_container{width: 650px; height: 350px; position: relative;margin:0 auto; }
+.evo_lightbox.evost_lightbox .map_area650-600.evost_sections_container{width: 650px; height: 600px;}
+.evo_lightbox.evost_lightbox .map_area800-600.evost_sections_container{width: 800px; height: 600px;}
+.evo_lightbox.evost_lightbox .map_area900-700.evost_sections_container{width: 900px; height: 700px;}
+.evo_lightbox.evost_lightbox .map_area1000-800.evost_sections_container{width: 1000px; height: 800px;}
 .evost_sections_container .evost_none{ padding-top: 100px;display: block; opacity: 0.6;}
+
+.evost_lightbox_secondary p.yesno_row{padding: 0 0 10px}
 
 .evosteditor_content .evost_sections_container:before{
 	content:"";
@@ -204,6 +205,11 @@
 	opacity: 0.8;
 }
 .evosteditor_content > *{	box-sizing:border-box;}
+.evosteditor_content .evost_section.type_boo{
+	    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .evosteditor_content .evost_section{
 	border: 1px solid #d4d4d4;
 	padding: 4px 5px;
@@ -215,8 +221,9 @@
 	border-radius: 5px;
 	cursor: pointer;
 	box-sizing:border-box;
+	box-shadow: 0px 0px 10px -5px #000;
 }
-.evosteditor_content .evost_section:hover{background-color:#fffcea }
+.evosteditor_content .evost_section:hover{background-color:#fffcea; box-shadow:none; }
 
 .evosteditor_content.editing .evost_section:hover{background-color:#efefef }
 
@@ -255,7 +262,7 @@
 	float: left;
 	width: 15px; height: 15px;
 	background-color: #98ce8f;
-	border-radius: 4px;
+	border-radius: 6px;
 	margin: 2px;
 	color: #fff;
     font-size: 10px;
@@ -265,8 +272,8 @@
     padding: 0;
 }
 .evosteditor_content .evost_section .evost_row .seat span.data{display: none;}
-.ajde_popup.evost_lightbox .evost_sections_container.seat_size12-12 .evost_section .evost_row .seat{width: 12px; height: 12px;}
-.ajde_popup.evost_lightbox .evost_sections_container.seat_size10-10 .evost_section .evost_row .seat{width: 10px; height: 10px; margin: 1px;}
+.evo_lightbox.evost_lightbox .evost_sections_container.seat_size12-12 .evost_section .evost_row .seat{width: 12px; height: 12px;}
+.evo_lightbox.evost_lightbox .evost_sections_container.seat_size10-10 .evost_section .evost_row .seat{width: 10px; height: 10px; margin: 1px;}
 .evosteditor_content .evost_section .evost_row i{
 	font-style: normal;
 	opacity: 0.5;
@@ -284,6 +291,10 @@
 .evost_section.editing.editrows .evost_row:hover{
 	background-color: #3d3d3d;
 }
+	
+.evosteditor_content .evost_section.ss_circ .evost_row .seat{border-radius: 20px;}
+.evosteditor_content .evost_section.ss_box .evost_row .seat{border-radius: 0px;}
+
 /* tip */
 	#evost_tip{
 		    background-color: #6B6B6B;
@@ -307,6 +318,7 @@
 /* editing */
 	.evost_section.editing{
 		box-shadow:0px 0px 20px 0px #c1c1c1;
+		border:2px solid var(--evo_color_1);
 		z-index: 30;
 	}
 	.evost_section.rowedit span.evost_row:hover{background-color: #999999; border-radius: 5px; cursor: pointer;}
@@ -335,7 +347,7 @@
 	}
 
 
-/* unassigned and Area of interest */
+/* unassigned, Area of interest, Booths */
 	.evosteditor_content .evost_section.type_una, 
 	.evosteditor_content .evost_section.type_aoi
 	{
@@ -346,7 +358,9 @@
 	}
 	.evosteditor_content .evost_section.shape_none{border-radius: 0px;}
 	.evosteditor_content .evost_section.shape_50per{border-radius: 50%;}
-	.evost_section.type_una u, .evost_section.type_aoi u{
+	.evost_section.type_una u, 
+	.evost_section.type_boo u, 
+	.evost_section.type_aoi u{
 		display: block;
 	    position: relative;
 	    left: auto;
@@ -360,6 +374,20 @@
 	.evost_section.type_aoi u i{
 		display: block;
 	    font-size: 24px;
+	}
+	/* not available seats */
+	.evost_section.type_una.notav i.fa,
+	.evost_section.type_boo.notav i.fa
+	{
+		position: absolute;
+	    right: 0;
+	    top: 0;
+	    background-color: #808080;
+	    color: #fff;
+	    font-size: 12px;
+	    padding: 3px;
+	    border-radius: 20px;
+	    margin: -5px -5px 0;
 	}
 
 /* form */
@@ -389,11 +417,14 @@
 	    display: block;
 	} 
 	.evost_editor_form .icon_select .icon_area {
-		    overflow-y: scroll;
+		overflow-y: scroll;
 	    display: block;
 	    height: 200px;
 	    margin-bottom: 5px;
-	    opacity: 0.5;
+	    background-color: var(--evo_color_1);
+	    border-radius: 10px;
+	    color: #fff;
+	    padding: 10px;
 	}
 	.evost_editor_form .icon_select .icon_area span{
 		font-size: 24px;
@@ -401,7 +432,7 @@
 	    display: inline-block;
 	    cursor: pointer;
 	}
-	.evost_editor_form .icon_select .icon_area span:hover{background-color: #e3e3e3}
+	.evost_editor_form .icon_select .icon_area span:hover{background-color: #fff; color:var(--evo_color_1);}
 	.evost_editor_form .icon_select .icon_area span.select{background-color: #dedede}
 	.evost_editor_form .icon_select .selected_icons{display: flex; padding: 10px 0;}
 	.evost_editor_form .icon_select .selected_icons i{font-size: 28px;padding:0px 15px 5px 5px}
@@ -410,6 +441,17 @@
     padding: 5px;    width: fit-content;}
     .evost_editor_form .number_change .evo_field_plusminus_container input:focus{background-color: transparent;}
 	
+	.evost_editor_form .evost_form_sec_start.s1{
+		background-color: #323b3f;
+	    border-radius: 10px;padding: 20px 20px 10px;
+	    color: #fff; margin-bottom: 10px;
+	    display: flex;flex-wrap: wrap;
+	}
+	.evost_editor_form .evost_form_sec_start.s1 .evo_elm_row.rows{margin-right: 10px;}
+	.evost_editor_form .evost_form_sec_start.s1 .evo_field_container.evo_field_plusminus_container{
+		background-color: #515a5e
+	}
+	.evost_editor_form .evost_form_sec_start.s1 .evo_field_container.evo_field_plusminus_container input{color: #fff}
 
 	/* old */
 	.evost_forms h3{

@@ -1,5 +1,4 @@
 /* admin Styles */
-.evovo_add_options_form{	padding: 30px;}
 .evovo_add_options_form p.message {   margin: 0 -30px -30px;}
 .evovo_add_options_form span { display: inline-block;}
 .evovo_add_options_form em{vertical-align: top;}
@@ -40,12 +39,18 @@
     }
 
 /* listing styles */
+.evovo_vos_container_event{
+    background-color: #dfdfe2;
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+}
 #evovo_options_selection ul,
 ul.evovo_variations_int
 {
 	list-style-type: none;
     background-color: #7a7a7a;
-    border-radius: 5px;
+    border-radius: 10px;
     overflow: hidden;
     margin: 0;
 }
@@ -75,10 +80,11 @@ ul.evovo_variations_int li
     position: relative;
 	border-bottom: 1px solid #30b3dc;
     margin: 0;
-    padding: 7px 80px 7px 30px;
+    padding: 7px 10px 7px 30px;
     position: relative;
     background-color: #7a7a7a; color:#fff;
 }
+ul.evovo_variations_int.evovo_variation_type_event li:before{content:none;}
     
 #evovo_options_selection ul.evovo_variations_int.evovo_variation_type li,
 ul.evovo_variations_int.evovo_variation_type li
@@ -130,7 +136,7 @@ ul.evovo_variations_int li em
 {
     font-style: normal;
     text-transform: uppercase;
-    opacity: 0.4;
+    opacity: 1;
     cursor: pointer;
     border: 1px solid #fff;
     border-radius: 50%;
@@ -149,7 +155,7 @@ ul.evovo_variations_int li em
 #evovo_options_selection ul.evovo_blocks_una li em{ margin-top: -1px;}
 
 #evovo_options_selection ul li:hover em, ul.evovo_variations_int li:hover em{color: #7a7a7a;  background-color: #fff; opacity: 0.8;}
-#evovo_options_selection ul li em:hover,ul.evovo_variations_int li em:hover{opacity: 1;}
+#evovo_options_selection ul li em:hover,ul.evovo_variations_int li em:hover{opacity: 0.5;}
 
 /* no stock */
     ul.evovo_variations_int span i.nostock, #evovo_options_selection ul li i.nostock{    

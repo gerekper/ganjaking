@@ -5,6 +5,7 @@
  */
 
 class evovo_frontend{
+	public $opt2;
 	public function __construct(){
 
 		add_action( 'init', array( $this, 'register_styles_scripts' ) ,15);

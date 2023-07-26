@@ -4,7 +4,7 @@
 }
 .evotx_searchtix_box input{
 	width:100%;
-	font-size:20px;
+	font-size:18px;
 	border-radius:24px;
 	padding:5px 20px 8px;
 }
@@ -13,12 +13,10 @@
     position: absolute;
     font-size: 14px;
     border-radius: 24px;
-    background-color: #f3c991;
-    color: #fff;
+    background-color: var(--evo_color_prime);
     padding: 3px 20px 3px;
-    right: 4px;
+    right: 10px;top: 10px;
     text-transform: uppercase;
-    top: 6px;
     line-height: 26px;
     font-weight: bold;
 }

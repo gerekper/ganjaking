@@ -4,10 +4,10 @@
  * Plugin URI: http://www.myeventon.com/addons/event-lists-items
  * Description: Seat selection feature
  * Author: Ashan Jay
- * Version: 1.1.1
+ * Version: 1.2.1
  * Author URI: http://www.ashanjay.com/
- * Requires at least: 5.5
- * Tested up to: 6.0.3
+ * Requires at least: 6.0
+ * Tested up to: 6.2.2
  * 
  * Text Domain: evost
  * Domain Path: /lang/
@@ -16,16 +16,16 @@
 
 class EVO_seats{
 	
-	public $version='1.1.1';
-	public $eventon_version = '4.0';
-	public $evotx_version = '2.0';
+	public $version='1.2.1';
+	public $eventon_version = '4.4.2';
+	public $evotx_version = '2.2.1';
 	public $name = 'Event Seats';
 	public $id = 'EVOST';
 			
 	public $addon_data = array();
-	public $slug, $plugin_slug , $plugin_url , $plugin_path ;
+	public $slug, $plugin_slug , $plugin_url , $plugin_path , $assets_path;
 	private $urls;
-	public $template_url ;
+	public $template_url, $opt2, $opt, $frontend, $addon, $helper;
 	
 	// Instanace
 		protected static $_instance = null;
@@ -38,7 +38,7 @@ class EVO_seats{
 	// Construct
 		public function __construct(){
 			$this->super_init();
-			add_action('plugins_loaded', array($this, 'plugin_init'));
+			add_action('plugins_loaded', array($this, 'plugin_init'), 12);
 		}
 
 		public function plugin_init(){			
@@ -107,11 +107,13 @@ class EVO_seats{
 			include_once( 'includes/class-frontend.php' );			
 			include_once( 'includes/class-integration-tickets.php' );
 			include_once( 'includes/class-integration-qrcode.php' );
+
+			include_once( 'includes/class-ajax.php' );
 			
 			$this->frontend = new evost_front();
 			
 			if ( defined('DOING_AJAX') ){
-				include_once( 'includes/class-ajax.php' );
+			
 			}
 			if ( is_admin() ){
 				include_once( 'includes/admin/class-seat-map-editor.php' );

@@ -1,30 +1,44 @@
 /**
  * Javascript: Seating charts for eventon
- * @version  1.0.12
+ * @version  1.2.1
  */
 jQuery(document).ready(function($){	
 
+	// trigger seat map loading
 	$('body').on('evo_init_ajax_success',function(){
-	// load event map on load for event
-
+	
+		// load event map on load for event
 		if($('body').find('.evost_seat_map_section').length > 0){
-
-			// check if set to open as lightbox			
+		
 			$('body').find('.evost_seat_map_section').each(function(){
 				O = $(this);
+
+				// if set to open as lightbox skip processing
+				if( O.hasClass('evost_lb_on')) return;
+
+				const tx_data = O.evotx_get_event_data();
+
 				var eventcard = O.closest('.event_description');
-				if(O.data('showmap') && eventcard.hasClass('open')){
+
+				if( eventcard.hasClass('open') && tx_data.showmap ){
 					$('body').trigger('evost_load_inline_map',[O]);		
-					O.find('.evost_show_inline_seats').hide();		
 				}				
 			});
 		}
 	});
 
-	$('body').on('click','.evost_show_inline_seats',function(){
-		O = $(this);
-		$('body').trigger('evost_load_inline_map',[O]);
+	// after event card open
+	$('body').on('evo_slidedown_eventcard_complete',function(event, event_id, obj){
+
+		var event_box = obj.closest('.eventon_list_event');			
+		var click_item = event_box.find('.event_description');
+
+		if( !click_item.hasClass('open')) return;
+		
+		$('body').trigger('evost_load_inline_map',[ event_box.find('.evo_metarow_tix') ]);
+
 	});
+
 
 	// resization				
 		$('body').on('evost_after_map_drawn', function(){
@@ -73,81 +87,91 @@ jQuery(document).ready(function($){
 			});
 		}
 
+	// show lightbox seats
+		$('body')
+		.on('evo_ajax_beforesend_evost_load_lb_seat_map',function(event, OO, el){
+			//LB = $('body').find('.evo_lightbox.'+ OO.lightbox_key);
+			
+		})
+		// after LB seat data loaded
+		.on('evo_ajax_success_evost_load_lb_seat_map',function(event, OO, data){
+			LB = $('body').find('.evo_lightbox.'+ OO.lightbox_key);
+			LB.find('.evolb_content').html( data.structure);
+			LB.find('.evo_loading_bar_holder').remove();
+
+			$('body').trigger('evo_ajax_success_evost_get_seat_data',[ OO, data]);	
+		})
+
+		// click on load LB seat map - from eventcard
+		.on('click','.evost_show_lightbox_seats',function(){
+			O = $(this);
+			const event_data = O.evotx_get_event_data();
+			var ajaxdataa = $.extend({}, {}, event_data);
+			ajaxdataa['action']='evost_get_seats_data';
+			ajaxdataa['type']='lb';
+
+			$(this).evo_lightbox_open({
+				'd':ajaxdataa,
+				'ajax':'yes',
+				'uid':'evost_load_lb_seat_map',
+				'lbc':'evost_seat_map',
+				'lightbox_loader':false,
+				'load_new_content':false,
+				'end':'client',
+			});
+		});
+
 	// show inline seats
 		$('body').on('evost_load_inline_map',function(event, O){
 			O = $(O);
 			ROW = O.closest('.evorow');
 			SEC = O.closest('.evotx_ticket_purchase_section');
-			var ajaxdataa = {};
+
+			const event_data = O.evotx_get_event_data();
+
+			// bail if set to wait
+			if( SEC.find('.evost_seat_map_section').hasClass('evost_wait') ) return;
+
+			var ajaxdataa = $.extend({}, {}, event_data);
 			ajaxdataa['action']='evost_get_seats_data';
-			ajaxdataa['event_id'] = ROW.data('event_id');
-			ajaxdataa['wcid'] = ROW.data('wcid');		
 
-			$.ajax({
-				beforeSend: function(){ ROW.addClass('evoloading');	},					
-				url:	evost_ajax_script.ajaxurl,
-				data: 	ajaxdataa,	dataType:'json', type: 	'POST',
-				success:function(data){
-					if(data.status=='good'){						
-						c = SEC.find('.evost_inline_seat_map');
-						c.html( data.view );
+			SEC.addClass("evo_runningajax");		
 
-						// append seat map json data to evost_data
-						ROW.find('.evost_data').data('json', data.j);						
-						ROW.find('.evost_data').data('j_cart', data.j_cart);
+			$(this).evo_admin_get_ajax({
+				'ajaxdata':ajaxdataa,
+				'uid':'evost_get_seat_data',
+				'end':'client',
+			});	
 
-						ROW.find('.evost_data').data('settings', data.s);
+		})
+		.on('evo_ajax_success_evost_get_seat_data',function(event, OO, data){
 
-						// draw the seat map
-						__redraw_map( SEC, true);
+			SEC = $('body').find('.evo_runningajax.evotx_ticket_purchase_section');
+			ROW = SEC.closest('.evorow');
 
-						ROW.find('.evost_show_inline_seats').hide();
-						//ROW.removeClass('evoloading');
-						//alert('donex');
-						
-					}else{}
-				},complete:function(){ ROW.removeClass('evoloading');	}
-			});
+			if(data.status=='good'){		
 
+				ROW.evotx_hide_loading();
+
+				c = SEC.find('.evost_inline_seat_map');
+				c.html( data.view );
+
+				// append seat map json data to evost_data
+				SEC.find('.evost_data').data('json', data.j);						
+				SEC.find('.evost_data').data('j_cart', data.j_cart);
+
+				SEC.find('.evost_data').data('settings', data.s);
+
+				// draw the seat map
+				__redraw_map( SEC, true);
+
+				SEC.removeClass('evo_runningajax');
+				SEC.removeClass('evoloading');
+				//alert('donex');
+				
+			}else{}
 		});
 
-
-	// Show Seats lightbox 
-	// @depre
-		$('body').on('click','.evost_show_seat_selection',function(){
-			OBJ = $(this);
-
-			var ajaxdataa = {};
-			ajaxdataa['action']='evost_get_seat_layout';
-			ajaxdataa['eventid'] = OBJ.data('eventid');
-			ajaxdataa['pid'] = OBJ.data('pid');
-			ROW = OBJ.closest('.evorow');
-			
-			$.ajax({
-				beforeSend: function(){ ROW.addClass('evoloading');	},					
-				url:	evost_ajax_script.ajaxurl,
-				data: 	ajaxdataa,	dataType:'json', type: 	'POST',
-				success:function(data){
-					if(data.status=='good'){
-						
-						if(data.classnames)
-							$('.evost_lightbox').find('.evo_lightbox_content').width(data.width);
-							$('.evost_lightbox').find('.evo_lightbox_content').attr({
-								'class':'evo_lightbox_content '+data.classnames,
-								'data-w':data.width
-							});
-						$('.evost_lightbox').find('.evo_lightbox_body').html( data.content );
-						
-						windowsization();
-
-						$('.evost_lightbox.evo_lightbox').addClass('show');
-						$('body').trigger('evolightbox_show');
-					}else{
-						// error notice ***
-					}
-				},complete:function(){ ROW.removeClass('evoloading');	}
-			});
-		});
 	
 	// mobile accordion
 	// @deprecated
@@ -166,8 +190,11 @@ jQuery(document).ready(function($){
 		});
 
 	// hover over a seat
-		// unassigned seating
-		$('body').on('mouseover', 'span.evost_section.type_una',function(event){
+		$.fn.evost_map_tooltip = function(opt){
+			defaults = {
+				'type':'seat'
+			}
+			var OO = $.extend({}, defaults, opt);
 
 			if( _is_mobile()) return false;
 
@@ -183,8 +210,9 @@ jQuery(document).ready(function($){
 
 			data = {};
 			data['price'] = get_format_price( parseFloat( j[section_id]['def_price'] ) );
-			data['type'] = 'unaseat';
+			data['type'] = OO.type + 'seat';
 			data['section'] = SECTION.data('name');
+			data['seat_slug'] = SECTION.data('id');
 			data['available'] = j[section_id]['available'];
 			if(SECTION.hasClass('av')) data['canbuy'] = true;
 
@@ -211,10 +239,26 @@ jQuery(document).ready(function($){
 				}).stop(true, false);
 				TOOLTIP.addClass('visible');
 			}
-		}).mouseout(function(){
-			TOOLTIP = $(this).find('.evost_tooltip');			
+		}
+
+		// hide tooltips on mouse out
+		$.fn.evost_map_tooltip_close = function(opt){
+			//return;
+			el = this;
+			TOOLTIP = el.find('.evost_tooltip');			
 			TOOLTIP.stop(true, false).removeClass('visible');
+			if( TOOLTIP.hasClass('fixed')){
+				TOOLTIP.html("<div class='evost_tt_content'>"+ evo_general_params.text.evost_1 +"</div>");
+			}
+		}
+
+		// unassigned seating
+		$('body').on('mouseover', 'span.evost_section.type_una',function(event){
+			$(this).evost_map_tooltip({'type':'una'});			
+		}).mouseout(function(){
+			$(this).evost_map_tooltip_close();
 		});
+		
 		// regular seat
 		$('body').on('mouseover','span.evost_seat',function(event){
 
@@ -263,7 +307,7 @@ jQuery(document).ready(function($){
 				_par = SEAT.closest('.evost_seat_selection').offset();
 				
 				_position = 'absolute';
-				TOP = SEAT.offset().top - _par.top - HEI -20;
+				TOP = SEAT.offset().top - _par.top - HEI -10;
 				LEFT = SEAT.offset().left - _par.left - 60;		
 
 				TOOLTIP.css({
@@ -275,8 +319,14 @@ jQuery(document).ready(function($){
 			}
 
 		}).mouseout(function(){
-			TOOLTIP = $(this).find('.evost_tooltip');			
-			TOOLTIP.stop(true, false).removeClass('visible');
+			$(this).evost_map_tooltip_close();
+		});
+
+		// Booth Seating
+		$('body').on('mouseover', 'span.evost_section.type_boo',function(event){
+			$(this).evost_map_tooltip({'type':'boo'});
+		}).mouseout(function(){
+			$(this).evost_map_tooltip_close();
 		});
 
 	// cart expiration timer ran out on event page
@@ -298,9 +348,9 @@ jQuery(document).ready(function($){
 				url:	evost_ajax_script.ajaxurl,
 				data: 	ajaxdataa,	dataType:'json', type: 	'POST',
 				success:function(data){
-					ROW.find('.evost_data').data('json', data.j);						
-					ROW.find('.evost_data').data('j_cart', data.j_cart);
-					
+					O.find('.evost_data').data('json', data.j);						
+					O.find('.evost_data').data('j_cart', data.j_cart);
+
 					__redraw_map( O, true);
 				},complete:function(){ O.removeClass('evoloading');	}
 			});
@@ -347,6 +397,10 @@ jQuery(document).ready(function($){
 	    };
 
 	// Add seat to view
+		// Booth area
+		$('body').on('click', 'span.evost_section.type_boo',function(event){
+			__preview_seat( $(this), 'booseat', 'prev');
+		});
 		// unassigned area
 		$('body').on('click', 'span.evost_section.type_una',function(event){
 			__preview_seat( $(this), 'unaseat', 'prev');
@@ -363,15 +417,16 @@ jQuery(document).ready(function($){
 			SECTION = _SECTION = SEAT.closest('.evost_seat_map_section');
 			j = SECTION.find('.evost_data').data('s');
 			EVOROW = SEAT.closest('.evorow');
+			TIX_SECTION = SEAT.closest('.evotx_ticket_purchase_section');
 			
 			// ajax data
 			var ajaxdataa = {};
 			ajaxdataa['action']		= method=='cart'? 'evost_seat_direct_add_cart':'evost_seat_cart_preview';
-			ajaxdataa['eventid'] 	= j.event_id;
-			ajaxdataa['ri'] 		= j.ri;
-			ajaxdataa['product_id'] = j.wcid;
 			ajaxdataa['type'] 		= type;
-			ajaxdataa['data'] = EVOROW.find('.evotx_data').data();
+			ajaxdataa['event_data']	= TIX_SECTION.evotx_get_event_data();
+
+			// pass other select data
+        	ajaxdataa['other_data'] = TIX_SECTION.evotx_get_all_select_data();
 
 			if( type == 'seat'){
 				ajaxdataa['seat_slug'] = 	SEAT.data('sid');
@@ -380,6 +435,8 @@ jQuery(document).ready(function($){
 			}
 			
 			SECTION.find('.evost_msg').removeClass('error');
+
+			//return;
 			
 			$.ajax({
 				beforeSend: function(){ SECTION.addClass('evoloading');	},					
@@ -394,15 +451,15 @@ jQuery(document).ready(function($){
 							tEVOROW = SEAT.closest('.evorow');
 
 							$('body').trigger('evotx_added_to_cart',[ data, tSECTION]);
-                   			$('body').trigger('evotx_ticket_msg',[tEVOROW,'good']);
+
+                   			SEAT.evotx_show_msg({'status': 'good'});
+
 						}else{
-							$('body').trigger('evotx_ticket_msg', [tEVOROW,'bad', data.msg]);
+							SEAT.evotx_show_msg({'status': 'bad', 'msg': data.msg});
 						}					
 
 					}else{ // preview seats before cart addition
 
-						// repopulate evotx_data values
-						$('body').trigger('evotx_repopulate_evotx_data',[EVOROW, data.event_data]);
 
 						SECTION.find('.evost_data').data('json', data.j);	
 						SEC = SEAT.closest('.evotx_ticket_purchase_section');
@@ -410,7 +467,7 @@ jQuery(document).ready(function($){
 
 						if(data.status=='good'){
 							
-							SECTION.find('.evost_seats_preview').html( data.view );
+							SECTION.find('.evost_seats_preview').html( data.view ).show();
 							
 							// highlishgt selected seat
 							if( type == 'seat') 
@@ -426,13 +483,26 @@ jQuery(document).ready(function($){
 			});
 		}
 
+		// cancel seat preview
+		$('body').on('click','.evost_cancel_seat_preview',function(){
+			var OBJ = $(this);
+			const obj_data = OBJ.data('d');
+			SECTION = $(this).closest('.evost_seat_map_section');
+			SECTION.find('.evost_seats_preview').html('').hide();
+
+			// put the seat back
+			if( obj_data.type == 'seat'){
+				SECTION.find('.evost_seat[data-sid="'+ obj_data.slug +'"]').removeClass('selected');
+			}
+		});
+
 	// when seat ticket added to cart
 		$('body').on('evotx_added_to_cart', function(event, data, section){
 			// none seat add to cart
 			if( !data.hasOwnProperty('j_cart')) return false;
 
 			SECTION = $(section);
-			SECTION.find('.evost_seats_preview').html('');
+			SECTION.find('.evost_seats_preview').html('').hide();
 			// un-highlight seat
 			SECTION.find('.evost_seat').removeClass('selected');
 
@@ -449,29 +519,29 @@ jQuery(document).ready(function($){
 
 			var ajaxdataa = {};
 			ajaxdataa['action']='evost_remove_seat_from_cart';
-			ajaxdataa['eventid'] = j.event_id;
-			ajaxdataa['product_id'] = j.wcid;
+			ajaxdataa['event_data']= SECTION.evotx_get_event_data();
 			ajaxdataa['key'] = OBJ.parent().attr('id');
 			ajaxdataa['qty'] = OBJ.parent().data('qty');
 			ajaxdataa['seat_slug'] = OBJ.parent().data('seat_slug');
-			SECTION.find('.evost_msg').removeClass('error');
 			
-			$.ajax({
-				beforeSend: function(){ SECTION.addClass('evoloading');	},					
-				url:	evost_ajax_script.ajaxurl,
-				data: 	ajaxdataa,	dataType:'json', type: 	'POST',
-				success:function(data){
-					if(data.status=='good'){
-						
-						$('body').trigger('evost_refresh_map',[ OBJ.closest('.evotx_ticket_purchase_section')] );
-						SECTION.find('.evost_msg').html(data.message).show().delay(5000).fadeOut();
-					}else{
-						// error notice ***
-						//$('.evost_lightbox').find('.evost_seat_layout').html( data.seat_map );
-						SECTION.find('.evost_msg').addClass('error').html(data.message).show().delay(5000).fadeOut();
-					}
-				},complete:function(){ SECTION.removeClass('evoloading');	}
-			});
+			OBJ.evo_admin_get_ajax({
+				'ajaxdata': ajaxdataa,
+				'uid':'evost_remove_seat',
+				'end':'client',
+				'loader_el': SECTION
+			});			
+		})
+		.on('evo_ajax_success_evost_remove_seat',function(event,OO, data, el ){
+			if(data.status=='good'){						
+				$('body').trigger('evost_refresh_map',[ 
+					$(el).closest('.evotx_ticket_purchase_section')] );
+				
+				$( OO.loader_el ).evotx_show_msg({'msg': data.message, 'hide':7000 , 'show_btn':false});
+
+			}else{
+				// error notice ***
+				$( OO.loader_el ).evotx_show_msg({'status':'bad','msg': data.message, 'hide':5000 });
+			}
 		});
 	
 	// redraw map function
@@ -506,6 +576,8 @@ jQuery(document).ready(function($){
 				j_cart: evost_data.j_cart,
 				temp_part: 'evost_cart_seats',
 			});
+
+			// map area height
 
 			$('body').trigger('evost_after_map_drawn');
 		}

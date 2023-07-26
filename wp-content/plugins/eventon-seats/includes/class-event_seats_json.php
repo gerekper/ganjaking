@@ -1,11 +1,12 @@
 <?php
 /**
  * JSON for seats
+ * @version 1.2
  */
 
 class EVOST_Seats_Json extends EVOST_Expirations{
-	public function __construct($EVENT, $wcid){
-		parent::__construct($EVENT, $wcid);
+	public function __construct($EVENT, $wcid, $ri=0){
+		parent::__construct($EVENT, $wcid, $ri);
 		$this->set();
 	}
 
@@ -19,14 +20,21 @@ class EVOST_Seats_Json extends EVOST_Expirations{
 		// Check all event seats for expiration time, and if expired, restock seat
 		$this->run_all_seat_expiration_check();
 
+		// check with event attendance > seat avialable match attendance count
+			$attendees = $this->get_tickets_by_section();
+
 		// reload sections data
 		//$this->reload_seats_data();
 		$sections = $this->seats_data;
+		//print_r($sections);
 
 		foreach($sections as $section_id=>$section){
 
 			// localize section
 			$this->set_section( $section_id );
+
+			$section_attendees = false;
+			if( isset($attendees[ $section_id ] )) $section_attendees = $attendees[$section_id];
 
 			$def_price = 0;
 
@@ -56,10 +64,25 @@ class EVOST_Seats_Json extends EVOST_Expirations{
 				}
 			}
 
-			// calculate available seats
-			if(isset($section['type']) && $section['type'] == 'una'){
-				$j[$section_id]['available'] = $this->una_get_available_seats();
-			}
+			// calculate available capacity for non seats @since 1.2
+				if(isset($section['type']) && $section['type'] != 'def' && $section['type'] != 'aoi'){
+
+					$capacity = $section['capacity'];
+
+					$sold = 0;
+					$inprogress = 0;
+
+					if( $section_attendees ){
+						foreach( $section_attendees  as $TN=>$TD){
+							if( $TD['oS'] == 'completed') $sold++;
+							if( $TD['oS'] != 'completed') $inprogress++;
+						}
+					}
+
+					$j[$section_id]['available'] = $capacity - $sold - $inprogress;
+					$j[$section_id]['inprogress'] = $inprogress;
+				}
+
 
 			// filter values
 			foreach($section as $key=>$data){
@@ -104,7 +127,6 @@ class EVOST_Seats_Json extends EVOST_Expirations{
 
 				// Event seats in cart is refreshed so check expiration and reset timer
 					$exp_time = $this->get_seat_expiration_time($seat_slug, $cart_item_key);
-
 					
 					// if seat expiration time is past remove seat from cart
 					if($reset_user_seats && $exp_time && $exp_time > time()){
@@ -128,6 +150,7 @@ class EVOST_Seats_Json extends EVOST_Expirations{
 					$seats['seat'][$cart_item_key]['seat_number'] = $this->get_item_prop('number');
 					$seats['seat'][$cart_item_key]['price'] = html_entity_decode($price) ;
 
+
 				}else{ // unassigned seats
 					$this->set_section($this->seat_slug);
 					$seats['seat'][$cart_item_key]['seat_slug'] = $seat_slug;
@@ -145,7 +168,6 @@ class EVOST_Seats_Json extends EVOST_Expirations{
 			
 			$_exp_time = $exp_time - time();
 			if($_exp_time<0) $_exp_time = 0;
-
 			
 			$seats['total_seats'] = $count;
 			$seats['exp_time'] = $this->get_human_time( $_exp_time);
@@ -164,4 +186,6 @@ class EVOST_Seats_Json extends EVOST_Expirations{
 			}
 			return $your_tickets;
 		}
+
+	
 }

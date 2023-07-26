@@ -263,7 +263,7 @@ class EVO_Event_Virtual{
 
 			// other event access details
 				if($v_other = $EVENT->get_prop('_vir_other')){
-					echo "<h4 class='evo_h4' style='margin-top:10px;'>". evo_lang('Other Access Information') ."</h4>";
+					echo "<h4 class='evo_h4' style='margin-bottom:10px'>". evo_lang('Other Access Information') ."</h4>";
 					echo "<p class='evo_vir_other'>". $v_other ."</p>";
 				}
 

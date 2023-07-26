@@ -175,7 +175,7 @@ class evo_cal_help {
 					if($sm_site=='EmailShare'){
 						$url = $sm_site_val['url'];
 
-						$title = $post_title;
+						//$title = $post_title;
 
 						//echo $title;
 						$mailtocontent = '';

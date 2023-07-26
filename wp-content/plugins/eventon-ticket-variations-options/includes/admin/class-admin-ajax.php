@@ -1,35 +1,171 @@
 <?php 
 /**
  * Admin Ajax
- * @version 1.0.1
+ * @version 1.0.4
  */
 class evovo_admin_ajax{
+	public $help, $postdata;
 	public function __construct(){
 		$ajax_events = array(
-			'evovo_new_options_form'=>'evovo_new_options_form',
-			'evovo_save_dataset'=>'evovo_save_vo_data',
+			'evovo_get_vo_form'=>'get_vo_form',
+			'evovo_new_options_form'=>'get_vo_form', // legacy
+			'evovo_save_vo_form'=>'evovo_save_vo_data',
+			'evovo_save_dataset'=>'evovo_save_vo_data', // legacy
 			'evovo_save_neworder'=>'evovo_save_order',
 			'evovo_delete_item'=>'delete_item',
+			'evovo_get_settings'=>'get_settings',
+			'evovo_save_settings'=>'save_settings',
 		);
 		foreach ( $ajax_events as $ajax_event => $class ) {
 			add_action( 'wp_ajax_'.  $ajax_event, array( $this, $class ) );
 			add_action( 'wp_ajax_nopriv_'.  $ajax_event, array( $this, $class ) );
 		}
+
+		$this->help = new evo_helper();
+		$this->postdata = $this->help->process_post( $_POST);
+	}
+
+// Settings
+	function get_settings(){
+
+		$event_id = $this->postdata['event_id'];
+		$wcid = $this->postdata['wcid'];
+		$EVENT = new EVO_Event( $event_id );
+
+		$VO = new EVOVO_Var_opts($EVENT, $wcid);
+
+		?>
+		<div id='evovo_settings_content' class='evopad20'>
+
+			<?php 
+			echo $this->get_vo_items_content( $VO, $EVENT );
+			?>
+			
+			<div class='evopadb20'>
+				<?php
+				echo $VO->get_vos_action_btn_html( $EVENT->ID, 'event');
+				?>
+			</div>
+			<form class='evovo_settings_form'>
+				<?php
+
+				EVO()->elements->print_hidden_inputs( array(
+					'eid'=> $event_id,
+					'action'=> 'evovo_save_settings'
+				));			
+
+				echo EVO()->elements->process_multiple_elements(array(
+					array(
+						'id'=>		'_evovo_var_sep_sold',
+						'type'=>'yesno_btn',
+						'value'=>		$EVENT->get_prop('_evovo_var_sep_sold'), 
+						'input'=>	true,
+						'label'=>	__('Sell Variations as separate ticket (Only when you have single variation type)','evovo'),
+						'tooltip'=>	__('This will allow customers to add each variation type to cart as separate tickets, this is only available when there is only single variation type. When this is enabled price options will not display.','evovo')
+					),
+					array(
+						'type'=>'yesno_btn',
+						'id'=>		'_evovo_po_sep_sold',
+						'value'=>		$EVENT->get_prop('_evovo_po_sep_sold'), 
+						'input'=>	true,
+						'label'=>	__('Sell Price Options as Separate Tickets','evovo'),
+						'tooltip'=>	__('This will enable you to sell price options as separate tickets instead of a single ticket. Variations will be disabled when this is active.','evovo')
+					),
+					/*
+					array(
+						'type'=>'yesno_btn',
+						'id'=>		'_evovo_po_uncor_qty',
+						'value'=>		$EVENT->get_prop('_evovo_po_uncor_qty'), 
+						'input'=>	true,
+						'label'=>	__('Set Price Options quantity uncorrelated to ticket quantity','evovo'),
+						'tooltip'=>	__('Setting this will, make price options quantity not change with the ticket quantity. Not supported with Price Options as separate tickets','evovo')
+					),
+					*/
+					array(
+						'type'=>'yesno_btn',
+						'id'=>		'_evovo_v_hide_sold',
+						'value'=>		$EVENT->get_prop( '_evovo_v_hide_sold'), 
+						'input'=>	true,
+						'label'=>	__('Hide variations that are out of stock','evovo'),
+						'tooltip'=>	__('This will not show variations that are sold out, when page first loads.','evovo')
+					),array(
+						'type'=>'yesno_btn',
+						'id'=>		'_evovo_op_hide_sold',
+						'value'=>		$EVENT->get_prop( '_evovo_op_hide_sold'), 
+						'input'=>	true,
+						'label'=>	__('Hide options that are out of stock','evovo'),
+						'tooltip'=>	__('This will not show options that are sold out, when page first loads.','evovo')
+					)
+				));
+
+			?>
+			<p><?php
+				// save changes
+				EVO()->elements->print_trigger_element(array(
+					'title'=>__('Save Changes','evotx'),
+					'uid'=>'evovo_save_settings',
+					'lb_class' =>'evovo_lightbox',
+					'lb_loader'=> true,
+					'lb_hide'=> 2000,
+				), 'trig_form_submit');
+			?></p>
+		</form>
+		</div>
+
+		<?php
+
+		echo json_encode(array(
+			'content'=> ob_get_clean(),			
+			'status'=>'good'
+		)); exit;
+	}
+
+	function get_vo_items_content( $VO , $EVENT){
+		ob_start();
+
+		$VO->print_all_vos_container_html( $EVENT->ID, 'event',false );
+		
+		return ob_get_clean();
+	}
+
+	function save_settings(){
+		
+		$EVENT = new EVO_Event( $this->postdata['eid']);
+		
+		foreach(array(
+			'_evovo_var_sep_sold','_evovo_po_sep_sold','_evovo_v_hide_sold','_evovo_op_hide_sold','_evovo_po_uncor_qty'
+		) as $key){
+			if( !isset( $this->postdata[ $key ])) continue;
+			$EVENT->save_meta( $key, $this->postdata[ $key ] );
+		}
+
+		echo json_encode(array(
+			'msg'=> __("Settings Successfully Saved",'evovo'),			
+			'status'=>'good'
+		)); exit;
 	}
 
 // GET FORM
-	function evovo_new_options_form(){
+	function get_vo_form(){
 		ob_start();
 		$fnc = new evovo_fnc();
 
-		$HELP = new evo_helper();
-		$PP = $HELP->recursive_sanitize_array_fields( $_POST);
+		$PP = $this->postdata;
+
+		// legacy
+			$PP['json'] = array(); 
+			$PP['json']['type'] = $PP['type'];
 		
+		extract($PP);
+
 		$curSYM = get_woocommerce_currency_symbol();
 		
-		$json = $PP['json'];
-		$method = $json['method'];
-		$vo_id = isset($json['vo_id'])? $json['vo_id']: false;
+		$method = $PP['method'];
+		$vo_id = !empty($vo_id) ? $vo_id: rand(100000, 900000);;
+
+		$EVENT = new EVO_Event( $event_id );		
+		$VO = new EVOVO_Var_opts($EVENT, $wcid );
+
 		
 		$values = array();
 
@@ -44,24 +180,44 @@ class evovo_admin_ajax{
 			}
 		?>
 
-		<div class="evovo_add_block_form evovo_add_options_form">		
-			<input type="hidden" name='option_type' value='<?php echo $method;?>'>				
-			<input type="hidden" class='input' name='save' value='<?php echo isset($json['save'])? $json['save']:'yes';?>'>			
-			<?php 
+		<div class="evovo_add_block_form evovo_add_options_form evopad20">	
+		<form class='evovo_vo_form'>	
+			<?php
+				EVO()->elements->print_hidden_inputs( array(
+					'save'=>isset($PP['save'])? $PP['save']:'yes',
+					'event_id'=> $event_id,
+					'wcid'=> $wcid,
+					'parent_id'	=> $parent_id,
+					'vo_id'	=> $vo_id,
+					'parent_type'	=> $parent_type,					
+					'method'	=> $method,
+					'type'	=> !empty($type) ? $type : null,
+					'save'	=>  !empty($save) ? $save: null,
+					'action'=> 'evovo_save_vo_form'
+				));
+
+			echo EVO()->elements->get_element(array(
+				'type'=>'notice','row_class'=>'evopadb10',
+				'name'=>__("VO Item ID") .': <b>'. $vo_id .'</b>'
+			));
+			echo EVO()->elements->get_element(array(
+				'type'=>'notice','row_class'=>'evopadb10',
+				'name'=>__("VO Parent Type") .': <b>'. $parent_type .' (#'. $parent_id.')</b>'
+			));
+			
+			
 
 			$form_go = true;
-
-			$EVENT = new EVO_Event( $json['event_id'] );		
-			$VO = new EVOVO_Var_opts($EVENT, (int)$json['wcid']);
+			
 
 			// if editing load passed on or saved values
-			if(( $json['type'] == 'temp' || $json['type'] == 'edit')  && $vo_id ){
-				$VO->set_new_method( $json['method'] );
+			if(( $PP['type'] == 'temp' || $PP['type'] == 'edit')  && $vo_id ){
+				$VO->set_new_method( $PP['method'] );
 				$VO->set_item_data($vo_id , $vo_data);
 				$values = $VO->item_data;
 			}
 
-			switch($json['method']){
+			switch($PP['method']){
 				case 'variation':							
 				
 					// fields
@@ -152,7 +308,7 @@ class evovo_admin_ajax{
 						'options'=>array(
 							'label'=> __('Ticket Variation Options (separated by comma) Do not use - or , as part of a option value','evovo'),
 							'req'=>true, 'type'=>'textarea'	,
-							'description'=> ( ($json['type'] == 'edit' && isset($json['vo_id']))? __('If you change the ticket variation option values, you will need to re-create ticket variations.','evovo'):'')			
+							'description'=> ( ($PP['type'] == 'edit' && isset($PP['vo_id']))? __('If you change the ticket variation option values, you will need to re-create ticket variations.','evovo'):'')			
 						),
 						
 					), $PP);
@@ -208,75 +364,84 @@ class evovo_admin_ajax{
 			}
 
 			//print_r($form_fields);
-				if( $form_go):
-					foreach($form_fields as $key=>$data):
-						$required = (isset($data['req']) && $data['req'])?true: false;
+			if( $form_go):
+				foreach($form_fields as $key=>$data):
+					$required = (isset($data['req']) && $data['req'])?true: false;
 
-						// select field type
-							if($data['type'] == 'select'):?>
-								<p><label><?php echo $data['label'];?></label>
-									<select class='input' name='<?php echo $key;?>'>
-									<?php 
-									foreach($data['options'] as $key_=>$val){
-										?><option value="<?php echo addslashes($key_);?>" <?php echo (!empty($data['value']) && $data['value']==$key_)? 'selected="selected"':'' ;?> ><?php echo $val;?></option><?php
-									}
-									?>
-									</select>
-								</p> 
-
-							<?php 
-
-						// populate button
-							elseif($data['type'] == 'populate_button' && $json['type']=='new'):
-								$attrs = '';				
-								foreach(array(
-									'data-vos' => $data['data'],
-									'data-vn' => $data['vn'],
-								) as $key=>$val){
-									$attrs .= $key .'="'. htmlentities($val) .'" ';
+					// select field type
+						if($data['type'] == 'select'):?>
+							<p><label><?php echo $data['label'];?></label>
+								<select class='input' name='<?php echo $key;?>'>
+								<?php 
+								foreach($data['options'] as $key_=>$val){
+									?><option value="<?php echo addslashes($key_);?>" <?php echo (!empty($data['value']) && $data['value']==$key_)? 'selected="selected"':'' ;?> ><?php echo $val;?></option><?php
 								}
-
-							?>
-								<p><a class='evovo_vt_popupate_with evo_admin_btn btn_triad' <?php echo $attrs;?>><?php echo $data['label'];?></a></p>
+								?>
+								</select>
+							</p> 
 
 						<?php 
 
-						// textarea field type
-						elseif($data['type'] == 'textarea'):?>
-							<p><label><?php echo $data['label'];?> <?php echo ($required)?'*':'';?></label>
-								<textarea name="<?php echo $key;?>" class='input <?php echo $required?'req':'';?>' style='width:100%'><?php echo $this->check_v($values,$key);?></textarea>
-								<?php if(isset($data['description'])):?>
-									<span style='padding-top:5px;font-style:italic;font-size:13px'><?php echo $data['description'];?></span>
-								<?php endif;?>
-							</p>
-						<?php 
+					// populate button
+						elseif($data['type'] == 'populate_button' && $PP['type']=='new'):
+							$attrs = '';				
+							foreach(array(
+								'data-vos' => $data['data'],
+								'data-vn' => $data['vn'],
+							) as $key=>$val){
+								$attrs .= $key .'="'. htmlentities($val) .'" ';
+							}
 
-						// regular input field
-						else:?>
-							<p><label><?php echo $data['label'];?> <?php echo ($required)?'*':'';?></label>
-								<input class='input <?php echo $required?'req':'';?>' name='<?php echo $key;?>' type="text" value='<?php echo $this->check_v($values,$key);?>'>
-								<?php if(isset($data['description'])):?>
-									<span style='padding-top:5px;font-style:italic;font-size:13px'><?php echo $data['description'];?></span>
-								<?php endif;?>
-							</p>
-							
-					<?php endif;?>
-				<?php endforeach;?>
-			<?php endif;?>
+						?>
+							<p><a class='evovo_vt_popupate_with evo_admin_btn btn_triad' <?php echo $attrs;?>><?php echo $data['label'];?></a></p>
 
-			<?php
-				$attrs = '';				
-				foreach(array(
-					'data-json' => json_encode($json)
-				) as $key=>$val){
-					$attrs .= $key .'="'. htmlentities($val) .'" ';
-				}
+					<?php 
 
-			do_action('evovo_new_edit_form',$values, $_POST);
+					// textarea field type
+					elseif($data['type'] == 'textarea'):?>
+						<p><label><?php echo $data['label'];?> <?php echo ($required)?'*':'';?></label>
+							<textarea name="<?php echo $key;?>" class='input <?php echo $required?'req':'';?>' style='width:100%'><?php echo $this->check_v($values,$key);?></textarea>
+							<?php if(isset($data['description'])):?>
+								<span style='padding-top:5px;font-style:italic;font-size:13px'><?php echo $data['description'];?></span>
+							<?php endif;?>
+						</p>
+					<?php 
+
+					// regular input field
+					else:?>
+						<p><label><?php echo $data['label'];?> <?php echo ($required)?'*':'';?></label>
+							<input class='input <?php echo $required?'req':'';?>' name='<?php echo $key;?>' type="text" value='<?php echo $this->check_v($values,$key);?>'>
+							<?php if(isset($data['description'])):?>
+								<span style='padding-top:5px;font-style:italic;font-size:13px'><?php echo $data['description'];?></span>
+							<?php endif;?>
+						</p>
+						
+				<?php endif;
+				endforeach;
+
+			endif;				
+
+			do_action('evovo_new_edit_form',$values, $PP);
 			
-			if( $form_go): ?>
-				<p><a class='evovo_form_submission evo_btn' <?php echo $attrs;?>><?php echo $json['type']=='new'? 'Add New':'Save';?></a></p>
+			// show save form
+			if( $form_go): 
+				?>
+				<p><?php
+					// save changes
+					EVO()->elements->print_trigger_element(array(
+						'class_attr'=> 'evo_btn evovo_form_submission',
+						'title'=>__('Save Changes','evotx'),
+						'uid'=>'evovo_save_vo_form',
+						'lb_class' =>'evovo_editor',
+						'lb_loader'=>true,
+						'lb_hide'=> 2000,
+						'lb_load_new_content'=>true,
+						'load_new_content_id'=>'evovo_items_content'
+					), 'trig_form_submit');
+				?></p>
 			<?php endif;?>
+
+			</form>
 		</div>
 		
 		<?php
@@ -291,49 +456,47 @@ class evovo_admin_ajax{
 		return isset($arr[$field])? $arr[$field]:'';
 	}
 
-
-// Save or generate the variation options data to event
+// Save or generate the variation options data 
 	function evovo_save_vo_data(){
 
 		$HELP = new evo_helper();
+
+		$PP = $this->postdata;
+		extract($PP);
+
+
+		$EVENT = new EVO_Event( $event_id );
+		$VO = new EVOVO_Var_opts( $EVENT, $wcid, $method );
+
 		
-		$vo_data = $this->evovo_get_new_vo_data();
-		$all_vo_data = array();
+		$new_vo_data = $this->evovo_get_new_vo_data( $PP );
+		
+		// if editting 
+		if( !empty($vo_id)) $new_vo_data[ 'vo_id' ]= $vo_id;
 
-		// if vo_id passed override with that
-		$json = $HELP->recursive_sanitize_array_fields($_POST['json']);
 
-		$vo_parent_type = isset($json['parent_type']) ? $json['parent_type']: 'event';
-		$vo_parent_id = isset($json['parent_id']) ? $json['parent_id']: '';
-
-		if(!empty($json['vo_id'])) $vo_data['vo_id'] = (int)$json['vo_id'] ;
-
+		/*
 		// combine other vo_data with new one
 			$all_vo_data = isset($_POST['all_vo_data']) && !empty($_POST['all_vo_data'])? $_POST['all_vo_data']: array();
 			
 			if(!isset($all_vo_data[$vo_data['method']])) $all_vo_data[$vo_data['method']] = array();
 			$all_vo_data[$vo_data['method']][ $vo_data['vo_id'] ] = $vo_data;
-			
+		*/	
 
-		$EVENT = new EVO_Event($vo_data['event_id']);
-		$VO = new EVOVO_Var_opts( $EVENT, $vo_data['wcid'], $vo_data['method'] );
 
 		// pass newly created id and all vo data
-		do_action('evovo_save_vo_before_save', $vo_data, $all_vo_data, $EVENT, $VO);	
+		//do_action('evovo_save_vo_before_save', $vo_data, $all_vo_data, $EVENT, $VO);	
+		
+		
+		// save the new values
+		$VO->save_item( $new_vo_data['vo_id'], $new_vo_data);
 
-		// save options
-		$save = isset($vo_data['save']) && $vo_data['save'] == 'no' ? false: true;
-
-	
-		// save the VO data only if requested
-			if($save){			
-				$result = $VO->save_item( $vo_data['vo_id'], $vo_data);
-			} 
-
+		do_action('evovo_after_save', $new_vo_data , $EVENT, $VO, $PP);
+		
 		// if adding variation, disable manage ticket stock and remove stock
-		if( $vo_data['method'] == 'variation'){
+		if( $method == 'variation'){
 			global $product;
-			$product = wc_get_product( (int)$vo_data['wcid']);
+			$product = wc_get_product( $wcid );
 			if(!is_bool($product)){
 				$product->set_manage_stock(false);
 				$product->set_stock_quantity('');
@@ -341,23 +504,22 @@ class evovo_admin_ajax{
 			}			
 		}
 
-		do_action('evovo_save_vo_before_echo', $vo_data, $EVENT, $json);		
+		do_action('evovo_after_save_wc', $new_vo_data , $EVENT, $VO, $PP);
+
+		//do_action('evovo_save_vo_before_echo', $vo_data, $EVENT, $json, $all_vo_data);		
 
 
 		echo json_encode(array(
-			'html'=>	$VO->get_all_vos_html( $vo_parent_id , $vo_parent_type, false, $all_vo_data), 
+			'content'=>	$this->get_vo_items_content( $VO, $EVENT ),
 			'status'=>	'good',
-			'msg'=>	($json['type'] == 'edit')?__('Successfully Updated!','evovo'):__('Successfully Added!','evovo'),
-			'data'=> $vo_data,
-			'all_vo_data'=> $all_vo_data
+			'msg'=>	($type == 'edit')?__('Successfully Updated!','evovo'):__('Successfully Added!','evovo'),
+			
 		)); exit;
 	}
 
 
-	// just return the VO values with a new ID
-	public function evovo_get_new_vo_data(){
-		$post = array();
-		$json = $_POST['json'];
+	// return the VO values with a new ID
+	public function evovo_get_new_vo_data( $data ){				
 
 		$new_data = array(
 			'method'=>'',
@@ -365,25 +527,17 @@ class evovo_admin_ajax{
 			'parent_id'=>'',			
 		);
 
-		// include json values in new data
-		foreach($json as $k=>$v){
-			$new_data[ $k] = sanitize_text_field( $v);
-		}
-
 		// Process each submitted post values
-		foreach($_POST as $key=>$val){
-			if(in_array($key, array('vo_id','action','json', 'all_vo_data'))) continue;			
-
-			$new_data[$key] = !is_array($val)? 
-				sanitize_text_field(urldecode($val)): $val;
+		foreach($data as $key=>$val){
+			if(in_array($key, array('action','json', 'all_vo_data','save','type'))) continue;			
 
 			// remove dash from variation type option values
 			if(isset($new_data['method']) && $new_data['method'] == 'variation_type' && $key == 'options'){
 				$new_data[$key] = str_replace('-', ' ', urldecode($val) );
+			}else{
+				$new_data[$key] = $val;
 			}
 		}
-
-		$new_data['vo_id'] = rand(100000, 900000);
 
 		return $new_data;
 	}
@@ -391,39 +545,37 @@ class evovo_admin_ajax{
 // Save new order
 	public function evovo_save_order(){
 		
-		$HELP = new evo_helper();
-		$PP = $HELP->recursive_sanitize_array_fields( $_POST);
+		$PP = $this->postdata;
 
 		$new_order = $PP['data'];
+		$DD = $PP['d'];
 
-		$VO = new EVOVO_Var_opts( $PP['eid'], $PP['wcid'] );
+		$VO = new EVOVO_Var_opts( $DD['eid'], $DD['wcid'] );
 
-		$R = $VO->save_parent_vo_data_order( $PP['parent_id'], $PP['parent_type'], $new_order);
+		$R = $VO->save_parent_vo_data_order( $DD['parent_id'], $DD['parent_type'], $new_order);
 
 		echo json_encode(array(
 			'status'=>	'good',
-			'msg'=>	__('Order Saved','evovo'),
-			'data'=> $R
+			'msg'=>	__('New Order Saved','evovo'),
 		)); exit;
 	}
 	
 // Delete an item
 	function delete_item(){
-		$json = $_POST['json'];
 
-		$vo_method = $json['method'];
-		$vo_id = (int)$json['vo_id'];
+		extract( $this->postdata );
 
-		$EVENT = new EVO_Event($json['event_id']);
-		$VO = new EVOVO_Var_opts( $EVENT, $json['wcid'], $vo_method );
+		$EVENT = new EVO_Event( $event_id );
+		$VO = new EVOVO_Var_opts( $EVENT, $wcid, $method );
 
 		$result = $VO->delete_item( $vo_id );
 
+		do_action('evovo_after_delete', $EVENT, $VO,  $this->postdata );
 
 		echo json_encode(array(
 			'status'=>	$result?'good':'bad',
 			'msg'=>	__('Successfully Deleted!','evovo'),
-			'd'=> $VO->dataset,
+			'content'=> $this->get_vo_items_content( $VO, $EVENT ),
 		)); exit;
 	}
 }

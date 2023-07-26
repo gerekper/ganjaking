@@ -915,8 +915,6 @@ class WC_Subscriptions_Switcher {
 	 * @since 2.0
 	 */
 	public static function process_checkout( $order_id, $posted_data = array() ) {
-		global $wpdb;
-
 		if ( ! WC_Subscriptions_Cart::cart_contains_subscription() ) {
 			return;
 		}
@@ -925,46 +923,141 @@ class WC_Subscriptions_Switcher {
 		$switch_order_data = array();
 
 		try {
-
 			foreach ( WC()->cart->recurring_carts as $recurring_cart_key => $recurring_cart ) {
+				$subscription = false;
 
+				// Find the subscription for this recurring cart switch.
 				foreach ( $recurring_cart->get_cart() as $cart_item_key => $cart_item ) {
-
+					// A switch recurring cart shouldn't contain any cart items that are not switched.
 					if ( ! isset( $cart_item['subscription_switch']['subscription_id'] ) ) {
-						continue;
+						continue 2;
 					}
 
+					// All cart items in a switch recurring cart should have the same subscription ID.
 					$subscription = wcs_get_subscription( $cart_item['subscription_switch']['subscription_id'] );
+					break;
+				}
 
-					// If we haven't calculated a first payment date, fall back to the recurring cart's next payment date.
-					if ( 0 == $cart_item['subscription_switch']['first_payment_timestamp'] ) {
-						$cart_item['subscription_switch']['first_payment_timestamp'] = wcs_date_to_time( $recurring_cart->next_payment_date );
+				if ( ! $subscription ) {
+					continue;
+				}
+
+				/**
+				 * One-time calculations
+				 *
+				 * Coupons, fees and shipping are calculated a single time for each recurring cart.
+				 */
+
+				// If there are coupons in the cart, mark them for pending addition
+				$new_coupons = array();
+
+				foreach ( $recurring_cart->get_coupons() as $coupon_code => $coupon ) {
+					$coupon_item = new WC_Subscription_Item_Coupon_Pending_Switch( $coupon_code );
+					$coupon_item->set_props(
+						array(
+							'code'         => $coupon_code,
+							'discount'     => $recurring_cart->get_coupon_discount_amount( $coupon_code ),
+							'discount_tax' => $recurring_cart->get_coupon_discount_tax_amount( $coupon_code ),
+						)
+					);
+
+					$coupon_data = $coupon->get_data();
+
+					// Avoid storing used_by - it's not needed and can get large.
+					unset( $coupon_data['used_by'] );
+
+					$coupon_item->add_meta_data( 'coupon_data', $coupon_data );
+					$coupon_item->save();
+
+					do_action( 'woocommerce_checkout_create_order_coupon_item', $coupon_item, $coupon_code, $coupon, $subscription );
+
+					$subscription->add_item( $coupon_item );
+					$new_coupons[] = $coupon_item->get_id();
+				}
+
+				$subscription->save();
+				$switch_order_data[ $subscription->get_id() ]['coupons'] = $new_coupons;
+
+				// If there are fees in the cart, mark them for pending addition
+				$new_fee_items = array();
+				foreach ( $recurring_cart->get_fees() as $fee_key => $fee ) {
+					$fee_item = new WC_Subscription_Item_Fee_Pending_Switch();
+					$fee_item->set_props(
+						array(
+							'name'       => $fee->name,
+							'tax_status' => $fee->taxable,
+							'amount'     => $fee->amount,
+							'total'      => $fee->total,
+							'tax'        => $fee->tax,
+							'tax_class'  => $fee->tax_class,
+							'tax_data'   => $fee->tax_data,
+						)
+					);
+
+					$fee_item->save();
+
+					do_action( 'woocommerce_checkout_create_order_fee_item', $fee_item, $fee_key, $fee, $subscription );
+
+					$subscription->add_item( $fee_item );
+					$new_fee_items[] = $fee_item->get_id();
+				}
+
+				$subscription->save();
+				$switch_order_data[ $subscription->get_id() ]['fee_items'] = $new_fee_items;
+
+				if ( ! isset( $switch_order_data[ $subscription->get_id() ]['shipping_line_items'] ) ) {
+					// Add the shipping
+					// Keep a record of the current shipping line items so we can flip any new shipping items to a _pending_switch shipping item.
+					$current_shipping_line_items = array_keys( $subscription->get_shipping_methods() );
+					$new_shipping_line_items     = array();
+
+					// Keep a record of the subscription shipping total. Adding shipping methods will cause a new shipping total to be set, we'll need to set it back after.
+					$subscription_shipping_total = $subscription->get_total_shipping();
+
+					WC_Subscriptions_Checkout::add_shipping( $subscription, $recurring_cart );
+
+					// We must save the subscription, we need the Shipping method saved
+					// otherwise the ID is bogus (new:1) and we need it.
+					$subscription->save();
+
+					// Set all new shipping methods to shipping_pending_switch line items
+					foreach ( $subscription->get_shipping_methods() as $shipping_line_item_id => $shipping_meta ) {
+						if ( ! in_array( $shipping_line_item_id, $current_shipping_line_items ) ) {
+							wcs_update_order_item_type( $shipping_line_item_id, 'shipping_pending_switch', $subscription->get_id() );
+							$new_shipping_line_items[] = $shipping_line_item_id;
+						}
 					}
 
-					$is_different_billing_schedule = self::has_different_billing_schedule( $cart_item, $subscription );
-					$is_different_payment_date     = self::has_different_payment_date( $cart_item, $subscription );
-					$is_different_length           = self::has_different_length( $recurring_cart, $subscription );
-					$is_single_item_subscription   = self::is_single_item_subscription( $subscription );
+					$subscription->set_shipping_total( $subscription_shipping_total );
+					$switch_order_data[ $subscription->get_id() ]['shipping_line_items'] = $new_shipping_line_items;
 
-					$switched_item_data = array();
+					// Loop through cart items to add them to the switched subscription.
+					foreach ( $recurring_cart->get_cart() as $cart_item_key => $cart_item ) {
 
-					if ( ! empty( $cart_item['subscription_switch']['item_id'] ) ) {
-						$existing_item                          = wcs_get_order_item( $cart_item['subscription_switch']['item_id'], $subscription );
-						$switch_item                            = new WCS_Switch_Cart_Item( $cart_item, $subscription, $existing_item );
-						$is_switch_with_matching_trials         = $switch_item->is_switch_during_trial() && $switch_item->trial_periods_match();
-						$switched_item_data['remove_line_item'] = $cart_item['subscription_switch']['item_id'];
-						$switched_item_data['switch_direction'] = $switch_item->get_switch_type();
-					}
+						// If we haven't calculated a first payment date, fall back to the recurring cart's next payment date.
+						if ( 0 == $cart_item['subscription_switch']['first_payment_timestamp'] ) {
+							$cart_item['subscription_switch']['first_payment_timestamp'] = wcs_date_to_time( $recurring_cart->next_payment_date );
+						}
 
-					// If the item is on the same schedule, we can just add it to the new subscription and remove the old item.
-					if ( $is_single_item_subscription || ( false === $is_different_billing_schedule && false === $is_different_payment_date && false === $is_different_length ) ) {
+						$is_different_billing_schedule = self::has_different_billing_schedule( $cart_item, $subscription );
+						$is_different_payment_date     = self::has_different_payment_date( $cart_item, $subscription );
+						$is_different_length           = self::has_different_length( $recurring_cart, $subscription );
+						$is_single_item_subscription   = self::is_single_item_subscription( $subscription );
 
-						// Add the new item
-						if ( wcs_is_woocommerce_pre( '3.0' ) ) {
-							$item_id = WC_Subscriptions_Checkout::add_cart_item( $subscription, $cart_item, $cart_item_key );
-							wcs_update_order_item_type( $item_id, 'line_item_pending_switch', $subscription->get_id() );
-						} else {
-							$item = new WC_Order_Item_Pending_Switch;
+						$switched_item_data = array();
+
+						if ( ! empty( $cart_item['subscription_switch']['item_id'] ) ) {
+							$existing_item                          = wcs_get_order_item( $cart_item['subscription_switch']['item_id'], $subscription );
+							$switch_item                            = new WCS_Switch_Cart_Item( $cart_item, $subscription, $existing_item );
+							$is_switch_with_matching_trials         = $switch_item->is_switch_during_trial() && $switch_item->trial_periods_match();
+							$switched_item_data['remove_line_item'] = $cart_item['subscription_switch' ]['item_id'];
+							$switched_item_data['switch_direction'] = $switch_item->get_switch_type();
+						}
+
+						// If the item is on the same schedule, we can just add it to the new subscription and remove the old item.
+						if ( $is_single_item_subscription || ( false === $is_different_billing_schedule && false === $is_different_payment_date && false === $is_different_length ) ) {
+							// Add the new item
+							$item                       = new WC_Order_Item_Pending_Switch;
 							$item->legacy_values        = $cart_item; // @deprecated For legacy actions.
 							$item->legacy_cart_item_key = $cart_item_key; // @deprecated For legacy actions.
 							$item->set_props( array(
@@ -977,8 +1070,8 @@ class WC_Subscriptions_Switcher {
 								'taxes'        => $cart_item['line_tax_data'],
 							) );
 
-							if ( ! empty( $cart_item['data'] ) ) {
-								$product = $cart_item['data'];
+							if ( ! empty( $cart_item[ 'data' ] ) ) {
+								$product = $cart_item[ 'data' ];
 								$item->set_props( array(
 									'name'         => $product->get_name(),
 									'tax_class'    => $product->get_tax_class(),
@@ -998,147 +1091,63 @@ class WC_Subscriptions_Switcher {
 							// The subscription is not saved automatically, we need to call 'save' because we added an item
 							$subscription->save();
 							$item_id = $item->get_id();
+
+							$switched_item_data['add_line_item'] = $item_id;
+
+							// Remove the item from the cart so that WC_Subscriptions_Checkout doesn't add it to a subscription
+							if ( 1 == count( WC()->cart->recurring_carts[ $recurring_cart_key ]->get_cart() ) ) {
+								// If this is the only item in the cart, clear out recurring carts so WC_Subscriptions_Checkout doesn't try to create an empty subscription
+								unset( WC()->cart->recurring_carts[ $recurring_cart_key ] );
+							} else {
+								unset( WC()->cart->recurring_carts[ $recurring_cart_key ]->cart_contents[ $cart_item_key ] );
+							}
 						}
 
-						$switched_item_data['add_line_item'] = $item_id;
+						$switch_order_data[ $subscription->get_id() ]['switches'][ $cart_item['subscription_switch']['order_line_item_id'] ] = $switched_item_data;
 
-						// Remove the item from the cart so that WC_Subscriptions_Checkout doesn't add it to a subscription
-						if ( 1 == count( WC()->cart->recurring_carts[ $recurring_cart_key ]->get_cart() ) ) {
-							// If this is the only item in the cart, clear out recurring carts so WC_Subscriptions_Checkout doesn't try to create an empty subscription
-							unset( WC()->cart->recurring_carts[ $recurring_cart_key ] );
-						} else {
-							unset( WC()->cart->recurring_carts[ $recurring_cart_key ]->cart_contents[ $cart_item_key ] );
-						}
-					}
+						// If the old subscription has just one item, we can safely update its billing schedule
+						if ( $is_single_item_subscription ) {
 
-					$switch_order_data[ $subscription->get_id() ]['switches'][ $cart_item['subscription_switch']['order_line_item_id'] ] = $switched_item_data;
+							if ( $is_different_billing_schedule ) {
+								$switch_order_data[ $subscription->get_id() ]['billing_schedule']['_billing_period']   = WC_Subscriptions_Product::get_period( $cart_item['data'] );
+								$switch_order_data[ $subscription->get_id() ]['billing_schedule']['_billing_interval'] = absint( WC_Subscriptions_Product::get_interval( $cart_item['data'] ) );
+							}
 
-					// If the old subscription has just one item, we can safely update its billing schedule
-					if ( $is_single_item_subscription ) {
+							$updated_dates = array();
 
-						if ( $is_different_billing_schedule ) {
-							$switch_order_data[ $subscription->get_id() ]['billing_schedule']['_billing_period']   = WC_Subscriptions_Product::get_period( $cart_item['data'] );
-							$switch_order_data[ $subscription->get_id() ]['billing_schedule']['_billing_interval'] = absint( WC_Subscriptions_Product::get_interval( $cart_item['data'] ) );
-						}
+							if ( '1' == WC_Subscriptions_Product::get_length( $cart_item['data'] ) || ( 0 != $recurring_cart->end_date && gmdate( 'Y-m-d H:i:s', $cart_item['subscription_switch']['first_payment_timestamp'] ) >= $recurring_cart->end_date ) ) {
+								// Delete the next payment date.
+								$updated_dates['next_payment'] = 0;
+							} else if ( $is_different_payment_date ) {
+								$updated_dates['next_payment'] = gmdate( 'Y-m-d H:i:s', $cart_item['subscription_switch']['first_payment_timestamp'] );
+							}
 
-						$updated_dates = array();
+							if ( $is_different_length ) {
+								$updated_dates['end'] = $recurring_cart->end_date;
+							}
 
-						if ( '1' == WC_Subscriptions_Product::get_length( $cart_item['data'] ) || ( 0 != $recurring_cart->end_date && gmdate( 'Y-m-d H:i:s', $cart_item['subscription_switch']['first_payment_timestamp'] ) >= $recurring_cart->end_date ) ) {
-							// Delete the next payment date.
-							$updated_dates['next_payment'] = 0;
-						} else if ( $is_different_payment_date ) {
-							$updated_dates['next_payment'] = gmdate( 'Y-m-d H:i:s', $cart_item['subscription_switch']['first_payment_timestamp'] );
-						}
+							// If the switch should maintain the current trial or delete it.
+							if ( isset( $is_switch_with_matching_trials ) && $is_switch_with_matching_trials ) {
+								$updated_dates['trial_end'] = $subscription->get_date( 'trial_end' );
+							} else {
+								$updated_dates['trial_end'] = 0;
+							}
 
-						if ( $is_different_length ) {
-							$updated_dates['end'] = $recurring_cart->end_date;
-						}
-
-						// If the switch should maintain the current trial or delete it.
-						if ( isset( $is_switch_with_matching_trials ) && $is_switch_with_matching_trials ) {
-							$updated_dates['trial_end'] = $subscription->get_date( 'trial_end' );
-						} else {
-							$updated_dates['trial_end'] = 0;
-						}
-
-						if ( ! empty( $updated_dates ) ) {
-							$subscription->validate_date_updates( $updated_dates );
-							$switch_order_data[ $subscription->get_id() ]['dates']['update'] = $updated_dates;
-						}
-					}
-
-					// If there are coupons in the cart, mark them for pending addition
-					$new_coupons      = array();
-					foreach ( $recurring_cart->get_coupons() as $coupon_code => $coupon ) {
-						$coupon_item = new WC_Subscription_Item_Coupon_Pending_Switch( $coupon_code );
-						$coupon_item->set_props(
-							array(
-								'code'         => $coupon_code,
-								'discount'     => $recurring_cart->get_coupon_discount_amount( $coupon_code ),
-								'discount_tax' => $recurring_cart->get_coupon_discount_tax_amount( $coupon_code ),
-							)
-						);
-						// Avoid storing used_by - it's not needed and can get large.
-						$coupon_data = $coupon->get_data();
-						unset( $coupon_data['used_by'] );
-						$coupon_item->add_meta_data( 'coupon_data', $coupon_data );
-
-						$coupon_item->save();
-						do_action( 'woocommerce_checkout_create_order_coupon_item', $coupon_item, $coupon_code, $coupon, $subscription );
-						$subscription->add_item( $coupon_item );
-
-						$new_coupons[] = $coupon_item->get_id();
-					}
-					$subscription->save();
-					$switch_order_data[ $subscription->get_id() ]['coupons'] = $new_coupons;
-
-					// If there are fees in the cart, mark them for pending addition
-					$new_fee_items      = array();
-					foreach ( $recurring_cart->get_fees() as $fee_key => $fee ) {
-						$fee_item = new WC_Subscription_Item_Fee_Pending_Switch();
-						$fee_item->set_props(
-							array(
-								'name'       => $fee->name,
-								'tax_status' => $fee->taxable,
-								'amount'     => $fee->amount,
-								'total'      => $fee->total,
-								'tax'        => $fee->tax,
-								'tax_class'  => $fee->tax_class,
-								'tax_data'   => $fee->tax_data,
-							)
-						);
-
-						$fee_item->save();
-						do_action( 'woocommerce_checkout_create_order_fee_item', $fee_item, $fee_key, $fee, $subscription );
-						$subscription->add_item( $fee_item );
-
-						$new_fee_items[] = $fee_item->get_id();
-					}
-					$subscription->save();
-					$switch_order_data[ $subscription->get_id() ]['fee_items'] = $new_fee_items;
-
-					// Add the shipping
-					// Keep a record of the current shipping line items so we can flip any new shipping items to a _pending_switch shipping item.
-					$current_shipping_line_items = array_keys( $subscription->get_shipping_methods() );
-					$new_shipping_line_items     = array();
-
-					// Keep a record of the subscription shipping total. Adding shipping methods will cause a new shipping total to be set, we'll need to set it back after.
-					$subscription_shipping_total = $subscription->get_total_shipping();
-
-					WC_Subscriptions_Checkout::add_shipping( $subscription, $recurring_cart );
-
-					if ( ! wcs_is_woocommerce_pre( '3.0' ) ) {
-						// We must save the subscription, we need the Shipping method saved
-						// otherwise the ID is bogus (new:1) and we need it.
-						$subscription->save();
-					}
-
-					// Set all new shipping methods to shipping_pending_switch line items
-					foreach ( $subscription->get_shipping_methods() as $shipping_line_item_id => $shipping_meta ) {
-
-						if ( ! in_array( $shipping_line_item_id, $current_shipping_line_items ) ) {
-							wcs_update_order_item_type( $shipping_line_item_id, 'shipping_pending_switch', $subscription->get_id() );
-							$new_shipping_line_items[] = $shipping_line_item_id;
+							if ( ! empty( $updated_dates ) ) {
+								$subscription->validate_date_updates( $updated_dates );
+								$switch_order_data[ $subscription->get_id() ]['dates']['update'] = $updated_dates;
+							}
 						}
 					}
-
-					if ( wcs_is_woocommerce_pre( '3.0' ) ) {
-						$subscription->set_total( $subscription_shipping_total, 'shipping' );
-					} else {
-						$subscription->set_shipping_total( $subscription_shipping_total );
-					}
-
-					$switch_order_data[ $subscription->get_id() ]['shipping_line_items'] = $new_shipping_line_items;
 				}
 			}
 
 			foreach ( $switch_order_data as $subscription_id => $switch_data ) {
-
 				// Cancel all the switch orders linked to the switched subscription(s) which haven't been completed yet - excluding this one.
 				$switch_orders = wcs_get_switch_orders_for_subscription( $subscription_id );
 
 				foreach ( $switch_orders as $switch_order_id => $switch_order ) {
-					if ( wcs_get_objects_property( $order, 'id' ) !== $switch_order_id && in_array( $switch_order->get_status(), apply_filters( 'woocommerce_valid_order_statuses_for_payment', array( 'pending', 'failed', 'on-hold' ), $switch_order ) ) ) {
+					if ( $order->get_id() !== $switch_order_id && in_array( $switch_order->get_status(), apply_filters( 'woocommerce_valid_order_statuses_for_payment', array( 'pending', 'failed', 'on-hold' ), $switch_order ) ) ) {
 						// translators: %s: order number.
 						$switch_order->update_status( 'cancelled', sprintf( __( 'Switch order cancelled due to a new switch order being created #%s.', 'woocommerce-subscriptions' ), $order->get_order_number() ) );
 					}

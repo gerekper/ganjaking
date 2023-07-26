@@ -4,8 +4,19 @@
  * @updated 1.8
  */
 
-class evotx_helper{
-	
+class evotx_helper extends evo_helper{
+
+	// select data html content
+		function print_select_data_element( $args){
+			$dd = array_merge(array(
+				'class'=>'evotx_other_data',
+				'data'=>array()
+			), $args);
+			extract($dd);
+
+			echo "<div class='{$class}' ". $this->array_to_html_data( $data ) ."></div>";
+		}
+		
 	// convert a value to proper currency
 		function convert_to_currency($price, $symbol = true){	
 			extract( apply_filters( 'wc_price_args', wp_parse_args( array(), array(
@@ -138,72 +149,38 @@ class evotx_helper{
 		
 	function total_price_html($price, $unqiue_class='', $wcid=''){
 		?>
-		<p class='evotx_addtocart_total <?php echo $unqiue_class;?>'>
+		<h4 class='evo_h4 evotx_addtocart_total <?php echo $unqiue_class;?>'>
 			<span class="evo_label"><?php evo_lang_e('Total Price');?></span>
 			<span class="value"  data-wcid='<?php echo $wcid;?>'><?php echo $this->convert_to_currency($price);?></span>
-		</p>
+		</h4>
 		<?php
 	}
-	function add_to_cart_btn_html($btn_class='', $data_arg = array()){
-		$str = '';
+	function add_to_cart_btn_html($btn_class='', $data_arg = array(), $cancel_btn_data = array() ){
+		
 		if(!isset($data_arg['green'])) $data_arg['green'] = 'y';
-		foreach( $data_arg as $field=>$val){
-			$str .= ' data-'.$field."='". $val."'";
-		}
+		
+		$data_addition = $this->array_to_html_data( $data_arg );
 
+		$can_btn_html = '';
+
+		if( count($cancel_btn_data)> 0 ){
+			$cancel_btn = array_merge(array(
+				'name'=>__('Cancel'),
+				'class'=>'evcal_btn',
+				'style'=>'',
+				'data'=> array()
+			), $cancel_btn_data);
+  
+			extract($cancel_btn);
+
+			$can_btn_html = "<span class='{$class}' style='{$style}' data-d='". json_encode($data) ."'>{$name}</span>";
+		}
 		?>
 		<p class='evotx_addtocart_button'>
-			<button class="evcal_btn <?php echo $btn_class;?>" style='margin-top:10px' <?php echo $str;?>><?php evo_lang_e('Add to Cart')?></button>
+			<?php echo $can_btn_html;?>
+			<button class="evcal_btn <?php echo $btn_class;?>" style='margin-top:10px' <?php echo $data_addition;?>><?php evo_lang_e('Add to Cart')?></button>
 		</p>
 		<?php
-	}
-
-	// Echo the add to cart item meta data
-	function print_add_to_cart_data($data = array()){
-
-		$data = $this->get_add_to_cart_evotx_data_ar($data);
-
-		$str = '';
-		foreach( $data as $field=>$val){
-			$str .= ' data-'.$field."='". json_encode($val)."'";
-		}
-		?>
-	 	<div class='evotx_data' <?php echo $str;?>></div>
-		<?php
-	}
-
-	// returns the evotx_data array content
-	function get_add_to_cart_evotx_data_ar($new_data = array()){
-
-		$daya = array();
-		$data['pf'] = $this->get_price_format_data();
-		$data['t'] = $this->get_text_strings();
-
-		$ticket_redirect = evo_settings_value(EVOTX()->evotx_opt,'evotx_wc_addcart_redirect');
-		$wc_redirect_cart = get_option( 'woocommerce_cart_redirect_after_add' );
-
-		$_hide_after = false;
-		
-		// if redirect is not set use wc redirect value
-		if( empty($ticket_redirect) && $wc_redirect_cart == 'yes') 
-			$ticket_redirect = 'cart';
-
-		
-		$data['msg_interaction']['redirect'] = $ticket_redirect;
-		$data['msg_interaction']['hide_after'] = $_hide_after;
-
-		// merging with defaults
-		if(count($new_data)>0){
-			foreach($new_data as $field=>$val){
-				if(count($val)>0){
-					foreach($val as $f=>$v){
-						$data[$field][$f] = $new_data[$field][$f];
-					}
-				}				
-			}
-		}
-		
-		return apply_filters('evotx_add_to_cart_evotxdata', $data);
 	}
 
 	// Return price formatting values
@@ -216,7 +193,7 @@ class evotx_helper{
 				'numDec'=> get_option('woocommerce_price_num_decimals')
 			);
 		}
-		private function get_text_strings(){
+		public function get_text_strings(){
 			return apply_filters('evotx_addtocart_text_strings',array(
 				't1'=> evo_lang('Added to cart'),
 				't2'=> evo_lang('View Cart'),
@@ -227,22 +204,18 @@ class evotx_helper{
 			));
 		}
 
-	// success or fail message HTML after adding to cart
+	// success or fail message HTML after adding to cart	
 	function add_to_cart_html($type='good', $msg=''){
 		$newWind = (evo_settings_check_yn(EVOTX()->evotx_opt,'evotx_cart_newwin'))? 'target="_blank"':'';
 		ob_start();
 		if( $type =='good'):
 			?>
-			<p class='evotx_success_msg'><b><?php evo_lang_e('Added to cart');?>!</b>
-			<span>
-				<a class='evcal_btn' href="<?php echo wc_get_cart_url();?>" <?php echo $newWind;?>><?php evo_lang_e('View Cart');?></a> 
-				<a class='evcal_btn' href="<?php echo wc_get_checkout_url();?>" <?php echo $newWind;?>><?php evo_lang_e('Checkout');?></a></span>
-			</p>
+			<p class='evotx_success_msg'><b><?php evo_lang_e('Added to cart');?>!</b></p>
 			<?php
 		else:
 			if(empty($msg)) $msg = evo_lang('Ticket could not be added to cart, try again later');
 			?>
-			<p class='evotx_success_msg bad'><b><?php echo $msg;?>!</b>
+			<p class='evotx_success_msg bad'><b><?php echo $msg;?>!</b></p>
 			<?php
 		endif;
 		return ob_get_clean();
@@ -250,12 +223,19 @@ class evotx_helper{
 
 	function __get_addtocart_msg_footer($type='', $msg=''){
 		?>
-		<div class='tx_wc_notic evotx_addtocart_msg'>
+		<div class='tx_wc_notic evotx_addtocart_msg marb20'>
 		<?php
-			if( !empty($type)){
+			if( !empty($type) ){
 				echo $this->add_to_cart_html($type, $msg);
 			}
 		?>
+		</div>
+		<div class='evotx_cart_actions' style='display:<?php echo $type == 'standalone' ? 'block':'none';?>'>
+			<?php 
+			$new_window = EVO()->cal->check_yn('evotx_cart_newwin','evcal_tx') ?  'target="_blank"':'';
+			?>
+			<a class='evcal_btn' href="<?php echo wc_get_cart_url();?>" <?php echo $new_window;?>><?php evo_lang_e('View Cart');?></a> 
+			<a class='evcal_btn' href="<?php echo wc_get_checkout_url();?>" <?php echo $new_window;?>><?php evo_lang_e('Checkout');?></a></span>
 		</div>
 		<?php
 	}
