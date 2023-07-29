@@ -27,7 +27,7 @@ use SkyVerge\WooCommerce\CSV_Export\Automations\Scheduler;
 use SkyVerge\WooCommerce\CSV_Export\Background_Mark_Exported;
 use SkyVerge\WooCommerce\CSV_Export\Integrations\Integrations;
 use SkyVerge\WooCommerce\CSV_Export\Taxonomies_Handler;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_6 as Framework;
 
 /**
  * WooCommerce Customer/Order/Coupon Export plugin class.
@@ -38,7 +38,7 @@ class WC_Customer_Order_CSV_Export extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '5.4.1';
+	const VERSION = '5.5.0';
 
 	/** @var WC_Customer_Order_CSV_Export single instance of this plugin */
 	protected static $instance;
@@ -110,6 +110,7 @@ class WC_Customer_Order_CSV_Export extends Framework\SV_WC_Plugin {
 			self::VERSION,
 			[
 				'text_domain'        => 'woocommerce-customer-order-csv-export',
+				'supports_hpos'      => true,
 				'dependencies'       => [
 					'php_extensions' => $this->get_extension_dependencies(),
 					'php_functions'  => $this->get_function_dependencies(),

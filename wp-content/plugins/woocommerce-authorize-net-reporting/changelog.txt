@@ -1,5 +1,15 @@
 *** WooCommerce Authorize.Net Reporting Changelog ***
 
+2023.07.25 - version 1.14.0
+ * Misc - Add compatibility for WooCommerce High Performance Order Storage (HPOS)
+
+2022.12.02 - version 1.13.0
+ * Misc - Require PHP 7.4 and WordPress 5.6
+
+2022.08.16 - version 1.12.1
+ * Fix - Replace deprecated usages of `is_ajax()` with `wp_doing_ajax()`
+ * Misc - Require WooCommerce 3.9.4 or newer
+
 2020.12.07 - version 1.12.0
  * Misc - Add compatibility for WooCommerce 4.7
  * Misc - Require PHP 7.0 or newer

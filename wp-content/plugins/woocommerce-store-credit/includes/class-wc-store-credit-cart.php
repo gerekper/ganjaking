@@ -189,8 +189,8 @@ class WC_Store_Credit_Cart {
 		// phpcs:disable WordPress.Security.NonceVerification
 		if (
 			! wc_is_store_credit_coupon( $coupon ) ||
-			! in_array( $coupon->get_code(), WC()->cart->get_applied_coupons(), true ) || // Discard coupons not applied to the cart.
-			( ! empty( $_POST ) && ! empty( $_POST['order_id'] ) ) // Discard order actions.
+			( ! empty( $_POST ) && ! empty( $_POST['order_id'] ) ) || // Discard order actions.
+			( ! WC()->cart || ! in_array( $coupon->get_code(), WC()->cart->get_applied_coupons(), true ) ) // Discard coupons not applied to the cart.
 		) {
 			return $discounts;
 		}

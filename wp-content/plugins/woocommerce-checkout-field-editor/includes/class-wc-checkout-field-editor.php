@@ -428,6 +428,10 @@ class WC_Checkout_Field_Editor {
 							if ( ! isset( $options['type'] ) ) {
 								$options['type'] = 'text';
 							}
+
+							if ( ! isset( $options['class'] ) ) {
+								$options['class'] = array();
+							}
 							?>
 						<tr class="
 							<?php

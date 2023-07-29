@@ -21,6 +21,7 @@
 /** @var string $services_mailchimp_consent_field */
 /** @var string $services_mailerlite_consent_field */
 /** @var string $services_mailster_consent_field */
+/** @var string $services_metform */
 /** @var string $services_metorik_helper_consent_field */
 /** @var string $services_newsletter_consent_field */
 /** @var string $services_ninja_forms_consent_field */
@@ -40,6 +41,9 @@
 /** @var string $services_yith_woocommerce_wishlist_hide_from_forgetme_form */
 /** @var string $services_youtube_remove_iframe */
 
+// echo "<pre>";
+// var_dump($choose_plugin);
+// echo "</pre>";
 ?>
 <h1><?php echo esc_html__('3rd party services and plugins', 'ct-ultimate-gdpr'); ?></h1>
 
@@ -66,7 +70,7 @@
                     <div id="<?php echo sanitize_html_class($choose_plugin[1]); ?>" class="service-elem sr-only">
                         <div class="mb-3 form-check">
                             
-                            <label for="services_addthis_block_cookies" class="form-check-label"><?php echo esc_html__( "[Addthis] Block Addthis cookies when a user doesn't accept Functionality cookies", 'ct-ultimate-gdpr' ); ?></label>
+                            <label for="services_addthis_block_cookies" class="form-check-label"><?php echo esc_html__( "[Addthis] xxx Block Addthis cookies when a user doesn't accept Functionality cookies", 'ct-ultimate-gdpr' ); ?></label>
                             <?php echo $services_addthis_block_cookies; ?>
                             <div class="ct-ultimate-gdpr-form-check">
                                 <div class="ct-ultimate-gdpr-checkbox-switch">
@@ -544,6 +548,23 @@
                             </div>
                         </div>
                     </div>
+
+                    <?php
+                    if (in_array( 'metform/metform.php', apply_filters('active_plugins', get_option('active_plugins')) )) :
+                    ?>
+                    <div id="<?php echo sanitize_html_class($choose_plugin[36]); ?>" class="service-elem sr-only">
+                        <div class="mb-3 form-check">
+                            <label for="services_metform_consent_field" class="form-check-label"><?php echo esc_html__( "[Metform] Inject consent checkbox to all forms", 'ct-ultimate-gdpr' ); ?></label>
+                            <?php echo $services_metform_consent_field; ?>
+                            <div class="ct-ultimate-gdpr-form-check">
+                                <div class="ct-ultimate-gdpr-checkbox-switch">
+                                    <span class="on label"><?php _e('Enable', 'ct-ultimate-gdpr' ); ?></span><span class="off label"><?php _e('Disable', 'ct-ultimate-gdpr' ); ?></span><span class="switch" style="left: 0px;"><?php _e('Enabled', 'ct-ultimate-gdpr' ); ?></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+
                 </div>
                 <div class="col-lg-6 d-flex justify-content-center">
                     <div class="service__image">

@@ -6,6 +6,9 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+= 3.14.1 ( 2023-07-24 ) =
+- Improvement: Minor code improvements and fixes
+
 = 3.14.0 ( 2023-07-17 ) =
 - New: Ultra Smush - Level up your image compression, while preserving remarkable image quality
 - Fix: Resolved issue with image resize in WP versions < 6.0
@@ -185,3 +188,4 @@ Change Log:
 
 
 
+941105-1690279093-au

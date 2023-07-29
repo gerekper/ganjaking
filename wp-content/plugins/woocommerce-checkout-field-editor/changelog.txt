@@ -1,5 +1,10 @@
 *** Checkout Field Editor Changelog ***
 
+2023-07-25 - version 1.7.10
+* Fix - Prevented a fatal error from being thrown in certain conditions.
+* Tweak - WC 7.9 compatibility.
+* Tweak - WP 6.3 compatibility.
+
 2023-04-25 - version 1.7.9
 * Fix - Removed unnecessary dependencies from the plugin directory.
 * Tweak - WC 7.6.0 compatibility.

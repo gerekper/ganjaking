@@ -24,7 +24,7 @@
 namespace SkyVerge\WooCommerce\CSV_Export\Automations;
 
 use SkyVerge\WooCommerce\CSV_Export\Export_Formats\Export_Format_Definition;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_6 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 

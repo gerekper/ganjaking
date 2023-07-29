@@ -56,7 +56,28 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 			'1.8.6',
 			'1.11.0',
 			'2.0.0',
+			'2.0.10',
 		];
+	}
+
+
+	/**
+	 * Performs any install tasks.
+	 *
+	 * @since 2.0.10
+	 */
+	protected function install() {
+
+		$integration = $this->get_plugin()->get_integration_instance();
+		$settings    = $integration->settings;
+
+		// ensure a default value is set for revenue tracking - based on WC price tax setting
+		$settings['include_tax_and_shipping_in_revenue'] = get_option( 'woocommerce_prices_include_tax', 'no' );
+
+		update_option( 'woocommerce_google_analytics_pro_settings', $settings );
+
+		// ensure that settings are reloaded after the install
+		$integration->init_settings();
 	}
 
 
@@ -239,6 +260,22 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 
 		// ensure that settings are reloaded after the upgrade
 		$this->get_plugin()->get_integration_instance()->init_settings();
+	}
+
+
+	/**
+	 * Updates to 2.0.10
+	 *
+	 * @since 2.0.10
+	 */
+	protected function upgrade_to_2_0_10() : void {
+
+		$settings = get_option( 'woocommerce_google_analytics_pro_settings', [] );
+
+		// ensure a default value is set for revenue tracking
+		$settings['include_tax_and_shipping_in_revenue'] = 'no';
+
+		update_option( 'woocommerce_google_analytics_pro_settings', $settings );
 	}
 
 

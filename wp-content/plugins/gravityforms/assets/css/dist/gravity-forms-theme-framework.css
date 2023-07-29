@@ -58,22 +58,15 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	Color: Primary
 
 	Used by:
-	* --gform-theme-control-accent-color
 	* --gform-theme-control-border-color-focus
 	* --gform-theme-control-button-background-color-primary
-	* --gform-theme-control-file-drop-area-icon-color
 	* --gform-theme-control-file-upload-progress-bar-background-color-loading
-	* --gform-theme-control-select-dropdown-option-box-shadow-hover
-	* --gform-theme-control-multiselect-selected-item-background-color
-	* --gform-theme-control-date-datepicker-table-cell-content-background-color-selected
-	* --gform-theme-control-date-datepicker-table-cell-content-border
-	* --gform-theme-control-choice-check-color
 	* --gform-theme-field-page-steps-number-background-color-complete
 	* --gform-theme-field-page-steps-number-border-color-complete
 	* --gform-theme-form-spinner-foreground-color
 
-	This global CSS API color property is set at the
-	form block theme level using the following setting: Primary button background color
+	This global CSS API color property is applied to a form based on the following setting:
+	Button Styles > Background Color
 	*/
 	--gform-theme-color-primary: #204ce5;
 
@@ -84,8 +77,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	* --gform-theme-control-box-shadow-color-focus
 	* --gform-theme-form-spinner-background-color
 
-	This global CSS API color property is set at the
-	form block theme level using the following setting: Primary button background color
+	This global CSS API color property is applied to a form based on the following setting:
+	Button Styles > Background Color
 	*/
 	--gform-theme-color-primary-rgb: 45, 127, 251;
 
@@ -95,13 +88,10 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 
 	Used by:
 	* --gform-theme-control-button-color-primary
-	* --gform-theme-control-multiselect-selected-item-color
-	* --gform-theme-control-multiselect-selected-item-remove-icon-color
-	* --gform-theme-control-date-datepicker-table-cell-content-color-selected
 	* --gform-theme-field-page-steps-number-color-complete
 
-	This global CSS API color property is set at the
-	form block theme level using the following setting: Primary button color
+	This global CSS API color property is applied to a form based on the following setting:
+	Button Styles > Text Color
 	*/
 	--gform-theme-color-primary-contrast: #fff;
 
@@ -109,8 +99,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	Color: Primary - Contrast (rgb channels)
 	The contrasting color to be used against the primary color.
 
-	This global CSS API color property is set at the
-	form block theme level using the following setting: Primary button color
+	This global CSS API color property is applied to a form based on the following setting:
+	Button Styles > Text Color
 	*/
 	--gform-theme-color-primary-contrast-rgb: 255, 255, 255;
 
@@ -121,8 +111,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	Used by:
 	* --gform-theme-control-button-background-color-hover-primary
 
-	This global CSS API color property is dynamically generated at the
-	form block theme level using the following setting: Primary button background color
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Button Styles > Background Color
 	*/
 	--gform-theme-color-primary-darker: #044ad3;
 
@@ -130,8 +120,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	Color: Primary - Lighter
 	A slightly lighter version of the primary color.
 
-	This global CSS API color property is dynamically generated at the
-	form block theme level using the following setting: Primary button background color
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Button Styles > Background Color
 	*/
 	--gform-theme-color-primary-lighter: #044ad3;
 
@@ -147,16 +137,16 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	* --gform-theme-control-button-background-color-secondary
 	* --gform-theme-control-file-button-background-color-hover
 
-	This global CSS API color property is set at the form block theme
-	level using the following setting (inside of form control context): Input background color
+	This global CSS API color property is applied to a form based on the following setting:
+	Input Styles > Background Color
 	*/
 	--gform-theme-color-secondary: #fff;
 
 	/*
 	Color: Secondary (rgb channels)
 
-	This global CSS API color property is set at the form block theme
-	level using the following setting (inside of form control context): Input background color
+	This global CSS API color property is applied to a form based on the following setting:
+	Input Styles > Background Color
 	*/
 	--gform-theme-color-secondary-rgb: 255, 255, 255;
 
@@ -169,8 +159,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	* --gform-theme-control-date-datepicker-title-color
 	* --gform-theme-control-date-datepicker-table-cell-content-color
 
-	This global CSS API color property is set at the form block theme
-	level using the following setting (inside of form control context): Input color
+	This global CSS API color property is applied to a form based on the following setting:
+	Input Styles > Text Color
 	*/
 	--gform-theme-color-secondary-contrast: #112337;
 
@@ -181,8 +171,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	Used by:
 	* --gform-theme-control-file-button-color
 
-	This global CSS API color property is set at the form block theme
-	level using the following setting (inside of form control context): Input color
+	This global CSS API color property is applied to a form based on the following setting:
+	Input Styles > Text Color
 	*/
 	--gform-theme-color-secondary-contrast-rgb: 17, 35, 55;
 
@@ -194,8 +184,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	* --gform-theme-control-file-button-background-color
 	* --gform-theme-control-button-background-color-hover-secondary
 
-	This global CSS API color property is dynamically generated at the form block
-	theme level using the following setting (inside of form control context): Input background color
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Input Styles > Background Color
 	*/
 	--gform-theme-color-secondary-darker: #f2f3f5;
 
@@ -203,8 +193,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	Color: Secondary - Lighter
 	A slightly lighter version of the secondary color.
 
-	This global CSS API color property is dynamically generated at the form block
-	theme level using the following setting (inside of form control context): Input background color
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Input Styles > Background Color
 	*/
 	--gform-theme-color-secondary-lighter: #f2f3f5;
 
@@ -227,8 +217,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	* --gform-theme-field-page-steps-number-color
 	* --gform-theme-field-password-strength-color
 
-	This global CSS API color property is set at the form block
-	theme level using the following setting (outside of form control context): Description color
+	This global CSS API color property is applied to a form based on the following setting:
+	Description Styles > Text Color
 	*/
 	--gform-theme-color-outside-control-dark: #585e6a;
 
@@ -238,8 +228,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	Used by:
 	* --gform-theme-control-button-color-simple
 
-	This global CSS API color property is set at the form block
-	theme level using the following setting (outside of form control context): Description color
+	This global CSS API color property is applied to a form based on the following setting:
+	Description Styles > Text Color
 	*/
 	--gform-theme-color-outside-control-dark-rgb: 88, 94, 106;
 
@@ -251,8 +241,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	* --gform-theme-control-label-color-primary
 	* --gform-theme-control-label-color-secondary
 
-	This global CSS API color property is dynamically generated at the form block
-	theme level using the following setting (inside of form control context): Input color
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Input Styles > Text Color
 	*/
 	--gform-theme-color-outside-control-dark-darker: #112337;
 
@@ -260,8 +250,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	Color: Form UI - Dark - Lighter
 	A slightly lighter version of the dark form UI color.
 
-	This global CSS API color property is dynamically generated at the form block
-	theme level using the following setting (inside of form control context): Input color
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Input Styles > Text Color
 	*/
 	--gform-theme-color-outside-control-dark-lighter: #686e77;
 
@@ -280,16 +270,16 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	* --gform-theme-field-page-steps-number-background-color-active
 	* --gform-theme-field-password-strength-indicator-background-color
 
-	This global CSS API color property is dynamically generated at the form block
-	theme level using the following setting (outside of form control context): Label color
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Label Styles > Text Color
 	*/
 	--gform-theme-color-outside-control-light: #e5e7eb;
 
 	/*
 	Color: Form UI - Light (rgb channels)
 
-	This global CSS API color property is dynamically generated at the form block
-	theme level using the following setting (outside of form control context): Label color
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Label Styles > Text Color
 	*/
 	--gform-theme-color-outside-control-light-rgb: 229, 231, 235;
 
@@ -304,8 +294,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	* --gform-theme-field-page-steps-number-border-color
 	* --gform-theme-field-repeater-separator-color
 
-	This global CSS API color property is dynamically generated at the form block
-	theme level using the following setting (inside of form control context): Input border color
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Input Styles > Border Color
 	*/
 	--gform-theme-color-outside-control-light-darker: #d2d5db;
 
@@ -313,8 +303,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	Color: Form UI - Light - Lighter
 	A slightly lighter version of the light form UI color.
 
-	This global CSS API color property is dynamically generated at the form block
-	theme level using the following setting (inside of form control context): Input background color
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Input Styles > Background Color
 	*/
 	--gform-theme-color-outside-control-light-lighter: #f2f3f5;
 
@@ -330,16 +320,16 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	Used by:
 	* --gform-theme-control-background-color
 
-	This global CSS API color property is set at the form block theme
-	level using the following setting (inside of form control context): Input background color
+	This global CSS API color property is applied to a form based on the following setting:
+	Input Styles > Background Color
 	*/
 	--gform-theme-color-inside-control: #fff;
 
 	/*
 	Color: Control (rgb channels)
 
-	This global CSS API color property is set at the form block theme
-	level using the following setting (inside of form control context): Input background color
+	This global CSS API color property is applied to a form based on the following setting:
+	Input Styles > Background Color
 	*/
 	--gform-theme-color-inside-control-rgb: 255, 255, 255;
 
@@ -350,8 +340,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	Used by:
 	* --gform-theme-control-color
 
-	This global CSS API color property is set at the form block theme
-	level using the following setting (inside of form control context): Input color
+	This global CSS API color property is applied to a form based on the following setting:
+	Input Styles > Text Color
 	*/
 	--gform-theme-color-inside-control-contrast: #112337;
 
@@ -365,8 +355,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	* --gform-theme-control-choice-check-color-disabled
 	* --gform-theme-control-file-drop-area-color
 
-	This global CSS API color property is set at the form block theme
-	level using the following setting (inside of form control context): Input color
+	This global CSS API color property is applied to a form based on the following setting:
+	Input Styles > Text Color
 	*/
 	--gform-theme-color-inside-control-contrast-rgb: 17, 35, 55;
 
@@ -374,8 +364,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	Color: Control - Darker
 	A slightly darker version of the control color.
 
-	This global CSS API color property is dynamically generated at the form block
-	theme level using the following setting (inside of form control context): Input background color
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Input Styles > Background Color
 	*/
 	--gform-theme-color-inside-control-darker: #f2f3f5;
 
@@ -383,10 +373,87 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	Color: Control - Lighter
 	A slightly lighter version of the control color.
 
-	This global CSS API color property is dynamically generated at the form block
-	theme level using the following setting (inside of form control context): Input background color
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Input Styles > Background Color
 	*/
 	--gform-theme-color-inside-control-lighter: #f2f3f5;
+
+	/* -----------------------------------------------------------------------------
+	 * Color: Control UI - Primary
+	 * The primary accent color used for the various form element
+	 * controls and UI that live inside of form controls.
+	 * ----------------------------------------------------------------------------- */
+
+	/*
+	Color: Control UI - Primary
+
+	Used by:
+	* --gform-theme-control-accent-color
+	* --gform-theme-control-button-background-color-control
+	* --gform-theme-control-file-drop-area-icon-color
+	* --gform-theme-control-select-dropdown-option-box-shadow-hover
+	* --gform-theme-control-multiselect-selected-item-background-color
+	* --gform-theme-control-date-datepicker-table-cell-content-background-color-selected
+	* --gform-theme-control-date-datepicker-table-cell-content-border
+	* --gform-theme-control-choice-check-color
+
+	This global CSS API color property is applied to a form based on the following setting:
+	Input Styles > Accent Color
+	*/
+	--gform-theme-color-inside-control-primary: var(--gform-theme-color-primary);
+
+	/*
+	Color: Control UI - Primary (rgb channels)
+
+	This global CSS API color property is applied to a form based on the following setting:
+	Input Styles > Accent Color
+	*/
+	--gform-theme-color-inside-control-primary-rgb: var(--gform-theme-color-primary-rgb);
+
+	/*
+	Color: Control UI - Primary - Contrast
+	The contrasting color to be used against the control UI primary color.
+
+	Used by:
+	* --gform-theme-control-button-color-control
+	* --gform-theme-control-multiselect-selected-item-color
+	* --gform-theme-control-multiselect-selected-item-remove-icon-color
+	* --gform-theme-control-date-datepicker-table-cell-content-color-selected
+
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated as white or black based on Input Styles > Accent Color
+	*/
+	--gform-theme-color-inside-control-primary-contrast: var(--gform-theme-color-primary-contrast);
+
+	/*
+	Color: Primary - Contrast (rgb channels)
+	The contrasting color to be used against the control UI primary color.
+
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated as white or black based on Input Styles > Accent Color
+	*/
+	--gform-theme-color-inside-control-primary-contrast-rgb: var(--gform-theme-color-primary-contrast-rgb);
+
+	/*
+	Color: Control UI - Primary - Darker
+	A slightly darker version of the control UI primary color.
+
+	Used by:
+	* --gform-theme-control-button-background-color-hover-control
+
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Input Styles > Accent Color
+	*/
+	--gform-theme-color-inside-control-primary-darker: var(--gform-theme-color-primary-darker);
+
+	/*
+	Color: Control UI - Primary - Lighter
+	A slightly lighter version of the control UI primary color.
+
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Input Styles > Accent Color
+	*/
+	--gform-theme-color-inside-control-primary-lighter: var(--gform-theme-color-primary-lighter);
 
 	/* -----------------------------------------------------------------------------
 	 * Color: Control UI - Dark
@@ -397,16 +464,16 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	/*
 	Color: Control UI - Dark
 
-	This global CSS API color property is set at the form block
-	theme level using the following setting (outside of form control context): Description color
+	This global CSS API color property is applied to a form based on the following setting:
+	Description Styles > Text Color
 	*/
 	--gform-theme-color-inside-control-dark: #585e6a;
 
 	/*
 	Color: Control UI - Dark (rgb channels)
 
-	This global CSS API color property is set at the form block
-	theme level using the following setting (outside of form control context): Description color
+	This global CSS API color property is applied to a form based on the following setting:
+	Description Styles > Text Color
 	*/
 	--gform-theme-color-inside-control-dark-rgb: 88, 94, 106;
 
@@ -417,8 +484,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	Used by:
 	* --gform-theme-control-icon-color-hover
 
-	This global CSS API color property is dynamically generated at the form block
-	theme level using the following setting (inside of form control context): Input color
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Input Styles > Text Color
 	*/
 	--gform-theme-color-inside-control-dark-darker: #112337;
 
@@ -430,8 +497,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	* --gform-theme-control-border-color
 	* --gform-theme-control-icon-color
 
-	This global CSS API color property is dynamically generated at the form block
-	theme level using the following setting (inside of form control context): Input color
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Input Styles > Text Color
 	*/
 	--gform-theme-color-inside-control-dark-lighter: #686e77;
 
@@ -447,16 +514,16 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	Used by:
 	* select[multiple] option:checked background color
 
-	This global CSS API color property is dynamically generated at the form block
-	theme level using the following setting (outside of form control context): Label color
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Label Styles > Text Color
 	*/
 	--gform-theme-color-inside-control-light: #e5e7eb;
 
 	/*
 	Color: Control UI - Light (rgb channels)
 
-	This global CSS API color property is dynamically generated at the form block
-	theme level using the following setting (outside of form control context): Label color
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Label Styles > Text Color
 	*/
 	--gform-theme-color-inside-control-light-rgb: 229, 231, 235;
 
@@ -469,8 +536,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	* --gform-theme-control-button-border-color-secondary
 	* --gform-theme-control-date-datepicker-dropdown-border-color
 
-	This global CSS API color property is dynamically generated at the form block
-	theme level using the following setting (inside of form control context): Input border color
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Input Styles > Border Color
 	*/
 	--gform-theme-color-inside-control-light-darker: #d2d5db;
 
@@ -482,8 +549,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	* --gform-theme-control-background-color-disabled
 	* --gform-theme-control-select-dropdown-option-background-color-hover
 
-	This global CSS API color property is dynamically generated at the form block
-	theme level using the following setting (inside of form control context): Input background color
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Input Styles > Background Color
 	*/
 	--gform-theme-color-inside-control-light-lighter: #f2f3f5;
 
@@ -579,8 +646,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	Color: Primary - Darker
 	Used for various form elements which require a darker primary color.
 
-	This global CSS API color property is dynamically generated at the
-	form block theme level using the following setting: Primary button background
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Button Styles > Background Color
 
 	Deprecated: --gform-theme-color-primary-shade
 	Replaced with: --gform-theme-color-primary-darker
@@ -595,8 +662,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	Color: Secondary - Darker
 	Used for controls/inputs and secondary button variation.
 
-	This global CSS API color property is dynamically generated at the
-	form block theme level using the following setting (inside of form control context): Input background color
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Input Styles > Background Color
 
 	Deprecated: --gform-theme-color-secondary-shade
 	Replaced with: --gform-theme-color-secondary-darker
@@ -611,8 +678,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	Color: Neutral - Light
 	Used for various form element text and ui.
 
-	This global CSS API color property is dynamically generated at the
-	form block theme level using the following setting (outside of form control context): Label color
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Label Styles > Text Color
 
 	Deprecated: --gform-theme-color-light
 	Replaced with: --gform-theme-color-outside-control-light
@@ -623,8 +690,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	Color: Neutral - Light - Darker
 	Used for various form element text and ui.
 
-	This global CSS API color property is dynamically generated at the
-	form block theme level using the following setting (inside of form control context): Input border color
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Input Styles > Border Color
 
 	Deprecated: --gform-theme-color-light-shade
 	Replaced with: --gform-theme-color-inside-control-light-darker
@@ -635,8 +702,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	Color: Neutral - Light - Lighter
 	Used for various form element text and ui.
 
-	This global CSS API color property is dynamically generated at the
-	form block theme level using the following setting (inside of form control context): Input background color
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Input Styles > Background Color
 
 	Deprecated: --gform-theme-color-light-tint
 	Replaced with: --gform-theme-color-inside-control-light-lighter
@@ -651,8 +718,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	Color: Neutral - Dark
 	Used for various form element text and ui.
 
-	This global CSS API color property is set at the
-	form block theme level using the following setting (outside of form control context): Description color
+	This global CSS API color property is applied to a form based on the following setting:
+	Description Styles > Description Color
 
 	Deprecated: --gform-theme-color-dark
 	Replaced with: --gform-theme-color-outside-control-dark
@@ -663,8 +730,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	Color: Neutral - Dark (rgb channels)
 	Used for various form element text and ui.
 
-	This global CSS API color property is dynamically generated at the
-	form block theme level using the following setting (outside of form control context): Description color
+	This global CSS API color property is applied to a form based on the following setting:
+	Description Styles > Description Color
 
 	Deprecated: --gform-theme-color-dark-rgb
 	Replaced with: --gform-theme-color-outside-control-dark-rgb
@@ -675,8 +742,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	Color: Neutral - Dark - Darker
 	Used for various form element text and ui.
 
-	This global CSS API color property is set at the
-	form block theme level using the following setting (inside of form control context): Input color
+	This global CSS API color property is applied to a form based on the following setting:
+	Input Styles > Text Color
 
 	Deprecated: --gform-theme-color-dark-shade
 	Replaced with: --gform-theme-color-inside-control-dark-darker
@@ -687,8 +754,8 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	Color: Neutral - Dark - Lighter
 	Used for various form element text and ui.
 
-	This global CSS API color property is dynamically generated at the
-	form block theme level using the following setting (inside of form control context): Input color
+	This global CSS API color property is applied to a form based on the following setting:
+	Generated from Input Styles > Text Color
 
 	Deprecated: --gform-theme-color-dark-tint
 	Replaced with: --gform-theme-color-inside-control-dark-lighter
@@ -789,7 +856,7 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 /* Gravity Forms Theme Framework | Global CSS API: Controls - Default For All Types */
 
 .gform-theme--framework, .gform-theme--api {
-	--gform-theme-control-accent-color: var(--gform-theme-color-primary);
+	--gform-theme-control-accent-color: var(--gform-theme-color-inside-control-primary);
 	--gform-theme-control-appearance: none;
 
 	--gform-theme-control-background-color: var(--gform-theme-color-inside-control);
@@ -962,6 +1029,27 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	--gform-theme-control-button-icon-color-focus-secondary: var(--gform-theme-control-button-icon-color-secondary);
 	--gform-theme-control-button-icon-color-disabled-secondary: var(--gform-theme-control-button-icon-color-secondary);
 
+	/* Control Button - Buttons inside of controls (enhanced multi-file upload) */
+	--gform-theme-control-button-background-color-control: var(--gform-theme-color-inside-control-primary);
+	--gform-theme-control-button-background-color-hover-control: var(--gform-theme-color-inside-control-primary-darker);
+	--gform-theme-control-button-background-color-focus-control: var(--gform-theme-control-button-background-color-control);
+	--gform-theme-control-button-background-color-disabled-control: var(--gform-theme-control-button-background-color-control);
+	--gform-theme-control-button-border-color-control: transparent;
+	--gform-theme-control-button-border-color-hover-control: transparent;
+	--gform-theme-control-button-border-color-focus-control: var(--gform-theme-control-button-background-color-hover-control);
+	--gform-theme-control-button-border-color-disabled-control: transparent;
+	--gform-theme-control-button-border-style-control: solid;
+	--gform-theme-control-button-border-width-control: 1px;
+	--gform-theme-control-button-color-control: var(--gform-theme-color-inside-control-primary-contrast);
+	--gform-theme-control-button-color-hover-control: var(--gform-theme-control-button-color-control);
+	--gform-theme-control-button-color-focus-control: var(--gform-theme-control-button-color-control);
+	--gform-theme-control-button-color-disabled-control: var(--gform-theme-control-button-color-control);
+
+	--gform-theme-control-button-icon-color-control: var(--gform-theme-control-button-color-control);
+	--gform-theme-control-button-icon-color-hover-control: var(--gform-theme-control-button-icon-color-control);
+	--gform-theme-control-button-icon-color-focus-control: var(--gform-theme-control-button-icon-color-control);
+	--gform-theme-control-button-icon-color-disabled-control: var(--gform-theme-control-button-icon-color-control);
+
 	/* Simple Button (note defaults to outside of form control color system, see password
 	vis button for how to update to be inside context) */
 	--gform-theme-control-button-background-color-simple: transparent;
@@ -992,7 +1080,7 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 /* Gravity Forms Theme Framework | Global CSS API: Control - Choice (Checkbox, Radio, & Consent) */
 
 .gform-theme--framework, .gform-theme--api {
-	--gform-theme-control-choice-check-color: var(--gform-theme-color-primary);
+	--gform-theme-control-choice-check-color: var(--gform-theme-color-inside-control-primary);
 	--gform-theme-control-choice-check-color-disabled: rgba(var(--gform-theme-color-inside-control-contrast-rgb), 0.2);
 	--gform-theme-control-choice-size-sm: 18px;
 	--gform-theme-control-choice-size-md: 20px;
@@ -1063,13 +1151,13 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	--gform-theme-control-date-datepicker-table-cell-content-align-items: center;
 	--gform-theme-control-date-datepicker-table-cell-content-background-color-disabled: transparent;
 	--gform-theme-control-date-datepicker-table-cell-content-background-color-hover: #f4f8ff;
-	--gform-theme-control-date-datepicker-table-cell-content-background-color-selected: var(--gform-theme-color-primary);
-	--gform-theme-control-date-datepicker-table-cell-content-border: var(--gform-theme-control-border-width) var(--gform-theme-control-border-style) var(--gform-theme-color-primary);
+	--gform-theme-control-date-datepicker-table-cell-content-background-color-selected: var(--gform-theme-color-inside-control-primary);
+	--gform-theme-control-date-datepicker-table-cell-content-border: var(--gform-theme-control-border-width) var(--gform-theme-control-border-style) var(--gform-theme-color-inside-control-primary);
 	--gform-theme-control-date-datepicker-table-cell-content-border-radius: var(--gform-theme-control-border-radius-max-md);
 	--gform-theme-control-date-datepicker-table-cell-content-color: var(--gform-theme-color-secondary-contrast);
 	--gform-theme-control-date-datepicker-table-cell-content-color-disabled: #cfd3d9;
 	--gform-theme-control-date-datepicker-table-cell-content-color-hover: var(--gform-theme-control-date-datepicker-table-cell-content-color);
-	--gform-theme-control-date-datepicker-table-cell-content-color-selected: var(--gform-theme-color-primary-contrast);
+	--gform-theme-control-date-datepicker-table-cell-content-color-selected: var(--gform-theme-color-inside-control-primary-contrast);
 }
 
 /* Gravity Forms Theme Framework | Global CSS API: Control - Description */
@@ -1142,7 +1230,7 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	--gform-theme-control-file-drop-area-padding-inline: 40px;
 	--gform-theme-control-file-drop-area-padding-block: 40px;
 
-	--gform-theme-control-file-drop-area-icon-color: var(--gform-theme-color-primary);
+	--gform-theme-control-file-drop-area-icon-color: var(--gform-theme-color-inside-control-primary);
 	--gform-theme-control-file-drop-area-icon-font-size: 36px;
 	--gform-theme-control-file-drop-area-icon-margin-block-end: 8px;
 
@@ -1264,7 +1352,7 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	--gform-theme-control-select-dropdown-border-color: transparent;
 	--gform-theme-control-select-dropdown-border-radius: var(--gform-theme-control-border-radius-max-md);
 	--gform-theme-control-select-dropdown-option-background-color-hover: var(--gform-theme-color-inside-control-light-lighter);
-	--gform-theme-control-select-dropdown-option-box-shadow-hover: inset 3px 0 0 var(--gform-theme-color-primary);
+	--gform-theme-control-select-dropdown-option-box-shadow-hover: inset 3px 0 0 var(--gform-theme-color-inside-control-primary);
 	--gform-theme-control-select-search-icon-size: var(--gform-theme-icon-font-size);
 	--gform-theme-control-select-search-icon-position: var(--gform-theme-control-padding-inline) center;
 	--gform-theme-control-select-search-padding-inline: calc(var(--gform-theme-control-select-search-icon-size) + var(--gform-theme-control-padding-inline) + 8px) var(--gform-theme-control-padding-inline);
@@ -1279,12 +1367,12 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	--gform-theme-control-multiselect-close-icon-size: var(--gform-theme-icon-font-size);
 	--gform-theme-control-multiselect-close-icon-inset-block-start: calc(50% - (var(--gform-theme-control-multiselect-close-icon-size) / 2));
 	--gform-theme-control-multiselect-close-icon-inset-inline-end: calc((var(--gform-theme-control-padding-inline) / 2) + 2px);
-	--gform-theme-control-multiselect-selected-item-background-color: var(--gform-theme-color-primary);
+	--gform-theme-control-multiselect-selected-item-background-color: var(--gform-theme-color-inside-control-primary);
 	--gform-theme-control-multiselect-selected-item-border-radius: 33px;
-	--gform-theme-control-multiselect-selected-item-color: var(--gform-theme-color-primary-contrast);
+	--gform-theme-control-multiselect-selected-item-color: var(--gform-theme-color-inside-control-primary-contrast);
 	--gform-theme-control-multiselect-selected-item-font-size: var(--gform-theme-control-font-size);
 	--gform-theme-control-multiselect-selected-item-font-weight: 600;
-	--gform-theme-control-multiselect-selected-item-remove-icon-color: var(--gform-theme-color-primary-contrast);
+	--gform-theme-control-multiselect-selected-item-remove-icon-color: var(--gform-theme-color-inside-control-primary-contrast);
 }
 
 html[dir="rtl"] .gform-theme--framework, html[dir="rtl"] .gform-theme--api {
@@ -2966,6 +3054,74 @@ html[dir="rtl"] .gform-theme--framework, html[dir="rtl"] .gform-theme--api {
 
 						/* Local CSS API Overrides */
 						--gform-theme-local-color: var(--gform-theme-control-button-icon-color-disabled-secondary);
+					}
+
+/* Control Button - Buttons inside of controls */
+
+.gform-theme.gform-theme--framework.gform_wrapper .gform-theme-button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control, .gform-theme.gform-theme--framework.gform_wrapper .button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control, .gform-theme.gform-theme--framework.gform_wrapper :where(:not(.mce-splitbtn)) > button:not([id*="mceu_"]):not(.mce-open):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control, .gform-theme.gform-theme--framework.gform_wrapper button.button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control, .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control {
+
+				/* Local CSS API Overrides */
+				--gform-theme-local-background-color: var(--gform-theme-control-button-background-color-control);
+				--gform-theme-local-border-color: var(--gform-theme-control-button-border-color-control);
+				--gform-theme-local-border-style: var(--gform-theme-control-button-border-style-control);
+				--gform-theme-local-border-width: var(--gform-theme-control-button-border-width-control);
+				--gform-theme-local-color: var(--gform-theme-control-button-color-control);
+			}
+
+/* Icons */
+
+.gform-theme.gform-theme--framework.gform_wrapper .gform-theme-button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control .dashicons, .gform-theme.gform-theme--framework.gform_wrapper .gform-theme-button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper .gform-theme-button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control::before, .gform-theme.gform-theme--framework.gform_wrapper .gform-theme-button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control::after, .gform-theme.gform-theme--framework.gform_wrapper .button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control .dashicons, .gform-theme.gform-theme--framework.gform_wrapper .button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper .button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control::before, .gform-theme.gform-theme--framework.gform_wrapper .button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control::after, .gform-theme.gform-theme--framework.gform_wrapper :where(:not(.mce-splitbtn)) > button:not([id*="mceu_"]):not(.mce-open):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control .dashicons, .gform-theme.gform-theme--framework.gform_wrapper :where(:not(.mce-splitbtn)) > button:not([id*="mceu_"]):not(.mce-open):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper :where(:not(.mce-splitbtn)) > button:not([id*="mceu_"]):not(.mce-open):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control::before, .gform-theme.gform-theme--framework.gform_wrapper :where(:not(.mce-splitbtn)) > button:not([id*="mceu_"]):not(.mce-open):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control::after, .gform-theme.gform-theme--framework.gform_wrapper button.button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control .dashicons, .gform-theme.gform-theme--framework.gform_wrapper button.button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper button.button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control::before, .gform-theme.gform-theme--framework.gform_wrapper button.button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control::after, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control .dashicons, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control::before, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control::after, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control .dashicons, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control::before, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control::after, .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control .dashicons, .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control::before, .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control::after {
+
+					/* Local CSS API Overrides */
+					--gform-theme-local-color: var(--gform-theme-control-button-icon-color-control);
+				}
+
+.gform-theme.gform-theme--framework.gform_wrapper .gform-theme-button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover, .gform-theme.gform-theme--framework.gform_wrapper .button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover, .gform-theme.gform-theme--framework.gform_wrapper :where(:not(.mce-splitbtn)) > button:not([id*="mceu_"]):not(.mce-open):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover, .gform-theme.gform-theme--framework.gform_wrapper button.button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover, .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover {
+
+					/* Local CSS API Overrides */
+					--gform-theme-local-background-color: var(--gform-theme-control-button-background-color-hover-control);
+					--gform-theme-local-border-color: var(--gform-theme-control-button-border-color-hover-control);
+					--gform-theme-local-color: var(--gform-theme-control-button-color-hover-control);
+				}
+
+/* Icons */
+
+.gform-theme.gform-theme--framework.gform_wrapper .gform-theme-button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover .dashicons, .gform-theme.gform-theme--framework.gform_wrapper .gform-theme-button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper .gform-theme-button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover::before, .gform-theme.gform-theme--framework.gform_wrapper .gform-theme-button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover::after, .gform-theme.gform-theme--framework.gform_wrapper .button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover .dashicons, .gform-theme.gform-theme--framework.gform_wrapper .button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper .button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover::before, .gform-theme.gform-theme--framework.gform_wrapper .button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover::after, .gform-theme.gform-theme--framework.gform_wrapper :where(:not(.mce-splitbtn)) > button:not([id*="mceu_"]):not(.mce-open):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover .dashicons, .gform-theme.gform-theme--framework.gform_wrapper :where(:not(.mce-splitbtn)) > button:not([id*="mceu_"]):not(.mce-open):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper :where(:not(.mce-splitbtn)) > button:not([id*="mceu_"]):not(.mce-open):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover::before, .gform-theme.gform-theme--framework.gform_wrapper :where(:not(.mce-splitbtn)) > button:not([id*="mceu_"]):not(.mce-open):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover::after, .gform-theme.gform-theme--framework.gform_wrapper button.button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover .dashicons, .gform-theme.gform-theme--framework.gform_wrapper button.button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper button.button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover::before, .gform-theme.gform-theme--framework.gform_wrapper button.button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover::after, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover .dashicons, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover::before, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover::after, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover .dashicons, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover::before, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover::after, .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover .dashicons, .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover::before, .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:hover::after {
+
+						/* Local CSS API Overrides */
+						--gform-theme-local-color: var(--gform-theme-control-button-icon-color-hover-control);
+					}
+
+.gform-theme.gform-theme--framework.gform_wrapper .gform-theme-button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus, .gform-theme.gform-theme--framework.gform_wrapper .button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus, .gform-theme.gform-theme--framework.gform_wrapper :where(:not(.mce-splitbtn)) > button:not([id*="mceu_"]):not(.mce-open):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus, .gform-theme.gform-theme--framework.gform_wrapper button.button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus, .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus {
+
+					/* Local CSS API Overrides */
+					--gform-theme-local-background-color: var(--gform-theme-control-button-background-color-focus-control);
+					--gform-theme-local-border-color: var(--gform-theme-control-button-border-color-focus-control);
+					--gform-theme-local-color: var(--gform-theme-control-button-color-focus-control);
+				}
+
+/* Icons */
+
+.gform-theme.gform-theme--framework.gform_wrapper .gform-theme-button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus .dashicons, .gform-theme.gform-theme--framework.gform_wrapper .gform-theme-button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper .gform-theme-button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus::before, .gform-theme.gform-theme--framework.gform_wrapper .gform-theme-button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus::after, .gform-theme.gform-theme--framework.gform_wrapper .button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus .dashicons, .gform-theme.gform-theme--framework.gform_wrapper .button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper .button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus::before, .gform-theme.gform-theme--framework.gform_wrapper .button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus::after, .gform-theme.gform-theme--framework.gform_wrapper :where(:not(.mce-splitbtn)) > button:not([id*="mceu_"]):not(.mce-open):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus .dashicons, .gform-theme.gform-theme--framework.gform_wrapper :where(:not(.mce-splitbtn)) > button:not([id*="mceu_"]):not(.mce-open):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper :where(:not(.mce-splitbtn)) > button:not([id*="mceu_"]):not(.mce-open):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus::before, .gform-theme.gform-theme--framework.gform_wrapper :where(:not(.mce-splitbtn)) > button:not([id*="mceu_"]):not(.mce-open):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus::after, .gform-theme.gform-theme--framework.gform_wrapper button.button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus .dashicons, .gform-theme.gform-theme--framework.gform_wrapper button.button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper button.button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus::before, .gform-theme.gform-theme--framework.gform_wrapper button.button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus::after, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus .dashicons, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus::before, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus::after, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus .dashicons, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus::before, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus::after, .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus .dashicons, .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus::before, .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:focus::after {
+
+						/* Local CSS API Overrides */
+						--gform-theme-local-color: var(--gform-theme-control-button-icon-color-focus-control);
+					}
+
+.gform-theme.gform-theme--framework.gform_wrapper .gform-theme-button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled, .gform-theme.gform-theme--framework.gform_wrapper .button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled, .gform-theme.gform-theme--framework.gform_wrapper :where(:not(.mce-splitbtn)) > button:not([id*="mceu_"]):not(.mce-open):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled, .gform-theme.gform-theme--framework.gform_wrapper button.button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled, .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled {
+
+					/* Local CSS API Overrides */
+					--gform-theme-local-background-color: var(--gform-theme-control-button-background-color-disabled-control);
+					--gform-theme-local-border-color: var(--gform-theme-control-button-border-color-disabled-control);
+					--gform-theme-local-color: var(--gform-theme-control-button-color-disabled-control);
+				}
+
+/* Icons */
+
+.gform-theme.gform-theme--framework.gform_wrapper .gform-theme-button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled .dashicons, .gform-theme.gform-theme--framework.gform_wrapper .gform-theme-button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper .gform-theme-button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled::before, .gform-theme.gform-theme--framework.gform_wrapper .gform-theme-button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled::after, .gform-theme.gform-theme--framework.gform_wrapper .button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled .dashicons, .gform-theme.gform-theme--framework.gform_wrapper .button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper .button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled::before, .gform-theme.gform-theme--framework.gform_wrapper .button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled::after, .gform-theme.gform-theme--framework.gform_wrapper :where(:not(.mce-splitbtn)) > button:not([id*="mceu_"]):not(.mce-open):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled .dashicons, .gform-theme.gform-theme--framework.gform_wrapper :where(:not(.mce-splitbtn)) > button:not([id*="mceu_"]):not(.mce-open):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper :where(:not(.mce-splitbtn)) > button:not([id*="mceu_"]):not(.mce-open):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled::before, .gform-theme.gform-theme--framework.gform_wrapper :where(:not(.mce-splitbtn)) > button:not([id*="mceu_"]):not(.mce-open):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled::after, .gform-theme.gform-theme--framework.gform_wrapper button.button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled .dashicons, .gform-theme.gform-theme--framework.gform_wrapper button.button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper button.button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled::before, .gform-theme.gform-theme--framework.gform_wrapper button.button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled::after, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled .dashicons, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled::before, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]):where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled::after, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled .dashicons, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled::before, .gform-theme.gform-theme--framework.gform_wrapper input:is([type="submit"], [type="button"], [type="reset"]).button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled::after, .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled .dashicons, .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled .dashicons::before, .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled::before, .gform-theme.gform-theme--framework.gform_wrapper input[type="submit"].button.gform_button:where(:not(.gform-theme-no-framework):not(.gform-theme__disable):not(.gform-theme__disable *):not(.gform-theme__disable-framework):not(.gform-theme__disable-framework *)).gform-theme-button--control:disabled::after {
+
+						/* Local CSS API Overrides */
+						--gform-theme-local-color: var(--gform-theme-control-button-icon-color-disabled-control);
 					}
 
 /* Simple Button: transparent background, no border, w/ icon

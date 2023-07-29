@@ -25,7 +25,7 @@ namespace SkyVerge\WooCommerce\CSV_Export\Export_Formats;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_6 as Framework;
 
 /**
  * Export Format Definition abstract class

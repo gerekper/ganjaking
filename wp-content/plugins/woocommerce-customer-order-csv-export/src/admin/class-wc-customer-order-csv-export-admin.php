@@ -24,7 +24,7 @@
 defined( 'ABSPATH' ) or exit;
 
 use Automattic\WooCommerce\Admin\Features\Navigation\Menu;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_6 as Framework;
 use SkyVerge\WooCommerce\CSV_Export\Taxonomies_Handler;
 use SkyVerge\WooCommerce\CSV_Export\Admin\Meta_Boxes\Exported_By;
 use SkyVerge\WooCommerce\CSV_Export\Admin\Automations;
@@ -76,12 +76,16 @@ class WC_Customer_Order_CSV_Export_Admin {
 	/** @var Manual_Export manual export handler instance */
 	private $manual_export;
 
+
 	/**
 	 * Setup admin class
 	 *
 	 * @since 3.0.0
 	 */
 	public function __construct() {
+
+		$orders_screen_id                 = Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ? 'woocommerce_page_wc-orders' : 'edit-shop_order';
+		$orders_screen_custom_column_hook = Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ? 'manage_woocommerce_page_wc-orders_custom_column' : 'manage_shop_order_posts_custom_column';
 
 		/** General Admin Hooks */
 
@@ -111,11 +115,11 @@ class WC_Customer_Order_CSV_Export_Admin {
 		/** Order Hooks */
 
 		// add 'Export Status' orders and customers page column header
-		add_filter( 'manage_edit-shop_order_columns', [ $this, 'add_order_status_column_header' ], 20 );
-		add_filter( 'manage_users_columns',           [ $this, 'add_user_status_column_header' ], 20 );
+		add_filter( "manage_{$orders_screen_id}_columns", [ $this, 'add_order_status_column_header' ], 20 );
+		add_filter( 'manage_users_columns',               [ $this, 'add_user_status_column_header' ], 20 );
 
 		// add 'Export Status' orders page column content
-		add_action( 'manage_shop_order_posts_custom_column', [ $this, 'add_order_status_column_content' ] );
+		add_action( $orders_screen_custom_column_hook, [ $this, 'add_order_status_column_content' ], 10, 2 );
 		add_filter( 'manage_users_custom_column', [ $this, 'add_user_export_status_column_content' ], 10, 3 );
 
 		// add 'Export to CSV' action on orders page
@@ -138,17 +142,18 @@ class WC_Customer_Order_CSV_Export_Admin {
 
 		// add bulk order filter for exported / non-exported orders
 		add_action( 'restrict_manage_posts', [ $this, 'filter_orders_by_export_status' ], 20 );
-		add_filter( 'request',               [ $this, 'filter_orders_by_export_status_query' ] );
+		add_action( 'woocommerce_order_list_table_restrict_manage_orders', [ $this, 'filter_orders_by_export_status' ], 20 ); // HPOS
+		add_filter( 'request', [ $this, 'filter_orders_by_export_status_query' ] );
+		add_filter( 'woocommerce_order_list_table_prepare_items_query_args', [ $this, 'filter_orders_by_export_status_query' ] ); // HPOS
 
 		/** Bulk Actions */
 		if ( version_compare( get_bloginfo( 'version' ), '4.7', '>=' ) ) {
 
-			add_filter( 'bulk_actions-edit-shop_order',        [ $this, 'add_order_bulk_actions' ] );
-			add_filter( 'handle_bulk_actions-edit-shop_order', [ $this, 'process_order_bulk_actions' ], 10, 3 );
+			add_filter( "bulk_actions-{$orders_screen_id}",        [ $this, 'add_order_bulk_actions' ] );
+			add_filter( "handle_bulk_actions-{$orders_screen_id}", [ $this, 'process_order_bulk_actions' ], 10, 3 );
 
 			add_filter( 'bulk_actions-users',        [ $this, 'add_user_bulk_actions' ] );
 			add_filter( 'handle_bulk_actions-users', [ $this, 'process_user_bulk_actions' ], 10, 3 );
-
 		} else {
 
 			add_action( 'admin_footer-edit.php',  [ $this, 'add_bulk_actions_legacy' ] );
@@ -259,7 +264,18 @@ class WC_Customer_Order_CSV_Export_Admin {
 				// enqueue UI CSS
 				wp_enqueue_style( 'jquery-ui-style', '//ajax.googleapis.com/ajax/libs/jqueryui/' . $jquery_version . '/themes/smoothness/jquery-ui.css' );
 
-			} elseif ( in_array( $hook_suffix, [ 'post.php', 'edit.php' ] ) && 'shop_order' === get_post_type() ) {
+				/**
+				 * Set the global export type if it's set in the URL.
+				 *
+				 * @see Admin_Custom_Formats::__construct()
+				 * @see src/admin/views/html-export-modals.php
+				 */
+				if ( ! empty( $_GET['export_type'] ) ) {
+					$export_types = wc_customer_order_csv_export()->get_export_types();
+					$export_type  = isset( $export_types[ $_GET['export_type'] ] ) ? sanitize_text_field( $_GET['export_type'] ) : current( array_keys( $export_types ) );
+				}
+
+			} elseif ( Framework\SV_WC_Order_Compatibility::is_order_screen() ) {
 
 				$export_type = \WC_Customer_Order_CSV_Export::EXPORT_TYPE_ORDERS;
 
@@ -324,6 +340,7 @@ class WC_Customer_Order_CSV_Export_Admin {
 				'current_tab'            => empty( $_GET['tab'] ) ? self::TAB_EXPORT : sanitize_title( $_GET['tab'] ),
 				'current_section'        => empty( $_REQUEST['section'] ) ? '' : sanitize_title( $_REQUEST['section'] ),
 				'manual_export_settings' => $manual_export_settings,
+				'hpos_enabled'           => Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled(),
 			] );
 		}
 	}
@@ -844,7 +861,7 @@ class WC_Customer_Order_CSV_Export_Admin {
 			$sendback = admin_url( 'admin.php?page=wc_customer_order_csv_export&tab=export_list' );
 		}
 
-		$pagenum  = $export_list_table->get_pagenum();
+		$pagenum = $export_list_table->get_pagenum();
 
 		if ( $pagenum > 1 ) {
 			$sendback = add_query_arg( 'paged', $pagenum, $sendback );
@@ -920,16 +937,17 @@ class WC_Customer_Order_CSV_Export_Admin {
 	 * 'Exported' - if the order has any 'wc_export_is_order_exported' term
 	 *
 	 * @since 3.0.0
-	 * @param array $column name of column being displayed
+	 *
+	 * @param string $column name of column being displayed
+	 * @param int|WC_Order $order_object_or_id Order ID or instance
 	 */
-	public function add_order_status_column_content( $column ) {
-		global $post;
+	public function add_order_status_column_content( $column, $order_object_or_id = null ): void {
 
-		if ( 'export_status' === $column ) {
+		if ( 'export_status' === $column && $order_object_or_id ) {
 
-			$order = wc_get_order( $post->ID );
+			$order = wc_get_order( $order_object_or_id );
 
-			if ( $order instanceof \WC_Order && Taxonomies_Handler::is_order_exported_globally( $order->get_id() ) ) {
+			if ( $order instanceof WC_Order && Taxonomies_Handler::is_order_exported_globally( $order->get_id() ) ) {
 
 				$output = sprintf( '<div><mark class="%1$s">%2$s</mark></div>',
 					'exported',
@@ -1055,13 +1073,13 @@ class WC_Customer_Order_CSV_Export_Admin {
 	 *
 	 * @since 5.0.0
 	 */
-	public function add_exported_by_meta_box() {
+	public function add_exported_by_meta_box(): void {
 
-		// Order page types
-		foreach ( wc_get_order_types( 'order-meta-boxes' ) as $type ) {
-			add_meta_box( 'wc_customer_order_exported_by_orders', __( 'Order exported by', 'woocommerce-customer-order-csv-export' ), Exported_By::class . '::render_order', $type, 'side');
-			add_meta_box( 'wc_customer_order_exported_by_customers', __( 'Customer exported by', 'woocommerce-customer-order-csv-export' ), Exported_By::class . '::render_order_customer', $type, 'side');
-		}
+		// ensure HPOS compatibility for order screen
+		$screen_id = Framework\SV_WC_Order_Compatibility::get_order_screen_id();
+
+		add_meta_box( 'wc_customer_order_exported_by_orders', __( 'Order exported by', 'woocommerce-customer-order-csv-export' ), Exported_By::class . '::render_order', $screen_id, 'side' );
+		add_meta_box( 'wc_customer_order_exported_by_customers', __( 'Customer exported by', 'woocommerce-customer-order-csv-export' ), Exported_By::class . '::render_order_customer', $screen_id, 'side' );
 	}
 
 
@@ -1094,10 +1112,9 @@ class WC_Customer_Order_CSV_Export_Admin {
 	 *
 	 * @since 3.0.0
 	 */
-	public function filter_orders_by_export_status() {
-		global $typenow;
+	public function filter_orders_by_export_status() : void {
 
-		if ( 'shop_order' === $typenow ) {
+		if ( Framework\SV_WC_Order_Compatibility::is_orders_screen() ) {
 
 			$count = $this->get_order_count();
 
@@ -1127,12 +1144,28 @@ class WC_Customer_Order_CSV_Export_Admin {
 	 * @param array $vars query vars without filtering
 	 * @return array $vars query vars with (maybe) filtering
 	 */
-	public function filter_orders_by_export_status_query( $vars ) {
-		global $typenow;
+	public function filter_orders_by_export_status_query( array $vars ): array {
 
-		if ( 'shop_order' === $typenow && isset( $_GET['_shop_order_export_status'] ) && is_numeric( $_GET['_shop_order_export_status'] ) ) {
+		if ( isset( $_GET['_shop_order_export_status'] ) && is_numeric( $_GET['_shop_order_export_status'] ) && Framework\SV_WC_Order_Compatibility::is_orders_screen() ) {
 
-			if ( $_GET['_shop_order_export_status'] ) {
+			if ( Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ) {
+
+				// WC_Orders_Query does not support tax_query, so we need to include/exclude exported orders manually
+				$vars[ $_GET['_shop_order_export_status'] ? 'post__in' : 'post__not_in' ] = ( new WP_Query([
+					'post_type'      => Framework\SV_WC_Order_Compatibility::get_order_post_types(),
+					'post_status'    => 'any',
+					'posts_per_page' => -1,
+					'fields'         => 'ids',
+					'tax_query'      => [
+						[
+							'taxonomy' => Taxonomies_Handler::TAXONOMY_NAME_ORDERS,
+							'terms'    => Taxonomies_Handler::GLOBAL_TERM,
+							'field'    => 'slug',
+						],
+					],
+				]) )->get_posts();
+
+			} else if ( $_GET['_shop_order_export_status'] ) {
 
 				// exported orders (global term)
 				$vars['tax_query'] = [
@@ -1160,6 +1193,7 @@ class WC_Customer_Order_CSV_Export_Admin {
 					],
 				];
 			}
+
 		}
 
 		return $vars;
@@ -1208,8 +1242,8 @@ class WC_Customer_Order_CSV_Export_Admin {
 	private function get_bulk_actions( $export_type ) {
 
 		$bulk_actions = [
-			'mark_exported'     => __( 'Mark as Exported', 'woocommerce-customer-order-csv-export' ),
-			'mark_not_exported' => __( 'Mark as Not Exported', 'woocommerce-customer-order-csv-export' ),
+			'set_exported'     => __( 'Mark as Exported', 'woocommerce-customer-order-csv-export' ),
+			'set_not_exported' => __( 'Mark as Not Exported', 'woocommerce-customer-order-csv-export' ),
 			'download_to_csv'   => __( 'Download to CSV', 'woocommerce-customer-order-csv-export' ),
 			'download_to_xml'   => __( 'Download to XML', 'woocommerce-customer-order-csv-export' ),
 		];
@@ -1308,7 +1342,7 @@ class WC_Customer_Order_CSV_Export_Admin {
 	 * @since 4.3.0
 	 * @param string $action the action being taken
 	 * @param int[] $object_ids the items to take the action on
-	 * @param string $export_type he export type, one of `orders` or `customers`
+	 * @param string $export_type the export type, one of `orders` or `customers`
 	 */
 	private function process_bulk_actions( $action, $object_ids, $export_type ) {
 
@@ -1316,7 +1350,7 @@ class WC_Customer_Order_CSV_Export_Admin {
 
 		switch ( $action ) {
 
-			case 'mark_exported':
+			case 'set_exported':
 
 				// mark each object as globally exported
 				foreach( $object_ids as $object_id ) {
@@ -1339,7 +1373,7 @@ class WC_Customer_Order_CSV_Export_Admin {
 
 			break;
 
-			case 'mark_not_exported':
+			case 'set_not_exported':
 
 				// mark each object as not exported (remove all terms)
 				foreach ( $object_ids as $object_id ) {
@@ -1421,13 +1455,14 @@ class WC_Customer_Order_CSV_Export_Admin {
 	 * @param string $screen_id the screen id
 	 * @return string|null the export type or null if no match found
 	 */
-	private function map_screen_to_export_type( $screen_id ) {
+	private function map_screen_to_export_type( string $screen_id ): ?string {
 
 		$export_type = null;
 
 		// match screen id to export type
 		switch ( $screen_id ) {
 			case 'edit-shop_order':
+			case 'woocommerce_page_wc-orders': // HPOS version
 				$export_type = WC_Customer_Order_CSV_Export::EXPORT_TYPE_ORDERS;
 			break;
 
@@ -1466,7 +1501,7 @@ class WC_Customer_Order_CSV_Export_Admin {
 
 		$query_args = [
 			'fields'      => 'ids',
-			'post_type'   => 'shop_order',
+			'post_type'   => Framework\SV_WC_Order_Compatibility::get_order_post_types(),
 			'post_status' => isset( $_GET['post_status'] ) ? $_GET['post_status'] : 'any',
 			'tax_query'   => $not_exported_tax_query,
 			'nopaging'    => true,
@@ -1524,7 +1559,6 @@ class WC_Customer_Order_CSV_Export_Admin {
 	}
 
 
-
 	/**
 	 * Print export modal templates
 	 *
@@ -1545,16 +1579,9 @@ class WC_Customer_Order_CSV_Export_Admin {
 	 *
 	 * @since 4.0.0
 	 */
-	private function is_export_screen() {
+	private function is_export_screen(): bool {
 
-		$screen = get_current_screen();
-
-		return in_array( $screen->id, [
-			$this->settings_page_name,
-			'shop_order',
-			'edit-shop_order',
-			'users',
-		], true );
+		return in_array( get_current_screen()->id, [$this->settings_page_name, 'users',], true ) || Framework\SV_WC_Order_Compatibility::is_order_screen();
 	}
 
 

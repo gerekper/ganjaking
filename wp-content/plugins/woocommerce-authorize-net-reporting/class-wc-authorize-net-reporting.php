@@ -17,13 +17,13 @@
  * needs please refer to http://www.skyverge.com/contact/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2013-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2013-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_5 as Framework;
 
 /**
  * WooCommerce Authorize.Net Reporting main plugin class.
@@ -34,7 +34,7 @@ class WC_Authorize_Net_Reporting extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.12.0';
+	const VERSION = '1.14.0';
 
 	/** @var \WC_Authorize_Net_Reporting single instance of this plugin */
 	protected static $instance;
@@ -62,14 +62,15 @@ class WC_Authorize_Net_Reporting extends Framework\SV_WC_Plugin {
 		parent::__construct(
 			self::PLUGIN_ID,
 			self::VERSION,
-			array(
-				'text_domain'  => 'woocommerce-authorize-net-reporting',
-				'dependencies' => array(
-					'php_extensions' => array(
+			[
+				'text_domain'   => 'woocommerce-authorize-net-reporting',
+				'supports_hpos' => true,
+				'dependencies'  => [
+					'php_extensions' => [
 						'dom',
-					),
-				),
-			)
+					],
+				],
+			]
 		);
 
 		// include required files
@@ -95,7 +96,7 @@ class WC_Authorize_Net_Reporting extends Framework\SV_WC_Plugin {
 	 */
 	protected function init_lifecycle_handler() {
 
-		require_once( $this->get_plugin_path() . '/includes/Lifecycle.php' );
+		require_once( $this->get_plugin_path() . '/src/Lifecycle.php' );
 
 		$this->lifecycle_handler = new SkyVerge\WooCommerce\Authorize_Net_Reporting\Lifecycle( $this );
 	}
@@ -109,9 +110,9 @@ class WC_Authorize_Net_Reporting extends Framework\SV_WC_Plugin {
 	private function includes() {
 
 		// load exporter
-		require_once( $this->get_plugin_path() . '/includes/class-wc-authorize-net-reporting-export.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-authorize-net-reporting-export.php' );
 
-		if ( is_admin() && ! is_ajax() ) {
+		if ( is_admin() && ! wp_doing_ajax() ) {
 			$this->admin_includes();
 		}
 	}
@@ -125,7 +126,7 @@ class WC_Authorize_Net_Reporting extends Framework\SV_WC_Plugin {
 	private function admin_includes() {
 
 		// load admin
-		$this->admin = $this->load_class( '/includes/admin/class-wc-authorize-net-reporting-admin.php', 'WC_Authorize_Net_Reporting_Admin' );
+		$this->admin = $this->load_class( '/src/admin/class-wc-authorize-net-reporting-admin.php', 'WC_Authorize_Net_Reporting_Admin' );
 
 		// set message handler on admin
 		$this->admin->message_handler = $this->get_message_handler();
@@ -168,9 +169,9 @@ class WC_Authorize_Net_Reporting extends Framework\SV_WC_Plugin {
 		}
 
 		// load API wrapper
-		require_once( $this->get_plugin_path() . '/includes/api/class-wc-authorize-net-reporting-api.php' );
-		require_once( $this->get_plugin_path() . '/includes/api/class-wc-authorize-net-reporting-api-request.php' );
-		require_once( $this->get_plugin_path() . '/includes/api/class-wc-authorize-net-reporting-api-response.php' );
+		require_once( $this->get_plugin_path() . '/src/api/class-wc-authorize-net-reporting-api.php' );
+		require_once( $this->get_plugin_path() . '/src/api/class-wc-authorize-net-reporting-api-request.php' );
+		require_once( $this->get_plugin_path() . '/src/api/class-wc-authorize-net-reporting-api-response.php' );
 
 		return $this->api = new \WC_Authorize_Net_Reporting_API( $api_login_id, $api_transaction_key, $api_environment );
 	}

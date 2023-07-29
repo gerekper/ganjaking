@@ -39,13 +39,13 @@ acf_render_field_wrap(
 acf_render_field_wrap(
 	array(
 		'label'        => __( 'Taxonomy Key', 'acf' ),
-		'instructions' => __( 'Lower case letters, underscores and dashes only, Max 20 characters.', 'acf' ),
+		'instructions' => __( 'Lower case letters, underscores and dashes only, Max 32 characters.', 'acf' ),
 		/* translators: example taxonomy */
 		'placeholder'  => __( 'genre', 'acf' ),
 		'type'         => 'text',
 		'key'          => 'taxonomy',
 		'name'         => 'taxonomy',
-		'maxlength'    => 20,
+		'maxlength'    => 32,
 		'class'        => 'acf_slugified_key',
 		'prefix'       => 'acf_taxonomy',
 		'value'        => $acf_taxonomy['taxonomy'],
@@ -56,13 +56,9 @@ acf_render_field_wrap(
 );
 
 // Allow preselecting the linked post types based on previously created post type.
-$acf_use_post_type = acf_request_arg( 'use_post_type', false );
-if ( $acf_use_post_type && wp_verify_nonce( acf_request_arg( '_wpnonce' ), 'create-taxonomy-' . $acf_use_post_type ) ) {
-	$acf_linked_post_type = acf_get_internal_post_type( (int) $acf_use_post_type, 'acf-post-type' );
-
-	if ( $acf_linked_post_type && isset( $acf_linked_post_type['post_type'] ) ) {
-		$acf_taxonomy['object_type'] = array( $acf_linked_post_type['post_type'] );
-	}
+$acf_use_post_type = acf_get_post_type_from_request_args( 'create-taxonomy' );
+if ( $acf_use_post_type && ! empty( $acf_use_post_type['post_type'] ) ) {
+	$acf_taxonomy['object_type'] = array( $acf_use_post_type['post_type'] );
 }
 
 acf_render_field_wrap(

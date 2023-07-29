@@ -2,6 +2,7 @@
 /**
  * Class to handle display of Chained Products admin notices
  *
+ * @version 1.1.0
  * @package woocommerce-chained-products/includes/
  */
 
@@ -74,7 +75,7 @@ if ( ! class_exists( 'WC_CP_Admin_Notices' ) ) {
 			$action_links = array(
 				'settings'  => '<a target="_blank" href="' . esc_url( $settings_url ) . '">' . __( 'Settings', 'woocommerce-chained-products' ) . '</a>',
 				'shortcode' => '<a target="_blank" href="' . esc_url( $shortcode_url ) . '">' . __( 'Shortcode', 'woocommerce-chained-products' ) . '</a>',
-				'docs'      => '<a target="_blank" href="' . esc_url( 'https://docs.woocommerce.com/document/chained-products/' ) . '">' . __( 'Docs', 'woocommerce-chained-products' ) . '</a>',
+				'docs'      => '<a target="_blank" href="' . esc_url( 'https://woocommerce.com/document/chained-products/' ) . '">' . _x( 'Docs', 'title for docs link', 'woocommerce-chained-products' ) . '</a>',
 				'support'   => '<a target="_blank" href="' . esc_url( 'https://woocommerce.com/my-account/create-a-ticket/' ) . '">' . __( 'Support', 'woocommerce-chained-products' ) . '</a>',
 				'review'    => '<a target="_blank" href="' . esc_url( 'https://woocommerce.com/products/chained-products/#comments' ) . '">' . __( 'Review', 'woocommerce-chained-products' ) . '</a>',
 			);
@@ -108,12 +109,13 @@ if ( ! class_exists( 'WC_CP_Admin_Notices' ) ) {
 		 * Shows review notice
 		 */
 		public function sa_cp_show_review_notice() {
-			global $post;
-			$is_review_page = ( isset( $post->post_type ) && ( 'shop_order' === $post->post_type || 'product' === $post->post_type ) ) ? true : false; // phpcs:ignore WordPress.Security.NonceVerification
+			global $wc_chained_products;
 
-			if ( true === $this->may_be_show_review_notice() && true === $is_review_page ) {
-				$this->cp_show_review_notice();
+			if ( ! is_callable( array( $wc_chained_products, 'wc_chained_products' ) ) || ! $wc_chained_products->is_wc_order_admin_page() || ! $this->may_be_show_review_notice() ) {
+				return;
 			}
+
+			$this->cp_show_review_notice();
 		}
 
 		/**
@@ -150,22 +152,37 @@ if ( ! class_exists( 'WC_CP_Admin_Notices' ) ) {
 		 * @return bool $has_chained_items
 		 */
 		public function orders_has_chained_item() {
-			global $wpdb;
+			global $wpdb, $wc_cp;
 
 			$order_count = wp_cache_get( 'wc_cp_order_count', 'woocommerce_chained_product' );
 
 			if ( false === $order_count ) {
-				$order_count = $wpdb->get_var( // phpcs:ignore
-					$wpdb->prepare(
-						"SELECT count( DISTINCT order_id )
-					FROM {$wpdb->prefix}woocommerce_order_items AS o
-					JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS oi ON ( o.order_item_id = oi.order_item_id AND oi.meta_key = %s )
-					JOIN {$wpdb->prefix}posts AS p ON (o.order_id = p.ID AND p.post_type = %s AND p.post_status = %s )",
-						'_chained_product_of',
-						'shop_order',
-						'wc-completed'
-					)
-				);
+
+				if ( is_callable( array( $wc_cp, 'wc_cp_is_hpos_enabled' ) ) && $wc_cp::wc_cp_is_hpos_enabled() ) {
+					$order_count = $wpdb->get_var( // phpcs:ignore
+						$wpdb->prepare(
+							"SELECT count( DISTINCT o.order_id )
+						FROM {$wpdb->prefix}woocommerce_order_items AS o
+						JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS oi ON ( o.order_item_id = oi.order_item_id AND oi.meta_key = %s )
+						JOIN {$wpdb->prefix}wc_orders AS wo ON (o.order_id = wo.id AND wo.type = %s AND wo.status = %s)",
+							'_chained_product_of',
+							'shop_order',
+							'wc-completed'
+						)
+					);
+				} else {
+					$order_count = $wpdb->get_var( // phpcs:ignore
+						$wpdb->prepare(
+							"SELECT count( DISTINCT o.order_id )
+						FROM {$wpdb->prefix}woocommerce_order_items AS o
+						JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS oi ON ( o.order_item_id = oi.order_item_id AND oi.meta_key = %s )
+						JOIN {$wpdb->prefix}posts AS p ON (o.order_id = p.ID AND p.post_type = %s AND p.post_status = %s )",
+							'_chained_product_of',
+							'shop_order',
+							'wc-completed'
+						)
+					);
+				}
 
 				wp_cache_set( 'wc_cp_order_count', $order_count, 'woocommerce_chained_product' );
 			}
@@ -195,7 +212,7 @@ if ( ! class_exists( 'WC_CP_Admin_Notices' ) ) {
 						'_chained_product_detail',
 						'publish',
 						'product',
-						'product_varitation'
+						'product_variation'
 					)
 				);
 
@@ -219,7 +236,7 @@ if ( ! class_exists( 'WC_CP_Admin_Notices' ) ) {
 					<a href="?cp_notice_action=dismiss" class="wc_cp_review_notice_remove"><?php echo esc_html__( 'Never show again', 'woocommerce-chained-products' ); ?></a>
 				</div>
 				<p>
-					<?php echo $this->msg . esc_html__( 'It would be great if you ', 'woocommerce-chained-products' ) . ' <a target="__blank" href="' . esc_url( 'https://woocommerce.com/products/chained-products/#comments' ) . '">' . esc_html__( 'give us a 5-star rating', 'woocommerce-chained-products' ) . '</a>&nbsp;' . esc_html__( 'of your experience. Thanking you in advance 😊', 'woocommerce-chained-products' ); // phpcs:ignore ?>
+					<?php echo $this->msg . esc_html__( 'It would be great if you ', 'woocommerce-chained-products' ) . ' <a target="__blank" href="' . esc_url( 'https://woocommerce.com/products/chained-products/?review' ) . '">' . esc_html__( 'give us a 5-star rating', 'woocommerce-chained-products' ) . '</a>&nbsp;' . esc_html__( 'of your experience. Thanking you in advance 😊', 'woocommerce-chained-products' ); // phpcs:ignore ?>
 				</p>
 			</div>
 			<?php

@@ -202,7 +202,9 @@ class Warranty_Item {
 	 */
 	public function is_expired() {
 		$expiration_date = $this->get_expiry();
-		if ( ! $expiration_date ) {
+
+		// Lifetime warranty doesn't have expired date. Thus it will always return false.
+		if ( ! $expiration_date || 'lifetime' === $this->length ) {
 			return false;
 		}
 

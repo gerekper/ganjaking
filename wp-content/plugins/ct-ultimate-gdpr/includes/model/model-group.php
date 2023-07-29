@@ -95,7 +95,7 @@ class CT_Ultimate_GDPR_Model_Group {
 
 			case self::LEVEL_BLOCK_ALL:
 
-				$label = __( 'Block all', 'ct-ultimate-gdpr' );
+				$label = __( 'Block all cookies with personal data', 'ct-ultimate-gdpr' );
 				$label = $admin->get_option_value_escaped( 'cookie_group_popup_label_block_all', $label, CT_Ultimate_GDPR_Controller_Cookie::ID );
 				break;
 
@@ -151,7 +151,7 @@ class CT_Ultimate_GDPR_Model_Group {
 			self::LEVEL_CONVENIENCE => __( 'Functionality', 'ct-ultimate-gdpr' ),
 			self::LEVEL_STATISTICS => __( 'Analytics', 'ct-ultimate-gdpr' ),
 			self::LEVEL_TARGETTING => __( 'Advertising', 'ct-ultimate-gdpr' ),
-			self::LEVEL_BLOCK_ALL => __( 'Block all', 'ct-ultimate-gdpr' ),
+			self::LEVEL_BLOCK_ALL => __( 'Block all cookies with personal data', 'ct-ultimate-gdpr' ),
 
 		);
 		return $labels;

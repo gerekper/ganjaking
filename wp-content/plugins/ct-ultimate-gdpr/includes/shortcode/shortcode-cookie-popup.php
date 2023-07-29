@@ -668,9 +668,10 @@ function ct_gdpr_get_box_style_class_and_wrapper( $skin_name = null ) {
 /**
  * @param null $btn_settings
  * @param null $skin_name
- * @return mixed
+ * @return array
  */
-function ct_gdpr_get_icon( $btn_settings = null, $skin_name = null ) {
+function ct_gdpr_get_icon( $btn_settings = null, $skin_name = null ): array
+{
     $icons['arrow'] = '';
     $icons['btn_icon'] = "";
     $icons['check'] = "";
@@ -738,7 +739,8 @@ function ct_gdpr_get_adv_set_content(
  * @param $arrow
  * @return string
  */
-function ct_gdpr_get_10_set_read_more_content( $skin_name = null, $options, $arrow ) {
+function ct_gdpr_get_10_set_read_more_content( $options, $arrow, $skin_name = null ): string
+{
     $read_more_10_set = '';
     if (
         'apas' == $skin_name

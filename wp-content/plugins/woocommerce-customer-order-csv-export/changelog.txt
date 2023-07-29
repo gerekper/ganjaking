@@ -1,5 +1,12 @@
 *** WooCommerce Customer/Order/Coupon Export Changelog ***
 
+2023.07.25 - version 5.5.0
+ * Misc - Add compatibility for WooCommerce High Performance Order Storage (HPOS)
+ * Fix - Don't format empty strings as numbers when exporting to CSV
+ * Fix - Don't escape non-string values when exporting to CSV
+ * Fix - Address an issue with loading field mapping from existing formats when adding a custom format
+ * Fix - Ensure the "exported by" meta boxes are displayed on the order edit page only
+
 2023.03.17 - version 5.4.1
  * Fix - Fix dynamic property creation causing errors in PHP 8.2
 

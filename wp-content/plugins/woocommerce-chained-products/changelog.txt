@@ -1,5 +1,25 @@
 *** WooCommerce Chained Products Changelog ***
 
+2023.07.26 - version 3.0.0
+* New: Declare Chained Products compatible with High-Performance Order Storage (HPOS)
+* New: WordPress 6.2.2 compatible
+* New: WooCommerce 7.1.1, 7.2.3, 7.3.0, 7.4.1, 7.5.1, 7.6.1, 7.7.2, 7.8.2, 7.9.0 compatible
+* New: Notice for the back order availability
+* New: Setting to remove the duplication of main product while manually creating an order
+* Fix: Incorrect variable price display
+* Fix: Stock managing for chained products
+* Fix: Some incorrect placeholders for sprintf
+* Fix: Shows PHP warning while undo the cart items after removal
+* Fix: Main product displaying a price of zero when manually adding it as a chained product during manual order creation.
+* Update: Optimize the page loading time
+* Update: Chained Products lists rendering with ajax
+* Update: Add plugin version to the register scripts and styles
+* Update: Loading of the text domain with WordPress initialization
+* Update: Documentation links
+* Update: Code improvements
+* Update: Removed 'woo-includes' directory
+* Update: POT file
+
 2022.11.09 - version 2.13.0
 * New: WooCommerce 7.0.1 compatible
 * New: WordPress 6.1.0 compatible
@@ -98,7 +118,7 @@
 * Update: POT file
 
 2019.03.07 - version 2.9.0
-* New: Allow chained products to be set for all WooCommerce product types (https://docs.woocommerce.com/document/chained-products/#section-20)
+* New: Allow chained products to be set for all WooCommerce product types (https://woocommerce.com/document/chained-products/#section-20)
 * Fix: Shortcode vanishing from the editor on publish/update of product
 * Fix: Sometimes quantity not updated correctly in existing orders
 * Update: Always show insert shortcode notice on product add/edit page

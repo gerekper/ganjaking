@@ -42,5 +42,5 @@ foreach ( $posts as $post_id ) {
 
 delete_option( 'warranty_needs_update' );
 update_option( 'warranty_db_version', '20160506' );
-wp_redirect( admin_url( 'admin.php?page=warranties&view=updater&act=migrate_products' ) );
+wp_safe_redirect( wp_nonce_url( admin_url( 'admin.php?page=warranties&view=updater&act=migrate_products', 'wc_warranty_updater' ) ) );
 exit;

@@ -177,7 +177,7 @@ class woocommerce_msrp_admin {
 			return;
 		}
 		$variation_id = (int) $_POST['variable_post_id'][ $idx ];
-		$msrp         = $_POST['variable_msrp'][ $idx ];
+		$msrp         = (float) $_POST['variable_msrp'][ $idx ];
 		$msrp         = wc_format_decimal( $msrp );
 		$variation    = wc_get_product( $variation_id );
 		$variation->update_meta_data( '_msrp', $msrp );
@@ -268,12 +268,12 @@ class woocommerce_msrp_admin {
 			)
 		) {
 			if ( isset( $_POST['product_addon_msrp'][ $idx ] ) ) {
-				$data['msrp'] = $_POST['product_addon_msrp'][ $idx ];
+				$data['msrp'] = (float) $_POST['product_addon_msrp'][ $idx ];
 			}
 		} else {
 			if ( isset( $_POST['product_addon_option_msrp'][ $idx ] ) ) {
 				foreach ( $_POST['product_addon_option_msrp'][ $idx ] as $option_idx => $value ) {
-					$data['options'][ $option_idx ]['msrp'] = $value;
+					$data['options'][ (int) $option_idx ]['msrp'] = (float) $value;
 				}
 			}
 		}

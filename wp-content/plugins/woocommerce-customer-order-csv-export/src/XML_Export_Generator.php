@@ -25,8 +25,9 @@ namespace SkyVerge\WooCommerce\CSV_Export;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_6 as Framework;
 use WC_Customer_Order_CSV_Export;
+use WC_Order;
 
 /**
  * Customer/Order XML Export Generator
@@ -187,7 +188,7 @@ class XML_Export_Generator extends Export_Generator {
 			$order = wc_get_order( $order_id );
 
 			// skip invalid orders
-			if ( ! $order instanceof \WC_Order ) {
+			if ( ! $order instanceof WC_Order ) {
 				continue;
 			}
 
@@ -324,7 +325,7 @@ class XML_Export_Generator extends Export_Generator {
 			 * @since 5.0.0
 			 *
 			 * @param array $order_data order data
-			 * @param \WC_Order $order order object
+			 * @param WC_Order $order order object
 			 * @param XML_Export_Generator $generator the generator object
 			 */
 			$orders[] = apply_filters( 'wc_customer_order_export_xml_order_data', $order_data, $order, $this );
@@ -341,7 +342,7 @@ class XML_Export_Generator extends Export_Generator {
 	 *
 	 * @since 5.0.0
 	 *
-	 * @param \WC_Order $order
+	 * @param WC_Order $order
 	 * @return array - shipping items, methods and method ids. Values will be null if order has no shipping methods.
 	 */
 	private function get_shipping_items( $order ) {
@@ -373,7 +374,7 @@ class XML_Export_Generator extends Export_Generator {
 			 * }
 			 *
 			 * @param array $shipping WC order shipping item data
-			 * @param \WC_Order $order the order
+			 * @param WC_Order $order the order
 			 */
 			$shipping_items['ShippingItem'][] = apply_filters( 'wc_customer_order_export_xml_order_shipping_item', $shipping_item, $shipping, $order );
 		}
@@ -478,7 +479,7 @@ class XML_Export_Generator extends Export_Generator {
 			 * @since 5.0.0
 			 *
 			 * @param array $item_data
-			 * @param \WC_Order $order Related order
+			 * @param WC_Order $order Related order
 			 * @param array $item Order line item
 			 */
 			$items['OrderLineItem'][] = apply_filters( 'wc_customer_order_export_xml_order_line_item', $item_data, $order, $item );
@@ -528,7 +529,7 @@ class XML_Export_Generator extends Export_Generator {
 			 * }
 			 *
 			 * @param array $fee WC order fee item data
-			 * @param \WC_Order $order the order
+			 * @param WC_Order $order the order
 			 */
 			$fee_items['FeeItem'][] = apply_filters( 'wc_customer_order_export_xml_order_fee_item', $fee_item, $fee, $order );
 
@@ -577,7 +578,7 @@ class XML_Export_Generator extends Export_Generator {
 			 * }
 			 *
 			 * @param object $tax WC order tax item
-			 * @param \WC_Order $order the order
+			 * @param WC_Order $order the order
 			 */
 			$tax_items['TaxItem'][] = apply_filters( 'wc_customer_order_export_xml_order_tax_item', $tax_item, $tax, $order );
 		}
@@ -593,7 +594,7 @@ class XML_Export_Generator extends Export_Generator {
 	 *
 	 * @since 5.0.0
 	 *
-	 * @param \WC_Order $order
+	 * @param WC_Order $order
 	 * @return array|null - coupons in array format required by array_to_xml(), or null if no coupons
 	 */
 	private function get_coupon_items( $order ) {
@@ -626,7 +627,7 @@ class XML_Export_Generator extends Export_Generator {
 			 * }
 			 *
 			 * @param array $coupon WC order coupon item
-			 * @param \WC_Order $order the order
+			 * @param WC_Order $order the order
 			 */
 			$coupon_items['CouponItem'][] = apply_filters( 'wc_customer_order_export_xml_order_coupon_item', $coupon_item, $coupon, $order );
 		}
@@ -642,7 +643,7 @@ class XML_Export_Generator extends Export_Generator {
 	 *
 	 * @since 5.0.0
 	 *
-	 * @param \WC_Order $order
+	 * @param WC_Order $order
 	 * @return array|null - refunds in array format required by array_to_xml(), or null if no refunds
 	 */
 	private function get_refunds( $order ) {
@@ -700,7 +701,7 @@ class XML_Export_Generator extends Export_Generator {
 			 * }
 			 *
 			 * @param \WC_Order_Refund $refund WC order refund instance
-			 * @param \WC_Order $order the order
+			 * @param WC_Order $order the order
 			 */
 			$refunds['Refund'][] = apply_filters( 'wc_customer_order_export_xml_order_refund', $refund_data, $refund, $order );
 		}
@@ -769,7 +770,7 @@ class XML_Export_Generator extends Export_Generator {
 	 *
 	 * @since 5.0.0
 	 *
-	 * @param \WC_Order $order
+	 * @param WC_Order $order
 	 * @return array|null - order notes in array format required by array_to_xml() or null if not notes
 	 */
 	private function get_formatted_order_notes( $order ) {
@@ -797,7 +798,7 @@ class XML_Export_Generator extends Export_Generator {
 				 * @since 5.0.0
 				 *
 				 * @param array - the data included for each order note
-				 * @param \WC_Order $order
+				 * @param WC_Order $order
 				 * @param object $note the order note comment object
 				 */
 				$order_note['OrderNote'][] = apply_filters( 'wc_customer_order_export_xml_order_note', [
@@ -818,7 +819,7 @@ class XML_Export_Generator extends Export_Generator {
 	 *
 	 * @since 5.0.0
 	 *
-	 * @param \WC_Order $order
+	 * @param WC_Order $order
 	 * @return array - order notes as array of comment objects
 	 */
 	private function get_order_notes( $order ) {
@@ -915,10 +916,10 @@ class XML_Export_Generator extends Export_Generator {
 	 * @since 5.0.0
 	 *
 	 * @param array $order_data an array of order data for the given order
-	 * @param \WC_Order $order the WC_Order object
+	 * @param WC_Order $order the WC_Order object
 	 * @return array modified order data
 	 */
-	private function get_order_custom_data( $order_data, \WC_Order $order ) {
+	private function get_order_custom_data( array $order_data, WC_Order $order ) : array {
 
 		$meta = $this->get_custom_format_meta_keys( 'orders' );
 
@@ -927,15 +928,13 @@ class XML_Export_Generator extends Export_Generator {
 
 			foreach ( $meta as $meta_key => $column_name ) {
 
-				$order_data[ $column_name ] = maybe_serialize( get_post_meta( $order->get_id(), $meta_key, true ) );
+				$order_data[ $column_name ] = maybe_serialize( $order->get_meta( $meta_key ) );
 
 				$this->add_meta_key_index_prefix( $order_data, $column_name );
 			}
 		}
 
-		$order_data = array_merge( $order_data, $this->get_custom_format_static_fields( 'orders' ) );
-
-		return $order_data;
+		return array_merge( $order_data, $this->get_custom_format_static_fields( 'orders' ) );
 	}
 
 

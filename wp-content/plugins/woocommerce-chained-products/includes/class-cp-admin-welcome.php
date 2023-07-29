@@ -2,6 +2,7 @@
 /**
  * Welcome Page Class
  *
+ * @version     1.1.0
  * @package     woocommerce-chained-products/includes/
  */
 
@@ -143,8 +144,8 @@ class CP_Admin_Welcome {
 
 			<div class="column col last-feature">
 				<p align="right">
-					<a href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=products&section=wc_chained_products' ) ); ?>" class="settings button button-primary" target="_blank"><?php echo esc_html__( 'Settings', 'woocommerce-chained-products' ); ?></a>
-					<a href="<?php echo esc_url( apply_filters( 'chained_products_docs_url', 'https://docs.woocommerce.com/document/chained-products/', 'woocommerce-chained-products' ) ); ?>" class="docs button button-primary" target="_blank"><?php echo esc_html__( 'Docs', 'woocommerce-chained-products' ); ?></a>
+					<a href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=products&section=wc_chained_products' ) ); ?>" class="settings button button-primary" target="_blank"><?php echo esc_html_x( 'Settings', 'Setting page title', 'woocommerce-chained-products' ); ?></a>
+					<a href="<?php echo esc_url( apply_filters( 'chained_products_docs_url', 'https://woocommerce.com/document/chained-products/', 'woocommerce-chained-products' ) ); ?>" class="docs button button-primary" target="_blank"><?php echo esc_html_x( 'Docs', 'Document link label', 'woocommerce-chained-products' ); ?></a>
 				</p>
 			</div>
 		</div>
@@ -373,29 +374,29 @@ class CP_Admin_Welcome {
 					<div class="has-3-columns feature-section col three-col" style="max-width: unset !important;">
 						<div class="column col">
 							<p>1.<code>[chained_products]</code></p>
-							<img src="https://docs.woocommerce.com/wp-content/uploads/2012/05/default-shortcode.png" class="wc-cp-shortcode-image" />
+							<img src="https://woocommerce.com/document/wp-content/uploads/2012/05/default-shortcode.png" class="wc-cp-shortcode-image" />
 						</div>
 						<div class="column col">
 							<p>2.<code>[chained_products price="no"]</code></p>
-							<img src="https://docs.woocommerce.com/wp-content/uploads/2012/05/cp-shortcode-price-no.png" class="wc-cp-shortcode-image" />
+							<img src="https://woocommerce.com/document/wp-content/uploads/2012/05/cp-shortcode-price-no.png" class="wc-cp-shortcode-image" />
 						</div>
 						<div class="column col last-feature">
 							<p>3.<code>[chained_products price="yes" quantity="no" style="grid"]</code></p>
-							<img src="https://docs.woocommerce.com/wp-content/uploads/2012/05/cp-shortcode-price-yes-qty-no-style-grid.png" class="wc-cp-shortcode-image" />
+							<img src="https://woocommerce.com/document/wp-content/uploads/2012/05/cp-shortcode-price-yes-qty-no-style-grid.png" class="wc-cp-shortcode-image" />
 						</div>
 					</div>
 					<div class="has-3-columns feature-section col three-col" style="max-width: unset !important;">
 						<div class="column col">
 							<p>4.<code>[chained_products style="list"]</code></p>
-							<img src="https://docs.woocommerce.com/wp-content/uploads/2012/05/cp-shortcode-style-list.png" class="wc-cp-shortcode-image" />
+							<img src="https://woocommerce.com/document/wp-content/uploads/2012/05/cp-shortcode-style-list.png" class="wc-cp-shortcode-image" />
 						</div>
 						<div class="column col">
 							<p>5.<code>[chained_products quantity="no" style="list"]</code></p>
-							<img src="https://docs.woocommerce.com/wp-content/uploads/2012/05/cp-shortcode-qty-no-style-list.png" class="wc-cp-shortcode-image" />
+							<img src="https://woocommerce.com/document/wp-content/uploads/2012/05/cp-shortcode-qty-no-style-list.png" class="wc-cp-shortcode-image" />
 						</div>
 						<div class="column col last-feature">
 							<p>6.<code>[chained_products price="no" quantity="yes" style="list"]</code></p>
-							<img src="https://docs.woocommerce.com/wp-content/uploads/2012/05/cp-shortcode-price-no-qty-yes-style-list.png" class="wc-cp-shortcode-image" />
+							<img src="https://woocommerce.com/document/wp-content/uploads/2012/05/cp-shortcode-price-no-qty-yes-style-list.png" class="wc-cp-shortcode-image" />
 						</div>
 					</div>
 				</div>

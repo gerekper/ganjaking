@@ -178,18 +178,23 @@ class WC_Newsletter_Subscription_Admin {
 	 * @return array
 	 */
 	public function plugin_row_meta( $links, $file ) {
-		if ( WC_NEWSLETTER_SUBSCRIPTION_BASENAME === $file ) {
-			$row_meta = array(
-				'docs' => sprintf(
-					'<a href="%1$s" aria-label="%2$s">%3$s</a>',
-					esc_url( 'https://woocommerce.com/document/newsletter-subscription/' ),
-					esc_attr_x( 'View WooCommerce Newsletter Subscription Documentation', 'aria-label: documentation link', 'woocommerce-subscribe-to-newsletter' ),
-					esc_html_x( 'Docs', 'plugin row link', 'woocommerce-subscribe-to-newsletter' )
-				),
-			);
-
-			$links = array_merge( $links, $row_meta );
+		if ( WC_NEWSLETTER_SUBSCRIPTION_BASENAME !== $file ) {
+			return $links;
 		}
+
+		$links['docs'] = sprintf(
+			'<a href="%1$s" aria-label="%2$s" target="_blank">%3$s</a>',
+			esc_url( 'https://woocommerce.com/document/newsletter-subscription/' ),
+			esc_attr_x( 'View WooCommerce Newsletter Subscription Documentation', 'aria-label: documentation link', 'woocommerce-subscribe-to-newsletter' ),
+			esc_html_x( 'Docs', 'plugin row link', 'woocommerce-subscribe-to-newsletter' )
+		);
+
+		$links['support'] = sprintf(
+			'<a href="%1$s" aria-label="%2$s" target="_blank">%3$s</a>',
+			esc_url( 'https://woocommerce.com/my-account/create-a-ticket?select=18605' ),
+			esc_attr_x( 'Open a support ticket at WooCommerce.com', 'aria-label: support link', 'woocommerce-subscribe-to-newsletter' ),
+			esc_html_x( 'Support', 'plugin row link', 'woocommerce-subscribe-to-newsletter' )
+		);
 
 		return $links;
 	}

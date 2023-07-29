@@ -36,6 +36,39 @@ if ( ! class_exists( 'ACF_Admin_Taxonomies' ) ) :
 		public $store = 'taxonomies';
 
 		/**
+		 * Constructor.
+		 *
+		 * @date    5/03/2014
+		 * @since   6.2
+		 *
+		 * @return  void
+		 */
+		public function __construct() {
+			add_action( 'admin_menu', array( $this, 'admin_menu' ), 9 );
+			add_action( 'admin_footer', array( $this, 'include_pro_features' ) );
+			parent::__construct();
+		}
+
+		/**
+		 * Renders HTML for the ACF PRO features upgrade notice.
+		 *
+		 * @return void
+		 */
+		public function include_pro_features() {
+			// Bail if on PRO.
+			if ( defined( 'ACF_PRO' ) && ACF_PRO ) {
+				return;
+			}
+
+			// Bail if not the edit taxonomies screen.
+			if ( ! acf_is_screen( 'edit-acf-taxonomy' ) ) {
+				return;
+			}
+
+			acf_get_view( 'acf-field-group/pro-features' );
+		}
+
+		/**
 		 * Current screen actions for the taxonomies list admin page.
 		 *
 		 * @since   6.1
@@ -132,8 +165,11 @@ if ( ! class_exists( 'ACF_Admin_Taxonomies' ) ) :
 
 				// Description.
 				case 'acf-description':
-					if ( $post['description'] ) {
+					if ( is_string( $post['description'] ) && ! empty( $post['description'] ) ) {
 						echo '<span class="acf-description">' . acf_esc_html( $post['description'] ) . '</span>';
+					} else {
+						echo '<span class="acf-emdash" aria-hidden="true">—</span>';
+						echo '<span class="screen-reader-text">' . esc_html__( 'No description', 'acf' ) . '</span>';
 					}
 					break;
 
@@ -168,6 +204,8 @@ if ( ! class_exists( 'ACF_Admin_Taxonomies' ) ) :
 			$field_groups = acf_get_field_groups( array( 'taxonomy' => $taxonomy['taxonomy'] ) );
 
 			if ( empty( $field_groups ) ) {
+				echo '<span class="acf-emdash" aria-hidden="true">—</span>';
+				echo '<span class="screen-reader-text">' . esc_html__( 'No field groups', 'acf' ) . '</span>';
 				return;
 			}
 
@@ -223,6 +261,12 @@ if ( ! class_exists( 'ACF_Admin_Taxonomies' ) ) :
 				}
 			}
 
+			if ( empty( $labels ) ) {
+				echo '<span class="acf-emdash" aria-hidden="true">—</span>';
+				echo '<span class="screen-reader-text">' . esc_html__( 'No post types', 'acf' ) . '</span>';
+				return;
+			}
+
 			$labels        = array_unique( $labels );
 			$limit         = 3;
 			$shown_labels  = array_slice( $labels, 0, $limit );
@@ -245,8 +289,12 @@ if ( ! class_exists( 'ACF_Admin_Taxonomies' ) ) :
 		 * @return void
 		 */
 		public function render_admin_table_column_num_terms( $taxonomy ) {
+			$no_terms  = '<span class="acf-emdash" aria-hidden="true">—</span>';
+			$no_terms .= '<span class="screen-reader-text">' . esc_html__( 'No terms', 'acf' ) . '</span>';
+
 			// WP doesn't count terms for taxonomies that don't exist and instead returns WP_Error.
-			if ( 'trash' === get_post_status( $taxonomy['ID'] ) ) {
+			if ( empty( $taxonomy['active'] ) || 'trash' === get_post_status( $taxonomy['ID'] ) ) {
+				echo acf_esc_html( $no_terms );
 				return;
 			}
 
@@ -258,11 +306,16 @@ if ( ! class_exists( 'ACF_Admin_Taxonomies' ) ) :
 				)
 			);
 
-			if ( ! is_numeric( $num_terms ) ) {
+			if ( ! $num_terms || ! is_numeric( $num_terms ) ) {
+				echo acf_esc_html( $no_terms );
 				return;
 			}
 
-			echo esc_html( number_format_i18n( $num_terms ) );
+			printf(
+				'<a href="%s">%s</a>',
+				esc_url( admin_url( 'edit-tags.php?taxonomy=' . $taxonomy['taxonomy'] ) ),
+				esc_html( number_format_i18n( $num_terms ) )
+			);
 		}
 
 		/**

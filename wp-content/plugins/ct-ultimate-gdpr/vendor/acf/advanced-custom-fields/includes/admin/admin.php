@@ -70,7 +70,7 @@ if ( ! class_exists( 'ACF_Admin' ) ) :
 		 * @param   string $classes Space-separated list of CSS classes.
 		 * @return  string
 		 */
-		function admin_body_class( $classes ) {
+		public function admin_body_class( $classes ) {
 			global $wp_version;
 
 			// Determine body class version.
@@ -82,7 +82,7 @@ if ( ! class_exists( 'ACF_Admin' ) ) :
 			}
 
 			// Add browser for specific CSS.
-			$classes .= ' acf-browser-' . acf_get_browser();
+			$classes .= ' acf-browser-' . esc_attr( acf_get_browser() );
 
 			// Return classes.
 			return $classes;
@@ -230,8 +230,12 @@ if ( ! class_exists( 'ACF_Admin' ) ) :
 			if ( null === $text ) {
 				$text = '';
 			}
+
+			$is_free        = ! defined( 'ACF_PRO' ) || ! ACF_PRO;
+			$wp_engine_link = acf_add_url_utm_tags( 'https://wpengine.com/', 'bx_prod_referral', $is_free ? 'acf_free_plugin_footer_text' : 'acf_pro_plugin_footer_text', false, 'acf_plugin', 'referral' );
+
 			// Use RegExp to append "ACF" after the <a> element allowing translations to read correctly.
-			return preg_replace( '/(<a[\S\s]+?\/a>)/', '$1 ' . __( 'and', 'acf' ) . ' <a href="' . acf_add_url_utm_tags( 'https://www.advancedcustomfields.com', 'footer', 'footer' ) . '" target="_blank">ACF</a>', $text, 1 );
+			return preg_replace( '/(<a[\S\s]+?\/a>)/', '$1 ' . __( 'and', 'acf' ) . ' <a href="' . acf_add_url_utm_tags( 'https://www.advancedcustomfields.com', 'footer', 'footer' ) . '" target="_blank">ACF</a> ' . __( 'from', 'acf' ) . ' <a href="' . $wp_engine_link . '" target="_blank">WP Engine</a>', $text, 1 );
 		}
 
 		/**

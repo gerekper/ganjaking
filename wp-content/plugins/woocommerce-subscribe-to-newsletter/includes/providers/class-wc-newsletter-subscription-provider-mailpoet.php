@@ -27,7 +27,7 @@ class WC_Newsletter_Subscription_Provider_Mailpoet extends WC_Newsletter_Subscri
 	 */
 	public function __construct() {
 		$this->id          = 'mailpoet';
-		$this->name        = 'MailPoet 2';
+		$this->name        = 'MailPoet 2 (Deprecated)';
 		$this->privacy_url = 'https://www.mailpoet.com/privacy-notice/';
 		$this->plugin_name = 'MailPoet Newsletters';
 		$this->plugin_url  = 'https://wordpress.org/plugins/wysija-newsletters/';

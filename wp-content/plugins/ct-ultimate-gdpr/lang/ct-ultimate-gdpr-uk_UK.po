@@ -1,0 +1,1517 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: GDPR plugin\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.2.2\n"
+
+msgid "Ultimate GDPR & CCPA"
+msgstr "Ultimate GDPR & CCPA"
+
+msgid "Complete General Data Protection Regulation compliance toolkit plugin for WordPress."
+msgstr "Повний плагін для WordPress, що відповідає вимогам Загального регламенту про захист даних."
+
+msgid "CreateIT"
+msgstr "createIT"
+
+msgid "https://www.createit.pl"
+msgstr "https://www.createit.pl"
+
+msgid "Your server is running PHP version %s but Ultimate GDPR & CCPA %s requires at least %s"
+msgstr "На вашому сервері використовується версія PHP %, але Ultimate GDPR & CCPA % вимагається щонайменше %"
+
+msgid "[Ultimate GDPR & CCPA] Your license key is missing, <a href=%s>add valid purchase code</a> to use the cookie scanner"
+msgstr "[Ultimate GDPR & CCPA] Ваш ліцензійний ключ відсутній, <a href=%s>додайте дійсний код покупки</a> для використання сканера файлів cookie"
+
+msgid "Please upload a file to import"
+msgstr "Будь ласка, завантажте файл для імпорту"
+
+msgid "No options were imported"
+msgstr "Опції не були імпортовані"
+
+msgid "Settings imported successfully"
+msgstr "Налаштування успішно імпортовані"
+
+msgid "Settings were not imported. Please check the import file."
+msgstr "Налаштування не були імпортовані. Будь ласка, перевірте файл імпорту"
+
+msgid "Wrong file format for services."
+msgstr "Невірний формат файлу для послуг"
+
+msgid "Services imported successfully"
+msgstr "Послуги успішно імпортовані"
+
+msgid "No service was imported"
+msgstr "Послугу імпортовано не було"
+
+msgid "Enabled"
+msgstr "Включений"
+
+msgid "Enable"
+msgstr "Вмикати"
+
+msgid "Disabled"
+msgstr "Вимкнуто"
+
+msgid "Disable"
+msgstr "Вимкнути"
+
+msgid "License"
+msgstr "Ліцензія"
+
+msgid "Envato key"
+msgstr "Ключ Envato"
+
+msgid "OK!"
+msgstr "ГАРАЗД!"
+
+msgid "Age Verification"
+msgstr "Перевірка віку"
+
+msgid "Popup content"
+msgstr "Спливаючий вміст"
+
+msgid "Options"
+msgstr "Параметри"
+
+msgid "Epiration time"
+msgstr "Термін придатності"
+
+msgid "Position of the age popup"
+msgstr "Позиція вікового спливаючого вікна"
+
+msgid "Buttons styles"
+msgstr "Стилі кнопок"
+
+msgid "Popup box"
+msgstr "Спливаюче вікно"
+
+msgid "Custom style CSS"
+msgstr "Користувацький стиль CSS"
+
+msgid "Popup title"
+msgstr "Заголовок спливаючого вікна"
+
+msgid "Age popup content"
+msgstr "Вік вмісту спливаючих вікон"
+
+msgid "Popup 'Submit' button label"
+msgstr "Спливаюча мітка кнопки \"Надіслати\""
+
+msgid "Do not block user agents (eg. bots) containing the following texts (comma separated)"
+msgstr "Не блокуйте користувацькі агенти (наприклад, боти), що містять наступні тексти (розділяються комами)"
+
+msgid "Lower age limit to enter the website"
+msgstr "Нижня вікова межа для входу на веб-сайт"
+
+msgid "Lower age limit to provide personal data"
+msgstr "Нижня вікова межа для надання персональних даних"
+
+msgid "Default age select placeholder"
+msgstr "Вибір віку за умовчанням"
+
+msgid "Enter age value to assume if age not yet entered"
+msgstr "Введіть значення віку, якщо вік ще не введено"
+
+msgid "Enable Age Verification"
+msgstr "Увімкнення перевірки віку"
+
+msgid "Display the popup on all pages"
+msgstr "Відображення спливаючого вікна на всіх сторінках"
+
+msgid "Check if user is from California"
+msgstr "Перевірте, чи користувач з Каліфорнії"
+
+msgid "Select page where to display the popup"
+msgstr "Виберіть сторінку, на якій відображатиметься спливаюче вікно"
+
+msgid "Select 'my account' page (one to redirect to when user is underage, eg. show link on registration form)"
+msgstr "Виберіть сторінку \"Мій обліковий запис\" (на яку можна перенаправити, коли користувач неповнолітній, наприклад, показати посилання в реєстраційній формі)"
+
+msgid "Set age verification expire time [s]"
+msgstr "Установлення часу закінчення терміну дії перевірки віку [s]"
+
+msgid "Button shape"
+msgstr "Фігура кнопки"
+
+msgid "Button background color"
+msgstr "Колір тла кнопки"
+
+msgid "Button text color"
+msgstr "Колір тексту кнопки"
+
+msgid "Position  (bottom, top and full page layout)"
+msgstr "Розташування (нижній, верхній і повний макет сторінки)"
+
+msgid "Distance from border [px]"
+msgstr "Відстань від межі [px]"
+
+msgid "Box style"
+msgstr "Стиль коробки"
+
+msgid "Box shape"
+msgstr "Фігура коробки"
+
+msgid "Background color"
+msgstr "Колір фону"
+
+msgid "Background image"
+msgstr "Фонове зображення"
+
+msgid "Active Tab"
+msgstr "Активна вкладка"
+
+msgid "Text color"
+msgstr "Колір тексту"
+
+msgid "Protection shortcode label"
+msgstr "Мітка шорткода захисту"
+
+msgid "Update"
+msgstr "Оновити"
+
+msgid "Remove"
+msgstr "Видалити"
+
+msgid "Red Velvet"
+msgstr "Червоний оксамит"
+
+msgid "Thin Mint"
+msgstr "Тонка м'ята"
+
+msgid "Mint Chocolate"
+msgstr "М'ятний шоколад"
+
+msgid "Classic createIT"
+msgstr "Класичний createIT"
+
+msgid "Blueberry with Orange"
+msgstr "Чорниця з апельсином"
+
+msgid "Blue Velvet"
+msgstr "Синій оксамит"
+
+msgid "Chocolate Matcha"
+msgstr "Шоколад матча"
+
+msgid "Classic Dark"
+msgstr "Класичний темний"
+
+msgid "Classic Light"
+msgstr "Класичне світло"
+
+msgid "Oreo"
+msgstr "Орео"
+
+msgid "Blue Shortbread"
+msgstr "Синє пісочне печиво"
+
+msgid "Light Mint"
+msgstr "Світла м'ята"
+
+msgid "Blue Cupcake"
+msgstr "Блакитний кекс"
+
+msgid "Matcha"
+msgstr "Матча"
+
+msgid "Mint"
+msgstr "М'ята"
+
+msgid "None"
+msgstr "Жодний"
+
+msgid "Squared"
+msgstr "Квадраті"
+
+msgid "Rounded"
+msgstr "Закруглені"
+
+msgid "Text Only"
+msgstr "Лише текст"
+
+msgid "Icon and Text"
+msgstr "Піктограма і текст"
+
+msgid "Normal"
+msgstr "Нормальний"
+
+msgid "Large"
+msgstr "Великий"
+
+msgid "Bottom left"
+msgstr "Внизу ліворуч"
+
+msgid "Bottom right"
+msgstr "Унизу праворуч"
+
+msgid "Bottom panel"
+msgstr "Нижня панель"
+
+msgid "Top left"
+msgstr "Угорі ліворуч"
+
+msgid "Top right"
+msgstr "Угорі праворуч"
+
+msgid "Top panel"
+msgstr "Верхня панель"
+
+msgid "Full page layout"
+msgstr "Макет повної сторінки"
+
+msgid "Front page"
+msgstr "Перша шпальта"
+
+msgid "Posts page"
+msgstr "Сторінка публікацій"
+
+msgid "Submit"
+msgstr "Надіслати"
+
+msgid "Trigger"
+msgstr "Тригер"
+
+msgid "This website will:"
+msgstr "Цей веб-сайт:"
+
+msgid "This website won't:"
+msgstr "Цей веб-сайт не буде:"
+
+msgid "Save & Close"
+msgstr "Зберегти та закрити"
+
+msgid "Block all"
+msgstr "Заблокувати всі"
+
+msgid "Essentials"
+msgstr "Основне"
+
+msgid "Functionality"
+msgstr "Функціональність"
+
+msgid "Analytics"
+msgstr "Аналітика"
+
+msgid "Advertising"
+msgstr "Реклама"
+
+msgid "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected;"
+msgstr "Важливо: запам’ятайте налаштування дозволу на файли cookie; Важливо: дозволити сеансові файли cookie; Важливо: збирайте інформацію, яку ви вводите в контактні форми, інформаційний бюлетень та інші форми на всіх сторінках; Важливо: відстежуйте, що ви вводите в кошик для покупок; Необхідно: підтвердьте, що ви ввійшли у свій обліковий запис користувача; Важливо: запам’ятати вибрану вами мовну версію;"
+
+msgid "Remember your login details; Functionality: Remember social media settings; Functionality: Remember selected region and country; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions; Advertising: Tailor information and advertising to your interests based on e.g. the content you have visited before. (Currently we do not use targeting or targeting cookies.; Advertising: Gather personally identifiable information such as name and location;"
+msgstr "Запам'ятайте свої дані для входу; Функціональність: запам'ятовувати налаштування соціальних мереж; Функціональність: запам'ятати вибраний регіон і країну; Аналітика: стежте за відвіданими вами сторінками та здійсненими взаємодіями; Аналітика: відстежуйте своє місцезнаходження та регіон на основі вашого IP-номера; Аналітика: відстежуйте час, витрачений на кожну сторінку; Аналітика: підвищення якості даних статистичних функцій; Реклама: адаптуйте інформацію та рекламу до ваших інтересів, наприклад, на основі вмісту, який ви відвідували раніше. (Наразі ми не використовуємо націлювання чи націлювання на файли cookie.; Реклама: збирайте особисту інформацію, таку як ім’я та місцезнаходження;"
+
+msgid "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected; Functionality: Remember social media settings; Functionality: Remember selected region and country;"
+msgstr "Важливо: запам’ятайте налаштування дозволу на файли cookie; Важливо: дозволити сеансові файли cookie; Важливо: збирайте інформацію, яку ви вводите в контактні форми, інформаційний бюлетень та інші форми на всіх сторінках; Важливо: відстежуйте, що ви вводите в кошик для покупок; Необхідно: підтвердьте, що ви ввійшли у свій обліковий запис користувача; Важливо: запам’ятати вибрану вами мовну версію; Функціональність: запам'ятовувати налаштування соціальних мереж; Функціональність: запам'ятати вибраний регіон і країну;"
+
+msgid "Remember your login details; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions; Advertising: Tailor information and advertising to your interests based on e.g. the content you have visited before. (Currently we do not use targeting or targeting cookies.; Advertising: Gather personally identifiable information such as name and location;"
+msgstr "Запам'ятайте свої дані для входу; Аналітика: стежте за відвіданими вами сторінками та здійсненими взаємодіями; Аналітика: відстежуйте своє місцезнаходження та регіон на основі вашого IP-номера; Аналітика: відстежуйте час, витрачений на кожну сторінку; Аналітика: підвищення якості даних статистичних функцій; Реклама: адаптуйте інформацію та рекламу до ваших інтересів, наприклад, на основі вмісту, який ви відвідували раніше. (Наразі ми не використовуємо націлювання чи націлювання на файли cookie.; Реклама: збирайте особисту інформацію, таку як ім’я та місцезнаходження;"
+
+msgid "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected; Functionality: Remember social media settings; Functionality: Remember selected region and country; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions;"
+msgstr "Важливо: запам’ятайте налаштування дозволу на файли cookie; Важливо: дозволити сеансові файли cookie; Важливо: збирайте інформацію, яку ви вводите в контактні форми, інформаційний бюлетень та інші форми на всіх сторінках; Важливо: відстежуйте, що ви вводите в кошик для покупок; Необхідно: підтвердьте, що ви ввійшли у свій обліковий запис користувача; Важливо: запам’ятати вибрану вами мовну версію; Функціональність: запам'ятовувати налаштування соціальних мереж; Функціональність: запам'ятати вибраний регіон і країну; Аналітика: стежте за відвіданими вами сторінками та здійсненими взаємодіями; Аналітика: відстежуйте своє місцезнаходження та регіон на основі вашого IP-номера; Аналітика: відстежуйте час, витрачений на кожну сторінку; Аналітика: підвищення якості даних статистичних функцій;"
+
+msgid "Remember your login details; Advertising: Use information for tailored advertising with third parties; Advertising: Allow you to connect to social sites; Advertising: Identify device you are using; Advertising: Gather personally identifiable information such as name and location"
+msgstr "Запам'ятайте свої дані для входу; Реклама: Використовуйте інформацію для індивідуальної реклами з третіми сторонами; Реклама: дозволяє підключатися до соціальних сайтів; Реклама: ідентифікуйте пристрій, який ви використовуєте; Реклама: збирайте особисту інформацію, таку як ім’я та місцезнаходження"
+
+msgid "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected; Functionality: Remember social media settings; Functionality: Remember selected region and country; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions; Advertising: Use information for tailored advertising with third parties; Advertising: Allow you to connect to social sitesl Advertising: Identify device you are using; Advertising: Gather personally identifiable information such as name and location"
+msgstr "Важливо: Запам'ятайте налаштування дозволів на файли cookie; Важливо: дозволити файли cookie сеансу; Важливо: Збирайте інформацію, яку ви вводите в контактні форми, інформаційні бюлетені та інші форми на всіх сторінках; Важливо: Відстежуйте, що ви вводите в кошик для покупок; Важливо: Автентифікація, що ви ввійшли у свій обліковий запис користувача; Важливо: Запам'ятайте мовну версію, яку ви вибрали; Функціональність: запам'ятовування налаштувань соціальних мереж; Функціональні можливості: Запам'ятайте вибраний регіон і країну; Аналітика: відстежуйте відвідані сторінки та взаємодію; Аналітика: відстежуйте своє місцезнаходження та регіон на основі вашого IP-номера; Аналітика: відстежуйте час, проведений на кожній сторінці; Аналітика: підвищення якості даних функцій статистики; Реклама: використовувати інформацію для персоналізованої реклами з третіми сторонами; Реклама: дозволяє підключатися до соціальних сайтівl Реклама: Ідентифікуйте пристрій, який ви використовуєте; Реклама: збирайте особисту інформацію, таку як ім'я та місцезнаходження"
+
+msgid "Remember your login details"
+msgstr "Запам'ятайте свої дані для входу"
+
+msgid "This content requires cookies"
+msgstr "Для цього вмісту потрібні файли cookie"
+
+msgid "Removal of your data will not limit in any way the system functionalities"
+msgstr "Видалення ваших даних жодним чином не обмежить функціональні можливості системи"
+
+msgid "Age verification"
+msgstr "Перевірка віку"
+
+msgid "Enter your date of birth"
+msgstr "Введіть свою дату народження"
+
+msgid "Data Breach"
+msgstr "Порушення даних"
+
+msgid "Mail title"
+msgstr "Назва листа"
+
+msgid "Mail content"
+msgstr "Вміст пошти"
+
+msgid "Collect user emails from services"
+msgstr "Збирайте електронні листи користувачів із служб"
+
+msgid "[Ultimate GDPR & CCPA] Data breach information from %s"
+msgstr "[Ultimate GDPR і CCPA] Інформація про порушення даних від %s"
+
+msgid "There was a data breach on our page..."
+msgstr "На нашій сторінці стався витік даних..."
+
+msgid "<h3>Please navigate to <a href='%s'>Service Manager</a> tab to see all detected cookies.</h3>"
+msgstr "<h3>Перейдіть на вкладку <a href='%s'>Диспетчер служб</a>, щоб переглянути всі виявлені файли cookie.</h3>"
+
+msgid "Cookie Consent"
+msgstr "Згода на файли cookie"
+
+msgid "Services Manager"
+msgstr "Менеджер з обслуговування"
+
+msgid "Cookie popup content"
+msgstr "Вміст спливаючого файлу cookie"
+
+msgid "Buttons labels"
+msgstr "Етикетки кнопок"
+
+msgid "Google Analytics Tracking ID"
+msgstr "Ідентифікатор відстеження Google Analytics"
+
+msgid "Cookie scanner settings"
+msgstr "Налаштування сканера файлів cookie"
+
+msgid "Read more"
+msgstr "Читати далі"
+
+msgid "Reject All Cookies"
+msgstr "Відхилити всі файли cookie"
+
+msgid "Position of the cookie notice box"
+msgstr "Розташування поля сповіщень про файли cookie"
+
+msgid "Cookie notice box"
+msgstr "Поле повідомлення про файли cookie"
+
+msgid "Protection shortcode"
+msgstr "Короткий код захисту"
+
+msgid "Withdrawal Cookie Agreement"
+msgstr "Угода про вилучення файлів cookie"
+
+msgid "My account disclaimer"
+msgstr "Застереження щодо мого облікового запису"
+
+msgid "Disable Google Fonts"
+msgstr "Вимкніть Google Fonts"
+
+msgid "Advanced Cookies Settings"
+msgstr "Розширені налаштування файлів cookie"
+
+msgid "Trigger cookie"
+msgstr "Активувати файл cookie"
+
+msgid "Modal styles"
+msgstr "Модальні стилі"
+
+msgid "Lists of features for groups"
+msgstr "Списки функцій для груп"
+
+msgid "Lists of features for individual"
+msgstr "Переліки ознак для індивід"
+
+msgid "Labels"
+msgstr "Етикетки"
+
+msgid "Additional settings"
+msgstr "Додаткові налаштування"
+
+msgid "Provide default content for the selected language (remember to save changes)"
+msgstr "Надайте стандартний вміст для вибраної мови (не забудьте зберегти зміни)"
+
+msgid "Cookie popup 'accept' button label (leave empty for default)"
+msgstr "Мітка кнопки «Прийняти» спливаючого вікна cookie (за умовчанням залиште пустим)"
+
+msgid "Cookie popup 'read more' button label (leave empty for default)"
+msgstr "Мітка кнопки спливаючого вікна cookie \"читати далі\" (за замовчуванням залиште пустим)"
+
+msgid "Cookie popup 'change settings' button label (leave empty for default)"
+msgstr "Мітка кнопки «змінити налаштування» спливаючого вікна cookie (за умовчанням залиште пустим)"
+
+msgid "Open \"Read More\" in a new tab"
+msgstr "Відкрийте «Читати далі» в новій вкладці"
+
+msgid "Display cookie popup on all pages"
+msgstr "Відображати спливаюче вікно cookie на всіх сторінках"
+
+msgid "Check if user is from European Union"
+msgstr "Перевірте, чи є користувач із Європейського Союзу"
+
+msgid "Reset cookie settings after ended session"
+msgstr "Скинути налаштування файлів cookie після завершення сеансу"
+
+msgid "Ask users to accept/reject cookies with every visit on the website"
+msgstr "Попросіть користувачів прийняти/відхилити файли cookie під час кожного відвідування веб-сайту"
+
+msgid "Select page where to display the cookie popup"
+msgstr "Виберіть сторінку, де відобразити спливаюче вікно файлів cookie"
+
+msgid "Always display cookie popup"
+msgstr "Завжди відображати спливаюче вікно cookie"
+
+msgid "Choose how often cookie scans should be performed"
+msgstr "Виберіть частоту сканування файлів cookie"
+
+msgid "Choose default level of new cookies"
+msgstr "Виберіть стандартний рівень нових файлів cookie"
+
+msgid "Cookies whitelist (never block these cookies, comma separated)"
+msgstr "Білий список файлів cookie (ніколи не блокуйте ці файли cookie, розділені комами)"
+
+msgid "Block selected/all cookies until user consents"
+msgstr "Блокувати вибрані/всі файли cookie до згоди користувача"
+
+msgid "Set consent expire time [s]"
+msgstr "Установити термін дії згоди [с]"
+
+msgid "Button settings by"
+msgstr "Налаштування кнопок за"
+
+msgid "Button size"
+msgstr "Розмір кнопки"
+
+msgid "Button border color"
+msgstr "Колір рамки кнопки"
+
+msgid "Cookie close modal button (an option to decline the cookies completely)"
+msgstr "Модальна кнопка закриття файлів cookie (можливість повністю відхилити файли cookie)"
+
+msgid "Read more page"
+msgstr "Детальніше сторінка"
+
+msgid "Read More Custom URL"
+msgstr "Детальніше Спеціальна URL-адреса"
+
+msgid "Heading"
+msgstr "Заголовок"
+
+msgid "Description"
+msgstr "Опис"
+
+msgid "Show advanced cookie popup always, even when the consent is given"
+msgstr "Завжди показувати розширене спливаюче вікно cookie, навіть якщо надано згоду"
+
+msgid "Use advanced cookie groups popup"
+msgstr "Використовуйте спливаюче вікно розширених груп файлів cookie"
+
+msgid "Block each cookie group individually"
+msgstr "Блокуйте кожну групу cookie окремо"
+
+msgid "Advanced cookie groups popup header content"
+msgstr "Вміст спливаючого заголовка розширених груп файлів cookie"
+
+msgid "Trigger cookie settings by"
+msgstr "Активувати налаштування файлів cookie за"
+
+msgid "Trigger cookie settings icon"
+msgstr "Значок налаштування файлів cookie"
+
+msgid "Trigger cookie settings text"
+msgstr "Текст налаштувань файлів cookie"
+
+msgid "Trigger cookie settings background color"
+msgstr "Колір тла налаштувань файлів cookie"
+
+msgid "Trigger cookie settings shape"
+msgstr "Активувати форму налаштувань файлів cookie"
+
+msgid "Trigger cookie settings position"
+msgstr "Активувати позицію налаштувань файлів cookie"
+
+msgid "Trigger cookie settings color"
+msgstr "Колір налаштувань файлів cookie"
+
+msgid "List of features available for Essential level (semicolon separated)"
+msgstr "Список функцій, доступних для рівня Essential (розділені крапкою з комою)"
+
+msgid "List of features not available for Essential level (semicolon separated)"
+msgstr "Список функцій, недоступних для рівня Essential (розділені крапкою з комою)"
+
+msgid "List of features available for Functionality level (semicolon separated)"
+msgstr "Список функцій, доступних для рівня функціональності (розділені крапкою з комою)"
+
+msgid "List of features not available for Functionality level (semicolon separated)"
+msgstr "Список функцій, недоступних для рівня функціональності (розділені крапкою з комою)"
+
+msgid "List of features available for Analytics level (semicolon separated)"
+msgstr "Список функцій, доступних для рівня Analytics (розділені крапкою з комою)"
+
+msgid "List of features not available for Analytics level (semicolon separated)"
+msgstr "Список функцій, недоступних для рівня Analytics (розділені крапкою з комою)"
+
+msgid "List of features available for Advertising level (semicolon separated)"
+msgstr "Список функцій, доступних для Рекламного рівня (розділені крапкою з комою)"
+
+msgid "List of features not available for Advertising level (semicolon separated)"
+msgstr "Список функцій, недоступних для Рекламного рівня (розділені крапкою з комою)"
+
+msgid "Cookie modal header color"
+msgstr "Колір модального заголовка файлу cookie"
+
+msgid "Cookie modal text color"
+msgstr "Модальний колір тексту cookie"
+
+msgid "Cookie modal skin"
+msgstr "Модальна оболонка cookie"
+
+msgid "Cookie close modal text (If empty, button X(close) will display. If not, it will display the text)"
+msgstr "Модальний текст закриття файлу cookie (якщо порожній, відображатиметься кнопка X (закрити). Якщо ні, відображатиметься текст)"
+
+msgid "<i>This website will</i> label"
+msgstr "<i>Цей веб-сайт буде</i> позначено"
+
+msgid "<i>This website won't</i> label"
+msgstr "<i>Цей веб-сайт не буде</i> міток"
+
+msgid "Hide \"Block All\" level features"
+msgstr "Приховати функції рівня \"Заблокувати всі\"."
+
+msgid "Hide \"Essential\" level features"
+msgstr "Приховати функції рівня «Основні»."
+
+msgid "Hide \"Functionality\" level features"
+msgstr "Приховати функції рівня «Функціональність»."
+
+msgid "Hide \"Analytics\" level features"
+msgstr "Приховати функції рівня \"Аналітика\"."
+
+msgid "Hide \"Advertising\" level features"
+msgstr "Приховати функції рівня \"Реклама\"."
+
+msgid "<i>Block all</i> label"
+msgstr "Мітка <i>Заблокувати всі</i>"
+
+msgid "<i>Essentials</i> label"
+msgstr "Етикетка <i>Essentials</i>"
+
+msgid "<i>Functionality</i> label"
+msgstr "Мітка <i>Функціональність</i>"
+
+msgid "<i>Analytics</i> label"
+msgstr "Мітка <i>Analytics</i>"
+
+msgid "<i>Advertising</i> label"
+msgstr "<i>Рекламна</i> мітка"
+
+msgid "Advanced cookie popup 'save & close' button label (leave empty for default)"
+msgstr "Позначка кнопки розширеного спливаючого вікна cookie \"зберегти та закрити\" (за умовчанням залиште пустим)"
+
+msgid "Select default privacy group"
+msgstr "Виберіть групу конфіденційності за умовчанням"
+
+msgid "Reload page when user saves changes"
+msgstr "Перезавантажте сторінку, коли користувач збереже зміни"
+
+msgid "Select privacy group after user accepts cookies in the popup"
+msgstr "Виберіть групу конфіденційності після того, як користувач прийме файли cookie у спливаючому вікні"
+
+msgid "Never"
+msgstr "Ніколи"
+
+msgid "Weekly"
+msgstr "Щотижня"
+
+msgid "Monthly"
+msgstr "Щомісяця"
+
+msgid "Quarterly"
+msgstr "Щоквартально"
+
+msgid "Select"
+msgstr "Виберіть"
+
+msgid "Load"
+msgstr "Завантаження"
+
+msgid "Classic"
+msgstr "Класичний"
+
+msgid "Modern"
+msgstr "Сучасний"
+
+msgid "Apas Blue"
+msgstr "Апас Блакитний"
+
+msgid "Apas Black"
+msgstr "Апас Чорний"
+
+msgid "Apas White"
+msgstr "Апас Білий"
+
+msgid "Kahk Blue"
+msgstr "Kahk Блакитний"
+
+msgid "Kahk Black"
+msgstr "Кахк Чорний"
+
+msgid "Kahk White"
+msgstr "Кахк Білий"
+
+msgid "Oreo Blue"
+msgstr "Орео Блакитний"
+
+msgid "Oreo Black"
+msgstr "Орео Чорний"
+
+msgid "Oreo White"
+msgstr "Орео Білий"
+
+msgid "Wafer Blue"
+msgstr "Вафельний Блакитний"
+
+msgid "Wafer Black"
+msgstr "Вафельний Чорний"
+
+msgid "Wafer White"
+msgstr "Вафельний Білий"
+
+msgid "Jumble Blue"
+msgstr "Джамбл Блакитний"
+
+msgid "Jumble Black"
+msgstr "Джамбл Чорний"
+
+msgid "Jumble White"
+msgstr "Джамбл Білий"
+
+msgid "Khapse Blue"
+msgstr "Хапсе Блакитний"
+
+msgid "Khapse Black"
+msgstr "Хапсе Блек"
+
+msgid "Khapse White"
+msgstr "Хапсе Білий"
+
+msgid "Tareco Blue"
+msgstr "Тареко Блакитний"
+
+msgid "Tareco Black"
+msgstr "Тареко Чорний"
+
+msgid "Tareco White"
+msgstr "Тареко Білий"
+
+msgid "Kichel Blue"
+msgstr "Кічель Блакитний"
+
+msgid "Kichel Black"
+msgstr "Кічель Блек"
+
+msgid "Kichel White"
+msgstr "Кічель Білий"
+
+msgid "Macaron Blue"
+msgstr "Макарон Блакитний"
+
+msgid "Macaron Black"
+msgstr "Макарон Чорний"
+
+msgid "Macaron White"
+msgstr "Макарон Білий"
+
+msgid "Wibele Blue"
+msgstr "Вайбел Блакитний"
+
+msgid "Wibele Black"
+msgstr "Вайбел Чорний"
+
+msgid "Wibele White"
+msgstr "Вайбел Білий"
+
+msgid "Icon Only"
+msgstr "Лише значок"
+
+msgid "Top Left"
+msgstr "Зліва вгорі"
+
+msgid "Top center"
+msgstr "Верхній центр"
+
+msgid "Top Right"
+msgstr "Верхній правий"
+
+msgid "Center Left"
+msgstr "Центр Ліворуч"
+
+msgid "Center Right"
+msgstr "Центр праворуч"
+
+msgid "Bottom Left"
+msgstr "Внизу зліва"
+
+msgid "Bottom Center"
+msgstr "Нижній центр"
+
+msgid "Bottom Right"
+msgstr "Внизу праворуч"
+
+msgid "Round"
+msgstr "Круглий"
+
+msgid "Default"
+msgstr "За замовчуванням"
+
+msgid "Neutral"
+msgstr "Нейтральний"
+
+msgid "Modern Blue"
+msgstr "Сучасний синій"
+
+msgid "Compact Dark Blue"
+msgstr "Компактний темно-синій"
+
+msgid "Compact Light Blue"
+msgstr "Компактний світло-блакитний"
+
+msgid "Compact Green"
+msgstr "Компактний зелений"
+
+msgid "Accept"
+msgstr "Прийняти"
+
+msgid "Change Settings"
+msgstr "Змінити налаштування"
+
+msgid "Functionality: Remember social media settings; Functionality: Remember selected region and country;"
+msgstr "Функціональність: запам'ятовувати налаштування соціальних мереж; Функціональність: запам'ятати вибраний регіон і країну;"
+
+msgid "Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions;"
+msgstr "Аналітика: стежте за відвіданими вами сторінками та здійсненими взаємодіями; Аналітика: відстежуйте своє місцезнаходження та регіон на основі вашого IP-номера; Аналітика: відстежуйте час, витрачений на кожну сторінку; Аналітика: підвищення якості даних статистичних функцій;"
+
+msgid "Advertising: Tailor information and advertising to your interests based on e.g. the content you have visited before. (Currently we do not use targeting or targeting cookies.; Advertising: Gather personally identifiable information such as name and location;"
+msgstr "Реклама: налаштуйте інформацію та рекламу відповідно до ваших інтересів на основі, напр. вміст, який ви відвідували раніше. (Наразі ми не використовуємо націлювання чи націлювання на файли cookie.; Реклама: збирайте особисту інформацію, таку як ім’я та місцезнаходження;"
+
+msgid "Decide to block all cookies which we're using. You can change these settings at any time. Learn more about the cookies we use."
+msgstr "Вирішіть заблокувати всі файли cookie, які ми використовуємо. Ви можете будь-коли змінити ці налаштування. Дізнайтеся більше про файли cookie, які ми використовуємо."
+
+msgid "Every week"
+msgstr "Кожного тижня"
+
+msgid "Every month"
+msgstr "Щомісяця"
+
+msgid "Every quarter"
+msgstr "Кожного кварталу"
+
+msgid "Cookies detected: %s, Cookies saved: %s"
+msgstr "Виявлено файли cookie: %s, файли cookie збережено: %s"
+
+msgid "There was a problem with connecting to the cookie scanner. Skipped this url."
+msgstr "Виникла проблема з підключенням до сканера файлів cookie. Пропущено цю URL-адресу."
+
+msgid "Wrong email!"
+msgstr "Неправильна електронна адреса!"
+
+msgid "Recaptcha error!"
+msgstr "Помилка Recaptcha!"
+
+msgid "[Ultimate GDPR & CCPA] New Data Access request"
+msgstr "[Ultimate GDPR & CCPA] Новий запит на доступ до даних"
+
+msgid "There is a new data access request from email %s. See details at %s"
+msgstr "Є новий запит на доступ до даних з електронної пошти %s. Див. подробиці на %s"
+
+msgid "Your request was sent!"
+msgstr "Ваш запит відправлено!"
+
+msgid "Data was sent to email: %s"
+msgstr "Дані надіслано на адресу електронної пошти: %s"
+
+msgid "The following emails were removed from the list: %s"
+msgstr "Наступні електронні адреси було видалено зі списку: %s"
+
+msgid "Not sent"
+msgstr "Не відправлено"
+
+msgid "Data Access"
+msgstr "Доступ до даних"
+
+msgid "Data access settings"
+msgstr "Налаштування доступу до даних"
+
+msgid "Automatically send data to all users on their request"
+msgstr "Автоматично надсилати дані всім користувачам за їх запитом"
+
+msgid "Remove empty fields in Data Access Request List"
+msgstr "Видаліть порожні поля в списку запитів доступу до даних"
+
+msgid "Email to send new request notifications to"
+msgstr "Електронна адреса, на яку потрібно надсилати сповіщення про нові запити"
+
+msgid "[Ultimate GDPR & CCPA] Data request results from %s"
+msgstr "[Ultimate GDPR і CCPA] Результати запиту даних від %s"
+
+msgid "Please find data attached"
+msgstr "Дані додаються"
+
+msgid "[Ultimate GDPR & CCPA] New Right To Be Forgotten request from %s"
+msgstr "[Ultimate GDPR і CCPA] Новий запит щодо права бути забутим від %s"
+
+msgid "There is a new Right To Be Forgotten request from email %s. See details at %s"
+msgstr "Є новий запит на право бути забутим з електронної пошти %s. Див. подробиці на %s"
+
+msgid "Right To Be Forgotten"
+msgstr "Право бути забутим"
+
+msgid "[Ultimate GDPR & CCPA] Please confirm request to be forgotten from %s"
+msgstr "[Останній GDPR і CCPA] Будь ласка, підтвердьте запит на забуття від %s"
+
+msgid "Your request was already confirmed."
+msgstr "Ваш запит уже підтверджено."
+
+msgid "Your request was successfully confirmed."
+msgstr "Ваш запит успішно підтверджено."
+
+msgid "Your request was not confirmed. Please check the link or contact admin."
+msgstr "Ваш запит не підтверджено. Будь ласка, перевірте посилання або зверніться до адміністратора."
+
+msgid "[Ultimate GDPR & CCPA] Emails were sent to the following users: %s"
+msgstr "[Ultimate GDPR & CCPA] Електронні листи надіслано таким користувачам: %s"
+
+msgid "[Ultimate GDPR & CCPA] The following emails were removed from list: %s"
+msgstr "[Ultimate GDPR і CCPA] Наступні електронні адреси видалено зі списку: %s"
+
+msgid "Non existing service id: %s"
+msgstr "Неіснуючий ідентифікатор служби: %s"
+
+msgid "There was an error forgetting %s service: %s"
+msgstr "Під час забуття служби %s сталася помилка: %s"
+
+msgid "[Ultimate GDPR & CCPA] Services data were removed"
+msgstr "[Ultimate GDPR & CCPA] Дані служб видалено"
+
+msgid "Forms skin"
+msgstr "Формує оболонку"
+
+msgid "Right to be forgotten settings"
+msgstr "Налаштування права на забуття"
+
+msgid "Skin"
+msgstr "Оболонка"
+
+msgid "Automatically forget users who confirmed their mail"
+msgstr "Автоматично забувати користувачів, які підтвердили свою пошту"
+
+msgid "Automatically send email about data removal to users who confirmed their email"
+msgstr "Автоматично надсилати електронний лист про видалення даних користувачам, які підтвердили свою електронну адресу"
+
+msgid "Permit users of selected roles only to be forgotten automatically"
+msgstr "Дозволити автоматичне видалення користувачів лише з вибраними ролями"
+
+msgid "Admin email to send new request notifications to"
+msgstr "Електронна адреса адміністратора, на яку потрібно надсилати сповіщення про нові запити"
+
+msgid "User notification email subject"
+msgstr "Тема сповіщення користувача"
+
+msgid "User notification email message"
+msgstr "Сповіщення користувача електронною поштою"
+
+msgid "Set custom URL to the page containing Ultimate GDPR & CCPA shortcode as the email confirmation target page (or leave empty for autodetect)"
+msgstr "Встановіть спеціальну URL-адресу сторінки, що містить шорткод Ultimate GDPR і CCPA, як цільову сторінку підтвердження електронною поштою (або залиште пустим для автоматичного визначення)"
+
+msgid "Simple form"
+msgstr "Проста форма"
+
+msgid "Rounded form"
+msgstr "Округла форма"
+
+msgid "Tabbed form"
+msgstr "Форма з вкладками"
+
+msgid "[Ultimate GDPR & CCPA] Your data has been forgotten"
+msgstr "[Ultimate GDPR & CCPA] Ваші дані були забуті"
+
+msgid "Optimization"
+msgstr "Оптимізація"
+
+msgid "Optimization Setting"
+msgstr "Налаштування оптимізації"
+
+msgid "Defer Javascript Setting"
+msgstr "Налаштування Defer Javascript"
+
+msgid "Defer CSS Setting"
+msgstr "Відкласти налаштування CSS"
+
+msgid "Enable optimization"
+msgstr "Увімкнути оптимізацію"
+
+msgid "Enabling optimization mode will postpone JS and CSS and will only loads when user interacts with the website."
+msgstr "Увімкнення режиму оптимізації відкладе роботу JS і CSS і завантажуватиметься лише тоді, коли користувач взаємодіє з веб-сайтом."
+
+msgid "Defer Age Popup JS"
+msgstr "Відкласти вікно віку JS"
+
+msgid "Postpone %s until user interacts with the website."
+msgstr "Відкласти %s до взаємодії користувача з веб-сайтом."
+
+msgid "Age Popup JS"
+msgstr "Вікно віку JS"
+
+msgid "Defer Cookie Popup JS"
+msgstr "Відкласти вікно cookie JS"
+
+msgid "Cookie Popup JS"
+msgstr "Вікно cookie JS"
+
+msgid "Defer Cookie List JS"
+msgstr "Відкласти список файлів cookie JS"
+
+msgid "Cookie List JS"
+msgstr "Список файлів cookie JS"
+
+msgid "Defer JqueryBase64 JS"
+msgstr "Відкласти JqueryBase64 JS"
+
+msgid "JqueryBase64 JS"
+msgstr "JqueryBase64 JS"
+
+msgid "Defer Shortcode My-account JS"
+msgstr "Відкласти Шорткод My-account JS"
+
+msgid "Shortcode My-account JS"
+msgstr "Шорткод My-account JS"
+
+msgid "Defer Facebook Pixel JS"
+msgstr "Відкласти Facebook Pixel JS"
+
+msgid "Facebook Pixel JS"
+msgstr "Facebook Pixel JS"
+
+msgid "Defer Shortcode Block Cookie JS"
+msgstr "Відкласти Шорткод Block Cookie JS"
+
+msgid "Shortcode Block Cookie JS"
+msgstr "Шорткод Block Cookie JS"
+
+msgid "Defer Main CSS"
+msgstr "Відкласти Основний CSS"
+
+msgid "You might want to leave this as Disabled. If enabled, styles will only load when user interacts with the website."
+msgstr "Ви можете залишити це вимкненим. Якщо ввімкнено, стилі завантажуватимуться лише під час взаємодії користувача з веб-сайтом."
+
+msgid "Defer JqueryUI CSS"
+msgstr "Відкласти JqueryUI CSS"
+
+msgid "Defer Age Popup CSS"
+msgstr "Відкласти Спливаюче Вікове Вікно CSS"
+
+msgid "Defer Cookie Popup CSS"
+msgstr "Відкласти Cookie Popup CSS"
+
+msgid "Defer Font Awesome CSS"
+msgstr "Відкласти Шрифт Awesome CSS"
+
+msgid "Plugins"
+msgstr "Плагіни"
+
+msgid "Privacy Policy"
+msgstr "Політика конфіденційності"
+
+msgid "Instructions"
+msgstr "Інструкції"
+
+msgid "Require administrators to accept Privacy Policy (redirect)"
+msgstr "Вимагати від адміністраторів прийняття Політики конфіденційності (перенаправлення)"
+
+msgid "Require logged in users to accept Privacy Policy (redirect)"
+msgstr "Вимагати від користувачів, які ввійшли в систему, прийняти Політику конфіденційності (перенаправлення)"
+
+msgid "Require not logged in users/guests to accept Privacy Policy (redirect)"
+msgstr "Вимагати від користувачів/гостей, які не ввійшли в систему, прийняти Політику конфіденційності (перенаправлення)"
+
+msgid "WordPress Privacy Policy page"
+msgstr "Сторінка політики конфіденційності WordPress"
+
+msgid "Page with existing Privacy Policy"
+msgstr "Сторінка з існуючою Політикою конфіденційності"
+
+msgid "Privacy Policy Custom URL"
+msgstr "Політика конфіденційності Спеціальна URL-адреса"
+
+msgid "Open Privacy Policy in a new Tab"
+msgstr "Відкрийте Політику конфіденційності в новій вкладці"
+
+msgid "Page to redirect to after Privacy Policy accepted"
+msgstr "Сторінка для перенаправлення після прийняття Політики конфіденційності"
+
+msgid "Shortcode Button Styling"
+msgstr "Стиль кнопки короткого коду"
+
+msgid "Privacy Policy version, eg. 1.0 (if you change it, user has to give consent again)"
+msgstr "Версія політики конфіденційності, напр. 1.0 (якщо ви зміните це, користувач повинен дати згоду повторно)"
+
+msgid "Redirect to Privacy Policy first (if Terms and Conditions also redirect)"
+msgstr "Спочатку переспрямуйте до Політики конфіденційності (якщо Умови використання також перенаправляють)"
+
+msgid "Convert the following text to Privacy Policy link in all services templates, eg. 'Privacy Policy'"
+msgstr "Перетворіть наведений нижче текст на посилання Політика конфіденційності в усіх шаблонах служб, наприклад. 'Політика конфіденційності'"
+
+msgid "Click here to create"
+msgstr "Натисніть тут, щоб створити"
+
+msgid "1. Place %s shortcode on your existing Privacy Policy page to add an accept button.%s2. Select Privacy Policy page below, so users can be redirected there to give their consent."
+msgstr "1. Розмістіть шорткод %s на існуючій сторінці політики конфіденційності, щоб додати кнопку прийняти.%s2. Виберіть сторінку «Політика конфіденційності» нижче, щоб користувачі могли бути перенаправлені туди, щоб дати свою згоду."
+
+msgid "Don't redirect"
+msgstr "Не перенаправляйте"
+
+msgid "WordPress Privacy page"
+msgstr "Сторінка конфіденційності WordPress"
+
+msgid "Last visited page"
+msgstr "Остання відвідана сторінка"
+
+msgid "Theme Default"
+msgstr "Тема за замовчуванням"
+
+msgid "Cookie box buttons"
+msgstr "Кнопки коробки для Cookies"
+
+msgid "Pseudonymization"
+msgstr "Псевдонімізація"
+
+msgid "Encryption is not possible. Please check your openssl library."
+msgstr "Шифрування неможливе. Перевірте свою бібліотеку openssl."
+
+msgid "Warning"
+msgstr "УВАГА"
+
+msgid "Automatically encrypt new data"
+msgstr "Автоматично шифрувати нові дані"
+
+msgid "Automatically decrypt all data on the fly (if you have anything encrypted, this is recommended)"
+msgstr "Автоматично розшифровувати всі дані на льоту (якщо у вас є щось зашифроване, це рекомендується)"
+
+msgid "Select data to encrypt"
+msgstr "Виберіть дані для шифрування"
+
+msgid "This feature is experimental and may lead to irreversible data lost! After encryption, it may be impossible for anyone to decrypt your data. "
+msgstr "Ця функція є експериментальною та може призвести до незворотної втрати даних! Після шифрування нікому може бути неможливо розшифрувати ваші дані."
+
+msgid "Pseudonymization feature allows you to encrypt some of the data stored in the database. That way, if anyone got access to your database, the user's data would be pseudonymized. Database contents are permanently encrypted and can be decrypted on the fly when accessed by users. You can also permanently decrypt all your contents."
+msgstr "Функція псевдонімізації дозволяє шифрувати деякі дані, що зберігаються в базі даних. Таким чином, якщо хтось отримає доступ до вашої бази даних, дані користувача будуть псевдонімізовані. Вміст бази даних постійно зашифрований і може бути розшифрований на льоту під час доступу користувачів. Ви також можете остаточно розшифрувати весь свій вміст."
+
+msgid "How to use:"
+msgstr "Як використовувати:"
+
+msgid "1. Make a backup"
+msgstr "1. Зробіть резервну копію"
+
+msgid "2. Select which data to encrypt"
+msgstr "2. Виберіть дані для шифрування"
+
+msgid "3. (Optionally) Select 'automatically encrypt new data' for continuous encryption of all incoming data"
+msgstr "3. (Необов’язково) Виберіть «автоматично шифрувати нові дані» для постійного шифрування всіх вхідних даних"
+
+msgid "4. Click 'Save changes'"
+msgstr "4. Натисніть «Зберегти зміни»"
+
+msgid "5. (Optionally) Click 'Encrypt selected' to encrypt all current data which has not been yet encrypted"
+msgstr "5. (Необов’язково) Натисніть «Зашифрувати вибрані», щоб зашифрувати всі поточні дані, які ще не були зашифровані"
+
+msgid "Data encrypted successfully"
+msgstr "Дані успішно зашифровано"
+
+msgid "Decryption is not possible. Please check your openssl library."
+msgstr "Розшифровка неможлива. Перевірте свою бібліотеку openssl."
+
+msgid "Data decrypted successfully"
+msgstr "Дані успішно розшифровано"
+
+msgid "[Ultimate GDPR & CCPA] New Data Rectification request from %s"
+msgstr "[Ultimate GDPR & CCPA] Новий запит на виправлення даних від %s"
+
+msgid "There is a new Data Rectification request from email %s. See details at %s"
+msgstr "Є новий запит на виправлення даних з електронної пошти %s. Див. подробиці на %s"
+
+msgid "[Ultimate GDPR & CCPA] Please confirm your data rectification request from %s"
+msgstr "[Ultimate GDPR & CCPA] Підтвердьте свій запит на виправлення даних від %s"
+
+msgid "Data Rectification"
+msgstr "Виправлення даних"
+
+msgid "Data Rectification settings"
+msgstr "Параметри виправлення даних"
+
+msgid "Email to send admin notifications to"
+msgstr "Електронна адреса для надсилання сповіщень адміністратора"
+
+msgid "User mail title"
+msgstr "Назва електронної пошти користувача"
+
+msgid "User mail content"
+msgstr "Вміст пошти користувача"
+
+msgid "[Ultimate GDPR & CCPA] Data rectification notice from %s"
+msgstr "[Ultimate GDPR і CCPA] Сповіщення про виправлення даних від %s"
+
+msgid "Your data has been rectified"
+msgstr "Ваші дані виправлено"
+
+msgid "Services"
+msgstr "Послуги"
+
+msgid "Services options"
+msgstr "Варіанти послуг"
+
+msgid "Recaptcha key (for myaccount shortcode submissions)"
+msgstr "Ключ Recaptcha (для надсилання короткого коду мого облікового запису)"
+
+msgid "Recaptcha secret key (for myaccount shortcode submissions)"
+msgstr "Секретний ключ Recaptcha (для надсилання короткого коду мого облікового запису)"
+
+msgid "When logging consents of users who did not accept Privacy Policy, log their IP"
+msgstr "Під час реєстрації згоди користувачів, які не прийняли Політику конфіденційності, реєструйте їхні IP-адреси"
+
+msgid "When logging consents of users who did not accept Privacy Policy, log their User Agent"
+msgstr "Під час реєстрації згоди користувачів, які не прийняли Політику конфіденційності, зареєструйте їхній агент користувача"
+
+msgctxt "Тип посади Загальна назва"
+msgid "Services"
+msgstr "Послуги"
+
+msgctxt "Тип публікації Ім'я в однині"
+msgid "Services"
+msgstr "Послуги"
+
+msgid "Parent Services"
+msgstr "Батьківські служби"
+
+msgid "All Services"
+msgstr "Всі послуги"
+
+msgid "View Service"
+msgstr "Перегляд служби"
+
+msgid "Add New Service"
+msgstr "Додати нову послугу"
+
+msgid "Add New"
+msgstr "Додати новий"
+
+msgid "Edit Service"
+msgstr "Редагувати службу"
+
+msgid "Update Service"
+msgstr "Служба оновлення"
+
+msgid "Search Services"
+msgstr "Пошукові служби"
+
+msgid "Not Found"
+msgstr "Не знайдено"
+
+msgid "Not found in Trash"
+msgstr "Не знайдено в кошику"
+
+msgid "services"
+msgstr "послуги"
+
+msgid "Terms And Conditions"
+msgstr "Правила та умови"
+
+msgid "Terms and Conditions"
+msgstr "Правила та умови"
+
+msgid "Require administrators to accept Terms and Conditions (redirect)"
+msgstr "Вимагати від адміністраторів прийняття Загальних положень та умов (перенаправлення)"
+
+msgid "Require logged in users to accept Terms and Conditions (redirect)"
+msgstr "Вимагати від користувачів, які ввійшли в систему, прийняти Загальні положення та умови (перенаправлення)"
+
+msgid "Require guest users to accept Terms and Conditions (redirect)"
+msgstr "Вимагати від гостьових користувачів прийняття Загальних положень та умов (перенаправлення)"
+
+msgid "The page with existing Terms and Conditions"
+msgstr "Сторінка з існуючими положеннями та умовами"
+
+msgid "The page to redirect to after Terms accepted"
+msgstr "Сторінка для перенаправлення після прийняття Умов"
+
+msgid "Terms and Condition Custom URL"
+msgstr "Правила та умови Спеціальна URL-адреса"
+
+msgid "Terms version, eg. 1.0 (if you change it, user has to give consent again)"
+msgstr "Версія термінів, напр. 1.0 (якщо ви зміните це, користувач повинен дати згоду повторно)"
+
+msgid "Convert the following text to Terms and Conditions link in all services templates, eg. 'Terms and Conditions'"
+msgstr "Перетворіть наведений нижче текст на посилання \"Загальні положення та умови\" в усіх шаблонах послуг, наприклад. 'Правила та умови'"
+
+msgid "1. Place %s shortcode on your existing Terms and Conditions page to add an accept button.%s2. Select Terms and Conditions page below, so users can be redirected there to give their consent."
+msgstr "1. Розмістіть шорткод %s на вашій існуючій сторінці Загальних положень та умов, щоб додати кнопку прийняти.%s2. Виберіть сторінку \"Загальні положення та умови\" нижче, щоб користувачі могли бути перенаправлені туди, щоб дати свою згоду."
+
+msgid "There is a new Unsubscribe request from email %s. See details at %s"
+msgstr "Є новий запит на скасування підписки з електронної пошти %s. Див. подробиці на %s"
+
+msgid "[Ultimate GDPR & CCPA] Please confirm request to be unsubscribed from %s newsletters"
+msgstr "[Ultimate GDPR & CCPA] Підтвердьте запит на скасування підписки на %s інформаційні бюлетені"
+
+msgid "There was an error unsubscribing %s from %s service: %s"
+msgstr "Під час скасування підписки %s на службу %s сталася помилка: %s"
+
+msgid "[Ultimate GDPR & CCPA] Unsubscription finished!"
+msgstr "[Ultimate GDPR & CCPA] Скасування підписки завершено!"
+
+msgid "Unsubscribe"
+msgstr "Відписатися"
+
+msgid "Unsubscribe settings"
+msgstr "Налаштування скасування підписки"
+
+msgid "Hide Unsubscribe Tab"
+msgstr "Приховати вкладку «Скасувати підписку»."
+
+msgid "Automatically unsubscribe users who confirmed their mail"
+msgstr "Автоматично відписувати користувачів, які підтвердили свою пошту"
+
+msgid "Automatically send email about unsubscription to users who confirmed their email"
+msgstr "Автоматично надсилати електронні листи про скасування підписки користувачам, які підтвердили свою електронну адресу"
+
+msgid "Enter custom subheader for 'Unsubscribe' tab in 'my account' shortcode (or leave empty for default content)"
+msgstr "Введіть спеціальний підзаголовок для вкладки «Скасувати підписку» в короткому коді «мій обліковий запис» (або залиште пустим для вмісту за замовчуванням)"
+
+msgid "[Ultimate GDPR & CCPA] Unsubscribe notice from %s"
+msgstr "[Ultimate GDPR і CCPA] Сповіщення про скасування підписки від %s"
+
+msgid "You have been unsubscribed"
+msgstr "Ви відписалися"
+
+msgid "Wizard"
+msgstr "Майстер"
+
+msgid "Preview"
+msgstr "Попередній перегляд"
+
+msgid "To confirm, please follow this link: %s"
+msgstr "Для підтвердження перейдіть за цим посиланням: %s"
+
+msgid "Essential"
+msgstr "Необхідний"
+
+msgid "not applicable"
+msgstr "не застосовується"
+
+msgid "[%s] Block Addthis cookies when a user doesn't accept Functionality cookies"
+msgstr "[%s] Блокувати файли cookie Addthis, якщо користувач не приймає функціональні файли cookie"
+
+msgid "[%s] Hide from Forget Me Form"
+msgstr "[%s] Приховати від форми «Забути мене»."
+
+msgid "Akismet: Could not update comment data for comments: %s ||"
+msgstr "Akismet: Не вдалося оновити дані коментарів для коментарів: %s ||"
+
+msgid "Inject consent checkbox to all forms"
+msgstr "Додати прапорець згоди до всіх форм"
+
+msgid "<i>Set this on Akismet Plugin %s </i>"
+msgstr "<i>Налаштуйте це на плагін Akismet %s </i>"
+
+msgid "Akismet process data from user's comments"
+msgstr "Akismet обробляє дані з коментарів користувачів"
+
+msgid "[%s] Inject consent checkbox to all forms"
+msgstr "[%s] Додати прапорець згоди до всіх форм"
+
+msgid "ARForms"
+msgstr "ARForms"
+
+msgid "ARForms gathers data entered by users in forms"
+msgstr "ARForms збирає дані, введені користувачами у форми"
+
+msgid "[%s] Name"
+msgstr "[%s] Ім'я"
+
+msgid "[%s] Description"
+msgstr "[%s] Опис"
+
+msgid "[%s] Enter the existing user's email whom the posts will be reassigned to (or leave empty to delete them when forgetting)"
+msgstr "[%s] Введіть електронну адресу існуючого користувача, якому будуть перепризначені публікації (або залиште порожнім, щоб видалити їх, якщо забудете)"
+
+msgid "bbPress gathers users activity in forums"
+msgstr "bbPress збирає активність користувачів на форумах"
+
+msgid "<strong>ERROR</strong>: Please consent to storage of your data"
+msgstr "<strong>ПОМИЛКА</strong>: погодьтеся на зберігання ваших даних"
+
+msgid "Could not delete user data for user: %s"
+msgstr "Не вдалося видалити дані користувача: %s"
+
+msgid "Could not reassign user data for user: %s"
+msgstr "Не вдалося перепризначити дані користувача для користувача: %s"
+
+msgid "BuddyPress gathers users activity in profile pages and groups"
+msgstr "BuddyPress збирає активність користувачів на сторінках профілів і в групах"
+
+msgid "Caldera Forms gathers data entered by users in forms"
+msgstr "Caldera Forms збирає дані, які користувачі вводять у форми"
+
+msgid "Contact Form CFDB7 gathers data entered by users in Contact Form 7"
+msgstr "Контактна форма CFDB7 збирає дані, введені користувачами у контактній формі 7"
+
+msgid "[Contact Form 7] Inject consent checkbox as the first field instead of the last"
+msgstr "[Контактна форма 7] Введіть прапорець згоди як перше поле замість останнього"
+
+msgid "[%s] Filter for Email sent at the bottom of contact form 7"
+msgstr "[%s] Фільтр електронної пошти, надісланої внизу контактної форми 7"
+
+msgid "Contact Form 7 gathers data entered by users in forms"
+msgstr "Контактна форма 7 збирає дані, введені користувачами у форми"
+
+msgid "There were problems forgetting data for user: %s"
+msgstr "Виникли проблеми із забуттям даних для користувача: %s"
+
+msgid "[%s] Consent Message"
+msgstr "[%s] Повідомлення про згоду"
+
+msgid "Waitlist for WooCommerce - Back In Stock Notifier"
+msgstr "Список очікування для WooCommerce - оповіщення про повернення в запас"
+
+msgid "Waitlist for WooCommerce - Back In Stock Notifier by CreateIT gathers data entered by users in forms"
+msgstr "Список очікування для WooCommerce - Back In Stock Notifier від createIT збирає дані, введені користувачами у формах"
+
+msgid "eForm gathers data entered by users in forms"
+msgstr "eForm збирає дані, введені користувачами у форми"
+
+msgid "%s is required."
+msgstr "Потрібен %s."
+
+msgid "Consent"
+msgstr "Згода"
+
+msgid "Events Manager gathers data entered by users in booking order forms"
+msgstr "Менеджер подій збирає дані, введені користувачами у форми замовлення бронювання"
+
+msgid "Flamingo gathers data entered by users in CF7 forms"
+msgstr "Flamingo збирає дані, які користувачі вводять у форми CF7"
+
+msgid "[%s] Inject consent checkbox to all forms (Basic)"
+msgstr "[%s] Додати прапорець згоди до всіх форм (базова)"
+
+msgid "[%s] Inject consent checkbox to all forms (Premium)"
+msgstr "[%s] Додати прапорець згоди до всіх форм (Преміум)"
+
+msgid "Formidable Forms gathers data entered by users in forms"
+msgstr "Formidable Forms збирає дані, які користувачі вводять у форми"
+
+msgid "[Formidable Forms] Inject consent checkbox as the first field instead of the last"
+msgstr "[Formidable Forms] Введіть прапорець згоди як перше поле замість останнього"
+
+msgid "This field is required"
+msgstr "Це поле є обов'язковим"
+
+msgid "Google Analytics Tracking ID (disable tracking for this ID when cookies consent not given), eg. UA-118586768-1"
+msgstr "Ідентифікатор відстеження Google Analytics (вимкнути відстеження для цього ідентифікатора, якщо згода на файли cookie не надається), наприклад. UA-118586768-1"
+
+msgid "Enable Google Analytics anonymized IP tracking (<a href='%s' target='_blank'>read more</a>)"
+msgstr "Увімкнути анонімне IP-відстеження Google Analytics (<a href='%s' target='_blank'>докладніше</a>)"
+
+msgid "Please note that even when enabled, Ultimate GDPR & CCPA will still block Google Analytics without user consent. If you would like to track anonymously users without accepting cookies, please <a href='%s' target='_blank'>read more here</a>."
+msgstr "Зауважте, що навіть якщо ввімкнено, Ultimate GDPR і CCPA все одно блокуватимуть Google Analytics без згоди користувача. Якщо ви хочете анонімно відстежувати користувачів, не приймаючи файли cookie, <a href='%s' target='_blank'>прочитайте більше тут</a>."
+
+msgid "[Gravity Forms] Inject consent checkbox as the first field instead of the last"
+msgstr "[Gravity Forms] Введіть прапорець згоди як перше поле замість останнього"
+
+msgid "Gravity Forms"
+msgstr "Форми тяжіння"
+
+msgid "Yes"
+msgstr "Так"
+
+msgid "Gravity forms gathers data entered by users in forms"
+msgstr "Gravity forms збирає дані, введені користувачами у форми"
+
+msgid "Hotjar works most accurately if the Hotjar Tracking Code is in the Head tag (<head>) of every page you want to track on your site. This ensures that Hotjar will start tracking visitors as soon as possible."
+msgstr "Hotjar працює найточніше, якщо код відстеження Hotjar міститься в тегу Head (<head>) кожної сторінки, яку ви хочете відстежувати на своєму сайті. Це гарантує, що Hotjar якнайшвидше почне відстежувати відвідувачів."
+
+msgid "[Mailchimp] Inject consent checkbox to order fields"
+msgstr "[Mailchimp] Додайте прапорець згоди до полів замовлення"
+
+msgid "[Mailchimp] Inject consent checkbox as the first field instead of the last"
+msgstr "[Mailchimp] Ввести прапорець згоди як перше поле замість останнього"
+
+msgid "Consent is mandatory to proceed"
+msgstr "Для продовження обов’язкова згода"
+
+msgid "Mailchimp gathers data entered by users in forms"
+msgstr "Mailchimp збирає дані, які користувачі вводять у форми"
+
+msgid "Mailer Lite gathers data entered by users in forms"
+msgstr "Mailer Lite збирає дані, введені користувачами у форми"
+
+msgid "[Mailpoet] Description"
+msgstr "[Mailpoet] Опис"
+
+msgid "Mailpoet"
+msgstr "Mailpoet"
+
+msgid "Mailpoet gathers data entered by users in forms"
+msgstr "Mailpoet збирає дані, які користувачі вводять у форми"
+
+msgid "[%s] Inject consent checkbox to subscribe forms"
+msgstr "[%s] Ввести прапорець згоди, щоб підписатися на форми"
+
+msgid "[%s] Inject consent checkbox as the first field instead of the last"
+msgstr "[%s] Ввести прапорець згоди як перше поле замість останнього"
+
+msgid "[%s] Inject consent checkbox to unsubscribe forms"
+msgstr "[%s] Ввести прапорець згоди, щоб скасувати підписку на форми"
+
+msgid "Mailster"
+msgstr "Mailster"
+
+msgid "Consent is missing"
+msgstr "Згода відсутня"
+
+msgid "Mailster collects signed in user data"
+msgstr "Mailster збирає дані користувачів, які ввійшли в систему"
+
+msgid "[Newsletter] Inject consent checkbox as the first field instead of the last"
+msgstr "[Інформаційний бюлетень] Додайте прапорець згоди як перше поле замість останнього"
+
+msgid "Newsletter"
+msgstr "Інформаційний бюлетень"
+
+msgid "Newsletter gathers data entered by users in newsletter forms"
+msgstr "Інформаційний бюлетень збирає дані, введені користувачами у форми розсилки"
+
+msgid "Ninja Forms gathers data entered by users in forms"
+msgstr "Ninja Forms збирає дані, які користувачі вводять у форми"
+
+msgid "Quform"
+msgstr "Quform"
+
+msgid "Quform gathers data entered by users in forms"
+msgstr "Quform збирає дані, які користувачі вводять у форми"
+
+msgid "Do not sell my information"
+msgstr "Не продавайте мою інформацію"
+
+msgid "Request not to sell personal information"
+msgstr "Прохання не продавати особисту інформацію"
+
+msgid "[%s] Inject consent to privacy policy"
+msgstr "[%s] Ввести згоду на політику конфіденційності"
+
+msgid "Page Builder by SiteOrigin does not collect users data, however it may use services from Google Fonts, Google Maps, and embed external videos from Youtube or Vimeo. By using this Site, you signify your acceptance of this policy."
+msgstr "Page Builder від SiteOrigin не збирає дані користувачів, однак він може використовувати служби Google Fonts, Google Maps і вставляти зовнішні відео з Youtube або Vimeo. Використовуючи цей сайт, ви підтверджуєте свою згоду з цією політикою."
+
+msgid "[%s] Block WPML cookies when a user doesn't accept Functionality cookies"
+msgstr "[%s] Блокувати файли cookie WPML, якщо користувач не приймає функціональні файли cookie"
+
+msgid "Consent is required"
+msgstr "Потрібна згода"
+
+msgid "%s gathers data entered by users in forms"
+msgstr "%s збирає дані, введені користувачами у форми"
+
+msgid "[WooCommerce] Description"
+msgstr "[WooCommerce] Опис"

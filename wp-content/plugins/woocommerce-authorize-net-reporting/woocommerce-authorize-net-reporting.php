@@ -6,11 +6,11 @@
  * Description: Automatically generates and emails daily CSV exports of your Authorize.Net transactions. You can also download an export by going to WooCommerce > Reports > Authorize.Net > Export
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com/
- * Version: 1.12.0
+ * Version: 1.14.0
  * Text Domain: woocommerce-authorize-net-reporting
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2013-2020, SkyVerge, Inc. (info@skyverge.com)
+ * Copyright: (c) 2013-2023, SkyVerge, Inc. (info@skyverge.com)
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,28 +18,15 @@
  * @package   WC-Authorize-net-Reporting
  * @author    SkyVerge
  * @category  Reporting
- * @copyright Copyright (c) 2013-2020, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2023, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 228317:6319791b3db6c23cb91d312bf2fcf2a4
- * WC requires at least: 3.5
- * WC tested up to: 4.7.1
+ * WC requires at least: 3.9.4
+ * WC tested up to: 7.9.0
  */
 
 defined( 'ABSPATH' ) or exit;
-
-// Required functions
-if ( ! function_exists( 'woothemes_queue_update' ) ) {
-	require_once( plugin_dir_path( __FILE__ ) . 'woo-includes/woo-functions.php' );
-}
-
-// Plugin updates
-woothemes_queue_update( plugin_basename( __FILE__ ), '6319791b3db6c23cb91d312bf2fcf2a4', '228317' );
-
-// WC active check
-if ( ! is_woocommerce_active() ) {
-	return;
-}
 
 /**
  * Authorize.Net Reporting loader.
@@ -50,16 +37,16 @@ class WC_Authorize_Net_Reporting_Loader {
 
 
 	/** minimum PHP version required by this plugin */
-	const MINIMUM_PHP_VERSION = '7.0';
+	const MINIMUM_PHP_VERSION = '7.4';
 
 	/** minimum WordPress version required by this plugin */
-	const MINIMUM_WP_VERSION = '5.2';
+	const MINIMUM_WP_VERSION = '5.6';
 
 	/** minimum WooCommerce version required by this plugin */
-	const MINIMUM_WC_VERSION = '3.5';
+	const MINIMUM_WC_VERSION = '3.9.4';
 
 	/** SkyVerge plugin framework version used by this plugin */
-	const FRAMEWORK_VERSION = '5.5.0';
+	const FRAMEWORK_VERSION = '5.11.5';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Authorize.Net Reporting';

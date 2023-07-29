@@ -24,6 +24,7 @@
 namespace SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Adapters;
 
 use Automattic\WooCommerce\Utilities\NumberUtil;
+use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking;
 use WC_Abstract_Order;
 use WC_Order;
 
@@ -57,17 +58,16 @@ class Order_Event_Data_Adapter extends Event_Data_Adapter {
 	/**
 	 * Converts the source order into an array.
 	 *
-	 * @return array
 	 * @since 2.0.0
 	 *
+	 * @return array
 	 */
 	public function convert_from_source(): array {
 
 		return [
 			'currency'       => $this->order->get_currency(),
 			'transaction_id' => $this->order instanceof WC_Order ? $this->order->get_order_number() : $this->order->get_id(), // refunds do not have a number
-			// unfortunately order has no method for getting the total without shipping and tax
-			'value'          => abs( NumberUtil::round( $this->order->get_total() - $this->order->get_shipping_total() - $this->order->get_total_tax(), wc_get_price_decimals() ) ),
+			'value'          => $this->get_order_value(),
 			'coupon'         => implode( ',', $this->order->get_coupon_codes() ),
 			'shipping'       => abs( NumberUtil::round( $this->order->get_shipping_total(), wc_get_price_decimals() ) ),
 			'tax'            => abs( NumberUtil::round( $this->order->get_total_tax(), wc_get_price_decimals() ) ),
@@ -78,6 +78,29 @@ class Order_Event_Data_Adapter extends Event_Data_Adapter {
 				$this->order->get_items()
 			) ),
 		];
+	}
+
+
+	/**
+	 * Gets the order value, either with or without tax and shipping.
+	 *
+	 * @since 2.0.10
+	 *
+	 * @return float
+	 */
+	protected function get_order_value() : float {
+
+		$order_value = $this->order->get_total();
+
+		if ( ! Tracking::revenue_should_include_tax_and_shipping() ) {
+
+			// unfortunately order has no method for getting the total without shipping and tax, so we have to manually
+			// subtract shipping and tax totals from the order total
+			$order_value += - $this->order->get_shipping_total() - $this->order->get_total_tax();
+		}
+
+		// absolute values are required by GA4, regardless if this is an order or refund
+		return abs( NumberUtil::round( $order_value, wc_get_price_decimals() ) );
 	}
 
 

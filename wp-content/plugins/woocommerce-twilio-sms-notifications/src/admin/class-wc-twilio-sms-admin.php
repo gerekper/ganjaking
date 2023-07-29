@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/twilio-sms-notifications/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2013-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2013-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_3 as Framework;
 
 /**
  * Twilio SMS Admin class
@@ -198,53 +198,64 @@ class WC_Twilio_SMS_Admin {
 	/**
 	 * Load the scripts and styles.
 	 *
-	 * TODO: Look for a replacement for the screen ID check here post WC 3.1+. {BR 2017-02-22}
+	 * @internal
 	 *
 	 * @since 1.6.0
 	 */
 	public function enqueue_scripts_and_styles() {
 
-		$screen = get_current_screen();
+		$current_screen       = Framework\SV_WC_Helper::get_current_screen();
+		$is_order_edit_screen = Framework\SV_WC_Order_Compatibility::is_order_edit_screen();
 
-		// Only enqueue the scripts and styles on the settings page, order edit screen, and product edit screen
-		if ( $screen && 'shop_order' !== $screen->id && 'product' !== $screen->id && ! wc_twilio_sms()->is_plugin_settings() ) {
-			return;
+		// only enqueue the scripts and styles on the settings page, order edit screen, and product edit screen
+		if ( $is_order_edit_screen || ( $current_screen && 'product' === $current_screen->id ) || wc_twilio_sms()->is_plugin_settings() ) {
+
+			wp_enqueue_script( 'wc-twilio-sms-admin', wc_twilio_sms()->get_plugin_url() . '/assets/js/admin/wc-twilio-sms-admin.min.js', array(), WC_Twilio_SMS::VERSION, true );
+
+			wp_localize_script( 'wc-twilio-sms-admin', 'wc_twilio_sms_admin', array(
+
+				// Settings screen
+				'test_sms_error_message' => __( 'Please make sure you have entered a mobile phone number and test message.', 'woocommerce-twilio-sms-notifications' ),
+				'test_sms_nonce'         => wp_create_nonce( 'wc_twilio_sms_send_test_sms' ),
+
+				// Edit order screen
+				'edit_order_id'              => get_the_ID(),
+				'toggle_order_updates_nonce' => wp_create_nonce( 'wc_twilio_sms_toggle_order_updates' ),
+				'send_order_sms_nonce'       => wp_create_nonce( 'wc_twilio_sms_send_order_sms' ),
+
+				// General
+				'assets_url' => esc_url( wc_twilio_sms()->get_framework_assets_url() . '/images/ajax-loader.gif' ),
+				'ajax_url'   => admin_url( 'admin-ajax.php' ),
+			) );
+
+			wp_enqueue_style( 'wc-twilio-sms-notifications-admin', wc_twilio_sms()->get_plugin_url() . '/assets/css/admin/wc-twilio-sms-notifications.min.css', '', WC_Twilio_SMS::VERSION );
 		}
-
-		wp_enqueue_script( 'wc-twilio-sms-admin', wc_twilio_sms()->get_plugin_url() . '/assets/js/admin/wc-twilio-sms-admin.min.js', array(), WC_Twilio_SMS::VERSION, true );
-
-		wp_localize_script( 'wc-twilio-sms-admin', 'wc_twilio_sms_admin', array(
-
-			// Settings screen
-			'test_sms_error_message' => __( 'Please make sure you have entered a mobile phone number and test message.', 'woocommerce-twilio-sms-notifications' ),
-			'test_sms_nonce'         => wp_create_nonce( 'wc_twilio_sms_send_test_sms' ),
-
-			// Edit order screen
-			'edit_order_id'              => get_the_ID(),
-			'toggle_order_updates_nonce' => wp_create_nonce( 'wc_twilio_sms_toggle_order_updates' ),
-			'send_order_sms_nonce'       => wp_create_nonce( 'wc_twilio_sms_send_order_sms' ),
-
-			// General
-			'assets_url' => esc_url( wc_twilio_sms()->get_framework_assets_url() . '/images/ajax-loader.gif' ),
-			'ajax_url'   => admin_url( 'admin-ajax.php' ),
-		) );
-
-		wp_enqueue_style( 'wc-twilio-sms-notifications-admin', wc_twilio_sms()->get_plugin_url() . '/assets/css/admin/wc-twilio-sms-notifications.min.css', '', WC_Twilio_SMS::VERSION );
 	}
 
 
 	/**
-	 * Add 'Send an SMS' meta-box to Orders page
+	 * Adds a 'Send an SMS' meta-box to Orders page.
+	 *
+	 * @internal
 	 *
 	 * @since 1.0
 	 */
 	public function add_order_meta_box() {
 
+		$order_screen_id = 'shop_order';
+
+		if ( Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ) {
+
+			$order_screen_id = wc_get_container()->get( \Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController::class )->custom_orders_table_usage_is_enabled()
+				? wc_get_page_screen_id( 'shop-order' )
+				: 'shop_order';
+		}
+
 		add_meta_box(
 			'wc_twilio_sms_order_meta_box',
 			__( 'SMS Messages', 'woocommerce-twilio-sms-notifications' ),
-		 	array( $this, 'display_order_meta_box' ),
-			'shop_order',
+		 	[ $this, 'display_order_meta_box' ],
+			$order_screen_id,
 			'side',
 			'default'
 		);
@@ -252,15 +263,25 @@ class WC_Twilio_SMS_Admin {
 
 
 	/**
-	 * Display the 'Send an SMS' meta-box on the Orders page
+	 * Displays the 'Send an SMS' meta-box on the Orders page.
 	 *
-	 * TODO Instantiate an order here instead to update meta value post WC 3.1+ {BR 2017-02-22}
+	 * @internal
 	 *
 	 * @since 1.0
+	 *
+	 * @param \WP_Post|\WC_Order $post_or_order_object
 	 */
-	public function display_order_meta_box( $post ) {
+	public function display_order_meta_box( $post_or_order_object ) {
 
-		$optin = get_post_meta( $post->ID, '_wc_twilio_sms_optin', true ); ?>
+		if ( $post_or_order_object instanceof \WP_Post ) {
+			$optin = get_post_meta( $post_or_order_object->ID, '_wc_twilio_sms_optin', true );
+		} elseif ( $post_or_order_object instanceof \WC_Order ) {
+			$optin = $post_or_order_object->get_meta( '_wc_twilio_sms_optin' );
+		} else {
+			$optin = 0;
+		}
+
+		?>
 
 		<p style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid #eee;">
 			<input id="wc_twilio_sms_toggle_order_updates" type="checkbox" <?php checked( 1, $optin ); ?> />

@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
 	<div id="wcContent" role="main">
 		<?php
 		if ( ! empty( $updated ) ) {
-			echo '<div class="woocommerce-message">' . $updated . '</div>';
+			echo '<div class="woocommerce-message">' . esc_html( $updated ) . '</div>';
 		}
 
 		if ( 'completed' === $order_status && $order_has_warranty ) {

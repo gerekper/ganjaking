@@ -99,7 +99,7 @@ trait WC_Newsletter_Subscription_Provider_API_Key {
 		// Clean falsy values.
 		$body = array_filter( $args['body'] );
 
-		// Backward compatibility with WP 4.5 and lower.
+		// Add the body params to the URL.
 		if ( 'GET' === $args['method'] && ! empty( $body ) ) {
 			$url  = add_query_arg( $body, $url );
 			$body = array();

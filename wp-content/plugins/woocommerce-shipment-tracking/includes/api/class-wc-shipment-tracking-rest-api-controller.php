@@ -39,6 +39,7 @@ class WC_Shipment_Tracking_REST_API_Controller extends WC_REST_Controller {
 	 * Register the routes for trackings.
 	 */
 	public function register_routes() {
+		// nosemgrep: audit.php.wp.security.rest-route.permission-callback.return-true
 		register_rest_route( $this->namespace, '/' . $this->rest_base . '/providers', array(
 			array(
 				'methods'  => WP_REST_Server::READABLE,

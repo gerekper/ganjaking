@@ -18,6 +18,7 @@ if ( class_exists( 'WC_Newsletter_Subscription_Provider_Mailchimp', false ) ) {
 class WC_Newsletter_Subscription_Provider_Mailchimp extends WC_Newsletter_Subscription_Provider {
 
 	use WC_Newsletter_Subscription_Provider_Stats;
+	use WC_Newsletter_Subscription_Provider_Manage_Subscription;
 	use WC_Newsletter_Subscription_Provider_API_Key {
 		set_credentials as trait_set_credentials;
 	}
@@ -43,6 +44,7 @@ class WC_Newsletter_Subscription_Provider_Mailchimp extends WC_Newsletter_Subscr
 		$this->supports    = array(
 			'stats',
 			'tags',
+			'manage_subscription',
 		);
 
 		parent::__construct( $credentials );
@@ -206,6 +208,39 @@ class WC_Newsletter_Subscription_Provider_Mailchimp extends WC_Newsletter_Subscr
 	}
 
 	/**
+	 * Checks if the subscriber belongs to the specified list.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param mixed                                 $list       The list identifier.
+	 * @param WC_Newsletter_Subscription_Subscriber $subscriber Subscriber object.
+	 * @return bool|WP_Error A boolean with the subscription status. WP_Error on failure.
+	 */
+	public function is_subscribed( $list, $subscriber ) {
+		$email    = $subscriber->get_email();
+		$response = $this->api_request(
+			'search-members',
+			array(
+				'list_id' => $list,
+				'query'   => $email,
+			)
+		);
+
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
+		// No matches found.
+		if ( empty( $response['exact_matches']['members'] ) ) {
+			return false;
+		}
+
+		$member = reset( $response['exact_matches']['members'] );
+
+		return ( $member && $email === $member['email_address'] && 'subscribed' === $member['status'] );
+	}
+
+	/**
 	 * Subscribes a customer to the specified list.
 	 *
 	 * @since 3.0.0
@@ -225,10 +260,10 @@ class WC_Newsletter_Subscription_Provider_Mailchimp extends WC_Newsletter_Subscr
 		);
 
 		$response = $this->api_request(
-			'lists/' . $list . '/members/' . md5( $email ),
+			$this->generate_member_endpoint( $list, $email ),
 			array(
 				'email_address' => $email,
-				'status_if_new' => ( wc_string_to_bool( get_option( 'woocommerce_mailchimp_double_opt_in', 'yes' ) ) ? 'pending' : 'subscribed' ),
+				'status'        => ( wc_string_to_bool( get_option( 'woocommerce_mailchimp_double_opt_in', 'yes' ) ) ? 'pending' : 'subscribed' ),
 				'merge_fields'  => $fields,
 			),
 			'PUT'
@@ -240,6 +275,27 @@ class WC_Newsletter_Subscription_Provider_Mailchimp extends WC_Newsletter_Subscr
 
 		// Tags are updated in a different request.
 		$response = $this->update_tags( $subscriber, $list );
+
+		return ( is_wp_error( $response ) ? $response : $subscriber );
+	}
+
+	/**
+	 * Removes the subscriber from the specified list.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param mixed                                 $list       The list identifier.
+	 * @param WC_Newsletter_Subscription_Subscriber $subscriber Subscriber object.
+	 * @return WC_Newsletter_Subscription_Subscriber|WP_Error Subscriber object on success. WP_Error on failure.
+	 */
+	public function unsubscribe( $list, $subscriber ) {
+		$response = $this->api_request(
+			$this->generate_member_endpoint( $list, $subscriber->get_email() ),
+			array(
+				'status' => 'unsubscribed',
+			),
+			'PATCH'
+		);
 
 		return ( is_wp_error( $response ) ? $response : $subscriber );
 	}
@@ -270,7 +326,7 @@ class WC_Newsletter_Subscription_Provider_Mailchimp extends WC_Newsletter_Subscr
 		}
 
 		$response = $this->api_request(
-			'lists/' . $list . '/members/' . md5( $subscriber->get_email() ) . '/tags',
+			$this->generate_member_endpoint( $list, $subscriber->get_email() ) . '/tags',
 			array(
 				'tags' => $add_tags,
 			),
@@ -302,21 +358,6 @@ class WC_Newsletter_Subscription_Provider_Mailchimp extends WC_Newsletter_Subscr
 				'Content-Type'  => 'application/json',
 			),
 		);
-
-		if ( has_filter( 'woocommerce_newsletter_mailchimp_api_request' ) ) {
-			wc_deprecated_hook( 'woocommerce_newsletter_mailchimp_api_request', '3.0.0', 'wc_newsletter_subscription_mailchimp_api_request_args' );
-
-			/**
-			 * Filters the arguments of a Mailchimp API request.
-			 *
-			 * @since 2.3.11
-			 * @deprecated 3.0.0 Use `wc_newsletter_subscription_mailchimp_api_request_args` instead.
-			 *
-			 * @param array  $args   The request arguments.
-			 * @param string $method The request method.
-			 */
-			$args = apply_filters( 'woocommerce_newsletter_mailchimp_api_request', $args, $method );
-		}
 
 		return $this->trigger_request( $url, $args );
 	}
@@ -359,5 +400,18 @@ class WC_Newsletter_Subscription_Provider_Mailchimp extends WC_Newsletter_Subscr
 		}
 
 		return "https://{$datacenter}.api.mailchimp.com/";
+	}
+
+	/**
+	 * Generates the member endpoint for the specified parameters.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param string $list  The list the subscriber belongs to.
+	 * @param string $email Subscriber email address.
+	 * @return string
+	 */
+	protected function generate_member_endpoint( $list, $email ) {
+		return 'lists/' . $list . '/members/' . md5( $email );
 	}
 }

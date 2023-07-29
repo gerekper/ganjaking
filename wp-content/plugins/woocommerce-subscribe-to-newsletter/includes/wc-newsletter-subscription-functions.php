@@ -246,6 +246,100 @@ function wc_newsletter_subscription_subscribe( $email, $args = array() ) {
 }
 
 /**
+ * Unsubscribes a user from the newsletter.
+ *
+ * @since 4.0.0
+ *
+ * @param string $email The email address to subscribe.
+ * @param mixed  $list  Optional. The list identifier. Default false.
+ * @return bool
+ */
+function wc_newsletter_subscription_unsubscribe( $email, $list = false ) {
+	$provider = wc_newsletter_subscription_get_provider();
+
+	if ( ! $provider || ! $provider->supports( 'manage_subscription' ) ) {
+		return false;
+	}
+
+	// Use the default list.
+	if ( ! $list ) {
+		$list = wc_newsletter_subscription_get_provider_list( $provider );
+	}
+
+	if ( ! $list ) {
+		return false;
+	}
+
+	$subscriber = new WC_Newsletter_Subscription_Subscriber( compact( 'email' ) );
+
+	$result = $provider->unsubscribe( $list, $subscriber );
+
+	if ( is_wp_error( $result ) ) {
+		/**
+		 * Fires when the unsubscription from the newsletter fails.
+		 *
+		 * @since 4.0.0
+		 *
+		 * @param WP_Error                              $error      The WP Error.
+		 * @param WC_Newsletter_Subscription_Subscriber $subscriber Subscriber object.
+		 * @param mixed                                 $list       The list identifier.
+		 */
+		do_action( 'wc_newsletter_unsubscription_failed', $result, $subscriber, $list );
+
+		return false;
+	}
+
+	/**
+	 * Fires after unsubscribing a user from the newsletter.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param string                                $email      The subscriber email.
+	 * @param WC_Newsletter_Subscription_Subscriber $subscriber Subscriber object.
+	 * @param mixed                                 $list       The list identifier.
+	 */
+	do_action( 'wc_unsubscribed_from_newsletter', $email, $result, $list );
+
+	return true;
+}
+
+/**
+ * Checks if the email is subscribed to the newsletter.
+ *
+ * @since 4.0.0
+ *
+ * @param string $email The email address.
+ * @param mixed  $list  Optional. The list identifier. Default false.
+ * @return bool
+ */
+function wc_newsletter_subscription_is_subscribed( $email, $list = false ) {
+	$provider = wc_newsletter_subscription_get_provider();
+
+	if ( ! $provider || ! $provider->supports( 'manage_subscription' ) ) {
+		return false;
+	}
+
+	// Use the default list.
+	if ( ! $list ) {
+		$list = wc_newsletter_subscription_get_provider_list( $provider );
+	}
+
+	if ( ! $list ) {
+		return false;
+	}
+
+	$subscriber = new WC_Newsletter_Subscription_Subscriber( compact( 'email' ) );
+
+	$result = $provider->is_subscribed( $list, $subscriber );
+
+	if ( is_wp_error( $result ) ) {
+		return false;
+	}
+
+	return $result;
+}
+
+/**
  * Emails the admin when a subscription to the newsletter fails.
  *
  * @since 3.0.0

@@ -25,6 +25,7 @@ namespace SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking\Adapters;
 
 use Automattic\WooCommerce\Utilities\NumberUtil;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\Helpers\Product_Helper;
+use SkyVerge\WooCommerce\Google_Analytics_Pro\Tracking;
 use WC_Cart;
 use WC_Product;
 
@@ -66,7 +67,7 @@ class Cart_Event_Data_Adapter extends Event_Data_Adapter {
 
 		return [
 			'currency' => get_woocommerce_currency(),
-			'value'    => NumberUtil::round( $this->cart->get_cart_contents_total(), wc_get_price_decimals() ),
+			'value'    => $this->get_cart_value(),
 			'coupon'   => implode( ',', $this->cart->get_applied_coupons() ),
 			'shipping' => NumberUtil::round( $this->cart->get_shipping_total(), wc_get_price_decimals() ),
 			'tax'      => NumberUtil::round( $this->cart->get_total_tax(), wc_get_price_decimals() ),
@@ -76,6 +77,23 @@ class Cart_Event_Data_Adapter extends Event_Data_Adapter {
 
 			}, $this->cart->get_cart() ) ),
 		];
+	}
+
+
+	/**
+	 * Gets the cart value, either with or without tax and shipping.
+	 *
+	 * @since 2.0.10
+	 *
+	 * @return float
+	 */
+	protected function get_cart_value() : float {
+
+		$cart_value = Tracking::revenue_should_include_tax_and_shipping()
+			? $this->cart->get_cart_total()
+			: $this->cart->get_cart_contents_total();
+
+		return abs( NumberUtil::round( $cart_value, wc_get_price_decimals() ) );
 	}
 
 

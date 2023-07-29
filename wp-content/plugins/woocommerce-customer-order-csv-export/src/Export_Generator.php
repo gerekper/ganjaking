@@ -25,7 +25,7 @@ namespace SkyVerge\WooCommerce\CSV_Export;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_6 as Framework;
 use WC_Customer_Order_CSV_Export;
 
 /**
@@ -322,7 +322,7 @@ abstract class Export_Generator {
 		 */
 		$thousands_separator = apply_filters( "wc_customer_order_export_thousands_separator", '', $this->output_type, $number, $this );
 
-		return number_format( $number, $decimal_points, $decimal_separator, $thousands_separator );
+		return is_numeric( $number ) ? number_format( $number, $decimal_points, $decimal_separator, $thousands_separator ) : $number;
 	}
 
 

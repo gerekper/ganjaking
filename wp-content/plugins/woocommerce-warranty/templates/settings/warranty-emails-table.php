@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
 	<?php
 	foreach ( $custom_vars as $custom_var ) {
 		$custom_var = str_replace( '-', '_', sanitize_title( strtolower( $custom_var ) ) );
-		echo '<code>{' . $custom_var . '}</code>, ';
+		echo '<code>{' . esc_html( $custom_var ) . '}</code>, ';
 	}
 	?>
 	<code>{coupon_code}</code>, <code>{refund_amount}</code>,

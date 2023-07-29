@@ -113,6 +113,7 @@ class WC_Shipment_Tracking_Updates {
 	 * @param array $updater Updater array.
 	 */
 	protected static function maybe_updater_runs_update( array $updater ) {
+		// nosemgrep: audit.php.lang.security.file.inclusion-arg, false positive. The path is defined internally inside this function.
 		require_once( $updater['path'] );
 
 		$updater_instance = new $updater['class']();

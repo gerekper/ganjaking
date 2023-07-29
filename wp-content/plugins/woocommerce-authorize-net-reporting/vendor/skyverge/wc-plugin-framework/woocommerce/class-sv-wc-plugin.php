@@ -18,15 +18,15 @@
  *
  * @package   SkyVerge/WooCommerce/Plugin/Classes
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2019, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2023, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace SkyVerge\WooCommerce\PluginFramework\v5_5_0;
+namespace SkyVerge\WooCommerce\PluginFramework\v5_11_5;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_5_0\\SV_WC_Plugin' ) ) :
+if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_11_5\\SV_WC_Plugin' ) ) :
 
 
 /**
@@ -37,13 +37,13 @@ if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_5_0\\SV_WC_Pl
  * plugin.  This class handles all the "non-feature" support tasks such
  * as verifying dependencies are met, loading the text domain, etc.
  *
- * @version 5.5.0
+ * @version 5.8.0
  */
 abstract class SV_WC_Plugin {
 
 
 	/** Plugin Framework Version */
-	const VERSION = '5.5.0';
+	const VERSION = '5.11.5';
 
 	/** @var object single instance of plugin */
 	protected static $instance;
@@ -63,6 +63,9 @@ abstract class SV_WC_Plugin {
 	/** @var string template path, without trailing slash */
 	private $template_path;
 
+	/** @var bool whether the plugin supports WooCommerce HPOS */
+	private $supports_hpos;
+
 	/** @var \WC_Logger instance */
 	private $logger;
 
@@ -74,9 +77,6 @@ abstract class SV_WC_Plugin {
 
 	/** @var array memoized list of active plugins */
 	private $active_plugins = [];
-
-	/** @var int|float minimum supported WooCommerce versions before the latest (units for major releases, decimals for minor) */
-	private $min_wc_semver;
 
 	/** @var SV_WC_Plugin_Dependencies dependency handler instance */
 	private $dependency_handler;
@@ -111,6 +111,7 @@ abstract class SV_WC_Plugin {
 	 *
 	 *     @type int|float $latest_wc_versions the last supported versions of WooCommerce, as a major.minor float relative to the latest available version
 	 *     @type string $text_domain the plugin textdomain, used to set up translations
+	 *     @type bool $supports_hpos whether the plugin supports HPOS (default false)
 	 *     @type array  $dependencies {
 	 *         PHP extension, function, and settings dependencies
 	 *
@@ -127,13 +128,13 @@ abstract class SV_WC_Plugin {
 		$this->version = $version;
 
 		$args = wp_parse_args( $args, [
-			'min_wc_semver' => 0.2, // by default, 2 minor versions behind the latest published are supported
 			'text_domain'   => '',
+			'supports_hpos' => false,
 			'dependencies'  => [],
 		] );
 
-		$this->min_wc_semver = is_numeric( $args['min_wc_semver'] ) ? abs( $args['min_wc_semver'] ) : null;
 		$this->text_domain   = $args['text_domain'];
+		$this->supports_hpos = $args['supports_hpos'];
 
 		// includes that are required to be available at all times
 		$this->includes();
@@ -221,7 +222,7 @@ abstract class SV_WC_Plugin {
 	 */
 	protected function init_hook_deprecator() {
 
-		$this->hook_deprecator = new SV_WC_Hook_Deprecator( $this->get_plugin_name(), $this->get_deprecated_hooks() );
+		$this->hook_deprecator = new SV_WC_Hook_Deprecator( $this->get_plugin_name(), array_merge( $this->get_framework_deprecated_hooks(), $this->get_deprecated_hooks() ) );
 	}
 
 
@@ -280,6 +281,9 @@ abstract class SV_WC_Plugin {
 
 		// hook for translations separately to ensure they're loaded
 		add_action( 'init', array( $this, 'load_translations' ) );
+
+		// handle HPOS compatibility
+		add_action( 'before_woocommerce_init', [ $this, 'handle_hpos_compatibility' ] );
 
 		// add the admin notices
 		add_action( 'admin_notices', array( $this, 'add_admin_notices' ) );
@@ -392,8 +396,7 @@ abstract class SV_WC_Plugin {
 	/**
 	 * Initializes the plugin admin.
 	 *
-	 * Plugins can override this to set up any handlers after the WordPress
-	 * admin is ready.
+	 * Plugins can override this to set up any handlers after the WordPress admin is ready.
 	 *
 	 * @since 5.2.0
 	 */
@@ -419,18 +422,21 @@ abstract class SV_WC_Plugin {
 		require_once(  $framework_path . '/Addresses/Address.php' );
 		require_once(  $framework_path . '/Addresses/Customer_Address.php' );
 
+		// Settings API
+		require_once( $framework_path . '/Settings_API/Abstract_Settings.php' );
+		require_once( $framework_path . '/Settings_API/Setting.php' );
+		require_once( $framework_path . '/Settings_API/Control.php' );
+
 		// common utility methods
 		require_once( $framework_path . '/class-sv-wc-helper.php' );
 		require_once( $framework_path . '/Country_Helper.php' );
+		require_once( $framework_path . '/admin/Notes_Helper.php' );
 
 		// backwards compatibility for older WC versions
 		require_once( $framework_path . '/class-sv-wc-plugin-compatibility.php' );
 		require_once( $framework_path . '/compatibility/abstract-sv-wc-data-compatibility.php' );
 		require_once( $framework_path . '/compatibility/class-sv-wc-order-compatibility.php' );
-		require_once( $framework_path . '/compatibility/class-sv-wc-product-compatibility.php' );
-
-		// TODO: Remove this when WC 3.x can be required {CW 2017-03-16}
-		require_once( $framework_path . '/compatibility/class-sv-wc-datetime.php' );
+		require_once( $framework_path . '/compatibility/class-sv-wc-subscription-compatibility.php' );
 
 		// generic API base
 		require_once( $framework_path . '/api/class-sv-wc-api-exception.php' );
@@ -446,7 +452,15 @@ abstract class SV_WC_Plugin {
 		require_once( $framework_path . '/api/abstract-sv-wc-api-json-request.php' );
 		require_once( $framework_path . '/api/abstract-sv-wc-api-json-response.php' );
 
+		// Cacheable API
+		require_once( $framework_path . '/api/traits/Cacheable_Request_Trait.php' );
+		require_once( $framework_path . '/api/Abstract_Cacheable_API_Base.php' );
+
+		// REST API Controllers
+		require_once( $framework_path . '/rest-api/Controllers/Settings.php' );
+
 		// Handlers
+		require_once( $framework_path . '/Handlers/Script_Handler.php' );
 		require_once( $framework_path . '/class-sv-wc-plugin-dependencies.php' );
 		require_once( $framework_path . '/class-sv-wc-hook-deprecator.php' );
 		require_once( $framework_path . '/class-sv-wp-admin-message-handler.php' );
@@ -457,8 +471,49 @@ abstract class SV_WC_Plugin {
 
 
 	/**
-	 * Return deprecated/removed hooks. Implementing classes should override this
-	 * and return an array of deprecated/removed hooks in the following format:
+	 * Gets a list of framework deprecated/removed hooks.
+	 *
+	 * @see SV_WC_Plugin::init_hook_deprecator()
+	 * @see SV_WC_Plugin::get_deprecated_hooks()
+	 *
+	 * @since 5.8.0
+	 *
+	 * @return array associative array
+	 */
+	private function get_framework_deprecated_hooks() {
+
+		$plugin_id          = $this->get_id();
+		$deprecated_hooks   = [];
+		$deprecated_filters = [
+			/** @see SV_WC_Payment_Gateway_My_Payment_Methods handler - once migrated to WC core tokens UI, we removed these and have no replacement */
+			// TODO: remove deprecated hooks handling by version 6.0.0 or by 2021-02-25 {FN 2020-02-25}
+			"wc_{$plugin_id}_my_payment_methods_table_html",
+			"wc_{$plugin_id}_my_payment_methods_table_head_html",
+			"wc_{$plugin_id}_my_payment_methods_table_title",
+			"wc_{$plugin_id}_my_payment_methods_table_title_html",
+			"wc_{$plugin_id}_my_payment_methods_table_row_html",
+			"wc_{$plugin_id}_my_payment_methods_table_body_html",
+			"wc_{$plugin_id}_my_payment_methods_table_body_row_data",
+			"wc_{$plugin_id}_my_payment_methods_table_method_expiry_html",
+			"wc_{$plugin_id}_my_payment_methods_table_actions_html",
+		];
+
+		foreach ( $deprecated_filters as $deprecated_filter ) {
+			$deprecated_hooks[ $deprecated_filter ] = [
+				'removed'     => true,
+				'replacement' => false,
+				'version'     => '5.8.1'
+			];
+		}
+
+		return $deprecated_hooks;
+	}
+
+
+	/**
+	 * Gets a list of the plugin's deprecated/removed hooks.
+	 *
+	 * Implementing classes should override this and return an array of deprecated/removed hooks in the following format:
 	 *
 	 * $old_hook_name = array {
 	 *   @type string $version version the hook was deprecated/removed in
@@ -468,12 +523,13 @@ abstract class SV_WC_Plugin {
 	 * }
 	 *
 	 * @since 4.3.0
+	 *
 	 * @return array
 	 */
 	protected function get_deprecated_hooks() {
 
 		// stub method
-		return array();
+		return [];
 	}
 
 
@@ -495,81 +551,12 @@ abstract class SV_WC_Plugin {
 	/**
 	 * Adds admin notices upon initialization.
 	 *
-	 * This may also produce notices if running an unsupported version of WooCommerce.
+	 * @internal
 	 *
 	 * @since 3.0.0
 	 */
 	public function add_admin_notices() {
-
-		// bail if there's no defined versions to compare
-		if ( empty( $this->min_wc_semver ) || ! is_numeric( $this->min_wc_semver ) ) {
-			return;
-		}
-
-		$latest_wc_versions = SV_WC_Plugin_Compatibility::get_latest_wc_versions();
-		$current_wc_version = SV_WC_Plugin_Compatibility::get_wc_version();
-
-		// bail if the latest WooCommerce version or the current WooCommerce versions can't be determined
-		if ( empty( $latest_wc_versions ) || empty( $current_wc_version ) ) {
-			return;
-		}
-
-		// grab latest published version
-		$supported_wc_version = $latest_wc_version = current( $latest_wc_versions );
-
-		// grab semver parts
-		$latest_semver        = explode( '.', $latest_wc_version );
-		$supported_semver     = explode( '.', (string) $this->min_wc_semver );
-		$supported_major      = max( 0,  (int) $latest_semver[0] - (int) $supported_semver[0] );
-		$supported_minor      = isset( $supported_semver[1] ) ? (int) $supported_semver[1] : 0;
-		$previous_minor       = null;
-
-		// loop known WooCommerce versions from the most recent until we get the oldest supported one
-		foreach ( $latest_wc_versions as $older_wc_version ) {
-
-			// as we loop through versions, the latest one before we break the loop will be the minimum supported one
-			$supported_wc_version = $older_wc_version;
-
-			$older_semver = explode( '.', $older_wc_version );
-			$older_major  = (int) $older_semver[0];
-			$older_minor  = isset( $older_semver[1] ) ? (int) $older_semver[1] : 0;
-
-			// if major is ignored, skip; if the minor hasn't changed (patch must be), skip
-			if ( $older_major > $supported_major || $older_minor === $previous_minor ) {
-				continue;
-			}
-
-			// we reached the maximum number of supported minor versions
-			if ( $supported_minor <= 0 ) {
-				break;
-			}
-
-			// store the previous minor while we loop patch versions, which we ignore
-			$previous_minor = $older_minor;
-
-			$supported_minor--;
-		}
-
-		// for strict comparison, we strip the patch version from the determined versions and compare only major, minor versions, ignoring patches (i.e. 1.2.3 becomes 1.2)
-		$current_wc_version   = substr( $current_wc_version, 0, strpos( $current_wc_version, '.', strpos( $current_wc_version, '.' ) + 1 ) );
-		$supported_wc_version = substr( $supported_wc_version, 0, strpos( $supported_wc_version, '.', strpos( $supported_wc_version, '.' ) + 1 ) );
-		$compared_wc_version  = $current_wc_version && $supported_wc_version ? version_compare( $current_wc_version, $supported_wc_version ) : null;
-
-		// installed version is at more than 2 minor versions ($min_wc_semver value) behind the last published version
-		if ( -1 === $compared_wc_version ) {
-
-			$this->get_admin_notice_handler()->add_admin_notice(
-				sprintf(
-					/* translators: Placeholders: %1$s - plugin name, %2$s - WooCommerce version number, %3$s - opening <a> HTML link tag, %4$s - closing </a> HTML link tag */
-					__( 'Heads up! %1$s will soon discontinue support for WooCommerce %2$s. Please %3$supdate WooCommerce%4$s to take advantage of the latest updates and features.', 'woocommerce-plugin-framework' ),
-					$this->get_plugin_name(),
-					$current_wc_version,
-					'<a href="' . esc_url( admin_url( 'update-core.php' ) ) .'">', '</a>'
-				),
-				$this->get_id_dasherized() . '-deprecated-wc-version-as-of-' . str_replace( '.', '-', $supported_wc_version ),
-				[ 'notice_class' => 'notice-info' ]
-			);
-		}
+		// stub method
 	}
 
 
@@ -622,6 +609,21 @@ abstract class SV_WC_Plugin {
 	}
 
 
+	/**
+	 * Declares HPOS compatibility if the plugin is compatible with HPOS.
+	 *
+	 * @internal
+	 *
+	 * @since 5.11.0
+	 */
+	public function handle_hpos_compatibility() {
+
+		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', $this->get_plugin_file(), $this->is_hpos_compatible() );
+		}
+	}
+
+
 	/** Helper methods ******************************************************/
 
 
@@ -671,7 +673,14 @@ abstract class SV_WC_Plugin {
 		$messages[] = isset( $data['uri'] ) && $data['uri'] ? 'Request' : 'Response';
 
 		foreach ( (array) $data as $key => $value ) {
-			$messages[] = trim( sprintf( '%s: %s', $key, is_array( $value ) || ( is_object( $value ) && 'stdClass' == get_class( $value ) ) ? print_r( (array) $value, true ) : $value ) );
+
+			if ( is_array( $value ) || ( is_object( $value ) && 'stdClass' === get_class( $value ) ) ) {
+				$value = print_r( (array) $value, true );
+			} elseif ( is_bool( $value ) ) {
+				$value = wc_bool_to_string( $value );
+			}
+
+			$messages[] = trim( sprintf( '%s: %s', $key, $value ) );
 		}
 
 		return implode( "\n", $messages ) . "\n";
@@ -757,6 +766,61 @@ abstract class SV_WC_Plugin {
 		require_once( $this->get_plugin_path() . $local_path );
 
 		return new $class_name;
+	}
+
+
+	/**
+	 * Determines if TLS v1.2 is required for API requests.
+	 *
+	 * Subclasses should override this to return true if TLS v1.2 is required.
+	 *
+	 * @since 5.5.2
+	 *
+	 * @return bool
+	 */
+	public function require_tls_1_2() {
+
+		return false;
+	}
+
+
+	/**
+	 * Determines if TLS 1.2 is available.
+	 *
+	 * @since 5.5.2
+	 *
+	 * @return bool
+	 */
+	public function is_tls_1_2_available() {
+
+		// assume availability to avoid notices for unknown SSL types
+		$is_available = true;
+
+		// check the cURL version if installed
+		if ( is_callable( 'curl_version' ) ) {
+
+			$versions = curl_version();
+
+			// cURL 7.34.0 is considered the minimum version that supports TLS 1.2
+			if ( version_compare( $versions['version'], '7.34.0', '<' ) ) {
+				$is_available = false;
+			}
+		}
+
+		return $is_available;
+	}
+
+
+	/**
+	 * Determines whether the plugin supports HPOS.
+	 *
+	 * @since 5.11.0
+	 *
+	 * @return bool
+	 */
+	public function is_hpos_compatible() : bool
+	{
+		return $this->supports_hpos && SV_WC_Plugin_Compatibility::is_wc_version_gte('7.6');
 	}
 
 
@@ -887,6 +951,21 @@ abstract class SV_WC_Plugin {
 	public function get_admin_notice_handler() {
 
 		return $this->admin_notice_handler;
+	}
+
+
+	/**
+	 * Gets the settings API handler instance.
+	 *
+	 * Plugins can use this to init the settings API handler.
+	 *
+	 * @since 5.7.0
+	 *
+	 * @return void|Settings_API\Abstract_Settings
+	 */
+	public function get_settings_handler() {
+
+		return;
 	}
 
 
@@ -1223,190 +1302,6 @@ abstract class SV_WC_Plugin {
 		}
 
 		return $is_active;
-	}
-
-
-	/** Deprecated methods ****************************************************/
-
-
-	/**
-	 * Handles version checking.
-	 *
-	 * @since 2.0.0
-	 * @deprecated 5.2.0
-	 */
-	public function do_install() {
-
-		wc_deprecated_function( __METHOD__, '5.2.0', get_class( $this->get_lifecycle_handler() ) . '::init()' );
-
-		$this->get_lifecycle_handler()->init();
-	}
-
-
-	/**
-	 * Helper method to install default settings for a plugin.
-	 *
-	 * @since 4.2.0
-	 * @deprecated 5.2.0
-	 *
-	 * @param array $settings array of settings in format required by WC_Admin_Settings
-	 */
-	public function install_default_settings( array $settings ) {
-
-		wc_deprecated_function( __METHOD__, '5.2.0', get_class( $this->get_lifecycle_handler() ) . '::install_default_settings()' );
-
-		$this->get_lifecycle_handler()->install_default_settings( $settings );
-	}
-
-
-	/**
-	 * Plugin activated method. Perform any activation tasks here.
-	 * Note that this _does not_ run during upgrades.
-	 *
-	 * @since 4.2.0
-	 * @deprecated 5.2.0
-	 */
-	public function activate() {
-
-		wc_deprecated_function( __METHOD__, '5.2.0' );
-	}
-
-
-	/**
-	 * Plugin deactivation method. Perform any deactivation tasks here.
-	 *
-	 * @since 4.2.0
-	 * @deprecated 5.2.0
-	 */
-	public function deactivate() {
-
-		wc_deprecated_function( __METHOD__, '5.2.0' );
-	}
-
-
-	/**
-	 * Gets the string name of any required PHP extensions that are not loaded.
-	 *
-	 * @since 4.5.0
-	 * @deprecated 5.2.0
-	 *
-	 * @return array
-	 */
-	public function get_missing_extension_dependencies() {
-
-		wc_deprecated_function( __METHOD__, '5.2.0', get_class( $this->get_dependency_handler() ) . '::get_missing_php_extensions()' );
-
-		return $this->get_dependency_handler()->get_missing_php_extensions();
-	}
-
-
-	/**
-	 * Gets the string name of any required PHP functions that are not loaded.
-	 *
-	 * @since 2.1.0
-	 * @deprecated 5.2.0
-	 *
-	 * @return array
-	 */
-	public function get_missing_function_dependencies() {
-
-		wc_deprecated_function( __METHOD__, '5.2.0', get_class( $this->get_dependency_handler() ) . '::get_missing_php_functions()' );
-
-		return $this->get_dependency_handler()->get_missing_php_functions();
-	}
-
-
-	/**
-	 * Gets the string name of any required PHP extensions that are not loaded.
-	 *
-	 * @since 4.5.0
-	 * @deprecated 5.2.0
-	 *
-	 * @return array
-	 */
-	public function get_incompatible_php_settings() {
-
-		wc_deprecated_function( __METHOD__, '5.2.0', get_class( $this->get_dependency_handler() ) . '::get_incompatible_php_settings()' );
-
-		return $this->get_dependency_handler()->get_incompatible_php_settings();
-	}
-
-
-	/**
-	 * Gets the PHP dependencies.
-	 *
-	 * @since 2.0.0
-	 * @deprecated 5.2.0
-	 *
-	 * @return array
-	 */
-	protected function get_dependencies() {
-
-		wc_deprecated_function( __METHOD__, '5.2.0' );
-
-		return array();
-	}
-
-
-	/**
-	 * Gets the PHP extension dependencies.
-	 *
-	 * @since 4.5.0
-	 * @deprecated 5.2.0
-	 *
-	 * @return array
-	 */
-	protected function get_extension_dependencies() {
-
-		wc_deprecated_function( __METHOD__, '5.2.0', get_class( $this->get_dependency_handler() ) . '::get_php_extensions()' );
-
-		return $this->get_dependency_handler()->get_php_extensions();
-	}
-
-
-	/**
-	 * Gets the PHP function dependencies.
-	 *
-	 * @since 2.1.0
-	 * @deprecated 5.2.0
-	 *
-	 * @return array
-	 */
-	protected function get_function_dependencies() {
-
-		wc_deprecated_function( __METHOD__, '5.2.0', get_class( $this->get_dependency_handler() ) . '::get_php_functions()' );
-
-		return $this->get_dependency_handler()->get_php_functions();
-	}
-
-
-	/**
-	 * Gets the PHP settings dependencies.
-	 *
-	 * @since 4.5.0
-	 * @deprecated 5.2.0
-	 *
-	 * @return array
-	 */
-	protected function get_php_settings_dependencies() {
-
-		wc_deprecated_function( __METHOD__, '5.2.0', get_class( $this->get_dependency_handler() ) . '::get_php_settings()' );
-
-		return $this->get_dependency_handler()->get_php_settings();
-	}
-
-
-	/**
-	 * Sets the plugin dependencies.
-	 *
-	 * @since 4.5.0
-	 * @deprecated 5.2.0
-	 *
-	 * @param array $dependencies the environment dependencies
-	 */
-	protected function set_dependencies( $dependencies = [] ) {
-
-		wc_deprecated_function( __METHOD__, '5.2.0' );
 	}
 
 

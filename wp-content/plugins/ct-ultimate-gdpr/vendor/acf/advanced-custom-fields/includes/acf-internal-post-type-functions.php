@@ -503,11 +503,12 @@ function acf_get_combined_post_type_settings_tabs() {
  */
 function acf_get_combined_taxonomy_settings_tabs() {
 	$default_taxonomy_tabs = array(
-		'general'    => __( 'General', 'acf' ),
-		'labels'     => __( 'Labels', 'acf' ),
-		'visibility' => __( 'Visibility', 'acf' ),
-		'urls'       => __( 'URLs', 'acf' ),
-		'rest_api'   => __( 'REST API', 'acf' ),
+		'general'     => __( 'General', 'acf' ),
+		'labels'      => __( 'Labels', 'acf' ),
+		'visibility'  => __( 'Visibility', 'acf' ),
+		'urls'        => __( 'URLs', 'acf' ),
+		'permissions' => __( 'Permissions', 'acf' ),
+		'rest_api'    => __( 'REST API', 'acf' ),
 	);
 
 	$additional_taxonomy_tabs = (array) apply_filters( 'acf/taxonomy/additional_settings_tabs', array() );
@@ -583,4 +584,40 @@ function acf_add_internal_post_type_validation_error( $name, $message = '' ) {
 	}
 
 	return acf_add_validation_error( $name, $message );
+}
+
+/**
+ * Gets an ACF post type from request args and verifies nonce based on action.
+ *
+ * @since 6.1.5
+ *
+ * @param string $action The action being performed.
+ * @return array|bool
+ */
+function acf_get_post_type_from_request_args( $action = '' ) {
+	$acf_use_post_type = acf_request_arg( 'use_post_type', false );
+
+	if ( ! $acf_use_post_type || ! wp_verify_nonce( acf_request_arg( '_wpnonce' ), $action . '-' . $acf_use_post_type ) ) {
+		return false;
+	}
+
+	return acf_get_internal_post_type( (int) $acf_use_post_type, 'acf-post-type' );
+}
+
+/**
+ * Gets an ACF taxonomy from request args and verifies nonce based on action.
+ *
+ * @since 6.1.5
+ *
+ * @param string $action The action being performed.
+ * @return array|bool
+ */
+function acf_get_taxonomy_from_request_args( $action = '' ) {
+	$acf_use_taxonomy = acf_request_arg( 'use_taxonomy', false );
+
+	if ( ! $acf_use_taxonomy || ! wp_verify_nonce( acf_request_arg( '_wpnonce' ), $action . '-' . $acf_use_taxonomy ) ) {
+		return false;
+	}
+
+	return acf_get_internal_post_type( (int) $acf_use_taxonomy, 'acf-taxonomy' );
 }

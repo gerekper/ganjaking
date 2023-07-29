@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/twilio-sms-notifications/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2013-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2013-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_3 as Framework;
 
 /**
  * WooCommerce Twilio SMS Notifications plugin main class.
@@ -34,7 +34,7 @@ class WC_Twilio_SMS extends Framework\SV_WC_Plugin {
 
 
 	/** version number */
-	const VERSION = '1.17.0';
+	const VERSION = '1.18.0';
 
 	/** @var WC_Twilio_SMS single instance of this plugin */
 	protected static $instance;
@@ -68,9 +68,10 @@ class WC_Twilio_SMS extends Framework\SV_WC_Plugin {
 		parent::__construct(
 			self::PLUGIN_ID,
 			self::VERSION,
-			array(
-				'text_domain' => 'woocommerce-twilio-sms-notifications',
-			)
+			[
+				'supports_hpos' => true,
+				'text_domain'   => 'woocommerce-twilio-sms-notifications',
+			]
 		);
 
 		// Load classes
@@ -317,17 +318,26 @@ class WC_Twilio_SMS extends Framework\SV_WC_Plugin {
 	/**
 	 * Save opt-in as order meta
 	 *
-	 * TODO: This method will later need to instantiate an order / use a WC Data method. {BR 2017-02-22}
+	 * @internal
 	 *
 	 * @since 1.0
 	 *
-	 * @param int $order_id order ID for order being processed
+	 * @param int|mixed $order_id order ID for order being processed
 	 */
 	public function process_opt_in_checkbox( $order_id ) {
 
-		if ( ! empty( $_POST['wc_twilio_sms_optin'] ) ) {
-			update_post_meta( $order_id, '_wc_twilio_sms_optin', 1 );
+		if ( empty( $_POST['wc_twilio_sms_optin'] ) ) {
+			return;
 		}
+
+		$order = wc_get_order( $order_id );
+
+		if ( ! $order ) {
+			return;
+		}
+
+		$order->update_meta_data( '_wc_twilio_sms_optin', 1 );
+		$order->save_meta_data();
 	}
 
 

@@ -23,8 +23,10 @@
 
 defined( 'ABSPATH' ) or exit;
 
+use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\WooCommerce\Utilities\OrderUtil;
 use SkyVerge\WooCommerce\CSV_Export\Taxonomies_Handler;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_6 as Framework;
 
 /**
  * Customer/Order CSV Export Query Parser
@@ -120,13 +122,17 @@ class WC_Customer_Order_CSV_Export_Query_Parser {
 	 * @param string $output_type optional, defaults to `csv`
 	 * @return array
 	 */
-	public static function parse_orders_export_query( $query, $export_type = WC_Customer_Order_CSV_Export::EXPORT_TYPE_ORDERS, $output_type = WC_Customer_Order_CSV_Export::OUTPUT_TYPE_CSV ) {
+	public static function parse_orders_export_query( $query, $export_type = WC_Customer_Order_CSV_Export::EXPORT_TYPE_ORDERS, $output_type = WC_Customer_Order_CSV_Export::OUTPUT_TYPE_CSV ) : array {
+
+		global $wpdb;
 
 		if ( WC_Customer_Order_CSV_Export::EXPORT_TYPE_ORDERS === $export_type ) {
 			$default_order_statuses = array_keys( (array) wc_get_order_statuses() );
 		} else {
 			$default_order_statuses = 'any';
 		}
+
+		$hpos_enabled = Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled();
 
 		$query_args = [
 			'fields'         => 'ids',
@@ -187,40 +193,72 @@ class WC_Customer_Order_CSV_Export_Query_Parser {
 				$taxonomy = Taxonomies_Handler::TAXONOMY_NAME_ORDERS;
 			}
 
-			$exclude_exported = [
-				'relation' => 'OR',
-				[
-					// exclude orders/customers exported globally or for this automation
-					'taxonomy' => $taxonomy,
-					'terms'    => $term_slugs_to_exclude,
-					'field'    => 'slug',
-					'operator' => 'NOT IN',
-				],
-				[
-					// include orders/customers never exported
-					'taxonomy' => $taxonomy,
-					'operator' => 'NOT EXISTS',
-				]
-			];
+			if ( WC_Customer_Order_CSV_Export::EXPORT_TYPE_ORDERS === $export_type && Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ) {
 
-			$query_args['tax_query'] = $exclude_exported;
+				// WC_Orders_Query does not support tax_query, so we need to include/exclude exported orders manually
+				$query_args[ 'post__not_in' ] = ( new WP_Query([
+					'post_type'      => Framework\SV_WC_Order_Compatibility::get_order_post_types(),
+					'post_status'    => 'any',
+					'posts_per_page' => -1,
+					'fields'         => 'ids',
+					'tax_query'      => [
+						'relation'   => 'OR', // required to exclude orders in _any_ of the given terms
+						[
+							'taxonomy' => $taxonomy,
+							'terms'    => $term_slugs_to_exclude,
+							'field'    => 'slug',
+						],
+					],
+				]) )->get_posts();
+
+			} else {
+
+				$exclude_exported = [
+					'relation' => 'OR',
+					[
+						// exclude orders/customers exported globally or for this automation
+						'taxonomy' => $taxonomy,
+						'terms'    => $term_slugs_to_exclude,
+						'field'    => 'slug',
+						'operator' => 'NOT IN',
+					],
+					[
+						// include orders/customers never exported
+						'taxonomy' => $taxonomy,
+						'operator' => 'NOT EXISTS',
+					]
+				];
+
+				$query_args['tax_query'] = $exclude_exported;
+			}
+
 		}
 
 		if ( 'orders' === $export_type && isset( $_POST['export_query']['refunds'] ) && 'only_refunds' === $_POST['export_query']['refunds'] ) {
 
 			// we don't need the refund's ID, just order IDs
-			$refund_order_ids = array_unique( get_posts( [
-				'fields'      => 'id=>parent',
-				'nopaging'    => true,
-				'post_type'   => 'shop_order_refund',
-				'post_status' => 'any',
-			] ) );
+			if ($hpos_enabled) {
 
-			if ( ! empty( $refund_order_ids ) ) {
-				$query_args['post__in'] = isset( $query_args['post__in'] ) ? array_merge( (array) $query_args['post__in'], $refund_order_ids ) : $refund_order_ids;
+				// wc_get_orders() does not support the `id=>parent` return value, so we have to use a custom query
+				$orders_table     = OrdersTableDataStore::get_orders_table_name();
+				$refund_order_ids = $wpdb->get_col(
+					"
+						SELECT DISTINCT parent_order_id
+						FROM {$orders_table}
+						WHERE type = 'shop_order_refund'
+					"
+				);
 			} else {
-				$query_args['post__in'] = [0]; // will produce no results as no matching refunds were found
+				$refund_order_ids = array_unique( get_posts( [
+					'fields'      => 'id=>parent',
+					'nopaging'    => true,
+					'post_type'   => 'shop_order_refund',
+					'post_status' => 'any',
+				] ) );
 			}
+
+			// [0] below will produce no results as no matching refunds were found
+			$query_args['post__in'] = ! empty( $refund_order_ids ) ? $refund_order_ids : [0];
 		}
 
 		/**
@@ -275,8 +313,14 @@ class WC_Customer_Order_CSV_Export_Query_Parser {
 		do_action( 'wc_customer_order_export_before_orders_query', $query_args, $export_type, $output_type );
 
 		// get order IDs
-		$order_query = new WP_Query( $query_args );
-		$order_ids   = $order_query->posts;
+		if ( $hpos_enabled ) {
+			// note that we can't use wc_get_orders without HPOS support, because before WC 7.0.0, it did not support
+			// advanced queries like meta_query, date_query etc: https://github.com/woocommerce/woocommerce/wiki/HPOS:-new-order-querying-APIs
+			$order_ids = wc_get_orders( self::map_wc_orders_query_args( $query_args ) );
+		} else {
+			$order_query = new WP_Query( $query_args );
+			$order_ids   = $order_query->posts;
+		}
 
 		/**
 		 * Fires after running the WP_Query for orders export to the given output type.
@@ -299,7 +343,6 @@ class WC_Customer_Order_CSV_Export_Query_Parser {
 		 */
 		do_action( 'wc_customer_order_export_after_orders_query', $query_args, $export_type, $output_type );
 
-
 		// filter order IDs based on additional filtering criteria (products and product categories)
 		if ( ! empty( $order_ids ) && ! empty( $query['products'] ) ) {
 
@@ -311,7 +354,6 @@ class WC_Customer_Order_CSV_Export_Query_Parser {
 
 			$order_ids = self::filter_orders_containing_product_categories( $order_ids, $query['product_categories'] );
 		}
-
 
 		// handle subscription & renewal order filtering
 		if ( wc_customer_order_csv_export()->is_plugin_active( 'woocommerce-subscriptions.php' ) ) {
@@ -354,18 +396,17 @@ class WC_Customer_Order_CSV_Export_Query_Parser {
 
 		if ( ! empty( $order_ids ) ) {
 
-			$query_args = [
-				'nopaging'    => true,
-				'post_status' => 'any',
-			];
-
 			if ( 'subscriptions' === $which ) {
 
-				$subscription_orders = get_posts( array_merge( $query_args, [
+				// unfortunately, there does not appear to be a way to query and return only subscription order IDs when
+				// using wcs_get_subscriptions(), so we fall back to get_posts for now
+				$subscription_orders = get_posts( [
+					'nopaging'        => true,
+					'post_status'     => 'any',
 					'fields'          => 'id=>parent',
 					'post_type'       => 'shop_subscription',
 					'post_parent__in' => $order_ids,
-				] ) );
+				] );
 
 				if ( ! empty( $subscription_orders ) ) {
 
@@ -379,14 +420,16 @@ class WC_Customer_Order_CSV_Export_Query_Parser {
 					}
 				}
 
-			} elseif( 'renewals' === $which ) {
+			} elseif ( 'renewals' === $which ) {
 
-				$filtered_ids = get_posts( array_merge( $query_args, [
-					'fields'    => 'ids',
-					'post_type' => 'shop_order',
-					'meta_key'  => '_subscription_renewal',
-					'post__in'  => $order_ids,
-				] ) );
+				$filtered_ids = wc_get_orders( [
+					'limit'    => -1,
+					'status'   => 'any',
+					'return'   => 'ids',
+					'type'     => 'shop_order',
+					'meta_key' => '_subscription_renewal',
+					'post__in' => $order_ids, // caveat: `post__in` works in all supported WC versions, while `id` works only in WC7+
+				] );
 			}
 		}
 
@@ -522,7 +565,6 @@ class WC_Customer_Order_CSV_Export_Query_Parser {
 			}
 		}
 
-
 		// to export guest customers, we need to fetch them from orders...
 		// please, Lord, make https://trello.com/c/4Ll0X3pL/44-separate-customers-from-user-accounts
 		// come true soon!
@@ -530,7 +572,7 @@ class WC_Customer_Order_CSV_Export_Query_Parser {
 
 		foreach ( $order_ids as $order_id ) {
 
-			$billing_email = get_post_meta( $order_id, '_billing_email', true );
+			$billing_email = Framework\SV_WC_Order_Compatibility::get_order_meta( $order_id, '_billing_email' );
 
 			// skip orders without a billing email
 			if ( ! $billing_email ) {
@@ -583,7 +625,7 @@ class WC_Customer_Order_CSV_Export_Query_Parser {
 					$term_slugs[] = Taxonomies_Handler::TERM_PREFIX . $query['automation_id'];
 				}
 
-				$exported_orders = new WP_Query( [
+				$args = [
 					'fields'         => 'ids',
 					'post_type'      => 'shop_order',
 					'post_status'    => 'any',
@@ -602,10 +644,16 @@ class WC_Customer_Order_CSV_Export_Query_Parser {
 							'operator' => 'IN',
 						]
 					]
-				] );
+				];
+
+				if (Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled()) {
+					$exported_orders = wc_get_orders( static::map_wc_orders_query_args( $args ) );
+				} else {
+					$exported_orders = ( new WP_Query( $args ) )->posts;
+				}
 
 				// skip customers that have already been exported from another order
-				if ( count( $exported_orders->posts ) > 0 ) {
+				if ( count( $exported_orders ) > 0 ) {
 					continue;
 				}
 
@@ -855,5 +903,38 @@ class WC_Customer_Order_CSV_Export_Query_Parser {
 	private static function get_sanitized_id_list( $ids ) {
 		return implode( ',', array_map( 'absint', is_string( $ids ) ? explode( ',', $ids ) : $ids ) );
 	}
+
+
+	/**
+	 * Maps a subset of WP_Query args to WC_Orders_Query args.
+	 *
+	 * The main purpose of this method is to ensure wc_get_orders will respect the `fields` argument. We also map other
+	 * query args that we use ourselves, but bot all of them, because OrdersTableQuery will handle the rest.
+	 *
+	 * @since 5.5.0
+	 *
+	 * @param array $query_args
+	 * @return array
+	 */
+	protected static function map_wc_orders_query_args( array $query_args = [] ): array {
+
+		$mapping = [
+			'posts_per_page' => 'limit',
+			'post__in'       => 'ids',
+			'post_type'      => 'type',
+			'post_status'    => 'status',
+			'fields'         => 'return', // crucial - if this is not mapped, wc_get_orders will return full order objects
+		];
+
+		foreach ($mapping as $query_key => $table_field) {
+			if (isset( $query_args[$query_key] ) && '' !== $query_args[$query_key]) {
+				$query_args[$table_field] = $query_args[$query_key];
+				unset( $query_args[$query_key] );
+			}
+		}
+
+		return $query_args;
+	}
+
 
 }

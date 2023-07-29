@@ -25,7 +25,7 @@ namespace SkyVerge\WooCommerce\CSV_Export\Admin;
 
 use SkyVerge\WooCommerce\CSV_Export\Admin\Automations\Edit;
 use SkyVerge\WooCommerce\CSV_Export\Automations\Automation_Factory;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_6 as Framework;
 use SkyVerge\WooCommerce\CSV_Export\Admin\Automations\List_Table;
 
 defined( 'ABSPATH' ) or exit;

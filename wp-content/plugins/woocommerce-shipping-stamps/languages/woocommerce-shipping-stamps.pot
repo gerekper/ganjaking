@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Stamps.com API integration 1.9.1\n"
+"Project-Id-Version: WooCommerce Stamps.com API integration 1.9.2\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-shipping-stamps\n"
-"POT-Creation-Date: 2023-03-29 00:18:30+00:00\n"
+"POT-Creation-Date: 2023-07-24 08:39:04+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -176,36 +176,36 @@ msgstr ""
 msgid "Stamps.com top-up"
 msgstr ""
 
-#: includes/class-wc-stamps-balance.php:285
-#: includes/class-wc-stamps-balance.php:322
+#: includes/class-wc-stamps-balance.php:287
+#: includes/class-wc-stamps-balance.php:324
 msgid "Stamps.com top-up failure"
 msgstr ""
 
-#: includes/class-wc-stamps-balance.php:438
+#: includes/class-wc-stamps-balance.php:440
 msgid "Top-up request sent. Your balance should appear shortly if successful."
 msgstr ""
 
-#: includes/class-wc-stamps-balance.php:442
+#: includes/class-wc-stamps-balance.php:444
 msgid "Add Stamps.com Balance"
 msgstr ""
 
-#: includes/class-wc-stamps-balance.php:443
+#: includes/class-wc-stamps-balance.php:445
 msgid ""
 "Enter the amount of postage (in dollars) you wish to purchase. It can take "
 "a few minutes for this postage to show up in your account."
 msgstr ""
 
-#: includes/class-wc-stamps-balance.php:448
+#: includes/class-wc-stamps-balance.php:450
 msgid "Amount"
 msgstr ""
 
-#: includes/class-wc-stamps-balance.php:451
+#: includes/class-wc-stamps-balance.php:453
 msgid ""
 "How much balance you wish to purchase in whole dollars e.g. "
 "<code>100</code>."
 msgstr ""
 
-#: includes/class-wc-stamps-balance.php:457
+#: includes/class-wc-stamps-balance.php:459
 msgid "Purchase postage"
 msgstr ""
 
@@ -293,11 +293,11 @@ msgid ""
 "2 weeks."
 msgstr ""
 
-#: includes/class-wc-stamps-order.php:725
+#: includes/class-wc-stamps-order.php:727
 msgid "Try again"
 msgstr ""
 
-#: includes/class-wc-stamps-order.php:728
+#: includes/class-wc-stamps-order.php:730
 msgid "View all labels"
 msgstr ""
 
@@ -619,23 +619,23 @@ msgstr ""
 msgid "Stamps.com matched the following address:"
 msgstr ""
 
-#: includes/views/html-address-verification-result.php:15
+#: includes/views/html-address-verification-result.php:21
 msgid "Accept"
 msgstr ""
 
-#: includes/views/html-address-verification-result.php:16
+#: includes/views/html-address-verification-result.php:22
 msgid "Continue without changes"
 msgstr ""
 
-#: includes/views/html-address-verification-result.php:21
+#: includes/views/html-address-verification-result.php:27
 msgid "Stamps.com could not find an exact match for the shipping address."
 msgstr ""
 
-#: includes/views/html-address-verification-result.php:22
+#: includes/views/html-address-verification-result.php:28
 msgid "Continue anyway"
 msgstr ""
 
-#: includes/views/html-address-verification-result.php:26
+#: includes/views/html-address-verification-result.php:32
 msgid ""
 "Invalid shipping address - a label cannot be generated. Please correct the "
 "shipping address manually."
@@ -751,7 +751,7 @@ msgstr ""
 msgid "Add line items for the customs form here."
 msgstr ""
 
-#: includes/views/html-customs.php:83 includes/views/html-rates.php:40
+#: includes/views/html-customs.php:83 includes/views/html-rates.php:46
 msgid "Request label"
 msgstr ""
 
@@ -857,11 +857,11 @@ msgstr ""
 msgid "Choose a rate to generate a shipping label:"
 msgstr ""
 
-#: includes/views/html-rates.php:38
+#: includes/views/html-rates.php:44
 msgid "Enter customs information"
 msgstr ""
 
-#: includes/views/html-rates.php:42
+#: includes/views/html-rates.php:48
 msgid "Back"
 msgstr ""
 

@@ -11,16 +11,24 @@ defined( 'ABSPATH' ) || exit;
 <tr valign="top">
 	<th scope="row" class="titledesc">
 		<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?></label>
-		<?php echo $tip; ?>
+		<?php
+			// The following is already escaped in class-warranty-settings.php.
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $tip;
+		?>
 	</th>
-	<td class="forminp forminp-<?php echo sanitize_title( $value['type'] ); ?>">
+	<td class="forminp forminp-<?php echo esc_attr( $value['type'] ); ?>">
 		<select
 			name="<?php echo esc_attr( $value['id'] ); ?>[]"
 			id="<?php echo esc_attr( $value['id'] ); ?>"
 			style="<?php echo esc_attr( $value['css'] ); ?>"
 			class="multi-select2 <?php echo esc_attr( $value['class'] ); ?>"
 			multiple
-			<?php echo implode( ' ', $custom_attributes ); ?>
+			<?php
+				// The following is already escaped in class-warranty-settings.php.
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo implode( ' ', $custom_attributes );
+			?>
 			>
 			<?php
 			foreach ( $value['options'] as $key => $val ) {

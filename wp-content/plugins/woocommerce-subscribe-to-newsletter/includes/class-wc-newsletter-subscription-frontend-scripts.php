@@ -30,7 +30,7 @@ class WC_Newsletter_Subscription_Frontend_Scripts {
 	 * @since 2.9.0
 	 */
 	public static function enqueue_scripts() {
-		if ( ! is_checkout() && ( ! is_account_page() || is_user_logged_in() ) ) {
+		if ( ! is_checkout() && ! is_account_page() ) {
 			return;
 		}
 

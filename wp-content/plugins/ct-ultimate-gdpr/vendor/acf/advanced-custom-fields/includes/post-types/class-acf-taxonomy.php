@@ -189,6 +189,12 @@ if ( ! class_exists( 'ACF_Taxonomy' ) ) {
 					'item_link_description'      => '',
 				),
 				'description'            => '',
+				'capabilities'           => array(
+					'manage_terms'    => 'manage_categories',
+					'edit_terms'      => 'manage_categories',
+					'delete_terms'    => 'manage_categories',
+					'assign_terms'    => 'edit_posts',
+				),
 				'public'                 => true,
 				'publicly_queryable'     => true,
 				'hierarchical'           => false,
@@ -236,9 +242,9 @@ if ( ! class_exists( 'ACF_Taxonomy' ) ) {
 			$taxonomy_key = is_string( $taxonomy_key ) ? $taxonomy_key : '';
 			$valid        = true;
 
-			if ( strlen( $taxonomy_key ) > 20 ) {
+			if ( strlen( $taxonomy_key ) > 32 ) {
 				$valid = false;
-				acf_add_internal_post_type_validation_error( 'taxonomy', __( 'The taxonomy key must be under 20 characters.', 'acf' ) );
+				acf_add_internal_post_type_validation_error( 'taxonomy', __( 'The taxonomy key must be under 32 characters.', 'acf' ) );
 			}
 
 			if ( preg_match( '/^[a-z0-9_-]*$/', $taxonomy_key ) !== 1 ) {
@@ -385,6 +391,28 @@ if ( ! class_exists( 'ACF_Taxonomy' ) ) {
 				$args['show_admin_column'] = true;
 			}
 
+			$capabilities = array();
+
+			if ( ! empty( $post['capabilities']['manage_terms'] ) && 'manage_categories' !== $post['capabilities']['manage_terms'] ) {
+				$capabilities['manage_terms'] = (string) $post['capabilities']['manage_terms'];
+			}
+
+			if ( ! empty( $post['capabilities']['edit_terms'] ) && 'manage_categories' !== $post['capabilities']['edit_terms'] ) {
+				$capabilities['edit_terms'] = (string) $post['capabilities']['edit_terms'];
+			}
+
+			if ( ! empty( $post['capabilities']['delete_terms'] ) && 'manage_categories' !== $post['capabilities']['delete_terms'] ) {
+				$capabilities['delete_terms'] = (string) $post['capabilities']['delete_terms'];
+			}
+
+			if ( ! empty( $post['capabilities']['assign_terms'] ) && 'edit_posts' !== $post['capabilities']['assign_terms'] ) {
+				$capabilities['assign_terms'] = (string) $post['capabilities']['assign_terms'];
+			}
+
+			if ( ! empty( $capabilities ) ) {
+				$args['capabilities'] = $capabilities;
+			}
+
 			// WordPress defaults to the tags/categories metabox, but a custom callback or `false` is also supported.
 			$meta_box = isset( $post['meta_box'] ) ? (string) $post['meta_box'] : 'default';
 
@@ -487,9 +515,9 @@ if ( ! class_exists( 'ACF_Taxonomy' ) ) {
 			$post         = $this->validate_post( $post );
 			$taxonomy_key = $post['taxonomy'];
 			$objects      = (array) $post['object_type'];
-			$objects      = var_export( $objects, true );
+			$objects      = var_export( $objects, true ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions -- Used for PHP export.
 			$args         = $this->get_taxonomy_args( $post );
-			$args         = var_export( $args, true );
+			$args         = var_export( $args, true ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions -- Used for PHP export.
 
 			if ( ! $args ) {
 				return $return;
@@ -498,7 +526,7 @@ if ( ! class_exists( 'ACF_Taxonomy' ) ) {
 			$args    = $this->format_code_for_export( $args );
 			$objects = $this->format_code_for_export( $objects );
 
-			$return .= "register_taxonomy('{$taxonomy_key}', $objects, {$args} );\r\n\r\n";
+			$return .= "register_taxonomy( '{$taxonomy_key}', {$objects}, {$args} );\r\n";
 
 			return esc_textarea( $return );
 		}

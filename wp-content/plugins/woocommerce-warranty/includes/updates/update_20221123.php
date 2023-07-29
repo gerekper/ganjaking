@@ -266,7 +266,7 @@ class Update_20221123 {
 	private function complete_updates() {
 		delete_option( 'warranty_needs_update' );
 		update_option( 'warranty_db_version', self::$db_version );
-		wp_safe_redirect( admin_url( 'admin.php?page=warranties&warranty-data-updated=true' ) );
+		wp_safe_redirect( wp_nonce_url( admin_url( 'admin.php?page=warranties&warranty-data-updated=true' ), 'wc_warranty_updater' ) );
 		exit;
 	}
 

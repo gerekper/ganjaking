@@ -1786,6 +1786,8 @@ function warranty_request_post_data() {
 	static $data;
 
 	if ( ! $data ) {
+		// No nonce verification here because it's done in the user.
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$data = warranty_post_data_cleaner( $_POST );
 	}
 

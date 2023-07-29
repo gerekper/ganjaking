@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Intuit Payments Gateway 3.1.2\n"
+"Project-Id-Version: WooCommerce Intuit Payments Gateway 3.2.0\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2023-02-17 16:05:28+00:00\n"
+"POT-Creation-Date: 2023-07-25 07:25:31+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,11 +13,11 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: class-wc-intuit-payments.php:240
+#: class-wc-intuit-payments.php:241
 msgid "Switching between integrations is no longer available."
 msgstr ""
 
-#: class-wc-intuit-payments.php:263
+#: class-wc-intuit-payments.php:264
 #. translators: Placeholders: %1$s - payment gateway name, %2$s - <strong> tag,
 #. %3$s - </strong> tag, %4$s - <a> tag, %5$s - </a> tag
 msgid ""
@@ -26,7 +26,7 @@ msgid ""
 "and Connect again from the %4$sgateway settings%5$s."
 msgstr ""
 
-#: class-wc-intuit-payments.php:301
+#: class-wc-intuit-payments.php:302
 msgid ""
 "%1$sHeads up!%2$s The QBMS gateway has been retired. %3$sClick here for "
 "instructions%4$s on using the Intuit Payments gateway and please "
@@ -37,15 +37,15 @@ msgstr ""
 msgid "WooCommerce Intuit Payments Gateway"
 msgstr ""
 
-#: class-wc-intuit-payments.php:556
+#: class-wc-intuit-payments.php:557
 msgid "Configure eChecks"
 msgstr ""
 
-#: class-wc-intuit-payments.php:558
+#: class-wc-intuit-payments.php:559
 msgid "Configure Credit Cards"
 msgstr ""
 
-#: class-wc-intuit-payments.php:560
+#: class-wc-intuit-payments.php:561
 msgid "Configure"
 msgstr ""
 

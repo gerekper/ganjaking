@@ -18,15 +18,15 @@
  *
  * @package   SkyVerge/WooCommerce/API
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2019, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2023, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace SkyVerge\WooCommerce\PluginFramework\v5_5_0;
+namespace SkyVerge\WooCommerce\PluginFramework\v5_11_5;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_5_0\\SV_WC_API_Base' ) ) :
+if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_11_5\\SV_WC_API_Base' ) ) :
 
 
 /**
@@ -79,7 +79,6 @@ abstract class SV_WC_API_Base {
 	/** @var SV_WC_API_Response|object response */
 	protected $response;
 
-
 	/**
 	 * Perform the request and return the parsed response
 	 *
@@ -100,7 +99,7 @@ abstract class SV_WC_API_Base {
 		$start_time = microtime( true );
 
 		// if this API requires TLS v1.2, force it
-		if ( $this->require_tls_1_2() ) {
+		if ( $this->get_plugin()->require_tls_1_2() ) {
 			add_action( 'http_api_curl', array( $this, 'set_tls_1_2_request' ), 10, 3 );
 		}
 
@@ -253,27 +252,16 @@ abstract class SV_WC_API_Base {
 	 */
 	protected function broadcast_request() {
 
-		$request_data = array(
-			'method'     => $this->get_request_method(),
-			'uri'        => $this->get_request_uri(),
-			'user-agent' => $this->get_request_user_agent(),
-			'headers'    => $this->get_sanitized_request_headers(),
-			'body'       => $this->get_sanitized_request_body(),
-			'duration'   => $this->get_request_duration() . 's', // seconds
-		);
-
-		$response_data = array(
-			'code'    => $this->get_response_code(),
-			'message' => $this->get_response_message(),
-			'headers' => $this->get_response_headers(),
-			'body'    => $this->get_sanitized_response_body() ? $this->get_sanitized_response_body() : $this->get_raw_response_body(),
-		);
+		$request_data  = $this->get_request_data_for_broadcast();
+		$response_data = $this->get_response_data_for_broadcast();
 
 		/**
 		 * API Base Request Performed Action.
 		 *
 		 * Fired when an API request is performed via this base class. Plugins can
 		 * hook into this to log request/response data.
+		 *
+		 * Note: request and response data arrays may contain additional, undocumented keys provided by the implementing plugin.
 		 *
 		 * @since 2.2.0
 		 * @param array $request_data {
@@ -548,6 +536,28 @@ abstract class SV_WC_API_Base {
 	}
 
 
+	/**
+	 * Gets the request data for broadcasting the request.
+	 *
+	 * Overriding this method allows child classes to customize the request data when broadcasting the request.
+	 *
+	 * @since 5.10.10
+	 *
+	 * @return array
+	 */
+	protected function get_request_data_for_broadcast() : array {
+
+		return [
+			'method'     => $this->get_request_method(),
+			'uri'        => $this->get_request_uri(),
+			'user-agent' => $this->get_request_user_agent(),
+			'headers'    => $this->get_sanitized_request_headers(),
+			'body'       => $this->get_sanitized_request_body(),
+			'duration'   => $this->get_request_duration() . 's', // seconds
+		];
+	}
+
+
 	/** Response Getters ******************************************************/
 
 
@@ -615,6 +625,27 @@ abstract class SV_WC_API_Base {
 	 */
 	protected function get_sanitized_response_body() {
 		return is_callable( array( $this->get_response(), 'to_string_safe' ) ) ? $this->get_response()->to_string_safe() : null;
+	}
+
+
+	/**
+	 * Gets the response data for broadcasting the request.
+	 *
+	 * Overriding this method allows child classes to customize the response data when broadcasting the request.
+	 *
+	 * @since 5.10.10
+	 *
+	 * @return array
+	 * @return array
+	 */
+	protected function get_response_data_for_broadcast() : array
+	{
+		return [
+			'code'    => $this->get_response_code(),
+			'message' => $this->get_response_message(),
+			'headers' => $this->get_response_headers(),
+			'body'    => $this->get_sanitized_response_body() ?: $this->get_raw_response_body(),
+		];
 	}
 
 
@@ -794,15 +825,18 @@ abstract class SV_WC_API_Base {
 
 
 	/**
-	 * Determine if TLS v1.2 is required for API requests.
-	 *
-	 * Subclasses should override this to return true if TLS v1.2 is required.
+	 * Determines if TLS v1.2 is required for API requests.
 	 *
 	 * @since 4.4.0
+	 * @deprecated 5.5.2
+	 *
 	 * @return bool
 	 */
 	public function require_tls_1_2() {
-		return false;
+
+		wc_deprecated_function( __METHOD__, '5.5.2', 'SV_WC_Plugin::require_tls_1_2()' );
+
+		return $this->get_plugin()->require_tls_1_2();
 	}
 
 
@@ -815,20 +849,6 @@ abstract class SV_WC_API_Base {
 	 */
 	public function is_tls_1_2_available() {
 
-		// assume availability to avoid notices for unknown SSL types
-		$is_available = true;
-
-		// check the cURL version if installed
-		if ( is_callable( 'curl_version' ) ) {
-
-			$versions = curl_version();
-
-			// cURL 7.34.0 is considered the minimum version that supports TLS 1.2
-			if ( version_compare( $versions['version'], '7.34.0', '<' ) ) {
-				$is_available = false;
-			}
-		}
-
 		/**
 		 * Filters whether TLS 1.2 is available.
 		 *
@@ -837,7 +857,7 @@ abstract class SV_WC_API_Base {
 		 * @param bool $is_available whether TLS 1.2 is available
 		 * @param SV_WC_API_Base $api API class instance
 		 */
-		return apply_filters( 'wc_' . $this->get_plugin()->get_id() . '_api_is_tls_1_2_available', $is_available, $this );
+		return (bool) apply_filters( 'wc_' . $this->get_plugin()->get_id() . '_api_is_tls_1_2_available', $this->get_plugin()->is_tls_1_2_available(), $this );
 	}
 
 

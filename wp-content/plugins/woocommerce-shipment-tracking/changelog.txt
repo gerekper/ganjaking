@@ -1,5 +1,12 @@
 *** Shipment Tracking Changelog ***
 
+2023-07-24 - version 2.3.2
+* Update - Security update.
+
+2023-03-29 - version 2.3.1
+* Fix   - PHP 8.2 compatibility - creation of dynamic property is deprecated.
+* Tweak - WC Subscriptions compatibility (replace deprecated hook wcs_renewal_order_meta_query for WCS 2.5.0+).
+
 2023-03-21 - version 2.3.0
 * Add - Filter hook before tracking item being added and deleted.
 

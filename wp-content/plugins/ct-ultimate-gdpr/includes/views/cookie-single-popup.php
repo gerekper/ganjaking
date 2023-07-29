@@ -182,7 +182,7 @@ if ( empty( $options['cookie_modal_always_visible'] ) ) :
 			$left_cog = $ct_gdpr_get_icon_array['left_cog'];
 			$accept_btn_content = ct_gdpr_get_accept_content( $btn_settings, $skin_name, $check, $accept_label );
 			$adv_set_btn_content = ct_gdpr_get_adv_set_content( $btn_settings, $adv_set_label, $left_cog, $right_cog );
-			$read_more_10_set = ct_gdpr_get_10_set_read_more_content( $skin_name, $options, $arrow );
+			$read_more_10_set = ct_gdpr_get_10_set_read_more_content( $options, $arrow, $skin_name );
 		endif;
 	endif;
 
@@ -486,6 +486,7 @@ if ( empty( $options['cookie_modal_always_visible'] ) ) :
 					<div class="ct-ultimate-gdpr-cookie-modal-single-wrap__inner--info">
 						<div class="ct-ultimate-gdpr-cookie-modal-single__info--desc" id="desc-left">
 							<ul class="ct-ultimate-gdpr-cookie-modal-slider-able" style="color: <?php echo esc_attr($options['cookie_modal_text_color']); ?>;">
+                                <li class="block-all"> <?php echo _e('Remember which cookies group you accepted','ct-ultimate-gdpr'); ?></li>
 								<?php if(!empty($essentials) && empty($options['cookie_group_popup_hide_level_2']) ) : ?>
 									<?php foreach ($essentials as $essential) : ?>
 										<li class="essentials"> <?php echo esc_html($essential); ?></li>

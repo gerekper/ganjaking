@@ -1,5 +1,14 @@
 *** Warranty Requests Changelog ***
 
+2023-07-25 - version 2.2.4
+* Fix - "Expired Warranty" text always shows when lifetime warranty is being set as a default warranty.
+
+2023-07-24 - version 2.2.3
+* Update - Additional security update.
+
+2023-07-24 - version 2.2.2
+* Update - Security update.
+
 2023-07-18 - version 2.2.1
 * Fix - Empty column in completed warranties report table.
 

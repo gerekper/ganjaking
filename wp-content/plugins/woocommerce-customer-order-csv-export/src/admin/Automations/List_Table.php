@@ -402,7 +402,7 @@ class List_Table extends \WP_List_Table {
 	/**
 	 * Gets the list table columns.
 	 *
-	 * @since 5.5.0-dev.1
+	 * @since 5.5.0
 	 *
 	 * @return array
 	 */
@@ -422,7 +422,7 @@ class List_Table extends \WP_List_Table {
 		/**
 		 * Filters the automations list table columns.
 		 *
-		 * @since 5.5.0-dev.1
+		 * @since 5.5.0
 		 *
 		 * @param array $columns list table columns
 		 */

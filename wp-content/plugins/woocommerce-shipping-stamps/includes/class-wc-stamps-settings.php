@@ -346,7 +346,7 @@ class WC_Stamps_Settings {
 	public static function tab_content() {
 		if ( get_option( 'wc_settings_stamps_username' ) && get_option( 'wc_settings_stamps_password' ) && ! get_option( 'wc_settings_stamps_zip' ) ) {
 			/* translators: 1) opening anchor tag 2) closing anchor tag */
-			echo '<div class="error"><p>' . sprintf( __( 'Shipping Return Address: Zip code is a required field. Please enter it on the %1$sStamps.com settings page%2$s.', 'woocommerce-shipping-stamps' ), '<a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=stamps' ) ) . '">', '</a>' ) . '</p></div>';
+			echo '<div class="error"><p>' . sprintf( esc_html__( 'Shipping Return Address: Zip code is a required field. Please enter it on the %1$sStamps.com settings page%2$s.', 'woocommerce-shipping-stamps' ), '<a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=stamps' ) ) . '">', '</a>' ) . '</p></div>';
 		}
 		woocommerce_admin_fields( self::get_fields() );
 	}

@@ -13,7 +13,7 @@
  * Plugin Name:       Smush Pro
  * Plugin URI:        http://wpmudev.com/project/wp-smush-pro/
  * Description:       Reduce image file sizes, improve performance and boost your SEO using the <a href="https://wpmudev.com/">WPMU DEV</a> WordPress Smush API.
- * Version:           3.14.0
+ * Version:           3.14.1
  * Author:            WPMU DEV
  * Author URI:        https://wpmudev.com/
  * License:           GPLv2
@@ -48,7 +48,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! defined( 'WP_SMUSH_VERSION' ) ) {
-	define( 'WP_SMUSH_VERSION', '3.14.0' );
+	define( 'WP_SMUSH_VERSION', '3.14.1' );
 }
 // Used to define body class.
 if ( ! defined( 'WP_SHARED_UI_VERSION' ) ) {
@@ -200,7 +200,9 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 		 *
 		 * @var bool $is_pro
 		 */
+		// private static $is_pro;
 		private static $is_pro = true;
+
 
 		/**
 		 * Return the plugin instance.
@@ -374,8 +376,7 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 		}
 
 		public static function is_expired() {
-			$used_wpmudev_dashboard = class_exists( '\WPMUDEV_Dashboard' ) || defined( 'WPMUDEV_APIKEY') && WPMUDEV_APIKEY;
-			return $used_wpmudev_dashboard && ! self::is_pro();
+			return ! self::is_pro() && Smush\Core\Helper::get_wpmudev_apikey();
 		}
 
 		public static function is_new_user() {
@@ -497,6 +498,8 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 		 * @param bool $manual  Is it a manual check? Default: false.
 		 */
 		public function validate_install( $manual = false ) {
+			return true;
+
 			if ( isset( self::$is_pro ) && ! $manual ) {
 				return;
 			}

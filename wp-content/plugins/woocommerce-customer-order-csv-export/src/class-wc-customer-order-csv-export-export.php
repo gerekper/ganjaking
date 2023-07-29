@@ -26,7 +26,7 @@ defined( 'ABSPATH' ) or exit;
 use SkyVerge\WooCommerce\CSV_Export\CSV_Export_Generator;
 use SkyVerge\WooCommerce\CSV_Export\Export_Generator;
 use SkyVerge\WooCommerce\CSV_Export\XML_Export_Generator;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_6 as Framework;
 
 /**
  * Customer/Order CSV Export Export class

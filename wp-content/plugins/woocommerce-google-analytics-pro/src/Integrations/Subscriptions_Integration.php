@@ -260,6 +260,10 @@ class Subscriptions_Integration {
 	 */
 	public function ensure_subscription_events_have_default_values(): void {
 
+		if ( ! $this->get_integration()->is_enabled() ) {
+			return;
+		}
+
 		$settings = $this->get_integration()->settings;
 
 		if ( isset( $settings['renewed_subscription_event_name'] ) || isset( $settings['renew_subscription_event_name'] ) ) {

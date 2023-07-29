@@ -97,10 +97,13 @@ class Warranty_Cart {
 	function add_cart_item_data( $item_data, $product_id ) {
 		global $woocommerce;
 
+    // Passed down from WC_Cart::add_to_cart(), so nonce verification can be skipped.
+    //phpcs:disable WordPress.Security.NonceVerification.Missing
 		if ( isset( $_POST['warranty'] ) && $_POST['warranty'] !== '' ) {
-			$item_data['warranty_index'] = $_POST['warranty'];
+			$item_data['warranty_index'] = sanitize_text_field( $_POST['warranty'] );
 		}
-
+    //phpcs:enable WordPress.Security.NonceVerification.Missing
+    
 		return $item_data;
 	}
 

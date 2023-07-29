@@ -1011,6 +1011,10 @@ class Database {
    * @return string
    */
   private static function bcBin2Dec($data) {
+    if (strlen($data) < 16) {
+      throw new \Exception("Input data is too short. Expected at least 16 bytes, got ");
+    }
+  
 	$parts = array(
 		unpack('V', substr($data, 12, 4)),
 		unpack('V', substr($data, 8, 4)),

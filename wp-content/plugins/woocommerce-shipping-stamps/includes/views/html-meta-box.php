@@ -8,26 +8,31 @@
 $needs_customs = $this->needs_customs_step( $order );
 ?>
 <ul class="steps<?php echo $needs_customs ? ' needs-customs' : '';  ?>">
-	<li class="step-address <?php echo 'address' === $step ? 'active' : ''; ?>"><?php _e( 'Address', 'woocommerce-shipping-stamps' ); ?></li>
-	<li class="step-rates <?php echo 'rates' === $step ? 'active' : ''; ?>"><?php _e( 'Rate', 'woocommerce-shipping-stamps' ); ?></li>
+	<li class="step-address <?php echo 'address' === $step ? 'active' : ''; ?>"><?php esc_html_e( 'Address', 'woocommerce-shipping-stamps' ); ?></li>
+	<li class="step-rates <?php echo 'rates' === $step ? 'active' : ''; ?>"><?php esc_html_e( 'Rate', 'woocommerce-shipping-stamps' ); ?></li>
 	<?php if ( $needs_customs ) : ?>
-		<li class="step-customs <?php echo 'customs' === $step ? 'active' : ''; ?>"><?php _e( 'Customs', 'woocommerce-shipping-stamps' ); ?></li>
+		<li class="step-customs <?php echo 'customs' === $step ? 'active' : ''; ?>"><?php esc_html_e( 'Customs', 'woocommerce-shipping-stamps' ); ?></li>
 	<?php endif; ?>
-	<li class="step-labels <?php echo 'labels' === $step ? 'active' : ''; ?>"><?php _e( 'Label', 'woocommerce-shipping-stamps' ); ?></li>
+	<li class="step-labels <?php echo 'labels' === $step ? 'active' : ''; ?>"><?php esc_html_e( 'Label', 'woocommerce-shipping-stamps' ); ?></li>
 </ul>
 <div class="stamps_result">
 	<?php
+	$html = "";
 	switch ( $step ) {
 		case 'address' :
-			echo $this->get_address_verification_html( $order );
+			$html = $this->get_address_verification_html( $order );
 		break;
 		case 'rates' :
-			echo $this->get_packages_html( $order );
+			$html = $this->get_packages_html( $order );
 		break;
 		case 'labels' :
-			echo $this->get_labels_html( $labels );
+			$html = $this->get_labels_html( $labels );
 		break;
 	}
+
+	// The variables are already escaped in the methods above.
+	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo $html;
 	?>
 </div>
 <script type="text/javascript">
@@ -46,14 +51,14 @@ $needs_customs = $this->needs_customs_step( $order );
 
 				var action = jQuery(this).data( 'stamps_action' );
 				var data   = {
-					order_id:  <?php echo $order->get_id(); ?>,
+					order_id:  <?php echo esc_html( $order->get_id() ); ?>,
 					action:    'wc_stamps_' + action,
-					security:  '<?php echo wp_create_nonce( "stamps" ); ?>',
+					security:  '<?php echo esc_html( wp_create_nonce( "stamps" ) ); ?>',
 					data:      jQuery('#wc_stamps_get_label').find('input, select').serialize(),
 					action_id: jQuery(this).data('id')
 				};
 				jQuery.ajax({
-					url:  '<?php echo admin_url( 'admin-ajax.php' ); ?>',
+					url:  '<?php echo esc_url_raw( admin_url( 'admin-ajax.php' ) ); ?>',
 					data: data,
 					type: 'POST',
 					success: function( response ) {

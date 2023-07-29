@@ -2,15 +2,15 @@
 /**
  * Plugin Name: WooCommerce Shipment Tracking
  * Plugin URI: https://woocommerce.com/products/shipment-tracking/
- * Description: Add tracking numbers to orders allowing customers to track their orders via a link. Supports many shipping providers, as well as custom ones if neccessary via a regular link.
- * Version: 2.3.0
+ * Description: Add tracking numbers to orders allowing customers to track their orders via a link. Supports many shipping providers, as well as custom ones if necessary via a regular link.
+ * Version: 2.3.2
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-shipment-tracking
  * Domain Path: /languages
  * WC requires at least: 3.0
- * WC tested up to: 7.4
- * Tested up to: 6.1
+ * WC tested up to: 7.9
+ * Tested up to: 6.2
  *
  * Copyright: © 2023 WooCommerce
  * License: GNU General Public License v3.0
@@ -40,7 +40,7 @@ function woocommerce_shipment_tracking_missing_wc_notice() {
  * WC_Shipment_Tracking class
  */
 if ( ! class_exists( 'WC_Shipment_Tracking' ) ) :
-	define( 'WC_SHIPMENT_TRACKING_VERSION', '2.3.0' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_SHIPMENT_TRACKING_VERSION', '2.3.2' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Plugin's main class.
@@ -121,7 +121,9 @@ if ( ! class_exists( 'WC_Shipment_Tracking' ) ) :
 			$subs_version = $this->get_subscriptions_version();
 
 			// Prevent data being copied to subscriptions.
-			if ( null !== $subs_version && version_compare( $subs_version, '2.0.0', '>=' ) ) {
+			if ( null !== $subs_version && version_compare( $subs_version, '2.5.0', '>=' ) ) {
+				add_filter( 'wc_subscriptions_renewal_order_data', array( $this->actions, 'prevent_copying_shipment_tracking_data' ), 10 );
+			} elseif ( null !== $subs_version && version_compare( $subs_version, '2.0.0', '>=' ) ) {
 				add_filter( 'wcs_renewal_order_meta_query', array( $this->actions, 'woocommerce_subscriptions_renewal_order_meta_query' ), 10, 3 );
 			} else {
 				add_filter( 'woocommerce_subscriptions_renewal_order_meta_query', array( $this->actions, 'woocommerce_subscriptions_renewal_order_meta_query' ), 10, 3 );
@@ -216,13 +218,7 @@ if ( ! class_exists( 'WC_Shipment_Tracking' ) ) :
 		 * @return string plugin path
 		 */
 		public function get_plugin_path() {
-			if ( isset( $this->plugin_path ) ) {
-				return $this->plugin_path;
-			}
-
-			$this->plugin_path = untrailingslashit( plugin_dir_path( __FILE__ ) );
-
-			return $this->plugin_path;
+			return $this->plugin_dir;
 		}
 
 		/**

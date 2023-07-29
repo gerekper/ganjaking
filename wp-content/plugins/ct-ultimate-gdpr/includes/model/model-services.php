@@ -127,6 +127,7 @@ class CT_Ultimate_GDPR_Model_Services {
 				'CT_Ultimate_GDPR_Service_GA_Google_Analytics',
 				'CT_Ultimate_GDPR_Service_Google_Adsense',
 				'CT_Ultimate_GDPR_Service_Google_Analytics',
+				'CT_Ultimate_GDPR_Service_Google_Tag_Manager',
 				'CT_Ultimate_GDPR_Service_Google_Analytics_Dashboard_For_WP',
 				'CT_Ultimate_GDPR_Service_Google_Analytics_For_Wordpress',
 				'CT_Ultimate_GDPR_Service_Gravity_Forms',
@@ -162,6 +163,7 @@ class CT_Ultimate_GDPR_Model_Services {
 				'CT_Ultimate_GDPR_Service_Sitepress_WPML',				
 				'CT_Ultimate_GDPR_Service_Siteorigin_Panels',
                 'CT_Ultimate_GDPR_Service_Fusion_Builder',	
+				'CT_Ultimate_GDPR_Service_Metform',	
 			)
 		);
 

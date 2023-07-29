@@ -24,7 +24,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_15 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_4 as Framework;
 
 /**
  * The credit card gateway class.
@@ -296,7 +296,7 @@ class WC_Gateway_Inuit_Payments_Credit_Card extends WC_Gateway_Inuit_Payments {
 
 		$value = $order->get_meta( $this->get_order_meta_prefix() . $key );
 
-		if ( in_array( $key, [ 'payment_token', 'customer_id' ] ) && ! metadata_exists( 'post', $order->get_id(), $this->get_order_meta_prefix() . $key ) ) {
+		if ( in_array( $key, [ 'payment_token', 'customer_id' ] ) && ! $order->meta_exists( $this->get_order_meta_prefix() . $key ) ) {
 
 			switch ( $key ) {
 

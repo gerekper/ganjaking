@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( $tracking_items ) :
 
-	echo apply_filters( 'woocommerce_shipment_tracking_my_orders_title', __( 'TRACKING INFORMATION', 'woocommerce-shipment-tracking' ) );
+	echo esc_html( apply_filters( 'woocommerce_shipment_tracking_my_orders_title', __( 'TRACKING INFORMATION', 'woocommerce-shipment-tracking' ) ) );
 
 		echo  "\n";
 

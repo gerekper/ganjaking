@@ -26,7 +26,8 @@ namespace SkyVerge\WooCommerce\Intuit;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_15 as Framework;
+use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_4 as Framework;
 use WC_Intuit_Payments;
 
 /**
@@ -93,17 +94,19 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 
 		$this->get_plugin()->log( 'Starting order meta upgrade.' );
 
+		$meta_table = Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ? OrdersTableDataStore::get_meta_table_name() : $wpdb->postmeta;
+
 		// meta key: _payment_method
 		// old value: intuit_qbms
 		// new value: intuit_qbms_credit_card
-		$rows = $wpdb->update( $wpdb->postmeta, [ 'meta_value' => 'intuit_qbms_credit_card' ], [ 'meta_key' => '_payment_method', 'meta_value' => 'intuit_qbms' ] );
+		$rows = $wpdb->update( $meta_table, [ 'meta_value' => 'intuit_qbms_credit_card' ], [ 'meta_key' => '_payment_method', 'meta_value' => 'intuit_qbms' ] );
 
 		$this->get_plugin()->log( sprintf( '%d orders updated for payment method meta', $rows ) );
 
 		// meta key: _recurring_payment_method
 		// old value: intuit_qbms
 		// new value: intuit_qbms_credit_card
-		$rows = $wpdb->update( $wpdb->postmeta, [ 'meta_value' => 'intuit_qbms_credit_card' ], [ 'meta_key' => '_recurring_payment_method', 'meta_value' => 'intuit_qbms' ] );
+		$rows = $wpdb->update( $meta_table, [ 'meta_value' => 'intuit_qbms_credit_card' ], [ 'meta_key' => '_recurring_payment_method', 'meta_value' => 'intuit_qbms' ] );
 
 		$this->get_plugin()->log( sprintf( '%d orders updated for recurring payment method meta', $rows ) );
 
@@ -133,7 +136,7 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 
 			// old key: _wc_intuit_qbms_*
 			// new key: _wc_intuit_qbms_credit_card_*
-			$wpdb->update( $wpdb->postmeta, [ 'meta_key' => '_wc_intuit_qbms_credit_card_' . $key ], [ 'meta_key' => '_wc_intuit_qbms_' . $key ] );
+			$wpdb->update( $meta_table, [ 'meta_key' => '_wc_intuit_qbms_credit_card_' . $key ], [ 'meta_key' => '_wc_intuit_qbms_' . $key ] );
 		}
 
 		/** Update user token method meta *********************************/
@@ -296,17 +299,19 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 
 		$this->get_plugin()->log( 'Starting order data migration from QBMS.' );
 
+		$meta_table = Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ? OrdersTableDataStore::get_meta_table_name() : $wpdb->postmeta;
+
 		// meta key: _payment_method
 		// old value: intuit_qbms_credit_card
 		// new value: intuit_payments_credit_card
-		$rows = $wpdb->update( $wpdb->postmeta, [ 'meta_value' => 'intuit_payments_credit_card' ], [ 'meta_key' => '_payment_method', 'meta_value' => 'intuit_qbms_credit_card' ] );
+		$rows = $wpdb->update( $meta_table, [ 'meta_value' => 'intuit_payments_credit_card' ], [ 'meta_key' => '_payment_method', 'meta_value' => 'intuit_qbms_credit_card' ] );
 
 		$this->get_plugin()->log( sprintf( '%d orders updated for payment method meta', $rows ) );
 
 		// meta key: _recurring_payment_method
 		// old value: intuit_qbms_credit_card
 		// new value: intuit_payments_credit_card
-		$rows = $wpdb->update( $wpdb->postmeta, [ 'meta_value' => 'intuit_payments_credit_card' ], [ 'meta_key' => '_recurring_payment_method', 'meta_value' => 'intuit_qbms_credit_card' ] );
+		$rows = $wpdb->update( $meta_table, [ 'meta_value' => 'intuit_payments_credit_card' ], [ 'meta_key' => '_recurring_payment_method', 'meta_value' => 'intuit_qbms_credit_card' ] );
 
 		$this->get_plugin()->log( sprintf( '%d orders updated for recurring payment method meta', $rows ) );
 	}

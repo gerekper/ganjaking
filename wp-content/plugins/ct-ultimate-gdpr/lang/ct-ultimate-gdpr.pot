@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Ultimate GDPR & CCPA plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate GDPR & CCPA 4.3\n"
+"Project-Id-Version: Ultimate GDPR & CCPA 4.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ct-ultimate-gdpr\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-04-27T12:07:09+00:00\n"
+"POT-Creation-Date: 2023-07-27T09:18:06+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: ct-ultimate-gdpr\n"
@@ -85,7 +85,7 @@ msgid "No service was imported"
 msgstr ""
 
 #: includes/controller/controller-admin.php:554
-#: includes/controller/controller-cookie.php:194
+#: includes/controller/controller-cookie.php:199
 #: includes/views/admin/wizard/includes/step3.php:33
 #: includes/views/admin/wizard/includes/step3.php:43
 #: includes/views/admin/wizard/includes/step3.php:68
@@ -96,51 +96,52 @@ msgstr ""
 #: includes/views/admin/wizard/includes/step5.php:85
 #: includes/views/admin/wizard/includes/step5.php:95
 #: includes/views/admin/wizard/includes/step5.php:105
-#: includes/views/admin/wizard/includes/step7.php:73
-#: includes/views/admin/wizard/includes/step7.php:85
-#: includes/views/admin/wizard/includes/step7.php:97
-#: includes/views/admin/wizard/includes/step7.php:109
-#: includes/views/admin/wizard/includes/step7.php:122
-#: includes/views/admin/wizard/includes/step7.php:134
-#: includes/views/admin/wizard/includes/step7.php:146
-#: includes/views/admin/wizard/includes/step7.php:158
-#: includes/views/admin/wizard/includes/step7.php:171
-#: includes/views/admin/wizard/includes/step7.php:183
-#: includes/views/admin/wizard/includes/step7.php:195
-#: includes/views/admin/wizard/includes/step7.php:207
-#: includes/views/admin/wizard/includes/step7.php:220
-#: includes/views/admin/wizard/includes/step7.php:232
-#: includes/views/admin/wizard/includes/step7.php:242
-#: includes/views/admin/wizard/includes/step7.php:254
-#: includes/views/admin/wizard/includes/step7.php:267
-#: includes/views/admin/wizard/includes/step7.php:279
-#: includes/views/admin/wizard/includes/step7.php:291
-#: includes/views/admin/wizard/includes/step7.php:303
-#: includes/views/admin/wizard/includes/step7.php:316
-#: includes/views/admin/wizard/includes/step7.php:328
-#: includes/views/admin/wizard/includes/step7.php:340
-#: includes/views/admin/wizard/includes/step7.php:352
-#: includes/views/admin/wizard/includes/step7.php:365
-#: includes/views/admin/wizard/includes/step7.php:377
-#: includes/views/admin/wizard/includes/step7.php:389
-#: includes/views/admin/wizard/includes/step7.php:399
-#: includes/views/admin/wizard/includes/step7.php:409
-#: includes/views/admin/wizard/includes/step7.php:422
-#: includes/views/admin/wizard/includes/step7.php:434
-#: includes/views/admin/wizard/includes/step7.php:446
-#: includes/views/admin/wizard/includes/step7.php:458
-#: includes/views/admin/wizard/includes/step7.php:471
-#: includes/views/admin/wizard/includes/step7.php:483
-#: includes/views/admin/wizard/includes/step7.php:493
-#: includes/views/admin/wizard/includes/step7.php:503
-#: includes/views/admin/wizard/includes/step7.php:515
-#: includes/views/admin/wizard/includes/step7.php:527
-#: includes/views/admin/wizard/includes/step7.php:542
+#: includes/views/admin/wizard/includes/step7.php:77
+#: includes/views/admin/wizard/includes/step7.php:89
+#: includes/views/admin/wizard/includes/step7.php:101
+#: includes/views/admin/wizard/includes/step7.php:113
+#: includes/views/admin/wizard/includes/step7.php:126
+#: includes/views/admin/wizard/includes/step7.php:138
+#: includes/views/admin/wizard/includes/step7.php:150
+#: includes/views/admin/wizard/includes/step7.php:162
+#: includes/views/admin/wizard/includes/step7.php:175
+#: includes/views/admin/wizard/includes/step7.php:187
+#: includes/views/admin/wizard/includes/step7.php:199
+#: includes/views/admin/wizard/includes/step7.php:211
+#: includes/views/admin/wizard/includes/step7.php:224
+#: includes/views/admin/wizard/includes/step7.php:236
+#: includes/views/admin/wizard/includes/step7.php:246
+#: includes/views/admin/wizard/includes/step7.php:258
+#: includes/views/admin/wizard/includes/step7.php:271
+#: includes/views/admin/wizard/includes/step7.php:283
+#: includes/views/admin/wizard/includes/step7.php:295
+#: includes/views/admin/wizard/includes/step7.php:307
+#: includes/views/admin/wizard/includes/step7.php:320
+#: includes/views/admin/wizard/includes/step7.php:332
+#: includes/views/admin/wizard/includes/step7.php:344
+#: includes/views/admin/wizard/includes/step7.php:356
+#: includes/views/admin/wizard/includes/step7.php:369
+#: includes/views/admin/wizard/includes/step7.php:381
+#: includes/views/admin/wizard/includes/step7.php:393
+#: includes/views/admin/wizard/includes/step7.php:403
+#: includes/views/admin/wizard/includes/step7.php:413
+#: includes/views/admin/wizard/includes/step7.php:426
+#: includes/views/admin/wizard/includes/step7.php:438
+#: includes/views/admin/wizard/includes/step7.php:450
+#: includes/views/admin/wizard/includes/step7.php:462
+#: includes/views/admin/wizard/includes/step7.php:475
+#: includes/views/admin/wizard/includes/step7.php:487
+#: includes/views/admin/wizard/includes/step7.php:497
+#: includes/views/admin/wizard/includes/step7.php:507
+#: includes/views/admin/wizard/includes/step7.php:519
+#: includes/views/admin/wizard/includes/step7.php:531
+#: includes/views/admin/wizard/includes/step7.php:546
+#: includes/views/admin/wizard/includes/step7.php:561
 msgid "Enabled"
 msgstr ""
 
 #: includes/controller/controller-admin.php:555
-#: includes/controller/controller-cookie.php:195
+#: includes/controller/controller-cookie.php:200
 #: includes/views/admin/wizard/includes/step3.php:33
 #: includes/views/admin/wizard/includes/step3.php:43
 #: includes/views/admin/wizard/includes/step3.php:68
@@ -151,56 +152,57 @@ msgstr ""
 #: includes/views/admin/wizard/includes/step5.php:85
 #: includes/views/admin/wizard/includes/step5.php:95
 #: includes/views/admin/wizard/includes/step5.php:105
-#: includes/views/admin/wizard/includes/step7.php:73
-#: includes/views/admin/wizard/includes/step7.php:85
-#: includes/views/admin/wizard/includes/step7.php:97
-#: includes/views/admin/wizard/includes/step7.php:109
-#: includes/views/admin/wizard/includes/step7.php:122
-#: includes/views/admin/wizard/includes/step7.php:134
-#: includes/views/admin/wizard/includes/step7.php:146
-#: includes/views/admin/wizard/includes/step7.php:158
-#: includes/views/admin/wizard/includes/step7.php:171
-#: includes/views/admin/wizard/includes/step7.php:183
-#: includes/views/admin/wizard/includes/step7.php:195
-#: includes/views/admin/wizard/includes/step7.php:207
-#: includes/views/admin/wizard/includes/step7.php:220
-#: includes/views/admin/wizard/includes/step7.php:232
-#: includes/views/admin/wizard/includes/step7.php:242
-#: includes/views/admin/wizard/includes/step7.php:254
-#: includes/views/admin/wizard/includes/step7.php:267
-#: includes/views/admin/wizard/includes/step7.php:279
-#: includes/views/admin/wizard/includes/step7.php:291
-#: includes/views/admin/wizard/includes/step7.php:303
-#: includes/views/admin/wizard/includes/step7.php:316
-#: includes/views/admin/wizard/includes/step7.php:328
-#: includes/views/admin/wizard/includes/step7.php:340
-#: includes/views/admin/wizard/includes/step7.php:352
-#: includes/views/admin/wizard/includes/step7.php:365
-#: includes/views/admin/wizard/includes/step7.php:377
-#: includes/views/admin/wizard/includes/step7.php:389
-#: includes/views/admin/wizard/includes/step7.php:399
-#: includes/views/admin/wizard/includes/step7.php:409
-#: includes/views/admin/wizard/includes/step7.php:422
-#: includes/views/admin/wizard/includes/step7.php:434
-#: includes/views/admin/wizard/includes/step7.php:446
-#: includes/views/admin/wizard/includes/step7.php:458
-#: includes/views/admin/wizard/includes/step7.php:471
-#: includes/views/admin/wizard/includes/step7.php:483
-#: includes/views/admin/wizard/includes/step7.php:493
-#: includes/views/admin/wizard/includes/step7.php:503
-#: includes/views/admin/wizard/includes/step7.php:515
-#: includes/views/admin/wizard/includes/step7.php:527
-#: includes/views/admin/wizard/includes/step7.php:542
+#: includes/views/admin/wizard/includes/step7.php:77
+#: includes/views/admin/wizard/includes/step7.php:89
+#: includes/views/admin/wizard/includes/step7.php:101
+#: includes/views/admin/wizard/includes/step7.php:113
+#: includes/views/admin/wizard/includes/step7.php:126
+#: includes/views/admin/wizard/includes/step7.php:138
+#: includes/views/admin/wizard/includes/step7.php:150
+#: includes/views/admin/wizard/includes/step7.php:162
+#: includes/views/admin/wizard/includes/step7.php:175
+#: includes/views/admin/wizard/includes/step7.php:187
+#: includes/views/admin/wizard/includes/step7.php:199
+#: includes/views/admin/wizard/includes/step7.php:211
+#: includes/views/admin/wizard/includes/step7.php:224
+#: includes/views/admin/wizard/includes/step7.php:236
+#: includes/views/admin/wizard/includes/step7.php:246
+#: includes/views/admin/wizard/includes/step7.php:258
+#: includes/views/admin/wizard/includes/step7.php:271
+#: includes/views/admin/wizard/includes/step7.php:283
+#: includes/views/admin/wizard/includes/step7.php:295
+#: includes/views/admin/wizard/includes/step7.php:307
+#: includes/views/admin/wizard/includes/step7.php:320
+#: includes/views/admin/wizard/includes/step7.php:332
+#: includes/views/admin/wizard/includes/step7.php:344
+#: includes/views/admin/wizard/includes/step7.php:356
+#: includes/views/admin/wizard/includes/step7.php:369
+#: includes/views/admin/wizard/includes/step7.php:381
+#: includes/views/admin/wizard/includes/step7.php:393
+#: includes/views/admin/wizard/includes/step7.php:403
+#: includes/views/admin/wizard/includes/step7.php:413
+#: includes/views/admin/wizard/includes/step7.php:426
+#: includes/views/admin/wizard/includes/step7.php:438
+#: includes/views/admin/wizard/includes/step7.php:450
+#: includes/views/admin/wizard/includes/step7.php:462
+#: includes/views/admin/wizard/includes/step7.php:475
+#: includes/views/admin/wizard/includes/step7.php:487
+#: includes/views/admin/wizard/includes/step7.php:497
+#: includes/views/admin/wizard/includes/step7.php:507
+#: includes/views/admin/wizard/includes/step7.php:519
+#: includes/views/admin/wizard/includes/step7.php:531
+#: includes/views/admin/wizard/includes/step7.php:546
+#: includes/views/admin/wizard/includes/step7.php:561
 msgid "Enable"
 msgstr ""
 
 #: includes/controller/controller-admin.php:556
-#: includes/controller/controller-cookie.php:196
+#: includes/controller/controller-cookie.php:201
 msgid "Disabled"
 msgstr ""
 
 #: includes/controller/controller-admin.php:557
-#: includes/controller/controller-cookie.php:197
+#: includes/controller/controller-cookie.php:202
 #: includes/views/admin/wizard/includes/step3.php:33
 #: includes/views/admin/wizard/includes/step3.php:43
 #: includes/views/admin/wizard/includes/step3.php:68
@@ -211,46 +213,47 @@ msgstr ""
 #: includes/views/admin/wizard/includes/step5.php:85
 #: includes/views/admin/wizard/includes/step5.php:95
 #: includes/views/admin/wizard/includes/step5.php:105
-#: includes/views/admin/wizard/includes/step7.php:73
-#: includes/views/admin/wizard/includes/step7.php:85
-#: includes/views/admin/wizard/includes/step7.php:97
-#: includes/views/admin/wizard/includes/step7.php:109
-#: includes/views/admin/wizard/includes/step7.php:122
-#: includes/views/admin/wizard/includes/step7.php:134
-#: includes/views/admin/wizard/includes/step7.php:146
-#: includes/views/admin/wizard/includes/step7.php:158
-#: includes/views/admin/wizard/includes/step7.php:171
-#: includes/views/admin/wizard/includes/step7.php:183
-#: includes/views/admin/wizard/includes/step7.php:195
-#: includes/views/admin/wizard/includes/step7.php:207
-#: includes/views/admin/wizard/includes/step7.php:220
-#: includes/views/admin/wizard/includes/step7.php:232
-#: includes/views/admin/wizard/includes/step7.php:242
-#: includes/views/admin/wizard/includes/step7.php:254
-#: includes/views/admin/wizard/includes/step7.php:267
-#: includes/views/admin/wizard/includes/step7.php:279
-#: includes/views/admin/wizard/includes/step7.php:291
-#: includes/views/admin/wizard/includes/step7.php:303
-#: includes/views/admin/wizard/includes/step7.php:316
-#: includes/views/admin/wizard/includes/step7.php:328
-#: includes/views/admin/wizard/includes/step7.php:340
-#: includes/views/admin/wizard/includes/step7.php:352
-#: includes/views/admin/wizard/includes/step7.php:365
-#: includes/views/admin/wizard/includes/step7.php:377
-#: includes/views/admin/wizard/includes/step7.php:389
-#: includes/views/admin/wizard/includes/step7.php:399
-#: includes/views/admin/wizard/includes/step7.php:409
-#: includes/views/admin/wizard/includes/step7.php:422
-#: includes/views/admin/wizard/includes/step7.php:434
-#: includes/views/admin/wizard/includes/step7.php:446
-#: includes/views/admin/wizard/includes/step7.php:458
-#: includes/views/admin/wizard/includes/step7.php:471
-#: includes/views/admin/wizard/includes/step7.php:483
-#: includes/views/admin/wizard/includes/step7.php:493
-#: includes/views/admin/wizard/includes/step7.php:503
-#: includes/views/admin/wizard/includes/step7.php:515
-#: includes/views/admin/wizard/includes/step7.php:527
-#: includes/views/admin/wizard/includes/step7.php:542
+#: includes/views/admin/wizard/includes/step7.php:77
+#: includes/views/admin/wizard/includes/step7.php:89
+#: includes/views/admin/wizard/includes/step7.php:101
+#: includes/views/admin/wizard/includes/step7.php:113
+#: includes/views/admin/wizard/includes/step7.php:126
+#: includes/views/admin/wizard/includes/step7.php:138
+#: includes/views/admin/wizard/includes/step7.php:150
+#: includes/views/admin/wizard/includes/step7.php:162
+#: includes/views/admin/wizard/includes/step7.php:175
+#: includes/views/admin/wizard/includes/step7.php:187
+#: includes/views/admin/wizard/includes/step7.php:199
+#: includes/views/admin/wizard/includes/step7.php:211
+#: includes/views/admin/wizard/includes/step7.php:224
+#: includes/views/admin/wizard/includes/step7.php:236
+#: includes/views/admin/wizard/includes/step7.php:246
+#: includes/views/admin/wizard/includes/step7.php:258
+#: includes/views/admin/wizard/includes/step7.php:271
+#: includes/views/admin/wizard/includes/step7.php:283
+#: includes/views/admin/wizard/includes/step7.php:295
+#: includes/views/admin/wizard/includes/step7.php:307
+#: includes/views/admin/wizard/includes/step7.php:320
+#: includes/views/admin/wizard/includes/step7.php:332
+#: includes/views/admin/wizard/includes/step7.php:344
+#: includes/views/admin/wizard/includes/step7.php:356
+#: includes/views/admin/wizard/includes/step7.php:369
+#: includes/views/admin/wizard/includes/step7.php:381
+#: includes/views/admin/wizard/includes/step7.php:393
+#: includes/views/admin/wizard/includes/step7.php:403
+#: includes/views/admin/wizard/includes/step7.php:413
+#: includes/views/admin/wizard/includes/step7.php:426
+#: includes/views/admin/wizard/includes/step7.php:438
+#: includes/views/admin/wizard/includes/step7.php:450
+#: includes/views/admin/wizard/includes/step7.php:462
+#: includes/views/admin/wizard/includes/step7.php:475
+#: includes/views/admin/wizard/includes/step7.php:487
+#: includes/views/admin/wizard/includes/step7.php:497
+#: includes/views/admin/wizard/includes/step7.php:507
+#: includes/views/admin/wizard/includes/step7.php:519
+#: includes/views/admin/wizard/includes/step7.php:531
+#: includes/views/admin/wizard/includes/step7.php:546
+#: includes/views/admin/wizard/includes/step7.php:561
 msgid "Disable"
 msgstr ""
 
@@ -280,7 +283,7 @@ msgstr ""
 
 #: includes/controller/controller-age.php:557
 #: includes/controller/controller-age.php:564
-#: includes/controller/controller-cookie.php:1568
+#: includes/controller/controller-cookie.php:1582
 msgid "Options"
 msgstr ""
 
@@ -293,7 +296,7 @@ msgid "Position of the age popup"
 msgstr ""
 
 #: includes/controller/controller-age.php:587
-#: includes/controller/controller-cookie.php:1592
+#: includes/controller/controller-cookie.php:1613
 #: includes/views/admin/wizard/includes/step2.php:195
 msgid "Buttons styles"
 msgstr ""
@@ -305,8 +308,8 @@ msgstr ""
 
 #: includes/controller/controller-age.php:601
 #: includes/controller/controller-age.php:841
-#: includes/controller/controller-cookie.php:1634
-#: includes/controller/controller-cookie.php:2103
+#: includes/controller/controller-cookie.php:1655
+#: includes/controller/controller-cookie.php:2131
 msgid "Custom style CSS"
 msgstr ""
 
@@ -326,7 +329,7 @@ msgid "Popup 'Submit' button label"
 msgstr ""
 
 #: includes/controller/controller-age.php:637
-#: includes/controller/controller-cookie.php:1821
+#: includes/controller/controller-cookie.php:1849
 #: includes/controller/controller-policy.php:169
 #: includes/controller/controller-terms.php:519
 msgid "Do not block user agents (eg. bots) containing the following texts (comma separated)"
@@ -376,80 +379,80 @@ msgid "Set age verification expire time [s]"
 msgstr ""
 
 #: includes/controller/controller-age.php:731
-#: includes/controller/controller-cookie.php:1892
+#: includes/controller/controller-cookie.php:1920
 #: includes/views/admin/wizard/includes/step2.php:211
 #: includes/views/admin/wizard/includes/step4.php:78
 msgid "Button shape"
 msgstr ""
 
 #: includes/controller/controller-age.php:740
-#: includes/controller/controller-cookie.php:1920
-#: includes/controller/controller-cookie.php:2077
+#: includes/controller/controller-cookie.php:1948
+#: includes/controller/controller-cookie.php:2105
 msgid "Button background color"
 msgstr ""
 
 #: includes/controller/controller-age.php:749
-#: includes/controller/controller-cookie.php:1910
-#: includes/controller/controller-cookie.php:2085
+#: includes/controller/controller-cookie.php:1938
+#: includes/controller/controller-cookie.php:2113
 msgid "Button text color"
 msgstr ""
 
 #: includes/controller/controller-age.php:759
-#: includes/controller/controller-cookie.php:1981
+#: includes/controller/controller-cookie.php:2009
 msgid "Position  (bottom, top and full page layout)"
 msgstr ""
 
 #: includes/controller/controller-age.php:767
-#: includes/controller/controller-cookie.php:1989
+#: includes/controller/controller-cookie.php:2017
 msgid "Distance from border [px]"
 msgstr ""
 
 #: includes/controller/controller-age.php:777
-#: includes/controller/controller-cookie.php:2000
+#: includes/controller/controller-cookie.php:2028
 #: includes/views/admin/wizard/includes/step2.php:173
 #: includes/views/admin/wizard/includes/step4.php:68
 msgid "Box style"
 msgstr ""
 
 #: includes/controller/controller-age.php:785
-#: includes/controller/controller-cookie.php:2008
+#: includes/controller/controller-cookie.php:2036
 #: includes/views/admin/wizard/includes/step2.php:184
 #: includes/views/admin/wizard/includes/step4.php:73
 msgid "Box shape"
 msgstr ""
 
 #: includes/controller/controller-age.php:793
-#: includes/controller/controller-cookie.php:2016
+#: includes/controller/controller-cookie.php:2044
 msgid "Background color"
 msgstr ""
 
 #: includes/controller/controller-age.php:801
-#: includes/controller/controller-cookie.php:2024
+#: includes/controller/controller-cookie.php:2052
 msgid "Background image"
 msgstr ""
 
 #: includes/controller/controller-age.php:810
-#: includes/controller/controller-cookie.php:1967
+#: includes/controller/controller-cookie.php:1995
 msgid "Active Tab"
 msgstr ""
 
 #: includes/controller/controller-age.php:821
-#: includes/controller/controller-cookie.php:2032
+#: includes/controller/controller-cookie.php:2060
 msgid "Text color"
 msgstr ""
 
 #: includes/controller/controller-age.php:831
-#: includes/controller/controller-cookie.php:2042
+#: includes/controller/controller-cookie.php:2070
 msgid "Protection shortcode label"
 msgstr ""
 
 #: includes/controller/controller-age.php:960
-#: includes/controller/controller-cookie.php:2904
+#: includes/controller/controller-cookie.php:2964
 msgid "Update"
 msgstr ""
 
 #: includes/controller/controller-age.php:961
-#: includes/controller/controller-cookie.php:2905
+#: includes/controller/controller-cookie.php:2965
 msgid "Remove"
 msgstr ""
 
@@ -489,14 +492,14 @@ msgid "Chocolate Matcha"
 msgstr ""
 
 #: includes/controller/controller-age.php:986
-#: includes/controller/controller-cookie.php:2923
+#: includes/controller/controller-cookie.php:2983
 #: includes/controller/controller-wizard.php:446
 #: includes/controller/controller-wizard.php:568
 msgid "Classic Dark"
 msgstr ""
 
 #: includes/controller/controller-age.php:987
-#: includes/controller/controller-cookie.php:2924
+#: includes/controller/controller-cookie.php:2984
 #: includes/controller/controller-wizard.php:447
 #: includes/controller/controller-wizard.php:569
 msgid "Classic Light"
@@ -539,9 +542,9 @@ msgstr ""
 
 #: includes/controller/controller-age.php:1024
 #: includes/controller/controller-age.php:1087
-#: includes/controller/controller-cookie.php:2985
-#: includes/controller/controller-cookie.php:3046
-#: includes/controller/controller-cookie.php:4276
+#: includes/controller/controller-cookie.php:3045
+#: includes/controller/controller-cookie.php:3106
+#: includes/controller/controller-cookie.php:4351
 #: includes/controller/controller-wizard.php:485
 #: includes/controller/controller-wizard.php:499
 #: includes/controller/controller-wizard.php:582
@@ -551,9 +554,9 @@ msgstr ""
 
 #: includes/controller/controller-age.php:1025
 #: includes/controller/controller-age.php:1088
-#: includes/controller/controller-cookie.php:2984
-#: includes/controller/controller-cookie.php:3045
-#: includes/controller/controller-cookie.php:4275
+#: includes/controller/controller-cookie.php:3044
+#: includes/controller/controller-cookie.php:3105
+#: includes/controller/controller-cookie.php:4350
 #: includes/controller/controller-wizard.php:484
 #: includes/controller/controller-wizard.php:498
 #: includes/controller/controller-wizard.php:583
@@ -562,82 +565,82 @@ msgid "Rounded"
 msgstr ""
 
 #: includes/controller/controller-age.php:1056
-#: includes/controller/controller-cookie.php:3015
-#: includes/controller/controller-cookie.php:4103
+#: includes/controller/controller-cookie.php:3075
+#: includes/controller/controller-cookie.php:4178
 #: includes/controller/controller-wizard.php:491
 msgid "Text Only"
 msgstr ""
 
 #: includes/controller/controller-age.php:1057
-#: includes/controller/controller-cookie.php:3016
-#: includes/controller/controller-cookie.php:4105
+#: includes/controller/controller-cookie.php:3076
+#: includes/controller/controller-cookie.php:4180
 #: includes/controller/controller-wizard.php:492
 msgid "Icon and Text"
 msgstr ""
 
 #: includes/controller/controller-age.php:1161
-#: includes/controller/controller-cookie.php:3116
+#: includes/controller/controller-cookie.php:3176
 #: includes/controller/controller-wizard.php:505
 msgid "Normal"
 msgstr ""
 
 #: includes/controller/controller-age.php:1162
-#: includes/controller/controller-cookie.php:3117
+#: includes/controller/controller-cookie.php:3177
 #: includes/controller/controller-wizard.php:506
 msgid "Large"
 msgstr ""
 
 #: includes/controller/controller-age.php:1397
-#: includes/controller/controller-cookie.php:4051
+#: includes/controller/controller-cookie.php:4126
 #: includes/controller/controller-wizard.php:544
 msgid "Bottom left"
 msgstr ""
 
 #: includes/controller/controller-age.php:1398
-#: includes/controller/controller-cookie.php:4052
+#: includes/controller/controller-cookie.php:4127
 #: includes/controller/controller-wizard.php:545
 msgid "Bottom right"
 msgstr ""
 
 #: includes/controller/controller-age.php:1399
-#: includes/controller/controller-cookie.php:4053
+#: includes/controller/controller-cookie.php:4128
 #: includes/controller/controller-wizard.php:546
 msgid "Bottom panel"
 msgstr ""
 
 #: includes/controller/controller-age.php:1400
-#: includes/controller/controller-cookie.php:4054
+#: includes/controller/controller-cookie.php:4129
 #: includes/controller/controller-wizard.php:547
 msgid "Top left"
 msgstr ""
 
 #: includes/controller/controller-age.php:1401
-#: includes/controller/controller-cookie.php:4055
+#: includes/controller/controller-cookie.php:4130
 #: includes/controller/controller-wizard.php:548
 msgid "Top right"
 msgstr ""
 
 #: includes/controller/controller-age.php:1402
-#: includes/controller/controller-cookie.php:4056
+#: includes/controller/controller-cookie.php:4131
 #: includes/controller/controller-wizard.php:549
 msgid "Top panel"
 msgstr ""
 
 #: includes/controller/controller-age.php:1403
-#: includes/controller/controller-cookie.php:4057
+#: includes/controller/controller-cookie.php:4132
 #: includes/controller/controller-wizard.php:550
 msgid "Full page layout"
 msgstr ""
 
 #: includes/controller/controller-age.php:1467
 #: includes/controller/controller-age.php:1509
-#: includes/controller/controller-cookie.php:4023
+#: includes/controller/controller-cookie.php:4098
 msgid "Front page"
 msgstr ""
 
 #: includes/controller/controller-age.php:1470
 #: includes/controller/controller-age.php:1512
-#: includes/controller/controller-cookie.php:4026
+#: includes/controller/controller-cookie.php:4101
 msgid "Posts page"
 msgstr ""
 
@@ -650,7 +653,7 @@ msgstr ""
 #: includes/views/admin/wizard/includes/step4.php:93
 #: includes/views/admin/wizard/includes/step5.php:146
 #: includes/views/admin/wizard/includes/step6.php:22
-#: includes/views/admin/wizard/includes/step7.php:557
+#: includes/views/admin/wizard/includes/step7.php:578
 #: includes/views/admin/wizard/includes/step8.php:97
 #: includes/views/admin/wizard/includes/step8b.php:22
 #: includes/views/admin/wizard/includes/step8c.php:26
@@ -663,7 +666,7 @@ msgid "Submit"
 msgstr ""
 
 #: includes/controller/controller-age.php:1559
-#: includes/controller/controller-cookie.php:4442
+#: includes/controller/controller-cookie.php:4517
 #: includes/views/cookie-group-popup.php:367
 #: includes/views/cookie-group-popup.php:411
 #: includes/views/cookie-single-popup.php:325
@@ -672,110 +675,110 @@ msgid "Trigger"
 msgstr ""
 
 #: includes/controller/controller-age.php:1564
-#: includes/controller/controller-cookie.php:4447
+#: includes/controller/controller-cookie.php:4522
 #: includes/views/cookie-group-popup.php:641
 #: includes/views/cookie-group-popup.php:686
-#: includes/views/cookie-group-popup.php:706
-#: includes/views/cookie-group-popup.php:730
-#: includes/views/cookie-group-popup.php:773
+#: includes/views/cookie-group-popup.php:707
+#: includes/views/cookie-group-popup.php:731
+#: includes/views/cookie-group-popup.php:775
+#: includes/views/cookie-single-popup-ajax.php:1063
 #: includes/views/cookie-single-popup.php:464
 msgid "This website will:"
 msgstr ""
 
 #: includes/controller/controller-age.php:1565
-#: includes/controller/controller-cookie.php:4448
+#: includes/controller/controller-cookie.php:4523
 msgid "This website won't:"
 msgstr ""
 
 #: includes/controller/controller-age.php:1566
-#: includes/controller/controller-cookie.php:4449
-#: includes/views/cookie-group-popup.php:818
-#: includes/views/cookie-single-popup.php:553
+#: includes/controller/controller-cookie.php:4524
+#: includes/views/cookie-group-popup.php:821
+#: includes/views/cookie-single-popup-ajax.php:1151
+#: includes/views/cookie-single-popup.php:554
 msgid "Save & Close"
 msgstr ""
 
 #: includes/controller/controller-age.php:1567
-#: includes/controller/controller-cookie.php:4450
-#: includes/model/model-group.php:98
-#: includes/model/model-group.php:154
 msgid "Block all"
 msgstr ""
 
 #: includes/controller/controller-age.php:1568
-#: includes/controller/controller-cookie.php:4451
+#: includes/controller/controller-cookie.php:4526
 msgid "Essentials"
 msgstr ""
 
 #: includes/controller/controller-age.php:1569
-#: includes/controller/controller-cookie.php:4452
+#: includes/controller/controller-cookie.php:4527
 #: includes/model/model-group.php:80
 #: includes/model/model-group.php:151
 msgid "Functionality"
 msgstr ""
 
 #: includes/controller/controller-age.php:1570
-#: includes/controller/controller-cookie.php:4453
+#: includes/controller/controller-cookie.php:4528
 #: includes/model/model-group.php:86
 #: includes/model/model-group.php:152
 msgid "Analytics"
 msgstr ""
 
 #: includes/controller/controller-age.php:1571
-#: includes/controller/controller-cookie.php:4454
+#: includes/controller/controller-cookie.php:4529
 #: includes/model/model-group.php:92
 #: includes/model/model-group.php:153
 msgid "Advertising"
 msgstr ""
 
 #: includes/controller/controller-age.php:1572
-#: includes/controller/controller-cookie.php:4455
-#: includes/controller/controller-cookie.php:4463
+#: includes/controller/controller-cookie.php:4530
+#: includes/controller/controller-cookie.php:4538
 msgid "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected;"
 msgstr ""
 
 #: includes/controller/controller-age.php:1574
-#: includes/controller/controller-cookie.php:4456
+#: includes/controller/controller-cookie.php:4531
 msgid "Remember your login details; Functionality: Remember social media settings; Functionality: Remember selected region and country; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions; Advertising: Tailor information and advertising to your interests based on e.g. the content you have visited before. (Currently we do not use targeting or targeting cookies.; Advertising: Gather personally identifiable information such as name and location;"
 msgstr ""
 
 #: includes/controller/controller-age.php:1576
-#: includes/controller/controller-cookie.php:4457
+#: includes/controller/controller-cookie.php:4532
 msgid "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected; Functionality: Remember social media settings; Functionality: Remember selected region and country;"
 msgstr ""
 
 #: includes/controller/controller-age.php:1578
-#: includes/controller/controller-cookie.php:4458
+#: includes/controller/controller-cookie.php:4533
 msgid "Remember your login details; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions; Advertising: Tailor information and advertising to your interests based on e.g. the content you have visited before. (Currently we do not use targeting or targeting cookies.; Advertising: Gather personally identifiable information such as name and location;"
 msgstr ""
 
 #: includes/controller/controller-age.php:1580
-#: includes/controller/controller-cookie.php:4459
+#: includes/controller/controller-cookie.php:4534
 msgid "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected; Functionality: Remember social media settings; Functionality: Remember selected region and country; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions;"
 msgstr ""
 
 #: includes/controller/controller-age.php:1582
-#: includes/controller/controller-cookie.php:4460
+#: includes/controller/controller-cookie.php:4535
 msgid "Remember your login details; Advertising: Use information for tailored advertising with third parties; Advertising: Allow you to connect to social sites; Advertising: Identify device you are using; Advertising: Gather personally identifiable information such as name and location"
 msgstr ""
 
 #: includes/controller/controller-age.php:1584
-#: includes/controller/controller-cookie.php:4461
+#: includes/controller/controller-cookie.php:4536
 msgid "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected; Functionality: Remember social media settings; Functionality: Remember selected region and country; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions; Advertising: Use information for tailored advertising with third parties; Advertising: Allow you to connect to social sitesl Advertising: Identify device you are using; Advertising: Gather personally identifiable information such as name and location"
 msgstr ""
 
 #: includes/controller/controller-age.php:1586
-#: includes/controller/controller-cookie.php:4462
-#: includes/views/cookie-single-popup.php:517
+#: includes/controller/controller-cookie.php:4537
+#: includes/views/cookie-single-popup-ajax.php:1117
+#: includes/views/cookie-single-popup.php:518
 msgid "Remember your login details"
 msgstr ""
 
 #: includes/controller/controller-age.php:1590
-#: includes/controller/controller-cookie.php:4470
+#: includes/controller/controller-cookie.php:4545
 msgid "This content requires cookies"
 msgstr ""
 
 #: includes/controller/controller-age.php:1591
-#: includes/controller/controller-cookie.php:4471
+#: includes/controller/controller-cookie.php:4546
 msgid "Removal of your data will not limit in any way the system functionalities"
 msgstr ""
 
@@ -823,42 +826,46 @@ msgstr ""
 msgid "There was a data breach on our page..."
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1360
-#: includes/controller/controller-cookie.php:4741
+#: includes/controller/controller-cookie.php:1374
+#: includes/controller/controller-cookie.php:4817
 msgid "<h3>Please navigate to <a href='%s'>Service Manager</a> tab to see all detected cookies.</h3>"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1522
-#: includes/controller/controller-cookie.php:1523
+#: includes/controller/controller-cookie.php:1536
+#: includes/controller/controller-cookie.php:1537
 msgid "Cookie Consent"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1531
-#: includes/controller/controller-cookie.php:1532
+#: includes/controller/controller-cookie.php:1545
+#: includes/controller/controller-cookie.php:1546
 msgid "Services Manager"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1554
-#: includes/controller/controller-cookie.php:1730
+#: includes/controller/controller-cookie.php:1568
+#: includes/controller/controller-cookie.php:1758
 #: includes/views/admin/wizard/includes/step2.php:61
 msgid "Cookie popup content"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1561
+#: includes/controller/controller-cookie.php:1575
 msgid "Buttons labels"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1575
+#: includes/controller/controller-cookie.php:1589
 msgid "Google Analytics Tracking ID"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1585
+#: includes/controller/controller-cookie.php:1596
+msgid "Google Tag Manager"
+msgstr ""
+
+#: includes/controller/controller-cookie.php:1606
 msgid "Cookie scanner settings"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1599
-#: includes/controller/controller-cookie.php:4424
-#: includes/shortcode/shortcode-cookie-popup.php:761
+#: includes/controller/controller-cookie.php:1620
+#: includes/controller/controller-cookie.php:4499
+#: includes/shortcode/shortcode-cookie-popup.php:763
 #: includes/views/cookie-group-popup.php:305
 #: includes/views/cookie-popup.php:196
 #: includes/views/cookie-single-popup.php:273
@@ -874,647 +881,667 @@ msgstr ""
 msgid "Read more"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1606
+#: includes/controller/controller-cookie.php:1627
 msgid "Reject All Cookies"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1613
+#: includes/controller/controller-cookie.php:1634
 msgid "Position of the cookie notice box"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1620
+#: includes/controller/controller-cookie.php:1641
 #: includes/views/admin/wizard/includes/step2.php:168
 msgid "Cookie notice box"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1627
+#: includes/controller/controller-cookie.php:1648
 msgid "Protection shortcode"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1641
-#: includes/controller/controller-cookie.php:4472
+#: includes/controller/controller-cookie.php:1662
+msgid "Custom Header Script"
+msgstr ""
+
+#: includes/controller/controller-cookie.php:1669
+#: includes/controller/controller-cookie.php:4547
 msgid "Withdrawal Cookie Agreement"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1648
-#: includes/controller/controller-cookie.php:2052
+#: includes/controller/controller-cookie.php:1676
+#: includes/controller/controller-cookie.php:2080
 msgid "My account disclaimer"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1655
-#: includes/controller/controller-cookie.php:2113
+#: includes/controller/controller-cookie.php:1683
+#: includes/controller/controller-cookie.php:2151
 msgid "Disable Google Fonts"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1664
+#: includes/controller/controller-cookie.php:1692
 msgid "Advanced Cookies Settings"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1672
+#: includes/controller/controller-cookie.php:1700
 msgid "Trigger cookie"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1679
+#: includes/controller/controller-cookie.php:1707
 msgid "Modal styles"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1687
+#: includes/controller/controller-cookie.php:1715
 msgid "Lists of features for groups"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1695
+#: includes/controller/controller-cookie.php:1723
 msgid "Lists of features for individual"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1703
+#: includes/controller/controller-cookie.php:1731
 #: includes/views/admin/wizard/includes/step2.php:73
 msgid "Labels"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1710
+#: includes/controller/controller-cookie.php:1738
 msgid "Additional settings"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1722
+#: includes/controller/controller-cookie.php:1750
 #: includes/views/admin/wizard/includes/step2.php:46
 msgid "Provide default content for the selected language (remember to save changes)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1739
+#: includes/controller/controller-cookie.php:1767
 msgid "Cookie popup 'accept' button label (leave empty for default)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1747
+#: includes/controller/controller-cookie.php:1775
 msgid "Cookie popup 'read more' button label (leave empty for default)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1755
+#: includes/controller/controller-cookie.php:1783
 msgid "Cookie popup 'change settings' button label (leave empty for default)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1763
+#: includes/controller/controller-cookie.php:1791
 msgid "Open \"Read More\" in a new tab"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1772
+#: includes/controller/controller-cookie.php:1800
 msgid "Display cookie popup on all pages"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1780
+#: includes/controller/controller-cookie.php:1808
 msgid "Check if user is from European Union"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1789
+#: includes/controller/controller-cookie.php:1817
 msgid "Reset cookie settings after ended session"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1797
+#: includes/controller/controller-cookie.php:1825
 msgid "Ask users to accept/reject cookies with every visit on the website"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1813
+#: includes/controller/controller-cookie.php:1841
 msgid "Select page where to display the cookie popup"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1829
+#: includes/controller/controller-cookie.php:1857
 msgid "Always display cookie popup"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1840
+#: includes/controller/controller-cookie.php:1868
 #: includes/views/admin/wizard/includes/step1c.php:53
 msgid "Choose how often cookie scans should be performed"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1848
+#: includes/controller/controller-cookie.php:1876
 #: includes/views/admin/wizard/includes/step1c.php:62
 msgid "Choose default level of new cookies"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1856
+#: includes/controller/controller-cookie.php:1884
 msgid "Cookies whitelist (never block these cookies, comma separated)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1864
+#: includes/controller/controller-cookie.php:1892
 msgid "Block selected/all cookies until user consents"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1872
+#: includes/controller/controller-cookie.php:1900
 #: includes/controller/controller-policy.php:137
 #: includes/controller/controller-terms.php:495
 msgid "Set consent expire time [s]"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1883
+#: includes/controller/controller-cookie.php:1911
 #: includes/views/admin/wizard/includes/step2.php:200
 msgid "Button settings by"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1901
+#: includes/controller/controller-cookie.php:1929
 #: includes/views/admin/wizard/includes/step2.php:222
 msgid "Button size"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1929
-#: includes/controller/controller-cookie.php:2093
+#: includes/controller/controller-cookie.php:1957
+#: includes/controller/controller-cookie.php:2121
 msgid "Button border color"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1939
+#: includes/controller/controller-cookie.php:1967
 msgid "Cookie close modal button (an option to decline the cookies completely)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1950
+#: includes/controller/controller-cookie.php:1978
 msgid "Read more page"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:1958
+#: includes/controller/controller-cookie.php:1986
 msgid "Read More Custom URL"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2061
+#: includes/controller/controller-cookie.php:2089
 msgid "Heading"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2069
+#: includes/controller/controller-cookie.php:2097
 msgid "Description"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2125
+#: includes/controller/controller-cookie.php:2141
+msgid "Custom header script"
+msgstr ""
+
+#: includes/controller/controller-cookie.php:2163
 msgid "Show advanced cookie popup always, even when the consent is given"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2133
+#: includes/controller/controller-cookie.php:2171
 msgid "Use advanced cookie groups popup"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2141
+#: includes/controller/controller-cookie.php:2179
 msgid "Block each cookie group individually"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2149
-#: includes/controller/controller-cookie.php:2157
+#: includes/controller/controller-cookie.php:2187
+#: includes/controller/controller-cookie.php:2195
 #: includes/views/admin/wizard/includes/step2.php:66
 msgid "Advanced cookie groups popup header content"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2168
+#: includes/controller/controller-cookie.php:2206
 msgid "Trigger cookie settings by"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2176
+#: includes/controller/controller-cookie.php:2214
 msgid "Trigger cookie settings icon"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2184
+#: includes/controller/controller-cookie.php:2222
 msgid "Trigger cookie settings text"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2192
+#: includes/controller/controller-cookie.php:2230
 msgid "Trigger cookie settings background color"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2200
+#: includes/controller/controller-cookie.php:2238
 msgid "Trigger cookie settings shape"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2208
+#: includes/controller/controller-cookie.php:2246
 msgid "Trigger cookie settings position"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2216
+#: includes/controller/controller-cookie.php:2254
 msgid "Trigger cookie settings color"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2226
-#: includes/controller/controller-cookie.php:2460
+#: includes/controller/controller-cookie.php:2264
+#: includes/controller/controller-cookie.php:2505
 #: includes/views/admin/wizard/includes/step2.php:237
 msgid "List of features available for Essential level (semicolon separated)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2234
+#: includes/controller/controller-cookie.php:2272
 #: includes/views/admin/wizard/includes/step2.php:242
 msgid "List of features not available for Essential level (semicolon separated)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2242
-#: includes/controller/controller-cookie.php:2468
+#: includes/controller/controller-cookie.php:2280
+#: includes/controller/controller-cookie.php:2513
 #: includes/views/admin/wizard/includes/step2.php:247
 msgid "List of features available for Functionality level (semicolon separated)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2250
+#: includes/controller/controller-cookie.php:2288
 #: includes/views/admin/wizard/includes/step2.php:252
 msgid "List of features not available for Functionality level (semicolon separated)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2258
-#: includes/controller/controller-cookie.php:2476
+#: includes/controller/controller-cookie.php:2296
+#: includes/controller/controller-cookie.php:2521
 #: includes/views/admin/wizard/includes/step2.php:257
 msgid "List of features available for Analytics level (semicolon separated)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2266
+#: includes/controller/controller-cookie.php:2304
 #: includes/views/admin/wizard/includes/step2.php:262
 msgid "List of features not available for Analytics level (semicolon separated)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2274
-#: includes/controller/controller-cookie.php:2484
+#: includes/controller/controller-cookie.php:2312
+#: includes/controller/controller-cookie.php:2529
 #: includes/views/admin/wizard/includes/step2.php:267
 msgid "List of features available for Advertising level (semicolon separated)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2282
+#: includes/controller/controller-cookie.php:2320
 #: includes/views/admin/wizard/includes/step2.php:272
 msgid "List of features not available for Advertising level (semicolon separated)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2293
+#: includes/controller/controller-cookie.php:2331
 msgid "Cookie modal header color"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2301
+#: includes/controller/controller-cookie.php:2339
 msgid "Cookie modal text color"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2309
+#: includes/controller/controller-cookie.php:2347
 msgid "Cookie modal skin"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2317
+#: includes/controller/controller-cookie.php:2355
 msgid "Cookie close modal text (If empty, button X(close) will display. If not, it will display the text)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2327
+#: includes/controller/controller-cookie.php:2365
 msgid "<i>This website will</i> label"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2335
+#: includes/controller/controller-cookie.php:2373
 msgid "<i>This website won't</i> label"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2343
+#: includes/controller/controller-cookie.php:2381
 msgid "Hide \"Block All\" level features"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2351
+#: includes/controller/controller-cookie.php:2389
 msgid "Hide \"Essential\" level features"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2359
+#: includes/controller/controller-cookie.php:2397
 msgid "Hide \"Functionality\" level features"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2367
+#: includes/controller/controller-cookie.php:2405
 msgid "Hide \"Analytics\" level features"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2375
+#: includes/controller/controller-cookie.php:2413
 msgid "Hide \"Advertising\" level features"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2383
+#: includes/controller/controller-cookie.php:2421
 msgid "<i>Block all</i> label"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2391
+#: includes/controller/controller-cookie.php:2429
 msgid "<i>Essentials</i> label"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2399
+#: includes/controller/controller-cookie.php:2437
 msgid "<i>Functionality</i> label"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2407
+#: includes/controller/controller-cookie.php:2445
 msgid "<i>Analytics</i> label"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2415
+#: includes/controller/controller-cookie.php:2453
 msgid "<i>Advertising</i> label"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2425
+#: includes/controller/controller-cookie.php:2463
 msgid "Advanced cookie popup 'save & close' button label (leave empty for default)"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2433
+#: includes/controller/controller-cookie.php:2471
 msgid "Select default privacy group"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2441
+#: includes/controller/controller-cookie.php:2479
 msgid "Reload page when user saves changes"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2450
+#: includes/controller/controller-cookie.php:2488
 msgid "Select privacy group after user accepts cookies in the popup"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2582
+#: includes/controller/controller-cookie.php:2496
+msgid "Use ajax on cookie popup"
+msgstr ""
+
+#: includes/controller/controller-cookie.php:2627
 #: includes/controller/controller-wizard.php:372
 msgid "Never"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2583
+#: includes/controller/controller-cookie.php:2628
 #: includes/controller/controller-wizard.php:373
 msgid "Weekly"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2584
+#: includes/controller/controller-cookie.php:2629
 #: includes/controller/controller-wizard.php:374
 msgid "Monthly"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2585
+#: includes/controller/controller-cookie.php:2630
 #: includes/controller/controller-wizard.php:375
 msgid "Quarterly"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2613
+#: includes/controller/controller-cookie.php:2658
 #: includes/controller/controller-wizard.php:396
 msgid "Select"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2645
+#: includes/controller/controller-cookie.php:2690
 #: includes/views/admin/wizard/includes/step2.php:52
 #: includes/views/admin/wizard/includes/step2.php:53
 msgid "Load"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2922
+#: includes/controller/controller-cookie.php:2982
 #: includes/controller/controller-wizard.php:445
 msgid "Classic"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2925
+#: includes/controller/controller-cookie.php:2985
 #: includes/controller/controller-wizard.php:448
 msgid "Modern"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2926
+#: includes/controller/controller-cookie.php:2986
 #: includes/controller/controller-wizard.php:449
 msgid "Apas Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2927
+#: includes/controller/controller-cookie.php:2987
 #: includes/controller/controller-wizard.php:450
 msgid "Apas Black"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2928
+#: includes/controller/controller-cookie.php:2988
 #: includes/controller/controller-wizard.php:451
 msgid "Apas White"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2929
+#: includes/controller/controller-cookie.php:2989
 #: includes/controller/controller-wizard.php:452
 msgid "Kahk Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2930
+#: includes/controller/controller-cookie.php:2990
 #: includes/controller/controller-wizard.php:453
 msgid "Kahk Black"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2931
+#: includes/controller/controller-cookie.php:2991
 #: includes/controller/controller-wizard.php:454
 msgid "Kahk White"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2932
+#: includes/controller/controller-cookie.php:2992
 #: includes/controller/controller-wizard.php:455
 msgid "Oreo Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2933
+#: includes/controller/controller-cookie.php:2993
 #: includes/controller/controller-wizard.php:456
 msgid "Oreo Black"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2934
+#: includes/controller/controller-cookie.php:2994
 #: includes/controller/controller-wizard.php:457
 msgid "Oreo White"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2935
+#: includes/controller/controller-cookie.php:2995
 #: includes/controller/controller-wizard.php:458
 msgid "Wafer Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2936
+#: includes/controller/controller-cookie.php:2996
 #: includes/controller/controller-wizard.php:459
 msgid "Wafer Black"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2937
+#: includes/controller/controller-cookie.php:2997
 #: includes/controller/controller-wizard.php:460
 msgid "Wafer White"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2938
+#: includes/controller/controller-cookie.php:2998
 #: includes/controller/controller-wizard.php:461
 msgid "Jumble Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2939
+#: includes/controller/controller-cookie.php:2999
 #: includes/controller/controller-wizard.php:462
 msgid "Jumble Black"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2940
+#: includes/controller/controller-cookie.php:3000
 #: includes/controller/controller-wizard.php:463
 msgid "Jumble White"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2941
+#: includes/controller/controller-cookie.php:3001
 #: includes/controller/controller-wizard.php:464
 msgid "Khapse Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2942
+#: includes/controller/controller-cookie.php:3002
 #: includes/controller/controller-wizard.php:465
 msgid "Khapse Black"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2943
+#: includes/controller/controller-cookie.php:3003
 #: includes/controller/controller-wizard.php:466
 msgid "Khapse White"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2944
+#: includes/controller/controller-cookie.php:3004
 #: includes/controller/controller-wizard.php:467
 msgid "Tareco Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2945
+#: includes/controller/controller-cookie.php:3005
 #: includes/controller/controller-wizard.php:468
 msgid "Tareco Black"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2946
+#: includes/controller/controller-cookie.php:3006
 #: includes/controller/controller-wizard.php:469
 msgid "Tareco White"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2947
+#: includes/controller/controller-cookie.php:3007
 #: includes/controller/controller-wizard.php:470
 msgid "Kichel Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2948
+#: includes/controller/controller-cookie.php:3008
 #: includes/controller/controller-wizard.php:471
 msgid "Kichel Black"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2949
+#: includes/controller/controller-cookie.php:3009
 #: includes/controller/controller-wizard.php:472
 msgid "Kichel White"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2950
+#: includes/controller/controller-cookie.php:3010
 #: includes/controller/controller-wizard.php:473
 msgid "Macaron Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2951
+#: includes/controller/controller-cookie.php:3011
 #: includes/controller/controller-wizard.php:474
 msgid "Macaron Black"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2952
+#: includes/controller/controller-cookie.php:3012
 #: includes/controller/controller-wizard.php:475
 msgid "Macaron White"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2953
+#: includes/controller/controller-cookie.php:3013
 #: includes/controller/controller-wizard.php:476
 msgid "Wibele Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2954
+#: includes/controller/controller-cookie.php:3014
 #: includes/controller/controller-wizard.php:477
 msgid "Wibele Black"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:2955
+#: includes/controller/controller-cookie.php:3015
 #: includes/controller/controller-wizard.php:478
 msgid "Wibele White"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4104
+#: includes/controller/controller-cookie.php:4179
 msgid "Icon Only"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4202
+#: includes/controller/controller-cookie.php:4277
 msgid "Top Left"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4203
+#: includes/controller/controller-cookie.php:4278
 msgid "Top center"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4204
+#: includes/controller/controller-cookie.php:4279
 msgid "Top Right"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4205
+#: includes/controller/controller-cookie.php:4280
 msgid "Center Left"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4206
+#: includes/controller/controller-cookie.php:4281
 msgid "Center Right"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4207
+#: includes/controller/controller-cookie.php:4282
 msgid "Bottom Left"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4208
+#: includes/controller/controller-cookie.php:4283
 msgid "Bottom Center"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4209
+#: includes/controller/controller-cookie.php:4284
 msgid "Bottom Right"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4274
+#: includes/controller/controller-cookie.php:4349
 msgid "Round"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4352
+#: includes/controller/controller-cookie.php:4427
 #: includes/controller/controller-forgotten.php:809
 msgid "Default"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4353
+#: includes/controller/controller-cookie.php:4428
 msgid "Neutral"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4354
+#: includes/controller/controller-cookie.php:4429
 msgid "Modern Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4355
+#: includes/controller/controller-cookie.php:4430
 msgid "Compact Dark Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4356
+#: includes/controller/controller-cookie.php:4431
 msgid "Compact Light Blue"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4357
+#: includes/controller/controller-cookie.php:4432
 msgid "Compact Green"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4423
+#: includes/controller/controller-cookie.php:4498
 #: includes/views/age-popup.php:43
 #: includes/views/cookie-group-popup.php:121
 #: includes/views/cookie-popup.php:30
+#: includes/views/cookie-single-popup-ajax.php:867
 #: includes/views/cookie-single-popup.php:121
 #: includes/views/shortcode/shortcode-policy-accept.php:54
 #: includes/views/shortcode/shortcode-terms-accept.php:54
 msgid "Accept"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4425
+#: includes/controller/controller-cookie.php:4500
 #: includes/views/cookie-group-popup.php:129
 #: includes/views/cookie-popup.php:38
+#: includes/views/cookie-single-popup-ajax.php:875
 #: includes/views/cookie-single-popup.php:129
 msgid "Change Settings"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4464
+#: includes/controller/controller-cookie.php:4525
+#: includes/model/model-group.php:98
+#: includes/model/model-group.php:154
+msgid "Block all cookies with personal data"
+msgstr ""
+
+#: includes/controller/controller-cookie.php:4539
 msgid "Functionality: Remember social media settings; Functionality: Remember selected region and country;"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4465
+#: includes/controller/controller-cookie.php:4540
 msgid "Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions;"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4466
+#: includes/controller/controller-cookie.php:4541
 msgid "Advertising: Tailor information and advertising to your interests based on e.g. the content you have visited before. (Currently we do not use targeting or targeting cookies.; Advertising: Gather personally identifiable information such as name and location;"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4473
+#: includes/controller/controller-cookie.php:4548
 msgid "Decide to block all cookies which we're using. You can change these settings at any time. Learn more about the cookies we use."
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4614
+#: includes/controller/controller-cookie.php:4690
 msgid "Every week"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4618
+#: includes/controller/controller-cookie.php:4694
 msgid "Every month"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4622
+#: includes/controller/controller-cookie.php:4698
 msgid "Every quarter"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4728
+#: includes/controller/controller-cookie.php:4804
 msgid "Cookies detected: %s, Cookies saved: %s"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:4953
+#: includes/controller/controller-cookie.php:5029
 msgid "There was a problem with connecting to the cookie scanner. Skipped this url."
 msgstr ""
 
@@ -2277,18 +2304,18 @@ msgstr ""
 msgid "You have been unsubscribed"
 msgstr ""
 
-#: includes/controller/controller-wizard.php:806
-#: includes/controller/controller-wizard.php:807
-#: includes/controller/controller-wizard.php:815
-#: includes/controller/controller-wizard.php:816
+#: includes/controller/controller-wizard.php:808
+#: includes/controller/controller-wizard.php:809
+#: includes/controller/controller-wizard.php:817
+#: includes/controller/controller-wizard.php:818
 msgid "Wizard"
 msgstr ""
 
-#: includes/controller/controller-wizard.php:878
+#: includes/controller/controller-wizard.php:880
 #: includes/views/admin/wizard/includes/step2.php:278
 #: includes/views/admin/wizard/includes/step2b.php:7
 #: includes/views/admin/wizard/includes/step4.php:84
-#: includes/views/admin/wizard/includes/step7.php:550
+#: includes/views/admin/wizard/includes/step7.php:571
 #: includes/views/admin/wizard/includes/step8b.php:8
 msgid "Preview"
 msgstr ""
@@ -2335,6 +2362,7 @@ msgstr ""
 #: includes/service/service-mailerlite.php:86
 #: includes/service/service-mailpoet.php:124
 #: includes/service/service-mailster.php:232
+#: includes/service/service-metform.php:135
 #: includes/service/service-metorik-helper.php:97
 #: includes/service/service-newsletter.php:168
 #: includes/service/service-ninja-forms.php:89
@@ -2385,6 +2413,7 @@ msgstr ""
 #: includes/service/service-gravity-forms.php:99
 #: includes/service/service-klaviyo.php:64
 #: includes/service/service-mailerlite.php:76
+#: includes/service/service-metform.php:110
 #: includes/service/service-newsletter.php:150
 #: includes/service/service-ninja-forms.php:79
 #: includes/service/service-quform.php:132
@@ -2415,6 +2444,7 @@ msgstr ""
 #: includes/service/service-hotjar.php:63
 #: includes/service/service-mailpoet.php:108
 #: includes/service/service-mailster.php:183
+#: includes/service/service-metform.php:74
 #: includes/service/service-ninja-forms.php:62
 #: includes/service/service-quform.php:115
 #: includes/service/service-siteorigin-panels.php:64
@@ -2440,6 +2470,7 @@ msgstr ""
 #: includes/service/service-formidable-forms.php:144
 #: includes/service/service-hotjar.php:71
 #: includes/service/service-mailster.php:191
+#: includes/service/service-metform.php:82
 #: includes/service/service-ninja-forms.php:70
 #: includes/service/service-quform.php:123
 #: includes/service/service-siteorigin-panels.php:72
@@ -2579,6 +2610,10 @@ msgstr ""
 msgid "Please note that even when enabled, Ultimate GDPR & CCPA will still block Google Analytics without user consent. If you would like to track anonymously users without accepting cookies, please <a href='%s' target='_blank'>read more here</a>."
 msgstr ""
 
+#: includes/service/service-google-tag-manager.php:100
+msgid "Google Tag Manager ID, eg. GTM-PPK3P9S"
+msgstr ""
+
 #: includes/service/service-gravity-forms.php:109
 msgid "[Gravity Forms] Inject consent checkbox as the first field instead of the last"
 msgstr ""
@@ -2602,7 +2637,7 @@ msgid "Hotjar works most accurately if the Hotjar Tracking Code is in the Head t
 msgstr ""
 
 #: includes/service/service-mailchimp.php:86
-#: includes/views/admin/wizard/includes/step7.php:287
+#: includes/views/admin/wizard/includes/step7.php:291
 msgid "[Mailchimp] Inject consent checkbox to order fields"
 msgstr ""
 
@@ -2640,6 +2675,7 @@ msgid "[%s] Inject consent checkbox to subscribe forms"
 msgstr ""
 
 #: includes/service/service-mailster.php:211
+#: includes/service/service-metform.php:121
 #: includes/service/service-quform.php:143
 msgid "[%s] Inject consent checkbox as the first field instead of the last"
 msgstr ""
@@ -2658,6 +2694,52 @@ msgstr ""
 
 #: includes/service/service-mailster.php:468
 msgid "Mailster collects signed in user data"
+msgstr ""
+
+#: includes/service/service-metform.php:90
+msgid "[%s] Privacy policy content"
+msgstr ""
+
+#: includes/service/service-metform.php:99
+msgid "[%s] Inject privacy policy"
+msgstr ""
+
+#: includes/service/service-metform.php:128
+msgid "If it does not work, try disabling the inject consent to all form field above, then enable again together with this field."
+msgstr ""
+
+#: includes/service/service-metform.php:241
+#: includes/service/service-woocommerce.php:324
+#: includes/views/service/service-arforms-consent-field.php:18
+#: includes/views/service/service-caldera-forms-consent-field.php:18
+#: includes/views/service/service-contact-form-7-consent-field.php:19
+#: includes/views/service/service-eform-consent-field.php:19
+#: includes/views/service/service-events-manager-consent-field.php:17
+#: includes/views/service/service-formidable-forms-consent-field.php:12
+#: includes/views/service/service-newsletter-consent-field-widget-minimal.php:16
+#: includes/views/service/service-newsletter-consent-field-widget.php:16
+#: includes/views/service/service-newsletter-consent-field.php:16
+#: includes/views/service/service-ninja-forms-consent-field.php:18
+#: includes/views/service/service-quform-consent-field.php:12
+#: includes/views/service/service-woocommerce-checkout-consent-field.php:16
+#: includes/views/service/service-woocommerce-consent-field-label.php:12
+#: includes/views/service/service-woocommerce-consent-field.php:16
+#: includes/views/service/service-wp-comments-consent-field.php:16
+#: includes/views/service/service-wp-user-consent-field.php:17
+#: includes/views/service/service-wpforms-lite-consent-field.php:18
+msgid "I consent to the storage of my data according to the Privacy Policy"
+msgstr ""
+
+#: includes/service/service-metform.php:242
+msgid "This field is required."
+msgstr ""
+
+#: includes/service/service-metform.php:302
+msgid "MetForm is an advanced and flexible form builder for Elementor."
+msgstr ""
+
+#: includes/service/service-metform.php:339
+msgid "MetForm might collect data such as Form data and Browser data; IP addresses, User agent."
 msgstr ""
 
 #: includes/service/service-newsletter.php:160
@@ -2721,17 +2803,17 @@ msgid "[WooCommerce] Description"
 msgstr ""
 
 #: includes/service/service-woocommerce.php:197
-#: includes/views/admin/wizard/includes/step7.php:385
+#: includes/views/admin/wizard/includes/step7.php:389
 msgid "[WooCommerce] Inject consent checkbox to order fields"
 msgstr ""
 
 #: includes/service/service-woocommerce.php:205
-#: includes/views/admin/wizard/includes/step7.php:395
+#: includes/views/admin/wizard/includes/step7.php:399
 msgid "[WooCommerce] Inject consent checkbox to account forms"
 msgstr ""
 
 #: includes/service/service-woocommerce.php:213
-#: includes/views/admin/wizard/includes/step7.php:405
+#: includes/views/admin/wizard/includes/step7.php:409
 msgid "[WooCommerce] Inject consent checkbox to checkout"
 msgstr ""
 
@@ -2759,27 +2841,6 @@ msgstr ""
 msgid "[WooCommerce] Pseudonymize billing email"
 msgstr ""
 
-#: includes/service/service-woocommerce.php:324
-#: includes/views/service/service-arforms-consent-field.php:18
-#: includes/views/service/service-caldera-forms-consent-field.php:18
-#: includes/views/service/service-contact-form-7-consent-field.php:19
-#: includes/views/service/service-eform-consent-field.php:19
-#: includes/views/service/service-events-manager-consent-field.php:17
-#: includes/views/service/service-formidable-forms-consent-field.php:12
-#: includes/views/service/service-newsletter-consent-field-widget-minimal.php:16
-#: includes/views/service/service-newsletter-consent-field-widget.php:16
-#: includes/views/service/service-newsletter-consent-field.php:16
-#: includes/views/service/service-ninja-forms-consent-field.php:18
-#: includes/views/service/service-quform-consent-field.php:12
-#: includes/views/service/service-woocommerce-checkout-consent-field.php:16
-#: includes/views/service/service-woocommerce-consent-field-label.php:12
-#: includes/views/service/service-woocommerce-consent-field.php:16
-#: includes/views/service/service-wp-comments-consent-field.php:16
-#: includes/views/service/service-wp-user-consent-field.php:17
-#: includes/views/service/service-wpforms-lite-consent-field.php:18
-msgid "I consent to the storage of my data according to the Privacy Policy"
-msgstr ""
-
 #: includes/service/service-woocommerce.php:795
 msgid "WooCommerce gathers data entered by users in shop orders"
 msgstr ""
@@ -2801,7 +2862,7 @@ msgid "[WP Comments] Description"
 msgstr ""
 
 #: includes/service/service-wp-comments.php:124
-#: includes/views/admin/wizard/includes/step7.php:430
+#: includes/views/admin/wizard/includes/step7.php:434
 msgid "[WP Comments] Inject consent checkbox to comments fields"
 msgstr ""
 
@@ -2870,17 +2931,17 @@ msgid "[WP User Data] Pseudonymize first and last name"
 msgstr ""
 
 #: includes/service/service-wp-user.php:144
-#: includes/views/admin/wizard/includes/step7.php:479
+#: includes/views/admin/wizard/includes/step7.php:483
 msgid "[WP User] Inject consent checkbox to User network signup form fields"
 msgstr ""
 
 #: includes/service/service-wp-user.php:152
-#: includes/views/admin/wizard/includes/step7.php:489
+#: includes/views/admin/wizard/includes/step7.php:493
 msgid "[WP User] Inject consent checkbox to User register form fields"
 msgstr ""
 
 #: includes/service/service-wp-user.php:160
-#: includes/views/admin/wizard/includes/step7.php:499
+#: includes/views/admin/wizard/includes/step7.php:503
 msgid "[WP User] Inject consent checkbox to lost password form fields"
 msgstr ""
 
@@ -2905,7 +2966,7 @@ msgid "WooCommerce Wishlist gathers data entered by users in shop orders"
 msgstr ""
 
 #: includes/service/service-youtube.php:100
-#: includes/views/admin/wizard/includes/step7.php:523
+#: includes/views/admin/wizard/includes/step7.php:527
 msgid "[Youtube] Remove youtube iframes until Necessary cookies accepted"
 msgstr ""
 
@@ -3619,7 +3680,7 @@ msgid "You can manage automatic cookie scans in 'Cookie scanner settings'."
 msgstr ""
 
 #: includes/views/admin/wizard/includes/step1a.php:10
-msgid "Before start paste your license key from <a href=\"https://help.market.envato.com/hc/en-us/articles/202822600-Where-Is-My-Purchase-Code-\" target=\"_blank\">Envato.com</a>"
+msgid "<a href=\"https://help.market.envato.com/hc/en-us/articles/202822600-Where-Is-My-Purchase-Code-\" target=\"_blank\">Before start paste your license key from Envato.com</a>"
 msgstr ""
 
 #: includes/views/admin/wizard/includes/step1a.php:19
@@ -3769,140 +3830,144 @@ msgstr ""
 msgid "You can download a log file with all the information about consents given by visitors of your website under <i>Cookie Consent</i> >>>>>> <i>Consent Log</i>."
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:44
+#: includes/views/admin/wizard/includes/step7.php:48
 msgid "3rd party services and plugins"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:53
+#: includes/views/admin/wizard/includes/step7.php:57
 msgid "If you use 3rd party software to create forms on your website, please note that you should include a dedicated checkbox to collect visitor's consent to process his data, you can select the forms to which we should add this consent checkbox automatically."
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:56
+#: includes/views/admin/wizard/includes/step7.php:60
 msgid "Choose plugin"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:69
-msgid "[Addthis] Block Addthis cookies when a user doesn't accept Functionality cookies"
+#: includes/views/admin/wizard/includes/step7.php:73
+msgid "[Addthis] xxx Block Addthis cookies when a user doesn't accept Functionality cookies"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:81
+#: includes/views/admin/wizard/includes/step7.php:85
 msgid "[ARForms] Inject consent checkbox to all forms"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:93
+#: includes/views/admin/wizard/includes/step7.php:97
 msgid "[bbPress] Inject consent checkbox to all forms"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:105
+#: includes/views/admin/wizard/includes/step7.php:109
 msgid "[BuddyPress] Inject consent checkbox to all forms"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:118
+#: includes/views/admin/wizard/includes/step7.php:122
 msgid "[Caldera Forms] Inject consent checkbox to all forms"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:130
+#: includes/views/admin/wizard/includes/step7.php:134
 msgid "[Contact Form CFDB7] Hide from Forget Me Form"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:142
+#: includes/views/admin/wizard/includes/step7.php:146
 msgid "[WPForms Lite] Inject consent checkbox to all forms"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:154
+#: includes/views/admin/wizard/includes/step7.php:158
 msgid "[Contact Form 7] Inject consent checkbox to all forms"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:167
+#: includes/views/admin/wizard/includes/step7.php:171
 msgid "[Easy Forms for Mailchimp] Inject consent checkbox to all forms"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:179
+#: includes/views/admin/wizard/includes/step7.php:183
 msgid "[Waitlist for WooCommerce - Back In Stock Notifier by CreateIT] Inject consent checkbox to all forms"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:191
+#: includes/views/admin/wizard/includes/step7.php:195
 msgid "[eForm - WordPress Form Builder] Inject consent checkbox to all forms"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:203
+#: includes/views/admin/wizard/includes/step7.php:207
 msgid "[Events Manager] Inject consent checkbox to all forms"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:216
+#: includes/views/admin/wizard/includes/step7.php:220
 msgid "[Flamingo] Hide from Forget Me Form"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:228
+#: includes/views/admin/wizard/includes/step7.php:232
 msgid "[Formcraft] Inject consent checkbox to all forms (Premium)"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:238
+#: includes/views/admin/wizard/includes/step7.php:242
 msgid "[Formcraft] Inject consent checkbox to all forms (Basic)"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:250
+#: includes/views/admin/wizard/includes/step7.php:254
 msgid "[Formidable Forms] Inject consent checkbox to all forms"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:263
+#: includes/views/admin/wizard/includes/step7.php:267
 msgid "[Gravity Forms] Inject consent checkbox to all forms"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:275
+#: includes/views/admin/wizard/includes/step7.php:279
 msgid "[Klaviyo] Inject consent checkbox to all forms"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:299
+#: includes/views/admin/wizard/includes/step7.php:303
 msgid "[Mailerlite] Inject consent checkbox to all forms"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:312
+#: includes/views/admin/wizard/includes/step7.php:316
 msgid "[Mailster] Inject consent checkbox to subscribe forms"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:324
+#: includes/views/admin/wizard/includes/step7.php:328
 msgid "[Metorik Helper] Inject consent checkbox to subscribe forms"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:336
+#: includes/views/admin/wizard/includes/step7.php:340
 msgid "[Newsletter] Inject consent checkbox to all forms"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:348
+#: includes/views/admin/wizard/includes/step7.php:352
 msgid "[Ninja-Forms] Inject consent checkbox to all forms"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:361
+#: includes/views/admin/wizard/includes/step7.php:365
 msgid "[Quform] Inject consent checkbox to all forms"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:373
+#: includes/views/admin/wizard/includes/step7.php:377
 msgid "[Ultimate Member] Inject consent checkbox to all forms"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:418
+#: includes/views/admin/wizard/includes/step7.php:422
 msgid "[Wordfence] Block Wordfence cookies when a user doesn't accept Functionality cookies"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:442
+#: includes/views/admin/wizard/includes/step7.php:446
 msgid "[wpForo] Inject consent checkbox to all forms"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:454
+#: includes/views/admin/wizard/includes/step7.php:458
 msgid "[WP Job Manager] Hide from Forget Me Form"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:467
+#: includes/views/admin/wizard/includes/step7.php:471
 msgid "[WordPress Posts] Hide from Forget Me Form"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:511
+#: includes/views/admin/wizard/includes/step7.php:515
 msgid "[YITH Woocommerce Wishlist] Hide from Forget Me Form"
 msgstr ""
 
-#: includes/views/admin/wizard/includes/step7.php:538
+#: includes/views/admin/wizard/includes/step7.php:542
 msgid "[Akismet Anti-Spam] Inject consent checkbox to all forms"
+msgstr ""
+
+#: includes/views/admin/wizard/includes/step7.php:557
+msgid "[Metform] Inject consent checkbox to all forms"
 msgstr ""
 
 #: includes/views/admin/wizard/includes/step8.php:4
@@ -4045,9 +4110,19 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
+#: includes/views/cookie-group-popup.php:644
+#: includes/views/cookie-group-popup.php:689
+#: includes/views/cookie-group-popup.php:734
+#: includes/views/cookie-group-popup.php:778
+#: includes/views/cookie-single-popup-ajax.php:1088
+#: includes/views/cookie-single-popup.php:489
+msgid "Remember which cookies group you accepted"
+msgstr ""
+
 #: includes/views/cookie-group-popup.php:661
-#: includes/views/cookie-group-popup.php:750
-#: includes/views/cookie-group-popup.php:793
+#: includes/views/cookie-group-popup.php:752
+#: includes/views/cookie-group-popup.php:796
+#: includes/views/cookie-single-popup-ajax.php:1066
 #: includes/views/cookie-single-popup.php:467
 msgid "This website wont't:"
 msgstr ""

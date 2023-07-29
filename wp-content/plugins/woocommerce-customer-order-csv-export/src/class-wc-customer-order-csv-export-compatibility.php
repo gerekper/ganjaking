@@ -24,7 +24,7 @@
 defined( 'ABSPATH' ) or exit;
 
 use SkyVerge\WooCommerce\CSV_Export\Export_Generator;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_6 as Framework;
 
 /**
  * Customer/Order CSV Export Compatibility
@@ -37,6 +37,7 @@ use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
  * @since 3.0.0
  */
 class WC_Customer_Order_CSV_Export_Compatibility {
+
 
 	/**
 	 * Constructor
@@ -61,7 +62,7 @@ class WC_Customer_Order_CSV_Export_Compatibility {
 	 *
 	 * @since 3.0.0
 	 * @param array $headers Original, unmodified headers
-	 * @param Export_Generator the generator instance
+	 * @param Export_Generator $generator the generator instance
 	 * @return array modified column headers
 	 */
 	public function modify_order_headers( $headers, $generator ) {
@@ -151,7 +152,7 @@ class WC_Customer_Order_CSV_Export_Compatibility {
 	 */
 	private function get_custom_order_columns( $order_data, WC_Order $order, $format_key ) {
 
-		// data can be an array of arrays when each line item is it's own row
+		// data can be an array of arrays when each line item is its own row
 		$one_row_per_item = is_array( reset( $order_data ) );
 		$meta_columns     = $this->get_custom_format_meta_keys( WC_Customer_Order_CSV_Export::EXPORT_TYPE_ORDERS, $format_key );
 		$static_columns   = $this->get_custom_format_static_columns( WC_Customer_Order_CSV_Export::EXPORT_TYPE_ORDERS, $format_key );
@@ -162,7 +163,7 @@ class WC_Customer_Order_CSV_Export_Compatibility {
 			foreach ( $meta_columns as $meta_key ) {
 
 				$data_key   = 'meta:' . $meta_key;
-				$meta_value = maybe_serialize( get_post_meta( $order->get_id(), $meta_key, true ) );
+				$meta_value = $order->get_meta( $meta_key, true );
 
 				if ( $one_row_per_item ) {
 
@@ -206,7 +207,7 @@ class WC_Customer_Order_CSV_Export_Compatibility {
 	private function get_import_columns( $order_data, WC_Order $order ) {
 
 		// customer_id will be the customer email
-		$user                      = get_user_by( 'id', $order_data['customer_id'] );
+		$user = get_user_by( 'id', $order_data['customer_id'] );
 		$order_data['customer_id'] = $user ? $user->user_email : '';
 
 		return $order_data;
@@ -281,7 +282,7 @@ class WC_Customer_Order_CSV_Export_Compatibility {
 		}
 
 		// fix customer user
-		$user                      = get_user_by( 'id', $order_data['customer_id'] );
+		$user = get_user_by( 'id', $order_data['customer_id'] );
 		$order_data['customer_id'] = $user ? $user->user_email : '';
 
 		return $order_data;
@@ -374,7 +375,6 @@ class WC_Customer_Order_CSV_Export_Compatibility {
 			if ( $variation ) {
 				$line_item .= ' - ' . str_replace( [ "\r", "\r\n", "\n" ], '', $variation );
 			}
-
 
 			$line_items[] = str_replace( [ '&#8220;', '&#8221;' ], '', $line_item );
 		}
@@ -593,24 +593,25 @@ class WC_Customer_Order_CSV_Export_Compatibility {
 	/**
 	 * Modifies the coupon export row to match the chosen format.
 	 *
-	 * @since 4.6.0
-   *
 	 * @param array $coupon_data an array of coupon data for the given coupon
-	 * @param WC_Coupon $coupon the WC_Coupon object
+	 * @param \WC_Coupon $coupon the WC_Coupon object
 	 * @param Export_Generator $generator export generator
 	 * @return array modified coupon data
+	 * @since 4.6.0
+	 *
 	 */
-	public function modify_coupon_row( $coupon_data, $coupon, $generator ) {
+	public function modify_coupon_row( $coupon_data, $coupon, $generator ): array {
 
-		if ( 'custom' === $generator->export_format ) {
+		if ('custom' === $generator->export_format) {
 
 			$meta = $this->get_custom_format_meta_keys( WC_Customer_Order_CSV_Export::EXPORT_TYPE_COUPONS, $generator->custom_export_format );
 
 			// Fetch meta columns
 			if ( ! empty( $meta ) ) {
 
-				foreach ( $meta as $meta_key ) {
-					$coupon_data[ 'meta:' . $meta_key ] = maybe_serialize( get_post_meta( $coupon->get_id(), $meta_key, TRUE ) );
+				foreach ($meta as $meta_key) {
+
+					$coupon_data[ 'meta:' . $meta_key ] = maybe_serialize( $coupon->get_meta( $meta_key, true ) );
 				}
 			}
 
@@ -620,5 +621,6 @@ class WC_Customer_Order_CSV_Export_Compatibility {
 
 		return $coupon_data;
 	}
+
 
 }

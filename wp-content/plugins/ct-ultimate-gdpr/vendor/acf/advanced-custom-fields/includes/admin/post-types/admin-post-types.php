@@ -36,6 +36,39 @@ if ( ! class_exists( 'ACF_Admin_Post_Types' ) ) :
 		public $store = 'post-types';
 
 		/**
+		 * Constructor.
+		 *
+		 * @date    5/03/2014
+		 * @since   6.2
+		 *
+		 * @return  void
+		 */
+		public function __construct() {
+			add_action( 'admin_menu', array( $this, 'admin_menu' ), 8 );
+			add_action( 'admin_footer', array( $this, 'include_pro_features' ) );
+			parent::__construct();
+		}
+
+		/**
+		 * Renders HTML for the ACF PRO features upgrade notice.
+		 *
+		 * @return void
+		 */
+		public function include_pro_features() {
+			// Bail if on PRO.
+			if ( defined( 'ACF_PRO' ) && ACF_PRO ) {
+				return;
+			}
+
+			// Bail if not the edit post types screen.
+			if ( ! acf_is_screen( 'edit-acf-post-type' ) ) {
+				return;
+			}
+
+			acf_get_view( 'acf-field-group/pro-features' );
+		}
+
+		/**
 		 * Current screen actions for the post types list admin page.
 		 *
 		 * @since   6.1
@@ -132,8 +165,11 @@ if ( ! class_exists( 'ACF_Admin_Post_Types' ) ) :
 
 				// Description.
 				case 'acf-description':
-					if ( $post['description'] ) {
+					if ( is_string( $post['description'] ) && ! empty( $post['description'] ) ) {
 						echo '<span class="acf-description">' . acf_esc_html( $post['description'] ) . '</span>';
+					} else {
+						echo '<span class="acf-emdash" aria-hidden="true">—</span>';
+						echo '<span class="screen-reader-text">' . esc_html__( 'No description', 'acf' ) . '</span>';
 					}
 					break;
 
@@ -168,6 +204,8 @@ if ( ! class_exists( 'ACF_Admin_Post_Types' ) ) :
 			$field_groups = acf_get_field_groups( array( 'post_type' => $post_type['post_type'] ) );
 
 			if ( empty( $field_groups ) ) {
+				echo '<span class="acf-emdash" aria-hidden="true">—</span>';
+				echo '<span class="screen-reader-text">' . esc_html__( 'No field groups', 'acf' ) . '</span>';
 				return;
 			}
 
@@ -220,6 +258,12 @@ if ( ! class_exists( 'ACF_Admin_Post_Types' ) ) :
 				$labels[] = $taxonomy->label;
 			}
 
+			if ( empty( $labels ) ) {
+				echo '<span class="acf-emdash" aria-hidden="true">—</span>';
+				echo '<span class="screen-reader-text">' . esc_html__( 'No taxonomies', 'acf' ) . '</span>';
+				return;
+			}
+
 			$limit         = 3;
 			$shown_labels  = array_slice( $labels, 0, $limit );
 			$hidden_labels = array_slice( $labels, $limit );
@@ -241,8 +285,12 @@ if ( ! class_exists( 'ACF_Admin_Post_Types' ) ) :
 		 * @return void
 		 */
 		public function render_admin_table_column_num_posts( $post_type ) {
+			$no_posts  = '<span class="acf-emdash" aria-hidden="true">—</span>';
+			$no_posts .= '<span class="screen-reader-text">' . esc_html__( 'No posts', 'acf' ) . '</span>';
+
 			// WP doesn't count posts for post types that don't exist.
-			if ( 'trash' === get_post_status( $post_type['ID'] ) ) {
+			if ( empty( $post_type['active'] ) || 'trash' === get_post_status( $post_type['ID'] ) ) {
+				echo acf_esc_html( $no_posts );
 				return;
 			}
 
@@ -251,11 +299,16 @@ if ( ! class_exists( 'ACF_Admin_Post_Types' ) ) :
 				$num_posts = $num_posts->publish;
 			}
 
-			if ( ! is_numeric( $num_posts ) ) {
+			if ( ! $num_posts || ! is_numeric( $num_posts ) ) {
+				echo acf_esc_html( $no_posts );
 				return;
 			}
 
-			echo esc_html( number_format_i18n( $num_posts ) );
+			printf(
+				'<a href="%s">%s</a>',
+				esc_url( admin_url( 'edit.php?post_type=' . $post_type['post_type'] ) ),
+				esc_html( number_format_i18n( $num_posts ) )
+			);
 		}
 
 		/**

@@ -201,7 +201,7 @@ table.woocommerce_page_warranty_requests #status { width: 200px; }
 </style>';
 
 if ( isset( $_GET['updated'] ) ) {
-	echo '<div class="updated"><p>' . esc_html( $_GET['updated'] ) . '</p></div>';
+	echo '<div class="updated"><p>' . esc_html( sanitize_text_field( $_GET['updated'] ) ) . '</p></div>';
 }
 
 $active_table = new Warranty_Active_Reports_List_Table();

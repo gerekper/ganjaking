@@ -3,7 +3,7 @@
         'name' => 'woocommerce/woocommerce-bulk-stock-management',
         'pretty_version' => 'dev-trunk',
         'version' => 'dev-trunk',
-        'reference' => 'a6aae84ee4365653f37e90c56d63c497384264ae',
+        'reference' => '42d19924276e7432a367e52da67c4c98dc5c6d24',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'woocommerce/woocommerce-bulk-stock-management' => array(
             'pretty_version' => 'dev-trunk',
             'version' => 'dev-trunk',
-            'reference' => 'a6aae84ee4365653f37e90c56d63c497384264ae',
+            'reference' => '42d19924276e7432a367e52da67c4c98dc5c6d24',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

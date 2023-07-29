@@ -62,7 +62,7 @@ final class WC_Subscribe_To_Newsletter {
 	 * @since 2.5.0
 	 */
 	public function define_constants() {
-		$this->define( 'WC_NEWSLETTER_SUBSCRIPTION_VERSION', '3.7.0' );
+		$this->define( 'WC_NEWSLETTER_SUBSCRIPTION_VERSION', '4.0.0' );
 		$this->define( 'WC_NEWSLETTER_SUBSCRIPTION_PATH', plugin_dir_path( WC_NEWSLETTER_SUBSCRIPTION_FILE ) );
 		$this->define( 'WC_NEWSLETTER_SUBSCRIPTION_URL', plugin_dir_url( WC_NEWSLETTER_SUBSCRIPTION_FILE ) );
 		$this->define( 'WC_NEWSLETTER_SUBSCRIPTION_BASENAME', plugin_basename( WC_NEWSLETTER_SUBSCRIPTION_FILE ) );
@@ -99,6 +99,7 @@ final class WC_Subscribe_To_Newsletter {
 		include_once WC_NEWSLETTER_SUBSCRIPTION_PATH . 'includes/traits/trait-wc-newsletter-subscription-provider-api-key.php';
 		include_once WC_NEWSLETTER_SUBSCRIPTION_PATH . 'includes/traits/trait-wc-newsletter-subscription-provider-stats.php';
 		include_once WC_NEWSLETTER_SUBSCRIPTION_PATH . 'includes/traits/trait-wc-newsletter-subscription-provider-require-plugin.php';
+		include_once WC_NEWSLETTER_SUBSCRIPTION_PATH . 'includes/traits/trait-wc-newsletter-subscription-provider-manage-subscription.php';
 
 		/**
 		 * Abstract classes.
@@ -109,6 +110,7 @@ final class WC_Subscribe_To_Newsletter {
 		 * Core classes.
 		 */
 		include_once WC_NEWSLETTER_SUBSCRIPTION_PATH . 'includes/wc-newsletter-subscription-functions.php';
+		include_once WC_NEWSLETTER_SUBSCRIPTION_PATH . 'includes/class-wc-newsletter-subscription-install.php';
 		include_once WC_NEWSLETTER_SUBSCRIPTION_PATH . 'includes/class-wc-newsletter-subscription-providers.php';
 		include_once WC_NEWSLETTER_SUBSCRIPTION_PATH . 'includes/class-wc-newsletter-subscription-orders.php';
 
@@ -124,6 +126,7 @@ final class WC_Subscribe_To_Newsletter {
 			include_once WC_NEWSLETTER_SUBSCRIPTION_PATH . 'includes/class-wc-newsletter-subscription-frontend-scripts.php';
 			include_once WC_NEWSLETTER_SUBSCRIPTION_PATH . 'includes/class-wc-newsletter-subscription-checkout.php';
 			include_once WC_NEWSLETTER_SUBSCRIPTION_PATH . 'includes/class-wc-newsletter-subscription-register.php';
+			include_once WC_NEWSLETTER_SUBSCRIPTION_PATH . 'includes/class-wc-newsletter-subscription-my-account.php';
 		}
 	}
 
@@ -133,6 +136,8 @@ final class WC_Subscribe_To_Newsletter {
 	 * @since 3.0.0
 	 */
 	private function init_hooks() {
+		register_activation_hook( WC_NEWSLETTER_SUBSCRIPTION_FILE, array( 'WC_Newsletter_Subscription_Install', 'install' ) );
+
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'widgets_init', array( $this, 'init_widget' ) );
 		add_action( 'before_woocommerce_init', array( $this, 'declare_compatibility' ) );
@@ -220,14 +225,5 @@ final class WC_Subscribe_To_Newsletter {
 		}
 
 		return $this->provider;
-	}
-
-	/**
-	 * Register Custom dashboard widgets.
-	 *
-	 * @deprecated 3.0.0
-	 */
-	public function init_dashboard() {
-		wc_deprecated_function( __FUNCTION__, '3.0.0', 'WC_Newsletter_Subscription_Admin_Dashboard' );
 	}
 }

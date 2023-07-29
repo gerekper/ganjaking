@@ -26,7 +26,9 @@ class Warranty_Coupons {
 		$order          = wc_get_order( $order_id );
 		$email          = $order ? $order->get_billing_email() : '';
 
-		$coupon_amount = ! empty( $_REQUEST['amount'] ) ? $_REQUEST['amount'] : wc_get_order_item_meta( $order_item_key, '_line_total', true );
+		$coupon_amount = ! empty( $_REQUEST['amount'] )
+      ? filter_var( $_REQUEST['amount'], FILTER_VALIDATE_FLOAT )
+      : wc_get_order_item_meta( $order_item_key, '_line_total', true );
 
 		$coupon_code  = self::generate_coupon_code();
 		$coupon_array = array(

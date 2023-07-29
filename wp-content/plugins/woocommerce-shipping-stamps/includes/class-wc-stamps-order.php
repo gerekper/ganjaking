@@ -51,64 +51,64 @@ class WC_Stamps_Order {
 		add_action( 'wp_ajax_wc_stamps_delete_label', array( $this, 'ajax_delete_label' ) );
 
 		$this->package_types = array(
-			'Postcard'                  => array( 
-                'name'        => 'Postcard', 
+			'Postcard'                  => array(
+                'name'        => 'Postcard',
                 'description' => ''
             ),
 			'Letter'                    => array(
-                'name'        => 'Letter', 
+                'name'        => 'Letter',
                 'description' => ''
             ),
 			'Large Envelope or Flat'    => array(
-                'name'        => 'Large Envelope or Flat', 
+                'name'        => 'Large Envelope or Flat',
                 'description' => __( 'Large envelope or flat. Has one dimension that is between 11 1/2" and 15" long, 6 1/8" and 12" high, or 1/4" and 3/4 thick.', 'woocommerce-shipping-stamps' )
             ),
 			'Thick Envelope'            => array(
-                'name'        => 'Thick Envelope', 
+                'name'        => 'Thick Envelope',
                 'description' => __( 'Thick envelope. Envelopes or flats greater than 3/4" at the thickest point.', 'woocommerce-shipping-stamps' )
             ),
 			'Package'                   => array(
-                'name'        => 'Package', 
+                'name'        => 'Package',
                 'description' => __( 'Package. Longest side plus the distance around the thickest part is less than or equal to 84"', 'woocommerce-shipping-stamps' )
             ),
 			'Small Flat Rate Box'       => array(
-                'name'        => 'Small Flat Rate Box', 
+                'name'        => 'Small Flat Rate Box',
                 'description' => __( 'USPS small flat rate box. A special 8-5/8" x 5-3/8" x 1-5/8" USPS box that clearly indicates "Small Flat Rate Box".', 'woocommerce-shipping-stamps' )
             ),
 			'Flat Rate Box'             => array(
-                'name'        => 'Medium Flat Rate Box', 
+                'name'        => 'Medium Flat Rate Box',
                 'description' => __( 'USPS medium flat rate box. A special 11" x 8 1/2" x 5 1/2" or 14" x 3.5" x 12" USPS box that clearly indicates "Medium Flat Rate Box"', 'woocommerce-shipping-stamps' )
             ),
 			'Large Flat Rate Box'       => array(
-                'name'        => 'Large Flat Rate Box', 
+                'name'        => 'Large Flat Rate Box',
                 'description' => __( 'USPS large flat rate box. A special 12" x 12" x 6" USPS box that clearly indicates "Large Flat Rate Box".', 'woocommerce-shipping-stamps' )
             ),
 			'Flat Rate Envelope'        => array(
-                'name'        => 'Flat Rate Envelope', 
+                'name'        => 'Flat Rate Envelope',
                 'description' => __( 'USPS flat rate envelope. A special cardboard envelope provided by the USPS that clearly indicates "Flat Rate".', 'woocommerce-shipping-stamps' )
             ),
 			'Flat Rate Padded Envelope' => array(
-                'name'        => 'Flat Rate Padded Envelope', 
+                'name'        => 'Flat Rate Padded Envelope',
                 'description' => __( 'USPS flat rate padded envelope.', 'woocommerce-shipping-stamps' )
             ),
 			'Large Package'             => array(
-                'name'        => 'Large Package', 
+                'name'        => 'Large Package',
                 'description' => __( 'Large package. Longest side plus the distance around the thickest part is over 84" and less than or equal to 108".', 'woocommerce-shipping-stamps' )
             ),
 			'Oversized Package'         => array(
-                'name'        => 'Oversized Package', 
+                'name'        => 'Oversized Package',
                 'description' => __( 'Oversized package. Longest side plus the distance around the thickest part is over 108" and less than or equal to 130".', 'woocommerce-shipping-stamps' )
             ),
 			'Regional Rate Box A'       => array(
-                'name'        => 'Regional Rate Box A', 
+                'name'        => 'Regional Rate Box A',
                 'description' => __( 'USPS regional rate box A. A special 10 15/16" x 2 3/8" x 12 13/ 16" or 10" x 7" x 4 3/4" USPS box that clearly indicates "Regional Rate Box A". 15 lbs maximum weight.', 'woocommerce-shipping-stamps' )
             ),
 			'Regional Rate Box B'       => array(
-                'name'        => 'Regional Rate Box B', 
+                'name'        => 'Regional Rate Box B',
                 'description' => __( 'USPS regional rate box B. A special 14 3/8" x 2 2/8" x 15 7/8" or 12" x 10 1/4" x 5" USPS box that clearly indicates "Regional Rate Box B". 20 lbs maximum weight.', 'woocommerce-shipping-stamps' )
             ),
 			'Legal Flat Rate Envelope'  => array(
-                'name'        => 'Legal Flat Rate Envelope', 
+                'name'        => 'Legal Flat Rate Envelope',
                 'description' => __( 'USPS flat rate padded envelope.', 'woocommerce-shipping-stamps' )
             ),
 		);
@@ -276,7 +276,7 @@ class WC_Stamps_Order {
 
 		$order  = wc_get_order( absint( $_POST['order_id'] ) );
 		$params = array();
-		parse_str( stripslashes( $_POST['data'] ), $params );
+		parse_str( stripslashes( sanitize_text_field( $_POST['data'] ) ), $params );
 
 		$rates = WC_Stamps_API::get_rates( $order, array(
 			'date'   => sanitize_text_field( $params['stamps_package_date'] ),
@@ -369,7 +369,7 @@ class WC_Stamps_Order {
 
 		$order  = wc_get_order( absint( $_POST['order_id'] ) );
 		$params = array();
-		parse_str( stripslashes( $_POST['data'] ), $params );
+		parse_str( stripslashes( sanitize_text_field( $_POST['data'] ) ), $params );
 
 		wp_send_json( array( 'html' => $this->get_customs_html( $order, $this->get_posted_rate( $params ) ), 'step' => 'customs' ) );
 	}
@@ -388,7 +388,7 @@ class WC_Stamps_Order {
 
 		$order  = wc_get_order( absint( $_POST['order_id'] ) );
 		$params = array();
-		parse_str( stripslashes( $_POST['data'] ), $params );
+		parse_str( stripslashes( sanitize_text_field( $_POST['data'] ) ), $params );
 
 		if ( ! empty( $params['stamps_customs_content_type'] ) ) {
 			$customs = array(
@@ -483,7 +483,9 @@ class WC_Stamps_Order {
 			WC_Stamps_Labels::delete_label( $label_id );
 			$labels = WC_Stamps_Labels::get_order_labels( $order->get_id() );
 			ob_start();
-			echo '<div class="success updated"><p>' . __( 'The label was refunded. Refund requests are generally processed within 1 to 2 weeks.', 'woocommerce-shipping-stamps' ) . '</p></div>';
+			echo '<div class="success updated"><p>' . esc_html__( 'The label was refunded. Refund requests are generally processed within 1 to 2 weeks.', 'woocommerce-shipping-stamps' ) . '</p></div>';
+      // Skip escaping since we're outputting HTML and values are already escaped.
+      // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo $this->get_labels_html( $labels );
 			wp_send_json( array( 'html' => ob_get_clean(), 'step' => 'labels' ) );
 		}
@@ -550,7 +552,7 @@ class WC_Stamps_Order {
 		foreach ( $order->get_items( 'shipping' ) as $item_id => $item ) {
 			if ( ! empty( $item->get_meta( '_package_weight' ) ) ) {
 				$package_weights = json_decode( $item->get_meta( '_package_weight' ), true );
-				
+
 				foreach ( $package_weights as $package_name => $weight ) {
 					$total_weight += floatval( $weight );
 				}
@@ -666,7 +668,7 @@ class WC_Stamps_Order {
 			$disable_addons = wp_json_encode( $disable_addons );
 			$disable_addons = function_exists( 'wc_esc_json' ) ? wc_esc_json( $disable_addons ) : _wp_specialchars( $disable_addons, ENT_QUOTES, 'UTF-8', true );
 
-			echo '<li><label><input type="checkbox" name="' . esc_attr( 'rate-' . $rate_code . '[' . $addon_key . ']' ) . '" data-type="' . esc_attr( $addon_key ) . '" data-disable_addons="' . $disable_addons . '" /> ' . esc_html( WC_Stamps_API::get_addon_type_name( $addon['addon']->AddOnType ) . ( isset( $addon['addon']->Amount ) ? ' (' . strip_tags( wc_price( $addon['addon']->Amount ) ) . ')' : '' ) ) . '</label>';
+			echo '<li><label><input type="checkbox" name="' . esc_attr( 'rate-' . $rate_code . '[' . $addon_key . ']' ) . '" data-type="' . esc_attr( $addon_key ) . '" data-disable_addons="' . esc_attr( $disable_addons ) . '" /> ' . esc_html( WC_Stamps_API::get_addon_type_name( $addon['addon']->AddOnType ) . ( isset( $addon['addon']->Amount ) ? ' (' . strip_tags( wc_price( $addon['addon']->Amount ) ) . ')' : '' ) ) . '</label>';
 
 			if ( ! empty( $addon['sub_addons'] ) ) {
 				echo '<ul style="display:none">';
@@ -686,7 +688,7 @@ class WC_Stamps_Order {
 					$disable_addons = wp_json_encode( $disable_addons );
 					$disable_addons = function_exists( 'wc_esc_json' ) ? wc_esc_json( $disable_addons ) : _wp_specialchars( $disable_addons, ENT_QUOTES, 'UTF-8', true );
 
-					echo '<li><label><input type="checkbox" name="' . esc_attr( 'rate-' . $rate_code . '[' . $sub_addon_key . ']' ) . '" data-type="' . esc_attr( $sub_addon_key ) . '" data-disable_addons="' . $disable_addons . '" /> ' . esc_html( WC_Stamps_API::get_addon_type_name( $sub_addon->AddOnType ) . ( isset( $sub_addon->Amount ) ? ' (' . strip_tags( wc_price( $sub_addon->Amount ) ) . ')' : '' ) ) . '</label></li>';
+					echo '<li><label><input type="checkbox" name="' . esc_attr( 'rate-' . $rate_code . '[' . $sub_addon_key . ']' ) . '" data-type="' . esc_attr( $sub_addon_key ) . '" data-disable_addons="' . esc_attr( $disable_addons ) . '" /> ' . esc_html( WC_Stamps_API::get_addon_type_name( $sub_addon->AddOnType ) . ( isset( $sub_addon->Amount ) ? ' (' . strip_tags( wc_price( $sub_addon->Amount ) ) . ')' : '' ) ) . '</label></li>';
 				}
 
 				echo '</ul>';
@@ -722,10 +724,10 @@ class WC_Stamps_Order {
 
 		if ( is_wp_error( $label ) ) {
 			echo '<div class="error"><p>' . esc_html( $label->get_error_message() ) . '</p></div>';
-			echo '<p><button type="submit" class="button stamps-action" data-stamps_action="define_package">' . __( 'Try again', 'woocommerce-shipping-stamps' ) . '</button></p>';
+			echo '<p><button type="submit" class="button stamps-action" data-stamps_action="define_package">' . esc_attr__( 'Try again', 'woocommerce-shipping-stamps' ) . '</button></p>';
 		} else {
 			include( 'views/html-label.php' );
-			echo '<p><button type="submit" class="button stamps-action" data-stamps_action="get_labels">' . __( 'View all labels', 'woocommerce-shipping-stamps' ) . '</button></p>';
+			echo '<p><button type="submit" class="button stamps-action" data-stamps_action="get_labels">' . esc_attr__( 'View all labels', 'woocommerce-shipping-stamps' ) . '</button></p>';
 		}
 
 		return ob_get_clean();

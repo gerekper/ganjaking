@@ -1,5 +1,17 @@
 *** Subscribe to Newsletter Changelog ***
 
+2023-07-24 - version 4.0.0
+* Feature - Manage the Mailchimp newsletter subscription from the "My Account" page.
+* Tweak - MailPoet 2 provider has been marked as deprecated.
+* Tweak - Added link to get support in the plugin list.
+* Tweak - Open the documentation link in a new tab.
+* Tweak - Tested compatibility with WP 6.3.
+* Dev - Dropped deprecated plugin code on versions 3.x.
+* Dev - Dropped `Campaign Monitor` API client.
+* Dev - Dropped deprecated filter hook `wc_newsletter_subscription_checkout_content_location`.
+* Dev - Dropped deprecated filter hook `woocommerce_newsletter_mailchimp_api_request`.
+* Dev - Updated the minimum requirements to WC 3.7, WP 4.9, and PHP 5.6.
+
 2023-07-19 - version 3.7.0
 * Feature - Sendinblue is now Brevo.
 * Tweak - Tested compatibility up to WC 7.9.

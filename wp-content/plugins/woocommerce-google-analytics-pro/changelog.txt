@@ -1,5 +1,8 @@
 *** WooCommerce Google Analytics Pro ***
 
+2023.07.25 - version 2.0.10
+ * Tweak - add setting to control whether order revenue is tracked in GA4 with tax & shipping included or excluded
+
 2023.07.17 - version 2.0.9
  * Tweak - Enabling debug mode will now show events in GA4 DebugView
  * Tweak - Pass visitor session ID & number to GA4 when tracking events via API to improve session attribution in reports

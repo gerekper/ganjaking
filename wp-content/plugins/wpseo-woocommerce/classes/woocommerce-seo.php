@@ -483,11 +483,17 @@ class Yoast_WooCommerce_SEO {
 			echo '<h2>' . esc_html__( 'Breadcrumbs', 'yoast-woo-seo' ) . '</h2>';
 			echo '<p>';
 			printf(
-			/* translators: %1$s resolves to internal links options page, %2$s resolves to closing link tag, %3$s resolves to Yoast SEO, %4$s resolves to WooCommerce */
+				/* translators: %1$s resolves to internal links options page, %2$s resolves to closing link tag, %3$s resolves to Yoast SEO, %4$s resolves to WooCommerce */
 				esc_html__( 'Both %4$s and %3$s have breadcrumbs functionality. The %3$s breadcrumbs have a slightly higher chance of being picked up by search engines and you can configure them a bit more, on the %1$sBreadcrumbs settings page%2$s. To enable them, check the box below and the WooCommerce breadcrumbs will be replaced.', 'yoast-woo-seo' ),
 				'<a href="' . esc_url( admin_url( 'admin.php?page=wpseo_page_settings#/breadcrumbs' ) ) . '">',
 				'</a>',
 				'Yoast SEO',
+				'WooCommerce'
+			);
+			echo "</p>\n<p>";
+			printf(
+				/* translators: %1$s resolves to WooCommerce */
+				esc_html__( 'Note that %1$s breadcrumbs will not be replaced if you’re using a block-based template for single products.', 'yoast-woo-seo' ),
 				'WooCommerce'
 			);
 			echo "</p>\n";
@@ -1308,14 +1314,33 @@ class Yoast_WooCommerce_SEO {
 		}
 
 		return [
-			'script_url'           => plugins_url( 'js/dist/yoastseo-woo-worker-' . $version . '.js', self::get_plugin_file() ),
-			'woo_desc_none'        => __( 'You should write a short description for this product.', 'yoast-woo-seo' ),
-			'woo_desc_short'       => __( 'The short description for this product is too short.', 'yoast-woo-seo' ),
-			'woo_desc_good'        => __( 'Your short description has a good length.', 'yoast-woo-seo' ),
-			'woo_desc_long'        => __( 'The short description for this product is too long.', 'yoast-woo-seo' ),
-			'wooGooglePreviewData' => $google_preview,
-			'analysisTranslations' => $this->get_analysis_translations(),
+			'script_url'            => plugins_url( 'js/dist/yoastseo-woo-worker-' . $version . '.js', self::get_plugin_file() ),
+			'shouldShowEditButtons' => $this->should_show_edit_buttons(),
+			'woo_desc_none'         => __( 'You should write a short description for this product.', 'yoast-woo-seo' ),
+			'woo_desc_short'        => __( 'The short description for this product is too short.', 'yoast-woo-seo' ),
+			'woo_desc_good'         => __( 'Your short description has a good length.', 'yoast-woo-seo' ),
+			'woo_desc_long'         => __( 'The short description for this product is too long.', 'yoast-woo-seo' ),
+			'wooGooglePreviewData'  => $google_preview,
+			'analysisTranslations'  => $this->get_analysis_translations(),
 		];
+	}
+
+	/**
+	 * Checks whether to show the edit buttons for the Product identifier and
+	 * SKU assessments.
+	 *
+	 * **Note**: showing the edit buttons is dependent on the right Yoast SEO version.
+	 * Not supported versions will focus on the slug input field after pressing the
+	 * edit button, because of the way the edit buttons have been implemented.
+	 *
+	 * @return bool|int
+	 */
+	private function should_show_edit_buttons() {
+		if ( ! defined( 'WPSEO_VERSION' ) ) {
+			return false;
+		}
+
+		return \version_compare( WPSEO_VERSION, '20.8-RC0', '>=' );
 	}
 
 	/**
@@ -1361,14 +1386,14 @@ class Yoast_WooCommerce_SEO {
 							/* Translators: %1$s and %2$s expand to links on yoast.com, %3$s expands to the anchor end tag */
 							__( '%1$sImage alt tags%3$s: None of the images has alt attributes. %2$sAdd alt attributes to your images%3$s!', 'yoast-woo-seo' ),
 						],
-						'Your product is missing an identifier (like a GTIN code). You can add a product identifier via the "Yoast SEO" tab in the Product data box' => [
-							__( 'Your product is missing an identifier (like a GTIN code). You can add a product identifier via the "Yoast SEO" tab in the Product data box', 'yoast-woo-seo' ),
+						'Your product is missing an identifier (like a GTIN code).' => [
+							__( 'Your product is missing an identifier (like a GTIN code).', 'yoast-woo-seo' ),
 						],
 						'Your product has an identifier' => [
 							__( 'Your product has an identifier', 'yoast-woo-seo' ),
 						],
-						'Not all your product variants have an identifier. You can add a product identifier via the "Variations" tab in the Product data box' => [
-							__( 'Not all your product variants have an identifier. You can add a product identifier via the "Variations" tab in the Product data box', 'yoast-woo-seo' ),
+						'Not all your product variants have an identifier.' => [
+							__( 'Not all your product variants have an identifier.', 'yoast-woo-seo' ),
 						],
 						'All your product variants have an identifier' => [
 							__( 'All your product variants have an identifier', 'yoast-woo-seo' ),
@@ -1393,24 +1418,17 @@ class Yoast_WooCommerce_SEO {
 							/* Translators: %1$s expands to a link on yoast.com, %4$s expands to the anchor end tag, %2$s expands to the string "Barcode" or "Product identifier", %3$s expands to the feedback string "All your product variants have a product identifier" or "All your product variants have a barcode" */
 							__( '%1$s%2$s%4$s: %3$s. Good job!', 'yoast-woo-seo' ),
 						],
-						' You can add a SKU via the "Inventory" tab in the Product data box.' => [
-							/* Translators: please keep the space at the start of the sentence in your translation unless your language does not use spaces. */
-							__( ' You can add a SKU via the "Inventory" tab in the Product data box.', 'yoast-woo-seo' ),
-						],
-						'%1$sSKU%3$s: Your product is missing a SKU.%4$s %2$sInclude it if you can, as it will help search engines to better understand your content.%3$s' => [
-							/* Translators: %1$s and %2$s expands to a link on yoast.com, %3$s expands to the anchor end tag, %4%s expands to the translated string ' You can add a SKU via the "Inventory" tab in the Product data box.' */
-							__( '%1$sSKU%3$s: Your product is missing a SKU.%4$s %2$sInclude it if you can, as it will help search engines to better understand your content.%3$s', 'yoast-woo-seo' ),
+						'%1$sSKU%3$s: Your product is missing a SKU.  %2$sInclude it if you can, as it will help search engines to better understand your content.%3$s' => [
+							/* Translators: %1$s and %2$s expand to links on yoast.com, %3$s expands to the anchor end tag. */
+							__( '%1$sSKU%3$s: Your product is missing a SKU.  %2$sInclude it if you can, as it will help search engines to better understand your content.%3$s', 'yoast-woo-seo' ),
 						],
 						'%1$sSKU%2$s: Your product has a SKU. Good job!' => [
 							/* Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag. */
 							__( '%1$sSKU%2$s: Your product has a SKU. Good job!', 'yoast-woo-seo' ),
 						],
-						'%1$sSKU%3$s: Not all your product variants have a SKU. You can add a SKU via the "Variations" tab in the Product data box. %2$sInclude it if you can, as it will help search engines to better understand your content.%3$s' => [
+						'%1$sSKU%3$s: Not all your product variants have a SKU. %2$sInclude it if you can, as it will help search engines to better understand your content.%3$s' => [
 							/* Translators: %1$s and %2$s expand to links on yoast.com, %3$s expands to the anchor end tag. */
-							__(
-								'%1$sSKU%3$s: Not all your product variants have a SKU. You can add a SKU via the "Variations" tab in the Product data box. %2$sInclude it if you can, as it will help search engines to better understand your content.%3$s',
-								'yoast-woo-seo'
-							),
+							__( '%1$sSKU%3$s: Not all your product variants have a SKU. %2$sInclude it if you can, as it will help search engines to better understand your content.%3$s', 'yoast-woo-seo' ),
 						],
 						'%1$sSKU%2$s: All your product variants have a SKU. Good job!' => [
 							/* Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag. */
@@ -1516,9 +1534,16 @@ class Yoast_WooCommerce_SEO {
 			remove_action( 'storefront_before_content', 'woocommerce_breadcrumb' );
 			add_action( 'storefront_before_content', [ $this, 'show_yoast_breadcrumbs' ] );
 		}
-
 		// Replaces the WooCommerce breadcrumbs.
 		if ( has_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb' ) ) {
+			// In a block theme, do not replace if Woo is using the new single product 'blockified' template.
+			if ( wp_is_block_theme() ) {
+				$templates               = get_block_templates( [ 'slug__in' => [ 'single-product' ] ] );
+				$single_product_template = reset( $templates );
+				if ( isset( $single_product_template->content ) && strpos( $single_product_template->content, 'woocommerce/legacy-template' ) === false ) {
+					return;
+				}
+			}
 			remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );
 			add_action( 'woocommerce_before_main_content', [ $this, 'show_yoast_breadcrumbs' ], 20, 0 );
 		}

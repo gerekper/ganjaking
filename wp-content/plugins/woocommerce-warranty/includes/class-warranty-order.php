@@ -227,8 +227,11 @@ class Warranty_Order {
 			$order_id = $item->get_order_id();
 		} elseif ( $post ) {
 			$order_id = $post->ID;
+      // Security is taken care of in the hook trigger (hooks: woocommerce_before_order_itemmeta, woocommerce_order_item_meta_end)
+      // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		} elseif ( isset( $_POST['order_id'] ) ) {
-			$order_id = $_POST['order_id'];
+      // phpcs:ignore WordPress.Security.NonceVerification.Missing
+      $order_id = filter_var( $_POST['order_id'], FILTER_SANITIZE_NUMBER_INT );
 		}
 
 		if ( $warranty && ! empty( $order_id ) ) {

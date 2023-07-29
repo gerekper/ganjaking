@@ -127,6 +127,10 @@ if ( ! class_exists( 'acf_admin_field_group' ) ) :
 					'fieldCategoriesL10n' => acf_get_field_categories_i18n(),
 					'PROUpgradeURL'       => acf_add_url_utm_tags( 'https://www.advancedcustomfields.com/pro/', 'ACF upgrade', 'field-type-selection' ),
 					'PROFieldTypes'       => acf_get_pro_field_types(),
+					'PROLocationTypes'    => array(
+						'block'        => __( 'Block', 'acf' ),
+						'options_page' => __( 'Options Page', 'acf' ),
+					),
 				)
 			);
 
@@ -148,9 +152,6 @@ if ( ! class_exists( 'acf_admin_field_group' ) ) :
 
 			// metaboxes.
 			add_meta_box( 'acf-field-group-fields', __( 'Fields', 'acf' ), array( $this, 'mb_fields' ), 'acf-field-group', 'normal', 'high' );
-			if ( ! defined( 'ACF_PRO' ) || ! ACF_PRO ) {
-				add_meta_box( 'acf-field-group-pro-features', 'ACF PRO', array( $this, 'mb_pro_features' ), 'acf-field-group', 'normal', 'high' );
-			}
 			add_meta_box( 'acf-field-group-options', __( 'Settings', 'acf' ), array( $this, 'mb_options' ), 'acf-field-group', 'normal', 'high' );
 
 			// actions.
@@ -216,7 +217,27 @@ if ( ! class_exists( 'acf_admin_field_group' ) ) :
 		 * @return void
 		 */
 		public function admin_footer() {
+			$this->include_pro_features();
 			do_action( 'acf/field_group/admin_footer' );
+		}
+
+		/**
+		 * Renders HTML for the ACF PRO features upgrade notice.
+		 *
+		 * @return void
+		 */
+		public function include_pro_features() {
+			// Bail if on PRO.
+			if ( defined( 'ACF_PRO' ) && ACF_PRO ) {
+				return;
+			}
+
+			// Bail if not the edit field group screen.
+			if ( ! acf_is_screen( 'acf-field-group' ) ) {
+				return;
+			}
+
+			acf_get_view( 'acf-field-group/pro-features' );
 		}
 
 		/**

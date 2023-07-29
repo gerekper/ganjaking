@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Ultimate GDPR & CCPA
  * Description: Complete General Data Protection Regulation compliance toolkit plugin for WordPress.
- * Version: 4.3
+ * Version: 4.4
  * Author URI: https://www.createit.pl
  * Author: CreateIT
  */
@@ -71,12 +71,20 @@ class CT_Ultimate_GDPR {
 		$this->include_acf();
 		$this->logger = new CT_Ultimate_GDPR_Model_Logger();
 
+		if(empty(get_option('ct_ultimate_gdpr_first_activate'))) {
+			$this->ct_ultimate_gdpr_first_activate();
+		}
+
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts_action' ) );
 		add_action( 'wp', array( $this, 'controller_actions' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 		add_action( 'ct_ultimate_gdpr_after_controllers_registered', array( $this, 'update_plugin_database' ) );
 
+		add_action( 'activated_plugin', array( $this, 'redirect_to_wizard_after_first_activation' ) );
+		
+		
+		
 	}
 
 	/**
@@ -90,6 +98,7 @@ class CT_Ultimate_GDPR {
 		$this->register_services();
 		$this->insert_policy_shortcode();
 		$this->insert_terms_shortcode();
+
 
 	}
 
@@ -125,6 +134,26 @@ class CT_Ultimate_GDPR {
 			spl_autoload_register( array( $this, 'autoload' ) );
 		}
 
+	}
+
+	// add ct_ultimate_gdpr_first_activate to wp_option
+	public function ct_ultimate_gdpr_first_activate() {
+		add_option('ct_ultimate_gdpr_first_activate');
+	}
+
+	// redirect to gdpr wizard if first activate
+	public function redirect_to_wizard_after_first_activation($plugin) {
+		$path = plugin_basename( __FILE__ );
+
+		if($plugin === $path) {
+			if(empty(get_option('ct_ultimate_gdpr_first_activate')) && get_option('ct_ultimate_gdpr_first_activate') === '') {
+				$wizard_url = admin_url( 'admin.php?page=ct-ultimate-gdpr-wizard&step=welcome' );
+				wp_redirect($wizard_url);
+				update_option( 'ct_ultimate_gdpr_first_activate', 'on' );
+				exit;
+			}
+		}
+		
 	}
 
 	/**

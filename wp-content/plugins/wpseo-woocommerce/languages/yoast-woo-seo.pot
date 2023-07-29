@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Yoast SEO: WooCommerce package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Yoast SEO: WooCommerce 15.7\n"
+"Project-Id-Version: Yoast SEO: WooCommerce 15.8\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-woocommerce/issues\n"
-"POT-Creation-Date: 2023-04-26 11:26:59+00:00\n"
+"POT-Creation-Date: 2023-07-25 08:53:04+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -103,45 +103,52 @@ msgid ""
 msgstr ""
 
 #. translators: %1$s resolves to WooCommerce
-#: classes/woocommerce-seo.php:499
+#: classes/woocommerce-seo.php:496
+msgid ""
+"Note that %1$s breadcrumbs will not be replaced if you’re using a block-"
+"based template for single products."
+msgstr ""
+
+#. translators: %1$s resolves to WooCommerce
+#: classes/woocommerce-seo.php:505
 msgid "Replace %1$s Breadcrumbs"
 msgstr ""
 
-#: classes/woocommerce-seo.php:505
+#: classes/woocommerce-seo.php:511
 msgid "Admin"
 msgstr ""
 
 #. translators: %1$s resolves to Yoast SEO, %2$s resolves to WooCommerce
-#: classes/woocommerce-seo.php:509
+#: classes/woocommerce-seo.php:515
 msgid ""
 "Both %2$s and %1$s add metaboxes to the edit product page, if you want %2$s "
 "to be above %1$s, check the box."
 msgstr ""
 
 #. translators: %1$s resolves to WooCommerce
-#: classes/woocommerce-seo.php:519
+#: classes/woocommerce-seo.php:525
 msgid "Move %1$s up"
 msgstr ""
 
-#: classes/woocommerce-seo.php:1312
+#: classes/woocommerce-seo.php:1319
 msgid "You should write a short description for this product."
 msgstr ""
 
-#: classes/woocommerce-seo.php:1313
+#: classes/woocommerce-seo.php:1320
 msgid "The short description for this product is too short."
 msgstr ""
 
-#: classes/woocommerce-seo.php:1314
+#: classes/woocommerce-seo.php:1321
 msgid "Your short description has a good length."
 msgstr ""
 
-#: classes/woocommerce-seo.php:1315
+#: classes/woocommerce-seo.php:1322
 msgid "The short description for this product is too long."
 msgstr ""
 
 #. Translators: %1$s and %2$s expand to links on yoast.com, %3$s expands to the
 #. anchor end tag
-#: classes/woocommerce-seo.php:1334
+#: classes/woocommerce-seo.php:1359
 msgid ""
 "%1$sLists%3$s: No lists appear on this page. %2$sAdd at least one ordered or "
 "unordered list%3$s!"
@@ -149,14 +156,14 @@ msgstr ""
 
 #. Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor
 #. end tag.
-#: classes/woocommerce-seo.php:1338
+#: classes/woocommerce-seo.php:1363
 msgid "%1$sLists%2$s: There is at least one list on this page. Great!"
 msgstr ""
 
 #. Translators: %3$s and %4$s expand to links on yoast.com, %5$s expands to the
 #. anchor end tag, %1$d expands to the number of images without alt tags, %2$d
 #. expands to the number of images found in the text
-#: classes/woocommerce-seo.php:1342 classes/woocommerce-seo.php:1349
+#: classes/woocommerce-seo.php:1367 classes/woocommerce-seo.php:1374
 msgid ""
 "%3$sImage alt tags%5$s: %1$d image out of %2$d doesn't have alt attributes. "
 "%4$sAdd alt attributes to your images%5$s!"
@@ -168,51 +175,47 @@ msgstr[1] ""
 
 #. Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor
 #. end tag.
-#: classes/woocommerce-seo.php:1358
+#: classes/woocommerce-seo.php:1383
 msgid "%1$sImage alt tags%2$s: All images have alt attributes. Good job!"
 msgstr ""
 
 #. Translators: %1$s and %2$s expand to links on yoast.com, %3$s expands to the
 #. anchor end tag
-#: classes/woocommerce-seo.php:1362
+#: classes/woocommerce-seo.php:1387
 msgid ""
 "%1$sImage alt tags%3$s: None of the images has alt attributes. %2$sAdd alt "
 "attributes to your images%3$s!"
 msgstr ""
 
-#: classes/woocommerce-seo.php:1365
-msgid ""
-"Your product is missing an identifier (like a GTIN code). You can add a "
-"product identifier via the \"Yoast SEO\" tab in the Product data box"
+#: classes/woocommerce-seo.php:1390
+msgid "Your product is missing an identifier (like a GTIN code)."
 msgstr ""
 
-#: classes/woocommerce-seo.php:1368
+#: classes/woocommerce-seo.php:1393
 msgid "Your product has an identifier"
 msgstr ""
 
-#: classes/woocommerce-seo.php:1371
-msgid ""
-"Not all your product variants have an identifier. You can add a product "
-"identifier via the \"Variations\" tab in the Product data box"
+#: classes/woocommerce-seo.php:1396
+msgid "Not all your product variants have an identifier."
 msgstr ""
 
-#: classes/woocommerce-seo.php:1374
+#: classes/woocommerce-seo.php:1399
 msgid "All your product variants have an identifier"
 msgstr ""
 
-#: classes/woocommerce-seo.php:1377
+#: classes/woocommerce-seo.php:1402
 msgid "Your product is missing a barcode (like a GTIN code)"
 msgstr ""
 
-#: classes/woocommerce-seo.php:1380
+#: classes/woocommerce-seo.php:1405
 msgid "Your product has a barcode"
 msgstr ""
 
-#: classes/woocommerce-seo.php:1383
+#: classes/woocommerce-seo.php:1408
 msgid "Not all your product variants have a barcode"
 msgstr ""
 
-#: classes/woocommerce-seo.php:1386
+#: classes/woocommerce-seo.php:1411
 msgid "All your product variants have a barcode"
 msgstr ""
 
@@ -220,7 +223,7 @@ msgstr ""
 #. anchor end tag, %2$s expands to the string "Barcode" or "Product
 #. identifier", %3$s expands to the string "Not all your product variants have
 #. a product identifier" or "Not all your product variants have a barcode"
-#: classes/woocommerce-seo.php:1390
+#: classes/woocommerce-seo.php:1415
 msgid ""
 "%1$s%2$s%5$s: %3$s. %4$sInclude it if you can, as it will help search "
 "engines to better understand your content.%5$s"
@@ -230,43 +233,35 @@ msgstr ""
 #. end tag, %2$s expands to the string "Barcode" or "Product identifier", %3$s
 #. expands to the feedback string "All your product variants have a product
 #. identifier" or "All your product variants have a barcode"
-#: classes/woocommerce-seo.php:1394
+#: classes/woocommerce-seo.php:1419
 msgid "%1$s%2$s%4$s: %3$s. Good job!"
 msgstr ""
 
-#. Translators: please keep the space at the start of the sentence in your
-#. translation unless your language does not use spaces.
-#: classes/woocommerce-seo.php:1398
-msgid " You can add a SKU via the \"Inventory\" tab in the Product data box."
-msgstr ""
-
-#. Translators: %1$s and %2$s expands to a link on yoast.com, %3$s expands to
-#. the anchor end tag, %4%s expands to the translated string ' You can add a
-#. SKU via the "Inventory" tab in the Product data box.'
-#: classes/woocommerce-seo.php:1402
+#. Translators: %1$s and %2$s expand to links on yoast.com, %3$s expands to the
+#. anchor end tag.
+#: classes/woocommerce-seo.php:1423
 msgid ""
-"%1$sSKU%3$s: Your product is missing a SKU.%4$s %2$sInclude it if you can, "
-"as it will help search engines to better understand your content.%3$s"
+"%1$sSKU%3$s: Your product is missing a SKU.  %2$sInclude it if you can, as "
+"it will help search engines to better understand your content.%3$s"
 msgstr ""
 
 #. Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor
 #. end tag.
-#: classes/woocommerce-seo.php:1406
+#: classes/woocommerce-seo.php:1427
 msgid "%1$sSKU%2$s: Your product has a SKU. Good job!"
 msgstr ""
 
 #. Translators: %1$s and %2$s expand to links on yoast.com, %3$s expands to the
 #. anchor end tag.
-#: classes/woocommerce-seo.php:1410
+#: classes/woocommerce-seo.php:1431
 msgid ""
-"%1$sSKU%3$s: Not all your product variants have a SKU. You can add a SKU via "
-"the \"Variations\" tab in the Product data box. %2$sInclude it if you can, "
-"as it will help search engines to better understand your content.%3$s"
+"%1$sSKU%3$s: Not all your product variants have a SKU. %2$sInclude it if you "
+"can, as it will help search engines to better understand your content.%3$s"
 msgstr ""
 
 #. Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor
 #. end tag.
-#: classes/woocommerce-seo.php:1417
+#: classes/woocommerce-seo.php:1435
 msgid "%1$sSKU%2$s: All your product variants have a SKU. Good job!"
 msgstr ""
 
@@ -330,4 +325,31 @@ msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "https://yoa.st/team-yoast-woocommerce"
+msgstr ""
+
+#: vendor/yoast/wordpress-seo/packages/yoastseo/src/scoring/assessments/seo/ProductIdentifiersAssessment.js:109
+msgid "Your product is missing an identifier (like a GTIN code)"
+msgstr ""
+
+#: vendor/yoast/wordpress-seo/packages/yoastseo/src/scoring/assessments/seo/ProductIdentifiersAssessment.js:111
+msgid "Not all your product variants have an identifier"
+msgstr ""
+
+# %1$s and %2$s expand to links on yoast.com, %3$s expands to the anchor end tag.
+#: vendor/yoast/wordpress-seo/packages/yoastseo/src/scoring/assessments/seo/ProductSKUAssessment.js:114
+msgid ""
+"%1$sSKU%3$s: Your product is missing a SKU. %2$sInclude it if you can, as it "
+"will help search engines to better understand your content.%3$s"
+msgstr ""
+
+# %1$s and %2$s expand to links on yoast.com, %3$s expands to the anchor end tag.
+#: vendor/yoast/wordpress-seo/packages/yoastseo/src/scoring/assessments/seo/ProductSKUAssessment.js:145
+msgid ""
+"%1$sSKU%3$s: Not all your product variants have a SKU. You can add a SKU via "
+"the \"Variations\" tab in the Product data box. %2$sInclude it if you can, "
+"as it will help search engines to better understand your content.%3$s"
+msgstr ""
+
+#: vendor/yoast/wordpress-seo/packages/yoastseo/src/scoring/assessments/seo/ProductSKUAssessment.js:57
+msgid "SKU"
 msgstr ""

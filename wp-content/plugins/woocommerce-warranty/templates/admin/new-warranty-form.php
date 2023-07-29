@@ -17,6 +17,9 @@ if ( empty( $this_order ) || ! $this_order instanceof WC_Order ) {
 
 <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" enctype="multipart/form-data">
 	<?php
+	if ( isset( $_GET['search_key'] ) ) {
+		check_admin_referer( 'warranty_create' );
+	}
 	$order_id  = $this_order->get_id();
 	$idx_array = isset( $_GET['idx'] ) ? wc_clean( wp_unslash( $_GET['idx'] ) ) : array();
 
@@ -76,6 +79,7 @@ if ( empty( $this_order ) || ! $this_order instanceof WC_Order ) {
 	WooCommerce_Warranty::render_warranty_form();
 
 	?>
+	<?php wp_nonce_field( 'warranty_create' ); ?>
 	<input type="hidden" name="order_id" value="<?php echo esc_attr( $order_id ); ?>" /> <input type="hidden" name="action" value="warranty_create" />
 	<input type="submit" name="submit" value="<?php esc_attr_e( 'Submit', 'wc_warranty' ); ?>" class="button">
 </form>

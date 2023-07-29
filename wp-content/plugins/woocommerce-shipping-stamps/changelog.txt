@@ -1,5 +1,8 @@
 *** WooCommerce Stamps.com shipping and API integration ***
 
+2023-07-24 - version 1.9.2
+* Update - Security update.
+
 2023-03-29 - version 1.9.1
 * Fix - XML Error when purchasing label without shipping return address information.
 

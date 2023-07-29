@@ -63,7 +63,7 @@ $modal_id = "wp-smush-ultra-compression-modal__{$location}";
 					<?php esc_html_e( 'Experience up to 5x better compression than Super Smush. Optimize your images even further and make your pages load faster than ever. Level up your site performance with Ultra Smush now.', 'wp-smushit' ); ?>
 				</p>
 				<a target="_blank" data-action="upgrade" href="<?php echo esc_url( $upgrade_utm_link ); ?>" class="sui-button sui-button-blue wp-smush-modal-link-close" >
-					<?php esc_html_e( 'Upgrade to Pro', 'wp-smushit' ); ?>
+					<?php esc_html_e( 'Find out more', 'wp-smushit' ); ?>
 				</a>
 				<?php
 				if ( $connect_site_url ) :

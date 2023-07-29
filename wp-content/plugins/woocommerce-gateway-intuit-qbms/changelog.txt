@@ -1,5 +1,8 @@
 *** WooCommerce Intuit QBMS Gateway Changelog ***
 
+2023.07.25 - version 3.2.0
+ * Misc - Add compatibility for WooCommerce High Performance Order Storage (HPOS)
+
 2023.02.18 - version 3.1.2
  * Fix - Resolve bug when deleting a saved credit card
  * Misc - Update SkyVerge Plugin Framework to 5.10.15

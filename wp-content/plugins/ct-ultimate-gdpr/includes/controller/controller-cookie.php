@@ -54,6 +54,7 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 		}
 		$this->grab_user_data();
 		add_action( 'shutdown', array( $this, 'block_cookies' ), 0 );
+        add_action('wp_head', array( $this, 'get_header_script' ));
 		add_action( 'woocommerce_set_cart_cookies', array( $this, 'block_cookies' ), 0 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts_action' ), 1 );
 		add_filter( 'login_redirect', array( $this, 'fix_user_consent' ), 20, 3 );
@@ -79,6 +80,10 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 
 		$this->should_capture_content() && ob_start( array( $this, 'capture_end' ) );
 
+		if( !empty($this->get_option( 'cookie_cookies_popup_ajax' )) )
+			$this->cookie_popup_ajax_route();
+
+		$this->cookie_popup_ajax_options();
 	}
 
 	/**
@@ -477,6 +482,7 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 
 			wp_localize_script( 'ct-ultimate-gdpr-cookie-popup', 'ct_ultimate_gdpr_cookie',
 				array(
+					'url'         			=> site_url('/'),
 					'ajaxurl'               => admin_url( 'admin-ajax.php' ),
 					'readurl'               => $read_more_url,
                     'readurl_new_tab'       => $read_more_url_new_tab,
@@ -738,7 +744,7 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 		$options = array_merge( $this->get_default_options(), $this->options );
 
 		// 1173
-		// ct_ultimate_gdpr_render_template( ct_ultimate_gdpr_locate_template( 'cookie-template', false ), true, $options ); 
+		// ct_ultimate_gdpr_render_template( ct_ultimate_gdpr_locate_template( 'cookie-template', false ), true, $options );	
 		if($this->is_cookie_single_popup_enabled()) {
 			ct_ultimate_gdpr_render_template( ct_ultimate_gdpr_locate_template( 'cookie-template', false ), true, $options ); 
 		} else {
@@ -1039,6 +1045,14 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 		}
 
 	}
+
+    /**
+     * Get custom header script
+     * */
+    public  function get_header_script() {
+        $read_more_url = $this->get_option( 'cookie_header_script' );
+        echo $read_more_url;
+    }
 
 	/**
 	 * @return bool
@@ -1576,6 +1590,13 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 			null, // callback
 			'ct-ultimate-gdpr-cookie' // Page
 		);
+
+        add_settings_section(
+            'ct-ultimate-gdpr-cookie_tab-1_section-5', // ID
+            esc_html__( 'Google Tag Manager', 'ct-ultimate-gdpr' ), // Title
+            null, // callback
+            'ct-ultimate-gdpr-cookie' // Page
+        );
 		
 
 //      /* Cookie section - preferences tab */
@@ -1635,6 +1656,13 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 			null, // callback
 			'ct-ultimate-gdpr-cookie' // Page
 		);
+
+        add_settings_section(
+            'ct-ultimate-gdpr-cookie_tab-2_section-12', // ID
+            esc_html__( 'Custom Header Script', 'ct-ultimate-gdpr' ), // Title
+            null, // callback
+            'ct-ultimate-gdpr-cookie' // Page
+        );
 		
 		add_settings_section(
 			'ct-ultimate-gdpr-cookie_tab-2_section-10', // ID
@@ -2106,6 +2134,16 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 				'ct-ultimate-gdpr-cookie_tab-2_section-6'
 			);
 
+            //TAB 2 - SECTION 12 - CUSTOM HEADER SCRIPT
+
+            add_settings_field(
+                'cookie_style',
+                esc_html__( 'Custom header script', 'ct-ultimate-gdpr' ),
+                array( $this, 'render_field_cookie_header_script' ),
+                'ct-ultimate-gdpr-cookie',
+                'ct-ultimate-gdpr-cookie_tab-2_section-12'
+            );
+
 			//TAB 2 - SECTION 11 - DISABLE GOOGLE FONTS
 
 			add_settings_field(
@@ -2453,6 +2491,13 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 				'ct-ultimate-gdpr-cookie_tab-3_section-6'
 			);
 
+			add_settings_field(
+				'cookie_cookies_popup_ajax',
+				esc_html__( "Use ajax on cookie popup", 'ct-ultimate-gdpr' ),
+				array( $this, 'render_field_cookie_cookies_popup_ajax' ),
+				'ct-ultimate-gdpr-cookie',
+				'ct-ultimate-gdpr-cookie_tab-3_section-6',
+			);
 
 			//TAB 3 - SECTION 7 - LIST OF FEATURES INDIVIDUAL
 			add_settings_field(
@@ -2679,6 +2724,21 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 		endforeach;
 
 		echo '</select>';
+	}
+
+	/**
+	 *
+	 */
+	public function render_field_cookie_cookies_popup_ajax() {
+
+		$admin      = CT_Ultimate_GDPR::instance()->get_admin_controller();
+		$field_name = $admin->get_field_name( __FUNCTION__ );
+		printf(
+			"<input class='ct-ultimate-gdpr-field' type='checkbox' id='%s' name='%s' %s />",
+			$admin->get_field_name( __FUNCTION__ ),
+			$admin->get_field_name_prefixed( $field_name ),
+			$admin->get_option_value_escaped( $field_name ) ? 'checked' : ''
+		);
 	}
 
 
@@ -3188,6 +3248,21 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 			$admin->get_option_value_escaped( $field_name, '' )
 		);
 	}
+
+    /**
+     *
+     */
+    public function render_field_cookie_header_script() {
+
+        $admin      = CT_Ultimate_GDPR::instance()->get_admin_controller();
+        $field_name = $admin->get_field_name( __FUNCTION__ );
+        printf(
+            "<textarea class='ct-ultimate-gdpr-field' id='%s' name='%s' rows='10' cols='100'>%s</textarea>",
+            $admin->get_field_name( __FUNCTION__ ),
+            $admin->get_field_name_prefixed( $field_name ),
+            $admin->get_option_value_escaped( $field_name, '' )
+        );
+    }
 
 	/**
 	 * 
@@ -4447,7 +4522,7 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 			'cookie_group_popup_label_will'                    => esc_html__( 'This website will:', 'ct-ultimate-gdpr' ),
 			'cookie_group_popup_label_wont'                    => esc_html__( "This website won't:", 'ct-ultimate-gdpr' ),
 			'cookie_group_popup_label_save'                    => esc_html__( "Save & Close", 'ct-ultimate-gdpr' ),
-			'cookie_group_popup_label_block_all'               => esc_html__( 'Block all', 'ct-ultimate-gdpr' ),
+			'cookie_group_popup_label_block_all'               => esc_html__( 'Block all cookies with personal data', 'ct-ultimate-gdpr' ),
 			'cookie_group_popup_label_essentials'              => esc_html__( 'Essentials', 'ct-ultimate-gdpr' ),
 			'cookie_group_popup_label_functionality'           => esc_html__( 'Functionality', 'ct-ultimate-gdpr' ),
 			'cookie_group_popup_label_analytics'               => esc_html__( 'Analytics', 'ct-ultimate-gdpr' ),
@@ -4475,6 +4550,7 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
             'cookie_withdrawal_cookies_agreement_button_text_color'      => '#ffffff',
             'cookie_withdrawal_cookies_agreement_button_border_color'    => '#ff7d27',
 			'render_field_cookie_disable_google_fonts'			=> false,
+			'cookie_cookies_popup_ajax'                         => false,
             ) );
 
 	}
@@ -5092,5 +5168,44 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 		// 	return 'opt_disable';
 		// }
 	// }
- 
+
+	public function cookie_popup_ajax_route() {
+
+		add_action( 'rest_api_init', function() {
+			register_rest_route( 
+				'ct-ultimate-gdpr/v1', 
+				'/cookie-popup', 
+				array(
+					'methods' =>  WP_REST_Server::READABLE,
+					'callback' => array( $this, 'cookie_popup_ajax'),
+					'permission_callback' => '__return_true'
+				) 
+			);
+		});
+	}
+
+	public function cookie_popup_ajax() {
+		$options = array_merge( $this->get_default_options(), $this->options );
+		ct_ultimate_gdpr_locate_template('cookie-single-popup-ajax', true, $options);
+	}
+
+	public function cookie_popup_ajax_options() {
+
+		add_action( 'rest_api_init', function() {
+			register_rest_route( 
+				'ct-ultimate-gdpr/v1', 
+				'/cookie-popup-options', 
+				array(
+					'methods' =>  WP_REST_Server::READABLE,
+					'callback' => array( $this, 'cookie_popup_options'),
+					'permission_callback' => '__return_true'
+				) 
+			);
+		});
+	}
+
+	public function cookie_popup_options() {
+		return json_encode(["cookie_popup_ajax_enabled" => $this->get_option('cookie_cookies_popup_ajax') ]);
+	}
+
 }

@@ -1,14 +1,14 @@
-# Copyright (C) 2022
+# Copyright (C) 2023 
 # This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Plugin Framework 5.10.13\n"
+"Project-Id-Version: WooCommerce Plugin Framework 5.11.6\n"
 "Report-Msgid-Bugs-To: https://support.woocommerce.com/hc/\n"
-"POT-Creation-Date: 2022-08-16 06:37:47+00:00\n"
+"POT-Creation-Date: 2023-07-19 12:19:04+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
@@ -173,7 +173,7 @@ msgstr ""
 msgid "Please %1$supdate WooCommerce%2$s"
 msgstr ""
 
-#: class-sv-wc-plugin-compatibility.php:349
+#: class-sv-wc-plugin-compatibility.php:217
 msgid "WooCommerce"
 msgstr ""
 
@@ -234,30 +234,30 @@ msgid ""
 "resources to help you upgrade%5$s and to explain PHP versions further."
 msgstr ""
 
-#: class-sv-wc-plugin.php:301
+#: class-sv-wc-plugin.php:310
 #. translators: Placeholders: %s - plugin name
 msgid "You cannot clone instances of %s."
 msgstr ""
 
-#: class-sv-wc-plugin.php:312
+#: class-sv-wc-plugin.php:321
 #. translators: Placeholders: %s - plugin name
 msgid "You cannot unserialize instances of %s."
 msgstr ""
 
-#: class-sv-wc-plugin.php:588
+#: class-sv-wc-plugin.php:594
 #. translators: Docs as in Documentation
 msgid "Docs"
 msgstr ""
 
-#: class-sv-wc-plugin.php:688
+#: class-sv-wc-plugin.php:709
 msgid "%1$s - A minimum of %2$s is required."
 msgstr ""
 
-#: class-sv-wc-plugin.php:697
+#: class-sv-wc-plugin.php:718
 msgid "Set as %1$s - %2$s is required."
 msgstr ""
 
-#: class-sv-wc-plugin.php:977
+#: class-sv-wc-plugin.php:1011
 #: payment-gateway/class-sv-wc-payment-gateway-plugin.php:876
 msgid "Configure"
 msgstr ""
@@ -490,8 +490,8 @@ msgid ""
 msgstr ""
 
 #: payment-gateway/Handlers/Abstract_Hosted_Payment_Handler.php:217
-#: payment-gateway/class-sv-wc-payment-gateway.php:2889
-#: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-subscriptions.php:512
+#: payment-gateway/class-sv-wc-payment-gateway.php:2901
+#: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-subscriptions.php:521
 msgid "An error occurred, please try again or try an alternate form of payment."
 msgstr ""
 
@@ -502,8 +502,8 @@ msgid "Could not find order %s"
 msgstr ""
 
 #: payment-gateway/Handlers/Abstract_Payment_Handler.php:152
-#: payment-gateway/class-sv-wc-payment-gateway.php:2482
-#: payment-gateway/payment-tokens/class-sv-wc-payment-gateway-payment-tokens-handler.php:173
+#: payment-gateway/class-sv-wc-payment-gateway.php:2487
+#: payment-gateway/payment-tokens/class-sv-wc-payment-gateway-payment-tokens-handler.php:172
 #. translators: Placeholders: %1$s - status code, %2$s - status message
 #. translators: Placeholders: %1$s - payment request response status code, %2$s
 #. - payment request response status message
@@ -511,24 +511,24 @@ msgid "Status code %1$s: %2$s"
 msgstr ""
 
 #: payment-gateway/Handlers/Abstract_Payment_Handler.php:155
-#: payment-gateway/class-sv-wc-payment-gateway.php:2485
-#: payment-gateway/payment-tokens/class-sv-wc-payment-gateway-payment-tokens-handler.php:176
+#: payment-gateway/class-sv-wc-payment-gateway.php:2490
+#: payment-gateway/payment-tokens/class-sv-wc-payment-gateway-payment-tokens-handler.php:175
 #. translators: Placeholders: %s - status code
 #. translators: Placeholders: %s - payment request response status code
 msgid "Status code: %s"
 msgstr ""
 
 #: payment-gateway/Handlers/Abstract_Payment_Handler.php:158
-#: payment-gateway/class-sv-wc-payment-gateway.php:2488
-#: payment-gateway/payment-tokens/class-sv-wc-payment-gateway-payment-tokens-handler.php:179
+#: payment-gateway/class-sv-wc-payment-gateway.php:2493
+#: payment-gateway/payment-tokens/class-sv-wc-payment-gateway-payment-tokens-handler.php:178
 #. translators: Placeholders; %s - status message
 #. translators: Placeholders: %s - payment request response status message
 msgid "Status message: %s"
 msgstr ""
 
 #: payment-gateway/Handlers/Abstract_Payment_Handler.php:163
-#: payment-gateway/class-sv-wc-payment-gateway.php:2493
-#: payment-gateway/payment-tokens/class-sv-wc-payment-gateway-payment-tokens-handler.php:186
+#: payment-gateway/class-sv-wc-payment-gateway.php:2498
+#: payment-gateway/payment-tokens/class-sv-wc-payment-gateway-payment-tokens-handler.php:185
 msgid "Transaction ID %s"
 msgstr ""
 
@@ -545,15 +545,15 @@ msgid "Order %s is already paid for."
 msgstr ""
 
 #: payment-gateway/Handlers/Abstract_Payment_Handler.php:267
-#: payment-gateway/class-sv-wc-payment-gateway.php:2825
+#: payment-gateway/class-sv-wc-payment-gateway.php:2837
 msgid ""
 "Your order has been received and is being reviewed. Thank you for your "
 "business."
 msgstr ""
 
 #: payment-gateway/Handlers/Abstract_Payment_Handler.php:274
-#: payment-gateway/class-sv-wc-payment-gateway-direct.php:864
-#: payment-gateway/class-sv-wc-payment-gateway.php:1860
+#: payment-gateway/class-sv-wc-payment-gateway-direct.php:875
+#: payment-gateway/class-sv-wc-payment-gateway.php:1865
 #: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-pre-orders.php:370
 #. translators: This is a message describing that the transaction in question
 #. only performed a credit card authorization and did not capture any funds.
@@ -600,11 +600,11 @@ msgstr ""
 
 #: payment-gateway/Handlers/Capture.php:198
 #: payment-gateway/class-sv-wc-payment-gateway-direct.php:683
-#: payment-gateway/class-sv-wc-payment-gateway-direct.php:768
-#: payment-gateway/class-sv-wc-payment-gateway.php:2161
-#: payment-gateway/class-sv-wc-payment-gateway.php:2394
-#: payment-gateway/class-sv-wc-payment-gateway.php:2706
-#: payment-gateway/class-sv-wc-payment-gateway.php:2751
+#: payment-gateway/class-sv-wc-payment-gateway-direct.php:780
+#: payment-gateway/class-sv-wc-payment-gateway.php:2166
+#: payment-gateway/class-sv-wc-payment-gateway.php:2399
+#: payment-gateway/class-sv-wc-payment-gateway.php:2718
+#: payment-gateway/class-sv-wc-payment-gateway.php:2763
 #: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-pre-orders.php:353
 #. translators: Placeholders: %s - transaction ID
 msgid "(Transaction ID %s)"
@@ -617,19 +617,19 @@ msgstr ""
 msgid "%1$s Capture Failed: %2$s"
 msgstr ""
 
-#: payment-gateway/admin/class-sv-wc-payment-gateway-admin-order.php:120
+#: payment-gateway/admin/class-sv-wc-payment-gateway-admin-order.php:130
 msgid "Are you sure you wish to process this capture? The action cannot be undone."
 msgstr ""
 
-#: payment-gateway/admin/class-sv-wc-payment-gateway-admin-order.php:123
+#: payment-gateway/admin/class-sv-wc-payment-gateway-admin-order.php:133
 msgid ""
 "Something went wrong, and the capture could no be completed. Please try "
 "again."
 msgstr ""
 
-#: payment-gateway/admin/class-sv-wc-payment-gateway-admin-order.php:167
-#: payment-gateway/admin/class-sv-wc-payment-gateway-admin-order.php:242
-#: payment-gateway/admin/class-sv-wc-payment-gateway-admin-order.php:305
+#: payment-gateway/admin/class-sv-wc-payment-gateway-admin-order.php:178
+#: payment-gateway/admin/class-sv-wc-payment-gateway-admin-order.php:267
+#: payment-gateway/admin/class-sv-wc-payment-gateway-admin-order.php:330
 #. translators: verb, as in "Capture credit card charge". 		 Used when an
 #. amount has been pre-authorized before, but funds have not yet been captured
 #. (taken) from the card. 		 Capturing the charge will take the money from the
@@ -637,15 +637,15 @@ msgstr ""
 msgid "Capture Charge"
 msgstr ""
 
-#: payment-gateway/admin/class-sv-wc-payment-gateway-admin-order.php:295
+#: payment-gateway/admin/class-sv-wc-payment-gateway-admin-order.php:320
 msgid "This charge has been fully captured."
 msgstr ""
 
-#: payment-gateway/admin/class-sv-wc-payment-gateway-admin-order.php:297
+#: payment-gateway/admin/class-sv-wc-payment-gateway-admin-order.php:322
 msgid "This charge can no longer be captured."
 msgstr ""
 
-#: payment-gateway/admin/class-sv-wc-payment-gateway-admin-order.php:299
+#: payment-gateway/admin/class-sv-wc-payment-gateway-admin-order.php:324
 msgid "This charge cannot be captured."
 msgstr ""
 
@@ -731,7 +731,7 @@ msgid "%s Payment Tokens"
 msgstr ""
 
 #: payment-gateway/admin/class-sv-wc-payment-gateway-admin-user-handler.php:302
-#: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-subscriptions.php:841
+#: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-subscriptions.php:862
 msgid "Customer ID"
 msgstr ""
 
@@ -1036,7 +1036,7 @@ msgid "Payment method address could not be updated. %s"
 msgstr ""
 
 #: payment-gateway/class-sv-wc-payment-gateway-direct.php:673
-#: payment-gateway/class-sv-wc-payment-gateway.php:2741
+#: payment-gateway/class-sv-wc-payment-gateway.php:2753
 #. translators: Placeholders: %1$s - payment method title, %2$s - payment
 #. account type (savings/checking) (may or may not be available), %3$s - last
 #. four digits of the account
@@ -1044,85 +1044,92 @@ msgid "%1$s Check Transaction Approved: %2$s account ending in %3$s"
 msgstr ""
 
 #: payment-gateway/class-sv-wc-payment-gateway-direct.php:678
-#: payment-gateway/class-sv-wc-payment-gateway.php:2746
+#: payment-gateway/class-sv-wc-payment-gateway.php:2758
 #. translators: Placeholders: %s - check number
 msgid "Check number %s"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-direct.php:747
+#: payment-gateway/class-sv-wc-payment-gateway-direct.php:749
 #. translators: Placeholders: %1$s - payment method title, %2$s - environment
 #. ("Test"), %3$s - transaction type (authorization/charge), %4$s - card type
 #. (mastercard, visa, ...), %5$s - last four digits of the card
 msgid "%1$s %2$s %3$s Approved: %4$s ending in %5$s"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-direct.php:760
+#: payment-gateway/class-sv-wc-payment-gateway-direct.php:759
+#. translators: Placeholders: %1$s - payment method title, %2$s - environment
+#. ("Test"), %3$s - transaction type (authorization/charge), %4$s - card type
+#. (mastercard, visa, ...)
+msgid "%1$s %2$s %3$s Approved: %4$s"
+msgstr ""
+
+#: payment-gateway/class-sv-wc-payment-gateway-direct.php:772
 #: payment-gateway/class-sv-wc-payment-gateway-payment-form.php:718
-#: payment-gateway/class-sv-wc-payment-gateway.php:2698
+#: payment-gateway/class-sv-wc-payment-gateway.php:2710
 #. translators: Placeholders: %s - expiry date
 msgid "(expires %s)"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-direct.php:832
+#: payment-gateway/class-sv-wc-payment-gateway-direct.php:843
 #. translators: Placeholders: %s - failure message
 msgid "Tokenization Request Failed: %s"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-direct.php:843
+#: payment-gateway/class-sv-wc-payment-gateway-direct.php:854
 #. translators: Placeholders: %1$s - payment method title, %2$s - failure
 #. message
 msgid "%1$s Tokenization Request Failed: %2$s"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-direct.php:901
+#: payment-gateway/class-sv-wc-payment-gateway-direct.php:912
 #. translators: Placeholders: %s - failure message. Payment method as in a
 #. specific credit card, e-check or bank account
 msgid "Oops, adding your new payment method failed: %s"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-direct.php:946
+#: payment-gateway/class-sv-wc-payment-gateway-direct.php:957
 #. translators: Payment method as in a specific credit card. Placeholders: %1$s
 #. - card type (visa, mastercard, ...), %2$s - last four digits of the card,
 #. %3$s - card expiry date
 msgid "Nice! New payment method added: %1$s ending in %2$s (expires %3$s)"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-direct.php:956
+#: payment-gateway/class-sv-wc-payment-gateway-direct.php:967
 #. translators: Payment method as in a specific e-check account. Placeholders:
 #. %1$s - account type (checking/savings), %2$s - last four digits of the
 #. account
 msgid "Nice! New payment method added: %1$s account ending in %2$s"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-direct.php:963
+#: payment-gateway/class-sv-wc-payment-gateway-direct.php:974
 #. translators: Payment method as in a specific credit card, e-check or bank
 #. account
 msgid "Nice! New payment method added."
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-direct.php:1086
+#: payment-gateway/class-sv-wc-payment-gateway-direct.php:1097
 #. translators: Placeholders: %1$s - site title, %2$s - customer email. Payment
 #. method as in a specific credit card, e-check or bank account
 msgid "%1$s - Add Payment Method for %2$s"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-helper.php:180
+#: payment-gateway/class-sv-wc-payment-gateway-helper.php:178
 msgid "PayPal"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-helper.php:181
+#: payment-gateway/class-sv-wc-payment-gateway-helper.php:179
 msgid "Checking Account"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-helper.php:182
+#: payment-gateway/class-sv-wc-payment-gateway-helper.php:180
 msgid "Savings Account"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-helper.php:183
+#: payment-gateway/class-sv-wc-payment-gateway-helper.php:181
 msgid "Credit / Debit Card"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-helper.php:184
+#: payment-gateway/class-sv-wc-payment-gateway-helper.php:182
 msgid "Bank Account"
 msgstr ""
 
@@ -1143,7 +1150,7 @@ msgid "Cancel Order"
 msgstr ""
 
 #: payment-gateway/class-sv-wc-payment-gateway-hosted.php:601
-#: payment-gateway/payment-tokens/class-sv-wc-payment-gateway-payment-tokens-handler.php:1115
+#: payment-gateway/payment-tokens/class-sv-wc-payment-gateway-payment-tokens-handler.php:1114
 #. translators: Placeholders: %1$s - payment gateway title (such as
 #. Authorize.net, Braintree, etc), %2$s - payment method name (mastercard, bank
 #. account, etc), %3$s - last four digits of the card/account, %4$s -
@@ -1152,7 +1159,7 @@ msgid "%1$s Payment Method Saved: %2$s ending in %3$s (expires %4$s)"
 msgstr ""
 
 #: payment-gateway/class-sv-wc-payment-gateway-hosted.php:612
-#: payment-gateway/payment-tokens/class-sv-wc-payment-gateway-payment-tokens-handler.php:1126
+#: payment-gateway/payment-tokens/class-sv-wc-payment-gateway-payment-tokens-handler.php:1125
 #. translators: Placeholders: %1$s - payment gateway title (such as CyberSouce,
 #. NETbilling, etc), %2$s - account type (checking/savings - may or may not be
 #. available), %3$s - last four digits of the account
@@ -1510,165 +1517,165 @@ msgstr ""
 msgid "%1$s - Order %2$s"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:1942
+#: payment-gateway/class-sv-wc-payment-gateway.php:1947
 #. translators: Placeholders: %1$s - site title, %2$s - order number.
 #. Definitions: Capture as in capture funds from a credit card.
 msgid "%1$s - Capture for Order %2$s"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:2085
+#: payment-gateway/class-sv-wc-payment-gateway.php:2090
 #. translators: Placeholders: %1$s - site title, %2$s - order number
 msgid "%1$s - Refund for Order %2$s"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:2152
+#: payment-gateway/class-sv-wc-payment-gateway.php:2157
 #. translators: Placeholders: %1$s - payment gateway title (such as
 #. Authorize.net, Braintree, etc), %2$s - a monetary amount
 msgid "%1$s Refund in the amount of %2$s approved."
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:2182
+#: payment-gateway/class-sv-wc-payment-gateway.php:2187
 #. translators: Placeholders: %1$s - payment gateway title (such as
 #. Authorize.net, Braintree, etc), %2$s - error code, %3$s - error message
 msgid "%1$s Refund Failed: %2$s - %3$s"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:2190
+#: payment-gateway/class-sv-wc-payment-gateway.php:2195
 #. translators: Placeholders: %1$s - payment gateway title (such as
 #. Authorize.net, Braintree, etc), %2$s - error message
 msgid "%1$s Refund Failed: %2$s"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:2211
+#: payment-gateway/class-sv-wc-payment-gateway.php:2216
 #. translators: Placeholders: %s - payment gateway title (such as
 #. Authorize.net, Braintree, etc)
 msgid "%s Order completely refunded."
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:2266
+#: payment-gateway/class-sv-wc-payment-gateway.php:2271
 msgid ""
 "Oops, you cannot partially void this order. Please use the full order "
 "amount."
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:2353
+#: payment-gateway/class-sv-wc-payment-gateway.php:2358
 #. translators: Placeholders: %1$s - payment gateway title, %2$s - error code,
 #. %3$s - error message. Void as in to void an order.
 msgid "%1$s Void Failed: %2$s - %3$s"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:2361
+#: payment-gateway/class-sv-wc-payment-gateway.php:2366
 #. translators: Placeholders: %1$s - payment gateway title, %2$s - error
 #. message. Void as in to void an order.
 msgid "%1$s Void Failed: %2$s"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:2385
+#: payment-gateway/class-sv-wc-payment-gateway.php:2390
 #. translators: Placeholders: %1$s - payment gateway title, %2$s - a monetary
 #. amount. Void as in to void an order.
 msgid "%1$s Void in the amount of %2$s approved."
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:2677
+#: payment-gateway/class-sv-wc-payment-gateway.php:2689
 #. translators: Placeholders: %1$s - payment method title, %2$s - environment
 #. ("Test"), %3$s - transaction type (authorization/charge)
 msgid "%1$s %2$s %3$s Approved"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:2687
+#: payment-gateway/class-sv-wc-payment-gateway.php:2699
 #. translators: Placeholders: %1$s - credit card type (MasterCard, Visa,
 #. etc...), %2$s - last four digits of the card
 msgid "%1$s ending in %2$s"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:2783
+#: payment-gateway/class-sv-wc-payment-gateway.php:2795
 #. translators: Placeholders: %1$s - payment gateway title, %2$s - message
 #. (probably reason for the transaction being held for review)
 msgid "%1$s Transaction Held for Review (%2$s)"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:2872
+#: payment-gateway/class-sv-wc-payment-gateway.php:2884
 #. translators: Placeholders: %1$s - payment gateway title, %2$s - error
 #. message; e.g. Order Note: [Payment method] Payment failed [error]
 msgid "%1$s Payment Failed (%2$s)"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:2907
+#: payment-gateway/class-sv-wc-payment-gateway.php:2919
 #. translators: Placeholders: %1$s - payment gateway title, %2$s -
 #. message/error
 msgid "%1$s Transaction Cancelled (%2$s)"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:3155
+#: payment-gateway/class-sv-wc-payment-gateway.php:3167
 msgid "Transaction Type"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:3157
+#: payment-gateway/class-sv-wc-payment-gateway.php:3169
 msgid ""
 "Select how transactions should be processed. Charge submits all "
 "transactions for settlement, Authorization simply authorizes the order "
 "total for capture later."
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:3168
+#: payment-gateway/class-sv-wc-payment-gateway.php:3180
 msgid "Charge Virtual-Only Orders"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:3170
+#: payment-gateway/class-sv-wc-payment-gateway.php:3182
 msgid ""
 "If the order contains exclusively virtual items, enable this to immediately "
 "charge, rather than authorize, the transaction."
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:3178
+#: payment-gateway/class-sv-wc-payment-gateway.php:3190
 msgid "Enable Partial Capture"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:3180
+#: payment-gateway/class-sv-wc-payment-gateway.php:3192
 msgid "Allow orders to be partially captured multiple times."
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:3192
+#: payment-gateway/class-sv-wc-payment-gateway.php:3204
 msgid "Capture Paid Orders"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:3195
+#: payment-gateway/class-sv-wc-payment-gateway.php:3207
 msgid "Automatically capture orders when they are changed to %s."
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:3196
+#: payment-gateway/class-sv-wc-payment-gateway.php:3208
 msgid "a paid status"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:3386
+#: payment-gateway/class-sv-wc-payment-gateway.php:3398
 msgid "Accepted Card Logos"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:3388
+#: payment-gateway/class-sv-wc-payment-gateway.php:3400
 msgid ""
 "These are the card logos that are displayed to customers as accepted during "
 "checkout."
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:3391
+#: payment-gateway/class-sv-wc-payment-gateway.php:3403
 #. translators: Placeholders: %1$s - <strong> tag, %2$s - </strong> tag
 msgid ""
 "This setting %1$sdoes not%2$s change which card types the gateway will "
 "accept. Accepted cards are configured from your payment processor account."
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:3482
+#: payment-gateway/class-sv-wc-payment-gateway.php:3494
 #. translators:
 #. http:www.cybersource.com/products/payment_security/payment_tokenization/ and
 #. https:en.wikipedia.org/wiki/Tokenization_(data_security)
 msgid "Tokenization"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:3483
+#: payment-gateway/class-sv-wc-payment-gateway.php:3495
 msgid "Allow customers to securely save their payment details for future checkout."
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:4302
+#: payment-gateway/class-sv-wc-payment-gateway.php:4280
 #. translators: %1$s - gateway name, %2$s - <a> tag, %3$s - </a> tag, %4$s -
 #. <a> tag, %5$s - </a> tag
 msgid ""
@@ -1700,117 +1707,117 @@ msgstr ""
 msgid "Pre-Order Release Payment Failed: %s"
 msgstr ""
 
-#: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-subscriptions.php:349
+#: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-subscriptions.php:358
 msgid "Subscription Renewal: payment token is missing/invalid."
 msgstr ""
 
-#: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-subscriptions.php:375
+#: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-subscriptions.php:384
 msgid "%1$s - Subscription Renewal Order %2$s"
 msgstr ""
 
-#: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-subscriptions.php:507
+#: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-subscriptions.php:516
 #. translators: Placeholders: %1$s - payment gateway title, %2$s - error
 #. message; e.g. Order Note: [Payment method] Payment Change failed [error]
 msgid "%1$s Payment Change Failed (%2$s)"
 msgstr ""
 
-#: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-subscriptions.php:650
+#: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-subscriptions.php:671
 msgid "Via %s ending in %s"
 msgstr ""
 
-#: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-subscriptions.php:677
+#: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-subscriptions.php:698
 msgid "Subscriptions"
 msgstr ""
 
-#: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-subscriptions.php:738
+#: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-subscriptions.php:759
 msgid "N/A"
 msgstr ""
 
-#: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-subscriptions.php:837
+#: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-subscriptions.php:858
 msgid "Payment Token"
 msgstr ""
 
-#: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-subscriptions.php:866
-#: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-subscriptions.php:871
+#: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-subscriptions.php:887
+#: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-subscriptions.php:892
 msgid "%s is required."
 msgstr ""
 
-#: payment-gateway/payment-tokens/class-sv-wc-payment-gateway-payment-tokens-handler.php:181
+#: payment-gateway/payment-tokens/class-sv-wc-payment-gateway-payment-tokens-handler.php:180
 msgid "Unknown Error"
 msgstr ""
 
-#: rest-api/Controllers/Settings.php:83
+#: rest-api/Controllers/Settings.php:84
 msgid "Unique identifier for the resource."
 msgstr ""
 
-#: rest-api/Controllers/Settings.php:118
+#: rest-api/Controllers/Settings.php:119
 msgid "Sorry, you cannot list resources."
 msgstr ""
 
-#: rest-api/Controllers/Settings.php:167
+#: rest-api/Controllers/Settings.php:168
 #. translators: Placeholder: %s - setting ID
 msgid "Setting %s does not exist"
 msgstr ""
 
-#: rest-api/Controllers/Settings.php:190
+#: rest-api/Controllers/Settings.php:191
 msgid "Sorry, you cannot edit this resource."
 msgstr ""
 
-#: rest-api/Controllers/Settings.php:223
+#: rest-api/Controllers/Settings.php:224
 msgid "Could not update setting: %s"
 msgstr ""
 
-#: rest-api/Controllers/Settings.php:293
+#: rest-api/Controllers/Settings.php:294
 msgid "Unique identifier of the setting."
 msgstr ""
 
-#: rest-api/Controllers/Settings.php:299
+#: rest-api/Controllers/Settings.php:300
 msgid "The type of the setting."
 msgstr ""
 
-#: rest-api/Controllers/Settings.php:306
+#: rest-api/Controllers/Settings.php:307
 msgid "The name of the setting."
 msgstr ""
 
-#: rest-api/Controllers/Settings.php:312
+#: rest-api/Controllers/Settings.php:313
 msgid "The description of the setting. It may or may not be used for display."
 msgstr ""
 
-#: rest-api/Controllers/Settings.php:318
+#: rest-api/Controllers/Settings.php:319
 msgid "Whether the setting stores an array of values or a single value."
 msgstr ""
 
-#: rest-api/Controllers/Settings.php:324
+#: rest-api/Controllers/Settings.php:325
 msgid "A list of valid options, used for validation before storing the value."
 msgstr ""
 
-#: rest-api/Controllers/Settings.php:330
+#: rest-api/Controllers/Settings.php:331
 msgid "Optional default value for the setting."
 msgstr ""
 
-#: rest-api/Controllers/Settings.php:336
+#: rest-api/Controllers/Settings.php:337
 msgid "The value of the setting."
 msgstr ""
 
-#: rest-api/Controllers/Settings.php:341
+#: rest-api/Controllers/Settings.php:342
 msgid ""
 "Optional object that defines how the user will interact with and update the "
 "setting."
 msgstr ""
 
-#: rest-api/Controllers/Settings.php:345
+#: rest-api/Controllers/Settings.php:346
 msgid "The type of the control."
 msgstr ""
 
-#: rest-api/Controllers/Settings.php:352
+#: rest-api/Controllers/Settings.php:353
 msgid "The name of the control. Inherits the setting's name."
 msgstr ""
 
-#: rest-api/Controllers/Settings.php:358
+#: rest-api/Controllers/Settings.php:359
 msgid "The description of the control. Inherits the setting's description."
 msgstr ""
 
-#: rest-api/Controllers/Settings.php:364
+#: rest-api/Controllers/Settings.php:365
 msgid ""
 "A list of key/value pairs defining the display value of each setting "
 "option. The keys should match the options defined in the base setting for "
@@ -1903,97 +1910,100 @@ msgctxt "enhanced select"
 msgid "Searching&hellip;"
 msgstr ""
 
-#: class-sv-wc-helper.php:426
+#: class-sv-wc-helper.php:427
 msgctxt "coordinating conjunction for a list of items: a, b, and c"
 msgid "and"
 msgstr ""
 
-#: class-sv-wc-plugin.php:593
+#: class-sv-wc-plugin.php:599
 msgctxt "noun"
 msgid "Support"
 msgstr ""
 
-#: class-sv-wc-plugin.php:598
+#: class-sv-wc-plugin.php:604
 msgctxt "verb"
 msgid "Review"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-direct.php:749
-#: payment-gateway/class-sv-wc-payment-gateway.php:2679
+#: payment-gateway/class-sv-wc-payment-gateway-direct.php:751
+#: payment-gateway/class-sv-wc-payment-gateway-direct.php:761
+#: payment-gateway/class-sv-wc-payment-gateway.php:2691
 msgctxt "noun, software environment"
 msgid "Test"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-direct.php:750
-#: payment-gateway/class-sv-wc-payment-gateway.php:2680
-#: payment-gateway/class-sv-wc-payment-gateway.php:3161
+#: payment-gateway/class-sv-wc-payment-gateway-direct.php:752
+#: payment-gateway/class-sv-wc-payment-gateway-direct.php:762
+#: payment-gateway/class-sv-wc-payment-gateway.php:2692
+#: payment-gateway/class-sv-wc-payment-gateway.php:3173
 msgctxt "credit card transaction type"
 msgid "Authorization"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-direct.php:750
-#: payment-gateway/class-sv-wc-payment-gateway.php:2680
-#: payment-gateway/class-sv-wc-payment-gateway.php:3160
+#: payment-gateway/class-sv-wc-payment-gateway-direct.php:752
+#: payment-gateway/class-sv-wc-payment-gateway-direct.php:762
+#: payment-gateway/class-sv-wc-payment-gateway.php:2692
+#: payment-gateway/class-sv-wc-payment-gateway.php:3172
 msgctxt "noun, credit card transaction type"
 msgid "Charge"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-helper.php:193
+#: payment-gateway/class-sv-wc-payment-gateway-helper.php:191
 msgctxt "payment method type"
 msgid "Account"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-helper.php:229
-#: payment-gateway/class-sv-wc-payment-gateway.php:3419
+#: payment-gateway/class-sv-wc-payment-gateway-helper.php:227
+#: payment-gateway/class-sv-wc-payment-gateway.php:3431
 msgctxt "credit card type"
 msgid "Visa"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-helper.php:233
-#: payment-gateway/class-sv-wc-payment-gateway.php:3420
+#: payment-gateway/class-sv-wc-payment-gateway-helper.php:231
+#: payment-gateway/class-sv-wc-payment-gateway.php:3432
 msgctxt "credit card type"
 msgid "MasterCard"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-helper.php:237
-#: payment-gateway/class-sv-wc-payment-gateway.php:3421
+#: payment-gateway/class-sv-wc-payment-gateway-helper.php:235
+#: payment-gateway/class-sv-wc-payment-gateway.php:3433
 msgctxt "credit card type"
 msgid "American Express"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-helper.php:241
+#: payment-gateway/class-sv-wc-payment-gateway-helper.php:239
 msgctxt "credit card type"
 msgid "Diners Club"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-helper.php:245
-#: payment-gateway/class-sv-wc-payment-gateway.php:3422
+#: payment-gateway/class-sv-wc-payment-gateway-helper.php:243
+#: payment-gateway/class-sv-wc-payment-gateway.php:3434
 msgctxt "credit card type"
 msgid "Discover"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-helper.php:249
-#: payment-gateway/class-sv-wc-payment-gateway.php:3424
+#: payment-gateway/class-sv-wc-payment-gateway-helper.php:247
+#: payment-gateway/class-sv-wc-payment-gateway.php:3436
 msgctxt "credit card type"
 msgid "JCB"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-helper.php:253
+#: payment-gateway/class-sv-wc-payment-gateway-helper.php:251
 msgctxt "credit card type"
 msgid "CarteBleue"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-helper.php:257
+#: payment-gateway/class-sv-wc-payment-gateway-helper.php:255
 msgctxt "credit card type"
 msgid "Maestro"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway-helper.php:261
+#: payment-gateway/class-sv-wc-payment-gateway-helper.php:259
 msgctxt "credit card type"
 msgid "Laser"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:3423
+#: payment-gateway/class-sv-wc-payment-gateway.php:3435
 msgctxt "credit card type"
 msgid "Diners"
 msgstr ""
@@ -2010,24 +2020,24 @@ msgctxt "account type"
 msgid "Savings"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:2460
+#: payment-gateway/class-sv-wc-payment-gateway.php:2465
 msgctxt "hash before order number"
 msgid "#"
 msgstr ""
 
-#: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-subscriptions.php:732
+#: payment-gateway/integrations/class-sv-wc-payment-gateway-integration-subscriptions.php:753
 msgctxt "hash before order number"
 msgid "#%s"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:3189
+#: payment-gateway/class-sv-wc-payment-gateway.php:3201
 msgctxt ""
 "coordinating conjunction for a list of order statuses: on-hold, processing, "
 "or completed"
 msgid "or"
 msgstr ""
 
-#: payment-gateway/class-sv-wc-payment-gateway.php:4028
+#: payment-gateway/class-sv-wc-payment-gateway.php:4006
 #. translators: https:www.skyverge.com/for-translators-environments/
 msgctxt "software environment"
 msgid "Production"

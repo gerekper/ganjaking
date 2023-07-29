@@ -347,6 +347,7 @@ class Warranty_Ajax {
 
 		if ( $message ) {
 			$return = 'admin.php?page=warranties&updated=' . urlencode( $message );
+      // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			die( $return );
 		}
 	}
@@ -445,6 +446,7 @@ class Warranty_Ajax {
 		include WooCommerce_Warranty::$base_path . 'templates/list-item-notes.php';
 		$list = ob_get_clean();
 
+    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		die( $list );
 	}
 
@@ -476,7 +478,7 @@ class Warranty_Ajax {
 		ob_start();
 		include WooCommerce_Warranty::$base_path . 'templates/list-item-notes.php';
 		$list = ob_get_clean();
-
+    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		die( $list );
 	}
 
@@ -597,7 +599,7 @@ class Warranty_Ajax {
 		}
 
 		$request_id = absint( $_REQUEST['id'] );
-		$amount     = ! empty( $_REQUEST['amount'] ) ? $_REQUEST['amount'] : null;
+		$amount     = ! empty( $_REQUEST['amount'] ) ? filter_var( $_REQUEST['amount'], FILTER_VALIDATE_FLOAT ) : null;
 
 		$order = warranty_get_order_from_request_id( $request_id );
 
@@ -835,8 +837,8 @@ class Warranty_Ajax {
 			wp_send_json( array( 'error' => 'CMD is missing' ) );
 		}
 
-		$cmd     = $_POST['cmd'];
-		$session = ! empty( $_POST['update_session'] ) ? $_POST['update_session'] : '';
+		$cmd     = sanitize_text_field( $_POST['cmd'] );
+		$session = ! empty( $_POST['update_session'] ) ? sanitize_text_field( $_POST['update_session'] ) : '';
 
 		if ( $cmd == 'start' ) {
 			// count the total number of RMA to scan.
@@ -936,7 +938,8 @@ class Warranty_Ajax {
 			);
 		}
 
-		// Try to get the uploaded file.
+		// Try to get the uploaded file. It's sanitized later.
+    // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$file = ! empty( $_FILES['warranty_upload'] ) ? $_FILES['warranty_upload'] : false;
 		if ( ! $file || $file['error'] > 0 || ! is_uploaded_file( $file['tmp_name'] ) ) {
 			wp_send_json( $response );

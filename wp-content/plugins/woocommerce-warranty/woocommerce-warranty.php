@@ -3,12 +3,12 @@
  * Plugin Name: WooCommerce Warranty Requests
  * Plugin URI: https://woocommerce.com/products/warranty-requests/
  * Description: Set warranties for your products (free and paid), and allow customers to purchase warranties when buying a product, and to initiate a return request right from their account. Manage RMA numbers, return status, email communications, and track return shipping easily with this extension.
- * Version: 2.2.1
+ * Version: 2.2.4
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text domain: wc_warranty
  * Tested up to: 6.2
- * WC tested up to: 7.8
+ * WC tested up to: 7.9
  * WC requires at least: 3.0
  *
  * Copyright: © 2023 WooCommerce
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WOOCOMMERCE_WARRANTY_VERSION', '2.2.1' ); // WRCS: DEFINED_VERSION.
+define( 'WOOCOMMERCE_WARRANTY_VERSION', '2.2.4' ); // WRCS: DEFINED_VERSION.
 
 // Plugin init hook.
 add_action( 'plugins_loaded', 'wc_warranty_init' );
@@ -517,20 +517,20 @@ class WooCommerce_Warranty {
 			$required_note = ' <span class="required">*</span>';
 		}
 
-		$name  = 'wfb-field[' . $key . ']';
+		$name  = 'wfb-field[' . esc_attr( $key ) . ']';
 		$value = isset( $field['default'] ) ? $field['default'] : '';
 
 		if ( $extra_key ) {
 			$name = 'wfb-field[' . $key . '][' . $extra_key . ']';
 
 			if ( ! empty( $_REQUEST['wfb-field'][ $key ][ $extra_key ] ) ) {
-				$value = $_REQUEST['wfb-field'][ $key ][ $extra_key ];
+				$value = sanitize_text_field( $_REQUEST['wfb-field'][ $key ][ $extra_key ] );
 			}
 		}
 
 		switch ( $type ) {
 			case 'paragraph':
-				echo '<p class="wfb-field-para" id="wfb-field-' . esc_attr( $key . $extra_key ) . '">' . $field['text'] . '</p>';
+				echo '<p class="wfb-field-para" id="wfb-field-' . esc_attr( $key . $extra_key ) . '">' . esc_html( $field['text']  ) . '</p>';
 				break;
 
 			case 'text':
@@ -538,14 +538,14 @@ class WooCommerce_Warranty {
 					for="wfb-field-' . esc_attr( $key . $extra_key ) . '"
 					id="wfb-field-label-' . esc_attr( $key . $extra_key ) . '"
 					>
-					' . $field['label'] . $required_note . '
+					' . esc_html( $field['label'] ) . wp_kses_post( $required_note ) . '
 					</label>';
 				echo '<input
 					type="text"
 					name="' . esc_attr( $name ) . '"
 					id="wfb-field-' . esc_attr( $key . $extra_key ) . '"
 					value="' . esc_attr( $value ) . '"
-					' . $required . '
+					' . esc_attr( $required ) . '
 					class="wfb-field"
 					/>';
 				break;
@@ -555,15 +555,15 @@ class WooCommerce_Warranty {
 					for="wfb-field-' . esc_attr( $key ) . '"
 					id="wfb-field-label-' . esc_attr( $key . $extra_key ) . '"
 					>
-					' . $field['label'] . $required_note . '
+					' . esc_html( $field['label'] ) . wp_kses_post( $required_note ) . '
 					</label>';
 				echo '<textarea
 					name="' . esc_attr( $name ) . '"
 					id="wfb-field-' . esc_attr( $key . $extra_key ) . '"
 					rows="' . esc_attr( $field['rows'] ) . '"
 					cols="' . esc_attr( $field['cols'] ) . '"
-					' . $required . '
-					class="wfb-field">' . $value . '</textarea>';
+					' . esc_attr( $required ) . '
+					class="wfb-field">' . esc_textarea( $value ) . '</textarea>';
 				break;
 
 			case 'select':
@@ -573,18 +573,18 @@ class WooCommerce_Warranty {
 				echo '<label
 					for="wfb-field-' . esc_attr( $key ) . '"
 					id="wfb-field-label-' . esc_attr( $key ) . '">
-					' . $field['label'] . $required_note . '
+					' . esc_html( $field['label'] ) . wp_kses_post( $required_note ) . '
 					</label>';
 				echo '<select
 					name="' . esc_attr( $select_name ) . '"
 					id="wfb-field-' . esc_attr( $key ) . '"
-					' . $multiple . '
-					' . $required . '
+					' . esc_attr( $multiple ) . '
+					' . esc_attr( $required ) . '
 					class="wfb-field"
 					>';
 
 				foreach ( $options as $option ) {
-					echo '<option value="' . esc_attr( $option ) . '">' . $option . '</option>';
+					echo '<option value="' . esc_attr( $option ) . '">' . esc_html( $option ) . '</option>';
 				}
 
 				echo '</select>';
@@ -595,13 +595,13 @@ class WooCommerce_Warranty {
 					for="wfb-field-' . esc_attr( $key . $extra_key ) . '"
 					id="wfb-field-label-' . esc_attr( $key . $extra_key ) . '"
 					>
-					' . $field['label'] . $required_note . '
+					' . esc_html( $field['label'] ) . wp_kses_post( $required_note ) . '
 					</label>';
 				echo '<input
 					type="file"
 					name="' . esc_attr( $name ) . '"
 					id="wfb-field-' . esc_attr( $key . $extra_key ) . '"
-					' . $required . '
+					' . esc_attr( $required ) . '
 					class="wfb-field"
 					/>';
 				break;
@@ -637,7 +637,7 @@ class WooCommerce_Warranty {
 
 		if ( $question ) :
 			?>
-			<p><?php echo $question; ?> <?php
+			<p><?php echo esc_html( $question ); ?> <?php
 				if ( 'yes' === $required ) {
 					echo '<b>(*)</b>';
 				}
@@ -654,7 +654,7 @@ class WooCommerce_Warranty {
 			$required = get_option( 'warranty_require_upload', 'no' );
 			?>
 			<p>
-				<?php echo $title; ?> <?php
+				<?php echo esc_html( $title ); ?> <?php
 				if ( 'yes' === $required ) {
 					echo '<b>(*)</b>';
 				}
@@ -677,6 +677,7 @@ class WooCommerce_Warranty {
 			'fields' => array(),
 			'inputs' => '',
 		);
+
 		$form     = get_option( 'warranty_form', $defaults );
 		$inputs   = array();
 		$errors   = array();
@@ -693,7 +694,13 @@ class WooCommerce_Warranty {
 			$key    = $input->key;
 			$type   = $input->type;
 			$field  = $form['fields'][ $key ];
-			$posted = isset( $_POST['wfb-field'] ) ? $_POST['wfb-field'] : array();
+
+			/**
+			 * We are verifying the nonce in the calling method so do not need to do it again here.
+			 * This method is called by both frontend and admin methods that process different forms with different
+			 * nonces.
+			 */
+			$posted = isset( $_POST['wfb-field'] ) ? wc_clean( wp_unslash( $_POST['wfb-field'] ) ) : array(); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
 			if ( 'paragraph' === $type ) {
 				continue;
@@ -701,6 +708,8 @@ class WooCommerce_Warranty {
 
 			if ( 'file' === $type ) {
 				$required         = isset( $field['required'] ) && 'yes' === $field['required'];
+				// Skipping sanitization here because the field is sanitized below
+				// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				$files            = isset( $_FILES['wfb-field'] ) ? $_FILES['wfb-field'] : false;
 				$is_uploaded_file = is_uploaded_file( $files['tmp_name'][ $key ] );
 

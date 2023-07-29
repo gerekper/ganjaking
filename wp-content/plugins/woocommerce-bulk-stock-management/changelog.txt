@@ -1,5 +1,9 @@
 *** Bulk Stock Management Changelog ***
 
+2023-07-25 - version 2.2.35
+* Fix - Fix display of prices in Stock Report.
+* Tweak - WC 7.9 compatibility.
+
 2023-05-31 - version 2.2.34
 * Include autoloader files in the zip file building process.
 

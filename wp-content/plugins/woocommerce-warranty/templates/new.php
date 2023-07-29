@@ -33,6 +33,7 @@ defined( 'ABSPATH' ) || exit;
 				</select>
 
 				<input type="text" name="search_term" id="search_term" value="" class="short" />
+				<?php wp_nonce_field( 'wc_warranty_new_search' ) ?>
 				<select id="search_users" class="wc-user-search" name="search_term" multiple="multiple" placeholder="<?php esc_attr_e( 'Search for a customer&hellip;', 'wc_warranty' ); ?>" style="width: 400px;"> </select>
 
 				<input type="submit" id="order_search_button" class="button-primary" value="<?php esc_attr_e( 'Search', 'wc_warranty' ); ?>" />
@@ -118,6 +119,7 @@ defined( 'ABSPATH' ) || exit;
 								<?php endforeach; ?>
 							</ul>
 							<input type="hidden" name="page" value="warranties-new" />
+							<?php wp_nonce_field( 'warranty_create_request' ); ?>
 							<input type="hidden" name="order_id" value="<?php echo esc_attr( $this_order->get_id() ); ?>" />
 							<input type="submit" <?php echo ( ! $can_create_request ) ? 'disabled' : ''; ?> class="button" value="<?php esc_attr_e( 'Create Request', 'wc_warranty' ); ?>" />
 						</form>
@@ -132,6 +134,9 @@ defined( 'ABSPATH' ) || exit;
 	<?php
 	if ( isset( $_GET['order_id'], $_GET['idx'] ) ) :
 
+		if ( !check_admin_referer( 'warranty_create_request' ) ) {
+			wp_die( esc_html__( 'You have taken too long. Please go back and retry.', 'wc_warranty' ), esc_html__( 'Error', 'wc_warranty' ), array( 'response' => 403 ) );
+		}
 		if ( isset( $_GET['error'] ) ) {
 			echo '<div class="error"><p>' . esc_html( sanitize_text_field( wp_unslash( $_GET['error'] ) ) ) . '</p></div>';
 		}

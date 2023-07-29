@@ -18,15 +18,15 @@
  *
  * @package   SkyVerge/WooCommerce/Plugin/Classes
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2019, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2023, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace SkyVerge\WooCommerce\PluginFramework\v5_5_0;
+namespace SkyVerge\WooCommerce\PluginFramework\v5_11_5;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_5_0\\SV_WC_Helper' ) ) :
+if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_11_5\\SV_WC_Helper' ) ) :
 
 
 /**
@@ -183,22 +183,23 @@ class SV_WC_Helper {
 
 
 	/**
-	 * Returns a string with all non-ASCII characters removed. This is useful
-	 * for any string functions that expect only ASCII chars and can't
-	 * safely handle UTF-8. Note this only allows ASCII chars in the range
-	 * 33-126 (newlines/carriage returns are stripped)
+	 * Returns a string with all non-ASCII characters removed.
+	 *
+	 * This is useful for any string functions that expect only ASCII chars and can't safely handle UTF-8.
+	 * Note this only allows ASCII chars in the range 33-126 (newlines/carriage returns are stripped).
 	 *
 	 * @since 2.2.0
-	 * @param string $string string to make ASCII
-	 * @return string
+	 *
+	 * @param string|mixed $string string to make ASCII
+	 * @return string|false
 	 */
 	public static function str_to_ascii( $string ) {
 
 		// strip ASCII chars 32 and under
-		$string = filter_var( $string, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW );
+		$string = filter_var( $string, FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW );
 
 		// strip ASCII chars 127 and higher
-		return filter_var( $string, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH );
+		return filter_var( $string, FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_STRIP_HIGH );
 	}
 
 
@@ -231,6 +232,24 @@ class SV_WC_Helper {
 
 		// preg_replace with the /u modifier can return null or false on failure
 		return ( is_null( $sane_string ) || false === $sane_string ) ? $string : $sane_string;
+	}
+
+
+	/**
+	 * Formats a number as a percentage.
+	 *
+	 * @since 5.10.9
+	 *
+	 * @NOTE The second and third parameter below are directly passed to {@see wc_format_decimal()} in case the decimal output or rounding needs to be tweaked.
+	 *
+	 * @param float|int|string $fraction the fraction to format as percentage
+	 * @param int|string|false number of decimal points to use, empty string to use {@see woocommerce_price_num_decimals(), or false to avoid rounding (optional, default).
+	 * @param bool $trim_zeros from end of string (optional, default false)
+	 * @return string fraction formatted as percentage
+	 */
+	public static function format_percentage( $fraction, $decimal_points = false, $trim_zeros = false ) {
+
+		return sprintf( '%s%%', (string) wc_format_decimal( $fraction * 100, $decimal_points, $trim_zeros ) );
 	}
 
 
@@ -480,19 +499,26 @@ class SV_WC_Helper {
 			$product   = $item->get_product();
 			$name      = $item->get_name();
 			$quantity  = $item->get_quantity();
+			$sku       = $product instanceof \WC_Product ? $product->get_sku() : '';
 			$item_desc = [];
 
 			// add SKU to description if available
-			if ( $sku = $product->get_sku() ) {
+			if ( ! empty( $sku ) ) {
 				$item_desc[] = sprintf( 'SKU: %s', $sku );
 			}
 
-			$item_meta = SV_WC_Order_Compatibility::get_item_formatted_meta_data( $item, '_', true );
+			$meta_data = $item->get_formatted_meta_data( '-', true );
+			$item_meta = [];
+
+			foreach ( $meta_data as $meta ) {
+				$item_meta[] = array(
+					'label' => $meta->display_key,
+					'value' => $meta->value,
+				);
+			}
 
 			if ( ! empty( $item_meta ) ) {
-
 				foreach ( $item_meta as $meta ) {
-
 					$item_desc[] = sprintf( '%s: %s', $meta['label'], $meta['value'] );
 				}
 			}
@@ -546,19 +572,21 @@ class SV_WC_Helper {
 
 
 	/**
-	 * Safely gets and trims data from $_POST.
+	 * Determines if a shop has any published virtual products.
 	 *
-	 * @since 3.0.0
-	 * @deprecated 5.5.0
+	 * @since 5.10.0
 	 *
-	 * @param string $key array key to get from $_POST array
-	 * @return string value from $_POST or blank string if $_POST[ $key ] is not set
+	 * @return bool
 	 */
-	public static function get_post( $key ) {
+	public static function shop_has_virtual_products() {
 
-		wc_deprecated_function( __METHOD__, '5.5.0', __CLASS__ . '::get_posted_value()' );
+		$virtual_products = wc_get_products( [
+			'virtual' => true,
+			'status'  => 'publish',
+			'limit'   => 1,
+		] );
 
-		return self::get_posted_value( $key );
+		return sizeof( $virtual_products ) > 0;
 	}
 
 
@@ -582,23 +610,6 @@ class SV_WC_Helper {
 		}
 
 		return $value;
-	}
-
-
-	/**
-	 * Safely gets and trims data from $_REQUEST.
-	 *
-	 * @since 3.0.0
-	 * @deprecated 5.5.0
-	 *
-	 * @param string $key array key to get from $_REQUEST array
-	 * @return string value from $_REQUEST or blank string if $_REQUEST[ $key ] is not set
-	 */
-	public static function get_request( $key ) {
-
-		wc_deprecated_function( __METHOD__, '5.5.0', __CLASS__ . '::get_requested_value()' );
-
-		return self::get_requested_value( $key );
 	}
 
 
@@ -945,23 +956,60 @@ class SV_WC_Helper {
 
 
 	/**
-	 * Convert a 2-character country code into its 3-character equivalent, or
-	 * vice-versa, e.g.
+	 * Determines if viewing an enhanced admin screen.
 	 *
-	 * 1) given USA, returns US
-	 * 2) given US, returns USA
+	 * @since 5.6.0
 	 *
-	 * @since 4.2.0
-	 * @deprecated 5.4.3
-	 *
-	 * @param string $code ISO-3166-alpha-2 or ISO-3166-alpha-3 country code
-	 * @return string country code
+	 * @return bool
 	 */
-	public static function convert_country_code( $code ) {
+	public static function is_enhanced_admin_screen() {
 
-		wc_deprecated_function( __METHOD__, '5.4.3', Country_Helper::class . '::convert_alpha_country_code()' );
+		return is_admin() && SV_WC_Plugin_Compatibility::is_enhanced_admin_available() && ( \Automattic\WooCommerce\Admin\Loader::is_admin_page() || \Automattic\WooCommerce\Admin\Loader::is_embed_page() );
+	}
 
-		return Country_Helper::convert_alpha_country_code( $code );
+
+	/**
+	 * Determines whether the new WooCommerce enhanced navigation is supported and enabled.
+	 *
+	 * @since 5.10.6
+	 *
+	 * @return bool
+	 */
+	public static function is_wc_navigation_enabled() {
+
+		return
+			is_callable( [ \Automattic\WooCommerce\Admin\Features\Navigation\Screen::class, 'register_post_type' ] ) &&
+			is_callable( [ \Automattic\WooCommerce\Admin\Features\Navigation\Menu::class, 'add_plugin_item' ] ) &&
+			is_callable( [ \Automattic\WooCommerce\Admin\Features\Navigation\Menu::class, 'add_plugin_category' ] ) &&
+			is_callable( [ \Automattic\WooCommerce\Admin\Features\Features::class, 'is_enabled' ] ) &&
+			\Automattic\WooCommerce\Admin\Features\Features::is_enabled( 'navigation' );
+	}
+
+
+	/**
+	 * Determines if the current request is for a WC REST API endpoint.
+	 *
+	 * @see \WooCommerce::is_rest_api_request()
+	 *
+	 * @since 5.9.0
+	 *
+	 * @return bool
+	 */
+	public static function is_rest_api_request() {
+
+		if ( is_callable( 'WC' ) && is_callable( [ WC(), 'is_rest_api_request' ] ) ) {
+			return (bool) WC()->is_rest_api_request();
+		}
+
+		if ( empty( $_SERVER['REQUEST_URI'] ) || ! function_exists( 'rest_get_url_prefix' ) ) {
+			return false;
+		}
+
+		$rest_prefix         = trailingslashit( rest_get_url_prefix() );
+		$is_rest_api_request = false !== strpos( $_SERVER['REQUEST_URI'], $rest_prefix );
+
+		/* applies WooCommerce core filter */
+		return (bool) apply_filters( 'woocommerce_is_rest_api_request', $is_rest_api_request );
 	}
 
 
@@ -993,7 +1041,7 @@ class SV_WC_Helper {
 	 */
 	public static function trigger_error( $message, $type = E_USER_NOTICE ) {
 
-		if ( is_callable( 'is_ajax' ) && is_ajax() ) {
+		if ( is_callable( 'wp_doing_ajax' ) && wp_doing_ajax() ) {
 
 			switch ( $type ) {
 
@@ -1015,6 +1063,39 @@ class SV_WC_Helper {
 
 			trigger_error( $message, $type );
 		}
+	}
+
+
+	/**
+	 * Converts an array of strings to a comma separated list of strings, escaped for SQL use.
+	 *
+	 * This can be safely used in SQL IN clauses.
+	 *
+	 * @since 5.10.9
+	 *
+	 * @param string[] $values
+	 * @return string
+	 */
+	public static function get_escaped_string_list( array $values ) {
+		global $wpdb;
+
+		return (string) $wpdb->prepare( implode( ', ', array_fill( 0, count( $values ), '%s' ) ), $values );
+	}
+
+
+	/**
+	 * Converts an array of numerical integers into a comma separated list of IDs.
+	 *
+	 * This can be safely used for SQL IN clauses.
+	 *
+	 * @since 5.10.9
+	 *
+	 * @param int[] $ids
+	 * @return string
+	 */
+	public static function get_escaped_id_list( array $ids ) {
+
+		return implode( ',', array_unique( array_map( 'intval', $ids ) ) );
 	}
 
 

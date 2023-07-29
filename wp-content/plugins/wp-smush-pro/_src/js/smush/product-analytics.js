@@ -45,24 +45,15 @@ class ProductAnalytics {
 				});
 			});
 
-			// Track.
-			modal.addEventListener( 'open', (e) => {
-				modalAction = 'open';
-                location = getLocation( e.target.id );
-				MixPanel.getInstance().track( eventName, {
-					'Location': location,
-					'Modal Action': modalAction,
-				});
-			} );
-
 			modal.addEventListener( 'close', (e) => {
 				setTimeout( () => {
-					if ( 'open' !== modalAction ) {
+					if ( modalAction && 'closed' !== modalAction ) {
 						return;
 					}
+					modalAction = 'closed';
 					MixPanel.getInstance().track( eventName, {
 						'Location': location || getLocation( e.target.id ),
-						'Modal Action': 'closed',
+						'Modal Action': modalAction,
 					});
 				}, 1000);
 			} );

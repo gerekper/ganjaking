@@ -668,7 +668,7 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 		 * @return void
 		 */
 		public function redirect_order_to_rma_form( $order ) {
-			$url = admin_url( 'admin.php?page=warranties-new&search_key=order_id&search_term=' . $order->get_id() );
+			$url = admin_url( 'admin.php?page=warranties-new&search_key=order_id&search_term=' . $order->get_id() . '&_wpnonce=' . wp_create_nonce( 'wc_warranty_new_search' ) );
 			wp_safe_redirect( $url );
 			exit;
 		}
@@ -698,6 +698,10 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 					$orders    = array();
 					$searched  = false;
 					$form_view = false;
+
+					if ( isset( $get_data['search_key'] ) ) {
+						check_admin_referer( 'wc_warranty_new_search' );
+					}
 
 					if ( ! empty( $get_data['search_key'] ) && ! empty( $get_data['search_term'] ) ) {
 						$searched = true;
@@ -866,6 +870,8 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 		public function updater_page() {
 			$get_data = warranty_request_get_data();
 
+			check_admin_referer( 'wc_warranty_updater' );
+
 			if ( ! isset( $get_data['act'] ) || 'migrate_products' !== $get_data['act'] ) {
 				wp_die( 'Unknown action passed. Please go back and try again' );
 			}
@@ -901,6 +907,8 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 		 * @return void|false Redirect and exit on success, return false on failure.
 		 */
 		public function create_warranty() {
+			check_admin_referer( 'warranty_create' );
+
 			$post_data = warranty_request_post_data();
 			$order_id  = isset( $post_data['order_id'] ) ? $post_data['order_id'] : 0;
 			$type      = isset( $post_data['warranty_request_type'] ) ? $post_data['warranty_request_type'] : '';
@@ -1443,7 +1451,7 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 
 			$admin_warranty_url = $this->get_warranty_admin_inline_link( $order->get_id() );
 			?>
-			<a class="button tips inline-rma dashicons-before dashicons-controls-repeat" data-row="post-<?php echo esc_attr( $order->get_id() ); ?>" data-tip="<?php echo wc_sanitize_tooltip( esc_html__( 'Manage Return', 'wc_warranty' ) ); ?>" href="<?php echo esc_url( $admin_warranty_url ); ?>"> </a>
+			<a class="button tips inline-rma dashicons-before dashicons-controls-repeat" data-row="post-<?php echo esc_attr( $order->get_id() ); ?>" data-tip="<?php echo esc_attr__( 'Manage Return', 'wc_warranty' ); ?>" href="<?php echo esc_url( $admin_warranty_url ); ?>"> </a>
 			<?php
 			$this->order_inline_edit_row( $order->get_id() );
 		}
@@ -1584,7 +1592,10 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 									if ( 'refund' === $request['request_type'] && $refunded > 0 ) :
 										?>
 										<div class="field">
-											<span class="label"><?php esc_html_e( 'Refunded:', 'wc_warranty' ); ?></span> <span class="value"><?php echo wc_price( $refunded ); ?></span>
+											<span class="label"><?php esc_html_e( 'Refunded:', 'wc_warranty' ); ?></span> <span class="value"><?php
+												// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+												echo wc_price( $refunded );
+												?></span>
 										</div>
 										<?php
 									endif;
@@ -1915,7 +1926,7 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 				wc_add_order_item_meta( $item_id, '_item_warranty_needs_index', 1 );
 			} elseif ( 'included_warranty' === $warranty['type'] ) {
 				if ( 'lifetime' === $warranty['length'] ) {
-					wc_add_order_item_meta( $item_id, $warranty_label, __( 'Lifetime', 'wc_warranty' ) );
+					wc_add_order_item_meta( $item_id, $warranty_label, esc_html__( 'Lifetime', 'wc_warranty' ) );
 				} elseif ( 'limited' === $warranty['length'] ) {
 					$string = warranty_get_warranty_string( 0, $warranty );
 

@@ -21,28 +21,35 @@ function show_stock_report_row( $post, $product, $nested = false ) {
 				$post_title = '';
 			}
 
-			// Get variation data
-	        if ( $product->is_type( 'variation' ) ) {
-	        	$post_title .= ' &mdash; <small><em>';
+			// Get variation data.
+			if ( $product->is_type( 'variation' ) ) {
+				$post_title .= ' &mdash; <small><em>';
 
-	        	$list_attributes = array();
-	        	$attributes = $product->get_variation_attributes();
+				$list_attributes = array();
+				$attributes = $product->get_variation_attributes();
 
-	        	foreach ( $attributes as $name => $attribute ) {
-        			$list_attributes[] = esc_html_e( wc_attribute_label( str_replace( 'attribute_', '', $name ) ) ) . ': <strong>' . esc_html_e( $attribute ) . '</strong>';
-	        	}
+				foreach ( $attributes as $name => $attribute ) {
+					$list_attributes[] = esc_html( wc_attribute_label( str_replace( 'attribute_', '', $name ) ) ) . ': <strong>' . esc_html( $attribute ) . '</strong>';
+				}
 
-	        	$post_title .= implode( ', ', $list_attributes );
+				$post_title .= implode( ', ', $list_attributes );
+				$post_title .= '</em></small>';
+			}
 
-	        	$post_title .= '</em></small>';
-	        }
-
-	        echo esc_html( $post_title );
-
-		?></td>
+			echo wp_kses(
+				$post_title,
+				array(
+					'em'     => array(),
+					'i'      => array(),
+					'small'  => array(),
+					'strong' => array(),
+				)
+			);
+			?>
+		</td>
 		<td><?php echo esc_html( $post->ID ); ?></td>
 		<td><?php echo 'product' === $post->post_type ? 'Product' : 'Variation'; ?></td>
-		<td><?php echo esc_html( wc_price( $product->get_price() ) ); ?></td>
+		<td><?php echo wc_price( $product->get_price() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
 		<td><?php echo esc_html( wc_stock_amount( $product->get_stock_quantity() ) ); ?></td>
 	</tr>
 	<?php
@@ -87,8 +94,8 @@ function show_stock_report_row( $post, $product, $nested = false ) {
 				$meta_query = array();
 
 				$meta_query[] = array(
-					'key'	=> '_manage_stock',
-					'value'	=> 'yes',
+					'key'   => '_manage_stock',
+					'value' => 'yes',
 				);
 
 				if ( wc_product_sku_enabled() ) {
@@ -132,8 +139,7 @@ function show_stock_report_row( $post, $product, $nested = false ) {
 				) );
 
 				foreach ( $product_ids as $post_id ) {
-
-				    $product = wc_get_product( $post_id );
+					$product = wc_get_product( $post_id );
 
 					// In order to keep backwards compatibility it's required to use the parent data for variations.
 					if ( $product->is_type( 'variation' ) ) {
@@ -163,7 +169,7 @@ function show_stock_report_row( $post, $product, $nested = false ) {
 
 					show_stock_report_row( $variation_post, $variation );
 				}
-			?>
+				?>
 			</tbody>
 		</table>
 	</body>

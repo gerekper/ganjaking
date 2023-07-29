@@ -741,7 +741,7 @@ class Warranty_Settings {
 
 		} elseif ( $tip ) {
 
-			$tip = '<span class="woocommerce-help-tip" data-tip="' . wc_sanitize_tooltip( $tip ) . '" src="' . $woocommerce->plugin_url() . '/assets/images/help.png" height="16" width="16"/>';
+			$tip = '<span class="woocommerce-help-tip" data-tip="' . esc_attr( $tip ) . '" src="' . $woocommerce->plugin_url() . '/assets/images/help.png" height="16" width="16"/>';
 
 		}
 		$option_value = woocommerce_settings_get_option( $value['id'], $value['default'] );
@@ -1032,6 +1032,8 @@ class Warranty_Settings {
 
 	public static function get_warranty_permissions_from_post() {
 		$statuses    = warranty_get_statuses();
+    // Skipping nonce verification because it's already done when WC calls do_action( 'woocommerce_update_option' )
+    // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$users       = isset( $_POST['permission'] ) ? wc_clean( wp_unslash( $_POST['permission'] ) ) : array();
 		$permissions = array();
 

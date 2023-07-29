@@ -162,6 +162,8 @@ class WC_Stamps_Balance {
 			$url = WC_Stamps_API::get_url( sanitize_text_field( $_GET['stamps_redirect'] ) );
 
 			if ( $url ) {
+				// Redirect to Stamps.com
+				// phpcs:disable WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
 				wp_redirect( $url );
 				exit;
 			}
@@ -435,26 +437,26 @@ class WC_Stamps_Balance {
 			// top-ups are already scheduled).
 			self::schedule_top_up( absint( $_POST['stamps_topup_amount'] ), $this->get_current_control_total(), true );
 
-			echo '<div class="updated"><p>' . __( 'Top-up request sent. Your balance should appear shortly if successful.', 'woocommerce-shipping-stamps' ) . '</p></div>';
+			echo '<div class="updated"><p>' . esc_html__( 'Top-up request sent. Your balance should appear shortly if successful.', 'woocommerce-shipping-stamps' ) . '</p></div>';
 		}
 		?>
 		<div class="wrap">
-			<h2><?php _e( 'Add Stamps.com Balance', 'woocommerce-shipping-stamps' ); ?></h2>
-			<p><?php _e( 'Enter the amount of postage (in dollars) you wish to purchase. It can take a few minutes for this postage to show up in your account.', 'woocommerce-shipping-stamps' ); ?></p>
+			<h2><?php esc_html_e( 'Add Stamps.com Balance', 'woocommerce-shipping-stamps' ); ?></h2>
+			<p><?php esc_html_e( 'Enter the amount of postage (in dollars) you wish to purchase. It can take a few minutes for this postage to show up in your account.', 'woocommerce-shipping-stamps' ); ?></p>
 
 			<form method="POST">
 				<table class="form-table">
 					<tr>
-						<th><label for="stamps_topup_amount"><?php _e( 'Amount', 'woocommerce-shipping-stamps' ); ?></label></th>
+						<th><label for="stamps_topup_amount"><?php esc_html_e( 'Amount', 'woocommerce-shipping-stamps' ); ?></label></th>
 						<td>
-							<input name="stamps_topup_amount" id="stamps_topup_amount" type="number" pattern="\d*" placeholder="<?php echo wc_format_localized_price( 0 ); ?>" min="10" value="10" />
-							<p class="description"><?php _e( 'How much balance you wish to purchase in whole dollars e.g. <code>100</code>.', 'woocommerce-shipping-stamps' ); ?></p>
+							<input name="stamps_topup_amount" id="stamps_topup_amount" type="number" pattern="\d*" placeholder="<?php echo esc_attr(wc_format_localized_price( 0 )); ?>" min="10" value="10" />
+							<p class="description"><?php esc_html_e( 'How much balance you wish to purchase in whole dollars e.g. <code>100</code>.', 'woocommerce-shipping-stamps' ); ?></p>
 						</td>
 					</tr>
 				</table>
 				<p class="submit">
 					<?php wp_nonce_field( 'woocommerce-stamps-topup' ); ?>
-					<button type="submit" class="button button-primary"><?php _e( 'Purchase postage', 'woocommerce-shipping-stamps' ); ?></button>
+					<button type="submit" class="button button-primary"><?php esc_html_e( 'Purchase postage', 'woocommerce-shipping-stamps' ); ?></button>
 				</p>
 			</form>
 		</div>

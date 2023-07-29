@@ -21,12 +21,13 @@
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
+use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
 use SkyVerge\WooCommerce\CSV_Export\Export_Formats\CSV\Coupons_Export_Format_Definition;
 use SkyVerge\WooCommerce\CSV_Export\Export_Formats\CSV\Customers_Export_Format_Definition;
 use SkyVerge\WooCommerce\CSV_Export\Export_Formats\CSV\Orders_Export_Format_Definition;
 use SkyVerge\WooCommerce\CSV_Export\Export_Formats;
 use SkyVerge\WooCommerce\CSV_Export\Taxonomies_Handler;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_6 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -473,6 +474,7 @@ class WC_Customer_Order_CSV_Export_Lifecycle extends Framework\Plugin\Lifecycle 
 		$plugin->get_formats_instance()->save_custom_format( WC_Customer_Order_CSV_Export::EXPORT_TYPE_COUPONS, $custom_coupons_format );
 	}
 
+
 	/**
 	 * Updates to v4.8.0
 	 *
@@ -636,15 +638,23 @@ class WC_Customer_Order_CSV_Export_Lifecycle extends Framework\Plugin\Lifecycle 
 	 *
 	 * @param string $key_prefix meta key prefix
 	 */
-	private function migrate_metadata( $key_prefix ) {
+	private function migrate_metadata( string $key_prefix ): void {
 		global $wpdb;
 
+		if ( Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ) {
+			$order_meta_table = OrdersTableDataStore::get_meta_table_name();
+			$order_id_column  = 'order_id';
+		} else {
+			$order_meta_table = $wpdb->postmeta;
+			$order_id_column  = 'post_id';
+		}
+
 		// migrate exported orders meta
-		$this->migrate_exported_status_metadata( $wpdb->postmeta, "{$key_prefix}_is_exported", Taxonomies_Handler::TAXONOMY_NAME_ORDERS );
+		$this->migrate_exported_status_metadata( $order_meta_table, $order_id_column, "{$key_prefix}_is_exported", Taxonomies_Handler::TAXONOMY_NAME_ORDERS );
 		// migrate exported guest customers meta
-		$this->migrate_exported_status_metadata( $wpdb->postmeta, "{$key_prefix}_customer_is_exported", Taxonomies_Handler::TAXONOMY_NAME_GUEST_CUSTOMER );
+		$this->migrate_exported_status_metadata( $order_meta_table, $order_id_column, "{$key_prefix}_customer_is_exported", Taxonomies_Handler::TAXONOMY_NAME_GUEST_CUSTOMER );
 		// migrate exported users meta
-		$this->migrate_exported_status_metadata( $wpdb->usermeta, "{$key_prefix}_is_exported", Taxonomies_Handler::TAXONOMY_NAME_USER_CUSTOMER );
+		$this->migrate_exported_status_metadata( $wpdb->usermeta, 'user_id', "{$key_prefix}_is_exported", Taxonomies_Handler::TAXONOMY_NAME_USER_CUSTOMER );
 	}
 
 
@@ -654,13 +664,12 @@ class WC_Customer_Order_CSV_Export_Lifecycle extends Framework\Plugin\Lifecycle 
 	 * @since 5.0.0
 	 *
 	 * @param string $meta_table metadata table to search
+	 * @param string $id_key metadata table object ID column name
 	 * @param string $meta_key metadata key to look for
 	 * @param string $taxonomy export status taxonomy to add term
 	 */
-	private function migrate_exported_status_metadata( $meta_table, $meta_key, $taxonomy ) {
+	private function migrate_exported_status_metadata( string $meta_table, string $id_key, string $meta_key, string $taxonomy ): void {
 		global $wpdb;
-
-		$id_key = $meta_table === $wpdb->postmeta ? 'post_id' : 'user_id';
 
 		// get the exported object (order/user) IDs
 		$object_ids = $wpdb->get_col(
@@ -770,9 +779,9 @@ class WC_Customer_Order_CSV_Export_Lifecycle extends Framework\Plugin\Lifecycle 
 			];
 
 			// handle the FTP automation settings
-			$ftp_server       = get_option( "{$option_prefix}_{$export_type}_ftp_server", '' );
-			$ftp_username     = get_option( "{$option_prefix}_{$export_type}_ftp_username", '' );
-			$ftp_password     = get_option( "{$option_prefix}_{$export_type}_ftp_password", '' );
+			$ftp_server   = get_option( "{$option_prefix}_{$export_type}_ftp_server", '' );
+			$ftp_username = get_option( "{$option_prefix}_{$export_type}_ftp_username", '' );
+			$ftp_password = get_option( "{$option_prefix}_{$export_type}_ftp_password", '' );
 
 			// if the FTP method is minimally configured, add it as an automation
 			if ( $ftp_server && $ftp_username && $ftp_password ) {
@@ -919,7 +928,7 @@ class WC_Customer_Order_CSV_Export_Lifecycle extends Framework\Plugin\Lifecycle 
 			$value = [];
 		}
 
-		return array_filter( array_map( 'absint', $value  ) );
+		return array_filter( array_map( 'absint', $value ) );
 	}
 
 

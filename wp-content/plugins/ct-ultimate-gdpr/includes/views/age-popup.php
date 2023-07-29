@@ -92,7 +92,7 @@ if (isset($box_css)) :
         $right_cog              = $ct_gdpr_get_icon_array['right_cog'];
         $left_cog               = $ct_gdpr_get_icon_array['left_cog'];
         $accept_btn_content     = ct_gdpr_get_accept_content($btn_settings, $skin_name, $check, $accept_label);
-        $read_more_10_set       = ct_gdpr_get_10_set_read_more_content($skin_name, $options, $arrow);
+        $read_more_10_set       = ct_gdpr_get_10_set_read_more_content($options, $arrow, $skin_name);
     endif;
 endif;
 

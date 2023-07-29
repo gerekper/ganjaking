@@ -10,7 +10,7 @@ abstract class Controller {
 	public function init() {
 		foreach ( $this->actions as $action_hook => $actions ) {
 			foreach ( $actions as $action_args ) {
-				add_action( $action_hook, $action_args['callback'], $action_args['priority'], $action_args['accepted_args'] );
+				add_action( $action_hook, $action_args['callback'], $action_args['priority'], $action_args['accepted_args'] );			   	   			 	 	 	 	
 			}
 		}
 

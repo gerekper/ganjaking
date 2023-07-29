@@ -132,8 +132,8 @@ class WAPL_Post_Type {
 	 * @since 1.0.0
 	 */
 	public function post_type_meta_box() {
-		add_meta_box( 'wapl_conditions', 'Global Label conditions', array( $this, 'render_conditions' ), 'wapl', 'normal' );
-		add_meta_box( 'wapl_settings', 'Global Label settings', array( $this, 'render_settings' ), 'wapl', 'normal' );
+		add_meta_box( 'wapl_conditions', __( 'Global Label conditions', 'woocommerce-advanced-product-labels' ), array( $this, 'render_conditions' ), 'wapl', 'normal' );
+		add_meta_box( 'wapl_settings', __( 'Global Label settings', 'woocommerce-advanced-product-labels' ), array( $this, 'render_settings' ), 'wapl', 'normal' );
 	}
 
 
@@ -232,6 +232,9 @@ class WAPL_Post_Type {
 		if ( isset( $_POST['product_id'] ) ) {
 			update_option( 'wapl_preview_product_id', absint( $_POST['product_id'] ), false );
 		}
+
+		// Clear cache
+		wp_cache_delete( 'global_labels', 'woocommerce-advanced-product-labels' );
 	}
 
 

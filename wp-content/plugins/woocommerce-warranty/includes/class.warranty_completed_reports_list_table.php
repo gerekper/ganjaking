@@ -205,9 +205,9 @@ table.woocommerce_page_warranty_requests #status { width: 200px; }
 .wc-updated {width: 95%; margin: 5px 0 15px; background-color: #ffffe0; border-color: #e6db55; padding: 0 .6em; -webkit-border-radius: 3px; border-radius: 3px; border-width: 1px; border-style: solid;}
 .wc-updated p {margin: .5em 0 !important; padding: 2px;}
 </style>';
-
-if ( isset( $_GET['updated'] ) ) {
-	echo '<div class="updated"><p>' . esc_html( $_GET['updated'] ) . '</p></div>';
+$updated = isset( $_GET['updated'] ) ? sanitize_text_field( $_GET['updated'] ) : false;
+if ( $updated ) {
+	echo '<div class="updated"><p>' . esc_html( $updated ) . '</p></div>';
 }
 
 $completed_table = new Warranty_Completed_Reports_List_Table();
@@ -216,7 +216,7 @@ $completed_table->prepare_items();
 
 	<form action="<?php echo esc_url( admin_url( 'admin.php' ) ); ?>" method="get" style="margin-top: 20px;">
 		<input type="hidden" name="page" value="warranties-reports" />
-		<input type="hidden" name="status" value="<?php echo esc_attr( $_GET['status'] ); ?>" />
+		<input type="hidden" name="status" value="<?php echo esc_attr( sanitize_text_field( $_GET['status'] ) ); ?>" />
 
 		<p class="search-box">
 			<label class="screen-reader-text" for="search"><?php esc_html_e( 'Search', 'wc_warranty' ); ?>:</label>

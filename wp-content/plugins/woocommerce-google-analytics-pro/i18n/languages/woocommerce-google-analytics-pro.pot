@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Google Analytics Pro 2.0.9\n"
+"Project-Id-Version: WooCommerce Google Analytics Pro 2.0.10\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2023-07-17 09:56:05+00:00\n"
+"POT-Creation-Date: 2023-07-25 07:16:39+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -241,14 +241,23 @@ msgid "Tracking Options"
 msgstr ""
 
 #: src/Integration.php:519
+msgid "Track User ID"
+msgstr ""
+
+#: src/Integration.php:524
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+msgid "Enable User ID tracking. %1$sRead more about the User ID feature%2$s."
+msgstr ""
+
+#: src/Integration.php:528
 msgid "Use Advertising Features"
 msgstr ""
 
-#: src/Integration.php:519 src/Integration.php:529 src/Integration.php:538
+#: src/Integration.php:528 src/Integration.php:538 src/Integration.php:547
 msgid "(UA only)"
 msgstr ""
 
-#: src/Integration.php:525
+#: src/Integration.php:534
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid ""
 "Set the Google Analytics code to support Demographics and Interests Reports "
@@ -256,35 +265,26 @@ msgid ""
 "Features%2$s."
 msgstr ""
 
-#: src/Integration.php:529
+#: src/Integration.php:538
 msgid "Use Enhanced Link Attribution"
 msgstr ""
 
-#: src/Integration.php:534
+#: src/Integration.php:543
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid ""
 "Set the Google Analytics code to support Enhanced Link Attribution. "
 "%1$sRead more about Enhanced Link Attribution%2$s."
 msgstr ""
 
-#: src/Integration.php:538
+#: src/Integration.php:547
 msgid "Anonymize IP addresses"
-msgstr ""
-
-#: src/Integration.php:544
-#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
-msgid ""
-"Enabling this option is mandatory in certain countries due to national "
-"privacy laws. %1$sRead more about IP Anonymization%2$s."
-msgstr ""
-
-#: src/Integration.php:548
-msgid "Track User ID"
 msgstr ""
 
 #: src/Integration.php:553
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
-msgid "Enable User ID tracking. %1$sRead more about the User ID feature%2$s."
+msgid ""
+"Enabling this option is mandatory in certain countries due to national "
+"privacy laws. %1$sRead more about IP Anonymization%2$s."
 msgstr ""
 
 #: src/Integration.php:557
@@ -338,11 +338,26 @@ msgstr ""
 msgid "Archive Pages"
 msgstr ""
 
-#: src/Integration.php:603
+#: src/Integration.php:588
+msgid "Revenue tracking"
+msgstr ""
+
+#: src/Integration.php:589
+msgid "Include tax & shipping in cart/order value"
+msgstr ""
+
+#: src/Integration.php:592
+msgid ""
+"Enable to include tax & shipping fees when tracking cart and order revenue. "
+"This setting does not affect product revenue tracking, which always "
+"excludes these fees."
+msgstr ""
+
+#: src/Integration.php:611
 msgid "Recommended Events"
 msgstr ""
 
-#: src/Integration.php:606
+#: src/Integration.php:614
 msgid ""
 "These events are %1$srecommended by Google%2$s to help you measure features "
 "and behavior as well as generate more useful reports. %3$sCustomizing these "
@@ -350,66 +365,66 @@ msgid ""
 "Google Analytics. Leave a field blank to disable tracking for the event."
 msgstr ""
 
-#: src/Integration.php:622
+#: src/Integration.php:630
 msgid "Custom Events"
 msgstr ""
 
-#: src/Integration.php:623
+#: src/Integration.php:631
 msgid ""
 "Customize the event names you wish to track in Google Analytics. Leave a "
 "field blank to disable tracking for the event."
 msgstr ""
 
-#: src/Integration.php:633
+#: src/Integration.php:641
 msgid "Universal Analytics Events"
 msgstr ""
 
-#: src/Integration.php:634
+#: src/Integration.php:642
 msgid ""
 "Customize the event names you wish to track in Google Universal Analytics. "
 "Leave a field blank to disable tracking for the event."
 msgstr ""
 
-#: src/Integration.php:722
+#: src/Integration.php:730
 msgid "Checkout Funnel (UA-only)"
 msgstr ""
 
-#: src/Integration.php:724
+#: src/Integration.php:732
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid ""
 "Configure your Analytics account to match the checkout funnel steps below "
 "to take advantage of %1$sCheckout Behavior Analysis%2$s."
 msgstr ""
 
-#: src/Integration.php:729
+#: src/Integration.php:737
 msgid "Funnel Steps"
 msgstr ""
 
-#: src/Integration.php:812
+#: src/Integration.php:820
 msgid "Step"
 msgstr ""
 
-#: src/Integration.php:813
+#: src/Integration.php:821
 msgid "Event"
 msgstr ""
 
-#: src/Integration.php:814
+#: src/Integration.php:822
 msgid "Name"
 msgstr ""
 
-#: src/Integration.php:815
+#: src/Integration.php:823
 msgid "Enabled"
 msgstr ""
 
-#: src/Integration.php:868
+#: src/Integration.php:876
 msgid "Yes"
 msgstr ""
 
-#: src/Integration.php:869
+#: src/Integration.php:877
 msgid "Currently disabled, because the event name is not set."
 msgstr ""
 
-#: src/Integration.php:1154
+#: src/Integration.php:1162
 #. translators: Placeholder: %1$s - plugin name, in bold; %2$s - error message
 msgid ""
 "%1$s: Something went wrong when trying to set up API access for the "

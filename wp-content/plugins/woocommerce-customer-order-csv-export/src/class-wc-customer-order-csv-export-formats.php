@@ -23,8 +23,9 @@
 
 defined( 'ABSPATH' ) or exit;
 
+use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
 use SkyVerge\WooCommerce\CSV_Export\Export_Formats;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_6 as Framework;
 
 /**
  * Customer/Order CSV Export Formats
@@ -358,16 +359,29 @@ class WC_Customer_Order_CSV_Export_Formats {
 	 * @param string $post_type Optional. Defaults to `shop_order`
 	 * @return array
 	 */
-	public function get_post_meta_keys( $post_type = 'shop_order' ) {
+	public function get_post_meta_keys( string $post_type = 'shop_order' ): array {
 
 		global $wpdb;
 
-		$meta = $wpdb->get_col( $wpdb->prepare( "
-			SELECT DISTINCT pm.meta_key
-			FROM {$wpdb->postmeta} AS pm
-			LEFT JOIN {$wpdb->posts} AS p ON p.ID = pm.post_id
-			WHERE p.post_type = %s
-		", $post_type ) );
+		if ( 'shop_order' === $post_type && Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled()) {
+
+			$orders_table = OrdersTableDataStore::get_orders_table_name();
+			$meta_table   = OrdersTableDataStore::get_meta_table_name();
+
+			$meta = $wpdb->get_col( "
+				SELECT DISTINCT om.meta_key
+				FROM {$meta_table} AS om
+				LEFT JOIN {$orders_table} AS o ON o.id = om.order_id
+			" );
+		} else {
+
+			$meta = $wpdb->get_col( $wpdb->prepare( "
+				SELECT DISTINCT pm.meta_key
+				FROM {$wpdb->postmeta} AS pm
+				LEFT JOIN {$wpdb->posts} AS p ON p.ID = pm.post_id
+				WHERE p.post_type = %s
+			", $post_type ) );
+		}
 
 		sort( $meta );
 

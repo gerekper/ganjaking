@@ -36,35 +36,6 @@ abstract class WC_Newsletter_Subscription_Settings_API extends WC_Settings_API {
 	public $save_individually = true;
 
 	/**
-	 * Constructor.
-	 *
-	 * @since 2.8.0
-	 */
-	public function __construct() {}
-
-	/**
-	 * Auto-load in-accessible properties on demand.
-	 *
-	 * Keeps backward compatibility with some deprecated properties of this class.
-	 *
-	 * @since 3.0.0
-	 *
-	 * @param mixed $key The property name.
-	 * @return mixed The property value.
-	 */
-	public function __get( $key ) {
-		if ( in_array( $key, array( 'form_title', 'form_description' ), true ) ) {
-			wc_deprecated_argument(
-				"WC_Newsletter_Subscription_Settings_API->{$key}",
-				'3.0.0',
-				"This property is deprecated and will be removed in future releases. Use WC_Newsletter_Subscription_Settings_API->get_{$key}() instead."
-			);
-
-			return call_user_func( array( $this, "get_{$key}" ) );
-		}
-	}
-
-	/**
 	 * Gets the name of the option in the WP DB.
 	 *
 	 * @since 2.8.0
@@ -299,20 +270,6 @@ abstract class WC_Newsletter_Subscription_Settings_API extends WC_Settings_API {
 	}
 
 	/**
-	 * Validates the settings.
-	 *
-	 * The non-returned settings won't be updated.
-	 *
-	 * @since 3.0.0
-	 *
-	 * @param array $settings The settings to validate.
-	 * @return array
-	 */
-	public function validate_fields( $settings ) {
-		return $settings;
-	}
-
-	/**
 	 * Add an error message for display in admin on save.
 	 *
 	 * @since 2.8.0
@@ -324,6 +281,20 @@ abstract class WC_Newsletter_Subscription_Settings_API extends WC_Settings_API {
 
 		// Prevent displaying the success notice.
 		WC_Admin_Settings::add_error( $error );
+	}
+
+	/**
+	 * Validates the settings.
+	 *
+	 * The non-returned settings won't be updated.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $settings The settings to validate.
+	 * @return array
+	 */
+	public function validate_fields( $settings ) {
+		return $settings;
 	}
 
 	/**
@@ -485,8 +456,8 @@ abstract class WC_Newsletter_Subscription_Settings_API extends WC_Settings_API {
 
 		$data = wp_parse_args( $data, $defaults );
 
-		$field_key = $this->get_field_key( $key );
-		$value     = $this->get_option( $field_key );
+		$field_key   = $this->get_field_key( $key );
+		$field_value = $this->get_option( $field_key );
 
 		ob_start();
 
@@ -494,19 +465,18 @@ abstract class WC_Newsletter_Subscription_Settings_API extends WC_Settings_API {
 
 		echo '<ul>';
 
-		foreach ( $data['options'] as $key => $label ) :
-			$input = sprintf(
-				'<input type="radio" id="%1$s" name="%1$s" value="%2$s" class="%3$s" style="%4$s"%5$s%6$s /> %7$s',
+		foreach ( $data['options'] as $value => $label ) :
+			echo '<li><label>';
+			printf(
+				'<input type="radio" id="%1$s" name="%1$s" value="%2$s" class="%3$s" style="%4$s"%5$s%6$s /> ',
 				esc_attr( $field_key ),
 				esc_attr( $key ),
 				esc_attr( $data['class'] ),
 				esc_attr( $data['css'] ),
-				checked( $key, $value, false ),
-				wp_kses_post( $this->get_custom_attribute_html( $data ) ),
-				esc_html( $label )
+				checked( $value, $field_value, false ),
+				wp_kses_post( $this->get_custom_attribute_html( $data ) )
 			);
-
-			echo '<li><label>' . $input . '</label></li>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo wp_kses_post( $label ) . '</label></li>';
 		endforeach;
 
 		echo '</ul>';
@@ -534,22 +504,16 @@ abstract class WC_Newsletter_Subscription_Settings_API extends WC_Settings_API {
 			)
 		);
 
-		$field_key    = $this->get_field_key( $key );
-		$tip_in_label = version_compare( WC()->version, '3.4', '>=' );
-		$tip_html     = $this->get_tooltip_html( $data );
+		$field_key = $this->get_field_key( $key );
 		?>
 		<tr valign="top">
 			<th scope="row" class="titledesc">
 				<?php
-				if ( ! $tip_in_label ) :
-					echo $tip_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				endif;
-
 				printf(
-					'<label for="%1$s">%2$s%3$s</label>',
+					'<label for="%1$s">%2$s %3$s</label>',
 					esc_attr( $field_key ),
 					wp_kses_post( $data['title'] ),
-					( $tip_in_label ? " {$tip_html}" : '' ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					wp_kses_post( $this->get_tooltip_html( $data ) )
 				);
 				?>
 			</th>

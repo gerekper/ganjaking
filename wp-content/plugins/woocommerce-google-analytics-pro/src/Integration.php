@@ -514,8 +514,17 @@ class Integration extends \WC_Integration {
 				'description' => __( 'Check to enable tracking when logged in as Administrator or Shop Manager.', 'woocommerce-google-analytics-pro' ),
 			],
 
-			'enable_displayfeatures' => [
+			'track_user_id' => [
 				'title'         => __( 'Tracking Options', 'woocommerce-google-analytics-pro' ),
+				'label'         => __( 'Track User ID', 'woocommerce-google-analytics-pro' ),
+				'type'          => 'checkbox',
+				'default'       => 'no',
+				'checkboxgroup' => '',
+				/* translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag */
+				'description'   => sprintf( __( 'Enable User ID tracking. %1$sRead more about the User ID feature%2$s.', 'woocommerce-google-analytics-pro' ), '<a href="https://support.google.com/analytics/answer/3123662" target="_blank">', '</a>' ),
+			],
+
+			'enable_displayfeatures' => [
 				'label'         => __( 'Use Advertising Features', 'woocommerce-google-analytics-pro' ) . ' ' . __( '(UA only)', 'woocommerce-google-analytics-pro' ),
 				'type'          => 'checkbox',
 				'class'         => 'universal-analytics-option',
@@ -542,15 +551,6 @@ class Integration extends \WC_Integration {
 				'checkboxgroup' => '',
 				/* translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag */
 				'description'   => sprintf( __( 'Enabling this option is mandatory in certain countries due to national privacy laws. %1$sRead more about IP Anonymization%2$s.', 'woocommerce-google-analytics-pro' ), '<a href="https://support.google.com/analytics/answer/2763052" target="_blank">', '</a>' ),
-			],
-
-			'track_user_id' => [
-				'label'         => __( 'Track User ID', 'woocommerce-google-analytics-pro' ),
-				'type'          => 'checkbox',
-				'default'       => 'no',
-				'checkboxgroup' => '',
-				/* translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag */
-				'description'   => sprintf( __( 'Enable User ID tracking. %1$sRead more about the User ID feature%2$s.', 'woocommerce-google-analytics-pro' ), '<a href="https://support.google.com/analytics/answer/3123662" target="_blank">', '</a>' ),
 			],
 
 			'enable_google_optimize' => [
@@ -583,6 +583,14 @@ class Integration extends \WC_Integration {
 				],
 				'default'     => [ 'single_product_pages', 'archive_pages' ],
 			],
+
+			'include_tax_and_shipping_in_revenue' => [
+				'title'    => __( 'Revenue tracking', 'woocommerce-google-analytics-pro' ),
+				'label'    => __( 'Include tax & shipping in cart/order value', 'woocommerce-google-analytics-pro' ),
+				'default'  => 'no',
+				'type'     => 'checkbox',
+				'description' => __( 'Enable to include tax & shipping fees when tracking cart and order revenue. This setting does not affect product revenue tracking, which always excludes these fees.', 'woocommerce-google-analytics-pro' ),
+			]
 		] );
 	}
 

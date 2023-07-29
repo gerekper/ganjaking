@@ -27,7 +27,7 @@ final class WC_Store_Credit {
 	 *
 	 * @var string
 	 */
-	public $version = '4.3.1';
+	public $version = '4.3.2';
 
 	/**
 	 * Constructor.

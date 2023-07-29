@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Smush Pro 3.14.0\n"
+"Project-Id-Version: Smush Pro 3.14.1\n"
 "Report-Msgid-Bugs-To: https://wpmudev.com\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-07-17T15:00:15+00:00\n"
+"POT-Creation-Date: 2023-07-24T11:06:51+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: wp-smushit\n"
@@ -275,7 +275,7 @@ msgstr ""
 #: core/integrations/nextgen/class-admin.php:275
 #: core/media-library/class-media-library-row.php:513
 #: core/modules/bulk/class-mail.php:65
-#: wp-smush.php:458
+#: wp-smush.php:457
 msgid "Smush"
 msgstr ""
 
@@ -1117,9 +1117,7 @@ msgid "Experience up to 5x better compression than Super Smush. Optimize your im
 msgstr ""
 
 #: app/modals/ultra-compression.php:66
-#: app/views/dashboard/cdn/meta-box.php:25
-#: app/views/dashboard/webp/meta-box.php:25
-msgid "Upgrade to Pro"
+msgid "Find out more"
 msgstr ""
 
 #: app/modals/ultra-compression.php:72
@@ -1696,6 +1694,11 @@ msgstr ""
 
 #: app/views/dashboard/bulk/media-lib-empty.php:5
 msgid "We haven’t found any images in your media library yet so there’s no compression to be done!"
+msgstr ""
+
+#: app/views/dashboard/cdn/meta-box.php:25
+#: app/views/dashboard/webp/meta-box.php:25
+msgid "Upgrade to Pro"
 msgstr ""
 
 #: app/views/dashboard/cdn/meta-box.php:30
@@ -3854,7 +3857,7 @@ msgstr ""
 msgid "Smush was successful but we were unable to save the file due to a file system error: [%s]."
 msgstr ""
 
-#: wp-smush.php:437
+#: wp-smush.php:436
 msgid "Get Fast!"
 msgstr ""
 

@@ -28,37 +28,6 @@ class WC_Widget_Subscribe_To_Newsletter extends WC_Widget {
 	}
 
 	/**
-	 * Auto-load in-accessible properties on demand.
-	 *
-	 * Keeps backward compatibility with some deprecated properties of this class.
-	 *
-	 * @since 2.5.0
-	 *
-	 * @param mixed $key The property name.
-	 * @return mixed The property value.
-	 */
-	public function __get( $key ) {
-		$renamed_props = array(
-			'woo_widget_idbase'      => 'widget_id',
-			'woo_widget_name'        => 'widget_name',
-			'woo_widget_description' => 'widget_description',
-			'woo_widget_cssclass'    => 'widget_cssclass',
-		);
-
-		if ( isset( $renamed_props[ $key ] ) ) {
-			$replacement = $renamed_props[ $key ];
-
-			wc_deprecated_argument(
-				"WC_Widget_Subscribe_To_Newsletter->{$key}",
-				'2.5.0',
-				"This property is deprecated and will be removed in future releases. Use WC_Widget_Subscribe_To_Newsletter->{$replacement} instead."
-			);
-
-			return $this->{$replacement};
-		}
-	}
-
-	/**
 	 * Initializes the widget settings.
 	 *
 	 * @since 2.8.0

@@ -680,7 +680,8 @@ class CT_Ultimate_GDPR_Controller_Wizard extends CT_Ultimate_GDPR_Controller_Abs
             'WP User Data',
             'YITH Woocommerce Wishlist',
             'Youtube',
-            'Akismet Anti-Spam'
+            'Akismet Anti-Spam',
+            'Metform',
         );
 
         $args['services_addthis_block_cookies'] = $this->render_checkbox('ct-ultimate-gdpr-services', 'services_addthis_block_cookies');
@@ -722,6 +723,7 @@ class CT_Ultimate_GDPR_Controller_Wizard extends CT_Ultimate_GDPR_Controller_Abs
         $args['services_wp_comments_lost_password_consent_field'] = $this->render_checkbox('ct-ultimate-gdpr-services', 'services_wp_comments_lost_password_consent_field');
         $args['services_yith_woocommerce_wishlist_hide_from_forgetme_form'] = $this->render_checkbox('ct-ultimate-gdpr-services', 'services_yith_woocommerce_wishlist_hide_from_forgetme_form');
         $args['services_youtube_remove_iframe'] = $this->render_checkbox('ct-ultimate-gdpr-services', 'services_youtube_remove_iframe');
+        $args['services_metform_consent_field'] = $this->render_checkbox('ct-ultimate-gdpr-services', 'services_metform_consent_field');
 
         return $args;
     }
@@ -802,7 +804,7 @@ class CT_Ultimate_GDPR_Controller_Wizard extends CT_Ultimate_GDPR_Controller_Abs
     {
 
         add_submenu_page(
-            null,
+            '',
             esc_html__('Wizard', 'ct-ultimate-gdpr'),
             esc_html__('Wizard', 'ct-ultimate-gdpr'),
             'manage_options',

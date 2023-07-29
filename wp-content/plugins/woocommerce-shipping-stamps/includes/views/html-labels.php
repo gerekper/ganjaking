@@ -32,14 +32,14 @@
 							data-stamps_action="cancel_label"
 							data-id="<?php echo esc_attr( $label->get_id() ); ?>"
 							data-confirm="<?php echo esc_attr( __( 'Are you sure you want to cancel this label? This action cannot be undone.', 'woocommerce-shipping-stamps' ) ) ?>">
-							<?php _e( 'Refund', 'woocommerce-shipping-stamps' ) ?>
+							<?php esc_html_e( 'Refund', 'woocommerce-shipping-stamps' ) ?>
 						</a> |
 						<a href="#"
 							class="stamps-action delete-label"
 							data-stamps_action="delete_label"
 							data-id="<?php echo esc_attr( $label->get_id() ); ?>"
 							data-confirm="<?php echo esc_attr( __( 'Are you sure you want to delete this label? This action cannot be undone.', 'woocommerce-shipping-stamps' ) ) ?>">
-							<?php _e( 'Delete', 'woocommerce-shipping-stamps' ) ?>
+							<?php esc_html_e( 'Delete', 'woocommerce-shipping-stamps' ) ?>
 						</a> |
 						<a
 							href="#"
@@ -47,7 +47,7 @@
 							title="<?php esc_attr_e( 'Copy tracking number to clipboard.', 'woocommerce-shipping-stamps' ); ?>"
 							data-clipboard-success="<?php esc_attr_e( 'Copied!', 'woocommerce-shipping-stamps' ); ?>"
 							data-clipboard-text="<?php echo esc_attr( $tracking ); ?>">
-							<?php _e( 'Copy', 'woocommerce-shipping-stamps' ); ?>
+							<?php esc_html_e( 'Copy', 'woocommerce-shipping-stamps' ); ?>
 						</a>
 					</div>
 				</td>
@@ -57,4 +57,4 @@
 	}
 	?>
 </table>
-<p><button type="submit" class="button stamps-action" data-stamps_action="define_package"><?php _e( 'Request another label', 'woocommerce-shipping-stamps' ); ?></button></p>
+<p><button type="submit" class="button stamps-action" data-stamps_action="define_package"><?php esc_html_e( 'Request another label', 'woocommerce-shipping-stamps' ); ?></button></p>

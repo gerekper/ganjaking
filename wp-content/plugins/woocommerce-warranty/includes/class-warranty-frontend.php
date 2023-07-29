@@ -31,6 +31,9 @@ class Warranty_Frontend {
 
 		// Hide warranty notes from Recent Comments widget.
 		add_filter( 'widget_comments_args', array( $this, 'hide_warranty_comments' ), 10, 1 );
+
+		// Remove warranty notes from `/comments/feed`.
+		add_filter( 'comment_feed_where', array( $this, 'manipulate_feed_comment_query' ), 10, 2 );
 	}
 
 	/**
@@ -429,6 +432,19 @@ class Warranty_Frontend {
 		return $comment_query_args;
 	}
 
+	/**
+	 * Manipulate the comment feed to exclude the warranty_request notes.
+	 *
+	 * @param String           $cwhere Where clause in comment sql.
+	 * @param WP_Comment_Query $comment_query Comment query object.
+	 *
+	 * @return String.
+	 */
+	public function manipulate_feed_comment_query( $cwhere, $comment_query ) {
+		$cwhere .= ' AND post_type <> "warranty_request" ';
+
+		return $cwhere;
+	}
 }
 
 new Warranty_Frontend();

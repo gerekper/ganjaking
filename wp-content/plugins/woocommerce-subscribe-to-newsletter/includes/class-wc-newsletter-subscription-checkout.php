@@ -37,20 +37,6 @@ class WC_Newsletter_Subscription_Checkout {
 	protected function get_content_location() {
 		$key = get_option( 'woocommerce_newsletter_checkout_location', 'after_terms' );
 
-		if ( has_filter( 'wc_newsletter_subscription_checkout_content_location' ) ) {
-			wc_deprecated_hook( 'wc_newsletter_subscription_checkout_content_location', '3.3.0', 'wc_newsletter_subscription_checkout_locations' );
-
-			/**
-			 * Filters the locations of the checkout content.
-			 *
-			 * @since 2.9.0
-			 * @deprecated 3.3.0
-			 *
-			 * @param string $key The locations key for the checkout content.
-			 */
-			$key = apply_filters( 'wc_newsletter_subscription_checkout_content_location', $key );
-		}
-
 		$locations = array(
 			'after_billing' => array(
 				'hook'     => 'woocommerce_after_checkout_billing_form',

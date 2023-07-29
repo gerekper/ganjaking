@@ -194,7 +194,7 @@ class WC_Shipment_Tracking_Actions {
 	 */
 	public function render_shop_order_columns( $column_name, $post_id ) {
 		if ( 'shipment_tracking' === $column_name ) {
-			echo $this->get_shipment_tracking_column( $post_id );
+			echo wp_kses_post( $this->get_shipment_tracking_column( $post_id ));
 		}
 	}
 
@@ -210,7 +210,7 @@ class WC_Shipment_Tracking_Actions {
 	 */
 	public function render_wc_orders_list_columns( $column_name, $order ) {
 		if ( 'shipment_tracking' === $column_name ) {
-			echo $this->get_shipment_tracking_column( $order->get_id() );
+			echo wp_kses_post( $this->get_shipment_tracking_column( $order->get_id() ) );
 		}
 	}
 
@@ -264,15 +264,15 @@ class WC_Shipment_Tracking_Actions {
 				<p class="tracking-content">
 					<strong><?php echo esc_html( $formatted['formatted_tracking_provider'] ); ?></strong>
 					<?php if ( strlen( $formatted['formatted_tracking_link'] ) > 0 ) : ?>
-						- <?php echo sprintf( '<a href="%s" target="_blank" title="' . esc_attr( __( 'Click here to track your shipment', 'woocommerce-shipment-tracking' ) ) . '">' . __( 'Track', 'woocommerce-shipment-tracking' ) . '</a>', esc_url( $formatted['formatted_tracking_link'] ) ); ?>
+						- <?php echo sprintf( '<a href="%s" target="_blank" title="' . esc_attr( __( 'Click here to track your shipment', 'woocommerce-shipment-tracking' ) ) . '">' . esc_html__( 'Track', 'woocommerce-shipment-tracking' ) . '</a>', esc_url( $formatted['formatted_tracking_link'] ) ); ?>
 					<?php endif; ?>
 					<br/>
 					<em><?php echo esc_html( $item['tracking_number'] ); ?></em>
 				</p>
 				<p class="meta">
 					<?php /* translators: 1: shipping date */ ?>
-					<?php echo esc_html( sprintf( __( 'Shipped on %s', 'woocommerce-shipment-tracking' ), date_i18n( wc_date_format(), $item['date_shipped'] ) ) ); ?>
-					<a href="#" class="delete-tracking" rel="<?php echo esc_attr( $item['tracking_id'] ); ?>"><?php _e( 'Delete', 'woocommerce-shipment-tracking' ); ?></a>
+					<?php echo sprintf( esc_html__( 'Shipped on %s', 'woocommerce-shipment-tracking' ), esc_html( date_i18n( wc_date_format(), $item['date_shipped'] ) ) ); ?>
+					<a href="#" class="delete-tracking" rel="<?php echo esc_attr( $item['tracking_id'] ); ?>"><?php esc_html_e( 'Delete', 'woocommerce-shipment-tracking' ); ?></a>
 				</p>
 			</div>
 			<?php
@@ -296,13 +296,13 @@ class WC_Shipment_Tracking_Actions {
 
 		echo '</div>';
 
-		echo '<button class="button button-show-form" type="button">' . __( 'Add Tracking Number', 'woocommerce-shipment-tracking' ) . '</button>';
+		echo '<button class="button button-show-form" type="button">' . esc_html__( 'Add Tracking Number', 'woocommerce-shipment-tracking' ) . '</button>';
 
 		echo '<div id="shipment-tracking-form">';
 		// Providers
-		echo '<p class="form-field tracking_provider_field"><label for="tracking_provider">' . __( 'Provider:', 'woocommerce-shipment-tracking' ) . '</label><br/><select id="tracking_provider" name="tracking_provider" class="chosen_select" style="width:100%;">';
+		echo '<p class="form-field tracking_provider_field"><label for="tracking_provider">' . esc_html__( 'Provider:', 'woocommerce-shipment-tracking' ) . '</label><br/><select id="tracking_provider" name="tracking_provider" class="chosen_select" style="width:100%;">';
 
-		echo '<option value="">' . __( 'Custom Provider', 'woocommerce-shipment-tracking' ) . '</option>';
+		echo '<option value="">' . esc_html__( 'Custom Provider', 'woocommerce-shipment-tracking' ) . '</option>';
 
 		$selected_provider = '';
 
@@ -368,10 +368,10 @@ class WC_Shipment_Tracking_Actions {
 			'value'       => date_i18n( __( 'Y-m-d', 'woocommerce-shipment-tracking' ), current_time( 'timestamp' ) ),
 		) );
 
-		echo '<button class="button button-primary button-save-form">' . __( 'Save Tracking', 'woocommerce-shipment-tracking' ) . '</button>';
+		echo '<button class="button button-primary button-save-form">' . esc_html__( 'Save Tracking', 'woocommerce-shipment-tracking' ) . '</button>';
 
 		// Live preview
-		echo '<p class="preview_tracking_link">' . __( 'Preview:', 'woocommerce-shipment-tracking' ) . ' <a href="" target="_blank">' . __( 'Click here to track your shipment', 'woocommerce-shipment-tracking' ) . '</a></p>';
+		echo '<p class="preview_tracking_link">' . esc_html__( 'Preview:', 'woocommerce-shipment-tracking' ) . ' <a href="" target="_blank">' . esc_html__( 'Click here to track your shipment', 'woocommerce-shipment-tracking' ) . '</a></p>';
 
 		echo '</div>';
 
@@ -446,7 +446,8 @@ class WC_Shipment_Tracking_Actions {
 	 * Function for saving tracking items
 	 */
 	public function save_meta_box( $post_id, $post ) {
-		if ( isset( $_POST['tracking_number'] ) && strlen( $_POST['tracking_number'] ) > 0 ) {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- Nonce is checked before woocommerce_process_shop_order_meta is invoked.
+		if ( !empty( $_POST['tracking_number'] ) ) {
 			$args = array(
 				'tracking_provider'        => wc_clean( $_POST['tracking_provider'] ),
 				'custom_tracking_provider' => wc_clean( $_POST['custom_tracking_provider'] ),
@@ -457,6 +458,7 @@ class WC_Shipment_Tracking_Actions {
 
 			$this->add_tracking_item( $post_id, $args );
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 	/**
@@ -485,7 +487,7 @@ class WC_Shipment_Tracking_Actions {
 	public function save_meta_box_ajax() {
 		check_ajax_referer( 'create-tracking-item', 'security', true );
 
-		if ( isset( $_POST['tracking_number'] ) && strlen( $_POST['tracking_number'] ) > 0 ) {
+		if ( !empty( $_POST['tracking_number'] ) ) {
 
 			$order_id = wc_clean( $_POST['order_id'] );
 			$args = array(
@@ -575,6 +577,18 @@ class WC_Shipment_Tracking_Actions {
 	}
 
 	/**
+	 * Prevents shipment tracking data being copied to subscription renewals
+	 *
+	 * @param array $data
+	 * @return array
+	 */
+	public function prevent_copying_shipment_tracking_data( $data ) {
+		unset( $data['_wc_shipment_tracking_items'] );
+
+		return $data;
+	}
+
+	/**
 	 * Prevents data being copied to subscription renewals
 	 */
 	public function woocommerce_subscriptions_renewal_order_meta_query( $order_meta_query, $original_order_id, $renewal_order_id ) {
@@ -624,14 +638,14 @@ class WC_Shipment_Tracking_Actions {
 			}
 
 			if ( $link_format ) {
-				$values  = apply_filters( 'wc_shipment_tracking_provider_url_values', 
-					array( 
-						$tracking_item['tracking_number'], 
-						urlencode( wc_normalize_postcode( $postcode ) ), 
-						$country_code, 
+				$values  = apply_filters( 'wc_shipment_tracking_provider_url_values',
+					array(
+						$tracking_item['tracking_number'],
+						urlencode( wc_normalize_postcode( $postcode ) ),
+						$country_code,
 						$order_id
 					),
-					$tracking_item 
+					$tracking_item
 				);
    				array_unshift( $values, $link_format );
 				$formatted['formatted_tracking_link'] = call_user_func_array( "sprintf", $values );
@@ -809,7 +823,6 @@ class WC_Shipment_Tracking_Actions {
 	* @return string plugin path
 	*/
 	public function get_plugin_path() {
-		$this->plugin_path = untrailingslashit( plugin_dir_path( dirname( __FILE__ ) ) );
-		return $this->plugin_path;
+		return wc_shipment_tracking()->get_plugin_path();
 	}
 }

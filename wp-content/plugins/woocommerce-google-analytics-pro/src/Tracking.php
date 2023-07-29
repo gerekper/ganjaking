@@ -188,6 +188,19 @@ class Tracking {
 
 
 	/**
+	 * Determines whether cart & order value (revenue) should be tracked with tax and shipping included.
+	 *
+	 * @since 2.0.10
+	 *
+	 * @return bool
+	 */
+	public static function revenue_should_include_tax_and_shipping() : bool {
+
+		return wc_string_to_bool( wc_google_analytics_pro()->get_integration()->get_option( 'include_tax_and_shipping_in_revenue' ) );
+	}
+
+
+	/**
 	 * Determines if a request was not a page reload.
 	 *
 	 * TODO: consider refactoring this method, perhaps into the inverse (ie, `is_page_reload()`), as it's currently somewhat confusing {@itambek 2023-03-09}

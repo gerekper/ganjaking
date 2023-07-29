@@ -27,6 +27,7 @@ if ( ! class_exists( 'acf_field_gallery' ) ) :
 			$this->description   = __( 'An interactive interface for managing a collection of attachments, such as images.', 'acf' );
 			$this->preview_image = acf_get_url() . '/assets/images/field-type-previews/field-preview-gallery.png';
 			$this->doc_url       = acf_add_url_utm_tags( 'https://www.advancedcustomfields.com/resources/gallery/', 'docs', 'field-type-selection' );
+			$this->tutorial_url  = acf_add_url_utm_tags( 'https://www.advancedcustomfields.com/resources/how-to-use-the-gallery-field/', 'docs', 'field-type-selection' );
 			$this->pro           = true;
 			$this->defaults      = array(
 				'return_format' => 'array',
@@ -704,7 +705,7 @@ if ( ! class_exists( 'acf_field_gallery' ) ) :
 			acf_render_field_setting(
 				$field,
 				array(
-					'label' => __( 'Allowed file types', 'acf' ),
+					'label' => __( 'Allowed File Types', 'acf' ),
 					'hint'  => __( 'Comma separated list. Leave blank for all types', 'acf' ),
 					'type'  => 'text',
 					'name'  => 'mime_types',

@@ -8038,15 +8038,15 @@ label[for="ct-ultimate-gdpr-consent-data-access"] {
   }
 }
 
-.ct-ultimate-gdpr-cookie-modal-single li.activ label {
+.ct-ultimate-gdpr-cookie-modal-single li.active label {
   border: 3px solid #82aa3b;
 }
 
-.ct-ultimate-gdpr-cookie-modal-single li.activ svg {
+.ct-ultimate-gdpr-cookie-modal-single li.active svg {
   fill: #82aa3b;
 }
 
-.ct-ultimate-gdpr-cookie-modal-single li.activ svg path {
+.ct-ultimate-gdpr-cookie-modal-single li.active svg path {
   fill: #82aa3b !important;
 }
 
@@ -8181,17 +8181,17 @@ label[for="ct-ultimate-gdpr-consent-data-access"] {
   border: 2px solid rgba(242, 242, 242, 0.5);
 }
 
-.ct-ultimate-gdpr-cookie-modal-content-single.ct-ultimate-gdpr-cookie-skin-one .ct-ultimate-gdpr-cookie-modal-single li.activ {
+.ct-ultimate-gdpr-cookie-modal-content-single.ct-ultimate-gdpr-cookie-skin-one .ct-ultimate-gdpr-cookie-modal-single li.active {
   background: #f2f2f2;
   border-radius: 2px;
   border: 2px solid #ccc;
 }
 
-.ct-ultimate-gdpr-cookie-modal-content-single.ct-ultimate-gdpr-cookie-skin-one .ct-ultimate-gdpr-cookie-modal-single li.activ label {
+.ct-ultimate-gdpr-cookie-modal-content-single.ct-ultimate-gdpr-cookie-skin-one .ct-ultimate-gdpr-cookie-modal-single li.active label {
   border: 2px solid #ccc;
 }
 
-.ct-ultimate-gdpr-cookie-modal-content-single.ct-ultimate-gdpr-cookie-skin-one .ct-ultimate-gdpr-cookie-modal-single li.activ label path {
+.ct-ultimate-gdpr-cookie-modal-content-single.ct-ultimate-gdpr-cookie-skin-one .ct-ultimate-gdpr-cookie-modal-single li.active label path {
   fill: #9599a1 !important;
 }
 
@@ -8242,15 +8242,15 @@ label[for="ct-ultimate-gdpr-consent-data-access"] {
   border-radius: 0;
 }
 
-.ct-ultimate-gdpr-cookie-modal-content-single.ct-ultimate-gdpr-cookie-skin-two .ct-ultimate-gdpr-cookie-modal-single li.activ {
+.ct-ultimate-gdpr-cookie-modal-content-single.ct-ultimate-gdpr-cookie-skin-two .ct-ultimate-gdpr-cookie-modal-single li.active {
   background: #f2f2f2;
 }
 
-.ct-ultimate-gdpr-cookie-modal-content-single.ct-ultimate-gdpr-cookie-skin-two .ct-ultimate-gdpr-cookie-modal-single li.activ:before {
+.ct-ultimate-gdpr-cookie-modal-content-single.ct-ultimate-gdpr-cookie-skin-two .ct-ultimate-gdpr-cookie-modal-single li.active:before {
   background-color: #6a8ee7;
 }
 
-.ct-ultimate-gdpr-cookie-modal-content-single.ct-ultimate-gdpr-cookie-skin-two .ct-ultimate-gdpr-cookie-modal-single li.activ label path {
+.ct-ultimate-gdpr-cookie-modal-content-single.ct-ultimate-gdpr-cookie-skin-two .ct-ultimate-gdpr-cookie-modal-single li.active label path {
   fill: #878b92 !important;
 }
 
@@ -8284,7 +8284,7 @@ label[for="ct-ultimate-gdpr-consent-data-access"] {
   left: 8px;
 }
 
-.ct-ultimate-gdpr-cookie-modal-content-single.compact-dark-blue .ct-ultimate-gdpr-cookie-modal-single ul li.activ, .ct-ultimate-gdpr-cookie-modal-content-single.compact-light-blue .ct-ultimate-gdpr-cookie-modal-single ul li.activ, .ct-ultimate-gdpr-cookie-modal-content-single.compact-green .ct-ultimate-gdpr-cookie-modal-single ul li.activ {
+.ct-ultimate-gdpr-cookie-modal-content-single.compact-dark-blue .ct-ultimate-gdpr-cookie-modal-single ul li.active, .ct-ultimate-gdpr-cookie-modal-content-single.compact-light-blue .ct-ultimate-gdpr-cookie-modal-single ul li.active, .ct-ultimate-gdpr-cookie-modal-content-single.compact-green .ct-ultimate-gdpr-cookie-modal-single ul li.active {
   background-color: #f2f2f2;
 }
 

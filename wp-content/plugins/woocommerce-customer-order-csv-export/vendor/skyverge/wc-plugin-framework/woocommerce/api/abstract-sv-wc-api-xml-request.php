@@ -18,15 +18,15 @@
  *
  * @package   SkyVerge/WooCommerce/API/Request
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2022, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2023, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace SkyVerge\WooCommerce\PluginFramework\v5_10_13;
+namespace SkyVerge\WooCommerce\PluginFramework\v5_11_6;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_10_13\\SV_WC_API_XML_Request' ) ) :
+if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_11_6\\SV_WC_API_XML_Request' ) ) :
 
 
 /**
@@ -121,22 +121,6 @@ abstract class SV_WC_API_XML_Request implements SV_WC_API_Request {
 		$this->xml->endDocument();
 
 		return $this->request_xml = $this->xml->outputMemory();
-	}
-
-
-	/**
-	 * Gets the request data to be converted to XML.
-	 *
-	 * @since 4.3.0
-	 * @deprecated 5.0.0
-	 *
-	 * @return array
-	 */
-	public function get_request_data() {
-
-		wc_deprecated_function( __METHOD__, '5.0.0', 'SV_WC_API_XML_Request::get_data' );
-
-		return $this->get_data();
 	}
 
 

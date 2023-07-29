@@ -1,5 +1,10 @@
 *** Store Credit Changelog ***
 
+2023-07-24 - version 4.3.2
+* Tweak - Improved detection of Store Credit coupons when processing their discounts in the cart.
+* Tweak - Tested compatibility up to WC 7.9.
+* Tweak - Tested compatibility with WP 6.3.
+
 2023-03-13 - version 4.3.1
 * Tweak - Check the current screen when running the 'init' hook.
 * Tweak - Tested compatibility with WC 7.5.
@@ -303,8 +308,8 @@
 * Fix - Partial use of store credit shows entire value of store credit as used.
 
 2018-05-24 - version 2.1.15
-* Update - WC tested up to 3.4
-* Add - GDPR Privacy
+* Update - WC tested up to 3.4.
+* Add - GDPR Privacy.
 
 2018-05-09 - version 2.1.14
 * Fix - Smooth discrepancy values to fix 1 cent issues.
@@ -332,17 +337,17 @@
 * Fix - Wrong translation domain name.
 
 2017-05-01 - version 2.1.7
-* Fix - Additional updates for WooCommerce 3.0 compatibility
+* Fix - Additional updates for WooCommerce 3.0 compatibility.
 
 2017-04-11 - version 2.1.6
-* Fix - Compatibility with Subscriptions
-* Fix - WooCommerce 3.0 compatibility
+* Fix - Compatibility with Subscriptions.
+* Fix - WooCommerce 3.0 compatibility.
 
 2015-12-18 - version 2.1.5
-* Fix - When tax is inclusive remaining credit was not taking tax in account
+* Fix - When tax is inclusive remaining credit was not taking tax in account.
 
 2015-08-19 - version 2.1.4
-* Store credits are now always applied last (after any other coupons)
+* Store credits are now always applied last (after any other coupons).
 
 2014-08-29 - version 2.1.3
 * Prevent store credit affecting other coupon types in 2.1.
@@ -353,7 +358,7 @@
 
 2014-08-25 - version 2.1.1
 * Fix - Send store credit referenced wrong file path.
-* Fix - Send store credit admin template filename typo
+* Fix - Send store credit admin template filename typo.
 
 2014-08-18 - version 2.1.0
 * Update text domain.
@@ -363,28 +368,28 @@
 * Correctly apply before or after tax based on settings.
 
 2014-08-11 - version 2.0.6
-* Prevent apply before tax option
+* Prevent apply before tax option.
 
 2014-04-22 - version 2.0.5
-* Move settings to general tab
+* Move settings to general tab.
 
 2013-01-20 - version 2.0.4
-* 2.1 Compat
+* 2.1 Compat.
 
 2012-12-04 - version 2.0.3
-* Fix compound bug
-* WC 2.0 compat
+* Fix compound bug.
+* WC 2.0 compat.
 
 2012-12-04 - version 2.0.2
-* New updater
+* New updater.
 
 2012-03-08 - version 2.0.1
-* Fix line height of coupon code in email
+* Fix line height of coupon code in email.
 
 2012-03-08 - version 2.0
-* Store credit rewrite
-* Bug fixes with coupon validity
-* Store credit display added to My Account page
-* Generate and email credit to a customer email address via admin
-* Store credit settings added to WooCommerce > Settings > General
-* Option to delete coupon when out of credit
+* Store credit rewrite.
+* Bug fixes with coupon validity.
+* Store credit display added to My Account page.
+* Generate and email credit to a customer email address via admin.
+* Store credit settings added to WooCommerce > Settings > General.
+* Option to delete coupon when out of credit.

@@ -1,5 +1,10 @@
 *** WooCommerce Advanced Product Labels Changelog ***
 
+2023.07.24 - version 1.2.3
+* [Improvement] - Clear object cache when saving a global label to ensure changes come through with persistent cache
+* [Improvement] - Product age condition improvements
+* [Fix] - Missing textdomains
+
 2023.01.09 - version 1.2.2
 * [Add] - Declare HPOS compatibility
 * [Update] - Bump minimum PHP version to 7.0

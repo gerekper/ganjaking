@@ -65,7 +65,8 @@ class WC_Shipment_Tracking_Order_REST_API_Controller extends WC_REST_Controller 
 			),
 			'schema' => array( $this, 'get_public_item_schema' ),
 		) );
-
+		
+		// nosemgrep: audit.php.wp.security.rest-route.permission-callback.return-true
 		register_rest_route( $this->namespace, '/' . $this->rest_base . '/providers', array(
 			array(
 				'methods'  => WP_REST_Server::READABLE,

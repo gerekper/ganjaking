@@ -14,13 +14,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 ?>
 
-<h3><?php echo apply_filters( 'woocommerce_shipment_tracking_my_orders_title', __( 'Tracking Information', 'woocommerce-shipment-tracking' ) ); ?></h3>
+<h3><?php echo esc_html( apply_filters( 'woocommerce_shipment_tracking_my_orders_title', __( 'Tracking Information', 'woocommerce-shipment-tracking' ) ) ); ?></h3>
 
 <?php foreach ( $items as $item ) : ?>
 <p class="tracking-content">
-	<strong><?php echo esc_html( $item['formatted_tracking_provider'] ); ?></strong>
+<strong><?php echo esc_html( $item['formatted_tracking_provider'] ); ?></strong>
 	<?php if ( strlen( $item['formatted_tracking_link'] ) > 0 ) : ?>
-		- <?php echo sprintf( '<a href="%s" target="_blank" title="' . esc_attr( __( 'Click here to track your shipment', 'woocommerce-shipment-tracking' ) ) . '">' . __( 'Track', 'woocommerce-shipment-tracking' ) . '</a>', $item['formatted_tracking_link'] ); ?>
+		- <?php echo sprintf( '<a href="%s" target="_blank" title="%s">%s</a>', esc_url( $item['formatted_tracking_link'] ), esc_attr__( 'Click here to track your shipment', 'woocommerce-shipment-tracking' ), esc_html__( 'Track', 'woocommerce-shipment-tracking' ) ); ?>
 	<?php endif; ?>
 	<br/>
 	<em><?php echo esc_html( $item['tracking_number'] ); ?></em>
