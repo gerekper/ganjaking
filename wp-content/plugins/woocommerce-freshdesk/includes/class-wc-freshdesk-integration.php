@@ -1,7 +1,11 @@
 <?php
+
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
+
+use Themesquad\WC_Freshdesk\Utilities\Compat_Utils;
 
 /**
  * Freshdesk Integration.
@@ -34,6 +38,11 @@ class WC_Freshdesk_Integration extends WC_Integration {
 		$this->sso_secret = $this->get_option( 'sso_secret' );
 		$this->debug      = $this->get_option( 'debug' );
 
+		// Active logs.
+		if ( 'yes' === $this->debug ) {
+			$this->log = WC_Freshdesk::get_logger();
+		}
+
 		// Actions.
 		add_action( 'woocommerce_update_options_integration_' .  $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
@@ -48,6 +57,12 @@ class WC_Freshdesk_Integration extends WC_Integration {
 		add_filter( 'woocommerce_login_redirect', array( $this, 'sso_login_redirect' ), 50, 2 );
 		add_filter( 'allowed_redirect_hosts', array( $this, 'allow_freshdesk_host' ), 10, 1 );
 
+		// SSO reply-to ticket redirect handler.
+		add_action( 'init', array( $this, 'reply_to_ticket_redirect' ) );
+
+		add_action( 'admin_init', array( $this, 'admin_init' ) );
+		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+
 		if ( is_admin() ) {
 			// Product admin actions.
 			add_filter( 'woocommerce_product_data_tabs', array( $this, 'product_data_tabs' ) );
@@ -57,25 +72,36 @@ class WC_Freshdesk_Integration extends WC_Integration {
 			// Orders.
 			add_action( 'add_meta_boxes', array( $this, 'add_order_tickets_metabox' ) );
 
-			// Comments.
-			add_action( 'init', array( $this, 'comment_to_ticket' ) );
+			// Comments to ticket.
 			add_filter( 'manage_edit-comments_columns', array( $this, 'comments_columns' ) );
 			add_action( 'manage_comments_custom_column', array( $this, 'custom_comment_column' ), 10, 2 );
 
-			// General.
-			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
-
-			// Log view/download.
-			add_action( 'admin_init', array( $this, 'log_downloader' ) );
+			// Product reviews to ticket.
+			add_filter( 'woocommerce_product_reviews_table_columns', array( $this, 'comments_columns' ) );
+			add_action( 'woocommerce_product_reviews_table_column_' . $this->id . '_comment_actions', array( $this, 'custom_review_column' ) );
 		}
+	}
 
-		// SSO reply-to ticket redirect handler.
-		add_action( 'init', array( $this, 'reply_to_ticket_redirect' ) );
+	/**
+	 * Initializes admin.
+	 *
+	 * @since 1.3.0
+	 */
+	public function admin_init() {
+		$this->log_downloader();
+		$this->comment_to_ticket();
+	}
 
-		// Active logs.
-		if ( 'yes' === $this->debug ) {
-			$this->log = WC_Freshdesk::get_logger();
-		}
+	/**
+	 * Gets if the specified screen ID belongs to the comments or product reviews screen.
+	 *
+	 * @since 1.3.0
+	 *
+	 * @param string $screen_id Screen ID.
+	 * @return bool
+	 */
+	protected function is_comments_screen( $screen_id ) {
+		return in_array( $screen_id, array( 'edit-comments', Compat_Utils::get_reviews_admin_screen() ), true );
 	}
 
 	/**
@@ -248,11 +274,11 @@ class WC_Freshdesk_Integration extends WC_Integration {
 			wp_enqueue_style( $this->id . '-product-screen', plugins_url( 'assets/css/admin/product-screen.css', plugin_dir_path( __FILE__ ) ), array(), WC_FRESHDESK_VERSION, 'all' );
 		}
 
-		if ( 'edit-comments' === $screen->id ) {
+		if ( $this->is_comments_screen( $screen->id ) ) {
 			wp_enqueue_style( $this->id . '-comments-screen', plugins_url( 'assets/css/admin/comments-screen.css', plugin_dir_path( __FILE__ ) ), array(), WC_FRESHDESK_VERSION, 'all' );
 		}
 
-		if ( 'shop_order' === $screen->id ) {
+		if ( Compat_Utils::get_order_admin_screen() === $screen->id ) {
 			wp_enqueue_style( $this->id . '-order-screen', plugins_url( 'assets/css/admin/order-screen.css', plugin_dir_path( __FILE__ ) ), array(), WC_FRESHDESK_VERSION, 'all' );
 			wp_enqueue_script( $this->id . '-order-screen', plugins_url( 'assets/js/admin/order-screen' . $suffix . '.js', plugin_dir_path( __FILE__ ) ), array( 'jquery-blockui' ), WC_FRESHDESK_VERSION, true );
 			wp_localize_script(
@@ -317,9 +343,12 @@ class WC_Freshdesk_Integration extends WC_Integration {
 	 * Adds the Freshdesk product data tab.
 	 * Backwards compatibility for WooCommerce 2.0.x.
 	 *
+	 * @deprecated 1.2.0
+	 *
 	 * @return string Adds the Freshdesk tab.
 	 */
 	public function product_data_tabs_legacy() {
+		wc_deprecated_function( __FUNCTION__, '1.2.0' );
 		echo '<li class="freshdesk_options freshdesk_tab advanced_options"><a href="#freshdesk_product_data">' . __( 'Freshdesk', 'woocommerce-freshdesk' ) . '</a></li>';
 	}
 
@@ -609,6 +638,10 @@ class WC_Freshdesk_Integration extends WC_Integration {
 	public function admin_notices() {
 		global $post;
 
+		if ( ! isset( $_GET['ticket_status'] ) ) {
+			return;
+		}
+
 		$screen = get_current_screen();
 
 		if ( 'product' === $screen->id ) {
@@ -620,27 +653,42 @@ class WC_Freshdesk_Integration extends WC_Integration {
 			}
 		}
 
-		if ( 'edit-comments' === $screen->id && isset( $_GET['ticket_status'] ) ) {
+		if ( $this->is_comments_screen( $screen->id ) ) {
+			$titles = array(
+				'success' => esc_html__( 'Freshdesk', 'woocommerce-freshdesk' ),
+				'error'   => esc_html__( 'Freshdesk Error', 'woocommerce-freshdesk' ),
+			);
 
-			switch ( intval( $_GET['ticket_status'] ) ) {
-				case 0:
-					echo '<div class="error"><p><strong>' . __( 'Freshdesk Error', 'woocommerce-freshdesk' ) . ':</strong> ' . __( 'Failed to create the ticket, please try again.', 'woocommerce-freshdesk' ) . '</p></div>';
-					break;
-				case 1:
-					$ticket_id  = isset( $_GET['ticket_id'] ) ? intval( $_GET['ticket_id'] ) : 0;
-					$ticket_url = ( $ticket_id > 0 ) ? ' <a href="https://' . esc_url( $this->get_option( 'url' ) ) . '.freshdesk.com/helpdesk/tickets/' . $ticket_id . '">' . __( 'View ticket.', 'woocommerce-freshdesk' ) . '</a>' : '';
+			// Messages.
+			$messages = array(
+				0 => array(
+					'title'   => $titles['error'],
+					'message' => esc_html__( 'Failed to create the ticket, please try again.', 'woocommerce-freshdesk' ),
+				),
+				1 => array(
+					'title'   => $titles['success'],
+					'message' => esc_html__( 'Ticket created successfully.', 'woocommerce-freshdesk' ),
+				),
+				2 => array(
+					'title'   => $titles['error'],
+					'message' => esc_html__( 'This comment has not a valid email address.', 'woocommerce-freshdesk' ),
+				),
+				3 => array(
+					'title'   => $titles['error'],
+					'message' => esc_html__( 'This review/comment is empty, needs some content to create the ticket!', 'woocommerce-freshdesk' ),
+				),
+			);
 
-					echo '<div class="updated"><p><strong>' . __( 'Freshdesk', 'woocommerce-freshdesk' ) . ':</strong> ' . __( 'Ticket created successfully.', 'woocommerce-freshdesk' ) . $ticket_url . '</p></div>';
-					break;
-				case 2:
-					echo '<div class="error"><p><strong>' . __( 'Freshdesk Error', 'woocommerce-freshdesk' ) . ':</strong> ' . __( 'This comment has not a valid email address.', 'woocommerce-freshdesk' ) . '</p></div>';
-					break;
-				case 3:
-					echo '<div class="error"><p><strong>' . __( 'Freshdesk Error', 'woocommerce-freshdesk' ) . ':</strong> ' . __( 'This review/comment is empty, needs some content to create the ticket!', 'woocommerce-freshdesk' ) . '</p></div>';
-					break;
+			$ticket_status = intval( $_GET['ticket_status'] );
 
-				default:
-					break;
+			if ( isset( $messages[ $ticket_status ] ) ) {
+				$ticket_id  = isset( $_GET['ticket_id'] ) ? intval( $_GET['ticket_id'] ) : 0;
+				$ticket_url = ( $ticket_id > 0 ) ? ' <a href="https://' . esc_url( $this->get_option( 'url' ) ) . '.freshdesk.com/helpdesk/tickets/' . esc_attr( $ticket_id ) . '">' . esc_html__( 'View ticket.', 'woocommerce-freshdesk' ) . '</a>' : '';
+
+				$message = ( 1 === $ticket_status ) ? $messages[ $ticket_status ]['message'] . $ticket_url : $messages[ $ticket_status ]['message'];
+				$class   = ( 1 === $ticket_status ) ? 'updated' : 'error';
+
+				echo '<div class="' . esc_attr( $class ) . '"><p><strong>' . esc_html( $messages[ $ticket_status ]['title'] ) . ':</strong> ' . esc_html( $message ) . '</p></div>';
 			}
 		}
 	}
@@ -786,7 +834,7 @@ class WC_Freshdesk_Integration extends WC_Integration {
 			$this->id . '-tickets',
 			__( 'Report an issue', 'woocommerce-freshdesk' ),
 			array( $this, 'order_tickets_metabox_content' ),
-			'shop_order',
+			Compat_Utils::get_order_admin_screen(),
 			'side',
 			'low'
 		);
@@ -830,8 +878,7 @@ class WC_Freshdesk_Integration extends WC_Integration {
 	 * Add actions item in comments columns.
 	 *
 	 * @param  array $columns Default columns.
-	 *
-	 * @return array          Add actions column.
+	 * @return array Add actions column.
 	 */
 	public function comments_columns( $columns ) {
 		$columns[ $this->id . '_comment_actions' ] = __( 'Actions', 'woocommerce-freshdesk' );
@@ -842,15 +889,47 @@ class WC_Freshdesk_Integration extends WC_Integration {
 	/**
 	 * Add actions content to comments columns.
 	 *
-	 * @param  string $column     Column ID.
-	 * @param  int    $comment_id Comment ID.
-	 *
-	 * @return string             Column content.
+	 * @param string $column     Column name.
+	 * @param int    $comment_id Comment ID.
 	 */
 	public function custom_comment_column( $column, $comment_id ) {
 		if ( $this->id . '_comment_actions' === $column ) {
-			echo '<p><a class="button" href="' . esc_url( admin_url( 'edit-comments.php' ) ) . '?comment_to_ticket=' . intval( $comment_id ) . '">' . esc_html__( 'Convert to Ticket', 'woocommerce-freshdesk' ) . '</a></p>';
+			$this->output_comment_actions_column( $comment_id );
 		}
+	}
+
+	/**
+	 * Add actions content to comments columns.
+	 *
+	 * @since 1.3.0
+	 *
+	 * @param WP_Comment $comment Comment.
+	 */
+	public function custom_review_column( $comment ) {
+		$this->output_comment_actions_column( $comment->comment_ID );
+	}
+
+	/**
+	 * Outputs the content for the actions column in the comments screen.
+	 *
+	 * @since 1.3.0
+	 *
+	 * @param int $comment_id Comment ID.
+	 */
+	protected function output_comment_actions_column( $comment_id ) {
+		$url = add_query_arg(
+			array(
+				'comment_to_ticket' => $comment_id,
+				'ticket_id'         => false,
+				'ticket_status'     => false,
+			)
+		);
+
+		printf(
+			'<p><a class="button" href="%1$s">%2$s</a></p>',
+			esc_url( $url ),
+			esc_html__( 'Convert to Ticket', 'woocommerce-freshdesk' )
+		);
 	}
 
 	/**
@@ -859,7 +938,6 @@ class WC_Freshdesk_Integration extends WC_Integration {
 	 * @param  string $customer_email Customer email.
 	 * @param  int    $user_id        User ID.
 	 * @param  int    $product_id     Product ID.
-	 *
 	 * @return int                    Last order ID.
 	 */
 	protected function get_order_from_comment( $customer_email, $user_id, $product_id ) {
@@ -880,38 +958,45 @@ class WC_Freshdesk_Integration extends WC_Integration {
 			return 0;
 		}
 
+		if ( Compat_Utils::is_custom_order_tables_enabled() ) {
+			$orders_meta_table     = $wpdb->prefix . 'wc_orders_meta';
+			$orders_meta_id_column = 'order_id';
+		} else {
+			$orders_meta_table     = $wpdb->postmeta;
+			$orders_meta_id_column = 'post_id';
+		}
+
 		return $wpdb->get_var(
-			$wpdb->prepare( "
-				SELECT order_items.order_id
+			$wpdb->prepare(
+				"SELECT order_items.order_id
 				FROM {$wpdb->prefix}woocommerce_order_items as order_items
 				LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS itemmeta ON order_items.order_item_id = itemmeta.order_item_id
-				LEFT JOIN {$wpdb->postmeta} AS postmeta ON order_items.order_id = postmeta.post_id
+				LEFT JOIN $orders_meta_table AS orders_meta ON order_items.order_id = orders_meta.$orders_meta_id_column
 				WHERE
-					itemmeta.meta_value  = %s AND
-					itemmeta.meta_key    IN ( '_variation_id', '_product_id' ) AND
-					postmeta.meta_key    IN ( '_billing_email', '_customer_user' ) AND
+					itemmeta.meta_value = %s AND
+					itemmeta.meta_key IN ( '_variation_id', '_product_id' ) AND
+					orders_meta.meta_key IN ( '_billing_email', '_customer_user' ) AND
 					(
-						postmeta.meta_value  IN ( '" . implode( "','", array_unique( $emails ) ) . "' ) OR
+						orders_meta.meta_value  IN ( '" . implode( "','", array_unique( $emails ) ) . "' ) OR
 						(
-							postmeta.meta_value = %s AND
-							postmeta.meta_value > 0
+							orders_meta.meta_value = %s AND
+							orders_meta.meta_value > 0
 						)
 					)
 				ORDER BY order_items.order_id DESC
-				LIMIT 1
-				", $product_id, $user_id
+				LIMIT 1",
+				$product_id,
+				$user_id
 			)
 		);
 	}
 
 	/**
 	 * Comments to ticket.
-	 *
-	 * @return void
 	 */
 	public function comment_to_ticket() {
 		if ( ! isset( $_GET['comment_to_ticket'] ) ) {
-			return '';
+			return;
 		}
 
 		global $wpdb;
@@ -926,9 +1011,9 @@ class WC_Freshdesk_Integration extends WC_Integration {
 			", $comment_id )
 		);
 
-		// Stops if don't find a post id.
+		// Post not found.
 		if ( empty( $post_id ) ) {
-			return '';
+			return;
 		}
 
 		// Get the post type.
@@ -943,20 +1028,18 @@ class WC_Freshdesk_Integration extends WC_Integration {
 		$subject     = sprintf( __( 'Comment in %s at %s', 'woocommerce-freshdesk' ), get_the_title( $post_id ), $comment->comment_date );
 		$subject     = apply_filters( 'woocommerce_freshdesk_ticket_from_comment_subject', $subject, $comment );
 		$description = $comment->comment_content;
-		$response    = array(
-			'id'     => 0,
-			'status' => 0
-		);
+
+		$redirect_url = remove_query_arg( array( 'comment_to_ticket', 'ticket_id' ) );
 
 		// Test the email.
 		if ( ! is_email( $email ) ) {
-			wp_redirect( esc_url_raw( add_query_arg( array( 'ticket_status' => 2 ), admin_url( 'edit-comments.php' ) ) ) );
+			wp_safe_redirect( esc_url_raw( add_query_arg( array( 'ticket_status' => 2 ), $redirect_url ) ) );
 			exit;
 		}
 
 		// Test the content.
 		if ( empty( $description ) ) {
-			wp_redirect( esc_url_raw( add_query_arg( array( 'ticket_status' => 3 ), admin_url( 'edit-comments.php' ) ) ) );
+			wp_safe_redirect( esc_url_raw( add_query_arg( array( 'ticket_status' => 3 ), $redirect_url ) ) );
 			exit;
 		}
 
@@ -966,7 +1049,7 @@ class WC_Freshdesk_Integration extends WC_Integration {
 			$is_order = false;
 			$order_id = $this->get_order_from_comment( $comment->comment_author_email, $comment->user_id, $comment->comment_post_ID );
 			if ( $order_id ) {
-				$order    = new WC_Order( $order_id );
+				$order    = wc_get_order( $order_id );
 				$is_order = true;
 			}
 
@@ -976,7 +1059,17 @@ class WC_Freshdesk_Integration extends WC_Integration {
 		}
 
 		// Redirects to avoid reloads and displaying the success message.
-		wp_redirect( esc_url_raw( add_query_arg( array( 'ticket_status' => $response['status'], 'ticket_id' => $response['id'] ), admin_url( 'edit-comments.php' ) ) ) );
+		wp_safe_redirect(
+			esc_url_raw(
+				add_query_arg(
+					array(
+						'ticket_status' => $response['status'],
+						'ticket_id'     => $response['id'],
+					),
+					$redirect_url
+				)
+			)
+		);
 		exit;
 	}
 
@@ -993,12 +1086,7 @@ class WC_Freshdesk_Integration extends WC_Integration {
 			&& isset( $_GET['viewlog'] ) && '1' == $_GET['viewlog']
 			&& current_user_can( 'manage_woocommerce' )
 		) {
-			global $woocommerce;
-			if ( version_compare( $woocommerce->version, '2.1', '>=' ) ) {
-				$wc_path = plugin_dir_path( WC_PLUGIN_FILE );
-			} else {
-				$wc_path = plugin_dir_path( dirname( dirname( __FILE__ ) ) ) . 'woocommerce/';
-			}
+			$wc_path  = plugin_dir_path( WC_PLUGIN_FILE );
 			$log_name = $this->id . '-' . sanitize_file_name( wp_hash( $this->id ) ) . '.txt';
 			$log_file = $wc_path . 'logs/' . $log_name;
 

@@ -283,7 +283,7 @@ class WC_Help_Scout_My_Account extends WC_Integration {
 			return $customer_id;
 		}
 		$search_customers_data = json_decode( $search_customers['body'], true );
-		
+
 		// Get Customer phone number id stored in helpscut.
 		if ( isset( $search_customers_data['_embedded']['phones'][0]['id'] ) ) {
 			$phone = $search_customers_data['_embedded']['phones'][0]['id'];
@@ -491,7 +491,7 @@ class WC_Help_Scout_My_Account extends WC_Integration {
 			$order = wc_get_order($order_get_id);
 			$user_id = $order->get_customer_id();
 		} else {
-			$user_id = get_post_meta( $order_get_id, '_customer_user', true );
+			$user_id = opmc_hpos_get_post_meta( $order_get_id, '_customer_user', true );
 		}
 		$this->update_profile_fields_helpscout( $user_id );
 	}

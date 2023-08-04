@@ -17,23 +17,23 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-checkout-add-ons/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 namespace SkyVerge\WooCommerce\Checkout_Add_Ons\Integrations;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
 /**
- * Class WC_Subscriptions_Integration
- * @package SkyVerge\WooCommerce\Checkout_Add_Ons\Integrations
+ * Subscriptions integration class.
  *
  * @since 2.0.5
  */
 class WC_Subscriptions_Integration {
+
 
 	/**
 	 * WC_Subscriptions_Integration constructor.
@@ -41,9 +41,10 @@ class WC_Subscriptions_Integration {
 	 */
 	public function __construct() {
 
-		add_filter( 'wc_checkout_add_ons_fields',                               array( $this, 'hide_add_on_fields_for_renewals' ) );
-		add_action( 'woocommerce_cart_calculate_fees',                          array( $this, 'add_cart_fees' ), PHP_INT_MAX, 1 );
+		add_filter( 'wc_checkout_add_ons_fields',      [ $this, 'hide_add_on_fields_for_renewals' ] );
+		add_action( 'woocommerce_cart_calculate_fees', [ $this, 'add_cart_fees' ], PHP_INT_MAX, 1 );
 	}
+
 
 	/**
 	 * Hides add-on fields if cart contains renewal.
@@ -66,6 +67,7 @@ class WC_Subscriptions_Integration {
 
 		return $fields;
 	}
+
 
 	/**
 	 * Adds order add-ons as fees to the cart only if add-ons are renewable.
@@ -104,4 +106,6 @@ class WC_Subscriptions_Integration {
 			}
 		}
 	}
+
+
 }

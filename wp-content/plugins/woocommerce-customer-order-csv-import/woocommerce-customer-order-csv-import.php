@@ -6,11 +6,11 @@
  * Description: Import customers, coupons and orders straight from the WordPress admin
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 3.10.4
+ * Version: 3.12.0
  * Text Domain: woocommerce-csv-import-suite
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2012-2022, SkyVerge, Inc. (info@skyverge.com)
+ * Copyright: (c) 2012-2023, SkyVerge, Inc. (info@skyverge.com)
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,12 +18,12 @@
  * @package   WC-CSV-Import-Suite
  * @author    SkyVerge
  * @category  Importer
- * @copyright Copyright (c) 2012-2022, SkyVerge, Inc.
+ * @copyright Copyright (c) 2012-2023, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 18709:eb00ca8317a0f64dbe185c995e5ea3df
  * WC requires at least: 3.9.4
- * WC tested up to: 6.8.2
+ * WC tested up to: 7.9.0
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -37,16 +37,16 @@ class WC_CSV_Import_Suite_Loader {
 
 
 	/** minimum PHP version required by this plugin */
-	const MINIMUM_PHP_VERSION = '7.0';
+	const MINIMUM_PHP_VERSION = '7.4';
 
 	/** minimum WordPress version required by this plugin */
-	const MINIMUM_WP_VERSION = '5.2';
+	const MINIMUM_WP_VERSION = '5.6';
 
 	/** minimum WooCommerce version required by this plugin */
 	const MINIMUM_WC_VERSION = '3.9.4';
 
 	/** SkyVerge plugin framework version used by this plugin */
-	const FRAMEWORK_VERSION = '5.10.13';
+	const FRAMEWORK_VERSION = '5.11.3';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Customer/Order/Coupon CSV Import Suite';

@@ -98,11 +98,7 @@ class WC_Freshdesk_Tickets extends WC_Freshdesk_Abstract_Integration {
 
 		do_action( 'woocommerce_freshdesk_ticket_data_meta', $order );
 
-		if ( function_exists( 'wc_get_email_order_items' ) ) {
-			$order_items_table = wc_get_email_order_items( $order );
-		} else {
-			$order_items_table = $order->email_order_items_table();
-		}
+		$order_items_table = wc_get_email_order_items( $order );
 
 		// Products list.
 		echo $this->to_utf8( wp_kses( $order_items_table, array() ) );
@@ -132,11 +128,11 @@ class WC_Freshdesk_Tickets extends WC_Freshdesk_Abstract_Integration {
 	 * @return array               Success status (1 to success and 0 when failed) and ticket ID.
 	 */
 	public function open_ticket( $order_id, $subject, $description, $use_user_email = false ) {
-		$order = new WC_Order( intval( $order_id ) );
+		$order            = wc_get_order( $order_id );
 		$formated_subject = sanitize_text_field( $subject ) . ' - ' . __( 'Order', 'woocommerce-freshdesk' ) . ' ' . $order->get_order_number();
 
 		$email = '';
-		if( $use_user_email ) { 
+		if( $use_user_email ) {
 			$current_user = wp_get_current_user();
 			$email = $current_user->user_email;
 		} else {

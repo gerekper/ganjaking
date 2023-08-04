@@ -17,14 +17,14 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-checkout-add-ons/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 namespace SkyVerge\WooCommerce\Checkout_Add_Ons;
 
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Integrations\WC_Subscriptions_Integration;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons\Add_On;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons\Add_On_Factory;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Admin\Admin;
@@ -41,7 +41,7 @@ class Plugin extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.6.0';
+	const VERSION = '2.7.0';
 
 	/** plugin id */
 	const PLUGIN_ID = 'checkout_add_ons';
@@ -78,14 +78,17 @@ class Plugin extends Framework\SV_WC_Plugin {
 		parent::__construct(
 			self::PLUGIN_ID,
 			self::VERSION,
-			array( 'text_domain' => 'woocommerce-checkout-add-ons' )
+			[
+				'supports_hpos' => true,
+				'text_domain'   => 'woocommerce-checkout-add-ons'
+			]
 		);
 
 		// set up handlers
 		add_action( 'init', array( $this, 'setup_handlers' ) );
 
 		// save checkout add-ons value
-		add_action( 'woocommerce_process_shop_order_meta', array( $this, 'process_shop_order_meta' ), 10, 2 );
+		add_action( 'woocommerce_process_shop_order_meta', [ $this, 'process_shop_order_meta' ] );
 
 		// override default select/multiselect/radio value sanitization in special cases
 		add_filter( 'sanitize_title', array( $this, 'sanitize_select_field_values' ), 10, 3 );
@@ -171,9 +174,8 @@ class Plugin extends Framework\SV_WC_Plugin {
 	 * @since 1.2.0
 	 *
 	 * @param int $order_id Order ID
-	 * @param \WP_Post $post
 	 */
-	public function process_shop_order_meta( $order_id, $post ) {
+	public function process_shop_order_meta( $order_id ) {
 
 		$this->save_order_item_values( $order_id, $_POST );
 	}

@@ -23,8 +23,11 @@ class Vc_Post_Settings {
 	}
 
 	public function renderUITemplate() {
-		vc_include_template( 'editors/popups/vc_ui-panel-post-settings.tpl.php', array(
+		vc_include_template( 'editors/popups/vc_ui-panel-post-settings.tpl.php',
+		array(
 			'box' => $this,
+			'can_unfiltered_html_cap' =>
+				vc_user_access()->part( 'unfiltered_html' )->checkStateAny( true, null )->get(),
 		) );
 	}
 }

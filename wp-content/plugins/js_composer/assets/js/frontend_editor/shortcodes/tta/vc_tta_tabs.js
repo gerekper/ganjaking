@@ -43,13 +43,20 @@
 			// update build tabs, remove/add check orders and title/target
 
 			var $tabEl,
+				$toggleEl,
 				$navigation,
 				sectionId,
-				html, title, models, index, tabAdded;
+				html,
+				title,
+				models,
+				index,
+				tabAdded;
+
 			tabAdded = false;
 			sectionId = model.get( 'id' );
 			$navigation = this.$el.find( '.vc_tta-tabs-container .vc_tta-tabs-list' );
 			$tabEl = $navigation.find( '[data-vc-target="[data-model-id=' + sectionId + ']"]' );
+			$toggleEl = this.$el.find( '.wpb-tta-toggle' );
 			title = model.getParam( 'title' );
 
 			if ( $tabEl.length ) {
@@ -57,6 +64,19 @@
 				html = this.addIcon( model, html );
 
 				$tabEl.html( html );
+			} else if ( $toggleEl.length ) {
+				var section = this.$el.find('[data-model-id="' + sectionId + '"]');
+				if (section.length) {
+					var firstTitle = this.$el.find('.wpb-tta-toggle-wrapper span:first');
+					var secondTitle = this.$el.find('.wpb-tta-toggle-wrapper span:last');
+					var section_index = section.find('[data-vc-section-index]').attr('data-vc-section-index');
+
+					if ('1' === section_index) {
+						firstTitle.html(title);
+					} else {
+						secondTitle.html(title);
+					}
+				}
 			} else {
 				var $element;
 				html = '<span class="vc_tta-title-text">' + title + '</span>';

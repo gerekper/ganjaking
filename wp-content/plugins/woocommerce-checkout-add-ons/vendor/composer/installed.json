@@ -2,18 +2,21 @@
     "packages": [
         {
             "name": "skyverge/wc-plugin-framework",
-            "version": "5.10.12",
-            "version_normalized": "5.10.12.0",
+            "version": "5.11.0",
+            "version_normalized": "5.11.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/skyverge/wc-plugin-framework.git",
-                "reference": "0c79b5799955c59e644caf1da222c20c982eba06"
+                "url": "https://github.com/godaddy-wordpress/wc-plugin-framework.git",
+                "reference": "09b140afa3bffef8141fc72e5651d85021095dec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/skyverge/wc-plugin-framework/zipball/0c79b5799955c59e644caf1da222c20c982eba06",
-                "reference": "0c79b5799955c59e644caf1da222c20c982eba06",
+                "url": "https://api.github.com/repos/godaddy-wordpress/wc-plugin-framework/zipball/09b140afa3bffef8141fc72e5651d85021095dec",
+                "reference": "09b140afa3bffef8141fc72e5651d85021095dec",
                 "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4 <9.0"
             },
             "require-dev": {
                 "codeception/module-asserts": "^1.3",
@@ -22,13 +25,16 @@
                 "lucatume/wp-browser": "3.0.5",
                 "phpcompatibility/php-compatibility": "9.3.5"
             },
-            "time": "2022-01-14T03:01:10+00:00",
+            "time": "2023-04-21T08:38:06+00:00",
             "type": "library",
             "installation-source": "dist",
+            "license": [
+                "GPL-3.0"
+            ],
             "description": "The official SkyVerge WooCommerce plugin framework",
             "support": {
-                "source": "https://github.com/skyverge/wc-plugin-framework/tree/5.10.12",
-                "issues": "https://github.com/skyverge/wc-plugin-framework/issues"
+                "source": "https://github.com/godaddy-wordpress/wc-plugin-framework/tree/5.11.0",
+                "issues": "https://github.com/godaddy-wordpress/wc-plugin-framework/issues"
             },
             "install-path": "../skyverge/wc-plugin-framework"
         }

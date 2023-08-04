@@ -98,7 +98,7 @@ class Vc_Templates_Panel_Editor {
 					<div class="vc_input-group">
 						<input name="padding" data-js-element="vc-templates-input" class="vc_form-control wpb-textinput vc_panel-templates-name" type="text" value="" placeholder="' . esc_attr__( 'Template name', 'js_composer' ) . '" data-vc-disable-empty="#vc_ui-save-template-btn">
 						<span class="vc_input-group-btn">
-							<button class="vc_general vc_ui-button vc_ui-button-size-sm vc_ui-button-action vc_ui-button-shape-rounded vc_template-save-btn" id="vc_ui-save-template-btn" disabled data-vc-ui-element="button-save">' . esc_html__( 'Save Template', 'js_composer' ) . '</button>
+							<button class="vc_general vc_ui-button vc_ui-button-size-md vc_ui-button-action vc_ui-button-shape-rounded vc_template-save-btn" id="vc_ui-save-template-btn" disabled data-vc-ui-element="button-save">' . esc_html__( 'Save Template', 'js_composer' ) . '</button>
 						</span>
 					</div>
 					<span class="vc_description">' . esc_html__( 'Save layout and reuse it on different sections of this site.', 'js_composer' ) . '</span>
@@ -525,7 +525,7 @@ class Vc_Templates_Panel_Editor {
 				'category_weight' => 10,
 			);
 			$category_templates = array();
-			if ( ! empty( $user_templates ) ) {
+			if ( is_array( $user_templates ) ) {
 				foreach ( $user_templates as $template_id => $template_data ) {
 					$category_templates[] = array(
 						'unique_id' => $template_id,

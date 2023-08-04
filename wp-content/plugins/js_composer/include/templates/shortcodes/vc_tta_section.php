@@ -15,9 +15,7 @@ WPBakeryShortCode_Vc_Tta_Section::$self_count ++;
 WPBakeryShortCode_Vc_Tta_Section::$section_info[] = $atts;
 $isPageEditable = vc_is_page_editable();
 
-$output = '';
-
-$output .= '<div class="' . esc_attr( $this->getElementClasses() ) . '"';
+$output = '<div class="' . esc_attr( $this->getElementClasses() ) . '"';
 $output .= ' id="' . esc_attr( $this->getTemplateVariable( 'tab_id' ) ) . '"';
 $output .= ' data-vc-content=".vc_tta-panel-body">';
 $output .= '<div class="vc_tta-panel-heading">';

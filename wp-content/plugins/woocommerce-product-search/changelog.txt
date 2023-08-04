@@ -1,5 +1,13 @@
 *** WooCommerce Product Search ***
 
+2023.07.28 - version 4.15.0
+* Update - WordPress 6.2 compatible.
+* Update - WordPress 6.4-alpha compatible.
+* Update - WooCommerce 7.9 compatible.
+* Update - Requires at least WooCommerce 7.7.
+* Update - Requires at least PHP 7.3.
+* Dev - Added guards to avoid data interference from unrelated code in the Product Search Field rendering code, fixes "undefined" displayed for invalid entries.
+
 2023.06.19 - version 4.14.0
 * Update - WordPress 6.2 compatible.
 * Update - WordPress 6.3-alpha compatible (re-tested).
@@ -324,492 +332,482 @@
 * Update - Translations updated.
 
 2020.04.05 - version 2.21.0
-* WooCommerce 4.0 compatibility.
-* WordPress 5.4 compatibility.
-* WordPress 5.5 (alpha) compatibility tested.
-* Fixed the use of the deprecated function wp_cache_reset which can cause fatal errors with certain cache implementations.
+* Update - WooCommerce 4.0 compatibility.
+* Update - WordPress 5.4 compatibility.
+* Update - WordPress 5.5 (alpha) compatibility tested.
+* Fix - Fixed the use of the deprecated function wp_cache_reset which can cause fatal errors with certain cache implementations.
 
 2020.03.16 - version 2.20.0
-* WooCommerce 4.0 compatible.
-* WordPress 5.5 (alpha) compatibility tested.
-* Updated minimum PHP 7.0 requirement.
-* Added the option to sort results by popularity in the live Product Search Field.
-* Added the option to sort results by rating in the live Product Search Field.
-* Added the woocommerce_search_products_post_statuses filter to the extended product data store and using lookup table.
-* Added support for WooCommerce REST API product search via the search engine.
-* Added the WPS_EXT_REST constant that allows to override the REST API product search.
-* Added generator meta tag for markup produced by our search engine.
-* Added the woocommerce_product_search_process_query_product_taxonomies filter.
-* Added support for filtering on brand product archives related to the WooCommerce Brands extension.
-* Added support for keyword searches by brand related to the WooCommerce Brands extension (requires index rebuilding on existing datasets for search engine to produce keyword matches based on brand).
-* Added the woocommerce_product_search_compat_woocommerce_brands_index filter.
-* Added support for filtering on vendor product archives related to the WooCommerce Product Vendors extension.
-* Added support for keyword searches by vendor related to the WooCommerce Product Vendors extension (requires index rebuilding on existing datasets for search engine to produce keyword matches based on vendor).
-* Added the woocommerce_product_search_compat_woocommerce_product_vendors_index filter.
-* Fixed an issue with the option to include empty terms having no effect (hide empty terms disabled on product categories and attributes).
-* Fixed filter reset not appearing when on sale filter is active.
-* Fixed an issue when filtering by products on sale and by price with no eligible products would still produce results.
-* Fixed a PHP Notice when price filter without slider was used.
-* Fixed price filters without slider would not reset input fields.
-* Fixed price filter input fields would not trigger after clearing if previous value (before clearing) was input again.
-* Improved price filter performance using WC lookup table.
-* Added multi-currency WPML compatibility for price filtering (Note on 2.20.0).
-* Added better consistency to price filtering with respect to the standard price filter (Note on 2.20.0).
-* Noted that the current status of WC 4.0.0 & WooCommerce Multilingual 4.7.9 which do not support correct price filtering for manually set currency prices, adopted measures to remove WC_Query's posts_clauses filter during handling for consistency.
-* Updated filter CSS against undesired anchor styling (text-decoration).
-* Added the Product Filter – Rating widget.
-* Added the [woocommerce_product_filter_rating] shortcode.
-* Added the API function woocommerce_product_search_filter_rating() for use in templates etc.
-* Updated some outdated links to documentation.
+* Update - WooCommerce 4.0 compatible.
+* Update - WordPress 5.5 (alpha) compatibility tested.
+* Update - Updated minimum PHP 7.0 requirement.
+* Add - Added the option to sort results by popularity in the live Product Search Field.
+* Add - Added the option to sort results by rating in the live Product Search Field.
+* Add - Added the woocommerce_search_products_post_statuses filter to the extended product data store and using lookup table.
+* Add - Added support for WooCommerce REST API product search via the search engine.
+* Add - Added the WPS_EXT_REST constant that allows to override the REST API product search.
+* Add - Added generator meta tag for markup produced by our search engine.
+* Add - Added the woocommerce_product_search_process_query_product_taxonomies filter.
+* Add - Added support for filtering on brand product archives related to the WooCommerce Brands extension.
+* Add - Added support for keyword searches by brand related to the WooCommerce Brands extension (requires index rebuilding on existing datasets for search engine to produce keyword matches based on brand).
+* Add - Added the woocommerce_product_search_compat_woocommerce_brands_index filter.
+* Add - Added support for filtering on vendor product archives related to the WooCommerce Product Vendors extension.
+* Add - Added support for keyword searches by vendor related to the WooCommerce Product Vendors extension (requires index rebuilding on existing datasets for search engine to produce keyword matches based on vendor).
+* Add - Added the woocommerce_product_search_compat_woocommerce_product_vendors_index filter.
+* Fix - Fixed an issue with the option to include empty terms having no effect (hide empty terms disabled on product categories and attributes).
+* Fix - Fixed filter reset not appearing when on sale filter is active.
+* Fix - Fixed an issue when filtering by products on sale and by price with no eligible products would still produce results.
+* Fix - Fixed a PHP Notice when price filter without slider was used.
+* Fix - Fixed price filters without slider would not reset input fields.
+* Fix - Fixed price filter input fields would not trigger after clearing if previous value (before clearing) was input again.
+* Update - Improved price filter performance using WC lookup table.
+* Add - Added multi-currency WPML compatibility for price filtering (Note on 2.20.0).
+* Add - Added better consistency to price filtering with respect to the standard price filter (Note on 2.20.0).
+* Update - Noted that the current status of WC 4.0.0 & WooCommerce Multilingual 4.7.9 which do not support correct price filtering for manually set currency prices, adopted measures to remove WC_Query's posts_clauses filter during handling for consistency.
+* Update - Updated filter CSS against undesired anchor styling (text-decoration).
+* Add - Added the Product Filter – Rating widget.
+* Add - Added the [woocommerce_product_filter_rating] shortcode.
+* Add - Added the API function woocommerce_product_search_filter_rating() for use in templates etc.
+* Update - Updated some outdated links to documentation.
 
 2019.12.09 - version 2.19.0
-* WooCommerce 3.8 compatibility re-tested.
-* Added the new live filter for products on sale.
-* Added the Product Filter – Sale widget.
-* Added the [woocommerce_product_filter_sale] shortcode.
-* Added the API function woocommerce_product_search_filter_sale() for use in templates etc.
-* Updated all translations.
-* Fixed issues in the Indonesian translation (HTML entities and formatting).
-* Fixed the assistant taking inactive widgets into account.
+* Update - WooCommerce 3.8 compatibility re-tested.
+* Add - Added the new live filter for products on sale.
+* Add - Added the Product Filter – Sale widget.
+* Add - Added the [woocommerce_product_filter_sale] shortcode.
+* Add - Added the API function woocommerce_product_search_filter_sale() for use in templates etc.
+* Update - Updated all translations.
+* Fix - Fixed issues in the Indonesian translation (HTML entities and formatting).
+* Fix - Fixed the assistant taking inactive widgets into account.
 
 2019.10.20 - version 2.18.0
-* Terms offered in taxonomy filters are now restricted to context on search results.
-* Fixed usage of undefined variable to obtain heading_id in search filter.
-* Improved how search is handled for search results pages with the Product Filter – Search, allows to narrow down results with the filter.
-* Fixed uninitialized containers array in price filter.
-* Fixed PHP_INT_MAX used for maximum price instead of empty maximum value in price filter, would display the odd PHP_INT_MAX when products without prices were displayed only.
-* Guarded against fatal errors produced if the WC_Product_Data_Store_CPT class is missing due to messed up loading we cannot control.
-* Added Jetpack synergy improvement to have our search engine take over product searches and let Jetpack still handle other search queries.
-* Added the woocommerce_product_search_jetpack_search_should_handle_query filter that allows to modify our override.
-* WooCommerce 3.8 compatibility tested based on current WooCommerce 3.8.0-beta.1.
+* Update - Terms offered in taxonomy filters are now restricted to context on search results.
+* Fix - Fixed usage of undefined variable to obtain heading_id in search filter.
+* Update - Improved how search is handled for search results pages with the Product Filter – Search, allows to narrow down results with the filter.
+* Fix - Fixed uninitialized containers array in price filter.
+* Fix - Fixed PHP_INT_MAX used for maximum price instead of empty maximum value in price filter, would display the odd PHP_INT_MAX when products without prices were displayed only.
+* Update - Guarded against fatal errors produced if the WC_Product_Data_Store_CPT class is missing due to messed up loading we cannot control.
+* Add - Added Jetpack synergy improvement to have our search engine take over product searches and let Jetpack still handle other search queries.
+* Add - Added the woocommerce_product_search_jetpack_search_should_handle_query filter that allows to modify our override.
+* Update - WooCommerce 3.8 compatibility tested based on current WooCommerce 3.8.0-beta.1.
 
 2019.09.21 - version 2.17.0
-* Added an option to the live Product Search field that allows to sort results by SKU.
-* Added the woocommerce_product_search_field_product_title filter.
-* Added the woocommerce_product_search_field_product_description filter.
-* Added the woocommerce_product_search_field_product_price_html filter.
-* Added the woocommerce_product_search_field_product_add_to_cart_html filter.
-* Fixed an issue with 404s obtained for filter requests directly on paginated results beyond the first page.
-* Fixed an issue with no products obtained with paginated results beyond the first page with the [woocommerce_product_filter_products] shortcode.
-* Fixed an issue where category or attribute filters rendered as dropdowns could end up disabled after applying a choice.
-* Fixed potencial PHP notices on uninitialized widget instance attributes for the Product Search Field and Product Filter – Search widgets.
+* Add - Added an option to the live Product Search field that allows to sort results by SKU.
+* Add - Added the woocommerce_product_search_field_product_title filter.
+* Add - Added the woocommerce_product_search_field_product_description filter.
+* Add - Added the woocommerce_product_search_field_product_price_html filter.
+* Add - Added the woocommerce_product_search_field_product_add_to_cart_html filter.
+* Fix - Fixed an issue with 404s obtained for filter requests directly on paginated results beyond the first page.
+* Fix - Fixed an issue with no products obtained with paginated results beyond the first page with the [woocommerce_product_filter_products] shortcode.
+* Fix - Fixed an issue where category or attribute filters rendered as dropdowns could end up disabled after applying a choice.
+* Fix - Fixed potencial PHP notices on uninitialized widget instance attributes for the Product Search Field and Product Filter – Search widgets.
 
 2019.09.03 - version 2.16.0
-* Added the woocommerce_product_search_indexer_filter_content filter.
+* Add - Added the woocommerce_product_search_indexer_filter_content filter.
 
 2019.08.29 - version 2.15.0
-* Added the formal German (Sie) translation.
-* Updated the informal German (Du) translation.
-* Added formal and informal translations for German (Austria).
-* Added formal and informal translations for German (Switzerland).
+* Add - Added the formal German (Sie) translation.
+* Update - Updated the informal German (Du) translation.
+* Add - Added formal and informal translations for German (Austria).
+* Add - Added formal and informal translations for German (Switzerland).
 
 2019.08.08 - version 2.14.0
-* Added the German translation.
-* WooCommerce 3.7 compatibility tested.
-* WordPress 5.3 alpha compatibility tested.
+* Add - Added the German translation.
+* Update - WooCommerce 3.7 compatibility tested.
+* Update - WordPress 5.3 alpha compatibility tested.
 
 2019.05.28 - version 2.13.3
-* Fixed an issue with dropdowns not being rendered as such.
+* Fix - Fixed an issue with dropdowns not being rendered as such.
 
 2019.05.22 - version 2.13.2
-* WordPress 5.2 compatibility.
-* Updated term order handling for product attributes as WC 3.6.x replaces termmeta order_pa_{$taxonomy} with order.
-* Added support for sorting product attributes numerically, i.e. based on name_num "Name (numeric)".
-* Improved front and back end resource dependency resilience (more robust checks for jQuery presence independent of load order).
-* Updated the Spanish translation.
-* Added the Indonesian translation.
+* Update - WordPress 5.2 compatibility.
+* Update - Updated term order handling for product attributes as WC 3.6.x replaces termmeta order_pa_{$taxonomy} with order.
+* Add - Added support for sorting product attributes numerically, i.e. based on name_num "Name (numeric)".
+* Update - Improved front and back end resource dependency resilience (more robust checks for jQuery presence independent of load order).
+* Update - Updated the Spanish translation.
+* Add - Added the Indonesian translation.
 
 2019.04.19 - version 2.13.1
-* Updated for compatibility with WooCommerce 3.6.
-* Replaced uses of deprecated functions.
-* Fixed a conflict with live product filters updating new WooCommerce blocks.
-* Fixed a setting of the standard product search form replacement ("Order by" would not take the –– option).
-* Fixed the height setting of the standard product search form replacement was not stored.
-* Fixed the category limit setting of the standard product search form replacement was not stored.
-* Fixed search weights settings where relevances could not be set to 0 unless that was their default value.
+* Update - Updated for compatibility with WooCommerce 3.6.
+* Dev - Replaced uses of deprecated functions.
+* Fix - Fixed a conflict with live product filters updating new WooCommerce blocks.
+* Fix - Fixed a setting of the standard product search form replacement ("Order by" would not take the –– option).
+* Fix - Fixed the height setting of the standard product search form replacement was not stored.
+* Fix - Fixed the category limit setting of the standard product search form replacement was not stored.
+* Fix - Fixed search weights settings where relevances could not be set to 0 unless that was their default value.
 
 2019.04.17 - version 2.13.0
-* Updated for compatibility with WooCommerce 3.6.
+* Update - Updated for compatibility with WooCommerce 3.6.
 
 2019.03.09 - version 2.12.3
-* Improved hierarchical taxonomy product counts to take overall counts in subtrees into account.
-* Added the ixProductFilterRequestProcessed jQuery event to signal the end of processing a filter request response.
-* Fixed an issue where terms that related to ineligible (e.g. protected) products were included as choices in taxonomy filters.
+* Dev - Improved hierarchical taxonomy product counts to take overall counts in subtrees into account.
+* Add - Added the ixProductFilterRequestProcessed jQuery event to signal the end of processing a filter request response.
+* Fix - Fixed an issue where terms that related to ineligible (e.g. protected) products were included as choices in taxonomy filters.
 
 2019.02.25 - version 2.12.2
-* WordPress 5.1 compatibility tested.
-* WooCommerce compatibility tested.
-* Fixes an issue introduced with WC 3.5.5 https://github.com/woocommerce/woocommerce/pull/22573/files where saving settings had no effect.
+* Update - WordPress 5.1 compatibility tested.
+* Update - WooCommerce compatibility tested.
+* Fix - Fixes an issue introduced with WC 3.5.5 https://github.com/woocommerce/woocommerce/pull/22573/files where saving settings had no effect.
 
 2019.01.11 - version 2.12.1
-* Fixed an issue where a page containing blocks with filter shortcodes would show an error about failing to publish or update.
-* Fixed wrong price filter limits when searching first and then applying price filters (a side-effect of incorrect parameter handling).
-* Fixed an issue with the filter reset producing an invalid URL due to excessive escaping.
-* Updated the price filter to use common price decimals and adjust the price range limits as floor and ceiling values.
-* Added the woocommerce_product_search_filter_price_decimals filter that allows to modify the price filter decimals used.
-* Added the woocommerce_product_search_service_min_max_price_adjust_decimals filter.
-* Added the woocommerce_product_search_service_min_max_price_adjust_for_display_decimals filter.
-* Improved performance and fixed results by removing redundant meta query related to price filter when our price filter is requested.
+* Fix - Fixed an issue where a page containing blocks with filter shortcodes would show an error about failing to publish or update.
+* Fix - Fixed wrong price filter limits when searching first and then applying price filters (a side-effect of incorrect parameter handling).
+* Fix - Fixed an issue with the filter reset producing an invalid URL due to excessive escaping.
+* Update - Updated the price filter to use common price decimals and adjust the price range limits as floor and ceiling values.
+* Add - Added the woocommerce_product_search_filter_price_decimals filter that allows to modify the price filter decimals used.
+* Add - Added the woocommerce_product_search_service_min_max_price_adjust_decimals filter.
+* Add - Added the woocommerce_product_search_service_min_max_price_adjust_for_display_decimals filter.
+* Dev - Improved performance and fixed results by removing redundant meta query related to price filter when our price filter is requested.
 
 2018.12.07 - version 2.12.0
-* Tested with the latest WooCommerce and WordPress, including the new WordPress 5 Blocks editor (Gutenberg).
-* Revised and tested for compatibility with Gutenberg and other page builders.
-* Fixed initial values of the price filter were not set appropriately when used in content (with page builder blocks and shortcodes).
-* Improved price filtering so store prices without taxes and products displaying prices with taxes included are consistent.
-* Removed deprecated auto adjust settings.
-* Fixed missing lower bounds on price slider calculations resulting in NaN values.
-* Fixed an issue when optimizing back end searches is disabled, the specialized product store would provide all products instead of matches only.
+* Update - Tested with the latest WooCommerce and WordPress, including the new WordPress 5 Blocks editor (Gutenberg).
+* Update - Revised and tested for compatibility with Gutenberg and other page builders.
+* Fix - Fixed initial values of the price filter were not set appropriately when used in content (with page builder blocks and shortcodes).
+* Dev - Improved price filtering so store prices without taxes and products displaying prices with taxes included are consistent.
+* Remove - Removed deprecated auto adjust settings.
+* Fix - Fixed missing lower bounds on price slider calculations resulting in NaN values.
+* Fix - Fixed an issue when optimizing back end searches is disabled, the specialized product store would provide all products instead of matches only.
 
 2018.11.18 - version 2.11.0
-* WordPress 5 compatibility checked.
-* Improved the Product Search Field structure making it more resilient and easily fitting in with themes.
-* Fixed number of terms not being taken into account to limit product categories or product attributes.
-* Improved the Queries report to show the initial sorting-indicator.
-* The Product Search Field will try to maintain the chosen order when the search page is requested (Enter/more link).
-* Added an option to the Product Search Field to allow for open order.
-* Improved product tag counts: related product counts are adjusted based on the current filter context instead of showing the overall count.
-* Improved the performance on handling taxonomy term counts.
-* Fixed price slider handles not positioned according to mapping when values are updated via filter context.
+* Update - WordPress 5 compatibility checked.
+* Dev - Improved the Product Search Field structure making it more resilient and easily fitting in with themes.
+* Fix - Fixed number of terms not being taken into account to limit product categories or product attributes.
+* Dev - Improved the Queries report to show the initial sorting-indicator.
+* Update - The Product Search Field will try to maintain the chosen order when the search page is requested (Enter/more link).
+* Add - Added an option to the Product Search Field to allow for open order.
+* Dev - Improved product tag counts: related product counts are adjusted based on the current filter context instead of showing the overall count.
+* Dev - Improved the performance on handling taxonomy term counts.
+* Fix - Fixed price slider handles not positioned according to mapping when values are updated via filter context.
 
 2018.10.02 - version 2.10.0
-* Added Jetpack compatibility with lazy image loading so it does not need to be disabled anymore.
-* Added the woocommerce_product_search_signal_filter_response action to signal filter response handling.
-* Checked WooCommerce 3.5 compatibility.
-* Added the woocommerce_product_search_compat filter.
-* Fixed issues with white space removal in accurate filter response optimization.
-* Improved compacting with accurate filter response optimization.
-* Using only simple filter response optimization by default to assure higher compatibility rate.
+* Add - Added Jetpack compatibility with lazy image loading so it does not need to be disabled anymore.
+* Add - Added the woocommerce_product_search_signal_filter_response action to signal filter response handling.
+* Update - Checked WooCommerce 3.5 compatibility.
+* Add - Added the woocommerce_product_search_compat filter.
+* Fix - Fixed issues with white space removal in accurate filter response optimization.
+* Dev - Improved compacting with accurate filter response optimization.
+* Update - Using only simple filter response optimization by default to assure higher compatibility rate.
 
 2018.09.25 - version 2.9.0
-* New feature added - flexible dropdowns as style options for category and attribute filters.
-* New feature added - create custom shop sections with preselected product categories, tags or attributes.
-* New feature added - use context to create customized shop pages showing products from certain categories, tags, attributes etc. only.
-* Improved options and debugging info for theme compatibility.
-* Added Storefront compatibility features so the handheld footer brings handles the search field and live results correctly.
-* Fixed an issue with incorrect parameters submitted to filter request when empty multiple select was used.
-* Added the woocommerce_product_search_selectize_css filter.
-* Added the woocommerce_product_search_term_node_select_padding_step filter.
-* Fixed term counts were not taking all subterms into account.
-* Added the woocommerce_product_search_term_node_select_render_count filter.
-* Improved the logic when several instances of the same filter are present to use some single key factors from the triggering element only.
-* Fixed an issue where updating URL query args was not removing all previous parameter pairs.
-* Fixed loading (progress) indicator gone when launching multiple filter requests.
-* Added taxonomy, term and taxonomy_op to the available attributes the woocommerce_product_filter_products shortcode and the corresponding API function.
-* Added the [woocommerce_product_search_filter_context] shortcode.
-* Improved empty selects and dropdowns so they/their widgets are automatically toggled.
-* Added individual options to toggle widgets and components when no eligible options are present in category, attribute and tag filters.
-* Added a console warning when the general products container is not found.
-* Added a console warning when the individual product containers are not found.
-* Added the option to set the individual product container selector.
-* Improved search handling for languages like Chinese.
-* Fixed cases where queries on custom post types with a product taxonomy query part were filtered by mistake.
+* Update - New feature added - flexible dropdowns as style options for category and attribute filters.
+* Update - New feature added - create custom shop sections with preselected product categories, tags or attributes.
+* Update - New feature added - use context to create customized shop pages showing products from certain categories, tags, attributes etc. only.
+* Dev - Improved options and debugging info for theme compatibility.
+* Add - Added Storefront compatibility features so the handheld footer brings handles the search field and live results correctly.
+* Fix - Fixed an issue with incorrect parameters submitted to filter request when empty multiple select was used.
+* Add - Added the woocommerce_product_search_selectize_css filter.
+* Add - Added the woocommerce_product_search_term_node_select_padding_step filter.
+* Fix - Fixed term counts were not taking all subterms into account.
+* Add - Added the woocommerce_product_search_term_node_select_render_count filter.
+* Dev - Improved the logic when several instances of the same filter are present to use some single key factors from the triggering element only.
+* Fix - Fixed an issue where updating URL query args was not removing all previous parameter pairs.
+* Fix - Fixed loading (progress) indicator gone when launching multiple filter requests.
+* Add - Added taxonomy, term and taxonomy_op to the available attributes the woocommerce_product_filter_products shortcode and the corresponding API function.
+* Add - Added the [woocommerce_product_search_filter_context] shortcode.
+* Dev - Improved empty selects and dropdowns so they/their widgets are automatically toggled.
+* Add - Added individual options to toggle widgets and components when no eligible options are present in category, attribute and tag filters.
+* Add - Added a console warning when the general products container is not found.
+* Add - Added a console warning when the individual product containers are not found.
+* Add - Added the option to set the individual product container selector.
+* Dev - Improved search handling for languages like Chinese.
+* Fix - Fixed cases where queries on custom post types with a product taxonomy query part were filtered by mistake.
 
 2018.08.24 - version 2.8.0
-* Substantial performance improvements related to queries with large sets of products and terms.
-* Fixed calculating product counts for terms with items that are out of stock.
-* Improved hierarchical product counts to include counts from children.
-* Improved performance on handling terms.
-* Fixed redundant queries related to hit recording.
-* Modified slider limit indicators to adjust to available range in context.
+* Update - Substantial performance improvements related to queries with large sets of products and terms.
+* Fix - Fixed calculating product counts for terms with items that are out of stock.
+* Dev - Improved hierarchical product counts to include counts from children.
+* Dev - Improved performance on handling terms.
+* Fix - Fixed redundant queries related to hit recording.
+* Update - Modified slider limit indicators to adjust to available range in context.
 
 2018.08.19 - version 2.7.0
-* Enhanced indexing to include product variations specifically.
-* Fixed variations not included when optimizing JSON searches.
-* Fixed missing index update for private products when saved.
-* Minor improvements on back end descriptions.
+* Update - Enhanced indexing to include product variations specifically.
+* Fix - Fixed variations not included when optimizing JSON searches.
+* Fix - Fixed missing index update for private products when saved.
+* Update - Minor improvements on back end descriptions.
 
 2018.08.16 - version 2.6.0
-* Considerably improves the accuracy and performance of large product set searches on the back end when enabled.
-* Added options to handle JSON product searches; introduced substantial performance improvements for those.
-* Added the woocommerce_product_search_ext_product_data_store filter.
-* Improvement to also index products with private post status so they can be included in back end search results.
-* Added the WPS_EXT_PDS constant that enables the PDS override.
+* Update - Considerably improves the accuracy and performance of large product set searches on the back end when enabled.
+* Add - Added options to handle JSON product searches; introduced substantial performance improvements for those.
+* Add - Added the woocommerce_product_search_ext_product_data_store filter.
+* Update - Improvement to also index products with private post status so they can be included in back end search results.
+* Add - Added the WPS_EXT_PDS constant that enables the PDS override.
 
 2018.07.30 - version 2.5.0
-* Added the Spanish translation.
-* Corrected some errors in descriptions.
-* Fixed an issue that made the [woocommerce_product_filter_reset] shortcode inaccessible.
-* Fixed translations were not loaded in time for widgets on the back end.
-* Fixed incorrect img attributes generated for product tag filter thumbnails.
+* Add - Added the Spanish translation.
+* Fix - Corrected some errors in descriptions.
+* Fix - Fixed an issue that made the [woocommerce_product_filter_reset] shortcode inaccessible.
+* Fix - Fixed translations were not loaded in time for widgets on the back end.
+* Fix - Fixed incorrect img attributes generated for product tag filter thumbnails.
 
 2018.07.24 - version 2.4.0
-* Added an interactive price slider to the price filter (supported by widget, shortcode and API function).
-* Added options to display the price filter with slider and/or input fields.
-* Fixed and improved overlapping request handling for live search and filter actions.
-* Added filter reset widget, shortcode and API functions.
-* Improved UX using page cursor progress indicator while filter requests are loading.
-* Improved handling of filter requests in case of request error to bring the UI elements back to a consistent state.
-* Fixed indicating the parent term for the product category filter had no effect.
-* Fixed the indexer's memory limit check when the configuration option is set to unlimited or doesn't exist.
-* Improved initial default work cycle so it won't exceed the idle cycle by default and also checks max_input_time.
-* Added check for max_input_time during indexing.
-* Added the woocommerce_product_search_indexer_limit filter.
-* Added the woocommerce_product_search_indexer_check_memory_limit filter.
-* Added the woocommerce_product_search_indexer_check_execution_limit filter.
-* Suppressed warnings from empty indexing requests (e.g. when a product has no related tags).
-* Fixed back end search to include out of stock products and those that are in draft or pending.
-* Fixed an issue when "Enable AJAX add to cart buttons on archives" was disabled, clicking the button from within live results would lead to a blank page showing 0.
-* Added the option to render the product category filters as select/dropdown.
-* Added the option to render the product attribute filters as select/dropdown.
-* Added the woocommerce_product_search_term_node_select_apply_padding filter.
-* Added the woocommerce_product_search_term_node_select_padding_string filter.
-* Added the woocommerce_product_search_term_node_select_padding filter.
+* Add - Added an interactive price slider to the price filter (supported by widget, shortcode and API function).
+* Add - Added options to display the price filter with slider and/or input fields.
+* Fix - Fixed and improved overlapping request handling for live search and filter actions.
+* Add - Added filter reset widget, shortcode and API functions.
+* Update - Improved UX using page cursor progress indicator while filter requests are loading.
+* Update - Improved handling of filter requests in case of request error to bring the UI elements back to a consistent state.
+* Fix - Fixed indicating the parent term for the product category filter had no effect.
+* Fix - Fixed the indexer's memory limit check when the configuration option is set to unlimited or doesn't exist.
+* Update - Improved initial default work cycle so it won't exceed the idle cycle by default and also checks max_input_time.
+* Add - Added check for max_input_time during indexing.
+* Add - Added the woocommerce_product_search_indexer_limit filter.
+* Add - Added the woocommerce_product_search_indexer_check_memory_limit filter.
+* Add - Added the woocommerce_product_search_indexer_check_execution_limit filter.
+* Update - Suppressed warnings from empty indexing requests (e.g. when a product has no related tags).
+* Fix - Fixed back end search to include out of stock products and those that are in draft or pending.
+* Fix - Fixed an issue when "Enable AJAX add to cart buttons on archives" was disabled, clicking the button from within live results would lead to a blank page showing 0.
+* Add - Added the option to render the product category filters as select/dropdown.
+* Add - Added the option to render the product attribute filters as select/dropdown.
+* Add - Added the woocommerce_product_search_term_node_select_apply_padding filter.
+* Add - Added the woocommerce_product_search_term_node_select_padding_string filter.
+* Add - Added the woocommerce_product_search_term_node_select_padding filter.
 
 2018.06.12 - version 2.3.0
-* Fixed search results were not obtained for words containing some graphemes (like e.g. "æ") that expand to multiple characters in the index.
-* Added additional information on context in the log when the content to clean is not a string.
-* Improved the indexer to include potential additional content rendered through shortcodes in the descriptions.
-* Fixed shortcodes appearing in descriptions produced for live search field results.
-* Added cron check in the indexing section.
-* Added the possibility to run indexing manually through the "Run" button.
-* Fixed context resolution for terms should be limited to concerned product taxonomies only.
+* Fix - Fixed search results were not obtained for words containing some graphemes (like e.g. "æ") that expand to multiple characters in the index.
+* Add - Added additional information on context in the log when the content to clean is not a string.
+* Dev - Improved the indexer to include potential additional content rendered through shortcodes in the descriptions.
+* Fix - Fixed shortcodes appearing in descriptions produced for live search field results.
+* Add - Added cron check in the indexing section.
+* Add - Added the possibility to run indexing manually through the "Run" button.
+* Fix - Fixed context resolution for terms should be limited to concerned product taxonomies only.
 
 2018.05.28 - version 2.2.3
-* Added parameters to the live search field form to handle more restrictive requests.
-* Fixed and updated the more link generated for the live search field to allot to enable or disable any parameters.
-* Added the condition to also act when searching along with filter search when processing the query, avoids showing all results when none should be included for search outside of filtering.
-* Fixed the live search filter form so it also includes the title, excerpt, content and sku flags to allow for more restrictive search.
-* Improved acting on missing resources to reenable filter fields to have at least minimal functionality.
-* Added missing filter flags on ordering form update.
-* Fixed sorting with multiple filter attributes would only use one attribute.
-* Fixed a syntax error in variable initialization of the ixwpsf.attributeFilterItemOnClick function.
-* Fixed cleaning up ampersands in product filter URL handling.
+* Add - Added parameters to the live search field form to handle more restrictive requests.
+* Fix - Fixed and updated the more link generated for the live search field to allot to enable or disable any parameters.
+* Add - Added the condition to also act when searching along with filter search when processing the query, avoids showing all results when none should be included for search outside of filtering.
+* Fix - Fixed the live search filter form so it also includes the title, excerpt, content and sku flags to allow for more restrictive search.
+* Update - Improved acting on missing resources to reenable filter fields to have at least minimal functionality.
+* Add - Added missing filter flags on ordering form update.
+* Fix - Fixed sorting with multiple filter attributes would only use one attribute.
+* Fix - Fixed a syntax error in variable initialization of the ixwpsf.attributeFilterItemOnClick function.
+* Fix - Fixed cleaning up ampersands in product filter URL handling.
 
 2018.05.18 - version 2.2.2
-* Fixed product category order by Term order had no effect.
-* Fixed product attribute order by Term order had no effect.
-* Improved term product counts to reflect current filtering context.
-* Added the woocommerce_product_search_get_terms_filter_counts filter.
-* Added the woocommerce_product_search_term_walker_apply_get_term_count filter.
+* Fix - Fixed product category order by Term order had no effect.
+* Fix - Fixed product attribute order by Term order had no effect.
+* Update - Improved term product counts to reflect current filtering context.
+* Add - Added the woocommerce_product_search_get_terms_filter_counts filter.
+* Add - Added the woocommerce_product_search_term_walker_apply_get_term_count filter.
 
 2018.05.14 - version 2.2.1
 * Fixed product category filter expansion not always behaving properly on touch enabled devices.
 * Fixed cycling between expanded and retracting on hover in the product category filter in certain conditions.
 
 2018.05.11 - version 2.2.0
-* This release contains very important performance improvements thanks to the use of a more optimal query structure.
-* Solved issues where long queries would result in stalling the database engine due to the query optimizer producing suboptimal results.
-* Added the missing parameter to the woocommerce_product_filter_products() API function.
-* Fixed duplicate filter name, added the woocommerce_product_search_field_more_anchor_title filter.
-* Fixed a typo in the class reference for the MIN_DELAY constant in the search field, filter field and old shortcode.
-* Fixed missing and incomplete code documentation.
-* Fixed the product filter when it would not be applied without also filtering terms.
-* Fixed the product filters affecting other parts outside of the extension as this might not be desired by default in all setups.
-* Added an option to apply product filters more extensively (disabled by default).
+* Update - This release contains very important performance improvements thanks to the use of a more optimal query structure.
+* Fix - Solved issues where long queries would result in stalling the database engine due to the query optimizer producing suboptimal results.
+* Add - Added the missing parameter to the woocommerce_product_filter_products() API function.
+* Fix - Fixed duplicate filter name, added the woocommerce_product_search_field_more_anchor_title filter.
+* Fix - Fixed a typo in the class reference for the MIN_DELAY constant in the search field, filter field and old shortcode.
+* Fix - Fixed missing and incomplete code documentation.
+* Fix - Fixed the product filter when it would not be applied without also filtering terms.
+* Fix - Fixed the product filters affecting other parts outside of the extension as this might not be desired by default in all setups.
+* Add - Added an option to apply product filters more extensively (disabled by default).
 
 2018.05.08 - version 2.1.2
-* Improved adaptive category filtering to reduce the terms offered when taxonomy pages are requested directly.
-* Fixed the filter removal invocation for the terms_clauses filter.
-* Fixed an issue where menu items would not be shown when accessing a filter-based URL.
-* Fixed a PHP Notice when no results are matching for filters but no search terms were provided.
-* Fixed price range filter was not activated due to missing flag in the filter request URL when a category was chosen after setting the price range.
-* Added the woocommerce_product_search_request_search_query filter.
-* Extended the term count adjustments to product attributes.
-* Renamed the get_terms_for_request() method to the more appropriate get_product_categories_for_request() (in the service class).
+* Update - Improved adaptive category filtering to reduce the terms offered when taxonomy pages are requested directly.
+* Fix - Fixed the filter removal invocation for the terms_clauses filter.
+* Fix - Fixed an issue where menu items would not be shown when accessing a filter-based URL.
+* Fix - Fixed a PHP Notice when no results are matching for filters but no search terms were provided.
+* Fix - Fixed price range filter was not activated due to missing flag in the filter request URL when a category was chosen after setting the price range.
+* Add - Added the woocommerce_product_search_request_search_query filter.
+* Dev - Extended the term count adjustments to product attributes.
+* Dev - Renamed the get_terms_for_request() method to the more appropriate get_product_categories_for_request() (in the service class).
 
 2018.04.26 - version 2.1.1
-* Added the Woo header tag.
+* Add - Added the Woo header tag.
 
 2018.04.18 - version 2.1.0
-* Improved the product filter navigation and UX.
-* Improved term handling internally.
-* Added product category navigation facilities compatible with click and touch devices, including auto-expand and retract and click to expand/retract.
-* Added visual improvements on all product filters.
-* Added Font Awesome 5 Free for term navigation icons.
-* Disabled product category filter parent navigation display by default in favor of ancestor navigation which is enabled by default (both can be combined).
-* Added guards for cases where conflicts are created by poor "optimizers" or where plain Javascript errors are causing required resources (our typeWatch) not to be loaded.
-* Added the woocommerce_product_search_term_walker_expand filter.
-* Added the woocommerce_product_search_term_walker_retract filter.
-* Improved the term filter algorithm to further restrict terms offered based on matching products from the keyword search filter.
-* Removed the previous taxonomy renderer.
-* Fixed an issue where applying filters with pagination would lead to 404 responses if the filter would produce less pages than the n-th page viewed.
-* Fixed wrong form id produced for price filter form.
-* Added the WPS_DEBUG_DOM constant which enables logging of DOM parsing errors.
+* Update - Improved the product filter navigation and UX.
+* Update - Improved term handling internally.
+* Add - Added product category navigation facilities compatible with click and touch devices, including auto-expand and retract and click to expand/retract.
+* Add - Added visual improvements on all product filters.
+* Add - Added Font Awesome 5 Free for term navigation icons.
+* Update - Disabled product category filter parent navigation display by default in favor of ancestor navigation which is enabled by default (both can be combined).
+* Add - Added guards for cases where conflicts are created by poor "optimizers" or where plain Javascript errors are causing required resources (our typeWatch) not to be loaded.
+* Add - Added the woocommerce_product_search_term_walker_expand filter.
+* Add - Added the woocommerce_product_search_term_walker_retract filter.
+* Update - Improved the term filter algorithm to further restrict terms offered based on matching products from the keyword search filter.
+* Remove - Removed the previous taxonomy renderer.
+* Fix - Fixed an issue where applying filters with pagination would lead to 404 responses if the filter would produce less pages than the n-th page viewed.
+* Fix - Fixed wrong form id produced for price filter form.
+* Add - Added the WPS_DEBUG_DOM constant which enables logging of DOM parsing errors.
 
 2018.04.01 - version 2.0.4
-* Improved handling multiple instances of category filters; restricted terms offered to eligible terms within include and chosen context.
-* Improved handling multiple instances of attribute filters as with category filters.
-* Improved container IDs of live filters and live search.
-* Added internal guards for string values on filter parameters.
-* Fixes an issue where filters would be rendered multiple times in particular circumstances.
-* Added the woocommerce_product_search_like_within filter.
-* Fixed cross-filtering introducing unwanted terms on restricted filter terms with include.
-* Updated the minimum WordPress version requirement to 4.6.
-* Added the taxonomy renderer.
-* Improved the adaptive term filter to take explicit inclusions into account.
+* Update - Improved handling multiple instances of category filters; restricted terms offered to eligible terms within include and chosen context.
+* Update - Improved handling multiple instances of attribute filters as with category filters.
+* Update - Improved container IDs of live filters and live search.
+* Add - Added internal guards for string values on filter parameters.
+* Fix - Fixes an issue where filters would be rendered multiple times in particular circumstances.
+* Add - Added the woocommerce_product_search_like_within filter.
+* Fix - Fixed cross-filtering introducing unwanted terms on restricted filter terms with include.
+* Update - Updated the minimum WordPress version requirement to 4.6.
+* Add - Added the taxonomy renderer.
+* Update - Improved the adaptive term filter to take explicit inclusions into account.
 
 2018.03.26 - version 2.0.3
-* Fixed an issue where an optimization flag was propagated to pagination URLs causing scripts and styles to be removed.
-* Fixed selected depth not correctly displayed on Product Filter – Categories widget.
-* Improved the categories product filter to be adaptive on product category pages.
+* Fix - Fixed an issue where an optimization flag was propagated to pagination URLs causing scripts and styles to be removed.
+* Fix - Fixed selected depth not correctly displayed on Product Filter – Categories widget.
+* Update - Improved the categories product filter to be adaptive on product category pages.
 
 2018.03.09 - version 2.0.2
-* Guarded the indexing process from failing due to invalid taxonomies.
-* Fixed an issue with no results displayed in the product search field when no categories are shown.
-* Fixed an issue with category thumbnail and product filter images clashing.
+* Update - Guarded the indexing process from failing due to invalid taxonomies.
+* Fix - Fixed an issue with no results displayed in the product search field when no categories are shown.
+* Fix - Fixed an issue with category thumbnail and product filter images clashing.
 
 2018.03.08 - version 2.0.1
-* Fixed a fatal error with installations using WordPress before 4.9.0 due to a missing core API function.
+* Fix - Fixed a fatal error with installations using WordPress before 4.9.0 due to a missing core API function.
 
 2018.03.05 - version 2.0.0
-* This major release requires WooCommerce 3.x to use new features while maintaining backwards-compatibility with WooCommerce 2.6 where these are not available.
-* All new improvements and features listed below for this version __require__ WooCommerce 3.x.
-* Added full support to use the search engine for all front and back end product searches.
-* Automatically powers front and back end searches for products and added related options.
-* Automatically replaces front end product search field where possible.
-* Added the product indexer.
-* Added search statistics.
-* Added the report on Searches.
-* Added the report on Search Queries.
-* Added the Welcome section with useful information and links.
-* Added the notice inviting to rate the extension.
-* Added the Assistant to set up filter widgets.
-* Added the Index section in settings.
-* Updated the Thumbnails section in settings with additional thumbnail settings for product taxonomies.
-* Updated the Weights section with additional settings.
-* Removed the performance section in settings.
-* Added live product filter facilities available through widgets, shortcodes and the extension's API.
-* Added the Product Filter widget.
-* Added the Product Category Filter widget.
-* Added the Product Tag Filter widget.
-* Added the Product Attribute Filter widget.
-* Added the Price Filter widget.
-* Added the [woocommerce_product_filter] shortcode.
-* Added the [woocommerce_product_filter_products] shortcode.
-* Added the [woocommerce_product_filter_attribute] shortcode.
-* Added the [woocommerce_product_filter_category] shortcode.
-* Added the [woocommerce_product_filter_tag] shortcode.
-* Added the [woocommerce_product_filter_price] shortcode.
-* Added product search filter image support for product categories, tags and attributes.
-* Added new options to shorten titles and description for results in the search field.
-* Added data deletion option.
-* Replaced the "WooCommerce Instant Product Search" widget with the improved "Product Search Field" widget that offers additional options and much better default settings.
-* Replaced use of language domain constant WOO_PS_PLUGIN_DOMAIN with string literal 'woocommerce-product-search' (*sigh*).
-* Removed support for like_escape().
-* Added WooCommerce version compatibility and tested up to tags.
-* Removed the woocommerce_product_search_use_admin_ajax filter and product-search.php alternative.
-* Optimized scripts.
-* Added performance improvements with added minified scripts and styles.
-* Updated the translation template.
-* Updated the built-in styles for better appearance and theme-compatibility.
-* Several minor fixes and improvements.
+* Update - This major release requires WooCommerce 3.x to use new features while maintaining backwards-compatibility with WooCommerce 2.6 where these are not available.
+* Update - All new improvements and features listed below for this version __require__ WooCommerce 3.x.
+* Add - Added full support to use the search engine for all front and back end product searches.
+* Update - Automatically powers front and back end searches for products and added related options.
+* Update - Automatically replaces front end product search field where possible.
+* Add - Added the product indexer.
+* Add - Added search statistics.
+* Add - Added the report on Searches.
+* Add - Added the report on Search Queries.
+* Add - Added the Welcome section with useful information and links.
+* Add - Added the notice inviting to rate the extension.
+* Add - Added the Assistant to set up filter widgets.
+* Add - Added the Index section in settings.
+* Update - Updated the Thumbnails section in settings with additional thumbnail settings for product taxonomies.
+* Update - Updated the Weights section with additional settings.
+* Update - Removed the performance section in settings.
+* Add - Added live product filter facilities available through widgets, shortcodes and the extension's API.
+* Add - Added the Product Filter widget.
+* Add - Added the Product Category Filter widget.
+* Add - Added the Product Tag Filter widget.
+* Add - Added the Product Attribute Filter widget.
+* Add - Added the Price Filter widget.
+* Add - Added the [woocommerce_product_filter] shortcode.
+* Add - Added the [woocommerce_product_filter_products] shortcode.
+* Add - Added the [woocommerce_product_filter_attribute] shortcode.
+* Add - Added the [woocommerce_product_filter_category] shortcode.
+* Add - Added the [woocommerce_product_filter_tag] shortcode.
+* Add - Added the [woocommerce_product_filter_price] shortcode.
+* Add - Added product search filter image support for product categories, tags and attributes.
+* Add - Added new options to shorten titles and description for results in the search field.
+* Add - Added data deletion option.
+* Update - Replaced the "WooCommerce Instant Product Search" widget with the improved "Product Search Field" widget that offers additional options and much better default settings.
+* Update - Replaced use of language domain constant WOO_PS_PLUGIN_DOMAIN with string literal 'woocommerce-product-search' (*sigh*).
+* Remove - Removed support for like_escape().
+* Add - Added WooCommerce version compatibility and tested up to tags.
+* Remove - Removed the woocommerce_product_search_use_admin_ajax filter and product-search.php alternative.
+* Update - Optimized scripts.
+* Add - Added performance improvements with added minified scripts and styles.
+* Update - Updated the translation template.
+* Update - Updated the built-in styles for better appearance and theme-compatibility.
+* Update - Several minor fixes and improvements.
 
 2017.09.09 - version 1.10.3
-* Updated the product panel icon.
+* Update - Updated the product panel icon.
 
 2017.07.25 - version 1.10.2
-* Fixed our taxonomy query to exclude products that are out of stock and products excluded from search.
+* Fix - Fixed our taxonomy query to exclude products that are out of stock and products excluded from search.
 
 2017.06.23 - version 1.10.1
-* Adjusted the fulltext search to exclude query words that are shorter than ft_min_word_len.
-* Fixed an error that could occur in some instance (depending on the MySQL version used) related to information table permissions
-  when trying to obtain the value of ft_min_word_len.
+* Update - Adjusted the fulltext search to exclude query words that are shorter than ft_min_word_len.
+* Fix - Fixed an error that could occur in some instance (depending on the MySQL version used) related to information table permissions when trying to obtain the value of ft_min_word_len.
 
 2017.05.28 - version 1.10.0
-* Fixed warning due to use of deprecated action woocommerce_product_write_panels, now using woocommerce_product_data_panels.
-* Fixed warnings where parameter is expected to be a reference but a value is given (related to PHP 7).
-* Fixed error "The 'INFORMATION_SCHEMA.GLOBAL_VARIABLES' feature is disabled ..." on MySQL 5.7
+* Fix - Fixed warning due to use of deprecated action woocommerce_product_write_panels, now using woocommerce_product_data_panels.
+* Fix - Fixed warnings where parameter is expected to be a reference but a value is given (related to PHP 7).
+* Fix - Fixed error "The 'INFORMATION_SCHEMA.GLOBAL_VARIABLES' feature is disabled ..." on MySQL 5.7
 
 2017.04.12 - version 1.9.0
-* Updated the plugin for WooCommerce 3.0.0 compatibility.
+* Update - Updated the plugin for WooCommerce 3.0.0 compatibility.
 
 2017.01.19 - version 1.8.1
-* Fixed a PHP Fatal error for PHP < 5.5.0 "Can't use method return value in write context ..."
+* Fix - Fixed a PHP Fatal error for PHP < 5.5.0 "Can't use method return value in write context ..."
 
 2017.01.11 - version 1.8.0
-* Now using admin-ajax.php by default instead of the internal script.
-* Fixed an issue where for no matches all results were returned instead.
-* Added an additional internal method to enable or disable WPML language filtering.
-* Searching in SKU is now also taken into account in search results page.
+* Update - Now using admin-ajax.php by default instead of the internal script.
+* Fix - Fixed an issue where for no matches all results were returned instead.
+* Add - Added an additional internal method to enable or disable WPML language filtering.
+* Update - Searching in SKU is now also taken into account in search results page.
 
 2016.11.24 - version 1.7.1
-* Fixed search terms were not displayed on the search results page.
+* Fix - Fixed search terms were not displayed on the search results page.
 
 2016.10.21 - version 1.7.0
-* Added support for search in SKU.
-* Reduced the memory imprint of the visibility and out of stock checks.
-* Fixed issues with sorting results.
-* Improved the search results presented to match those of the instant search box.
-* Fixed an additional issue related to empty search terms using fulltext search when weights are enabled (again related to https://bugs.mysql.com/bug.php?id=78485)
-* Fixed issues with catalog and search visibility.
+* Add - Added support for search in SKU.
+* Dev - Reduced the memory imprint of the visibility and out of stock checks.
+* Fix - Fixed issues with sorting results.
+* Update - Improved the search results presented to match those of the instant search box.
+* Fix - Fixed an additional issue related to empty search terms using fulltext search when weights are enabled (again related to https://bugs.mysql.com/bug.php?id=78485)
+* Fix - Fixed issues with catalog and search visibility.
 
 2016.07.25 - version 1.6.0
-* Fixed WPML language filtering.
-* Fixed an issue where search terms that resulted as empty after cleaning them up would cause
-  a database query error in fulltext search with InnoDB tables due to a bug in MySQL https://bugs.mysql.com/bug.php?id=78485
+* Fix - Fixed WPML language filtering.
+* Fix - Fixed an issue where search terms that resulted as empty after cleaning them up would cause a database query error in fulltext search with InnoDB tables due to a bug in MySQL https://bugs.mysql.com/bug.php?id=78485
 
 2016.06.24 - version 1.5.0
-* Adjusted the term query to use the new termmeta table (WP DB >= 34370 and WC >= 2.6.0).
+* Update - Adjusted the term query to use the new termmeta table (WP DB >= 34370 and WC >= 2.6.0).
 
 2016.05.15 - version 1.4.3
-* Filtering products which are not visible.
+* Update - Filtering products which are not visible.
 
 2015.12.07 - version 1.4.2
-* Adjusts the product search submenu margin and enqueues admin styles for all our sections.
+* Update - Adjusts the product search submenu margin and enqueues admin styles for all our sections.
 
 2015.08.12 - version 1.4.1
-* Declares table-layout auto for search results table for visual compatibility with themes like Twenty Fifteen that declare it fixed.
+* Update - Declares table-layout auto for search results table for visual compatibility with themes like Twenty Fifteen that declare it fixed.
 
 2015.05.14 - version 1.4.0
-* Performance options added with support for Full-Text Searches.
-* Improved search term filters to exclude non-alphanumeric characters to avoid queries that could potentially lead to query errors.
-* Added an option to log main query times.
+* Update - Performance options added with support for Full-Text Searches.
+* Update - Improved search term filters to exclude non-alphanumeric characters to avoid queries that could potentially lead to query errors.
+* Add - Added an option to log main query times.
 
 2015.05.04 - version 1.3.1
-* Improved internal definitions to maintain functionality with alternate
-  WP_CONTENT_DIR and WP_CONTENT_URL definitions.
+* Update - Improved internal definitions to maintain functionality with alternate WP_CONTENT_DIR and WP_CONTENT_URL definitions.
 
 2015.03.12 - version 1.3.0
-* Hiding out of stock products when "Out Of Stock Visibility" is enabled.
-* Search results after focus-out-focus-in are emptied if search field is empty.
-* Added the option to show prices for both shortcode and widget, using the
-  attribute show_price (disabled by default).
+* Update - Hiding out of stock products when "Out Of Stock Visibility" is enabled.
+* Update - Search results after focus-out-focus-in are emptied if search field is empty.
+* Add - Added the option to show prices for both shortcode and widget, using the attribute show_price (disabled by default).
 
 2014.09.13 - version 1.2.0
-* Admin menu restructured and plugin faq/help moved to Help tab.
-* Fixed a memory issue with huge result sets.
-* Added search weights for products and product categories.
-* Added general search weights for product title, excerpt, content and tags.
+* Update - Admin menu restructured and plugin faq/help moved to Help tab.
+* Fix - Fixed a memory issue with huge result sets.
+* Add - Added search weights for products and product categories.
+* Add - Added general search weights for product title, excerpt, content and tags.
 
 2014.08.26 - version 1.1.0
-* Fixed a code issue (improper static method call).
-* Added OB handling to assure clean AJAX response for search results.
-* Improved results to be fully clickable.
-* Added use of a placeholder thumbnail image (option, enabled by default).
-* Added show_description (disabled by default) based on a product's short
-  description.
-* Improved search result rendering.
-* Improved search facility rendering.
-* Added API function woocommerce_product_search().
-* Adjusted for changes in WordPress 4.0 (like_escape is deprecated).
-* Added the Product Search Thumbnail image size info to the Products section.
-* Added a CSS rule for product search result titles to use the inherited font,
-  to avoid conflicts with generic rules for the .title class in themes.
-  By inheriting the font from its parent element, the default is more in line
-  with its context.
-* Added a CSS rule for product search result entries to apply a minimal padding
-  to avoid conflicts with generic rules for the .entry class in themes.
-* Fixed missing resources when widget is used.
-* Moved plugin settings inside WooCommerce settings into its own Product Search tab.
-* Added a link to the settings shown in the plugin's entry.
-* Added a brief help section.
-* Added WPML choice for widget.
-* Added WPML language indication support
-* Added woo-includes.
+* Fix - Fixed a code issue (improper static method call).
+* Add - Added OB handling to assure clean AJAX response for search results.
+* Update - Improved results to be fully clickable.
+* Add - Added use of a placeholder thumbnail image (option, enabled by default).
+* Add - Added show_description (disabled by default) based on a product's short description.
+* Update - Improved search result rendering.
+* Update - Improved search facility rendering.
+* Add - Added API function woocommerce_product_search().
+* Update - Adjusted for changes in WordPress 4.0 (like_escape is deprecated).
+* Add - Added the Product Search Thumbnail image size info to the Products section.
+* Add - Added a CSS rule for product search result titles to use the inherited font, to avoid conflicts with generic rules for the .title class in themes. By inheriting the font from its parent element, the default is more in line with its context.
+* Add - Added a CSS rule for product search result entries to apply a minimal padding to avoid conflicts with generic rules for the .entry class in themes.
+* Fix - Fixed missing resources when widget is used.
+* Update - Moved plugin settings inside WooCommerce settings into its own Product Search tab.
+* Add - Added a link to the settings shown in the plugin's entry.
+* Add - Added a brief help section.
+* Add - Added WPML choice for widget.
+* Add - Added WPML language indication support
+* Add - Added woo-includes.
 
 2014.07.28 - version 1.0.2
-* Added readme.txt
-* Improved search query service, now also using object cache to get category results.
-* Added blinker timeout.
-* Improved results visualization so that empty results have no border.
-* Added a filter which allows to use admin-ajax instead of our core handler.
+* Add - Added readme.txt
+* Update - Improved search query service, now also using object cache to get category results.
+* Add - Added blinker timeout.
+* Update - Improved results visualization so that empty results have no border.
+* Add - Added a filter which allows to use admin-ajax instead of our core handler.
 
 2014.07.13 - version 1.0.1
-* Fixed a Javascript error when data returned is null.
-* Changed the tags logic to conjunctive within multiple search term context.
-* Adjusts search queries only where explicitly request through the ixwps
-  parameter (on the posts_where filter).
-* Using object cache to get post id results.
+* Fix - Fixed a Javascript error when data returned is null.
+* Update - Changed the tags logic to conjunctive within multiple search term context.
+* Update - Adjusts search queries only where explicitly request through the ixwps parameter (on the posts_where filter).
+* Update - Using object cache to get post id results.
 
 2014.06.26 - version 1.0.0
-* Initial release
+* Dev - Initial release

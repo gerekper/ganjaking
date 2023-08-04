@@ -90,7 +90,7 @@ $custom_tag = 'script';
 		updates from WPBakery Page Builder team.', 'js_composer' );
 				?>
 			</p>
-			<button class="vc_general vc_ui-button vc_ui-button-size-sm vc_ui-button-shape-rounded vc_ui-button-action vc_ui-access-library-btn">
+			<button class="vc_general vc_ui-button vc_ui-button-size-md vc_ui-button-shape-rounded vc_ui-button-action vc_ui-access-library-btn">
 				<?php esc_html_e( 'Access Library', 'js_composer' ); ?>
 			</button>
 		</div>

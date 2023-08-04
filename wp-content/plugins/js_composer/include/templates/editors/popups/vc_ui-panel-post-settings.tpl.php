@@ -2,6 +2,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
+/**
+ * @var bool $can_unfiltered_html_cap
+ */
 ?>
 <div class="vc_ui-font-open-sans vc_ui-panel-window vc_media-xs vc_ui-panel" data-vc-panel=".vc_ui-panel-header-header" data-vc-ui-element="panel-post-settings" id="vc_ui-panel-post-settings">
 	<div class="vc_ui-panel-window-inner">
@@ -20,15 +23,49 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<div class="wpb_element_label"><?php esc_html_e( 'Page title', 'js_composer' ); ?></div>
 						<div class="edit_form_line">
 							<input name="page_title" class="wpb-textinput vc_title_name" type="text" value="" id="vc_page-title-field" placeholder="<?php esc_attr_e( 'Please enter page title', 'js_composer' ); ?>">
-					<span class="vc_description"><?php printf( esc_html__( 'Change title of the current %s (Note: changes may not be displayed in a preview, but will take effect after saving page).', 'js_composer' ), esc_html( get_post_type() ) ); ?></span>
+							<span class="vc_description"><?php printf( esc_html__( 'Change title of the current %s (Note: changes may not be displayed in a preview, but will take effect after saving page).', 'js_composer' ), esc_html( get_post_type() ) ); ?></span>
 						</div>
+					</div>
+					<div class="vc_col-sm-12 vc_column" id="vc_settings-post_custom_layout">
+						<div class="wpb_element_label"><?php esc_html_e( 'Layout Option', 'js_composer' ); ?></div>
+						<?php
+						vc_include_template(
+							'editors/partials/vc_post_custom_layout.tpl.php',
+							[ 'location' => 'settings' ]
+						);
+						?>
 					</div>
 					<div class="vc_col-sm-12 vc_column">
 						<div class="wpb_element_label"><?php esc_html_e( 'Custom CSS settings', 'js_composer' ); ?></div>
 						<div class="edit_form_line">
-							<pre id="wpb_csseditor" class="wpb_content_element custom_css wpb_frontend"></pre>
-					<span
-						class="vc_description vc_clearfix"><?php esc_html_e( 'Enter custom CSS (Note: it will be outputted only on this particular page).', 'js_composer' ); ?></span>
+							<p><?php esc_html_e( '<style>' ) ?></p>
+							<pre id="wpb_css_editor" class="wpb_content_element custom_code wpb_frontend"></pre>
+							<p><?php esc_html_e( '</style>' ) ?></p>
+							<span class="vc_description vc_clearfix"><?php esc_html_e( 'Enter custom CSS (Note: it will be outputted only on this particular page).', 'js_composer' ); ?></span>
+						</div>
+					</div>
+					<div class="vc_col-sm-12 vc_column">
+						<div class="wpb_element_label"><?php esc_html_e( 'Custom JavaScript in <head>', 'js_composer' ); ?></div>
+						<div class="edit_form_line">
+							<p><?php esc_html_e( '<script>' ) ?></p>
+							<pre id="wpb_js_header_editor" class="wpb_content_element custom_code wpb_frontend <?php echo $can_unfiltered_html_cap ?: 'wpb_missing_unfiltered_html'; ?>"><?php echo $can_unfiltered_html_cap ? '' : wpbakery()->getEditorsLocale()['unfiltered_html_access']; ?></pre>
+							<p><?php esc_html_e( '</script>' ) ?></p>
+							<span class="vc_description vc_clearfix">
+								<?php esc_html_e( 'Enter custom JS (Note: it will be outputted only on this particular page inside <head> tag).', 'js_composer' ); ?>
+							</span>
+						</div>
+					</div>
+					<div class="vc_col-sm-12 vc_column">
+						<div class="wpb_element_label">
+							<?php esc_html_e( 'Custom JavaScript before </body>', 'js_composer' ); ?>
+						</div>
+						<div class="edit_form_line">
+							<p><?php esc_html_e( '<script>' ) ?></p>
+							<pre id="wpb_js_footer_editor" class="wpb_content_element custom_code wpb_frontend <?php echo $can_unfiltered_html_cap ?: 'wpb_missing_unfiltered_html'; ?>"><?php echo $can_unfiltered_html_cap ? '' : wpbakery()->getEditorsLocale()['unfiltered_html_access']; ?></pre>
+							<p><?php esc_html_e( '</script>' ) ?></p>
+							<span class="vc_description vc_clearfix">
+								<?php esc_html_e( 'Enter custom JS (Note: it will be outputted only on this particular page before closing </body> tag).', 'js_composer' ); ?>
+							</span>
 						</div>
 					</div>
 				</div>

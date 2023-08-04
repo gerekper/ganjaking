@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * WPBakery WPBakery Page Builder shortcodes attributes class.
+ * WPBakery Page Builder shortcodes attributes class.
  *
  * This class and functions represents ability which will allow you to create attributes settings fields to
  * control new attributes.

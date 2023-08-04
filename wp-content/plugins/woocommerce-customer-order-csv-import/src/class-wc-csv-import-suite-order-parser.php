@@ -17,11 +17,11 @@
  * needs please refer to http://docs.woocommerce.com/document/customer-order-csv-import-suite/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2012-2022, SkyVerge, Inc.
+ * @copyright   Copyright (c) 2012-2023, SkyVerge, Inc.
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_3 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -94,9 +94,10 @@ class WC_CSV_Import_Suite_Order_Parser {
 	 * Parses raw order data, building and returning an array of order data
 	 * to import into the database.
 	 *
-	 * The order data is broken into two portions:	the couple of defined fields
-	 * that make up the wp_posts table, and then the name-value meta data that is
-	 * inserted into the wp_postmeta table.	Within the meta data category, there
+	 * The order data is broken into two portions: the couple of defined fields
+	 * that make up the wp_posts / wp_wc_orders table, and then the name-value metadata that is
+	 * inserted into the wp_postmeta / wp_wc_orders_meta table.
+	 * Within the metadata category, there
 	 * are known meta fields, such as 'billing_first_name' for instance, and then
 	 * arbitrary meta fields are allowed and identified by a CSV column title with
 	 * the prefix 'meta:'.
@@ -108,7 +109,7 @@ class WC_CSV_Import_Suite_Order_Parser {
 	 * @throws \WC_CSV_Import_Suite_Import_Exception validation, parsing errors
 	 * @return array Parsed order data
 	 */
-	public function parse_order( $item, $options = array(), $raw_headers = array() ) {
+	public function parse_order( array $item, array $options = [], array $raw_headers = [] ): array {
 
 		// default options, see more in WC_CSV_Import_Suite_Importer::dispatch()
 		$options = wp_parse_args( $options, array(
@@ -121,13 +122,13 @@ class WC_CSV_Import_Suite_Order_Parser {
 
 		$csv_file_format = $this->importer->detect_csv_file_format( $raw_headers );
 
-		$order_data = $postmeta = $terms = array();
+		$order_data = [];
 
 		/* translators: Placeholders: %s - row number */
 		$preparing = $options['merge'] ? __( '> Row %s - preparing for merge.', 'woocommerce-csv-import-suite' ) : __( '> Row %s - preparing for import.', 'woocommerce-csv-import-suite' );
 		wc_csv_import_suite()->log( sprintf( $preparing, $this->importer->get_line_num() ) );
 
-		list( $order_number, $order_number_formatted ) = $this->parse_order_number( $item, $csv_file_format );
+		[ $order_number, $order_number_formatted ] = $this->parse_order_number( $item, $csv_file_format );
 
 		// set order number
 		if ( ! is_null( $order_number ) ) {
@@ -147,7 +148,6 @@ class WC_CSV_Import_Suite_Order_Parser {
 
 		// we can only merge if a matching order id was found
 		$merging = $options['merge'] && $order_id;
-
 
 		// use isset check for customer, since 0 = guest customer, which would be considered empty
 		if ( isset( $item['customer_user'] ) || ! $merging ) {
@@ -176,12 +176,12 @@ class WC_CSV_Import_Suite_Order_Parser {
 		}
 
 		// parse meta & terms
-		list( $postmeta, $terms ) = $this->parse_order_meta( $item, $merging );
+		[ $order_meta, $terms ] = $this->parse_order_meta( $item, $merging );
 
 		// totals
-		$tax_total          = isset( $postmeta['_order_tax'] )          ? $postmeta['_order_tax']          : null;
-		$shipping_total     = isset( $postmeta['_order_shipping'] )     ? $postmeta['_order_shipping']     : null;
-		$shipping_tax_total = isset( $postmeta['_order_shipping_tax'] ) ? $postmeta['_order_shipping_tax'] : null;
+		$tax_total          = $order_meta['_order_tax'] ?? null;
+		$shipping_total     = $order_meta['_order_shipping'] ?? null;
+		$shipping_tax_total = $order_meta['_order_shipping_tax'] ?? null;
 
 		// taxes & tax total
 		$tax_items = $this->items_parser->parse_tax_items( $item, $tax_total, $shipping_tax_total, $merging );
@@ -203,47 +203,45 @@ class WC_CSV_Import_Suite_Order_Parser {
 		// coupons
 		$coupons = $this->items_parser->parse_coupons( $item );
 
-
 		// re-add the order tax totals to the order meta, in case they were calculated based on order items
 		if ( ! is_null( $tax_total ) ) {
-			$postmeta['_order_tax'] = number_format( (float) $tax_total, 2, '.', '' );
+			$order_meta['_order_tax'] = number_format( (float) $tax_total, 2, '.', '' );
 		}
 
 		if ( ! is_null( $shipping_total ) ) {
-			$postmeta['_order_shipping'] = number_format( (float) $shipping_total, 2, '.', '' );
+			$order_meta['_order_shipping'] = number_format( (float) $shipping_total, 2, '.', '' );
 		}
 
 		if ( ! is_null( $shipping_tax_total ) ) {
-			$postmeta['_order_shipping_tax'] = number_format( (float) $shipping_tax_total, 2, '.', '' );
+			$order_meta['_order_shipping_tax'] = number_format( (float) $shipping_tax_total, 2, '.', '' );
 		}
 
-
 		// put parsed data together
-		if ( ! empty( $postmeta ) ) {
-			$order_data['order_meta'] = $postmeta;
+		if ( ! empty( $order_meta ) ) {
+			$order_data['order_meta'] = $order_meta;
 		}
 
 		if ( ! empty( $terms ) ) {
 			$order_data['terms'] = $terms;
 		}
 
-		if ( ! empty( $line_items) ) {
+		if ( ! empty( $line_items ) ) {
 			$order_data['line_items'] = $line_items;
 		}
 
-		if ( ! empty( $shipping_items) ) {
+		if ( ! empty( $shipping_items ) ) {
 			$order_data['shipping_lines'] = $shipping_items;
 		}
 
-		if ( ! empty( $tax_items) ) {
+		if ( ! empty( $tax_items ) ) {
 			$order_data['tax_lines'] = $tax_items;
 		}
 
-		if ( ! empty( $fee_items) ) {
+		if ( ! empty( $fee_items ) ) {
 			$order_data['fee_lines'] = $fee_items;
 		}
 
-		if ( ! empty( $coupons) ) {
+		if ( ! empty( $coupons ) ) {
 			$order_data['coupon_lines'] = $coupons;
 		}
 
@@ -254,12 +252,10 @@ class WC_CSV_Import_Suite_Order_Parser {
 			$order_data['refunds'] = $refunds;
 		}
 
-
 		// when merging, try to match items to existing order items
 		if ( $merging ) {
 			$order_data = $this->items_parser->match_order_lines( $order_data, $csv_file_format );
 		}
-
 
 		// parse & validate currency
 		if ( ! empty( $item['currency'] ) ) {
@@ -269,11 +265,10 @@ class WC_CSV_Import_Suite_Order_Parser {
 			if ( ! in_array( strtoupper( $item['currency'] ), $currency_codes ) ) {
 				// invalid currency code
 				throw new \WC_CSV_Import_Suite_Import_Exception( 'wc_csv_import_suite_invalid_currency_code', sprintf( __( 'Skipped. Invalid or unsupported currency %s.', 'woocommerce-csv-import-suite' ),	$item['currency'] ) );
-			} else {
-				$order_data['currency'] = $item['currency'];
 			}
-		}
 
+			$order_data['currency'] = $item['currency'];
+		}
 
 		/**
 		 * Filters parsed order data
@@ -301,7 +296,7 @@ class WC_CSV_Import_Suite_Order_Parser {
 	 * @throws \WC_CSV_Import_Suite_Import_Exception validation, parsing errors
 	 * @return array
 	 */
-	private function parse_order_number( $item, $csv_file_format ) {
+	private function parse_order_number( $item, $csv_file_format ): array {
 
 		$is_csv_export_file = Framework\SV_WC_Helper::str_starts_with( $csv_file_format, 'csv_export' );
 
@@ -347,7 +342,7 @@ class WC_CSV_Import_Suite_Order_Parser {
 	 * @throws \WC_CSV_Import_Suite_Import_Exception validation, parsing errors
 	 * @return int|null order id or null if no matching order found
 	 */
-	private function parse_order_id( $item, $order_number_formatted, $options ) {
+	private function parse_order_id( $item, $order_number_formatted, $options ): ?int {
 
 		$order_id = null;
 
@@ -365,8 +360,8 @@ class WC_CSV_Import_Suite_Order_Parser {
 
 			// check if order exists
 
-			// 1. try matching order number
-			elseif ( $order_number_formatted ) {
+			// first, try matching the order number
+			if ( $order_number_formatted ) {
 
 				$found_order = $this->get_order_id_by_formatted_number( $order_number_formatted );
 
@@ -380,14 +375,14 @@ class WC_CSV_Import_Suite_Order_Parser {
 						if ( $options['insert_non_matching'] ) {
 							wc_csv_import_suite()->log( sprintf( __( '> > Skipped. Cannot find order with formatted number %s. Importing instead.', 'woocommerce-csv-import-suite' ), $order_number_formatted ) );
 							return null;
-						} else {
-							throw new \WC_CSV_Import_Suite_Import_Exception( 'wc_csv_import_suite_cannot_find_order', sprintf( __( 'Cannot find order with formatted number %s.', 'woocommerce-csv-import-suite' ), $order_number_formatted ) );
 						}
 
-					} else {
-						// we can keep trying with order ID
-						wc_csv_import_suite()->log( sprintf( __( '> > Cannot find order with formatted number %s.', 'woocommerce-csv-import-suite' ), $order_number_formatted ) );
+						throw new \WC_CSV_Import_Suite_Import_Exception( 'wc_csv_import_suite_cannot_find_order', sprintf( __( 'Cannot find order with formatted number %s.', 'woocommerce-csv-import-suite' ), $order_number_formatted ) );
+
 					}
+
+					// we can keep trying with order ID
+					wc_csv_import_suite()->log( sprintf( __( '> > Cannot find order with formatted number %s.', 'woocommerce-csv-import-suite' ), $order_number_formatted ) );
 
 				} else {
 					wc_csv_import_suite()->log( sprintf( __( '> > Found order with formatted number %s.', 'woocommerce-csv-import-suite' ), $order_number_formatted ) );
@@ -396,21 +391,21 @@ class WC_CSV_Import_Suite_Order_Parser {
 
 			}
 
-			// check if an order with the same ID exists
+			// then, check if an order with the same ID exists
 			if ( ! $found_order && $order_id ) {
 
-				if ( 'shop_order' !== get_post_type( $order_id ) ) {
+				if ( ! wc_get_order( $order_id ) ) {
 
 					if ( $options['insert_non_matching'] ) {
 						wc_csv_import_suite()->log( sprintf( __( '> > Skipped. Cannot find order with id %s. Importing instead.', 'woocommerce-csv-import-suite' ), $order_id ) );
 						return null;
-					} else {
-						throw new \WC_CSV_Import_Suite_Import_Exception( 'wc_csv_import_suite_cannot_find_order', sprintf( __( 'Cannot find order with id %s.', 'woocommerce-csv-import-suite' ), $order_id ) );
 					}
 
-				} else {
-					wc_csv_import_suite()->log( sprintf( __( '> > Found order with ID %s.', 'woocommerce-csv-import-suite' ), $order_id ) );
+					throw new \WC_CSV_Import_Suite_Import_Exception( 'wc_csv_import_suite_cannot_find_order', sprintf( __( 'Cannot find order with id %s.', 'woocommerce-csv-import-suite' ), $order_id ) );
+
 				}
+
+				wc_csv_import_suite()->log( sprintf( __( '> > Found order with ID %s.', 'woocommerce-csv-import-suite' ), $order_id ) );
 			}
 		}
 
@@ -444,7 +439,7 @@ class WC_CSV_Import_Suite_Order_Parser {
 	 * @throws \WC_CSV_Import_Suite_Import_Exception validation, parsing errors
 	 * @return int|null customer id if found, 0 in case of guest customer and null if merging and data not present
 	 */
-	private function parse_customer_user( $item, $merging = false ) {
+	private function parse_customer_user( $item, $merging = false ): ?int {
 
 		$found_customer = false;
 		$customer_id    = null;
@@ -463,9 +458,9 @@ class WC_CSV_Import_Suite_Order_Parser {
 
 					if ( $merging ) {
 						throw new \WC_CSV_Import_Suite_Import_Exception( 'wc_csv_import_suite_cannot_find_customer', $message );
-					} else {
-						wc_csv_import_suite()->log( $message );
 					}
+
+					wc_csv_import_suite()->log( $message );
 
 				} else {
 					$found_customer = $user->ID;
@@ -530,9 +525,9 @@ class WC_CSV_Import_Suite_Order_Parser {
 			if ( ! array_key_exists( $item['status'], $order_statuses ) ) {
 				/* translators: Placeholders: %1$s - order status, %2$s - available order statuses */
 				throw new \WC_CSV_Import_Suite_Import_Exception( 'wc_csv_import_suite_invalid_order_status', sprintf( __( 'Unknown order status %1$s (%2$s).', 'woocommerce-csv-import-suite' ), $item['status'], implode( ', ', array_keys( $order_statuses ) ) ) );
-			} else {
-				$status = $item['status'];
 			}
+
+			$status = $item['status'];
 
 		}
 
@@ -556,7 +551,7 @@ class WC_CSV_Import_Suite_Order_Parser {
 		$merging = $options['merge'] && ! empty( $order_data['id'] );
 
 		// construct order addresses
-		$address_types = array( 'billing_', 'shipping_' );
+		$address_types                  = array( 'billing_', 'shipping_' );
 		$order_data['billing_address']  = array();
 		$order_data['shipping_address'] = array();
 
@@ -620,9 +615,9 @@ class WC_CSV_Import_Suite_Order_Parser {
 	 * @param bool $merging Optional. Whether we are merging or inserting a new order. Defaults to false.
 	 * @return array
 	 */
-	private function parse_order_meta( $item, $merging = false ) {
+	private function parse_order_meta( array $item, bool $merging = false ): array {
 
-		$postmeta = $terms = array();
+		$order_meta = $terms = [];
 
 		// get any known order meta fields, and default any missing ones to 0/null
 		// the provided shipping/payment method will be used as-is, and if found in the list of available ones, the respective titles will also be set
@@ -640,7 +635,7 @@ class WC_CSV_Import_Suite_Order_Parser {
 
 				case 'payment_method':
 
-					$value              = isset( $item[ $column ] ) ? $item[ $column ] : '';
+					$value              = $item[$column] ?? '';
 					$available_gateways = $this->get_available_payment_gateways();
 
 					// look up payment method by id or title
@@ -659,16 +654,16 @@ class WC_CSV_Import_Suite_Order_Parser {
 
 					if ( $payment_method ) {
 						// known payment method found
-						$postmeta['_payment_method']       = $payment_method;
-						$postmeta['_payment_method_title'] = $available_gateways[ $payment_method ]->title;
+						$order_meta['_payment_method']       = $payment_method;
+						$order_meta['_payment_method_title'] = $available_gateways[ $payment_method ]->title;
 					} elseif ( $value ) {
 						// standard format, payment method but no title
-						$postmeta['_payment_method']       = $value;
-						$postmeta['_payment_method_title'] = '';
+						$order_meta['_payment_method']       = $value;
+						$order_meta['_payment_method_title'] = '';
 					} elseif ( ! $merging ) {
 						// none
-						$postmeta['_payment_method']       = '';
-						$postmeta['_payment_method_title'] = '';
+						$order_meta['_payment_method']       = '';
+						$order_meta['_payment_method_title'] = '';
 					}
 				break;
 
@@ -680,13 +675,13 @@ class WC_CSV_Import_Suite_Order_Parser {
 				case 'order_total':
 					// ignore blanks but allow zeroes
 					if ( isset( $item[ $column ] ) && is_numeric( $item[ $column ] ) ) {
-						$postmeta[ '_' . $meta_key ] = number_format( (float) $item[ $column ], 2, '.', '' );
+						$order_meta[ '_' . $meta_key ] = number_format( (float) $item[ $column ], 2, '.', '' );
 					}
 				break;
 
 				default:
 					if ( isset( $item[ $column ] ) ) {
-						$postmeta[ '_' . $meta_key ] = $item[ $column ];
+						$order_meta[ '_' . $meta_key ] = $item[ $column ];
 					}
 				break;
 			}
@@ -706,12 +701,12 @@ class WC_CSV_Import_Suite_Order_Parser {
 				$meta_key = trim( str_replace( 'meta:', '', $key ) );
 
 				// skip known meta fields
-				if ( in_array( $meta_key, $this->order_meta_fields ) ) {
+				if ( in_array( $meta_key, $this->order_meta_fields, true ) ) {
 					continue;
 				}
 
-				// add to postmeta array
-				$postmeta[ $meta_key ] = $value;
+				// add to order_meta array
+				$order_meta[ $meta_key ] = $value;
 			}
 
 			// handle tax: columns - import as taxonomy terms
@@ -731,7 +726,7 @@ class WC_CSV_Import_Suite_Order_Parser {
 			}
 		}
 
-		return array( $postmeta, $terms );
+		return [ $order_meta, $terms ];
 	}
 
 
@@ -747,42 +742,34 @@ class WC_CSV_Import_Suite_Order_Parser {
 	 * @param int|string $formatted_number
 	 * @return int Found order ID or 0 if no match found
 	 */
-	private function get_order_id_by_formatted_number( $formatted_number ) {
+	private function get_order_id_by_formatted_number( $formatted_number ) : int {
 
 		// we'll give 3rd party plugins two chances to hook in their custom order number facilities:
 		// first by performing a simple search using the order meta field name used by both this and the
 		// Sequential Order Number Pro plugin, allowing other plugins to filter over it if needed,
 		// while still providing this plugin with some base functionality
-		$query_args = array(
-			'numberposts' => 1,
-			'meta_key'    => apply_filters( 'woocommerce_order_number_formatted_meta_name', '_order_number_formatted' ),
-			'meta_value'  => $formatted_number,
-			'post_type'   => 'shop_order',
-			'post_status' => array_keys( wc_get_order_statuses() ),
-			'fields'      => 'ids',
-		);
+		$query_args = [
+			'limit'      => 1,
+			'meta_key'   => apply_filters( 'woocommerce_order_number_formatted_meta_name', '_order_number_formatted' ),
+			'meta_value' => $formatted_number,
+			'type'       => 'shop_order',
+			'status'     => array_keys( wc_get_order_statuses() ),
+			'return'     => 'ids',
+		];
 
-		$order_id = 0;
-		$orders   = get_posts( $query_args );
-
-		if ( ! empty( $orders ) ) {
-			list( $order_id ) = $orders;
-			return $order_id;
+		if ( ! empty( $orders = wc_get_orders( $query_args ) ) ) {
+			return reset( $orders );
 		}
 
 		// If we haven't found an order using the formatted meta key, keep checking
 		// for the _order_number key (supports free version of Seq Order Numbers).
-		else {
+		$query_args['meta_key'] = apply_filters( 'woocommerce_order_number_meta_name', '_order_number' );
 
-			$query_args['meta_key'] = apply_filters( 'woocommerce_order_number_meta_name', '_order_number' );
-			$_orders                = get_posts( $query_args );
-
-			if ( ! empty ( $_orders ) ) {
-				list( $order_id ) = $_orders;
-			}
+		if ( ! empty ( $orders = wc_get_orders( $query_args ) ) ) {
+			return reset( $orders );
 		}
 
-		return $order_id;
+		return 0;
 	}
 
 
@@ -829,5 +816,6 @@ class WC_CSV_Import_Suite_Order_Parser {
 
 		return $this->available_payment_gateways;
 	}
+
 
 }

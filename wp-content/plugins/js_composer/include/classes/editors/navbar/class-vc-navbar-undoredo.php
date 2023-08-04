@@ -28,11 +28,11 @@ class Vc_Navbar_Undoredo {
 	public function addControls( $controls ) {
 		$controls[] = array(
 			'redo',
-			'<li class="vc_pull-right"><a id="vc_navbar-redo" href="javascript:;" class="vc_icon-btn" disabled title="' . esc_attr__( 'Redo', 'js_composer' ) . '"><i class="vc_navbar-icon fa fa-repeat"></i></a></li>',
+			'<li class="vc_pull-right"><a id="vc_navbar-redo" href="javascript:;" class="vc_icon-btn vc_undo-redo" disabled title="' . esc_attr__( 'Redo', 'js_composer' ) . '"><i class="vc-composer-icon vc-c-icon-redo"></i></a></li>',
 		);
 		$controls[] = array(
 			'undo',
-			'<li class="vc_pull-right"><a id="vc_navbar-undo" href="javascript:;" class="vc_icon-btn" disabled title="' . esc_attr__( 'Undo', 'js_composer' ) . '"><i class="vc_navbar-icon fa fa-undo"></i></a></li>',
+			'<li class="vc_pull-right"><a id="vc_navbar-undo" href="javascript:;" class="vc_icon-btn vc_undo-redo" disabled title="' . esc_attr__( 'Undo', 'js_composer' ) . '"><i class="vc-composer-icon vc-c-icon-undo"></i></a></li>',
 		);
 
 		return $controls;

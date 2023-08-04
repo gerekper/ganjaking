@@ -32,10 +32,10 @@
     .navbar-brand();
     font-size: 0;
     background: transparent url(@vcui_navbar_logo) center center no-repeat;
-    background-size: 36px;
+    background-size: 32px;
     display: block;
-    width: 42px;
-    height: 42px;
+    width: 32px;
+    height: 26px;
     padding: 27px 30px 27px 35px;
     &.vc_ui-wp-spinner {
       background-image: none;
@@ -56,7 +56,7 @@
   .vc_right-space {
     padding-right: 5px;
   }
-  .vc_icon-btn {
+  a.vc_icon-btn {
     display: block;
     width: 60px;
     height: @vc_navbar_height;
@@ -66,7 +66,7 @@
     background: transparent;
     transition: background-color @vcui-navbar-transition-duration @vcui-navbar-transition-function;
     position: relative;
-    font-size: 22px;
+    font-size: 24px;
     &[disabled] {
       .opacity(0.2);
     }
@@ -93,21 +93,32 @@
   .vc_btn-backend-editor {
     margin-right: 2px;
   }
-  .vc_btn-save {
+  .vc_btn.vc_btn-save {
+    background-color: #fff;
+    color: #34434A;
     margin-left: 2px;
     &-draft {
+      background-color: @vc_main_color_hover;
+      color: #fff;
       margin-right: 2px;
     }
   }
+  .vc_undo-redo {
+    font-size: 22px;
+  }
+  .vc_fullscreen-button,
+  .vc_windowed-button {
+    font-size: 23px;
+  }
   .vc_back-button {
-    font-size: 26px;
+    font-size: 18px;
     padding: 20px 23px;
   }
-  .vc_post-settings {
-    font-size: 20px;
-  }
-  .vc_windowed-button {
+  a.vc_icon-btn.vc_windowed-button {
     display: none;
+    i {
+      top: 65%;
+    }
   }
   .vc_badge-custom-css {
     display: block;
@@ -125,19 +136,21 @@
     display: none;
     .vc_control-preview {
       margin-right: 0;
+      background-color: @vc_main_color_hover;
+      color: #fff !important; // override another !important
     }
     .vc_control-save {
       margin-left: 5px;
+      background-color: #fff;
+      color: #34434A;
     }
   }
   .vc_dropdown {
     position: relative;
-    font-size: 18px;
     .vc_dropdown-toggle {
       transition: background-color @vcui-navbar-transition-duration @vcui-navbar-transition-function;
       cursor: default;
       display: block;
-      width: 68px;
       height: 56px;
       line-height: 16px;
       padding: 19px;
@@ -160,7 +173,6 @@
       // border: 1px solid #1e5072;
       // border-width: 0 1px 1px 1px;
       padding-top: 1px;
-      .border-bottom-radius(3px);
       > li {
         margin: 0;
       }
@@ -170,7 +182,7 @@
         text-decoration: none;
         transition: background-color @vcui-navbar-transition-duration @vcui-navbar-transition-function;
         background-color: transparent;
-        width: 68px;
+        width: 56px;
         height: 37px;
         position: relative;
         &::before {
@@ -180,10 +192,10 @@
           .translate(-50%, -50%);
         }
         &:hover {
-          background-color: #00aef0;
+          background-color: @vc_main_color;
         }
         &.active {
-          background-color: #00aef0;
+          background-color: @vc_main_color;
         }
       }
     }
@@ -195,8 +207,23 @@
         display: block;
       }
     }
-    .vc-c-icon-layout_landscape-smartphones {
-      font-size: 13px;
+    &-more {
+      .vc_dropdown-list {
+        top: 56px;
+        right: 0;
+        margin: 0;
+        padding: 0;
+      }
+      .vc_dropdown-list-item {
+        a {
+          width: auto;
+          min-width: 147px;
+          height: auto;
+          padding: 21px 21px;
+          line-height: 1;
+          font-size: 15px;
+        }
+      }
     }
   }
 }
@@ -205,16 +232,30 @@
 //
 // Vertically center a button within a navbar (when *not* in a form).
 
-.vc_navbar-btn {
+.vc_btn.vc_navbar-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1;
+  border-radius: 5px;
+  width: 120px;
+  height: 45px;
+  margin: 5.5px 21px;
   transition: background-color @vcui-navbar-transition-duration @vcui-navbar-transition-function;
-  .navbar-vertical-align(@input-height-base);
-  margin-left: 21px;
-  margin-right: 21px;
-  &.vc_btn-sm {
-    .navbar-vertical-align(@input-height-small);
-  }
+
   &.vc_btn-xs {
     .navbar-vertical-align(22);
+  }
+
+  &.vc_btn-default:hover {
+    background: @vc_main_color_hover;
+    color: #fff;
+  }
+  &.vc_btn-primary:hover {
+    background: #E9F2F6;
+    color: inherit;
   }
 }
 
@@ -244,7 +285,7 @@
   }
 }
 
-@media screen and (max-width: 782px) {
+@media screen and (max-width: 835px) {
   .vc_navbar li, .navbar-header {
     display: none;
   }

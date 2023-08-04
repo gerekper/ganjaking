@@ -4,7 +4,7 @@
  use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
 
 
-	
+
 
 if ( ! function_exists( 'opmc_hpos_get_post_meta' ) ) {
 	function opmc_hpos_get_post_meta( $post_id, $meta_key ) {
@@ -58,13 +58,13 @@ if ( ! function_exists( 'opmc_hpos_get_post_type' ) ) {
 if (!function_exists('opmc_hpos_add_meta_box')) {
 	function opmc_hpos_add_meta_box( $id, $title, $callback, $screen, $context = 'advanced', $priority = 'default' ) {
 		if ( class_exists( CustomOrdersTableController::class ) &&
-			 function_exists( 'wc_get_container' ) && 
+			 function_exists( 'wc_get_container' ) &&
 			 wc_get_container()->get( CustomOrdersTableController::class )->custom_orders_table_usage_is_enabled() ) {
 			$screen = wc_get_page_screen_id( $screen );
 		} else {
 			$screen = $screen;
 		}
-	
+
 		add_meta_box(
 			$id,
 			$title,

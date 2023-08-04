@@ -17,11 +17,11 @@
  * needs please refer to http://docs.woocommerce.com/document/customer-order-csv-import-suite/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2012-2022, SkyVerge, Inc.
+ * @copyright   Copyright (c) 2012-2023, SkyVerge, Inc.
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_3 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -64,7 +64,7 @@ class WC_CSV_Import_Suite_Order_Processor {
 	 * @param array $raw_headers raw headers (optional)
 	 * @return int|null
 	 */
-	public function process_order( $data, $options = [], $raw_headers = [] ) {
+	public function process_order( array $data, array $options = [], array $raw_headers = [] ) {
 
 		// default options
 		$options = (array) wp_parse_args( $options, [
@@ -73,7 +73,7 @@ class WC_CSV_Import_Suite_Order_Processor {
 		] );
 
 		$merging      = $options['merge'] && isset( $data['id'] ) && $data['id'];
-		$dry_run      = isset( $options['dry_run'] ) ? $options['dry_run'] : false;
+		$dry_run      = $options['dry_run'] ?? false;
 		$reduce_stock = isset( $options['reduce_product_stock'] ) && wc_string_to_bool( $options['reduce_product_stock'] );
 		$order_id     = null;
 
@@ -193,7 +193,7 @@ class WC_CSV_Import_Suite_Order_Processor {
 
 			// default order args, note that status is checked for validity in wc_create_order()
 			$default_order_args = array(
-				'customer_note' => isset( $data['note'] ) ? $data['note'] : '',
+				'customer_note' => $data['note'] ?? '',
 				'customer_id'   => $data['customer_id'],
 				'created_via'   => 'csv-import',
 			);
@@ -244,6 +244,9 @@ class WC_CSV_Import_Suite_Order_Processor {
 
 			// this will also save the order in WC 3+
 			$order->update_status( $data['status'] );
+
+			// finally, save the order
+			$order->save();
 
 			/**
 			 * Triggered after an order has been created via CSV import
@@ -323,7 +326,7 @@ class WC_CSV_Import_Suite_Order_Processor {
 				 * Actors can use this hook to customize the order number during import
 				 *
 				 * @since 1.0.0
-				 * @param \WC_Order $order the order
+				 * @param WC_Order $order the order
 				 * @param $order_number order number from the CSV file
 				 * @param $order_number_formatted formatted order number from the CSV file
 				 */
@@ -350,11 +353,12 @@ class WC_CSV_Import_Suite_Order_Processor {
 
 			// update order status - note that this is done _after_ updating order data, so that we have a chance to
 			// grant download permissions before WC automatically sets download permissions as already granted when
-			// moving the order to processing or completed status
+			// moving the order to the processing or completed status
 			if ( ! empty( $data['status'] ) ) {
-				$order->update_status( $data['status'], isset( $data['status_note'] ) ? $data['status_note'] : '' );
+				$order->update_status( $data['status'], $data['status_note'] ?? '' );
 			}
 
+			// finally, save the order
 			$order->save();
 
 			/**
@@ -383,13 +387,12 @@ class WC_CSV_Import_Suite_Order_Processor {
 	 * In 3.3.0 moved to {@see \WC_CSV_Import_Suite_Order_Processor} from {@see \WC_CSV_Import_Suite_Order_Import}
 	 *
 	 * @since 3.0.0
-	 *
-	 * @param \WC_Order $order order object
+	 * @param WC_Order $order order object
 	 * @param array $data import data
 	 * @param array $options import options
 	 * @throws \WC_CSV_Import_Suite_Import_Exception
 	 */
-	private function update_order_data( WC_Order $order, $data, $options ) {
+	private function update_order_data( WC_Order $order, array $data, array $options ): void {
 
 		$order_id = $order->get_id();
 		$merging  = $options['merge'] && isset( $data['id'] ) && $data['id'];
@@ -435,7 +438,6 @@ class WC_CSV_Import_Suite_Order_Processor {
 			// set order lines
 			foreach ( $this->importer->line_types as $line_type => $line ) {
 
-
 				// don't set lines if they're empty - this ensures partial updates/merges
 				// are supported and won't wipe out order lines
 				if ( ! empty( $data[ $line ] ) && is_array( $data[ $line ] ) ) {
@@ -461,13 +463,13 @@ class WC_CSV_Import_Suite_Order_Processor {
 
 			// set order meta
 			if ( isset( $data['order_meta'] ) && is_array( $data['order_meta'] ) ) {
-				$this->set_order_meta( $order_id, $data['order_meta'] );
+				$this->set_order_meta( $order, $data['order_meta'] );
 			}
 
 			// set the paying customer flag on the user meta if applicable
 			$paid_statuses = array( 'processing', 'completed', 'refunded' );
 
-			if ( ! empty( $data['customer_id'] ) && ! empty( $data['status'] ) && in_array( $data['status'], $paid_statuses ) ) {
+			if ( ! empty( $data['customer_id'] ) && ! empty( $data['status'] ) && in_array( $data['status'], $paid_statuses, true ) ) {
 				update_user_meta( $data['customer_id'], 'paying_customer', 1 );
 			}
 
@@ -477,10 +479,9 @@ class WC_CSV_Import_Suite_Order_Processor {
 				// remove previous refunds
 				foreach ( $order->get_refunds() as $refund ) {
 
-					$refund_id = $refund->get_id();
+					wc_delete_shop_order_transients( $refund->get_id() );
 
-					wc_delete_shop_order_transients( $refund_id );
-					wp_delete_post( $refund_id, true );
+					$refund->delete( true );
 				}
 
 				foreach ( $data['refunds'] as $refund_data ) {
@@ -494,7 +495,7 @@ class WC_CSV_Import_Suite_Order_Processor {
 								$temp_id = $refunded_item['refunded_item_temp_id'];
 
 								// get the real order item id for this refunded item
-								$order_item_id = isset( $this->refunded_item_order_ids[ $temp_id ] ) ? $this->refunded_item_order_ids[ $temp_id ] : null;
+								$order_item_id = $this->refunded_item_order_ids[$temp_id] ?? null;
 
 								if ( $order_item_id ) {
 									$refund_data['line_items'][ $order_item_id ] = $refunded_item;
@@ -566,22 +567,86 @@ class WC_CSV_Import_Suite_Order_Processor {
 
 
 	/**
-	 * Adds/updates order meta data
+	 * Adds/updates order metadata
+	 *
+	 * Note:
+	 * - this includes internal order properties that are stored as meta, such as order totals.
+	 * - this method does _not_ save the updated properties or meta to the database, it merely updates the in-memory object
 	 *
 	 * In 3.3.0 moved to \WC_CSV_Import_Suite_Order_Processor from \WC_CSV_Import_Suite_Order_Import
 	 *
 	 * @since 3.0.0
-	 * @param int $order_id valid order ID
+	 * @param WC_Order $order the order instance
 	 * @param array $order_meta order meta in array( 'meta_key' => 'meta_value' ) format
 	 */
-	private function set_order_meta( $order_id, $order_meta ) {
+	private function set_order_meta( WC_Order $order, array $order_meta ): void {
 
 		foreach ( $order_meta as $meta_key => $meta_value ) {
 
 			if ( is_string( $meta_key ) ) {
-				update_post_meta( $order_id, $meta_key, $meta_value );
+
+				// if we can set the order property directly, do so
+				if ( $this->set_order_property_from_meta( $order, $meta_key, $meta_value ) ) {
+					continue;
+				}
+
+				$order->update_meta_data( $meta_key, $meta_value );
 			}
 		}
+	}
+
+
+	/**
+	 * Sets the order property from the given meta key and value, if a setter exists.
+	 *
+	 * @since 3.12.0
+	 *
+	 * @param WC_Order $order
+	 * @param string $meta_key
+	 * @param mixed $meta_value
+	 * @return bool True if the order property was set, false otherwise.
+	 */
+	protected function set_order_property_from_meta( WC_Order $order, string $meta_key, $meta_value ): bool {
+
+		$internal_meta_keys = $order->get_data_store()->get_internal_meta_keys();
+
+		if ( in_array( $meta_key, $internal_meta_keys, true ) && ! empty( $setter_method = $this->get_order_property_setter( $order, $meta_key ) ) ) {
+			$order->{$setter_method}( $meta_value );
+
+			return true;
+		}
+
+		return false;
+	}
+
+
+	/**
+	 * Gets the order property setter method name for the given meta key, if one exists.
+	 *
+	 * @since 3.12.0
+	 * @param WC_Order $order
+	 * @param string $meta_key
+	 * @return string|null the setter method name, or null if none exists.
+	 */
+	protected function get_order_property_setter( WC_Order $order, string $meta_key ) : ?string {
+
+		/** This is a direct copy from @see \Abstract_WC_Order_Data_Store_CPT::update_post_meta() */
+		$meta_key_to_props = [
+			'_order_currency'     => 'currency',
+			'_cart_discount'      => 'discount_total',
+			'_cart_discount_tax'  => 'discount_tax',
+			'_order_shipping'     => 'shipping_total',
+			'_order_shipping_tax' => 'shipping_tax',
+			'_order_tax'          => 'cart_tax',
+			'_order_total'        => 'total',
+			'_order_version'      => 'version',
+			'_prices_include_tax' => 'prices_include_tax',
+		];
+
+		$property = $meta_key_to_props[ $meta_key ] ?? $meta_key;
+		$setter   = 'set_' . ltrim( $property, '_' );
+
+		return is_callable( $order, $setter ) ? $setter : null;
 	}
 
 
@@ -591,13 +656,12 @@ class WC_CSV_Import_Suite_Order_Processor {
 	 * In 3.3.0 moved to \WC_CSV_Import_Suite_Order_Processor from \WC_CSV_Import_Suite_Order_Import
 	 *
 	 * @since 3.0.0
-	 *
-	 * @param \WC_Order $order The order object the items should be attached to
-	 * @param array items Parsed items from CSV.
+	 * @param WC_Order $order The order object the items should be attached to
+	 * @param array $items items Parsed items from CSV.
 	 * @param string $type Optional. Line items type. Defaults to 'line_item'.
 	 * @param bool $merging Optional. Whether we are merging or inserting a new order. Defaults to false.
 	 */
-	private function process_items( WC_Order $order, $items = array(), $type = 'line_item', $merging = false ) {
+	private function process_items( WC_Order $order, array $items = [], string $type = 'line_item', bool $merging = false ) {
 
 		if ( empty( $items ) ) {
 			return;
@@ -655,11 +719,11 @@ class WC_CSV_Import_Suite_Order_Processor {
 	 * In 3.3.0 moved to \WC_CSV_Import_Suite_Order_Processor from \WC_CSV_Import_Suite_Order_Import
 	 *
 	 * @since 3.0.0
-	 *
-	 * @param \WC_Order $order
+	 * @param WC_Order $order
 	 * @param array $item Parsed item data from CSV
 	 * @param string $type Line item type
 	 * @return int|false ID of the inserted order item, false on failure
+	 * @throws Exception
 	 */
 	private function add_order_item( WC_Order $order, $item, $type ) {
 
@@ -675,7 +739,7 @@ class WC_CSV_Import_Suite_Order_Processor {
 				$result       = $order->add_product( $product, $args[ $quantity_key ], $args );
 
 				if ( ! $result ) {
-					wc_csv_import_suite()->log( sprintf( __( '> > Warning: cannot add order item "%s".', 'woocommerce-csv-import-suite' ), esc_html( $identifier ) ) );
+					wc_csv_import_suite()->log( sprintf( __( '> > Warning: cannot add order item "%s".', 'woocommerce-csv-import-suite' ), esc_html( json_encode( $item ) ) ) );
 				}
 			break;
 
@@ -742,11 +806,11 @@ class WC_CSV_Import_Suite_Order_Processor {
 					$tax_class = $item['tax_class'];
 
 					if ( isset( $item['total_tax'] ) ) {
-						$tax = isset( $item['total_tax'] ) ? (float) $item['total_tax'] : 0;
+						$tax = (float) $item['total_tax'];
 					}
 
 					if ( isset( $item['tax_data'] ) ) {
-						$tax_data = isset( $item['tax_data']['total'] ) ? $item['tax_data']['total'] : $item['tax_data'];
+						$tax_data = $item['tax_data']['total'] ?? $item['tax_data'];
 						$tax      = array_sum( $tax_data );
 					}
 				}
@@ -755,7 +819,7 @@ class WC_CSV_Import_Suite_Order_Processor {
 				$fee->set_props( [
 					'name'      => $item['title'],
 					'tax_class' => $taxable ? $tax_class : 0,
-					'total'     => isset( $item['total'] ) ? floatval( $item['total'] ) : 0,
+					'total'     => isset( $item['total'] ) ? (float) $item['total'] : 0,
 					'total_tax' => $tax,
 					'taxes'     => [
 						'total' => $tax_data,
@@ -790,12 +854,12 @@ class WC_CSV_Import_Suite_Order_Processor {
 	 * In 3.3.0 moved to \WC_CSV_Import_Suite_Order_Processor from \WC_CSV_Import_Suite_Order_Import
 	 *
 	 * @since 3.0.0
-	 *
-	 * @param \WC_Order $order WC_Order instance
+	 * @param WC_Order $order WC_Order instance
 	 * @param int $order_item_id Order item ID to update
 	 * @param array $item Parsed item data from CSV
 	 * @param string $type Line item type
 	 * @return int|false ID of the updated order item, false on failure
+	 * @throws Exception
 	 */
 	private function update_order_item( WC_Order $order, $order_item_id, $item, $type ) {
 
@@ -820,9 +884,10 @@ class WC_CSV_Import_Suite_Order_Processor {
 				if ( isset( $args['quantity'] ) ) {
 
 					if ( isset( $args['subtotal'] ) ) {
-						$args['subtotal'] = $args['subtotal'] ? $args['subtotal'] : wc_get_price_excluding_tax( $product, array( 'qty' => $args['quantity'] ) );
+						$args['subtotal'] = $args['subtotal'] ?: wc_get_price_excluding_tax( $product, ['qty' => $args['quantity']] );
 					}
-					$args['total'] = $args['total'] ? $args['total'] : wc_get_price_excluding_tax( $product, array( 'qty' => $args['quantity'] ) );
+
+					$args['total'] = $args['total'] ?: wc_get_price_excluding_tax( $product, ['qty' => $args['quantity']] );
 				}
 
 				$order_item->set_order_id( $order->get_id() );
@@ -867,7 +932,7 @@ class WC_CSV_Import_Suite_Order_Processor {
 
 				$coupon = $order->get_item( $order_item_id );
 
-				if ( $coupon->is_type( 'coupon' ) ) {
+				if ( $coupon && $coupon->is_type( 'coupon' ) ) {
 
 					$coupon->set_props( $args );
 					$result = $coupon->save();
@@ -883,20 +948,21 @@ class WC_CSV_Import_Suite_Order_Processor {
 					'name'      => $item['title'],
 					'total'     => $item['total'],
 					'total_tax' => $item['total_tax'],
-					'tax_class' => isset( $item['tax_class'] ) ? $item['tax_class'] : '',
+					'tax_class' => $item['tax_class'] ?? '',
 					'order_id'  => $order->get_id(),
 				];
 
-				$fee = $order->get_item( $order_item_id );
+				if ( $fee = $order->get_item( $order_item_id ) ) {
 
-				if ( $fee->is_type( 'fee' ) ) {
+					if ( $fee->is_type( 'fee' ) ) {
 
-					$fee->set_props( $args );
-					$result = $fee->save();
+						$fee->set_props( $args );
+						$result = $fee->save();
+					}
+
+					// update order item in order object (otherwise the changed values are reverted when the order is saved)
+					$order->add_item( $fee );
 				}
-
-				// update order item in order object (otherwise the changed values are reverted when the order is saved)
-				$order->add_item( $fee );
 
 				if ( ! $result ) {
 					wc_csv_import_suite()->log( sprintf( __( '> > Warning: cannot merge fee "%s".', 'woocommerce-csv-import-suite' ), esc_html( $item['title'] ) ) );
@@ -1024,8 +1090,8 @@ class WC_CSV_Import_Suite_Order_Processor {
 		if ( ! $product ) {
 
 			$product           = new \WC_Product( null );
-			$product_name      = isset( $item['name'] ) ? $item['name'] : __( 'Unknown product', 'woocommerce-csv-import-suite' );
-			$product_tax_class = isset( $item['tax_class'] ) ? $item['tax_class'] : '';
+			$product_name      = $item['name'] ?? __( 'Unknown product', 'woocommerce-csv-import-suite' );
+			$product_tax_class = $item['tax_class'] ?? '';
 
 			$product->set_id( 0 );
 			$product->set_tax_class( $product_tax_class );
@@ -1050,7 +1116,7 @@ class WC_CSV_Import_Suite_Order_Processor {
 	 * @return array Product / line item arguments, ready to be used by
 	 *               $order->add/update_product
 	 */
-	private function prepare_product_args( $item ) {
+	private function prepare_product_args( array $item ): array {
 
 		$args = array();
 
@@ -1063,22 +1129,22 @@ class WC_CSV_Import_Suite_Order_Processor {
 
 		// total
 		if ( isset( $item['total'] ) ) {
-			$args['totals']['total'] = floatval( $item['total'] );
+			$args['totals']['total'] = (float) $item['total'];
 		}
 
 		// total tax
 		if ( isset( $item['total_tax'] ) ) {
-			$args['totals']['tax'] = floatval( $item['total_tax'] );
+			$args['totals']['tax'] = (float) $item['total_tax'];
 		}
 
 		// subtotal
 		if ( isset( $item['subtotal'] ) ) {
-			$args['totals']['subtotal'] = floatval( $item['subtotal'] );
+			$args['totals']['subtotal'] = (float) $item['subtotal'];
 		}
 
 		// subtotal tax
 		if ( isset( $item['subtotal_tax'] ) ) {
-			$args['totals']['subtotal_tax'] = floatval( $item['subtotal_tax'] );
+			$args['totals']['subtotal_tax'] = (float) $item['subtotal_tax'];
 		}
 
 		// tax data
@@ -1131,8 +1197,8 @@ class WC_CSV_Import_Suite_Order_Processor {
 		// note indicating the original order number.	If the user has a custom order
 		// number plugin like the Sequential Order Number Pro installed, then things
 		// will be even cleaner on the backend
-		update_post_meta( $order->get_id(), apply_filters( 'woocommerce_order_number_meta_name', '_order_number' ), $order_number );
-		update_post_meta( $order->get_id(), apply_filters( 'woocommerce_order_number_formatted_meta_name', '_order_number_formatted' ), $order_number_formatted );
+		$order->update_meta_data( apply_filters( 'woocommerce_order_number_meta_name', '_order_number' ), $order_number );
+		$order->update_meta_data( apply_filters( 'woocommerce_order_number_formatted_meta_name', '_order_number_formatted' ), $order_number_formatted );
 	}
 
 

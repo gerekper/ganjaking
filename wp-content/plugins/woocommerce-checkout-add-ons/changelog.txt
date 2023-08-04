@@ -1,5 +1,8 @@
 *** WooCommerce Checkout Add-Ons Changelog ***
 
+2023.07.28 - version 2.7.0
+ * Misc - Add compatibility for WooCommerce High Performance Order Storage (HPOS)
+
 2022.11.29 - version 2.6.0
  * Misc - Require PHP 7.4 and WordPress 5.6
 

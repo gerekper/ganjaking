@@ -28,7 +28,7 @@ class RevSliderTemplate extends RevSliderFunctions {
 		$return	= false;
 		$uid	= $this->clear_uid($uid);
 		$uid	= esc_attr($uid);
-		$code	= (get_option('revslider-valid', 'false') == 'false') ? '' : get_option('revslider-code', '');
+		$code	= ($this->_truefalse(get_option('revslider-valid', 'false')) === false) ? '' : get_option('revslider-code', '');
 		
 		$upload_dir = wp_upload_dir(); // Set upload folder
 		// Check folder permission and define file location
@@ -112,7 +112,7 @@ class RevSliderTemplate extends RevSliderFunctions {
 			update_option('revslider-templates-check', time());
 
 			$hash = ($force === true) ? '' : get_option('revslider-templates-hash', '');
-			$code = (get_option('revslider-valid', 'false') == 'false') ? '' : get_option('revslider-code', '');
+			$code = ($this->_truefalse(get_option('revslider-valid', 'false')) === false) ? '' : get_option('revslider-code', '');
 			$data = array(
 				'code'		=> urlencode($code),
 				'shop_version' => urlencode(self::SHOP_VERSION),
@@ -846,7 +846,7 @@ class RevSliderTemplate extends RevSliderFunctions {
 	 */
 	public function remove_old_template($uid){
 		//get all template sliders
-		$templates = $this->get_tp_template_sliders();
+		$templates = $this->get_tp_template_sliders($uid);
 		
 		foreach($templates as $tslider){
 			if($this->get_val($tslider, 'uid') == $uid){

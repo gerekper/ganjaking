@@ -2,16 +2,16 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Freshdesk 1.1.28\n"
+"Project-Id-Version: WooCommerce Freshdesk 1.3.0\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-01-03T12:43:19+00:00\n"
+"POT-Creation-Date: 2023-07-27T07:10:01+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: woocommerce-freshdesk\n"
 
 #. Plugin Name of the plugin
@@ -58,302 +58,300 @@ msgstr ""
 msgid "Failed to update Forum Category."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:22
-#: includes/class-wc-freshdesk-integration.php:308
-#: includes/class-wc-freshdesk-integration.php:323
-#: includes/class-wc-freshdesk-integration.php:633
+#: includes/class-wc-freshdesk-integration.php:26
+#: includes/class-wc-freshdesk-integration.php:334
+#: includes/class-wc-freshdesk-integration.php:352
+#: includes/class-wc-freshdesk-integration.php:658
 #: includes/class-wc-freshdesk-privacy.php:12
 msgid "Freshdesk"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:23
+#: includes/class-wc-freshdesk-integration.php:27
 msgid "Freshdesk is a customer support solutions in the SaaS space."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:88
+#: includes/class-wc-freshdesk-integration.php:114
 msgid "Log Freshdesk events, such as API requests, inside %s"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:88
+#: includes/class-wc-freshdesk-integration.php:114
 msgid "View Log"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:92
+#: includes/class-wc-freshdesk-integration.php:118
 msgid "Freshdesk URL"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:94
+#: includes/class-wc-freshdesk-integration.php:120
 msgid "Enter your Freshdesk URL, example %s."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:98
+#: includes/class-wc-freshdesk-integration.php:124
 msgid "Plan"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:100
+#: includes/class-wc-freshdesk-integration.php:126
 msgid "Enter with the plan that you use in Freshdesk."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:104
+#: includes/class-wc-freshdesk-integration.php:130
 msgid "Sprout (Free)"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:105
+#: includes/class-wc-freshdesk-integration.php:131
 msgid "Blossom"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:106
+#: includes/class-wc-freshdesk-integration.php:132
 msgid "Garden"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:107
+#: includes/class-wc-freshdesk-integration.php:133
 msgid "Estate"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:108
+#: includes/class-wc-freshdesk-integration.php:134
 msgid "Forest"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:112
+#: includes/class-wc-freshdesk-integration.php:138
 msgid "API Key"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:114
+#: includes/class-wc-freshdesk-integration.php:140
 msgid "Enter your Freshdesk API Key. You can find this in \"User Profile\" drop-down (top right corner of your helpdesk) > Profile Settings > Your API Key."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:119
+#: includes/class-wc-freshdesk-integration.php:145
 msgid "Testing"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:124
+#: includes/class-wc-freshdesk-integration.php:150
 msgid "Debug Log"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:126
+#: includes/class-wc-freshdesk-integration.php:152
 msgid "Enable logging. Note: this may log personal information. We recommend using this for debugging purposes only and deleting the logs when finished."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:204
+#: includes/class-wc-freshdesk-integration.php:230
 msgid "https://"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:204
+#: includes/class-wc-freshdesk-integration.php:230
 msgid ".freshdesk.com"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:262
-#: includes/class-wc-freshdesk-integration.php:633
+#: includes/class-wc-freshdesk-integration.php:288
+#: includes/class-wc-freshdesk-integration.php:670
 msgid "Ticket created successfully."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:263
-#: includes/class-wc-freshdesk-integration.php:631
+#: includes/class-wc-freshdesk-integration.php:289
+#: includes/class-wc-freshdesk-integration.php:686
 msgid "View ticket."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:266
-#: includes/class-wc-freshdesk-integration.php:627
+#: includes/class-wc-freshdesk-integration.php:292
+#: includes/class-wc-freshdesk-integration.php:666
 msgid "Failed to create the ticket, please try again."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:289
+#: includes/class-wc-freshdesk-integration.php:315
 msgid "Please, wait a few moments, sending your request..."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:290
+#: includes/class-wc-freshdesk-integration.php:316
 msgid "Thank you for your contact, we will respond as soon as possible."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:293
+#: includes/class-wc-freshdesk-integration.php:319
 msgid "There was an error in the request, please try again or contact us for assistance."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:354
+#: includes/class-wc-freshdesk-integration.php:383
 msgid "Forum Category"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:360
-#: includes/class-wc-freshdesk-integration.php:433
+#: includes/class-wc-freshdesk-integration.php:389
+#: includes/class-wc-freshdesk-integration.php:462
 msgid "Add/get Category"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:364
+#: includes/class-wc-freshdesk-integration.php:393
 msgid "Create or synchronize a Freshdesk Forum Category."
-msgstr ""
-
-#: includes/class-wc-freshdesk-integration.php:366
-#: includes/class-wc-freshdesk-integration.php:439
-msgid "Select an option&hellip;"
-msgstr ""
-
-#: includes/class-wc-freshdesk-integration.php:367
-#: includes/class-wc-freshdesk-integration.php:440
-msgid "Create"
-msgstr ""
-
-#: includes/class-wc-freshdesk-integration.php:368
-#: includes/class-wc-freshdesk-integration.php:441
-msgid "Synchronize"
-msgstr ""
-
-#: includes/class-wc-freshdesk-integration.php:376
-#: includes/class-wc-freshdesk-integration.php:449
-msgid "Category ID"
-msgstr ""
-
-#: includes/class-wc-freshdesk-integration.php:379
-msgid "Enter the Forum Category ID to synchronize."
-msgstr ""
-
-#: includes/class-wc-freshdesk-integration.php:383
-msgid "Forum Category ID:"
 msgstr ""
 
 #: includes/class-wc-freshdesk-integration.php:395
 #: includes/class-wc-freshdesk-integration.php:468
+msgid "Select an option&hellip;"
+msgstr ""
+
+#: includes/class-wc-freshdesk-integration.php:396
+#: includes/class-wc-freshdesk-integration.php:469
+msgid "Create"
+msgstr ""
+
+#: includes/class-wc-freshdesk-integration.php:397
+#: includes/class-wc-freshdesk-integration.php:470
+msgid "Synchronize"
+msgstr ""
+
+#: includes/class-wc-freshdesk-integration.php:405
+#: includes/class-wc-freshdesk-integration.php:478
+msgid "Category ID"
+msgstr ""
+
+#: includes/class-wc-freshdesk-integration.php:408
+msgid "Enter the Forum Category ID to synchronize."
+msgstr ""
+
+#: includes/class-wc-freshdesk-integration.php:412
+msgid "Forum Category ID:"
+msgstr ""
+
+#: includes/class-wc-freshdesk-integration.php:424
+#: includes/class-wc-freshdesk-integration.php:497
 msgid "Remove Relationship?"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:398
+#: includes/class-wc-freshdesk-integration.php:427
 msgid "This option remove the synchronization with this Forum Category and your Freshdesk."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:406
-#: includes/class-wc-freshdesk-integration.php:479
+#: includes/class-wc-freshdesk-integration.php:435
+#: includes/class-wc-freshdesk-integration.php:508
 msgid "Category Title"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:409
+#: includes/class-wc-freshdesk-integration.php:438
 msgid "Enter with the Forum Category title."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:416
-#: includes/class-wc-freshdesk-integration.php:489
+#: includes/class-wc-freshdesk-integration.php:445
+#: includes/class-wc-freshdesk-integration.php:518
 msgid "Category Description"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:419
+#: includes/class-wc-freshdesk-integration.php:448
 msgid "Enter with the Forum Category description."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:427
+#: includes/class-wc-freshdesk-integration.php:456
 msgid "Solution Category"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:437
+#: includes/class-wc-freshdesk-integration.php:466
 msgid "Create or synchronize a Freshdesk Solutions Category."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:452
+#: includes/class-wc-freshdesk-integration.php:481
 msgid "Enter the Solutions Category ID to synchronize."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:456
+#: includes/class-wc-freshdesk-integration.php:485
 msgid "Solution Category ID:"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:471
+#: includes/class-wc-freshdesk-integration.php:500
 msgid "This option remove the synchronization with this Solutions Category and your Freshdesk."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:482
+#: includes/class-wc-freshdesk-integration.php:511
 msgid "Enter with the Solutions Category title."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:492
+#: includes/class-wc-freshdesk-integration.php:521
 msgid "Enter with the Solutions Category description."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:533
-#: includes/class-wc-freshdesk-integration.php:573
+#: includes/class-wc-freshdesk-integration.php:562
+#: includes/class-wc-freshdesk-integration.php:602
 msgid "Forum Category ID is required."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:557
+#: includes/class-wc-freshdesk-integration.php:586
 msgid "Forum Category Title is required."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:597
+#: includes/class-wc-freshdesk-integration.php:626
 msgid "Solutions Category Title is required."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:618
-#: includes/class-wc-freshdesk-integration.php:627
-#: includes/class-wc-freshdesk-integration.php:636
-#: includes/class-wc-freshdesk-integration.php:639
+#: includes/class-wc-freshdesk-integration.php:651
+#: includes/class-wc-freshdesk-integration.php:659
 msgid "Freshdesk Error"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:636
+#: includes/class-wc-freshdesk-integration.php:674
 msgid "This comment has not a valid email address."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:639
+#: includes/class-wc-freshdesk-integration.php:678
 msgid "This review/comment is empty, needs some content to create the ticket!"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:656
+#: includes/class-wc-freshdesk-integration.php:704
 msgid "Need Help?"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:658
+#: includes/class-wc-freshdesk-integration.php:706
 msgid "Do you have a query about your order, or need a hand with getting your products set up? If so, please fill in the form below."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:664
-#: includes/class-wc-freshdesk-integration.php:809
-#: includes/class-wc-freshdesk-tickets.php:283
+#: includes/class-wc-freshdesk-integration.php:712
+#: includes/class-wc-freshdesk-integration.php:857
+#: includes/class-wc-freshdesk-tickets.php:279
 msgid "Subject"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:669
-#: includes/class-wc-freshdesk-integration.php:814
+#: includes/class-wc-freshdesk-integration.php:717
+#: includes/class-wc-freshdesk-integration.php:862
 msgid "Description"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:677
+#: includes/class-wc-freshdesk-integration.php:725
 msgid "Send"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:697
+#: includes/class-wc-freshdesk-integration.php:745
 msgid "Get Help"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:715
+#: includes/class-wc-freshdesk-integration.php:763
 msgid "My Support Tickets"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:787
+#: includes/class-wc-freshdesk-integration.php:835
 msgid "Report an issue"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:804
+#: includes/class-wc-freshdesk-integration.php:852
 msgid "Discuss an issue with your customer with a support ticket."
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:809
-#: includes/class-wc-freshdesk-integration.php:814
+#: includes/class-wc-freshdesk-integration.php:857
+#: includes/class-wc-freshdesk-integration.php:862
 msgid "(required)"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:821
+#: includes/class-wc-freshdesk-integration.php:869
 msgid "Open ticket"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:837
+#: includes/class-wc-freshdesk-integration.php:884
 msgid "Actions"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:852
+#: includes/class-wc-freshdesk-integration.php:931
 msgid "Convert to Ticket"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:943
+#: includes/class-wc-freshdesk-integration.php:1028
 msgid "Comment in %s at %s"
 msgstr ""
 
-#: includes/class-wc-freshdesk-integration.php:1014
+#: includes/class-wc-freshdesk-integration.php:1102
 msgid "The Freshdesk log file was not created yet!"
 msgstr ""
 
@@ -389,66 +387,96 @@ msgstr ""
 msgid "Order date: %s"
 msgstr ""
 
-#: includes/class-wc-freshdesk-tickets.php:136
-#: includes/class-wc-freshdesk-tickets.php:177
+#: includes/class-wc-freshdesk-tickets.php:132
+#: includes/class-wc-freshdesk-tickets.php:173
 msgid "Order"
 msgstr ""
 
-#: includes/class-wc-freshdesk-tickets.php:240
+#: includes/class-wc-freshdesk-tickets.php:236
 msgid "Open"
 msgstr ""
 
-#: includes/class-wc-freshdesk-tickets.php:241
+#: includes/class-wc-freshdesk-tickets.php:237
 msgid "Pending"
 msgstr ""
 
-#: includes/class-wc-freshdesk-tickets.php:242
+#: includes/class-wc-freshdesk-tickets.php:238
 msgid "Resolved"
 msgstr ""
 
-#: includes/class-wc-freshdesk-tickets.php:243
+#: includes/class-wc-freshdesk-tickets.php:239
 msgid "Closed"
 msgstr ""
 
-#: includes/class-wc-freshdesk-tickets.php:282
+#: includes/class-wc-freshdesk-tickets.php:278
 msgid "Number"
 msgstr ""
 
-#: includes/class-wc-freshdesk-tickets.php:284
+#: includes/class-wc-freshdesk-tickets.php:280
 msgid "Date"
 msgstr ""
 
-#: includes/class-wc-freshdesk-tickets.php:285
+#: includes/class-wc-freshdesk-tickets.php:281
 msgid "Status"
 msgstr ""
 
-#: includes/class-wc-freshdesk-tickets.php:300
+#: includes/class-wc-freshdesk-tickets.php:296
 msgid "Reply"
 msgstr ""
 
-#: includes/class-wc-freshdesk-tickets.php:309
-#: includes/class-wc-freshdesk-tickets.php:316
+#: includes/class-wc-freshdesk-tickets.php:305
+#: includes/class-wc-freshdesk-tickets.php:312
 msgid "Previous"
 msgstr ""
 
-#: includes/class-wc-freshdesk-tickets.php:310
+#: includes/class-wc-freshdesk-tickets.php:306
 msgid "Next"
 msgstr ""
 
-#: includes/class-wc-freshdesk-tickets.php:314
+#: includes/class-wc-freshdesk-tickets.php:310
 msgid "Oops, you've seen all their support tickets, please return to the previous page."
 msgstr ""
 
-#: includes/class-wc-freshdesk-tickets.php:319
+#: includes/class-wc-freshdesk-tickets.php:315
 msgid "You have no support tickets."
 msgstr ""
 
+#: src/Admin/Admin.php:39
+msgctxt "aria-label: settings link"
+msgid "View WooCommerce Freshdesk settings"
+msgstr ""
+
+#: src/Admin/Admin.php:40
+msgctxt "plugin action link"
+msgid "Settings"
+msgstr ""
+
+#: src/Admin/Admin.php:65
+msgctxt "aria-label: documentation link"
+msgid "View WooCommerce Freshdesk documentation"
+msgstr ""
+
+#: src/Admin/Admin.php:66
+msgctxt "plugin row link"
+msgid "Docs"
+msgstr ""
+
+#: src/Admin/Admin.php:72
+msgctxt "aria-label: support link"
+msgid "Open a support ticket at WooCommerce.com"
+msgstr ""
+
+#: src/Admin/Admin.php:73
+msgctxt "plugin row link"
+msgid "Support"
+msgstr ""
+
 #. translators: %s: WooCommerce link
-#: woocommerce-freshdesk.php:147
+#: woocommerce-freshdesk.php:137
 msgid "WooCommerce Freshdesk requires %s to be installed and active."
 msgstr ""
 
 #. translators: %s: WooCommerce link
-#: woocommerce-freshdesk.php:147
+#: woocommerce-freshdesk.php:137
 msgid "WooCommerce"
 msgstr ""

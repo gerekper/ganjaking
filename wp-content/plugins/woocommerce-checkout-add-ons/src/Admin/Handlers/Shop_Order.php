@@ -17,13 +17,14 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-checkout-add-ons/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 namespace SkyVerge\WooCommerce\Checkout_Add_Ons\Admin\Handlers;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableQuery;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons\Add_On_Factory;
 
 defined( 'ABSPATH' ) or exit;
@@ -38,8 +39,8 @@ defined( 'ABSPATH' ) or exit;
 class Shop_Order {
 
 
-	/** @var array File labels container, used for unescaping file labels **/
-	private $file_labels = array();
+	/** @var array<string, string> file labels container, used for unescaping file labels **/
+	private array $file_labels = [];
 
 
 	/**
@@ -49,30 +50,55 @@ class Shop_Order {
 	 */
 	public function __construct() {
 
+		$hpos_enabled = Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled();
+
 		// add listable checkout add-on column titles to the orders list table
-		add_filter( 'manage_edit-shop_order_columns', array( $this, 'render_column_titles' ), 15 );
+		if ( $hpos_enabled ) {
+			add_filter( 'woocommerce_shop_order_list_table_columns', [ $this, 'render_column_titles' ], 15 );
+		} else {
+			add_filter( 'manage_edit-shop_order_columns', [ $this, 'render_column_titles' ], 15 );
+		}
 
 		// add listable checkout add-on column content to the orders list table
-		add_action( 'manage_shop_order_posts_custom_column', array( $this, 'render_column_content' ), 5 );
+		if ( $hpos_enabled ) {
+			add_action( 'manage_woocommerce_page_wc-orders_custom_column', [ $this, 'render_column_content' ], 5, 2 );
+		} else {
+			add_action( 'manage_shop_order_posts_custom_column', [ $this, 'render_column_content' ], 5, 2 );
+		}
 
-		// add sortable checkout add-ons
-		add_filter( 'manage_edit-shop_order_sortable_columns', array( $this, 'add_sortable_columns' ) );
+		// enable sorting for checkout add-on columns
+		if ( $hpos_enabled ) {
+			add_filter( 'manage_woocommerce_page_wc-orders_sortable_columns', [ $this, 'add_sortable_columns' ] );
+		} else {
+			add_filter( 'manage_edit-shop_order_sortable_columns', [ $this, 'add_sortable_columns' ] );
+		}
 
-		// process sorting
-		add_filter( 'posts_orderby', array( $this, 'add_sortable_orderby' ), 10, 2 );
+		// add UI elements for sorting and filtering orders by add-ons
+		if ( $hpos_enabled ) {
+			add_action( 'woocommerce_order_list_table_restrict_manage_orders', [ $this, 'restrict_orders' ] , 15 );
+		} else {
+			add_action( 'restrict_manage_posts', [ $this, 'restrict_orders' ], 15 );
+		}
 
-		// make add-ons filterable
-		add_filter( 'posts_join',  array( $this, 'add_order_itemmeta_join' ) );
-		add_filter( 'posts_where', array( $this, 'add_filterable_where' ) );
-
-		// handle filtering
-		add_action( 'restrict_manage_posts', array( $this, 'restrict_orders' ), 15 );
+		// process sorting and filtering orders by add-ons
+		if ( $hpos_enabled ) {
+			add_filter( 'woocommerce_shop_order_list_table_prepare_items_query_args', [ $this, 'filter_orders_by_add_ons' ], 15 );
+			add_filter( 'woocommerce_orders_table_query_clauses', [ $this, 'sort_orders_by_add_ons' ], 15 );
+		} else {
+			add_filter( 'posts_orderby', [ $this, 'add_sortable_orderby' ], 10, 2 );
+			add_filter( 'posts_join',  [ $this, 'add_order_itemmeta_join' ] );
+			add_filter( 'posts_where', [ $this, 'add_filterable_where' ] );
+		}
 
 		// make add-ons searchable
-		add_filter( 'woocommerce_shop_order_search_fields', array( $this, 'add_search_fields' ) );
+		if ( $hpos_enabled ) {
+			add_filter( 'woocommerce_order_table_search_query_meta_keys', [ $this, 'add_search_fields' ] );
+		} else {
+			add_filter( 'woocommerce_shop_order_search_fields', [ $this, 'add_search_fields' ] );
+		}
 
 		// display add-on values in order edit screen
-		add_filter( 'esc_html', array( $this, 'unescape_file_link_html' ), 20, 2 );
+		add_filter( 'esc_html', [ $this, 'unescape_file_link_html' ], 20, 2 );
 	}
 
 
@@ -80,16 +106,19 @@ class Shop_Order {
 
 
 	/**
-	 * Add any listable columns
+	 * Adds any listable columns
+	 *
+	 * @internal
 	 *
 	 * @since 1.0
+	 *
 	 * @param array $columns associative array of column id to display name
 	 * @return array of column id to display name
 	 */
 	public function render_column_titles( $columns ) {
 
 		// get all columns up to and excluding the 'order_actions' column
-		$new_columns = array();
+		$new_columns = [];
 
 		foreach ( $columns as $name => $value ) {
 
@@ -121,11 +150,24 @@ class Shop_Order {
 	/**
 	 * Display the values for the listable columns
 	 *
+	 * @internal
+	 *
 	 * @since 1.0
+	 *
 	 * @param string $column the column name
+	 * @param int|\WC_Order $order_id order ID or order object
 	 */
-	public function render_column_content( $column ) {
-		global $post, $wpdb;
+	public function render_column_content( $column, $order_id = null ) {
+		global $post, $theorder, $wpdb;
+
+		// grab the order according to HPOS
+		if ( $order_id instanceof \WC_Order ) {
+			$order = $order_id;
+		} elseif ( $theorder instanceof \WC_Order ) {
+			$order = $theorder;
+		} else {
+			$order = wc_get_order( $order_id );
+		}
 
 		foreach ( Add_On_Factory::get_add_ons() as $add_on ) {
 
@@ -141,7 +183,7 @@ class Shop_Order {
 						AND woim.meta_key = '_wc_checkout_add_on_id'
 						AND woim.meta_value = %s
 					",
-					$post->ID,
+					$order->get_id(),
 					$add_on->get_id()
 				);
 
@@ -208,9 +250,12 @@ class Shop_Order {
 
 
 	/**
-	 * Make order columns sortable
+	 * Makes order columns sortable
+	 *
+	 * @internal
 	 *
 	 * @since 1.0
+	 *
 	 * @param array $columns associative array of column name to id
 	 * @return array of column name to id
 	 */
@@ -228,24 +273,52 @@ class Shop_Order {
 
 
 	/**
-	 * Modify SQL ORDEBY clause for sorting the orders by any sortable checkout add-ons
+	 * Modifies SQL ORDEBY clause for sorting the orders by any sortable checkout add-ons.
+	 *
+	 * @NOTE This filter works for orders NOT using HPOS.
+	 *
+	 * @internal
 	 *
 	 * @since 1.0
-	 * @param string $orderby ORDERBY part of the sql query
-	 * @return string $orderby modified ORDERBY part of sql query
+	 *
+	 * @param string|mixed $orderby ORDERBY part of the sql query
+	 * @param \WP_Query|mixed|null $wp_query object
+	 * @return string|mixed $orderby modified ORDERBY part of sql query
 	 */
-	public function add_sortable_orderby( $orderby, $wp_query ) {
-		global $typenow, $wpdb;
+	public function add_sortable_orderby( $orderby, $wp_query = null ) {
+		global $wpdb;
 
-		if ( 'shop_order' !== $typenow ) {
+		if ( ! is_string( $orderby ) || ( $wp_query instanceof \WP_Query && ! Framework\SV_WC_Order_Compatibility::is_orders_screen() ) ) {
 			return $orderby;
 		}
 
-		foreach ( Add_On_Factory::get_add_ons() as $add_on ) {
-			// if the add-on is filterable and selected by the user, and the join has not bee altered yet
-			if ( $add_on->is_sortable() && isset( $wp_query->query['orderby'] ) && $wp_query->query['orderby'] === $add_on->get_key() ) {
+		if ( $wp_query instanceof \WP_Query ) {
+			// when using custom post types, grab the order by arguments from WP_Query
+			$query_order_by = $wp_query->query['orderby'] ?? null;
+			$query_order    = isset( $wp_query->query['order'] ) && 'asc' === $wp_query->query['order'] ? ' ASC' : ' DESC';
+		} else {
+			// when using HPOS, grab the order by arguments from the request
+			$query_order_by = $_REQUEST['orderby'] ?? null;
+			$query_order    = isset( $_REQUEST['order'] ) && 'asc' === $_REQUEST['order'] ? 'ASC' : 'DESC';
+		}
 
-				// Sort by subquery results
+		if ( ! $query_order_by ) {
+			return $orderby;
+		}
+
+		$orders_table = Framework\SV_WC_Order_Compatibility::get_orders_table();
+
+		if ( Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ) {
+			$orders_id_column = $orders_table.'.id';
+		} else {
+			$orders_id_column = $orders_table.'.ID';
+		}
+
+		foreach ( Add_On_Factory::get_add_ons() as $add_on ) {
+			// if the add-on is sortable and selected by the user, and the join has not been altered yet
+			if ( $add_on->is_sortable() && $query_order_by === $add_on->get_key() ) {
+
+				// sort by subquery results
 				$orderby = $wpdb->prepare( "(
 					SELECT
 						woim_value.meta_value
@@ -253,7 +326,7 @@ class Shop_Order {
 					RIGHT JOIN {$wpdb->prefix}woocommerce_order_itemmeta woim_id ON woi.order_item_id = woim_id.order_item_id
 					RIGHT JOIN {$wpdb->prefix}woocommerce_order_itemmeta woim_value ON woi.order_item_id = woim_value.order_item_id
 					WHERE 1=1
-						AND woi.order_id = {$wpdb->prefix}posts.ID
+						AND woi.order_id = {$orders_id_column}
 						AND woim_id.meta_key = '_wc_checkout_add_on_id'
 						AND woim_id.meta_value = %s
 						AND woim_value.meta_key = '_wc_checkout_add_on_value'
@@ -261,8 +334,8 @@ class Shop_Order {
 					$add_on->get_id()
 				);
 
-				// Sorting order
-				$orderby .= 'asc' === $wp_query->query['order'] ? ' ASC' : ' DESC';
+				// sorting order
+				$orderby .= $query_order;
 
 				break;
 			}
@@ -272,18 +345,51 @@ class Shop_Order {
 	}
 
 
+	/**
+	 * Filters the orders by any filterable checkout add-on.
+	 *
+	 * @NOTE This filter works for orders using HPOS (WC 7.9+).
+	 * @see OrdersTableQuery::build_query()
+	 *
+	 * @internal
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param array<string, string>|mixed $clauses
+	 * @return array<string, string>|mixed
+	 */
+	public function sort_orders_by_add_ons( $clauses ) {
+
+		if ( ! is_array( $clauses ) ) {
+			return $clauses;
+		}
+
+		if ( ! isset( $clauses['orderby'] ) ) {
+			$clauses['orderby'] = '';
+		}
+
+		if ( $orderby = $this->add_sortable_orderby( $clauses['orderby'] ) ?: null ) {
+
+			$clauses['orderby'] = $orderby;
+		}
+
+		return $clauses;
+	}
+
+
 	/** Filterable Columns ******************************************************/
 
 
 	/**
-	 * Render dropdowns for any filterable checkout add-ons
+	 * Renders dropdowns for any filterable checkout add-ons
+	 *
+	 * @internal
 	 *
 	 * @since 1.0
 	 */
 	public function restrict_orders() {
-		global $typenow;
 
-		if ( 'shop_order' !== $typenow ) {
+		if ( ! Framework\SV_WC_Order_Compatibility::is_orders_screen() ) {
 			return;
 		}
 
@@ -308,7 +414,7 @@ class Shop_Order {
 						<option value=""></option>
 						<?php foreach ( $add_on->get_options() as $option ) : ?>
 							<?php if ( '' === $option['label'] ) { continue; } ?>
-							<?php $value    = sanitize_title( esc_html( $option['label'] ), '', 'wc_checkout_add_ons_sanitize' ); ?>
+							<?php $value = sanitize_title( esc_html( $option['label'] ), '', 'wc_checkout_add_ons_sanitize' ); ?>
 							<?php $selected = isset( $_GET[ $add_on->get_key() ] ) ? selected( $value, $_GET[ $add_on->get_key() ], false ) : ''; ?>
 							<option value="<?php echo esc_attr( $value ); ?>" <?php echo $selected; ?>><?php echo esc_html__( $option['label'], 'woocommerce-checkout-add-ons' ); ?></option>
 						<?php endforeach; ?>
@@ -361,17 +467,121 @@ class Shop_Order {
 
 
 	/**
-	 * Modify SQL JOIN for filtering the orders by any filterable checkout add-ons
+	 * Filters the orders by any filterable checkout add-on.
+	 *
+	 * @NOTE This filter works for orders using HPOS (WC 7.9+).
+	 *
+	 * @internal
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param array<string, mixed>|mixed $args
+	 * @return array<string, mixed>|mixed
+	 */
+	public function filter_orders_by_add_ons( $args ) {
+		global $wpdb;
+
+		if ( ! is_array( $args ) ) {
+			return $args;
+		}
+
+		$filter_by_addons = [];
+
+		foreach ( Add_On_Factory::get_add_ons() as $add_on ) {
+
+			if ( $add_on->is_filterable() && ! empty( $_GET[ $add_on->get_key() ] ) ) {
+
+				$filter_by_addons[ $add_on->get_key() ] = [
+					'type'  => $add_on->get_type(),
+					'value' => $_GET[ $add_on->get_key() ],
+				];
+			}
+		}
+
+		$order_items_table      = $wpdb->prefix . 'woocommerce_order_items';
+		$order_items_meta_table = $wpdb->prefix . 'woocommerce_order_itemmeta';
+
+		$order__in = [];
+
+		foreach ( $filter_by_addons as $add_on_id => $add_on_data ) {
+
+			$add_on_type  = $add_on_data['type'];
+			$add_on_value = $add_on_data['value'];
+
+			if ( 'file' === $add_on_type ) {
+
+				$query = $wpdb->prepare( "
+					SELECT order_id FROM $order_items_table
+					INNER JOIN $order_items_meta_table ON $order_items_table.order_item_id = $order_items_meta_table.order_item_id
+					WHERE $order_items_meta_table.meta_key = '_wc_checkout_add_on_id' AND $order_items_meta_table.meta_value = %s
+					AND $order_items_meta_table.order_item_id IN (
+						SELECT order_item_id FROM $order_items_meta_table
+						WHERE $order_items_meta_table.meta_key = '_wc_checkout_add_on_value' AND $order_items_meta_table.meta_value IS NOT NULL
+					)
+				", $add_on_id );
+
+			} else {
+
+				$value_operator = '=';
+
+				if ( in_array( $add_on_type, [ 'multicheckbox', 'multiselect' ], true ) ) {
+					$value_operator = 'LIKE';
+					$add_on_value   = '%'.$add_on_value.'%';
+				}
+
+				$query = $wpdb->prepare( "
+					SELECT order_id FROM $order_items_table
+					INNER JOIN $order_items_meta_table ON $order_items_table.order_item_id = $order_items_meta_table.order_item_id
+					WHERE $order_items_meta_table.meta_key = '_wc_checkout_add_on_id' AND $order_items_meta_table.meta_value = %s
+					AND $order_items_meta_table.order_item_id IN (
+						SELECT order_item_id FROM $order_items_meta_table
+						WHERE $order_items_meta_table.meta_key = '_wc_checkout_add_on_value' AND $order_items_meta_table.meta_value {$value_operator} %s
+					)
+				", $add_on_id, $add_on_value );
+			}
+
+			$order_ids_for_add_on = array_column( $wpdb->get_results( $query, ARRAY_A ), 'order_id' );
+
+			if ( ! empty( $order_ids_for_add_on ) ) {
+				$order__in = empty( $order__in ) ? $order_ids_for_add_on : array_intersect( $order__in, $order_ids_for_add_on );
+			}
+		}
+
+		if ( ! empty( $order__in ) ) {
+			$args['id'] = array_unique( $order__in );
+		} elseif ( ! empty( $filter_by_addons ) ) {
+			$args['id'] = [ 0 ]; // do not return results
+		}
+
+		return $args;
+	}
+
+
+	/**
+	 * Modifies SQL JOIN for filtering the orders by any filterable checkout add-ons
+	 *
+	 * @NOTE This filter works for orders NOT using HPOS.
+	 *
+	 * @internal
 	 *
 	 * @since 1.0
+	 *
 	 * @param string $join JOIN part of the sql query
 	 * @return string $join modified JOIN part of sql query
 	 */
-	public function add_order_itemmeta_join( $join ) {
-		global $typenow, $wpdb;
+	public function add_order_itemmeta_join( $join = '' ) {
+		global $wpdb;
 
-		if ( 'shop_order' !== $typenow ) {
+		if ( ! Framework\SV_WC_Order_Compatibility::is_orders_screen() ) {
 			return $join;
+		}
+
+		$orders_table = Framework\SV_WC_Order_Compatibility::get_orders_table();
+
+		if (Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled()) {
+			$order_id_col = $orders_table.'id';
+		} else {
+			$order_id_col = $orders_table.'.ID';
 		}
 
 		foreach ( Add_On_Factory::get_add_ons() as $add_on ) {
@@ -382,7 +592,7 @@ class Shop_Order {
 			if ( $filtering ) {
 
 				$join .= "
-					LEFT JOIN {$wpdb->prefix}woocommerce_order_items woi ON {$wpdb->posts}.ID = woi.order_id
+					LEFT JOIN {$wpdb->prefix}woocommerce_order_items woi ON {$order_id_col} = woi.order_id
 					LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta woim_id ON woi.order_item_id = woim_id.order_item_id
 					JOIN {$wpdb->prefix}woocommerce_order_itemmeta woim_value ON woi.order_item_id = woim_value.order_item_id";
 
@@ -397,16 +607,21 @@ class Shop_Order {
 
 
 	/**
-	 * Modify SQL WHERE for filtering the orders by any filterable checkout add-ons
+	 * Modifies SQL WHERE for filtering the orders by any filterable checkout add-ons
+	 *
+	 * @NOTE This filter works for orders NOT using HPOS.
+	 *
+	 * @internal
 	 *
 	 * @since 1.0
+	 *
 	 * @param string $where WHERE part of the sql query
 	 * @return string $where modified WHERE part of sql query
 	 */
-	public function add_filterable_where( $where ) {
-		global $typenow, $wpdb;
+	public function add_filterable_where( $where = '' ) {
+		global $wpdb;
 
-		if ( 'shop_order' !== $typenow ) {
+		if ( ! Framework\SV_WC_Order_Compatibility::is_orders_screen() ) {
 			return $where;
 		}
 
@@ -430,7 +645,7 @@ class Shop_Order {
 					case 'multiselect':
 					case 'multicheckbox':
 
-						$like = '%' . $wpdb->esc_like( $value ) . '%';
+						$like   = '%' . $wpdb->esc_like( $value ) . '%';
 						$where .= $wpdb->prepare( " AND woim_value.meta_value LIKE %s ", $like );
 
 					break;
@@ -450,10 +665,12 @@ class Shop_Order {
 
 
 	/**
-	 * Add our checkout add-ons to the set of search fields so that
-	 * the admin search functionality is maintained
+	 * Add our checkout add-ons to the set of search fields so that the admin search functionality is maintained.
+	 *
+	 * @internal
 	 *
 	 * @since 1.0
+	 *
 	 * @param array $search_fields array of post meta fields to search by
 	 * @return array of post meta fields to search by
 	 */
@@ -468,13 +685,14 @@ class Shop_Order {
 
 
 	/**
-	 * Unescape file link HTML
+	 * Unescapes the file link HTML.
 	 *
-	 * Because all order fee item meta gets HTML escaped, the link
-	 * will not display correctly. We unescape the HTML here so that the links
-	 * to uploaded files work
+	 * Since all order fee item meta gets HTML escaped, the link will not display correctly. We unescape the HTML here so that the links to uploaded files work.
+	 *
+	 * @internal
 	 *
 	 * @since 1.0
+	 *
 	 * @param string $safe_text
 	 * @param string $text
 	 * @return string Escaped or unescaped text

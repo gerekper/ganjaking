@@ -15,24 +15,23 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 	private $object_orig_path	= '/revslider/objects/';
 	private $customsvgpath		= '/revslider/svg/objects/';
 	private $sizes				= array('75', '50', '25', '10');
+	public	$allowed_types		= array('thumb', 'video', 'video_thumb');
+	public	$allowed_categories	= array('svgcustom');
 	private $font_icon_paths;
 	public	$upload_dir;
 	public	$download_path;
 	public	$svg_remove_path;
-	public	$allowed_types		= array('thumb', 'video', 'video_thumb');
-	public	$allowed_categories	= array('svgcustom');
 	
 	const LIBRARY_VERSION		= '2.0.0';
 
 
 	public function __construct(){
-		$this->upload_dir = wp_upload_dir();
-
-		$this->font_icon_paths = array(
+		$this->upload_dir		= wp_upload_dir();
+		$this->font_icon_paths	= array(
 			RS_PLUGIN_PATH.'public/assets/fonts/font-awesome/css/font-awesome.css',
 			RS_PLUGIN_PATH.'public/assets/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css'
 		);
-		$this->font_icon_paths = apply_filters('revslider_object_library_icon_paths', $this->font_icon_paths);
+		$this->font_icon_paths	= apply_filters('revslider_object_library_icon_paths', $this->font_icon_paths);
 	}
 
 	/**
@@ -60,8 +59,8 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 		if(time() - $last_check > 1296000 || $force == true){ //30 days
 			update_option('revslider-library-check', time());
 
-			$validated = get_option('revslider-valid', 'false');
-			$code = ($validated == 'false') ? '' : get_option('revslider-code', '');
+			$validated = $this->_truefalse(get_option('revslider-valid', 'false'));
+			$code = ($validated === false) ? '' : get_option('revslider-code', '');
 			$hash = get_option('revslider-library-hash', '');
 			$rattr = array(
 				'library_version' => urlencode(self::LIBRARY_VERSION),
@@ -179,10 +178,10 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 		$path		= (in_array($type, $this->allowed_types, true)) ? $this->object_thumb_path : $this->object_orig_path;
 		$file		= $this->upload_dir['basedir'] . $path . $object_handle;
 		$url_file	= $this->upload_dir['baseurl'] . $path . $object_handle;
-		$validated	= get_option('revslider-valid', 'false');
+		$validated	= $this->_truefalse(get_option('revslider-valid', 'false'));
 		$_download	= !is_file($file); //check if object thumb is already downloaded
 
-		if($validated == 'false' && !in_array($type, $this->allowed_types, true)){
+		if($validated === false && !in_array($type, $this->allowed_types, true)){
 			return array('error' => __('Plugin not activated', 'revslider'));
 		}
 
@@ -193,11 +192,11 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 			if(!is_file($file)){
 				$image_data = false;
 
-				if($validated == 'false' && !in_array($type, $this->allowed_types, true)){
+				if($validated === false && !in_array($type, $this->allowed_types, true)){
 					$error = __('Plugin not activated', 'revslider');
 				}else{
 					$rslb	= RevSliderGlobals::instance()->get('RevSliderLoadBalancer');
-					$code	= ($validated == 'false') ? '' : get_option('revslider-code', '');
+					$code	= ($validated === false) ? '' : get_option('revslider-code', '');
 					$rattr	= array(
 						'library_version' => urlencode(self::LIBRARY_VERSION),
 						'version'	=> urlencode(RS_REVISION),
@@ -316,12 +315,12 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 		}
 
 		$layers_data = false;
-		$validated = get_option('revslider-valid', 'false');
+		$validated = $this->_truefalse(get_option('revslider-valid', 'false'));
 
-		if($validated == 'false'){
+		if($validated === false){
 			$error = __('Plugin not activated', 'revslider');
 		}else{
-			$code	= ($validated == 'false') ? '' : get_option('revslider-code', '');
+			$code	= ($validated === false) ? '' : get_option('revslider-code', '');
 			$rattr	= array(
 				'code'		=> urlencode($code),
 				'library_version' => urlencode(self::LIBRARY_VERSION),
@@ -1095,7 +1094,9 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 				break;
 			default:
 		}
-
+		
+		$this->download_path	= $this->get_temp_path('rstempsvg');
+		$this->svg_remove_path	= $this->download_path;
 		$path		= $this->get_val($import_file, 'tmp_name');
 		$name		= $this->get_val($import_file, 'name');
 		$type		= $this->get_val($import_file, 'type');
@@ -1116,19 +1117,20 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 		$finfo	= finfo_open(FILEINFO_MIME_TYPE);
 		$info	= finfo_file($finfo, $path);
 		$zip	= false;
-
 		switch($info){
 			case 'image/svg':
 			case 'image/svg+xml':
+				$ext = pathinfo($name, PATHINFO_EXTENSION);
+				if(strtolower($ext) !== 'svg'){
+					$wp_filesystem->delete($path, true);
+					$this->throw_error(__('Invalid File Format', 'revslider'));
+				}
 				$import[] = $path;
 			break;
 			case 'application/zip':
-				$zip = true;
-				$this->download_path = RS_PLUGIN_PATH.'rstempsvg/';
-				$this->svg_remove_path = $this->download_path;
 				@$wp_filesystem->delete($this->download_path, true);
+				$zip	= true;
 				$file	= unzip_file($path, $this->download_path);
-
 				if(is_wp_error($file)){
 					@define('FS_METHOD', 'direct'); //lets try direct.
 					WP_Filesystem(); //WP_Filesystem() needs to be called again since now we use direct!
@@ -1150,6 +1152,11 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 					if(!empty($files)){
 						foreach($files as $file){
 							if(is_dir($file)) continue;
+							$ext = pathinfo($file, PATHINFO_EXTENSION);
+							if(strtolower($ext) !== 'svg'){
+								$wp_filesystem->delete($this->svg_remove_path.'/'.$file, true);
+								continue;
+							}
 							$import[] = $file;
 						}
 					}

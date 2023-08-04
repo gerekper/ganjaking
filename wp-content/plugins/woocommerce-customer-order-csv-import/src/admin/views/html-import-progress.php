@@ -17,11 +17,9 @@
  * needs please refer to http://docs.woocommerce.com/document/customer-order-csv-import-suite/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2012-2022, SkyVerge, Inc.
+ * @copyright   Copyright (c) 2012-2023, SkyVerge, Inc.
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
-
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -52,7 +50,7 @@ defined( 'ABSPATH' ) or exit;
 		<div class="notice notice-warning notice-dry-run">
 			<p>
 				<?php if ( $is_complete ) : ?>
-					<?php printf( esc_html__( 'Performed a dry run with the selected file. No database records were inserted or updated. %1$sRun a live import now%2$s or %3$sChange import settings%4$s.', 'woocommerce-csv-import-suite' ), '<a href="' . wp_nonce_url( admin_url( 'admin.php?import=' . esc_attr( $_GET['import'] ) . '&job_id=' . esc_attr( $job->id ) . '&action=run_live' ), 'import-woocommerce' ) . '">', '</a>', '<a href="' . admin_url( 'admin.php?import=' . esc_attr( $_GET['import'] ) . '&step=2&file=' . urlencode( $job->file_path ) ) . '">', '</a>' ); ?>
+					<?php echo $dry_run_complete_notice; ?>
 				<?php else : ?>
 					<?php esc_html_e( 'Performing a dry run with the selected file. No database records will be inserted or updated.', 'woocommerce-csv-import-suite' ) ; ?>
 				<?php endif; ?>

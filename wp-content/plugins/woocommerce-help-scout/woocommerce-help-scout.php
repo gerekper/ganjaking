@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Help Scout
  * Plugin URI: https://woocommerce.com/products/woocommerce-help-scout/
  * Description: A Help Scout integration plugin for WooCommerce.
- * Version: 3.9.1
+ * Version: 3.9.2
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-help-scout
  * Domain Path: /languages
  * Woo: 395318:1f5df97b2bc60cdb3951b72387ec2e28
- * WC tested up to: 7.6
+ * WC tested up to: 7.9
  * WC requires at least: 2.6
  *
  * Copyright (c) 2018 WooCommerce.
@@ -29,6 +29,17 @@ if ( ! function_exists( 'woothemes_queue_update' ) ) {
 }
 
 /**
+ * Include the Opmc-hpos-compatibility-helper.php file if it hasn't been included before.
+ *
+ * This code includes the Opmc-hpos-compatibility-helper.php file in the current PHP script. It uses the include_once
+ * function to ensure that the file is included only once, even if this code is executed multiple times.
+ *
+ * @param string $file_path The path to the Opmc-hpos-compatibility-helper.php file.
+ * @return bool True if the file is successfully included, false otherwise.
+ */
+include_once('includes/opmc-hpos-compatibility-helper.php');
+
+/**
  * Plugin updates
  */
 woothemes_queue_update( plugin_basename( __FILE__ ), '1f5df97b2bc60cdb3951b72387ec2e28', '395318' );
@@ -36,7 +47,7 @@ woothemes_queue_update( plugin_basename( __FILE__ ), '1f5df97b2bc60cdb3951b72387
 use Automattic\WooCommerce\Utilities\OrderUtil;
 
 if ( ! class_exists( 'WC_Help_Scout' ) ) :
-	
+
 	define( 'WC_HELP_SCOUT_VERSION', '2.5' );
 	define( 'WC_HELP_SCOUT_PLUGINURL', plugin_dir_url( __FILE__ ) );
 	/**
@@ -74,6 +85,18 @@ if ( ! class_exists( 'WC_Help_Scout' ) ) :
 		 * Initialize the plugin.
 		 */
 		private function __construct() {
+			// Code for HPOS. Build Generic code fix and test it.
+			add_action(
+				'before_woocommerce_init',
+				function() {
+					if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+						\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+					}
+				}
+			);
+
+			// End the code for HPOS. Build Generic code fix and test it.
+
 			$nonce = wp_create_nonce( 'woocommerce_help_scout_nonce' );
 
 			// Define user set variables.
@@ -325,7 +348,7 @@ if ( ! class_exists( 'WC_Help_Scout' ) ) :
 
 			return $apis;
 		}
-		
+
 
 		/**
 		 * Function get_woo_data_function.
@@ -360,7 +383,7 @@ if ( ! class_exists( 'WC_Help_Scout' ) ) :
 					$order_id = end( explode( ' ', trim( end( explode( '-', $helpscout_data->ticket->subject ) ) ) ) );
 					$order_refund = wc_get_order( $order_id );
 
-					$html = '<div id="sidebar_v2" class="" aria-hidden="false" bis_skin_checked="1">  
+					$html = '<div id="sidebar_v2" class="" aria-hidden="false" bis_skin_checked="1">
 					<ul class="c-sb-list c-sb-list--two-line u-pad-b-2" style="border-bottom: 1px solid rgba(193,203,212,.2);">
 					<li class="c-sb-list-item">
 						<span class="c-sb-list-item__label t-tx-charcoal-300">
@@ -455,7 +478,7 @@ if ( ! class_exists( 'WC_Help_Scout' ) ) :
 						$html .= '</div>
 					</div>
 					<p class="cust-links u-mrg-b-2 u-pad-t-1"><a href="' . $profile_url . '" class="t-tx-blue-600" target="_blank">' . __( 'WooCommerce Profile', 'woocommerce-help-scout' ) . '</a></p>
-			
+
 					</div><br /><br /><br />';
 
 					$customer_id = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM $wpdb->usermeta WHERE meta_key = '_help_scout_customer_id' AND meta_value = %d", $customer_id ) );
@@ -697,7 +720,7 @@ if ( ! class_exists( 'WC_Help_Scout' ) ) :
 					ON order_items.order_id = postmeta.post_id
 					AND order_items.order_item_type = 'line_item'
 				WHERE  postmeta.meta_key = '_billing_email'
-				AND    postmeta.meta_value = %s %s				
+				AND    postmeta.meta_value = %s %s
 			 ",
 					$email,
 					$products_limit
@@ -800,7 +823,7 @@ if ( ! class_exists( 'WC_Help_Scout' ) ) :
 					ON order_items.order_id = postmeta.post_id
 					AND order_items.order_item_type = 'line_item'
 				WHERE  postmeta.meta_key = '_customer_user'
-				AND    postmeta.meta_value = %s %s				
+				AND    postmeta.meta_value = %s %s
 			 ",
 					$customer->ID,
 					$limit

@@ -15,7 +15,13 @@ abstract class WPBakeryShortCode {
 	 * @var string
 	 */
 	protected $controls_css_settings = 'cc';
+
 	/**
+	 * Backend section controls.
+	 *
+	 * @note for a frontend editor section controls please see
+	 * include/templates/editors/partials/frontend_controls.tpl.php
+	 *
 	 * @var array
 	 */
 	protected $controls_list = array(

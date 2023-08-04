@@ -18,16 +18,16 @@ global $rs_css_collection;
 global $rs_revicons;
 global $rs_youtube_api_loaded;
 
-$rs_double_jquery_script = false;
-$rs_material_icons_css = false;
-$rs_material_icons_css_parsed = false;
-$rs_slider_serial = 0;
-$rs_ids_collection = array();
-$rs_preview_mode = false;
-$rs_js_collection = array('revapi' => array(), 'js' => array(), 'minimal' => '');
-$rs_css_collection = array();
-$rs_revicons = false;
-$rs_youtube_api_loaded = false;
+$rs_double_jquery_script		= false;
+$rs_material_icons_css			= false;
+$rs_material_icons_css_parsed	= false;
+$rs_slider_serial				= 0;
+$rs_ids_collection				= array();
+$rs_preview_mode				= false;
+$rs_js_collection				= array('revapi' => array(), 'js' => array(), 'minimal' => '');
+$rs_css_collection				= array();
+$rs_revicons					= false;
+$rs_youtube_api_loaded			= false;
 
 class RevSliderOutput extends RevSliderFunctions {
 	
@@ -44,10 +44,10 @@ class RevSliderOutput extends RevSliderFunctions {
 	/**
 	 * variables for error handling, to know if we need to close the div or not
 	 **/
-	public $rs_module_wrap_open = false;
-	public $rs_module_open = false;
-	public $rs_module_wrap_closed = false;
-	public $rs_module_closed = false;
+	public $rs_module_wrap_open		 = false;
+	public $rs_module_open			 = false;
+	public $rs_module_wrap_closed	 = false;
+	public $rs_module_closed		 = false;
 	public $rs_custom_navigation_css = '';
 	
 	/**
@@ -57,10 +57,10 @@ class RevSliderOutput extends RevSliderFunctions {
 	 * offset : padding and margin of the wrapping Module
 	 * modal : Modal Settings
 	 **/
-	public $usage = '';
-	public $sc_layout = '';
-	public $offset = '';
-	public $modal = '';	
+	public $usage		= '';
+	public $sc_layout	= '';
+	public $offset		= '';
+	public $modal		= '';	
 	public $ajax_loaded = false;
 
 	/**
@@ -508,7 +508,8 @@ class RevSliderOutput extends RevSliderFunctions {
 	 * set the custom settings
 	 */
 	public function set_custom_settings($settings){
-		$settings = ($settings !== '' && !is_array($settings)) ? json_decode(str_replace(array('({', '})', "'"), array('[', ']', '"'), $settings), true) : $settings;
+		$settings = preg_replace('/\\\\u([0-9a-fA-F]{4})/', '', $settings);
+		$settings = ($settings !== '' && !is_array($settings)) ? json_decode(str_replace(array('({', '})', "'"), array('[', ']', '"'), wp_kses_post($settings)), true) : $settings;
 		
 		$this->custom_settings = apply_filters('revslider_set_custom_settings', $settings, $this);
 	}
@@ -709,10 +710,10 @@ class RevSliderOutput extends RevSliderFunctions {
 	 * @before: RevSliderOutput::putSlider();
 	 */
 	public function add_slider_to_stage($sid, $usage = '', $layout = '', $offset = '', $modal = ''){
-		$this->usage = $usage;
+		$this->usage	 = $usage;
 		$this->sc_layout = $layout;
-		$this->offset = $offset;
-		$this->modal = $modal;
+		$this->offset	 = $offset;
+		$this->modal	 = $modal;
 
 		do_action('revslider_add_slider_to_stage_pre', $sid, $this);
 		
@@ -2314,8 +2315,8 @@ class RevSliderOutput extends RevSliderFunctions {
 		if($this->get_val($layer, array('visibility', 'onlyOnSlideHover'), false) === true){
 			$class[] = 'rs-on-sh';
 		}
-
-		if($this->slider->get_param('type', 'standard') === 'carousel'){
+		
+		if($this->slider->get_param('type', 'standard') === 'carousel' && $this->slider->get_param(array('carousel', 'showAllLayers')) !== 'false' && !$this->is_static){
 			if($this->get_val($layer, array('visibility', 'alwaysOnCarousel'), false) === true) $class[] = 'rs-on-car';
 		}
 		
@@ -6805,10 +6806,9 @@ class RevSliderOutput extends RevSliderFunctions {
 		$settings = $this->get_custom_settings();
 		$settings = apply_filters('revslider_modify_slider_settings', $settings, $this->get_slider_id());
 		
-		if(empty($settings)) return;
+		if(empty($settings) || !is_array($settings)) return;
 		
 		$params = $this->slider->get_params();
-		
 		foreach($settings as $handle => $setting){
 			$params[$handle] = $setting;
 		}
@@ -9028,6 +9028,7 @@ class RevSliderOutput extends RevSliderFunctions {
 	 **/
 	public function write_js_var($v, $pp = '"'){
 		if(is_bool($v)) $v = ($v) ? 'true' : 'false';
-		return (is_numeric($v) || substr($v, 0, 1) === '[' || in_array($v, array('true', 'false'))) ? $v : $pp.$v.$pp;
+
+		return (is_numeric($v) || substr($v, 0, 1) === '[' || in_array($v, array('true', 'false'))) ? $v : $pp.addslashes(wp_kses_post($v)).$pp;
 	}
 }

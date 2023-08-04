@@ -2,13 +2,13 @@
 	margin-bottom: 10px;
 }
 
-#support-tickets-navigation:before,
-#support-tickets-navigation:after {
+#support-tickets-navigation::before,
+#support-tickets-navigation::after {
 	content: " ";
 	display: table;
 }
 
-#support-tickets-navigation:after {
+#support-tickets-navigation::after {
 	clear: both;
 }
 

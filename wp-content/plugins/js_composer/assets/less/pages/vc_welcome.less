@@ -1,7 +1,7 @@
 .vc-page-welcome {
   .wp-badge {
     background-image: url(../vc/logo/wpb-logo-white.svg);
-    background-color: @vc_background;
+    background-color: @vc_main_color;
   }
   .twitter-share-button {
     margin-left: 3px;
@@ -18,15 +18,30 @@
     margin: 35px auto 0;
   }
   img.vc-featured-img {
-    margin: 0 5%;
+    margin: 0;
     float: left;
-    width: auto;
+    width: 48%;
   }
 
   .vc_welcome-feature {
     background: #fff;
     margin: 20px 0;
     padding: 1px 20px 10px;
+  }
+  .vc-feature-text {
+    float: right;
+    width: 48%;
+
+    h3 {
+      margin: 0 0 0.6em;
+    }
+
+    ul {
+      padding: 0 0 0 15px;
+      list-style: disc;
+      line-height: 1.5;
+      font-size: 16px;
+    }
   }
   .vc_feature-section-teaser {
     overflow: hidden;

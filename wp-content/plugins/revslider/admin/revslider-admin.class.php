@@ -290,8 +290,8 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 	public function add_admin_pages(){
 		//$this->screens[] = add_menu_page('Slider Revolution', 'Slider Revolution', $this->user_role, 'revslider', array($this, 'display_admin_page'), 'dashicons-update');
 
-		$tp_premium = get_option('revslider-valid', 'false');
-		$tp_ticket = $tp_premium !== 'true' ? ' class="revslider_premium"' : '';
+		$tp_premium = $this->_truefalse(get_option('revslider-valid', 'false'));
+		$tp_ticket = ($tp_premium !== true) ? ' class="revslider_premium"' : '';
 
 		$this->screens[] = add_menu_page('Slider Revolution', 'Slider Revolution', $this->user_role, 'revslider', null, 'dashicons-update');
 		$this->screens[] = add_submenu_page('revslider', __('Slider Revolution - Overview', 'revslider'), __('Overview', 'revslider'), $this->user_role, 'revslider', array($this, 'display_admin_page'));
@@ -300,7 +300,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		$this->screens[] = add_submenu_page('revslider', '', __('<div id="revslider_templates_link">Templates</div>', 'revslider'), $this->user_role, 'revslider-templates', array($this, 'display_external_redirects'));
 		$this->screens[] = add_submenu_page('revslider', '', __('<div id="revslider_ticket_link"'. $tp_ticket .'>Premium Support</div>', 'revslider'), $this->user_role, 'revslider-ticket', array($this, 'display_external_redirects'));
 		
-		if($tp_premium !== 'true'){
+		if($tp_premium !== true){
 			$this->screens[] = add_submenu_page('revslider', '', '<div id="revslider_premium_link"><span class="dashicons dashicons-star-filled" style="font-size: 17px"></span> '.__('Go Premium', 'revslider')."</div>", $this->user_role, 'revslider-buy-license', array($this, 'display_external_redirects'));
 		}
 	}
@@ -487,9 +487,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		$upgrade	= new RevSliderUpdate(RS_REVISION);
 		$library	= new RevSliderObjectLibrary();
 		$template	= new RevSliderTemplate();
-		$validated	= get_option('revslider-valid', 'false');
-		$stablev	= get_option('revslider-stable-version', '0');
-
+		
 		$uol = isset($_REQUEST['update_object_library']);
 		$library->_get_list($uol);
 		
@@ -544,7 +542,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		
 		if(isset($pagenow) && $pagenow == 'plugins.php'){
 			add_action('admin_notices', array($this, 'add_plugins_page_notices'));
-			if(get_option('revslider-valid', 'false') == 'false'){
+			if($this->_truefalse(get_option('revslider-valid', 'false')) === false){
 				add_filter('plugin_action_links_' . RS_PLUGIN_SLUG_PATH, array($this, 'add_plugin_action_links'));
 			}
 		}
@@ -906,6 +904,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 				break;
 				case 'import_template_slider': //before: import_slider_template_slidersview
 					$uid		= $this->get_val($data, 'uid');
+					$sliderID	= intval($this->get_val($data, 'sliderid', 0));
 					$install	= $this->get_val($data, 'install', true);
 					$templates	= new RevSliderTemplate();
 					$filepath	= $templates->_download_template($uid);
@@ -914,7 +913,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 						$templates->remove_old_template($uid);
 						$slider = new RevSliderSliderImport();
 						$return = $slider->import_slider(false, $filepath, $uid, false, true, $install);
-						
+
 						if($this->get_val($return, 'success') == true){
 							$new_id = $this->get_val($return, 'sliderID');
 							if(intval($new_id) > 0){
@@ -932,11 +931,10 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 								$hiddensliderid = $templates->get_slider_id_by_uid($uid);
 								
 								$templates->_delete_template($uid); //delete template file
-								
 								$this->ajax_response_data(array('slider' => $data, 'hiddensliderid' => $hiddensliderid, 'map' => $map, 'uid' => $uid));
 							}
 						}
-						
+
 						$templates->_delete_template($uid); //delete template file
 						
 						$error = ($this->get_val($return, 'error') !== '') ? $this->get_val($return, 'error') : __('Slider Import Failed', 'revslider');

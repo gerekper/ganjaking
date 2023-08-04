@@ -2,7 +2,7 @@
 	'use strict';
 
 	function ttaMapChildEvents( model ) {
-		var child_tag = 'vc_tta_section';
+		var child_tag = 'vc_tta_toggle' === model.get('shortcode') ? 'vc_tta_toggle_section' : 'vc_tta_section';
 		window.vc.events.on(
 			'shortcodes:' + child_tag + ':add:parent:' + model.get( 'id' ),
 			function ( model ) {
@@ -37,4 +37,5 @@
 	window.vc.events.on( 'shortcodes:vc_tta_tabs:add', ttaMapChildEvents );
 	window.vc.events.on( 'shortcodes:vc_tta_tour:add', ttaMapChildEvents );
 	window.vc.events.on( 'shortcodes:vc_tta_pageable:add', ttaMapChildEvents );
+	window.vc.events.on( 'shortcodes:vc_tta_toggle:add', ttaMapChildEvents );
 })();

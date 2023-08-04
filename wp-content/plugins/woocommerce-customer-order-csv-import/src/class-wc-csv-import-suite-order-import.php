@@ -17,11 +17,11 @@
  * needs please refer to http://docs.woocommerce.com/document/customer-order-csv-import-suite/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2012-2022, SkyVerge, Inc.
+ * @copyright   Copyright (c) 2012-2023, SkyVerge, Inc.
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_3 as Framework;
 
 if ( ! class_exists( 'WP_Importer' ) ) return;
 
@@ -423,7 +423,7 @@ class WC_CSV_Import_Suite_Order_Import extends \WC_CSV_Import_Suite_Importer {
 	 * @param array $raw_headers Raw CSV headers
 	 * @return bool
 	 */
-	protected function is_multiline_format( $raw_headers ) {
+	protected function is_multiline_format( array $raw_headers ): bool {
 
 		$format = $this->detect_csv_file_format( $raw_headers );
 
@@ -476,7 +476,7 @@ class WC_CSV_Import_Suite_Order_Import extends \WC_CSV_Import_Suite_Importer {
 	 * @param array $items Array of parsed items
 	 * @return array
 	 */
-	protected function merge_parsed_items( $items ) {
+	protected function merge_parsed_items( array $items ): array {
 
 		$combined_item = array();
 
@@ -511,7 +511,8 @@ class WC_CSV_Import_Suite_Order_Import extends \WC_CSV_Import_Suite_Importer {
 	 * @throws \WC_CSV_Import_Suite_Import_Exception validation, parsing errors
 	 * @return array Parsed order data
 	 */
-	protected function parse_item( $item, $options = array(), $raw_headers = array() ) {
+	protected function parse_item( array $item, array $options = [], array $raw_headers = [] ): array {
+
 		return $this->get_parser()->parse_order( $item, $options, $raw_headers );
 	}
 
@@ -539,14 +540,14 @@ class WC_CSV_Import_Suite_Order_Import extends \WC_CSV_Import_Suite_Importer {
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param array $data parsed order data, ready for processing, compatible with {@see wc_create_order()} or {@see wc_update_order()}
+	 * @param array $item parsed order data, ready for processing, compatible with {@see wc_create_order()} or {@see wc_update_order()}
 	 * @param array $options options (optional)
 	 * @param array $raw_headers raw headers (optional)
-	 * @return int|null
+	 * @return int|null|WP_Error
 	 */
-	protected function process_item( $data, $options = [], $raw_headers = [] ) {
+	protected function process_item( $item, $options = [], $raw_headers = [] ) {
 
-		return $this->get_processor()->process_order( $data, $options, $raw_headers );
+		return $this->get_processor()->process_order( $item, $options, $raw_headers );
 	}
 
 

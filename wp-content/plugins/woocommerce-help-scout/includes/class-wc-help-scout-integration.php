@@ -21,7 +21,6 @@ function wp_help_scout_cron_regenate_token() {
 	$obj->regenerate_credentials();
 }
 
-require_once('opmc-hpos-compatibility-helper.php');
 
 /**
  * Help Scout Integration.
@@ -1532,7 +1531,7 @@ class WC_Help_Scout_Integration extends WC_Integration {
 	 * @return void
 	 */
 	public function add_order_conversation_metabox() {
-		opmc_hpos_add_meta_box(
+		add_meta_box(
 			$this->id . '-conversation',
 			__( 'Report an issue', 'woocommerce-help-scout' ),
 			array( $this, 'order_conversation_metabox_content' ),

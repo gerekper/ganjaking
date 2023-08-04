@@ -29,12 +29,15 @@
 @import "shortcodes/vc_button3_editform.less";
 
 @import (reference)"shortcodes/vc_icon_element.less";
+@import "modules/vc_welcome.less";
 
 @import (reference)"shortcodes/vc_call_to_action3.less";
 @import "shortcodes/vc_cta3_editform.less";
 // Used in deprecated logic in edit form and add element windows
 @import "shortcodes/vc_message_box/vc_message_box_front.less";
 @import "backend_shortcodes/vc_charts.less";
+// Used to arrange our custom post layout logic
+@import "modules/vc_post_custom_layout.less";
 // edit form for vc_line_chart
 
 .vc_editor {
@@ -72,7 +75,7 @@
     display: block;
     position: initial !important;
   }
-  #wpb_csseditor {
+  .custom_code {
     border: 1px solid #BABABA;
   }
 }

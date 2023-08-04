@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 		<div class="vc_ui-prompt-column">
 			<button type="buttom"
-				class="vc_general vc_ui-button vc_ui-button-size-sm vc_ui-button-action vc_ui-button-shape-rounded" id="vc_ui-save-templates-btn" disabled><?php esc_html_e( 'Save changes', 'js_composer' ); ?></button>
+				class="vc_general vc_ui-button vc_ui-button-size-md vc_ui-button-action vc_ui-button-shape-rounded" id="vc_ui-save-templates-btn" disabled><?php esc_html_e( 'Save changes', 'js_composer' ); ?></button>
 		</div>
 	</div>
 </form>

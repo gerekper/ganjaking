@@ -3,16 +3,17 @@
  * Plugin Name: WooCommerce Freshdesk
  * Plugin URI: https://woocommerce.com/products/woocommerce-freshdesk/
  * Description: A Freshdesk integration plugin for WooCommerce.
- * Version: 1.1.28
+ * Version: 1.3.0
  * Author: Themesquad
  * Author URI: https://themesquad.com
- * Requires at least: 4.4
- * Tested up to: 6.1
+ * Requires PHP: 5.4
+ * Requires at least: 4.7
+ * Tested up to: 6.3
  * Text Domain: woocommerce-freshdesk
  * Domain Path: languages/
  *
- * WC requires at least: 2.6
- * WC tested up to: 7.2
+ * WC requires at least: 3.5
+ * WC tested up to: 7.9
  * Woo: 395305:31cb841311e1657f69861c452d788726
  *
  * License: GNU General Public License v3.0
@@ -25,14 +26,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'WC_Freshdesk' ) ) :
+// Load the class autoloader.
+require __DIR__ . '/src/Autoloader.php';
 
-	define( 'WC_FRESHDESK_VERSION', '1.1.28' ); // WRCS: DEFINED_VERSION.
+if ( ! \Themesquad\WC_Freshdesk\Autoloader::init() ) {
+	return;
+}
+
+// Define plugin file constant.
+if ( ! defined( 'WC_FRESHDESK_FILE' ) ) {
+	define( 'WC_FRESHDESK_FILE', __FILE__ );
+}
+
+if ( ! class_exists( 'WC_Freshdesk' ) ) :
 
 	/**
 	 * WooCommerce Freshdesk main class.
 	 */
-	class WC_Freshdesk {
+	class WC_Freshdesk extends \Themesquad\WC_Freshdesk\Plugin {
 
 		/**
 		 * Integration id.
@@ -42,18 +53,10 @@ if ( ! class_exists( 'WC_Freshdesk' ) ) :
 		protected static $integration_id = 'freshdesk';
 
 		/**
-		 * Instance of this class.
-		 *
-		 * @var object
-		 */
-		protected static $instance = null;
-
-		/**
 		 * Initialize the plugin.
 		 */
-		private function __construct() {
-			// Load plugin text domain.
-			add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
+		protected function __construct() {
+			parent::__construct();
 
 			// Checks with WooCommerce is installed.
 			if ( class_exists( 'WC_Integration' ) ) {
@@ -69,15 +72,14 @@ if ( ! class_exists( 'WC_Freshdesk' ) ) :
 		/**
 		 * Return an instance of this class.
 		 *
+		 * @deprecated 1.2.0
+		 *
 		 * @return object A single instance of this class.
 		 */
 		public static function get_instance() {
-			// If the single instance hasn't been set, set it now.
-			if ( null === self::$instance ) {
-				self::$instance = new self();
-			}
+			wc_deprecated_function( __FUNCTION__, '1.2.0', 'WC_Freshdesk::instance()' );
 
-			return self::$instance;
+			return self::instance();
 		}
 
 		/**
@@ -115,18 +117,6 @@ if ( ! class_exists( 'WC_Freshdesk' ) ) :
 		}
 
 		/**
-		 * Load the plugin text domain for translation.
-		 *
-		 * @return void
-		 */
-		public function load_plugin_textdomain() {
-			$locale = apply_filters( 'plugin_locale', get_locale(), 'woocommerce-freshdesk' );
-
-			load_textdomain( 'woocommerce-freshdesk', trailingslashit( WP_LANG_DIR ) . 'woocommerce-freshdesk/woocommerce-freshdesk-' . $locale . '.mo' );
-			load_plugin_textdomain( 'woocommerce-freshdesk', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-		}
-
-		/**
 		 * Add a new integration to WooCommerce.
 		 *
 		 * @param  array $integrations WooCommerce integrations.
@@ -148,6 +138,6 @@ if ( ! class_exists( 'WC_Freshdesk' ) ) :
 		}
 	}
 
-	add_action( 'plugins_loaded', array( 'WC_Freshdesk', 'get_instance' ) );
+	add_action( 'plugins_loaded', array( 'WC_Freshdesk', 'instance' ) );
 
 endif;

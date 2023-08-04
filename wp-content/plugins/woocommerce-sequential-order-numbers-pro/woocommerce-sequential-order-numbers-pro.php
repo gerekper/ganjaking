@@ -6,11 +6,11 @@
  * Description: Provides custom incrementing order numbers for WooCommerce orders.
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 1.20.1
+ * Version: 1.20.2
  * Text Domain: woocommerce-sequential-order-numbers-pro
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2012-2022, SkyVerge, Inc. (info@skyverge.com)
+ * Copyright: (c) 2012-2023, SkyVerge, Inc. (info@skyverge.com)
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,7 +18,7 @@
  * @package   WC-Sequential-Order-Numbers-Pro
  * @author    SkyVerge
  * @category  Plugin
- * @copyright Copyright (c) 2012-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2012-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 18688:0b18a2816e016ba9988b93b1cd8fe766

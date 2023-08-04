@@ -2,7 +2,7 @@
 Author: skyverge
 Tags: woocommerce
 Requires at least: 5.6
-Tested up to: 6.1.1
+Tested up to: 6.2.2
 Requires PHP: 7.4
 
 Easily add add-ons to your WooCommerce orders and display them in the Orders admin, the My Orders section, and even order emails!

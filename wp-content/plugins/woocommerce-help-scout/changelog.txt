@@ -1,5 +1,8 @@
 *** WooCommerce Help Scout Changelog ***
 
+2023-07-20 - version 3.9.2
+* Fix: PLUGINS-2190 - The "Ticket/Conversation" leads to 404 page error page on plugin's version 3.9.1
+
 2023-04-28 - version 3.9.1
 * Fix: PLUGINS-2142 - Order data variable bug.
 

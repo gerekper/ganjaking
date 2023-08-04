@@ -1,5 +1,17 @@
 *** WPBakery Page Builder changelog ***
 
+2023-07-31 - version 7.0
+  - New: Blank page layout for landing pages or empty canvas
+  - New: Custom JavaScript option for the site and page scope
+  - New: Toggle container element
+  - New: Pricing table element
+  - New: Notification center for WPBakery in WP Admin
+  - Update: New WPBakery branding and UI/UX improvements
+  - Fix: Single image element works properly with dynamic content (ACF)
+  - Fix: Compatibility with PHP 8.1 and 8.2 improved
+  - Fix: Custom color attribute works properly in the Separator element
+
+
 2023-05-24 - version 6.13.0
   - Fix: XSS vulnerability fix for elements
   - Fix: XSS vulnerability fix for the user roles

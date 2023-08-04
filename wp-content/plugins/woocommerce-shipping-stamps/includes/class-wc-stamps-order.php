@@ -275,12 +275,11 @@ class WC_Stamps_Order {
 		}
 
 		$order  = wc_get_order( absint( $_POST['order_id'] ) );
-		$params = array();
-		parse_str( stripslashes( sanitize_text_field( $_POST['data'] ) ), $params );
+		$params = $this->get_sanitized_ajax_data( $_POST['data'] );
 
 		$rates = WC_Stamps_API::get_rates( $order, array(
-			'date'   => sanitize_text_field( $params['stamps_package_date'] ),
-			'type'   => sanitize_text_field( $params['stamps_package_type'] ),
+			'date'   => $params['stamps_package_date'],
+			'type'   => $params['stamps_package_type'],
 			'weight' => wc_get_weight( wc_format_decimal( (float) $params['stamps_package_weight'] ), 'lbs' ),
 			'value'  => wc_format_decimal( (float) $params['stamps_package_value'] ),
 			'length' => wc_get_dimension( wc_format_decimal( (float) $params['stamps_package_length'] ), 'in' ),
@@ -368,8 +367,7 @@ class WC_Stamps_Order {
 		}
 
 		$order  = wc_get_order( absint( $_POST['order_id'] ) );
-		$params = array();
-		parse_str( stripslashes( sanitize_text_field( $_POST['data'] ) ), $params );
+		$params = $this->get_sanitized_ajax_data( $_POST['data'] );
 
 		wp_send_json( array( 'html' => $this->get_customs_html( $order, $this->get_posted_rate( $params ) ), 'step' => 'customs' ) );
 	}
@@ -387,29 +385,28 @@ class WC_Stamps_Order {
 		}
 
 		$order  = wc_get_order( absint( $_POST['order_id'] ) );
-		$params = array();
-		parse_str( stripslashes( sanitize_text_field( $_POST['data'] ) ), $params );
+		$params = $this->get_sanitized_ajax_data( $_POST['data'] );
 
 		if ( ! empty( $params['stamps_customs_content_type'] ) ) {
 			$customs = array(
-				'ContentType'       => sanitize_text_field( $params['stamps_customs_content_type'] ),
-				'Comments'          => sanitize_text_field( $params['stamps_customs_comments'] ),
-				'LicenceNumber'     => sanitize_text_field( $params['stamps_customs_licence'] ),
-				'CertificateNumber' => sanitize_text_field( $params['stamps_customs_certificate'] ),
+				'ContentType'       => $params['stamps_customs_content_type'],
+				'Comments'          => $params['stamps_customs_comments'],
+				'LicenceNumber'     => $params['stamps_customs_licence'],
+				'CertificateNumber' => $params['stamps_customs_certificate'],
 				'InvoiceNumber'     => $order->get_order_number(),
-				'OtherDescribe'     => sanitize_text_field( $params['stamps_customs_other'] ),
+				'OtherDescribe'     => $params['stamps_customs_other'],
 				'CustomsLines'      => array(),
 			);
 
 			if ( ! empty( $params['stamps_customs_item_description'] ) ) {
 				foreach ( $params['stamps_customs_item_description'] as $key => $desc ) {
 					$line = array(
-						'Description'     => sanitize_text_field( $desc ),
+						'Description'     => $desc,
 						'Quantity'        => absint( $params['stamps_customs_item_quantity'][ $key ] ),
 						'Value'           => wc_format_decimal( $params['stamps_customs_item_value'][ $key ] ),
 						'WeightLb'        => wc_format_decimal( $params['stamps_customs_item_weight'][ $key ] ),
-						'HSTariffNumber'  => sanitize_text_field( $params['stamps_customs_item_hs_tariff'][ $key ] ),
-						'CountryOfOrigin' => sanitize_text_field( $params['stamps_customs_item_origin'][ $key ] ),
+						'HSTariffNumber'  => $params['stamps_customs_item_hs_tariff'][ $key ],
+						'CountryOfOrigin' => $params['stamps_customs_item_origin'][ $key ],
 					);
 					if ( empty( $line['HSTariffNumber'] ) ) {
 						unset( $line['HSTariffNumber'] );
@@ -450,9 +447,9 @@ class WC_Stamps_Order {
 			die();
 		}
 
-		$order  = wc_get_order( absint( $_POST['order_id'] ) );
+		$order    = wc_get_order( absint( $_POST['order_id'] ) );
 		$order_id = $order->get_id();
-		$labels = WC_Stamps_Labels::get_order_labels( $order_id );
+		$labels   = WC_Stamps_Labels::get_order_labels( $order_id );
 
 		wp_send_json( array( 'html' => $this->get_labels_html( $labels ), 'step' => 'labels' ) );
 	}
@@ -795,6 +792,19 @@ class WC_Stamps_Order {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Return decoded, parsed, and sanitized AJAX posted data.
+	 *
+	 * @param  string  $posted_data  AJAX posted data.
+	 *
+	 * @return array|string
+	 */
+	public function get_sanitized_ajax_data( $posted_data ) {
+		parse_str( stripslashes( urldecode( $posted_data ) ), $params );
+
+		return wc_clean( $params );
 	}
 }
 new WC_Stamps_Order();

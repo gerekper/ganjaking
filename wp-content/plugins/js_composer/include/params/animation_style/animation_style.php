@@ -501,7 +501,7 @@ class Vc_ParamAnimation {
 			$output .= $left_side;
 
 			$right_side = '<div class="vc_col-sm-6">';
-			$right_side .= '<div class="vc_param-animation-style-preview"><button class="vc_btn vc_btn-grey vc_btn-sm vc_param-animation-style-trigger">' . esc_html__( 'Animate it', 'js_composer' ) . '</button></div>';
+			$right_side .= '<div class="vc_param-animation-style-preview"><button class="vc_btn-grey vc_general vc_param-animation-style-trigger vc_ui-button vc_ui-button-shape-rounded">' . esc_html__( 'Animate it', 'js_composer' ) . '</button></div>';
 			$right_side .= '</div>';
 			$output .= $right_side;
 		}

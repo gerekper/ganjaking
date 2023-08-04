@@ -7,9 +7,9 @@
 @vcui-panel-header-padding-horizontal: 18px;
 @vcui-panel-header-padding-vertical: 14px;
 @vcui-panel-header-gap: 16px;
-@vcui-panel-header-background: #0473aa;
+@vcui-panel-header-background: @vc_main_color;
 @vcui-panel-header-color: #fff;
-@vcui-panel-header-heading-font-size: 20px;
+@vcui-panel-header-heading-font-size: 18px;
 @vcui-panel-header-search-width: 200px;
 @vcui-panel-header-search-width-focus: 110%;
 @vcui-panel-header-search-color: #333;
@@ -38,7 +38,7 @@
 
   .vc_ui-panel-header-controls {
     float: right;
-    margin: 2px 0 0 12px;
+    margin: -2px 0 0 12px;
     .vc_ui-dropdown {
       display: inline-block;
     }
@@ -78,9 +78,20 @@
       font-size: 26px;
     }
     .vc-c-icon-cog {
-      font-size: 20px;
+      display: inline-block;
+      margin-top: 2px;
+      font-size: 22px;
+    }
+    .vc-c-icon-close {
+      font-size: 18px;
+      margin-top: 4px;
+      display: inline-block;
     }
   }
+}
+
+.vc_ui-add-element-header-container .vc_ui-panel-header .vc_ui-panel-header-controls {
+  margin: 2px 0 0 12px;
 }
 
 // search box

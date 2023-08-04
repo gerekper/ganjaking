@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-social-login/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2012-2022, SkyVerge, Inc.
+ * @copyright   Copyright (c) 2012-2023, SkyVerge, Inc.
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -34,7 +34,7 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 
 
 	/** version number */
-	const VERSION = '1.20.1';
+	const VERSION = '1.20.2';
 
 	/** @var WC_Seq_Order_Number_Pro single instance of this plugin */
 	protected static $instance;
@@ -262,7 +262,8 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 	 */
 	public function set_sequential_order_number( $order_id, $object = [] ) {
 
-		$is_order = $order_status = null;
+		$is_order   = $order_status = null;
+		$using_hpos = Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled();
 
 		if ( $object instanceof \WP_Post ) {
 
@@ -274,7 +275,7 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 			$is_order     = true;
 			$order_status = $object->get_status();
 
-		} elseif ( Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ) {
+		} elseif ( $using_hpos ) {
 
 			$order    = wc_get_order( $order_id ) ?: null;
 			$is_order = $order_status = false;
@@ -291,8 +292,8 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 		}
 
 		// when creating an order from the admin don't create order numbers for auto-draft orders,
-		// because these are not linked to from the admin and so difficult to delete
-		if ( $object === null || is_array( $object ) || ( $is_order && 'auto-draft' !== $order_status ) ) {
+		// because these are not linked to from the admin and so difficult to delete (this doesn't seem to be an issue with HPOS)
+		if ( $object === null || is_array( $object ) || ( $is_order && ( $using_hpos || 'auto-draft' !== $order_status ) ) ) {
 
 			$order        = $order_id instanceof \WC_Order ? $order_id : wc_get_order( $order_id );
 			$order_number = $order ? $order->get_meta( '_order_number' ) : '';
@@ -307,7 +308,6 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 
 						// so that sorting still works in the admin
 						$order->update_meta_data( '_order_number', -1 );
-						$order->save_meta_data();
 					}
 
 				} else {
@@ -315,6 +315,9 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 					// normal operation
 					$this->generate_sequential_order_number( $order, '_order_number', $this->get_order_number_start(), $this->get_order_number_prefix(), $this->get_order_number_suffix(), $this->get_order_number_length() );
 				}
+
+				// this is required in HPOS to correctly persist the order number
+				$order->save();
 			}
 		}
 	}

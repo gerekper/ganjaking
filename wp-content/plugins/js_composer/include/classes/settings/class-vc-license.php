@@ -290,6 +290,7 @@ class Vc_License {
 	}
 
 	public function checkLicenseKey() {
+		return false;
 		$site_url = self::getSiteUrl();
 		// Send request to remote server to check is license is activated on this domain
 		$license_key = $this->getLicenseKey();
@@ -452,6 +453,7 @@ class Vc_License {
 	 * @return bool
 	 */
 	public function isValid( $license_key ) {
+		return true;
 		return $license_key === $this->getLicenseKey();
 	}
 

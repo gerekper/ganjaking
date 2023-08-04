@@ -6,9 +6,9 @@
 @vc-welcome-margin: 14px;
 @vc-welcome-base-font-size: 14px;
 @vc-welcome-gap: 20px;
-@vc-welcome-header-font-size: 36px;
-@vc-welcome-header-line-height: 1em;
-@vc-welcome-header-font-color: #656565;
+@vc-welcome-header-font-size: 32px;
+@vc-welcome-header-line-height: 1.2em;
+@vc-welcome-header-font-color: #35444B;
 
 
 .vc_welcome {
@@ -33,8 +33,11 @@
     align-items: center;
 
     .vc-composer-icon {
-      font-size: 21px;
-      padding: 0 .5em 0 0;
+      font-size: 19px;
+      padding: 0 .7em 0 0;
+    }
+    .vc-composer-icon.vc-c-icon-text-block {
+      font-size: 16px;
     }
   }
   // icon behaviour
@@ -67,7 +70,7 @@
   display: inline-block;
   position: relative;
   font-size: 18px;
-  color: #FFFFFF;
+  color: #FFFFFF !important; // override theme color
   width: 39px;
   height: 38px;
   -webkit-box-shadow: none !important;
@@ -105,7 +108,6 @@
     }
   }
 }
-
 // editors behaviour
 .vc_editor.compose-mode {
   .vc_welcome {

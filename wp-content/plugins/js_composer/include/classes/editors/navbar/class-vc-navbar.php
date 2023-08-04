@@ -109,7 +109,7 @@ class Vc_Navbar {
 			return '';
 		}
 
-		return '<li class="vc_pull-right"><a id="vc_post-settings-button" href="javascript:;" class="vc_icon-btn vc_post-settings" title="' . esc_attr__( 'Page settings', 'js_composer' ) . '">' . '<span id="vc_post-css-badge" class="vc_badge vc_badge-custom-css" style="display: none;">' . esc_attr__( 'CSS', 'js_composer' ) . '</span><i class="vc-composer-icon vc-c-icon-cog"></i></a>' . '</li>';
+		return '<li class="vc_pull-right"><a id="vc_post-settings-button" href="javascript:;" class="vc_icon-btn vc_post-settings" title="' . esc_attr__( 'Page settings', 'js_composer' ) . '">' . '<span id="vc_post-settings-badge" class="vc_badge vc_badge-custom-css" style="display: none;">' . esc_attr__( 'O', 'js_composer' ) . '</span><i class="vc-composer-icon vc-c-icon-cog"></i></a>' . '</li>';
 	}
 
 	/**

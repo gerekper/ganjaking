@@ -1,5 +1,9 @@
 *** WooCommerce Sequential Order Numbers Pro Changelog ***
 
+2023.07.28 - version 1.20.2
+ * Fix - Ensure that sequential order numbers can be persisted on sites with HPOS enabled
+ * FIx - Ensure that admin orders in sites using HPOS can set a sequential order number
+
 2023.07.18 - version 1.20.1
  * Fix - Address a database query issue with auto-draft admin orders
 

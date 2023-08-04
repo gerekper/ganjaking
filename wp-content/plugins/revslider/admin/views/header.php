@@ -18,11 +18,11 @@ $rs_addon_update		 = $rsaddon->check_addon_version();
 $rs_addons				 = $rsaddon->get_addon_list();
 $rs_wp_date_format		 = get_option('date_format');
 $rs_wp_time_format		 = get_option('time_format');
-$rs_valid				 = get_option('revslider-valid', 'false');
+$rs_valid				 = $rsaf->_truefalse(get_option('revslider-valid', 'false'));
 $rs_latest_version		 = get_option('revslider-latest-version', RS_REVISION);
 $rs_stable_version		 = get_option('revslider-stable-version', '4.2');
-$rs_emergency_update	 = ($rs_valid !== 'true' && version_compare($rs_latest_version, $rs_stable_version, '<') === true) ? true : false;
-$rs_latest_version		 = ($rs_valid !== 'true' && version_compare($rs_latest_version, $rs_stable_version, '<') === true) ? $rs_stable_version : $rs_latest_version;
+$rs_emergency_update	 = ($rs_valid !== true && version_compare($rs_latest_version, $rs_stable_version, '<') === true) ? true : false;
+$rs_latest_version		 = ($rs_valid !== true && version_compare($rs_latest_version, $rs_stable_version, '<') === true) ? $rs_stable_version : $rs_latest_version;
 $rs_added_image_sizes	 = $rsaf->get_all_image_sizes();
 $rs_image_meta_todo		 = get_option('rs_image_meta_todo', array());
 $rs_slider_update_needed = $rsupd->slider_need_update_checks();
@@ -65,7 +65,7 @@ $rs_show_deregister_popup = $rsaf->_truefalse(get_option('revslider-deregister-p
 	RVS.LIB.COLOR_PRESETS	= <?php echo (!empty($rs_color_picker_presets)) ? 'JSON.parse('. $rsaf->json_encode_client_side($rs_color_picker_presets) .')' : '{}'; ?>;
 
 	RVS.ENV.addOns_to_update = <?php echo (!empty($rs_addon_update)) ? 'JSON.parse('.$rsaf->json_encode_client_side($rs_addon_update).')' : '{}'; ?>;
-	RVS.ENV.activated		= <?php echo ($rsaf->_truefalse($rs_valid) === true) ? 'true' : 'false'; ?>;
+	RVS.ENV.activated		= <?php echo ($rs_valid === true) ? 'true' : 'false'; ?>;
 	RVS.ENV.nonce			= '<?php echo wp_create_nonce('revslider_actions'); ?>';
 	RVS.ENV.plugin_dir		= 'revslider';
 	RVS.ENV.ajax_pre		= 'rs';
@@ -91,7 +91,7 @@ $rs_show_deregister_popup = $rsaf->_truefalse(get_option('revslider-deregister-p
 		if(RevSliderWooCommerce::woo_exists()){
 			$wc = new WC_Product(0);
 			$wc_price_suffix = str_replace(array("\n", "\r", "'"), '', $wc->get_price_suffix());
-		?>wc_full_price:		'<?php echo wc_price('99') . $wc_price_suffix; ?>',
+		?>wc_full_price:		'<?php echo str_replace("'", "\'", wc_price('99')) . $wc_price_suffix; ?>',
 		wc_price:			'<?php echo strip_tags(wc_price('99') . $wc_price_suffix); ?>',
 		wc_price_no_cur:	'<?php echo strip_tags(wc_price('99')); ?>',
 		wc_categories:		'shoes, socks',

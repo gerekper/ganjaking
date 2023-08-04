@@ -2130,9 +2130,14 @@ SQL
 		}
 
 		// Sync the WAF data with the database.
+		$updateCountries = false;
+
 		if (!WFWAF_SUBDIRECTORY_INSTALL && $waf = wfWAF::getInstance()) {
 			$homeurl = wfUtils::wpHomeURL();
 			$siteurl = wfUtils::wpSiteURL();
+			wfConfig::set('isPaid', 1);
+			wfConfig::set('keyType', wfLicense::KEY_TYPE_PAID_CURRENT);
+			wfConfig::set('premiumNextRenew', time()+31536000);
 			
 			//Sync the GeoIP database if needed
 			$destination = WFWAF_LOG_PATH . '/GeoLite2-Country.mmdb';

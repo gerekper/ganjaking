@@ -11,7 +11,7 @@ if (!defined('WORDFENCE_VERSION')) { exit; }
 				<div class="wf-flex-vertical">
 					<h3 class="wf-center"><?php esc_html_e('Need help from the WordPress security experts?', 'wordfence'); ?></h3>
 					<?php if (wfLicense::current()->isBelowCare()): ?>
-						<p class="wf-center wf-no-top"><?php esc_html_e('Sign-up for Wordfence Care today and get expert help with any security issue. Wordfence Care is for business owners who put a premium on their time. With Wordfence Care, we take care of it, so that you can focus on your customers. Check out Wordfence Response for mission-critical WordPress websites.'); ?></p>
+						<p class="wf-center wf-no-top"><?php esc_html_e('Sign up for Wordfence Care today and get expert help with any security issue. Wordfence Care is for business owners who put a premium on their time. With Wordfence Care, we take care of it, so that you can focus on your customers. Check out Wordfence Response for mission-critical WordPress websites.', 'wordfence'); ?></p>
 					<?php endif ?>
 					<p class="wf-center wf-add-bottom">
 						<?php if (wfLicense::current()->isBelowCare()): ?>

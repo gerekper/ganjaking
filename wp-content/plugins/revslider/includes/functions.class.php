@@ -349,24 +349,27 @@ class RevSliderFunctions extends RevSliderData {
 		if(function_exists('sys_get_temp_dir')){
 			$temp = sys_get_temp_dir();
 			if(@is_dir($temp) && wp_is_writable($temp)){
-				return trailingslashit($temp);
+				$dir = trailingslashit($temp).$path.'/';
+				if(!is_dir($dir)) @mkdir($dir, 0777, true);
+				return $dir;
 			}
 		}
 	
 		$temp = ini_get('upload_tmp_dir');
 		if(@is_dir($temp) && wp_is_writable($temp)){
-			return trailingslashit($temp);
+			$dir = trailingslashit($temp).$path.'/';
+			if(!is_dir($dir)) @mkdir($dir, 0777, true);
+			return trailingslashit($temp).$path.'/';
 		}
 
 		$temp_dir	= get_temp_dir();
 		if(wp_is_writable($temp_dir)){
-			$dir		= $temp_dir;
+			$dir		= trailingslashit($temp_dir).$path.'/';
+			if(!is_dir($dir)) @mkdir($dir, 0777, true);
 		}else{
 			$upload_dir = wp_upload_dir();
 			$dir		= $upload_dir['basedir'].'/'.$path.'/';
-			if(!is_dir($dir)){
-				mkdir($dir, 0777, true);
-			}
+			if(!is_dir($dir)) @mkdir($dir, 0777, true);
 		}
 
 		return $dir;

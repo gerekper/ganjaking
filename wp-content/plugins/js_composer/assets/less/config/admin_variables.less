@@ -3,20 +3,23 @@
 
 // Controls color settings
 
-@vc_controls_background: #95ca24;
-@vc_controls_border: @vc_controls_background;
-@vc_control_hover_color: darken(@vc_controls_background, 5%);
+@vc_main_color: #0772CE;
+@vc_main_color_hover: #00447F;
 
-@vc_controls_child_background: #f3af1c;
+@vc_controls_background: #12C248;
+@vc_controls_border: @vc_controls_background;
+@vc_control_hover_color: #028E2D;
+
+@vc_controls_child_background: #F4AF1C;
 @vc_controls_child_border: @vc_controls_child_background;
 
-@vc_controls_child_background_hover: darken(@vc_controls_child_background, 5%);
+@vc_controls_child_background_hover: #AD790A;
 @vc_controls_child_border_hover: @vc_controls_child_background_hover;
 
-@vc_controls_parent_background: #0073aa;
+@vc_controls_parent_background: @vc_main_color;
 @vc_controls_parent_border: @vc_controls_parent_background;
 
-@vc_controls_parent_background_hover: darken(@vc_controls_parent_background, 5%);
+@vc_controls_parent_background_hover: @vc_main_color_hover;
 @vc_controls_parent_border_hover: @vc_controls_parent_background_hover;
 
 @vc_controls_bottom_append_border_bottom: @vc_controls_child_background;
@@ -48,9 +51,9 @@
 // zero-based numbering
 @vc_navbar_sprite_left_position: 0;
 @vc_navbar_icon_color: #FFFFFF;
-@vc_navbar_background_color: #0473aa;
+@vc_navbar_background_color: @vc_main_color;
 @vc_navbar_icon_btn_color: #1b3660;
-@vc_navbar_icon_btn_color_hover: darken(@vc_navbar_background_color, 5%);
+@vc_navbar_icon_btn_color_hover: @vc_main_color_hover;
 @vcui_navbar_logo: '../vc/logo/wpb-logo-white.svg';
 @vc_navbar_border_color: #0473aa;
 @vc_navbar_margin: 0;

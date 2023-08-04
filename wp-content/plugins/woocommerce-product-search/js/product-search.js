@@ -238,6 +238,11 @@ ixwps.productSearch = function( fieldId, containerId, resultsId, url, query, arg
 
 					results += '<table class="search-results">';
 					for ( var key in data ) {
+
+						if ( !( 'type' in data[key] ) ) {
+							continue;
+						}
+
 						var first = '';
 						if ( current_type != data[key].type ) {
 							current_type = data[key].type;
@@ -269,41 +274,54 @@ ixwps.productSearch = function( fieldId, containerId, resultsId, url, query, arg
 						switch ( current_type ) {
 							case 's_more' :
 								if ( show_more ) {
-									results += '<td class="more-info" colspan="2">';
-									results += '<a href="' + data[key].url + '" title="' + data[key].a_title + '">';
-									results += '<span class="title">' + data[key].title + '</span>';
-									results += '</a>';
-									results += '</td>';
+									if ( typeof data[key].url !== 'undefined' && typeof data[key].title !== 'undefined' ) {
+										results += '<td class="more-info" colspan="2">';
+										results += '<a href="' + data[key].url + '" title="' + ( typeof data[key].a_title !== 'undefined' ? data[key].a_title : data[key].title ) + '">';
+										results += '<span class="title">' + data[key].title + '</span>';
+										results += '</a>';
+										results += '</td>';
+									} else {
+										console.log( 'WooCommerce Product Search Field, missing data for show more entry.' );
+									}
 								}
 								break;
 							case 's_product_cat' :
-								results += '<td class="category-info" colspan="2">';
-								results += '<a href="' + data[key].url + '" title="' + data[key].title + '">';
-								results += '<span class="title">' + data[key].title + '</span>';
-								results += '</a>';
-								results += '</td>';
+								if ( typeof data[key].url !== 'undefined' && typeof data[key].title !== 'undefined' ) {
+									results += '<td class="category-info" colspan="2">';
+									results += '<a href="' + data[key].url + '" title="' + data[key].title + '">';
+									results += '<span class="title">' + data[key].title + '</span>';
+									results += '</a>';
+									results += '</td>';
+								} else {
+									console.log( 'WooCommerce Product Search Field, missing data for category entry.' );
+								}
 								break;
-							default :
-								results += '<td class="product-info">';
-								results += '<a href="' + data[key].url + '" title="' + data[key].title + '">';
-								results += '<span class="title">' + data[key].title + '</span>';
-								if ( show_description ) {
-									if ( typeof data[key].description !== "undefined" ) {
-										results += '<span class="description">' + data[key].description + '</span>';
+							case 'product' : // @since 4.15.0 not as default
+								if ( typeof data[key].url !== 'undefined' && typeof data[key].title !== 'undefined' ) {
+									results += '<td class="product-info">';
+									results += '<a href="' + data[key].url + '" title="' + data[key].title + '">';
+									results += '<span class="title">' + data[key].title + '</span>';
+									if ( show_description ) {
+										if ( typeof data[key].description !== "undefined" ) {
+											results += '<span class="description">' + data[key].description + '</span>';
+										}
 									}
-								}
-								if ( show_price ) {
-									if ( typeof data[key].price !== "undefined" ) {
-										results += '<span class="price">' + data[key].price + '</span>';
+									if ( show_price ) {
+										if ( typeof data[key].price !== "undefined" ) {
+											results += '<span class="price">' + data[key].price + '</span>';
+										}
 									}
-								}
-								results += '</a>';
-								if ( show_add_to_cart ) {
-									if ( typeof data[key].add_to_cart !== "undefined" ) {
-										results += '<div class="wps_add_to_cart">' + data[key].add_to_cart + '</div>';
+									results += '</a>';
+									if ( show_add_to_cart ) {
+										if ( typeof data[key].add_to_cart !== "undefined" ) {
+											results += '<div class="wps_add_to_cart">' + data[key].add_to_cart + '</div>';
+										}
 									}
+									results += '</td>';
+								} else {
+									console.log( 'WooCommerce Product Search Field, missing data for product entry.' );
 								}
-								results += '</td>';
+								break;
 						}
 
 						results += '</tr>';

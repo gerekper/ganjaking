@@ -17,11 +17,11 @@
  * needs please refer to http://docs.woocommerce.com/document/customer-order-csv-import-suite/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2012-2022, SkyVerge, Inc.
+ * @copyright   Copyright (c) 2012-2023, SkyVerge, Inc.
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_3 as Framework;
 
 if ( ! class_exists( 'WP_Importer' ) ) return;
 
@@ -275,7 +275,7 @@ class WC_CSV_Import_Suite_Coupon_Import extends \WC_CSV_Import_Suite_Importer {
 				if ( 0 === strcasecmp( $key, $item['type'] ) || 0 === strcasecmp( $value, __( $item['type'], 'woocommerce-csv-import-suite' ) ) ) {
 
 					$discount_type_is_valid = true;
-					$coupon['type'] = $key;
+					$coupon['type']         = $key;
 					break;
 				}
 			}
@@ -824,7 +824,6 @@ class WC_CSV_Import_Suite_Coupon_Import extends \WC_CSV_Import_Suite_Importer {
 			}
 		}
 
-
 		// add/update coupon meta
 		if ( ! empty( $data['coupon_meta'] ) ) {
 
@@ -834,7 +833,7 @@ class WC_CSV_Import_Suite_Coupon_Import extends \WC_CSV_Import_Suite_Importer {
 			}
 		}
 
-		$this->process_terms( $id, $data['terms'] );
+		$this->process_terms( (int) $id, $data['terms'] );
 
 		/**
 		 * Triggered after coupon data has been updated via CSV

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Toggle container</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-331, -60)">
+            <g id="toggle-container" transform="translate(331, 60)">
+                <rect id="Rectangle" fill="#ECECEC" x="0" y="0" width="32" height="32" rx="3"></rect>
+                <rect id="Rectangle" fill="#5188F1" x="7" y="11" width="18" height="10" rx="5"></rect>
+                <rect id="Rectangle" fill="#FFFFFF" x="9" y="13" width="6" height="6" rx="3"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

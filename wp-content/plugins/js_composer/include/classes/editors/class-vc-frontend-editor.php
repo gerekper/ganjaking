@@ -89,7 +89,26 @@ class Vc_Frontend_Editor {
 	 * @var string
 	 */
 	protected static $brand_url = 'https://wpbakery.com/?utm_campaign=VCplugin&utm_source=vc_user&utm_medium=frontend_editor';
+	/**
+	 * @var string
+	 */
 	public $post_custom_css;
+	/**
+	 * @var string
+	 */
+	public $post_custom_js_header;
+	/**
+	 * @var string
+	 */
+	public $post_custom_js_footer;
+	/**
+	 * Post layout
+	 * @note right now we use only one custom 'Blank Page' layout
+	 * @since 7.0
+	 *
+	 * @var string
+	 */
+	public $post_custom_layout;
 	/**
 	 * @var string
 	 */
@@ -256,7 +275,10 @@ class Vc_Frontend_Editor {
 			do_action( 'vc_load_shortcode' );
 			$post_content .= $this->getPageShortcodesByContent( $post->post_content );
 			ob_start();
-			vc_include_template( 'editors/partials/vc_welcome_block.tpl.php' );
+			vc_include_template(
+				'editors/partials/vc_welcome_block.tpl.php',
+				[ 'editor' => 'frontend' ]
+			);
 			$post_content .= ob_get_clean();
 
 			ob_start();
@@ -456,8 +478,10 @@ class Vc_Frontend_Editor {
 		remove_all_actions( 'admin_notices' );
 		remove_all_actions( 'network_admin_notices' );
 
-		$post_custom_css = wp_strip_all_tags( get_post_meta( $this->post_id, '_wpb_post_custom_css', true ) );
-		$this->post_custom_css = $post_custom_css;
+		$this->post_custom_css = wp_strip_all_tags( get_post_meta( $this->post_id, '_wpb_post_custom_css', true ) );
+		$this->post_custom_js_header = get_post_meta( $this->post_id, '_wpb_post_custom_js_header', true );
+		$this->post_custom_js_footer = get_post_meta( $this->post_id, '_wpb_post_custom_js_footer', true );
+		$this->post_custom_layout = wpb_get_name_post_custom_layout();
 
 		if ( ! defined( 'IFRAME_REQUEST' ) ) {
 			define( 'IFRAME_REQUEST', true );

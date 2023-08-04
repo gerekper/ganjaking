@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /** @var Vc_Frontend_Editor $editor */
-global $menu, $submenu, $parent_file, $post_ID, $post, $post_type, $post_type_object;
+global $menu, $submenu, $parent_file, $post_ID, $post, $post_type, $post_type_object, $plugin_page, $title;
 $post_ID = $editor->post_id;
 $post = $editor->post;
 $post_type = $post->post_type;
@@ -14,6 +14,8 @@ $nonce_action = $nonce_action = 'update-post_' . $editor->post_id;
 $user_ID = isset( $editor->current_user ) && isset( $editor->current_user->ID ) ? (int) $editor->current_user->ID : 0;
 $form_action = 'editpost';
 $menu = array();
+$plugin_page = 'js_composer';
+$title = __( 'Frontend Editor', 'js_composer' );
 add_thickbox();
 wp_enqueue_media( array( 'post' => $editor->post_id ) );
 require_once $editor->adminFile( 'admin-header.php' );
@@ -38,8 +40,25 @@ require_once vc_path_dir( 'EDITORS_DIR', 'navbar/class-vc-navbar-frontend.php' )
 $nav_bar = new Vc_Navbar_Frontend( $post );
 $nav_bar->render();
 // [/vc_navbar frontend]
+
 ?>
-	<div id="vc_inline-frame-wrapper"></div>
+<div id="vc_no-content-helper"
+	 class="vc_welcome vc_select-post-custom-layout-frontend-editor vc_ui-font-open-sans <?php echo wpb_get_name_post_custom_layout() ? 'vc_post-custom-layout-selected' : ''; ?>">
+	<?php
+	vc_include_template(
+		'editors/partials/start-logo.tpl.php'
+	);
+	vc_include_template(
+		'editors/partials/start-select-layout-title.tpl.php'
+	);
+	vc_include_template(
+		'editors/partials/vc_post_custom_layout.tpl.php',
+		[ 'location' => 'welcome' ]
+	);
+	?>
+</div>
+
+<div id="vc_inline-frame-wrapper" class="<?php echo wpb_get_name_post_custom_layout() ? 'vc_post-custom-layout-selected' : ''; ?> vc_selected-post-custom-layout-visible-e"></div>
 <?php
 // [add element popup/box]
 require_once vc_path_dir( 'EDITORS_DIR', 'popups/class-vc-add-element-box.php' );
@@ -91,6 +110,9 @@ if ( vc_user_access()->part( 'presets' )->can()->get() ) {
 
 ?>
 	<input type="hidden" name="vc_post_custom_css" id="vc_post-custom-css" value="<?php echo esc_attr( $editor->post_custom_css ); ?>" autocomplete="off"/>
+	<input type="hidden" name="vc_post_custom_js_header" id="vc_post-custom-js-header" value="<?php echo esc_attr( $editor->post_custom_js_header ); ?>" autocomplete="off"/>
+	<input type="hidden" name="vc_post_custom_js_footer" id="vc_post-custom-js-footer" value="<?php echo esc_attr( $editor->post_custom_js_footer ); ?>" autocomplete="off"/>
+	<input type="hidden" name="vc_post_custom_layout" id="vc_post-custom-layout" value="<?php echo esc_attr( $editor->post_custom_layout ); ?>" autocomplete="off"/>
 	<<?php echo esc_attr( $custom_tag ); ?>>
 		window.vc_user_mapper = <?php echo wp_json_encode( WPBMap::getUserShortCodes() ); ?>;
 		window.vc_mapper = <?php echo wp_json_encode( WPBMap::getShortCodes() ); ?>;
@@ -126,4 +148,4 @@ if ( vc_user_access()->part( 'presets' )->can()->get() ) {
 <?php
 
 // other admin footer files and actions.
-require_once $editor->adminFile( 'admin-footer.php' ); ?>
+require_once $editor->adminFile( 'admin-footer.php' );

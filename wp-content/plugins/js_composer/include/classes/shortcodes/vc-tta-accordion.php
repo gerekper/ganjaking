@@ -8,18 +8,22 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WPBakeryShortCode_Vc_Tta_Accordion extends WPBakeryShortCodesContainer {
 	protected $controls_css_settings = 'out-tc vc_controls-content-widget';
+
 	protected $controls_list = array(
 		'add',
 		'edit',
 		'clone',
 		'delete',
 	);
+
 	protected $template_vars = array();
 
 	public $layout = 'accordion';
+
 	protected $content;
 
 	public $activeClass = 'vc_active';
+
 	/**
 	 * @var WPBakeryShortCode_Vc_Tta_Section
 	 */

@@ -9,7 +9,7 @@ $custom_tag = 'script'; // Update to wp_add_inline later
 	<h1><?php echo sprintf( esc_html__( 'Welcome to WPBakery Page Builder %s', 'js_composer' ), esc_html( isset( $matches[0] ) ? $matches[0] : WPB_VC_VERSION ) ); ?></h1>
 
 	<div class="about-text">
-		<?php esc_html_e( 'Congratulations! You are about to use most powerful time saver for WordPress ever - page builder plugin with Frontend and Backend editors by WPBakery.', 'js_composer' ); ?>
+		<?php esc_html_e( 'The leading no-code solution for building and managing WordPress sites.', 'js_composer' ); ?>
 	</div>
 	<div class="wp-badge vc-page-logo">
 		<?php echo sprintf( esc_html__( 'Version %s', 'js_composer' ), esc_html( WPB_VC_VERSION ) ); ?>

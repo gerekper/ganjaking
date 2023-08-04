@@ -242,9 +242,9 @@ class WPBakeryShortCode_Vc_Tta_Section extends WPBakeryShortCode_Vc_Tta_Accordio
 		$output .= ' data-vc-accordion';
 
 		$output .= ' data-vc-container=".vc_tta-container">';
-		$output .= $this->getTemplateVariable( 'icon-left' );
+		$output .= empty( $atts['i_position'] ) ? '' : $this->getTemplateVariable( 'icon-left' );
 		$output .= '<span class="vc_tta-title-text">' . wp_kses_post( $this->getTemplateVariable( 'title' ) ) . '</span>';
-		$output .= $this->getTemplateVariable( 'icon-right' );
+		$output .= empty( $atts['i_position'] ) ? '' : $this->getTemplateVariable( 'icon-right' );
 		if ( ! $isPageEditable ) {
 			$output .= $this->getTemplateVariable( 'control-icon' );
 		}

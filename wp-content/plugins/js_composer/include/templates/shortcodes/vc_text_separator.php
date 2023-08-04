@@ -62,11 +62,10 @@ if ( 'custom' === $color && '' !== $accent_color ) {
 		$inline_css = vc_get_css_color( 'border-color', $accent_color );
 	}
 	if ( $inline_css ) {
-		$inline_css = ' style="' . $inline_css .'"';
+		$inline_css = ' style="' . esc_attr( $inline_css ) .'"';
 	}
 }
 
-$inline_css = esc_attr( $inline_css );
 $class_to_filter = $class;
 $class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class ) . $this->getCSSAnimation( $css_animation );
 $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );

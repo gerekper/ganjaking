@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Wordfence Security plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Wordfence Security 7.10.2\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordfence-zip-zOFxXQcmX\n"
+"Project-Id-Version: Wordfence Security 7.10.3\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordfence-zip-DRQa4hG9o\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-07-17T15:56:30-04:00\n"
+"POT-Creation-Date: 2023-07-31T09:38:31-04:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: wordfence\n"
@@ -13379,6 +13379,10 @@ msgstr ""
 
 #: views/scanner/site-cleaning-bottom.php:12
 msgid "Need help from the WordPress security experts?"
+msgstr ""
+
+#: views/scanner/site-cleaning-bottom.php:14
+msgid "Sign up for Wordfence Care today and get expert help with any security issue. Wordfence Care is for business owners who put a premium on their time. With Wordfence Care, we take care of it, so that you can focus on your customers. Check out Wordfence Response for mission-critical WordPress websites."
 msgstr ""
 
 #: views/scanner/site-cleaning-bottom.php:18

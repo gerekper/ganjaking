@@ -17,11 +17,11 @@
  * needs please refer to http://docs.woocommerce.com/document/customer-order-csv-import-suite/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2012-2022, SkyVerge, Inc.
+ * @copyright   Copyright (c) 2012-2023, SkyVerge, Inc.
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_3 as Framework;
 
 if ( ! class_exists( 'WP_Importer' ) ) return;
 
@@ -71,6 +71,21 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	/** @var array Translatable strings for the UI, similar to post type labels **/
 	protected $i18n = array();
 
+	/** @var int Greeting and import source options form */
+	const GREETING_AND_IMPORT_SOURCE_STEP = 0;
+
+	/** @var int Display file upload / url / copy-paste input form */
+	const DISPLAY_FILE_UPLOAD_STEP = 1;
+
+	/** @var int Detect delimiter and render additional options & preview */
+	const DETECT_DELIMITER_AND_RENDER_STEP = 2;
+
+	/** @var int Display column mapper */
+	const DISPLAY_COLUMN_MAPPER_STEP = 3;
+
+	/** @var int Display column mapper */
+	const RUN_IMPORT_STEP = 4;
+
 
 	/**
 	 * Constructor
@@ -81,13 +96,13 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 
 		parent::__construct();
 
-		$this->i18n = array(
+		$this->i18n = [
 			'count'          => esc_html__( '%s items' ),
 			'count_inserted' => esc_html__( '%s items inserted' ),
 			'count_merged'   => esc_html__( '%s items merged' ),
 			'count_skipped'  => esc_html__( '%s items skipped' ),
 			'count_failed'   => esc_html__( '%s items failed' ),
-		);
+		];
 	}
 
 
@@ -112,7 +127,7 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 *
 	 * @since 3.0.0
 	 */
-	public function dispatch() {
+	public function dispatch(): void {
 
 		// prevent dispatching more than once
 		if ( $this->has_dispatched ) {
@@ -121,7 +136,7 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 
 		$this->has_dispatched = true;
 
-		$step   = isset( $_GET['step'] )       ? (int) $_GET['step'] : 0;
+		$step   = isset( $_GET['step'] )       ? (int) $_GET['step'] : self::GREETING_AND_IMPORT_SOURCE_STEP;
 		$type   = isset( $_GET['import'] )     ? sanitize_key( $_GET['import'] ) : null;
 		$source = isset( $_GET['source'] )     ? sanitize_key( $_GET['source'] ) : null;
 		$action = isset( $_REQUEST['action'] ) ? trim( $_REQUEST['action'] ) : null;
@@ -141,14 +156,23 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 				case 'upload':
 
 					check_admin_referer( 'import-upload' );
-					$file_path = $this->handle_upload( $type, $source );
 
-					if ( $file_path ) {
+					$uploaded_file = $this->handle_upload( $type, $source );
+					$file_name     = basename( $uploaded_file );
 
-						$redirect_to = admin_url( 'admin.php?import=' . $type . '&step=2&file=' . urlencode( $file_path ) );
+					if ( $file_name ) {
+
+						$redirect_to = add_query_arg( [
+							'import'    => $type,
+							'step'      => self::DETECT_DELIMITER_AND_RENDER_STEP,
+							'file'      => urlencode( $file_name ),
+							'source'    => $source,
+							'next_step' => self::DISPLAY_COLUMN_MAPPER_STEP,
+						], admin_url( 'admin.php' ) );
 
 						wp_safe_redirect( $redirect_to );
-						exit;
+
+						return;
 					}
 				break;
 
@@ -159,26 +183,27 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 
 					if ( $file ) {
 
-						$bytes = filesize( $file );
+						$file_path = $this->get_uploaded_csv_file_path( $file );
+						$size      = filesize( $file_path );
 
 						/**
 						 * Filter CSV import options
 						 *
 						 * @since 3.0.0
 						 * @param array $options
-						 * @param string $file Path to CSV file
+						 * @param string $file_path Path to CSV file
 						 * @param string $type Import type
 						 */
-						$options = apply_filters( 'wc_csv_import_suite_import_options', (array) $_REQUEST['options'], $file, $type );
+						$options = apply_filters( 'wc_csv_import_suite_import_options', (array) $_REQUEST['options'], $file_path, $type );
 
 						// Setting default options will ensure that these options are set
 						// even if they're unchecked
-						$default_options = array(
+						$default_options = [
 							'merge'               => false,
 							'dry_run'             => false,
 							'insert_non_matching' => false,
 							'debug_mode'          => false,
-						);
+						];
 
 						$options = wp_parse_args( $options, $default_options );
 
@@ -187,12 +212,12 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 							update_option( 'wc_csv_import_suite_debug_mode', 'yes' );
 						}
 
-						$job_attrs = array(
+						$job_attrs = [
 							'type'      => $type,
-							'file_path' => $file,
-							'file_size' => $bytes,
+							'file_path' => $file_path,
+							'file_size' => $size,
 							'options'   => $options,
-						);
+						];
 
 						$this->start_background_import( $job_attrs );
 
@@ -210,16 +235,16 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 						if ( $results ) {
 							$job = json_decode( $results, true );
 
-							if ( 'completed' == $job['status'] ) {
+							if ( 'completed' === $job['status'] ) {
 
 								$options            = $job['options'];
 								$options['dry_run'] = false;
 
-								$job_attrs = $job;
+								$job_attrs            = $job;
 								$job_attrs['options'] = $options;
 							}
 
-							$this->start_background_import( $job_attrs );
+							$this->start_background_import( $job_attrs ?? [] );
 						}
 
 					}
@@ -233,9 +258,8 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 		else {
 
 			switch ( $step ) {
+				case self::GREETING_AND_IMPORT_SOURCE_STEP :
 
-				// 0. greeting and import source options form
-				case 0:
 					// render job import progress
 					if ( $job_id ) {
 						$this->render_import_progress( $_GET['job_id'] );
@@ -244,48 +268,56 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 					else {
 						$this->render_import_source_options();
 					}
-				break;
 
-				// 1. display file upload / url / copy-paste input form
-				case 1:
+					break;
+
+				case self::DISPLAY_FILE_UPLOAD_STEP :
+
 					$this->render_source_input_form( $type, $source );
-				break;
 
-				// 2. detect delimiter and render additional options & preview
-				case 2:
+					break;
 
-					if ( $file ) {
+				default :
+
+					$file_path = $this->get_uploaded_csv_file_path( $file );
+
+					if ( is_null( $file_path ) ) {
+
+						$redirect_to = add_query_arg( [
+							'import' => $type,
+							'step'   => self::GREETING_AND_IMPORT_SOURCE_STEP,
+						], admin_url( 'admin.php' ) );
+
+						wp_safe_redirect( $redirect_to );
+
+						return;
+					}
+
+					if ( self::DETECT_DELIMITER_AND_RENDER_STEP === $step ) {
 
 						// sanity check - does the file exist?
-						$this->ensure_file_is_readable( $file );
+						$this->ensure_file_is_readable( $file_path );
 
-						$sample       = \WC_CSV_Import_Suite_Parser::get_sample( $file );
-						$delimiter    = $this->guess_delimiter( $sample );
-						list( $data, $headers ) = \WC_CSV_Import_Suite_Parser::parse_sample_data( $file, $delimiter );
+						$sample             = \WC_CSV_Import_Suite_Parser::get_sample( $file_path );
+						$delimiter          = $this->guess_delimiter( $sample );
+						[ $data, $headers ] = \WC_CSV_Import_Suite_Parser::parse_sample_data( $file_path, $delimiter );
 
-						$data = array( 1 => $headers ) + $data;
+						$data = [ 1 => $headers ] + $data;
 
 						$this->render_import_options( $data, $delimiter );
 					}
 
-				break;
-
-				// 3. display column mapper
-				case 3:
-
-					if ( $file ) {
+					if ( self::DISPLAY_COLUMN_MAPPER_STEP === $step ) {
 
 						// sanity check - does the file exist?
-						$this->ensure_file_is_readable( $file );
+						$this->ensure_file_is_readable( $file_path );
 
 						$options = (array) $_REQUEST['options'];
 
-						list( $data, $raw_headers ) = \WC_CSV_Import_Suite_Parser::parse_sample_data( $file, $options['delimiter'], 3 );
+						[ $data, $raw_headers ] = \WC_CSV_Import_Suite_Parser::parse_sample_data( $file_path, $options['delimiter'], 3 );
 
 						$this->render_column_mapper( $data, $options, $raw_headers );
 					}
-
-				break;
 			}
 		}
 
@@ -301,9 +333,9 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * Will redirect the browser to the import progress screen
 	 *
 	 * @since 3.0.0
-	 * @param array $data Job attrs for WC_CSV_Import_Suite_Background_Import
+	 * @param array $attrs Job attrs for WC_CSV_Import_Suite_Background_Import
 	 */
-	private function start_background_import( $attrs ) {
+	private function start_background_import( array $attrs ): void {
 
 		// sanity check - does the file exist? the file may be removed between
 		// dry & live run
@@ -326,7 +358,7 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 *
 	 * @since 3.0.0
 	 */
-	protected function header() {
+	protected function header(): void {
 		echo '<div class="wrap"><div class="icon32" id="icon-woocommerce-importer"><br></div>';
 		echo '<h2>' . $this->get_title() . '</h2>';
 
@@ -340,7 +372,7 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 *
 	 * @since 3.0.0
 	 */
-	protected function footer() {
+	protected function footer(): void {
 		echo '<script type="text/javascript">jQuery( ".importer_loader, .progress" ).hide();</script>';
 		echo '</div>';
 	}
@@ -351,7 +383,7 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 *
 	 * @since 3.0.0
 	 */
-	protected function render_import_source_options() {
+	protected function render_import_source_options(): void {
 
 		$upload_dir = wp_upload_dir();
 
@@ -392,9 +424,10 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * Render source input form
 	 *
 	 * @since 3.0.0
+	 * @param mixed $type
 	 * @param string $source
 	 */
-	protected function render_source_input_form( $type, $source = 'upload' ) {
+	protected function render_source_input_form( $type, string $source = 'upload' ): void {
 
 		// give this instance a descriptive name to be used in the view template
 		$csv_importer = $this;
@@ -415,7 +448,7 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * @since 3.0.0
 	 * @param string $source
 	 */
-	protected function render_source_input_fields( $source = 'upload' ) {
+	protected function render_source_input_fields( string $source = 'upload' ): void {
 
 		// give this instance a descriptive name to be used in the view templates
 		$csv_importer = $this;
@@ -450,7 +483,6 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 		 * @param string $source
 		 */
 		do_action( 'wc_csv_import_suite_import_source_input_fields', $source );
-
 	}
 
 
@@ -458,11 +490,10 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * Render import options & preview from CSV input
 	 *
 	 * @since 3.0.0
-	 * @param string $data
+	 * @param array $data
 	 * @param string $delimiter
-	 * @return string HTML import options & preview
 	 */
-	protected function render_import_options( $data, $delimiter ) {
+	protected function render_import_options( array $data, string $delimiter ): void {
 
 		$rows = \WC_CSV_Import_Suite_Parser::generate_html_rows( $data );
 
@@ -480,7 +511,8 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 *
 	 * @since 3.0.0
 	 */
-	protected function render_advanced_import_options() {
+	protected function render_advanced_import_options(): void {
+
 		// no-op, implement in subclass as needed
 	}
 
@@ -489,15 +521,14 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * Render column mapper for CSV import
 	 *
 	 * @since 3.0.0
-	 * @param array $input
+	 * @param array $data
 	 * @param array $options
 	 * @param array $raw_headers
-	 * @return string HTML for column mapper
 	 */
-	protected function render_column_mapper( $data, $options, $raw_headers ) {
+	protected function render_column_mapper( array $data, array $options, array $raw_headers ): void {
 
 		$headers     = array_keys( $data[2] ); // data always starts from 2nd line
-		$columns     = array();
+		$columns     = [];
 		$sample_size = count( $data );
 
 		foreach ( $headers as $heading ) {
@@ -524,13 +555,13 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 			 */
 			$default_mapping = apply_filters( "wc_csv_import_suite_{$importer}_column_default_mapping", $mapping, $heading );
 
-			$columns[ $heading ] = array(
+			$columns[ $heading ] = [
 				'default_mapping' => $default_mapping,
-				'sample_values'   => array(),
-			);
+				'sample_values'   => [],
+			];
 
 			foreach ( $data as $row ) {
-				$columns[ $heading ]['sample_values'][] = isset( $row[ $heading ] ) ? $row[ $heading ] : '';
+				$columns[ $heading ]['sample_values'][] = $row[$heading] ?? '';
 			}
 		}
 
@@ -544,12 +575,17 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 		 * @param array $raw_headers Raw headers from CSV file
 		 * @param array $columns Associative array as 'column' => 'default mapping'
 		 */
-		$mapping_options = apply_filters( 'wc_csv_import_suite_column_mapping_options', $this->get_column_mapping_options(), $importer, $headers, $raw_headers, $columns );
-		$mapping_options['import_as_meta']     = __( 'Custom Field with column name', 'woocommerce-csv-import-suite' );
+		$mapping_options                   = apply_filters( 'wc_csv_import_suite_column_mapping_options', $this->get_column_mapping_options(), $importer, $headers, $raw_headers, $columns );
+		$mapping_options['import_as_meta'] = __( 'Custom Field with column name', 'woocommerce-csv-import-suite' );
 		$mapping_options['import_as_taxonomy'] = __( 'Taxonomy with column name', 'woocommerce-csv-import-suite' );
 
 		// give this instance a descriptive name to be used in the view template
 		$csv_importer = $this;
+
+		$form_action_url = add_query_arg( [
+			'import' => $_GET['import'],
+			'step'   => self::RUN_IMPORT_STEP,
+		], admin_url( 'admin.php' ) );
 
 		include( 'admin/views/html-import-column-mapper.php' );
 	}
@@ -563,7 +599,7 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * @param string $field
 	 * @return string HTML
 	 */
-	public function generate_mapping_options_html( $options, $field ) {
+	public function generate_mapping_options_html( array $options, string $field ): string {
 
 		$output = '';
 
@@ -597,7 +633,7 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * @param mixed $selected
 	 * @return string
 	 */
-	private function generate_select_option_html( $value, $label, $selected ) {
+	private function generate_select_option_html( $value, $label, $selected ): string {
 
 		if ( is_int( $value ) && is_string( $label ) ) {
 			$value = $label;
@@ -613,7 +649,7 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * @since 3.0.0
 	 * @param string $job_id
 	 */
-	protected function render_import_progress( $job_id ) {
+	protected function render_import_progress( string $job_id ): void {
 
 		// get job data
 		$background_jobs = wc_csv_import_suite()->get_background_import_instance();
@@ -687,9 +723,9 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 		// give this instance a descriptive name to be used in the view template
 		$csv_importer = $this;
 
-		include( 'admin/views/html-import-progress.php' );
+		$dry_run_complete_notice = $this->get_dry_run_complete_notice_text( $job );
 
-		$run_live_url = wp_nonce_url( admin_url( 'admin.php?import=' . esc_attr( $_GET['import'] ) . '&job_id=' . esc_attr( $job_id ) . '&action=run_live' ), 'import-woocommerce' );
+		include( 'admin/views/html-import-progress.php' );
 
 		wp_register_script( 'wc-reports', WC()->plugin_url() . '/assets/js/admin/reports.min.js', array( 'jquery', 'jquery-ui-datepicker' ), WC_VERSION );
 
@@ -707,19 +743,50 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 
 		if ( ! $is_complete ) {
 
-			/* translators: Placeholders: %1$s, %3$s - opening <a> tag, %2$s, %4$s - closing </a> tag */
-			$dry_run_complete = sprintf( esc_html__( 'Performed a dry run with the selected file. No database records were inserted or updated. %1$sRun a live import now%2$s or %3$sChange import settings%4$s.', 'woocommerce-csv-import-suite' ), '<a href="' . wp_nonce_url( admin_url( 'admin.php?import=' . esc_attr( $_GET['import'] ) . '&job_id=' . esc_attr( $job->id ) . '&action=run_live' ), 'import-woocommerce' ) . '">', '</a>', '<a href="' . admin_url( 'admin.php?import=' . esc_attr( $_GET['import'] ) . '&step=2&file=' . urlencode( $job->file_path ) ) . '">', '</a>' );
-
 			wc_enqueue_js( "
-				wc_csv_import_suite.i18n.dry_run_complete = '" . $dry_run_complete . "';
+				wc_csv_import_suite.i18n.dry_run_complete = '" . $dry_run_complete_notice . "';
 				wc_csv_import_suite.file_size = " . (int) $job->file_size . ";
 				wc_csv_import_suite.progress = " . (int) $progress['pos'] . ";
 				wc_csv_import_suite.processed_items = " . ( is_array( $results ) || is_object( $results ) ? count( $results ) : 0 ) . ";
 				wc_csv_import_suite.results = " . json_encode( $results ) . ";
-				wc_csv_import_suite.dry_run = " . ( ( (bool) $job->options['dry_run'] ) ? 'true' : 'false' ) . ";
+				wc_csv_import_suite.dry_run = " . ( $job->options['dry_run'] ? 'true' : 'false' ) . ";
 				wc_csv_import_suite.display_import_progress( '" . $job_id . "' );
 			" );
 		}
+	}
+
+
+	/**
+	 * Gets the text for the dry run complete notice.
+	 *
+	 * @since 3.12.0
+	 *
+	 * @param stdClass $job
+	 * @return string
+	 */
+	protected function get_dry_run_complete_notice_text( stdClass $job ) : string {
+
+		$live_import_url = add_query_arg( [
+			'import'   => esc_attr( $_GET['import'] ),
+			'job_id'   => $job->id,
+			'action'   => 'run_live',
+			'_wpnonce' => wp_create_nonce( 'import-woocommerce' ),
+		], admin_url( 'admin.php' ) );
+
+		$import_settings_url = add_query_arg( [
+			'import' => esc_attr( $_GET['import'] ),
+			'step'   => self::DETECT_DELIMITER_AND_RENDER_STEP,
+			'file'   => urlencode( basename( $job->file_path ) ),
+		], admin_url( 'admin.php' ) );
+
+		return sprintf(
+			/* translators: Placeholders: %1$s, %3$s - opening <a> tag, %2$s, %4$s - closing </a> tag */
+			esc_html__( 'Performed a dry run with the selected file. No database records were inserted or updated. %1$sRun a live import now%2$s or %3$sChange import settings%4$s.', 'woocommerce-csv-import-suite' ),
+			'<a href="' . $live_import_url . '">',
+			'</a>',
+			'<a href="' . $import_settings_url . '">',
+			'</a>'
+		);
 	}
 
 
@@ -731,7 +798,7 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * @param string $source
 	 * @return string File path in local filesystem or false on failure
 	 */
-	protected function handle_upload( $type, $source = 'upload' ) {
+	protected function handle_upload( string $type, string $source = 'upload' ) {
 
 		$file_path = false;
 
@@ -741,18 +808,18 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 			case 'upload':
 
 				// add filter upload_dir to change default upload directory to store uploaded csv files
-				add_filter( 'upload_dir', array( $this, 'change_upload_dir' ) );
+				add_filter( 'upload_dir', [ $this, 'change_upload_dir' ] );
 
 				// add filter to randomize the imported file's name with a time-stamp
-				add_filter( 'wp_handle_upload_prefilter', array( $this, 'randomize_imported_file_name' ) );
+				add_filter( 'wp_handle_upload_prefilter', [ $this, 'randomize_imported_file_name' ] );
 
 				$results = wp_import_handle_upload();
 
 				// remove filter wp_handle_upload_prefilter
-				remove_filter( 'wp_handle_upload_prefilter', array( $this, 'randomize_imported_file_name' ) );
+				remove_filter( 'wp_handle_upload_prefilter', [ $this, 'randomize_imported_file_name' ] );
 
 				// remove filter upload_dir
-				remove_filter( 'upload_dir', array( $this, 'change_upload_dir' ) );
+				remove_filter( 'upload_dir', [ $this, 'change_upload_dir' ] );
 
 				if ( isset( $results['error'] ) ) {
 					$this->handle_upload_error( $results['error'] );
@@ -786,16 +853,16 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 					}
 
 					// array based on $_FILE as seen in PHP file uploads
-					$input = array(
+					$input = [
 						'name'     => basename( $_POST['url'] ),
 						'type'     => 'image/png',
 						'tmp_name' => $temp_file,
 						'error'    => 0,
 						'size'     => filesize( $temp_file ),
-					);
+					];
 
 					// move the temporary file into the uploads directory
-					$results = wp_handle_sideload( $input, array( 'test_form' => false ) );
+					$results = wp_handle_sideload( $input, [ 'test_form' => false ] );
 
 					if ( ! empty( $results['error'] ) ) {
 						$this->handle_upload_error( $results['error'] );
@@ -856,7 +923,7 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * @since 3.1.0
 	 * @param string $file_path
 	 */
-	private function ensure_file_is_readable( $file_path ) {
+	private function ensure_file_is_readable( string $file_path ): void {
 
 		if ( ! is_readable( $file_path ) ) {
 
@@ -872,7 +939,7 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * @since 3.0.0
 	 * @param string|WP_Error $error Error message
 	 */
-	protected function handle_upload_error( $error ) {
+	protected function handle_upload_error( $error ): void {
 
 		$message = is_wp_error( $error ) ? $error->get_error_message() : $error;
 		$message = sprintf( esc_html__( 'Sorry, there has been an error: %s', 'woocommerce-csv-import-suite' ), $message );
@@ -891,20 +958,20 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * @param string $file Path to file
 	 * @param array $options General & import type specific options
 	 */
-	 public function import( $file, $options = array() ) {
+	public function import( string $file, array $options = [] ): void {
 
-		$this->file    = $file;
+		$this->file = $file;
 
 		wp_defer_term_counting( true );
 		wp_defer_comment_counting( true );
 
 		// read raw data from CSV file
-		list( $parsed_data, $raw_headers, $position, $last_line_num ) = \WC_CSV_Import_Suite_Parser::parse( $file, $options );
+		[ $parsed_data, $raw_headers, $position, $last_line_num ] = \WC_CSV_Import_Suite_Parser::parse( $file, $options );
 
-		$this->import_progress = array(
+		$this->import_progress = [
 			'line' => $last_line_num,
 			'pos'  => $position
-		);
+		];
 
 		$this->import_lines( $parsed_data, $last_line_num, $options, $raw_headers );
 
@@ -928,9 +995,9 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * @param array $parsed_data Parsed data from CSV
 	 * @param int $last_line_num Last parsed line number in parsed data
 	 * @param array $options Import/parsing options
-	 * @param bool $raw_headers Raw headers from CSV file
+	 * @param array $raw_headers Raw headers from CSV file
 	 */
-	protected function import_lines( $parsed_data, $last_line_num, $options, $raw_headers ) {
+	protected function import_lines( array $parsed_data, int $last_line_num, array $options, array $raw_headers ): void {
 
 		$is_multiline_format = $this->is_multiline_format( $raw_headers );
 
@@ -964,7 +1031,7 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 				// parse them all one by one
 				if ( ! empty( $related_items ) ) {
 
-					$related_items = array( $first_line_num => $item ) + $related_items;
+					$related_items = [ $first_line_num => $item ] + $related_items;
 					$parsed_item   = $this->parse_multiline_item( $item_identifier, $related_items, $options, $raw_headers );
 				}
 
@@ -1001,7 +1068,7 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * @param array $options Import options
 	 * @return array Array of related items/lines
 	 */
-	protected function find_related_items( $item_identifier, $parsed_data, &$line_num, $options ) {
+	protected function find_related_items( $item_identifier, array $parsed_data, int &$line_num, array $options ): array {
 
 		$related_items = array();
 
@@ -1018,7 +1085,7 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 			// read the next line from CSV file
 			else {
 
-				$_options = $options;
+				$_options               = $options;
 				$_options['start_pos']  = $this->import_progress['pos']; // we continue from last pointer position
 				$_options['start_line'] = $this->import_progress['line'] + 1; // but we need to increment the line number ourselves
 				$_options['max_lines']  = 1;
@@ -1065,14 +1132,13 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * @param array $related_items Items that are related and make up 1 single item
 	 * @param array $options Import options
 	 * @param array $raw_headers Raw headers from CSV
-	 * @throws WC_CSV_Import_Suite_Import_Exception
 	 * @return string[] parsed data
 	 */
-	protected function parse_multiline_item( $item_identifier, $related_items, $options, $raw_headers ) {
+	protected function parse_multiline_item( $item_identifier, array $related_items, array $options, array $raw_headers ): ?array {
 
-		$parsed_items       = array();
-		$skipped_items      = array();
-		$related            = implode( ', ', array_keys( $related_items ) );
+		$parsed_items  = array();
+		$skipped_items = array();
+		$related       = implode( ', ', array_keys( $related_items ) );
 
 		wc_csv_import_suite()->log( sprintf( __( '> Preparing multi-line item %s (rows %s)', 'woocommerce-csv-import-suite' ), $item_identifier, $related ) );
 
@@ -1098,7 +1164,7 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 			}
 		}
 
-		// one ore more lines were skipped. we want to skip importing all related
+		// one or more lines were skipped. we want to skip importing all related
 		// lines to avoid data corruption.
 		if ( ! empty( $skipped_items ) ) {
 
@@ -1110,11 +1176,10 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 			return null;
 		}
 
-		// no errors occured in parsing stage, let's merge the parsed items
+		// no errors occurred in parsing stage, let's merge the parsed items
 		// into a single item
-		else {
-			return $this->merge_parsed_items( $parsed_items );
-		}
+
+		return $this->merge_parsed_items( $parsed_items );
 	}
 
 
@@ -1130,7 +1195,8 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * @param array $raw_headers Raw CSV headers
 	 * @return bool
 	 */
-	protected function is_multiline_format( $raw_headers ) {
+	protected function is_multiline_format( array $raw_headers ): bool {
+
 		return false;
 	}
 
@@ -1146,7 +1212,8 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 *                    columns, or parsed item data
 	 * @return int|string|null
 	 */
-	public function get_item_identifier( $data ) {
+	public function get_item_identifier( array $data ) {
+
 		return null;
 	}
 
@@ -1154,14 +1221,15 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	/**
 	 * Merge data from multiple parsed lines into one item
 	 *
-	 * Must be implemented at subclass level. By default wilkl return the first
+	 * Must be implemented at subclass level. By default, will return the first
 	 * item.
 	 *
 	 * @since 3.0.0
 	 * @param array $items Array of parsed items
 	 * @return array
 	 */
-	protected function merge_parsed_items( $items ) {
+	protected function merge_parsed_items( array $items ) : array {
+
 		return array_shift( $items );
 	}
 
@@ -1177,7 +1245,8 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * @param array $raw_headers Optional. Raw headers
 	 * @return mixed|bool Parsed item or false on failure
 	 */
-	protected function parse_item( $item, $options = array(), $raw_headers = array() ) {
+	protected function parse_item( array $item, array $options = [], array $raw_headers = [] ) {
+
 		return $item;
 	}
 
@@ -1208,19 +1277,19 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * @param string $value
 	 * @return array|null Array with parsed taxonomy name and it's terms, or null on failure
 	 */
-	public function parse_taxonomy_terms( $key, $value ) {
+	public function parse_taxonomy_terms( string $key, string $value ): ?array {
 
 		// get taxonomy
 		$taxonomy = trim( str_replace( 'tax:', '', $key ) );
 
 		// exists?
 		if ( ! taxonomy_exists( $taxonomy ) ) {
-			wc_csv_import_suite()->log( sprintf( __('> > Skipping taxonomy "%s" - it does not exist.', 'woocommerce-csv-import-suite'), $taxonomy ) );
+			wc_csv_import_suite()->log( sprintf( __( '> > Skipping taxonomy "%s" - it does not exist.', 'woocommerce-csv-import-suite' ), $taxonomy ) );
 			return null;
 		}
 
 		// get terms - ID => parent
-		$terms     = array();
+		$terms     = [];
 		$raw_terms = explode( '|', $value );
 		$raw_terms = array_map( 'trim', $raw_terms );
 
@@ -1270,7 +1339,7 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 							}
 
 							$slug = sanitize_title( implode( '-', $slug ) );
-							$t    = wp_insert_term( $term, $taxonomy, array( 'parent' => $parent, 'slug' => $slug ) );
+							$t    = wp_insert_term( $term, $taxonomy, [ 'parent' => $parent, 'slug' => $slug ] );
 
 							if ( ! is_wp_error( $t ) ) {
 								$term_id = $t['term_id'];
@@ -1306,12 +1375,12 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 
 				} elseif ( $raw_term ) {
 
-					// Check term existance
+					// Check term existence
 					$term_exists = term_exists( $raw_term, $taxonomy, 0 );
 					$term_id     = is_array( $term_exists ) ? $term_exists['term_id'] : 0;
 
 					if ( ! $term_id ) {
-						$t = wp_insert_term( trim( $raw_term ), $taxonomy, array( 'parent' => 0 ) );
+						$t = wp_insert_term( trim( $raw_term ), $taxonomy, [ 'parent' => 0 ] );
 
 						if ( ! is_wp_error( $t ) ) {
 							$term_id = $t['term_id'];
@@ -1340,16 +1409,16 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 *
 	 * @since 3.0.0
 	 * @param int $post_id
-	 * @param array $terms_to_process
+	 * @param array|mixed $terms_to_process
 	 */
-	protected function process_terms( $post_id, $terms_to_process ) {
+	protected function process_terms( int $post_id, $terms_to_process ): void {
 
 		if ( empty( $terms_to_process ) || ! is_array( $terms_to_process ) ) {
 			return;
 		}
 
 		// add categories, tags and other terms
-		$terms_to_set = array();
+		$terms_to_set = [];
 
 		foreach ( $terms_to_process as $term_group ) {
 
@@ -1361,10 +1430,10 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 			}
 
 			if ( ! is_array( $terms ) ) {
-				$terms = array( $terms );
+				$terms = [ $terms ];
 			}
 
-			$terms_to_set[ $taxonomy ] = array();
+			$terms_to_set[ $taxonomy ] = [];
 
 			foreach ( $terms as $term_id ) {
 				if ( $term_id ) {
@@ -1383,28 +1452,27 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * Log a row's import status
 	 *
 	 * @since 3.0.0
-	 * @param int $line_num Line number from CSV file
 	 * @param string $status Status
 	 * @param string $message Optional
 	 * @param bool $log Optional. Whether to log the result or not. Defaults to true
 	 */
-	public function add_import_result( $status, $message = '', $log = true ) {
+	public function add_import_result( string $status, string $message = '', bool $log = true ): void {
 
-		$this->import_results[ $this->get_line_num() ] = array(
+		$this->import_results[ $this->get_line_num() ] = [
 			'status'  => $status,
 			'message' => $message,
-		);
+		];
 
 		if ( $log ) {
 
-			$labels = array(
+			$labels = [
 				'inserted' => esc_html__( 'Inserted', 'woocommerce-csv-import-suite' ),
 				'merged'   => esc_html__( 'Merged', 'woocommerce-csv-import-suite' ),
 				'skipped'  => esc_html__( 'Skipped', 'woocommerce-csv-import-suite' ),
 				'failed'   => esc_html__( 'Failed', 'woocommerce-csv-import-suite' ),
-			);
+			];
 
-			$status_label = isset( $labels[ $status ] ) ? $labels[ $status ] : $status;
+			$status_label = $labels[$status] ?? $status;
 			$log_message  = sprintf( "> > %s. %s", $status_label, $message );
 
 			wc_csv_import_suite()->log( $log_message );
@@ -1418,7 +1486,8 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * @since 3.3.0
 	 * @return int
 	 */
-	public function get_line_num() {
+	public function get_line_num(): int {
+
 		return $this->line_num;
 	}
 
@@ -1429,7 +1498,8 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * @since 3.0.0
 	 * @return array
 	 */
-	public function get_import_results() {
+	public function get_import_results(): array {
+
 		return $this->import_results;
 	}
 
@@ -1440,7 +1510,8 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * @since 3.0.0
 	 * @return array
 	 */
-	public function get_import_progress() {
+	public function get_import_progress(): array {
+
 		return $this->import_progress;
 	}
 
@@ -1451,9 +1522,9 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * @since 3.0.0
 	 * @return string
 	 */
-	protected function guess_delimiter( $input ) {
+	protected function guess_delimiter( $input ): string {
 
-		$lines   = explode( '\n', $input );
+		$lines = explode( '\n', $input );
 
 		$line_count       = count( $lines );
 		$best_delta       = null;
@@ -1483,7 +1554,7 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 				}
 
 				else if ( $field_count > 1 ) {
-					$delta += abs( $field_count - $prev_field_count );
+					$delta           += abs( $field_count - $prev_field_count );
 					$prev_field_count = $field_count;
 				}
 
@@ -1511,27 +1582,26 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * @since 3.1.0
 	 * @param string $input
 	 * @param string $delimiter
-	 * @param return array
+	 * @return array
 	 */
-	private function str_getcsv( $input, $delimiter ) {
+	private function str_getcsv( string $input, string $delimiter ): array {
 
 		if ( function_exists( 'str_getcsv' ) ) {
 
 			return str_getcsv( $input, $delimiter );
 
-		} else {
-
-			$handle = fopen( 'php://temp', 'r+' );
-
-			fwrite( $handle, $input );
-			rewind( $handle );
-
-			$data = fgetcsv( $handle, $delimiter );
-
-			fclose( $handle );
-
-			return $data;
 		}
+
+		$handle = fopen( 'php://temp', 'r+' );
+
+		fwrite( $handle, $input );
+		rewind( $handle );
+
+		$data = fgetcsv( $handle, $delimiter );
+
+		fclose( $handle );
+
+		return $data;
 	}
 
 
@@ -1542,7 +1612,7 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * @param string $file Path to file
 	 * @return int|bool Number of lines in file, false on failure
 	 */
-	protected function count_lines_in_file( $file ) {
+	protected function count_lines_in_file( string $file ) {
 
 		$count = -1;
 
@@ -1587,7 +1657,7 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * @since 3.0.0
 	 * @return array List of valid delimiters
 	 */
-	public function get_valid_delimiters() {
+	public function get_valid_delimiters(): array {
 
 		if ( ! isset( $this->valid_delimiters ) ) {
 
@@ -1597,11 +1667,11 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 			 * @since 3.0.0
 			 * @param array $delimiters
 			 */
-			$this->valid_delimiters = apply_filters( 'wc_csv_import_suite_delimiter_choices', array(
+			$this->valid_delimiters = apply_filters( 'wc_csv_import_suite_delimiter_choices', [
 				","  => __( 'Comma', 'woocommerce-csv-import-suite' ),
 				";"  => __( 'Semicolon', 'woocommerce-csv-import-suite' ),
 				"\t" => __( 'Tab', 'woocommerce-csv-import-suite' ), // double quotes are significant
-			) );
+			] );
 		}
 
 		return $this->valid_delimiters;
@@ -1616,7 +1686,8 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * @param int $val timeout value
 	 * @return int 60 seconds
 	 */
-	public function bump_request_timeout( $val ) {
+	public function bump_request_timeout( $val ): int {
+
 		return MINUTE_IN_SECONDS;
 	}
 
@@ -1627,7 +1698,8 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * @since 3.0.0
 	 * @return string
 	 */
-	public function get_title() {
+	public function get_title(): string {
+
 		return $this->title;
 	}
 
@@ -1639,7 +1711,7 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * @param array $dirs array of upload directory data with keys of 'path', 'url', 'subdir, 'basedir', and 'error'.
 	 * @return array
 	 */
-	public function change_upload_dir( $dirs ) {
+	public function change_upload_dir( array $dirs ): array {
 
 		$subdir = '/csv_imports';
 
@@ -1658,11 +1730,43 @@ class WC_CSV_Import_Suite_Importer extends \WP_Importer {
 	 * @param array $file an array of data for a single file
 	 * @return array
 	 */
-	function randomize_imported_file_name( $file ) {
+	public function randomize_imported_file_name( array $file ): array {
 
-		$file['name'] = uniqid( null, true ) . '-' . $file['name'];
+		$file['name'] = uniqid( '', true ) . '-' . $file['name'];
 
 		return $file;
+	}
+
+
+	/**
+	 * Returns the file path if the file was successfully uploaded.
+	 *
+	 * @since 3.12.0
+	 *
+	 * @param string $file_name the file name
+	 * @return string|null
+	 */
+	protected function get_uploaded_csv_file_path( string $file_name ) : ?string {
+
+		$base_upload_dir = wp_upload_dir();
+
+		$base_csv_imports_upload_path = "{$base_upload_dir['basedir']}/csv_imports";
+
+		$file_path = "{$base_csv_imports_upload_path}/{$file_name}";
+
+		if ( file_exists( $file_path ) ) {
+
+			return $file_path;
+		}
+
+		$file_path = $base_upload_dir['basedir'] . '/' . date( 'Y' ) . '/' . date( 'm' ) . '/' . $file_name;
+
+		if ( file_exists( $file_path ) ) {
+
+			return $file_path;
+		}
+
+		return null;
 	}
 
 

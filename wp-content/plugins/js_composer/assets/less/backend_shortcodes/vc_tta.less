@@ -59,7 +59,7 @@
 // ==================
 
 // TTA Containers
-.wpb_vc_tta_tabs, .wpb_vc_tta_pageable, .wpb_vc_tta_tour, .wpb_vc_tta_accordion {
+.wpb_vc_tta_tabs, .wpb_vc_tta_pageable, .wpb_vc_tta_tour, .wpb_vc_tta_accordion, .wpb_vc_tta_toggle {
   > .vc_controls {
     .vc_tab-controls();
   }
@@ -77,6 +77,37 @@
 
 // Section
 .wpb_vc_tta_section {
+  background: none;
+  > .wpb_element_wrapper > .vc_tta-panel-body {
+    > .vc_controls {
+      position: relative;
+      height: 45px;
+      margin-top: -12px;
+      .vc_controls-visible;
+    }
+    > .wpb_column_container {
+      margin: 0;
+    }
+    .wpb_vc_column_inner {
+      > .vc_controls {
+        background-color: @vc_column_bg;
+      }
+      > .wpb_element_wrapper {
+        background-color: @vc_column_bg;
+        padding: 14px;
+      }
+    }
+    .wpb_vc_row_inner {
+      > .vc_controls {
+        > .column_move {
+          background-color: @vc_column_bg;
+        }
+      }
+    }
+  }
+}
+
+.wpb_vc_tta_toggle_section {
   background: none;
   > .wpb_element_wrapper > .vc_tta-panel-body {
     > .vc_controls {

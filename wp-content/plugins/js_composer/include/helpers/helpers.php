@@ -61,6 +61,7 @@ function wpb_getImageBySize( $params = array() ) {
 		$attributes = array(
 			'class' => $thumb_class . 'attachment-' . $thumb_size,
 			'title' => $title,
+			'alt'   => trim( esc_attr( do_shortcode( get_post_meta( $attach_id, '_wp_attachment_image_alt', true ) ) ) ),
 		);
 
 		$thumbnail = wp_get_attachment_image( $attach_id, $thumb_size, false, $attributes );
@@ -84,7 +85,7 @@ function wpb_getImageBySize( $params = array() ) {
 		if ( is_array( $thumb_size ) ) {
 			// Resize image to custom size
 			$p_img = wpb_resize( $attach_id, null, $thumb_size[0], $thumb_size[1], true );
-			$alt = trim( wp_strip_all_tags( get_post_meta( $attach_id, '_wp_attachment_image_alt', true ) ) );
+			$alt = trim( esc_attr( do_shortcode( get_post_meta( $attach_id, '_wp_attachment_image_alt', true ) ) ) );
 			$attachment = get_post( $attach_id );
 			if ( ! empty( $attachment ) ) {
 				$title = trim( wp_strip_all_tags( $attachment->post_title ) );
@@ -844,9 +845,9 @@ function vc_hex2rgb( $color ) {
  * @return array
  * @since 4.2
  */
-function vc_parse_multi_attribute( $value, $default = array() ) {
+function vc_parse_multi_attribute( $value, $default = [] ) {
 	$result = $default;
-	$params_pairs = explode( '|', $value );
+	$params_pairs = is_string( $value ) ? explode( '|', $value ) : [];
 	if ( ! empty( $params_pairs ) ) {
 		foreach ( $params_pairs as $pair ) {
 			$param = preg_split( '/\:/', $pair );
@@ -1426,13 +1427,25 @@ function wpb_remove_custom_onclick( $match ) {
 
 /**
  * We use it only to check is current environment is wordpress.com
+ * @since 6.2
  *
  * @return bool
- * @since 6.2
  */
 function wpb_check_wordpress_com_env() {
 	return defined( 'IS_ATOMIC' ) &&
 		IS_ATOMIC &&
 		defined( 'ATOMIC_CLIENT_ID' ) &&
 		'2' === ATOMIC_CLIENT_ID;
+}
+
+/**
+ * Get name of post custom layout.
+ * @note it can be empty sting if post custom layout is not set
+ * @since 7.0
+ *
+ * @return string
+ */
+function wpb_get_name_post_custom_layout() {
+	$layout_manager = new Vc_PostCustomLayout();
+	return $layout_manager->getCustomLayoutName();
 }

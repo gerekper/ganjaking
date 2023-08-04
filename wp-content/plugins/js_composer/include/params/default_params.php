@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 4.4
  */
 function vc_textfield_form_field( $settings, $value ) {
-	$value = htmlspecialchars( $value );
+	$value = is_string( $value ) ? htmlspecialchars( $value ) : '';
 
 	return '<input name="' . $settings['param_name'] . '" class="wpb_vc_param_value wpb-textinput ' . $settings['param_name'] . ' ' . $settings['type'] . '" type="text" value="' . $value . '"/>';
 }

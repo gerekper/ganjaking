@@ -134,6 +134,22 @@ class Vc_Base {
 			$this,
 			'fixPContent',
 		), 11 );
+		add_filter( 'print_head_scripts', array(
+			$this,
+			'outputPostHeaderCustomJs',
+		), 90 );
+		add_filter( 'wp_print_footer_scripts', array(
+			$this,
+			'outputPostFooterCustomJs',
+		), 90 );
+		add_filter( 'print_head_scripts', array(
+			$this,
+			'outputGlobalHeaderCustomHtml',
+		), 100 );
+		add_filter( 'wp_print_footer_scripts', array(
+			$this,
+			'outputGlobalFooterCustomHtml',
+		), 100 );
 	}
 
 	/**
@@ -347,6 +363,23 @@ class Vc_Base {
 	}
 
 	/**
+	 * Get current post id.
+	 *
+	 * @since  7.0
+	 * @return false|int
+	 */
+	public function get_post_id() {
+		$id = false;
+		if ( is_front_page() || is_home() ) {
+			$id = get_queried_object_id();
+		} elseif ( is_singular() ) {
+			$id = get_the_ID();
+		}
+
+		return $id;
+	}
+
+	/**
 	 * Hooked class method by wp_head WP action to output post custom css.
 	 *
 	 * Method gets post meta value for page by key '_wpb_post_custom_css' and if it is not empty
@@ -358,30 +391,26 @@ class Vc_Base {
 	 *
 	 */
 	public function addPageCustomCss( $id = null ) {
+		$id = $id ?: $this->get_post_id();
+
 		if ( ! $id ) {
-			if ( is_front_page() || is_home() ) {
-				$id = get_queried_object_id();
-			} elseif ( is_singular() ) {
-				$id = get_the_ID();
-			}
+			return;
 		}
 
-		if ( $id ) {
-			if ( 'true' === vc_get_param( 'preview' ) && wp_revisions_enabled( get_post( $id ) ) ) {
-				$latest_revision = wp_get_post_revisions( $id );
-				if ( ! empty( $latest_revision ) ) {
-					$array_values = array_values( $latest_revision );
-					$id = $array_values[0]->ID;
-				}
+		if ( 'true' === vc_get_param( 'preview' ) && wp_revisions_enabled( get_post( $id ) ) ) {
+			$latest_revision = wp_get_post_revisions( $id );
+			if ( ! empty( $latest_revision ) ) {
+				$array_values = array_values( $latest_revision );
+				$id = $array_values[0]->ID;
 			}
-			$post_custom_css = get_metadata( 'post', $id, '_wpb_post_custom_css', true );
-			$post_custom_css = apply_filters( 'vc_post_custom_css', $post_custom_css, $id );
-			if ( ! empty( $post_custom_css ) ) {
-				$post_custom_css = wp_strip_all_tags( $post_custom_css );
-				echo '<style type="text/css" data-type="vc_custom-css">';
-				echo $post_custom_css;
-				echo '</style>';
-			}
+		}
+		$post_custom_css = get_metadata( 'post', $id, '_wpb_post_custom_css', true );
+		$post_custom_css = apply_filters( 'vc_post_custom_css', $post_custom_css, $id );
+		if ( ! empty( $post_custom_css ) ) {
+			$post_custom_css = wp_strip_all_tags( $post_custom_css );
+			echo '<style type="text/css" data-type="vc_custom-css">';
+			echo $post_custom_css;
+			echo '</style>';
 		}
 	}
 
@@ -797,5 +826,93 @@ class Vc_Base {
 			'gutenbergDoesntWorkProperly' => esc_html__( 'Gutenberg plugin doesn\'t work properly. Please check Gutenberg plugin.', 'js_composer' ),
 			'unfiltered_html_access' => esc_html__( 'Custom HTML is disabled for your user role. Please contact your site Administrator to change your capabilities.', 'js_composer' ),
 		);
+	}
+
+	/**
+	 * Add custom html to the header tag of the page.
+	 *
+	 * @since 7.0
+	 */
+	public function outputGlobalHeaderCustomHtml() {
+		$global_header_html = get_option( Vc_Settings::$field_prefix . 'custom_js_header' );;
+
+		echo '<script>';
+		echo wp_unslash( $global_header_html );
+		echo '</script>';
+	}
+
+	/**
+	 * Add custom html to the footer tag of the page.
+	 *
+	 * @since 7.0
+	 */
+	public function outputGlobalFooterCustomHtml() {
+		$global_footer_html = get_option( Vc_Settings::$field_prefix . 'custom_js_footer' );
+
+		echo '<script>';
+		echo wp_unslash( $global_footer_html );
+		echo '</script>';
+	}
+
+	/**
+	 * Add post custom html to the header tag of the page.
+	 *
+	 * @since 7.0
+	 */
+	public function outputPostHeaderCustomJs() {
+		$id = $this->get_post_id();
+
+		if ( ! $id ) {
+			return;
+		}
+
+		$post_header_html = get_post_meta( $id, '_wpb_post_custom_js_header', true );
+
+		if ( empty( $post_header_html ) ) {
+			return;
+		}
+
+		$this->outputCustomJs( $post_header_html, 'header' );
+	}
+
+	/**
+	 * Add post custom html to the footer tag of the page.
+	 *
+	 * @since 7.0
+	 */
+	public function outputPostFooterCustomJs() {
+		$id = $this->get_post_id();
+
+		if ( ! $id ) {
+			return;
+		}
+
+		$post_footer_html = get_post_meta( $id, '_wpb_post_custom_js_footer', true );
+
+		if ( empty( $post_footer_html ) ) {
+			return;
+		}
+
+		$this->outputCustomJs( $post_footer_html, 'footer' );
+	}
+
+	/**
+	 * Output custom on a page.
+	 *
+	 * @since 7.0
+	 * @param string $js
+	 * @param string $area
+	 */
+	public function outputCustomJs( $js, $area ) {
+		echo '<script data-type="vc_custom-js-"' . $area . '>';
+		// we need to wait for iframe load on frontend editor side.
+		if ( vc_is_page_editable() ) {
+			echo 'setTimeout(() => {';
+			echo wp_unslash( $js );
+			echo '}, 2000);';
+		} else {
+			echo wp_unslash( $js );
+		}
+		echo '</script>';
 	}
 }

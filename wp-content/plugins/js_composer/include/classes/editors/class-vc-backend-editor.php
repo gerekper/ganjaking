@@ -21,13 +21,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Vc_Backend_Editor {
 
 	/**
-	 * @var
+	 * Post custom layout
+	 * @since 7.0
+	 *
+	 * @var string
 	 */
-	protected $layout;
+	public $post_custom_layout;
 	/**
-	 * @var
+	 * @var string
 	 */
 	public $post_custom_css;
+	/**
+	 * @var string
+	 */
+	public $post_custom_js_header;
+	/**
+	 * @var string
+	 */
+	public $post_custom_js_footer;
+
 	/**
 	 * @var bool|string $post - stores data about post.
 	 */
@@ -108,8 +120,10 @@ class Vc_Backend_Editor {
 			return false;
 		}
 		$this->post = $post;
-		$post_custom_css = wp_strip_all_tags( get_post_meta( $post->ID, '_wpb_post_custom_css', true ) );
-		$this->post_custom_css = $post_custom_css;
+		$this->post_custom_css = wp_strip_all_tags( get_post_meta( $post->ID, '_wpb_post_custom_css', true ) );
+		$this->post_custom_js_header = get_post_meta( $post->ID, '_wpb_post_custom_js_header', true );
+		$this->post_custom_js_footer = get_post_meta( $post->ID, '_wpb_post_custom_js_footer', true );
+		$this->post_custom_layout = get_post_meta( $post->ID, '_wpb_post_custom_layout', true );
 		vc_include_template( 'editors/backend_editor.tpl.php', array(
 			'editor' => $this,
 			'post' => $this->post,
@@ -129,6 +143,9 @@ class Vc_Backend_Editor {
 	 * Here comes panels, modals and js objects with data for mapped shortcodes.
 	 */
 	public function renderEditorFooter() {
+		if ( vc_is_gutenberg_editor() ) {
+			return;
+		}
 		vc_include_template( 'editors/partials/backend_editor_footer.tpl.php', array(
 			'editor' => $this,
 			'post' => $this->post,

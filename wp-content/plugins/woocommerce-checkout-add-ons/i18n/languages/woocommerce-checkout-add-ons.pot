@@ -1,15 +1,15 @@
-# Copyright (C) 2022 SkyVerge
+# Copyright (C) 2023 SkyVerge
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Checkout Add-Ons 2.6.0\n"
+"Project-Id-Version: WooCommerce Checkout Add-Ons 2.7.0\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2022-11-29 10:55:01+00:00\n"
+"POT-Creation-Date: 2023-07-28 10:08:57+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
@@ -218,7 +218,7 @@ msgid "File %d"
 msgstr ""
 
 #: src/Add_Ons/File.php:112 src/Add_Ons/File.php:125
-#: src/Admin/Handlers/Shop_Order.php:171
+#: src/Admin/Handlers/Shop_Order.php:213
 msgid "(File has been removed)"
 msgstr ""
 
@@ -346,7 +346,7 @@ msgstr ""
 msgid "Bulk Edit"
 msgstr ""
 
-#: src/Admin/Admin.php:118 src/Admin/Admin.php:692
+#: src/Admin/Admin.php:118 src/Admin/Admin.php:698
 msgid "Checkout Add-Ons"
 msgstr ""
 
@@ -366,61 +366,61 @@ msgstr ""
 msgid "This input type does not have options"
 msgstr ""
 
-#: src/Admin/Admin.php:653 src/Admin/Admin.php:655
+#: src/Admin/Admin.php:659 src/Admin/Admin.php:661
 msgid "Checkout Add-on Value"
 msgstr ""
 
-#: src/Admin/Admin.php:699
+#: src/Admin/Admin.php:705
 msgid "Display Position"
 msgstr ""
 
-#: src/Admin/Admin.php:700
+#: src/Admin/Admin.php:706
 msgid ""
 "This controls where on the Checkout page your custom add-ons will be "
 "displayed."
 msgstr ""
 
-#: src/Admin/Admin.php:753
+#: src/Admin/Admin.php:759
 msgid "Checkout Add-ons display"
 msgstr ""
 
-#: src/Admin/Admin.php:786
+#: src/Admin/Admin.php:792
 msgid "Calculate add-on percentage-based prices from"
 msgstr ""
 
-#: src/Admin/Admin.php:823
+#: src/Admin/Admin.php:829
 msgid "Before Billing Details"
 msgstr ""
 
-#: src/Admin/Admin.php:824
+#: src/Admin/Admin.php:830
 msgid "After Billing Details"
 msgstr ""
 
-#: src/Admin/Admin.php:825
+#: src/Admin/Admin.php:831
 msgid "Before Order Summary"
 msgstr ""
 
-#: src/Admin/Admin.php:860
+#: src/Admin/Admin.php:866
 msgid "Order subtotal"
 msgstr ""
 
-#: src/Admin/Admin.php:861
+#: src/Admin/Admin.php:867
 msgid "Order total"
 msgstr ""
 
-#: src/Admin/Handlers/Shop_Order.php:164
+#: src/Admin/Handlers/Shop_Order.php:206
 msgid "%d file"
 msgid_plural "%d files"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Admin/Handlers/Shop_Order.php:305 src/Admin/Handlers/Shop_Order.php:326
+#: src/Admin/Handlers/Shop_Order.php:411 src/Admin/Handlers/Shop_Order.php:432
 #. translators: Placeholder: %s - Add on name
 #. translators: Placeholder: %s - Add on label
 msgid "Show all %s"
 msgstr ""
 
-#: src/Admin/Handlers/Shop_Order.php:331
+#: src/Admin/Handlers/Shop_Order.php:437
 msgid "Show all "
 msgstr ""
 

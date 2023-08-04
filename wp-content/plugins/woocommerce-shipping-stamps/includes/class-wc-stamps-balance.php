@@ -162,8 +162,7 @@ class WC_Stamps_Balance {
 			$url = WC_Stamps_API::get_url( sanitize_text_field( $_GET['stamps_redirect'] ) );
 
 			if ( $url ) {
-				// Redirect to Stamps.com
-				// phpcs:disable WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
+				// phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect -- Redirect to Stamps.com
 				wp_redirect( $url );
 				exit;
 			}

@@ -1,7 +1,7 @@
 @vcui-button-border: 1px;
 @vcui-button-transition-duration: .2s;
 @vcui-button-transition-properties: color, background, border, opacity, transform;
-@vcui-button-shape-rounded-radius: 3px;
+@vcui-button-shape-rounded-radius: 5px;
 @vcui-control-button-opacity: .8;
 
 // sizes
@@ -34,11 +34,13 @@
 @vcui-button-message-danger-color: darken(desaturate(@vcui-button-danger-background, 20%), 10%);
 // State action
 @vcui-button-action-color: #fff;
-@vcui-button-action-background: #0473aa;
+@vcui-button-action-background: @vc_main_color;
+@vcui-button-action-background-hover: @vc_main_color_hover;
 @vcui-button-message-action-color: darken(desaturate(@vcui-button-action-background, 10%), 5%);
 // State info
 @vcui-button-info-color: #fff;
-@vcui-button-info-background: #00aeee;
+@vcui-button-info-background: @vc_main_color;
+@vcui-button-info-background-hover: @vc_main_color_hover;
 @vcui-button-message-info-color: darken(desaturate(@vcui-button-info-background, 20%), 10%);
 // State warning
 @vcui-button-warning-color: #fff;
@@ -112,11 +114,13 @@
   ~'vc_ui-button-action';
   @text: @vcui-button-action-color;
   @background: @vcui-button-action-background;
+  @hover: @vcui-button-action-background-hover;
   );
   #vc_ui-button > .make-state(
   ~'vc_ui-button-info';
   @text: @vcui-button-info-color;
   @background: @vcui-button-info-background;
+  @hover: @vcui-button-info-background-hover;
   );
   #vc_ui-button > .make-state(
   ~'vc_ui-button-success';
@@ -248,20 +252,29 @@
   }
 
   // make state
-  .make-state(@selector; @text: false; @background: false; @border: false) {
+  .make-state(@selector; @text: false; @background: false; @hover: false; @border: false;) {
     &.@{selector} {
       & when not (@text = false) {
         color: @text;
       }
       & when not (@background = false) {
         background-color: @background;
-        &:hover,
-        &:focus {
-          & when (lightness(@background) > 70%) {
-            background-color: darken(@background, 5%);
+        & when (@hover = false) {
+          &:hover,
+          &:focus {
+            & when (lightness(@background) > 70%) {
+              background-color: darken(@background, 5%);
+            }
+
+            & when not (lightness(@background) > 70%) {
+              background-color: darken(@background, 3%);
+            }
           }
-          & when not (lightness(@background) > 70%) {
-            background-color: darken(@background, 3%);
+        }
+        & when not (@hover = false) {
+          &:hover,
+          &:focus {
+            background-color: @hover;
           }
         }
       }

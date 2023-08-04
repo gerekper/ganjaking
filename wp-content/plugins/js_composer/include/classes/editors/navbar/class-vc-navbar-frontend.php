@@ -68,10 +68,10 @@ class Vc_Navbar_Frontend extends Vc_Navbar {
 					'key' => 'portrait-smartphones',
 				),
 			) );
-			$output = '<li class="vc_pull-right">' . '<div class="vc_dropdown" id="vc_screen-size-control">' . '<a href="#" class="vc_dropdown-toggle"' . ' title="' . esc_attr__( 'Responsive preview', 'js_composer' ) . '"><i class="vc-composer-icon vc_current-layout-icon vc-c-icon-layout_default"' . ' id="vc_screen-size-current"></i><i class="vc-composer-icon vc-c-icon-arrow_drop_down"></i></a>' . '<ul class="vc_dropdown-list">';
+			$output = '<li class="vc_pull-right">' . '<div class="vc_dropdown" id="vc_screen-size-control">' . '<a href="#" class="vc_dropdown-toggle vc_icon-btn"' . ' title="' . esc_attr__( 'Responsive preview', 'js_composer' ) . '"><i class="vc-composer-icon vc_current-layout-icon vc-c-icon-layout_default"' . ' id="vc_screen-size-current"></i></a>' . '<ul class="vc_dropdown-list">';
 			$screen = current( $screen_sizes );
 			while ( $screen ) {
-				$output .= '<li><a href="#" title="' . esc_attr( $screen['title'] ) . '"' . ' class="vc_screen-width vc-composer-icon vc-c-icon-layout_' . esc_attr( $screen['key'] ) . ( isset( $screen['active'] ) && $screen['active'] ? ' active' : '' ) . '" data-size="' . esc_attr( $screen['size'] ) . '"></a></li>';
+				$output .= '<li><a href="#" title="' . esc_attr( $screen['title'] ) . '"' . ' class="vc_screen-width vc_icon-btn vc-composer-icon vc-c-icon-layout_' . esc_attr( $screen['key'] ) . ( isset( $screen['active'] ) && $screen['active'] ? ' active' : '' ) . '" data-size="' . esc_attr( $screen['size'] ) . '"></a></li>';
 				next( $screen_sizes );
 				$screen = current( $screen_sizes );
 			}
@@ -93,14 +93,22 @@ class Vc_Navbar_Frontend extends Vc_Navbar {
 		$can_publish = current_user_can( $post_type->cap->publish_posts );
 		ob_start();
 		?>
+		<li class="vc_pull-right">
+			<div class="vc_dropdown vc_dropdown-more" id="vc_more-options">
+				<a class="vc_dropdown-toggle vc_icon-btn" title="More">
+					<i class="vc-composer-icon vc-c-icon-more"></i>
+				</a>
+				<ul class="vc_dropdown-list">
+					<li class="vc_dropdown-list-item">
+						<a href="<?php echo get_edit_post_link( $post ); ?>"><?php esc_html_e( 'Backend Editor', 'js_composer' ); ?></a>
+					</li>
+					<li class="vc_dropdown-list-item">
+						<a href="<?php echo get_permalink( $post ); ?>"><?php esc_html_e( 'View Page', 'js_composer' ); ?></a>
+					</li>
+				</ul>
+			</div>
+		</li>
 		<li class="vc_show-mobile vc_pull-right">
-			<button data-url="<?php echo esc_attr( get_edit_post_link( $post->ID ) . '&wpb_vc_js_status=true&classic-editor' ); ?>"
-					class="vc_btn vc_btn-default vc_btn-sm vc_navbar-btn vc_btn-backend-editor" id="vc_button-cancel"
-					title="<?php esc_attr_e( 'Cancel all changes and return to WP dashboard', 'js_composer' ); ?>">
-				<?php
-				echo vc_user_access()->part( 'backend_editor' )->can()->get() ? esc_html__( 'Backend Editor', 'js_composer' ) : esc_html__( 'Edit', 'js_composer' );
-				?>
-			</button>
 			<?php
 			if ( ! in_array( $post->post_status, array(
 				'publish',
@@ -109,25 +117,25 @@ class Vc_Navbar_Frontend extends Vc_Navbar {
 			), true ) ) :
 				?>
 				<?php if ( 'draft' === $post->post_status ) : ?>
-				<button type="button" class="vc_btn vc_btn-default vc_btn-sm vc_navbar-btn vc_btn-save-draft"
+				<button type="button" class="vc_btn vc_btn-default vc_navbar-btn vc_btn-save-draft"
 						id="vc_button-save-draft"
 						title="<?php esc_attr_e( 'Save Draft', 'js_composer' ); ?>"><?php esc_html_e( 'Save Draft', 'js_composer' ); ?></button>
 			<?php elseif ( 'pending' === $post->post_status && $can_publish ) : ?>
-				<button type="button" class="vc_btn vc_btn-primary vc_btn-sm vc_navbar-btn vc_btn-save"
+				<button type="button" class="vc_btn vc_btn-primary vc_navbar-btn vc_btn-save"
 						id="vc_button-save-as-pending"
 						title="<?php esc_attr_e( 'Save as Pending', 'js_composer' ); ?>"><?php esc_html_e( 'Save as Pending', 'js_composer' ); ?></button>
 			<?php endif ?>
 				<?php if ( $can_publish ) : ?>
-				<button type="button" class="vc_btn vc_btn-primary vc_btn-sm vc_navbar-btn vc_btn-save"
+				<button type="button" class="vc_btn vc_btn-primary vc_navbar-btn vc_btn-save"
 						id="vc_button-update" title="<?php esc_attr_e( 'Publish', 'js_composer' ); ?>"
 						data-change-status="publish"><?php esc_html_e( 'Publish', 'js_composer' ); ?></button>
 			<?php else : ?>
-				<button type="button" class="vc_btn vc_btn-primary vc_btn-sm vc_navbar-btn vc_btn-save"
+				<button type="button" class="vc_btn vc_btn-primary vc_navbar-btn vc_btn-save"
 						id="vc_button-update" title="<?php esc_attr_e( 'Submit for Review', 'js_composer' ); ?>"
 						data-change-status="pending"><?php esc_html_e( 'Submit for Review', 'js_composer' ); ?></button>
 			<?php endif ?>
 			<?php else : ?>
-				<button type="button" class="vc_btn vc_btn-primary vc_btn-sm vc_navbar-btn vc_btn-save"
+				<button type="button" class="vc_btn vc_btn-primary vc_navbar-btn vc_btn-save"
 						id="vc_button-update"
 						title="<?php esc_attr_e( 'Update', 'js_composer' ); ?>"><?php esc_html_e( 'Update', 'js_composer' ); ?></button>
 			<?php endif ?>

@@ -136,9 +136,8 @@ class Vc_Post_Admin {
 	 * It is possible to add any data to post settings by adding filter with tag 'vc_hooks_vc_post_settings'.
 	 * @param $post_id
 	 * @since 4.4
-	 * vc_filter: vc_hooks_vc_post_settings - hook to override post meta settings for WPBakery Page Builder (used in grid for
-	 *     example)
-	 *
+	 * vc_filter: vc_hooks_vc_post_settings - hook to override
+	 * post meta settings for WPBakery Page Builder (used in grid for example)
 	 */
 	public function setSettings( $post_id ) {
 		$settings = array();
@@ -151,7 +150,9 @@ class Vc_Post_Admin {
 	}
 
 	/**
-	 * @param $id
+	 * Set plugin meta to specific post.
+	 *
+	 * @param int $id
 	 * @throws \Exception
 	 */
 	protected function setPostMeta( $id ) {
@@ -175,17 +176,54 @@ class Vc_Post_Admin {
 			$this->setSettings( $id );
 		}
 
-		/**
-		 * vc_filter: vc_base_save_post_custom_css
-		 * @since 4.4
-		 */
-		$post_custom_css = apply_filters( 'vc_base_save_post_custom_css', vc_post_param( 'vc_post_custom_css' ), $id );
-		if ( null !== $post_custom_css && empty( $post_custom_css ) ) {
-			delete_metadata( 'post', $id, '_wpb_post_custom_css' );
-		} elseif ( null !== $post_custom_css ) {
-			$post_custom_css = wp_strip_all_tags( $post_custom_css );
-			update_metadata( 'post', $id, '_wpb_post_custom_css', $post_custom_css );
-		}
+		$meta_list = $this->get_post_meta_list();
+
+		$this->setPostMetaByList( $id, $meta_list );
+
 		wpbakery()->buildShortcodesCustomCss( $id );
+	}
+
+	/**
+	 * Get post meta list.
+	 * @since 7.0
+	 *
+	 * @return array
+	 */
+	public function get_post_meta_list() {
+		return apply_filters( 'vc_post_meta_list',
+			array(
+				//@since 4.4
+				'custom_css',
+				//@since 7.0
+				'custom_js_header',
+				'custom_js_footer',
+				'custom_layout',
+			)
+		);
+	}
+
+	/**
+	 * Set post meta by meta list.
+	 * @note we keep this data for meta in regular $_POST
+	 * @see include/templates/editors/backend_editor.tpl.php
+	 * @see include/templates/editors/frontend_editor.tpl.php
+	 * @note we also additionally save data for frontend editor in ajax request to push it in $_POST
+	 * @see assets/js/frontend_editor/shortcodes_builder.js ShortcodesBuilder::save()
+	 * @since 7.0
+	 *
+	 * @param int $id
+	 * @param array $meta_list
+	 */
+	public function setPostMetaByList( $id, $meta_list ) {
+		foreach ( $meta_list as $meta_name ) {
+			$post_param = vc_post_param( 'vc_post_' . $meta_name );
+			$value = apply_filters( 'vc_base_save_post_' . $meta_name, $post_param, $id );
+			if ( null !== $value && empty( $value ) ) {
+				delete_metadata( 'post', $id, '_wpb_post_' . $meta_name );
+			} elseif ( null !== $value ) {
+				$value = wp_strip_all_tags( $value );
+				update_metadata( 'post', $id, '_wpb_post_' . $meta_name, $value );
+			}
+		}
 	}
 }

@@ -28,6 +28,7 @@
   "ui-vc-pointers.php": "Integrating With WordPress’ UI: Admin Pointers",
   "vc-pages/automapper.php": "",
   "vc-pages/page-custom-css.php": "Vc Special pages.",
+  "vc-pages/page-custom-js.php": "Vc Special pages.",
   "vc-pages/page-design-options.php": "Vc Special pages.",
   "vc-pages/page-role-manager.php": "Vc Special pages.",
   "vc-pages/pages.php": "Vc Special pages.",
@@ -42,5 +43,7 @@
   "post-type-default-template.php": "Load default templates",
   "bc-multisite-options.php": "BC for multisite options",
   "vc-undoredo.php": "Undo Redo logic",
-  "local-fonts/class-local-fonts.php": "Local Google fonts"
+  "local-fonts/class-local-fonts.php": "Local Google fonts",
+  "class-vc-notice-controller.php": "Plugin Notice System",
+  "class-vc-post-custom-layout.php": "Plugin Post Custom Layout Manager"
 }

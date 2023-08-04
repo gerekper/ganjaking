@@ -10,11 +10,11 @@ if(!defined('ABSPATH')) exit();
 
 $system_config	= $rsaf->get_system_requirements();
 $current_user	= wp_get_current_user();
-$revslider_valid = get_option('revslider-valid', 'false');
+$revslider_valid = $rsaf->_truefalse(get_option('revslider-valid', 'false'));
 $show_trustpilot = $rsaf->_truefalse(get_option('revslider-trustpilot', 'true'));
 $latest_version	= get_option('revslider-latest-version', RS_REVISION);
 $stable_version	= get_option('revslider-stable-version', '4.2');
-$latest_version	= ($revslider_valid !== 'true' && version_compare($latest_version, $stable_version, '<')) ? $stable_version : $latest_version;
+$latest_version	= ($revslider_valid !== true && version_compare($latest_version, $stable_version, '<')) ? $stable_version : $latest_version;
 $code			= get_option('revslider-code', '');
 $time			= date('H');
 $timezone		= date('e');/* Set the $timezone variable to become the current timezone */

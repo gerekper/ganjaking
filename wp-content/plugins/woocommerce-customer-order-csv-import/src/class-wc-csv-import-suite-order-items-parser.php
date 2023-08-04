@@ -17,11 +17,11 @@
  * needs please refer to http://docs.woocommerce.com/document/customer-order-csv-import-suite/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2012-2022, SkyVerge, Inc.
+ * @copyright   Copyright (c) 2012-2023, SkyVerge, Inc.
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_3 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -502,7 +502,6 @@ class WC_CSV_Import_Suite_Order_Items_Parser {
 			}
 		}
 
-
 		// pre WC 2.1 format of a single shipping method, left for backwards
 		// compatibility of import files, applies to csv_import && csv_export
 		// legacy formats
@@ -566,7 +565,6 @@ class WC_CSV_Import_Suite_Order_Items_Parser {
 			// special case: if there was a total order shipping but no cost for the single shipping method, use the total shipping for the order shipping line item
 			$shipping_items[0]['cost'] = $shipping_total;
 		}
-
 
 		// match shipping items to known, available shipping methods
 		foreach ( $shipping_items as $key => $shipping_item ) {
@@ -699,7 +697,6 @@ class WC_CSV_Import_Suite_Order_Items_Parser {
 			}
 		}
 
-
 		// no tax items specified, so create a default one using the tax totals,
 		// but only if a tax total was provided and not merging
 		if ( 0 === count( $tax_items ) && ( $tax_total || $shipping_tax_total ) && ! $merging ) {
@@ -743,7 +740,7 @@ class WC_CSV_Import_Suite_Order_Items_Parser {
 		// if neither tax or shipping amount provided, bail out
 		// TODO: should we throw here instead? {IT 2016-05-30}
 		if ( ! isset( $tax_item_data['tax_amount'] ) && ! isset( $tax_item_data['shipping_tax_amount'] ) ) {
-			return;
+			return null;
 		}
 
 		// default rate id to 0 if not set
@@ -903,7 +900,7 @@ class WC_CSV_Import_Suite_Order_Items_Parser {
 					'title'         => $this->get_array_key_value( $raw_fee_item, 'name', esc_html__( 'Fee', 'woocommerce-csv-import-suite' ) ),
 					'total'         => $fee_item_total,
 					'total_tax'     => $fee_item_tax,
-					'taxable'       => $this->get_array_key_value( $raw_fee_item, 'taxable', !!$fee_item_tax ),
+					'taxable'       => $this->get_array_key_value( $raw_fee_item, 'taxable', ! ! $fee_item_tax ),
 					'tax_class'     => $this->get_array_key_value( $raw_fee_item, 'tax_class', '' ),
 					'tax_data'      => $this->get_array_key_value( $raw_fee_item, 'tax_data' ),
 				);
@@ -918,7 +915,6 @@ class WC_CSV_Import_Suite_Order_Items_Parser {
 				$fee_amount_sum     += $fee_item_total;
 				$fee_tax_amount_sum += $fee_item_tax;
 			}
-
 
 			// set fee and tax totals if they were not provided
 			if ( ! is_numeric( $fee_total ) ) {
@@ -1004,7 +1000,7 @@ class WC_CSV_Import_Suite_Order_Items_Parser {
 	 * In 3.3.0 moved to \WC_CSV_Import_Suite_Order_Items_Parser from \WC_CSV_Import_Suite_Order_Import and changed from private to public
 	 *
 	 * @since 3.0.0
-	 * @param int $item Raw order data
+	 * @param array $item Raw order data
 	 * @param array $order_data Parsed order data, passed by reference
 	 * @param bool $merging Optional. Whether we are merging or inserting a new order. Defaults to false.
 	 * @throws \WC_CSV_Import_Suite_Import_Exception validation, parsing errors
@@ -1082,7 +1078,6 @@ class WC_CSV_Import_Suite_Order_Items_Parser {
 			}
 
 		}
-
 
 		// If no refunds were provided, extract data about them from other fields unless merging
 		if ( ! $refunds && ! $merging ) {
@@ -1270,7 +1265,7 @@ class WC_CSV_Import_Suite_Order_Items_Parser {
 	 * @param array $items
 	 * @param string $type
 	 * @param string $csv_file_format
-	 * @return array Items
+	 * @return array|WP_Error items or error
 	 */
 	private function match_order_items( $order_id, $items, $type, $csv_file_format ) {
 
@@ -1334,7 +1329,7 @@ class WC_CSV_Import_Suite_Order_Items_Parser {
 	 * @param array $item
 	 * @param string $type
 	 * @param string $csv_file_format
-	 * @return int|null Order item ID or null if no match was found
+	 * @return int|null|WP_Error Order item ID or null if no match was found
 	 */
 	private function get_matching_order_item_id( $existing, $item, $type, $csv_file_format ) {
 
@@ -1403,7 +1398,6 @@ class WC_CSV_Import_Suite_Order_Items_Parser {
 
 			$order_item_id = $this->get_matching_order_item_id_by_properties( $existing, $item, $type, $properties );
 		}
-
 
 		/**
 		 * Filters the matching order_item_id when updating order
@@ -1500,10 +1494,9 @@ class WC_CSV_Import_Suite_Order_Items_Parser {
 
 					return new \WP_Error( 'wc_csv_import_suite_ambiguous_order_item_match', $message );
 				}
+
 				// we've found the "perfect" match
-				else {
-					return $matches[0];
-				}
+				return $matches[0];
 			}
 
 		}
@@ -1576,5 +1569,6 @@ class WC_CSV_Import_Suite_Order_Items_Parser {
 
 		return $this->tax_rates;
 	}
+
 
 }

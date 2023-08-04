@@ -3,8 +3,8 @@ Contributors: mmaunder, wfryan, wfmatt, wfmattr
 Tags: security, waf, malware, 2fa, two factor, login security, firewall, brute force, scanner, scan, web application firewall, protection, stop hackers, prevent hacks, secure wordpress, wordpress security
 Requires at least: 3.9
 Requires PHP: 5.5
-Tested up to: 6.2
-Stable tag: 7.10.2
+Tested up to: 6.3
+Stable tag: 7.10.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -188,6 +188,13 @@ Secure your website with Wordfence.
 9. Logging in is easy with Wordfence 2FA.
 
 == Changelog ==
+
+= 7.10.3 - July 31, 2023 =
+* Improvement: Updated GeoIP database
+* Fix: Added missing text domain to translation function call
+* Fix: Corrected inconsistent styling of switch controls
+* Change: Made MySQLi storage engine the default for Flywheel hosted sites
+
 
 = 7.10.2 - July 17, 2023 =
 * Fix: Prevented bundled sodium_compat library from conflicting with versions included with older WordPress versions

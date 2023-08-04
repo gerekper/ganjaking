@@ -17,14 +17,14 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-checkout-add-ons/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2014-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2014-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 namespace SkyVerge\WooCommerce\Checkout_Add_Ons\Admin;
 
 use Automattic\WooCommerce\Admin\Features\Navigation\Menu;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons\Add_On;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons\Add_On_Factory;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Admin\Handlers\Shop_Order;
@@ -69,10 +69,10 @@ class Admin {
 		if ( is_admin() ) {
 
 			// add checkout add-ons value column header to order items table
-			add_action( 'woocommerce_admin_order_item_headers', array( $this, 'add_order_item_headers' ) );
+			add_action( 'woocommerce_admin_order_item_headers', [ $this, 'add_order_item_headers' ] );
 
 			// add checkout add-ons value column to order items table
-			add_action( 'woocommerce_admin_order_item_values', array( $this, 'add_order_item_values' ), 10, 3 );
+			add_action( 'woocommerce_admin_order_item_values', [ $this, 'add_order_item_values' ], 10, 3 );
 
 			if ( ! wp_doing_ajax() ) {
 
@@ -80,14 +80,14 @@ class Admin {
 				$this->shop_order_handler = new Shop_Order();
 
 				// load styles/scripts
-				add_action( 'admin_enqueue_scripts', array( $this, 'load_styles_scripts' ) );
+				add_action( 'admin_enqueue_scripts', [ $this, 'load_styles_scripts' ] );
 
 				// load WC styles / scripts on editor screen
-				add_filter( 'woocommerce_screen_ids', array( $this, 'load_wc_scripts' ) );
+				add_filter( 'woocommerce_screen_ids', [ $this, 'load_wc_scripts' ] );
 
 				// setup admin components
-				add_action( 'admin_menu', array( $this, 'add_menu_link' ) );
-				add_action( 'current_screen', array( $this, 'load_add_on_screen' ) );
+				add_action( 'admin_menu', [ $this, 'add_menu_link' ] );
+				add_action( 'current_screen', [ $this, 'load_add_on_screen' ] );
 			}
 		}
 
@@ -400,11 +400,9 @@ class Admin {
 	 *
 	 * @return bool
 	 */
-	public function is_shop_order_screen() {
+	public function is_shop_order_screen() : bool {
 
-		$screen = get_current_screen();
-
-		return isset( $screen->id ) && ( 'shop_order' === $screen->id || 'edit-shop_order' === $screen->id );
+		return Framework\SV_WC_Order_Compatibility::is_order_screen();
 	}
 
 
@@ -417,9 +415,9 @@ class Admin {
 	 */
 	public function is_checkout_add_on_screen() {
 
-		$screen = get_current_screen();
+		$screen = Framework\SV_WC_Helper::get_current_screen();
 
-		return isset( $screen->id, $this->page_id ) && $screen->id === $this->page_id;
+		return $screen && isset( $screen->id, $this->page_id ) && $screen->id === $this->page_id;
 	}
 
 
@@ -584,10 +582,18 @@ class Admin {
 	/**
 	 * Adds checkout add-ons headers to the order items table.
 	 *
+	 * @internal
+	 *
 	 * @since 1.1.0
 	 */
 	public function add_order_item_headers() {
-		global $post;
+		global $post, $theorder;
+
+		if ( Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ) {
+			$order_id = $theorder instanceof \WC_Order ? $theorder->get_id() : '';
+		} else {
+			$order_id = $post->ID ?? '';
+		}
 
 		echo '<th class="wc-checkout-add-ons-value">&nbsp;</th>';
 
@@ -600,7 +606,7 @@ class Admin {
 					data: {
 						action: 'wc_checkout_add_ons_save_order_items',
 						security: '" . wp_create_nonce( "save-checkout-add-ons" ) . "',
-						order_id: '" . ( isset( $post->ID ) ? $post->ID : '' ) . "',
+						order_id: '" . $order_id . "',
 						items: jQuery('table.woocommerce_order_items :input[name], .wc-order-totals-items :input[name]').serialize()
 					}
 				} );

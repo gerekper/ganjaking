@@ -12,6 +12,9 @@ if (!defined('WFWAF_AUTO_PREPEND')) {
 if (!defined('WF_IS_WP_ENGINE')) {
 	define('WF_IS_WP_ENGINE', isset($_SERVER['IS_WPE']));
 }
+if (!defined('WF_IS_FLYWHEEL')) {
+	define('WF_IS_FLYWHEEL', isset($_SERVER['SERVER_SOFTWARE']) && strpos($_SERVER['SERVER_SOFTWARE'], 'Flywheel/') === 0);
+}
 if (!defined('WF_IS_PRESSABLE')) {
 	define('WF_IS_PRESSABLE', (defined('IS_ATOMIC') && IS_ATOMIC) || (defined('IS_PRESSABLE') && IS_PRESSABLE));
 }
@@ -835,7 +838,7 @@ if (!is_dir(WFWAF_LOG_PATH)) {
 
 try {
 
-	if (!defined('WFWAF_STORAGE_ENGINE') && WF_IS_WP_ENGINE) {
+	if (!defined('WFWAF_STORAGE_ENGINE') && (WF_IS_WP_ENGINE || WF_IS_FLYWHEEL)) {
 		define('WFWAF_STORAGE_ENGINE', 'mysqli');
 	}
 

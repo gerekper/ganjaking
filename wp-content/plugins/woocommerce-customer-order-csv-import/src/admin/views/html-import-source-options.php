@@ -17,11 +17,9 @@
  * needs please refer to http://docs.woocommerce.com/document/customer-order-csv-import-suite/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2012-2022, SkyVerge, Inc.
+ * @copyright   Copyright (c) 2012-2023, SkyVerge, Inc.
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
-
-use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -42,7 +40,7 @@ defined( 'ABSPATH' ) or exit;
 		<form id="import-source-form" class="csv-import-suite-form" method="get">
 
 			<input type="hidden" name="import" value="<?php echo esc_attr( $_GET['import'] ); ?>" />
-			<input type="hidden" name="step" value="1" />
+			<input type="hidden" name="step" value="<?php echo esc_attr( WC_CSV_Import_Suite_Importer::DISPLAY_FILE_UPLOAD_STEP ); ?>" />
 
 			<table class="form-table">
 				<tbody>

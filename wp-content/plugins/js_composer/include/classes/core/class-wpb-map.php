@@ -206,7 +206,7 @@ class WPBMap {
 	 * Lazy method to map shortcode to VC.
 	 *
 	 * This method maps shortcode to VC.
-	 * You can shortcode settings as you do in self::map method. Bu also you
+	 * You can map shortcode settings as you do in self::map method. But also you
 	 * can pass function name or file, which will be used to add settings for
 	 * element. But this will be done only when element data is really required.
 	 *
