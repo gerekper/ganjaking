@@ -123,7 +123,7 @@ class UpdraftCentral_Plugin_Commands extends UpdraftCentral_Commands {
 						$result = $this->_generic_error_response('deactivate_plugin_failed', array(
 							'plugin' => $query['plugin'],
 							'error_code' => 'deactivate_plugin_failed',
-							'error_message' => __('There appears to be a problem deactivating the intended plugin. Please kindly check your permission and try again.', 'updraftplus'),
+							'error_message' => __('There appears to be a problem deactivating the intended plugin.', 'updraftplus').' '.__('Please check your permissions and try again.', 'updraftplus'),
 							'info' => $this->_get_plugin_info($query)
 						));
 					}
@@ -207,7 +207,7 @@ class UpdraftCentral_Plugin_Commands extends UpdraftCentral_Commands {
 								$error_message = end($messages);
 							} else {
 								$error_code = 'unable_to_connect_to_filesystem';
-								$error_message = __('Unable to connect to the filesystem. Please confirm your credentials.');
+								$error_message = __('Unable to connect to the filesystem.', 'updraftplus').' '.__('Please confirm your credentials.');
 							}
 						}
 					}

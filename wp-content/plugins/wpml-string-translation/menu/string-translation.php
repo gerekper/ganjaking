@@ -38,6 +38,7 @@ $context_filter = filter_input( INPUT_GET, 'context', FILTER_SANITIZE_FULL_SPECI
 $search_filter      = filter_input( INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS );
 $exact_match        = filter_input( INPUT_GET, 'em', FILTER_VALIDATE_BOOLEAN );
 $search_translation = filter_input( INPUT_GET, 'search_translation', FILTER_VALIDATE_BOOLEAN );
+$is_troubleshooting = filter_input( INPUT_GET, 'troubleshooting', FILTER_VALIDATE_BOOLEAN );
 
 $filter_translation_priority = filter_var( isset( $_GET['translation-priority'] ) ? $_GET['translation-priority'] : '', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
 $translation_priorities      = class_exists( 'WPML_TM_Translation_Priorities' ) ? get_terms(
@@ -82,9 +83,22 @@ function _icl_string_translation_rtl_textarea( $language ) {
 $po_importer = apply_filters( 'wpml_st_get_po_importer', null );
 
 ?>
-<div class="wrap">
+<div class="wrap<?php if ($is_troubleshooting): ?> st-troubleshooting<?php endif; ?>">
+	<h2><?php echo esc_html__( $is_troubleshooting ? 'String Troubleshooting' : 'String translation', 'wpml-string-translation' ); ?></h2>
 
-	<h2><?php echo esc_html__( 'String translation', 'wpml-string-translation' ); ?></h2>
+	<?php if ($is_troubleshooting): ?>
+		<div data-show="true" class="ant-alert ant-alert-info st-troubleshooting-alert" role="alert">
+			<svg width="22" height="22" fill="#33879e" xmlns="http://www.w3.org/2000/svg">
+				<path d="M10.267 5.867a.733.733 0 111.466 0v6.6a.733.733 0 11-1.466 0v-6.6zM11 14.667a.733.733 0 100 1.466.733.733 0 000-1.466z"></path>
+				<path fill-rule="evenodd" clip-rule="evenodd" d="M11 22c6.075 0 11-4.925 11-11S17.075 0 11 0 0 4.925 0 11s4.925 11 11 11zm0-1.467a9.533 9.533 0 100-19.066 9.533 9.533 0 000 19.066z"></path>
+			</svg>
+			<div class="ant-alert-content">
+				<div class="ant-alert-message">
+					<p><?php echo esc_html__( 'This is the list of strings that are not used or they are linked to wrong translation data.', 'wpml-string-translation' ); ?></p>
+				</div>
+			</div>
+		</div>
+	<?php endif; ?>
 
 	<?php
 		do_action( 'display_basket_notification', 'st_dashboard_top' );
@@ -313,6 +327,9 @@ $po_importer = apply_filters( 'wpml_st_get_po_importer', null );
 		}
 		if ( $search_translation ) {
 			$query_args['search_translation'] = $search_translation;
+		}
+		if ( $is_troubleshooting ) {
+			$query_args['troubleshooting'] = $is_troubleshooting;
 		}
 		?>
 

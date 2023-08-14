@@ -124,32 +124,30 @@ abstract class WPML_Translation_Roles_Records {
 			return $results;
 		}
 
-		$query_args = array(
-			'fields'     => 'ID',
-			'meta_query' => array(
-				array(
-					'key'     => "{$this->wpdb->prefix}capabilities",
-					'value'   => $this->get_capability(),
-					'compare' => $compare,
-				),
-			),
-			'number'     => $limit,
+		$preparedUserQuery = $this->wpdb->prepare(
+			"SELECT u.id FROM {$this->wpdb->prefix}users u INNER JOIN {$this->wpdb->prefix}usermeta c ON c.user_id=u.ID AND CAST(c.meta_key AS BINARY)=%s AND c.meta_value {$compare} %s",
+			"{$this->wpdb->prefix}capabilities",
+			"%" . $this->get_capability() . "%"
 		);
 
-		if ( 'NOT LIKE' === $compare ) {
+		if ( self::USERS_WITHOUT_CAPABILITY === $compare ) {
 			$required_wp_roles = $this->get_required_wp_roles();
-			if ( $required_wp_roles ) {
-				$query_args['role__in'] = $required_wp_roles;
+			foreach( $required_wp_roles as $required_wp_role ) {
+				$preparedUserQuery .= $this->wpdb->prepare( " AND c.meta_value LIKE %s", "%{$required_wp_role}%" );
 			}
 		}
 
 		if ( $search ) {
-			$query_args['search']         = '*' . $search . '*';
-			$query_args['search_columns'] = array( 'user_login', 'user_nicename', 'user_email' );
+			$preparedUserQuery .= $this->wpdb->prepare( " AND (u.user_login LIKE %s OR u.user_nicename LIKE %s OR u.user_email LIKE %s)", "%{$search}%", "%{$search}%", "%{$search}%" );
 		}
 
-		$user_query = $this->user_query_factory->create( $query_args );
-		$users      = $user_query->get_results();
+		$preparedUserQuery .= ' ORDER BY user_login ASC';
+
+		if ( $limit > 0 ) {
+			$preparedUserQuery .= $this->wpdb->prepare(" LIMIT 0,%d", $limit );
+		}
+
+		$users      = $this->wpdb->get_col( $preparedUserQuery );
 
 		if ( $search && strlen( $search ) > self::MIN_SEARCH_LENGTH && ( $limit <= 0 || count( $users ) < $limit ) ) {
 			$users_from_metas = $this->get_records_from_users_metas( $compare, $search, $limit );

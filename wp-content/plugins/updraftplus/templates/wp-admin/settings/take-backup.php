@@ -3,7 +3,7 @@
 	<div id="updraft-insert-admin-warning"></div>
 	<noscript>
 		<div>
-			<?php _e('JavaScript warning', 'updraftplus').': ';?><span style="color:red"><?php _e('This admin interface uses JavaScript heavily. You either need to activate it within your browser, or to use a JavaScript-capable browser.', 'updraftplus');?></span>
+			<?php _e('JavaScript warning', 'updraftplus').': ';?><span style="color:red"><?php echo __('This admin interface uses JavaScript heavily.', 'updraftplus').' '.__('You either need to activate it within your browser, or to use a JavaScript-capable browser.', 'updraftplus');?></span>
 		</div>
 	</noscript>
 	

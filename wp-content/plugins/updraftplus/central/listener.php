@@ -78,8 +78,8 @@ class UpdraftCentral_Listener {
 				// THis is included so we can get $wp_version
 				include_once(ABSPATH.WPINC.'/version.php');
 
-				if (is_a($login_user, 'WP_User') || (version_compare($wp_version, '3.5', '<') && !empty($login_user->ID))) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
-					// Allow site implementers to disable this functionality -- The variable is defined inside the ABSPATH.WPINC.'/version.php'.
+				if (is_a($login_user, 'WP_User') || (version_compare($wp_version, '3.5', '<') && !empty($login_user->ID))) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- The variable is defined inside the ABSPATH.WPINC.'/version.php'.
+					// Allow site implementers to disable this functionality
 					$allow_autologin = apply_filters('updraftcentral_allow_autologin', true, $login_user);
 					if ($allow_autologin) {
 						$login_key = get_user_meta($login_user->ID, 'updraftcentral_login_key', true);

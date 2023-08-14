@@ -191,8 +191,13 @@ class RecommendationsManager {
 			}
 
 			foreach ( $pluginsRecommendations as $section => $plugins_recommendation ) {
-				$pluginsRecommendations[$section]['title'] = $sections[$section][$language]['name'];
-				$pluginsRecommendations[$section]['order'] = $sections[$section][$language]['order'];
+				// Use current site lang if available, otherwise 'en'.
+				$lang = array_key_exists( $language, $sections[$section] )
+					? $language
+					: 'en';
+
+				$pluginsRecommendations[$section]['title'] = $sections[$section][$lang]['name'];
+				$pluginsRecommendations[$section]['order'] = $sections[$section][$lang]['order'];
 			}
 		}
 

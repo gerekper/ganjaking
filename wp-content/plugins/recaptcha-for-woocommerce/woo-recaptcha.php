@@ -3,11 +3,11 @@
  * Plugin Name: reCaptcha for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/woo-recpatcha
  * Description: Protect your eCommerce site with google recptcha.
- * Version: 2.45
+ * Version: 2.46
  * Author: I Thirteen Web Solution 
  * Author URI: https://www.i13websolution.com
  * WC requires at least: 3.2
- * WC tested up to: 7.6.1
+ * WC tested up to: 7.9
  * Text Domain:recaptcha-for-woocommerce
  * Domain Path: languages/
  * Woo: 5347485:aeae74683dd892d43ed390cc28533524
@@ -61,7 +61,8 @@ class I13_Woo_Recpatcha {
 		add_action('login_head', array($this, 'i13_add_header_metadata'));
 		add_action('template_redirect', array($this, 'i13_woocommerce_track_order'), 10, 1);
 		add_action('woocommerce_init', array($this, 'do_woocommerce_init'), 10, 1);
-
+				add_filter('the_content', array($this,'i13_remove_extra_p_tags'), 999);
+				
 		if ($this->isIEBrowser()) {
 
 
@@ -415,10 +416,7 @@ class I13_Woo_Recpatcha {
 					}
 				}
 							
-				?>
-				 
-
-			  <script type="text/javascript" id="<?php echo esc_html($rand_char); ?>">
+				?><!-- do_not_format_javascript --><script type="text/javascript" id="<?php echo esc_html($rand_char); ?>">
 			   
 									function intval_jetpack_froms_ready(f) {
 										
@@ -538,7 +536,7 @@ class I13_Woo_Recpatcha {
 				 }); 
 			
 			  </script> 
-			  
+			  <!-- end_do_not_format_javascript -->
 				<?php    
 			}
 				
@@ -599,7 +597,7 @@ class I13_Woo_Recpatcha {
 				}
 				?>
 						
-				<script type="text/javascript">
+				<!-- do_not_format_javascript --><script type="text/javascript">
 								
 											function intval_jetpack_froms_v3_ready(f) {
 												/in/.test(document.readyState) ? setTimeout('intval_jetpack_froms_v3_ready(' + f + ')', 9) : f()
@@ -664,7 +662,7 @@ class I13_Woo_Recpatcha {
 							 
 							   
 						 
-						  </script>
+						  </script><!-- end_do_not_format_javascript -->
 				<?php         
 			}
 					   
@@ -844,7 +842,7 @@ class I13_Woo_Recpatcha {
 						</div>    
 
 					</div>
-					<script type="text/javascript">
+					<!-- do_not_format_javascript --><script type="text/javascript">
 						var myCaptcha = null;
 						var capchaChecked = false;
 						var recap_val = '';
@@ -919,7 +917,7 @@ class I13_Woo_Recpatcha {
 
 
 
-					</script>
+					</script><!-- end_do_not_format_javascript -->
 					<?php
 				} else if ('yes' == $is_enabled_logincheckout && is_user_logged_in()) {
 
@@ -956,7 +954,7 @@ class I13_Woo_Recpatcha {
 						<div id='refresh_captcha' style="width:100%;padding-top:5px"> <a href="javascript:grecaptcha.reset(myCaptcha);"><?php echo esc_html($refresh_lable); ?></a></div>
 
 					</div>
-					<script type="text/javascript">
+					<!-- do_not_format_javascript --><script type="text/javascript">
 						var myCaptcha = null;
 						var recap_val = '';
 						
@@ -1023,7 +1021,7 @@ class I13_Woo_Recpatcha {
 						};
 
 
-					</script>
+					</script><!-- end_do_not_format_javascript -->
 					<?php
 				}
 			}
@@ -1077,7 +1075,7 @@ class I13_Woo_Recpatcha {
 					}
 					?>
 					<input type="hidden" value="" name="i13_checkout_token" id="i13_checkout_token"/>
-					<script type="text/javascript">
+					<!-- do_not_format_javascript --><script type="text/javascript">
 
 						 function intval_payment_rq_guest_v3_ready(f) {
 							/in/.test(document.readyState) ? setTimeout('intval_payment_rq_guest_v3_ready(' + f + ')', 9) : f()
@@ -1155,7 +1153,7 @@ class I13_Woo_Recpatcha {
 
 
 
-					</script>
+					</script><!-- end_do_not_format_javascript -->
 					<?php
 				}
 			}
@@ -1640,7 +1638,7 @@ class I13_Woo_Recpatcha {
 
 
 
-				<script type="text/javascript">
+				<!-- do_not_format_javascript --><script type="text/javascript">
 
 						function intval_comment_form_ready(f) {
 							/in/.test(document.readyState) ? setTimeout('intval_comment_form_ready(' + f + ')', 9) : f()
@@ -1685,7 +1683,7 @@ class I13_Woo_Recpatcha {
 
 
 
-				</script>
+				</script><!-- end_do_not_format_javascript -->
 
 
 				<?php
@@ -1733,7 +1731,7 @@ class I13_Woo_Recpatcha {
 				?>
 				<input type="hidden" value="" name="i13_recaptcha_comment_token" id="i13_recaptcha_comment_token"/>
 								<input type="hidden" autocomplete="off" name="comment_nonce_val" value="<?php echo esc_html(wp_create_nonce('wp-cm-nonce')); ?>" />        
-				<script type="text/javascript">
+				<!-- do_not_format_javascript --><script type="text/javascript">
 
 					function intval_comment_form_v3_ready(f) {
 					   /in/.test(document.readyState) ? setTimeout('intval_comment_form_v3_ready(' + f + ')', 9) : f()
@@ -1785,7 +1783,7 @@ class I13_Woo_Recpatcha {
 						
 						 });
 
-				</script>
+				</script><!-- end_do_not_format_javascript -->
 				<?php
 			}
 		}
@@ -1870,7 +1868,7 @@ class I13_Woo_Recpatcha {
 
 
 
-				<script type="text/javascript">
+				<!-- do_not_format_javascript --><script type="text/javascript">
 
 					function intval_review_form_ready(f) {
 					   /in/.test(document.readyState) ? setTimeout('intval_review_form_ready(' + f + ')', 9) : f()
@@ -1914,7 +1912,7 @@ class I13_Woo_Recpatcha {
 
 
 
-				</script>
+				</script><!-- end_do_not_format_javascript -->
 
 
 				<?php
@@ -1961,7 +1959,7 @@ class I13_Woo_Recpatcha {
 				?>
 				<input type="hidden" value="" name="i13_recaptcha_review_token" id="i13_recaptcha_review_token"/>
 								<input type="hidden" autocomplete="off" name="_review_nonce" value="<?php echo esc_html(wp_create_nonce('wp-review-nonce')); ?>" />
-				<script type="text/javascript">
+				<!-- do_not_format_javascript --><script type="text/javascript">
 
 					function intval_review_form_v3_ready(f) {
 					   /in/.test(document.readyState) ? setTimeout('intval_review_form_v3_ready(' + f + ')', 9) : f()
@@ -2019,7 +2017,7 @@ class I13_Woo_Recpatcha {
 
 
 
-				</script>
+				</script><!-- end_do_not_format_javascript -->
 				<?php
 			}
 		}
@@ -3907,7 +3905,7 @@ class I13_Woo_Recpatcha {
 					<div id="g-recaptcha-payment-method" name="g-recaptcha-payment-method"  data-callback="verifyCallback_add_payment_method" data-sitekey="<?php echo esc_html($site_key); ?>" data-theme="<?php echo esc_html($theme); ?>" data-size="<?php echo esc_html($size); ?>">
 					</div>
 				</div>
-				<script type="text/javascript">
+				<!-- do_not_format_javascript --><script type="text/javascript">
 
 				  function intval_payment_method_new_ready(f) {
 					   /in/.test(document.readyState) ? setTimeout('intval_payment_method_new_ready(' + f + ')', 9) : f()
@@ -3987,7 +3985,7 @@ class I13_Woo_Recpatcha {
 						
 					});
 
-				</script> 
+				</script><!-- end_do_not_format_javascript --> 
 
 				<?php
 			}
@@ -4031,7 +4029,7 @@ class I13_Woo_Recpatcha {
 				}
 				?>
 				<input type="hidden" value="" name="i13_recaptcha_payment_method_token" id="i13_recaptcha_payment_method_token"/>    
-				<script type="text/javascript">
+				<!-- do_not_format_javascript --><script type="text/javascript">
 
 				 function intval_payment_method_new_v3_ready(f) {
 					   /in/.test(document.readyState) ? setTimeout('intval_payment_method_new_v3_ready(' + f + ')', 9) : f()
@@ -4082,7 +4080,7 @@ class I13_Woo_Recpatcha {
 
 					});
 
-				</script>
+				</script><!-- end_do_not_format_javascript -->
 				<?php
 			}
 		}
@@ -4117,7 +4115,7 @@ class I13_Woo_Recpatcha {
 				?>
 
 
-				<script type="text/javascript">
+				<!-- do_not_format_javascript --><script type="text/javascript">
 					
 				  function intval_payment_method_ready(f) {
 					   /in/.test(document.readyState) ? setTimeout('intval_payment_method_ready(' + f + ')', 9) : f()
@@ -4253,7 +4251,7 @@ class I13_Woo_Recpatcha {
 
 					
 					});
-				  </script> 
+				  </script><!-- end_do_not_format_javascript --> 
 
 				<?php
 			}
@@ -4297,7 +4295,7 @@ class I13_Woo_Recpatcha {
 				}
 				?>
 
-				<script type="text/javascript">
+				<!-- do_not_format_javascript --><script type="text/javascript">
 
 					  function intval_payment_method_v3_ready(f) {
 					   /in/.test(document.readyState) ? setTimeout('intval_payment_method_v3_ready(' + f + ')', 9) : f()
@@ -4348,7 +4346,7 @@ class I13_Woo_Recpatcha {
 						<?php endif; ?>
 
 					});
-				  </script>
+				  </script><!-- end_do_not_format_javascript -->
 				<?php
 			}
 		}
@@ -4618,7 +4616,7 @@ class I13_Woo_Recpatcha {
 						</fieldset>
 					</div>
 				<?php endif; ?>  
-				<script type="text/javascript" id="woo_recaptcha_register_v2">
+				<!-- do_not_format_javascript --><script type="text/javascript" id="woo_recaptcha_register_v2">
 
 
 
@@ -4781,7 +4779,7 @@ class I13_Woo_Recpatcha {
 					<?php endif; ?>
 
 
-				</script>
+				</script><!-- end_do_not_format_javascript -->
 
 				<?php
 			}
@@ -4826,7 +4824,7 @@ class I13_Woo_Recpatcha {
 				}
 				?>
 				<input type="hidden" value="" name="i13_recaptcha_register_token" id="i13_recaptcha_register_token" class="i13_recaptcha_register_token" />
-				<script type="text/javascript" id="woo_recaptcha_register_v3">
+				<!-- do_not_format_javascript --><script type="text/javascript" id="woo_recaptcha_register_v3">
 
 				function intval_woo_reg_method_v3_ready(f) {
 					   /in/.test(document.readyState) ? setTimeout('intval_woo_reg_method_v3_ready(' + f + ')', 9) : f()
@@ -4930,7 +4928,7 @@ class I13_Woo_Recpatcha {
 					}
 
 
-				</script>
+				</script><!-- end_do_not_format_javascript -->
 				<?php
 			}
 		}
@@ -4989,7 +4987,7 @@ class I13_Woo_Recpatcha {
 				</div>    
 
 				</p>
-				<script type="text/javascript">
+				<!-- do_not_format_javascript --><script type="text/javascript">
 					var myCaptcha = null;
 					var capchaChecked = false;
 					var recap_val = null;
@@ -5130,7 +5128,7 @@ class I13_Woo_Recpatcha {
 			   
 
 
-				</script>
+				</script><!-- end_do_not_format_javascript -->
 				<?php
 			} else if ('yes' == $is_enabled_logincheckout && is_user_logged_in()) {
 
@@ -5148,7 +5146,7 @@ class I13_Woo_Recpatcha {
 				<div id='refresh_captcha' style="width:100%;padding-top:5px"> <a href="javascript:grecaptcha.reset(myCaptcha);"><?php echo esc_html($refresh_lable); ?></a></div>
 
 				</p>
-				<script type="text/javascript">
+				<!-- do_not_format_javascript --><script type="text/javascript">
 					var myCaptcha = null;
 										var recap_val = null;
 					function intval_login_checkout_ready(f) {
@@ -5252,7 +5250,7 @@ class I13_Woo_Recpatcha {
 					};
 					
 
-				</script>
+				</script><!-- end_do_not_format_javascript -->
 				<?php
 			}
 		} else {
@@ -5281,7 +5279,7 @@ class I13_Woo_Recpatcha {
 				}
 				?>
 				<input class="i13_checkout_token" type="hidden" value="" name="i13_checkout_token" id="i13_checkout_token"/>
-				<script type="text/javascript">
+				<!-- do_not_format_javascript --><script type="text/javascript">
 
 								
 				 function intval_checkout_v3_ready(f) {
@@ -5383,7 +5381,7 @@ class I13_Woo_Recpatcha {
 
 
 					});
-				</script>
+				</script><!-- end_do_not_format_javascript -->
 				<?php
 			}
 		}
@@ -5457,7 +5455,7 @@ class I13_Woo_Recpatcha {
 
 
 
-				<script type="text/javascript" id="woo_recaptcha_login_v2">
+				<!-- do_not_format_javascript --><script type="text/javascript" id="woo_recaptcha_login_v2">
 
 
 
@@ -5563,7 +5561,7 @@ class I13_Woo_Recpatcha {
 
 
 
-				</script>
+				</script><!-- end_do_not_format_javascript -->
 
 
 				<?php
@@ -5609,7 +5607,7 @@ class I13_Woo_Recpatcha {
 				}
 				?>
 				<input type="hidden" value="" name="i13_recaptcha_login_token" id="i13_recaptcha_login_token" class="i13_recaptcha_login_token" />
-				<script type="text/javascript" id="woo_recaptcha_login_v3">
+				<!-- do_not_format_javascript --><script type="text/javascript" id="woo_recaptcha_login_v3">
 
 				function intval_woo_login_v3_ready(f) {
 					   /in/.test(document.readyState) ? setTimeout('intval_woo_login_v3_ready(' + f + ')', 9) : f()
@@ -5696,7 +5694,7 @@ class I13_Woo_Recpatcha {
 					}
 
 
-				</script>
+				</script><!-- end_do_not_format_javascript -->
 				<?php
 			}
 		}
@@ -5722,7 +5720,7 @@ class I13_Woo_Recpatcha {
 			?>
 			<?php if (( 'v2' == strtolower($reCapcha_version) && ( 'yes' == $i13_recapcha_using_ajax_login_v2 || 'yes' == $i13_recapcha_using_ajax_registration_v2 ) ) || ( 'v3' == strtolower($reCapcha_version) && ( 'yes' == $i13_recapcha_using_ajax_login_v3 || 'yes' == $i13_recapcha_using_ajax_registration_v3 ) )) : ?>
 
-				<script type="text/javascript">
+				<!-- do_not_format_javascript --><script type="text/javascript">
 
 					function intval_woo_ajax_signup_ready(f) {
 						   /in/.test(document.readyState) ? setTimeout('intval_woo_ajax_signup_ready(' + f + ')', 9) : f()
@@ -5864,7 +5862,7 @@ class I13_Woo_Recpatcha {
 					});
 					
 			   });
-			 </script>
+			 </script><!-- end_do_not_format_javascript -->
 
 			<?php endif; ?>
 
@@ -5933,7 +5931,7 @@ class I13_Woo_Recpatcha {
 				</div>    
 
 				</p>
-				<script type="text/javascript">
+				<!-- do_not_format_javascript --><script type="text/javascript">
 					var myCaptcha = null;
 										var recap_val = null;
 					function intval_pay_for_order_ready(f) {
@@ -6009,7 +6007,7 @@ class I13_Woo_Recpatcha {
 							}
 
 							};
-					</script>
+					</script><!-- end_do_not_format_javascript -->
 				<?php
 			}
 		} else {
@@ -6046,7 +6044,7 @@ class I13_Woo_Recpatcha {
 				}
 				?>
 				<input type="hidden" value="" name="i13_checkout_token" id="i13_checkout_token"/>
-				<script type="text/javascript">
+				<!-- do_not_format_javascript --><script type="text/javascript">
 
 				 function intval_pay_for_order_ready_v3(f) {
 					   /in/.test(document.readyState) ? setTimeout('intval_pay_for_order_ready_v3(' + f + ')', 9) : f()
@@ -6144,7 +6142,7 @@ class I13_Woo_Recpatcha {
 				  
 
 			   });
-			</script>
+			</script><!-- end_do_not_format_javascript -->
 				<?php
 			}
 		}
@@ -6214,7 +6212,7 @@ class I13_Woo_Recpatcha {
 
 
 
-				<script type="text/javascript">
+				<!-- do_not_format_javascript --><script type="text/javascript">
 						
 					var capchaChecked = false;
 					var myCaptcha = null;
@@ -6287,7 +6285,7 @@ class I13_Woo_Recpatcha {
 						});
 				<?php endif; ?>
 
-				</script>
+				</script><!-- end_do_not_format_javascript -->
 
 				<?php
 			}
@@ -6331,7 +6329,7 @@ class I13_Woo_Recpatcha {
 				}
 				?>
 				<input type="hidden" value="" name="i13_recaptcha_lost_password_token" id="i13_recaptcha_lost_password_token"/>
-				<script type="text/javascript">
+				<!-- do_not_format_javascript --><script type="text/javascript">
 
 			  
 						function intval_woo_forgotpass_v3_ready(f) {
@@ -6376,7 +6374,7 @@ class I13_Woo_Recpatcha {
 					
 
 				 });
-				</script>
+				</script><!-- end_do_not_format_javascript -->
 				<?php
 			}
 		}
@@ -6445,7 +6443,7 @@ class I13_Woo_Recpatcha {
 
 
 
-				<script type="text/javascript">
+				<!-- do_not_format_javascript --><script type="text/javascript">
 
 					  function intval_wp_login_ready(f) {
 						   /in/.test(document.readyState) ? setTimeout('intval_wp_login_ready(' + f + ')', 9) : f()
@@ -6483,7 +6481,7 @@ class I13_Woo_Recpatcha {
 							}
 
 						};
-				   </script>
+				   </script><!-- end_do_not_format_javascript -->
 				<?php if ('compact' != $size) : ?>                                       
 					<style type="text/css">
 						[name="g-recaptcha-wp-login-i13"]{
@@ -6537,7 +6535,7 @@ class I13_Woo_Recpatcha {
 				<input type="hidden" autocomplete="off" name="wp-login-nonce" value="<?php echo esc_html(wp_create_nonce('wp-login-nonce')); ?>" />
 				<input type="hidden" autocomplete="off" name="i13_recaptcha_token" value="" id="i13_recaptcha_token" />
 
-				<script type="text/javascript">
+				<!-- do_not_format_javascript --><script type="text/javascript">
 
 				function intval_wp_login_v3_ready(f) {
 					   /in/.test(document.readyState) ? setTimeout('intval_wp_login_v3_ready(' + f + ')', 9) : f()
@@ -6601,7 +6599,7 @@ class I13_Woo_Recpatcha {
 						});
 
 				});
-			   </script>
+			   </script><!-- end_do_not_format_javascript -->
 				<?php
 			}
 		}
@@ -6670,7 +6668,7 @@ class I13_Woo_Recpatcha {
 				</p>
 
 
-				<script type="text/javascript">
+				<!-- do_not_format_javascript --><script type="text/javascript">
 
 		   
 					function intval_wp_lostpass_ready(f) {
@@ -6708,7 +6706,7 @@ class I13_Woo_Recpatcha {
 
 
 							};
-				</script>
+				</script><!-- end_do_not_format_javascript -->
 				<?php if ('compact' != $size) : ?>                                       
 					<style type="text/css">
 						[name="g-recaptcha-wp-lostpassword-i13"]{
@@ -6762,7 +6760,7 @@ class I13_Woo_Recpatcha {
 				?>
 				<input type="hidden" autocomplete="off" name="wp-lostpassword-nonce" value="<?php echo esc_html(wp_create_nonce('wp-lostpassword-nonce')); ?>" />
 				<input type="hidden" autocomplete="off" name="i13_recaptcha_token" value="" id="i13_recaptcha_token" />
-				<script type="text/javascript">
+				<!-- do_not_format_javascript --><script type="text/javascript">
 
 				function intval_wp_lostpass_v3_ready(f) {
 				   /in/.test(document.readyState) ? setTimeout('intval_wp_lostpass_v3_ready(' + f + ')', 9) : f()
@@ -6808,7 +6806,7 @@ class I13_Woo_Recpatcha {
 
 				   
 
-					});</script>
+					});</script><!-- end_do_not_format_javascript -->
 				<?php
 			}
 		}
@@ -6874,7 +6872,7 @@ class I13_Woo_Recpatcha {
 
 				</p>
 
-				<script type="text/javascript">
+				<!-- do_not_format_javascript --><script type="text/javascript">
 
 					var myCaptcha = null;
 					function intval_wp_register_ready(f) {
@@ -6913,7 +6911,7 @@ class I13_Woo_Recpatcha {
 
 
 					 };
-				 </script>        
+				 </script><!-- end_do_not_format_javascript -->        
 				<?php if ('compact' != $size) : ?>                                       
 					<style type="text/css">
 						[name="g-recaptcha-wp-register-i13"]{
@@ -6968,7 +6966,7 @@ class I13_Woo_Recpatcha {
 				<input type="hidden" autocomplete="off" name="wp-register-nonce" value="<?php echo esc_html(wp_create_nonce('wp-register-nonce')); ?>" />
 				<input type="hidden" autocomplete="off" name="i13_recaptcha_wp_register_token" value="" id="i13_recaptcha_wp_register_token" />
 
-				<script type="text/javascript">
+				<!-- do_not_format_javascript --><script type="text/javascript">
 
 					function intval_wp_register_v3_ready(f) {
 					   /in/.test(document.readyState) ? setTimeout('intval_wp_register_v3_ready(' + f + ')', 9) : f()
@@ -7018,7 +7016,7 @@ class I13_Woo_Recpatcha {
 
 				   
 
-					});</script>
+					});</script><!-- end_do_not_format_javascript -->
 				<?php
 			}
 		}
@@ -7568,7 +7566,7 @@ class I13_Woo_Recpatcha {
 				?>
 
 
-				<script type="text/javascript">
+				<!-- do_not_format_javascript --><script type="text/javascript">
 
 							var recaptcha_track_order_method = null;
 							var verifyCallback_order_track_method = function(response) {
@@ -7742,7 +7740,7 @@ class I13_Woo_Recpatcha {
 
 				 
 					});
-				</script> 
+				</script><!-- end_do_not_format_javascript --> 
 
 				<?php
 			}
@@ -7769,7 +7767,7 @@ class I13_Woo_Recpatcha {
 				}
 				?>
 
-				<script type="text/javascript">
+				<!-- do_not_format_javascript --><script type="text/javascript">
 							var el_i13_track_order_captcha = null;
 							
 							function intval_track_order_v3_ready(f) {
@@ -7852,7 +7850,7 @@ class I13_Woo_Recpatcha {
 					}
 
 
-				</script>
+				</script><!-- end_do_not_format_javascript -->
 				<?php
 			}
 		}
@@ -8068,6 +8066,37 @@ class I13_Woo_Recpatcha {
 		}
 
 		return $wordfence_isactive;
+	}
+		
+		
+	public function i13_remove_extra_p_tags( $content) {
+
+		if (strpos($content, 'do_not_format_javascript')!==false) {
+
+
+			$pattern = '/<!-- do_not_format_javascript -->(.*)<!-- end_do_not_format_javascript -->/Uis'; 
+			$content = preg_replace_callback($pattern, function( $matches) {
+
+
+				$altered = str_replace('<p>', '', $matches[1]);
+				$altered = str_replace('</p>', '', $altered);
+
+				$altered=str_replace('&#038;', '&', $altered);
+				$altered=str_replace('&#8221;', '"', $altered);
+
+
+				return @str_replace($matches[1], $altered, $matches[0]);
+			}, $content);
+
+
+
+		}
+
+			$content = str_replace('<p><!-- do_not_format_javascript -->', '<!-- end_do_not_format_javascript -->', $content);
+			$content = str_replace('<!-- do_not_format_javascript --></p>', '<!-- end_do_not_format_javascript -->', $content);
+
+
+			return $content;
 	}
 
 }

@@ -505,7 +505,7 @@ class Updraft_Restorer {
 			if (!isset($entities_to_download[$type])) continue;
 			
 			if ('wpcore' == $type && is_multisite() && 0 === $this->ud_backup_is_multisite) {
-				$updraftplus->log('wpcore: '.__('Skipping restoration of WordPress core when importing a single site into a multisite installation. If you had anything necessary in your WordPress directory then you will need to re-add it manually from the zip file.', 'updraftplus'), 'notice-restore');
+				$updraftplus->log('wpcore: '.__('Skipping restoration of WordPress core when importing a single site into a multisite installation.', 'updraftplus').' '.__('If you had anything necessary in your WordPress directory then you will need to re-add it manually from the zip file.', 'updraftplus'), 'notice-restore');
 				// TODO
 				// $updraftplus->log_e('Skipping restoration of WordPress core when importing a single site into a multisite installation. If you had anything necessary in your WordPress directory then you will need to re-add it manually from the zip file.');
 				continue;
@@ -838,7 +838,7 @@ class Updraft_Restorer {
 	}
 	
 	private function backup_strings() {
-		$this->strings['not_possible'] = __('UpdraftPlus is not able to directly restore this kind of entity. It must be restored manually.', 'updraftplus');
+		$this->strings['not_possible'] = __('UpdraftPlus is not able to directly restore this kind of entity.', 'updraftplus').' '.__('It must be restored manually.', 'updraftplus');
 		$this->strings['no_package'] = __('Backup file not available.', 'updraftplus');
 		$this->strings['copy_failed'] = __('Copying this entity failed.', 'updraftplus');
 		$this->strings['unpack_package'] = __('Unpacking backup...', 'updraftplus');
@@ -850,8 +850,8 @@ class Updraft_Restorer {
 		$this->strings['cleaning_up'] = __('Cleaning up rubbish...', 'updraftplus');
 		$this->strings['old_move_failed'] = __('Could not move old files out of the way.', 'updraftplus').' '.__('You should check the file ownerships and permissions in your WordPress installation', 'updraftplus');
 		$this->strings['old_delete_failed'] = __('Could not delete old path.', 'updraftplus');
-		$this->strings['new_move_failed'] = __('Could not move new files into place. Check your wp-content/upgrade folder.', 'updraftplus');
-		$this->strings['move_failed'] = __('Could not move the files into place. Check your file permissions.', 'updraftplus');
+		$this->strings['new_move_failed'] = __('Could not move new files into place.', 'updraftplus').' '.__('Check your wp-content/upgrade folder.', 'updraftplus');
+		$this->strings['move_failed'] = __('Could not move the files into place.', 'updraftplus').' '.__('Check your file permissions.', 'updraftplus');
 		$this->strings['delete_failed'] = __('Failed to delete working directory after restoring.', 'updraftplus');
 		$this->strings['multisite_error'] = __('You are running on WordPress multisite - but your backup is not of a multisite site.', 'updraftplus');
 		$this->strings['unpack_failed'] = __('Failed to unpack the archive', 'updraftplus');
@@ -1069,7 +1069,7 @@ class Updraft_Restorer {
 			}
 			$put = $wp_filesystem->put_contents($this->ud_working_dir.$leaf, file_get_contents($file));
 			if (is_wp_error($put)) $updraftplus->log_wp_error($put);
-			@unlink($file);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+			@unlink($file);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise if the file doesn't exist.
 		} else {
 			$modint = 500;
 			$put = true;
@@ -1126,14 +1126,14 @@ class Updraft_Restorer {
 
 		$backup_dir = $wp_filesystem->find_folder($updraft_dir);
 
-		if (function_exists('set_time_limit')) @set_time_limit(1800);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		if (function_exists('set_time_limit')) @set_time_limit(1800);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 
 		$packsize = round(filesize($backup_dir.$package)/1048576, 1).' Mb';
 		
 		$this->skin->feedback($this->strings['unpack_package'].' ('.basename($package).', '.$packsize.')');
 
 		$upgrade_folder = $wp_filesystem->wp_content_dir() . 'upgrade/';
-		@$wp_filesystem->mkdir($upgrade_folder, octdec($this->calculate_additive_chmod_oct(FS_CHMOD_DIR, 0775)));// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		@$wp_filesystem->mkdir($upgrade_folder, octdec($this->calculate_additive_chmod_oct(FS_CHMOD_DIR, 0775)));// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 
 		// Clean up contents of upgrade directory beforehand.
 		$upgrade_files = $wp_filesystem->dirlist($upgrade_folder);
@@ -1163,7 +1163,7 @@ class Updraft_Restorer {
 
 			$encryption = empty($this->restore_options['updraft_encryptionphrase']) ? UpdraftPlus_Options::get_updraft_option('updraft_encryptionphrase') : $this->restore_options['updraft_encryptionphrase'];
 
-			if (!$encryption) return new WP_Error('no_encryption_key', __('Decryption failed. The database file is encrypted, but you have no encryption key entered.', 'updraftplus'));
+			if (!$encryption) return new WP_Error('no_encryption_key', __('Decryption failed.', 'updraftplus').' '.__('The database file is encrypted, but you have no encryption key entered.', 'updraftplus'));
 
 			// function decrypt
 			$decrypted_file = UpdraftPlus_Encryption::decrypt($backup_dir.$package, $encryption);
@@ -1176,7 +1176,7 @@ class Updraft_Restorer {
 					unlink($decrypted_file['fullpath']);
 				}
 			} else {
-				return new WP_Error('decryption_failed', __('Decryption failed. The most likely cause is that you used the wrong key.', 'updraftplus'));
+				return new WP_Error('decryption_failed', __('Decryption failed.', 'updraftplus').' '.__('The most likely cause is that you used the wrong key.', 'updraftplus'));
 			}
 		} else {
 			if (preg_match('/\.sql$/i', $package)) {
@@ -1400,7 +1400,7 @@ class Updraft_Restorer {
 
 			if (self::MOVEIN_DO_NOTHING_IF_EXISTING == $preserve_existing && $wpfs->exists($dest_dir.$file)) {
 				// Something exists - no move. Remove it from the temporary directory - so that it will be clean later
-				@$wpfs->delete($working_dir.'/'.$file, true);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+				@$wpfs->delete($working_dir.'/'.$file, true);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.
 			// The $is_dir check was added in version 1.11.18; without this, files in the top-level that weren't in the first archive didn't get over-written
 			} elseif (self::MOVEIN_COPY_IN_CONTENTS != $preserve_existing || !$wpfs->exists($dest_dir.$file) || !$is_dir) {
 
@@ -1409,7 +1409,7 @@ class Updraft_Restorer {
 					// Make sure permissions are at least as great as those of the parent
 					if ($is_dir) {
 						// This method is broken due to https://core.trac.wordpress.org/ticket/26598
-						if (empty($chmod)) $chmod = octdec(sprintf("%04d", $this->get_current_chmod($dest_dir, $wpfs)));// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
+						if (empty($chmod)) $chmod = octdec(sprintf("%04d", $this->get_current_chmod($dest_dir, $wpfs)));// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- The variable is defined after the check.
 						if (!empty($chmod)) $this->chmod_if_needed($dest_dir.$file, $chmod, false, $wpfs);
 					}
 				} else {
@@ -2760,7 +2760,7 @@ class Updraft_Restorer {
 		// The 'off' check is for badly configured setups - http://wordpress.org/support/topic/plugin-wp-super-cache-warning-php-safe-mode-enabled-but-safe-mode-is-off
 		// @codingStandardsIgnoreLine
 		if (@ini_get('safe_mode') && 'off' != strtolower(@ini_get('safe_mode'))) {
-			$updraftplus->log(__('Warning: PHP safe_mode is active on your server. Timeouts are much more likely. If these happen, then you will need to manually restore the file via phpMyAdmin or another method.', 'updraftplus'), 'notice-restore');
+			$updraftplus->log(__('Warning: PHP safe_mode is active on your server.', 'updraftplus').' '.__('Timeouts are much more likely.', 'updraftplus').' '.__('If these happen, then you will need to manually restore the file via phpMyAdmin or another method.', 'updraftplus'), 'notice-restore');
 		}
 
 		$db_basename = 'backup.db.gz';
@@ -2813,7 +2813,7 @@ class Updraft_Restorer {
 		} else {
 			$updraftplus->log("Using direct MySQL access; value of use_mysqli is: ".($this->use_mysqli ? '1' : '0'));
 			if ($this->use_mysqli) {
-				@mysqli_query($this->mysql_dbh, 'SET SESSION query_cache_type = OFF;');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+				@mysqli_query($this->mysql_dbh, 'SET SESSION query_cache_type = OFF;');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 			} else {
 				// @codingStandardsIgnoreLine
 				@mysql_query('SET SESSION query_cache_type = OFF;', $this->mysql_dbh);
@@ -2909,7 +2909,7 @@ class Updraft_Restorer {
 				return new WP_Error('abort_dummy_restore', __('Your database user does not have permission to drop tables', 'updraftplus'));
 			}
 			
-			$updraftplus->log(__('Your database user does not have permission to create tables. We will attempt to restore by simply emptying the tables; this should work as long as a) you are restoring from a WordPress version with the same database structure, and b) Your imported database does not contain any tables which are not already present on the importing site.', 'updraftplus'), 'warning-restore');
+			$updraftplus->log(__('Your database user does not have permission to create tables.', 'updraftplus').' '.__('We will attempt to restore by simply emptying the tables; this should work as long as a) you are restoring from a WordPress version with the same database structure, and b) Your imported database does not contain any tables which are not already present on the importing site.', 'updraftplus'), 'warning-restore');
 			
 			$updraftplus->log('Your database user does not have permission to create tables. We will attempt to restore by simply emptying the tables; this should work as long as a) you are restoring from a WordPress version with the same database structure, and b) Your imported database does not contain any tables which are not already present on the importing site.');
 			
@@ -2962,7 +2962,7 @@ class Updraft_Restorer {
 
 				$updraftplus->log(sprintf('Your database user does not have permission to drop tables. We will attempt to restore by simply emptying the tables; this should work as long as you are restoring from a WordPress version with the same database structure (%s)', '('.$this->last_error.', '.$this->last_error_no.')'));
 				
-				$updraftplus->log(sprintf(__('Your database user does not have permission to drop tables. We will attempt to restore by simply emptying the tables; this should work as long as you are restoring from a WordPress version with the same database structure (%s)', 'updraftplus'), '('.$this->last_error.', '.$this->last_error_no.')'), 'warning-restore');
+				$updraftplus->log(__('Your database user does not have permission to drop tables.', 'updraftplus').' '.sprintf(__('We will attempt to restore by simply emptying the tables; this should work as long as you are restoring from a WordPress version with the same database structure (%s)', 'updraftplus'), '('.$this->last_error.', '.$this->last_error_no.')'), 'warning-restore');
 				
 			}
 		}
@@ -4600,7 +4600,7 @@ class UpdraftPlus_WP_Filesystem_Direct extends WP_Filesystem_Direct {
 			return false;
 
 		// try using rename first. if that fails (for example, source is read only) try copy
-		if (@rename($source, $destination))// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		if (@rename($source, $destination))// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 			return true;
 
 		return false;

@@ -261,7 +261,7 @@ class WPML_Package_Helper {
 	 * @return null|WPML_Package
 	 */
 	final public function get_translatable_item( $item, $package, $type = 'package' ) {
-		if ( $type === 'package' || explode( '_', $type )[0] === 'package' ) {
+		if ( $type === 'package' || explode( '_', is_null( $type ) ? '' : $type )[0] === 'package' ) {
 			$tm = new WPML_Package_TM( $item );
 
 			return $tm->get_translatable_item( $package );

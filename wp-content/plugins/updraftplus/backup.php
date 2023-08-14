@@ -362,7 +362,7 @@ class UpdraftPlus_Backup {
 		$zipcode = $this->make_zipfile($create_from_dir, $backup_file_basename, $whichone);
 		if (true !== $zipcode) {
 			$updraftplus->log("ERROR: Zip failure: Could not create $whichone zip (".$this->index." / $index)");
-			$updraftplus->log(sprintf(__("Could not create %s zip. Consult the log file for more information.", 'updraftplus'), $whichone), 'error');
+			$updraftplus->log(sprintf(__('Could not create %s zip.', 'updraftplus'), $whichone).' '.__('Consult the log file for more information.', 'updraftplus'), 'error');
 			// The caller is required to update $index from $this->index
 			return false;
 		} else {
@@ -371,7 +371,7 @@ class UpdraftPlus_Backup {
 			if (file_exists($full_path.'.tmp')) {
 				if (@filesize($full_path.'.tmp') === 0) {// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 					$updraftplus->log("Did not create $whichone zip (".$this->index.") - not needed");
-					@unlink($full_path.'.tmp');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
+					@unlink($full_path.'.tmp');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise if the file doesn't exist.
 				} else {
 
 					$checksum_description = '';
@@ -1161,7 +1161,7 @@ class UpdraftPlus_Backup {
 				$fullpath = $this->updraft_dir."/log.".$backup_to_examine['nonce'].".txt";
 				if (is_file($fullpath)) {
 					$updraftplus->log("Deleting log file (log.".$backup_to_examine['nonce'].".txt)");
-					@unlink($fullpath);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
+					@unlink($fullpath);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise if the file doesn't exist.
 				} else {
 					$updraftplus->log("Corresponding log file (log.".$backup_to_examine['nonce'].".txt) not found - must have already been deleted");
 				}
@@ -2116,7 +2116,7 @@ class UpdraftPlus_Backup {
 		}
 
 		foreach ($unlink_files as $unlink_file) {
-			@unlink($unlink_file);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
+			@unlink($unlink_file);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise if the file doesn't exist.
 		}
 
 		if ($errors > 0) return false;
@@ -2315,7 +2315,7 @@ class UpdraftPlus_Backup {
 		}
 
 		// Clean temporary files
-		@unlink($this->updraft_dir.'/'.$pfile);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
+		@unlink($this->updraft_dir.'/'.$pfile);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise if the file doesn't exist.
 
 		return $ret;
 
@@ -3197,7 +3197,7 @@ class UpdraftPlus_Backup {
 
 					if (false === $deref) {
 						$updraftplus->log("$fullpath/$e: unfollowable link");
-						$updraftplus->log(sprintf(__("%s: unfollowable link - could not be followed to back up (readlink=%s). Possible causes include that the link points to an invalid or inaccessible location.", 'updraftplus'), $use_path_when_storing.'/'.$e, readlink($fullpath.'/'.$e)), 'warning', "unrlink-$e");
+						$updraftplus->log(sprintf(__("%s: unfollowable link - could not be followed to back up (readlink=%s).", 'updraftplus'), $use_path_when_storing.'/'.$e, readlink($fullpath.'/'.$e)).' '.__("Possible causes include that the link points to an invalid or inaccessible location.", 'updraftplus'), 'warning', "unrlink-$e");
 					} elseif (is_file($deref)) {
 						$use_stripped = $stripped_storage_path.'/'.$e;
 						if (false !== ($fkey = array_search($use_stripped, $exclude))) {
@@ -3528,7 +3528,7 @@ class UpdraftPlus_Backup {
 
 			} elseif (file_exists($examine_zip)) {
 				$updraftplus->log("Zip file already exists, but is not readable or was zero-sized; will remove: ".basename($examine_zip));
-				@unlink($examine_zip);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
+				@unlink($examine_zip);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise if the file doesn't exist.
 			} elseif ($updraftplus->is_uploaded(basename($examine_zip))) {
 				$this->populate_existing_files_list($examine_zip, true);
 			}
@@ -3692,7 +3692,7 @@ class UpdraftPlus_Backup {
 				unset($buf);
 
 				if (!$final) {
-					@unlink($cache_file_base.'-zfb.gz.tmp');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
+					@unlink($cache_file_base.'-zfb.gz.tmp');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise if the file doesn't exist.
 					@gzclose($whandle);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 				} else {
 					gzclose($whandle);
@@ -3707,13 +3707,13 @@ class UpdraftPlus_Backup {
 						}
 					}
 					if (!empty($aborted_on_skipped)) {
-						@unlink($cache_file_base.'-zfs.gz.tmp');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
-						@unlink($cache_file_base.'-zfb.gz.tmp');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
+						@unlink($cache_file_base.'-zfs.gz.tmp');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise if the file doesn't exist.
+						@unlink($cache_file_base.'-zfb.gz.tmp');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise if the file doesn't exist.
 					} else {
 						$info_array = array('makezip_recursive_batchedbytes' => $this->makezip_recursive_batchedbytes);
 						if (!file_put_contents($cache_file_base.'-info.tmp', serialize($info_array))) {
-							@unlink($cache_file_base.'-zfs.gz.tmp');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
-							@unlink($cache_file_base.'-zfb.gz.tmp');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
+							@unlink($cache_file_base.'-zfs.gz.tmp');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise if the file doesn't exist.
+							@unlink($cache_file_base.'-zfb.gz.tmp');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise if the file doesn't exist.
 						}
 						if ($dhandle = gzopen($cache_file_base.'-zfd.gz.tmp', 'w')) {
 							if (!gzwrite($dhandle, serialize($this->zipfiles_dirbatched))) {
@@ -3724,10 +3724,10 @@ class UpdraftPlus_Backup {
 							$aborted_on_dirbatched = true;
 						}
 						if (!empty($aborted_on_dirbatched)) {
-							@unlink($cache_file_base.'-zfs.gz.tmp');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
-							@unlink($cache_file_base.'-zfd.gz.tmp');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
-							@unlink($cache_file_base.'-zfb.gz.tmp');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
-							@unlink($cache_file_base.'-info.tmp');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
+							@unlink($cache_file_base.'-zfs.gz.tmp');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise if the file doesn't exist.
+							@unlink($cache_file_base.'-zfd.gz.tmp');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise if the file doesn't exist.
+							@unlink($cache_file_base.'-zfb.gz.tmp');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise if the file doesn't exist.
+							@unlink($cache_file_base.'-info.tmp');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise if the file doesn't exist.
 						// @codingStandardsIgnoreLine
 						} else {
 							// Success.
@@ -4376,7 +4376,7 @@ class UpdraftPlus_Backup {
 
 		if (apply_filters('updraftplus_include_manifest', false, $this->whichone, $this)) {
 			if (!empty($this->manifest_path) && file_exists($this->manifest_path)) {
-				$updraftplus->log('Removing manifest file: '.basename($this->manifest_path).': '.(@unlink($this->manifest_path) ? 'OK' : 'failed'));// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
+				$updraftplus->log('Removing manifest file: '.basename($this->manifest_path).': '.(@unlink($this->manifest_path) ? 'OK' : 'failed'));// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise if the file doesn't exist.
 			}
 		}
 

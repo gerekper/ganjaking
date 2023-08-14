@@ -1,0 +1,213 @@
+input.swp-input,
+select.swp-select {
+    background: var(--white);
+    border: 1px solid rgba(var(--neutralRGB), 0.14);
+    border-radius: 3px;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.2;
+    color: var(--neutralText);
+    padding: 0 12px;
+    height: 40px;
+    min-width: 150px;
+}
+
+select.swp-select:hover,
+select.swp-select:active {
+    color: var(--neutralText);
+}
+
+input.swp-input::-webkit-input-placeholder {
+    color: rgba(var(--neutralRGB), 0.5);
+}
+
+input.swp-input::-moz-placeholder {
+    color: rgba(var(--neutralRGB), 0.5);
+}
+
+input.swp-input:-ms-input-placeholder {
+    color: rgba(var(--neutralRGB), 0.5);
+}
+
+input.swp-input::-ms-input-placeholder {
+    color: rgba(var(--neutralRGB), 0.5);
+}
+
+input.swp-input::placeholder {
+    color: rgba(var(--neutralRGB), 0.5);
+}
+
+input.swp-input:disabled {
+    color: rgba(var(--neutralRGB), 0.5);
+}
+
+select.swp-select {
+    min-width: -webkit-fit-content;
+    min-width: -moz-fit-content;
+    min-width: fit-content;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='17' height='11' viewBox='0 0 17 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M14.2915 0.814362L8.09717 6.95819L1.90283 0.814362L0 2.7058L8.09717 10.7545L16.1943 2.7058L14.2915 0.814362Z' fill='%230E2121' fill-opacity='0.8'/%3E%3C/svg%3E%0A");
+    background-repeat: no-repeat;
+    background-position: right 12px top 50%;
+    background-size: 12px auto;
+    padding-right: 33px;
+}
+
+input.swp-input--search {
+    font-size: 14px;
+    background-image: url("data:image/svg+xml,%3Csvg width='15' height='15' viewBox='0 0 15 15' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6.06786 12.1357C7.3777 12.1357 8.60074 11.7096 9.59495 10.9995L13.3351 14.7396C13.5087 14.9132 13.7375 15 13.9742 15C14.4871 15 14.858 14.6055 14.858 14.1005C14.858 13.8638 14.7791 13.6428 14.6055 13.4692L10.889 9.74487C11.6702 8.7191 12.1357 7.44871 12.1357 6.06786C12.1357 2.73014 9.40558 0 6.06786 0C2.72225 0 0 2.73014 0 6.06786C0 9.40558 2.72225 12.1357 6.06786 12.1357ZM6.06786 10.8259C3.45608 10.8259 1.30984 8.67175 1.30984 6.06786C1.30984 3.46397 3.45608 1.30984 6.06786 1.30984C8.67175 1.30984 10.8259 3.46397 10.8259 6.06786C10.8259 8.67175 8.67175 10.8259 6.06786 10.8259Z' fill='%23CFCFCF'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px top 50%;
+    background-size: 15px auto;
+    padding-right: 38px;
+    border-radius: 4px;
+}
+
+.swp-label {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.2;
+    color: var(--neutralText);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    gap: 9px;
+}
+
+.swp-label--disabled {
+    color: rgba(var(--neutralRGB), 0.4);
+}
+
+input.swp-checkbox {
+    margin: 0;
+    vertical-align: text-bottom;
+    width: 16px;
+    height: 16px;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    border: 1px solid var(--secondary);
+    border-radius: 3px;
+    background: var(--white);
+    cursor: pointer;
+    box-shadow: none;
+}
+
+input.swp-checkbox:checked::before {
+    content: none;
+}
+
+input.swp-checkbox:disabled {
+    background: var(--whiteHover);
+    border: 1px solid var(--borderColor);
+    cursor: not-allowed;
+}
+
+input.swp-checkbox:checked {
+    background-color: var(--secondary);
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='1' y1='-1' x2='8.16339' y2='-1' transform='matrix(-0.707107 0.707107 0.707107 0.707107 11.0586 1.2942)' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cline x1='2.39981' y1='4.19475' x2='4.56451' y2='6.35945' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.swp-label .swp-checkbox:disabled + span {
+    color: rgba(var(--neutralRGB), 0.4);
+}
+
+textarea.swp-textarea {
+    display: block;
+    font-family: monospace;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.7;
+    background: var(--white);
+    border: 1px solid rgba(var(--neutralRGB), 0.14);
+    border-radius: 3px;
+    color: var(--neutralText);
+    padding: 10px 12px;
+    max-width: 100%;
+    resize: vertical;
+}
+
+textarea.swp-textarea::-webkit-input-placeholder {
+    color: rgba(var(--neutralRGB), 0.5);
+}
+
+textarea.swp-textarea:-moz-placeholder { /* Firefox 18- */
+    color: rgba(var(--neutralRGB), 0.5);
+}
+
+textarea.swp-textarea::-moz-placeholder {  /* Firefox 19+ */
+    color: rgba(var(--neutralRGB), 0.5);
+}
+
+textarea.swp-textarea:-ms-input-placeholder {
+    color: rgba(var(--neutralRGB), 0.5);
+}
+
+.swp-range--input {
+    -webkit-appearance: none;
+        appearance: none;
+    width: 100%;
+    height: 1px;
+    background: var(--borderColor);
+    outline: none;
+}
+
+.swp-range--input:disabled {
+    opacity: 0.4;
+}
+
+.swp-range--input:disabled::-webkit-slider-thumb {
+    cursor: default;
+}
+
+.swp-range--input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+        appearance: none;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--secondary);
+    cursor: pointer;
+}
+
+.swp-range--input::-moz-range-thumb {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--secondary);
+    cursor: pointer;
+}
+
+
+input.swp-input:focus,
+select.swp-select:focus,
+textarea.swp-textarea:focus,
+input.swp-input--search:focus,
+input.swp-checkbox:focus,
+input.swp-input:active,
+input.swp-input--search:active,
+select.swp-select:active,
+textarea.swp-textarea:active,
+input.swp-checkbox:active {
+    outline: none;
+    -webkit-box-shadow: 0 0 2px 1px var(--secondary);
+            box-shadow: 0 0 2px 1px var(--secondary);
+}
+
+.swp-checkbox:focus,
+.swp-checkbox:active {
+    outline: none;
+}
+
+.swp-input.swp-input--slim,
+.swp-select.swp-input--slim {
+    height: 35px;
+}

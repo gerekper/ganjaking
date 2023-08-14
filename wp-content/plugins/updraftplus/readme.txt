@@ -1,166 +1,174 @@
-=== UpdraftPlus WordPress Backup Plugin ===
+=== UpdraftPlus WordPress Backup & Migration Plugin ===
 Contributors: Backup with UpdraftPlus, DavidAnderson, pmbaldha, DNutbourne, aporter, bcrodua
-Tags: backup, restore, database backup, wordpress backup, cloud backup, s3, dropbox, google drive, onedrive, ftp, backups
+Tags: backup, database backup, wordpress backup, cloud backup, migration
 Requires at least: 3.2
-Tested up to: 6.2
-Stable tag: 1.23.7
+Tested up to: 6.3
+Stable tag: 1.23.9
 Author URI: https://updraftplus.com
 Donate link: https://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
 
-Backup and restoration made easy. Complete backups; manual or scheduled (backup to Dropbox, S3, Google Drive, Rackspace, FTP, SFTP, email + others).
+Backup, restoration and migration. Makes complete backups; manual or scheduled (backup to Dropbox, Google Drive, S3, Rackspace, FTP + others).
 
 == Description ==
 
-<a href="https://updraftplus.com">UpdraftPlus</a> simplifies backups and restoration. It is the world's highest ranking and most popular scheduled backup plugin, with over three million currently-active installs. Backup your files and database backups into the cloud and restore with a single click!
+<a href="https://updraftplus.com">The UpdraftPlus Backup & Migration Plugin</a> is trusted by the WordPress community to backup, restore and migrate their WordPress websites. UpdraftPlus is actively installed on more than 3 million websites around the world.
 
-Backup into the cloud directly to Dropbox, Google Drive, Amazon S3 (or compatible), UpdraftVault, Rackspace Cloud, FTP, DreamObjects, Openstack Swift, and email. The paid version also allows you to back up to Microsoft OneDrive, Microsoft Azure, Google Cloud Storage, Backblaze B2, SFTP, SCP, pCloud and WebDAV.
+= Backup with UpdraftPlus =
+
+UpdraftPlus is the world’s highest ranking and most popular scheduled backup and migration plugin. Backup to your preferred storage location and restore in just three clicks.
+
+Backup to Dropbox, Google Drive, Amazon S3 (or compatible), Rackspace Cloud, FTP, DreamObjects, Openstack Swift or email.
+
+The paid version also allows you to backup to Microsoft OneDrive, Microsoft Azure, Google Cloud, Backblaze B2, SFTP, SCP, pCloud, WebDAV or UpdraftVault, our integrated storage option for UpdraftPlus.
+
+Backup manually or schedule to run every 2, 4, 8 or 12 hours, daily, weekly, monthly or fortnightly.
+
+= Restore with UpdraftPlus =
+
+Your WordPress website is vulnerable. Your site may get hacked. Something could go wrong with an update or your server could crash. You might need to reverse a change made or a mistake caused by human error.
+
+Whatever the reason, you can restore your WordPress website in just a few clicks with UpdraftPlus. Choose which components to restore (e.g. plugins, themes, database etc.), click again to restore, then click again to return to the main screen.
+
+= Migrate with UpdraftPlus =
+
+It’s easy to migrate your WordPress website to another web host, server or domain with this free version of UpdraftPlus.
+
+To migrate, simply download your database, plugins, themes etc. from the source site, then upload them into your destination site.
+
+When migrating, a built-in search-and-replace engine identifies old strings and replaces these to reflect the new location. UpdraftPlus saves you time and reduces the risk of broken links or missing files associated with manual migrations.
+
+= Why UpdraftPlus? =
+
+Writing a reliable backup and migration plugin that ‘just works’ consistently across millions of different WordPress deployments is hard. UpdraftPlus is relied upon to do exactly that. We’re trusted and actively deployed on more websites around the world than any other WordPress backup and migration plugin.
+
+UpdraftPlus:
+
+* Backs up, migrates and restores
+* Offers a huge number of remote storage locations
+* Allows you to schedule backups, so you can ‘set and forget’
+* Is comprehensive and easy to use
+* Is proven to work on over 3 million sites.
 
 [vimeo https://vimeo.com/154870690]
 
-= Don't risk your backups on anything less =
-
-Your WordPress backups are worth all of the investment you've made into your website. The day may come when you get hacked, when something goes wrong with an update, your server crashes or your hosting company goes bust – without good backups, you lose everything. Would you entrust all your hard work to a backup plugin with only a few thousand downloads, mixed reviews or no professional support?
-
-Believe us: writing a reliable backup plugin that works consistently across the huge range of WordPress deployments is hard.
-
-UpdraftPlus works. We'll keep your backups safe.
-
-= Why you should backup your website. =
-
-WordPress, like any CMS, can be vulnerable to everything from server crashes, hacks, security flaws, bad plugin or theme updates and insecure web hosts. If anything happened to your website, it would cost you dearly in time, money and reputation.
-
-Whilst other security measures are essential, backups are the ultimate insurance: they mean that, if the worst were to happen, your website (plus all related files and databases) would stay safe, and could be restored in no time.
-
-You could of course create your own manual backups- but using a backup plugin is infinitely quicker, simpler and safer. Life's busy enough! With UpdraftPlus, you can simply "set and forget", scheduling in automatic backups to save you time, work and hassle.
-
-= How UpdraftPlus compares with other backup plugins: =
-
-UpdraftPlus is the most highly-rated and popular backup plugin out there - and for good reason. Not only is it comprehensive in terms of its features, but it's also easy and intuitive to use. And its vast user base means that, it's been tried and tested in a whole range of different scenarios.
-
-Unlike many other plugins, UpdraftPlus:
-
-* Restores, as well as backing up
-* Backs up to more cloud options than any others
-* Allows you to set up automatic backup schedules, for the ultimate in convenience
-* Is faster, using up fewer server resources
-* Has been tested on over 3 million sites
-
-Our website, has a full-page table laying out how our Premium version plugin compares with the competition <a href="https://updraftplus.com/comparison-updraftplus-free-updraftplus-premium/">here</a>
-
 = UpdraftPlus Premium =
 
-The free version of UpdraftPlus will back up your website perfectly well. However if you need more features and options you can purchase our Premium version. Back up with UpdraftPlus Premium, and you can enjoy:
+The free version of UpdraftPlus will back up and migrate your website perfectly well. However if you need more features and options you can purchase our Premium version.
 
-* Incremental backups
-* Easily duplicates or migrates websites (with Migrator)
-* Multisite/multi-network compatibility
-* Back ups of non WP files and databases to multiple remote destinations
-* More storage destinations (e.g. OneDrive, BackBlaze, Azure, SFTP) and multiple destinations
-* Database encryption
-* Advanced reporting
-* Support for WP-CLI
-* Free dedicated expert support
+Backup and Migrate with UpdraftPlus Premium, and:
+
+* Get automatic backups before updates. Restore the very latest version if a WordPress or plugin update breaks your site.
+
+* Backup Incrementally. Changes are added to the master, saving server resources vs repeatedly backing up in full.
+
+* Get more remote storage options including Microsoft OneDrive, SFTP, Microsoft Azure, WebDAV, Google Cloud, SCP, Backblaze and pCloud.
+
+* Get 1GB of integrated storage with UpdraftVault for 99.999% reliability, redundancy and scalability.
+
+* Get more control over how many backups are stored in a specified interval.
+Restore from other backup plugins including BackWPup, BackupWordPress, Simple Backups and more.
+
+* Run backups at set times e.g. during periods of low traffic.
+
+* Backup to more than one location for added protection.
+
+* Get detailed reports. Includes cryptographic checksums so you can verify the integrity of the backup files and more.
+
+* Get Premium migration. Migrating to the destination site is more direct and can be done from the source site.
+
+* Get Multisite / multi-network compatibility.
+
+* Backup non-WP files and databases e.g. tables belonging to your e-commerce store or customisations to WordPress core.
+
+* Get database encryption.
+
+* Manage your backups and migrations from the WP-CLI.
+
+* Get Premium Support.
 
 Find out more <a href="https://updraftplus.com/comparison-updraftplus-free-updraftplus-premium/">on our comparison page</a>. UpdraftPlus Premium is available for purchase <a href="https://updraftplus.com/shop/">here</a>.
 
-= Managing multiple website backups =
+= Managing multiple websites? =
 
-We've also developed a brilliant new plugin that allows you to back up, update and manage all of your websites remotely from one central location. It's called <a href="https://updraftcentral.com">UpdraftCentral</a>, and it comes in 2 different forms:
+UpdraftCentral is a powerful remote control dashboard for WordPress that allows you to manage your backups, as well as updates, users, pages, posts, plugins and themes from one central location. Choose between:
 
-* UpdraftCentral (free, self-hosted)
-* UpdraftCentral Premium (fully-hosted and "ready-to-go", cloud version also available)
+* <a href="https://wordpress.org/plugins/updraftcentral/#description/">UpdraftCentral</a> (free, self-hosted)
+* <a href="https://updraftplus.com/shop/updraftcentral-premium/">UpdraftCentral Premium</a> (paid-for, self-hosted)
+* <a href="https://updraftplus.com/shop/updraftcentral-dashboard/">UpdraftCentral Cloud</a> (paid-for, fully-hosted)
 
-= Instantly create a temporary clone of your site (UpdraftClone) =
+Optimize your sites centrally by combining the power of WP-Optimize and UpdraftCentral or manage your backups centrally by combining the power of UpdraftPlus with UpdraftCentral.
 
-A temporary clone is an instant copy of a website, which runs on our servers. Rather than needing to test or develop this on your live site, you can instead create a UpdraftClone, which you can simply throw away when you're done. <a href="https://updraftplus.com/updraftclone/">Learn more about UpdraftClone here.</a>
+= Need to create a temporary clone of your site? =
 
-* Easy: Press the buttons and UpdraftClone does the work.
-* Reliable: UpdraftClone runs on capacity from a leading cloud computing provider.
-* Secure: We designate one VPS (Virtual Private Server) per clone, shared with nobody.
-* Fast: Clones take just the time needed to create a backup and send it.
-* Flexible: Test upgrading to a different PHP or WP version if you want.
+UpdraftClone makes it quick and easy to create a temporary sandbox for changes you want to try out. Simply select the versions of WordPress and PHP that you want, and we’ll do the rest. <a href="https://updraftplus.com/shop/updraftclone-tokens/">More about UpdraftClone</a>
 
-To create a temporary clone you will need: 1) credit in your account and 2) to connect to your account. You can buy UpdraftClone tokens <a href="https://updraftplus.com/shop/updraftclone-tokens/">from our shop, here</a>. 
+= The full suite of plugins from Team Updraft =
 
-= Are you multi-lingual? Can you translate? =
+* <a href=http://updraftplus.com">UpdraftPlus</a>.
+ <b>Backup, migrate and restore.</b> Rated 5* on the plugin directory and trusted by more than 3 million WordPress website owner
 
-Are you able to translate UpdraftPlus into another language? Are you ready to help speakers of your language to back up their website? UpdraftPlus Backup/Restore itself is ready and waiting - the only work needed is the translating. The translation process is easy, and web-based - go here for instructions: <a href="https://updraftplus.com/translate/">https://updraftplus.com/translate/</a>. (Or if you're an expert WordPress translator already, then just pick out the .pot file from the wp-content/plugins/updraftplus/languages/ directory - if you scan for translatable strings manually, then you need to get these functions: _x(), __(), _e(), _ex(), log_e()).
+* <a href=https://getwpo.com/">WP-Optimize</a>.
+ <b>Clean the database, compress images and caching.</b> Optimize your WordPress website. 5* user rating. 1 million + active installs.
 
-Many thanks to the existing translators - listed at: <a href="https://updraftplus.com/translate/">https://updraftplus.com/translate/</a>
+* <a href=http://aiosplugin.com">All-In-One Security (AIOS)</a>.
+ <b>Secure your WordPress website.</b> Comprehensive, feature rich and easy to use. 5* user rating and 1 million + active installs.
 
-= More premium plugins =
+* <a href=https://wpovernight.com/">WP Overnight</a>.
+ <b>Quality Extensions for your WooCommerce store.</b> 5* rated invoicing, order and product management, customer management solutions and more.
 
-If you are in the market for other WordPress premium plugins (especially WooCommerce addons), then try <a href="https://www.simbahosting.co.uk/s3/shop/">our friends' shop, here</a>.
+* <a href=http://www.internallinkjuicer.com">Internal Link Juicer</a>.<b>Boost your SEO.</b> Automate internal links within your WordPress website. Save time and rank higher in the search engines.
 
-For other useful free plugins see <a href="https://profiles.wordpress.org/davidanderson/#content-plugins">our lead developer's profile, here</a>.
+For other useful, free plugins see <a href="https://profiles.wordpress.org/davidanderson/#content-plugins">our lead developer's profile, here</a>.
+
+= Are you multilingual? Can you translate? =
+
+Do you want to help people that speak your language to backup, migrate and restore their WordPress websites?
+
+The UpdraftPlus backup, migration and restoration plugin is ready and waiting. The translation process is easy, and web-based – please go here for instructions: https://updraftplus.com/translate/.
+
+Or, if you’re already an expert WordPress translator, just pick out the .pot file from the wp-content/plugins/updraftplus/languages/ directory – if you scan for translatable strings manually, then you need to get these functions: _x(), __(), _e(), _ex(), log_e().
+
+Many thanks to our existing translators.
+
+
 
 == Frequently Asked Questions ==
 
-= What exactly does UpdraftPlus do? =
 
-Our free version of UpdraftPlus is fully functional: it performs full, manual or scheduled backups of all your WordPress files, databases, plugins and themes, and restores them direct from your WordPress control panel.
-
-It also:
-* Backs up to multiple cloud storage options: Dropbox, Google Drive, Amazon S3 (or compatible, e.g. DigitalOcean Spaces), UpdraftPlus Vault, Rackspace Cloud, FTP, DreamObjects, Openstack Swift, and email.
-* Can split your website into multiple archives
-* Downloads backup archives directly from your WordPress dashboard
-* Automatically resumes and retries failed uploads
-
-UpdraftPlus is supported on all current versions of PHP, and is translated in over 16 languages.
-
-Extra features, including full guaranteed support, are available for purchase via our website shop. The full package of add-ons is included in our advanced version of the plugin, UpdraftPlus Premium.
-
-= What are the benefits of upgrading to UpdraftPlus Premium? =
-
-The free version of UpdraftPlus works just fine, but if you need more features and functionality, including migration and multisite compatibility, you can purchase our Premium version.
-
-Here are some of the key features of UpdraftPlus Premium:
-
-* Easily duplicates or migrates websites (using the built-in Migrator)
-* Backs up non WP files and databases to multiple remote destinations and to more cloud storage options (WebDAV, Microsoft OneDrive, Google Cloud, Microsoft Azure, Backblaze B2, SFTP/SCP, encrypted FTP)
-* Restores and migrates backup sets from other backup plugins: BackWPUp, BackupWordPress, Simple Backup, WordPress Backup to Dropbox
-* Encrypts sensitive databases; has lock access settings
-* Offers sophisticated reporting and scheduling
-* Backs up automatically before updates to themes and plugins and cores
-* Includes 1 GB centralised remote storage (with UpdraftVault)
-* Free dedicated expert support
-* Multisite/multi-network compatible
-
-To find out more, why not take a look at our comparison page. UpdraftPremium is available for purchase here.
-
-= How do I install UpdraftPlus? =
+= How do I install the UpdraftPlus backup & migration plugin? =
 
 Here are the installation guidelines from our <a href="https://www.youtube.com/watch?v=7ReY7Z19h2I">YouTube channel</a> or from <a href="https://updraftplus.com/download/">our website</a>.
 
-= Where are your other FAQs, other than the few found here? =
-
-Here: <a href="https://updraftplus.com/faqs/">https://updraftplus.com/faqs/</a> (by keeping them in one place, we make sure they don't fall out-of-date!).
-
-= Is there any way to make managing multiple website backups easier? =
-
-Yes! We’ve developed a brilliant new plugin that allows you to backup, update and manage all of your website remotely from one central location. It’s called UpdraftCentral, and it comes in 2 different forms:
-
-* UpdraftCentral (free, self-hosted)
-* UpdraftCentral Premium (fully-hosted by us and "ready-to-go"; self-hosted version also available)
-
 = What if I have a problem / need support ? =
 
-You can find us in <a href="https://wordpress.org/support/plugin/updraftplus">the WordPress support forum for this plugin</a>. However, before you get in touch with problems, please do ensure that you read through all the FAQs and that you’ve updated to the latest release of our plugin. If you’re a paying customer, you should <a href="https://updraftplus.com/support/">go to our support page, here.</a>
+If you’re struggling to backup, migrate or restore there’s help available.
 
-It helps greatly if you can include the backup log and as much other information as possible in your report, for example, the PHP version, your website, the error description, how you got to the page that caused it, any other relevant plugins you have installed, plus any other information that might be of use.
+Search existing topics on the WordPress support forum or post a new one. Our support and development teams check and respond to queries everyday.
+
+UpdraftPlus Premium customers can log a ticket directly with our support and development teams via the <a href="https://updraftplus.com/support/">UpdraftPlus support hub</a>.
+
+Before you get in touch, please ensure that you have read through our <a href=https://updraftplus.com/frequently-asked-questions/">FAQs</a> and that you’ve updated to the latest release of our plugin.
+
+It helps greatly if you can include the backup log and as much other information as possible in your report, for example the PHP version, your website, the error description, how you got to the page that caused it, any other relevant plugins you have installed, plus any other information that might be of use.
+
+To find the backup log: there are links to download the logs on the UpdraftPlus settings page in the plugin - or you may be emailed it. Failing that, FTP into the directory wp-content/updraft and look for it there.
+
+If you know how, please send your PHP error logs - just the few lines that appear when you run a backup, often the file called error_log, possibly in your wp-admin directory which you can check via FTP. If you’re a programmer that can debug and send a patch, that’s even better.
+
+= When it comes to migration, what does the premium plugin do that the free plugin can't? =
+
+Migrating in the free plugin involves downloading the backups from the source site then uploading these to the destination site.
 
 To find the backup log: there are links to download the logs on the UpdraftPlus settings page- or you may be emailed it. Failing that, FTP into the directory wp-content/updraft and look for it there.
 
-If you know how, please send your PHP error logs- just the few lines that appear when you run a backup, often the file called error_log, possibly in your wp-admin directory which you can check via FTP. And if you’re a programmer that can debug and send a patch, that’s even better.
+Both free and Premium plugins include a built-in search-and-replace engine to replace old strings with the new location.
+
+If migration is all you require, and for simple single site migrations the free plugin will likely be enough to meet your needs. If you have additional needs around backups e.g. the ability to backup before updates, if you require more remote storage locations or if you have a WordPress multisite then we recommend UpdraftPlus Premium for the additional benefits that it brings.
 
 = UpdraftPlus runs out of time when it’s trying to backup, after I have left it for some time to give it a good chance. What can I do? =
 
 This problem is probably caused by your account being starved of resources by your (cheap) web host provider. This is far from ideal; although UpdraftPlus supports resuming backup runs right from the beginning to avoid everything having to be done at once, it has its limits. The best thing is to choose a more reputable web host. Failing this, try going into the “Expert settings” and reducing the size at which zip files are split. UpdraftPlus is known to successfully backup websites that run into the multiple-gigabytes on web servers that are not resource-starved.
-
-= If my site gets hacked and the backups don’t work, is there anything I can do? =
-
-Since this is free software, there’s no warranty and no guarantee. You should verify that UpdraftPlus is creating your backups correctly - for example, by using UpdraftClone to clone your site to temporary hosting, or any other method.
 
 == Changelog ==
 
@@ -168,12 +176,38 @@ The <a href="https://updraftplus.com/news/">UpdraftPlus backup blog</a> is the b
 
 N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.16.32.x of the free version correspond to changes made in 2.16.32.x of the paid version.
 
+
+
+= 1.23.9 - 14/Aug/2023 =
+
+* FIX: Fatal error of Uncaught ArgumentCountError when the UpdraftPlus settings page is browsed from an IP-adressed site (i.e. no hostname) on PHP 7.1+
+* FIX: Incorrect caching mechanism such that when multiple Google Drive storage back-ends were in use (Premium feature), uploading to a storage would fail due to unmatched folder ID taken from a different storage instance
+* TWEAK: Define class properties in UpdraftPlus_Addons_Migrator class for PHP 8.2 compatibility
+
+= 1.23.8 - 08/Aug/2023 =
+
+* FEATURE: Given the basic migration feature in the free plugin
+* FIX: Content-MD5 and any V2-related headers were always included in the S3's V4 SignedHeaders even though the headers were not presented in a HTTP request
+* FIX: Generating URL-encoded queries for a canonical request should have used a method/mechanism which encoded query values according to RFC 3986 (for consistency and for not breaking the code)
 * FIX: Search / replace database not working on Admin dashboard > Settings > UpdraftPlus Backups > Advanced Tools > Search / replace database on PHP 8.2 due to stricter type checking
+* FIX: A newly added subsite that was restored from a normal site to the multisite was not listed in the site list in the multisite
+* FIX: Manual deletion of backup sets appeared to skip some files when multiple instance and/or remote storage were in use
+* FIX: The SFTP remote storage stopped working in the UpdraftPlus 2.23.6 release. Reverted the change "TWEAK: Validate SFTP key field on credential test and before save"
+* TWEAK: Add a warning in the log file if AWS connection fails and a TLSv1.2 connection test fails
+* TWEAK: Add warning for user if only PclZip available
+* TWEAK: Fix unable to switch tab when a plugin (wrongly) loads certain CSS onto UD's settings page
+* TWEAK: Remove the word 'apparently' in the backup success message
+* TWEAK: Update to latest phpseclib 1.0.X version (prevents deprecation notice on PHP 8.1+)
+* TWEAK: Change "s3" property to "public" in UpdraftPlus_AWSRequest class for PHP 8.2 deprecation compatibility [https://source.updraftplus.com/team-updraft/updraftplus/-/merge_requests/1481]
 * TWEAK: Fixed Missing/ broken links for the pCloud image in addons tab
 * TWEAK: Buying UpdraftClone tokens through inline checkout
-* FIX: The SFTP remote storage stopped working in the UpdraftPlus 2.23.6 release. Reverted the change "TWEAK: Validate SFTP key field on credential test and before save"
 * TWEAK: Fixed Spelling errors in updraftplus repo
-
+* TWEAK: Added save button at the top of setting tab content
+* TWEAK: UpdraftCentral module now, by default, overwrites the same existing theme installed on the remote sites (if any), regardless of what version is currently installed or what version being uploaded and installed
+* TWEAK: Define class properties in Updraft_Checkout_Embed class for PHP 8.2 deprecation compatibility
+* TWEAK: Update the composer package yahnis-elsts/plugin-update-checker for PHP 8.2 compatibility
+* TWEAK: Added username and email details for authenticated dropbox account in updraftplus settings
+* TRANSLATIONS: Split sentences to make one sentence in any  translation functions
 
 = 1.23.7 - 04/Jul/2023 =
 
@@ -1088,7 +1122,7 @@ N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which i
 * TWEAK: Upon restoration, a couple of known plugin cache directories will be emptied to prevent serving up an intermediate page
 * TWEAK: Fix a bug in the "fail on resume" error-trapping logic which could cause it to resume too many times
 * TWEAK: Prevent a bogus error message being logged at the end of a successful direct site-to-site transfer
-* TWEAK: Add backup size information when hovering at the backup data buttons (excluding database button) 
+* TWEAK: Add backup size information when hovering at the backup data buttons (excluding database button)
 * TWEAK: Allow the plugin to connect to account and activate Premium licence if no more UpdraftCentral Cloud licences remain and the user enables the 'Add this website to UpdraftCentral' option in the Premium/Extensions tab
 * TWEAK: During a restore send structured data to the front end. This is preparing the way for future UX improvements.
 
@@ -1134,7 +1168,7 @@ N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which i
 * FIX: If requesting clone credentials that were not ready, the loop could rapidly repeat instead of waiting the intended time
 * TWEAK: Some background updates checks (paid versions) that were intended to be suppressed, weren't being.
 
-= 1.16.7 - 11/Mar/2019 = 
+= 1.16.7 - 11/Mar/2019 =
 
 * FEATURE: Add support for bucket-specific application keys in Backblaze
 * FEATURE: Added the ability to take incremental backups via UpdraftCentral
@@ -1160,7 +1194,7 @@ N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which i
 * TWEAK: Refactor the remote storage logging code in all remote storage modules
 * TWEAK: Prevent the download entities UI becoming uglified from multiple button presses
 
-= 1.16.6 - 14/Feb/2019 = 
+= 1.16.6 - 14/Feb/2019 =
 
 * FEATURE: Added new S3 intelligent tiering class
 * FEATURE: Ability for user to buy Premium without leaving the plugin's settings pages
@@ -1195,7 +1229,7 @@ N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which i
 * FIX: If the remote storage settings were for multiple instances of a single backend-type (e.g. two Dropbox accounts), and if the entire backup and send operation completed in a single PHP process, then the local copy of the files would not be deleted
 * TWEAK: Show the error message if mbstring.func_overload is turned on in php.ini while creating migration key
 * TWEAK: Added Azure China endpoint
-* TWEAK: Resolve "dashicons" CSS conflict 
+* TWEAK: Resolve "dashicons" CSS conflict
 * TWEAK: Add 'blogmeta' to the list of core tables (in readiness for WP 5.1)
 * TWEAK: Remove unnecessary deprecated (in PHP 7.3) parameter to define() in WebDAV HTTP library
 * TWEAK: Prevent a potential PHP notice in UpdraftPlus Premium when installed without network access
@@ -1316,7 +1350,7 @@ N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which i
 * FEATURE: Introducing UpdraftClone. Create a live copy of your site with a button press. Great for testing changes, testing updates (e.g. WordPress core, plugins, PHP versions) and anything else you can think of. More information: https://updraftplus.com/updraftclone/
 * FIX: Fix the logic for claiming and activating licences/add-ons.
 * FIX: Fixed OneDrive for Business Germany authentication tenant issue
-* TWEAK: WP-CLI - use dash (-) instead of underscore (_) to separate words, in order to match WP-CLI standards. 
+* TWEAK: WP-CLI - use dash (-) instead of underscore (_) to separate words, in order to match WP-CLI standards.
 * TWEAK: Adds close_browser_connection capability for servers using phpfpm
 * TWEAK: Change multiple backups selection and actions UI
 * TWEAK: Prevent PHP debug message on backup from UpdraftCentral when processing the service list
@@ -1368,7 +1402,7 @@ N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which i
 * FIX: When set names query character set hadn't support from the current MySQL server, the restoration process wasn't giving the option to replace the character set
 * TWEAK: Updated the plugin.php handler for UpdraftCentral's new plugin management module
 * TWEAK: Update posts handler to fix and update pagination in UpdraftCentral
-* TWEAK: Refresh UpdraftCentral keys upon successful login or registration using the UpdraftCentral Cloud wizard 
+* TWEAK: Refresh UpdraftCentral keys upon successful login or registration using the UpdraftCentral Cloud wizard
 * TWEAK: Correct admin page URL in WP-CLI 'restore' command when on multisite without multisite add-on
 * TWEAK: Prevent PHP notice when checking non-existent files in relation to an extraneous whitespace warning
 * TWEAK: Prevent PHP notices in add-ons with non-present settings
@@ -1589,7 +1623,7 @@ N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which i
 * TWEAK: Updater in paid versions can now receive and process update information in respond to entitlement claim - one less HTTP round-trip
 * TWEAK: Improve Google Cloud authentication success message for bucket name is not defined
 * TWEAK: UpdraftVault commands now pass an instance identifier
-* FEATURE: Backups can now be uploaded to multiple instances of the same remote storage but not yet possible to add multiple instances 
+* FEATURE: Backups can now be uploaded to multiple instances of the same remote storage but not yet possible to add multiple instances
 
 = 1.13.11 - 27/Sep/2017 =
 
@@ -1746,7 +1780,13 @@ Older changes are found <a href="https://plugins.svn.wordpress.org/updraftplus/t
 
 3. Take a backup
 
-4. Restoring from a backup
+4. Choose which components to restore
+
+5. Restoration shows as successful
+
+6. To migrate, first click 'Database', 'Plugins' etc. to download these backups to your local machine.
+
+7. On the destination site, 'upload backup files' from the source site to restore and migrate to the new destination.
 
 == License ==
 
@@ -1771,4 +1811,4 @@ Reliance upon any non-English translation is at your own risk; UpdraftPlus can g
 We recognise and thank those mentioned at https://updraftplus.com/acknowledgements/ for code and/or libraries used and/or modified under the terms of their open source licences.
 
 == Upgrade Notice ==
-* 1.23.7: Various fixes and tweaks. A recommended update for all.
+* 1.23.9: Various fixes and tweaks. A recommended update for all.

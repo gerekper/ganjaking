@@ -58,7 +58,7 @@ class UpdraftPlus_Addons_RemoteStorage_azure extends UpdraftPlus_RemoteStorage_A
 		
 		// If the user is using OneDrive for Germany option
 		if (isset($opts['endpoint']) && 'blob.core.cloudapi.de' === $opts['endpoint']) {
-			$odg_warning = sprintf(__('Due to the shutdown of the %1$s endpoint, support for %1$s will be ending soon. You will need to migrate to the Global endpoint in your UpdraftPlus settings. For more information, please see: %2$s', 'updraftplus'), 'Azure Germany', 'https://www.microsoft.com/en-us/cloud-platform/germany-cloud-regions');
+			$odg_warning = sprintf(__('Due to the shutdown of the %1$s endpoint, support for %1$s will be ending soon.', 'updraftplus'), 'Azure Germany').' '.__('You will need to migrate to the Global endpoint in your UpdraftPlus settings.', 'updraftplus').' '.sprintf(__('For more information, please see: %s', 'updraftplus'), 'https://www.microsoft.com/en-us/cloud-platform/germany-cloud-regions');
 			// We only want to log this once per backup job
 			$this->log($odg_warning, 'warning', 'azure_de_migrate');
 		}
@@ -686,7 +686,7 @@ class UpdraftPlus_Addons_RemoteStorage_azure extends UpdraftPlus_RemoteStorage_A
 		global $updraftplus_admin;
 		$properties = array(
 			'storage_image_url' => UPDRAFTPLUS_URL.'/images/azure.png',
-			'simplexmlelement_existence_label' => !apply_filters('updraftplus_azure_simplexmlelement_exists', class_exists('SimpleXMLElement')) ? wp_kses($updraftplus_admin->show_double_warning('<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__("Your web server's PHP installation does not included a <strong>required</strong> (for %s) module (%s). Please contact your web hosting provider's support and ask for them to enable it.", 'updraftplus'), 'Azure', 'php-xml - SimpleXMLElement'), 'azure', false), $this->allowed_html_for_content_sanitisation()) : '',
+			'simplexmlelement_existence_label' => !apply_filters('updraftplus_azure_simplexmlelement_exists', class_exists('SimpleXMLElement')) ? wp_kses($updraftplus_admin->show_double_warning('<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__("Your web server's PHP installation does not included a <strong>required</strong> (for %s) module (%s).", 'updraftplus'), 'Azure', 'php-xml - SimpleXMLElement').' '.__("Please contact your web hosting provider's support and ask for them to enable it.", 'updraftplus'), 'azure', false), $this->allowed_html_for_content_sanitisation()) : '',
 			'credentials_creation_link_text' => __('Create Azure credentials in your Azure developer console.', 'updraftplus'),
 			'configuration_helper_link_text' => __('For more detailed instructions, follow this link.', 'updraftplus'),
 			'input_account_name_label' => sprintf(__('%s Account Name', 'updraftplus'), __('Azure', 'updraftplus')),

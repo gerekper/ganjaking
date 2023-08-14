@@ -121,8 +121,6 @@ class WPML_Model_Attachments {
 		$post->post_parent = $parent_id_in_target_language;
 		$post->ID          = null;
 
-		update_post_meta( $parent_id_in_target_language, '_wpml_media_duplicate', true ); // add the post meta if missing
-
 		$duplicated_attachment_id = $this->insert_attachment( $post );
 		if ( ! $duplicated_attachment_id ) {
 			throw new WPML_Media_Exception( 'Error occured during inserting duplicated attachment to db' );

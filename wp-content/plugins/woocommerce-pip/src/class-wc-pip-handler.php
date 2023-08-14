@@ -24,7 +24,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 /**
  * Handler class
@@ -271,28 +271,43 @@ class WC_PIP_Handler {
 
 
 	/**
-	 * Check if a document invoice number exists
-	 *
-	 * TODO this method assumes `get_posts()` to retrieve an invoice number meta associated with a WC_Order, however since WC 3.0 the data store could be moved outside WP domain in the future and this check should account for that accordingly {FN 2017-03-22}
+	 * Checks if a document invoice number exists.
 	 *
 	 * @since 3.1.1
+	 *
 	 * @param string $invoice_number The invoice number to search
 	 * @return bool
 	 */
-	public function invoice_number_exists( $invoice_number ) {
+	public function invoice_number_exists( $invoice_number ) : bool {
 
-		$found = get_posts( array(
-			'nopaging'    => true,
-			'fields'      => 'ids',
-			'post_type'   => 'shop_order',
-			'post_status' => array_keys( wc_get_order_statuses() ),
-			'meta_query'  => array(
-				array(
-					'key'     => '_pip_invoice_number',
-					'value'   => $invoice_number,
-				),
-			),
-		) );
+		if ( Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ) {
+
+			$found = wc_get_orders( [
+				'limit'      => 1,
+				'return'     => 'ids',
+				'meta_query' => [
+					[
+						'key'   => '_pip_invoice_number',
+						'value' => $invoice_number,
+					],
+				],
+			] );
+
+		} else {
+
+			$found = get_posts( [
+				'nopaging'    => true,
+				'fields'      => 'ids',
+				'post_type'   => 'shop_order',
+				'post_status' => array_keys( wc_get_order_statuses() ),
+				'meta_query'  => [
+					[
+						'key'     => '_pip_invoice_number',
+						'value'   => $invoice_number,
+					],
+				],
+			] );
+		}
 
 		return ! empty( $found );
 	}

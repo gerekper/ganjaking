@@ -619,13 +619,11 @@ class WPML_Meta_Boxes_Post_Edit_HTML {
 		$original_post_id = (int) $this->post_translation->get_original_post_ID( $this->trid );
 
 		if( ! $original_post_id ){
-			$settings = get_option( '_wpml_media' );
-			$content_defaults = $settings['new_content_settings'];
-			$duplicate_media = $content_defaults['duplicate_media'];
-			$duplicate_featured  = $content_defaults['duplicate_featured'];
+			$duplicate_media = \WPML\FP\Obj::prop( 'duplicate_media', \WPML\Media\Option::getNewContentSettings() );
+			$duplicate_featured  = \WPML\FP\Obj::prop( 'duplicate_featured', \WPML\Media\Option::getNewContentSettings() );
 		} else{
-			$duplicate_media = get_post_meta( $original_post_id, WPML_Admin_Post_Actions::DUPLICATE_MEDIA_META_KEY, true );
-			$duplicate_featured  = get_post_meta( $original_post_id, WPML_Admin_Post_Actions::DUPLICATE_FEATURED_META_KEY, true );
+			$duplicate_media = \WPML\Media\Option::shouldDuplicateMedia( $original_post_id );
+			$duplicate_featured  = \WPML\Media\Option::shouldDuplicateFeatured( $original_post_id );
 		}
 
 		if( ! $original_post_id || (int) $post->ID === $original_post_id ){

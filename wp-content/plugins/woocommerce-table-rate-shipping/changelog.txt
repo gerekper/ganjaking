@@ -1,5 +1,8 @@
 *** Table Rate Shipping Changelog ***
 
+2023-08-08 - version 3.1.2
+* Fix - Security updates.
+
 2023-04-04 - version 3.1.1
 * Fix - Fatal error in installation process when plugin is activated while WooCommerce is not active.
 

@@ -368,7 +368,7 @@ class UpdraftPlus_Temporary_Clone_Status {
 				break;
 			case self::UPLOADING:
 				$backup_details = $this->get_backup_details();
-				$description = sprintf(__('The sending of the site data has begun. So far %s data archives totalling %s have been received', 'updraftplus'), '<strong>'.$backup_details['sets'].'</strong>', '<strong>'.round($backup_details['uploaded'], 2).' MB</strong>');
+				$description = __('The sending of the site data has begun.', 'updraftplus').' '.sprintf(__('So far %s data archives totalling %s have been received', 'updraftplus'), '<strong>'.$backup_details['sets'].'</strong>', '<strong>'.round($backup_details['uploaded'], 2).' MB</strong>');
 				break;
 			case self::RESTORING:
 				UpdraftPlus_Backup_History::rebuild();

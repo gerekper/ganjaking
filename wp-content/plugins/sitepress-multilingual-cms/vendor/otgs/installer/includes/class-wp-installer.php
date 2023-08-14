@@ -1274,9 +1274,78 @@ class WP_Installer {
 			: null;
 	}
 
-	private function _render_product_packages( $packages, $subscription_type, $expired, $upgrade_options, $repository_id ) {
+	/**
+	 * @param array $products
+	 *
+	 * @return string
+	 */
+	private function getProductPriceCurrencySymbol( $products ) {
+		return ( array_key_exists( 'shop_currency_symbol', $products ) ) ? $products['shop_currency_symbol'] : '&#36;';
+	}
 
-		$data = array();
+	/**
+	 * @param array $products
+	 *
+	 * @return string
+	 */
+	private function getProductPriceCurrency( $products ) {
+		return ( array_key_exists( 'shop_currency', $products ) ) ? $products['shop_currency'] : 'USD';
+	}
+
+	/**
+	 * @param array $products
+	 * @param array $product
+	 *
+	 * @return string
+	 */
+	private function getProductPriceString( $products, $product ) {
+		$currencySymbol = $this->getProductPriceCurrencySymbol( $products );
+		$currency       = $this->getProductPriceCurrency( $products );
+
+		return sprintf( '%s%d (%s)', $currencySymbol, $product['price'], $currency );
+	}
+
+	/**
+	 * @param array $products
+	 * @param array $product
+	 *
+	 * @return string
+	 */
+	public function getProductPriceWithDiscountString( $products, $product ) {
+		$currencySymbol = $this->getProductPriceCurrencySymbol( $products );
+		$currency       = $this->getProductPriceCurrency( $products );
+
+		return sprintf( '%s%s %s%s%d%s (%s)', $currencySymbol, $product['price_disc'], '&nbsp;&nbsp;<del>', $currencySymbol, $product['price'], '</del>', $currency );
+	}
+
+	/**
+	 * @param array           $repository
+	 * @param array           $packages
+	 * @param int|string|null $subscription_type
+	 * @param bool            $expired
+	 * @param array|null      $upgrade_options
+	 * @param string          $repository_id
+	 *
+	 * @return array
+	 */
+	public function getRenderProductPackagesData( $repository, $packages, $subscription_type, $expired, $upgrade_options, $repository_id ) {
+		return $this->_render_product_packages( $repository, $packages, $subscription_type, $expired, $upgrade_options, $repository_id );
+	}
+
+	/**
+	 * @param array           $repository
+	 * @param array           $packages
+	 * @param int|string|null $subscription_type
+	 * @param bool            $expired
+	 * @param array|null      $upgrade_options
+	 * @param string          $repository_id
+	 *
+	 * @return array
+	 */
+	private function _render_product_packages( $repository, $packages, $subscription_type, $expired, $upgrade_options, $repository_id ) {
+
+		$data     = array();
+		$products = ( array_key_exists( 'data', $repository ) ) ? $repository['data'] : $repository;
 
 		foreach ( $packages as $package ) {
 
@@ -1299,9 +1368,9 @@ class WP_Installer {
 					$p['shouldDisplay'] = !(isset($product['deprecated']) ? (bool)$product['deprecated'] : false);
 
 					if ( ! empty( $product['price_disc'] ) ) {
-						$p['label'] = $product['call2action'] . ' - ' . sprintf( '$%s %s$%d%s (USD)', $product['price_disc'], '&nbsp;&nbsp;<del>', $product['price'], '</del>' );
+						$p['label'] = $product['call2action'] . ' - ' . $this->getProductPriceWithDiscountString( $products, $product );
 					} else {
-						$p['label'] = $product['call2action'] . ' - ' . sprintf( '$%d (USD)', $product['price'] );
+						$p['label'] = $product['call2action'] . ' - ' . $this->getProductPriceString( $products, $product );
 					}
 					$row['products'][] = $p;
 
@@ -1311,7 +1380,7 @@ class WP_Installer {
 					if ( $product['renewals'] ) {
 						foreach ( $product['renewals'] as $renewal ) {
 							$p['url']   = $this->append_parameters_to_buy_url( $renewal['url'], $repository_id );
-							$p['label'] = $renewal['call2action'] . ' - ' . sprintf( '$%d (USD)', $renewal['price'] );
+							$p['label'] = $renewal['call2action'] . ' - ' . $this->getProductPriceString( $products, $renewal );
 						}
 
 						$row['products'][] = $p;
@@ -1329,9 +1398,9 @@ class WP_Installer {
 
 						$p['url'] = $this->append_parameters_to_buy_url( $upgrade['url'], $repository_id );
 						if ( ! empty( $upgrade['price_disc'] ) ) {
-							$p['label'] = $upgrade['call2action'] . ' - ' . sprintf( '$%s %s$%d%s (USD)', $upgrade['price_disc'], '&nbsp;&nbsp;<del>', $upgrade['price'], '</del>' );
+							$p['label'] = $upgrade['call2action'] . ' - ' . $this->getProductPriceWithDiscountString( $products, $upgrade );
 						} else {
-							$p['label'] = $upgrade['call2action'] . ' - ' . sprintf( '$%d (USD)', $upgrade['price'] );
+							$p['label'] = $upgrade['call2action'] . ' - ' . $this->getProductPriceString( $products, $upgrade );
 						}
 						$row['products'][] = $p;
 

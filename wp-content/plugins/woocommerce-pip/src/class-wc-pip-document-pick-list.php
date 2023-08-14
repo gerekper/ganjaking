@@ -24,7 +24,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 /**
  * PIP Pick List for Shop Manager class
@@ -165,7 +165,7 @@ class WC_PIP_Document_Pick_List extends WC_PIP_Document_Packing_List {
 
 		$column_widths   = $this->get_column_widths();
 		$shipping_method = $this->order->get_shipping_method();
-		$edit_post_url   = get_edit_post_link( $this->order->get_id() );
+		$order_edit_url  = $this->order->get_edit_order_url();
 
 		$heading = [
 
@@ -173,7 +173,7 @@ class WC_PIP_Document_Pick_List extends WC_PIP_Document_Packing_List {
 
 				'order-number'    => [
 					/* translators: Placeholders: %1$s - order number, %2$s - invoice number */
-					'content' => sprintf( '<strong><a href="' . esc_url( $edit_post_url ). '" target="_blank">' . __( 'Order %1$s - Invoice %2$s', 'woocommerce-pip' ) . '</a></strong>', '#' . $this->order->get_order_number(), $this->get_invoice_number() ),
+					'content' => sprintf( '<strong><a href="' . esc_url( $order_edit_url ). '" target="_blank">' . __( 'Order %1$s - Invoice %2$s', 'woocommerce-pip' ) . '</a></strong>', '#' . $this->order->get_order_number(), $this->get_invoice_number() ),
 					'colspan' => max( 1, floor( count( $column_widths ) / 2 ) ),
 				],
 

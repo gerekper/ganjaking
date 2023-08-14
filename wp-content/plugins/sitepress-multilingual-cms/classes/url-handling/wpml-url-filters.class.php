@@ -235,7 +235,11 @@ class WPML_URL_Filters {
 		}
 
 		$post_element = new WPML_Post_Element( $post_id, $this->sitepress );
-		if ( ! $this->is_display_as_translated_mode( $post_element ) && $post_element->is_translatable() ) {
+		if (
+			! is_wp_error( $post_element->get_wp_element_type() )
+			&& ! $this->is_display_as_translated_mode( $post_element )
+			&& $post_element->is_translatable()
+		) {
 			$link = $this->get_translated_permalink( $link, $post_id, $post_element );
 		}
 

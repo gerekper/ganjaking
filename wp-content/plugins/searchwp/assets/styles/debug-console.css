@@ -1,0 +1,542 @@
+#searchwp-debug-console-main {
+    --swp-debug-container-fg: #444;
+    --swp-debug-container-bg: #f3f3f3;
+    --swp-debug-container-overflow: #ececec;
+    --swp-debug-panel-border: #aaa;
+    --swp-debug-panel-fg: #444;
+    --swp-debug-panel-bg: #fff;
+    --swp-debug-panel-separator: #ddd;
+    --swp-debug-panel-link-fg: #0073aa;
+    --swp-debug-panel-link-fg-hover: #0096dd;
+    --swp-debug-panel-link-fg-active: #11b2ff;
+    --swp-debug-panel-menu-border: #ddd;
+    --swp-debug-panel-menu-fg: #444;
+    --swp-debug-panel-menu-bg: #f3f3f3;
+    --swp-debug-panel-menu-fg-hover: #444;
+    --swp-debug-panel-menu-bg-hover: #cde;
+    --swp-debug-panel-menu-fg-current: #444;
+    --swp-debug-panel-menu-bg-current: #def;
+    --swp-debug-panel-menu-bg-current-focus: #f7fbff;
+    --swp-debug-panel-menu-fg-selected: #fff;
+    --swp-debug-panel-menu-bg-selected: #0073aa;
+    --swp-debug-panel-menu-bg-selected-focus: #0084c4;
+    --swp-debug-panel-title-button-fg: #666;
+    --swp-debug-panel-title-button-bg: transparent;
+    --swp-debug-panel-title-button-fg-hover: #32373c;
+    --swp-debug-panel-title-button-bg-hover: #bbc8d4;
+    --swp-debug-cell-border: #e0e0e0;
+    --swp-debug-table-header-bg: #fff;
+    --swp-debug-table-footer-bg: #f3f3f3;
+    --swp-debug-bg-stripe: #f9f9f9;
+    --swp-debug-selection-fg: #444;
+    --swp-debug-selection-bg: #B9D6FB;
+}
+
+#searchwp-debug-console-main dl,
+#searchwp-debug-console-main dt,
+#searchwp-debug-console-main dd,
+#searchwp-debug-console-main button,
+#searchwp-debug-console-main caption,
+#searchwp-debug-console-main label,
+#searchwp-debug-console-main select,
+#searchwp-debug-console-main table,
+#searchwp-debug-console-main td,
+#searchwp-debug-console-main th,
+#searchwp-debug-console-main ul,
+#searchwp-debug-console-main ol,
+#searchwp-debug-console-main li,
+#searchwp-debug-console-main code,
+#searchwp-debug-console-main pre,
+#searchwp-debug-console-main a,
+#searchwp-debug-console-main h1,
+#searchwp-debug-console-main h2,
+#searchwp-debug-console-main h3,
+#searchwp-debug-console-main h4,
+#searchwp-debug-console-main h5,
+#searchwp-debug-console-main h6,
+#searchwp-debug-console-main section,
+#searchwp-debug-console-main nav,
+#searchwp-debug-console-main p {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
+    clear: both !important;
+    color: var(--swp-debug-container-fg) !important;
+    float: none !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !important;
+    font-size: 12px !important;
+    -webkit-font-smoothing: auto !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    letter-spacing: -0.1px !important;
+    line-height: 18px !important;
+    margin: 0 !important;
+    min-height: auto !important;
+    outline: none !important;
+    padding: 0 !important;
+    text-align: left !important;
+    text-decoration: none !important;
+    text-indent: 0 !important;
+    text-shadow: none !important;
+    text-transform: none !important;
+    transition: none !important;
+    vertical-align: baseline !important;
+    word-break: normal !important;
+    word-wrap: normal !important;
+    width: auto !important;
+}
+
+#searchwp-debug-console-main dl::before, #searchwp-debug-console-main dl::after,
+#searchwp-debug-console-main dt::before,
+#searchwp-debug-console-main dt::after,
+#searchwp-debug-console-main dd::before,
+#searchwp-debug-console-main dd::after,
+#searchwp-debug-console-main button::before,
+#searchwp-debug-console-main button::after,
+#searchwp-debug-console-main caption::before,
+#searchwp-debug-console-main caption::after,
+#searchwp-debug-console-main label::before,
+#searchwp-debug-console-main label::after,
+#searchwp-debug-console-main select::before,
+#searchwp-debug-console-main select::after,
+#searchwp-debug-console-main table::before,
+#searchwp-debug-console-main table::after,
+#searchwp-debug-console-main td::before,
+#searchwp-debug-console-main td::after,
+#searchwp-debug-console-main th::before,
+#searchwp-debug-console-main th::after,
+#searchwp-debug-console-main ul::before,
+#searchwp-debug-console-main ul::after,
+#searchwp-debug-console-main ol::before,
+#searchwp-debug-console-main ol::after,
+#searchwp-debug-console-main li::before,
+#searchwp-debug-console-main li::after,
+#searchwp-debug-console-main code::before,
+#searchwp-debug-console-main code::after,
+#searchwp-debug-console-main pre::before,
+#searchwp-debug-console-main pre::after,
+#searchwp-debug-console-main a::before,
+#searchwp-debug-console-main a::after,
+#searchwp-debug-console-main h1::before,
+#searchwp-debug-console-main h1::after,
+#searchwp-debug-console-main h2::before,
+#searchwp-debug-console-main h2::after,
+#searchwp-debug-console-main h3::before,
+#searchwp-debug-console-main h3::after,
+#searchwp-debug-console-main h4::before,
+#searchwp-debug-console-main h4::after,
+#searchwp-debug-console-main h5::before,
+#searchwp-debug-console-main h5::after,
+#searchwp-debug-console-main h6::before,
+#searchwp-debug-console-main h6::after,
+#searchwp-debug-console-main section::before,
+#searchwp-debug-console-main section::after,
+#searchwp-debug-console-main nav::before,
+#searchwp-debug-console-main nav::after,
+#searchwp-debug-console-main p::before,
+#searchwp-debug-console-main p::after {
+    display: none !important;
+}
+
+#searchwp-debug-console-main code,
+#searchwp-debug-console-main pre {
+    font-family: monospace !important;
+}
+
+#searchwp-debug-console-main hr {
+    margin: 1em 0 !important;
+}
+
+#searchwp-debug-console-main {
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
+    clear: both !important;
+    color: var(--swp-debug-container-fg) !important;
+    float: none !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !important;
+    font-size: 12px !important;
+    -webkit-font-smoothing: auto !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    letter-spacing: -0.1px !important;
+    line-height: 18px !important;
+    margin: 0 !important;
+    min-height: auto !important;
+    outline: none !important;
+    padding: 0 !important;
+    text-align: left !important;
+    text-decoration: none !important;
+    text-indent: 0 !important;
+    text-shadow: none !important;
+    text-transform: none !important;
+    transition: none !important;
+    vertical-align: baseline !important;
+    word-break: normal !important;
+    word-wrap: normal !important;
+    background: var(--swp-debug-panel-bg) !important;
+    border-top: 1px solid var(--swp-debug-panel-border) !important;
+    bottom: 0 !important;
+    contain: layout paint;
+    direction: ltr !important;
+    display: none;
+    left: 0 !important;
+    position: fixed;
+    right: 0 !important;
+    z-index: 99998 !important;
+}
+
+#searchwp-debug-console-main::before, #searchwp-debug-console-main::after {
+    display: none !important;
+}
+
+#searchwp-debug-console-main ::selection {
+    background-color: var(--swp-debug-selection-bg) !important;
+    color: var(--swp-debug-selection-fg) !important;
+}
+
+#searchwp-debug-console-main strong,
+#searchwp-debug-console-main b {
+    font-weight: bold !important;
+}
+
+#searchwp-debug-console-main em,
+#searchwp-debug-console-main i {
+    font-style: italic !important;
+}
+
+#searchwp-debug-console-main.swp-show {
+    display: flex;
+    flex-direction: column !important;
+    height: 40%;
+    width: 100% !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-header {
+    align-items: center !important;
+    background: var(--swp-debug-container-bg) !important;
+    border-bottom: 1px solid var(--swp-debug-panel-border) !important;
+    cursor: ns-resize !important;
+    display: flex !important;
+    flex-shrink: 0 !important;
+    height: 27px !important;
+    padding: 0 0 0 10px !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    -webkit-user-select: none !important;
+    user-select: none !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-header-title {
+    border-right: 1px solid #bbb !important;
+    flex-grow: 1 !important;
+    margin-right: 6px !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-header button {
+    background: var(--swp-debug-panel-title-button-bg) !important;
+    cursor: pointer !important;
+    display: inline-block !important;
+    margin: 0 !important;
+    min-width: auto !important;
+    padding: 0 5px !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-header button:focus *,
+#searchwp-debug-console-main #searchwp-console-header button:hover *,
+#searchwp-debug-console-main #searchwp-console-header button:focus,
+#searchwp-debug-console-main #searchwp-console-header button:hover {
+    background: var(--swp-debug-panel-title-button-bg-hover) !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-header button:focus * svg,
+#searchwp-debug-console-main #searchwp-console-header button:hover * svg,
+#searchwp-debug-console-main #searchwp-console-header button:focus svg,
+#searchwp-debug-console-main #searchwp-console-header button:hover svg {
+    fill: var(--swp-debug-panel-title-button-fg-hover) !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-header button:active *,
+#searchwp-debug-console-main #searchwp-console-header button:active {
+    background: #ccc !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-header .searchwp-console-icon {
+    display: inline-block !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-header .searchwp-console-icon svg {
+    height: 20px !important;
+    width: 20px !important;
+    fill: var(--swp-debug-panel-title-button-fg) !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-header .searchwp-console-close {
+    margin-right: 10px !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-header .searchwp-console-close .searchwp-console-icon {
+    margin: 4px 0 0 !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-header .searchwp-console-close .searchwp-console-icon svg {
+    width: 18px !important;
+    height: 18px !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-panels {
+    display: flex;
+    flex-grow: 1 !important;
+    /* Fix nested scrolling in Firefox. See https://bugzilla.mozilla.org/show_bug.cgi?id=1043520: */
+    min-height: 0;
+}
+
+#searchwp-debug-console-main #searchwp-console-panels-nav {
+    background: var(--swp-debug-container-overflow) !important;
+    flex-shrink: 0 !important;
+    overflow-y: scroll !important;
+    overscroll-behavior: contain !important;
+    height: auto !important;
+    min-width: 160px !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-panels-nav ul {
+    display: block !important;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+    height: auto !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-panels-nav li {
+    display: list-item !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-panels-nav li ul {
+    display: none !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-panels-nav li button {
+    background: var(--swp-debug-panel-menu-bg) !important;
+    border-bottom: 1px solid var(--swp-debug-panel-menu-border) !important;
+    color: var(--swp-debug-panel-menu-fg) !important;
+    cursor: pointer !important;
+    display: block !important;
+    padding: 6px 32px 6px 10px !important;
+    position: relative !important;
+    text-decoration: none !important;
+    width: 100% !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-panels-nav li button:focus,
+#searchwp-debug-console-main #searchwp-console-panels-nav li button:hover {
+    background: var(--swp-debug-panel-menu-bg-hover) !important;
+    color: var(--swp-debug-panel-menu-fg-hover) !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-panels-nav li button:focus {
+    text-decoration: underline !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-panels-nav li button:active {
+    text-decoration: none !important;
+    background: var(--swp-debug-panel-menu-bg-selected) !important;
+    color: var(--swp-debug-panel-menu-fg-selected) !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-panels-nav li.searchwp-panel-nav-current ul {
+    display: block !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-panels-nav li.searchwp-panel-nav-current button {
+    background: var(--swp-debug-panel-menu-bg-current) !important;
+    color: var(--swp-debug-panel-menu-fg-current) !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-panels-nav li.searchwp-panel-nav-current button:focus {
+    background: var(--swp-debug-panel-menu-bg-current-focus) !important;
+    color: var(--swp-debug-panel-menu-fg-current) !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-panels-nav li.searchwp-panel-nav-current button:hover {
+    background: var(--swp-debug-panel-menu-bg-hover) !important;
+    color: var(--swp-debug-panel-menu-fg-hover) !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-panels-nav li li button {
+    padding-left: 20px !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-panels-nav li button[aria-selected=true] {
+    background: var(--swp-debug-panel-menu-bg-selected) !important;
+    color: var(--swp-debug-panel-menu-fg-selected) !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-panels-nav li button[aria-selected=true]:focus {
+    background: var(--swp-debug-panel-menu-bg-selected-focus) !important;
+    color: var(--swp-debug-panel-menu-fg-selected) !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-panels-nav li button[aria-selected=true]:hover {
+    background: var(--swp-debug-panel-menu-bg-selected) !important;
+    color: var(--swp-debug-panel-menu-fg-selected) !important;
+}
+
+#searchwp-debug-console-main #searchwp-console-panels-content {
+    flex-grow: 1 !important;
+    overflow-y: scroll !important;
+    overscroll-behavior: contain !important;
+}
+
+#searchwp-debug-console-main .searchwp-panel-content {
+    display: none !important;
+    padding: 10px 20px !important;
+}
+
+#searchwp-debug-console-main .searchwp-panel-content.searchwp-panel-content-show {
+    display: block !important;
+}
+
+#searchwp-debug-console-main .searchwp-panel-content h1,
+#searchwp-debug-console-main .searchwp-panel-content h2,
+#searchwp-debug-console-main .searchwp-panel-content h3,
+#searchwp-debug-console-main .searchwp-panel-content h4 {
+    margin: 0 0 15px 0 !important;
+    font-weight: bold !important;
+}
+
+#searchwp-debug-console-main .searchwp-panel-content h3 {
+    font-size: 16px !important;
+}
+
+#searchwp-debug-console-main .searchwp-panel-content h4 {
+    font-size: 12px !important;
+}
+
+#searchwp-debug-console-main .searchwp-panel-content table {
+    border: none !important;
+    border-collapse: collapse !important;
+    color: var(--swp-debug-panel-fg) !important;
+    margin: 0 !important;
+    table-layout: auto !important;
+    width: 100% !important;
+}
+
+#searchwp-debug-console-main .searchwp-panel-content thead,
+#searchwp-debug-console-main .searchwp-panel-content tbody,
+#searchwp-debug-console-main .searchwp-panel-content tfoot {
+    border: none !important;
+    background-color: inherit !important;
+}
+
+#searchwp-debug-console-main .searchwp-panel-content tr {
+    border: none !important;
+    background-color: inherit !important;
+}
+
+#searchwp-debug-console-main .searchwp-panel-content tr:nth-child(odd) {
+    background: var(--swp-debug-bg-stripe) !important;
+}
+
+#searchwp-debug-console-main .searchwp-panel-content tbody th,
+#searchwp-debug-console-main .searchwp-panel-content tbody td,
+#searchwp-debug-console-main .searchwp-panel-content tfoot th,
+#searchwp-debug-console-main .searchwp-panel-content tfoot td {
+    border: 1px solid var(--swp-debug-cell-border) !important;
+    padding: 5px 5px 4px 5px !important;
+    vertical-align: top !important;
+}
+
+#searchwp-debug-console-main .searchwp-panel-content tbody th,
+#searchwp-debug-console-main .searchwp-panel-content tbody td {
+    border-bottom: none !important;
+    border-top: none !important;
+}
+
+#searchwp-debug-console-main .searchwp-panel-content thead th {
+    background: var(--swp-debug-table-header-bg) !important;
+    border: 1px solid var(--swp-debug-cell-border) !important;
+    border-top: none !important;
+    box-shadow: 0 1px 0 var(--swp-debug-cell-border) !important;
+    padding: 5px !important;
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1 !important;
+}
+
+#searchwp-debug-console-main .searchwp-panel-content thead th,
+#searchwp-debug-console-main .searchwp-panel-content thead td {
+    vertical-align: top !important;
+}
+
+#searchwp-debug-console-main .searchwp-panel-content tfoot tr td,
+#searchwp-debug-console-main .searchwp-panel-content tfoot tr th {
+    background: var(--swp-debug-table-footer-bg) !important;
+    border: none !important;
+    bottom: 0 !important;
+    box-shadow: inset 0 1px 0 var(--swp-debug-cell-border) !important;
+    position: -webkit-sticky !important;
+    position: sticky !important;
+}
+
+#searchwp-debug-console-main .searchwp-panel-content th:first-child,
+#searchwp-debug-console-main .searchwp-panel-content td:first-child {
+    border-left: none !important;
+}
+
+#searchwp-debug-console-main .searchwp-panel-content th:last-child,
+#searchwp-debug-console-main .searchwp-panel-content td:last-child {
+    border-right: none !important;
+}
+
+#searchwp-debug-console-main .searchwp-panel-content .swp-boxed {
+    display: flex !important;
+    flex-wrap: wrap !important;
+}
+
+#searchwp-debug-console-main .searchwp-panel-content .swp-boxed + .swp-boxed {
+    border-top: 1px solid var(--swp-debug-panel-separator) !important;
+    padding-top: 10px !important;
+}
+
+#searchwp-debug-console-main .searchwp-panel-content .swp-boxed section {
+    border-right: 1px solid var(--swp-debug-panel-separator) !important;
+    margin: 0 20px 10px 0 !important;
+    padding: 10px 20px 10px 0 !important;
+    flex: 1;
+    max-width: 600px;
+    min-width: 400px;
+}
+
+#searchwp-debug-console-main .searchwp-panel-content .swp-boxed section:last-child {
+    border-right: none !important;
+    margin-right: 0 !important;
+}
+
+#searchwp-debug-console-main .searchwp-panel-content a {
+    color: var(--swp-debug-panel-link-fg) !important;
+    cursor: pointer !important;
+    font-family: inherit !important;
+    text-decoration: none !important;
+}
+
+#searchwp-debug-console-main .searchwp-panel-content a:after,
+#searchwp-debug-console-main .searchwp-panel-content a:focus,
+#searchwp-debug-console-main .searchwp-panel-content a:hover {
+    color: var(--swp-debug-panel-link-fg-hover) !important;
+    text-decoration: underline !important;
+}
+
+#searchwp-debug-console-main .searchwp-panel-content a code:active,
+#searchwp-debug-console-main .searchwp-panel-content a:active {
+    color: var(--swp-debug-panel-link-fg-active) !important;
+    text-decoration: underline !important;
+}

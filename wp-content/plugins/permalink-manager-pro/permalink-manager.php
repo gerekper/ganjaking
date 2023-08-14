@@ -4,7 +4,7 @@
  * Plugin Name:       Permalink Manager Pro
  * Plugin URI:        https://permalinkmanager.pro?utm_source=plugin
  * Description:       Advanced plugin that allows to set up custom permalinks (bulk editors included), slugs and permastructures (WooCommerce compatible).
- * Version:           2.4.1.2
+ * Version:           2.4.1.3
  * Author:            Maciej Bis
  * Author URI:        http://maciejbis.net/
  * License:           GPL-2.0+
@@ -12,7 +12,7 @@
  * Text Domain:       permalink-manager
  * Domain Path:       /languages
  * WC requires at least: 3.0.0
- * WC tested up to:      7.8.0
+ * WC tested up to:      7.9.0
  */
 
 // If this file is called directly or plugin is already defined, abort
@@ -25,7 +25,7 @@ if ( ! class_exists( 'Permalink_Manager_Class' ) ) {
 	// Define the directories used to load plugin files.
 	define( 'PERMALINK_MANAGER_PLUGIN_NAME', 'Permalink Manager' );
 	define( 'PERMALINK_MANAGER_PLUGIN_SLUG', 'permalink-manager' );
-	define( 'PERMALINK_MANAGER_VERSION', '2.4.1.2' );
+	define( 'PERMALINK_MANAGER_VERSION', '2.4.1.3' );
 	define( 'PERMALINK_MANAGER_FILE', __FILE__ );
 	define( 'PERMALINK_MANAGER_DIR', untrailingslashit( dirname( __FILE__ ) ) );
 	define( 'PERMALINK_MANAGER_BASENAME', plugin_basename( __FILE__ ) );
@@ -65,15 +65,20 @@ if ( ! class_exists( 'Permalink_Manager_Class' ) ) {
 					'uri-functions-tax'  => 'Permalink_Manager_URI_Functions_Tax',
 					'admin-functions'    => 'Permalink_Manager_Admin_Functions',
 					'actions'            => 'Permalink_Manager_Actions',
-					'third-parties'      => 'Permalink_Manager_Third_Parties',
-					'language-plugins'   => 'Permalink_Manager_Language_Plugins',
 					'core-functions'     => 'Permalink_Manager_Core_Functions',
 					'gutenberg'          => 'Permalink_Manager_Gutenberg',
 					'debug'              => 'Permalink_Manager_Debug_Functions',
 					'pro-functions'      => 'Permalink_Manager_Pro_Functions'
 				),
+				'integrations' => array(
+					'third-parties'    => 'Permalink_Manager_Third_Parties',
+					'woocommerce'      => 'Permalink_Manager_WooCommerce',
+					'seo-plugins'      => 'Permalink_Manager_SEO_Plugins',
+					'language-plugins' => 'Permalink_Manager_Language_Plugins'
+				),
 				'views' => array(
-					'uri-editor'      => 'Permalink_Manager_Uri_Editor',
+					'ui-elements'     => 'Permalink_Manager_UI_Elements',
+					'uri-editor'      => 'Permalink_Manager_URI_Editor',
 					'tools'           => 'Permalink_Manager_Tools',
 					'permastructs'    => 'Permalink_Manager_Permastructs',
 					'settings'        => 'Permalink_Manager_Settings',

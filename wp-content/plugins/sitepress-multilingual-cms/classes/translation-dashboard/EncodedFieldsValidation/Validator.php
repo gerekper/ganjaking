@@ -127,7 +127,8 @@ class Validator {
 	 */
 	private function findPostsWithEncodedFields( $postIds ) {
 		$appendPackage = function ( \WP_Post $post ) {
-			return [ $post, $this->package_helper->create_translation_package( $post->ID ) ];
+			$package = $this->package_helper->create_translation_package( $post->ID, true );
+			return [ $post, $package ];
 		};
 
 		$isFieldEncoded = function ( $field ) {

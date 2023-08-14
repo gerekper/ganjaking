@@ -24,7 +24,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 /**
  * AJAX class
@@ -158,7 +158,7 @@ class WC_PIP_Ajax {
 							'order_id'        => current( $order_ids ),
 							'order_ids'       => $order_ids_hash,
 						],
-						admin_url( 'edit.php?post_type=shop_order' )
+						Framework\SV_WC_Order_Compatibility::get_orders_screen_url()
 					),
 					'wc_pip_document'
 				);

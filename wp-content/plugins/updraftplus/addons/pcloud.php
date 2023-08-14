@@ -650,7 +650,7 @@ class UpdraftPlus_Addons_RemoteStorage_pcloud extends UpdraftPlus_BackupModule {
 		);
 
 		if (headers_sent()) {
-			$this->log(sprintf(__('The %s authentication could not go ahead, because something else on your site is breaking it. Try disabling your other plugins and switching to a default theme. (Specifically, you are looking for the component that sends output (most likely PHP warnings/errors) before the page begins. Turning off any debugging settings may also help).', ''), 'pCloud'), 'error');
+			$this->log(sprintf(__('The %s authentication could not go ahead, because something else on your site is breaking it.', 'updraftplus'), 'pCloud').' '.__('Try disabling your other plugins and switching to a default theme.', 'updraftplus').' ('.__('Specifically, you are looking for the component that sends output (most likely PHP warnings/errors) before the page begins.', 'updraftplus').' '.__('Turning off any debugging settings may also help).', 'updraftplus').')', 'error');
 		} else {
 			header('Location: https://my.pcloud.com/oauth2/authorize?'.http_build_query($params, '', '&'));
 		}

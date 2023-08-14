@@ -1,0 +1,31 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "searchwp/search-form",
+  "version": "1.0.0",
+  "title": "Search Form",
+  "category": "searchwp",
+  "icon": "search",
+  "description": "The best WordPress search you can find.",
+  "attributes": {
+    "id": {
+      "type": "integer"
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "textdomain": "searchwp",
+  "editorScript": "file:./index.js",
+  "editorStyle": [
+    "file:./../../css/admin/framework/colors.css",
+    "file:./../../css/admin/framework/layout.css",
+    "file:./../../css/admin/framework/buttons.css",
+    "file:./../../css/admin/framework/style.css",
+    "file:./../../css/admin/framework/input.css",
+    "file:./../../css/admin/framework/toggle-switch.css",
+    "file:./../../css/admin/pages/search-forms.css",
+    "file:./index.css"
+  ],
+  "style": "searchwp-forms"
+}

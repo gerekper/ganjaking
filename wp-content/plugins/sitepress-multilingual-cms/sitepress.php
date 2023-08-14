@@ -2,10 +2,10 @@
 /**
  * Plugin Name: WPML Multilingual CMS
  * Plugin URI: https://wpml.org/
- * Description: WPML Multilingual CMS | <a href="https://wpml.org">Documentation</a> | <a href="https://wpml.org/version/wpml-4-6-4/">WPML 4.6.4 release notes</a>
+ * Description: WPML Multilingual CMS | <a href="https://wpml.org">Documentation</a> | <a href="https://wpml.org/version/wpml-4-6-5/">WPML 4.6.5 release notes</a>
  * Author: OnTheGoSystems
  * Author URI: http://www.onthegosystems.com/
- * Version: 4.6.4
+ * Version: 4.6.5
  * Plugin Slug: sitepress-multilingual-cms
  *
  * @package WPML\Core
@@ -40,7 +40,7 @@ if ( ! \WPML\Requirements\WordPress::checkMinimumRequiredVersion() ) {
 	return;
 }
 
-define( 'ICL_SITEPRESS_VERSION', '4.6.4' );
+define( 'ICL_SITEPRESS_VERSION', '4.6.5' );
 
 // Do not uncomment the following line!
 // If you need to use this constant, use it in the wp-config.php file
@@ -259,7 +259,6 @@ if ( $sitepress->is_setup_complete() ) {
 			'WPML_Display_As_Translated_Attachments_Query_Factory',
 			'WPML_Media_Settings_Factory',
 			\WPML\Media\Loader::class,
-			\WPML\Media\Translate\LanguagesUpdated::class,
 			\WPML\Media\FrontendHooks::class,
 		];
 
@@ -472,26 +471,3 @@ add_action( 'plugins_loaded', function() {
 	require_once WPML_PLUGIN_PATH . '/addons/wpml-page-builders/loader.php';
 }, PHP_INT_MAX );
 
-
-// See wpmldev-1221 to consider removal.
-if ( ! function_exists( 'wpml_remove_html_fragment_markers' ) ) {
-	function wpml_remove_html_fragment_markers( $data ) {
-		if (
-			! is_array( $data ) ||
-			! array_key_exists( 'post_content', $data ) ||
-			! strpos( $data['post_content'], 'wpml:html_fragment' )
-		) {
-			return $data;
-		}
-
-		$data['post_content'] = ( new WPML_TM_Validate_HTML() )
-			->restore_html( $data['post_content'] );
-
-		return $data;
-	}
-
-	add_filter(
-		'wp_insert_post_data',
-		'wpml_remove_html_fragment_markers'
-	);
-}

@@ -16,6 +16,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
+$email = sanitize_email( $email );
 
 echo esc_html_x( "Hi There,", 'Email salutation', 'woocommerce-waitlist' ) . "\n\n";
 

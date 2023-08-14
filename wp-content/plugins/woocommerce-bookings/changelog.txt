@@ -1,5 +1,12 @@
-*** WooCommerce Bookings Changelog ***		       	       	 	 
-       	    	  	      	     	    	  	 
+*** WooCommerce Bookings Changelog ***
+
+2023-08-07 - version 2.0.1
+* Dev - Escape underscores in transient names so the delete query can utilize the MySQL index.
+* Dev - Incorporate entity ID in the nonce value with role capability validation.
+* Fix - Fixes the remaining resource count and moves the count from start time list to end time list.
+* Fix - Set text color for `.wc-bookings-calendar-popover .components-popover__content` and avoid issue where text is same as container background.
+* Fix - Update documentation link under `Bookings > Add Product`.
+
 2023-07-13 - version 2.0.0
 * Add - Enhanced store owner and new bookable product on-boarding experience.
 * Add - Tracks support for product templates.

@@ -131,7 +131,7 @@ class StringTranslations {
 								$translation = ST_API::getTranslation( self::decodeStringId( $stringId ), $lang );
 								return (object) [
 									'id'          => $stringId,
-									'translation' => base64_encode( $translation ),
+									'translation' => base64_encode( is_null( $translation ) ? '' : $translation ),
 								];
 							}
 

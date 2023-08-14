@@ -538,13 +538,7 @@ class WPML_Translation_Management {
 					}
 					$result = TranslationProxy::select_service( $service_by_suid->id );
 					if ( is_wp_error( $result ) ) {
-						$error_data        = $result->get_error_data();
-						$error_data_string = false;
-						foreach ( $error_data as $key => $error_data_message ) {
-							$error_data_string .= $result->get_error_message() . '<br/>';
-							$error_data_string .= $key . ': <pre>' . print_r( $error_data_message, true ) . '</pre>';
-							$error_data_string .= $result->get_error_message() . $error_data_string;
-						}
+						$error_data_string = $result->get_error_message();
 					}
 				}
 			} else {

@@ -3,7 +3,8 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages"
+            "domain": "messages",
+            "lang": "es_ES"
          },
          "There was an error when trying to pause your Automatic Translation. Please try again later or contact our support.": [
             "Ocurrió un error al intentar pausar la Traducción automática. Inténtelo de nuevo más tarde o póngase en contacto con nuestro soporte."

@@ -112,7 +112,7 @@ class WPML_TM_Dashboard_Document_Row {
 		}
 
 		$post_view_link = apply_filters( 'wpml_document_view_item_link', $post_view_link, __( 'View', 'sitepress' ), $current_document, $element_type, $this->get_type() );
-		if ( $post_view_link ) {
+		if ( $post_view_link && ! in_array( $this->get_type(), [ 'wp_template_part', 'wp_template', 'wp_navigation' ] ) ) {
 			$post_actions[] = "<span class='view'>" . $post_view_link . '</span>';
 		}
 

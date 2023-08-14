@@ -127,7 +127,7 @@ class UpdraftPlus_WPAdmin_Commands extends UpdraftPlus_Commands {
 			$max_execution_time = (int) @ini_get('max_execution_time');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 
 			if ($max_execution_time>0 && $max_execution_time<61) {
-				$warn[] = sprintf(__('The PHP setup on this webserver allows only %s seconds for PHP to run, and does not allow this limit to be raised. If you have a lot of data to import, and if the restore operation times out, then you will need to ask your web hosting company for ways to raise this limit (or attempt the restoration piece-by-piece).', 'updraftplus'), $max_execution_time);
+				$warn[] = sprintf(__('The PHP setup on this webserver allows only %s seconds for PHP to run, and does not allow this limit to be raised.', 'updraftplus'), $max_execution_time).' '.__('If you have a lot of data to import, and if the restore operation times out, then you will need to ask your web hosting company for ways to raise this limit (or attempt the restoration piece-by-piece).', 'updraftplus');
 			}
 
 			if (isset($backups[$timestamp]['native']) && false == $backups[$timestamp]['native']) {
@@ -233,11 +233,11 @@ class UpdraftPlus_WPAdmin_Commands extends UpdraftPlus_Commands {
 			}
 
 			if (0 == count($err) && 0 == count($warn)) {
-				$mess_first = __('The backup archive files have been successfully processed. Now press Restore to proceed.', 'updraftplus');
+				$mess_first = __('The backup archive files have been successfully processed.', 'updraftplus').' '.__('Now press Restore to proceed.', 'updraftplus');
 			} elseif (0 == count($err)) {
-				$mess_first = __('The backup archive files have been processed, but with some warnings. If all is well, then press Restore to proceed. Otherwise, cancel and correct any problems first.', 'updraftplus');
+				$mess_first = __('The backup archive files have been processed, but with some warnings.', 'updraftplus').' '.__('If all is well, then press Restore to proceed.', 'updraftplus').' '.__('Otherwise, cancel and correct any problems first.', 'updraftplus');
 			} else {
-				$mess_first = __('The backup archive files have been processed, but with some errors. You will need to cancel and correct any problems before retrying.', 'updraftplus');
+				$mess_first = __('The backup archive files have been processed, but with some errors.', 'updraftplus').' '.__('You will need to cancel and correct any problems before retrying.', 'updraftplus');
 			}
 
 			if (count($this->_updraftplus_admin->logged) >0) {
@@ -258,11 +258,11 @@ class UpdraftPlus_WPAdmin_Commands extends UpdraftPlus_Commands {
 			do_action_ref_array('updraftplus_restore_all_downloaded_postscan', array($backups, $timestamp, $elements, &$info, &$mess, &$warn, &$err));
 
 			if (0 == count($err) && 0 == count($warn)) {
-				$mess_first = __('The backup archive files have been successfully processed. Now press Restore again to proceed.', 'updraftplus');
+				$mess_first = __('The backup archive files have been successfully processed.', 'updraftplus').' '.__('Now press Restore again to proceed.', 'updraftplus');
 			} elseif (0 == count($err)) {
-				$mess_first = __('The backup archive files have been processed, but with some warnings. If all is well, then now press Restore again to proceed. Otherwise, cancel and correct any problems first.', 'updraftplus');
+				$mess_first = __('The backup archive files have been processed, but with some warnings.', 'updraftplus').' '.__('If all is well, then now press Restore again to proceed.', 'updraftplus').' '.__('Otherwise, cancel and correct any problems first.', 'updraftplus');
 			} else {
-				$mess_first = __('The backup archive files have been processed, but with some errors. You will need to cancel and correct any problems before retrying.', 'updraftplus');
+				$mess_first = __('The backup archive files have been processed, but with some errors.', 'updraftplus').' '.__('You will need to cancel and correct any problems before retrying.', 'updraftplus');
 			}
 
 			$warn_result = '';
@@ -581,7 +581,7 @@ class UpdraftPlus_WPAdmin_Commands extends UpdraftPlus_Commands {
 				}
 			}
 		} else {
-			$node_array['error'] = sprintf(__('Failed to open directory: %s. This is normally caused by file permissions.', 'updraftplus'), $path);
+			$node_array['error'] = sprintf(__('Failed to open directory: %s.', 'updraftplus'), $path).' '.__('This is normally caused by file permissions.', 'updraftplus');
 		}
 
 		return $node_array;

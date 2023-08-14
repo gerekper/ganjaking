@@ -338,7 +338,7 @@ class UpdraftPlus_Storage_Methods_Interface {
 						$updraftplus->log(__('Error', 'updraftplus'), 'notice-restore');
 					} else {
 						clearstatcache();
-						if (0 === @filesize($fullpath)) @unlink($fullpath);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
+						if (0 === @filesize($fullpath)) @unlink($fullpath);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise if the file doesn't exist.
 						$updraftplus->log('Remote fetch failed');
 					}
 				}
@@ -389,7 +389,7 @@ class UpdraftPlus_Storage_Methods_Interface {
 			}
 		} else {
 			$updraftplus->log("Automatic backup restoration is not available with the method: $service.");
-			$updraftplus->log("$file: ".sprintf(__("The backup archive for this file could not be found. The remote storage method in use (%s) does not allow us to retrieve files. To perform any restoration using UpdraftPlus, you will need to obtain a copy of this file and place it inside UpdraftPlus's working folder", 'updraftplus'), $service)." (".UpdraftPlus_Manipulation_Functions::prune_updraft_dir_prefix($updraftplus->backups_dir_location()).")", 'error');
+			$updraftplus->log("$file: ".__('The backup archive for this file could not be found.', 'updraftplus').' '.sprintf(__('The remote storage method in use (%s) does not allow us to retrieve files.', 'updraftplus'), $service).' '.__("To perform any restoration using UpdraftPlus, you will need to obtain a copy of this file and place it inside UpdraftPlus's working folder", 'updraftplus')." (".UpdraftPlus_Manipulation_Functions::prune_updraft_dir_prefix($updraftplus->backups_dir_location()).")", 'error');
 			return false;
 		}
 

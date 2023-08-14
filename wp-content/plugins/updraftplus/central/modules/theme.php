@@ -98,7 +98,7 @@ class UpdraftCentral_Theme_Commands extends UpdraftCentral_Commands {
 						$result = $this->_generic_error_response('theme_not_activated', array(
 							'theme' => $query['theme'],
 							'error_code' => 'theme_not_activated',
-							'error_message' => __('There appears to be a problem activating or switching to the intended theme. Please kindly check your permission and try again.', 'updraftplus'),
+							'error_message' => __('There appears to be a problem activating or switching to the intended theme.', 'updraftplus').' '.__('Please check your permissions and try again.', 'updraftplus'),
 							'info' => $this->_get_theme_info($query['theme'])
 						));
 					}
@@ -134,7 +134,7 @@ class UpdraftCentral_Theme_Commands extends UpdraftCentral_Commands {
 						$result = $this->_generic_error_response('theme_not_enabled', array(
 							'theme' => $query['theme'],
 							'error_code' => 'theme_not_enabled',
-							'error_message' => __('There appears to be a problem enabling the intended theme on your network. Please kindly check your permission and try again.', 'updraftplus'),
+							'error_message' => __('There appears to be a problem enabling the intended theme on your network.', 'updraftplus').' '.__('Please kindly check your permission and try again.', 'updraftplus'),
 							'info' => $this->_get_theme_info($query['theme'])
 						));
 					}
@@ -172,7 +172,7 @@ class UpdraftCentral_Theme_Commands extends UpdraftCentral_Commands {
 						$result = $this->_generic_error_response('theme_not_disabled', array(
 							'theme' => $query['theme'],
 							'error_code' => 'theme_not_disabled',
-							'error_message' => __('There appears to be a problem disabling the intended theme from your network. Please kindly check your permission and try again.', 'updraftplus'),
+							'error_message' => __('There appears to be a problem disabling the intended theme from your network.', 'updraftplus').' '.__('Please kindly check your permission and try again.', 'updraftplus'),
 							'info' => $this->_get_theme_info($query['theme'])
 						));
 					}
@@ -253,7 +253,7 @@ class UpdraftCentral_Theme_Commands extends UpdraftCentral_Commands {
 								$error_message = end($messages);
 							} else {
 								$error_code = 'unable_to_connect_to_filesystem';
-								$error_message = __('Unable to connect to the filesystem. Please confirm your credentials.');
+								$error_message = __('Unable to connect to the filesystem.', 'updraftplus').' '.__('Please confirm your credentials.', 'updraftplus');
 							}
 						}
 					}

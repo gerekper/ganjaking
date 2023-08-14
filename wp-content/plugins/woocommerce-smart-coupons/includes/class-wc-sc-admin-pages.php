@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.5.0
+ * @version     2.5.1
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -575,7 +575,7 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 						?>
 						<a href="<?php echo esc_url( $send_credit_tab_url ); ?>" class="nav-tab <?php echo ( 'send-smart-coupons' === $tab ) ? 'nav-tab-active' : ''; ?>">
 							<?php
-								/* translators: %s: sigular name for store credit */
+								/* translators: %s: singular name for store credit */
 								echo ( ! empty( $store_credit_label['singular'] ) ? sprintf( esc_html__( 'Send %s', 'woocommerce-smart-coupons' ), esc_html( ucwords( $store_credit_label['singular'] ) ) ) : esc_html__( 'Send Store Credit', 'woocommerce-smart-coupons' ) );
 							?>
 						</a>

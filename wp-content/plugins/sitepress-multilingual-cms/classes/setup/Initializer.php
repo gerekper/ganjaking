@@ -104,7 +104,7 @@ class Initializer {
 				'adminUserName'            => User::getCurrent()->display_name,
 				'translation'              => Lst::concat(
 					TranslationMethodSettings::getModeSettingsData(),
-					TranslationRolesInitializer::getTranslationData()
+					TranslationRolesInitializer::getTranslationData( null, false )
 				),
 
 				'license'                  => [

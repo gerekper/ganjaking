@@ -17,13 +17,13 @@
 		<?php echo '<strong><a href="'.apply_filters('updraftplus_com_link', "https://updraftplus.com/updraftcentral/").'" target="_blank">'.__('UpdraftCentral', 'updraftplus').'</a> </strong>'.__('is a highly efficient way to manage, update and backup multiple websites from one place.', 'updraftplus'); ?>
 	</p>
 	<p>
-		<?php echo '<strong><a href="https://getwpo.com" target="_blank">WP-Optimize</a>: </strong>'.__('Makes your site fast and efficient. It cleans the database, compresses images and caches pages for ultimate speed.', 'updraftplus'); ?>
+		<?php echo '<strong><a href="https://getwpo.com" target="_blank">WP-Optimize</a>: </strong>'.__('Makes your site fast and efficient.', 'updraftplus').' '.__('It cleans the database, compresses images and caches pages for ultimate speed.', 'updraftplus'); ?>
 	</p>
 	<p>
 		<?php echo '<strong><a href="https://subscribenplugin.com" target="_blank">Subscriben</a>: </strong>'.__('The WordPress subscription extension for WooCommerce store owners.', 'updraftplus'); ?>
 	</p>
 	<p>
-		<?php echo '<strong><a href="'.apply_filters('updraftplus_com_link', "https://updraftplus.com/newsletter-signup").'" target="_blank">'.__('Free Newsletter', 'updraftplus').'</a>: </strong>'.__('UpdraftPlus news, high-quality training materials for WordPress developers and site-owners, and general WordPress news. You can de-subscribe at any time.', 'updraftplus'); ?>
+		<?php echo '<strong><a href="'.apply_filters('updraftplus_com_link', "https://updraftplus.com/newsletter-signup").'" target="_blank">'.__('Free Newsletter', 'updraftplus').'</a>: </strong>'.__('UpdraftPlus news, high-quality training materials for WordPress developers and site-owners, and general WordPress news.', 'updraftplus').' '.__('You can de-subscribe at any time.', 'updraftplus'); ?>
 	</p>
 	<p>
 		<?php echo '<strong>'.__('More quality plugins', 'updraftplus').' :</strong>';?>

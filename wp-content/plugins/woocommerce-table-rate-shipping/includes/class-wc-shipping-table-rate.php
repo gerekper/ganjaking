@@ -291,14 +291,14 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 			$this->generate_settings_html( $this->get_instance_form_fields() );
 			?>
 			<tr>
-				<th><?php _e( 'Table Rates', 'woocommerce-table-rate-shipping' ); ?></th>
+				<th><?php esc_html_e( 'Table Rates', 'woocommerce-table-rate-shipping' ); ?></th>
 				<td>
 					<?php wc_table_rate_admin_shipping_rows( $this ); ?>
 				</td>
 			</tr>
 			<?php if ( sizeof( WC()->shipping->get_shipping_classes() ) ) : ?>
 				<tr valign="top" id="shipping_class_priorities">
-					<th scope="row" class="titledesc"><?php _e( 'Class Priorities', 'woocommerce-table-rate-shipping' ); ?></th>
+					<th scope="row" class="titledesc"><?php esc_html_e( 'Class Priorities', 'woocommerce-table-rate-shipping' ); ?></th>
 					<td class="forminp" id="shipping_rates">
 						<?php wc_table_rate_admin_shipping_class_priorities( $this->instance_id ); ?>
 					</td>
@@ -313,16 +313,17 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 	 */
 	public function process_admin_options() {
 		$decimal_separator = wc_get_price_decimal_separator();
-
 		// Make sure decimals are with dot so that they add properly in PHP.
 		foreach ( $this->decimal_options as $option ) {
 			$option = 'woocommerce_table_rate_' . $option;
 
+			// phpcs:disable WordPress.Security.NonceVerification.Missing --- security is handled by WooCommerce
 			if ( ! isset( $_POST[ $option ] ) ) {
 				continue;
 			}
 
-			$_POST[ $option ] = str_replace( $decimal_separator, '.', $_POST[ $option ] );
+			$_POST[ $option ] = str_replace( $decimal_separator, '.', sanitize_text_field( $_POST[ $option ] ) );
+			// phpcs:enable WordPress.Security.NonceVerification.Missing
 		}
 
 		parent::process_admin_options();

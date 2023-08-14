@@ -2,9 +2,11 @@
 
 namespace WPML\MediaTranslation;
 
+use WPML\Media\Option;
+
 class MediaTranslationEditorLayout implements \IWPML_Action {
 	public function add_hooks() {
-		if ( \WPML_Media_Duplication_Setup::isTranslateMediaLibraryTextsEnabled() ) {
+		if ( Option::getTranslateMediaLibraryTexts() ) {
 			add_filter( 'wpml_tm_job_layout', [ $this, 'group_media_fields' ] );
 			add_filter( 'wpml_tm_adjust_translation_fields', [ $this, 'set_custom_labels' ] );
 		}

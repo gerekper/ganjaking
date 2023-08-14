@@ -387,7 +387,14 @@ class WC_Bookings_Ajax {
 	public function json_search_order() {
 		global $wpdb;
 
-		check_ajax_referer( 'search-booking-order', 'security' );
+		// Check the nonce.
+		$booking_id = absint( $_GET['booking_id'] );
+		check_ajax_referer( "search-booking-order-$booking_id", 'security' );
+
+		// Check permissions.
+		if ( ! current_user_can( 'edit_wc_booking', $booking_id ) ) {
+			wp_die( -1, 403 );
+		}
 
 		$term = wc_clean( stripslashes( $_GET['term'] ) );
 

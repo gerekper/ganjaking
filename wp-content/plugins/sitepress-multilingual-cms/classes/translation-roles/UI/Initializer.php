@@ -62,18 +62,18 @@ class Initializer {
 		];
 	}
 
-	public static function getTranslationData( callable $userExtra = null ) {
+	public static function getTranslationData( callable $userExtra = null, $preload = true ) {
 		$currentUser = User::getCurrent();
 		$service     = Option::isTMAllowed() ? \TranslationProxy::get_current_service() : null;
 
 		return [
 			'canManageOptions' => $currentUser->has_cap( 'manage_options' ),
 			'adminUserName'    => $currentUser->display_name,
-			'translators'      => Fns::map(
+			'translators'      => $preload ? Fns::map(
 				User::withAvatar(),
 				make( \WPML_Translator_Records::class )->get_users_with_capability()
-			),
-			'managers'         => self::getManagers( $userExtra ),
+			) : null,
+			'managers'         => $preload ? self::getManagers( $userExtra ) : null,
 			'wpRoles'          => \WPML_WP_Roles::get_roles_up_to_user_level( $currentUser ),
 			'managerRoles'     => self::getTranslationManagerRoles( $currentUser ),
 			'service'          => ! is_wp_error( $service ) ? $service : null,

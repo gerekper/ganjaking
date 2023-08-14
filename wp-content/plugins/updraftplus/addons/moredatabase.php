@@ -339,7 +339,7 @@ class UpdraftPlus_Addon_MoreDatabase {
 
 		$ret .= '<input type="'.apply_filters('updraftplus_admin_secret_field_type', 'text').'" name="updraft_encryptionphrase" id="updraft_encryptionphrase" value="'.esc_attr($updraft_encryptionphrase).'" class="updraft_input--wide">';
 
-		$ret .= '<p>'.__('If you enter text here, it is used to encrypt database backups (Rijndael). <strong>Do make a separate record of it and do not lose it, or all your backups <em>will</em> be useless.</strong> This is also the key used to decrypt backups from this admin interface (so if you change it, then automatic decryption will not work until you change it back).', 'updraftplus').'</p>';
+		$ret .= '<p>'.__('If you enter text here, it is used to encrypt database backups (Rijndael).', 'updraftplus').' '.__('<strong>Do make a separate record of it and do not lose it, or all your backups <em>will</em> be useless.</strong>', 'updraftplus').' '.__('This is also the key used to decrypt backups from this admin interface (so if you change it, then automatic decryption will not work until you change it back).', 'updraftplus').'</p>';
 
 		return $ret;
 
@@ -401,14 +401,14 @@ class UpdraftPlus_Addon_MoreDatabase {
 			}
 
 			// Delete unencrypted file
-			@unlink($updraft_dir.'/'.$file);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
+			@unlink($updraft_dir.'/'.$file);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise if the file doesn't exist.
 
 			$updraftplus->jobdata_set('jobstatus', 'dbencrypted'.$whichdb_suffix);
 
 			return basename($file.'.crypt');
 		} else {
 			$updraftplus->log("Encryption error occurred when encrypting database. Encryption aborted.");
-			$updraftplus->log(__("Encryption error occurred when encrypting database. Encryption aborted.", 'updraftplus'), 'error');
+			$updraftplus->log(__('Encryption error occurred when encrypting database.', 'updraftplus').' '.__('Encryption aborted.', 'updraftplus'), 'error');
 			return basename($file);
 		}
 	}

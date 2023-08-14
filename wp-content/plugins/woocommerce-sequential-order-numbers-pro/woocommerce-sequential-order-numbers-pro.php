@@ -6,7 +6,7 @@
  * Description: Provides custom incrementing order numbers for WooCommerce orders.
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 1.20.2
+ * Version: 1.20.3
  * Text Domain: woocommerce-sequential-order-numbers-pro
  * Domain Path: /i18n/languages/
  *

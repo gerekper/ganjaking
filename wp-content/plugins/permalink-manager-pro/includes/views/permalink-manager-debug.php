@@ -114,7 +114,7 @@ class Permalink_Manager_Debug {
 				$field_name         = "{$section_id}[$field_id]";
 				$field['container'] = 'row';
 
-				$output .= Permalink_Manager_Admin_Functions::generate_option_field( $field_name, $field );
+				$output .= Permalink_Manager_UI_Elements::generate_option_field( $field_name, $field );
 			}
 
 			// End the section

@@ -31,15 +31,25 @@ function woocommerce_per_product_shipping_get_matching_rule( $product_id, $packa
 		return null; // No rates, don't fallback to parent product if variable.
 	}
 
-	$country  = $package['destination']['country'];
-	$state    = $package['destination']['state'];
+	$country  = strtoupper( $package['destination']['country'] );
+	$state    = strtoupper( $package['destination']['state'] );
 	$postcode = $package['destination']['postcode'];
 
-	// Get 2 Characters state code if exists.
-	$state    = woocommerce_per_product_state_code_alias( $state, $country );
+	// Get 2 Characters state code if exists in lookup array or return $state.
+	$two_characters_state_code = woocommerce_per_product_state_code_alias( $state, $country );
+
+	// Build array of state codes.
+	$valid_state_codes = array( $state );
+
+	// If returned state code alias is different than original $state add it into the valid state codes array.
+	if ( $two_characters_state_code !== $state ) {
+		$valid_state_codes[] = $two_characters_state_code;
+	}
+	$valid_state_codes     = esc_sql( $valid_state_codes );
+	$valid_state_codes_sql = "'" . implode( "', '", $valid_state_codes ) . "'";
 
 	// Define valid postcodes.
-	$valid_postcodes = array( '', $postcode );
+	$valid_postcodes = array( $postcode );
 
 	// Work out possible valid wildcard postcodes.
 	$postcode_length   = strlen( $postcode );
@@ -49,20 +59,21 @@ function woocommerce_per_product_shipping_get_matching_rule( $product_id, $packa
 		$wildcard_postcode = substr( $wildcard_postcode, 0, -1 );
 		$valid_postcodes[] = $wildcard_postcode . '*';
 	}
-
+	$valid_postcodes     = esc_sql( $valid_postcodes );
+	$valid_postcodes_sql = "'" . implode( "', '", $valid_postcodes ) . "'";
 	// Get rules matching product, country and state.
 	$matching_rule = $wpdb->get_row(
 		// @codingStandardsIgnoreStart
 		$wpdb->prepare(
-			"
-			SELECT * FROM {$wpdb->prefix}woocommerce_per_product_shipping_rules
+			"SELECT * FROM {$wpdb->prefix}woocommerce_per_product_shipping_rules
 			WHERE product_id = %d
 			AND rule_country IN ( '', %s )
-			AND rule_state IN ( '', %s )
-			AND rule_postcode IN ( '" . implode( "','", $valid_postcodes ) . "' )
+			AND rule_state IN ( '', {$valid_state_codes_sql} )
+			AND rule_postcode IN ( '', {$valid_postcodes_sql} )
 			ORDER BY rule_order
-			LIMIT 1
-			" , $product_id, strtoupper( $country ), strtoupper( $state )
+			LIMIT 1",
+			$product_id,
+			$country
 		)
 		// @codingStandardsIgnoreEnd
 	);

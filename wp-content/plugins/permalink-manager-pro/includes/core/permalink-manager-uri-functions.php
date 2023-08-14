@@ -5,9 +5,7 @@
  */
 class Permalink_Manager_URI_Functions {
 
-	public function __construct() {
-
-	}
+	public function __construct() {}
 
 	/**
 	 * Get the custom permalink's array key for specific post or term

@@ -62,7 +62,7 @@ class Permalink_Manager_Tools {
 	 */
 	public function duplicates_output() {
 		// Get the duplicates & another variables
-		$all_duplicates = Permalink_Manager_Helper_Functions::get_all_duplicates();
+		$all_duplicates = Permalink_Manager_Admin_Functions::get_all_duplicates();
 		$home_url       = trim( get_option( 'home' ), "/" );
 
 		$button_url = add_query_arg( array(
@@ -223,7 +223,7 @@ class Permalink_Manager_Tools {
 		$sidebar = '<h3>' . __( 'Important notices', 'permalink-manager' ) . '</h3>';
 		$sidebar .= self::display_instructions();
 
-		return Permalink_Manager_Admin_Functions::get_the_form( $fields, 'columns-3', array( 'text' => __( 'Find and replace', 'permalink-manager' ), 'class' => 'primary margin-top' ), $sidebar, array( 'action' => 'permalink-manager', 'name' => 'find_and_replace' ), true, 'form-ajax' );
+		return Permalink_Manager_UI_Elements::get_the_form( $fields, 'columns-3', array( 'text' => __( 'Find and replace', 'permalink-manager' ), 'class' => 'primary margin-top' ), $sidebar, array( 'action' => 'permalink-manager', 'name' => 'find_and_replace' ), true, 'form-ajax' );
 	}
 
 	/**
@@ -303,6 +303,6 @@ class Permalink_Manager_Tools {
 		$sidebar = '<h3>' . __( 'Important notices', 'permalink-manager' ) . '</h3>';
 		$sidebar .= self::display_instructions();
 
-		return Permalink_Manager_Admin_Functions::get_the_form( $fields, 'columns-3', array( 'text' => __( 'Regenerate', 'permalink-manager' ), 'class' => 'primary margin-top' ), $sidebar, array( 'action' => 'permalink-manager', 'name' => 'regenerate' ), true, 'form-ajax' );
+		return Permalink_Manager_UI_Elements::get_the_form( $fields, 'columns-3', array( 'text' => __( 'Regenerate', 'permalink-manager' ), 'class' => 'primary margin-top' ), $sidebar, array( 'action' => 'permalink-manager', 'name' => 'regenerate' ), true, 'form-ajax' );
 	}
 }

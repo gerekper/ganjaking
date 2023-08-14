@@ -22,7 +22,7 @@ class WC_Shipping_Zones_Ajax_Handler {
 
 		global $wpdb;
 
-		$zones = $_POST['zone_ids'];
+		$zones = $_POST['zone_ids']; //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, each input is intval() below.
 		$zones = array_map( 'intval', $zones );
 
 		foreach ( $zones as $i => $zone ) {

@@ -108,7 +108,7 @@ class WC_Dropshipping_Product_Extra_Fields {
 
 	  $postid = $product->get_id();
 
-	  $suppid = opmc_hpos_get_post_meta($postid, 'supplierid', true);
+	  $suppid = opmc_hpos_get_post_meta($postid, 'supplierid');
 
 	  $price = get_term_meta($suppid);
 
@@ -207,7 +207,7 @@ class WC_Dropshipping_Product_Extra_Fields {
 
 	  public function slug_get_number_of_orders( $object ) {
 
-	  return opmc_hpos_get_post_meta( $object[ 'id' ], 'number_of_orders', true );
+	  return opmc_hpos_get_post_meta( $object[ 'id' ], 'number_of_orders' );
 
 	  } */
 
@@ -305,7 +305,7 @@ class WC_Dropshipping_Product_Extra_Fields {
 		$woocommerce_product_custom_field_amazon_product_id = $_POST['product_custom_field_amazon_product_id'];
 
 		if ( isset( $woocommerce_product_custom_field_amazon_product_id ) ) {
-			opmc_hpos_update_post_meta( $post_id, 'product_custom_field_amazon_product_id', esc_attr( $woocommerce_product_custom_field_amazon_product_id ) );
+			update_post_meta( $post_id, 'product_custom_field_amazon_product_id', esc_attr( $woocommerce_product_custom_field_amazon_product_id ) );
 		}
 	}
 
@@ -375,7 +375,7 @@ class WC_Dropshipping_Product_Extra_Fields {
 		$woocommerce_product_custom_field_amazon_affiliate_id = $_POST['product_custom_field_amazon_affiliate_id'];
 
 		if ( isset( $woocommerce_product_custom_field_amazon_affiliate_id ) ) {
-			opmc_hpos_update_post_meta( $post_id, 'product_custom_field_amazon_affiliate_id', esc_attr( $woocommerce_product_custom_field_amazon_affiliate_id ) );
+			update_post_meta( $post_id, 'product_custom_field_amazon_affiliate_id', esc_attr( $woocommerce_product_custom_field_amazon_affiliate_id ) );
 		}
 	}
 
@@ -438,7 +438,7 @@ class WC_Dropshipping_Product_Extra_Fields {
 		$woocommerce_custom_product_text_field = $_POST['_cost_of_goods'];
 
 		if ( isset( $woocommerce_custom_product_text_field ) ) {
-			opmc_hpos_update_post_meta( $post_id, '_cost_of_goods', esc_attr( $woocommerce_custom_product_text_field ) );
+			update_post_meta( $post_id, '_cost_of_goods', esc_attr( $woocommerce_custom_product_text_field ) );
 		}
 	}
 
@@ -463,7 +463,7 @@ class WC_Dropshipping_Product_Extra_Fields {
 
 		$product = wc_get_product( $post_id );
 
-		opmc_hpos_update_post_meta( $post_id, 'number_of_orders', $custom_fields_woocommerce_title );
+		update_post_meta( $post_id, 'number_of_orders', $custom_fields_woocommerce_title );
 	}
 
 	/**
@@ -589,15 +589,15 @@ class WC_Dropshipping_Product_Extra_Fields {
 
 		$product = wc_get_product( $post_id );
 
-		opmc_hpos_update_post_meta( $post_id, 'ali_product_url', $ali_product_url );
+		update_post_meta( $post_id, 'ali_product_url', $ali_product_url );
 
-		opmc_hpos_update_post_meta( $post_id, 'ali_store_url', $ali_store_url );
+		update_post_meta( $post_id, 'ali_store_url', $ali_store_url );
 
-		opmc_hpos_update_post_meta( $post_id, 'ali_store_name', $ali_store_name );
+		update_post_meta( $post_id, 'ali_store_name', $ali_store_name );
 
-		opmc_hpos_update_post_meta( $post_id, 'ali_store_price_range', $ali_store_price_range );
+		update_post_meta( $post_id, 'ali_store_price_range', $ali_store_price_range );
 
-		opmc_hpos_update_post_meta( $post_id, 'ali_currency', $ali_currency );
+		update_post_meta( $post_id, 'ali_currency', $ali_currency );
 	}
 
 	/**
@@ -659,7 +659,7 @@ class WC_Dropshipping_Product_Extra_Fields {
 		$woocommerce_custom_product_text_field = $_POST['_custom_product_text_field_description'];
 
 		if ( isset( $woocommerce_custom_product_text_field ) ) {
-			opmc_hpos_update_post_meta( $post_id, '_custom_product_text_field_description', esc_attr( $woocommerce_custom_product_text_field ) );
+			update_post_meta( $post_id, '_custom_product_text_field_description', esc_attr( $woocommerce_custom_product_text_field ) );
 		}
 	}
 }
@@ -670,11 +670,12 @@ add_action( 'woocommerce_variation_options_pricing', 'bbloomer_add_custom_field_
 
 function bbloomer_add_custom_field_to_variations( $loop, $variation_data, $variation ) {
 
-	$regular_price = $variation_data['_regular_price'][0];
-	$sale_price = $variation_data['_sale_price'][0];
+	$regular_price = isset( $variation_data['variable_regular_price'][0] ) ? $variation_data['variable_regular_price'][0] : 0;
+	$sale_price = isset( $variation_data['_sale_price'][0] ) ? $variation_data['_sale_price'][0] : 0;
+
 	$costofproduct = '';
 
-	if ( ! empty( $regular_price ) && ( $sale_price ) ) {
+	if ( ! empty( $regular_price ) && ! empty( $sale_price ) ) {
 		$costofproduct = $sale_price;
 	} else {
 		$costofproduct = $regular_price;
@@ -740,7 +741,12 @@ function bbloomer_add_custom_field_to_variations( $loop, $variation_data, $varia
 		$prft_prcnt_val = floatval( $prft_prcnt_val ); // Convert to float if it's a string
 		$costofproduct = floatval( $costofproduct );
 
+		// $profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
+		$profit_prcnt = 0;
+	if (is_numeric($prft_prcnt_val) && is_numeric($costofproduct)) {
 		$profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
+	}
+
 		$estimated_profit = $profit_prcnt + $prft_dolr_val;
 
 	woocommerce_wp_text_input(
@@ -829,7 +835,12 @@ function echo_product_id_sku_general_tab() {
 			$prft_prcnt_val = floatval( $prft_prcnt_val ); // Convert to float if it's a string
 			$costofproduct = floatval( $costofproduct );
 
-			$profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
+			// $profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
+			$profit_prcnt = 0;
+			if (is_numeric($prft_prcnt_val) && is_numeric($costofproduct)) {
+				$profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
+			}
+
 			$estimated_profit = $profit_prcnt + $prft_dolr_val;
 
 			$range_price[] = $estimated_profit;
@@ -944,7 +955,12 @@ function woo_product_custom_fields_for_profitcal() {
 		$prft_prcnt_val = floatval( $prft_prcnt_val ); // Convert to float if it's a string
 		$costofproduct = floatval( $costofproduct );
 
-		$profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
+		// $profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
+		$profit_prcnt = 0;
+		if (is_numeric($prft_prcnt_val) && is_numeric($costofproduct)) {
+			$profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
+		}
+
 		$estimated_profit = $profit_prcnt + $prft_dolr_val;
 
 		echo '<p class="form-field">
@@ -1045,7 +1061,11 @@ function admin_products_est_profit_column_content( $column, $product_id ) {
 				$prft_prcnt_val = floatval( $prft_prcnt_val ); // Convert to float if it's a string
 				$costofproduct = floatval( $costofproduct );
 
-				$profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
+				// $profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
+				$profit_prcnt = 0;
+				if (is_numeric($prft_prcnt_val) && is_numeric($costofproduct)) {
+					$profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
+				}
 				$estimated_profit = $profit_prcnt + $prft_dolr_val;
 
 				$range_price[] = $estimated_profit;
@@ -1144,7 +1164,11 @@ function admin_products_est_profit_column_content( $column, $product_id ) {
 			$prft_prcnt_val = floatval( $prft_prcnt_val ); // Convert to float if it's a string
 			$costofproduct = floatval( $costofproduct );
 
-			$profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
+			// $profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
+			$profit_prcnt = 0;
+			if (is_numeric($prft_prcnt_val) && is_numeric($costofproduct)) {
+				$profit_prcnt = $prft_prcnt_val / 100 * $costofproduct;
+			}
 			$estimated_profit = $profit_prcnt + $prft_dolr_val;
 			echo wc_price( $estimated_profit );
 

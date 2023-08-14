@@ -67,8 +67,8 @@ class WC_Bookings_Details_Meta_Box {
 	/**
 	 * Check data and output warnings.
 	 *
-	 * @param WC_Bookings        $booking
-	 * @param WC_Product_Booking $product
+	 * @param WC_Booking         $booking Booking object.
+	 * @param WC_Product_Booking $product Product object.
 	 */
 	private function sanity_check_notices( $booking, $product ) {
 		if ( $booking->get_start() && $booking->get_start() > strtotime( '+ 2 year', current_time( 'timestamp' ) ) ) {
@@ -109,7 +109,7 @@ class WC_Bookings_Details_Meta_Box {
 		wp_enqueue_script( 'wc-enhanced-select' );
 		wp_enqueue_script( 'jquery-ui-datepicker' );
 
-		if ( ! is_a( $booking, 'WC_Booking' ) || $booking->get_id() !== $post->ID ) {
+		if ( ! $booking instanceof \WC_Booking || $booking->get_id() !== $post->ID ) {
 			$booking = new WC_Booking( $post->ID );
 		}
 
@@ -117,7 +117,6 @@ class WC_Bookings_Details_Meta_Box {
 
 		$product_id        = $booking->get_product_id( 'edit' );
 		$resource_id       = $booking->get_resource_id( 'edit' );
-		$customer_id       = $booking->get_customer_id( 'edit' );
 		$product           = $booking->get_product( $product_id );
 		$customer          = $booking->get_customer();
 		$statuses          = array_unique( array_merge( get_wc_booking_statuses( null, true ), get_wc_booking_statuses( 'user', true ), get_wc_booking_statuses( 'cancel', true ) ) );
@@ -465,9 +464,10 @@ class WC_Bookings_Details_Meta_Box {
 						quietMillis: 250,
 						data: function( params ) {
 							return {
-								term:     params.term,
-								action:   'wc_bookings_json_search_order',
-								security: '" . wp_create_nonce( 'search-booking-order' ) . "'
+								term: params.term,
+								action: 'wc_bookings_json_search_order',
+								booking_id: '" . absint( $post->ID ) . "',
+								security: '" . wp_create_nonce( "search-booking-order-$post->ID" ) . "'
 							};
 						},
 						processResults: function( data ) {

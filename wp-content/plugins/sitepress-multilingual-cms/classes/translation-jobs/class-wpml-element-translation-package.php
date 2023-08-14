@@ -40,10 +40,11 @@ class WPML_Element_Translation_Package extends WPML_Translation_Job_Helper {
 	 * Create translation package
 	 *
 	 * @param \WPML_Package|\WP_Post|int $post
+	 * @param bool                       $isOriginal
 	 *
 	 * @return array<string,string|array<string,string>>
 	 */
-	public function create_translation_package( $post ) {
+	public function create_translation_package( $post, $isOriginal = false ) {
 
 		$package = array();
 		$post    = is_numeric( $post ) ? get_post( $post ) : $post;
@@ -103,7 +104,7 @@ class WPML_Element_Translation_Package extends WPML_Translation_Job_Helper {
 
 		$package['contents'] = $this->buildEntries( $package['contents'], $post_contents );
 
-		return apply_filters( 'wpml_tm_translation_job_data', $package, $post );
+		return apply_filters( 'wpml_tm_translation_job_data', $package, $post, $isOriginal );
 	}
 
 	private function buildEntries( $contents, $entries, $parentKey = '' ) {

@@ -1,0 +1,117 @@
+.swp-header {
+    margin: 0 22px;
+    padding: 30px 0;
+}
+
+.swp-header-menu--item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    gap: 9px;
+    cursor: pointer;
+}
+
+.swp-header-menu--item.swp-a {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    color: rgba(var(--neutralRGB), 0.6);
+    text-decoration: none;
+}
+
+.swp-header-menu--item.swp-a:hover {
+    color: rgba(var(--neutralRGB), 0.6);
+}
+
+.swp-badge {
+    -webkit-box-sizing: content-box;
+            box-sizing: content-box;
+    display: inline-block;
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 1em;
+    min-width: 1em;
+    padding: 0.23em;
+    border-radius: 50%;
+    text-align: center;
+    background-color: var(--uiRed);
+    color: var(--white);
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    -webkit-animation-duration: 4s;
+            animation-duration: 4s;
+    -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+    -webkit-animation-name: swp-bounce;
+            animation-name: swp-bounce;
+    -webkit-animation-timing-function: ease;
+            animation-timing-function: ease;
+}
+
+@-webkit-keyframes swp-bounce {
+    0%, 40% {
+        -webkit-transform: scale(1,1) translateY(0);
+                transform: scale(1,1) translateY(0);
+    }
+
+    41% {
+        -webkit-transform: scale(1.1,.9) translateY(0);
+                transform: scale(1.1,.9) translateY(0);
+    }
+
+    50% {
+        -webkit-transform: scale(.9,1.1) translateY(-8px);
+                transform: scale(.9,1.1) translateY(-8px);
+    }
+
+    56% {
+        -webkit-transform: scale(1.05,.95) translateY(0);
+                transform: scale(1.05,.95) translateY(0);
+    }
+
+    57% {
+        -webkit-transform: scale(1,1) translateY(-2px);
+                transform: scale(1,1) translateY(-2px);
+    }
+
+    64%, 100% {
+        -webkit-transform: scale(1,1) translateY(0);
+                transform: scale(1,1) translateY(0);
+    }
+}
+
+@keyframes swp-bounce {
+    0%, 40% {
+        -webkit-transform: scale(1,1) translateY(0);
+                transform: scale(1,1) translateY(0);
+    }
+
+    41% {
+        -webkit-transform: scale(1.1,.9) translateY(0);
+                transform: scale(1.1,.9) translateY(0);
+    }
+
+    50% {
+        -webkit-transform: scale(.9,1.1) translateY(-8px);
+                transform: scale(.9,1.1) translateY(-8px);
+    }
+
+    56% {
+        -webkit-transform: scale(1.05,.95) translateY(0);
+                transform: scale(1.05,.95) translateY(0);
+    }
+
+    57% {
+        -webkit-transform: scale(1,1) translateY(-2px);
+                transform: scale(1,1) translateY(-2px);
+    }
+
+    64%, 100% {
+        -webkit-transform: scale(1,1) translateY(0);
+                transform: scale(1,1) translateY(0);
+    }
+}

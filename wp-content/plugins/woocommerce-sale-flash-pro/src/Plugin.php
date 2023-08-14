@@ -35,7 +35,7 @@ class Plugin {
 	 * @since 1.3.0
 	 */
 	private function define_constants() {
-		$this->define( 'WC_SALE_FLASH_PRO_VERSION', '1.2.22' );
+		$this->define( 'WC_SALE_FLASH_PRO_VERSION', '1.3.1' );
 		$this->define( 'WC_SALE_FLASH_PRO_PATH', plugin_dir_path( WC_SALE_FLASH_PRO_FILE ) );
 		$this->define( 'WC_SALE_FLASH_PRO_URL', plugin_dir_url( WC_SALE_FLASH_PRO_FILE ) );
 		$this->define( 'WC_SALE_FLASH_PRO_BASENAME', plugin_basename( WC_SALE_FLASH_PRO_FILE ) );

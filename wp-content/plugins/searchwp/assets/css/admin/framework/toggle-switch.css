@@ -1,0 +1,92 @@
+.swp-toggle {
+    cursor: pointer;
+}
+    
+.swp-toggle-switch {
+    background-color: rgba(var(--neutralRGB), 0.14);
+    border-radius: 20px;
+    width: 40px;
+    height: 22px;
+    position: relative;
+    -webkit-transition: background-color 0.25s;
+    -o-transition: background-color 0.25s;
+    transition: background-color 0.25s;
+}
+
+.swp-toggle-switch:not(.swp-toggle-switch--mini):hover {
+    background-color: rgba(var(--neutralRGB), 0.2);
+}
+    
+.swp-toggle-switch--mini {
+    width: 25px;
+    height: 15px;
+}
+    
+.swp-toggle-switch:before, 
+.swp-toggle-switch:after {
+    content: "";
+}
+
+.swp-toggle-switch:before {
+    display: block;
+    background: var(--white);
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    -webkit-transition: left 0.25s;
+        -o-transition: left 0.25s;
+            transition: left 0.25s;
+}
+
+.swp-toggle-switch--mini:before {
+    width: 11px;
+    height: 11px;
+    top: 2px;
+    left: 2px;
+}
+
+.swp-toggle-checkbox:checked + .swp-toggle-switch,
+.swp-toggle-switch--checked {
+    background: var(--secondary);
+}
+
+.swp-toggle-checkbox:checked + .swp-toggle-switch:before {
+    left: 20px;
+}
+
+.swp-toggle-checkbox:checked + .swp-toggle-switch--mini:before,
+.swp-toggle-switch--checked.swp-toggle-switch--mini:before {
+    left: 12px;
+}
+
+input.swp-toggle-checkbox {
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    position: absolute;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    border: none;
+}
+
+input.swp-toggle-checkbox:focus {
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
+.swp-toggle .swp-label {
+    display: block;
+    margin-top: 21px;
+}
+
+input.swp-toggle-checkbox:focus + .swp-toggle-switch,
+input.swp-toggle-checkbox:active + .swp-toggle-switch {
+    -webkit-box-shadow: 0 0 2px 1px var(--secondary);
+            box-shadow: 0 0 2px 1px var(--secondary);
+    border: none;
+}

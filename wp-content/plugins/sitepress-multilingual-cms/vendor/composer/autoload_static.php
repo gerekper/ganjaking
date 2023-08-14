@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitce0dbfef7d0bb3789f897b3031365879
+class ComposerStaticInitd7d4dbca68218ea0d9ef4e320e642ae4
 {
     public static $files = array (
         'b45b351e6b6f7487d819961fef2fda77' => __DIR__ . '/..' . '/jakeasmith/http_build_url/src/http_build_url.php',
@@ -686,7 +686,6 @@ class ComposerStaticInitce0dbfef7d0bb3789f897b3031365879
         'WPML\\Media\\Translate\\Endpoint\\FinishMediaTranslation' => __DIR__ . '/../..' . '/classes/media/translate/endpoints/FinishMediaTranslation.php',
         'WPML\\Media\\Translate\\Endpoint\\PrepareForTranslation' => __DIR__ . '/../..' . '/classes/media/translate/endpoints/PrepareForTranslation.php',
         'WPML\\Media\\Translate\\Endpoint\\TranslateExistingMedia' => __DIR__ . '/../..' . '/classes/media/translate/endpoints/TranslateExistingMedia.php',
-        'WPML\\Media\\Translate\\LanguagesUpdated' => __DIR__ . '/../..' . '/classes/media/translate/LanguagesUpdated.php',
         'WPML\\Notices\\DismissNotices' => __DIR__ . '/../..' . '/classes/notices/DismissNotices.php',
         'WPML\\Options\\Reset' => __DIR__ . '/../..' . '/classes/options/Reset.php',
         'WPML\\Plugins' => __DIR__ . '/../..' . '/classes/plugins/Plugins.php',
@@ -1209,7 +1208,6 @@ class ComposerStaticInitce0dbfef7d0bb3789f897b3031365879
         'WPML_Main_Admin_Menu' => __DIR__ . '/../..' . '/classes/admin-menu/configurations/class-wpml-main-admin-menu.php',
         'WPML_Media_Attachments_Duplication' => __DIR__ . '/../..' . '/classes/media/duplication/class-wpml-media-attachments-duplication.php',
         'WPML_Media_Attachments_Duplication_Factory' => __DIR__ . '/../..' . '/classes/media/duplication/class-wpml-media-attachments-duplication-factory.php',
-        'WPML_Media_Duplication_Setup' => __DIR__ . '/../..' . '/inc/setup/wpml-media-duplication-setup.php',
         'WPML_Media_Exception' => __DIR__ . '/../..' . '/classes/media/class-wpml-media-exception.php',
         'WPML_Media_Settings' => __DIR__ . '/../..' . '/classes/media/settings/class-wpml-media-settings.php',
         'WPML_Media_Settings_Factory' => __DIR__ . '/../..' . '/classes/media/settings/class-wpml-media-settings-factory.php',
@@ -2010,9 +2008,9 @@ class ComposerStaticInitce0dbfef7d0bb3789f897b3031365879
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitce0dbfef7d0bb3789f897b3031365879::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitce0dbfef7d0bb3789f897b3031365879::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitce0dbfef7d0bb3789f897b3031365879::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd7d4dbca68218ea0d9ef4e320e642ae4::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd7d4dbca68218ea0d9ef4e320e642ae4::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitd7d4dbca68218ea0d9ef4e320e642ae4::$classMap;
 
         }, null, ClassLoader::class);
     }

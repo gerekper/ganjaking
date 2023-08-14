@@ -10,6 +10,9 @@ use RecursiveIteratorIterator;
 use SplFileInfo;
 
 class Repository {
+  const MIGRATIONS_LEVEL_APP = 'app';
+  const MIGRATIONS_LEVEL_DB = 'db';
+
   /** @var string */
   private $migrationsDir;
 
@@ -18,7 +21,7 @@ class Repository {
 
   public function __construct() {
     $this->migrationsDir = __DIR__ . '/../Migrations';
-    $this->templateFile = __DIR__ . '/MigrationTemplate.php';
+    $this->templateFile = __DIR__ . '/{level}MigrationTemplate.php';
   }
 
   public function getMigrationsDir(): string {
@@ -26,15 +29,20 @@ class Repository {
   }
 
   /** @return array{name: string, path: string} */
-  public function create(): array {
-    $template = @file_get_contents($this->templateFile);
-    if (!$template) {
-      throw MigratorException::templateFileReadFailed($this->templateFile);
+  public function create(string $level): array {
+    if (!in_array($level, [self::MIGRATIONS_LEVEL_APP, self::MIGRATIONS_LEVEL_DB], true)) {
+      throw MigratorException::invalidMigrationLevel($level);
     }
-
-    $name = $this->generateName();
-    $migration = str_replace('class MigrationTemplate ', "class $name ", $template);
-    $path = $this->migrationsDir . "/$name.php";
+    $ucFirstLevel = ucfirst($level);
+    $templateFile = str_replace('{level}', $ucFirstLevel, $this->templateFile);
+    $template = @file_get_contents($templateFile);
+    if (!$template) {
+      throw MigratorException::templateFileReadFailed($templateFile);
+    }
+    $name = $this->generateName($level);
+    $migration = str_replace('{level}', $ucFirstLevel, 'class {level}MigrationTemplate ');
+    $migration = str_replace($migration, "class $name ", $template);
+    $path = "$this->migrationsDir/$ucFirstLevel/$name.php";
     $result = @file_put_contents($path, $migration);
     if (!$result) {
       throw MigratorException::migrationFileWriteFailed($path);
@@ -45,9 +53,30 @@ class Repository {
     ];
   }
 
+  /**
+   * Array of migration filenames and types.
+   * Db migrations are loaded first, then app migrations. This ensures that Db migrator is run before app migrations
+   * @return array<array{level: string, name: string}>
+   */
   public function loadAll(): array {
+    $migrations = array_merge(
+      $this->loadForLevel(self::MIGRATIONS_LEVEL_DB),
+      $this->loadForLevel(self::MIGRATIONS_LEVEL_APP)
+    );
+    $migrationNames = array_column($migrations, 'name');
+    $duplicateNames = array_diff_assoc($migrationNames, array_unique($migrationNames));
+    if (!empty($duplicateNames)) {
+      throw MigratorException::duplicateMigrationNames($duplicateNames);
+    }
+    return $migrations;
+  }
+
+  /**
+   * @return array<array{level: string, name: string}>
+   */
+  private function loadForLevel(string $level): array {
     $files = new RecursiveIteratorIterator(
-      new RecursiveDirectoryIterator($this->migrationsDir, RecursiveDirectoryIterator::SKIP_DOTS)
+      new RecursiveDirectoryIterator($this->migrationsDir . '/' . ucfirst($level), RecursiveDirectoryIterator::SKIP_DOTS)
     );
 
     $migrations = [];
@@ -63,10 +92,15 @@ class Repository {
       }
     }
     sort($migrations);
-    return $migrations;
+    return array_map(function ($migration) use ($level) {
+      return [
+        'level' => $level,
+        'name' => $migration,
+      ];
+    }, $migrations) ;
   }
 
-  private function generateName(): string {
-    return 'Migration_' . gmdate('Ymd_His');
+  private function generateName(string $level): string {
+    return 'Migration_' . gmdate('Ymd_His') . '_' . ucfirst($level);
   }
 }

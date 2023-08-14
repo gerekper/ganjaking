@@ -11,7 +11,7 @@
     "wp-cli.yml": "./tests/wp-cli.yml"
   },
   "env": {
-    "development": [],
+    "development": {},
     "tests": {
       "port": 8086,
       "config": {

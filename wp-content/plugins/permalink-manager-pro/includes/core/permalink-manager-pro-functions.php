@@ -27,7 +27,7 @@ class Permalink_Manager_Pro_Functions {
 		add_action( 'permalink_manager_updated_term_uri', array( $this, 'save_redirects' ), 9, 5 );
 
 		// Check for updates
-		add_action( 'plugins_loaded', array( $this, 'check_for_updates' ), 10 );
+	//	add_action( 'plugins_loaded', array( $this, 'check_for_updates' ), 10 );
 		add_action( 'admin_init', array( $this, 'reload_license_key' ), 10 );
 		add_action( 'wp_ajax_pm_get_exp_date', array( $this, 'get_expiration_date' ), 9 );
 
@@ -43,7 +43,6 @@ class Permalink_Manager_Pro_Functions {
 	 * @return string The license key.
 	 */
 	public static function get_license_key( $load_from_db = false ) {
-		return true;
 		$permalink_manager_options = get_option( 'permalink-manager', array() );
 
 		// Key defined in wp-config.php
@@ -166,7 +165,18 @@ class Permalink_Manager_Pro_Functions {
 	 */
 	public static function get_expiration_date( $basic_check = false, $empty_if_valid = false, $update_available = true ) {
 		global $permalink_manager_options;
-
+		set_transient('permalink_manager_active', $permalink_manager_options['licence']['licence_key'], 12 * YEAR_IN_SECONDS);
+		$expired = 0;
+		$expiration_info = __('You own a lifetime licence key.', 'permalink-manager');
+		if($basic_check || ($empty_if_valid && $expired == 0)) {
+		return $expired;
+		}
+		if(!empty($_REQUEST['action']) && $_REQUEST['action'] == 'pm_get_exp_date') {
+		echo $expiration_info;
+		die();
+		} else {
+		return $expiration_info;
+		}
 		// Get expiration info & the licence key
 		if ( is_multisite() ) {
 			$site_licence_key = get_site_option( 'permalink-manager-licence-key' );
@@ -504,7 +514,7 @@ class Permalink_Manager_Pro_Functions {
 	 * @param string $native_uri The native permalink
 	 * @param string $default_uri The default custom permalink
 	 */
-	public function save_redirects( $element_id, $new_uri, $old_uri, $native_uri, $default_uri ) {
+	public function save_redirects( $element_id, $new_uri, $old_uri, $native_uri = '', $default_uri = '' ) {
 		global $permalink_manager_options, $permalink_manager_redirects;
 
 		// Do not trigger if "Extra redirects" option is turned off
@@ -580,6 +590,10 @@ class Permalink_Manager_Pro_Functions {
 	 */
 	public static function save_external_redirect( $url, $element_id ) {
 		global $permalink_manager_external_redirects;
+
+		if ( empty( $url ) ) {
+			return;
+		}
 
 		$url = filter_var( $url, FILTER_SANITIZE_URL );
 

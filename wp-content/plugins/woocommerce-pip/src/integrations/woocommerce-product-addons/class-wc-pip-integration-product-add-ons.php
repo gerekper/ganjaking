@@ -26,7 +26,7 @@ namespace SkyVerge\WooCommerce\PIP\Integration;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 /**
  * Integration class for WooCommerce Product Add-Ons.

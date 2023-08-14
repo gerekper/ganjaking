@@ -24,7 +24,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 /**
  * WooCommerce Print Invoices/Packing Lists main plugin class.
@@ -35,7 +35,7 @@ class WC_PIP extends Framework\SV_WC_Plugin {
 
 
 	/** string version number */
-	const VERSION = '3.12.1';
+	const VERSION = '3.13.1';
 
 	/** @var WC_PIP single instance of this plugin */
 	protected static $instance;
@@ -87,14 +87,15 @@ class WC_PIP extends Framework\SV_WC_Plugin {
 		parent::__construct(
 			self::PLUGIN_ID,
 			self::VERSION,
-			array(
-				'text_domain'  => 'woocommerce-pip',
-				'dependencies' => array(
-					'php_extensions' => array(
+			[
+				'text_domain'   => 'woocommerce-pip',
+				'supports_hpos' => true,
+				'dependencies'  => [
+					'php_extensions' => [
 						'dom',
-					),
-				),
-			)
+					],
+				],
+			]
 		);
 
 		$this->add_milestone_hooks();

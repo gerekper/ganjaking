@@ -3,8 +3,8 @@ Contributors:nik00726
 Tags:Recaptcha
 Requires at least:3.0
 Tested up to:6.2
-Version:2.44
-Stable tag:2.44
+Version:2.46
+Stable tag:2.46
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -89,6 +89,12 @@ This plugin is easy to install like other plug-ins of Wordpress as you need to j
 
 
 == Changelog ==
+
+= 2.46 =
+
+* Fixed issue of wpautop auto adding <p> tags to <scripts>
+
+
 
 = 2.45 =
 

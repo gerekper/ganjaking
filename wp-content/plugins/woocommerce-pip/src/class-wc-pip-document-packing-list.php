@@ -24,7 +24,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 /**
  * PIP Packing List class
@@ -609,26 +609,6 @@ class WC_PIP_Document_Packing_List extends WC_PIP_Document {
 
 		/** This filter is documented in src/class-wc-pip-document-invoice.php */
 		return apply_filters( 'wc_pip_document_table_footer', $rows, $this->type, $this->order_id );
-	}
-
-
-	/**
-	 * Gets the items count accounting excluding virtual or downloadable items.
-	 *
-	 * @TODO remove this deprecated method by version 4.0 or May 2022 {unfulvio 2021-05-28}
-	 *
-	 * @since 3.0.0
-	 * @deprecated since 3.11.2
-	 *
-	 * @param int $count
-	 * @param array $items
-	 * @return int
-	 */
-	public function filter_order_items_count( $count, $items ) {
-
-		wc_deprecated_function( __METHOD__, '3.11.2', __CLASS__ . '::order::get_items()' );
-
-		return $count;
 	}
 
 

@@ -218,7 +218,7 @@ class UpdraftPlus_Addons_MoreFiles {
 			$numfiles = $zip->numFiles;
 
 			if (false === $numfiles) {
-				$warn[] = sprintf(__('Unable to read any files from the zip (%s) - could not pre-scan it to check its integrity. Zip error: (%s)', 'updraftplus'), basename($zipfile), $zip->last_error);
+				$warn[] = sprintf(__('Unable to read any files from the zip (%s) - could not pre-scan it to check its integrity.', 'updraftplus'), basename($zipfile)).' '.sprintf(__('Zip error: (%s)', 'updraftplus'), $zip->last_error);
 				return;
 			}
 
@@ -361,7 +361,7 @@ class UpdraftPlus_Addons_MoreFiles {
 		$ret .= '<label class="updraft-exclude-label" for="updraft_include_wpcore_exclude">'.__('Exclude these:', 'updraftplus').'</label>';
 
 		$exclude_input_type = $for_updraftcentral ? "text" : "hidden";
-		$exclude_input_extra_attr = $for_updraftcentral ? 'title="'.__('If entering multiple files/directories, then separate them with commas. For entities at the top level, you can use a * at the start or end of the entry as a wildcard.', 'updraftplus').'" size="54"' : '';
+		$exclude_input_extra_attr = $for_updraftcentral ? 'title="'.__('If entering multiple files/directories, then separate them with commas.', 'updraftplus').' '.__('For entities at the top level, you can use a * at the start or end of the entry as a wildcard.', 'updraftplus').'" size="54"' : '';
 		$ret .= '<input type="'.$exclude_input_type.'" id="updraft_include_wpcore_exclude" name="updraft_include_wpcore_exclude" value="'.esc_attr(UpdraftPlus_Options::get_updraft_option('updraft_include_wpcore_exclude')).'" '.$exclude_input_extra_attr.' />';
 		if (!$for_updraftcentral) {
 			$backupable_file_entities = $updraftplus->get_backupable_file_entities();
@@ -824,7 +824,7 @@ class UpdraftPlus_Addons_MoreFiles {
 		$more_ui .= '</div>';
 
 		if ($not_found) {
-			$warn[] = __('The original filesystem location for some of the following items was not found. Please select where you want these backups to be restored to.', 'updraftplus');
+			$warn[] = __('The original filesystem location for some of the following items was not found.', 'updraftplus').' '.__('Please select where you want these backups to be restored to.', 'updraftplus');
 		}
 		$mess[] = __('Please select the more files backups that you wish to restore:', 'updraftplus');
 		$info['addui'] = empty($info['addui']) ? $more_ui : $info['addui'] . '<br>' . $more_ui;
@@ -887,7 +887,7 @@ class UpdraftPlus_Addons_MoreFiles {
 		}
 
 		$selective_restore_ui = '<div class="notice below-h2 updraft-restore-option">';
-		$selective_restore_ui .= '<p>'.sprintf(__('If you do not want to restore all your %s files, then de-select the unwanted ones here. Files not chosen will not be replaced.', 'updraftplus'), strtolower($description)).'(<a href="#" id="updraftplus_restore_'.$type.'_showmoreoptions">...</a>)</p>';
+		$selective_restore_ui .= '<p>'.sprintf(__('If you do not want to restore all your %s files, then de-select the unwanted ones here.', 'updraftplus'), strtolower($description)).' '.__('Files not chosen will not be replaced.', 'updraftplus').'(<a href="#" id="updraftplus_restore_'.$type.'_showmoreoptions">...</a>)</p>';
 
 		$selective_restore_ui .= '<div class="updraftplus_restore_'.$type.'_options_container" style="display:none;">';
 
@@ -895,7 +895,7 @@ class UpdraftPlus_Addons_MoreFiles {
 		$selective_restore_ui .= ' | <a class="updraft_restore_deselect_all_'.$type.'" href="#">'.__('Deselect all', 'updraftplus').'</a><br><br>';
 
 		if ($php_max_input_vars_exceeded) {
-			$all_other_entity_title = sprintf(__('The amount of %s files scanned is near or over the php_max_input_vars value so some %s files maybe truncated. This option will ensure all %s files not found will be restored.', 'updraftplus'), strtolower($description));
+			$all_other_entity_title = sprintf(__('The amount of %1$s files scanned is near or over the php_max_input_vars value so some %1$s files maybe truncated.', 'updraftplus'), strtolower($description)).' '.sprintf(__('This option will ensure all %s files not found will be restored.', 'updraftplus'), strtolower($description));
 			$selective_restore_ui .= '<input class="updraft_restore_'.$type.'_options" id="updraft_restore_'.$type.'_udp_all_other_'.$type.'" checked="checked" type="checkbox" name="updraft_restore_'.$type.'_options[]" value="udp_all_other_'.$type.'"> ';
 			$selective_restore_ui .= '<label for="updraft_restore_'.$type.'_udp_all_other_'.$type.'"  title="'.$all_other_entity_title.'">'.sprintf(__('Restore all %s not listed below', 'updraftplus'), strtolower($description)).'</label><br>';
 		}

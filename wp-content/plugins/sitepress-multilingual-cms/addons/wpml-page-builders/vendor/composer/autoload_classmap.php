@@ -39,6 +39,8 @@ return array(
     'WPML\\PB\\AutoUpdate\\Hooks' => $baseDir . '/classes/Shared/AutoUpdate/Hooks.php',
     'WPML\\PB\\AutoUpdate\\Settings' => $baseDir . '/classes/Shared/AutoUpdate/Settings.php',
     'WPML\\PB\\AutoUpdate\\TranslationStatus' => $baseDir . '/classes/Shared/AutoUpdate/TranslationStatus.php',
+    'WPML\\PB\\BeaverBuilder\\BeaverThemer\\HooksFactory' => $baseDir . '/classes/Integrations/BeaverBuilder/BeaverThemer/HooksFactory.php',
+    'WPML\\PB\\BeaverBuilder\\BeaverThemer\\LocationHooks' => $baseDir . '/classes/Integrations/BeaverBuilder/BeaverThemer/LocationHooks.php',
     'WPML\\PB\\BeaverBuilder\\Config\\Factory' => $baseDir . '/classes/Integrations/BeaverBuilder/Config/Factory.php',
     'WPML\\PB\\BeaverBuilder\\Hooks\\Editor' => $baseDir . '/classes/Integrations/BeaverBuilder/Hooks/Editor.php',
     'WPML\\PB\\BeaverBuilder\\Hooks\\Menu' => $baseDir . '/classes/Integrations/BeaverBuilder/Hooks/Menu.php',

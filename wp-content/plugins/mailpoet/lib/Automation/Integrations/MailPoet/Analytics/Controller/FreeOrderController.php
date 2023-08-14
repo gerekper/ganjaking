@@ -47,6 +47,13 @@ class FreeOrderController implements OrderController {
 
   public function getOrdersForAutomation(Automation $automation, Query $query): array {
     $allEmails = $this->automationTimeSpanController->getAutomationEmailsInTimeSpan($automation, $query->getAfter(), $query->getBefore());
+    if (!$allEmails) {
+      return [
+        'results' => 0,
+        'items' => [],
+        'emails' => [],
+      ];
+    }
     $items = [
       $this->addItem($automation, $query),
       $this->addItem($automation, $query),
@@ -97,12 +104,15 @@ class FreeOrderController implements OrderController {
         'avatar' => $this->wp->getAvatarUrl($subscriber->getEmail(), ['size' => 20]),
       ],
       'details' => [
-        'id' => $currentOrder ? $currentOrder->get_id() : null,
+        'id' => $currentOrder ? $currentOrder->get_id() : 0,
         'status' => $currentOrder ? [
           'id' => $currentOrder->get_status(),
           'name' => $this->woocommerce->wcGetOrderStatusName($currentOrder->get_status()),
-          ] : null,
-        'total' => $currentOrder ? (float)$currentOrder->get_total() : null,
+          ] : [
+          'id' => 'completed',
+          'name' => $this->woocommerce->wcGetOrderStatusName('completed'),
+        ],
+        'total' => $currentOrder ? (float)$currentOrder->get_total() : 0,
         'products' => $products,
       ],
         'email' => [

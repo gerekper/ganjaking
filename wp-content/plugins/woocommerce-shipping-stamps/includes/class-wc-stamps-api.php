@@ -45,42 +45,6 @@ class WC_Stamps_API {
 	private static $logging_enabled = null;
 
 	/**
-	 * Get rate name by type.
-	 *
-	 * @param string $type Type.
-	 *
-	 * @return string Rate name.
-	 */
-	public static function get_rate_type_name( $type ) {
-		switch ( $type ) {
-			case 'US-FC' :
-				return 'First-Class Mail';
-			case 'US-MM' :
-				return 'Media Mail';
-			case 'US-PP' :
-				return 'Parcel Post';
-			case 'US-PM' :
-				return 'Priority Mail';
-			case 'US-XM' :
-				return 'Priority Mail Express';
-			case 'US-EMI' :
-				return 'Priority Mail Express International';
-			case 'US-PMI' :
-				return 'Priority Mail International';
-			case 'US-FCI' :
-				return 'First Class Mail International';
-			case 'US-CM' :
-				return 'Critical Mail';
-			case 'US-PS' :
-				return 'Parcel Select';
-			case 'US-LM' :
-				return 'Library Mail';
-		}
-
-		return '';
-	}
-
-	/**
 	 * Get addon name by type.
 	 *
 	 * @param string $type Type.
@@ -480,40 +444,8 @@ class WC_Stamps_API {
 	 * @return array
 	 */
 	public static function verify_address( $order ) {
-		$address = array(
-			'FullName' => $order->get_shipping_first_name() . ' ' . $order->get_shipping_last_name(),
-			'Company'  => $order->get_shipping_company(),
-			'Address1' => $order->get_shipping_address_1(),
-			'Address2' => $order->get_shipping_address_2(),
-			'City'     => $order->get_shipping_city(),
-		);
-
-		$shipping_country = $order->get_shipping_country();
-		$state            = $order->get_shipping_state();
-		$postcode         = $order->get_shipping_postcode();
-		$is_us_territory  = self::is_us_territory( $shipping_country );
-
-		if ( 'US' === $shipping_country || $is_us_territory ) {
-			$postcode_pieces = explode( '-', $postcode );
-			$zipcode         = $postcode_pieces[0];
-			$zipcode_addon   = 1 < count( $postcode_pieces ) ? $postcode_pieces[1] : '';
-
-			$address['State']   = $state;
-			$address['ZIPCode'] = substr( $zipcode, 0, 5 );
-
-			// Add in the ZIP+4 (ZIPCodeAddOn) if present in the address
-			// Otherwise the "To Address Cleanse Hash" match will fail.
-			if ( $zipcode_addon ) {
-				$address['ZIPCodeAddOn'] = substr( $zipcode_addon, 0, 4 );
-			}
-		} else {
-			$address['Province']   = $state;
-			$address['PostalCode'] = $postcode;
-			$address['Country']    = $shipping_country;
-		}
-
 		$request = array(
-			'Address' => $address,
+			'Address' => self::get_shipping_address( $order ),
 		);
 
 		$result = self::do_request( 'CleanseAddress', $request );
@@ -577,13 +509,10 @@ class WC_Stamps_API {
 	 * @return array|bool|string|\WP_Error
 	 */
 	public static function get_rates( $order, $args ) {
-		$shipping_country = $order->get_shipping_country();
-		$is_us_territory  = self::is_us_territory( $shipping_country );
-
 		$request = array(
 			'Rate' => array(
-				'FromZIPCode'   => get_option( 'wc_settings_stamps_zip' ),
-				'ToCountry'     => ( $is_us_territory ) ? 'US' : $shipping_country,
+				'From'          => self::get_store_address(),
+				'To'            => self::get_shipping_address( $order ),
 				'WeightLb'      => floor( $args['weight'] ),
 				'WeightOz'      => number_format( ( $args['weight'] - floor( $args['weight'] ) ) * 16, 2 ),
 				'ShipDate'      => $args['date'],
@@ -595,8 +524,14 @@ class WC_Stamps_API {
 				'Height'        => $args['height'],
 				'PackageType'   => $args['type'],
 				'PrintLayout'   => 'Normal4X6',
+				'ContentType'   => $args['content_type'],
 			),
 		);
+
+		$check_request = self::check_address( $request['Rate'] );
+		if ( is_wp_error( $check_request ) ) {
+			return $check_request;
+		}
 
 		$postcode = $order->get_shipping_postcode();
 
@@ -630,7 +565,7 @@ class WC_Stamps_API {
 				'cost'          => $rate->Amount,
 				'service'       => $rate->ServiceType,
 				'package'       => $rate->PackageType,
-				'name'          => self::get_rate_type_name( $rate->ServiceType ),
+				'name'          => $rate->ServiceDescription,
 				'dim_weighting' => isset( $rate->DimWeighting ) ? $rate->DimWeighting : 0,
 				'rate_object'   => $rate,
 			);
@@ -649,9 +584,6 @@ class WC_Stamps_API {
 	 * @version 1.3.2
 	 */
 	public static function purchase_label( $order, $args ) {
-		$shipping_country = $order->get_shipping_country();
-		$is_us_territory  = self::is_us_territory( $shipping_country );
-
 		$order_id = $order->get_id();
 		$rate     = $args['rate'];
 		$customs  = $args['customs'];
@@ -666,77 +598,10 @@ class WC_Stamps_API {
 			'SampleOnly'     => get_option( 'wc_settings_stamps_sample_only', "yes" ) === "yes",
 			'ImageType'      => get_option( 'wc_settings_stamps_image_type', "Pdf" ),
 			'PaperSize'      => get_option( 'wc_settings_stamps_paper_size', 'Default' ),
-			'From'           => array(
-				'FullName'    => get_option( 'wc_settings_stamps_full_name' ),
-				'Company'     => get_option( 'wc_settings_stamps_company' ),
-				'Address1'    => get_option( 'wc_settings_stamps_address_1' ),
-				'Address2'    => get_option( 'wc_settings_stamps_address_2' ),
-				'City'        => get_option( 'wc_settings_stamps_city' ),
-				'State'       => get_option( 'wc_settings_stamps_state' ),
-				'ZIPCode'     => get_option( 'wc_settings_stamps_zip' ),
-				'Country'     => 'US',
-				'PhoneNumber' => get_option( 'wc_settings_stamps_phone' ),
-			),
 		);
-
-		$request['To'] = array(
-			'FullName'    => $order->get_shipping_first_name() . ' ' . $order->get_shipping_last_name(),
-			'Company'     => $order->get_shipping_company(),
-			'Address1'    => $order->get_shipping_address_1(),
-			'Address2'    => $order->get_shipping_address_2(),
-			'City'        => $order->get_shipping_city(),
-			'Country'     => ( $is_us_territory ) ? 'US' : $shipping_country,
-		);
-
-		// Figure out which tag to use for the address hash. We want to use
-		// 'CleanseHash' if the merchant accepted stamps.com's changes to the To Address or
-		// 'OverrideHash' if the merchant selected to "continue without changes" to the To Address
-		// See also WC_Stamps_Order::ajax_override_address.
-		$cleanse_hash = $order->get_meta( '_stamps_hash' );
-		$override_hash = $order->get_meta( '_stamps_override_hash' );
-		if ( $cleanse_hash === $override_hash ) {
-			$request['To'] += array(
-				'OverrideHash' => $override_hash,
-			);
-		} else {
-			$request['To'] += array(
-				'CleanseHash' => $cleanse_hash,
-			);
-		}
-
-		$postcode = $order->get_shipping_postcode();
-		$state    = $order->get_shipping_state();
-
-		if ( 'US' === $shipping_country || $is_us_territory ) {
-			$postcode_pieces = explode( '-', $postcode );
-			$zipcode         = $postcode_pieces[0];
-			$zipcode_addon   = 1 < count( $postcode_pieces ) ? $postcode_pieces[1] : '';
-
-			$request['To'] += array(
-				'State'   => $state,
-				'ZIPCode' => substr( $zipcode, 0, 5 ),
-			);
-
-			// Add in the ZIP+4 (ZIPCodeAddOn) if present in the address
-			// Otherwise the "To Address Cleanse Hash" match will fail.
-			if ( $zipcode_addon ) {
-				$request['To']['ZIPCodeAddOn'] = substr( $zipcode_addon, 0, 4 );
-			}
-		} else {
-			$request['To'] += array(
-				'Province'    => $state,
-				'PostalCode'  => $postcode,
-				'PhoneNumber' => $order->get_billing_phone(),
-			);
-		}
 
 		if ( $customs ) {
 			$request['Customs'] = $customs;
-		}
-
-		$check_request = self::check_address( $request );
-		if ( is_wp_error( $check_request ) ) {
-			return $check_request;
 		}
 
 		$result = self::do_request( 'CreateIndicium', $request );
@@ -795,5 +660,84 @@ class WC_Stamps_API {
 		}
 
 		return esc_url_raw( $result->URL );
+	}
+
+	/**
+	 * Get store address.
+	 *
+	 * @return array.
+	 */
+	public static function get_store_address() {
+		return array(
+			'FullName'    => get_option( 'wc_settings_stamps_full_name' ),
+			'Company'     => get_option( 'wc_settings_stamps_company' ),
+			'Address1'    => get_option( 'wc_settings_stamps_address_1' ),
+			'Address2'    => get_option( 'wc_settings_stamps_address_2' ),
+			'City'        => get_option( 'wc_settings_stamps_city' ),
+			'State'       => get_option( 'wc_settings_stamps_state' ),
+			'ZIPCode'     => get_option( 'wc_settings_stamps_zip' ),
+			'Country'     => 'US',
+			'PhoneNumber' => get_option( 'wc_settings_stamps_phone' ),
+		);
+	}
+
+	/**
+	 * Get order formatted shipping address.
+	 *
+	 * @param WC_Order $order.
+	 *
+	 * @return array.
+	 */
+	public static function get_shipping_address( $order ) {
+		$shipping_country = $order->get_shipping_country();
+		$is_us_territory  = self::is_us_territory( $shipping_country );
+
+		$address = array(
+			'FullName' => $order->get_shipping_first_name() . ' ' . $order->get_shipping_last_name(),
+			'Company'  => $order->get_shipping_company(),
+			'Address1' => $order->get_shipping_address_1(),
+			'Address2' => $order->get_shipping_address_2(),
+			'City'     => $order->get_shipping_city(),
+			'Country'  => ( $is_us_territory ) ? 'US' : $shipping_country,
+		);
+
+		// Figure out which tag to use for the address hash. We want to use
+		// 'CleanseHash' if the merchant accepted stamps.com's changes to the To Address or
+		// 'OverrideHash' if the merchant selected to "continue without changes" to the To Address
+		// See also WC_Stamps_Order::ajax_override_address.
+		$cleanse_hash  = $order->get_meta( '_stamps_hash' );
+		$override_hash = $order->get_meta( '_stamps_override_hash' );
+		if ( $cleanse_hash === $override_hash ) {
+			$address['OverrideHash'] = $override_hash;
+		} else {
+			$address['CleanseHash'] = $cleanse_hash;
+		}
+
+		$postcode = $order->get_shipping_postcode();
+		$state    = $order->get_shipping_state();
+		if ( 'US' === $shipping_country || $is_us_territory ) {
+			$postcode_pieces = explode( '-', $postcode );
+			$zipcode         = $postcode_pieces[0];
+			$zipcode_addon   = isset( $postcode_pieces[1] ) ? $postcode_pieces[1] : '';
+
+			$address += array(
+				'State'   => $state,
+				'ZIPCode' => substr( $zipcode, 0, 5 ),
+			);
+
+			// Add in the ZIP+4 (ZIPCodeAddOn) if present in the address
+			// Otherwise the "To Address Cleanse Hash" match will fail.
+			if ( $zipcode_addon ) {
+				$address['ZIPCodeAddOn'] = substr( $zipcode_addon, 0, 4 );
+			}
+		} else {
+			$address += array(
+				'Province'    => $state,
+				'PostalCode'  => $postcode,
+				'PhoneNumber' => $order->get_billing_phone(),
+			);
+		}
+
+		return $address;
 	}
 }

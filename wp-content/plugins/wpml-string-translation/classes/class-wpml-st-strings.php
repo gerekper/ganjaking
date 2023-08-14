@@ -89,6 +89,16 @@ class WPML_ST_Strings {
 			$sql_query .= ' AND ' . $this->get_value_search_query();
 			$joins[]    = "LEFT JOIN {$this->wpdb->prefix}icl_string_translations str ON str.string_id = s.id";
 		}
+
+		if ( $this->is_troubleshooting_filter_enabled() ) {
+			// This is a troubleshooting filter, it should display only String Translation elements that are in a wrong state.
+			// @see wpmldev-1920 - Strings that are incorrectly duplicated when re-translating a post that was edited using native editor.
+
+			$joins[] = ' LEFT JOIN  ' . $this->wpdb->prefix . 'icl_string_packages sp ON sp.ID = s.string_package_id';
+			$joins[] = ' INNER JOIN  ' . $this->wpdb->prefix . 'icl_translate it ON it.field_data_translated = sp.name';
+			$sql_query .=' AND it.field_type="original_id"';
+		}
+
 		$res = $this->get_results( $sql_query, $extra_cond, $offset, $limit, $joins );
 
 		if ( $res ) {
@@ -313,6 +323,13 @@ class WPML_ST_Strings {
 		}
 
 		return $result;
+	}
+
+	/**
+	 * @return bool
+	 */
+	private function is_troubleshooting_filter_enabled() {
+		return array_key_exists( 'troubleshooting', $_GET ) && $_GET['troubleshooting'] === '1';
 	}
 
 	/**

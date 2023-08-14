@@ -10,8 +10,11 @@ use WPML\API\Sanitize;
  */
 class WPML_Admin_Post_Actions extends WPML_Post_Translation {
 
-	const DUPLICATE_MEDIA_META_KEY = '_wpml_media_duplicate';
-	const DUPLICATE_FEATURED_META_KEY = '_wpml_media_featured';
+	/**
+	 * @depecated since 4.6.5 You should use constants from WPML\Media\Option
+	 */
+	const DUPLICATE_MEDIA_META_KEY = \WPML\Media\Option::DUPLICATE_MEDIA_KEY;
+	const DUPLICATE_FEATURED_META_KEY = \WPML\Media\Option::DUPLICATE_FEATURED_KEY;
 	const DUPLICATE_MEDIA_GLOBAL_KEY = 'duplicate_media';
 	const DUPLICATE_FEATURED_GLOBAL_KEY = 'duplicate_media';
 
@@ -138,54 +141,13 @@ class WPML_Admin_Post_Actions extends WPML_Post_Translation {
 			$duplicate_featured = isset( $_POST['wpml_duplicate_featured'] )
 				? filter_var( $_POST['wpml_duplicate_featured'], FILTER_SANITIZE_NUMBER_INT ) : false;
 
-			update_post_meta( (int) $original_post_id, self::DUPLICATE_MEDIA_META_KEY, (int) $duplicate_media );
-			update_post_meta( (int) $original_post_id, self::DUPLICATE_FEATURED_META_KEY, (int) $duplicate_featured );
-		} else {
-			$this->sync_media_options_with_original_or_global_settings( $post_id, $source_language );
+			\WPML\Media\Option::setDuplicateMediaForIndividualPost( $post_id, (bool) $duplicate_media );
+			\WPML\Media\Option::setDuplicateFeaturedForIndividualPost( $post_id, (bool) $duplicate_featured );
 		}
 	}
 
 	private function has_post_media_options_metabox() {
 		return array_key_exists( WPML_Meta_Boxes_Post_Edit_HTML::FLAG_HAS_MEDIA_OPTIONS, $_POST );
-	}
-
-	/**
-	 * @param int         $post_id
-	 * @param string|null $source_language
-	 */
-	private function sync_media_options_with_original_or_global_settings( $post_id, $source_language ) {
-		global $sitepress;
-
-		$source_post_id = $sitepress->get_object_id( $post_id, get_post_type( $post_id ), false, $source_language );
-		$is_translation = $source_post_id && $source_post_id !== $post_id;
-
-		foreach (
-			array(
-				self::DUPLICATE_FEATURED_META_KEY => self::DUPLICATE_FEATURED_GLOBAL_KEY,
-				self::DUPLICATE_MEDIA_META_KEY    => self::DUPLICATE_MEDIA_GLOBAL_KEY,
-			) as $meta_key => $global_key
-		) {
-
-			$source_value = get_post_meta( $source_post_id, $meta_key, true );
-
-			if ( '' === $source_value ) {
-				// fallback to global setting
-				$media_options = get_option( '_wpml_media', array() );
-
-				if ( isset( $media_options['new_content_settings'][ $global_key ] ) ) {
-					$source_value = (int) $media_options['new_content_settings'][ $global_key ];
-
-					if ( $source_post_id ) {
-						update_post_meta( $source_post_id, $meta_key, $source_value );
-					}
-				}
-			}
-
-			if ( '' !== $source_value && $is_translation ) {
-				update_post_meta( $post_id, $meta_key, $source_value );
-			}
-		}
-
 	}
 
 	private function has_invalid_language_details_on_heartbeat() {

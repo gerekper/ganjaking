@@ -521,7 +521,7 @@ function dropshipper_order_list() {
 				$new_order_id = $order->get_order_number();
 				$order_number = $new_order_id;
 				$supplier_pod_id = '_supplier_pod_' . get_current_user_id();
-				$supplier_pod = get_post_meta( $order_number, $order_number . '_' . $supplier_pod_id . '_status', true );
+				$supplier_pod = opmc_hpos_get_post_meta( $order_number, $order_number . '_' . $supplier_pod_id . '_status' );
 				$items = $order->get_items();
 
 				$store_add_shipping_add = $options['store_add_shipping_add'];
@@ -545,7 +545,7 @@ function dropshipper_order_list() {
 
 				$pdfpath = $upload_dir['baseurl'] . '/' . $new_order_id . '/' . $new_order_id . '_' . $term->slug . '.pdf';
 
-				$dropshipper_shipping_info = get_post_meta( $new_order_id, 'dropshipper_shipping_info_' . get_current_user_id(), true );
+				$dropshipper_shipping_info = opmc_hpos_get_post_meta( $new_order_id, 'dropshipper_shipping_info_' . get_current_user_id() );
 
 				$supplier_id = 'dropshipper_shipping_info_' . get_current_user_id();
 

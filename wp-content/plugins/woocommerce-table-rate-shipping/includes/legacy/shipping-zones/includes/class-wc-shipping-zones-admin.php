@@ -35,8 +35,8 @@ class WC_Shipping_Zones_Admin {
 
 		if ( ! empty( $_POST['add_zone'] ) || ! empty( $_POST['edit_zone'] ) ) {
 
-			if ( empty( $_POST['woocommerce_save_zone_nonce'] ) || ! wp_verify_nonce( $_POST['woocommerce_save_zone_nonce'], 'woocommerce_save_zone' ) ) {
-				echo '<div class="updated error"><p>' . __( 'Could not save zone. Please try again.', SHIPPING_ZONES_TEXTDOMAIN ) . '</p></div>';
+			if ( empty( $_POST['woocommerce_save_zone_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['woocommerce_save_zone_nonce'] ), 'woocommerce_save_zone' ) ) {
+				echo '<div class="updated error"><p>' . esc_html__( 'Could not save zone. Please try again.', SHIPPING_ZONES_TEXTDOMAIN ) . '</p></div>';
 				return;
 			}
 
@@ -54,7 +54,7 @@ class WC_Shipping_Zones_Admin {
 			$data       = array();
 
 			foreach ( $fields as $field ) {
-				$data[ $field ] = empty( $_POST[ $field ] ) ? '' : $_POST[ $field ];
+				$data[ $field ] = empty( $_POST[ $field ] ) ? '' : $_POST[ $field ]; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, each field is looped and wc_clean below.
 
 				if ( 'postcodes' === $field ) {
 					$data[ $field ] = array_map( 'strtoupper', array_map( 'wc_clean', explode( "\n", $data[ $field ] ) ) );
@@ -66,7 +66,7 @@ class WC_Shipping_Zones_Admin {
 			// If name is left blank...
 			if ( empty( $data['zone_name'] ) ) {
 				if ( $editing ) {
-					echo '<div class="updated error"><p>' . __( 'Zone name is required', SHIPPING_ZONES_TEXTDOMAIN ) . '</p></div>';
+					echo '<div class="updated error"><p>' . esc_html__( 'Zone name is required', SHIPPING_ZONES_TEXTDOMAIN ) . '</p></div>';
 					return;
 				} else {
 					$data['zone_name'] = __( 'Zone', SHIPPING_ZONES_TEXTDOMAIN ) . ' ' . ( $zone_count + 1 );
@@ -75,7 +75,7 @@ class WC_Shipping_Zones_Admin {
 
 			// Check required fields
 			if ( empty( $data['zone_type'] ) ) {
-				echo '<div class="updated error"><p>' . __(' Zone type is required', SHIPPING_ZONES_TEXTDOMAIN ) . '</p></div>';
+				echo '<div class="updated error"><p>' . esc_html__(' Zone type is required', SHIPPING_ZONES_TEXTDOMAIN ) . '</p></div>';
 				return;
 			}
 
@@ -97,7 +97,7 @@ class WC_Shipping_Zones_Admin {
 
 			// Any set?
 			if ( sizeof( $data[ $locations_field ] ) == 0 ) {
-				echo '<div class="updated error"><p>' . __('You must choose at least 1 country to add a zone.', SHIPPING_ZONES_TEXTDOMAIN) . '</p></div>';
+				echo '<div class="updated error"><p>' . esc_html__('You must choose at least 1 country to add a zone.', SHIPPING_ZONES_TEXTDOMAIN) . '</p></div>';
 				return;
 			}
 
@@ -107,7 +107,7 @@ class WC_Shipping_Zones_Admin {
 				$data['postcodes'] = array_filter( array_unique( $data['postcodes'] ) );
 
 				if ( sizeof( $data['postcodes'] ) == 0 ) {
-					echo '<div class="updated error"><p>' . __('You must choose at least 1 postcode to add postcode zone.', SHIPPING_ZONES_TEXTDOMAIN) . '</p></div>';
+					echo '<div class="updated error"><p>' . esc_html__('You must choose at least 1 postcode to add postcode zone.', SHIPPING_ZONES_TEXTDOMAIN) . '</p></div>';
 					return;
 				}
 
@@ -210,15 +210,15 @@ class WC_Shipping_Zones_Admin {
 					}
 
 				} else {
-					echo '<div class="updated error"><p>' . __( 'Error saving zone.', SHIPPING_ZONES_TEXTDOMAIN ) . '</p></div>';
+					echo '<div class="updated error"><p>' . esc_html__( 'Error saving zone.', SHIPPING_ZONES_TEXTDOMAIN ) . '</p></div>';
 					return;
 				}
 			}
 
 			if ( $editing ) {
-				echo '<div class="updated fade"><p>' . sprintf( __( 'Shipping zone saved. <a href="%s">Back to zones.</a>', SHIPPING_ZONES_TEXTDOMAIN ), esc_url( remove_query_arg( 'edit_zone' ) ) ) . '</p></div>';
+				echo '<div class="updated fade"><p>' . wp_kses_post( sprintf( __( 'Shipping zone saved. <a href="%s">Back to zones.</a>', SHIPPING_ZONES_TEXTDOMAIN ), esc_url( remove_query_arg( 'edit_zone' ) ) ) ) . '</p></div>';
 			} else {
-				echo '<div class="updated fade"><p>' . __( 'Shipping zone saved.', SHIPPING_ZONES_TEXTDOMAIN ) . '</p></div>';
+				echo '<div class="updated fade"><p>' . esc_html__( 'Shipping zone saved.', SHIPPING_ZONES_TEXTDOMAIN ) . '</p></div>';
 			}
 		}
 	}

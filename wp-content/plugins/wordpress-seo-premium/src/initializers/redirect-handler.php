@@ -4,6 +4,7 @@ namespace Yoast\WP\SEO\Premium\Initializers;
 
 use WP_Query;
 use WPSEO_Premium_Redirect_Option;
+use WPSEO_Redirect_Option;
 use WPSEO_Redirect_Util;
 use Yoast\WP\SEO\Conditionals\Front_End_Conditional;
 use Yoast\WP\SEO\Initializers\Initializer_Interface;
@@ -33,20 +34,6 @@ class Redirect_Handler implements Initializer_Interface {
 	 * @var bool
 	 */
 	protected $is_redirected = false;
-
-	/**
-	 * The options where the URL redirects are stored.
-	 *
-	 * @var string
-	 */
-	private $normal_option_name = 'wpseo-premium-redirects-export-plain';
-
-	/**
-	 * The option name where the regex redirects are stored.
-	 *
-	 * @var string
-	 */
-	private $regex_option_name = 'wpseo-premium-redirects-export-regex';
 
 	/**
 	 * The URL that is called at the moment.
@@ -175,7 +162,7 @@ class Redirect_Handler implements Initializer_Interface {
 	 */
 	protected function handle_normal_redirects( $request_url ) {
 		// Setting the redirects.
-		$redirects       = $this->get_redirects( $this->normal_option_name );
+		$redirects       = $this->get_redirects( WPSEO_Redirect_Option::OPTION_PLAIN );
 		$this->redirects = $this->normalize_redirects( $redirects );
 
 		$request_url = $this->normalize_url( $request_url );
@@ -219,7 +206,7 @@ class Redirect_Handler implements Initializer_Interface {
 	 */
 	protected function handle_regex_redirects() {
 		// Setting the redirects.
-		$this->redirects = $this->get_redirects( $this->regex_option_name );
+		$this->redirects = $this->get_redirects( WPSEO_Redirect_Option::OPTION_REGEX );
 
 		foreach ( $this->redirects as $regex => $redirect ) {
 			// Check if the URL matches the $regex.
@@ -271,7 +258,11 @@ class Redirect_Handler implements Initializer_Interface {
 	 * @return array Returns the redirects for the given option.
 	 */
 	protected function get_redirects( $option ) {
-		$redirects = $this->get_redirects_from_options();
+		static $redirects;
+
+		if ( ! isset( $redirects[ $option ] ) ) {
+			$redirects[ $option ] = \get_option( $option, false );
+		}
 
 		if ( ! empty( $redirects[ $option ] ) ) {
 			return $redirects[ $option ];
@@ -559,33 +550,6 @@ class Redirect_Handler implements Initializer_Interface {
 	 */
 	protected function get_home_url() {
 		return \home_url();
-	}
-
-	/**
-	 * Returns the redirects from the option table in the database.
-	 *
-	 * @return array The stored redirects.
-	 */
-	protected function get_redirects_from_options() {
-		global $wpdb;
-		static $redirects;
-
-		if ( $redirects !== null ) {
-			return $redirects;
-		}
-
-		// The code below is needed because we used to not autoload our redirect options. This fixes that.
-		$all_options = \wp_cache_get( 'alloptions', 'options' );
-		foreach ( [ $this->normal_option_name, $this->regex_option_name ] as $option ) {
-			$redirects[ $option ] = isset( $all_options[ $option ] ) ? \maybe_unserialize( $all_options[ $option ] ) : false;
-			if ( $redirects[ $option ] === false ) {
-				$redirects[ $option ] = \get_option( $option, false );
-				// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- Normal methods only work if the option value has changed.
-				$wpdb->update( $wpdb->options, [ 'autoload' => 'yes' ], [ 'option_name' => $option ] );
-			}
-		}
-
-		return $redirects;
 	}
 
 	/**

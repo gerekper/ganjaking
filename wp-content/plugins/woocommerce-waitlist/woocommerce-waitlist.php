@@ -3,16 +3,16 @@
  * Plugin Name: WooCommerce Waitlist
  * Plugin URI: http://www.woothemes.com/products/woocommerce-waitlist/
  * Description: This plugin enables registered users to request an email notification when an out-of-stock product comes back into stock. It tallies these registrations in the admin panel for review and provides details.
- * Version: 2.3.8
+ * Version: 2.4.0
  * Author: Neil Pie
  * Author URI: https://pie.co.de/
  * Developer: Neil Pie
  * Developer URI: https://pie.co.de/
  * Woo: 122144:55d9643a241ecf5ad501808c0787483f
  * WC requires at least: 3.0.0
- * WC tested up to: 7.3.0
+ * WC tested up to: 7.9.0
  * Requires at least: 4.2.0
- * Tested up to: 6.1.1
+ * Tested up to: 6.2.2
  * Text Domain: woocommerce-waitlist
  * Domain Path: /assets/languages/
  * License: GNU General Public License v3.0
@@ -39,11 +39,16 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 	/**
 	 * Activate when WC starts
 	 *
-	 * Only start us up if WC is running
+	 * Only start us up if WC is running & declare HPOS compatibility
 	 */
 	if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ||
 		( is_array( get_site_option( 'active_sitewide_plugins' ) ) && array_key_exists( 'woocommerce/woocommerce.php', get_site_option( 'active_sitewide_plugins' ) ) ) ) {
 		add_action( 'plugins_loaded', 'WooCommerce_Waitlist_Plugin::instance' );
+		add_action( 'before_woocommerce_init', function() {
+			if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+			}
+		} );
 	} else {
 		add_action( 'admin_notices', array( 'WooCommerce_Waitlist_Plugin', 'output_waitlist_not_active_notice' ) );
 	}
@@ -149,6 +154,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		public function load_hooks() {
 			// Initialisation.
 			add_action( 'admin_init', array( $this, 'version_check' ) );
+			add_action( 'switch_theme', array( $this, 'check_templates_after_theme_switch' ) );
 			add_action( 'init', array( $this, 'set_default_localization_directory' ) );
 			add_action( 'init', array( $this, 'setup_product_types' ), 15 );
 			add_filter( 'woocommerce_email_classes', array( $this, 'initialise_waitlist_email_class' ) );
@@ -791,6 +797,12 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 					update_option( '_' . WCWL_SLUG . '_version_2_warning', true );
 				}
 			}
+			// Run any other code required if plugin has been updated (i.e. saved version does not match plugin version)
+			if ( $options['version'] !== WCWL_VERSION ) {
+				$this->template_version_check( true );
+			} else {
+				$this->template_version_check();
+			}
 			$options['version'] = WCWL_VERSION;
 			update_option( WCWL_SLUG, $options );
 		}
@@ -941,6 +953,81 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 			}
 
 			return self::$instance;
+		}
+
+		/**
+		 * Check waitlist templates in theme for outdated versions
+		 *
+		 * @return void
+		 */
+		public function check_templates_after_theme_switch() {
+			$this->template_version_check( true );
+		}
+
+		/**
+		 * Template version check
+		 *
+		 * @since 2.4.0
+		 * @param bool $skip_notice_check "true" will run the check regardless of any persisting notice
+		 * @return void
+		 */
+		public function template_version_check( $skip_notice_check = false ) {
+			if ( ( ! WC_Admin_Notices::has_notice( 'wcwl_outdated_templates' ) && $skip_notice_check ) ||
+					WC_Admin_Notices::has_notice( 'wcwl_outdated_templates' ) ) {
+				$plugin_dir = dirname(__FILE__);
+
+				if (!is_dir($plugin_dir)) {
+					return;
+				}
+
+				$core_templates = WC_Admin_Status::scan_template_files($plugin_dir . '/templates');
+				$outdated       = false;
+
+				foreach ($core_templates as $file) {
+					$theme_file = false;
+
+					if (file_exists(get_stylesheet_directory() . '/' . $file)) {
+						$theme_file = get_stylesheet_directory() . '/' . $file;
+					} elseif (file_exists(get_stylesheet_directory() . '/' . WC()->template_path() . $file)) {
+						$theme_file = get_stylesheet_directory() . '/' . WC()->template_path() . $file;
+					} elseif (file_exists(get_template_directory() . '/' . $file)) {
+						$theme_file = get_template_directory() . '/' . $file;
+					} elseif (file_exists(get_template_directory() . '/' . WC()->template_path() . $file)) {
+						$theme_file = get_template_directory() . '/' . WC()->template_path() . $file;
+					}
+
+					if (false !== $theme_file) {
+						$core_version  = WC_Admin_Status::get_file_version($plugin_dir . '/templates/' . $file);
+						$theme_version = WC_Admin_Status::get_file_version($theme_file);
+
+						if ($core_version && $theme_version && version_compare($theme_version, $core_version, '<')) {
+							$outdated = true;
+							break;
+						}
+					}
+				}
+
+				if ( $outdated ) {
+					if ( ! WC_Admin_Notices::has_notice( 'wcwl_outdated_templates' ) ) {
+						WC_Admin_Notices::add_custom_notice( 'wcwl_outdated_templates', $this->template_version_html() );
+					}
+				} else {
+					WC_Admin_Notices::remove_notice( 'wcwl_outdated_templates' );
+				}
+			}
+		}
+
+		/**
+		 * Returns HTML for the outdated template version notice
+		 *
+		 * @since 2.4.0
+		 * @return string
+		 */
+		public function template_version_html()
+		{
+			ob_start();
+			require_once __DIR__ . '/woo-includes/html-notice-template-check.php';
+			return ob_get_clean();
 		}
 	}
 }

@@ -48,7 +48,8 @@
 			<input type="email" value="<?php echo esc_attr( $user_email ); ?>" id="wcwl_email_<?php echo esc_attr( $product_id ); ?>" name="wcwl_email" class="wcwl_email" placeholder="<?php echo esc_attr( $email_address_placeholder_text ); ?>"
 			<?php
 			if ( $user_email ) {
-				echo 'disabled'; }
+				echo 'disabled';
+			}
 			?>
 			/>
 		</div>

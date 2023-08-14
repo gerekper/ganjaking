@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.6.0
+ * @version     2.8.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -609,6 +609,21 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 													changeMonth: true, 
 													changeYear: true,
 													timeInput: true,
+													currentText: '<?php echo esc_html_x( 'Now', 'Timepicker on the frontend side', 'woocommerce-smart-coupons' ); ?>',
+													closeText: '<?php echo esc_html_x( 'Done', 'Timepicker on the frontend side', 'woocommerce-smart-coupons' ); ?>',
+													amNames: ['<?php echo esc_html_x( 'AM', 'Timepicker on the frontend side', 'woocommerce-smart-coupons' ); ?>', '<?php echo esc_html_x( 'A', 'Timepicker on the frontend side', 'woocommerce-smart-coupons' ); ?>'],
+													pmNames: ['<?php echo esc_html_x( 'PM', 'Timepicker on the frontend side', 'woocommerce-smart-coupons' ); ?>', '<?php echo esc_html_x( 'P', 'Timepicker on the frontend side', 'woocommerce-smart-coupons' ); ?>'],
+													timeFormat: '<?php echo esc_html_x( 'HH:mm', 'Timepicker on the frontend side', 'woocommerce-smart-coupons' ); ?>',
+													timeSuffix: '',
+													timeOnlyTitle: '<?php echo esc_html_x( 'Choose Time', 'Timepicker on the frontend side', 'woocommerce-smart-coupons' ); ?>',
+													timeText: '<?php echo esc_html_x( 'Time', 'Timepicker on the frontend side', 'woocommerce-smart-coupons' ); ?>',
+													hourText: '<?php echo esc_html_x( 'Hour', 'Timepicker on the frontend side', 'woocommerce-smart-coupons' ); ?>',
+													minuteText: '<?php echo esc_html_x( 'Minute', 'Timepicker on the frontend side', 'woocommerce-smart-coupons' ); ?>',
+													secondText: '<?php echo esc_html_x( 'Second', 'Timepicker on the frontend side', 'woocommerce-smart-coupons' ); ?>',
+													millisecText: '<?php echo esc_html_x( 'Millisecond', 'Timepicker on the frontend side', 'woocommerce-smart-coupons' ); ?>',
+													microsecText: '<?php echo esc_html_x( 'Microsecond', 'Timepicker on the frontend side', 'woocommerce-smart-coupons' ); ?>',
+													timezoneText: '<?php echo esc_html_x( 'Time Zone', 'Timepicker on the frontend side', 'woocommerce-smart-coupons' ); ?>',
+													isRTL: (wp.i18n.isRTL) ? wp.i18n.isRTL() : false
 												});
 							}, 10);
 						}
@@ -808,7 +823,7 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 							<div class="email"><input class="gift_receiver_email" type="text" placeholder="<?php echo esc_attr__( 'Enter recipient e-mail address', 'woocommerce-smart-coupons' ); ?>..." name="gift_receiver_email[0][0]" value="<?php echo esc_attr( ( ! empty( $gift_receiver_email[0][0] ) ) ? $gift_receiver_email[0][0] : '' ); ?>" /></div>
 						</div>
 						<div class="email_sending_date_time_wrapper">
-								<input class="gift_sending_date_time" type="text" placeholder="<?php echo esc_attr__( 'Pick a delivery date & time', 'woocommerce-smart-coupons' ); ?>..." name="gift_sending_date_time[0][0]" value="<?php echo esc_attr( ( ! empty( $gift_sending_date_time[0][0] ) ) ? $gift_sending_date_time[0][0] : '' ); ?>" autocomplete="off"/>
+								<input class="gift_sending_date_time" type="text" placeholder="<?php echo esc_attr__( 'Pick a delivery date & time', 'woocommerce-smart-coupons' ); ?>..." name="gift_sending_date_time[0][0]" value="<?php echo esc_attr( ( ! empty( $gift_sending_date_time[0][0] ) ) ? $gift_sending_date_time[0][0] : '' ); ?>" autocomplete="off" style="position: relative; z-index: 99997;"/>
 								<input class="gift_sending_timestamp" type="hidden" name="gift_sending_timestamp[0][0]" value="<?php echo esc_attr( ( ! empty( $gift_sending_timestamp[0][0] ) ) ? $gift_sending_timestamp[0][0] : '' ); ?>"/>
 						</div>
 						<div class="message_row">
@@ -918,7 +933,7 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 						<div class="email_sending_date_time_wrapper">
 							<div class="sending_date_time"></div>
 							<div class="email">
-								<input class="gift_sending_date_time" type="text" placeholder="<?php echo esc_attr__( 'Pick a delivery date & time', 'woocommerce-smart-coupons' ); ?>..." name="gift_sending_date_time[<?php echo esc_attr( $coupon_id ); ?>][]" value="<?php echo esc_attr( ( ! empty( $gift_sending_date_time[ $coupon_id ][ $i ] ) ) ? $gift_sending_date_time[ $coupon_id ][ $i ] : '' ); ?>" autocomplete="off"/>
+								<input class="gift_sending_date_time" type="text" placeholder="<?php echo esc_attr__( 'Pick a delivery date & time', 'woocommerce-smart-coupons' ); ?>..." name="gift_sending_date_time[<?php echo esc_attr( $coupon_id ); ?>][]" value="<?php echo esc_attr( ( ! empty( $gift_sending_date_time[ $coupon_id ][ $i ] ) ) ? $gift_sending_date_time[ $coupon_id ][ $i ] : '' ); ?>" autocomplete="off" style="position: relative; z-index: 99997;"/>
 								<input class="gift_sending_timestamp" type="hidden" name="gift_sending_timestamp[<?php echo esc_attr( $coupon_id ); ?>][]" value="<?php echo esc_attr( ( ! empty( $gift_sending_timestamp[ $coupon_id ][ $i ] ) ) ? $gift_sending_timestamp[ $coupon_id ][ $i ] : '' ); ?>"/>
 							</div>
 						</div>
@@ -1264,7 +1279,7 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 			}
 
 			if ( ! wp_script_is( 'jquery-ui-timepicker', 'registered' ) ) {
-				wp_register_script( 'jquery-ui-timepicker', untrailingslashit( plugins_url( '/', WC_SC_PLUGIN_FILE ) ) . '/assets/js/jquery-ui-timepicker-addon' . $suffix . '.js', array( 'jquery', 'jquery-ui-datepicker', 'jquery-ui-slider' ), $version, true );
+				wp_register_script( 'jquery-ui-timepicker', untrailingslashit( plugins_url( '/', WC_SC_PLUGIN_FILE ) ) . '/assets/js/jquery-ui-timepicker-addon' . $suffix . '.js', array( 'jquery', 'jquery-ui-datepicker', 'jquery-ui-slider', 'wp-i18n' ), $version, true );
 			}
 
 			if ( ! wp_script_is( 'jquery-ui-timepicker' ) ) {

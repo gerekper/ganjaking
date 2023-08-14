@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.5.0
+ * @version     2.6.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -670,7 +670,7 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 						'shortcode_atts' => $shortcode,
 					)
 				);
-				return ( ! empty( $no_output_text ) ) ? '<p id="wc-sc-shortcode-no-coupon-found-text">' . $no_output_text . '</p>' : '';
+				return ( ! empty( $no_output_text ) ) ? '<p id="wc-sc-shortcode-no-coupon-found-text">' . wp_kses_post( $no_output_text ) . '</p>' : '';
 			}
 			return $output;
 		}

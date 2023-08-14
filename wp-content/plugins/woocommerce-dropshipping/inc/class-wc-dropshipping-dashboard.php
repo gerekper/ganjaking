@@ -540,7 +540,7 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 
 					   $total_sales += $order_total->get_total();
 
-					   $cost_of_goods += opmc_hpos_get_post_meta( $order, 'cost_of_goods_total', true ) ? opmc_hpos_get_post_meta( $order, 'cost_of_goods_total', true ) : 0;
+					   $cost_of_goods += opmc_hpos_get_post_meta( $order, 'cost_of_goods_total' ) ? opmc_hpos_get_post_meta( $order, 'cost_of_goods_total' ) : 0;
 
 					   $total_tax_price += $order_total->get_total_tax() ? $order_total->get_total_tax() : 0;
 
@@ -795,7 +795,7 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 
 				$total_sales = $order_total->get_total();
 
-				$cost_of_goods = opmc_hpos_get_post_meta( $order, 'cost_of_goods_total', true );
+				$cost_of_goods = opmc_hpos_get_post_meta( $order, 'cost_of_goods_total' );
 
 				$total_tax_price = $order_total->get_total_tax();
 
@@ -1158,7 +1158,7 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 
 				$new_current_month = date( 'm' );
 
-				$date_paid = opmc_hpos_get_post_meta( $order_id, '_date_paid', true );
+				$date_paid = opmc_hpos_get_post_meta( $order_id, '_date_paid' );
 
 				$date_paid = intval( $date_paid );
 

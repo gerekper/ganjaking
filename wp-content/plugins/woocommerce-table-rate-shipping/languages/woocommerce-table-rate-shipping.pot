@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Table Rate Shipping 3.1.1\n"
+"Project-Id-Version: WooCommerce Table Rate Shipping 3.1.2\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-table-rate-shipping\n"
-"POT-Creation-Date: 2023-04-04 16:41:10+00:00\n"
+"POT-Creation-Date: 2023-08-08 20:57:27+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -465,11 +465,11 @@ msgstr ""
 msgid "Enabled"
 msgstr ""
 
-#: includes/legacy/shipping-zones/includes/list-tables/class-wc-shipping-zone-methods-table.php:185
+#: includes/legacy/shipping-zones/includes/list-tables/class-wc-shipping-zone-methods-table.php:187
 msgid "Shipping methods deleted"
 msgstr ""
 
-#: includes/legacy/shipping-zones/includes/list-tables/class-wc-shipping-zone-methods-table.php:193
+#: includes/legacy/shipping-zones/includes/list-tables/class-wc-shipping-zone-methods-table.php:195
 msgid "No shipping methods found."
 msgstr ""
 
@@ -525,23 +525,23 @@ msgstr ""
 msgid "Enable"
 msgstr ""
 
-#: includes/legacy/shipping-zones/includes/list-tables/class-wc-shipping-zones-table.php:234
+#: includes/legacy/shipping-zones/includes/list-tables/class-wc-shipping-zones-table.php:236
 msgid "Shipping zones deleted"
 msgstr ""
 
-#: includes/legacy/shipping-zones/includes/list-tables/class-wc-shipping-zones-table.php:250
+#: includes/legacy/shipping-zones/includes/list-tables/class-wc-shipping-zones-table.php:252
 msgid "Shipping zones enabled"
 msgstr ""
 
-#: includes/legacy/shipping-zones/includes/list-tables/class-wc-shipping-zones-table.php:266
+#: includes/legacy/shipping-zones/includes/list-tables/class-wc-shipping-zones-table.php:268
 msgid "Shipping zones disabled"
 msgstr ""
 
-#: includes/legacy/shipping-zones/includes/list-tables/class-wc-shipping-zones-table.php:287
+#: includes/legacy/shipping-zones/includes/list-tables/class-wc-shipping-zones-table.php:289
 msgid "Default Zone (everywhere else)"
 msgstr ""
 
-#: includes/legacy/shipping-zones/includes/list-tables/class-wc-shipping-zones-table.php:288
+#: includes/legacy/shipping-zones/includes/list-tables/class-wc-shipping-zones-table.php:290
 msgid "All countries"
 msgstr ""
 
@@ -579,13 +579,6 @@ msgstr ""
 msgid "This shipping zone is based on one or more countries"
 msgstr ""
 
-#: includes/legacy/shipping-zones/includes/views/form-add-shipping-zone.php:21
-#: includes/legacy/shipping-zones/includes/views/form-add-shipping-zone.php:53
-#: includes/legacy/shipping-zones/includes/views/form-edit-shipping-zone.php:33
-#: includes/legacy/shipping-zones/includes/views/form-edit-shipping-zone.php:65
-msgid "Choose countries&hellip;"
-msgstr ""
-
 #: includes/legacy/shipping-zones/includes/views/form-add-shipping-zone.php:28
 #: includes/legacy/shipping-zones/includes/views/form-add-shipping-zone.php:47
 #: includes/legacy/shipping-zones/includes/views/form-edit-shipping-zone.php:40
@@ -602,11 +595,6 @@ msgstr ""
 
 #: includes/legacy/shipping-zones/includes/views/form-add-shipping-zone.php:31
 msgid "This shipping zone is based on one or more states and counties"
-msgstr ""
-
-#: includes/legacy/shipping-zones/includes/views/form-add-shipping-zone.php:34
-#: includes/legacy/shipping-zones/includes/views/form-edit-shipping-zone.php:46
-msgid "Choose states/counties&hellip;"
 msgstr ""
 
 #: includes/legacy/shipping-zones/includes/views/form-add-shipping-zone.php:47
@@ -626,20 +614,12 @@ msgid ""
 "are supported."
 msgstr ""
 
-#: includes/legacy/shipping-zones/includes/views/form-add-shipping-zone.php:74
-msgid "Add shipping zone"
-msgstr ""
-
 #: includes/legacy/shipping-zones/includes/views/form-edit-shipping-zone.php:2
 msgid "Edit Shipping Zone"
 msgstr ""
 
 #: includes/legacy/shipping-zones/includes/views/form-edit-shipping-zone.php:8
 msgid "Name"
-msgstr ""
-
-#: includes/legacy/shipping-zones/includes/views/form-edit-shipping-zone.php:11
-msgid "Enter a name which describes this zone"
 msgstr ""
 
 #: includes/legacy/shipping-zones/includes/views/form-edit-shipping-zone.php:19
@@ -650,20 +630,8 @@ msgstr ""
 msgid "This shipping zone is based on one or more states/counties"
 msgstr ""
 
-#: includes/legacy/shipping-zones/includes/views/form-edit-shipping-zone.php:95
-msgid "Save changes"
-msgstr ""
-
-#: includes/legacy/shipping-zones/includes/views/html-zone-method-settings.php:6
-msgid "Save shipping method"
-msgstr ""
-
 #: includes/legacy/shipping-zones/includes/views/html-zone-methods.php:6
 msgid "Choose a shipping method&hellip;"
-msgstr ""
-
-#: includes/legacy/shipping-zones/includes/views/html-zone-methods.php:22
-msgid "Add To Zone"
 msgstr ""
 
 #: woocommerce-table-rate-shipping.php:163

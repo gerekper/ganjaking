@@ -36,6 +36,11 @@ if ( !class_exists('Puc_v4p11_Plugin_Info', false) ):
 		public $active_installs;
 		public $last_updated;
 
+		public $licence;
+		public $expiration_date;
+		public $variant;
+		public $websites;
+
 		public $id = 0; //The native WP.org API returns numeric plugin IDs, but they're not used for anything.
 
 		public $filename; //Plugin filename relative to the plugins directory.

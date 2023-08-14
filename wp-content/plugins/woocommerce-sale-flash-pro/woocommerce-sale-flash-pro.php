@@ -3,17 +3,17 @@
  * Plugin Name: WooCommerce Sale Flash Pro
  * Plugin URI: https://woocommerce.com/products/sale-flash-pro/
  * Description: Gives you global and per-product control over sale flash display and lets you show % or the amount off.
- * Version: 1.3.0
+ * Version: 1.3.1
  * Author: Themesquad
  * Author URI: https://themesquad.com
  * Text Domain: woocommerce-sale-flash-pro
  * Domain Path: /languages
  * Requires PHP: 5.4
  * Requires at least: 4.7
- * Tested up to: 6.2
+ * Tested up to: 6.3
  *
  * WC requires at least: 3.5
- * WC tested up to: 7.7
+ * WC tested up to: 8.0
  * Woo: 18591:7761d62beb597bea4f6fab56fef6739c
  *
  * License: GNU General Public License v3.0
@@ -152,7 +152,7 @@ if ( ! class_exists( 'WC_Sale_Flash_Pro' ) ) {
 				foreach ( $product->get_children() as $child ) {
 					$child_product = wc_get_product( $child );
 
-					if ( ! $child_product->get_sale_price() ) {
+					if ( ! $child_product->is_in_stock() || ! $child_product->get_sale_price() ) {
 						continue;
 					}
 

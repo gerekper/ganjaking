@@ -56,7 +56,7 @@ class Permalink_Manager_Gutenberg {
 		}
 
 		// Display URI Editor
-		echo ( $post ) ? Permalink_Manager_Admin_Functions::display_uri_box( $post, true ) : '';
+		echo ( $post ) ? Permalink_Manager_UI_Elements::display_uri_box( $post, true ) : '';
 
 		if ( wp_doing_ajax() ) {
 			die();

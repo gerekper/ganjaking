@@ -23,6 +23,11 @@ class WoocommerceProductFeedsExpandedStructuredData {
 	private $cache_ttl;
 
 	/**
+	 * @var array
+	 */
+	private array $seller;
+
+	/**
 	 * Constructor.
 	 *
 	 * Store dependencies.
@@ -110,6 +115,11 @@ class WoocommerceProductFeedsExpandedStructuredData {
 	private function generate_schema_product( $wc_product_generic, $wc_product_specific ) {
 		// Get the feed information for this product.
 		$feed_item = $this->feed_item_factory->create( 'google', $wc_product_specific, $wc_product_generic );
+
+		// Do nothing if there is no price (since the product won't be in the feeds anyway)
+		if ( empty( $feed_item->price_inc_tax ) ) {
+			return;
+		}
 
 		// Create the basic Product shell.
 		$markup = [

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.2.0
+ * @version     2.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -279,6 +279,21 @@ if ( ! class_exists( 'WC_SC_Coupon_Fields' ) ) {
 
 					jQuery('#wc_sc_expiry_time_picker').timepicker({
 						timeInput: true,
+						currentText: '<?php echo esc_html_x( 'Now', 'Timepicker on the admin side', 'woocommerce-smart-coupons' ); ?>',
+						closeText: '<?php echo esc_html_x( 'Done', 'Timepicker on the admin side', 'woocommerce-smart-coupons' ); ?>',
+						amNames: ['<?php echo esc_html_x( 'AM', 'Timepicker on the admin side', 'woocommerce-smart-coupons' ); ?>', '<?php echo esc_html_x( 'A', 'Timepicker on the admin side', 'woocommerce-smart-coupons' ); ?>'],
+						pmNames: ['<?php echo esc_html_x( 'PM', 'Timepicker on the admin side', 'woocommerce-smart-coupons' ); ?>', '<?php echo esc_html_x( 'P', 'Timepicker on the admin side', 'woocommerce-smart-coupons' ); ?>'],
+						timeFormat: '<?php echo esc_html_x( 'HH:mm', 'Timepicker on the admin side', 'woocommerce-smart-coupons' ); ?>',
+						timeSuffix: '',
+						timeOnlyTitle: '<?php echo esc_html_x( 'Choose Time', 'Timepicker on the admin side', 'woocommerce-smart-coupons' ); ?>',
+						timeText: '<?php echo esc_html_x( 'Time', 'Timepicker on the admin side', 'woocommerce-smart-coupons' ); ?>',
+						hourText: '<?php echo esc_html_x( 'Hour', 'Timepicker on the admin side', 'woocommerce-smart-coupons' ); ?>',
+						minuteText: '<?php echo esc_html_x( 'Minute', 'Timepicker on the admin side', 'woocommerce-smart-coupons' ); ?>',
+						secondText: '<?php echo esc_html_x( 'Second', 'Timepicker on the admin side', 'woocommerce-smart-coupons' ); ?>',
+						millisecText: '<?php echo esc_html_x( 'Millisecond', 'Timepicker on the admin side', 'woocommerce-smart-coupons' ); ?>',
+						microsecText: '<?php echo esc_html_x( 'Microsecond', 'Timepicker on the admin side', 'woocommerce-smart-coupons' ); ?>',
+						timezoneText: '<?php echo esc_html_x( 'Time Zone', 'Timepicker on the admin side', 'woocommerce-smart-coupons' ); ?>',
+						isRTL: (wp.i18n.isRTL) ? wp.i18n.isRTL() : false
 					}).val(expiry_time_string);
 
 					jQuery('#wc_sc_expiry_time_picker').on('change', function(){
@@ -1198,7 +1213,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Fields' ) ) {
 				}
 
 				if ( ! wp_script_is( 'jquery-ui-timepicker', 'registered' ) ) {
-					wp_register_script( 'jquery-ui-timepicker', untrailingslashit( plugins_url( '/', WC_SC_PLUGIN_FILE ) ) . '/assets/js/jquery-ui-timepicker-addon' . $suffix . '.js', array( 'jquery', 'jquery-ui-datepicker', 'jquery-ui-slider' ), $version, true );
+					wp_register_script( 'jquery-ui-timepicker', untrailingslashit( plugins_url( '/', WC_SC_PLUGIN_FILE ) ) . '/assets/js/jquery-ui-timepicker-addon' . $suffix . '.js', array( 'jquery', 'jquery-ui-datepicker', 'jquery-ui-slider', 'wp-i18n' ), $version, true );
 				}
 
 				if ( ! wp_script_is( 'jquery-ui-timepicker' ) ) {

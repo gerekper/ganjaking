@@ -58,7 +58,7 @@ class UpdraftPlus_Addons_RemoteStorage_sftp_helper {
 	 * @return String
 	 */
 	public function ftps_notice() {
-		return __("Encrypted FTP is available, and will be automatically tried first (before falling back to non-encrypted if it is not successful), unless you disable it using the expert options. The 'Test FTP Login' button will tell you what type of connection is in use.", 'updraftplus').' '.__('Some servers advertise encrypted FTP as available, but then time-out (after a long time) when you attempt to use it. If you find this happening, then go into the "Expert Options" (below) and turn off SSL there.', 'updraftplus').' '.__('Explicit encryption is used by default. To force implicit encryption (port 990), add :990 to your FTP server below.', ' updraftplus');
+		return __('Encrypted FTP is available, and will be automatically tried first (before falling back to non-encrypted if it is not successful), unless you disable it using the expert options.', 'updraftplus').' '.__("The 'Test FTP Login' button will tell you what type of connection is in use.", 'updraftplus').' '.__('Some servers advertise encrypted FTP as available, but then time-out (after a long time) when you attempt to use it.', 'updraftplus').' '.__('If you find this happening, then go into the "Expert Options" (below) and turn off SSL there.', 'updraftplus').' '.__('Explicit encryption is used by default.', 'updraftplus').' '.__('To force implicit encryption (port 990), add :990 to your FTP server below.', ' updraftplus');
 	}
 }
 
@@ -613,9 +613,9 @@ class UpdraftPlus_Addons_RemoteStorage_sftp extends UpdraftPlus_RemoteStorage_Ad
 	 */
 	public function get_template_properties() {
 		global $updraftplus;
-		$rsa_fingerprint_tooltip = __('MD5 (128-bit) fingerprint, in hex format - should have the same length and general appearance as this (colons optional): 73:51:43:b1:b5:fc:8b:b7:0a:3a:a9:b1:0f:69:73:a8. Using a fingerprint is not essential, but you are not secure against %s if you do not use one', 'updraftplus');
+		$rsa_fingerprint_tooltip = __('MD5 (128-bit) fingerprint, in hex format - should have the same length and general appearance as this (colons optional): 73:51:43:b1:b5:fc:8b:b7:0a:3a:a9:b1:0f:69:73:a8.', 'updraftplus').' '.__('Using a fingerprint is not essential, but you are not secure against %s if you do not use one', 'updraftplus');
 		$properties = array(
-			'description_label' => __('Resuming partial uploads is supported for SFTP, but not for SCP. Thus, if using SCP then you will need to ensure that your webserver allows PHP processes to run long enough to upload your largest backup file.', 'updraftplus'),
+			'description_label' => __('Resuming partial uploads is supported for SFTP, but not for SCP.', 'updraftplus').' '.__('Thus, if using SCP then you will need to ensure that your webserver allows PHP processes to run long enough to upload your largest backup file.', 'updraftplus'),
 			'input_host_label' => __('Host', 'updraftplus'),
 			'input_port_label' => __('Port', 'updraftplus'),
 			'input_username_label' => __('Username', 'updraftplus'),
@@ -625,7 +625,7 @@ class UpdraftPlus_Addons_RemoteStorage_sftp extends UpdraftPlus_RemoteStorage_Ad
 			'input_directory_path_label' => __('Directory path', 'updraftplus'),
 			'input_password_title' => __('Your login may be either password or key-based - you only need to enter one, not both.', 'updraftplus'),
 			'input_password_type' => apply_filters('updraftplus_admin_secret_field_type', 'password'),
-			'input_key_title' => __('PKCS1 (PEM header: BEGIN RSA PRIVATE KEY), XML and PuTTY format keys are accepted.', 'Do not translate BEGIN RSA PRIVATE KEY. PCKS1, XML, PEM and PuTTY are also technical acronyms which should not be translated.', 'updraftplus'),
+			'input_key_title' => _x('PKCS1 (PEM header: BEGIN RSA PRIVATE KEY), XML and PuTTY format keys are accepted.', 'Do not translate BEGIN RSA PRIVATE KEY. PCKS1, XML, PEM and PuTTY are also technical acronyms which should not be translated.', 'updraftplus'),
 			'input_rsa_fingerprint_plain_label' => sprintf($rsa_fingerprint_tooltip, __('MITM attacks', 'updraftplus')),
 			'input_rsa_fingerprint_html_label' => sprintf($rsa_fingerprint_tooltip, '<a href="http://en.wikipedia.org/wiki/Man-in-the-middle_attack" target="_blank">'.__('MITM attacks', 'updraftplus').'</a>'),
 			'input_directory_path_title' => __('Where to change directory to after logging in - often this is relative to your home directory.', 'updraftplus'),
@@ -720,7 +720,7 @@ class UpdraftPlus_Addons_RemoteStorage_sftp extends UpdraftPlus_RemoteStorage_Ad
 				if ($match_fingerprint) {
 					_e('Success', 'updraftplus');
 				} else {
-					echo __("Failed: We are unable to match the fingerprint. However, we were able to log in and move to the indicated directory and successfully create a file in that location.", 'updraftplus');
+					echo __("Failed: We are unable to match the fingerprint.', 'updraftplus').' '.__('However, we were able to log in and move to the indicated directory and successfully create a file in that location.", 'updraftplus');
 				}
 			}
 

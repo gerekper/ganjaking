@@ -1,5 +1,11 @@
 *** Shipment Tracking Changelog ***
 
+2023-08-08 - version 2.3.4
+* Add   - DPD Local Tracking URL.
+
+2023-08-03 - version 2.3.3
+* Fix   - Change OnTrac Tracking URL.
+
 2023-07-24 - version 2.3.2
 * Update - Security update.
 

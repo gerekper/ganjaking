@@ -2,6 +2,8 @@
 
 namespace WPML\MediaTranslation;
 
+use WPML\Media\Option;
+
 class AddMediaDataToTranslationPackage implements \IWPML_Backend_Action {
 
 	const ALT_PLACEHOLDER = '{%ALT_TEXT%}';
@@ -15,7 +17,7 @@ class AddMediaDataToTranslationPackage implements \IWPML_Backend_Action {
 	}
 
 	public function add_hooks() {
-		if ( \WPML_Media_Duplication_Setup::isTranslateMediaLibraryTextsEnabled() ) {
+		if ( Option::getTranslateMediaLibraryTexts() ) {
 			add_action( 'wpml_tm_translation_job_data', [ $this, 'add_media_strings' ], PHP_INT_MAX, 2 );
 		}
 	}

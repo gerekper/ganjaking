@@ -136,7 +136,7 @@ class Permalink_Manager_Permastructs {
 		$sidebar .= wpautop( sprintf( __( 'All allowed <a href="%s" target="_blank">permastructure tags</a> are listed below. Please note that some of them can be used only for particular post types or taxonomies.', 'permalink-manager' ), "https://codex.wordpress.org/Using_Permalinks#Structure_Tags" ) );
 		$sidebar .= Permalink_Manager_Helper_Functions::get_all_structure_tags();
 
-		return Permalink_Manager_Admin_Functions::get_the_form( self::get_fields(), '', array( 'text' => __( 'Save permastructures', 'permalink-manager' ), 'class' => 'primary margin-top' ), $sidebar, array( 'action' => 'permalink-manager', 'name' => 'permalink_manager_permastructs' ) );
+		return Permalink_Manager_UI_Elements::get_the_form( self::get_fields(), '', array( 'text' => __( 'Save permastructures', 'permalink-manager' ), 'class' => 'primary margin-top' ), $sidebar, array( 'action' => 'permalink-manager', 'name' => 'permalink_manager_permastructs' ) );
 	}
 
 }

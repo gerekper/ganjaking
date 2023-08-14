@@ -1,5 +1,8 @@
 *** Ship to Multiple Addresses Changelog ***
 
+2023-08-03 - version 3.8.7
+* Fix - Remove "Edit" and "Delete" button for default shipping address.
+
 2023-06-12 - version 3.8.6
 * Update - Security update
 

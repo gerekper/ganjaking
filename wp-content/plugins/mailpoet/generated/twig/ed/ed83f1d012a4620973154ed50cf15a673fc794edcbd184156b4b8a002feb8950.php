@@ -29,7 +29,6 @@ class __TwigTemplate_fbbbbad2941fe4d62ead317e87baf3d52e20e55ee17d90822382ddf13ef
 
         $this->blocks = [
             'content' => [$this, 'block_content'],
-            'translations' => [$this, 'block_translations'],
         ];
     }
 
@@ -75,14 +74,6 @@ class __TwigTemplate_fbbbbad2941fe4d62ead317e87baf3d52e20e55ee17d90822382ddf13ef
 ";
     }
 
-    // line 15
-    public function block_translations($context, array $blocks = [])
-    {
-        $macros = $this->macros;
-        // line 16
-        $this->loadTemplate("woocommerce_setup_translations.html", "woocommerce_setup.html", 16)->display($context);
-    }
-
     public function getTemplateName()
     {
         return "woocommerce_setup.html";
@@ -95,7 +86,7 @@ class __TwigTemplate_fbbbbad2941fe4d62ead317e87baf3d52e20e55ee17d90822382ddf13ef
 
     public function getDebugInfo()
     {
-        return array (  80 => 16,  76 => 15,  66 => 8,  62 => 7,  58 => 6,  54 => 5,  51 => 4,  47 => 3,  36 => 1,);
+        return array (  65 => 8,  61 => 7,  57 => 6,  53 => 5,  50 => 4,  46 => 3,  35 => 1,);
     }
 
     public function getSourceContext()

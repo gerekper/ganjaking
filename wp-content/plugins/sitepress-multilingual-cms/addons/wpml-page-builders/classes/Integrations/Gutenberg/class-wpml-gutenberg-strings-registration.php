@@ -59,7 +59,7 @@ class WPML_Gutenberg_Strings_Registration {
 			$post->ID
 		);
 
-		$current_strings = $this->string_translation->get_package_strings( $package_data );
+		$current_strings = $this->string_translation->get_package_strings( $package_data, true );
 
 		$this->reuse_translations->find_and_reuse_translations( $original_strings, $current_strings, $this->leftover_strings );
 

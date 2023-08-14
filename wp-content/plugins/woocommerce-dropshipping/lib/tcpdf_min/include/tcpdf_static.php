@@ -317,7 +317,7 @@ class TCPDF_STATIC {
 	 * @public static
 	 */
 	public static function getObjFilename( $type = 'tmp', $file_id = '' ) {
-		return tempnam( K_PATH_CACHE, '__tcpdf_' . $file_id . '_' . $type . '_' . md5( TCPDF_STATIC::getRandomSeed() ) . '_' );
+		return tempnam( K_PATH_CACHE, '__tcpdf_' . $file_id . '_' . $type . '_' . md5( self::getRandomSeed() ) . '_' );
 	}
 
 	/**
@@ -1225,7 +1225,7 @@ class TCPDF_STATIC {
 	 */
 	public static function fixHTMLCode( $html, $default_css, $tagvs, $tidy_options, &$tagvspaces ) {
 		// configure parameters for HTML Tidy
-		if ( TCPDF_STATIC::empty_string( $tidy_options ) ) {
+		if ( self::empty_string( $tidy_options ) ) {
 			$tidy_options = array(
 				'clean' => 1,
 				'drop-empty-paras' => 0,
@@ -1272,7 +1272,7 @@ class TCPDF_STATIC {
 		// remove some empty tag blocks
 		$html = preg_replace( '/<div([^\>]*)><\/div>/', '', $html );
 		$html = preg_replace( '/<p([^\>]*)><\/p>/', '', $html );
-		if ( ! TCPDF_STATIC::empty_string( $tagvs ) ) {
+		if ( ! self::empty_string( $tagvs ) ) {
 			// set vertical space for some XHTML tags
 			$tagvspaces = $tagvs;
 		}
@@ -1639,7 +1639,7 @@ class TCPDF_STATIC {
 		// create new language array of patterns
 		$patterns = array();
 		foreach ( $patterns_array as $val ) {
-			if ( ! TCPDF_STATIC::empty_string( $val ) ) {
+			if ( ! self::empty_string( $val ) ) {
 				$val = trim( $val );
 				$val = str_replace( '\'', '\\\'', $val );
 				$key = preg_replace( '/[0-9]+/', '', $val );

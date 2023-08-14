@@ -26,8 +26,6 @@ class Permalink_Manager_URI_Functions_Post {
 		add_action( 'add_attachment', array( $this, 'new_post_uri' ), 99, 1 );
 		add_action( 'wp_trash_post', array( $this, 'remove_post_uri' ), 100, 1 );
 		add_action( 'delete_post', array( $this, 'remove_post_uri' ), 100, 1 );
-
-		add_action( 'quick_edit_custom_box', array( $this, 'quick_edit_column_form' ), 99, 3 );
 	}
 
 	/**
@@ -743,7 +741,7 @@ class Permalink_Manager_URI_Functions_Post {
 		}
 
 		// 2. Append the Permalink Editor
-		$new_html .= ( ! $autosave ) ? Permalink_Manager_Admin_Functions::display_uri_box( $post ) : "";
+		$new_html .= ( ! $autosave ) ? Permalink_Manager_UI_Elements::display_uri_box( $post ) : "";
 
 		// 3. Hide the "Edit" slug button
 		$new_html = str_replace('edit-slug button', 'edit-slug button hidden', $new_html );
@@ -798,19 +796,6 @@ class Permalink_Manager_URI_Functions_Post {
 
 			$uri = ( ! empty( $permalink_manager_uris[ $post_id ] ) ) ? rawurldecode( $permalink_manager_uris[ $post_id ] ) : self::get_post_uri( $post_id, true );
 			printf( '<span class="permalink-manager-col-uri" data-disabled="%s">%s</span>', intval( $disabled ), $uri );
-		}
-	}
-
-	/**
-	 * Display the simplified Permalink Editor in "Quick Edit" mode
-	 *
-	 * @param string $column_name
-	 * @param string $post_type
-	 * @param string $taxonomy
-	 */
-	function quick_edit_column_form( $column_name, $post_type, $taxonomy = '' ) {
-		if ( ! $taxonomy && $column_name == 'permalink-manager-col' ) {
-			echo Permalink_Manager_Admin_Functions::quick_edit_column_form();
 		}
 	}
 

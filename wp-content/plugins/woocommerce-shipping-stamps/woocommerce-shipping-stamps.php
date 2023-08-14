@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Stamps.com API integration
  * Plugin URI: https://woocommerce.com/products/woocommerce-shipping-stamps/
  * Description: Stamps.com API integration for label printing. Requires server SOAP support.
- * Version: 1.9.3
+ * Version: 1.9.4
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * Text Domain: woocommerce-shipping-stamps
@@ -37,7 +37,7 @@ function woocommerce_shipping_stamps_missing_wc_notice() {
 }
 
 if ( ! class_exists( 'WC_Stamps_Integration' ) ) :
-	define( 'WC_STAMPS_INTEGRATION_VERSION', '1.9.3' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_STAMPS_INTEGRATION_VERSION', '1.9.4' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * WC_Stamps_Integration class.
@@ -55,10 +55,10 @@ if ( ! class_exists( 'WC_Stamps_Integration' ) ) :
 
 			$test_mode = defined( 'WC_STAMPS_TEST_MODE' ) && WC_STAMPS_TEST_MODE;
 			if ( $test_mode ) {
-				define( 'WC_STAMPS_INTEGRATION_WSDL_FILE', 'test-swsimv50.wsdl' );
+				define( 'WC_STAMPS_INTEGRATION_WSDL_FILE', 'test-swsimv135.wsdl' );
 				define( 'WC_STAMPS_INTEGRATION_AUTH_ENDPOINT', 'https://connect.woocommerce.com/auth/stampssandbox' );
 			} else {
-				define( 'WC_STAMPS_INTEGRATION_WSDL_FILE', 'swsimv50.wsdl' );
+				define( 'WC_STAMPS_INTEGRATION_WSDL_FILE', 'swsimv135.wsdl' );
 				define( 'WC_STAMPS_INTEGRATION_AUTH_ENDPOINT', 'https://connect.woocommerce.com/auth/stamps' );
 			}
 

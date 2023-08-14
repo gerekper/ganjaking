@@ -174,6 +174,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Joined_Email' ) ) {
 			wc_get_template(
 				$this->template_html,
 				array(
+					'email_class'      => $this,
 					'product_title' => get_the_title( $product_id ),
 					'product_link'  => get_permalink( $product_id ),
 					'email_heading' => apply_filters( 'woocommerce_email_heading_' . $this->id, $this->get_translated_string( $this->heading, $this->language ) ),
@@ -200,6 +201,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Joined_Email' ) ) {
 			wc_get_template(
 				$this->template_plain,
 				array(
+					'email_class'      => $this,
 					'product_title' => get_the_title( $product_id ),
 					'product_link'  => get_permalink( $product_id ),
 					'email_heading' => apply_filters( 'woocommerce_email_heading_' . $this->id, $this->get_translated_string( $this->heading, $this->language ) ),

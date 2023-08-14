@@ -140,7 +140,7 @@ class UpdraftPlusAddOns_Options2 {
 	 * Output a notice suitable for the dashboard warning that PHP is too old.
 	 */
 	public function show_admin_warning_php() {
-		$this->show_admin_warning(sprintf(__("Your web server's version of PHP is too old (%s) - UpdraftPlus expects at least %s. You can try it, but don't be surprised if it does not work. To fix this problem, contact your web hosting company", 'updraftplus'), PHP_VERSION, '5.2.4'), 'error');
+		$this->show_admin_warning(sprintf(__("Your web server's version of PHP is too old (%s) - UpdraftPlus expects at least %s.", 'updraftplus'), PHP_VERSION, '5.2.4').' '.__("You can try it, but don't be surprised if it does not work.", 'updraftplus').' '.__("To fix this problem, contact your web hosting company.", 'updraftplus'), 'error');
 	}
 
 	/**
@@ -247,7 +247,7 @@ class UpdraftPlusAddOns_Options2 {
 		}
 
 		if ('updraftplus' != basename(dirname(dirname(__FILE__)))) {
-			echo '<div class="error below-h2" style="font-size: 120%;"><p><strong>'.__('Error', 'updraftplus').':</strong> '.sprintf(__("You have installed this plugin in your plugins folder (%s) with a non-default name %s which is different to %s. This is incompatible with WordPress's updates mechanism; you will not be able to receive updates.", 'updraftplus'), WP_PLUGIN_DIR, '<strong>'.basename(dirname(dirname(__FILE__))).'</strong>', '<strong>updraftplus</strong>').'</p></div>';
+			echo '<div class="error below-h2" style="font-size: 120%;"><p><strong>'.__('Error', 'updraftplus').':</strong> '.sprintf(__("You have installed this plugin in your plugins folder (%s) with a non-default name %s which is different to %s.", 'updraftplus'), WP_PLUGIN_DIR, '<strong>'.basename(dirname(dirname(__FILE__))).'</strong>', '<strong>updraftplus</strong>').' '.__("This is incompatible with WordPress's updates mechanism; you will not be able to receive updates.", 'updraftplus').'</p></div>';
 		}
 
 		if ($this->connected) {
@@ -326,8 +326,8 @@ class UpdraftPlusAddOns_Options2 {
 			$pleasewait = htmlspecialchars(__('Please wait whilst we make the claim...', 'updraftplus'));
 			$notgranted = esc_js(__('Claim not granted - perhaps you have already used this purchase somewhere else, or your paid period for downloading from updraftplus.com has expired?', 'updraftplus'));
 			$notgrantedlogin = esc_js(__('Claim not granted - your account login details were wrong', 'updraftplus'));
-			$ukresponse = esc_js(__('An unknown response was received. Response was:', 'updraftplus'));
-			$addon_installed = __('The claim and installation was successful. You can now use your purchase!', 'updraftplus');
+			$ukresponse = esc_js(__('An unknown response was received.', 'updraftplus').' '.__('Response was:', 'updraftplus'));
+			$addon_installed = __('The claim and installation was successful.', 'updraftplus').' '.__('You can now use your purchase!', 'updraftplus');
 			echo <<<ENDHERE
 		<script type="text/javascript">
 			function udm_claim(key) {
@@ -518,7 +518,7 @@ ENDHERE;
 				// Keys: eid = unique ID, status = available|reclaimable
 				// Value of $unclaimed is a unique id, though we won't particularly use it
 				if (isset($unclaimed['status']) && 'reclaimable' == $unclaimed['status']) {
-					$blurb ='<p><strong>'.__('Available to claim on this site', 'updraftplus').' - <a aria-label="'.sprintf(__('%s available to claim on this site. Follow this link to activate this licence', 'updraftplus'), $name).'" href="#" onclick="return udm_claim(\''.$key.'\');">'.__('activate it on this site', 'updraftplus').'</a></strong></p>';
+					$blurb ='<p><strong>'.__('Available to claim on this site', 'updraftplus').' - <a aria-label="'.sprintf(__('%s available to claim on this site.', 'updraftplus').' '.__('Follow this link to activate this licence', 'updraftplus'), $name).'" href="#" onclick="return udm_claim(\''.$key.'\');">'.__('activate it on this site', 'updraftplus').'</a></strong></p>';
 				} else {
 					$blurb ='<p><strong>'.__('You have an inactive purchase', 'updraftplus').' - <a href="#" onclick="return udm_claim(\''.$key.'\');">'.__('activate it on this site', 'updraftplus').'</a></strong></p>';
 				}

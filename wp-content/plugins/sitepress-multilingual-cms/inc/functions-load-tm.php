@@ -674,7 +674,9 @@ if ( ! \WPML\Plugins::isTMActive() && ( ! wpml_is_setup_complete() || false !== 
 				wpml_tm_get_tp_api_client(),
 				wpml_tm_get_tp_project(),
 				new WPML_TM_Log(),
-				new WPML_TP_Xliff_Parser()
+				new WPML_TP_Xliff_Parser(
+					new \WPML_TM_Validate_HTML()
+				)
 			);
 		}
 

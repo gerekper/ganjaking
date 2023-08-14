@@ -16,14 +16,19 @@ class WPML_PB_String_Translation {
 
 	/**
 	 * @param array $package_data
+	 * @param bool  $reload_cache
 	 *
 	 * @return array
 	 */
-	public function get_package_strings( array $package_data ) {
+	public function get_package_strings( array $package_data, $reload_cache = false ) {
 		$strings    = array();
 		$package_id = $this->get_package_id( $package_data );
 
 		if ( $package_id ) {
+			if ( $reload_cache ) {
+				Cache::flushGroup( self::CACHE_GROUP_KEY );
+			}
+
 			$getPackageStrings = Cache::memorize(
 				self::CACHE_GROUP_KEY,
 				HOUR_IN_SECONDS,

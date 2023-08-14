@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.8.6
- * @version     2.1.0
+ * @version     2.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -29,6 +29,14 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 		 * @access protected
 		 */
 		protected $start_time = 0;
+
+		/**
+		 * Database table prefix
+		 *
+		 * @var mixed
+		 * @access protected
+		 */
+		protected $prefix;
 
 		/**
 		 * Identifier
@@ -207,7 +215,7 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 		}
 
 		/**
-		 * Get list of scheduled acctions of this plugin
+		 * Get list of scheduled actions of this plugin
 		 *
 		 * Note: wc_sc_send_scheduled_coupon_email is not included because it's not used in bulk generate/import process
 		 *

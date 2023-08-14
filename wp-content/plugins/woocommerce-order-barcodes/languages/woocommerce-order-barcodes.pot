@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the WooCommerce Order Barcodes package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Order Barcodes 1.6.5\n"
+"Project-Id-Version: WooCommerce Order Barcodes 1.7.0\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-order-barcodes\n"
-"POT-Creation-Date: 2023-06-12 16:50:35+00:00\n"
+"POT-Creation-Date: 2023-08-08 23:07:30+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -83,135 +83,135 @@ msgstr ""
 
 #: includes/class-woocommerce-order-barcodes-settings.php:248
 #: includes/class-woocommerce-order-barcodes-settings.php:257
-#: includes/class-woocommerce-order-barcodes.php:1181
-#: includes/class-woocommerce-order-barcodes.php:1190
+#: includes/class-woocommerce-order-barcodes.php:1150
+#: includes/class-woocommerce-order-barcodes.php:1159
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:268
-#: includes/class-woocommerce-order-barcodes.php:563
+#: includes/class-woocommerce-order-barcodes.php:284
+#: includes/class-woocommerce-order-barcodes.php:558
 msgid "Permission denied: Security check failed"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:376
+#: includes/class-woocommerce-order-barcodes.php:392
 msgid "Order Barcode"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:435
+#: includes/class-woocommerce-order-barcodes.php:451
 msgid "Barcode does not exist!"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:526
+#: includes/class-woocommerce-order-barcodes.php:521
 msgid "Select action"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:527
+#: includes/class-woocommerce-order-barcodes.php:522
 msgid "Look up"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:528
+#: includes/class-woocommerce-order-barcodes.php:523
 msgid "Complete order"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:529
+#: includes/class-woocommerce-order-barcodes.php:524
 msgid "Check in"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:530
+#: includes/class-woocommerce-order-barcodes.php:525
 msgid "Check out"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:533
+#: includes/class-woocommerce-order-barcodes.php:528
 msgid "Scan or enter barcode"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:535
+#: includes/class-woocommerce-order-barcodes.php:530
 msgid "Go"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:540
+#: includes/class-woocommerce-order-barcodes.php:535
 msgid "Processing barcode..."
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:570
+#: includes/class-woocommerce-order-barcodes.php:565
 msgid "Invalid barcode"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:577
+#: includes/class-woocommerce-order-barcodes.php:572
 msgid "Permission denied: You do not have sufficient permissions to scan barcodes"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:585
+#: includes/class-woocommerce-order-barcodes.php:580
 msgid "Invalid order ID"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:597
+#: includes/class-woocommerce-order-barcodes.php:592
 msgid "Order already completed"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:601
+#: includes/class-woocommerce-order-barcodes.php:596
 msgid "Order marked as complete"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:605
+#: includes/class-woocommerce-order-barcodes.php:600
 msgid "Not able to complete order"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:612
+#: includes/class-woocommerce-order-barcodes.php:607
 msgid "Customer already checked in"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:616
+#: includes/class-woocommerce-order-barcodes.php:611
 msgid "Customer has checked in"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:622
+#: includes/class-woocommerce-order-barcodes.php:617
 msgid "Customer already checked out"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:626
+#: includes/class-woocommerce-order-barcodes.php:621
 msgid "Customer has checked out"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:631
+#: includes/class-woocommerce-order-barcodes.php:626
 msgid "Found matched order: #%s"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:635
+#: includes/class-woocommerce-order-barcodes.php:630
 msgid "Please select an action to perform"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:653
-#: includes/class-woocommerce-order-barcodes.php:775
+#: includes/class-woocommerce-order-barcodes.php:648
+#: includes/class-woocommerce-order-barcodes.php:770
 msgid "Checked in"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:653
-#: includes/class-woocommerce-order-barcodes.php:776
+#: includes/class-woocommerce-order-barcodes.php:648
+#: includes/class-woocommerce-order-barcodes.php:771
 msgid "Checked out"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:773
+#: includes/class-woocommerce-order-barcodes.php:768
 msgid "Check in status:"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:775
+#: includes/class-woocommerce-order-barcodes.php:770
 msgid "yes"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:776
+#: includes/class-woocommerce-order-barcodes.php:771
 msgid "no"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:1007
+#: includes/class-woocommerce-order-barcodes.php:976
 msgid "Generate Barcodes"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:1008
+#: includes/class-woocommerce-order-barcodes.php:977
 msgid "Generate"
 msgstr ""
 
-#: includes/class-woocommerce-order-barcodes.php:1009
+#: includes/class-woocommerce-order-barcodes.php:978
 msgid "Generate the barcode for existing orders."
 msgstr ""
 
@@ -223,7 +223,7 @@ msgstr ""
 msgid "Barcode"
 msgstr ""
 
-#: woocommerce-order-barcodes.php:76
+#: woocommerce-order-barcodes.php:82
 #. translators: %s: WooCommerce link
 msgid "WooCommerce Order Barcodes requires %s to be installed and active."
 msgstr ""

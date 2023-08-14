@@ -1,0 +1,60 @@
+.swp-space-fix {
+    width: 9px;
+}
+
+/* --- Collapse Header menu --- */
+
+.swp-actions-menu {
+    position: relative;
+}
+
+.swp-action-menu--button {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 100%;
+    padding: 9px 12px;
+    background-color: var(--white);
+    border: 1px solid rgba(var(--neutralRGB), 0.14);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.swp-action-menu--button:hover {
+    background-color: var(--whiteHover);
+}
+
+.swp-action-menu--button:active,
+.swp-action-menu--button:focus {
+    outline: none;
+    -webkit-box-shadow: 0 0 2px 1px var(--secondary);
+            box-shadow: 0 0 2px 1px var(--secondary);
+}
+
+.swp-swp-action-menu--list {
+    position: absolute;
+    right: 0;
+    margin: 0;
+    padding: 8px 0;
+    list-style: none;
+    background-color: var(--white);
+    border: 1px solid rgba(var(--neutralRGB), 0.14);
+    border-radius: 3px;
+    min-width: 144px;
+    margin-top: -1px;
+}
+
+.swp-action-menu--item {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1;
+    color: var(--neutralText);
+    min-width: max-content;
+    padding: 8px 13px;
+    cursor: pointer;
+}
+
+.swp-action-menu--item:hover {
+    color: var(--secondary);
+    background-color: rgba(var(--secondaryRGB), 0.07);
+}
+

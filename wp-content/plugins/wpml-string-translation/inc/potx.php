@@ -453,9 +453,9 @@ function _potx_find_t_calls_with_context(
 						// exception for gettext calls with contexts
 						if ( false !== $context_offset && isset( $_potx_tokens[ $ti + $context_offset ] ) ) {
 							if ( ! preg_match( '#^(\'|")(.+)#', @$_potx_tokens[ $ti + $context_offset ][ 1 ] ) ) {
-								$constant_val = @constant( $_potx_tokens[ $ti + $context_offset ][ 1 ] );
-								if ( ! is_null( $constant_val ) ) {
-									$context = $constant_val;
+								$constant_name = $_potx_tokens[ $ti + $context_offset ][ 1 ];
+								if ( defined( $constant_name ) ) {
+									$context = constant( $constant_name );
 								} else {
 									if ( function_exists( @$_potx_tokens[ $ti + $context_offset ][ 1 ] ) ) {
 										$context = @$_potx_tokens[ $ti + $context_offset ][ 1 ]();

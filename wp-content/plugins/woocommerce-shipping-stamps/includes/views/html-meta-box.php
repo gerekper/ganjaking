@@ -54,7 +54,7 @@ $needs_customs = $this->needs_customs_step( $order );
 					order_id:  <?php echo esc_html( $order->get_id() ); ?>,
 					action:    'wc_stamps_' + action,
 					security:  '<?php echo esc_html( wp_create_nonce( "stamps" ) ); ?>',
-					data:      jQuery('#wc_stamps_get_label').find('input, select').serialize(),
+					data:      encodeURIComponent( jQuery('#wc_stamps_get_label').find('input, select').serialize() ),
 					action_id: jQuery(this).data('id')
 				};
 				jQuery.ajax({

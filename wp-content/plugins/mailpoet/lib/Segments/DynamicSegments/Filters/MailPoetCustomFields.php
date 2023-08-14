@@ -6,9 +6,11 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Entities\CustomFieldEntity;
+use MailPoet\Entities\DynamicSegmentFilterData;
 use MailPoet\Entities\DynamicSegmentFilterEntity;
 use MailPoet\Entities\SubscriberCustomFieldEntity;
 use MailPoet\Entities\SubscriberEntity;
+use MailPoet\Segments\DynamicSegments\Exceptions\InvalidFilterException;
 use MailPoet\Util\Helpers;
 use MailPoet\Util\Security;
 use MailPoetVendor\Doctrine\DBAL\Query\QueryBuilder;
@@ -40,9 +42,8 @@ class MailPoetCustomFields implements Filter {
       $subscribersTable,
       $subscribersCustomFieldTable,
       'subscribers_custom_field',
-      "$subscribersTable.id = subscribers_custom_field.subscriber_id"
+      "$subscribersTable.id = subscribers_custom_field.subscriber_id AND subscribers_custom_field.custom_field_id = $customFieldIdParam"
     );
-    $queryBuilder->andWhere("subscribers_custom_field.custom_field_id = $customFieldIdParam");
     $queryBuilder->setParameter($customFieldIdParam, $customFieldId);
 
     $valueParam = ':value' . $parameterSuffix;
@@ -69,7 +70,13 @@ class MailPoetCustomFields implements Filter {
     $value = $filterData->getParam('value');
     $operator = $filterData->getParam('operator');
     $queryBuilder->setParameter($valueParam, $value);
-    if ($dateType === 'month') {
+    if ($operator === DynamicSegmentFilterData::IS_BLANK) {
+      $queryBuilder->andWhere('subscribers_custom_field.value IS NULL');
+      return $queryBuilder;
+    } elseif ($operator === DynamicSegmentFilterData::IS_NOT_BLANK) {
+      $queryBuilder->andWhere('subscribers_custom_field.value IS NOT NULL');
+      return $queryBuilder;
+    } elseif ($dateType === 'month') {
       return $this->applyForDateMonth($queryBuilder, $valueParam);
     } elseif ($dateType === 'year') {
       return $this->applyForDateYear($queryBuilder, $operator, $valueParam);
@@ -109,10 +116,15 @@ class MailPoetCustomFields implements Filter {
   private function applyForCheckbox(QueryBuilder $queryBuilder, DynamicSegmentFilterEntity $filter): QueryBuilder {
     $filterData = $filter->getFilterData();
     $value = $filterData->getParam('value');
+    $operator = $filterData->getParam('operator');
 
-    if ($value === '1') {
+    if ($operator === DynamicSegmentFilterData::IS_BLANK) {
+      $queryBuilder->andWhere('subscribers_custom_field.value IS NULL');
+    } elseif ($operator === DynamicSegmentFilterData::IS_NOT_BLANK) {
+      $queryBuilder->andWhere('subscribers_custom_field.value IS NOT NULL');
+    } elseif ($value === '1') {
       $queryBuilder->andWhere('subscribers_custom_field.value = 1');
-    } else {
+    } elseif ($value === '0') {
       $queryBuilder->andWhere('subscribers_custom_field.value <> 1');
     }
     return $queryBuilder;
@@ -123,6 +135,14 @@ class MailPoetCustomFields implements Filter {
 
     $operator = $filterData->getParam('operator');
     $value = $filterData->getParam('value');
+
+    $requiresValue = !in_array($operator, [DynamicSegmentFilterData::IS_BLANK, DynamicSegmentFilterData::IS_NOT_BLANK]);
+
+    if ($requiresValue && !is_string($value)) {
+      throw new InvalidFilterException('Missing required value', InvalidFilterException::MISSING_VALUE);
+    }
+
+    /** @var string $value - for PhpStan */
 
     if ($operator === 'equals') {
       $queryBuilder->andWhere("subscribers_custom_field.value = $valueParam");
@@ -137,6 +157,13 @@ class MailPoetCustomFields implements Filter {
     } elseif ($operator === 'less_than') {
       $queryBuilder->andWhere("subscribers_custom_field.value < $valueParam");
       $queryBuilder->setParameter($valueParam, $value);
+    } elseif ($operator === DynamicSegmentFilterData::IS_BLANK) {
+      $queryBuilder->andWhere('subscribers_custom_field.value IS NULL OR subscribers_custom_field.value = ""');
+    } elseif ($operator === DynamicSegmentFilterData::IS_NOT_BLANK) {
+      $queryBuilder->andWhere('subscribers_custom_field.value IS NOT NULL AND subscribers_custom_field.value != ""');
+    } elseif ($operator === 'not_contains') {
+      $queryBuilder->andWhere("subscribers_custom_field.value NOT LIKE $valueParam");
+      $queryBuilder->setParameter($valueParam, '%' . Helpers::escapeSearch($value) . '%');
     } else {
       $queryBuilder->andWhere("subscribers_custom_field.value LIKE $valueParam");
       $queryBuilder->setParameter($valueParam, '%' . Helpers::escapeSearch($value) . '%');

@@ -1,0 +1,478 @@
+/**
+This stylesheet needs the following files:
+colors.css
+header.css
+nav-menu.css
+layout.css
+buttons.css
+ */
+
+* {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+body {
+    color: var(--neutralText);
+    border-top: 3px solid var(--primary);
+}
+
+.swp-header,
+.swp-content-container {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+}
+
+.swp-content-container {
+    margin: 40px 22px;
+}
+
+.swp-img {
+    max-width: 100%;
+    font-size: 9px;
+}
+
+.swp-relative {
+    position: relative;
+}
+
+.swp-display-none {
+    display: none;
+}
+
+.swp-display-block {
+    display: block;
+}
+
+.swp-bg--gray {
+    background-color: rgba(var(--neutralRGB), 0.04);
+}
+
+.swp-hr {
+    width: 100%;
+    border: 1px solid rgba(var(--neutralRGB), 0.05);
+    margin: 0;
+}
+
+/* --- Typography --- */
+
+.swp-h1,
+.swp-h2 {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.4;
+    color: var(--neutral);
+    margin: 0;
+}
+
+.swp-h3,
+.swp-h4 {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+    color: var(--neutralText);
+    margin: 0;
+}
+
+.swp-p {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--neutralText);
+    margin: 0;
+}
+
+.swp-b {
+    font-weight: 700;
+}
+
+.swp-a {
+    font-weight: 700;
+    color: var(--secondary);
+}
+
+.swp-a:hover {
+    color: var(--secondary);
+}
+
+.swp-a:focus,
+.swp-a:active {
+    -webkit-box-shadow: 0 0 2px 1px var(--secondary);
+            box-shadow: 0 0 2px 1px var(--secondary);
+    outline: none;
+}
+
+.swp-desc {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.swp-desc--top {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.2;
+    margin: 0 0 20px;
+}
+
+.swp-desc--btm {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.2;
+    margin: 15px 0 0;
+}
+
+.swp-code {
+    font-family: monospace;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 140%;
+    letter-spacing: -0.5px;
+    color: rgba(var(--neutralRGB), 0.6);
+    background-color: rgba(217, 217, 217, 0.4);
+    padding: 0 2px;
+}
+
+.swp-attributes {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1;
+    color: rgba(var(--neutralRGB), 0.6);
+}
+
+.swp-cut-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.swp-screen-reader-text {
+    border: 0;
+    clip: rect(1px,1px,1px,1px);
+    -webkit-clip-path: inset(50%);
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    word-wrap: normal!important;
+}
+
+/* --- Line Height --- */
+
+.swp-leading--100 {
+    line-height: 1;
+}
+
+.swp-leading--120 {
+    line-height: 1.2;
+}
+
+.swp-leading--140 {
+    line-height: 1.4;
+}
+
+.swp-leading--150 {
+    line-height: 1.5;
+}
+
+.swp-leading--160 {
+    line-height: 1.6;
+}
+
+.swp-leading--180 {
+    line-height: 1.8;
+}
+
+/* --- Font Weight --- */
+
+.swp-font-semibold {
+    font-weight: 600;
+}
+
+.swp-font-medium {
+    font-weight: 500;
+}
+
+.swp-font-normal {
+    font-weight: 400;
+}
+
+/* --- Font Size --- */
+
+.swp-font-size12 {
+    font-size: 12px;
+}
+
+.swp-font-size13 {
+    font-size: 13px;
+}
+
+.swp-font-size14 {
+    font-size: 14px;
+}
+
+.swp-font-size16 {
+    font-size: 16px;
+}
+
+/* --- Text Align --- */
+
+.swp-text-left {
+    text-align: left;
+}
+
+.swp-text-right {
+    text-align: right;
+}
+
+.swp-text-center {
+    text-align: center;
+}
+
+
+/* --- Text Color --- */
+
+.swp-text-green {
+    color: var(--primary);
+}
+
+.swp-text-red {
+    color: var(--uiRed);
+}
+
+.swp-text-gray {
+    color: rgba(var(--neutralRGB), 0.6);
+}
+
+
+/* --- Widths --- */
+
+.swp-w-full {
+    width: 100%;
+}
+
+.swp-w-5\/6 {
+    width: 83.333%;
+}
+
+.swp-w-4\/5 {
+    width: 80%;
+}
+
+.swp-w-3\/4 {
+    width: 75%;
+}
+
+.swp-w-2\/3 {
+    width: 66.666%;
+}
+
+.swp-w-3\/5 {
+    width: 60%;
+}
+
+.swp-w-1\/2 {
+    width: 50%;
+}
+
+.swp-w-2\/5 {
+    width: 40%;
+}
+
+.swp-w-1\/3 {
+    width: 33.333%;
+}
+
+.swp-w-1\/4 {
+    width: 25%;
+}
+
+.swp-w-1\/5 {
+    width: 20%;
+}
+
+.swp-w-1\/6 {
+    width: 16.666%;
+}
+
+.swp-w-fit-content {
+    min-width: fit-content;
+}
+
+
+/* --- Margins --- */
+
+.swp-margin0 {
+    margin: 0;
+}
+
+.swp-margin-auto {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.swp-margin-l-auto {
+    margin-left: auto;
+}
+
+.swp-margin-t0 {
+    margin-top: 0;
+}
+
+.swp-margin-t15 {
+    margin-top: 15px;
+}
+
+.swp-margin-t20 {
+    margin-top: 20px;
+}
+
+.swp-margin-t25 {
+    margin-top: 25px;
+}
+
+.swp-margin-t30 {
+    margin-top: 30px;
+}
+
+.swp-margin-t40 {
+    margin-top: 40px;
+}
+
+.swp-margin-b0 {
+    margin-bottom: 0;
+}
+
+.swp-margin-b10 {
+    margin-bottom: 10px;
+}
+
+.swp-margin-b15 {
+    margin-bottom: 15px;
+}
+
+.swp-margin-b20 {
+    margin-bottom: 20px;
+}
+
+.swp-margin-b25 {
+    margin-bottom: 25px;
+}
+
+.swp-margin-b30 {
+    margin-bottom: 30px;
+}
+
+.swp-margin-b40 {
+    margin-bottom: 40px;
+}
+
+.swp-margin-b50 {
+    margin-bottom: 50px;
+}
+
+.swp-margin-b60 {
+    margin-bottom: 60px;
+}
+
+/* --- Paddings --- */
+
+.swp-padding0 {
+    padding: 0;
+}
+
+.swp-padding18 {
+    padding: 18px;
+}
+
+.swp-padding-t0 {
+    padding-top: 0;
+}
+
+.swp-padding-t30 {
+    padding-top: 30px;
+}
+
+.swp-padding-b10 {
+    padding-bottom: 10px;
+}
+
+.swp-padding-b30 {
+    padding-bottom: 30px;
+}
+
+.swp-padding-b40 {
+    padding-bottom: 40px;
+}
+
+@media only screen and (max-width: 1080px) {
+
+    .l\:swp-w-full {
+        width: 100%;
+    }
+
+}
+
+@media only screen and (max-width: 767px) {
+    /* --- Margins --- */
+
+    .sm\:swp-margin-b30 {
+        margin-bottom: 30px;
+    }
+
+    .sm\:swp-margin-b40 {
+        margin-bottom: 40px;
+    }
+
+    /* --- Widths --- */
+
+    .sm\:swp-w-full {
+        width: 100%;
+    }
+
+    /* --- Text Align --- */
+
+    .sm\:swp-text-center {
+        text-align: center;
+    }
+
+    .sm\:swp-text-left {
+        text-align: left;
+    }
+
+    /* --- Display --- */
+
+    .sm\:swp-display-none {
+        display: none;
+    }
+
+    .sm\:swp-display-block {
+        display: block;
+    }
+
+    .sm\:swp-display-flex--row {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: row;
+                flex-direction: row;
+        -ms-flex-wrap: nowrap;
+            flex-wrap: nowrap;
+        -webkit-box-pack: start;
+            -ms-flex-pack: start;
+                justify-content: flex-start;
+        -webkit-box-align: start;
+            -ms-flex-align: start;
+                align-items: flex-start;
+        -webkit-box-flex: 1;
+            -ms-flex-positive: 1;
+                flex-grow: 1;
+    }
+}

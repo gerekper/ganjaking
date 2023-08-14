@@ -1,5 +1,9 @@
 *** Changelog ***
 
+2023-08-07 - version 2.46
+
+* Fixed issue of wpautop auto adding <p> tags to <scripts>
+
 2023-05-02 - version 2.45
 
 * Fixed recent version did not worked with Intuit Payments

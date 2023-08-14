@@ -596,17 +596,17 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "1.0.20",
-            "version_normalized": "1.0.20.0",
+            "version": "1.0.21",
+            "version_normalized": "1.0.21.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "b3a606b90c47fb526cfb3a1664771cb8314a3434"
+                "reference": "de7ec75b54d6a1f3d549d03a2bf3e3e392c3bc36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/b3a606b90c47fb526cfb3a1664771cb8314a3434",
-                "reference": "b3a606b90c47fb526cfb3a1664771cb8314a3434",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/de7ec75b54d6a1f3d549d03a2bf3e3e392c3bc36",
+                "reference": "de7ec75b54d6a1f3d549d03a2bf3e3e392c3bc36",
                 "shasum": ""
             },
             "require": {
@@ -620,9 +620,11 @@
             "suggest": {
                 "ext-gmp": "Install the GMP (GNU Multiple Precision) extension in order to speed up arbitrary precision integer arithmetic operations.",
                 "ext-mcrypt": "Install the Mcrypt extension in order to speed up a wide variety of cryptographic operations.",
+                "ext-openssl": "Install the OpenSSL extension in order to speed up a wide variety of cryptographic operations.",
+                "ext-xml": "Install the XML extension to load XML formatted public keys.",
                 "pear-pear/PHP_Compat": "Install PHP_Compat to get phpseclib working on PHP < 5.0.0."
             },
-            "time": "2021-12-28T06:26:23+00:00",
+            "time": "2023-07-09T15:16:21+00:00",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -695,7 +697,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpseclib/phpseclib/issues",
-                "source": "https://github.com/phpseclib/phpseclib/tree/1.0.20"
+                "source": "https://github.com/phpseclib/phpseclib/tree/1.0.21"
             },
             "funding": [
                 {
@@ -1533,32 +1535,32 @@
         },
         {
             "name": "yahnis-elsts/plugin-update-checker",
-            "version": "v4.11",
-            "version_normalized": "4.11.0.0",
+            "version": "dev-master",
+            "version_normalized": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/YahnisElsts/plugin-update-checker.git",
-                "reference": "3155f2d3f1ca5e7ed3f25b256f020e370515af43"
+                "url": "git@github.com:DavidAnderson684/plugin-update-checker.git",
+                "reference": "06e3a4e96a92e43cb05da6a84898a1678d9a52e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/YahnisElsts/plugin-update-checker/zipball/3155f2d3f1ca5e7ed3f25b256f020e370515af43",
-                "reference": "3155f2d3f1ca5e7ed3f25b256f020e370515af43",
+                "url": "https://api.github.com/repos/DavidAnderson684/plugin-update-checker/zipball/06e3a4e96a92e43cb05da6a84898a1678d9a52e3",
+                "reference": "06e3a4e96a92e43cb05da6a84898a1678d9a52e3",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "php": ">=5.2.0"
             },
-            "time": "2021-03-15T16:07:52+00:00",
+            "time": "2023-08-10T12:30:07+00:00",
+            "default-branch": true,
             "type": "library",
             "installation-source": "source",
             "autoload": {
                 "files": [
-                    "load-v4p11.php"
+                    "load-v4p13.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1578,10 +1580,6 @@
                 "theme updates",
                 "wordpress"
             ],
-            "support": {
-                "issues": "https://github.com/YahnisElsts/plugin-update-checker/issues",
-                "source": "https://github.com/YahnisElsts/plugin-update-checker/tree/v4.11"
-            },
             "install-path": "../yahnis-elsts/plugin-update-checker"
         }
     ],

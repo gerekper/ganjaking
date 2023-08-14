@@ -204,11 +204,11 @@ abstract class UpdraftCentral_Commands {
 		}
 
 		// Save uploaded file
-		$filename = basename($params['filename']);
+		$filename = basename($params['filename']).md5(get_home_url());
 		$is_chunked = false;
 
 		if (isset($params['chunks']) && 1 < (int) $params['chunks']) {
-			$filename = basename($params['filename']).'.part';
+			$filename .= '.part';
 			$is_chunked = true;
 		}
 
@@ -265,16 +265,17 @@ abstract class UpdraftCentral_Commands {
 
 				// WP < 3.7
 				if (!class_exists('Automatic_Upgrader_Skin')) include_once(UPDRAFTCENTRAL_CLIENT_DIR.'/classes/class-automatic-upgrader-skin.php');
+				require_once(UPDRAFTCENTRAL_CLIENT_DIR.'/classes/class-updraftcentral-wp-upgrader.php');
 
 				$skin = new Automatic_Upgrader_Skin();
-				$upgrader = ('plugin' === $type) ? new Plugin_Upgrader($skin) : new Theme_Upgrader($skin);
+				$upgrader = ('plugin' === $type) ? new UpdraftCentral_Plugin_Upgrader($skin) : new UpdraftCentral_Theme_Upgrader($skin);
 
 				$install_result = $upgrader->install($zip_filepath);
 				remove_filter('upgrader_post_install', array($this, 'get_install_data'), 10, 3);
 
 				// Remove zip file on success and on error (cleanup)
 				if ($install_result || is_null($install_result) || is_wp_error($install_result)) {
-					@unlink($zip_filepath);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
+					@unlink($zip_filepath);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise if the file doesn't exist.
 				}
 
 				if (false === $install_result || is_wp_error($install_result)) {

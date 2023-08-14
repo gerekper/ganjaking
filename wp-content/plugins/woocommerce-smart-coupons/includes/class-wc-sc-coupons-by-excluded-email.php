@@ -6,7 +6,7 @@
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
  * @since       6.7.0
- * @version     1.4.0
+ * @version     1.5.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -34,6 +34,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Excluded_Email' ) ) {
 
 			add_action( 'wc_sc_start_coupon_options_email_restriction', array( $this, 'usage_restriction' ) );
 			add_action( 'woocommerce_coupon_options_save', array( $this, 'process_meta' ), 10, 2 );
+			add_filter( 'woocommerce_coupon_is_valid', array( $this, 'validate' ), 11, 3 );
 			add_action( 'woocommerce_after_checkout_validation', array( $this, 'check_customer_coupons' ), 99, 2 );
 			add_filter( 'wc_smart_coupons_export_headers', array( $this, 'export_headers' ) );
 			add_filter( 'smart_coupons_parser_postmeta_defaults', array( $this, 'postmeta_defaults' ) );
@@ -145,6 +146,102 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Excluded_Email' ) ) {
 		}
 
 		/**
+		 * Validate the coupon based on user role
+		 *
+		 * @param  boolean      $valid  Is valid or not.
+		 * @param  WC_Coupon    $coupon The coupon object.
+		 * @param  WC_Discounts $discounts The discount object.
+		 *
+		 * @throws Exception If the coupon is invalid.
+		 * @return boolean           Is valid or not
+		 */
+		public function validate( $valid = false, $coupon = object, $discounts = null ) {
+
+			// If coupon is invalid already, no need for further checks.
+			if ( false === $valid ) {
+				return $valid;
+			}
+
+			$post_action = ( ! empty( $_POST['action'] ) ) ? wc_clean( wp_unslash( $_POST['action'] ) ) : ''; // phpcs:ignore
+
+			if ( is_admin() && wp_doing_ajax() && 'woocommerce_add_coupon_discount' === $post_action ) { // This condition will allow the addition of coupon from admin side, in the order even if the user role is not matching.
+				return true;
+			}
+
+			$is_auto_applied = did_action( 'wc_sc_before_auto_apply_coupons' ) > 0;
+
+			$cart = ( function_exists( 'WC' ) && isset( WC()->cart ) ) ? WC()->cart : null;
+
+			$coupon_id = ( $this->is_wc_gte_30() ) ? $coupon->get_id() : $coupon->id;
+			if ( ! is_a( $coupon, 'WC_Coupon' ) ) {
+				$coupon = new WC_Coupon( $coupon_id );
+			}
+			if ( $this->is_callable( $coupon, 'get_meta' ) ) {
+				$coupon_code            = ( $this->is_callable( $coupon, 'get_code' ) ) ? $coupon->get_code() : '';
+				$customer_email         = ( $this->is_callable( $coupon, 'get_email_restrictions' ) ) ? $coupon->get_email_restrictions() : array();
+				$exclude_customer_email = ( $this->is_callable( $coupon, 'get_meta' ) ) ? $coupon->get_meta( 'wc_sc_excluded_customer_email' ) : array();
+			} else {
+				$coupon_code            = ( ! empty( $coupon->code ) ) ? $coupon->code : '';
+				$customer_email         = get_post_meta( $coupon_id, 'customer_email', true );
+				$exclude_customer_email = get_post_meta( $coupon_id, 'wc_sc_excluded_customer_email', true );
+			}
+
+			$wc_customer               = WC()->customer;
+			$wc_customer_email         = ( $this->is_callable( $wc_customer, 'get_email' ) ) ? $wc_customer->get_email() : '';
+			$wc_customer_billing_email = ( $this->is_callable( $wc_customer, 'get_billing_email' ) ) ? $wc_customer->get_billing_email() : '';
+			$current_user              = ( is_user_logged_in() ) ? wp_get_current_user() : null;
+			$user_email                = ( ! is_null( $current_user ) && ! empty( $current_user->user_email ) ) ? $current_user->user_email : '';
+			$billing_email             = ( ! empty( $_REQUEST['billing_email'] ) ) ? wc_clean( wp_unslash( $_REQUEST['billing_email'] ) ) : '';    // phpcs:ignore
+			$check_emails              = array_unique(
+				array_filter(
+					array_map(
+						'strtolower',
+						array_map(
+							'sanitize_email',
+							array(
+								$billing_email,
+								$wc_customer_billing_email,
+								$wc_customer_email,
+								$user_email,
+							)
+						)
+					)
+				)
+			);
+
+			if ( false === $is_auto_applied && empty( $check_emails ) ) {
+				return $valid;
+			}
+
+			$is_callable_coupon_emails_allowed = $this->is_callable( $cart, 'is_coupon_emails_allowed' );
+
+			if ( is_array( $customer_email ) && 0 < count( $customer_email ) && true === $is_callable_coupon_emails_allowed && ! $cart->is_coupon_emails_allowed( $check_emails, $customer_email ) ) {
+				if ( true === $is_auto_applied ) {
+					$valid = false;
+					if ( $this->is_callable( $cart, 'has_discount' ) && $cart->has_discount( $coupon_code ) && $this->is_callable( $cart, 'remove_coupon' ) ) {
+						$cart->remove_coupon( $coupon_code );
+					}
+				} else {
+					throw new Exception( __( 'This coupon is not valid for you.', 'woocommerce-smart-coupons' ) );
+				}
+			}
+
+			if ( is_array( $exclude_customer_email ) && 0 < count( $exclude_customer_email ) && true === $is_callable_coupon_emails_allowed && $cart->is_coupon_emails_allowed( $check_emails, $exclude_customer_email ) ) {
+				if ( true === $is_auto_applied ) {
+					$valid = false;
+					if ( $this->is_callable( $cart, 'has_discount' ) && $cart->has_discount( $coupon_code ) && $this->is_callable( $cart, 'remove_coupon' ) ) {
+						$cart->remove_coupon( $coupon_code );
+					}
+				} else {
+					throw new Exception( __( 'This coupon is not valid for you.', 'woocommerce-smart-coupons' ) );
+				}
+			}
+
+			return $valid;
+
+		}
+
+		/**
 		 * Now that we have billing email, check if the coupon is excluded to be used for the user or billing email
 		 *
 		 * Credit: WooCommerce
@@ -164,7 +261,8 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Excluded_Email' ) ) {
 							if ( $this->is_valid( $coupon ) ) {
 
 								// Get user and posted emails to compare.
-								$current_user  = wp_get_current_user();
+								$current_user  = ( is_user_logged_in() ) ? wp_get_current_user() : null;
+								$user_email    = ( ! is_null( $current_user ) && ! empty( $current_user->user_email ) ) ? $current_user->user_email : '';
 								$billing_email = isset( $posted['billing_email'] ) ? $posted['billing_email'] : '';
 								$check_emails  = array_unique(
 									array_filter(
@@ -174,7 +272,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Excluded_Email' ) ) {
 												'sanitize_email',
 												array(
 													$billing_email,
-													$current_user->user_email,
+													$user_email,
 												)
 											)
 										)

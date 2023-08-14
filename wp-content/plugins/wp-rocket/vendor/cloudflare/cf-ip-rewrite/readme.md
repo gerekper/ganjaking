@@ -11,7 +11,7 @@ For those cases, where the IP can not be guaranteed to be rewritten by one of th
     $rewritten_ip = $ipRewrite->getRewrittenIP();
     $original_ip = $ipRewrite->getOriginalIP();
 ```
-The class exposes three methods for interaction and a constructor.
+The class exposes three methods for interaction and a constructor. 
 
 Initializing `IpRewrite()` object will try to rewrite the IP. If the IP is rewritten, `$_SERVER["REMOTE_ADDR"]` will be updated to reflect the end-user's IP address.
 
@@ -30,7 +30,7 @@ Initializing `IpRewrite()` object will try to rewrite the IP. If the IP is rewri
     } catch (RuntimeException $e) {
         // PHP configurations does not support IPv6
     }
-
+    
     // Check if the request is from Cloudflare
     $is_cf = $ipRewrite->isCloudFlare();
     if ($is_cf) {

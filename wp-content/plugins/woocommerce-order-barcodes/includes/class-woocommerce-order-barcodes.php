@@ -84,12 +84,27 @@ class WooCommerce_Order_Barcodes {
 	public $script_suffix;
 
 	/**
+	 * Barcode enabled or not.
+	 * @var     string
+	 * @access  public
+	 * @since   1.6.4
+	 */
+	public $barcode_enable;
+
+	/**
 	 * Type of barcode to be used.
 	 * @var     string
 	 * @access  public
 	 * @since   1.0.0
 	 */
 	public $barcode_type = 'code128';
+
+	/**
+	 * Type of barcode generator class to be used.
+	 *
+	 * @var barcode_generator.
+	 */
+	public $barcode_generator;
 
 	/**
 	 * Color of barcode.
@@ -124,6 +139,7 @@ class WooCommerce_Order_Barcodes {
 		$this->barcode_enable = get_option( 'wc_order_barcodes_enable', 'yes' );
 		$this->barcode_type = get_option( 'wc_order_barcodes_type', 'code128' );
 		$this->barcode_colours = get_option( 'wc_order_barcodes_colours', array( 'foreground' => '#000000' ) );
+		$this->barcode_generator = new WooCommerce_Order_Barcodes_Generator_Tclib( $this->barcode_colours['foreground'], $this->barcode_type );
 
 		// Declare HPOS Compatibility.
 		add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
@@ -446,32 +462,11 @@ class WooCommerce_Order_Barcodes {
 			return ob_get_clean();
 		}
 
-		$upload_dir = wp_upload_dir();
-		$dns1d = new DNS1D();
-		$dns2d = new DNS2D();
-		$dns1d->setStorPath( $upload_dir['path'] . '/cache/' );
-		$dns2d->setStorPath( $upload_dir['path'] . '/cache/' );
-		$barcode = '<div class="woocommerce-order-barcodes-container" style="text-align:center;justify-content: center;display:grid;margin-top:5px;">';
+		$barcode  = '<div class="woocommerce-order-barcodes-container" style="text-align:center;justify-content: center;display:grid;margin-top:5px;">';
 
-		// Generate barcode image based on string and selected type.
-		switch ( $this->barcode_type ) {
-			case 'datamatrix':
-				$barcode .= $dns2d->getBarcodeSVG( $barcode_text, 'DATAMATRIX', 10, 10, $foreground_color );
-				break;
-			case 'qr':
-				$barcode .= $dns2d->getBarcodeHTML( $barcode_text, 'QRCODE', 5, 5, $foreground_color );
-				break;
-			case 'code39':
-				$barcode .= $dns1d->getBarcodeHTML( $barcode_text, 'C39', 1, 48, $foreground_color );
-				break;
-			case 'code93':
-				$barcode .= $dns1d->getBarcodeHTML( $barcode_text, 'C93', 1, 48, $foreground_color );
-				break;
-			case 'code128':
-			default:
-				$barcode .= $dns1d->getBarcodeHTML( $barcode_text, 'C128', 1, 48, $foreground_color );
-				break;
-		}
+		// Generate barcode image based on string and selected type. And use SVG for datamatrix.
+		$barcode_output = ( 'datamatrix' === $this->barcode_type ) ? 'SVG' : 'HTML';
+		$barcode       .= $this->barcode_generator->get_generated_barcode( $barcode_text, $barcode_output );
 
 		$barcode .= '<br /><span class="woocommerce-order-barcodes-number" style="color:' . esc_attr( $this->barcode_colours['foreground'] ) . ';font-family:monospace;position:relative;top:-12px;">' . esc_html( $barcode_text ) . '</span>';
 
@@ -929,35 +924,9 @@ class WooCommerce_Order_Barcodes {
 			return;
 		}
 
-		$foreground  = $this->hex_to_rgb( $this->barcode_colours['foreground'] );
-		$barcode_img = '';
-		$upload_dir  = wp_upload_dir();
-		$dns1d       = new DNS1D();
-		$dns2d       = new DNS2D();
-		$dns1d->setStorPath( $upload_dir['path'] . '/cache/' );
-		$dns2d->setStorPath( $upload_dir['path'] . '/cache/' );
-
 		// Generate barcode image based on string and selected type.
-		switch ( $this->barcode_type ) {
-			case 'datamatrix':
-				$barcode_img = $dns2d->getBarcodePNG( $barcode, 'DATAMATRIX', 6, 6, $foreground );
-				break;
-			case 'qr':
-				$barcode_img = $dns2d->getBarcodePNG( $barcode, 'QRCODE', 6, 6, $foreground );
-				break;
-			case 'code39':
-				$barcode_img = $dns1d->getBarcodePNG( $barcode, 'C39', 1, 48, $foreground );
-				break;
-			case 'code93':
-				$barcode_img = $dns1d->getBarcodePNG( $barcode, 'C93', 1, 48, $foreground );
-				break;
-			case 'code128':
-			default:
-				$barcode_img = $dns1d->getBarcodePNG( $barcode, 'C128', 1, 48, $foreground );
-				break;
-		}
-
-		$barcode_img = base64_decode( $barcode_img );
+		$barcode_img = $this->barcode_generator->get_generated_barcode( $barcode, 'PNG' );
+		$foreground  = $this->hex_to_rgb( $this->barcode_colours['foreground'] );
 
 		// Set headers for image output.
 		if ( ini_get( 'zlib.output_compression' ) ) {

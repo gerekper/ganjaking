@@ -130,8 +130,7 @@ class WPML_Media_Settings {
 							<td colspan="2">
 								<ul class="wpml_media_options_language">
 									<?php
-									$settings         = get_option( '_wpml_media' );
-									$content_defaults = $settings['new_content_settings'];
+									$content_defaults = \WPML\Media\Option::getNewContentSettings();
 
 									$always_translate_media_html_checked = $content_defaults['always_translate_media'] ? 'checked="checked"' : '';
 									$duplicate_media_html_checked        = $content_defaults['duplicate_media'] ? 'checked="checked"' : '';
@@ -164,8 +163,7 @@ class WPML_Media_Settings {
 							<td colspan="2">
 								<ul class="wpml_media_options_media_library_texts">
 									<?php
-									$settings                   = get_option( '_wpml_media' );
-									$translateMediaLibraryTexts = \WPML\FP\Obj::propOr( false, 'translate_media_library_texts', $settings ) ? 'checked="checked"' : '';
+									$translateMediaLibraryTexts = \WPML\Media\Option::getTranslateMediaLibraryTexts() ? 'checked="checked"' : '';
 									?>
 									<li>
 										<label><input type="checkbox" name="translate_media_library_texts"

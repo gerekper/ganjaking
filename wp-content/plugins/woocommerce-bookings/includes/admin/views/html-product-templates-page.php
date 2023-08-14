@@ -91,7 +91,7 @@
 					'Or, if you know your business like we think you do and you are confident in filling in an array of settings, be our guest! We have %1$sdocumentation%2$s to assist you.',
 					'woocommerce-bookings'
 				),
-				'<a href="https://woocommerce.com/document/creating-a-bookable-product/" target="_blank">',
+				'<a href="https://woocommerce.com/document/woocommerce-bookings-store-manager-guide/#section-1" target="_blank">',
 				'</a>'
 			);
 			?>

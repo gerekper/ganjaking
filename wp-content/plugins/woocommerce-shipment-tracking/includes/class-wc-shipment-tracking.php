@@ -130,6 +130,7 @@ class WC_Shipment_Tracking_Actions {
 				'United Kingdom' => array(
 					'DHL'                       => 'https://www.dhl.com/content/g0/en/express/tracking.shtml?brand=DHL&AWB=%1$s',
 					'DPD.co.uk'                 => 'https://www.dpd.co.uk/apps/tracking/?reference=%1$s#results',
+					'DPD Local'                 => 'https://apis.track.dpdlocal.co.uk/v1/track?postcode=null&parcel=%1$s',
 					'EVRi'                      => 'https://www.evri.com/track/parcel/%1$s',
 					'EVRi (international)'      => 'https://international.evri.com/tracking/%1$s',
 					'InterLink'                 => 'https://www.dpdlocal.co.uk/apps/tracking/?reference=%1$s&postcode=%2$s#results',
@@ -144,7 +145,7 @@ class WC_Shipment_Tracking_Actions {
 					'Fedex'         => 'https://www.fedex.com/apps/fedextrack/?action=track&action=track&tracknumbers=%1$s',
 					'FedEx Sameday' => 'https://www.fedexsameday.com/fdx_dotracking_ua.aspx?tracknum=%1$s',
 					'GlobalPost'    => 'https://www.goglobalpost.com/track-detail/?t=%1$s',
-					'OnTrac'        => 'http://www.ontrac.com/trackingdetail.asp?tracking=%1$s',
+					'OnTrac'        => 'https://www.ontrac.com/tracking/?number=%1$s',
 					'UPS'           => 'https://www.ups.com/track?loc=en_US&tracknum=%1$s',
 					'USPS'          => 'https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=%1$s',
 				),

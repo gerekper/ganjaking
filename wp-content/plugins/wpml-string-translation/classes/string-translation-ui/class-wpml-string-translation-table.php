@@ -161,7 +161,9 @@ class WPML_String_Translation_Table {
 	}
 
 	private function decodeHtmlEntitiesForStringAndTranslations( $string ) {
-		$decode = partialRight( 'html_entity_decode', ENT_QUOTES );
+		$decode = function( $string ) {
+			return is_null( $string ) ? '' : partialRight( 'html_entity_decode', ENT_QUOTES )( $string );
+		};
 
 		$string['value'] = $decode( $string['value'] );
 		$string['name']  = $decode( $string['name'] );

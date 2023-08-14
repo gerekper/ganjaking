@@ -484,6 +484,10 @@ class WPML_Notices {
 
 	private function filter_invalid_notices( $notices ) {
 		foreach ( $notices as $group => $notices_in_group ) {
+			if ( ! is_array( $notices_in_group ) ) {
+				unset( $notices[ $group ] );
+				continue;
+			}
 			foreach ( $notices_in_group as $index => $notice ) {
 				if ( ! $notice instanceof WPML_Notice ) {
 					unset( $notices[ $group ][ $index ] );

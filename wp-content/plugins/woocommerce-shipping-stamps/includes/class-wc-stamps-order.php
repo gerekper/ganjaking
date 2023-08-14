@@ -278,13 +278,14 @@ class WC_Stamps_Order {
 		$params = $this->get_sanitized_ajax_data( $_POST['data'] );
 
 		$rates = WC_Stamps_API::get_rates( $order, array(
-			'date'   => $params['stamps_package_date'],
-			'type'   => $params['stamps_package_type'],
-			'weight' => wc_get_weight( wc_format_decimal( (float) $params['stamps_package_weight'] ), 'lbs' ),
-			'value'  => wc_format_decimal( (float) $params['stamps_package_value'] ),
-			'length' => wc_get_dimension( wc_format_decimal( (float) $params['stamps_package_length'] ), 'in' ),
-			'width'  => wc_get_dimension( wc_format_decimal( (float) $params['stamps_package_width'] ), 'in' ),
-			'height' => wc_get_dimension( wc_format_decimal( (float) $params['stamps_package_height'] ), 'in' ),
+			'date'         => $params['stamps_package_date'],
+			'type'         => $params['stamps_package_type'],
+			'weight'       => wc_get_weight( wc_format_decimal( (float) $params['stamps_package_weight'] ), 'lbs' ),
+			'value'        => wc_format_decimal( (float) $params['stamps_package_value'] ),
+			'length'       => wc_get_dimension( wc_format_decimal( (float) $params['stamps_package_length'] ), 'in' ),
+			'width'        => wc_get_dimension( wc_format_decimal( (float) $params['stamps_package_width'] ), 'in' ),
+			'height'       => wc_get_dimension( wc_format_decimal( (float) $params['stamps_package_height'] ), 'in' ),
+			'content_type' => $params['stamps_content_type'],
 		) );
 
 		if ( is_wp_error( $rates ) ) {
@@ -328,8 +329,8 @@ class WC_Stamps_Order {
 
 		// Put rate in array, keeping only the data we need.
 		$posted_rates = array(
-			'FromZIPCode'   => wc_clean( $rate->FromZIPCode ),
-			'ToCountry'     => wc_clean( $rate->ToCountry ),
+			'From'          => wc_clean( $rate->From ),
+			'To'            => wc_clean( $rate->To ),
 			'WeightLb'      => wc_clean( isset( $rate->WeightLb ) ? $rate->WeightLb : '' ),
 			'WeightOz'      => wc_clean( isset( $rate->WeightOz ) ? $rate->WeightOz : '' ),
 			'ShipDate'      => wc_clean( $rate->ShipDate ),
@@ -345,11 +346,8 @@ class WC_Stamps_Order {
 			'AddOns'        => array(
 				'AddOnV7' => $chosen_addons,
 			),
+			'ContentType'   => isset( $rate->ContentType ) ? wc_clean( $rate->ContentType ) : '',
 		);
-
-		if ( ! empty( $rate->ToZIPCode ) ) {
-			$posted_rates['ToZIPCode'] = wc_clean( $rate->ToZIPCode );
-		}
 
 		return $posted_rates;
 	}

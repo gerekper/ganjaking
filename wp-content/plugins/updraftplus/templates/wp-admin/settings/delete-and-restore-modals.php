@@ -57,7 +57,7 @@
 
 								// The 'off' check is for badly configured setups - http://wordpress.org/support/topic/plugin-wp-super-cache-warning-php-safe-mode-enabled-but-safe-mode-is-off
 								if ($updraftplus->detect_safe_mode()) {
-									echo "<p><em>".__("Your web server has PHP's so-called safe_mode active.", 'updraftplus').' '.__('This makes time-outs much more likely. You are recommended to turn safe_mode off, or to restore only one entity at a time', 'updraftplus').' <a href="'.apply_filters('updraftplus_com_link', "https://updraftplus.com/faqs/i-want-to-restore-but-have-either-cannot-or-have-failed-to-do-so-from-the-wp-admin-console/").'" target="_blank">'.__('or to restore manually', 'updraftplus').'.</a></em></p>';
+									echo "<p><em>".__("Your web server has PHP's so-called safe_mode active.", 'updraftplus').' '.__('This makes time-outs much more likely.', 'updraftplus').' '.__('You are recommended to turn safe_mode off, or to restore only one entity at a time', 'updraftplus').' <a href="'.apply_filters('updraftplus_com_link', "https://updraftplus.com/faqs/i-want-to-restore-but-have-either-cannot-or-have-failed-to-do-so-from-the-wp-admin-console/").'" target="_blank">'.__('or to restore manually', 'updraftplus').'.</a></em></p>';
 								}
 							?>
 							<p><strong><?php _e('Choose the components to restore:', 'updraftplus'); ?></strong></p>
@@ -93,9 +93,9 @@
 			<div class="updraft-restore--footer">
 				<button type="button" class="button updraft-restore--cancel"><?php _e('Cancel', 'updraftplus'); ?></button>
 				<ul class="updraft-restore--stages">
-					<li class="active"><span><?php _e('1. Component selection', 'updraftplus'); ?></span></li>
-					<li><span><?php _e('2. Verifications', 'updraftplus'); ?></span></li>
-					<li><span><?php _e('3. Restoration', 'updraftplus'); ?></span></li>
+					<li class="active"><span>1. <?php _e('Component selection', 'updraftplus'); ?></span></li>
+					<li><span>2. <?php _e('Verifications', 'updraftplus'); ?></span></li>
+					<li><span>3. <?php _e('Restoration', 'updraftplus'); ?></span></li>
 				</ul>
 				<button type="button" class="button button-primary updraft-restore--next-step"><?php _e('Next', 'updraftplus'); ?></button>
 			</div>

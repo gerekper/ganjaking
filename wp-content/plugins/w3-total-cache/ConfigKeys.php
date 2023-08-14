@@ -2600,9 +2600,7 @@ $keys = array(
 
 	'extensions.active' => array(
 		'type' => 'array',
-		'default' => array(
-			'fragmentcache' => 'w3-total-cache/Extension_FragmentCache_Plugin.php',
-		),
+		'default' => array(),
 	),
 	'extensions.active_frontend' => array(
 		'type' => 'array',
@@ -2637,6 +2635,12 @@ $keys = array(
 	'imageservice.configuration_overloaded' => array(
 		'type' => 'boolean',
 		'default' => true,
+	),
+	'fragmentcache' => array(
+		'type'    => 'array',
+		'default' => array(
+			'engine' => 'file',
+		),
 	),
 
 	// extensions keys:

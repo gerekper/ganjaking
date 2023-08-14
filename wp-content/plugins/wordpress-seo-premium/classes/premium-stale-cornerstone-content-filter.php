@@ -64,7 +64,7 @@ class WPSEO_Premium_Stale_Cornerstone_Content_Filter extends WPSEO_Abstract_Post
 		}
 
 		return sprintf(
-			/* translators: %s expands to the posttype label, %2$s expands anchor to blog post about cornerstone content, %3$s expands to </a> */
+			/* translators: %1$s expands to dynamic post type label, %2$s expands anchor to blog post about cornerstone content, %3$s expands to </a> */
 			__( 'Stale cornerstone content refers to cornerstone content that hasn’t been updated in the last 6 months. Make sure to keep these %1$s up-to-date. %2$sLearn more about cornerstone content%3$s.', 'wordpress-seo-premium' ),
 			strtolower( $post_type_object->labels->name ),
 			'<a href="' . WPSEO_Shortlinker::get( 'https://yoa.st/1i9' ) . '" target="_blank">',

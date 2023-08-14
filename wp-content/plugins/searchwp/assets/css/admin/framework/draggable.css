@@ -1,0 +1,105 @@
+.swp-dragsort--container {
+    position: relative;
+}
+
+.swp-row--draggable,
+.swp-row--movable {
+    margin-bottom: 16px;
+}
+
+.swp-row--dragging,
+.swp-row--moving {
+    position: absolute;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    width: 100%;
+}
+
+.swp-dragsort-handle {
+    cursor: -webkit-grab;
+    cursor: grab;
+}
+
+.swp-dragsort-handle:active {
+    cursor: -webkit-grabbing;
+    cursor: grabbing;
+}
+
+.swp-move--button-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    padding: 0;
+    width: 30px;
+    cursor: auto;
+}
+
+.swp-move--button {
+    background-color: var(--white);
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    width: 100%;
+    max-width: 30px;
+    max-height: 15px;
+}
+
+.swp-move--button:not(:disabled):hover {
+    background-color: var(--whiteHover);
+}
+
+.swp-move--button:focus,
+.swp-move--button:active {
+    outline: none;
+    -webkit-box-shadow: 0 0 2px 1px var(--secondary);
+            box-shadow: 0 0 2px 1px var(--secondary);
+    z-index: 1;
+}
+
+.swp-move--button:disabled {
+    cursor: auto;
+}
+
+.swp-move--up-button {
+    border: 1px solid var(--borderColor);
+    border-bottom: 0;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.swp-move--down-button {
+    border: 1px solid var(--borderColor);
+    border-top: 0;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.swp-move--button svg {
+    max-width: 10px;
+    max-height: 9px;
+    position: relative;
+}
+
+.swp-move--up-button svg {
+    bottom: 0;
+}
+
+.swp-move--down-button svg {
+    top: -4px;
+}
+
+.swp-move--button:disabled svg {
+    opacity: 0.2;
+}

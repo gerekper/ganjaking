@@ -4,116 +4,37 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit01f1604a77baee9f807279a5071062e7
+class ComposerStaticInitbd5c1317f97a16cd7ee7699de41a19b4
 {
-    public static $files = array (
-        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
-        '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
-    );
-
     public static $prefixLengthsPsr4 = array (
-        'v' => 
-        array (
-            'voku\\' => 5,
-        ),
-        'S' => 
-        array (
-            'Symfony\\Polyfill\\Php80\\' => 23,
-            'Symfony\\Polyfill\\Mbstring\\' => 26,
-            'Symfony\\Contracts\\Translation\\' => 30,
-            'Symfony\\Component\\Translation\\' => 30,
-        ),
-        'P' => 
-        array (
-            'Psr\\SimpleCache\\' => 16,
-            'Psr\\Container\\' => 14,
-        ),
-        'I' => 
-        array (
-            'Illuminate\\Support\\' => 19,
-            'Illuminate\\Contracts\\' => 21,
-        ),
-        'D' => 
-        array (
-            'Doctrine\\Inflector\\' => 19,
-        ),
         'C' => 
         array (
-            'Carbon\\' => 7,
+            'Com\\Tecnick\\Color\\' => 18,
+            'Com\\Tecnick\\Barcode\\' => 20,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'voku\\' => 
+        'Com\\Tecnick\\Color\\' => 
         array (
-            0 => __DIR__ . '/..' . '/voku/portable-ascii/src/voku',
+            0 => __DIR__ . '/..' . '/tecnickcom/tc-lib-color/src',
         ),
-        'Symfony\\Polyfill\\Php80\\' => 
+        'Com\\Tecnick\\Barcode\\' => 
         array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
-        ),
-        'Symfony\\Polyfill\\Mbstring\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
-        ),
-        'Symfony\\Contracts\\Translation\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/translation-contracts',
-        ),
-        'Symfony\\Component\\Translation\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/translation',
-        ),
-        'Psr\\SimpleCache\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/simple-cache/src',
-        ),
-        'Psr\\Container\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/container/src',
-        ),
-        'Illuminate\\Support\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/illuminate/support',
-        ),
-        'Illuminate\\Contracts\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/illuminate/contracts',
-        ),
-        'Doctrine\\Inflector\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector',
-        ),
-        'Carbon\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
-        ),
-    );
-
-    public static $prefixesPsr0 = array (
-        'M' => 
-        array (
-            'Milon\\Barcode' => 
-            array (
-                0 => __DIR__ . '/..' . '/milon/barcode/src',
-            ),
+            0 => __DIR__ . '/..' . '/tecnickcom/tc-lib-barcode/src',
         ),
     );
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
-        'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit01f1604a77baee9f807279a5071062e7::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit01f1604a77baee9f807279a5071062e7::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit01f1604a77baee9f807279a5071062e7::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit01f1604a77baee9f807279a5071062e7::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitbd5c1317f97a16cd7ee7699de41a19b4::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitbd5c1317f97a16cd7ee7699de41a19b4::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitbd5c1317f97a16cd7ee7699de41a19b4::$classMap;
 
         }, null, ClassLoader::class);
     }

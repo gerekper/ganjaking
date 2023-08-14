@@ -127,7 +127,7 @@ class UpdraftPlus_Tour {
 			),
 			'settings_remote_storage' => array(
 				'title' => __("Remote storage", 'updraftplus'),
-				'text' => __("Now select a remote storage destination to protect against server-wide threats. If not, your backups remain on the same server as your site.", 'updraftplus')
+				'text' => __('Now select a remote storage destination to protect against server-wide threats.', 'updraftplus').' '.__('If not, your backups remain on the same server as your site.', 'updraftplus')
 					.'<div class="ud-notice">'
 					.'<h3>'.__('Try UpdraftVault!').'</h3>'
 					.__("UpdraftVault is our remote storage which works seamlessly with UpdraftPlus.", 'updraftplus')
@@ -179,7 +179,7 @@ class UpdraftPlus_Tour {
 
 			$tour_data['settings_remote_storage'] = array(
 				'title' => __("Remote storage", 'updraftplus'),
-				'text' => __("Now select a remote storage destination to protect against server-wide threats. If not, your backups remain on the same server as your site.", 'updraftplus')
+				'text' => __('Now select a remote storage destination to protect against server-wide threats.', 'updraftplus').' '.__('If not, your backups remain on the same server as your site.', 'updraftplus')
 					.'<div class="ud-notice">'
 					.'<h3>'.__('Try UpdraftVault!').'</h3>'
 					.__("UpdraftVault is our remote storage which works seamlessly with UpdraftPlus.", 'updraftplus')
@@ -193,7 +193,7 @@ class UpdraftPlus_Tour {
 			if ($updraftplus_addons2->connection_status() && !is_wp_error($updraftplus_addons2->connection_status())) {
 				$tour_data['premium'] = array(
 					'title' => 'UpdraftPlus Premium',
-					'text' => __('Thank you for taking the tour. You are now all set to use UpdraftPlus!', 'updraftplus'),
+					'text' => __('Thank you for taking the tour.', 'updraftplus').' '.__('You are now all set to use UpdraftPlus!', 'updraftplus'),
 					'attach_to' => '#updraft-navtab-addons top',
 					'button' => __('Finish', 'updraftplus')
 				);

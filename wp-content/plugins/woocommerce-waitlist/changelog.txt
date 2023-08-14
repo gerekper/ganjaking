@@ -1,5 +1,12 @@
 *** WooCommerce Waitlist Change Log ***
 
+2023.08.01 - Version 2.4.0
+* Fix: Email templates hooks not passed in the correct parameters.  "woocommerce_email_header" and "woocommerce_email_footer" now have the email class object passed in as required
+* Added: Notification added to inform administrator that waitlist templates are out of date.  This will be added as required on theme switch and plugin update
+
+2023.07.04 - Version 2.3.9
+* Added: Compatibility for HPOS
+
 2023.03.16 - Version 2.3.8
 * Fix: Update to translations template file
 

@@ -81,7 +81,7 @@ class TranslationMethodSettings {
 					(string)ICL_TM_TMETHOD_EDITOR,
 					(string)ICL_TM_TMETHOD_MANUAL
 				]),
-				'translationRoles' => TranslationRolesInitializer::getTranslationData(),
+				'translationRoles' => TranslationRolesInitializer::getTranslationData( null, false ),
 			],
 		];
 	}

@@ -2,7 +2,7 @@
 /**
  * The Template for displaying start of field.
  *
- * @version 6.4.3
+ * @version 6.4.5
  * @package woocommerce-product-addons
  */
 
@@ -54,7 +54,7 @@ if ( 'checkbox' !== $addon_type && 'multiple_choice' !== $addon_type && 'custom_
 }
 ?>
 
-<div class="wc-pao-addon-container <?php echo $required ? 'wc-pao-required-addon' : ''; ?> wc-pao-addon wc-pao-addon-<?php echo esc_attr( sanitize_title( $addon[ 'field_name' ] ) ); ?> wc-pao-addon-id-<?php echo esc_attr( sanitize_title( $addon[ 'id' ] ) ); ?>" data-product-name="<?php echo esc_attr( $product_title ); ?>" data-product-tax-status="<?php echo $is_taxable ? 'taxable' : 'none'; ?>">
+<div class="wc-pao-addon-container <?php echo $required ? 'wc-pao-required-addon' : ''; ?> wc-pao-addon wc-pao-addon-<?php echo esc_attr( sanitize_title( $addon[ 'field_name' ] ) ); ?> <?php echo isset( $addon[ 'id' ] ) ? 'wc-pao-addon-id-' . esc_attr( sanitize_title( $addon[ 'id' ] ) ) : ''; ?>" data-product-name="<?php echo esc_attr( $product_title ); ?>" data-product-tax-status="<?php echo $is_taxable ? 'taxable' : 'none'; ?>">
 
 	<?php do_action( 'wc_product_addon_start', $addon ); ?>
 

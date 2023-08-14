@@ -24,7 +24,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 /**
  * PIP Admin class.
@@ -62,7 +62,9 @@ class WC_PIP_Admin {
 		global $typenow;
 
 		$is_settings = $hook_suffix === Framework\SV_WC_Plugin_Compatibility::normalize_wc_screen_id();
-		$is_orders   = in_array( $typenow, [ 'product', 'shop_order' ], true );
+		$is_orders   = in_array( $typenow, [ 'product', 'shop_order' ], true )
+			|| Framework\SV_WC_Order_Compatibility::is_orders_screen()
+			|| Framework\SV_WC_Order_Compatibility::is_order_edit_screen();
 
 		// load admin JS/CSS only on settings / order / product pages
 		if ( $is_settings || $is_orders ) {
@@ -82,6 +84,10 @@ class WC_PIP_Admin {
 			wp_localize_script( 'wc-pip-admin-scripts', 'wc_pip_admin', [
 
 				'ajax_url'                   => admin_url( 'admin-ajax.php' ),
+				'is_orders_screen'           => Framework\SV_WC_Order_Compatibility::is_orders_screen(),
+				'is_order_edit_screen'       => Framework\SV_WC_Order_Compatibility::is_order_edit_screen(),
+				'orders_screen_object'       => Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ? 'order' : 'post',
+				'order_edit_screen_id'       => (int) Framework\SV_WC_Order_Compatibility::get_order_id_for_order_edit_screen(),
 				'order_actions'              => array_keys( wc_pip()->get_orders_instance()->get_actions() ),
 				'order_bulk_actions'         => array_keys( wc_pip()->get_orders_instance()->get_bulk_actions() ),
 				'confirm_order_action_nonce' => wp_create_nonce( 'confirm-order-action' ),

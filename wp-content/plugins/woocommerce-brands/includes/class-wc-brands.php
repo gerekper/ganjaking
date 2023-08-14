@@ -918,6 +918,10 @@ class WC_Brands {
 	 */
 	public function duplicate_add_product_brand_terms( $product_id ) {
 		$product = wc_get_product( $product_id );
+		// bail if product isn't found
+		if ( ! $product instanceof WC_Product ) {
+			return;
+		}
 		$term_ids = $product->get_meta( 'duplicate_temp_brand_ids' );
 		if ( empty( $term_ids ) ) {
 			return;

@@ -3,7 +3,8 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages"
+            "domain": "messages",
+            "lang": "pl"
          },
          "You can choose which posts to translate from the <strong>Translation Management Dashboard</strong>.": [
             "Możesz wybrać, które wpisy mają być przetłumaczone, w <strong>Pulpicie zarządzania tłumaczeniem</strong>."

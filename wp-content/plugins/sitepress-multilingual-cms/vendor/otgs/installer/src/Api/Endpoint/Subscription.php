@@ -51,6 +51,8 @@ class Subscription {
 			'installer_version' => WP_INSTALLER_VERSION,
 			'theme'             => wp_get_theme()->get( 'Name' ),
 			'site_name'         => get_bloginfo( 'name' ),
+			'wp_version'        => get_bloginfo( 'version' ),
+			'phpversion'        => phpversion(),
 			'repository_id'     => $this->repositoryId,
 			'versions'          => $this->plugin_finder->getLocalPluginVersions(),
 		];

@@ -240,7 +240,7 @@ class UpdraftPlus_Addon_Reporting {
 		echo "<li>".rtrim($err)."</li>\n";
 	}
 	echo "</ul>\n";
-	echo '<p><em>'.__('Note that warning messages are advisory - the backup process does not stop for them. Instead, they provide information that you might find useful, or that may indicate the source of a problem if the backup did not succeed.', 'updraftplus').'</em></p>';
+	echo '<p><em>'.__('Note that warning messages are advisory - the backup process does not stop for them.', 'updraftplus').' '.__('Instead, they provide information that you might find useful, or that may indicate the source of a problem if the backup did not succeed.', 'updraftplus').'</em></p>';
 		}
 		?>
 <p>

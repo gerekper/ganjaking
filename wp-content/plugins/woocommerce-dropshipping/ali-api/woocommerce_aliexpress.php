@@ -2748,7 +2748,7 @@ function status_save_metabox() {
 
 		// END OF UPDATE
 
-		opmc_hpos_update_post_meta( $post->ID, 'status_of_aliexpress', $meta_element_class );
+		update_post_meta( $post->ID, 'status_of_aliexpress', $meta_element_class );
 
 		// If you don't have the WC_Order object (from a dynamic $order_id)
 
@@ -2772,7 +2772,7 @@ function status_of_aliexpress( $post ) {
 
 	global $post;
 
-	$meta_element_class = opmc_hpos_get_post_meta( $post->ID, 'status_of_aliexpress', true ); // true ensures you get just one value instead of an array
+	$meta_element_class = get_post_meta( $post->ID, 'status_of_aliexpress', true ); // true ensures you get just one value instead of an array
 
 	setup_postdata( $post );
 
@@ -2856,7 +2856,7 @@ function custom_woo_admin_value( $column ) {
 
 	global $post;
 
-	$zip_value = opmc_hpos_get_post_meta( $post->ID, 'status_of_aliexpress', true );
+	$zip_value = get_post_meta( $post->ID, 'status_of_aliexpress', true );
 
 	setup_postdata( $post );
 
@@ -3201,7 +3201,7 @@ if ( ! function_exists( 'get_order_status_by_id' ) ) {
 
 		}
 
-		// $alistatus = opmc_hpos_get_post_meta($orderid, 'status_of_aliexpress', true);
+		// $alistatus = opmc_hpos_get_post_meta($orderid, 'status_of_aliexpress' );
 
 		if ( $status == 'placed' ) {
 

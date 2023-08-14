@@ -70,7 +70,7 @@ function wc_table_rate_admin_shipping_rows( $instance ) {
 		<?php
 			$normalized_rates = function_exists( 'wc_esc_json' ) ? wc_esc_json( wp_json_encode( $instance->get_normalized_shipping_rates() ) ) : _wp_specialchars( wp_json_encode( $instance->get_normalized_shipping_rates() ), ENT_QUOTES, 'UTF-8', true );
 		?>
-		<tbody class="table_rates" data-rates="<?php echo $normalized_rates; ?>"></tbody>
+		<tbody class="table_rates" data-rates="<?php echo esc_attr( $normalized_rates ); ?>"></tbody>
 	</table>
 	<script type="text/template" id="tmpl-table-rate-shipping-row-template">
 		<tr class="table_rate">
@@ -138,7 +138,7 @@ function wc_table_rate_admin_shipping_rows( $instance ) {
 function wc_table_rate_admin_shipping_class_priorities( $shipping_method_id ) {
 	$classes = WC()->shipping->get_shipping_classes();
 	if ( ! $classes ) :
-		echo '<p class="description">' . __( 'No shipping classes exist - you can ignore this option :)', 'woocommerce-table-rate-shipping' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'No shipping classes exist - you can ignore this option :)', 'woocommerce-table-rate-shipping' ) . '</p>';
 	else :
 		$priority = get_option( 'woocommerce_table_rate_default_priority_' . $shipping_method_id ) != '' ? get_option( 'woocommerce_table_rate_default_priority_' . $shipping_method_id ) : 10;
 		?>
@@ -183,6 +183,7 @@ function wc_table_rate_admin_shipping_class_priorities( $shipping_method_id ) {
  */
 function wc_table_rate_admin_shipping_rows_process( $shipping_method_id ) {
 	global $wpdb;
+	// phpcs:disable WordPress.Security.NonceVerification.Missing --- callable only on admin page
 
 	// Clear cache
 	$wpdb->query( "DELETE FROM `$wpdb->options` WHERE `option_name` LIKE ('_transient_wc_ship_%')" );
@@ -196,7 +197,7 @@ function wc_table_rate_admin_shipping_rows_process( $shipping_method_id ) {
 		}
 
 		if ( isset( $_POST['woocommerce_table_rate_default_priority'] ) ) {
-			update_option( 'woocommerce_table_rate_default_priority_' . $shipping_method_id, (int) esc_attr( $_POST['woocommerce_table_rate_default_priority'] ) );
+			update_option( 'woocommerce_table_rate_default_priority_' . $shipping_method_id, intval( $_POST['woocommerce_table_rate_default_priority'] ) );
 		}
 	} else {
 		delete_option( 'woocommerce_table_rate_priorities_' . $shipping_method_id );
@@ -223,6 +224,7 @@ function wc_table_rate_admin_shipping_rows_process( $shipping_method_id ) {
 	$shipping_priority        = isset( $_POST['shipping_priority'] ) ? array_map( 'wc_clean', $_POST['shipping_priority'] ) : array();
 	$shipping_abort           = isset( $_POST['shipping_abort'] ) ? array_map( 'wc_clean', $_POST['shipping_abort'] ) : array();
 	$shipping_abort_reason    = isset( $_POST['shipping_abort_reason'] ) ? array_map( 'wc_clean', $_POST['shipping_abort_reason'] ) : array();
+	// phpcs:enable WordPress.Security.NonceVerification.Missing
 
 	// Get max key
 	$max_key = ( $rate_ids ) ? max( array_keys( $rate_ids ) ) : 0;

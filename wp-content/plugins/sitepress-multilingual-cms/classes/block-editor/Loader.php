@@ -35,21 +35,18 @@ class Loader implements \IWPML_Backend_Action, \IWPML_REST_Action {
 
 	/**
 	 * @param array[] $block_categories
-	 * @param \WP_Block_Editor_Context $editor_context
-	 *
+	 * 
 	 * @return mixed
 	 */
-	public function registerCategory( $block_categories, $editor_context ) {
-		if ( ! empty( $editor_context->post ) ) {
-			array_push(
-				$block_categories,
-				[
-					'slug'  => 'wpml',
-					'title' => __( 'WPML', 'sitepress-multilingual-cms' ),
-					'icon'  => null,
-				]
-			);
-		}
+	public function registerCategory( $block_categories ) {
+		array_push(
+			$block_categories,
+			[
+				'slug'  => 'wpml',
+				'title' => __( 'WPML', 'sitepress-multilingual-cms' ),
+				'icon'  => null,
+			]
+		);
 
 		return $block_categories;
 	}

@@ -109,6 +109,10 @@ class Automation {
     return $this->createdAt;
   }
 
+  public function setCreatedAt(DateTimeImmutable $createdAt): void {
+    $this->createdAt = $createdAt;
+  }
+
   public function getAuthor(): \WP_User {
     return $this->author;
   }

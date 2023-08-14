@@ -24,6 +24,21 @@
 		</td>
 	</tr>
 	<tr>
+		<th><label><?php esc_html_e( 'Content Type', 'woocommerce-shipping-stamps' ); ?></label></th>
+		<td>
+			<select name="stamps_content_type">
+				<option value="Commercial Sample"><?php esc_html_e( 'Commercial Sample', 'woocommerce-shipping-stamps' ); ?></option>
+				<option value="Dangerous Goods"><?php esc_html_e( 'Dangerous Goods', 'woocommerce-shipping-stamps' ); ?></option>
+				<option value="Document"><?php esc_html_e( 'Document', 'woocommerce-shipping-stamps' ); ?></option>
+				<option value="Gift"><?php esc_html_e( 'Gift', 'woocommerce-shipping-stamps' ); ?></option>
+				<option value="Humanitarian Donation"><?php esc_html_e( 'Humanitarian Donation', 'woocommerce-shipping-stamps' ); ?></option>
+				<option value="Merchandise"><?php esc_html_e( 'Merchandise', 'woocommerce-shipping-stamps' ); ?></option>
+				<option value="Returned Goods"><?php esc_html_e( 'Returned Goods', 'woocommerce-shipping-stamps' ); ?></option>
+				<option value="Other"><?php esc_html_e( 'Other', 'woocommerce-shipping-stamps' ); ?></option>
+			</select>
+		</td>
+	</tr>
+	<tr>
 		<th><label><?php esc_html_e( 'Ship date', 'woocommerce-shipping-stamps' ); ?></label></th>
 		<td><input type="text" value="<?php echo esc_attr( $ship_date ); ?>" name="stamps_package_date" class="stamps-date-picker" /></td>
 	</tr>

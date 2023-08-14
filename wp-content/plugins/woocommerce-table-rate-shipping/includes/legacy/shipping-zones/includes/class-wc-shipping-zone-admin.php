@@ -18,7 +18,7 @@ class WC_Shipping_Zone_Admin {
 		$zone    = new WC_Shipping_Zone( $zone_id );
 
 		if ( ! $zone->exists() ) {
-			echo '<div class="error"><p>' . sprintf( __( 'Invalid shipping zone. <a href="%s">Back to zones.</a>', SHIPPING_ZONES_TEXTDOMAIN ), esc_url( remove_query_arg( 'zone' ) ) ) . '</p></div>';
+			echo '<div class="error"><p>' . wp_kses_post( sprintf( __( 'Invalid shipping zone. <a href="%s">Back to zones.</a>', SHIPPING_ZONES_TEXTDOMAIN ), esc_url( remove_query_arg( 'zone' ) ) ) ) . '</p></div>';
 			return;
 		}
 
@@ -37,13 +37,13 @@ class WC_Shipping_Zone_Admin {
 	 * Add shipping method to zone
 	 */
 	public static function add_method( $zone ) {
-		if ( ! empty( $_GET['add_method'] ) && ! empty( $_GET['_wpnonce'] ) && wp_verify_nonce( $_GET['_wpnonce'], 'woocommerce_add_method' ) ) {
+		if ( ! empty( $_GET['add_method'] ) && ! empty( $_GET['_wpnonce'] ) && wp_verify_nonce( sanitize_key( $_GET['_wpnonce'] ), 'woocommerce_add_method' ) ) {
 			$type = wc_clean( $_GET['method_type'] );
 
 			if ( $type && ( $method_id = $zone->add_shipping_method( $type ) ) ) {
-				echo '<div class="updated fade"><p>' . sprintf( __( 'Shipping method successfully created. <a href="%s">View method.</a>', SHIPPING_ZONES_TEXTDOMAIN ), esc_url( add_query_arg( 'method', $method_id, add_query_arg( 'zone', $zone->zone_id, admin_url( 'admin.php?page=shipping_zones' ) ) ) ) ) . '</p></div>';
+				echo '<div class="updated fade"><p>' . wp_kses_post( sprintf( __( 'Shipping method successfully created. <a href="%s">View method.</a>', SHIPPING_ZONES_TEXTDOMAIN ), esc_url( add_query_arg( 'method', $method_id, add_query_arg( 'zone', $zone->zone_id, admin_url( 'admin.php?page=shipping_zones' ) ) ) ) ) ) . '</p></div>';
 			} else {
-				echo '<div class="error"><p>' . __( 'Invalid shipping method', SHIPPING_ZONES_TEXTDOMAIN ) . '</p></div>';
+				echo '<div class="error"><p>' . esc_html__( 'Invalid shipping method', SHIPPING_ZONES_TEXTDOMAIN ) . '</p></div>';
 			}
 		}
 	}
@@ -52,11 +52,11 @@ class WC_Shipping_Zone_Admin {
 	 * Delete shipping method from zone.
 	 */
 	public static function delete_method( $zone ) {
-		if ( ! empty( $_GET['delete_method'] ) && ! empty( $_GET['_wpnonce'] ) && wp_verify_nonce( $_GET['_wpnonce'], 'woocommerce_delete_method' ) ) {
+		if ( ! empty( $_GET['delete_method'] ) && ! empty( $_GET['_wpnonce'] ) && wp_verify_nonce( sanitize_key( $_GET['_wpnonce'] ), 'woocommerce_delete_method' ) ) {
 			$method_id = absint( $_GET['delete_method'] );
 
 			if ( $zone->delete_shipping_method( $method_id ) ) {
-				echo '<div class="updated success"><p>' . __( 'Shipping method successfully deleted', SHIPPING_ZONES_TEXTDOMAIN ) . '</p></div>';
+				echo '<div class="updated success"><p>' . esc_html__( 'Shipping method successfully deleted', SHIPPING_ZONES_TEXTDOMAIN ) . '</p></div>';
 			}
 		}
 	}
@@ -97,8 +97,8 @@ class WC_Shipping_Zone_Admin {
 
 		if ( ! empty( $_POST['save_method'] ) ) {
 
-			if ( empty( $_POST['woocommerce_save_method_nonce'] ) || ! wp_verify_nonce( $_POST['woocommerce_save_method_nonce'], 'woocommerce_save_method' )) {
-				echo '<div class="updated error"><p>' . __( 'Edit failed. Please try again.', SHIPPING_ZONES_TEXTDOMAIN ) . '</p></div>';
+			if ( empty( $_POST['woocommerce_save_method_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['woocommerce_save_method_nonce'] ), 'woocommerce_save_method' )) {
+				echo '<div class="updated error"><p>' . esc_html__( 'Edit failed. Please try again.', SHIPPING_ZONES_TEXTDOMAIN ) . '</p></div>';
 
 			} elseif ( $shipping_method->process_instance_options() ) {
 
@@ -106,7 +106,7 @@ class WC_Shipping_Zone_Admin {
 				unset( $shipping_method );
 				$shipping_method = $callback( $method_id );
 
-				echo '<div class="updated success"><p>' . __( 'Shipping method saved successfully.', SHIPPING_ZONES_TEXTDOMAIN ) . '</p></div>';
+				echo '<div class="updated success"><p>' . esc_html__( 'Shipping method saved successfully.', SHIPPING_ZONES_TEXTDOMAIN ) . '</p></div>';
 			}
 		}
 

@@ -1,0 +1,91 @@
+.swp-help-icon {
+    display: block;
+    cursor: help;
+}
+
+.swp-tooltip--container {
+    position: relative;
+}
+
+.swp-tooltip--text {
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    bottom: calc(10px + 100%);
+    right: 50%;
+    transform: translateX(50%);
+    width: 290px;
+    background-color: #101010;
+    border-color: #101010;
+    padding: 6px 12px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.3;
+    text-align: center;
+    -webkit-transition: opacity 0.3s;
+        -o-transition: opacity 0.3s;
+            transition: opacity 0.3s;
+}
+
+.swp-tooltip--text::after {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-color: inherit;
+    border-width: 0;
+    border-style: solid;
+    border-top-width: 8px;
+    border-right-width: 8px;
+    border-right-color: transparent;
+    border-left-width: 8px;
+    border-left-color: transparent;
+    bottom: -8px;
+    right: 50%;
+    -webkit-transform: translateX(50%);
+        -ms-transform: translateX(50%);
+            transform: translateX(50%);
+}
+
+.swp-tooltip:hover + .swp-tooltip--text {
+    visibility: visible;
+    opacity: 1;
+}
+
+@media only screen and (max-width: 767px) {
+
+    .sm\:swp-tooltip--text-left {
+        right: 8px;
+        -webkit-transform: none;
+            -ms-transform: none;
+                transform: none;
+        width: 195px;
+    }
+
+    .sm\:swp-tooltip--text-right {
+        left: 8px;
+        -webkit-transform: none;
+            -ms-transform: none;
+                transform: none;
+        width: 195px;
+    }
+
+    .sm\:swp-tooltip--text-left::after {
+        right: 0;
+        -webkit-transform: none;
+            -ms-transform: none;
+                transform: none;
+        border-right-width: 0px;
+    }
+
+    .sm\:swp-tooltip--text-right::after {
+        left: 0;
+        -webkit-transform: none;
+            -ms-transform: none;
+                transform: none;
+        border-left-width: 0px;
+    }
+
+}

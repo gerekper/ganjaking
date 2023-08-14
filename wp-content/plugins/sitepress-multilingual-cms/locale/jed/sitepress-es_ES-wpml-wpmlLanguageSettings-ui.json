@@ -3,7 +3,8 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages"
+            "domain": "messages",
+            "lang": "es_ES"
          },
          "Choose the image file type for flags": [
             "Seleccione el tipo de archivo de imagen para los marcadores"

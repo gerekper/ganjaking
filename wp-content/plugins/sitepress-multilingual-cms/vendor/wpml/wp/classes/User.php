@@ -13,6 +13,40 @@ class User {
 	const CAP_TRANSLATE = 'translate';
 	const CAP_MANAGE_TRANSLATION_MANAGEMENT = 'wpml_manage_translation_management';
 
+	/** @var array Calling user_can() is a very memory heavy function. */
+	private static $userCanCache = [];
+
+	/**
+	 * @param int|WP_User $user
+	 * @param string      $capability
+	 *
+	 * @return bool
+	 */
+	public static function userCan( $user, $capability ) {
+		if ( $user instanceof \WP_User ) {
+			$user = $user->ID;
+		}
+
+		if ( ! isset( self::$userCanCache[ $user ] ) ) {
+			self::$userCanCache[ $user ] = [];
+		}
+
+		if ( ! isset( self::$userCanCache[ $user ][ $capability ] ) ) {
+			self::$userCanCache[ $user ][ $capability ] = user_can( $user, $capability );
+		}
+
+		return self::$userCanCache[ $user ][ $capability ];
+	}
+
+	/**
+	 * @param string $capability
+	 *
+	 * @return bool
+	 */
+	public static function currentUserCan( $capability ) {
+		return self::userCan( self::getCurrentId(), $capability );
+	}
+
 	/**
 	 * @return int
 	 */

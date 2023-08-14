@@ -1,5 +1,7 @@
 <?php
 
+use WPML\FP\Str;
+
 class WPML_URL_Converter_Subdir_Strategy extends WPML_URL_Converter_Abstract_Strategy {
 	/** @var bool */
 	private $use_directory_for_default_lang;
@@ -83,6 +85,11 @@ class WPML_URL_Converter_Subdir_Strategy extends WPML_URL_Converter_Abstract_Str
 
 	public function convert_url_string( $source_url, $code ) {
 		if ( $this->is_root_url( $source_url ) || $this->skip_convert_url_string( $source_url, $code ) ) {
+			return $source_url;
+		}
+
+		// We have no redirect rule for '/all/wp-json' ( only for '/lang/wp-json' ) so lets use the default one in all case.
+		if ( 'all' === $code && in_array( 'wp-json', explode( '/', $source_url ) ) ) {
 			return $source_url;
 		}
 

@@ -11,12 +11,13 @@
  * the readme will list any important changes.
  *
  * @see https://docs.woocommerce.com/document/template-structure/
- * @version 2.2.3
+ * @version 2.4.0
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-do_action( 'woocommerce_email_header', $email_heading, $email );?>
+$email = sanitize_email( $email );
+do_action( 'woocommerce_email_header', $email_heading, $email_class );?>
 
 <p><?php echo esc_html_x( 'Hi There,', 'Email salutation', 'woocommerce-waitlist' ); ?></p>
 
@@ -42,4 +43,4 @@ if ( get_option( 'woocommerce_waitlist_archive_on' ) && ! email_exists( $email )
 	), get_permalink( $product_id ) );
 	printf( __( 'To disassociate your email address with this product please click %1$shere%2$s.', 'woocommerce-waitlist' ), '<a href="' . esc_url( $remove_link ) . '">', '</a>' );
 }
-do_action( 'woocommerce_email_footer', $email ); ?>
+do_action( 'woocommerce_email_footer', $email_class ); ?>

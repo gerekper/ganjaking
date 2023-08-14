@@ -34,7 +34,7 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 
 
 	/** version number */
-	const VERSION = '1.20.2';
+	const VERSION = '1.20.3';
 
 	/** @var WC_Seq_Order_Number_Pro single instance of this plugin */
 	protected static $instance;
@@ -81,6 +81,9 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 		add_action( 'woocommerce_process_shop_order_meta',    array( $this, 'set_sequential_order_number' ), 35, 2 );
 		add_action( 'woocommerce_before_resend_order_emails', array( $this, 'set_sequential_order_number' ), 10, 1 );
 
+		// set the custom order number on WooCommerce Checkout Block submissions
+		add_action( 'woocommerce_store_api_checkout_update_order_meta', [ $this, 'set_sequential_order_number' ], 10, 2 );
+
 		// set the custom order number for orders created by WooCommerce Deposits
 		add_action( 'woocommerce_deposits_create_order', array( $this, 'set_sequential_order_number' ), 10, 1 );
 
@@ -116,8 +119,8 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 				add_filter( 'request', [ $this, 'woocommerce_custom_shop_order_orderby' ], 20 );
 			}
 
-			add_filter( 'woocommerce_shop_order_search_fields', array( $this, 'custom_search_fields' ) );
-
+			add_filter( 'woocommerce_shop_order_search_fields', [ $this, 'custom_search_fields' ] );
+			add_filter( 'woocommerce_order_table_search_query_meta_keys', [ $this, 'custom_search_fields' ] );
 			// sort by underlying _order_number on the Pre-Orders table
 			add_filter( 'wc_pre_orders_edit_pre_orders_request', array( $this, 'custom_orderby' ) );
 			add_filter( 'wc_pre_orders_search_fields',           array( $this, 'custom_search_fields' ) );

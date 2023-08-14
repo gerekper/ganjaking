@@ -203,7 +203,7 @@ class UpdraftPlus_CLI_Command extends WP_CLI_Command {
 	 * @param string $job_id  backup job identifier
 	 */
 	public function backupnow_start_message($message, $job_id) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Unused parameter is present because the method is used as a WP filter.
-		return sprintf(__('Backup has been started successfully. You can see the last log message by running the following command: "%s"', 'updraftplus'), 'wp updraftplus backup_progress '.$job_id);
+		return __('Backup has been started successfully.', 'updraftplus').' '.sprintf(__('You can see the last log message by running the following command: "%s"', 'updraftplus'), 'wp updraftplus backup_progress '.$job_id);
 	}
 	
 	/**
@@ -889,7 +889,7 @@ class UpdraftPlus_CLI_Command extends WP_CLI_Command {
 	 */
 	private function addon_not_exist_error($option, $addon_title, $addon_buy_url) {
 		$filtered_addon_buy_url = apply_filters('updraftplus_com_link', $addon_buy_url);
-		WP_CLI::error(sprintf(__('You have given the %1$s option. The %1$s is working with "%2$s" addon. Get the "%2$s" addon: %3$s', 'updraftplus'), $option, $addon_title, $filtered_addon_buy_url), true);
+		WP_CLI::error(sprintf(__('You have given the %s option.', 'updraftplus'), $option).' '.sprintf(__('The %s is working with "%s" addon.', 'updraftplus'), $option, $addon_title).' '.sprintf(__('Get the "%s" addon: %s', 'updraftplus'), $addon_title, $filtered_addon_buy_url), true);
 	}
 	
 	/**
@@ -1048,7 +1048,7 @@ class UpdraftPlus_CLI_Command extends WP_CLI_Command {
 	public function connect($args, $assoc_args) {
 		global $updraftplus_addons2;
 		if ('' == $assoc_args['email'] || ('' == $assoc_args['password'] && '' == $assoc_args['password-file'])) {
-			WP_CLI::error(__('An email and password are required to connect to UpdraftPlus.com. Please make sure these two parameters are set.', 'updraftplus'), true);
+			WP_CLI::error(__('An email and password are required to connect to UpdraftPlus.com.', 'updraftplus').' '.__('Please make sure these two parameters are set.', 'updraftplus'), true);
 		}
 		if (!filter_var($assoc_args['email'], FILTER_VALIDATE_EMAIL)) {
 			WP_CLI::error(__('The email address provided appears to be invalid, please double-check your email address again and try again.', 'updraftplus'), true);
@@ -1125,7 +1125,7 @@ class UpdraftPlus_CLI_Command extends WP_CLI_Command {
 		$clone_key = (!isset($assoc_args['clone-key']) || !is_string($assoc_args['clone-key'])) ? false : $assoc_args['clone-key'];
 
 		if (!$clone_key) {
-			WP_CLI::error(sprintf(__('No clone key provided. You can create a clone key at %s', 'updraftplus'), $updraftplus->get_url('my-account')));
+			WP_CLI::error(__('No clone key provided.', 'updraftplus').' '.sprintf(__('You can create a clone key at %s', 'updraftplus'), $updraftplus->get_url('my-account')));
 		}
 
 		$params = array(

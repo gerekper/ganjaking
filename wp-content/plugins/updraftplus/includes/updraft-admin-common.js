@@ -4,7 +4,7 @@
  *
  * @param {string}   action   - the action to send
  * @param {*}        data     - data to send
- * @param {Function} callback - will be called with the results
+ * @param {Function} callback - if specified, will be called with the results
  * @param {object}   options  -further options. Relevant properties include:
  * - [json_parse=true] - whether to JSON parse the results
  * - [alert_on_error=true] - whether to show an alert box if there was a problem (otherwise, suppress it)
@@ -573,6 +573,25 @@ var php_max_input_vars = 0;
 var skipped_db_scan = 0;
 
 var updraft_settings_form_changed = false;
+var save_button_added = false;
+
+function load_save_button() {
+	if (updraft_settings_form_changed && !save_button_added) {
+		save_button_added = true;
+		jQuery('#updraft-navtab-settings-content').prepend('<input style="position:fixed;top:46px; right:20px;z-index: 999999;" type="button" class="button-primary" id="updraftplus-floating-settings-save" value="'+updraftlion.save_changes+'">');
+		jQuery("#updraft-navtab-settings-content").on('click', '#updraftplus-floating-settings-save', function() {
+			jQuery("#updraftplus-settings-save").trigger('click');
+			jQuery("#updraftplus-floating-settings-save").remove();
+			save_button_added = false;
+		});
+		
+		jQuery("#updraftplus-settings-save").on('click', function() {
+			jQuery("#updraftplus-floating-settings-save").remove();
+			save_button_added = false;
+		});
+
+	}
+}
 window.onbeforeunload = function(e) {
 	if (updraft_settings_form_changed) return updraftlion.unsavedsettings;
 }
@@ -1559,7 +1578,7 @@ function updraft_downloader(base, backup_timestamp, what, whicharea, set_content
 		async: async
 	}
 
-	updraft_send_command('updraft_download_backup', data, function (response) {}, options);
+	updraft_send_command('updraft_download_backup', data, null, options);
 
 	// We don't want the form to submit as that replaces the document
 	return false;
@@ -1807,7 +1826,7 @@ function updraft_downloader_status_update(download_status, response_raw) {
 						timeout: 10000
 					};
 
-					updraft_send_command('updraft_download_backup', data, function (response) {}, options);
+					updraft_send_command('updraft_download_backup', data, null, options);
 
 					jQuery(stid_selector).data('lasttimebegan', (new Date).getTime());
 				}
@@ -2867,6 +2886,7 @@ jQuery(function($) {
 		e.preventDefault();
 
 		updraft_settings_form_changed = true;
+		load_save_button();
 		
 		var method = $(this).data('method');
 		add_new_instance(method);
@@ -2876,6 +2896,7 @@ jQuery(function($) {
 		e.preventDefault();
 
 		updraft_settings_form_changed = true;
+		load_save_button();
 
 		var method = $(this).data('method');
 		var instance_id = $(this).data('instance_id');
@@ -2962,6 +2983,7 @@ jQuery(function($) {
 
 	jQuery('#updraft-navtab-settings-content #remote-storage-holder').on("change", "input[class='updraft_instance_toggle']", function () {
 		updraft_settings_form_changed = true;
+		load_save_button();
 		if (jQuery(this).is(':checked')) {
 			jQuery(this).siblings('label').html(updraftlion.instance_enabled);
 		} else {
@@ -2971,6 +2993,7 @@ jQuery(function($) {
 
 	jQuery('#updraft-navtab-settings-content #remote-storage-holder').on("change", "select[class='logic_type']", function () {
 		updraft_settings_form_changed = true;
+		load_save_button();
 		if ('' !== this.value) {
 			jQuery('div.logic', jQuery(this).parents('tr.updraftplusmethod')).show();
 			jQuery(this).parents('tr.updraftplusmethod').find('div.logic ul.rules > li').each(function() {
@@ -2990,6 +3013,7 @@ jQuery(function($) {
 
 	jQuery('#updraft-navtab-settings-content #remote-storage-holder').on("change", "select[class='conditional_logic_operand']", function () {
 		updraft_settings_form_changed = true;
+		load_save_button();
 		jQuery(this).parent().find('select:nth(2)').empty();
 		if ('day_of_the_week' === jQuery(this).val()) {
 			for (var i=0; i<updraftlion.conditional_logic.day_of_the_week_options.length; i++) {
@@ -3004,6 +3028,7 @@ jQuery(function($) {
 
 	jQuery('#updraft-navtab-settings-content #remote-storage-holder').on("click", "div.conditional_remote_backup ul.rules li span", function () {
 		updraft_settings_form_changed = true;
+		load_save_button();
 		var $ul = jQuery(this).parents('ul.rules');
 		if (jQuery(this).hasClass('remove-rule')) {
 			jQuery(this).parent().slideUp(function() {
@@ -3145,6 +3170,7 @@ jQuery(function($) {
 	
 	jQuery("#updraft-navtab-settings-content form input:not('.udignorechange'), #updraft-navtab-settings-content form select").on('change', function(e) {
 		updraft_settings_form_changed = true;
+		load_save_button();
 	});
 	jQuery("#updraft-navtab-settings-content form input[type='submit']").on('click', function (e) {
 		updraft_settings_form_changed = false;
@@ -3198,17 +3224,26 @@ jQuery(function($) {
 	
 	var updraft_delete_modal_buttons = {};
 	updraft_delete_modal_buttons[updraftlion.deletebutton] = function() {
-		updraft_remove_backup_sets(0, 0, 0, 0);
+		updraft_remove_backup_sets(0, 0, 0, 0, [], false);
 	};
 
 
-	function updraft_remove_backup_sets(deleted_counter, backup_local, backup_remote, backup_sets) {
+	/**
+	 * Perform a manual backup sets deletion
+	 *
+	 * @param {integer} deleted_counter        - The total number of local and remote files that have successfully been removed already. This and the next three parameters are used recursively so that the final total can be displayed to the user in a display message.
+	 * @param {integer} backup_local           - The total number of local files that have been removed
+	 * @param {integer} backup_remote          - The total number of remote files that have successfully been removed
+	 * @param {integer} backup_sets            - The total number of backup sets that have been deleted
+	 * @param {array}   processed_instance_ids - An array that contains a group of storage instance IDs that have been processed
+	 * @param {boolean} is_continuation        - Whether or not the backup sets deletion is a continuation of an ongoing deletion
+	 */
+	function updraft_remove_backup_sets(deleted_counter, backup_local, backup_remote, backup_sets, processed_instance_ids, is_continuation) {
 		jQuery("#updraft-delete-modal").dialog('close');
 		var deleted_files_counter = deleted_counter;
 		var local_deleted = backup_local;
 		var remote_deleted = backup_remote;
 		var sets_deleted = backup_sets;
-		var timestamps = jQuery('#updraft_delete_timestamp').val().split(',');
 		var error_log_prompt = '';
 		
 		var form_data = jQuery('#updraft_delete_form').serializeArray();
@@ -3234,6 +3269,8 @@ jQuery(function($) {
 		jQuery('#updraft-delete-waitwarning').slideDown().addClass('active');
 
 		data.remote_delete_limit = updraftlion.remote_delete_limit;
+		data.processed_instance_ids = processed_instance_ids;
+		data.is_continuation = is_continuation;
 		
 		delete data.action;
 		delete data.subaction;
@@ -3259,7 +3296,7 @@ jQuery(function($) {
 				}
 				jQuery('#updraft_delete_timestamp').val(resp.timestamps);
 				jQuery('#updraft-deleted-files-total').text(deleted_files_counter + ' ' + updraftlion.remote_files_deleted);
-				updraft_remove_backup_sets(deleted_files_counter, local_deleted, remote_deleted, sets_deleted);
+				updraft_remove_backup_sets(deleted_files_counter, local_deleted, remote_deleted, sets_deleted, resp.processed_instance_ids, true);
 			} else if (resp.result == 'success') {
 
 				setTimeout(function() {
@@ -3276,9 +3313,10 @@ jQuery(function($) {
 				if (resp.hasOwnProperty('count_backups')) {
 					jQuery('#updraft-existing-backups-heading').html(updraftlion.existing_backups+' <span class="updraft_existing_backups_count">'+resp.count_backups+'</span>');
 				}
-				for (var i = 0; i < timestamps.length; i++) {
-					var timestamp = timestamps[i];
-					jQuery('#updraft-navtab-backups-content .updraft_existing_backups_row_'+timestamp).slideUp().remove();
+				var deleted_timestamps = resp.deleted_timestamps.split(',');
+				for (var i = 0; i < deleted_timestamps.length; i++) {
+					var timestamp = deleted_timestamps[i];
+					jQuery('#updraft-navtab-backups-content .updraft_existing_backups_row_' + timestamp).slideUp().remove();
 				}
 
 				updraft_backups_selection.checkSelectionStatus();
@@ -4372,7 +4410,7 @@ jQuery(function($) {
 			use_nonce: nonce,
 			use_timestamp: key,
 			services: services
-		}, function (response) {});
+		});
 
 	};
 
@@ -4511,7 +4549,11 @@ jQuery(function($) {
 	});
 	jQuery('.updraftmessage.admin-warning-litespeed').on('click', '.notice-dismiss', function(e) {
 		e.preventDefault();
-		updraft_send_command('dismiss_admin_warning_litespeed', 1, function (response) {});
+		updraft_send_command('dismiss_admin_warning_litespeed');
+	});
+	jQuery('.updraftmessage.admin-warning-pclzip').on('click', '.notice-dismiss', function(e) {
+		e.preventDefault();
+		updraft_send_command('dismiss_admin_warning_pclzip');
 	});
 	
 	function apply_search_on_db_size() {

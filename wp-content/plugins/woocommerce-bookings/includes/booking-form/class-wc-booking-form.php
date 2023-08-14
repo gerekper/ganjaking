@@ -6,18 +6,21 @@ class WC_Booking_Form {
 
 	/**
 	 * Booking product data.
+	 *
 	 * @var WC_Product_Booking
 	 */
 	public $product;
 
 	/**
 	 * Booking fields.
+	 *
 	 * @var array
 	 */
 	private $fields;
 
 	/**
 	 * Constructor
+	 *
 	 * @param $product WC_Product_Booking
 	 */
 	public function __construct( $product ) {
@@ -30,7 +33,7 @@ class WC_Booking_Form {
 	public function scripts() {
 		global $wp_locale;
 
-		$wc_bookings_booking_form_args = [
+		$wc_bookings_booking_form_args = array(
 			'closeText'                => __( 'Close', 'woocommerce-bookings' ),
 			'currentText'              => __( 'Today', 'woocommerce-bookings' ),
 			'prevText'                 => __( 'Previous', 'woocommerce-bookings' ),
@@ -43,10 +46,10 @@ class WC_Booking_Form {
 			'firstDay'                 => get_option( 'start_of_week' ),
 			'current_time'             => date( 'Ymd', current_time( 'timestamp' ) ),
 			'default_blocks_area_text' => __( 'Choose a date above to see available times.', 'woocommerce-bookings' ),
-			'isRTL'                    => is_rtl()
-		];
+			'isRTL'                    => is_rtl(),
+		);
 
-		$wc_bookings_booking_form_product_args = [
+		$wc_bookings_booking_form_product_args = array(
 			'check_availability_against' => $this->product->get_check_start_block_only() ? 'start' : '',
 			'duration_type'              => $this->product->get_duration_type(),
 			'duration_unit'              => $this->product->get_duration_unit(),
@@ -54,16 +57,16 @@ class WC_Booking_Form {
 			'resources_assignment'       => ! $this->product->has_resources() ? 'customer' : $this->product->get_resources_assignment(),
 			'product_id'                 => $this->product->get_id(),
 			'default_availability'       => $this->product->get_default_availability(),
-		];
+		);
 
-		$wc_bookings_date_picker_args = [
+		$wc_bookings_date_picker_args = array(
 			'ajax_url' => WC_Ajax_Compat::get_endpoint( 'wc_bookings_find_booked_day_blocks' ),
-		];
+		);
 
 		if ( in_array( $this->product->get_duration_unit(), array( 'minute', 'hour' ) ) ) {
 			$wc_bookings_booking_form_product_args['booking_duration'] = 1;
 		} else {
-			$wc_bookings_booking_form_product_args['booking_duration']         = $this->product->get_duration();
+			$wc_bookings_booking_form_product_args['booking_duration'] = $this->product->get_duration();
 
 			if ( 'customer' == $wc_bookings_booking_form_product_args['duration_type'] ) {
 				$wc_bookings_booking_form_product_args['booking_min_duration'] = $this->product->get_min_duration();
@@ -84,7 +87,7 @@ class WC_Booking_Form {
 		$wc_bookings_booking_form_args = array_merge(
 			$wc_bookings_booking_form_args,
 			$wc_bookings_booking_form_product_args,
-			[ 'booking_duration_type' => $this->product->get_duration_type() ]
+			array( 'booking_duration_type' => $this->product->get_duration_type() )
 		);
 
 		wp_enqueue_script( 'wc-bookings-booking-form', WC_BOOKINGS_PLUGIN_URL . '/dist/frontend.js', array( 'jquery', 'jquery-blockui', 'jquery-ui-datepicker', 'underscore', 'wp-hooks' ), WC_BOOKINGS_VERSION, true );
@@ -227,15 +230,17 @@ class WC_Booking_Form {
 					break;
 			}
 
-			$this->add_field( array(
-				'type'  => 'number',
-				'name'  => 'duration',
-				'label' => __( 'Duration', 'woocommerce-bookings' ),
-				'after' => $after,
-				'min'   => $this->product->get_min_duration(),
-				'max'   => $this->product->get_max_duration(),
-				'step'  => 1,
-			) );
+			$this->add_field(
+				array(
+					'type'  => 'number',
+					'name'  => 'duration',
+					'label' => __( 'Duration', 'woocommerce-bookings' ),
+					'after' => $after,
+					'min'   => $this->product->get_min_duration(),
+					'max'   => $this->product->get_max_duration(),
+					'step'  => 1,
+				)
+			);
 		}
 	}
 
@@ -256,25 +261,29 @@ class WC_Booking_Form {
 					$min_person_type_persons = $person_type->get_min();
 					$max_person_type_persons = $person_type->get_max();
 
-					$this->add_field( array(
-						'type'  => 'number',
-						'step'  => 1,
-						'min'   => is_numeric( $min_person_type_persons ) ? $min_person_type_persons : 0,
-						'max'   => ! empty( $max_person_type_persons ) ? absint( $max_person_type_persons ) : $max_persons,
-						'name'  => 'persons_' . $person_type->get_id(),
-						'label' => $person_type->get_name(),
-						'after' => $person_type->get_description(),
-					) );
+					$this->add_field(
+						array(
+							'type'  => 'number',
+							'step'  => 1,
+							'min'   => is_numeric( $min_person_type_persons ) ? $min_person_type_persons : 0,
+							'max'   => ! empty( $max_person_type_persons ) ? absint( $max_person_type_persons ) : $max_persons,
+							'name'  => 'persons_' . $person_type->get_id(),
+							'label' => $person_type->get_name(),
+							'after' => $person_type->get_description(),
+						)
+					);
 				}
 			} else {
-				$this->add_field( array(
-					'type'  => 'number',
-					'step'  => 1,
-					'min'   => $this->product->get_min_persons(),
-					'max'   => $max_persons,
-					'name'  => 'persons',
-					'label' => __( 'Persons', 'woocommerce-bookings' ),
-				) );
+				$this->add_field(
+					array(
+						'type'  => 'number',
+						'step'  => 1,
+						'min'   => $this->product->get_min_persons(),
+						'max'   => $max_persons,
+						'name'  => 'persons',
+						'label' => __( 'Persons', 'woocommerce-bookings' ),
+					)
+				);
 			}
 		}
 	}
@@ -288,8 +297,8 @@ class WC_Booking_Form {
 			return;
 		}
 
-		$resources          = $this->product->get_resources();
-		$resource_options   = array();
+		$resources        = $this->product->get_resources();
+		$resource_options = array();
 
 		foreach ( $resources as $resource ) {
 			$cost_plus_base  = $resource->get_base_cost() + $this->product->get_block_cost() + $this->product->get_cost();
@@ -344,13 +353,15 @@ class WC_Booking_Form {
 		}
 
 		$label = $this->product->get_resource_label() ? $this->product->get_resource_label() : __( 'Type', 'woocommerce-bookings' );
-		$this->add_field( array(
-			'type'    => 'select',
-			'name'    => 'resource',
-			'label'   => $label,
-			'class'   => array( 'wc_booking_field_' . sanitize_title( $this->product->get_resource_label() ) ),
-			'options' => $resource_options,
-		) );
+		$this->add_field(
+			array(
+				'type'    => 'select',
+				'name'    => 'resource',
+				'label'   => $label,
+				'class'   => array( 'wc_booking_field_' . sanitize_title( $this->product->get_resource_label() ) ),
+				'options' => $resource_options,
+			)
+		);
 	}
 
 	/**
@@ -386,6 +397,7 @@ class WC_Booking_Form {
 
 	/**
 	 * Add Field
+	 *
 	 * @param  array $field
 	 * @return void
 	 */
@@ -423,12 +435,21 @@ class WC_Booking_Form {
 				continue;
 			}
 
-			wc_get_template( 'booking-form/' . $field['type'] . '.php', array( 'field' => $field, 'product' => $this->product ), 'woocommerce-bookings', WC_BOOKINGS_TEMPLATE_PATH );
+			wc_get_template(
+				'booking-form/' . $field['type'] . '.php',
+				array(
+					'field'   => $field,
+					'product' => $this->product,
+				),
+				'woocommerce-bookings',
+				WC_BOOKINGS_TEMPLATE_PATH
+			);
 		}
 	}
 
 	/**
 	 * Get posted form data into a neat array
+	 *
 	 * @param  array $posted
 	 * @return array
 	 */
@@ -483,14 +504,13 @@ class WC_Booking_Form {
 	 * Builds the HTML to display the start time for hours/minutes.
 	 *
 	 * @since 1.13.0
-	 * @param  array  $blocks
-	 * @param  array  $intervals
+	 * @param  array   $blocks
+	 * @param  array   $intervals
 	 * @param  integer $resource_id
 	 * @param  integer $from The starting date for the set of blocks
 	 * @param  integer $to
-	 * @param  array $available_blocks
+	 * @param  array   $available_blocks
 	 * @return string
-	 *
 	 */
 	public function get_start_time_html( $blocks, $intervals = array(), $resource_id = 0, $from = 0, $to = 0 ) {
 		$transient_name   = 'book_st_' . md5( http_build_query( array( $from, $to, $this->product->get_id(), $resource_id ) ) );
@@ -529,12 +549,7 @@ class WC_Booking_Form {
 						continue;
 					}
 
-					if ( $quantity['booked'] ) {
-						/* translators: 1: quantity available */
-						$st_block_html .= '<option data-block="' . esc_attr( date( 'Hi', $block ) ) . '" data-remaining="' . sprintf( _n( '%d left', '%d left', $quantity['available'], 'woocommerce-bookings' ), absint( $quantity['available'] ) ) . '" value="' . esc_attr( get_time_as_iso8601( $block ) ) . '">' . date_i18n( wc_bookings_time_format(), $block ) . ' (' . sprintf( _n( '%d left', '%d left', $quantity['available'], 'woocommerce-bookings' ), absint( $quantity['available'] ) ) . ')</option>';
-					} else {
-						$st_block_html .= '<option data-block="' . esc_attr( date( 'Hi', $block ) ) . '" value="' . esc_attr( get_time_as_iso8601( $block ) ) . '">' . date_i18n( wc_bookings_time_format(), $block ) . '</option>';
-					}
+					$st_block_html .= '<option data-block="' . esc_attr( date( 'Hi', $block ) ) . '" value="' . esc_attr( get_time_as_iso8601( $block ) ) . '">' . date_i18n( wc_bookings_time_format(), $block ) . '</option>';
 				}
 			}
 
@@ -551,15 +566,14 @@ class WC_Booking_Form {
 	 * Builds the data to display the end time for hours/minutes.
 	 *
 	 * @since 1.13.0
-	 * @param  array  $blocks
-	 * @param  string $start_date_time Date of the start time.
-	 * @param  array  $intervals
+	 * @param  array   $blocks
+	 * @param  string  $start_date_time Date of the start time.
+	 * @param  array   $intervals
 	 * @param  integer $resource_id
 	 * @param  integer $from The starting date for the set of blocks
 	 * @param  integer $to
 	 * @param  bool    $check Whether to just check if there's any data at all.
 	 * @return array
-	 *
 	 */
 	public function get_end_times( $blocks, $start_date_time = '', $intervals = array(), $resource_id = 0, $from = 0, $to = 0, $check = false ) {
 		$min_duration     = ! empty( $this->product->get_min_duration() ) ? $this->product->get_min_duration() : 1;
@@ -652,14 +666,13 @@ class WC_Booking_Form {
 	 * Renders the HTML to display the end time for hours/minutes.
 	 *
 	 * @since 1.13.0
-	 * @param  array  $blocks
-	 * @param  string $start_date_time Date of the start time.
-	 * @param  array  $intervals
+	 * @param  array   $blocks
+	 * @param  string  $start_date_time Date of the start time.
+	 * @param  array   $intervals
 	 * @param  integer $resource_id
 	 * @param  integer $from The starting date for the set of blocks
 	 * @param  integer $to
 	 * @return string
-	 *
 	 */
 	public function get_end_time_html( $blocks, $start_date_time = '', $intervals = array(), $resource_id = 0, $from = 0, $to = 0 ) {
 		$block_html  = '';
@@ -675,7 +688,34 @@ class WC_Booking_Form {
 			$end_time = $booking_data['end_time'];
 			$duration = $booking_data['duration'];
 
-			$block_html .= '<option data-duration-display="' . esc_attr( $display ) . '" data-value="' . get_time_as_iso8601( $end_time ) . '" value="' . esc_attr( $duration ) . '">' . date_i18n( wc_bookings_time_format(), $end_time ) . $display . '</option>';
+			if ( $this->product->has_resources() ) {
+				$resource_id = isset( $_POST['resource_id'] ) ? absint( $_POST['resource_id'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Missing
+
+				$availability = wc_bookings_get_total_available_bookings_for_range(
+					$this->product,
+					strtotime( substr( $start_date_time, 0, 19 ) ),
+					$end_time,
+					0
+				);
+
+				if ( is_wp_error( $availability ) ) {
+					$free_slots = 0;
+				} elseif ( empty( $resource_id ) ) {
+					$free_slots = array_sum( array_values( $availability ) );
+				} else {
+					$free_slots = $availability[ $resource_id ];
+				}
+
+				$display .= sprintf( ' (%s %s)', $free_slots, esc_html__( 'left', 'woocommerce-bookings' ) );
+			}
+
+			$block_html .= sprintf(
+				'<option data-duration-display="%1$s" data-value="%2$s" value="%3$s">%4$s%1$s</option>',
+				esc_attr( $display ),
+				get_time_as_iso8601( $end_time ),
+				esc_attr( $duration ),
+				date_i18n( wc_bookings_time_format(), $end_time )
+			);
 		}
 
 		$block_html .= '</select></div>';
@@ -694,8 +734,8 @@ class WC_Booking_Form {
 	/**
 	 * Find available blocks and return HTML for the user to choose a block. Used in class-wc-bookings-ajax.php.
 	 *
-	 * @param  array  $blocks
-	 * @param  array  $intervals
+	 * @param  array   $blocks
+	 * @param  array   $intervals
 	 * @param  integer $resource_id
 	 * @param  integer $from The starting date for the set of blocks
 	 * @param  integer $to

@@ -72,15 +72,10 @@ class TranslationProxy {
 	/**
 	 * @param int $service_id
 	 *
-	 * @return TranslationProxy_Project|WP_Error
-	 * @throws \WPMLTranslationProxyApiException
-	 * @throws \InvalidArgumentException
+	 * @return TranslationProxy_Service|WP_Error
 	 */
 	public static function select_service( $service_id, $credentials = null ) {
 		global $sitepress;
-
-		$service_selected = false;
-		$error            = false;
 
 		/** @var TranslationProxy_Service $service */
 		$service = self::get_service( $service_id );
@@ -88,26 +83,27 @@ class TranslationProxy {
 		if ( $service ) {
 			self::deselect_active_service();
 
-			$service          = self::build_and_store_active_translation_service( $service, $credentials );
-			$result           = $service;
-			$service_selected = true;
-
-			// Force authentication if no user input is needed
-			if ( ! self::service_requires_authentication( $service ) ) {
-				( new AuthorizationFactory() )->create()->authorize( new \stdClass() );
+			try {
+				$service = self::build_and_store_active_translation_service( $service, $credentials );
+				$result  = $service;// Force authentication if no user input is needed
+				if ( ! self::service_requires_authentication( $service ) ) {
+					try {
+						( new AuthorizationFactory() )->create()->authorize( new \stdClass() );
+					} catch ( \Exception $e ) {
+						// Note that we do not unselect the service even though the authentication failed.
+						// It is better to show it to user as selected and let him try to authenticate again.
+						$result = new WP_Error( '1', sprintf( __( 'Authentication failed ( serviceId: %d )', 'sitepress' ), $service_id ) );
+					}
+				}
+			} catch ( \Exception $e ) {
+				$result = new WP_Error( '2', sprintf( __( 'Failed to select translation service  ( serviceId: %d )', 'sitepress' ), $service_id ) );
+				$sitepress->set_setting( 'translation_service', false, true );
 			}
 		} else {
-			$result = new WP_Error(
-				'0',
-				'No service selected',
-				array( 'service_id' => $service_id )
-			);
-		}
-
-		// Do not store selected service if this operation failed;
-		if ( $error || ! $service_selected ) {
+			$result = new WP_Error( '2', sprintf( __( 'Failed to select translation service ( serviceId: %d )', 'sitepress' ), $service_id ) );
 			$sitepress->set_setting( 'translation_service', false, true );
 		}
+
 		$sitepress->save_settings();
 
 		return $result;

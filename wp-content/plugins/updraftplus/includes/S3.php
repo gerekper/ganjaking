@@ -1409,7 +1409,13 @@ class UpdraftPlus_S3 {
 		$amzRequests[] = $method;
 		$uriQmPos = strpos($uri, '?');
 		$amzRequests[] = (false === $uriQmPos ? $uri : substr($uri, 0, $uriQmPos));
-		$amzRequests[] = http_build_query($parameters);
+		$built_queries = '';
+		foreach ($parameters as $query => $val) {
+			if (!empty($built_queries)) $built_queries .= '&';
+			$built_queries .= "$query=".rawurlencode($val);
+		}
+		$amzRequests[] = $built_queries;
+
 
 		// add headers as string to requests
 		foreach ($amzHeaders as $k => $v) {
@@ -1556,7 +1562,7 @@ abstract class UpdraftPlus_AWSRequest {
 	);
 	public $fp = false, $size = 0, $data = false, $response;
 	
-	private $s3;
+	protected $s3;
 
 	/**
 	 * Set request parameter
@@ -1691,13 +1697,6 @@ abstract class UpdraftPlus_AWSRequest {
 }
 
 final class UpdraftPlus_S3Request extends UpdraftPlus_AWSRequest {
-
-	/**
-	 * Amazon S3 object
-	 *
-	 * @var UpdraftPlus_S3|null
-	 */
-	private $s3;
 
 	/**
 	 * Constructor
@@ -1846,6 +1845,8 @@ final class UpdraftPlus_S3Request extends UpdraftPlus_AWSRequest {
 						);
 				} else {
 					// Use V4
+					if (isset($this->headers['Content-MD5']) && '' == $this->headers['Content-MD5']) unset($this->headers['Content-MD5']); // content-md5 is part of v2 signature, but it may be presented in the HTTP headers whilst doing PUT requests, we've seen this happening on Amazon S3 storage when testing credentials, but it shouldn't be added to v4's SignedHeaders if it's empty so we unset it
+					if (isset($this->headers['Content-Type']) && '' == $this->headers['Content-Type']) unset($this->headers['Content-Type']); // content-type may get included in the HTTP headers, but if it's not presented then it shouldn't be added to SignedHeaders
 					$amzHeaders = $this->s3->__getSignatureV4(
 						$this->amzHeaders,
 						$this->headers,
@@ -1908,6 +1909,24 @@ final class UpdraftPlus_S3Request extends UpdraftPlus_AWSRequest {
 		}
 
 		@curl_close($curl);
+
+		if (false !== $this->response->error && preg_match('/\.amazonaws\.com$/i', $this->endpoint) && 'PUT' === $this->verb) {
+			$curl = curl_init();
+			curl_setopt($curl, CURLOPT_URL, 'https://tls12.browserleaks.com/');
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($curl, CURLOPT_FAILONERROR, true);
+			curl_setopt($curl, CURLOPT_HEADER, false);
+			curl_setopt($curl, CURLOPT_TIMEOUT, 10);
+			curl_setopt($curl, CURLOPT_VERBOSE, true);
+			$response = curl_exec($curl);
+			$info = curl_getinfo($curl);
+			curl_close($curl);
+			
+			if (200 === $info['http_code'] && 'TLS 1.2' !== $response) {
+				$updraftplus->log('Connecting to Amazon S3 failed. Your PHP installation failed a TLS v1.2 connection test, which is the minimum version required by Amazon. Please ask your webserver support how to upgrade your PHP and cURL library versions to use non-obsolete TLS versions.');
+				$updraftplus->log(__('Connecting to Amazon S3 failed.', 'updraftplus').' '.__('Your PHP installation failed a TLS v1.2 connection test, which is the minimum version required by Amazon.', 'updraftplus').' '.__('Please ask your webserver support how to upgrade your PHP and cURL library versions to use non-obsolete TLS versions.', 'updraftplus'), 'warning');
+			}
+		}
 
 		// Parse body into XML
 		// The case in which there is not application/xml content-type header is to support a DreamObjects case seen, April 2018

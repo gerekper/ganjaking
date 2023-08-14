@@ -26,7 +26,7 @@ namespace SkyVerge\WooCommerce\PIP;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_0 as Framework;
 
 /**
  * Plugin lifecycle handler.
@@ -204,14 +204,25 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 
 		do {
 
-			// grab order ids
-			$order_ids = get_posts( [
-				'post_type'      => 'shop_order',
-				'fields'         => 'ids',
-				'posts_per_page' => $posts_per_page,
-				'offset'         => $offset,
-				'post_status'    => 'any'
-			] );
+			// grab order ids according to HPOS compatibility
+			if ( Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ) {
+
+				$order_ids = wc_get_orders( [
+					'return' => 'ids',
+					'limit'  => $posts_per_page,
+					'offset' => $offset,
+				] );
+
+			} else {
+
+				$order_ids = get_posts( [
+					'post_type'      => 'shop_order',
+					'fields'         => 'ids',
+					'posts_per_page' => $posts_per_page,
+					'offset'         => $offset,
+					'post_status'    => 'any'
+				] );
+			}
 
 			// sanity check
 			if ( is_wp_error( $order_ids ) ) {

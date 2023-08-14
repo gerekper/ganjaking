@@ -1333,7 +1333,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
 				echo '<ul class="wc-dropship-setting-tabs">
 
-                    <li data-id="general_settings" class="active">General Settings</li>
+                    <li data-id="general_settings" class="active">AliExpress Settings</li>
 
                     <li data-id="supplier_email_notifications">Supplier Email Notifications</li>
 
@@ -1354,16 +1354,17 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 				echo '<table>
 
 					<tr>
-                        <td>
-                        <span>
-
-                            <td><input name="ali_cbe_enable_name" id="ali_cbe_enable_name" type="checkbox" ' . $ali_cbe_enable_checkbox . ' /></td>
-
-                        </span>
-
-                        <td>
 
 					   <td><h4><label for="ali_cbe_enable_name">Enable Support for the AliExpress CBE:</label></h4></td>
+
+					   <td>
+					   <span>
+
+						   <td><input name="ali_cbe_enable_name" id="ali_cbe_enable_name" type="checkbox" ' . $ali_cbe_enable_checkbox . ' /></td>
+
+					   </span>
+
+					   <td>
 					</tr>
 
 				</table>';
@@ -1423,10 +1424,11 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
 								$ali_cbe_price_rate_selected_2 = 'selected';
 							}
+						}
 											echo '<option value="ali_cbe_price_rate_percent_offset" ' . $ali_cbe_price_rate_selected_1 . '>Percentage Offset</option>
 
                                             <option value="ali_cbe_fixed_price_offset"' . $ali_cbe_price_rate_selected_2 . '>Fixed Amount Offset</option>';
-						}
+
 										echo '   </select>
                                         </td>
                                     </span>
@@ -1456,14 +1458,14 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
 						echo '<h3>Supplier Email Notifications</h3>
 
-                        <p>When an order&apos;s status switches to processing, emails are sent to each supplier to notify them to ship their products. You can set a custom message for the suppliers in the box below to be included in these emails</p>
+                        <p>When an order&apos;s status switches to processing, emails are sent to each supplier to notify them to ship their products. <br> You can set a custom message for the suppliers in the box below to be included in these emails.</p>
 
                         <table>
                             <tr>
                                 <td><label for="email_order_note">Email order note:</label></td>
-                                <td><img class="help_tip" data-tip="This note will appear on emails that suppliers will receive with your order notifications" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
+                                <td><img class="help_tip" data-tip="This note will appear on emails that suppliers will receive with your order notifications and HTML is allowed." src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                <td><textarea name="email_order_note" id="email_order_note" cols="45" >' . @$options['email_order_note'] . '</textarea></td>
+                                <td><textarea name="email_order_note" id="email_order_note" cols="90" rows="5" >' . @$options['email_order_note'] . '</textarea></td>
                             </tr>
                         </table>';
 
@@ -1471,22 +1473,23 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
                             <table>
                                 <tr>
-                                    <td><input name="view_order" id="view_order" class="view_order" type="checkbox" ' . $view_order . '  /></td>
-
                                     <td><label for="view_order">Include \'View order\' link in suppliers email:</label></td>
 
-                                    <td><img class="help_tip" data-tip="If checked this option will not send subscription renewal email\'s to suppliers" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
+                                    <td><img class="help_tip" data-tip="If checked this option will not send subscription renewal email\'s to suppliers." src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
+
+									<td><input name="view_order" id="view_order" class="view_order" type="checkbox" ' . $view_order . '  /></td>
                                 </tr>
 
                             </table>
 
                             <table>
                                 <tr>
-                                    <td><input name="renewal_email" id="renewal_email" class="view_order" type="checkbox" ' . $renewal_email . '  /></td>
-
                                     <td><label for="renewal_email">Do not send renewal email to suppliers:</label></td>
 
-                                    <td><img class="help_tip" data-tip="If checked this option will not send subscription renewal email\'s to suppliers" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
+                                    <td><img class="help_tip" data-tip="If checked this option will not send subscription renewal email\'s to suppliers." src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
+
+									<td><input name="renewal_email" id="renewal_email" class="view_order" type="checkbox" ' . $renewal_email . '  /></td>
+
                                 </tr>
 
                             </table>';
@@ -1499,13 +1502,13 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
                                 <tr>
 
-                                    <td><label for="inventory_pad">Inventory Padding:</label></td>
+                                    <td><label for="inventory_pad" style="margin-left: -2px;">Inventory Buffer:</label></td>
 
-                                    <td><img class="help_tip" data-tip="If the supplier&apos;s stock falls below this number on an imported spreadsheet, the item will be considered out of stock in your store. <br>Set this to zero if you want to directly use the inventory numbers your supplier gives you, or higher if you want to ensure that they don&apos;t sell out of their products before you make a sale." src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
+                                    <td><img class="help_tip" data-tip="Set this to zero if you want to directly use the inventory numbers your supplier gives you, or higher if you want to ensure that they don&apos;t sell out of their products before you make a sale." src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
                                     <td><input name="inventory_pad" value="' . @$options['inventory_pad'] . '" size="1" /></td>
                                 </tr>
-                            </table>';
+							</table>
+							If the supplier&apos;s stock falls below this number on an imported spreadsheet, the item will be considered out of stock in your store.';
 
 					echo '</div>';
 
@@ -1517,7 +1520,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                             <tr>
                                 <td><input name="full_information" id="full_information" class="fullinfo miscellaneous_packing_slip_options_master_checkbox" type="checkbox" ' . $checkfull . ' /></td>
 
-                                <td><label for="full_information"><b>Attach PDF to supplier Email?:</b></label></td>
+                                <td><label for="full_information"><b>Attach PDF to supplier Email</b></label></td>
                                 </tr>
                             </table>
     					<br/><br/>
@@ -1528,7 +1531,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
     					<table>
                             <tr>
-                                <td><label for="packing_slip_header">Packing Slip Title:</label></td>
+                                <td><label for="packing_slip_header">Option to view packing slip.</label></td>
 
                                 <td><img class="help_tip" data-tip="This will be the custom title of the packing slip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
@@ -1543,7 +1546,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
                                 <td><input name="show_logo" id="show_logo" class="miscellaneous_packing_slip_options_checkbox_false" data-id="show_logo" type="checkbox" ' . $logoshow . '  /></td>
 
-                                <td><label for="show_logo">Show logo in the header:</label></td>
+                                <td><label for="show_logo">Show logo in the header.</label></td>
                             </tr>
                         </table>
 
@@ -1572,7 +1575,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
                                     <td><img class="help_tip" data-tip="Please specify the width of your company logo in pixels" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                    <td><input name="packing_slip_url_to_logo_width" value="' . @$options['packing_slip_url_to_logo_width'] . '" size="1" />
+                                    <td><input name="packing_slip_url_to_logo_width" value="' . @$options['packing_slip_url_to_logo_width'] . '" size="5" />
                                     </td>
                                 </tr>
                             </table>
@@ -1584,7 +1587,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                 <tr>
                                     <td><input name="order_date" id="show_order_date" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $date_order . '  /></td>
 
-                                    <td><label for="show_order_date">Show order date beside order number:</label></td>
+                                    <td><label for="show_order_date">Show order date beside order number.</label></td>
                                 </tr>
                             </table>';
 
@@ -1594,7 +1597,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                 <tr>
                                     <td><input name="shipping" id="show_shipping_information" data-id="show_shipping_information" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $product_shipping . '  /></td>
 
-                                    <td><label for="show_shipping_information">Show shipping information:</label></td>
+                                    <td><label for="show_shipping_information">Show shipping information.</label></td>
                                 </tr>
                             </table>';
 
@@ -1632,7 +1635,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                 <tr>
                                     <td><input name="customer_note" id="show_customer_note" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $customer_note . '  /></td>
 
-                                    <td><label for="show_customer_note">Display the "Customer Note" into the Dropshipper packing slip:</label></td>
+                                    <td><label for="show_customer_note">Display the "Customer Note" into the Dropshipper packing slip.</label></td>
                                 </tr>
                             </table>
                         </div>';
@@ -1646,16 +1649,16 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                     <tr>
                                         <td><input name="product_image" id="product_image" data-id="product_image" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $image_product . '  /></td>
 
-                                        <td><label for="product_image">Show product thumbnail image:</label></td>
+                                        <td><label for="product_image">Show product thumbnail image.</label></td>
                                     </tr>
                                 </table>
                                 <p></p>
 
                                 <div class="inner-toggle product_image" ' . $product_image_option . '>
 
-                                    <table style="margin-left:50px;">
+                                    <table>
                                         <tr>
-                                            <td style="width:250px"><label for="dropship_image" >Image Label:</label></td>
+                                            <td style="width:150px"><label for="dropship_image" >Image Label:</label></td>
 
                                             <td><img class="help_tip" data-tip="Please specify Image Label" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
@@ -1704,7 +1707,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
                                         <td><label for="type_of_package">Additional field in the "Add/Edit Product" to specify the "Type of Package"
 
-                                        <img class="help_tip" data-tip="This will also be added as an additional column in the packing slip" style="margin: 0 0 0 0px;" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16">: </label></td>
+                                        <img class="help_tip" data-tip="This will also be added as an additional column in the packing slip" style="margin: 0 0 0 0px;" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></label></td>
                                     </tr>
                                 </table>';
 
@@ -1728,7 +1731,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                     <tr>
                                         <td><input name="product_price" id="product_price" data-id="product_price" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $price_product . '  /></td>
 
-                                        <td><label for="product_price">Show product prices:</label></td>
+                                        <td><label for="product_price">Show product prices.</label></td>
                                     </tr>
                                 </table>';
 
@@ -1753,7 +1756,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                     <tr>
                                         <td><input name="cost_of_goods" id="cost_of_goods" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $cost_of_goods . '  /></td>
 
-                                        <td><label for="cost_of_goods">Show Cost instead of Sell Price?:</label></td>
+                                        <td><label for="cost_of_goods">Show Cost instead of Sell Price.</label></td>
                                     </tr>
                                 </table>';
 
@@ -1763,7 +1766,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                     <tr>
                                         <td><input name="show_gst_supplier_email" id="show_gst_supplier_email" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $show_gst_supplier_email . '  /></td>
 
-                                        <td><label for="show_gst_supplier_email">Show GST Tax Split.</label></td>
+                                        <td><label for="show_gst_supplier_email">Show Tax Split.</label></td>
                                     </tr>
                                 </table> ';
 
@@ -1775,7 +1778,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 							echo '<br/><br/>
 
                                 <div class="packing-slip-sections">
-                                    <h4>Company & Detail</h4>
+                                    <h4>Company Details</h4>
 
                                     <table>
                                         <tr>
@@ -1783,7 +1786,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
                                         <td><img class="help_tip" data-tip="Please enter the name of your company" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                        <td><input name="packing_slip_company_name" value="' . @$options['packing_slip_company_name'] . '" size="30" /></td>
+                                        <td><input name="packing_slip_company_name" value="' . @$options['packing_slip_company_name'] . '" style="width: 30ch;" /></td>
                                         </tr>
                                     </table>';
 
@@ -1797,7 +1800,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
                                             <td><img class="help_tip" data-tip="Please specify the Company Address Label" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                            <td><input name="dropship_company_address" value="' . @$options['dropship_company_address'] . '" size="30" maxlength="50" /></td>
+                                            <td><input name="dropship_company_address" value="' . @$options['dropship_company_address'] . '" style="width: 30ch;" /></td>
                                             </tr>
                                             </tr>
                                         </table>
@@ -1812,7 +1815,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
                                             <td><img class="help_tip" data-tip="Please enter your company&apos;s mailing address. This address will appear on your packing slips" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                            <td><input name="packing_slip_address" value="' . @$options['packing_slip_address'] . '" size="50" /></td>
+                                            <td><textarea name="packing_slip_address" maxlength="200" rows="5" style="width: 30ch; border: 1px solid #8c8f9454;">' . @$options['packing_slip_address'] . '</textarea></td>
                                         </tr>
                                     </table>
                                     <p></p>
@@ -1822,7 +1825,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
                                         <td><img class="help_tip" data-tip="Please enter the email address at which customers can reach your company if they have service issues" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                        <td><input name="packing_slip_customer_service_email" value="' . @$options['packing_slip_customer_service_email'] . '" size="30" /></td>
+                                        <td><input name="packing_slip_customer_service_email" value="' . @$options['packing_slip_customer_service_email'] . '" style="width: 30ch;" /></td>
                                         </tr>
                                     </table>
 
@@ -1834,7 +1837,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
                                         <td><img class="help_tip" data-tip="Please enter the phone number at which customers can reach your company if they have service issues" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                        <td><input name="packing_slip_customer_service_phone" value="' . @$options['packing_slip_customer_service_phone'] . '" size="10" /></td>
+                                        <td><input name="packing_slip_customer_service_phone" value="' . @$options['packing_slip_customer_service_phone'] . '" style="width: 30ch;" /></td>
                                         </tr>
                                     </table>';
 
@@ -1844,7 +1847,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                         <tr>
                                             <td><input name="shipping_address" id="shipping_address" data-id="shipping_address" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $address_shipping . '  /></td>
 
-                                            <td><label for="shipping_address">Show shipping address at the bottom:</label></td>
+                                            <td><label for="shipping_address">Show shipping address at the bottom.</label></td>
                                         </tr>
                                     </table>';
 
@@ -1854,7 +1857,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
                                         <table style="margin-left:50px;">
                                             <tr>
-                                                <td style="width:250px"><label for="dropship_shipping_address_email">Shipping Address Label:</label></td>
+                                                <td style="width:150px"><label for="dropship_shipping_address_email">Shipping Address Label:</label></td>
 
                                                 <td><img class="help_tip" data-tip="Please specify Shipping Address Label" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
@@ -1869,7 +1872,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                         <tr>
                                             <td><input name="billing_address" id="billing_address" data-id="billing_address" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $address_billing . '  /></td>
 
-                                            <td><label for="billing_address">Show billing address at the bottom:</label></td>
+                                            <td><label for="billing_address">Show billing address at the bottom.</label></td>
                                         </tr>
                                     </table>';
 
@@ -1907,7 +1910,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                     <h4>Footer</h4>
                                     <p><b>Any additional comment to be displayed</b></p>
                                     <p>Max length: 200 characters</p>
-                                    <p>NOTE: Please make sure this content as small as possible so that it fits properly at the bottom of Pdf slip.</p>
+                                    <p>NOTE: Please make sure this content as small as possible so that it fits properly at the bottom of PDF.</p>
 
                                     <table>
                                         <tr>
@@ -1915,7 +1918,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
                                         <td><img class="help_tip" data-tip="Please specify Additional Comment" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                        <td><textarea name="dropship_additional_comment" maxlength="200" rows="6" cols="45">' . $additionalCommentDefault . '</textarea></td>
+                                        <td><textarea name="dropship_additional_comment" maxlength="200" rows="5" cols="30">' . $additionalCommentDefault . '</textarea></td>
                                         </tr>
                                     </table>';
 
@@ -1927,7 +1930,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
                                                 <td><img class="help_tip" data-tip="This message will appear at the bottom of the packing slip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                                <td><textarea name="packing_slip_thankyou" cols="45" >' . @$options['packing_slip_thankyou'] . '</textarea></td>
+                                                <td><textarea name="packing_slip_thankyou" maxlength="200" rows="5" cols="30">' . @$options['packing_slip_thankyou'] . '</textarea></td>
                                             </tr>
 
                                         </table>
@@ -1943,7 +1946,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                     <tr>
                                         <td><input name="supp_notification" id="supp_notification" type="checkbox" ' . $supp_notification_attr . ' /></td>
 
-                                        <td><label for="supp_notification">Do not send email notifications to supplier:</label></td>
+                                        <td><label for="supp_notification">Do not send email notifications to supplier</label></td>
                                     </tr>
                                 </table>
 
@@ -1953,7 +1956,9 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                     <tr>
                                         <td><input name="csv_inmail" id="csv_inmail" class="" type="checkbox" ' . $csvInMail . ' /></td>
 
-                                        <td><label for="csv_inmail">Send CSV with Supplier Notifications:</label></td>
+										<td><img class="help_tip" data-tip="It will send CSV file on supplier email" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
+
+                                        <td><label for="csv_inmail">Send CSV with Supplier Notifications</label></td>
                                     </tr>
                                 </table>
                             </div>';
@@ -1964,7 +1969,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                     <tr>
                                     <td><input name="total_price" id="total_price" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $total_price . '  /></td>
 
-                                    <td><label for="total_price">Show the total price in the packing slip:</label></td>
+                                    <td><label for="total_price">Show the total price in the packing slip.</label></td>
                                     </tr>
                                 </table>';
 
@@ -1974,7 +1979,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                     <tr>
                                         <td><input name="hide_shipping_price" id="hide_shipping_price" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $hide_shipping_price . '  /></td>
 
-                                        <td><label for="hide_shipping_price">Hide the shipping cost in the packing slip:</label></td>
+                                        <td><label for="hide_shipping_price">Hide the shipping cost in the packing slip.</label></td>
                                     </tr>
                                 </table>';
 
@@ -1984,7 +1989,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                     <tr>
                                         <td><input name="hide_tax" id="hide_tax" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $hide_tax . '  /></td>
 
-                                        <td><label for="hide_tax">Hide Tax in supplier email:</label></td>
+                                        <td><label for="hide_tax">Hide Tax in supplier email.</label></td>
                                     </tr>
 
                                 </table>';
@@ -2005,7 +2010,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                     <tr>
                                         <td><input name="hide_suppliername" id="hidesuppliername" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $suppliername_hide . '  /></td>
 
-                                        <td><label for="hidesuppliername">Hide the supplier names on order confirmation emails:</label></td>
+                                        <td><label for="hidesuppliername">Hide the supplier names on order confirmation emails.</label></td>
                                     </tr>
                                 </table>';
 
@@ -2015,7 +2020,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                     <tr>
                                         <td><input name="hide_suppliername_on_product_page" id="hide_suppliername_on_product_page" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $hide_suppliername_on_product_page . '  /></td>
 
-                                        <td><label for="hide_suppliername_on_product_page">Show supplier names on product pages:</label></td>
+                                        <td><label for="hide_suppliername_on_product_page">Show supplier names on product pages.</label></td>
                                     </tr>
                                 </table>';
 
@@ -2025,7 +2030,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                     <tr>
                                         <td><input name="hideorderdetail_suppliername" id="hideorderdetail_suppliername" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $suppliername_hideorderdetail . '  /></td>
 
-                                        <td><label for="hideorderdetail_suppliername">Hide supplier names on the Order Details page:</label></td>
+                                        <td><label for="hideorderdetail_suppliername">Hide supplier names on the Order Details page.</label></td>
                                     </tr>
                                 </table>';
 
@@ -2035,14 +2040,14 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                     <tr>
                                         <td><input name="show_pay_type" id="show_pay_type" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $show_pay_type . '  /></td>
 
-                                        <td><label for="show_pay_type">Show "Payment Type" in the notification email:</label></td>
+                                        <td><label for="show_pay_type">Show "Payment Type" in the notification email.</label></td>
                                     </tr>
                                 </table>';
 							echo '<p></p>
                                 <table>
                                     <tr>
                                         <td><input name="customer_email" id="customer_email" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $customer_email . '  /></td>
-                                        <td><label for="customer_email">Include "Customer email" into the Dropshipper packing slip:</label></td>
+                                        <td><label for="customer_email">Include "Customer email" into the Dropshipper packing slip.</label></td>
                                     </tr>
                                 </table>';
 
@@ -2052,7 +2057,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                     <tr>
                                         <td><input name="store_name" id="store_name" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $name_store . '  /></td>
 
-                                        <td><label for="store_name">Include store name in the order notification CSV filename:</label></td>
+                                        <td><label for="store_name">Include store name in the order notification CSV filename.</label></td>
                                     </tr>
                                 </table>';
 
@@ -2062,7 +2067,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                     <tr>
                                         <td><input name="store_address" id="store_address" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $address_store . '  /></td>
 
-                                        <td><label for="store_address">Include the store&apos;s URL in the order notification CSV filename:</label></td>
+                                        <td><label for="store_address">Include the store&apos;s URL in the order notification CSV filename.</label></td>
                                     </tr>
                                 </table>';
 
@@ -2072,7 +2077,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                     <tr>
                                         <td><input name="complete_email" id="complete_email" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $email_complete . '  /></td>
 
-                                        <td><label for="complete_email">Send an additional email to the supplier when the order is completed:</label></td>
+                                        <td><label for="complete_email">Send an additional email to the supplier when the order is completed.</label></td>
                                     </tr>
                                 </table>';
 
@@ -2082,7 +2087,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                     <tr>
                                         <td><input name="order_complete_link" id="order_complete_link" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $link_complete_order . '  /></td>
 
-                                        <td><label for="order_complete_link">Allow suppliers to mark their orders as shipped by clicking a link on the email, without logging in to your store:</label></td>
+                                        <td><label for="order_complete_link">Allow suppliers to mark their orders as shipped by clicking a link on the email, without logging in to your store.</label></td>
                                     </tr>
                                 </table>';
 
@@ -2092,7 +2097,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                     <tr>
                                         <td><input name="email_supplier" id="email_supplier" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $supplier_email . '  /></td>
 
-                                        <td><label for="email_supplier">When an admin creates a new supplier, send registration details to the supplier&apos;s email:</label></td>
+                                        <td><label for="email_supplier">When an admin creates a new supplier, send registration details to the supplier&apos;s email.</label></td>
                                     </tr>
                                 </table>';
 
@@ -2104,9 +2109,12 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
                                         <td><input name="cnf_mail" id="cnf_mail" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $cnf_mail . '  /></td>
 
-                                        <td><label for="cnf_mail">Notify via email when suppliers open order notification emails
+                                        <td><label for="cnf_mail">
+										<img class="help_tip" data-tip="A notification will be sent to your store when a supplier opens order notification emails that you send out." style="margin: 0 0 0 0px;" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16">
 
-                                        : <img class="help_tip" data-tip="A notification will be sent to your store when a supplier opens order notification emails that you send out." style="margin: 0 0 0 0px;" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"> </label></td>
+										Notify via email when suppliers open order notification emails.
+
+                                        </label></td>
                                     </tr>
                                 </table>';
 
@@ -2116,7 +2124,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                     <tr>
                                         <td><input name="std_mail" id="std_mail" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $std_mail . '  /></td>
 
-                                        <td><label for="std_mail">Use the standard WooCommerce mail format for email notification:</label></td>
+                                        <td><label for="std_mail">Use the standard WooCommerce mail format for email notification</label></td>
                                     </tr>
                                 </table>';
 
@@ -2126,7 +2134,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                     <tr>
                                         <td><input name="checkout_order_number" id="checkout_order_number" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $checkout_order_number . '  /></td>
 
-                                        <td><label for="checkout_order_number">Include order number field on checkout</label></td>
+                                        <td><label for="checkout_order_number">Include order number field on checkout.</label></td>
                                     </tr>
 
                                 </table>';
@@ -2136,7 +2144,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                 <tr>
                                     <td><input name="cc_mail" id="cc_mail" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $cc_mail . '  /></td> ';
 
-									echo '<td><label for="cc_mail">Don&apos;t cc: the store admin when sending order notification emails to suppliers</label></td>
+									echo '<td><label for="cc_mail">Don&apos;t cc: the store admin when sending order notification emails to suppliers.</label></td>
                                 </tr>
 
                             </table>';
@@ -2191,6 +2199,8 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
 						<h3>Customised Supplier Emails</h3>
 
+						<p>Dropshipping Pro plugin adds additional features. <a href="https://woocommerce.com/products/pro-add-on-for-woocommerce-dropshipping/">Click here to find out more.</a></p>
+
                        <p></p>
                         <div style="';
 				if ( class_exists( 'WC_DS_Settings_Pro' ) ) {
@@ -2206,7 +2216,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                              <td>
                              <div class="packing-slip-sections">
 
-        					<h4>Packing Slip : </h4>
+        					<h4>Packing Slip </h4>
     							<table>
     							<tr>
                                 <td class="woocommerce-segmented-selection"><label for="supplier_email_packing_slip_title_color" >Title Color:</label></td>
@@ -2236,7 +2246,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                              <td>
                              <div class="packing-slip-sections woocommerce-customer-effort-score__selection">
 
-        					<h4>Email : </h4>
+        					<h4>Email </h4>
     							<table>
 					        <tr>
 
@@ -2287,7 +2297,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                              <td>
                              <div class="packing-slip-sections woocommerce-customer-effort-score__selection">
 
-        					<h4>Email Body : </h4>
+        					<h4>Email Body </h4>
     							<table>
                             <tr>
                                 <td class="woocommerce-segmented-selection"><label for="supplier_email_body_font_size" >Font Size:</label></td>
@@ -2312,7 +2322,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                              <td>
                              <div class="packing-slip-sections woocommerce-customer-effort-score__selection">
 
-        					<h4>Email Bottom : </h4>
+        					<h4>Email Bottom </h4>
     							<table>
                             <tr>
                                 <td class="woocommerce-segmented-selection"><label for="supplier_email_bottom_sub_heading_font_size" >Sub Heading Font Size:</label></td>
@@ -2360,18 +2370,19 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
 					echo '<div class="drop-setting-section" id="smtp_options">';
 
-						echo '<h3>SMTP Options</h3>
+						echo '<h3>SMTP Options - SMTP is used for sending emails.</h3>
 
                             <p></p>
                             <table>
                                 <tr>
                                     <td><input name="smtp_check" id="smtp_check" type="checkbox" ' . $check_smtp . ' /></td>
 
-                                    <td><label for="smtp_check">Check this option if you are using SMTP to send emails from your WooCommerce store:</label></td>
+                                    <td><label for="smtp_check">Check this option if you are using SMTP to send emails from your WooCommerce store.</label></td>
                                 </tr>
                             </table>';
 
-						echo '<h2>Email Sender Information (if left empty, emails sent from the store will use default WooCommerce settings)</h2>
+							echo '<h2>Email Sender Information</h2>
+							<p style="margin-top: -10px;">If left empty, emails sent from the store will use default WooCommerce settings.</p>
 
                             <table class="form-table">
                                 <tbody>
@@ -2420,7 +2431,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 				            <tr>
 				                <td>
 				                    <div class="packing-slip-sections">
-				        				<h4>Pricing and Profit Calculator : </h4>
+				        				<h4>Pricing and Profit Calculator</h4>
 
 				    					<table id="packing_t" style="background: #f8f8f8;width:100%;">
 				    						<tbody>
@@ -2540,12 +2551,12 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 				            <tr>
 				                <td>
 				                    <div class="packing-slip-sections">
-				        				<h4>Break Even Values : </h4>
+				        				<h4>Break Even Values</h4>
 
 				    					<table>
 				    						<tr>
 				                            	<td>
-				                            		<label for="title_fee_percent" >% Fee:</label>
+				                            		<label for="title_fee_percent" >% Fee</label>
 				                            	</td>
 
 				                           		<td>
@@ -2559,7 +2570,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
 				                            <tr>
 				                            	<td>
-				                            		<label for="title_fee_doller" >$ Fee:</label>
+				                            		<label for="title_fee_doller" >$ Fee</label>
 				                            	</td>
 
 				                           		<td>
@@ -2581,13 +2592,13 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 				            <tr>
 				                <td>
 				                    <div class="packing-slip-sections">
-				        				<h4>Profit Margin : </h4>';
+				        				<h4>Profit Margin</h4>';
 
 				if ( $dynamic_profit_margin_setting == ' checked="checked" ' ) {
 					echo '<table>
 						<tr>
                         	<td>
-                        		<label for="title_profit_percent" >% Profit:</label>
+                        		<label for="title_profit_percent" >% Profit</label>
                         	</td>
 
                        		<td>
@@ -2601,7 +2612,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
                         <tr>
                         	<td>
-                        		<label for="title_profit_doller" >$ Profit:</label>
+                        		<label for="title_profit_doller" >$ Profit</label>
                         	</td>
 
                        		<td>
@@ -2620,7 +2631,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 					echo '<table>
 					<tr>
                     	<td>
-                    		<label for="title_profit_percent" >% Profit:</label>
+                    		<label for="title_profit_percent" >% Profit</label>
                     	</td>
 
                    		<td>
@@ -2634,7 +2645,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
                     <tr>
                     	<td>
-                    		<label for="title_profit_doller" >$ Profit:</label>
+                    		<label for="title_profit_doller" >$ Profit</label>
                     	</td>
 
                    		<td>
@@ -2660,16 +2671,17 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 					<tr valign="top" style="position:relative;">
 						<th scope="row" class="titledesc">
 						<label for="dynamic_profit_margin">
-							Dynamic Profit Margin:
+							Dynamic Profit Margin
+
 
 						</label></th>
 						<th>
-	                		<img class="help_tip" data-tip="If you enable this then do not forget to save settings. After it is saved then you will be able to add multiple rules." src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16">
+							<img class="help_tip" data-tip="You enable should save the settings. After it is saved then you will be able to add multiple rules." src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16">
 	                	</th>
 
 						<td  class="forminp forminp-checkbox">
 							<fieldset>
-								<legend class="screen-reader-text"><span>Dynamic Profit Margin: </span></legend>
+								<legend class="screen-reader-text"><span>Dynamic Profit Margin </span></legend>
 								<label for="dynamic_profit_margin" class="opmc-toggle-control">
 
 								<input name="dynamic_profit_margin" id="dynamic_profit_margin" type="checkbox" value="1"'; ?> <?php checked( $dynamic_profit, 'yes' ); ?> <?php
@@ -2713,7 +2725,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 													</fieldset>
 												</td>
 												<td>
-													<label id="title_dynamic" for="title_profit_percent" >% Profit:</label>
+													<label id="title_dynamic" for="title_profit_percent" >% Profit</label>
 
 													<fieldset>
 
@@ -2722,7 +2734,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 												</td>
 
 												<td>
-													<label id="title_dynamic" for="title_profit_doller" >$ Profit:</label>
+													<label id="title_dynamic" for="title_profit_doller" >$ Profit</label>
 
 													<fieldset>
 
@@ -2783,13 +2795,13 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 														break;
 													case 3:
 														$elementsHtml .= '
-													<td><label id="title_dynamic" for="title_profit_percent" >% Profit:</label>
+													<td><label id="title_dynamic" for="title_profit_percent" >% Profit</label>
 													<fieldset><input name="dynamic_profit_percent_value[' . $rowCount . ']" class="dynamic_profit_percent_value clone_tds" id="dynamic_profit_percent_value_' . $rowCount . '" type="number" data="vpercent" min="0" step="0.01" style="width:100px;" value="' . $td . '" required="required" /></fieldset></td>
 												';
 														break;
 													case 4:
 														$elementsHtml .= '
-													<td><label id="title_dynamic" for="title_profit_doller" >$ Profit:</label>
+													<td><label id="title_dynamic" for="title_profit_doller" >$ Profit</label>
 													<fieldset><input name="dynamic_profit_doller_value[' . $rowCount . ']" class="dynamic_profit_doller_value clone_tds" id="dynamic_profit_doller_value_' . $rowCount . '" type="number" min="0" step="0.01" data="vfixed" style="width:100px;" value="' . $td . '" required="required" /></fieldset></td>
 												';
 														break;

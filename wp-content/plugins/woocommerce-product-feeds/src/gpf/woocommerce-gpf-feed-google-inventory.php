@@ -92,22 +92,6 @@ class WoocommerceGpfFeedGoogleInventory extends WoocommerceGpfFeed {
 							$element_value = 'out of stock';
 						}
 					}
-					if ( 'identifier_exists' === $element_name ) {
-						if ( 'included' === $element_value ) {
-							if ( ! $this->has_identifier( $feed_item ) ) {
-								$output .= ' <g:identifier_exists>FALSE</g:identifier_exists>';
-							}
-							continue;
-						} else {
-							continue;
-						}
-					}
-					if ( 'availability_date' === $element_name ) {
-						if ( strlen( $element_value ) === 10 ) {
-							$tz_offset      = get_option( 'gmt_offset' );
-							$element_value .= 'T00:00:00' . sprintf( '%+03d', $tz_offset ) . '00';
-						}
-					}
 					$output .= '      <g:' . $element_name . '>';
 					$output .= $this->esc_xml( $element_value );
 					$output .= '</g:' . $element_name . ">\n";

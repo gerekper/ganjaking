@@ -234,7 +234,7 @@ class UpdraftPlus_Addon_MoreStorage {
 			<td colspan="2" style="padding:0px">
 				<?php
 					foreach ($updraftplus->backup_methods as $method => $description) {
-					echo "<a class=\"nav-tab remote-tab updraft-hidden remote-tab-$method\" id=\"remote-tab-$method\" name=\"$method\" href=\"#\" ";
+					echo "<a class=\"updraftplus-nav-tab remote-tab updraft-hidden remote-tab-$method\" id=\"remote-tab-$method\" name=\"$method\" href=\"#\" ";
 					// if ((!is_array($active_service) && $active_service !== $method) || !(is_array($active_service) && in_array($method, $active_service))) echo 'style="display:none;"';
 					echo 'style="display:none;"';
 					echo ">".htmlspecialchars($description)."</a>\n";

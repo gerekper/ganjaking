@@ -1,9 +1,9 @@
 <div class="wrap woocommerce">
 	<h2>
-		<a href="<?php echo esc_url( admin_url('admin.php?page=shipping_zones') ); ?>"><?php _e( 'Shipping Zones', SHIPPING_ZONES_TEXTDOMAIN ); ?></a> &gt; <?php echo esc_html( $zone->zone_name ) ?>
+		<a href="<?php echo esc_url( admin_url('admin.php?page=shipping_zones') ); ?>"><?php esc_html_e( 'Shipping Zones', SHIPPING_ZONES_TEXTDOMAIN ); ?></a> &gt; <?php echo esc_html( $zone->zone_name ) ?>
 		<form method="get" class="method_type_selector">
 			<select name="method_type">
-				<option value=""><?php _e( 'Choose a shipping method&hellip;', SHIPPING_ZONES_TEXTDOMAIN ); ?></option>
+				<option value=""><?php esc_html_e( 'Choose a shipping method&hellip;', SHIPPING_ZONES_TEXTDOMAIN ); ?></option>
 				<?php
 					$shipping_methods = WC()->shipping->load_shipping_methods();
 
@@ -19,7 +19,7 @@
 			<input type="hidden" name="add_method" value="true" />
 			<input type="hidden" name="page" value="shipping_zones" />
 			<input type="hidden" name="zone" value="<?php echo esc_attr( $zone_id ); ?>" />
-			<input type="submit" class="add-new-h2" value="<?php _e( 'Add To Zone', SHIPPING_ZONES_TEXTDOMAIN ); ?>" />
+			<input type="submit" class="add-new-h2" value="<?php esc_attr( 'Add To Zone', SHIPPING_ZONES_TEXTDOMAIN ); ?>" />
 		</form>
 	</h2>
 	<?php self::list_shipping_zone_methods(); ?>

@@ -1,0 +1,25 @@
+.swp-sf--colorpicker {
+    position: relative;
+    display: inline;
+}
+
+.swp-sf--colorpicker .swp-input {
+    font-weight: 600;
+    padding-left: 30px;
+}
+
+.swp-sf--colorpicker svg {
+    position: absolute;
+    left: 7px;
+    top: 50%;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    width: 18px;
+    height: 18px;
+}
+
+.swp-sf--colorpicker .iris-picker {
+    position: absolute;
+    z-index: 1;
+}

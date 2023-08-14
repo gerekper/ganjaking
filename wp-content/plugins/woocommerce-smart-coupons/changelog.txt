@@ -1,5 +1,25 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2023.08.08 - version 8.3.0
+* New: Tested up to WooCommerce 7.9.0
+* Fix: Auto apply is not considering 'Allowed emails' and 'Excluded emails' field
+* Fix: Scheduling coupons via CSV import publishing coupons immediately
+* Fix: Coupons scheduled to be send later from the checkout page are getting published & sent immediately
+* Fix: Browser console error 'wp is not defined' when trying to open calendar to schedule coupon
+* Fix: PHP Notice: Deprecated: Creation of dynamic property WC_SC_Background_Coupon_Importer::$prefix is deprecated
+* Tweak: Query only the required taxonomy for Coupon's Usage restrictions field 'Taxonomy'
+* Update: Force date time picker to appear on top
+* Update: Added data in the 'post_date' column in supported format in the sample.csv file
+* Update: Action Scheduler to version 3.6.1
+* Update: POT file
+
+2023.07.07 - version 8.2.0
+* New: Tested up to WooCommerce 7.8.2
+* Fix: Texts that appear on timepicker added by the plugin, are not translatable
+* Fix: Returning unescaped value
+* Update: Minor improvements
+* Update: POT file
+
 2023.06.23 - version 8.1.0
 * Fix: Refund amount blocked on the order edit page, even when store credit is not applied to that order
 * Fix: When bulk generating coupons with multiple values for 'Exclude products', only the first value is getting saved
@@ -28,7 +48,7 @@
 * Update: Translate field 'discount_type' when coupon is imported via CSV for setting correct discount type for the coupon
 * Update: Coupon actions field 'with discount of' will follow the WooCommerce setting for 'Number of decimals'
 * Update: Added support for fetching serialized data for options
-* Update: Spellcheck: replace 'Funtion' with 'Function' and 'appplied' with 'applied'
+* Update: Minor improvements
 * Update: POT file
 
 2023.06.02 - version 7.12.0
@@ -75,13 +95,13 @@
 * Update: Run auto-apply feature on AJAX-based requests as well
 * Update: Added custom message for coupon meta field 'Usage restriction > Locations' if the entered location is not found
 * Update: Passed discount object as 3rd argument for filter hook 'woocommerce_coupon_is_valid'
-* Update: Spellcheck: replace 'crone' with 'cron'
+* Update: Minor improvements
 * Update: POT file
 
 2023.04.21 - version 7.7.0
 * Fix: Emails for coupons are not getting sent when the setting 'Combine emails' is enabled
 * Fix: Do not call 'get_post_meta' for coupon meta 'discount_type' if the post id is empty
-* Update: Spellcheck: replace 'Funtion' with 'Function'
+* Update: Minor improvements
 * Update: POT file
 
 2023.04.15 - version 7.6.0
@@ -387,7 +407,7 @@
 * Fix: Discount coupon getting visible on all variations of a product even though the coupon is associated with a single variation
 * Fix: The amount field in 'Purchase credit of any amount' is not showing when set up using Elementor or Astra theme
 * Fix: Uncaught ArgumentCountError: Too few arguments to function WC_Smart_Coupons::is_smart_coupon_valid(), 2 passed and exactly 3 expected [WooCommerce 3.1.2 or lower]
-* Update: Spellcheck 'Woocommerce'
+* Update: Minor improvements
 * Update: POT file
 
 2021.10.08 - version 4.29.1
@@ -415,14 +435,14 @@
 * Update: Tweaking in auto-apply feature
 * Update: Changes in texts in email templates for acknowledgement email
 * Update: Allow removal of auto apply coupons
-* Update: Spellcheck for 'Coupons', 'arguments'
+* Update: Minor improvements
 * Update: POT file
 
 2021.08.23 - version 4.26.0
 * New: Tested up to WooCommerce 5.6.0 & WordPress 5.8.0
 * Update: Improvements in auto-apply feature
 * Update: Set a session cookie to persist the coupon in case the cart is empty [Thanks to: Devon Godfrey]
-* Update: Spellcheck for 'generation'
+* Update: Minor improvements
 * Update: Changes in HTML for displaying coupon shareable link on the admin side
 * Update: POT file
 

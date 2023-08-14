@@ -47,10 +47,7 @@ class Licensing_Plugin_Admin {
 						),
 					)
 				),
-				'href'   => wp_nonce_url(
-					network_admin_url( 'admin.php?page=w3tc_dashboard&amp;w3tc_message_action=licensing_upgrade' ),
-					'w3tc'
-				),
+				'href'   => wp_nonce_url( network_admin_url( 'admin.php?page=w3tc_dashboard&amp;w3tc_message_action=licensing_upgrade' ), 'w3tc' ),
 			);
 		}
 
@@ -59,7 +56,7 @@ class Licensing_Plugin_Admin {
 				'id'     => 'w3tc_debug_overlay_upgrade',
 				'parent' => 'w3tc_debug_overlays',
 				'title'  => esc_html__( 'Upgrade', 'w3-total-cache' ),
-				'href'   => wp_nonce_url( network_admin_url( 'admin.php?page=w3tc_dashboard&amp;w3tc_message_action=licensing_upgrade' ), 'w3tc' )
+				'href'   => wp_nonce_url( network_admin_url( 'admin.php?page=w3tc_dashboard&amp;w3tc_message_action=licensing_upgrade' ), 'w3tc' ),
 			);
 		}
 
@@ -170,7 +167,7 @@ class Licensing_Plugin_Admin {
 						'It looks like your W3 Total Cache Pro license has expired. %1$s to continue using the Pro features',
 						'w3-total-cache'
 					),
-					'<input type="button" class="button-primary button-buy-plugin" data-nonce="' .
+					'<input type="button" class="button button-buy-plugin" data-nonce="' .
 						wp_create_nonce( 'w3tc' ) . '" data-renew-key="' . esc_attr( $this->get_license_key() ) .
 						'" data-src="licensing_expired" value="' . __( 'Renew Now', 'w3-total-cache' ) . '" />'
 				),

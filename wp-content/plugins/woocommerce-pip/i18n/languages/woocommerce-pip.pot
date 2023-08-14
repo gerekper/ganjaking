@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Print Invoices/Packing Lists 3.12.1\n"
+"Project-Id-Version: WooCommerce Print Invoices/Packing Lists 3.13.1\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2023-03-15 09:16:58+00:00\n"
+"POT-Creation-Date: 2023-08-02 04:05:53+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,19 +13,19 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: class-wc-pip.php:229
+#: class-wc-pip.php:230
 msgid "You have generated your first invoice!"
 msgstr ""
 
-#: class-wc-pip.php:231
+#: class-wc-pip.php:232
 msgid "You have generated your first packing list!"
 msgstr ""
 
-#: class-wc-pip.php:233
+#: class-wc-pip.php:234
 msgid "You have generated your first pick list!"
 msgstr ""
 
-#: class-wc-pip.php:267
+#: class-wc-pip.php:268
 #. translators: Placeholders: %1$s - this plugin name, %2$s - opening HTML <a>
 #. anchor tag, %3$s - closing HTML </a> tag
 msgid ""
@@ -34,7 +34,7 @@ msgid ""
 "for an overview and some helpful upgrading tips!"
 msgstr ""
 
-#: class-wc-pip.php:275
+#: class-wc-pip.php:276
 #. translators: Placeholders: %1$s - the plugin name, %2$s - opening HTML <a>
 #. anchor tag, %3$s closing HTML </a> tag
 msgid ""
@@ -42,7 +42,7 @@ msgid ""
 "documentation%3$s :)"
 msgstr ""
 
-#: class-wc-pip.php:290
+#: class-wc-pip.php:291
 #. translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s - closing
 #. </strong> HTML tag
 msgid ""
@@ -52,21 +52,21 @@ msgid ""
 "safely removed from your plugin list."
 msgstr ""
 
-#: class-wc-pip.php:487 src/admin/class-wc-pip-orders-admin.php:287
+#: class-wc-pip.php:488 src/admin/class-wc-pip-orders-admin.php:326
 #: src/admin/class-wc-pip-settings.php:67
 #: src/class-wc-pip-document-invoice.php:50
 #: src/emails/class-wc-pip-email-invoice.php:52
 msgid "Invoice"
 msgstr ""
 
-#: class-wc-pip.php:488 src/admin/class-wc-pip-orders-admin.php:288
+#: class-wc-pip.php:489 src/admin/class-wc-pip-orders-admin.php:327
 #: src/admin/class-wc-pip-settings.php:68
 #: src/class-wc-pip-document-packing-list.php:50
 #: src/emails/class-wc-pip-email-packing-list.php:52
 msgid "Packing List"
 msgstr ""
 
-#: class-wc-pip.php:489 src/admin/class-wc-pip-settings.php:69
+#: class-wc-pip.php:490 src/admin/class-wc-pip-settings.php:69
 #: src/class-wc-pip-document-pick-list.php:54
 #: src/emails/class-wc-pip-email-pick-list.php:52
 msgid "Pick List"
@@ -90,21 +90,21 @@ msgstr ""
 msgid "Phone:"
 msgstr ""
 
-#: src/admin/class-wc-pip-admin.php:91
+#: src/admin/class-wc-pip-admin.php:97
 msgid "Print Invoices/Packing Lists"
 msgstr ""
 
-#: src/admin/class-wc-pip-admin.php:92
+#: src/admin/class-wc-pip-admin.php:98
 msgid "Documents to print will open in a new window."
 msgstr ""
 
-#: src/admin/class-wc-pip-admin.php:93
+#: src/admin/class-wc-pip-admin.php:99
 msgid ""
 "Are you sure you want to reset the invoice number counter? This action "
 "could result in duplicate invoice numbers or other unintended consequences."
 msgstr ""
 
-#: src/admin/class-wc-pip-admin.php:94
+#: src/admin/class-wc-pip-admin.php:100
 msgid "Close"
 msgstr ""
 
@@ -335,99 +335,99 @@ msgstr ""
 msgid "Save and Preview Changes"
 msgstr ""
 
-#: src/admin/class-wc-pip-orders-admin.php:110
+#: src/admin/class-wc-pip-orders-admin.php:127
 msgid "Close modal panel"
 msgstr ""
 
-#: src/admin/class-wc-pip-orders-admin.php:117
+#: src/admin/class-wc-pip-orders-admin.php:134
 msgid "Done"
 msgstr ""
 
-#: src/admin/class-wc-pip-orders-admin.php:119
+#: src/admin/class-wc-pip-orders-admin.php:136
 msgid "Cancel"
 msgstr ""
 
-#: src/admin/class-wc-pip-orders-admin.php:199
+#: src/admin/class-wc-pip-orders-admin.php:231
 msgid "Invoice number:"
 msgstr ""
 
-#: src/admin/class-wc-pip-orders-admin.php:229
+#: src/admin/class-wc-pip-orders-admin.php:261
 msgid "Print Invoice"
 msgstr ""
 
-#: src/admin/class-wc-pip-orders-admin.php:230
+#: src/admin/class-wc-pip-orders-admin.php:262
 msgid "Email Invoice"
 msgstr ""
 
-#: src/admin/class-wc-pip-orders-admin.php:231
+#: src/admin/class-wc-pip-orders-admin.php:263
 msgid "Print Packing List"
 msgstr ""
 
-#: src/admin/class-wc-pip-orders-admin.php:232
+#: src/admin/class-wc-pip-orders-admin.php:264
 msgid "Email Packing List"
 msgstr ""
 
-#: src/admin/class-wc-pip-orders-admin.php:260
+#: src/admin/class-wc-pip-orders-admin.php:293
 msgid "Print Pick List"
 msgstr ""
 
-#: src/admin/class-wc-pip-orders-admin.php:261
+#: src/admin/class-wc-pip-orders-admin.php:294
 msgid "Email Pick List"
 msgstr ""
 
-#: src/admin/class-wc-pip-orders-admin.php:326
+#: src/admin/class-wc-pip-orders-admin.php:372
 #: src/admin/views/html-pip-template-preview.php:114
 #. translators: Placeholder: %s - invoice number
 msgid "Invoice: %s"
 msgstr ""
 
-#: src/admin/class-wc-pip-orders-admin.php:352
+#: src/admin/class-wc-pip-orders-admin.php:396
 #. translators: Placeholder: %s - order number
 msgid "Invoice/Packing List (Order #%s)"
 msgstr ""
 
-#: src/admin/class-wc-pip-orders-admin.php:391
+#: src/admin/class-wc-pip-orders-admin.php:435
 #: src/wc-pip-template-functions.php:126
 msgid "Print"
 msgstr ""
 
-#: src/admin/class-wc-pip-orders-admin.php:394
+#: src/admin/class-wc-pip-orders-admin.php:438
 msgid "Email"
 msgstr ""
 
-#: src/admin/class-wc-pip-orders-admin.php:477
+#: src/admin/class-wc-pip-orders-admin.php:521
 msgid "Invoice Number"
 msgstr ""
 
-#: src/admin/class-wc-pip-orders-admin.php:523
+#: src/admin/class-wc-pip-orders-admin.php:569
 msgid "Print Invoices / Packing Lists"
 msgstr ""
 
-#: src/admin/class-wc-pip-orders-admin.php:620
+#: src/admin/class-wc-pip-orders-admin.php:634
 msgid "Invoice not printed"
 msgstr ""
 
-#: src/admin/class-wc-pip-orders-admin.php:621
+#: src/admin/class-wc-pip-orders-admin.php:635
 msgid "Invoice printed"
 msgstr ""
 
-#: src/admin/class-wc-pip-orders-admin.php:622
+#: src/admin/class-wc-pip-orders-admin.php:636
 msgid "Packing List not printed"
 msgstr ""
 
-#: src/admin/class-wc-pip-orders-admin.php:623
+#: src/admin/class-wc-pip-orders-admin.php:637
 msgid "Packing List printed"
 msgstr ""
 
-#: src/admin/class-wc-pip-orders-admin.php:624
+#: src/admin/class-wc-pip-orders-admin.php:638
 msgid "Pick List not printed"
 msgstr ""
 
-#: src/admin/class-wc-pip-orders-admin.php:625
+#: src/admin/class-wc-pip-orders-admin.php:639
 msgid "Pick List printed"
 msgstr ""
 
-#: src/admin/class-wc-pip-orders-admin.php:632
+#: src/admin/class-wc-pip-orders-admin.php:646
 msgid "Show all print statuses"
 msgstr ""
 

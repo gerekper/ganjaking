@@ -247,6 +247,8 @@ class WPML_Query_Filter extends  WPML_Full_Translation_API {
 				if ( ! $post_type ) {
 					if ( (bool) $query_vars['pagename'] ) {
 						$post_type = 'page';
+					} elseif ( $query_vars['attachment'] ) {
+						$post_type = 'attachment';
 					} elseif ( isset( $query_vars['p'] ) ) {
 						$post_type = $this->wpdb->get_var(
 							$this->wpdb->prepare(

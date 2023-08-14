@@ -133,7 +133,7 @@ class OrderStatistics {
     $sqlWhere = "
       revenue.newsletter_id IN ($newsLetterIds)
       AND revenue.created_at BETWEEN '" . $from->format('Y-m-d H:i:s') . "' AND '" . $to->format('Y-m-d H:i:s') . "'";
-    $sqlOrderBy = !$count ? "ORDER BY $orderBy $order" : "";
+    $sqlOrderBy = !$count ? "ORDER BY $orderBy $order, order.id $order" : "";
     $sqlLimit = !$count ? "LIMIT $offset, $limit" : "";
     $sqlSelect = !$count ? "
       `revenue`.`created_at`,

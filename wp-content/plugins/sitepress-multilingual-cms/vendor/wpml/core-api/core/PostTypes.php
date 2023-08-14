@@ -3,8 +3,10 @@
 namespace WPML\API;
 
 use WPML\FP\Fns;
+use WPML\FP\Logic;
 use WPML\FP\Lst;
 use WPML\FP\Obj;
+use WPML\FP\Relation;
 use WPML\LIB\WP\PostType;
 use WPML\Settings\PostType\Automatic;
 
@@ -51,11 +53,17 @@ class PostTypes {
 
 	/**
 	 * Gets post types that are automatically translatable.
+	 * Attachment post type is excluded.
 	 *
 	 * @return array  eg. [ 'page', 'post' ]
 	 */
 	public static function getAutomaticTranslatable() {
-		return Fns::filter( [ Automatic::class, 'isAutomatic' ], self::getOnlyTranslatable() );
+		$filters = Logic::allPass( [
+			[ Automatic::class, 'isAutomatic' ],
+			Logic::complement( Relation::equals( 'attachment' ) )
+		] );
+
+		return Fns::filter( $filters, self::getOnlyTranslatable() );
 	}
 
 	public static function withNames( $postTypes ) {

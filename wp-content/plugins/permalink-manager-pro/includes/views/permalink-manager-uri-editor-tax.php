@@ -20,8 +20,8 @@ class Permalink_Manager_Tax_Uri_Editor_Table extends WP_List_Table {
 	public function display_admin_section() {
 		$output = "<form id=\"permalinks-post-types-table\" class=\"slugs-table\" method=\"post\">";
 		$output .= wp_nonce_field( 'permalink-manager', 'uri_editor' );
-		$output .= Permalink_Manager_Admin_Functions::generate_option_field( 'pm_session_id', array( 'value' => uniqid(), 'type' => 'hidden' ) );
-		$output .= Permalink_Manager_Admin_Functions::section_type_field( 'taxonomies' );
+		$output .= Permalink_Manager_UI_Elements::generate_option_field( 'pm_session_id', array( 'value' => uniqid(), 'type' => 'hidden' ) );
+		$output .= Permalink_Manager_UI_Elements::section_type_field( 'taxonomies' );
 
 		// Bypass
 		ob_start();
@@ -121,7 +121,7 @@ class Permalink_Manager_Tax_Uri_Editor_Table extends WP_List_Table {
 				}
 
 				$output .= '<div class="custom_uri_container">';
-				$output .= Permalink_Manager_Admin_Functions::generate_option_field( "uri[tax-{$item['term_id']}]", $field_args_base );
+				$output .= Permalink_Manager_UI_Elements::generate_option_field( "uri[tax-{$item['term_id']}]", $field_args_base );
 				$output .= "<span class=\"duplicated_uri_alert\"></span>";
 				$output .= sprintf( "<a class=\"small post_permalink\" href=\"%s\" target=\"_blank\"><span class=\"dashicons dashicons-admin-links\"></span> %s</a>", $permalink, urldecode( $permalink ) );
 				$output .= '</div>';
@@ -164,7 +164,7 @@ class Permalink_Manager_Tax_Uri_Editor_Table extends WP_List_Table {
 
 		$output = "<p class=\"search-box\">";
 		$output .= "<label class=\"screen-reader-text\" for=\"{$input_id}\">{$text}:</label>";
-		$output .= Permalink_Manager_Admin_Functions::generate_option_field( 's', array( 'value' => $search_query, 'type' => 'search' ) );
+		$output .= Permalink_Manager_UI_Elements::generate_option_field( 's', array( 'value' => $search_query, 'type' => 'search' ) );
 		$output .= get_submit_button( $text, 'button', false, false, array( 'id' => 'search-submit', 'name' => 'search-submit' ) );
 		$output .= "</p>";
 
@@ -198,7 +198,7 @@ class Permalink_Manager_Tax_Uri_Editor_Table extends WP_List_Table {
 			$sql_parts['where'] = "WHERE (LOWER(t.name) LIKE LOWER('%{$search_query}%') ";
 
 			// Search in array with custom URIs
-			$found = Permalink_Manager_Helper_Functions::search_uri( $search_query, 'taxonomies' );
+			$found = Permalink_Manager_Admin_Functions::search_uri( $search_query, 'taxonomies' );
 			if ( $found ) {
 				$sql_parts['where'] .= sprintf( "OR t.term_id IN (%s) ", implode( ',', $found ) );
 			}

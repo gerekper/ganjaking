@@ -1,5 +1,8 @@
-*** Advanced Notifications Changelog ***		       	 	 
-   		      	   	      	 	      
+*** Advanced Notifications Changelog ***	       	    		       
+   	  	  	    	    	     	  	   	       	  
+2023-08-08 - version 1.4.2
+* Add - Dev dependencies to run coding standards.
+
 2023-02-14 - version 1.4.1
 * Fix - Incorrect email class for new order email.
 

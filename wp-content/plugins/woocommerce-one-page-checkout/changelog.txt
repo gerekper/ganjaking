@@ -1,5 +1,12 @@
 *** WooCommerce One Page Checkout Changelog ***
 
+2023-08-08 - version 2.7.0
+* Tweak - WC 7.9 compatibility.
+* Tweak - WP 6.3 compatibility.
+
+2023-07-04 - version 2.6.0
+* Fix - Fixed a bug preventing products from being displayed using the shortcode.
+
 2023-06-21 - version 2.5.0
 * Fix - Fixed quantity updates in the product table view.
 * Tweak - WC 7.8 compatibility.

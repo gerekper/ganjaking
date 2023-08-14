@@ -6,8 +6,8 @@ class GF_Installation_Wizard_Step_Background_Updates extends GF_Installation_Wiz
 
 	// Defaults
 	public $defaults = array(
-		'background_updates' => 'disabled',
-		'accept_terms' => true,
+		'background_updates' => 'enabled',
+		'accept_terms' => false,
 	);
 
 	function display() {

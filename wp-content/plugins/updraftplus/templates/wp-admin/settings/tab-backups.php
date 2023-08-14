@@ -24,7 +24,7 @@ if (!empty($options['include_header'])) echo '<h2>'.__('Existing backups', 'updr
 <div class="download-backups form-table">
 	<?php if (!empty($options['include_whitespace_warning'])) { ?>
 		<p class="ud-whitespace-warning updraft-hidden" style="display:none;">
-			<?php echo '<strong>'.__('Warning', 'updraftplus').':</strong> '.__('Your WordPress installation has a problem with outputting extra whitespace. This can corrupt backups that you download from here.', 'updraftplus').' <a href="'.apply_filters('updraftplus_com_link', "https://updraftplus.com/problems-with-extra-white-space/").'" target="_blank">'.__('Follow this link for more information', 'updraftplus').'</a>';?>
+			<?php echo '<strong>'.__('Warning', 'updraftplus').':</strong> '.__('Your WordPress installation has a problem with outputting extra whitespace.', 'updraftplus').' '.__('This can corrupt backups that you download from here.', 'updraftplus').' <a href="'.apply_filters('updraftplus_com_link', "https://updraftplus.com/problems-with-extra-white-space/").'" target="_blank">'.__('Follow this link for more information', 'updraftplus').'</a>';?>
 		</p>
 	<?php }
 	$bom_warning = $updraftplus_admin->get_bom_warning_text();

@@ -143,6 +143,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Signup_Email' ) ) {
 			wc_get_template(
 				$this->template_html,
 				array(
+					'email_class'   => $this,
 					'product_id'    => $product_id,
 					'product_title' => get_the_title( $product_id ),
 					'product_link'  => admin_url( 'post.php?post=' . $post_id . '&action=edit' ),
@@ -171,6 +172,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Signup_Email' ) ) {
 			wc_get_template(
 				$this->template_plain,
 				array(
+					'email_class'   => $this,
 					'product_id'    => $product_id,
 					'product_title' => get_the_title( $product_id ),
 					'product_link'  => admin_url( 'post.php?post=' . $post_id . '&action=edit' ),

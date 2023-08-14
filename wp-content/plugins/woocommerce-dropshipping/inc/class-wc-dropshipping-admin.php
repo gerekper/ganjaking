@@ -173,7 +173,7 @@ class WC_Dropshipping_Admin {
 
 			$info = $_POST['info'];
 
-			opmc_hpos_update_post_meta( $_POST['id'], 'dropshipper_shipping_info_' . get_current_user_id(), $info );
+			update_post_meta( $_POST['id'], 'dropshipper_shipping_info_' . get_current_user_id(), $info );
 
 			echo 'true';
 		} else {

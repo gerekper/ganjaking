@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     6.1.0
+ * @version     6.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -216,6 +216,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			include_once 'class-wc-sc-privacy.php';
 			include_once 'class-wc-sc-coupon-actions.php';
 			include_once 'class-wc-sc-coupon-columns.php';
+			include_once 'class-wc-sc-product-columns.php';
 			include_once 'class-wc-sc-coupons-by-location.php';
 			include_once 'class-wc-sc-coupons-by-payment-method.php';
 			include_once 'class-wc-sc-coupons-by-shipping-method.php';
@@ -229,11 +230,6 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			include_once 'class-wc-sc-coupon-refund-process.php';
 			include_once 'class-wc-sc-background-upgrade.php';
 			include_once 'blocks/class-wc-sc-gutenberg-coupon-block.php';
-
-			if ( is_admin() ) {
-				// Include file to show linked coupons on product screen.
-				include_once 'class-wc-sc-product-columns.php';
-			}
 
 		}
 
@@ -3416,6 +3412,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 				if ( $should_schedule ) {
 					$smart_coupon_args['post_date_gmt'] = gmdate( 'Y-m-d H:i:s', $sending_timestamp );
+					$smart_coupon_args['post_date']     = gmdate( 'Y-m-d H:i:s', ( $sending_timestamp + $this->wc_timezone_offset() ) );
 				}
 
 				$smart_coupon = new WC_Coupon( $smart_coupon_args['post_title'] );

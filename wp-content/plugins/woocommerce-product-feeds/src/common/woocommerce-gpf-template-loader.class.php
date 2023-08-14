@@ -70,7 +70,7 @@ class WoocommerceGpfTemplateLoader extends Gamajo_Template_Loader {
 	 * @param string $name The template name (Second half of filename)
 	 * @param array $variables Variables to be replaced into the template.
 	 *
-	 * @return string             The rendered output.
+	 * @return void
 	 * @uses   get_template_with_variables()
 	 *
 	 */

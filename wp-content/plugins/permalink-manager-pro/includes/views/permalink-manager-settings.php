@@ -269,6 +269,6 @@ class Permalink_Manager_Settings {
 			)
 		) );
 
-		return Permalink_Manager_Admin_Functions::get_the_form( $sections_and_fields, 'tabs', array( 'text' => __( 'Save settings', 'permalink-manager' ), 'class' => 'primary margin-top' ), '', array( 'action' => 'permalink-manager', 'name' => 'permalink_manager_options' ) );
+		return Permalink_Manager_UI_Elements::get_the_form( $sections_and_fields, 'tabs', array( 'text' => __( 'Save settings', 'permalink-manager' ), 'class' => 'primary margin-top' ), '', array( 'action' => 'permalink-manager', 'name' => 'permalink_manager_options' ) );
 	}
 }

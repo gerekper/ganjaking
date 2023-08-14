@@ -11,7 +11,7 @@
  * the readme will list any important changes.
  *
  * @see https://docs.woocommerce.com/document/template-structure/
- * @version 2.2.3
+ * @version 2.4.0
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -22,7 +22,7 @@ echo "\n\n";
 printf( __( 'You have been sent this email because your email address was registered on a waitlist for %1$s at %2$s. ', 'woocommerce-waitlist' ), esc_html( $product_title ), esc_html( get_bloginfo( 'name' ) ) );
 echo "\n\n";
 $product_link = apply_filters( 'wcwl_product_link_joined_email', add_query_arg( array(
-	'wcwl_remove_user' => esc_attr( $email ),
+	'wcwl_remove_user' => esc_attr( sanitize_email( $email ) ),
 	'product_id'       => absint( $product_id ),
 	'key'              => $key,
 ), $product_link ) );

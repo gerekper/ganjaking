@@ -24,20 +24,20 @@ $checkout_clone_token_attributes = 'href="'.esc_attr($checkout_url).'" target="_
 		<div class="updraft_migrate_widget_temporary_clone_stage0">
 			<p>
 				<?php
-					echo __("A temporary clone is an instant copy of this website, running on our servers. Rather than test things on your live site, you can UpdraftClone it, and then throw away your clone when done.", 'updraftplus').' <a target="_blank" href="https://updraftplus.com/updraftclone/">'.__('Find out more here.', 'updraftplus').'</a> <a target="_blank" href="https://updraftplus.com/faq-category/updraftclone/">'.__('Read FAQs here.', 'updraftplus').'</a> <a '.$checkout_clone_token_attributes.'>'.__("You can buy UpdraftClone tokens from our shop, here.", 'updraftplus').'</a>';
+				echo __('A temporary clone is an instant copy of this website, running on our servers.', 'updraftplus').' '.__('Rather than test things on your live site, you can UpdraftClone it, and then throw away your clone when done.', 'updraftplus').' <a target="_blank" href="https://updraftplus.com/updraftclone/">'.__('Find out more here.', 'updraftplus').'</a> <a target="_blank" href="https://updraftplus.com/faq-category/updraftclone/">'.__('Read FAQs here.', 'updraftplus').'</a> <a '.$checkout_clone_token_attributes.'>'.__("You can buy UpdraftClone tokens from our shop, here.", 'updraftplus').'</a>';
 				?>
 			</p>
 			<div class="updraft_migrate_widget_temporary_clone_stage0_container">
 				<div class="updraft_migrate_widget_temporary_clone_stage0_box">
 					<ul style="list-style: disc inside;">
-						<li><strong><?php _e('Easy', 'updraftplus'); ?>:</strong> <?php _e('Press the buttons... UpdraftClone does the work.', 'updraftplus'); ?></li>
+						<li><strong><?php echo __('Easy', 'updraftplus'); ?>:</strong> <?php _e('Press the buttons...', 'updraftplus').' '.__('UpdraftClone does the work.', 'updraftplus'); ?></li>
 						<li><strong><?php _e('Reliable', 'updraftplus'); ?>:</strong> <?php _e('Runs on capacity from a leading cloud computing provider.', 'updraftplus'); ?></li>
 						<li><strong><?php _e('Secure', 'updraftplus'); ?>:</strong> <?php _e('One VPS (Virtual Private Server) per clone, shared with nobody.', 'updraftplus'); ?></li>
 						<li><strong><?php _e('Fast', 'updraftplus'); ?>:</strong> <?php _e('Takes just the time needed to create a backup and send it.', 'updraftplus'); ?></li>
 						<li><strong><?php _e('Flexible', 'updraftplus'); ?>:</strong> <?php _e('If you want, test upgrading to a different PHP or WP version.', 'updraftplus'); ?></li>
 					</ul>
 					<?php if (is_multisite() && is_subdomain_install()) { ?>
-						<p><?php echo '<a target="_blank" href="https://updraftplus.com/faqs/how-do-i-migrate-to-a-new-site-location/">' . __('Temporary clones of WordPress subdomain multisite installations are not yet supported. See our documentation on how to carry out a normal migration here', 'updraftplus') . '.</a>'; ?></p>
+						<p><?php echo '<a target="_blank" href="https://updraftplus.com/faqs/how-do-i-migrate-to-a-new-site-location/">' . __('Temporary clones of WordPress subdomain multisite installations are not yet supported.', 'updraftplus').' '.__('See our documentation on how to carry out a normal migration here', 'updraftplus') . '.</a>'; ?></p>
 					<?php
 					} else {
 					?>

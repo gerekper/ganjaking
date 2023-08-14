@@ -81,7 +81,7 @@ class UpdraftPlus_Addons_RemoteStorage_onedrive extends UpdraftPlus_RemoteStorag
 		
 		// If the user is using OneDrive for Germany option
 		if (isset($opts['endpoint_tld']) && 'de' === $opts['endpoint_tld']) {
-			$odg_warning = sprintf(__('Due to the shutdown of the %1$s endpoint, support for %1$s will be ending soon. You will need to migrate to the Global endpoint in your UpdraftPlus settings. For more information, please see: %2$s', 'updraftplus'), 'OneDrive Germany', 'https://www.microsoft.com/en-us/cloud-platform/germany-cloud-regions');
+			$odg_warning = sprintf(__('Due to the shutdown of the %1$s endpoint, support for %1$s will be ending soon.', 'updraftplus'), 'OneDrive Germany').' '.__('You will need to migrate to the Global endpoint in your UpdraftPlus settings.', 'updraftplus').' '.sprintf(__('For more information, please see: %s', 'updraftplus'), 'https://www.microsoft.com/en-us/cloud-platform/germany-cloud-regions');
 			// We only want to log this once per backup job
 			$this->log($odg_warning, 'warning', 'onedrive_de_migrate');
 		}
@@ -1092,7 +1092,7 @@ class UpdraftPlus_Addons_RemoteStorage_onedrive extends UpdraftPlus_RemoteStorag
 		$url = $onedrive->getLogInUrl($scope, $redirect_uri, array(), $instance_id, $callback_uri);
 
 		if (headers_sent()) {
-			$this->log(sprintf(__('The %s authentication could not go ahead, because something else on your site is breaking it. Try disabling your other plugins and switching to a default theme. (Specifically, you are looking for the component that sends output (most likely PHP warnings/errors) before the page begins. Turning off any debugging settings may also help).', 'updraftplus'), 'OneDrive'), 'error');
+			$this->log(sprintf(__('The %s authentication could not go ahead, because something else on your site is breaking it.', 'updraftplus'), 'OneDrive').' '.__('Try disabling your other plugins and switching to a default theme.', 'updraftplus').' ('.__('Specifically, you are looking for the component that sends output (most likely PHP warnings/errors) before the page begins.', 'updraftplus').' '.__('Turning off any debugging settings may also help).', 'updraftplus').')', 'error');
 		} else {
 			header('Location: '.esc_url_raw($url));
 		}
@@ -1286,7 +1286,7 @@ class UpdraftPlus_Addons_RemoteStorage_onedrive extends UpdraftPlus_RemoteStorag
 			'privacy_policy' => wp_kses(sprintf(__('Please read %s for use of our %s authorization app (none of your backup data is sent to us).', 'updraftplus'), '<a target="_blank" href="https://updraftplus.com/faqs/what-is-your-privacy-policy-for-the-use-of-your-microsoft-onedrive-app/">'.__('this privacy policy', 'updraftplus').'</a>', 'OneDrive'), $this->allowed_html_for_content_sanitisation()),
 			'developer_console_link_text' => __('Create OneDrive credentials in your OneDrive developer console.', 'updraftplus'),
 			'setup_guide_link_text' => __('For more detailed instructions, follow this link.', 'updraftplus'),
-			'ip_host_label' => sprintf(__('This site uses a URL which is either non-HTTPS, or is localhost or 127.0.0.1 URL. As such, you must use the main %s %s App to authenticate with your account.', 'updraftplus'), 'UpdraftPlus', 'OneDrive'),
+			'ip_host_label' => __('This site uses a URL which is either non-HTTPS, or is localhost or 127.0.0.1 URL.', 'updraftplus').' '.sprintf(__('As such, you must use the main %s %s App to authenticate with your account.', 'updraftplus'), 'UpdraftPlus', 'OneDrive'),
 			'non_ip_host_label' => wp_kses(__('You must add the following as the authorized redirect URI in your OneDrive console (under "API Settings") when asked', 'updraftplus').': <kbd>'.UpdraftPlus_Options::admin_page_url().'</kbd>', $this->allowed_html_for_content_sanitisation()),
 			'input_client_id_label' => __('OneDrive', 'updraftplus').' '.__('Client ID', 'updraftplus'),
 			'input_client_id_title' => __('If OneDrive later shows you the message "unauthorized_client", then you did not enter a valid client ID here.', 'updraftplus'),

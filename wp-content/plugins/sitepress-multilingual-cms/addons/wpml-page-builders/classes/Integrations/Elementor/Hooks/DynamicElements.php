@@ -84,13 +84,17 @@ class DynamicElements implements \IWPML_Frontend_Action, \IWPML_DIC_Action {
 	}
 
 	/**
-	 * @param string $allowedTag
-	 * @param string $idKey
-	 * @param string $tagString
+	 * @param string      $allowedTag
+	 * @param string      $idKey
+	 * @param string|null $tagString
 	 *
-	 * @return string
+	 * @return string|null
 	 */
 	public static function convertTag( $allowedTag, $idKey, $tagString ) {
+		if ( ! $tagString ) {
+			return $tagString;
+		}
+
 		preg_match( '/name="(.*?(?="))"/', $tagString, $tagNameMatch );
 
 		if ( ! $tagNameMatch || $tagNameMatch[1] !== $allowedTag ) {

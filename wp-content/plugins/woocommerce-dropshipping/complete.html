@@ -113,7 +113,7 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 	$misc_colspan = $product_price_colspan + 1;
 	$woocommerce_price_decimal_sep = get_option( 'woocommerce_price_decimal_sep' );
 	$woocommerce_price_thousand_sep = get_option( 'woocommerce_price_thousand_sep' );
-	$order_currency = get_post_meta( $order_info['id'], '_currency', true );
+	$order_currency = opmc_hpos_get_post_meta( $order_info['id'], '_currency' );
 
 ?>
 
@@ -263,7 +263,7 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 												}
 												?>
 
-												<?php echo get_post_meta( $order_info['id'], '_payment_method_title', true ); ?>
+												<?php echo opmc_hpos_get_post_meta( $order_info['id'], '_payment_method_title' ); ?>
 
 											</td>
 
@@ -297,7 +297,7 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 													}
 													?>
 
-													<?php echo get_post_meta( $order_info['id'], '_payment_method_title', true ); ?>
+													<?php echo opmc_hpos_get_post_meta( $order_info['id'], '_payment_method_title' ); ?>
 
 											</td>
 
@@ -316,7 +316,7 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 												<?php _e( 'Order Number :', 'woocommerce-dropshipping' ); ?>
 
-												<?php echo get_post_meta( $order_info['id'], '_wc_dropshipping_order_number', true ); ?>
+												<?php echo opmc_hpos_get_post_meta( $order_info['id'], '_wc_dropshipping_order_number' ); ?>
 
 											</td>
 
@@ -404,7 +404,7 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 												if ( ! empty( $delivery_date_field ) ) {
 
-													$Delivery = get_post_meta( $order_info['id'], $delivery_date_field, true );
+													$Delivery = opmc_hpos_get_post_meta( $order_info['id'], $delivery_date_field );
 
 													if ( ! empty( $Delivery ) ) {
 
@@ -478,7 +478,7 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 								if ( $mainsupplier_id == $supplier_id ) {
 
-									$dropshipper_shipping_info = get_post_meta( $order_info['id'], 'dropshipper_shipping_info_' . $value, true );
+									$dropshipper_shipping_info = opmc_hpos_get_post_meta( $order_info['id'], 'dropshipper_shipping_info_' . $value );
 
 								}
 							}
@@ -497,6 +497,7 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 									<?php echo 'Tracking Number:'; ?>
 								<?php echo @$dropshipper_shipping_info = array( 'tracking_number' ); ?>
+
 
 								</td>
 							</tr>
@@ -1148,9 +1149,9 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 						<?php
 
-						$billing_add = get_post_meta( $order_info['id'], '_billing_address', true );
+						$billing_add = opmc_hpos_get_post_meta( $order_info['id'], '_billing_address' );
 
-						$shipping_add = get_post_meta( $order_info['id'], '_shipping_address', true );
+						$shipping_add = opmc_hpos_get_post_meta( $order_info['id'], '_shipping_address' );
 
 						?>
 
@@ -1158,53 +1159,53 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 							<?php
 
-							// $billing_add = get_post_meta($order_info['id'], '_billing_address', true);
+							// $billing_add = opmc_hpos_get_post_meta($order_info['id'], '_billing_address' );
 
-							// $shipping_add = get_post_meta($order_info['id'], '_shipping_address', true);
-
-
-
-							$order_billing_first_name = get_post_meta( $order_info['id'], '_billing_first_name', true );
-
-							$order_billing_last_name = get_post_meta( $order_info['id'], '_billing_last_name', true );
-
-							$order_billing_address_1 = get_post_meta( $order_info['id'], '_billing_address_1', true );
-
-							$order_billing_address_2 = get_post_meta( $order_info['id'], '_billing_address_2', true );
-
-							$order_billing_company = get_post_meta( $order_info['id'], '_billing_company', true );
-
-							$order_billing_city = get_post_meta( $order_info['id'], '_billing_city', true );
-
-							$order_billing_state = get_post_meta( $order_info['id'], '_billing_state', true );
-
-							$order_billing_postcode = get_post_meta( $order_info['id'], '_billing_postcode', true );
-
-							$order_billing_country = get_post_meta( $order_info['id'], '_billing_country', true );
-
-							$order_billing_email = get_post_meta( $order_info['id'], '_billing_email', true );
-
-							$order_billing_phone = get_post_meta( $order_info['id'], '_billing_phone', true );
+							// $shipping_add = opmc_hpos_get_post_meta($order_info['id'], '_shipping_address' );
 
 
 
-							$order_shipping_first_name = get_post_meta( $order_info['id'], '_shipping_first_name', true );
+							$order_billing_first_name = opmc_hpos_get_post_meta( $order_info['id'], '_billing_first_name' );
 
-							$order_shipping_last_name = get_post_meta( $order_info['id'], '_shipping_last_name', true );
+							$order_billing_last_name = opmc_hpos_get_post_meta( $order_info['id'], '_billing_last_name' );
 
-							$order_shipping_address_1 = get_post_meta( $order_info['id'], '_shipping_address_1', true );
+							$order_billing_address_1 = opmc_hpos_get_post_meta( $order_info['id'], '_billing_address_1' );
 
-							$order_shipping_address_2 = get_post_meta( $order_info['id'], '_shipping_address_2', true );
+							$order_billing_address_2 = opmc_hpos_get_post_meta( $order_info['id'], '_billing_address_2' );
 
-							$order_shipping_company = get_post_meta( $order_info['id'], '_shipping_company', true );
+							$order_billing_company = opmc_hpos_get_post_meta( $order_info['id'], '_billing_company' );
 
-							$order_shipping_city = get_post_meta( $order_info['id'], '_shipping_city', true );
+							$order_billing_city = opmc_hpos_get_post_meta( $order_info['id'], '_billing_city' );
 
-							$order_shipping_state = get_post_meta( $order_info['id'], '_shipping_state', true );
+							$order_billing_state = opmc_hpos_get_post_meta( $order_info['id'], '_billing_state' );
 
-							$order_shipping_postcode = get_post_meta( $order_info['id'], '_shipping_postcode', true );
+							$order_billing_postcode = opmc_hpos_get_post_meta( $order_info['id'], '_billing_postcode' );
 
-							$order_shipping_country = get_post_meta( $order_info['id'], '_shipping_country', true );
+							$order_billing_country = opmc_hpos_get_post_meta( $order_info['id'], '_billing_country' );
+
+							$order_billing_email = opmc_hpos_get_post_meta( $order_info['id'], '_billing_email' );
+
+							$order_billing_phone = opmc_hpos_get_post_meta( $order_info['id'], '_billing_phone' );
+
+
+
+							$order_shipping_first_name = opmc_hpos_get_post_meta( $order_info['id'], '_shipping_first_name' );
+
+							$order_shipping_last_name = opmc_hpos_get_post_meta( $order_info['id'], '_shipping_last_name' );
+
+							$order_shipping_address_1 = opmc_hpos_get_post_meta( $order_info['id'], '_shipping_address_1' );
+
+							$order_shipping_address_2 = opmc_hpos_get_post_meta( $order_info['id'], '_shipping_address_2' );
+
+							$order_shipping_company = opmc_hpos_get_post_meta( $order_info['id'], '_shipping_company' );
+
+							$order_shipping_city = opmc_hpos_get_post_meta( $order_info['id'], '_shipping_city' );
+
+							$order_shipping_state = opmc_hpos_get_post_meta( $order_info['id'], '_shipping_state' );
+
+							$order_shipping_postcode = opmc_hpos_get_post_meta( $order_info['id'], '_shipping_postcode' );
+
+							$order_shipping_country = opmc_hpos_get_post_meta( $order_info['id'], '_shipping_country' );
 
 
 
@@ -1358,9 +1359,9 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 																$full_store_address = ' <br> ' . $store_address . ' <br> ' . $store_address_2 . ' <br> ' . $store_city . ' <br> ' . $store_postcode;
 
-																$order_billing_email = get_post_meta( $order_info['id'], '_billing_email', true );
+																$order_billing_email = opmc_hpos_get_post_meta( $order_info['id'], '_billing_email' );
 
-																$order_billing_phone = get_post_meta( $order_info['id'], '_billing_phone', true );
+																$order_billing_phone = opmc_hpos_get_post_meta( $order_info['id'], '_billing_phone' );
 
 																$fullBillAddress = ' <h4>' . $order_billing_first_name . ' ' . $order_billing_last_name . '</h4>' . $order_billing_company . ' ' . $order_billing_address_1 . ' ' . $order_billing_address_2 . ' ' . $order_billing_city . ' ' . $order_billing_state . ' ' . $order_billing_postcode . ' ' . $order_billing_country . ' ' . $order_billing_email . ' ' . $order_billing_phone;
 

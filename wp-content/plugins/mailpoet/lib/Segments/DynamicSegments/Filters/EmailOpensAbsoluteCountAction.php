@@ -5,6 +5,7 @@ namespace MailPoet\Segments\DynamicSegments\Filters;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Entities\DynamicSegmentFilterData;
 use MailPoet\Entities\DynamicSegmentFilterEntity;
 use MailPoet\Entities\StatisticsOpenEntity;
 use MailPoet\Entities\SubscriberEntity;
@@ -32,16 +33,28 @@ class EmailOpensAbsoluteCountAction implements Filter {
     $days = $filterData->getParam('days');
     $operator = $filterData->getParam('operator');
     $action = $filterData->getAction();
+    $timeframe = $filterData->getParam('timeframe');
     $parameterSuffix = $filter->getId() ?? Security::generateRandomString();
     $statsTable = $this->entityManager->getClassMetadata(StatisticsOpenEntity::class)->getTableName();
     $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
-    $queryBuilder->leftJoin(
-      $subscribersTable,
-      $statsTable,
-      'opens',
-      "{$subscribersTable}.id = opens.subscriber_id AND opens.created_at > :newer{$parameterSuffix} AND opens.user_agent_type = :userAgentType{$parameterSuffix}"
-    );
-    $queryBuilder->setParameter('newer' . $parameterSuffix, CarbonImmutable::now()->subDays($days)->startOfDay());
+
+    if ($timeframe === DynamicSegmentFilterData::TIMEFRAME_ALL_TIME) {
+      $queryBuilder->leftJoin(
+        $subscribersTable,
+        $statsTable,
+        'opens',
+        "{$subscribersTable}.id = opens.subscriber_id AND opens.user_agent_type = :userAgentType{$parameterSuffix}"
+      );
+    } else {
+      $queryBuilder->leftJoin(
+        $subscribersTable,
+        $statsTable,
+        'opens',
+        "{$subscribersTable}.id = opens.subscriber_id AND opens.created_at > :newer{$parameterSuffix} AND opens.user_agent_type = :userAgentType{$parameterSuffix}"
+      );
+      $queryBuilder->setParameter('newer' . $parameterSuffix, CarbonImmutable::now()->subDays($days)->startOfDay());
+    }
+
     $queryBuilder->groupBy("$subscribersTable.id");
     if ($operator === 'equals') {
       $queryBuilder->having("count(opens.id) = :opens" . $parameterSuffix);

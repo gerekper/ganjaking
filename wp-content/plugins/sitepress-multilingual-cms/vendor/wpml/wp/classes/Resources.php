@@ -39,7 +39,10 @@ class Resources {
 	 * @return void
 	 */
 	public static function enqueueWithDeps( $app, $pluginBaseUrl, $pluginBasePath, $version, $domain = null, $localize = null, $dependencies = [] ) {
-		$handle = "wpml-$app-ui";
+		$handle = sprintf(
+			'wpml-%s-ui',
+			str_replace( '/', '_', $app )
+		);
 
 		wp_register_script(
 			$handle,

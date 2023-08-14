@@ -12,7 +12,7 @@ class ActionScheduler_wpPostStore_TaxonomyRegistrar {
 
 	protected function taxonomy_args() {
 		$args = array(
-			'label' => __( 'Action Group', 'action-scheduler' ),
+			'label' => __( 'Action Group', 'woocommerce' ),
 			'public' => false,
 			'hierarchical' => false,
 			'show_admin_column' => true,

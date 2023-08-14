@@ -78,11 +78,9 @@ class TranslateEverything {
 			return [];
 		}
 
-		$queueSize = $postType == 'attachment' ? self::QUEUE_SIZE * 2 : self::QUEUE_SIZE;
+		$elements = $this->untranslatedPosts->get( $languagesToProcess, $postType, self::QUEUE_SIZE  + 1 );
 
-		$elements = $this->untranslatedPosts->get( $languagesToProcess, $postType, $queueSize + 1 );
-
-		if ( count( $elements ) <= $queueSize ) {
+		if ( count( $elements ) <= self::QUEUE_SIZE  ) {
 			/**
 			 * We mark $postType as completed in all secondary languages, not only in eligible for automatic translations.
 			 * This is important due to the problem:
@@ -96,7 +94,7 @@ class TranslateEverything {
 		}
 
 		return count( $elements ) ?
-			$actions->createNewTranslationJobs( Languages::getDefaultCode(), Lst::slice( 0, $queueSize, $elements ) ) :
+			$actions->createNewTranslationJobs( Languages::getDefaultCode(), Lst::slice( 0, self::QUEUE_SIZE, $elements ) ) :
 			[];
 	}
 

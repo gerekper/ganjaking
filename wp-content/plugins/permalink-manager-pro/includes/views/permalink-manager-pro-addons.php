@@ -130,7 +130,7 @@ class Permalink_Manager_Pro_Addons {
 
 		$buttons = "<table class=\"stop-words-buttons\"><tr>";
 		$buttons .= sprintf( "<td><a href=\"#\" class=\"clear_all_words button button-small\">%s</a></td>", __( "Remove all words", "permalink-manager" ) );
-		$buttons .= sprintf( "<td>%s<td>", Permalink_Manager_Admin_Functions::generate_option_field( "load_stop_words", array( "type" => "select", "input_class" => "widefat small-select load_stop_words", "choices" => $languages ) ) );
+		$buttons .= sprintf( "<td>%s<td>", Permalink_Manager_UI_Elements::generate_option_field( "load_stop_words", array( "type" => "select", "input_class" => "widefat small-select load_stop_words", "choices" => $languages ) ) );
 		$buttons .= sprintf( "<td>%s</td>", get_submit_button( __( 'Add the words from the list', 'permalink-manager' ), 'button-small button-primary', 'load_stop_words_button', false ) );
 		$buttons .= "</tr></table>";
 
@@ -161,7 +161,7 @@ class Permalink_Manager_Pro_Addons {
 		$sidebar .= wpautop( __( 'If enabled, all selected "stop words" will be automatically removed from default URIs.', 'permalink-manager' ) );
 		$sidebar .= wpautop( __( 'Each of the words can be removed and any new words can be added to the list. You can also use a predefined list (available in 21 languages).', 'permalink-manager' ) );
 
-		return Permalink_Manager_Admin_Functions::get_the_form( $fields, '', array( 'text' => __( 'Save', 'permalink-manager' ), 'class' => 'primary margin-top' ), $sidebar, array( 'action' => 'permalink-manager', 'name' => 'save_stop_words' ), true );
+		return Permalink_Manager_UI_Elements::get_the_form( $fields, '', array( 'text' => __( 'Save', 'permalink-manager' ), 'class' => 'primary margin-top' ), $sidebar, array( 'action' => 'permalink-manager', 'name' => 'save_stop_words' ), true );
 	}
 
 	/**
@@ -211,7 +211,7 @@ class Permalink_Manager_Pro_Addons {
 			);
 		}
 
-		return Permalink_Manager_Admin_Functions::get_the_form( $fields, 'columns-3', $button, $sidebar, array( 'action' => 'permalink-manager', 'name' => 'import' ), true );
+		return Permalink_Manager_UI_Elements::get_the_form( $fields, 'columns-3', $button, $sidebar, array( 'action' => 'permalink-manager', 'name' => 'import' ), true );
 	}
 
 	/**
@@ -248,16 +248,16 @@ class Permalink_Manager_Pro_Addons {
 		// 1. Extra redirects
 		$html = "<div class=\"single-section\">";
 
-		$html .= sprintf( "<p><label for=\"auto_auri\" class=\"strong\">%s %s</label></p>", __( "Extra redirects (aliases)", "permalink-manager" ), Permalink_Manager_Admin_Functions::help_tooltip( __( "All URIs specified below will redirect the visitors to the custom URI defined above in \"Current URI\" field.", "permalink-manager" ) ) );
+		$html .= sprintf( "<p><label for=\"auto_auri\" class=\"strong\">%s %s</label></p>", __( "Extra redirects (aliases)", "permalink-manager" ), Permalink_Manager_UI_Elements::help_tooltip( __( "All URIs specified below will redirect the visitors to the custom URI defined above in \"Current URI\" field.", "permalink-manager" ) ) );
 
 		$html .= "<table>";
 		// 1A. Sample row
-		$html .= sprintf( "<tr class=\"sample-row\"><td>%s</td><td>%s</td></tr>", Permalink_Manager_Admin_Functions::generate_option_field( "permalink-manager-redirects", array( "input_class" => "widefat", "value" => "", 'extra_atts' => "data-index=\"\"", "placeholder" => __( 'sample/custom-uri', 'permalink-manager' ) ) ), "<a href=\"#\" class=\"remove-redirect\"><span class=\"dashicons dashicons-no\"></span></a>" );
+		$html .= sprintf( "<tr class=\"sample-row\"><td>%s</td><td>%s</td></tr>", Permalink_Manager_UI_Elements::generate_option_field( "permalink-manager-redirects", array( "input_class" => "widefat", "value" => "", 'extra_atts' => "data-index=\"\"", "placeholder" => __( 'sample/custom-uri', 'permalink-manager' ) ) ), "<a href=\"#\" class=\"remove-redirect\"><span class=\"dashicons dashicons-no\"></span></a>" );
 
 		// 1B. Rows with redirects
 		if ( ! empty( $permalink_manager_redirects[ $element_id ] ) && is_array( $permalink_manager_redirects[ $element_id ] ) ) {
 			foreach ( $permalink_manager_redirects[ $element_id ] as $index => $redirect ) {
-				$html .= sprintf( "<tr><td>%s</td><td>%s</td></tr>", Permalink_Manager_Admin_Functions::generate_option_field( "permalink-manager-redirects[{$index}]", array( "input_class" => "widefat", "value" => $redirect, 'extra_atts' => "data-index=\"{$index}\"" ) ), "<a href=\"#\" class=\"remove-redirect\"><span class=\"dashicons dashicons-no\"></span></a>" );
+				$html .= sprintf( "<tr><td>%s</td><td>%s</td></tr>", Permalink_Manager_UI_Elements::generate_option_field( "permalink-manager-redirects[{$index}]", array( "input_class" => "widefat", "value" => $redirect, 'extra_atts' => "data-index=\"{$index}\"" ) ), "<a href=\"#\" class=\"remove-redirect\"><span class=\"dashicons dashicons-no\"></span></a>" );
 			}
 		}
 		$html .= "</table>";
@@ -275,10 +275,10 @@ class Permalink_Manager_Pro_Addons {
 		// 2. Extra redirects
 		$html .= "<div class=\"single-section\">";
 
-		$html .= sprintf( "<p><label for=\"auto_auri\" class=\"strong\">%s %s</label></p>", __( "Redirect this page to external URL", "permalink-manager" ), Permalink_Manager_Admin_Functions::help_tooltip( __( "If not empty, the visitors trying to access this page will be redirected to the URL specified below.", "permalink-manager" ) ) );
+		$html .= sprintf( "<p><label for=\"auto_auri\" class=\"strong\">%s %s</label></p>", __( "Redirect this page to external URL", "permalink-manager" ), Permalink_Manager_UI_Elements::help_tooltip( __( "If not empty, the visitors trying to access this page will be redirected to the URL specified below.", "permalink-manager" ) ) );
 
 		$external_redirect_url = ( ! empty( $permalink_manager_external_redirects[ $element_id ] ) ) ? $permalink_manager_external_redirects[ $element_id ] : "";
-		$html                  .= Permalink_Manager_Admin_Functions::generate_option_field( "permalink-manager-external-redirect", array( "input_class" => "widefat", "value" => urldecode( $external_redirect_url ), "placeholder" => __( "http://another-website.com/final-target-url", "permalink-manager" ) ) );
+		$html                  .= Permalink_Manager_UI_Elements::generate_option_field( "permalink-manager-external-redirect", array( "input_class" => "widefat", "value" => urldecode( $external_redirect_url ), "placeholder" => __( "http://another-website.com/final-target-url", "permalink-manager" ) ) );
 
 		// 2B. Description
 		$html .= "<div class=\"redirects-panel-description\">";

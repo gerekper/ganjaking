@@ -86,7 +86,7 @@ if ($updraftplus_checkout_embed) {
 					<td>
 						<img src="<?php echo UPDRAFTPLUS_URL.'/images/addons-images/morestorage.png';?>" alt="<?php esc_attr_e('Remote storage', 'updraftplus');?>" width="80" height="80" class="udp-premium-image">
 						<h4><?php _e('Backup to remote storage locations', 'updraftplus');?></h4>
-						<p><?php _e('To avoid server-wide risks, always backup to remote cloud storage. UpdraftPlus free includes Dropbox, Google Drive, Amazon S3, Rackspace and more.', 'updraftplus');?></p>
+						<p><?php echo __('To avoid server-wide risks, always backup to remote cloud storage.', 'updraftplus').' '.__('UpdraftPlus free includes Dropbox, Google Drive, Amazon S3, Rackspace and more.', 'updraftplus');?></p>
 					</td>
 					<td>
 						<p><span class="dashicons dashicons-yes" aria-label="<?php esc_attr_e('Yes', 'updraftplus');?>"></span></p>
@@ -325,8 +325,8 @@ if ($updraftplus_checkout_embed) {
 		<div class="updraft-more-plugins">
 			<div class="udp-box">
 				<img src="<?php echo UPDRAFTPLUS_URL.'/images/other-plugins/wp-optimize.png'; ?>" alt="WP-Optimize">
-				<p><?php _e('Makes your site fast and efficient. It cleans the database, compresses images and caches pages for ultimate speed.', 'updraftplus'); ?></p>
-				<a aria-label="<?php echo 'WP-Optimize. '.__('Makes your site fast and efficient. It cleans the database, compresses images and caches pages for ultimate speed.', 'updraftplus').' '.__('Find out more', 'updraftplus'); ?>" target="_blank" href="https://getwpo.com/?utm_source=updraftplus&utm_medium=cross-sell&utm_campaign=addons-tab"><?php _e('Find out more', 'updraftplus'); ?></a>
+				<p><?php echo __('Makes your site fast and efficient.', 'updraftplus').' '.__('It cleans the database, compresses images and caches pages for ultimate speed.', 'updraftplus'); ?></p>
+				<a aria-label="<?php echo 'WP-Optimize. '.__('Makes your site fast and efficient.', 'updraftplus').' '.__('It cleans the database, compresses images and caches pages for ultimate speed.', 'updraftplus').' '.__('Find out more', 'updraftplus'); ?>" target="_blank" href="https://getwpo.com/?utm_source=updraftplus&utm_medium=cross-sell&utm_campaign=addons-tab"><?php _e('Find out more', 'updraftplus'); ?></a>
 			</div>
 			<div class="udp-box">
 				<img src="<?php echo UPDRAFTPLUS_URL.'/images/other-plugins/aios.png'; ?>" alt="All In One WP Security & Firewall">

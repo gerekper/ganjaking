@@ -1208,9 +1208,8 @@ class TranslationManagement {
 	 * @return array|false
 	 */
 	function create_translation_package( $post ) {
-		return Maybe::fromNullable( make( 'WPML_Element_Translation_Package' ) )
-			->map( invoke( 'create_translation_package' )->with( $post ) )
-			->getOrElse( false );
+		$wpmlElementTranslationPackage = make( WPML_Element_Translation_Package::class );
+		return $wpmlElementTranslationPackage->create_translation_package( $post, true ) ?: false;
 	}
 
 	function messages_by_type( $type ) {

@@ -8,7 +8,6 @@ if (!defined('ABSPATH')) exit;
 use MailPoet\AdminPages\PageRenderer;
 use MailPoet\AutomaticEmails\AutomaticEmails;
 use MailPoet\Config\Env;
-use MailPoet\Config\Installer;
 use MailPoet\Config\Menu;
 use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Listing\PageLimit;
@@ -18,6 +17,7 @@ use MailPoet\Segments\SegmentsSimpleListRepository;
 use MailPoet\Services\AuthorizedSenderDomainController;
 use MailPoet\Services\Bridge;
 use MailPoet\Settings\SettingsController;
+use MailPoet\Util\License\Features\Subscribers as SubscribersFeature;
 use MailPoet\WooCommerce\TransactionalEmails;
 use MailPoet\WP\AutocompletePostListLoader as WPPostListLoader;
 use MailPoet\WP\DateTime;
@@ -57,6 +57,9 @@ class Newsletters {
   /** @var AuthorizedSenderDomainController */
   private $senderDomainController;
 
+  /** @var SubscribersFeature */
+  private $subscribersFeature;
+
   public function __construct(
     PageRenderer $pageRenderer,
     PageLimit $listingPageLimit,
@@ -68,7 +71,8 @@ class Newsletters {
     SegmentsSimpleListRepository $segmentsListRepository,
     NewslettersRepository $newslettersRepository,
     Bridge $bridge,
-    AuthorizedSenderDomainController $senderDomainController
+    AuthorizedSenderDomainController $senderDomainController,
+    SubscribersFeature $subscribersFeature
   ) {
     $this->pageRenderer = $pageRenderer;
     $this->listingPageLimit = $listingPageLimit;
@@ -81,6 +85,7 @@ class Newsletters {
     $this->newslettersRepository = $newslettersRepository;
     $this->bridge = $bridge;
     $this->senderDomainController = $senderDomainController;
+    $this->subscribersFeature = $subscribersFeature;
   }
 
   public function render() {
@@ -119,7 +124,7 @@ class Newsletters {
 
     $data['sent_newsletters_count'] = $this->newslettersRepository->countBy(['status' => NewsletterEntity::STATUS_SENT]);
     $data['woocommerce_transactional_email_id'] = $this->settings->get(TransactionalEmails::SETTING_EMAIL_ID);
-    $data['display_detailed_stats'] = Installer::getPremiumStatus()['premium_plugin_initialized'];
+    $data['display_detailed_stats'] = $this->subscribersFeature->hasValidPremiumKey() && !$this->subscribersFeature->check();
     $data['newsletters_templates_recently_sent_count'] = $this->newsletterTemplatesRepository->getRecentlySentCount();
 
     $data['product_categories'] = $this->wpPostListLoader->getWooCommerceCategories();

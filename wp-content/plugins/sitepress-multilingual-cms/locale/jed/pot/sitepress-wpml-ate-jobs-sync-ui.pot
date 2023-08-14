@@ -32,7 +32,7 @@ msgid "Translation on hold"
 msgstr ""
 
 #: src/js/ate/status-bar/components/AteJobsStatus.js:45
-#: src/js/ate/status-bar/components/constants.js:12
+#: src/js/ate/status-bar/components/constants.js:13
 msgid "No translations in the queue"
 msgstr ""
 
@@ -48,56 +48,56 @@ msgstr ""
 msgid "less than 1 min remaining"
 msgstr ""
 
-#: src/js/ate/status-bar/components/constants.js:10
+#: src/js/ate/status-bar/components/constants.js:11
 #: src/js/ate/translate-everything/components/Status/index.js:51
 msgid "Automatic translation status"
 msgstr ""
 
-#: src/js/ate/status-bar/components/constants.js:14
+#: src/js/ate/status-bar/components/constants.js:15
 msgid "Translate Everything Automatically"
 msgstr ""
 
-#: src/js/ate/status-bar/components/constants.js:16
+#: src/js/ate/status-bar/components/constants.js:17
 msgid "Translate Everything Automatically is active"
 msgstr ""
 
-#: src/js/ate/status-bar/components/constants.js:18
+#: src/js/ate/status-bar/components/constants.js:19
 #: src/js/ate/translate-everything/pause/components/StatusBar/Paused.js:20
 msgid "Translate Everything Automatically is paused"
 msgstr ""
 
-#: src/js/ate/status-bar/components/constants.js:20
+#: src/js/ate/status-bar/components/constants.js:21
 msgid "Translate Everything Automatically stopped"
 msgstr ""
 
-#: src/js/ate/status-bar/components/constants.js:22
+#: src/js/ate/status-bar/components/constants.js:23
 #: src/js/ate/status-bar/components/sending/index.js:11
 msgid "Preparing content for translation"
 msgstr ""
 
-#: src/js/ate/status-bar/components/constants.js:24
+#: src/js/ate/status-bar/components/constants.js:25
 #: src/js/ate/status-bar/components/sending/index.js:10
 msgid "Preparing more content for translation"
 msgstr ""
 
-#: src/js/ate/status-bar/components/constants.js:26
+#: src/js/ate/status-bar/components/constants.js:27
 msgid "An error occured, fix it to continue."
 msgstr ""
 
-#: src/js/ate/status-bar/components/constants.js:28
+#: src/js/ate/status-bar/components/constants.js:29
 msgid ""
 "There is an issue with automatic translation that needs your attention. Fix "
 "it to continue."
 msgstr ""
 
-#: src/js/ate/status-bar/components/constants.js:31
+#: src/js/ate/status-bar/components/constants.js:32
 #. %s is replaced by the name of the language.
 msgid ""
 "Your default language, %s, must be mapped to a supported language in order "
 "to use automatic translation."
 msgstr ""
 
-#: src/js/ate/status-bar/components/constants.js:39
+#: src/js/ate/status-bar/components/constants.js:40
 #. %s is replaced by the language(s) name.
 msgid ""
 "Your language, %s, must be mapped to a supported language in order to use "
@@ -108,13 +108,13 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/js/ate/status-bar/components/constants.js:49
+#: src/js/ate/status-bar/components/constants.js:50
 msgid ""
 "Content in those languages: %s, cannot be automatically translated unless "
 "you map them to a language that's different from the default."
 msgstr ""
 
-#: src/js/ate/status-bar/components/constants.js:59
+#: src/js/ate/status-bar/components/constants.js:60
 #. %d is replaced by the number of jobs to review.
 msgid "%d translation waiting for review"
 msgid_plural "%d translations waiting for review"

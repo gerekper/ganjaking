@@ -537,7 +537,7 @@ class UpdraftPlus_Addons_RemoteStorage_backblaze extends UpdraftPlus_RemoteStora
 						$result = true;
 					}
 				} elseif (!$new_bucket_created) {
-					printf(__("Failure: We could not successfully access or create such a bucket. Please check your access credentials, and if those are correct then try another bucket name (as another %s user may already have taken your name).", 'updraftplus'), 'Backblaze');
+					echo __('Failure: We could not successfully access or create such a bucket', 'updraftplus').' '.sprintf(__('Please check your access credentials, and if those are correct then try another bucket name (as another %s user may already have taken your name).', 'updraftplus'), 'Backblaze');
 				}
 			}
 		} catch (Exception $e) {
@@ -729,7 +729,7 @@ class UpdraftPlus_Addons_RemoteStorage_backblaze extends UpdraftPlus_RemoteStora
 			'input_bucket_key_id_title' => __('This is needed if, and only if, your application key was a bucket-specific application key (not a master key)', 'updraftplus'),
 			'input_backup_path_label' => __('Backup path', 'updraftplus'),
 			'input_backup_path_name_placeholder' => __('Bucket name', 'updraftplus'),
-			'input_backup_path_title' => '<a target="_blank" href="https://help.backblaze.com/hc/en-us/articles/217666908-What-you-need-to-know-about-B2-Bucket-names">'.__('There are limits upon which path-names are valid. Spaces are not allowed.', 'updraftplus').'</a>',
+			'input_backup_path_title' => '<a target="_blank" href="https://help.backblaze.com/hc/en-us/articles/217666908-What-you-need-to-know-about-B2-Bucket-names">'.__('There are limits upon which path-names are valid.', 'updraftplus').' '.__('Spaces are not allowed.', 'updraftplus').'</a>',
 			'input_backup_path_some_path_placeholder' => __('some/path', 'updraftplus'),
 			'input_test_label' => sprintf(__('Test %s Settings', 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
 		);

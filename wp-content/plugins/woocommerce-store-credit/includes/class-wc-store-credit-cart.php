@@ -47,6 +47,7 @@ class WC_Store_Credit_Cart {
 		 */
 		add_action( 'woocommerce_after_calculate_totals', array( $this, 'after_calculate_totals' ), 1000 );
 		add_action( 'woocommerce_checkout_create_order', array( $this, 'create_order' ) );
+		add_action( 'woocommerce_store_api_checkout_order_processed', array( $this, 'create_order' ) );
 		add_action( 'woocommerce_cart_emptied', array( $this, 'cart_emptied' ) );
 	}
 

@@ -18,7 +18,7 @@ class UpdraftPlus_UpdraftCentral_Cloud extends UpdraftPlus_Login {
 		switch ($code) {
 			case 'generic':
 			default:
-				return __('An error has occurred while processing your request. The server might be busy or you have lost your connection to the internet at the time of the request. Please try again later.', 'updraftplus');
+				return __('An error has occurred while processing your request.', 'updraftplus').' '.__('The server might be busy or you have lost your connection to the internet at the time of the request.', 'updraftplus').' '.__('Please try again later.', 'updraftplus');
 				break;
 		}
 	}

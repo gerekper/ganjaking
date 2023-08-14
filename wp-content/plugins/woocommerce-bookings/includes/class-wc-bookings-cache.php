@@ -131,8 +131,8 @@ class WC_Bookings_Cache {
 		global $wpdb;
 		$limit = 1000;
 
-		$affected_timeouts   = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s LIMIT %d;", '_transient_timeout_book_fo_%', $limit ) );
-		$affected_transients = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s LIMIT %d;", '_transient_book_fo_%', $limit ) );
+		$affected_timeouts   = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s LIMIT %d;", $wpdb->esc_like( '_transient_timeout_book_fo_' ) . '%', $limit ) );
+		$affected_transients = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s LIMIT %d;", $wpdb->esc_like( '_transient_book_fo_' ) . '%', $limit ) );
 
 		// If affected rows is equal to limit, there are more rows to delete. Delete in 10 secs.
 		if ( $affected_transients === $limit ) {
@@ -147,8 +147,8 @@ class WC_Bookings_Cache {
 		global $wpdb;
 		$limit = 1000;
 
-		$affected_timeouts   = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s LIMIT %d;", '_transient_timeout_book_dr_%', $limit ) );
-		$affected_transients = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s LIMIT %d;", '_transient_book_dr_%', $limit ) );
+		$affected_timeouts   = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s LIMIT %d;", $wpdb->esc_like( '_transient_timeout_book_dr_' ) . '%', $limit ) );
+		$affected_transients = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s LIMIT %d;", $wpdb->esc_like( '_transient_book_dr_' ) . '%', $limit ) );
 
 		// If affected rows is equal to limit, there are more rows to delete. Delete in 10 secs.
 		if ( $affected_transients === $limit ) {
@@ -163,8 +163,8 @@ class WC_Bookings_Cache {
 		global $wpdb;
 		$limit = 1000;
 
-		$affected_timeouts   = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s LIMIT %d;", '_transient_timeout_book_ress_%', $limit ) );
-		$affected_transients = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s LIMIT %d;", '_transient_book_ress_%', $limit ) );
+		$affected_timeouts   = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s LIMIT %d;", $wpdb->esc_like( '_transient_timeout_book_ress_' ) . '%', $limit ) );
+		$affected_transients = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s LIMIT %d;", $wpdb->esc_like( '_transient_book_ress_' ) . '%', $limit ) );
 
 		// If affected rows is equal to limit, there are more rows to delete. Delete in 10 secs.
 		if ( $affected_transients === $limit ) {
@@ -179,8 +179,8 @@ class WC_Bookings_Cache {
 		global $wpdb;
 		$limit = 1000;
 
-		$affected_timeouts   = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s LIMIT %d;", '_transient_timeout_book_res_%', $limit ) );
-		$affected_transients = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s LIMIT %d;", '_transient_book_res_%', $limit ) );
+		$affected_timeouts   = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s LIMIT %d;", $wpdb->esc_like( '_transient_timeout_book_res_' ) . '%', $limit ) );
+		$affected_transients = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s LIMIT %d;", $wpdb->esc_like( '_transient_book_res_' ) . '%', $limit ) );
 
 		// If affected rows is equal to limit, there are more rows to delete. Delete in 10 secs.
 		if ( $affected_transients === $limit ) {
@@ -197,14 +197,15 @@ class WC_Bookings_Cache {
 		global $wpdb;
 		$limit = 1000;
 
-		$affected_timeouts   = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s LIMIT %d;", '_transient_timeout_book_res_ids_%', $limit ) );
-		$affected_transients = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s LIMIT %d;", '_transient_book_res_ids_%', $limit ) );
+		$affected_timeouts   = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s LIMIT %d;", $wpdb->esc_like( '_transient_timeout_book_res_ids_' ) . '%', $limit ) );
+		$affected_transients = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s LIMIT %d;", $wpdb->esc_like( '_transient_book_res_ids_' ) . '%', $limit ) );
 
 		// If affected rows is equal to limit, there are more rows to delete. Delete in 10 secs.
 		if ( $affected_transients === $limit ) {
 			wp_schedule_single_event( time() + 10, 'delete_booking_res_ids_transients', array( time() ) );
 		}
 	}
+
 	/**
 	 * Clear booking list of resources transient.
 	 *

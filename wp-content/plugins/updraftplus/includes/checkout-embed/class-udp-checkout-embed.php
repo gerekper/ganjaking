@@ -17,6 +17,41 @@ if (!class_exists('Updraft_Checkout_Embed')) {
 		private static $version = '1.0.1';
 
 		/**
+		 * The name of the plugin using the class
+		 *
+		 * @var string
+		 */
+		private $plugin_name;
+
+		/**
+		 * The return url after purchase is complete / canceled
+		 *
+		 * @var string
+		 */
+		private $return_url;
+
+		/**
+		 * The array of products
+		 *
+		 * @var array
+		 */
+		private $products_list;
+
+		/**
+		 * The page in which the scripts are included
+		 *
+		 * @var string
+		 */
+		private $load_in_pages;
+
+		/**
+		 * The plugin base url
+		 *
+		 * @var string
+		 */
+		private $base_url;
+
+		/**
 		 * Products list
 		 *
 		 * @var array

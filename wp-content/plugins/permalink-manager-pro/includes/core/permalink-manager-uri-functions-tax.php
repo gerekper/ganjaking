@@ -10,8 +10,6 @@ class Permalink_Manager_URI_Functions_Tax {
 		add_action( 'rest_api_init', array( $this, 'init' ) );
 
 		add_filter( 'term_link', array( $this, 'custom_tax_permalinks' ), 999, 2 );
-
-		add_action( 'quick_edit_custom_box', array( $this, 'quick_edit_column_form' ), 999, 3 );
 	}
 
 	/**
@@ -575,7 +573,7 @@ class Permalink_Manager_URI_Functions_Tax {
 			$html = "<tr id=\"permalink-manager\" class=\"form-field permalink-manager-edit-term permalink-manager\">";
 			$html .= sprintf( "<th scope=\"row\"><label for=\"custom_uri\">%s</label></th>", $label );
 			$html .= "<td><div>";
-			$html .= Permalink_Manager_Admin_Functions::display_uri_box( $term );
+			$html .= Permalink_Manager_UI_Elements::display_uri_box( $term );
 			$html .= "</div></td>";
 			$html .= "</tr>";
 		}
@@ -616,19 +614,6 @@ class Permalink_Manager_URI_Functions_Tax {
 		}
 
 		return $content;
-	}
-
-	/**
-	 * Display the simplified URI Editor in "Quick Edit" mode
-	 *
-	 * @param string $column_name
-	 * @param string $post_type
-	 * @param string $taxonomy
-	 */
-	function quick_edit_column_form( $column_name, $post_type, $taxonomy = '' ) {
-		if ( $taxonomy && $column_name == 'permalink-manager-col' ) {
-			echo Permalink_Manager_Admin_Functions::quick_edit_column_form();
-		}
 	}
 
 	/**

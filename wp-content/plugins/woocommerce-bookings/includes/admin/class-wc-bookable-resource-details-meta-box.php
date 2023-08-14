@@ -65,7 +65,7 @@ class WC_Bookable_Resource_Details_Meta_Box {
 		$post_id  = $post->ID;
 		$resource = new WC_Product_Booking_Resource( $post_id );
 		wp_enqueue_script( 'wc_bookings_admin_js' );
-		wp_nonce_field( 'bookable_resource_details_meta_box', 'bookable_resource_details_meta_box_nonce' );
+		wp_nonce_field( "bookable_resource_details_meta_box_$post_id", 'bookable_resource_details_meta_box_nonce' );
 		?>
 		<style type="text/css">
 			#minor-publishing-actions, #visibility { display:none; }
@@ -197,20 +197,38 @@ class WC_Bookable_Resource_Details_Meta_Box {
 	 * @param  WP_Post $post
 	 */
 	public function meta_box_save( $post_id, $post ) {
-		if ( ! wp_verify_nonce( wc_clean( wp_unslash( $_POST['bookable_resource_details_meta_box_nonce'] ?? '' ) ), 'bookable_resource_details_meta_box' ) ) {
+		// Check if our nonce is set.
+		$nonce_name = 'bookable_resource_details_meta_box_nonce';
+		if ( ! isset( $_POST[ $nonce_name ] ) ) {
 			return $post_id;
 		}
+
+		// Verify that the nonce is valid.
+		$nonce_action = "bookable_resource_details_meta_box_$post_id";
+		$nonce_value  = sanitize_text_field( wp_unslash( $_POST[ $nonce_name ] ) );
+		if ( ! wp_verify_nonce( $nonce_value, $nonce_action ) ) {
+			return $post_id;
+		}
+
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return $post_id;
 		}
+
 		// Check the post being saved == the $post_id to prevent triggering this call for other save_post events
 		if ( empty( $_POST['post_ID'] ) || intval( $_POST['post_ID'] ) !== $post_id ) {
 			return $post_id;
 		}
+
 		if ( ! in_array( $post->post_type, $this->post_types ) ) {
 			return $post_id;
 		}
+
 		if ( self::$saved_meta_box ) {
+			return $post_id;
+		}
+
+		// Check user has permission to edit.
+		if ( ! current_user_can( 'edit_bookable_resource', $post_id ) ) {
 			return $post_id;
 		}
 

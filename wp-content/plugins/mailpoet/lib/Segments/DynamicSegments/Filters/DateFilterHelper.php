@@ -45,12 +45,12 @@ class DateFilterHelper {
   }
 
   public function getDateStringForOperator(string $operator, string $value): string {
-    if (in_array($operator, $this->getAbsoluteDateOperators())) {
+    if (in_array($operator, self::getAbsoluteDateOperators())) {
       $carbon = CarbonImmutable::createFromFormat('Y-m-d', $value);
       if (!$carbon instanceof CarbonImmutable) {
         throw new InvalidFilterException('Invalid date value', InvalidFilterException::INVALID_DATE_VALUE);
       }
-    } else if (in_array($operator, $this->getRelativeDateOperators())) {
+    } else if (in_array($operator, self::getRelativeDateOperators())) {
       $carbon = CarbonImmutable::now()->subDays(intval($value) - 1);
     } else {
       throw new InvalidFilterException('Incorrect value for operator', InvalidFilterException::MISSING_VALUE);

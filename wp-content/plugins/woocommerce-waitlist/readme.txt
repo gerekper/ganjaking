@@ -1,10 +1,10 @@
 === WooCommerce Waitlist ===
 Requires at least: 4.2.0
-Tested up to: 6.1.1
+Tested up to: 6.2.2
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.0.0
-WC tested up to: 7.3.0
+WC tested up to: 7.9.0
 
 This plugin enables registered users to request an email notification when an out-of-stock product comes back into stock. It tallies these registrations in the admin panel for review and provides details.
 
@@ -44,6 +44,13 @@ Why does the Waitlist only show up for some products?
 If you’re using the Advanced Notifications extension make sure you disable the backorder setting.
 
 == Changelog ==
+
+2023.08.01 - Version 2.4.0
+* Fix: Email templates hooks not passed in the correct parameters.  "woocommerce_email_header" and "woocommerce_email_footer" now have the email class object passed in as required
+* Added: Notification added to inform administrator that waitlist templates are out of date.  This will be added as required on theme switch and plugin update
+
+2023.07.04 - Version 2.3.9
+* Added: Compatibility for HPOS
 
 2023.03.16 - Version 2.3.8
 * Fix: Update to translations template file

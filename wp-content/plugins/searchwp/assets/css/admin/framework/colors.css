@@ -1,0 +1,18 @@
+:root {
+    --admin-bg: #f5f5f5;
+    --white: #ffffff;
+    --whiteHover: #fafafa;
+    --primary: #437e47;
+    --primaryHover: #2b6e2f;
+    --secondary: #2b66d1;
+    --secondaryRGB: 43, 102, 209;
+    --accent: #eba844;
+    --neutral: #0e2121;
+    --neutralRGB: 14, 33, 33;
+    --neutralText: rgba(var(--neutralRGB), 0.8);
+    --uiRed: #df2a4a;
+    --uiRedDarker: #ab2039;
+    --uiRedLighter: #f83c5d;
+    --borderColor: #e8e8eb;
+    --borderShadow: #e6e9f0;
+}

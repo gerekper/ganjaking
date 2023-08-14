@@ -11,7 +11,7 @@
  * the readme will list any important changes.
  *
  * @see https://docs.woocommerce.com/document/template-structure/
- * @version 2.2.3
+ * @version 2.4.0
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -22,7 +22,7 @@ echo esc_html_x( "Hi There,", 'Email salutation', 'woocommerce-waitlist' ) . "\n
 printf( __( 'Please click the link below to confirm your email address and be added to the waitlist for %1$s at %2$s.', 'woocommerce-waitlist' ), esc_html( $product_title ), esc_html( get_bloginfo( 'title' ) ) );
 echo "\n\n";
 $link = add_query_arg( array(
-	'wcwl_user_optin' => esc_attr( $email ),
+	'wcwl_user_optin' => esc_attr( sanitize_email( $email ) ),
 	'product_id'      => absint( $product_id ),
 	'products'        => $products,
 	'key'             => $key,

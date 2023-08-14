@@ -3,7 +3,8 @@
    "locale_data": {
       "messages": {
          "": {
-            "domain": "messages"
+            "domain": "messages",
+            "lang": "es_ES"
          },
          "From:": [
             "Del:"
@@ -604,7 +605,7 @@
             "Finalizado"
          ],
          "Back": [
-            "Atrás"
+            "Volver"
          ],
          "Continue": [
             "Continuar"

@@ -45,6 +45,11 @@ class DynamicSegmentFilterData {
     DynamicSegmentFilterData::OPERATOR_ENDS_WITH,
     DynamicSegmentFilterData::OPERATOR_NOT_ENDS_WITH,
   ];
+  public const IS_NOT_BLANK = 'is_not_blank';
+  public const IS_BLANK = 'is_blank';
+
+  public const TIMEFRAME_ALL_TIME = 'allTime';
+  public const TIMEFRAME_IN_THE_LAST = 'inTheLast';
 
   /**
    * @ORM\Column(type="serialized_array")
@@ -90,7 +95,7 @@ class DynamicSegmentFilterData {
       return $this->filterType;
     }
     // When a new column is empty, we try to get the value from serialized data
-    return $filterData['segmentType'] ?? null;
+    return $this->filterData['segmentType'] ?? null;
   }
 
   public function getAction(): ?string {

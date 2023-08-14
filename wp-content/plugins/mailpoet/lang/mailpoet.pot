@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MailPoet plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet 4.22.0\n"
+"Project-Id-Version: MailPoet 4.23.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-07-25T08:15:01+00:00\n"
+"POT-Creation-Date: 2023-08-08T04:57:57+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: views/emails/congratulatoryMssEmail.html:50
 #: views/homepage.html:79
-#: views/segments/translations.html:225
+#: views/segments/translations.html:244
 #: views/subscribers/subscribers.html:146
 #: assets/dist/js/commons.js:9
 msgid "Congrats!"
@@ -56,7 +56,6 @@ msgid "Your stats are in!"
 msgstr ""
 
 #: views/emails/statsNotification.html:66
-#: views/layout.html:130
 msgid "Congratulations, you now have more than [subscribersLimit] subscribers!"
 msgstr ""
 
@@ -673,28 +672,24 @@ msgid "Custom CSS"
 msgstr ""
 
 #: views/form/editor.html:85
-#: views/form/template_selection.html:36
 #: views/forms.html:93
 msgctxt "This is a text on a widget that leads to settings for form placement - form type is fixed bar"
 msgid "Fixed bar"
 msgstr ""
 
 #: views/form/editor.html:87
-#: views/form/template_selection.html:37
 #: views/forms.html:94
 msgctxt "This is a text on a widget that leads to settings for form placement - form type is slide in"
 msgid "Slide–in"
 msgstr ""
 
 #: views/form/editor.html:89
-#: views/form/template_selection.html:38
 #: views/forms.html:95
 msgctxt "This is a text on a widget that leads to settings for form placement - form type is pop-up, it will be displayed on page in a small modal window"
 msgid "Pop-up"
 msgstr ""
 
 #: views/form/editor.html:94
-#: views/form/template_selection.html:39
 #: views/forms.html:92
 msgctxt "This is a text on a widget that leads to settings for form placement"
 msgid "Below pages"
@@ -711,7 +706,6 @@ msgid "Display on all posts/products"
 msgstr ""
 
 #: views/form/editor.html:99
-#: views/form/template_selection.html:40
 #: views/forms.html:96
 msgctxt "Placement of the form using theme widget"
 msgid "Others (widget)"
@@ -971,7 +965,7 @@ msgstr ""
 
 #: views/form/front_end_form.html:74
 #: views/homepage.html:66
-#: views/layout.html:180
+#: views/layout.html:184
 #: assets/dist/js/admin.js:2
 #: assets/dist/js/automation_editor.js:1
 #: assets/dist/js/commons.js:9
@@ -982,34 +976,6 @@ msgstr ""
 #: views/form/iframe.html:46
 #: lib/PostEditorBlocks/SubscriptionFormBlock.php:61
 msgid "MailPoet Subscription Form"
-msgstr ""
-
-#: views/form/template_selection.html:34
-msgid "Select form template"
-msgstr ""
-
-#: views/form/template_selection.html:43
-#: views/help.html:37
-#: assets/dist/js/newsletter_editor.js:2
-msgid "Sorry, there was an error, please try again later."
-msgstr ""
-
-#: views/form/template_selection.html:35
-msgctxt "a button for skipping form template selection"
-msgid "Skip, start with a blank form"
-msgstr ""
-
-#: views/form/template_selection.html:41
-#: views/subscribers/importExport/export.html:31
-#: views/subscribers/importExport/export.html:48
-#: views/subscribers/importExport/import.html:118
-msgctxt "Verb"
-msgid "Select"
-msgstr ""
-
-#: views/form/template_selection.html:42
-msgctxt "Form template selection heading"
-msgid "Select a template"
 msgstr ""
 
 #: views/form/templatesLegacy/settings/date_default.hbs:2
@@ -1165,7 +1131,7 @@ msgstr ""
 #: views/forms.html:46
 #: views/logs.html:25
 #: views/segments/translations.html:3
-#: views/segments/translations.html:148
+#: views/segments/translations.html:158
 #: views/subscribers/subscribers.html:26
 #: assets/dist/js/commons.js:9
 msgid "Search"
@@ -1337,8 +1303,8 @@ msgstr ""
 #: views/forms.html:75
 #: views/segments/translations.html:2
 #: views/subscribers/subscribers.html:83
-#: lib/Config/Menu.php:389
-#: lib/Config/Menu.php:390
+#: lib/Config/Menu.php:381
+#: lib/Config/Menu.php:382
 #: assets/dist/js/admin.js:2
 msgid "Lists"
 msgstr ""
@@ -1498,6 +1464,11 @@ msgstr ""
 
 #: views/help.html:36
 msgid "The information below is useful when you need to get in touch with our support. Just copy all the text below and paste it into a message to us."
+msgstr ""
+
+#: views/help.html:37
+#: assets/dist/js/newsletter_editor.js:2
+msgid "Sorry, there was an error, please try again later."
 msgstr ""
 
 #: views/help.html:38
@@ -1808,8 +1779,8 @@ msgstr ""
 
 #: views/homepage.html:68
 #: views/subscribers/subscribers.html:25
-#: lib/Config/Menu.php:338
-#: lib/Config/Menu.php:339
+#: lib/Config/Menu.php:330
+#: lib/Config/Menu.php:331
 #: assets/dist/js/automation.js:1
 #: assets/dist/js/automation_analytics.js:9
 #: assets/dist/js/commons.js:9
@@ -1835,9 +1806,9 @@ msgid "List score"
 msgstr ""
 
 #: views/homepage.html:75
-#: views/segments/translations.html:221
+#: views/segments/translations.html:240
 #: views/subscribers/subscribers.html:142
-#: lib/Automation/Integrations/MailPoet/Analytics/Controller/FreeSubscriberController.php:89
+#: lib/Automation/Integrations/MailPoet/Analytics/Controller/FreeSubscriberController.php:88
 #: lib/Automation/Integrations/MailPoet/Fields/SubscriberFieldsFactory.php:152
 #: lib/Subscribers/ImportExport/PersonalDataExporters/NewsletterClicksExporter.php:28
 #: lib/Subscribers/ImportExport/PersonalDataExporters/NewsletterOpensExporter.php:24
@@ -1847,19 +1818,19 @@ msgid "Unknown"
 msgstr ""
 
 #: views/homepage.html:76
-#: views/segments/translations.html:222
+#: views/segments/translations.html:241
 #: views/subscribers/subscribers.html:143
 msgid "Not enough data."
 msgstr ""
 
 #: views/homepage.html:77
-#: views/segments/translations.html:223
+#: views/segments/translations.html:242
 #: views/subscribers/subscribers.html:144
 msgid "Fewer than 3 emails sent"
 msgstr ""
 
 #: views/homepage.html:78
-#: views/segments/translations.html:224
+#: views/segments/translations.html:243
 #: views/subscribers/subscribers.html:145
 #: lib/Twig/Functions.php:303
 #: assets/dist/js/automation_analytics.js:9
@@ -1868,12 +1839,12 @@ msgid "Excellent"
 msgstr ""
 
 #: views/homepage.html:80
-#: views/segments/translations.html:226
+#: views/segments/translations.html:245
 msgid "50% or more"
 msgstr ""
 
 #: views/homepage.html:81
-#: views/segments/translations.html:227
+#: views/segments/translations.html:246
 #: views/subscribers/subscribers.html:148
 #: lib/Twig/Functions.php:305
 #: assets/dist/js/automation_analytics.js:9
@@ -1882,37 +1853,37 @@ msgid "Good"
 msgstr ""
 
 #: views/homepage.html:82
-#: views/segments/translations.html:228
+#: views/segments/translations.html:247
 #: views/subscribers/subscribers.html:149
 #: assets/dist/js/commons.js:9
 msgid "Good stuff."
 msgstr ""
 
 #: views/homepage.html:83
-#: views/segments/translations.html:229
+#: views/segments/translations.html:248
 msgid "between 20 and 50%"
 msgstr ""
 
 #: views/homepage.html:84
-#: views/segments/translations.html:230
+#: views/segments/translations.html:249
 #: views/subscribers/subscribers.html:151
 msgid "Low"
 msgstr ""
 
 #: views/homepage.html:85
-#: views/segments/translations.html:231
+#: views/segments/translations.html:250
 #: views/subscribers/subscribers.html:152
 #: assets/dist/js/commons.js:9
 msgid "Something to improve."
 msgstr ""
 
 #: views/homepage.html:86
-#: views/segments/translations.html:232
+#: views/segments/translations.html:251
 msgid "20% or fewer"
 msgstr ""
 
 #: views/homepage.html:87
-#: views/segments/translations.html:233
+#: views/segments/translations.html:252
 #: views/subscribers/subscribers.html:154
 msgid "Average percent of emails subscribers read in the last year"
 msgstr ""
@@ -2101,127 +2072,143 @@ msgctxt "Title of a link to a next page of posts"
 msgid "Previous page with posts"
 msgstr ""
 
-#: views/layout.html:118
-#: views/layout.html:178
+#: views/layout.html:119
+#: views/layout.html:182
 #: assets/dist/js/commons.js:9
 msgid "Back to section root"
 msgstr ""
 
-#: views/layout.html:119
+#: views/layout.html:120
 #: assets/dist/js/commons.js:9
 msgid "Updates"
 msgstr ""
 
-#: views/layout.html:120
+#: views/layout.html:121
 #: assets/dist/js/commons.js:9
 msgid "What’s new"
 msgstr ""
 
-#: views/layout.html:121
+#: views/layout.html:122
 msgid "[link]Update MailPoet[/link] to see the latest changes"
 msgstr ""
 
 #. translators: %d is the error code.
 #. translators: %d will be replaced by an error code
-#: views/layout.html:122
-#: lib/Services/Bridge/API.php:226
-#: lib/Services/Bridge/API.php:283
-#: lib/Services/Bridge/API.php:329
+#: views/layout.html:123
+#: lib/Services/Bridge/API.php:230
+#: lib/Services/Bridge/API.php:287
+#: lib/Services/Bridge/API.php:333
 msgid "An error has happened while performing a request, the server has responded with response code %d"
 msgstr ""
 
-#: views/layout.html:123
+#: views/layout.html:124
 msgid "An error has happened while performing a request, the server request has timed out after %d seconds"
 msgstr ""
 
-#: views/layout.html:126
+#: views/layout.html:127
 msgid "Failed to resume sending because the email address is unauthorized. Please authorize it and try again."
 msgstr ""
 
-#: views/layout.html:127
+#: views/layout.html:128
 msgid "Dismiss this notice."
 msgstr ""
 
-#: views/layout.html:128
+#: views/layout.html:129
 #: assets/dist/js/admin.js:2
 #: assets/dist/js/newsletter_editor.js:2
 msgid "Sending is in progress. Do you want to pause sending and edit the newsletter?"
 msgstr ""
 
-#: views/layout.html:129
+#: views/layout.html:130
 #: assets/dist/js/commons.js:9
 #: assets/dist/js/newsletter_editor.js:2
 msgid "To edit this email, it needs to be deactivated. You can activate it again after you make the changes."
 msgstr ""
 
 #: views/layout.html:131
-msgid "Congratulations, you now have more subscribers than the limit of your plan!"
+msgid "Action required: Upgrade your plan for more than [subscribersLimit] subscribers!"
 msgstr ""
 
 #: views/layout.html:132
-msgid "Our free version is limited to [subscribersLimit] subscribers."
+msgid "Action required: Upgrade your plan!"
 msgstr ""
 
 #: views/layout.html:133
-msgid "Your plan is limited to [subscribersLimit] subscribers."
+msgid "Congratulations on reaching over [subscribersLimit] subscribers!"
 msgstr ""
 
 #: views/layout.html:134
-msgid "You need to upgrade now to be able to continue using MailPoet."
+msgid "Congratulations, you now have more subscribers than your plan’s limit!"
 msgstr ""
 
 #: views/layout.html:135
-msgid "Alternatively, [link]check how to manage your subscribers[/link] to keep your numbers below your plan’s limit."
+msgid "Our free version is limited to [subscribersLimit] subscribers."
 msgstr ""
 
 #: views/layout.html:136
+msgid "Your plan is limited to [subscribersLimit] subscribers."
+msgstr ""
+
+#: views/layout.html:137
+msgid "To continue using MailPoet without interruption, it’s time to upgrade your plan."
+msgstr ""
+
+#: views/layout.html:138
+msgid "Act now to ensure seamless service to your growing audience."
+msgstr ""
+
+#: views/layout.html:139
+msgid "Alternatively, [link]check how to manage your subscribers[/link] to keep your numbers below your plan’s limit."
+msgstr ""
+
+#: views/layout.html:140
 #: views/subscribers/subscribers.html:133
 #: assets/dist/js/admin.js:2
 msgid "Upgrade Now"
 msgstr ""
 
-#: views/layout.html:137
+#: views/layout.html:141
 msgid "Refresh subscriber limit"
 msgstr ""
 
-#: views/layout.html:139
+#: views/layout.html:143
 msgid "Congratulations, you sent more than [emailVolumeLimit] emails this month!"
 msgstr ""
 
-#: views/layout.html:140
+#: views/layout.html:144
 msgid "Congratulations, you sent a lot of emails this month!"
 msgstr ""
 
-#: views/layout.html:141
+#: views/layout.html:145
 msgid "You have sent more emails this month than your MailPoet plan includes ([emailVolumeLimit]), and sending has been temporarily paused."
 msgstr ""
 
-#: views/layout.html:142
+#: views/layout.html:146
 msgid "You have sent more emails this month than your MailPoet plan includes, and sending has been temporarily paused."
 msgstr ""
 
-#: views/layout.html:143
+#: views/layout.html:147
 msgid "To continue sending with MailPoet Sending Service please [link]upgrade your plan[/link], or wait until sending is automatically resumed on <b>[date]</b>."
 msgstr ""
 
-#: views/layout.html:144
+#: views/layout.html:148
 msgid "Refresh monthly email limit"
 msgstr ""
 
-#: views/layout.html:146
+#: views/layout.html:150
 #: assets/dist/js/commons.js:9
 msgid "To help your audience and MailPoet authenticate you as the domain owner, please add the following DNS records to your domain’s DNS and click “Verify the DNS records”. Please note that it may take up to 24 hours for DNS changes to propagate after you make the change. [link]Read the guide[/link]."
 msgstr ""
 
-#: views/layout.html:149
+#: views/layout.html:153
 msgid "[username], did you know that hundreds of WordPress users read the reviews on the plugin repository? They’re also a source of inspiration for our team."
 msgstr ""
 
-#: views/layout.html:153
+#: views/layout.html:157
 msgid "Not now"
 msgstr ""
 
-#: views/layout.html:155
+#: views/layout.html:159
 #: lib/Newsletter/Listing/NewsletterListingRepository.php:132
 #: lib/Newsletter/Listing/NewsletterListingRepository.php:147
 #: lib/Newsletter/Sending/ScheduledTaskSubscribersListingRepository.php:53
@@ -2230,218 +2217,218 @@ msgstr ""
 msgid "Sent"
 msgstr ""
 
-#: views/layout.html:156
+#: views/layout.html:160
 #: assets/dist/js/commons.js:9
 msgid "Not sent yet!"
 msgstr ""
 
-#: views/layout.html:157
+#: views/layout.html:161
 #: assets/dist/js/commons.js:9
 msgid "There was a problem with rendering!"
 msgstr ""
 
-#: views/layout.html:159
+#: views/layout.html:163
 #: lib/Config/ServicesChecker.php:45
 msgid "All sending is currently paused!"
 msgstr ""
 
-#: views/layout.html:160
+#: views/layout.html:164
 msgid "Your [link]API key[/link] to send with MailPoet is invalid."
 msgstr ""
 
-#: views/layout.html:161
+#: views/layout.html:165
 #: lib/Config/ServicesChecker.php:51
 msgid "Purchase a key"
 msgstr ""
 
-#: views/layout.html:163
+#: views/layout.html:167
 msgid "Good news! MailPoet can now send your website’s emails too"
 msgstr ""
 
-#: views/layout.html:164
-msgid "All of your WordPress and WooCommerce emails are sent with your hosting company, unless you have an SMTP plugin. Would you like such emails to be delivered with MailPoet’s active sending method for better deliverability?"
-msgstr ""
-
 #: views/layout.html:168
-#: assets/dist/js/commons.js:9
-msgid "Sending has been paused due to a technical issue with %1$s"
-msgstr ""
-
-#: views/layout.html:169
-#: assets/dist/js/newsletter_editor.js:2
-msgid "Please check your sending method configuration, you may need to consult with your hosting company."
-msgstr ""
-
-#: views/layout.html:170
-#: assets/dist/js/newsletter_editor.js:2
-msgid "The easy alternative is to <b>send emails with MailPoet Sending Service</b> instead, like thousands of other users do."
-msgstr ""
-
-#: views/layout.html:171
-#: assets/dist/js/newsletter_editor.js:2
-msgid "Sign up for free in minutes"
+msgid "All of your WordPress and WooCommerce emails are sent with your hosting company, unless you have an SMTP plugin. Would you like such emails to be delivered with MailPoet’s active sending method for better deliverability?"
 msgstr ""
 
 #: views/layout.html:172
 #: assets/dist/js/commons.js:9
-msgid "Sending is paused because the following connection issue prevents MailPoet from delivering emails"
+msgid "Sending has been paused due to a technical issue with %1$s"
 msgstr ""
 
 #: views/layout.html:173
-#: assets/dist/js/commons.js:9
-msgid "Error code: %1$s"
+#: assets/dist/js/newsletter_editor.js:2
+msgid "Please check your sending method configuration, you may need to consult with your hosting company."
 msgstr ""
 
 #: views/layout.html:174
 #: assets/dist/js/newsletter_editor.js:2
-msgid "Check your [link]sending method settings[/link]."
+msgid "The easy alternative is to <b>send emails with MailPoet Sending Service</b> instead, like thousands of other users do."
 msgstr ""
 
 #: views/layout.html:175
+#: assets/dist/js/newsletter_editor.js:2
+msgid "Sign up for free in minutes"
+msgstr ""
+
+#: views/layout.html:176
+#: assets/dist/js/commons.js:9
+msgid "Sending is paused because the following connection issue prevents MailPoet from delivering emails"
+msgstr ""
+
+#: views/layout.html:177
+#: assets/dist/js/commons.js:9
+msgid "Error code: %1$s"
+msgstr ""
+
+#: views/layout.html:178
+#: assets/dist/js/newsletter_editor.js:2
+msgid "Check your [link]sending method settings[/link]."
+msgstr ""
+
+#: views/layout.html:179
 #: lib/Util/Notices/UnauthorizedEmailNotice.php:78
 #: assets/dist/js/commons.js:9
 msgid "Resume sending"
 msgstr ""
 
-#: views/layout.html:176
+#: views/layout.html:180
 #: assets/dist/js/commons.js:9
 msgid "I have upgraded my subscription, resume sending"
 msgstr ""
 
-#: views/layout.html:181
+#: views/layout.html:185
 #: assets/dist/js/commons.js:9
 msgid "Today"
 msgstr ""
 
-#: views/layout.html:210
+#: views/layout.html:214
 msgid "Want to give feedback to the MailPoet team? Contact us here. Please provide as much information as possible!"
 msgstr ""
 
-#: views/layout.html:233
-#: views/layout.html:244
+#: views/layout.html:237
+#: views/layout.html:248
 #: lib/Form/Block/BlockRendererHelper.php:285
 msgid "This value seems to be invalid."
 msgstr ""
 
-#: views/layout.html:235
+#: views/layout.html:239
 #: lib/Form/Block/BlockRendererHelper.php:37
 #: lib/Form/Block/BlockRendererHelper.php:273
 msgid "This value should be a valid email."
 msgstr ""
 
-#: views/layout.html:236
+#: views/layout.html:240
 #: lib/Form/Block/BlockRendererHelper.php:275
 msgid "This value should be a valid url."
 msgstr ""
 
-#: views/layout.html:237
+#: views/layout.html:241
 #: lib/Form/Block/BlockRendererHelper.php:277
 msgid "This value should be a valid number."
 msgstr ""
 
-#: views/layout.html:238
+#: views/layout.html:242
 #: lib/Form/Block/BlockRendererHelper.php:279
 msgid "This value should be a valid integer."
 msgstr ""
 
-#: views/layout.html:239
+#: views/layout.html:243
 #: lib/Form/Block/BlockRendererHelper.php:281
 msgid "This value should be digits."
 msgstr ""
 
-#: views/layout.html:240
+#: views/layout.html:244
 #: lib/Form/Block/BlockRendererHelper.php:283
 msgid "This value should be alphanumeric."
 msgstr ""
 
-#: views/layout.html:242
+#: views/layout.html:246
 msgid "This value should not be blank."
 msgstr ""
 
-#: views/layout.html:243
+#: views/layout.html:247
 msgid "This value is required."
 msgstr ""
 
-#: views/layout.html:245
+#: views/layout.html:249
 msgid "This value should be greater than or equal to %s."
 msgstr ""
 
-#: views/layout.html:246
+#: views/layout.html:250
 msgid "This value should be lower than or equal to %s."
 msgstr ""
 
-#: views/layout.html:247
+#: views/layout.html:251
 msgid "This value should be between %s and %s."
 msgstr ""
 
-#: views/layout.html:248
+#: views/layout.html:252
 msgid "This value is too short. It should have %s characters or more."
 msgstr ""
 
-#: views/layout.html:249
+#: views/layout.html:253
 msgid "This value is too long. It should have %s characters or fewer."
 msgstr ""
 
-#: views/layout.html:250
+#: views/layout.html:254
 msgid "This value length is invalid. It should be between %s and %s characters long."
 msgstr ""
 
-#: views/layout.html:251
+#: views/layout.html:255
 msgid "You must select at least %s choices."
 msgstr ""
 
-#: views/layout.html:252
+#: views/layout.html:256
 msgid "You must select %s choices or fewer."
 msgstr ""
 
-#: views/layout.html:253
+#: views/layout.html:257
 msgid "You must select between %s and %s choices."
 msgstr ""
 
-#: views/layout.html:254
+#: views/layout.html:258
 msgid "This value should be the same."
 msgstr ""
 
-#: views/layout.html:124
+#: views/layout.html:125
 #: assets/dist/js/commons.js:9
 msgctxt "In the last step, before sending a newsletter. URL: ?page=mailpoet-newsletters#/send/2"
 msgid "You might not reach the inbox of your subscribers if you use this email address."
 msgstr ""
 
-#: views/layout.html:148
+#: views/layout.html:152
 msgctxt "After a user gives us positive feedback via the NPS poll, we ask them to review our plugin on WordPress.org."
 msgid "Thank you! Time to tell the world?"
 msgstr ""
 
-#: views/layout.html:152
+#: views/layout.html:156
 msgctxt "Review our plugin on WordPress.org."
 msgid "Rate us now"
 msgstr ""
 
-#: views/layout.html:165
+#: views/layout.html:169
 msgctxt "This is a link that leads to more information about transactional emails"
 msgid "Read more."
 msgstr ""
 
-#: views/layout.html:166
+#: views/layout.html:170
 msgctxt "Button, after clicking it we will enable transactional emails"
 msgid "Enable"
 msgstr ""
 
-#: views/layout.html:150
+#: views/layout.html:154
 msgid "You’ve been using MailPoet for [days] day now, and we would love to read your own review."
 msgid_plural "You’ve been using MailPoet for [days] days now, and we would love to read your own review."
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/layout.html:151
+#: views/layout.html:155
 msgid "You’ve been using MailPoet for [months] month now, and we would love to read your own review."
 msgid_plural "You’ve been using MailPoet for [months] months now, and we would love to read your own review."
 msgstr[0] ""
 msgstr[1] ""
 
 #: views/logs.html:21
-#: lib/Config/Menu.php:504
+#: lib/Config/Menu.php:496
 msgid "Logs"
 msgstr ""
 
@@ -4343,8 +4330,8 @@ msgstr ""
 
 #: views/segments/translations.html:73
 #: lib/Automation/Integrations/MailPoet/Fields/SubscriberFieldsFactory.php:233
-#: lib/Config/Menu.php:414
-#: lib/Config/Menu.php:415
+#: lib/Config/Menu.php:406
+#: lib/Config/Menu.php:407
 msgid "Segments"
 msgstr ""
 
@@ -4433,12 +4420,12 @@ msgid "opens"
 msgstr ""
 
 #: views/segments/translations.html:111
-#: views/segments/translations.html:190
+#: views/segments/translations.html:208
 msgid "more than"
 msgstr ""
 
 #: views/segments/translations.html:112
-#: views/segments/translations.html:192
+#: views/segments/translations.html:210
 #: lib/Automation/Integrations/Core/Filters/NumberFilter.php:32
 msgid "less than"
 msgstr ""
@@ -4453,7 +4440,6 @@ msgstr ""
 
 #: views/segments/translations.html:115
 #: lib/Automation/Integrations/Core/Filters/NumberFilter.php:29
-#: assets/dist/js/admin.js:2
 msgid "equals"
 msgstr ""
 
@@ -4480,10 +4466,12 @@ msgid "Select value"
 msgstr ""
 
 #: views/segments/translations.html:121
+#: assets/dist/js/admin.js:2
 msgid "checked"
 msgstr ""
 
 #: views/segments/translations.html:122
+#: assets/dist/js/admin.js:2
 msgid "unchecked"
 msgstr ""
 
@@ -4498,6 +4486,7 @@ msgstr ""
 #: views/segments/translations.html:125
 #: lib/Automation/Integrations/Core/Filters/BooleanFilter.php:20
 #: lib/Automation/Integrations/Core/Filters/StringFilter.php:29
+#: assets/dist/js/admin.js:2
 msgid "is"
 msgstr ""
 
@@ -4524,285 +4513,360 @@ msgstr ""
 msgid "does not end with"
 msgstr ""
 
+#: views/segments/translations.html:135
+msgid "Last click date"
+msgstr ""
+
+#: views/segments/translations.html:136
+msgid "Last engagement date"
+msgstr ""
+
 #: views/segments/translations.html:137
-msgid "on or before"
+msgid "Last open date"
+msgstr ""
+
+#: views/segments/translations.html:138
+msgid "Last page view date"
 msgstr ""
 
 #: views/segments/translations.html:139
+msgid "Last purchase date"
+msgstr ""
+
+#: views/segments/translations.html:140
+msgid "Last sending date"
+msgstr ""
+
+#: views/segments/translations.html:144
+#: lib/Automation/Integrations/Core/Filters/StringFilter.php:35
+#: assets/dist/js/admin.js:2
+msgid "is blank"
+msgstr ""
+
+#: views/segments/translations.html:145
+#: lib/Automation/Integrations/Core/Filters/StringFilter.php:36
+#: assets/dist/js/admin.js:2
+msgid "is not blank"
+msgstr ""
+
+#: views/segments/translations.html:146
+msgid "on or before"
+msgstr ""
+
+#: views/segments/translations.html:148
 msgid "on or after"
 msgstr ""
 
-#: views/segments/translations.html:150
-msgid "segments allow you to group your subscribers by other criteria, such as events and actions."
-msgstr ""
-
-#: views/segments/translations.html:151
-msgid "Read more."
-msgstr ""
-
 #: views/segments/translations.html:152
-msgid "subscribed date"
-msgstr ""
-
-#: views/segments/translations.html:156
-msgid "subscribed to list"
-msgstr ""
-
-#: views/segments/translations.html:157
-msgid "subscribed via form"
-msgstr ""
-
-#: views/segments/translations.html:158
-msgid "WordPress user role"
-msgstr ""
-
-#: views/segments/translations.html:159
-msgid "MailPoet custom field"
+msgid "over all time"
 msgstr ""
 
 #: views/segments/translations.html:160
-msgid "is member of"
+msgid "segments allow you to group your subscribers by other criteria, such as events and actions."
+msgstr ""
+
+#: views/segments/translations.html:161
+msgid "Read more."
 msgstr ""
 
 #: views/segments/translations.html:162
-msgid "Search membership plans"
-msgstr ""
-
-#: views/segments/translations.html:163
-msgid "has active subscription"
-msgstr ""
-
-#: views/segments/translations.html:165
-msgid "used payment method"
+msgid "subscribed date"
 msgstr ""
 
 #: views/segments/translations.html:166
-msgid "used shipping method"
+msgid "subscribed to list"
 msgstr ""
 
 #: views/segments/translations.html:167
-msgid "Search subscriptions"
+msgid "subscribed via form"
 msgstr ""
 
 #: views/segments/translations.html:168
-msgid "Search lists"
+msgid "WordPress user role"
 msgstr ""
 
-#: views/segments/translations.html:171
-msgid "Search forms"
+#: views/segments/translations.html:169
+msgid "MailPoet custom field"
+msgstr ""
+
+#: views/segments/translations.html:170
+msgid "is member of"
+msgstr ""
+
+#: views/segments/translations.html:172
+msgid "Search membership plans"
 msgstr ""
 
 #: views/segments/translations.html:173
-msgid "any of"
-msgstr ""
-
-#: views/segments/translations.html:174
-msgid "all of"
+msgid "has active subscription"
 msgstr ""
 
 #: views/segments/translations.html:175
-msgid "none of"
+msgid "used payment method"
+msgstr ""
+
+#: views/segments/translations.html:176
+msgid "used shipping method"
 msgstr ""
 
 #: views/segments/translations.html:177
-msgid "1 segment was moved to the trash."
+msgid "Search subscriptions"
 msgstr ""
 
 #: views/segments/translations.html:178
-msgid "%1$d segments were moved to the trash."
-msgstr ""
-
-#: views/segments/translations.html:179
-msgid "1 segment has been restored from the Trash."
-msgstr ""
-
-#: views/segments/translations.html:180
-msgid "%1$d segments have been restored from the Trash."
+msgid "Search lists"
 msgstr ""
 
 #: views/segments/translations.html:181
-msgid "%1$d segments were permanently deleted."
+msgid "Search forms"
 msgstr ""
 
-#: views/segments/translations.html:182
-msgid "1 segment was permanently deleted."
+#: views/segments/translations.html:183
+msgid "any of"
 msgstr ""
 
 #: views/segments/translations.html:184
-#: lib/Config/Menu.php:521
-#: lib/Config/Menu.php:523
+msgid "all of"
+msgstr ""
+
+#: views/segments/translations.html:185
+msgid "none of"
+msgstr ""
+
+#: views/segments/translations.html:187
+msgid "1 segment was moved to the trash."
+msgstr ""
+
+#: views/segments/translations.html:188
+msgid "%1$d segments were moved to the trash."
+msgstr ""
+
+#: views/segments/translations.html:189
+msgid "1 segment has been restored from the Trash."
+msgstr ""
+
+#: views/segments/translations.html:190
+msgid "%1$d segments have been restored from the Trash."
+msgstr ""
+
+#: views/segments/translations.html:191
+msgid "%1$d segments were permanently deleted."
+msgstr ""
+
+#: views/segments/translations.html:192
+msgid "1 segment was permanently deleted."
+msgstr ""
+
+#: views/segments/translations.html:194
+#: lib/Config/Menu.php:513
+#: lib/Config/Menu.php:515
 #: assets/dist/js/admin.js:2
 #: assets/dist/js/automation.js:1
 msgid "Automations"
 msgstr ""
 
-#: views/segments/translations.html:185
+#: views/segments/translations.html:195
 msgid "entered automation"
 msgstr ""
 
-#: views/segments/translations.html:186
+#: views/segments/translations.html:196
 msgid "exited automation"
 msgstr ""
 
-#: views/segments/translations.html:187
+#: views/segments/translations.html:197
 msgid "Search automations"
 msgstr ""
 
-#: views/segments/translations.html:189
+#: views/segments/translations.html:199
 msgid "number of orders"
 msgstr ""
 
-#: views/segments/translations.html:191
+#: views/segments/translations.html:200
+msgid "number of reviews"
+msgstr ""
+
+#: views/segments/translations.html:201
+msgid "any"
+msgstr ""
+
+#: views/segments/translations.html:202
+msgid "1 star"
+msgstr ""
+
+#: views/segments/translations.html:203
+msgid "2 star"
+msgstr ""
+
+#: views/segments/translations.html:204
+msgid "3 star"
+msgstr ""
+
+#: views/segments/translations.html:205
+msgid "4 star"
+msgstr ""
+
+#: views/segments/translations.html:206
+msgid "5 star"
+msgstr ""
+
+#: views/segments/translations.html:209
 msgid "more than or equal"
 msgstr ""
 
-#: views/segments/translations.html:193
+#: views/segments/translations.html:211
 msgid "less than or equal"
 msgstr ""
 
-#: views/segments/translations.html:194
+#: views/segments/translations.html:212
 #: assets/dist/js/admin.js:2
 msgid "count"
 msgstr ""
 
-#: views/segments/translations.html:195
+#: views/segments/translations.html:213
 #: assets/dist/js/automation_analytics.js:9
 #: assets/dist/js/commons.js:9
 msgid "days"
 msgstr ""
 
-#: views/segments/translations.html:198
+#: views/segments/translations.html:216
 msgid "average order value"
 msgstr ""
 
-#: views/segments/translations.html:199
+#: views/segments/translations.html:217
 #: assets/dist/js/automation_analytics.js:9
 msgid "orders"
 msgstr ""
 
-#: views/segments/translations.html:200
+#: views/segments/translations.html:218
+msgid "reviews"
+msgstr ""
+
+#: views/segments/translations.html:219
 msgid "purchased in category"
 msgstr ""
 
-#: views/segments/translations.html:201
+#: views/segments/translations.html:220
 msgid "purchase date"
 msgstr ""
 
-#: views/segments/translations.html:202
+#: views/segments/translations.html:221
 msgid "purchased product"
 msgstr ""
 
-#: views/segments/translations.html:203
+#: views/segments/translations.html:222
 msgid "total spent"
 msgstr ""
 
-#: views/segments/translations.html:204
+#: views/segments/translations.html:223
 msgid "country"
 msgstr ""
 
-#: views/segments/translations.html:205
+#: views/segments/translations.html:224
 msgid "city"
 msgstr ""
 
-#: views/segments/translations.html:206
+#: views/segments/translations.html:225
 msgid "postal code"
 msgstr ""
 
-#: views/segments/translations.html:207
+#: views/segments/translations.html:226
 msgid "single order value"
 msgstr ""
 
-#: views/segments/translations.html:208
+#: views/segments/translations.html:227
 msgid "amount"
 msgstr ""
 
-#: views/segments/translations.html:209
+#: views/segments/translations.html:228
 msgid "Search categories"
 msgstr ""
 
-#: views/segments/translations.html:210
+#: views/segments/translations.html:229
 #: lib/AutomaticEmails/WooCommerce/Events/PurchasedProduct.php:105
 msgid "Search products"
 msgstr ""
 
-#: views/segments/translations.html:211
+#: views/segments/translations.html:230
 msgid "Search countries"
 msgstr ""
 
-#: views/segments/translations.html:212
+#: views/segments/translations.html:231
 msgid "Search payment methods"
 msgstr ""
 
-#: views/segments/translations.html:213
+#: views/segments/translations.html:232
 msgid "Search shipping methods"
 msgstr ""
 
-#: views/segments/translations.html:216
+#: views/segments/translations.html:235
 msgid "Calculating segment size…"
 msgstr ""
 
-#: views/segments/translations.html:217
+#: views/segments/translations.html:236
 msgid "It's taking longer than usual to generate the segment, which may be due to a complex configuration. Try using fewer or simpler conditions."
 msgstr ""
 
-#: views/segments/translations.html:218
+#: views/segments/translations.html:237
 msgid "This segment has %1$d subscribers."
 msgstr ""
 
-#: views/segments/translations.html:219
+#: views/segments/translations.html:238
 msgid "Learn more."
 msgstr ""
 
-#: views/segments/translations.html:234
+#: views/segments/translations.html:253
 msgid "Add a condition"
 msgstr ""
 
-#: views/segments/translations.html:236
+#: views/segments/translations.html:255
 msgid "Due to email privacy protections, some opens may not be tracked. Consider using a different engagement metric."
 msgstr ""
 
-#: views/segments/translations.html:238
+#: views/segments/translations.html:257
 msgid "Your current MailPoet plan does not support advanced segments with multiple conditions. Upgrade to the MailPoet Business plan to more precisely target your emails based on how people engage with your business. [link]Learn more.[/link]"
 msgstr ""
 
-#: views/segments/translations.html:239
+#: views/segments/translations.html:258
 #: views/subscribers/subscribers.html:132
-#: lib/Config/Menu.php:467
-#: lib/Config/Menu.php:468
+#: lib/Config/Menu.php:459
+#: lib/Config/Menu.php:460
 #: assets/dist/js/admin.js:2
 #: assets/dist/js/automation_analytics.js:9
 #: assets/dist/js/commons.js:9
 msgid "Upgrade"
 msgstr ""
 
-#: views/segments/translations.html:240
+#: views/segments/translations.html:259
 #: views/subscribers/subscribers.html:134
+#: lib/Util/Notices/PremiumFeaturesAvailableNotice.php:54
 #: assets/dist/js/admin.js:2
 msgid "Your current MailPoet plan includes advanced features, but they require the MailPoet Premium plugin to be installed and activated."
 msgstr ""
 
-#: views/segments/translations.html:241
+#: views/segments/translations.html:260
 #: views/subscribers/subscribers.html:135
+#: lib/Util/Notices/PremiumFeaturesAvailableNotice.php:58
 #: assets/dist/js/admin.js:2
 #: assets/dist/js/commons.js:9
 msgid "Download MailPoet Premium plugin"
 msgstr ""
 
-#: views/segments/translations.html:242
+#: views/segments/translations.html:261
 #: views/subscribers/subscribers.html:136
+#: lib/Util/Notices/PremiumFeaturesAvailableNotice.php:62
 #: assets/dist/js/admin.js:2
 #: assets/dist/js/commons.js:9
 msgid "Activate MailPoet Premium plugin"
 msgstr ""
 
-#: views/segments/translations.html:243
+#: views/segments/translations.html:262
 #: views/subscribers/subscribers.html:131
 #: views/subscribers/subscribers.html:137
 #: assets/dist/js/admin.js:2
 msgid "Congratulations, you now have [subscribersCount] subscribers! Your plan is limited to [subscribersLimit] subscribers. You need to upgrade now to be able to continue using MailPoet."
 msgstr ""
 
-#: views/segments/translations.html:244
+#: views/segments/translations.html:263
 #: views/subscribers/subscribers.html:138
 #: assets/dist/js/admin.js:2
 msgid "Upgrade your plan"
@@ -4854,115 +4918,115 @@ msgstr ""
 
 #: views/segments/translations.html:110
 msgctxt "The result will be \"in the last 5 days\""
-msgid "in the last {days} days"
+msgid "{timeframe} {days} days"
 msgstr ""
 
-#: views/segments/translations.html:135
+#: views/segments/translations.html:142
 #: assets/dist/js/admin.js:2
 msgctxt "Meaning: \"Subscriber subscribed before April\""
 msgid "before"
 msgstr ""
 
-#: views/segments/translations.html:136
+#: views/segments/translations.html:143
 #: assets/dist/js/admin.js:2
 msgctxt "Meaning: \"Subscriber subscribed after April"
 msgid "after"
 msgstr ""
 
-#: views/segments/translations.html:138
+#: views/segments/translations.html:147
 msgctxt "Meaning: \"Subscriber subscribed on a given date\""
 msgid "on"
 msgstr ""
 
-#: views/segments/translations.html:140
+#: views/segments/translations.html:149
 msgctxt "Meaning: \"Subscriber subscribed on a date other than the given date\""
 msgid "not on"
 msgstr ""
 
-#: views/segments/translations.html:141
+#: views/segments/translations.html:150
 msgctxt "Meaning: \"Subscriber subscribed in the last 3 days\""
 msgid "in the last"
 msgstr ""
 
-#: views/segments/translations.html:142
+#: views/segments/translations.html:151
 msgctxt "Meaning: \"Subscriber subscribed not in the last 3 days\""
 msgid "not in the last"
 msgstr ""
 
-#: views/segments/translations.html:144
+#: views/segments/translations.html:154
 msgctxt "Dynamic segment creation: when newsletter was not opened"
 msgid "not opened"
 msgstr ""
 
-#: views/segments/translations.html:145
+#: views/segments/translations.html:155
 msgctxt "Dynamic segment creation: when a newsletter link was clicked"
 msgid "clicked"
 msgstr ""
 
-#: views/segments/translations.html:146
+#: views/segments/translations.html:156
 msgctxt "Dynamic segment creation: when a newsletter link in any email was clicked"
 msgid "clicked any email"
 msgstr ""
 
-#: views/segments/translations.html:147
+#: views/segments/translations.html:157
 msgctxt "Dynamic segment creation: when a newsletter link was not clicked"
 msgid "not clicked"
 msgstr ""
 
-#: views/segments/translations.html:149
+#: views/segments/translations.html:159
 msgctxt "A note about dynamic segments usage"
 msgid "Tip"
 msgstr ""
 
-#: views/segments/translations.html:153
+#: views/segments/translations.html:163
 msgctxt "Subscriber engagement score"
 msgid "engagement score"
 msgstr ""
 
-#: views/segments/translations.html:154
+#: views/segments/translations.html:164
 msgctxt "Placeholder for input: subscriber engagement score"
 msgid "score"
 msgstr ""
 
-#: views/segments/translations.html:155
+#: views/segments/translations.html:165
 msgctxt "The result will be \"higher than 20 %\""
 msgid "{condition} {score} %"
 msgstr ""
 
-#: views/segments/translations.html:161
+#: views/segments/translations.html:171
 msgctxt "Dynamic segment creation: User selects this to use any WooCommerce Memberships filters"
 msgid "WooCommerce Memberships"
 msgstr ""
 
-#: views/segments/translations.html:164
+#: views/segments/translations.html:174
 msgctxt "Dynamic segment creation: User selects this to use any WooCommerce Subscriptions filters"
 msgid "WooCommerce Subscriptions"
 msgstr ""
 
-#: views/segments/translations.html:169
+#: views/segments/translations.html:179
 msgctxt "Subscriber tag"
 msgid "tag"
 msgstr ""
 
-#: views/segments/translations.html:196
+#: views/segments/translations.html:214
 msgctxt "Appears together with `inTheLast` when creating a new WooCommerce segment based on the number of orders."
 msgid "days"
 msgstr ""
 
-#: views/segments/translations.html:197
+#: views/segments/translations.html:215
 msgctxt "Appears together with `days` when creating a new WooCommerce segment based on the number of orders."
 msgid "in the last"
 msgstr ""
 
-#: views/segments/translations.html:214
+#: views/segments/translations.html:233
 msgctxt "Dynamic segment creation: User selects this to use any woocommerce filters"
 msgid "WooCommerce"
 msgstr ""
 
 #: views/settings_translations.html:2
 #: lib/Config/Hooks.php:525
-#: lib/Config/Menu.php:439
-#: lib/Config/Menu.php:440
+#: lib/Config/Menu.php:431
+#: lib/Config/Menu.php:432
 #: assets/dist/js/admin.js:2
 #: assets/dist/js/automation_editor.js:1
 msgid "Settings"
@@ -5003,7 +5067,7 @@ msgid "Settings saved"
 msgstr ""
 
 #: views/settings_translations.html:13
-#: views/welcome_wizard.html:31
+#: assets/dist/js/admin.js:2
 msgid "Default sender"
 msgstr ""
 
@@ -5046,7 +5110,7 @@ msgid "Users will be subscribed to these lists:"
 msgstr ""
 
 #: views/settings_translations.html:24
-#: lib/Migrations/Migration_20230425_211517.php:15
+#: lib/Migrations/App/Migration_20230425_211517.php:15
 msgid "Yes, add me to your mailing list"
 msgstr ""
 
@@ -5871,8 +5935,8 @@ msgstr ""
 #: views/subscribers/importExport/export.html:6
 #: views/subscribers/importExport/export.html:79
 #: views/subscribers/subscribers.html:124
-#: lib/Config/Menu.php:376
-#: lib/Config/Menu.php:377
+#: lib/Config/Menu.php:368
+#: lib/Config/Menu.php:369
 msgid "Export"
 msgstr ""
 
@@ -5918,6 +5982,13 @@ msgstr ""
 msgid "%1$s subscribers were exported. Get the exported file [link]here[/link]."
 msgstr ""
 
+#: views/subscribers/importExport/export.html:31
+#: views/subscribers/importExport/export.html:48
+#: views/subscribers/importExport/import.html:118
+msgctxt "Verb"
+msgid "Select"
+msgstr ""
+
 #: views/subscribers/importExport/export.html:41
 msgctxt "Link to a documentation page in the knowledge base about what is the subscriber global status"
 msgid "Read about the Global status."
@@ -5930,8 +6001,8 @@ msgstr ""
 #: views/subscribers/importExport/import.html:6
 #: views/subscribers/importExport/import.html:99
 #: views/subscribers/subscribers.html:123
-#: lib/Config/Menu.php:363
-#: lib/Config/Menu.php:364
+#: lib/Config/Menu.php:355
+#: lib/Config/Menu.php:356
 msgid "Import"
 msgstr ""
 
@@ -7001,86 +7072,13 @@ msgctxt "This text resides in the Upgrade page: /wp-admin/admin.php?page=mailpoe
 msgid "And if you’re not sure which plan is the right one for you, our [link]Customer Support team[/link] are on hand to help you decide."
 msgstr ""
 
-#: views/welcome_wizard.html:30
-msgid "Start by configuring your sender information"
-msgstr ""
-
-#: views/welcome_wizard.html:32
-msgid "Enter details of the person or brand your subscribers expect to receive emails from"
-msgstr ""
-
-#: views/welcome_wizard.html:33
-msgid "Confirm privacy and data settings"
-msgstr ""
-
-#: views/welcome_wizard.html:34
-msgid "Help improve MailPoet"
-msgstr ""
-
-#: views/welcome_wizard.html:35
-msgid "Get improved features and fixes faster by sharing with us [link]non-sensitive data about how you use MailPoet[/link]. No personal data is tracked or stored."
-msgstr ""
-
-#: views/welcome_wizard.html:36
-#: views/welcome_wizard.html:38
-msgid "Note"
-msgstr ""
-
-#: views/welcome_wizard.html:37
-msgid "If enabled, we may load the Google Fonts library and [link]other 3rd-party libraries we use[/link]."
-msgstr ""
-
-#: views/welcome_wizard.html:39
-msgid "Enable better-looking Google Fonts in forms and emails and show contextual help articles in MailPoet?"
-msgstr ""
-
-#: views/welcome_wizard.html:40
-msgctxt "A label on a button"
-msgid "See video guide"
-msgstr ""
-
-#: views/welcome_wizard.html:41
-msgctxt "A label on a skip button"
-msgid "Skip"
-msgstr ""
-
-#: views/welcome_wizard.html:42
-msgctxt "A label on a skip button"
-msgid "Skip this step"
-msgstr ""
-
-#: views/welcome_wizard.html:43
-msgctxt "A form field label"
-msgid "From Address"
-msgstr ""
-
-#: views/welcome_wizard.html:44
-msgctxt "A form field label"
-msgid "Reply-to Address"
-msgstr ""
-
-#: views/welcome_wizard.html:45
-msgctxt "A form field label"
-msgid "From Name"
-msgstr ""
-
-#: views/welcome_wizard.html:46
-msgctxt "A label on a button"
-msgid "Next"
-msgstr ""
-
-#: views/welcome_wizard.html:47
-msgctxt "A label on a button"
-msgid "Continue"
-msgstr ""
-
 #. Plugin Name of the plugin
 #. Author of the plugin
 #: views/woo_system_info.html:5
 #: lib/Config/Capabilities.php:80
 #: lib/Config/Menu.php:202
 #: lib/Config/Menu.php:203
-#: lib/Config/Menu.php:673
+#: lib/Config/Menu.php:665
 #: lib/Config/PrivacyPolicy.php:12
 #: lib/WooCommerce/WooSystemInfoController.php:41
 msgid "MailPoet"
@@ -7135,52 +7133,6 @@ msgctxt "Link from WooCommerce plugin to MailPoet"
 msgid "Disable MailPoet customizer"
 msgstr ""
 
-#: views/woocommerce_setup_translations.html:3
-msgid "MailPoet comes with powerful features for WooCommerce. Select features that you would like to use with your store."
-msgstr ""
-
-#: views/woocommerce_setup_translations.html:5
-msgid "Do you want to import your WooCommerce customers as subscribed? [link]Learn more[/link]."
-msgstr ""
-
-#: views/woocommerce_setup_translations.html:7
-msgid "Collect more precise email and site engagement, and e-commerce metrics by enabling cookie tracking. [link]Learn more[/link]."
-msgstr ""
-
-#: views/woocommerce_setup_translations.html:11
-msgid "Unknown error"
-msgstr ""
-
-#: views/woocommerce_setup_translations.html:2
-msgctxt "Title on the WooCommerce setup page"
-msgid "Power up your WooCommerce store"
-msgstr ""
-
-#: views/woocommerce_setup_translations.html:4
-msgctxt "WooCommerce setup GDPR tag"
-msgid "GDPR"
-msgstr ""
-
-#: views/woocommerce_setup_translations.html:6
-msgctxt "GDPR compliance information"
-msgid "To be compliant with privacy regulations, your customers must have explicitly accepted to receive your marketing emails."
-msgstr ""
-
-#: views/woocommerce_setup_translations.html:8
-msgctxt "GDPR compliance information"
-msgid "To be compliant, you should display a cookie tracking banner on your website."
-msgstr ""
-
-#: views/woocommerce_setup_translations.html:9
-msgctxt "Submit button caption in the WooCommerce step in the wizard"
-msgid "Start using MailPoet"
-msgstr ""
-
-#: views/woocommerce_setup_translations.html:10
-msgctxt "Submit button caption on the standalone WooCommerce setup page"
-msgid "Start using WooCommerce features"
-msgstr ""
-
 #. Plugin URI of the plugin
 #. Author URI of the plugin
 msgid "https://www.mailpoet.com"
@@ -7200,7 +7152,7 @@ msgstr ""
 msgid "Can‘t generate cron URL."
 msgstr ""
 
-#: lib/AdminPages/Pages/Newsletters.php:95
+#: lib/AdminPages/Pages/Newsletters.php:100
 msgid "In any WordPress role"
 msgstr ""
 
@@ -7417,7 +7369,7 @@ msgstr ""
 #: lib/API/JSON/v1/Newsletters.php:178
 #: lib/API/JSON/v1/SendingQueue.php:90
 #: lib/API/JSON/v1/SendingQueue.php:223
-#: lib/Services/Bridge/API.php:369
+#: lib/Services/Bridge/API.php:373
 msgid "Subscribers limit reached."
 msgstr ""
 
@@ -8328,14 +8280,6 @@ msgstr ""
 msgid "is not multiple of"
 msgstr ""
 
-#: lib/Automation/Integrations/Core/Filters/StringFilter.php:35
-msgid "is blank"
-msgstr ""
-
-#: lib/Automation/Integrations/Core/Filters/StringFilter.php:36
-msgid "is not blank"
-msgstr ""
-
 #: lib/Automation/Integrations/Core/Filters/StringFilter.php:37
 msgid "matches regex"
 msgstr ""
@@ -8833,47 +8777,47 @@ msgstr ""
 msgid "Select Form Template"
 msgstr ""
 
-#: lib/Config/Menu.php:351
+#: lib/Config/Menu.php:343
 msgctxt "subscribers per page (screen options)"
 msgid "Number of subscribers per page"
 msgstr ""
 
-#: lib/Config/Menu.php:402
+#: lib/Config/Menu.php:394
 msgctxt "lists per page (screen options)"
 msgid "Number of lists per page"
 msgstr ""
 
-#: lib/Config/Menu.php:427
+#: lib/Config/Menu.php:419
 msgctxt "segments per page (screen options)"
 msgid "Number of segments per page"
 msgstr ""
 
-#: lib/Config/Menu.php:452
-#: lib/Config/Menu.php:453
+#: lib/Config/Menu.php:444
+#: lib/Config/Menu.php:445
 msgid "Help"
 msgstr ""
 
-#: lib/Config/Menu.php:481
-#: lib/Config/Menu.php:482
+#: lib/Config/Menu.php:473
+#: lib/Config/Menu.php:474
 msgid "WooCommerce Setup"
 msgstr ""
 
-#: lib/Config/Menu.php:494
+#: lib/Config/Menu.php:486
 msgid "Experimental Features"
 msgstr ""
 
-#: lib/Config/Menu.php:532
-#: lib/Config/Menu.php:533
+#: lib/Config/Menu.php:524
+#: lib/Config/Menu.php:525
 msgid "Automation Editor"
 msgstr ""
 
-#: lib/Config/Menu.php:542
-#: lib/Config/Menu.php:543
+#: lib/Config/Menu.php:534
+#: lib/Config/Menu.php:535
 msgid "Automation Analytics"
 msgstr ""
 
-#: lib/Config/Menu.php:553
-#: lib/Config/Menu.php:554
+#: lib/Config/Menu.php:545
+#: lib/Config/Menu.php:546
 msgid "Automation Templates"
 msgstr ""
 
@@ -8906,21 +8850,21 @@ msgstr ""
 msgid "We noticed that you're using an unsupported environment. While MailPoet might work within a MultiSite environment, we don’t support it."
 msgstr ""
 
-#: lib/Config/Populator.php:298
+#: lib/Config/Populator.php:300
 msgctxt "default email opt-in message displayed on checkout page for ecommerce websites"
 msgid "Yes, I would like to be added to your mailing list"
 msgstr ""
 
-#: lib/Config/Populator.php:299
+#: lib/Config/Populator.php:301
 msgctxt "default email opt-in message displayed on checkout page for ecommerce websites"
 msgid "I would like to receive exclusive emails with discounts and product information"
 msgstr ""
 
-#: lib/Config/Populator.php:366
+#: lib/Config/Populator.php:368
 msgid "Newsletter mailing list"
 msgstr ""
 
-#: lib/Config/Populator.php:368
+#: lib/Config/Populator.php:370
 msgid "This list is automatically created when you install MailPoet."
 msgstr ""
 
@@ -11022,59 +10966,59 @@ msgstr ""
 msgid "Subscribers without a list"
 msgstr ""
 
-#: lib/Services/Bridge/API.php:355
+#: lib/Services/Bridge/API.php:359
 msgid "Key is valid, but the action is forbidden."
 msgstr ""
 
-#: lib/Services/Bridge/API.php:357
+#: lib/Services/Bridge/API.php:361
 msgid "The email address is not authorized."
 msgstr ""
 
-#: lib/Services/Bridge/API.php:359
+#: lib/Services/Bridge/API.php:363
 msgid "Key is valid, but not approved yet; you can send only to authorized email addresses at the moment."
 msgstr ""
 
-#: lib/Services/Bridge/API.php:361
+#: lib/Services/Bridge/API.php:365
 msgid "Email violates Sender Domain's DMARC policy. Please set up sender authentication."
 msgstr ""
 
-#: lib/Services/Bridge/API.php:363
+#: lib/Services/Bridge/API.php:367
 msgid "No valid API key provided."
 msgstr ""
 
-#: lib/Services/Bridge/API.php:365
+#: lib/Services/Bridge/API.php:369
 msgid "Insufficient privileges."
 msgstr ""
 
-#: lib/Services/Bridge/API.php:367
+#: lib/Services/Bridge/API.php:371
 msgid "Email volume limit reached."
 msgstr ""
 
-#: lib/Services/Bridge/API.php:371
+#: lib/Services/Bridge/API.php:375
 msgid "You cannot use a free email address. Please use an address from your website’s domain, for example."
 msgstr ""
 
-#: lib/Services/Bridge/API.php:373
+#: lib/Services/Bridge/API.php:377
 msgid "Invalid email."
 msgstr ""
 
-#: lib/Services/Bridge/API.php:375
+#: lib/Services/Bridge/API.php:379
 msgid "This email was already added to the list."
 msgstr ""
 
-#: lib/Services/Bridge/API.php:377
+#: lib/Services/Bridge/API.php:381
 msgid "Domain not found."
 msgstr ""
 
-#: lib/Services/Bridge/API.php:379
+#: lib/Services/Bridge/API.php:383
 msgid "Some DNS records were not set up correctly. Please check the records again. You may need to wait up to 24 hours for DNS changes to propagate."
 msgstr ""
 
-#: lib/Services/Bridge/API.php:381
+#: lib/Services/Bridge/API.php:385
 msgid "Invalid domain. Please enter a valid domain name."
 msgstr ""
 
-#: lib/Services/Bridge/API.php:383
+#: lib/Services/Bridge/API.php:387
 msgid "This domain was already added to the list."
 msgstr ""
 
@@ -12540,6 +12484,14 @@ msgid "GA campaign"
 msgstr ""
 
 #: assets/dist/js/admin.js:2
+msgid "We were unable to activate the premium plugin, please try visiting the [link]plugin page link[/link] to activate it manually."
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Activating MailPoet premium..."
+msgstr ""
+
+#: assets/dist/js/admin.js:2
 msgid "Learn more about your subscribers and optimize your campaigns. See who opened your emails, which links they clicked, and then use the data to make your emails even better. And if you run a WooCommerce store, you’ll also see the revenue earned per email. All starting $10 per month."
 msgstr ""
 
@@ -12610,6 +12562,90 @@ msgstr ""
 
 #: assets/dist/js/admin.js:2
 msgid "december"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgctxt "A label on a button"
+msgid "Continue"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgctxt "Submit button caption on the standalone WooCommerce setup page"
+msgid "Start using WooCommerce features"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgctxt "Title on the WooCommerce setup page"
+msgid "Power up your WooCommerce store"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "MailPoet comes with powerful features for WooCommerce. Select features that you would like to use with your store."
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Do you want to import your WooCommerce customers as subscribed? [link]Learn more[/link]."
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgctxt "GDPR compliance information"
+msgid "To be compliant with privacy regulations, your customers must have explicitly accepted to receive your marketing emails."
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Collect more precise email and site engagement, and e-commerce metrics by enabling cookie tracking. [link]Learn more[/link]."
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgctxt "GDPR compliance information"
+msgid "To be compliant, you should display a cookie tracking banner on your website."
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Start by configuring your sender information"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Enter details of the person or brand your subscribers expect to receive emails from"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgctxt "A form field label"
+msgid "From Name"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgctxt "A form field label"
+msgid "From Address"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgctxt "A label on a skip button"
+msgid "Skip this step"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Confirm privacy and data settings"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Enable modern text fonts in emails and show contextual help articles in MailPoet"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Note"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "MailPoet may load Google Fonts, HelpScout and other [link]3rd party libraries[/link]."
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Help improve MailPoet"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Get improved features and fixes faster by sharing with us [link]non-sensitive data about how you use MailPoet[/link]. No personal data is tracked or stored."
 msgstr ""
 
 #: assets/dist/js/admin.js:2
@@ -12790,6 +12826,18 @@ msgid "1 automation and all associated data permanently deleted."
 msgstr ""
 
 #: assets/dist/js/automation.js:1
+msgid "Permanently delete automation"
+msgstr ""
+
+#: assets/dist/js/automation.js:1
+msgid "Yes, permanently delete"
+msgstr ""
+
+#: assets/dist/js/automation.js:1
+msgid "Are you sure you want to permanently delete \"%s\" and all associated data? This cannot be undone!"
+msgstr ""
+
+#: assets/dist/js/automation.js:1
 msgctxt "verb"
 msgid "Trash"
 msgstr ""
@@ -12804,18 +12852,6 @@ msgstr ""
 
 #: assets/dist/js/automation.js:1
 msgid "Are you sure you want to move the automation \"%s\" to the Trash?"
-msgstr ""
-
-#: assets/dist/js/automation.js:1
-msgid "Permanently delete automation"
-msgstr ""
-
-#: assets/dist/js/automation.js:1
-msgid "Yes, permanently delete"
-msgstr ""
-
-#: assets/dist/js/automation.js:1
-msgid "Are you sure you want to permanently delete \"%s\" and all associated data? This cannot be undone!"
 msgstr ""
 
 #: assets/dist/js/automation.js:1
@@ -14224,6 +14260,10 @@ msgid "Use an address like %1$s for the Sender and put %2$s in the <em>Reply-to<
 msgstr ""
 
 #: assets/dist/js/commons.js:9
+msgid "An error occured when saving FROM email address."
+msgstr ""
+
+#: assets/dist/js/commons.js:9
 msgid "Excellent. Your authorized email was saved. You can change it in the [link]Basics tab of the MailPoet settings[/link]."
 msgstr ""
 
@@ -14237,10 +14277,6 @@ msgstr ""
 
 #: assets/dist/js/commons.js:9
 msgid "Can’t use this email yet! [link]Please authorize it first[/link]."
-msgstr ""
-
-#: assets/dist/js/commons.js:9
-msgid "An error occured when saving FROM email address."
 msgstr ""
 
 #: assets/dist/js/commons.js:9

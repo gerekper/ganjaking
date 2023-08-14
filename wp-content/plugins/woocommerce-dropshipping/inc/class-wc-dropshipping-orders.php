@@ -168,7 +168,7 @@ class WC_Dropshipping_Orders {
 		$info['id'] = $product->get_id();
 		$order = wc_get_order( $item['order_id'] );
 		$order_data = $order->get_data();
-		$order_currency = opmc_hpos_get_post_meta( $item['order_id'], '_order_currency', true );
+		$order_currency = opmc_hpos_get_post_meta( $item['order_id'], '_order_currency' );
 		$shipping_total = $order_data['shipping_total'];
 		$shipping_tax = $order_data['shipping_tax'];
 		$get_tax_total = $order->get_tax_totals();
@@ -635,7 +635,7 @@ class WC_Dropshipping_Orders {
 			$order = wc_get_order( $order_info['id'] );
 			$billing_address = $order->get_formatted_billing_address();
 			$shipping_address = $order->get_formatted_shipping_address();
-			opmc_hpos_update_post_meta( $order_info['id'], '_billing_address', $billing_address );
+			opmc_hpos_update_post_meta( $order_info['id'], '_billing_address', $billing_addres );
 			opmc_hpos_update_post_meta( $order_info['id'], '_shipping_address', $shipping_address );
 		if ( function_exists( 'wcs_get_subscriptions_for_renewal_order' ) ) {
 			$renewal_order = wcs_get_subscriptions_for_renewal_order( $order_info['id'] );
@@ -900,7 +900,7 @@ class WC_Dropshipping_Orders {
 						$product_name = $item->get_name();
 						$product_id = $item->get_product_id();
 						$quantity = $item['qty'];
-						$supplier_id = opmc_hpos_get_post_meta( $item_id, 'supplierid', true );
+						$supplier_id = get_post_meta( $item_id, 'supplierid', true );
 						$arg = array(
 							'meta_key'    => 'supplier_id',
 							'meta_value'    => $supplier_id,
@@ -914,7 +914,7 @@ class WC_Dropshipping_Orders {
 					$postid = $order_id;
 					$uniqe_userid = array_unique( $arrayuser );
 					foreach ( $uniqe_userid as $key => $value ) {
-						$dropshipper_shipping_info = opmc_hpos_get_post_meta( $postid, 'dropshipper_shipping_info_' . $value, true );
+						$dropshipper_shipping_info = get_post_meta( $postid, 'dropshipper_shipping_info_' . $value, true );
 						$track_no = $dropshipper_shipping_info['tracking_number'];
 						$supplier_id = get_user_meta( $value, 'supplier_id', true );
 						$term = get_term_by( 'id', $supplier_id, 'dropship_supplier' );
@@ -937,7 +937,7 @@ class WC_Dropshipping_Orders {
 			if ( ! empty( $terms ) ) {
 				foreach ( $terms as $term ) {
 					$term_id = $term->term_id;
-					opmc_hpos_update_post_meta( $order_id, 'dropship_supplier_' . $term_id, $term_id );
+					opmc_hpos_update_post_meta( $order_id, 'dropship_supplier_' . $term_id, $term_id, true );
 				}
 			}
 		}

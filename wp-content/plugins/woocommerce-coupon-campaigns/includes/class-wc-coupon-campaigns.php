@@ -125,6 +125,7 @@ class WC_Coupon_Campaigns {
 			'add_new_item'      => __( 'Add New Campaign', 'wc_coupon_campaigns' ),
 			'new_item_name'     => __( 'New Term Campaign', 'wc_coupon_campaigns' ),
 			'menu_name'         => __( 'Coupon Campaigns', 'wc_coupon_campaigns' ),
+			'back_to_items'     => __( '&larr; Go to Coupon Campaigns', 'wc_coupon_campaigns' ),
 		);
 
 		$args = array(

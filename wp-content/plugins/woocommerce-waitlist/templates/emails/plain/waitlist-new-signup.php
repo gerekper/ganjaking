@@ -11,7 +11,7 @@
  * the readme will list any important changes.
  *
  * @see https://docs.woocommerce.com/document/template-structure/
- * @version 2.1.9
+ * @version 2.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 echo '= ' . esc_html( $email_heading ) . " =\n\n";
 
-echo sprintf( __( '%1$s has just signed up to the waitlist for %2$s', 'woocommerce-waitlist' ), esc_html( $user_email ), esc_html( $product_title ) );
+echo sprintf( __( '%1$s has just signed up to the waitlist for %2$s', 'woocommerce-waitlist' ), esc_html( sanitize_email( $user_email ) ), esc_html( $product_title ) );
 
 echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 echo sprintf( __( 'There are now %d customers on this waitlist.', 'woocommerce-waitlist' ), $count ) . '  ';

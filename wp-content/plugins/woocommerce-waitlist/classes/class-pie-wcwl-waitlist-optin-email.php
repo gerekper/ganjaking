@@ -177,6 +177,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Optin_Email' ) ) {
 			wc_get_template(
 				$this->template_html,
 				array(
+					'email_class'   => $this,
 					'product_title' => get_the_title( $product_id ),
 					'product_link'  => get_permalink( $product_id ),
 					'key'           => $key,
@@ -207,6 +208,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Optin_Email' ) ) {
 			wc_get_template(
 				$this->template_plain,
 				array(
+					'email_class'   => $this,
 					'product_title' => get_the_title( $product_id ),
 					'product_link'  => get_permalink( $product_id ),
 					'key'           => $key,

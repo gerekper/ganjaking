@@ -10,7 +10,7 @@
 		</p>
 
 		<p>
-			<?php _e('Then, try out our "Migrator" add-on which can perform a direct site-to-site migration. After using it once, you\'ll have saved the purchase price compared to the time needed to copy a site by hand.', 'updraftplus'); ?>
+			<?php echo __('Then, try out our "Migrator" add-on which can perform a direct site-to-site migration.', 'updraftplus').' '.__('After using it once, you\'ll have saved the purchase price compared to the time needed to copy a site by hand.', 'updraftplus'); ?>
 		</p>
 
 		<p>

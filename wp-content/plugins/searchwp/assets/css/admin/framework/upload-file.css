@@ -1,0 +1,36 @@
+.swp-file-upload--hide {
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    position: absolute;
+}
+
+.swp-input--file-upload {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    background: var(--white);
+    border: 1px solid rgba(var(--neutralRGB), 0.14);
+    border-radius: 3px;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1;
+    color: var(--neutralText);
+    padding: 0 12px;
+    height: 40px;
+    width: 283px;
+}
+
+.swp-input--placeholder {
+    color: rgba(var(--neutralRGB), 0.5);
+}
+
+input[type=file]:focus + label .swp-button,
+input[type=file]:active + label .swp-button {
+    outline: none;
+    -webkit-box-shadow: 0 0 2px 1px var(--secondary);
+            box-shadow: 0 0 2px 1px var(--secondary);
+}

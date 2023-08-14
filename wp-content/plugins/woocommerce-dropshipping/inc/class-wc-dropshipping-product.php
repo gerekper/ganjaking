@@ -64,7 +64,7 @@ class WC_Dropshipping_Product {
 
 			$quantity = $item['qty'];
 
-			$supplier_id = opmc_hpos_get_post_meta( $item_id, 'supplierid', true );
+			$supplier_id = get_post_meta( $item_id, 'supplierid', true );
 
 			$arg = array(
 
@@ -98,7 +98,7 @@ class WC_Dropshipping_Product {
 
 			foreach ( $uniqe_userid as $key => $value ) {
 
-				$dropshipper_shipping_info = opmc_hpos_get_post_meta( $post->ID, 'dropshipper_shipping_info_' . $value, true );
+				$dropshipper_shipping_info = get_post_meta( $post->ID, 'dropshipper_shipping_info_' . $value, true );
 
 				$supplier_id = get_user_meta( $value, 'supplier_id', true );
 
@@ -220,9 +220,9 @@ class WC_Dropshipping_Product {
 
 				$name = $term->name;
 
-				opmc_hpos_update_post_meta( $post_id, 'supplier', $name );
+				update_post_meta( $post_id, 'supplier', $name );
 
-				opmc_hpos_update_post_meta( $post_id, 'supplierid', $term->term_id );
+				update_post_meta( $post_id, 'supplierid', $term->term_id );
 
 			}
 
@@ -339,15 +339,15 @@ class WC_Dropshipping_Product {
 
 					$name = $term->name;
 
-					opmc_hpos_update_post_meta( $post_id, 'supplier', $name );
+					update_post_meta( $post_id, 'supplier', $name );
 
-					opmc_hpos_update_post_meta( $post_id, 'supplierid', $term->term_id );
+					update_post_meta( $post_id, 'supplierid', $term->term_id );
 
 				} else {
 
-					opmc_hpos_delete_post_meta( $post_id, 'supplier' );
+					delete_post_meta( $post_id, 'supplier' );
 
-					opmc_hpos_delete_post_meta( $post_id, 'supplierid' );
+					delete_post_meta( $post_id, 'supplierid' );
 
 				}
 			}
@@ -388,8 +388,8 @@ class WC_Dropshipping_Product {
 
 			foreach ( $unmatched_result as $rs ) {
 				  $results = $wpdb->get_results( "SELECT post_id FROM {$wpdb->postmeta}  WHERE meta_key='supplierid' AND meta_value='" . $rs . "'" );
-				  opmc_hpos_delete_post_meta( $results[0]->post_id, 'supplierid' );
-				  opmc_hpos_delete_post_meta( $results[0]->post_id, 'supplier' );
+				  delete_post_meta( $results[0]->post_id, 'supplierid' );
+				  delete_post_meta( $results[0]->post_id, 'supplier' );
 			}
 		}
 	}

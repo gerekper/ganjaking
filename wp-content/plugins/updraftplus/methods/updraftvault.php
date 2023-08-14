@@ -253,7 +253,7 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 					$config['email'] = $opts['email']; // Pass along the email address used, as we need it to display our error message correctly
 					unset($config['quota']);
 					// We want to hide the AWS error message in this case
-					$config['error_message'] = __("An error occurred while fetching your Vault credentials. Please try again after a few minutes.", 'updraftplus');
+					$config['error_message'] = __('An error occurred while fetching your Vault credentials.', 'updraftplus').' '.__('Please try again after a few minutes.', 'updraftplus');
 					$details_retrieved = true;
 					$cache_in_job = true;
 				} else {
@@ -321,13 +321,13 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 	public function vault_translate_remote_message($message, $code) {
 		switch ($code) {
 			case 'premium_overdue':
-				return __('Your UpdraftPlus Premium purchase is over a year ago. You should renew immediately to avoid losing the 12 months of free storage allowance that you get for being a current UpdraftPlus Premium customer.', 'updraftplus');
+				return __('Your UpdraftPlus Premium purchase is over a year ago.', 'updraftplus').' '.__('You should renew immediately to avoid losing the 12 months of free storage allowance that you get for being a current UpdraftPlus Premium customer.', 'updraftplus');
 				break;
 			case 'vault_subscription_overdue':
-				return __('You have an UpdraftVault subscription with overdue payment. You are within the few days of grace period before it will be suspended, and you will lose your quota and access to data stored within it. Please renew as soon as possible!', 'updraftplus');
+				return __('You have an UpdraftPlus Vault subscription with overdue payment.', 'updraftplus').' '.__('You are within the few days of grace period before it will be suspended, and you will lose your quota and access to data stored within it.', 'updraftplus').' '.__('Please renew as soon as possible!', 'updraftplus');
 				break;
 			case 'vault_subscription_suspended':
-				return __("You have an UpdraftVault subscription that has not been renewed, and the grace period has expired. In a few days' time, your stored data will be permanently removed. If you do not wish this to happen, then you should renew as soon as possible.", 'updraftplus');
+				return __("You have an UpdraftPlus Vault subscription that has not been renewed, and the grace period has expired.", 'updraftplus').' '.__("In a few days' time, your stored data will be permanently removed.", 'updraftplus').' '.__("If you do not wish this to happen, then you should renew as soon as possible.", 'updraftplus');
 				// The following shouldn't be a possible response (the server can deal with duplicated sites with the same IDs) - but there's no harm leaving it in for now (Dec 2015)
 				// This means that the site is accessing with a different home_url() than it was registered with.
 				break;
@@ -473,7 +473,7 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 		$this->vault_in_config_print = true;
 		$properties = array(
 			'storage_image_url' => UPDRAFTPLUS_URL.'/images/updraftvault-150.png',
-			'simplexmlelement_existence_label' => !apply_filters('updraftplus_vault_simplexmlelement_exists', class_exists('SimpleXMLElement')) ? wp_kses($updraftplus_admin->show_double_warning('<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__("Your web server's PHP installation does not include a <strong>required</strong> (for %s) module (%s). Please contact your web hosting provider's support and ask for them to enable it.", 'updraftplus'), 'UpdraftVault', 'SimpleXMLElement'), $this->get_id(), false), $this->allowed_html_for_content_sanitisation()) : '',
+			'simplexmlelement_existence_label' => !apply_filters('updraftplus_vault_simplexmlelement_exists', class_exists('SimpleXMLElement')) ? wp_kses($updraftplus_admin->show_double_warning('<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__("Your web server's PHP installation does not include a <strong>required</strong> (for %s) module (%s).", 'updraftplus'), 'UpdraftVault', 'SimpleXMLElement').' '.__("Please contact your web hosting provider's support and ask for them to enable it.", 'updraftplus'), $this->get_id(), false), $this->allowed_html_for_content_sanitisation()) : '',
 			'curl_existence_label' => wp_kses($updraftplus_admin->curl_check($updraftplus->backup_methods[$this->get_id()], false, $this->get_id().' hidden-in-updraftcentral', false), $this->allowed_html_for_content_sanitisation()),
 			'storage_long_description' => wp_kses(__('UpdraftVault brings you storage that is <strong>reliable, easy to use and a great price</strong>.', 'updraftplus').' '.__('Press a button to get started.', 'updraftplus'), $this->allowed_html_for_content_sanitisation()),
 			'storage_package_options_label1' => __('Need to get space?', 'updraftplus'),
@@ -936,9 +936,9 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 			case 'iamfailed':
 				if (!empty($response['authproblem'])) {
 					if ('gettempcreds_exception2' == $response['authproblem'] || 'gettempcreds_exception2' == $response['authproblem']) {
-						$authfail_error = new WP_Error('authfailed', __('An error occurred while fetching your Vault credentials. Please try again after a few minutes.'));
+						$authfail_error = new WP_Error('authfailed', __('An error occurred while fetching your Vault credentials.', 'updraftplus').' '.__('Please try again after a few minutes.'));
 					} else {
-						$authfail_error = new WP_Error('authfailed', __('An unknown error occurred while connecting to Vault. Please try again.'));
+						$authfail_error = new WP_Error('authfailed', __('An unknown error occurred while connecting to Vault.', 'updraftplus').' '.__('Please try again.'));
 					}
 					return $authfail_error;
 				}

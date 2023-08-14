@@ -3,7 +3,7 @@
 /**
  * Display Bulk URI Editor
  */
-class Permalink_Manager_Uri_Editor {
+class Permalink_Manager_URI_Editor {
 	public $this_section = 'uri_editor';
 
 	public function __construct() {
@@ -52,7 +52,7 @@ class Permalink_Manager_Uri_Editor {
 
 			$admin_sections[ $this->this_section ]['subsections']["tax_{$taxonomy_name}"] = array(
 				'name' => "{$icon} {$taxonomy['label']}",
-				'html' => Permalink_Manager_Admin_Functions::pro_text(),
+				'html' => Permalink_Manager_UI_Elements::pro_text(),
 				'pro'  => true
 			);
 		}
@@ -108,7 +108,7 @@ class Permalink_Manager_Uri_Editor {
 
 		foreach ( $screen_options as $field_name => $field_args ) {
 			$field_args['container'] = 'screen-options';
-			$html                    .= Permalink_Manager_Admin_Functions::generate_option_field( "screen-options[{$field_name}]", $field_args );
+			$html                    .= Permalink_Manager_UI_Elements::generate_option_field( "screen-options[{$field_name}]", $field_args );
 		}
 
 		$html .= sprintf( "</fieldset>%s", $button );

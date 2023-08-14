@@ -428,7 +428,7 @@ class Permalink_Manager_Core_Functions {
 					$feed_rewrite = true;
 
 					// Check if /feed/ endpoint is allowed for selected post type or taxonomy
-					if ( ! empty( $post_type_object ) && empty( $post_type_object->rewrite['feeds'] ) ) {
+					if ( ! empty( $post_type_object ) && is_array( $post_type_object->rewrite ) && empty( $post_type_object->rewrite['feeds'] ) ) {
 						$feed_rewrite = false;
 					}
 

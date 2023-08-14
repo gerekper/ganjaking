@@ -132,7 +132,7 @@ foreach ($default_options as $k => $v) {
 
 	<tr class="updraftplusmethod none ud_nostorage" style="display:none;">
 		<td></td>
-		<td><em><?php echo htmlspecialchars(__('If you choose no remote storage, then the backups remain on the web-server. This is not recommended (unless you plan to manually copy them to your computer), as losing the web-server would mean losing both your website and the backups in one event.', 'updraftplus'));?></em></td>
+		<td><em><?php echo htmlspecialchars(__('If you choose no remote storage, then the backups remain on the web-server.', 'updraftplus').' '.__('This is not recommended (unless you plan to manually copy them to your computer), as losing the web-server would mean losing both your website and the backups in one event.', 'updraftplus'));?></em></td>
 	</tr>
 </table>
 
@@ -323,7 +323,7 @@ foreach ($default_options as $k => $v) {
 
 	<tr class="expertmode updraft-hidden" style="display:none;">
 		<th><?php _e('Split archives every:', 'updraftplus');?></th>
-		<td><input type="text" name="updraft_split_every" class="updraft_split_every" value="<?php echo $split_every_mb; ?>" size="5" /> MB<br><?php echo sprintf(__('UpdraftPlus will split up backup archives when they exceed this file size. The default value is %s megabytes. Be careful to leave some margin if your web-server has a hard size limit (e.g. the 2 GB / 2048 MB limit on some 32-bit servers/file systems).', 'updraftplus'), 400).' '.__('The higher the value, the more server resources are required to create the archive.', 'updraftplus'); ?></td>
+		<td><input type="text" name="updraft_split_every" class="updraft_split_every" value="<?php echo $split_every_mb; ?>" size="5" /> MB<br><?php echo sprintf(__('UpdraftPlus will split up backup archives when they exceed this file size.', 'updraftplus').' '.__('The default value is %s megabytes.', 'updraftplus').' '.__('Be careful to leave some margin if your web-server has a hard size limit (e.g. the 2 GB / 2048 MB limit on some 32-bit servers/file systems).', 'updraftplus'), 400).' '.__('The higher the value, the more server resources are required to create the archive.', 'updraftplus'); ?></td>
 	</tr>
 
 	<tr class="deletelocal expertmode updraft-hidden" style="display:none;">
@@ -342,24 +342,24 @@ foreach ($default_options as $k => $v) {
 				<?php echo $updraftplus_admin->really_writable_message($really_is_writable, $updraft_dir); ?>
 			</span>
 			<?php
-				echo __("This is where UpdraftPlus will write the zip files it creates initially.  This directory must be writable by your web server. It is relative to your content directory (which by default is called wp-content).", 'updraftplus').' '.__("<b>Do not</b> place it inside your uploads or plugins directory, as that will cause recursion (backups of backups of backups of...).", 'updraftplus');
+				echo __('This is where UpdraftPlus will write the zip files it creates initially.', 'updraftplus').' '.__('This directory must be writable by your web server.', 'updraftplus').' '.__('It is relative to your content directory (which by default is called wp-content).', 'updraftplus').' '.__("<b>Do not</b> place it inside your uploads or plugins directory, as that will cause recursion (backups of backups of backups of...).", 'updraftplus');
 			?>
 		</td>
 	</tr>
 
 	<tr class="expertmode updraft-hidden" style="display:none;">
 		<th><?php _e("Use the server's SSL certificates", 'updraftplus');?>:</th>
-		<td><input data-updraft_settings_test="useservercerts" type="checkbox" id="updraft_ssl_useservercerts" name="updraft_ssl_useservercerts" value="1" <?php if (UpdraftPlus_Options::get_updraft_option('updraft_ssl_useservercerts')) echo 'checked="checked"'; ?>> <br><label for="updraft_ssl_useservercerts"><?php _e('By default UpdraftPlus uses its own store of SSL certificates to verify the identity of remote sites (i.e. to make sure it is talking to the real Dropbox, Amazon S3, etc., and not an attacker). We keep these up to date. However, if you get an SSL error, then choosing this option (which causes UpdraftPlus to use your web server\'s collection instead) may help.', 'updraftplus');?></label></td>
+		<td><input data-updraft_settings_test="useservercerts" type="checkbox" id="updraft_ssl_useservercerts" name="updraft_ssl_useservercerts" value="1" <?php if (UpdraftPlus_Options::get_updraft_option('updraft_ssl_useservercerts')) echo 'checked="checked"'; ?>> <br><label for="updraft_ssl_useservercerts"><?php echo __('By default UpdraftPlus uses its own store of SSL certificates to verify the identity of remote sites (i.e. to make sure it is talking to the real Dropbox, Amazon S3, etc., and not an attacker).', 'updraftplus').' '.__('We keep these up to date.', 'updraftplus').' '.__('However, if you get an SSL error, then choosing this option (which causes UpdraftPlus to use your web server\'s collection instead) may help.', 'updraftplus');?></label></td>
 	</tr>
 
 	<tr class="expertmode updraft-hidden" style="display:none;">
 		<th><?php _e('Do not verify SSL certificates', 'updraftplus');?>:</th>
-		<td><input data-updraft_settings_test="disableverify" type="checkbox" id="updraft_ssl_disableverify" name="updraft_ssl_disableverify" value="1" <?php if (UpdraftPlus_Options::get_updraft_option('updraft_ssl_disableverify')) echo 'checked="checked"'; ?>> <br><label for="updraft_ssl_disableverify"><?php _e('Choosing this option lowers your security by stopping UpdraftPlus from verifying the identity of encrypted sites that it connects to (e.g. Dropbox, Google Drive). It means that UpdraftPlus will be using SSL only for encryption of traffic, and not for authentication.', 'updraftplus');?> <?php _e('Note that not all cloud backup methods are necessarily using SSL authentication.', 'updraftplus');?></label></td>
+		<td><input data-updraft_settings_test="disableverify" type="checkbox" id="updraft_ssl_disableverify" name="updraft_ssl_disableverify" value="1" <?php if (UpdraftPlus_Options::get_updraft_option('updraft_ssl_disableverify')) echo 'checked="checked"'; ?>> <br><label for="updraft_ssl_disableverify"><?php echo __('Choosing this option lowers your security by stopping UpdraftPlus from verifying the identity of encrypted sites that it connects to (e.g. Dropbox, Google Drive).', 'updraftplus').' '.__('It means that UpdraftPlus will be using SSL only for encryption of traffic, and not for authentication.', 'updraftplus').' '.__('Note that not all cloud backup methods are necessarily using SSL authentication.', 'updraftplus');?></label></td>
 	</tr>
 
 	<tr class="expertmode updraft-hidden" style="display:none;">
 		<th><?php _e('Disable SSL entirely where possible', 'updraftplus');?>:</th>
-		<td><input data-updraft_settings_test="nossl" type="checkbox" id="updraft_ssl_nossl" name="updraft_ssl_nossl" value="1" <?php if (UpdraftPlus_Options::get_updraft_option('updraft_ssl_nossl')) echo 'checked="checked"'; ?>> <br><label for="updraft_ssl_nossl"><?php _e('Choosing this option lowers your security by stopping UpdraftPlus from using SSL for authentication and encrypted transport at all, where possible. Note that some cloud storage providers do not allow this (e.g. Dropbox), so with those providers this setting will have no effect.', 'updraftplus');?> <a href="<?php echo apply_filters('updraftplus_com_link', "https://updraftplus.com/faqs/i-get-ssl-certificate-errors-when-backing-up-andor-restoring/");?>" target="_blank"><?php _e('See this FAQ also.', 'updraftplus');?></a></label></td>
+		<td><input data-updraft_settings_test="nossl" type="checkbox" id="updraft_ssl_nossl" name="updraft_ssl_nossl" value="1" <?php if (UpdraftPlus_Options::get_updraft_option('updraft_ssl_nossl')) echo 'checked="checked"'; ?>> <br><label for="updraft_ssl_nossl"><?php echo __('Choosing this option lowers your security by stopping UpdraftPlus from using SSL for authentication and encrypted transport at all, where possible.', 'updraftplus').' '.__('Note that some cloud storage providers do not allow this (e.g. Dropbox), so with those providers this setting will have no effect.', 'updraftplus');?> <a href="<?php echo apply_filters('updraftplus_com_link', "https://updraftplus.com/faqs/i-get-ssl-certificate-errors-when-backing-up-andor-restoring/");?>" target="_blank"><?php _e('See this FAQ also.', 'updraftplus');?></a></label></td>
 	</tr>
 
 	<tr class="expertmode updraft-hidden" style="display:none;">

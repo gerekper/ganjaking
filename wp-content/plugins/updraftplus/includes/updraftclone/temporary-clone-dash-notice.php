@@ -44,7 +44,7 @@ class UpdraftPlus_Temporary_Clone_Dash_Notice {
 			<h1><?php _e('Welcome to your UpdraftClone (temporary clone)', 'updraftplus'); ?></h1>
 			<p>
 				<?php echo __('Your clone will renew on:', 'updraftplus') . ' ' . $pretty_date . ' ' . get_option('timezone_string') . ' (' . $date_diff . ')'; ?>.
-				<?php echo sprintf(__('Each time your clone renews (weekly) it costs %s. You can shut this clone down at the following link:', 'updraftplus'), sprintf(_n('%d token', '%d tokens', $package_cost, 'updraftplus'), $package_cost)); ?> <a target="_blank" href="https://updraftplus.com/my-account/clones/"><?php _e('Manage your clones', 'updraftplus'); ?></a>
+				<?php echo sprintf(__('Each time your clone renews (weekly) it costs %s.', 'updraftplus'), sprintf(_n('%d token', '%d tokens', $package_cost, 'updraftplus'), $package_cost)).' '.__('You can shut this clone down at the following link:', 'updraftplus'); ?> <a target="_blank" href="https://updraftplus.com/my-account/clones/"><?php _e('Manage your clones', 'updraftplus'); ?></a>
 			</p>
 			<?php
 			$show_removal_warning = get_site_option('updraftplus_clone_removal_warning', false);

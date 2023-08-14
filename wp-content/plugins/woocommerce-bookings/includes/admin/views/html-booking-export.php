@@ -1,4 +1,5 @@
 <?php
+/* @var WC_Booking $bookable_product Product object. */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -9,7 +10,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	?>
 	<p><?php esc_html_e( 'Click the "Export" button to export this product, it\'s settings, as well as any applicable resources, persons, and global availability rules. This will create a ZIP file that will then be downloaded to your local device to help WooCommerce support troubleshoot your bookings setup, if needed.', 'woocommerce-bookings' ); ?></p>
 	<?php
-	$export_link = wp_nonce_url( get_edit_post_link( $product_id ) . '&action=export_product_with_global_rules', 'export_product_with_global_rules' );
+	$export_link = wp_nonce_url(
+		add_query_arg(
+			array(
+				'action'     => 'export_product_with_global_rules',
+				'product_id' => $product_id,
+			),
+			get_edit_post_link( $product_id )
+		),
+		"export_product_with_global_rules_$product_id"
+	);
 	?>
-	<p><a class="button button-primary" href="<?php echo esc_url( $export_link ) ?>" style="display: inline-block; margin: 0 0 10px"><?php esc_html_e( 'Export', 'woocommerce-bookings' ); ?></a></p>
+	<p><a class="button button-primary" href="<?php echo esc_url( $export_link ); ?>" style="display: inline-block; margin: 0 0 10px"><?php esc_html_e( 'Export', 'woocommerce-bookings' ); ?></a></p>
 </div>

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticIniteb627050efea67f0981dd871bc0302b0
+class ComposerStaticInitc62f6233f83db1ad0bd1eb0de5944111
 {
     public static $files = array (
         'b45b351e6b6f7487d819961fef2fda77' => __DIR__ . '/..' . '/jakeasmith/http_build_url/src/http_build_url.php',
@@ -44,6 +44,8 @@ class ComposerStaticIniteb627050efea67f0981dd871bc0302b0
         'WPML\\PB\\AutoUpdate\\Hooks' => __DIR__ . '/../..' . '/classes/Shared/AutoUpdate/Hooks.php',
         'WPML\\PB\\AutoUpdate\\Settings' => __DIR__ . '/../..' . '/classes/Shared/AutoUpdate/Settings.php',
         'WPML\\PB\\AutoUpdate\\TranslationStatus' => __DIR__ . '/../..' . '/classes/Shared/AutoUpdate/TranslationStatus.php',
+        'WPML\\PB\\BeaverBuilder\\BeaverThemer\\HooksFactory' => __DIR__ . '/../..' . '/classes/Integrations/BeaverBuilder/BeaverThemer/HooksFactory.php',
+        'WPML\\PB\\BeaverBuilder\\BeaverThemer\\LocationHooks' => __DIR__ . '/../..' . '/classes/Integrations/BeaverBuilder/BeaverThemer/LocationHooks.php',
         'WPML\\PB\\BeaverBuilder\\Config\\Factory' => __DIR__ . '/../..' . '/classes/Integrations/BeaverBuilder/Config/Factory.php',
         'WPML\\PB\\BeaverBuilder\\Hooks\\Editor' => __DIR__ . '/../..' . '/classes/Integrations/BeaverBuilder/Hooks/Editor.php',
         'WPML\\PB\\BeaverBuilder\\Hooks\\Menu' => __DIR__ . '/../..' . '/classes/Integrations/BeaverBuilder/Hooks/Menu.php',
@@ -304,7 +306,7 @@ class ComposerStaticIniteb627050efea67f0981dd871bc0302b0
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticIniteb627050efea67f0981dd871bc0302b0::$classMap;
+            $loader->classMap = ComposerStaticInitc62f6233f83db1ad0bd1eb0de5944111::$classMap;
 
         }, null, ClassLoader::class);
     }

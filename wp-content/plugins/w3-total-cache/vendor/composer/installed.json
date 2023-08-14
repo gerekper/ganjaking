@@ -178,7 +178,7 @@
                 "dev-master": "6.5-dev"
             }
         },
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "files": [
                 "src/functions_include.php"
@@ -363,7 +363,7 @@
         },
         "time": "2023-04-17T16:00:37+00:00",
         "type": "library",
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "files": [
                 "src/functions_include.php"

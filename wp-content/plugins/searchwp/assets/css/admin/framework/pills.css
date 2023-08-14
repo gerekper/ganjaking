@@ -1,0 +1,54 @@
+.swp-pills-container {
+    border: 1px solid var(--borderColor);
+    border-radius: 3px;
+    padding: 13px;
+}
+
+.swp-pill {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 3px 7px 3px 10px;
+    background-color: rgba(var(--neutralRGB), 0.05);
+    border-radius: 3px;
+}
+
+.swp-pill-text {
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1.3;
+    color: rgba(var(--neutralRGB), 0.7);
+}
+
+.swp-pill-delete {
+    border: 0;
+    background: 0;
+    padding: 3px;
+    margin: 0;
+    width: 13px;
+    height: 13px;
+    cursor: pointer;
+}
+
+.swp-pill-delete svg {
+    display: block;
+}
+
+.swp-pill-delete:hover path {
+    opacity: 1;
+}
+
+input.swp-input.swp-pills-input {
+    padding: 3px 10px;
+    height: 23px;
+    min-width: 268px;
+    font-weight: inherit;
+    font-size: inherit;
+}

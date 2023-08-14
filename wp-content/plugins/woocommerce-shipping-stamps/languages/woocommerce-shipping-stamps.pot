@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Stamps.com API integration 1.9.3\n"
+"Project-Id-Version: WooCommerce Stamps.com API integration 1.9.4\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-shipping-stamps\n"
-"POT-Creation-Date: 2023-07-31 08:56:39+00:00\n"
+"POT-Creation-Date: 2023-07-31 17:40:37+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,121 +14,121 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.3\n"
 
-#: includes/class-wc-stamps-api.php:93
+#: includes/class-wc-stamps-api.php:57
 msgid "Stamps.com hidden postage"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:95
+#: includes/class-wc-stamps-api.php:59
 msgid "Stamps.com insurance"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:97
+#: includes/class-wc-stamps-api.php:61
 msgid "Stamps.com insurance for registered mail"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:99
+#: includes/class-wc-stamps-api.php:63
 msgid "Certified mail"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:101
+#: includes/class-wc-stamps-api.php:65
 msgid "Collect on delivery"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:103
+#: includes/class-wc-stamps-api.php:67
 msgid "Delivery confirmation"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:105
+#: includes/class-wc-stamps-api.php:69
 msgid "Express sunday/holiday guaranteed"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:107
+#: includes/class-wc-stamps-api.php:71
 msgid "USPS insurance"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:109
+#: includes/class-wc-stamps-api.php:73
 msgid "No delivery on saturdays"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:111
+#: includes/class-wc-stamps-api.php:75
 msgid "Restricted delivery"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:113
+#: includes/class-wc-stamps-api.php:77
 msgid "Registered mail"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:115
+#: includes/class-wc-stamps-api.php:79
 msgid "Return reciept requested"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:117
+#: includes/class-wc-stamps-api.php:81
 msgid "Return reciept for merchandise"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:119
+#: includes/class-wc-stamps-api.php:83
 msgid "Signature confirmation"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:121
+#: includes/class-wc-stamps-api.php:85
 msgid "Fragile"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:123
+#: includes/class-wc-stamps-api.php:87
 msgid "Perishable"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:125
+#: includes/class-wc-stamps-api.php:89
 msgid "Waive delivery signature"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:127
+#: includes/class-wc-stamps-api.php:91
 msgid "Signature required"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:129
+#: includes/class-wc-stamps-api.php:93
 msgid "Notice of non-delivery"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:131
+#: includes/class-wc-stamps-api.php:95
 msgid "Electronic return reciept"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:133
+#: includes/class-wc-stamps-api.php:97
 msgid "Live animal no surcharge"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:135
+#: includes/class-wc-stamps-api.php:99
 msgid "Live animal with surcharge"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:137
+#: includes/class-wc-stamps-api.php:101
 msgid "Hazardous materials"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:139
+#: includes/class-wc-stamps-api.php:103
 msgid "Cremated remains"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:141
+#: includes/class-wc-stamps-api.php:105
 msgid "Deliver priority mail express by 10:30am"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:143
+#: includes/class-wc-stamps-api.php:107
 msgid "Adult signature required"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:145
+#: includes/class-wc-stamps-api.php:109
 msgid "Adult signature restricted delivery"
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:618
+#: includes/class-wc-stamps-api.php:553
 msgid ""
 "No rates were returned for the selected package type, weight and "
 "dimensions. Please select a different package type and try again."
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:747
+#: includes/class-wc-stamps-api.php:612
 msgid "Cannot create a label for the package with the requested service."
 msgstr ""
 
@@ -287,17 +287,17 @@ msgstr ""
 msgid "Shipping Labels"
 msgstr ""
 
-#: includes/class-wc-stamps-order.php:483
+#: includes/class-wc-stamps-order.php:481
 msgid ""
 "The label was refunded. Refund requests are generally processed within 1 to "
 "2 weeks."
 msgstr ""
 
-#: includes/class-wc-stamps-order.php:724
+#: includes/class-wc-stamps-order.php:722
 msgid "Try again"
 msgstr ""
 
-#: includes/class-wc-stamps-order.php:727
+#: includes/class-wc-stamps-order.php:725
 msgid "View all labels"
 msgstr ""
 
@@ -691,35 +691,35 @@ msgstr ""
 msgid "Content type"
 msgstr ""
 
-#: includes/views/html-customs.php:18
+#: includes/views/html-customs.php:18 includes/views/html-package.php:35
 msgid "Merchandise"
 msgstr ""
 
-#: includes/views/html-customs.php:19
+#: includes/views/html-customs.php:19 includes/views/html-package.php:30
 msgid "Commercial Sample"
 msgstr ""
 
-#: includes/views/html-customs.php:20
+#: includes/views/html-customs.php:20 includes/views/html-package.php:33
 msgid "Gift"
 msgstr ""
 
-#: includes/views/html-customs.php:21
+#: includes/views/html-customs.php:21 includes/views/html-package.php:32
 msgid "Document"
 msgstr ""
 
-#: includes/views/html-customs.php:22
+#: includes/views/html-customs.php:22 includes/views/html-package.php:36
 msgid "Returned Goods"
 msgstr ""
 
-#: includes/views/html-customs.php:23
+#: includes/views/html-customs.php:23 includes/views/html-package.php:34
 msgid "Humanitarian Donation"
 msgstr ""
 
-#: includes/views/html-customs.php:24
+#: includes/views/html-customs.php:24 includes/views/html-package.php:31
 msgid "Dangerous Goods"
 msgstr ""
 
-#: includes/views/html-customs.php:25
+#: includes/views/html-customs.php:25 includes/views/html-package.php:37
 msgid "Other"
 msgstr ""
 
@@ -826,30 +826,34 @@ msgid "Any (return all options)"
 msgstr ""
 
 #: includes/views/html-package.php:27
+msgid "Content Type"
+msgstr ""
+
+#: includes/views/html-package.php:42
 msgid "Ship date"
 msgstr ""
 
-#: includes/views/html-package.php:31
+#: includes/views/html-package.php:46
 msgid "Weight"
 msgstr ""
 
-#: includes/views/html-package.php:35
+#: includes/views/html-package.php:50
 msgid "Value"
 msgstr ""
 
-#: includes/views/html-package.php:39
+#: includes/views/html-package.php:54
 msgid "Length"
 msgstr ""
 
-#: includes/views/html-package.php:45
+#: includes/views/html-package.php:60
 msgid "Width"
 msgstr ""
 
-#: includes/views/html-package.php:51
+#: includes/views/html-package.php:66
 msgid "Height"
 msgstr ""
 
-#: includes/views/html-package.php:58
+#: includes/views/html-package.php:73
 msgid "Get rates"
 msgstr ""
 

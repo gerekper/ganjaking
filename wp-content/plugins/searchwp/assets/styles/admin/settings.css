@@ -1,0 +1,21 @@
+#wpcontent {
+	padding-left: 0 !important;
+}
+
+.wrap {
+	padding: 0 20px;
+	margin: 0;
+}
+
+.wrap .wrap {
+	padding: 0;
+}
+
+@media screen and (max-width: 600px) {
+	#wpbody {
+		padding-top: 0;
+	}
+	#wpcontent {
+		padding-top: 46px;
+	}
+}

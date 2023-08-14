@@ -5,7 +5,7 @@ Plugin Name: UpdraftPlus - Backup/Restore
 Plugin URI: https://updraftplus.com
 Description: Backup and restore: take backups locally, or backup to Amazon S3, Dropbox, Google Drive, Rackspace, (S)FTP, WebDAV & email, on automatic schedules.
 Author: UpdraftPlus.Com, DavidAnderson
-Version: 2.23.7.26
+Version: 2.23.9.26
 Update URI: https://updraftplus.com/
 Donate link: https://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -95,7 +95,7 @@ function updraft_try_include_file($path, $method = 'include') {
 	$file_to_include = UPDRAFTPLUS_DIR.'/'.$path;
 
 	if (!file_exists($file_to_include)) {
-		trigger_error(sprintf(__('The expected file %s is missing from your UpdraftPlus installation.', 'updraftplus').' '.__('Most likely, WordPress did not correctly unpack the plugin when installing it. You should de-install and then re-install the plugin (your settings and data will be retained).'), $file_to_include), E_USER_WARNING);
+		trigger_error(sprintf(__('The expected file %s is missing from your UpdraftPlus installation.', 'updraftplus').' '.__('Most likely, WordPress did not correctly unpack the plugin when installing it.', 'updraftplus').' '.__('You should de-install and then re-install the plugin (your settings and data will be retained).'), $file_to_include), E_USER_WARNING);
 	}
 
 	if ('include' === $method) {
@@ -224,7 +224,7 @@ if (!file_exists(UPDRAFTPLUS_DIR.'/class-updraftplus.php') || !file_exists(UPDRA
 	 * Warn if they've not got the whole plugin - can happen if WP crashes (e.g. out of disk space) when upgrading the plugin
 	 */
 	function updraftplus_incomplete_install_warning() {
-		echo '<div class="updraftmessage error"><p><strong>'.__('Error', 'updraftplus').':</strong> '.__("You do not have UpdraftPlus completely installed - please de-install and install it again. Most likely, WordPress malfunctioned when copying the plugin files.", 'updraftplus').' <a href="https://updraftplus.com/faqs/wordpress-crashed-when-updating-updraftplus-what-can-i-do/">'.__('Go here for more information.', 'updraftplus').'</a></p></div>';
+		echo '<div class="updraftmessage error"><p><strong>'.__('Error', 'updraftplus').':</strong> '.__('You do not have UpdraftPlus completely installed - please de-install and install it again.', 'updraftplus').' '.__('Most likely, WordPress malfunctioned when copying the plugin files.', 'updraftplus').' <a href="https://updraftplus.com/faqs/wordpress-crashed-when-updating-updraftplus-what-can-i-do/">'.__('Go here for more information.', 'updraftplus').'</a></p></div>';
 	}
 	add_action('all_admin_notices', 'updraftplus_incomplete_install_warning');
 } else {

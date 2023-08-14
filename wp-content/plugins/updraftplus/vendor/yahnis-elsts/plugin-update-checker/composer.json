@@ -1,6 +1,7 @@
 {
 	"name": "yahnis-elsts/plugin-update-checker",
 	"type": "library",
+    "version": "4.13.1",
 	"description": "A custom update checker for WordPress plugins and themes. Useful if you can't host your plugin in the official WP repository but still want it to support automatic updates.",
 	"keywords": ["wordpress", "plugin updates", "automatic updates", "theme updates"],
 	"homepage": "https://github.com/YahnisElsts/plugin-update-checker/",
@@ -18,6 +19,6 @@
 		"ext-json": "*"
 	},
 	"autoload": {
-		"files": ["load-v4p11.php"]
+		"files": ["load-v4p13.php"]
 	}
 }

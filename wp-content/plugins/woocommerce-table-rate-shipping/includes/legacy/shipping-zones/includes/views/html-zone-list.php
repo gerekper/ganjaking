@@ -1,5 +1,5 @@
 <div class="wrap woocommerce">
-	<h2><?php _e( 'Shipping Zones', SHIPPING_ZONES_TEXTDOMAIN ); ?></h2>
+	<h2><?php esc_html_e( 'Shipping Zones', SHIPPING_ZONES_TEXTDOMAIN ); ?></h2>
 	<div class="wc-col-container">
 		<div class="wc-col-right">
 			<div class="wc-col-wrap">

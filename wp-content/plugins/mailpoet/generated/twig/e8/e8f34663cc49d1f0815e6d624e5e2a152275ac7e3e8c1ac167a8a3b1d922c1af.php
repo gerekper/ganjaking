@@ -117,18 +117,11 @@ class __TwigTemplate_040602ebc7669cdfb9da26116daadadf72855abd5f9690ec0e527b909dc
     {
         $macros = $this->macros;
         // line 29
-        echo $this->extensions['MailPoet\Twig\I18n']->localize(["welcomeWizardLetsStartTitle" => $this->extensions['MailPoet\Twig\I18n']->translate("Start by configuring your sender information"), "welcomeWizardSenderTitle" => $this->extensions['MailPoet\Twig\I18n']->translate("Default sender"), "welcomeWizardSenderText" => $this->extensions['MailPoet\Twig\I18n']->translate("Enter details of the person or brand your subscribers expect to receive emails from"), "welcomeWizardUsageTrackingStepTitle" => $this->extensions['MailPoet\Twig\I18n']->translate("Confirm privacy and data settings"), "welcomeWizardUsageTrackingStepTrackingLabel" => $this->extensions['MailPoet\Twig\I18n']->translate("Help improve MailPoet"), "welcomeWizardUsageTrackingStepTrackingLabelNote" => $this->extensions['MailPoet\Twig\I18n']->translate("Get improved features and fixes faster by sharing with us [link]non-sensitive data about how you use MailPoet[/link]. No personal data is tracked or stored."), "welcomeWizardUsageTrackingStepTrackingLabelNoteNote" => $this->extensions['MailPoet\Twig\I18n']->translate("Note"), "welcomeWizardUsageTrackingStepLibs3rdPartyLabelNote" => $this->extensions['MailPoet\Twig\I18n']->translate("If enabled, we may load the Google Fonts library and [link]other 3rd-party libraries we use[/link]."), "welcomeWizardUsageTrackingStepLibs3rdPartyLabelNoteNote" => $this->extensions['MailPoet\Twig\I18n']->translate("Note"), "welcomeWizardUsageTrackingStepLibs3rdPartyLabel" => $this->extensions['MailPoet\Twig\I18n']->translate("Enable better-looking Google Fonts in forms and emails and show contextual help articles in MailPoet?"), "seeVideoGuide" => $this->extensions['MailPoet\Twig\I18n']->translateWithContext("See video guide", "A label on a button"), "skip" => $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Skip", "A label on a skip button"), "skipStep" => $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Skip this step", "A label on a skip button"), "senderAddress" => $this->extensions['MailPoet\Twig\I18n']->translateWithContext("From Address", "A form field label"), "replyToAddress" => $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Reply-to Address", "A form field label"), "senderName" => $this->extensions['MailPoet\Twig\I18n']->translateWithContext("From Name", "A form field label"), "next" => $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Next", "A label on a button"), "continue" => $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Continue", "A label on a button")]);
-        // line 48
-        echo "
-";
-        // line 49
-        $this->loadTemplate("mss_pitch_translations.html", "welcome_wizard.html", 49)->display($context);
-        // line 50
-        $this->loadTemplate("woocommerce_setup_translations.html", "welcome_wizard.html", 50)->display($context);
-        // line 51
-        $this->loadTemplate("premium_key_validation_strings.html", "welcome_wizard.html", 51)->display($context);
-        // line 52
-        $this->loadTemplate("settings_translations.html", "welcome_wizard.html", 52)->display($context);
+        $this->loadTemplate("mss_pitch_translations.html", "welcome_wizard.html", 29)->display($context);
+        // line 30
+        $this->loadTemplate("premium_key_validation_strings.html", "welcome_wizard.html", 30)->display($context);
+        // line 31
+        $this->loadTemplate("settings_translations.html", "welcome_wizard.html", 31)->display($context);
     }
 
     public function getTemplateName()
@@ -143,7 +136,7 @@ class __TwigTemplate_040602ebc7669cdfb9da26116daadadf72855abd5f9690ec0e527b909dc
 
     public function getDebugInfo()
     {
-        return array (  128 => 52,  126 => 51,  124 => 50,  122 => 49,  119 => 48,  117 => 29,  113 => 28,  99 => 17,  95 => 16,  91 => 15,  87 => 14,  83 => 13,  78 => 11,  74 => 10,  70 => 9,  66 => 8,  62 => 7,  58 => 6,  54 => 5,  51 => 4,  47 => 3,  36 => 1,);
+        return array (  121 => 31,  119 => 30,  117 => 29,  113 => 28,  99 => 17,  95 => 16,  91 => 15,  87 => 14,  83 => 13,  78 => 11,  74 => 10,  70 => 9,  66 => 8,  62 => 7,  58 => 6,  54 => 5,  51 => 4,  47 => 3,  36 => 1,);
     }
 
     public function getSourceContext()

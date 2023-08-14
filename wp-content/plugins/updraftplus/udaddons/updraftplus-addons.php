@@ -316,7 +316,7 @@ class UpdraftPlusAddons2 {
 		if (!empty($do_expiry_check) && is_object($oval) && !empty($oval->update) && is_object($oval->update) && !empty($oval->update->$updateskey)) {
 			if (preg_match('/(^|)expired_?(\d+)?(,|$)/', $oval->update->$updateskey, $matches)) {
 				if (empty($matches[2])) {
-					$message = __('Your paid access to UpdraftPlus updates for this site has expired. You will no longer receive updates to UpdraftPlus.', 'updraftplus').' <a href="https://updraftplus.com/renewing-updraftplus-purchase/">'.__('To regain access to updates (including future features and compatibility with future WordPress releases) and support, please renew.', 'updraftplus').'</a>';
+					$message = __('Your paid access to UpdraftPlus updates for this site has expired.', 'updraftplus').' '.__('You will no longer receive updates to UpdraftPlus.', 'updraftplus').' <a href="https://updraftplus.com/renewing-updraftplus-purchase/">'.__('To regain access to updates (including future features and compatibility with future WordPress releases) and support, please renew.', 'updraftplus').'</a>';
 					if ($updraftplus->have_addons > 14 && !empty($meta_info['indirect'])) {
 						$message .= ' <br>'.sprintf(__('If you have already renewed, then you need to allocate a licence to this site - %s', 'updraftplus'), '<a href="'.UpdraftPlus_Options::admin_page().'?page=updraftplus&tab=addons">'.__('go here', 'updraftplus').'</a>');
 					}

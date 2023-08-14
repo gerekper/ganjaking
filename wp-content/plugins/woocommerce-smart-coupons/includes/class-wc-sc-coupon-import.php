@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     3.0.0
+ * @version     3.1.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -371,7 +371,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 				'import_id'      => $post['post_id'],
 				'post_author'    => ( ! empty( $post['post_author'] ) ) ? absint( $post['post_author'] ) : get_current_user_id(),
 				'post_date'      => ( ! empty( $post['post_date'] ) ) ? gmdate( 'Y-m-d H:i:s', strtotime( $post['post_date'] ) ) : gmdate( 'Y-m-d H:i:s', time() ),
-				'post_date_gmt'  => ( ! empty( $post['post_date_gmt'] ) ) ? gmdate( 'Y-m-d H:i:s', strtotime( $post['post_date_gmt'] ) ) : gmdate( 'Y-m-d H:i:s', time() ),
+				'post_date_gmt'  => ( ! empty( $post['post_date_gmt'] ) ) ? gmdate( 'Y-m-d H:i:s', strtotime( $post['post_date_gmt'] ) ) : ( ( ! empty( $post['post_date'] ) ) ? gmdate( 'Y-m-d H:i:s', ( strtotime( $post['post_date'] ) - $this->wc_timezone_offset() ) ) : gmdate( 'Y-m-d H:i:s', time() ) ),
 				'post_content'   => $post['post_content'],
 				'post_excerpt'   => $post['post_excerpt'],
 				'post_title'     => $post_title,

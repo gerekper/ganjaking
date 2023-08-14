@@ -1,5 +1,8 @@
 *** WooCommerce Stamps.com shipping and API integration ***
 
+2023-07-31 - version 1.9.4
+* Update - Moved to Stamps API V135.
+
 2023-07-31 - version 1.9.3
 * Fix - Invalid SOAP message error while fetching rates.
 

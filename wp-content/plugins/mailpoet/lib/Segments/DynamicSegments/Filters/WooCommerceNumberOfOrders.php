@@ -5,6 +5,7 @@ namespace MailPoet\Segments\DynamicSegments\Filters;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Entities\DynamicSegmentFilterData;
 use MailPoet\Entities\DynamicSegmentFilterEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Util\DBCollationChecker;
@@ -42,7 +43,7 @@ class WooCommerceNumberOfOrders implements Filter {
     $filterData = $filter->getFilterData();
     $type = strval($filterData->getParam('number_of_orders_type'));
     $count = intval($filterData->getParam('number_of_orders_count'));
-    $days = $filterData->getParam('days');
+    $isAllTime = $filterData->getParam('timeframe') === DynamicSegmentFilterData::TIMEFRAME_ALL_TIME;
     $parameterSuffix = $filter->getId() ?? Security::generateRandomString();
     $collation = $this->collationChecker->getCollateIfNeeded(
       $subscribersTable,
@@ -51,7 +52,12 @@ class WooCommerceNumberOfOrders implements Filter {
       'email'
     );
 
+    $days = $filterData->getParam('days');
     $date = Carbon::now()->subDays($days);
+
+    $joinCondition = $isAllTime
+      ? 'customer.customer_id = orderStats.customer_id AND orderStats.status IN (:allowedStatuses' . $parameterSuffix . ')'
+      : 'customer.customer_id = orderStats.customer_id AND orderStats.date_created >= :date' . $parameterSuffix . ' AND orderStats.status IN (:allowedStatuses' . $parameterSuffix . ')';
 
     $subQuery = $this->entityManager->getConnection()
       ->createQueryBuilder()
@@ -62,7 +68,7 @@ class WooCommerceNumberOfOrders implements Filter {
         'customer',
         $wpdb->prefix . 'wc_order_stats',
         'orderStats',
-        'customer.customer_id = orderStats.customer_id AND orderStats.date_created >= :date' . $parameterSuffix . ' AND orderStats.status IN (:allowedStatuses' . $parameterSuffix . ')'
+        $joinCondition
       );
 
     $queryBuilder->add('join', [

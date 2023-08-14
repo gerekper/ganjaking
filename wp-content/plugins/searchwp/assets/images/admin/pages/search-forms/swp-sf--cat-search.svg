@@ -1,0 +1,26 @@
+<svg fill="none" height="100" viewBox="0 0 130 100" width="130" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <mask id="b" height="7" maskUnits="userSpaceOnUse" width="7" x="108" y="28">
+    <path d="m108 28h7v7h-7z" fill="#437e47"/>
+  </mask>
+  <g filter="url(#a)">
+    <rect fill="#fff" height="100" rx="0" width="130" x="0"/>
+  </g>
+  <rect fill="#437e47" fill-opacity=".5" height="2.5" rx="1.25" width="60" x="17" y="13.9999"/>
+  <rect fill="#437e47" fill-opacity=".07" height="14" rx="7" width="103" x="17" y="24"/>
+  <g mask="url(#b)">
+    <path d="m114.456 35-2.45-2.45c-.195.1556-.419.2787-.671.3694-.253.0908-.522.1362-.807.1362-.707 0-1.305-.2447-1.794-.7339-.489-.4895-.734-1.0874-.734-1.7939s.245-1.3045.734-1.794c.489-.4892 1.087-.7338 1.794-.7338.706 0 1.304.2446 1.794.7338.489.4895.734 1.0875.734 1.794 0 .2852-.046.5541-.137.8069-.09.2528-.213.4764-.369.6709l2.45 2.45zm-3.928-2.7222c.486 0 .899-.1701 1.24-.5102.34-.3405.51-.7537.51-1.2398s-.17-.8994-.51-1.2398c-.341-.3401-.754-.5102-1.24-.5102s-.9.1701-1.24.5102c-.34.3404-.51.7537-.51 1.2398s.17.8993.51 1.2398c.34.3401.754.5102 1.24.5102z" fill="#437e47" fill-opacity=".5"/>
+  </g>
+  <rect fill="#437e47" fill-opacity=".5" height="2.5" rx="1.25" width="6.25" x="22" y="30"/>
+  <g mask="url(#c)">
+    <path d="m33.25 31.6875-1.5625-1.5625h3.125z" fill="#609163" fill-opacity=".5"/>
+  </g>
+  <path d="m43 24v14" stroke="#437e47" stroke-opacity=".07"/>
+  <g fill="#437e47">
+    <rect fill-opacity=".07" height="41.25" rx="2" width="27.5" x="17" y="41"/>
+    <rect fill-opacity=".5" height="2.21154" rx="1.10577" width="13.75" x="20.75" y="45.9999"/>
+    <rect fill-opacity=".5" height="2.21154" rx="1.10577" width="18.75" x="20.75" y="53.2114"/>
+    <rect fill-opacity=".5" height="2.21154" rx="1.10577" width="16.25" x="20.75" y="60.4232"/>
+    <rect fill-opacity=".5" height="2.21154" rx="1.10577" width="8.75" x="20.75" y="67.6347"/>
+    <rect fill-opacity=".5" height="2.21154" rx="1.10577" width="18.75" x="20.75" y="74.8462"/>
+  </g>
+</svg>

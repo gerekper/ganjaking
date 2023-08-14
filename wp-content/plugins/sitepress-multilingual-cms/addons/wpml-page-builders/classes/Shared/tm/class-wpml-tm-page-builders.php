@@ -28,17 +28,18 @@ class WPML_TM_Page_Builders {
 	 *
 	 * @param array $translation_package Translation package.
 	 * @param mixed $post                Post.
+	 * @param bool  $isOriginal          If it's used as original post.
 	 *
 	 * @return array
 	 */
-	public function translation_job_data_filter( array $translation_package, $post ) {
+	public function translation_job_data_filter( array $translation_package, $post, $isOriginal = false ) {
 		if ( self::PACKAGE_TYPE_EXTERNAL !== $translation_package['type'] && isset( $post->ID ) ) {
 
 			$post_element        = new WPML_Post_Element( $post->ID, $this->sitepress );
 			$source_post_id      = $post->ID;
 			$job_lang_from       = $post_element->get_language_code();
 
-			if ( ! $post_element->is_root_source() && WPML_PB_Last_Translation_Edit_Mode::is_native_editor( $post->ID ) ) {
+			if ( ! $post_element->is_root_source() && $isOriginal && WPML_PB_Last_Translation_Edit_Mode::is_native_editor( $post->ID ) ) {
 				$this->getWpmlPbIntegration()->register_all_strings_for_translation( $post, true );
 				$source_post_element = $post_element->get_translation( $job_lang_from );
 			} else {

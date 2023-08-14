@@ -6,7 +6,7 @@
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
  * @since       4.13.0
- * @version     1.6.0
+ * @version     1.7.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -461,7 +461,16 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Taxonomy' ) ) {
 		public function get_terms_grouped_by_taxonomy() {
 			$terms_by_taxonomy = array();
 
+			$include_taxonomy = array(
+				'product_type',
+				'product_visibility',
+				'product_tag',
+				'product_shipping_class',
+			);
+			$include_taxonomy = apply_filters( 'wc_sc_include_taxonomy_for_restrictions', $include_taxonomy, array( 'source' => $this ) );
+
 			$args = array(
+				'taxonomy'   => $include_taxonomy,
 				'hide_empty' => false,
 			);
 
