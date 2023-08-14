@@ -1,10 +1,11 @@
-=== BetterDocs Pro ===		     				  	   
-Contributors: wpdevteam, re_enter_rupok      	    	   	  
-Donate link: https://wpdeveloper.com	      
+=== BetterDocs Pro ===
+Contributors: wpdevteam, re_enter_rupok
+Donate link: https://wpdeveloper.com
 Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, table of content, TOC, knowledgebase, faqs, doc page, best documentation plugin, support, customer support
 Requires at least: 4.0
-Tested up to: 6.1
-Stable tag: 2.2.7
+Tested up to: 6.3
+Requires PHP: 7.0
+Stable tag: 2.5.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -91,47 +92,9 @@ Yes, it will work with any standard WordPress theme.
 
 == Changelog ==
 
-= 2.2.7 - 08/02/2023 =
+= 2.5.0 - 14/08/2023 =
 
-- Fixed: Analytics graph throwing PHP error
-- Fixed: Weekly Email Report is sent twice at the same time
-- Improved: Added option to show docs lists, search keywords and reactions based on custom date range selector in Analytics
-- Improved: Added option to make Instant Answers doc title clickable
-- Few minor bug fixes & improvements
-
-= 2.2.6 - 15/01/2023 =
-
-- Fixed: Parse error for older PHP Versions
-
-= 2.2.5 - 11/01/2023 =
-
-- Few minor bug fixes & improvements
-
-= 2.2.4 - 22/12/2022 =
-
-- Few minor bug fixes & improvements
-
-= 2.2.3 - 21/12/2022 =
-
-- Few minor bug fixes & improvements
-
-= 2.2.2 - 22/11/2022 =
-
-- Improved: Added option to exclude subcategories from Advanced Search Category List
-- Fixed: Newly created Categories showing docs assigned to them despite no docs being assigned when you filter a category based on a Knowledge base
-- Few minor bug fixes & improvements
-
-= 2.2.1 - 06/11/2022 =
-
-- Improved: Added Category Ordering option inside Instant Answers
-- Added: Shortcodes for Multiple Knowledge base
-- Fixed: Analytics not working when switching to a different language on dashboard
-- Fixed: Reaction count for draft docs are being counted for Analytics
-- Few minor bug fixes & improvements
-
-= 2.2.0 - 25/09/2022 =
-
-- Added: New Handbook Layout for Docs, Archive & Single Docs page
+- Revamped: Code Structure for optimized performance
 - Few minor bug fixes & improvements
 
 = 2.1.4 - 22/08/2022 =
