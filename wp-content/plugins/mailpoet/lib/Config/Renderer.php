@@ -42,7 +42,6 @@ class Renderer {
     $this->setupFunctions();
     $this->setupFilters();
     $this->setupHandlebars();
-    $this->setupHelpscout();
     $this->setupAnalytics();
     $this->setupGlobalVariables();
     $this->setupSyntax();
@@ -66,10 +65,6 @@ class Renderer {
 
   public function setupHandlebars() {
     $this->renderer->addExtension(new Twig\Handlebars());
-  }
-
-  public function setupHelpscout() {
-    $this->renderer->addExtension(new Twig\Helpscout());
   }
 
   public function setupAnalytics() {

@@ -32,7 +32,7 @@ final class Plugin {
      * Plugin Version
      * @var string
      */
-    public $version = '2.5.0';
+    public $version = '2.5.1';
 
     /**
      * Plugin DB Version

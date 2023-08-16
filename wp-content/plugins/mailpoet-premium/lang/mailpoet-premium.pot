@@ -2,16 +2,16 @@
 # This file is distributed under the same license as the MailPoet Premium plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet Premium 4.23.0\n"
+"Project-Id-Version: MailPoet Premium 4.24.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-08-08T11:00:25+00:00\n"
+"POT-Creation-Date: 2023-08-14T15:36:04+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.6.0\n"
+"X-Generator: WP-CLI 2.8.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: mailpoet-premium\n"
 
@@ -268,6 +268,11 @@ msgstr ""
 msgid "Custom field '%1$s' with ID '%2$d' expects type '%3$s' but type '%4$s' was provided."
 msgstr ""
 
+#: lib/Automation/Integrations/MailPoetPremium/Analytics/Endpoints/OrderEndpoint.php:39
+#: lib/Automation/Integrations/MailPoetPremium/Analytics/Endpoints/SubscriberEndpoint.php:39
+msgid "Automation not found"
+msgstr ""
+
 #: lib/Automation/Integrations/MailPoetPremium/Analytics/Storage/SubscriberStatistics.php:200
 #: assets/dist/js/premium.js:2
 msgid "Failed"
@@ -288,32 +293,58 @@ msgstr ""
 msgid "Completed"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:31
-#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:38
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:45
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:52
 msgid "Welcome series for new subscribers"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:32
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:46
 msgid "Welcome new subscribers and start building a relationship with them. Send an email immediately after someone subscribes to your list to introduce your brand and a follow-up two days later to keep the conversation going."
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:41
-#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:68
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:55
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:82
 msgid "Welcome email"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:43
-#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:70
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:57
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:84
 msgid "Follow-up email"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:58
-#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:65
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:72
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:79
 msgid "Welcome series for new WordPress users"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:59
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:73
 msgid "Welcome new WordPress users to your site. Send an email immediately after a WordPress user registers. Send a follow-up email two days later with more in-depth information."
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:99
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:106
+msgid "Purchased a product"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:100
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:119
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:138
+msgid "Share care instructions or simply thank the customer for making an order."
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:118
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:125
+msgid "Purchased a product with a tag"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:137
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:144
+msgid "Purchased in a category"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:175
+#: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:176
+msgid "Important information about your order"
 msgstr ""
 
 #: lib/Automation/Integrations/WooCommerce/Triggers/AbandonedCart/AbandonedCartTrigger.php:56
@@ -334,7 +365,7 @@ msgid "Settings"
 msgstr ""
 
 #. translators: %1$s is the name of the template, %2$s the path to the cache folder and %3$s the error message.
-#: lib/Config/Renderer.php:114
+#: lib/Config/Renderer.php:109
 msgid "Failed to render template \"%1$s\". Please ensure the template cache folder \"%2$s\" exists and has write permissions. Terminated with error: \"%3$s\""
 msgstr ""
 

@@ -178,6 +178,14 @@ class GWAPI {
 
 		if ( $plugin_file ) {
 			$product_version = $this->get_local_product_version( $plugin_file );
+
+			/*
+			* If the plugin name starts with anything outside of "gw" or "gp-" and is not "gravityperks"
+			* bail as we do not want to conflict with GSPC or anything else.
+			*/
+			if ( ! preg_match( '/^(gw|gp-)/', $plugin_file ) && $plugin_file !== 'gravityperks/gravityperks.php' ) {
+				return $options;
+			}
 		}
 
 		$license = GravityPerks::get_license_data();
@@ -225,7 +233,6 @@ class GWAPI {
 	*/
 	public function get_products( $flush = false ) {
 		return;
-
 		return $this->request( array(
 			'action'   => 'get_products',
 			'output'   => OBJECT,
@@ -441,7 +448,6 @@ class GWAPI {
 
 	public function get_license_data( $flush = false ) {
 		return array('license'=>'valid','item_name'=>urlencode($this->get_product_name()),'perk_limit'=>0,'price_name'=>'Pro');
-
 		return $this->request( array(
 			'action'     => 'check_license',
 			'method'     => 'POST',
@@ -481,7 +487,6 @@ class GWAPI {
 
 	public function has_valid_license( $flush = false ) {
 		return true;
-
 		$license_data = $this->get_license_data( $flush );
 
 		return isset( $license_data['valid'] ) && $license_data['valid'];
@@ -490,7 +495,6 @@ class GWAPI {
 
 	public function get_api_status() {
 		return 200;
-
 		return $this->request( array(
 			'action' => 'get_api_status',
 			'cache'  => false,

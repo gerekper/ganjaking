@@ -7,7 +7,7 @@ namespace Composer\Autoload;
 if (!defined('ABSPATH')) exit;
 
 
-class ComposerStaticInit7d0d470c4e3307508e6d80e09e6aa153
+class ComposerStaticInit02b2a22639a3d4caa403e6ebfc9e28d3
 {
     public static $prefixLengthsPsr4 = array (
         'M' => 
@@ -48,8 +48,11 @@ class ComposerStaticInit7d0d470c4e3307508e6d80e09e6aa153
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveTagAction' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Actions/RemoveTagAction.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UnsubscribeAction' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Actions/UnsubscribeAction.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UpdateSubscriberAction' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Actions/UpdateSubscriberAction.php',
-        'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Analytics\\Controller\\PremiumOrderController' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Analytics/Controller/PremiumOrderController.php',
-        'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Analytics\\Controller\\PremiumSubscriberController' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Analytics/Controller/PremiumSubscriberController.php',
+        'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Analytics\\Analytics' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Analytics/Analytics.php',
+        'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Analytics\\Controller\\OrderController' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Analytics/Controller/OrderController.php',
+        'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Analytics\\Controller\\SubscriberController' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Analytics/Controller/SubscriberController.php',
+        'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Analytics\\Endpoints\\OrderEndpoint' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Analytics/Endpoints/OrderEndpoint.php',
+        'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Analytics\\Endpoints\\SubscriberEndpoint' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Analytics/Endpoints/SubscriberEndpoint.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Analytics\\Storage\\OrderStatistics' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Analytics/Storage/OrderStatistics.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Analytics\\Storage\\SubscriberStatistics' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Analytics/Storage/SubscriberStatistics.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\ContextFactory' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/ContextFactory.php',
@@ -79,9 +82,9 @@ class ComposerStaticInit7d0d470c4e3307508e6d80e09e6aa153
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit7d0d470c4e3307508e6d80e09e6aa153::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit7d0d470c4e3307508e6d80e09e6aa153::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit7d0d470c4e3307508e6d80e09e6aa153::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit02b2a22639a3d4caa403e6ebfc9e28d3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit02b2a22639a3d4caa403e6ebfc9e28d3::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit02b2a22639a3d4caa403e6ebfc9e28d3::$classMap;
 
         }, null, ClassLoader::class);
     }

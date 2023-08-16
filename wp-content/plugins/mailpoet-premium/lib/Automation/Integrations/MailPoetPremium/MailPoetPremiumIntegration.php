@@ -15,6 +15,7 @@ use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\RemoveFromL
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\RemoveTagAction;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\UnsubscribeAction;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\UpdateSubscriberAction;
+use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Analytics\Analytics;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Templates\PremiumTemplatesFactory;
 
 class MailPoetPremiumIntegration implements Integration {
@@ -45,6 +46,9 @@ class MailPoetPremiumIntegration implements Integration {
   /** @var PremiumTemplatesFactory */
   private $premiumTemplatesFactory;
 
+  /** @var Analytics */
+  private $analytics;
+
   public function __construct(
     ContextFactory $contextFactory,
     UnsubscribeAction $unsubscribeAction,
@@ -54,7 +58,8 @@ class MailPoetPremiumIntegration implements Integration {
     RemoveFromListAction $removeFromListAction,
     UpdateSubscriberAction $updateSubscriberAction,
     NotificationEmailAction $notificationEmailAction,
-    PremiumTemplatesFactory $premiumTemplatesFactory
+    PremiumTemplatesFactory $premiumTemplatesFactory,
+    Analytics $analytics
   ) {
     $this->contextFactory = $contextFactory;
     $this->unsubscribeAction = $unsubscribeAction;
@@ -65,6 +70,7 @@ class MailPoetPremiumIntegration implements Integration {
     $this->updateSubscriberAction = $updateSubscriberAction;
     $this->notificationEmailAction = $notificationEmailAction;
     $this->premiumTemplatesFactory = $premiumTemplatesFactory;
+    $this->analytics = $analytics;
   }
 
   public function register(Registry $registry): void {
@@ -91,5 +97,7 @@ class MailPoetPremiumIntegration implements Integration {
     foreach ($this->premiumTemplatesFactory->createTemplates() as $template) {
       $registry->addTemplate($template);
     }
+
+    $this->analytics->register();
   }
 }

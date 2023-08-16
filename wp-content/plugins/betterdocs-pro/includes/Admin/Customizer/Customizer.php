@@ -84,7 +84,7 @@ class Customizer extends Base {
          * Don't remove this line, it's used in dynamic.css.php file.
          */
         $mods = $this->defaults->theme_mods();
-        require_once __DIR__ . '/dynamic.css.php';
+        require __DIR__ . '/dynamic.css.php';
 
         ob_start();
         echo '<style type="text/css">';

@@ -46,8 +46,8 @@ class __TwigTemplate_8581a8ede6c645c86df82d14a0f9727da4ff92aa0bb85d1970f9d521978
         $macros = $this->macros;
         // line 1
         echo "<!-- pre connect to 3d party to speed up page loading -->
-<link rel=\"preconnect\" href=\"https://beacon-v2.helpscout.net/\">
-<link rel=\"dns-prefetch\" href=\"https://beacon-v2.helpscout.net/\">
+<link rel=\"preconnect\" href=\"https://widget.docsbot.ai/\">
+<link rel=\"dns-prefetch\" href=\"https://widget.docsbot.ai/\">
 <link rel=\"preconnect\" href=\"http://cdn.mxpnl.com\">
 <link rel=\"dns-prefetch\" href=\"http://cdn.mxpnl.com\">
 
@@ -370,148 +370,115 @@ class __TwigTemplate_8581a8ede6c645c86df82d14a0f9727da4ff92aa0bb85d1970f9d521978
             echo "  ";
             echo $this->extensions['MailPoet\Twig\Assets']->generateJavascript("lib/analytics.js");
             echo "
-
-  ";
-            // line 199
-            $context["helpscout_form_id"] = "1c666cab-c0f6-4614-bc06-e5d0ad78db2b";
-            // line 200
-            echo "  ";
-            if (((\MailPoetVendor\twig_get_attribute($this->env, $this->source, \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["mailpoet_api_key_state"] ?? null), "data", [], "any", false, false, false, 200), "support_tier", [], "any", false, false, false, 200) == "premium") || (\MailPoetVendor\twig_get_attribute($this->env, $this->source, \MailPoetVendor\twig_get_attribute($this->env, $this->source, ($context["premium_key_state"] ?? null), "data", [], "any", false, false, false, 200), "support_tier", [], "any", false, false, false, 200) == "premium"))) {
-                // line 201
-                echo "    ";
-                $context["helpscout_form_id"] = "e93d0423-1fa6-4bbc-9df9-c174f823c35f";
-                // line 202
-                echo "  ";
-            }
-            // line 203
-            echo "
-  <script type=\"text/javascript\">!function(e,t,n){function a(){var e=t.getElementsByTagName(\"script\")[0],n=t.createElement(\"script\");n.type=\"text/javascript\",n.async=!0,n.src=\"https://beacon-v2.helpscout.net\",e.parentNode.insertBefore(n,e)}if(e.Beacon=n=function(t,n,a){e.Beacon.readyQueue.push({method:t,options:n,data:a})},n.readyQueue=[],\"complete\"===t.readyState)return a();e.attachEvent?e.attachEvent(\"onload\",a):e.addEventListener(\"load\",a,!1)}(window,document,window.Beacon||function(){});</script>
-
+  <script type=\"text/javascript\">window.DocsBotAI=window.DocsBotAI||{},DocsBotAI.init=function(c){return new Promise(function(e,o){var t=document.createElement(\"script\");t.type=\"text/javascript\",t.async=!0,t.src=\"https://widget.docsbot.ai/chat.js\";var n=document.getElementsByTagName(\"script\")[0];n.parentNode.insertBefore(t,n),t.addEventListener(\"load\",function(){window.DocsBotAI.mount({id:c.id,supportCallback:c.supportCallback,identify:c.identify,options:c.options});var t;t=function(n){return new Promise(function(e){if(document.querySelector(n))return e(document.querySelector(n));var o=new MutationObserver(function(t){document.querySelector(n)&&(e(document.querySelector(n)),o.disconnect())});o.observe(document.body,{childList:!0,subtree:!0})})},t&&t(\"#docsbotai-root\").then(e).catch(o)}),t.addEventListener(\"error\",function(t){o(t.message)})})};</script>
   <script type=\"text/javascript\">
-    if(window['Beacon'] !== undefined && window.hide_mailpoet_beacon !== true) {
-      window.Beacon('init', '";
-            // line 208
-            echo \MailPoetVendor\twig_escape_filter($this->env, ($context["helpscout_form_id"] ?? null), "html", null, true);
-            echo "');
-
-      // HelpScout Beacon: Configuration
-      window.Beacon(\"config\", {
-        icon: 'message',
-        zIndex: 50000,
-        instructions: \"";
-            // line 214
-            echo $this->extensions['MailPoet\Twig\I18n']->translate("Want to give feedback to the MailPoet team? Contact us here. Please provide as much information as possible!");
-            echo "\",
-        showContactFields: true
-      });
-
-      // HelpScout Beacon: User identity information
-      window.Beacon(\"identify\",
+    DocsBotAI.init({
+      id: \"TqTdebbGjJeUjrmBIFjh/kzFE5FBebBJiSJ2Tm0nR\",
+      // We want to redirect users to the proper page depending on their plan
+      supportCallback: function (event, history) {
         ";
-            // line 220
-            echo json_encode($this->extensions['MailPoet\Twig\Helpscout']->getHelpscoutUserData());
-            echo "
-      );
-
-      // HelpScout Beacon: Custom information
-      window.Beacon(\"session-data\",
+            // line 204
+            if (($context["has_premium_support"] ?? null)) {
+                // line 205
+                echo "          const mailpoet_redirect_support_link = 'https://www.mailpoet.com/support/premium/';
         ";
-            // line 225
-            echo json_encode($this->extensions['MailPoet\Twig\Helpscout']->getHelpscoutSiteData());
-            echo "
-    );
-
-      if (window.mailpoet_beacon_articles) {
-        window.Beacon('suggest', window.mailpoet_beacon_articles)
-      }
-    }
+            } else {
+                // line 207
+                echo "          const mailpoet_redirect_support_link = 'https://wordpress.org/support/plugin/mailpoet/';
+        ";
+            }
+            // line 209
+            echo "        event.preventDefault(); // Prevent default behavior opening the url.
+        window.open(mailpoet_redirect_support_link, '_blank');
+      },
+    });
   </script>
 ";
         }
-        // line 234
+        // line 215
         echo "
 <script>
   Parsley.addMessages('mailpoet', {
     defaultMessage: '";
-        // line 237
+        // line 218
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value seems to be invalid.");
         echo "',
     type: {
       email: '";
-        // line 239
+        // line 220
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value should be a valid email.");
         echo "',
       url: '";
-        // line 240
+        // line 221
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value should be a valid url.");
         echo "',
       number: '";
-        // line 241
+        // line 222
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value should be a valid number.");
         echo "',
       integer: '";
-        // line 242
+        // line 223
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value should be a valid integer.");
         echo "',
       digits: '";
-        // line 243
+        // line 224
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value should be digits.");
         echo "',
       alphanum: '";
-        // line 244
+        // line 225
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value should be alphanumeric.");
         echo "'
     },
     notblank: '";
-        // line 246
+        // line 227
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value should not be blank.");
         echo "',
     required: '";
-        // line 247
+        // line 228
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value is required.");
         echo "',
     pattern: '";
-        // line 248
+        // line 229
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value seems to be invalid.");
         echo "',
     min: '";
-        // line 249
+        // line 230
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value should be greater than or equal to %s.");
         echo "',
     max: '";
-        // line 250
+        // line 231
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value should be lower than or equal to %s.");
         echo "',
     range: '";
-        // line 251
+        // line 232
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value should be between %s and %s.");
         echo "',
     minlength: '";
-        // line 252
+        // line 233
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value is too short. It should have %s characters or more.");
         echo "',
     maxlength: '";
-        // line 253
+        // line 234
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value is too long. It should have %s characters or fewer.");
         echo "',
     length: '";
-        // line 254
+        // line 235
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value length is invalid. It should be between %s and %s characters long.");
         echo "',
     mincheck: '";
-        // line 255
+        // line 236
         echo $this->extensions['MailPoet\Twig\I18n']->translate("You must select at least %s choices.");
         echo "',
     maxcheck: '";
-        // line 256
+        // line 237
         echo $this->extensions['MailPoet\Twig\I18n']->translate("You must select %s choices or fewer.");
         echo "',
     check: '";
-        // line 257
+        // line 238
         echo $this->extensions['MailPoet\Twig\I18n']->translate("You must select between %s and %s choices.");
         echo "',
     equalto: '";
-        // line 258
+        // line 239
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value should be the same.");
         echo "'
   });
@@ -519,9 +486,9 @@ class __TwigTemplate_8581a8ede6c645c86df82d14a0f9727da4ff92aa0bb85d1970f9d521978
   Parsley.setLocale('mailpoet');
 </script>
 ";
-        // line 263
+        // line 244
         $this->displayBlock('after_javascript', $context, $blocks);
-        // line 264
+        // line 245
         echo "<div id=\"mailpoet-modal\"></div>
 ";
     }
@@ -595,7 +562,7 @@ class __TwigTemplate_8581a8ede6c645c86df82d14a0f9727da4ff92aa0bb85d1970f9d521978
         $macros = $this->macros;
     }
 
-    // line 263
+    // line 244
     public function block_after_javascript($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -613,7 +580,7 @@ class __TwigTemplate_8581a8ede6c645c86df82d14a0f9727da4ff92aa0bb85d1970f9d521978
 
     public function getDebugInfo()
     {
-        return array (  596 => 263,  590 => 189,  584 => 187,  578 => 38,  572 => 32,  566 => 30,  561 => 33,  559 => 32,  556 => 31,  554 => 30,  537 => 15,  533 => 14,  527 => 11,  522 => 264,  520 => 263,  512 => 258,  508 => 257,  504 => 256,  500 => 255,  496 => 254,  492 => 253,  488 => 252,  484 => 251,  480 => 250,  476 => 249,  472 => 248,  468 => 247,  464 => 246,  459 => 244,  455 => 243,  451 => 242,  447 => 241,  443 => 240,  439 => 239,  434 => 237,  429 => 234,  417 => 225,  409 => 220,  400 => 214,  391 => 208,  384 => 203,  381 => 202,  378 => 201,  375 => 200,  373 => 199,  367 => 197,  365 => 196,  360 => 194,  356 => 192,  354 => 190,  352 => 189,  349 => 188,  347 => 187,  344 => 186,  342 => 155,  341 => 154,  340 => 118,  336 => 116,  334 => 112,  329 => 109,  323 => 107,  321 => 106,  316 => 104,  312 => 103,  308 => 102,  304 => 101,  300 => 100,  296 => 99,  292 => 98,  288 => 97,  284 => 96,  280 => 95,  276 => 94,  272 => 93,  268 => 92,  264 => 91,  260 => 90,  256 => 89,  252 => 88,  248 => 87,  244 => 86,  240 => 85,  236 => 84,  232 => 83,  228 => 82,  224 => 81,  218 => 78,  214 => 77,  210 => 76,  205 => 74,  201 => 73,  197 => 72,  193 => 71,  189 => 70,  185 => 69,  181 => 68,  177 => 67,  173 => 66,  169 => 65,  165 => 64,  161 => 63,  157 => 62,  153 => 61,  149 => 60,  143 => 57,  139 => 56,  135 => 55,  131 => 54,  127 => 53,  123 => 52,  119 => 51,  115 => 50,  111 => 49,  107 => 48,  103 => 47,  99 => 46,  95 => 45,  91 => 44,  87 => 43,  83 => 42,  79 => 41,  75 => 39,  73 => 38,  68 => 36,  65 => 35,  63 => 14,  59 => 12,  57 => 11,  45 => 1,);
+        return array (  563 => 244,  557 => 189,  551 => 187,  545 => 38,  539 => 32,  533 => 30,  528 => 33,  526 => 32,  523 => 31,  521 => 30,  504 => 15,  500 => 14,  494 => 11,  489 => 245,  487 => 244,  479 => 239,  475 => 238,  471 => 237,  467 => 236,  463 => 235,  459 => 234,  455 => 233,  451 => 232,  447 => 231,  443 => 230,  439 => 229,  435 => 228,  431 => 227,  426 => 225,  422 => 224,  418 => 223,  414 => 222,  410 => 221,  406 => 220,  401 => 218,  396 => 215,  388 => 209,  384 => 207,  380 => 205,  378 => 204,  367 => 197,  365 => 196,  360 => 194,  356 => 192,  354 => 190,  352 => 189,  349 => 188,  347 => 187,  344 => 186,  342 => 155,  341 => 154,  340 => 118,  336 => 116,  334 => 112,  329 => 109,  323 => 107,  321 => 106,  316 => 104,  312 => 103,  308 => 102,  304 => 101,  300 => 100,  296 => 99,  292 => 98,  288 => 97,  284 => 96,  280 => 95,  276 => 94,  272 => 93,  268 => 92,  264 => 91,  260 => 90,  256 => 89,  252 => 88,  248 => 87,  244 => 86,  240 => 85,  236 => 84,  232 => 83,  228 => 82,  224 => 81,  218 => 78,  214 => 77,  210 => 76,  205 => 74,  201 => 73,  197 => 72,  193 => 71,  189 => 70,  185 => 69,  181 => 68,  177 => 67,  173 => 66,  169 => 65,  165 => 64,  161 => 63,  157 => 62,  153 => 61,  149 => 60,  143 => 57,  139 => 56,  135 => 55,  131 => 54,  127 => 53,  123 => 52,  119 => 51,  115 => 50,  111 => 49,  107 => 48,  103 => 47,  99 => 46,  95 => 45,  91 => 44,  87 => 43,  83 => 42,  79 => 41,  75 => 39,  73 => 38,  68 => 36,  65 => 35,  63 => 14,  59 => 12,  57 => 11,  45 => 1,);
     }
 
     public function getSourceContext()

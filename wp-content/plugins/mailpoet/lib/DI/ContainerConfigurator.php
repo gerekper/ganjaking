@@ -192,6 +192,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Automation\Integrations\WooCommerce\Fields\CustomerReviewFieldsFactory::class)->setPublic(true);
     $container->autowire(\MailPoet\Automation\Integrations\WooCommerce\Fields\OrderFieldsFactory::class)->setPublic(true);
     $container->autowire(\MailPoet\Automation\Integrations\WooCommerce\Fields\TermOptionsBuilder::class)->setPublic(true);
+    $container->autowire(\MailPoet\Automation\Integrations\WooCommerce\Fields\TermParentsLoader::class)->setPublic(true);
     $container->autowire(\MailPoet\Automation\Integrations\WooCommerce\Triggers\OrderStatusChangedTrigger::class)->setPublic(true)->setShared(false);
     $container->autowire(\MailPoet\Automation\Integrations\WooCommerce\Subjects\OrderSubject::class)->setPublic(true)->setShared(false);
     $container->autowire(\MailPoet\Automation\Integrations\WooCommerce\Subjects\OrderStatusChangeSubject::class)->setPublic(true)->setShared(false);
@@ -205,12 +206,6 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Analytics\Controller\AutomationTimeSpanController::class)->setPublic(true);
     $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Analytics\Controller\StepStatisticController::class)->setPublic(true);
     $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Analytics\Controller\OverviewStatisticsController::class)->setPublic(true);
-    $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Analytics\Controller\FreeOrderController::class)->setPublic(true);
-    $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Analytics\Factories\OrderControllerFactory::class)->setPublic(true);
-    $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Analytics\Endpoints\OrderEndpoint::class)->setPublic(true);
-    $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Analytics\Controller\FreeSubscriberController::class)->setPublic(true);
-    $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Analytics\Factories\SubscriberControllerFactory::class)->setPublic(true);
-    $container->autowire(\MailPoet\Automation\Integrations\MailPoet\Analytics\Endpoints\SubscriberEndpoint::class)->setPublic(true);
 
     // Config
     $container->autowire(\MailPoet\Config\AccessControl::class)->setPublic(true);
@@ -463,6 +458,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Segments\DynamicSegments\Filters\WooCommerceSingleOrderValue::class)->setPublic(true);
     $container->autowire(\MailPoet\Segments\DynamicSegments\Filters\WooCommerceTotalSpent::class)->setPublic(true);
     $container->autowire(\MailPoet\Segments\DynamicSegments\Filters\WooCommerceSubscription::class)->setPublic(true);
+    $container->autowire(\MailPoet\Segments\DynamicSegments\Filters\WooCommerceUsedCouponCode::class)->setPublic(true);
     $container->autowire(\MailPoet\Segments\DynamicSegments\Filters\WooCommerceUsedPaymentMethod::class)->setPublic(true);
     $container->autowire(\MailPoet\Segments\DynamicSegments\Filters\WooCommerceUsedShippingMethod::class)->setPublic(true);
     $container->autowire(\MailPoet\Segments\DynamicSegments\Filters\WooFilterHelper::class)->setPublic(true);

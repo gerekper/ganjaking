@@ -33,6 +33,7 @@ use MailPoet\Segments\DynamicSegments\Filters\WooCommercePurchaseDate;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceSingleOrderValue;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceSubscription;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceTotalSpent;
+use MailPoet\Segments\DynamicSegments\Filters\WooCommerceUsedCouponCode;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceUsedPaymentMethod;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceUsedShippingMethod;
 
@@ -115,6 +116,9 @@ class FilterFactory {
   /** @var WooCommerceNumberOfReviews */
   private $wooCommerceNumberOfReviews;
 
+  /** @var WooCommerceUsedCouponCode  */
+  private $wooCommerceUsedCouponCode;
+
   public function __construct(
     EmailAction $emailAction,
     EmailActionClickAny $emailActionClickAny,
@@ -137,6 +141,7 @@ class FilterFactory {
     SubscriberSubscribedViaForm $subscribedViaForm,
     WooCommerceSingleOrderValue $wooCommerceSingleOrderValue,
     WooCommerceAverageSpent $wooCommerceAverageSpent,
+    WooCommerceUsedCouponCode $wooCommerceUsedCouponCode,
     WooCommerceUsedPaymentMethod $wooCommerceUsedPaymentMethod,
     WooCommerceUsedShippingMethod $wooCommerceUsedShippingMethod,
     SubscriberTextField $subscriberTextField,
@@ -169,6 +174,7 @@ class FilterFactory {
     $this->wooCommerceCustomerTextField = $wooCommerceCustomerTextField;
     $this->automationsEvents = $automationsEvents;
     $this->subscriberDateField = $subscriberDateField;
+    $this->wooCommerceUsedCouponCode = $wooCommerceUsedCouponCode;
   }
 
   public function getFilterForFilterEntity(DynamicSegmentFilterEntity $filter): Filter {
@@ -266,6 +272,8 @@ class FilterFactory {
       return $this->wooCommerceNumberOfReviews;
     } elseif (in_array($action, WooCommerceCustomerTextField::ACTIONS)) {
       return $this->wooCommerceCustomerTextField;
+    } elseif ($action === WooCommerceUsedCouponCode::ACTION) {
+      return $this->wooCommerceUsedCouponCode;
     }
     return $this->wooCommerceCategory;
   }

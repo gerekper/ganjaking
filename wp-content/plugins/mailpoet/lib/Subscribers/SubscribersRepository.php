@@ -307,6 +307,20 @@ class SubscribersRepository extends Repository {
     return count($ids);
   }
 
+  public function bulkUpdateEngagementScoreUpdatedAt(array $ids, ?DateTimeInterface $dateTime): void {
+    if (empty($ids)) {
+      return;
+    }
+    $this->entityManager->createQueryBuilder()
+      ->update(SubscriberEntity::class, 's')
+      ->set('s.engagementScoreUpdatedAt', ':dateTime')
+      ->where('s.id IN (:ids)')
+      ->setParameter('dateTime', $dateTime)
+      ->setParameter('ids', $ids)
+      ->getQuery()
+      ->execute();
+  }
+
   public function findWpUserIdAndEmailByEmails(array $emails): array {
     return $this->entityManager->createQueryBuilder()
       ->select('s.wpUserId AS wp_user_id, LOWER(s.email) AS email')

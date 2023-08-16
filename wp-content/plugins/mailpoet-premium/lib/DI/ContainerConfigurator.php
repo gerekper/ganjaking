@@ -102,10 +102,13 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerce\Triggers\AbandonedCart\AbandonedCartHandler::class)->setPublic(true);
 
     // Automation - Analytics
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Analytics\Analytics::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Analytics\Endpoints\OrderEndpoint::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Analytics\Storage\OrderStatistics::class)->setPublic(true);
-    $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Analytics\Controller\PremiumOrderController::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Analytics\Controller\OrderController::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Analytics\Endpoints\SubscriberEndpoint::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Analytics\Storage\SubscriberStatistics::class)->setPublic(true);
-    $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Analytics\Controller\PremiumSubscriberController::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Analytics\Controller\SubscriberController::class)->setPublic(true);
 
     // Config
     $container->autowire(\MailPoet\Premium\Config\Hooks::class);
