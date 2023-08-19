@@ -64,7 +64,7 @@ class WC_Store_Credit_Requirements {
 				self::MINIMUM_WP_VERSION,
 				get_bloginfo( 'version' )
 			);
-		} elseif ( ! is_woocommerce_active() ) {
+		} elseif ( ! self::is_wc_active() ) {
 			self::$errors[] = _x( '<strong>WooCommerce Store Credit</strong> requires WooCommerce to be activated to work.', 'admin notice', 'woocommerce-store-credit' );
 		} elseif ( ! self::is_wc_compatible() ) {
 			self::$errors[] = sprintf(
@@ -107,6 +107,21 @@ class WC_Store_Credit_Requirements {
 	 */
 	public static function is_wc_compatible() {
 		return ( version_compare( get_option( 'woocommerce_db_version' ), self::MINIMUM_WC_VERSION, '>=' ) );
+	}
+
+	/**
+	 * Gets if the WooCommerce plugin is active.
+	 *
+	 * @since 4.4.0
+	 *
+	 * @return bool
+	 */
+	public static function is_wc_active() {
+		if ( ! function_exists( 'is_plugin_active' ) ) {
+			include_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		return is_plugin_active( 'woocommerce/woocommerce.php' );
 	}
 
 	/**

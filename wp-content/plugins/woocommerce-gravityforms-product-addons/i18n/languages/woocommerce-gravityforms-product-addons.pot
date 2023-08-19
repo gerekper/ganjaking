@@ -2,11 +2,11 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Gravity Forms Product Add-Ons 3.5.0\n"
+"Project-Id-Version: WooCommerce Gravity Forms Product Add-Ons 3.5.1\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-gravityforms-product-"
 "addons\n"
-"POT-Creation-Date: 2023-06-19 13:52:59+00:00\n"
+"POT-Creation-Date: 2023-08-15 14:04:19+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -550,8 +550,8 @@ msgstr ""
 msgid "Overwrite the price(s) completely"
 msgstr ""
 
-#: dist/woocommerce-gravityforms-product-addons/gravityforms-product-addons-main.php:524
-#: gravityforms-product-addons-main.php:524
+#: dist/woocommerce-gravityforms-product-addons/gravityforms-product-addons-main.php:525
+#: gravityforms-product-addons-main.php:525
 msgid "There was a problem with your submission. Please review the fields below."
 msgstr ""
 
@@ -654,15 +654,15 @@ msgstr ""
 msgid "View Gravity Form Entry"
 msgstr ""
 
-#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-reorder.php:273
-#: inc/gravityforms-product-addons-reorder.php:273
+#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-reorder.php:285
+#: inc/gravityforms-product-addons-reorder.php:285
 msgid ""
 "You will need to add %s to your cart again. You can <a href=\"%s\">click "
 "here to reorder the item.</a>"
 msgstr ""
 
-#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-reorder.php:362
-#: inc/gravityforms-product-addons-reorder.php:362
+#: dist/woocommerce-gravityforms-product-addons/inc/gravityforms-product-addons-reorder.php:374
+#: inc/gravityforms-product-addons-reorder.php:374
 msgid "This field is required."
 msgstr ""
 

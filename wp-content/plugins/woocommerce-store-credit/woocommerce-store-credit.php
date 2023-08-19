@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Store Credit
  * Plugin URI: https://woocommerce.com/products/store-credit/
  * Description: Create "store credit" coupons for customers which are redeemable at checkout.
- * Version: 4.3.3
+ * Version: 4.4.0
  * Author: Themesquad
  * Author URI: https://themesquad.com/
  * Requires PHP: 5.6
@@ -24,18 +24,6 @@
  */
 
 defined( 'ABSPATH' ) || exit;
-
-/**
- * Required functions.
- */
-if ( ! function_exists( 'woothemes_queue_update' ) ) {
-	require_once 'woo-includes/woo-functions.php';
-}
-
-/**
- * Plugin updates.
- */
-woothemes_queue_update( plugin_basename( __FILE__ ), 'c4bf3ecec4146cb69081e5b28b6cdac4', '18609' );
 
 /**
  * Plugin requirements.

@@ -678,6 +678,7 @@ class WC_Bookings_Admin {
 			'bookings_version'              => WC_BOOKINGS_VERSION,
 			'bookings_db_version'           => WC_BOOKINGS_DB_VERSION,
 			'start_of_week'                 => get_option( 'start_of_week' ),
+			'time_in_12hours'               => ! preg_match( '/(?<!\\\\)(\\\\{2})*(H|G)/', get_option( 'time_format' ) ),
 		);
 
 		wp_localize_script( 'wc_bookings_admin_js', 'wc_bookings_admin_js_params', $params );

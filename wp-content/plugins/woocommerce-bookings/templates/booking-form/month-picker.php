@@ -52,13 +52,24 @@ if ( $product->has_resources() ) {
 
 			$month_year = date( 'Y-n', $block );
 			if ( $product->has_resources() ) {
+				$fully_booked_existing_resources = isset( $fully_booked_months[ $month_year ] )
+					? count(
+						array_filter(
+							array_keys( $fully_booked_months[ $month_year ] ),
+							function( $item ) use ( $resources ) {
+								return in_array( $item, $resources, true );
+							}
+						)
+					)
+					: 0;
+
 				if ( $product->is_resource_assignment_type( 'customer' ) ) {
 					// Mark 'full_booked' only for the current (selected) resource.
 					if ( isset( $fully_booked_months[ $month_year ][ $current_resource ] ) ) {
 						$fully_booked_class = 'fully_booked';
 					}
 				} elseif ( isset( $fully_booked_months[ $month_year ] )
-						&& count( $fully_booked_months[ $month_year ] ) === $total_resource ) {
+						&& $fully_booked_existing_resources === $total_resource ) {
 					// Mark 'full_booked' only when all resources are out.
 					$fully_booked_class = 'fully_booked';
 				}

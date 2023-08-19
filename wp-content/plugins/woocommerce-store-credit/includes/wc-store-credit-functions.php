@@ -206,17 +206,11 @@ function wc_store_credit_log( $message, $level = 'notice', $handle = 'wc_store_c
  * @return bool
  */
 function wc_store_credit_is_plugin_active( $plugin ) {
-	static $active_plugins = null;
-
-	if ( ! $active_plugins ) {
-		$active_plugins = (array) get_option( 'active_plugins', array() );
-
-		if ( is_multisite() ) {
-			$active_plugins = array_merge( $active_plugins, get_site_option( 'active_sitewide_plugins', array() ) );
-		}
+	if ( ! function_exists( 'is_plugin_active' ) ) {
+		include_once ABSPATH . 'wp-admin/includes/plugin.php';
 	}
 
-	return ( in_array( $plugin, $active_plugins, true ) || array_key_exists( $plugin, $active_plugins ) );
+	return is_plugin_active( $plugin );
 }
 
 /**

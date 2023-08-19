@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="9px" viewBox="0 0 13 9" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>Filter Icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Smart-Filters---V2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Step-2" transform="translate(-40.000000, -116.000000)" fill="#494949">
+            <g id="Table">
+                <g id="Filter" transform="translate(29.000000, 98.000000)">
+                    <g id="Button-Add-Filter" transform="translate(0.000000, 9.000000)">
+                        <g id="Filter-Icon" transform="translate(11.000000, 9.000000)">
+                            <g>
+                                <rect id="Bot" x="5.2" y="7.2" width="2.6" height="1.8"></rect>
+                                <rect id="Mid" x="2.6" y="3.6" width="7.8" height="1.8"></rect>
+                                <rect id="Top" x="0" y="0" width="13" height="1.8"></rect>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

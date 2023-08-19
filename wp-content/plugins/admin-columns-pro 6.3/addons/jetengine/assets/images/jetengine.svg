@@ -1,0 +1,11 @@
+
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Logo-&amp;-icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon-Squared" transform="translate(-40.000000, -580.000000)">
+            <g id="jetengine" transform="translate(40.000000, 580.000000)">
+                <rect id="BG" fill="#9D64ED" x="0" y="0" width="20" height="20" rx="2"></rect>
+                <path d="M7.69641547,16 C11.0006723,16 13.6820655,13.3142985 13.6820655,10.0000118 L13.6820655,5.50094392 C13.6820655,4.67048443 13.0136169,4 12.1856666,4 C11.3576927,4 10.6892441,4.67048443 10.6892441,5.50094392 L10.6892441,10.0000118 C10.6892441,11.6571433 9.34855927,13.0019233 7.69641547,13.0019233 C6.86844864,13.0019233 6.2,13.6723841 6.2,14.4990561 C6.2,15.3257281 6.86844864,16 7.69641547,16 Z" id="Path" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>

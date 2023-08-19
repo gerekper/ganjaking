@@ -89,6 +89,7 @@ class WC_GFPA_Main {
 		require 'inc/gravityforms-product-addons-order.php';
 		WC_GFPA_Order::register();
 
+		require 'inc/gravityforms-product-addons-ajax.php';
 		require 'inc/gravityforms-product-addons-bulk-variations.php';
 		require 'inc/gravityforms-product-addons-cart.php';
 		require 'inc/gravityforms-product-addons-cart-edit.php';
@@ -101,6 +102,7 @@ class WC_GFPA_Main {
 		require 'inc/gravityforms-product-addons-field-values.php';
 		require 'inc/gravityforms-product-addons-structured-data.php';
 
+		WC_GFPA_AJAX::register();
 		WC_GFPA_Cart::register();
 		WC_GFPA_Cart_Edit::register();
 		WC_GFPA_Cart_Validation::register();
@@ -519,23 +521,23 @@ class WC_GFPA_Main {
 		}
 
 
-
 		// New defaults since 3.5.0
 		$validation_message = apply_filters( 'woocommerce_gforms_validation_message', __( 'There was a problem with your submission. Please review the fields below.', 'woocommerce-gravityforms-product-addons' ), $post_id, $context );
 
-		$defaults = [
+
+		$data = apply_filters( 'woocommerce_gforms_get_product_form_data', $data, $post_id, $context );
+
+		// Yes, set the defaults after we call the hook. This allows users to check if (empty($form_data)) from their hook.
+		$data = wp_parse_args( $data, [
 			'reorder_processing'       => 'resubmit', // 'resubmit', 'revalidate', 'none'
 			'reorder_hydrate_defaults' => 'yes',
 			'use_ajax'                 => 'no',
 			'is_ajax'                  => false,
 			'show_wc_notices'          => 'yes',
-			'validation_message'	   => $validation_message,
-		];
+			'validation_message'       => $validation_message,
+		] );
 
-		$data = wp_parse_args( $data, $defaults );
-
-		$data = apply_filters( 'woocommerce_gforms_get_product_form_data', $data, $post_id, $context );
-		if ( $data ) {
+		if ( isset( $data['id'] ) ) {
 			if ( $context == 'bulk' ) {
 				$data['id'] = isset( $data['bulk_id'] ) ? $data['bulk_id'] : $data['id'];
 			}

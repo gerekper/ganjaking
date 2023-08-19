@@ -1,0 +1,1972 @@
+== Changelog ==
+
+= 6.3 =
+Release Date: 15th August, 2023
+
+* [Added] Global Saved Filters are now also stored in File Storage
+* [Added] Smart Filtering for the Author role column on Custom Post Type list tables
+* [Added] New hook to load table views on-the-fly `acp/storage/repositories/callback`
+* [Added] Setup for PHP File Storage now allows you to set a text domain for translations (see documentation)
+* [Added] New hook to set a text domain for translation in PHP file storage `acp/storage/file/directory/i18n_text_domain`
+* [Added] New hook to disable Admin Columns for certain list tables `ac/list_screen/is_active`
+* [Added] New hook to disable Admin Columns for certain list tables based on keys `ac/list_screen/key/is_active`
+* [Added] New Password column for the User list table to change the password for a user from the table
+* [Fixed] Styling for the new sorting markers in WordPress 6.3
+* [Fixed] Bulk Delete could give an error when the columns where not saved for the table
+* [Fixed] The hook `ac/post_types` works again to disable Admin Columns for specific post types
+* [Fixed] You can now reset custom Column Order on the table, even when you disabled the feature
+* [Improved] New hook to add more styles for Conditional Formatting `acp/conditional_format/color_styles`
+* [Improved] The Preview Column now also show a preview for video and audio files
+* [MetaBox] Added display support for MetaBox Group fields
+* [YoastSEO] Added columns for the Schema fields: Article type and Page type
+* [WooCommerce] User Link setting for Customer (Orders) works now correctly
+* [WooCommerce] Support for new HPOS feature in WooCommerce
+* [Updated] Admin Columns Core version 4.6.5
+
+= 6.2.2 =
+Release Date: May 25th, 2023
+
+* [Fixed] Closing a select field in Bulk Edit left the select box on the screen
+* [MLA] Media Library Assistant list tables did not recognize the custom columns
+* [Updated] Admin Columns Core version 4.6.4
+
+= 6.2.1 =
+Release Date: April 26th, 2023
+
+* [Fixed] Fixed the array helper that could throw an error when an array contained an object
+* [Fixed] Re-added deprecated register_group function to prevent fatal errors for third-party plugins
+* [Updated] Admin Columns Core version 4.6.3
+
+= 6.2 =
+Release Date: April 25th, 2023
+
+* [Fixed] Changing the column order on the table in combination with Width editor gave a strange behavior in Firefox
+* [Fixed] The settings to disable the column resize feature did not work correctly
+* [Added] It is now possible to switch between column sets by using tabs above the table. You can switch between tabs or a select box on the settings page
+* [Improved] Check for better specific post type capabilities for Editing
+* [Improved] Changed the name for 'Columns Sets' to 'Table Views'
+* [Improved] Color editable can now have a custom color palette (set with hook `acp/editing/view`)
+* [ACF] Column support for the ACF groups list table
+* [WooCommerce] Editing the Sales 'until' date now set the date to the end of the given day
+* [WooCommerce] Product price can not be set to zero.
+* [Updated] Admin Columns Core version 4.6.2
+
+= 6.1.3 =
+Release Date: March 14th, 2023
+
+* [YoastSEO] Editing the Primary Taxonomy column gave an error during saving
+* [GravityForms] Export button did not appear for some specific Language installations
+* [WooCommerce] New 'Fees' column for the Order list view
+* [Updated] Admin Columns Core version 4.6.1
+
+= 6.1.2 =
+Release Date: March 7th, 2023
+
+* [Fixed] Some default or third-party columns did not export any value
+* [Fixed] Bulk Delete feedback did not tell correctly how many items were processed
+* [Improved] Uploaded media during Inline Edit has now the edited item as parent
+* [Core] Admin Columns Core version 4.6.1
+
+= 6.1.1 =
+Release Date: February 22nd, 2023
+
+* [Fixed] Issue where the user preference for export was not displayed correctly
+* [Core] Admin Columns Core version 4.6.1
+
+= 6.1 =
+Release Date: February 22nd, 2023
+
+* [Refactor] Refactor for Export models. Abstract model is deprecated
+* [Added] Editing support for the Comment 'In Reply To' column
+* [Fixed] Templates for WooCommerce logic were not loaded correctly
+* [Fixed] Fatal error when a Metabox Taxonomy column was added on a Taxonomy screen
+* [Improved] Export now stores the last export columns and order as a user preference
+* [MLA] New integration for Media Library Assistant implemented in Admin Columns Pro
+* [ACF] Editing for Relation fields now also takes filter Taxonomy setting into account
+* [ACF] Editing for Time picker implemented again
+* [ACF] Value formatter fix for Numeric fields, 0 values are now displayed
+* [ACF] Value formatter fix for Maps field
+* [ACF] Value formatter fix for Choice fields that use 0 for keys
+* [JetEngine] Repeater field gave an error when adding the column
+* [WooCommerce] Added Fees to the Totals column for the Order page
+* [Updated] Admin Columns Core version 4.6.1
+
+= 6.0.3 =
+Release Date: December 21st, 2022
+
+* [Fixed] The settings for Network Sites and Network Users were not loaded correctly
+* [Fixed] Labels for the Primary column picker are now sanitized
+* [Fixed] Sorting for Related User Meta on the User table could lead to empty results
+* [Fixed] HTML Character encoding for Saved Filters drop down
+* [Improved] Added the Last Modified and Last Modified Author column to the Media page
+* [ToolsetTypes] Export for DateTime field now exports the time
+* [TheEventsCalendar] Null check for possible error in the 'Additional Field' column value
+
+= 6.0.2 =
+Release Date: December 9th, 2022
+
+* [Fixed] Bulk Edit could update posts that were not filtered
+* [Improved] New hook `ac/addon/$addon/active` available to disable autoloaded addons
+
+= 6.0.1 =
+Release Date: December 5th, 2022
+
+* [Fixed] Fatal error on Product Variation when no settings were stored
+* [Fixed] Fatal error for the plugin Media Library Assistant with versions below 3.05
+
+= 6.0 =
+Release Date: November 30th, 2022
+
+* [Breaking Changes] The minimum version required to run Admin Columns Pro is now PHP 7.2.
+* [Added] New Feature: Bulk Delete items on the list table
+* [Added] New Feature: Added option to set the primary column of the table
+* [Added] New Feature: Conditional Formatting
+* [Added] You can now change the order of the columns on the list table itself by dragging the column
+* [Fixed] License information did not always update
+* [Improved] Export now supports export of selected items
+* [Improved] Export UI improved: select which column you want to export and reorder column on the fly
+* [Improved] Smart Filtering for the Date Publish column now only filters dates for published posts
+* [Updated] Refactor: the `ACP\Editing\Service` interface has changed
+* [Added] New hook `acp/delete/reassign_user` allows you to reassign posts to another users when bulk deleting users
+* [Added] New hook `acp/delete/bulk/deleted_rows_per_iteration` allows you to set the number of rows that are deleted per batch
+* [Added] New hook `acp/column_order/active` allows you to globally show or hide the column order functionality
+* [ACF] It is now possible to add or remove options in bulk for Multiple Select fields
+* [ACF] It is now possible to set a custom separator for fields that display multiple values
+* [ACF] The Image field setting 'Uploaded to post' is now applied for Inline Editing
+* [ACF] The ACF date format is now correctly displayed in the column setting
+* [EventsCalendar] Sorting events on default columns did not work correctly
+* [JetEngine] Repeater field support
+* [MetaBox] New column support for the Relation Manager
+* [MetaBox] Editing on Table Storage did not work correctly when the related row did not yet exist in the table
+* [Pods] Date field display issue
+* [WooCommerce] Export for Customer columns fixed: Total sales, Order Number
+* [WooCommerce] It is now possible to select the order status for the user Total Sales column
+* [WooCommerce] Added Editing for Order columns: Payment Method, Customer
+* [WooCommerce] WooCommerce Sale column did not show correct schedule date
+
+= 5.7.4 =
+Release Date: September 13th, 2022
+
+* [Fixed] Taxonomy ListScreen could give a PHP warning when the default taxonomies were unregistered
+* [Fixed] Beaver Builder integration support was always initiated
+* [Fixed] Expired licenses were not updated correctly when it was expired and re-activated or renewed
+* [Fixed] Suppress more PHP 8.1 warnings
+* [Fixed] JS null checks that could lead to JS errors
+* [Improved] Smart Filtering for the Date Publish column now only filters dates for published posts
+
+= 5.7.3 =
+Release Date: July 4th, 2022
+
+* [Added] Support for Beaver Builder template views
+* [Added] New hook to toggle persistent sorting as a preference `acp/sorting/remember_last_sorting_preference`
+* [Fixed] Smart Filtering for some Taxonomy columns did not work correctly
+* [Fixed] Suppress PHP 8.1 warnings
+
+= 5.7.2 =
+Release Date: June 14th, 2022
+
+* [Added] It is now possible to toggle the Row Actions (Below title) on the setting page per list table
+* [Added] New hook that runs before the value is saved in (bulk/inline) edit `acp/editing/before_save`
+* [Improved] Changed the radio buttons to a Toggle element for column settings that have a on/off state
+* [Fixed] Updater on License page is fixed
+* [Fixed] Smart Filtering for some columns on the Taxonomy overview paged did not work
+* [Updated] Admin Columns Core changes ( 4.5.2 )
+* [Added] It is now possible to select the Website display for User related columns
+* [Added] New hook to disable the column value sanitation on the table `ac/column/value/sanitize`
+
+= 5.7.1 =
+Release Date: May 16th, 2022
+
+* [Added] It is now possible to hide the Comment Type filter in the Hide on Screen section for Comments
+* [Added] Custom Field column can now display nested serialized data
+* [Added] Better display value for serialized Custom Fields (Multiple values)
+* [Improved] The Link count column can now display All, internal, or external links
+* [Improved] The 'Hide on screen' options are renamed to work more intuitive (toggle to show instead of hiding)
+* [Improved] The media column types are now grouped based on the media type
+* [Fixed] Export for the Media Taxonomy column now works correctly
+* [Fixed] Javascript: possible null error for the column configurator when the screen options are not available
+* [Fixed] There was a Filter button in the footer on the Taxonomy page when there were no filters available
+* [Fixed] Several issues during the updates of Admin Columns plugins
+* [Updated] Admin Columns Core changes ( 4.5.1 )
+* [Added] New Audio player column for Media list table
+* [Added] New Video player column for Media list table
+* [Fixed] Prevent fatal error, when removing a non-existent column set from a Local Storage repository
+
+= 5.7 =
+Release Date: March 22nd, 2022
+
+* [Added] New hook `acp/editing/view` in favor of the old deprecated 'acp/editing/view_settings' hook
+* [Added] New hook `acp/export/file_name` to alter the exported filename
+* [Fixed] Adding non-existing terms with editing did not work properly
+* [Fixed] Clicking the mobile caret to open the row now works in combination with Inline Editing enabled
+* [Fixed] Pagination for taxonomy entities now load more than just one extra page in the smart drop-downs.
+* [Fixed] Removed the Ninja Forms integration from the add-on page
+* [Fixed] The placeholders for the full name editable were incorrect
+* [Fixed] Unexpected focus scroll behavior in Inline Editing
+* [Improved] Check if a post is locked in order to be able to edit the post
+* [Improved] It is now possible to search for specific icons for the label icon picker
+* [Improved] Javascript is now compiled with the target set to ES6
+* [Improved] Made the Polylang Language column available for all related List screens
+* [Improved] Smarter Link editing for the Custom Field URL type
+* [Updated] Admin Columns Core changes ( 4.5 )
+* [Added] New Image column for the Media list table
+* [Added] The Slug column is now also available for the Media list table
+* [Improved] More thorough logic for the 'Restore Settings' option.
+* [Improved] Refactor of the Setup Script that runs when the plugin is installed and activated for the first time
+* [Improved] The Permalink column now also shows the (upcoming) permalinks for future and draft posts
+
+= 5.6.4 =
+Release Date: December 6th, 2021
+
+* [Hotfix] The ReadOnly class is renamed because it gave a fatal error in PHP 8.1
+
+= 5.6.3 =
+Release Date: November 22nd, 2021
+
+* [Added] New hook `acp/sorting/custom_field/numeric_type` to change the datatype for numeric custom field sorting
+* [Improved] Better sticky header solution to prevent third-party plugin styling conflicts that causes header offsets
+* [Fixed] Fatal error that could happen on the WPML String translation page
+* [Fixed] Disabled the editing setting for unsupported Custom Field field types
+* [Updated] Admin Columns Core changes ( 4.4.4 )
+* [Improved] UI Improvements
+
+= 5.6.2 =
+Release Date: October 26th, 2021
+
+* [Added] When creating a new column set, you can now choose to copy the settings or start with the default columns
+* [Fixed] Activation button was not always enabled when entering the license
+* [Fixed] Colspan for Quick Edit and Bulk Edit (Quick Actions) is now correct when Sticky Headers is active
+* [Fixed] Removing terms in Bulk Edit did not work correctly
+* [Fixed] It was not possible to enter negative numbers in Editing for numeric custom fields
+* [Updated] Admin Columns Core changes ( 4.4.3 )
+* [Improved] The Menu Order column has no restrictions anymore
+
+= 5.6.1 =
+Release Date: October 12th, 2021
+
+* [Added] JetEngine integration added
+* [Fixed] Bulk Editing for the date picker did not work properly
+* [Fixed] WooCommerce manual product sorting is now excluded as a Sorting preference in order to get unexpected behavior when switching back to the default product view
+* [Fixed] More flexible date parsing for Editing in conjunction with the hook `acp/editing/save_value`
+* [Improved] Bulk Edit for the User Role column does now allow to add and remove roles instead of only replacing the value
+* [Updated] Admin Columns Core changes ( 4.4.2 )
+* [Fixed] The setting to hide the 'Edit Columns' button did not always store the settings
+* [Improved] Do not force showing notices with the hidden classes
+
+= 5.6 =
+Release Date: September 21st, 2021
+
+* [Breaking Changes] A complete refactoring of the Editing feature. The ACF and WooCommerce integrations need to be updated.
+* [Breaking Changes] Removed deprecated methods from ACP version 4.4 or older.
+* [Deprecated] All Editing models have become deprecated. Editing services should be used instead.
+* [Added] Placeholder column to determine where and if Polylang columns should be displayed
+* [Added] New 'Has Term' column for the Post list table
+* [Added] It is now possible to smart filter user related columns on the current user.
+* [Added] It is now possible to do calculations with inline editing for numeric custom fields.
+* [Improved] Editing can now always be toggled for the Custom Field Column and does not specifically need to be activated first.
+* [Improved] New styling and interface for the admin area.
+* [Fixed] Sorting for default/native column can now be disabled.
+* [Fixed] A fatal error when inline editing taxonomy fields when the Post Count column was available on the page.
+* [Updated] Admin Columns Core changes ( 4.4 )
+* [Added] Complete restyling of the Admin interface
+* [Fixed] Load a default column set when the preferred column set was restricted in the meantime
+* [Fixed] Gravatar display option did not work anymore since the value sanitation
+* [Fixed] Possible namespace clash in Admin class
+
+= 5.5.3 =
+Release Date: June 18th, 2021
+
+* [Added] Added Media columns: Artist and Album
+* [Improved] A more compact (horizontal) view for the Screen Options on the table screen
+* [Fixed] Sticky Headers could give an error when Screen Options were removed from the screen
+* [Fixed] Resetting sorting did not work correctly for column settings that were never stored
+* [Updated] Admin Columns Core changes ( 4.3.2 )
+* [Fixed] Column date setting gave an error when the default date format was empty
+
+= 5.5.2 =
+Release Date: June 11th, 2021
+
+* [Added] New Post Type column for the (Custom) Post Type overviews, basically for changing the post type with Editing
+* [Added] Gravity Forms integration added
+* [Added] New feature to make the column headers fixed on the table screen
+* [Updated] Admin Columns Core changes ( 4.3.1 )
+* [Fixed] Changing the screen options on the column settings page is not persisted
+* [Fixed] Fixed data formatted labels with sanitation
+* [Fixed] The column value is now sanitized
+
+= 5.5.1 =
+Release Date: April 29th, 2021
+
+* [Fixed] Fixed a possible error with export
+* [Fixed] Prevent expired messages for auto renewal subscriptions
+
+= 5.5 =
+Release Date: April 29th, 2021
+
+* [Added] New Feature: You can now set a "Saved Filter" as the default when visiting the list table. Scroll down on the column settings page and select your default filter set.
+* [Added] The export table (under the Tools tab) now lists the source of where the column settings are stored (e.g. database or file)
+* [Fixed] Graceful handle corrupt column settings in order to prevent a fatal error
+* [Fixed] Sorting on a column in combination with a search action could lead to unexpected sorting
+* [Improved] The last visited settings page is now stored as a preference
+* [Updated] Admin Columns Core changes ( 4.3 )
+* [Fixed] The custom date format within the column settings was not always stored correctly
+* [Fixed] Graceful handle corrupt column settings in order to prevent a fatal error
+* [Fixed] The column label will be sanitized when stored
+
+= 5.4.4 =
+Release Date: April 2nd, 2021
+
+* [Fixed] Fatal error that occurred on the WPML String translation
+
+= 5.4.3 =
+Release Date: March 2nd, 2021
+
+* [Fixed] Sorting on Post Formats no longer filters out the Standard format
+* [Fixed] Exporting columns settings without any sets selected gave a fatal error
+* [Fixed] WYSIWYG editing does not close in Inline Edit when selecting a style
+* [Improved] The Bulk Edit column settings are now only displayed when bulk editing is available
+
+= 5.4.2 =
+Release Date: February 8th, 2021
+
+* [Fixed] The title was not saved correctly
+* [Fixed] Column set permissions were not saved correctly
+* [Improved] Some column labels will automatically change when altering a specific setting
+
+= 5.4.1 =
+Release Date: February 3rd, 2021
+
+* [Added] Support management for columns on the Reusable Blocks (Gutenberg) list table
+* [Fixed] The 'Standard' post format does now filter correctly
+* [Fixed] Fixed javascript Violation errors
+* [Improved] When the Saved Filters do not match the column settings, you'll now get a useful message instead of a fatal error
+* [Updated] Admin Columns Core changes ( 4.2.6 )
+* [Added] User Column: First and Last Post(type)
+* [Improved] It's now possible to select a post status for the Post Count column (User)
+
+= 5.4 =
+Release Date: December 15th, 2020
+
+* [Added] Option to hide the Quick Links menu on top of the list tables
+* [Improved] Exporting to CSV is faster and will no longer store temporary files on the file system
+* [Improved] You can now limit the number of shown items for the child pages column
+* [Fixed] Don't show the clear button for empty values
+* [Fixed] Permalinks will be urldecoded when exporting
+* [Improved] Export is faster and does not store temporary files on the file system anymore
+* [Improved] Limit the number of items for Child Pages column
+* [Updated] Admin Columns Core changes ( 4.2.5 )
+* [Fixed] The updater could give a PHP warning when there were no updates
+* [Fixed] Display a correct message when an integration is not installed
+
+= 5.3.3 =
+Release Date: December 9th, 2020
+
+* [Fixed] WordPress 5.6 compatibility issues
+
+= 5.3.2 =
+Release Date: October 6th, 2020
+
+* [Added] New Media Column: Title Only
+* [Added] New filter to toggle between the new Inline Editing styling `acp/editing/inline/deprecated_style` (default:false)
+* [Fixed] The pagination when sorting on the Media list table was ignored
+* [Fixed] The Filter button was not visible on the Taxonomy list tables when the standard filter drop downs were used
+* [Fixed] The Bulk Edit setting is no longer available for unsupported column types
+* [Improved] URL's for link related columns are now displayed correctly (urldecode)
+* [Improved] The inline edit controls are not visible on hover instead of being always visible
+* [Improved] When enabling inline editing on the list table, the table row height is no longer affected
+* [Improved] We added a clear filter button which removes all filters
+* [Improved] You can now remove roles on the user list table when using inline or bulk edit
+* [Updated] Admin Columns Core changes ( 4.2.3 )
+* [Added] Title only column added to Media list table
+* [Improved] Dashicons updates for icon picker in column settings
+* [Improved] New icons for action column added
+
+= 5.3.1 =
+Release Date: August 21st, 2020
+
+* [Fixed] Sorting for Media Exif information improved
+* [Improved] Add 'is empty' and 'is not empty' smart filtering operators for Excerpt column
+* [Improved] Remove filter in saved filter when a column does not exist anymore
+* [Updated] Admin Columns Core changes ( 4.2.1 )
+* [Fixed] JS error on table pages
+
+= 5.3 =
+Release Date: August 18th, 2020
+
+* [Fixed] Some saved filters gave a fatal error when it was using operators that did not exist anymore
+* [Fixed] Export did not work anymore since WordPress 5.5
+* [Fixed] IE11 issues for Smart Filtering
+* [Improved] The submenu with column sets on top of the column settings has been removed. It can be enabled again with the hook: add_filter( 'acp/admin/enable_submenu', '__return_true' );
+* [Added] We added the option to share filter segments with all users
+* [Added] New filter `acp/search/segments_list` which allow you to change the order of the saved filters and restrict them per user role.
+* [Updated] Admin Columns Core changes ( 4.2 )
+* [Added] New api function `ac_get_columns` to retrieve the available columns for Listscreen ID
+* [Added] New api function `ac_get_column` to retrieve a single column from a Listscreen based on its ID
+* [Added] Screen Option to show the Listscreen ID and Listscreen Name on the Column settings page
+* [Fixed] Fixed User helper that gave some PHP warnings when using in the Author column
+
+= 5.2.3 =
+Release Date: July 28th, 2020
+
+* [Fixed] Editing issue for Custom Field column (text) when inline edit feature for custom field was disabled
+
+= 5.2.2 =
+Release Date: July 28th, 2020
+
+* [Fixed] Prevent a critical error on the ajax call for column settings that were never stored
+* [Fixed] Added the Bulk Edit setting for the Custom Field that was missing for the default and text types
+* [Improved] The Inline Edit toggle button not always shows the correct state when using the persistent editing hook `acp/editing/persistent`
+* [Updated] Admin Columns Core changes ( 4.1.9 )
+    * [Improved] The column label translation support for WPML was updated and works again for the latest version of WPML
+
+= 5.2.1 =
+Release Date: July 21st, 2020
+
+* [Improved] Make the button 'Bulk Edit' on top of the table translatable
+* [Improved] Sorting on the taxonomy column now also works with 'Show all results'
+* [Improved] With horizontal scrolling enabled the horizontal offset is preserved when refreshing the page
+* [Improved] The small icons shown next to the column name on the column settings page are now aligned
+* [Added] Added the ability to sort, edit and filter the "Author Slug" and "Full Name" columns on the users table
+* [Added] Added the ability to sort and filter the "Full Name" column on the users table
+* [Added] New hook `acp/select/formatter/user_name` to alter the displayed user results from the filter select2 dropdown
+* [Added] New hook `acp/select/formatter/post_title` to alter the displayed post results from the filter select2 dropdown
+* [Added] New hook `acp/select/formatter/term_name` to alter the displayed term results from the filter select2 dropdown
+* [Updated] Admin Columns Core changes ( 4.1.8 )
+    * [Added] New columns for the Users table: Fullname, Author Slug and Username / Login.
+    * [Fixed] CSS conflict on overview pages where post type is 'Modal'
+
+= 5.2 =
+Release Date: June 9th, 2020
+
+* [Improved] Major performance improvements when sorting posts by "Custom Fields", "Attachment", "Author Name", "Comment Count", "Comment Status", "Page Depth", "Excerpt", "Menu", "Last Modified", "Latest Comment", "Page Templates", "Shortcodes", "Sticky", "Featured Image Size", "Reading Time", "Post Status", "Permalink", "Path" and "WordCount"
+* [Improved] Major performance improvements when sorting media by "Alternate Text", "Caption", "Custom Fields", "Available Sizes", "Description", "Dimensions", "Exif Data", "Height" and "Width"
+* [Improved] Major performance improvements when sorting users by "Custom Fields", "Comment Count", "Description", "Display Name", "Post Count", "Posts", "Rich Editing", "Roles", "Show Toolbar" and "User Url"
+* [Improved] Major performance improvements when sorting terms by "Custom Fields" and "Menu"
+* [Improved] Added sorting of posts by "Ancestors"
+* [Improved] Added sorting of users by "User Posts"
+* [Improved] Added smart filtering of posts by "Comments"
+* [Added] WYSIWYG editing support for inline editing
+* [Added] Hide standard WordPress filters (e.g. the date, post format and category filters)
+* [Added] Enable/disable smart filtering on a per column basis.
+* [Added] You can now remove all terms when using inline edit
+* [Added] Added inline and bulk editing for the user description column
+* [Added] Added a warning icon for columns that can become slow when sorting very large datasets
+* [Fixed] The post count column for users will show the correct count when 'any' post type is selected
+* [Fixed] Disable Bulk- and inline editing for overview without stored settings
+* [Fixed] Enabling or disabling Horizontal Scrolling for an overview that has no column settings gave a fatal error
+* [Fixed] Search form on the media items page was not being removed when enabling the hide-on-screen option
+* [Fixed] The title on media items was not correctly displayed when using inline editing
+* [Fixed] All `Numeric` class names have be renamed to `Number, because `Numeric` is a soft reserved keyword since PHP 7
+* [Added] New hook `acp/search/filters` to alter the filter options and set available values and operators
+* [Added] New hook `acp/sorting/model` to alter the sorting model per column
+* [Added] New hook `acp/sorting/custom_field/date_type` to alter the sorting of dates (that are stored in metadata) from 'datetime' to 'numeric'
+* [Updated] Admin Columns Core changes ( 4.1.7 )
+    * [Improved] Better Table overview recognition to prevent wrong loaded list screens
+    * [Improved] The comments column on the users page will now link to the (filtered) comments table
+    * [Improved] The post count column on the users page now has the option to select all post types
+    * [Fixed] Renamed the user display option 'First and Last Name' to 'Full name'
+    * [Fixed] The comment count column for the users page will now only count 'approved' and 'pending' comments when selecting 'All comments'
+
+
+= 5.1.6 =
+Release Date: April 22nd, 2020
+
+* [Improved] Implemented fallback for WordPress determine_local() function making Admin Columns Pro compatible again for installation with WordPress version below 5.0
+* [Improved] Better horizontal scrollbar positioning when page changes
+* [Improved] Better backward compatibility for the inline edit toggle button
+* [Improved] Fixed some right-to-left (RTL) issues in Editing
+* [Improved] Smart filters can be hidden per list table via the optional settings (below the column settings)
+* [Fixed] Disabled Export for Yoast Linked column
+* [Fixed] MySQL error when sorting on a custom field column that has no value for any of the records
+* [Updated] Admin Columns Core changes ( 4.1.6 )
+    * [Improved] You can now display the column ID and Type by opening the screen options in top right
+    * [Improved] The meta column will now display a zero (when available) instead of a dash
+    * [Improved] Improved right-to-left (RTL) support
+    * [Improved] First time loading columns is faster
+
+= 5.1.5 =
+Release Date: April 17th, 2020
+
+* [Added] New Gutenberg column that renders the amount or structure of the Gutenberg blocks
+* [Added] New Shortcode column that renders shortcodes in a column
+* [Fixed] Bulk Editing model sometimes closes when using third-party jQuery plugins
+* [Fixed] Export JavaScript null check
+* [Fixed] Added missing Filter button on MS User overview table
+* [Updated] Admin Columns Core changes ( 4.1.5 )
+    * [Fixed] Model auto close issue
+
+= 5.1.4 =
+Release Date: April 15th, 2020
+
+* [Fixed] Removed the export form on some pages where it should not be displayed
+* [Fixed] Compatibility check for Media Library Assistant plugin
+* [Updated] Admin Columns Core changes ( 4.1.4 )
+    * [Added] Javascript Improvements
+
+= 5.1.3 =
+Release Date: April 10th, 2020
+
+* [Fixed] Some exportable columns were missing its export settings
+* [Fixed] Translations did not load correctly when old language files were found
+* [Updated] Admin Columns Core changes ( 4.1.3 )
+    * [Added] New media column: Download. For easy downloading of files.
+
+= 5.1.2 =
+Release Date: April 8th, 2020
+
+* [Updated] Admin Columns Core changes ( 4.1.2 )
+* [Fixed] PHP5.6 error when loading the settings page from the menu
+
+= 5.1.1 =
+Release Date: April 7th, 2020
+
+* [Added] Meta Box integration support
+* [Improved] Export of third-party columns is now supported
+* [Improved] Enable or Disable export per column
+* [Updated] Admin Columns Core changes ( 4.1.1 )
+
+= 5.1.0 =
+Release Date: March 30th, 2020
+
+* [Added] Local Storage (store column settings on file system)
+* [Added] New User Column: Posts by Author
+* [Improved] Added the "does not contain" search operator for Title column
+* [Updated] Admin Columns Core changes ( 4.1 )
+    * [Improved] The column type selector now uses select2
+    * [Improved] The current `list screen ID` has been added to the URL when filtering a list table, making it easier to bookmark
+    * [Improved] Our buttons on the list table now have the same style and colors as the default WordPress buttons.
+    * [Added] Tooltips added to each feature of the custom field column
+    * [Updated] The `Admin` class has been refactored
+    * [Updated] The `ListScreenRepository` class has been refactored
+
+= 5.0.3 =
+Release Date: March 11th, 2020
+
+* [Fixed] Possible errors during update process
+* [Updated] Admin Columns Core changes ( 4.0.3 )
+    * [Updated] Saving column settings for the first time could result in extra database records.
+
+= 5.0.2 =
+Release Date: February 26th, 2020
+
+* [Fixed] License key was not persistently stored on multi site environments
+* [Added] Core translations are updated
+* [Improved] Horizontal scrolling recalculates position after Bulk Edit is finished
+* [Updated] Admin Columns Core changes ( 4.0.2 )
+    * [Updated] Fallback for wp_timezone when running WordPress < 5.3
+    * [Updated] Languages for core version updated
+
+= 5.0.1 =
+Release Date: February 18th, 2020
+
+* [Added] New Post Column: Post Visibility
+* [Fixed] The default visibility of the Export button should be enabled
+* [Fixed] The editing date/time fields in Safari where not populated correctly
+* [Fixed] Horizontal Scrolling script could give an error when screen options menu is not available
+* [Fixed] Export message on settings page sometimes displayed the wrong message (Enabled or Disabled)
+* [Fixed] Correct display of Yoast IsIndexed column
+* [Updated] Admin Columns Core changes ( 4.0.1 )
+    * [Fixed] Fatal error in Date helper that occurs in PHP 5.6
+    * [Improved] Re-added the hook `ac/column/custom_field/use_text_input` to use a text field for the custom field column setting
+
+= 5.0.0 =
+Release Date: February 3rd, 2020
+
+* [Added] We are giving you more control over what is visible on the list table. You will be able to hide items (search, bulk actions, export, bulk edit etc.) from the list table that you do not want your users to see.
+* [Added] When enabling "horizontal scrolling" you will see a fixed scroll bar on the bottom of the screen
+* [Added] You can now synchronize all column settings with locally stored files (located under the Tools tab).
+* [Added] You can now change the default sorting per list table.
+* [Added] You can now set horizontal scrolling as the default view for all users.
+* [Added] New Comment Column: Has Replies
+* [Added] New Comment Column: Is Reply
+* [Added] Editing for Display Name column
+* [Improved] The list of saved filtered segments has moved to the "Add Filter" button. You will now see a small arrow button which will open the saved segments.
+* [Improved] Always show parents in term drop down menus for editing and search
+* [Updated] The Import/Export tab has been renamed to Tools.
+* [Updated] The way you assign users or roles to a specific column set has been moved to the settings pane, below the column settings.
+* [Fixed] Yoast SEO Primary Taxonomy column fixed
+* [Fixed] Filtering for Term Parent now also display empty parents
+* [Updated] Admin Columns Core changes ( 4.0.0 )
+    * [Improved] Use wp_date for column value formatters instead of date_i18n
+    * [Improved] Set link type for Taxonomy Columns
+    * [Improved] It is not necessary anymore to load the overview page once in order to recognize the default columns
+
+
+= 4.7.3 =
+Release Date: November 19th, 2019
+
+* [Updated] The minimum version required to run Admin Columns Pro is now PHP 5.6.20.
+* [Fixed] The post status column will now sort correctly
+* [Improved] When the column label is an icon, the column (type) label will be used for the CSV column header when exporting data
+* [Improved] Show posts with any status when sorting on custom field on default overview (all)
+* [Improved] Adapted new WordPress 5.3 interface styling
+* [Improved] Better Excel support for exported CSV files
+* [Improved] Inline Edit text fields now support maxlength setting
+* [Updated] Admin Columns Core changes ( 3.4.8 )
+    * [Fixed] Updated Select2 to 4.0.12 to prevent non-closing behavior
+    * [Updated] The minimum version required to run Admin Columns is now PHP 5.6.20
+
+= 4.7.2 =
+Release Date: August 27th, 2019
+
+* [Fixed] Update Select2 that sometimes did not close the drop down after selecting a value
+
+= 4.7.1 =
+Release Date: August 26th, 2019
+
+* [Improved] Keep select2 open for editing multiple items.
+* [Improved] Added today button for editing popups (date columns).
+* [Fixed] PHP Notice in MimeType Filtering Model
+* [Fixed] DateTime editable time fields were not working correctly in specific browsers
+* [Updated] Admin Columns Core changes ( 3.4.7 )
+    * [Added] Option to limit the number of taxonomies that are shown in the column with show more button.
+    * [Improved] Changed WordPress Date Format link
+    * [Improved] Show more feature that is used in several columns
+    * [Improved] Update Select2 version that fixes multiple selections bug
+
+= 4.7 =
+Release Date: August 21st, 2019
+
+* [Added] New feature: Sort Column Sets by drag and drop on settings page
+* [Added] New feature: Create custom fields on the fly in the Custom Field Column settings
+* [Added] Yoast Column: Is Indexed
+* [Added] Smart Filtering for Menu Order column
+* [Fixed] Error when using inline edit when Yoast Link column is active
+* [Fixed] Javascript error for Media editables when thumbnail is not available
+* [Improved] Autofocus on textarea editable
+* [Improved] More Search features for post content column
+* [Improved] Option to deselect records after Bulk Edit
+* [Improved] Smaller input fields for editing numeric fields
+* [Updated] Admin Columns Core changes ( 3.4.6 )
+    * [Improved] Search the list of available custom fields in the drop down with Select2
+    * [Improved] Change the label for Custom Field column Excerpt to Text
+    * [Improved] Don't open column settings when column refreshes
+    * [Improved] Setting for adding a link to related comments display
+
+= 4.6.3 =
+Release Date: July 16th, 2019
+
+* [Added] Two new hooks to add/alter the export data `ac/export/headers` and `ac/export/row`
+* [Improved] Short delay when searching for records in Editing
+* [Fixed] Bulk Edit was processing a maximum of 1000 records
+* [Fixed] Filter button for User and Taxonomy was sometimes not available
+* [Fixed] Export on Taxonomy overview pages did not work in combination with Smart Filtering
+* [Fixed] Segments where shared between original column sets
+* [Fixed] Styling issue on the WordPress Customize page
+* [Updated] Admin Columns Core changes ( 3.4.5 )
+    * [Fixed] Javascript errors on admin pages for specific columns
+    * [Fixed] Removed flickering for Pro modal
+    * [Fixed] Re-init tooltips when a column is reloaded or added
+
+= 4.6.2 =
+Release Date: May 21th, 2019
+
+* [Fixed] Fixed an issue where the plugin would show a PHP timeout on multisite making it inaccessible.
+
+= 4.6.1 =
+Release Date: May 20th, 2019
+
+* [Fixed] Fixed an issue where an error occurred when using the Custom Field column with the inline editing setting set to 'false'.
+
+= 4.6 =
+Release Date: May 20th, 2019
+
+* [Improved] API refactored, resulting in less calls to our server for license related stuff
+* [Improved] Add-on installs are now done on Ajax
+* [Improved] Changelog display now uses the same markup as WordPress
+* [Fixed] Only one single call is necessary to check plugin updates. This could decrease the loading times on the plugin overview page
+* [Updated] Admin Columns Core changes ( 3.4.4 )
+    * [Fixed] Transient class fixed. Unchanged data did not update the timestamp resulting in invalidating the transient constantly
+
+= 4.5.9 =
+Release Date: May 14th, 2019
+
+* [Fixed] Error on the MS Site overview page
+* [Fixed] Rebuilt Javascript to prevent Date Time picker issues for editing
+
+= 4.5.8 =
+Release Date: May 10th, 2019
+
+* [Added] It is now possible to recheck the status of your license on the settings page
+* [Improved] Bulk Edit is now always enabled (even when Inline Edit setting is disabled). The only way to disable it, is with the `acp/editing/active` hook
+* [Improved] Column setting will show if "Export" is disabled or enabled
+* [Improved] Limit Ajax Calls for Select2 drop downs by adding a short delay
+
+= 4.5.7 =
+Release Date: March 29th, 2019
+
+* [Added] Filter added for disabling the Bulk Edit confirmation `acp/editing/bulk/show_confirmation`
+* [Fixed] Possible Fatal error on User overview page
+* [Fixed] Multiple Bulk Edit rows were added to the table when selecting records
+* [Fixed] Sorting issues on Meta column when Yoast SEO is active
+
+= 4.5.6 =
+Release Date: March 26th, 2019
+
+* [Added] New hook `acp/export/is_active` for disabling export (per list screen)
+* [Added] New Taxonomy column: Count per post type
+* [Improved] Moved bulk edit to tbody so the default WP Bulk Editing still works
+* [Improved] Better message for lifetime licenses
+* [Improved] Translation improvements
+* [Improved] Added 'Not Contains' and 'Is Not' operators to default text meta columns
+* [Improved] Exclude hidden columns from Export
+* [Improved] Show default label for Page Template when editing and filtering on Page Template column
+* [Improved] New JS for Editing when saved is ready `ACP_InlineEditing_After_Save` on document
+* [Improved] New Editing interface for editing Taxonomy columns
+* [Updated] Admin Columns Core changes ( 3.4.2 )
+    * [Improved] Prevent possible warning in User Registered column
+    * [Improved] Give feedback on settings page when something went wrong
+    * [Improved] Setting for link Media item to download or view
+
+= 4.5.5 =
+Release Date: February 27th, 2019
+
+* [Improved] Set focus on input when opening text editable
+* [Improved] Don't post (Smart) Filters to URL when there are no set filters that could cause 403 errors
+* [Fixed] Quick Edit and WordPress Bulk Edit interface was broken when ACP Bulk Editing was active
+* [Fixed] JS error when there are no columns on the overview that supports smart filtering
+* [Fixed] Only render Export markup on table screen
+* [Fixed] DateTime timeformat can be changed with a hook for Editing
+* [Fixed] Removed duplicate records when sorting on Taxonomy Column
+
+= 4.5.4 =
+Release Date: February 18th, 2019
+
+* [Added] New hook `acp/editing/bulk/active` to disable bulk editing for a specific list screen
+* [Fixed] Create new terms for Inline Editing
+* [Fixed] Datepicker did not always close when using Inline Editing
+* [Improved] Path column is now editable
+* [Improved] Page content is now exported in full instead of excerpt
+* [Improved] Text Field for Inline Edit has now wider
+* [Improved] Bulk Editing for Yoast Primary Taxonomy Disabled
+* [Improved] 'Is not' operator added for Taxonomy column
+* [Improved] Export Button is visible by default, but can be disabled in the Screen Options menu
+
+= 4.5.3 =
+Release Date: February 4th, 2019
+
+* [Fixed] Fatal error on Load.php (file not exists)
+
+= 4.5.2 =
+Release Date: January 25th, 2019
+
+* [Fixed] Column Sets inputs did not load properly.
+
+= 4.5.1 =
+Release Date: January 24th, 2019
+
+* [Fixed] Fatal error on Request Class
+
+= 4.5 =
+Release Date: January 23th, 2019
+
+* [Added] Bulk Edit
+* [Added] Media Column: Permalink
+* [Added] Smart Filtering logic for Timestamps and ISO Dates
+* [Fixed] Z-index issue for filtering date picker
+* [Fixed] Javascript error on the Media Grid Overview
+* [Fixed] Inline Editing for Taxonomy column with 'allow new category' option enabled
+* [Improved] Smart Filtering for Custom Field Post type
+* [Removed] Removed the `acp/editing/save` filter as all models now return a boolean result
+* [Changed] get_rows abstract method renamed to get_table_screen_rows
+* [Changed] Editing model is made abstract and now implements an abstract save method instead of public
+* [Updated] Admin Columns Core changes ( 3.4 )
+    * [Fixed] Width setting Javascript errors
+    * [Fixed] Show icons for Action column works again
+    * [Improved] Show icon labels in the Screen Options menu when necessary
+
+= 4.4.1 =
+Release Date: November 7th, 2018
+
+* [Fixed] Date editing for empty columns
+* [Fixed] Export now also works correctly with Smart Filtering
+* [Fixed] Filter button removed entire hook for adding extra filter to user and taxonomy overview pages
+* [Fixed] Inline Edit for categories and tag had strange behaviour in select2 drop downs
+* [Fixed] Translation files for Pro files where not loaded correctly
+* [Updated] Admin Columns Core changes ( Release 3.1 )
+    * [Improved] Better external image support for Custom Field column
+
+= 4.4 =
+Release Date: October 31st, 2018
+
+* [Added] Smart Filtering
+* [Added] Icon picker for label setting
+* [Added] New hook `ac/export/column/disable` for disabling columns for export
+* [Improved] Show attachment file size for Featured Image
+* [Updated] Admin Columns Core changes ( Release 3.3 )
+    * [Improved] Extra display for Path column to show the local path of a file
+
+= 4.3.8 =
+Release Date: September 25th, 2018
+
+* [Added] Media Column: Post Type
+* [Added] New hook `acp/horizontal_scrolling/enable` to enable horizontal scrolling for a specific overview
+* [Improved] Limit to check for updates once per request (if WP triggers the update check)
+* [Updated] Admin Columns Core changes ( Release 3.2.7 )
+    * [Fixed] jQuery noConflict fixes for column settings page
+    * [Improved] Post title column is now always available
+    * [Improved] Disable autoloading for ACP options
+
+= 4.3.7 =
+Release Date: August 21st, 2018
+
+* [Fixed] Fatal error on Taxonomy overview pages when filtering on meta columns
+* [Improved] Re-added Pro features for MS User overview pages
+* [Updated] Admin Columns Core changes ( Release 3.2.6 )
+    * [Improved] Set Admin Columns Capability on role instead of User
+
+= 4.3.6 =
+Release Date: August 15th, 2018
+
+* [Added] New Media Column: Used as Featured Image
+* [Added] Editing and Filtering added to Last Modified column
+* [Improved] Don't show the Yoast filters when the related columns are not available
+* [Improved] New interface implemented for the buttons on the overview pages
+* [Improved] Changed class 'Numeric' to 'Number' since numeric is marked as soft reserved keywork in PHP 7
+* [Improved] Select2 editing values are now correctly displaying escaped HTML entities
+* [Fixed] JS trigger 'cacie_after_save' is now called correctly
+* [Fixed] User Role filter drop down now always show all user roles
+* [Updated] Admin Columns Core changes ( Release 3.2.5 )
+    * [Added] New JS API for column settings page. (Accessible through AC.Form)
+    * [Improved] Exclude system files in Autoloader
+
+= 4.3.5 =
+Release Date: July 11th, 2018
+
+* [Fixed] Free version is automatically disable when enabling the Pro version
+* [Updated] Admin Columns Core changes ( Release 3.2.4 )
+    * [Fixed] Improved performance for ac_quickedit_events()
+
+= 4.3.4 =
+Release Date: June 27th, 2018
+
+* [Fixed] Plugin updater now works for old add-ons
+
+= 4.3.3 =
+Release Date: June 26th, 2018
+
+* [Fixed] ThidParty classes are now using correct camelcasing
+
+= 4.3.2 =
+Release Date: June 26th, 2018
+
+* [Fixed] Fixed possible fatal error when running update
+
+= 4.3.1 =
+Release Date: June 26th, 2018
+
+* [Fixed] Assets did not load correctly. Upgrade script fix.
+
+= 4.3 =
+Release Date: June 25th, 2018
+
+* [Added] Sorting and Filtering support for Taxonomy overviews
+* [Fixed] Inline Edit ajax callback for save now returns correct row_html value
+* [Fixed] Inline edit bug for Attachment (Posts) column
+* [Improved] Update overview page now shows icon when there are Admin Columns Pro updates
+* [Improved] Less external API calls to check license, updates and plugin information
+* [Updated] Admin Columns Core changes ( Release 3.2 )
+    * [Removed] Support for PHP 5.2. The minimum version required to run Admin Columns is now PHP 5.3+.
+    * [Removed] Deprecated functions (before 3.0) will be removed after 12 months.
+
+
+= 4.2.9 =
+Release Date: April 30th, 2018
+
+* [Fixed] Sorting for custom field numeric fields
+* [Improved] Dismissable renewal notice improved
+* [Updated] Admin Columns Core changes ( Release 3.1.8 )
+    * [Improved] Styling for dismissable notice (wrong placed dismiss button)
+    * [Improved] Changed Full Path Label to Path
+
+= 4.2.8 =
+Release Date: March 30th, 2018
+
+* [Fixed] License expired notice was not displayed correctly
+* [Updated] Admin Columns Core changes
+    * [Fixed] Possible catchable fatal error for Author column fixed
+    * [Improved] Logic for File Size column for media improved
+    * [Improved] Translation improvements
+
+= 4.2.7 =
+Release Date: March 21st, 2018
+
+* [Fixed] License check gave a wrong expiry date
+* [Updated] Background caching for filtering is now only build for columns that are active
+* [Improved] Reset sorting button now aligns good on Media and Taxonomy overviews
+* [Improved] Export filename now contains the date as set in WordPress instead of the servers date
+* [Updated] Admin Columns Core changes
+    * [Improved] It's now possible to reset the Admin Columns capability by reactivating the plugin
+
+= 4.2.6 =
+Release Date: March 16th, 2018
+
+* [Fixed] Ranged filtering on User overview fixed
+* [Fixed] Reintroduced filtering for Network users
+
+= 4.2.5 =
+Release Date: March 15th, 2018
+
+* [Fixed] Multisite Users screen was not usable because of a fatal error
+
+= 4.2.4 =
+Release Date: March 13th, 2018
+
+* [Added] You can now change the duration of caching in seconds using acp/filtering/cache/seconds (defaults to 10)
+* [Added] Gravatar display added for User related columns
+* [Fixed] Inline edit for Date Time picker fixed
+* [Improved] Filter dropdowns now displayed in alphabetical order by default
+* [Dependency] Requires ACF addon 2.2.2 if active
+* [Dependency] Requires WooCommerce addon 3.0.3 if active
+* [Updated] The filter for enabling cache on the filter dropdowns is now acp/filtering/cache/enable
+* [Updated] When selecting a Post Type the label will be updated for the Post Count (user) column
+
+= 4.2.3 =
+Release Date: February 6th, 2018
+
+* [Added] Added deprecated hook `do_action( 'acp/column_types' )`
+* [Fixed] Fixed default sorting for hierarchical pages
+* [Fixed] Fixed issue where some page ordering plugins would no longer be sorted correctly
+* [Fixed] Fixed sorting on media items in grid view mode
+* [Fixed] Delegated filter menu's (e.g. categories) no longer appear when disabled
+* [Updated] Admin Columns Core changes
+    * [Removed] Removed 'acp/column_types' action
+    * [Fixed] Small typo in help text
+    * [Update] Updated languages from wordpress.org
+
+= 4.2.2 =
+Release Date: January 31th, 2018
+
+* [Fixed] Assets for filtering and sorting were not loading
+
+= 4.2.1 =
+Release Date: January 30th, 2018
+
+* [Fixed] Editing, Filtering and Sorting was not possible for Media and Comment columns
+* [Fixed] Editing for Menu Column is fixed
+* [Improved] Filtering drop downs now have a maximum width of 200px
+* [Updated] Admin Columns Core changes
+    * [Fixed] Added AC_ListScreen::get_object_by_id with deprecated message
+    * [Fixed] Fixed fatal error for custom taxonomy columns
+
+= 4.2 =
+Release Date: January 29th, 2018
+
+* [Added] Ancestor column for hierarchical post types
+* [Added] Latest comment column for posts
+* [Added] Post Type column for comments
+* [Added] Language column for users
+* [Added] Enable persistent editing by adding `add_filter( 'acp/editing/persistent', '__return_true' );` to your functions.php
+* [Improved] Default Filtering label prefix changed from 'All' to 'Any'
+* [Improved] Ping status, last name and first name column sorting is now faster
+* [Improved] Adding a new column will enable sorting by default
+* [Updated] Admin Columns Core changes
+    * [Improved] Admin Columns Capability is now always set
+    * [Improved] Database update message is only visible for administartors
+    * [Improved] Links starting with # are now marked as internal
+    * [Removed] Removed support for the Link/Bookmark list table
+    * [Added] Added date time settings for columns that use dates
+
+= 4.1.1 =
+Release Date: December 12th, 2017
+
+* [Added] Sorting support for Yoast SEO and Readability column
+* [Added] Export support for Yoast columns
+* [Fixed] Word Limit setting now accepts 0 and empty strings
+* [Fixed] Removed double tooltips for Yoast columns when sorting is active
+* [Improvement] Small database updates run in the background
+* [Improvement] Improved Export for media columns
+* [Improvement] Empty char can be set per Export Model
+* [Improvement] Layout Switcher styling update
+* [Improvement] Date/Time editing support for date/time columns
+* [Improvement] Editing and Filtering support for Media Date column
+* [Updated] Admin Columns Core changes
+    * [Added] New setting for content fields: String limit (Limit on words or characters)
+    * [Improved] Merged the roles column into the author column
+    * [Improved] Added Before/After fields for the following columns: Content, Excerpt, User Description
+    * [Improved] Removed deprecated Welcome page
+    * [Improved] Removed deprecated Upgrade page
+
+= 4.1 =
+Release Date: November 22nd, 2017
+
+* [Added] Internal domains for the Link Count can now be changed by using the following filter: add_filter( 'ac/column/linkcount/domains', $internal_domains )
+* [Improvement] Added Exporting
+* [Improvement] When switching to a different layout, the WP status filters are taken into account
+
+= 4.0.14 =
+Release Date: November 10th, 2017
+
+* [Fixed] Free version is now deactivated correctly on activating the Pro version
+
+= 4.0.13 =
+Release Date: November 10th, 2017
+
+* [Updated] Admin Columns Core version could not be read and update message would not go away
+
+= 4.0.12 =
+Release Date: November 9th, 2017
+
+* [Added] New column for revisions. Shows the revision count with more info on click
+* [Added] New column for links in content. Shows internal/external link count
+* [Added] Download action added for Media overview
+* [Added] Sorting for Custom Field column User type
+* [Fixed] Filtering on daily and monthly dates now shows the correct posts
+* [Fixed] Comment count sorting
+* [Improved] Textarea field type support for custom field with wordcount setting and text area editing
+* [Improved] Better date ranged filtering (does not include the first day of next month)
+* [Improved] No support 12/24 hour format for date time picker
+* [Improved] Layouts UI improvements
+* [Updated] Admin Columns Core changes
+    * [Improved] Added the AC_Plugin class as a more DRY approach to asking metadata about a plugin
+    * [Improved] Redone the way user preferences are stored. Fewer records and better compatible with Multisite.
+    * [Improved] Added the option to write database updates and apply them to a new version
+    * [Improved] Empty character is just a method now instead of getter/setter with a filter
+    * [Improved] Added AC_Services class to register services to a column on the fly (DI approach)
+
+= 4.0.11 =
+Release Date: October 16th, 2017
+
+* [Fixed] Changelog view from plugins overview works again
+* [Fixed] Date filter dropdowns are now displayed in descending order
+* [Fixed] Sorting on Post Count column did not work when using a custom table prefix
+* [Fixed] Error while using inline edit on Taxonomy Column
+* [Updated] Admin Columns Core changes
+    * Column Attachment count merged with Attachments
+
+= 4.0.10 =
+Release Date: October 4th, 2017
+
+* [Added] Events Calendar integration add-on is now available from the add-ons tab
+* [Added] xEditable for date/time fields
+* [Improved] Date filter dropdowns are now displayed in descending order
+* [Improved] User Registered date column now uses the date/time editing field
+
+= 4.0.9 =
+Release Date: October 2nd, 2017
+
+* [Added] Filtering for Yoast title column (default or custom titles)
+* [Added] Editing support for User registered column
+* [Improvement] Improved filter drop down performance on large datasets
+* [Fixed] Roles column did not work
+* [Fixed] Sorting and Filtering on two different Taxonomy columns gives an error
+* [Updated] Admin Columns core to v3.0.5
+    * [Changed] Changed Ajax value interface
+    * [Improvement] Column interface for post relations
+    * [Added] Added before/after fields for ID column
+
+= 4.0.8 =
+Release Date: August 17th, 2017
+
+* [Added] Images column for posts. Shows all used image inside the post content.
+* [Improvement] Title Only column is now sortable and editable
+* [Improvement] Shortcodes column is now sortable
+* [Improvement] Menu column is now sortable and editable
+* [Improvement] Renamed "Comment Count" column for Multisites to "Comments"
+* [Improvement] Child Pages column now supports filtering
+* [Improvement] Post modified will now be updated when using inline edit for changing: the featured image, a page template, make sticky, add a term
+* [Improvement] Filter label for ranged items can now be changed
+* [Improvement] Comments for multisite now shows a comment bubble for total items instead of just a count
+* [Fixed] Disabling inline edit removed the blue link color from the title column
+* [Fixed] EXIF data is now sorting correctly
+* [Fixed] Items were not always editable when using filtering or pagination due to a caching issue
+* [Fixed] Sorting a custom field, available sizes or dimensions column for media was not working
+* [Changed] Renamed ACP_Column_UsedByMenu to ACP_Column_Menu
+* [Updated] Admin Columns core to v3.0.4
+    * [Improved] Attachment column: you can now limit the number of items being displayed
+    * [Improved] Only apply before/after when the value is not empty
+    * [Improved] EXIF Data now have added before and after fields
+    * [Improved] Renamed Alt column to Alternative Text
+    * [Improved] Renamed Before More Tag column to More Tag
+    * [Improved] Renamed Comment Status column to Allow Comments
+    * [Improved] Renamed Title without actions column to Title Only
+    * [Improved] Available Sizes column for media now has the option to include missing file sizes
+    * [Improved] Added Orientation and Keywords to EXIF data column
+    * [Improved] Added a tooltip to the actions column
+    * [Improved] Date Published column now shows a status icon when the post has not yet been published
+    * [Improved] Post Formats column now has the option to show an icons
+    * [Improved] Author column can now display the role(s) of the author
+    * [Improved] Added many helper methods to ac_helper()
+    * [Removed] Removed the "Attached to Post" column. The column has been replaced by the "Uploaded to" column in WordPress 4.0
+    * [Fixed] Time difference option in the date column now uses the correct GMT offset
+
+= 4.0.7 =
+Release Date: July 25th, 2017
+
+* [Added] Ranged filtering for User registered date adde
+* [Added] Profile Picture (Gravatar) column for Users
+* [Fixed] Clicking the clear button with inline edit does not jump to the top of the page
+* [Fixed] Filtering for Taxonomy column on the media overview is enabled
+* [Fixed] Image column for media overviews works again
+* [Fixed] Category filter dropdown does not always have active state anymore
+* [Fixed] Renaming a post type name (from a dash to underscore) could cause the wrong layouts to be loaded
+* [Fixed] Child Pages are now correctly separated by a comma
+* [Improved] Styling issues for sorting on Media overview
+* [Updated] Admin Columns core to v3.0.3
+    * [Fixed] Show the type instead of an empty label in the edit columns screen
+    * [Fixed] Image URLs are supported again for the Custom Field column
+    * [Fixed] Column with a date setting did not always store it's value date format correctly
+    * [Improved] Post Status column can now also be displayed as an icon
+    * [Improved] Use multibyte function to trim strings for showing a maximum character count
+    * [Improved] Excerpt column now displays a text icon when the excerpt is generated from it's content
+    * [Added] Added a helper to display star ratings
+
+
+= 4.0.6 =
+Release Date: July 3rd, 2017
+
+* [Added] Filtering added for the Date Published column
+* [Fixed] Better fix for fatal errors on filtering in PHP7.1 on the comments overview page
+* [Fixed] Hitting enter to filter on the User overview does work now
+* [Fixed] Inline edit for textareas are saved incorrectly the second time
+* [Improved] Default WordPress date filter is removed when there is an Admin Column Pro monthly date filter active
+* [Improved] Styling filtering input fields
+* [Improved] Editing datepicker now supports first day of the week option
+* [Updated] Admin Columns core to v3.0.2
+    * [Fixed] No columns were shown when you saved your columns without visiting the overview page first
+    * [Improved] Character limit now strips tags before trimming
+    * [Improved] Translations for the core are now fetched from Glotpress
+
+= 4.0.5 =
+Release Date: June 6th, 2017
+
+* [Fixed] Fatal errors on filtering in PHP7.1 on the comments overview page
+* [Fixed] Don't load sorting preferences for columns that aren't available
+* [Updated] Admin Columns core to v3.0.1
+    * [Improved] Clicking the toggle icons in the header of the column settings won't open the column settings anymore
+    * [Improved] Fallback for the autoloader to work with lowercase files
+    * [Improved] User Nicename available as an option for User display
+
+= 4.0.4 =
+Release Date: May 2nd, 2017
+
+* [Fixed] Date filtering dropdowns order and options fix
+* [Fixed] Taxonomy dropdown while using inline edit menu now populates correctly
+* [Improved] Horizontal scrolling in table keeps columns width
+
+= 4.0.3 =
+Release Date: April 25th, 2017
+
+* [Improved] No duplicate category filter
+* [Improved] Sorting for Post count on User overview now works together with the display value
+* [Improved] Improved internal method for registering columns
+* [Improved] Filtering cache timeout now expires after 10s, instead of 60s
+* [Fixed] Network Users view-button now links to the correct page
+
+* Core
+* [Improved] Column can now have a togglebox with ajax loading
+* [Fixed] Network users without the correct capabilities will no longer see add-on activation buttons
+* [Improved] By default a dash "–" charcater is shown when the column value is empty.
+
+= 4.0.2 =
+Release Date: April 11th, 2017
+
+* [Fixed] Javascript bug for editing numeric fields
+* [Fixed] Layout switcher is now correctly placed on post screen
+* [Fixed] Filtering Csutom Field values by ranged on future / past dates has been fixed
+* [Fixed] Scripts on the listings screen are now loaded in the footer
+* [Fixed] Third party columns are now be loaded correctly
+* [Fixed] Removed plugin group for columns
+
+= 4.0.1 =
+Release Date: April 5th, 2017
+
+* [Fixed] The link_category taxonomy will only show when the Link Manager is enabled
+* [Fixed] Network Sites "View" button will now link to the correct column set
+* [Fixed] Refreshing the Network Sites screen will load the correct column set
+* [Fixed] Blog ID column is now visible for Network Sites
+* [Fixed] Filtering dropdowns cache now works correctly with external caching
+* [Fixed] Admin Columns is now compatible with WordPress version 4.5 and up
+
+= 4.0 =
+Release Date: April 4th, 2017
+
+* [Refactor] Complete refactor of core code. Please read [Upgrading from v3 to v4](hhttps://www.admincolumns.com/documentation/faq/upgrading-from-v3-to-v4/)
+* [Improved] Inline edit user dropdown now shows first name and last name by default
+* [Improved] Restyle user interface for column edit boxes
+* [Improved] Show first name and last name for filter dropdowns related to users
+* [Improved] Removed all image icons with dashicons for columns and interfaces
+* [Improved] Improved performance for sorting for a lot of columns
+* [Improved] Improved a lot of the phpdocs for methods
+* [Added] Native Taxonomy columns
+* [Added] Network Site columns
+* [Added] Added screen option to create a horizontal scrollable table
+* [Added] Inline edit and filtering support for native taxonomy columns
+* [Added] New methods for getting the current version of the plugin
+* [Added] Option for setting the filter top label
+* [Added] Inline edit support for BBPress forum on topic overview
+* [Added] Ranged filtering for ID column
+* [Added] Dependency check for addons with specific versions
+* [Added] Ranged filtering for WordPress date column
+* [Added] Pagination for filtering select2 dropdowns
+* [Added] New labels for empty / nonempty dropdowns
+* [Added] Yoast readability column support
+* [Added] Colorpicker added for inline edit
+* [Fixed] Row actions on first (custom) columns were removed after using inline edit for the column
+* [Fixed] Inline edit for role column fixed
+* [Fixed] New Image column for media overview
+* [Fixed] Disable inline edit for multi site user overview
+* [Fixed] Post format taxonomy check for inline edit, so not multiple formats can be selected
+* [Refactor] Renamed folders for filtering, editing and sorting
+* [Refactor] Removed all ACF addon methods from Admin Column Pro plugin
+* [Refactor] Removed all WooCommerce addon methods from Admin Column Pro plugin
+* [Refactor] Filtering now uses the pre_get_post hook instead of the request hook
+* [Refactor] Sorting now uses the WP_Query
+* [Refactor] Each Pro column now has it's own class extending the free column
+* [Refactor] Each Pro column that supports sorting now makes use of a sorting model class
+* [Refactor] Each Pro column that supports filtering now makes use of a filtering model class
+* [Refactor] Each Pro column that supports inline edit now makes use of an inline edit model class
+* [Refactor] Filter 'cac/editable/data' replaces 'cac/editable/options'
+* [Refactor] New Class interface for the Custom Field Column
+* [Refactor] New helper for Filtering acp_filtering()
+* [Refactor] New helper for Sorting acp_sorting()
+* [Refactor] New helper for Editing acp_editing()
+* [Updated] Admin Columns core to v3.0
+    * [Improved] Updated the User Interface
+    * [Improved] Using dashicons instead of image icons
+    * [Improved] Action column now always is the primary column
+    * [Improved] Heading structure in Admin is now correct
+    * [Improved] Page Template column supports post types (since WP 4.7)
+    * [Improved] Improved Custom Field column types
+    * [Added] New user column added: Author name
+    * [Added] New user column added: Show Toolbar
+    * [Added] New column for shortlink added
+    * [Added] Filter for suppressing admin notices
+    * [Added] New helpers added for array, date, formfield, icon, image, post, string ,taxonomy and user. Helpers can be accessed by using 'ac_helper()->array()'' etc
+    * [Added] Filter for enabling a 'clear all columns' button to the setting page. 'ac/settings/enable_clear_columns_button'
+    * [Added] New method for singleton for Admin Columns main class. 'ac()'
+    * [Fixed] Comment Response column is no longer displayed in the table when viewing "Comments On".
+
+= 3.8.9 =
+Release Date: December 9th, 2016
+
+* [Fixed] Default comment columns gave no results when sorting was enabled for those columns
+* [Fixed] WordPress 4.7 shows no titles and authors on page overview when sorting is saved as preference
+* [Fixed] JS error on Taxonomy screens for listings_screen.js is fixed
+* [Quickfix] WooCommerce order column sort now correct but sorting cannot be disabled for this column. Will be fixed in 4.0
+
+= 3.8.8 =
+Release Date: October 11th, 2016
+
+* [Fixed] ACF Inline Edit ajax search fix due ACF method removal (temporary)
+* [Fixed] ACF Sorting on User list did not work
+* [Added] Added screenreader labels for filter dropdowns
+
+= 3.8.7 =
+Release Date: July 6th, 2016
+
+* [Added] License chack notices can be disabled by filter add_filter( 'cac/suppress_site_wide_notices', '__return_true' )
+* [Fixed] Enabling and disabling sorting for columns was not working
+* [Fixed] Fatal error for sorting on Custom Field Columns with format set to 'Posts by ID' fixed
+* [Fixed] ACF4 datepicker fix. Only support inline edit when the default save format is used yymmdd
+* [Fixed] JS bug solved for inline edit where current value could be NULL
+* [Fixed] Past date filtering for ACF dates not excludes empty values
+* [Fixed] Clear option added for ACF selectboxes that can be NULL
+* [Fixed] Disablied filtering for ACF Users (multiselect) column
+* [Fixed] Inline edit causes actions (quick edit, edit) to disappear when you edit the value
+* [Fixed] Initialize inline edit after using ajax action like quick edit and reply comment
+
+= 3.8.6.1 =
+Release Date: April 29th, 2016
+
+* [Updated] Admin Columns core to v2.5.6.2
+* [Fixed] Hotfix. Admin Columns core version 2.5.6 did not display the stored column settings, which is now hotfixed.
+
+= 3.8.6 =
+Release Date: April 29th, 2016
+
+* [Improved] Column set menu will display the selected role and user (only single) in the description
+* [Improved] Renamed the label from "Column Set" to "Column View" on the posts screen
+* [Fixed] There was a possibility that a layout was loaded that didn't belong to the current user
+* [Fixed] User roles will sort correctly when a user has custom capabilities assigned
+* [Updated] German language is 100% translated, big thanks to Björn Scheppler
+* [Updated] Admin Columns core to v2.5.6
+    * [Fixed] Row actions are now only added to the first column when the primary column isn't available
+    * [Fixed] The true/false field option for the Custom Field column will display a cross icon when the value is empty or zero
+
+= 3.8.5 =
+Release Date: April 7th, 2016
+
+* [Fixed] WordPress columns that are filterable by default (like date and acategories) can now be disabled
+* [Fixed] Inline edit now loads ajax options properly when not using column sets
+* [Fixed] When updating post_date with inline edit the GMT date will now also be updated
+* [Fixed] Other select2 libraries will now be disabled on the column settings page to prevent possible conflicts with plugins and themes
+* [Improved] Changed the name 'Sets' to 'Column Sets'
+* [Refactor] Removed filter 'handle_reset' from CAC_Sortable_Model::__construct()
+* [Updated] Admin Columns core to v2.5.5
+    * [Improved] Columns with empty values will now display a dash symbol
+    * [Fixed] Excerpt column: The label "Excerpt from content" will now only display when the post has content
+
+= 3.8.4.1 =
+Release Date: March 29th, 2016
+
+* [Updated] Admin Columns core to v2.5.4
+    * [Fixed] Columns can be marked as original, in case the default has been replaced by an ac-column
+    * [Fixed] WooCommerce columns will now have the right order when column haven't been stored yet
+    * [Fixed] WooCommerce columns will now display it's value again after using inline edit
+
+= 3.8.4 =
+Release Date: March 29th, 2016
+
+* [Fixed] Inline edit will now work correctly when layout is empty
+* [Fixed] Status column will now display all available stati when using inline edit
+* [Fixed] Filtering dropdown with roles are now translated when a translation is available
+* [Fixed] Old PHP export format can be used again
+* [Fixed] Filtering on empty featured images has been fixed
+* [Fixed] Fixed small styling issue with the user/roles selector for sets
+* [Fixed] Displaying all results when sorting ACF columns will now work correctly
+* [Fixed] Show filter when options are empty or when the empty/not empty options are enabled
+* [Fixed] Sorting for default column date is working again
+* [Improved] Added missing security nonces to ajax calls
+* [Improved] "Add set" button is now affording (displaying close when opened)
+* [Improved] Inline edit will load less data on listings pages
+* [Removed] Removed obsolete language files
+*
+* [Notes for developers]
+* [Refactor] removed all filters from CAC_Filtering_Model::__construct()
+* [Refactor] removed all filters from CACIE_Editable_Model::__construct()
+* [Updated] Admin Columns core to v2.5.4
+    * [Fixed] Edit columns button will be positioned correctly on the Trash page
+    * [Fixed] Obsolete images have been removed
+    * [Fixed] Roles names column will display the available translation
+    * [Fixed] Content type label (next to store settings) is displayed correctly when translations are loaded
+    * [Fixed] After using quick edit the column values will be populated correctly again
+    * [Fixed] WPML will correctly display it's "+" icons again. Make sure to add/remove the column.
+    * [Improved Messages on the settings screen (when using restore columns) are now displayed directly above the columns
+    * [Improved] Excerpt column will now display a label "excerpt from content" when the actual excerpt field is empty
+    * [Added] New filter 'cac/get_posts/post_status' has been added to change post_status when using CPAC_Storage_model::get_posts()
+
+= 3.8.3 =
+Release Date: March 18th, 2016
+
+* [Updated] Admin Columns core to v2.5.3
+* [Fixed] Fixes an issue with some 3rd party column not being visible
+
+= 3.8.2 =
+Release Date: March 16th, 2016
+
+* [Updated] Admin Columns core to v2.5.2
+* [Fixed] Fixes an issue where some of the WordPress default columns did not display correctly
+
+= 3.8.1 =
+Release Date: March 16th, 2016
+
+* [Updated] Admin Columns core to v2.5.1
+* [Fixed] Column settings are displayed correctly now
+
+= 3.8 =
+Release Date: March 16th, 2016
+
+* [Added] Introduce new feature called "Sets" and it allows you to create sets of columns.
+* [Added] Use the 'ac/export_import/export_single_layouts' filter to allow the exporting of single layouts
+* [Fixed] Every filtering model will have a seperate cache timeout
+* [Fixed] Comment item count and pagination will display correctly when being filtered
+* [Added] Sorted column headers will have a sorting indicator
+* [Added] Media Libraray Assistant "custom" columns have inline-edit, sorting and filtering support
+* [Improved] Sorting on ACF single values are much faster and take less memory
+* [Fixed] The categories and date filter dropdowns will now be hidden when they are disabled or when the column is removed
+* [Fixed] Sorting media library items will correctly apply the "do not show all results when sorting" option
+* [Fixed] Inline edit date picker now works on media screen
+* [Fixed] The "No comments" option will now be correctly selected in the dropdown filter menu
+* [Fixed] Only terms that are actually used by media items are now listed in the filter dropdown
+* [Fixed] Parent Taxonomy column only available for hierarchical taxonomies
+* [Fixed] Leave sorting for default columns intact
+* [Fixed] Correct Yoast SEO values are returned on inline edit save
+* [Fixed] Comment count (top right) when filtering
+* [Updated] Replaced custom icons with Dashicons where applicable
+* [Added] Filtering for parent column
+* [Fixed] Filtering Event type from the Events Manager plugin
+* [Updated] Inidividual sets of columns can be exported and imported to JSON or PHP
+* [Improved] Columns loaded through PHP are now being displayed on the column settings screen, but are disabled.
+* [Improved] Ajax calls all have nonces for better security
+* [Improved] Filters menu's on the comment screen will check if object exists before using them as possible option
+* [Improved] Filters options on the comment screen will be sorted with the "natural order" algorithm
+* [Fixed] Filter menu for taxonomies on the media screen will now only list terms that are used by the attachments. (options are not indented)
+* [Fixed] Filter options that have the same label with have an identifier added (e.g. post slug, user email, term slug)
+* [Improved] Input element attributes are now escaped
+* [Improved] Added filtering support for multisite users
+* [Added] Filter menu's placed by WordPress core are now selected on the column settings screen
+* [Fixed] When using inline edit on the author column the selected item will be prefilled
+* [Fixed] Height column for media is now sortable
+* [Updated] Sorted columns will now always have a sorting indicator, indicating ASC (down arrow) or DESC (up arrow)
+* [Updated] Revmoed restore sorting button form column setting screen. Sorting can now be resetted from settings tab for all users.
+* [Updated] Parent taxonomy column will only be available for hierarchical taxonomies
+* [Updated] WordPress SEO columns have a default width displayed
+* [Updated] All languages have been updated from Transifex (https://www.transifex.com/codepress/admin-columns-pro)
+* [Dev] Added method ac_pro() which returns a CAC_Addon_Pro object
+* [Updated] Admin Columns core to v2.5
+	* [Updated] The main menu has been replaced with a single dropdown menu
+	* [Updated] Support for 3rd party columns from other themes or plugins has been greatly improved
+	* [Added] Added a new column: Comment status
+	* [Added] The width of default columns are now displayed
+	* [Improved] Improved JS loading
+	* [Improved] Replaced FamFam icons with dashicons
+	* [Improved] Column groups now uses full text strings
+	* [Fixed] Media actions columns no longer throws an error when the list table is not found
+	* [Fixed] Height and width columns for media will be appended with 'px'
+	* [Fixed] Most zero values will now be displayed as a dash
+	* [Fixed] Estimate time reading column will no longer display leading zero's on seconds
+	* [Fixed] Shortcodes column now display each shortcode name used once, with a counter
+	* [Fixed] Columns with an imagesize selection setting will have the a default option selected
+	* [Removed] Removed loading columns through 'load-edit.php' filter
+	* [Added] Column settings are now stored without the need to refresh the page (through ajax)
+	* [Added] You can disable the columns delete confirmation through this filter 'ac/delete_confirmation'
+	* [Improved] The width of default columns (e.g. date and author) are now displayed
+	* [Improved] bbPress columns are loaded correctly
+	* [Updated] All languages files have been updated from Transifex (https://www.transifex.com/codepress/admin-columns)
+	*
+	* [Notes for developers]
+	* [Refactor] CPAC now is a singleton class
+	* [Refactor] Storage model has been refactored but should stay backwards compatible when extending
+	* [Refactor] CPAC_Column $storage_model variable has become private. Use CAPC_Column::get_storage_model() method.
+	* [Refactor] Storagemodel can now be extended to have column layouts/sets
+	* [Refactor:added] CPAC_Column::is_default() method added
+	* [Refactor:added] CPAC_Column::is_registered() method added
+	* [Refactor:added] CPAC_Column::get_empty_char() method added
+	* [Refactor:added] CPAC_Column_Storagemodel::get_column_types() method added
+	* [Refactor:added] CPAC_Column_Storagemodel::get_default_colummn_types() method added
+	* [Refactor:added] CPAC_Column_Storagemodel::get_column_type() method added
+	* [Refactor:added] CPAC_Column_Storagemodel::create_column() method added
+	* [Refactor:added] CPAC_Column_Storagemodel::flush_columns() method added
+	* [Refactor:added] CPAC_Column_Storagemodel::get_restore_link() method added
+	* [Refactor:changed] CPAC_Column_Storagemodel::get_columns()
+	* [Refactor:removed] CPAC_Column_Storagemodel::get_default_registered_columns() method removed
+	* [Refactor:removed] CPAC_Column_Storagemodel::get_custom_registered_columns() method removed
+	* [Refactor:removed] CPAC_Column_Storagemodel::set_stored_columns() method removed
+	* [Refactor:removed] CPAC_Column_Storagemodel::get_grouped_column_types() method removed
+	* [Refactor:removed] CPAC_Column_Storagemodel::set_columns() method removed
+	* [Refactor:removed] CPAC_Column_Storagemodel::set_stored_columns() method removed
+
+= 3.7.4 =
+Release Date: February 10th, 2016
+
+* [Fixed] Possible Fatal Error on PHP 5.2.x has been fixed
+
+= 3.7.3 =
+Release Date: February 9th, 2016
+
+* [Fixed] Select2/ajax dropdowns don't auto close after changing value
+* [Fixed] Filtering on empty custom field values will now work for all content types
+* [Fixed] Filtering on empty taxonomies will now work correctly
+* [Fixed] Sorting custom field values now works correctly when "show all results when sorting" is enabled
+* [Updated] Admin Columns core to v2.4.10
+    * [Fixed] Data:image sources for images are supported in labels
+    * [Fixed] Cloned columns no longer has the wrong options when stored
+    * [Fixed] Created deprecated function for is_columns_screen()
+    * [Fixed] The method get_current_storage_model returns the first occurrence instead of running the entire array of storage modals
+    * [Fixed] The storage_model object should have the init_manage_columns method to properly load the columns heading and values
+    * [Fixed] The storage_model object can now be used within sub pages
+
+= 3.7.2 =
+Release Date: January 26th, 2016
+
+* [Fixed] Cloned columns no longer has the wrong options when stored
+* [Fixed] Fatal error on Multi Site user overview
+
+= 3.7.1 =
+Release Date: January 22th, 2016
+
+* [Fixed] Filtering on single values for ACF fields on users has been fixed
+
+= 3.7 =
+Release Date: January 21th, 2016
+
+* [Fixed] Solved an issue where "loading values" for the filter dropdown menu was never removed
+* [Fixed] Any character can now be used as column label without breaking sorting
+* [Fixed] Removed the double "reset sorting" button for WordPress version 4.4
+* [Fixed] Label formatting in Taxonomy dropdown inline edit will now correctly display HTML characters
+* [Added] Advanced filtering on ACF Dates: ranges and past/future dates
+* [Fixed] Fixed the styling for ACF repeater fields. Added option to choose display format.
+* [Added] Added term parent column with editing support
+* [Updated] The SKU column for WooCommerce will sort by natural ordering
+* [Updated] The filtered item will be highlighted on the overview
+* [Updated] Admin Columns core to v2.4.9
+    * [Added] Display format Url added to Custom Fields
+    * [Added] Allow the use of before and after fields for all columns. Use add_filter( 'cac/column/properties/use_before_after', '__return_true' ).
+    * [Fixed] Removed Field Groups from post types
+    * [Fixed] Removed additional avatars from the comments view
+    * [Added] Added the option to replace the Custom Field select menu with a text input. Use add_filter( 'cac/column/meta/use_text_input', '__return_true' ).
+
+= 3.6.3 =
+Release Date: November 26th, 2015
+
+* [Fixed] Faster user sorting when they are segmented on a particular role
+* [Fixed] Faster posts sorting when they are segmented on a particular post status
+* [Fixed] The custom field column will now only list existing users and posts in it's filter menu
+* [Fixed] Pagination no longer breaks on the page overview when it's sorted by the default column
+* [Updated] Admin Columns core to v2.4.8
+    * [Updated] Hidden custom fields are now grouped as "Hidden" in the dropdown list
+    * [Updated] Minor performance improvements
+    * [Fixed] New Yoast plugin compatibility
+
+= 3.6.2 =
+Release Date: November 17th, 2015
+
+* [Fixed] Users can be filtered on multiple fields at once
+* [Fixed] Filter options are sorted case insensitive
+* [Fixed] Sorting fixed for some columns
+
+= 3.6.1 =
+Release Date: November 13th, 2015
+
+* [Fixed] Form labels on quick-edit and screen options are no longer bold
+* [Fixed] Quick edit works again when inline edit is toggled
+* [Fixed] Sorting preference will be applied correctly without breaking pagination
+* [Fixed] Using bbPress will no longer cause an error
+* [Added] The Product column on the WooCommerce order screen can now be sorted and filtered
+* [Updated] The exported PHP template will be wrapped in the init callback for easy usage
+* [Added] Related Posts column which can also be edited and sorted
+* [Added] Inline edit will use Pods select label when using relationship field
+* [Updated] Sorting users in combination with filtering is much faster now
+* [Added] Added Roles column for Users
+* [Added] The added product column from the WooCommerce add-on can be sorted now
+
+= 3.6 =
+Release Date: October 13th, 2015
+
+* [Added] New Custom column: Child pages
+* [Added] New WooCommerce column: Parent product
+* [Added] Inline Edit support for: Username
+* [Added] Netwerk Site: License can be added for all network sites or per site
+* [Added] Option to enable/disable term creation when using inline edit
+* [Added] Usernames are now editable, just like post titles
+* [Added] ACF Datepicker column can now be filtered by day, month or year
+* [Added] Custom Field's numeric field type can now be filtered with a range
+* [Added] Term creation by default off, can be enabled on settings page
+* [Added] WooCommerce filter support for order status, customer message, coupons-used, parent product, payment method, review enabled
+* [Fixed] Galley images will float left
+* [Fixed] ACF Post object(s) can now be empty when using inline edit
+* [Fixed] User Roles now shows labels instead of ID's
+* [Updated] ACF columns are handled separately
+* [Updated] Filtering cache is done through ajax
+* [Updated] Admin Columns core to v2.4.7
+    * [Added] Comment Post column added
+    * [Update] User Actions columns extends CPAC_Actions object
+    * [Update] PHP export columns no longer uses global
+    * [Added] Added "Link To" selection field for the author column
+    * [Fixed] Date and Title column are labeled as Default column for posts
+    * [Fixed] WPML columns will display the correct flag on the overview when switching language
+
+= 3.5.2 =
+Release Date: July 1st, 2015
+
+* [Fixed] Estimate Time Reading column will not display a value when there is no content
+* [Fixed] When updating there was a possible chance on a "Cannot modify header information"
+* [Fixed] Fixed Fatal Error for multisite
+* [Updated] Admin Columns core to v2.4.5
+    * [Fixed] Estimate Time Reading column will not display a value when there is no content
+    * [Fixed] When updating there was a possbile change on a "Cannot modify header information"
+
+= 3.5.1 =
+Release Date: June 29th, 2015
+
+* [Added] WordPress SEO focus keywords are editable inside the column
+* [Added] Support for bbPress columns
+* [Fixed] Solved possible datepicker conflict with jquery-ui datepickers
+* [Fixed] Date column for Media can be edited now
+* [Updated] Admin Columns core to v2.4.4
+	* [Fixed] Support for custom post statuses
+	* [Fixed] Page Order column is now available on all hierarchical post types
+	* [Added] WordPress Default columns has it's own menu group
+	* [Added] Columns set by plugins has it's own menu group
+	* [Added] Custom Field column has it's own menu group
+	* [Update] Updated all languages from Transifex
+	* [Fixed] Comment bubble icon is fixed
+
+= 3.5 =
+Release Date: May 4th, 2015
+
+* [Added] Comments column: user and author name
+* [Added] Comments column values are now editable
+* [Added] The following comment column are editable: approved, email, url, user, author name, excerpt/content, type, ACF and Custom Fields
+* [Fixed] Comment sorting fixed
+* [Added] User columns can now be filtered
+* [Added] Supported filterable user columns: email, role, username, user_registered, user_url, custom fields, ACF columns.
+* [Added] Comment columns can now be filtered
+* [Added] Supported filterable comment columns: ACF, agent, approved, author, date, email, ip, url, user, type, name, custom fields, response and reply to.
+* [Added] Media columns can now be filtered
+* [Added] Supported filterable media columns: author, comments, date, attached to, description, mime type, taxonomy, custom fields and ACF fields.
+* [Added] Media column author is editable
+* [Fixed] Taxonomy filtering will use 'AND' instead of 'OR'
+* [Fixed] Custom fields will display the proper query results when "display all sorting results" is disabled
+* [Updated] Admin Columns core to v2.4.2
+	* [Added] Added new comment columns: type, author and user.
+	* [Added] Width indicator text is darker
+	* [Fixed] Remove ' symbol from column label, because it causing issues when sorting
+	* [Fixed] Review notice will only show on admin columns page and with an improved hide button
+	* [Fixed] Comment bubble icon is fixed
+
+= 3.4.4 =
+Release Date: April 23th, 2015
+
+* [Fixed] Removed source map /src from the plugin, causing issues on certain servers due too large filenames.
+
+= 3.4.3 =
+Release Date: April 16th, 2015
+
+* [Fixed] Pagination dissapeared when using filter on pages
+* [Fixed] The default Date column is editable
+* [Fixed] WooCommerce shipping class column is filterable
+* [Fixed] WooCommerce default categories and tags are filterable, sortable and editable
+* [Fixed] Taxonomy filtering options are no longer sorted alphabetically when indented.
+* [Added] Added a "Trash" option to the editable post status.
+* [Updated] Admin Columns core to v2.4.1
+	* [Added] Added the development filter 'cac/menu_types' to add custom menu types
+	* [Added] Added public method set_menu_type() to the storage model
+	* [Added] Added review notice
+	* [Updated] Po file will exclude Actions columns which contain only native WordPress translatable strings
+	* [Updated] Updated all languages from Transifex
+	* [Updated] Pro addon notice text has been updated
+
+= 3.4.2 =
+Release Date: March 25th, 2015
+
+* [Added] Added hook 'cac/admin_head' for scripts.
+* [Added] Content column is editable: it will use a textarea with unformatted text when editing the content.
+* [Updated] Update all languages from Transifex.
+* [Fixed] Attachment column is editable, you can quickly attach and unattach any media.
+* [Fixed] Admin columns can be network activated and updated with a single license.
+* [Fixed] The filter 'cac/column/value' always contains a valid column object now.
+* [Improved] Comment per user sorting performance.
+* [Updated] Admin Columns core to v2.4
+	* [Added] Added content column for post(types).
+	* [Added] Added the column shortcodes, which will display any used shortcodes in your post's content
+	* [Added] Column width has a text field to enter the width
+	* [Added] Added a message for when a custom field is empty
+	* [Added] Column width can be set to pixels or percentages
+	* [Added] Added a width indicator to the column settings header
+	* [Added] Added a singular label to all storage_models
+
+= 3.4.1 =
+
+Release Date: March 2nd, 2015
+
+* [Fixed] Invalid plugin header message
+* [Fixed] Performance issue fixed when having editable enabled for author column.
+* [Fixed] Network Users will only load on main site
+* [Fixed] Editable ACF user columns are fixed
+* [Fixed] Editable ACF number fields will use text input without validation
+* [Fixed] PHP Export issue resolved.
+* [Fixed] Taxonomy editing issue resolved.
+* [Added] Added a filter 'cac/editable/options'. See our documentation for more info.
+* [Added] Added sorting for the depth column.
+* [Added] WordPress SEO column are now editable! See our documentation for more info.
+* [Changed] API call cpac_set_storage_model_columns() renamed to ac_register_columns().
+
+= 3.4 =
+Release Date: Februari 23th, 2015
+
+* [Added] Added a new column: File location
+* [Added] User columns work for Network Users on a multisite
+* [Added] Inline editing now supports the editing of Terms on the Taxonomy page.
+* [Added] Inline edit support for term columns: name, slug, description and ACF fields.
+* [Added] Public method for CPAC_Storage_Model_Taxonomy: get_taxonomy()
+* [Added] Public methods for CPAC_Column: get_name(), get_options(), get_option( $name ), get_storage_model_type()
+* [Added] Public methods for CPAC_Column for creating settings fields, display_field_text(), display_field_select()
+* [Added] Added an API to make any column editable.
+* [Added] Added filter: cac/editable/is_column_editable
+* [Added] Added filter: cac/editable/editables_data
+* [Added] Added filter: cac/editable/column_value
+* [Added] Added filter: cac/editable/column_save
+* [Added] Inline edit works for Taxonomy and Terms
+* [Added] Custom field taxonomy support for Pods
+* [Improved] Optimised inline edit to load even faster
+* [Improved] Filter options are sorted alphabetically
+* [Improved] Improved the sorting query for terms
+* [Fixed] Clone is working properly
+* [Fixed] The options 'empty' and 'not empty' did not work when filtering with terms.
+* [Updated] Admin Columns core to v2.3.4
+	* [Added] A column can have it's own JS/CSS files by using the CPAC_Column::scripts() method
+	* [Added] Column Name can be found by hovering over the "Type" label in your column settings
+	* [Fixed] Fixed a quick edit issue for comments
+	* [Fixed] is_field() method of the custom field column works as intended
+
+= 3.3.3 =
+Release Date: Januari 30th, 2015
+
+* [Added] Taxonomy filters dropdown now has an empty option
+* [Added] Added a jQuery trigger 'cacie_after_save' which fires after inline-edit value has been stored
+* [Added] Added sorting support of the user column: Display name
+* [Updated] Updated Swedish language thanks to fanderzzon
+* [Changed] cac/inline-edit/after_ajax_column_save added $value parameter
+
+= 3.3.2 =
+Release Date: Januari 8th, 2015
+
+* [Added] ACF columns for Users can be sorted
+* [Added] ACF columns for Media can be sorted
+* [Added] "Estimated Reading Time" column can be sorted
+* [Added] Custom Field type "Default" can use filtering
+* [Fixed] ACF column will only display filterable option for post(types) and media
+* [Fixed] The response when testing the connection will be sanitized
+* [Fixed] Pre-selected values when using inline edit will display correctly
+* [Fixed] Removed filtering for ACF message type
+* [Updated] Admin Columns core to v2.3.3
+	* [Added] Added user column: Visual Editor
+	* [Added] Added post column: Estimated Reading Time
+	* [Added] Added method CPAC_Column::get_sorting_value()
+	* [Added] Added user column display name
+	* [Fixed] fixed wordcount issue with PHP 5.3 or lower
+	* [Fixed] Fixed media actions column
+
+= 3.3.1 =
+Release Date: December 22nd, 2014
+
+* [Added] Inline edit support for User columns: role, first_name, last_name, description, url, nickname and rich_editing.
+
+= 3.3 =
+Release Date: December 22nd, 2014
+
+* [Added] User columns can use inline editing
+* [Added] Media columns can use inline editing
+* [Added] Inline edit state will be saved as a preference for each metatype per user
+* [Added] ACF URL field can use inline editing
+* [Added] Inline edit support for ACF WYSIWYG field
+* [Added] Filter 'cac/addon/sortable/vars'
+* [Added] Added posts column "Last Modified Author"
+* [Fixed] Compatibility issue with Ninja Forms where submission would not be displayed
+* [Updated] Updated all translations from Transifex
+* [Updated] Inline edit for Custom Fields supports the selection of all media files instead of just images.
+* [Updated] 100% Spanish translation thanks to Carlos
+* [Updated] Added translations for the select2 library
+* [Changed] Exported settings will be in readable json format from now on. Old exported txt files can still be used for importing.
+* [Updated] Admin Columns core to v2.3.2
+	* [Updated] All translations from Transifex - ttps://www.transifex.com/projects/p/admin-columns
+	* [Updated] 100% Spanish translation thanks to Carlos
+	* [Updated] Custom Fields will now display an icon for file attachments in the correct specified dimensions
+	* [Added] Public methods to CPAC_Column; get_type(), is_type(), is_field_type(), get_field_type()
+	* [Added] Custom Field type "Terms"
+	* [Added] Added posts column "Last Modified Author"
+	* [Improced] Improved loading on columns settings screen when using many custom field columns
+	* [Fixed] Only display filtering icon on supported Custom Field types
+	* [Fixed] Remove deregister of qtip2 scripts.
+	* [Fixed] PHP export now works as intended
+	* [Fixed] Compatibility issue with Ninja Forms where submission would not be displayed
+
+= 3.2 =
+Release Date: December 5th, 2014
+
+* [Added] Toggle secure connection if SSL is not available.
+* [Added] Inline edit for all custom fields. Can be enabled from the settings tab.
+* [Added] Inline edit: colorpicker can be edited as text.
+* [Added] Added datepicker for ACF inline edit fields.
+* [Added] Action 'cac/pro/loaded' when Pro version is fully loaded.
+* [Changed] Renamed constant CAC_FULL to ACP_FILE.
+* [Changed] Columns listed by 3rd party add-ons will be added to the top of the columns selection dropdown.
+* [Fixed] Fatal Error when ACF was disabled but the ACF column was still enabled.
+* [Fixed] Fixed sorting by date on uncommon date formats.
+* [Fixed] Field PHP Export was not working when included to a site.
+* [Fixed] Caching method for filtering rewritten solving numerous issues.
+* [Fixed] Dissapearing metaboxes (publish and featured image) when creating a new post. (related to caching issue)
+* [Fixed] Issue with Custom Sidebars not saving selected sidebars on post page. (related to caching issue)
+* [Updated] Admin Columns core to v2.3
+	* [Added] Added filter "cac/column/meta/is_editable" for making all custom fields editable
+	* [Added] CPAC_Settings::get_settings_page() to retrieve setting_page slug
+	* [Added] Caching method for CPAC_Storage_Model
+	* [Fixed] Field PHP Export was not working when included to a site
+	* [Updated] Improved word count on post content
+
+= 3.1.1 =
+Release Date: November 9th, 2014
+
+* [Fixed] Fixed "Invalid plugin headers" issue in Admin Columns Pro.
+* [Fixed] Fixed incorrect currency for inline editing for WooCommerce price fields.
+
+= 3.1 =
+Release Date: November 2nd, 2014
+
+* [Added] Inline edit support for ACF5 fields "Post object" and "User"
+* [Improved] Improved sorting for ACF Field types: Post objects, Users, Taxonomy, Page link, Relationship.
+* [Fixed] Filtering sticky posts was doing opposite.
+* [Fixed] Fixed problems with filtering, filtered values are now encoded in the URL.
+* [Fixed] Fixed disappearing popup in editing titles.
+* [Added] Added filter to modify the behavior of the sort_flag 'cac/addon/sortable/sort_flag'.
+* [Added] Persian (fa_IR) language, thanks to kamel kimiaei.
+* [Added] Italian (it_IT) language, thanks to francesco.
+* [Updated] Admin Columns core to v2.2.9
+	* [Added] Added filter "cac/column/actions/action_links" for modifying the action column links
+	* [Fixed] WordPress SEO by Yoast columns were not added to the dropdown menu when using the 'add column' button.
+	* [Fixed] Fix "restore" action link in post actions column
+	* [Added] Persian (fa_IR) language, thanks to kamel kimiaei.
+	* [Added] Partially Italian (it_IT) language, thanks to francesco.
+
+= 3.0.9 =
+Release Date: October 10th, 2014
+
+* [Fixed] Correctly display which ACF column types are filterable
+* [Fixed] Plugin updates use SSL and all references to admincolumns.com use https
+* [Updated] Admin Columns core to v2.2.8.1
+	* [Fixed] Quick Edit will display columns correctly after saving
+
+= 3.0.8.5 =
+Release Date: October 1st, 2014
+
+* [Fixed] Fixed error in clear_cache method (occurs when WPML and some other plugins are activated) for filtering when plugin is not fully loaded yet
+* [Added] Added filter 'cac/addon/filtering/options' for the filtering dropdown list.
+* [Updated] Admin Columns core to v2.2.8
+	* [Fixed] support for WPML columns
+	* [Added] Added date format option for "Last modified" column
+	* [Updated] Change references from Codepress Admin Columns to Admin Columns
+	* [Updated] General code clean-up
+	* [Improved] Documentation improvements
+
+= 3.0.8.4 =
+Release Date: August 28nd, 2014
+
+* [Fixed] Fixed "Wrong Response from API" issue on certain servers.
+* [Fixed] Possible php error when sorting with certain characters.
+* [Updated] Admin Columns core to v2.2.6.4
+	* [Updated] Portuguese (Brazil) language - thanks to André Mácola Machado
+
+= 3.0.8.3 =
+Release Date: August 22nd, 2014
+
+* [Fixed] Fixed flushing of cache for the filter dropdown menu.
+* [Updated] Admin Columns core to v2.2.6.3
+	* [Updated] Enable 3rd party plugins to set storage_models outside the post listings screens
+	* [Updated] Spanish language updated - thanks to Andrew Kurtis
+	* [Fixed] Fixed “Illegal offset” warning for unset option on edit screen
+
+= 3.0.8.2 =
+Release Date: August 16th, 2014
+
+* [Fixed] Fixed wrongful output of some editable ACF 5 fields.
+
+= 3.0.8.1 =
+Release Date: August 15th, 2014
+
+* [Fixed] Fixed dependency on PHP 5.3+ in actions column.
+* [Updated] Admin Columns core to v2.2.6.1
+	* [Fixed] Fixed dependency on PHP 5.3+ in actions column
+
+= 3.0.8 =
+Release Date: August 15th, 2014
+
+* [Fixed] Performance improvement. Quick Edit will only load values when editing is enabled
+* [Fixed] Filter caching will only be flushed on the current metatype when using inline-edit
+* [Fixed] Taxonomy (metatype) columns did not work
+* [Fixed] Only ajax calls from cpac will trigger the loading of storage_models now.
+* [Added] New Column! Used-by-menu column; will display in which menu a post/page/taxonomy is being used. With support for column sorting in posts
+* [Added] The filter dropdown for ACF Fields will display the labels of the values instead of the raw value
+* [Added] You can use the filter 'cac/addon/filtering/dropdown_top_label' to change the top label of the filter-dropdown
+* [fixed] JS library floatThead
+* [Updated] Admin Columns core to v2.2.6
+	* [Changed] Display "edit columns" button by default
+	* [Improved] Improved memory usage by only loading columns for the current screen
+	* [Changed] Removed floatHead library
+	* [Updated] Only display ACF placeholder with ACF active.
+	* [Fixed] Unavailable included JS-file on editing pages
+	* [Fixed] Error with actions icons.
+	* [Added] New Column! Used-by-menu column; will display in which menu a post/page/taxonomy is being used. With support for column sorting in posts.
+	* [Fixed] Only ajax calls from cpac will trigger the loading of storage_models now.
+
+= 3.0.7 =
+Release Date: July 30th, 2014
+
+* [Fixed] Sticky filtering.
+
+= 3.0.6 =
+Release Date: July 22nd, 2014
+
+* [Added] Added support for filtering & sorting of Advanced Custom Field (ACF) columns
+* [Added] Added support for sorting of WooCommerce columns
+* [Updated] Moved the dropdown options "empty and not-empty" for filtering to the bottom of the list
+* [Updated] Updated languages from Transifex, French, Danish and Dutch. Thank you for translating! A link to your profiles have been placed on https://www.admincolumns.com/contribute/
+* [Improvement] Cache for filter dropdown will be flushed when using inline-edit
+* [Updated] Admin Columns core to v2.2.4
+	* [Added] New filter `cpac/storage_model/columns_default` for filtering the columns that should be loaded if there are no stored columns
+	* [Added] Option (column property `hidden`) to hide column types from the dropdown list of column types
+	* [Added] Use tooltip library for enhanced column value representation
+	* [Added] Box for direct feedback on Admin Columns settings screen
+	* [Added] Added method for retrieving current storage model (for overview pages such as the posts and page overviews)
+	* [Added] Added WooCommerce add-on to list of add-ons
+	* [Updated] Hide ACF5 field group post type from list of post types columns settings
+	* [Updated] Updated structure of scripts and styles and way of enqueuing them
+
+= 3.0.5 =
+Release Date: July 1st, 2014
+
+* [Fixed] ACF add-on auto updates did not work.
+* [Updated] Admin Columns core to v2.2.3
+	* [Added] Added Path column for post(types). Uses the permalink without the home url.
+	* [Fixed] Custom Fields for Media Library did not work.
+	* [Fixed] Column type dropdown displayed an empty item.
+
+= 3.0.4 =
+Release Date: June 25th, 2014
+
+* [Fixed] Filter dropdown's cache was not being flushed correctly
+* [Added] Added filter to remove dropdown 'Empty' and 'Not Empty' options, use 'cac/addon/filtering/dropdown_empty_option'.
+* [Added] Filtering support for Media (Attachments), see full list in documentation.
+* [Updated] Admin Columns core to v2.2.1.1
+	* [Added] Option to make permalink in permalink column clickable (linking to post)
+	* [Added] Direct support box in Admin Columns settings screen sidebar
+	* [Added] Added filter to suppress pro add-on notice (`cpac/suppress_proaddon_notice`)
+	* [Updated] Minor adjustments for WooCommerce and other third party plugin support, setting up the post object in post columns
+	* [Updated] Minor update in default column retrieval for improved 3rd party plugin support
+	* [Fixed] Fixed problem with column groups incorrectly handling default 3rd party columns
+	* [Updated] Updated translations from Transifex
+
+= 3.0.3 =
+Release Date: June 25th, 2014
+
+* [Fixed] Translations working again
+* [Updated] Languages updated from transifex
+* [Updated] Improved bug reporting
+
+= 3.0.2 =
+Release Date: May 7th, 2014
+
+* [Fixed] Changelog wasn't being displayed
+* [Fixed] Redo/undo when editing featured images
+* [Fixed] Quick-edit caused the column to be misplaced
+
+= 3.0.1 =
+Release Date: May 5th, 2014
+
+* [Fixed] Support for 3rd party columns
+
+= 3.0 =
+Release Date: May 4th, 2014
+
+* [Added] Added column excerpts for terms
+* [Added] Support for builtin WordPress taxonomies like categories and tags
+* [Added] Added direct editing of content from the columns screen for posts
+* [Added] Export columns settings to PHP for usage within themes.
+* [Improved] Columns are retrieved with ajax
+* [Updated] Initial release Admin Columns Pro
+
+
+= The part below displays changes made pre May 2014 when the plugin was an add-on to Admin Columns. =
+
+= 1.1.0 =
+
+* [Added] Taxonomy column support
+* [Added] You can define your licence key using define( "CAC_PRO_LICENCE", <your-pro-addon-key> ) in your wp-config.php
+* [Added] Click the small inidactor labels to toggle sorting and filtering.
+
+= 1.0.8 =
+* [Fixed] Checkmark label for filtering
+* [Added] added 'cac/addon/filtering/taxonomy/terms_args' to supply your own args to get_terms on filtering taxonomy
+
+= 1.0.7 =
+* [Added] Added option to display all results while sorting
+* [Fixed] Bug with sorting hidden custom fields
+
+= 1.0.6 =
+* [Updated] Lowered memory usage
+* [Updated] Added 'no_found_rows' argument for faster queries
+
+= 1.0.5 =
+* [Fixed] Sorting User on Multsite ( props to fried_eggz )
+* [Fixed] Filter dropwdown bug with current selected item
+
+= 1.0.4 =
+* [Fixed] Bug with activating the pro add-on
+
+= 1.0.3 =
+* [Updated] translations
+* [Fixed] Sorts custom field post titles by Title (instead of ID)
+* [Added] Restore sorting from Admin column settings screen
+* [Fixed] Filtering will work for values as all sizes. limit of 30 char has been removed.
+* [Fixed] Check if sortable property isset by custom columns

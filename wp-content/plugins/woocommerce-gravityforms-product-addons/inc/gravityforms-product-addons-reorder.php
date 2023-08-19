@@ -165,44 +165,56 @@ class WC_GFPA_Reorder {
 
 				if ( $reorder_processing_type == 'resubmit' ) {
 
-					// Disable notifications, confirmations and other processing.
-					WC_GFPA_Hook_Manager::disable_notifications_and_confirmations( $gravity_form_data['id'] );
+					try {
+						// Disable notifications, confirmations and other processing.
+						WC_GFPA_Hook_Manager::disable_notifications_and_confirmations( $gravity_form_data['id'] );
 
-					// Disable all hooks that may be triggered during the submission process.
-					WC_GFPA_Hook_Manager::disable_gform_after_submission_hooks( $gravity_form_data['id'] );
+						// Disable all hooks that may be triggered during the submission process.
+						WC_GFPA_Hook_Manager::disable_gform_after_submission_hooks( $gravity_form_data['id'] );
 
-					// Resubmit the entry to get the latest values.
-					$resubmission_result = WC_GFPA_Submission_Helpers::resubmit_entry( $gravity_form_data['id'], $previous_entry_data, $hydrate_defaults );
+						// Resubmit the entry to get the latest values.
+						$resubmission_result = WC_GFPA_Submission_Helpers::resubmit_entry( $gravity_form_data['id'], $previous_entry_data, $hydrate_defaults );
 
-					// Re-enable all hooks that may be triggered during the submission process.  In case the form is submitted for some reason by another process. This is unlikely but possible.
-					WC_GFPA_Hook_Manager::enable_gform_after_submission_hooks( $gravity_form_data['id'] );
+						// Re-enable all hooks that may be triggered during the submission process.  In case the form is submitted for some reason by another process. This is unlikely but possible.
+						WC_GFPA_Hook_Manager::enable_gform_after_submission_hooks( $gravity_form_data['id'] );
 
-					if ( is_wp_error( $resubmission_result ) ) {
+						if ( is_wp_error( $resubmission_result ) ) {
+							GFCommon::log_debug( "Gravity Forms Product Addons: Order Again Item Data - Error Resubmitting Entry (#{$order_id}), Item: (#{$order_item_id})" );
+							GFCommon::log_debug( $resubmission_result->get_error_message() );
+						} else if ( ! $resubmission_result['is_valid'] ) {
+							$entry = $this->prepare_validation_error_for_cart( $order_id, $order_item_id, $resubmission_result, $gravity_form_data['id'] );
+						} else {
+							// Everything was ok with the resubmission.  Get the entry and use that for the cart item data.
+							$entry = GFAPI::get_entry( $resubmission_result['entry_id'] );
+
+							// Make sure to clean up the entry. Use our safe delete so that file uploads are left intact.
+							WC_GFPA_Helpers_Entry::safe_delete_entry( $entry );
+						}
+					} catch ( Exception $e ) {
 						GFCommon::log_debug( "Gravity Forms Product Addons: Order Again Item Data - Error Resubmitting Entry (#{$order_id}), Item: (#{$order_item_id})" );
-						GFCommon::log_debug( $resubmission_result->get_error_message() );
-					} else if ( ! $resubmission_result['is_valid'] ) {
-						$entry = $this->prepare_validation_error_for_cart( $order_id, $order_item_id, $resubmission_result, $gravity_form_data['id'] );
-					} else {
-						// Everything was ok with the resubmission.  Get the entry and use that for the cart item data.
-						$entry = GFAPI::get_entry( $resubmission_result['entry_id'] );
-
-						// Make sure to clean up the entry. Use our safe delete so that file uploads are left intact.
-						WC_GFPA_Helpers_Entry::safe_delete_entry( $entry );
+						GFCommon::log_debug( $e->getMessage() );
+						$entry = $previous_entry_data;
 					}
 
 				} else if ( $reorder_processing_type == 'revalidate' ) {
 
-					// Revalidate the entry to get make sure it is still valid.
-					$validation_result = WC_GFPA_Submission_Helpers::revalidate_entry( $gravity_form_data['id'], $previous_entry_data );
+					try {
+						// Revalidate the entry to get make sure it is still valid.
+						$validation_result = WC_GFPA_Submission_Helpers::revalidate_entry( $gravity_form_data['id'], $previous_entry_data );
 
-					if ( is_wp_error( $validation_result ) ) {
+						if ( is_wp_error( $validation_result ) ) {
+							GFCommon::log_debug( "Gravity Forms Product Addons: Order Again Item Data - Error Revalidating Entry (#{$order_id}), Item: (#{$order_item_id})" );
+							GFCommon::log_debug( $validation_result->get_error_message() );
+						} else if ( ! $validation_result['is_valid'] ) {
+							$entry = $this->prepare_validation_error_for_cart( $order_id, $order_item_id, $validation_result, $gravity_form_data['id'] );
+						} else {
+
+							// Everything was ok with the revalidation.  Use the previous entry data as is.
+							$entry = $previous_entry_data;
+						}
+					} catch ( Exception $e ) {
 						GFCommon::log_debug( "Gravity Forms Product Addons: Order Again Item Data - Error Revalidating Entry (#{$order_id}), Item: (#{$order_item_id})" );
-						GFCommon::log_debug( $validation_result->get_error_message() );
-					} else if ( ! $validation_result['is_valid'] ) {
-						$entry = $this->prepare_validation_error_for_cart( $order_id, $order_item_id, $validation_result, $gravity_form_data['id'] );
-					} else {
-
-						// Everything was ok with the revalidation.  Use the previous entry data as is.
+						GFCommon::log_debug( $e->getMessage() );
 						$entry = $previous_entry_data;
 					}
 				} else {

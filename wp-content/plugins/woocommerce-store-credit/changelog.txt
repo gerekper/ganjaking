@@ -1,5 +1,9 @@
 *** Store Credit Changelog ***
 
+2023-08-17 - version 4.4.0
+* Feature - Add usage restrictions when sending Store Credit coupons to customers.
+* Dev - Dropped `woo-includes/` files.
+
 2023-08-10 - version 4.3.3
 * Tweak - Tested compatibility with WC 8.0.
 * Fix - Credit was not deducted when using the Checkout block.

@@ -1,0 +1,11 @@
+
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Logo-&amp;-icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon-Squared" transform="translate(-40.000000, -80.000000)">
+            <g id="acf" transform="translate(40.000000, 80.000000)">
+                <rect id="Rectangle" fill="#6DE0BF" x="0" y="0" width="20" height="20" rx="2"></rect>
+                <path d="M11.4311517,4 L15.9458145,16 L12.8913015,16 L12.040649,13.5860666 L7.76857044,13.5860666 L6.91767975,16 L4,16 L8.51466283,4 L11.4311517,4 Z M9.90455019,7.09059693 L8.41117451,11.398045 L11.398164,11.398045 L9.90455019,7.09059693 Z" id="A" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>

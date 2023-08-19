@@ -108,8 +108,13 @@ class WC_GFPA_Submission_Helpers {
 		self::reset_ignored_fields();
 
 		// Reset the current lead and submission.
-		GFFormsModel::flush_current_lead();
-		GFFormDisplay::$submission = array();
+		if ( class_exists( 'GFFormsModel' ) ) {
+			GFFormsModel::flush_current_lead();
+		}
+
+		if ( class_exists( 'GFFormDisplay' ) ) {
+			GFFormDisplay::$submission = array();
+		}
 
 		if ( is_wp_error( $entry ) ) {
 			throw new Exception( $entry->get_error_message() );

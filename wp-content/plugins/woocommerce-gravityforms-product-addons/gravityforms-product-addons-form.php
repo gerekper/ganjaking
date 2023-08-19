@@ -41,7 +41,7 @@ class woocommerce_gravityforms_product_form {
 			'display_inactive'        => false,
 			'field_values'            => false,
 			'ajax'                    => false,
-			'tabindex'                => 1,
+			'tabindex'                => 1, // Remove tab index, otherwise tabbing to the add to cart button doesn't work properly.
 			'label_subtotal'          => __( 'Subtotal', 'wc_gf_addons' ),
 			'label_options'           => __( 'Options', 'wc_gf_addons' ),
 			'label_total'             => __( 'Total', 'wc_gf_addons' ),

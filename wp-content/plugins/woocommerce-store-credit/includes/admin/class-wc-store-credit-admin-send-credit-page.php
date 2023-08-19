@@ -88,6 +88,8 @@ class WC_Store_Credit_Admin_Send_Credit_Page {
 	 * @return array
 	 */
 	public static function get_form_fields() {
+		$product_categories_options = wc_store_credit_get_product_categories_choices( true );
+
 		$fields = array(
 			array(
 				'id'   => 'send_store_credit_section',
@@ -161,6 +163,75 @@ class WC_Store_Credit_Admin_Send_Credit_Page {
 			),
 			array(
 				'id'   => 'send_store_credit_section',
+				'type' => 'sectionend',
+			),
+			array(
+				'id'    => 'send_store_credit_restrictions_section',
+				'type'  => 'title',
+				'title' => _x( 'Usage restriction', 'coupon: section title', 'woocommerce-store-credit' ),
+			),
+			array(
+				'id'    => 'individual_use',
+				'title' => _x( 'Individual use only', 'coupon: field label', 'woocommerce-store-credit' ),
+				'desc'  => _x( 'Check this box if the coupon cannot be used in conjunction with other coupons.', 'coupon: field desc', 'woocommerce-store-credit' ),
+				'type'  => 'checkbox',
+				'value' => get_option( 'wc_store_credit_individual_use', 'no' ),
+			),
+			array(
+				'id'    => 'exclude_sale_items',
+				'title' => _x( 'Exclude sale items', 'coupon: field label', 'woocommerce-store-credit' ),
+				'desc'  => _x( 'Check this box if the coupon should not apply to items on sale.', 'coupon: field desc', 'woocommerce-store-credit' ),
+				'type'  => 'checkbox',
+				'value' => 'no',
+			),
+			array(
+				'id'                => 'product_ids',
+				'title'             => _x( 'Products', 'coupon: field label', 'woocommerce-store-credit' ),
+				'desc_tip'          => _x( 'Product that the coupon will be applied to, or that need to be in the cart in order to be applied.', 'coupon: field desc', 'woocommerce-store-credit' ),
+				'type'              => 'multiselect',
+				'class'             => 'wc-product-search',
+				'options'           => array(),
+				'custom_attributes' => array(
+					'multiple'         => true,
+					'data-placeholder' => __( 'Search for a product&hellip;', 'woocommerce-store-credit' ),
+				),
+			),
+			array(
+				'id'                => 'excluded_product_ids',
+				'title'             => _x( 'Exclude products', 'coupon: field label', 'woocommerce-store-credit' ),
+				'desc_tip'          => _x( 'Product that the coupon will not be applied to, or that cannot be in the cart in order to be applied.', 'coupon: field desc', 'woocommerce-store-credit' ),
+				'type'              => 'multiselect',
+				'class'             => 'wc-product-search',
+				'options'           => array(),
+				'custom_attributes' => array(
+					'multiple'         => true,
+					'data-placeholder' => __( 'Search for a product&hellip;', 'woocommerce-store-credit' ),
+				),
+			),
+			array(
+				'id'                => 'product_categories',
+				'title'             => _x( 'Product categories', 'coupon: field label', 'woocommerce-store-credit' ),
+				'desc_tip'          => _x( 'Product categories that the coupon will be applied to, or that need to be in the cart in order to be applied.', 'coupon: field desc', 'woocommerce-store-credit' ),
+				'type'              => 'multiselect',
+				'class'             => 'wc-enhanced-select',
+				'options'           => $product_categories_options,
+				'custom_attributes' => array(
+					'data-placeholder' => _x( 'Select product categories', 'setting placeholder', 'woocommerce-store-credit' ),
+				),
+			),
+			array(
+				'id'                => 'excluded_product_categories',
+				'title'             => _x( 'Exclude categories', 'coupon: field label', 'woocommerce-store-credit' ),
+				'desc_tip'          => _x( 'Product categories that the coupon will not be applied to, or that cannot be in the cart in order to be applied.', 'coupon: field desc', 'woocommerce-store-credit' ),
+				'type'              => 'multiselect',
+				'class'             => 'wc-enhanced-select',
+				'options'           => $product_categories_options,
+				'custom_attributes' => array(
+					'data-placeholder' => _x( 'Select product categories', 'setting placeholder', 'woocommerce-store-credit' ),
+				),
+			),
+			array(
+				'id'   => 'send_store_credit_restrictions_section',
 				'type' => 'sectionend',
 			),
 		);
@@ -250,6 +321,20 @@ class WC_Store_Credit_Admin_Send_Credit_Page {
 			$args['expiration'] = $data[ "expiration_{$data['expiration']}" ];
 		}
 
+		$bool_props = array( 'individual_use', 'exclude_sale_items' );
+
+		foreach ( $bool_props as $bool_prop ) {
+			$args[ $bool_prop ] = wc_string_to_bool( isset( $data[ $bool_prop ] ) && $data[ $bool_prop ] );
+		}
+
+		$keys = array( 'product_ids', 'excluded_product_ids', 'product_categories', 'excluded_product_categories' );
+
+		foreach ( $keys as $key ) {
+			if ( ! empty( $data[ $key ] ) ) {
+				$args[ $key ] = $data[ $key ];
+			}
+		}
+
 		if ( wc_store_credit_send_credit_to_customer( $customer, $amount, $args ) ) {
 			self::add_message( __( 'Store credit sent to the customer.', 'woocommerce-store-credit' ) );
 		} else {
@@ -278,7 +363,7 @@ class WC_Store_Credit_Admin_Send_Credit_Page {
 	 *
 	 * @since 3.1.0
 	 *
-	 * @param array $fields An array with the fields data.
+	 * @param array $fields An array with the fields' data.
 	 * @return array
 	 */
 	protected static function populate_form_fields_values( $fields ) {
@@ -293,6 +378,13 @@ class WC_Store_Credit_Admin_Send_Credit_Page {
 				$label = ( is_numeric( $value ) ? wc_store_credit_get_customer_choice_label( intval( $value ) ) : $value );
 
 				$field['options'] = array( $value => $label );
+			} elseif ( 'checkbox' === $field['type'] ) {
+				$field['value'] = wc_bool_to_string( $value );
+			} elseif ( 'product_ids' === $field['id'] || 'excluded_product_ids' === $field['id'] ) {
+				$product_ids = array_filter( (array) $value );
+
+				$field['options'] = array_combine( $product_ids, array_map( 'wc_store_credit_get_product_choice_label', $product_ids ) );
+				$field['value']   = $value;
 			} else {
 				$field['value'] = $value;
 			}

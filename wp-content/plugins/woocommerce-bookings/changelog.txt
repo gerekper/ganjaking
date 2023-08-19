@@ -1,5 +1,14 @@
 *** WooCommerce Bookings Changelog ***
 
+2023-08-14 - version 2.0.2
+* Dev - Bump PHP minimum supported version from 7.2 to 7.3.
+* Dev - Bump WooCommerce "tested up to" version 7.9.
+* Dev - Bump WooCommerce minimum supported version from 7.2 to 7.7.
+* Dev - Bump WordPress "tested up to" version from 6.2 to 6.3.
+* Fix - Bookable product with resources that are fully booked shows as partially available.
+* Fix - Resources block the entire day when added after bookings are made.
+* Fix - Respect 24 hours format in the date picker in availability, resource, and cost setting.
+
 2023-08-07 - version 2.0.1
 * Dev - Escape underscores in transient names so the delete query can utilize the MySQL index.
 * Dev - Incorporate entity ID in the nonce value with role capability validation.

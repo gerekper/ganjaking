@@ -37,10 +37,10 @@ if ( ! function_exists( 'woocommerce_product_finder' ) ) {
 			}
 		}
 
-		$html = woocommerce_product_finder_display( $args , $search_attributes , $use_category );
+		$html = woocommerce_product_finder_display( $args, $search_attributes, $use_category );
 
 		if ( $echo ) {
-			echo $html;
+			echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		} else {
 			return $html;
 		}

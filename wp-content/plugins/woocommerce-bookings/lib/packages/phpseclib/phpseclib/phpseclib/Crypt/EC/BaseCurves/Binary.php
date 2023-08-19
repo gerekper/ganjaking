@@ -18,7 +18,7 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://pear.php.net/package/Math_BigInteger
  *
- * Modified by woocommerce on 04-August-2023 using Strauss.
+ * Modified by woocommerce on 11-August-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 

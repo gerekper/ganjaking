@@ -1,0 +1,35 @@
+.gpadvs-image {
+	margin-right: .5rem;
+	vertical-align: middle;
+	width: 32px;
+	height: 32px;
+	object-fit: cover;
+}
+
+/**
+ * Override the default Tom Select styles to match the currently active Gravity Forms "theme".
+ */
+.ts-control {
+	border-color: var(--gform-theme-control-border-color);
+	border-radius: var(--gform-theme-control-border-radius);
+	box-shadow: var(--gform-theme-control-box-shadow);
+	font-size: var(--gform-theme-control-font-size);
+}
+
+.focus .ts-control  {
+	border-color: var(--gform-theme-control-border-color-focus);
+}
+
+.ts-dropdown {
+	font-size: var(--gform-theme-control-font-size);
+}
+
+/*
+ * Override width 100% on inputs that are controlled by Tom Select as Tom Select
+ * needs to be able to control the width of the input for proper styling. If the
+ * width is set to 100%, the <input /> will get pushed to a new line within the select.
+ * and cause a visual bug.
+*/
+.ts-control > input {
+	width: auto !important;
+}

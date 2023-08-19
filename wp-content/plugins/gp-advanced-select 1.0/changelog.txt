@@ -1,0 +1,27 @@
+# Changelog
+
+## 1.0
+
+	- Improved compatibility with Gravity Forms Theme Framework.
+	- Added dynamic display of multiselect field options in the GPADVS field preview UI.
+	- Added live UI preview of GPADVS-enabled fields in form editor.
+	- Improved GPPA filter so that if "Advanced Select Search Value" is chosen, the `contains` operator is automatically used.
+	- Fixed issue where old GPPA search results would remain in a Tom Select dropdown when starting a new query after selecting an item.
+	- Added ability to filter the minimum search query for selects and the ability to optionally load all results upon field focus.
+	- Added `gpadvs_js_init_args` filter to allow for configuring options passed to form JS script.
+	- Fixed potential error when adding the "virtual_scroll" Tom Select plugin.
+	- Added "remove button" to each item in a multi-select for easy removal.
+	- Improved Multi Select field settings so that the accessibility warning is hidden if GPADVS is enabled.
+	- Added support for Advanced Select on select inputs in Address Fields.
+
+## 1.0-beta-1.2
+
+	- Improved support for dynamically populating values of lazy-loaded multi-select fields.
+
+## 1.0-beta-1.1
+
+	- Fixed issue where GP Easy Passthrough would not not auto populate Advanced Selected enabled Multi Select Fields correctly.
+
+## 1.0-beta-1
+
+	- Hello World!

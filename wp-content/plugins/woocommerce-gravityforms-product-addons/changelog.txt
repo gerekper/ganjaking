@@ -1,4 +1,11 @@
 *** Gravity Forms Product Add-Ons Changelog ***
+2023.08.15 - version 3.5.1
+    * WC and WP Compatibility Tags.
+    * Add AJAX manager to help with AJAX compatibility issues with various themes and page builders.
+    * Update: Do not automatically set the tabindex flag for the attributes of the form.
+    * Update: Resubmit as default for reorders.
+    * Fix: Add error correction code around reorder logic.
+
 2023.06.19 - version 3.5.0
     * Update: Track a hash of the gravity form's fields for use in the check_cart_items function.
     * Update: Added check_cart_items which will run checks to make sure the form has not been modified since the user added an item to their cart.

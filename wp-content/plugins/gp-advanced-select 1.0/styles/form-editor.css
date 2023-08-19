@@ -1,0 +1,7 @@
+.image-choices-admin-field #image_choices_tab li.gpadvs-hidden-image-choices-setting[class*="image-choices-setting"] {
+	display: none !important;
+}
+
+.gp-advanced-select-no-top-margin {
+	margin-top: 0 !important;
+}

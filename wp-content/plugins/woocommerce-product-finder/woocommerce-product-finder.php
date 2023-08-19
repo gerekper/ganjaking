@@ -3,17 +3,17 @@
  * Plugin Name: WooCommerce Product Finder
  * Plugin URI: https://woocommerce.com/products/product-finder/
  * Description: An advanced search for WooCommerce that helps your customers find your products more easily.
- * Version: 1.3.0
+ * Version: 1.4.0
  * Author: Themesquad
  * Author URI: https://themesquad.com/
  * Text Domain: woocommerce-product-finder
  * Domain Path: /languages
- * Requires PHP: 5.4
- * Requires at least: 4.7
- * Tested up to: 6.2
+ * Requires PHP: 5.6
+ * Requires at least: 4.9
+ * Tested up to: 6.3
  *
- * WC requires at least: 3.5
- * WC tested up to: 7.6
+ * WC requires at least: 3.7
+ * WC tested up to: 8.0
  * Woo: 163906:bc4e288ac15205345ce9c506126b3f75
  *
  * License: GNU General Public License v3.0
@@ -67,7 +67,6 @@ if ( ! class_exists( 'WC_Product_Finder' ) ) :
 
 			require 'classes/class-woocommerce-product-finder.php';
 			require 'woocommerce-product-finder-functions.php';
-			require 'classes/class-woocommerce-product-finder-widget.php';
 
 			if ( is_admin() ) {
 				require 'classes/class-woocommerce-product-finder-admin.php';
