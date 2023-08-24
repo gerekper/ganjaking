@@ -16,6 +16,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_User_Waitlist' ) ) {
 		 * @var
 		 */
 		public $products;
+
 		/**
 		 * Products user is currently on an archive for
 		 *
@@ -54,10 +55,10 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_User_Waitlist' ) ) {
 		 * Output the HTML to display a list of products the current user is on the waitlist for
 		 */
 		public function display_users_waitlists() {
-			if ( ! is_user_logged_in() ) {
+			$user = get_user_by( 'id', get_current_user_id() );
+			if ( ! $user ) {
 				return;
 			}
-			$user = get_user_by( 'id', get_current_user_id() );
 			wc_get_template(
 				'waitlist-user-waitlist.php',
 				array(
@@ -73,11 +74,14 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_User_Waitlist' ) ) {
 		/**
 		 * Add query parameter to current URL to ensure user is removed from product as required
 		 *
-		 * @param $product
+		 * @param WC_Product $product
 		 *
 		 * @return string
 		 */
-		public static function get_remove_link( $product ) {
+		public static function get_remove_link( WC_Product $product ) {
+			if ( ! $product ) {
+				return '';
+			}
 			$current_url = trailingslashit( self::get_current_url() );
 			$url         = add_query_arg( 'remove_waitlist', $product->get_id(), $current_url );
 

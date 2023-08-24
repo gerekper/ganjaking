@@ -14,6 +14,13 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Signup_Email' ) ) {
 	class Pie_WCWL_Waitlist_Signup_Email extends WC_Email {
 
 		/**
+		 * User email address
+		 *
+		 * @var string
+		 */
+		protected $user_email = '';
+
+		/**
 		 * Hooks up the functions
 		 *
 		 * @access public
@@ -65,6 +72,8 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Signup_Email' ) ) {
 
 		/**
 		 * Get the admin email address either from waitlist settings or fallback to WordPress settings
+		 * 
+		 * @return string
 		 */
 		public function get_admin_email() {
 			$options = get_option( 'woocommerce_woocommerce_waitlist_signup_email_settings' );
@@ -82,6 +91,8 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Signup_Email' ) ) {
 
 		/**
 		 * Check whether the notification should be enabled or not based on previous setups
+		 * 
+		 * @return string
 		 */
 		public function get_enabled_status() {
 			$options = get_option( 'woocommerce_woocommerce_waitlist_signup_email_settings' );
@@ -108,7 +119,10 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Signup_Email' ) ) {
 		 * @access public
 		 */
 		public function trigger( $email, $product_id ) {
-			$product          = wc_get_product( $product_id );
+			$product = wc_get_product( $product_id );
+			if ( ! $product ) {
+				return new WP_Error( 'woocommerce_waitlist', sprintf( __( 'Failed to send waitlist notification on %s. Is the product valid?' ), gmdate( 'd M, y' ) ) );
+			}
 			$this->object     = $product;
 			$this->user_email = $email;
 			if ( ! $this->is_enabled() || ! $this->get_recipient() ) {

@@ -11,6 +11,20 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Init' ) ) {
 	class Pie_WCWL_Admin_Init {
 
 		/**
+		 * Setup text strings for class
+		 * See setup_text_strings()
+		 *
+		 * @var string
+		 */
+		protected $column_title                                   = '';
+		protected $hide_out_of_stock_products_nag                 = '';
+		protected $update_waitlist_counts_nag                     = '';
+		protected $corrupt_waitlist_data_nag                      = '';
+		protected $metadata_update_nag                            = '';
+		protected $version_2_nag                                  = '';
+		protected $dismiss_nag_text                               = '';
+
+		/**
 		 * Initialise Admin class
 		 */
 		public function init() {
@@ -146,8 +160,7 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Init' ) ) {
 		 * @param $link   string link to be used in our string to aid the user in fixing the issue
 		 */
 		protected function set_up_nag( $status, $type, $link ) {
-			global $current_user;
-			$usermeta = get_user_meta( $current_user->ID, '_' . WCWL_SLUG, true );
+			$usermeta = get_user_meta( get_current_user_id(), '_' . WCWL_SLUG, true );
 			if ( ! isset( $usermeta[ 'ignore_' . $type ] ) || ! $usermeta[ 'ignore_' . $type ] ) {
 				echo '<div class="' . esc_attr( $status ) . '"><p>';
 				echo apply_filters( 'wcwl_{$type}_nag_text', sprintf( $this->{$type}, '<a href="' . esc_url( $link ) . '">', '</a>' ) ) . ' | <a href="' . esc_url( add_query_arg( 'ignore_' . $type, true ) ) . '">' . apply_filters( 'wcwl_dismiss_nag_text', $this->dismiss_nag_text ) . '</a>';
@@ -185,13 +198,12 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Init' ) ) {
 		 * @param $type string type of nag the user has selected to ignore
 		 */
 		protected function ignore_nag( $type ) {
-			global $current_user;
-			$usermeta = get_user_meta( $current_user->ID, '_' . WCWL_SLUG, true );
+			$usermeta = get_user_meta( get_current_user_id(), '_' . WCWL_SLUG, true );
 			if ( ! is_array( $usermeta ) ) {
 				$usermeta = array();
 			}
 			$usermeta[ $type ] = true;
-			update_user_meta( $current_user->ID, '_' . WCWL_SLUG, $usermeta );
+			update_user_meta( get_current_user_id(), '_' . WCWL_SLUG, $usermeta );
 		}
 
 		/**
@@ -275,7 +287,7 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Init' ) ) {
 				return;
 			}
 			$content = get_post_meta( $post_ID, '_' . WCWL_SLUG . '_count', true );
-			echo empty( $content ) ? '<span class="na">–</span>' : $content;
+			echo empty( $content ) ? '<span class="na">-</span>' : $content;
 		}
 
 		/**
@@ -327,7 +339,6 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Init' ) ) {
 				require_once 'product-tab/class-pie-wcwl-custom-admin-tab.php';
 				$tab = new Pie_WCWL_Custom_Tab( $product );
 				$tab->init();
-				$this->product = $product;
 				include apply_filters( 'wcwl_include_path_admin_panel_event', plugin_dir_path( __FILE__ ) . 'product-tab/components/panel-event.php' );
 			}
 		}
@@ -353,6 +364,9 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Init' ) ) {
 		 * @return mixed $value - Should be in a format that can be output into a text file (string, numeric, etc).
 		 */
 		public function add_waitlist_export_data( $value, $product ) {
+			if ( ! $product ) {
+				return $value;
+			}
 			$meta = get_post_meta( $product->get_id(), 'woocommerce_waitlist', true );
 			if ( $meta && ! empty( $meta ) ) {
 				$value = serialize( $meta );
@@ -368,6 +382,9 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Init' ) ) {
 		 * @return mixed $value - Should be in a format that can be output into a text file (string, numeric, etc).
 		 */
 		public function add_archive_export_data( $value, $product ) {
+			if ( ! $product ) {
+				return $value;
+			}
 			$meta = get_post_meta( $product->get_id(), 'wcwl_waitlist_archive', true );
 			if ( $meta && ! empty( $meta ) ) {
 				$value = serialize( $meta );
@@ -409,6 +426,9 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Init' ) ) {
 		 * @return WC_Product $object
 		 */
 		public function import_waitlist_data( $object, $data ) {
+			if ( ! $object ) {
+				return $object;
+			}
 			if ( ! empty( $data['wcwl_waitlist_data'] ) ) {
 				$meta = unserialize( $data['wcwl_waitlist_data'] );
 				if ( is_array( $meta ) ) {
@@ -428,6 +448,9 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Init' ) ) {
 		 * @return WC_Product $object
 		 */
 		public function import_archive_data( $object, $data ) {
+			if ( ! $object ) {
+				return $object;
+			}
 			if ( ! empty( $data['wcwl_archive_data'] ) ) {
 				$meta = unserialize( $data['wcwl_archive_data'] );
 				if ( is_array( $meta ) ) {

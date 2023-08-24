@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc97419a3654634d0f128f901e2a55a20
+class ComposerStaticInite8123b8e58275ca78eb108b8ae8567f4
 {
     public static $files = array (
         '1a643d0982f9332b1e4f3b49c7d4c07e' => __DIR__ . '/../..' . '/src/Deprecated/functions.php',
@@ -26,14 +26,20 @@ class ComposerStaticInitc97419a3654634d0f128f901e2a55a20
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Themesquad\\WC_Photography\\Admin\\Admin' => __DIR__ . '/../..' . '/src/Admin/Admin.php',
+        'Themesquad\\WC_Photography\\Autoloader' => __DIR__ . '/../..' . '/src/Autoloader.php',
+        'Themesquad\\WC_Photography\\Internal\\Traits\\Singleton' => __DIR__ . '/../..' . '/src/Internal/Traits/Singleton.php',
+        'Themesquad\\WC_Photography\\Plugin' => __DIR__ . '/../..' . '/src/Plugin.php',
+        'Themesquad\\WC_Photography\\Requirements' => __DIR__ . '/../..' . '/src/Requirements.php',
+        'Themesquad\\WC_Photography\\Utilities\\Plugin_Utils' => __DIR__ . '/../..' . '/src/Utilities/Plugin_Utils.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc97419a3654634d0f128f901e2a55a20::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc97419a3654634d0f128f901e2a55a20::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitc97419a3654634d0f128f901e2a55a20::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInite8123b8e58275ca78eb108b8ae8567f4::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite8123b8e58275ca78eb108b8ae8567f4::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInite8123b8e58275ca78eb108b8ae8567f4::$classMap;
 
         }, null, ClassLoader::class);
     }

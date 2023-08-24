@@ -417,7 +417,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Exp_Section' ) ) {
 			}
 
 			$output .= '<div class="ult_exp_section_layer ' . esc_attr( $is_vc_49_plus ) . ' ' . esc_attr( $utl_ues_settings['extra_class'] ) . '" >
-	<div id="' . esc_attr( $ult_expandable_id ) . '"  ' . $data_list . ' class="ult_exp_section  ult-responsive ' . esc_attr( $css_class ) . '" style="' . esc_attr( $headerstyle ) . '" ' . $data . '>';
+		<div id="' . esc_attr( $ult_expandable_id ) . '" role="button" tabindex="0" aria-pressed="false" ' . $data_list . ' class="ult_exp_section  ult-responsive ' . esc_attr( $css_class ) . '" style="' . esc_attr( $headerstyle ) . '" ' . $data . '>';
 
 			if ( 'left' == $utl_ues_settings['icon_align'] ) {
 				$output .= '<div class="ult_exp_section-main ' . esc_attr( $position ) . '">' . $icon_output . '

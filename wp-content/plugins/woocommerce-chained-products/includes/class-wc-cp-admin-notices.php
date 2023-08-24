@@ -2,7 +2,7 @@
 /**
  * Class to handle display of Chained Products admin notices
  *
- * @version 1.1.0
+ * @version 1.1.1
  * @package woocommerce-chained-products/includes/
  */
 
@@ -43,7 +43,7 @@ if ( ! class_exists( 'WC_CP_Admin_Notices' ) ) {
 		 * @param array  $arguments Array of arguments passed while calling $function_name.
 		 * @return mixed Result of function call.
 		 */
-		public function __call( $function_name, $arguments = array() ) {
+		public function __call( $function_name = '', $arguments = array() ) {
 
 			if ( ! is_callable( 'Chained_Products_WC_Compatibility', $function_name ) ) {
 				return;

@@ -2,16 +2,16 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Photography 1.2.0\n"
+"Project-Id-Version: WooCommerce Photography 1.2.1\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-03-30T11:46:00+00:00\n"
+"POT-Creation-Date: 2023-08-16T14:42:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: woocommerce-photography\n"
 
 #. Plugin Name of the plugin
@@ -396,7 +396,7 @@ msgid "collection"
 msgstr ""
 
 #: includes/class-wc-product-photography.php:43
-#: templates/loop/photography/collections-tools.php:36
+#: templates/loop/photography/collections-tools.php:39
 msgid "Add to cart"
 msgstr ""
 
@@ -549,7 +549,7 @@ msgstr ""
 msgid "Select"
 msgstr ""
 
-#: templates/loop/photography/collections-tools.php:33
+#: templates/loop/photography/collections-tools.php:36
 msgid "of each photo"
 msgstr ""
 

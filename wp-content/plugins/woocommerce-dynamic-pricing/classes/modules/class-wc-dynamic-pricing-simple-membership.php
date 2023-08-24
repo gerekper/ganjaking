@@ -113,22 +113,22 @@ class WC_Dynamic_Pricing_Simple_Membership extends WC_Dynamic_Pricing_Simple_Bas
 	}
 
 	private function get_adjusted_price( $cart_item, $rule, $price ) {
-		$result = $price;
-
+		$result       = $price;
+		$price        = floatval( $price );
 		$amount       = floatval( apply_filters( 'woocommerce_dynamic_pricing_get_rule_amount', $rule['amount'], $rule, null, $this ) );
 		$num_decimals = apply_filters( 'woocommerce_dynamic_pricing_get_decimals', (int) get_option( 'woocommerce_price_num_decimals' ) );
 
 		switch ( $rule['type'] ) {
 			case 'fixed_product':
-				$adjusted = floatval( $price ) - $amount;
+				$adjusted =  $price - $amount;
 				$result   = $adjusted >= 0 ? $adjusted : 0;
 				break;
 			case 'percent_product':
 				$amount = $amount / 100;
 				if ( $amount <= 1 ) {
-					$result = round( floatval( $price ) - ( floatval( $amount ) * $price ), (int) $num_decimals );
+					$result = round(  $price  - ( $amount * $price ), (int) $num_decimals );
 				} else {
-					$result = round( ( floatval( $amount ) * $price ), (int) $num_decimals );
+					$result = round( (  $amount  * $price ), (int) $num_decimals );
 				}
 				break;
 			case 'fixed_price':
@@ -137,7 +137,7 @@ class WC_Dynamic_Pricing_Simple_Membership extends WC_Dynamic_Pricing_Simple_Bas
 				}
 
 				if ( isset( $cart_item['addons_price_before_calc'] ) ) {
-					$addons_total = floatval( $price ) - floatval( $cart_item['addons_price_before_calc'] );
+					$addons_total = $price - floatval( $cart_item['addons_price_before_calc'] );
 					$amount       += $addons_total;
 				}
 
@@ -202,13 +202,13 @@ class WC_Dynamic_Pricing_Simple_Membership extends WC_Dynamic_Pricing_Simple_Bas
 			$the_product_id = $_product->get_parent_id();
 		}
 
-		$the_product = wc_get_product($the_product_id);
+		$the_product = wc_get_product( $the_product_id );
 
 		$fake_cart_item  = array( 'data' => $_product );
 		$a_working_price = apply_filters( 'woocommerce_dyanmic_pricing_working_price', $working_price, 'advanced_product', $fake_cart_item );
 
-		$lowest_price         = false;
-		$applied_rule         = null;
+		$lowest_price = false;
+		$applied_rule = null;
 
 
 		//Need to process product rules that might have a 0 based quantity.
@@ -269,7 +269,7 @@ class WC_Dynamic_Pricing_Simple_Membership extends WC_Dynamic_Pricing_Simple_Bas
 
 				if ( $execute_rules ) {
 					$quantity = 0;
-					if (isset($pricing_rule_set['collector']) && $pricing_rule_set['collector']['type'] == 'cat' ) {
+					if ( isset( $pricing_rule_set['collector'] ) && $pricing_rule_set['collector']['type'] == 'cat' ) {
 						$collector = $pricing_rule_set['collector'];
 						if ( isset( $collector['args']['cats'] ) && is_array( $collector['args']['cats'] ) ) {
 							if ( is_object_in_term( $the_product_id, 'product_cat', $collector['args']['cats'] ) ) {

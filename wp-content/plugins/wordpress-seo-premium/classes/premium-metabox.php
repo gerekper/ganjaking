@@ -132,20 +132,21 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 		$assets_manager   = new WPSEO_Admin_Asset_Manager();
 
 		$data = [
-			'restApi'                         => $this->get_rest_api_config(),
-			'seoAnalysisEnabled'              => $analysis_seo->is_enabled(),
-			'contentAnalysisEnabled'          => $content_analysis->is_enabled(),
-			'licensedURL'                     => WPSEO_Utils::get_home_url(),
-			'settingsPageUrl'                 => admin_url( 'admin.php?page=wpseo_page_settings#/site-features#card-wpseo-enable_link_suggestions' ),
-			'integrationsTabURL'              => admin_url( 'admin.php?page=wpseo_integrations' ),
-			'commonsScriptUrl'                => \plugins_url(
+			'restApi'                     => $this->get_rest_api_config(),
+			'seoAnalysisEnabled'          => $analysis_seo->is_enabled(),
+			'contentAnalysisEnabled'      => $content_analysis->is_enabled(),
+			'licensedURL'                 => WPSEO_Utils::get_home_url(),
+			'settingsPageUrl'             => admin_url( 'admin.php?page=wpseo_page_settings#/site-features#card-wpseo-enable_link_suggestions' ),
+			'integrationsTabURL'          => admin_url( 'admin.php?page=wpseo_integrations' ),
+			'commonsScriptUrl'            => \plugins_url(
 				'assets/js/dist/commons-premium-' . $assets_manager->flatten_version( WPSEO_PREMIUM_VERSION ) . WPSEO_CSSJS_SUFFIX . '.js',
 				WPSEO_PREMIUM_FILE
 			),
-			'premiumAssessmentsScriptUrl'     => \plugins_url(
+			'premiumAssessmentsScriptUrl' => \plugins_url(
 				'assets/js/dist/register-premium-assessments-' . $assets_manager->flatten_version( WPSEO_PREMIUM_VERSION ) . WPSEO_CSSJS_SUFFIX . '.js',
 				WPSEO_PREMIUM_FILE
 			),
+			'pluginUrl'                   => \plugins_url( '', \WPSEO_PREMIUM_FILE ),
 		];
 
 		if ( \defined( 'YOAST_SEO_TEXT_FORMALITY' ) && YOAST_SEO_TEXT_FORMALITY === true ) {

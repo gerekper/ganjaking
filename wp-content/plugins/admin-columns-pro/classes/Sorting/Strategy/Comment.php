@@ -10,7 +10,7 @@ use WP_Comment_Query;
 
 /**
  * Use `QueryBindings` instead of `QueryVars` for the sorting models
- * @depecated NEWVERSION
+ * @depecated 6.3
  */
 final class Comment extends Strategy
 {
@@ -22,7 +22,7 @@ final class Comment extends Strategy
 
     public function get_results(): array
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION');
+        _deprecated_function(__METHOD__, '6.3');
 
         return [];
     }

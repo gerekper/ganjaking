@@ -33,7 +33,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Init' ) ) {
 			add_filter( 'wc_get_template', array( $this, 'check_theme_directory_for_waitlist_template' ), 10, 5 );
 			// Login Redirects.
 			add_filter( 'woocommerce_registration_redirect', array( $this, 'registration_redirect' ) );
-			add_filter( 'woocommerce_login_redirect', array( $this, 'login_redirect' ), 10, 2 );
+			add_filter( 'woocommerce_login_redirect', array( $this, 'login_redirect' ) );
 			// Quickview.
 			add_action( 'woocommerce_single_product_summary', array( $this, 'output_elements_for_quick_view_simple' ), 35 );
 			add_filter( 'woocommerce_get_stock_html', array( $this, 'output_elements_for_quick_view_variation' ), 10, 2 );
@@ -209,12 +209,11 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Init' ) ) {
 		 */
 		public static function get_main_product_id( $product_id ) {
 			global $woocommerce_wpml;
-			$master_post_id = $product_id;
 			if ( isset( $woocommerce_wpml->products ) && $woocommerce_wpml->products ) {
-				$master_post_id = $woocommerce_wpml->products->get_original_product_id( $product_id );
+				return $woocommerce_wpml->products->get_original_product_id( $product_id );
 			}
 
-			return $master_post_id;
+			return $product_id;
 		}
 
 		/**
@@ -255,7 +254,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Init' ) ) {
 		 * @param WC_Product $product
 		 * @return bool
 		 */
-		public function product_supports_shortcode( $product ) {
+		public function product_supports_shortcode( WC_Product $product ) {
 			$supported = false;
 			if ( WooCommerce_Waitlist_Plugin::is_simple( $product ) ) {
 				$supported = true;
@@ -362,7 +361,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Init' ) ) {
 		/**
 		 * Redirect user back to the product after logging in
 		 */
-		public function login_redirect( $redirect, $user ) {
+		public function login_redirect( $redirect ) {
 			if ( isset( $_GET['wcwl_redirect'] ) ) {
 				$redirect = esc_url( $_GET['wcwl_redirect'] );
 			}

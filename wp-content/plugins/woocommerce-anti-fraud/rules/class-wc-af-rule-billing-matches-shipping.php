@@ -7,13 +7,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'WC_AF_Rule_Billing_Matches_Shipping' ) ) {
 	class WC_AF_Rule_Billing_Matches_Shipping extends WC_AF_Rule {
 		private $is_enabled  = false;
-		private $rule_weight = 0;	
+		private $rule_weight = 0;
 		/**
 		 * The constructor
 		 */
 		public function __construct() {
-			$this->is_enabled  =  get_option('wc_af_bca_order');
-			$this->rule_weight = get_option('wc_settings_anti_fraud_bca_order_weight');
+			$this->is_enabled  = get_option( 'wc_af_bca_order' );
+			$this->rule_weight = get_option( 'wc_settings_anti_fraud_bca_order_weight' );
 
 			parent::__construct( 'billing_matches_shipping', 'Billing address does not match shipping address', $this->rule_weight );
 		}
@@ -28,16 +28,24 @@ if ( ! class_exists( 'WC_AF_Rule_Billing_Matches_Shipping' ) ) {
 		 * @return bool
 		 */
 		public function is_risk( WC_Order $order ) {
-			Af_Logger::debug('Checking billing matches shipping rule');
+
+			Af_Logger::debug( 'Checking billing matches shipping rule' );
 			// Default risk is false
 			$risk = false;
 
+			// address matching percentage.
+			$add_diff = 0;
+
 			// Check if the billing address does not match shipping address
-			if ( $this->has_shipping_address( $order ) && $order->get_formatted_billing_address() != $order->get_formatted_shipping_address() ) {
-				$risk = true;
-				Af_Logger::debug('billing address not matches shipping address. This rule is at risk');
+			if ( $this->has_shipping_address( $order ) ) {
+				$add_diff = levenshtein( $order->get_formatted_billing_address(), $order->get_formatted_shipping_address() );
+				// Check if the billing address does not match shipping address.
+				if ( $add_diff > 7 ) {
+					$risk = true;
+					Af_Logger::debug( 'billing address not matches shipping address. This rule is at risk' );
+				}
 			}
-			Af_Logger::debug('billing shipping rule risk : ' . ( true === $risk ? 'true' : 'false' ));
+			Af_Logger::debug( 'billing shipping rule risk : ' . ( true === $risk ? 'true' : 'false' ) );
 			return $risk;
 		}
 
@@ -54,9 +62,9 @@ if ( ! class_exists( 'WC_AF_Rule_Billing_Matches_Shipping' ) ) {
 
 			return $order->has_shipping_address();
 		}
-		//Enable rule check
+		// Enable rule check
 		public function is_enabled() {
-			if ('yes' == $this->is_enabled) {
+			if ( 'yes' == $this->is_enabled ) {
 				return true;
 			}
 			return false;

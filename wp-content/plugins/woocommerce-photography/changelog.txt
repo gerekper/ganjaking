@@ -1,5 +1,12 @@
 *** WooCommerce Photography Changelog ***
 
+2023-08-16 - version 1.2.1
+* Tweak - Tested compatibility up to WC 8.0.
+* Tweak - Tested compatibility with WP 6.3.
+* Fix - Added missing parameters when displaying the `global/quantity-input.php` template.
+* Fix - Added the missing second argument to the filter hook `woocommerce_add_to_cart_redirect`.
+* Dev - Updated template `loop/photography/collections-tools.php`.
+
 2023-03-30 - version 1.2.0
 * Feature - Declare compatibility with WooCommerce High-Performance Order Storage (HPOS).
 * Tweak - Moved the Docs and Support links on the plugin screen.
@@ -55,7 +62,7 @@
 * Tweak - WC 4.1 compatibility.
 
 2020-03-16 - version 1.0.22
-* Fix   - Unable to add/edit prices to Photography Products.
+* Fix - Unable to add/edit prices to Photography Products.
 * Tweak - Remove legacy code.
 
 2020-03-04 - version 1.0.21
@@ -79,11 +86,11 @@
 2018-10-09 - version 1.0.15
 * Fix - Collections compatibility with other WooCommerce plugins.
 * Fix - Collection images should not appear on category filter pages.
-* Update - WC tested up to 3.5
+* Update - WC tested up to 3.5.
 
 2018-05-23 - version 1.0.14
-* Update - WC tested up to 3.4
-* Add - GDPR policy
+* Update - WC tested up to 3.4.
+* Add - GDPR policy.
 
 2018-04-27 - version 1.0.13
 * Fix - Default to using WooCommerce 3.3 products per row/column count.
@@ -112,29 +119,29 @@
 * Fix - Product Addons compatibility. The "select options" button now takes you to the correct screen.
 
 2015-07-29 - version 1.0.5
- * New - Support to WooCommerce 2.4.
- * New - Use WooCommerce enable Lightbox option.
- * Fix - Expand/Close styles for WooCommerce 2.4.
+* New - Support to WooCommerce 2.4.
+* New - Use WooCommerce enable Lightbox option.
+* Fix - Expand/Close styles for WooCommerce 2.4.
 
 2015-06-03 - version 1.0.4
- * Fix - Single photo visibility when the collection is public.
- * Fix - Admin screen ids when using some translation.
+* Fix - Single photo visibility when the collection is public.
+* Fix - Admin screen ids when using some translation.
 
 2015-05-21 - version 1.0.3
- * Fix - Potential XSS vulnerability
+* Fix - Potential XSS vulnerability.
 
 2015-02-13 - version 1.0.2
- * Fix - Use `loop_shop_columns` filter in photography archives.
+* Fix - Use `loop_shop_columns` filter in photography archives.
 
 2015-02-12 - version 1.0.1
- * New - manage_photography user cap capability.
- * New - Option to set the default collections visibility.
- * Fix - Error notices on profile page.
- * Fix - Add to cart button text.
- * Fix - Collections taxonomy labels.
- * Fix - Select2 compatibility with WooCommerce 2.3.
- * Fix - Notices when set a static home page different than the shop page.
- * Fix - Collections archive hooks, now use the WooCommerce archive hooks for theme compatibility.
+* New - manage_photography user cap capability.
+* New - Option to set the default collections visibility.
+* Fix - Error notices on profile page.
+* Fix - Add to cart button text.
+* Fix - Collections taxonomy labels.
+* Fix - Select2 compatibility with WooCommerce 2.3.
+* Fix - Notices when set a static home page different than the shop page.
+* Fix - Collections archive hooks, now use the WooCommerce archive hooks for theme compatibility.
 
 2014-12-12 - version 1.0.0
- * First Release.
+* First Release.

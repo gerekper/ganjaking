@@ -16,7 +16,6 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
 $user_id    = get_current_user_id();
 $public_obj = new Coupon_Referral_Program_Public( 'Coupon Referral Program', '1.0.0' );
 ?>

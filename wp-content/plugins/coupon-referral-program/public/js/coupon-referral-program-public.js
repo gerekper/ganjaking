@@ -177,7 +177,32 @@
 
 		//add more field 
 		$(document).on('click', '#mwb_crp_add_more', function(e){
-			var html = '<div class="add_email_input_div"><input type="email" class="mwb_crp_email_id" name="mwb_crp_email_id[]" placeholder="Enter Email Id.."><span class="wps_crp_delete_email">X</span></div>';
+			var last_email_data = $('.mwb_crp_email_id').last().val();
+			var pattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+	    	var error = false;
+			var html = "<ul>";
+			if ( ! last_email_data ) {
+				error = true;
+				html+="<li><b>";
+				html+=mwb_crp.empty_email;
+				html+="</li>";
+
+			} else if ( ! pattern.test(last_email_data) ) {
+				error = true;
+				html+="<li><b>";
+				html+=mwb_crp.invalid_email;
+				html+="</li>";
+			}
+			html += "</ul>";
+
+			if (error) {
+				$('#mwb_crp_notice').removeClass('mwb_crp_mail_succes');
+				$('#mwb_crp_notice').addClass('mwb_crp_error');
+				$('#mwb_crp_notice').html(html);
+				return;
+			}
+			var html = '<div class="add_email_input_div"><input type="email" class="mwb_crp_email_id" name="mwb_crp_email_id[]" placeholder="Enter Email Id.."><span class="wps_crp_delete_email">&#10060;</span></div>';
 			$( '.mwb_crp_email_wrap' ).append( html );
 		});
 		$(document).on('click', '.wps_crp_delete_email', function(e){

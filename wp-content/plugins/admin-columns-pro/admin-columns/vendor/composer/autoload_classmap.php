@@ -37,6 +37,7 @@ return array(
     'AC\\Admin\\MenuPageFactory\\Menu' => $baseDir . '/classes/Admin/MenuPageFactory/Menu.php',
     'AC\\Admin\\MenuPageFactory\\SubMenu' => $baseDir . '/classes/Admin/MenuPageFactory/SubMenu.php',
     'AC\\Admin\\Menu\\Item' => $baseDir . '/classes/Admin/Menu/Item.php',
+    'AC\\Admin\\Notice\\DatabaseMissing' => $baseDir . '/classes/Admin/Notice/DatabaseMissing.php',
     'AC\\Admin\\Notice\\ReadOnlyListScreen' => $baseDir . '/classes/Admin/Notice/ReadOnlyListScreen.php',
     'AC\\Admin\\PageFactoryInterface' => $baseDir . '/classes/Admin/PageFactoryInterface.php',
     'AC\\Admin\\PageFactory\\Addons' => $baseDir . '/classes/Admin/PageFactory/Addons.php',

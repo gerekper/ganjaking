@@ -5,15 +5,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 } // Exit if accessed directly
 
 class WC_AF_Rule_First_Order_Processing extends WC_AF_Rule {
-	
+
 	private $is_enabled  = false;
 	private $rule_weight = 0;
 	/**
 	 * The constructor
 	 */
 	public function __construct() {
-		$this->is_enabled  = get_option('wc_af_first_order_custom');
-		$this->rule_weight = get_option('wc_settings_anti_fraud_first_order_custom_weight');
+		$this->is_enabled  = get_option( 'wc_af_first_order_custom' );
+		$this->rule_weight = get_option( 'wc_settings_anti_fraud_first_order_custom_weight' );
 		parent::__construct( 'first_order', 'This is the customer\'s first order with this billing details.', $this->rule_weight );
 	}
 
@@ -28,8 +28,8 @@ class WC_AF_Rule_First_Order_Processing extends WC_AF_Rule {
 	 * @return bool
 	 */
 	public function is_risk( WC_Order $order ) {
-		
-		Af_Logger::debug('Checking first order processing rule');
+
+		Af_Logger::debug( 'Checking first order processing rule' );
 		global $wpdb;
 		$risk = false;
 
@@ -38,49 +38,59 @@ class WC_AF_Rule_First_Order_Processing extends WC_AF_Rule {
 		 *
 		 * @since  1.0.0
 		 */
-		$statuses = "'wc-" . implode("','wc-", apply_filters( 'wc_af_high_value_value_order_statuses', array('completed','processing') )) . "'";
-		
-		$order_amount =  $wpdb->get_var($wpdb->prepare( "SELECT COUNT(P.ID)
+		$statuses = "'wc-" . implode( "','wc-", apply_filters( 'wc_af_high_value_value_order_statuses', array( 'completed', 'processing' ) ) ) . "'";
+
+		$order_amount = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT COUNT(P.ID)
  			FROM $wpdb->postmeta PM
  			INNER JOIN $wpdb->posts P ON P.ID = PM.post_id
  			WHERE PM.meta_key = '_billing_email' AND PM.meta_value = %s AND P.post_type = 'shop_order'
-			AND P.post_status IN ('wc-completed', 'wc-processing' )", $order->get_billing_email() )); 
+			AND P.post_status IN ('wc-completed', 'wc-processing' )",
+				$order->get_billing_email()
+			)
+		);
 
-			Af_Logger::debug('order AMount : ' . print_r($order_amount, true));
-			
+			Af_Logger::debug( 'order AMount : ' . print_r( $order_amount, true ) );
+
 			/**
 			 * Status values for query
 			 *
 			 * @since  1.0.0
-			 */	
-			$statuses = "'wc-" . implode("','wc-", apply_filters( 'wc_af_high_value_value_order_statuses', array('completed','processing', 'pending','on-hold') )) . "'";
-			
-		$order_count =  $wpdb->get_var($wpdb->prepare( "SELECT COUNT(P.ID)
+			 */
+			$statuses = "'wc-" . implode( "','wc-", apply_filters( 'wc_af_high_value_value_order_statuses', array( 'completed', 'processing', 'pending', 'on-hold' ) ) ) . "'";
+
+		$order_count = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT COUNT(P.ID)
  			FROM $wpdb->postmeta PM
  			INNER JOIN $wpdb->posts P ON P.ID = PM.post_id
- 			WHERE PM.meta_key = '_billing_email' AND PM.meta_value = %s AND P.post_type = 'shop_order'", $order->get_billing_email() )); 
-			
-			Af_Logger::debug('order Amount count : ' . print_r($order_count, true));
-			
+ 			WHERE PM.meta_key = '_billing_email' AND PM.meta_value = %s AND P.post_type = 'shop_order'",
+				$order->get_billing_email()
+			)
+		);
+
+			Af_Logger::debug( 'order Amount count : ' . print_r( $order_count, true ) );
+
 		// Risk is true if order amount is smaller than 2
-		if ( ( $order_amount < 1 ) && ( 1 == $order_count )) {
+		if ( ( $order_amount < 1 ) && ( 1 == $order_count ) ) {
 
 			$risk = true;
 
-		} elseif (( $order_amount < 1 ) && ( $order_count > 1 )) {
+		} elseif ( ( $order_amount < 1 ) && ( $order_count > 1 ) ) {
 
 			parent::__construct( 'first_order', 'Customer has ordered before, but has never completed an order.', $this->rule_weight );
 			$risk = true;
-			
+
 		}
-		
-		Af_Logger::debug('first order processing rule risk : ' . ( true === $risk ? 'true' : 'false' ));
+
+		Af_Logger::debug( 'first order processing rule risk : ' . ( true === $risk ? 'true' : 'false' ) );
 		return $risk;
-	
+
 	}
 
 	public function is_enabled() {
-		if ('yes' == $this->is_enabled) {
+		if ( 'yes' == $this->is_enabled ) {
 			return true;
 		}
 		return false;

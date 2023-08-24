@@ -10,7 +10,7 @@ use WP_Term_Query;
 
 /**
  * Use `QueryBindings` instead of `QueryVars` for the sorting models
- * @depecated NEWVERSION
+ * @depecated 6.3
  */
 class Taxonomy extends Strategy
 {

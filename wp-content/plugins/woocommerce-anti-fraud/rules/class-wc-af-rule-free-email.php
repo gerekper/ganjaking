@@ -12,11 +12,11 @@ class WC_AF_Rule_Free_Email extends WC_AF_Rule {
 	 * The constructor
 	 */
 	public function __construct() {
-		$this->free_email  = get_option('wc_settings_anti_fraud_suspecious_email_domains'); 
+		$this->free_email  = get_option( 'wc_settings_anti_fraud_suspecious_email_domains' );
 
-		$this->is_enabled  = get_option('wc_af_suspecius_email');
-		$this->rule_weight = get_option('wc_settings_anti_fraud_suspecious_email_weight');
-		
+		$this->is_enabled  = get_option( 'wc_af_suspecius_email' );
+		$this->rule_weight = get_option( 'wc_settings_anti_fraud_suspecious_email_weight' );
+
 		parent::__construct( 'free_email', 'Email is a known free email address.', $this->rule_weight );
 	}
 
@@ -30,8 +30,8 @@ class WC_AF_Rule_Free_Email extends WC_AF_Rule {
 	 * @return bool
 	 */
 	public function is_risk( WC_Order $order ) {
-		
-		Af_Logger::debug('Checking free email rule');
+
+		Af_Logger::debug( 'Checking free email rule' );
 		$domains = explode( ',', $this->free_email );
 		/**
 		 * Check free email risk
@@ -39,7 +39,7 @@ class WC_AF_Rule_Free_Email extends WC_AF_Rule {
 		 * @since  1.0.0
 		 */
 		$free_email_domains = apply_filters( 'wc_af_temporary_email_domains', $domains );
-		
+
 		// Default risk is false
 		$risk = false;
 
@@ -53,14 +53,13 @@ class WC_AF_Rule_Free_Email extends WC_AF_Rule {
 			if ( in_array( $email_domain[1], $free_email_domains ) ) {
 				$risk = true;
 			}
-
 		}
-		Af_Logger::debug('free email rule risk : ' . ( true === $risk ? 'true' : 'false' ));
+		Af_Logger::debug( 'free email rule risk : ' . ( true === $risk ? 'true' : 'false' ) );
 		return $risk;
 	}
-	//Enable rule check
+	// Enable rule check
 	public function is_enabled() {
-		if ('yes' == $this->is_enabled) {
+		if ( 'yes' == $this->is_enabled ) {
 			return true;
 		}
 		return false;

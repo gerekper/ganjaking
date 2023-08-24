@@ -74,14 +74,6 @@ class SubscribersCountsController {
     return $result;
   }
 
-  public function getSegmentGlobalStatusStatisticsCount(SegmentEntity $segment): array {
-    $result = $this->getCacheItem(TransientCache::SUBSCRIBERS_GLOBAL_STATUS_STATISTICS_COUNT_KEY, (int)$segment->getId())['item'] ?? null;
-    if (!$result) {
-      $result = $this->recalculateSegmentGlobalStatusStatisticsCache($segment);
-    }
-    return $result;
-  }
-
   public function getSegmentStatisticsCountById(int $segmentId): array {
     $result = $this->getCacheItem(TransientCache::SUBSCRIBERS_STATISTICS_COUNT_KEY, $segmentId)['item'] ?? null;
     if (!$result) {
@@ -99,16 +91,6 @@ class SubscribersCountsController {
     if (!$result) {
       $result = $this->recalculateHomepageStatisticsCache();
     }
-    return $result;
-  }
-
-  public function recalculateSegmentGlobalStatusStatisticsCache(SegmentEntity $segment): array {
-    $result = $this->segmentSubscribersRepository->getSubscribersGlobalStatusStatisticsCount($segment);
-    $this->setCacheItem(
-      TransientCache::SUBSCRIBERS_GLOBAL_STATUS_STATISTICS_COUNT_KEY,
-      $result,
-      (int)$segment->getId()
-    );
     return $result;
   }
 
@@ -152,11 +134,6 @@ class SubscribersCountsController {
     foreach ($this->transientCache->getItems(TransientCache::SUBSCRIBERS_STATISTICS_COUNT_KEY) as $id => $item) {
       if (!in_array($id, $segmentIds)) {
         $this->transientCache->invalidateItem(TransientCache::SUBSCRIBERS_STATISTICS_COUNT_KEY, $id);
-      }
-    }
-    foreach ($this->transientCache->getItems(TransientCache::SUBSCRIBERS_GLOBAL_STATUS_STATISTICS_COUNT_KEY) as $id => $item) {
-      if (!in_array($id, $segmentIds)) {
-        $this->transientCache->invalidateItem(TransientCache::SUBSCRIBERS_GLOBAL_STATUS_STATISTICS_COUNT_KEY, $id);
       }
     }
   }

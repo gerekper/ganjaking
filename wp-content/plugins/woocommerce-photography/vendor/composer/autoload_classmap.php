@@ -7,4 +7,10 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'Themesquad\\WC_Photography\\Admin\\Admin' => $baseDir . '/src/Admin/Admin.php',
+    'Themesquad\\WC_Photography\\Autoloader' => $baseDir . '/src/Autoloader.php',
+    'Themesquad\\WC_Photography\\Internal\\Traits\\Singleton' => $baseDir . '/src/Internal/Traits/Singleton.php',
+    'Themesquad\\WC_Photography\\Plugin' => $baseDir . '/src/Plugin.php',
+    'Themesquad\\WC_Photography\\Requirements' => $baseDir . '/src/Requirements.php',
+    'Themesquad\\WC_Photography\\Utilities\\Plugin_Utils' => $baseDir . '/src/Utilities/Plugin_Utils.php',
 );

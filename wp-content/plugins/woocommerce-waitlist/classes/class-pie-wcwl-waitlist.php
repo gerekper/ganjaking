@@ -46,24 +46,26 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist' ) ) {
 		/**
 		 * Constructor function to hook up actions and filters and class properties
 		 *
-		 * @param $product
+		 * @param WC_Product $product
 		 *
 		 * @access   public
 		 */
-		public function __construct( $product ) {
-			$this->product = $product;
-			$this->setup_product_ids( $product );
-			$this->setup_waitlist();
+		public function __construct( WC_Product $product ) {
+			if ( $product ) {
+				$this->product = $product;
+				$this->setup_product_ids( $product );
+				$this->setup_waitlist();
+			}
 		}
 
 		/**
 		 * Setup product class variables
 		 *
-		 * @param $product
+		 * @param WC_Product $product
 		 *
 		 * @access   public
 		 */
-		public function setup_product_ids( $product ) {
+		public function setup_product_ids( WC_Product $product ) {
 			$this->product_id = $product->get_id();
 			$this->parent_ids = $this->get_parent_id( $product );
 		}
@@ -102,6 +104,9 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist' ) ) {
 			);
 			$grouped_products = wc_get_products( $args );
 			foreach ( $grouped_products as $grouped_product ) {
+				if ( ! $grouped_product ) {
+					continue;
+				}
 				foreach ( $grouped_product->get_children() as $child_id ) {
 					if ( $child_id == $product->get_id() ) {
 						$parent_products[] = $grouped_product->get_id();
@@ -296,7 +301,8 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist' ) ) {
 			remove_filter( 'pre_option_woocommerce_registration_generate_password', array( WooCommerce_Waitlist_Plugin::instance(), 'return_option_setting_yes' ), 10 );
 			remove_filter( 'pre_option_woocommerce_registration_generate_username', array( WooCommerce_Waitlist_Plugin::instance(), 'return_option_setting_yes' ), 10 );
 			if ( is_wp_error( $user_id ) ) {
-				wcwl_add_log( $user_id->get_error_message(), '', $email );
+				$wp_error = $user_id;
+				wcwl_add_log( $wp_error->get_error_message(), '', $email );
 			} else {
 				do_action( 'wcwl_customer_created', $user_id );
 				$this->maybe_login_customer( $user_id );
@@ -388,7 +394,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist' ) ) {
 		 */
 		protected function update_user_chosen_language_for_product( $user, $lang ) {
 			if ( function_exists( 'wpml_get_current_language' ) ) {
-				$lang_option           = get_option( '_' . WCWL_SLUG . '_languages' ) ? get_option( '_' . WCWL_SLUG . '_languages' ) : array();
+				$lang_option          = get_option( '_' . WCWL_SLUG . '_languages' ) ? get_option( '_' . WCWL_SLUG . '_languages' ) : array();
 				$lang_option[ $user ] = $lang;
 				update_option( '_' . WCWL_SLUG . '_languages', $lang_option );
 			}
@@ -483,13 +489,15 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist' ) ) {
 			global $sitepress;
 			$translated_products = $sitepress->get_element_translations( $product_id, 'post_product' );
 			foreach ( $translated_products as $translated_product ) {
+				if ( ! isset( $translated_product->element_id ) ) {
+					continue;
+				}
 				if ( $product_id == $translated_product->element_id ) {
 					continue;
 				} else {
 					$waitlist = get_post_meta( $translated_product->element_id, WCWL_SLUG, true );
 					if ( is_array( $waitlist ) && ! empty( $waitlist ) ) {
 						$logger  = wc_get_logger();
-		        $context = array( 'source' => 'woocommerce-waitlist' );
 						$logger->debug( sprintf( __( 'Woocommerce Waitlist data found for translated product %1$d (main product ID = %2$d)' ), $translated_product->element_id, $product_id ), array( 'source' => 'woocommerce-waitlist' ) );
 						update_option( '_' . WCWL_SLUG . '_corrupt_data', true );
 					}

@@ -79,6 +79,7 @@ if ( $this->is_social_sharing_enabled() || $this->check_share_vai_referal_code()
                     </div>
                     <div class="clear">
                     </div>
+					<small>' . esc_html__( 'You can send this referral link to your friend', 'coupon-referral-program' ) . '</small>
                 </div>';
 	}
 	if ( $this->is_social_sharing_enabled() ) {

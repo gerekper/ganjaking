@@ -1,5 +1,9 @@
 *** Shipment Tracking Changelog ***
 
+2023-08-14 - version 2.3.5
+* Fix   - `postcode` variable value for DPD Local Tracking URL.
+* Fix   - Replace Interlink with DPD Local.
+
 2023-08-08 - version 2.3.4
 * Add   - DPD Local Tracking URL.
 

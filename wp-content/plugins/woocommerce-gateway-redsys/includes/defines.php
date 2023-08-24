@@ -36,3 +36,43 @@ if ( ! defined( 'REDSYS_PLUGIN_DATA_PATH_P' ) ) {
 if ( ! defined( 'REDSYS_PLUGIN_DATA_URL' ) ) {
 	define( 'REDSYS_PLUGIN_DATA_URL', REDSYS_PLUGIN_URL_P . 'includes/data/' );
 }
+
+if ( ! defined( 'REDSYS_CHECK_WOO_CONNECTION' ) ) {
+	define( 'REDSYS_CHECK_WOO_CONNECTION', true );
+}
+
+if ( ! defined( 'REDSYS_POST_PSD2_URL' ) ) {
+	define( 'REDSYS_POST_PSD2_URL', 'https://redsys.joseconti.com/2019/09/05/redsys-y-psd2-o-sca/' );
+}
+
+if ( ! defined( 'REDSYS_INSTALL_URL_P' ) ) {
+	define( 'REDSYS_INSTALL_URL_P', 'https://redsys.joseconti.com/primeros-pasos-con-redsys-y-woocommerce/' );
+}
+
+if ( ! defined( 'REDSYS_TELEGRAM_SIGNUP_P' ) ) {
+	define( 'REDSYS_TELEGRAM_SIGNUP_P', 'https://t.me/wooredsys' );
+}
+
+if ( ! defined( 'REDSYS_REVIEW_P' ) ) {
+	define( 'REDSYS_REVIEW_P', 'https://woocommerce.com/products/redsys-gateway/' );
+}
+
+if ( ! defined( 'REDSYS_TICKET' ) ) {
+	define( 'REDSYS_TICKET', 'https://woocommerce.com/my-account/create-a-ticket/' );
+}
+
+if ( ! defined( 'REDSYS_GPL' ) ) {
+	define( 'REDSYS_GPL', 'https://redsys.joseconti.com/2020/06/21/vivir-gpl-o-explotar-gpl/' );
+}
+
+if ( ! defined( 'REDSYS_PRODUCT_ID_WOO' ) ) {
+	define( 'REDSYS_PRODUCT_ID_WOO', 187871 );
+}
+
+if ( ! defined( 'REDSYS_BLOCKS_PATH' ) ) {
+	define( 'REDSYS_BLOCKS_PATH', REDSYS_PLUGIN_PATH_P . 'bloques-redsys/' );
+}
+
+if ( ! defined( 'REDSYS_BLOCKS_URL' ) ) {
+	define( 'REDSYS_BLOCKS_URL', REDSYS_PLUGIN_URL_P . 'bloques-redsys/' );
+}

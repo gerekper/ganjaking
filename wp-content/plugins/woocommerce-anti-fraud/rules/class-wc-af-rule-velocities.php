@@ -13,10 +13,10 @@ class WC_AF_Rule_Velocities extends WC_AF_Rule {
 	 * The constructor
 	 */
 	public function __construct() {
-		$this->is_enabled  =  get_option('wc_af_attempt_count_check');
-		$this->rule_weight = get_option('wc_settings_anti_fraud_order_attempt_weight');
-		$this->time_stamp  = get_option('wc_settings_anti_fraud_attempt_time_span');
-		$this->max_orders = get_option('wc_settings_anti_fraud_max_order_attempt_time_span');
+		$this->is_enabled  = get_option( 'wc_af_attempt_count_check' );
+		$this->rule_weight = get_option( 'wc_settings_anti_fraud_order_attempt_weight' );
+		$this->time_stamp  = get_option( 'wc_settings_anti_fraud_attempt_time_span' );
+		$this->max_orders = get_option( 'wc_settings_anti_fraud_max_order_attempt_time_span' );
 		parent::__construct( 'velocities', 'IP address ordered multiple orders in the last ' . $this->time_stamp . ' hours.', $this->rule_weight );
 	}
 
@@ -45,8 +45,8 @@ class WC_AF_Rule_Velocities extends WC_AF_Rule {
 	 * @return bool
 	 */
 	public function is_risk( WC_Order $order ) {
-		
-		Af_Logger::debug('Checking velocities rule');
+
+		Af_Logger::debug( 'Checking velocities rule' );
 		global $wpdb;
 
 		// Default risk is false
@@ -59,19 +59,17 @@ class WC_AF_Rule_Velocities extends WC_AF_Rule {
 		$email = $pre_wc_30 ? opmc_hpos_get_post_meta( $order_id, '_billing_email', true ) : $order->get_billing_email();
 		$phone = $pre_wc_30 ? opmc_hpos_get_post_meta( $order_id, '_billing_phone', true ) : $order->get_billing_phone();
 
-		
-
 		if ( empty( $order_ip ) ) {
 			return false;
 		}
 
 		$is_subscriptions_order = false;
 
-		if (class_exists('WC_Subscriptions_Plugin')) {
-			$is_subscriptions_order = wcs_order_contains_subscription($order, 'renewal');
+		if ( class_exists( 'WC_Subscriptions_Plugin' ) ) {
+			$is_subscriptions_order = wcs_order_contains_subscription( $order, 'renewal' );
 		}
-		Af_Logger::debug('is_subscriptions_renewal_order : ' . print_r($is_subscriptions_order, true));
-		if ($is_subscriptions_order) {
+		Af_Logger::debug( 'is_subscriptions_renewal_order : ' . print_r( $is_subscriptions_order, true ) );
+		if ( $is_subscriptions_order ) {
 			return false;
 		}
 
@@ -132,13 +130,13 @@ class WC_AF_Rule_Velocities extends WC_AF_Rule {
 		if ( count( $velocities_custmr_ip ) >= $this->max_orders || count( $velocities_custmr_email ) >= $this->max_orders || count( $velocities_custmr_mob ) >= $this->max_orders ) {
 			$risk = true;
 		}
-		
-		Af_Logger::debug('velocities rule risk : ' . ( true === $risk ? 'true' : 'false' ));
+
+		Af_Logger::debug( 'velocities rule risk : ' . ( true === $risk ? 'true' : 'false' ) );
 		return $risk;
 	}
-	//Enable rule check
+	// Enable rule check
 	public function is_enabled() {
-		if ('yes' == $this->is_enabled) {
+		if ( 'yes' == $this->is_enabled ) {
 			return true;
 		}
 		return false;

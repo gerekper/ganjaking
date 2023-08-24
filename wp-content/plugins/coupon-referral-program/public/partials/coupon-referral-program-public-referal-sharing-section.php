@@ -35,6 +35,7 @@ $user_id        = get_current_user_ID();
 			</div>
 			<div class="clear">
 			</div>
+			<small><?php esc_html_e( 'You can send this referral link to your friend', 'coupon-referral-program' ); ?></small>
 		</div>
 	<?php } ?>
 		<?php

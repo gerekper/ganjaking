@@ -11,6 +11,13 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Account' ) ) {
 	class Pie_WCWL_Frontend_Account extends Pie_WCWL_Frontend_User_Waitlist {
 
 		/**
+		 * The endpoint for the waitlist account tab
+		 *
+		 * @var string
+		 */
+		protected $endpoint = '';
+
+		/**
 		 * Pie_WCWL_Frontend_Account constructor.
 		 */
 		public function __construct() {

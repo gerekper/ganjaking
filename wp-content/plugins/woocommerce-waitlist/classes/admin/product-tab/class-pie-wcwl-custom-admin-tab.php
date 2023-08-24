@@ -73,11 +73,14 @@ if ( ! class_exists( 'Pie_WCWL_Custom_Tab' ) ) {
 		 *
 		 * @access public
 		 *
-		 * @param $variation
+		 * @param WC_Product $variation
 		 *
 		 * @return string
 		 */
-		public static function return_variation_tab_title( $variation ) {
+		public static function return_variation_tab_title( WC_Product $variation ) {
+			if ( ! $variation ) {
+				return '#ERROR: VARIATION NOT FOUND';
+			}
 			$title = self::get_variation_name( $variation );
 			$count = get_post_meta( $variation, '_woocommerce_waitlist_count', true );
 			if ( ! $count ) {
@@ -92,13 +95,15 @@ if ( ! class_exists( 'Pie_WCWL_Custom_Tab' ) ) {
 		 * Get the name of the variation that matches the given ID - returning each attribute
 		 * To be used as the title for each variation waitlist on the tab
 		 *
-		 * @param  int $variation the current variation
+		 * @param  WC_Product $variation the current variation
 		 *
 		 * @access public
 		 * @return string the attribute of the required variation
 		 */
-		public static function get_variation_name( $variation ) {
-			$variation = wc_get_product( $variation );
+		public static function get_variation_name( WC_Product $variation ) {
+			if ( ! $variation ) {
+				return '';
+			}
 			$title     = '#' . $variation->get_id();
 			foreach ( $variation->get_attributes() as $attribute ) {
 				$title .= ' ' . ucfirst( $attribute ) . ', ';

@@ -581,6 +581,13 @@ class Coupon_Referral_Program_Admin {
 					'value'    => get_option( 'signup_popup_text' ),
 				),
 				array(
+					'title'    => __( 'Referral Link Redirecion', 'coupon-referral-program' ),
+					'type'     => 'text',
+					'id'       => 'referral_link_redirection',
+					'class'    => 'mwb_crp_input_val',
+					'desc_tip' => __( 'You can set by giving the url for any page or section for referral link redirection. Leave the field blank for the default', 'coupon-referral-program' ),
+				),
+				array(
 					'type' => 'sectionend',
 				),
 			);
@@ -743,6 +750,23 @@ class Coupon_Referral_Program_Admin {
 					'class'    => 'wc-enhanced-select mwb_crp_input_val',
 					'desc_tip' => __( 'Product that the coupon will not be applied to.', 'coupon-referral-program' ),
 					'options'  => $this->mwb_crp_get_all_products(),
+				),
+
+				array(
+					'title'    => __( 'Include categories', 'coupon-referral-program' ),
+					'type'     => 'multiselect',
+					'id'       => 'wps_crp_include_cat',
+					'class'    => 'wc-enhanced-select mwb_crp_input_val',
+					'desc_tip' => __( 'Categories that the coupon will be applied to.', 'coupon-referral-program' ),
+					'options'  => $this->wps_crp_get_all_categories(),
+				),
+				array(
+					'title'    => __( 'Exclude categories', 'coupon-referral-program' ),
+					'type'     => 'multiselect',
+					'id'       => 'wps_crp_exclude_cat',
+					'class'    => 'wc-enhanced-select mwb_crp_input_val',
+					'desc_tip' => __( 'Categories that the coupon will not be applied to.', 'coupon-referral-program' ),
+					'options'  => $this->wps_crp_get_all_categories(),
 				),
 				array(
 					'type' => 'sectionend',
@@ -917,6 +941,57 @@ class Coupon_Referral_Program_Admin {
 				),
 			);
 		}
+
+		if ( 'referral_manager_by_user_roles' === $current_section ) {
+			$settings = array(
+				array(
+					'title' => __( 'Referral Management By User Roles', 'coupon-referral-program' ),
+					'type'  => 'title',
+				),
+				array(
+					'title'   => __( 'User Signup Discount', 'coupon-referral-program' ),
+					'type'    => 'multiselect',
+					'id'      => 'wps_crp_signup_users',
+					'class'   => 'wc-enhanced-select',
+					'options' => $this->wps_crp_get_user_roles(),
+				),
+				array(
+					'title'   => __( 'Referral User Signup Discount', 'coupon-referral-program' ),
+					'type'    => 'multiselect',
+					'id'      => 'wps_crp_referral_signup_users',
+					'class'   => 'wc-enhanced-select',
+					'options' => $this->wps_crp_get_user_roles(),
+				),
+				array(
+					'title'   => __( 'Referral User Signup Discount for Referrer', 'coupon-referral-program' ),
+					'type'    => 'multiselect',
+					'id'      => 'wps_crp_referrer_signup_users',
+					'class'   => 'wc-enhanced-select',
+					'options' => $this->wps_crp_get_user_roles(),
+				),
+				array(
+					'title'   => __( 'Referral User Purchase Discount for Referrer', 'coupon-referral-program' ),
+					'type'    => 'multiselect',
+					'id'      => 'wps_crp_referral_purchase_users',
+					'class'   => 'wc-enhanced-select',
+					'options' => $this->wps_crp_get_user_roles(),
+				),
+				array(
+					'type' => 'sectionend',
+				),
+				array(
+					'title' => '',
+					'type'  => 'title',
+					'desc'  => '<br><b>' . __( 'Note:-', 'coupon-referral-program' ) . '</b><br>' .
+					esc_html__( 'Once you set the user roles for specifc discount then only user belongs to that role will be applicable for the discount. Please leave the fields blank for the default', 'coupon-referral-program' ),
+					'id'    => 'wps_crp_referral_users',
+				),
+				array(
+					'type' => 'sectionend',
+				),
+			);
+		}
+
 		/**
 		 * Filter CRP section's settings .
 		 *
@@ -1030,13 +1105,14 @@ class Coupon_Referral_Program_Admin {
 	public function crp_get_sections() {
 
 		$sections = array(
-			''                   => __( 'General', 'coupon-referral-program' ),
-			'referal_config'     => __( 'Referral configuration', 'coupon-referral-program' ),
-			'signup'             => __( 'Sign up discount', 'coupon-referral-program' ),
-			'coupon'             => __( 'Coupon configuration', 'coupon-referral-program' ),
-			'display'            => __( 'Display configuration', 'coupon-referral-program' ),
-			'prevent_fraudulent' => __( 'Prevent Fraudulent', 'coupon-referral-program' ),
-			'reports'            => __( 'Reports', 'coupon-referral-program' ),
+			''                               => __( 'General', 'coupon-referral-program' ),
+			'referal_config'                 => __( 'Referral configuration', 'coupon-referral-program' ),
+			'signup'                         => __( 'Sign up discount', 'coupon-referral-program' ),
+			'coupon'                         => __( 'Coupon configuration', 'coupon-referral-program' ),
+			'display'                        => __( 'Display configuration', 'coupon-referral-program' ),
+			'prevent_fraudulent'             => __( 'Prevent Fraudulent', 'coupon-referral-program' ),
+			'reports'                        => __( 'Reports', 'coupon-referral-program' ),
+			'referral_manager_by_user_roles' => __( 'Referral Management By User Roles', 'coupon-referral-program' ),
 
 		);
 		if ( is_plugin_active( 'woocommerce-points-and-rewards/woocommerce-points-and-rewards.php' ) ) {
@@ -1044,7 +1120,7 @@ class Coupon_Referral_Program_Admin {
 			$sections['points_rewards'] = __( 'Points & Rewards', 'coupon-referral-program' );
 		}
 		if ( is_plugin_active( 'woocommerce-subscriptions/woocommerce-subscriptions.php' ) ) {
- 
+
 			$sections['woocommerce_subscription'] = __( 'Woocommerce subscriptions', 'coupon-referral-program' );
 		}
 		/**
@@ -1444,5 +1520,39 @@ class Coupon_Referral_Program_Admin {
 		}
 		echo esc_html( $res );
 		wp_die();
+	}
+	/**
+	 * Get all cat.
+	 *
+	 * @name wps_crp_get_all_categories
+	 * @since    1.7.0
+	 */
+	public function wps_crp_get_all_categories() {
+		$args       = array(
+			'taxonomy'   => 'product_cat',
+			'hide_empty' => false, // Set to true if you want to exclude categories with no products.
+		);
+		$categories = get_terms( $args );
+
+		$wps_crp_cat_data = array();
+		if ( isset( $categories ) && ! empty( $categories ) && is_array( $categories ) ) {
+			foreach ( $categories as $key => $term_object ) {
+				$wps_crp_cat_data[ $term_object->term_id ] = $term_object->name;
+			}
+		}
+		return $wps_crp_cat_data;
+	}
+
+	/**
+	 * Get all of the users roles
+	 */
+	public function wps_crp_get_user_roles() {
+		$all_roles  = wp_roles()->roles;
+		$user_roles = array();
+		foreach ( $all_roles as $role_name => $role_info ) {
+
+			$user_roles[ $role_name ] = $role_info['name'];
+		}
+		return $user_roles;
 	}
 }

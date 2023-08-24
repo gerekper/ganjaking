@@ -752,18 +752,24 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Carousel' ) ) {
 			}
 
 			if ( '' !== $ult_uc_settings['slide_to_scroll'] ) {
-				$settings .= "slidesToScroll:'" . esc_attr( $ult_uc_settings['slide_to_scroll'] ) . "',";
+				$slidesToScroll = esc_attr( $ult_uc_settings['slide_to_scroll'] );
+				if ( $slidesToScroll > 0 ) {
+					$settings .= 'slidesToScroll:' . $slidesToScroll . ',';
+				}
 			}
 			if ( '' !== $ult_uc_settings['slides_on_desk'] ) {
-				$settings .= "slidesToShow:'" . esc_attr( $ult_uc_settings['slides_on_desk'] ) . "',";
+				$slidesToShow = esc_attr( $ult_uc_settings['slides_on_desk'] );
+				if ( $slidesToShow > 0 ) {
+					$settings .= 'slidesToShow:' . $slidesToShow . ',';
+				}
 			}
 			if ( '' == $ult_uc_settings['slides_on_mob'] ) {
-				$ult_uc_settings['slides_on_mob'] = $ult_uc_settings['slides_on_desk'];
-				$slide_to_tab                     = $ult_uc_settings['slide_to_scroll'];
+				$ult_uc_settings['slides_on_mob'] = esc_attr( "'" . $ult_uc_settings['slides_on_desk'] . "'" );
+				$slide_to_tab                     = esc_attr( "'" . $ult_uc_settings['slide_to_scroll'] . "'" );
 			}
 			if ( '' == $ult_uc_settings['slides_on_tabs'] ) {
-				$ult_uc_settings['slides_on_tabs'] = $ult_uc_settings['slides_on_desk'];
-				$slide_to_mob                      = $ult_uc_settings['slide_to_scroll'];
+				$ult_uc_settings['slides_on_tabs'] = esc_attr( "'" . $ult_uc_settings['slides_on_desk'] . "'" );
+				$slide_to_mob                      = esc_attr( "'" . $ult_uc_settings['slide_to_scroll'] . "'" );
 			}
 			if ( 'off' !== $ult_uc_settings['draggable'] && '' !== $ult_uc_settings['draggable'] ) {
 				$settings .= 'swipe: true,';
@@ -826,22 +832,22 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Carousel' ) ) {
 							{
 							  breakpoint: 1026,
 							  settings: {
-								slidesToShow: \'' . esc_js( $ult_uc_settings['slides_on_desk'] ) . '\',
-								slidesToScroll: \'' . esc_js( $ult_uc_settings['slide_to_scroll'] ) . '\', ' . $infinite . ' ' . $dot_display . '
+								slidesToShow: ' . esc_js( $ult_uc_settings['slides_on_desk'] ) . ',
+								slidesToScroll: ' . esc_js( $ult_uc_settings['slide_to_scroll'] ) . ', ' . $infinite . ' ' . $dot_display . '
 							  }
 							},
 							{
 							  breakpoint: 1025,
 							  settings: {
-								slidesToShow: \'' . esc_js( $ult_uc_settings['slides_on_tabs'] ) . '\',
-								slidesToScroll: \'' . esc_js( $slide_to_tab ) . '\'
+								slidesToShow: ' . esc_js( $ult_uc_settings['slides_on_tabs'] ) . ',
+								slidesToScroll: ' . esc_js( $slide_to_tab ) . '
 							  }
 							},
 							{
 							  breakpoint: 760,
 							  settings: {
-								slidesToShow: \'' . esc_js( $ult_uc_settings['slides_on_mob'] ) . '\',
-								slidesToScroll: \'' . esc_js( $slide_to_mob ) . '\'
+								slidesToShow: ' . esc_js( $ult_uc_settings['slides_on_mob'] ) . ',
+								slidesToScroll: ' . esc_js( $slide_to_mob ) . '
 							  }
 							}
 						],';

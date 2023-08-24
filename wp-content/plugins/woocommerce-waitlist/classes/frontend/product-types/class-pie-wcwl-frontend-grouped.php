@@ -13,42 +13,48 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Grouped' ) ) {
 	 * Loads up the waitlist for grouped products
 	 */
 	class Pie_WCWL_Frontend_Grouped {
+
 		/**
 		 * Current grouped product object
 		 *
 		 * @var false|null|WC_Product
 		 */
 		public static $product;
+
 		/**
 		 * Current user object
 		 *
 		 * @var false|WP_User
 		 */
 		public $user;
+
 		/**
 		 * Does this grouped product contain any waitlist enabled products?
 		 *
 		 * @var bool
 		 */
 		public static $has_waitlist_enabled_products = false;
+
 		/**
 		 * Pie_WCWL_Frontend_Grouped constructor.
 		 */
 		public function __construct() {
 			$this->user = get_user_by( 'id', get_current_user_id() );
 		}
+
 		/**
 		 * Load up hooks if product is out of stock
 		 *
 		 * @param WC_Product $product Grouped product object.
 		 */
-		public function init( $product ) {
+		public function init( WC_Product $product ) {
 			self::$product = $product;
 			if ( $this->has_out_of_stock_children() ) {
 				add_filter( 'woocommerce_get_stock_html', array( __CLASS__, 'append_checkboxes' ) );
 				add_action( 'woocommerce_after_add_to_cart_form', array( __CLASS__, 'output_waitlist_elements' ) );
 			}
 		}
+
 		/**
 		 * Check if grouped product has out of stock child products
 		 *
@@ -57,12 +63,13 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Grouped' ) ) {
 		public function has_out_of_stock_children() {
 			foreach ( self::$product->get_children() as $child ) {
 				$child = wc_get_product( $child );
-				if ( wcwl_waitlist_should_show( $child ) ) {
+				if ( $child && wcwl_waitlist_should_show( $child ) ) {
 					return true;
 				}
 			}
 			return false;
 		}
+
 		/**
 		 * Appends the waitlist button HTML to text string
 		 *
@@ -79,12 +86,15 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Grouped' ) ) {
 		 */
 		public static function append_checkboxes( $string ) {
 			global $product, $sitepress;
+			if ( ! $product || ! is_a( $product, 'WC_Product' ) ) {
+				return $string;
+			}
 			if ( WooCommerce_Waitlist_Plugin::is_variable( $product ) ) {
 				return $string;
 			}
 			$product_id = $product->get_id();
 			$lang       = '';
-			if ( isset( $sitepress ) ) {
+			if ( isset( $sitepress ) && function_exists( 'wpml_get_language_information' ) ) {
 				$lang       = wpml_get_language_information( null, $product_id )['language_code'];
 				$product_id = wcwl_get_translated_main_product_id( $product_id );
 			}
@@ -95,6 +105,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Grouped' ) ) {
 			self::$has_waitlist_enabled_products = true;
 			return $string;
 		}
+		
 		/**
 		 * Output update button for grouped product waitlists
 		 */

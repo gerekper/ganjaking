@@ -357,15 +357,15 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Info_List' ) ) {
 			$output .= $icon_html;
 			$output .= '<div class="icon_description" id="' . esc_attr( $info_list_id ) . '" style="font-size:' . esc_attr( $this->icon_size ) . 'px;">';
 			if ( '' != $ult_info_list_item['list_title'] ) {
-				$output .= '<' . esc_attr( sanitize_key( $ult_info_list_item['heading_tag'] ) ) . ' class="ult-responsive info-list-heading" ' . esc_attr( $info_list_data_list ) . ' style="' . esc_attr( $title_style ) . '">';
+				$output .= '<' . wp_kses_post( $ult_info_list_item['heading_tag'] ) . ' class="ult-responsive info-list-heading" ' . wp_kses_post( $info_list_data_list ) . ' style="' . esc_attr( $title_style ) . '">';
 				if ( $is_link && 'title' == $ult_info_list_item['info_list_link_apply'] ) {
 					$output .= '<a ' . Ultimate_VC_Addons::uavc_link_init( $url, $target, $link_title, $rel ) . '>' . $ult_info_list_item['list_title'] . '</a>';
 				} else {
 					$output .= $ult_info_list_item['list_title'];
 				}
-				$output .= '</' . esc_attr( sanitize_key( $ult_info_list_item['heading_tag'] ) ) . '>';
+				$output .= '</' . wp_kses_post( $ult_info_list_item['heading_tag'] ) . '>';
 			}
-			$output .= '<div class="icon_description_text ult-responsive" ' . esc_attr( $info_list_desc_data_list ) . ' style="' . esc_attr( $desc_style ) . '">' . wpb_js_remove_wpautop( $content, true ) . '</div>';
+			$output .= '<div class="icon_description_text ult-responsive" ' . wp_kses_post( $info_list_desc_data_list ) . ' style="' . esc_attr( $desc_style ) . '">' . wpb_js_remove_wpautop( $content, true ) . '</div>';
 			$output .= '</div>';
 			$output .= '<div class="icon_list_connector" ' . $connector_trans . ' style="' . esc_attr( $this->connect_color_style ) . '"></div>';
 			if ( $is_link && 'container' == $ult_info_list_item['info_list_link_apply'] ) {

@@ -89,7 +89,7 @@ function wcwl_remove_user_from_archive( $email, $product_id ) {
 function wcwl_get_waitlist_fields( $product_id, $context = '', $notice = '', $lang = '' ) {
 	$html = '';
 	global $sitepress;
-	if ( isset( $sitepress ) ) {
+	if ( isset( $sitepress ) && function_exists( 'wpml_get_language_information' ) ) {
 		$lang       = $lang ? $lang : wpml_get_language_information( null, $product_id )['language_code'];
 		$product_id = wcwl_get_translated_main_product_id( $product_id );
 	}
@@ -123,7 +123,7 @@ function wcwl_get_waitlist_for_archive( $product_id, $context = '', $notice = ''
 	$html = '';
 	$lang = '';
 	global $sitepress;
-	if ( isset( $sitepress ) ) {
+	if ( isset( $sitepress ) && function_exists( 'wpml_get_language_information' ) ) {
 		$lang       = wpml_get_language_information( null, $product_id )['language_code'];
 		$product_id = wcwl_get_translated_main_product_id( $product_id );
 	}
@@ -218,7 +218,10 @@ function wcwl_get_waitlist_checkbox( WC_Product $product, $lang ) {
  *
  * @return array
  */
-function wcwl_get_data_for_template( $product, $context, $notice ) {
+function wcwl_get_data_for_template( WC_Product $product, $context, $notice ) {
+	if ( ! $product ) {
+		return array();
+	}
 	$waitlist            = new Pie_WCWL_Waitlist( $product );
 	$user                = get_user_by( 'id', get_current_user_id() );
 	$user_is_on_waitlist = $user ? $waitlist->user_is_registered( $user->user_email ) : false;
@@ -250,7 +253,7 @@ function wcwl_get_data_for_event_template( $event_id, $context = 'update', $noti
 	$data['intro']       = wcwl_get_intro_text( 'event', false );
 	$lang                = '';
 	global $sitepress;
-	if ( isset( $sitepress ) ) {
+	if ( isset( $sitepress ) && function_exists( 'wpml_get_language_information' ) ) {
 		$lang = wpml_get_language_information( null, $event_id )['language_code'];
 	}
 	$data['lang'] = $lang;
@@ -344,7 +347,10 @@ function wcwl_get_intro_text( $product_type = 'simple', $user_is_on_waitlist = f
  *
  * @param WC_Product $product product object.
  */
-function wcwl_waitlist_should_show( $product ) {
+function wcwl_waitlist_should_show( WC_Product $product ) {
+	if ( ! $product ) {
+		return false;
+	}
 	$waitlist_is_required = false;
 	if ( ! wcwl_waitlist_is_enabled_for_product( $product->get_id() ) ) {
 		$waitlist_is_required = false;
@@ -403,8 +409,8 @@ function wcwl_perform_mailout_for_chained_products( $chained_products ) {
 		}
 		$product = wc_get_product( $product_id );
 		if ( $product && $product->is_in_stock() && apply_filters( 'wcwl_waitlist_should_do_mailout', true, $product ) ) {
-			$product->waitlist = new Pie_WCWL_Waitlist( $product );
-			$product->waitlist->waitlist_mailout();
+			$waitlist = new Pie_WCWL_Waitlist( $product );
+			$waitlist->waitlist_mailout();
 		}
 	}
 }
@@ -421,8 +427,8 @@ function wcwl_perform_mailout_for_bundle_products( $bundle_products ) {
 			continue;
 		}
 		if ( $product->is_in_stock() && apply_filters( 'wcwl_waitlist_should_do_mailout', true, $product ) ) {
-			$product->waitlist = new Pie_WCWL_Waitlist( $product );
-			$product->waitlist->waitlist_mailout();
+			$waitlist = new Pie_WCWL_Waitlist( $product );
+			$waitlist->waitlist_mailout();
 		}
 	}
 }

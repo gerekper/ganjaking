@@ -1,5 +1,16 @@
 *** Redsys Gateway Change Log ***
 
+2023.08.18 - version 22.1.0
+
+* NEW: Added compatibility to Redsys redirecttion & InSite with SUMO Subscriptions.
+* NEW: Send an email when the credit card is about to expire.
+* NEW: Remove expired credit cards.
+* NEW: Send an email when the credit card is deleted because it has expired.
+* UPDATE: Refactoring Redsys admin Tabs.
+* UPDATE: Some JavaScript variables have been customized using the name "Redsys" to prevent conflicts with other plugins.
+* UPDATE: Removed code that was no longer necessary and that caused a subscription renewal issue on some servers.
+* FIX: SVG Image QR Codes.
+
 2023.07.16 - version 22.0.0
 
 * NEW: Google Pay in Checkout.

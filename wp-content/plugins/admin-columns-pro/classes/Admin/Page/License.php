@@ -84,7 +84,7 @@ class License implements Asset\Enqueueables, Renderable, RenderableHead
     private function show_render_section_updates(): bool
     {
         // update section is hidden on subsites
-        return ! is_multisite() && is_network_admin();
+        return ! is_multisite() || (is_network_admin() && $this->plugin->is_network_active());
     }
 
     public function render(): string

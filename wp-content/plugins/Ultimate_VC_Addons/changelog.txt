@@ -1,3 +1,14 @@
+3.19.16 - 24 August 2023
+- Improvement: Compatibility with the WordPress version 6.3
+- Improvement: Compatibility with the PHP version 8.2
+- Improvement: Expandable Section - Keyboard accessibility while navigating through the expandable section.
+- Fix: Advanced Carousel - Fixed dot navigation freezing issue during carousel transitions.
+- Fix: Fancy text - The default speed of Fancy text rendering slow on the UI.
+- Fix: Fancy text - The slide-up effect and break sentences not working properly.
+- Fix: Flip Box - Resolved HTML layout rendering issue.
+- Fix: Info List - Issue where the font-size was not correctly reflecting when added.
+- Fix: Sticky Section - Resolved the 'Stick Behaviour' functionality on UI.
+
 3.19.15 - 13 July 2023
 - Improvement: Enhancing security by preventing the exploitation of Shortcode attributes. Props to Patchstack for privately reporting it to our team.
 - Improvement: Advanced Carousel - Added correct accessibility ARIA labels for the slider, with proper accessible names.

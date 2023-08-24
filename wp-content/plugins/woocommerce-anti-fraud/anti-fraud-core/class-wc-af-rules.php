@@ -50,7 +50,7 @@ if ( ! class_exists( 'WC_AF_Rules' ) ) {
 		 * @return array<WC_AF_Rule>
 		 */
 		public function get_rules() {
-			//return apply_filters( 'wc_anti_fraud_rules', $this->rules );  
+			// return apply_filters( 'wc_anti_fraud_rules', $this->rules );
 			return $this->rules;
 		}
 
@@ -69,7 +69,7 @@ if ( ! class_exists( 'WC_AF_Rules' ) ) {
 			$rule = null;
 
 			// Create the JSON object
-			$generic_object = json_decode( $json );       
+			$generic_object = json_decode( $json );
 			// Version 1.0.1 encoded id 'proxy' for 'detect proxy' rule violations when it should
 			// have encoded 'detect_proxy'.  Unfortunately, this caused viewing orders with this
 			// rule violation in wp-admin to be mostly broken.  This was fixed in 1.0.2, but to
@@ -92,7 +92,6 @@ if ( ! class_exists( 'WC_AF_Rules' ) ) {
 				if ( isset( $generic_object->label ) ) {
 					$rule->set_label( $generic_object->label );
 				}
-
 			}
 
 			// Return the Rule object

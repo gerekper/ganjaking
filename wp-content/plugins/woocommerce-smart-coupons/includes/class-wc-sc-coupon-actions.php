@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.5.0
- * @version     1.5.0
+ * @version     1.6.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -721,10 +721,11 @@ if ( ! class_exists( 'WC_SC_Coupon_Actions' ) ) {
 					foreach ( $coupons_data as $coupon_data ) {
 						$coupon_code = ( ! empty( $coupon_data['coupon-code'] ) ) ? $coupon_data['coupon-code'] : '';
 						if ( ! empty( $coupon_code ) ) {
+							$coupon          = new WC_Coupon( $coupon_code );
 							$coupon_actions  = $this->get_coupon_actions( $coupon_code );
 							$coupon_products = ( ! empty( $coupon_actions ) ) ? wp_list_pluck( $coupon_actions, 'product_id' ) : array();
 							if ( ! empty( $coupon_products ) ) {
-								if ( ! WC()->cart->has_discount( $coupon_code ) ) {
+								if ( $this->is_valid( $coupon ) && ! WC()->cart->has_discount( $coupon_code ) ) {
 									WC()->cart->add_discount( trim( $coupon_code ) );
 									$is_hold = false;
 								}

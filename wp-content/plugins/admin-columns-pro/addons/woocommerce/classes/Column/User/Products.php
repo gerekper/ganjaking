@@ -83,8 +83,8 @@ class Products extends AC\Column
         $sql = $wpdb->prepare(
             "
             SELECT CONCAT( wcopl.product_id, '#', wcopl.variation_id ) as pid, SUM( wcopl.product_qty ) as qty
-            FROM wp_wc_orders AS wco
-            LEFT JOIN wp_wc_order_product_lookup AS wcopl ON wcopl.order_id = wco.id
+            FROM {$wpdb->prefix}wc_orders AS wco
+            LEFT JOIN {$wpdb->prefix}wc_order_product_lookup AS wcopl ON wcopl.order_id = wco.id
             WHERE wco.customer_id = %d
                 AND wco.status IN $statuses_sql
             GROUP BY pid

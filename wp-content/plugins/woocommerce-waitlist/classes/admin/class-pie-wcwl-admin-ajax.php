@@ -9,6 +9,22 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Ajax' ) ) {
 	class Pie_WCWL_Admin_Ajax {
 
 		/**
+		 * Text to display when nonce is not verified
+		 * See setup_text_strings()
+		 *
+		 * @var string
+		 */
+		protected $nonce_not_verified_text = '';
+
+		/**
+		 * Text to display when ajax operation is completed
+		 * See setup_text_strings()
+		 *
+		 * @var string
+		 */
+		protected $ajax_completed_text = '';
+
+		/**
 		 * Initialise ajax class
 		 */
 		public function init() {
@@ -79,6 +95,9 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Ajax' ) ) {
 		 */
 		protected function get_waitlist_count( $product ) {
 			$product  = wc_get_product( $product );
+			if ( ! $product ) {
+				return 0;
+			}
 			$waitlist = array();
 			if ( $product->has_child() ) {
 				foreach ( $product->get_children() as $child_id ) {
@@ -113,6 +132,9 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Ajax' ) ) {
 				}
 				self::fix_multiple_entries_for_days( $archives, $product_id );
 				$product  = wc_get_product( $product_id );
+				if ( ! $product ) {
+					continue;
+				}
 				$waitlist = new Pie_WCWL_Waitlist( $product );
 				$waitlist->save_waitlist();
 				$response[] = sprintf( __( 'Meta updated for Product %d', 'woocommerce-waitlist' ), $product->get_id() );
@@ -441,7 +463,10 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Ajax' ) ) {
 			foreach ( $products as $product ) {
 				$product_id = absint( $product );
 				$product    = wc_get_product( $product_id );
-				if ( ! $product ) continue;
+				if ( ! $product ) {
+					continue;
+				}
+
 				if ( WooCommerce_Waitlist_Plugin::is_variation( $product ) || WooCommerce_Waitlist_Plugin::is_simple( $product ) || WooCommerce_Waitlist_Plugin::is_bundle( $product )) {
 					$waitlist = get_post_meta( $product_id, 'woocommerce_waitlist', true );
 					$archives = $this->get_formatted_archives( $product_id );
@@ -513,7 +538,7 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Ajax' ) ) {
 			if ( $this->no_users( $archives ) ) {
 				return $archived_users;
 			}
-			foreach ( $archives as $timestamp => $users ) {
+			foreach ( $archives as $users ) {
 				if ( ! empty( $users ) ) {
 					$archived_users = array_merge( $archived_users, $users );
 				}

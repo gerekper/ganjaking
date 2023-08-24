@@ -327,6 +327,24 @@ class WC_Gateway_Redsys_Global {
 	 *
 	 * @param int $product_id Order ID.
 	 */
+	public function check_sumo_subscription_checkout( $product_id ) {
+
+		if ( defined( 'SUMO_SUBSCRIPTIONS_PLUGIN_FILE' ) ) {
+			$get = (string) get_post_meta( $product_id, 'sumo_susbcription_status', true );
+
+			if ( '1' === $get ) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return false;
+	}
+	/**
+	 * Check if order needs subscription
+	 *
+	 * @param int $product_id Order ID.
+	 */
 	public function check_woo_subscription_checkout( $product_id ) {
 
 		if ( class_exists( 'WC_Subscriptions_Product' ) && WC_Subscriptions_Product::is_subscription( $product_id ) ) {
@@ -1369,7 +1387,7 @@ class WC_Gateway_Redsys_Global {
 	 * Update order meta.
 	 *
 	 * @param int    $post_id Post ID.
-	 * @param array  $meta_key Meta keys array.
+	 * @param array  $meta_key_array Meta keys array.
 	 * @param string $meta_value Meta value.
 	 *
 	 * @return void
@@ -1861,6 +1879,36 @@ class WC_Gateway_Redsys_Global {
 		return false;
 	}
 	/**
+	 * Check if order has SUMO subscriptions
+	 *
+	 * @param int $order_id Order ID.
+	 */
+	public function check_order_has_sumo_subscriptions( $order_id ) {
+		$this->debug( 'Function check_order_has_sumo_subscriptions' );
+		if ( defined( 'SUMO_SUBSCRIPTIONS_PLUGIN_FILE' ) ) {
+			$this->debug( 'SUMO_SUBSCRIPTIONS_PLUGIN_FILE defined' );
+			$order = wc_get_order( $order_id );
+			if ( ! $order ) {
+				$this->debug( 'Not an Order' );
+				return false;
+			}
+			$items = $order->get_items();
+			foreach ( $items as $item ) {
+				$product_id  = $item->get_product_id();
+				$sumo_status = (string) get_post_meta( $product_id, 'sumo_susbcription_status', true );
+				$this->debug( '$sumo_status: ' . $sumo_status );
+				if ( '1' === $sumo_status ) {
+					$this->debug( '$sumo_status: return true' );
+					return true;
+				}
+			}
+			$this->debug( 'foreach: return false' );
+			return false;
+		}
+		$this->debug( 'SUMO_SUBSCRIPTIONS_PLUGIN_FILE not defined' );
+		return false;
+	}
+	/**
 	 * Check if order has pre order
 	 *
 	 * @param int $order_id Order ID.
@@ -2086,19 +2134,30 @@ class WC_Gateway_Redsys_Global {
 	 * @param int $order_id Order ID.
 	 */
 	public function order_contains_subscription( $order_id ) {
+		$this->debug( 'Function order_contains_subscription()' );
 		if ( $this->check_order_has_yith_subscriptions( $order_id ) ) {
+			$this->debug( 'check_order_has_yith_subscriptions: TRUE' );
+			return true;
+		} elseif ( $this->check_order_has_sumo_subscriptions( $order_id ) ) {
+			$this->debug( 'check_order_has_sumo_subscriptions: TRUE' );
 			return true;
 		} elseif ( $this->check_order_has_pre_order( $order_id ) ) {
+			$this->debug( 'check_order_has_pre_order: TRUE' );
 			return true;
 		} elseif ( $this->get_redsys_token_r( $order_id ) ) {
+			$this->debug( 'get_redsys_token_r: TRUE' );
 			return true;
 		} elseif ( ! function_exists( 'wcs_order_contains_subscription' ) ) {
+			$this->debug( '! function_exists( "wcs_order_contains_subscription" ): FALSE' );
 			return false;
 		} elseif ( wcs_order_contains_subscription( $order_id ) ) {
+			$this->debug( 'wcs_order_contains_subscription: TRUE' );
 			return true;
 		} elseif ( wcs_order_contains_resubscribe( $order_id ) ) {
+			$this->debug( 'wcs_order_contains_resubscribe: TRUE' );
 			return true;
 		} elseif ( wcs_order_contains_renewal( $order_id ) ) {
+			$this->debug( 'wcs_order_contains_renewal: TRUE' );
 			return true;
 		} else {
 			return false;
@@ -2195,6 +2254,9 @@ class WC_Gateway_Redsys_Global {
 			return 'R';
 		} elseif ( $this->check_woo_subscription_checkout( $product_id ) ) {
 			$this->debug( 'check_woo_subscription_checkout: TRUE' );
+			return 'R';
+		} elseif ( $this->check_sumo_subscription_checkout( $product_id ) ) {
+			$this->debug( 'check_sumo_subscription_checkout: TRUE' );
 			return 'R';
 		} elseif ( class_exists( 'WCS_ATT' ) ) {
 			$this->debug( 'class_exists( "WCS_ATT" ): TRUE' );

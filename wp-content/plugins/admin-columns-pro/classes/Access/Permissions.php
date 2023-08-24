@@ -37,22 +37,17 @@ final class Permissions
 
     public function has_permission(string $permission): bool
     {
-        return true;
-
         return in_array($permission, $this->permissions, true);
     }
 
     public function has_usage_permission(): bool
     {
-        return true;
-
+		return true;
         return $this->has_permission(self::USAGE);
     }
 
     public function has_updates_permission(): bool
     {
-        return true;
-
         return $this->has_permission(self::UPDATE);
     }
 

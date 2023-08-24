@@ -59,7 +59,6 @@ if ( ! class_exists( 'WC_AF_Rule' ) ) {
 		 * @param $id
 		 *
 		 * @since  1.0.0
-		 *
 		 */
 		public function set_id( $id ) {
 			$this->id = $id;
@@ -82,7 +81,6 @@ if ( ! class_exists( 'WC_AF_Rule' ) ) {
 		 * @param $label
 		 *
 		 * @since  1.0.0
-		 *
 		 */
 		public function set_label( $label ) {
 			$this->label = $label;
@@ -105,7 +103,6 @@ if ( ! class_exists( 'WC_AF_Rule' ) ) {
 		 * @param $risk_points
 		 *
 		 * @since  1.0.0
-		 *
 		 */
 		public function set_risk_points( $risk_points ) {
 			$this->risk_points = $risk_points;
@@ -115,10 +112,14 @@ if ( ! class_exists( 'WC_AF_Rule' ) ) {
 		 * Create JSON object containing rule data
 		 *
 		 * @since  1.0.0
-		 *
 		 */
 		public function to_json() {
-			return json_encode( array( 'id' => $this->get_id(), 'label' => $this->get_label() ) );
+			return json_encode(
+				array(
+					'id' => $this->get_id(),
+					'label' => $this->get_label(),
+				)
+			);
 		}
 
 	}

@@ -13,6 +13,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Shop' ) ) {
 	 * Loads up the waitlist for shop page
 	 */
 	class Pie_WCWL_Frontend_Shop {
+		
 		/**
 		 * Load up hooks if product is out of stock
 		 *

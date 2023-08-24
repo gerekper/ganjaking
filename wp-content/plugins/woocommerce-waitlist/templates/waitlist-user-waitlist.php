@@ -12,7 +12,7 @@
  * the readme will list any important changes.
  *
  * @see https://docs.woocommerce.com/document/template-structure/
- * @version 2.1.10
+ * @version 2.1.11
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -30,6 +30,9 @@ $user = get_user_by( 'id', get_current_user_id() );
 		<div class="waitlist-products">
 			<?php
 			foreach ( $products as $product ) {
+				if ( ! $product ) {
+					continue;
+				}
 				if ( $product->is_type( 'variable' ) ) {
 					continue;
 				}

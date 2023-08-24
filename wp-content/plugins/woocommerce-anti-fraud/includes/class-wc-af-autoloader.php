@@ -23,7 +23,7 @@ class WC_AF_Autoloader {
 	 *
 	 * @param $class_name
 	 */
-	public function load( $class_name ) {                
+	public function load( $class_name ) {
 		// Only autoload WooCommerce Sales Report Email classes
 		if ( 0 === strpos( $class_name, 'WC_AF' ) ) {
 
@@ -43,7 +43,6 @@ class WC_AF_Autoloader {
 			if ( file_exists( $file_path ) ) {
 				require_once( $file_path );
 			}
-
 		}
 
 	}

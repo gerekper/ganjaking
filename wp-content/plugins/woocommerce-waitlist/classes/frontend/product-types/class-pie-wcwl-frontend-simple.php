@@ -15,12 +15,14 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Simple' ) ) {
 	 * @package  WooCommerce Waitlist
 	 */
 	class Pie_WCWL_Frontend_Simple {
+
 		/**
 		 * Current product ID
 		 *
 		 * @var int
 		 */
 		public static $product_id;
+		
 		/**
 		 * Load up hooks if product is out of stock
 		 *

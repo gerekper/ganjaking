@@ -43,6 +43,9 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Event' ) ) {
 		 */
 		protected function load_data_for_outputting_html_with_js() {
 			global $post;
+			if ( ! isset( $post->ID ) ) {
+				return '';
+			}
 			$html    = array( 'tickets' => array() );
 			$tickets = Tribe__Tickets__Tickets::get_all_event_tickets( $post->ID );
 			if ( $tickets ) {
@@ -70,14 +73,12 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Event' ) ) {
 		 */
 		protected function get_checkbox_html( $product_id ) {
 			global $sitepress;
-			$lang = '';
-			if ( isset( $sitepress ) ) {
-				$lang      = wpml_get_language_information( null, $product_id )['language_code'];
-				$ticket_id = wcwl_get_translated_main_product_id( $product_id );
-			}
 			$product = wc_get_product( $product_id );
-			$html    = '';
-
+			$lang    = '';
+			if ( isset( $sitepress ) && function_exists( 'wpml_get_language_information' ) ) {
+				$lang = wpml_get_language_information( null, $product_id )['language_code'];
+			}
+			
 			return apply_filters( 'wcwl_ticket_checkbox_html', wcwl_get_waitlist_checkbox( $product, $lang ) );
 		}
 	}

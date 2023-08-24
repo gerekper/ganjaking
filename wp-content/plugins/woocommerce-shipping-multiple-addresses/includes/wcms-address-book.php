@@ -147,6 +147,11 @@ class WC_MS_Address_Book {
 
 				// trim the quantity by 1 and remove the corresponding address.
 				$cart_items = wcms_get_real_cart_items();
+
+				if ( empty( $cart_items[ $cart_key ] ) ) {
+					return;
+				}
+
 				$item_qty   = $cart_items[ $cart_key ]['quantity'] - 1;
 				$cart->set_quantity( $cart_key, $item_qty );
 
@@ -163,10 +168,14 @@ class WC_MS_Address_Book {
 			foreach ( $items as $cart_key => $item ) {
 				$qtys           = $item['qty'];
 				$item_addresses = $item['address'];
+				$cart_items     = wcms_get_real_cart_items();
+
+				if ( empty( $cart_items[ $cart_key ] ) ) {
+					continue;
+				}
 
 				foreach ( $item_addresses as $idx => $item_address ) {
-					$cart_items = wcms_get_real_cart_items();
-					$new_qty    = false;
+					$new_qty = false;
 
 					if ( $qtys[ $idx ] == 0 ) {
 						// decrement the cart item quantity by one.
@@ -186,6 +195,10 @@ class WC_MS_Address_Book {
 			foreach ( $items as $cart_key => $item ) {
 				$qtys           = $item['qty'];
 				$item_addresses = $item['address'];
+
+				if ( empty( $cart_items[ $cart_key ] ) ) {
+					continue;
+				}
 
 				$product_id = $cart_items[ $cart_key ]['product_id'];
 				$sig        = $cart_key . '_' . $product_id . '_';

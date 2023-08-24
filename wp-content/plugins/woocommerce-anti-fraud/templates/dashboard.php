@@ -8,7 +8,7 @@
  */
 
  // Code for HPOS. Build Generic code fix and test it.
- add_action(
+add_action(
 	'before_woocommerce_init',
 	function() {
 		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
@@ -21,25 +21,25 @@ $afp_args = array(
 	'limit' => -1,
 	'return' => 'ids',
 );
-	$afp_query = new WC_Order_Query($afp_args);
+	$afp_query = new WC_Order_Query( $afp_args );
 	$afp_orders = $afp_query->get_orders();
 	$number_of_orders = 0;
 	$total_transaction_amt = 0;
 	$number_of_low_risk_orders = 0;
 	$number_of_medium_risk_orders = 0;
 	$number_of_high_risk_orders = 0;
-foreach ($afp_orders as $order_id) {
-	$number_of_orders++;
-	$wc_af_score = intval(opmc_hpos_get_post_meta($order_id, 'wc_af_score', true));
-	$total_transaction_amt += round(opmc_hpos_get_post_meta($order_id, '_order_total', true), 2);
-	$meta = WC_AF_Score_Helper::get_score_meta($wc_af_score);
-	if ('Low Risk' == $meta['label']) {
+foreach ( $afp_orders as $order_id ) {
+	 $number_of_orders++;
+	 $wc_af_score = intval( opmc_hpos_get_post_meta( $order_id, 'wc_af_score', true ) );
+	 $total_transaction_amt += round( wc_get_order( $order_id )->total, 2 );
+	 $meta = WC_AF_Score_Helper::get_score_meta( $wc_af_score, $order_id );
+	if ( 'Low Risk' == $meta['label'] ) {
 		$number_of_low_risk_orders++;
 	}
-	if ('Medium Risk' == $meta['label']) {
+	if ( 'Medium Risk' == $meta['label'] ) {
 		$number_of_medium_risk_orders++;
 	}
-	if ('High Risk' == $meta['label']) {
+	if ( 'High Risk' == $meta['label'] ) {
 		$number_of_high_risk_orders++;
 	}
 }
@@ -47,20 +47,24 @@ foreach ($afp_orders as $order_id) {
 
 	global $wpdb;
 	$currency = get_woocommerce_currency();
-	$currency = get_woocommerce_currency_symbol($currency);
-	$date_from = gmdate('Y-m-d');
-	$date_to = gmdate('Y-m-d', strtotime('-1 days'));
+	$currency = get_woocommerce_currency_symbol( $currency );
+	$date_from = gmdate( 'Y-m-d' );
+	$date_to = gmdate( 'Y-m-d', strtotime( '-1 days' ) );
 
 	$result = $wpdb->get_results(
-		$wpdb->prepare( "SELECT * FROM $wpdb->posts 
+		$wpdb->prepare(
+			"SELECT * FROM $wpdb->posts 
                 WHERE post_type = 'shop_order'
                 AND post_status != 'auto-draft'
                 AND post_date BETWEEN '%d 00:00:00' AND '%d 23:59:59'
-    ", $date_to, $date_from )
+    ",
+			$date_to,
+			$date_from
+		)
 	);
 
-	$wc_settings_anti_fraudblacklist_emails = get_option('wc_settings_anti_fraudblacklist_emails');
-	$wc_settings_anti_fraudblacklist_emails = explode(',', $wc_settings_anti_fraudblacklist_emails);
+	$wc_settings_anti_fraudblacklist_emails = get_option( 'wc_settings_anti_fraudblacklist_emails' );
+	$wc_settings_anti_fraudblacklist_emails = explode( ',', $wc_settings_anti_fraudblacklist_emails );
 	$total_orders = 0;
 	$total_transaction_amt24 = 0;
 	$high_risk_transaction_amt24 = 0;
@@ -71,103 +75,107 @@ foreach ($afp_orders as $order_id) {
 	$number_of_high_risk_orders_cancelled24 = 0;
 	$number_of_paypal_verification_orders = 0;
 	$block_emails = array();
-	foreach ($result as $found_order) {
+	foreach ( $result as $found_order ) {
 		$total_orders++;
-		$email = opmc_hpos_get_post_meta($found_order->ID, '_billing_email', true);
-		$total_transaction_amt24 += opmc_hpos_get_post_meta($found_order->ID, '_order_total', true);
-		$order_currency = opmc_hpos_get_post_meta($found_order->ID, '_order_currency', true);
-		$wc_af_score = intval(opmc_hpos_get_post_meta($found_order->ID, 'wc_af_score', true));
-		$paypal_status = opmc_hpos_get_post_meta($found_order->ID, '_paypal_status', true);
-		$meta = WC_AF_Score_Helper::get_score_meta($wc_af_score);
-		if ('Low Risk' == $meta['label']) {
+		$email = opmc_hpos_get_post_meta( $found_order->ID, '_billing_email', true );
+		$total_transaction_amt24 += opmc_hpos_get_post_meta( $found_order->ID, '_order_total', true );
+		$order_currency = opmc_hpos_get_post_meta( $found_order->ID, '_order_currency', true );
+		$wc_af_score = intval( opmc_hpos_get_post_meta( $found_order->ID, 'wc_af_score', true ) );
+		$paypal_status = opmc_hpos_get_post_meta( $found_order->ID, '_paypal_status', true );
+		$meta = WC_AF_Score_Helper::get_score_meta( $wc_af_score, $found_order->ID );
+		if ( 'Low Risk' == $meta['label'] ) {
 			$number_of_low_risk_orders24++;
 		}
-		if ('Medium Risk' == $meta['label']) {
+		if ( 'Medium Risk' == $meta['label'] ) {
 			$number_of_medium_risk_orders24++;
 		}
-		if ('High Risk' == $meta['label'] && 'wc-on-hold' == $found_order->post_status) {
+		if ( 'High Risk' == $meta['label'] && 'wc-on-hold' == $found_order->post_status ) {
 			$number_of_high_risk_orders_hold24++;
 		}
-		if ('High Risk' == $meta['label'] && 'wc-cancelled' == $found_order->post_status) {
+		if ( 'High Risk' == $meta['label'] && 'wc-cancelled' == $found_order->post_status ) {
 			$number_of_high_risk_orders_cancelled24++;
 		}
-		if ('High Risk' == $meta['label']) {
-			$high_risk_transaction_amt24 += opmc_hpos_get_post_meta($found_order->ID, '_order_total', true);
+		if ( 'High Risk' == $meta['label'] ) {
+			$high_risk_transaction_amt24 += opmc_hpos_get_post_meta( $found_order->ID, '_order_total', true );
 			$number_of_high_risk_orders24++;
 		}
-		if (in_array($email, $wc_settings_anti_fraudblacklist_emails)) {
+		if ( in_array( $email, $wc_settings_anti_fraudblacklist_emails ) ) {
 			$block_emails[] = $email;
 		}
-		if (0 == $wc_af_score && 'wc-cancelled' == $found_order->post_status) {
-			$high_risk_transaction_amt24 += opmc_hpos_get_post_meta($found_order->ID, '_order_total', true);
+		if ( 0 == $wc_af_score && 'wc-cancelled' == $found_order->post_status ) {
+			$high_risk_transaction_amt24 += opmc_hpos_get_post_meta( $found_order->ID, '_order_total', true );
 			$number_of_high_risk_orders_cancelled24++;
 		}
-		if ('pending' == $paypal_status) {
+		if ( 'pending' == $paypal_status ) {
 			$number_of_paypal_verification_orders++;
 		}
 	}
-	$block_emails = array_count_values($block_emails);
+	$block_emails = array_count_values( $block_emails );
 
 
-	$date_from = gmdate('Y-m-d');
-	$date_to = gmdate('Y-m-d', strtotime('-6 days'));
+	$date_from = gmdate( 'Y-m-d' );
+	$date_to = gmdate( 'Y-m-d', strtotime( '-6 days' ) );
 	$last7_days = array();
-	for ($i = 6; $i > 0; $i--) {
-		$last7_days[] = gmdate('d F', strtotime('-' . $i . ' days'));
+	for ( $i = 6; $i > 0; $i-- ) {
+		$last7_days[] = gmdate( 'd F', strtotime( '-' . $i . ' days' ) );
 	}
-	$last7_days[] = gmdate('d F');
+	$last7_days[] = gmdate( 'd F' );
 	$result = $wpdb->get_results(
-		$wpdb->prepare( "SELECT * FROM $wpdb->posts 
+		$wpdb->prepare(
+			"SELECT * FROM $wpdb->posts 
                 WHERE post_type = 'shop_order'
                 AND post_status != 'auto-draft'
                 AND post_date BETWEEN '%d 00:00:00' AND '%d 23:59:59'
-    ", $date_to, $date_from )
+    ",
+			$date_to,
+			$date_from
+		)
 	);
 
 	$low_score_arr = array();
 	$medium_score_arr = array();
 	$high_score_arr = array();
-	foreach ($result as $found_order) {
-		$order_date = gmdate('d F', strtotime($found_order->post_date));
+	foreach ( $result as $found_order ) {
+		$order_date = gmdate( 'd F', strtotime( $found_order->post_date ) );
 
-		foreach ($last7_days as $day) {
-			if ($day == $order_date) {
-				$wc_af_score = intval(opmc_hpos_get_post_meta($found_order->ID, 'wc_af_score', true));
-				$meta = WC_AF_Score_Helper::get_score_meta($wc_af_score);
-				if ('Low Risk' == $meta['label']) {
+		foreach ( $last7_days as $day ) {
+			if ( $day == $order_date ) {
+				$wc_af_score = intval( opmc_hpos_get_post_meta( $found_order->ID, 'wc_af_score', true ) );
+				$meta = WC_AF_Score_Helper::get_score_meta( $wc_af_score , $found_order->ID);
+				if ( 'Low Risk' == $meta['label'] ) {
 					$low_score_arr[] = $order_date;
 				}
-				if ('Medium Risk' == $meta['label']) {
+				if ( 'Medium Risk' == $meta['label'] ) {
 					$medium_score_arr[] = $order_date;
 				}
-				if ('High Risk' == $meta['label']) {
+				if ( 'High Risk' == $meta['label'] ) {
 					$high_score_arr[] = $order_date;
 				}
-				if (0 == $wc_af_score) {
+				if ( 0 == $wc_af_score ) {
 					$high_score_arr[] = $order_date;
 				}
 			}
 		}
 	}
 
-	$low_score_arr_val = array_count_values($low_score_arr);
-	$medium_score_arr = array_count_values($medium_score_arr);
-	$high_score_arr = array_count_values($high_score_arr);
+	$low_score_arr_val = array_count_values( $low_score_arr );
+	$medium_score_arr = array_count_values( $medium_score_arr );
+	$high_score_arr = array_count_values( $high_score_arr );
 	$medium_week_arr = array();
 	$high_week_arr = array();
 	$low_week_arr = array();
-	foreach ($last7_days as $day) {
-		if (array_key_exists($day, $low_score_arr_val)) {
+	foreach ( $last7_days as $day ) {
+		if ( array_key_exists( $day, $low_score_arr_val ) ) {
 			$low_week_arr[] = $low_score_arr_val[ $day ];
 		} else {
 			$low_week_arr[] = 0;
 		}
-		if (array_key_exists($day, $medium_score_arr)) {
+		if ( array_key_exists( $day, $medium_score_arr ) ) {
 			$medium_week_arr[] = $medium_score_arr[ $day ];
 		} else {
 			$medium_week_arr[] = 0;
 		}
-		if (array_key_exists($day, $high_score_arr)) {
+		if ( array_key_exists( $day, $high_score_arr ) ) {
 			$high_week_arr[] = $high_score_arr[ $day ];
 		} else {
 			$high_week_arr[] = 0;
@@ -177,7 +185,7 @@ foreach ($afp_orders as $order_id) {
 
 <div class="dash-row">
 
-<h1 style="text-align:center;font-size:50px;color:white;line-height: 1.2em;"><?php echo  esc_html__('Anti Fraud Dashboard', 'woocommerce-anti-fraud'); ?></h1> 
+<h1 style="text-align:center;font-size:50px;color:white;line-height: 1.2em;"><?php echo esc_html__( 'Anti Fraud Dashboard', 'woocommerce-anti-fraud' ); ?></h1> 
 
 </div>
 
@@ -185,27 +193,27 @@ foreach ($afp_orders as $order_id) {
 
 	<div class="metric-box metric-style1">
 
-	<img src="<?php echo esc_url(plugin_dir_url(__FILE__)) . 'icons/cart.svg'; ?>">   
+	<img src="<?php echo esc_url( plugin_dir_url( __FILE__ ) ) . 'icons/cart.svg'; ?>">   
 
-		<h2><?php echo esc_attr($number_of_orders, 'woocommerce-anti-fraud'); ?></h2><?php echo  esc_html__('Orders Detected', 'woocommerce-anti-fraud'); ?></div> 
+		<h2><?php echo esc_attr( $number_of_orders, 'woocommerce-anti-fraud' ); ?></h2><?php echo esc_html__( 'Orders Detected', 'woocommerce-anti-fraud' ); ?></div> 
 
 	<div class="metric-box metric-style2">
 
-		<img src="<?php echo esc_url(plugin_dir_url(__FILE__)) . 'icons/low-risk.svg'; ?>">
+		<img src="<?php echo esc_url( plugin_dir_url( __FILE__ ) ) . 'icons/low-risk.svg'; ?>">
 
-		<h2><?php echo esc_attr($number_of_low_risk_orders, 'woocommerce-anti-fraud'); ?></h2><?php echo esc_html__('Low Risk', 'woocommerce-anti-fraud'); ?></div>
+		<h2><?php echo esc_attr( $number_of_low_risk_orders, 'woocommerce-anti-fraud' ); ?></h2><?php echo esc_html__( 'Low Risk', 'woocommerce-anti-fraud' ); ?></div>
 
 	<div class="metric-box metric-style3">
 
-		<img src="<?php echo esc_url(plugin_dir_url(__FILE__)) . 'icons/med-risk.svg'; ?>">
+		<img src="<?php echo esc_url( plugin_dir_url( __FILE__ ) ) . 'icons/med-risk.svg'; ?>">
 
-		<h2><?php echo esc_attr($number_of_medium_risk_orders, 'woocommerce-anti-fraud'); ?></h2><?php echo esc_html__('Medium Risk', 'woocommerce-anti-fraud'); ?></div>
+		<h2><?php echo esc_attr( $number_of_medium_risk_orders, 'woocommerce-anti-fraud' ); ?></h2><?php echo esc_html__( 'Medium Risk', 'woocommerce-anti-fraud' ); ?></div>
 
 	<div class="metric-box metric-style4">
 
-		<img src="<?php echo esc_url(plugin_dir_url(__FILE__)) . 'icons/high-risk.svg'; ?>">
+		<img src="<?php echo esc_url( plugin_dir_url( __FILE__ ) ) . 'icons/high-risk.svg'; ?>">
 
-		<h2><?php echo esc_attr($number_of_high_risk_orders, 'woocommerce-anti-fraud'); ?></h2><?php echo esc_html__('Needs Attention', 'woocommerce-anti-fraud'); ?></div>
+		<h2><?php echo esc_attr( $number_of_high_risk_orders, 'woocommerce-anti-fraud' ); ?></h2><?php echo esc_html__( 'Needs Attention', 'woocommerce-anti-fraud' ); ?></div>
 
 </div>
 
@@ -218,7 +226,7 @@ foreach ($afp_orders as $order_id) {
 	<div class="dash-section-50 bar-chart">
 
 
-		<h2 style="color:white"><?php echo esc_html__('Recent Order Data', 'woocommerce-anti-fraud'); ?></h2>
+		<h2 style="color:white"><?php echo esc_html__( 'Recent Order Data', 'woocommerce-anti-fraud' ); ?></h2>
 
 		<div class="chart-wrapper">
 
@@ -232,27 +240,15 @@ foreach ($afp_orders as $order_id) {
 
 	<div class="dash-section-50 dash-stats">
 
-		<h2 style="color:white;"><?php echo esc_html__('Last 24 Hours Update', 'woocommerce-anti-fraud'); ?></h2>
+		<h2 style="color:white;"><?php echo esc_html__( 'Last 24 Hours Update', 'woocommerce-anti-fraud' ); ?></h2>
 
 <div class="blurb">
 
 	<div class="blurb-inner">
 
-<img src="<?php echo esc_url( plugin_dir_url(__FILE__) . 'icons/totaol.svg'); ?>"><h3><?php echo esc_html__('Total Transaction Amount', 'woocommerce-anti-fraud'); ?></h3>
+<img src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . 'icons/totaol.svg' ); ?>"><h3><?php echo esc_html__( 'Total Transaction Amount', 'woocommerce-anti-fraud' ); ?></h3>
 
-	<div class="blurb-content"><span><?php echo esc_attr($currency . $total_transaction_amt24, 'woocommerce-anti-fraud'); ?></span></div>
-
-</div>
-
-</div>
-
-<div class="blurb">
-
-	<div class="blurb-inner">
-
-<img src="<?php echo esc_url(plugin_dir_url(__FILE__) . 'icons/hash.svg'); ?>"><h3><?php echo esc_html__('Total Number of Orders', 'woocommerce-anti-fraud'); ?></h3>
-
-	<div class="blurb-content"><?php echo esc_attr($total_orders, 'woocommerce-anti-fraud'); ?></div>
+	<div class="blurb-content"><span><?php echo esc_attr( $currency . $total_transaction_amt24, 'woocommerce-anti-fraud' ); ?></span></div>
 
 </div>
 
@@ -262,21 +258,9 @@ foreach ($afp_orders as $order_id) {
 
 	<div class="blurb-inner">
 
-<img src="<?php echo esc_url(plugin_dir_url(__FILE__) . 'icons/med-risk.svg'); ?>"><h3><?php echo esc_html__('Medium Risk Orders', 'woocommerce-anti-fraud'); ?></h3>
+<img src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . 'icons/hash.svg' ); ?>"><h3><?php echo esc_html__( 'Total Number of Orders', 'woocommerce-anti-fraud' ); ?></h3>
 
-	<div class="blurb-content"><?php echo esc_attr($number_of_medium_risk_orders24, 'woocommerce-anti-fraud'); ?></div>
-
-</div>
-
-</div>
-
-<div class="blurb">
-
-	<div class="blurb-inner">
-
-<img src="<?php echo esc_url(plugin_dir_url(__FILE__) . 'icons/high-risk.svg'); ?>"><h3><?php echo esc_html__('High-Risk Orders on Hold', 'woocommerce-anti-fraud'); ?></h3>
-
-	<div class="blurb-content"><?php echo esc_attr($number_of_high_risk_orders_hold24, 'woocommerce-anti-fraud'); ?></div>
+	<div class="blurb-content"><?php echo esc_attr( $total_orders, 'woocommerce-anti-fraud' ); ?></div>
 
 </div>
 
@@ -286,21 +270,9 @@ foreach ($afp_orders as $order_id) {
 
 	<div class="blurb-inner">
 
-<img src="<?php echo esc_url(plugin_dir_url(__FILE__) . 'icons/orders-cancelled.svg'); ?>"><h3><?php echo esc_html__('Fraudulent Orders Cancelled', 'woocommerce-anti-fraud'); ?></h3>
+<img src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . 'icons/med-risk.svg' ); ?>"><h3><?php echo esc_html__( 'Medium Risk Orders', 'woocommerce-anti-fraud' ); ?></h3>
 
-	<div class="blurb-content"><?php echo esc_attr($number_of_high_risk_orders_cancelled24, 'woocommerce-anti-fraud'); ?></div>
-
-</div>
-
-</div>
-
-<div class="blurb">
-
-	<div class="blurb-inner">
-
-<img src="<?php echo esc_url(plugin_dir_url(__FILE__) . 'icons/money-risk.svg'); ?>"><h3><?php echo esc_html__('High-Risk Net Transaction', 'woocommerce-anti-fraud'); ?></h3>
-
-	<div class="blurb-content"><?php echo esc_attr($currency . $high_risk_transaction_amt24, 'woocommerce-anti-fraud'); ?></div>
+	<div class="blurb-content"><?php echo esc_attr( $number_of_medium_risk_orders24, 'woocommerce-anti-fraud' ); ?></div>
 
 </div>
 
@@ -310,9 +282,9 @@ foreach ($afp_orders as $order_id) {
 
 	<div class="blurb-inner">
 
-<img src="<?php echo esc_url(plugin_dir_url(__FILE__) . 'icons/emails-blocked.svg'); ?>"><h3><?php echo esc_html__('Emails Blocked', 'woocommerce-anti-fraud'); ?></h3>
+<img src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . 'icons/high-risk.svg' ); ?>"><h3><?php echo esc_html__( 'High-Risk Orders on Hold', 'woocommerce-anti-fraud' ); ?></h3>
 
-	<div class="blurb-content"><?php echo esc_attr(count($block_emails), 'woocommerce-anti-fraud'); ?></div>
+	<div class="blurb-content"><?php echo esc_attr( $number_of_high_risk_orders_hold24, 'woocommerce-anti-fraud' ); ?></div>
 
 </div>
 
@@ -322,9 +294,45 @@ foreach ($afp_orders as $order_id) {
 
 	<div class="blurb-inner">
 
-<img src="<?php echo esc_url(plugin_dir_url(__FILE__) . 'icons/paypal.svg'); ?>"><h3><?php echo esc_html__('Paypal Verification', 'woocommerce-anti-fraud'); ?></h3>
+<img src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . 'icons/orders-cancelled.svg' ); ?>"><h3><?php echo esc_html__( 'Fraudulent Orders Cancelled', 'woocommerce-anti-fraud' ); ?></h3>
 
-	<div class="blurb-content"><?php echo esc_attr($number_of_paypal_verification_orders, 'woocommerce-anti-fraud'); ?></div>
+	<div class="blurb-content"><?php echo esc_attr( $number_of_high_risk_orders_cancelled24, 'woocommerce-anti-fraud' ); ?></div>
+
+</div>
+
+</div>
+
+<div class="blurb">
+
+	<div class="blurb-inner">
+
+<img src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . 'icons/money-risk.svg' ); ?>"><h3><?php echo esc_html__( 'High-Risk Net Transaction', 'woocommerce-anti-fraud' ); ?></h3>
+
+	<div class="blurb-content"><?php echo esc_attr( $currency . $high_risk_transaction_amt24, 'woocommerce-anti-fraud' ); ?></div>
+
+</div>
+
+</div>
+
+<div class="blurb">
+
+	<div class="blurb-inner">
+
+<img src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . 'icons/emails-blocked.svg' ); ?>"><h3><?php echo esc_html__( 'Emails Blocked', 'woocommerce-anti-fraud' ); ?></h3>
+
+	<div class="blurb-content"><?php echo esc_attr( count( $block_emails ), 'woocommerce-anti-fraud' ); ?></div>
+
+</div>
+
+</div>
+
+<div class="blurb">
+
+	<div class="blurb-inner">
+
+<img src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . 'icons/paypal.svg' ); ?>"><h3><?php echo esc_html__( 'Paypal Verification', 'woocommerce-anti-fraud' ); ?></h3>
+
+	<div class="blurb-content"><?php echo esc_attr( $number_of_paypal_verification_orders, 'woocommerce-anti-fraud' ); ?></div>
 
 </div>
 
@@ -350,11 +358,11 @@ foreach ($afp_orders as $order_id) {
 
 	<th></th>
 
-	<th><?php echo esc_html__('Name', 'woocommerce-anti-fraud'); ?></th>
+	<th><?php echo esc_html__( 'Name', 'woocommerce-anti-fraud' ); ?></th>
 
-	<th><?php echo esc_attr($currency, 'woocommerce-anti-fraud'); ?><?php echo esc_html__('Spent', 'woocommerce-anti-fraud'); ?></th>
+	<th><?php echo esc_attr( $currency, 'woocommerce-anti-fraud' ); ?><?php echo esc_html__( 'Spent', 'woocommerce-anti-fraud' ); ?></th>
 
-	<th><?php echo esc_html__('Status', 'woocommerce-anti-fraud'); ?></th>
+	<th><?php echo esc_html__( 'Status', 'woocommerce-anti-fraud' ); ?></th>
 
   </tr>
 
@@ -370,31 +378,31 @@ $result = $wpdb->get_results(
                 ORDER BY ID DESC LIMIT 10
     "
 );
-if (! empty($result)) {
-	foreach ($result as $recent_order) {
-		$billing_first_name = opmc_hpos_get_post_meta($recent_order->ID, '_billing_first_name', true);
-		$billing_last_name  = opmc_hpos_get_post_meta($recent_order->ID, '_billing_last_name', true);
-		$order_total        = opmc_hpos_get_post_meta($recent_order->ID, '_order_total', true);
-		$order_currency     = opmc_hpos_get_post_meta($recent_order->ID, '_order_currency', true);
+if ( ! empty( $result ) ) {
+	foreach ( $result as $recent_order ) {
+		$billing_first_name = opmc_hpos_get_post_meta( $recent_order->ID, '_billing_first_name', true );
+		$billing_last_name  = opmc_hpos_get_post_meta( $recent_order->ID, '_billing_last_name', true );
+		$order_total        = opmc_hpos_get_post_meta( $recent_order->ID, '_order_total', true );
+		$order_currency     = opmc_hpos_get_post_meta( $recent_order->ID, '_order_currency', true );
 		$order_status       = $recent_order->post_status;
 
-		$wc_af_score = intval(opmc_hpos_get_post_meta($recent_order->ID, 'wc_af_score', true));
-		$meta = WC_AF_Score_Helper::get_score_meta($wc_af_score);
+		$wc_af_score = intval( opmc_hpos_get_post_meta( $recent_order->ID, 'wc_af_score', true ) );
+		$meta = WC_AF_Score_Helper::get_score_meta( $wc_af_score, $recent_order->ID );
 		$risk_score_class = '';
-		if ('Low Risk' == $meta['label']) {
+		if ( 'Low Risk' == $meta['label'] ) {
 			$risk_score_class = 'low-risk-icon';
 		}
-		if ('Medium Risk' == $meta['label']) {
+		if ( 'Medium Risk' == $meta['label'] ) {
 			$risk_score_class = 'med-risk-icon';
 		}
-		if ('High Risk' == $meta['label']) {
+		if ( 'High Risk' == $meta['label'] ) {
 			$risk_score_class = 'high-risk-icon';
 		}
-		if (0 == $wc_af_score) {
+		if ( 0 == $wc_af_score ) {
 			$risk_score_class = 'high-risk-icon';
 		}
 
-		switch ($order_status) {
+		switch ( $order_status ) {
 			case 'wc-pending':
 				$recent_order_status = 'Pending payment';
 				break;
@@ -422,13 +430,13 @@ if (! empty($result)) {
 		?>
   <tr>
 
-	<td><div class="table-icon <?php echo esc_attr($risk_score_class); ?>"></div></td>
+	<td><div class="table-icon <?php echo esc_attr( $risk_score_class ); ?>"></div></td>
 
-	<td><?php echo esc_attr($billing_first_name, 'woocommerce-anti-fraud') . ' ' . esc_attr($billing_last_name, 'woocommerce-anti-fraud'); ?></td>
+	<td><?php echo esc_attr( $billing_first_name, 'woocommerce-anti-fraud' ) . ' ' . esc_attr( $billing_last_name, 'woocommerce-anti-fraud' ); ?></td>
 
-	<td><?php echo esc_attr(get_woocommerce_currency_symbol($order_currency), 'woocommerce-anti-fraud') . esc_attr($order_total, 'woocommerce-anti-fraud'); ?></td>
+	<td><?php echo esc_attr( get_woocommerce_currency_symbol( $order_currency ), 'woocommerce-anti-fraud' ) . esc_attr( $order_total, 'woocommerce-anti-fraud' ); ?></td>
 
-	<td><?php echo esc_attr($recent_order_status, 'woocommerce-anti-fraud'); ?></td>
+	<td><?php echo esc_attr( $recent_order_status, 'woocommerce-anti-fraud' ); ?></td>
 
   </tr>
 		<?php
@@ -448,7 +456,7 @@ if (! empty($result)) {
 
 <div class="dash-section-50 pie-chart">
 
-	<h2 style="color:white"><?php echo esc_html__('Orders Breakdown', 'woocommerce-anti-fraud'); ?></h2>
+	<h2 style="color:white"><?php echo esc_html__( 'Orders Breakdown', 'woocommerce-anti-fraud' ); ?></h2>
 
 	<div class="chart-wrapper">
 
@@ -501,7 +509,7 @@ var data = {
 
 				'#E25D71'],
 
-			data: [<?php echo esc_attr($number_of_low_risk_orders); ?>, <?php echo esc_attr($number_of_medium_risk_orders); ?>, <?php echo esc_attr($number_of_high_risk_orders); ?>]
+			data: [<?php echo esc_attr( $number_of_low_risk_orders ); ?>, <?php echo esc_attr( $number_of_medium_risk_orders ); ?>, <?php echo esc_attr( $number_of_high_risk_orders ); ?>]
 
 		}
 
@@ -579,8 +587,8 @@ maintainAspectRatio: false
 
 	  labels: [
 	  <?php
-		foreach ($last7_days as $day) {
-			echo "'" . esc_attr($day) . "',";
+		foreach ( $last7_days as $day ) {
+			echo "'" . esc_attr( $day ) . "',";
 		};
 		?>
 		],
@@ -595,8 +603,8 @@ maintainAspectRatio: false
 
 		  data: [
 		  <?php
-			foreach ($low_week_arr as $score) {
-				echo "'" . esc_attr($score) . "',";
+			foreach ( $low_week_arr as $score ) {
+				echo "'" . esc_attr( $score ) . "',";
 			};
 			?>
 			]
@@ -609,8 +617,8 @@ maintainAspectRatio: false
 
 		  data: [
 		  <?php
-			foreach ($medium_week_arr as $score) {
-				echo "'" . esc_attr($score) . "',";
+			foreach ( $medium_week_arr as $score ) {
+				echo "'" . esc_attr( $score ) . "',";
 			};
 			?>
 			]
@@ -623,8 +631,8 @@ maintainAspectRatio: false
 
 		  data: [
 		  <?php
-			foreach ($high_week_arr as $score) {
-				echo "'" . esc_attr($score) . "',";
+			foreach ( $high_week_arr as $score ) {
+				echo "'" . esc_attr( $score ) . "',";
 			};
 			?>
 			]

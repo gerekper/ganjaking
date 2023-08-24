@@ -44,6 +44,9 @@ class SubscriberListingRepository extends ListingRepository {
   /** @var SubscribersCountsController */
   private $subscribersCountsController;
 
+  /** @var null | ListingDefinition */
+  private $definition = null;
+
   public function __construct(
     EntityManager $entityManager,
     FilterHandler $dynamicSegmentsFilter,
@@ -58,6 +61,7 @@ class SubscriberListingRepository extends ListingRepository {
   }
 
   public function getData(ListingDefinition $definition): array {
+    $this->definition = $definition;
     $dynamicSegment = $this->getDynamicSegmentFromFilters($definition);
     if ($dynamicSegment === null) {
       return parent::getData($definition);
@@ -66,6 +70,7 @@ class SubscriberListingRepository extends ListingRepository {
   }
 
   public function getCount(ListingDefinition $definition): int {
+    $this->definition = $definition;
     $dynamicSegment = $this->getDynamicSegmentFromFilters($definition);
     if ($dynamicSegment === null) {
       return parent::getCount($definition);
@@ -81,6 +86,7 @@ class SubscriberListingRepository extends ListingRepository {
   }
 
   public function getActionableIds(ListingDefinition $definition): array {
+    $this->definition = $definition;
     $ids = $definition->getSelection();
     if (!empty($ids)) {
       return $ids;
@@ -121,8 +127,24 @@ class SubscriberListingRepository extends ListingRepository {
       return;
     }
 
+    if (!in_array($group, [SubscriberEntity::STATUS_SUBSCRIBED, SubscriberEntity::STATUS_UNSUBSCRIBED])) {
+      $queryBuilder
+        ->andWhere('s.status = :status')
+        ->setParameter('status', $group);
+      return;
+    }
+
+    $segment = $this->definition && array_key_exists('segment', $this->definition->getFilters()) ? $this->entityManager->find(SegmentEntity::class, (int)$this->definition->getFilters()['segment']) : null;
+    if (!$segment instanceof SegmentEntity || !$segment->isStatic()) {
+      $queryBuilder
+        ->andWhere('s.status = :status')
+        ->setParameter('status', $group);
+      return;
+    }
+
+    $operator = $group === SubscriberEntity::STATUS_SUBSCRIBED ? 'AND' : 'OR';
     $queryBuilder
-      ->andWhere('s.status = :status')
+      ->andWhere('(s.status = :status ' . $operator . ' ss.status = :status)')
       ->setParameter('status', $group);
   }
 
@@ -287,11 +309,7 @@ class SubscriberListingRepository extends ListingRepository {
     $segmentList = [];
     foreach ($queryBuilder->getQuery()->getResult() as $segment) {
       $key = $group ?: 'all';
-      if ($segment->isStatic()) {
-        $count = $this->subscribersCountsController->getSegmentGlobalStatusStatisticsCount($segment);
-      } else {
-        $count = $this->subscribersCountsController->getSegmentStatisticsCount($segment);
-      }
+      $count = $this->subscribersCountsController->getSegmentStatisticsCount($segment);
       $subscribersCount = (float)$count[$key];
       // filter segments without subscribers
       if (!$subscribersCount) {

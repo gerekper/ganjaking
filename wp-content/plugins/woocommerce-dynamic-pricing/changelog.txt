@@ -1,4 +1,8 @@
 *** Dynamic Pricing Changelog ***
+2023.08.15 - version 3.2.3
+    * Update: WC and WP Compatibility updates.
+    * Update: Float value handing for PHP 8.x servers.
+
 2023.04.11 - version 3.2.2
     * Update: WC and WP version updates.
     * Update:  Allow pricing rules to be applied to products with a 0 based price and a fixed price adjustment

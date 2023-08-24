@@ -53,7 +53,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Ajax' ) ) {
 				$response = wcwl_remove_user_from_waitlist( $email, $product_id );
 				$context  = '';
 			} elseif ( 'update' === $context ) {
-				$response = $this->process_grouped_product_request( $email, $products, $lang );
+				$response = $this->process_grouped_product_request( $email, $products );
 			} else {
 				$response = wcwl_add_user_to_waitlist( $email, $product_id, $lang );
 				$context  = '';
@@ -79,7 +79,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Ajax' ) ) {
 		 * Process the frontend user request to join/leave the given waitlist/s
 		 * Required for grouped products (and events)
 		 */
-		public function process_grouped_product_request( $email, $products, $lang ) {
+		public function process_grouped_product_request( $email, $products ) {
 			if ( ! $products || empty( $products ) ) {
 				return new WP_Error( 'wcwl_error', __( 'No products selected', 'woocommerce-waitlist' ) );
 			}

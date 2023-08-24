@@ -126,7 +126,7 @@ class Coupon_Referral_Program_Public {
 		$user_ID = get_current_user_ID();
 		$user    = new WP_User( $user_ID );
 		?>
-		<a id="mwb_crp_shortcode_btn"href="javascript:;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored modal__trigger mwb-pr-drag-btn " data-modal="#mwb_modal"style="background-color: <?php echo wp_kses_post( Coupon_Referral_Program_Admin::get_selected_color() ); ?>"><?php echo wp_kses_post( Coupon_Referral_Program_Admin::get_visible_text() ); ?></a>
+		<a id="mwb_crp_shortcode_btn"href="javascript:;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored modal__trigger mwb-pr-drag-btn" data-modal="#mwb_modal" style="background-color: <?php echo wp_kses_post( Coupon_Referral_Program_Admin::get_selected_color() ); ?>"><?php echo wp_kses_post( Coupon_Referral_Program_Admin::get_visible_text() ); ?></a>
 		<?php
 
 	}
@@ -365,8 +365,10 @@ class Coupon_Referral_Program_Public {
 
 		if ( $this->check_signup_is_enable() && ! $this->check_reffral_signup_is_enable() ) {
 			if ( ! self::check_is_points_rewards_enable() ) {
-				$coupon_code = $this->mwb_create_coupon_send_email( $user_id );
-				$this->save_singup_coupon_code( 'singup', $coupon_code, $user_id );
+				if ( $this->wps_referral_discount_management('user_signup', $user_id ) ) {
+					$coupon_code = $this->mwb_create_coupon_send_email( $user_id );
+					$this->save_singup_coupon_code( 'singup', $coupon_code, $user_id );
+				}
 			}
 		}
 		/* ============== Set the referre user id to current user data ============= */
@@ -401,8 +403,10 @@ class Coupon_Referral_Program_Public {
 						update_user_meta( $user_id, 'mwb_cpr_user_referred_by', $refree_id );
 						if ( $this->check_signup_is_enable() && $this->check_reffral_signup_is_enable() ) {
 							if ( ! self::check_is_points_rewards_enable() ) {
-								$coupon_code = $this->mwb_create_coupon_send_email( $user_id );
-								$this->save_singup_coupon_code( 'singup', $coupon_code, $user_id );
+								if ( $this->wps_referral_discount_management( 'referral_user_signup', $user_id ) ) {
+									$coupon_code = $this->mwb_create_coupon_send_email( $user_id );
+									$this->save_singup_coupon_code( 'singup', $coupon_code, $user_id );
+								}
 							} elseif ( $check_par_enable ) {
 								/**
 								 * Add points for referral sigup for user.
@@ -422,8 +426,10 @@ class Coupon_Referral_Program_Public {
 							if ( empty( $total_allowed_referral ) || ( $this->mwb_crp_get_total_referred_users( $retrive_data ) <= $total_allowed_referral ) ) {
 								if ( ! self::check_is_points_rewards_enable() ) {
 									if ( $this->wps_crp_allow_referee_signup_discount( $retrive_data ) ) {
-										$coupon_code = $this->mwb_create_coupon_send_email_for_refree( $refree_id );
-										$this->save_referal_singup_coupon_code( $coupon_code, $refree_id, $user_id );
+										if ( $this->wps_referral_discount_management( 'referee_user_signup', $refree_id ) ) {
+											$coupon_code = $this->mwb_create_coupon_send_email_for_refree( $refree_id );
+											$this->save_referal_singup_coupon_code( $coupon_code, $refree_id, $user_id );
+										}
 									}
 								} elseif ( $check_par_enable ) {
 									/**
@@ -864,6 +870,21 @@ class Coupon_Referral_Program_Public {
 
 				update_post_meta( $new_coupon_id, 'exclude_product_ids', $mwb_crp_get_exclude_pro );
 			}
+
+			// add exlucde/include categories data
+
+			$wps_crp_get_include_cat = $this->wps_crp_get_include_cat();
+
+			$wps_crp_get_exclude_cat = $this->wps_crp_get_exclude_cat();
+			
+			if ( isset( $wps_crp_get_include_cat ) && ! empty( $wps_crp_get_include_cat ) ) {
+
+				update_post_meta( $new_coupon_id, 'product_categories', $wps_crp_get_include_cat );
+			}
+			if ( isset( $wps_crp_get_exclude_cat ) && ! empty( $wps_crp_get_exclude_cat ) ) {
+
+				update_post_meta( $new_coupon_id, 'exclude_product_categories', $wps_crp_get_exclude_cat );
+			}
 			/*coupon code expiry*/
 			$coupon_expiry = get_option( 'coupon_expiry', '' );
 			$todaydate     = date_i18n( 'Y-m-d' );
@@ -973,6 +994,11 @@ class Coupon_Referral_Program_Public {
 						} elseif ( ! empty( $mwb_cpr_ref_link_expiry ) ) {
 							setcookie( 'mwb_cpr_cookie_set', base64_encode( serialize( $referral_key ) ), time() + ( 86400 * $mwb_cpr_ref_link_expiry ), '/' );
 						}
+					}
+					$redirection_url = esc_url_raw( get_option( 'referral_link_redirection', false ) );
+					if ( $redirection_url &&  wp_http_validate_url( $redirection_url ) ) {
+						wp_safe_redirect( $redirection_url );
+						exit();
 					}
 				}
 			}
@@ -1127,19 +1153,21 @@ class Coupon_Referral_Program_Public {
 
 								/*======= Create the Woocommerce Coupons  =======*/
 
-								if ( $this->mwb_cpr_create_coupons( $mwb_cpr_code, $mwb_cpr_coupon_amount, $order_id, $mwb_cpr_discount_type, $expirydate, $coupon_description, $refree_email ) ) {
-
-									/* === Send the Email to the relevant customer === */
-
-									$customer_email = WC()->mailer()->emails['crp_order_email'];
-									if ( empty( $expirydate ) ) {
-										$expirydate = esc_html__( 'No Expiry', 'coupon-referral-program' );
-
+								if ( $this->wps_referral_discount_management('referal_purchase', $refree_id ) ) {
+									if ( $this->mwb_cpr_create_coupons( $mwb_cpr_code, $mwb_cpr_coupon_amount, $order_id, $mwb_cpr_discount_type, $expirydate, $coupon_description, $refree_email ) ) {
+	
+										/* === Send the Email to the relevant customer === */
+	
+										$customer_email = WC()->mailer()->emails['crp_order_email'];
+										if ( empty( $expirydate ) ) {
+											$expirydate = esc_html__( 'No Expiry', 'coupon-referral-program' );
+	
+										}
+										$email_status = $customer_email->trigger( $refree_id, $mwb_cpr_code, $coupon_amount_with_css, $expirydate );
+	
+										update_post_meta( $order_id, 'referral_has_rewarded', $refree_id );
+										$this->save_referral_coupon_code( $mwb_cpr_code, $refree_id, $user_id );
 									}
-									$email_status = $customer_email->trigger( $refree_id, $mwb_cpr_code, $coupon_amount_with_css, $expirydate );
-
-									update_post_meta( $order_id, 'referral_has_rewarded', $refree_id );
-									$this->save_referral_coupon_code( $mwb_cpr_code, $refree_id, $user_id );
 								}
 							} elseif ( $check_par_enable ) {
 								/**
@@ -2240,6 +2268,21 @@ class Coupon_Referral_Program_Public {
 
 			update_post_meta( $new_coupon_id, 'exclude_product_ids', $mwb_crp_get_exclude_pro );
 			}
+
+			// add exlucde/include categories data
+
+			$wps_crp_get_include_cat = $this->wps_crp_get_include_cat();
+
+			$wps_crp_get_exclude_cat = $this->wps_crp_get_exclude_cat();
+
+			if ( isset( $wps_crp_get_include_cat ) && ! empty( $wps_crp_get_include_cat ) ) {
+
+				update_post_meta( $new_coupon_id, 'product_categories', $wps_crp_get_include_cat );
+			}
+			if ( isset( $wps_crp_get_exclude_cat ) && ! empty( $wps_crp_get_exclude_cat ) ) {
+
+				update_post_meta( $new_coupon_id, 'exclude_product_categories', $wps_crp_get_exclude_cat );
+			}
 		}
 		return $coupon_code;
 	}
@@ -2259,6 +2302,10 @@ class Coupon_Referral_Program_Public {
 		if ( isset( $enable ) && 'yes' === $enable ) {
 			$referral_code = '';
 			$referral_key  = get_user_meta( $user_id, 'referral_key', true );
+			if ( empty( $referral_key ) ) {
+				$this->get_referral_link( $user_id );
+				$referral_key  = get_user_meta( $user_id, 'referral_key', true );
+			}
 			if ( isset( $referral_key ) && ! empty( $referral_key ) ) {
 				$coupon = new WC_Coupon( $referral_key );
 				if ( isset( $coupon ) && ! empty( $coupon ) ) {
@@ -2350,19 +2397,21 @@ class Coupon_Referral_Program_Public {
 									$refree_email               = $this->get_user_email( $refree );
 									/*======= Create the Woocommerce Coupons  =======*/
 									$coupon_description = 'Coupon on Order for OrderID';
-									if ( $this->mwb_cpr_create_coupons( $mwb_cpr_code, $mwb_cpr_coupon_amount, $order_id, $mwb_cpr_discount_type, $expirydate, $coupon_description, $refree_email ) ) {
-
-										/* === Send the Email to the relevant customer === */
-
-										$customer_email = WC()->mailer()->emails['crp_order_email'];
-										if ( empty( $expirydate ) ) {
-											$expirydate = __( 'No Expiry', 'coupon-referral-program' );
-
+									if ( $this->wps_referral_discount_management('referal_purchase', $refree_id ) ) {
+										if ( $this->mwb_cpr_create_coupons( $mwb_cpr_code, $mwb_cpr_coupon_amount, $order_id, $mwb_cpr_discount_type, $expirydate, $coupon_description, $refree_email ) ) {
+	
+											/* === Send the Email to the relevant customer === */
+	
+											$customer_email = WC()->mailer()->emails['crp_order_email'];
+											if ( empty( $expirydate ) ) {
+												$expirydate = __( 'No Expiry', 'coupon-referral-program' );
+	
+											}
+											$email_status  = $customer_email->trigger( $refree_id, $mwb_cpr_code, $coupon_amount_with_css, $expirydate );
+											$billing_email = $order->get_billing_email();
+											update_post_meta( $order_id, 'referral_has_rewarded', $refree_id );
+											$this->save_referral_coupon_code_on_guest( $mwb_cpr_code, $refree_id, $billing_email );
 										}
-										$email_status  = $customer_email->trigger( $refree_id, $mwb_cpr_code, $coupon_amount_with_css, $expirydate );
-										$billing_email = $order->get_billing_email();
-										update_post_meta( $order_id, 'referral_has_rewarded', $refree_id );
-										$this->save_referral_coupon_code_on_guest( $mwb_cpr_code, $refree_id, $billing_email );
 									}
 								}
 							} else {
@@ -2583,7 +2632,6 @@ class Coupon_Referral_Program_Public {
 			}
 		}
 		return $referral_count;
-
 	}
 
 	/**
@@ -2592,7 +2640,7 @@ class Coupon_Referral_Program_Public {
 	 * @since    1.6.5
 	 */
 	public function mwb_crp_referral_code_shortcode() {
-		if ( $this->is_social_sharing_enabled() && is_user_logged_in() ) {
+		if ( $this->check_share_vai_referal_code() && is_user_logged_in() ) {
 			$user_ID      = get_current_user_ID();
 			$referral_key = get_user_meta( $user_ID, 'referral_key', true );
 			if ( empty( $referral_key ) ) {
@@ -2782,5 +2830,55 @@ class Coupon_Referral_Program_Public {
 		}
 		return $mwb_crp_referal_trial_ended_coupons;
 
+	}
+
+	/**
+	 * Get include cat.
+	 *
+	 * @since 1.7.0
+	 */
+	public function wps_crp_get_include_cat() {
+		$wps_crp_include_cat = get_option( 'wps_crp_include_cat', '' );
+		return $wps_crp_include_cat;
+	}
+
+	/**
+	 * Get exclude cat.
+	 *
+	 * @since 1.7.0
+	 */
+	public function wps_crp_get_exclude_cat() {
+		$wps_crp_exclude_cat = get_option( 'wps_crp_exclude_cat', '' );
+		return $wps_crp_exclude_cat;
+	}
+
+	/** 
+	 * function to get match current user roles and saved user roles
+	 * 
+	 * @param string $type of the discount allowed for the user roles.
+	 * @param integer $user_id .
+	 *
+	 */
+	public function wps_referral_discount_management( $type, $user_id ) {
+		$selected_roles = array();
+		$user_roles     = array();
+		$user_data      = get_userdata( $user_id );
+		if ( $user_data ) {
+			$user_roles = $user_data->roles;
+		}
+		if ( 'user_signup' === $type ) {
+			$selected_roles = get_option( 'wps_crp_signup_users', array() );
+		} elseif ( 'referral_user_signup' === $type ) {
+			$selected_roles = get_option( 'wps_crp_referral_signup_users', array() );
+		} elseif ( 'referee_user_signup' === $type ) {
+			$selected_roles = get_option( 'wps_crp_referrer_signup_users', array() );
+		} elseif ( 'referal_purchase' === $type ) {
+			$selected_roles = get_option( 'wps_crp_referral_purchase_users', array() );
+		}
+		$common_value = array_intersect( $selected_roles, $user_roles );
+		if ( ! empty( $common_value ) || empty( $selected_roles ) ) {
+			return true;
+		}
+		return false;
 	}
 }

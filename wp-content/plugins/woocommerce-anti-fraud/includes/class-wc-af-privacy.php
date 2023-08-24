@@ -6,7 +6,6 @@ if ( ! class_exists( 'WC_Abstract_Privacy' ) ) {
 class WC_AF_Privacy extends WC_Abstract_Privacy {
 	/**
 	 * Constructor
-	 *
 	 */
 	public function __construct() {
 		parent::__construct( __( 'Anti Fraud', 'woocommerce-anti-fraud' ) );
@@ -14,7 +13,6 @@ class WC_AF_Privacy extends WC_Abstract_Privacy {
 
 	/**
 	 * Gets the message of the privacy to display.
-	 *
 	 */
 	public function get_privacy_message() {
 		/* translators: %s: learn more link */

@@ -45,6 +45,9 @@ If you’re using the Advanced Notifications extension make sure you disable the
 
 == Changelog ==
 
+2023.08.23 - Version 2.4.1
+* Fix: Full pass adding validations where required to correct edge cases where product objects were assumed to be properly loaded, leading to errors
+
 2023.08.01 - Version 2.4.0
 * Fix: Email templates hooks not passed in the correct parameters.  "woocommerce_email_header" and "woocommerce_email_footer" now have the email class object passed in as required
 * Added: Notification added to inform administrator that waitlist templates are out of date.  This will be added as required on theme switch and plugin update

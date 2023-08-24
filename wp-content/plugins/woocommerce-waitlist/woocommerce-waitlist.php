@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Waitlist
  * Plugin URI: http://www.woothemes.com/products/woocommerce-waitlist/
  * Description: This plugin enables registered users to request an email notification when an out-of-stock product comes back into stock. It tallies these registrations in the admin panel for review and provides details.
- * Version: 2.4.0
+ * Version: 2.4.1
  * Author: Neil Pie
  * Author URI: https://pie.co.de/
  * Developer: Neil Pie
@@ -66,18 +66,21 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		 * @var object
 		 */
 		protected static $instance;
+
 		/**
 		 * Path to plugin directory
 		 *
 		 * @var string
 		 */
 		public static $path;
+
 		/**
 		 * Supported product types
 		 *
 		 * @var array
 		 */
 		public static $allowed_product_types;
+
 		/**
 		 * $Pie_WCWL_Admin_Init
 		 *
@@ -297,9 +300,12 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		 * @param WC_Product $product updated variable product.
 		 * @return void
 		 */
-		public function handle_variable_mailout( $product ) {
+		public function handle_variable_mailout( WC_Product $product ) {
 			foreach ( $product->get_children() as $variation_id ) {
 				$variation = wc_get_product( $variation_id );
+				if ( ! $variation ) {
+					continue;
+				}
 				if ( 'parent' === $variation->managing_stock() && $product->is_in_stock() ) {
 					$this->do_mailout( $variation );
 				}
@@ -313,7 +319,10 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		 * @param array      $updated_props updated property array.
 		 * @return void
 		 */
-		public function perform_api_mailout_bundles( $product, $updated_props ) {
+		public function perform_api_mailout_bundles( WC_Product $product, $updated_props ) {
+			if ( ! $product ) {
+				return;
+			}
 			if ( ! $product->is_type( 'bundle' ) ||
 				empty( $updated_props ) ||
 				'bundled_items_stock_status' !== $updated_props[0] ||
@@ -329,7 +338,10 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		 *
 		 * @param WC_Product $product updated product.
 		 */
-		public function update_stock_status( $product ) {
+		public function update_stock_status( WC_Product $product ) {
+			if ( ! $product ) {
+				return;
+			}
 			$stock = $product->get_stock_quantity();
 			if ( ! $stock || ! in_array( get_post_status( $product->get_id() ), ['publish', 'private'] ) ) {
 				$stock = 0;
@@ -407,12 +419,15 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		 *
 		 * @param WC_Product $product updated product.
 		 */
-		public function do_mailout( $product ) {
+		public function do_mailout( WC_Product $product ) {
+			if ( ! $product ) {
+				return;
+			}
 			if ( apply_filters( 'wcwl_waitlist_should_do_mailout', true, $product ) ) {
 				$stock_level = $this->get_minimum_stock_level( $product->get_id() );
 				if ( $this->minimum_stock_requirement_met( $product, $stock_level ) && $this->stock_level_has_broken_threshold( $product, $stock_level ) ) {
-					$product->waitlist = new Pie_WCWL_Waitlist( $product );
-					$product->waitlist->waitlist_mailout();
+					$waitlist = new Pie_WCWL_Waitlist( $product );
+					$waitlist->waitlist_mailout();
 					// Chained products
 					global $wc_cp;
 					if ( $wc_cp && method_exists( $wc_cp, 'get_chained_parent_ids' ) ) {
@@ -422,8 +437,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 						}
 					}
 					// Bundle products
-					global $woocommerce_bundles;
-					if ( $woocommerce_bundles && function_exists( 'wc_pb_get_bundled_product_map' ) ) {
+					if ( function_exists( 'wc_pb_get_bundled_product_map' ) ) {
 						$map = wc_pb_get_bundled_product_map( $product );
 						if ( is_array( $map ) && ! empty( $map ) ) {
 							wcwl_perform_mailout_for_bundle_products( $map );
@@ -454,20 +468,20 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		/**
 		 * Check the minimum stock requirements are met for the current waitlist before processing mailouts
 		 *
-		 * @param object $product              product object.
-		 * @param int    $stock_level_required minimum stock required to trigger waitlist mailout.
+		 * @param WC_Product $product              product object.
+		 * @param int        $stock_level_required minimum stock required to trigger waitlist mailout.
 		 *
 		 * @return bool
 		 * @since  1.8.0
 		 */
-		public function minimum_stock_requirement_met( $product, $stock_level_required ) {
+		public function minimum_stock_requirement_met( WC_Product $product, $stock_level_required ) {
 			if ( ( self::is_simple( $product ) || $product->is_type( 'bundle' ) ) && ! $product->get_manage_stock() ) {
 				return true;
 			}
 			$product_stock = $product->get_stock_quantity();
 			if ( self::is_variation( $product ) && ! $product->get_manage_stock() ) {
 				$parent = wc_get_product( $product->get_parent_id() );
-				if ( ! $parent->get_manage_stock() ) {
+				if ( ! $parent || ! $parent->get_manage_stock() ) {
 					return true;
 				} else {
 					$product_stock = $parent->get_stock_quantity();
@@ -483,11 +497,14 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		 * Check the stock level update has caused the stock level to go from under->over the set threshold
 		 * This check avoids sending a duplicate mailout each time the product stock increases
 		 *
-		 * @param object $product WC_Product.
-		 * @param int    $stock_level_required set stock threshold.
+		 * @param WC_Product $product WC_Product.
+		 * @param int        $stock_level_required set stock threshold.
 		 * @return boolean
 		 */
-		public function stock_level_has_broken_threshold( $product, $stock_level_required ) {
+		public function stock_level_has_broken_threshold( WC_Product $product, $stock_level_required ) {
+			if ( ! $product ) {
+				return false;
+			}
 			if ( ( self::is_simple( $product ) || $product->is_type( 'bundle' ) ) && ! $product->get_manage_stock() ) {
 				return true;
 			}
@@ -506,11 +523,14 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		/**
 		 * Check to see if product is of type "bundle"
 		 *
-		 * @param object $product product object.
+		 * @param WC_Product $product product object.
 		 *
 		 * @return bool
 		 */
-		public static function is_bundle( $product ) {
+		public static function is_bundle( WC_Product $product ) {
+			if ( ! $product ) {
+				return false;
+			}
 			if ( $product->is_type( 'bundle' ) ) {
 				return true;
 			}
@@ -521,11 +541,14 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		/**
 		 * Check to see if product is of type "variable"
 		 *
-		 * @param object $product product object.
+		 * @param WC_Product $product product object.
 		 *
 		 * @return bool
 		 */
-		public static function is_variable( $product ) {
+		public static function is_variable( WC_Product $product ) {
+			if ( ! $product ) {
+				return false;
+			}
 			if ( $product->is_type( 'variable' ) || $product->is_type( 'variable-subscription' ) ) {
 				return true;
 			}
@@ -536,11 +559,14 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		/**
 		 * Check to see if product is of type "variation"
 		 *
-		 * @param object $product product object.
+		 * @param WC_Product $product product object.
 		 *
 		 * @return bool
 		 */
-		public static function is_variation( $product ) {
+		public static function is_variation( WC_Product $product ) {
+			if ( ! $product ) {
+				return false;
+			}
 			if ( $product->is_type( 'variation' ) || $product->is_type( 'subscription_variation' ) ) {
 				return true;
 			}
@@ -551,11 +577,14 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		/**
 		 * Check to see if product is of type "simple"
 		 *
-		 * @param object $product product object.
+		 * @param WC_Product $product product object.
 		 *
 		 * @return bool
 		 */
-		public static function is_simple( $product ) {
+		public static function is_simple( WC_Product $product ) {
+			if ( ! $product ) {
+				return false;
+			}
 			if ( $product->is_type( 'simple' ) || $product->is_type( 'subscription' ) ) {
 				return true;
 			}
@@ -599,13 +628,16 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 				}
 			  $products = self::get_waitlist_products_for_user( $user );
 				foreach ( $products as $product ) {
-					  $waitlist = new Pie_WCWL_Waitlist( $product );
-						if ( isset( $waitlist->waitlist[ $user->user_email ] ) ) {
-								$waitlist->waitlist[ $user_id ] = $waitlist->waitlist[ $user->user_email ];
-								unset( $waitlist->waitlist[ $user->user_email ] );
-								asort( $waitlist->waitlist );
-								$waitlist->save_waitlist();
-						}
+					if ( ! $product ) {
+						continue;
+					}
+					$waitlist = new Pie_WCWL_Waitlist( $product );
+					if ( isset( $waitlist->waitlist[ $user->user_email ] ) ) {
+						$waitlist->waitlist[ $user_id ] = $waitlist->waitlist[ $user->user_email ];
+						unset( $waitlist->waitlist[ $user->user_email ] );
+						asort( $waitlist->waitlist );
+						$waitlist->save_waitlist();
+					}
 				}
 		}
 
@@ -797,7 +829,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 					update_option( '_' . WCWL_SLUG . '_version_2_warning', true );
 				}
 			}
-			// Run any other code required if plugin has been updated (i.e. saved version does not match plugin version)
+			// Run any other code required if plugin has been updated
 			if ( $options['version'] !== WCWL_VERSION ) {
 				$this->template_version_check( true );
 			} else {
@@ -968,7 +1000,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		 * Template version check
 		 *
 		 * @since 2.4.0
-		 * @param bool $skip_notice_check "true" will run the check regardless of any persisting notice
+		 * @param bool $skip_notice_check "true" will run the check regardless of a missing persisting notice
 		 * @return void
 		 */
 		public function template_version_check( $skip_notice_check = false ) {

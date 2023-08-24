@@ -1,12 +1,20 @@
 *** Coupon Referal Program ***
 
-2023-07-06 - version 1.6.9
-1. Latest WP and WC compatibility
-2. Added Minimum order total amount for Referral purchase coupon discount
-3. Added the setting to restrict the coupon discount to the first renewal only
-4. Added the feature  to give coupon discount to referred customer once customer paid after the free trial ended.
+2023-08-18 - version 1.7.0
+*New : Latest WP and WC compatibility
+*New : Referrals management by the user roles
+*New : Categories include/exclude for the discount coupons
+*New : Referral Link Redirection
+*Enhancement : Added some validation for the email and changed the icon for remove button
+*Fix : Layout issue with the popular themes
 
-2023-4-13 - version 1.6.8
+2023-07-06 - version 1.6.9
+*New : Latest WP and WC compatibility
+*New : Added Minimum order total amount for Referral purchase coupon discount
+*New : Added the setting to restrict the coupon discount to the first renewal only
+*New : Added the feature to give coupon discount to referred customer once customer paid after the free trial ended.
+
+2023-04-13 - version 1.6.8
 * New: Allow coupon configuration setting applicable for the referral code
 * New: Allow the customer to send the referral email to multiple users.
 * New: Discount on the nth referral sign-up

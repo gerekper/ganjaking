@@ -181,7 +181,13 @@ abstract class WC_Instagram_Action {
 	 */
 	protected function schedule_recurring() {
 		// Add a delay of one minute to the first run to avoid scheduling the action twice.
-		WC()->queue()->schedule_recurring( time() + MINUTE_IN_SECONDS, $this->get_interval(), $this->hook, $this->get_args(), $this->group );
+		$timestamp = time() + MINUTE_IN_SECONDS;
+
+		if ( version_compare( ActionScheduler_Versions::instance()->latest_version(), '3.5', '>=' ) ) {
+			as_schedule_recurring_action( $timestamp, $this->get_interval(), $this->hook, $this->get_args(), $this->group, true );
+		} else {
+			as_schedule_recurring_action( $timestamp, $this->get_interval(), $this->hook, $this->get_args(), $this->group );
+		}
 	}
 
 	/**

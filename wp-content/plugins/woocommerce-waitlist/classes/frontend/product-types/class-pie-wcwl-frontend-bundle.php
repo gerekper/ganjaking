@@ -26,9 +26,9 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Bundle' ) ) {
 		/**
 		 * Load up hooks if product is out of stock
 		 *
-		 * @param object $product WC_Product_Bundle.
+		 * @param WC_Product $product WC_Product_Bundle.
 		 */
-		public function init( $product ) {
+		public function init( WC_Product $product ) {
 			self::$product = $product;
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_bundle_script_data' ) );
 		}

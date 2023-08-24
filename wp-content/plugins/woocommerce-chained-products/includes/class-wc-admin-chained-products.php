@@ -2,7 +2,7 @@
 /**
  * Class to handle all backend related functionalities in chained products
  *
- * @version     1.3.0
+ * @version     1.3.1
  * @package     woocommerce-chained-products/includes/
  */
 
@@ -80,7 +80,7 @@ if ( ! class_exists( 'WC_Admin_Chained_Products' ) ) {
 		 * @param array  $arguments Array of arguments passed while calling $function_name.
 		 * @return mixed Result of function call.
 		 */
-		public function __call( $function_name, $arguments = array() ) {
+		public function __call( $function_name = '', $arguments = array() ) {
 
 			if ( ! is_callable( 'Chained_Products_WC_Compatibility', $function_name ) ) {
 				return;
@@ -157,87 +157,100 @@ if ( ! class_exists( 'WC_Admin_Chained_Products' ) ) {
 		}
 
 		/**
-		 * Function to add order item meta when order is created manually from backend ( 3.0 Compatibility )
+		 * Function to add order item meta when order is created manually from backend
 		 *
 		 * @param int    $item_id Order item ID.
 		 * @param object $item The order item details.
 		 */
 		public function add_order_item_meta_manually( $item_id = 0, $item = null ) {
 			global $cp_skip_main_order_items;
-			if ( $this->is_wc_gte_30() ) {
-				$order_id    = ! empty( $_POST['order_id'] ) ? absint( $_POST['order_id'] ) : ''; // phpcs:ignore
-				$order       = wc_get_order( $order_id );
-				$item_to_add = $item->get_variation_id() ? ( $variation_id = $item->get_variation_id() ) : $item->get_product_id(); // @codingStandardsIgnoreLine
-				$_product    = wc_get_product( $item_to_add );
 
-				$chained_product_details = ! empty( $_POST['chained_product_details'] ) ? $_POST['chained_product_details'] : array(); // phpcs:ignore
+			if ( empty( $item ) || ! $item instanceof WC_Order_Item ) {
+				return;
+			}
 
-				$item_price = is_callable( array( $item, 'get_total' ) ) ? intval( $item->get_total() ) : 0;
-				if ( ! empty( $chained_product_details ) && $order instanceof WC_Order ) {
-					$parent_chained_product_ids = ! empty( $chained_product_details ) ? array_keys( $chained_product_details ) : array();
+			$order_id    = ! empty( $_POST['order_id'] ) ? absint( $_POST['order_id'] ) : 0; // phpcs:ignore
+			$order    = ! empty( $order_id ) ? wc_get_order( $order_id ) : null;
+			if ( empty( $order ) || ! $order instanceof WC_Order ) {
+				return;
+			}
 
-					if ( in_array( $item_to_add, $parent_chained_product_ids, true ) && ! in_array( $item_to_add, $cp_skip_main_order_items, true ) ) {
-						// Insert the main order item to the variable to not behave like main order item for next order items.
-						$cp_skip_main_order_items[] = $item_to_add;
-						return;
-					}
+			$variation_id = is_callable( array( $item, 'get_variation_id' ) ) ? $item->get_variation_id() : 0;
+			$item_to_add  = ! empty( $variation_id ) ? $variation_id : ( is_callable( array( $item, 'get_product_id' ) ) ? $item->get_product_id() : 0 );
+			$_product     = ! empty( $item_to_add ) ? wc_get_product( $item_to_add ) : null;
 
-					foreach ( $chained_product_details as $parent_id => $chained_values ) {
+			if ( empty( $_product ) || ! $_product instanceof WC_Product ) {
+				return;
+			}
 
-						$item_price = is_callable( array( $item, 'get_total' ) ) ? floatval( $item->get_total() ) : 0;
+			$cp_skip_main_order_items = ! empty( $cp_skip_main_order_items ) ? $cp_skip_main_order_items : array();
+			$chained_product_details = ! empty( $_POST['chained_product_details'] ) ? $_POST['chained_product_details'] : array(); // phpcs:ignore
 
-						$priced_individually = ( ! empty( $chained_values[ $item_to_add ]['priced_individually'] ) ) ? $chained_values[ $item_to_add ]['priced_individually'] : 'no';
-						$quantity            = ( ! empty( $chained_values[ $item_to_add ]['unit'] ) ) ? intval( $chained_values[ $item_to_add ]['unit'] ) : 1;
-						$item_price          = ( 'yes' === $priced_individually ) ? ( is_callable( array( $item, 'get_total' ) ) ? floatval( $item->get_total() ) : 0 ) : 0;
+			if ( empty( $chained_product_details ) ) {
+				return;
+			}
 
-						if ( 'yes' === $priced_individually && $this->is_wc_gte_30() ) {
-							$args = array(
-								'_qty'                => $quantity,
-								'_chained_product_of' => $parent_id,
-								'_line_total'         => $item_price,
-							);
-						} else {
-							$args = array(
-								'_product_id'         => $item_to_add,
-								'_variation_id'       => isset( $variation_id ) ? $variation_id : 0,
-								'_variation_data'     => isset( $variation_id ) && is_callable( array( $_product, 'get_variation_attributes' ) ) ? $_product->get_variation_attributes() : array(),
-								'_name'               => is_callable( array( $_product, 'get_title' ) ) ? $_product->get_title() : '',
-								'_tax_class'          => is_callable( array( $_product, 'get_tax_class' ) ) ? $_product->get_tax_class() : '',
-								'_qty'                => $quantity,
-								'_line_subtotal'      => wc_format_decimal( $item_price ),
-								'_line_subtotal_tax'  => '',
-								'_line_total'         => wc_format_decimal( $item_price ),
-								'_line_tax'           => '',
-								'_chained_product_of' => $parent_id,
-								'_line_tax_data'      => array(
-									'total'    => array(),
-									'subtotal' => array(),
-								),
-							);
+			$item_price                 = is_callable( array( $item, 'get_total' ) ) ? floatval( $item->get_total() ) : 0;
+			$parent_chained_product_ids = ! empty( $chained_product_details ) ? array_keys( $chained_product_details ) : array();
+
+			if ( is_array( $parent_chained_product_ids ) && in_array( $item_to_add, $parent_chained_product_ids, true ) && is_array( $cp_skip_main_order_items ) && ! in_array( $item_to_add, $cp_skip_main_order_items, true ) ) {
+				// Insert the main order item to the variable to not behave like main order item for next order items.
+				$cp_skip_main_order_items[] = $item_to_add;
+				return;
+			}
+
+			foreach ( $chained_product_details as $parent_id => $chained_values ) {
+
+				$priced_individually = ( ! empty( $chained_values[ $item_to_add ]['priced_individually'] ) ) ? $chained_values[ $item_to_add ]['priced_individually'] : 'no';
+				$quantity            = ( ! empty( $chained_values[ $item_to_add ]['unit'] ) ) ? intval( $chained_values[ $item_to_add ]['unit'] ) : 1;
+				$item_price          = ( 'yes' === $priced_individually ) ? ( is_callable( array( $item, 'get_total' ) ) ? floatval( $item->get_total() ) : 0 ) : 0;
+
+				if ( 'yes' === $priced_individually ) {
+					$args = array(
+						'_qty'                => $quantity,
+						'_chained_product_of' => $parent_id,
+						'_line_total'         => $item_price,
+					);
+				} else {
+					$args = array(
+						'_product_id'         => $item_to_add,
+						'_variation_id'       => isset( $variation_id ) ? $variation_id : 0,
+						'_variation_data'     => isset( $variation_id ) && is_callable( array( $_product, 'get_variation_attributes' ) ) ? $_product->get_variation_attributes() : array(),
+						'_name'               => is_callable( array( $_product, 'get_title' ) ) ? $_product->get_title() : '',
+						'_tax_class'          => is_callable( array( $_product, 'get_tax_class' ) ) ? $_product->get_tax_class() : '',
+						'_qty'                => $quantity,
+						'_line_subtotal'      => wc_format_decimal( $item_price ),
+						'_line_subtotal_tax'  => '',
+						'_line_total'         => wc_format_decimal( $item_price ),
+						'_line_tax'           => '',
+						'_chained_product_of' => $parent_id,
+						'_line_tax_data'      => array(
+							'total'    => array(),
+							'subtotal' => array(),
+						),
+					);
+				}
+
+				foreach ( $args as $meta_key => $meta_value ) {
+					if ( '_variation_data' === $meta_key && is_array( $meta_value ) ) {
+						foreach ( $meta_value as $key => $value ) {
+							wc_update_order_item_meta( $item_id, str_replace( 'attribute_', '', $key ), $value );
 						}
-
-						foreach ( $args as $meta_key => $meta_value ) {
-							if ( '_variation_data' === $meta_key && is_array( $meta_value ) ) {
-								foreach ( $meta_value as $key => $value ) {
-									wc_update_order_item_meta( $item_id, str_replace( 'attribute_', '', $key ), $value );
-								}
-							} else {
-								wc_update_order_item_meta( $item_id, $meta_key, $meta_value );
-							}
-						}
-
-						wc_update_order_item_meta( $item_id, '_cp_priced_individually', $priced_individually );
-
-						if ( 'no' === $priced_individually ) {
-							$item->set_tax_class( $_product->get_tax_class() );
-							$item->set_total( wc_format_decimal( 0 ) );
-							$item->set_subtotal( wc_format_decimal( 0 ) );
-							$item->set_quantity( $quantity );
-						}
-
-						$item->read_meta_data();
+					} else {
+						wc_update_order_item_meta( $item_id, $meta_key, $meta_value );
 					}
 				}
+
+				wc_update_order_item_meta( $item_id, '_cp_priced_individually', $priced_individually );
+
+				if ( 'no' === $priced_individually ) {
+					$item->set_tax_class( $_product->get_tax_class() );
+					$item->set_total( wc_format_decimal( 0 ) );
+					$item->set_subtotal( wc_format_decimal( 0 ) );
+					$item->set_quantity( $quantity );
+				}
+
+				$item->read_meta_data();
 			}
 		}
 

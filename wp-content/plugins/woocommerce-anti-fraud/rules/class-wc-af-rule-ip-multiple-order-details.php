@@ -14,9 +14,9 @@ class WC_AF_Rule_Ip_Multiple_Order_Details extends WC_AF_Rule {
 	 * The constructor
 	 */
 	public function __construct() {
-		$this->is_enabled  =  get_option('wc_af_ip_multiple_check');
-		$this->rule_weight = get_option('wc_settings_anti_fraud_ip_multiple_weight');
-		$this->time_span = get_option('wc_settings_anti_fraud_ip_multiple_time_span');
+		$this->is_enabled  = get_option( 'wc_af_ip_multiple_check' );
+		$this->rule_weight = get_option( 'wc_settings_anti_fraud_ip_multiple_weight' );
+		$this->time_span = get_option( 'wc_settings_anti_fraud_ip_multiple_time_span' );
 		parent::__construct( 'ip_multiple_order_Details', 'IP address ordered with multiple order details in the past ' . $this->time_span . ' days', $this->rule_weight );
 	}
 
@@ -45,8 +45,8 @@ class WC_AF_Rule_Ip_Multiple_Order_Details extends WC_AF_Rule {
 	 * @return bool
 	 */
 	public function is_risk( WC_Order $order ) {
-		
-		Af_Logger::debug('Checking multiple order rule');
+
+		Af_Logger::debug( 'Checking multiple order rule' );
 		global $wpdb;
 
 		// Default risk is false
@@ -63,14 +63,13 @@ class WC_AF_Rule_Ip_Multiple_Order_Details extends WC_AF_Rule {
 
 		$is_subscriptions_order = false;
 
-		if (class_exists('WC_Subscriptions_Plugin')) {
-			$is_subscriptions_order = wcs_order_contains_subscription($order, 'renewal');
+		if ( class_exists( 'WC_Subscriptions_Plugin' ) ) {
+			$is_subscriptions_order = wcs_order_contains_subscription( $order, 'renewal' );
 		}
-		Af_Logger::debug('is_subscriptions_renewal_order : ' . print_r($is_subscriptions_order, true));
-		if ($is_subscriptions_order) {
+		Af_Logger::debug( 'is_subscriptions_renewal_order : ' . print_r( $is_subscriptions_order, true ) );
+		if ( $is_subscriptions_order ) {
 			return false;
 		}
-
 
 		// Calculate the new datetime
 		$dt = new DateTime( $order_date );
@@ -118,16 +117,14 @@ class WC_AF_Rule_Ip_Multiple_Order_Details extends WC_AF_Rule {
 					// Set risk
 					$risk = true;
 				}
-
 			}
-
 		}
-		Af_Logger::debug('multiple order rule risk : ' . ( true === $risk ? 'true' : 'false' ));
+		Af_Logger::debug( 'multiple order rule risk : ' . ( true === $risk ? 'true' : 'false' ) );
 		return $risk;
 	}
-	//Enable rule check
+	// Enable rule check
 	public function is_enabled() {
-		if ('yes' == $this->is_enabled) {
+		if ( 'yes' == $this->is_enabled ) {
 			return true;
 		}
 		return false;

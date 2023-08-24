@@ -490,8 +490,8 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Google_Maps' ) ) {
 			$gmap_design_css  = sanitize_html_class( $ult_google_settings['gmap_margin'] );
 			$gmap_design_css .= sanitize_html_class( $ult_google_settings['gmap_padding'] );
 
-			$marker_lat       = "'" . floatval( esc_js( $ult_google_settings['lat'] ) ) . "'";
-			$marker_lng       = "'" . floatval( esc_js( $ult_google_settings['lng'] ) ) . "'";
+			$marker_lat = "'" . floatval( esc_js( $ult_google_settings['lat'] ) ) . "'";
+			$marker_lng = "'" . floatval( esc_js( $ult_google_settings['lng'] ) ) . "'";
 
 			if ( 'default_self' == $ult_google_settings['marker_icon'] ) {
 				$icon_url = esc_url( UAVC_URL . 'assets/img/icon-marker-pink.png' );

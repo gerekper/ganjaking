@@ -142,12 +142,14 @@ class WC_Points_Rewards_Manager {
 	 * Adds points to the balance for the user identified by $user_id
 	 *
 	 * @since 1.0
-	 * @param int $user_id the user identifier
-	 * @param int $points the points to add
-	 * @param string $event_type the type of event responsible
-	 * @param mixed $data optional arbitrary data to associate with the log for this action
-	 * @param int $order_id optional order identifier, if this action is associated with a particular order
-	 * @return boolean true if the points are successfully added to the user's balance
+	 *
+	 * @param int    $user_id    The user identifier.
+	 * @param int    $points     The points to add.
+	 * @param string $event_type The type of event responsible.
+	 * @param mixed  $data       Optional arbitrary data to associate with the log for this action.
+	 * @param int    $order_id   Optional order identifier, if this action is associated with a particular order.
+	 *
+	 * @return boolean true If the points are successfully added to the user's balance.
 	 */
 	public static function increase_points( $user_id, $points, $event_type, $data = null, $order_id = null ) {
 
@@ -207,6 +209,13 @@ class WC_Points_Rewards_Manager {
 		// log the event
 		WC_Points_Rewards_Points_Log::add_log_entry( $args );
 
+		/**
+		 * Clear the WP_User_Query cache for this user so that the points balance is reflected correctly.
+		 *
+		 * @see https://make.wordpress.org/core/2023/07/14/improved-caching-for-database-queries-in-wp_user_query/
+		 */
+		clean_user_cache( $user_id );
+
 		do_action( 'wc_points_rewards_after_increase_points', $user_id, $points, $event_type, $data, $order_id );
 
 		// success
@@ -218,12 +227,14 @@ class WC_Points_Rewards_Manager {
 	 * Reduces the points balance for the user identified by $user_id
 	 *
 	 * @since 1.0
-	 * @param int $user_id the user identifier
-	 * @param int $points the points to reduce, ie 75
-	 * @param string $event_type the type of event responsible
-	 * @param mixed $data optional arbitrary data to associate with the log for this action
-	 * @param int $order_id optional order identifier, if this action is associated with a particular order
-	 * @return boolean true if the points are successfully reduced from the user's balance
+	 *
+	 * @param int    $user_id    The user identifier.
+	 * @param int    $points     The points to reduce, ie 75.
+	 * @param string $event_type The type of event responsible.
+	 * @param mixed  $data       Optional arbitrary data to associate with the log for this action.
+	 * @param int    $order_id   Optional order identifier, if this action is associated with a particular order.
+	 *
+	 * @return boolean true If the points are successfully reduced from the user's balance.
 	 */
 	public static function decrease_points( $user_id, $points, $event_type, $data = null, $order_id = null ) {
 
@@ -329,6 +340,13 @@ class WC_Points_Rewards_Manager {
 
 		// log the event
 		WC_Points_Rewards_Points_Log::add_log_entry( $args );
+
+		/**
+		 * Clear the WP_User_Query cache for this user so that the points balance is reflected correctly.
+		 *
+		 * @see https://make.wordpress.org/core/2023/07/14/improved-caching-for-database-queries-in-wp_user_query/
+		 */
+		clean_user_cache( $user_id );
 
 		do_action( 'wc_points_rewards_after_reduce_points', $user_id, self::get_users_points( $user_id ) );
 

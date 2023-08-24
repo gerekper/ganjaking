@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<fieldset>
 							<legend class="screen-reader-text"><span><?php _e( 'SKU Pattern', 'woocommerce-photography' ); ?></span></legend>
 							<input class="input-text regular-input" type="text" name="sku" id="wc-photography-batch-sku">
-							<span class="description"><?php echo sprintf( __( 'Specify a pattern to ensure your photos have a unique SKU. E.g. %swc-%s', 'woocommerce-photography' ), '<code>', '</code>' ); ?></span>
+							<span class="description"><?php printf( __( 'Specify a pattern to ensure your photos have a unique SKU. E.g. %swc-%s', 'woocommerce-photography' ), '<code>', '</code>' ); ?></span>
 						</fieldset>
 					</td>
 				</tr>
@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<fieldset>
 							<legend class="screen-reader-text"><span><?php _e( 'Price', 'woocommerce-photography' ); ?></span></legend>
 							<input class="wc_input_price input-text regular-input" type="text" name="price" id="wc-photography-batch-price" placeholder="0">
-							<span class="description"><?php echo _e( 'Set a global price that will be set for each photo uploaded.', 'woocommerce-photography' ); ?></span>
+							<span class="description"><?php _e( 'Set a global price that will be set for each photo uploaded.', 'woocommerce-photography' ); ?></span>
 						</fieldset>
 					</td>
 				</tr>
@@ -53,7 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								style="width: 300px">
 							</select>
 
-							<span class="description"><?php echo _e( 'Specify which collection(s) these photos belong to.', 'woocommerce-photography' ); ?></span>
+							<span class="description"><?php _e( 'Specify which collection(s) these photos belong to.', 'woocommerce-photography' ); ?></span>
 							<div class="photography-add-collection">
 								<a href="#"><?php _e( '+ Add Collection', 'woocommerce-photography' ); ?></a>
 								<div class="fields">

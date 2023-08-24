@@ -565,7 +565,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_FancyText' ) ) {
 					$atts
 				);
 			foreach ( $ult_ft_settings as &$output ) {
-					$output = sanitize_text_field( $output );
+					$output = wp_kses_post( $output );
 			}
 			$vc_version    = ( defined( 'WPB_VC_VERSION' ) ) ? WPB_VC_VERSION : 0;
 			$is_vc_49_plus = ( version_compare( 4.9, $vc_version, '<=' ) ) ? 'ult-adjust-bottom-margin' : '';
@@ -768,19 +768,20 @@ if ( ! class_exists( 'Ultimate_VC_Addons_FancyText' ) ) {
 						});
 					</script>';
 			} else {
-				$output .= '<script type="text/javascript"> 
+				$showCursor = (bool) $ult_ft_settings['typewriter_cursor'];
+				$output    .= '<script type="text/javascript">
 						jQuery(function($){ 
 							$(document).ready(function(){
 								if( typeof jQuery("#typed-' . esc_attr( $id ) . '").typed == "function"){
 									$("#typed-' . esc_attr( $id ) . '").typed({
 										strings: ' . $strings . ',
-										typeSpeed: "' . esc_attr( $ult_ft_settings['strings_textspeed'] ) . '",
-										backSpeed: "' . esc_attr( $ult_ft_settings['strings_backspeed'] ) . '",
-										startDelay: "' . esc_attr( $ult_ft_settings['strings_startdelay'] ) . '",
-										backDelay: "' . esc_attr( $ult_ft_settings['strings_backdelay'] ) . '",
+										typeSpeed: ' . (int) ( $ult_ft_settings['strings_textspeed'] ) . ',
+										backSpeed: ' . (int) ( $ult_ft_settings['strings_backspeed'] ) . ',
+										startDelay: "' . (int) ( $ult_ft_settings['strings_startdelay'] ) . '",
+										backDelay: "' . (int) ( $ult_ft_settings['strings_backdelay'] ) . '",
 										loop: "' . esc_attr( $ult_ft_settings['typewriter_loop'] ) . '",
 										loopCount: false,
-										showCursor: "' . esc_attr( $ult_ft_settings['typewriter_cursor'] ) . '",
+										showCursor: ' . ( $showCursor ? 'true' : 'false' ) . ',
 										cursorChar: "' . esc_attr( $ult_ft_settings['typewriter_cursor_text'] ) . '",
 										attr: null
 									});

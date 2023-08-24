@@ -144,7 +144,7 @@ class WC_Photography_Products {
 		$is_shop_page = is_page() && isset( $query->query_vars['page_id'] ) && wc_get_page_id( 'shop' ) == $query->query_vars['page_id'];
 		$is_cat_page  = ! empty( $query->query_vars['product_cat'] );
 
-		return ( $is_archive || $is_shop_page || $is_cat_page ) ? true : false;
+		return ( $is_archive || $is_shop_page || $is_cat_page );
 	}
 
 	/**
@@ -376,7 +376,7 @@ class WC_Photography_Products {
 			// If we added the product to the cart we can now optionally do a redirect.
 			if ( $was_added_to_cart && 0 == wc_notice_count( 'error' ) ) {
 
-				$url = apply_filters( 'woocommerce_add_to_cart_redirect', '' );
+				$url = apply_filters( 'woocommerce_add_to_cart_redirect', '', null );
 
 				// If has custom URL redirect there.
 				if ( $url ) {

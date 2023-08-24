@@ -266,4 +266,14 @@ jQuery( document ).ready( function () {
 			jQuery( 'html, body' ).animate( { scrollTop: ntop }, 1200 );
 		}
 	} );
+	jQuery( '.ult_exp_section' ).on( "keypress", function(e) {
+		const $this = jQuery(this);
+		if ( e.which == 13 || e.which == 32 )
+		  {
+			$this.click();
+			const currentValue = $this.attr('aria-pressed');
+			const newValue = currentValue === 'false' ? 'true' : 'false';
+			$this.attr('aria-pressed', newValue);
+		  }
+	  })
 } );

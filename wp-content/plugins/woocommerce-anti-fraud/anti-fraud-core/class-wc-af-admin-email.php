@@ -4,6 +4,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
 
+/**
+ * Class WC_AF_Admin_Email
+ */
 class WC_AF_Admin_Email extends WC_Email {
 
 	/**
@@ -13,9 +16,15 @@ class WC_AF_Admin_Email extends WC_Email {
 	 */
 	private $rows = array();
 
+	/**
+	 * Constructor for initializing an object.
+	 *
+	 * @param    mixed $order The order associated with the object.
+	 * @param int   $score The score associated with the object.
+	 */
 	public function __construct( $order, $score ) {
 
-		// WC_Email basic properties
+		// WC_Email basic properties.
 		$this->id          = 'anti_fraud_admin_notice';
 		$this->title       = __( 'Anti Fraud - Admin Notice', 'woocommerce-anti-fraud' );
 		$this->description = __( 'Admin notification about an order.', 'woocommerce-anti-fraud' );
@@ -25,7 +34,7 @@ class WC_AF_Admin_Email extends WC_Email {
 
 		$this->score = $score;
 
-		// Parent Constructor
+		// Parent Constructor.
 		parent::__construct();
 
 	}
@@ -37,7 +46,7 @@ class WC_AF_Admin_Email extends WC_Email {
 	 */
 	private function init() {
 
-		// Subject & heading
+		// Subject & heading.
 		$this->subject = __( 'Fraud notification for order #{order_id}', 'woocommerce-anti-fraud' );
 		$this->heading = __( 'Fraud notification for order #{order_id}', 'woocommerce-anti-fraud' );
 
@@ -47,15 +56,15 @@ class WC_AF_Admin_Email extends WC_Email {
 		 * @since  1.0.0
 		 */
 		$this->recipient = apply_filters( 'wc_anti_fraud_email_recipient', get_option( 'admin_email', '' ) );
-		$this->customemail = get_option( 'wc_settings_anti_fraud_custom_email');
-		// Set the template base path
+		$this->customemail = get_option( 'wc_settings_anti_fraud_custom_email' );
+		// Set the template base path.
 		$this->template_base = plugin_dir_path( WooCommerce_Anti_Fraud::get_plugin_file() ) . 'templates/';
 
-		// Set the templates
+		// Set the templates.
 		$this->template_html  = 'af-admin-notice.php';
 		$this->template_plain = 'plain/af-admin-notice.php';
 
-		// Find & Replace vars
+		// Find & Replace vars.
 		$this->find['order-id']    = '{order_id}';
 		$this->replace['order-id'] = $this->order->get_order_number();
 
@@ -68,25 +77,25 @@ class WC_AF_Admin_Email extends WC_Email {
 	 */
 	public function send_notification() {
 
-		// All checks are done, initialize the object
+		// All checks are done, initialize the object.
 		$this->init();
 
-		// Add the 'woocommerce_locate_template' filter so we can load our plugin template file
+		// Add the 'woocommerce_locate_template' filter so we can load our plugin template file.
 		add_filter( 'woocommerce_locate_template', array( $this, 'load_plugin_template' ), 10, 3 );
 
-		// Add email header and footer
+		// Add email header and footer.
 		if ( ! has_action( 'woocommerce_email_header' ) ) {
 			add_action( 'woocommerce_email_header', array( $this, 'email_header' ) );
 			add_action( 'woocommerce_email_footer', array( $this, 'email_footer' ) );
 		}
 
-		// Send the emails
+		// Send the emails.
 		$this->send( $this->get_recipient() . ',' . $this->customemail, $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
 
-		// Remove the woocommerce_locate_template filter
+		// Remove the woocommerce_locate_template filter.
 		remove_filter( 'woocommerce_locate_template', array( $this, 'load_plugin_templates' ), 10 );
 
-		// Remove the header and footer actions
+		// Remove the header and footer actions.
 		remove_action( 'woocommerce_email_header', array( $this, 'email_header' ) );
 		remove_action( 'woocommerce_email_footer', array( $this, 'email_footer' ) );
 
@@ -95,9 +104,9 @@ class WC_AF_Admin_Email extends WC_Email {
 	/**
 	 * Load template files of this plugin
 	 *
-	 * @param String $template
-	 * @param String $template_name
-	 * @param String $template_path
+	 * @param String $template variable template.
+	 * @param String $template_name variable for template name.
+	 * @param String $template_path variable for template path.
 	 *
 	 * @since  1.0.0
 	 *
@@ -116,7 +125,7 @@ class WC_AF_Admin_Email extends WC_Email {
 	 *
 	 * @since  1.0.0
 	 *
-	 * @param mixed $email_heading heading for the email
+	 * @param mixed $email_heading heading for the email.
 	 *
 	 * @return void
 	 */
@@ -144,13 +153,17 @@ class WC_AF_Admin_Email extends WC_Email {
 	 */
 	public function get_content_html() {
 		ob_start();
-		wc_get_template( $this->template_html, array(
-			'email_heading' => $this->get_heading(),
-			'order_id'      => $this->order->get_order_number(),
-			'score'         => $this->score,
-			'order_url'     => admin_url( 'post.php?post=' . $this->order_id . '&action=edit' ),
-			'plain_text'    => false
-		), $this->template_base );
+		wc_get_template(
+			$this->template_html,
+			array(
+				'email_heading' => $this->get_heading(),
+				'order_id'      => $this->order->get_order_number(),
+				'score'         => $this->score,
+				'order_url'     => admin_url( 'post.php?post=' . $this->order_id . '&action=edit' ),
+				'plain_text'    => false,
+			),
+			$this->template_base
+		);
 
 		return ob_get_clean();
 	}
@@ -164,13 +177,17 @@ class WC_AF_Admin_Email extends WC_Email {
 	 */
 	public function get_content_plain() {
 		ob_start();
-		wc_get_template( $this->template_plain, array(
-			'email_heading' => $this->get_heading(),
-			'order_id'      => $this->order->get_order_number(),
-			'score'         => $this->score,
-			'order_url'     => admin_url( 'post.php?post=' . $this->order_id . '&action=edit' ),
-			'plain_text'    => true
-		), $this->template_base );
+		wc_get_template(
+			$this->template_plain,
+			array(
+				'email_heading' => $this->get_heading(),
+				'order_id'      => $this->order->get_order_number(),
+				'score'         => $this->score,
+				'order_url'     => admin_url( 'post.php?post=' . $this->order_id . '&action=edit' ),
+				'plain_text'    => true,
+			),
+			$this->template_base
+		);
 
 		return ob_get_clean();
 	}

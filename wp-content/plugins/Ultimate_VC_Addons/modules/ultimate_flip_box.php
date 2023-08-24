@@ -1091,22 +1091,22 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Flip_Box' ) ) {
 					$output .= '<div class="flip-box-icon">' . ( $flip_icon ) . '</div>';
 			}
 			if ( '' != $ult_flip_settings['block_title_front'] ) {
-				$output .= '<' . esc_attr( sanitize_key( $ult_flip_settings['front_heading_tag'] ) ) . ' class="ult-responsive flipbox_heading" ' . esc_attr( $data_list ) . ' style="' . esc_attr( $front_text ) . ' ' . esc_attr( $title_style ) . '">' . $ult_flip_settings['block_title_front'] . '</' . esc_attr( sanitize_key( $ult_flip_settings['front_heading_tag'] ) ) . '>';
+				$output .= '<' . esc_attr( sanitize_key( $ult_flip_settings['front_heading_tag'] ) ) . ' class="ult-responsive flipbox_heading" ' . wp_kses_post( $data_list ) . ' style="' . esc_attr( $front_text ) . ' ' . esc_attr( $title_style ) . '">' . $ult_flip_settings['block_title_front'] . '</' . esc_attr( sanitize_key( $ult_flip_settings['front_heading_tag'] ) ) . '>';
 			}
 			if ( '' != $ult_flip_settings['block_desc_front'] ) {
-				$output .= '<div class="ifb-flip-box-section-content ult-responsive" ' . esc_attr( $data_list_desc ) . ' style="' . esc_attr( $desc_style ) . esc_attr( $front_text ) . esc_attr( $frontd_text ) . '"><p>' . $ult_flip_settings['block_desc_front'] . '</p></div>';
+				$output .= '<div class="ifb-flip-box-section-content ult-responsive" ' . wp_kses_post( $data_list_desc ) . ' style="' . esc_attr( $desc_style ) . esc_attr( $front_text ) . esc_attr( $frontd_text ) . '"><p>' . $ult_flip_settings['block_desc_front'] . '</p></div>';
 			}
 					$output .= '</div></div><!-- END .front -->
 						<div class="ifb-face ifb-back" style="' . esc_attr( $b_style ) . ' ' . esc_attr( $box_border ) . ' ' . esc_attr( $border_back ) . ' ' . esc_attr( $box_border_radius ) . '">
 							<div class="ifb-flip-box-section ' . esc_attr( $verticalcont ) . '">';
 			if ( '' != $ult_flip_settings['block_title_back'] ) {
-				$output .= '<' . esc_attr( sanitize_key( $ult_flip_settings['back_heading_tag'] ) ) . ' class="ult-responsive flipbox_heading" ' . esc_attr( $data_list ) . ' style="' . esc_attr( $back_text ) . ' ' . esc_attr( $title_style ) . '">' . $ult_flip_settings['block_title_back'] . '</' . esc_attr( sanitize_key( $ult_flip_settings['back_heading_tag'] ) ) . '>';
+				$output .= '<' . esc_attr( sanitize_key( $ult_flip_settings['back_heading_tag'] ) ) . ' class="ult-responsive flipbox_heading" ' . wp_kses_post( $data_list ) . ' style="' . esc_attr( $back_text ) . ' ' . esc_attr( $title_style ) . '">' . $ult_flip_settings['block_title_back'] . '</' . esc_attr( sanitize_key( $ult_flip_settings['back_heading_tag'] ) ) . '>';
 			}
 			if ( '' != $ult_flip_settings['block_desc_back'] ) {
 				if ( '' !== $ult_flip_settings['button_link'] ) {
 					$output .= '<div class="ifb-desc-back">';
 				}
-				$output .= '<div class="ifb-flip-box-section-content ult-responsive" ' . esc_attr( $data_list_desc ) . ' style="' . esc_attr( $desc_style ) . esc_attr( $back_text ) . esc_attr( $backd_text ) . '"><p>' . $ult_flip_settings['block_desc_back'] . '</p></div>';
+				$output .= '<div class="ifb-flip-box-section-content ult-responsive" ' . wp_kses_post( $data_list_desc ) . ' style="' . esc_attr( $desc_style ) . esc_attr( $back_text ) . esc_attr( $backd_text ) . '"><p>' . $ult_flip_settings['block_desc_back'] . '</p></div>';
 				if ( '' !== $ult_flip_settings['button_link'] ) {
 					$output .= '</div>';
 				}

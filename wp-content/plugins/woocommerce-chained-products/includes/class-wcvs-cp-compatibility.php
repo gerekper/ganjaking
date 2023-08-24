@@ -3,7 +3,7 @@
  * Compatibility file for WooCommerce Variation Swatches and Photos
  *
  * @since       2.9.3
- * @version     1.0.1
+ * @version     1.0.2
  * @package     WooCommerce Chained Products
  */
 
@@ -62,7 +62,7 @@ if ( ! class_exists( 'WCVS_CP_Compatibility' ) ) {
 		 * @param array  $arguments Array of arguments passed while calling $function_name.
 		 * @return mixed Result of function call.
 		 */
-		public function __call( $function_name, $arguments = array() ) {
+		public function __call( $function_name = '', $arguments = array() ) {
 
 			global $wc_cp;
 

@@ -36,7 +36,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Variable' ) ) {
 		 *
 		 * @return string updated stock HTML
 		 */
-		public static function output_waitlist_elements( $html, $product ) {
+		public static function output_waitlist_elements( $html, WC_Product $product ) {
 			$elements = wcwl_get_waitlist_fields( $product->get_id() );
 			$html    .= $elements;
 

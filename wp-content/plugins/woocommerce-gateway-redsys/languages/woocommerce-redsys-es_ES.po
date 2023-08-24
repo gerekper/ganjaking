@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerde Redsys Gateway\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-14 18:27+0200\n"
-"PO-Revision-Date: 2023-07-14 18:53+0200\n"
+"POT-Creation-Date: 2023-08-18 11:30+0200\n"
+"PO-Revision-Date: 2023-08-18 11:53+0200\n"
 "Last-Translator: José Conti <j.conti@joseconti.com>\n"
 "Language-Team: José Conti https://www.joseconti.com\n"
 "Language: es_ES\n"
@@ -33,6 +33,356 @@ msgstr "Docu. API"
 msgid "Open a Support Ticket"
 msgstr "Abre un ticket de soporte"
 
+#: classes/class-redsys-advanced-setings.php:33
+msgid "Redsys Advanced"
+msgstr "Redsys avanzado"
+
+#: classes/class-redsys-advanced-setings.php:89
+msgid "General"
+msgstr "General"
+
+#: classes/class-redsys-advanced-setings.php:90
+msgid "Push Notifications"
+msgstr "Notificaciones Push"
+
+#: classes/class-redsys-advanced-setings.php:91
+msgid "Sequential invoice number"
+msgstr "Número secuencial factura"
+
+#: classes/class-redsys-advanced-setings.php:92
+msgid "QR Codes"
+msgstr "Códigos QR"
+
+#: classes/class-redsys-advanced-setings.php:93
+msgid "Saved Cards (Tokenization)"
+msgstr "Tarjetas guardadas (Tokenización)"
+
+#: classes/class-redsys-advanced-setings.php:239
+msgid "Redsys Push Notifications (by José Conti)"
+msgstr "Redsys Notificaciones Push (por José Conti)"
+
+#: classes/class-redsys-advanced-setings.php:244
+msgid "Enable Push Notifications"
+msgstr "Activar Notificaciones Push"
+
+#: classes/class-redsys-advanced-setings.php:250
+msgid "Access Token"
+msgstr "Access Token"
+
+#: classes/class-redsys-advanced-setings.php:255
+msgid "Mobile App ID"
+msgstr "Mobile App ID"
+
+#: classes/class-redsys-advanced-setings.php:260
+msgid "Identifier"
+msgstr "Identificador"
+
+#: classes/class-redsys-advanced-setings.php:262
+msgid "Your mobile with country code, Ex, 34666666666"
+msgstr "Tu número móvil con el país delante, Ej: 34666666666"
+
+#: classes/class-redsys-advanced-setings.php:270
+msgid "Notification Types"
+msgstr "Tipo de notificación"
+
+#: classes/class-redsys-advanced-setings.php:275
+msgid "Errors"
+msgstr "Errores"
+
+#: classes/class-redsys-advanced-setings.php:290
+msgid "Sequential Invoice Numbers"
+msgstr "Número secuencial factura"
+
+#: classes/class-redsys-advanced-setings.php:296
+#: classes/class-redsys-advanced-setings.php:300
+msgid "Activate Sequential Invoice numbers"
+msgstr "Activar número secuenciales en facturas"
+
+#: classes/class-redsys-advanced-setings.php:298
+msgid "Activate Sequential Invoice numbers."
+msgstr "Activar número secuenciales en facturas."
+
+#: classes/class-redsys-advanced-setings.php:304
+msgid "First Invoice Number"
+msgstr "Primer número de factura"
+
+#: classes/class-redsys-advanced-setings.php:306
+msgid ""
+"Add here the first invoice number. By Default is number 1. Save this number "
+"before activate it. Example 345 "
+msgstr ""
+"Añade aquí el primer número para tus facturas. Por defecto se usará el "
+"número 1. Guarda este número antes activar esta funcionalidad. Ejemplo 345 "
+
+#: classes/class-redsys-advanced-setings.php:310
+msgid "Invoice Number Length"
+msgstr "Longitud de la numeración"
+
+#: classes/class-redsys-advanced-setings.php:312
+msgid ""
+"The Invoice number length, this is not required. Example 10, the result will "
+"be 0000000345"
+msgstr ""
+"La longitud de la numeración de tus facturas, no es necesario. Si el número "
+"resultante en inferior al que se ponga aquí, se añadirán 0s. Ejemplo 10, el "
+"resultado sería 0000000345"
+
+#: classes/class-redsys-advanced-setings.php:316
+msgid "Prefix Invoice Number"
+msgstr "Prefijo número factura"
+
+#: classes/class-redsys-advanced-setings.php:318
+#, php-format
+msgid ""
+"Add here a prefix invoice number, this is not required. Example WC-, the "
+"result will be WC-0000000345. Pattern are allowed ex. {Y} this will add the "
+"current year. You will find all patterns %1$sshere%2$s."
+msgstr ""
+"Añade aquí un prefijo para la numeración de tus facturas, esto no es "
+"requerido. Ejemplo: WC-, el resultado sería WC-0000000345. La utilización de "
+"plantillas está permitida, por ejemplo, si pusieras <code>{Y}/</code> el "
+"resultado en la numeración de la facturas sería 2015/0000000345. Encontrarás "
+"todas las plantillas posibles %1$saquí%2$s."
+
+#: classes/class-redsys-advanced-setings.php:322
+msgid "Postfix Invoice Number"
+msgstr "Sufijo número factura"
+
+#: classes/class-redsys-advanced-setings.php:324
+#, php-format
+msgid ""
+"Add here a postfix invoice number, this is not required. Example -2015 the "
+"result will be WC-0000000345-2015. Pattern are allowed ex. {Y} this will add "
+"the current year. You will find all patterns %1$sshere%2$s."
+msgstr ""
+"Añade aquí un sufijo para la numeración de tus facturas, esto no es "
+"requerido. Ejemplo: -2015, el resultado sería WC-0000000345-2015. La "
+"utilización de plantillas está permitida, por ejemplo, si pusieras /{Y] el "
+"resultado en la numeración de la facturas sería 0000000345/2015. Encontrarás "
+"todas las plantillas posibles%1$saquí%2$s."
+
+#: classes/class-redsys-advanced-setings.php:328
+msgid "Reset Invoice Number"
+msgstr "Restablecer número factura"
+
+#: classes/class-redsys-advanced-setings.php:330
+msgid "Reset Invoice Number."
+msgstr "Restablecer número factura."
+
+#: classes/class-redsys-advanced-setings.php:332
+msgid ""
+"If you enable Reset Invoice Number, every January 1st the invoice number "
+"will be reset and will start again with number 1. Is very important that if "
+"you enable this option, you use a prefix or postfix year pattern {Y}."
+msgstr ""
+"Si activas el reseteo o reinicializacición del número de factura, cada 1 de "
+"enero se reinicializará la numeración comenzando de nuevo con 1. ATENCIÓN: "
+"Es muy importante que si activas esta funcionalidad, añadas un prefijo o un "
+"sufijo al número de pedido que incluya el año {Y}."
+
+#: classes/class-redsys-advanced-setings.php:345
+msgid "QR Codes (by José Conti)"
+msgstr "Códigos QR (por José Conti)"
+
+#: classes/class-redsys-advanced-setings.php:351
+msgid "Enable QR Codes"
+msgstr "Activar códigos QR"
+
+#: classes/class-redsys-advanced-setings.php:353
+msgid "Enable QR Codes."
+msgstr "Activar códigos QR."
+
+#: classes/class-redsys-advanced-setings.php:355
+msgid "Enable QR Codes, WooCommerce Redsys Gateway licence is needed"
+msgstr ""
+"Habilitar códigos QR, se necesita la licencia de WooCommerce Redsys Gateway"
+
+#: classes/class-redsys-advanced-setings.php:359
+#: classes/class-redsys-advanced-setings.php:361
+msgid "User redsys.joseconti.com"
+msgstr "Usuario de redsys.joseconti.com"
+
+#: classes/class-redsys-advanced-setings.php:366
+msgid "QR Code Pattern"
+msgstr "Patrón de código QR"
+
+#: classes/class-redsys-advanced-setings.php:368
+msgid "Select QR Code pattern."
+msgstr "Seleccione el patrón de código QR."
+
+#: classes/class-redsys-advanced-setings.php:395
+msgid "QR Code Marker border"
+msgstr "Borde del marcador de código QR"
+
+#: classes/class-redsys-advanced-setings.php:397
+msgid "Select QR Code Marker border."
+msgstr "Seleccione el borde del marcador de código QR."
+
+#: classes/class-redsys-advanced-setings.php:424
+msgid "QR Code Marker center"
+msgstr "Centro de marcadores de código QR"
+
+#: classes/class-redsys-advanced-setings.php:426
+msgid "Select QR Code Marker center."
+msgstr "Selecciona el centro de marcador de código QR."
+
+#: classes/class-redsys-advanced-setings.php:459
+msgid "QR Code Frame"
+msgstr "Marco de código QR"
+
+#: classes/class-redsys-advanced-setings.php:461
+msgid "Select QR Code Frame."
+msgstr "Selecciona el marco de código QR."
+
+#: classes/class-redsys-advanced-setings.php:477
+msgid "Frame label"
+msgstr "Etiqueta de marco"
+
+#: classes/class-redsys-advanced-setings.php:479
+msgid "Text to show in frame"
+msgstr "Texto para mostrar en el marco"
+
+#: classes/class-redsys-advanced-setings.php:480
+msgid "SCAN ME"
+msgstr "ESCANEAME"
+
+#: classes/class-redsys-advanced-setings.php:484
+msgid "Label Font"
+msgstr "Fuente de etiqueta"
+
+#: classes/class-redsys-advanced-setings.php:486
+msgid "Select Label Font"
+msgstr "Seleccione Fuente de etiqueta"
+
+#: classes/class-redsys-advanced-setings.php:501
+msgid "Color Background"
+msgstr "Color de fondo"
+
+#: classes/class-redsys-advanced-setings.php:503
+msgid "Background #ffffff"
+msgstr "Color de fondo #ffffff"
+
+#: classes/class-redsys-advanced-setings.php:509
+msgid "Color Foreground"
+msgstr "Color frontal"
+
+#: classes/class-redsys-advanced-setings.php:511
+msgid "Foreground #000000"
+msgstr "Primer plano #000000"
+
+#: classes/class-redsys-advanced-setings.php:521
+#: classes/class-wc-gateway-redsys-bank-transfer.php:201
+msgid "Logo"
+msgstr "Logo"
+
+#: classes/class-redsys-advanced-setings.php:527
+#: classes/class-redsys-advanced-setings.php:529
+msgid "Logo Background Image"
+msgstr "Imagen de fondo de logotipo"
+
+#: classes/class-redsys-advanced-setings.php:538
+msgid "Gradient"
+msgstr "Degradado"
+
+#: classes/class-redsys-advanced-setings.php:544
+msgid "Enable Gradient Color"
+msgstr "Activar color degradado"
+
+#: classes/class-redsys-advanced-setings.php:546
+msgid "Enable Gradient Color."
+msgstr "Activar color degradado."
+
+#: classes/class-redsys-advanced-setings.php:551
+msgid "Second color"
+msgstr "Segundo color"
+
+#: classes/class-redsys-advanced-setings.php:553
+msgid "Second color #8900d5"
+msgstr "Segundo color #8900d5"
+
+#: classes/class-redsys-advanced-setings.php:563
+msgid "Marker Custom Color"
+msgstr "Color personalizado del marcador"
+
+#: classes/class-redsys-advanced-setings.php:569
+msgid "Enable Marker Custom Color"
+msgstr "Habilitar color personalizado del marcador"
+
+#: classes/class-redsys-advanced-setings.php:571
+msgid "Enable Marker Custom Color."
+msgstr "Habilite el color personalizado del marcador."
+
+#: classes/class-redsys-advanced-setings.php:576
+#: classes/class-redsys-advanced-setings.php:578
+msgid "Marker border color"
+msgstr "Color del borde del marcador"
+
+#: classes/class-redsys-advanced-setings.php:584
+#: classes/class-redsys-advanced-setings.php:586
+msgid "Marker center color"
+msgstr "Color del centro del marcador"
+
+#: classes/class-redsys-advanced-setings.php:600
+msgid "Saved Cards"
+msgstr "Tarjetas guardadas"
+
+#: classes/class-redsys-advanced-setings.php:606
+#: classes/class-redsys-advanced-setings.php:608
+msgid "Send email to the customer."
+msgstr "Enviar correo electrónico al cliente."
+
+#: classes/class-redsys-advanced-setings.php:610
+msgid "Send email to the customer when the card is about to expire this month."
+msgstr ""
+"Enviar un correo electrónico al cliente cuando su tarjeta de crédito está "
+"apunto de caducar."
+
+#: classes/class-redsys-advanced-setings.php:614
+msgid "Delete Credit Cards"
+msgstr "Eliminar tarjetas caducadas"
+
+#: classes/class-redsys-advanced-setings.php:616
+msgid "Delete expired cards."
+msgstr "Eliminar tarjetas caducados."
+
+#: classes/class-redsys-advanced-setings.php:618
+msgid ""
+"Delete expired cards. This will keep a cleaner database, and users will see "
+"that they have no cards. If you have enabled the previous functionality, "
+"they were also notified that their card was about to expire."
+msgstr ""
+"Eliminar tarjetas de crédito/débito. Esto mantendrá una base de datos más "
+"limpia, y los usuarios verán que no tienen tarjetas. Si activas la "
+"funcionalidad anterior, también serán avisados que su tarjeta está apunto de "
+"expirar."
+
+#: classes/class-redsys-advanced-setings.php:630
+msgid "General Settings"
+msgstr "Configuración general"
+
+#: classes/class-redsys-advanced-setings.php:678
+msgid "Invoice Number"
+msgstr "Número factura"
+
+#: classes/class-redsys-advanced-setings.php:695
+#: classes/class-redsys-advanced-setings.php:711
+msgid "No invoice n&#176;"
+msgstr "Sin n&#176; de factura"
+
+#: classes/class-redsys-advanced-setings.php:833
+#, php-format
+msgid "Order Number: %s"
+msgstr "Pedido número: %s"
+
+#: classes/class-redsys-advanced-setings.php:836
+#, php-format
+msgid "Invoice Number: %s"
+msgstr "Número factura: %s"
+
+#: classes/class-redsys-advanced-setings.php:899
+msgid "-ORDER"
+msgstr "-PEDIDO"
+
 #: classes/class-redsys-card-images.php:27
 msgid "This Widget add the credit card image"
 msgstr "Este widget añade las imágenes de las tarjetas de crédito"
@@ -44,214 +394,6 @@ msgstr "Tarjetas de crédito aceptadas"
 #: classes/class-redsys-card-images.php:76
 msgid "Title:"
 msgstr "Título:"
-
-#: classes/class-redsys-push-notifications-menu.php:43
-msgid "Redsys Push Notifications"
-msgstr "Activar Notificaciones Push"
-
-#: classes/class-redsys-push-notifications-menu.php:61
-msgid "Check "
-msgstr "Comprueba "
-
-#: classes/class-redsys-push-notifications-menu.php:61
-msgid " The Guide"
-msgstr " La guía"
-
-#: classes/class-redsys-push-notifications-menu.php:61
-msgid "for configuring Push Notifications. "
-msgstr "para configurar notificaciones push. "
-
-#: classes/class-redsys-push-notifications-menu.php:98
-msgid "Redsys Push Notifications (by José Conti)"
-msgstr "Redsys Notificaciones Push (por José Conti)"
-
-#: classes/class-redsys-push-notifications-menu.php:104
-#: classes/class-redsys-push-notifications-menu.php:108
-msgid "Enable Push Notifications"
-msgstr "Activar Notificaciones Push"
-
-#: classes/class-redsys-push-notifications-menu.php:106
-msgid "Enable Push Notifications."
-msgstr "Activar Notificaciones Push."
-
-#: classes/class-redsys-push-notifications-menu.php:112
-#: classes/class-redsys-push-notifications-menu.php:114
-msgid "Access Token"
-msgstr "Access Token"
-
-#: classes/class-redsys-push-notifications-menu.php:118
-msgid "Mobile App ID"
-msgstr "Mobile App ID"
-
-#: classes/class-redsys-push-notifications-menu.php:120
-msgid "The Mobile App ID"
-msgstr "El Mobile App ID"
-
-#: classes/class-redsys-push-notifications-menu.php:124
-msgid "Identifier"
-msgstr "Identificador"
-
-#: classes/class-redsys-push-notifications-menu.php:126
-msgid "Your mobile with country code, Ex, 34666666666"
-msgstr "Tu número móvil con el país delante, Ej: 34666666666"
-
-#: classes/class-redsys-push-notifications-menu.php:134
-msgid "Notification Types"
-msgstr "Tipo de notificación"
-
-#: classes/class-redsys-push-notifications-menu.php:140
-msgid "Errors"
-msgstr "Errores"
-
-#: classes/class-redsys-push-notifications-menu.php:142
-msgid "Enable Notify Errors."
-msgstr "Activar notificación de errores."
-
-#: classes/class-redsys-push-notifications-menu.php:145
-msgid "Notify Errors"
-msgstr "Notificar errores"
-
-#: classes/class-redsys-qr-codes.php:58
-msgid "Redsys QR Codes"
-msgstr "Códigos QR de Redsys"
-
-#: classes/class-redsys-qr-codes.php:231
-msgid "QR Codes (by José Conti)"
-msgstr "Códigos QR (por José Conti)"
-
-#: classes/class-redsys-qr-codes.php:237
-msgid "Enable QR Codes"
-msgstr "Activar códigos QR"
-
-#: classes/class-redsys-qr-codes.php:239
-msgid "Enable QR Codes."
-msgstr "Activar códigos QR."
-
-#: classes/class-redsys-qr-codes.php:241
-msgid "Enable QR Codes, WooCommerce Redsys Gateway licence is needed"
-msgstr ""
-"Habilitar códigos QR, se necesita la licencia de WooCommerce Redsys Gateway"
-
-#: classes/class-redsys-qr-codes.php:245 classes/class-redsys-qr-codes.php:247
-msgid "User redsys.joseconti.com"
-msgstr "Usuario de redsys.joseconti.com"
-
-#: classes/class-redsys-qr-codes.php:252
-msgid "QR Code Pattern"
-msgstr "Patrón de código QR"
-
-#: classes/class-redsys-qr-codes.php:254
-msgid "Select QR Code pattern."
-msgstr "Seleccione el patrón de código QR."
-
-#: classes/class-redsys-qr-codes.php:281
-msgid "QR Code Marker border"
-msgstr "Borde del marcador de código QR"
-
-#: classes/class-redsys-qr-codes.php:283
-msgid "Select QR Code Marker border."
-msgstr "Seleccione el borde del marcador de código QR."
-
-#: classes/class-redsys-qr-codes.php:310
-msgid "QR Code Marker center"
-msgstr "Centro de marcadores de código QR"
-
-#: classes/class-redsys-qr-codes.php:312
-msgid "Select QR Code Marker center."
-msgstr "Selecciona el centro de marcador de código QR."
-
-#: classes/class-redsys-qr-codes.php:345
-msgid "QR Code Frame"
-msgstr "Marco de código QR"
-
-#: classes/class-redsys-qr-codes.php:347
-msgid "Select QR Code Frame."
-msgstr "Selecciona el marco de código QR."
-
-#: classes/class-redsys-qr-codes.php:363
-msgid "Frame label"
-msgstr "Etiqueta de marco"
-
-#: classes/class-redsys-qr-codes.php:365
-msgid "Text to show in frame"
-msgstr "Texto para mostrar en el marco"
-
-#: classes/class-redsys-qr-codes.php:366
-msgid "SCAN ME"
-msgstr "ESCANEAME"
-
-#: classes/class-redsys-qr-codes.php:370
-msgid "Label Font"
-msgstr "Fuente de etiqueta"
-
-#: classes/class-redsys-qr-codes.php:372
-msgid "Select Label Font"
-msgstr "Seleccione Fuente de etiqueta"
-
-#: classes/class-redsys-qr-codes.php:387
-msgid "Color Background"
-msgstr "Color de fondo"
-
-#: classes/class-redsys-qr-codes.php:389
-msgid "Background #ffffff"
-msgstr "Color de fondo #ffffff"
-
-#: classes/class-redsys-qr-codes.php:395
-msgid "Color Foreground"
-msgstr "Color frontal"
-
-#: classes/class-redsys-qr-codes.php:397
-msgid "Foreground #000000"
-msgstr "Primer plano #000000"
-
-#: classes/class-redsys-qr-codes.php:407
-#: classes/class-wc-gateway-redsys-bank-transfer.php:201
-msgid "Logo"
-msgstr "Logo"
-
-#: classes/class-redsys-qr-codes.php:413 classes/class-redsys-qr-codes.php:415
-msgid "Logo Background Image"
-msgstr "Imagen de fondo de logotipo"
-
-#: classes/class-redsys-qr-codes.php:424
-msgid "Gradient"
-msgstr "Degradado"
-
-#: classes/class-redsys-qr-codes.php:430
-msgid "Enable Gradient Color"
-msgstr "Activar color degradado"
-
-#: classes/class-redsys-qr-codes.php:432
-msgid "Enable Gradient Color."
-msgstr "Activar color degradado."
-
-#: classes/class-redsys-qr-codes.php:437
-msgid "Second color"
-msgstr "Segundo color"
-
-#: classes/class-redsys-qr-codes.php:439
-msgid "Second color #8900d5"
-msgstr "Segundo color #8900d5"
-
-#: classes/class-redsys-qr-codes.php:449
-msgid "Marker Custom Color"
-msgstr "Color personalizado del marcador"
-
-#: classes/class-redsys-qr-codes.php:455
-msgid "Enable Marker Custom Color"
-msgstr "Habilitar color personalizado del marcador"
-
-#: classes/class-redsys-qr-codes.php:457
-msgid "Enable Marker Custom Color."
-msgstr "Habilite el color personalizado del marcador."
-
-#: classes/class-redsys-qr-codes.php:462 classes/class-redsys-qr-codes.php:464
-msgid "Marker border color"
-msgstr "Color del borde del marcador"
-
-#: classes/class-redsys-qr-codes.php:470 classes/class-redsys-qr-codes.php:472
-msgid "Marker center color"
-msgstr "Color del centro del marcador"
 
 #: classes/class-redsys-site-health.php:30
 msgid "Checking Redsys Plugin"
@@ -287,7 +429,7 @@ msgstr "Plugin oficial de Redsys o InSIte no activados. Perfecto"
 #: classes/class-redsys-site-health.php:260
 #: classes/class-redsys-site-health.php:285
 #: classes/class-redsys-site-health.php:301
-#: classes/class-wc-gateway-redsys.php:296 includes/metabox/metaboxes.php:195
+#: classes/class-wc-gateway-redsys.php:300 includes/metabox/metaboxes.php:195
 msgid "Redsys"
 msgstr "Redsys"
 
@@ -482,26 +624,26 @@ msgstr "Bizum en la página de pago"
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:123
 #: classes/class-wc-gateway-bizum-redsys.php:114
 #: classes/class-wc-gateway-direct-debit-redsys.php:120
-#: classes/class-wc-gateway-googlepay-checkout.php:121
+#: classes/class-wc-gateway-googlepay-checkout.php:119
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:114
-#: classes/class-wc-gateway-insite-redsys.php:179
+#: classes/class-wc-gateway-insite-redsys.php:183
 #: classes/class-wc-gateway-masterpass-redsys.php:120
 #: classes/class-wc-gateway-paygold-redsys.php:129
 #: classes/class-wc-gateway-redsys-bank-transfer.php:123
-#: classes/class-wc-gateway-redsys.php:208
+#: classes/class-wc-gateway-redsys.php:212
 msgid "Attention! WPML detected."
 msgstr "¡Atención! detectado WPML."
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:124
 #: classes/class-wc-gateway-bizum-redsys.php:115
 #: classes/class-wc-gateway-direct-debit-redsys.php:121
-#: classes/class-wc-gateway-googlepay-checkout.php:122
+#: classes/class-wc-gateway-googlepay-checkout.php:120
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:115
-#: classes/class-wc-gateway-insite-redsys.php:180
+#: classes/class-wc-gateway-insite-redsys.php:184
 #: classes/class-wc-gateway-masterpass-redsys.php:121
 #: classes/class-wc-gateway-paygold-redsys.php:130
 #: classes/class-wc-gateway-redsys-bank-transfer.php:124
-#: classes/class-wc-gateway-redsys.php:209
+#: classes/class-wc-gateway-redsys.php:213
 msgid ""
 "The Gateway will be shown in the customer language. The option \"Language "
 "Gateway\" is not taken into consideration"
@@ -512,39 +654,39 @@ msgstr ""
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:143
 #: classes/class-wc-gateway-bizum-redsys.php:134
 #: classes/class-wc-gateway-direct-debit-redsys.php:140
-#: classes/class-wc-gateway-googlepay-checkout.php:141
+#: classes/class-wc-gateway-googlepay-checkout.php:139
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:134
-#: classes/class-wc-gateway-insite-redsys.php:210
+#: classes/class-wc-gateway-insite-redsys.php:214
 #: classes/class-wc-gateway-masterpass-redsys.php:141
 #: classes/class-wc-gateway-paygold-redsys.php:149
 #: classes/class-wc-gateway-redsys-bank-transfer.php:144
-#: classes/class-wc-gateway-redsys.php:229
+#: classes/class-wc-gateway-redsys.php:233
 msgid "Gateway Disabled"
 msgstr "Pasarela desactivada"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:145
 #: classes/class-wc-gateway-bizum-redsys.php:136
 #: classes/class-wc-gateway-direct-debit-redsys.php:142
-#: classes/class-wc-gateway-googlepay-checkout.php:143
+#: classes/class-wc-gateway-googlepay-checkout.php:141
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:136
-#: classes/class-wc-gateway-insite-redsys.php:212
+#: classes/class-wc-gateway-insite-redsys.php:216
 #: classes/class-wc-gateway-masterpass-redsys.php:143
 #: classes/class-wc-gateway-paygold-redsys.php:151
 #: classes/class-wc-gateway-redsys-bank-transfer.php:146
-#: classes/class-wc-gateway-redsys.php:231
+#: classes/class-wc-gateway-redsys.php:235
 msgid "Servired/RedSys only support "
 msgstr "Servired/RedSys solo soporta "
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:191
 #: classes/class-wc-gateway-bizum-redsys.php:182
 #: classes/class-wc-gateway-direct-debit-redsys.php:187
-#: classes/class-wc-gateway-googlepay-checkout.php:188
+#: classes/class-wc-gateway-googlepay-checkout.php:186
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:182
-#: classes/class-wc-gateway-insite-redsys.php:256
+#: classes/class-wc-gateway-insite-redsys.php:260
 #: classes/class-wc-gateway-masterpass-redsys.php:157
 #: classes/class-wc-gateway-paygold-redsys.php:202
 #: classes/class-wc-gateway-redsys-bank-transfer.php:161
-#: classes/class-wc-gateway-redsys.php:286
+#: classes/class-wc-gateway-redsys.php:290
 msgid "Enable/Disable"
 msgstr "Activar/Desactivar"
 
@@ -556,26 +698,26 @@ msgstr "Activar Bizum"
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:197
 #: classes/class-wc-gateway-bizum-redsys.php:188
 #: classes/class-wc-gateway-direct-debit-redsys.php:193
-#: classes/class-wc-gateway-googlepay-checkout.php:194
+#: classes/class-wc-gateway-googlepay-checkout.php:192
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:188
-#: classes/class-wc-gateway-insite-redsys.php:262
+#: classes/class-wc-gateway-insite-redsys.php:266
 #: classes/class-wc-gateway-masterpass-redsys.php:163
 #: classes/class-wc-gateway-paygold-redsys.php:214
 #: classes/class-wc-gateway-redsys-bank-transfer.php:167
-#: classes/class-wc-gateway-redsys.php:363
+#: classes/class-wc-gateway-redsys.php:367
 msgid "Use in Network"
 msgstr "Utilizar en la red"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:199
 #: classes/class-wc-gateway-bizum-redsys.php:190
 #: classes/class-wc-gateway-direct-debit-redsys.php:195
-#: classes/class-wc-gateway-googlepay-checkout.php:196
+#: classes/class-wc-gateway-googlepay-checkout.php:194
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:190
-#: classes/class-wc-gateway-insite-redsys.php:264
+#: classes/class-wc-gateway-insite-redsys.php:268
 #: classes/class-wc-gateway-masterpass-redsys.php:165
 #: classes/class-wc-gateway-paygold-redsys.php:216
 #: classes/class-wc-gateway-redsys-bank-transfer.php:169
-#: classes/class-wc-gateway-redsys.php:365
+#: classes/class-wc-gateway-redsys.php:369
 msgid "Use this setting around all Network"
 msgstr "Utilizar estas configuraciones en toda la red"
 
@@ -585,46 +727,46 @@ msgstr "Utilizar estas configuraciones en toda la red"
 #: classes/class-wc-gateway-bizum-redsys.php:197
 #: classes/class-wc-gateway-direct-debit-redsys.php:200
 #: classes/class-wc-gateway-direct-debit-redsys.php:202
+#: classes/class-wc-gateway-googlepay-checkout.php:199
 #: classes/class-wc-gateway-googlepay-checkout.php:201
-#: classes/class-wc-gateway-googlepay-checkout.php:203
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:195
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:197
-#: classes/class-wc-gateway-insite-redsys.php:269
-#: classes/class-wc-gateway-insite-redsys.php:271
+#: classes/class-wc-gateway-insite-redsys.php:273
+#: classes/class-wc-gateway-insite-redsys.php:275
 #: classes/class-wc-gateway-masterpass-redsys.php:170
 #: classes/class-wc-gateway-masterpass-redsys.php:172
 #: classes/class-wc-gateway-paygold-redsys.php:221
 #: classes/class-wc-gateway-paygold-redsys.php:223
 #: classes/class-wc-gateway-redsys-bank-transfer.php:174
 #: classes/class-wc-gateway-redsys-bank-transfer.php:176
-#: classes/class-wc-gateway-redsys.php:370
-#: classes/class-wc-gateway-redsys.php:372
+#: classes/class-wc-gateway-redsys.php:374
+#: classes/class-wc-gateway-redsys.php:376
 msgid "Hide \"NOT use Network\" in subsites"
 msgstr "Esconder «NO utilizar la red» en los subsitios"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:211
 #: classes/class-wc-gateway-bizum-redsys.php:202
 #: classes/class-wc-gateway-direct-debit-redsys.php:207
-#: classes/class-wc-gateway-googlepay-checkout.php:208
+#: classes/class-wc-gateway-googlepay-checkout.php:206
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:202
-#: classes/class-wc-gateway-insite-redsys.php:276
+#: classes/class-wc-gateway-insite-redsys.php:280
 #: classes/class-wc-gateway-masterpass-redsys.php:177
 #: classes/class-wc-gateway-paygold-redsys.php:228
 #: classes/class-wc-gateway-redsys-bank-transfer.php:181
-#: classes/class-wc-gateway-redsys.php:377
+#: classes/class-wc-gateway-redsys.php:381
 msgid "NOT use Network"
 msgstr "NO utilizar la red"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:213
 #: classes/class-wc-gateway-bizum-redsys.php:204
 #: classes/class-wc-gateway-direct-debit-redsys.php:209
-#: classes/class-wc-gateway-googlepay-checkout.php:210
+#: classes/class-wc-gateway-googlepay-checkout.php:208
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:204
-#: classes/class-wc-gateway-insite-redsys.php:278
+#: classes/class-wc-gateway-insite-redsys.php:282
 #: classes/class-wc-gateway-masterpass-redsys.php:179
 #: classes/class-wc-gateway-paygold-redsys.php:230
 #: classes/class-wc-gateway-redsys-bank-transfer.php:183
-#: classes/class-wc-gateway-redsys.php:379
+#: classes/class-wc-gateway-redsys.php:383
 msgid "Do NOT use Network settings. Use settings of this page"
 msgstr ""
 "NO utilizar las configuración de la red. Utilizar la configuración de esta "
@@ -633,22 +775,22 @@ msgstr ""
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:218
 #: classes/class-wc-gateway-bizum-redsys.php:209
 #: classes/class-wc-gateway-direct-debit-redsys.php:214
-#: classes/class-wc-gateway-googlepay-checkout.php:215
+#: classes/class-wc-gateway-googlepay-checkout.php:213
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:209
-#: classes/class-wc-gateway-insite-redsys.php:309
+#: classes/class-wc-gateway-insite-redsys.php:313
 #: classes/class-wc-gateway-masterpass-redsys.php:184
 #: classes/class-wc-gateway-paygold-redsys.php:235
 #: classes/class-wc-gateway-redsys-bank-transfer.php:188
-#: classes/class-wc-gateway-redsys.php:293
+#: classes/class-wc-gateway-redsys.php:297
 msgid "Title"
 msgstr "Título"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:220
 #: classes/class-wc-gateway-bizum-redsys.php:211
 #: classes/class-wc-gateway-direct-debit-redsys.php:216
-#: classes/class-wc-gateway-googlepay-checkout.php:217
+#: classes/class-wc-gateway-googlepay-checkout.php:215
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:211
-#: classes/class-wc-gateway-insite-redsys.php:311
+#: classes/class-wc-gateway-insite-redsys.php:315
 #: classes/class-wc-gateway-masterpass-redsys.php:186
 #: classes/class-wc-gateway-paygold-redsys.php:237
 #: classes/class-wc-gateway-redsys-bank-transfer.php:190
@@ -666,22 +808,22 @@ msgstr "Bizum"
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:225
 #: classes/class-wc-gateway-bizum-redsys.php:216
 #: classes/class-wc-gateway-direct-debit-redsys.php:221
-#: classes/class-wc-gateway-googlepay-checkout.php:222
+#: classes/class-wc-gateway-googlepay-checkout.php:220
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:216
-#: classes/class-wc-gateway-insite-redsys.php:316
+#: classes/class-wc-gateway-insite-redsys.php:320
 #: classes/class-wc-gateway-masterpass-redsys.php:191
 #: classes/class-wc-gateway-paygold-redsys.php:242
 #: classes/class-wc-gateway-redsys-bank-transfer.php:195
-#: classes/class-wc-gateway-redsys.php:299
+#: classes/class-wc-gateway-redsys.php:303
 msgid "Description"
 msgstr "Descripción"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:227
 #: classes/class-wc-gateway-bizum-redsys.php:218
 #: classes/class-wc-gateway-direct-debit-redsys.php:223
-#: classes/class-wc-gateway-googlepay-checkout.php:224
+#: classes/class-wc-gateway-googlepay-checkout.php:222
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:218
-#: classes/class-wc-gateway-insite-redsys.php:318
+#: classes/class-wc-gateway-insite-redsys.php:322
 #: classes/class-wc-gateway-masterpass-redsys.php:193
 #: classes/class-wc-gateway-paygold-redsys.php:244
 #: classes/class-wc-gateway-redsys-bank-transfer.php:197
@@ -701,7 +843,7 @@ msgstr "Paga mediante Bizum, puedes pagar fácilmente con tu cuenta Bizum."
 #: classes/class-wc-gateway-masterpass-redsys.php:197
 #: classes/class-wc-gateway-paygold-redsys.php:272
 #: classes/class-wc-gateway-redsys-bank-transfer.php:207
-#: classes/class-wc-gateway-redsys.php:405
+#: classes/class-wc-gateway-redsys.php:409
 msgid "Button Checkout Text"
 msgstr "Texto del botón de finalizar compra"
 
@@ -712,7 +854,7 @@ msgstr "Texto del botón de finalizar compra"
 #: classes/class-wc-gateway-masterpass-redsys.php:199
 #: classes/class-wc-gateway-paygold-redsys.php:274
 #: classes/class-wc-gateway-redsys-bank-transfer.php:209
-#: classes/class-wc-gateway-redsys.php:407
+#: classes/class-wc-gateway-redsys.php:411
 msgid "Add the button text at the checkout."
 msgstr "Añade el texto del botón para finalizar compra."
 
@@ -723,7 +865,7 @@ msgstr "Añade el texto del botón para finalizar compra."
 #: classes/class-wc-gateway-masterpass-redsys.php:202
 #: classes/class-wc-gateway-paygold-redsys.php:277
 #: classes/class-wc-gateway-redsys-bank-transfer.php:212
-#: classes/class-wc-gateway-redsys.php:410
+#: classes/class-wc-gateway-redsys.php:414
 msgid "Button Color Background"
 msgstr "Color de fondo del botón"
 
@@ -734,7 +876,7 @@ msgstr "Color de fondo del botón"
 #: classes/class-wc-gateway-masterpass-redsys.php:204
 #: classes/class-wc-gateway-paygold-redsys.php:279
 #: classes/class-wc-gateway-redsys-bank-transfer.php:214
-#: classes/class-wc-gateway-redsys.php:412
+#: classes/class-wc-gateway-redsys.php:416
 msgid "This if button Color Background Place Order at Checkout"
 msgstr ""
 "Este es el color de fondo del botón de realizar pedido al finalizar compra"
@@ -743,11 +885,11 @@ msgstr ""
 #: classes/class-wc-gateway-bizum-redsys.php:233
 #: classes/class-wc-gateway-direct-debit-redsys.php:238
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:233
-#: classes/class-wc-gateway-insite-redsys.php:470
+#: classes/class-wc-gateway-insite-redsys.php:474
 #: classes/class-wc-gateway-masterpass-redsys.php:208
 #: classes/class-wc-gateway-paygold-redsys.php:283
 #: classes/class-wc-gateway-redsys-bank-transfer.php:218
-#: classes/class-wc-gateway-redsys.php:416
+#: classes/class-wc-gateway-redsys.php:420
 msgid "Color text Button"
 msgstr "Color del texto del botón"
 
@@ -758,7 +900,7 @@ msgstr "Color del texto del botón"
 #: classes/class-wc-gateway-masterpass-redsys.php:210
 #: classes/class-wc-gateway-paygold-redsys.php:285
 #: classes/class-wc-gateway-redsys-bank-transfer.php:220
-#: classes/class-wc-gateway-redsys.php:418
+#: classes/class-wc-gateway-redsys.php:422
 msgid "This if button text color Place Order at Checkout"
 msgstr ""
 "Este es el color del texto del botón de realizar pedido al finalizar compra"
@@ -766,26 +908,26 @@ msgstr ""
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:248
 #: classes/class-wc-gateway-bizum-redsys.php:239
 #: classes/class-wc-gateway-direct-debit-redsys.php:244
-#: classes/class-wc-gateway-googlepay-checkout.php:241
+#: classes/class-wc-gateway-googlepay-checkout.php:239
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:239
-#: classes/class-wc-gateway-insite-redsys.php:364
+#: classes/class-wc-gateway-insite-redsys.php:368
 #: classes/class-wc-gateway-masterpass-redsys.php:220
 #: classes/class-wc-gateway-paygold-redsys.php:289
 #: classes/class-wc-gateway-redsys-bank-transfer.php:224
-#: classes/class-wc-gateway-redsys.php:305
+#: classes/class-wc-gateway-redsys.php:309
 msgid "Commerce number (FUC)"
 msgstr "Número de comercio (FUC)"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:250
 #: classes/class-wc-gateway-bizum-redsys.php:241
 #: classes/class-wc-gateway-direct-debit-redsys.php:246
-#: classes/class-wc-gateway-googlepay-checkout.php:243
+#: classes/class-wc-gateway-googlepay-checkout.php:241
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:241
-#: classes/class-wc-gateway-insite-redsys.php:366
+#: classes/class-wc-gateway-insite-redsys.php:370
 #: classes/class-wc-gateway-masterpass-redsys.php:222
 #: classes/class-wc-gateway-paygold-redsys.php:291
 #: classes/class-wc-gateway-redsys-bank-transfer.php:226
-#: classes/class-wc-gateway-redsys.php:307
+#: classes/class-wc-gateway-redsys.php:311
 msgid "Commerce number (FUC) provided by your bank."
 msgstr "Número de comercio (FUC) provisto por su entidad bancaria."
 
@@ -795,41 +937,41 @@ msgstr "Número de comercio (FUC) provisto por su entidad bancaria."
 #: classes/class-wc-gateway-bizum-redsys.php:247
 #: classes/class-wc-gateway-direct-debit-redsys.php:250
 #: classes/class-wc-gateway-direct-debit-redsys.php:252
+#: classes/class-wc-gateway-googlepay-checkout.php:245
 #: classes/class-wc-gateway-googlepay-checkout.php:247
-#: classes/class-wc-gateway-googlepay-checkout.php:249
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:245
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:247
-#: classes/class-wc-gateway-insite-redsys.php:358
-#: classes/class-wc-gateway-insite-redsys.php:360
+#: classes/class-wc-gateway-insite-redsys.php:362
+#: classes/class-wc-gateway-insite-redsys.php:364
 #: classes/class-wc-gateway-masterpass-redsys.php:214
 #: classes/class-wc-gateway-masterpass-redsys.php:216
 #: classes/class-wc-gateway-paygold-redsys.php:295
 #: classes/class-wc-gateway-paygold-redsys.php:297
 #: classes/class-wc-gateway-redsys-bank-transfer.php:230
 #: classes/class-wc-gateway-redsys-bank-transfer.php:232
-#: classes/class-wc-gateway-redsys.php:310
+#: classes/class-wc-gateway-redsys.php:314
 msgid "Commerce Name"
 msgstr "Nombre de Comercio"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:260
 #: classes/class-wc-gateway-bizum-redsys.php:251
 #: classes/class-wc-gateway-direct-debit-redsys.php:256
-#: classes/class-wc-gateway-googlepay-checkout.php:253
+#: classes/class-wc-gateway-googlepay-checkout.php:251
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:251
-#: classes/class-wc-gateway-insite-redsys.php:376
+#: classes/class-wc-gateway-insite-redsys.php:380
 #: classes/class-wc-gateway-masterpass-redsys.php:226
 #: classes/class-wc-gateway-paygold-redsys.php:301
 #: classes/class-wc-gateway-redsys-bank-transfer.php:236
-#: classes/class-wc-gateway-redsys.php:315
+#: classes/class-wc-gateway-redsys.php:319
 msgid "Terminal number"
 msgstr "Número de terminal"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:262
 #: classes/class-wc-gateway-bizum-redsys.php:253
 #: classes/class-wc-gateway-direct-debit-redsys.php:258
-#: classes/class-wc-gateway-googlepay-checkout.php:255
+#: classes/class-wc-gateway-googlepay-checkout.php:253
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:253
-#: classes/class-wc-gateway-insite-redsys.php:378
+#: classes/class-wc-gateway-insite-redsys.php:382
 #: classes/class-wc-gateway-masterpass-redsys.php:228
 #: classes/class-wc-gateway-paygold-redsys.php:303
 #: classes/class-wc-gateway-redsys-bank-transfer.php:238
@@ -853,22 +995,22 @@ msgstr "Máximo precio de la transacción en el carrito."
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:272
 #: classes/class-wc-gateway-bizum-redsys.php:263
 #: classes/class-wc-gateway-direct-debit-redsys.php:262
-#: classes/class-wc-gateway-googlepay-checkout.php:259
+#: classes/class-wc-gateway-googlepay-checkout.php:257
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:263
-#: classes/class-wc-gateway-insite-redsys.php:382
+#: classes/class-wc-gateway-insite-redsys.php:386
 #: classes/class-wc-gateway-masterpass-redsys.php:232
 #: classes/class-wc-gateway-paygold-redsys.php:319
 #: classes/class-wc-gateway-redsys-bank-transfer.php:242
-#: classes/class-wc-gateway-redsys.php:341
+#: classes/class-wc-gateway-redsys.php:345
 msgid "Redsys description"
 msgstr "Descripción Redsys"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:274
 #: classes/class-wc-gateway-bizum-redsys.php:265
 #: classes/class-wc-gateway-direct-debit-redsys.php:264
-#: classes/class-wc-gateway-googlepay-checkout.php:261
+#: classes/class-wc-gateway-googlepay-checkout.php:259
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:265
-#: classes/class-wc-gateway-insite-redsys.php:384
+#: classes/class-wc-gateway-insite-redsys.php:388
 #: classes/class-wc-gateway-masterpass-redsys.php:234
 #: classes/class-wc-gateway-paygold-redsys.php:321
 #: classes/class-wc-gateway-redsys-bank-transfer.php:244
@@ -878,71 +1020,71 @@ msgstr "Elige qué mostrar en Redsys como descripción."
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:277
 #: classes/class-wc-gateway-bizum-redsys.php:268
 #: classes/class-wc-gateway-direct-debit-redsys.php:267
-#: classes/class-wc-gateway-googlepay-checkout.php:264
+#: classes/class-wc-gateway-googlepay-checkout.php:262
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:268
-#: classes/class-wc-gateway-insite-redsys.php:387
+#: classes/class-wc-gateway-insite-redsys.php:391
 #: classes/class-wc-gateway-masterpass-redsys.php:237
 #: classes/class-wc-gateway-paygold-redsys.php:324
 #: classes/class-wc-gateway-redsys-bank-transfer.php:247
-#: classes/class-wc-gateway-redsys.php:346
+#: classes/class-wc-gateway-redsys.php:350
 msgid "Order ID"
 msgstr "ID Pedido"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:278
 #: classes/class-wc-gateway-bizum-redsys.php:269
 #: classes/class-wc-gateway-direct-debit-redsys.php:268
-#: classes/class-wc-gateway-googlepay-checkout.php:265
+#: classes/class-wc-gateway-googlepay-checkout.php:263
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:269
-#: classes/class-wc-gateway-insite-redsys.php:388
+#: classes/class-wc-gateway-insite-redsys.php:392
 #: classes/class-wc-gateway-masterpass-redsys.php:238
 #: classes/class-wc-gateway-paygold-redsys.php:325
 #: classes/class-wc-gateway-redsys-bank-transfer.php:248
-#: classes/class-wc-gateway-redsys.php:347
+#: classes/class-wc-gateway-redsys.php:351
 msgid "List of products ID"
 msgstr "Lista de IDs de productos"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:279
 #: classes/class-wc-gateway-bizum-redsys.php:270
 #: classes/class-wc-gateway-direct-debit-redsys.php:269
-#: classes/class-wc-gateway-googlepay-checkout.php:266
+#: classes/class-wc-gateway-googlepay-checkout.php:264
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:270
-#: classes/class-wc-gateway-insite-redsys.php:389
+#: classes/class-wc-gateway-insite-redsys.php:393
 #: classes/class-wc-gateway-masterpass-redsys.php:239
 #: classes/class-wc-gateway-paygold-redsys.php:326
 #: classes/class-wc-gateway-redsys-bank-transfer.php:249
-#: classes/class-wc-gateway-redsys.php:348
+#: classes/class-wc-gateway-redsys.php:352
 msgid "List of products name"
 msgstr "Lista de nombres de productos"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:280
 #: classes/class-wc-gateway-bizum-redsys.php:271
 #: classes/class-wc-gateway-direct-debit-redsys.php:270
-#: classes/class-wc-gateway-googlepay-checkout.php:267
+#: classes/class-wc-gateway-googlepay-checkout.php:265
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:271
-#: classes/class-wc-gateway-insite-redsys.php:390
+#: classes/class-wc-gateway-insite-redsys.php:394
 #: classes/class-wc-gateway-masterpass-redsys.php:240
 #: classes/class-wc-gateway-paygold-redsys.php:327
 #: classes/class-wc-gateway-redsys-bank-transfer.php:250
-#: classes/class-wc-gateway-redsys.php:349
+#: classes/class-wc-gateway-redsys.php:353
 msgid "List of products SKU"
 msgstr "Lista de SKUs de productos"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:284
 #: classes/class-wc-gateway-bizum-redsys.php:275
 #: classes/class-wc-gateway-direct-debit-redsys.php:274
-#: classes/class-wc-gateway-googlepay-checkout.php:271
+#: classes/class-wc-gateway-googlepay-checkout.php:269
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:275
-#: classes/class-wc-gateway-insite-redsys.php:430
+#: classes/class-wc-gateway-insite-redsys.php:434
 #: classes/class-wc-gateway-paygold-redsys.php:331
 #: classes/class-wc-gateway-redsys-bank-transfer.php:254
-#: classes/class-wc-gateway-redsys.php:606
+#: classes/class-wc-gateway-redsys.php:610
 msgid "HTTPS SNI Compatibility"
 msgstr "Compatibilidad HTTPS SNI"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:286
 #: classes/class-wc-gateway-bizum-redsys.php:277
 #: classes/class-wc-gateway-direct-debit-redsys.php:276
-#: classes/class-wc-gateway-googlepay-checkout.php:273
+#: classes/class-wc-gateway-googlepay-checkout.php:271
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:277
 #: classes/class-wc-gateway-paygold-redsys.php:333
 #: classes/class-wc-gateway-redsys-bank-transfer.php:256
@@ -952,7 +1094,7 @@ msgstr "Activa compatibilidad con certificados SNI."
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:288
 #: classes/class-wc-gateway-bizum-redsys.php:279
 #: classes/class-wc-gateway-direct-debit-redsys.php:278
-#: classes/class-wc-gateway-googlepay-checkout.php:275
+#: classes/class-wc-gateway-googlepay-checkout.php:273
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:279
 #: classes/class-wc-gateway-paygold-redsys.php:335
 #: classes/class-wc-gateway-redsys-bank-transfer.php:258
@@ -970,22 +1112,22 @@ msgstr ""
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:291
 #: classes/class-wc-gateway-bizum-redsys.php:282
 #: classes/class-wc-gateway-direct-debit-redsys.php:281
-#: classes/class-wc-gateway-googlepay-checkout.php:278
+#: classes/class-wc-gateway-googlepay-checkout.php:276
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:282
-#: classes/class-wc-gateway-insite-redsys.php:401
+#: classes/class-wc-gateway-insite-redsys.php:405
 #: classes/class-wc-gateway-masterpass-redsys.php:244
 #: classes/class-wc-gateway-paygold-redsys.php:338
 #: classes/class-wc-gateway-redsys-bank-transfer.php:271
-#: classes/class-wc-gateway-redsys.php:320
+#: classes/class-wc-gateway-redsys.php:324
 msgid "Encryption secret passphrase SHA-256"
 msgstr "Frase de encriptación SHA-256"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:293
 #: classes/class-wc-gateway-bizum-redsys.php:284
 #: classes/class-wc-gateway-direct-debit-redsys.php:283
-#: classes/class-wc-gateway-googlepay-checkout.php:280
+#: classes/class-wc-gateway-googlepay-checkout.php:278
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:284
-#: classes/class-wc-gateway-insite-redsys.php:403
+#: classes/class-wc-gateway-insite-redsys.php:407
 #: classes/class-wc-gateway-masterpass-redsys.php:246
 #: classes/class-wc-gateway-paygold-redsys.php:340
 #: classes/class-wc-gateway-redsys-bank-transfer.php:273
@@ -995,19 +1137,19 @@ msgstr "Frase de encriptación facilitada por tu banco."
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:297
 #: classes/class-wc-gateway-bizum-redsys.php:288
 #: classes/class-wc-gateway-direct-debit-redsys.php:287
-#: classes/class-wc-gateway-googlepay-checkout.php:284
+#: classes/class-wc-gateway-googlepay-checkout.php:282
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:288
-#: classes/class-wc-gateway-insite-redsys.php:407
-#: classes/class-wc-gateway-redsys.php:325
+#: classes/class-wc-gateway-insite-redsys.php:411
+#: classes/class-wc-gateway-redsys.php:329
 msgid "TEST MODE: Encryption secret passphrase SHA-256"
 msgstr "MODO Pruebas: Frase de encriptación SHA-256 pruebas"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:299
 #: classes/class-wc-gateway-bizum-redsys.php:290
 #: classes/class-wc-gateway-direct-debit-redsys.php:289
-#: classes/class-wc-gateway-googlepay-checkout.php:286
+#: classes/class-wc-gateway-googlepay-checkout.php:284
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:290
-#: classes/class-wc-gateway-insite-redsys.php:409
+#: classes/class-wc-gateway-insite-redsys.php:413
 msgid ""
 "Encryption secret passphrase SHA-256 provided by your bank for test mode."
 msgstr ""
@@ -1018,11 +1160,11 @@ msgstr ""
 #: classes/class-wc-gateway-bizum-redsys.php:294
 #: classes/class-wc-gateway-direct-debit-redsys.php:293
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:294
-#: classes/class-wc-gateway-insite-redsys.php:413
+#: classes/class-wc-gateway-insite-redsys.php:417
 #: classes/class-wc-gateway-masterpass-redsys.php:250
 #: classes/class-wc-gateway-paygold-redsys.php:344
 #: classes/class-wc-gateway-redsys-bank-transfer.php:277
-#: classes/class-wc-gateway-redsys.php:645
+#: classes/class-wc-gateway-redsys.php:649
 msgid "Language Gateway"
 msgstr "Idioma de la pasarela"
 
@@ -1030,11 +1172,11 @@ msgstr "Idioma de la pasarela"
 #: classes/class-wc-gateway-bizum-redsys.php:296
 #: classes/class-wc-gateway-direct-debit-redsys.php:295
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:296
-#: classes/class-wc-gateway-insite-redsys.php:415
+#: classes/class-wc-gateway-insite-redsys.php:419
 #: classes/class-wc-gateway-masterpass-redsys.php:252
 #: classes/class-wc-gateway-paygold-redsys.php:346
 #: classes/class-wc-gateway-redsys-bank-transfer.php:279
-#: classes/class-wc-gateway-redsys.php:647
+#: classes/class-wc-gateway-redsys.php:651
 msgid "Choose the language for the Gateway. Not all Banks accept all languages"
 msgstr ""
 "Selecciona el idioma para la pasarela de pago. No todos los bancos aceptan "
@@ -1049,31 +1191,31 @@ msgstr ""
 #: classes/class-wc-gateway-direct-debit-redsys.php:300
 #: classes/class-wc-gateway-direct-debit-redsys.php:302
 #: classes/class-wc-gateway-direct-debit-redsys.php:336
+#: classes/class-wc-gateway-googlepay-checkout.php:354
 #: classes/class-wc-gateway-googlepay-checkout.php:356
-#: classes/class-wc-gateway-googlepay-checkout.php:358
-#: classes/class-wc-gateway-googlepay-checkout.php:392
+#: classes/class-wc-gateway-googlepay-checkout.php:390
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:301
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:303
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:337
-#: classes/class-wc-gateway-insite-redsys.php:503
-#: classes/class-wc-gateway-insite-redsys.php:505
+#: classes/class-wc-gateway-insite-redsys.php:507
+#: classes/class-wc-gateway-insite-redsys.php:509
 #: classes/class-wc-gateway-masterpass-redsys.php:267
 #: classes/class-wc-gateway-masterpass-redsys.php:269
 #: classes/class-wc-gateway-paygold-redsys.php:360
-#: classes/class-wc-gateway-redsys.php:675
-#: classes/class-wc-gateway-redsys.php:677
-#: classes/class-wc-gateway-redsys.php:711
+#: classes/class-wc-gateway-redsys.php:679
+#: classes/class-wc-gateway-redsys.php:681
+#: classes/class-wc-gateway-redsys.php:715
 msgid "Running in test mode"
 msgstr "Ejecutando en entorno de pruebas"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:314
 #: classes/class-wc-gateway-bizum-redsys.php:305
 #: classes/class-wc-gateway-direct-debit-redsys.php:304
-#: classes/class-wc-gateway-googlepay-checkout.php:360
+#: classes/class-wc-gateway-googlepay-checkout.php:358
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:305
-#: classes/class-wc-gateway-insite-redsys.php:507
+#: classes/class-wc-gateway-insite-redsys.php:511
 #: classes/class-wc-gateway-masterpass-redsys.php:271
-#: classes/class-wc-gateway-redsys.php:679
+#: classes/class-wc-gateway-redsys.php:683
 msgid ""
 "Select this option for the initial testing required by your bank, deselect "
 "this option once you pass the required test phase and your production "
@@ -1085,20 +1227,20 @@ msgstr ""
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:317
 #: classes/class-wc-gateway-bizum-redsys.php:308
 #: classes/class-wc-gateway-direct-debit-redsys.php:307
-#: classes/class-wc-gateway-googlepay-checkout.php:363
+#: classes/class-wc-gateway-googlepay-checkout.php:361
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:308
-#: classes/class-wc-gateway-insite-redsys.php:510
-#: classes/class-wc-gateway-redsys.php:682
+#: classes/class-wc-gateway-insite-redsys.php:514
+#: classes/class-wc-gateway-redsys.php:686
 msgid "Show to this users"
 msgstr "Mostrar a estos usuarios"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:319
 #: classes/class-wc-gateway-bizum-redsys.php:310
 #: classes/class-wc-gateway-direct-debit-redsys.php:309
-#: classes/class-wc-gateway-googlepay-checkout.php:365
+#: classes/class-wc-gateway-googlepay-checkout.php:363
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:310
-#: classes/class-wc-gateway-insite-redsys.php:512
-#: classes/class-wc-gateway-redsys.php:684
+#: classes/class-wc-gateway-insite-redsys.php:516
+#: classes/class-wc-gateway-redsys.php:688
 msgid "Show the gateway in the chcekout when it is in test mode"
 msgstr ""
 "Mostrar el método de pago en la página de pago cuando está en modo pruebas"
@@ -1106,10 +1248,10 @@ msgstr ""
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:324
 #: classes/class-wc-gateway-bizum-redsys.php:315
 #: classes/class-wc-gateway-direct-debit-redsys.php:314
-#: classes/class-wc-gateway-googlepay-checkout.php:370
+#: classes/class-wc-gateway-googlepay-checkout.php:368
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:315
-#: classes/class-wc-gateway-insite-redsys.php:517
-#: classes/class-wc-gateway-redsys.php:689
+#: classes/class-wc-gateway-insite-redsys.php:521
+#: classes/class-wc-gateway-redsys.php:693
 msgid ""
 "Select users that will see the gateway when it is in test mode. If no users "
 "are selected, will be shown to all users"
@@ -1123,24 +1265,24 @@ msgstr ""
 #: classes/class-wc-gateway-bizum-redsys.php:320
 #: classes/class-wc-gateway-direct-debit-redsys.php:317
 #: classes/class-wc-gateway-direct-debit-redsys.php:319
+#: classes/class-wc-gateway-googlepay-checkout.php:371
 #: classes/class-wc-gateway-googlepay-checkout.php:373
-#: classes/class-wc-gateway-googlepay-checkout.php:375
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:318
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:320
-#: classes/class-wc-gateway-insite-redsys.php:520
-#: classes/class-wc-gateway-insite-redsys.php:522
-#: classes/class-wc-gateway-redsys.php:692
-#: classes/class-wc-gateway-redsys.php:694
+#: classes/class-wc-gateway-insite-redsys.php:524
+#: classes/class-wc-gateway-insite-redsys.php:526
+#: classes/class-wc-gateway-redsys.php:696
+#: classes/class-wc-gateway-redsys.php:698
 msgid "Running in test mode for a user"
 msgstr "Ejecutando en entorno de pruebas para usuario"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:331
 #: classes/class-wc-gateway-bizum-redsys.php:322
 #: classes/class-wc-gateway-direct-debit-redsys.php:321
-#: classes/class-wc-gateway-googlepay-checkout.php:377
+#: classes/class-wc-gateway-googlepay-checkout.php:375
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:322
-#: classes/class-wc-gateway-insite-redsys.php:524
-#: classes/class-wc-gateway-redsys.php:696
+#: classes/class-wc-gateway-insite-redsys.php:528
+#: classes/class-wc-gateway-redsys.php:700
 msgid ""
 "The user selected below will use the terminal in test mode. Other users will "
 "continue to use live mode unless you have the \"Running in test mode\" "
@@ -1153,55 +1295,55 @@ msgstr ""
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:334
 #: classes/class-wc-gateway-bizum-redsys.php:325
 #: classes/class-wc-gateway-direct-debit-redsys.php:324
-#: classes/class-wc-gateway-googlepay-checkout.php:380
+#: classes/class-wc-gateway-googlepay-checkout.php:378
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:325
-#: classes/class-wc-gateway-insite-redsys.php:527
-#: classes/class-wc-gateway-redsys.php:699 includes/private-products.php:93
+#: classes/class-wc-gateway-insite-redsys.php:531
+#: classes/class-wc-gateway-redsys.php:703 includes/private-products.php:93
 msgid "Users"
 msgstr "Usuarios"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:336
 #: classes/class-wc-gateway-bizum-redsys.php:327
 #: classes/class-wc-gateway-direct-debit-redsys.php:326
-#: classes/class-wc-gateway-googlepay-checkout.php:382
+#: classes/class-wc-gateway-googlepay-checkout.php:380
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:327
-#: classes/class-wc-gateway-insite-redsys.php:529
-#: classes/class-wc-gateway-redsys.php:701
+#: classes/class-wc-gateway-insite-redsys.php:533
+#: classes/class-wc-gateway-redsys.php:705
 msgid "Users running in test mode"
 msgstr "Usuarios ejecutados en entorno de pruebas"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:341
 #: classes/class-wc-gateway-bizum-redsys.php:332
 #: classes/class-wc-gateway-direct-debit-redsys.php:331
-#: classes/class-wc-gateway-googlepay-checkout.php:387
+#: classes/class-wc-gateway-googlepay-checkout.php:385
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:332
-#: classes/class-wc-gateway-insite-redsys.php:534
-#: classes/class-wc-gateway-redsys.php:706
+#: classes/class-wc-gateway-insite-redsys.php:538
+#: classes/class-wc-gateway-redsys.php:710
 msgid "Select users running in test mode"
 msgstr "Selecciona los usuarios que ejecutarán el entorno en modo de pruebas"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:344
 #: classes/class-wc-gateway-bizum-redsys.php:335
 #: classes/class-wc-gateway-direct-debit-redsys.php:334
-#: classes/class-wc-gateway-googlepay-checkout.php:390
+#: classes/class-wc-gateway-googlepay-checkout.php:388
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:335
-#: classes/class-wc-gateway-insite-redsys.php:537
+#: classes/class-wc-gateway-insite-redsys.php:541
 #: classes/class-wc-gateway-masterpass-redsys.php:274
 #: classes/class-wc-gateway-paygold-redsys.php:358
 #: classes/class-wc-gateway-redsys-bank-transfer.php:302
-#: classes/class-wc-gateway-redsys.php:709
+#: classes/class-wc-gateway-redsys.php:713
 msgid "Debug Log"
 msgstr "Registro"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:347
 #: classes/class-wc-gateway-bizum-redsys.php:338
 #: classes/class-wc-gateway-direct-debit-redsys.php:337
-#: classes/class-wc-gateway-googlepay-checkout.php:393
+#: classes/class-wc-gateway-googlepay-checkout.php:391
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:338
-#: classes/class-wc-gateway-insite-redsys.php:539
+#: classes/class-wc-gateway-insite-redsys.php:543
 #: classes/class-wc-gateway-masterpass-redsys.php:276
 #: classes/class-wc-gateway-redsys-bank-transfer.php:304
-#: classes/class-wc-gateway-redsys.php:712
+#: classes/class-wc-gateway-redsys.php:716
 msgid "Enable logging"
 msgstr "Habilitar registro"
 
@@ -1216,27 +1358,27 @@ msgstr ""
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:448
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:598
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1999
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1996
 #: classes/class-wc-gateway-bizum-redsys.php:1461
 #: classes/class-wc-gateway-direct-debit-redsys.php:1302
-#: classes/class-wc-gateway-googlepay-checkout.php:1369
+#: classes/class-wc-gateway-googlepay-checkout.php:1367
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1401
-#: classes/class-wc-gateway-insite-redsys.php:7397
+#: classes/class-wc-gateway-insite-redsys.php:8030
 #: classes/class-wc-gateway-paygold-redsys.php:1332
-#: classes/class-wc-gateway-redsys.php:9126
+#: classes/class-wc-gateway-redsys.php:9790
 msgid "There is an error"
 msgstr "Hay un error"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:451
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:601
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:2002
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1999
 #: classes/class-wc-gateway-bizum-redsys.php:1464
 #: classes/class-wc-gateway-direct-debit-redsys.php:1305
-#: classes/class-wc-gateway-googlepay-checkout.php:1372
+#: classes/class-wc-gateway-googlepay-checkout.php:1370
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1404
-#: classes/class-wc-gateway-insite-redsys.php:7400
+#: classes/class-wc-gateway-insite-redsys.php:8033
 #: classes/class-wc-gateway-paygold-redsys.php:1335
-#: classes/class-wc-gateway-redsys.php:9129
+#: classes/class-wc-gateway-redsys.php:9793
 msgid "The error is : "
 msgstr "El error fue: "
 
@@ -1268,7 +1410,7 @@ msgstr "Ej: +345555555"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:1121
 #: classes/class-wc-gateway-bizum-redsys.php:773
-#: classes/class-wc-gateway-insite-redsys.php:5771
+#: classes/class-wc-gateway-insite-redsys.php:6404
 msgid ""
 "Thank you for your order. We are now redirecting you to Bizum to make the "
 "payment."
@@ -1288,9 +1430,9 @@ msgstr "Paga con Bizum"
 #: classes/class-wc-gateway-masterpass-redsys.php:494
 #: classes/class-wc-gateway-redsys-bank-transfer.php:448
 #: classes/class-wc-gateway-redsys-bank-transfer.php:482
-#: classes/class-wc-gateway-redsys.php:2509
-#: classes/class-wc-gateway-redsys.php:2698
-#: classes/class-wc-gateway-redsys.php:6968
+#: classes/class-wc-gateway-redsys.php:2522
+#: classes/class-wc-gateway-redsys.php:2711
+#: classes/class-wc-gateway-redsys.php:7620
 #: classes/class-wc-redsys-profile.php:209
 msgid "Cancel order &amp; restore cart"
 msgstr "Cancelar orden &amp; volver al carro"
@@ -1328,22 +1470,22 @@ msgstr "Debes confirmar la transacción a través de la APP del banco."
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:1641
 #: classes/class-wc-gateway-bizum-redsys.php:1114
 #: classes/class-wc-gateway-direct-debit-redsys.php:972
-#: classes/class-wc-gateway-googlepay-checkout.php:1221
+#: classes/class-wc-gateway-googlepay-checkout.php:1219
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1054
-#: classes/class-wc-gateway-insite-redsys.php:7084
+#: classes/class-wc-gateway-insite-redsys.php:7717
 #: classes/class-wc-gateway-paygold-redsys.php:1006
-#: classes/class-wc-gateway-redsys.php:8364
+#: classes/class-wc-gateway-redsys.php:9013
 msgid "Order Payment refunded by Redsys"
 msgstr "Pago del pedido devuelto por Redsys"
 
 #: classes/class-wc-gateway-bizum-checkout-redsys.php:1644
 #: classes/class-wc-gateway-bizum-redsys.php:1117
 #: classes/class-wc-gateway-direct-debit-redsys.php:975
-#: classes/class-wc-gateway-googlepay-checkout.php:1224
+#: classes/class-wc-gateway-googlepay-checkout.php:1222
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1057
-#: classes/class-wc-gateway-insite-redsys.php:7087
+#: classes/class-wc-gateway-insite-redsys.php:7720
 #: classes/class-wc-gateway-paygold-redsys.php:1009
-#: classes/class-wc-gateway-redsys.php:8368
+#: classes/class-wc-gateway-redsys.php:9017
 msgid "There was an error refunding"
 msgstr "Hubo un error en la devolución"
 
@@ -1363,17 +1505,17 @@ msgstr ""
 #: classes/class-wc-gateway-bizum-redsys.php:1259
 #: classes/class-wc-gateway-direct-debit-redsys.php:1107
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1199
-#: classes/class-wc-gateway-insite-redsys.php:4847
-#: classes/class-wc-gateway-insite-redsys.php:5656
-#: classes/class-wc-gateway-insite-redsys.php:6490
-#: classes/class-wc-gateway-insite-redsys.php:6625
-#: classes/class-wc-gateway-insite-redsys.php:7197
+#: classes/class-wc-gateway-insite-redsys.php:5480
+#: classes/class-wc-gateway-insite-redsys.php:6289
+#: classes/class-wc-gateway-insite-redsys.php:7123
+#: classes/class-wc-gateway-insite-redsys.php:7258
+#: classes/class-wc-gateway-insite-redsys.php:7830
 #: classes/class-wc-gateway-masterpass-redsys.php:679
 #: classes/class-wc-gateway-paygold-redsys.php:1139
 #: classes/class-wc-gateway-redsys-bank-transfer.php:648
-#: classes/class-wc-gateway-redsys.php:6513
-#: classes/class-wc-gateway-redsys.php:7481
-#: classes/class-wc-gateway-redsys.php:7612
+#: classes/class-wc-gateway-redsys.php:7165
+#: classes/class-wc-gateway-redsys.php:8133
+#: classes/class-wc-gateway-redsys.php:8264
 msgid "HTTP Notification received - payment completed"
 msgstr "Notificación HTTP recibida - pago completado"
 
@@ -1381,46 +1523,40 @@ msgstr "Notificación HTTP recibida - pago completado"
 #: classes/class-wc-gateway-bizum-redsys.php:1260
 #: classes/class-wc-gateway-direct-debit-redsys.php:1108
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1200
-#: classes/class-wc-gateway-insite-redsys.php:3588
-#: classes/class-wc-gateway-insite-redsys.php:3965
-#: classes/class-wc-gateway-insite-redsys.php:4535
-#: classes/class-wc-gateway-insite-redsys.php:4848
-#: classes/class-wc-gateway-insite-redsys.php:6844
+#: classes/class-wc-gateway-insite-redsys.php:4229
+#: classes/class-wc-gateway-insite-redsys.php:4606
+#: classes/class-wc-gateway-insite-redsys.php:5168
+#: classes/class-wc-gateway-insite-redsys.php:5481
+#: classes/class-wc-gateway-insite-redsys.php:7477
 #: classes/class-wc-gateway-paygold-redsys.php:1140
 #: classes/class-wc-gateway-redsys-bank-transfer.php:649
-#: classes/class-wc-gateway-redsys.php:4758
-#: classes/class-wc-gateway-redsys.php:5140
-#: classes/class-wc-gateway-redsys.php:7781
-#: classes/class-wc-gateway-redsys.php:8759
+#: classes/class-wc-gateway-redsys.php:5410
+#: classes/class-wc-gateway-redsys.php:5792
+#: classes/class-wc-gateway-redsys.php:8433
+#: classes/class-wc-gateway-redsys.php:9423
 msgid "Authorization code: "
 msgstr "Código de autenticación: "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1791
-#: classes/class-wc-gateway-bizum-redsys.php:1264
-#: classes/class-wc-gateway-paygold-redsys.php:1143
-msgid "Order Completed by Bizum"
-msgstr "Pedido completado por Bizum"
-
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1810
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1816
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1807
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1813
 #: classes/class-wc-gateway-bizum-redsys.php:1282
 #: classes/class-wc-gateway-bizum-redsys.php:1287
 #: classes/class-wc-gateway-direct-debit-redsys.php:1129
 #: classes/class-wc-gateway-direct-debit-redsys.php:1134
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1222
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1227
-#: classes/class-wc-gateway-insite-redsys.php:7215
-#: classes/class-wc-gateway-insite-redsys.php:7225
+#: classes/class-wc-gateway-insite-redsys.php:7848
+#: classes/class-wc-gateway-insite-redsys.php:7858
 #: classes/class-wc-gateway-masterpass-redsys.php:694
 #: classes/class-wc-gateway-masterpass-redsys.php:704
 #: classes/class-wc-gateway-paygold-redsys.php:1160
 #: classes/class-wc-gateway-paygold-redsys.php:1165
-#: classes/class-wc-gateway-redsys.php:8827
-#: classes/class-wc-gateway-redsys.php:8832
+#: classes/class-wc-gateway-redsys.php:9491
+#: classes/class-wc-gateway-redsys.php:9496
 msgid "Order cancelled by Redsys: "
 msgstr "Pedido cancelado por Redsys: "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1837
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1834
 #: classes/class-wc-gateway-bizum-redsys.php:1307
 #: classes/class-wc-gateway-bizum-redsys.php:1308
 #: classes/class-wc-gateway-paygold-redsys.php:1184
@@ -1428,511 +1564,511 @@ msgstr "Pedido cancelado por Redsys: "
 msgid "Order cancelled by Redsys Bizum"
 msgstr "Pedido cancelado por Redsys Bizum"
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1838
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1835
 msgid "Order cancelled by Redsys Bizum: "
 msgstr "Pedido cancelado por Redsys Bizum: "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1851
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1848
 msgid "Unknown error"
 msgstr "Error desconocido"
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1879
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1876
 #: classes/class-wc-gateway-bizum-redsys.php:1341
 #: classes/class-wc-gateway-direct-debit-redsys.php:1187
-#: classes/class-wc-gateway-googlepay-checkout.php:1249
+#: classes/class-wc-gateway-googlepay-checkout.php:1247
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1281
-#: classes/class-wc-gateway-insite-redsys.php:7274
+#: classes/class-wc-gateway-insite-redsys.php:7907
 #: classes/class-wc-gateway-paygold-redsys.php:1217
-#: classes/class-wc-gateway-redsys.php:9008
+#: classes/class-wc-gateway-redsys.php:9672
 msgid "Starting asking for Refund"
 msgstr "Comenzado a pedir la devolución"
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1883
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1926
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1880
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1923
 #: classes/class-wc-gateway-bizum-redsys.php:1345
 #: classes/class-wc-gateway-bizum-redsys.php:1388
 #: classes/class-wc-gateway-direct-debit-redsys.php:1191
 #: classes/class-wc-gateway-direct-debit-redsys.php:1229
-#: classes/class-wc-gateway-googlepay-checkout.php:1253
-#: classes/class-wc-gateway-googlepay-checkout.php:1296
+#: classes/class-wc-gateway-googlepay-checkout.php:1251
+#: classes/class-wc-gateway-googlepay-checkout.php:1294
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1285
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1328
-#: classes/class-wc-gateway-insite-redsys.php:7278
-#: classes/class-wc-gateway-insite-redsys.php:7321
+#: classes/class-wc-gateway-insite-redsys.php:7911
+#: classes/class-wc-gateway-insite-redsys.php:7954
 #: classes/class-wc-gateway-paygold-redsys.php:1221
 #: classes/class-wc-gateway-paygold-redsys.php:1259
-#: classes/class-wc-gateway-redsys.php:9012
-#: classes/class-wc-gateway-redsys.php:9052
-#: classes/class-wc-gateway-redsys.php:9184
-#: classes/class-wc-gateway-redsys.php:9299
+#: classes/class-wc-gateway-redsys.php:9676
+#: classes/class-wc-gateway-redsys.php:9716
+#: classes/class-wc-gateway-redsys.php:9848
+#: classes/class-wc-gateway-redsys.php:9963
 msgid "Terminal : "
 msgstr "Terminal : "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1890
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1887
 #: classes/class-wc-gateway-bizum-redsys.php:1352
 #: classes/class-wc-gateway-direct-debit-redsys.php:1198
-#: classes/class-wc-gateway-googlepay-checkout.php:1260
+#: classes/class-wc-gateway-googlepay-checkout.php:1258
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1292
-#: classes/class-wc-gateway-insite-redsys.php:7285
+#: classes/class-wc-gateway-insite-redsys.php:7918
 #: classes/class-wc-gateway-paygold-redsys.php:1228
-#: classes/class-wc-gateway-redsys.php:9019
+#: classes/class-wc-gateway-redsys.php:9683
 msgid "Using meta for SHA256"
 msgstr "Utilizando meta SHA256"
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1891
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1888
 #: classes/class-wc-gateway-bizum-redsys.php:1353
 #: classes/class-wc-gateway-direct-debit-redsys.php:1199
-#: classes/class-wc-gateway-googlepay-checkout.php:1261
+#: classes/class-wc-gateway-googlepay-checkout.php:1259
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1293
-#: classes/class-wc-gateway-insite-redsys.php:7286
+#: classes/class-wc-gateway-insite-redsys.php:7919
 #: classes/class-wc-gateway-paygold-redsys.php:1229
-#: classes/class-wc-gateway-redsys.php:9020
+#: classes/class-wc-gateway-redsys.php:9684
 msgid "The SHA256 Meta is: "
 msgstr "El SHA256 meta es: "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1896
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1893
 #: classes/class-wc-gateway-bizum-redsys.php:1358
 #: classes/class-wc-gateway-direct-debit-redsys.php:1204
-#: classes/class-wc-gateway-googlepay-checkout.php:1266
+#: classes/class-wc-gateway-googlepay-checkout.php:1264
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1298
-#: classes/class-wc-gateway-insite-redsys.php:7291
+#: classes/class-wc-gateway-insite-redsys.php:7924
 #: classes/class-wc-gateway-paygold-redsys.php:1234
-#: classes/class-wc-gateway-redsys.php:9025
+#: classes/class-wc-gateway-redsys.php:9689
 msgid "Using settings for SHA256"
 msgstr "Utilizando configuración para SHA256"
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1897
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1894
 #: classes/class-wc-gateway-bizum-redsys.php:1359
 #: classes/class-wc-gateway-direct-debit-redsys.php:1205
-#: classes/class-wc-gateway-googlepay-checkout.php:1267
+#: classes/class-wc-gateway-googlepay-checkout.php:1265
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1299
-#: classes/class-wc-gateway-insite-redsys.php:7292
+#: classes/class-wc-gateway-insite-redsys.php:7925
 #: classes/class-wc-gateway-paygold-redsys.php:1235
-#: classes/class-wc-gateway-redsys.php:9026
+#: classes/class-wc-gateway-redsys.php:9690
 msgid "The SHA256 settings is: "
 msgstr "La configuración SHA256 es: "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1917
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1922
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1914
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1919
 #: classes/class-wc-gateway-bizum-redsys.php:1379
 #: classes/class-wc-gateway-bizum-redsys.php:1384
 #: classes/class-wc-gateway-direct-debit-redsys.php:1220
 #: classes/class-wc-gateway-direct-debit-redsys.php:1225
-#: classes/class-wc-gateway-googlepay-checkout.php:1287
-#: classes/class-wc-gateway-googlepay-checkout.php:1292
+#: classes/class-wc-gateway-googlepay-checkout.php:1285
+#: classes/class-wc-gateway-googlepay-checkout.php:1290
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1319
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1324
-#: classes/class-wc-gateway-insite-redsys.php:7312
-#: classes/class-wc-gateway-insite-redsys.php:7317
+#: classes/class-wc-gateway-insite-redsys.php:7945
+#: classes/class-wc-gateway-insite-redsys.php:7950
 #: classes/class-wc-gateway-paygold-redsys.php:1250
 #: classes/class-wc-gateway-paygold-redsys.php:1255
-#: classes/class-wc-gateway-redsys.php:9043
-#: classes/class-wc-gateway-redsys.php:9048
+#: classes/class-wc-gateway-redsys.php:9707
+#: classes/class-wc-gateway-redsys.php:9712
 msgid "All data from meta"
 msgstr "Todos los datos Meta"
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1920
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1917
 #: classes/class-wc-gateway-bizum-redsys.php:1382
 #: classes/class-wc-gateway-direct-debit-redsys.php:1223
-#: classes/class-wc-gateway-googlepay-checkout.php:1290
+#: classes/class-wc-gateway-googlepay-checkout.php:1288
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1322
-#: classes/class-wc-gateway-insite-redsys.php:7315
+#: classes/class-wc-gateway-insite-redsys.php:7948
 #: classes/class-wc-gateway-paygold-redsys.php:1253
-#: classes/class-wc-gateway-redsys.php:9046
+#: classes/class-wc-gateway-redsys.php:9710
 msgid "If something is empty, the data was not saved"
 msgstr "Si algo está vacío, los datos no son guardados"
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1923
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1920
 #: classes/class-wc-gateway-bizum-redsys.php:1385
 #: classes/class-wc-gateway-direct-debit-redsys.php:1226
-#: classes/class-wc-gateway-googlepay-checkout.php:1293
+#: classes/class-wc-gateway-googlepay-checkout.php:1291
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1325
-#: classes/class-wc-gateway-insite-redsys.php:7318
+#: classes/class-wc-gateway-insite-redsys.php:7951
 #: classes/class-wc-gateway-paygold-redsys.php:1256
-#: classes/class-wc-gateway-redsys.php:9049
+#: classes/class-wc-gateway-redsys.php:9713
 msgid "Authorization Code : "
 msgstr "Código de autorización: "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1924
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1921
 #: classes/class-wc-gateway-bizum-redsys.php:1386
 #: classes/class-wc-gateway-direct-debit-redsys.php:1227
-#: classes/class-wc-gateway-googlepay-checkout.php:1294
+#: classes/class-wc-gateway-googlepay-checkout.php:1292
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1326
-#: classes/class-wc-gateway-insite-redsys.php:7319
+#: classes/class-wc-gateway-insite-redsys.php:7952
 #: classes/class-wc-gateway-paygold-redsys.php:1257
-#: classes/class-wc-gateway-redsys.php:9050
+#: classes/class-wc-gateway-redsys.php:9714
 msgid "Authorization Date : "
 msgstr "Fecha de autorización: "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1925
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1922
 #: classes/class-wc-gateway-bizum-redsys.php:1387
 #: classes/class-wc-gateway-direct-debit-redsys.php:1228
-#: classes/class-wc-gateway-googlepay-checkout.php:1295
+#: classes/class-wc-gateway-googlepay-checkout.php:1293
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1327
-#: classes/class-wc-gateway-insite-redsys.php:7320
+#: classes/class-wc-gateway-insite-redsys.php:7953
 #: classes/class-wc-gateway-paygold-redsys.php:1258
-#: classes/class-wc-gateway-redsys.php:9051
+#: classes/class-wc-gateway-redsys.php:9715
 msgid "Currency Codey : "
 msgstr "Código de moneda: "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1927
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1924
 #: classes/class-wc-gateway-bizum-redsys.php:1389
 #: classes/class-wc-gateway-direct-debit-redsys.php:1230
-#: classes/class-wc-gateway-googlepay-checkout.php:1297
+#: classes/class-wc-gateway-googlepay-checkout.php:1295
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1329
-#: classes/class-wc-gateway-insite-redsys.php:7322
+#: classes/class-wc-gateway-insite-redsys.php:7955
 #: classes/class-wc-gateway-paygold-redsys.php:1260
-#: classes/class-wc-gateway-redsys.php:9053
+#: classes/class-wc-gateway-redsys.php:9717
 msgid "SHA256 : "
 msgstr "SHA256 : "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1928
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1925
 #: classes/class-wc-gateway-bizum-redsys.php:1390
-#: classes/class-wc-gateway-googlepay-checkout.php:1298
+#: classes/class-wc-gateway-googlepay-checkout.php:1296
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1330
-#: classes/class-wc-gateway-insite-redsys.php:7323
-#: classes/class-wc-gateway-redsys.php:9054
+#: classes/class-wc-gateway-insite-redsys.php:7956
+#: classes/class-wc-gateway-redsys.php:9718
 msgid "FUC : "
 msgstr "FUC : "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1955
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1952
 #: classes/class-wc-gateway-bizum-redsys.php:1417
 #: classes/class-wc-gateway-direct-debit-redsys.php:1258
-#: classes/class-wc-gateway-googlepay-checkout.php:1325
+#: classes/class-wc-gateway-googlepay-checkout.php:1323
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1357
-#: classes/class-wc-gateway-insite-redsys.php:7352
+#: classes/class-wc-gateway-insite-redsys.php:7985
 #: classes/class-wc-gateway-paygold-redsys.php:1288
-#: classes/class-wc-gateway-redsys.php:9082
+#: classes/class-wc-gateway-redsys.php:9746
 msgid "Data sent to Redsys for refund"
 msgstr "Datos enviados a Redsys para devolución"
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1958
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1955
 #: classes/class-wc-gateway-bizum-redsys.php:1420
 #: classes/class-wc-gateway-direct-debit-redsys.php:1261
-#: classes/class-wc-gateway-googlepay-checkout.php:1328
+#: classes/class-wc-gateway-googlepay-checkout.php:1326
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1360
-#: classes/class-wc-gateway-insite-redsys.php:7355
+#: classes/class-wc-gateway-insite-redsys.php:7988
 #: classes/class-wc-gateway-paygold-redsys.php:1291
-#: classes/class-wc-gateway-redsys.php:9085
-#: classes/class-wc-gateway-redsys.php:9231
-#: classes/class-wc-gateway-redsys.php:9351
+#: classes/class-wc-gateway-redsys.php:9749
+#: classes/class-wc-gateway-redsys.php:9895
+#: classes/class-wc-gateway-redsys.php:10015
 msgid "URL to Redsys : "
 msgstr "URL a Redsys : "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1959
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1956
 #: classes/class-wc-gateway-bizum-redsys.php:1421
 #: classes/class-wc-gateway-direct-debit-redsys.php:1262
-#: classes/class-wc-gateway-googlepay-checkout.php:1329
+#: classes/class-wc-gateway-googlepay-checkout.php:1327
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1361
-#: classes/class-wc-gateway-insite-redsys.php:7356
+#: classes/class-wc-gateway-insite-redsys.php:7989
 #: classes/class-wc-gateway-paygold-redsys.php:1292
-#: classes/class-wc-gateway-redsys.php:9086
-#: classes/class-wc-gateway-redsys.php:9232
-#: classes/class-wc-gateway-redsys.php:9352
+#: classes/class-wc-gateway-redsys.php:9750
+#: classes/class-wc-gateway-redsys.php:9896
+#: classes/class-wc-gateway-redsys.php:10016
 msgid "DS_MERCHANT_AMOUNT : "
 msgstr "DS_MERCHANT_AMOUNT : "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1960
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1957
 #: classes/class-wc-gateway-bizum-redsys.php:1422
 #: classes/class-wc-gateway-direct-debit-redsys.php:1263
-#: classes/class-wc-gateway-googlepay-checkout.php:1330
+#: classes/class-wc-gateway-googlepay-checkout.php:1328
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1362
-#: classes/class-wc-gateway-insite-redsys.php:7357
+#: classes/class-wc-gateway-insite-redsys.php:7990
 #: classes/class-wc-gateway-paygold-redsys.php:1293
-#: classes/class-wc-gateway-redsys.php:9087
-#: classes/class-wc-gateway-redsys.php:9233
-#: classes/class-wc-gateway-redsys.php:9353
+#: classes/class-wc-gateway-redsys.php:9751
+#: classes/class-wc-gateway-redsys.php:9897
+#: classes/class-wc-gateway-redsys.php:10017
 msgid "DS_MERCHANT_ORDER : "
 msgstr "DS_MERCHANT_ORDER : "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1961
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1958
 #: classes/class-wc-gateway-bizum-redsys.php:1423
 #: classes/class-wc-gateway-direct-debit-redsys.php:1264
-#: classes/class-wc-gateway-googlepay-checkout.php:1331
+#: classes/class-wc-gateway-googlepay-checkout.php:1329
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1363
-#: classes/class-wc-gateway-insite-redsys.php:7358
+#: classes/class-wc-gateway-insite-redsys.php:7991
 #: classes/class-wc-gateway-paygold-redsys.php:1294
-#: classes/class-wc-gateway-redsys.php:9088
-#: classes/class-wc-gateway-redsys.php:9234
-#: classes/class-wc-gateway-redsys.php:9354
+#: classes/class-wc-gateway-redsys.php:9752
+#: classes/class-wc-gateway-redsys.php:9898
+#: classes/class-wc-gateway-redsys.php:10018
 msgid "DS_MERCHANT_MERCHANTCODE : "
 msgstr "DS_MERCHANT_MERCHANTCODE : "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1962
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1959
 #: classes/class-wc-gateway-bizum-redsys.php:1424
 #: classes/class-wc-gateway-direct-debit-redsys.php:1265
-#: classes/class-wc-gateway-googlepay-checkout.php:1332
+#: classes/class-wc-gateway-googlepay-checkout.php:1330
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1364
-#: classes/class-wc-gateway-insite-redsys.php:7359
+#: classes/class-wc-gateway-insite-redsys.php:7992
 #: classes/class-wc-gateway-paygold-redsys.php:1295
-#: classes/class-wc-gateway-redsys.php:9089
-#: classes/class-wc-gateway-redsys.php:9235
-#: classes/class-wc-gateway-redsys.php:9355
+#: classes/class-wc-gateway-redsys.php:9753
+#: classes/class-wc-gateway-redsys.php:9899
+#: classes/class-wc-gateway-redsys.php:10019
 msgid "DS_MERCHANT_CURRENCY : "
 msgstr "DS_MERCHANT_CURRENCY : "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1963
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1960
 #: classes/class-wc-gateway-bizum-redsys.php:1425
 #: classes/class-wc-gateway-direct-debit-redsys.php:1266
-#: classes/class-wc-gateway-googlepay-checkout.php:1333
+#: classes/class-wc-gateway-googlepay-checkout.php:1331
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1365
-#: classes/class-wc-gateway-insite-redsys.php:7360
+#: classes/class-wc-gateway-insite-redsys.php:7993
 #: classes/class-wc-gateway-paygold-redsys.php:1296
-#: classes/class-wc-gateway-redsys.php:9090
-#: classes/class-wc-gateway-redsys.php:9236
-#: classes/class-wc-gateway-redsys.php:9356
+#: classes/class-wc-gateway-redsys.php:9754
+#: classes/class-wc-gateway-redsys.php:9900
+#: classes/class-wc-gateway-redsys.php:10020
 msgid "DS_MERCHANT_TRANSACTIONTYPE : "
 msgstr "DS_MERCHANT_TRANSACTIONTYPE : "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1964
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1961
 #: classes/class-wc-gateway-bizum-redsys.php:1426
 #: classes/class-wc-gateway-direct-debit-redsys.php:1267
-#: classes/class-wc-gateway-googlepay-checkout.php:1334
+#: classes/class-wc-gateway-googlepay-checkout.php:1332
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1366
-#: classes/class-wc-gateway-insite-redsys.php:7361
+#: classes/class-wc-gateway-insite-redsys.php:7994
 #: classes/class-wc-gateway-paygold-redsys.php:1297
-#: classes/class-wc-gateway-redsys.php:9091
-#: classes/class-wc-gateway-redsys.php:9237
-#: classes/class-wc-gateway-redsys.php:9357
+#: classes/class-wc-gateway-redsys.php:9755
+#: classes/class-wc-gateway-redsys.php:9901
+#: classes/class-wc-gateway-redsys.php:10021
 msgid "DS_MERCHANT_TERMINAL : "
 msgstr "DS_MERCHANT_TERMINAL : "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1965
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1962
 #: classes/class-wc-gateway-bizum-redsys.php:1427
 #: classes/class-wc-gateway-direct-debit-redsys.php:1268
-#: classes/class-wc-gateway-googlepay-checkout.php:1335
+#: classes/class-wc-gateway-googlepay-checkout.php:1333
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1367
-#: classes/class-wc-gateway-insite-redsys.php:7362
+#: classes/class-wc-gateway-insite-redsys.php:7995
 #: classes/class-wc-gateway-paygold-redsys.php:1298
-#: classes/class-wc-gateway-redsys.php:9092
-#: classes/class-wc-gateway-redsys.php:9238
-#: classes/class-wc-gateway-redsys.php:9358
+#: classes/class-wc-gateway-redsys.php:9756
+#: classes/class-wc-gateway-redsys.php:9902
+#: classes/class-wc-gateway-redsys.php:10022
 msgid "DS_MERCHANT_MERCHANTURL : "
 msgstr "DS_MERCHANT_MERCHANTURL : "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1966
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1963
 #: classes/class-wc-gateway-bizum-redsys.php:1428
 #: classes/class-wc-gateway-direct-debit-redsys.php:1269
-#: classes/class-wc-gateway-googlepay-checkout.php:1336
+#: classes/class-wc-gateway-googlepay-checkout.php:1334
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1368
-#: classes/class-wc-gateway-insite-redsys.php:7363
+#: classes/class-wc-gateway-insite-redsys.php:7996
 #: classes/class-wc-gateway-paygold-redsys.php:1299
-#: classes/class-wc-gateway-redsys.php:9093
-#: classes/class-wc-gateway-redsys.php:9239
-#: classes/class-wc-gateway-redsys.php:9359
+#: classes/class-wc-gateway-redsys.php:9757
+#: classes/class-wc-gateway-redsys.php:9903
+#: classes/class-wc-gateway-redsys.php:10023
 msgid "DS_MERCHANT_URLOK : "
 msgstr "DS_MERCHANT_URLOK : "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1967
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1964
 #: classes/class-wc-gateway-bizum-redsys.php:1429
 #: classes/class-wc-gateway-direct-debit-redsys.php:1270
-#: classes/class-wc-gateway-googlepay-checkout.php:1337
+#: classes/class-wc-gateway-googlepay-checkout.php:1335
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1369
-#: classes/class-wc-gateway-insite-redsys.php:7364
+#: classes/class-wc-gateway-insite-redsys.php:7997
 #: classes/class-wc-gateway-paygold-redsys.php:1300
-#: classes/class-wc-gateway-redsys.php:9094
-#: classes/class-wc-gateway-redsys.php:9240
-#: classes/class-wc-gateway-redsys.php:9360
+#: classes/class-wc-gateway-redsys.php:9758
+#: classes/class-wc-gateway-redsys.php:9904
+#: classes/class-wc-gateway-redsys.php:10024
 msgid "DS_MERCHANT_URLKO : "
 msgstr "DS_MERCHANT_URLKO : "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1968
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1965
 #: classes/class-wc-gateway-bizum-redsys.php:1430
 #: classes/class-wc-gateway-direct-debit-redsys.php:1271
-#: classes/class-wc-gateway-googlepay-checkout.php:1338
+#: classes/class-wc-gateway-googlepay-checkout.php:1336
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1370
-#: classes/class-wc-gateway-insite-redsys.php:7365
+#: classes/class-wc-gateway-insite-redsys.php:7998
 #: classes/class-wc-gateway-paygold-redsys.php:1301
-#: classes/class-wc-gateway-redsys.php:9095
-#: classes/class-wc-gateway-redsys.php:9241
-#: classes/class-wc-gateway-redsys.php:9361
+#: classes/class-wc-gateway-redsys.php:9759
+#: classes/class-wc-gateway-redsys.php:9905
+#: classes/class-wc-gateway-redsys.php:10025
 msgid "DS_MERCHANT_CONSUMERLANGUAGE : 001"
 msgstr "DS_MERCHANT_CONSUMERLANGUAGE : 001"
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1969
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1966
 #: classes/class-wc-gateway-bizum-redsys.php:1431
 #: classes/class-wc-gateway-direct-debit-redsys.php:1272
-#: classes/class-wc-gateway-googlepay-checkout.php:1339
+#: classes/class-wc-gateway-googlepay-checkout.php:1337
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1371
-#: classes/class-wc-gateway-insite-redsys.php:7366
+#: classes/class-wc-gateway-insite-redsys.php:7999
 #: classes/class-wc-gateway-paygold-redsys.php:1302
-#: classes/class-wc-gateway-redsys.php:9096
-#: classes/class-wc-gateway-redsys.php:9242
-#: classes/class-wc-gateway-redsys.php:9362
+#: classes/class-wc-gateway-redsys.php:9760
+#: classes/class-wc-gateway-redsys.php:9906
+#: classes/class-wc-gateway-redsys.php:10026
 msgid "DS_MERCHANT_PRODUCTDESCRIPTION : "
 msgstr "DS_MERCHANT_PRODUCTDESCRIPTION : "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1970
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1967
 #: classes/class-wc-gateway-bizum-redsys.php:1432
 #: classes/class-wc-gateway-direct-debit-redsys.php:1273
-#: classes/class-wc-gateway-googlepay-checkout.php:1340
+#: classes/class-wc-gateway-googlepay-checkout.php:1338
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1372
-#: classes/class-wc-gateway-insite-redsys.php:7367
+#: classes/class-wc-gateway-insite-redsys.php:8000
 #: classes/class-wc-gateway-paygold-redsys.php:1303
-#: classes/class-wc-gateway-redsys.php:9097
-#: classes/class-wc-gateway-redsys.php:9243
-#: classes/class-wc-gateway-redsys.php:9363
+#: classes/class-wc-gateway-redsys.php:9761
+#: classes/class-wc-gateway-redsys.php:9907
+#: classes/class-wc-gateway-redsys.php:10027
 msgid "DS_MERCHANT_MERCHANTNAME : "
 msgstr "DS_MERCHANT_MERCHANTNAME : "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1971
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1968
 #: classes/class-wc-gateway-bizum-redsys.php:1433
 #: classes/class-wc-gateway-direct-debit-redsys.php:1274
-#: classes/class-wc-gateway-googlepay-checkout.php:1341
+#: classes/class-wc-gateway-googlepay-checkout.php:1339
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1373
-#: classes/class-wc-gateway-insite-redsys.php:7368
+#: classes/class-wc-gateway-insite-redsys.php:8001
 #: classes/class-wc-gateway-paygold-redsys.php:1304
-#: classes/class-wc-gateway-redsys.php:9098
-#: classes/class-wc-gateway-redsys.php:9244
-#: classes/class-wc-gateway-redsys.php:9364
+#: classes/class-wc-gateway-redsys.php:9762
+#: classes/class-wc-gateway-redsys.php:9908
+#: classes/class-wc-gateway-redsys.php:10028
 msgid "DS_MERCHANT_AUTHORISATIONCODE : "
 msgstr "DS_MERCHANT_AUTHORISATIONCODE : "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1972
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1969
 #: classes/class-wc-gateway-bizum-redsys.php:1434
 #: classes/class-wc-gateway-direct-debit-redsys.php:1275
-#: classes/class-wc-gateway-googlepay-checkout.php:1342
+#: classes/class-wc-gateway-googlepay-checkout.php:1340
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1374
-#: classes/class-wc-gateway-insite-redsys.php:7369
+#: classes/class-wc-gateway-insite-redsys.php:8002
 #: classes/class-wc-gateway-paygold-redsys.php:1305
-#: classes/class-wc-gateway-redsys.php:9099
-#: classes/class-wc-gateway-redsys.php:9245
-#: classes/class-wc-gateway-redsys.php:9365
+#: classes/class-wc-gateway-redsys.php:9763
+#: classes/class-wc-gateway-redsys.php:9909
+#: classes/class-wc-gateway-redsys.php:10029
 msgid "Ds_Merchant_TransactionDate : "
 msgstr "Ds_Merchant_TransactionDate : "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:1973
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:1970
 #: classes/class-wc-gateway-bizum-redsys.php:1435
 #: classes/class-wc-gateway-direct-debit-redsys.php:1276
-#: classes/class-wc-gateway-googlepay-checkout.php:1343
+#: classes/class-wc-gateway-googlepay-checkout.php:1341
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1375
-#: classes/class-wc-gateway-insite-redsys.php:7370
+#: classes/class-wc-gateway-insite-redsys.php:8003
 #: classes/class-wc-gateway-paygold-redsys.php:1306
-#: classes/class-wc-gateway-redsys.php:9100
+#: classes/class-wc-gateway-redsys.php:9764
 msgid "ask_for_refund Asking por order #: "
 msgstr "ask_for_refund Preguntando por el pedido #: "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:2020
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:2017
 #: classes/class-wc-gateway-bizum-redsys.php:1482
 #: classes/class-wc-gateway-direct-debit-redsys.php:1322
-#: classes/class-wc-gateway-googlepay-checkout.php:1390
+#: classes/class-wc-gateway-googlepay-checkout.php:1388
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1422
-#: classes/class-wc-gateway-insite-redsys.php:7421
+#: classes/class-wc-gateway-insite-redsys.php:8054
 #: classes/class-wc-gateway-paygold-redsys.php:1352
-#: classes/class-wc-gateway-redsys.php:9150
+#: classes/class-wc-gateway-redsys.php:9814
 msgid "Checking and waiting ping from Redsys"
 msgstr "Comprobación y esperando ping de Redsys"
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:2023
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:2020
 #: classes/class-wc-gateway-bizum-redsys.php:1485
 #: classes/class-wc-gateway-direct-debit-redsys.php:1325
-#: classes/class-wc-gateway-googlepay-checkout.php:1393
+#: classes/class-wc-gateway-googlepay-checkout.php:1391
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1425
-#: classes/class-wc-gateway-insite-redsys.php:7424
+#: classes/class-wc-gateway-insite-redsys.php:8057
 #: classes/class-wc-gateway-paygold-redsys.php:1355
-#: classes/class-wc-gateway-redsys.php:9153
-#: classes/class-wc-gateway-redsys.php:9411
-#: classes/class-wc-gateway-redsys.php:9430
+#: classes/class-wc-gateway-redsys.php:9817
+#: classes/class-wc-gateway-redsys.php:10075
+#: classes/class-wc-gateway-redsys.php:10094
 msgid "Check order status #: "
 msgstr "Comprobando estado del pedido #: "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:2024
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:2021
 #: classes/class-wc-gateway-bizum-redsys.php:1486
 #: classes/class-wc-gateway-direct-debit-redsys.php:1326
-#: classes/class-wc-gateway-googlepay-checkout.php:1394
+#: classes/class-wc-gateway-googlepay-checkout.php:1392
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1426
-#: classes/class-wc-gateway-insite-redsys.php:7425
+#: classes/class-wc-gateway-insite-redsys.php:8058
 #: classes/class-wc-gateway-paygold-redsys.php:1356
-#: classes/class-wc-gateway-redsys.php:9154
-#: classes/class-wc-gateway-redsys.php:9412
-#: classes/class-wc-gateway-redsys.php:9431
+#: classes/class-wc-gateway-redsys.php:9818
+#: classes/class-wc-gateway-redsys.php:10076
+#: classes/class-wc-gateway-redsys.php:10095
 msgid "Check order status with get_transient: "
 msgstr "Comprobando estado del pedido mediante get_transient: "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:2047
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:2044
 #: classes/class-wc-gateway-bizum-redsys.php:1509
 #: classes/class-wc-gateway-direct-debit-redsys.php:1349
-#: classes/class-wc-gateway-googlepay-checkout.php:1417
+#: classes/class-wc-gateway-googlepay-checkout.php:1415
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1449
-#: classes/class-wc-gateway-insite-redsys.php:7447
+#: classes/class-wc-gateway-insite-redsys.php:8080
 #: classes/class-wc-gateway-paygold-redsys.php:1378
 msgid "$order_id#: "
 msgstr "$order_id#: "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:2057
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:2054
 #: classes/class-wc-gateway-bizum-redsys.php:1519
 #: classes/class-wc-gateway-direct-debit-redsys.php:1359
-#: classes/class-wc-gateway-googlepay-checkout.php:1427
+#: classes/class-wc-gateway-googlepay-checkout.php:1425
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1459
-#: classes/class-wc-gateway-insite-redsys.php:7457
+#: classes/class-wc-gateway-insite-redsys.php:8090
 #: classes/class-wc-gateway-paygold-redsys.php:1388
 msgid "check_redsys_refund Asking for order #: "
 msgstr "check_redsys_refund Preguntando por el pedido #: "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:2064
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:2061
 #: classes/class-wc-gateway-bizum-redsys.php:1526
 #: classes/class-wc-gateway-direct-debit-redsys.php:1366
-#: classes/class-wc-gateway-googlepay-checkout.php:1434
+#: classes/class-wc-gateway-googlepay-checkout.php:1432
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1466
-#: classes/class-wc-gateway-insite-redsys.php:7464
+#: classes/class-wc-gateway-insite-redsys.php:8097
 #: classes/class-wc-gateway-paygold-redsys.php:1395
-#: classes/class-wc-gateway-redsys.php:9652
+#: classes/class-wc-gateway-redsys.php:10316
 msgid "Refund Failed: "
 msgstr "Error en la devolución: "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:2075
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:2072
 #: classes/class-wc-gateway-bizum-redsys.php:1537
 #: classes/class-wc-gateway-direct-debit-redsys.php:1377
-#: classes/class-wc-gateway-googlepay-checkout.php:1445
+#: classes/class-wc-gateway-googlepay-checkout.php:1443
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1477
-#: classes/class-wc-gateway-insite-redsys.php:7475
+#: classes/class-wc-gateway-insite-redsys.php:8108
 #: classes/class-wc-gateway-paygold-redsys.php:1406
-#: classes/class-wc-gateway-redsys.php:9663
+#: classes/class-wc-gateway-redsys.php:10327
 msgid "check_redsys_refund = true "
 msgstr "check_redsys_refund = true "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:2088
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:2085
 #: classes/class-wc-gateway-bizum-redsys.php:1550
 #: classes/class-wc-gateway-direct-debit-redsys.php:1390
-#: classes/class-wc-gateway-googlepay-checkout.php:1458
+#: classes/class-wc-gateway-googlepay-checkout.php:1456
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1490
-#: classes/class-wc-gateway-insite-redsys.php:7488
+#: classes/class-wc-gateway-insite-redsys.php:8121
 #: classes/class-wc-gateway-paygold-redsys.php:1419
-#: classes/class-wc-gateway-redsys.php:9675
+#: classes/class-wc-gateway-redsys.php:10339
 msgid "check_redsys_refund = false "
 msgstr "check_redsys_refund = false "
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:2097
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:2094
 #: classes/class-wc-gateway-bizum-redsys.php:1559
 #: classes/class-wc-gateway-direct-debit-redsys.php:1399
-#: classes/class-wc-gateway-googlepay-checkout.php:1467
+#: classes/class-wc-gateway-googlepay-checkout.php:1465
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1499
-#: classes/class-wc-gateway-insite-redsys.php:7497
+#: classes/class-wc-gateway-insite-redsys.php:8130
 #: classes/class-wc-gateway-paygold-redsys.php:1428
-#: classes/class-wc-gateway-redsys.php:9684
+#: classes/class-wc-gateway-redsys.php:10348
 msgid "!!!!Refund Failed, please try again!!!!"
 msgstr "!!!!Reembolso fallido, por favor, prueba de nuevo!!!!"
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:2110
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:2117
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:2107
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:2114
 #: classes/class-wc-gateway-bizum-redsys.php:1572
 #: classes/class-wc-gateway-bizum-redsys.php:1579
 #: classes/class-wc-gateway-direct-debit-redsys.php:1412
 #: classes/class-wc-gateway-direct-debit-redsys.php:1419
-#: classes/class-wc-gateway-googlepay-checkout.php:1480
-#: classes/class-wc-gateway-googlepay-checkout.php:1487
+#: classes/class-wc-gateway-googlepay-checkout.php:1478
+#: classes/class-wc-gateway-googlepay-checkout.php:1485
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1512
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:1519
-#: classes/class-wc-gateway-insite-redsys.php:7510
-#: classes/class-wc-gateway-insite-redsys.php:7517
+#: classes/class-wc-gateway-insite-redsys.php:8143
+#: classes/class-wc-gateway-insite-redsys.php:8150
 #: classes/class-wc-gateway-paygold-redsys.php:1441
 #: classes/class-wc-gateway-paygold-redsys.php:1448
-#: classes/class-wc-gateway-redsys.php:9696
-#: classes/class-wc-gateway-redsys.php:9698
+#: classes/class-wc-gateway-redsys.php:10360
+#: classes/class-wc-gateway-redsys.php:10362
 msgid "Refund Failed: No transaction ID"
 msgstr "Devolución fallida: No hay ID de transacción"
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:2135
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:2132
 #: classes/class-wc-gateway-bizum-redsys.php:1597
 msgid ""
 "Warning: WooCommerce Redsys Gateway Bizum is in test mode. Remember to "
@@ -1941,8 +2077,8 @@ msgstr ""
 "Advertencia: WooCommerce Redsys Gateway Bizum está en modo de pruebas. "
 "Recuerda desmarcarlo cuando vayas al entorno real"
 
-#: classes/class-wc-gateway-bizum-checkout-redsys.php:2272
-#: classes/class-wc-gateway-redsys.php:11845
+#: classes/class-wc-gateway-bizum-checkout-redsys.php:2269
+#: classes/class-wc-gateway-redsys.php:12509
 msgid "Close"
 msgstr "Cerrar"
 
@@ -1957,6 +2093,11 @@ msgstr "Bizum funciona redirigiendo a los clientes a Bizum."
 #: classes/class-wc-gateway-bizum-redsys.php:109
 msgid "Bizum works by sending the user to Bizum Gateway"
 msgstr "Bizum funciona enviando al usuario a la plataforma de Bizum"
+
+#: classes/class-wc-gateway-bizum-redsys.php:1264
+#: classes/class-wc-gateway-paygold-redsys.php:1143
+msgid "Order Completed by Bizum"
+msgstr "Pedido completado por Bizum"
 
 #: classes/class-wc-gateway-direct-debit-redsys.php:42
 msgid "Direct Debit (by José Conti)"
@@ -2035,238 +2176,238 @@ msgstr ""
 "Advertencia: WooCommerce Redsys Gateway débito directo está en modo de "
 "pruebas. Recuerda desmarcarlo cuando pases a entorno real"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:38
+#: classes/class-wc-gateway-googlepay-checkout.php:36
 msgid "Google Pay Checkout (by José Conti)"
 msgstr "Google Pay en página de pago (por José Conti)"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:39
+#: classes/class-wc-gateway-googlepay-checkout.php:37
 msgid "Google Pay Checkout adding the Gpay Button in the checkout."
 msgstr ""
 "Google Pay en la página de pago añade el botón de Gray en la página de pago."
 
-#: classes/class-wc-gateway-googlepay-checkout.php:115
+#: classes/class-wc-gateway-googlepay-checkout.php:113
 msgid "Google Pay"
 msgstr "Google Pay"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:116
+#: classes/class-wc-gateway-googlepay-checkout.php:114
 msgid "Google Pay works by Showing a Google Pay buttom at Checkout"
 msgstr "Google Pay funciona mostrando el botón de GPay en la página de pago"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:190
+#: classes/class-wc-gateway-googlepay-checkout.php:188
 msgid "Enable Google Pay"
 msgstr "Activar Google Pay"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:218
+#: classes/class-wc-gateway-googlepay-checkout.php:216
 msgid "Gpay"
 msgstr "Gpay"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:225
+#: classes/class-wc-gateway-googlepay-checkout.php:223
 msgid "Pay via Gpay With your Google Account."
 msgstr "Paga mediante GPay mediante tu cuenta de Google."
 
+#: classes/class-wc-gateway-googlepay-checkout.php:226
 #: classes/class-wc-gateway-googlepay-checkout.php:228
-#: classes/class-wc-gateway-googlepay-checkout.php:230
 msgid "Google Merchant ID"
 msgstr "Google Merchant ID"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:234
+#: classes/class-wc-gateway-googlepay-checkout.php:232
 msgid "Time to load the button"
 msgstr "Tiempo de carga del botón"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:236
+#: classes/class-wc-gateway-googlepay-checkout.php:234
 msgid "Time to load the button in milliseconds"
-msgstr "Tiempo de carga del botón en milisegundos."
+msgstr "Tiempo de carga del botón en milisegundos"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:290
+#: classes/class-wc-gateway-googlepay-checkout.php:288
 msgid "GPay Button Color"
 msgstr "Color del botón GPay"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:292
+#: classes/class-wc-gateway-googlepay-checkout.php:290
 msgid "Chose GPay button color."
 msgstr "Selecciona el color del botón de GPay."
 
-#: classes/class-wc-gateway-googlepay-checkout.php:295
+#: classes/class-wc-gateway-googlepay-checkout.php:293
 msgid "Black"
 msgstr "Negro"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:296
+#: classes/class-wc-gateway-googlepay-checkout.php:294
 msgid "White"
 msgstr "Blanco"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:300
+#: classes/class-wc-gateway-googlepay-checkout.php:298
 msgid "GPay Button Type"
 msgstr "Tipo de botón GPay"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:302
+#: classes/class-wc-gateway-googlepay-checkout.php:300
 msgid "Chose Button Type."
 msgstr "Selecciona el tipo de botón."
 
-#: classes/class-wc-gateway-googlepay-checkout.php:305
+#: classes/class-wc-gateway-googlepay-checkout.php:303
 msgid "buy"
-msgstr "Comprar"
+msgstr "comprar"
+
+#: classes/class-wc-gateway-googlepay-checkout.php:304
+msgid "book"
+msgstr "reservar"
+
+#: classes/class-wc-gateway-googlepay-checkout.php:305
+msgid "checkout"
+msgstr "checkout"
 
 #: classes/class-wc-gateway-googlepay-checkout.php:306
-msgid "book"
-msgstr "Reservar"
+msgid "donate"
+msgstr "donar"
 
 #: classes/class-wc-gateway-googlepay-checkout.php:307
-msgid "checkout"
-msgstr "Checkout"
+msgid "order"
+msgstr "pedido"
 
 #: classes/class-wc-gateway-googlepay-checkout.php:308
-msgid "donate"
-msgstr "Donar"
+msgid "pay"
+msgstr "pagar"
 
 #: classes/class-wc-gateway-googlepay-checkout.php:309
-msgid "order"
-msgstr "Pedido"
+msgid "plain"
+msgstr "liso"
 
 #: classes/class-wc-gateway-googlepay-checkout.php:310
-msgid "pay"
-msgstr "Pagar"
-
-#: classes/class-wc-gateway-googlepay-checkout.php:311
-msgid "plain"
-msgstr "Liso"
-
-#: classes/class-wc-gateway-googlepay-checkout.php:312
 msgid "subscribe"
-msgstr "Suscribirse"
+msgstr "suscribirse"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:316
+#: classes/class-wc-gateway-googlepay-checkout.php:314
 msgid "GPay Button Language"
 msgstr "Idioma del botón GPay"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:318
+#: classes/class-wc-gateway-googlepay-checkout.php:316
 msgid "Chose Button Language."
 msgstr "Selecciona el idioma del botón de GPay."
 
-#: classes/class-wc-gateway-googlepay-checkout.php:321
-#: classes/class-wc-gateway-googlepay-checkout.php:348
+#: classes/class-wc-gateway-googlepay-checkout.php:319
+#: classes/class-wc-gateway-googlepay-checkout.php:346
 msgid "Spanish"
 msgstr "Español"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:322
+#: classes/class-wc-gateway-googlepay-checkout.php:320
 msgid "Arabic"
 msgstr "Arabe"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:323
+#: classes/class-wc-gateway-googlepay-checkout.php:321
 msgid "Bulgarian"
 msgstr "Búlgaro"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:324
+#: classes/class-wc-gateway-googlepay-checkout.php:322
 msgid "Catalan"
 msgstr "Catalán"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:325
+#: classes/class-wc-gateway-googlepay-checkout.php:323
 msgid "Chinese"
 msgstr "Chino"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:326
+#: classes/class-wc-gateway-googlepay-checkout.php:324
 msgid "Croatian"
 msgstr "Croata"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:327
+#: classes/class-wc-gateway-googlepay-checkout.php:325
 msgid "Czech"
 msgstr "Checo"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:328
+#: classes/class-wc-gateway-googlepay-checkout.php:326
 msgid "Danish"
 msgstr "Danés"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:329
+#: classes/class-wc-gateway-googlepay-checkout.php:327
 msgid "Dutch"
 msgstr "Holandes"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:330
+#: classes/class-wc-gateway-googlepay-checkout.php:328
 msgid "English"
 msgstr "Inglés"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:331
+#: classes/class-wc-gateway-googlepay-checkout.php:329
 msgid "Estonian"
 msgstr "Estonio"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:332
+#: classes/class-wc-gateway-googlepay-checkout.php:330
 msgid "Finnish"
 msgstr "Finlandés"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:333
+#: classes/class-wc-gateway-googlepay-checkout.php:331
 msgid "French"
 msgstr "Frances"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:334
+#: classes/class-wc-gateway-googlepay-checkout.php:332
 msgid "German"
 msgstr "Alemán"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:335
+#: classes/class-wc-gateway-googlepay-checkout.php:333
 msgid "Greek"
 msgstr "Griego"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:336
+#: classes/class-wc-gateway-googlepay-checkout.php:334
 msgid "Indonesian"
 msgstr "Indonesio"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:337
+#: classes/class-wc-gateway-googlepay-checkout.php:335
 msgid "Italian"
 msgstr "Italiano"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:338
+#: classes/class-wc-gateway-googlepay-checkout.php:336
 msgid "Japanese"
 msgstr "Japonés"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:339
+#: classes/class-wc-gateway-googlepay-checkout.php:337
 msgid "Korean"
 msgstr "Koreano"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:340
+#: classes/class-wc-gateway-googlepay-checkout.php:338
 msgid "Malay"
 msgstr "Malayo"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:341
+#: classes/class-wc-gateway-googlepay-checkout.php:339
 msgid "Norwegian"
 msgstr "Noruego"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:342
+#: classes/class-wc-gateway-googlepay-checkout.php:340
 msgid "Polish"
 msgstr "Polaco"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:343
+#: classes/class-wc-gateway-googlepay-checkout.php:341
 msgid "Portuguese"
 msgstr "Portugués"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:344
+#: classes/class-wc-gateway-googlepay-checkout.php:342
 msgid "Russian"
 msgstr "Ruso"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:345
+#: classes/class-wc-gateway-googlepay-checkout.php:343
 msgid "Serbian"
 msgstr "Servio"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:346
+#: classes/class-wc-gateway-googlepay-checkout.php:344
 msgid "Slovak"
 msgstr "Eslovaco"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:347
+#: classes/class-wc-gateway-googlepay-checkout.php:345
 msgid "Slovenian"
 msgstr "Esloveno"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:349
+#: classes/class-wc-gateway-googlepay-checkout.php:347
 msgid "Swedish"
 msgstr "Sueco"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:350
+#: classes/class-wc-gateway-googlepay-checkout.php:348
 msgid "Thai"
 msgstr "Tailandes"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:351
+#: classes/class-wc-gateway-googlepay-checkout.php:349
 msgid "Turkish"
 msgstr "Turco"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:352
+#: classes/class-wc-gateway-googlepay-checkout.php:350
 msgid "Ukrainian"
 msgstr "Ukraniano"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:395
+#: classes/class-wc-gateway-googlepay-checkout.php:393
 msgid ""
 "Log Gpay events, such as notifications requests, inside <code>WooCommerce > "
 "Status > Logs > googlepayredsys-{date}-{number}.log</code>"
@@ -2275,7 +2416,7 @@ msgstr ""
 "<code>WooCommerce > Estado > Registros > googlepayredsys-{date}-{number}."
 "log</code>"
 
-#: classes/class-wc-gateway-googlepay-checkout.php:976
+#: classes/class-wc-gateway-googlepay-checkout.php:974
 msgid "There was an Errro: "
 msgstr "Hubo un error: "
 
@@ -2317,7 +2458,7 @@ msgstr ""
 "{number}.log</code>"
 
 #: classes/class-wc-gateway-googlepay-redirection-redsys.php:773
-#: classes/class-wc-gateway-redsys.php:6640
+#: classes/class-wc-gateway-redsys.php:7292
 msgid ""
 "Thank you for your order. We are now redirecting you to Redsys to make the "
 "payment."
@@ -2367,21 +2508,21 @@ msgstr ""
 "tarjetas de crédito/debito directamente en la pagina de pago. InSite es "
 "necesario para utilizar este método de pago."
 
-#: classes/class-wc-gateway-insite-redsys.php:176
+#: classes/class-wc-gateway-insite-redsys.php:180
 msgid "Redsys in Checkout (by José Conti) - InSite"
 msgstr "Redsys en página de pago (por José Conti) - InSite"
 
-#: classes/class-wc-gateway-insite-redsys.php:177
+#: classes/class-wc-gateway-insite-redsys.php:181
 msgid "InSite works by adding a Credit Card Form in the WooCommerce Checkout."
 msgstr ""
 "InSite funciona añadiendo un formulario de tarjeta de crédito al finalizar "
 "compra."
 
-#: classes/class-wc-gateway-insite-redsys.php:186
+#: classes/class-wc-gateway-insite-redsys.php:190
 msgid "Attention! Problem with SOAP."
 msgstr "Atención, problemas con SOAP."
 
-#: classes/class-wc-gateway-insite-redsys.php:187
+#: classes/class-wc-gateway-insite-redsys.php:191
 msgid ""
 "SOAP is needed for Pay with InSite. Ask to your hosting to enable it. "
 "Without active SOAP on the server, the functionality of the plugin is very "
@@ -2391,15 +2532,15 @@ msgstr ""
 "active. Sin SOAP activo en el servidor la funcionalidad del plugin es muy "
 "limitada."
 
-#: classes/class-wc-gateway-insite-redsys.php:258
+#: classes/class-wc-gateway-insite-redsys.php:262
 msgid "Enable InSite"
 msgstr "Activar InSite"
 
-#: classes/class-wc-gateway-insite-redsys.php:283
+#: classes/class-wc-gateway-insite-redsys.php:287
 msgid "When show InSite"
 msgstr "Cuando mostrar InSite"
 
-#: classes/class-wc-gateway-insite-redsys.php:285
+#: classes/class-wc-gateway-insite-redsys.php:289
 msgid ""
 "Select Show only to Banking network, Spain & Portugal (default) or Show to "
 "all countries (NOT recomended)."
@@ -2407,67 +2548,67 @@ msgstr ""
 "Seleccione Mostrar solo a la red bancaria, España y Portugal "
 "(predeterminado) o Mostrar a todos los países (NO recomendado)."
 
-#: classes/class-wc-gateway-insite-redsys.php:288
+#: classes/class-wc-gateway-insite-redsys.php:292
 msgid "Show only to Banking network (Spain & Portugal, recommended)"
 msgstr "Mostrar solo a la red bancaria (España y Portugal, recomendado)"
 
-#: classes/class-wc-gateway-insite-redsys.php:289
+#: classes/class-wc-gateway-insite-redsys.php:293
 msgid "Show to all countries (NOT recomended)"
 msgstr "Mostrar a todos los países (NO recomendado)"
 
-#: classes/class-wc-gateway-insite-redsys.php:293
+#: classes/class-wc-gateway-insite-redsys.php:297
 msgid "Select InSite Type"
 msgstr "Selecciona el tipo de InSite"
 
-#: classes/class-wc-gateway-insite-redsys.php:295
+#: classes/class-wc-gateway-insite-redsys.php:299
 msgid "Select Independent elements (default) o Integrated form."
 msgstr ""
 "Selecciona elementos independientes (por defecto) o formulario integrado."
 
-#: classes/class-wc-gateway-insite-redsys.php:298
+#: classes/class-wc-gateway-insite-redsys.php:302
 msgid "Integration by independent elements (Default)"
 msgstr "Integración con elementos separados (por defecto)"
 
-#: classes/class-wc-gateway-insite-redsys.php:299
+#: classes/class-wc-gateway-insite-redsys.php:303
 msgid "Unified integration"
 msgstr "Integración unificada"
 
-#: classes/class-wc-gateway-insite-redsys.php:303
-#: classes/class-wc-gateway-redsys.php:775
+#: classes/class-wc-gateway-insite-redsys.php:307
+#: classes/class-wc-gateway-redsys.php:779
 msgid "Pay with 1click"
 msgstr "Pago con un clic"
 
-#: classes/class-wc-gateway-insite-redsys.php:305
+#: classes/class-wc-gateway-insite-redsys.php:309
 msgid "Enable Pay with 1click"
 msgstr "Activar pago con un clic"
 
-#: classes/class-wc-gateway-insite-redsys.php:312
+#: classes/class-wc-gateway-insite-redsys.php:316
 msgid "InSite"
 msgstr "InSite"
 
-#: classes/class-wc-gateway-insite-redsys.php:319
+#: classes/class-wc-gateway-insite-redsys.php:323
 msgid "Pay via InSite; you can pay with your credit card."
 msgstr "Paga mediante InSite, puedes pagar con tu tarjeta de crédito."
 
-#: classes/class-wc-gateway-insite-redsys.php:322
+#: classes/class-wc-gateway-insite-redsys.php:326
 #: classes/class-wc-gateway-paygold-redsys.php:248
-#: classes/class-wc-gateway-redsys.php:390
+#: classes/class-wc-gateway-redsys.php:394
 msgid "Gateway logo at checkout"
 msgstr "Logo de la pasarela en la página de pago"
 
-#: classes/class-wc-gateway-insite-redsys.php:324
+#: classes/class-wc-gateway-insite-redsys.php:328
 #: classes/class-wc-gateway-paygold-redsys.php:250
-#: classes/class-wc-gateway-redsys.php:392
+#: classes/class-wc-gateway-redsys.php:396
 msgid "Add link to image logo for Gateway at checkout."
 msgstr ""
 "Añade un enlace a la imagen del logo que deseas mostrar para la pasarela en "
 "la página de pago."
 
-#: classes/class-wc-gateway-insite-redsys.php:328
+#: classes/class-wc-gateway-insite-redsys.php:332
 msgid "Text when the customer"
 msgstr "Texto cuando el usuario"
 
-#: classes/class-wc-gateway-insite-redsys.php:330
+#: classes/class-wc-gateway-insite-redsys.php:334
 msgid ""
 "Text when the customer has not yet filled in the required billing fields for "
 "InSite."
@@ -2475,7 +2616,7 @@ msgstr ""
 "Texto cuando el usuario aún no ha rellenado los campos de facturación "
 "necesarios para mostrar el formulario de la tarjeta (InSite)."
 
-#: classes/class-wc-gateway-insite-redsys.php:331
+#: classes/class-wc-gateway-insite-redsys.php:335
 msgid ""
 "Please fill in the billing fields of the checkout form. After filling them, "
 "the credit card form will appear."
@@ -2483,31 +2624,31 @@ msgstr ""
 "Por favor, rellena los campos de facturación. Después de que los rellenes, "
 "el formulario de la tarjeta se mostrará."
 
-#: classes/class-wc-gateway-insite-redsys.php:334
-#: classes/class-wc-gateway-redsys.php:477
+#: classes/class-wc-gateway-insite-redsys.php:338
+#: classes/class-wc-gateway-redsys.php:481
 msgid "Enable LWV"
 msgstr "Activar LWV"
 
-#: classes/class-wc-gateway-insite-redsys.php:336
+#: classes/class-wc-gateway-insite-redsys.php:340
 msgid "Enable LWV. WARNING, your bank has to enable it before you use it."
 msgstr "Activar LVW. ATENCIÓN, tu banco debe activártelo antes de utilizarlo."
 
-#: classes/class-wc-gateway-insite-redsys.php:340
-#: classes/class-wc-gateway-redsys.php:484
+#: classes/class-wc-gateway-insite-redsys.php:344
+#: classes/class-wc-gateway-redsys.php:488
 msgid "Enable TRA"
 msgstr "Activar TRA"
 
-#: classes/class-wc-gateway-insite-redsys.php:342
+#: classes/class-wc-gateway-insite-redsys.php:346
 msgid "Enable TRA. WARNING, your bank has to enable it before you use it."
 msgstr "Activar TRA. ATENCIÓN, tu banco debe activártelo antes de utilizarlo."
 
-#: classes/class-wc-gateway-insite-redsys.php:346
-#: classes/class-wc-gateway-redsys.php:491
+#: classes/class-wc-gateway-insite-redsys.php:350
+#: classes/class-wc-gateway-redsys.php:495
 msgid "Limit import for TRA"
 msgstr "Límite de importe para uso de TRA"
 
-#: classes/class-wc-gateway-insite-redsys.php:348
-#: classes/class-wc-gateway-redsys.php:493
+#: classes/class-wc-gateway-insite-redsys.php:352
+#: classes/class-wc-gateway-redsys.php:497
 msgid ""
 "TRA will be sent when the amount is inferior to what you specify here. Write "
 "the amount without the currency sign, i.e. if it is 250€, ONLY write 250"
@@ -2516,35 +2657,35 @@ msgstr ""
 "campo. Escribe la cantidad sin el signo de moneda. Por ejemplo, si quieres "
 "que sea 250€, escribe 250"
 
-#: classes/class-wc-gateway-insite-redsys.php:352
-#: classes/class-wc-gateway-redsys.php:529
+#: classes/class-wc-gateway-insite-redsys.php:356
+#: classes/class-wc-gateway-redsys.php:533
 msgid "Notification email"
 msgstr "Correo de notificación"
 
-#: classes/class-wc-gateway-insite-redsys.php:354
-#: classes/class-wc-gateway-redsys.php:531
+#: classes/class-wc-gateway-insite-redsys.php:358
+#: classes/class-wc-gateway-redsys.php:535
 msgid "Email errors will arrive to this email"
 msgstr "Los emial de errores llegarán a este correo"
 
-#: classes/class-wc-gateway-insite-redsys.php:370
+#: classes/class-wc-gateway-insite-redsys.php:374
 #: classes/class-wc-gateway-paygold-redsys.php:307
-#: classes/class-wc-gateway-redsys.php:336
+#: classes/class-wc-gateway-redsys.php:340
 msgid "Merchant Group Number"
 msgstr "Número de grupo del vendedor"
 
-#: classes/class-wc-gateway-insite-redsys.php:372
+#: classes/class-wc-gateway-insite-redsys.php:376
 #: classes/class-wc-gateway-paygold-redsys.php:309
 msgid ""
 "It is an identifier for sharing tokens between websites of the same company"
 msgstr ""
 "Este es un identificador para compartir tokens entre webs de la misma empresa"
 
-#: classes/class-wc-gateway-insite-redsys.php:394
-#: classes/class-wc-gateway-redsys.php:457
+#: classes/class-wc-gateway-insite-redsys.php:398
+#: classes/class-wc-gateway-redsys.php:461
 msgid "Disable mark as paid Subscriptions by plugin"
 msgstr "Desactivar marcar como pagado suscripciones por el plugin"
 
-#: classes/class-wc-gateway-insite-redsys.php:396
+#: classes/class-wc-gateway-insite-redsys.php:400
 msgid ""
 "You should only check this option if subscription renewals are marked twice "
 "as paid."
@@ -2552,17 +2693,17 @@ msgstr ""
 "Solo debeS marcar esta opción si las renovaciones de suscripción se marcan "
 "dos veces como pagadas."
 
-#: classes/class-wc-gateway-insite-redsys.php:397
+#: classes/class-wc-gateway-insite-redsys.php:401
 msgid "Disable Subscription paid, it is enabled by default"
 msgstr "Desactivar el token de suscripción, está activo por defecto"
 
-#: classes/class-wc-gateway-insite-redsys.php:420
+#: classes/class-wc-gateway-insite-redsys.php:424
 #: classes/class-wc-gateway-masterpass-redsys.php:257
-#: classes/class-wc-gateway-redsys.php:652
+#: classes/class-wc-gateway-redsys.php:656
 msgid "Return URL (Redsys Error button)"
 msgstr "URL de retorno (Botón de error en Redsys)"
 
-#: classes/class-wc-gateway-insite-redsys.php:422
+#: classes/class-wc-gateway-insite-redsys.php:426
 msgid ""
 "When the user press the return button at Redsys Gateway (Ex: The user type "
 "an incorrect credit cart), you can redirect the user to My Cart page "
@@ -2574,27 +2715,27 @@ msgstr ""
 "la página del carrito cancelando el pedido, o puedes redirigirle a la página "
 "de finalizar compra sin cancelar el pedido."
 
-#: classes/class-wc-gateway-insite-redsys.php:425
+#: classes/class-wc-gateway-insite-redsys.php:429
 #: classes/class-wc-gateway-masterpass-redsys.php:262
-#: classes/class-wc-gateway-redsys.php:657
+#: classes/class-wc-gateway-redsys.php:661
 msgid "Cancel the order and return to My Cart page"
 msgstr "Cancelar el pedido y enviar al cliente al carro de compra"
 
-#: classes/class-wc-gateway-insite-redsys.php:426
+#: classes/class-wc-gateway-insite-redsys.php:430
 #: classes/class-wc-gateway-masterpass-redsys.php:263
-#: classes/class-wc-gateway-redsys.php:658
+#: classes/class-wc-gateway-redsys.php:662
 msgid "Don't cancel the order and return to Checkout page"
 msgstr "No cancelar el pedido y enviar al cliente a la página de pago"
 
-#: classes/class-wc-gateway-insite-redsys.php:432
-#: classes/class-wc-gateway-redsys.php:608
+#: classes/class-wc-gateway-insite-redsys.php:436
+#: classes/class-wc-gateway-redsys.php:612
 msgid ""
 "Activate SNI Compatibility (only activate it if José Conti indicate you)."
 msgstr ""
 "Activa la compatibilidad SNI (actívala solamente si José Conti te lo indica)."
 
-#: classes/class-wc-gateway-insite-redsys.php:434
-#: classes/class-wc-gateway-redsys.php:610
+#: classes/class-wc-gateway-insite-redsys.php:438
+#: classes/class-wc-gateway-redsys.php:614
 msgid ""
 "Only use it if José Conti indicate you. WARNING: If you are forcing "
 "redirection to HTTPS with htaccess, you need to add an exception for "
@@ -2604,16 +2745,16 @@ msgstr ""
 "redirección a HTTPS con htaccess, tienes que añadir una excepción para la "
 "URL de aviso"
 
-#: classes/class-wc-gateway-insite-redsys.php:437
+#: classes/class-wc-gateway-insite-redsys.php:441
 msgid "Move Terms and conditions"
 msgstr "Mover términos y condiciones"
 
-#: classes/class-wc-gateway-insite-redsys.php:439
+#: classes/class-wc-gateway-insite-redsys.php:443
 msgid "Move terms and Conditions above gateways."
 msgstr ""
 "Mover términos y condiciones antes de las pasarelas de pago en el checkourt."
 
-#: classes/class-wc-gateway-insite-redsys.php:441
+#: classes/class-wc-gateway-insite-redsys.php:445
 msgid ""
 "This option move terms and Conditions above gateways. Recomended when InSite "
 "is active"
@@ -2621,11 +2762,11 @@ msgstr ""
 "Mover términos y condiciones antes de las pasarelas de pago en el checkourt. "
 "Recomendado cuando InSite está activo"
 
-#: classes/class-wc-gateway-insite-redsys.php:444
+#: classes/class-wc-gateway-insite-redsys.php:448
 msgid "Custom \"Name\" field"
 msgstr "Campo “Nombre” personalizado"
 
-#: classes/class-wc-gateway-insite-redsys.php:447
+#: classes/class-wc-gateway-insite-redsys.php:451
 msgid ""
 "In some cases you modify the billing field \"Name\" in the checkout. If you "
 "do this, add the custom name field or InSite will not work, example "
@@ -2635,72 +2776,72 @@ msgstr ""
 "página de pago. Si lo haces, añade el nombre personalizado o InSite no "
 "funcionará, por ejemplo billing_first_name"
 
-#: classes/class-wc-gateway-insite-redsys.php:450
+#: classes/class-wc-gateway-insite-redsys.php:454
 msgid "Button Text"
 msgstr "Texto del botón"
 
-#: classes/class-wc-gateway-insite-redsys.php:453
+#: classes/class-wc-gateway-insite-redsys.php:457
 msgid "Add the Button Text."
 msgstr "Añade el texto del botón."
 
-#: classes/class-wc-gateway-insite-redsys.php:456
+#: classes/class-wc-gateway-insite-redsys.php:460
 msgid "General Color Text"
 msgstr "Color de texto general"
 
-#: classes/class-wc-gateway-insite-redsys.php:458
+#: classes/class-wc-gateway-insite-redsys.php:462
 msgid "This is the General text color added by InSite. Default #2e3131"
 msgstr ""
 "Este es el color de texto general añadido por Insite. Por defecto es #2e3131"
 
-#: classes/class-wc-gateway-insite-redsys.php:463
+#: classes/class-wc-gateway-insite-redsys.php:467
 msgid "Color Button"
 msgstr "Color del botón"
 
-#: classes/class-wc-gateway-insite-redsys.php:465
+#: classes/class-wc-gateway-insite-redsys.php:469
 msgid "This if button color. Default #f39c12"
 msgstr "Este es el color del botón. Por defecto es #f39c12"
 
-#: classes/class-wc-gateway-insite-redsys.php:472
+#: classes/class-wc-gateway-insite-redsys.php:476
 msgid "This if button text color. Default #ffffff"
 msgstr "Este es el color del texto del botón. Por defecto es #ffffff"
 
-#: classes/class-wc-gateway-insite-redsys.php:477
+#: classes/class-wc-gateway-insite-redsys.php:481
 msgid "Color Fields Text"
 msgstr "Color del texto de los campos"
 
-#: classes/class-wc-gateway-insite-redsys.php:479
+#: classes/class-wc-gateway-insite-redsys.php:483
 msgid "This the text color of the field text. Default #95a5a6"
 msgstr ""
 "Este es el color del texto de los campos de texto. Por defecto es #95a5a6"
 
-#: classes/class-wc-gateway-insite-redsys.php:484
+#: classes/class-wc-gateway-insite-redsys.php:488
 msgid "CVV box background color"
 msgstr "Color de fondeo de la caja CVV"
 
-#: classes/class-wc-gateway-insite-redsys.php:486
+#: classes/class-wc-gateway-insite-redsys.php:490
 msgid "This the background color of CVV field. Default #d5d5d5"
 msgstr "Este es el color de fondo del campo CVV. Por defecto #d5d5d5"
 
-#: classes/class-wc-gateway-insite-redsys.php:491
+#: classes/class-wc-gateway-insite-redsys.php:495
 msgid "Button Pay Now heigth"
 msgstr "Altura del botón Pagar ahora"
 
-#: classes/class-wc-gateway-insite-redsys.php:493
+#: classes/class-wc-gateway-insite-redsys.php:497
 msgid "The heigth os Pay now button. Default 85px (you can use px or %)"
 msgstr ""
 "La altura del botón Pagar ahora. Por defecto 85px (puedes utilizar px o %)"
 
-#: classes/class-wc-gateway-insite-redsys.php:497
+#: classes/class-wc-gateway-insite-redsys.php:501
 msgid "Button Pay Now width"
 msgstr "Anchura del botón Pagar ahora"
 
-#: classes/class-wc-gateway-insite-redsys.php:499
+#: classes/class-wc-gateway-insite-redsys.php:503
 msgid "The width os Pay now button. Default 100% (you can use px or %)"
 msgstr ""
 "La anchura del botón Pagar ahora. Por defecto es el 100% (puedes utilizar px "
 "o %)"
 
-#: classes/class-wc-gateway-insite-redsys.php:541
+#: classes/class-wc-gateway-insite-redsys.php:545
 msgid ""
 "Log InSite events, such as notifications requests, inside <code>WooCommerce "
 "> Status > Logs > insite-{date}-{number}.log</code>"
@@ -2708,50 +2849,62 @@ msgstr ""
 "Registra eventos de InSite, como solicitudes de aviso, en <code>WooCommerce "
 "> Estado > Registros > insite-{date}-{number}.log</code>"
 
-#: classes/class-wc-gateway-insite-redsys.php:1175
-#: classes/class-wc-gateway-redsys.php:2854
+#: classes/class-wc-gateway-insite-redsys.php:1189
+#: classes/class-wc-gateway-redsys.php:2873
 msgid "No credit card or expired"
 msgstr "No hay tarjeta de crédito o está caducada"
 
-#: classes/class-wc-gateway-insite-redsys.php:1176
-#: classes/class-wc-gateway-redsys.php:2855
+#: classes/class-wc-gateway-insite-redsys.php:1190
+#: classes/class-wc-gateway-redsys.php:2874
 msgid "⚠️ No credit card or expired"
 msgstr "⚠️ No hay tarjeta de crédito o está caducada"
 
-#: classes/class-wc-gateway-insite-redsys.php:1473
-#: classes/class-wc-gateway-insite-redsys.php:1629
-#: classes/class-wc-gateway-insite-redsys.php:2102
-#: classes/class-wc-gateway-insite-redsys.php:2255
-#: classes/class-wc-gateway-redsys.php:3336
+#: classes/class-wc-gateway-insite-redsys.php:1487
+#: classes/class-wc-gateway-insite-redsys.php:1643
+#: classes/class-wc-gateway-insite-redsys.php:2116
+#: classes/class-wc-gateway-insite-redsys.php:2269
+#: classes/class-wc-gateway-redsys.php:3354
 msgid "There was and error. The error was: "
 msgstr "Ha habido un problema. El problema ha sido: "
 
-#: classes/class-wc-gateway-insite-redsys.php:1474
-#: classes/class-wc-gateway-insite-redsys.php:1630
-#: classes/class-wc-gateway-insite-redsys.php:2103
-#: classes/class-wc-gateway-insite-redsys.php:2256
-#: classes/class-wc-gateway-redsys.php:3337
+#: classes/class-wc-gateway-insite-redsys.php:1488
+#: classes/class-wc-gateway-insite-redsys.php:1644
+#: classes/class-wc-gateway-insite-redsys.php:2117
+#: classes/class-wc-gateway-insite-redsys.php:2270
+#: classes/class-wc-gateway-insite-redsys.php:2734
+#: classes/class-wc-gateway-insite-redsys.php:2885
+#: classes/class-wc-gateway-redsys.php:3355
 #: classes/class-wc-gateway-redsys.php:3854
-#: classes/class-wc-gateway-redsys.php:4002
+#: classes/class-wc-gateway-redsys.php:4005
+#: classes/class-wc-gateway-redsys.php:4477
+#: classes/class-wc-gateway-redsys.php:4625
 msgid "⚠️ Subscription Payment failed. Error: "
 msgstr "⚠️ Error en el pago de la suscripción. Error: "
 
-#: classes/class-wc-gateway-insite-redsys.php:2401
+#: classes/class-wc-gateway-insite-redsys.php:2733
+#: classes/class-wc-gateway-insite-redsys.php:2884
+#: classes/class-wc-gateway-redsys.php:3853
+#: classes/class-wc-gateway-redsys.php:4004
+#: classes/class-wc-gateway-redsys.php:4621
+msgid "There was an error:"
+msgstr "Hay un error:"
+
+#: classes/class-wc-gateway-insite-redsys.php:3042
 msgid "Pay Now"
 msgstr "Pagar ahora"
 
-#: classes/class-wc-gateway-insite-redsys.php:2556
-#: classes/class-wc-gateway-redsys.php:6047
+#: classes/class-wc-gateway-insite-redsys.php:3197
+#: classes/class-wc-gateway-redsys.php:6699
 msgid "Use a new payment method"
 msgstr "Utiliza un nuevo método de pago"
 
-#: classes/class-wc-gateway-insite-redsys.php:2565
-#: classes/class-wc-gateway-redsys.php:6056
+#: classes/class-wc-gateway-insite-redsys.php:3206
+#: classes/class-wc-gateway-redsys.php:6708
 msgid "Save payment information to my account for future purchases."
 msgstr "Guarda la información de pago en mi cuenta para futuros pagos."
 
-#: classes/class-wc-gateway-insite-redsys.php:2568
-#: classes/class-wc-gateway-redsys.php:6059
+#: classes/class-wc-gateway-insite-redsys.php:3209
+#: classes/class-wc-gateway-redsys.php:6711
 msgid ""
 "We need to store your credit card for future payments. It will be stored by "
 "our bank, so it is totally safe."
@@ -2759,8 +2912,8 @@ msgstr ""
 "Necesitamos guardar tu tarjeta para futuros pagos. Será guardada por nuestro "
 "banco, así que es totalmente seguro."
 
-#: classes/class-wc-gateway-insite-redsys.php:2579
-#: classes/class-wc-gateway-redsys.php:6073
+#: classes/class-wc-gateway-insite-redsys.php:3220
+#: classes/class-wc-gateway-redsys.php:6725
 msgid ""
 "We will preauthorize the Order and will be charge later when we know the "
 "final cost."
@@ -2768,21 +2921,21 @@ msgstr ""
 "Preautorizaremos el Pedido y se cobrará más tarde cuando conozcamos el costo "
 "final."
 
-#: classes/class-wc-gateway-insite-redsys.php:2594
+#: classes/class-wc-gateway-insite-redsys.php:3235
 msgid "CREDIT CARD NUMBER"
 msgstr "NUMERO DE TARJETA DE CRÉDITO"
 
-#: classes/class-wc-gateway-insite-redsys.php:2599
+#: classes/class-wc-gateway-insite-redsys.php:3240
 msgid "EXPIRATION"
 msgstr "VENCIMIENTO"
 
-#: classes/class-wc-gateway-insite-redsys.php:2603
-#: classes/class-wc-gateway-insite-redsys.php:2742
+#: classes/class-wc-gateway-insite-redsys.php:3244
+#: classes/class-wc-gateway-insite-redsys.php:3383
 msgid "CVC"
 msgstr "CVC"
 
-#: classes/class-wc-gateway-insite-redsys.php:2715
-#: classes/class-wc-gateway-insite-redsys.php:2805
+#: classes/class-wc-gateway-insite-redsys.php:3356
+#: classes/class-wc-gateway-insite-redsys.php:3446
 msgid ""
 "Error: Please make sure that everything is filled in and enter your card "
 "details again."
@@ -2790,86 +2943,86 @@ msgstr ""
 "Error: Por favor, asegúrate que todo está rellenado de forma correcta y "
 "rellena los campo de tarjeta de nuevo."
 
-#: classes/class-wc-gateway-insite-redsys.php:2734
+#: classes/class-wc-gateway-insite-redsys.php:3375
 msgid "1234 1234 1234 1234"
 msgstr "1234 1234 1234 1234"
 
-#: classes/class-wc-gateway-insite-redsys.php:2738
+#: classes/class-wc-gateway-insite-redsys.php:3379
 msgid "MM / YY"
 msgstr "MM / AA"
 
-#: classes/class-wc-gateway-insite-redsys.php:3587
-#: classes/class-wc-gateway-insite-redsys.php:3964
-#: classes/class-wc-gateway-insite-redsys.php:4534
-#: classes/class-wc-gateway-insite-redsys.php:6843
-#: classes/class-wc-gateway-redsys.php:4757
-#: classes/class-wc-gateway-redsys.php:5139
-#: classes/class-wc-gateway-redsys.php:7780
-#: classes/class-wc-gateway-redsys.php:8757
+#: classes/class-wc-gateway-insite-redsys.php:4228
+#: classes/class-wc-gateway-insite-redsys.php:4605
+#: classes/class-wc-gateway-insite-redsys.php:5167
+#: classes/class-wc-gateway-insite-redsys.php:7476
+#: classes/class-wc-gateway-redsys.php:5409
+#: classes/class-wc-gateway-redsys.php:5791
+#: classes/class-wc-gateway-redsys.php:8432
+#: classes/class-wc-gateway-redsys.php:9421
 msgid "HTTP Notification received - Payment completed"
 msgstr "HTTP Notificación recibida - Pago completado"
 
-#: classes/class-wc-gateway-insite-redsys.php:4075
+#: classes/class-wc-gateway-insite-redsys.php:4716
 msgid "Next Step, Call. process_payment()"
 msgstr "Siguiente paso, Llamada"
 
-#: classes/class-wc-gateway-insite-redsys.php:4932
+#: classes/class-wc-gateway-insite-redsys.php:5565
 msgid "Some Payments required fields are missing. Please, try again"
 msgstr "Algunos campos obligatorios no están. Por favor, prueba de nuevo"
 
-#: classes/class-wc-gateway-insite-redsys.php:5613
-#: classes/class-wc-gateway-insite-redsys.php:5697
-#: classes/class-wc-gateway-insite-redsys.php:5727
-#: classes/class-wc-gateway-insite-redsys.php:5744
-#: classes/class-wc-gateway-insite-redsys.php:6013
-#: classes/class-wc-gateway-redsys-global.php:2684
-#: classes/class-wc-gateway-redsys.php:6451
-#: classes/class-wc-gateway-redsys.php:6469
-#: classes/class-wc-gateway-redsys.php:6561
-#: classes/class-wc-gateway-redsys.php:6595
-#: classes/class-wc-gateway-redsys.php:6612
-#: classes/class-wc-gateway-redsys.php:6889
+#: classes/class-wc-gateway-insite-redsys.php:6246
+#: classes/class-wc-gateway-insite-redsys.php:6330
+#: classes/class-wc-gateway-insite-redsys.php:6360
+#: classes/class-wc-gateway-insite-redsys.php:6377
+#: classes/class-wc-gateway-insite-redsys.php:6646
+#: classes/class-wc-gateway-redsys-global.php:2746
+#: classes/class-wc-gateway-redsys.php:7103
+#: classes/class-wc-gateway-redsys.php:7121
+#: classes/class-wc-gateway-redsys.php:7213
+#: classes/class-wc-gateway-redsys.php:7247
+#: classes/class-wc-gateway-redsys.php:7264
+#: classes/class-wc-gateway-redsys.php:7541
 msgid "Press here if you are not redirected"
 msgstr "Pulsa aquí si no eres redirigido"
 
-#: classes/class-wc-gateway-insite-redsys.php:5657
-#: classes/class-wc-gateway-insite-redsys.php:6491
-#: classes/class-wc-gateway-insite-redsys.php:6626
-#: classes/class-wc-gateway-insite-redsys.php:7198
+#: classes/class-wc-gateway-insite-redsys.php:6290
+#: classes/class-wc-gateway-insite-redsys.php:7124
+#: classes/class-wc-gateway-insite-redsys.php:7259
+#: classes/class-wc-gateway-insite-redsys.php:7831
 #: classes/class-wc-gateway-masterpass-redsys.php:680
-#: classes/class-wc-gateway-redsys.php:6514
-#: classes/class-wc-gateway-redsys.php:7482
-#: classes/class-wc-gateway-redsys.php:7613
+#: classes/class-wc-gateway-redsys.php:7166
+#: classes/class-wc-gateway-redsys.php:8134
+#: classes/class-wc-gateway-redsys.php:8265
 msgid "Authorisation code: "
 msgstr "Código autorización: "
 
-#: classes/class-wc-gateway-insite-redsys.php:5706
-#: classes/class-wc-gateway-insite-redsys.php:5990
-#: classes/class-wc-gateway-redsys.php:6574
-#: classes/class-wc-gateway-redsys.php:6866
+#: classes/class-wc-gateway-insite-redsys.php:6339
+#: classes/class-wc-gateway-insite-redsys.php:6623
+#: classes/class-wc-gateway-redsys.php:7226
+#: classes/class-wc-gateway-redsys.php:7518
 msgid "Thank you for your order. We are now redirecting you to 3DSecure Form."
 msgstr ""
 "Gracias por tu pedido. Ahora te estamos redirigiendo un formulario de "
 "3DSecure."
 
-#: classes/class-wc-gateway-insite-redsys.php:5794
+#: classes/class-wc-gateway-insite-redsys.php:6427
 msgid "Pay"
 msgstr "Pagar ahora"
 
-#: classes/class-wc-gateway-insite-redsys.php:5955
-#: classes/class-wc-gateway-redsys.php:6831
+#: classes/class-wc-gateway-insite-redsys.php:6588
+#: classes/class-wc-gateway-redsys.php:7483
 msgid "There was a problem:"
 msgstr "Ocurrió un problema:"
 
-#: classes/class-wc-gateway-insite-redsys.php:6505
-#: classes/class-wc-gateway-insite-redsys.php:6687
+#: classes/class-wc-gateway-insite-redsys.php:7138
+#: classes/class-wc-gateway-insite-redsys.php:7320
 msgid "There was a problem with this order. The Error was "
 msgstr "Ha habido un problema con el pedido. El problema ha sido "
 
-#: classes/class-wc-gateway-insite-redsys.php:7170
+#: classes/class-wc-gateway-insite-redsys.php:7803
 #: classes/class-wc-gateway-masterpass-redsys.php:656
 #: classes/class-wc-gateway-redsys-bank-transfer.php:626
-#: classes/class-wc-gateway-redsys.php:8534
+#: classes/class-wc-gateway-redsys.php:9198
 #, php-format
 msgid ""
 "Validation error: Order vs. Notification amounts do not match (order: %1$s - "
@@ -2878,15 +3031,15 @@ msgstr ""
 "Error de validación: Totales de Orden vs. Notificación no coinciden (orden: "
 "%1$s - recibido: %2$s)."
 
-#: classes/class-wc-gateway-insite-redsys.php:7246
+#: classes/class-wc-gateway-insite-redsys.php:7879
 msgid "Cancelled by InSite"
 msgstr "Cancelado por InSite"
 
-#: classes/class-wc-gateway-insite-redsys.php:7247
+#: classes/class-wc-gateway-insite-redsys.php:7880
 msgid "Order canceled by InSite"
 msgstr "Pedido cancelado por InSite"
 
-#: classes/class-wc-gateway-insite-redsys.php:7615
+#: classes/class-wc-gateway-insite-redsys.php:8248
 msgid "Transaction Error: "
 msgstr "Error en la transacción: "
 
@@ -2941,7 +3094,7 @@ msgstr ""
 "code>"
 
 #: classes/class-wc-gateway-masterpass-redsys.php:432
-#: classes/class-wc-gateway-redsys-global.php:1831
+#: classes/class-wc-gateway-redsys-global.php:1849
 msgid "Order"
 msgstr "Orden"
 
@@ -3148,12 +3301,12 @@ msgid "Add link to image logo."
 msgstr "Añadir enlace a la imagen del logo."
 
 #: classes/class-wc-gateway-redsys-bank-transfer.php:261
-#: classes/class-wc-gateway-redsys.php:635
+#: classes/class-wc-gateway-redsys.php:639
 msgid "What to do after payment?"
 msgstr "¿Qué hacer tras el pago?"
 
 #: classes/class-wc-gateway-redsys-bank-transfer.php:263
-#: classes/class-wc-gateway-redsys.php:637
+#: classes/class-wc-gateway-redsys.php:641
 msgid "Chose what to do after the customer pay the order."
 msgstr "Selecciona que hacer tras que el cliente pago el pedido."
 
@@ -3162,7 +3315,7 @@ msgid "Mark as Processing (default & recommended)"
 msgstr "Marcar como Procesando (por defecto WooCommerce y recomendado)"
 
 #: classes/class-wc-gateway-redsys-bank-transfer.php:267
-#: classes/class-wc-gateway-redsys.php:641
+#: classes/class-wc-gateway-redsys.php:645
 msgid "Mark as Complete"
 msgstr "Marcar como completado"
 
@@ -3204,10 +3357,10 @@ msgstr "Transferencia pendiente desde Redsys"
 
 #: classes/class-wc-gateway-redsys-bank-transfer.php:427
 #: classes/class-wc-gateway-redsys-bank-transfer.php:461
-#: classes/class-wc-gateway-redsys.php:2460
-#: classes/class-wc-gateway-redsys.php:2485
-#: classes/class-wc-gateway-redsys.php:2676
-#: classes/class-wc-gateway-redsys.php:6945
+#: classes/class-wc-gateway-redsys.php:2473
+#: classes/class-wc-gateway-redsys.php:2498
+#: classes/class-wc-gateway-redsys.php:2689
+#: classes/class-wc-gateway-redsys.php:7597
 msgid ""
 "Thank you for your order. We are now redirecting you to Servired/RedSys to "
 "make the payment."
@@ -3217,10 +3370,10 @@ msgstr ""
 
 #: classes/class-wc-gateway-redsys-bank-transfer.php:448
 #: classes/class-wc-gateway-redsys-bank-transfer.php:482
-#: classes/class-wc-gateway-redsys.php:2508
-#: classes/class-wc-gateway-redsys.php:2697
-#: classes/class-wc-gateway-redsys.php:6967
-#: classes/class-wc-gateway-redsys.php:7929
+#: classes/class-wc-gateway-redsys.php:2521
+#: classes/class-wc-gateway-redsys.php:2710
+#: classes/class-wc-gateway-redsys.php:7619
+#: classes/class-wc-gateway-redsys.php:8581
 #: classes/class-wc-redsys-profile.php:208
 msgid "Pay with Credit Card via Servired/RedSys"
 msgstr "Pagar con tarjeta de crédito a través de Servired/RedSys"
@@ -3234,13 +3387,13 @@ msgstr ""
 "pagar por transferencia bancaria."
 
 #: classes/class-wc-gateway-redsys-bank-transfer.php:652
-#: classes/class-wc-gateway-redsys.php:8777
-#: classes/class-wc-gateway-redsys.php:11150
+#: classes/class-wc-gateway-redsys.php:9441
+#: classes/class-wc-gateway-redsys.php:11814
 msgid "Order Completed by Redsys"
 msgstr "Pedido completado por Redsys"
 
 #: classes/class-wc-gateway-redsys-bank-transfer.php:664
-#: classes/class-wc-gateway-redsys.php:8944
+#: classes/class-wc-gateway-redsys.php:9608
 msgid "Cancelled by Redsys"
 msgstr "Cancelado por Redys"
 
@@ -3261,26 +3414,60 @@ msgstr ""
 "rel=\"noopener\">página FAQ</a> para problemas de funcionamiento, o abre un "
 "<a href=\"%3$s\" target=\"_blank\" rel=\"noopener\">ticket</a> para soporte"
 
-#: classes/class-wc-gateway-redsys-global.php:2073
+#: classes/class-wc-gateway-redsys-global.php:2121
 msgid "ending in"
 msgstr "finalizada en"
 
-#: classes/class-wc-gateway-redsys-global.php:2073
+#: classes/class-wc-gateway-redsys-global.php:2121
 msgid "expires "
 msgstr "expira "
 
-#: classes/class-wc-gateway-redsys-global.php:2315
-#: classes/class-wc-gateway-redsys-global.php:2332
+#: classes/class-wc-gateway-redsys-global.php:2377
+#: classes/class-wc-gateway-redsys-global.php:2394
 msgid "Unknown"
 msgstr "Desconocida"
 
-#: classes/class-wc-gateway-redsys-global.php:2936
+#: classes/class-wc-gateway-redsys-global.php:2998
 msgid "Invalid data. No valid subscription / order was passed in."
 msgstr ""
 
-#: classes/class-wc-gateway-redsys-global.php:2940
+#: classes/class-wc-gateway-redsys-global.php:3002
 msgid "Invalid data. No valid item id was passed in."
 msgstr ""
+
+#: classes/class-wc-gateway-redsys-scheduled-actions.php:147
+msgid "Your credit card expires this month at "
+msgstr "Tu tarjeta de crédito/débito caduca este mes en "
+
+#: classes/class-wc-gateway-redsys-scheduled-actions.php:149
+msgid "Dear "
+msgstr "Apreciado "
+
+#: classes/class-wc-gateway-redsys-scheduled-actions.php:150
+msgid ""
+"Your payment credit card expires this month. Please update your payment "
+"information to continue enjoying our services."
+msgstr ""
+"Tu tarjeta de crédito expira este mes. Por favor, actualiza la información "
+"de pago para continuar disfrutando de nuestros servicios."
+
+#: classes/class-wc-gateway-redsys-scheduled-actions.php:151
+#: classes/class-wc-gateway-redsys-scheduled-actions.php:229
+msgid "Update your payment information"
+msgstr "Actualiza tu información de pago"
+
+#: classes/class-wc-gateway-redsys-scheduled-actions.php:226
+msgid "Your credit card has expired at "
+msgstr "Tu tarjeta de crédito/débito a caducado en "
+
+#: classes/class-wc-gateway-redsys-scheduled-actions.php:228
+msgid ""
+"Dear user, You credit card has expired and has been deleted. Please update "
+"your payment information to continue enjoying our services."
+msgstr ""
+"Apreciado usuario, Tu tarjeta de crédito ha caducado y ha sido eliminada. "
+"Por favor, actualiza tu información de pago para continuar disfrutando de "
+"nuestro servicio, si no lo has hecho ya."
 
 #: classes/class-wc-gateway-redsys.php:44
 msgid "Redsys Redirection (by José Conti)"
@@ -3296,11 +3483,11 @@ msgstr ""
 "directamente en el sitio sin abandonar el sitio web si tienes activado el "
 "pago con 1 clic y la tokenización en el terminal."
 
-#: classes/class-wc-gateway-redsys.php:193
+#: classes/class-wc-gateway-redsys.php:197
 msgid "Servired/RedSys Spain"
 msgstr "Servired/RedSys España"
 
-#: classes/class-wc-gateway-redsys.php:194
+#: classes/class-wc-gateway-redsys.php:198
 msgid ""
 "Servired/RedSys works by sending the user to your bank TPV to enter their "
 "payment information."
@@ -3308,11 +3495,11 @@ msgstr ""
 "La pasarela Servired/RedSys envía a su cliente al TPV de su entidad bancaria "
 "para ingresar su información para el pago."
 
-#: classes/class-wc-gateway-redsys.php:281
+#: classes/class-wc-gateway-redsys.php:285
 msgid "Essential"
-msgstr ""
+msgstr "Esencial"
 
-#: classes/class-wc-gateway-redsys.php:283
+#: classes/class-wc-gateway-redsys.php:287
 msgid ""
 "This is the essential configuration, everything must be filled in. If "
 "something is not filled in or is filled in incorrectly, the payment will "
@@ -3321,15 +3508,15 @@ msgstr ""
 "Esta es la configuración esencial, todo debe ser completado. Si algo no se "
 "rellena o se rellena incorrectamente, el pago fallará."
 
-#: classes/class-wc-gateway-redsys.php:288
+#: classes/class-wc-gateway-redsys.php:292
 msgid "Enable Servired/RedSys"
 msgstr "Activar Servired/RedSys"
 
-#: classes/class-wc-gateway-redsys.php:289
+#: classes/class-wc-gateway-redsys.php:293
 msgid "Enable this payment method in checkout."
 msgstr "Activa esta forma de pago en la página de pago."
 
-#: classes/class-wc-gateway-redsys.php:295
+#: classes/class-wc-gateway-redsys.php:299
 msgid ""
 "Here add the title which the user sees during checkout. Ex: \"Pay with "
 "Credit Card"
@@ -3337,126 +3524,126 @@ msgstr ""
 "Aquí agrega el título que el usuario ve durante el pago. Ej: \"Paga con "
 "tarjeta de crédito”"
 
-#: classes/class-wc-gateway-redsys.php:301
+#: classes/class-wc-gateway-redsys.php:305
 msgid ""
 "Add here a text or explanation of what this payment method is. It will be "
 "displayed at Checkout when the customer selects this payment method."
 msgstr ""
 
-#: classes/class-wc-gateway-redsys.php:302
+#: classes/class-wc-gateway-redsys.php:306
 msgid "Pay via RedSys; you can pay with your credit card."
 msgstr "Paga con tarjeta de crédito a través de Redsys."
 
-#: classes/class-wc-gateway-redsys.php:312
+#: classes/class-wc-gateway-redsys.php:316
 msgid ""
 "Add here the name of your store. This name is what your customers will "
 "normally see when they come to Redsys."
 msgstr ""
 
-#: classes/class-wc-gateway-redsys.php:317
+#: classes/class-wc-gateway-redsys.php:321
 msgid ""
 "Add here the Terminal Number provided by your bank. If, for example, the "
 "number you have been given is \"001\", enter \"1\"."
 msgstr ""
 
-#: classes/class-wc-gateway-redsys.php:322
+#: classes/class-wc-gateway-redsys.php:326
 msgid ""
 "Encryption secret passphrase SHA-256 provided by your bank for production."
 msgstr ""
 "Frase de encriptación secreta SHA-256 facilitada por tu banco para el modo "
 "de producción (real)"
 
-#: classes/class-wc-gateway-redsys.php:327
+#: classes/class-wc-gateway-redsys.php:331
 msgid "Encryption secret passphrase SHA-256 provided by your bank for testing."
 msgstr ""
 "Frase de encriptación secreta SHA-256 facilitada por tu banco para el modo "
 "de pruebas."
 
-#: classes/class-wc-gateway-redsys.php:331
+#: classes/class-wc-gateway-redsys.php:335
 msgid "Essential Extra"
 msgstr ""
 
-#: classes/class-wc-gateway-redsys.php:333
+#: classes/class-wc-gateway-redsys.php:337
 msgid ""
 "In some cases, these fields may also be essential, depending on your needs, "
 "but if you do not touch them, the gateway will work perfectly."
 msgstr ""
 
-#: classes/class-wc-gateway-redsys.php:338
+#: classes/class-wc-gateway-redsys.php:342
 msgid ""
 "It is an identifier for sharing tokens between websites of the same company. "
 "You will not usually have this number, so unless you have expressly "
 "requested it from your bank, you should never fill it in."
 msgstr ""
 
-#: classes/class-wc-gateway-redsys.php:343
+#: classes/class-wc-gateway-redsys.php:347
 msgid ""
 "Select what will be displayed in Redsys as the order description. You have, "
 "by default, different possibilities, but you can customize them by using a "
 "filter. If you are interested in the filter, open a ticket."
 msgstr ""
 
-#: classes/class-wc-gateway-redsys.php:353
+#: classes/class-wc-gateway-redsys.php:357
 msgid "When show redirection"
 msgstr "Cuando mostrar redirección"
 
-#: classes/class-wc-gateway-redsys.php:355
+#: classes/class-wc-gateway-redsys.php:359
 msgid ""
 "Select Show when is NOT Banking network, Spain & Portugal or Show to all "
 "countries."
 msgstr ""
 
-#: classes/class-wc-gateway-redsys.php:358
+#: classes/class-wc-gateway-redsys.php:362
 msgid "Show when is NOT Banking network (NO show to Spain & Portugal)"
 msgstr ""
 "Mostrar cuando NO es de la red de bancos (NO se mostrará en España y "
 "Portugal)"
 
-#: classes/class-wc-gateway-redsys.php:359
+#: classes/class-wc-gateway-redsys.php:363
 msgid "Show to all countries"
 msgstr "Mostrar a todos los países"
 
-#: classes/class-wc-gateway-redsys.php:385
+#: classes/class-wc-gateway-redsys.php:389
 msgid "Customization"
 msgstr "Personalización"
 
-#: classes/class-wc-gateway-redsys.php:387
+#: classes/class-wc-gateway-redsys.php:391
 msgid ""
 "Here you can customize how the payment method is displayed at checkout.."
 msgstr ""
 
-#: classes/class-wc-gateway-redsys.php:395
+#: classes/class-wc-gateway-redsys.php:399
 msgid "How to show Redsys"
 msgstr "Cómo mostrar Resys"
 
-#: classes/class-wc-gateway-redsys.php:397
+#: classes/class-wc-gateway-redsys.php:401
 msgid "Select how do you want to show Redsys payment page."
 msgstr "Selecciona como deseas mostrar la página de pago de Redsys."
 
-#: classes/class-wc-gateway-redsys.php:400
+#: classes/class-wc-gateway-redsys.php:404
 msgid "Redirect to Redsys for payment"
 msgstr "Redireccionar a Redsys para el pago"
 
-#: classes/class-wc-gateway-redsys.php:401
+#: classes/class-wc-gateway-redsys.php:405
 msgid "Modal in the checkout."
 msgstr "Modal en la página de pago."
 
-#: classes/class-wc-gateway-redsys.php:424
+#: classes/class-wc-gateway-redsys.php:428
 msgid "Bulk Actions"
 msgstr "Acciones en lote"
 
-#: classes/class-wc-gateway-redsys.php:426
+#: classes/class-wc-gateway-redsys.php:430
 msgid ""
 "Configure Bulk Actions. By default, they are disabled for security, but you "
 "can enable the ones you need. Be aware that they can be dangerous if you use "
 "them unintentionally."
 msgstr ""
 
-#: classes/class-wc-gateway-redsys.php:429
+#: classes/class-wc-gateway-redsys.php:433
 msgid "Add Bulk Action Immediate Charge"
 msgstr "Añade la acción en lote «Cargo inmediato en Redsys»"
 
-#: classes/class-wc-gateway-redsys.php:431
+#: classes/class-wc-gateway-redsys.php:435
 msgid ""
 "ATTENTION: Pay with one Click has to be active before mark this option and "
 "terminal has to be NOT SECURE. With this option, you can charge many orders "
@@ -3467,15 +3654,15 @@ msgstr ""
 "cargar muchos pedidos utilizando los tokens de las tarjetas de crédito de "
 "los usuarios"
 
-#: classes/class-wc-gateway-redsys.php:432
+#: classes/class-wc-gateway-redsys.php:436
 msgid "Enable Bulk Action Immediate Charge"
 msgstr "Activar la acción en lote «Cargo inmediato en Redsys»"
 
-#: classes/class-wc-gateway-redsys.php:436
+#: classes/class-wc-gateway-redsys.php:440
 msgid "Add Bulk Action Refunds"
 msgstr "Añade la acción en lote de devoluciones"
 
-#: classes/class-wc-gateway-redsys.php:438
+#: classes/class-wc-gateway-redsys.php:442
 msgid ""
 "This option adds the bulk action Refunds. For security reasons, do not "
 "activate it if not needed"
@@ -3483,26 +3670,26 @@ msgstr ""
 "Esta opción añade la acción por lotes de reembolsos. Por motivos de "
 "seguridad no lo actives si no es necesario"
 
-#: classes/class-wc-gateway-redsys.php:439
+#: classes/class-wc-gateway-redsys.php:443
 msgid "Enable Bulk Action Refunds"
 msgstr "Activar la acción en lote de devolución"
 
-#: classes/class-wc-gateway-redsys.php:445
+#: classes/class-wc-gateway-redsys.php:449
 msgid "Subscriptions Settings"
 msgstr "Configuración para suscripciones"
 
-#: classes/class-wc-gateway-redsys.php:447
+#: classes/class-wc-gateway-redsys.php:451
 msgid ""
 "Configure certain functionalities for subscriptions. You must read well what "
 "each one is for. Even if you use subscriptions, you may never need to touch "
 "any of the following features."
 msgstr ""
 
-#: classes/class-wc-gateway-redsys.php:450
+#: classes/class-wc-gateway-redsys.php:454
 msgid "Disable Subscription token"
 msgstr "Desactivar el token de suscripción"
 
-#: classes/class-wc-gateway-redsys.php:452
+#: classes/class-wc-gateway-redsys.php:456
 msgid ""
 "Tokenization is enabled by default (Enable Pay with One Click is not "
 "needed). Here you can disable tokenization for WooCommerce Subscriptions. "
@@ -3511,11 +3698,11 @@ msgid ""
 "Payments can NOT be made automatically if this option is enabled."
 msgstr ""
 
-#: classes/class-wc-gateway-redsys.php:453
+#: classes/class-wc-gateway-redsys.php:457
 msgid "Disable Subscription token, it is enabled by default"
 msgstr "Desactivar el token de suscripción, está activo por defecto"
 
-#: classes/class-wc-gateway-redsys.php:459
+#: classes/class-wc-gateway-redsys.php:463
 msgid ""
 "In some installations, Subscriptions mark orders as paid, while in others, "
 "it does not. This causes that in some installations the orders are marked as "
@@ -3524,25 +3711,25 @@ msgid ""
 "option so that the Redsys plugin does not mark it as paid."
 msgstr ""
 
-#: classes/class-wc-gateway-redsys.php:460
+#: classes/class-wc-gateway-redsys.php:464
 msgid "Disable mark Subscription as paid by Redsys plugin"
 msgstr "Desactivar marcar Suscripción como pagada por el plugin Redsys"
 
-#: classes/class-wc-gateway-redsys.php:465
+#: classes/class-wc-gateway-redsys.php:469
 msgid "Advanced"
 msgstr "Avanzado"
 
-#: classes/class-wc-gateway-redsys.php:467
+#: classes/class-wc-gateway-redsys.php:471
 msgid ""
 "Enter your PayPal API credentials to process refunds via PayPal. Learn how "
 "to access your."
 msgstr "Configuración avanzada."
 
-#: classes/class-wc-gateway-redsys.php:472
+#: classes/class-wc-gateway-redsys.php:476
 msgid "SCAs"
 msgstr "SCAs"
 
-#: classes/class-wc-gateway-redsys.php:474
+#: classes/class-wc-gateway-redsys.php:478
 msgid ""
 "SCAs are options that require less customer authentication at the time of "
 "payment. You must ask Redsys to activate them before using them, never "
@@ -3550,29 +3737,29 @@ msgid ""
 "for it."
 msgstr ""
 
-#: classes/class-wc-gateway-redsys.php:479
+#: classes/class-wc-gateway-redsys.php:483
 msgid "Enable SCA LWV."
 msgstr "Activar SCA LWV."
 
-#: classes/class-wc-gateway-redsys.php:480
+#: classes/class-wc-gateway-redsys.php:484
 msgid "Enable SCA LWV. WARNING, your bank has to enable it before you use it."
 msgstr ""
 "Activar SCA LVW. ATENCIÓN, tu banco debe activártelo antes de utilizarlo."
 
-#: classes/class-wc-gateway-redsys.php:486
+#: classes/class-wc-gateway-redsys.php:490
 msgid "Enable SCA TRA."
 msgstr "Activar SCA TRA."
 
-#: classes/class-wc-gateway-redsys.php:487
+#: classes/class-wc-gateway-redsys.php:491
 msgid "Enable SCA TRA. WARNING, your bank has to enable it before you use it."
 msgstr ""
 "Activar SCA TRA. ATENCIÓN, tu banco debe activártelo antes de utilizarlo."
 
-#: classes/class-wc-gateway-redsys.php:498
+#: classes/class-wc-gateway-redsys.php:502
 msgid "Hide in Checkout"
 msgstr "Esconder en la página de pago"
 
-#: classes/class-wc-gateway-redsys.php:500
+#: classes/class-wc-gateway-redsys.php:504
 msgid ""
 "Checking this option, the payment method will be shown only in the user "
 "account \"Add method\""
@@ -3580,11 +3767,11 @@ msgstr ""
 "Marcando esta opción, el método de pago sólo se mostrará en la cuenta del "
 "usuario en «Añadir método de pago»"
 
-#: classes/class-wc-gateway-redsys.php:504
+#: classes/class-wc-gateway-redsys.php:508
 msgid "Redirection time"
 msgstr "Tiempo en la redirección"
 
-#: classes/class-wc-gateway-redsys.php:506
+#: classes/class-wc-gateway-redsys.php:510
 msgid ""
 "If you want users to be immediately redirected to the payment gateway when "
 "they press the pay button, don't add anything. If you want to give them time "
@@ -3596,12 +3783,12 @@ msgstr ""
 "tiempo para pensárselo, añade los segundos en milisegundos, por ejemplo, 5 "
 "segundos son 5000 milisegundos."
 
-#: classes/class-wc-gateway-redsys.php:509
+#: classes/class-wc-gateway-redsys.php:513
 msgid "Show Redsys Authorization Code at the Thank You Page"
 msgstr ""
 "Muestra el código de autorización de Redsys en la página de agradecimiento"
 
-#: classes/class-wc-gateway-redsys.php:511
+#: classes/class-wc-gateway-redsys.php:515
 msgid ""
 "If you have asked the bank to redirect customers to your site after payment "
 "without them having to click on \"continue\", you must activate this option "
@@ -3611,15 +3798,15 @@ msgstr ""
 "pago sin que tengan que hacer clic en «continuar», debes activar esta opción "
 "para que se muestre el número de autorización solicitado por Redsys."
 
-#: classes/class-wc-gateway-redsys.php:512
+#: classes/class-wc-gateway-redsys.php:516
 msgid "Enable Show Authorization Code"
 msgstr "Activar Mostrar número de autorización"
 
-#: classes/class-wc-gateway-redsys.php:516
+#: classes/class-wc-gateway-redsys.php:520
 msgid "Pay with One Click"
 msgstr "Pago con un solo clic"
 
-#: classes/class-wc-gateway-redsys.php:518
+#: classes/class-wc-gateway-redsys.php:522
 msgid ""
 "With Pay with one Click, users who have bought before in your store should "
 "not fill the credit card number in Redsys again. Make sure you have "
@@ -3630,15 +3817,15 @@ msgstr ""
 "Asegúrate que tienes activado en Redsys que se envíe a la tienda el número "
 "de la tarjeta de crédito (parcialmente)."
 
-#: classes/class-wc-gateway-redsys.php:519
+#: classes/class-wc-gateway-redsys.php:523
 msgid "Enable Pay with One Click"
 msgstr "Activar pago con un clic"
 
-#: classes/class-wc-gateway-redsys.php:523
+#: classes/class-wc-gateway-redsys.php:527
 msgid "Delete expired tokens"
 msgstr "Eliminar token caducados"
 
-#: classes/class-wc-gateway-redsys.php:525
+#: classes/class-wc-gateway-redsys.php:529
 msgid ""
 "Enable automatically delete tokens if the asociated credit card has expired. "
 "WARNING: If your bank is not sending you the expiration dates, and fake "
@@ -3649,11 +3836,11 @@ msgstr ""
 "las tarjetas, se guarda una fecha falsa y se podrían llegar a eliminar "
 "tokens válidos."
 
-#: classes/class-wc-gateway-redsys.php:534
+#: classes/class-wc-gateway-redsys.php:538
 msgid "One Click in page?"
 msgstr "¿Un clic en la página?"
 
-#: classes/class-wc-gateway-redsys.php:536
+#: classes/class-wc-gateway-redsys.php:540
 msgid ""
 "ATTENTION: Pay with one Click has to be active before mark this option. With "
 "this option, users to whom you have already collected Tokens for previous "
@@ -3665,15 +3852,15 @@ msgstr ""
 "crédito por compras anteriores, no abandonarán la página web después de "
 "apretar el botón de pago. Tu terminal debe ser no segura o no funcionará. "
 
-#: classes/class-wc-gateway-redsys.php:537
+#: classes/class-wc-gateway-redsys.php:541
 msgid "Enable One Click in page"
 msgstr "Activar pago con 1 clic sin abandonar la tienda"
 
-#: classes/class-wc-gateway-redsys.php:541
+#: classes/class-wc-gateway-redsys.php:545
 msgid "One Click to Checkout"
 msgstr "Un clic a página de pago"
 
-#: classes/class-wc-gateway-redsys.php:543
+#: classes/class-wc-gateway-redsys.php:547
 msgid ""
 "ATTENTION: This option can break your website under some circunstances, "
 "check your website and checkout before and after enable this option. With "
@@ -3687,15 +3874,15 @@ msgstr ""
 "de pago después de añadir a la cesta. Solo activa esta opción si tus "
 "clientes SÓLO cmpran UN producto cada vez."
 
-#: classes/class-wc-gateway-redsys.php:544
+#: classes/class-wc-gateway-redsys.php:548
 msgid "Enable One Click to Checkout"
 msgstr "Activar un clic a página de pago"
 
-#: classes/class-wc-gateway-redsys.php:548
+#: classes/class-wc-gateway-redsys.php:552
 msgid "Send emails"
 msgstr "Enviar emails"
 
-#: classes/class-wc-gateway-redsys.php:550
+#: classes/class-wc-gateway-redsys.php:554
 msgid ""
 "Every time that a users fails to pay in Redsys, and email will be send to "
 "you with the problem, amount and link to the order details."
@@ -3703,15 +3890,15 @@ msgstr ""
 "Cada vez que un usuario falla en pagar en Redsys, un email se te enviará con "
 "el problema, cantidad y un enlace a los detalles del pedido."
 
-#: classes/class-wc-gateway-redsys.php:551
+#: classes/class-wc-gateway-redsys.php:555
 msgid "Enable Send emails when payment fails"
 msgstr "Activar enviar emails cuando un pago falla"
 
-#: classes/class-wc-gateway-redsys.php:555
+#: classes/class-wc-gateway-redsys.php:559
 msgid "Send emails Ds_Card_Number problem"
 msgstr "Problema de envío de correos electrónicos  Ds_Card_Number"
 
-#: classes/class-wc-gateway-redsys.php:557
+#: classes/class-wc-gateway-redsys.php:561
 msgid ""
 "If tokenization is used, the filed Ds_Card_number can be a very interesting "
 "information. If Redsys isn't sending this field and this options is active, "
@@ -3721,15 +3908,15 @@ msgstr ""
 "información interesante. Si Redsys no está enviando este campo y esta opción "
 "está activa, se enviará un correo electrónico al administrador de la web."
 
-#: classes/class-wc-gateway-redsys.php:558
+#: classes/class-wc-gateway-redsys.php:562
 msgid "Enable Send emails Ds_Card_number problem"
 msgstr "Activar enviar correos electrónicos de problema con Ds_Card_number"
 
-#: classes/class-wc-gateway-redsys.php:562
+#: classes/class-wc-gateway-redsys.php:566
 msgid "Send emails to customers"
 msgstr "Enviar correo electrónico a los clientes"
 
-#: classes/class-wc-gateway-redsys.php:564
+#: classes/class-wc-gateway-redsys.php:568
 msgid ""
 "Every time that a users fails to pay in Redsys, and email will be send to "
 "the customer with the problem, This can increase cart recovery."
@@ -3738,17 +3925,17 @@ msgstr ""
 "un correo electrónico con el problema. Esto puede aumentar la recuperación "
 "de carritos."
 
-#: classes/class-wc-gateway-redsys.php:565
+#: classes/class-wc-gateway-redsys.php:569
 msgid "Enable Send emails to customers when payment fails"
 msgstr ""
 "Activar enviar correo electrónico a los clientes que tienen un problema "
 "pagando"
 
-#: classes/class-wc-gateway-redsys.php:569
+#: classes/class-wc-gateway-redsys.php:573
 msgid "Notice Thank you problem"
 msgstr "Notificación problema pagina agradecimiento"
 
-#: classes/class-wc-gateway-redsys.php:571
+#: classes/class-wc-gateway-redsys.php:575
 msgid ""
 "Every time that a users arrive to Thank you page from Redsys, and the order "
 "is not marked as paid, and email will be send to adminsitrator for to warn "
@@ -3761,17 +3948,17 @@ msgstr ""
 "ha sido realizado y se mostrará una notificación al cliente en la página de "
 "agradecimiento."
 
-#: classes/class-wc-gateway-redsys.php:572
+#: classes/class-wc-gateway-redsys.php:576
 msgid "Enable Send email Thank you problem for be noticed"
 msgstr ""
 "Activar enviar emails pagina agradecimiento (Thank you) cuando se detecta un "
 "posible problema"
 
-#: classes/class-wc-gateway-redsys.php:576
+#: classes/class-wc-gateway-redsys.php:580
 msgid "Text on the thank you page"
 msgstr "Texto en la página de agradecimiento"
 
-#: classes/class-wc-gateway-redsys.php:578
+#: classes/class-wc-gateway-redsys.php:582
 msgid ""
 "This controls the text that will be show to customers that arrive to the "
 "Thank You page if their order is not marked as paid."
@@ -3779,7 +3966,7 @@ msgstr ""
 "Esto controla el texto que se mostrará al cliente en la página de "
 "agradecimiento si su pedido no es marcado como pagado."
 
-#: classes/class-wc-gateway-redsys.php:579
+#: classes/class-wc-gateway-redsys.php:583
 msgid ""
 "<p><b>ATTENTION:</b> You have used Redsys for the payment. We have detected "
 "that there may have been a problem with your payment and it has not been "
@@ -3792,29 +3979,29 @@ msgstr ""
 "alertándonos del problema, así que lo vamos a comprobar para ver que ha "
 "sucedido.</p>"
 
-#: classes/class-wc-gateway-redsys.php:582
+#: classes/class-wc-gateway-redsys.php:586
 msgid "Preauthorization for all payments"
 msgstr "Preautorizar todos los pagos"
 
-#: classes/class-wc-gateway-redsys.php:584
+#: classes/class-wc-gateway-redsys.php:588
 msgid ""
 "This option will make all payments as preauthorization. You can capture the "
 "payment later in the order details."
 msgstr ""
 
-#: classes/class-wc-gateway-redsys.php:585
+#: classes/class-wc-gateway-redsys.php:589
 msgid "Enable Preauthorization for all payments"
 msgstr "Activar preautorización para todos los pagos"
 
-#: classes/class-wc-gateway-redsys.php:589
+#: classes/class-wc-gateway-redsys.php:593
 msgid "Activate Second Terminal"
 msgstr "Activar segundo terminal"
 
-#: classes/class-wc-gateway-redsys.php:591
+#: classes/class-wc-gateway-redsys.php:595
 msgid "Activate Second Terminal."
 msgstr "Activar segundo Terminal."
 
-#: classes/class-wc-gateway-redsys.php:593
+#: classes/class-wc-gateway-redsys.php:597
 msgid ""
 "If you use a second terminal, you need to add it in the field above and "
 "activate it here. You will need to set when use the Second Terminal in the "
@@ -3824,11 +4011,11 @@ msgstr ""
 "activarlo aquí. Deberás configurar cuando usar el segundo terminal en el "
 "campo siguiente."
 
-#: classes/class-wc-gateway-redsys.php:596
+#: classes/class-wc-gateway-redsys.php:600
 msgid "Second Terminal"
 msgstr "Segundo terminal (Si tienes)"
 
-#: classes/class-wc-gateway-redsys.php:598
+#: classes/class-wc-gateway-redsys.php:602
 msgid ""
 "If you use a second Terminal number, you need to add here the second "
 "terminal provided by your bank"
@@ -3836,12 +4023,12 @@ msgstr ""
 "Si utilizas un segundo número de Terminal, debes añadir aquí el segundo "
 "terminal provisto por tu entidad bancaria"
 
-#: classes/class-wc-gateway-redsys.php:601
+#: classes/class-wc-gateway-redsys.php:605
 msgid "Use the Second Terminal from 0 to (Don't use Currency Symbol)"
 msgstr ""
 "Utilizar el segundo terminal desde 0 a... (No añadir el símbolo de moneda)"
 
-#: classes/class-wc-gateway-redsys.php:603
+#: classes/class-wc-gateway-redsys.php:607
 msgid ""
 "When will the Second Terminal used? from 0 to...? Add the amount. Ex. Add "
 "100 and the Second Terminal will be used when the amount be from 0 to 100"
@@ -3850,43 +4037,43 @@ msgstr ""
 "cantidad. Ej. Añade 100 y el segundo terminal se utilizará para los pagos "
 "cuando el precio vaya de 0 a 100"
 
-#: classes/class-wc-gateway-redsys.php:613
+#: classes/class-wc-gateway-redsys.php:617
 msgid "Order Number Format"
 msgstr "Formato número de pedido"
 
-#: classes/class-wc-gateway-redsys.php:615
+#: classes/class-wc-gateway-redsys.php:619
 msgid "Choose the Order Number Format send to Redsys"
 msgstr "Selecciona un formato de números de pedido a enviar a Redsys"
 
-#: classes/class-wc-gateway-redsys.php:620
+#: classes/class-wc-gateway-redsys.php:624
 msgid "Add a Sufix"
 msgstr "Añadir un sufijo"
 
-#: classes/class-wc-gateway-redsys.php:622
+#: classes/class-wc-gateway-redsys.php:626
 msgid "If you want to add a subfix to your Order number, add it here."
 msgstr "Si deseas añadir un sufijo al número de pedido, añádelo aquí."
 
-#: classes/class-wc-gateway-redsys.php:625
+#: classes/class-wc-gateway-redsys.php:629
 msgid "Before Pay"
 msgstr "Antes de pagar"
 
-#: classes/class-wc-gateway-redsys.php:627
+#: classes/class-wc-gateway-redsys.php:631
 msgid "Which status has an order before being paid?"
 msgstr ""
 
-#: classes/class-wc-gateway-redsys.php:630
+#: classes/class-wc-gateway-redsys.php:634
 msgid "Mark as Pending Payment (default WooCommerce)"
 msgstr "Marcar como Pendiente de pago (por defecto WooCommerce y recomendado)"
 
-#: classes/class-wc-gateway-redsys.php:631
+#: classes/class-wc-gateway-redsys.php:635
 msgid "Mark as Pending Redsys Payment"
 msgstr ""
 
-#: classes/class-wc-gateway-redsys.php:640
+#: classes/class-wc-gateway-redsys.php:644
 msgid "Mark as Processing (default & recomended)"
 msgstr "Marcar como Procesando (por defecto WooCommerce y recomendado)"
 
-#: classes/class-wc-gateway-redsys.php:654
+#: classes/class-wc-gateway-redsys.php:658
 msgid ""
 "When the user press the return button at Redsys Gateway (Ex: The user type "
 "an incorrect credit card), you can redirect the user to My Cart page "
@@ -3898,31 +4085,31 @@ msgstr ""
 "la página del carrito cancelando el pedido, o puedes redirigirlo a la página "
 "de finalizar compra sin cancelar el pedido."
 
-#: classes/class-wc-gateway-redsys.php:662
+#: classes/class-wc-gateway-redsys.php:666
 msgid "Private Products"
 msgstr "Productos privados"
 
-#: classes/class-wc-gateway-redsys.php:664
+#: classes/class-wc-gateway-redsys.php:668
 msgid ""
 "Activate Private Products if you need to create products visible per customer"
 msgstr ""
 "Activa productos privados si necesitas que los productos se vean por usuario"
 
-#: classes/class-wc-gateway-redsys.php:665
+#: classes/class-wc-gateway-redsys.php:669
 msgid "Enable Private Products"
 msgstr "Activar productos privados"
 
-#: classes/class-wc-gateway-redsys.php:670
+#: classes/class-wc-gateway-redsys.php:674
 msgid "Test & Debug"
 msgstr "Pruebas y debug"
 
-#: classes/class-wc-gateway-redsys.php:672
+#: classes/class-wc-gateway-redsys.php:676
 msgid ""
 "When you need to perform tests and debug, you can configure everything here. "
 "Read what each option is for to configure everything as you need."
 msgstr ""
 
-#: classes/class-wc-gateway-redsys.php:714
+#: classes/class-wc-gateway-redsys.php:718
 msgid ""
 "Log Servired/RedSys events, such as notifications requests, inside "
 "<code>WooCommerce > Status > Logs > redsys-{date}-{number}.log</code>"
@@ -3930,104 +4117,100 @@ msgstr ""
 "Registra eventos generados por Servired/RedSys, como solicitud de avisos, en "
 "<code>WooCommerce > Estado > Registros > redsys-{date}-{number}.log</code>"
 
-#: classes/class-wc-gateway-redsys.php:753
+#: classes/class-wc-gateway-redsys.php:757
 #: classes/class-wc-redsys-profile.php:48
 msgid "Type"
 msgstr "Tipo"
 
-#: classes/class-wc-gateway-redsys.php:777 includes/paygold-page.php:119
+#: classes/class-wc-gateway-redsys.php:781 includes/paygold-page.php:119
 msgid "Subscription"
 msgstr "Suscripción"
 
-#: classes/class-wc-gateway-redsys.php:1983
+#: classes/class-wc-gateway-redsys.php:1996
 msgid "Adding Payment Method"
 msgstr "Añadiendo método de pago"
 
-#: classes/class-wc-gateway-redsys.php:2299
+#: classes/class-wc-gateway-redsys.php:2312
 msgid "⚠️ There was a problem, the problem was: "
 msgstr "⚠️ Ha habido un problema. El problema ha sido: "
 
-#: classes/class-wc-gateway-redsys.php:3179
-#: classes/class-wc-gateway-redsys.php:3182
-#: classes/class-wc-gateway-redsys.php:5735
-#: classes/class-wc-gateway-redsys.php:5737
-#: classes/class-wc-gateway-redsys.php:5882
-#: classes/class-wc-gateway-redsys.php:5883
-#: classes/class-wc-gateway-redsys.php:10113
-#: classes/class-wc-gateway-redsys.php:10114
-#: classes/class-wc-gateway-redsys.php:10257
-#: classes/class-wc-gateway-redsys.php:10258
-#: classes/class-wc-gateway-redsys.php:10696
-#: classes/class-wc-gateway-redsys.php:10697
-#: classes/class-wc-gateway-redsys.php:10840
-#: classes/class-wc-gateway-redsys.php:10841
+#: classes/class-wc-gateway-redsys.php:3197
+#: classes/class-wc-gateway-redsys.php:3200
+#: classes/class-wc-gateway-redsys.php:6387
+#: classes/class-wc-gateway-redsys.php:6389
+#: classes/class-wc-gateway-redsys.php:6534
+#: classes/class-wc-gateway-redsys.php:6535
+#: classes/class-wc-gateway-redsys.php:10777
+#: classes/class-wc-gateway-redsys.php:10778
+#: classes/class-wc-gateway-redsys.php:10921
+#: classes/class-wc-gateway-redsys.php:10922
+#: classes/class-wc-gateway-redsys.php:11360
+#: classes/class-wc-gateway-redsys.php:11361
+#: classes/class-wc-gateway-redsys.php:11504
+#: classes/class-wc-gateway-redsys.php:11505
 msgid "There wasn't respond from Redsys"
 msgstr "No hubo respuesta desde Redsys"
 
-#: classes/class-wc-gateway-redsys.php:3850
+#: classes/class-wc-gateway-redsys.php:4473
 msgid "There wasnand error: "
 msgstr "Hubo un error: "
 
-#: classes/class-wc-gateway-redsys.php:3998
-msgid "There was an error:"
-msgstr "Hay un error:"
-
-#: classes/class-wc-gateway-redsys.php:4208
-#: classes/class-wc-gateway-redsys.php:4356
-#: classes/class-wc-gateway-redsys.php:4761
-#: classes/class-wc-gateway-redsys.php:5143
-#: classes/class-wc-gateway-redsys.php:5659
-#: classes/class-wc-gateway-redsys.php:5801
-#: classes/class-wc-gateway-redsys.php:6524
-#: classes/class-wc-gateway-redsys.php:7492
-#: classes/class-wc-gateway-redsys.php:7621
-#: classes/class-wc-gateway-redsys.php:7789
-#: classes/class-wc-gateway-redsys.php:8767
+#: classes/class-wc-gateway-redsys.php:4846
+#: classes/class-wc-gateway-redsys.php:5009
+#: classes/class-wc-gateway-redsys.php:5413
+#: classes/class-wc-gateway-redsys.php:5795
+#: classes/class-wc-gateway-redsys.php:6311
+#: classes/class-wc-gateway-redsys.php:6453
+#: classes/class-wc-gateway-redsys.php:7176
+#: classes/class-wc-gateway-redsys.php:8144
+#: classes/class-wc-gateway-redsys.php:8273
+#: classes/class-wc-gateway-redsys.php:8441
+#: classes/class-wc-gateway-redsys.php:9431
 msgid "Preauthorized by Redsys"
 msgstr "Preautorizado por Redsys"
 
-#: classes/class-wc-gateway-redsys.php:5285 includes/woo-status/status.php:164
+#: classes/class-wc-gateway-redsys.php:5937 includes/woo-status/status.php:164
 msgid "Pending Redsys Payment"
 msgstr "Pago pendiente de pago Redsys"
 
-#: classes/class-wc-gateway-redsys.php:6086
+#: classes/class-wc-gateway-redsys.php:6738
 msgid "Select how you will use your credit card."
 msgstr "Selecciona como vas a utilizar tu tarjeta."
 
-#: classes/class-wc-gateway-redsys.php:6087
+#: classes/class-wc-gateway-redsys.php:6739
 msgid "Add a credit card for Subscriptions"
 msgstr "Añade una tarjeta de crédito/debito para suscripciones"
 
-#: classes/class-wc-gateway-redsys.php:6088
+#: classes/class-wc-gateway-redsys.php:6740
 msgid "Add a credit card for Pay with 1click"
 msgstr "Añade una tarjeta de crédito/debito para pago con 1 clic"
 
-#: classes/class-wc-gateway-redsys.php:6663
+#: classes/class-wc-gateway-redsys.php:7315
 msgid "Pay with Redsys"
 msgstr "Paga con Redsys"
 
-#: classes/class-wc-gateway-redsys.php:7501
+#: classes/class-wc-gateway-redsys.php:8153
 msgid "There was a problem with this order. The Error was"
 msgstr "Hubo un problema con el pago. El problema fue"
 
-#: classes/class-wc-gateway-redsys.php:8383
+#: classes/class-wc-gateway-redsys.php:9032
 msgid "Confirmed Order Preauthorization"
 msgstr "Confirmada preaturización de pedido"
 
-#: classes/class-wc-gateway-redsys.php:8384
-#: classes/class-wc-gateway-redsys.php:9599
+#: classes/class-wc-gateway-redsys.php:9033
+#: classes/class-wc-gateway-redsys.php:10263
 msgid "Order Completed"
 msgstr "Pedido completado"
 
-#: classes/class-wc-gateway-redsys.php:8395
+#: classes/class-wc-gateway-redsys.php:9044
 msgid "Redsys return an error confirming preauthorization"
 msgstr "Redsys ha devuelto un error confirmando la preautorización"
 
-#: classes/class-wc-gateway-redsys.php:8424
+#: classes/class-wc-gateway-redsys.php:9088
 msgid "There is a little problem:"
 msgstr "Ocurrió un pequeño problema:"
 
-#: classes/class-wc-gateway-redsys.php:8425
+#: classes/class-wc-gateway-redsys.php:9089
 msgid ""
 "You need to ask to Redsys to sent some fields for tokenization (Pay with one "
 "Click & Subscriptions). Please ask to Redsys to sent with the callback the "
@@ -4039,254 +4222,254 @@ msgstr ""
 "callback los siguiente campos. Estos campos ayudarán a tus usuarios a "
 "diferenciar sus tarjetas almacenadas en tu sitio"
 
-#: classes/class-wc-gateway-redsys.php:8753
+#: classes/class-wc-gateway-redsys.php:9417
 msgid "HTTP Notification received - Transaction Preauthorized"
 msgstr "Notificación HTTP recibida - Transacción preautorización"
 
-#: classes/class-wc-gateway-redsys.php:8755
+#: classes/class-wc-gateway-redsys.php:9419
 msgid "HTTP Notification received - Resident payment"
 msgstr "HTTP Notificación recibida - Domiciliación bancaria"
 
-#: classes/class-wc-gateway-redsys.php:8774 includes/woo-status/status.php:122
+#: classes/class-wc-gateway-redsys.php:9438 includes/woo-status/status.php:122
 msgid "Resident Payment"
 msgstr "Domiciliado"
 
-#: classes/class-wc-gateway-redsys.php:8847
+#: classes/class-wc-gateway-redsys.php:9511
 msgid "A customer has had payment errors"
 msgstr "Un cliente ha tenido errores en un pago"
 
-#: classes/class-wc-gateway-redsys.php:8848
+#: classes/class-wc-gateway-redsys.php:9512
 msgid "A customer has had payment errors:"
 msgstr "Un cliente ha tenido errores en un pago:"
 
-#: classes/class-wc-gateway-redsys.php:8851
+#: classes/class-wc-gateway-redsys.php:9515
 msgid "Total Order: "
 msgstr "Total pedido: "
 
-#: classes/class-wc-gateway-redsys.php:8852
+#: classes/class-wc-gateway-redsys.php:9516
 msgid "Customer Name: "
 msgstr "Nombre del cliente: "
 
-#: classes/class-wc-gateway-redsys.php:8853
+#: classes/class-wc-gateway-redsys.php:9517
 msgid "Customer Country: "
 msgstr "Pais del cliente: "
 
-#: classes/class-wc-gateway-redsys.php:8854
+#: classes/class-wc-gateway-redsys.php:9518
 msgid "Customer Telephone: "
 msgstr "Teléfono del cliente: "
 
-#: classes/class-wc-gateway-redsys.php:8855
+#: classes/class-wc-gateway-redsys.php:9519
 msgid "Customer Email: "
 msgstr "Correo electrónico del cliente: "
 
-#: classes/class-wc-gateway-redsys.php:8856
+#: classes/class-wc-gateway-redsys.php:9520
 msgid "Check order for details"
 msgstr "Comprueba expedido para detalles"
 
-#: classes/class-wc-gateway-redsys.php:8858
+#: classes/class-wc-gateway-redsys.php:9522
 msgid "⚠️ A customer has had payment errors: "
 msgstr "Un cleunte ha tenido un problema con el pago: "
 
-#: classes/class-wc-gateway-redsys.php:8883
+#: classes/class-wc-gateway-redsys.php:9547
 msgid "Credit Cart Payment Problem at "
 msgstr "Problema de pago con tarjeta de crédito en "
 
-#: classes/class-wc-gateway-redsys.php:8888
-#: classes/class-wc-gateway-redsys.php:8913
+#: classes/class-wc-gateway-redsys.php:9552
+#: classes/class-wc-gateway-redsys.php:9577
 msgid "Credit Cart Payment Problem"
 msgstr "Problema en pago con tarjeta de crédito"
 
-#: classes/class-wc-gateway-redsys.php:8899
+#: classes/class-wc-gateway-redsys.php:9563
 msgid "Thank you very much for shopping in our store."
 msgstr "Muchas gracias por comprar en nuestra tienda."
 
-#: classes/class-wc-gateway-redsys.php:8900
-#: classes/class-wc-gateway-redsys.php:8918
+#: classes/class-wc-gateway-redsys.php:9564
+#: classes/class-wc-gateway-redsys.php:9582
 msgid "There was a problem with the credit card payment."
 msgstr "Hubo un problema con el pago con la tarjeta de crédito."
 
-#: classes/class-wc-gateway-redsys.php:8901
+#: classes/class-wc-gateway-redsys.php:9565
 msgid "If you don't know what the error was."
 msgstr "Si no sabes cual fue el problema que hubo."
 
-#: classes/class-wc-gateway-redsys.php:8904
-#: classes/class-wc-gateway-redsys.php:8907
+#: classes/class-wc-gateway-redsys.php:9568
+#: classes/class-wc-gateway-redsys.php:9571
 msgid "The error was: "
 msgstr "El error fue: "
 
-#: classes/class-wc-gateway-redsys.php:8909
+#: classes/class-wc-gateway-redsys.php:9573
 msgid "If you wish, you can try again at this link: "
 msgstr "Si lo deseas, puedes probar de nuevo en este enlace: "
 
-#: classes/class-wc-gateway-redsys.php:8910
+#: classes/class-wc-gateway-redsys.php:9574
 msgid "Thank you very much for choosing us."
 msgstr "Muchas gracias por seleccionarlos."
 
-#: classes/class-wc-gateway-redsys.php:9246
+#: classes/class-wc-gateway-redsys.php:9910
 msgid "ask_for_confirm_preauthorization Asking for order #: "
 msgstr "ask_for_confirm_preauthorization Consultando para el pedido #: "
 
-#: classes/class-wc-gateway-redsys.php:9255
-#: classes/class-wc-gateway-redsys.php:9376
+#: classes/class-wc-gateway-redsys.php:9919
+#: classes/class-wc-gateway-redsys.php:10040
 msgid "Next Step, Call"
 msgstr "Siguiente paso, Llamada"
 
-#: classes/class-wc-gateway-redsys.php:9272
-#: classes/class-wc-gateway-redsys.php:9393
+#: classes/class-wc-gateway-redsys.php:9936
+#: classes/class-wc-gateway-redsys.php:10057
 msgid "The call is already made and this is the response: "
 msgstr "La llamada ya se ha realizado, y esta es la respuesta: "
 
-#: classes/class-wc-gateway-redsys.php:9366
+#: classes/class-wc-gateway-redsys.php:10030
 msgid "DS_MERCHANT_IDENTIFIER: "
 msgstr "DS_MERCHANT_IDENTIFIER: "
 
-#: classes/class-wc-gateway-redsys.php:9367
+#: classes/class-wc-gateway-redsys.php:10031
 msgid "ask_for_collect_remainder Asking for order #: "
 msgstr "ask_for_collect_remainder Asking for order #: "
 
-#: classes/class-wc-gateway-redsys.php:9465
+#: classes/class-wc-gateway-redsys.php:10129
 msgid "Firs step for confirm Preauthorization for order #: "
 msgstr "Primer paso para confirmar la Preautorización para el pedido #: "
 
-#: classes/class-wc-gateway-redsys.php:9466
+#: classes/class-wc-gateway-redsys.php:10130
 msgid "$transaction_id: "
 msgstr "$transaction_id: "
 
-#: classes/class-wc-gateway-redsys.php:9467
+#: classes/class-wc-gateway-redsys.php:10131
 msgid "$order_total_sign: "
 msgstr "$order_total_sign: "
 
-#: classes/class-wc-gateway-redsys.php:9472
+#: classes/class-wc-gateway-redsys.php:10136
 msgid "Checking for Confirm Preauthorization for order #: "
 msgstr "Comprobando por confirmación de preautorización del pedido #: "
 
-#: classes/class-wc-gateway-redsys.php:9478
-#: classes/class-wc-gateway-redsys.php:11344
+#: classes/class-wc-gateway-redsys.php:10142
+#: classes/class-wc-gateway-redsys.php:12008
 msgid "Error confirming Preauthorization"
 msgstr "Error confirmando preatorización"
 
-#: classes/class-wc-gateway-redsys.php:9480
+#: classes/class-wc-gateway-redsys.php:10144
 msgid "There was an error confirming Preauthorization"
 msgstr "Hubo un error confirmando la preautorización"
 
-#: classes/class-wc-gateway-redsys.php:9490
-#: classes/class-wc-gateway-redsys.php:11356
+#: classes/class-wc-gateway-redsys.php:10154
+#: classes/class-wc-gateway-redsys.php:12020
 msgid "Confirming Preauthorization = true "
 msgstr "Confirmando preautorización = true "
 
-#: classes/class-wc-gateway-redsys.php:9493
-#: classes/class-wc-gateway-redsys.php:11359
+#: classes/class-wc-gateway-redsys.php:10157
+#: classes/class-wc-gateway-redsys.php:12023
 msgid "Confirming Preauthorization = false "
 msgstr "Confirmando preautorización = false "
 
-#: classes/class-wc-gateway-redsys.php:9497
+#: classes/class-wc-gateway-redsys.php:10161
 msgid "Successfully Confirming Preauthorization"
 msgstr "Confirmada la preautorización con éxito"
 
-#: classes/class-wc-gateway-redsys.php:9498
-#: classes/class-wc-gateway-redsys.php:11364
+#: classes/class-wc-gateway-redsys.php:10162
+#: classes/class-wc-gateway-redsys.php:12028
 msgid "Deleted transcient _redsys_preauth"
 msgstr "Borrado transcient _redsys_preauth"
 
-#: classes/class-wc-gateway-redsys.php:9501
-#: classes/class-wc-gateway-redsys.php:9503
-#: classes/class-wc-gateway-redsys.php:11369
+#: classes/class-wc-gateway-redsys.php:10165
+#: classes/class-wc-gateway-redsys.php:10167
+#: classes/class-wc-gateway-redsys.php:12033
 msgid "Failed Confirming Preauthorization, please try again"
 msgstr "Fallo confirmando la preautorización, por favor, prueba de nuevo"
 
-#: classes/class-wc-gateway-redsys.php:9508
+#: classes/class-wc-gateway-redsys.php:10172
 msgid "Failed Confirming Preauthorization: No transaction ID"
 msgstr "Problema confirmando la preautorización: No hay ID de transacción"
 
-#: classes/class-wc-gateway-redsys.php:9510
+#: classes/class-wc-gateway-redsys.php:10174
 msgid "Confirm Preauthorization Failed: No transaction ID"
 msgstr "Problema confirmando la preautorización: No hay ID de transacción"
 
-#: classes/class-wc-gateway-redsys.php:9552
+#: classes/class-wc-gateway-redsys.php:10216
 msgid "First step for collect remainder for order #: "
 msgstr "First step for collect remainder for order #: "
 
-#: classes/class-wc-gateway-redsys.php:9557
+#: classes/class-wc-gateway-redsys.php:10221
 msgid "Checking for collect remainder for for order #: "
 msgstr "Checking for collect remainder for for order #: "
 
-#: classes/class-wc-gateway-redsys.php:9563
+#: classes/class-wc-gateway-redsys.php:10227
 msgid "Error Collecting Remainder"
 msgstr "Error al recopilar el recordatorio"
 
-#: classes/class-wc-gateway-redsys.php:9565
+#: classes/class-wc-gateway-redsys.php:10229
 msgid "There was an error collecting remainder"
 msgstr "There was an error collecting remainder"
 
-#: classes/class-wc-gateway-redsys.php:9577
+#: classes/class-wc-gateway-redsys.php:10241
 msgid "Confirming Collecting Remainder = true "
 msgstr "Confirming Collecting Remainder = true "
 
-#: classes/class-wc-gateway-redsys.php:9581
+#: classes/class-wc-gateway-redsys.php:10245
 msgid "Confirming Collecting Remainder = false "
 msgstr "Confirming Collecting Remainder = false "
 
-#: classes/class-wc-gateway-redsys.php:9586
+#: classes/class-wc-gateway-redsys.php:10250
 msgid "Successfully Collected Remainder"
 msgstr "Recordatorio recopilado correctamente"
 
-#: classes/class-wc-gateway-redsys.php:9587
+#: classes/class-wc-gateway-redsys.php:10251
 msgid "Deleted transcient _redsys_collect"
 msgstr "Deleted transcient _redsys_collect"
 
-#: classes/class-wc-gateway-redsys.php:9603
-#: classes/class-wc-gateway-redsys.php:9605
+#: classes/class-wc-gateway-redsys.php:10267
+#: classes/class-wc-gateway-redsys.php:10269
 msgid "Failed Collecting Remainder, please try again"
 msgstr "Failed Collecting Remainder, please try again"
 
-#: classes/class-wc-gateway-redsys.php:9610
+#: classes/class-wc-gateway-redsys.php:10274
 msgid "Failed Collecting Remainder: No transaction ID"
 msgstr "Failed Collecting Remainder: No transaction ID"
 
-#: classes/class-wc-gateway-redsys.php:9612
+#: classes/class-wc-gateway-redsys.php:10276
 msgid "Confirm Collecting Remainder: No transaction ID"
 msgstr "Problema confirmando la preautorización: No hay ID de transacción"
 
-#: classes/class-wc-gateway-redsys.php:9645
+#: classes/class-wc-gateway-redsys.php:10309
 msgid "check_redsys_refund Asking por order #: "
 msgstr "check_redsys_refund Preguntando por el pedido #: "
 
-#: classes/class-wc-gateway-redsys.php:9709
+#: classes/class-wc-gateway-redsys.php:10373
 msgid "Immediate Redsys Charge"
 msgstr "Cargo inmediato en Redsys"
 
-#: classes/class-wc-gateway-redsys.php:9712
+#: classes/class-wc-gateway-redsys.php:10376
 msgid "Approve Pre-authorization"
 msgstr "Aprobar preautorización"
 
-#: classes/class-wc-gateway-redsys.php:9715
+#: classes/class-wc-gateway-redsys.php:10379
 msgid "Bulk Refund Redsys (Warning)"
 msgstr "Reembolsos en lotes de Redsys (advertencia)"
 
-#: classes/class-wc-gateway-redsys.php:10298
-#: classes/class-wc-gateway-redsys.php:11184
-#: classes/class-wc-gateway-redsys.php:11328
+#: classes/class-wc-gateway-redsys.php:10962
+#: classes/class-wc-gateway-redsys.php:11848
+#: classes/class-wc-gateway-redsys.php:11992
 msgid "Doing Bulk Actions"
 msgstr "Realizando acciones en lote"
 
-#: classes/class-wc-gateway-redsys.php:11193
+#: classes/class-wc-gateway-redsys.php:11857
 msgid "Bulk refund"
 msgstr "Reembolsos por lotes"
 
-#: classes/class-wc-gateway-redsys.php:11234
-#: classes/class-wc-gateway-redsys.php:11236
+#: classes/class-wc-gateway-redsys.php:11898
+#: classes/class-wc-gateway-redsys.php:11900
 msgid "Invalid refund amount"
 msgstr "Cantidad de reembolso no válida"
 
-#: classes/class-wc-gateway-redsys.php:11294
+#: classes/class-wc-gateway-redsys.php:11958
 msgid "Failed refund order : "
 msgstr "Reembolso de pedido fallido: "
 
-#: classes/class-wc-gateway-redsys.php:11300
+#: classes/class-wc-gateway-redsys.php:11964
 msgid "The order is pending payment, or has already been refunded."
 msgstr "El pedido esté pendiente de pago, o ya se ha  reembolsado."
 
-#: classes/class-wc-gateway-redsys.php:11472
+#: classes/class-wc-gateway-redsys.php:12136
 msgid ""
 "Warning: WooCommerce Redsys Gateway is in test mode. Remember to uncheck it "
 "when you go live"
@@ -4294,7 +4477,7 @@ msgstr ""
 "Advertencia: WooCommerce Redsys Gateway está en modo de pruebas. Recuerda "
 "desmarcarlo cuando pases al modo real"
 
-#: classes/class-wc-gateway-redsys.php:11475
+#: classes/class-wc-gateway-redsys.php:12139
 msgid ""
 "Due to the European PSD2 regulation, we need to capture some screen "
 "configuration data that can only be done using JavaScript. You have JS "
@@ -4346,120 +4529,6 @@ msgstr ""
 #: classes/class-wc-redsys-profile.php:187
 msgid "Ask to administrator for new link"
 msgstr "Solicita al administrador un nuevo enlace"
-
-#: classes/class-wc-settings-tab-redsys-sort-invoices.php:42
-#: classes/class-wc-settings-tab-redsys-sort-invoices.php:91
-msgid "Sequential Invoice Numbers"
-msgstr "Número secuencial factura"
-
-#: classes/class-wc-settings-tab-redsys-sort-invoices.php:97
-#: classes/class-wc-settings-tab-redsys-sort-invoices.php:101
-msgid "Activate Sequential Invoice numbers"
-msgstr "Activar número secuenciales en facturas"
-
-#: classes/class-wc-settings-tab-redsys-sort-invoices.php:99
-msgid "Activate Sequential Invoice numbers."
-msgstr "Activar número secuenciales en facturas."
-
-#: classes/class-wc-settings-tab-redsys-sort-invoices.php:105
-msgid "First Invoice Number"
-msgstr "Primer número de factura"
-
-#: classes/class-wc-settings-tab-redsys-sort-invoices.php:107
-msgid ""
-"Add here the first invoice number. By Default is number 1. Save this number "
-"before activate it. Example 345 "
-msgstr ""
-"Añade aquí el primer número para tus facturas. Por defecto se usará el "
-"número 1. Guarda este número antes activar esta funcionalidad. Ejemplo 345 "
-
-#: classes/class-wc-settings-tab-redsys-sort-invoices.php:111
-msgid "Invoice Number Length"
-msgstr "Longitud de la numeración"
-
-#: classes/class-wc-settings-tab-redsys-sort-invoices.php:113
-msgid ""
-"The Invoice number length, this is not required. Example 10, the result will "
-"be 0000000345"
-msgstr ""
-"La longitud de la numeración de tus facturas, no es necesario. Si el número "
-"resultante en inferior al que se ponga aquí, se añadirán 0s. Ejemplo 10, el "
-"resultado sería 0000000345"
-
-#: classes/class-wc-settings-tab-redsys-sort-invoices.php:117
-msgid "Prefix Invoice Number"
-msgstr "Prefijo número factura"
-
-#: classes/class-wc-settings-tab-redsys-sort-invoices.php:119
-#, php-format
-msgid ""
-"Add here a prefix invoice number, this is not required. Example WC-, the "
-"result will be WC-0000000345. Pattern are allowed ex. {Y} this will add the "
-"current year. You will find all patterns %1$sshere%2$s."
-msgstr ""
-"Añade aquí un prefijo para la numeración de tus facturas, esto no es "
-"requerido. Ejemplo: WC-, el resultado sería WC-0000000345. La utilización de "
-"plantillas está permitida, por ejemplo, si pusieras <code>{Y}/</code> el "
-"resultado en la numeración de la facturas sería 2015/0000000345. Encontrarás "
-"todas las plantillas posibles %1$saquí%2$s."
-
-#: classes/class-wc-settings-tab-redsys-sort-invoices.php:123
-msgid "Postfix Invoice Number"
-msgstr "Sufijo número factura"
-
-#: classes/class-wc-settings-tab-redsys-sort-invoices.php:125
-#, php-format
-msgid ""
-"Add here a postfix invoice number, this is not required. Example -2015 the "
-"result will be WC-0000000345-2015. Pattern are allowed ex. {Y} this will add "
-"the current year. You will find all patterns %1$sshere%2$s."
-msgstr ""
-"Añade aquí un sufijo para la numeración de tus facturas, esto no es "
-"requerido. Ejemplo: -2015, el resultado sería WC-0000000345-2015. La "
-"utilización de plantillas está permitida, por ejemplo, si pusieras /{Y] el "
-"resultado en la numeración de la facturas sería 0000000345/2015. Encontrarás "
-"todas las plantillas posibles%1$saquí%2$s."
-
-#: classes/class-wc-settings-tab-redsys-sort-invoices.php:129
-msgid "Reset Invoice Number"
-msgstr "Restablecer número factura"
-
-#: classes/class-wc-settings-tab-redsys-sort-invoices.php:131
-msgid "Reset Invoice Number."
-msgstr "Restablecer número factura."
-
-#: classes/class-wc-settings-tab-redsys-sort-invoices.php:133
-msgid ""
-"If you enable Reset Invoice Number, every January 1st the invoice number "
-"will be reset and will start again with number 1. Is very important that if "
-"you enable this option, you use a prefix or postfix year pattern {Y}."
-msgstr ""
-"Si activas el reseteo o reinicializacición del número de factura, cada 1 de "
-"enero se reinicializará la numeración comenzando de nuevo con 1. ATENCIÓN: "
-"Es muy importante que si activas esta funcionalidad, añadas un prefijo o un "
-"sufijo al número de pedido que incluya el año {Y}."
-
-#: classes/class-wc-settings-tab-redsys-sort-invoices.php:171
-msgid "Invoice Number"
-msgstr "Número factura"
-
-#: classes/class-wc-settings-tab-redsys-sort-invoices.php:189
-msgid "No invoice n&#176;"
-msgstr "Sin n&#176; de factura"
-
-#: classes/class-wc-settings-tab-redsys-sort-invoices.php:314
-#, php-format
-msgid "Order Number: %s"
-msgstr "Pedido número: %s"
-
-#: classes/class-wc-settings-tab-redsys-sort-invoices.php:317
-#, php-format
-msgid "Invoice Number: %s"
-msgstr "Número factura: %s"
-
-#: classes/class-wc-settings-tab-redsys-sort-invoices.php:381
-msgid "-ORDER"
-msgstr "-PEDIDO"
 
 #: includes/banner-live.php:129 includes/notices/notices.php:101
 msgid "Dismiss"
@@ -4587,7 +4656,7 @@ msgstr "Código QR de Redsys "
 
 #: includes/metabox/metaboxes.php:84
 msgid "QR Code will be generated when you publish the product"
-msgstr "Los códigos QR se generarán cuando publiques un producto."
+msgstr "Los códigos QR se generarán cuando publiques un producto"
 
 #: includes/metabox/metaboxes.php:91
 msgid "Nonce error"
@@ -4818,8 +4887,8 @@ msgstr ""
 "de nuevas actualizaciones. Si no lo conectas, podrías estar con una versión "
 "antigua del plugin y a lo mejor con bugs."
 
-#: includes/paygold-page.php:19 woocommerce-gateway-redsys.php:567
-#: woocommerce-gateway-redsys.php:568
+#: includes/paygold-page.php:19 woocommerce-gateway-redsys.php:527
+#: woocommerce-gateway-redsys.php:528
 msgid "Pay Gold Tools"
 msgstr "Pay Gold Tools"
 
@@ -5079,13 +5148,34 @@ msgstr "Paygold"
 msgid "Masterpass"
 msgstr "MasterPass"
 
-#: woocommerce-gateway-redsys.php:361
+#: woocommerce-gateway-redsys.php:321
 msgid "Confirm Preauthorization"
 msgstr "Confirmar preautorización"
 
-#: woocommerce-gateway-redsys.php:394
+#: woocommerce-gateway-redsys.php:354
 msgid "Collect the remainder With Redsys: "
 msgstr "Recopila el recordatorio con Redsys: "
+
+#~ msgid "Check "
+#~ msgstr "Comprueba "
+
+#~ msgid " The Guide"
+#~ msgstr " La guía"
+
+#~ msgid "for configuring Push Notifications. "
+#~ msgstr "para configurar notificaciones push. "
+
+#~ msgid "Enable Push Notifications."
+#~ msgstr "Activar Notificaciones Push."
+
+#~ msgid "The Mobile App ID"
+#~ msgstr "El Mobile App ID"
+
+#~ msgid "Enable Notify Errors."
+#~ msgstr "Activar notificación de errores."
+
+#~ msgid "Notify Errors"
+#~ msgstr "Notificar errores"
 
 #~ msgid "Bizum (by José Conti)"
 #~ msgstr "Bizum (por José Conti)"

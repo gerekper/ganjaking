@@ -3,7 +3,7 @@
  * Main class to handle mainly frontend related chained products actions
  *
  * @since       2.5.0
- * @version     1.3.0
+ * @version     1.3.1
  * @package     woocommerce-chained-products/includes/
  */
 
@@ -1593,14 +1593,14 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 		 *
 		 * @param int    $parent_cart_key ID of the product being added to the cart.
 		 * @param int    $product_id Parent ID of the chained product.
-		 * @param string $quantity Quantity of the chained item being added to the cart.
+		 * @param int    $quantity Quantity of the chained item being added to the cart.
 		 * @param int    $variation_id Variation ID if the chained item is a variation.
 		 * @param array  $variation Attribute values of chained item.
 		 * @param array  $cart_item_data Extra cart item data passed to the chained item.
 		 * @param string $priced_individually Allow chained item to be priced 'yes|no'.
 		 * @return string|false
 		 */
-		public function chained_add_to_cart( $parent_cart_key = 0, $product_id, $quantity = 1, $variation_id = '', $variation = '', $cart_item_data = array(), $priced_individually = 'no' ) {
+		public function chained_add_to_cart( $parent_cart_key = 0, $product_id = 0, $quantity = 1, $variation_id = 0, $variation = array(), $cart_item_data = array(), $priced_individually = 'no' ) {
 
 			// Load cart item data when adding to cart.
 			$cart_item_data = (array) apply_filters( 'woocommerce_add_cart_item_data', $cart_item_data, $product_id, $variation_id, $quantity );
@@ -1947,12 +1947,16 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 		 */
 		public function set_chained_products_items_ids( $product_id = 0 ) {
 
+			global $wc_chained_products;
+
+			$product_id = absint( $product_id );
+
 			if ( empty( $product_id ) ) {
 				return;
 			}
 
 			// Get the chained products data.
-			$cp_details = $this->get_chained_product_data_by_product_id( $product_id );
+			$cp_details = is_callable( array( $wc_chained_products, 'get_all_chained_product_details' ) ) ? $wc_chained_products->get_all_chained_product_details( $product_id ) : array();
 
 			if ( ! empty( $cp_details ) && is_array( $cp_details ) ) {
 				foreach ( $cp_details as $cp_id => $cp_detail ) {
@@ -1961,10 +1965,11 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 						continue;
 					}
 
-					// Set chained items.
-					$this->chained_items[ $cp_id ] = $cp_detail;
+					$this->chained_items[ $product_id ] = ! empty( $this->chained_items[ $product_id ] ) ? $this->chained_items[ $product_id ] : array();
 
-					$this->set_chained_products_items_ids( $cp_id );
+					// Set chained items.
+					$this->chained_items[ $product_id ][ $cp_id ] = $cp_detail;
+
 				}
 			}
 
@@ -2187,15 +2192,16 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 
 				$this->set_chained_products_items_ids( $product_id );
 
-				$parent_is_in_stock = is_callable( array( $parent_product, 'is_in_stock' ) ) ? $parent_product->is_in_stock() : false;
+				$parent_is_in_stock    = is_callable( array( $parent_product, 'is_in_stock' ) ) ? $parent_product->is_in_stock() : false;
+				$current_chained_items = ! empty( $this->chained_items ) && ! empty( $this->chained_items[ $product_id ] ) ? $this->chained_items[ $product_id ] : array();
 
-				if ( ! empty( $this->chained_items ) ) {
+				if ( ! empty( $current_chained_items ) ) {
 					$validation_result           = array();
 					$product_titles              = array();
 					$backorders_allowed_products = array();
 					$chained_add_to_cart         = 'yes';
 
-					foreach ( $this->chained_items as $chained_product_id => $details ) {
+					foreach ( $current_chained_items as $chained_product_id => $details ) {
 
 						$instance_cache_key       = 'sa_cp_product_instance_' . $chained_product_id;
 						$chained_product_instance = wp_cache_get( $instance_cache_key, 'woocommerce-chained-products' );
@@ -2637,7 +2643,7 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 				$shortcode_attributes['css_class'] = ! empty( $chained_attributes['css_class'] ) ? $chained_attributes['css_class'] : '';
 
 				$chained_item_css_class = apply_filters( 'chained_item_css_class', 'chained_items_container', $chained_parent_id );
-				$chained_item_css_class = trim( $chained_item_css_class );
+				$chained_item_css_class = ! empty( $chained_item_css_class ) ? trim( $chained_item_css_class ) : '';
 
 				$chained_product_content .= '<input type = "hidden" id = "show_price" value = "' . esc_attr( $shortcode_attributes['price'] ) . '"/>';
 				$chained_product_content .= '<input type = "hidden" id = "show_quantity" value = "' . esc_attr( $shortcode_attributes['quantity'] ) . '"/>';
@@ -2787,7 +2793,7 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 						'posts_per_page' => $post_per_page, // @codingStandardsIgnoreLine
 					);
 
-					if ( isset( $atts['ids'] ) ) {
+					if ( ! empty( $atts['ids'] ) ) {
 						$args['post__in'] = array_map( 'trim', explode( ',', $atts['ids'] ) );
 					}
 

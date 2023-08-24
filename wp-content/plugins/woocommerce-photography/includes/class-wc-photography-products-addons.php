@@ -119,9 +119,7 @@ class WC_Photography_Products_Addons {
 	public function addons_product_terms( $terms, $post_id ) {
 		$collections = wp_get_post_terms( $post_id, 'images_collections', array( 'fields' => 'ids' ) );
 
-		$terms = array_merge( $terms, $collections );
-
-		return $terms;
+		return array_merge( $terms, $collections );
 	}
 
 	/**

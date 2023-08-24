@@ -268,8 +268,7 @@ class WC_Photography_Admin_Settings {
 
 		foreach ( $settings as $section ) {
 			foreach ( $section['fields'] as $field ) {
-				$id    = $field['id'];
-				$value = '';
+				$id = $field['id'];
 
 				if ( ! isset( $input[ $id ] ) ) {
 					continue;
@@ -280,7 +279,7 @@ class WC_Photography_Admin_Settings {
 						$value = array(
 							'width'  => absint( $input[ $id ]['width'] ),
 							'height' => absint( $input[ $id ]['height'] ),
-							'crop'   => isset( $input[ $id ]['crop'] ) ? true : false,
+							'crop'   => isset( $input[ $id ]['crop'] ),
 						);
 						break;
 

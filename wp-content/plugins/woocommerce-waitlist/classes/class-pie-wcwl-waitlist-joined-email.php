@@ -21,6 +21,13 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Joined_Email' ) ) {
 		public $language = '';
 
 		/**
+		 * Is the email triggered manually?
+		 *
+		 * @var bool
+		 */
+		protected $triggered_manually = false;
+
+		/**
 		 * Hooks up the functions for Waitlist Mailout
 		 *
 		 * @access public
@@ -87,10 +94,13 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Joined_Email' ) ) {
 			global $woocommerce_wpml;
 			$this->triggered_manually = $manual;
 			$product                  = wc_get_product( $product_id );
-			if ( $woocommerce_wpml ) {
+			if ( $woocommerce_wpml && function_exists( 'wpml_object_id_filter' ) ) {
 				$this->language = wcwl_get_user_language( $email, $product_id );
 				$product        = wc_get_product( wpml_object_id_filter( $product_id, 'product', true, $this->language ) );
 				$this->setup_wpml_email( $this->language );
+			}
+			if ( ! $product ) {
+				return new WP_Error( 'woocommerce_waitlist', sprintf( __( 'Failed to send waitlist notification on %s. Is the product valid?' ), gmdate( 'd M, y' ) ) );
 			}
 			$this->setup_required_data( $product, $email );
 			if ( ! $this->is_enabled() || ! $this->get_recipient() ) {
@@ -108,7 +118,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Joined_Email' ) ) {
 		 */
 		protected function setup_wpml_email( $language ) {
 			global $woocommerce_wpml, $sitepress, $woocommerce, $wpdb;
-			if ( $language && $woocommerce_wpml && $sitepress ) {
+			if ( $language && $woocommerce_wpml && $sitepress && class_exists( 'WCML_WC_Strings' ) && class_exists( 'WCML_Emails' ) ) {
 				$strings     = new WCML_WC_Strings( $woocommerce_wpml, $sitepress, $wpdb );
 				$wcml_emails = new WCML_Emails( $strings, $sitepress, $woocommerce, $wpdb );
 				$wcml_emails->change_email_language( $language );
@@ -151,7 +161,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Joined_Email' ) ) {
 		 * @return false|string
 		 */
 		protected function get_translated_string( $string, $language_code ) {
-			if ( $language_code ) {
+			if ( $language_code && function_exists( 'icl_get_string_id' ) && function_exists( 'icl_get_string_by_id' ) ) {
 				$string_id   = icl_get_string_id( $string, 'woocommerce-waitlist' );
 				$translation = icl_get_string_by_id( $string_id, $language_code );
 				if ( $translation ) {

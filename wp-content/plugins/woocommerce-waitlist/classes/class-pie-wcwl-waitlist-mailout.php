@@ -21,6 +21,13 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Mailout' ) ) {
 		public $language = '';
 
 		/**
+		 * Is the email triggered manually?
+		 *
+		 * @var bool
+		 */
+		protected $triggered_manually = false;
+
+		/**
 		 * Hooks up the functions for Waitlist Mailout
 		 *
 		 * @access public
@@ -89,10 +96,13 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Mailout' ) ) {
 			global $woocommerce_wpml;
 			$this->triggered_manually = $manual;
 			$product                  = wc_get_product( $product_id );
-			if ( $woocommerce_wpml ) {
+			if ( $woocommerce_wpml && function_exists( 'wpml_object_id_filter' ) ) {
 				$this->language = wcwl_get_user_language( $email, $product_id );
 				$product        = wc_get_product( wpml_object_id_filter( $product_id, 'product', true, $this->language ) );
 				$this->setup_wpml_email( $this->language );
+			}
+			if ( ! $product ) {
+				return new WP_Error( 'woocommerce_waitlist', sprintf( __( 'Failed to send waitlist notification on %s. Is the product valid?' ), gmdate( 'd M, y' ) ) );
 			}
 			$this->setup_required_data( $product, $email );
 			if ( ! $this->is_enabled() || ! $this->get_recipient() ) {
@@ -110,7 +120,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Mailout' ) ) {
 		 */
 		protected function setup_wpml_email( $language ) {
 			global $woocommerce_wpml, $sitepress, $woocommerce, $wpdb;
-			if ( $language && $woocommerce_wpml && $sitepress ) {
+			if ( $language && $woocommerce_wpml && $sitepress && class_exists( 'WCML_WC_Strings' ) && class_exists( 'WCML_Emails' ) ) {
 				$strings     = new WCML_WC_Strings( $woocommerce_wpml, $sitepress, $wpdb );
 				$wcml_emails = new WCML_Emails( $strings, $sitepress, $woocommerce, $wpdb );
 				$wcml_emails->change_email_language( $language );
@@ -157,7 +167,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Mailout' ) ) {
 		 * @return false|string
 		 */
 		protected function get_translated_string( $string, $language_code ) {
-			if ( $language_code && function_exists( 'icl_get_string_id' ) ) {
+			if ( $language_code && function_exists( 'icl_get_string_id' ) && function_exists( 'icl_get_string_by_id' ) ) {
 				$string_id   = icl_get_string_id( $string, 'woocommerce-waitlist' );
 				$translation = icl_get_string_by_id( $string_id, $language_code );
 				if ( $translation ) {
@@ -182,7 +192,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Mailout' ) ) {
 				array(
 					'email_class'        => $this,
 					'product_title'      => get_the_title( $product_id ),
-					'product_link'       => $this->generate_product_link( $this->object ),
+					'product_link'       => $this->generate_product_link(),
 					'email_heading'      => apply_filters( 'woocommerce_email_heading_' . $this->id, $this->get_translated_string( $this->heading, $this->language ) ),
 					'product_id'         => $product_id,
 					'email'              => $this->recipient,
@@ -210,7 +220,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Mailout' ) ) {
 				array(
 					'email_class'        => $this,
 					'product_title'      => get_the_title( $product_id ),
-					'product_link'       => $this->generate_product_link( $this->object ),
+					'product_link'       => $this->generate_product_link(),
 					'email_heading'      => apply_filters( 'woocommerce_email_heading_' . $this->id, $this->get_translated_string( $this->heading, $this->language ) ),
 					'product_id'         => $product_id,
 					'email'              => $this->recipient,
@@ -227,43 +237,40 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Mailout' ) ) {
 		/**
 		 * Generate URL for the given product including UTM codes if required
 		 *
-		 * @param $product
-		 *
 		 * @return false|string
 		 * @since 1.8.0
 		 */
-		public function generate_product_link( $product ) {
-			$link = get_permalink( $product->get_id() );
+		public function generate_product_link() {
+			$link = get_permalink( $this->object->get_id() );
 			if ( 'yes' == $this->get_option( 'waitlist_add_analytics' ) ) {
-				$tracking_codes = $this->validate_tracking_codes( $this->get_option( 'waitlist_utm_codes' ), $product );
+				$tracking_codes = $this->validate_tracking_codes( $this->get_option( 'waitlist_utm_codes' ) );
 				$link           = add_query_arg( $tracking_codes, $link );
 			}
 
-			return apply_filters( 'wcwl_tracking_url', $link, $product );
+			return apply_filters( 'wcwl_tracking_url', $link, $this->object );
 		}
 
 		/**
 		 * Format the UTM codes ready to be added to the URL
 		 *
 		 * @param $codes
-		 * @param $product
 		 *
 		 * @return array
 		 * @since 1.8.0
 		 */
-		public function validate_tracking_codes( $codes, $product ) {
+		public function validate_tracking_codes( $codes ) {
 			$codes      = explode( ';', $codes );
 			$query_args = array();
 			foreach ( $codes as $code ) {
-				$code  = str_replace( '{product_id}', $product->get_id(), $code );
-				$code  = str_replace( '{product_sku}', $product->get_sku(), $code );
+				$code  = str_replace( '{product_id}', $this->object->get_id(), $code );
+				$code  = str_replace( '{product_sku}', $this->object->get_sku(), $code );
 				$query = explode( '=', $code );
 				if ( isset( $query[0] ) && $query[0] && isset( $query[1] ) && $query[1] ) {
 					$query_args[ trim( $query[0] ) ] = trim( $query[1] );
 				}
 			}
 
-			return apply_filters( 'wcwl_tracking_codes', $query_args, $product );
+			return apply_filters( 'wcwl_tracking_codes', $query_args, $this->object );
 		}
 
 		/**

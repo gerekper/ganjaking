@@ -698,8 +698,9 @@ outline: 0;
   margin-top: 10px;
 }
 
-.woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--referral_coupons a::before{
-  content: "\f0c0";
+.theme-storefront .woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--referral_coupons a::before{
+  content: '';
+  font-family: 'dashicons';
 }
 .mwb_cpr_signup_notification{
   font-weight: bold;
@@ -727,12 +728,14 @@ outline: 0;
 }
 
 .mwb_crp_referal_section_wrap #mwb_cpr_copyy_link {
-    width: calc(100% - 18px);
+    width: calc(100% - 0px);
     padding: 5px 5px 5px 20px;
-    margin-right: 40px;
+    margin-right: 0px;
     background-color: #dcdcdc;
     white-space: normal;
     font-size: 16px;
+    float: none;
+    box-sizing: border-box;
 }
 
 .mwb_crp_referal_section_wrap .mwb_cpr_logged_wrapper {
@@ -744,13 +747,15 @@ outline: 0;
 }
 
 .mwb_crp_referal_section_wrap .mwb_cpr_refrral_code_copy .mwb_crp_referl_code {
-    width: calc(100% - 18px);
-    padding: 5px 5px 5px 20px;
-    margin-right: 40px;
-    background-color: #dcdcdc;
-    white-space: normal;
-    text-align: left!important;
-    font-size: 16px;
+  width: calc(100% - 0px);
+  padding: 5px 5px 5px 20px;
+  margin-right: 0px;
+  background-color: #dcdcdc;
+  white-space: normal;
+  font-size: 16px;
+  float: none;
+  box-sizing: border-box;
+  text-align: left !important;
 }
 
 .mwb_crp_referal_section_wrap #mwb_cpr_referal_code_copy {
@@ -968,7 +973,7 @@ outline: 0;
   padding-right: 30px;
   flex: 0 0 calc(50% - 30px);
   max-width: calc(50% - 30px);
-}
+}  
 .mwb_cpr_guest_img img {
   max-width: 100%;
   object-fit: cover;
@@ -996,5 +1001,14 @@ outline: 0;
   border-radius: 3px !important;
 }
 a.mwb-coupon-view-btn{
-  margin-top: 5px;
+  margin-top: 5px !important;
+}
+.wps_crp_delete_email{
+  margin-left: 5px;
+  font-size: 20px;
+  color: red;
+  cursor: pointer;
+}
+.theme-Avada .mwb_crp_apply_button,.theme-Avada .mwb_crp_remove_button {
+  color: white !important;
 }

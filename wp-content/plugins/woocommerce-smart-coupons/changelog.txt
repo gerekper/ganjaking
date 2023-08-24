@@ -1,5 +1,12 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2023.08.21 - version 8.4.0
+* New: Tested up to WordPress 6.3.0
+* New: Tested up to WooCommerce 8.0.2
+* Fix: When a coupon that is having some products set under 'Coupon actions', is tried to be applied using 'Coupons shareable link', that coupon is being applied without validating the coupon This results in an additional coupon validation error notice
+* Fix: Coupons are losing style when tried to print on Mozilla Firefox browser
+* Update: POT file
+
 2023.08.08 - version 8.3.0
 * New: Tested up to WooCommerce 7.9.0
 * Fix: Auto apply is not considering 'Allowed emails' and 'Excluded emails' field

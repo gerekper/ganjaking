@@ -168,7 +168,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Sticky_Section' ) ) {
 
 			$output  = '<div class="ult_row_spacer">';
 			$output .= '<div class="ult-sticky-anchor">';
-			$output .= '<div class="ult-sticky-section ult-sticky ' . esc_attr( $ult_sticky_settings['el_class'] ) . '" ' . esc_attr( $custom_data ) . '>';
+			$output .= '<div class="ult-sticky-section ult-sticky ' . esc_attr( $ult_sticky_settings['el_class'] ) . '" ' . wp_kses_post( $custom_data ) . '>';
 			$output .= do_shortcode( $content );
 			$output .= '</div>';
 			$output .= '<div class="ult-space"></div>';

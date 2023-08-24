@@ -93,12 +93,18 @@ if ( ! class_exists( 'Pie_WCWL_Exporter' ) ) {
 			$products     = $this->get_waitlist_products( $number, $page );
 			$export_items = array();
 			foreach ( $products as $post ) {
+				if ( ! isset( $post->ID ) ) {
+					continue;
+				}
 				$waitlist = get_post_meta( $post->ID, 'woocommerce_waitlist', true );
 				$archive  = get_post_meta( $post->ID, 'wcwl_waitlist_archive', true );
 				if ( ! $this->user_is_on_waitlist( $email, $waitlist ) && ! $this->user_is_on_archive( $email, $archive ) ) {
 					continue;
 				}
 				$product     = wc_get_product( $post->ID );
+				if ( ! $product ) {
+					continue;
+				}
 				$item_id     = "waitlist-{$post->ID}";
 				$group_id    = 'waitlists';
 				$group_label = __( 'Waitlist Data', 'woocommerce-waitlist' );
@@ -235,12 +241,18 @@ if ( ! class_exists( 'Pie_WCWL_Exporter' ) ) {
 			$products     = $this->get_waitlist_products( $number, $page );
 			$data_removed = false;
 			foreach ( $products as $post ) {
+				if ( ! isset( $post->ID ) ) {
+					continue;
+				}
 				$waitlist = get_post_meta( $post->ID, 'woocommerce_waitlist', true );
 				$archive  = get_post_meta( $post->ID, 'wcwl_waitlist_archive', true );
 				if ( ! $this->user_is_on_waitlist( $email, $waitlist ) && ! $this->user_is_on_archive( $email, $archive ) ) {
 					continue;
 				}
 				$product = wc_get_product( $post->ID );
+				if ( ! $product ) {
+					continue;
+				}
 				if ( $product && $this->user_is_on_waitlist( $email, $waitlist ) ) {
 					$this->remove_user_from_waitlist( $product, $email );
 					$data_removed = true;
@@ -258,6 +270,11 @@ if ( ! class_exists( 'Pie_WCWL_Exporter' ) ) {
 			);
 		}
 
+		/**
+		 * Return data array for when data is retained
+		 * 
+		 * @return array
+		 */
 		protected function get_retention_data_array() {
 			return array(
 				'items_removed'  => false,
@@ -274,6 +291,9 @@ if ( ! class_exists( 'Pie_WCWL_Exporter' ) ) {
 		 * @param $email
 		 */
 		protected function remove_user_from_waitlist( $product, $email ) {
+			if ( ! $product ) {
+				return;
+			}
 			$waitlist = new Pie_WCWL_Waitlist( $product );
 			$waitlist->unregister_user( $email );
 			WC_Emails::instance();
@@ -338,7 +358,7 @@ if ( ! class_exists( 'Pie_WCWL_Exporter' ) ) {
 			if ( ! $archive ) {
 				return false;
 			}
-			foreach ( $archive as $timestamp => $users ) {
+			foreach ( $archive as $users ) {
 				if ( key_exists( $email, $users ) ) {
 					return true;
 				}

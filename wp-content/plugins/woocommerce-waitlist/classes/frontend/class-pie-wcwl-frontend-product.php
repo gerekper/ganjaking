@@ -18,30 +18,61 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Product' ) ) {
 		 * @var WC_Product
 		 */
 		protected $product;
+
 		/**
 		 * Child products of current parent product
 		 *
 		 * @var array
 		 */
 		protected $children = array();
+
 		/**
 		 * Current user object
 		 *
 		 * @var object
 		 */
 		protected $user;
+
 		/**
 		 * Has the user just requested to update the waitlist
 		 *
 		 * @var bool
 		 */
 		protected $user_modified_waitlist = false;
+
 		/**
 		 * Is WPML installed and active?
 		 *
 		 * @var bool
 		 */
 		public $has_wpml = false;
+
+		/**
+		 * Setups up the text strings used by the plugin in the front end
+		 * See setup_text_strings()
+		 *
+		 * @var string
+		 */
+		protected $join_waitlist_button_text;
+		protected $leave_waitlist_button_text;
+		protected $confirm_waitlist_button_text;
+		protected $update_waitlist_button_text;
+		protected $join_waitlist_message_text;
+		protected $leave_waitlist_message_text;
+		protected $leave_waitlist_success_message_text;
+		protected $leave_ticket_waitlist_success_message_text;
+		protected $join_waitlist_success_message_text;
+		protected $join_ticket_waitlist_success_message_text;
+		protected $update_waitlist_success_message_text;
+		protected $toggle_waitlist_no_product_message_text;
+		protected $toggle_waitlist_ambiguous_error_message_text;
+		protected $join_waitlist_invalid_email_message_text;
+		protected $users_must_register_and_login_message_text;
+		protected $grouped_product_message_text;
+		protected $no_user_grouped_product_message_text;
+		protected $grouped_product_joined_message_text;
+		protected $email_field_placeholder_text;
+		protected $registered_opt_in_text;
 
 		/**
 		 * Pie_WCWL_Frontend_Product constructor.
@@ -97,7 +128,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Product' ) ) {
 		/**
 		 * Return current product ID
 		 *
-		 * @return int|mixed|NULL
+		 * @return int
 		 *
 		 * @since 1.8.0
 		 */
@@ -107,7 +138,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Product' ) ) {
 				if ( $this->has_wpml ) {
 					$product_id = Pie_WCWL_Frontend_Init::get_main_product_id( absint( $_REQUEST['product_id'] ) );
 				} else {
-					$product_id = absint( $_REQUEST['product_id'] );
+					$product_id = $_REQUEST['product_id'];
 				}
 			} elseif ( ! is_product() && ( ! empty( $post->post_content ) && strstr( $post->post_content, '[product_page' ) ) ) {
 				$product_id = $this->get_product_id_from_post_content( $post->post_content );
@@ -118,11 +149,11 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Product' ) ) {
 				$product_id = $post->ID;
 			}
 
-			return $product_id;
+			return absint( $product_id );
 		}
 
 		/**
-		 * Look fpr the product ID in the provided post content
+		 * Look for the product ID in the provided post content
 		 *
 		 * @param $content
 		 *
@@ -146,6 +177,9 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Product' ) ) {
 					$child_id = Pie_WCWL_Frontend_Init::get_main_product_id( $child_id );
 				}
 				$child                 = wc_get_product( $child_id );
+				if ( ! $child ) {
+					continue;
+				}
 				$child->waitlist       = $this->get_waitlist( $child );
 				$children[ $child_id ] = $child;
 			}
@@ -165,19 +199,6 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Product' ) ) {
 			}
 
 			return new Pie_WCWL_Waitlist( $product );
-		}
-
-		/**
-		 * Return the waitlist for the given child product
-		 *
-		 * @param $child
-		 *
-		 * @return mixed
-		 */
-		protected function get_child_waitlist( $child ) {
-			$child_id = $child->get_id();
-
-			return $this->children[ $child_id ]->waitlist;
 		}
 
 		/**
@@ -366,7 +387,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Product' ) ) {
 		 * @param $action
 		 * @param $product_id
 		 *
-		 * @return mixed|void
+		 * @return string
 		 */
 		public function create_button_url( $action, $product_id ) {
 			global $wp;

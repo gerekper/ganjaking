@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.7.0
- * @version     1.6.0
+ * @version     1.7.0
  * @package     woocommerce-smart-coupons/templates/
  */
 
@@ -77,6 +77,10 @@ $bloginfo = get_bloginfo( 'name', 'display' );
 				page-break-inside: avoid;
 				margin: .8rem 1rem;
 				border: 1px solid #ccc !important;
+			}
+			#sc-cc .sc-coupon{
+				-webkit-print-color-adjust: exact;
+				print-color-adjust: exact;
 			}
 		</style>
 		<style type="text/css"><?php echo ( isset( $coupon_styles ) && ! empty( $coupon_styles ) ) ? esc_html( wp_strip_all_tags( $coupon_styles, true ) ) : ''; // phpcs:ignore ?></style>

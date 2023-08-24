@@ -130,10 +130,9 @@ class WC_Shipment_Tracking_Actions {
 				'United Kingdom' => array(
 					'DHL'                       => 'https://www.dhl.com/content/g0/en/express/tracking.shtml?brand=DHL&AWB=%1$s',
 					'DPD.co.uk'                 => 'https://www.dpd.co.uk/apps/tracking/?reference=%1$s#results',
-					'DPD Local'                 => 'https://apis.track.dpdlocal.co.uk/v1/track?postcode=null&parcel=%1$s',
+					'DPD Local'                 => 'https://apis.track.dpdlocal.co.uk/v1/track?postcode=%2$s&parcel=%1$s',
 					'EVRi'                      => 'https://www.evri.com/track/parcel/%1$s',
 					'EVRi (international)'      => 'https://international.evri.com/tracking/%1$s',
-					'InterLink'                 => 'https://www.dpdlocal.co.uk/apps/tracking/?reference=%1$s&postcode=%2$s#results',
 					'ParcelForce'               => 'https://www.parcelforce.com/track-trace?trackNumber=%1$s',
 					'Royal Mail'                => 'https://www3.royalmail.com/track-your-item#/tracking-results/%1$s',
 					'TNT Express (consignment)' => 'https://www.tnt.com/express/en_gb/site/shipping-tools/tracking.html?searchType=con&cons=%1$s',

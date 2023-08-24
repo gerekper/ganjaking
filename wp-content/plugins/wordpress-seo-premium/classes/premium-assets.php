@@ -324,6 +324,63 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 				],
 				'footer'       => true,
 			],
+			[
+				'name'         => 'wp-seo-premium-ai-generator',
+				'path'         => 'assets/js/dist/',
+				'filename'     => 'ai-generator-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
+				'dependencies' => [
+					'lodash',
+					'wp-api-fetch',
+					'wp-components',
+					'wp-data',
+					'wp-dom-ready',
+					'wp-element',
+					'wp-hooks',
+					'wp-i18n',
+					'yoast-seo-premium-commons',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'analysis',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'editor-modules',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'ui-library-package',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'react-helmet-package',
+				],
+			],
+			[
+				'name'         => 'wp-seo-premium-manage-ai-consent-button',
+				'path'         => 'assets/js/dist/',
+				'filename'     => 'manage-ai-consent-button-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
+				'dependencies' => [
+					'lodash',
+					'wp-api-fetch',
+					'wp-components',
+					'wp-data',
+					'wp-dom-ready',
+					'wp-element',
+					'wp-hooks',
+					'wp-i18n',
+					'yoast-seo-premium-commons',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'ui-library-package',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'react-helmet-package',
+				],
+			],
+			[
+				'name'         => 'wp-seo-premium-introductions',
+				'path'         => 'assets/js/dist/',
+				'filename'     => 'introductions-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
+				'dependencies' => [
+					'lodash',
+					'wp-api-fetch',
+					'wp-components',
+					'wp-data',
+					'wp-dom-ready',
+					'wp-element',
+					'wp-hooks',
+					'wp-i18n',
+					'yoast-seo-premium-commons',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'introductions',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'ui-library-package',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'react-helmet-package',
+				],
+			],
 		];
 	}
 
@@ -337,6 +394,8 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 	 * @return array The styles.
 	 */
 	protected function get_styles( $version ) {
+		$rtl_suffix = ( is_rtl() ) ? '-rtl' : '';
+
 		return [
 			[
 				'name'         => WPSEO_Admin_Asset_Manager::PREFIX . 'premium-metabox',
@@ -376,6 +435,19 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 				'name'         => WPSEO_Admin_Asset_Manager::PREFIX . 'premium-post-overview',
 				'source'       => 'assets/css/dist/premium-post-overview-' . $version . '.css',
 				'dependencies' => [],
+			],
+			[
+				'name'         => WPSEO_Admin_Asset_Manager::PREFIX . 'premium-tailwind',
+				'source'       => 'assets/css/dist/premium-tailwind-' . $version . $rtl_suffix . '.css',
+				'dependencies' => [],
+			],
+			[
+				'name'         => WPSEO_Admin_Asset_Manager::PREFIX . 'premium-ai-generator',
+				'source'       => 'assets/css/dist/premium-ai-generator-' . $version . $rtl_suffix . '.css',
+				'dependencies' => [
+					WPSEO_Admin_Asset_Manager::PREFIX . 'premium-tailwind',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'monorepo',
+				],
 			],
 		];
 	}

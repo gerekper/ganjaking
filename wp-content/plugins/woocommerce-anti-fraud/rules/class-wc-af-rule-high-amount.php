@@ -11,9 +11,9 @@ class WC_AF_Rule_High_Amount extends WC_AF_Rule {
 	 * The constructor
 	 */
 	public function __construct() {
-		$this->is_enabled  =  get_option('wc_af_order_amount_check');
-		$this->rule_weight = get_option('wc_settings_anti_fraud_order_amount_weight');
-		$this->amount      = get_option('wc_settings_anti_fraud_amount_limit'); 
+		$this->is_enabled  = get_option( 'wc_af_order_amount_check' );
+		$this->rule_weight = get_option( 'wc_settings_anti_fraud_order_amount_weight' );
+		$this->amount      = get_option( 'wc_settings_anti_fraud_amount_limit' );
 		parent::__construct( 'high_amount', sprintf( 'Order exceeds maximum amount.' ), $this->rule_weight );
 	}
 
@@ -27,8 +27,8 @@ class WC_AF_Rule_High_Amount extends WC_AF_Rule {
 	 * @return bool
 	 */
 	public function is_risk( WC_Order $order ) {
-		
-		Af_Logger::debug('Checking high amount rule');
+
+		Af_Logger::debug( 'Checking high amount rule' );
 		global $wpdb;
 
 		// Default risk is false
@@ -36,18 +36,18 @@ class WC_AF_Rule_High_Amount extends WC_AF_Rule {
 
 		// Get the COUNT of total products
 		$order_amount = $order->get_total();
-	
+
 		// Check if the order total is higher than 2 times the average order total
 		if ( $order_amount > $this->amount ) {
 			$risk = true;
 		}
 
-		Af_Logger::debug('high amount rule risk : ' . ( true === $risk ? 'true' : 'false' ));
+		Af_Logger::debug( 'high amount rule risk : ' . ( true === $risk ? 'true' : 'false' ) );
 		return $risk;
 	}
-	//Enable rule check
+	// Enable rule check
 	public function is_enabled() {
-		if ('yes' == $this->is_enabled) {
+		if ( 'yes' == $this->is_enabled ) {
 			return true;
 		}
 		return false;
