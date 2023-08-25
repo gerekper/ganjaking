@@ -82,7 +82,6 @@ class ComposerStaticInitAdminColumns
         'AC\\Admin\\MenuPageFactory\\Menu' => __DIR__ . '/../..' . '/classes/Admin/MenuPageFactory/Menu.php',
         'AC\\Admin\\MenuPageFactory\\SubMenu' => __DIR__ . '/../..' . '/classes/Admin/MenuPageFactory/SubMenu.php',
         'AC\\Admin\\Menu\\Item' => __DIR__ . '/../..' . '/classes/Admin/Menu/Item.php',
-        'AC\\Admin\\Notice\\DatabaseMissing' => __DIR__ . '/../..' . '/classes/Admin/Notice/DatabaseMissing.php',
         'AC\\Admin\\Notice\\ReadOnlyListScreen' => __DIR__ . '/../..' . '/classes/Admin/Notice/ReadOnlyListScreen.php',
         'AC\\Admin\\PageFactoryInterface' => __DIR__ . '/../..' . '/classes/Admin/PageFactoryInterface.php',
         'AC\\Admin\\PageFactory\\Addons' => __DIR__ . '/../..' . '/classes/Admin/PageFactory/Addons.php',

@@ -6,7 +6,7 @@
  
  *	@Author: AJDE
  *	@EventON
- *	@version: 4.4
+ *	@version: 4.4.4
  */	
 	
 
@@ -41,120 +41,121 @@
 
 ?>
 
-<div class='wrap evotax_term_card evo_organizer_card alignwide'>	
+<div class='wrap evotax_term_card evo_organizer_card alignwide'>
+	<div class='evo_card_wrapper'>	
 
-	<div id='' class="content-area">
+		<div id='' class="content-area">
 
-		<div class='eventon site-main'>
-			<header class='page-header'>
-				<h1 class="page-title"><?php evo_lang_e('Events by this organizer');?></h1>
-			</header>
+			<div class='eventon site-main'>
+				<header class='page-header'>
+					<h1 class="page-title"><?php evo_lang_e('Events by this organizer');?></h1>
+				</header>
 
-			<div class='entry-content'>
+				<div class='entry-content'>
 
-				<div class='evo_term_top_section dfx fx_dr_c'>
-					
-					<?php if($img_url):?>
-						<div class="evotax_term_img dfx" style=''>
-							<img src='<?php echo $img_url;?>'/>
-						</div>	
-					<?php endif;?>						
-					
-
-					<div class='evo_tax_details'>
-						<h2 class="tax_term_name organizer_name evo_h2 ttu"><span><?php echo $organizer_term_name;?></span></h2>		
-						<?php 
-						// description
-						echo category_description();
-
-						// secondary description
-						if( !empty( $term_meta['description2'])) echo $term_meta['description2'];
+					<div class='evo_term_top_section dfx fx_dr_c'>
 						
-						if(!empty($term_meta['evcal_org_contact'])){						
-							echo "<p class='contactinfo border marb10'>". $term_meta['evcal_org_contact'] ."</p>";
-						}
-						if(!empty($term_meta['evcal_org_contact_e'])){						
-							echo "<p class='contactinfo email border marb10'>". $term_meta['evcal_org_contact_e'] ."</p>";
-						}
+						<?php if($img_url):?>
+							<div class="evotax_term_img dfx" style=''>
+								<img src='<?php echo $img_url;?>'/>
+							</div>	
+						<?php endif;?>						
+						
+
+						<div class='evo_tax_details'>
+							<h2 class="tax_term_name organizer_name evo_h2 ttu"><span><?php echo $organizer_term_name;?></span></h2>		
+							<?php 
+							// description
+							echo category_description();
+
+							// secondary description
+							if( !empty( $term_meta['description2'])) echo $term_meta['description2'];
+							
+							if(!empty($term_meta['evcal_org_contact'])){						
+								echo "<p class='contactinfo border marb10'>". $term_meta['evcal_org_contact'] ."</p>";
+							}
+							if(!empty($term_meta['evcal_org_contact_e'])){						
+								echo "<p class='contactinfo email border marb10'>". $term_meta['evcal_org_contact_e'] ."</p>";
+							}
 
 
-						echo (!empty($term_meta['evcal_org_address']))? '<p class="org_address border marb10">'.$term_meta['evcal_org_address'].'</p>':null; 
+							echo (!empty($term_meta['evcal_org_address']))? '<p class="org_address border marb10">'.$term_meta['evcal_org_address'].'</p>':null; 
 
 
-						// social media links
-						$social_html = '';
-						foreach( eventon_get_organizer_social_meta_array()  as $f=>$k){
-							if(!isset($term_meta[$k])) continue;
-							if(empty($term_meta[$k])) continue;
+							// social media links
+							$social_html = '';
+							foreach( eventon_get_organizer_social_meta_array()  as $f=>$k){
+								if(!isset($term_meta[$k])) continue;
+								if(empty($term_meta[$k])) continue;
 
-							$social_html .= "<a href='". $term_meta[$k]. "'><i class='fa fa-{$f}'></i></a>";
-						}
+								$social_html .= "<a href='". $term_meta[$k]. "'><i class='fa fa-{$f}'></i></a>";
+							}
 
-						if(!empty($social_html)){
-							echo "<div class='evo_tax_social_media marb10'>{$social_html}</div>";
-						}
-						?>			
+							if(!empty($social_html)){
+								echo "<div class='evo_tax_social_media marb10'>{$social_html}</div>";
+							}
+							?>			
 
-						<?php if( $organizer_term_link):?>
-							<p class='mar0 pad0'><a class='evo_btn evcal_btn' href='<?php echo $organizer_term_link;?>' target='<?php echo $organizer_link_target;?>'><?php evo_lang_e('Learn More');?></a></p>
-						<?php endif;?>
+							<?php if( $organizer_term_link):?>
+								<p class='mar0 pad0'><a class='evo_btn evcal_btn' href='<?php echo $organizer_term_link;?>' target='<?php echo $organizer_link_target;?>'><?php evo_lang_e('Learn More');?></a></p>
+							<?php endif;?>
 
+						</div>
 					</div>
-				</div>
 
 
 
-				<?php 
-				// location map
-				if( !empty($term_meta['evcal_org_address']) ):
-					EVO()->cal->set_cur('evcal_1');
-					$zoomlevel = EVO()->cal->get_prop('evcal_gmap_zoomlevel');
-						if(!$zoomlevel) $zoomlevel = 16;
-
-					$map_type = EVO()->cal->get_prop('evcal_gmap_format');
-						if(!$map_type) $map_type = 'roadmap';
-
-					$location_address = stripslashes($term_meta['evcal_org_address']);
-
-					$map_data = array(
-						'address'=> $location_address,
-						'latlng'=> '',
-						'location_type'=> 'add',
-						'zoom'=> $zoomlevel,
-						'scroll'=> EVO()->cal->check_yn('evcal_gmap_scroll')? 'no':'yes',
-						'mty'=>$map_type,
-						'delay'=>400
-					);
-				?>
-
-					<div id='evo_event_organizer_term_<?php echo $term->term_id;?>' class="evo_trigger_map evo_location_map term_location_map" <?php echo $help->array_to_html_data($map_data);?>></div>
-				
-				<?php endif;?>		
-				
-
-				<div class='evo_term_events'>
-					<h3 class="evotax_term_subtitle organizer_subtitle border marb30"><?php evo_lang_e('Events by this organizer');?></h3>
-				
 					<?php 
+					// location map
+					if( !empty($term_meta['evcal_org_address']) ):
+						EVO()->cal->set_cur('evcal_1');
+						$zoomlevel = EVO()->cal->get_prop('evcal_gmap_zoomlevel');
+							if(!$zoomlevel) $zoomlevel = 16;
 
-						$eventtop_style = EVO()->cal->get_prop('evosm_eventtop_style','evcal_1') == 'white'? '0':'2';
+						$map_type = EVO()->cal->get_prop('evcal_gmap_format');
+							if(!$map_type) $map_type = 'roadmap';
 
-						echo EVO()->shortcodes->events_list( apply_filters('evo_tax_archieve_page_shortcode' ,array(
-							'number_of_months'=>5,
-							'event_organizer'=>$term->term_id,
-							'hide_mult_occur'=>'no',
-							'hide_empty_months'=>'yes',
-							'eventtop_style'=> $eventtop_style
-						) , $tax,$term->term_id) );
+						$location_address = stripslashes($term_meta['evcal_org_address']);
 
+						$map_data = array(
+							'address'=> $location_address,
+							'latlng'=> '',
+							'location_type'=> 'add',
+							'zoom'=> $zoomlevel,
+							'scroll'=> EVO()->cal->check_yn('evcal_gmap_scroll')? 'no':'yes',
+							'mty'=>$map_type,
+							'delay'=>400
+						);
 					?>
+
+						<div id='evo_event_organizer_term_<?php echo $term->term_id;?>' class="evo_trigger_map evo_location_map term_location_map" <?php echo $help->array_to_html_data($map_data);?>></div>
+					
+					<?php endif;?>		
+					
+
+					<div class='evo_term_events'>
+						<h3 class="evotax_term_subtitle organizer_subtitle border marb30"><?php evo_lang_e('Events by this organizer');?></h3>
+					
+						<?php 
+
+							$eventtop_style = EVO()->cal->get_prop('evosm_eventtop_style','evcal_1') == 'white'? '0':'2';
+
+							echo EVO()->shortcodes->events_list( apply_filters('evo_tax_archieve_page_shortcode' ,array(
+								'number_of_months'=>5,
+								'event_organizer'=>$term->term_id,
+								'hide_mult_occur'=>'no',
+								'hide_empty_months'=>'yes',
+								'eventtop_style'=> $eventtop_style
+							) , $tax,$term->term_id) );
+
+						?>
+					</div>
 				</div>
 			</div>
 		</div>
+
+		<?php evo_get_page_sidebar(); ?>
 	</div>
-
-	<?php evo_get_page_sidebar(); ?>
-
 </div>
 
 <?php	do_action('eventon_after_main_content'); ?>

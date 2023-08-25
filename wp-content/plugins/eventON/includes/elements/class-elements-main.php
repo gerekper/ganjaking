@@ -1,7 +1,7 @@
 <?php
 /**
  * EventON General Calendar Elements
- * @version 4.4.2
+ * @version 4.4.4
 
 Items //
 print_date_time_selector
@@ -210,7 +210,7 @@ class EVO_General_Elements{
 				echo"<p class='evo_field_label'>".$name.$legend_code . "</p><p class='evo_field_container'>";
 
 				$height = !empty($height)? "height:{$height}":'';
-				echo "<textarea name='{$id}' style='width:100%; {$height}' {$placeholder}>{$value}</textarea>";
+				echo "<textarea class='{$field_class}' name='{$id}' style='width:100%; {$height}' {$placeholder}>{$value}</textarea>";
 
 				echo "</p></div>";
 
@@ -337,7 +337,7 @@ class EVO_General_Elements{
 						
 				echo "<p class='evo_elm_row evo_elm_select {$id} {$row_class}' style='{$row_style}'>";
 				echo "<label>$name $legend_code</label>"; 
-				echo "<select class='ajdebe_dropdown' name='".$id."'>";
+				echo "<select class='ajdebe_dropdown {$field_class}' name='".$id."'>";
 
 				if(is_array($options)){
 					$dropdown_opt = !empty($value)? $value: (!empty($default)? $default :'');		

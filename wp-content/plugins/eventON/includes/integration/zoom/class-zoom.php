@@ -385,18 +385,28 @@ class EVO_Zoom_Int{
 			array('id'=>'_evo_zoom','type'=>'yesno','name'=>__('Enable Zoom API','eventon'),'afterstatement'=>'_evo_zoom', 'legend'=>'This will allow you to integrate zoom direct into each event using the API information from zoom.'),
 			array('id'=>'_evo_zoom','type'=>'begin_afterstatement'),
 
-			array('id'=>'_evo_zoom_key','type'=>'text',
-				'name'=>__('API Key','eventon'),'hideable'=>true
-			),	
-			array('id'=>'_evo_zoom_secret','type'=>'text',
-				'name'=>__('API Secret Key','eventon'), 'hideable'=>true
-			),	
-			array('id'=>'_evo_zoom_note','type'=>'note',
-				'name'=> sprintf('<a href="%s" target="_blank">%s</a>',
-					'http://docs.myeventon.com/documentations/how-to-find-zoom-api-keys/',
-					__('Learn how to find Zoom API key and other information.','eventon') 
-				)
-			),			
+				array('id'=>'_evo_zoom','type'=>'subheader','name'=> __('Server to server Oauth Connection','eventon'). ' [Beta]' ),
+					array('id'=>'_evo_zoom_oauth_id','type'=>'text',
+						'name'=>__('Oauth Account ID','eventon'),'hideable'=>true
+					),array('id'=>'_evo_zoom_oauth_cid','type'=>'text',
+						'name'=>__('Oauth Client ID','eventon'),'hideable'=>true
+					),array('id'=>'_evo_zoom_oauth_csecret','type'=>'text',
+						'name'=>__('Oauth Client Secret','eventon'),'hideable'=>true
+					),
+
+				array('id'=>'_evo_zoom','type'=>'subheader','name'=> __('JWT Connection: Deprecating','eventon')),
+				array('id'=>'_evo_zoom_key','type'=>'text',
+					'name'=>__('API Key','eventon'),'hideable'=>true
+				),	
+				array('id'=>'_evo_zoom_secret','type'=>'text',
+					'name'=>__('API Secret Key','eventon'), 'hideable'=>true
+				),	
+				array('id'=>'_evo_zoom_note','type'=>'note',
+					'name'=> sprintf('<a href="%s" target="_blank">%s</a>',
+						'http://docs.myeventon.com/documentations/how-to-find-zoom-api-keys/',
+						__('Learn how to find Zoom API key and other information.','eventon') 
+					)
+				),			
 						
 			array('id'=>'_evo_zoom','type'=>'end_afterstatement'),
 			array('type'=>'sub_section_close'),

@@ -619,11 +619,10 @@ class evo_cal_help {
 			return sprintf("%s <a href='%s' class='evcal_btn'>%s</a>", evo_lang('Login required to see the information') , $link, evo_lang('Login'));
 		}
 
-	// run special character encoding
+	// run special character encoding @updated 4.4.4
 		function htmlspecialchars_decode($data){
-			return ( evo_settings_check_yn($this->opt1, 'evo_dis_icshtmldecode'))? 
-				$data:
-				htmlspecialchars_decode($data);
+			return EVO()->cal->check_yn('evo_dis_icshtmldecode','evcal_1') ? 
+				htmlspecialchars_decode($data) : $data;
 		}	
 
 

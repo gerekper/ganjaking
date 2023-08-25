@@ -6,7 +6,7 @@
  * @author 		AJDE
  * @category 	Core
  * @package 	EventON/Functions/AJAX
- * @version     4.4.1
+ * @version     4.4.4
  */
 
 class EVO_AJAX{
@@ -338,7 +338,6 @@ class EVO_AJAX{
 		public static function refresh_elm(){
 
 			$PP = EVO()->helper->sanitize_array( $_POST );
-
 			wp_send_json($this->get_refresh_elm_data( $PP ));	
 		}
 
@@ -420,27 +419,39 @@ class EVO_AJAX{
 		}
 
 	// load single eventcard content
-	// @ 2.9.2
+	// @ 2.9.2 @u 4.4.4
 		public static function load_single_eventcard_content(){
 			$postdata = EVO()->helper->sanitize_array( $_POST );
 
 			$event_id = (int) $postdata['event_id'];
 			$ri = (int) $postdata['ri'];
 
-			$SC = isset($post_data['SC']) ? $post_data['SC'] : array();
+			$SC = array();
+			if( isset($postdata['SC']) ) $SC = $postdata['SC'];
+			if( isset($postdata['sc']) ) $SC = $postdata['sc'];
+
 			$lang = isset($SC['lang'])? $SC['lang']:'L1';
 
 			$SC['show_exp_evc'] = 'yes';
-
+			
 			$event_data = EVO()->calendar->get_single_event_data( $event_id, $lang, $ri, $SC);
 
 			if($event_data && is_array($event_data)) $event_data = $event_data[0];
 
+			$event_html_content = $event_data['content'];
+
+			unset($event_data['content']);
+
 			wp_send_json(
-				array(
-				'status'=>'good',
-				'content'=> $event_data['content']
-			)); 
+				apply_filters('evoajax_single_eventcard_data',
+					array(
+						'status'=>'good',
+						'content'=> $event_html_content, 
+						'data'=> $event_data
+					),
+					$event_data, $postdata
+				)
+			); 
 		}
 
 	// OUTPUT: json headers

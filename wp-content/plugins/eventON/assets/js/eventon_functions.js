@@ -1,6 +1,6 @@
 /*
  * Javascript: EventON functions for all calendars
- * @version: 4.4.2
+ * @version: 4.4.4
  */
 (function($){
 
@@ -197,9 +197,7 @@
   			var ajax_url = el.evo_get_ajax_url({a: OO.ajax_action, e: OO.end, type: OO.ajax_type});
 
 			form.ajaxSubmit({
-				beforeSubmit: function(opt, xhr){	
-					console.log(xhr);
-					console.log(opt);
+				beforeSubmit: function(opt, xhr){
 					$('body').trigger('evo_ajax_beforesend_' + OO.uid ,[ OO , xhr, opt]); // 4.4.2
 					if( LB && OO.lightbox_loader) LB.evo_lightbox_start_inloading();
 				},
@@ -308,6 +306,8 @@
 			var html = '<div class="evo_lightbox '+OO.lbc+' '+OO.end+'" data-lbc="'+OO.lbc+'"><div class="evolb_content_in"><div class="evolb_content_inin"><div class="evolb_box '+OO.lbc+' '+OO.lbsz +'"><div class="evolb_header"><a class="evolb_backbtn" style="display:none"><i class="fa fa-angle-left"></i></a><p class="evolb_title">' + OO.t + '</p><span class="evolb_close_btn evolbclose ">X</span></div><div class="evolb_content '+ OO.lb_padding +'"></div><p class="message"></p></div></div></div></div>';
 
 			$('#evo_lightboxes').append( html );
+
+			//console.log(OO);
 
 
 			LIGHTBOX = $('.evo_lightbox.'+ OO.lbc);
@@ -453,7 +453,7 @@
 
 		}
 
-	// Get Ajax url @since 4.4
+	// Get Ajax url @since 4.4 
 		$.fn.evo_get_ajax_url = function(opt){
 			var defaults = { a:'',e:'client', type: 'ajax'};
 			var OO = $.extend({}, defaults, opt);
@@ -476,12 +476,21 @@
 			}	
 		}
 	
-	// Count down	// @+ 3.0
+	// Count down	// @+ 4.4.4
 		$.fn.evo_countdown_get = function(opt){
-			var defaults = { gap:''};
+			var defaults = { gap:'', endutc: ''};
 			var OPT = $.extend({}, defaults, opt);
-			
-			distance = (OPT.gap * 1000);
+			var gap = OPT.gap;
+			console.log(OPT);
+
+			// get gap using end time utc
+				var Mnow = moment().utc();
+				var M = moment();
+				M.set('millisecond', OPT.endutc );
+
+				gap = OPT.endutc - Mnow.unix();
+		
+			distance = ( gap * 1000);
 
 			var days = Math.floor(distance / (1000 * 60 * 60 * 24));
 			var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -508,13 +517,14 @@
 
 			// intial run
 			var gap = parseInt(el.data('gap'));
+			var endutc = parseInt(el.data('endutc'));
 			var text = el.data('t');
 			if(text === undefined) text = '';
 
 			if( el.hasClass('evo_cd_on')) return;
 
 			if( gap > 0 ){
-				dd = el.evo_countdown_get({ 'gap': gap});
+				dd = el.evo_countdown_get({ 'gap': gap, 'endutc':endutc });
 				el.html( ( dd.d>0 ? dd.d + ' ' + ( dd.d >1 ? days_text: day_text ) + " "  :'') + dd.h + ":" + dd.m +':'+ dd.s +'  '+text );
 				
 				el.data('gap', (gap -1) );
@@ -542,7 +552,7 @@
 							bar_elm.find('b').css('width',perc+'%');							
 						}
 						
-						dd = el.evo_countdown_get({ 'gap': gap});	
+						dd = el.evo_countdown_get({ 'gap': gap, 'endutc':endutc });	
 
 						el.html( ( dd.d>0 ? dd.d + ' '  + ( dd.d >1 ? days_text: day_text ) + " ":'') + dd.h + ":" + dd.m +':'+ dd.s +' '+text );
 						el.data('gap', ( gap - 1)  );						

@@ -5,36 +5,27 @@ namespace AC\Service;
 use AC\Plugin;
 use AC\Registerable;
 
-final class Setup implements Registerable
-{
+final class Setup implements Registerable {
 
-    public const PARAM_FORCE_INSTALL = 'ac-force-install';
+	private $setup;
 
-    private $setup;
+	public function __construct( Plugin\Setup $setup ) {
+		$this->setup = $setup;
+	}
 
-    public function __construct(Plugin\Setup $setup)
+	public function register(): void
     {
-        $this->setup = $setup;
-    }
+		add_action( 'init', [ $this, 'run' ], 1000 );
+	}
 
-    public function register(): void
-    {
-        add_action('init', [$this, 'run'], 1000);
-    }
+	public function run(): void {
+		if ( wp_doing_ajax() ) {
+			return;
+		}
 
-    public function run(): void
-    {
-        if (wp_doing_ajax()) {
-            return;
-        }
+		$force_install = '1' === filter_input( INPUT_GET, 'ac-force-install' );
 
-        if ( ! is_blog_installed()) {
-            return;
-        }
-
-        $force_install = '1' === filter_input(INPUT_GET, self::PARAM_FORCE_INSTALL);
-
-        $this->setup->run($force_install);
-    }
+		$this->setup->run( $force_install );
+	}
 
 }

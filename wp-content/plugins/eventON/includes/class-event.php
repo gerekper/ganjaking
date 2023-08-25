@@ -1,7 +1,7 @@
 <?php
 /**
  * Event Class for one event
- * @version 4.4.1
+ * @version 4.4.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -849,15 +849,17 @@ class EVO_Event extends EVO_Data_Store{
 			return $this->get_prop('_virtual_type');
 		}
 
-		/* type = direct (by pass event page direct to url) or view (link to event page to access url) */
-		function virtual_url( $type = 'direct'){
+		// type = direct (by pass event page direct to url) or view (link to event page to access url) 
+		// @updated 4.4.4
+		function virtual_url( $type = 'access'){
 			$url = $this->get_virtual_url();
 			if(!$url) return false;
 
 			// process youtube live links
 			$url = $this->_process_vir_url($url);
 
-			if( $this->check_yn('_vir_nohiding') && $type == 'direct') return $url;
+			if( $this->check_yn('_vir_nohiding') ) return $url;
+			if( $type == 'direct' ) return $url;
 
 			$event_link = get_the_permalink($this->event_id);
 			$append = 'event_access';
@@ -1409,7 +1411,7 @@ class EVO_Event extends EVO_Data_Store{
 		}
 
 	// ICS file for the event
-	// @updated 4.3
+	// @updated 4.4.4
 		function get_ics_content($include_repeats = false){
 			$HELP = new evo_helper();
 
@@ -1437,6 +1439,12 @@ class EVO_Event extends EVO_Data_Store{
 			// summary for ICS file			
 				$content = (!empty($this->content))? $this->content:'';
 				if(!empty($content)){
+					
+					// use raw content if disable character encoding
+					if( !empty($this->raw_content) && EVO()->cal->check_yn('evo_dis_icshtmldecode','evcal_1')){
+						$content = $this->raw_content;
+					} 
+
 					$content = strip_tags($content);
 					$content = str_replace(']]>', ']]&gt;', $content);
 					$summary = wp_trim_words($content, 50, '[..]');

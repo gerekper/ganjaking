@@ -94,6 +94,7 @@ class EVO_Settings{
 		require_once(AJDE_EVCAL_PATH.'/includes/admin/settings/class-settings-content.php');
 	}
 
+
 // INITIATION
 	function get_current_tab_values(){		
 		$current_tab_number = substr($this->focus_tab, -1);

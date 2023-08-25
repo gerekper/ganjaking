@@ -1189,7 +1189,8 @@ jQuery(document).ready(function($){
 					end:'client',
 					content: new_content,
 					ajax:'yes',
-					ajax_endpoint: 'eventon_load_single_eventcard_content',
+					ajax_type: 'endpoint',
+					ajax_action: 'eventon_load_single_eventcard_content',
 					d: 	data_arg,
 					other_data: {
 						extra_classes: 'evo_lightbox_body eventon_list_event evo_pop_body evcal_eventcard event_'+SC_data.event_id +'_'+ SC_data.repeat_interval + cancel_class,

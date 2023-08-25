@@ -339,7 +339,7 @@ class EVO_Cal_Event_Structure{
 									't'=>	$EO->name,
 									'ajax'=>'yes',
 									'ajax_type'=>'endpoint',
-									'ajax_action'=>'eventon_gen_trig_ajax',
+									'ajax_action'=>'eventon_get_tax_card_content',
 									'end'=>'client',
 									'd'=> array(					
 										'eventid'=> $EVENT->ID,
@@ -413,7 +413,7 @@ class EVO_Cal_Event_Structure{
 
 					
 					$OT.= "<span class='evo_epbar_o'><span class='evo_ep_bar'><b style='width:{$perc}%'></b></span></span>";
-					$OT.= "<span class='evo_ep_time evo_countdowner' data-gap='{$gap}' data-dur='{$duration}' data-exp_act='". $exp_act ."' data-n='{$nonce}' data-ds='".evo_lang('Days')."' data-d='".evo_lang('Day')."' data-t='". evo_lang('Time Left')."'></span>";
+					$OT.= "<span class='evo_ep_time evo_countdowner' data-endutc='{$end_utc}' data-gap='{$gap}' data-dur='{$duration}' data-exp_act='". $exp_act ."' data-n='{$nonce}' data-ds='".evo_lang('Days')."' data-d='".evo_lang('Day')."' data-t='". evo_lang('Time Left')."'></span>";
 
 					$OT.= "</span>";
 

@@ -4,8 +4,8 @@ Plugin Name: EventON
 Author URI: http://ashanjay.com/
 Tags: calendar, event calendar, events, directory, location, organizer, repeating event
 Requires at least: 6.0
-Tested up to: 6.2.2
-Stable tag: 4.4.3
+Tested up to: 6.3
+Stable tag: 4.4.4
 Initial Release: 2011-12-21
 
 EventON is an event calendar plugin for WordPress, that helps you showcase and present your events to your audiences in a clean and clutter-free layout. 
@@ -52,6 +52,17 @@ Automatic updates will work for plugin update after you have registered and acti
 How to update eventON: http://docs.myeventon.com/documentations/update-eventon/ 
 
 == Changelog ==
+= 4.4.4 (2023-8-24) = 
+FIXED: organizer name clicked on eventtop not loading anything
+FIXED: event archive pages layout styles
+FIXED: open eventcard as lightbox via ajax to use endpoint
+FIXED: ux_val = 3a not working
+FIXED: virtual url not working
+FIXED: schedule view ux_val 3a not loading event type override colors
+FIXED: countdown timer and progress bar for live events to use event end time unix
+FIXED: archive pages layout and styles
+FIXED: tiles view title not aligned with rest of tiles
+
 = 4.4.3 (2023-7-20) =
 FIXED: subtitle going into same line as title
 FIXED: admin settings styles

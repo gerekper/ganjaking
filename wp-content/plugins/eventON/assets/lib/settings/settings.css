@@ -263,6 +263,7 @@
 	.ajdes_notice{
 		background-color: #c7e3ec;border-radius: 15px;padding:15px 20px;
 	}
+	.evosettings_field_child .ajdes_notice{background-color: transparent;padding: 0;}
 
 /* hidden yes no section */
 	.customization_right_in .backender_yn_sec{border-top: none;}

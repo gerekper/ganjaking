@@ -986,7 +986,7 @@ class EVO_generator {
 								'ID'=> $EVENT->ID,
 								'event_id' => $EVENT->ID,
 								'event_start_unix'=> (int)$row_start,
-								'event_start_unix_utc'=> (int)$row_start + $EVENT->utcoff,
+								'event_start_unix_utc'=> (int)$row_start + (int)$EVENT->utcoff,
 								'event_end_unix'=> (int)$row_end,
 								'event_title'=> get_the_title(),
 								'event_color'=> $evcal_event_color_n,
@@ -1057,7 +1057,7 @@ class EVO_generator {
 			$data =  $this->generate_event_data($event_array, '', $month_int);
 			$this->__calendar_type = 'default'; // reset calendar type 
 
-			return $data;
+			return apply_filters('evo_single_event_data_return', $data, $EVENT );
 		}
 
 	// RETURN event times

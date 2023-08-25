@@ -1,7 +1,7 @@
 <?php
 /**
  *	EventON Template functions for template system
- *	@version 4.4
+ *	@version 4.4.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -97,8 +97,8 @@ function evotemp_before_header(){
 			// virtual event access
 			if($_url_var == 'event_access'){					
 				
-				$vir_url = $EVENT->virtual_url();
-				
+				$vir_url = $EVENT->virtual_url('direct');
+
 				if($vir_url){
 					wp_redirect( $vir_url ); exit;
 				} 
@@ -277,6 +277,8 @@ function evo_get_page_footer(){
 }
 function evo_get_page_sidebar(){
 	if( !evo_current_theme_is_fse_theme() ){
+		echo "<div class='evo_sidebar'>";
 		get_sidebar();
+		echo "</div>";
 	}
 }

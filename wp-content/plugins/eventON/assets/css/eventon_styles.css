@@ -1697,14 +1697,14 @@
 	#evcal_list .evorow.getdirections p, .evo_pop_body .evorow.getdirections p{
 		position:relative;margin:0;overflow: hidden;
 	}
-	#evcal_list .evorow.getdirections .evoInput, .evo_pop_body .evorow.getdirections .evoInput{
+	#evcal_list .evorow.getdirections .evoInput[type="text"], 
+	.evo_pop_body .evorow.getdirections .evoInput[type="text"]{
 		width:100%;
 		font-size: 16px;
-		border: none;
+		border: none;outline:none;
 		padding: 8px 20px;
 		margin: 0;
-		text-align: center;
-		outline:none;
+		text-align: center;		
 	}
 	#evcal_list .evorow.getdirections .evoInput:focus, .evo_pop_body .evorow.getdirections .evoInput:focus{
 		background-color: transparent;outline:none;
@@ -2776,8 +2776,8 @@
 	{transform:rotate(135deg) translate(-1px, -1px);}
 
 	/*#evcal_widget #evcal_head .evcal_arrows:before{    transform: rotate(135deg) translate(-1px, 11px) scale(0.7);}*/
-	#evcal_widget #evcal_head .evcal_arrows.evo_arrow_next:before
-	{transform: rotate(-45deg) translate(-1px, -11px) scale(0.7)}
+	/*#evcal_widget #evcal_head .evcal_arrows.evo_arrow_next:before
+	{transform: rotate(-45deg) translate(-1px, -11px) scale(0.7)}*/
 	
 	#evcal_widget #evcal_head #evcal_prev {margin-right:2px; }
 	#evcal_widget #evcal_head #evcal_next {margin-left:2px;}
@@ -3259,7 +3259,7 @@
 		}
 		.ajde_evcal_calendar.boxy.boxstyle0 #evcal_list .evoet_cx.evoet_c4{flex-basis: 100%}
 		.ajde_evcal_calendar.boxy.boxstyle0 #evcal_list .eventon_list_event .desc_trig{
-			padding:30px; flex-direction: row;
+			padding:30px; flex-direction: row;align-content: flex-start;
 		}
 		.ajde_evcal_calendar.boxy.boxstyle0 #evcal_list .eventon_list_event .desc_trig .evoet_c2{flex-basis: 100%}
 		.ajde_evcal_calendar.boxy.boxstyle0 #evcal_list p.desc_trig_outter,
@@ -3496,10 +3496,36 @@
 		}
 
 /* taxonomy /location card */
-	.evotax_term_card .evotax_term_details, .evotax_term_card{display: flex; justify-content: space-between;}
+	.evotax_term_card .evotax_term_details, 
+	.evotax_term_card .evo_card_wrapper,
+	.evotax_term_card
+	{display: flex; justify-content: space-between;}
+	.evotax_term_card .evo_card_wrapper .content-area{
+	 	margin-bottom: 20px;
+	 	float:none;
+	}
 	.evotax_term_card .evotax_term_details.evo_location_tax{
 		flex-wrap: wrap;justify-content: center;
 	}
+
+	.evotax_term_card .evo_card_wrapper{
+		margin:0 auto;
+		box-sizing: border-box;
+	}
+	.evo_card_wrapper .evo_demo_sidebar,
+	.evo_card_wrapper .evo_sidebar
+	{ margin-left: 20px;display: flex;flex-direction: column; flex:1;}
+
+	.evo_card_wrapper .evo_sidebar .widget-area,
+	.evo_card_wrapper .evo_sidebar .widget
+	{width:100%!important; float:none!important;}
+
+	@media (max-width: 800px){
+		.evotax_term_card .evo_card_wrapper{flex-direction: column;}
+		.evo_card_wrapper .evo_demo_sidebar,
+		.evo_card_wrapper .evo_sidebar{width: 100%; padding-top: 10px;}
+	}
+
 	.evotax_term_card .border{
 		border-bottom: 1px solid var(--evo_linecolor_1);
 	}

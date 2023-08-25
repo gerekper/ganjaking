@@ -1,1 +1,0 @@
-import 'jstree/dist/jstree';

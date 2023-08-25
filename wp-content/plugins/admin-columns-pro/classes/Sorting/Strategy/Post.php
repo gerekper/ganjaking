@@ -11,7 +11,7 @@ use WP_Query;
 
 /**
  * Use `QueryBindings` instead of `QueryVars` for the sorting models
- * @depecated 6.3
+ * @depecated NEWVERSION
  */
 class Post extends Strategy
 {

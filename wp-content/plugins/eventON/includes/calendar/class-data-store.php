@@ -134,6 +134,7 @@ class EVO_Data_Store{
 		$this->post_status = $results->post_status;
 		$this->post_parent = $results->post_parent;
 		$this->post_password = $results->post_password;
+		$this->raw_content = $results->post_content;
 
 		$time = strtotime($this->post_date);
 		$this->time = date('M j,Y \A\T g:iA', $time);

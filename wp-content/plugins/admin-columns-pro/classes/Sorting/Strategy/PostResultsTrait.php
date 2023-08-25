@@ -9,11 +9,11 @@ trait PostResultsTrait
 
     /**
      * For backwards compatibility we need the method `get_results()`
-     * @depecated 6.3
+     * @depecated NEWVSERSION
      */
     public function get_results(array $args = []): array
     {
-        _deprecated_function(__METHOD__, '6.3');
+        _deprecated_function(__METHOD__, 'NEWVERSION');
 
         global $wp_query;
 

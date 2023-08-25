@@ -1,6 +1,0 @@
-@mixin swiper-theme($background) {
-  .swiper-pagination-bullet.swiper-pagination-bullet-active,
-  .swiper-pagination.swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
-    background: $background !important;
-  }
-}
