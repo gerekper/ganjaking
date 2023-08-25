@@ -1,5 +1,11 @@
 *** Redsys Gateway Change Log ***
 
+2023.08.19 - version 22.1.1
+
+* FIX: InSite compatibility with SUMO Subscriptions.
+* FIX: New Subscripiton paid with Subscription Token.
+* UPDATE: String in General settings, Redsys Advanced.
+
 2023.08.18 - version 22.1.0
 
 * NEW: Added compatibility to Redsys redirecttion & InSite with SUMO Subscriptions.

@@ -8,7 +8,7 @@ use WP_User_Query;
 
 /**
  * Use `QueryBindings` instead of `QueryVars` for the sorting models
- * @depecated NEWVERSION
+ * @depecated 6.3
  */
 final class User extends Strategy
 {
@@ -19,7 +19,7 @@ final class User extends Strategy
     }
 
     /**
-     * @depecated NEWVERSION
+     * @depecated 6.3
      *
      * @param array $data
      *

@@ -4815,7 +4815,6 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'redsys', 'payment_complete() 5' );
 				}
-				$order->payment_complete();
 				if ( WCRed()->check_order_has_sumo_subscriptions( $order->get_id() ) ) {
 					if ( function_exists( 'sumo_save_subscription_payment_info' ) ) {
 						sumo_save_subscription_payment_info(
@@ -4831,6 +4830,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						);
 					}
 				}
+				$order->payment_complete();
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'redsys', 'payment_complete 5' );
 				}
@@ -12566,7 +12566,6 @@ add_filter( 'sumosubscriptions_is_redsys_preapproval_status_valid', 'redsys_can_
  */
 function redsys_renew_sumo_subscription( $bool, $subscription_id, $renewal_order, $retry = false ) {
 	$redsys = new WC_Gateway_Redsys();
-	$result = $redsys->renew_sumo_subscription( $bool, $subscription_id, $renewal_order, $retry = false );
-	return $result;
+	$redsys->renew_sumo_subscription( $bool, $subscription_id, $renewal_order, $retry = false );
 }
 add_filter( 'sumosubscriptions_is_redsys_preapproved_payment_transaction_success', 'redsys_renew_sumo_subscription', 10, 3 );

@@ -28,7 +28,7 @@ use ACP\Migrate\Export;
 		<div style="display: flex;">
 			<button class="button button-primary" data-export="json">
                 <?php
-                _e('Export To JSON', 'codepress-admin-columns'); ?>
+                _e('Export selection to JSON', 'codepress-admin-columns'); ?>
 			</button>
 			<p class="php-export">
                 <?= __('Looking for PHP Export?', 'codepress-admin-columns'); ?>

@@ -23,8 +23,11 @@ class CreatedVia extends AC\Column implements ACP\Search\Searchable, ACP\Export\
     public function get_value($id)
     {
         $order = wc_get_order($id);
+        $created_via = $order
+            ? $order->get_created_via()
+            : null;
 
-        return $order ? $order->get_created_via() : $this->get_empty_char();
+        return $created_via ?: $this->get_empty_char();
     }
 
     public function search()

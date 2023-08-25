@@ -26,7 +26,10 @@ class UpdatePlugin implements Registerable
 
     public function register(): void
     {
-        add_action('pre_set_site_transient_update_plugins', [$this, 'check_update']);
+        /**
+         * For testing purpose use `wp_clean_update_cache()`
+         */
+        add_filter('pre_set_site_transient_update_plugins', [$this, 'check_update']);
     }
 
     public function check_update($transient)

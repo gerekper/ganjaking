@@ -129,7 +129,7 @@ pre[data-line] {
 
 	background: hsla(24, 20%, 50%,.08);
 	background: -moz-linear-gradient(left, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
-	background: -webkit-linear-gradient(left, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));			   	   			 	 	 	 	
+	background: -webkit-linear-gradient(left, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
 	background: -o-linear-gradient(left, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
 	background: linear-gradient(left, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
 
@@ -204,4 +204,3 @@ pre.line-numbers > code {
 		}
 
 
-/* 941105-1690279093-au */

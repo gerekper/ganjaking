@@ -6,6 +6,10 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+= 3.14.2 ( 2023-08-23 ) =
+- Fix: Media library scanner not identifying some MariaDB versions correctly
+- Improvement: Code improvements
+
 = 3.14.1 ( 2023-07-24 ) =
 - Improvement: Minor code improvements and fixes
 
@@ -188,4 +192,3 @@ Change Log:
 
 
 
-941105-1690279093-au

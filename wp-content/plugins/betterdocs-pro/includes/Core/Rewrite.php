@@ -10,6 +10,15 @@ class Rewrite extends FreeRewrite {
         add_action( 'term_link', [$this, 'term_link'], 10, 3 );
     }
 
+    public function remove_knowledge_base_placeholder( $permalink ) {
+        $permalink_array = $this->permalink_structure( $permalink, 'arraywithpercent' );
+        $permalink_array = array_filter( $permalink_array, function ( $item ) {
+            return $item !== '%knowledge_base%';
+        } );
+
+        return trailingslashit( implode( '/', $permalink_array ) );
+    }
+
     /**
      * This method is hooked with an action called 'betterdocs::settings::saved'
      * also an override function Of
@@ -23,6 +32,10 @@ class Rewrite extends FreeRewrite {
      * @return void
      */
     public function save_permalink_structure( $_saved, $_settings, $_old_settings ) {
+        if ( $_settings['multiple_kb'] == false ) {
+            $_settings['permalink_structure'] = $this->remove_knowledge_base_placeholder( $_settings['permalink_structure'] );
+        }
+
         parent::save_permalink_structure( $_saved, $_settings, $_old_settings );
 
         /**
@@ -37,18 +50,14 @@ class Rewrite extends FreeRewrite {
     }
 
     public function rules() {
-        // flush_rewrite_rules();
-        // dump( get_option('rewrite_rules') );
-
         $base = $this->get_base_slug();
 
         if ( betterdocs()->settings->get( 'multiple_kb', false ) ) {
             $this->add_rewrite_rule( $base . '/([^/]+)/?$', 'index.php?knowledge_base=$matches[1]' );
-
-            $_docs_perma_struct = $this->permalink_structure( '', 'array' );
-            if ( count( $_docs_perma_struct ) == 1 ) {
-                $this->add_rewrite_rule( $base . '/([^/]+)/([^/]+)/?$', 'index.php?knowledge_base=$matches[1]&doc_category=$matches[2]' );
-            }
+            $this->add_rewrite_rule(
+                $base . '/([^/]+)/([^/]+)/?$',
+                'index.php?knowledge_base=$matches[1]&doc_category=$matches[2]'
+            );
         }
 
         parent::rules();

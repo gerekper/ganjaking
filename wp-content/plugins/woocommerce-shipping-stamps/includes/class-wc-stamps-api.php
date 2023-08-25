@@ -45,71 +45,21 @@ class WC_Stamps_API {
 	private static $logging_enabled = null;
 
 	/**
-	 * Get addon name by type.
+	 * Get Stamps.com API rate addons property.
 	 *
-	 * @param string $type Type.
-	 *
-	 * @return string Addon name.
+	 * @return string Addon property name.
 	 */
-	public static function get_addon_type_name( $type ) {
-		switch ( $type ) {
-			case 'SC-A-HP' :
-				return __( 'Stamps.com hidden postage', 'woocommerce-shipping-stamps' );
-			case 'SC-A-INS' :
-				return __( 'Stamps.com insurance', 'woocommerce-shipping-stamps' );
-			case 'SC-A-INSRM' :
-				return __( 'Stamps.com insurance for registered mail', 'woocommerce-shipping-stamps' );
-			case 'US-A-CM' :
-				return __( 'Certified mail', 'woocommerce-shipping-stamps' );
-			case 'US-A-COD' :
-				return __( 'Collect on delivery', 'woocommerce-shipping-stamps' );
-			case 'US-A-DC' :
-				return __( 'Delivery confirmation', 'woocommerce-shipping-stamps' );
-			case 'US-A-ESH' :
-				return __( 'Express sunday/holiday guaranteed', 'woocommerce-shipping-stamps' );
-			case 'US-A-INS' :
-				return __( 'USPS insurance', 'woocommerce-shipping-stamps' );
-			case 'US-A-NDW' :
-				return __( 'No delivery on saturdays', 'woocommerce-shipping-stamps' );
-			case 'US-A-RD' :
-				return __( 'Restricted delivery', 'woocommerce-shipping-stamps' );
-			case 'US-A-REG' :
-				return __( 'Registered mail', 'woocommerce-shipping-stamps' );
-			case 'US-A-RR' :
-				return __( 'Return reciept requested', 'woocommerce-shipping-stamps' );
-			case 'US-A-RRM' :
-				return __( 'Return reciept for merchandise', 'woocommerce-shipping-stamps' );
-			case 'US-A-SC' :
-				return __( 'Signature confirmation', 'woocommerce-shipping-stamps' );
-			case 'US-A-SH' :
-				return __( 'Fragile', 'woocommerce-shipping-stamps' );
-			case 'US-A-PR' :
-				return __( 'Perishable', 'woocommerce-shipping-stamps' );
-			case 'US-A-WDS' :
-				return __( 'Waive delivery signature', 'woocommerce-shipping-stamps' );
-			case 'US-A-SR' :
-				return __( 'Signature required', 'woocommerce-shipping-stamps' );
-			case 'US-A-NND' :
-				return __( 'Notice of non-delivery', 'woocommerce-shipping-stamps' );
-			case 'US-A-RRE' :
-				return __( 'Electronic return reciept', 'woocommerce-shipping-stamps' );
-			case 'US-A-LANS' :
-				return __( 'Live animal no surcharge', 'woocommerce-shipping-stamps' );
-			case 'US-A-LAWS' :
-				return __( 'Live animal with surcharge', 'woocommerce-shipping-stamps' );
-			case 'US-A-HM' :
-				return __( 'Hazardous materials', 'woocommerce-shipping-stamps' );
-			case 'US-A-CR' :
-				return __( 'Cremated remains', 'woocommerce-shipping-stamps' );
-			case 'US-A-1030' :
-				return __( 'Deliver priority mail express by 10:30am', 'woocommerce-shipping-stamps' );
-			case 'US-A-ASR' :
-				return __( 'Adult signature required', 'woocommerce-shipping-stamps' );
-			case 'US-A-ASRD' :
-				return __( 'Adult signature restricted delivery', 'woocommerce-shipping-stamps' );
-		}
+	public static function get_addon_property() {
+		return 'AddOnV' . WC_STAMPS_RATE_ADDONS_VERSION;
+	}
 
-		return '';
+	/**
+	 * Get Stamps.com API rate addons property.
+	 *
+	 * @return string Addon property name.
+	 */
+	public static function get_addon_type_property() {
+		return 'AddOnTypeV' . WC_STAMPS_RATE_ADDONS_VERSION;
 	}
 
 	/**
@@ -431,6 +381,7 @@ class WC_Stamps_API {
 		// List of US territories.
 		$list = array(
 			'PR',
+			'VI',
 		);
 
 		return in_array( $country, $list, true );

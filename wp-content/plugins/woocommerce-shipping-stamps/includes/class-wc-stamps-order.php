@@ -275,6 +275,7 @@ class WC_Stamps_Order {
 		}
 
 		$order  = wc_get_order( absint( $_POST['order_id'] ) );
+    // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- input is sanitized in WC_Stamps_Order::get_sanitized_ajax_data
 		$params = $this->get_sanitized_ajax_data( $_POST['data'] );
 
 		$rates = WC_Stamps_API::get_rates( $order, array(
@@ -311,8 +312,8 @@ class WC_Stamps_Order {
 			$rate_addons   = isset( $posted[ 'rate-' . $rate_code ] ) ? array_map( 'wc_clean', array_keys( $posted[ 'rate-' . $rate_code ] ) ) : array();
 			$chosen_addons = array();
 
-			if ( isset( $rate->AddOns ) && isset( $rate->AddOns->AddOnV7 ) ) {
-				foreach ( (array) $rate->AddOns->AddOnV7 as $key => $addon ) {
+			if ( isset( $rate->AddOns ) && isset( $rate->AddOns->{ WC_Stamps_API::get_addon_property() } ) ) {
+				foreach ( (array) $rate->AddOns->{ WC_Stamps_API::get_addon_property() } as $key => $addon ) {
 					if ( in_array( $addon->AddOnType, $rate_addons ) ) {
 						$chosen_addons[] = array( 'AddOnType' => wc_clean( $addon->AddOnType ) );
 					}
@@ -322,7 +323,7 @@ class WC_Stamps_Order {
 			$rate = stripslashes( $posted['parsed_rate'] );
 
 			$rate          = json_decode( $rate );
-			$chosen_addons = isset( $rate->AddOns->AddOnV7 ) ? $rate->AddOns->AddOnV7 : array();
+			$chosen_addons = isset( $rate->AddOns->{ WC_Stamps_API::get_addon_property() } ) ? $rate->AddOns->{ WC_Stamps_API::get_addon_property() } : array();
 		} else {
 			return false;
 		}
@@ -344,7 +345,7 @@ class WC_Stamps_Order {
 			'ServiceType'   => wc_clean( $rate->ServiceType ),
 			'PrintLayout'   => get_option( 'wc_settings_stamps_print_layout', 'Normal' ),
 			'AddOns'        => array(
-				'AddOnV7' => $chosen_addons,
+				WC_Stamps_API::get_addon_property() => $chosen_addons,
 			),
 			'ContentType'   => isset( $rate->ContentType ) ? wc_clean( $rate->ContentType ) : '',
 		);
@@ -365,6 +366,7 @@ class WC_Stamps_Order {
 		}
 
 		$order  = wc_get_order( absint( $_POST['order_id'] ) );
+    // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- input is sanitized in WC_Stamps_Order::get_sanitized_ajax_data
 		$params = $this->get_sanitized_ajax_data( $_POST['data'] );
 
 		wp_send_json( array( 'html' => $this->get_customs_html( $order, $this->get_posted_rate( $params ) ), 'step' => 'customs' ) );
@@ -383,6 +385,7 @@ class WC_Stamps_Order {
 		}
 
 		$order  = wc_get_order( absint( $_POST['order_id'] ) );
+    // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- input is sanitized in WC_Stamps_Order::get_sanitized_ajax_data
 		$params = $this->get_sanitized_ajax_data( $_POST['data'] );
 
 		if ( ! empty( $params['stamps_customs_content_type'] ) ) {
@@ -617,7 +620,7 @@ class WC_Stamps_Order {
 	 * @param object $rate Rate.
 	 */
 	public static function addons_html( $rate ) {
-		$raw_addons = $rate->rate_object->AddOns->AddOnV7;
+		$raw_addons = $rate->rate_object->AddOns->{ WC_Stamps_API::get_addon_property() };
 		$rate_code  = md5( $rate->rate_object->ServiceType . $rate->rate_object->PackageType );
 		$addons     = array();
 
@@ -630,8 +633,8 @@ class WC_Stamps_Order {
 		// RequiresAllOf.
 		foreach ( $raw_addons as $addon ) {
 			if ( ! empty( $addon->RequiresAllOf ) ) {
-				if ( is_array( $addon->RequiresAllOf->RequiresOneOf->AddOnTypeV7 ) ) {
-					foreach ( $addon->RequiresAllOf->RequiresOneOf->AddOnTypeV7 as $required_addon ) {
+				if ( is_array( $addon->RequiresAllOf->RequiresOneOf->{ WC_Stamps_API::get_addon_type_property() } ) ) {
+					foreach ( $addon->RequiresAllOf->RequiresOneOf->{ WC_Stamps_API::get_addon_type_property() } as $required_addon ) {
 						unset( $addons[ $addon->AddOnType ] );
 						if ( isset( $addons[ $required_addon ] ) ) {
 							$addons[ $required_addon ]['sub_addons'][ $addon->AddOnType ] = $addon;
@@ -639,8 +642,8 @@ class WC_Stamps_Order {
 					}
 				} else {
 					unset( $addons[ $addon->AddOnType ] );
-					if ( isset( $addons[ $addon->RequiresAllOf->RequiresOneOf->AddOnTypeV7 ] ) ) {
-						$addons[ $addon->RequiresAllOf->RequiresOneOf->AddOnTypeV7 ]['sub_addons'][ $addon->AddOnType ] = $addon;
+					if ( isset( $addons[ $addon->RequiresAllOf->RequiresOneOf->{ WC_Stamps_API::get_addon_type_property() } ] ) ) {
+						$addons[ $addon->RequiresAllOf->RequiresOneOf->{ WC_Stamps_API::get_addon_type_property() } ]['sub_addons'][ $addon->AddOnType ] = $addon;
 					}
 				}
 			}
@@ -650,8 +653,8 @@ class WC_Stamps_Order {
 		echo '<ul>';
 		foreach ( $addons as $addon_key => $addon ) {
 			$disable_addons = array();
-			if ( ! empty( $addon['addon']->ProhibitedWithAnyOf ) && ! empty( $addon['addon']->ProhibitedWithAnyOf->AddOnTypeV7 ) ) {
-				foreach ( array( $addon['addon']->ProhibitedWithAnyOf->AddOnTypeV7 ) as $prohibited_addon_key ) {
+			if ( ! empty( $addon['addon']->ProhibitedWithAnyOf ) && ! empty( $addon['addon']->ProhibitedWithAnyOf->{ WC_Stamps_API::get_addon_type_property() } ) ) {
+				foreach ( array( $addon['addon']->ProhibitedWithAnyOf->{ WC_Stamps_API::get_addon_type_property() } ) as $prohibited_addon_key ) {
 					if ( is_array( $prohibited_addon_key ) ) {
 						$disable_addons[] = array_map( 'trim', $prohibited_addon_key );
 					} else {
@@ -663,15 +666,15 @@ class WC_Stamps_Order {
 			$disable_addons = wp_json_encode( $disable_addons );
 			$disable_addons = function_exists( 'wc_esc_json' ) ? wc_esc_json( $disable_addons ) : _wp_specialchars( $disable_addons, ENT_QUOTES, 'UTF-8', true );
 
-			echo '<li><label><input type="checkbox" name="' . esc_attr( 'rate-' . $rate_code . '[' . $addon_key . ']' ) . '" data-type="' . esc_attr( $addon_key ) . '" data-disable_addons="' . esc_attr( $disable_addons ) . '" /> ' . esc_html( WC_Stamps_API::get_addon_type_name( $addon['addon']->AddOnType ) . ( isset( $addon['addon']->Amount ) ? ' (' . strip_tags( wc_price( $addon['addon']->Amount ) ) . ')' : '' ) ) . '</label>';
+			echo '<li><label><input type="checkbox" name="' . esc_attr( 'rate-' . $rate_code . '[' . $addon_key . ']' ) . '" data-type="' . esc_attr( $addon_key ) . '" data-disable_addons="' . esc_attr( $disable_addons ) . '" /> ' . esc_html( $addon['addon']->AddOnDescription . ( isset( $addon['addon']->Amount ) ? ' (' . strip_tags( wc_price( $addon['addon']->Amount ) ) . ')' : '' ) ) . '</label>';
 
 			if ( ! empty( $addon['sub_addons'] ) ) {
 				echo '<ul style="display:none">';
 
 				foreach ( $addon['sub_addons'] as $sub_addon_key => $sub_addon ) {
 					$disable_addons = array();
-					if ( ! empty( $sub_addon->ProhibitedWithAnyOf ) && ! empty( $sub_addon->ProhibitedWithAnyOf->AddOnTypeV7 ) ) {
-						foreach ( array( $sub_addon->ProhibitedWithAnyOf->AddOnTypeV7 ) as $prohibited_addon_key ) {
+					if ( ! empty( $sub_addon->ProhibitedWithAnyOf ) && ! empty( $sub_addon->ProhibitedWithAnyOf->{ WC_Stamps_API::get_addon_type_property() } ) ) {
+						foreach ( array( $sub_addon->ProhibitedWithAnyOf->{ WC_Stamps_API::get_addon_type_property() } ) as $prohibited_addon_key ) {
 							if ( is_array( $prohibited_addon_key ) ) {
 								$disable_addons[] = array_map( 'trim', $prohibited_addon_key );
 							} else {
@@ -683,7 +686,7 @@ class WC_Stamps_Order {
 					$disable_addons = wp_json_encode( $disable_addons );
 					$disable_addons = function_exists( 'wc_esc_json' ) ? wc_esc_json( $disable_addons ) : _wp_specialchars( $disable_addons, ENT_QUOTES, 'UTF-8', true );
 
-					echo '<li><label><input type="checkbox" name="' . esc_attr( 'rate-' . $rate_code . '[' . $sub_addon_key . ']' ) . '" data-type="' . esc_attr( $sub_addon_key ) . '" data-disable_addons="' . esc_attr( $disable_addons ) . '" /> ' . esc_html( WC_Stamps_API::get_addon_type_name( $sub_addon->AddOnType ) . ( isset( $sub_addon->Amount ) ? ' (' . strip_tags( wc_price( $sub_addon->Amount ) ) . ')' : '' ) ) . '</label></li>';
+					echo '<li><label><input type="checkbox" name="' . esc_attr( 'rate-' . $rate_code . '[' . $sub_addon_key . ']' ) . '" data-type="' . esc_attr( $sub_addon_key ) . '" data-disable_addons="' . esc_attr( $disable_addons ) . '" /> ' . esc_html( $addon['addon']->AddOnDescription . ( isset( $sub_addon->Amount ) ? ' (' . strip_tags( wc_price( $sub_addon->Amount ) ) . ')' : '' ) ) . '</label></li>';
 				}
 
 				echo '</ul>';

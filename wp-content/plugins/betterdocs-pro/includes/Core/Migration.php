@@ -17,15 +17,46 @@ class Migration extends Base {
     }
 
     public function init( $version ) {
-        if( method_exists( $this, "v$version") ) {
-            call_user_func([$this, "v$version"]);
+        if( $version > 250 ) {
+            for( $_version = 250; $_version <= $version; $_version++ ) {
+                if( method_exists( $this, "v$_version") ) {
+                    call_user_func([$this, "v$_version"]);
+                }
+            }
         }
+
+        /**
+         * Settings Migration
+         */
+        betterdocs()->settings->migration( $version );
+
+        /**
+         * License Migration
+         */
+        $this->license_migration();
+    }
+
+    public function v252(){
+        $this->flush();
     }
 
     public function v250(){
-        /**
-         * Licensing DB Migration
-         */
+        // Settings migration
+        betterdocs()->settings->v250();
+
+        $this->flush();
+    }
+
+    /**
+     * Licensing DB Migration
+     */
+    public function license_migration(){
+        $_has_license = get_option( BETTERDOCS_PRO_SL_DB_PREFIX . '_license', false );
+
+        if( $_has_license ) {
+            return;
+        }
+
         $old_license_key = get_option( 'betterdocs-pro-license-key', '' );
         if( ! empty( $old_license_key ) ) {
             update_option( BETTERDOCS_PRO_SL_DB_PREFIX . '_license', $old_license_key, 'no' );
@@ -38,11 +69,10 @@ class Migration extends Base {
                 set_transient( BETTERDOCS_PRO_SL_DB_PREFIX . '_license_data', $license_data, MONTH_IN_SECONDS * 3 );
             }
         }
+    }
 
-        // Settings migration
-        betterdocs()->settings->v250();
-
-        // Flush Rewrite Rules
+    // Flush Rewrite Rules
+    private function flush(){
         set_transient( 'betterdocs_flush_rewrite_rules', true );
     }
 }

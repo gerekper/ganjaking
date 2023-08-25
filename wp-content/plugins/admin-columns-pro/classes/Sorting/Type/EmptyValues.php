@@ -10,10 +10,8 @@ class EmptyValues
     public const NULL = null;
     public const EMPTY_STRING = '';
     public const ZERO = 0;
+    public const LTE_ZERO = -1;
 
-    /**
-     * @var array
-     */
     private $values;
 
     public function __construct(array $values)
@@ -32,7 +30,7 @@ class EmptyValues
 
     public static function is_valid_value($value): bool
     {
-        return in_array($value, [self::NULL, self::EMPTY_STRING, self::ZERO], true);
+        return in_array($value, [self::NULL, self::EMPTY_STRING, self::ZERO, self::LTE_ZERO], true);
     }
 
     public function has_value($value): bool

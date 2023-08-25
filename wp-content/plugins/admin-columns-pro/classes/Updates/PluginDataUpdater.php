@@ -31,7 +31,7 @@ class PluginDataUpdater
         $response = $this->api_factory->create()->dispatch(
             new API\Request\ProductsUpdate($this->site_url, $token)
         );
-
+ 
         if ($response->has_error()) {
             return;
         }

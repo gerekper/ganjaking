@@ -128,6 +128,7 @@ final class AdminColumnsPro
             Updates\UpdatePlugin::class,
             Updates\ViewPluginDetails::class,
             Admin\Settings::class,
+            Admin\Notice\NotSavedListScreen::class,
             QuickAdd\Addon::class,
             Sorting\Addon::class,
             Editing\Addon::class,

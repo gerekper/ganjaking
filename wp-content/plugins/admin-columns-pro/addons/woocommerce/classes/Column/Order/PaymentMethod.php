@@ -22,8 +22,9 @@ class PaymentMethod extends AC\Column implements ACP\Search\Searchable, ACP\Expo
     public function get_value($id)
     {
         $order = wc_get_order($id);
+        $title = strip_tags($order->get_payment_method_title()) ?: $order->get_payment_method();
 
-        return $order->get_payment_method_title() ?: $this->get_empty_char();
+        return $title ?: $this->get_empty_char();
     }
 
     public function search()

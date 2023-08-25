@@ -76,7 +76,7 @@ class Admin {
 		add_filter( 'plugin_row_meta', array( $this, 'add_plugin_meta_links' ), 10, 2 );
 
 		// Prints a membership validation issue notice in Media Library.
-		add_action( 'admin_notices', array( $this, 'media_library_membership_notice' ) );
+		
 
 		// Plugin conflict notice.
 		add_action( 'admin_notices', array( $this, 'show_plugin_conflict_notice' ) );
@@ -205,8 +205,6 @@ class Admin {
 		if ( ! WP_Smush::is_pro() ) {
 			$upgrade_url = add_query_arg(
 				array(
-					'coupon'       => 'SMUSH30OFF',
-					'checkout'     => 0,
 					'utm_source'   => 'smush',
 					'utm_medium'   => 'plugin',
 					'utm_campaign' => 'wp-smush-pro/wp-smush.php' !== WP_SMUSH_BASENAME ? 'smush_pluginlist_upgrade' : 'smush_pluginlist_renew',
@@ -217,7 +215,7 @@ class Admin {
 			$using_free_version = 'wp-smush-pro/wp-smush.php' !== WP_SMUSH_BASENAME;
 			if ( $using_free_version ) {
 				$label = __( 'Upgrade to Smush Pro', 'wp-smushit' );
-				$text  = __( 'Upgrade for 30% off', 'wp-smushit' );
+				$text  = __( 'Upgrade for 60% off', 'wp-smushit' );
 			} else {
 				$label = __( 'Renew Membership', 'wp-smushit' );
 				$text  = __( 'Renew Membership', 'wp-smushit' );
@@ -369,8 +367,6 @@ class Admin {
 	 * Prints the Membership Validation issue notice
 	 */
 	public function media_library_membership_notice() {
-		return;
-
 		// No need to print it for free version.
 		if ( ! WP_Smush::is_pro() ) {
 			return;
@@ -614,8 +610,6 @@ class Admin {
 
 		$upgrade_url   = add_query_arg(
 			array(
-				'coupon'       => 'SMUSH30OFF',
-				'checkout'     => 0,
 				'utm_source'   => 'smush',
 				'utm_medium'   => 'plugin',
 				'utm_campaign' => 'smush_bulk_smush_pre_smush_50_limit',
@@ -623,7 +617,7 @@ class Admin {
 			'https://wpmudev.com/project/wp-smush-pro/'
 		);
 		$batches       = ceil( $remaining_count / Core::MAX_FREE_BULK );
-		$discount_text = '<strong>'. esc_html__( '30% off welcome discount available.', 'wp-smushit' ) .'</strong>';
+		$discount_text = '<strong>'. esc_html__( '60% off welcome discount available.', 'wp-smushit' ) .'</strong>';
 		return sprintf(
 		/* translators: 1: max free bulk limit, 2: Total batches to smush, 3: opening a tag, 4: closing a tag. */
 			esc_html__( 'Free users can only Bulk Smush %1$d images at one time. Smush in %2$d batches or %3$sBulk Smush unlimited images with Pro%4$s. %5$s', 'wp-smushit' ),

@@ -6,8 +6,8 @@ use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Type\DataType;
 
 /**
- * Backwards compatible model for version older then NEWVERSION
- * @deprecated NEWVERSION
+ * Backwards compatible model for version older then 6.3
+ * @deprecated 6.3
  */
 class AbstractModel
 {
@@ -32,35 +32,35 @@ class AbstractModel
     protected $order;
 
     /**
-     * @depecated NEWVERSION
+     * @depecated 6.3
      */
     public function set_strategy(Strategy $strategy): void
     {
-        _deprecated_function(__FUNCTION__, 'NEWVERSION');
+        _deprecated_function(__FUNCTION__, '6.3');
 
         $this->strategy = $strategy;
     }
 
     public function get_sorting_vars()
     {
-        _deprecated_function(__FUNCTION__, 'NEWVERSION', QueryBindings::class);
+        _deprecated_function(__FUNCTION__, '6.3', QueryBindings::class);
 
         return [];
     }
 
     public function get_order(): string
     {
-        _deprecated_function(__FUNCTION__, 'NEWVERSION');
+        _deprecated_function(__FUNCTION__, '6.3');
 
         return $this->order;
     }
 
     /**
-     * @depecated NEWVERSION
+     * @depecated 6.3
      */
     public function set_order(string $order): void
     {
-        _deprecated_function(__FUNCTION__, 'NEWVERSION');
+        _deprecated_function(__FUNCTION__, '6.3');
 
         $this->order = $order;
     }

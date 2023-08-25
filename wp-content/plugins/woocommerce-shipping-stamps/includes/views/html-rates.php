@@ -31,7 +31,7 @@
 			<td></td>
 			<td colspan="2">
 				<?php
-				if ( isset( $rate->rate_object->AddOns ) && isset( $rate->rate_object->AddOns->AddOnV7 ) ) {
+				if ( isset( $rate->rate_object->AddOns ) && isset( $rate->rate_object->AddOns->{ WC_Stamps_API::get_addon_property() } ) ) {
 					WC_Stamps_Order::addons_html( $rate );
 				}
 				?>

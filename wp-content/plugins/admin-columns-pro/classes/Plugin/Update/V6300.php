@@ -15,7 +15,7 @@ final class V6300 extends Update
 
     public function __construct(Storage $storage)
     {
-        parent::__construct(new Version('6.3.0'));
+        parent::__construct(new Version('6.3'));
 
         $this->storage = $storage;
     }

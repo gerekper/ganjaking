@@ -127,6 +127,7 @@ $include_seedprod_image_lightbox_sdk = false;
 $include_beforeaftertoggle_sdk       = false;
 $include_hotspot_sdk                 = false;
 $include_particles_sdk               = false;
+$include_masonarylayout_sdk          = false;
 
 
 
@@ -210,6 +211,10 @@ if ( strpos( $settings_str, 'hotspot' ) !== false ) {
 
 if ( strpos( $settings_str, 'particleBg' ) !== false ) {
 	$include_particles_sdk = true;
+}
+
+if ( strpos( $settings_str, '"type":"posts"' ) !== false ) {
+	$include_masonarylayout_sdk = true;
 }
 
 
@@ -544,6 +549,19 @@ var seeprod_enable_recaptcha = <?php echo (int) $settings->enable_recaptcha; ?>;
 		<?php
 	}
 	?>
+
+	<?php
+	if ( true === $include_masonarylayout_sdk ) {
+		?>
+		<script src="<?php echo esc_url( $plugin_url ); ?>public/js/masonry.pkgd.js" defer></script> 
+		<script src="<?php echo esc_url( $plugin_url ); ?>public/js/imagesloaded.pkgd.min.js" defer></script> 
+		<script src="<?php echo esc_url( $plugin_url ); ?>public/js/isotope.pkgd.js" defer></script> 
+
+
+		<?php
+	}
+	?>
+
 
 
 	<?php

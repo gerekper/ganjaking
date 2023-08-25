@@ -14,7 +14,7 @@ final class Name extends Sort
     public function sort(SegmentCollection $segment_collection): SegmentCollection
     {
         $callable = static function (Segment $a, Segment $b) {
-            return $b->get_name() <=> $a->get_name();
+            return $a->get_name() <=> $b->get_name();
         };
 
         return $this->sort_by_callable($segment_collection, $callable);

@@ -146,18 +146,28 @@ function seedprod_pro_render_posts_block_preview() {
 			'query_by_category'       => isset( $_GET['query_by_category'] ) ? sanitize_text_field( wp_unslash( $_GET['query_by_category'] ) ) : '',
 			'query_by_tags'           => isset( $_GET['query_by_tags'] ) ? sanitize_text_field( wp_unslash( $_GET['query_by_tags'] ) ) : '',
 			'query_by_authors'        => isset( $_GET['query_by_authors'] ) ? sanitize_text_field( wp_unslash( $_GET['query_by_authors'] ) ) : '',
+			'skin'                    => isset( $_GET['skin'] ) ? sanitize_text_field( wp_unslash( $_GET['skin'] ) ) : '',
+			'skinlayout'              => isset( $_GET['skinlayout'] ) ? sanitize_text_field( wp_unslash( $_GET['skinlayout'] ) ) : '',
+			'slidetoshow'             => isset( $_GET['slidetoshow'] ) ? sanitize_text_field( wp_unslash( $_GET['slidetoshow'] ) ) : '',
+			'autoplay'                => isset( $_GET['autoplay'] ) ? sanitize_text_field( wp_unslash( $_GET['autoplay'] ) ) : '',
+			'speed'                   => isset( $_GET['speed'] ) ? sanitize_text_field( wp_unslash( $_GET['speed'] ) ) : '',
+			'masonary'                => isset( $_GET['masonary'] ) ? sanitize_text_field( wp_unslash( $_GET['masonary'] ) ) : '',
+			'imageposition'           => isset( $_GET['imageposition'] ) ? sanitize_text_field( wp_unslash( $_GET['imageposition'] ) ) : '',
+			'badge'                   => isset( $_GET['badge'] ) ? sanitize_text_field( wp_unslash( $_GET['badge'] ) ) : '',
+			'badgetaxonomy'           => isset( $_GET['badgetaxonomy'] ) ? sanitize_text_field( wp_unslash( $_GET['badgetaxonomy'] ) ) : '',
+			'avatar'                  => isset( $_GET['avatar'] ) ? sanitize_text_field( wp_unslash( $_GET['avatar'] ) ) : '',
 		);
 
 		if ( 'default' === $args['query_type'] ) {
-			echo do_shortcode( "[defaultposts show_featured_image='" . $args['show_featured_image'] . "' show_title='" . $args['show_title'] . "' title_html_tag='" . $args['title_html_tag'] . "' pagination='" . $args['pagination'] . "' posts_per_page='" . $args['posts_per_page'] . "' show_meta_options='" . $args['show_meta_options'] . "' show_date_modified_meta='" . $args['show_date_modified_meta'] . "' show_author_meta='" . $args['show_author_meta'] . "' show_date_meta='" . $args['show_date_meta'] . "' show_time_meta='" . $args['show_time_meta'] . "' show_comment_count_meta='" . $args['show_comment_count_meta'] . "' meta_separator='" . $args['meta_separator'] . "' show_excerpt='" . $args['show_excerpt'] . "' excerpt_length='" . $args['excerpt_length'] . "' show_read_more='" . $args['show_read_more'] . "' read_more_text='" . $args['read_more_text'] . "' columns='" . $args['columns'] . "']" );
+			echo do_shortcode( "[defaultposts show_featured_image='" . $args['show_featured_image'] . "' show_title='" . $args['show_title'] . "' title_html_tag='" . $args['title_html_tag'] . "' pagination='" . $args['pagination'] . "' posts_per_page='" . $args['posts_per_page'] . "' show_meta_options='" . $args['show_meta_options'] . "' show_date_modified_meta='" . $args['show_date_modified_meta'] . "' show_author_meta='" . $args['show_author_meta'] . "' show_date_meta='" . $args['show_date_meta'] . "' show_time_meta='" . $args['show_time_meta'] . "' show_comment_count_meta='" . $args['show_comment_count_meta'] . "' meta_separator='" . $args['meta_separator'] . "' show_excerpt='" . $args['show_excerpt'] . "' excerpt_length='" . $args['excerpt_length'] . "' show_read_more='" . $args['show_read_more'] . "' read_more_text='" . $args['read_more_text'] . "' columns='" . $args['columns'] . "'  skin='" . $args['skin'] . "'  badge='" . $args['badge'] . "' masonary='" . $args['masonary'] . "' skinlayout='" . $args['skinlayout'] . "' slidetoshow='" . $args['slidetoshow'] . "' autoplay='" . $args['autoplay'] . "' speed='" . $args['speed'] . "'  imageposition='" . $args['imageposition'] . "'  badgetaxonomy='" . $args['badgetaxonomy'] . "'  avatar='" . $args['avatar'] . "' ]" );
 		}
 
 		if ( 'custom' === $args['query_type'] ) {
-			echo do_shortcode( "[customposts query_by_post_type='" . $args['query_by_post_type'] . "' post_type='" . $args['post_type'] . "' order='" . $args['order'] . "' orderby='" . $args['orderby'] . "' query_by_category='" . $args['query_by_category'] . "' cat='" . $args['cat'] . "' query_by_tags='" . $args['query_by_tags'] . "' tag__in='" . $args['tags'] . "' query_by_authors='" . $args['query_by_authors'] . "' author='" . $args['authors'] . "' show_featured_image='" . $args['show_featured_image'] . "' show_title='" . $args['show_title'] . "' title_html_tag='" . $args['title_html_tag'] . "' pagination='" . $args['pagination'] . "' posts_per_page='" . $args['posts_per_page'] . "' show_meta_options='" . $args['show_meta_options'] . "' show_date_modified_meta='" . $args['show_date_modified_meta'] . "' show_author_meta='" . $args['show_author_meta'] . "' show_date_meta='" . $args['show_date_meta'] . "' show_time_meta='" . $args['show_time_meta'] . "' show_comment_count_meta='" . $args['show_comment_count_meta'] . "' meta_separator='" . $args['meta_separator'] . "' show_excerpt='" . $args['show_excerpt'] . "' excerpt_length='" . $args['excerpt_length'] . "' show_read_more='" . $args['show_read_more'] . "' read_more_text='" . $args['read_more_text'] . "' columns='" . $args['columns'] . "']" );
+			echo do_shortcode( "[customposts query_by_post_type='" . $args['query_by_post_type'] . "' post_type='" . $args['post_type'] . "' order='" . $args['order'] . "' orderby='" . $args['orderby'] . "' query_by_category='" . $args['query_by_category'] . "' cat='" . $args['cat'] . "' query_by_tags='" . $args['query_by_tags'] . "' tag__in='" . $args['tags'] . "' query_by_authors='" . $args['query_by_authors'] . "' author='" . $args['authors'] . "' show_featured_image='" . $args['show_featured_image'] . "' show_title='" . $args['show_title'] . "' title_html_tag='" . $args['title_html_tag'] . "' pagination='" . $args['pagination'] . "' posts_per_page='" . $args['posts_per_page'] . "' show_meta_options='" . $args['show_meta_options'] . "' show_date_modified_meta='" . $args['show_date_modified_meta'] . "' show_author_meta='" . $args['show_author_meta'] . "' show_date_meta='" . $args['show_date_meta'] . "' show_time_meta='" . $args['show_time_meta'] . "' show_comment_count_meta='" . $args['show_comment_count_meta'] . "' meta_separator='" . $args['meta_separator'] . "' show_excerpt='" . $args['show_excerpt'] . "' excerpt_length='" . $args['excerpt_length'] . "' show_read_more='" . $args['show_read_more'] . "' read_more_text='" . $args['read_more_text'] . "' columns='" . $args['columns'] . "' skin='" . $args['skin'] . "'  badge='" . $args['badge'] . "'  masonary='" . $args['masonary'] . "'  skinlayout='" . $args['skinlayout'] . "' slidetoshow='" . $args['slidetoshow'] . "' autoplay='" . $args['autoplay'] . "' speed='" . $args['speed'] . "'  imageposition='" . $args['imageposition'] . "' badgetaxonomy='" . $args['badgetaxonomy'] . "'  avatar='" . $args['avatar'] . "'  ]" );
 		}
 
 		if ( 'manual' === $args['query_type'] ) {
-			echo do_shortcode( "[manualposts manual_query='" . $args['manual_query'] . "' show_featured_image='" . $args['show_featured_image'] . "' show_title='" . $args['show_title'] . "' title_html_tag='" . $args['title_html_tag'] . "' pagination='" . $args['pagination'] . "' posts_per_page='" . $args['posts_per_page'] . "' show_meta_options='" . $args['show_meta_options'] . "' show_date_modified_meta='" . $args['show_date_modified_meta'] . "' show_author_meta='" . $args['show_author_meta'] . "' show_date_meta='" . $args['show_date_meta'] . "' show_time_meta='" . $args['show_time_meta'] . "' show_comment_count_meta='" . $args['show_comment_count_meta'] . "' meta_separator='" . $args['meta_separator'] . "' show_excerpt='" . $args['show_excerpt'] . "' excerpt_length='" . $args['excerpt_length'] . "' show_read_more='" . $args['show_read_more'] . "' read_more_text='" . $args['read_more_text'] . "' columns='" . $args['columns'] . "']" );
+			echo do_shortcode( "[manualposts manual_query='" . $args['manual_query'] . "' show_featured_image='" . $args['show_featured_image'] . "' show_title='" . $args['show_title'] . "' title_html_tag='" . $args['title_html_tag'] . "' pagination='" . $args['pagination'] . "' posts_per_page='" . $args['posts_per_page'] . "' show_meta_options='" . $args['show_meta_options'] . "' show_date_modified_meta='" . $args['show_date_modified_meta'] . "' show_author_meta='" . $args['show_author_meta'] . "' show_date_meta='" . $args['show_date_meta'] . "' show_time_meta='" . $args['show_time_meta'] . "' show_comment_count_meta='" . $args['show_comment_count_meta'] . "' meta_separator='" . $args['meta_separator'] . "' show_excerpt='" . $args['show_excerpt'] . "' excerpt_length='" . $args['excerpt_length'] . "' show_read_more='" . $args['show_read_more'] . "' read_more_text='" . $args['read_more_text'] . "' columns='" . $args['columns'] . "'  skin='" . $args['skin'] . "'  badge='" . $args['badge'] . "'  masonary='" . $args['masonary'] . "'  skinlayout='" . $args['skinlayout'] . "' slidetoshow='" . $args['slidetoshow'] . "' autoplay='" . $args['autoplay'] . "' speed='" . $args['speed'] . "' imageposition='" . $args['imageposition'] . "' badgetaxonomy='" . $args['badgetaxonomy'] . "'  avatar='" . $args['avatar'] . "' ]" );
 		}
 
 		exit;
@@ -196,6 +206,15 @@ function seedprod_pro_posts_block_default_shortcode( array $atts ) {
 			'show_read_more'          => 'true',
 			'read_more_text'          => 'true',
 			'columns'                 => 4,
+			'skin'                    => 'classic',
+			'skinlayout'              => 'gridlayout',
+			'slidetoshow'             => 2,
+			'autoplay'                => 'true',
+			'speed'                   => 100,
+			'imageposition'           => 'left',
+			'badge'                   => 'true',
+			'badgetaxonomy'           => '',
+			'avatar'                  => 'false',
 		),
 		$atts
 	);
@@ -210,9 +229,13 @@ function seedprod_pro_posts_block_default_shortcode( array $atts ) {
 	// Updating current query.
 	query_posts( $query_string . '&posts_per_page=' . $post_per_page ); // phpcs:ignore WordPress.WP.DiscouragedFunctions.query_posts_query_posts
 
+	$skinlayout          = sanitize_text_field( wp_unslash( $shortcode_args['skinlayout'] ) );
+	$slidetoshowsettings = sanitize_text_field( wp_unslash( $shortcode_args['slidetoshow'] ) );
+
 	if ( have_posts() ) {
 		$posts_render = '';
 
+		$k = 0;
 		while ( have_posts() ) {
 			the_post();
 
@@ -227,43 +250,120 @@ function seedprod_pro_posts_block_default_shortcode( array $atts ) {
 			$time            = get_the_time();
 			$comments_number = (int) get_comments_number();
 
+			$width_class    = '';
+			$index_carousel = $k + 1;
+			$extra_styles   = '';
+
+			$start_div = '';
+			$end_div   = '';
+
+			if ( 'carousel' === $skinlayout ) {
+				$width_class  = 'show-carousel-area';
+				$extra_styles = 'opacity: 1;';
+				$start_div    = "<div class='seedprod-carousel-post-block'>";
+				if ( $index_carousel > $slidetoshowsettings ) {
+					$width_class  = 'hidden-carousel-area';
+					$extra_styles = 'opacity: 0; position:absolute;';
+				}
+				$end_div = '</div>';
+			}
+
+			if ( 'masonary' === $skinlayout ) {
+				$start_div    = "<div class='seedprod-masonary-post-block sp-grid-cols-" . $slidetoshowsettings . "'>";
+				$end_div = '</div>';
+			}
+
+			$extra_array                   = array();
+			$extra_array['width_class']    = $width_class;
+			$extra_array['index_carousel'] = $index_carousel;
+			$extra_array['extra_styles']   = $extra_styles;
+			$extra_array['k']              = $k;
+
+			$shortcode_args['extra'] = $extra_array;
+
+			$k = $k + 1;
+
 			// Render post.
 			$posts_render .= render_post( $shortcode_args, $id, $title, $link, $content, $modified_date, $author, $date, $time, $comments_number, $excerpt );
 		}
 
-		$render .= $posts_render;
+		$render .= $start_div . $posts_render . $end_div;
 
 		$pagination = '';
 
-		if ( 'true' === $shortcode_args['pagination'] ) {
-			$pagination .= '<div class="sp-custom-col-span-full sp-posts-block-pagination">';
+		$carousel_nav = '';
 
-			$big = 999999999; // need an unlikely integer
+		if ( 'carousel' === $shortcode_args['skinlayout'] ) {
 
-			if ( get_option( 'permalink_structure' ) ) {
-				$format = 'page/%#%/';
-			} else {
-				$format = '&paged=%#%';
+			$post_block_count = $wp_query->post_count;
+			if ( $post_block_count > 0 ) {
+
+				// echo $post_block_count;
+				$numofpages = ceil( $post_block_count / $shortcode_args['slidetoshow'] );
+				if ( $numofpages > 1 ) {
+
+					$bgcolormode   = 'sp-bg-black';
+					$textcolormode = 'sp-text-black';
+
+					$carousel_nav .= ' 
+							<div class="sp-postblock-nav sp-flex sp-justify-center sp-items-center sp-mt-2">
+
+							<button class="sp-outline-none focus:sp-outline-none sp-px-3 sp-opacity-50 sp-text-base ' . $textcolormode . '">
+							<i class="fas fa-angle-left"></i>
+							</button>
+						';
+
+					for ( $z = 0; $z < $numofpages; $z++ ) {
+						$pstyles = 'opacity: 0.25;';
+						if ( 0 === $z ) {
+							$pstyles = 'opacity: 1;';
+						}
+
+						$carousel_nav .= ' 	
+								<button data-index="' . $z . '" class="focus:sp-outline-none sp-w-3 sp-h-3 sp-block sp-mx-1 sp-opacity-25 sp-rounded-full sp-opacity-75 ' . $bgcolormode . '" style="' . $pstyles . '"></button>
+							';
+
+					}
+
+					$carousel_nav .= ' 
+							<button class="sp-outline-none focus:sp-outline-none sp-px-3 sp-opacity-50 text-base ' . $textcolormode . '"><i class="fas fa-angle-right"></i></button></div>
+						';
+
+				}
 			}
+		}else{
 
-			$pagination .= paginate_links(
-				array(
-					'base'      => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
-					'total'     => $wp_query->max_num_pages,
-					'current'   => max( 1, get_query_var( 'paged' ) ),
-					'format'    => $format,
-					'type'      => 'plain', // Default
-					'end_size'  => 2, // Default
-					'mid_size'  => 1, // Default
-					'prev_next' => true,
-					'add_args'  => false,
-				)
-			);
+			if ( 'true' === $shortcode_args['pagination'] ) {
+				$pagination .= '<div class="sp-custom-col-span-full sp-posts-block-pagination">';
 
-			$pagination .= '</div>';
+				$big = 999999999; // need an unlikely integer
+
+				if ( get_option( 'permalink_structure' ) ) {
+					$format = 'page/%#%/';
+				} else {
+					$format = '&paged=%#%';
+				}
+
+				$pagination .= paginate_links(
+					array(
+						'base'      => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+						'total'     => $wp_query->max_num_pages,
+						'current'   => max( 1, get_query_var( 'paged' ) ),
+						'format'    => $format,
+						'type'      => 'plain', // Default
+						'end_size'  => 2, // Default
+						'mid_size'  => 1, // Default
+						'prev_next' => true,
+						'add_args'  => false,
+					)
+				);
+
+				$pagination .= '</div>';
+			}
 		}
 
 		$render .= $pagination;
+		$render .= $carousel_nav;
 
 		// Restore original Post Data.
 		wp_reset_postdata();
@@ -286,7 +386,6 @@ add_shortcode( 'customposts', 'seedprod_pro_posts_block_custom_shortcode' );
 function seedprod_pro_posts_block_custom_shortcode( array $atts ) {
 	// WP Query wrapper.
 	global $wp_query;
-
 	$shortcode_args = shortcode_atts(
 		array(
 			'query_by_post_type'      => 'true',
@@ -316,6 +415,16 @@ function seedprod_pro_posts_block_custom_shortcode( array $atts ) {
 			'show_read_more'          => 'true',
 			'read_more_text'          => 'true',
 			'columns'                 => 4,
+			'skin'                    => 'classic',
+			'skinlayout'              => 'gridlayout',
+			'slidetoshow'             => 2,
+			'autoplay'                => 'true',
+			'speed'                   => 100,
+			'masonary'                => 'true',
+			'imageposition'           => 'left',
+			'badge'                   => 'true',
+			'badgetaxonomy'           => '',
+			'avatar'                  => 'false',
 		),
 		$atts
 	);
@@ -398,9 +507,13 @@ function seedprod_pro_posts_block_custom_shortcode( array $atts ) {
 
 	$query = new WP_Query( $args );
 
+	$skinlayout          = sanitize_text_field( wp_unslash( $shortcode_args['skinlayout'] ) );
+	$slidetoshowsettings = sanitize_text_field( wp_unslash( $shortcode_args['slidetoshow'] ) );
+
 	if ( $query->have_posts() ) {
 		$posts_render = '';
 
+		$k = 0;
 		while ( $query->have_posts() ) {
 			$query->the_post();
 
@@ -415,45 +528,121 @@ function seedprod_pro_posts_block_custom_shortcode( array $atts ) {
 			$time            = get_the_time();
 			$comments_number = (int) get_comments_number();
 
-			// Render post.
-			//if ( current_user_can( 'read_post', $id ) ) {
-				$posts_render .= render_post( $shortcode_args, $id, $title, $link, $content, $modified_date, $author, $date, $time, $comments_number, $excerpt );
-			//}
-		}
+			$width_class    = '';
+			$index_carousel = $k + 1;
+			$extra_styles   = '';
 
-		$render .= $posts_render;
+			$start_div = '';
+			$end_div   = '';
 
-		$pagination = '';
-
-		if ( 'true' === $shortcode_args['pagination'] ) {
-			$pagination .= '<div class="sp-custom-col-span-full sp-posts-block-pagination">';
-
-			$big = 999999999; // need an unlikely integer
-
-			if ( get_option( 'permalink_structure' ) ) {
-				$format = 'page/%#%/';
-			} else {
-				$format = '&paged=%#%';
+			if ( 'carousel' === $skinlayout ) {
+				$width_class  = 'show-carousel-area';
+				$extra_styles = 'opacity: 1;';
+				$start_div    = "<div class='seedprod-carousel-post-block sp-grid-cols-" . $slidetoshowsettings . "'>";
+				if ( $index_carousel > $slidetoshowsettings ) {
+					$width_class  = 'hidden-carousel-area';
+					$extra_styles = 'opacity: 0; position:absolute;';
+				}
+				$end_div = '</div>';
 			}
 
-			$pagination .= paginate_links(
-				array(
-					'base'      => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
-					'total'     => $query->max_num_pages,
-					'current'   => max( 1, $paged ),
-					'format'    => $format,
-					'type'      => 'plain', // Default
-					'end_size'  => 2, // Default
-					'mid_size'  => 1, // Default
-					'prev_next' => true,
-					'add_args'  => false,
-				)
-			);
+			if ( 'masonary' === $skinlayout ) {
+				$start_div    = "<div class='seedprod-masonary-post-block sp-grid-cols-" . $slidetoshowsettings . "'>";
+				$end_div = '</div>';
+			}
 
-			$pagination .= '</div>';
+			$extra_array                   = array();
+			$extra_array['width_class']    = $width_class;
+			$extra_array['index_carousel'] = $index_carousel;
+			$extra_array['extra_styles']   = $extra_styles;
+			$extra_array['k']              = $k;
+
+			$shortcode_args['extra'] = $extra_array;
+
+			$k = $k + 1;
+
+			// Render post.
+			// if ( current_user_can( 'read_post', $id ) ) {
+				$posts_render .= render_post( $shortcode_args, $id, $title, $link, $content, $modified_date, $author, $date, $time, $comments_number, $excerpt );
+			// }
+		}
+
+		$render .= $start_div . $posts_render . $end_div;
+
+		$pagination   = '';
+		$carousel_nav = '';
+
+		if ( 'carousel' === $shortcode_args['skinlayout'] ) {
+			
+			$post_block_count = $query->post_count;
+			if ( $post_block_count > 0 ) {
+
+				// echo $post_block_count;
+				$numofpages = ceil( $post_block_count / $shortcode_args['slidetoshow'] );
+				if ( $numofpages > 1 ) {
+
+					$bgcolormode   = 'sp-bg-black';
+					$textcolormode = 'sp-text-black';
+
+					$carousel_nav .= ' 
+							<div class="sp-postblock-nav sp-flex sp-justify-center sp-items-center sp-mt-2">
+
+							<button class="sp-outline-none focus:sp-outline-none sp-px-3 sp-opacity-50 sp-text-base ' . $textcolormode . '">
+							<i class="fas fa-angle-left"></i>
+							</button>
+						';
+
+					for ( $z = 0; $z < $numofpages; $z++ ) {
+						$pstyles = 'opacity: 0.25;';
+						if ( 0 === $z ) {
+							$pstyles = 'opacity: 1;';
+						}
+
+						$carousel_nav .= ' 	
+								<button data-index="' . $z . '" class="focus:sp-outline-none sp-w-3 sp-h-3 sp-block sp-mx-1 sp-opacity-25 sp-rounded-full sp-opacity-75 ' . $bgcolormode . '" style="' . $pstyles . '"></button>
+							';
+
+					}
+
+					$carousel_nav .= ' 
+							<button class="sp-outline-none focus:sp-outline-none sp-px-3 sp-opacity-50 text-base ' . $textcolormode . '"><i class="fas fa-angle-right"></i></button></div>
+						';
+
+				}
+			}
+		}else{
+
+			if ( 'true' === $shortcode_args['pagination'] ) {
+				$pagination .= '<div class="sp-custom-col-span-full sp-posts-block-pagination">';
+
+				$big = 999999999; // need an unlikely integer
+
+				if ( get_option( 'permalink_structure' ) ) {
+					$format = 'page/%#%/';
+				} else {
+					$format = '&paged=%#%';
+				}
+
+				$pagination .= paginate_links(
+					array(
+						'base'      => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+						'total'     => $query->max_num_pages,
+						'current'   => max( 1, $paged ),
+						'format'    => $format,
+						'type'      => 'plain', // Default
+						'end_size'  => 2, // Default
+						'mid_size'  => 1, // Default
+						'prev_next' => true,
+						'add_args'  => false,
+					)
+				);
+
+				$pagination .= '</div>';
+			}
 		}
 
 		$render .= $pagination;
+		$render .= $carousel_nav;
 
 		// Restore original Post Data.
 		wp_reset_postdata();
@@ -497,6 +686,16 @@ function seedprod_pro_posts_block_manual_shortcode( array $atts ) {
 			'show_read_more'          => 'true',
 			'read_more_text'          => 'true',
 			'columns'                 => 4,
+			'skin'                    => 'classic',
+			'skinlayout'              => 'gridlayout',
+			'slidetoshow'             => 2,
+			'autoplay'                => 'true',
+			'speed'                   => 100,
+			'masonary'                => 'true',
+			'imageposition'           => 'left',
+			'badge'                   => 'true',
+			'badgetaxonomy'           => '',
+			'avatar'                  => 'false',
 		),
 		$atts
 	);
@@ -553,7 +752,7 @@ function seedprod_pro_posts_block_manual_shortcode( array $atts ) {
 	// Current pagination page.
 	$paged = 1;
 
-	if ( 'true' === $shortcode_args['pagination'] ) {
+	if ( 'true' === $shortcode_args['`pagination`'] ) {
 		// Update pagination current page. get_query_var( 'paged' ) doesn't return correct value. The $query_string does.
 		if ( isset( $wp_query->query['paged'] ) ) {
 			$paged = $wp_query->query['paged'];
@@ -572,9 +771,13 @@ function seedprod_pro_posts_block_manual_shortcode( array $atts ) {
 
 	$query = new WP_Query( $args );
 
+	$skinlayout          = sanitize_text_field( wp_unslash( $shortcode_args['skinlayout'] ) );
+	$slidetoshowsettings = sanitize_text_field( wp_unslash( $shortcode_args['slidetoshow'] ) );
+
 	if ( $query->have_posts() ) {
 		$posts_render = '';
 
+		$k = 0;
 		while ( $query->have_posts() ) {
 			$query->the_post();
 
@@ -589,45 +792,121 @@ function seedprod_pro_posts_block_manual_shortcode( array $atts ) {
 			$time            = get_the_time();
 			$comments_number = (int) get_comments_number();
 
-			// Render post.
-			//if ( current_user_can( 'read_post', $id ) ) {
-				$posts_render .= render_post( $shortcode_args, $id, $title, $link, $content, $modified_date, $author, $date, $time, $comments_number, $excerpt );
-			//}
-		}
+			$width_class    = '';
+			$index_carousel = $k + 1;
+			$extra_styles   = '';
 
-		$render .= $posts_render;
+			$start_div = '';
+			$end_div   = '';
 
-		$pagination = '';
-
-		if ( 'true' === $shortcode_args['pagination'] ) {
-			$pagination .= '<div class="sp-custom-col-span-full sp-posts-block-pagination">';
-
-			$big = 999999999; // need an unlikely integer
-
-			if ( get_option( 'permalink_structure' ) ) {
-				$format = 'page/%#%/';
-			} else {
-				$format = '&paged=%#%';
+			if ( 'carousel' === $skinlayout ) {
+				$width_class  = 'show-carousel-area';
+				$extra_styles = 'opacity: 1;';
+				$start_div    = "<div class='seedprod-carousel-post-block'>";
+				if ( $index_carousel > $slidetoshowsettings ) {
+					$width_class  = 'hidden-carousel-area';
+					$extra_styles = 'opacity: 0; position:absolute;';
+				}
+				$end_div = '</div>';
 			}
 
-			$pagination .= paginate_links(
-				array(
-					'base'      => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
-					'total'     => $query->max_num_pages,
-					'current'   => max( 1, $paged ),
-					'format'    => $format,
-					'type'      => 'plain', // Default
-					'end_size'  => 2, // Default
-					'mid_size'  => 1, // Default
-					'prev_next' => true,
-					'add_args'  => false,
-				)
-			);
+			if ( 'masonary' === $skinlayout ) {
+				$start_div    = "<div class='seedprod-masonary-post-block sp-grid-cols-" . $slidetoshowsettings . "'>";
+				$end_div = '</div>';
+			}
 
-			$pagination .= '</div>';
+			$extra_array                   = array();
+			$extra_array['width_class']    = $width_class;
+			$extra_array['index_carousel'] = $index_carousel;
+			$extra_array['extra_styles']   = $extra_styles;
+			$extra_array['k']              = $k;
+
+			$shortcode_args['extra'] = $extra_array;
+
+			$k = $k + 1;
+
+			// Render post.
+			// if ( current_user_can( 'read_post', $id ) ) {
+				$posts_render .= render_post( $shortcode_args, $id, $title, $link, $content, $modified_date, $author, $date, $time, $comments_number, $excerpt );
+			// }
+		}
+
+		$render .= $start_div . $posts_render . $end_div;
+
+		$pagination   = '';
+		$carousel_nav = '';
+
+		if ( 'carousel' === $shortcode_args['skinlayout'] ) {
+
+			$post_block_count = $query->post_count;
+			if ( $post_block_count > 0 ) {
+
+				// echo $post_block_count;
+				$numofpages = ceil( $post_block_count / $shortcode_args['slidetoshow'] );
+				if ( $numofpages > 1 ) {
+
+					$bgcolormode   = 'sp-bg-black';
+					$textcolormode = 'sp-text-black';
+
+					$carousel_nav .= ' 
+							<div class="sp-postblock-nav sp-flex sp-justify-center sp-items-center sp-mt-2">
+
+							<button class="sp-outline-none focus:sp-outline-none sp-px-3 sp-opacity-50 sp-text-base ' . $textcolormode . '">
+							<i class="fas fa-angle-left"></i>
+							</button>
+						';
+
+					for ( $z = 0; $z < $numofpages; $z++ ) {
+						$pstyles = 'opacity: 0.25;';
+						if ( 0 === $z ) {
+							$pstyles = 'opacity: 1;';
+						}
+
+						$carousel_nav .= ' 	
+								<button data-index="' . $z . '" class="focus:sp-outline-none sp-w-3 sp-h-3 sp-block sp-mx-1 sp-opacity-25 sp-rounded-full sp-opacity-75 ' . $bgcolormode . '" style="' . $pstyles . '"></button>
+							';
+
+					}
+
+					$carousel_nav .= ' 
+							<button class="sp-outline-none focus:sp-outline-none sp-px-3 sp-opacity-50 text-base ' . $textcolormode . '"><i class="fas fa-angle-right"></i></button></div>
+						';
+
+				}
+			}
+		}else{
+
+			if ( 'true' === $shortcode_args['pagination'] ) {
+				$pagination .= '<div class="sp-custom-col-span-full sp-posts-block-pagination">';
+
+				$big = 999999999; // need an unlikely integer
+
+				if ( get_option( 'permalink_structure' ) ) {
+					$format = 'page/%#%/';
+				} else {
+					$format = '&paged=%#%';
+				}
+
+				$pagination .= paginate_links(
+					array(
+						'base'      => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+						'total'     => $query->max_num_pages,
+						'current'   => max( 1, $paged ),
+						'format'    => $format,
+						'type'      => 'plain', // Default
+						'end_size'  => 2, // Default
+						'mid_size'  => 1, // Default
+						'prev_next' => true,
+						'add_args'  => false,
+					)
+				);
+
+				$pagination .= '</div>';
+			}
 		}
 
 		$render .= $pagination;
+		$render .= $carousel_nav;
 
 		// Restore original Post Data.
 		wp_reset_postdata();
@@ -655,111 +934,11 @@ function seedprod_pro_posts_block_manual_shortcode( array $atts ) {
  * @return string $render.
  */
 function render_post( array $shortcode_args, $id, $title, $link, $content, $modified_date, $author, $date, $time, $comments_number, $excerpt ) {
-	$render = '<div class="sp-posts-single-block">';
 
-	// Show featured image.
-	if ( 'true' === $shortcode_args['show_featured_image'] ) {
-		$featured_img_url = get_the_post_thumbnail_url( $id, 'full' );
+	$postskin = $shortcode_args['skin'];
 
-		$render .= '<div class="sp-container">';
+	ob_start();
+	include SEEDPROD_PRO_PLUGIN_PATH . 'resources/post/' . $postskin . '.php';
+	return $output_cards = ob_get_clean();
 
-		if ( $featured_img_url ) {
-			$render .= '<a href="' . esc_attr( $link ) . '" class="sp-posts-image-link sp-inline-block">';
-			$render .= get_the_post_thumbnail(
-				$id,
-				'large',
-				array(
-					'class'   => 'sp-posts-image',
-					'loading' => 'lazy',
-					'alt'     => $title,
-				)
-			);
-			$render .= '</a>';
-		}
-
-		$render .= '</div>';
-	}
-
-	// Show title.
-	if ( 'true' === $shortcode_args['show_title'] ) {
-		$render .= '<a href="' . esc_attr( $link ) . '">';
-		$render .= '<div class="sp-container sp-posts-text sp-py-2">';
-		$render .= '<' . esc_html( $shortcode_args['title_html_tag'] ) . ' class="sp-pt-2 sp-posts-block-title">';
-		$render .= $title;
-		$render .= '</' . esc_html( $shortcode_args['title_html_tag'] ) . '>';
-		$render .= '</div>';
-		$render .= '</a>';
-	}
-
-	// Show meta data.
-	if ( 'true' === $shortcode_args['show_meta_options'] ) {
-		$render .= '<div class="sp-container sp-posts-text sp-posts-block-meta-text">';
-
-		if ( 'true' === $shortcode_args['show_date_modified_meta'] ) {
-			$render .= esc_html( $modified_date );
-		}
-
-		if ( 'true' === $shortcode_args['show_author_meta'] ) {
-			if ( 'true' === $shortcode_args['show_date_modified_meta'] ) {
-				$render .= ' ' . esc_html( $shortcode_args['meta_separator'] ) . ' ';
-			}
-			$render .= esc_html( $author );
-		}
-
-		if ( 'true' === $shortcode_args['show_date_meta'] ) {
-			if ( 'true' === $shortcode_args['show_author_meta'] || 'true' === $shortcode_args['show_date_modified_meta'] ) {
-				$render .= ' ' . esc_html( $shortcode_args['meta_separator'] ) . ' ';
-			}
-			$render .= esc_html( $date );
-		}
-
-		if ( 'true' === $shortcode_args['show_time_meta'] ) {
-			if ( 'true' === $shortcode_args['show_author_meta'] || 'true' === $shortcode_args['show_date_modified_meta'] || 'true' === $shortcode_args['show_date_meta'] ) {
-				$render .= ' ' . esc_html( $shortcode_args['meta_separator'] ) . ' ';
-			}
-			$render .= esc_html( $time );
-		}
-
-		if ( 'true' === $shortcode_args['show_comment_count_meta'] ) {
-			if ( 'true' === $shortcode_args['show_author_meta'] || 'true' === $shortcode_args['show_date_modified_meta'] || 'true' === $shortcode_args['show_date_meta'] || 'true' === $shortcode_args['show_time_meta'] ) {
-				$render .= ' ' . esc_html( $shortcode_args['meta_separator'] ) . ' ';
-			}
-
-			if ( 1 > $comments_number ) {
-				$render .= esc_html( 'No comments' );
-			} elseif ( 1 === $comments_number ) {
-				$render .= esc_html( $comments_number . ' Comment' );
-			} elseif ( 2 <= $comments_number ) {
-				$render .= esc_html( $comments_number . 'Comments' );
-			}
-		}
-
-		$render .= '</div>';
-	}
-
-	// Show post content.
-	if ( 'true' === $shortcode_args['show_excerpt'] ) {
-		if ( ! empty( $excerpt ) ) {
-			$render .= '<div class="sp-container sp-posts-text sp-py-2 sp-posts-block-excerpt">';
-			$render .= esc_html( wp_trim_words( $excerpt, (int) $shortcode_args['excerpt_length'], null ) );
-			$render .= '</div>';
-		} else {
-			if ( 0 < strlen( $content ) ) {
-				$render .= '<div class="sp-container sp-posts-text sp-py-2 sp-posts-block-excerpt">';
-				$render .= esc_html( wp_trim_words( $content, (int) $shortcode_args['excerpt_length'], null ) );
-				$render .= '</div>';
-			}
-		}
-	}
-
-	// Show read more button.
-	if ( 'true' === $shortcode_args['show_read_more'] ) {
-		$render .= '<div class="sp-container sp-posts-text sp-py-2 sp-posts-block-read-more">';
-		$render .= '<a href="' . esc_attr( $link ) . '">' . esc_html( $shortcode_args['read_more_text'] ) . '</a>';
-		$render .= '</div>';
-	}
-
-	$render .= '</div>';
-
-	return $render;
 }

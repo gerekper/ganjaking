@@ -1095,6 +1095,36 @@ function seedprod_pro_theme_template_enqueue_styles() {
 			);
 		}
 
+		// particles background js 
+		if ( in_array( 'masonarylayout', $seedprod_theme_requirements ) ) {
+			wp_register_script(
+				'seedprod-masonry-js',
+				SEEDPROD_PRO_PLUGIN_URL . 'public/js/masonry.pkgd.js',
+				array( 'jquery' ),
+				SEEDPROD_PRO_VERSION,
+				false
+			);
+			wp_enqueue_script( 'seedprod-masonry-js' );
+
+			wp_register_script(
+				'seedprod-imagesloaded-js',
+				SEEDPROD_PRO_PLUGIN_URL . 'public/js/imagesloaded.pkgd.min.js',
+				array( 'jquery' ),
+				SEEDPROD_PRO_VERSION,
+				false
+			);
+			wp_enqueue_script( 'seedprod-imagesloaded-js' );
+
+			wp_register_script(
+				'seedprod-isotope-js',
+				SEEDPROD_PRO_PLUGIN_URL . 'public/js/isotope.pkgd.js',
+				array( 'jquery' ),
+				SEEDPROD_PRO_VERSION,
+				false
+			);
+			wp_enqueue_script( 'seedprod-isotope-js' );
+		}
+
 		// general scripts
 		wp_enqueue_script(
 			'seedprod-scripts',
@@ -1541,6 +1571,10 @@ function get_the_theme_parts_requirements() {
 
 	if ( strpos( $settings_str, 'particleBg' ) !== false ) {
 		$seedprod_theme_requirements[] = 'particlesbackground';
+	}
+
+	if ( strpos( $settings_str, '"type":"posts"' ) !== false ) {
+		$seedprod_theme_requirements[] = 'masonarylayout';
 	}
 
 	return $all_settings;

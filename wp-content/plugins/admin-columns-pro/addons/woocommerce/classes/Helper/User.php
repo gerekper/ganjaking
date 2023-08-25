@@ -98,8 +98,8 @@ final class User
         $sql = $wpdb->prepare(
             "
             SELECT COUNT(wcopl.product_id)
-            FROM wp_wc_orders AS wco
-            LEFT JOIN wp_wc_order_product_lookup AS wcopl ON wcopl.order_id = wco.id
+            FROM {$wpdb->prefix}wc_orders AS wco
+            LEFT JOIN {$wpdb->prefix}wc_order_product_lookup AS wcopl ON wcopl.order_id = wco.id
             WHERE wco.customer_id = %d
                 AND wco.status IN $statuses_sql
         ",
@@ -119,8 +119,8 @@ final class User
         $sql = $wpdb->prepare(
             "
             SELECT SUM(wcopl.product_qty)
-            FROM wp_wc_orders AS wco
-            LEFT JOIN wp_wc_order_product_lookup AS wcopl ON wcopl.order_id = wco.id
+            FROM {$wpdb->prefix}wc_orders AS wco
+            LEFT JOIN {$wpdb->prefix}wc_order_product_lookup AS wcopl ON wcopl.order_id = wco.id
             WHERE wco.customer_id = %d
                 AND wco.status IN $statuses_sql
         ",

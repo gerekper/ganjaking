@@ -286,8 +286,6 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 					} else {
 						$bulk_upgrade_url = $this->get_utm_link(
 							array(
-								'coupon'       => 'SMUSH30OFF',
-								'checkout'     => 0,
 								'utm_campaign' => 'smush_bulk_smush_BO_email_toggle',
 							)
 						);
@@ -526,23 +524,17 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 
 		$bulk_upgrade_url       = $this->get_utm_link(
 			array(
-				'coupon'       => 'SMUSH30OFF',
-				'checkout'     => 0,
 				'utm_campaign' => 'smush_bulk_smush_complete_global',
 			)
 		);
 		$in_progress_upsell_url = $this->get_utm_link(
 			array(
-				'coupon'       => 'SMUSH30OFF',
-				'checkout'     => 0,
 				'utm_campaign' => 'smush_bulk_smush_progress_BO',
 			)
 		);
 
 		$upsell_cdn_url 		=  $this->get_utm_link(
 			array(
-				'coupon'       => 'SMUSH30OFF',
-				'checkout'     => 0,
 				'utm_campaign' => 'smush_bulksmush_cdn',
 			)
 		);
@@ -557,7 +549,7 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 			$upsell_text = sprintf(
 				/* translators: %s: Upsell Link */
 				__( 'Want to exit the page? Background Optimization is available with Smush Pro, allowing you to leave while Smush continues to work its magic. %s', 'wp-smushit' ),
-				'<a class="smush-upsell-link" target="_blank" href="' . esc_url( $in_progress_upsell_url ) . '"><strong>' . esc_html__( 'Upgrade to Pro and get 30% off', 'wp-smushit' ) . '</strong></a>'
+				'<a class="smush-upsell-link" target="_blank" href="' . esc_url( $in_progress_upsell_url ) . '"><strong>' . esc_html__( 'Upgrade to Pro and get 60% off', 'wp-smushit' ) . '</strong></a>'
 			);
 		}
 		$in_processing_notice = sprintf(

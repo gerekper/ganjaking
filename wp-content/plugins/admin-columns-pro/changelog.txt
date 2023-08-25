@@ -1,5 +1,27 @@
 == Changelog ==
 
+= 6.3.2 =
+Release Date: 25th August, 2023
+
+* [Improved] Changed the Conditional Formatting style hook from `acp/conditional_format/color_styles` to `acp/conditional_format/formats`
+* [Improved] New date operators for Conditional Formatting: Within Days, More than ... days ago, Less than ... days ago
+* [Fixed] Error  when adding the 'Last Modified Author' column
+* [Fixed] Sorting for Custom Field column with field type set to 'Default' did not work anymore
+* [Fixed] The order for Saved Filters was reversed
+* [WooCommerce] Added sorting to more HPOS columns
+* [Updated] Admin Columns Core version 4.6.7
+
+= 6.3.1 =
+Release Date: 21st August, 2023
+
+* [Fixed] Use the database prefix for custom WooCommerce HPOS queries
+* [Fixed] Update section in the Admin was not visible anymore
+* [Fixed] The style selector in Conditional Formatting could overlap multiple style selectors
+* [Fixed] Error on the WPML string translation page
+* [Fixed] Some custom columns could give a fatal error on the settings page
+* [Improved] Give better feedback when the settings could not be saved because of missing database tables
+* [Updated] Admin Columns Core version 4.6.6
+
 = 6.3 =
 Release Date: 15th August, 2023
 

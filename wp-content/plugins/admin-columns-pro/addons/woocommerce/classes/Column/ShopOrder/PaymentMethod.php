@@ -24,18 +24,10 @@ class PaymentMethod extends AC\Column\Meta
 		return '_payment_method_title';
 	}
 
-	public function get_value( $post_id ) {
-		$title = $this->get_payment_method( get_post_meta( $post_id, '_payment_method', true ) );
+	public function get_value( $id ) {
+        $order = wc_get_order($id);
 
-		if ( ! $title ) {
-			$title = get_post_meta( $post_id, '_payment_method_title', true );
-		}
-
-		if ( ! $title ) {
-			return $this->get_empty_char();
-		}
-
-		return $title;
+        return $order->get_payment_method_title() ?: $this->get_empty_char();
 	}
 
 	public function sorting() {
@@ -52,18 +44,6 @@ class PaymentMethod extends AC\Column\Meta
 
 	public function editing() {
 		return new Editing\ShopOrder\PaymentMethod();
-	}
-
-	private function get_payment_method( $method ) {
-
-		/* @var WC_Payment_Gateway[] $payment_gateways */
-		$payment_gateways = WC()->payment_gateways()->payment_gateways();
-
-		if ( ! isset( $payment_gateways[ $method ] ) ) {
-			return false;
-		}
-
-		return $payment_gateways[ $method ]->get_title();
 	}
 
 }

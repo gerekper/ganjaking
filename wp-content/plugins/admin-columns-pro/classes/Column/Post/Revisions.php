@@ -3,9 +3,10 @@
 namespace ACP\Column\Post;
 
 use AC;
+use ACP\Sorting;
 
 class Revisions extends AC\Column
-    implements AC\Column\AjaxValue
+    implements AC\Column\AjaxValue, Sorting\Sortable
 {
 
     public function __construct()
@@ -53,6 +54,11 @@ class Revisions extends AC\Column
     public function is_valid()
     {
         return post_type_supports($this->get_post_type(), 'revisions');
+    }
+
+    public function sorting()
+    {
+        return new Sorting\Model\Post\Revisions();
     }
 
 }

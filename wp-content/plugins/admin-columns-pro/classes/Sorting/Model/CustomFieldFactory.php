@@ -20,8 +20,6 @@ class CustomFieldFactory
         Column\CustomField $column
     ): ?AbstractModel {
         switch ($type) {
-            case '':
-                return null;
             case CustomFieldType::TYPE_ARRAY :
                 return new Disabled();
             case CustomFieldType::TYPE_BOOLEAN :

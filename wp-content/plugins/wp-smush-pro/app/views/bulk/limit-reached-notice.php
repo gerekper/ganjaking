@@ -14,13 +14,11 @@
                 $is_directory_smush = 'smush-directory' === $this->get_slug();
                 $upgrade_url        = $this->get_utm_link(
 	                array(
-		                'coupon'       => 'SMUSH30OFF',
-		                'checkout'     => 0,
 		                'utm_campaign' => $is_directory_smush ? 'smush_directory_smush_paused_50_limit' : 'smush_bulk_smush_paused_50_limit',
 	                )
                 );
                 $bg_optimization    = WP_Smush::get_instance()->core()->mod->bg_optimization;
-                $discount_text      = '<strong>' . esc_html__( 'Get 30% off when you upgrade today.', 'wp-smushit' ) . '</strong>';
+                $discount_text      = '<strong>' . esc_html__( 'Get 60% off when you upgrade today.', 'wp-smushit' ) . '</strong>';
                 printf(
                     /* translators: %s1$d - bulk smush limit, %2$s - upgrade link, %3$s - <strong>, %4$s - </strong>, %5$s - Bulk Smush limit */
                     esc_html__( 'The free version of Smush only allows you to compress %1$d images at a time. %2$s to compress %3$sunlimited images at once%4$s or click Resume to compress another %1$d images. %5$s', 'wp-smushit' ),

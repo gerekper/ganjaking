@@ -68,7 +68,7 @@ $line_html = ob_get_clean();
 		$description = $product->get_title();
 		$qty         = $item['qty'];
 		$value       = $product->get_price() * $item['qty'];
-		$weight      = wc_get_weight( $product->get_weight() * $item['qty'], 'lbs' );
+		$weight      = wc_get_weight( floatval( $product->get_weight() ) * intval( $item['qty'] ), 'lbs' );
 
 		include( 'html-customs-item.php' );
 	}

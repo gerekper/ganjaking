@@ -32,13 +32,13 @@ final class Plugin {
      * Plugin Version
      * @var string
      */
-    public $version = '2.5.1';
+    public $version = '2.5.4';
 
     /**
      * Plugin DB Version
      * @var string
      */
-    public $db_version = '1.0.0';
+    public $db_version = '1.0.1';
 
     private static $_instance = null;
 

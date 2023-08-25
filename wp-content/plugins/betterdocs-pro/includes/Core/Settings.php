@@ -18,6 +18,16 @@ class Settings extends FreeSettings {
         add_filter( 'betterdocs_settings_args', [$this, '_args'], 11 );
     }
 
+    public function get_raw_field( $key, $default = null ) {
+        $_settings = $this->database->get( $this->base_key, [] );
+
+        if( isset( $_settings[ $key ] ) ) {
+            return $this->get_normalized_value( $key, $_settings[ $key ], $default );
+        }
+
+        return $default;
+    }
+
     /**
      * A list of deprecated settings key.
      *
@@ -39,7 +49,9 @@ class Settings extends FreeSettings {
      * @return void
      */
     public function v250() {
-        parent::v250();
+        if( method_exists( parent::class, 'v250' ) ) {
+            parent::v250();
+        }
 
         $_reporting_subject = $this->get( 'reporting_subject_updated', '' );
         if ( ! empty( $_reporting_subject ) ) {
@@ -70,9 +82,28 @@ class Settings extends FreeSettings {
         foreach ($_ia_settings_migration as $key) {
             $data = isset( $_raw_settings[ $key ] ) ? $_raw_settings[ $key ] : null;
             if( $data !== null ) {
-                if( gettype( $data ) == 'string' && empty( $data ) ) {
+                if( empty( $data ) ) {
                     $this->save( $key, $_defaults[ $key ] );
                 }
+            }
+        }
+    }
+
+    public function v253(){
+        if( method_exists( parent::class, 'v253' ) ) {
+            parent::v253();
+        }
+
+        $ia_options = [
+            'display_ia_pages',
+            'display_ia_archives',
+            'display_ia_texonomy',
+            'display_ia_single'
+        ];
+
+        foreach( $ia_options as $option ) {
+            if( $this->get_raw_field( $option ) == false ) {
+                $this->save( $option, [] );
             }
         }
     }
@@ -821,7 +852,7 @@ class Settings extends FreeSettings {
                             'name'     => 'ia_feedback_icon_size',
                             'type'     => 'number',
                             'label'    => __( 'Feedback Icon Size', 'betterdocs-pro' ),
-                            'default'  => 30,
+                            'default'  => 15,
                             'priority' => 21
                         ],
                         'ia_feedback_icon_color'              => [

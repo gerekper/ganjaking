@@ -487,12 +487,12 @@ function seedprod_pro_render_templatetag() {
 				}
 			}
 
-			/* Restore original Post Data */
+			/* Restore original Post Data */ 
 			wp_reset_postdata();
 
 			if ( ! empty( $content ) ) {
-				do_action( 'wp_print_footer_scripts' );
-				do_action( 'wp_footer' );
+					do_action( 'wp_print_footer_scripts' );
+					do_action( 'wp_footer' );
 			}
 		}
 

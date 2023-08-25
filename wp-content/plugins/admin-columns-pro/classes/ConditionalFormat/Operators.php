@@ -22,6 +22,10 @@ final class Operators
 
     public function get_group(string $operator): string
     {
+        if ( ! $this->has_operator($operator)) {
+            throw new OperatorNotFoundException($operator);
+        }
+
         static $operator_group_map = null;
 
         if ($operator_group_map === null) {
@@ -32,11 +36,20 @@ final class Operators
             }
         }
 
-        if ( ! isset($operator_group_map[$operator])) {
-            throw new OperatorNotFoundException($operator);
+        return $operator_group_map[$operator];
+    }
+
+    public function has_operator(string $operator): bool
+    {
+        foreach ($this->get_operators() as $operator_definitions) {
+            foreach ($operator_definitions as $operator_definition) {
+                if ($operator === $operator_definition[self::OPERATOR]) {
+                    return true;
+                }
+            }
         }
 
-        return $operator_group_map[$operator];
+        return false;
     }
 
     public function get_operators(): array
@@ -130,6 +143,18 @@ final class Operators
                         self::OPERATOR => DateOperators::FUTURE,
                         self::TYPE     => self::TYPE_RELATIVE,
                         self::LABEL    => _x('Future', 'operator', 'codepress-admin-columns'),
+                    ],
+                    [
+                        self::OPERATOR => DateOperators::WITHIN_DAYS,
+                        self::LABEL    => _x('Within … days', 'operator', 'codepress-admin-columns'),
+                    ],
+                    [
+                        self::OPERATOR => DateOperators::GT_DAYS_AGO,
+                        self::LABEL    => _x('More than … days ago', 'operator', 'codepress-admin-columns'),
+                    ],
+                    [
+                        self::OPERATOR => DateOperators::LT_DAYS_AGO,
+                        self::LABEL    => _x('Less than … days ago', 'operator', 'codepress-admin-columns'),
                     ],
                 ],
             ];

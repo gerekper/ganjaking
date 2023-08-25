@@ -53,7 +53,8 @@ class Date implements Service
         $value = $data;
 
         if ($value) {
-            $date_time = DateTime::createFromFormat('U', ac_helper()->date->strtotime($value));
+            $timestamp = ac_helper()->date->strtotime($value);
+            $date_time = $timestamp ? DateTime::createFromFormat('U', $timestamp) : null;
 
             $value = $date_time
                 ? $date_time->format($this->date_format)

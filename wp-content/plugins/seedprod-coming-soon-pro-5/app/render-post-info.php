@@ -78,9 +78,18 @@ function render_item( $item_number, $show_icons = true ) {
 				}
 
 				// Get author name.
-				$html .= '<span class="sp-postinfo-author-name">';
-				$html .= do_shortcode( '[seedprod tag="the_author_meta(display_name)"]' );
-				$html .= '</span>';
+				$linktoauthor = isset( $_POST['items'][ $item_number ]['linktoauthor'] ) ? sanitize_key( wp_unslash( $_POST['items'][ $item_number ]['linktoauthor'] ) ) : '';
+				if ( 'true' === $linktoauthor){
+					$html .= '<a href="';
+					$html .= do_shortcode( '[seedprod tag="get_author_posts_url"]' );
+					$html .= '"><span class="sp-postinfo-author-name">';
+					$html .= do_shortcode( '[seedprod tag="the_author_meta(display_name)"]' );
+					$html .= '</span></a>';
+				}else{
+					$html .= '<span class="sp-postinfo-author-name">';
+					$html .= do_shortcode( '[seedprod tag="the_author_meta(display_name)"]' );
+					$html .= '</span>';
+				}
 
 				break;
 

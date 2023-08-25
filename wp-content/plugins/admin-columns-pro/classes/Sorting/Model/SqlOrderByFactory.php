@@ -143,14 +143,17 @@ class SqlOrderByFactory
 
         $when_parts = [];
 
-        if ($empty_values->has_value(null)) {
+        if ($empty_values->has_value(EmptyValues::NULL)) {
             $when_parts[] = sprintf('WHEN %s IS null THEN 1', $field);
         }
-        if ($empty_values->has_value('')) {
+        if ($empty_values->has_value(EmptyValues::EMPTY_STRING)) {
             $when_parts[] = sprintf('WHEN %s = \'\' THEN 1', $field);
         }
-        if ($empty_values->has_value(0)) {
+        if ($empty_values->has_value(EmptyValues::ZERO)) {
             $when_parts[] = sprintf('WHEN %s = 0 THEN 1', $field);
+        }
+        if ($empty_values->has_value(EmptyValues::LTE_ZERO)) {
+            $when_parts[] = sprintf('WHEN %s <= 0 THEN 1', $field);
         }
 
         if ( ! $when_parts) {

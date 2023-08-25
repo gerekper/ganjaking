@@ -7,6 +7,8 @@ use WPDeveloper\BetterDocs\Utils\CSSGenerator;
 
 class InstantAnswer extends Base {
     private $settings;
+    private $is_visible = true;
+
     public function __construct( Settings $settings ) {
         $this->settings = $settings;
 
@@ -39,7 +41,122 @@ class InstantAnswer extends Base {
         $printed = true;
     }
 
+    private function is_page( $conditions = [] ){
+        return is_page() && ! empty( $conditions )  && ( in_array( "all", $conditions ) || is_page( $conditions ) );
+    }
+
+    private function is_post_type_archive( $conditions = [] ){
+        return is_archive() && ! is_tax() && ! is_category() && ! is_tag() && ! empty( $conditions ) && (
+            in_array( "all", $conditions ) || is_post_type_archive( $conditions )
+        );
+    }
+    private function is_other_archive( $conditions = [] ){
+        return is_archive() && ! empty( $conditions ) && (
+            in_array( "post", $conditions ) && is_date() || is_author() || is_day()
+        );
+    }
+
+    private function is_taxonomy( $conditions = [], $queried_object = null ){
+        return ( is_tax() || is_category() || is_tag() ) && ! empty( $conditions ) && (
+            in_array( "all", $conditions ) || in_array( $queried_object->taxonomy, $conditions )
+        );
+    }
+
+    private function is_home_archive( $conditions = [] ){
+        return is_home() && ! empty( $conditions ) && (
+            in_array( "all", $conditions ) || in_array( "post", $conditions )
+        );
+    }
+
+    private function is_post_type_product_archive( $conditions = [], $queried_object = null ){
+        return is_archive() && ! empty( $conditions ) && (
+            in_array( "product", $conditions ) && get_taxonomy( $queried_object->taxonomy )->object_type[0] === 'product'
+        );
+    }
+
+    private function is_singular( $conditions = [] ){
+        return ! is_page() && is_singular() && ! empty( $conditions ) && (
+            in_array( "all", $conditions ) || is_singular( $conditions )
+        );
+    }
+
+    public function ia_conditions() {
+        $display_ia_pages    = $this->settings->get_raw_field( 'display_ia_pages' );
+        $display_ia_archives = $this->settings->get_raw_field( 'display_ia_archives' );
+        $display_ia_texonomy = $this->settings->get_raw_field( 'display_ia_texonomy' );
+        $display_ia_single   = $this->settings->get_raw_field( 'display_ia_single' );
+        $queried_object      = get_queried_object();
+
+        if( $this->is_page( $display_ia_pages ) ) {
+            return true;
+        } elseif( $this->is_taxonomy( $display_ia_texonomy, $queried_object ) ){
+            return true;
+        } elseif( $this->is_post_type_archive( $display_ia_archives ) ) {
+            return true;
+        } elseif( $this->is_home_archive( $display_ia_archives ) ) {
+            return true;
+        } elseif( $this->is_other_archive( $display_ia_archives ) ) {
+            return true;
+        } elseif( $this->is_post_type_product_archive( $display_ia_archives, $queried_object ) ){
+            return true;
+        } elseif( $this->is_singular( $display_ia_single ) ) {
+            return true;
+        }
+
+        // $query_object        = get_queried_object();
+        // if (
+        //     is_page()
+        //     && ( in_array( "all", $display_ia_pages ) || is_page( $display_ia_pages ) )
+        // ) {
+        //     return true;
+        // } elseif (
+        //     ( is_tax() || is_category() || is_tag() )
+        //     && ( in_array( "all", $display_ia_texonomy ) || in_array( $query_object->taxonomy, $display_ia_texonomy ) )
+        // ) {
+        //     return true;
+        // } elseif (
+        //     is_archive()
+        //     && ! is_tax()
+        //     && ! is_category()
+        //     && ! is_tag()
+        //     && ( in_array( "all", $display_ia_archives ) || is_post_type_archive( $display_ia_archives ) )
+        // ) {
+        //     return true;
+        // } elseif (
+        //     is_home()
+        //     && ( in_array( "all", $display_ia_archives ) || in_array( "post", $display_ia_archives ) )
+        // ) {
+        //     return true;
+        // } elseif (
+        //     is_archive()
+        //     && ( in_array( "post", $display_ia_archives )
+        //         && is_date()
+        //         || is_author()
+        //         || is_day() )
+        // ) {
+        //     return true;
+        // } elseif (
+        //     is_archive()
+        //     && in_array( "product", $display_ia_archives )
+        //     && get_taxonomy( $query_object->taxonomy )->object_type[0] === 'product'
+        // ) {
+        //     return true;
+        // } elseif (
+        //     ! is_page()
+        //     && is_singular()
+        //     && ( in_array( "all", $display_ia_single ) || is_singular( $display_ia_single ) )
+        // ) {
+        //     return true;
+        // }
+
+        return false;
+    }
+
     public function add_ia( $preview_visiable = null ) {
+        if( $preview_visiable === '' && ! $this->is_visible ) {
+            return;
+        }
+
         $style = '';
         if ( $preview_visiable === false ) {
             $style = 'style="display: none"';
@@ -66,6 +183,12 @@ class InstantAnswer extends Base {
 
     public function scripts( $hook ) {
         if ( is_admin() && $hook !== 'betterdocs_page_betterdocs-settings' ) {
+            return;
+        }
+
+        $this->is_visible = $this->ia_conditions();
+
+        if( ! is_admin() && ! $this->is_visible ) {
             return;
         }
 

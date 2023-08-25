@@ -186,8 +186,6 @@ class Mail extends Helpers\Mail {
 		}
 		$upsell_url = add_query_arg(
 			array(
-				'coupon'       => 'SMUSH30OFF',
-				'checkout'     => 0,
 				'utm_source'   => 'smush',
 				'utm_medium'   => 'plugin',
 				'utm_campaign' => 'smush_bulksmush_bo_email',

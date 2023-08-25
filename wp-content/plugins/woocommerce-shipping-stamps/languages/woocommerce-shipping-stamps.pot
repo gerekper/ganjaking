@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Stamps.com API integration 1.9.4\n"
+"Project-Id-Version: WooCommerce Stamps.com API integration 1.9.5\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-shipping-stamps\n"
-"POT-Creation-Date: 2023-07-31 17:40:37+00:00\n"
+"POT-Creation-Date: 2023-08-22 17:01:19+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,121 +14,13 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.3\n"
 
-#: includes/class-wc-stamps-api.php:57
-msgid "Stamps.com hidden postage"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:59
-msgid "Stamps.com insurance"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:61
-msgid "Stamps.com insurance for registered mail"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:63
-msgid "Certified mail"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:65
-msgid "Collect on delivery"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:67
-msgid "Delivery confirmation"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:69
-msgid "Express sunday/holiday guaranteed"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:71
-msgid "USPS insurance"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:73
-msgid "No delivery on saturdays"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:75
-msgid "Restricted delivery"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:77
-msgid "Registered mail"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:79
-msgid "Return reciept requested"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:81
-msgid "Return reciept for merchandise"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:83
-msgid "Signature confirmation"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:85
-msgid "Fragile"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:87
-msgid "Perishable"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:89
-msgid "Waive delivery signature"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:91
-msgid "Signature required"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:93
-msgid "Notice of non-delivery"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:95
-msgid "Electronic return reciept"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:97
-msgid "Live animal no surcharge"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:99
-msgid "Live animal with surcharge"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:101
-msgid "Hazardous materials"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:103
-msgid "Cremated remains"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:105
-msgid "Deliver priority mail express by 10:30am"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:107
-msgid "Adult signature required"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:109
-msgid "Adult signature restricted delivery"
-msgstr ""
-
-#: includes/class-wc-stamps-api.php:553
+#: includes/class-wc-stamps-api.php:504
 msgid ""
 "No rates were returned for the selected package type, weight and "
 "dimensions. Please select a different package type and try again."
 msgstr ""
 
-#: includes/class-wc-stamps-api.php:612
+#: includes/class-wc-stamps-api.php:563
 msgid "Cannot create a label for the package with the requested service."
 msgstr ""
 
@@ -287,17 +179,17 @@ msgstr ""
 msgid "Shipping Labels"
 msgstr ""
 
-#: includes/class-wc-stamps-order.php:481
+#: includes/class-wc-stamps-order.php:484
 msgid ""
 "The label was refunded. Refund requests are generally processed within 1 to "
 "2 weeks."
 msgstr ""
 
-#: includes/class-wc-stamps-order.php:722
+#: includes/class-wc-stamps-order.php:725
 msgid "Try again"
 msgstr ""
 
-#: includes/class-wc-stamps-order.php:725
+#: includes/class-wc-stamps-order.php:728
 msgid "View all labels"
 msgstr ""
 
@@ -876,15 +768,15 @@ msgid ""
 "here."
 msgstr ""
 
-#: woocommerce-shipping-stamps.php:117
+#: woocommerce-shipping-stamps.php:120
 msgid "Settings"
 msgstr ""
 
-#: woocommerce-shipping-stamps.php:118
+#: woocommerce-shipping-stamps.php:121
 msgid "Support"
 msgstr ""
 
-#: woocommerce-shipping-stamps.php:119
+#: woocommerce-shipping-stamps.php:122
 msgid "Docs"
 msgstr ""
 

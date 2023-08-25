@@ -261,7 +261,6 @@ class Core extends Stats {
 
 		$upgrade_url = add_query_arg(
 			array(
-				'coupon'       => 'SMUSH30OFF',
 				'utm_source'   => 'smush',
 				'utm_medium'   => 'plugin',
 				'utm_campaign' => 'smush_bulksmush_inline_filesizelimit',

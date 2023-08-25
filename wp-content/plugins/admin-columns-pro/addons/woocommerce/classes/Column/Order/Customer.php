@@ -6,6 +6,7 @@ use AC;
 use ACA\WC\Search;
 use ACA\WC\Settings;
 use ACA\WC\Sorting\Order\CustomerField;
+use ACA\WC\Sorting\Order\CustomerFullname;
 use ACA\WC\Sorting\Order\OrderData;
 use ACP;
 
@@ -55,6 +56,8 @@ class Customer extends AC\Column implements ACP\Search\Searchable, ACP\Export\Ex
             case AC\Settings\Column\User::PROPERTY_NICKNAME:
             case AC\Settings\Column\User::PROPERTY_LOGIN:
                 return new CustomerField('username');
+            case AC\Settings\Column\User::PROPERTY_FULL_NAME:
+                return new CustomerFullname();
             case AC\Settings\Column\User::PROPERTY_ID:
                 return new OrderData('customer_id');
 

@@ -145,8 +145,6 @@ class Media_Library_Row {
 	private function get_html_utm_link( $utm_message, $utm_campain ) {
 		$upgrade_url = 'https://wpmudev.com/project/wp-smush-pro/';
 		$args        = array(
-			'coupon'       => 'SMUSH30OFF',
-			'checkout'     => 0,
 			'utm_source'   => 'smush',
 			'utm_medium'   => 'plugin',
 			'utm_campaign' => $utm_campain,

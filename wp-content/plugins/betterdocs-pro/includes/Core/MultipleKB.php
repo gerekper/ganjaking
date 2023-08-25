@@ -57,11 +57,8 @@ class MultipleKB extends Base {
     }
 
     public function type_rewrite_permalink( $permalink, $slug, $permalink_structure ) {
-        if( ! $this->is_enable && in_array( 'knowledge_base', $permalink_structure, true ) )  {
-            $permalink_structure = array_filter($permalink_structure, function( $item ){
-                return $item !== 'knowledge_base';
-            });
-            $permalink = implode( '/%', $permalink_structure ) . '%';
+        if( ! $this->is_enable && strpos( $permalink, '%knowledge_base%' ) >= 0 )  {
+            $permalink = trim( str_replace('%knowledge_base%', '', $permalink), '/' );
             $this->settings->save_settings( [ 'permalink_structure' => $permalink ] );
         }
 
@@ -199,9 +196,11 @@ class MultipleKB extends Base {
 
     public function category_rewrite( $rewrite, $slug ) {
         $_docs_slug = $this->post_type->docs_archive;
-        if ( $this->settings->get( 'disable_root_slug_archive', false ) ) {
-            $_docs_slug = '/';
-        }
+
+        // FIXME: Need to remove this later.
+        // if ( $this->settings->get( 'disable_root_slug_archive', false ) ) {
+        //     $_docs_slug = '/';
+        // }
 
         return ['slug' => trim( $_docs_slug, '/' ) . '/%knowledge_base%', 'with_front' => false];
     }

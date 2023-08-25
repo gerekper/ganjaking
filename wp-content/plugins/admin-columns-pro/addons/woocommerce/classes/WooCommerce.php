@@ -133,12 +133,15 @@ final class WooCommerce implements Registerable
             Service\QuickAdd::class,
             Service\Table::class,
             Service\ColumnGroups::class,
-            Service\Listscreen::class,
             Service\ListScreenGroups::class,
             Service\TableRows::class,
             Service\TableScreen::class,
             ACP\Service\Templates::class,
         ];
+
+        if ($container->get('use.hpos')) {
+            $services_fqn[] = Service\Listscreens::class;
+        }
 
         if ($this->use_subscriptions()) {
             if ($container->get('use.hpos')) {

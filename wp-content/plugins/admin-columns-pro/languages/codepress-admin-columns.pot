@@ -119,99 +119,114 @@ msgstr ""
 msgid "Your Admin Columns Pro license will expire in %s. In order get access to new features and receive security updates, please %s before %s."
 msgstr ""
 
-#: admin-columns-pro/classes/ConditionalFormat/Operators.php:51
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:64
 msgctxt "operator"
 msgid "Contains"
 msgstr ""
 
-#: admin-columns-pro/classes/ConditionalFormat/Operators.php:55
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:68
 msgctxt "operator"
 msgid "Does Not Contain"
 msgstr ""
 
-#: admin-columns-pro/classes/ConditionalFormat/Operators.php:59
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:72
 msgctxt "operator"
 msgid "Starts With"
 msgstr ""
 
-#: admin-columns-pro/classes/ConditionalFormat/Operators.php:63
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:76
 msgctxt "operator"
 msgid "Ends With"
 msgstr ""
 
-#: admin-columns-pro/classes/ConditionalFormat/Operators.php:69
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:82
 msgctxt "operator"
 msgid "Equals"
 msgstr ""
 
-#: admin-columns-pro/classes/ConditionalFormat/Operators.php:73
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:86
 msgctxt "operator"
 msgid "Not Equals"
 msgstr ""
 
-#: admin-columns-pro/classes/ConditionalFormat/Operators.php:77
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:90
 msgctxt "operator"
 msgid "Less Than"
 msgstr ""
 
-#: admin-columns-pro/classes/ConditionalFormat/Operators.php:81
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:94
 msgctxt "operator"
 msgid "Less Than or Equal"
 msgstr ""
 
-#: admin-columns-pro/classes/ConditionalFormat/Operators.php:85
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:98
 msgctxt "operator"
 msgid "Greater Than"
 msgstr ""
 
-#: admin-columns-pro/classes/ConditionalFormat/Operators.php:89
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:102
 msgctxt "operator"
 msgid "Greater Than or Equal"
 msgstr ""
 
-#: admin-columns-pro/classes/ConditionalFormat/Operators.php:94
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:107
 msgctxt "operator"
 msgid "Between"
 msgstr ""
 
-#: admin-columns-pro/classes/ConditionalFormat/Operators.php:99
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:112
 msgctxt "operator"
 msgid "Not Between"
 msgstr ""
 
-#: admin-columns-pro/classes/ConditionalFormat/Operators.php:105
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:118
 msgctxt "operator"
 msgid "Date is"
 msgstr ""
 
-#: admin-columns-pro/classes/ConditionalFormat/Operators.php:109
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:122
 msgctxt "operator"
 msgid "Date is After"
 msgstr ""
 
-#: admin-columns-pro/classes/ConditionalFormat/Operators.php:113
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:126
 msgctxt "operator"
 msgid "Date is Before"
 msgstr ""
 
-#: admin-columns-pro/classes/ConditionalFormat/Operators.php:117
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:130
 msgctxt "operator"
 msgid "Date Between"
 msgstr ""
 
-#: admin-columns-pro/classes/ConditionalFormat/Operators.php:122
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:135
 msgctxt "operator"
 msgid "Past"
 msgstr ""
 
-#: admin-columns-pro/classes/ConditionalFormat/Operators.php:127
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:140
 msgctxt "operator"
 msgid "Today"
 msgstr ""
 
-#: admin-columns-pro/classes/ConditionalFormat/Operators.php:132
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:145
 msgctxt "operator"
 msgid "Future"
+msgstr ""
+
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:149
+msgctxt "operator"
+msgid "Within … days"
+msgstr ""
+
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:153
+msgctxt "operator"
+msgid "More than … days ago"
+msgstr ""
+
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:157
+msgctxt "operator"
+msgid "Less than … days ago"
 msgstr ""
 
 #: admin-columns-pro/classes/Editing/Settings.php:86
@@ -400,6 +415,22 @@ msgstr ""
 
 #: admin-columns-pro/addons/pods/classes/Column.php:24
 msgid "Pods"
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Notice/NotSavedListScreen.php:23
+msgid "These settings are %s."
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Notice/NotSavedListScreen.php:24
+msgid "inactive"
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Notice/NotSavedListScreen.php:27
+msgid "Click %s to apply these column settings to the %s list table."
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Notice/NotSavedListScreen.php:31, admin-columns-pro/classes/Search/Asset/Script/Table.php:79
+msgid "Save"
 msgstr ""
 
 #: admin-columns-pro/classes/Admin/Page/Addons.php:27, admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php:87
@@ -643,11 +674,11 @@ msgstr ""
 msgid "Post Visibility"
 msgstr ""
 
-#: admin-columns-pro/classes/Column/Post/Revisions.php:14, admin-columns-pro/classes/Column/Post/Revisions.php:28
+#: admin-columns-pro/classes/Column/Post/Revisions.php:15, admin-columns-pro/classes/Column/Post/Revisions.php:29
 msgid "Revisions"
 msgstr ""
 
-#: admin-columns-pro/classes/Column/Post/Revisions.php:26
+#: admin-columns-pro/classes/Column/Post/Revisions.php:27
 msgid "%s revision"
 msgid_plural "%s revisions"
 msgstr[0] ""
@@ -2079,10 +2110,6 @@ msgstr ""
 msgid "Public"
 msgstr ""
 
-#: admin-columns-pro/classes/Search/Asset/Script/Table.php:79
-msgid "Save"
-msgstr ""
-
 #: admin-columns-pro/classes/Search/Comparison/Media/UsedAsFeaturedImage.php:47
 msgid "In use"
 msgstr ""
@@ -2401,7 +2428,7 @@ msgid "Coupons Used"
 msgstr ""
 
 #: admin-columns-pro/addons/woocommerce/classes/Column/Order/CreatedVersion.php:19
-msgid "WooCommerce version"
+msgid "WooCommerce Version"
 msgstr ""
 
 #: admin-columns-pro/addons/woocommerce/classes/Column/Order/CreatedVia.php:19
@@ -2412,7 +2439,7 @@ msgstr ""
 msgid "Currency"
 msgstr ""
 
-#: admin-columns-pro/addons/woocommerce/classes/Column/Order/Customer.php:21, admin-columns-pro/addons/woocommerce/classes/Settings/HideOnScreen/FilterSubscriptionCustomer.php:10
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/Customer.php:22, admin-columns-pro/addons/woocommerce/classes/Settings/HideOnScreen/FilterSubscriptionCustomer.php:10
 msgid "Customer"
 msgstr ""
 
@@ -2456,11 +2483,11 @@ msgstr ""
 msgid "Product Taxonomy"
 msgstr ""
 
-#: admin-columns-pro/addons/woocommerce/classes/Column/Order/Purchased.php:11, admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/Purchased.php:22
-msgid "Purchased"
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/Purchased.php:15, admin-columns-pro/addons/woocommerce/classes/Column/Product/Sales.php:18, admin-columns-pro/addons/woocommerce/classes/Column/Product/ShopOrder/Sales.php:22
+msgid "Products Sold"
 msgstr ""
 
-#: admin-columns-pro/addons/woocommerce/classes/Column/Order/Purchased.php:23, admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/Purchased.php:37
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/Purchased.php:28, admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/Purchased.php:37
 msgid "%d item"
 msgid_plural "%d items"
 msgstr[0] ""
@@ -2568,10 +2595,6 @@ msgctxt "Product on sale until (date)"
 msgid "Until"
 msgstr ""
 
-#: admin-columns-pro/addons/woocommerce/classes/Column/Product/Sales.php:18, admin-columns-pro/addons/woocommerce/classes/Column/Product/ShopOrder/Sales.php:22
-msgid "Products Sold"
-msgstr ""
-
 #: admin-columns-pro/addons/woocommerce/classes/Column/Product/StockStatus.php:36, admin-columns-pro/addons/woocommerce/classes/Search/Product/StockStatus.php:23
 msgid "In stock"
 msgstr ""
@@ -2670,6 +2693,10 @@ msgstr ""
 
 #: admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/ProductTags.php:17
 msgid "Product Tags"
+msgstr ""
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/Purchased.php:22
+msgid "Purchased"
 msgstr ""
 
 #: admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/Shipping.php:19, admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Totals.php:39

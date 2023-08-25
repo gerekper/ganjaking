@@ -24,6 +24,7 @@ class Install {
         register_deactivation_hook( BETTERDOCS_PRO_FILE, [$this, 'deactivate'] );
 
         add_action( 'init', [$this, 'init'], -999 );
+        add_action( 'init', [$this, 'check_db_updates'], 1 );
         add_action( 'init', [$this, 'check_version'], 5 );
     }
 
@@ -37,7 +38,7 @@ class Install {
 
         if ( $this->database->get_transient( 'betterdocs_pro_activated' ) ) {
             // Create DB Tables if not created.
-            $this->setup_db_tables();
+            $this->check_db_updates();
 
             // Set admin roles
             $this->container->get( Roles::class )->setup( true );
@@ -74,7 +75,7 @@ class Install {
 
         if ( $requires_update && did_action( 'betterdocs_loaded' ) >= 1 ) {
             // Re-check if any db setup needed
-            $this->setup_db_tables();
+            $this->check_db_updates();
 
             // Re-check if any migration is needed.
             $this->container->get( Migration::class )->init( str_replace( '.', '', $betterdocs_code_version ) );
@@ -90,41 +91,18 @@ class Install {
         update_option( 'betterdocs_pro_version', betterdocs_pro()->version );
     }
 
-    public function setup_db_tables() {
+    public function check_db_updates() {
         global $wpdb;
 
-        $betterdocs_db_version      = get_option( 'betterdocs_pro_db_version', '1.0' );
-        $betterdocs_db_code_version = betterdocs_pro()->db_version;
-        $requires_update            = version_compare( $betterdocs_db_version, $betterdocs_db_code_version, '<' );
+        $_db_version      = get_option( 'betterdocs_pro_db_version', '1.0' );
+        $_db_code_version = betterdocs_pro()->db_version;
+        $requires_update  = version_compare( $_db_version, $_db_code_version, '<' );
 
-        if ( $requires_update ) {
-            $charset_collate = $wpdb->get_charset_collate();
-            $table_name      = $wpdb->prefix . 'betterdocs_analytics';
-
-            $analytics_table = "CREATE TABLE $table_name (
-                id bigint NOT NULL AUTO_INCREMENT,
-                post_id bigint DEFAULT 0 NOT NULL,
-                impressions bigint DEFAULT 0 NOT NULL,
-                unique_visit bigint DEFAULT 0 NOT NULL,
-                happy bigint DEFAULT 0 NOT NULL,
-                sad bigint DEFAULT 0 NOT NULL,
-                normal bigint DEFAULT 0 NOT NULL,
-                created_at date DEFAULT '0000-00-00' NOT NULL,
-                PRIMARY KEY (id),
-                KEY post_id (post_id),
-                KEY impressions (impressions),
-                KEY unique_visit (unique_visit),
-                KEY happy (happy),
-                KEY sad (sad),
-                KEY normal (normal),
-                KEY created_at (created_at)
-            ) {$charset_collate};";
-
-            require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-            dbDelta( $analytics_table );
-
-            // Update DB Version
-            update_option( 'betterdocs_pro_db_version', $betterdocs_db_code_version );
+        if ( ! $requires_update ) {
+            return;
         }
+
+        // Update DB Version
+        update_option( 'betterdocs_pro_db_version', $_db_code_version );
     }
 }

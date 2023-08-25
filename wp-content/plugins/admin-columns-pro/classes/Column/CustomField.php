@@ -61,7 +61,11 @@ class CustomField extends AC\Column\CustomField
 
     public function conditional_format(): ?FormattableConfig
     {
-        return ConditionalFormatableFactory::create($this->get_field_type());
+        return ConditionalFormatableFactory::create($this->get_field_type(), [
+            'date_format' => (new StoredDateFormat($this))->apply_filters(
+                Search\Comparison\Meta\DateFactory::FORMAT_DATE
+            ),
+        ]);
     }
 
     public function export()

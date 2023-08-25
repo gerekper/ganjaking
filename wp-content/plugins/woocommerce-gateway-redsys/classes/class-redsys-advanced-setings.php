@@ -627,7 +627,7 @@ if ( ! class_exists( 'Redsys_Advanced_Settings' ) ) :
 				default:
 					$settings = array(
 						array(
-							'title' => esc_html__( 'General Settings', 'woocommerce' ),
+							'title' => esc_html__( 'General Settings (Coming soon)', 'woocommerce-redsys' ),
 							'type'  => 'title',
 							'id'    => 'general_options',
 						),

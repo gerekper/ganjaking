@@ -9,7 +9,7 @@ use ACP\Sorting\ModelFactory;
 
 /**
  * Handles sorting based on `QueryVars` only
- * @depecated NEWVERSION
+ * @depecated 6.3
  */
 class ManageSortHandler
 {

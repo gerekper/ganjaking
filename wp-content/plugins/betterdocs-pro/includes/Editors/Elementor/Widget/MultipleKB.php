@@ -77,7 +77,7 @@ class MultipleKB extends CategoryBox {
         }
 
         $_parent_params = parent::view_params();
-
+        $_parent_params[ 'term_icon_meta_key' ] = 'knowledge_base_image-id';
         unset( $_parent_params[ 'terms_query_args' ] );
 
         $_view_params['terms_query_args'] = $this->betterdocs( 'query' )->terms_query( $terms_query  );

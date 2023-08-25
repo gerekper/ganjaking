@@ -92,7 +92,7 @@ final class Table extends Script
     {
         $location = $this->root_location->with_suffix('config/color_styles.php');
 
-        return (array)apply_filters('acp/conditional_format/color_styles', require $location->get_path());
+        return (array)apply_filters('acp/conditional_format/formats', require $location->get_path());
     }
 
     private function get_documentation_link(): string

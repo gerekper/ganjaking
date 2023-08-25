@@ -16,7 +16,7 @@ class CreatedVersion extends AC\Column implements ACP\Search\Searchable, ACP\Con
     public function __construct()
     {
         $this->set_type('column-order_created_version')
-             ->set_label(__('WooCommerce version', 'codepress-admin-columns'))
+             ->set_label(__('WooCommerce Version', 'codepress-admin-columns'))
              ->set_group('woocommerce');
     }
 

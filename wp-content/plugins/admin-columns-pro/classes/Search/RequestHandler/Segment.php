@@ -92,7 +92,7 @@ final class Segment extends Controller
         );
 
         $segments = new SegmentCollection(
-            iterator_to_array($user_segments) + iterator_to_array($global_segments)
+            array_merge(iterator_to_array($user_segments), iterator_to_array($global_segments))
         );
 
         $segments = apply_filters(

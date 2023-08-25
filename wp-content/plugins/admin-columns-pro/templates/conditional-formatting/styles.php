@@ -1,4 +1,5 @@
 <style>
+
 	<?php foreach( $this->styles as $name => $style ): ?>
 	<?php
 		$class = 'acp-cf-style-'.$name;
@@ -6,13 +7,14 @@
 	.<?= $class ?>,
 	.acp-cf-conditions__row .-style button.<?= $class ?>,
 	table tr td .<?= $class ?> {
-		background-color: <?= $style['background_color'] ?? 'transparent' ?>;
-		color: <?= $style['color'] ?>;
-	<?php if ( ! empty( $style['background_color'] ) ) : ?> border-color: <?= $style['background_color'] ?>;
+	<?php if ( ! empty( $style['background'] ) ) : ?> background: <?= esc_html( $style['background'] ) ?>;
+	<?php endif;?> <?php if ( ! empty( $style['background_color'] ) ) : ?> background-color: <?= esc_html( $style['background_color'] ) ?>;
+	<?php endif;?> color: <?= esc_html( $style['color'] ?? '' ) ?>;
+	<?php if ( ! empty( $style['background_color'] ) ) : ?> border-color: <?= esc_html( $style['background_color'] ) ?>;
 	<?php endif; ?>
 	}
 
-	<?php if ( ! empty( $style['background_color'] ) ) : ?>
+	<?php if ( ! empty( $style['background_color'] ) || ! empty( $style['background'] ) ) : ?>
 	table tr td .<?= $class ?> {
 		padding: 2px 4px;
 		-webkit-box-decoration-break: clone;
@@ -25,7 +27,7 @@
 
 	table tr td .<?= $class ?> > *,
 	table tr td .<?= $class ?> span.dashicons {
-		color: <?= $style['color'] ?>;
+		color: <?= esc_html( $style['color']??'' ) ?>;
 	}
 
 	.<?= $class ?> a,

@@ -1,3 +1,6 @@
+3.19.17 - 24 August 2023
+- Fix: Plugin automatic update issue fixed.
+
 3.19.16 - 24 August 2023
 - Improvement: Compatibility with the WordPress version 6.3
 - Improvement: Compatibility with the PHP version 8.2

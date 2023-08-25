@@ -34,6 +34,15 @@ final class Storage implements SegmentRepository
         $this->database_storage = $database_storage;
     }
 
+    private function sort(SegmentCollection $collection, Sort $sort = null): SegmentCollection
+    {
+        if ($sort === null) {
+            $sort = new SegmentRepository\Sort\Name();
+        }
+
+        return $sort->sort($collection);
+    }
+
     public function find_all_global(ListScreenId $list_screen_id = null, Sort $sort = null): SegmentCollection
     {
         $collection = [];
@@ -44,7 +53,7 @@ final class Storage implements SegmentRepository
             }
         }
 
-        return new SegmentCollection($collection);
+        return $this->sort(new SegmentCollection($collection), $sort);
     }
 
     /**
@@ -88,7 +97,7 @@ final class Storage implements SegmentRepository
             }
         }
 
-        return new SegmentCollection($collection);
+        return $this->sort(new SegmentCollection($collection), $sort);
     }
 
     public function find_all_by_user(
@@ -104,7 +113,7 @@ final class Storage implements SegmentRepository
             }
         }
 
-        return new SegmentCollection($collection);
+        return $this->sort(new SegmentCollection($collection), $sort);
     }
 
     public function create(
