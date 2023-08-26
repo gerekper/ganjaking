@@ -1,6 +1,10 @@
 
 # Changelog
 
+## 2.3.4
+
+	- Updated strings in the Perks tab to be internationalized.
+
 ## 2.3.3
 
 	- Fixed an issue where Gravity Perks' licensing would replace variables in the updater URLs for GS Product Configurator and prevent updates from downloading successfully.
