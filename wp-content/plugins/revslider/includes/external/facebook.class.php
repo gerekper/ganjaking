@@ -23,8 +23,8 @@ class RevSliderFacebook extends RevSliderFunctions {
 
 	const TRANSIENT_PREFIX = 'revslider_fb_';
 	
-	const URL_FB_AUTH = 'https://updates.themepunch.tools/fb/login.php';
-	const URL_FB_API = 'https://updates.themepunch.tools/fb/api.php';
+	const URL_FB_AUTH = 'fb/login.php';
+	const URL_FB_API = 'fb/api.php';
 
 	const QUERY_SHOW = 'fb_show';
 	const QUERY_TOKEN = 'fb_token';
@@ -124,15 +124,18 @@ class RevSliderFacebook extends RevSliderFunctions {
 	}
 
 	public static function get_login_url(){
+		$rslb = RevSliderGlobals::instance()->get('RevSliderLoadBalancer');
 		$id = (isset($_GET['id'])) ? $_GET['id'] : '';
 		$state = base64_encode(admin_url('admin.php?page=revslider&view=slide&id='.$id));
-		return self::URL_FB_AUTH . '?state=' . $state;
+		return $rslb->get_url('updates') . '/' . self::URL_FB_AUTH . '?state=' . $state;
 	}
 
 	protected function _make_api_call($args = array()){
 		global $wp_version;
 
-		$response = wp_remote_post(self::URL_FB_API, array(
+		$rslb = RevSliderGlobals::instance()->get('RevSliderLoadBalancer');
+
+		$response = wp_remote_post($rslb->get_url('updates') . '/' . self::URL_FB_API, array(
 			'user-agent' => 'WordPress/'.$wp_version.'; '.get_bloginfo('url'),
 			'body'		 => $args,
 			'timeout'	 => 45

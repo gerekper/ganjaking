@@ -7,7 +7,9 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Config\Env;
 use MailPoet\Config\ServicesChecker;
+use MailPoet\EmailEditor\Engine\Renderer\BodyRenderer as GuntenbergBodyRenderer;
 use MailPoet\Entities\NewsletterEntity;
+use MailPoet\Features\FeaturesController;
 use MailPoet\Logging\LoggerFactory;
 use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Newsletter\Renderer\EscapeHelper as EHelper;
@@ -22,11 +24,11 @@ class Renderer {
   const NEWSLETTER_TEMPLATE = 'Template.html';
   const FILTER_POST_PROCESS = 'mailpoet_rendering_post_process';
 
-  /** @var Blocks\Renderer */
-  private $blocksRenderer;
+  /** @var BodyRenderer */
+  private $bodyRenderer;
 
-  /** @var Columns\Renderer */
-  private $columnsRenderer;
+  /** @var GuntenbergBodyRenderer */
+  private $guntenbergBodyRenderer;
 
   /** @var Preprocessor */
   private $preprocessor;
@@ -49,19 +51,23 @@ class Renderer {
   /*** @var SendingQueuesRepository */
   private $sendingQueuesRepository;
 
+  /** @var FeaturesController */
+  private $featuresController;
+
   public function __construct(
-    Blocks\Renderer $blocksRenderer,
-    Columns\Renderer $columnsRenderer,
+    BodyRenderer $bodyRenderer,
+    GuntenbergBodyRenderer $guntenbergBodyRenderer,
     Preprocessor $preprocessor,
     \MailPoetVendor\CSS $cSSInliner,
     ServicesChecker $servicesChecker,
     WPFunctions $wp,
     LoggerFactory $loggerFactory,
     NewslettersRepository $newslettersRepository,
-    SendingQueuesRepository $sendingQueuesRepository
+    SendingQueuesRepository $sendingQueuesRepository,
+    FeaturesController $featuresController
   ) {
-    $this->blocksRenderer = $blocksRenderer;
-    $this->columnsRenderer = $columnsRenderer;
+    $this->bodyRenderer = $bodyRenderer;
+    $this->guntenbergBodyRenderer = $guntenbergBodyRenderer;
     $this->preprocessor = $preprocessor;
     $this->cSSInliner = $cSSInliner;
     $this->servicesChecker = $servicesChecker;
@@ -69,6 +75,7 @@ class Renderer {
     $this->loggerFactory = $loggerFactory;
     $this->newslettersRepository = $newslettersRepository;
     $this->sendingQueuesRepository = $sendingQueuesRepository;
+    $this->featuresController = $featuresController;
   }
 
   public function render(NewsletterEntity $newsletter, SendingTask $sendingTask = null, $type = false) {
@@ -101,7 +108,16 @@ class Renderer {
     $renderedBody = "";
     try {
       $content = $this->preprocessor->process($newsletter, $content, $preview, $sendingTask);
-      $renderedBody = $this->renderBody($newsletter, $content);
+      if ($this->featuresController->isSupported(FeaturesController::GUTENBERG_EMAIL_EDITOR) && $newsletter->getWpPostId()) {
+        $post = $newsletter->getWpPost();
+        if (!$post instanceof \WP_Post) {
+          throw new NewsletterProcessingException('Missing email post object');
+        }
+        $renderedBody = $this->guntenbergBodyRenderer->renderBody($post);
+      } else {
+        $renderedBody = $this->bodyRenderer->renderBody($newsletter, $content);
+      }
+
     } catch (NewsletterProcessingException $e) {
       $this->loggerFactory->getLogger(LoggerFactory::TOPIC_COUPONS)->error(
         $e->getMessage(),
@@ -141,28 +157,6 @@ class Renderer {
     return ($type && !empty($renderedNewsletter[$type])) ?
       $renderedNewsletter[$type] :
       $renderedNewsletter;
-  }
-
-  /**
-   * @param NewsletterEntity $newsletter
-   * @param array $content
-   * @return string
-   */
-  private function renderBody(NewsletterEntity $newsletter, array $content) {
-    $blocks = (array_key_exists('blocks', $content))
-      ? $content['blocks']
-      : [];
-
-    $renderedContent = [];
-    foreach ($blocks as $contentBlock) {
-      $columnsData = $this->blocksRenderer->render($newsletter, $contentBlock);
-
-      $renderedContent[] = $this->columnsRenderer->render(
-        $contentBlock,
-        $columnsData
-      );
-    }
-    return implode('', $renderedContent);
   }
 
   /**

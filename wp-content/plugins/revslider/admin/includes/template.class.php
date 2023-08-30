@@ -274,7 +274,7 @@ class RevSliderTemplate extends RevSliderFunctions {
 								do{
 									$image_data = @$curl->request($url.'/'.$this->templates_server_path.$temp['img']); // Get image data
 									if(!is_wp_error($image_data) && isset($image_data['body']) && isset($image_data['response']) && isset($image_data['response']['code']) && $image_data['response']['code'] == '200'){
-										$image_data = $image_data['body'];
+										$image_data = $this->get_val($image_data, 'body');
 										$done = true;
 									}else{
 										$image_data = false;
@@ -282,17 +282,21 @@ class RevSliderTemplate extends RevSliderFunctions {
 										$url = $rslb->get_url('templates', 0, true);
 									}
 									$count++;
-								}while($done == false && $count < 5);
+								}while($done == false && $count < 3);
 							}else{
 								$count = 0;
 								do{
-									$image_data = @file_get_contents($url.'/'.$this->templates_server_path.$temp['img']); // Get image data
-									if($image_data == false){
+									$image_data = wp_remote_get($url.'/'.$this->templates_server_path.$temp['img'], array('timeout' => 10));
+									if(!is_wp_error($image_data) && isset($image_data['body']) && isset($image_data['response']) && isset($image_data['response']['code']) && $image_data['response']['code'] == '200'){
+										$done = true;
+										$image_data = $this->get_val($image_data, 'body');
+									}else{
+										$image_data = false;
 										$rslb->move_server_list();
 										$url = $rslb->get_url('templates', 0, true);
 									}
 									$count++;
-								}while($image_data == false && $count < 5);
+								}while($done == false && $count < 3);
 							}
 							if($image_data !== false){
 								$reload[$temp['alias']] = true;

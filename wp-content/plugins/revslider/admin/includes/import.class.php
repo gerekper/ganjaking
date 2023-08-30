@@ -65,9 +65,13 @@ class RevSliderSliderImport extends RevSliderSlider {
 		try{
 			if($this->exists){
 				$this->init_by_id($this->slider_id);
-			}else{
+			}
+
+			if($this->inited === false && $exact_filepath !== false){
+				$this->slider_id = '';
 				$exec = $this->unzip_slider($exact_filepath);
 				if($exec !== true) return $exec;
+				$this->exists = false;
 			}
 			
 			$this->is_template = $is_template;
@@ -83,7 +87,6 @@ class RevSliderSliderImport extends RevSliderSlider {
 			$this->set_dynamic_css_v6(); //used since 6.0 exports
 			
 			$this->set_navigations($update_navigation);
-			
 			$this->process_slider_raw_data();
 			if($this->exists) $this->delete_all_slides(); //delete current slides
 			
@@ -448,7 +451,7 @@ class RevSliderSliderImport extends RevSliderSlider {
 		global $wp_filesystem;
 		
 		$uid_check = ($wp_filesystem->exists($this->download_path.'info.cfg')) ? $wp_filesystem->get_contents($this->download_path.'info.cfg') : '';
-		
+
 		if($this->is_template !== false){
 			if($uid_check != $this->is_template){
 				return array('success' => false, 'error' => __('Please select the correct zip file, checksum failed!', 'revslider'));
@@ -1877,45 +1880,6 @@ class RevSliderSliderImport extends RevSliderSlider {
 			WP_Filesystem();
 			
 			$wp_filesystem->delete($this->remove_path, true);
-		}else{
-
-		}
-	}
-
-	/**
-	 * open and checks a zip file for filetypes
-	 **/
-	public function check_bad_files($zip_file){
-		if(class_exists('ZipArchive')){
-			$zip = new ZipArchive;
-			$success = $zip->open($zip_file);
-			
-			if($success !== true) $this->throw_error(__("Can't open zip file", 'revslider'));
-
-			for($i = 0; $i < $zip->numFiles; $i++){
-				$path_info = pathinfo($zip->getNameIndex($i));
-				if(!isset($path_info['extension'])) continue;
-			
-				$pi = strtolower($path_info['extension']);
-				if(in_array($pi, $this->bad_extensions)) $this->throw_error(__("zip file contains illegal files", 'revslider'));
-			}
-		}else{ //fallback to pclzip
-			require_once(ABSPATH . 'wp-admin/includes/class-pclzip.php');
-			
-			$pclzip = new PclZip($zip_file);
-			
-			$content = $pclzip->listContent();
-			if(is_array($content) && !empty($content)){
-				foreach($content as $file){
-					if(!isset($file['filename'])) continue;
-
-					$path_info = pathinfo($file['filename']);
-					if(!isset($path_info['extension'])) continue;
-
-					$pi = strtolower($path_info['extension']);
-					if(in_array($pi, $this->bad_extensions)) $this->throw_error(__("zip file contains illegal files", 'revslider'));
-				}
-			}
 		}
 	}
 }

@@ -695,7 +695,7 @@ class RevSliderSlide extends RevSliderFunctions {
 			'authorPostsPage' => get_author_posts_url($author),
 			'catlist'		=> $this->get_categories_html($cats, null, $post_id, $full),
 			'catlist_raw'	=> strip_tags($this->get_categories_html($cats, null, $post_id, $full)),
-			'taglist'		=> get_the_tag_list('', ',', '', $post_id),
+			'taglist'		=> get_the_tag_list('', ', ', '', $post_id),
 			'numComments'	=> $this->get_val($post, 'comment_count'),
 			'img_urls'		=> array()
 		);
@@ -890,37 +890,40 @@ class RevSliderSlide extends RevSliderFunctions {
 			}
 		}
 		
-		$arrMatches = array();
-		preg_match_all("/{{content:\w+[\:]\w+}}/", $text, $arrMatches);
-		if(!empty($arrMatches)){
-			foreach($arrMatches as $matched){
-				foreach($matched as $match) {
-					//now check length and type
-					
-					$meta = str_replace('{{content:', '', $match);
-					$meta = str_replace('}}', '',$meta);
-					$meta = str_replace('_REVSLIDER_', '-', $meta);
-					$vals = explode(':', $meta);
-					
-					if(count($vals) !== 2) continue; //not correct values
-					$vals[1] = intval($vals[1]); //get real number
-					if($vals[1] === 0 || $vals[1] < 0) continue; //needs to be at least 1 
-					
-					if($vals[0] == 'words'){
-						$metaValue = explode(' ', strip_tags($content), $vals[1]+1);
-						if(is_array($metaValue) && count($metaValue) > $vals[1]) array_pop($metaValue);
-						$metaValue = implode(' ', $metaValue);
-					}elseif($vals[0] == 'chars'){
-						$metaValue = mb_substr(strip_tags($content), 0, $vals[1]);
-					}else{
-						continue;
+		$search_keys = array('content' => $content, 'title' => $this->get_val($attr, 'title'), 'excerpt' => $this->get_val($attr, 'excerpt'));
+		foreach($search_keys as $sk => $svalue){
+			$arrMatches = array();
+			preg_match_all("/{{".$sk.":\w+[\:]\w+}}/", $text, $arrMatches);
+			if(!empty($arrMatches)){
+				foreach($arrMatches as $matched){
+					foreach($matched as $match) {
+						//now check length and type
+						
+						$meta = str_replace('{{'.$sk.':', '', $match);
+						$meta = str_replace('}}', '',$meta);
+						$meta = str_replace('_REVSLIDER_', '-', $meta);
+						$vals = explode(':', $meta);
+						
+						if(count($vals) !== 2) continue; //not correct values
+						$vals[1] = intval($vals[1]); //get real number
+						if($vals[1] === 0 || $vals[1] < 0) continue; //needs to be at least 1 
+						
+						if($vals[0] == 'words'){
+							$metaValue = explode(' ', strip_tags($svalue), $vals[1]+1);
+							if(is_array($metaValue) && count($metaValue) > $vals[1]) array_pop($metaValue);
+							$metaValue = implode(' ', $metaValue);
+						}elseif($vals[0] == 'chars'){
+							$metaValue = mb_substr(strip_tags($svalue), 0, $vals[1]);
+						}else{
+							continue;
+						}
+						
+						$text = str_replace($match, $metaValue, $text);	
 					}
-					
-					$text = str_replace($match, $metaValue, $text);	
 				}
 			}
 		}
-		
+
 		$arrMatches = array();
 		preg_match_all("/{{author_avatar:\w+}}/", $text, $arrMatches);
 		if(!empty($arrMatches)){
@@ -1729,11 +1732,12 @@ class RevSliderSlide extends RevSliderFunctions {
 				}
 			break;
 			case 'instagram':
-				$caption = $this->get_val($this->post_data, array('edge_media_to_caption', 'edges', 0, 'node', 'text'));
-				$attr1 = array(
+				$caption	= $this->get_val($this->post_data, array('edge_media_to_caption', 'edges', 0, 'node', 'text'));
+				$link		= $this->get_val($this->post_data, 'link');
+				$attr1		= array(
 					'title'		=> $caption,
 					'content'	=> $caption,
-					'link'		=> 'https://www.instagram.com/p/'. $this->get_val($this->post_data, 'shortcode'),
+					'link'		=> (empty($link)) ? 'https://www.instagram.com/p/'. $this->get_val($this->post_data, 'shortcode') : $link,
 					'date'		=> $this->convert_post_date($this->get_val($this->post_data, 'taken_at_timestamp'), true),
 					'author_name' => $this->get_val($additions, 'instagram_user'), //$this->get_val($this->post_data, 'user_info', '')
 				);
@@ -2647,7 +2651,6 @@ class RevSliderSlide extends RevSliderFunctions {
 								if(!isset($fonts[$f['label']])){
 									$fonts[$f['label']] = array('variants' => array(), 'subsets' => array());
 								}
-								if($f['type'] === 'custom') $fonts[$f['label']]['url'] = $f['url'];
 								
 								if($full){ //if full, add all.
 									//switch the variants around here!
@@ -2692,6 +2695,9 @@ class RevSliderSlide extends RevSliderFunctions {
 										$fonts[$f['label']]['subsets'] = $f['subsets']; //subsets always get added, needs to be done then by the Slider Settings
 									}
 								}
+
+								if($f['type'] === 'custom') $fonts[$f['label']]['url'] = $f['url'];
+								
 								break;
 							}
 						}
@@ -2769,7 +2775,7 @@ class RevSliderSlide extends RevSliderFunctions {
 		
 		$categories	= ($full === true && !empty($cat_ids)) ? $cat_ids :  $this->get_categories_by_id($cat_ids, $tax);
 		$errors		= $this->get_val($categories, 'errors');
-		$list		= '';
+		$list		= array();
 		$err		= '';
 		$rel 		= (is_object($wp_rewrite) && $wp_rewrite->using_permalinks()) ? 'rel="category tag"' : 'rel="category"';
 		
@@ -2780,20 +2786,14 @@ class RevSliderSlide extends RevSliderFunctions {
 			$this->throw_error(__('retrieving categories error: '.esc_html($err)));
 		}
 		
-		$sep = false;
 		foreach($categories as $category){
-			if(is_object($category)){
-				$category = (array)$category;
-			}
-			
-			$link = get_category_link($category['term_id']);
-			$name = $category['name'];
-			$list.= ($sep == true) ? ',' : '';
-			$list.= (!empty($link)) ? '<a href="' . esc_url($link) . '" title="' . esc_attr(sprintf(__('View all posts in %s', 'revslider'), $category['name'])) .'" '. $rel .'>'. $name .'</a>' : $name;
-			$sep  = true;
+			$link = get_category_link($this->get_val($category, 'term_id'));
+			$name = $this->get_val($category, 'name');
+
+			$list[] = (!empty($link)) ? '<a href="' . esc_url($link) . '" title="' . esc_attr(sprintf(__('View all posts in %s', 'revslider'), $name)) .'" '. $rel .'>'. $name .'</a>' : $name;
 		}
-		
-		return $list;
+
+		return (!empty($list)) ? implode(', ', $list) : '';
 	}
 	
 	

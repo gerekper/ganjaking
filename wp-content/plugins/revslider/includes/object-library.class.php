@@ -1129,6 +1129,7 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 			break;
 			case 'application/zip':
 				@$wp_filesystem->delete($this->download_path, true);
+				$this->check_bad_files($path, array('svg'));
 				$zip	= true;
 				$file	= unzip_file($path, $this->download_path);
 				if(is_wp_error($file)){

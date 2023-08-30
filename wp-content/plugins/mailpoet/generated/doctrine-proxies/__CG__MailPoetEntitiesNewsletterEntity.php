@@ -78,10 +78,10 @@ class NewsletterEntity extends \MailPoet\Entities\NewsletterEntity implements \M
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'hash', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'subject', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'type', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'senderAddress', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'senderName', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'status', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'replyToAddress', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'replyToName', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'preheader', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'body', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'sentAt', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'unsubscribeToken', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'gaCampaign', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'parent', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'children', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'newsletterSegments', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'options', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'queues', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'createdAt', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'updatedAt', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'deletedAt'];
+            return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'hash', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'subject', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'type', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'senderAddress', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'senderName', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'status', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'replyToAddress', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'replyToName', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'preheader', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'wpPostId', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'body', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'sentAt', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'unsubscribeToken', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'gaCampaign', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'parent', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'children', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'newsletterSegments', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'options', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'queues', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'createdAt', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'updatedAt', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'deletedAt'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'hash', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'subject', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'type', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'senderAddress', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'senderName', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'status', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'replyToAddress', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'replyToName', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'preheader', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'body', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'sentAt', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'unsubscribeToken', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'gaCampaign', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'parent', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'children', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'newsletterSegments', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'options', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'queues', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'createdAt', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'updatedAt', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'deletedAt'];
+        return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'hash', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'subject', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'type', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'senderAddress', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'senderName', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'status', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'replyToAddress', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'replyToName', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'preheader', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'wpPostId', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'body', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'sentAt', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'unsubscribeToken', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'gaCampaign', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'parent', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'children', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'newsletterSegments', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'options', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'queues', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'createdAt', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'updatedAt', '' . "\0" . 'MailPoet\\Entities\\NewsletterEntity' . "\0" . 'deletedAt'];
     }
 
     /**
@@ -309,6 +309,28 @@ class NewsletterEntity extends \MailPoet\Entities\NewsletterEntity implements \M
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStatus', []);
 
         return parent::getStatus();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getWpPostId(): ?int
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getWpPostId', []);
+
+        return parent::getWpPostId();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setWpPostId(?int $wpPostId): void
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setWpPostId', [$wpPostId]);
+
+        parent::setWpPostId($wpPostId);
     }
 
     /**
@@ -650,6 +672,17 @@ class NewsletterEntity extends \MailPoet\Entities\NewsletterEntity implements \M
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'canBeSetSent', []);
 
         return parent::canBeSetSent();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getWpPost()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getWpPost', []);
+
+        return parent::getWpPost();
     }
 
     /**

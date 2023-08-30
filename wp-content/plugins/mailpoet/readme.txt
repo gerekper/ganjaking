@@ -3,7 +3,7 @@ Contributors: mailpoet, woocommerce, automattic
 Tags: email, email marketing, post notification, woocommerce emails, email automation, newsletter, newsletter builder, newsletter subscribers
 Requires at least: 6.2
 Tested up to: 6.3
-Stable tag: 4.25.0
+Stable tag: 4.26.0
 Requires PHP: 7.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -18,7 +18,7 @@ Our newsletter builder integrates perfectly with WordPress so any website owner 
 
 Schedule your newsletters, send them right away, or set up new blog post notifications to send automatically, in just a few clicks.
 
-Trusted by 600,000 WordPress websites since 2011.
+Trusted by 700,000 WordPress websites since 2011.
 
 **With a free plan for up to 1,000 subscribers, and scaling paid plans with enhanced functionality available, MailPoet is an email marketing solution suitable for both beginners and proficient email marketers.**
 
@@ -218,6 +218,11 @@ Check our [Knowledge Base](https://kb.mailpoet.com) or contact us through our [s
 6. WooCommerce emails
 
 == Changelog ==
+
+= 4.26.0 - 2023-08-28 =
+* Fixed: error "Objects are not valid as a React child" when the premium plugin version is incompatible;
+* Fixed: edge case that could lead to inactive subscribers tasks being blocked in some circumstances;
+* Fixed: incompatibility between the button to close form pop-ups and some themes.
 
 = 4.25.0 - 2023-08-21 =
 * Added: "is blank" and "is not blank" option for custom field segments;

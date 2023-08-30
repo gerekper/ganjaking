@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MailPoet plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet 4.25.0\n"
+"Project-Id-Version: MailPoet 4.26.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-08-21T12:29:58+00:00\n"
+"POT-Creation-Date: 2023-08-28T14:50:31+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -475,6 +475,7 @@ msgstr ""
 #: views/subscription/manage_subscription.html:9
 #: lib/API/MP/v1/CustomFields.php:27
 #: lib/Automation/Integrations/WordPress/Subjects/UserSubject.php:62
+#: lib/EmailEditor/Integrations/MailPoet/EmailEditor.php:62
 #: lib/Form/Templates/Templates/InitialForm.php:22
 #: lib/Subscribers/ImportExport/ImportExportFactory.php:60
 #: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:71
@@ -1123,8 +1124,8 @@ msgid "<strong>Tip:</strong> check out [link]this list[/link] of form plugins th
 msgstr ""
 
 #: views/forms.html:45
-#: lib/Config/Menu.php:272
-#: lib/Config/Menu.php:273
+#: lib/Config/Menu.php:275
+#: lib/Config/Menu.php:276
 msgid "Forms"
 msgstr ""
 
@@ -1303,8 +1304,8 @@ msgstr ""
 #: views/forms.html:75
 #: views/segments/translations.html:2
 #: views/subscribers/subscribers.html:84
-#: lib/Config/Menu.php:381
-#: lib/Config/Menu.php:382
+#: lib/Config/Menu.php:384
+#: lib/Config/Menu.php:385
 #: assets/dist/js/admin.js:2
 msgid "Lists"
 msgstr ""
@@ -1779,8 +1780,8 @@ msgstr ""
 
 #: views/homepage.html:68
 #: views/subscribers/subscribers.html:25
-#: lib/Config/Menu.php:330
-#: lib/Config/Menu.php:331
+#: lib/Config/Menu.php:333
+#: lib/Config/Menu.php:334
 #: assets/dist/js/automation.js:1
 #: assets/dist/js/automation_analytics.js:9
 #: assets/dist/js/commons.js:9
@@ -2423,7 +2424,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: views/logs.html:21
-#: lib/Config/Menu.php:496
+#: lib/Config/Menu.php:499
 msgid "Logs"
 msgstr ""
 
@@ -2566,7 +2567,7 @@ msgid "MailPoet account connected"
 msgstr ""
 
 #: views/newsletter/editor.html:340
-#: lib/Config/Menu.php:258
+#: lib/Config/Menu.php:261
 msgid "Newsletter Editor"
 msgstr ""
 
@@ -4061,6 +4062,7 @@ msgstr ""
 #: views/newsletter/templates/components/save.hbs:46
 #: views/subscribers/importExport/import.html:96
 #: assets/dist/js/admin.js:2
+#: assets/dist/js/email_editor/email_editor.js:1
 msgid "Next"
 msgstr ""
 
@@ -4325,8 +4327,8 @@ msgstr ""
 
 #: views/segments/translations.html:73
 #: lib/Automation/Integrations/MailPoet/Fields/SubscriberFieldsFactory.php:233
-#: lib/Config/Menu.php:406
-#: lib/Config/Menu.php:407
+#: lib/Config/Menu.php:409
+#: lib/Config/Menu.php:410
 msgid "Segments"
 msgstr ""
 
@@ -4657,8 +4659,8 @@ msgid "1 segment was permanently deleted."
 msgstr ""
 
 #: views/segments/translations.html:195
-#: lib/Config/Menu.php:513
-#: lib/Config/Menu.php:515
+#: lib/Config/Menu.php:516
+#: lib/Config/Menu.php:518
 #: assets/dist/js/admin.js:2
 #: assets/dist/js/automation.js:1
 msgid "Automations"
@@ -4831,8 +4833,8 @@ msgstr ""
 
 #: views/segments/translations.html:260
 #: views/subscribers/subscribers.html:133
-#: lib/Config/Menu.php:459
-#: lib/Config/Menu.php:460
+#: lib/Config/Menu.php:462
+#: lib/Config/Menu.php:463
 #: assets/dist/js/admin.js:2
 #: assets/dist/js/commons.js:9
 msgid "Upgrade"
@@ -5027,8 +5029,8 @@ msgstr ""
 
 #: views/settings_translations.html:2
 #: lib/Config/Hooks.php:525
-#: lib/Config/Menu.php:431
-#: lib/Config/Menu.php:432
+#: lib/Config/Menu.php:434
+#: lib/Config/Menu.php:435
 #: assets/dist/js/admin.js:2
 #: assets/dist/js/automation_editor.js:1
 msgid "Settings"
@@ -5937,8 +5939,8 @@ msgstr ""
 #: views/subscribers/importExport/export.html:6
 #: views/subscribers/importExport/export.html:79
 #: views/subscribers/subscribers.html:125
-#: lib/Config/Menu.php:368
-#: lib/Config/Menu.php:369
+#: lib/Config/Menu.php:371
+#: lib/Config/Menu.php:372
 msgid "Export"
 msgstr ""
 
@@ -6003,8 +6005,8 @@ msgstr ""
 #: views/subscribers/importExport/import.html:6
 #: views/subscribers/importExport/import.html:99
 #: views/subscribers/subscribers.html:124
-#: lib/Config/Menu.php:355
-#: lib/Config/Menu.php:356
+#: lib/Config/Menu.php:358
+#: lib/Config/Menu.php:359
 msgid "Import"
 msgstr ""
 
@@ -7083,9 +7085,9 @@ msgstr ""
 #. Author of the plugin
 #: views/woo_system_info.html:5
 #: lib/Config/Capabilities.php:80
-#: lib/Config/Menu.php:202
-#: lib/Config/Menu.php:203
-#: lib/Config/Menu.php:665
+#: lib/Config/Menu.php:205
+#: lib/Config/Menu.php:206
+#: lib/Config/Menu.php:668
 #: lib/Config/PrivacyPolicy.php:12
 #: lib/WooCommerce/WooSystemInfoController.php:41
 msgid "MailPoet"
@@ -7392,8 +7394,8 @@ msgstr ""
 msgid "Please specify receiver information."
 msgstr ""
 
-#: lib/API/JSON/v1/NewsletterTemplates.php:60
-#: lib/API/JSON/v1/NewsletterTemplates.php:101
+#: lib/API/JSON/v1/NewsletterTemplates.php:65
+#: lib/API/JSON/v1/NewsletterTemplates.php:114
 msgid "This template does not exist."
 msgstr ""
 
@@ -8735,94 +8737,95 @@ msgstr ""
 msgid "View MailPoet settings"
 msgstr ""
 
-#: lib/Config/Initializer.php:203
+#: lib/Config/Initializer.php:209
 msgid "Unable to connect to the database (the database is unable to open a file or folder), the connection is likely not configured correctly. Please read our [link] Knowledge Base article [/link] for steps how to resolve it."
 msgstr ""
 
-#: lib/Config/Menu.php:189
-#: lib/Config/Menu.php:190
+#: lib/Config/Menu.php:192
+#: lib/Config/Menu.php:193
 msgid "Welcome Wizard"
 msgstr ""
 
-#: lib/Config/Menu.php:219
-#: lib/Config/Menu.php:220
+#: lib/Config/Menu.php:222
+#: lib/Config/Menu.php:223
 msgid "Home"
 msgstr ""
 
-#: lib/Config/Menu.php:232
-#: lib/Config/Menu.php:233
+#: lib/Config/Menu.php:235
+#: lib/Config/Menu.php:236
+#: lib/EmailEditor/Integrations/MailPoet/EmailEditor.php:61
 #: assets/dist/js/automation_analytics.js:9
 msgid "Emails"
 msgstr ""
 
-#: lib/Config/Menu.php:245
+#: lib/Config/Menu.php:248
 msgctxt "newsletters per page (screen options)"
 msgid "Number of newsletters per page"
 msgstr ""
 
-#: lib/Config/Menu.php:257
+#: lib/Config/Menu.php:260
 #: lib/Newsletter/Shortcodes/ShortcodesHelper.php:42
 #: assets/dist/js/admin.js:2
 #: assets/dist/js/commons.js:9
 msgid "Newsletter"
 msgstr ""
 
-#: lib/Config/Menu.php:285
+#: lib/Config/Menu.php:288
 msgctxt "forms per page (screen options)"
 msgid "Number of forms per page"
 msgstr ""
 
-#: lib/Config/Menu.php:297
-#: lib/Config/Menu.php:298
+#: lib/Config/Menu.php:300
+#: lib/Config/Menu.php:301
 msgid "Form Editor"
 msgstr ""
 
-#: lib/Config/Menu.php:317
-#: lib/Config/Menu.php:318
+#: lib/Config/Menu.php:320
+#: lib/Config/Menu.php:321
 msgid "Select Form Template"
 msgstr ""
 
-#: lib/Config/Menu.php:343
+#: lib/Config/Menu.php:346
 msgctxt "subscribers per page (screen options)"
 msgid "Number of subscribers per page"
 msgstr ""
 
-#: lib/Config/Menu.php:394
+#: lib/Config/Menu.php:397
 msgctxt "lists per page (screen options)"
 msgid "Number of lists per page"
 msgstr ""
 
-#: lib/Config/Menu.php:419
+#: lib/Config/Menu.php:422
 msgctxt "segments per page (screen options)"
 msgid "Number of segments per page"
 msgstr ""
 
-#: lib/Config/Menu.php:444
-#: lib/Config/Menu.php:445
+#: lib/Config/Menu.php:447
+#: lib/Config/Menu.php:448
 msgid "Help"
 msgstr ""
 
-#: lib/Config/Menu.php:473
-#: lib/Config/Menu.php:474
+#: lib/Config/Menu.php:476
+#: lib/Config/Menu.php:477
 msgid "WooCommerce Setup"
 msgstr ""
 
-#: lib/Config/Menu.php:486
+#: lib/Config/Menu.php:489
 msgid "Experimental Features"
 msgstr ""
 
-#: lib/Config/Menu.php:524
-#: lib/Config/Menu.php:525
+#: lib/Config/Menu.php:527
+#: lib/Config/Menu.php:528
 msgid "Automation Editor"
 msgstr ""
 
-#: lib/Config/Menu.php:534
-#: lib/Config/Menu.php:535
+#: lib/Config/Menu.php:537
+#: lib/Config/Menu.php:538
 msgid "Automation Analytics"
 msgstr ""
 
-#: lib/Config/Menu.php:545
-#: lib/Config/Menu.php:546
+#: lib/Config/Menu.php:548
+#: lib/Config/Menu.php:549
 msgid "Automation Templates"
 msgstr ""
 
@@ -10812,29 +10815,29 @@ msgstr ""
 msgid "Not active"
 msgstr ""
 
-#: lib/Newsletter/NewsletterValidator.php:47
+#: lib/Newsletter/NewsletterValidator.php:60
 #: assets/dist/js/admin.js:2
 #: assets/dist/js/newsletter_editor.js:2
 msgid "All emails must include an \"Unsubscribe\" link. Add a footer widget to your email to continue."
 msgstr ""
 
-#: lib/Newsletter/NewsletterValidator.php:52
+#: lib/Newsletter/NewsletterValidator.php:65
 #: assets/dist/js/admin.js:2
 #: assets/dist/js/newsletter_editor.js:2
 msgid "Poet, please add prose to your masterpiece before you send it to your followers."
 msgstr ""
 
-#: lib/Newsletter/NewsletterValidator.php:71
+#: lib/Newsletter/NewsletterValidator.php:84
 #: assets/dist/js/admin.js:2
 #: assets/dist/js/newsletter_editor.js:2
 msgid "A re-engagement email must include a link with [link:subscription_re_engage_url] shortcode."
 msgstr ""
 
-#: lib/Newsletter/NewsletterValidator.php:75
+#: lib/Newsletter/NewsletterValidator.php:88
 msgid "Re-engagement emails are disabled because open and click tracking is disabled in MailPoet → Settings → Advanced."
 msgstr ""
 
-#: lib/Newsletter/NewsletterValidator.php:88
+#: lib/Newsletter/NewsletterValidator.php:101
 #: assets/dist/js/admin.js:2
 #: assets/dist/js/newsletter_editor.js:2
 msgctxt "(Please reuse the current translation used for the string “Automatic Latest Content”) This Error message is displayed when a user tries to send a “Post Notification” email without any “Automatic Latest Content” widget inside"
@@ -11640,6 +11643,22 @@ msgstr ""
 
 #: assets/dist/js/admin.js:2
 msgid "Soon"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Choose an email editor"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Which editor do you want to use?"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Legacy editor"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Gutenberg Editor"
 msgstr ""
 
 #: assets/dist/js/admin.js:2
@@ -12594,6 +12613,34 @@ msgid "december"
 msgstr ""
 
 #: assets/dist/js/admin.js:2
+msgid "Essential segment"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Navigate to the segments list page"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Segments list"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Start with a pre-built segment"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Search segment templates"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Create custom segment"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Want to set your own conditions?"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
 msgctxt "A label on a button"
 msgid "Continue"
 msgstr ""
@@ -12754,7 +12801,7 @@ msgid "[link]View all resources[/link]"
 msgstr ""
 
 #: assets/dist/js/admin.js:2
-msgid "Powering email marketing for 600,000+ websites"
+msgid "Powering email marketing for %s websites"
 msgstr ""
 
 #: assets/dist/js/admin.js:2

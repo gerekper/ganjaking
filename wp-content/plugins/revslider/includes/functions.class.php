@@ -985,62 +985,63 @@ class RevSliderFunctions extends RevSliderData {
 		
 		if(!empty($revslider_fonts['queue'])){
 			foreach($revslider_fonts['queue'] as $f_n => $f_s){
-				if($f_n !== ''){
-					$_variants = $this->get_val($f_s, 'variants', array());
-					$_subsets = $this->get_val($f_s, 'subsets', array());
-					if(!empty($_variants) || !empty($_subsets)){
-						if(!isset($revslider_fonts['loaded'][$f_n])) $revslider_fonts['loaded'][$f_n] = array();
-						if(!isset($revslider_fonts['loaded'][$f_n]['variants'])) $revslider_fonts['loaded'][$f_n]['variants'] = array();
-						if(!isset($revslider_fonts['loaded'][$f_n]['subsets'])) $revslider_fonts['loaded'][$f_n]['subsets'] = array();
+				if(empty($f_n)) continue;
+				if(isset($f_s['url']) && !empty($f_s['url'])) continue; //ignore custom
+			
+				$_variants = $this->get_val($f_s, 'variants', array());
+				$_subsets = $this->get_val($f_s, 'subsets', array());
+				if(!empty($_variants) || !empty($_subsets)){
+					if(!isset($revslider_fonts['loaded'][$f_n])) $revslider_fonts['loaded'][$f_n] = array();
+					if(!isset($revslider_fonts['loaded'][$f_n]['variants'])) $revslider_fonts['loaded'][$f_n]['variants'] = array();
+					if(!isset($revslider_fonts['loaded'][$f_n]['subsets'])) $revslider_fonts['loaded'][$f_n]['subsets'] = array();
+					
+					if(strpos($f_n, 'href=') === false){
+						$t_tcf = '';
 						
-						if(strpos($f_n, 'href=') === false){
-							$t_tcf = '';
-							
-							if($font_first == false) $t_tcf .= '%7C'; //'|';
-							$t_tcf .= urlencode($f_n).':';
-							
-							if(!empty($_variants)){
-								$mgfirst = true;
-								foreach($f_s['variants'] as $mgvk => $mgvv){
-									if(in_array($mgvv, $revslider_fonts['loaded'][$f_n]['variants'], true)) continue;
-									
-									$revslider_fonts['loaded'][$f_n]['variants'][] = $mgvv;
-									
-									if(!$mgfirst) $t_tcf .= urlencode(',');
-									$t_tcf .= urlencode($mgvv);
-									$mgfirst = false;
-								} 
+						if($font_first == false) $t_tcf .= '%7C'; //'|';
+						$t_tcf .= urlencode($f_n).':';
+						
+						if(!empty($_variants)){
+							$mgfirst = true;
+							foreach($f_s['variants'] as $mgvk => $mgvv){
+								if(in_array($mgvv, $revslider_fonts['loaded'][$f_n]['variants'], true)) continue;
 								
-								//we did not add any variants, so dont add the font
-								if($mgfirst === true) continue;
-							}
+								$revslider_fonts['loaded'][$f_n]['variants'][] = $mgvv;
+								
+								if(!$mgfirst) $t_tcf .= urlencode(',');
+								$t_tcf .= urlencode($mgvv);
+								$mgfirst = false;
+							} 
 							
-							$fonts[$f_n] = $t_tcf; //we do not want to add the subsets
-							
-							if(!empty($_subsets)){
-								$mgfirst = true;
-								foreach($f_s['subsets'] as $ssk => $ssv){
-									if(in_array($mgvv, $revslider_fonts['loaded'][$f_n]['subsets'], true)) continue;
-									
-									$revslider_fonts['loaded'][$f_n]['subsets'][] = $ssv;
-									
-									if($mgfirst) $t_tcf .= urlencode('&subset=');
-									if(!$mgfirst) $t_tcf .= urlencode(',');
-									$t_tcf .= urlencode($ssv);
-									$mgfirst = false;
-								}
-							}
-							
-							$tcf .= $t_tcf;
-						}else{
-							//$f_n = $this->$this->remove_http($f_n);
-							$tcf2 .= html_entity_decode(stripslashes($f_n));
-							
-							$fonts[$f_n] = $tcf2;
+							//we did not add any variants, so dont add the font
+							if($mgfirst === true) continue;
 						}
+						
+						$fonts[$f_n] = $t_tcf; //we do not want to add the subsets
+						
+						if(!empty($_subsets)){
+							$mgfirst = true;
+							foreach($f_s['subsets'] as $ssk => $ssv){
+								if(in_array($mgvv, $revslider_fonts['loaded'][$f_n]['subsets'], true)) continue;
+								
+								$revslider_fonts['loaded'][$f_n]['subsets'][] = $ssv;
+								
+								if($mgfirst) $t_tcf .= urlencode('&subset=');
+								if(!$mgfirst) $t_tcf .= urlencode(',');
+								$t_tcf .= urlencode($ssv);
+								$mgfirst = false;
+							}
+						}
+						
+						$tcf .= $t_tcf;
+					}else{
+						//$f_n = $this->$this->remove_http($f_n);
+						$tcf2 .= html_entity_decode(stripslashes($f_n));
+						
+						$fonts[$f_n] = $tcf2;
 					}
-					$font_first = false;
 				}
+				$font_first = false;
 			}
 		}
 		
@@ -1277,7 +1278,7 @@ class RevSliderFunctions extends RevSliderData {
 	 * get the client browser with version
 	 **/
 	public function get_browser(){
-		$u_agent	= $_SERVER['HTTP_USER_AGENT'];
+		$u_agent	= $this->get_val($_SERVER, 'HTTP_USER_AGENT');
 		$bname		= 'Unknown';
 		$platform	= 'Unknown';
 		$version	= '';
@@ -1840,5 +1841,50 @@ rs-module .material-icons {
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
 }";
+	}
+
+	/**
+	 * open and checks a zip file for filetypes
+	 **/
+	public function check_bad_files($zip_file, $extensions_allowed = false){
+		if(class_exists('ZipArchive')){
+			$zip = new ZipArchive;
+			$success = $zip->open($zip_file);
+			
+			if($success !== true) $this->throw_error(__("Can't open zip file", 'revslider'));
+
+			for($i = 0; $i < $zip->numFiles; $i++){
+				$path_info = pathinfo($zip->getNameIndex($i));
+				if(!isset($path_info['extension'])) continue;
+			
+				$pi = strtolower($path_info['extension']);
+				if($extensions_allowed !== false){
+					if(!in_array($pi, $extensions_allowed)) $this->throw_error(__("zip file contains illegal files", 'revslider'));
+				}else{
+					if(in_array($pi, $this->bad_extensions)) $this->throw_error(__("zip file contains illegal files", 'revslider'));
+				}
+			}
+		}else{ //fallback to pclzip
+			require_once(ABSPATH . 'wp-admin/includes/class-pclzip.php');
+			
+			$pclzip = new PclZip($zip_file);
+			
+			$content = $pclzip->listContent();
+			if(is_array($content) && !empty($content)){
+				foreach($content as $file){
+					if(!isset($file['filename'])) continue;
+
+					$path_info = pathinfo($file['filename']);
+					if(!isset($path_info['extension'])) continue;
+
+					$pi = strtolower($path_info['extension']);
+					if($extensions_allowed !== false){
+						if(!in_array($pi, $extensions_allowed)) $this->throw_error(__("zip file contains illegal files", 'revslider'));
+					}else{
+						if(in_array($pi, $this->bad_extensions)) $this->throw_error(__("zip file contains illegal files", 'revslider'));
+					}
+				}
+			}
+		}
 	}
 }

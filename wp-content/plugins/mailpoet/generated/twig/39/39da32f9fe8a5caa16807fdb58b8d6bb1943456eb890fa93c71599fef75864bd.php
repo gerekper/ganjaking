@@ -31,6 +31,7 @@ class __TwigTemplate_756448057f537f5715d1a262e5a4bc2ae04cea7f694f005ae4bcfe6c686
             'content' => [$this, 'block_content'],
             'translations' => [$this, 'block_translations'],
             'after_translations' => [$this, 'block_after_translations'],
+            'after_css' => [$this, 'block_after_css'],
         ];
     }
 
@@ -160,6 +161,17 @@ class __TwigTemplate_756448057f537f5715d1a262e5a4bc2ae04cea7f694f005ae4bcfe6c686
 ";
     }
 
+    // line 45
+    public function block_after_css($context, array $blocks = [])
+    {
+        $macros = $this->macros;
+        // line 46
+        echo "  ";
+        echo $this->extensions['MailPoet\Twig\Assets']->generateStylesheet("mailpoet-templates.css");
+        echo "
+";
+    }
+
     public function getTemplateName()
     {
         return "segments/dynamic.html";
@@ -172,7 +184,7 @@ class __TwigTemplate_756448057f537f5715d1a262e5a4bc2ae04cea7f694f005ae4bcfe6c686
 
     public function getDebugInfo()
     {
-        return array (  154 => 42,  150 => 41,  145 => 38,  141 => 37,  134 => 33,  130 => 32,  126 => 31,  122 => 30,  118 => 29,  114 => 28,  110 => 27,  106 => 26,  102 => 25,  98 => 24,  94 => 23,  90 => 22,  86 => 21,  82 => 20,  78 => 19,  74 => 18,  70 => 17,  57 => 7,  52 => 4,  48 => 3,  37 => 1,);
+        return array (  166 => 46,  162 => 45,  155 => 42,  151 => 41,  146 => 38,  142 => 37,  135 => 33,  131 => 32,  127 => 31,  123 => 30,  119 => 29,  115 => 28,  111 => 27,  107 => 26,  103 => 25,  99 => 24,  95 => 23,  91 => 22,  87 => 21,  83 => 20,  79 => 19,  75 => 18,  71 => 17,  58 => 7,  53 => 4,  49 => 3,  38 => 1,);
     }
 
     public function getSourceContext()

@@ -14,6 +14,7 @@ use MailPoet\Automation\Integrations\MailPoet\MailPoetIntegration;
 use MailPoet\Automation\Integrations\WooCommerce\WooCommerceIntegration;
 use MailPoet\Cron\CronTrigger;
 use MailPoet\Cron\DaemonActionSchedulerRunner;
+use MailPoet\EmailEditor\Integrations\MailPoet\EmailEditor;
 use MailPoet\InvalidStateException;
 use MailPoet\Migrator\Cli as MigratorCli;
 use MailPoet\PostEditorBlocks\PostEditorBlock;
@@ -121,6 +122,9 @@ class Initializer {
   /** @var DaemonActionSchedulerRunner */
   private $actionSchedulerRunner;
 
+  /** @var EmailEditor */
+  private $emailEditor;
+
   /** @var Url */
   private $urlHelper;
 
@@ -158,6 +162,7 @@ class Initializer {
     WooCommerceIntegration $woocommerceIntegration,
     PersonalDataExporters $personalDataExporters,
     DaemonActionSchedulerRunner $actionSchedulerRunner,
+    EmailEditor $emailEditor,
     Url $urlHelper
   ) {
     $this->rendererFactory = $rendererFactory;
@@ -189,6 +194,7 @@ class Initializer {
     $this->woocommerceIntegration = $woocommerceIntegration;
     $this->personalDataExporters = $personalDataExporters;
     $this->actionSchedulerRunner = $actionSchedulerRunner;
+    $this->emailEditor = $emailEditor;
     $this->urlHelper = $urlHelper;
   }
 
@@ -336,6 +342,7 @@ class Initializer {
       $this->subscriberActivityTracker->trackActivity();
       $this->postEditorBlock->init();
       $this->automationEngine->initialize();
+      $this->emailEditor->initialize();
 
       $this->wpFunctions->doAction('mailpoet_initialized', MAILPOET_VERSION);
     } catch (InvalidStateException $e) {
