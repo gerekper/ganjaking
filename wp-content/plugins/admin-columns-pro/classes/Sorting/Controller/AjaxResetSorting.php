@@ -3,6 +3,7 @@
 namespace ACP\Sorting\Controller;
 
 use AC\Ajax;
+use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
 use AC\Registerable;
 use AC\Type\ListScreenId;
@@ -13,9 +14,12 @@ class AjaxResetSorting implements Registerable
 
     private $storage;
 
-    public function __construct(Storage $storage)
+    private $list_screen_factory;
+
+    public function __construct(Storage $storage, ListScreenFactory $list_screen_factory)
     {
         $this->storage = $storage;
+        $this->list_screen_factory = $list_screen_factory;
     }
 
     public function register(): void
@@ -37,15 +41,17 @@ class AjaxResetSorting implements Registerable
     {
         $this->get_ajax_handler()->verify_request();
 
+        $list_screen = null;
         $list_id = filter_input(INPUT_POST, 'layout');
+        $list_key = filter_input(INPUT_POST, 'list_screen');
 
-        if ( ! ListScreenId::is_valid_id($list_id)) {
-            wp_send_json_error();
+        if (ListScreenId::is_valid_id($list_id)) {
+            $list_screen = $this->storage->find(new ListScreenId($list_id));
+        } elseif ($list_key && $this->list_screen_factory->can_create($list_key)) {
+            $list_screen = $this->list_screen_factory->create($list_key);
         }
-
-        $list_screen = $this->storage->find(new ListScreenId($list_id));
-
-        if ( ! $list_screen || ! $list_screen->is_user_allowed(wp_get_current_user())) {
+        
+        if ( ! $list_screen) {
             wp_send_json_error();
         }
 

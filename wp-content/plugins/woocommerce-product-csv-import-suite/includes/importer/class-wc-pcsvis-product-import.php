@@ -593,7 +593,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 			if ( ! is_wp_error( $product ) ) {
 				$this->process_product( $product );
 			} else {
-				$this->add_import_result( 'failed', $product->get_error_message(), 'Not parsed', json_encode( $item ), '-' );
+				$this->add_import_result( 'failed', $product->get_error_message(), 'Not parsed', wp_json_encode( $item, JSON_PRETTY_PRINT ), '-' );
 			}
 
 			unset( $item, $product );

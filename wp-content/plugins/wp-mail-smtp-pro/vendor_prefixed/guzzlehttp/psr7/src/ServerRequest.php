@@ -222,8 +222,6 @@ class ServerRequest extends \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request implement
         return $new;
     }
     /**
-     * {@inheritdoc}
-     *
      * @return array|object|null
      */
     public function getParsedBody()
@@ -241,8 +239,6 @@ class ServerRequest extends \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request implement
         return $this->attributes;
     }
     /**
-     * {@inheritdoc}
-     *
      * @return mixed
      */
     public function getAttribute($attribute, $default = null)

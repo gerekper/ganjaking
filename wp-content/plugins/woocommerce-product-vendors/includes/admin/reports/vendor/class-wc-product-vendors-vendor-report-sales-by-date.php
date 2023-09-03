@@ -58,8 +58,9 @@ class WC_Product_Vendors_Vendor_Report_Sales_By_Date extends WC_Admin_Report {
 	 *
 	 * @access public
 	 * @since 2.0.0
-	 * @version 2.0.0
+	 * @since x.x.x Use WC_Product_Vendor_Transient_Manager to get and set data in transient.
 	 * @return array of objects
+	 * @version 2.0.0
 	 */
 	public function query_report_data() {
 		global $wpdb;
@@ -70,6 +71,8 @@ class WC_Product_Vendors_Vendor_Report_Sales_By_Date extends WC_Admin_Report {
 		if ( ! WC_Product_Vendors_Utils::commission_table_exists() ) {
 			return $this->report_data;
 		}
+
+		$transient_name = 'vendor_sales_by_date_' . $this->current_range;
 
 		$start_date = '';
 		$end_date   = '';
@@ -83,7 +86,6 @@ class WC_Product_Vendors_Vendor_Report_Sales_By_Date extends WC_Admin_Report {
 			$end_date = WC_Product_Vendors_Utils::is_valid_mysql_formatted_date( $end_date ) ? $end_date : '';
 		}
 
-		$transient_name = 'wcpv_reports_legend_' . WC_Product_Vendors_Utils::get_logged_in_vendor() . '_' . $this->current_range;
 
 		if ( 'custom' === $this->current_range ) {
 			$transient_name .= '_' . $start_date . '-' . $end_date;
@@ -95,14 +97,16 @@ class WC_Product_Vendors_Vendor_Report_Sales_By_Date extends WC_Admin_Report {
 		$sql .= " AND commission.commission_status != 'void'";
 		$sql .= WC_Product_Vendors_Utils::get_commission_date_sql_query_from_range( $this->current_range, $start_date, $end_date );
 
-		if ( false === ( $results = get_transient( $transient_name ) ) ) {
-			
+		$vendor_report_transient_manager = WC_Product_Vendor_Transient_Manager::make();
+		$results                         = $vendor_report_transient_manager->get( $transient_name );
+
+		if ( ! $results ) {
 			// Enable big selects for reports
 			$wpdb->query( 'SET SESSION SQL_BIG_SELECTS=1' );
 
 			$results = $wpdb->get_results( $wpdb->prepare( $sql, WC_Product_Vendors_Utils::get_logged_in_vendor() ) ); // nosemgrep:audit.php.wp.security.sqli.input-in-sinks
 
-			set_transient( $transient_name, $results, DAY_IN_SECONDS );
+			$vendor_report_transient_manager->save( $transient_name, $results );
 		}
 
 		$total_product_amount           = 0.00;
@@ -112,12 +116,11 @@ class WC_Product_Vendors_Vendor_Report_Sales_By_Date extends WC_Admin_Report {
 		$total_earned_commission_amount = 0.00;
 		$total_commission_amount        = 0.00;
 
-		$total_orders = array();
+		$total_orders = [];
 
-		foreach( $results as $data ) {
-
+		foreach ( $results as $data ) {
 			$total_orders[] = $data->order_id;
-			
+
 			$total_product_amount           += (float) sanitize_text_field( $data->product_amount );
 			$total_product_tax_amount       += (float) sanitize_text_field( $data->product_tax_amount );
 			$total_shipping_amount          += (float) sanitize_text_field( $data->product_shipping_amount );
@@ -126,24 +129,24 @@ class WC_Product_Vendors_Vendor_Report_Sales_By_Date extends WC_Admin_Report {
 
 			// show only paid commissions
 			if ( 'paid' === $data->commission_status ) {
-				$total_commission_amount   += (float) sanitize_text_field( $data->total_commission_amount );
+				$total_commission_amount += (float) sanitize_text_field( $data->total_commission_amount );
 			}
 		}
 
-		$total_orders = count( array_unique( $total_orders ) );
-		$total_sales = $total_product_amount + $total_product_tax_amount + $total_shipping_amount + $total_shipping_tax_amount;
-		$net_sales = $total_sales - $total_product_tax_amount - $total_shipping_amount - $total_shipping_tax_amount;
+		$total_orders     = count( array_unique( $total_orders ) );
+		$total_sales      = $total_product_amount + $total_product_tax_amount + $total_shipping_amount + $total_shipping_tax_amount;
+		$net_sales        = $total_sales - $total_product_tax_amount - $total_shipping_amount - $total_shipping_tax_amount;
 		$total_tax_amount = $total_product_tax_amount + $total_shipping_tax_amount;
 
-		$this->report_data->total_sales           = $total_sales;
-		$this->report_data->net_sales             = wc_format_decimal( $net_sales );
-		$this->report_data->average_sales         = wc_format_decimal( $net_sales / ( $this->chart_interval + 1 ), 2 );
-		$this->report_data->total_orders          = $total_orders;
-		$this->report_data->total_items           = count( $results );
-		$this->report_data->total_shipping        = wc_format_decimal( $total_shipping_amount );
-		$this->report_data->total_commission      = wc_format_decimal( $total_commission_amount );
-		$this->report_data->total_earned          = wc_format_decimal( $total_earned_commission_amount );
-		$this->report_data->total_tax             = wc_format_decimal( $total_tax_amount );
+		$this->report_data->total_sales      = $total_sales;
+		$this->report_data->net_sales        = wc_format_decimal( $net_sales );
+		$this->report_data->average_sales    = wc_format_decimal( $net_sales / ( $this->chart_interval + 1 ), 2 );
+		$this->report_data->total_orders     = $total_orders;
+		$this->report_data->total_items      = count( $results );
+		$this->report_data->total_shipping   = wc_format_decimal( $total_shipping_amount );
+		$this->report_data->total_commission = wc_format_decimal( $total_commission_amount );
+		$this->report_data->total_earned     = wc_format_decimal( $total_earned_commission_amount );
+		$this->report_data->total_tax        = wc_format_decimal( $total_tax_amount );
 	}
 
 	/**
@@ -286,7 +289,7 @@ class WC_Product_Vendors_Vendor_Report_Sales_By_Date extends WC_Admin_Report {
 
 	/**
 	 * Get the main chart
-	 *
+	 * @since x.x.x Use WC_Product_Vendor_Transient_Manager to get and set data in transient.
 	 * @return string
 	 */
 	public function get_main_chart() {
@@ -296,6 +299,8 @@ class WC_Product_Vendors_Vendor_Report_Sales_By_Date extends WC_Admin_Report {
 		if ( ! WC_Product_Vendors_Utils::commission_table_exists() ) {
 			return $this->report_data;
 		}
+
+		$transient_name = 'vendor_main_sales_by_date_' . $this->current_range;
 
 		$start_date = '';
 		$end_date   = '';
@@ -308,8 +313,6 @@ class WC_Product_Vendors_Vendor_Report_Sales_By_Date extends WC_Admin_Report {
 			$end_date = sanitize_text_field( $_GET['end_date'] );
 			$end_date = WC_Product_Vendors_Utils::is_valid_mysql_formatted_date( $end_date ) ? $end_date : '';
 		}
-
-		$transient_name = 'wcpv_reports_' . WC_Product_Vendors_Utils::get_logged_in_vendor() . '_' . $this->current_range;
 
 
 		if ( 'custom' === $this->current_range ) {
@@ -325,28 +328,31 @@ class WC_Product_Vendors_Vendor_Report_Sales_By_Date extends WC_Admin_Report {
 		$sql .= " AND commission.commission_status != 'void'";
 		$sql .= WC_Product_Vendors_Utils::get_commission_date_sql_query_from_range( $this->current_range, $start_date, $end_date );
 		$sql .= " GROUP BY DATE( commission.order_date )";
-			
-		if ( false === ( $results = get_transient( $transient_name ) ) ) {
+
+		$vendor_report_transient_manager = WC_Product_Vendor_Transient_Manager::make();
+		$results                         = $vendor_report_transient_manager->get( $transient_name );
+
+		if ( ! $results ) {
 
 			// Enable big selects for reports
 			$wpdb->query( 'SET SESSION SQL_BIG_SELECTS=1' );
 
 			$results = $wpdb->get_results( $wpdb->prepare( $sql, WC_Product_Vendors_Utils::get_logged_in_vendor() ) ); // nosemgrep:audit.php.wp.security.sqli.input-in-sinks
 
-			set_transient( $transient_name, $results, DAY_IN_SECONDS );
+			$vendor_report_transient_manager->save( $transient_name, $results );
 		}
 
 		// Prepare data for report
 		$order_counts         = $this->prepare_chart_data( $results, 'order_date', 'count', $this->chart_interval, $this->start_date, $this->chart_groupby );
-		
+
 		$order_item_counts    = $this->prepare_chart_data( $results, 'order_date', 'order_item_count', $this->chart_interval, $this->start_date, $this->chart_groupby );
-		
+
 		$order_amounts        = $this->prepare_chart_data( $results, 'order_date', 'total_sales', $this->chart_interval, $this->start_date, $this->chart_groupby );
-		
+
 		$shipping_amounts     = $this->prepare_chart_data( $results, 'order_date', 'total_shipping', $this->chart_interval, $this->start_date, $this->chart_groupby );
-		
+
 		$shipping_tax_amounts = $this->prepare_chart_data( $results, 'order_date', 'total_shipping_tax', $this->chart_interval, $this->start_date, $this->chart_groupby );
-		
+
 		$tax_amounts          = $this->prepare_chart_data( $results, 'order_date', 'total_tax', $this->chart_interval, $this->start_date, $this->chart_groupby );
 
 		$total_earned         = $this->prepare_chart_data( $results, 'order_date', 'total_earned', $this->chart_interval, $this->start_date, $this->chart_groupby );

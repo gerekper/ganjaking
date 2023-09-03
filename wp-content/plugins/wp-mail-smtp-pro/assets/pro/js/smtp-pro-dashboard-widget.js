@@ -17,13 +17,14 @@ var WPMailSMTPDashboardWidget = window.WPMailSMTPDashboardWidget || ( function( 
 	 * @type {object}
 	 */
 	var el = {
-		$widget              : $( '#wp_mail_smtp_reports_widget_pro' ),
-		$daysSelect          : $( '#wp-mail-smtp-dash-widget-timespan' ),
-		$emailTypeSelect     : $( '#wp-mail-smtp-dash-widget-email-type' ),
-		$canvas              : $( '#wp-mail-smtp-dash-widget-chart' ),
-		$emailStatsBlock     : $( '#wp-mail-smtp-dash-widget-email-stats-block' ),
-		$recomBlockDismissBtn: $( '#wp-mail-smtp-dash-widget-dismiss-recommended-plugin-block' ),
-		$settingsBtn         : $( '#wp-mail-smtp-dash-widget-settings-button' ),
+		$widget               : $( '#wp_mail_smtp_reports_widget_pro' ),
+		$daysSelect           : $( '#wp-mail-smtp-dash-widget-timespan' ),
+		$emailTypeSelect      : $( '#wp-mail-smtp-dash-widget-email-type' ),
+		$canvas               : $( '#wp-mail-smtp-dash-widget-chart' ),
+		$emailStatsBlock      : $( '#wp-mail-smtp-dash-widget-email-stats-block' ),
+		$recomBlockDismissBtn : $( '#wp-mail-smtp-dash-widget-dismiss-recommended-plugin-block' ),
+		$settingsBtn          : $( '#wp-mail-smtp-dash-widget-settings-button' ),
+		$emailAlertsDismissBtn: $( '#wp-mail-smtp-dash-widget-dismiss-email-alert-block' ),
 	};
 
 	/**
@@ -734,8 +735,9 @@ var WPMailSMTPDashboardWidget = window.WPMailSMTPDashboardWidget || ( function( 
 				app.dismissRecommendedBlock();
 			} );
 
-			el.$settingsBtn.on( 'click', function() {
-				$( this ).siblings( '.wp-mail-smtp-dash-widget-settings-menu' ).toggle();
+			el.$settingsBtn.on( 'click', function( e ) {
+				$( this ).toggleClass( 'open' );
+				$( this ).siblings( '.wp-mail-smtp-dash-widget-settings-menu' ).fadeToggle( 200 );
 			} );
 
 			el.$widget.find( '.wp-mail-smtp-dash-widget-settings-menu-save' ).on( 'click', function() {
@@ -757,6 +759,8 @@ var WPMailSMTPDashboardWidget = window.WPMailSMTPDashboardWidget || ( function( 
 			el.$widget.on( 'WPMailSMTP.Admin.DashboardWidget.emailTypeChanged', function( event, emailType ) {
 				app.saveWidgetMeta( 'email_type', emailType );
 			} );
+
+			el.$emailAlertsDismissBtn.on( 'click', app.dismissEmailAlerts );
 		},
 
 		/**
@@ -829,7 +833,8 @@ var WPMailSMTPDashboardWidget = window.WPMailSMTPDashboardWidget || ( function( 
 			chart.updateDatasets();
 			chart.instance.update();
 
-			el.$widget.find( '.wp-mail-smtp-dash-widget-settings-menu' ).hide();
+			el.$widget.find( '.wp-mail-smtp-dash-widget-settings-menu' ).slideUp( 100 );
+			el.$settingsBtn.removeClass( 'active' );
 		},
 
 		/**
@@ -889,6 +894,20 @@ var WPMailSMTPDashboardWidget = window.WPMailSMTPDashboardWidget || ( function( 
 
 			$( '.wp-mail-smtp-dash-widget-recommended-plugin-block' ).remove();
 			app.saveWidgetMeta( 'hide_recommended_block', 1 );
+		},
+
+		/**
+		 * Dismiss email alerts banner.
+		 *
+		 * @since 3.9.0
+		 *
+		 * @param {Event} e Event object.
+		 */
+		dismissEmailAlerts: function( e ) {
+			e.preventDefault();
+
+			$( '#wp-mail-smtp-dash-widget-email-alerts-education' ).remove();
+			app.saveWidgetMeta( 'hide_email_alerts_banner', 1 );
 		},
 	};
 

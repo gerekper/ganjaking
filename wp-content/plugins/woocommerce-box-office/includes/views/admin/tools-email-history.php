@@ -31,7 +31,7 @@
 				$remaining  = (array) get_post_meta( $email->ID, '_ticket_id' );
 				$sent       = count( $targets ) - count( $remaining );
 				$product    = wc_get_product( $product_id );
-				$is_variant = 'variation' === $product->get_type();
+				$is_variant = $product && 'variation' === $product->get_type();
 				$parent_id  = $is_variant ? $product->get_parent_id() : false;
 				?>
 

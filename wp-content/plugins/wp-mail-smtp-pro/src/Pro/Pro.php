@@ -106,6 +106,7 @@ class Pro {
 		$this->get_additional_connections();
 		$this->get_backup_connections();
 		$this->get_importers();
+		$this->get_translations();
 
 		if ( current_user_can( $this->get_logs()->get_manage_capability() ) ) {
 			$this->get_logs_export()->init();
@@ -432,6 +433,35 @@ class Pro {
 	}
 
 	/**
+	 * Load the Pro Translations functionality.
+	 *
+	 * @since 3.9.0
+	 *
+	 * @return Translations
+	 */
+	public function get_translations() {
+
+		static $translations;
+
+		if ( ! isset( $translations ) ) {
+			/**
+			 * Filter the Translations object.
+			 *
+			 * @since 3.9.0
+			 *
+			 * @param Translations $translations The Translations object.
+			 */
+			$translations = apply_filters( 'wp_mail_smtp_pro_get_translations', new Translations() );
+
+			if ( method_exists( $translations, 'hooks' ) ) {
+				$translations->hooks();
+			}
+		}
+
+		return $translations;
+	}
+
+	/**
 	 * Adds WP Mail SMTP (Lite) to the update checklist of installed plugins, to check for new translations.
 	 *
 	 * @since 1.6.0
@@ -555,7 +585,7 @@ class Pro {
 		 * and network-wide option is enabled.
 		 */
 		if ( ! WP::use_global_plugin_settings() ) {
-			$custom['settings'] = sprintf(
+			$custom['wp-mail-smtp-settings'] = sprintf(
 				'<a href="%s" aria-label="%s">%s</a>',
 				esc_url( wp_mail_smtp()->get_admin()->get_admin_page_url() ),
 				esc_attr__( 'Go to WP Mail SMTP Settings page', 'wp-mail-smtp-pro' ),
@@ -563,7 +593,7 @@ class Pro {
 			);
 		}
 
-		$custom['support'] = sprintf(
+		$custom['wp-mail-smtp-support'] = sprintf(
 			'<a href="%1$s" target="_blank" aria-label="%2$s" rel="noopener noreferrer">%3$s</a>',
 			// phpcs:ignore WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound
 			esc_url( wp_mail_smtp()->get_utm_url( 'https://wpmailsmtp.com/account/support/', [ 'medium' => 'all-plugins', 'content' => 'Support' ] ) ),
@@ -571,7 +601,7 @@ class Pro {
 			esc_html__( 'Support', 'wp-mail-smtp-pro' )
 		);
 
-		$custom['docs'] = sprintf(
+		$custom['wp-mail-smtp-docs'] = sprintf(
 			'<a href="%1$s" target="_blank" aria-label="%2$s" rel="noopener noreferrer">%3$s</a>',
 			// phpcs:ignore WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound
 			esc_url( wp_mail_smtp()->get_utm_url( 'https://wpmailsmtp.com/docs/', [ 'medium' => 'all-plugins', 'content' => 'Documentation' ] ) ),
@@ -612,7 +642,9 @@ class Pro {
 				\WPMailSMTP\Pro\Tasks\Logs\SparkPost\VerifySentStatusTask::class,
 				\WPMailSMTP\Pro\Tasks\Logs\ExportCleanupTask::class,
 				\WPMailSMTP\Pro\Tasks\Logs\ResendTask::class,
+				\WPMailSMTP\Pro\Tasks\Logs\BulkVerifySentStatusTask::class,
 				\WPMailSMTP\Pro\Tasks\NotifierTask::class,
+				\WPMailSMTP\Pro\Tasks\LicenseCheckTask::class,
 			]
 		);
 		// phpcs:enable WPForms.PHP.BackSlash.UseShortSyntax

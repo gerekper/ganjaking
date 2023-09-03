@@ -437,7 +437,7 @@ class WC_Product_Vendors_Store_Admin {
 			$tzstring = WC_Product_Vendors_Utils::get_default_timezone_string();
 		}
 
-		foreach ( $admins as $admin_id ) {	
+		foreach ( $admins as $admin_id ) {
 			$admin = get_user_by( 'id', $admin_id );
 
 			if ( is_object( $admin ) ) {
@@ -599,7 +599,7 @@ class WC_Product_Vendors_Store_Admin {
 			// check all vendors to ensure they have an email associated
 			foreach ( $vendors as $vendor ) {
 				$vendor_data = WC_Product_Vendors_Utils::get_vendor_data_by_id( $vendor->term_id );
-				
+
 				if ( empty( $vendor_data['email'] ) ) {
 					$errors[] = sprintf( '<a href="%1$s">%2$s</a>', get_edit_term_link( $vendor->term_id ), $vendor->name );
 				}
@@ -632,7 +632,7 @@ class WC_Product_Vendors_Store_Admin {
 				</p>
 			</div>
 
-			<?php
+		<?php
 		endif;
 	}
 
@@ -925,7 +925,7 @@ class WC_Product_Vendors_Store_Admin {
 		$commissions_list = new WC_Product_Vendors_Store_Admin_Commission_List( new WC_Product_Vendors_Commission( new WC_Product_Vendors_PayPal_MassPay ) );
 
 		$commissions_list->prepare_items();
-	?>
+		?>
 		<div class="wrap">
 
 			<h2><?php esc_html_e( 'Vendor Commission', 'woocommerce-product-vendors' ); ?>
@@ -944,7 +944,7 @@ class WC_Product_Vendors_Store_Admin {
 				<?php $commissions_list->display(); ?>
 			</form>
 		</div>
-	<?php
+		<?php
 		return true;
 	}
 
@@ -1556,11 +1556,11 @@ class WC_Product_Vendors_Store_Admin {
 	 */
 	public function add_variation_vendor_bulk_edit() {
 		if ( ! WC_Product_Vendors_Utils::is_vendor() && current_user_can( 'manage_vendors' ) ) {
-	?>
+			?>
 			<optgroup label="<?php esc_attr_e( 'Vendor', 'woocommerce-product-vendors' ); ?>">
 				<option value="variable_vendor_commission"><?php esc_html_e( 'Commission', 'woocommerce-product-vendors' ); ?></option>
 			</optgroup>
-	<?php
+			<?php
 		}
 	}
 
@@ -1615,7 +1615,7 @@ class WC_Product_Vendors_Store_Admin {
 		?>
 		<label>
 			<span class="title"><?php esc_html_e( 'Pass Shipping to Vendor?', 'woocommerce-product-vendors' ); ?></span>
-				<span class="input-text-wrap">
+			<span class="input-text-wrap">
 					<select class="pass-shipping-tax" name="_wcpv_product_pass_shipping">
 					<?php
 					$options = array(
@@ -2002,6 +2002,7 @@ class WC_Product_Vendors_Store_Admin {
 	 * Add debug tool button.
 	 *
 	 * @since 2.0.0
+	 * @since 2.2.0 Update "wcpv_clear_transients" action callback.
 	 * @version 2.0.35
 	 * @return array $tools
 	 */
@@ -2010,7 +2011,7 @@ class WC_Product_Vendors_Store_Admin {
 			'name'     => __( 'Product Vendors Transients', 'woocommerce-product-vendors' ),
 			'button'   => __( 'Clear all transients/cache', 'woocommerce-product-vendors' ),
 			'desc'     => __( 'This will clear all Product Vendors related transients/caches such as reports.', 'woocommerce-product-vendors' ),
-			'callback' => 'WC_Product_Vendors_Utils::clear_reports_transients',
+			'callback' => [ $this, 'clear_all_transients' ],
 		);
 
 		$tools['wcpv_delete_webhook'] = array(
@@ -2028,13 +2029,48 @@ class WC_Product_Vendors_Store_Admin {
 	 *
 	 * @access public
 	 * @since 2.0.0
-	 * @version 2.0.0
 	 * @return bool
+	 * @version 2.0.0
 	 */
 	public function clear_reports_transients() {
 		WC_Product_Vendors_Utils::clear_reports_transients();
 
 		return true;
+	}
+
+	/**
+	 * Delete all transients created by this add-on.
+	 *
+	 * This function handles "wcpv_clear_transients" action.
+	 *
+	 * Note: This function is for internal usage.
+	 *
+	 * @since 2.2.0
+	 * @return void
+	 */
+	public function clear_all_transients() {
+		$vendor_ids = get_terms(
+			WC_PRODUCT_VENDORS_TAXONOMY,
+			[
+				'fields'     => 'ids',
+				'hide_empty' => false
+			]
+		);
+
+		if ( ! $vendor_ids ) {
+			return;
+		}
+
+		foreach ( $vendor_ids as $vendor_id ) {
+			$transient_manager = WC_Product_Vendor_Transient_Manager::make( (int) $vendor_id );
+			$transient_manager->delete();
+		}
+
+		if ( class_exists( 'WC_Bookings' ) ) {
+			WC_Bookings_Cache::clear_cache();
+		}
+
+		WC_Product_Vendors_Utils::clear_vendor_error_list_transient();
 	}
 
 	/**
@@ -2045,18 +2081,18 @@ class WC_Product_Vendors_Store_Admin {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
-		
+
 		if ( WC_Product_Vendors_Utils::is_vendor_admin_meta_storage_enabled() ) {
 			return;
 		}
 
-		$admin_storage = new WC_Product_Vendors_Admin_Storage_Compatibility();
+		$admin_storage     = new WC_Product_Vendors_Admin_Storage_Compatibility();
 		$migration_started = $admin_storage->is_migration_scheduled();
 
 		if ( isset( $_POST['wcpv_migrate_admin_storage_migrate'] ) && ! $migration_started ) {
 			$migration_started = $admin_storage->schedule_migration();
 		}
-		
+
 		include_once( 'views/html-migrate-admin-storage-notice.php' );
 	}
 }

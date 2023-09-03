@@ -3,8 +3,10 @@
 namespace WPMailSMTP\Pro\Emails\Logs\Admin;
 
 use WPMailSMTP\Admin\Area;
+use WPMailSMTP\Helpers\Helpers;
 use WPMailSMTP\Pro\Emails\Logs\Attachments\Attachments;
 use WPMailSMTP\Pro\Emails\Logs\Email;
+use WPMailSMTP\Pro\Emails\Logs\RecheckDeliveryStatus;
 use WPMailSMTP\Pro\Emails\Logs\Tracking\Events\Injectable\OpenEmailEvent;
 use WPMailSMTP\Pro\Emails\Logs\Tracking\Events\Injectable\ClickLinkEvent;
 use WPMailSMTP\WP;
@@ -540,6 +542,26 @@ class SinglePage extends PageAbstract {
 				'url'   => '#',
 				'icon'  => 'dashicons-update',
 				'label' => esc_html__( 'Resend', 'wp-mail-smtp-pro' ),
+			];
+		}
+
+		if (
+			$email->is_waiting_for_delivery_verification() &&
+			! Helpers::mailer_without_send_confirmation()
+		) {
+			$recheck_email_status_link = add_query_arg(
+				[
+					'mode'                 => 'view',
+					'email_id'             => $email->get_id(),
+					'recheck_email_status' => wp_create_nonce( RecheckDeliveryStatus::SINGLE_LOG_NONCE_ACTION ),
+				],
+				wp_mail_smtp()->get_admin()->get_admin_page_url( Area::SLUG . '-logs' )
+			);
+
+			$action_links['recheck_email_status'] = [
+				'url'   => $recheck_email_status_link,
+				'icon'  => 'dashicons-yes',
+				'label' => esc_html__( 'Re-check email status', 'wp-mail-smtp-pro' ),
 			];
 		}
 

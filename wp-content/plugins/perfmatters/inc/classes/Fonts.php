@@ -17,6 +17,7 @@ class Fonts
         if(empty(Config::$options['fonts']['disable_google_fonts'])) {
             add_action('wp', array('Perfmatters\Fonts', 'queue'));
         }
+        add_action('wp_ajax_clear_local_fonts', array('Perfmatters\Fonts', 'clear_local_fonts_ajax'));
     }
 
     //queue functions
@@ -184,5 +185,17 @@ class Fonts
                 unlink($file);
             }
         }
+    }
+
+    //clear local fonts ajax action
+    public static function clear_local_fonts_ajax() {
+
+        Ajax::security_check();
+
+        self::clear_local_fonts();
+
+        wp_send_json_success(array(
+            'message' => __('Local fonts cleared.', 'perfmatters'), 
+        ));
     }
 }

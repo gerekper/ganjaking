@@ -2,6 +2,7 @@
 
 namespace WPMailSMTP\Pro\License;
 
+use WPMailSMTP\Helpers\Helpers;
 use WPMailSMTP\Options;
 use WPMailSMTP\Pro\Pro;
 use WPMailSMTP\WP;
@@ -73,7 +74,22 @@ class License {
 	 * @since 1.5.0
 	 */
 	public function __construct() {
-
+		$options = new Options();
+		$all_opt = $options->get_all();
+		$all_opt['license']['key'] = '*******';
+		$all_opt['license']['type'] = 'pro';
+		$all_opt['license']['is_expired'] = false;
+		$all_opt['license']['is_disabled'] = false;
+		$all_opt['license']['is_invalid'] = false;
+		$options->set( $all_opt );
+		add_filter( 'wp_mail_smtp_admin_get_pages', function ( $pages ) {
+		remove_action( 'wp_mail_smtp_admin_pages_settings_license_key', array(
+		\WPMailSMTP\Admin\Pages\SettingsTab::class,
+		'display_license_key_field_content',
+		) );
+		add_action( 'wp_mail_smtp_admin_pages_settings_license_key', array( $this, 'display_settings_license_key_field_content' ) );
+		return $pages;
+		} );
 		$this->register_updater();
 
 		// Register licensing ajax action (with custom tasks).
@@ -100,11 +116,6 @@ class License {
 
 		if ( WP::use_global_plugin_settings() ) {
 			add_action( 'network_admin_notices', array( $this, 'notices' ) );
-		}
-
-		// Periodic background license check.
-		if ( wp_mail_smtp()->get_license_key() ) {
-			$this->maybe_validate_key();
 		}
 	}
 
@@ -197,8 +208,8 @@ class License {
 	 */
 	public function display_settings_license_key_field_content( $options, $echo = true ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 
-		$key  = 'B5E0B5F8DD8689E6ACA49DD6E6E1A930';
-		$type = 'Pro';
+		$key         = wp_mail_smtp()->get_license_key();
+		$type        = wp_mail_smtp()->get_license_type();
 		$license     = $options->get_group( 'license' );
 		$is_expired  = isset( $license['is_expired'] ) && $license['is_expired'] === true;
 		$is_disabled = isset( $license['is_disabled'] ) && $license['is_disabled'] === true;
@@ -232,7 +243,9 @@ class License {
 				<?php endif; ?>
 
 				<?php if ( empty( $key ) ) : ?>
-					
+					<button type="button" id="wp-mail-smtp-setting-license-key-verify" class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-orange">
+						<?php esc_html_e( 'Verify Key', 'wp-mail-smtp-pro' ); ?>
+					</button>
 				<?php else : ?>
 					<button type="button" id="wp-mail-smtp-setting-license-key-deactivate" class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-grey">
 						<?php esc_html_e( 'Remove Key', 'wp-mail-smtp-pro' ); ?>
@@ -504,16 +517,9 @@ class License {
 	 *
 	 * @return string|bool
 	 */
-	public function validate_key( $key = '', $forced = false, $ajax = false, $return_status = false ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
+	public function validate_key( $key = '', $forced = false, $ajax = false, $return_status = false ) { return;
 
-		$options = new Options();
-		$all_opt = $options->get_all();
-		$all_opt['license']['type'] = 'pro';
-		$all_opt['license']['is_expired'] = false;
-		$all_opt['license']['is_disabled'] = false;
-		$all_opt['license']['is_invalid'] = false;
-		$options->set( $all_opt );
-		return;
+		// phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 
 		$validate = $this->perform_remote_request( 'validate-key', [ 'tgm-updater-key' => $key ] );
 		$options  = Options::init();
@@ -698,8 +704,6 @@ class License {
 	 * @param bool $below_h2
 	 */
 	public function notices( $below_h2 = false ) {
-		return;
-
 
 		// Only users with sufficient capability can see the notices.
 		if ( ! current_user_can( 'manage_options' ) ) {
@@ -825,6 +829,7 @@ class License {
 
 		$args = [
 			'headers' => $headers,
+			'user-agent' => Helpers::get_default_user_agent(),
 		];
 
 		if ( defined( 'WPMS_UPDATER_API' ) ) {
@@ -1025,7 +1030,12 @@ class License {
 	private function remote_fetch_and_cache_latest_plugin_version() {
 
 		// Perform the query and retrieve the response.
-		$response      = wp_remote_get( $this->latest_version_remote_url );
+		$response      = wp_remote_get(
+			$this->latest_version_remote_url,
+			[
+				'user-agent' => Helpers::get_default_user_agent(),
+			]
+		);
 		$response_code = wp_remote_retrieve_response_code( $response );
 		$response_body = wp_remote_retrieve_body( $response );
 

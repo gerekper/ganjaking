@@ -253,8 +253,6 @@ class WC_Product_Vendors_Install {
 	 * @return bool
 	 */
 	public static function install() {
-		global $wpdb;
-
 		if ( ! defined( 'WCPV_INSTALLING' ) ) {
 			define( 'WCPV_INSTALLING', true );
 		}
@@ -337,17 +335,12 @@ class WC_Product_Vendors_Install {
 	 *
 	 * @access public
 	 * @since 2.0.0
+	 * @sicne x.x.x Replace DELETE SQL query with utility class function
 	 * @version 2.0.0
 	 * @return bool
 	 */
 	public static function clear_reports_transients() {
-		global $wpdb;
-
-		$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '%wcpv_reports%'" );
-		$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '%wcpv_unfulfilled_products%'" );
-		$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '%book_dr%'" );
-
-		return true;
+		return WC_Product_Vendors_Utils::clear_reports_transients();
 	}
 
 	/**

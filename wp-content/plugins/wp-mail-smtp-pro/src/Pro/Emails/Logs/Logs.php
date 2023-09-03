@@ -8,6 +8,7 @@ use WPMailSMTP\ConnectionInterface;
 use WPMailSMTP\MailCatcherInterface;
 use WPMailSMTP\Options;
 use WPMailSMTP\Pro\Emails\Logs\Attachments\Attachments;
+use WPMailSMTP\Pro\Emails\Logs\DeliveryVerification\DeliveryVerification;
 use WPMailSMTP\Pro\Emails\Logs\Providers\Common;
 use WPMailSMTP\Pro\Emails\Logs\Providers\SMTP;
 use WPMailSMTP\Pro\Emails\Logs\Webhooks\Webhooks;
@@ -145,6 +146,9 @@ class Logs {
 
 			// Initialize emails resend.
 			( new Resend() )->hooks();
+
+			// Initialize email recheck delivery status.
+			( new RecheckDeliveryStatus() )->hooks();
 		}
 
 		// Initialize webhooks.
@@ -468,15 +472,16 @@ class Logs {
 		}
 
 		$settings = [
-			'plugin_url'                              => wp_mail_smtp()->plugin_url,
-			'text_email_delete_sure'                  => esc_html__( 'Are you sure that you want to delete this email log? This action cannot be undone.', 'wp-mail-smtp-pro' ),
-			'ok'                                      => esc_html__( 'OK', 'wp-mail-smtp-pro' ),
-			'icon'                                    => esc_html__( 'Icon', 'wp-mail-smtp-pro' ),
-			'delete_all_email_logs_confirmation_text' => esc_html__( 'Are you sure you want to permanently delete all email logs?', 'wp-mail-smtp-pro' ),
-			'heads_up_title'                          => esc_html__( 'Heads up!', 'wp-mail-smtp-pro' ),
-			'yes_text'                                => esc_html__( 'Yes', 'wp-mail-smtp-pro' ),
-			'cancel_text'                             => esc_html__( 'Cancel', 'wp-mail-smtp-pro' ),
-			'error_occurred'                          => esc_html__( 'An error occurred!', 'wp-mail-smtp-pro' ),
+			'plugin_url'                                      => wp_mail_smtp()->plugin_url,
+			'text_email_delete_sure'                          => esc_html__( 'Are you sure that you want to delete this email log? This action cannot be undone.', 'wp-mail-smtp-pro' ),
+			'ok'                                              => esc_html__( 'OK', 'wp-mail-smtp-pro' ),
+			'icon'                                            => esc_html__( 'Icon', 'wp-mail-smtp-pro' ),
+			'delete_all_email_logs_confirmation_text'         => esc_html__( 'Are you sure you want to permanently delete all email logs?', 'wp-mail-smtp-pro' ),
+			'recheck_all_email_logs_status_confirmation_text' => esc_html__( 'Are you sure you want to re-check the status of all pending email logs?', 'wp-mail-smtp-pro' ),
+			'heads_up_title'                                  => esc_html__( 'Heads up!', 'wp-mail-smtp-pro' ),
+			'yes_text'                                        => esc_html__( 'Yes', 'wp-mail-smtp-pro' ),
+			'cancel_text'                                     => esc_html__( 'Cancel', 'wp-mail-smtp-pro' ),
+			'error_occurred'                                  => esc_html__( 'An error occurred!', 'wp-mail-smtp-pro' ),
 		];
 
 		if ( $this->is_archive() ) {
@@ -1111,37 +1116,7 @@ class Logs {
 			}
 		}
 
-		if ( $mailer_name === 'sendlayer' ) {
-			( new SendlayerVerifySentStatusTask() )
-				->params( $email_log_id, 1 )
-				->once( time() + SendlayerVerifySentStatusTask::SCHEDULE_TASK_IN )
-				->register();
-		} if ( $mailer_name === 'mailgun' ) {
-			( new MailgunVerifySentStatusTask() )
-				->params( $email_log_id, 1 )
-				->once( time() + MailgunVerifySentStatusTask::SCHEDULE_TASK_IN )
-				->register();
-		} elseif ( $mailer_name === 'sendinblue' ) {
-			( new SendinblueVerifySentStatusTask() )
-				->params( $email_log_id, 1 )
-				->once( time() + SendinblueVerifySentStatusTask::SCHEDULE_TASK_IN )
-				->register();
-		} elseif ( $mailer_name === 'smtpcom' ) {
-			( new SMTPcomVerifySentStatusTask() )
-				->params( $email_log_id, 1 )
-				->once( time() + SMTPcomVerifySentStatusTask::SCHEDULE_TASK_IN )
-				->register();
-		} elseif ( $mailer_name === 'postmark' ) {
-			( new PostmarkVerifySentStatusTask() )
-				->params( $email_log_id, 1 )
-				->once( time() + PostmarkVerifySentStatusTask::SCHEDULE_TASK_IN )
-				->register();
-		} elseif ( $mailer_name === 'sparkpost' ) {
-			( new SparkPostVerifySentStatusTask() )
-				->params( $email_log_id, 1 )
-				->once( time() + SparkPostVerifySentStatusTask::SCHEDULE_TASK_IN )
-				->register();
-		}
+		( new DeliveryVerification() )->schedule_verification( $email_log_id );
 	}
 
 	/**

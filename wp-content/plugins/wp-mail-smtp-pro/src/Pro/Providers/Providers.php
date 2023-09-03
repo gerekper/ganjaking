@@ -360,11 +360,14 @@ class Providers {
 				if ( $ses->do_delete_identity( $value ) === true ) {
 					wp_send_json_success(
 						sprintf(
-							wp_kses( /* translators: %1$s - "Email address" or "Domain"; %2$s - actual email address or domain name. */
-								__( '%1$s <code>%2$s</code> was successfully deleted.', 'wp-mail-smtp-pro' ),
+							wp_kses(
+								( $type === 'email' ) ?
+									/* translators: %s - actual email address. */
+									__( 'Email address <code>%s</code> was successfully deleted.', 'wp-mail-smtp-pro' ) :
+									/* translators: %s - actual domain name. */
+									__( 'Domain <code>%s</code> was successfully deleted.', 'wp-mail-smtp-pro' ),
 								[ 'code' => [] ]
 							),
-							( $type === 'email' ) ? esc_html__( 'Email address', 'wp-mail-smtp-pro' ) : esc_html__( 'Domain', 'wp-mail-smtp-pro' ),
 							esc_html( $value )
 						)
 					);

@@ -668,6 +668,7 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 							'task': 'identity_delete',
 							'connection_id': wp_mail_smtp_pro.connection_id,
 							'mailer': 'amazonses',
+							'type': type,
 							'value': value,
 							'nonce': nonce,
 						},

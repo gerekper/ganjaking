@@ -2,10 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.9.0] - 2023-08-29
+### Added:
+- Pro plugin translations for: Spanish (Spain), German, Portuguese (Brazil), Italian, French, Japanese, Polish, Dutch, Russian, Turkish.
+- Email Log: ability to manually re-check email delivery status.
+- Alerts: ability to test alerts.
+
+### Changed:
+- Moved the Email Test tab from the settings page to the tools page.
+- Improved the dashboard widget settings' user experience.
+- Removed Sendinblue SDK library because it was deprecated.
+- Updated AWS SDK library to 3.277.11.
+- Mailgun API instructions and webhooks verification process.
+
+### Fixed:
+- Debug Event details popup scrolling.
+- Email logs import from the WP Mail Logging plugin caused by long non-English subjects.
+- Conflict with other plugins (Alt Manager) that made the WP Plugins install page unusable.
+
 ## [3.8.2] - 2023-07-18
 ### Changed:
 - Improved notifications formatting and styles.
 - Sendinblue rebranded to Brevo.
+- Updated Action Scheduler library to 3.6.1.
 
 ### Fixed:
 - Explicitly set "Content-Type" header for the HTML test email.

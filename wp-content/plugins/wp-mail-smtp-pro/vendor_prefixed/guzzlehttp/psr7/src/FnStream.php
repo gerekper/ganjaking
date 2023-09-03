@@ -139,8 +139,6 @@ final class FnStream implements \WPMailSMTP\Vendor\Psr\Http\Message\StreamInterf
         return \call_user_func($this->_fn_getContents);
     }
     /**
-     * {@inheritdoc}
-     *
      * @return mixed
      */
     public function getMetadata($key = null)

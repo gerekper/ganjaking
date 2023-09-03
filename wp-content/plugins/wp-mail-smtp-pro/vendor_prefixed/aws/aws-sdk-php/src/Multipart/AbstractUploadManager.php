@@ -22,7 +22,7 @@ abstract class AbstractUploadManager implements \WPMailSMTP\Vendor\GuzzleHttp\Pr
 {
     const DEFAULT_CONCURRENCY = 5;
     /** @var array Default values for base multipart configuration */
-    private static $defaultConfig = ['part_size' => null, 'state' => null, 'concurrency' => self::DEFAULT_CONCURRENCY, 'prepare_data_source' => null, 'before_initiate' => null, 'before_upload' => null, 'before_complete' => null, 'exception_class' => 'WPMailSMTP\\Vendor\\Aws\\Exception\\MultipartUploadException'];
+    private static $defaultConfig = ['part_size' => null, 'state' => null, 'concurrency' => self::DEFAULT_CONCURRENCY, 'prepare_data_source' => null, 'before_initiate' => null, 'before_upload' => null, 'before_complete' => null, 'exception_class' => \WPMailSMTP\Vendor\Aws\Exception\MultipartUploadException::class];
     /** @var Client Client used for the upload. */
     protected $client;
     /** @var array Configuration used to perform the upload. */
@@ -69,7 +69,7 @@ abstract class AbstractUploadManager implements \WPMailSMTP\Vendor\GuzzleHttp\Pr
      *
      * @return PromiseInterface
      */
-    public function promise()
+    public function promise() : \WPMailSMTP\Vendor\GuzzleHttp\Promise\PromiseInterface
     {
         if ($this->promise) {
             return $this->promise;
@@ -169,10 +169,8 @@ abstract class AbstractUploadManager implements \WPMailSMTP\Vendor\GuzzleHttp\Pr
     /**
      * Based on the config and service-specific workflow info, creates a
      * `Promise` for an `UploadState` object.
-     *
-     * @return PromiseInterface A `Promise` that resolves to an `UploadState`.
      */
-    private function determineState()
+    private function determineState() : \WPMailSMTP\Vendor\Aws\Multipart\UploadState
     {
         // If the state was provided via config, then just use it.
         if ($this->config['state'] instanceof \WPMailSMTP\Vendor\Aws\Multipart\UploadState) {

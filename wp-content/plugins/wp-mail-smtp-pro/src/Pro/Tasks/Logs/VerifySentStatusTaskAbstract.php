@@ -2,6 +2,7 @@
 
 namespace WPMailSMTP\Pro\Tasks\Logs;
 
+use WPMailSMTP\Pro\Emails\Logs\DeliveryVerification\DeliveryVerification;
 use WPMailSMTP\Tasks\Meta;
 use WPMailSMTP\Pro\Emails\Logs\Email;
 use WPMailSMTP\Tasks\Task;
@@ -62,7 +63,28 @@ abstract class VerifySentStatusTaskAbstract extends Task {
 	 *
 	 * @param int $meta_id The Meta ID with the stored task parameters.
 	 */
-	abstract public function process( $meta_id );
+	public function process( $meta_id ) {
+
+		$meta = $this->get_meta_data( $meta_id );
+
+		if ( empty( $meta ) ) {
+			return;
+		}
+
+		list( $email_log_id, $try ) = $meta;
+
+		$verifier = ( new DeliveryVerification() )->get_verifier( $email_log_id );
+
+		if ( is_wp_error( $verifier ) ) {
+			return;
+		}
+
+		$verifier->verify();
+
+		if ( ! $verifier->is_verified() ) {
+			$this->maybe_retry( $email_log_id, $try, new Email( $email_log_id ) );
+		}
+	}
 
 	/**
 	 * Retry the sent status verification.

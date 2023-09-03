@@ -1,5 +1,8 @@
 *** Warranty Requests Changelog ***
 
+2023-08-29 - version 2.2.5
+* Fix - Warranty add-on cannot be saved on "Manage Warranties" page.
+
 2023-07-25 - version 2.2.4
 * Fix - "Expired Warranty" text always shows when lifetime warranty is being set as a default warranty.
 

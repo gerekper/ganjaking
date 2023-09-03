@@ -75,7 +75,7 @@ echo "<form method='post' action=''>";
 
 						if(empty($license)) {
 							//save license button
-							echo "<input type='submit' name='perfmatters_save_license' class='button button-primary' value='" . __('Save License', 'perfmatters') . "'>";
+							echo "<input type='submit' name='perfmatters_save_license' class='button button-secondary' value='" . __('Save License', 'perfmatters') . "'>";
 						}
 						else {
 							//remove license button
@@ -133,7 +133,7 @@ echo "<form method='post' action=''>";
 									echo ucfirst($license_info->license);
 									if($license_info->license == "expired") {
 										echo "<br />";
-										echo "<a href='https://perfmatters.io/checkout/?edd_license_key=" . $license . "&download_id=696' class='button-primary' style='margin-top: 10px;' target='_blank'>" . __('Renew Your License for Updates + Support!', 'perfmatters') . "</a>";
+										echo "<a href='https://perfmatters.io/checkout/?edd_license_key=" . $license . "&download_id=696' class='button button-secondary' style='margin-top: 10px;' target='_blank'>" . __('Renew Your License for Updates + Support!', 'perfmatters') . "</a>";
 									}
 								echo "</td>";
 							echo "</tr>";

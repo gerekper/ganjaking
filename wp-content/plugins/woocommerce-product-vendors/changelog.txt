@@ -1,5 +1,16 @@
 *** Product Vendors Changelog ***
 
+2023-08-17 - version 2.2.0
+* Dev - Bump PHP minimum supported version from 7.2 to 7.3.
+* Dev - Bump WooCommerce "tested up to" version from 7.8 to 8.0.
+* Dev - Bump WooCommerce minimum supported version from 7.2 to 7.8.
+* Dev - Bump WordPress "tested up to" version from 6.2 to 6.3.
+* Dev - Introduce a new class that handles vendor transient data management.
+* Dev - New vendor transient data invalidation logic instead of direct DELETE SQL queries.
+* Fix - Bookings Integration: order numbers links show the read only view when logged in as a vendor.
+* Fix - Page title added to the vendor's view of an order details.
+* Fix - Prevent fatal error if `vendor_data` term meta isn't serializable.
+
 2023-07-17 - version 2.1.80
 * Dev - Added filter hooks when deciding whether to send order/cancelled order emails to vendors.
 * Dev - Bump WooCommerce "tested up to" version 7.8.

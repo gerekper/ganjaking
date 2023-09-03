@@ -22,7 +22,7 @@ class Sort
     {
         return new self(
             isset($_GET[self::PARAM_ORDERBY]) ? (string)$_GET[self::PARAM_ORDERBY] : null,
-            isset($_GET[self::PARAM_ORDER]) ? strtolower($_GET[self::PARAM_ORDER]) : null
+            isset($_GET[self::PARAM_ORDER]) && is_string($_GET[self::PARAM_ORDER]) ? $_GET[self::PARAM_ORDER] : null
         );
     }
 

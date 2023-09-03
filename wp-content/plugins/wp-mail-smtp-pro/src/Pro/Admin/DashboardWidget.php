@@ -2,8 +2,10 @@
 
 namespace WPMailSMTP\Pro\Admin;
 
+use WPMailSMTP\Admin\Area;
 use WPMailSMTP\Helpers\Helpers;
 use WPMailSMTP\Options;
+use WPMailSMTP\Pro\Alerts\Alerts;
 use WPMailSMTP\Pro\Emails\Logs\Email;
 use WPMailSMTP\Pro\Emails\Logs\Logs;
 use WPMailSMTP\WP;
@@ -234,7 +236,8 @@ class DashboardWidget {
 		unset( $normal_dashboard[ $widget_key ] );
 		$sorted_dashboard = array_merge( $widget_instance, $normal_dashboard );
 
-		$wp_meta_boxes['dashboard']['normal']['core'] = $sorted_dashboard; //phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+		//phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+		$wp_meta_boxes['dashboard']['normal']['core'] = $sorted_dashboard;
 	}
 
 	/**
@@ -244,14 +247,38 @@ class DashboardWidget {
 	 */
 	public function widget_content() {
 
-		$logs_enabled = wp_mail_smtp()->pro->get_logs()->is_enabled();
-
 		echo '<div class="wp-mail-smtp-dash-widget wp-mail-smtp-dash-widget--pro">';
 
-		if ( empty( $logs_enabled ) ) {
-			$this->widget_content_logs_disabled();
-		} else {
+		if ( wp_mail_smtp()->pro->get_logs()->is_enabled() ) {
 			$this->widget_content_html();
+			$this->display_after_widget_content_html();
+		} else {
+			$this->widget_content_logs_disabled();
+		}
+
+		echo '</div><!-- .wp-mail-smtp-dash-widget -->';
+	}
+
+	/**
+	 * Display the content after the email stats block.
+	 *
+	 * @since 3.9.0
+	 *
+	 * @return void
+	 */
+	private function display_after_widget_content_html() {
+
+		if (
+			! ( new Alerts() )->is_enabled() &&
+			empty( $this->widget_meta( 'get', 'hide_email_alerts_banner' ) )
+		) {
+			$email_stats = $this->get_email_stats_count_by( 'total', $this->widget_meta( 'get', 'timespan' ) );
+
+			if ( ! empty( $email_stats['unsent'] ) ) {
+				$this->show_email_alerts_banner( $email_stats['unsent'] );
+
+				return;
+			}
 		}
 
 		$plugins          = get_plugins();
@@ -260,13 +287,79 @@ class DashboardWidget {
 		if (
 			! array_key_exists( 'wpforms-lite/wpforms.php', $plugins ) &&
 			! array_key_exists( 'wpforms/wpforms.php', $plugins ) &&
-			! empty( $logs_enabled ) &&
 			empty( $hide_recommended )
 		) {
 			$this->recommended_plugin_block_html();
 		}
+	}
 
-		echo '</div><!-- .wp-mail-smtp-dash-widget -->';
+	/**
+	 * Display the email alerts banner.
+	 *
+	 * @since 3.9.0
+	 *
+	 * @param int $error_count The number of debug events error.
+	 *
+	 * @return void
+	 */
+	private function show_email_alerts_banner( $error_count ) {
+
+		?>
+		<div id="wp-mail-smtp-dash-widget-email-alerts-education" class="wp-mail-smtp-dash-widget-block wp-mail-smtp-dash-widget-email-alerts-education">
+			<div class="wp-mail-smtp-dash-widget-email-alerts-education-error-icon">
+				<?php
+				printf(
+					'<img src="%s" alt="%s"/>',
+					esc_url( wp_mail_smtp()->assets_url . '/images/dash-widget/error-icon.svg' ),
+					esc_attr__( 'Error icon', 'wp-mail-smtp-pro' )
+				);
+				?>
+			</div>
+			<div class="wp-mail-smtp-dash-widget-email-alerts-education-content">
+				<?php
+				if ( $error_count === 1 ) {
+					$error_title = sprintf(
+						/* translators: %d - Timespan. */
+						__( 'We detected a failed email in the last %d days.', 'wp-mail-smtp-pro' ),
+						$this->widget_meta( 'get', 'timespan' )
+					);
+				} else {
+					$error_title = sprintf(
+						/* translators: 1: Number of failed emails, 2: Timespan. */
+						__( 'We detected %1$d failed emails in the last %2$d days.', 'wp-mail-smtp-pro' ),
+						$error_count,
+						$this->widget_meta( 'get', 'timespan' )
+					);
+				}
+
+				$content = sprintf(
+					/* translators: %s - URL to WP Mail SMTP -> Settings -> Alerts Admin page.. */
+					__( '<a href="%s">Enable Email Alerts</a> and get instant notifications when they fail.', 'wp-mail-smtp-pro' ),
+					esc_url( add_query_arg( 'tab', 'alerts', wp_mail_smtp()->get_admin()->get_admin_page_url( Area::SLUG ) ) )
+				);
+				?>
+				<p>
+					<strong><?php echo esc_html( $error_title ); ?></strong><br />
+					<?php
+					echo wp_kses(
+						$content,
+						[
+							'a' => [
+								'href'   => [],
+								'target' => [],
+								'rel'    => [],
+							],
+						]
+					);
+					?>
+				</p>
+			</div>
+
+			<button type="button" id="wp-mail-smtp-dash-widget-dismiss-email-alert-block" class="wp-mail-smtp-dash-widget-dismiss-email-alert-block" title="<?php esc_attr_e( 'Dismiss email alert block', 'wp-mail-smtp-pro' ); ?>">
+				<span class="dashicons dashicons-no-alt"></span>
+			</button>
+		</div>
+		<?php
 	}
 
 	/**
@@ -399,7 +492,9 @@ class DashboardWidget {
 		?>
 		<div class="wp-mail-smtp-dash-widget-settings-container">
 			<button id="wp-mail-smtp-dash-widget-settings-button" class="wp-mail-smtp-dash-widget-settings-button button" type="button">
-				<span class="dashicons dashicons-admin-generic"></span>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 19">
+					<path d="M18,11l-2.18,0c-0.17,0.7 -0.44,1.35 -0.81,1.93l1.54,1.54l-2.1,2.1l-1.54,-1.54c-0.58,0.36 -1.23,0.63 -1.91,0.79l0,2.18l-3,0l0,-2.18c-0.68,-0.16 -1.33,-0.43 -1.91,-0.79l-1.54,1.54l-2.12,-2.12l1.54,-1.54c-0.36,-0.58 -0.63,-1.23 -0.79,-1.91l-2.18,0l0,-2.97l2.17,0c0.16,-0.7 0.44,-1.35 0.8,-1.94l-1.54,-1.54l2.1,-2.1l1.54,1.54c0.58,-0.37 1.24,-0.64 1.93,-0.81l0,-2.18l3,0l0,2.18c0.68,0.16 1.33,0.43 1.91,0.79l1.54,-1.54l2.12,2.12l-1.54,1.54c0.36,0.59 0.64,1.24 0.8,1.94l2.17,0l0,2.97Zm-8.5,1.5c1.66,0 3,-1.34 3,-3c0,-1.66 -1.34,-3 -3,-3c-1.66,0 -3,1.34 -3,3c0,1.66 1.34,3 3,3Z"></path>
+				</svg>
 			</button>
 			<div class="wp-mail-smtp-dash-widget-settings-menu">
 				<div class="wp-mail-smtp-dash-widget-settings-menu--style">
@@ -641,27 +736,12 @@ class DashboardWidget {
 			return false;
 		}
 
-		$defaults = array(
-			'timespan'               => $this->get_timespan_default(),
-			'email_type'             => 'all',
-			'graph_style'            => 'line',
-			'color_scheme'           => 'smtp',
-			'hide_recommended_block' => 0,
-		);
-
-		if ( ! array_key_exists( $meta, $defaults ) ) {
-			return false;
-		}
-
-		$meta_key = 'wp_mail_smtp_' . static::SLUG . '_' . $meta;
-
 		if ( 'get' === $action ) {
-			$meta_value = get_user_meta( get_current_user_id(), $meta_key, true );
-
-			return empty( $meta_value ) ? $defaults[ $meta ] : $meta_value;
+			return $this->get_widget_meta( $meta );
 		}
 
-		$value = sanitize_key( $value );
+		$meta_key = $this->get_widget_meta_key( $meta );
+		$value    = sanitize_key( $value );
 
 		if ( 'set' === $action && ! empty( $value ) ) {
 			return update_user_meta( get_current_user_id(), $meta_key, $value );
@@ -672,6 +752,53 @@ class DashboardWidget {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Get the widget meta value.
+	 *
+	 * @since 3.9.0
+	 *
+	 * @param string $meta Meta name.
+	 *
+	 * @return mixed
+	 */
+	private function get_widget_meta( $meta ) {
+
+		$defaults = [
+			'timespan'                 => $this->get_timespan_default(),
+			'email_type'               => 'all',
+			'graph_style'              => 'line',
+			'color_scheme'             => 'smtp',
+			'hide_recommended_block'   => 0,
+			'hide_email_alerts_banner' => 0,
+		];
+
+		$meta_value = get_user_meta( get_current_user_id(), $this->get_widget_meta_key( $meta ), true );
+
+		if ( ! empty( $meta_value ) ) {
+			return $meta_value;
+		}
+
+		if ( isset( $defaults[ $meta ] ) ) {
+			return $defaults[ $meta ];
+		}
+
+		return null;
+	}
+
+	/**
+	 * Retrieve the meta key.
+	 *
+	 * @since 3.9.0
+	 *
+	 * @param string $meta Meta name.
+	 *
+	 * @return string
+	 */
+	private function get_widget_meta_key( $meta ) {
+
+		return 'wp_mail_smtp_' . static::SLUG . '_' . $meta;
 	}
 
 	/**
@@ -848,10 +975,12 @@ class DashboardWidget {
 		$sql .= ' GROUP BY day, status;';
 
 		if ( ! empty( $placeholders ) ) {
-			$sql = $wpdb->prepare( $sql, $placeholders ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+			$sql = $wpdb->prepare( $sql, $placeholders );
 		}
 
-		$results = $wpdb->get_results( $sql, ARRAY_A ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
+		$results = $wpdb->get_results( $sql, ARRAY_A );
 
 		if ( empty( $results ) ) {
 			return [];
@@ -912,10 +1041,12 @@ class DashboardWidget {
 		$sql .= ' GROUP BY status;';
 
 		if ( ! empty( $placeholders ) ) {
-			$sql = $wpdb->prepare( $sql, $placeholders ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+			$sql = $wpdb->prepare( $sql, $placeholders );
 		}
 
-		$results = $wpdb->get_results( $sql, \ARRAY_A ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
+		$results = $wpdb->get_results( $sql, \ARRAY_A );
 
 		if ( empty( $results ) ) {
 			return $data;

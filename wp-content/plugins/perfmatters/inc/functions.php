@@ -990,12 +990,6 @@ function perfmatters_admin_url($url) {
 			} 
 		}
 	}
-	/*elseif(!is_admin() && (function_exists('is_user_logged_in') || !is_user_logged_in())) {
-		$options = get_option('perfmatters_options');
-		if(!empty($options['login_url'])) {
-			$url = preg_replace('/\/wp-admin\/$/', '/' . $options['login_url'] . '/', $url);
-		}
-	}*/
 
 	return $url;
 }
@@ -1419,140 +1413,14 @@ foreach($filters as $filter) {
 //check option update for custom inputs and modify result
 function perfmatters_pre_update_option_perfmatters_options($new_value, $old_value) {
 
-	//clear used css button press
-	if(!empty($new_value['assets']['clear_used_css'])) {
-
-		Perfmatters\CSS::clear_used_css();
-
-		//display message
-		add_settings_error('perfmatters', 'perfmatters-clear-success', __('Used CSS cleared.', 'perfmatters'), 'success');
-
-		return $old_value;
-	}
-
+	//clear used css
 	if((empty($new_value['assets']['rucss_excluded_stylesheets']) !== empty($old_value['assets']['rucss_excluded_stylesheets'])) || (empty($new_value['assets']['rucss_excluded_selectors']) !== empty($old_value['assets']['rucss_excluded_selectors']))) {
 		Perfmatters\CSS::clear_used_css();
 	}
 
-	//clear local fonts button press
-	if(!empty($new_value['fonts']['clear_fonts'])) {
-
-		Perfmatters\Fonts::clear_local_fonts();
-
-		//display message
-		add_settings_error('perfmatters', 'perfmatters-clear-success', __('Local fonts cleared.', 'perfmatters'), 'success');
-
-		return $old_value;
-	}
-
+	//clear local fonts
 	if((empty($new_value['fonts']['display_swap']) !== empty($old_value['fonts']['display_swap'])) || (isset($new_value['fonts']['cdn_url']) && isset($old_value['fonts']['cdn_url']) && $new_value['fonts']['cdn_url'] !== $old_value['fonts']['cdn_url'])) {
 		Perfmatters\Fonts::clear_local_fonts();
-	}
-
-	return $new_value;
-}
-
-//check option update for custom inputs and modify result
-function perfmatters_pre_update_option_perfmatters_tools($new_value, $old_value) {
-
-	//restore plugin default options
-	if(!empty($new_value['restore_defaults'])) {
-		$defaults = perfmatters_default_options();
-		if(!empty($defaults)) {
-			update_option("perfmatters_options", $defaults);
-		}
-		add_settings_error('perfmatters', 'perfmatters-restore-success', __('Successfully restored default options.', 'perfmatters'), 'success');
-		return $old_value;
-	}
-
-	//purge meta options button press
-	if(!empty($new_value['purge_meta'])) {
-
-		//no meta options selected
-		if(empty($_POST['perfmatters_tools_temp']['purge_meta_options'])) {
-			add_settings_error('perfmatters', 'perfmatters-purge-meta-error', __('No meta options selected.', 'perfmatters'), 'error');
-			return $old_value;
-		}
-
-		global $wpdb;
-
-		$purged = array();
-
-		//delete selected options from postmeta table
-		foreach($_POST['perfmatters_tools_temp']['purge_meta_options'] as $key => $meta_key) {
-
-			$result = $wpdb->delete($wpdb->prefix . 'postmeta', array('meta_key' => $meta_key));
-
-			if($result !== false) {
-				$purged[] = $meta_key;
-			}
-		}
-
-		//display message
-		if(!empty($purged)) {
-			add_settings_error('perfmatters', 'perfmatters-purge-success', __('Meta options purged.', 'perfmatters'), 'success');
-		}
-		else {
-			add_settings_error('perfmatters', 'perfmatters-purge-error', __('Meta options not purged.', 'perfmatters'), 'error');
-		}
-
-		return $old_value;
-	}
-
-	//export settings button was pressed
-	if(!empty($new_value['export_settings'])) {
-
-		$settings = array();
-
-		$settings['perfmatters_options'] = get_option('perfmatters_options');
-		$settings['perfmatters_tools'] = get_option('perfmatters_tools');
-
-		ignore_user_abort(true);
-
-		//setup headers
-		nocache_headers();
-		header('Content-Type: application/json; charset=utf-8');
-		header('Content-Disposition: attachment; filename=perfmatters-settings-export-' . date('Y-m-d') . '.json');
-		header('Expires: 0');
-
-		//print encoded file
-		echo json_encode($settings);
-		exit;
-	}
-
-	if(!empty($new_value['import_settings']) || !empty($new_value['import_settings_file'])) {
-
-		//get temporary file
-		$import_file = $_FILES['perfmatters_import_settings_file']['tmp_name'];
-
-		//cancel if there's no file
-		if(empty($import_file)) {
-			add_settings_error('perfmatters', 'perfmatters-import-error', __('No import file given.', 'perfmatters'), 'error');
-			return $old_value;
-		}
-
-		//check if uploaded file is valid
-		$file_parts = explode('.', $_FILES['perfmatters_import_settings_file']['name']);
-		$extension = end($file_parts);
-		if($extension != 'json') {
-			add_settings_error('perfmatters', 'perfmatters-import-error', __('Please upload a valid .json file.', 'perfmatters'), 'error');
-			return $old_value;
-		}
-
-		//unpack settings from file
-		$settings = (array) json_decode(file_get_contents($import_file), true);
-
-		if(isset($settings['perfmatters_options'])) {
-			update_option('perfmatters_options', $settings['perfmatters_options']);
-		}
-
-		if(isset($settings['perfmatters_tools'])) {
-			update_option('perfmatters_tools', $settings['perfmatters_tools']);
-		}
-
-		add_settings_error('perfmatters', 'perfmatters-import-success', __('Successfully imported Perfmatters settings.', 'perfmatters'), 'success');
-
-		return $old_value;
 	}
 
 	return $new_value;
@@ -1561,7 +1429,6 @@ function perfmatters_pre_update_option_perfmatters_tools($new_value, $old_value)
 //add filter to update options
 function perfmatters_update_options() {
 	add_filter('pre_update_option_perfmatters_options', 'perfmatters_pre_update_option_perfmatters_options', 10, 2);
-	add_filter('pre_update_option_perfmatters_tools', 'perfmatters_pre_update_option_perfmatters_tools', 10, 2);
 	add_filter('update_option_perfmatters_options', 'perfmatters_update_option_perfmatters_options', 10, 2);
 }
 add_action('admin_init', 'perfmatters_update_options');
@@ -1631,9 +1498,9 @@ function perfmatters_activate_license($network = false) {
 		$license_data = json_decode(wp_remote_retrieve_body($response));
 
 		$license_data->success = true;
-		$license_data->error = '';
-		$license_data->expires = date('Y-m-d', strtotime('+50 years'));
-		$license_data->license = 'valid';
+ $license_data->error = '';
+ $license_data->expires = date('Y-m-d', strtotime('+50 years'));
+ $license_data->license = 'valid';
 
 		//license is valid
 		if(!empty($license_data->license) && $license_data->license == 'valid') {
@@ -1678,9 +1545,9 @@ function perfmatters_deactivate_license($network = false) {
 		$license_data = json_decode(wp_remote_retrieve_body($response));
 
 		$license_data->success = true;
-		$license_data->error = '';
-		$license_data->expires = date('Y-m-d', strtotime('+50 years'));
-		$license_data->license = 'valid';
+ $license_data->error = '';
+ $license_data->expires = date('Y-m-d', strtotime('+50 years'));
+ $license_data->license = 'valid';
 
 		//license is deactivated
 		if($license_data->license == 'deactivated') {
@@ -1726,9 +1593,9 @@ function perfmatters_check_license($network = false) {
 		$license_data = json_decode(wp_remote_retrieve_body($response));
 
 		$license_data->success = true;
-		$license_data->error = '';
-		$license_data->expires = date('Y-m-d', strtotime('+50 years'));
-		$license_data->license = 'valid';
+ $license_data->error = '';
+ $license_data->expires = date('Y-m-d', strtotime('+50 years'));
+ $license_data->license = 'valid';
 
 		//update license option
 		if(is_network_admin() || $network) {

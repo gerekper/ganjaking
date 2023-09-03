@@ -61,6 +61,7 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 	 *
 	 * @access public
 	 * @since 2.0.0
+	 * @since 2.2.0 Use WC_Product_Vendor_Transient_Manager to get and set data in transient.
 	 * @version 2.0.0
 	 * @return array of objects
 	 */
@@ -74,7 +75,7 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 			return $this->report_data;
 		}
 
-		$transient_name = 'wcpv_reports_store_leg_' . $this->vendor_id . '_' . $this->current_range;
+		$transient_name = 'store_sales_by_date_' . $this->current_range;
 
 		$start_date = '';
 		$end_date   = '';
@@ -102,7 +103,10 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 		$sql .= " AND commission.commission_status != 'void'";
 		$sql .= WC_Product_Vendors_Utils::get_commission_date_sql_query_from_range( $this->current_range, $start_date, $end_date );
 
-		if ( false === ( $results = get_transient( $transient_name ) ) ) {
+		$vendor_report_transient_manager = WC_Product_Vendor_Transient_Manager::make();
+		$results                         = $vendor_report_transient_manager->get( $transient_name );
+
+		if ( ! $results ) {
 			// Enable big selects for reports
 			$wpdb->query( 'SET SESSION SQL_BIG_SELECTS=1' );
 
@@ -113,7 +117,7 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 				$results = $wpdb->get_results( $sql ); // nosemgrep:audit.php.wp.security.sqli.input-in-sinks
 			}
 
-			set_transient( $transient_name, $results, DAY_IN_SECONDS );
+			$vendor_report_transient_manager->save( $transient_name, $results );
 		}
 
 		$total_product_amount      = 0.00;
@@ -290,6 +294,7 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 	/**
 	 * Get the main chart
 	 *
+	 * @since 2.2.0 Use WC_Product_Vendor_Transient_Manager to get and set data in transient.
 	 * @return string
 	 */
 	public function get_main_chart() {
@@ -299,6 +304,8 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 		if ( ! WC_Product_Vendors_Utils::commission_table_exists() ) {
 			return $this->report_data;
 		}
+
+		$transient_name = 'store_main_sales_by_date_' . $this->current_range;
 
 		$start_date = '';
 		$end_date   = '';
@@ -312,7 +319,6 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 			$end_date = WC_Product_Vendors_Utils::is_valid_mysql_formatted_date( $end_date ) ? $end_date : '';
 		}
 
-		$transient_name = 'wcpv_reports_store_' . $this->vendor_id . '_' . $this->current_range;
 
 		if ( 'custom' === $this->current_range ) {
 			$transient_name .= '_' . $start_date . '-' . $end_date;
@@ -332,7 +338,10 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 		$sql .= WC_Product_Vendors_Utils::get_commission_date_sql_query_from_range( $this->current_range, $start_date, $end_date );
 		$sql .= " GROUP BY DATE( commission.order_date )";
 
-		if ( false === ( $results = get_transient( $transient_name ) ) ) {
+		$vendor_report_transient_manager = WC_Product_Vendor_Transient_Manager::make();
+		$results                         = $vendor_report_transient_manager->get( $transient_name );
+
+		if ( ! $results ) {
 			// Enable big selects for reports
 			$wpdb->query( 'SET SESSION SQL_BIG_SELECTS=1' );
 
@@ -342,7 +351,7 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 				$results = $wpdb->get_results( $sql ); // nosemgrep:audit.php.wp.security.sqli.input-in-sinks
 			}
 
-			set_transient( $transient_name, $results, DAY_IN_SECONDS );
+			$vendor_report_transient_manager->save( $transient_name, $results );
 		}
 
 		// Prepare data for report

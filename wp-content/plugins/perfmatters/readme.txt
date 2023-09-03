@@ -4,8 +4,8 @@ Donate link: https://perfmatters.io
 Tags: perfmatters
 Requires at least: 5.5
 Requires PHP: 7.0
-Tested up to: 6.2.2
-Stable tag: 2.1.3
+Tested up to: 6.3.1
+Stable tag: 2.1.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,30 @@ Perfmatters is a lightweight performance plugin developed to speed up your WordP
 Check out our [documentation](https://perfmatters.io/docs/) for more information on how to use Perfmatters.
 
 == Changelog ==
+
+= 2.1.6 - 08.31.2023 =
+* Fixed an issue that was preventing CodeMirror input fields from saving correctly.
+
+= 2.1.5 - 08.30.2023 =
+* Reworked the majority of the UI to use WordPress AJAX to save data and perform plugin actions.
+* Renamed Bricks Delay JS quick exclusion, as it can be used to target more than just their slider.
+* Adjusted clean_html utility function regex to better handle large inline data scripts.
+* Added skip-lazy class to built-in lazy loading exclusions.
+* Added right-to-left admin styles for better usability on RTL sites.
+* Fixed an issue where certain HTML characters would not print correctly when saved in a fetch priority selector input field.
+* Fixed an issue where fetch priority selectors would sometimes not get the correct priority applied when set to low.
+* Fixed a typo in the fetch priority tooltip.
+* Updated background processing library to version 1.1.1.
+* Translation updates.
+
+= 2.1.4 - 08.08.2023 =
+* Added new preload option to add the Fetch Priority attribute to different resources on the site to help improve LCP.
+* Added built-in lazy loading exclusion for fetchpriority attribute.
+* Added Delay JS quick exclusion for Termageddon + Usercentrics.
+* Switched individual JS delay to use the same inline script as delay all to take advantage of delayed triggering of event listeners.
+* Fixed an issue where an empty notice was appearing when a database optimization process completed.
+* Fixed an issue with critical image preloads where an image with an empty src attribute would prevent other similar ones from being added on the same URL.
+* UI improvements to input row sections.
 
 = 2.1.3 - 07.02.2023 =
 * Fixed an issue that was preventing existing Script Manager settings from showing up in certain instances.

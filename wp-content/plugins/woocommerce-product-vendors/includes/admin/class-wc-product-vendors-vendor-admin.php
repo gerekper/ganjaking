@@ -179,7 +179,47 @@ class WC_Product_Vendors_Vendor_Admin {
 		// Restrict vendor access to the single product.
 		add_filter( 'map_meta_cap', array( self::$self, 'map_vendor_capabilities' ), 10, 4 );
 
+		// Show title on vender order details page.
+		add_action( 'current_screen', array( self::$self, 'display_html_page_title' ) );
+
 		return true;
+	}
+
+	/**
+	 * Display a title on the vendor order details page.
+	 *
+	 * Defines the WordPress title global when viewing an order in the context
+	 * of a vendor.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param WP_Screen $current_screen The current screen object. Passed by reference.
+	 */
+	public function display_html_page_title( $current_screen ) {
+		// Only modify the vendor order page.
+		if ( 'admin_page_wcpv-vendor-order' !== $current_screen->id ) {
+			return;
+		}
+
+		// Modify the title.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is not required here.
+		if ( ! empty( $_GET['id'] ) ) {
+			global $title;
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is not required here.
+			$order_id = absint( $_GET['id'] );
+			$order    = wc_get_order( $order_id );
+			if ( ! $order ) {
+				// Do nothing if the user does not have access to the order number.
+				return;
+			}
+
+			// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- This is to ensure the title is displayed to vendors.
+			$title = sprintf(
+				/* translators: %s: Order number. */
+				esc_html__( 'Order #%s Details', 'woocommerce-product-vendors' ),
+				esc_html( $order->get_order_number() )
+			);
+		}
 	}
 
 	/**
@@ -871,9 +911,12 @@ class WC_Product_Vendors_Vendor_Admin {
 	 *
 	 * @access public
 	 * @since 2.0.0
-	 * @version 2.0.0
+	 * @since 2.2.0 Add WC_Product_Vendor_Transient_Manager to delete vendor transient data.
+	 *
 	 * @param int $post_id
+	 *
 	 * @return bool
+	 * @version 2.0.0
 	 */
 	public function save_post( $post_id ) {
 		if ( WC_Product_Vendors_Utils::auth_vendor_user() ) {
@@ -891,11 +934,7 @@ class WC_Product_Vendors_Vendor_Admin {
 				// set visibility to catalog/search
 				update_post_meta( $post_id, '_visibility', 'visible' );
 
-				// Clear low stock transient.
-				WC_Product_Vendors_Utils::clear_low_stock_transient();
-
-				// Clear out of stock transient.
-				WC_Product_Vendors_Utils::clear_out_of_stock_transient();
+				WC_Product_Vendor_Transient_Manager::make()->delete();
 			}
 		}
 
@@ -1446,6 +1485,7 @@ class WC_Product_Vendors_Vendor_Admin {
 	 *
 	 * @access public
 	 * @since 2.0.0
+	 * @since 2.2.0 Use WC_Product_Vendor_Transient_Manager to get and set data in transient.
 	 * @version 2.0.0
 	 * @return int $count
 	 */
@@ -1466,12 +1506,16 @@ class WC_Product_Vendors_Vendor_Admin {
 
 		$sql .= " AND commission.vendor_id = '%d'";
 
-		if ( false === ( $count = get_transient( 'wcpv_unfulfilled_products_' . WC_Product_Vendors_Utils::get_logged_in_vendor() ) ) ) {
+		$vendor_report_transient_manager = WC_Product_Vendor_Transient_Manager::make();
+		$transient_name                  = 'unfulfilled_products_count';
+		$count                           = $vendor_report_transient_manager->get( $transient_name );
+
+		if ( ! $count ) {
 			$wpdb->query( 'SET SESSION SQL_BIG_SELECTS=1' );
 
 			$count = $wpdb->get_var( $wpdb->prepare( $sql, WC_Product_Vendors_Utils::get_logged_in_vendor() ) );
 
-			set_transient( 'wcpv_unfulfilled_products_' . WC_Product_Vendors_Utils::get_logged_in_vendor(), $count, DAY_IN_SECONDS );
+			$vendor_report_transient_manager->save( $transient_name, $count );
 		}
 
 		return $count;

@@ -67,7 +67,7 @@ class CommandPool implements \WPMailSMTP\Vendor\GuzzleHttp\Promise\PromisorInter
     /**
      * @return PromiseInterface
      */
-    public function promise()
+    public function promise() : \WPMailSMTP\Vendor\GuzzleHttp\Promise\PromiseInterface
     {
         return $this->each->promise();
     }

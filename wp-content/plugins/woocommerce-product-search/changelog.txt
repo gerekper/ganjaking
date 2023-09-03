@@ -1,5 +1,15 @@
 *** WooCommerce Product Search ***
 
+2023.08.31 - version 4.16.0
+* Update - WordPress 6.3 compatible.
+* Update - WooCommerce 8.1 compatible.
+* Update - Requires at least WooCommerce 7.8.
+* Update - WordPress 6.4-alpha compatible.
+* Fix - Fixed a documentation URL with a trailing space.
+* Update - Revised a section of the help tab for clarity and to point to blocks, widgets and shortcodes documentation sections.
+* Update - Updated the translation template.
+* Update - Updated the included translations.
+
 2023.07.28 - version 4.15.0
 * Update - WordPress 6.2 compatible.
 * Update - WordPress 6.4-alpha compatible.

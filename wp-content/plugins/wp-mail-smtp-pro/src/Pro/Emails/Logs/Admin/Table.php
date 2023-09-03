@@ -6,6 +6,7 @@ use WPMailSMTP\Options;
 use WPMailSMTP\Admin\Area;
 use WPMailSMTP\Pro\Emails\Logs\Email;
 use WPMailSMTP\Pro\Emails\Logs\EmailsCollection;
+use WPMailSMTP\Pro\Emails\Logs\RecheckDeliveryStatus;
 use WPMailSMTP\Pro\Emails\Logs\Tracking\Events\Injectable\ClickLinkEvent;
 use WPMailSMTP\Pro\Emails\Logs\Tracking\Events\Injectable\OpenEmailEvent;
 use WPMailSMTP\Helpers\Helpers;
@@ -620,8 +621,9 @@ class Table extends \WP_List_Table {
 		$actions = [];
 
 		if ( current_user_can( wp_mail_smtp()->get_pro()->get_logs()->get_manage_capability() ) ) {
-			$actions['delete'] = esc_html__( 'Delete', 'wp-mail-smtp-pro' );
-			$actions['resend'] = esc_html__( 'Resend', 'wp-mail-smtp-pro' );
+			$actions['delete']               = esc_html__( 'Delete', 'wp-mail-smtp-pro' );
+			$actions['resend']               = esc_html__( 'Resend', 'wp-mail-smtp-pro' );
+			$actions['recheck_email_status'] = esc_html__( 'Re-check status', 'wp-mail-smtp-pro' );
 		}
 
 		return $actions;
@@ -950,6 +952,18 @@ class Table extends \WP_List_Table {
 			printf(
 				'<button id="wp-mail-smtp-delete-all-logs-button" type="button" class="button">%s</button>',
 				esc_html__( 'Delete All Logs', 'wp-mail-smtp-pro' )
+			);
+		}
+
+		if (
+			$this->has_items() &&
+			$this->get_filtered_status() === Email::STATUS_WAITING &&
+			current_user_can( wp_mail_smtp()->get_pro()->get_logs()->get_manage_capability() )
+		) {
+			wp_nonce_field( RecheckDeliveryStatus::ARCHIVE_NONCE_ACTION, 'wp-mail-smtp-recheck-all-email-logs-status-nonce', false );
+			printf(
+				'<button id="wp-mail-smtp-recheck-all-email-logs-status-button" type="button" class="button">%s</button>',
+				esc_html__( 'Re-check All Email Status', 'wp-mail-smtp-pro' )
 			);
 		}
 	}

@@ -18,7 +18,7 @@ class Shape extends \WPMailSMTP\Vendor\Aws\Api\AbstractModel
      */
     public static function create(array $definition, \WPMailSMTP\Vendor\Aws\Api\ShapeMap $shapeMap)
     {
-        static $map = ['structure' => 'WPMailSMTP\\Vendor\\Aws\\Api\\StructureShape', 'map' => 'WPMailSMTP\\Vendor\\Aws\\Api\\MapShape', 'list' => 'WPMailSMTP\\Vendor\\Aws\\Api\\ListShape', 'timestamp' => 'WPMailSMTP\\Vendor\\Aws\\Api\\TimestampShape', 'integer' => 'WPMailSMTP\\Vendor\\Aws\\Api\\Shape', 'double' => 'WPMailSMTP\\Vendor\\Aws\\Api\\Shape', 'float' => 'WPMailSMTP\\Vendor\\Aws\\Api\\Shape', 'long' => 'WPMailSMTP\\Vendor\\Aws\\Api\\Shape', 'string' => 'WPMailSMTP\\Vendor\\Aws\\Api\\Shape', 'byte' => 'WPMailSMTP\\Vendor\\Aws\\Api\\Shape', 'character' => 'WPMailSMTP\\Vendor\\Aws\\Api\\Shape', 'blob' => 'WPMailSMTP\\Vendor\\Aws\\Api\\Shape', 'boolean' => 'WPMailSMTP\\Vendor\\Aws\\Api\\Shape'];
+        static $map = ['structure' => \WPMailSMTP\Vendor\Aws\Api\StructureShape::class, 'map' => \WPMailSMTP\Vendor\Aws\Api\MapShape::class, 'list' => \WPMailSMTP\Vendor\Aws\Api\ListShape::class, 'timestamp' => \WPMailSMTP\Vendor\Aws\Api\TimestampShape::class, 'integer' => \WPMailSMTP\Vendor\Aws\Api\Shape::class, 'double' => \WPMailSMTP\Vendor\Aws\Api\Shape::class, 'float' => \WPMailSMTP\Vendor\Aws\Api\Shape::class, 'long' => \WPMailSMTP\Vendor\Aws\Api\Shape::class, 'string' => \WPMailSMTP\Vendor\Aws\Api\Shape::class, 'byte' => \WPMailSMTP\Vendor\Aws\Api\Shape::class, 'character' => \WPMailSMTP\Vendor\Aws\Api\Shape::class, 'blob' => \WPMailSMTP\Vendor\Aws\Api\Shape::class, 'boolean' => \WPMailSMTP\Vendor\Aws\Api\Shape::class];
         if (isset($definition['shape'])) {
             return $shapeMap->resolve($definition);
         }

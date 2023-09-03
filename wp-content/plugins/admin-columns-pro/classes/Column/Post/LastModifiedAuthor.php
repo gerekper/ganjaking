@@ -3,6 +3,7 @@
 namespace ACP\Column\Post;
 
 use AC;
+use ACP;
 use ACP\ConditionalFormat;
 use ACP\Export;
 use ACP\Filtering;
@@ -34,6 +35,13 @@ class LastModifiedAuthor extends AC\Column\Post\LastModifiedAuthor
     public function search()
     {
         return new Search\Comparison\Post\LastModifiedAuthor();
+    }
+
+    public function register_settings()
+    {
+        parent::register_settings();
+
+        $this->add_setting(new ACP\Settings\Column\User($this));
     }
 
 }

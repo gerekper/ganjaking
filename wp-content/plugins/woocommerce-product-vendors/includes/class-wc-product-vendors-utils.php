@@ -219,7 +219,9 @@ class WC_Product_Vendors_Utils {
 
 		$vendor_term = get_term_by( 'id', $vendor_id, WC_PRODUCT_VENDORS_TAXONOMY );
 
-		if ( $vendor_data && $vendor_term ) {
+		$vendor_data = ( ! is_array( $vendor_data ) ) ? array() : $vendor_data;
+
+		if ( $vendor_term ) {
 			$vendor_data['term_id']          = $vendor_term->term_id;
 			$vendor_data['name']             = $vendor_term->name;
 			$vendor_data['slug']             = $vendor_term->slug;
@@ -1455,22 +1457,16 @@ class WC_Product_Vendors_Utils {
 	}
 
 	/**
-	 * Clears all reports transients
+	 * Clears all reports transients for vendor
 	 *
 	 * @access public
 	 * @since 2.0.0
-	 * @version 2.0.0
+	 * @since 2.2.0 Use vendor report transient manager to clear transient.
 	 * @return bool
+	 * @version 2.0.0
 	 */
 	public static function clear_reports_transients() {
-		global $wpdb;
-
-		$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '%wcpv_reports%'" );
-		$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '%wcpv_unfulfilled_products%'" );
-		$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '%book_dr%'" );
-
-		self::clear_low_stock_transient();
-		self::clear_out_of_stock_transient();
+		WC_Product_Vendor_Transient_Manager::make()->delete();
 
 		return true;
 	}
@@ -1478,18 +1474,33 @@ class WC_Product_Vendors_Utils {
 	/**
 	 * Clear low stock transient.
 	 *
+	 * @deprecated x.x.x
+	 *
 	 * @since 2.1.15
 	 */
 	public static function clear_low_stock_transient() {
+		_deprecated_function(
+			__FUNCTION__,
+			'x.x.x',
+			'WC_Product_Vendor_Transient_Manager::make()->delete()'
+		);
 		delete_transient( 'wcpv_reports_wg_lowstock_' . self::get_logged_in_vendor() );
 	}
 
 	/**
 	 * Clear out of stock transient.
 	 *
+	 * @deprecated x.x.x
+	 *
 	 * @since 2.1.15
 	 */
 	public static function clear_out_of_stock_transient() {
+		_deprecated_function(
+			__FUNCTION__,
+			'x.x.x',
+			'WC_Product_Vendor_Transient_Manager::make()->delete()'
+		);
+
 		delete_transient( 'wcpv_reports_wg_nostock_' . self::get_logged_in_vendor() );
 	}
 

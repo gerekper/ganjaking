@@ -14,7 +14,7 @@ trait JsonParserTrait
     private function genericHandler(\WPMailSMTP\Vendor\Psr\Http\Message\ResponseInterface $response)
     {
         $code = (string) $response->getStatusCode();
-        if ($this->api && $this->api->getMetadata('awsQueryCompatible') && $response->getHeaderLine('x-amzn-query-error')) {
+        if ($this->api && !\is_null($this->api->getMetadata('awsQueryCompatible')) && $response->getHeaderLine('x-amzn-query-error')) {
             $queryError = $response->getHeaderLine('x-amzn-query-error');
             $parts = \explode(';', $queryError);
             if (isset($parts) && \count($parts) == 2 && $parts[0] && $parts[1]) {

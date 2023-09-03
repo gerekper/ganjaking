@@ -42,7 +42,7 @@ class RequestSetterHandler
         $this->default_sort_filter = $default_sort_filter;
     }
 
-    private function get_ajax_request_sort_type(): ?SortType
+    private function get_request_sort_type(): ?SortType
     {
         $request = Sort::create_from_globals();
 
@@ -66,7 +66,7 @@ class RequestSetterHandler
             return;
         }
 
-        $sort_type = $this->get_ajax_request_sort_type();
+        $sort_type = $this->get_request_sort_type();
 
         if ( ! $sort_type) {
             $sort_type = $this->user_preference->get();

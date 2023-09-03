@@ -218,8 +218,6 @@ class Stream implements \WPMailSMTP\Vendor\Psr\Http\Message\StreamInterface
         return $result;
     }
     /**
-     * {@inheritdoc}
-     *
      * @return mixed
      */
     public function getMetadata($key = null)

@@ -6,6 +6,8 @@ use WPMailSMTP\Admin\Pages\AlertsTab;
 use WPMailSMTP\Options;
 use WPMailSMTP\Pro\Alerts\AbstractOptions;
 use WPMailSMTP\Pro\Alerts\Loader;
+use WPMailSMTP\Pro\Alerts\Providers\Email\Handler as EmailAlertsHandler;
+use WPMailSMTP\Pro\Alerts\Providers\Email\Options as EmailAlertsOptions;
 use WPMailSMTP\Pro\Emails\Logs\Admin\PageAbstract;
 use WPMailSMTP\WP;
 
@@ -24,6 +26,15 @@ class SettingsTab extends AlertsTab {
 	 * @var Loader
 	 */
 	private $loader;
+
+	/**
+	 * User meta for test alerts action notices.
+	 *
+	 * @since 3.9.0
+	 *
+	 * @var string
+	 */
+	const NOTICE_USER_META = 'wp_mail_smtp_test_alerts_notice';
 
 	/**
 	 * Constructor.
@@ -51,6 +62,7 @@ class SettingsTab extends AlertsTab {
 	public function hooks() {
 
 		add_action( 'wp_mail_smtp_admin_area_enqueue_assets', [ $this, 'enqueue_assets' ] );
+		add_action( 'admin_init', [ $this, 'display_notices' ] );
 
 		add_filter( 'wp_mail_smtp_options_postprocess_key_defaults', [ $this, 'options_defaults' ], 10, 3 );
 	}
@@ -98,6 +110,12 @@ class SettingsTab extends AlertsTab {
 				},
 				$this->loader->get_options_all()
 			),
+			'plugin_url' => wp_mail_smtp()->plugin_url,
+			'texts'      => [
+				'ok'            => esc_html__( 'OK', 'wp-mail-smtp-pro' ),
+				'alert_title'   => esc_html__( 'Heads up!', 'wp-mail-smtp-pro' ),
+				'alert_content' => esc_html__( 'Alerts settings have changed. Please save the settings before you can perform a test.', 'wp-mail-smtp-pro' ),
+			],
 		];
 	}
 
@@ -164,6 +182,12 @@ class SettingsTab extends AlertsTab {
 						<div class="wp-mail-smtp-setting-field">
 							<h3><?php echo esc_html( $option->get_title() ); ?></h3>
 							<p class="desc"><?php echo wp_kses_post( $option->get_description() ); ?></p>
+
+							<?php
+							if ( $option->get_slug() === EmailAlertsOptions::SLUG ) {
+								$this->display_email_alert_rate_limit_notice();
+							}
+							?>
 						</div>
 					</div>
 
@@ -204,6 +228,95 @@ class SettingsTab extends AlertsTab {
 			<?php $this->display_save_btn(); ?>
 		</form>
 		<?php
+	}
+
+	/**
+	 * Display the test alerts success notice, if present.
+	 *
+	 * @since 3.9.0
+	 */
+	public function display_notices() {
+
+		$current_user_id = get_current_user_id();
+
+		// Bail early if there is no notice.
+		if ( ! metadata_exists( 'user', $current_user_id, self::NOTICE_USER_META ) ) {
+			return;
+		}
+
+		$notice_message       = esc_html__( 'Alert Tests sent successfully.', 'wp-mail-smtp-pro' );
+		$options              = Options::init();
+		$email_alerts_enabled = (bool) $options->get( 'alert_email', 'enabled' );
+
+		// If email alerts are enabled, add remaining rate limit time to the notice.
+		if ( $email_alerts_enabled ) {
+			$remaining_seconds = EmailAlertsHandler::get_remaining_rate_limit_seconds();
+			// If rate limit just expired, or the alert handler
+			// hasn't run yet, default to the handler rate limit.
+			$remaining_seconds = $remaining_seconds === 0 ? EmailAlertsHandler::RATE_LIMIT : $remaining_seconds;
+			$remaining_minutes = round( $remaining_seconds / MINUTE_IN_SECONDS );
+			$notice_message    = sprintf(
+				/* translators: %1$s - Default success notice; %2$d. number of minutes until new email alerts can be sent. */
+				esc_html__( '%1$s Any additional email alerts from this site are paused for %2$d minutes.', 'wp-mail-smtp-pro' ),
+				$notice_message,
+				$remaining_minutes
+			);
+		}
+
+		WP::add_admin_notice( $notice_message, WP::ADMIN_NOTICE_SUCCESS, false );
+
+		delete_user_meta( $current_user_id, self::NOTICE_USER_META );
+	}
+
+	/**
+	 * Display a notice with the remaining minutes before
+	 * email alerts rate limit expires.
+	 *
+	 * @since 3.9.0
+	 */
+	private function display_email_alert_rate_limit_notice() {
+
+		$remaining_seconds = EmailAlertsHandler::get_remaining_rate_limit_seconds();
+
+		// Bail early if rate limit expired.
+		if ( $remaining_seconds === 0 ) {
+			return;
+		}
+
+		$remaining_minutes = round( $remaining_seconds / MINUTE_IN_SECONDS );
+		?>
+		<div class="notice inline notice-inline wp-mail-smtp-notice notice-warning">
+			<p>
+				<?php
+				printf(
+					/* translators: %d - number of minutes until new email alerts can be sent. */
+					esc_html__( 'Any additional email alerts from this site are paused for %d minutes. You can still test other types of alerts.', 'wp-mail-smtp-pro' ),
+					absint( $remaining_minutes )
+				);
+				?>
+			</p>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Display save and test buttons.
+	 *
+	 * @since 3.9.0
+	 */
+	public function display_save_btn() {
+
+		?>
+		<p class="wp-mail-smtp-submit">
+			<button type="submit" class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-orange">
+				<?php esc_html_e( 'Save Settings', 'wp-mail-smtp-pro' ); ?>
+			</button>
+			<button type="button" class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-light-grey" id="js-wp-mail-smtp-btn-test-alerts" disabled>
+				<?php esc_html_e( 'Test Alerts', 'wp-mail-smtp-pro' ); ?>
+			</button>
+		</p>
+		<?php
+		$this->post_form_hidden_field();
 	}
 
 	/**

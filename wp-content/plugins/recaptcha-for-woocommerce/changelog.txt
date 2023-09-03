@@ -1,5 +1,10 @@
 *** Changelog ***
 
+2023-08-31 - version 2.47
+
+* Fixed issue of "nonce verification failed" error replying Comment/review in admin reply.
+
+
 2023-08-07 - version 2.46
 
 * Fixed issue of wpautop auto adding <p> tags to <scripts>

@@ -31,12 +31,13 @@ class PostField extends AbstractModel implements QueryBindings
 
         $bindings = new Bindings();
 
-        $alias = $bindings->get_unique_alias('post');
+        $post_alias = $bindings->get_unique_alias('post');
+        $postmeta_alias = $bindings->get_unique_alias('postmeta');
 
         $join = $wpdb->prepare(
             "
-			LEFT JOIN $wpdb->postmeta ON $wpdb->posts.ID = $wpdb->postmeta.post_id AND $wpdb->postmeta.meta_key = %s
-			LEFT JOIN $wpdb->posts AS $alias ON $alias.ID = $wpdb->postmeta.meta_value
+			LEFT JOIN $wpdb->postmeta AS $postmeta_alias ON $wpdb->posts.ID = $postmeta_alias.post_id AND $postmeta_alias.meta_key = %s
+			LEFT JOIN $wpdb->posts AS $post_alias ON $post_alias.ID = $postmeta_alias.meta_value
 			",
             $this->meta_key
         );
@@ -45,7 +46,7 @@ class PostField extends AbstractModel implements QueryBindings
         $bindings->group_by("$wpdb->posts.ID");
         $bindings->order_by(
             SqlOrderByFactory::create(
-                "$alias.$this->post_field",
+                "$post_alias.$this->post_field",
                 (string)$order
             )
         );

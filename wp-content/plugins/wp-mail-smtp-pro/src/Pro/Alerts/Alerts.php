@@ -6,6 +6,7 @@ use WPMailSMTP\Admin\Area;
 use WPMailSMTP\ConnectionInterface;
 use WPMailSMTP\MailCatcherInterface;
 use WPMailSMTP\Options;
+use WPMailSMTP\Pro\Alerts\Admin\SettingsTab;
 use WPMailSMTP\Pro\Tasks\NotifierTask;
 use WPMailSMTP\WP;
 
@@ -55,6 +56,7 @@ class Alerts {
 	public function hooks() {
 
 		add_filter( 'wp_mail_smtp_admin_get_pages', [ $this, 'init_settings_tab' ] );
+		add_filter( 'wp_mail_smtp_admin_process_ajax_test_alerts_data', [ $this, 'process_ajax_test_alerts_data' ] );
 
 		add_action( 'wp_mail_smtp_options_set', [ $this, 'remove_empty_send_to_for_alert_email' ] );
 	}
@@ -96,7 +98,7 @@ class Alerts {
 	 */
 	public function init_settings_tab( $tabs ) {
 
-		$tabs['alerts'] = new Admin\SettingsTab();
+		$tabs['alerts'] = new SettingsTab();
 
 		return $tabs;
 	}
@@ -185,13 +187,68 @@ class Alerts {
 	}
 
 	/**
+	 * Handle the AJAX action for the test alerts button.
+	 *
+	 * @since 3.9.0
+	 *
+	 * @param string $data Array of submitted data.
+	 */
+	public function process_ajax_test_alerts_data( $data ) {
+
+		if ( ! check_ajax_referer( 'wp-mail-smtp-admin', 'nonce', false ) ) {
+			return;
+		}
+
+		// Bail if no alerts channel is enabled.
+		if ( ! $this->is_enabled() ) {
+			return;
+		}
+
+		$this->send_test();
+
+		// Store a transient for next page refresh notice.
+		update_user_meta( get_current_user_id(), SettingsTab::NOTICE_USER_META, true );
+
+		return $data;
+	}
+
+	/**
+	 * Handle test run.
+	 *
+	 * @since 3.9.0
+	 */
+	private function send_test() {
+
+		$to_email_address  = get_option( 'admin_email' );
+		$subject           = __( 'WP Mail SMTP Alerts Test', 'wp-mail-smtp-pro' );
+		$error_message     = __( 'This is a test error message triggered from the WP Mail SMTP Alerts settings', 'wp-mail-smtp-pro' );
+		$backup_connection = wp_mail_smtp()->get_pro()->get_backup_connections()->get_latest_backup_connection();
+
+		$data = [
+			'to_email_addresses' => $to_email_address,
+			'subject'            => $subject,
+			'error_message'      => $error_message,
+			'mailers'            => [
+				'primary' => wp_mail_smtp()->get_connections_manager()->get_primary_connection()->get_mailer_slug(),
+				'backup'  => $backup_connection instanceof ConnectionInterface ? $backup_connection->get_mailer_slug() : null,
+			],
+		];
+
+		( new NotifierTask() )
+			->async()
+			->params( self::FAILED_EMAIL, $data )
+			->register();
+	}
+
+	/**
 	 * Whether at least one alert channel is enabled.
 	 *
 	 * @since 3.5.0
+	 * @since 3.9.0 Change visibility from private to public.
 	 *
 	 * @return bool
 	 */
-	private function is_enabled() {
+	public function is_enabled() {
 
 		$options = Options::init();
 		$loader  = new Loader();

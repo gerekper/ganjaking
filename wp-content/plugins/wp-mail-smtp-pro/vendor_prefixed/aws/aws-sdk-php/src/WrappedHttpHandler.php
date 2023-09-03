@@ -3,6 +3,7 @@
 namespace WPMailSMTP\Vendor\Aws;
 
 use WPMailSMTP\Vendor\Aws\Api\Parser\Exception\ParserException;
+use WPMailSMTP\Vendor\Aws\Exception\AwsException;
 use WPMailSMTP\Vendor\GuzzleHttp\Promise;
 use WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface;
 use WPMailSMTP\Vendor\Psr\Http\Message\ResponseInterface;
@@ -42,7 +43,7 @@ class WrappedHttpHandler
      * @param bool     $collectStats   Whether to collect HTTP transfer
      *                                 information.
      */
-    public function __construct(callable $httpHandler, callable $parser, callable $errorParser, $exceptionClass = 'WPMailSMTP\\Vendor\\Aws\\Exception\\AwsException', $collectStats = \false)
+    public function __construct(callable $httpHandler, callable $parser, callable $errorParser, $exceptionClass = \WPMailSMTP\Vendor\Aws\Exception\AwsException::class, $collectStats = \false)
     {
         $this->httpHandler = $httpHandler;
         $this->parser = $parser;

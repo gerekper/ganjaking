@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Min/Max Quantities
  * Plugin URI: https://woocommerce.com/products/minmax-quantities/
  * Description: Define minimum/maximum allowed quantities for products, variations and orders.
- * Version: 4.0.7
+ * Version: 4.1.1
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Requires at least: 4.4
@@ -24,7 +24,7 @@
 
 if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 
-	define( 'WC_MIN_MAX_QUANTITIES', '4.0.7' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_MIN_MAX_QUANTITIES', '4.1.1' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Min Max Quantities class.
@@ -114,6 +114,11 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 				return;
 			}
 
+			if ( ! function_exists( 'phpversion' ) || version_compare( phpversion(), '7.0.0', '<' ) ) {
+				add_action( 'admin_notices', array( $this, 'php_version_notice' ) );
+				return;
+			}
+
 			$this->maybe_define_constant( 'WC_MMQ_ABSPATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 
 			/**
@@ -197,9 +202,24 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 				<p>
 					<?php
 					/* translators: Minimum required WooCommerce version */
-					echo sprintf( __( '<strong>Min/Max Quantities</strong> requires at least WooCommerce <strong>%s</strong>.', 'woocommerce-min-max-quantities' ), $this->min_wc_version );
+					echo wp_kses_post( sprintf( __( '<strong>Min/Max Quantities</strong> requires at least WooCommerce <strong>%s</strong>.', 'woocommerce-min-max-quantities' ), esc_html( $this->min_wc_version ) ) );
 					?>
 				</p>
+			</div><?php
+		}
+
+		/**
+		 * Output a notice if PHP is older than 7.0
+		 */
+		public function php_version_notice() {
+
+			?><div class="notice notice-error is-dismissible">
+			<p>
+				<?php
+				/* translators: Minimum required PHP version */
+				echo wp_kses_post( sprintf( __( 'WooCommerce Min/Max Quantities requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'woocommerce-min-max-quantities' ), '7.0.0', 'https://woocommerce.com/document/how-to-update-your-php-version/' ) );
+				?>
+			</p>
 			</div><?php
 		}
 

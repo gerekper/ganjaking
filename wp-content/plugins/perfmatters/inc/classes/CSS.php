@@ -31,6 +31,7 @@ class CSS
             add_action('admin_notices', array('Perfmatters\CSS', 'admin_notices'));
             add_action('admin_post_perfmatters_clear_used_css', array('Perfmatters\CSS', 'admin_bar_clear_used_css'));
         }
+        add_action('wp_ajax_clear_used_css', array('Perfmatters\CSS', 'clear_used_css_ajax'));
     }
 
     //queue functions
@@ -662,5 +663,17 @@ class CSS
         //go back to url where button was pressed
         wp_safe_redirect(esc_url_raw(wp_get_referer()));
         exit;
+    }
+
+    //clear used css ajax action
+    public static function clear_used_css_ajax() {
+
+        Ajax::security_check();
+
+        self::clear_used_css();
+
+        wp_send_json_success(array(
+            'message' => __('Used CSS cleared.', 'perfmatters'), 
+        ));
     }
 }

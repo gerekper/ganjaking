@@ -102,8 +102,7 @@ class UsersMessages extends \WPMailSMTP\Vendor\Google\Service\Resource
      * scanning and classification similar to receiving via SMTP. This method
      * doesn't perform SPF checks, so it might not work for some spam messages, such
      * as those attempting to perform domain spoofing. This method does not send a
-     * message. Note: This function doesn't trigger forwarding rules or filters set
-     * up by the user. (messages.import)
+     * message. (messages.import)
      *
      * @param string $userId The user's email address. The special value `me` can be
      * used to indicate the authenticated user.

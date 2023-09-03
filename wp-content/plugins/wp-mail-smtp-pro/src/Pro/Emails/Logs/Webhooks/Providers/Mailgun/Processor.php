@@ -2,6 +2,7 @@
 
 namespace WPMailSMTP\Pro\Emails\Logs\Webhooks\Providers\Mailgun;
 
+use WP_Error;
 use WPMailSMTP\Pro\Emails\Logs\Email;
 use WPMailSMTP\Pro\Emails\Logs\Webhooks\AbstractProcessor;
 use WPMailSMTP\Pro\Emails\Logs\Webhooks\Events\Delivered;
@@ -21,22 +22,36 @@ class Processor extends AbstractProcessor {
 	 *
 	 * @param \WP_REST_Request $request Webhook request.
 	 *
-	 * @return bool
+	 * @return true|WP_Error
 	 */
 	public function validate( \WP_REST_Request $request ) {
 
-		$signature_data = $request->get_param( 'signature' );
-		$timestamp      = isset( $signature_data['timestamp'] ) ? $signature_data['timestamp'] : '';
-		$token          = isset( $signature_data['token'] ) ? $signature_data['token'] : '';
-		$signature      = isset( $signature_data['signature'] ) ? $signature_data['signature'] : '';
+		$is_valid = true;
 
-		if ( empty( $timestamp ) || empty( $token ) || empty( $signature ) ) {
-			return false;
+		if ( defined( 'WPMS_MAILGUN_WEBHOOK_SIGNING_KEY' ) && ! empty( WPMS_MAILGUN_WEBHOOK_SIGNING_KEY ) ) {
+			$signature_data = $request->get_param( 'signature' );
+			$timestamp      = isset( $signature_data['timestamp'] ) ? $signature_data['timestamp'] : '';
+			$token          = isset( $signature_data['token'] ) ? $signature_data['token'] : '';
+			$signature      = isset( $signature_data['signature'] ) ? $signature_data['signature'] : '';
+
+			if ( ! empty( $timestamp ) && ! empty( $token ) && ! empty( $signature ) ) {
+				$hmac     = hash_hmac( 'sha256', $timestamp . $token, WPMS_MAILGUN_WEBHOOK_SIGNING_KEY );
+				$is_valid = hash_equals( $hmac, $signature );
+			} else {
+				$is_valid = false;
+			}
 		}
 
-		$hmac = hash_hmac( 'sha256', $timestamp . $token, $this->provider->get_option( 'api_key' ) );
+		// Return 406 status to prevent Mailgun from retrying the request.
+		if ( ! $is_valid ) {
+			return new WP_Error(
+				'invalid_webhook_signature',
+				__( 'Invalid webhook signature.', 'wp-mail-smtp-pro' ),
+				[ 'status' => 406 ]
+			);
+		}
 
-		return hash_equals( $hmac, $signature );
+		return true;
 	}
 
 	/**

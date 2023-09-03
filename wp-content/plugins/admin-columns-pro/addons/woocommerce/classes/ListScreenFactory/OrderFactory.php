@@ -37,9 +37,14 @@ class OrderFactory extends BaseFactory
 
     public function can_create_from_wp_screen(WP_Screen $screen): bool
     {
+        $action = $_GET['action'] ?? null;
+        $order = $_GET['order'] ?? null;
+
         return 'woocommerce_page_wc-orders' === $screen->base &&
                'woocommerce_page_wc-orders' === $screen->id &&
-               $this->page_controller->is_order_screen('shop_order', 'list');
+               $this->page_controller->is_order_screen('shop_order', 'list') &&
+               'trash' !== $action &&
+               ! is_array($order);
     }
 
     protected function create_list_screen_from_wp_screen(WP_Screen $screen): ListScreen

@@ -67,7 +67,7 @@ class WC_Product_Vendors_Authentication {
 		// redirect only if it is a vendor and logging in from wp-admin
 		if ( isset( $user->ID ) && WC_Product_Vendors_Utils::is_vendor( $user->ID ) && admin_url() === $request ) {
 
-			WC_Product_Vendors_Utils::clear_reports_transients();
+			WC_Product_Vendor_Transient_Manager::make(WC_Product_Vendors_Utils::get_user_active_vendor($user->ID))->delete();
 
 			$redirect_to = admin_url( 'index.php' );
 		}

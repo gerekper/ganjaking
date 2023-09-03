@@ -257,6 +257,8 @@ class Auth extends AuthAbstract {
 	 * @since 1.5.0
 	 * @since 2.4.0 Switch to official AWS SDK.
 	 * @since 3.5.0 Added `SesV2Client` client support.
+	 * @since 3.9.0 Added `disable_request_compression` and `request_min_compression_size_bytes`
+	 *                  in the client arguments.
 	 *
 	 * @param string $version Client version.
 	 *
@@ -289,6 +291,10 @@ class Auth extends AuthAbstract {
 			],
 			$version
 		);
+
+		// Prevent AWS SDK to require additional files.
+		$args['disable_request_compression']        = true;
+		$args['request_min_compression_size_bytes'] = 10240;
 
 		$this->client[ $version ] = $version === 'v1' ? new SesClient( $args ) : new SesV2Client( $args );
 

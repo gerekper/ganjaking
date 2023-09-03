@@ -55,5 +55,60 @@
 .wp-admin {
 	.wc-box-office-ticket-form {
 		margin-top: 0;
+		margin-bottom: 0;
+
+		.wc-box-office-ticket-fields {
+			background-color: #fff;
+			border: 1px solid #c3c4c7;
+			box-shadow: 0 1px 1px rgba(0,0,0,.04);
+
+			+ .wc-box-office-ticket-fields {
+				margin-top: 1em;
+			}
+		}
+
+		.wc-box-office-ticket-fields-title {
+			font-size: 14px;
+			padding: 8px 12px;
+			margin: 0;
+			line-height: 1.4;
+
+			> a {
+				color: #1d2327;
+			}
+		}
+
+		.wc-box-office-ticket-fields-body {
+			display: hidden;
+			padding: 0 12px 12px;
+
+			.form-row {
+				padding: 5px 20px 5px 162px !important;
+				margin: 9px 0;
+			}
+
+			label {
+				display: block;
+				float: left;
+				width: 150px;
+				padding: 0;
+				margin: 0 0 0 -150px;
+			}
+
+			.ticket-field-option-label {
+				float: none;
+				margin-left: 0;
+			}
+		}
+
+		.wc-box-office-ticket-fields.active {
+			.wc-box-office-ticket-fields-body {
+				display: block;
+			}
+		}
+	}
+
+	.wc-box-office-confirmation-row > td {
+		padding-top: 0;
 	}
 }

@@ -3,7 +3,6 @@
 namespace WPMailSMTP\Vendor\Aws\Endpoint\UseFipsEndpoint;
 
 use WPMailSMTP\Vendor\Aws;
-use WPMailSMTP\Vendor\Aws\ClientResolver;
 use WPMailSMTP\Vendor\Aws\Endpoint\UseFipsEndpoint\Exception\ConfigurationException;
 class Configuration implements \WPMailSMTP\Vendor\Aws\Endpoint\UseFipsEndpoint\ConfigurationInterface
 {

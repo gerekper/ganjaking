@@ -30,20 +30,21 @@ class UserField extends AbstractModel implements QueryBindings
         global $wpdb;
 
         $bindings = new Bindings();
-        $alias = $bindings->get_unique_alias('usermeta');
+        $usermeta_alias = $bindings->get_unique_alias('usermeta');
+        $postmeta_alias = $bindings->get_unique_alias('postmeta');
 
         $bindings->join(
             $wpdb->prepare(
                 "
-                LEFT JOIN $wpdb->postmeta ON $wpdb->posts.ID = $wpdb->postmeta.post_id AND $wpdb->postmeta.meta_key = %s
-			    LEFT JOIN $wpdb->users AS $alias ON $alias.ID = $wpdb->postmeta.meta_value 
+                LEFT JOIN $wpdb->postmeta AS $postmeta_alias ON $wpdb->posts.ID = $postmeta_alias.post_id AND $postmeta_alias.meta_key = %s
+			    LEFT JOIN $wpdb->users AS $usermeta_alias ON $usermeta_alias.ID = $postmeta_alias.meta_value 
 			    ",
                 $this->meta_key
             )
         );
         $bindings->group_by("$wpdb->posts.ID");
         $bindings->order_by(
-            SqlOrderByFactory::create("$alias.$this->field", (string)$order)
+            SqlOrderByFactory::create("$usermeta_alias.$this->field", (string)$order)
         );
 
         return $bindings;

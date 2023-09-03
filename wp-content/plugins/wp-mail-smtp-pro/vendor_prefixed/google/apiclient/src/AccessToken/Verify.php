@@ -232,7 +232,7 @@ class Verify
             return 'phpseclib3\\Crypt\\AES::ENGINE_OPENSSL';
         }
         if (\class_exists('WPMailSMTP\\Vendor\\phpseclib\\Crypt\\RSA')) {
-            return 'WPMailSMTP\\Vendor\\phpseclib\\Crypt\\RSA::MODE_OPENSSL';
+            return 'phpseclib\\Crypt\\RSA::MODE_OPENSSL';
         }
         if (\class_exists('WPMailSMTP\\Vendor\\Crypt_RSA')) {
             return 'CRYPT_RSA_MODE_OPENSSL';

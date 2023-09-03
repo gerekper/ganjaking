@@ -35,20 +35,21 @@ trait Warranty_Util {
 			'addon_warranty_length_value'               => array(),
 			'addon_warranty_length_duration'            => array(),
 			'addon_no_warranty'                         => 'no',
+			'variable_addon_warranty_amount'            => array(),
+			'variable_addon_warranty_length_value'      => array(),
+			'variable_addon_warranty_length_duration'   => array(),
+			'variable_addon_no_warranty'                => 'no',
 			'variable_included_warranty_length'         => array(),
 			'variable_limited_warranty_length_value'    => array(),
 			'variable_limited_warranty_length_duration' => array(),
 		);
 
 		foreach ( $args as $key => $value ) {
-			// key name mismatch fix.
-			$loop_key = ( false !== strpos( $key, 'addon_' ) ) ? str_replace( 'addon_', 'variable_addon_', $key ) : $key;
-
-			if ( empty( $loop_args[ $loop_key ][ $index ] ) ) {
+			if ( empty( $loop_args[ $key ][ $index ] ) ) {
 				continue;
 			}
 
-			$args[ $key ] = $loop_args[ $loop_key ][ $index ];
+			$args[ $key ] = $loop_args[ $key ][ $index ];
 		}
 
 		return self::build_warranty_array( $args, $warranty_type );
@@ -105,6 +106,14 @@ trait Warranty_Util {
 		$values    = ! empty( $args['addon_warranty_length_value'] ) ? $args['addon_warranty_length_value'] : array();
 		$durations = ! empty( $args['addon_warranty_length_duration'] ) ? $args['addon_warranty_length_duration'] : array();
 		$items     = count( $amounts );
+
+		// if the items is 0. The possibility is that the addon is for varible product.
+		if ( 0 === $items ) {
+			$amounts   = ! empty( $args['variable_addon_warranty_amount'] ) ? $args['variable_addon_warranty_amount'] : array();
+			$values    = ! empty( $args['variable_addon_warranty_length_value'] ) ? $args['variable_addon_warranty_length_value'] : array();
+			$durations = ! empty( $args['variable_addon_warranty_length_duration'] ) ? $args['variable_addon_warranty_length_duration'] : array();
+			$items     = count( $amounts );
+		}
 
 		for ( $x = 0; $x < $items; $x ++ ) {
 			if ( empty( $amounts[ $x ] ) || empty( $values[ $x ] ) || empty( $durations[ $x ] ) ) {

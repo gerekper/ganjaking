@@ -42,7 +42,7 @@ class WC_Product_Vendors_Vendor_Dashboard {
 	public function setup_vendor_dashboard() {
 		// remove the color scheme picker in profile
 		remove_action( 'admin_color_scheme_picker', 'admin_color_scheme_picker' );
-		
+
 		// remove welcome panel
 		remove_action( 'welcome_panel', 'wp_welcome_panel' );
 
@@ -98,7 +98,7 @@ class WC_Product_Vendors_Vendor_Dashboard {
 			$wp_meta_boxes['dashboard']['normal']['core']    = array();
 			$wp_meta_boxes['dashboard']['normal']['default'] = array();
 			$wp_meta_boxes['dashboard']['normal']['low']     = array();
-			
+
 			$wp_meta_boxes['dashboard']['side']['high']      = array();
 			$wp_meta_boxes['dashboard']['side']['core']      = array();
 			$wp_meta_boxes['dashboard']['side']['default']   = array();
@@ -119,69 +119,79 @@ class WC_Product_Vendors_Vendor_Dashboard {
 	/**
 	 * Renders the sales dashboard widgets for vendors
 	 *
-	 * @access public
 	 * @since 2.0.0
+	 * @since 2.2.0 Use WC_Product_Vendor_Transient_Manager to get and set data in transient.
 	 * @version 2.0.0
-	 * @return bool
 	 */
 	public function render_sales_dashboard_widget() {
 		global $wpdb;
+		$vendor_report_transient_manager = WC_Product_Vendor_Transient_Manager::make();
 
 		$vendor_product_ids = WC_Product_Vendors_Utils::get_vendor_product_ids();
 
 		$sql = "SELECT SUM( commission.product_amount ) AS total_product_amount FROM " . WC_PRODUCT_VENDORS_COMMISSION_TABLE . " AS commission";
-
 		$sql .= " LEFT JOIN {$wpdb->posts} AS posts";
 		$sql .= " ON commission.order_id = posts.ID";
 		$sql .= " WHERE 1=1";
 		$sql .= " AND commission.vendor_id = %d";
 		$sql .= " AND MONTH( commission.order_date ) = MONTH( NOW() )";
 
-		if ( false === ( $total_product_amount = get_transient( 'wcpv_reports_wg_sales_' . WC_Product_Vendors_Utils::get_logged_in_vendor() ) ) ) {
-			$total_product_amount = $wpdb->get_var( $wpdb->prepare( $sql, WC_Product_Vendors_Utils::get_logged_in_vendor() ) );
+		$transient_name       = 'wg_sales';
+		$total_product_amount = $vendor_report_transient_manager->get( $transient_name );
 
-			set_transient( 'wcpv_reports_wg_sales_' . WC_Product_Vendors_Utils::get_logged_in_vendor(), $total_product_amount, DAY_IN_SECONDS );
+		if ( ! $total_product_amount ) {
+			$total_product_amount = $wpdb->get_var( $wpdb->prepare( $sql,
+				WC_Product_Vendors_Utils::get_logged_in_vendor() ) );
+			$vendor_report_transient_manager->save( $transient_name, $total_product_amount );
 		}
 
 		// Get top seller
-		$query            = array();
+		$query            = [];
 		$query['fields']  = "SELECT SUM( order_item_meta.meta_value ) as qty, order_item_meta_2.meta_value as product_id
 			FROM {$wpdb->posts} as posts";
 		$query['join']    = "INNER JOIN {$wpdb->prefix}woocommerce_order_items AS order_items ON posts.ID = order_id ";
-		$query['join']   .= "INNER JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS order_item_meta ON order_items.order_item_id = order_item_meta.order_item_id ";
-		$query['join']   .= "INNER JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS order_item_meta_2 ON order_items.order_item_id = order_item_meta_2.order_item_id ";
-		$query['where']   = "WHERE posts.post_type IN ( '" . implode( "','", wc_get_order_types( 'order-count' ) ) . "' ) ";
-		$query['where']  .= "AND posts.post_status IN ( 'wc-" . implode( "','wc-", apply_filters( 'wcpv_reports_order_statuses', array( 'completed', 'processing', 'on-hold' ) ) ) . "' ) ";
-		$query['where']  .= "AND order_item_meta.meta_key = '_qty' ";
-		$query['where']  .= "AND order_item_meta_2.meta_key = '_product_id' ";
-		$query['where']  .= "AND posts.post_date >= '" . date( 'Y-m-01', current_time( 'timestamp' ) ) . "' ";
-		$query['where']  .= "AND posts.post_date <= '" . date( 'Y-m-d H:i:s', current_time( 'timestamp' ) ) . "' ";
-		$query['where']  .= "AND order_item_meta_2.meta_value IN ( '" . implode( "','", $vendor_product_ids ) . "' ) ";
+		$query['join']    .= "INNER JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS order_item_meta ON order_items.order_item_id = order_item_meta.order_item_id ";
+		$query['join']    .= "INNER JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS order_item_meta_2 ON order_items.order_item_id = order_item_meta_2.order_item_id ";
+		$query['where']   = "WHERE posts.post_type IN ( '" . implode( "','",
+				wc_get_order_types( 'order-count' ) ) . "' ) ";
+		$query['where']   .= "AND posts.post_status IN ( 'wc-" . implode( "','wc-",
+				apply_filters( 'wcpv_reports_order_statuses', [ 'completed', 'processing', 'on-hold' ] ) ) . "' ) ";
+		$query['where']   .= "AND order_item_meta.meta_key = '_qty' ";
+		$query['where']   .= "AND order_item_meta_2.meta_key = '_product_id' ";
+		$query['where']   .= "AND posts.post_date >= '" . date( 'Y-m-01', current_time( 'timestamp' ) ) . "' ";
+		$query['where']   .= "AND posts.post_date <= '" . date( 'Y-m-d H:i:s', current_time( 'timestamp' ) ) . "' ";
+		$query['where']   .= "AND order_item_meta_2.meta_value IN ( '" . implode( "','", $vendor_product_ids ) . "' ) ";
 		$query['groupby'] = "GROUP BY product_id";
 		$query['orderby'] = "ORDER BY qty DESC";
 		$query['limits']  = "LIMIT 1";
 
-		$top_seller = $wpdb->get_row( implode( ' ', apply_filters( 'wcpv_dashboard_status_widget_top_seller_query', $query ) ) );
+		$top_seller = $wpdb->get_row(
+			implode(
+				' ',
+				apply_filters( 'wcpv_dashboard_status_widget_top_seller_query', $query )
+			)
+		);
 
 		// Commission
 		if ( WC_Product_Vendors_Utils::commission_table_exists() ) {
-
 			$sql = "SELECT SUM( commission.total_commission_amount ) FROM " . WC_PRODUCT_VENDORS_COMMISSION_TABLE . " AS commission";
 			$sql .= " WHERE 1=1";
 			$sql .= " AND commission.vendor_id = %d";
 			$sql .= " AND commission.commission_status = 'paid'";
 			$sql .= " AND MONTH( commission.order_date ) = MONTH( NOW() )";
 
-			if ( false === ( $commission = get_transient( 'wcpv_reports_wg_commission_' . WC_Product_Vendors_Utils::get_logged_in_vendor() ) ) ) {
-				$commission = $wpdb->get_var( $wpdb->prepare( $sql, WC_Product_Vendors_Utils::get_logged_in_vendor() ) );
+			$transient_name = 'wg_commission';
+			$commission     = $vendor_report_transient_manager->get( $transient_name );
 
-				set_transient( 'wcpv_reports_wg_commission_' . WC_Product_Vendors_Utils::get_logged_in_vendor(), $commission, DAY_IN_SECONDS );
+			if ( ! $commission ) {
+				$commission = $wpdb->get_var( $wpdb->prepare( $sql,
+					WC_Product_Vendors_Utils::get_logged_in_vendor() ) );
+				$vendor_report_transient_manager->save( $transient_name, $commission );
 			}
 		}
 
 		// Awaiting shipping
 		if ( WC_Product_Vendors_Utils::commission_table_exists() ) {
-
 			$sql = "SELECT COUNT( commission.id ) FROM " . WC_PRODUCT_VENDORS_COMMISSION_TABLE . " AS commission";
 			$sql .= " INNER JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS order_item_meta ON commission.order_item_id = order_item_meta.order_item_id";
 			$sql .= " WHERE 1=1";
@@ -189,10 +199,13 @@ class WC_Product_Vendors_Vendor_Dashboard {
 			$sql .= " AND order_item_meta.meta_key = '_fulfillment_status'";
 			$sql .= " AND order_item_meta.meta_value = 'unfulfilled'";
 
-			if ( false === ( $unfulfilled_products = get_transient( 'wcpv_reports_wg_fulfillment_' . WC_Product_Vendors_Utils::get_logged_in_vendor() ) ) ) {
-				$unfulfilled_products = $wpdb->get_var( $wpdb->prepare( $sql, WC_Product_Vendors_Utils::get_logged_in_vendor() ) );
+			$transient_name       = 'wg_fulfillment';
+			$unfulfilled_products = $vendor_report_transient_manager->get( $transient_name );
 
-				set_transient( 'wcpv_reports_wg_fulfillment_' . WC_Product_Vendors_Utils::get_logged_in_vendor(), $unfulfilled_products, DAY_IN_SECONDS );
+			if ( ! $unfulfilled_products ) {
+				$unfulfilled_products = $wpdb->get_var( $wpdb->prepare( $sql,
+					WC_Product_Vendors_Utils::get_logged_in_vendor() ) );
+				$vendor_report_transient_manager->save( $transient_name, $unfulfilled_products );
 			}
 		}
 
@@ -206,12 +219,15 @@ class WC_Product_Vendors_Vendor_Dashboard {
 			$processing_count += isset( $counts['wc-processing'] ) ? $counts['wc-processing'] : 0;
 		}
 
-		$stock          = absint( max( get_option( 'woocommerce_notify_low_stock_amount' ), 1 ) );
-		$nostock        = absint( max( get_option( 'woocommerce_notify_no_stock_amount' ), 0 ) );
-		$transient_name = 'wc_low_stock_count';
+		$stock   = absint( max( get_option( 'woocommerce_notify_low_stock_amount' ), 1 ) );
+		$nostock = absint( max( get_option( 'woocommerce_notify_no_stock_amount' ), 0 ) );
 
-		if ( false === ( $lowinstock_count = get_transient( 'wcpv_reports_wg_lowstock_' . WC_Product_Vendors_Utils::get_logged_in_vendor() ) ) ) {
-			$query_from = apply_filters( 'wcpv_report_low_in_stock_query_from', "FROM {$wpdb->posts} as posts
+		$transient_name   = 'low_stock_count';
+		$lowinstock_count = $vendor_report_transient_manager->get( $transient_name );
+
+		if ( ! $lowinstock_count ) {
+			$query_from = apply_filters( 'wcpv_report_low_in_stock_query_from',
+				"FROM {$wpdb->posts} as posts
 				INNER JOIN {$wpdb->postmeta} AS postmeta ON posts.ID = postmeta.post_id
 				INNER JOIN {$wpdb->postmeta} AS postmeta2 ON posts.ID = postmeta2.post_id
 				WHERE 1=1
@@ -224,12 +240,15 @@ class WC_Product_Vendors_Vendor_Dashboard {
 			" );
 
 			$lowinstock_count = absint( $wpdb->get_var( "SELECT COUNT( DISTINCT posts.ID ) {$query_from};" ) );
-
-			set_transient( 'wcpv_reports_wg_lowstock_' . WC_Product_Vendors_Utils::get_logged_in_vendor(), $lowinstock_count, DAY_IN_SECONDS );
+			$vendor_report_transient_manager->save( $transient_name, $lowinstock_count );
 		}
 
-		if ( false === ( $outofstock_count = get_transient( 'wcpv_reports_wg_nostock_' . WC_Product_Vendors_Utils::get_logged_in_vendor() ) ) ) {
-			$query_from = apply_filters( 'wcpv_report_out_of_stock_query_from', "FROM {$wpdb->posts} as posts
+		$transient_name   = 'wg_nostock_count';
+		$outofstock_count = $vendor_report_transient_manager->get( $transient_name );
+
+		if ( ! $outofstock_count ) {
+			$query_from = apply_filters( 'wcpv_report_out_of_stock_query_from',
+				"FROM {$wpdb->posts} as posts
 				INNER JOIN {$wpdb->postmeta} AS postmeta ON posts.ID = postmeta.post_id
 				INNER JOIN {$wpdb->postmeta} AS postmeta2 ON posts.ID = postmeta2.post_id
 				WHERE 1=1
@@ -241,63 +260,114 @@ class WC_Product_Vendors_Vendor_Dashboard {
 			" );
 
 			$outofstock_count = absint( $wpdb->get_var( "SELECT COUNT( DISTINCT posts.ID ) {$query_from};" ) );
-
-			set_transient( 'wcpv_reports_wg_nostock_' . WC_Product_Vendors_Utils::get_logged_in_vendor(), $outofstock_count, DAY_IN_SECONDS );
+			$vendor_report_transient_manager->save( $transient_name, $outofstock_count );
 		}
 		?>
 		<ul class="wc_status_list">
 			<?php if ( WC_Product_Vendors_Utils::is_admin_vendor() ) { ?>
 				<li class="sales-this-month">
 					<a href="<?php echo esc_url( admin_url( 'admin.php?page=wcpv-vendor-reports&range=month' ) ); ?>">
-						<?php printf( esc_html__( '%s net sales this month', 'woocommerce-product-vendors' ), '<strong>' . wc_price( $total_product_amount ) . '</strong>' ); ?>
+						<?php
+						printf(
+								esc_html__( '%s net sales this month', 'woocommerce-product-vendors' ),
+								'<strong>' . wc_price( $total_product_amount ) . '</strong>'
+						);
+						?>
 					</a>
 				</li>
 			<?php } ?>
 
 			<?php
 			if ( empty( $top_seller ) || ! $top_seller->qty ) {
-				$top_seller_id = 0;
+				$top_seller_id    = 0;
 				$top_seller_title = __( 'N/A', 'woocommerce-product-vendors' );
-				$top_seller_qty = '0';
+				$top_seller_qty   = '0';
 			} else {
-				$top_seller_id = $top_seller->product_id;
+				$top_seller_id    = $top_seller->product_id;
 				$top_seller_title = get_the_title( $top_seller->product_id );
-				$top_seller_qty = $top_seller->qty;
+				$top_seller_qty   = $top_seller->qty;
 			}
 			?>
-				<li class="best-seller-this-month">
-					<a href="<?php echo esc_url( admin_url( 'admin.php?page=wcpv-vendor-reports&tab=orders&report=sales_by_product&range=month&product_ids=' . $top_seller_id ) ); ?>">
-						<?php printf( esc_html__( "%s top seller this month (sold %d)", 'woocommerce-product-vendors' ), "<strong>" . esc_html( $top_seller_title ) . "</strong>", esc_html( $top_seller_qty ) ); ?>
-					</a>
-				</li>
+			<li class="best-seller-this-month">
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=wcpv-vendor-reports&tab=orders&report=sales_by_product&range=month&product_ids=' . $top_seller_id ) ); ?>">
+					<?php
+					printf(
+						__( '%s top seller this month (sold %d)', 'woocommerce-product-vendors' ),
+						"<strong>" . $top_seller_title . "</strong>",
+						$top_seller_qty
+					);
+					?>
+				</a>
+			</li>
 
 			<?php if ( WC_Product_Vendors_Utils::is_admin_vendor() ) { ?>
 				<li class="commission">
 					<a href="<?php echo esc_url( admin_url( 'admin.php?page=wcpv-vendor-orders' ) ); ?>">
-						<?php printf( esc_html__( '%s commission this month', 'woocommerce-product-vendors' ), '<strong>' . wc_price( $commission ) . '</strong>' ); ?>
+						<?php
+						printf(
+								esc_html__( '%s commission this month', 'woocommerce-product-vendors' ),
+								'<strong>' . wc_price( $commission ) . '</strong>'
+						);
+						?>
 					</a>
 				</li>
 			<?php } ?>
 
 			<li class="unfulfilled-products">
 				<a href="<?php echo esc_url( admin_url( 'admin.php?page=wcpv-vendor-orders' ) ); ?>">
-					<?php printf( _n( "<strong>%s product</strong> awaiting fulfillment", "<strong>%s products</strong> awaiting fulfillment", $unfulfilled_products, 'woocommerce-product-vendors' ), $unfulfilled_products ); ?>
+					<?php
+					printf(
+						_n(
+							'<strong>%s product</strong> awaiting fulfillment',
+							'<strong>%s products</strong> awaiting fulfillment',
+							$unfulfilled_products,
+							'woocommerce-product-vendors'
+						),
+						$unfulfilled_products
+					);
+					?>
 				</a>
 			</li>
 
 			<li class="low-in-stock">
 				<a href="<?php echo esc_url( admin_url( 'admin.php?page=wcpv-vendor-reports&tab=stock&report=low_in_stock' ) ); ?>">
-					<?php printf( _n( "<strong>%s product</strong> low in stock", "<strong>%s products</strong> low in stock", $lowinstock_count, 'woocommerce-product-vendors' ), $lowinstock_count ); ?>
+					<?php
+					printf(
+						_n(
+							'<strong>%s product</strong> low in stock',
+							'<strong>%s products</strong> low in stock',
+							$lowinstock_count,
+							'woocommerce-product-vendors'
+						),
+						$lowinstock_count
+					);
+					?>
 				</a>
 			</li>
 
 			<li class="out-of-stock">
 				<a href="<?php echo esc_url( admin_url( 'admin.php?page=wcpv-vendor-reports&tab=stock&report=out_of_stock' ) ); ?>">
-					<?php printf( _n( "<strong>%s product</strong> out of stock", "<strong>%s products</strong> out of stock", $outofstock_count, 'woocommerce-product-vendors' ), $outofstock_count ); ?>
+					<?php
+					printf(
+						_n(
+							'<strong>%s product</strong> out of stock',
+							'<strong>%s products</strong> out of stock',
+							$outofstock_count,
+							'woocommerce-product-vendors'
+						),
+						$outofstock_count
+					);
+					?>
 				</a>
 			</li>
-
-			<?php do_action( 'wcpv_after_sales_dashboard_status_widget' ); ?>
+			<?php
+			/**
+			 * Action hook to add additional data to display after widgets on the sales dashboard
+			 *
+			 * @since 2.0.0
+			 */
+			do_action( 'wcpv_after_sales_dashboard_status_widget' );
+			?>
 		</ul>
 		<?php
 	}
@@ -312,7 +382,7 @@ class WC_Product_Vendors_Vendor_Dashboard {
 	 */
 	public function set_dashboard_columns( $columns ) {
 		$columns['dashboard'] = 1;
-		
+
 		return $columns;
 	}
 

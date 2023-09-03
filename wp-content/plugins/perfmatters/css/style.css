@@ -10,7 +10,7 @@
 .settings_page_perfmatters #wpbody-content>.update-nag {
   margin-bottom: 0px;
 }
-#perfmatters-admin-container .notice {
+#perfmatters-admin-container .notice, #setting-error-perfmatters-hidden-notice {
   display: none;
 }
 #perfmatters-admin-container a {
@@ -30,7 +30,7 @@
   position: relative;
   background: #fff;
   border: 1px solid #e2e4e7;
-  border-radius: 5px;
+  border-radius: 3px;
   padding: 20px;
   box-sizing: border-box;
 }
@@ -60,7 +60,7 @@
   font-size: 30px;
 }
 #perfmatters-menu {
-  margin-top: 15px;
+  margin: 15px 0px;
 }
 #perfmatters-menu a {
   display: flex;
@@ -72,7 +72,7 @@
   text-decoration: none;
   box-shadow: none;
   border: 1px solid transparent;
-  border-radius: 5px;
+  border-radius: 3px;
   transition: none;
   margin-top: 2px;
 }
@@ -90,19 +90,13 @@
   width: 23px;
   height: 23px;
 }
-#perfmatters-menu .perfmatters-subnav {
-  border-top: 1px solid #f2f2f2;
-  border-bottom: 1px solid #f2f2f2;
-  padding: 9px 0px;
-  margin-bottom: 10px;
-}
-#perfmatters-menu .perfmatters-subnav a {
+#perfmatters-menu a {
   font-size: 14px;
   padding: 8px 10px;
   margin: 1px 0px;
   font-weight: 500;
 }
-#perfmatters-menu .perfmatters-subnav a .dashicons {
+#perfmatters-menu a .dashicons {
   font-size: 16px;
   height: 16px;
 }
@@ -133,7 +127,7 @@
   padding: 20px;
   font-weight: 500;
   background: #282E34;
-  border-radius: 5px 5px 0px 0px;
+  border-radius: 3px 3px 0px 0px;
   color: #fff;
 }
 #perfmatters-admin .perfmatters-settings-section:first-of-type h2:first-of-type .dashicons {
@@ -177,6 +171,14 @@
   font-size: 10px;
   margin-left: 3px;
 }
+#pm-version {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  line-height: 24px;
+  color: #fff;
+  opacity: 0.5;
+}
 
 /* inputs */
 #perfmatters-admin .perfmatters-switch {
@@ -192,6 +194,10 @@
   border: none;
   outline: none;
   box-shadow: none;
+}
+#perfmatters-admin .perfmatters-switch input[type=checkbox]:checked::before {
+  height: 0;
+  width: 0;
 }
 #perfmatters-admin .perfmatters-slider {
   position: absolute;
@@ -223,6 +229,10 @@
 #perfmatters-admin input[type="text"], #perfmatters-admin select, #perfmatters-admin input[type="file"] {
   min-width: 300px;
   margin: 0px;
+  border-color: #ccc;
+}
+#perfmatters-admin input[type="checkbox"] {
+  border-color: #ccc;
 }
 #perfmatters-admin input[type="file"] {
   margin-bottom: 5px;
@@ -231,6 +241,7 @@
   width: 100%;
   resize: both;
   min-height: 150px;
+  border-color: #ccc;
 }
 #perfmatters-admin .CodeMirror {
   max-width: 700px;
@@ -337,14 +348,22 @@
 
 /* buttons */
 #perfmatters-admin-container .button-primary {
-  padding: 2px 10px;
-  border-radius: 5px;
+  padding: 3px 10px;
   background: #4A89DD;
   border-color: #4A89DD;
+}
+#perfmatters-admin-container .button-primary:disabled {
+  background: #4A89DD !important;
+  border-color: #4A89DD !important;
+  color: #fff !important;
 }
 #perfmatters-admin-container .button-secondary {
   border-color: #4A89DD;
   color: #4A89DD;
+}
+#perfmatters-admin-container .button-secondary:disabled {
+  border-color: #4A89DD !important;
+  color: #4A89DD !important;
 }
 #perfmatters-admin-container p.submit {
   margin: 20px 0px 0px 0px;
@@ -353,26 +372,23 @@
 #perfmatters-admin-container .perfmatters-button-warning {
   background: #ED5464;
   border-color: #ED5464;
-  color: #ffffff;
+  color: #fff;
 }
 #perfmatters-admin-container .perfmatters-button-warning:hover {
   background: #c14552;
   border-color: #c14552;
 }
+#perfmatters-options-form[data-pm-option="license"] #perfmatters-save, #perfmatters-options-form[data-pm-option="support"] #perfmatters-save {
+  display: none;
+}
 
 /* custom input row ui */
 .perfmatters-input-row {
   position: relative;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  max-width: 600px;
-}
-.perfmatters-input-row:not(:first-child) {
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid #ddd;
 }
 .perfmatters-input-row input[type="text"] {
   flex-grow: 1;
@@ -389,17 +405,25 @@
   min-width: auto;
 }
 a.perfmatters-delete-input-row {
-  background: #aaa;
-  border-radius: 4px;
-  margin-left: 5px;
+  margin-left: 8px;
 }
-a.perfmatters-delete-input-row span.dashicons-no {
-  color: #fff;
+a.perfmatters-delete-input-row span {
+  color: #ED5464;
   text-decoration: none;
 }
 a.perfmatters-add-input-row {
+  display: inline-flex;
+  align-items: center;
   white-space: nowrap;
   text-decoration: none;
+  margin-top: 10px;
+}
+a.perfmatters-add-input-row span.dashicons {
+  line-height: 30px;
+  margin-right: 2px;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
 }
 .perfmatters-inline-label-input {
   position: relative;
@@ -410,20 +434,42 @@ a.perfmatters-add-input-row {
   position: absolute;
   left: 1px;
   background: #F0F0F1;
-  border-right: 1px solid #8c8f94;
+  border-right: 1px solid #ccc;
   color: #8c8f94;
   height: 28px;
   padding: 0px 10px;
   display: inline-flex;
   align-items: center;
-  border-radius: 4px 0px 0px 4px;
+  border-radius: 3px 0px 0px 3px;
+}
+.perfmatters-input-row-hero {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+.perfmatters-input-row-extra {
+  display: none;
+  margin-top: 5px;
+}
+.perfmatters-input-row.perfmatters-opened .perfmatters-input-row-extra {
+  display: block;
+}
+.perfmatters-expand-input-row .dashicons {
+  color: #aaa;
+}
+.perfmatters-input-row.perfmatters-opened .perfmatters-expand-input-row .dashicons {
+  color: #4A89DD;
+}
+.perfmatters-input-row .perfmatters-expand-input-row:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 /* quick exclusions ui */
 .perfmatters-quick-exclusion {
   padding: 4px 8px;
   margin-bottom: 10px;
-  border: 1px solid #8c8f94;
+  border: 1px solid #ccc;
   border-radius: 3px; 
 }
 .perfmatters-quick-exclusion:last-of-type {
@@ -453,6 +499,30 @@ a.perfmatters-add-input-row {
   display: block;
 }
 
+/* action buttons */
+.perfmatters-button-container {
+  display: flex;
+  align-items: center;
+}
+.perfmatters-button-message {
+  margin-left: 10px;
+  color: green;
+}
+.perfmatters-button-message.perfmatters-error {
+  color: red;
+}
+
+/* advanced options */
+.pm-hide-advanced .pm-advanced-option {
+  display: none;
+}
+
+/* misc */
+.perfmatters-option-data {
+  margin-left: 5px;
+  font-size: 12px;
+}
+
 /* media queries */
 @media all and (max-width: 1024px) {
   #perfmatters-admin {
@@ -480,6 +550,17 @@ a.perfmatters-add-input-row {
   }
 }
 
+@media all and (max-width: 960px) {
+  .perfmatters-input-row-extra {
+    width: 100%;
+  }
+  .perfmatters-input-row-extra>* {
+    width: 100%;
+    max-width: none !important;
+    margin: 0px 0px 5px 0px !important;
+  }
+}
+
 @media all and (max-width: 782px) {
   .perfmatters-mobile-hide {
     display: none !important;
@@ -493,4 +574,75 @@ a.perfmatters-add-input-row {
   #perfmatters-admin textarea {
     min-width:  0px;
   }
+}
+
+@keyframes perfmatters-spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+        transform: rotate(360deg);
+  }
+}
+
+/* rtl */
+.rtl #pm-version{
+  left: 20px;
+  right: auto;
+}
+.rtl #perfmatters-menu a .dashicons {
+  margin-left: 8px;
+  margin-right: 0;
+}
+.rtl #perfmatters-admin .form-table th label {
+  padding-left: 5px;
+  padding-right: 0;
+}
+.rtl .perfmatters-beta {
+  margin-right: 3px;
+  margin-left: 0;
+}
+.rtl #perfmatters-admin .perfmatters-slider:before {
+  right: 4px;
+  left: auto;
+}
+.rtl #perfmatters-admin input:checked + .perfmatters-slider:before {
+  transform: translateX(-20px);
+}
+.rtl #perfmatters-admin .perfmatters-tooltip-wrapper {
+  float: left;
+}
+.rtl #perfmatters-admin .perfmatters-tooltip-text {
+  right: -32px;
+  left: auto;
+  text-align: right;
+}
+.rtl #perfmatters-admin .perfmatters-tooltip-text::after {
+  right: 19px;
+  left: auto;
+}
+.rtl #perfmatters-admin .perfmatters-tooltip-subtext {
+  text-align: right;
+}
+.rtl .perfmatters-input-row label {
+  margin: 0px 5px 0px 0;
+}
+.rtl .perfmatters-input-row input[type="checkbox"] {
+  margin-left: 0px;
+  margin-right: 0;
+}
+.rtl a.perfmatters-delete-input-row {
+  margin-right: 8px;
+  margin-left: 0;
+}
+.rtl a.perfmatters-add-input-row span.dashicons {
+  margin-left: 2px;
+  margin-right: 0;
+}
+.rtl .perfmatters-inline-label-input span {
+  right: 1px;
+  left: auto;
+  border-left: 1px solid #ccc;
+  border-right: none;
+  border-radius: 4px 0px 0px 4px;
 }

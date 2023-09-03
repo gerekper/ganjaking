@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles compatibility with other WC extensions.
  *
  * @class    WC_MMQ_Compatibility
- * @version  4.0.4
+ * @version  4.1.0
  */
 class WC_MMQ_Compatibility {
 
@@ -62,7 +62,7 @@ class WC_MMQ_Compatibility {
 	 * @since 4.0.4
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Foul!', 'woocommerce-min-max-quantities' ), '4.0.4' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Foul!', 'woocommerce-min-max-quantities' ), '4.0.4' );
 	}
 
 	/**
@@ -71,7 +71,7 @@ class WC_MMQ_Compatibility {
 	 * @since 4.0.4
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Foul!', 'woocommerce-min-max-quantities' ), '4.0.4' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Foul!', 'woocommerce-min-max-quantities' ), '4.0.4' );
 	}
 
 	/**

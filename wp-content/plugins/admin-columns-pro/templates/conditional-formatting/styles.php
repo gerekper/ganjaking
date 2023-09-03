@@ -1,5 +1,4 @@
 <style>
-
 	<?php foreach( $this->styles as $name => $style ): ?>
 	<?php
 		$class = 'acp-cf-style-'.$name;
@@ -8,8 +7,8 @@
 	.acp-cf-conditions__row .-style button.<?= $class ?>,
 	table tr td .<?= $class ?> {
 	<?php if ( ! empty( $style['background'] ) ) : ?> background: <?= esc_html( $style['background'] ) ?>;
-	<?php endif;?> <?php if ( ! empty( $style['background_color'] ) ) : ?> background-color: <?= esc_html( $style['background_color'] ) ?>;
-	<?php endif;?> color: <?= esc_html( $style['color'] ?? '' ) ?>;
+	<?php endif;?> background-color: <?= $style['background_color'] ?? 'transparent' ?>;
+		color: <?= esc_html( $style['color'] ?? '' ) ?>;
 	<?php if ( ! empty( $style['background_color'] ) ) : ?> border-color: <?= esc_html( $style['background_color'] ) ?>;
 	<?php endif; ?>
 	}

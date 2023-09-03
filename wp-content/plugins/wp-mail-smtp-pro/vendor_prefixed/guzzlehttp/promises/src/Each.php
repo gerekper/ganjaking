@@ -59,7 +59,7 @@ final class Each
      */
     public static function ofLimitAll($iterable, $concurrency, callable $onFulfilled = null)
     {
-        return each_limit($iterable, $concurrency, $onFulfilled, function ($reason, $idx, \WPMailSMTP\Vendor\GuzzleHttp\Promise\PromiseInterface $aggregate) {
+        return self::ofLimit($iterable, $concurrency, $onFulfilled, function ($reason, $idx, \WPMailSMTP\Vendor\GuzzleHttp\Promise\PromiseInterface $aggregate) {
             $aggregate->reject($reason);
         });
     }

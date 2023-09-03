@@ -3,6 +3,7 @@
 namespace WPMailSMTP\Pro\License;
 
 use stdClass;
+use WPMailSMTP\Helpers\Helpers;
 
 /**
  * Updater class.
@@ -285,6 +286,7 @@ class Updater {
 
 		$args = [
 			'headers' => $headers,
+			'user-agent' => Helpers::get_default_user_agent(),
 		];
 
 		// Perform the query and retrieve the response.

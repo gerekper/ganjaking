@@ -2,9 +2,6 @@
 
 namespace WPMailSMTP\Vendor\Aws\Api;
 
-use WPMailSMTP\Vendor\Aws\Api\Serializer\QuerySerializer;
-use WPMailSMTP\Vendor\Aws\Api\Serializer\Ec2ParamBuilder;
-use WPMailSMTP\Vendor\Aws\Api\Parser\QueryParser;
 /**
  * Represents a web service API model.
  */
@@ -61,7 +58,7 @@ class Service extends \WPMailSMTP\Vendor\Aws\Api\AbstractModel
      */
     public static function createSerializer(\WPMailSMTP\Vendor\Aws\Api\Service $api, $endpoint)
     {
-        static $mapping = ['json' => 'WPMailSMTP\\Vendor\\Aws\\Api\\Serializer\\JsonRpcSerializer', 'query' => 'WPMailSMTP\\Vendor\\Aws\\Api\\Serializer\\QuerySerializer', 'rest-json' => 'WPMailSMTP\\Vendor\\Aws\\Api\\Serializer\\RestJsonSerializer', 'rest-xml' => 'WPMailSMTP\\Vendor\\Aws\\Api\\Serializer\\RestXmlSerializer'];
+        static $mapping = ['json' => \WPMailSMTP\Vendor\Aws\Api\Serializer\JsonRpcSerializer::class, 'query' => \WPMailSMTP\Vendor\Aws\Api\Serializer\QuerySerializer::class, 'rest-json' => \WPMailSMTP\Vendor\Aws\Api\Serializer\RestJsonSerializer::class, 'rest-xml' => \WPMailSMTP\Vendor\Aws\Api\Serializer\RestXmlSerializer::class];
         $proto = $api->getProtocol();
         if (isset($mapping[$proto])) {
             return new $mapping[$proto]($api, $endpoint);
@@ -83,7 +80,7 @@ class Service extends \WPMailSMTP\Vendor\Aws\Api\AbstractModel
      */
     public static function createErrorParser($protocol, \WPMailSMTP\Vendor\Aws\Api\Service $api = null)
     {
-        static $mapping = ['json' => 'WPMailSMTP\\Vendor\\Aws\\Api\\ErrorParser\\JsonRpcErrorParser', 'query' => 'WPMailSMTP\\Vendor\\Aws\\Api\\ErrorParser\\XmlErrorParser', 'rest-json' => 'WPMailSMTP\\Vendor\\Aws\\Api\\ErrorParser\\RestJsonErrorParser', 'rest-xml' => 'WPMailSMTP\\Vendor\\Aws\\Api\\ErrorParser\\XmlErrorParser', 'ec2' => 'WPMailSMTP\\Vendor\\Aws\\Api\\ErrorParser\\XmlErrorParser'];
+        static $mapping = ['json' => \WPMailSMTP\Vendor\Aws\Api\ErrorParser\JsonRpcErrorParser::class, 'query' => \WPMailSMTP\Vendor\Aws\Api\ErrorParser\XmlErrorParser::class, 'rest-json' => \WPMailSMTP\Vendor\Aws\Api\ErrorParser\RestJsonErrorParser::class, 'rest-xml' => \WPMailSMTP\Vendor\Aws\Api\ErrorParser\XmlErrorParser::class, 'ec2' => \WPMailSMTP\Vendor\Aws\Api\ErrorParser\XmlErrorParser::class];
         if (isset($mapping[$protocol])) {
             return new $mapping[$protocol]($api);
         }
@@ -98,7 +95,7 @@ class Service extends \WPMailSMTP\Vendor\Aws\Api\AbstractModel
      */
     public static function createParser(\WPMailSMTP\Vendor\Aws\Api\Service $api)
     {
-        static $mapping = ['json' => 'WPMailSMTP\\Vendor\\Aws\\Api\\Parser\\JsonRpcParser', 'query' => 'WPMailSMTP\\Vendor\\Aws\\Api\\Parser\\QueryParser', 'rest-json' => 'WPMailSMTP\\Vendor\\Aws\\Api\\Parser\\RestJsonParser', 'rest-xml' => 'WPMailSMTP\\Vendor\\Aws\\Api\\Parser\\RestXmlParser'];
+        static $mapping = ['json' => \WPMailSMTP\Vendor\Aws\Api\Parser\JsonRpcParser::class, 'query' => \WPMailSMTP\Vendor\Aws\Api\Parser\QueryParser::class, 'rest-json' => \WPMailSMTP\Vendor\Aws\Api\Parser\RestJsonParser::class, 'rest-xml' => \WPMailSMTP\Vendor\Aws\Api\Parser\RestXmlParser::class];
         $proto = $api->getProtocol();
         if (isset($mapping[$proto])) {
             return new $mapping[$proto]($api);

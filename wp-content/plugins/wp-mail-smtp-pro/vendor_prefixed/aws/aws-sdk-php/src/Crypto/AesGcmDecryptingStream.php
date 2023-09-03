@@ -64,7 +64,7 @@ class AesGcmDecryptingStream implements \WPMailSMTP\Vendor\Aws\Crypto\AesStreamI
             return \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Utils::streamFor($result);
         }
     }
-    public function isWritable()
+    public function isWritable() : bool
     {
         return \false;
     }

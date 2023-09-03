@@ -563,7 +563,7 @@ class LazyLoad
 		$image_atts = Utilities::get_atts_array($image[1]);
 
 		//get new attributes
-		if(empty($image_atts['src']) || (!self::lazyload_excluded($image[1], self::lazyload_forced_atts()) && ((!empty($image_atts['class']) && strpos($image_atts['class'], 'no-lazy') !== false) || self::lazyload_excluded($image[1], self::lazyload_excluded_atts())))) {
+		if(empty($image_atts['src']) || (!self::lazyload_excluded($image[1], self::lazyload_forced_atts()) && ((!empty($image_atts['class']) && strpos($image_atts['class'], 'no-lazy') !== false) || self::lazyload_excluded($image[1], self::lazyload_excluded_atts()) || !empty($image_atts['fetchpriority'])))) {
 			return $image[0];
 		}
 		else {
@@ -693,7 +693,8 @@ class LazyLoad
 		$attributes = array(
 			'data-perfmatters-preload',
 			'gform_ajax_frame',
-			';base64'
+			';base64',
+			'skip-lazy'
 		); 
 
 		//get exclusions added from settings

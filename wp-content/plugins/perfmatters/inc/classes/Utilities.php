@@ -27,7 +27,7 @@ class Utilities
     public static function clean_html($html) {
 
         //remove existing script tags
-        $html = preg_replace('/<script\b(?:[^>]*)>(?:.+)?<\/script>/Umsi', '', $html);
+        $html = preg_replace('/<script\b(?:[^>]*)>.*?<\/script>/msi', '', $html);
 
         //remove existing noscript tags
         $html = preg_replace('#<noscript>(?:.+)</noscript>#Umsi', '', $html);

@@ -3,6 +3,7 @@ namespace Perfmatters;
 
 class Preload
 {
+    private static $fetch_priority;
     private static $preloads;
     private static $critical_images;
     private static $preloads_ready = array();
@@ -17,12 +18,116 @@ class Preload
     //queue functions
     public static function queue() 
     {
+        //fetch priority
+        self::$fetch_priority = apply_filters('perfmatters_fetch_priority', Config::$options['preload']['fetch_priority'] ?? array());
+
+        if(!empty(self::$fetch_priority)) {
+            add_action('perfmatters_output_buffer_template_redirect', array('Perfmatters\Preload', 'add_fetch_priority'));
+        }
+
+        //preloads
         self::$preloads = apply_filters('perfmatters_preloads', Config::$options['preload']['preload'] ?? array());
         self::$critical_images = apply_filters('perfmatters_preload_critical_images', Config::$options['preload']['critical_images'] ?? 0);
 
         if(!empty(self::$preloads) || !empty(self::$critical_images)) {
             add_action('perfmatters_output_buffer_template_redirect', array('Perfmatters\Preload', 'add_preloads'));
         }
+    }
+
+    //add fetch priority
+    public static function add_fetch_priority($html) {
+
+        $selectors = array();
+        $parent_selectors = array();
+
+        foreach(self::$fetch_priority as $line) {
+
+            //device type check
+            if(!empty($line['device'])) {
+                $device_type = wp_is_mobile() ? 'mobile' : 'desktop';
+                if($line['device'] != $device_type) {
+                    continue;
+                }
+            }
+
+            //location check
+            if(!empty($line['locations'])) {
+                if(!self::location_check($line['locations'])) {
+                    continue;
+                }
+            }
+
+            //add selector
+            if(!empty($line['parent'])) {
+                $parent_selectors[] = $line['selector'];
+            }
+            else {
+                $selectors[] = $line['selector'];
+            }
+        }
+
+        //parent selectors
+        if(!empty($parent_selectors)) {
+
+            //match all selectors
+            preg_match_all('#<(div|section|figure)(\s[^>]*?(' . implode('|', $parent_selectors) . ').*?)>.*?<(link|img|script).*?<\/\g1>#is', $html, $parents, PREG_SET_ORDER);
+
+            if(!empty($parents)) {
+
+                foreach($parents as $parent) {
+
+                    //match all tags
+                    preg_match_all('#<(?>link|img|script)(\s[^>]*?)>#is', $parent[0], $tags, PREG_SET_ORDER);
+
+                    if(!empty($tags)) {
+
+                        //loop through images
+                        foreach($tags as $tag) {
+
+                            $tag_atts = Utilities::get_atts_array($tag[1]);
+
+                            $key = array_search($parent[3], array_column(self::$fetch_priority, 'selector'));
+
+                            $tag_atts['fetchpriority'] = self::$fetch_priority[$key]['priority'];;
+
+                            //replace video attributes string
+                            $new_tag = str_replace($tag[1], ' ' . Utilities::get_atts_string($tag_atts), $tag[0]);
+
+                            //replace video with placeholder
+                            $html = str_replace($tag[0], $new_tag, $html);
+
+                            unset($new_tag);
+                        }
+                    }
+                }
+            }
+        }
+
+        //selectors
+        if(!empty($selectors)) {
+
+            preg_match_all('#<(?>link|img|script)(\s[^>]*?(' . implode('|', $selectors) . ').*?)>#is', $html, $matches, PREG_SET_ORDER);
+
+            if(!empty($matches)) {
+
+                foreach($matches as $tag) {
+
+                    $atts = Utilities::get_atts_array($tag[1]);
+
+                    $key = array_search($tag[2], array_column(self::$fetch_priority, 'selector'));
+
+                    $atts['fetchpriority'] = self::$fetch_priority[$key]['priority'];;
+
+                    //replace video attributes string
+                    $new_tag = str_replace($tag[1], ' ' . Utilities::get_atts_string($atts), $tag[0]);
+
+                    //replace video with placeholder
+                    $html = str_replace($tag[0], $new_tag, $html);
+                }
+            }
+        }
+
+        return $html;
     }
 
     //add preloads to html
@@ -57,32 +162,7 @@ class Preload
                 //location check
                 if(!empty($line['locations'])) {
 
-                    $location_match = false;
-
-                    $exploded_locations = explode(',', $line['locations']);
-                    $trimmed_locations = array_map('trim', $exploded_locations);
-
-                    //single post exclusion
-                    if(is_singular()) {
-                        global $post;
-                        if(in_array($post->ID, $trimmed_locations)) {
-                            $location_match = true;
-                        }
-                    }
-                    //posts page exclusion
-                    elseif(is_home() && in_array('blog', $trimmed_locations)) {
-                        $location_match = true;
-                    }
-                    elseif(is_archive()) {
-                        //woocommerce shop check
-                        if(function_exists('is_shop') && is_shop()) {
-                            if(in_array(wc_get_page_id('shop'), $trimmed_locations)) {
-                                $location_match = true;
-                            }
-                        }
-                    }
-
-                    if(!$location_match) {
+                    if(!self::location_check($line['locations'])) {
                         continue;
                     }
                 }
@@ -240,8 +320,40 @@ class Preload
             self::$preloads_ready[] = '<link rel="preload" href="' . $src . '" as="image"' . (!empty($atts['srcset']) ? ' imagesrcset="' . $atts['srcset'] . '"' : '') . (!empty($atts['sizes']) ? ' imagesizes="' . $atts['sizes'] . '"' : '') . ' />';
 
             //mark src used and return
-            self::$used_srcs[] = $src;
+            if(!empty($src)) {
+                self::$used_srcs[] = $src;
+            }
             return true;
         }
+    }
+
+    private static function location_check($locations) {
+
+        $location_match = false;
+
+        $exploded_locations = explode(',', $locations);
+        $trimmed_locations = array_map('trim', $exploded_locations);
+
+        //single post exclusion
+        if(is_singular()) {
+            global $post;
+            if(in_array($post->ID, $trimmed_locations)) {
+                $location_match = true;
+            }
+        }
+        //posts page exclusion
+        elseif(is_home() && in_array('blog', $trimmed_locations)) {
+            $location_match = true;
+        }
+        elseif(is_archive()) {
+            //woocommerce shop check
+            if(function_exists('is_shop') && is_shop()) {
+                if(in_array(wc_get_page_id('shop'), $trimmed_locations)) {
+                    $location_match = true;
+                }
+            }
+        }
+
+        return $location_match;
     }
 }

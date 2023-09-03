@@ -211,8 +211,6 @@ class PluginsList {
 	 * @return void
 	 */
 	public function show_plugin_notice( $plugin_file ) {
-		return;
-
 
 		if (
 			$plugin_file !== $this->get_pro_plugin_file_path() ||

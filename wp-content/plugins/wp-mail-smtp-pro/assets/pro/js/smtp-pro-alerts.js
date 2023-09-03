@@ -1,4 +1,4 @@
-/* global wp_mail_smtp_alerts */
+/* global wp_mail_smtp, ajaxurl, wp_mail_smtp_alerts */
 'use strict';
 
 var WPMailSMTP = window.WPMailSMTP || {};
@@ -41,6 +41,8 @@ WPMailSMTP.Admin.Alerts = WPMailSMTP.Admin.Alerts || ( function( document, windo
 			app.bindActions();
 
 			app.insertRemoveConnectionButtons();
+
+			app.toggleTestAlertsButton();
 		},
 
 		/**
@@ -53,7 +55,9 @@ WPMailSMTP.Admin.Alerts = WPMailSMTP.Admin.Alerts || ( function( document, windo
 			$( '.wp-mail-smtp-tab-alerts' )
 				.on( 'click', '.js-wp-mail-smtp-setting-alert-add-connection', app.addConnection )
 				.on( 'click', '.js-wp-mail-smtp-setting-alert-remove-connection', app.removeConnection )
-				.on( 'change', '.js-wp-mail-smtp-setting-alert-enabled', app.toggleAlertSettings );
+				.on( 'change', '.js-wp-mail-smtp-setting-alert-enabled', app.toggleAlertSettings )
+				.on( 'change', '.js-wp-mail-smtp-setting-alert-enabled', app.toggleTestAlertsButton )
+				.on( 'click', '#js-wp-mail-smtp-btn-test-alerts', app.submitTestAlerts );
 		},
 
 		/**
@@ -162,7 +166,79 @@ WPMailSMTP.Admin.Alerts = WPMailSMTP.Admin.Alerts || ( function( document, windo
 					} );
 				}
 			} );
-		}
+		},
+
+		/**
+		 * Enable the test alerts button when at least one
+		 * alert channel is enabled, or disable it otherwise.
+		 *
+		 * @since 3.9.0
+		 */
+		toggleTestAlertsButton: function() {
+
+			var enabledChannelsCount = $( '.wp-mail-smtp-tab-alerts .js-wp-mail-smtp-setting-alert-enabled:checked' ).length;
+			var $button = $( '#js-wp-mail-smtp-btn-test-alerts' );
+
+			if ( enabledChannelsCount > 0 ) {
+				$button.prop( 'disabled', false );
+			} else {
+				$button.prop( 'disabled', true );
+			}
+		},
+
+		/**
+		 * Submit test alerts action.
+		 *
+		 * @since 3.9.0
+		 */
+		submitTestAlerts: function() {
+
+			// If settings have been changed, display an alert
+			// and bail early.
+			if ( WPMailSMTP.Admin.Settings.pluginSettingsChanged ) {
+				$.confirm( {
+					backgroundDismiss: true,
+					escapeKey: true,
+					animationBounce: 1,
+					closeIcon: true,
+					type: 'blue',
+					icon: app.getModalIcon( 'info-circle-blue' ),
+					title: wp_mail_smtp_alerts.texts.alert_title,
+					content: wp_mail_smtp_alerts.texts.alert_content,
+					buttons: {
+						confirm: {
+							text: wp_mail_smtp_alerts.texts.ok,
+							btnClass: 'btn-confirm',
+							keys: [ 'enter' ],
+						},
+					}
+				} );
+
+				return;
+			}
+
+			$.post( ajaxurl, {
+				action: 'wp_mail_smtp_ajax',
+				nonce: wp_mail_smtp.nonce,
+				task: 'test_alerts',
+			} ).then( function() {
+				window.location.replace( window.location.href );
+			} );
+		},
+
+		/**
+		 * Returns prepared modal icon.
+		 *
+		 * @since 3.9.0
+		 *
+		 * @param {string} icon The icon name from /assets/images/font-awesome/ to be used in modal.
+		 *
+		 * @returns {string} Modal icon HTML.
+		 */
+		getModalIcon: function( icon ) {
+
+			return '"></i><img src="' + wp_mail_smtp_alerts.plugin_url + '/assets/images/font-awesome/' + icon + '.svg" style="width: 40px; height: 40px;" alt=""><i class="';
+		},
 	};
 
 	// Provide access to public functions/properties.

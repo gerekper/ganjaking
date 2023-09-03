@@ -4,6 +4,7 @@ namespace WPMailSMTP\Vendor\Aws;
 
 use WPMailSMTP\Vendor\Aws\Exception\AwsException;
 use WPMailSMTP\Vendor\GuzzleHttp\Promise\Coroutine;
+use WPMailSMTP\Vendor\GuzzleHttp\Promise\PromiseInterface;
 use WPMailSMTP\Vendor\GuzzleHttp\Promise\PromisorInterface;
 use WPMailSMTP\Vendor\GuzzleHttp\Promise\RejectedPromise;
 /**
@@ -66,7 +67,7 @@ class Waiter implements \WPMailSMTP\Vendor\GuzzleHttp\Promise\PromisorInterface
     /**
      * @return Coroutine
      */
-    public function promise()
+    public function promise() : \WPMailSMTP\Vendor\GuzzleHttp\Promise\PromiseInterface
     {
         return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Coroutine::of(function () {
             $name = $this->config['operation'];

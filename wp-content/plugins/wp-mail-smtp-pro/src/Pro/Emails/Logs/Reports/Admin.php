@@ -341,7 +341,7 @@ class Admin extends EmailReportsTab {
 					<?php
 					echo wp_kses(
 						sprintf( /* translators: %1$d - items count; %2$s - search term. */
-							__( 'Found <strong>%1$d items</strong> where the subject contains <i>%2$s</i>', 'wp-mail-smtp-pro' ),
+							_n( 'Found <strong>%1$d item</strong> where the subject contains <i>%2$s</i>', 'Found <strong>%1$d items</strong> where the subject contains <i>%2$s</i>', count( $this->table->items ), 'wp-mail-smtp-pro' ),
 							count( $this->table->items ),
 							$this->report->get_params( 'search' )
 						),

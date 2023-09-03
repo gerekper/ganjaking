@@ -39,9 +39,11 @@ $product = $this->_current_product;
 				<?php endif; ?>
 
 				<tr valign="top">
-					<th scope="row">
-						<label><?php esc_html_e( 'Tickets', 'woocommerce-box-office' ); ?></label>
+					<th scope="column">
+						<?php esc_html_e( 'Tickets', 'woocommerce-box-office' ); ?>
 					</th>
+				</tr>
+				<tr valign="top">
 					<td>
 						<?php if ( $ticket_form ) : ?>
 						<div class="wc-box-office-ticket-form">
@@ -63,8 +65,7 @@ $product = $this->_current_product;
 						<?php endif; ?>
 					</td>
 				</tr>
-				<tr valign="top">
-					<th scope="row">&nbsp;</th>
+				<tr valign="top" class="wc-box-office-confirmation-row">
 					<td>
 						<p style="margin-bottom: 10px">
 							<label>

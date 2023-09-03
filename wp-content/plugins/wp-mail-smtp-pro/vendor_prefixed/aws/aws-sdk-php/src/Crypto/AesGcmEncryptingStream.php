@@ -80,7 +80,7 @@ class AesGcmEncryptingStream implements \WPMailSMTP\Vendor\Aws\Crypto\AesStreamI
     {
         return $this->tag;
     }
-    public function isWritable()
+    public function isWritable() : bool
     {
         return \false;
     }

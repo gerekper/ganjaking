@@ -17,6 +17,8 @@ class DatabaseOptimizer {
 		add_filter('cron_schedules', array($this, 'perfmatters_add_database_optimization_cron_schedule'));
 		add_action('init', array($this, 'perfmatters_schedule_database_optimization'));
 		add_action('perfmatters_database_optimization', array($this, 'perfmatters_run_scheduled_database_optimization'));
+		add_action('wp_ajax_optimize_database', array($this, 'optimize_database'));
+		add_action('wp_ajax_scan_database', array($this, 'scan_database'));
 	}
 
 	//run the background process
@@ -29,40 +31,8 @@ class DatabaseOptimizer {
 		$this->optimizer->save()->dispatch();
 	}
 
-	//watch and respond to the optimize button
+	//watch and respond to a schedule change
 	public function perfmatters_database_optimization_action($new_value, $old_value) {
-
-		//optimize button was pressed
-		if(!empty($new_value['database']['optimize_database'])) {
-
-			//stop and show error if process is already running
-			$working = get_transient('perfmatters_database_optimization_process');
-			if($working !== false) {
-				add_settings_error('perfmatters', 'perfmatters-database-optimization-running', __('There is already an existing database optimization process running.', 'perfmatters'), 'error');
-				return $old_value;
-			}
-
-			//get available options array
-			$optimize_options = array_keys($this->perfmatters_get_database_options());
-
-			//build array of requested items
-			$items = array();
-			foreach($optimize_options as $item) {
-				if(!empty($new_value['database'][$item])) {
-					$items[] = $item;
-				}
-			}
-
-			//run process handler
-			if(!empty($items)) {
-				$this->process_handler($items);
-			}
-
-			//add hidden notice to prevent save message
-			add_settings_error('perfmatters', 'perfmatters-hidden-notice', '', 'success');
-
-			return $old_value;
-		}
 
 		$new_optimize_schedule = isset($new_value['database']['optimize_schedule']) ? $new_value['database']['optimize_schedule'] : '';
 		$old_optimize_schedule = isset($old_value['database']['optimize_schedule']) ? $old_value['database']['optimize_schedule'] : '';
@@ -212,5 +182,82 @@ class DatabaseOptimizer {
 			'all_transients'     => __('Transients', 'perfmatters'),
 			'tables'             => __('Tables', 'perfmatters')
 		);
+	}
+
+	//optimize database ajax action
+	public function optimize_database() {
+
+		Ajax::security_check();
+
+		//stop and show error if process is already running
+		$working = get_transient('perfmatters_database_optimization_process');
+		if($working !== false) {
+			wp_send_json_error(array(
+		    	'message' => __('There is already an existing database optimization process running.', 'perfmatters')
+			));
+		}
+
+		//get available options array
+		$optimize_options = array_keys(DatabaseOptimizer::perfmatters_get_database_options());
+
+		$tools = get_option('perfmatters_tools');
+
+		//build array of requested items
+		$items = array();
+		foreach($optimize_options as $item) {
+			if(!empty($tools['database'][$item])) {
+				$items[] = $item;
+			}
+		}
+
+		//run process handler
+		if(!empty($items)) {
+			DatabaseOptimizer::process_handler($items);
+		}
+
+		wp_send_json_success(array(
+	    	'message' => __('Database optimization process started.', 'perfmatters'),
+	    	'reload' => true
+		));
+	}
+
+	//scan database ajax action
+	public function scan_database() {
+
+		Ajax::security_check();
+
+		global $wpdb;
+
+		$data = array();
+
+		//post revisions
+        $data['post_revisions'] = $wpdb->get_var("SELECT COUNT(ID) FROM $wpdb->posts WHERE post_type = 'revision'") . ' ' . __('Revisions Found', 'perfmatters');
+
+        //auto drafts
+        $data['post_auto_drafts'] = $wpdb->get_var("SELECT COUNT(ID) FROM $wpdb->posts WHERE post_status = 'auto-draft'") . ' ' . __('Auto-Drafts Found', 'perfmatters');
+
+        //trashed posts
+        $data['trashed_posts'] = $wpdb->get_var("SELECT COUNT(ID) FROM $wpdb->posts WHERE post_status = 'trash'") . ' ' . __('Trashed Posts Found', 'perfmatters');
+
+        //spam comments
+        $data['spam_comments'] = $wpdb->get_var("SELECT COUNT(comment_ID) FROM $wpdb->comments WHERE comment_approved = 'spam'") . ' ' . __('Spam Comments Found', 'perfmatters');
+
+        //trashed comments
+        $data['trashed_comments'] = $wpdb->get_var("SELECT COUNT(comment_ID) FROM $wpdb->comments WHERE (comment_approved = 'trash' OR comment_approved = 'post-trashed')") . ' ' . __('Trashed Comments Found', 'perfmatters');
+
+        //expired transients
+        $time = isset($_SERVER['REQUEST_TIME']) ? (int) $_SERVER['REQUEST_TIME'] : time();
+        $data['expired_transients'] = $wpdb->get_var($wpdb->prepare("SELECT COUNT(option_name) FROM $wpdb->options WHERE option_name LIKE %s AND option_value < %d", $wpdb->esc_like('_transient_timeout') . '%', $time)) . ' ' . __('Expired Transients Found', 'perfmatters');
+
+        //all transients
+        $data['all_transients'] = $wpdb->get_var($wpdb->prepare("SELECT COUNT(option_id) FROM $wpdb->options WHERE option_name LIKE %s OR option_name LIKE %s", $wpdb->esc_like('_transient_') . '%', $wpdb->esc_like('_site_transient_') . '%')) . ' ' . __('Transients Found', 'perfmatters');
+ 
+ 		//tables
+        $data['tables'] = $wpdb->get_var("SELECT COUNT(table_name) FROM information_schema.tables WHERE table_schema = '" . DB_NAME . "' and Engine <> 'InnoDB' and data_free > 0") . ' ' . __('Unoptimized Tables Found', 'perfmatters');
+
+        wp_send_json_success(array(
+	    	'message' => __('Database scan completed.', 'perfmatters'),
+	    	'data' => $data
+		));     
 	}
 }

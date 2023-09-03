@@ -3,7 +3,7 @@
  * Plugin Name: WP Rocket
  * Plugin URI: https://wp-rocket.me
  * Description: The best WordPress performance plugin.
- * Version: 3.14.4.2
+ * Version: 3.15
  * Requires at least: 5.8
  * Requires PHP: 7.3
  * Code Name: Iego
@@ -17,20 +17,18 @@
  * Copyright 2013-2023 WP Rocket
  */
 
-defined( 'ABSPATH' ) || exit;
-
 delete_transient( 'rocket_check_key_errors' );
-delete_transient( 'wp_rocket_no_licence' );
+delete_option( 'wp_rocket_no_licence' );
 $consumer_data = [
 	'consumer_key'   => '********',
-	'consumer_email' => 'noreply@gmail.com',
-	'secret_key'     => hash( 'crc32', 'noreply@gmail.com' ),
+	'consumer_email' => 'activated@wp-rocket.me',
+	'secret_key'     => hash( 'crc32', 'activated@wp-rocket.me' ),
 ];
 update_option( 'wp_rocket_settings', array_merge( get_option( 'wp_rocket_settings', [] ), $consumer_data ) );
 add_filter( 'pre_http_request', function( $pre, $parsed_args, $url ) {
 	if ( strpos( $url, 'https://wp-rocket.me/valid_key.php' ) !== false ) {
 		return [
-			'response' => [ 'code' => 200, 'message' => 'ОК' ],
+			'response' => [ 'code' => 200, 'message' => 'OK' ],
 			'body'     => json_encode( [ 
 				'success' => true,
 				'data'    => $consumer_data,
@@ -38,7 +36,7 @@ add_filter( 'pre_http_request', function( $pre, $parsed_args, $url ) {
 		];
 	} elseif ( strpos( $url, 'https://wp-rocket.me/stat/1.0/wp-rocket/user.php' ) !== false ) {
 		return [
-			'response' => [ 'code' => 200, 'message' => 'ОК' ],
+			'response' => [ 'code' => 200, 'message' => 'OK' ],
 			'body'     => json_encode( [
 				'licence_account'    => '-1',
 				'licence_expiration' => 1893456000,
@@ -49,8 +47,10 @@ add_filter( 'pre_http_request', function( $pre, $parsed_args, $url ) {
 	return $pre;
 }, 10, 3 );
 
+defined( 'ABSPATH' ) || exit;
+
 // Rocket defines.
-define( 'WP_ROCKET_VERSION',               '3.14.4.2' );
+define( 'WP_ROCKET_VERSION',               '3.15' );
 define( 'WP_ROCKET_WP_VERSION',            '5.8' );
 define( 'WP_ROCKET_WP_VERSION_TESTED',     '6.3' );
 define( 'WP_ROCKET_PHP_VERSION',           '7.3' );
@@ -83,7 +83,9 @@ define( 'WP_ROCKET_URL',                   plugin_dir_url( WP_ROCKET_FILE ) );
 define( 'WP_ROCKET_INC_URL',               WP_ROCKET_URL . 'inc/' );
 define( 'WP_ROCKET_ADMIN_URL',             WP_ROCKET_INC_URL . 'admin/' );
 define( 'WP_ROCKET_ASSETS_URL',            WP_ROCKET_URL . 'assets/' );
+define( 'WP_ROCKET_ASSETS_PATH',            WP_ROCKET_PATH . 'assets/' );
 define( 'WP_ROCKET_ASSETS_JS_URL',         WP_ROCKET_ASSETS_URL . 'js/' );
+define( 'WP_ROCKET_ASSETS_JS_PATH',         WP_ROCKET_ASSETS_PATH . 'js/' );
 define( 'WP_ROCKET_ASSETS_CSS_URL',        WP_ROCKET_ASSETS_URL . 'css/' );
 define( 'WP_ROCKET_ASSETS_IMG_URL',        WP_ROCKET_ASSETS_URL . 'img/' );
 

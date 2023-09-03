@@ -3,6 +3,7 @@
 namespace WPMailSMTP\Pro\Alerts\Providers\Email;
 
 use WPMailSMTP\Admin\DebugEvents\DebugEvents;
+use WPMailSMTP\Helpers\Helpers;
 use WPMailSMTP\Options;
 use WPMailSMTP\Pro\Alerts\Alert;
 use WPMailSMTP\Pro\Alerts\Alerts;
@@ -14,6 +15,24 @@ use WPMailSMTP\Pro\Alerts\Handlers\HandlerInterface;
  * @since 3.5.0
  */
 class Handler implements HandlerInterface {
+
+	/**
+	 * The maximum rate at which alerts can be handled by this handler.
+	 *
+	 * @since 3.9.0
+	 *
+	 * @var string
+	 */
+	const RATE_LIMIT = MINUTE_IN_SECONDS * 30;
+
+	/**
+	 * The last time an alert was handled by this handler.
+	 *
+	 * @since 3.9.0
+	 *
+	 * @var string
+	 */
+	const LAST_EXECUTED_TRANSIENT = 'wp_mail_smtp_email_alert_handler_timestamp';
 
 	/**
 	 * Whether current handler can handle provided alert.
@@ -81,6 +100,7 @@ class Handler implements HandlerInterface {
 				'X-Licence-Key' => wp_mail_smtp()->get_license_key(),
 				'X-Site-Domain' => wp_parse_url( home_url(), PHP_URL_HOST ),
 			],
+			'user-agent' => Helpers::get_default_user_agent(),
 			'body'    => wp_json_encode(
 				[
 					'recipients_email_addresses' => array_column( $connections, 'send_to' ),
@@ -108,6 +128,37 @@ class Handler implements HandlerInterface {
 
 		DebugEvents::add_debug( esc_html__( 'An Email alert request was sent.', 'wp-mail-smtp-pro' ) );
 
+		// Start a new rate limit period, if previous one expired.
+		if ( self::get_remaining_rate_limit_seconds() === 0 ) {
+			set_transient( self::LAST_EXECUTED_TRANSIENT, time(), self::RATE_LIMIT );
+		}
+
 		return true;
+	}
+
+	/**
+	 * Return the number of seconds until rate limit expires.
+	 *
+	 * @since 3.9.0
+	 *
+	 * @return int Number of seconds until rate limit expires.
+	 */
+	public static function get_remaining_rate_limit_seconds() {
+
+		$last_executed_time = get_transient( self::LAST_EXECUTED_TRANSIENT );
+
+		// Bail early if rate limit already expired.
+		if ( $last_executed_time === false ) {
+			return 0;
+		}
+
+		$remaining_time = self::RATE_LIMIT - ( time() - $last_executed_time );
+
+		// Bail early if rate limit just expired.
+		if ( $remaining_time <= 0 ) {
+			return 0;
+		}
+
+		return $remaining_time;
 	}
 }

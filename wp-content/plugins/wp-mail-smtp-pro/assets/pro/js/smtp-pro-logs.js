@@ -116,6 +116,7 @@ WPMailSMTP.Admin.Logs = WPMailSMTP.Admin.Logs || ( function( document, window, $
 				.on( 'click', '#wp-mail-smtp-email-actions .wp-mail-smtp-email-log-resend > a', app.single.processResendEmail );
 
 			app.pageHolder.on( 'click', '#wp-mail-smtp-delete-all-logs-button', app.archive.deleteAllEmailLogs );
+			app.pageHolder.on( 'click', '#wp-mail-smtp-recheck-all-email-logs-status-button', app.archive.recheckAllEmailLogsStatus );
 		},
 
 		/**
@@ -297,34 +298,89 @@ WPMailSMTP.Admin.Logs = WPMailSMTP.Admin.Logs || ( function( document, window, $
 
 				$btn.prop( 'disabled', true );
 
-				var data = {
-					action: 'wp_mail_smtp_delete_all_log_entries',
-					nonce: $( '#wp-mail-smtp-delete-log-entries-nonce', app.pageHolder ).val()
-				};
+				app.archive.sendAjaxRequest(
+					{
+						action: 'wp_mail_smtp_delete_all_log_entries',
+						nonce: $( '#wp-mail-smtp-delete-log-entries-nonce', app.pageHolder ).val()
+					},
+					function() {
+						location.reload();
+						return false;
+					}
+				).always( function() {
+					$btn.prop( 'disabled', false );
+				} );
+			},
 
-				$.post( wp_mail_smtp.ajax_url, data, function( response ) {
+			/**
+			 * Process the click on the "Re-check All Email Status" button.
+			 *
+			 * @since 3.9.0
+			 *
+			 * @param {object} event jQuery event.
+			 */
+			recheckAllEmailLogsStatus: function( event ) {
+
+				event.preventDefault();
+
+				var $btn = $( event.target );
+
+				app.displayConfirmModal( wp_mail_smtp_logs.recheck_all_email_logs_status_confirmation_text, function() {
+					app.archive.executeRecheckAllEmailLogEntriesStatus( $btn );
+				} );
+			},
+
+			/**
+			 * AJAX call for re-checking status of all email logs.
+			 *
+			 * @since 3.9.0
+			 *
+			 * @param {object} $btn jQuery object of the clicked button.
+			 */
+			executeRecheckAllEmailLogEntriesStatus: function( $btn ) {
+
+				$btn.prop( 'disabled', true );
+
+				app.archive.sendAjaxRequest(
+					{
+						action: 'wp_mail_smtp_recheck_all_email_logs_status',
+						nonce: $( '#wp-mail-smtp-recheck-all-email-logs-status-nonce', app.pageHolder ).val()
+					},
+					function() {}
+				).always( function() {
+					$btn.prop( 'disabled', false );
+				} );
+			},
+
+			/**
+			 * Send AJAX request.
+			 *
+			 * @since 3.9.0
+			 *
+			 * @param {object} data Object containing data to be sent.
+			 * @param {Function} successCallback Callback function to be called on success.
+			 *
+			 * @returns {jqXHR} AJAX request object.
+			 */
+			sendAjaxRequest: function( data, successCallback ) {
+
+				return $.post( wp_mail_smtp.ajax_url, data, function( response ) {
 					var message = response.data,
 						icon,
-						type,
-						callback;
+						type;
 
 					if ( response.success ) {
 						icon = 'check-circle-solid-green';
 						type = 'green';
-						callback = function() {
-							location.reload();
-							return false;
-						};
 					} else {
 						icon = 'exclamation-circle-regular-red';
 						type = 'red';
 					}
 
-					app.displayModal( message, icon, type, callback );
-					$btn.prop( 'disabled', false );
+					app.displayModal( message, icon, type, successCallback );
+
 				} ).fail( function() {
 					app.displayModal( wp_mail_smtp_logs.error_occurred, 'exclamation-circle-regular-red', 'red' );
-					$btn.prop( 'disabled', false );
 				} );
 			},
 

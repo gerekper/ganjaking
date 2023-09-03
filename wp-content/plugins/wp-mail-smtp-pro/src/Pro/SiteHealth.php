@@ -2,6 +2,7 @@
 
 namespace WPMailSMTP\Pro;
 
+use WPMailSMTP\Helpers\Helpers;
 use WPMailSMTP\Pro\Emails\Logs\EmailsCollection;
 
 /**
@@ -136,21 +137,9 @@ class SiteHealth {
 		$result['description'] = $license_status['message'];
 
 		if ( $license_status['valid'] === false ) {
-			$result = array(
-			'label'       => esc_html__( 'WP Mail SMTP Pro license is active and valid', 'wp-mail-smtp-pro' ),
-			'status'      => 'good',
-			'badge'       => array(
-				'label' => wp_mail_smtp()->get_site_health()->get_label(),
-				'color' => \WPMailSMTP\SiteHealth::BADGE_COLOR,
-			),
-			'description' => '',
-			'actions'     => sprintf(
-				'<p><a href="%s">%s</a></p>',
-				esc_url( wp_mail_smtp()->get_admin()->get_admin_page_url() ),
-				esc_html__( 'View license setting', 'wp-mail-smtp-pro' )
-			),
-			'test'        => 'wp_mail_smtp_pro_license_check',
-		);
+			$result['label']          = esc_html__( 'WP Mail SMTP Pro license is invalid', 'wp-mail-smtp-pro' );
+			$result['badge']['color'] = 'orange';
+			$result['status']         = 'recommended';
 		}
 
 		wp_send_json_success( $result );
@@ -185,7 +174,15 @@ class SiteHealth {
 		);
 
 		// Send dummy timestamp data to prevent issues with some cURL configurations which don't allow empty requests.
-		$response = wp_remote_post( self::CONNECTION_PING_URL, [ 'body' => [ 'timestamp' => time() ] ] );
+		$response = wp_remote_post(
+			self::CONNECTION_PING_URL,
+			[
+				'user-agent' => Helpers::get_default_user_agent(),
+				'body'       => [
+					'timestamp' => time(),
+				],
+			]
+		);
 
 		if ( wp_remote_retrieve_response_code( $response ) !== 200 ) {
 			$result['status']         = 'critical';

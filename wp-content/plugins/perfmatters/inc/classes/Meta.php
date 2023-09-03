@@ -37,6 +37,7 @@ class Meta
 			add_action('add_meta_boxes', array('Perfmatters\Meta', 'add_meta_boxes'), 1);
         	add_action('save_post', array('Perfmatters\Meta', 'save_meta'), 1, 2);
 		}
+		add_action('wp_ajax_purge_meta', array('Perfmatters\Meta', 'purge_meta_ajax'));
     }
 
     //add meta boxes
@@ -140,5 +141,46 @@ class Meta
 				'value'    => !empty(Config::$options['preload']['instant_page'])
 			)
 		);
+	}
+
+	//purge meta ajax action
+	public static function purge_meta_ajax() {
+
+		Ajax::security_check();
+
+		parse_str(stripslashes($_POST['form']), $form);
+		
+		//no meta options selected
+		if(empty($form['perfmatters_tools_temp']['purge_meta_options'])) {
+			wp_send_json_error(array(
+		    	'message' => __('No meta options selected.', 'perfmatters')
+			));
+		}
+
+		global $wpdb;
+
+		$purged = array();
+
+		//delete selected options from postmeta table
+		foreach($form['perfmatters_tools_temp']['purge_meta_options'] as $key => $meta_key) {
+
+			$result = $wpdb->delete($wpdb->prefix . 'postmeta', array('meta_key' => $meta_key));
+
+			if($result !== false) {
+				$purged[] = $meta_key;
+			}
+		}
+
+		//display message
+		if(!empty($purged)) {
+			wp_send_json_success(array(
+		    	'message' => __('Meta options purged.', 'perfmatters')
+			));
+		}
+		else {
+			wp_send_json_error(array(
+		    	'message' => __('Meta options not purged.', 'perfmatters')
+			));
+		}
 	}
 }

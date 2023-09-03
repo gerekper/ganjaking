@@ -3,7 +3,7 @@
 Plugin Name: Perfmatters
 Plugin URI: https://perfmatters.io/
 Description: Perfmatters is a lightweight performance plugin developed to speed up your WordPress site.
-Version: 2.1.3
+Version: 2.1.6
 Author: forgemedia
 Author URI: https://forgemedia.io/
 License: GPLv2 or later
@@ -18,7 +18,7 @@ Domain Path: /languages
 define('PERFMATTERS_STORE_URL', 'https://perfmatters.io/');
 define('PERFMATTERS_ITEM_ID', 696);
 define('PERFMATTERS_ITEM_NAME', 'perfmatters');
-define('PERFMATTERS_VERSION', '2.1.3');
+define('PERFMATTERS_VERSION', '2.1.6');
 
 function perfmatters_plugins_loaded() {
 
@@ -53,6 +53,9 @@ function perfmatters_plugins_loaded() {
 
 	//initialize db optimizer
 	new Perfmatters\DatabaseOptimizer();
+
+	//initialize ajax
+	new Perfmatters\Ajax();
 }
 add_action('plugins_loaded', 'perfmatters_plugins_loaded');
 
@@ -123,6 +126,13 @@ function perfmatters_admin_scripts() {
 
 		wp_register_script('perfmatters-js', plugins_url('/js/perfmatters.js', __FILE__), array(), PERFMATTERS_VERSION);
 		wp_enqueue_script('perfmatters-js');
+		wp_localize_script('perfmatters-js', 'PERFMATTERS', array(
+			'ajaxurl' => admin_url('admin-ajax.php'),
+			'nonce' => wp_create_nonce('perfmatters-nonce'),
+			'strings' => array(
+				'failed' => __('Action failed.', 'perfmatters')
+			)
+		));
 
 		if(empty($_GET['tab']) || $_GET['tab'] == 'options') {
 			$cm_settings['codeEditor'] = wp_enqueue_code_editor(array('type' => 'text/html'));

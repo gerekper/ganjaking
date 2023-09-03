@@ -361,12 +361,18 @@ class WooCommerce_Product_Search_Admin {
 			$content .= '<p>';
 			$content .= esc_html__( 'Several live filtering facilities help your visitors to find the desired products quickly.', 'woocommerce-product-search' );
 			$content .= ' ';
-			$content .= wp_kses(
-				sprintf(
-					__( 'For this purpose, several <a href="%s">Widgets</a> can be added to sidebars.', 'woocommerce-product-search' ),
-					esc_url( admin_url( 'widgets.php' ) )
+			$content .= sprintf(
+				/* translators: %s are automatically generated HTML elements which must be present */
+				esc_html__(
+					'Add live search and filters to your shop, using the %sblocks%s, %swidgets%s and %sshortcodes%s that come exclusively with the search engine.',
+					'woocommerce-product-search'
 				),
-				array( 'a' => array( 'href' => array() ) )
+				sprintf( '<a href="%s">', esc_url( 'https://woocommerce.com/document/woocommerce-product-search/blocks/' ) ),
+				'</a>',
+				sprintf( '<a href="%s">', esc_url( 'https://woocommerce.com/document/woocommerce-product-search/widgets/' ) ),
+				'</a>',
+				sprintf( '<a href="%s">', esc_url( 'https://woocommerce.com/document/woocommerce-product-search/shortcodes/' ) ),
+				'</a>'
 			);
 
 			if ( self::uses_classic_widgets() ) {
@@ -412,7 +418,7 @@ class WooCommerce_Product_Search_Admin {
 			$content .= '</ul>';
 
 			$content .= '<p>';
-			$content .= esc_html__( 'The advanced Product Search Field that can replace the standard search is also available as a widget:', 'woocommerce-product-search' );
+			$content .= esc_html__( 'The advanced product search field that can replace the standard search is also available as a block, widget and shortcode:', 'woocommerce-product-search' );
 			$content .= '</p>';
 			$content .= '<ul>';
 			$content .= '<li>';
@@ -421,7 +427,7 @@ class WooCommerce_Product_Search_Admin {
 			$content .= '</ul>';
 
 			$content .= '<p>';
-			$content .= esc_html__( 'The same features are also available through shortcodes and API functions.', 'woocommerce-product-search' );
+			$content .= esc_html__( 'For ease of integration, these features are available as blocks, widgets, shortcodes and API functions.', 'woocommerce-product-search' );
 			$content .= ' ';
 			$content .= wp_kses(
 				sprintf(

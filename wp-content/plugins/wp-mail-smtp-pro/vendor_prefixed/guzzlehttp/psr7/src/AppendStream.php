@@ -164,7 +164,7 @@ final class AppendStream implements \WPMailSMTP\Vendor\Psr\Http\Message\StreamIn
                 if ($this->current === $total) {
                     break;
                 }
-                $this->current++;
+                ++$this->current;
             }
             $result = $this->streams[$this->current]->read($remaining);
             if ($result === '') {
@@ -194,8 +194,6 @@ final class AppendStream implements \WPMailSMTP\Vendor\Psr\Http\Message\StreamIn
         throw new \RuntimeException('Cannot write to an AppendStream');
     }
     /**
-     * {@inheritdoc}
-     *
      * @return mixed
      */
     public function getMetadata($key = null)

@@ -349,7 +349,7 @@ class WooCommerce_Product_Search_Admin_Notice {
 				),
 				sprintf( '<a href="%s">', esc_url( 'https://woocommerce.com/document/woocommerce-product-search/blocks/' ) ),
 				'</a>',
-				sprintf( '<a href="%s">', esc_url( 'https://woocommerce.com/document/woocommerce-product-search/widgets/ ' ) ),
+				sprintf( '<a href="%s">', esc_url( 'https://woocommerce.com/document/woocommerce-product-search/widgets/' ) ),
 				'</a>',
 				sprintf( '<a href="%s">', esc_url( 'https://woocommerce.com/document/woocommerce-product-search/shortcodes/' ) ),
 				'</a>'
