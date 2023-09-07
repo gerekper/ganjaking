@@ -71,10 +71,7 @@ class WC_AM_Order_Admin {
 		if ( is_object( $order ) && $current_screen && $current_screen->id === $order_screen_id && WC_AM_ORDER_DATA_STORE()->has_api_product( $order->get_id() ) ) {
 			add_meta_box( 'wc_am_master_api_key', esc_html__( 'Master API Key', 'woocommerce-api-manager' ), array( $this, 'master_api_key_meta_box' ), $order_screen_id, 'normal', 'high' );
 			add_meta_box( 'wc_am_api_resource', esc_html__( 'API Resources', 'woocommerce-api-manager' ), array( $this, 'api_resource_meta_box' ), $order_screen_id, 'normal', 'high' );
-			add_meta_box( 'wc_am_api_resource_activations', esc_html__( 'API Resource Activations', 'woocommerce-api-manager' ), array(
-				$this,
-				'api_resource_activation_meta_box'
-			),            $order_screen_id, 'normal', 'high' );
+			add_meta_box( 'wc_am_api_resource_activations', esc_html__( 'API Resource Activations', 'woocommerce-api-manager' ), array( $this, 'api_resource_activation_meta_box' ), $order_screen_id, 'normal', 'high' );
 		}
 	}
 
@@ -115,7 +112,8 @@ class WC_AM_Order_Admin {
                     </div>
 					<?php
 				} else {
-					?><p style="padding:0 8px;"><?php esc_html_e( 'No API resources for this order.', 'woocommerce-api-manager' ) ?></p><?php
+					?>
+                    <p style="padding:0 8px;"><?php esc_html_e( 'No API resources for this order.', 'woocommerce-api-manager' ) ?></p><?php
 				}
 			}
 		}
@@ -189,10 +187,6 @@ class WC_AM_Order_Admin {
 
 								// Update Access Expires
 								if ( empty( $resource->sub_id ) && ! empty( $resource->access_expires ) ) {
-									?>
-                                    <input type="hidden" id="current_access_expires[<?php esc_attr_e( $i ); ?>]" name="current_access_expires[<?php esc_attr_e( $i ); ?>]"
-                                           value="<?php esc_attr_e( $resource->access_expires ) ?>">
-									<?php
 									ob_start();
 									?>
                                     /* Datepicker for Access Expires */
@@ -219,14 +213,11 @@ class WC_AM_Order_Admin {
 
                                     datetext = datetext + " " + h + ":" + m + ":" + s;
 
-                                    jQuery( '#wc_am_access_expires_api_resources_<?php esc_attr_e( $i ); ?>' ).val(datetext);
+                                    jQuery( 'input[name="access_expires_<?php esc_attr_e( $i ); ?>"]' ).val(datetext);
+                                    jQuery( 'input[name="new_access_expires_<?php esc_attr_e( $i ); ?>"]' ).val(datetext);
                                     }
                                     });
 									<?php
-									/*
-									 * minDate: '<?php echo WC_AM_FORMAT()->unix_timestamp_to_calendar_date_i18n( WC_AM_ORDER_DATA_STORE()->get_current_time_stamp() ) ?>',
-									 * }).datepicker( "setDate", '<?php echo WC_AM_FORMAT()->unix_timestamp_to_calendar_date_i18n( $resource->access_expires ); ?>');
-									 * */
 									$javascript = ob_get_clean();
 									WCAM()->wc_am_print_js( $javascript );
 								}
@@ -278,7 +269,8 @@ class WC_AM_Order_Admin {
 							printf( esc_html__( 'See Parent Order %s%s', 'woocommerce-api-manager' ), '<a href="' . esc_url( self_admin_url() . 'post.php?action=edit&post=' . $url_id ) . '">', ' #' . esc_attr( $url_id ) . '</a>' );
 						}
 					} else {
-						?><p style="padding:0 8px;"><?php esc_html_e( 'No API resources for this order.', 'woocommerce-api-manager' ) ?></p><?php
+						?>
+                        <p style="padding:0 8px;"><?php esc_html_e( 'No API resources for this order.', 'woocommerce-api-manager' ) ?></p><?php
 					}
 				}
 			}
@@ -412,9 +404,7 @@ class WC_AM_Order_Admin {
 			'user_id'       => $this_post[ 'user_id' ]
 		);
 
-		WC_AM_SMART_CACHE()->delete_cache( wc_clean( array(
-			                                             'admin_resources' => $admin_resources
-		                                             ) ), true );
+		WC_AM_SMART_CACHE()->delete_cache( wc_clean( array( 'admin_resources' => $admin_resources ) ), true );
 
 		WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( (int) $this_post[ 'order_id' ] );
 
@@ -476,19 +466,19 @@ class WC_AM_Order_Admin {
 					$wpdb->update( $wpdb->prefix . WC_AM_USER()->get_api_resource_table_name(), $data, $where, $data_format, $where_format );
 				}
 
-				/*
+				/**
 				 * Update access_expires
 				 *
-				 * @since 2.4
+				 * @since  2.4
 				 * @update 2.6.5 to calculate new access expires according to minutes and seconds that match order created time.
+				 * @update 3.1 Change key names for access_expires_before_change_ and new_access_expires_ to match new hidden inputs in form.
 				 */
-				if ( isset( $this_post[ 'access_expires' ] ) && isset( $this_post[ 'current_access_expires' ] ) && ! empty( $this_post[ 'current_access_expires' ][ $i ] ) ) {
-					$new_access_expires               = WC_AM_FORMAT()->date_to_unix_timestamp_with_timezone_offset( $this_post[ 'access_expires' ][ $i ] );
-					$current_access_expires_timestamp = $this_post[ 'current_access_expires' ][ $i ];
+				if ( ! empty( $this_post[ 'access_expires_before_change_' . $i ] ) && ! empty( $this_post[ 'new_access_expires_' . $i ] ) ) {
+					$new_access_expires               = WC_AM_FORMAT()->date_to_unix_timestamp_with_timezone_offset( $this_post[ 'new_access_expires_' . $i ] );
+					$current_access_expires_timestamp = WC_AM_FORMAT()->date_to_unix_timestamp_with_no_timezone_offset( $this_post[ 'access_expires_before_change_' . $i ] );
 					$order_created_time               = WC_AM_ORDER_DATA_STORE()->get_order_time_to_epoch_time_stamp( $post_id );
 
 					if ( $current_access_expires_timestamp != $order_created_time && $new_access_expires > $current_access_expires_timestamp ) {
-
 						$data = array(
 							'access_expires' => ( ( absint( $new_access_expires / DAY_IN_SECONDS ) - absint( $order_created_time / DAY_IN_SECONDS ) ) * DAY_IN_SECONDS ) + $order_created_time
 						);

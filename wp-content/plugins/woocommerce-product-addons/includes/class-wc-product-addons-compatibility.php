@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 3rd-party Extensions Compatibility.
  *
  * @class    WC_PAO_Compatibility
- * @version  6.4.0
+ * @version  6.4.6
  */
 class WC_PAO_Compatibility {
 
@@ -24,6 +24,13 @@ class WC_PAO_Compatibility {
 	 * @var array
 	 */
 	private $required = array();
+
+	/**
+	 * Modules to load.
+	 *
+	 * @var array
+	 */
+	private $modules = array();
 
 	/**
 	 * The single instance of the class.

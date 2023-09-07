@@ -32,7 +32,7 @@ class WC_AM_Format {
 		return self::$_instance;
 	}
 
-	private function __construct() { }
+	private function __construct() {}
 
 	/**
 	 * Display a human-readable time diff for a given timestamp, e.g. "In 12 hours" or "12 hours ago".
@@ -154,8 +154,7 @@ class WC_AM_Format {
 	 *
 	 * @since 2.0
 	 *
-	 * @param string $date        A date string formatted in MySQl or similar format that will map correctly when instantiating an instance of
-	 *                            DateTime().
+	 * @param string $date A date string formatted in MySQl or similar format that will map correctly when instantiating an instance of DateTime().
 	 *
 	 * @return int Unix timestamp representation of the timestamp passed in without any changes for timezones
 	 */
@@ -234,7 +233,7 @@ class WC_AM_Format {
 	/**
 	 * Take a date and convert it into an epoch/unix timestamp without the timezone offset.
 	 *
-	 * @since   2.5
+	 * @since 2.5
 	 *
 	 * @param string $datetime
 	 *
@@ -356,14 +355,15 @@ class WC_AM_Format {
 	/**
 	 * Return timestamp formatted with the localized date and time.
 	 *
-	 * @since 2.6.5
+	 * @since   2.6.5
+	 * @updated 3.1
 	 *
 	 * @param int $timestamp
 	 *
 	 * @return int
 	 */
 	public function localized_datetime_timestamp( $timestamp ) {
-		return $this->date_to_time( get_date_from_gmt( gmdate( $this->date_format() . ' ' . $this->time_format(), $timestamp ) ) );
+		return $timestamp + wc_timezone_offset();
 	}
 
 	/**

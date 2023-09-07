@@ -32,7 +32,7 @@ class WC_AM_URL {
 		return self::$_instance;
 	}
 
-	private function __construct() { }
+	private function __construct() {}
 
 	/**
 	 * @deprecated 2.1
@@ -246,18 +246,16 @@ class WC_AM_URL {
 	 * (the default behaviour) ampersands are also replaced. The 'clean_url' filter
 	 * is applied to the returned cleaned URL.
 	 *
-	 * @since 1.3.6
-	 *
-	 * @param string $url       The URL to be cleaned.
-	 * @param array  $protocols Optional. An array of acceptable protocols.
-	 *                          Defaults to 'http', 'https', 'ftp', 'ftps', 'mailto', 'news', 'irc', 'gopher', 'nntp', 'feed', 'telnet', 'mms',
-	 *                          'rtsp', 'svn' if not set.
-	 * @param string $_context  Private. Use esc_url_raw() for database usage.
-	 *
-	 * @return string The cleaned $url after the 'clean_url' filter is applied.
 	 * @uses  wp_kses_bad_protocol() To only permit protocols in the URL set
 	 *        via $protocols or the common ones set in the function.
 	 *
+	 * @since 1.3.6
+	 *
+	 * @param array  $protocols Optional. An array of acceptable protocols. Defaults to 'http', 'https', 'ftp', 'ftps', 'mailto', 'news', 'irc', 'gopher', 'nntp', 'feed', 'telnet', 'mms', 'rtsp', 'svn' if not set.
+	 * @param string $_context  Private. Use esc_url_raw() for database usage.
+	 * @param string $url       The URL to be cleaned.
+	 *
+	 * @return string The cleaned $url after the 'clean_url' filter is applied.
 	 */
 	public function esc_url_no_scheme( $url, $protocols = null, $_context = 'display' ) {
 		$original_url = $url;
@@ -308,14 +306,15 @@ class WC_AM_URL {
 	 * Performs esc_url_no_scheme() for database usage, but does not add an http:// prefix if it doesn't have one.
 	 * This is used for hosts that have security restrictions that block : or //.
 	 *
-	 * @since 1.3.6
-	 *
-	 * @param string $url       The URL to be cleaned.
-	 * @param array  $protocols An array of acceptable protocols.
-	 *
-	 * @return string The cleaned URL.
 	 * @uses  esc_url_no_scheme()
 	 *
+	 * @since 1.3.6
+	 *
+	 * @param array  $protocols An array of acceptable protocols.
+	 *
+	 * @param string $url       The URL to be cleaned.
+	 *
+	 * @return string The cleaned URL.
 	 */
 	public function esc_url_raw_no_scheme( $url, $protocols = null ) {
 		return $this->esc_url_no_scheme( $url, $protocols, 'db' );
@@ -422,8 +421,12 @@ class WC_AM_URL {
 	 *
 	 * @since 3.0
 	 *
-	 * @param string $api_resource_id
-	 * @param string $product_id
+	 * @param string $instance
+	 * @param int    $order_id
+	 * @param int    $sub_parent_id
+	 * @param string $api_key
+	 * @param int    $product_id
+	 * @param int    $user_id
 	 *
 	 * @return string
 	 */

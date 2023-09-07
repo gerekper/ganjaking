@@ -1,8 +1,14 @@
 *** WorldPay Changelog ***
+2023.07.27 - version 5.1.0
+ * WC HPOS Suport
+ * WC 7.9
+ * Remove some legacy code
+
 2023.02.16 - version 5.0.3
  * WC 7.4
  * Fix failure URL
  * Add folder with example resultY and resultC
+ * Check order status before updating
 
 2022.09.20 - version 5.0.2
  * Fix - undefined array for unsaved widget

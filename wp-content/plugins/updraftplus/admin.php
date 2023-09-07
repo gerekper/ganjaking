@@ -17,7 +17,7 @@ class UpdraftPlus_Admin {
 
 	private $auth_instance_ids = array('dropbox' => array(), 'pcloud' => array(), 'onedrive' => array(), 'googledrive' => array(), 'googlecloud' => array());
 
-	private $clone_php_versions = array('5.4', '5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2');
+	private $clone_php_versions = array('5.4', '5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2', '8.3');
 
 	private $storage_service_without_settings;
 
@@ -2736,7 +2736,7 @@ class UpdraftPlus_Admin {
 
 							fseek($rh, 0, SEEK_SET);
 							
-							while ($line = fread($rh, 262144)) {
+							while ($line = fread($rh, 524288)) {
 								fwrite($wh, $line);
 							}
 							fclose($rh);
@@ -2827,7 +2827,7 @@ class UpdraftPlus_Admin {
 					for ($i=0; $i<$_POST['chunks']; $i++) {
 						$rf = $updraft_dir.'/'.$final_file.'.'.$i.'.zip.tmp';
 						if ($rh = fopen($rf, 'rb')) {
-							while ($line = fread($rh, 32768)) {
+							while ($line = fread($rh, 524288)) {
 								fwrite($wh, $line);
 							}
 							fclose($rh);

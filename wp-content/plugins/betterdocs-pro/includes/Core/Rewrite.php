@@ -2,8 +2,10 @@
 
 namespace WPDeveloper\BetterDocsPro\Core;
 use WPDeveloper\BetterDocs\Core\Rewrite as FreeRewrite;
+use WPDeveloper\BetterDocsPro\Traits\MKB;
 
 class Rewrite extends FreeRewrite {
+    use MKB;
     public function init() {
         parent::init();
 
@@ -68,17 +70,11 @@ class Rewrite extends FreeRewrite {
             return $termlink;
         }
 
+        $_kb_terms = $this->kb_terms($term, $taxonomy);
         $_kb_slug = betterdocs_pro()->multiple_kb->get_kb_slug();
 
-        if ( empty( $_kb_slug ) ) {
-            $current_term = get_term_by( 'slug', $term->slug, $taxonomy, OBJECT );
-            $_term_attr   = get_term_meta( $current_term->term_id, 'doc_category_knowledge_base', true );
-
-            if ( empty( $_term_attr[0] ) ) {
-                $_kb_slug = 'non-knowledgebase';
-            } else {
-                $_kb_slug = $_term_attr[0];
-            }
+        if ( empty( $_kb_slug ) || ( is_array( $_kb_terms) && ! in_array( $_kb_slug, $_kb_terms )) ) {
+            $_kb_slug = $this->get_first_kb_slug( $term, $taxonomy );
         }
 
         return str_replace( '%knowledge_base%', $_kb_slug, $termlink );

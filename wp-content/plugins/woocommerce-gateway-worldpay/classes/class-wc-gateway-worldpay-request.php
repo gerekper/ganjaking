@@ -264,21 +264,6 @@ class WC_Gateway_WorldPay_Request extends WC_Gateway_Worldpay_Form {
 
 		$output_order_num = $order->get_order_number();
 
-		// Look for the Sequential Order Numbers Pro / Sequential Order Numbers order number and use it if it's there
-		if( !is_admin() ) {
-			include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-		}
-
-		// Sequential Order Numbers
-		if ( get_post_meta( $order_id,'_order_number',TRUE ) && class_exists( 'WC_Seq_Order_Number' ) ) :
-			$output_order_num = get_post_meta( $order_id,'_order_number',TRUE );
-		endif;
-
-		// Sequential Order Numbers Pro
-		if ( get_post_meta( $order_id,'_order_number_formatted',TRUE ) && class_exists( 'WC_Seq_Order_Number_Pro' ) ) :
-			$output_order_num = get_post_meta( $order_id,'_order_number_formatted',TRUE );
-		endif;
-
 		return $output_order_num;
 
 	}
@@ -306,158 +291,6 @@ class WC_Gateway_WorldPay_Request extends WC_Gateway_Worldpay_Form {
 	} // get_worldpay_order_amount
 
 	/**
-	 * Args for Subscriptions 1
-	 * @param  [type] $order [description]
-	 * @return [type]        [description]
-	 */
-	protected static function get_worldpay_subscription_args( $order ) {
-
-		$order_id   = $order->get_id();
-				
-		switch ( strtolower(WC_Subscriptions_Order::get_subscription_period( $order )) ) {
-				
-			case 'day' :
-				$subscription_period = '1';
-				break;
-					
-			case 'week' :
-				$subscription_period = '2';
-				break;
-					
-			case 'month' :
-				$subscription_period = '3';
-				break;
-				
-			case 'year' :
-				$subscription_period = '4';
-				break;
-				
-		}
-				
-		switch ( strtolower(WC_Subscriptions_Order::get_subscription_trial_period( $order )) ) {
-				
-			case 'day' :
-				$trial_period = '1';
-				break;
-					
-			case 'week' :
-				$trial_period = '2';
-				break;
-					
-			case 'month' :
-				$trial_period = '3';
-				break;
-				
-			case 'year' :
-				$trial_period = '4';
-				break;
-				
-		}
-
-
-		/**
-		 * If subscription is for one period (1 month, 1 day, 1 year etc) and there is no trial period then we don't need to set up Future Pay
-		 */
-		if( WC_Subscriptions_Order::get_subscription_trial_length( $order ) < '1' && WC_Subscriptions_Order::get_subscription_length( $order ) == '1' ) {
-
-		} else {
-
-			$worldpay_args['futurePayType'] = 'regular';
-			/**
-			 * If the subscription period is less than 2 weeks the option must be 0 which means no modifications
-			 */
-			if ( $subscription_period == '1' || ( $subscription_period == '2' && WC_Subscriptions_Order::get_subscription_interval( $order ) <= '2' ) ) {
-				$worldpay_args['option'] = 0;
-			} else {
-				$worldpay_args['option'] = 1;
-			}
-				
-			/**
-			 * Set start date if there is a trial period or use subscription period settings
-			 * 
-			 * Use strtotime because subscriptions passes an INT for the length and a word for period
-			 * doing it any other way means a messy calculation
-			 */
-			if ( WC_Subscriptions_Order::get_subscription_trial_length( $order ) >= 1 || ( class_exists( 'WC_Subscriptions_Synchroniser' ) && WC_Subscriptions_Synchroniser::order_contains_synced_subscription( $order_id ) ) ) {
-
-				if ( class_exists( 'WC_Subscriptions_Synchroniser' ) && WC_Subscriptions_Synchroniser::order_contains_synced_subscription( $order_id ) ) {
-					// Get product
-					$subscriptions_in_order      = WC_Subscriptions_Order::get_recurring_items( $order );
-					$subscription_item           = array_pop( $subscriptions_in_order );
-					$product_id                  = WC_Subscriptions_Order::get_items_product_id( $subscription_item );
-					// Get first payment date
-					$start_date = date( "Y-m-d", WC_Subscriptions_Synchroniser::get_first_payment_date( '', $order, $product_id, 'timestamp' ) );
-				} else {
-					$start_date = date("Y-m-d",strtotime("+" . WC_Subscriptions_Order::get_subscription_trial_length( $order ) . " " . WC_Subscriptions_Order::get_subscription_trial_period( $order )));
-				}
-
-				$worldpay_args['startDate'] = $start_date;
-
-			} else {
-
-				$worldpay_args['startDelayMult'] = WC_Subscriptions_Order::get_subscription_interval( $order );
-				$worldpay_args['startDelayUnit'] = $subscription_period;							
-
-			}
-				
-			/**
-			 * Set subscription length
-			 *
-			 * WorldPay does not count the intial payment in the noOfPayments setting
-			 *
-			 * Includes work around for 2 payment subscriptions with no free trial.
-			 */
-			if( (WC_Subscriptions_Order::get_subscription_trial_length( $order ) == '0' || WC_Subscriptions_Order::get_subscription_trial_length( $order ) == '') && WC_Subscriptions_Order::get_subscription_length( $order ) == 2 ) {
-
-				/**
-				 * Two payment subscriptions with no free trial
-				 * 
-				 * Set the start date to be tomorrow, no payment will be taken initially
-				 *
-				 * Why do it this way?
-				 * WorldPay takes 1 payment now so the number of payments in a subscription needs to be reduced by 1 BUT, 
-				 * for a 2 payment subscription that means 1 payment now and 1 payment in the future - WorldPay does not allow only 1 payment in the future, the minimum is 2
-				 * This work around means that the initial payment is take tomorrow at 3:00 AM, essentially forcing a free trial of 1 day.
-				 *
-				 * Further problems arise if the initial payment is not the same as the recurring payments.
-				 */
-						
-				if ( WC_Subscriptions_Order::get_recurring_total( $order ) == WC_Subscriptions_Order::get_total_initial_payment( $order ) ) {
-					$worldpay_args['amount'] = '0.00';
-					unset( $worldpay_args['startDelayMult'] );
-					unset( $worldpay_args['startDelayUnit'] );
-					$worldpay_args['startDate'] = date( "Y-m-d", strtotime(date( "Y-m-d" ) . ' + 1 day') );
-				} else {
-					$worldpay_args['amount'] = WC_Subscriptions_Order::get_total_initial_payment( $order ) - WC_Subscriptions_Order::get_recurring_total( $order );
-				}
-
-				$worldpay_args['noOfPayments'] = WC_Subscriptions_Order::get_subscription_length( $order );
-
-			} elseif( (WC_Subscriptions_Order::get_subscription_trial_length( $order ) == '0' || WC_Subscriptions_Order::get_subscription_trial_length( $order ) == '') && WC_Subscriptions_Order::get_subscription_length( $order ) > 2 ) {
-				// More that two payments, no free trial
-				$subs_length = WC_Subscriptions_Order::get_subscription_length( $order ) - 1;
-				$worldpay_args['noOfPayments'] = $subs_length;
-
-			} else {
-				$worldpay_args['noOfPayments'] = WC_Subscriptions_Order::get_subscription_length( $order );
-			}
-
-			if ( WC_Subscriptions_Order::get_subscription_length( $order ) == '1') {
-
-			} else {
-				$worldpay_args['intervalMult'] = WC_Subscriptions_Order::get_subscription_interval( $order );
-				$worldpay_args['intervalUnit'] = $subscription_period;	
-			}
-
-			$worldpay_args['normalAmount'] = WC_Subscriptions_Order::get_recurring_total( $order );
-
-		} // if( WC_Subscriptions_Order::get_subscription_trial_length( $order ) == '0' && WC_Subscriptions_Order::get_subscription_length( $order ) == '1' )
-
-		return $worldpay_args;
-
-	} // get_worldpay_subscription_args
-
-	/**
 	 * Args for Subscriptions 2.0
 	 * @param  [type] $order [description]
 	 * @return [type]        [description]
@@ -466,14 +299,24 @@ class WC_Gateway_WorldPay_Request extends WC_Gateway_Worldpay_Form {
 
 		$order_id   = $order->get_id();
 
-		$subscription 			= wcs_get_subscriptions_for_order( $order_id );
-		$subscription_id 		= key( $subscription );
+		$subscriptions 			= wcs_get_subscriptions_for_order( $order_id );
+		$subscription_id 		= key( $subscriptions );
 
+		$subscription 	 		= wcs_get_subscription( (int) $subscription_id );
+
+		/*
 		$_billing_period 		= strtolower( get_post_meta( $subscription_id, '_billing_period', TRUE ) );
 		$_trial_period 			= strtolower( get_post_meta( $subscription_id, '_trial_period', TRUE ) );
 		$_schedule_trial_end	= strtolower( get_post_meta( $subscription_id, '_schedule_trial_end', TRUE ) );
 		$_schedule_next_payment = strtolower( get_post_meta( $subscription_id, '_schedule_next_payment', TRUE ) );
 		$_schedule_end 			= strtolower( get_post_meta( $subscription_id, '_schedule_end', TRUE ) );
+		*/
+
+		$_billing_period 		= strtolower( $subscription->get_billing_period() );
+		$_trial_period 			= strtolower( $subscription->get_trial_period() );
+		$_schedule_trial_end 	= date( "Y-m-d", strtolower( $subscription->get_time( 'trial_end' ) ) );
+		$_schedule_next_payment = date( "Y-m-d", strtolower( $subscription->get_time( 'next_payment' ) ) );
+		$_schedule_end 			= date( "Y-m-d", strtolower( $subscription->get_time( 'end' ) ) );
 
 		switch ( $_billing_period ) {
 				
@@ -522,7 +365,7 @@ class WC_Gateway_WorldPay_Request extends WC_Gateway_Worldpay_Form {
 		 * Billing period "mult"
 		 * eg every 2 weeks, every 3 months
 		 */
-		$intervalMult = get_post_meta( $subscription_id,'_billing_interval', true );
+		$intervalMult = $subscription->get_billing_interval();
 
 		// Number of payments
 		$noOfPayments = self::get_subscription_number_of_payments( $_schedule_end, $_schedule_next_payment, $_billing_period, $intervalMult );
@@ -592,13 +435,13 @@ class WC_Gateway_WorldPay_Request extends WC_Gateway_Worldpay_Form {
 				 * Further problems arise if the initial payment is not the same as the recurring payments.
 				 */
 						
-				if ( get_post_meta( $subscription_id, '_order_total', TRUE ) == $order->order_total ) {
+				if ( $subscription->get_total() == $order->order_total ) {
 					$worldpay_args['amount'] = '0.00';
 					unset( $worldpay_args['startDelayMult'] );
 					unset( $worldpay_args['startDelayUnit'] );
 					$worldpay_args['startDate'] = date( "Y-m-d", strtotime(date( "Y-m-d" ) . ' + 1 day') );
 				} else {
-					$worldpay_args['amount'] = $order->order_total - get_post_meta( $subscription_id, '_order_total', TRUE );
+					$worldpay_args['amount'] = $order->order_total - $subscription->get_total();
 				}
 
 				// Increase the number of payments by 1 since we now have a 1 day free trial
@@ -613,7 +456,7 @@ class WC_Gateway_WorldPay_Request extends WC_Gateway_Worldpay_Form {
 				$worldpay_args['intervalUnit'] = $subscription_period;	
 			}
 
-			$worldpay_args['normalAmount'] = get_post_meta( $subscription_id, '_order_total', TRUE );
+			$worldpay_args['normalAmount'] = $subscription->get_total();
 
 /*
 			futurePayType
@@ -689,23 +532,6 @@ class WC_Gateway_WorldPay_Request extends WC_Gateway_Worldpay_Form {
 			return $datediff / $intervalMult;
 
      	}
-
-	}
-
-	/**
-	 * [get_subscription_product_meta description]
-	 * Pass the subscription ID and get the subscription product so that
-	 * product post meta can be retrieved eg _subscription_period_interval or _subscription_trial_length
-	 * 
-	 * @param  [type] $subscription_id [description]
-	 * @return [type]                  [description]
-	 */
-	protected static function get_subscription_product_meta( $subscription_id, $meta ) {
-
-		$subscription = wcs_get_subscription( $subscription_id );
-		foreach( $subscription->get_items() as $item ) {
-   			return get_post_meta( $item['product_id'],$meta, TRUE );
-		}
 
 	}
 	

@@ -67,6 +67,7 @@ class WC_AM_Order {
 		add_action( 'untrashed_post', array( $this, 'untrashed_order' ) );
 		add_action( 'edit_post', array( $this, 'edit_order' ), 10, 2 );
 		add_action( 'woocommerce_email_before_order_table', array( $this, 'email_api_keys' ), 10, 3 );
+		add_action( 'woocommerce_order_details_before_order_table', array( $this, 'order_details_before_order_table' ), 10, 1 );
 	}
 
 	/**
@@ -678,7 +679,7 @@ class WC_AM_Order {
 	 *
 	 * @since 2.0
 	 *
-	 * @param $order_id
+	 * @param int $order_id
 	 *
 	 * @throws \Exception
 	 */
@@ -1015,8 +1016,27 @@ class WC_AM_Order {
 				wc_get_template( $template, array(
 					'order'     => $order,
 					'resources' => $resources
-				),               '', WCAM()->plugin_path() . '/templates/' );
+				), '', WCAM()->plugin_path() . '/templates/' );
 			}
+		}
+	}
+
+	/**
+	 * Add API Resources to view order template.
+	 *
+	 * @since 3.1
+	 *
+	 * @param object $order
+	 */
+	public function order_details_before_order_table( $order ) {
+		$order     = WC_AM_ORDER_DATA_STORE()->get_order_object( $order );
+		$resources = WC_AM_ORDER_DATA_STORE()->get_api_resource_items_for_order( $order );
+
+		if ( ! empty( $resources ) && WC_AM_ORDER_DATA_STORE()->has_api_product( $order ) ) {
+			wc_get_template( 'myaccount/related-api-resources.php', array(
+				'order'     => $order,
+				'resources' => $resources
+			), '', WCAM()->plugin_path() . '/templates/' );
 		}
 	}
 
@@ -1040,11 +1060,11 @@ class WC_AM_Order {
 				 * @since 2.1.7
 				 */
 				WC_AM_SMART_CACHE()->delete_cache( array(
-					                                   'admin_resources' => array(
-						                                   'order_id' => $order_id,
-						                                   'user_id'  => $user_id
-					                                   )
-				                                   ) );
+					'admin_resources' => array(
+						'order_id' => $order_id,
+						'user_id'  => $user_id
+					)
+				) );
 			}
 		}
 	}

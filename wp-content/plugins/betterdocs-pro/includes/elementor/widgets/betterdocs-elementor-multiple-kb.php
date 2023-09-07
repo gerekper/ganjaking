@@ -56,7 +56,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
         return 'https://betterdocs.co/docs/multiple-knowledge-bases-elementor/';
     }
 
-    protected function register_controls()
+    protected function _register_controls()
     {
         /**
          * Query  Controls!
@@ -175,10 +175,10 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
         $this->add_control(
             'listview-show-description',
             [
-                'label'        => __('Show MKB Description', 'betterdocs-pro'),
+                'label'        => __('Show MKB Description', 'betterdocs'),
                 'type'         => Controls_Manager::SWITCHER,
-                'label_on'     => __('Show', 'betterdocs-pro'),
-                'label_off'    => __('Hide', 'betterdocs-pro'),
+                'label_on'     => __('Show', 'betterdocs'),
+                'label_off'    => __('Hide', 'betterdocs'),
                 'return_value' => 'true',
                 'default'      => 'true',
                 'condition' => [
@@ -206,7 +206,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
                 'label'     => __('Suffix', 'betterdocs-pro'),
                 'type'      => Controls_Manager::TEXT,
                 'dynamic'     => [ 'active' => true ],
-                'default'   => __('articles', 'betterdocs-pro'),
+                'default'   => __('docs', 'betterdocs-pro'),
                 'condition' => [
                     'show_count' => 'true',
                     'layout_template' => 'default'
@@ -220,7 +220,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
                 'label'     => __('Suffix Singular', 'betterdocs-pro'),
                 'type'      => Controls_Manager::TEXT,
                 'dynamic'     => [ 'active' => true ],
-                'default'   => __('article', 'betterdocs-pro'),
+                'default'   => __('doc', 'betterdocs-pro'),
                 'condition' => [
                     'show_count' => 'true',
                     'layout_template' => 'default'
@@ -1107,7 +1107,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
         
         }
         
-        $taxonomy_objects = get_terms( apply_filters( 'betterdocs_kb_terms_object' ,$terms_object ) );
+        $taxonomy_objects = get_terms($terms_object);
 
         $html  = '<div ' . $this->get_render_attribute_string('bd_category_box_wrapper') . '>';
         $html .= '<div ' . $this->get_render_attribute_string('bd_category_box_inner') . '>';
@@ -1133,7 +1133,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
                     $html .= ob_get_clean();
                 }
             } else {
-                _e('<p class="no-posts-found">No posts found!</p>', 'betterdocs-pro');
+                _e('<p class="no-posts-found">No docs found!</p>', 'betterdocs-pro');
             }
 
             wp_reset_postdata();
@@ -1156,7 +1156,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
          $this->start_controls_section(
              'listview_box_secion_mkb',
              [
-                 'label' => __('Box', 'betterdocs-pro'),
+                 'label' => __('Box', 'betterdocs'),
                  'tab'   => Controls_Manager::TAB_STYLE,
                  'condition' => [
                     'layout_template' => 'layout-3'
@@ -1171,14 +1171,14 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
          $this->start_controls_tab(
             'box_background_color_normal_mkb',
             [
-                'label' => esc_html__('Normal', 'betterdocs-pro')
+                'label' => esc_html__('Normal', 'betterdocs')
             ]
          );
  
          $this->add_responsive_control(
              'listview_wholebox_margin_normal_mkb',
              [
-                 'label'      => __('Box Margin', 'betterdocs-pro'),
+                 'label'      => __('Box Margin', 'betterdocs'),
                  'type'       => Controls_Manager::DIMENSIONS,
                  'size_units' => ['px', '%', 'em'],
                  'selectors'  => [
@@ -1190,7 +1190,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
          $this->add_responsive_control(
              'listview_wholebox_padding_normal_mkb',
              [
-                 'label'      => __('Box Padding', 'betterdocs-pro'),
+                 'label'      => __('Box Padding', 'betterdocs'),
                  'type'       => Controls_Manager::DIMENSIONS,
                  'size_units' => ['px', '%', 'em'],
                  'selectors'  => [
@@ -1202,7 +1202,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
          $this->add_control(
              'box_background_color_normal_heading_mkb',
              [
-                 'label'     => __('Background Color', 'betterdocs-pro'),
+                 'label'     => __('Background Color', 'betterdocs'),
                  'type'      => Controls_Manager::HEADING,
                  'separator' => 'before'
              ]
@@ -1220,7 +1220,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
          $this->add_control(
              'box_border_color_normal_heading_mkb',
              [
-                 'label'     => __('Box Border', 'betterdocs-pro'),
+                 'label'     => __('Box Border', 'betterdocs'),
                  'type'      => Controls_Manager::HEADING,
                  'separator' => 'before'
              ]
@@ -1230,7 +1230,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
              Group_Control_Border::get_type(),
              [
                  'name' => 'box_border_normal_mkb',
-                 'label' => __( 'Border', 'betterdocs-pro' ),
+                 'label' => __( 'Border', 'betterdocs' ),
                  'selector' => '{{WRAPPER}} .betterdocs-categories-wrap'
              ]
          );
@@ -1239,7 +1239,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
              Group_Control_Box_Shadow::get_type(),
              [
                  'name' => 'box_shadow_normal_mkb',
-                 'label' => __( 'Box Shadow', 'betterdocs-pro' ),
+                 'label' => __( 'Box Shadow', 'betterdocs' ),
                  'selector' => '{{WRAPPER}} .betterdocs-categories-wrap'
              ]
          );
@@ -1248,7 +1248,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
          $this->add_control(
              'inner_boxes_normal_heading_mkb',
              [
-                 'label'     => __('Category Box', 'betterdocs-pro'),
+                 'label'     => __('Category Box', 'betterdocs'),
                  'type'      => Controls_Manager::HEADING,
                  'separator' => 'before'
              ]
@@ -1257,7 +1257,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
          $this->add_responsive_control(
              'listview_inner_boxes_margin_normal_mkb',
              [
-                 'label'      => __('Box Margin', 'betterdocs-pro'),
+                 'label'      => __('Box Margin', 'betterdocs'),
                  'type'       => Controls_Manager::DIMENSIONS,
                  'size_units' => ['px', '%', 'em'],
                  'selectors'  => [
@@ -1269,7 +1269,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
          $this->add_responsive_control(
              'listview_inner_boxes_padding_normal_mkb',
              [
-                 'label'      => __('Box Padding', 'betterdocs-pro'),
+                 'label'      => __('Box Padding', 'betterdocs'),
                  'type'       => Controls_Manager::DIMENSIONS,
                  'size_units' => ['px', '%', 'em'],
                  'selectors'  => [
@@ -1282,7 +1282,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
              Group_Control_Border::get_type(),
              [
                  'name' => 'all_box_border_normal_mkb',
-                 'label' => __( 'All Boxes Border', 'betterdocs-pro' ),
+                 'label' => __( 'All Boxes Border', 'betterdocs' ),
                  'selector' => '{{WRAPPER}} .docs-single-cat-wrap'
              ]
          );
@@ -1290,7 +1290,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
         $this->add_control(
             'all_box_background_color_normal_mkb',
             [
-                'label'     => esc_html__('Color', 'betterdocs-pro'),
+                'label'     => esc_html__('Color', 'betterdocs'),
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .docs-single-cat-wrap' => 'background-color: {{VALUE}}',
@@ -1302,7 +1302,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
              Group_Control_Box_Shadow::get_type(),
              [
                  'name' => 'all_box_shadow_normal_mkb',
-                 'label' => __( 'Box Shadow', 'betterdocs-pro' ),
+                 'label' => __( 'Box Shadow', 'betterdocs' ),
                  'selector' => '{{WRAPPER}} .docs-single-cat-wrap'
              ]
          );
@@ -1314,14 +1314,14 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
          $this->start_controls_tab(
              'box_background_color_hover_mkb',
              [
-                  'label' => esc_html__('Hover', 'betterdocs-pro')
+                  'label' => esc_html__('Hover', 'betterdocs')
              ]
          );
  
          $this->add_responsive_control(
              'listview_wholebox_margin_hover_mkb',
              [
-                 'label'      => __('Box Margin', 'betterdocs-pro'),
+                 'label'      => __('Box Margin', 'betterdocs'),
                  'type'       => Controls_Manager::DIMENSIONS,
                  'size_units' => ['px', '%', 'em'],
                  'selectors'  => [
@@ -1333,7 +1333,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
          $this->add_responsive_control(
              'listview_wholebox_padding_hover_mkb',
              [
-                 'label'      => __('Box Padding', 'betterdocs-pro'),
+                 'label'      => __('Box Padding', 'betterdocs'),
                  'type'       => Controls_Manager::DIMENSIONS,
                  'size_units' => ['px', '%', 'em'],
                  'selectors'  => [
@@ -1345,7 +1345,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
          $this->add_control(
              'box_background_color_hover_heading_mkb',
              [
-                 'label'     => __('Background Color Hover', 'betterdocs-pro'),
+                 'label'     => __('Background Color Hover', 'betterdocs'),
                  'type'      => Controls_Manager::HEADING,
                  'separator' => 'before'
              ]
@@ -1363,7 +1363,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
          $this->add_control(
              'box_border_color_hover_heading_mkb',
              [
-                 'label'     => __('Box Border Hover', 'betterdocs-pro'),
+                 'label'     => __('Box Border Hover', 'betterdocs'),
                  'type'      => Controls_Manager::HEADING,
                  'separator' => 'before'
              ]
@@ -1373,7 +1373,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
              Group_Control_Border::get_type(),
              [
                  'name' => 'box_border_hover_mkb',
-                 'label' => __( 'Border', 'betterdocs-pro' ),
+                 'label' => __( 'Border', 'betterdocs' ),
                  'selector' => '{{WRAPPER}} .betterdocs-categories-wrap:hover'
              ]
          );
@@ -1382,14 +1382,14 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
              Group_Control_Box_Shadow::get_type(),
              [
                  'name' => 'box_shadow_hover_mkb',
-                 'label' => __( 'Box Shadow Hover', 'betterdocs-pro' ),
+                 'label' => __( 'Box Shadow Hover', 'betterdocs' ),
                  'selector' => '{{WRAPPER}} .betterdocs-categories-wrap:hover'
              ]
          );
          $this->add_control(
              'cat_boxes_hover_heading_mkb',
              [
-                 'label'     => __('Category Box Hover', 'betterdocs-pro'),
+                 'label'     => __('Category Box Hover', 'betterdocs'),
                  'type'      => Controls_Manager::HEADING,
                  'separator' => 'before'
              ]
@@ -1398,7 +1398,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
          $this->add_responsive_control(
              'listview_inner_boxes_margin_hover_mkb',
              [
-                 'label'      => __('Box Margin', 'betterdocs-pro'),
+                 'label'      => __('Box Margin', 'betterdocs'),
                  'type'       => Controls_Manager::DIMENSIONS,
                  'size_units' => ['px', '%', 'em'],
                  'selectors'  => [
@@ -1410,7 +1410,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
          $this->add_responsive_control(
              'listview_inner_boxes_padding_hover_mkb',
              [
-                 'label'      => __('Box Padding', 'betterdocs-pro'),
+                 'label'      => __('Box Padding', 'betterdocs'),
                  'type'       => Controls_Manager::DIMENSIONS,
                  'size_units' => ['px', '%', 'em'],
                  'selectors'  => [
@@ -1424,7 +1424,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
              Group_Control_Border::get_type(),
              [
                  'name' => 'all_box_border_hover_mkb',
-                 'label' => __( 'All Boxes Border', 'betterdocs-pro' ),
+                 'label' => __( 'All Boxes Border', 'betterdocs' ),
                  'selector' => '{{WRAPPER}} .docs-single-cat-wrap:hover'
              ]
          );
@@ -1442,7 +1442,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
              Group_Control_Box_Shadow::get_type(),
              [
                  'name' => 'all_box_shadow_hover_mkb',
-                 'label' => __( 'Box Shadow Hover', 'betterdocs-pro' ),
+                 'label' => __( 'Box Shadow Hover', 'betterdocs' ),
                  'selector' => '{{WRAPPER}} .docs-single-cat-wrap:hover'
              ]
          );
@@ -1463,7 +1463,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
          $this->start_controls_section(
              'cat_boxes_icon_style_mkb',
              [
-                 'label' => __('Icon', 'betterdocs-pro'),
+                 'label' => __('Icon', 'betterdocs'),
                  'tab'   => Controls_Manager::TAB_STYLE,
                  'condition' => [
                     'layout_template' => 'layout-3'
@@ -1474,7 +1474,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
          $this->add_responsive_control(
              'cat_boxes_icon_height_mkb',
              [
-                 'label'      => esc_html__('Height', 'betterdocs-pro'),
+                 'label'      => esc_html__('Height', 'betterdocs'),
                  'type'       => Controls_Manager::SLIDER,
                  'size_units' => ['px', '%', 'em'],
                  'range'      => [
@@ -1493,13 +1493,13 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
          /** Normal State Tab Start **/
          $this->start_controls_tab(
              'cat_boxes_icon_normal_mkb',
-             ['label' => esc_html__('Normal', 'betterdocs-pro')]
+             ['label' => esc_html__('Normal', 'betterdocs')]
          );
  
          $this->add_control(
              'cat_boxes_icon_bc_heading_mkb',
              [
-                 'label'     => __('Icon Background Color', 'betterdocs-pro'),
+                 'label'     => __('Icon Background Color', 'betterdocs'),
                  'type'      => Controls_Manager::HEADING,
                  'separator' => 'before'
              ]
@@ -1520,7 +1520,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
          $this->add_control(
              'cat_boxes_icon_border_heading_mkb',
              [
-                 'label'     => __('Icon Border', 'betterdocs-pro'),
+                 'label'     => __('Icon Border', 'betterdocs'),
                  'type'      => Controls_Manager::HEADING,
                  'separator' => 'before'
              ]
@@ -1530,7 +1530,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
              Group_Control_Border::get_type(),
              [
                  'name' => 'cat_boxes_icon_border_mkb',
-                 'label' => __( 'Border', 'betterdocs-pro' ),
+                 'label' => __( 'Border', 'betterdocs' ),
                  'selector' => '{{WRAPPER}} .docs-single-cat-wrap img'
              ]
          );
@@ -1538,7 +1538,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
          $this->add_responsive_control(
              'icon_border_radius_normal_layout_3_mkb',
              [
-                 'label'      => esc_html__('Icon Border Radius', 'betterdocs-pro'),
+                 'label'      => esc_html__('Icon Border Radius', 'betterdocs'),
                  'type'       => Controls_Manager::DIMENSIONS,
                  'size_units' => ['px', 'em', '%'],
                  'selectors'  => [
@@ -1554,14 +1554,14 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
          $this->start_controls_tab(
              'cat_boxes_icon_hover_mkb',
              [
-                'label' => esc_html__('Hover', 'betterdocs-pro')
+                'label' => esc_html__('Hover', 'betterdocs')
              ]
          );
  
          $this->add_control(
              'cat_boxes_icon_bc_hover_heading_mkb',
              [
-                 'label'     => __('Icon Background Hover Color', 'betterdocs-pro'),
+                 'label'     => __('Icon Background Hover Color', 'betterdocs'),
                  'type'      => Controls_Manager::HEADING,
                  'separator' => 'before'
              ]
@@ -1582,7 +1582,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
          $this->add_control(
              'cat_boxes_icon_border_heading_hover_mkb',
              [
-                 'label'     => __('Icon Border Hover', 'betterdocs-pro'),
+                 'label'     => __('Icon Border Hover', 'betterdocs'),
                  'type'      => Controls_Manager::HEADING,
                  'separator' => 'before'
              ]
@@ -1592,7 +1592,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
              Group_Control_Border::get_type(),
              [
                  'name' => 'cat_boxes_icon_border_hover_mkb',
-                 'label' => __( 'Border', 'betterdocs-pro' ),
+                 'label' => __( 'Border', 'betterdocs' ),
                  'selector' => '{{WRAPPER}} .docs-single-cat-wrap img:hover'
              ]
          );
@@ -1601,7 +1601,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
          $this->add_responsive_control(
              'cat_boxes_icon_border_radius_hover_mkb',
              [
-                 'label'      => esc_html__('Icon Border Radius', 'betterdocs-pro'),
+                 'label'      => esc_html__('Icon Border Radius', 'betterdocs'),
                  'type'       => Controls_Manager::DIMENSIONS,
                  'size_units' => ['px', 'em', '%'],
                  'selectors'  => [
@@ -1625,7 +1625,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
         $this->start_controls_section(
             'cat_boxes_title_style_mkb',
             [
-                'label' => __('Title', 'betterdocs-pro'),
+                'label' => __('Title', 'betterdocs'),
                 'tab'   => Controls_Manager::TAB_STYLE,
                 'condition' => [
                 'layout_template' => 'layout-3'
@@ -1639,14 +1639,14 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
         $this->start_controls_tab(
             'cat_boxes_title_icon_normal_mkb',
             [
-                'label' => esc_html__('Normal', 'betterdocs-pro')
+                'label' => esc_html__('Normal', 'betterdocs')
             ]
         );
 
         $this->add_control(
             'cat_boxes_title_color_mkb',
             [
-                'label'     => esc_html__('Title Color', 'betterdocs-pro'),
+                'label'     => esc_html__('Title Color', 'betterdocs'),
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .title-count .docs-cat-title' => 'color: {{VALUE}};',
@@ -1665,7 +1665,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
         $this->add_responsive_control(
             'cat_boxes_title_spacing_normal_mkb',
             [
-                'label'      => __('Title Spacing', 'betterdocs-pro'),
+                'label'      => __('Title Spacing', 'betterdocs'),
                 'type'       => Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', '%', 'em'],
                 'selectors'  => [
@@ -1681,14 +1681,14 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
         $this->start_controls_tab(
             'cat_boxes_title_icon_hover_mkb',
             [
-                'label' => esc_html__('Hover', 'betterdocs-pro')
+                'label' => esc_html__('Hover', 'betterdocs')
             ]
         );
 
         $this->add_control(
             'cat_boxes_title_color_hover_mkb',
             [
-                'label'     => esc_html__('Title Hover Color', 'betterdocs-pro'),
+                'label'     => esc_html__('Title Hover Color', 'betterdocs'),
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .title-count .docs-cat-title:hover' => 'color: {{VALUE}};',
@@ -1707,7 +1707,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
         $this->add_responsive_control(
             'cat_boxes_title_spacing_hover_mkb',
             [
-                'label'      => __('Title Spacing Hover', 'betterdocs-pro'),
+                'label'      => __('Title Spacing Hover', 'betterdocs'),
                 'type'       => Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', '%', 'em'],
                 'selectors'  => [
@@ -1727,13 +1727,13 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
     public function category_article_count(){
        /**
         * ----------------------------------------------------------
-        * Section: Category Articles Styles
+        * Section: Category Docs Styles
         * ----------------------------------------------------------
         */
         $this->start_controls_section(
             'cat_boxes_articles_style_mkb',
             [
-                'label' => __('Article', 'betterdocs-pro'),
+                'label' => __('Doc', 'betterdocs'),
                 'tab'   => Controls_Manager::TAB_STYLE,
                 'condition' => [
                 'layout_template' => 'layout-3'
@@ -1747,14 +1747,14 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
         $this->start_controls_tab(
             'cat_articles_normal_mkb',
             [
-                'label' => esc_html__('Normal', 'betterdocs-pro')
+                'label' => esc_html__('Normal', 'betterdocs')
             ]
         );
 
         $this->add_control(
             'cat_boxes_articles_color_mkb',
             [
-                'label'     => esc_html__('Article Color', 'betterdocs-pro'),
+                'label'     => esc_html__('Doc Color', 'betterdocs'),
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .betterdocs-categories-wrap .title-count span' => 'color: {{VALUE}};',
@@ -1773,7 +1773,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
         $this->add_control(
             'cat_boxex_articles_show_desc_color_normal_mkb',
             [
-                'label'     => esc_html__('Description Color', 'betterdocs-pro'),
+                'label'     => esc_html__('Description Color', 'betterdocs'),
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .betterdocs-categories-wrap .title-count .cat-description' => 'color: {{VALUE}};',
@@ -1796,14 +1796,14 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
         $this->start_controls_tab(
             'cat_articles_hover_mkb',
             [
-            'label' => esc_html__('Hover', 'betterdocs-pro')
+            'label' => esc_html__('Hover', 'betterdocs')
             ]
         );
 
         $this->add_control(
             'cat_boxes_articles_color_hover_mkb',
             [
-                'label'     => esc_html__('Article Color', 'betterdocs-pro'),
+                'label'     => esc_html__('Doc Color', 'betterdocs'),
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .betterdocs-categories-wrap .title-count span:hover' => 'color: {{VALUE}};',
@@ -1823,7 +1823,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
         $this->add_control(
             'cat_boxex_articles_show_desc_color_hover_mkb',
             [
-                'label'     => esc_html__('Description Color', 'betterdocs-pro'),
+                'label'     => esc_html__('Description Color', 'betterdocs'),
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .betterdocs-categories-wrap .title-count .cat-description:hover' => 'color: {{VALUE}};',

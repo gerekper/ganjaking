@@ -125,7 +125,7 @@ abstract class WPML_Translation_Roles_Records {
 		}
 
 		$preparedUserQuery = $this->wpdb->prepare(
-			"SELECT u.id FROM {$this->wpdb->prefix}users u INNER JOIN {$this->wpdb->prefix}usermeta c ON c.user_id=u.ID AND CAST(c.meta_key AS BINARY)=%s AND c.meta_value {$compare} %s",
+			"SELECT u.id FROM {$this->wpdb->users} u INNER JOIN {$this->wpdb->usermeta} c ON c.user_id=u.ID AND CAST(c.meta_key AS BINARY)=%s AND c.meta_value {$compare} %s",
 			"{$this->wpdb->prefix}capabilities",
 			"%" . $this->get_capability() . "%"
 		);

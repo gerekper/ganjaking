@@ -1413,12 +1413,9 @@ Check your permissions and credentials.','updraftplus'), 'error');
 			return;
 		}
 
+		if (!empty($posted_settings['signature_version'])) $config['signature_version'] = $posted_settings['signature_version'];
+
 		if (!empty($posted_settings['bucket_access_style']) && 'virtual_host_style' === $posted_settings['bucket_access_style']) {
-			// due to the merge of S3-generic bucket access style MR on March 2021, if virtual-host bucket access style is selected, connecting to an amazonaws bucket location where the user doesn't have an access to it will throw an S3 InvalidRequest exception. It requires the signature to be set to version 4
-			if (!is_a($storage, 'UpdraftPlus_S3_Compat') && preg_match('/\.amazonaws\.com$/i', $endpoint)) {
-				$this->use_v4 = true;
-				$storage->setSignatureVersion('v4');
-			}
 			$storage->useDNSBucketName(true, $bucket);
 		} else {
 			$storage->useDNSBucketName(false, $bucket);

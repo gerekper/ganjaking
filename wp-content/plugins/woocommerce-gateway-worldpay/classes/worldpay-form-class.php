@@ -4,6 +4,9 @@
 		exit; // Exit if accessed directly
 	}
 
+	// HPOS
+	use Automattic\WooCommerce\Utilities\OrderUtil;
+
     /**
      * WC_Gateway_WorldPay_Form class.
      *
@@ -447,7 +450,8 @@
 
 				$worldpay_order 		= absint( intval( $_GET["order"] ) );
 
-				$worldpaycrypt_b64		= get_post_meta( $worldpay_order, '_worldpay_crypt', TRUE );
+				// $worldpaycrypt_b64		= get_post_meta( $worldpay_order, '_worldpay_crypt', TRUE );
+				$worldpaycrypt_b64 		= $worldpay_order->get_meta_data( '_worldpay_crypt' );
 				$worldpaycrypt_b64 		= base64_decode( $worldpaycrypt_b64 );
 				$worldpaycrypt_b64 		= $this->worldpaysimpleXor( $worldpaycrypt_b64, $this->callbackPW );
 				$worldpay_return_values = $this->getTokens( $worldpaycrypt_b64 );
@@ -500,32 +504,36 @@
 			
 			$order 	 = new WC_Order( (int) $worldpay_return_values['order'] );
 
-			$this->update_order_notes( $order, $worldpay_return_values );
+			if( $order->needs_payment() ) {
 
-			/**
-			 * Check MC_transactionNumber
-			 * if this is 1 then this is either the first transaction for a subscription
-			 * or the only transction for a none subscription order
-			 */
-			if ( $worldpay_return_values['MC_transactionNumber'] == '1' ) {
-			
-				// Normal transaction at the front end
-	        	$order->payment_complete( $worldpay_return_values['transId'] );
-	        	// Clear the cart, just in case
-	        	WC()->cart->empty_cart();
+				$this->update_order_notes( $order, $worldpay_return_values );
 
-	        	$url = $this->get_return_url( $order, $worldpay_return_values );
-
-	        	if( $this->addgautm	&& $this->addgautm == 'yes'	) {
-					$url = add_query_arg( array(
-			                        'utm_nooverride' => 1
-			                    ), $url );
-				}
-
-				wp_redirect( $url );
-				exit;
+				/**
+				 * Check MC_transactionNumber
+				 * if this is 1 then this is either the first transaction for a subscription
+				 * or the only transction for a none subscription order
+				 */
+				if ( $worldpay_return_values['MC_transactionNumber'] == '1' ) {
 				
+					// Normal transaction at the front end
+		        	$order->payment_complete( $worldpay_return_values['transId'] );
+		        	// Clear the cart, just in case
+		        	WC()->cart->empty_cart();
+		        }
+
 			}
+
+        	$url = $this->get_return_url( $order, $worldpay_return_values );
+
+        	if( $this->addgautm	&& $this->addgautm == 'yes'	) {
+				$url = add_query_arg( array(
+		                        'utm_nooverride' => 1
+		                    ), $url );
+			}
+
+			wp_redirect( $url );
+			exit;
+				
 
 		} // END successful_request
 
@@ -541,21 +549,25 @@
 			
 			$order 	 = new WC_Order( (int) $worldpay_return_values['MC_order'] );
 
-			$this->update_order_notes( $order, $worldpay_return_values );
+			if( $order->needs_payment() ) {
 
-			/**
-			 * Check MC_transactionNumber
-			 * if this is 1 then this is either the first transaction for a subscription
-			 * or the only transction for a none subscription order
-			 */
-			if ( $worldpay_return_values['MC_transactionNumber'] == '1' ) {
+				$this->update_order_notes( $order, $worldpay_return_values );
 
-				// Normal transaction at the front end
-	        	$order->payment_complete( $worldpay_return_values['transId'] );
-	        	// Clear the cart, just in case
-	        	WC()->cart->empty_cart();
-	        	exit;
-				
+				/**
+				 * Check MC_transactionNumber
+				 * if this is 1 then this is either the first transaction for a subscription
+				 * or the only transction for a none subscription order
+				 */
+				if ( $worldpay_return_values['MC_transactionNumber'] == '1' ) {
+
+					// Normal transaction at the front end
+		        	$order->payment_complete( $worldpay_return_values['transId'] );
+		        	// Clear the cart, just in case
+		        	WC()->cart->empty_cart();
+		        	exit;
+					
+				}
+
 			}
 
 		} // END successful_wpform_request
@@ -580,7 +592,8 @@
 				$orderNotes .=	'<br />FuturePayID : ' 	. $worldpay_return_values['futurePayId'];
 				$orderNotes .=	'<br /><!-- FUTURE PAY-->';
 				
-				update_post_meta( $order_id, '_futurepayid', $worldpay_return_values['futurePayId'] );
+				// update_post_meta( $order_id, '_futurepayid', $worldpay_return_values['futurePayId'] );
+				$this->update_order_meta_data ( '_futurepayid', $worldpay_return_values['futurePayId'], $order, $order_id );
 
 			}
 
@@ -620,7 +633,9 @@
 
    			// Add the full return to the order meta, just in case
    			if( isset( $worldpay_response["MC_order"] ) ) {
-				update_post_meta( $worldpay_response["MC_order"], '_worldpay_response', $worldpay_response );
+				// update_post_meta( $worldpay_response["MC_order"], '_worldpay_response', $worldpay_response );
+				$reponse_order 	 = new WC_Order( (int) $worldpay_response["MC_order"] );
+				$this->update_order_meta_data ( '_worldpay_response', $worldpay_response, $reponse_order, $worldpay_response["MC_order"] );
 			}
 
 			$order 				  = '';
@@ -721,8 +736,10 @@
 							$renewal_order->add_order_note( __( 'WorldPay subscription payment completed.', 'woocommerce_worlday' ) );
 
 							// Set WorldPay as the payment method (we can't use $renewal_order->set_payment_method() here as it requires an object we don't have)
-							update_post_meta( $renewal_order->get_id(), '_payment_method', $this->id );
-							update_post_meta( $renewal_order->get_id(), '_payment_method_title', $this->method_title );
+							// update_post_meta( $renewal_order->get_id(), '_payment_method', $this->id );
+							// update_post_meta( $renewal_order->get_id(), '_payment_method_title', $this->method_title );
+							$this->update_order_meta_data ( '_payment_method', $this->id, $renewal_order, $renewal_order->get_id() );
+							$this->update_order_meta_data ( '_payment_method_title', $this->method_title, $renewal_order, $renewal_order->get_id() );
 
 						}
 
@@ -737,7 +754,8 @@
 							$orderNotes .=	'<br />FuturePayID : ' 	. $futurePayId;
 							$orderNotes .=	'<br /><!-- FUTURE PAY-->';
 
-							update_post_meta( $order_id, '_futurepayid', $futurePayId );
+							// update_post_meta( $order_id, '_futurepayid', $futurePayId );
+							$this->update_order_meta_data ( '_futurepayid', $futurePayId, $order, $order_id );
 						}
 
 						$orderNotes .=	'<br />transId : ' 			. $transId;
@@ -888,7 +906,8 @@
 				$parent_order      	= $subscription->get_parent();
 	            $parent_order_id   	= $parent_order->get_id();
 
-				$futurepayid 		= get_post_meta( $parent_order_id, '_futurepayid', TRUE );
+				// $futurepayid 		= get_post_meta( $parent_order_id, '_futurepayid', TRUE );
+				$futurepayid 		= $parent_order->get_meta_data( '_futurepayid' );
 
 				$response 			= $this->change_subscription_status( $futurepayid, 'Cancel' );
 
@@ -1080,7 +1099,8 @@
 		function get_transaction_id( $order ) {
 
 			$order_id 		= $order->get_id();
-			$transaction 	= get_post_meta( $order_id, '_worldpay_response', TRUE );
+			// $transaction 	= get_post_meta( $order_id, '_worldpay_response', TRUE );
+			$transaction 	= $order->get_meta_data( '_worldpay_response' );
 
 			if( isset( $transaction['transId'] ) ) {
 				return $transaction['transId'];
@@ -1133,6 +1153,17 @@
 			$md5 = $md5 . 'X$';
 
 			return $md5;
+
+		}
+
+		private function update_order_meta_data ( $key, $value, $order, $order_id ) {
+
+			if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
+				$order->update_meta_data( $key, $value );
+				$order->save();
+			} else {
+				update_post_meta( $order_id, $key, $value );
+			}
 
 		}
 

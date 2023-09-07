@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Team Updraft <mail@example.com>\n"
 "Last-Translator: Team Updraft <mail@example.com>\n"
-"POT-Creation-Date: 2023-08-11 11:46+0000\n"
+"POT-Creation-Date: 2023-09-04 13:25+0000\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/updraftplus\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
@@ -506,7 +506,7 @@ msgstr ""
 msgid "Please fill in the required information."
 msgstr ""
 
-#: src/admin.php:982, src/addons/azure.php:708, src/addons/backblaze.php:734, src/addons/sftp.php:633, src/addons/webdav.php:440, src/methods/backup-module.php:401, src/methods/cloudfiles-new.php:299, src/methods/dreamobjects.php:194, src/methods/ftp.php:130, src/methods/openstack2.php:258, src/methods/s3.php:1090, src/methods/s3generic.php:184
+#: src/admin.php:982, src/addons/azure.php:708, src/addons/backblaze.php:734, src/addons/sftp.php:633, src/addons/webdav.php:440, src/methods/backup-module.php:401, src/methods/cloudfiles-new.php:299, src/methods/dreamobjects.php:194, src/methods/ftp.php:130, src/methods/openstack2.php:258, src/methods/s3.php:1090, src/methods/s3generic.php:211
 msgid "Test %s Settings"
 msgstr ""
 
@@ -1022,7 +1022,7 @@ msgstr ""
 msgid "To change any of the default settings of what is backed up, to configure scheduled backups, to send your backups to remote storage (recommended), and more, go to the settings tab."
 msgstr ""
 
-#: src/admin.php:1341, src/admin.php:1346, src/admin.php:1352, src/admin.php:1356, src/admin.php:1360, src/admin.php:1364, src/admin.php:1382, src/admin.php:1395, src/admin.php:4363, src/admin.php:4361, src/admin.php:4354, src/admin.php:6018, src/admin.php:6298, src/addons/azure.php:689, src/includes/migrator-lite.php:556, src/methods/cloudfiles-new.php:281, src/methods/cloudfiles-new.php:282, src/methods/cloudfiles.php:455, src/methods/dreamobjects.php:181, src/methods/dreamobjects.php:182, src/methods/ftp.php:116, src/methods/openstack-base.php:577, src/methods/openstack2.php:242, src/methods/s3.php:926, src/methods/s3.php:930, src/methods/s3.php:1080, src/methods/s3.php:1081, src/methods/s3generic.php:168, src/methods/s3generic.php:169, src/methods/updraftvault.php:476, src/udaddons/updraftplus-addons.php:312, src/templates/wp-admin/settings/downloading-and-restoring.php:27, src/templates/wp-admin/settings/tab-backups.php:27
+#: src/admin.php:1341, src/admin.php:1346, src/admin.php:1352, src/admin.php:1356, src/admin.php:1360, src/admin.php:1364, src/admin.php:1382, src/admin.php:1395, src/admin.php:4363, src/admin.php:4361, src/admin.php:4354, src/admin.php:6018, src/admin.php:6298, src/addons/azure.php:689, src/includes/migrator-lite.php:556, src/methods/cloudfiles-new.php:281, src/methods/cloudfiles-new.php:282, src/methods/cloudfiles.php:455, src/methods/dreamobjects.php:181, src/methods/dreamobjects.php:182, src/methods/ftp.php:116, src/methods/openstack-base.php:577, src/methods/openstack2.php:242, src/methods/s3.php:926, src/methods/s3.php:930, src/methods/s3.php:1080, src/methods/s3.php:1081, src/methods/s3generic.php:189, src/methods/s3generic.php:190, src/methods/updraftvault.php:476, src/udaddons/updraftplus-addons.php:312, src/templates/wp-admin/settings/downloading-and-restoring.php:27, src/templates/wp-admin/settings/tab-backups.php:27
 msgid "Warning"
 msgstr ""
 
@@ -1663,7 +1663,7 @@ msgstr ""
 msgid "We cannot access %s without this support."
 msgstr ""
 
-#: src/admin.php:4363, src/methods/cloudfiles-new.php:281, src/methods/cloudfiles-new.php:282, src/methods/cloudfiles.php:455, src/methods/dreamobjects.php:181, src/methods/openstack-base.php:577, src/methods/openstack2.php:242, src/methods/s3.php:930, src/methods/s3.php:1081, src/methods/s3generic.php:169
+#: src/admin.php:4363, src/methods/cloudfiles-new.php:281, src/methods/cloudfiles-new.php:282, src/methods/cloudfiles.php:455, src/methods/dreamobjects.php:181, src/methods/openstack-base.php:577, src/methods/openstack2.php:242, src/methods/s3.php:930, src/methods/s3.php:1081, src/methods/s3generic.php:190
 msgid "Please contact your web hosting provider's support."
 msgstr ""
 
@@ -1671,7 +1671,7 @@ msgstr ""
 msgid "%s <strong>requires</strong> Curl+https."
 msgstr ""
 
-#: src/admin.php:4363, src/methods/cloudfiles-new.php:281, src/methods/cloudfiles-new.php:282, src/methods/cloudfiles.php:455, src/methods/dreamobjects.php:181, src/methods/openstack-base.php:577, src/methods/openstack2.php:242, src/methods/s3.php:930, src/methods/s3.php:1081, src/methods/s3generic.php:169
+#: src/admin.php:4363, src/methods/cloudfiles-new.php:281, src/methods/cloudfiles-new.php:282, src/methods/cloudfiles.php:455, src/methods/dreamobjects.php:181, src/methods/openstack-base.php:577, src/methods/openstack2.php:242, src/methods/s3.php:930, src/methods/s3.php:1081, src/methods/s3generic.php:190
 msgid "Please do not file any support requests; there is no alternative."
 msgstr ""
 
@@ -1687,7 +1687,7 @@ msgstr ""
 msgid "Your web server's PHP installation does not included a <strong>required</strong> (for %s) module (%s)."
 msgstr ""
 
-#: src/admin.php:4354, src/addons/azure.php:689, src/methods/dreamobjects.php:182, src/methods/s3.php:926, src/methods/s3.php:1080, src/methods/s3generic.php:168, src/methods/updraftvault.php:476
+#: src/admin.php:4354, src/addons/azure.php:689, src/methods/dreamobjects.php:182, src/methods/s3.php:926, src/methods/s3.php:1080, src/methods/s3generic.php:189, src/methods/updraftvault.php:476
 msgid "Please contact your web hosting provider's support and ask for them to enable it."
 msgstr ""
 
@@ -2189,7 +2189,7 @@ msgstr ""
 msgid "The given file was not found, or could not be read."
 msgstr ""
 
-#: src/class-updraftplus.php:601, src/addons/onedrive.php:898, src/addons/pcloud.php:705, src/methods/dropbox.php:816, src/methods/dropbox.php:873, src/methods/dropbox.php:887, src/methods/dropbox.php:907, src/methods/dropbox.php:1073
+#: src/class-updraftplus.php:601, src/addons/onedrive.php:888, src/addons/pcloud.php:705, src/methods/dropbox.php:816, src/methods/dropbox.php:873, src/methods/dropbox.php:887, src/methods/dropbox.php:907, src/methods/dropbox.php:1073
 msgid "%s error: %s"
 msgstr ""
 
@@ -2857,7 +2857,7 @@ msgstr ""
 msgid "UpdraftPlus needed to create a %s in your content directory, but failed - please check your file permissions and enable the access (%s)"
 msgstr ""
 
-#: src/restorer.php:1557, src/addons/onedrive.php:1295
+#: src/restorer.php:1557, src/addons/onedrive.php:1285
 msgid "folder"
 msgstr ""
 
@@ -3212,7 +3212,7 @@ msgstr ""
 msgid "Upload failed"
 msgstr ""
 
-#: src/addons/azure.php:477, src/addons/backblaze.php:571, src/addons/googlecloud.php:1024, src/methods/s3.php:1470
+#: src/addons/azure.php:477, src/addons/backblaze.php:571, src/addons/googlecloud.php:1024, src/methods/s3.php:1467
 msgid "Delete failed:"
 msgstr ""
 
@@ -3224,7 +3224,7 @@ msgstr ""
 msgid "Create Azure credentials in your Azure developer console."
 msgstr ""
 
-#: src/addons/azure.php:691, src/addons/onedrive.php:1288, src/methods/dreamobjects.php:187
+#: src/addons/azure.php:691, src/addons/onedrive.php:1278, src/methods/dreamobjects.php:187
 msgid "For more detailed instructions, follow this link."
 msgstr ""
 
@@ -3268,7 +3268,7 @@ msgstr ""
 msgid "You can enter the path of any %s virtual folder you wish to use here."
 msgstr ""
 
-#: src/addons/azure.php:700, src/addons/google-enhanced.php:95, src/addons/google-enhanced.php:113, src/addons/onedrive.php:1296
+#: src/addons/azure.php:700, src/addons/google-enhanced.php:95, src/addons/google-enhanced.php:113, src/addons/onedrive.php:1286
 msgid "If you leave it blank, then the backup will be placed in the root of your %s"
 msgstr ""
 
@@ -3308,7 +3308,7 @@ msgstr ""
 msgid "Failure: We could not successfully access or create such a bucket"
 msgstr ""
 
-#: src/addons/backblaze.php:540, src/methods/s3.php:1438
+#: src/addons/backblaze.php:540, src/methods/s3.php:1435
 msgid "Please check your access credentials, and if those are correct then try another bucket name (as another %s user may already have taken your name)."
 msgstr ""
 
@@ -3532,11 +3532,11 @@ msgstr ""
 msgid "The time zone used is that from your WordPress settings, in Settings -> General."
 msgstr ""
 
-#: src/addons/google-enhanced.php:95, src/addons/google-enhanced.php:113, src/addons/onedrive.php:1296
+#: src/addons/google-enhanced.php:95, src/addons/google-enhanced.php:113, src/addons/onedrive.php:1286
 msgid "Enter the path of the %s folder you wish to use here."
 msgstr ""
 
-#: src/addons/google-enhanced.php:95, src/addons/google-enhanced.php:113, src/addons/googlecloud.php:1298, src/addons/onedrive.php:1296
+#: src/addons/google-enhanced.php:95, src/addons/google-enhanced.php:113, src/addons/googlecloud.php:1298, src/addons/onedrive.php:1286
 msgid "e.g. %s"
 msgstr ""
 
@@ -3692,15 +3692,15 @@ msgstr ""
 msgid "Authentication could not go ahead, because something else on your site is breaking it."
 msgstr ""
 
-#: src/addons/googlecloud.php:459, src/addons/onedrive.php:1095, src/addons/pcloud.php:653, src/methods/googledrive.php:433, src/includes/Dropbox2/OAuth/Consumer/ConsumerAbstract.php:129
+#: src/addons/googlecloud.php:459, src/addons/onedrive.php:1085, src/addons/pcloud.php:653, src/methods/googledrive.php:433, src/includes/Dropbox2/OAuth/Consumer/ConsumerAbstract.php:129
 msgid "Try disabling your other plugins and switching to a default theme."
 msgstr ""
 
-#: src/addons/googlecloud.php:459, src/addons/onedrive.php:1095, src/addons/pcloud.php:653, src/methods/googledrive.php:433, src/includes/Dropbox2/OAuth/Consumer/ConsumerAbstract.php:129
+#: src/addons/googlecloud.php:459, src/addons/onedrive.php:1085, src/addons/pcloud.php:653, src/methods/googledrive.php:433, src/includes/Dropbox2/OAuth/Consumer/ConsumerAbstract.php:129
 msgid "Specifically, you are looking for the component that sends output (most likely PHP warnings/errors) before the page begins."
 msgstr ""
 
-#: src/addons/googlecloud.php:459, src/addons/onedrive.php:1095, src/addons/pcloud.php:653, src/methods/googledrive.php:433
+#: src/addons/googlecloud.php:459, src/addons/onedrive.php:1085, src/addons/pcloud.php:653, src/methods/googledrive.php:433
 msgid "Turning off any debugging settings may also help)."
 msgstr ""
 
@@ -3752,15 +3752,15 @@ msgstr ""
 msgid "Please complete all fields in %s settings and save the settings."
 msgstr ""
 
-#: src/addons/googlecloud.php:874, src/addons/onedrive.php:955, src/addons/onedrive.php:966, src/methods/googledrive.php:580, src/methods/googledrive.php:593
+#: src/addons/googlecloud.php:874, src/addons/onedrive.php:945, src/addons/onedrive.php:956, src/methods/googledrive.php:580, src/methods/googledrive.php:593
 msgid "However, subsequent access attempts failed:"
 msgstr ""
 
-#: src/addons/googlecloud.php:894, src/addons/googlecloud.php:1020, src/addons/onedrive.php:987, src/addons/sftp.php:721, src/addons/sftp.php:717, src/addons/webdav.php:492, src/addons/wp-cli.php:495, src/methods/addon-base-v2.php:358, src/methods/cloudfiles.php:590, src/methods/googledrive.php:616, src/methods/openstack-base.php:535, src/methods/s3.php:1453
+#: src/addons/googlecloud.php:894, src/addons/googlecloud.php:1020, src/addons/onedrive.php:977, src/addons/sftp.php:721, src/addons/sftp.php:717, src/addons/webdav.php:492, src/addons/wp-cli.php:495, src/methods/addon-base-v2.php:358, src/methods/cloudfiles.php:590, src/methods/googledrive.php:616, src/methods/openstack-base.php:535, src/methods/s3.php:1450
 msgid "Success"
 msgstr ""
 
-#: src/addons/googlecloud.php:894, src/addons/onedrive.php:987, src/methods/googledrive.php:616
+#: src/addons/googlecloud.php:894, src/addons/onedrive.php:977, src/methods/googledrive.php:616
 msgid "you have authenticated your %s account."
 msgstr ""
 
@@ -3772,15 +3772,15 @@ msgstr ""
 msgid "You must save and authenticate before you can test your settings."
 msgstr ""
 
-#: src/addons/googlecloud.php:1014, src/addons/googlecloud.php:1028, src/methods/s3.php:1451, src/methods/s3.php:1463
+#: src/addons/googlecloud.php:1014, src/addons/googlecloud.php:1028, src/methods/s3.php:1448, src/methods/s3.php:1460
 msgid "Failure"
 msgstr ""
 
-#: src/addons/googlecloud.php:1014, src/addons/googlecloud.php:1028, src/methods/s3.php:1451, src/methods/s3.php:1463
+#: src/addons/googlecloud.php:1014, src/addons/googlecloud.php:1028, src/methods/s3.php:1448, src/methods/s3.php:1460
 msgid "We successfully accessed the bucket, but the attempt to create a file in it failed."
 msgstr ""
 
-#: src/addons/googlecloud.php:1020, src/methods/s3.php:1453
+#: src/addons/googlecloud.php:1020, src/methods/s3.php:1450
 msgid "We accessed the bucket, and were able to create files within it."
 msgstr ""
 
@@ -3828,7 +3828,7 @@ msgstr ""
 msgid "Do not confuse %s with %s - they are separate things."
 msgstr ""
 
-#: src/addons/googlecloud.php:1288, src/addons/onedrive.php:1291, src/methods/googledrive.php:1427
+#: src/addons/googlecloud.php:1288, src/addons/onedrive.php:1281, src/methods/googledrive.php:1427
 msgid "Client ID"
 msgstr ""
 
@@ -3836,7 +3836,7 @@ msgstr ""
 msgid "If Google later shows you the message \"invalid_client\", then you did not enter a valid client ID here."
 msgstr ""
 
-#: src/addons/googlecloud.php:1290, src/addons/onedrive.php:1293, src/methods/googledrive.php:1429
+#: src/addons/googlecloud.php:1290, src/addons/onedrive.php:1283, src/methods/googledrive.php:1429
 msgid "Client Secret"
 msgstr ""
 
@@ -3884,7 +3884,7 @@ msgstr ""
 msgid "Read more about storage classes"
 msgstr ""
 
-#: src/addons/googlecloud.php:1302, src/addons/s3-enhanced.php:73, src/addons/s3-enhanced.php:81, src/methods/s3generic.php:179
+#: src/addons/googlecloud.php:1302, src/addons/s3-enhanced.php:73, src/addons/s3-enhanced.php:81, src/methods/s3generic.php:200, src/methods/s3generic.php:206
 msgid "(Read more)"
 msgstr ""
 
@@ -3904,7 +3904,7 @@ msgstr ""
 msgid "Read more about bucket locations"
 msgstr ""
 
-#: src/addons/googlecloud.php:1308, src/addons/onedrive.php:1307, src/methods/googledrive.php:1444
+#: src/addons/googlecloud.php:1308, src/addons/onedrive.php:1297, src/methods/googledrive.php:1444
 msgid "<strong>After</strong> you have saved your settings (by clicking 'Save Changes' below), then come back here once and follow this link to complete authentication with %s."
 msgstr ""
 
@@ -3916,11 +3916,11 @@ msgstr ""
 msgid "<strong>(You are already authenticated,</strong> though you can authenticate again to refresh your access if you've had a problem)."
 msgstr ""
 
-#: src/addons/googlecloud.php:1311, src/addons/onedrive.php:1304, src/addons/pcloud.php:551, src/methods/backup-module.php:697, src/methods/dropbox.php:608, src/methods/googledrive.php:1448
+#: src/addons/googlecloud.php:1311, src/addons/onedrive.php:1294, src/addons/pcloud.php:551, src/methods/backup-module.php:697, src/methods/dropbox.php:608, src/methods/googledrive.php:1448
 msgid "Follow this link to remove these settings for %s."
 msgstr ""
 
-#: src/addons/googlecloud.php:1331, src/addons/onedrive.php:1329, src/addons/pcloud.php:568, src/methods/dropbox.php:750
+#: src/addons/googlecloud.php:1331, src/addons/onedrive.php:1319, src/addons/pcloud.php:568, src/methods/dropbox.php:750
 msgid "Account holder's name: %s."
 msgstr ""
 
@@ -4604,123 +4604,123 @@ msgstr ""
 msgid "Account full: your %s account has only %d bytes left, but the file to be uploaded has %d bytes remaining (total size: %d bytes)"
 msgstr ""
 
-#: src/addons/onedrive.php:484
+#: src/addons/onedrive.php:499
 msgid "%s download: failed: file not found"
 msgstr ""
 
-#: src/addons/onedrive.php:715, src/udaddons/updraftplus-addons.php:1014
+#: src/addons/onedrive.php:705, src/udaddons/updraftplus-addons.php:1014
 msgid "An error response was received; HTTP code:"
 msgstr ""
 
-#: src/addons/onedrive.php:728, src/addons/onedrive.php:751, src/includes/updraftplus-login.php:55, src/methods/updraftvault.php:893, src/udaddons/updraftplus-addons.php:1027, src/udaddons/updraftplus-addons.php:1040
+#: src/addons/onedrive.php:718, src/addons/onedrive.php:741, src/includes/updraftplus-login.php:55, src/methods/updraftvault.php:893, src/udaddons/updraftplus-addons.php:1027, src/udaddons/updraftplus-addons.php:1040
 msgid "This most likely means that you share a webserver with a hacked website that has been used in previous attacks."
 msgstr ""
 
-#: src/addons/onedrive.php:728, src/udaddons/updraftplus-addons.php:1027, src/udaddons/updraftplus-addons.php:1040
+#: src/addons/onedrive.php:718, src/udaddons/updraftplus-addons.php:1027, src/udaddons/updraftplus-addons.php:1040
 msgid "To remove any block, please go here."
 msgstr ""
 
-#: src/addons/onedrive.php:728, src/udaddons/updraftplus-addons.php:1027
+#: src/addons/onedrive.php:718, src/udaddons/updraftplus-addons.php:1027
 msgid "Your IP address:"
 msgstr ""
 
-#: src/addons/onedrive.php:751, src/includes/updraftplus-login.php:55, src/methods/updraftvault.php:893, src/udaddons/updraftplus-addons.php:1040
+#: src/addons/onedrive.php:741, src/includes/updraftplus-login.php:55, src/methods/updraftvault.php:893, src/udaddons/updraftplus-addons.php:1040
 msgid "UpdraftPlus.com has responded with 'Access Denied'."
 msgstr ""
 
-#: src/addons/onedrive.php:751, src/includes/updraftplus-login.php:55, src/methods/updraftvault.php:893, src/udaddons/updraftplus-addons.php:1040
+#: src/addons/onedrive.php:741, src/includes/updraftplus-login.php:55, src/methods/updraftvault.php:893, src/udaddons/updraftplus-addons.php:1040
 msgid "It appears that your web server's IP Address (%s) is blocked."
 msgstr ""
 
-#: src/addons/onedrive.php:751, src/includes/updraftplus-login.php:55, src/methods/updraftvault.php:893
+#: src/addons/onedrive.php:741, src/includes/updraftplus-login.php:55, src/methods/updraftvault.php:893
 msgid "To remove the block, please go here."
 msgstr ""
 
-#: src/addons/onedrive.php:758
+#: src/addons/onedrive.php:748
 msgid "Please re-authorize the connection to your %s account."
 msgstr ""
 
-#: src/addons/onedrive.php:767
+#: src/addons/onedrive.php:757
 msgid "Account is not authorized (%s)."
 msgstr ""
 
-#: src/addons/onedrive.php:898
+#: src/addons/onedrive.php:888
 msgid "Authentication"
 msgstr ""
 
-#: src/addons/onedrive.php:941, src/addons/pcloud.php:722, src/methods/dropbox.php:964, src/methods/dropbox.php:955, src/methods/googledrive.php:577
+#: src/addons/onedrive.php:931, src/addons/pcloud.php:722, src/methods/dropbox.php:964, src/methods/dropbox.php:955, src/methods/googledrive.php:577
 msgid "Your %s quota usage: %s %% used, %s available"
 msgstr ""
 
-#: src/addons/onedrive.php:949, src/addons/pcloud.php:720, src/methods/dropbox.php:934
+#: src/addons/onedrive.php:939, src/addons/pcloud.php:720, src/methods/dropbox.php:934
 msgid "Your %s account name: %s"
 msgstr ""
 
-#: src/addons/onedrive.php:987, src/addons/onedrive.php:1291, src/addons/onedrive.php:1293
+#: src/addons/onedrive.php:977, src/addons/onedrive.php:1281, src/addons/onedrive.php:1283
 msgid "OneDrive"
 msgstr ""
 
-#: src/addons/onedrive.php:1095, src/addons/pcloud.php:653, src/methods/googledrive.php:433, src/includes/Dropbox2/OAuth/Consumer/ConsumerAbstract.php:129
+#: src/addons/onedrive.php:1085, src/addons/pcloud.php:653, src/methods/googledrive.php:433, src/includes/Dropbox2/OAuth/Consumer/ConsumerAbstract.php:129
 msgid "The %s authentication could not go ahead, because something else on your site is breaking it."
 msgstr ""
 
-#: src/addons/onedrive.php:1163, src/addons/onedrive.php:1161
+#: src/addons/onedrive.php:1153, src/addons/onedrive.php:1151
 msgid "authorization failed:"
 msgstr ""
 
-#: src/addons/onedrive.php:1286, src/addons/pcloud.php:548, src/methods/dropbox.php:601, src/methods/googledrive.php:1441
+#: src/addons/onedrive.php:1276, src/addons/pcloud.php:548, src/methods/dropbox.php:601, src/methods/googledrive.php:1441
 msgid "Please read %s for use of our %s authorization app (none of your backup data is sent to us)."
 msgstr ""
 
-#: src/addons/onedrive.php:1286, src/addons/pcloud.php:548, src/methods/dropbox.php:601, src/methods/googledrive.php:1441
+#: src/addons/onedrive.php:1276, src/addons/pcloud.php:548, src/methods/dropbox.php:601, src/methods/googledrive.php:1441
 msgid "this privacy policy"
 msgstr ""
 
-#: src/addons/onedrive.php:1287
+#: src/addons/onedrive.php:1277
 msgid "Create OneDrive credentials in your OneDrive developer console."
 msgstr ""
 
-#: src/addons/onedrive.php:1289
+#: src/addons/onedrive.php:1279
 msgid "This site uses a URL which is either non-HTTPS, or is localhost or 127.0.0.1 URL."
 msgstr ""
 
-#: src/addons/onedrive.php:1289
+#: src/addons/onedrive.php:1279
 msgid "As such, you must use the main %s %s App to authenticate with your account."
 msgstr ""
 
-#: src/addons/onedrive.php:1290
+#: src/addons/onedrive.php:1280
 msgid "You must add the following as the authorized redirect URI in your OneDrive console (under \"API Settings\") when asked"
 msgstr ""
 
-#: src/addons/onedrive.php:1292
+#: src/addons/onedrive.php:1282
 msgid "If OneDrive later shows you the message \"unauthorized_client\", then you did not enter a valid client ID here."
 msgstr ""
 
-#: src/addons/onedrive.php:1296
+#: src/addons/onedrive.php:1286
 msgid "N.B. %s is not case-sensitive."
 msgstr ""
 
-#: src/addons/onedrive.php:1297
+#: src/addons/onedrive.php:1287
 msgid "Account type"
 msgstr ""
 
-#: src/addons/onedrive.php:1299
+#: src/addons/onedrive.php:1289
 msgid "OneDrive International"
 msgstr ""
 
-#: src/addons/onedrive.php:1300
+#: src/addons/onedrive.php:1290
 msgid "OneDrive Germany"
 msgstr ""
 
-#: src/addons/onedrive.php:1302, src/addons/pcloud.php:549, src/methods/dropbox.php:605
+#: src/addons/onedrive.php:1292, src/addons/pcloud.php:549, src/methods/dropbox.php:605
 msgid "Authenticate with %s"
 msgstr ""
 
-#: src/addons/onedrive.php:1303, src/addons/pcloud.php:550, src/methods/dropbox.php:606
+#: src/addons/onedrive.php:1293, src/addons/pcloud.php:550, src/methods/dropbox.php:606
 msgid "(You are already authenticated)."
 msgstr ""
 
-#: src/addons/onedrive.php:1306, src/methods/backup-module.php:626, src/methods/dropbox.php:609
+#: src/addons/onedrive.php:1296, src/methods/backup-module.php:626, src/methods/dropbox.php:609
 msgid "Ensure you are logged into the correct account before continuing."
 msgstr ""
 
@@ -4900,7 +4900,7 @@ msgstr ""
 msgid "AWS authentication failed"
 msgstr ""
 
-#: src/addons/s3-enhanced.php:285, src/methods/s3.php:1438
+#: src/addons/s3-enhanced.php:285, src/methods/s3.php:1435
 msgid "Failure: We could not successfully access or create such a bucket."
 msgstr ""
 
@@ -4908,7 +4908,7 @@ msgstr ""
 msgid "Please check your access credentials, and if those are correct then try another bucket name (as another AWS user may already have taken your name)."
 msgstr ""
 
-#: src/addons/s3-enhanced.php:286, src/methods/s3.php:1440
+#: src/addons/s3-enhanced.php:286, src/methods/s3.php:1437
 msgid "The error reported by %s was:"
 msgstr ""
 
@@ -6980,11 +6980,11 @@ msgstr ""
 msgid "API key"
 msgstr ""
 
-#: src/methods/cloudfiles-new.php:281, src/methods/cloudfiles-new.php:282, src/methods/openstack2.php:242, src/methods/s3.php:1080, src/methods/s3.php:1081, src/methods/s3generic.php:168, src/methods/s3generic.php:169
+#: src/methods/cloudfiles-new.php:281, src/methods/cloudfiles-new.php:282, src/methods/openstack2.php:242, src/methods/s3.php:1080, src/methods/s3.php:1081, src/methods/s3generic.php:189, src/methods/s3generic.php:190
 msgid "Your web server's PHP installation does not include a required module (%s)."
 msgstr ""
 
-#: src/methods/cloudfiles-new.php:281, src/methods/cloudfiles-new.php:282, src/methods/cloudfiles.php:455, src/methods/dreamobjects.php:181, src/methods/openstack-base.php:577, src/methods/openstack2.php:242, src/methods/s3.php:930, src/methods/s3.php:1081, src/methods/s3generic.php:169
+#: src/methods/cloudfiles-new.php:281, src/methods/cloudfiles-new.php:282, src/methods/cloudfiles.php:455, src/methods/dreamobjects.php:181, src/methods/openstack-base.php:577, src/methods/openstack2.php:242, src/methods/s3.php:930, src/methods/s3.php:1081, src/methods/s3generic.php:190
 msgid "UpdraftPlus's %s module <strong>requires</strong> %s."
 msgstr ""
 
@@ -7072,31 +7072,31 @@ msgstr ""
 msgid "This bucket will be created for you if it does not already exist."
 msgstr ""
 
-#: src/methods/dreamobjects.php:185, src/methods/s3.php:938, src/methods/s3.php:1083, src/methods/s3generic.php:171
+#: src/methods/dreamobjects.php:185, src/methods/s3.php:938, src/methods/s3.php:1083, src/methods/s3generic.php:192
 msgid "If you see errors about SSL certificates, then please go here for help."
 msgstr ""
 
-#: src/methods/dreamobjects.php:188, src/methods/s3.php:1040, src/methods/s3.php:1085, src/methods/s3generic.php:172
+#: src/methods/dreamobjects.php:188, src/methods/s3.php:1040, src/methods/s3.php:1085, src/methods/s3generic.php:193
 msgid "%s access key"
 msgstr ""
 
-#: src/methods/dreamobjects.php:189, src/methods/s3.php:1044, src/methods/s3.php:1086, src/methods/s3generic.php:173
+#: src/methods/dreamobjects.php:189, src/methods/s3.php:1044, src/methods/s3.php:1086, src/methods/s3generic.php:194
 msgid "%s secret key"
 msgstr ""
 
-#: src/methods/dreamobjects.php:191, src/methods/s3.php:1048, src/methods/s3.php:1088, src/methods/s3generic.php:175
+#: src/methods/dreamobjects.php:191, src/methods/s3.php:1048, src/methods/s3.php:1088, src/methods/s3generic.php:196
 msgid "%s location"
 msgstr ""
 
-#: src/methods/dreamobjects.php:192, src/methods/s3.php:1049, src/methods/s3.php:1089, src/methods/s3generic.php:176
+#: src/methods/dreamobjects.php:192, src/methods/s3.php:1049, src/methods/s3.php:1089, src/methods/s3generic.php:197
 msgid "Enter only a bucket name or a bucket and path."
 msgstr ""
 
-#: src/methods/dreamobjects.php:192, src/methods/s3.php:1049, src/methods/s3.php:1089, src/methods/s3generic.php:176
+#: src/methods/dreamobjects.php:192, src/methods/s3.php:1049, src/methods/s3.php:1089, src/methods/s3generic.php:197
 msgid "Examples: mybucket, mybucket/mypath"
 msgstr ""
 
-#: src/methods/dreamobjects.php:193, src/methods/s3generic.php:177
+#: src/methods/dreamobjects.php:193, src/methods/s3generic.php:198
 msgid "%s end-point"
 msgstr ""
 
@@ -7410,7 +7410,7 @@ msgstr ""
 msgid "Tenant"
 msgstr ""
 
-#: src/methods/openstack2.php:252, src/methods/s3.php:1432
+#: src/methods/openstack2.php:252, src/methods/s3.php:1429
 msgid "Region"
 msgstr ""
 
@@ -7482,48 +7482,64 @@ msgstr ""
 msgid "Failure: No endpoint details were given."
 msgstr ""
 
-#: src/methods/s3.php:1458
+#: src/methods/s3.php:1455
 msgid "The communication with %s was not encrypted."
 msgstr ""
 
-#: src/methods/s3.php:1456
+#: src/methods/s3.php:1453
 msgid "The communication with %s was encrypted."
 msgstr ""
 
-#: src/methods/s3.php:1463
+#: src/methods/s3.php:1460
 msgid "Please check your access credentials."
 msgstr ""
 
-#: src/methods/s3.php:1442
+#: src/methods/s3.php:1439
 msgid "The AWS access key looks to be wrong (valid %s access keys begin with \"AK\")"
 msgstr ""
 
-#: src/methods/s3generic.php:79
+#: src/methods/s3generic.php:77
 msgid "S3 (Compatible)"
 msgstr ""
 
-#: src/methods/s3generic.php:167
+#: src/methods/s3generic.php:188
 msgid "Examples of S3-compatible storage providers:"
 msgstr ""
 
-#: src/methods/s3generic.php:167
+#: src/methods/s3generic.php:188
 msgid "... and many more!"
 msgstr ""
 
-#: src/methods/s3generic.php:178
+#: src/methods/s3generic.php:199
 msgid "Bucket access style"
 msgstr ""
 
-#: src/methods/s3generic.php:179
+#: src/methods/s3generic.php:200
 msgid "Read more about bucket access style"
 msgstr ""
 
-#: src/methods/s3generic.php:181
+#: src/methods/s3generic.php:202
 msgid "Path style"
 msgstr ""
 
-#: src/methods/s3generic.php:182
+#: src/methods/s3generic.php:203
 msgid "Virtual-host style"
+msgstr ""
+
+#: src/methods/s3generic.php:205
+msgid "Signature version"
+msgstr ""
+
+#: src/methods/s3generic.php:206
+msgid "Read more about signature version"
+msgstr ""
+
+#: src/methods/s3generic.php:208
+msgid "SigV4"
+msgstr ""
+
+#: src/methods/s3generic.php:209
+msgid "SigV2"
 msgstr ""
 
 #: src/methods/updraftvault.php:122, src/templates/wp-admin/settings/tab-addons.php:295
@@ -7830,159 +7846,163 @@ msgstr ""
 msgid "This is incompatible with WordPress's updates mechanism; you will not be able to receive updates."
 msgstr ""
 
-#: src/udaddons/options.php:269
+#: src/udaddons/options.php:254
+msgid "Please make sure that %s is not set to \"true\" in your wp-config file - this ensures UpdraftPlus can connect and update."
+msgstr ""
+
+#: src/udaddons/options.php:273
 msgid "You are presently <strong>not connected</strong> to an UpdraftPlus.Com account."
 msgstr ""
 
-#: src/udaddons/options.php:254
+#: src/udaddons/options.php:258
 msgid "You are presently <strong class=\"success\">connected</strong> to an UpdraftPlus.Com account."
 msgstr ""
 
-#: src/udaddons/options.php:261
+#: src/udaddons/options.php:265
 msgid "If you bought new add-ons, then follow this link to refresh your connection"
 msgstr ""
 
-#: src/udaddons/options.php:262
+#: src/udaddons/options.php:266
 msgid "Note that after you have claimed your add-ons, you can remove your password (but not the email address) from the settings below, without affecting this site's access to updates."
 msgstr ""
 
-#: src/udaddons/options.php:274
+#: src/udaddons/options.php:278
 msgid "Errors occurred when trying to connect to UpdraftPlus.Com:"
 msgstr ""
 
-#: src/udaddons/options.php:285
+#: src/udaddons/options.php:289
 msgid "You successfully logged in to UpdraftPlus and connected this site to UpdraftCentral Cloud."
 msgstr ""
 
-#: src/udaddons/options.php:286
+#: src/udaddons/options.php:290
 msgid "Go to your UpdraftCentral Cloud dashboard"
 msgstr ""
 
-#: src/udaddons/options.php:326
+#: src/udaddons/options.php:330
 msgid "Please wait whilst we make the claim..."
 msgstr ""
 
-#: src/udaddons/options.php:327
+#: src/udaddons/options.php:331
 msgid "Claim not granted - perhaps you have already used this purchase somewhere else, or your paid period for downloading from updraftplus.com has expired?"
 msgstr ""
 
-#: src/udaddons/options.php:328
+#: src/udaddons/options.php:332
 msgid "Claim not granted - your account login details were wrong"
 msgstr ""
 
-#: src/udaddons/options.php:329
+#: src/udaddons/options.php:333
 msgid "An unknown response was received."
 msgstr ""
 
-#: src/udaddons/options.php:329
+#: src/udaddons/options.php:333
 msgid "Response was:"
 msgstr ""
 
-#: src/udaddons/options.php:330
+#: src/udaddons/options.php:334
 msgid "The claim and installation was successful."
 msgstr ""
 
-#: src/udaddons/options.php:330
+#: src/udaddons/options.php:334
 msgid "You can now use your purchase!"
 msgstr ""
 
-#: src/udaddons/options.php:386, src/udaddons/updraftplus-addons.php:371
+#: src/udaddons/options.php:390, src/udaddons/updraftplus-addons.php:371
 msgid "UpdraftPlus Addons"
 msgstr ""
 
-#: src/udaddons/options.php:397
+#: src/udaddons/options.php:401
 msgid "An update containing your addons is available for UpdraftPlus - please follow this link to get it."
 msgstr ""
 
-#: src/udaddons/options.php:443
+#: src/udaddons/options.php:447
 msgid "An error occurred when trying to retrieve your add-ons."
 msgstr ""
 
-#: src/udaddons/options.php:459
+#: src/udaddons/options.php:463
 msgid "UpdraftPlus Support"
 msgstr ""
 
-#: src/udaddons/options.php:461, src/udaddons/options.php:461
+#: src/udaddons/options.php:465, src/udaddons/options.php:465
 msgid "Need to get support?"
 msgstr ""
 
-#: src/udaddons/options.php:461, src/udaddons/options.php:461
+#: src/udaddons/options.php:465, src/udaddons/options.php:465
 msgid "Go here"
 msgstr ""
 
-#: src/udaddons/options.php:527
+#: src/udaddons/options.php:531
 msgid "Get %s from the UpdraftPlus.com Store"
 msgstr ""
 
-#: src/udaddons/options.php:527, src/udaddons/options.php:527
+#: src/udaddons/options.php:531, src/udaddons/options.php:531
 msgid "(or connect using the form on this page if you have already purchased it)"
 msgstr ""
 
-#: src/udaddons/options.php:527
+#: src/udaddons/options.php:531
 msgid "Get it from the UpdraftPlus.Com Store"
 msgstr ""
 
-#: src/udaddons/options.php:528
+#: src/udaddons/options.php:532
 msgid "Buy %s"
 msgstr ""
 
-#: src/udaddons/options.php:528
+#: src/udaddons/options.php:532
 msgid "Buy It"
 msgstr ""
 
-#: src/udaddons/options.php:523
+#: src/udaddons/options.php:527
 msgid "You have an inactive purchase"
 msgstr ""
 
-#: src/udaddons/options.php:523, src/udaddons/options.php:521
+#: src/udaddons/options.php:527, src/udaddons/options.php:525
 msgid "activate it on this site"
 msgstr ""
 
-#: src/udaddons/options.php:521
+#: src/udaddons/options.php:525
 msgid "Available to claim on this site"
 msgstr ""
 
-#: src/udaddons/options.php:521
+#: src/udaddons/options.php:525
 msgid "%s available to claim on this site."
 msgstr ""
 
-#: src/udaddons/options.php:521
+#: src/udaddons/options.php:525
 msgid "Follow this link to activate this licence"
 msgstr ""
 
-#: src/udaddons/options.php:515
+#: src/udaddons/options.php:519
 msgid "Assigned to this site"
 msgstr ""
 
-#: src/udaddons/options.php:515
+#: src/udaddons/options.php:519
 msgid "please  follow this link to update the plugin in order to activate it"
 msgstr ""
 
-#: src/udaddons/options.php:512
+#: src/udaddons/options.php:516
 msgid "Available for this site (via your all-addons purchase)"
 msgstr ""
 
-#: src/udaddons/options.php:512
+#: src/udaddons/options.php:516
 msgid "please follow this link to update the plugin in order to get it"
 msgstr ""
 
-#: src/udaddons/options.php:498, src/udaddons/options.php:498
+#: src/udaddons/options.php:502, src/udaddons/options.php:502
 msgid "You've got it"
 msgstr ""
 
-#: src/udaddons/options.php:500
+#: src/udaddons/options.php:504
 msgid "Your version: %s"
 msgstr ""
 
-#: src/udaddons/options.php:506
+#: src/udaddons/options.php:510
 msgid "(apparently a pre-release or withdrawn release)"
 msgstr ""
 
-#: src/udaddons/options.php:504, src/udaddons/options.php:502
+#: src/udaddons/options.php:508, src/udaddons/options.php:506
 msgid "latest"
 msgstr ""
 
-#: src/udaddons/options.php:547
+#: src/udaddons/options.php:551
 msgid "Manage Addons"
 msgstr ""
 

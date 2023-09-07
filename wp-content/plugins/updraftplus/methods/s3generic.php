@@ -9,8 +9,6 @@ updraft_try_include_file('methods/s3.php', 'require_once');
  */
 class UpdraftPlus_BackupModule_s3generic extends UpdraftPlus_BackupModule_s3 {
 
-	protected $use_v4 = false;
-	
 	protected $provider_can_use_aws_sdk = false;
 	
 	protected $provider_has_regions = false;
@@ -128,6 +126,16 @@ class UpdraftPlus_BackupModule_s3generic extends UpdraftPlus_BackupModule_s3 {
 				</select>
 			</td>
 		</tr>
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_signature_version_label}}:<br>{{{input_signature_version_readmore}}}</th>
+			<td>
+				<select data-updraft_settings_test="signature_version" id="{{get_template_input_attribute_value "id" "signature_version"}}" name="{{get_template_input_attribute_value "name" "signature_version"}}" class="udc-wd-600">
+					{{#each input_signature_version_option_labels}}
+						<option {{#ifeq ../signature_version @key}}selected="selected"{{/ifeq}} value="{{@key}}">{{this}}</option>
+					{{/each}}
+				</select>
+			</td>
+		</tr>
 		<?php
 		$partial_templates['s3generic_additional_configuration_bottom'] = ob_get_clean();
 		return wp_parse_args(apply_filters('updraft_'.$this->get_id().'_partial_templates', $partial_templates), parent::get_partial_templates());
@@ -141,6 +149,19 @@ class UpdraftPlus_BackupModule_s3generic extends UpdraftPlus_BackupModule_s3 {
 	 * @return Array - Modified handerbar template options
 	 */
 	public function transform_options_for_template($opts) {
+		if (!empty($opts['instance_id']) && 'default' !== $opts['instance_id']) {
+			if (!isset($opts['signature_version'])) { // this check is to find out whether we're dealing with a pre-existing configuration or not
+				$opts['signature_version'] = 'v2'; // the pre-existing S3-Compatible configurations before signature_version was introduced by default use SigV2, so we wan't to keep it that way as we don't want to break what's already working
+				$opts['signature_version'] = apply_filters('updraftplus_s3_signature_version', $opts['signature_version'], false, $this);
+				if (!empty($opts['endpoint'])) {
+					if (preg_match('/\.(leviia|r2\.cloudflarestorage)\.com$/i', $opts['endpoint']) || (preg_match('/\.amazonaws\.com$/i', $opts['endpoint']) && !empty($opts['bucket_access_style']) && 'virtual_host_style' === $opts['bucket_access_style'])) {
+						// due to the merge of S3-generic bucket access style MR on March 2021, if virtual-host bucket access style is selected, connecting to an amazonaws bucket location where the user doesn't have an access to it will throw an S3 InvalidRequest exception. It requires the signature to be set to version 4
+						$opts['signature_version'] = 'v4';
+					}
+				}
+			}
+			if (!$this->options_exist($opts)) $opts['signature_version'] = 'v4'; // if no pre-existing S3-Compatible configurations were setup, there would always be an initial instance id created with a blank configuration form (no access key, secret key, location, and endpoint), this initial instance id/form should use SigV4
+		}
 		return $opts;
 	}
 	
@@ -181,6 +202,12 @@ class UpdraftPlus_BackupModule_s3generic extends UpdraftPlus_BackupModule_s3 {
 				'path_style' => __('Path style', 'updraftplus'),
 				'virtual_host_style' => __('Virtual-host style', 'updraftplus'),
 			),
+			'input_signature_version_label' => __('Signature version', 'updraftplus'),
+			'input_signature_version_readmore' => wp_kses('<a aria-label="'.esc_attr__('Read more about signature version', 'updraftplus').'" href="https://aws.amazon.com/blogs/aws/amazon-s3-update-sigv2-deprecation-period-extended-modified/" target="_blank"><em>'.__('(Read more)', 'updraftplus').'</em></a>', $this->allowed_html_for_content_sanitisation()),
+			'input_signature_version_option_labels' => array(
+				'v4' => __('SigV4', 'updraftplus'),
+				'v2' => __('SigV2', 'updraftplus'),
+			),
 			'input_test_label' => sprintf(__('Test %s Settings', 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
 		);
 		return wp_parse_args($properties, $this->get_persistent_variables_and_methods());
@@ -197,16 +224,16 @@ class UpdraftPlus_BackupModule_s3generic extends UpdraftPlus_BackupModule_s3 {
 	 */
 	protected function maybe_use_dns_bucket_name($storage, $bucket, $config) {
 
-		if ((!empty($config['endpoint']) && preg_match('/\.(aliyuncs|r2\.cloudflarestorage)\.com$/i', $config['endpoint'])) || (!empty($config['bucket_access_style']) && 'virtual_host_style' === $config['bucket_access_style'])) {
+		$signature_version = !empty($config['signature_version']) ? $config['signature_version'] : apply_filters('updraftplus_s3_signature_version', 'v2', false, $this); // the 'v2' value used to be handled by the use_v4 class variable, but since the signature_version (dropdown) setting has been introduced then use_v4 class variable has been removed and is no longer needed
+		if (is_callable(array($storage, 'setSignatureVersion'))) $storage->setSignatureVersion($signature_version); // we don't prioritise the hardcoded endpoint if signature_version is set, which means users are aware of this new option and intentionally set this option and/or save the settings
+		if ((!empty($config['endpoint']) && preg_match('/\.(leviia|aliyuncs|r2\.cloudflarestorage)\.com$/i', $config['endpoint'])) || (!empty($config['bucket_access_style']) && 'virtual_host_style' === $config['bucket_access_style'])) {
 			// due to the recent merge of S3-generic bucket access style on March 2021, if virtual-host bucket access style is selected, connecting to an amazonaws bucket location where the user doesn't have an access to it will throw an S3 InvalidRequest exception. It requires the signature to be set to version 4
 			// Cloudflare R2 supports V4 only
-			if (preg_match('/\.(amazonaws|r2\.cloudflarestorage)\.com$/i', $config['endpoint'])) {
-				$this->use_v4 = true;
+			if (empty($config['signature_version']) && preg_match('/\.(leviia|amazonaws|r2\.cloudflarestorage)\.com$/i', $config['endpoint'])) {
 				if (is_callable(array($storage, 'setSignatureVersion'))) $storage->setSignatureVersion('v4');
 			}
 			return $this->use_dns_bucket_name($storage, '');
-		} else {
-			return false;
 		}
+		return false;
 	}
 }

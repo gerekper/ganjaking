@@ -410,12 +410,13 @@ class UpdraftPlus_Addons_RemoteStorage_onedrive extends UpdraftPlus_RemoteStorag
 	/**
 	 * Get the OneDrive internal pointer for an indicated folder path
 	 *
-	 * @param String $folder  - folder path
-	 * @param Object $storage - storage object that API calls can be made upon
+	 * @param String  $folder               - folder path
+	 * @param Object  $storage              - storage object that API calls can be made upon
+	 * @param Boolean $create_if_not_exists - whether to create the folder if not exists
 	 *
-	 * @return String - the pointer
+	 * @return String|Null - the pointer of the given folder, otherwise null if an exception occurs or the folder doesn't exist
 	 */
-	private function get_pointer($folder, $storage) {
+	private function get_pointer($folder, $storage, $create_if_not_exists = true) {
 		
 		$pointer = null;
 		try {
@@ -431,16 +432,30 @@ class UpdraftPlus_Addons_RemoteStorage_onedrive extends UpdraftPlus_RemoteStorag
 				$dirs = $storage->fetchObjects($pointer);
 				foreach ($dirs as $dir) {
 					$dirname = $dir->getName();
-					if (strtolower($dirname) == strtolower($val) && $dir->isFolder()) {
+					if (function_exists('mb_strtolower')) {
+						$encoding = null;
+						if (seems_utf8($dirname) && seems_utf8($val)) $encoding = 'UTF-8';
+						$lowercased_dirname = mb_strtolower($dirname, $encoding);
+						$lowercased_val = mb_strtolower($val, $encoding);
+					} else {
+						$lowercased_dirname = strtolower($dirname);
+						$lowercased_val = strtolower($val);
+					}
+					if ($lowercased_dirname == $lowercased_val && $dir->isFolder()) {
 						$new_pointer = $dir->getId();
 						break; // This folder exists, we want to select this
 					}
 				}
 				
-				// If new_pointer is same, path doesn't exist, so create it
 				if ($pointer == $new_pointer) {
-					$newdir = $storage->createFolder($val, $pointer);
-					$new_pointer = $newdir->getId();
+					if ($create_if_not_exists) {
+						// If new_pointer is same, path doesn't exist, so create it
+						$newdir = $storage->createFolder($val, $pointer);
+						$new_pointer = $newdir->getId();
+					} else {
+						$this->log("folder $folder does not exist");
+						return null;
+					}
 				}
 				$pointer = $new_pointer;
 				
@@ -518,33 +533,8 @@ class UpdraftPlus_Addons_RemoteStorage_onedrive extends UpdraftPlus_RemoteStorag
 		if (is_object($storage) && !is_wp_error($storage)) {
 			// Get the folder from options
 			$folder = $opts['folder'];
-			$folder_array = explode('/', $folder);
-			
-			$pointer = null;
-			// Check if folder exists
-			foreach ($folder_array as $val) {
-				if ('' == $val) break; // If value is root break;
-				
-				$new_pointer = $pointer;
-				
-				// Fetch objects in dir
-				$dirs = $storage->fetchObjects($pointer);
-				foreach ($dirs as $dir) {
-					$dirname = $dir->getName();
-					if ($dirname == $val && $dir->isFolder()) {
-						$new_pointer = $dir->getId();
-						break; // This folder exists, we want to select this
-					}
-				}
-				
-				// If new_pointer is same, path doesn't exist, so can't delete
-				if ($pointer == $new_pointer) {
-					$this->log("folder does not exist");
-					return 'container_access_error';
-				}
-				$pointer = $new_pointer;
-				
-			} // End foreach().
+			$pointer = $this->get_pointer($folder, $storage, false);
+			if (null === $pointer) return 'container_access_error';
 			
 			$objs = $storage->fetchObjects($pointer);
 			$objectids = array();

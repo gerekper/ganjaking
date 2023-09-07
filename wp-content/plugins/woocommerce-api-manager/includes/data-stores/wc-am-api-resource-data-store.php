@@ -2027,6 +2027,27 @@ class WC_AM_API_Resource_Data_Store {
 	}
 
 	/**
+	 * Return true if this AM API Resource is a lifetime subscription.
+	 *
+	 * @since 3.1
+	 *
+	 * @param int $api_resource_id
+	 *
+	 * @return bool
+	 */
+	public function is_lifetime_subscription( $api_resource_id ) {
+		global $wpdb;
+
+		$lifetime_sub = $wpdb->get_var( $wpdb->prepare( "
+			SELECT access_expires
+			FROM {$wpdb->prefix}" . $this->api_resource_table . "
+			WHERE api_resource_id = %d
+		", $api_resource_id ) );
+
+		return empty( $lifetime_sub );
+	}
+
+	/**
 	 * Delete Activation IDs for Associated API Key.
 	 *
 	 * @since 2.0

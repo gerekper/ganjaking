@@ -1,5 +1,17 @@
 *** WooCommerce API Manager Changelog ***
 
+2023-09-03 - version 3.1.0
+* Fix: Order edit screen > Access Expires was failing to update when new expiration date set.
+* Fix: localized_datetime_timestamp() method to correctly return localized timestamp.
+* Tweak: Confirm an API Resource is not a lifetime subscription before sending renewal email notifications.
+* New: Toggle log for API Resources cleanup event added to Settings.
+* New: Added templates/myaccount/related-api-resources.php with Action Filters to add API Keys and API Downloads links to Order Details and Thank You pages.
+* New: Added to templates/emails/api-keys-order-complete.php: Action Filters: wc_api_manager_email_api_product_heading, wc_api_manager_email_product_order_api_keys_row,
+* New: Added to templates/emails/plain/api-keys-order-complete.php: Action Filters: wc_api_manager_email_api_product_heading, wc_api_manager_email_product_order_api_keys_row,
+wc_api_manager_email_master_api_key_row, wc_api_manager_email_master_api_key_message_row.
+* New: Added to templates/myaccount/api-keys.php: Action Filters: wc_api_manager_my_account_master_api_key_heading, wc_api_manager_my_account_product_order_api_key_message,
+wc_api_manager_my_account_product_order_api_key_heading. HTML IDs master-api-key-header, product-order-api-key-header.
+
 2023-06-26 - version 3.0.7
 * Update: Fix format of changelog for WooCommerce.com Version history parser. Gap in versions is due to difficulty with formatting for changelog parser at WooCommerce.com.
 
@@ -42,4 +54,4 @@
 * Dev: Added the verify_api_key_is_active API endpoint.
 
 2023-06-04 - version 2.8.1
-* See archive_changelog.txt for historical changelog entries.
+* Other: See archive_changelog.txt for historical changelog entries.

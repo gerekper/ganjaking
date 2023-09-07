@@ -68,6 +68,12 @@ class MultipleKB extends CategoryBox {
             'number'   => $settings['box_per_page']
         ];
 
+        if ( 'betterdocs_order' === $settings['orderby'] ) {
+            $terms_query['meta_key'] = 'kb_order';
+            $terms_query['orderby']  = 'meta_value_num';
+            $terms_query['order']    = 'ASC';
+        }
+
         if ( $settings['include'] ) {
             $terms_query['include'] = array_diff( $settings['include'], (array) $settings['exclude'] );
         }

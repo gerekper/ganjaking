@@ -73,32 +73,4 @@
 	line-height: 200%;
 }
 
-#worldpay-online::before {
-/*	font-family: FontAwesome;
-	display: inline-block;
-	font-weight: 400;
-	line-height: 100%;
-	content: "\f05a";
-	position: absolute;
-	bottom: -.18em;
-	right: -.18em;
-	font-size: 4.5em;
-	width: auto;
-	color: #d6eebd;
-	-webkit-transform: rotate(-20deg);
-	-moz-transform: rotate(-20deg);
-	-ms-transform: rotate(-20deg);
-	-o-transform: rotate(-20deg);
-	transform: rotate(-20deg);
-	zoom: 1; */
-}
-
-#worldpay-online {
-	background: #ffe6e5;
-	border-color: #ffc5c2;
-	color: #444;
-	margin: 2em auto;
-	border-left-width: 1px !important;
-	border-radius: 5px;
-	padding: 20px;
-}
+.

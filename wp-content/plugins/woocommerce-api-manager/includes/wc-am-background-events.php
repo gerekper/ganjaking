@@ -75,7 +75,13 @@ class WC_AM_Background_Events {
 		$this->background_process->push_to_queue( array( 'task' => 'cleanup_hash' ) );
 		$this->background_process->save()->dispatch();
 
-		WC_AM_LOG()->log_info( esc_html__( 'Expired API Resources Cleanup event was completed on ', 'woocommerce-api-manager' ) . WC_AM_FORMAT()->unix_timestamp_to_date( WC_AM_ORDER_DATA_STORE()->get_current_time_stamp() ), 'expired-api-resources-cleanup' );
+		/**
+		 * Log option.
+		 * @since 3.1
+		 */
+		if ( get_option( 'woocommerce_api_manager_api_resource_log_cleanup_event_data' ) == 'yes' ) {
+			WC_AM_LOG()->log_info( esc_html__( 'Expired API Resources Cleanup event was completed on ', 'woocommerce-api-manager' ) . WC_AM_FORMAT()->unix_timestamp_to_date( WC_AM_ORDER_DATA_STORE()->get_current_time_stamp() ), 'expired-api-resources-cleanup' );
+		}
 	}
 
 	/**
@@ -215,9 +221,10 @@ class WC_AM_Background_Events {
 	 * Runs in the background.
 	 *
 	 * @since 3.0
+	 * @updated 3.1 Confirm $api_resource_id is not a lifetime subscription.
 	 */
 	public function send_subscription_expiration_notification( $api_resource_id ) {
-		if ( ! empty( $api_resource_id ) ) {
+		if ( ! empty( $api_resource_id ) && ! WC_AM_API_RESOURCE_DATA_STORE()->is_lifetime_subscription( $api_resource_id ) ) {
 			WC_AM_EMAILS()->send_subscription_expiration_notification( $api_resource_id );
 		}
 	}

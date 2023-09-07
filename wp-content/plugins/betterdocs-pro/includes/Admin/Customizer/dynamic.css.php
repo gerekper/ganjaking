@@ -804,7 +804,7 @@ $css->add_rule( '.betterdocs-mkb-wrapper.betterdocs-mkb-layout-4 .betterdocs-cat
 ], 'px' ) );
 
 //MKB Layout 4 Title Font Size
-$css->add_rule( '.betterdocs-mkb-wrapper.betterdocs-mkb-layout-4 .betterdocs-category-grid-wrapper .betterdocs-category-title:not(:has(a))', $css->properties( [
+$css->add_rule( '.betterdocs-mkb-wrapper.betterdocs-mkb-layout-4 .betterdocs-category-grid-wrapper .betterdocs-category-title:not(a)', $css->properties( [
     'font-size' => 'betterdocs_mkb_cat_title_font_size'
 ], 'px' ) );
 $css->add_rule( '.betterdocs-mkb-wrapper.betterdocs-mkb-layout-4 .betterdocs-category-grid-wrapper .betterdocs-category-title a', $css->properties( [
@@ -812,7 +812,7 @@ $css->add_rule( '.betterdocs-mkb-wrapper.betterdocs-mkb-layout-4 .betterdocs-cat
 ], 'px' ) );
 
 //MKB Layout 4 Title Color
-$css->add_rule( '.betterdocs-mkb-wrapper.betterdocs-mkb-layout-4 .betterdocs-category-grid-wrapper .betterdocs-category-title:not(:has(a))', $css->properties( [
+$css->add_rule( '.betterdocs-mkb-wrapper.betterdocs-mkb-layout-4 .betterdocs-category-grid-wrapper .betterdocs-category-title:not(a)', $css->properties( [
     'color' => 'betterdocs_mkb_cat_title_color'
 ] ) );
 
@@ -822,7 +822,7 @@ $css->add_rule( '.betterdocs-mkb-wrapper.betterdocs-mkb-layout-4 .betterdocs-cat
 ] ) );
 
 //MKB Layout 4 Title Hover Color
-$css->add_rule( '.betterdocs-mkb-wrapper.betterdocs-mkb-layout-4 .betterdocs-category-grid-wrapper .betterdocs-category-title:not(:has(a)):hover', $css->properties( [
+$css->add_rule( '.betterdocs-mkb-wrapper.betterdocs-mkb-layout-4 .betterdocs-category-grid-wrapper .betterdocs-category-title:not(a):hover', $css->properties( [
     'color' => 'betterdocs_mkb_cat_title_hover_color'
 ] ) );
 

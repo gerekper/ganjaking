@@ -16,7 +16,7 @@ if ( ! empty( $resource ) ) {
 		if ( WC_AM_ORDER_DATA_STORE()->is_time_expired( $resource->access_expires ?? false ) ) {
 			$expires = __( 'Expired', 'woocommerce-api-manager' );
 		} else {
-			$expires = $resource->access_expires == 0 ? _x( 'When Cancelled', 'Used as end date for an indefinite subscription', 'woocommerce-api-manager' ) : esc_attr( WC_AM_FORMAT()->unix_timestamp_to_date( $resource->access_expires ) );
+			$expires = $resource->access_expires == 0 ? _x( 'Never', 'Used as end date for an indefinite subscription', 'woocommerce-api-manager' ) : esc_attr( WC_AM_FORMAT()->unix_timestamp_to_date( $resource->access_expires ) );
 		}
 	}
 
@@ -107,9 +107,13 @@ if ( ! empty( $resource ) ) {
 							}
 							?>
                         </label>
-                        <input type="text" class="short" id="wc_am_access_expires_api_resources_<?php esc_attr_e( $i ); ?>" name="access_expires[<?php esc_attr_e( $i ); ?>]"
+                        <input type="text" class="short" id="wc_am_access_expires_api_resources_<?php esc_attr_e( $i ); ?>" name="access_expires_<?php esc_attr_e( $i ); ?>"
                                value="<?php esc_html_e( $expires ) ?>"
                                placeholder="<?php esc_html_e( 'Required', 'woocommerce-api-manager' ); ?>" readonly/>
+                        <input type="hidden" id="access_expires_before_change_<?php esc_attr_e( $i ); ?>" name="access_expires_before_change_<?php esc_attr_e( $i ); ?>"
+                               value="<?php esc_html_e( $expires ) ?>">
+                        <input type="hidden" id="new_access_expires_<?php esc_attr_e( $i ); ?>" name="new_access_expires_<?php esc_attr_e( $i ); ?>"
+                               value="">
                     </td>
                 </tr>
                 </tbody>

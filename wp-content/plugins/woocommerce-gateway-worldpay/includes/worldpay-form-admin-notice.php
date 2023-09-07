@@ -38,7 +38,7 @@
 			<strong><?php _e('Using an MD5 password is also recommended', 'woocommerce_worlday'); ?></strong>
 			</p>
 
-			<p><?php _e('Once you have saved the settings you will be shown a list of values that need to be transferred to your WorldPay account at <a href="http://worldpay.com/uk" target="_blank">http://worldpay.com/uk</a>', 'woocommerce_worlday'); ?></p>
+			<p><?php _e('Once you have saved the settings you will be shown a list of values that need to be transferred to your WorldPay account at <a href="https://secure.worldpay.com/sso/public/auth/login.html?serviceIdentifier=merchantadmin&maiversion=version2" target="_blank">http://worldpay.com/uk</a>', 'woocommerce_worlday'); ?></p>
 
 			<p><?php _e('Please refer to the <a href="http://docs.woothemes.com/document/worldpay/" target="_blank">WooCommerce WorldPay docs</a> for more information and a short video', 'woocommerce_worlday'); ?></p>
 		</div>

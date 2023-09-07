@@ -17,7 +17,7 @@
  *
  * @author  Todd Lahman LLC
  * @package WooCommerce API Manager/Templates
- * @version 3.0.1
+ * @version 3.1
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -53,9 +53,9 @@ if ( ! empty( $user_id ) ) {
 				?>
                 <table class="woocommerce-MyAccount-orders shop_table shop_table_responsive my_account_api_manager my_account_orders">
                     <thead>
-                    <tr>
+                    <tr id="master-api-key-header">
                         <th class="master-api-key"><span
-                                    class="nobr"><?php esc_html_e( 'Master API Key', 'woocommerce-api-manager' ); ?><?php esc_html_e( ' - Can be used to activate any product.', 'woocommerce-api-manager' ); ?></span>
+                                    class="nobr"><?php esc_html_e( apply_filters( 'wc_api_manager_my_account_master_api_key_heading', __( 'Master API Key - Can be used to activate any product.', 'woocommerce-api-manager' ) ) ); ?></span>
                         </th>
                     </tr>
                     </thead>
@@ -72,11 +72,11 @@ if ( ! empty( $user_id ) ) {
 			?>
             <table class="woocommerce-MyAccount-orders shop_table shop_table_responsive my_account_api_manager my_account_orders">
                 <tbody>
-                <tr>
+                <tr id="product-order-api-key-header">
                     <hr>
 					<?php if ( ! $hide_product_order_api_keys ) { ?>
                         <td>
-							<?php esc_html_e( 'A Product Order API Key is used to activate a single product from a single order.', 'woocommerce-api-manager' ); ?>
+							<?php esc_html_e( apply_filters( 'wc_api_manager_my_account_product_order_api_key_message', __( 'A Product Order API Key is used to activate a single product from a single order.', 'woocommerce-api-manager' ) ) ); ?>
                         </td>
 					<?php } ?>
                 </tr>
@@ -92,7 +92,7 @@ if ( ! empty( $user_id ) ) {
 					<?php
 					if ( ! $hide_product_order_api_keys ) { ?>
                         <th class="<?php echo esc_attr( 'api-manager-key' ); ?>"><span
-                                    class="nobr" style="white-space: nowrap;"><?php esc_html_e( 'Product Order API Key', 'woocommerce-api-manager' ); ?></span></th>
+                                    class="nobr" style="white-space: nowrap;"><?php esc_html_e( apply_filters( 'wc_api_manager_my_account_product_order_api_key_heading', __( 'Product Order API Key', 'woocommerce-api-manager' ) ) ); ?></span></th>
 					<?php } ?>
                     <th class="<?php echo esc_attr( 'api-manager-activation' ); ?>"><span
                                 class="nobr"><?php esc_html_e( 'Activations', 'woocommerce-api-manager' ); ?></span></th>
@@ -197,7 +197,7 @@ if ( ! empty( $user_id ) ) {
 										?>
                                         <hr>
                                         <a href="<?php echo esc_url( wc_get_endpoint_url( 'view-subscription', $resource->sub_id, wc_get_page_permalink( 'myaccount' ) ) ) ?>"
-                                           class="woocommerce-button button view"><?php echo esc_html_x( 'View', 'view a subscription', 'woocommerce-subscriptions' ); ?></a>
+                                           class="woocommerce-button button view"><?php echo esc_html_x( 'View', 'view a subscription', 'woocommerce-api-manager' ); ?></a>
                                     </td>
                                 </tr>
 								<?php

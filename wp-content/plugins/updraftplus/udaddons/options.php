@@ -250,6 +250,10 @@ class UpdraftPlusAddOns_Options2 {
 			echo '<div class="error below-h2" style="font-size: 120%;"><p><strong>'.__('Error', 'updraftplus').':</strong> '.sprintf(__("You have installed this plugin in your plugins folder (%s) with a non-default name %s which is different to %s.", 'updraftplus'), WP_PLUGIN_DIR, '<strong>'.basename(dirname(dirname(__FILE__))).'</strong>', '<strong>updraftplus</strong>').' '.__("This is incompatible with WordPress's updates mechanism; you will not be able to receive updates.", 'updraftplus').'</p></div>';
 		}
 
+		if (defined('WP_HTTP_BLOCK_EXTERNAL') && WP_HTTP_BLOCK_EXTERNAL) {
+			echo '<div class="notice inline"><p>'.sprintf(__('Please make sure that %s is not set to "true" in your wp-config file - this ensures UpdraftPlus can connect and update.', 'updraftplus'), '<strong>WP_HTTP_BLOCK_EXTERNAL</strong>').'</p></div>';
+		}
+
 		if ($this->connected) {
 			echo '<div class="notice below-h2"><h3>'.__('You are presently <strong class="success">connected</strong> to an UpdraftPlus.Com account.', 'updraftplus').'</h3>';
 

@@ -5,7 +5,7 @@ Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, 
 Requires at least: 4.0
 Tested up to: 6.3
 Requires PHP: 7.0
-Stable tag: 2.5.4
+Stable tag: 2.5.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -91,6 +91,12 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 2.5.5 - 05/09/2023 =
+
+- Fixed- IA single doc reaction does not work for the ‘plain’ permalink type
+- Fixed- ‘Order By BetterDocs Order’ not working on the Elementor Multiple KB widget
+- Few minor bug fixes & improvements
 
 = 2.5.4 - 24/08/2023 =
 

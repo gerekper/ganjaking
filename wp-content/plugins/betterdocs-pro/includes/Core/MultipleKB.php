@@ -6,8 +6,10 @@ use WPDeveloper\BetterDocs\Utils\Base;
 use WPDeveloper\BetterDocs\Core\PostType;
 use WPDeveloper\BetterDocs\Core\Settings;
 use WPDeveloper\BetterDocs\Admin\Builder\Rules;
+use WPDeveloper\BetterDocsPro\Traits\MKB;
 
 class MultipleKB extends Base {
+    use MKB;
     /**
      * Summary of post_type
      * @var PostType
@@ -43,6 +45,7 @@ class MultipleKB extends Base {
     public function init() {
         add_action( 'init', [$this, 'register_taxonomy'] );
         add_filter( 'betterdocs_category_rewrite', [$this, 'category_rewrite'], 10, 2 );
+        add_filter( 'betterdocs_term_permalink', [$this, 'term_permalink'], 21, 4 );
 
         add_filter( 'betterdocs_nested_terms_args', [$this, 'nested_terms_args'], 11 );
         add_filter( 'betterdocs_post_type_link', [$this, 'post_type_link'], 1, 3 );
@@ -54,6 +57,18 @@ class MultipleKB extends Base {
         add_filter( 'betterdocs_archive_template_shortcode_params', [$this, 'archive_template_shortcode_params'], 11, 3 );
         add_filter( 'betterdocs_terms_meta_query_args', [$this, 'terms_meta_query'], 10, 4 );
         add_filter( 'betterdocs_breadcrumb_before_archives', [$this, 'breadcrumbs'], 20, 1 );
+    }
+
+    public function term_permalink($permalink, $term, $taxonomy, $params ) {
+        if( ! empty( $params['kb_slug'] ) ) {
+            $_kb_slug = $this->get_kb_slug();
+            if ( empty( $_kb_slug ) ) {
+                $_kb_slug = $this->get_first_kb_slug($term, $taxonomy);
+            }
+            return str_replace( [ $_kb_slug, '%knowledge_base%'], trim( $params['kb_slug'] ), $permalink );
+        }
+
+        return $permalink;
     }
 
     public function type_rewrite_permalink( $permalink, $slug, $permalink_structure ) {

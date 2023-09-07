@@ -36,10 +36,10 @@ class Betterdocs_Elementor_Popular_View extends Widget_Base{
         return 'https://betterdocs.co/#pricing';
     }
 
-    protected function register_controls()
+    protected function _register_controls()
     {
         /**
-         * Query Popular Articles
+         * Query Popular Docs
          */
         $this->start_controls_section(
             'query_popular_articles',
@@ -51,7 +51,7 @@ class Betterdocs_Elementor_Popular_View extends Widget_Base{
         $this->add_control(
             'articles_sort',
             [
-                'label' => __('Sort Articles', 'betterdocs-pro'),
+                'label' => __('Sort Docs', 'betterdocs-pro'),
                 'label_block' => true,
                 'type' => Controls_Manager::SELECT2,
                 'options' => array(
@@ -70,7 +70,7 @@ class Betterdocs_Elementor_Popular_View extends Widget_Base{
         $this->add_control(
             'popular_posts_number',
             [
-                'label' => __('Number Of Posts', 'betterdocs-pro'),
+                'label' => __('Number Of Docs', 'betterdocs-pro'),
                 'type' => Controls_Manager::NUMBER,
                 'default' => '8',
             ]
@@ -95,32 +95,31 @@ class Betterdocs_Elementor_Popular_View extends Widget_Base{
 
     protected function render()
     {
-        $settings  = $this->get_settings_for_display();
-        $multiple_kb_status = BetterDocs_Elementor::get_betterdocs_multiple_kb_status();
+       $settings  = $this->get_settings_for_display();
+       $multiple_kb_status = BetterDocs_Elementor::get_betterdocs_multiple_kb_status();
 
-        $class = ['betterdocs-categories-wrap betterdocs-popular-list'];
+       $class = ['betterdocs-categories-wrap betterdocs-popular-list'];
 
-        if ($multiple_kb_status) {
-            $class[] = 'multiple-kb';
-        } else {
-            $class[] = 'single-kb';
-        }
+       if ($multiple_kb_status) {
+           $class[] = 'multiple-kb';
+       } else {
+           $class[] = 'single-kb';
+       }
 
-        echo '<div class="' . implode(' ', $class) . '">';
-        echo '<'.$settings['popular-layout-title-tag'].' class="popular-title">' .esc_html__($settings['popular_docs_name'], 'betterdocs-pro'). '</'.$settings['popular-layout-title-tag'].'>';
-        $args = array(
-            'post_type'      => 'docs',
-            'posts_per_page' => $settings['popular_posts_number'],
-            'meta_key'       => '_betterdocs_meta_views',
-            'orderby'        => 'meta_value_num',
-            'order'          => $settings['articles_sort'],
-        );
-        $args = apply_filters('betterdocs_articles_args', $args);
-        $post_query = new WP_Query($args);
-        if ($post_query->have_posts()) :
-            echo '<ul>';
-            while ($post_query->have_posts()) : $post_query->the_post();
-                $icon = '<svg viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+       echo '<div class="' . implode(' ', $class) . '">';
+           echo '<'.$settings['popular-layout-title-tag'].' class="popular-title">' .esc_html__($settings['popular_docs_name'], 'betterdocs-pro'). '</'.$settings['popular-layout-title-tag'].'>';
+           $args = array(
+               'post_type'      => 'docs',
+               'posts_per_page' => $settings['popular_posts_number'],
+               'meta_key'       => '_betterdocs_meta_views',
+               'orderby'        => 'meta_value_num',
+               'order'          => $settings['articles_sort'],
+           );
+           $post_query = new WP_Query($args);
+           if ($post_query->have_posts()) :
+               echo '<ul>';
+               while ($post_query->have_posts()) : $post_query->the_post();
+                   $icon = '<svg viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                    <g clip-path="url(#clip0)">
                    <path d="M13.15 5.40903H4.84447C4.4615 5.40903 4.15234 5.73849 4.15234 6.14662C4.15234 6.55476 4.4615 6.88422 4.84447 6.88422H13.15C13.533 6.88422 13.8422 6.55476 13.8422 6.14662C13.8422 5.73849 13.533 5.40903 13.15 5.40903Z"/>
                    <path d="M13.15 8.85112H4.84447C4.4615 8.85112 4.15234 9.18058 4.15234 9.58872C4.15234 9.99685 4.4615 10.3263 4.84447 10.3263H13.15C13.533 10.3263 13.8422 9.99685 13.8422 9.58872C13.8422 9.18058 13.533 8.85112 13.15 8.85112Z"/>
@@ -129,12 +128,12 @@ class Betterdocs_Elementor_Popular_View extends Widget_Base{
                    <path d="M15.9236 0H9.00231H2.07639C0.927455 0 0 0.988377 0 2.21279V19.7872C0 21.0116 0.927455 22 2.07639 22H9.00231H15.9282C17.0772 22 18.0046 21.0116 18.0046 19.7872V2.21279C18 0.988377 17.0725 0 15.9236 0ZM16.6157 19.7872C16.6157 20.1954 16.3066 20.5248 15.9236 20.5248H9.00231H2.07639C1.69341 20.5248 1.38426 20.1954 1.38426 19.7872V2.21279C1.38426 1.80465 1.69341 1.47519 2.07639 1.47519H6.9213H9.00231H11.0833H15.9282C16.3112 1.47519 16.6204 1.80465 16.6204 2.21279V19.7872H16.6157Z"/>
                    </g>
                    </svg>';
-                echo '<li>'.$icon.'<a href="' . get_the_permalink() . '">' .  wp_kses(get_the_title(), BETTERDOCS_PRO_KSES_ALLOWED_HTML) . '</a></li>';
-            endwhile;
-            echo '</ul>';
-        endif;
-        wp_reset_query();
-        echo '</div>';
+                   echo '<li>'.$icon.'<a href="' . get_the_permalink() . '">' . get_the_title() . '</a></li>';
+               endwhile;
+               echo '</ul>';
+           endif;
+           wp_reset_query();
+       echo '</div>';
     }
 
 
@@ -201,30 +200,30 @@ class Betterdocs_Elementor_Popular_View extends Widget_Base{
 
 
         $this->add_control(
-            'popular_title_alignment',
-            [
-                'label'    => __( 'Title Alignment', 'betterdocs-pro' ),
-                'type'     => Controls_Manager::SELECT,
-                'options'  => [
-                    'left'   => __('Left', 'betterdocs-pro'),
-                    'center' => __('Center', 'betterdocs-pro'),
-                    'right'  => __( 'Right', 'betterdocs-pro' )
-                ],
-                'default' => 'left',
+			'popular_title_alignment',
+			[
+				'label'    => __( 'Title Alignment', 'betterdocs-pro' ),
+				'type'     => Controls_Manager::SELECT,
+				'options'  => [
+					'left'   => __('Left', 'betterdocs-pro'),
+					'center' => __('Center', 'betterdocs-pro'),
+					'right'  => __( 'Right', 'betterdocs-pro' )
+				],
+				'default' => 'left',
                 'selectors' => [
                     '{{WRAPPER}} .betterdocs-popular-list .popular-title' => 'text-align:{{VALUE}};'
                 ],
-            ]
-        );
+			]
+		);
 
         $this->end_controls_section();
     }
 
-    /**
-     * ----------------------------------------------------------
-     * Section: Box Background Styles
-     * ----------------------------------------------------------
-     */
+   /**
+    * ----------------------------------------------------------
+    * Section: Box Background Styles
+    * ----------------------------------------------------------
+    */
     public function box_background_style() {
         $this->start_controls_section(
             'popular_box_background_section',
@@ -235,13 +234,13 @@ class Betterdocs_Elementor_Popular_View extends Widget_Base{
         );
 
         $this->add_group_control(
-            Group_Control_Background::get_type(),
-            [
-                'name'     => 'box_background_color_1',
-                'types'    => [ 'classic', 'gradient', 'video' ],
-                'selector' => '{{WRAPPER}} .betterdocs-categories-wrap',
-            ]
-        );
+			Group_Control_Background::get_type(),
+			[
+				'name'     => 'box_background_color_1',
+				'types'    => [ 'classic', 'gradient', 'video' ],
+				'selector' => '{{WRAPPER}} .betterdocs-categories-wrap',
+			]
+		);
 
         $this->add_control(
             'box_background_color_hover_1',
@@ -258,11 +257,11 @@ class Betterdocs_Elementor_Popular_View extends Widget_Base{
 
     }
 
-    /**
-     * ----------------------------------------------------------
-     * Section: Popular List Styles
-     * ----------------------------------------------------------
-     */
+   /**
+    * ----------------------------------------------------------
+    * Section: Popular List Styles
+    * ----------------------------------------------------------
+    */
     public function popular_lists_style() {
         $this->start_controls_section(
             'popular_box_lists_section',
@@ -289,7 +288,7 @@ class Betterdocs_Elementor_Popular_View extends Widget_Base{
                 'size_units' => ['px', '%', 'em'],
                 'selectors'  => [
                     '{{WRAPPER}} .betterdocs-categories-wrap .popular-title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                ]
+                    ]
             ]
         );
 
@@ -301,7 +300,7 @@ class Betterdocs_Elementor_Popular_View extends Widget_Base{
                 'size_units' => ['px', '%', 'em'],
                 'selectors'  => [
                     '{{WRAPPER}} .betterdocs-categories-wrap .popular-title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                ]
+                    ]
             ]
         );
 
@@ -417,9 +416,9 @@ class Betterdocs_Elementor_Popular_View extends Widget_Base{
                     ],
                 ],
                 'default' => [
-                    'size' => 15,
-                    'unit' => 'px',
-                ],
+					'size' => 15,
+					'unit' => 'px',
+				],
                 'selectors'  => [
                     '{{WRAPPER}} .betterdocs-categories-wrap ul li svg' => 'width: {{SIZE}}{{UNIT}}; min-width:1px'
                 ],

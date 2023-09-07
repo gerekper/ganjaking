@@ -3,7 +3,7 @@ Contributors: Backup with UpdraftPlus, DavidAnderson, pmbaldha, DNutbourne, apor
 Tags: backup, database backup, wordpress backup, cloud backup, migration
 Requires at least: 3.2
 Tested up to: 6.3
-Stable tag: 1.23.9
+Stable tag: 1.23.10
 Author URI: https://updraftplus.com
 Donate link: https://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -103,21 +103,24 @@ Optimize your sites centrally by combining the power of WP-Optimize and UpdraftC
 
 UpdraftClone makes it quick and easy to create a temporary sandbox for changes you want to try out. Simply select the versions of WordPress and PHP that you want, and we’ll do the rest. <a href="https://updraftplus.com/shop/updraftclone-tokens/">More about UpdraftClone</a>
 
-= The full suite of plugins from Team Updraft =
+= The full suite of plugins from Team Updraft and friends =
 
-* <a href=http://updraftplus.com">UpdraftPlus</a>.
+* <a href="https://updraftplus.com">UpdraftPlus</a>.
  <b>Backup, migrate and restore.</b> Rated 5* on the plugin directory and trusted by more than 3 million WordPress website owner
 
-* <a href=https://getwpo.com/">WP-Optimize</a>.
+* <a href="https://getwpo.com">WP-Optimize</a>.
  <b>Clean the database, compress images and caching.</b> Optimize your WordPress website. 5* user rating. 1 million + active installs.
 
-* <a href=http://aiosplugin.com">All-In-One Security (AIOS)</a>.
+* <a href="https://aiosplugin.com">All-In-One Security (AIOS)</a>.
  <b>Secure your WordPress website.</b> Comprehensive, feature rich and easy to use. 5* user rating and 1 million + active installs.
 
-* <a href=https://wpovernight.com/">WP Overnight</a>.
+* <a href="https://wpovernight.com">WP Overnight</a>.
  <b>Quality Extensions for your WooCommerce store.</b> 5* rated invoicing, order and product management, customer management solutions and more.
 
-* <a href=http://www.internallinkjuicer.com">Internal Link Juicer</a>.<b>Boost your SEO.</b> Automate internal links within your WordPress website. Save time and rank higher in the search engines.
+* <a href="https://easyupdatesmanager.com">Easy Updates Manager</a>.
+ <b>Take control of updates.</b> Lots of features for free, and a Premium version with even more - over 300,000 users.
+ 
+* <a href="https://www.internallinkjuicer.com">Internal Link Juicer</a>.<b>Boost your SEO.</b> Automate internal links within your WordPress website. Save time and rank higher in the search engines.
 
 For other useful, free plugins see <a href="https://profiles.wordpress.org/davidanderson/#content-plugins">our lead developer's profile, here</a>.
 
@@ -177,6 +180,16 @@ The <a href="https://updraftplus.com/news/">UpdraftPlus backup blog</a> is the b
 N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.16.32.x of the free version correspond to changes made in 2.16.32.x of the paid version.
 
 
+
+The <a href="https://updraftplus.com/news/">UpdraftPlus backup blog</a> is the best place to learn in more detail about any important changes.
+
+N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.23.1.x of the free version correspond to changes made in 2.23.1.x of the paid version.
+
+= 1.23.10 - 05/Sep/2023 =
+
+* TWEAK: New S3 signature version setting is added to the S3-Compatible (Generic) configuration form, giving an opportunity for the user to choose which signature version to use (SigV2 or SigV4)
+* TWEAK: Enable PHP 8.3 (see: https://stitcher.io/blog/new-in-php-83) support in UpdraftClone
+* TWEAK: Adjust fread() sizes for better performance when uploading an archive via the widget
 
 = 1.23.9 - 14/Aug/2023 =
 
@@ -1811,4 +1824,4 @@ Reliance upon any non-English translation is at your own risk; UpdraftPlus can g
 We recognise and thank those mentioned at https://updraftplus.com/acknowledgements/ for code and/or libraries used and/or modified under the terms of their open source licences.
 
 == Upgrade Notice ==
-* 1.23.9: Various fixes and tweaks. A recommended update for all.
+* 1.23.10: Various tweaks. A recommended update for all.

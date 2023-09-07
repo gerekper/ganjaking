@@ -7,7 +7,7 @@
 
 $term_permalink = BetterDocs_Helper::term_permalink('knowledge_base', $term->slug);
 echo '<a href="' . esc_url($term_permalink) . '" class="docs-single-cat-wrap">';
-$cat_icon_id = get_term_meta($term->term_id, 'knowledge_base_image-id', true);
+$cat_icon_id = get_term_meta($term->term_id, 'doc_category_image-id', true);
 if($settings['show_icon']){
     if ($cat_icon_id) {
         echo wp_get_attachment_image($cat_icon_id, 'thumbnail');
@@ -17,7 +17,7 @@ if($settings['show_icon']){
 }
     echo '<div class="title-count">';
 if( $settings['show_title'] ) {
-    echo '<'. BetterDocs_Elementor::elbd_validate_html_tag($settings['title_tag']) .' class="docs-cat-title">' . $term->name . '</'. BetterDocs_Elementor::elbd_validate_html_tag($settings['title_tag']) .'>';
+    echo '<'.$settings['title_tag'].' class="docs-cat-title">' . $term->name . '</'.$settings['title_tag'].'>';
 }
 
 if ($settings['listview-show-description'] == true) {
@@ -25,9 +25,9 @@ if ($settings['listview-show-description'] == true) {
 }
 if ($settings['show_count'] == true) {
     if ($term->count == 1) {
-        echo wp_sprintf('<span>%s %s</span>', $term->count, __('article', 'betterdocs-pro'));
+        echo wp_sprintf('<span>%s %s</span>', $term->count, __('doc', 'betterdocs'));
     } else {
-        echo wp_sprintf('<span>%s %s</span>', $term->count, __('articles', 'betterdocs-pro'));
+        echo wp_sprintf('<span>%s %s</span>', $term->count, __('docs', 'betterdocs'));
     }
 }
 echo '</div>

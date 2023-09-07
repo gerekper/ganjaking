@@ -108,8 +108,8 @@ class WC_AM_Install {
 	 */
 	public function action_links( $links ) {
 		return array_merge( array(
-			                    'Settings' => '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=api_manager' ) . '">' . esc_html__( 'Settings', 'woocommerce-api-manager' ) . '</a>',
-		                    ), $links );
+			'Settings' => '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=api_manager' ) . '">' . esc_html__( 'Settings', 'woocommerce-api-manager' ) . '</a>',
+		), $links );
 	}
 
 	/**
@@ -579,15 +579,15 @@ class WC_AM_Install {
 		 * @updated 3.0 Replace get_page_by_title(), deprecated in WP 6.2, with get_posts() which calls WP_Query().
 		 */
 		$lost_api_key_id = get_posts( array(
-			                              'post_type'              => 'page',
-			                              'title'                  => 'Lost API Key',
-			                              'post_status'            => 'all',
-			                              'numberposts'            => 1,
-			                              'update_post_term_cache' => false,
-			                              'update_post_meta_cache' => false,
-			                              'orderby'                => 'post_date ID',
-			                              'order'                  => 'ASC',
-		                              ) );
+			'post_type'              => 'page',
+			'title'                  => 'Lost API Key',
+			'post_status'            => 'all',
+			'numberposts'            => 1,
+			'update_post_term_cache' => false,
+			'update_post_meta_cache' => false,
+			'orderby'                => 'post_date ID',
+			'order'                  => 'ASC',
+		) );
 
 		if ( ! empty( $lost_api_key_id ) ) {
 			wp_delete_post( $lost_api_key_id->ID, true );
@@ -665,7 +665,10 @@ class WC_AM_Install {
 		 * @since 3.0
 		 */
 		if ( get_option( 'woocommerce_api_manager_manual_renewal_period' ) === false ) {
-			update_option( 'woocommerce_api_manager_manual_renewal_period', array( 'number' => 2, 'unit' => 'months' ) );
+			update_option( 'woocommerce_api_manager_manual_renewal_period', array(
+				'number' => 2,
+				'unit'   => 'months'
+			) );
 		}
 
 		/**
@@ -673,6 +676,13 @@ class WC_AM_Install {
 		 */
 		if ( get_option( 'woocommerce_api_manager_manual_renewal_discount' ) === false ) {
 			update_option( 'woocommerce_api_manager_manual_renewal_discount', 0 );
+		}
+
+		/**
+		 * @since 3.1
+		 */
+		if ( get_option( 'woocommerce_api_manager_api_resource_log_cleanup_event_data' ) === false ) {
+			update_option( 'woocommerce_api_manager_api_resource_log_cleanup_event_data', 'no' );
 		}
 	}
 

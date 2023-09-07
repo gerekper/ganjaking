@@ -213,7 +213,7 @@ class Settings extends FreeSettings {
             'ia_feedback_title_color'             => '', //does not contain any default value on default selectors(in previous version as well)
             'ia_feedback_icon_size'               => 15,
             'ia_feedback_icon_color'              => '#fff',
-            'ia_response_icon_size'               => 0, //the selector is unknown and does not work in the previous version as well, left it 0
+            'ia_response_icon_size'               => 24, //the selector is unknown and does not work in the previous version as well, left it 0
             'ia_response_title_size'              => 13, //the selector is unknown and does not work in the previous version as well, left it 25
             'ia_response_title_color'             => '', //the selector is unknown and does not work in the previous version as well, left it empty
             'ia_response_icon_color'              => '', //the selector is unknown and does not work in the previous version as well(where the key was empty), left it empty
@@ -866,7 +866,7 @@ class Settings extends FreeSettings {
                             'name'     => 'ia_response_icon_size',
                             'type'     => 'number',
                             'label'    => __( 'Response Icon Size', 'betterdocs-pro' ),
-                            'default'  => 0, //ia_response_icon_size & the selector is unknown and does not work in the previous version as well, left it 0
+                            'default'  => 24, //ia_response_icon_size & the selector is unknown and does not work in the previous version as well, left it 0
                             'priority' => 23,
                             'rules'    => Rules::logicalRule( [
                                 Rules::is( 'disable_reaction', false ),

@@ -13,7 +13,7 @@
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @author  Todd Lahman LLC
  * @package WooCommerce API Manager/Templates/Emails
- * @version 2.6.14
+ * @version 3.1
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -24,7 +24,7 @@ if ( is_object( $order ) && ! empty( $resources ) ) {
 	$hide_product_order_api_keys = WC_AM_USER()->hide_product_order_api_keys();
 	$hide_master_api_key         = WC_AM_USER()->hide_master_api_key();
 
-	?><h2><?php esc_html_e( 'API Product Information', 'woocommerce-api-manager' ); ?></h2>
+	?><h2><?php esc_html_e( apply_filters( 'wc_api_manager_email_api_product_heading', __( 'API Product Information', 'woocommerce-api-manager' ) ) ); ?></h2>
 
     <div style="margin-bottom: 40px;">
         <table class="td" cellspacing="0" cellpadding="6" style="width: 100%; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;" border="1">
@@ -69,7 +69,7 @@ if ( is_object( $order ) && ! empty( $resources ) ) {
 				<?php if ( ! $hide_product_order_api_keys ) { ?>
                     <tr>
                         <td class="td" colspan="4" style="text-align:<?php esc_attr_e( $text_align ); ?>; vertical-align:middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">
-                            <strong><?php esc_html_e( 'Product Order API Key(s):', 'woocommerce-api-manager' ); ?></strong>
+                            <strong><?php esc_html_e( apply_filters( 'wc_api_manager_email_product_order_api_keys_row', __( 'Product Order API Key(s):', 'woocommerce-api-manager' ) ) ); ?></strong>
                             <br><?php echo esc_attr( $resource->product_order_api_key ); ?>
                         </td>
                     </tr>
@@ -89,14 +89,14 @@ if ( is_object( $order ) && ! empty( $resources ) ) {
 			if ( ! $hide_master_api_key ) {
 				?>
                 <tr>
-                    <th class="td" scope="row" colspan="4" style="text-align:center;"><?php esc_html_e( 'Master API Key', 'woocommerce-api-manager' ); ?></th>
+                    <th class="td" scope="row" colspan="4" style="text-align:center;"><?php esc_html_e( apply_filters( 'wc_api_manager_email_master_api_key_row', __( 'Master API Key', 'woocommerce-api-manager' ) ) ); ?></th>
                 </tr>
                 <tr>
                     <td class="td" scope="row" colspan="4" style="text-align:center;"><?php esc_attr_e( WC_AM_USER()->get_master_api_key( $order->get_customer_id() ) ) ?></td>
                 </tr>
-                <tr>
+                <tr id="email_master_api_key_message_row">
                     <td class="td" scope="row" colspan="4"
-                        style="text-align:center;"><?php esc_html_e( 'A Master API Key can be used to activate any and all products.', 'woocommerce-api-manager' ); ?></td>
+                        style="text-align:center;"><?php esc_html_e( apply_filters( 'wc_api_manager_email_master_api_key_message_row', __( 'A Master API Key can be used to activate any and all products.', 'woocommerce-api-manager' ) ) ); ?></td>
                 </tr>
 				<?php
 			}

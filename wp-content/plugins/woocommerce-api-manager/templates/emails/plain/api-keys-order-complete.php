@@ -13,7 +13,7 @@
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @author  Todd Lahman LLC
  * @package WooCommerce API Manager/Templates/Emails
- * @version 2.6.14
+ * @version 3.1
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -23,7 +23,7 @@ if ( is_object( $order ) && ! empty( $resources ) ) {
 	$hide_master_api_key         = WC_AM_USER()->hide_master_api_key();
 
 	echo "\n\n" . esc_html( '-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-' );
-	echo "\n\n" . esc_html__( 'API Product Information', 'woocommerce-api-manager' ) . "\n\n";
+	echo "\n\n" . esc_html__( apply_filters( 'wc_api_manager_email_api_product_heading', __( 'API Product Information', 'woocommerce-api-manager' ) ) ) . "\n\n";
 
 	foreach ( $resources as $resource ) {
 		$product_object = WC_AM_PRODUCT_DATA_STORE()->get_product_object( $resource->product_id );
@@ -44,7 +44,7 @@ if ( is_object( $order ) && ! empty( $resources ) ) {
 
 		if ( ! $hide_product_order_api_keys ) {
 			// translators: %s placeholder is Product Order Api Key
-			esc_html_e( sprintf( __( 'Product Order API Key(s): %s', 'woocommerce-api-manager' ), $resource->product_order_api_key ) );
+			esc_html_e( sprintf( apply_filters( 'wc_api_manager_email_product_order_api_keys_row', __( 'Product Order API Key(s): %s', 'woocommerce-api-manager' ) ), $resource->product_order_api_key ) );
 			echo "\n";
 		}
 
@@ -63,10 +63,10 @@ if ( is_object( $order ) && ! empty( $resources ) ) {
 
 	if ( ! $hide_master_api_key ) {
 		// translators: %s placeholder is Master API Key
-		esc_html_e( sprintf( __( 'Master API Key: %s', 'woocommerce-api-manager' ), WC_AM_USER()->get_master_api_key( $order->get_customer_id() ) ) );
+		esc_html_e( sprintf( apply_filters( 'wc_api_manager_email_master_api_key_row', __( 'Master API Key: %s', 'woocommerce-api-manager' ) ), WC_AM_USER()->get_master_api_key( $order->get_customer_id() ) ) );
 		echo "\n\n";
 
-		esc_html_e( 'A Master API Key can be used to activate any and all products.', 'woocommerce-api-manager' );
+		esc_html_e( apply_filters( 'wc_api_manager_email_master_api_key_message_row', __( 'A Master API Key can be used to activate any and all products.', 'woocommerce-api-manager' ) ) );
 		echo "\n";
 	}
 

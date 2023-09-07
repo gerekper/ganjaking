@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Product_Addon_Display class.
  *
- * @version 6.4.4
+ * @version 6.4.6
  */
 class WC_Product_Addons_Display {
 	public $show_num_chars;
@@ -156,13 +156,6 @@ class WC_Product_Addons_Display {
 	}
 
 	/**
-	 * Get the plugin path.
-	 */
-	public function plugin_path() {
-		return $this->plugin_path = untrailingslashit( plugin_dir_path( dirname( __FILE__ ) ) );
-	}
-
-	/**
 	 * Adds support for WooCommerce Quick View adding a new script.
 	 */
 	public function quick_view_single_compat() {
@@ -216,7 +209,7 @@ class WC_Product_Addons_Display {
 						'type'                => $addon['type'],
 					),
 					'woocommerce-product-addons',
-					$this->plugin_path() . '/templates/'
+					WC_PRODUCT_ADDONS_PLUGIN_PATH . '/templates/'
 				);
 
 				// This is sanitised in the template files and earlier functions.
@@ -228,7 +221,7 @@ class WC_Product_Addons_Display {
 						'addon' => $addon,
 					),
 					'woocommerce-product-addons',
-					$this->plugin_path() . '/templates/'
+					WC_PRODUCT_ADDONS_PLUGIN_PATH . '/templates/'
 				);
 			}
 
@@ -334,7 +327,7 @@ class WC_Product_Addons_Display {
 				'addon' => $addon,
 			),
 			'woocommerce-product-addons',
-			$this->plugin_path() . '/templates/'
+			WC_PRODUCT_ADDONS_PLUGIN_PATH . '/templates/'
 		);
 	}
 
@@ -350,7 +343,7 @@ class WC_Product_Addons_Display {
 				'addon' => $addon,
 			),
 			'woocommerce-product-addons',
-			$this->plugin_path() . '/templates/'
+			WC_PRODUCT_ADDONS_PLUGIN_PATH . '/templates/'
 		);
 	}
 
@@ -366,7 +359,7 @@ class WC_Product_Addons_Display {
 				'addon' => $addon,
 			),
 			'woocommerce-product-addons',
-			$this->plugin_path() . '/templates/'
+			WC_PRODUCT_ADDONS_PLUGIN_PATH . '/templates/'
 		);
 	}
 
@@ -382,7 +375,7 @@ class WC_Product_Addons_Display {
 				'addon' => $addon,
 			),
 			'woocommerce-product-addons',
-			$this->plugin_path() . '/templates/'
+			WC_PRODUCT_ADDONS_PLUGIN_PATH . '/templates/'
 		);
 	}
 
@@ -398,7 +391,7 @@ class WC_Product_Addons_Display {
 				'addon' => $addon,
 			),
 			'woocommerce-product-addons',
-			$this->plugin_path() . '/templates/'
+			WC_PRODUCT_ADDONS_PLUGIN_PATH . '/templates/'
 		);
 	}
 
@@ -414,7 +407,7 @@ class WC_Product_Addons_Display {
 				'addon' => $addon,
 			),
 			'woocommerce-product-addons',
-			$this->plugin_path() . '/templates/'
+			WC_PRODUCT_ADDONS_PLUGIN_PATH . '/templates/'
 		);
 	}
 
@@ -431,7 +424,7 @@ class WC_Product_Addons_Display {
 				'max_size' => size_format( wp_max_upload_size() ),
 			),
 			'woocommerce-product-addons',
-			$this->plugin_path() . '/templates/'
+			WC_PRODUCT_ADDONS_PLUGIN_PATH . '/templates/'
 		);
 	}
 
@@ -447,7 +440,7 @@ class WC_Product_Addons_Display {
 				'addon' => $addon,
 			),
 			'woocommerce-product-addons',
-			$this->plugin_path() . '/templates/'
+			WC_PRODUCT_ADDONS_PLUGIN_PATH . '/templates/'
 		);
 	}
 
@@ -463,7 +456,7 @@ class WC_Product_Addons_Display {
 				'addon' => $addon,
 			),
 			'woocommerce-product-addons',
-			$this->plugin_path() . '/templates/'
+			WC_PRODUCT_ADDONS_PLUGIN_PATH . '/templates/'
 		);
 	}
 

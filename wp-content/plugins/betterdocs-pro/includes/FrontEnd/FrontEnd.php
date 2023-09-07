@@ -61,6 +61,11 @@ class FrontEnd extends Base {
                 $_template = 'templates/archives/mkb/' . $kb_layout;
             }
         } elseif ( is_tax( 'doc_category' ) ) {
+            global $wp_query;
+            $_kb_slug = isset( $wp_query->query['knowledge_base'] ) ? $wp_query->query['knowledge_base'] : null;
+            if ( $_kb_slug ) {
+                setcookie( 'last_knowledge_base', $_kb_slug, time() + ( YEAR_IN_SECONDS * 2 ), "/" );
+            }
             $category_layout = $this->database->get_theme_mod( 'betterdocs_archive_layout_select', 'layout-1' );
             $_template       = 'templates/archives/categories/' . $category_layout;
         }

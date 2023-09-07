@@ -311,9 +311,19 @@ class WC_AM_Settings_Admin {
 				),
 
 				array(
-					'name'    => __( 'Schedule API Resources Cleanup', 'woocommerce-api-manager' ),
+					'name'    => __( 'Schedule Event', 'woocommerce-api-manager' ),
 					'desc'    => sprintf( esc_html__( '%sSchedule the weekly cleanup of expired API Resources and related API Key activations. %s%s', 'woocommerce-api-manager' ), '<br>', ( ! empty( $next_cleanup ) ) ? __( 'The cleanup process will run automatically next on ', 'woocommerce-api-manager' ) . '<code>' . wc_clean( WC_AM_FORMAT()->unix_timestamp_to_date( $next_cleanup ) ) . '</code>' : __( 'The cleanup process is not scheduled to automatically run.', 'woocommerce-api-manager' ), '<br>' ),
 					'id'      => $this->option_prefix . '_api_resoure_cleanup_data',
+					'type'    => 'checkbox',
+					'class'   => 'wcam-checkbox-ui-toggle',
+					'default' => 'no',
+					'options' => array( 'yes' => 'On', 'no' => 'Off' )
+				),
+
+				array(
+					'name'    => __( 'Log Event', 'woocommerce-api-manager' ),
+					'desc'    => sprintf( esc_html__( '%sLog the API Resources cleanup event.', 'woocommerce-api-manager' ), '<br>' ),
+					'id'      => $this->option_prefix . '_api_resource_log_cleanup_event_data',
 					'type'    => 'checkbox',
 					'class'   => 'wcam-checkbox-ui-toggle',
 					'default' => 'no',
@@ -385,7 +395,7 @@ class WC_AM_Settings_Admin {
 
 				array(
 					'name'    => __( 'Send API Resource Data', 'woocommerce-api-manager' ),
-					'desc'    => sprintf( esc_html__( '%sSending extended resource data in API responses is not required, and will slow down response time.<br>Recommended Off.', 'woocommerce-api-manager' ), '<br>' ),
+					'desc'    => sprintf( esc_html__( '%sSending extended resource data in API responses is not required, and will slow down response time.%sRecommended Off.', 'woocommerce-api-manager' ), '<br>', '<br>' ),
 					'id'      => $this->option_prefix . '_api_response_data',
 					'type'    => 'checkbox',
 					'class'   => 'wcam-checkbox-ui-toggle',
