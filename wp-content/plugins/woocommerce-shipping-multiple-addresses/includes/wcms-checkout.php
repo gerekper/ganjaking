@@ -156,7 +156,7 @@ class WC_MS_Checkout {
 
 	public function display_set_addresses_button( $checkout ) {
 		if ( is_checkout() && ! $this->wcms->cart->cart_has_multi_shipping() && WC()->cart->needs_shipping() ) {
-			
+
 			$css = 'display:none;';
 
             if ( $this->wcms->is_multiship_enabled() && $this->wcms->cart->cart_is_eligible_for_multi_shipping() ) {
@@ -166,10 +166,10 @@ class WC_MS_Checkout {
                 // the customer adds more valid products to the cart
                 $this->wcms->clear_session();
             }
-			
+
 			echo '
 				<p class="woocommerce-info woocommerce_message" id="wcms_message" style="' . esc_attr( $css ) . '">
-					' . WC_Ship_Multiple::$lang['notification'] . '<br /><br />
+					' . esc_html( WC_Ship_Multiple::$lang['notification'] ) . '<br /><br />
 					<input type="button" id="wcms_set_addresses" name="wcms_set_addresses" value="' . esc_attr( WC_Ship_Multiple::$lang['btn_items'] ) . '" />
 				</p>';
 		}
@@ -355,7 +355,7 @@ class WC_MS_Checkout {
         if ( $sess_methods !== false && !empty($sess_methods) && $has_item_address ) {
             $methods = $sess_methods;
             $order->update_meta_data( '_shipping_methods', $methods );
-        
+
 		} else {
             $methods = $order->get_shipping_methods();
             $ms_methods = array();
@@ -460,7 +460,7 @@ class WC_MS_Checkout {
                     unset( $explode_method[ count( $explode_method)-1 ] );
                     $method_label = implode( ' ', $explode_method );
                 }
-                
+
 				$ship_methods[ $x ] = array(
 					'id'    => $method,
 					'label' => $method_label,
@@ -480,7 +480,7 @@ class WC_MS_Checkout {
 	 *
 	 * @param  array $packages array of packages.
 	 * @return array $packages array of packages that contain subscription product.
-	 * 
+	 *
 	 * @since 3.6.28
 	 */
 	private function get_shippable_subscription_product_packages( $packages ){
@@ -512,7 +512,7 @@ class WC_MS_Checkout {
 				}
 			}
 
-			
+
 
 			if( ! $package_contains_subscriptions_needing_shipping ){
 				unset( $packages[ $x ] );
@@ -527,7 +527,7 @@ class WC_MS_Checkout {
 	 *
 	 * @param array|WC_Cart $cart.
 	 * @return bool
-	 * 
+	 *
 	 * @since 3.6.28
 	 */
 	private function is_recurring_cart( $cart ){
@@ -535,15 +535,15 @@ class WC_MS_Checkout {
 		if( ! class_exists( 'WC_Subscriptions_Cart' ) ){
 			return false;
 		}
-		
+
 		if( true === WC_Subscriptions_Cart::cart_contains_subscriptions_needing_shipping( $cart ) && empty( $this->get_cart_non_subscription_item( $cart ) ) ){
 
 			return true;
-		
+
 		}else{
-			
+
 			return false;
-		
+
 		}
 	}
 
@@ -552,7 +552,7 @@ class WC_MS_Checkout {
 	 *
 	 * @param  object WC_Cart Cart object.
 	 * @return object WC_Cart Cart object without subscriptions product in the cart content.
-	 * 
+	 *
 	 * @since 3.6.28
 	 */
 	private function get_cart_non_subscription_item( $cart ){
@@ -560,7 +560,7 @@ class WC_MS_Checkout {
 		if( ! class_exists( 'WC_Subscriptions_Product' ) ){
 			return $cart;
 		}
-		
+
 		$non_subscription_cart_items = array();
 
 		foreach( $cart->get_cart() as $cart_item_key => $cart_item ){
@@ -576,6 +576,7 @@ class WC_MS_Checkout {
 
     function calculate_totals($cart) {
 
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( isset( $_REQUEST['wc-ajax'] ) && 'update_shipping_method' === $_REQUEST['wc-ajax'] ) {
 
 			// Update chosen shipping methods to match with WooCommerce session variable.
@@ -588,7 +589,7 @@ class WC_MS_Checkout {
                         $methods[ $key ] = array(
                             'id'    => $chosen_shipping_methods[ $key ],
                             'label' => $chosen_shipping_methods[ $key ],
-                        );    
+                        );
 					}
 				}
 			}
@@ -726,8 +727,8 @@ class WC_MS_Checkout {
             $cart = WC()->cart;
             $merge = true;
         }
-
-        if (isset($_POST['action']) && $_POST['action'] == 'woocommerce_update_shipping_method') {
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing
+        if ( isset( $_POST['action'] ) && sanitize_text_field( $_POST['action'] ) == 'woocommerce_update_shipping_method') {
             return $cart;
         }
 
@@ -778,7 +779,7 @@ class WC_MS_Checkout {
 				if( ! isset( $cart->cart_contents[ $values['key'] ] ) ){
 					continue;
 				}
-				
+
                 $_product = $values['data'];
 
                 // Prices
@@ -984,7 +985,7 @@ class WC_MS_Checkout {
 
                     // Now calc product rates
                     $discounted_price      = $this->get_discounted_price( $cart, $values, $base_price, false );
-                    $discounted_taxes      = WC_Tax::calc_tax( $discounted_price * $values['quantity'], $item_tax_rates );					
+                    $discounted_taxes      = WC_Tax::calc_tax( $discounted_price * $values['quantity'], $item_tax_rates );
 					$discounted_taxes 	   = $this->round_line_taxes( $discounted_taxes );
 					$discounted_tax_amount = array_sum( $discounted_taxes );
                     $line_tax              = $discounted_tax_amount;
@@ -1059,7 +1060,7 @@ class WC_MS_Checkout {
 		foreach( $cart->get_cart() as $cart_item_key => $cart_item ){
 
 			$_product = $cart_item['data'];
-			
+
 			if( $_product->is_virtual() ){
 
                 $item_taxes[ $cart_item_key ]['line_subtotal']       = $cart_item['line_subtotal'];
@@ -1071,9 +1072,9 @@ class WC_MS_Checkout {
 
 				// Get tax rates total from cart contents if exists
 				if( isset( $cart_item['line_tax_data']['total'] ) ){
-				
+
 					$line_taxes  		= $cart_item['line_tax_data']['total'];
-				
+
 				// Manually calculate tax rates total
 				}else{
 
@@ -1099,7 +1100,7 @@ class WC_MS_Checkout {
         } else {
             $cart->tax_total          = array_sum( $cart_taxes );
         }
-        
+
         if ( version_compare( WC_VERSION, '3.2.0', '<' ) ) {
             $cart->taxes              = array_map( 'WC_Tax::round', $cart_taxes );
         } else {
@@ -1114,11 +1115,11 @@ class WC_MS_Checkout {
 
             // Get total discount total tax by checking on 'line_disc_total_tax' array value.
             $cart_disc_total_tax = array_sum( array_column( $item_taxes, 'line_disc_total_tax' ) );
-		    
+
             //Set the new cart total data to the cart.
 		    $cart->set_discount_tax( $cart_disc_total_tax );
             $cart->set_subtotal_tax( array_sum( array_column( $item_taxes, 'line_subtotal_tax' ) ) );
-            
+
             $discounts = array_sum( $cart->coupon_discount_totals ) + array_sum( $cart->coupon_discount_tax_totals );
 
             $cart->set_total( ( $cart->get_subtotal() + $cart->get_subtotal_tax() ) + $cart->get_shipping_total() + $old_shipping_tax_total - $discounts );
@@ -1204,7 +1205,7 @@ class WC_MS_Checkout {
 	 *
 	 * @param WC_Coupon $a Coupon object.
 	 * @param WC_Coupon $b Coupon object.
-     * 
+     *
      * $since 3.6.34
 	 * @return int
 	 */
@@ -1233,11 +1234,11 @@ class WC_MS_Checkout {
     public function calculate_coupon_discount_tax_amounts( $cart, $packages ) {
 		$coupons = $this->get_coupons_from_cart( $cart );
         $coupon_discount_tax_amounts = array();
-        
+
         // Calculate the line value.
         foreach( $packages as $idx => $package ) {
             $items = array();
-            
+
             foreach ( $package['contents'] as $key => $cart_item ) {
                 $item                          = new stdClass();
                 $item->key                     = $key;
@@ -1248,7 +1249,7 @@ class WC_MS_Checkout {
 			    $item->price_includes_tax      = false;
                 $item->price                   = wc_add_number_precision_deep( $cart_item['line_subtotal'] );
                 $item->tax_rates               = $this->get_item_tax_rates( $item, $package );
-                
+
                 $items[ $key ] = $item;
             }
 
@@ -1273,7 +1274,7 @@ class WC_MS_Checkout {
                     if ( $item->product->is_taxable() ) {
                         // Item subtotals were sent, so set 3rd param.
                         $item_tax = array_sum( WC_Tax::calc_tax( $coupon_discount, $item->tax_rates, $item->price_includes_tax ) );
-                        
+
                         // Sum total tax.
                         $coupon_discount_tax_amounts[ $coupon_code ] += $item_tax;
 
@@ -1296,18 +1297,18 @@ class WC_MS_Checkout {
 	* @return array
 	*/
 	public function round_line_taxes( $item_taxes ){
-				
+
 		foreach( $item_taxes as $key => $item_tax ){
 
 			if( 'yes' !== get_option( 'woocommerce_tax_round_at_subtotal' ) ){
-				
+
 				$item_tax  			= wc_add_number_precision( $item_tax, false );
 				$item_tax 			= wc_round_tax_total( $item_tax, 0 );
 				$item_tax  			= wc_remove_number_precision( $item_tax );
 				$item_taxes[ $key ] = $item_tax;
 
 			}
-			
+
 		}
 
 		return $item_taxes;
@@ -1320,7 +1321,7 @@ class WC_MS_Checkout {
 	* @return array
 	*/
 	public function round_shipping_taxes( $shipping_taxes ){
-				
+
 		$shipping_taxes     = wc_add_number_precision_deep( $shipping_taxes, false );
 		$shipping_taxes     = array_map( 'WC_Item_Totals::round_item_subtotal', $shipping_taxes );
 		$shipping_taxes 	= wc_remove_number_precision_deep( $shipping_taxes );
@@ -1352,7 +1353,7 @@ class WC_MS_Checkout {
             'line_subtotal' => 0,
             'line_subtotal_tax' => 0
         );
-	
+
 		if ( is_array( $packages ) ) {
 			// Calculate the line value.
 			for ( $i = 0; $i < count( $packages ); $i++ ) {
@@ -1369,7 +1370,7 @@ class WC_MS_Checkout {
         // Replace the cart item with the modified one.
         if ( isset( $new_cart_item ) ) {
             $cart_item = $new_cart_item;
-            
+
             foreach ( $package_item as $key => $value ) {
                 $cart_item[ $key ] = $value;
             }
@@ -1497,7 +1498,8 @@ class WC_MS_Checkout {
 	}
 
 	public function reset_multiple_shipping_address() {
-		if ( empty( $_GET['wcms_reset_address'] ) ) {
+		$nonce = isset( $_GET['nonce'] ) ? sanitize_text_field( wp_unslash( $_GET['nonce'] ) ) : ''; 
+		if ( empty( $_GET['wcms_reset_address'] ) || ! wp_verify_nonce( $nonce, 'wcms_reset_address_security' ) ) {
 			return;
 		}
 

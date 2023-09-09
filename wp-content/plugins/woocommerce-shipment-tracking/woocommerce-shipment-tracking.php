@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Shipment Tracking
  * Plugin URI: https://woocommerce.com/products/shipment-tracking/
  * Description: Add tracking numbers to orders allowing customers to track their orders via a link. Supports many shipping providers, as well as custom ones if necessary via a regular link.
- * Version: 2.3.5
+ * Version: 2.4.0
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-shipment-tracking
@@ -40,7 +40,7 @@ function woocommerce_shipment_tracking_missing_wc_notice() {
  * WC_Shipment_Tracking class
  */
 if ( ! class_exists( 'WC_Shipment_Tracking' ) ) :
-	define( 'WC_SHIPMENT_TRACKING_VERSION', '2.3.5' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_SHIPMENT_TRACKING_VERSION', '2.4.0' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Plugin's main class.
@@ -305,8 +305,7 @@ function wc_st_add_tracking_number( $order_id, $tracking_number, $provider, $dat
 	$st            = WC_Shipment_Tracking_Actions::get_instance();
 	$provider_list = $st->get_providers();
 	$custom        = true;
-	$provider_slug = sanitize_title( str_replace( ' ', '', $provider ) );
-
+	$provider_slug = sanitize_title( str_replace( ' ', '', wc_st_get_provider_alias ( $provider ) ) );
 	// Check if a given `$provider` is predefined or custom.
 	foreach ( $provider_list as $country ) {
 		foreach ( $country as $provider_code => $url ) {
@@ -383,3 +382,31 @@ function wc_st_declare_hpos_compatibility() {
 	}
 }
 add_action( 'before_woocommerce_init', 'wc_st_declare_hpos_compatibility' );
+
+/**
+ * Get the alias name of provider.
+ *
+ * @param string $provider Provider name.
+ *
+ * @return string.
+ */
+function wc_st_get_provider_alias( $provider ) {
+	$provider_aliases = apply_filters(
+		'wc_shipment_tracking_provider_alias',
+		array(
+			'United Kingdom' => array(
+				'DPD Local' => 'dpd',
+			),
+		)
+	);
+
+	foreach ( $provider_aliases as $country => $providers ) {
+		foreach ( $providers as $provider_code => $alias ) {
+			if ( strtolower( $alias ) === strtolower( $provider ) ) {
+				return $provider_code;
+			}
+		}
+	}
+
+	return $provider;
+}

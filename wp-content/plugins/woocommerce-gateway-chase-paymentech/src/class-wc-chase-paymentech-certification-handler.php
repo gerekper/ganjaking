@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-chase-paymentech/
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2013-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_7 as Framework;
 
 /**
  * Handle the Chase certification process.
@@ -75,10 +75,12 @@ class WC_Chase_Paymentech_Certification_Handler {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
 
 		// add custom admin order list table columns
-		add_filter( 'manage_edit-shop_order_columns', array( $this, 'admin_add_columns' ), 15 );
+		$orders_screen_id = Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ? 'woocommerce_page_wc-orders' : 'edit-shop_order';
+		add_filter( "manage_{$orders_screen_id}_columns", [ $this, 'admin_add_columns' ], 15 );
 
 		// display the custom admin order list table column content
-		add_action( 'manage_shop_order_posts_custom_column', array( $this, 'admin_display_column_content' ), 5 );
+		$orders_screen_custom_column_hook = Framework\SV_WC_Plugin_Compatibility::is_hpos_enabled() ? 'manage_woocommerce_page_wc-orders_custom_column' : 'manage_shop_order_posts_custom_column';
+		add_action( $orders_screen_custom_column_hook, [ $this, 'admin_display_column_content' ], 5, 2 );
 
 		// add the certification test ID to the admin search fields
 		add_filter( 'woocommerce_shop_order_search_fields', array( $this, 'admin_add_order_search_fields' ) );
@@ -224,7 +226,7 @@ class WC_Chase_Paymentech_Certification_Handler {
 
 		// add the test case data that is relevant for all tests
 		$table_data = array(
-			__( 'Test Case',      'woocommerce-gateway-chase-paymentech' )  => isset( $test_details['label'] ) ? $test_details['label'] : '',
+			__( 'Test Case',      'woocommerce-gateway-chase-paymentech' )  => $test_details['label'] ?? '',
 			__( 'Date &amp; Time', 'woocommerce-gateway-chase-paymentech' ) => $timestamp,
 		);
 
@@ -380,7 +382,7 @@ class WC_Chase_Paymentech_Certification_Handler {
 	public function admin_add_columns( $columns ) {
 
 		// get all columns up to and excluding the 'order_actions' column
-		$new_columns = array();
+		$new_columns = [];
 
 		foreach ( $columns as $name => $value ) {
 
@@ -408,11 +410,12 @@ class WC_Chase_Paymentech_Certification_Handler {
 	 *
 	 * @since 1.8.0
 	 * @param string $column the column name
+	 * @param int|\WC_Order $order_object_or_id Order ID or instance
 	 */
-	public function admin_display_column_content( $column ) {
+	public function admin_display_column_content( $column, $order_object_or_id = null ) {
 
-		if ( 'certification_test_case' === $column ) {
-			echo esc_html( get_post_meta( get_the_ID(), '_wc_chase_paymentech_certification_test', true ) );
+		if ( 'certification_test_case' === $column && $order_object_or_id && $order = wc_get_order( $order_object_or_id ) ) {
+			echo esc_html( $order->get_meta( '_wc_chase_paymentech_certification_test', true ) );
 		}
 	}
 

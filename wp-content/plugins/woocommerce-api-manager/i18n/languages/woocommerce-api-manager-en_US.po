@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce API Manager\n"
-"POT-Creation-Date: 2023-09-02 23:56-0700\n"
-"PO-Revision-Date: 2023-09-02 23:56-0700\n"
+"POT-Creation-Date: 2023-09-04 13:08-0700\n"
+"PO-Revision-Date: 2023-09-04 13:08-0700\n"
 "Last-Translator: Todd Lahman <support@toddlahman.com>\n"
 "Language-Team: Todd Lahman <support@toddlahman.com>\n"
 "Language: en_US\n"
@@ -365,7 +365,7 @@ msgid "You don&#8217;t have permission to do this."
 msgstr ""
 
 #: includes/admin/wc-am-admin-system-status.php:92
-#: woocommerce-api-manager.php:582
+#: woocommerce-api-manager.php:579
 #, fuzzy
 msgid "WooCommerce API Manager"
 msgstr "WooCommerce API Manager"
@@ -754,8 +754,8 @@ msgid ""
 msgstr ""
 
 #: includes/admin/wc-am-settings-admin.php:225
-#: includes/wc-api-manager-query.php:120 includes/wc-api-manager-query.php:145
-#: includes/wc-api-manager-query.php:148 includes/wc-api-manager-query.php:269
+#: includes/wc-api-manager-query.php:121 includes/wc-api-manager-query.php:147
+#: includes/wc-api-manager-query.php:150 includes/wc-api-manager-query.php:271
 #: templates/myaccount/related-api-resources.php:32
 #: templates/myaccount/related-api-resources.php:38
 #, fuzzy
@@ -2083,19 +2083,19 @@ msgstr "Impossible d'activer la clé de licence API"
 msgid "Disable Master API Key"
 msgstr "Impossible d'activer la clé de licence API"
 
-#: includes/wc-api-manager-query.php:123 includes/wc-api-manager-query.php:146
-#: includes/wc-api-manager-query.php:149 includes/wc-api-manager-query.php:278
+#: includes/wc-api-manager-query.php:124 includes/wc-api-manager-query.php:148
+#: includes/wc-api-manager-query.php:151 includes/wc-api-manager-query.php:280
 #: templates/myaccount/related-api-resources.php:33
 #: templates/myaccount/related-api-resources.php:41
 #, fuzzy
 msgid "API Downloads"
 msgstr "API"
 
-#: includes/wc-api-manager-query.php:270
+#: includes/wc-api-manager-query.php:272
 msgid "Endpoint for the My Account &rarr; API Keys page"
 msgstr ""
 
-#: includes/wc-api-manager-query.php:279
+#: includes/wc-api-manager-query.php:281
 msgid "Endpoint for the My Account &rarr; API Downloads page"
 msgstr ""
 
@@ -2299,42 +2299,42 @@ msgstr "Vous n'avez pas de clés API."
 msgid "View API Downloads"
 msgstr "API"
 
-#: woocommerce-api-manager.php:156
+#: woocommerce-api-manager.php:153
 msgid "Cloning is forbidden."
 msgstr ""
 
-#: woocommerce-api-manager.php:165
+#: woocommerce-api-manager.php:162
 msgid "Unserializing instances of this class is forbidden."
 msgstr ""
 
-#: woocommerce-api-manager.php:580
+#: woocommerce-api-manager.php:577
 msgid "The "
 msgstr ""
 
-#: woocommerce-api-manager.php:584
+#: woocommerce-api-manager.php:581
 msgid " is inactive. The "
 msgstr ""
 
-#: woocommerce-api-manager.php:586
+#: woocommerce-api-manager.php:583
 #, fuzzy
 msgid "WooCommerce"
 msgstr "WooCommerce API Manager"
 
-#: woocommerce-api-manager.php:588
+#: woocommerce-api-manager.php:585
 msgid ""
 " plugin must be active for the WooCommerce API Manager to work. Please "
 "activate WooCommerce on the "
 msgstr ""
 
-#: woocommerce-api-manager.php:590
+#: woocommerce-api-manager.php:587
 msgid "plugin page"
 msgstr ""
 
-#: woocommerce-api-manager.php:592
+#: woocommerce-api-manager.php:589
 msgid " once it is installed."
 msgstr ""
 
-#: woocommerce-api-manager.php:610
+#: woocommerce-api-manager.php:607
 #, php-format
 msgid ""
 "The WooCommerce API Manager is inactive because it requires PHP version %s "
@@ -2342,7 +2342,7 @@ msgid ""
 "your version of PHP."
 msgstr ""
 
-#: woocommerce-api-manager.php:647
+#: woocommerce-api-manager.php:644
 #, php-format
 msgid ""
 "The WooCommerce API Manager requires WooCommerce version %s or greater, but "
@@ -2351,7 +2351,7 @@ msgid ""
 "%s or greater."
 msgstr ""
 
-#: woocommerce-api-manager.php:667
+#: woocommerce-api-manager.php:664
 #, php-format
 msgid ""
 "The WooCommerce API Manager requires WooCommerce Subscriptions version %s or "
@@ -2359,7 +2359,7 @@ msgid ""
 "Please upgrade WooCommerce Subscriptions to version %s or greater."
 msgstr ""
 
-#: woocommerce-api-manager.php:722
+#: woocommerce-api-manager.php:719
 #, php-format
 msgid ""
 "Warning! Version 2.0 is a major update to the WooCommerce API Manager "

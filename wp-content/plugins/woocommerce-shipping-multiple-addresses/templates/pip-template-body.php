@@ -29,22 +29,27 @@ foreach ( $packages as $pkg_idx => $package ):
     }
 ?>
 <header>
-    <a class="print" href="#" onclick="window.print()"><?php _e('Print', 'woocommerce-pip'); ?></a>
+    <a class="print" href="#" onclick="window.print()"><?php esc_html_e( 'Print', 'woocommerce-pip' ); ?></a>
     <div style="float: left; width: 49%;">
-        <?php echo woocommerce_pip_print_logo(); ?>
+        <?php
+        // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped --- escaping is delegated to WC-PIP
+        echo woocommerce_pip_print_logo();
+        ?>
         <?php if ($action == 'print_invoice') { ?>
-            <h3><?php _e('Invoice', 'woocommerce-pip'); ?> (<?php echo woocommerce_pip_invoice_number(WC_MS_Compatibility::get_order_prop( $order, 'id' )); ?>)</h3>
+            <h3><?php esc_html_e( 'Invoice', 'woocommerce-pip' ); ?> (<?php echo woocommerce_pip_invoice_number(WC_MS_Compatibility::get_order_prop( $order, 'id' )); ?>)</h3>
         <?php } else { ?>
-            <h3><?php _e('Packing list', 'woocommerce-pip'); ?></h3>
+            <h3><?php esc_html_e( 'Packing list', 'woocommerce-pip' ); ?></h3>
         <?php } ?>
-        <h3><?php _e('Order', 'woocommerce-pip'); ?> <?php echo $order->get_order_number(); ?> &mdash; <time datetime="<?php echo date("Y/m/d", strtotime(WC_MS_Compatibility::get_order_prop( $order, 'order_date' ))); ?>"><?php echo date("Y/m/d", strtotime(WC_MS_Compatibility::get_order_prop( $order, 'order_date' ))); ?></time></h3>
+        <h3><?php esc_html_e( 'Order', 'woocommerce-pip' ); ?> <?php echo $order->get_order_number(); ?> &mdash; <time datetime="<?php echo date("Y/m/d", strtotime(WC_MS_Compatibility::get_order_prop( $order, 'order_date' ))); ?>"><?php echo date("Y/m/d", strtotime(WC_MS_Compatibility::get_order_prop( $order, 'order_date' ))); ?></time></h3>
     </div>
     <div style="float: right; width: 49%; text-align:right;">
         <?php echo woocommerce_pip_print_company_name(); ?>
         <?php echo woocommerce_pip_print_company_extra(); ?>
     </div>
     <div style="clear:both;"></div>
-
+    <?php
+    // phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
+    ?>
 </header>
 <section>
     <div class="article">
@@ -52,35 +57,38 @@ foreach ( $packages as $pkg_idx => $package ):
 
             <div style="float:left; width: 49%;">
 
-                <h3><?php _e('Billing address', 'woocommerce-pip'); ?></h3>
+                <h3><?php esc_html_e( 'Billing address', 'woocommerce-pip' ); ?></h3>
 
                 <p>
-                    <?php echo $order->get_formatted_billing_address(); ?>
+                    <?php
+                    // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped --- escaping is done in WC_Order
+                    echo $order->get_formatted_billing_address();
+                    ?>
                 </p>
                 <?php do_action( 'wc_print_invoice_packing_template_body_after_billing_address', $order ); ?>
                 <?php if ( $order->get_meta( 'VAT Number' ) && $action == 'print_invoice') : ?>
-                    <p><strong><?php _e('VAT:', 'woocommerce-pip'); ?></strong> <?php echo $order->get_meta( 'VAT Number' ); ?></p>
+                    <p><strong><?php esc_html_e( 'VAT:', 'woocommerce-pip' ); ?></strong> <?php echo $order->get_meta( 'VAT Number' ); ?></p>
                 <?php endif; ?>
                 <?php if ( WC_MS_Compatibility::get_order_prop( $order, 'billing_email' ) ) : ?>
-                    <p><strong><?php _e('Email:', 'woocommerce-pip'); ?></strong> <?php echo WC_MS_Compatibility::get_order_prop( $order, 'billing_email' ); ?></p>
+                    <p><strong><?php esc_html_e( 'Email:', 'woocommerce-pip' ); ?></strong> <?php echo WC_MS_Compatibility::get_order_prop( $order, 'billing_email' ); ?></p>
                 <?php endif; ?>
                 <?php if ( WC_MS_Compatibility::get_order_prop( $order, 'billing_phone' ) ) : ?>
-                    <p><strong><?php _e('Tel:', 'woocommerce-pip'); ?></strong> <?php echo WC_MS_Compatibility::get_order_prop( $order, 'billing_phone' ); ?></p>
+                    <p><strong><?php esc_html_e( 'Tel:', 'woocommerce-pip' ); ?></strong> <?php echo WC_MS_Compatibility::get_order_prop( $order, 'billing_phone' ); ?></p>
                 <?php endif; ?>
 
             </div>
 
             <div style="float:right; width: 49%;">
 
-                <h3><?php _e('Shipping address', 'woocommerce-pip'); ?></h3>
+                <h3><?php esc_html_e( 'Shipping address', 'woocommerce-pip' ); ?></h3>
 
                 <p><?php echo wcms_get_formatted_address( $package['destination'] ); ?></p>
 
                 <?php if ( $order->get_meta( '_tracking_provider' ) ) : ?>
-                    <p><strong><?php _e('Tracking provider:', 'woocommerce-pip'); ?></strong> <?php echo $order->get_meta( '_tracking_provider' ); ?></p>
+                    <p><strong><?php esc_html_e( 'Tracking provider:', 'woocommerce-pip' ); ?></strong> <?php echo $order->get_meta( '_tracking_provider' ); ?></p>
                 <?php endif; ?>
                 <?php if ( $order->get_meta( '_tracking_number' ) ) : ?>
-                    <p><strong><?php _e('Tracking number:', 'woocommerce-pip'); ?></strong> <?php echo $order->get_meta( '_tracking_number' ); ?></p>
+                    <p><strong><?php esc_html_e( 'Tracking number:', 'woocommerce-pip' ); ?></strong> <?php echo $order->get_meta( '_tracking_number' ); ?></p>
                 <?php endif; ?>
 
             </div>
@@ -89,21 +97,21 @@ foreach ( $packages as $pkg_idx => $package ):
 
             <?php if ( 'print_packing' == $action && 'yes' == get_option( 'woocommerce_calc_shipping' ) ) : ?>
                 <div>
-                    <strong><?php _e( 'Shipping:', 'woocommerce-pip' ); ?></strong>
+                    <strong><?php esc_html_e( 'Shipping:', 'woocommerce-pip' ); ?></strong>
                     <?php echo $method; ?>
                 </div>
             <?php endif; ?>
 
             <?php if ( !empty($package['note']) ) { ?>
                 <div>
-                    <h3><?php _e('Order notes', 'woocommerce-pip'); ?></h3>
+                    <h3><?php esc_html_e( 'Order notes', 'woocommerce-pip' ); ?></h3>
                     <?php echo $package['note']; ?>
                 </div>
             <?php } ?>
 
             <?php if ( !empty($package['date']) ) { ?>
                 <div>
-                    <h3><?php _e('Shipping Date', 'woocommerce-pip'); ?></h3>
+                    <h3><?php esc_html_e( 'Shipping Date', 'woocommerce-pip' ); ?></h3>
                     <?php echo $package['date']; ?>
                 </div>
             <?php } ?>
@@ -114,21 +122,21 @@ foreach ( $packages as $pkg_idx => $package ):
                 <table>
                     <thead>
                     <tr>
-                        <th scope="col" style="text-align:left; width: 15%;"><?php _e('SKU', 'woocommerce-pip'); ?></th>
-                        <th scope="col" style="text-align:left; width: 40%;"><?php _e('Product', 'woocommerce-pip'); ?></th>
-                        <th scope="col" style="text-align:left; width: 15%;"><?php _e('Quantity', 'woocommerce-pip'); ?></th>
-                        <th scope="col" style="text-align:left; width: 30%;"><?php _e('Price', 'woocommerce-pip'); ?></th>
+                        <th scope="col" style="text-align:left; width: 15%;"><?php esc_html_e( 'SKU', 'woocommerce-pip' ); ?></th>
+                        <th scope="col" style="text-align:left; width: 40%;"><?php esc_html_e( 'Product', 'woocommerce-pip' ); ?></th>
+                        <th scope="col" style="text-align:left; width: 15%;"><?php esc_html_e( 'Quantity', 'woocommerce-pip' ); ?></th>
+                        <th scope="col" style="text-align:left; width: 30%;"><?php esc_html_e( 'Price', 'woocommerce-pip' ); ?></th>
                     </tr>
                     </thead>
                     <tfoot>
                     <tr>
                         <th colspan="2" style="text-align:left; padding-top: 12px;">&nbsp;</th>
-                        <th scope="row" style="text-align:right; padding-top: 12px;"><?php _e('Subtotal:', 'woocommerce-pip'); ?></th>
+                        <th scope="row" style="text-align:right; padding-top: 12px;"><?php esc_html_e( 'Subtotal:', 'woocommerce-pip' ); ?></th>
                         <td style="text-align:left; padding-top: 12px;"><?php echo wc_price( $package['contents_cost'] ); ?></td>
                     </tr>
                     <?php if (get_option('woocommerce_calc_shipping')=='yes') : ?><tr>
                         <th colspan="2" style="text-align:left; padding-top: 12px;">&nbsp;</th>
-                        <th scope="row" style="text-align:right;"><?php _e('Shipping:', 'woocommerce-pip'); ?></th>
+                        <th scope="row" style="text-align:right;"><?php esc_html_e( 'Shipping:', 'woocommerce-pip' ); ?></th>
                         <td style="text-align:left;"><?php
                             $tax_display = get_option( 'woocommerce_tax_display_cart' );
 
@@ -156,8 +164,8 @@ foreach ( $packages as $pkg_idx => $package ):
                         </tr><?php endif; ?>
                     <tr>
                         <th colspan="2" style="text-align:left; padding-top: 12px;">&nbsp;</th>
-                        <th scope="row" style="text-align:right;"><?php _e('Total:', 'woocommerce-pip'); ?></th>
-                        <td style="text-align:left;"><?php echo wc_price($package['contents_cost'] + $order_method['cost']); ?> <?php _e('- via', 'woocommerce-pip'); ?> <?php echo ucwords(WC_MS_Compatibility::get_order_prop( $order, 'payment_method_title' )); ?></td>
+                        <th scope="row" style="text-align:right;"><?php esc_html_e( 'Total:', 'woocommerce-pip' ); ?></th>
+                        <td style="text-align:left;"><?php echo wc_price($package['contents_cost'] + $order_method['cost']); ?> <?php esc_html_e( '- via', 'woocommerce-pip' ); ?> <?php echo ucwords(WC_MS_Compatibility::get_order_prop( $order, 'payment_method_title' )); ?></td>
                     </tr>
                     </tfoot>
                     <tbody>
@@ -200,10 +208,10 @@ foreach ( $packages as $pkg_idx => $package ):
                 <table>
                     <thead>
                     <tr>
-                        <th scope="col" style="text-align:left; width: 22.5%;"><?php _e('SKU', 'woocommerce-pip'); ?></th>
-                        <th scope="col" style="text-align:left; width: 57.5%;"><?php _e('Product', 'woocommerce-pip'); ?></th>
-                        <th scope="col" style="text-align:left; width: 15%;"><?php _e('Quantity', 'woocommerce-pip'); ?></th>
-                        <th scope="col" style="text-align:left; width: 20%;"><?php _e('Total Weight', 'woocommerce-pip'); ?></th>
+                        <th scope="col" style="text-align:left; width: 22.5%;"><?php esc_html_e( 'SKU', 'woocommerce-pip' ); ?></th>
+                        <th scope="col" style="text-align:left; width: 57.5%;"><?php esc_html_e( 'Product', 'woocommerce-pip' ); ?></th>
+                        <th scope="col" style="text-align:left; width: 15%;"><?php esc_html_e( 'Quantity', 'woocommerce-pip' ); ?></th>
+                        <th scope="col" style="text-align:left; width: 20%;"><?php esc_html_e( 'Total Weight', 'woocommerce-pip' ); ?></th>
                     </tr>
                     </thead>
                         <tbody>

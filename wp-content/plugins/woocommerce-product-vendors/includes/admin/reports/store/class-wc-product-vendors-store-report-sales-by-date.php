@@ -394,74 +394,83 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 			var main_chart;
 
 			jQuery(function(){
-				var order_data = JSON.parse( decodeURIComponent( '<?php echo esc_js( $chart_data ); ?>' ) );
+				var order_data = JSON.parse( decodeURIComponent( <?php echo wp_json_encode( $chart_data ); ?> ) );
 				var drawGraph = function( highlight ) {
 					var series = [
 						{
-							label: "<?php echo esc_js( __( 'Number of orders', 'woocommerce-product-vendors' ) ); ?>",
+							label: <?php echo wp_json_encode( __( 'Number of orders', 'woocommerce-product-vendors' ) ); ?>,
 							data: order_data.order_counts,
-							color: '<?php echo esc_js( $this->chart_colors['order_count'] ); ?>',
-							bars: { fillColor: '<?php echo esc_js( $this->chart_colors['order_count'] ); ?>', fill: true, show: true, lineWidth: 0, barWidth: <?php echo esc_js( $this->barwidth ); ?> * 0.5, align: 'left' },
+							color: <?php echo wp_json_encode( $this->chart_colors['order_count'] ); ?>,
+							bars: { fillColor: <?php echo wp_json_encode( $this->chart_colors['order_count'] ); ?>, fill: true, show: true, lineWidth: 0, barWidth: <?php echo wp_json_encode( (int) $this->barwidth ); ?> * 0.5, align: 'left' },
 							shadowSize: 0,
 							hoverable: false
 						},
 						{
-							label: "<?php echo esc_js( __( 'Number of items sold', 'woocommerce-product-vendors' ) ) ?>",
+							label: <?php echo wp_json_encode( __( 'Number of items sold', 'woocommerce-product-vendors' ) ); ?>,
 							data: order_data.order_item_counts,
-							color: '<?php echo esc_js( $this->chart_colors['item_count'] ); ?>',
-							bars: { fillColor: '<?php echo esc_js( $this->chart_colors['item_count'] ); ?>', fill: true, show: true, lineWidth: 0, barWidth: <?php echo esc_js( $this->barwidth ); ?> * 0.5, align: 'center' },
+							color: <?php echo wp_json_encode( $this->chart_colors['item_count'] ); ?>,
+							bars: { fillColor: <?php echo wp_json_encode( $this->chart_colors['item_count'] ); ?>, fill: true, show: true, lineWidth: 0, barWidth: <?php echo wp_json_encode( (int) $this->barwidth ); ?> * 0.5, align: 'center' },
 							shadowSize: 0,
 							hoverable: false
 						},
 						{
-							label: "<?php echo esc_js( __( 'Shipping amount', 'woocommerce-product-vendors' ) ) ?>",
+							label: <?php echo wp_json_encode( __( 'Shipping amount', 'woocommerce-product-vendors' ) ); ?>,
 							data: order_data.shipping_amounts,
 							yaxis: 2,
-							color: '<?php echo esc_js( $this->chart_colors['shipping_amount'] ); ?>',
+							color: <?php echo wp_json_encode( $this->chart_colors['shipping_amount'] ); ?>,
 							points: { show: true, radius: 5, lineWidth: 2, fillColor: '#fff', fill: true },
 							lines: { show: true, lineWidth: 2, fill: false },
 							shadowSize: 0,
-							prepend_tooltip: "<?php echo esc_js( get_woocommerce_currency_symbol() ); ?>"
+							prepend_tooltip: <?php echo wp_json_encode( get_woocommerce_currency_symbol() ); ?>
 						},
 						{
-							label: "<?php echo esc_js( __( 'Average sales amount', 'woocommerce-product-vendors' ) ) ?>",
-							data: [ [ <?php echo esc_js( min( array_keys( $order_amounts ) ) ); ?>, <?php echo esc_js( $this->report_data->average_sales ); ?> ], [ <?php echo esc_js( max( array_keys( $order_amounts ) ) ); ?>, <?php echo esc_js( $this->report_data->average_sales ); ?> ] ],
+							label: <?php echo wp_json_encode( __( 'Average sales amount', 'woocommerce-product-vendors' ) ); ?>,
+							data: [ [ <?php echo wp_json_encode( min( array_keys( $order_amounts ) ) ); ?>, <?php echo wp_json_encode( $this->report_data->average_sales ); ?> ], [ <?php echo wp_json_encode( max( array_keys( $order_amounts ) ) ); ?>, <?php echo wp_json_encode( $this->report_data->average_sales ); ?> ] ],
 							yaxis: 2,
-							color: '<?php echo esc_js( $this->chart_colors['average'] ); ?>',
+							color: <?php echo wp_json_encode( $this->chart_colors['average'] ); ?>,
 							points: { show: false },
 							lines: { show: true, lineWidth: 2, fill: false },
 							shadowSize: 0,
 							hoverable: false
 						},
 						{
-							label: "<?php echo esc_js( __( 'Gross Sales amount', 'woocommerce-product-vendors' ) ) ?>",
+							label: <?php echo wp_json_encode( __( 'Gross Sales amount', 'woocommerce-product-vendors' ) ); ?>,
 							data: order_data.order_amounts,
 							yaxis: 2,
-							color: '<?php echo esc_js( $this->chart_colors['sales_amount'] ); ?>',
+							color: <?php echo wp_json_encode( $this->chart_colors['sales_amount'] ); ?>,
 							points: { show: true, radius: 5, lineWidth: 2, fillColor: '#fff', fill: true },
 							lines: { show: true, lineWidth: 2, fill: false },
 							shadowSize: 0,
-							<?php echo esc_js( $this->get_currency_tooltip() ); ?>
+							<?php
+							// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- already in JSON format.
+							echo $this->get_currency_tooltip();
+							?>
 						},
 						{
-							label: "<?php echo esc_js( __( 'Net Sales amount', 'woocommerce-product-vendors' ) ) ?>",
+							label: <?php echo wp_json_encode( __( 'Net Sales amount', 'woocommerce-product-vendors' ) ); ?>,
 							data: order_data.net_order_amounts,
 							yaxis: 2,
-							color: '<?php echo esc_js( $this->chart_colors['net_sales_amount'] ); ?>',
+							color: <?php echo wp_json_encode( $this->chart_colors['net_sales_amount'] ); ?>,
 							points: { show: true, radius: 6, lineWidth: 4, fillColor: '#fff', fill: true },
 							lines: { show: true, lineWidth: 5, fill: false },
 							shadowSize: 0,
-							<?php echo esc_js( $this->get_currency_tooltip() ); ?>
+							<?php
+							// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- already in JSON format.
+							echo $this->get_currency_tooltip();
+							?>
 						},
 						{
-							label: "<?php echo esc_js( __( 'Total Commission Amount (vendors)', 'woocommerce-product-vendors' ) ) ?>",
+							label: <?php echo wp_json_encode( __( 'Total Commission Amount (vendors)', 'woocommerce-product-vendors' ) ); ?>,
 							data: order_data.total_commission,
 							yaxis: 2,
-							color: '<?php echo esc_js( $this->chart_colors['commission'] ); ?>',
+							color: <?php echo wp_json_encode( $this->chart_colors['commission'] ); ?>,
 							points: { show: true, radius: 6, lineWidth: 4, fillColor: '#fff', fill: true },
 							lines: { show: true, lineWidth: 5, fill: false },
 							shadowSize: 0,
-							<?php echo esc_js( $this->get_currency_tooltip() ); ?>
+							<?php
+							// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- already in JSON format.
+							echo $this->get_currency_tooltip();
+							?>
 						}
 					];
 
@@ -500,7 +509,7 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 								timeformat: "<?php if ( $this->chart_groupby == 'day' ) echo '%d %b'; else echo '%b'; ?>",
 								monthNames: <?php echo wp_json_encode( array_values( $wp_locale->month_abbrev ) ); ?>,
 								tickLength: 1,
-								minTickSize: [1, "<?php echo esc_js( $this->chart_groupby ); ?>"],
+								minTickSize: [1, <?php echo wp_json_encode( $this->chart_groupby ); ?>],
 								font: {
 									color: "#aaa"
 								}

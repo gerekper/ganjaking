@@ -496,6 +496,8 @@ function seedprod_pro_posts_block_custom_shortcode( array $atts ) {
 		} else {
 			if ( isset( $wp_query->query['page'] ) ) {
 				$paged = $wp_query->query['page'];
+			}else{
+				$paged = (get_query_var('page')) ? get_query_var('page') : 1;
 			}
 		}
 
@@ -759,6 +761,8 @@ function seedprod_pro_posts_block_manual_shortcode( array $atts ) {
 		} else {
 			if ( isset( $wp_query->query['page'] ) ) {
 				$paged = $wp_query->query['page'];
+			}else{
+				$paged = (get_query_var('page')) ? get_query_var('page') : 1;
 			}
 		}
 

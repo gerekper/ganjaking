@@ -1,16 +1,17 @@
 *** WooCommerce API Manager Changelog ***
 
+2023-09-05 - version 3.1.1
+* New: Added Action Filters, wc_api_manager_endpoint_title_api_keys, wc_api_manager_endpoint_title_api_downloads, wc_api_manager_add_menu_items_api_keys, wc_api_manager_add_menu_items_api_downloads. Changing endpoints requires Settings > Permalink Settings to be manually Saved to refresh the endpoints.
+
 2023-09-03 - version 3.1.0
 * Fix: Order edit screen > Access Expires was failing to update when new expiration date set.
 * Fix: localized_datetime_timestamp() method to correctly return localized timestamp.
 * Tweak: Confirm an API Resource is not a lifetime subscription before sending renewal email notifications.
 * New: Toggle log for API Resources cleanup event added to Settings.
 * New: Added templates/myaccount/related-api-resources.php with Action Filters to add API Keys and API Downloads links to Order Details and Thank You pages.
-* New: Added to templates/emails/api-keys-order-complete.php: Action Filters: wc_api_manager_email_api_product_heading, wc_api_manager_email_product_order_api_keys_row,
-* New: Added to templates/emails/plain/api-keys-order-complete.php: Action Filters: wc_api_manager_email_api_product_heading, wc_api_manager_email_product_order_api_keys_row,
-wc_api_manager_email_master_api_key_row, wc_api_manager_email_master_api_key_message_row.
-* New: Added to templates/myaccount/api-keys.php: Action Filters: wc_api_manager_my_account_master_api_key_heading, wc_api_manager_my_account_product_order_api_key_message,
-wc_api_manager_my_account_product_order_api_key_heading. HTML IDs master-api-key-header, product-order-api-key-header.
+* New: Added to templates/emails/api-keys-order-complete.php. Action Filters, wc_api_manager_email_api_product_heading, wc_api_manager_email_product_order_api_keys_row, wc_api_manager_email_master_api_key_row, wc_api_manager_email_master_api_key_message_row. HTML ID email_master_api_key_message_row.
+* New: Added to templates/emails/plain/api-keys-order-complete.php. Action Filters, wc_api_manager_email_api_product_heading, wc_api_manager_email_product_order_api_keys_row, wc_api_manager_email_master_api_key_row, wc_api_manager_email_master_api_key_message_row.
+* New: Added to templates/myaccount/api-keys.php. Action Filters wc_api_manager_my_account_master_api_key_heading, wc_api_manager_my_account_product_order_api_key_message, wc_api_manager_my_account_product_order_api_key_heading. HTML IDs master-api-key-header, product-order-api-key-header.
 
 2023-06-26 - version 3.0.7
 * Update: Fix format of changelog for WooCommerce.com Version history parser. Gap in versions is due to difficulty with formatting for changelog parser at WooCommerce.com.

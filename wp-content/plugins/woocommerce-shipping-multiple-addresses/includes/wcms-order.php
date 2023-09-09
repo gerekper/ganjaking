@@ -53,20 +53,21 @@ class WC_MS_Order {
 			exit;
 		}
 
-		$pkg_idx  = $_POST['package'];
-		$order_id = $_POST['order'];
+		$pkg_idx  = isset( $_POST['package'] ) ? sanitize_text_field( wp_unslash( $_POST['package'] ) ) : '';
+		$order_id = isset( $_POST['order'] ) ? intval( $_POST['order'] ) : 0;
 		$order    = wc_get_order( $order_id );
 		$status   = '';
 
 		if ( $order ) {
-			$packages = $order->get_meta( '_wcms_packages' );
-			$email    = $_POST['email'];
+			$post_status = isset( $_POST['status'] ) ? sanitize_text_field( wp_unslash( $_POST['status'] ) ) : '';
+			$packages    = $order->get_meta( '_wcms_packages' );
+			$email       = isset( $_POST['email'] ) ? sanitize_text_field( wp_unslash( $_POST['email'] ) ) : '';
 
 			foreach ( $packages as $x => $package ) {
 				if ( $x == $pkg_idx ) {
-					$packages[ $x ]['status'] = sanitize_text_field( $_POST['status'] );
+					$packages[ $x ]['status'] = $post_status;
 
-					if ( $_POST['status'] == 'Completed' && $email ) {
+					if ( $post_status == 'Completed' && $email ) {
 						self::send_package_email( $order, $pkg_idx );
 					}
 
@@ -77,10 +78,10 @@ class WC_MS_Order {
 			$order->update_meta_data( '_wcms_packages', $packages );
 			$order->save();
 
-			$status = sanitize_text_field( $_POST['status'] );
+			$status = $post_status;
 		}
 
-		die( $status );
+		die( esc_html( $status ) );
 	}
 
 	public function update_package_on_completed_order( $order_id ) {
@@ -208,7 +209,7 @@ class WC_MS_Order {
 				jQuery( document ).ready( function( $ ) {
 					var $order_data = $( 'div.order_data_column' ).eq( 2 );
 					$order_data.find( 'a.edit_address' ).remove();
-					$order_data.find( 'div.address' ).html( '<a href="#wc_multiple_shipping"><?php _e( 'Ships to multiple addresses', 'wc_shipping_multiple_address' ); ?></a>' );
+					$order_data.find( 'div.address' ).html( '<a href="#wc_multiple_shipping"><?php esc_html_e( 'Ships to multiple addresses', 'wc_shipping_multiple_address' ); ?></a>' );
 				} );
 			</script>
 		<?php
@@ -431,7 +432,7 @@ class WC_MS_Order {
 			// Notes.
 			echo '<td style="' . esc_attr( $td_style ) . '">';
 			if ( ! empty( $package['note'] ) ) {
-				echo wp_kses( $package['note'], $allowed_html );
+				echo wp_kses( nl2br( $package['note'] ), $allowed_html );
 			} else {
 				echo '&ndash;';
 			}
@@ -468,7 +469,7 @@ class WC_MS_Order {
 			$product_infos = $this->get_package_products( $products, $order );
 
 			// translators: %d is replaced with the address index.
-			echo sprintf( esc_html__( 'Address %d', 'wc_shipping_multiple_address' ), ( $x + 1 ) ) . "\n\n";
+			echo sprintf( esc_html__( 'Address %d', 'wc_shipping_multiple_address' ), ( intval( $x ) + 1 ) ) . "\n\n";
 
 			// Products.
 			echo esc_html__( 'Products:', 'wc_shipping_multiple_address' ) . "\n";
@@ -519,7 +520,7 @@ class WC_MS_Order {
 			$packages = $the_order->get_meta( '_wcms_packages' );
 
 			if ( ! $the_order->get_formatted_shipping_address() && is_array( $packages ) && count( $packages ) > 1 ) {
-				_e( 'Ships to multiple addresses ', 'wc_shipping_multiple_address' );
+				esc_html_e( 'Ships to multiple addresses ', 'wc_shipping_multiple_address' );
 			}
 		}
 	}
@@ -539,7 +540,7 @@ class WC_MS_Order {
 		if ( $multiship == 'yes' || ( is_array( $methods ) && count( $methods ) > 1 ) ) {
 			add_meta_box(
 				'wc_multiple_shipping',
-				__( 'Order Shipping Addresses', 'wc_shipping_multiple_address' ),
+				esc_html__( 'Order Shipping Addresses', 'wc_shipping_multiple_address' ),
 				array( $this, 'packages_meta_box' ),
 				'shop_order',
 				'normal',
@@ -589,7 +590,7 @@ class WC_MS_Order {
 
 		foreach ( $packages as $x => $package ) {
 			$products = $package['contents'];
-			echo '<div class="item-address-box package-' . $x . '-box">';
+			echo '<div class="item-address-box package-' . esc_attr( $x ) . '-box">';
 
 			if ( $partial_orders && isset( $package['status'] ) && $package['status'] == 'Completed' ) {
 				echo '<span class="complete">&nbsp;</span>';
@@ -620,9 +621,9 @@ class WC_MS_Order {
 				}
 
 				// Display product info
-				echo '<h4>' . esc_html( $name ) . ' &times; ' . $product['quantity'] . '</h4>';
+				echo '<h4>' . esc_html( $name ) . ' &times; ' . esc_html( $product['quantity'] ) . '</h4>';
 				if ( ! empty( $meta ) ) {
-					echo $meta;
+					echo wp_kses_post( $meta );
 				}
 			}
 
@@ -650,7 +651,7 @@ class WC_MS_Order {
 				$order_method = current( $order_shipping_methods );
 				$method = $order_method['name'];
 			}
-			echo '<em>' . $method . '</em>';
+			echo '<em>' . esc_html( $method ) . '</em>';
 
 			// If partial orders are enabled then show package status
 			if ( $partial_orders ) {
@@ -664,15 +665,15 @@ class WC_MS_Order {
 					$status_css = 'display: none;';
 				}
 
-				echo '<p id="package_' . $x . '_select_p" style="' . $select_css . '">
-							<select id="package_' . $x . '_status">
-								<option value="Pending" ' . selected( $current_status, 'Pending', false ) . '>' . __( 'Pending', 'wc_shipping_multiple_address' ) . '</option>
-								<option value="Completed" ' . selected( $current_status, 'Completed', false ) . '>' . __( 'Completed', 'wc_shipping_multiple_address' ) . '</option>
+				echo '<p id="package_' . esc_attr( $x ) . '_select_p" style="' . esc_attr( $select_css ) . '">
+							<select id="package_' . esc_attr( $x ) . '_status">
+								<option value="Pending" ' . selected( $current_status, 'Pending', false ) . '>' . esc_html__( 'Pending', 'wc_shipping_multiple_address' ) . '</option>
+								<option value="Completed" ' . selected( $current_status, 'Completed', false ) . '>' . esc_html__( 'Completed', 'wc_shipping_multiple_address' ) . '</option>
 							</select>
-							<a class="button save-package-status" data-order="' . $post->ID . '" data-package="' . $x . '" href="#" title="Apply">' . __( 'GO', 'wc_shipping_multiple_address' ) . '</a>
+							<a class="button save-package-status" data-order="' . esc_attr( $post->ID ) . '" data-package="' . esc_attr( $x ) . '" href="#" title="Apply">' . esc_html__( 'GO', 'wc_shipping_multiple_address' ) . '</a>
 						</p>';
 
-				echo '<p id="package_' . $x . '_status_p" style="' . $status_css . '"><strong>' . __( 'Completed', 'wc_shipping_multiple_address' ) . '</strong> (<a href="#" class="edit_package" data-package="' . $x . '">' . __('Change', 'wc_shipping_multiple_address') . '</a>)</p>';
+				echo '<p id="package_' . esc_attr( $x ) . '_status_p" style="' . esc_attr( $status_css ) . '"><strong>' . esc_html__( 'Completed', 'wc_shipping_multiple_address' ) . '</strong> (<a href="#" class="edit_package" data-package="' . esc_attr( $x ) . '">' . esc_html__( 'Change', 'wc_shipping_multiple_address' ) . '</a>)</p>';
 			}
 
 			do_action( 'wc_ms_order_package_block', $order, $package, $x );
@@ -746,7 +747,8 @@ class WC_MS_Order {
 			<div class="address">
 				<p>
 					<a href="<?php echo esc_url( $address_map_url ); ?>" target="_blank">
-						<?php echo WC()->countries->get_formatted_address( $package['destination'] ); ?>
+						<?php // No need to escape. It's already escaped on `WC_Countries::get_formatted_address()`. ?>
+						<?php echo WC()->countries->get_formatted_address( $package['destination'] ); // phpcs:ignore ?>
 					</a>
 				</p>
 			</div>
@@ -760,7 +762,7 @@ class WC_MS_Order {
 					$shipping_fields = WC()->countries->get_address_fields( $package['destination']['country'], 'shipping_' );
 
 					if ( ! empty( $shipping_fields ) ) {
-						echo '<a class="edit_shipping_address" href="#">( ' . __( 'Edit', 'wc_shipping_multiple_address' ) . ' )</a><br />';
+						echo '<a class="edit_shipping_address" href="#">( ' . esc_html__( 'Edit', 'wc_shipping_multiple_address' ) . ' )</a><br />';
 
 						// Display form
 						echo '<div class="edit_shipping_address" style="display:none;">';
@@ -786,7 +788,7 @@ class WC_MS_Order {
 							}
 						}
 
-						echo '<input type="hidden" name="edit_address[]" value="' . $index . '" />';
+						echo '<input type="hidden" name="edit_address[]" value="' . esc_attr( $index ) . '" />';
 						echo '</div>';
 
 					}
@@ -806,23 +808,25 @@ class WC_MS_Order {
 			return;
 		}
 
-		$packages = $order->get_meta( '_wcms_packages' );
+		// No need to verify nonce. it's already verified on `WC_Admin_Meta_Boxes::save_meta_boxes()`.
+		$packages       = $order->get_meta( '_wcms_packages' );
+		$edit_addresses = ( isset( $_POST['edit_address'] ) ) ? wc_clean( $_POST['edit_address'] ) : array(); //phpcs:ignore
 
-		if ( $packages && is_array( $_POST['edit_address'] ) && 0 < count( $_POST['edit_address'] ) ) {
-			foreach ( $_POST['edit_address'] as $idx ) {
+		if ( $packages && is_array( $edit_addresses ) && 0 < count( $edit_addresses ) ) {
+			foreach ( $edit_addresses as $idx ) {
 				if ( ! isset( $packages[ $idx ] ) ) {
 					continue;
 				}
 
 				// Get the shipping fields.
-				$shipping_fields = WC()->countries->get_address_fields( $package['destination']['country'], 'shipping_' );
+				$shipping_fields = WC()->countries->get_address_fields( $packages[ $idx ]['destination']['country'], 'shipping_' );
 				$address         = array();
 
 				// Assign value to respective address key.
 				foreach ( $shipping_fields as $key => $field ) {
 					$addr_key             = str_replace( 'shipping_', '', $key );
 					$post_key             = 'pkg_' . $addr_key . '_' . $idx;
-					$address[ $addr_key ] = isset( $_POST[ $post_key ] ) ? sanitize_text_field( $_POST[ $post_key ] ) : '';
+					$address[ $addr_key ] = isset( $_POST[ $post_key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $post_key ] ) ) : ''; // phpcs:ignore
 				}
 
 				$packages[ $idx ]['destination'] = $address;
@@ -976,7 +980,7 @@ class WC_MS_Order {
 		$settings = get_option( 'woocommerce_multiple_shipping_settings', array() );
 		$order    = wc_get_order( $order_id );
 
-		$subject  = empty( $settings['email_subject'] ) ? __( 'Part of your order has been shipped', 'wc_shipping_multiple_address' ) : $settings['email_subject'];
+		$subject  = empty( $settings['email_subject'] ) ? esc_html__( 'Part of your order has been shipped', 'wc_shipping_multiple_address' ) : $settings['email_subject'];
 		$message  = empty( $settings['email_message'] ) ? self::get_default_email_body() : $settings['email_message'];
 
 		$mailer   = WC()->mailer();
@@ -1004,9 +1008,9 @@ class WC_MS_Order {
 	public static function get_default_email_body() {
 		ob_start();
 	?>
-		<p><?php printf( __( 'Hi there. Part of your recent order on %s has been completed. Your order details are shown below for your reference:', 'wc_shipping_multiple_address' ), get_option( 'blogname' ) ); ?></p>
+		<p><?php printf( esc_html__( 'Hi there. Part of your recent order on %s has been completed. Your order details are shown below for your reference:', 'wc_shipping_multiple_address' ), esc_html( get_option( 'blogname' ) ) ); ?></p>
 
-		<h2><?php echo __( 'Order:', 'wc_shipping_multiple_address' ) . ' {order_id}'; ?></h2>
+		<h2><?php echo esc_html__( 'Order:', 'wc_shipping_multiple_address' ) . ' {order_id}'; ?></h2>
 
 		{products_table}
 
@@ -1030,8 +1034,8 @@ class WC_MS_Order {
 		<table cellspacing="0" cellpadding="6" style="width: 100%; border: 1px solid #eee;" border="1" bordercolor="#eee">
 			<thead>
 			<tr>
-				<th scope="col" style="text-align:left; border: 1px solid #eee;"><?php _e( 'Product', 'wc_shipping_multiple_address' ); ?></th>
-				<th scope="col" style="text-align:left; border: 1px solid #eee;"><?php _e( 'Quantity', 'wc_shipping_multiple_address' ); ?></th>
+				<th scope="col" style="text-align:left; border: 1px solid #eee;"><?php esc_html_e( 'Product', 'wc_shipping_multiple_address' ); ?></th>
+				<th scope="col" style="text-align:left; border: 1px solid #eee;"><?php esc_html_e( 'Quantity', 'wc_shipping_multiple_address' ); ?></th>
 			</tr>
 			</thead>
 			<tbody>
@@ -1039,19 +1043,29 @@ class WC_MS_Order {
 				foreach ( $products as $item ):
 					$_product = wc_get_product( $item['product_id'] );
 					$attachment_image_src = wp_get_attachment_image_src( get_post_thumbnail_id( $_product->get_id() ), 'thumbnail' );
-					$image = $attachment_image_src ? '<img src="' . current( $attachment_image_src ) . '" alt="Product Image" height="32" width="32" style="vertical-align:middle; margin-right: 10px;" />' : '';
+					$image = $attachment_image_src ? '<img src="' . esc_url( current( $attachment_image_src ) ) . '" alt="Product Image" height="32" width="32" style="vertical-align:middle; margin-right: 10px;" />' : '';
 			?>
 				<tr>
 					<td style="text-align:left; vertical-align:middle; border: 1px solid #eee; word-wrap:break-word;"><?php
-
-						// Show title/image etc
-						echo apply_filters( 'woocommerce_order_product_image', $image, $_product, true );
+						// Show title/image etc.
+						$output_image      = apply_filters( 'woocommerce_order_product_image', $image, $_product, true );
+						$allowed_image_tag = array(
+							'img' => array(
+								'src'    => array(),
+								'alt'    => array(),
+								'height' => array(),
+								'width'  => array(),
+								'style'  => array(),
+							),
+						);
+						echo wp_kses( $output_image, $allowed_image_tag ); //phpcs:ignore
 
 						// Product name
-						echo apply_filters( 'woocommerce_order_product_title', $_product->get_title(), $_product );
+						$output_product_name = apply_filters( 'woocommerce_order_product_title', $_product->get_title(), $_product );
+						echo wp_kses_post( $output_product_name );
 
 						// SKU
-						echo ( $_product->get_sku() ? ' (#' . $_product->get_sku() . ')' : '' );
+						echo ( $_product->get_sku() ? esc_html( ' (#' . $_product->get_sku() . ')' ) : '' );
 
 						// File URLs
 						if ( $_product->exists() && $_product->is_downloadable() ) {
@@ -1066,17 +1080,17 @@ class WC_MS_Order {
 								$filename = wc_get_filename_from_url( $file_url );
 
 								if ( count( $download_file_urls ) > 1 ) {
-									echo sprintf( __('Download %d:', 'wc_shipping_multiple_address' ), $i + 1 );
+									echo sprintf( esc_html__( 'Download %d:', 'wc_shipping_multiple_address' ), intval( $i ) + 1 );
 								} elseif ( $i == 0 )
-									echo __( 'Download:', 'wc_shipping_multiple_address' );
+									echo esc_html__( 'Download:', 'wc_shipping_multiple_address' );
 
-									echo ' <a href="' . $download_file_url . '" target="_blank">' . $filename . '</a></small>';
+									echo ' <a href="' . esc_url( $download_file_url ) . '" target="_blank">' . esc_html( $filename ) . '</a></small>';
 
 									$i++;
 								}
 							}
 					?></td>
-					<td style="text-align:left; vertical-align:middle; border: 1px solid #eee;"><?php echo $item['quantity'] ;?></td>
+					<td style="text-align:left; vertical-align:middle; border: 1px solid #eee;"><?php echo esc_html( $item['quantity'] ) ;?></td>
 				</tr>
 			<?php endforeach; ?>
 			</tbody>
@@ -1099,11 +1113,12 @@ class WC_MS_Order {
 		<table cellspacing="0" cellpadding="0" style="width: 100%; vertical-align: top;" border="0">
 			<tr>
 				<td valign="top" width="50%">
-					<h3><?php _e( 'Billing address', 'wc_shipping_multiple_address' ); ?></h3>
-					<p><?php echo $order->get_formatted_billing_address(); ?></p>
+					<h3><?php esc_html_e( 'Billing address', 'wc_shipping_multiple_address' ); ?></h3>
+					<?php // no need to escape. It's already escape from `WC_Order::get_formatted_billing_address()`. ?>
+					<p><?php echo $order->get_formatted_billing_address(); //phpcs:ignore ?></p>
 				</td>
 				<td valign="top" width="50%">
-					<h3><?php _e( 'Shipping address', 'wc_shipping_multiple_address' ); ?></h3>
+					<h3><?php esc_html_e( 'Shipping address', 'wc_shipping_multiple_address' ); ?></h3>
 					<?php self::display_shipping_package_address( $order, $package, $index ); ?>
 				</td>
 			</tr>

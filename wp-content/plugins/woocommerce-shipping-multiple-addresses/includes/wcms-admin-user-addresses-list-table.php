@@ -25,7 +25,7 @@ class WC_MS_Admin_User_Addresses_List_Table extends WP_List_Table {
 	 */
 	public function get_columns() {
 		return array(
-			'address'   => __( 'Address', 'wc_shipping_multiple_address' ),
+			'address' => esc_html__( 'Address', 'wc_shipping_multiple_address' ),
 		);
 	}
 
@@ -58,12 +58,14 @@ class WC_MS_Admin_User_Addresses_List_Table extends WP_List_Table {
 	}
 
 	public function column_address( $item ) {
-		$out = '<div class="address">' . wcms_get_formatted_address( $item['address'] ) . '</div>';
+		// No need to escape. It's already escaped on `wcms_get_formatted_address()`.
+		$out = '<div class="address">' . wcms_get_formatted_address( $item['address'] ) . '</div>';// phpcs:ignore
 
 		// Get actions
+		$delete_url = admin_url( 'admin-post.php?action=wcms_delete_address&index=' . $item['index'] . '&user_id=' . intval( $this->user->ID ) . '&_wpnonce=' . wp_create_nonce( 'delete_shipping_address' ) );
 		$actions = array(
-			'edit'  => '<a class="edit-address" data-index="' . $item['index'] . '" title="' . esc_attr( __( 'Edit', 'wc_shipping_multiple_address' ) ) . '" href="#">' . __( 'Edit', 'wc_shipping_multiple_address' ) . '</a>',
-			'trash' => '<a class="submitdelete" title="' . esc_attr( __( 'Delete', 'wc_shipping_multiple_address' ) ) . '" href="admin-post.php?action=wcms_delete_address&index=' . $item['index'] . '&user_id=' . $this->user->ID . '&_wpnonce=' . wp_create_nonce( 'delete_shipping_address' ) . '">' . __( 'Delete', 'follow_up_emails' ) . '</a>',
+			'edit'  => '<a class="edit-address" data-index="' . esc_attr( $item['index'] ) . '" title="' . esc_attr__( 'Edit', 'wc_shipping_multiple_address' ) . '" href="#">' . esc_html__( 'Edit', 'wc_shipping_multiple_address' ) . '</a>',
+			'trash' => '<a class="submitdelete" title="' . esc_attr__( 'Delete', 'wc_shipping_multiple_address' ) . '" href="' . esc_url( $delete_url ) . '">' . esc_html__( 'Delete', 'follow_up_emails' ) . '</a>',
 		);
 
 		$row_actions = array();
@@ -82,11 +84,11 @@ class WC_MS_Admin_User_Addresses_List_Table extends WP_List_Table {
 		$default_address_keys = array_keys( WC()->countries->get_default_address_fields() );
 		$fields               = WC()->countries->get_address_fields( $address['shipping_country'], 'wcms_shipping_' );
 		?>
-		<tr id="address-<?php echo $item['index']; ?>">
+		<tr id="address-<?php echo esc_attr( $item['index'] ); ?>">
 			<?php $this->single_row_columns( $item ); ?>
 		</tr>
 		<tr></tr>
-		<tr style="display: none;" class="address-form" id="address-form-<?php echo $item['index']; ?>" data-index="<?php echo $item['index']; ?>">
+		<tr style="display: none;" class="address-form" id="address-form-<?php echo esc_attr( $item['index'] ); ?>" data-index="<?php echo esc_attr( $item['index'] ); ?>">
 			<td>
 				<div class="address-column">
 				<?php
@@ -99,18 +101,17 @@ class WC_MS_Admin_User_Addresses_List_Table extends WP_List_Table {
 						$val = $address[ $key ];
 					}
 
-					if ( empty( $val ) && ! empty( $_GET[ $key ] ) ) {
-						$val = $_GET[ $key ];
-					}
+					$val = ( empty( $val ) && ! empty( $_GET[ $key ] ) ) ? sanitize_text_field( wp_unslash( $_GET[ $key ] ) ) : $val; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-					echo woocommerce_form_field( $key, $field, $val );
+					// No need to escape. `woocommerce_form_field()` has been escaped.
+					echo woocommerce_form_field( $key, $field, $val ); //phpcs:ignore
 				}
 				?>
 				</div>
 
 				<p class="submit">
-					<input type="button" class="button btn-cancel" value="<?php _e( 'Cancel', 'wc_shipping_multiple_address' ); ?>" />
-					<input type="button" class="button-primary btn-save" value="<?php _e( 'Save Address', 'wc_shipping_multiple_address' ); ?>" />
+					<input type="button" class="button btn-cancel" value="<?php esc_html_e( 'Cancel', 'wc_shipping_multiple_address' ); ?>" />
+					<input type="button" class="button-primary btn-save" value="<?php esc_html_e( 'Save Address', 'wc_shipping_multiple_address' ); ?>" />
 				</p>
 			</td>
 		</tr>

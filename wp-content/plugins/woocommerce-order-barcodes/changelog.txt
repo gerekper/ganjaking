@@ -1,5 +1,8 @@
 *** WooCommerce Order Barcodes Changelog ***
 
+2023-09-05 - version 1.7.1
+* Update - Security updates.
+
 2023-08-08 - version 1.7.0
 * Add    - New barcode library for PHP 8 compatibility.
 

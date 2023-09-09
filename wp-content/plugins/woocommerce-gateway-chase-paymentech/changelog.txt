@@ -1,5 +1,18 @@
 *** WooCommerce Chase Paymentech Gateway Changelog ***
 
+2023.07.28 - version 1.18.0
+ * Misc - Add compatibility for WooCommerce High Performance Order Storage (HPOS)
+ * Misc - Improve Accepted Cards setting description
+
+2023.02.18 - version 1.17.0
+ * Fix - Resolve bug when deleting a saved credit card
+ * Misc - Update SkyVerge Plugin Framework to 5.10.15
+ * Misc - Require PHP 7.4 and WordPress 5.6
+
+2022.11.11 - version 1.16.4
+ * Fix - Fix bug with manual renewal of subscription renewals
+ * Fix - Fix bug with using a saved payment method to check out
+
 2022.08.15 - version 1.16.3
  * Fix - Ensure that Auth/Capture orders placed while Certification Mode is enabled aren't placed on hold
  * Fix - Replace deprecated `is_ajax()` function calls with `wp_doing_ajax()`

@@ -152,7 +152,11 @@ function wc_table_rate_admin_shipping_class_priorities( $shipping_method_id ) {
 			<tfoot>
 				<tr>
 					<td colspan="2">
-						<span class="description per_order"><?php _e( 'When calculating shipping, the cart contents will be <strong>searched for all shipping classes</strong>. If all product shipping classes are <strong>identical</strong>, the corresponding class will be used.<br/><strong>If there are a mix of classes</strong> then the class with the <strong>lowest number priority</strong> (defined above) will be used.', 'woocommerce-table-rate-shipping' ); // WPCS: xss ok. ?></span>
+						<span class="description per_order">
+							<?php
+							echo wp_kses_post( __( 'When calculating shipping, the cart contents will be <strong>searched for all shipping classes</strong>. If all product shipping classes are <strong>identical</strong>, the corresponding class will be used.<br/><strong>If there are a mix of classes</strong> then the class with the <strong>lowest number priority</strong> (defined above) will be used.', 'woocommerce-table-rate-shipping' ) );
+							?>
+						</span>
 					</td>
 				</tr>
 			</tfoot>

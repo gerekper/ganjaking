@@ -106,8 +106,9 @@ class WC_API_Manager_Query extends WC_Query {
 	/**
 	 * Set the API Manager page title when viewing.
 	 *
-	 * @since 1.4.4
-	 * @since WC 4.6.0 Added $action parameter.
+	 * @since   1.4.4
+	 * @since   WC 4.6.0 Added $action parameter.
+	 * @updated 3.1.1 Added Action Filters.
 	 *
 	 * @param string $endpoint
 	 * @param string $action Since WC 4.6.0 Added $action parameter.
@@ -117,10 +118,10 @@ class WC_API_Manager_Query extends WC_Query {
 	public function get_endpoint_title( $endpoint, $action = '' ) {
 		switch ( $endpoint ) {
 			case $this->api_keys_endpoint :
-				$title = esc_html__( 'API Keys', 'woocommerce-api-manager' );
+				$title = esc_html__( apply_filters( 'wc_api_manager_endpoint_title_api_keys', __( 'API Keys', 'woocommerce-api-manager' ) ) );
 				break;
 			case $this->downloads_endpoint :
-				$title = esc_html__( 'API Downloads', 'woocommerce-api-manager' );
+				$title = esc_html__( apply_filters( 'wc_api_manager_endpoint_title_api_downloads', __( 'API Downloads', 'woocommerce-api-manager' ) ) );
 				break;
 			default:
 				$title = '';
@@ -133,20 +134,21 @@ class WC_API_Manager_Query extends WC_Query {
 	/**
 	 * Insert the new endpoint into the My Account menu.
 	 *
-	 * @since 1.4.4
+	 * @since   1.4.4
+	 * @updated 3.1.1 Added Action Filters.
 	 *
 	 * @param array $menu_items
 	 *
 	 * @return array
 	 */
 	public function add_menu_items( $menu_items ) {
-		// Add our menu item after the Orders tab if it exists, otherwise just add it to the end
+		// Add our menu item after the Orders tab if it exists, otherwise just add it to the end.
 		if ( array_key_exists( 'orders', $menu_items ) ) {
-			$menu_items = WC_AM_ARRAY()->array_insert_after( 'orders', $menu_items, $this->api_keys_endpoint, esc_html__( 'API Keys', 'woocommerce-api-manager' ) );
-			$menu_items = WC_AM_ARRAY()->array_insert_after( $this->api_keys_endpoint, $menu_items, $this->downloads_endpoint, esc_html__( 'API Downloads', 'woocommerce-api-manager' ) );
+			$menu_items = WC_AM_ARRAY()->array_insert_after( 'orders', $menu_items, $this->api_keys_endpoint, esc_html__( apply_filters( 'wc_api_manager_add_menu_items_api_keys', __( 'API Keys', 'woocommerce-api-manager' ) ) ) );
+			$menu_items = WC_AM_ARRAY()->array_insert_after( $this->api_keys_endpoint, $menu_items, $this->downloads_endpoint, esc_html__( apply_filters( 'wc_api_manager_add_menu_items_api_downloads', __( 'API Downloads', 'woocommerce-api-manager' ) ) ) );
 		} else {
-			$menu_items[ $this->api_keys_endpoint ]  = esc_html__( 'API Keys', 'woocommerce-api-manager' );
-			$menu_items[ $this->downloads_endpoint ] = esc_html__( 'API Downloads', 'woocommerce-api-manager' );
+			$menu_items[ $this->api_keys_endpoint ]  = esc_html__( apply_filters( 'wc_api_manager_add_menu_items_api_keys', __( 'API Keys', 'woocommerce-api-manager' ) ) );
+			$menu_items[ $this->downloads_endpoint ] = esc_html__( apply_filters( 'wc_api_manager_add_menu_items_api_downloads', __( 'API Downloads', 'woocommerce-api-manager' ) ) );
 		}
 
 		return $menu_items;

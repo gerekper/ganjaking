@@ -3609,6 +3609,8 @@ to{-webkit-transform:scale(1);transform:scale(1);opacity:.7}
 .sp-layout-masonary .sp-posts-single-block.sp-news-posts{border-left:0}
 .sp-skin-block .sp-posts-image img{width:100%}
 .seedprod-carousel-post-block .sp-posts-single-block.sp-minimal-posts,.sp-layout-masonary .sp-posts-single-block.sp-minimal-posts{border-top:0}
+.seedprod_page_seedprod_pro_builder div.wp-link-input input{background:#fff;color:#000}
+.rafflepress-giveaway-iframe-wrapper.rpoverlay:before{background-image:-webkit-linear-gradient(top,rgba(255,255,255,0) 0,rgba(255,255,255,1) 100%);content:'RafflePress Giveaway Preview';height:100%;position:absolute;width:100%;font-size:14px;left:0;text-align:center}
 @media(min-width:640px){.sm\:sp-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
 .sm\:sp-not-sr-only{position:static;width:auto;height:auto;padding:0;margin:0;overflow:visible;clip:auto;white-space:normal}
 .sm\:focus\:sp-sr-only:focus{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}

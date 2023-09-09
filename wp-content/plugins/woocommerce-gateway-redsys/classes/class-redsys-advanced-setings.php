@@ -63,7 +63,7 @@ if ( ! class_exists( 'Redsys_Advanced_Settings' ) ) :
 			echo '<ul class="subsubsub">';
 			$array_keys = array_keys( $sections );
 			foreach ( $array_keys as $id ) {
-				echo '<li><a href="' . admin_url( 'admin.php?page=wc-settings&tab=redsys_advanced&section=' . sanitize_title( $id ) ) . '" class="' . ( $current_section == $id ? 'current' : '' ) . '">' . esc_html( $sections[ $id ] ) . '</a> ' . ( end( $array_keys ) == $id ? '' : '|' ) . ' </li>';
+				echo '<li><a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=redsys_advanced&section=' . sanitize_title( $id ) ) ) . '" class="' . ( $current_section == $id ? 'current' : '' ) . '">' . esc_html( $sections[ $id ] ) . '</a> ' . ( end( $array_keys ) == $id ? '' : '|' ) . ' </li>';
 			}
 			echo '</ul><br class="clear" />';
 			echo '

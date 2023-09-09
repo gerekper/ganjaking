@@ -1,5 +1,6 @@
 <?php
 
+//phpcs:disable Squiz.Classes.ClassFileName.NoMatch, Squiz.Classes.ValidClassName.NotCamelCaps
 /**
  * Utils for compatibility with WooCommerce Full Site Editor Blocks
  *
@@ -45,7 +46,7 @@ class WC_Brands_Block_Templates {
 	 *
 	 * Triggered by woocommerce_has_block_template filter
 	 *
-	 * @param bool $has_template  True if the template is available
+	 * @param bool   $has_template  True if the template is available
 	 * @param string $template_name The name of the template
 	 *
 	 * @return bool True if the system is checking archive-product
@@ -67,46 +68,48 @@ class WC_Brands_Block_Templates {
 	 * @return WP_Block_Template The taxonomy-product_brand template.
 	 */
 	private function get_product_brands_template( $template_type ) {
-
 		$template_db = $this->get_product_brand_template_db();
 
 		if ( $template_db ) {
 			return BlockTemplateUtilsDuplicated::gutenberg_build_template_result_from_post( $template_db );
 		}
 
-		$template_path = plugin_dir_path( dirname( __FILE__ ) ) . 'templates/taxonomy-product_brand.html';
+		$template_path = BlockTemplateUtilsDuplicated::should_use_blockified_product_grid_templates()
+			? plugin_dir_path( dirname( __FILE__ ) ) . 'templates/blockified/taxonomy-product_brand.html'
+			: plugin_dir_path( dirname( __FILE__ ) ) . 'templates/taxonomy-product_brand.html';
+
 		$template_file = BlockTemplateUtilsDuplicated::create_new_block_template_object( $template_path, $template_type, 'taxonomy-product_brand', false );
 
 		return BlockTemplateUtilsDuplicated::gutenberg_build_template_result_from_file( $template_file, $template_type );
 	}
 
-    /**
-     * Function to check if a template name is woocommerce/taxonomy-product_brand
-     *
-     * Notice depending on the version of WooCommerce this could be:
-     *
-     * woocommerce//taxonomy-product_brand
-     * woocommerce/woocommerce//taxonomy-product_brand
-     *
-     * @param $id String The string to check if contains the template name
-     * @return bool True if the template is woocommerce/taxonomy-product_brand
-     */
-    private function is_taxonomy_product_brand_template( $id ) {
-        return strpos( $id, 'woocommerce//taxonomy-product_brand' ) !== false;
-    }
+	/**
+	 * Function to check if a template name is woocommerce/taxonomy-product_brand
+	 *
+	 * Notice depending on the version of WooCommerce this could be:
+	 *
+	 * woocommerce//taxonomy-product_brand
+	 * woocommerce/woocommerce//taxonomy-product_brand
+	 *
+	 * @param  String $id The string to check if contains the template name
+	 *
+	 * @return bool True if the template is woocommerce/taxonomy-product_brand
+	 */
+	private function is_taxonomy_product_brand_template( $id ) {
+		return strpos( $id, 'woocommerce//taxonomy-product_brand' ) !== false;
+	}
 
 	/**
 	 * Get the block template for Taxonomy Product Brand if requested.
 	 * Triggered by get_block_file_template action
 	 *
 	 * @param WP_Block_Template|null $block_template The current Block Template loaded, if any.
-	 * @param string $id The template id normally in the format theme-slug//template-slug
-	 * @param string $template_type The post_type for the template. Normally wp_template or wp_template_part
+	 * @param string                 $id The template id normally in the format theme-slug//template-slug
+	 * @param string                 $template_type The post_type for the template. Normally wp_template or wp_template_part
 	 *
 	 * @return WP_Block_Template|null The taxonomy-product_brand template.
 	 */
 	public function get_block_file_template( $block_template, $id, $template_type ) {
-
 		if ( $this->is_taxonomy_product_brand_template( $id ) && is_null( $block_template ) ) {
 			$block_template = $this->get_product_brands_template( $template_type );
 		}
@@ -125,7 +128,6 @@ class WC_Brands_Block_Templates {
 	 * @return WP_Block_Template[] Array of the matched Block Templates to render.
 	 */
 	public function get_block_templates( $query_result, $query, $template_type ) {
-
 		// We don't want to run this if we are looking for template-parts. Like the header.
 		if ( 'wp_template' !== $template_type ) {
 			return $query_result;
@@ -142,7 +144,6 @@ class WC_Brands_Block_Templates {
 		) {
 			$query_result[] = $this->get_product_brands_template( $template_type );
 		}
-
 
 		return $query_result;
 	}

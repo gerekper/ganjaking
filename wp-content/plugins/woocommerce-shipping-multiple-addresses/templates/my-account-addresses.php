@@ -1,13 +1,13 @@
 <div class="addresses">
     <header class="title">
-        <h3><?php _e( 'Other Shipping Addresses', 'wc_shipping_multiple_address' ); ?></h3>
-        <a href="<?php echo add_query_arg( 'action', 'add', $form_url ); ?>" class="edit"><?php _e( 'Add Address', 'wc_shipping_multiple_address' ); ?></a>
+        <h3><?php esc_html_e( 'Other Shipping Addresses', 'wc_shipping_multiple_address' ); ?></h3>
+        <a href="<?php echo esc_url( add_query_arg( 'action', 'add', $form_url ) ); ?>" class="edit"><?php esc_html_e( 'Add Address', 'wc_shipping_multiple_address' ); ?></a>
     </header>
 
     <?php
     if ( empty($addresses) ) {
-        echo '<i>'. __( 'No shipping addresses set up yet.', 'wc_shipping_multiple_address' ) .'</i> ';
-        echo '<a href="'. add_query_arg( 'action', 'add', $form_url ) .'">'. __( 'Set up shipping addresses', 'wc_shipping_multiple_address' ) .'</a>';
+        echo '<i>'. esc_html__( 'No shipping addresses set up yet.', 'wc_shipping_multiple_address' ) .'</i> ';
+        echo '<a href="'. esc_url( add_query_arg( 'action', 'add', $form_url )  ).'">'. esc_html__( 'Set up shipping addresses', 'wc_shipping_multiple_address' ) .'</a>';
     } else {
         foreach ( $addresses as $idx => $address ) {
             if ( $idx === 0 ) {

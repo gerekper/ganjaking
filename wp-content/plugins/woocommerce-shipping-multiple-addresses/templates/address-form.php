@@ -1,7 +1,7 @@
 <?php
 
 if ( empty($addresses) ) {
-    echo '<p>'. __('No address on file. Please add one below.', 'wc_shipping_multiple_address') .'</p>';
+    echo '<p>'. esc_html__( 'No address on file. Please add one below.', 'wc_shipping_multiple_address' ) .'</p>';
 } else {
     /* @var $woocommerce Woocommerce */
 
@@ -31,21 +31,19 @@ if ( empty($addresses) ) {
 <hr />
 
 <?php
-$address_id = '-1';
+$address_id = isset( $_GET['edit'] ) ? intval( $_GET['edit'] ) : -1; // phpcs:ignore WordPress.Security.NonceVerification.Recommended --- No DB operation
 $address    = array();
 
-if ( isset($_GET['edit']) ):
-    $address_id = intval($_GET['edit']);
-    $address    = $addresses[ $address_id ];
-
+if ( -1 !== $address_id ) :
+	$address = $addresses[ $address_id ];
 ?>
-    <h2><?php _e('Edit address', 'wc_shipping_multiple_address'); ?></h2>
-<?php else: ?>
-    <h2><?php _e('Add a new address', 'wc_shipping_multiple_address'); ?></h2>
-    <?php if ( !isset( $_GET['ref'] ) ): ?>
+    <h2><?php esc_html_e( 'Edit address', 'wc_shipping_multiple_address' ); ?></h2>
+<?php else : ?>
+    <h2><?php esc_html_e( 'Add a new address', 'wc_shipping_multiple_address' ); ?></h2>
+    <?php if ( ! isset( $_GET['ref'] ) ) : // phpcs:ignore WordPress.Security.NonceVerification.Recommended --- No DB operation ?>
     <p>
-        <a href="#" class="button btn-import-billing" style="display: none;"><?php _e('Import billing address', 'wc_shipping_multiple_address'); ?></a>
-        <a href="#" class="button btn-import-shipping" style="display: none;"><?php _e('Import shipping address', 'wc_shipping_multiple_address'); ?></a>
+        <a href="#" class="button btn-import-billing" style="display: none;"><?php esc_html_e( 'Import billing address', 'wc_shipping_multiple_address' ); ?></a>
+        <a href="#" class="button btn-import-shipping" style="display: none;"><?php esc_html_e( 'Import shipping address', 'wc_shipping_multiple_address' ); ?></a>
     </p>
     <?php endif; ?>
 <?php endif; ?>
@@ -73,32 +71,31 @@ if ( isset($_GET['edit']) ):
                 $id     = rtrim( str_replace( '[', '_', $key ), ']' );
                 $field['return'] = true;
 
-                if ( empty( $val ) && !empty( $_GET[ $key ] ) ) {
-                    $val = $_GET[ $key ];
-                }
+				$val = ( empty( $val ) && ! empty( $_GET[ $key ] ) ) ? sanitize_text_field( wp_unslash( $_GET[ $key ] ) ) : $val; // phpcs:ignore WordPress.Security.NonceVerification.Recommended --- No DB operation.
 
-                echo str_replace( 'name="'. $key .'"', 'name="address['. $id .']"', woocommerce_form_field( $key, $field, $val ) );
+                // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped --- skipping escaping since fragments are being escaped
+                echo str_replace( 'name="'. esc_attr( $key ) .'"', 'name="address['. esc_attr( $id ) .']"', woocommerce_form_field( $key, $field, $val ) );
             endforeach;
 
             do_action('woocommerce_after_checkout_shipping_form', $checkout);
             ?>
 			<?php wp_nonce_field( 'save_to_address_book' ); ?>
             <input type="hidden" name="action" value="save_to_address_book" />
-            <input type="hidden" name="id" id="address_id" value="<?php echo $address_id; ?>" />
+            <input type="hidden" name="id" id="address_id" value="<?php echo esc_attr( $address_id ); ?>" />
 
             <input type="hidden" name="return" value="list" />
 
-            <?php if ( !empty( $_GET['ref'] ) ): ?>
-            <input type="hidden" name="next" value="<?php echo get_permalink( wc_get_page_id( 'myaccount' ) ); ?>" />
+            <?php if ( ! empty( $_GET['ref'] ) ) : // phpcs:ignore WordPress.Security.NonceVerification.Recommended --- No DB operation. ?>
+            <input type="hidden" name="next" value="<?php echo esc_url( get_permalink( wc_get_page_id( 'myaccount' ) ) ); ?>" />
             <?php endif; ?>
         </div>
 
     </div>
 
     <?php if ( $address_id > -1 ): ?>
-        <input type="submit" class="button alt" id="use_address" value="<?php _e('Update Address', 'wc_shipping_multiple_address'); ?>" />
+        <input type="submit" class="button alt" id="use_address" value="<?php esc_html_e( 'Update Address', 'wc_shipping_multiple_address' ); ?>" />
     <?php else: ?>
-        <input type="submit" class="button alt" id="use_address" value="<?php _e('Save Address', 'wc_shipping_multiple_address'); ?>" />
+        <input type="submit" class="button alt" id="use_address" value="<?php esc_html_e( 'Save Address', 'wc_shipping_multiple_address' ); ?>" />
     <?php endif; ?>
 
 </form>

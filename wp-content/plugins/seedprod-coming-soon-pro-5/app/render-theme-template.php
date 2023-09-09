@@ -402,8 +402,16 @@ function seedprod_pro_body_class_layouts( $classes ) {
 			unset( $classes[ $k ] );
 		}
 	}
-
-	$classes[] = 'theme-seedprod';
+	
+	global $post;
+	$extra_class = '';
+	if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+		if ( 'product' === $post->post_type ) {
+			$extra_class .= 'product' ;
+		}
+	}
+	
+	$classes[] = 'theme-seedprod '.$extra_class;
 
 	return $classes;
 }

@@ -441,9 +441,7 @@ class Warranty_Frontend {
 	 * @return String.
 	 */
 	public function manipulate_feed_comment_query( $cwhere, $comment_query ) {
-		$cwhere .= ' AND post_type <> "warranty_request" ';
-
-		return $cwhere;
+		return $cwhere . ( $cwhere ? ' AND ' : '' ) . " comment_type != 'wc_warranty_note' ";
 	}
 }
 

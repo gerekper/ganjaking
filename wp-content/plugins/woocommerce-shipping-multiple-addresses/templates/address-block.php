@@ -16,16 +16,13 @@ $addr      = array(
 
 $formatted_address = wcms_get_formatted_address( $address );
 if ( $formatted_address ) {
-	echo '<address>' . $formatted_address . '</address>';
-	$ref = '';
-	if ( is_account_page() ) {
-		$ref = 'account';
-	}
-	$edit_link = add_query_arg(
-		array(
-			'edit'         => $idx,
-			'address-form' => 1,
-			'ref'          => $ref,
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped --- Escaped in wcms_get_formatted_address()
+    echo '<address>'.$formatted_address.'</address>';
+    $ref = '';
+    if ( is_account_page() ) {
+        $ref = 'account';
+    }
+    $edit_link = add_query_arg( array('edit' =>  $idx, 'address-form' => 1, 'ref' => $ref,
 		),
 		$form_link
 	);

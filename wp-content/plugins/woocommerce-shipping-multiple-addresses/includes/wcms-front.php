@@ -118,7 +118,13 @@ class WC_MS_Front {
 		wp_enqueue_script( 'modernizr', plugins_url( 'assets/js/modernizr.min.js', WC_Ship_Multiple::FILE ) );
 
 		$id                = wc_get_page_id( 'multiple_addresses' );
-		$reset_url         = add_query_arg( array( 'wcms_reset_address' => true ), wc_get_checkout_url() );
+		$reset_url         = add_query_arg(
+			array(
+				'wcms_reset_address' => true,
+				'nonce'              => wp_create_nonce( 'wcms_reset_address_security' ),
+			),
+			wc_get_checkout_url()
+		);
 		$modify_addr_link  = get_permalink( $id );
 		$add_addr_link     = add_query_arg( 'cart', 1, get_permalink( $id ) );
 		$sess_item_address = wcms_session_get( 'cart_item_addresses' );
@@ -186,10 +192,12 @@ class WC_MS_Front {
 			$this->enqueue_address_validation_scripts();
 		}
 
-		// on the thank you page, remove the Shipping Address block if the order ships to multiple addresses
-		if ( isset( $_GET['order-received'] ) || isset( $_GET['view-order'] ) ) {
-			$order_id = isset( $_GET['order-received'] ) ? intval( $_GET['order-received'] ) : intval( $_GET['view-order'] );
-			$order    = wc_get_order( $order_id );
+		// on the thank you page, remove the Shipping Address block if the order ships to multiple addresses.
+		$order_id = isset( $_GET['view-order'] ) ? intval( $_GET['view-order'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$order_id = isset( $_GET['order-received'] ) ? intval( $_GET['order-received'] ) : $order_id; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		if ( ! empty( $order_id ) ) {
+			$order = wc_get_order( $order_id );
 
 			if ( ! $order ) {
 				return;
@@ -341,7 +349,8 @@ class WC_MS_Front {
 			$index = $parts[2];
 
 			if ( 'new' === $index ) {
-				return empty( $_POST[ $key ] ) ? '' : wc_clean( $_POST[ $key ] );
+				// No need to do nonce verification. No saving data operation here.
+				return empty( $_POST[ $key ] ) ? '' : wc_clean( $_POST[ $key ] );// phpcs:ignore
 			}
 
 			$user = wp_get_current_user();
@@ -366,18 +375,21 @@ class WC_MS_Front {
 	public function save_address() {
 		global $wp;
 
-		if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) ) {
+		$request_method = isset( $_SERVER['REQUEST_METHOD'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) : '';
+		if ( 'POST' !== strtoupper( $request_method ) ) {
 			return;
 		}
 
+		$nonce = isset( $_POST['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ) : '';
+
 		if ( version_compare( WC_VERSION, '3.4', '<' ) ) {
-			if ( empty( $_POST['action'] ) || 'edit_address' !== $_POST['action'] || empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'woocommerce-edit_address' ) ) {
+			if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'woocommerce-edit_address' ) ) {
 				return;
 			}
-		} else {
-			if ( empty( $_POST['action'] ) || 'edit_address' !== $_POST['action'] ) {
-				return;
-			}
+		}
+
+		if ( empty( $_POST['action'] ) || 'edit_address' !== $_POST['action'] ) {
+			return;
 		}
 
 		$user_id = get_current_user_id();
@@ -393,7 +405,10 @@ class WC_MS_Front {
 			return;
 		}
 
-		$address = WC()->countries->get_address_fields( esc_attr( $_POST[ 'shipping_country' ] ), 'shipping_' );
+		$shipping_country  = isset( $_POST['shipping_country'] ) ? sanitize_text_field( wp_unslash( $_POST['shipping_country'] ) ) : '';
+		$address           = WC()->countries->get_address_fields( esc_attr( $shipping_country ), 'shipping_' );
+		$post_load_country = isset( $_POST[ $load_address . '_country' ] ) ? wc_clean( $_POST[ $load_address . '_country' ] ) : '';
+		$post_fields       = array();
 
 		foreach ( $address as $key => $field ) {
 
@@ -404,52 +419,52 @@ class WC_MS_Front {
 			// Get Value.
 			switch ( $field['type'] ) {
 				case 'checkbox' :
-					$_POST[ $key ] = (int) isset( $_POST[ $key ] );
+					$post_fields[ $key ] = intval( isset( $_POST[ $key ] ) );
 					break;
 				default :
-					$_POST[ $key ] = isset( $_POST[ $key ] ) ? wc_clean( $_POST[ $key ] ) : '';
+					$post_fields[ $key ] = isset( $_POST[ $key ] ) ? wc_clean( $_POST[ $key ] ) : '';
 					break;
 			}
 
 			// Hook to allow modification of value.
-			$_POST[ $key ] = apply_filters( 'woocommerce_process_myaccount_field_' . $key, $_POST[ $key ] );
+			$post_fields[ $key ] = apply_filters( 'woocommerce_process_myaccount_field_' . $key, $post_fields[ $key ] );
 
 			// Validation: Required fields.
-			if ( ! empty( $field['required'] ) && empty( $_POST[ $key ] ) ) {
+			if ( ! empty( $field['required'] ) && empty( $post_fields[ $key ] ) ) {
 				wc_add_notice( sprintf( __( '%s is a required field.', 'wc_shipping_multiple_address' ), $field['label'] ), 'error' );
 			}
 
-			if ( ! empty( $_POST[ $key ] ) ) {
+			if ( ! empty( $post_fields[ $key ] ) ) {
 
 				// Validation rules
 				if ( ! empty( $field['validate'] ) && is_array( $field['validate'] ) ) {
 					foreach ( $field['validate'] as $rule ) {
 						switch ( $rule ) {
 							case 'postcode' :
-								$_POST[ $key ] = trim( $_POST[ $key ] );
+								$post_fields[ $key ] = trim( $post_fields[ $key ] );
 
-								if ( ! isset( $_POST[ $load_address . '_country' ] ) ) {
+								if ( empty( $post_load_country ) ) {
 									continue 2;
 								}
 
-								if ( ! WC_Validation::is_postcode( $_POST[ $key ], $_POST[ $load_address . '_country' ] ) ) {
-									wc_add_notice( __( 'Please enter a valid postcode / ZIP.', 'wc_shipping_multiple_address' ), 'error' );
+								if ( ! WC_Validation::is_postcode( $post_fields[ $key ], $post_load_country ) ) {
+									wc_add_notice( esc_html__( 'Please enter a valid postcode / ZIP.', 'wc_shipping_multiple_address' ), 'error' );
 								} else {
-									$_POST[ $key ] = wc_format_postcode( $_POST[ $key ], $_POST[ $load_address . '_country' ] );
+									$post_fields[ $key ] = wc_format_postcode( $post_fields[ $key ], $post_load_country );
 								}
 								break;
 							case 'phone' :
-								$_POST[ $key ] = wc_format_phone_number( $_POST[ $key ] );
+								$post_fields[ $key ] = wc_format_phone_number( $post_fields[ $key ] );
 
-								if ( ! WC_Validation::is_phone( $_POST[ $key ] ) ) {
-									wc_add_notice( sprintf( __( '%s is not a valid phone number.', 'wc_shipping_multiple_address' ), '<strong>' . $field['label'] . '</strong>' ), 'error' );
+								if ( ! WC_Validation::is_phone( $post_fields[ $key ] ) ) {
+									wc_add_notice( sprintf( esc_html__( '%s is not a valid phone number.', 'wc_shipping_multiple_address' ), '<strong>' . $field['label'] . '</strong>' ), 'error' );
 								}
 								break;
 							case 'email' :
-								$_POST[ $key ] = strtolower( $_POST[ $key ] );
+								$post_fields[ $key ] = strtolower( $post_fields[ $key ] );
 
-								if ( ! is_email( $_POST[ $key ] ) ) {
-									wc_add_notice( sprintf( __( '%s is not a valid email address.', 'wc_shipping_multiple_address' ), '<strong>' . $field['label'] . '</strong>' ), 'error' );
+								if ( ! is_email( $post_fields[ $key ] ) ) {
+									wc_add_notice( sprintf( esc_html__( '%s is not a valid email address.', 'wc_shipping_multiple_address' ), '<strong>' . $field['label'] . '</strong>' ), 'error' );
 								}
 								break;
 						}
@@ -469,7 +484,7 @@ class WC_MS_Front {
 			$new_address = array();
 
 			foreach ( $address as $key => $field ) {
-				$new_address[ $key ] = $_POST[ $key ];
+				$new_address[ $key ] = sanitize_text_field( wp_unslash( $_POST[ $key ] ) );
 			}
 
 			if ( 'new' === $index ) {
@@ -504,7 +519,7 @@ class WC_MS_Front {
 	 * Generate inline scripts for wp_footer
 	 */
 	public function inline_scripts() {
-		$order_id = isset( $_GET['order'] ) ? $_GET['order'] : false;
+		$order_id = isset( $_GET['order'] ) ? intval( $_GET['order'] ) : false; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$order    = wc_get_order( $order_id );
 
 		if ( $order ) {
@@ -529,7 +544,7 @@ class WC_MS_Front {
 			?>
 				<script type="text/javascript">
 					jQuery(document).ready(function() {
-						jQuery(jQuery("address")[1]).replaceWith("<?php echo $html; ?>");
+						jQuery(jQuery("address")[1]).replaceWith("<?php echo esc_js ( $html ); ?>");
 					});
 				</script>
 			<?php
@@ -550,14 +565,19 @@ class WC_MS_Front {
 		}
 
 		$remove_link = wp_nonce_url( add_query_arg( 'remove_address', $address, $edit_address ), 'wcms-delete-address' );
-		printf( '<a href="%1$s" class="remove delete-address-button" aria-label="%2$s">&times;</a>', $remove_link, __( 'Delete address', 'wc_shipping_multiple_address' ) );
+		printf( '<a href="%1$s" class="remove delete-address-button" aria-label="%2$s">&times;</a>', esc_url( $remove_link ), esc_html__( 'Delete address', 'wc_shipping_multiple_address' ) );
 	}
 
 	/**
 	 * Handle the delete address action
 	 */
 	public function delete_address_action() {
-		if ( ! empty( $_GET['remove_address'] ) && isset( $_GET['_wpnonce'] ) && wp_verify_nonce( $_GET['_wpnonce'], 'wcms-delete-address' ) ) {
+		$nonce = isset( $_GET['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ) : '';
+		if ( ! wp_verify_nonce( $nonce, 'wcms-delete-address' ) ) {
+			return;
+		}
+
+		if ( ! empty( $_GET['remove_address'] ) ) {
 
 			$user = wp_get_current_user();
 			if ( $user->ID ) {
@@ -588,7 +608,7 @@ class WC_MS_Front {
 
 		if ( empty( $address ) ) {
 			$url = wc_get_endpoint_url( 'edit-address', 'wcms_address_new' );
-			printf( '<a href="%s" class="button">%s</a>', esc_url( $url ), __( 'Add address', 'wc_shipping_multiple_address' ) );
+			printf( '<a href="%s" class="button">%s</a>', esc_url( $url ), esc_html__( 'Add address', 'wc_shipping_multiple_address' ) );
 		}
 	}
 

@@ -341,23 +341,55 @@ class WC_Product_Vendors_Store_Admin_Commission_List extends WP_List_Table {
 	public function vendors_dropdown( $post_type ) {
 		global $wpdb;
 
-		$vendor = isset( $_REQUEST['vendor'] ) ? sanitize_text_field( $_REQUEST['vendor'] ) : '';
+		$vendor_filter = isset( $_REQUEST['vendor'] ) ? sanitize_text_field( $_REQUEST['vendor'] ) : '';
 
 		$sql = 'SELECT DISTINCT vendor_name, vendor_id FROM ' . WC_PRODUCT_VENDORS_COMMISSION_TABLE;
 
 		$vendor_lists = $wpdb->get_results( $sql );
+		$vendor_ids   = array_unique( wp_list_pluck( $vendor_lists, 'vendor_id' ) );
+		_prime_term_caches( $vendor_ids, false );
+
+		/*
+		 * Update vendor names to use the current name in the database.
+		 *
+		 * If the vendor has been deleted then the name from the SQL query will be
+		 * used. This is to prevent the dropdown from being empty. If the vendor
+		 * name has changed then the dropdown will display the last version received
+		 * by the database query above.
+		 */
+		$unique_vendor_lists = array();
+		foreach ( $vendor_lists as $vendor_list ) {
+			$vendor_term = get_term( absint( $vendor_list->vendor_id ), WC_PRODUCT_VENDORS_TAXONOMY );
+
+			if ( ! is_wp_error( $vendor_term ) && is_object( $vendor_term ) ) {
+				$unique_vendor_lists[ $vendor_list->vendor_id ] = (object) array(
+					'vendor_name' => wp_strip_all_tags( $vendor_term->name ),
+					'vendor_id'   => $vendor_list->vendor_id,
+				);
+
+				continue;
+			}
+
+			$unique_vendor_lists[ $vendor_list->vendor_id ] = (object) array(
+				'vendor_name' => wp_strip_all_tags( $vendor_list->vendor_name ),
+				'vendor_id'   => $vendor_list->vendor_id,
+			);
+		}
+
+		// Sort the list by vendor name.
+		$unique_vendor_lists = wp_list_sort( $unique_vendor_lists, 'vendor_name', 'ASC', true );
 	?>
 		<select name="vendor">
-			<option <?php selected( $vendor, '' ); ?> value=""><?php esc_html_e( 'Show all Vendors', 'woocommerce-product-vendors' ); ?></option>
+			<option <?php selected( $vendor_filter, '' ); ?> value=""><?php esc_html_e( 'Show all Vendors', 'woocommerce-product-vendors' ); ?></option>
 
 			<?php
-			if ( ! empty( $vendor_lists ) && is_array( $vendor_lists ) ) {
-				foreach ( $vendor_lists as $vendor_list ) {
+			if ( ! empty( $unique_vendor_lists ) && is_array( $unique_vendor_lists ) ) {
+				foreach ( $unique_vendor_lists as $vendor_list ) {
 					if ( empty( $vendor_list->vendor_name ) || empty( $vendor_list->vendor_id ) ) {
 						continue;
 					}
 					?>
-					<option <?php selected( $vendor, $vendor_list->vendor_id ); ?> value="<?php echo esc_attr( $vendor_list->vendor_id ); ?>"><?php echo esc_html( $vendor_list->vendor_name ); ?></option>
+					<option <?php selected( $vendor_filter, $vendor_list->vendor_id ); ?> value="<?php echo esc_attr( $vendor_list->vendor_id ); ?>"><?php echo esc_html( $vendor_list->vendor_name ); ?></option>
 					<?php
 				}
 			}

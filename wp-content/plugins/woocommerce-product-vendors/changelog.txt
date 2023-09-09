@@ -1,5 +1,11 @@
 *** Product Vendors Changelog ***
 
+2023-09-05 - version 2.2.1
+* Fix - Display up-to-date vendor names in CSV Export.
+* Fix - Division by zero error in refunded commission logic.
+* Fix - Removed duplicate entries for renamed vendors in commission dropdown.
+* Fix - Report generation for vendors.
+
 2023-08-17 - version 2.2.0
 * Dev - Bump PHP minimum supported version from 7.2 to 7.3.
 * Dev - Bump WooCommerce "tested up to" version from 7.8 to 8.0.

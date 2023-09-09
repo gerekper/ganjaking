@@ -241,9 +241,10 @@ class WooCommerce_Order_Barcodes {
 			return;
 		}
 
-		// Add barcode text to order
-		if ( isset( $_POST['order_barcode_text'] ) && ! empty( $_POST['order_barcode_text'] ) ) {
-			$this->save_order_meta( $order_id, '_barcode_text', $_POST['order_barcode_text'] );
+		// No need to use nonce verification as it has already been verified on `save_barcode()` method.
+		$barcode_text = isset( $_POST['order_barcode_text'] ) ? sanitize_text_field( wp_unslash( $_POST['order_barcode_text'] ) ) : '';//phpcs:ignore
+		if ( ! empty( $barcode_text ) ) {
+			$this->save_order_meta( $order_id, '_barcode_text', $barcode_text );
 		}
 	}
 
@@ -336,7 +337,10 @@ class WooCommerce_Order_Barcodes {
 			<tbody>
 				<tr>
 					<td style="text-align:center;vertical-align:middle;word-wrap:normal;">
-						<?php echo $this->maybe_display_barcode( $order ); ?>
+						<?php
+						// The method use `display_barcode()` which already has an escape function.
+						echo $this->maybe_display_barcode( $order );//phpcs:ignore
+						?>
 					</td>
 				</tr>
 			</tbody>
@@ -345,7 +349,8 @@ class WooCommerce_Order_Barcodes {
 		// Get after text
 		$email = ob_get_clean();
 
-		echo $email;
+		// The output will only has <table> tag and `maybe_display_barcode()` return value.
+		echo $email;//phpcs:ignore
 	}
 
 	/**
@@ -363,11 +368,12 @@ class WooCommerce_Order_Barcodes {
 			return;
 		}
 
+		// The method use `display_barcode()` which already has escape function.
 		$barcode  = '<div class="woocommerce-order-barcodes-container" style="text-align:center;">';
 		$barcode .= $this->maybe_display_barcode( $order );
 		$barcode .= '</div>';
 
-		echo $barcode;
+		echo $barcode; //phpcs:ignore
 	}
 
 	/**
@@ -415,7 +421,8 @@ class WooCommerce_Order_Barcodes {
 		}
 
 		echo '<div class="woocommerce-order-barcodes-container" style="text-align:center;">';
-		echo $this->maybe_display_barcode( $order );
+		// The method use `display_barcode()` which already has escape function.
+		echo $this->maybe_display_barcode( $order ); //phpcs:ignore
 		echo '</div>';
 	}
 
@@ -507,9 +514,14 @@ class WooCommerce_Order_Barcodes {
 		if( ! $can_scan ) return;
 
 		// Get shortcode parameters
-		extract( shortcode_atts( array(
-			'action' => '',
-		), $params ) );
+		$atts = shortcode_atts(
+			array(
+				'action' => '',
+			),
+			$params
+		);
+
+		$action = esc_html( $atts['action'] );
 
 		// Add .woocommerce class as CSS namespace
 		$html = '<div class="woocommerce">';
@@ -527,7 +539,7 @@ class WooCommerce_Order_Barcodes {
 
 							<input type="text" name="scan-code" id="scan-code" value="" placeholder="' . __( 'Scan or enter barcode', 'woocommerce-order-barcodes' ) . '" required />
 
-							<input type="submit" value="' . __( 'Go', 'woocommerce-order-barcodes' ) . '" />
+							<input type="submit" value="' . esc_html__( 'Go', 'woocommerce-order-barcodes' ) . '" />
 						</form>
 					  </div>';
 
@@ -554,13 +566,15 @@ class WooCommerce_Order_Barcodes {
 	public function scan_barcode() {
 		// Security check.
 		$do_nonce_check = apply_filters( $this->_token . '_do_nonce_check', true );
-		if ( $do_nonce_check && ! wp_verify_nonce( $_POST[ $this->_token . '_scan_nonce' ], 'scan-barcode' ) ) {
+		$scan_nonce     = isset( $_POST[ $this->_token . '_scan_nonce' ] ) ? sanitize_text_field( wp_unslash( $_POST[ $this->_token . '_scan_nonce' ] ) ) : '';
+		if ( $do_nonce_check && ! wp_verify_nonce( $scan_nonce, 'scan-barcode' ) ) {
 			$this->display_notice( __( 'Permission denied: Security check failed', 'woocommerce-order-barcodes' ), 'error' );
 			exit;
 		}
 
 		// Retrieve order ID from barcode.
-		$order_id = $this->get_barcode_order( $_POST['barcode_input'] );
+		$barcode_input = isset( $_POST['barcode_input'] ) ? sanitize_text_field( wp_unslash( $_POST['barcode_input'] ) ) : '';
+		$order_id = $this->get_barcode_order( $barcode_input );
 		if ( ! $order_id ) {
 			$this->display_notice( __( 'Invalid barcode', 'woocommerce-order-barcodes' ), 'error' );
 			exit;
@@ -584,7 +598,7 @@ class WooCommerce_Order_Barcodes {
 		$response_type = 'success';
 
 		// Get selected action and process accordingly
-		$action = esc_attr( $_POST['scan_action'] );
+		$action = isset( $_POST['scan_action'] ) ? sanitize_text_field( wp_unslash( $_POST['scan_action'] ) ) : '';
 		switch( $action ) {
 			case 'complete':
 				if ( apply_filters( $this->_token . '_complete_order', true, $order_id ) ) {
@@ -645,8 +659,8 @@ class WooCommerce_Order_Barcodes {
 		// Display check-in status if set.
 		$checked_in = $this->get_order_or_post_meta( $order_id, '_checked_in' );
 		if ( $checked_in ) {
-			$checkin_status = ( 'yes' === $checked_in ) ? __( 'Checked in', 'woocommerce-order-barcodes' ) : __( 'Checked out', 'woocommerce-order-barcodes' );
-			echo '<h3 class="checked_in ' . esc_attr( $checked_in ) . '">' . $checkin_status . '</h3>';
+			$checkin_status = ( 'yes' === $checked_in ) ? esc_html__( 'Checked in', 'woocommerce-order-barcodes' ) : esc_html__( 'Checked out', 'woocommerce-order-barcodes' );
+			echo '<h3 class="checked_in ' . esc_attr( $checked_in ) . '">' . esc_html( $checkin_status ) . '</h3>';
 		}
 
 		// Display order details template
@@ -765,10 +779,10 @@ class WooCommerce_Order_Barcodes {
 
 		if ( $checked_in ) {
 			?>
-			<p class="form-field form-field-wide"><label for="checkin_status"><?php _e( 'Check in status:', 'woocommerce-order-barcodes' ) ?></label>
+			<p class="form-field form-field-wide"><label for="checkin_status"><?php esc_html_e( 'Check in status:', 'woocommerce-order-barcodes' ); ?></label>
 			<select id="checkin_status" name="checkin_status">
-				<option value="<?php esc_attr_e( 'yes' ); ?>" <?php selected( 'yes', $checked_in, true ); ?>><?php _e( 'Checked in', 'woocommerce-order-barcodes' ); ?></option>
-				<option value="<?php esc_attr_e( 'no' ); ?>" <?php selected( 'no', $checked_in, true ); ?>><?php _e( 'Checked out', 'woocommerce-order-barcodes' ); ?></option>
+				<option value="<?php esc_attr_e( 'yes' ); ?>" <?php selected( 'yes', $checked_in, true ); ?>><?php esc_html_e( 'Checked in', 'woocommerce-order-barcodes' ); ?></option>
+				<option value="<?php esc_attr_e( 'no' ); ?>" <?php selected( 'no', $checked_in, true ); ?>><?php esc_html_e( 'Checked out', 'woocommerce-order-barcodes' ); ?></option>
 			</select></p>
 			<?php
 		}
@@ -783,8 +797,10 @@ class WooCommerce_Order_Barcodes {
 	 * @return  void
 	 */
 	public function checkin_status_edit_save ( $post_id, $post ) {
-		if( isset( $_POST['checkin_status'] ) && $_POST['checkin_status'] ) {
-			$this->save_order_meta( $post_id, '_checked_in', $_POST['checkin_status'] );
+		// No need to use nonce. It has been done before the action take place.
+		$checkin_status = isset( $_POST['checkin_status'] ) ? sanitize_text_field( wp_unslash( $_POST['checkin_status'] ) ) : ''; // phpcs:ignore
+		if ( ! empty( $checkin_status ) ) {
+			$this->save_order_meta( $post_id, '_checked_in', $checkin_status );
 		}
 	} // End checkin_status_edit_save ()
 
@@ -893,11 +909,10 @@ class WooCommerce_Order_Barcodes {
 	 * @return  void
 	 */
 	public function get_barcode_image() {
-		if ( empty( $_GET['wc_barcode'] ) ) {
+		$barcode = isset( $_GET['wc_barcode'] ) ? wc_clean( wp_unslash( $_GET['wc_barcode'] ) ) : ''; // phpcs:ignore
+		if ( empty( $barcode ) ) {
 			return;
 		}
-
-		$barcode = wc_clean( wp_unslash( $_GET['wc_barcode'] ) );
 
 		// New url format uses generated uniq_id which is not easy to guess.
 		$order_id = $this->get_barcode_order( $barcode );
@@ -940,7 +955,8 @@ class WooCommerce_Order_Barcodes {
 		header( 'Content-Transfer-Encoding: binary' );
 		header( 'Content-Type: image/png' );
 
-		exit( $barcode_img );
+		// Binary value. Doesn't need to escape this.
+		exit( $barcode_img );// phpcs:ignore
 	}
 
 	/**
@@ -1147,7 +1163,7 @@ class WooCommerce_Order_Barcodes {
 	 * @since  1.0.0
 	 */
 	public function __clone () {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?' ), $this->_version );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?' ), esc_html( $this->_version ) );
 	} // End __clone ()
 
 	/**
@@ -1156,6 +1172,6 @@ class WooCommerce_Order_Barcodes {
 	 * @since  1.0.0
 	 */
 	public function __wakeup () {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?' ), $this->_version );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?' ), esc_html( $this->_version ) );
 	} // End __wakeup ()
 }

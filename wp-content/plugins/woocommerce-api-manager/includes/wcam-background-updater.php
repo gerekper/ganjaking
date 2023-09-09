@@ -30,6 +30,8 @@ class WCAM_Background_Updater extends WP_Background_Process {
 	 * Dispatch updater.
 	 *
 	 * Updater will still run via cron job if this fails for any reason.
+	 *
+	 * @return array|WP_Error
 	 */
 	public function dispatch() {
 		$dispatched = parent::dispatch();

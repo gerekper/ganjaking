@@ -286,7 +286,7 @@ class WC_MS_Order_Shipment {
         $shipment_data['ping_status']   = 'closed';
         $shipment_data['post_author']   = 1;
         $shipment_data['post_password'] = $post->post_password;
-        $shipment_data['post_title']    = sprintf( __( 'Shipment &ndash; %s', 'wc_shipping_multiple_address' ), strftime( _x( '%b %d, %Y @ %I:%M %p', 'Order date parsed by strftime', 'wc_shipping_multiple_address' ) ) );
+        $shipment_data['post_title']    = sprintf( __( 'Shipment &ndash; %s', 'wc_shipping_multiple_address' ), date( _x( 'M d, Y @ H:i A', 'Order date parsed by date function', 'wc_shipping_multiple_address' ) ) );
         $shipment_data['post_parent']   = $order_id;
 
         if ( $args['status'] ) {

@@ -25,7 +25,7 @@ class WC_MS_Cart {
 
     public function duplicate_cart_post() {
 
-        if ( isset( $_GET['duplicate-form'] ) && isset( $_GET['_wcmsnonce'] ) && wp_verify_nonce( $_GET['_wcmsnonce'], 'wcms-duplicate-cart' ) ) {
+        if ( isset( $_GET['duplicate-form'] ) && isset( $_GET['_wcmsnonce'] ) && wp_verify_nonce( sanitize_text_field( $_GET['_wcmsnonce'] ), 'wcms-duplicate-cart' ) ) {
             $fields = WC()->countries->get_address_fields( WC()->countries->get_base_country(), 'shipping_' );
 
             $user_addresses = $this->wcms->address_book->get_user_addresses( wp_get_current_user() );
@@ -52,7 +52,7 @@ class WC_MS_Cart {
 					}
 
 					$_sig = $sig . $i;
-					if ( $fields ) { 
+					if ( $fields ) {
 						foreach ( $fields as $key => $field ) {
 							$data[ $key . '_' . $_sig ] = $address[ $key ];
 						}
@@ -72,7 +72,7 @@ class WC_MS_Cart {
             wcms_session_set( 'address_relationships', $rel );
             wcms_session_set( 'wcms_item_addresses', $rel );
 
-            wp_redirect( get_permalink( wc_get_page_id('multiple_addresses') ) );
+            wp_safe_redirect( get_permalink( wc_get_page_id('multiple_addresses') ) );
             exit;
         }
     }
@@ -104,7 +104,7 @@ class WC_MS_Cart {
 				'_wcmsnonce'     => wp_create_nonce( 'wcms-duplicate-cart' ),
 			), get_permalink( wc_get_page_id( 'multiple_addresses' ) ) );
 
-            echo '<a class="button expand" href="' . esc_url( $dupe_url ) . '" >' . __( 'Duplicate Cart', 'wc_shipping_multiple_address' ) . '</a>';
+            echo '<a class="button expand" href="' . esc_url( $dupe_url ) . '" >' . esc_html__( 'Duplicate Cart', 'wc_shipping_multiple_address' ) . '</a>';
         }
     }
 
@@ -215,7 +215,8 @@ class WC_MS_Cart {
 
         if ( count($available_methods) == 1 && ( isset($available_methods['local_pickup']) || isset($available_methods['local_pickup_plus']) ) ) {
             $item_allowed = false;
-        } elseif (isset($_POST['shipping_method']) && ( $_POST['shipping_method'] == 'local_pickup' || $_POST['shipping_method'] == 'local_pickup_plus' ) ) {
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing
+        } elseif ( isset( $_POST['shipping_method'] ) && ( sanitize_text_field( $_POST['shipping_method'] ) == 'local_pickup' || sanitize_text_field( $_POST['shipping_method'] ) == 'local_pickup_plus' ) ) {
             $item_allowed = false;
         }
 

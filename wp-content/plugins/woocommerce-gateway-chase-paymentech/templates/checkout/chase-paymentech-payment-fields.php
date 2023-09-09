@@ -18,7 +18,7 @@
  *
  * @package   WC-Chase-Paymentech/Templates
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2013-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -70,6 +70,7 @@ defined( 'ABSPATH' ) or exit;
 									<a class="button" style="float:right;" href="<?php echo esc_url( wc_get_page_permalink( 'myaccount' ) ); ?>#wc-chase-paymentech-my-payment-methods"><?php echo wp_kses_post( apply_filters( 'wc_gateway_chase_paymentech_manage_my_payment_methods', __( "Manage My Cards", 'woocommerce-gateway-chase-paymentech' ) ) ); ?></a>
 								<?php endif; ?>
 								<?php foreach( $tokens as $token ) : ?>
+
 									<input
 										type="radio"
 										id="wc-chase-paymentech-payment-token-<?php echo esc_attr( $token->get_id() ); ?>"
@@ -77,7 +78,7 @@ defined( 'ABSPATH' ) or exit;
 										class="js-wc-chase-paymentech-payment-token js-wc-payment-gateway-payment-token"
 										style="width:auto;"
 										value="<?php echo esc_attr( $token->get_id() ); ?>"
-										<?php checked( $tokenized_payment_method_selected === $token->get_id() || ( null === $tokenized_payment_method_selected && $token->is_default() ) ); ?>
+										<?php checked( $tokenized_payment_method_selected === (int) $token->get_id() || ( null === $tokenized_payment_method_selected && $token->is_default() ) ); ?>
 									/>
 									<label style="display:inline;" for="wc-chase-paymentech-payment-token-<?php echo esc_attr( $token->get_id() ); ?>">
 										<?php /* translators: Placeholders: %1$s - card type logo <img> or name, %2$s - last 4 card digits, %3$s - card expiration date MM/YY */

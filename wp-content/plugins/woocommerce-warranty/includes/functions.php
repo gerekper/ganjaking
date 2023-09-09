@@ -732,7 +732,7 @@ function warranty_get_date( $order_date, $warranty_duration, $warranty_unit ) {
 	} elseif ( 'months' === $warranty_unit ) {
 		$warranty_day   = $order_date['day'];
 		$warranty_month = $order_date['month'] + $warranty_duration;
-		$warranty_year  = $order_date['year'] + ( $warranty_month / 12 );
+		$warranty_year  = intval( $order_date['year'] + ( $warranty_month / 12 ) );
 		$warranty_month = $warranty_month % 12;
 
 		if ( ( 2 === intval( $warranty_month ) ) && ( $warranty_day > 28 ) ) {
@@ -1747,7 +1747,7 @@ function warranty_post_data_cleaner( $posts ) {
 
 	foreach ( $unslashed_posts as $post_key => $post_data ) {
 		// Sanitize the form builder fields differently.
-		if ( 'fb_field' === $post_key && 'form' === $unslashed_posts['tab'] ) {
+		if ( isset( $unslashed_posts['tab'] ) && 'fb_field' === $post_key && 'form' === $unslashed_posts['tab'] ) {
 			foreach ( $post_data as $field_key => $field_data ) {
 				array_walk(
 					$unslashed_posts[ $post_key ][ $field_key ],
@@ -1762,7 +1762,7 @@ function warranty_post_data_cleaner( $posts ) {
 			}
 
 			// Sanitize the message in the emails settings differently.
-		} elseif ( 'message' === $post_key && 'emails' === $unslashed_posts['tab'] ) {
+		} elseif ( isset( $unslashed_posts['tab'] ) && 'message' === $post_key && 'emails' === $unslashed_posts['tab'] ) {
 			$unslashed_posts[ $post_key ] = array_map(
 				function( $value ) {
 					return sanitize_textarea_field( $value );

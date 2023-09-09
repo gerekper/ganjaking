@@ -3,13 +3,14 @@
  * Plugin Name: WooCommerce Shipping Per Product v2
  * Plugin URI: https://woocommerce.com/products/per-product-shipping/
  * Description: Per product shipping allows you to define different shipping costs for products, based on customer location. These costs can be added to other shipping methods, or used as a standalone shipping method.
- * Version: 2.5.1
+ * Version: 2.5.2
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
+ * Text Domain: woocommerce-shipping-per-product
  * Requires at least: 3.3
- * Tested up to: 6.1
- * WC requires at least: 2.6
- * WC tested up to: 7.3
+ * Tested up to: 6.3
+ * WC requires at least: 3.0
+ * WC tested up to: 8.0
  *
  * Copyright: © 2023 WooCommerce
  * License: GNU General Public License v3.0
@@ -44,7 +45,7 @@ function woocommerce_shipping_per_product_missing_wc_notice() {
 }
 
 if ( ! class_exists( 'WC_Shipping_Per_Product_Init' ) ) :
-	define( 'PER_PRODUCT_SHIPPING_VERSION', '2.5.1' ); // WRCS: DEFINED_VERSION.
+	define( 'PER_PRODUCT_SHIPPING_VERSION', '2.5.2' ); // WRCS: DEFINED_VERSION.
 	define( 'PER_PRODUCT_SHIPPING_FILE', __FILE__ );
 
 	/**

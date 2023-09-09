@@ -15,6 +15,11 @@ function woocommerce_multi_shipping_init() {
 	 * @extends WC_Shipping_Method
 	 */
 	class WC_Multiple_Shipping extends WC_Shipping_Method {
+
+		public $cart_duplication;
+		public $lang_notification;
+		public $lang_btn_items;
+
 		function __construct() {
 			$this->id           = 'multiple_shipping';
 			$this->method_title = __('Multiple Shipping', 'wc_shipping_multiple_address');
@@ -460,7 +465,7 @@ function woocommerce_multi_shipping_init() {
 					<label for="<?php echo esc_attr( $this->plugin_id . $this->id . '_' . $key ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
 
 					<?php if ( $tip ) {
-						echo '<img class="help_tip" data-tip="' . wc_sanitize_tooltip( $tip ) . '" src="' . WC()->plugin_url() . '/assets/images/help.png" height="16" width="16" />';
+						echo '<img class="help_tip" data-tip="' . wc_sanitize_tooltip( $tip ) . '" src="' . esc_url( WC()->plugin_url() . '/assets/images/help.png' ) . '" height="16" width="16" />';
 					}
 					?>
 				</th>
@@ -495,31 +500,33 @@ function woocommerce_multi_shipping_init() {
 		}
 
 		function save_settings( $settings ) {
-			$settings['email_subject']       = isset( $_POST['woocommerce_multiple_shipping_email_subject'] ) ? $_POST['woocommerce_multiple_shipping_email_subject'] : '';
-			$settings['email_message']       = isset( $_POST['woocommerce_multiple_shipping_email_message'] ) ? $_POST['woocommerce_multiple_shipping_email_message'] : '';
-			$settings['excluded_categories'] = isset( $_POST['woocommerce_multiple_shipping_excluded_categories'] ) ? array_filter( array_map( 'absint', $_POST['woocommerce_multiple_shipping_excluded_categories'] ) ) : array();
+			// phpcs:disable WordPress.Security.NonceVerification.Missing --- Nonce verification is handled in WC
+			$settings['email_subject']       = isset( $_POST['woocommerce_multiple_shipping_email_subject'] ) ? sanitize_text_field( $_POST['woocommerce_multiple_shipping_email_subject'] ) : '';
+			$settings['email_message']       = isset( $_POST['woocommerce_multiple_shipping_email_message'] ) ? sanitize_textarea_field( $_POST['woocommerce_multiple_shipping_email_message'] ) : '';
+			$settings['excluded_categories'] = isset( $_POST['woocommerce_multiple_shipping_excluded_categories'] ) ? array_map( 'absint', $_POST['woocommerce_multiple_shipping_excluded_categories'] ) : array();
 
 			$products = array();
 			$key      = 'woocommerce_multiple_shipping_excluded_products';
 			if ( ! empty( $_POST[ $key ] ) ) {
-
-				if ( ! empty( $_POST[ $key ][0] ) && strpos( $_POST[ $key ][0], ',' ) !== false ) {
-					$products = array_filter( explode( ',', $_POST[ $key ][0] ) );
+				$values = wc_clean( $_POST[ $key ] );
+				if ( ! empty( $values[0] ) && strpos( $values[0], ',' ) !== false ) {
+					$products = explode( ',', $values[0] );
 				} else {
-					$products = array_filter( array_map( 'absint', $_POST[ $key ] ) );
+					$products = array_map( 'absint', $values );
 				}
 
 			}
 			$settings['excluded_products'] = $products;
 
 			return $settings;
+			// phpcs:enable WordPress.Security.NonceVerification.Missing
 		}
 
 		function validate_ms_product_select_field( $key ) {
 			$text = $this->get_option( $key );
-
+			// phpcs:disable WordPress.Security.NonceVerification.Missing --- Security handled in WC settings API
 			if ( isset( $_POST[ $this->plugin_id . $this->id . '_' . $key ] ) && is_array( $_POST[ $this->plugin_id . $this->id .'_'. $key ] ) ) {
-				$val    = $_POST[ $this->plugin_id . $this->id . '_' . $key ];
+				$val    = wc_clean( $_POST[ $this->plugin_id . $this->id . '_' . $key ] );
 				$new    = array();
 
 				foreach ( $val as $value ) {
@@ -528,15 +535,16 @@ function woocommerce_multi_shipping_init() {
 
 				$text = $new;
 			}
-
+			// phpcs:enable WordPress.Security.NonceVerification.Missing
 			return $text;
 		}
 
 		function validate_ms_category_select_field( $key ) {
 			$text = $this->get_option( $key );
 
+			// phpcs:disable WordPress.Security.NonceVerification.Missing --- Security handled in WC settings API
 			if ( isset( $_POST[ $this->plugin_id . $this->id . '_' . $key ] ) && is_array( $_POST[ $this->plugin_id . $this->id .'_'. $key ] ) ) {
-				$val    = $_POST[ $this->plugin_id . $this->id . '_' . $key ];
+				$val    = wc_clean( $_POST[ $this->plugin_id . $this->id . '_' . $key ] );
 				$new    = array();
 
 				foreach ( $val as $value ) {
@@ -545,15 +553,16 @@ function woocommerce_multi_shipping_init() {
 
 				$text = $new;
 			}
-
+				// phpcs:enable WordPress.Security.NonceVerification.Missing
 			return $text;
 		}
 
 		function validate_ms_multi_datepicker_field( $key ) {
 			$text = $this->get_option( $key );
 
+			// phpcs:disable WordPress.Security.NonceVerification.Missing --- Security handled in WC settings API
 			if ( isset( $_POST[ $this->plugin_id . $this->id . '_' . $key ] ) && is_array( $_POST[ $this->plugin_id . $this->id .'_'. $key ] ) ) {
-				$val    = $_POST[ $this->plugin_id . $this->id . '_' . $key ];
+				$val    = wc_clean( $_POST[ $this->plugin_id . $this->id . '_' . $key ] );
 				$new    = array();
 
 				foreach ( $val as $value ) {
@@ -566,7 +575,7 @@ function woocommerce_multi_shipping_init() {
 			} else {
 				$text = array();
 			}
-
+			// phpcs:enable WordPress.Security.NonceVerification.Missing
 			return $text;
 		}
 	}

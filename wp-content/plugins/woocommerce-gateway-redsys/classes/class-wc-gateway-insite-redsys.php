@@ -117,7 +117,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			'yith_subscriptions_multiple',
 			'yith_subscriptions_payment_date',
 			'yith_subscriptions_recurring_amount',
-			// 'redsys_preauth',
+			'redsys_preauth',
 			'redsys_token_r',
 		);
 		if ( ! $this->insitetype ) {
@@ -3324,12 +3324,15 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				if ( WCRed()->check_card_preauth( $the_card ) ) {
 					$text        = __( 'We will preauthorize the Order and will be charge later when we know the final cost.', 'woocommerce-redsys' );
 					$text_filter = apply_filters( 'redsys_text_preauth', $text );
+					$preauth     = 'yes';
 					echo '
 						<div id="redsys_preauth_message">
 							<p><br />
 							' . esc_html( $text_filter ) . '
 							</p>
 						</div>';
+				} else {
+					$preauth = 'no';
 				}
 			}
 			if ( 'intindepenelements' === $this->insitetype ) { // Integration by independent elements.
@@ -3447,6 +3450,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 												"http_accept"  : "' . esc_html( $http_accept ) . '",
 												"need_token"   : "' . esc_html( $need_token ) . '",
 												"token_needed" : "' . esc_html( $token_type_needed ) . '",
+												"preauth"      : "' . esc_html( $preauth ) . '",
 												"saved"        : save
 											},
 											success: function(response) {
@@ -4063,7 +4067,11 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		set_transient( $orderid2 . '_insite_redsys_number', $order_id, 3600 );
 		$user_id              = $order->get_user_id();
 		$customer             = $this->customer;
-		$transaction_type     = '0';
+		if ( WCRed()->order_needs_preauth( $order_id ) ) {
+			$transaction_type = '1';
+		} else {
+			$transaction_type = '0';
+		}
 		$currency_codes       = WCRed()->get_currencies();
 		$currency             = $currency_codes[ get_woocommerce_currency() ];
 		$cof_ini              = 'N';
@@ -4375,6 +4383,10 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					}
 				}
 				$order->payment_complete();
+				$needs_preauth = WCRed()->order_needs_preauth( $order->get_id() );
+				if ( $needs_preauth ) {
+					$order->update_status( 'redsys-pre', __( 'Preauthorized by Redsys', 'woocommerce-redsys' ) );
+				}
 				$order->add_order_note( __( 'HTTP Notification received - Payment completed', 'woocommerce-redsys' ) );
 				$order->add_order_note( __( 'Authorization code: ', 'woocommerce-redsys' ) . $authorisationcode );
 
@@ -4767,6 +4779,10 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					}
 				}
 				$order->payment_complete();
+				$needs_preauth = WCRed()->order_needs_preauth( $order->get_id() );
+				if ( $needs_preauth ) {
+					$order->update_status( 'redsys-pre', __( 'Preauthorized by Redsys', 'woocommerce-redsys' ) );
+				}
 				$order->add_order_note( __( 'HTTP Notification received - Payment completed', 'woocommerce-redsys' ) );
 				$order->add_order_note( __( 'Authorization code: ', 'woocommerce-redsys' ) . $authorisationcode );
 
@@ -5045,6 +5061,10 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					}
 				}
 				$order->payment_complete();
+				$needs_preauth = WCRed()->order_needs_preauth( $order->get_id() );
+				if ( $needs_preauth ) {
+					$order->update_status( 'redsys-pre', __( 'Preauthorized by Redsys', 'woocommerce-redsys' ) );
+				}
 				do_action( 'insite_post_payment_complete', $order->get_id() );
 				return array(
 					'result'   => 'success',
@@ -5054,6 +5074,11 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		} else {
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'insite', 'NOT Using Token' );
+			}
+			if ( WCRed()->order_needs_preauth( $order->get_id() ) ) {
+				$transaction_type = '1';
+			} else {
+				$transaction_type = '0';
 			}
 
 			if ( '2.1.0' === $insite_protocolversion || '2.2.0' === $insite_protocolversion ) {
@@ -5177,7 +5202,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				$datos_entrada .= '<DS_MERCHANT_ORDER>' . $ordermi . '</DS_MERCHANT_ORDER>';
 				$datos_entrada .= '<DS_MERCHANT_MERCHANTCODE>' . $insite_customer . '</DS_MERCHANT_MERCHANTCODE>';
 				$datos_entrada .= '<DS_MERCHANT_TERMINAL>' . $insite_terminal . '</DS_MERCHANT_TERMINAL>';
-				$datos_entrada .= '<DS_MERCHANT_TRANSACTIONTYPE>0</DS_MERCHANT_TRANSACTIONTYPE>';
+				$datos_entrada .= '<DS_MERCHANT_TRANSACTIONTYPE>' . $transaction_type . '</DS_MERCHANT_TRANSACTIONTYPE>';
 				$datos_entrada .= '<DS_MERCHANT_CURRENCY>' . $insite_currency . '</DS_MERCHANT_CURRENCY>';
 				$datos_entrada .= '<DS_MERCHANT_IDOPER>' . $insite_redsys_token . '</DS_MERCHANT_IDOPER>';
 				$datos_entrada .= '<DS_MERCHANT_PRODUCTDESCRIPTION>' . $description . '</DS_MERCHANT_PRODUCTDESCRIPTION>';
@@ -5359,6 +5384,10 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 						}
 					}
 					$order->payment_complete();
+					$needs_preauth = WCRed()->order_needs_preauth( $order->get_id() );
+					if ( $needs_preauth ) {
+						$order->update_status( 'redsys-pre', __( 'Preauthorized by Redsys', 'woocommerce-redsys' ) );
+					}
 					$order->add_order_note( __( 'HTTP Notification received - Payment completed', 'woocommerce-redsys' ) );
 					$order->add_order_note( __( 'Authorization code: ', 'woocommerce-redsys' ) . $authorisationcode );
 
@@ -5693,6 +5722,10 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 						}
 					}
 					$order->payment_complete();
+					$needs_preauth = WCRed()->order_needs_preauth( $order->get_id() );
+					if ( $needs_preauth ) {
+						$order->update_status( 'redsys-pre', __( 'Preauthorized by Redsys', 'woocommerce-redsys' ) );
+					}
 					do_action( 'insite_post_payment_complete', $order->get_id() );
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'insite', 'Payment complete.' );
@@ -5799,15 +5832,14 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			$redsys_insite->log->add( 'insite', 'Save:' . sanitize_text_field( wp_unslash( $_POST['saved'] ) ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		}
 
-		$currency_codes    = WCRed()->get_currencies();
-		$customer          = $redsys_insite->customer;
-		$terminal          = $redsys_insite->terminal;
-		$currency          = $currency_codes[ get_woocommerce_currency() ];
-		$transaction_type  = '0';
-		$final_notify_url  = $redsys_insite->notify_url;
-		$redsys_token      = sanitize_text_field( wp_unslash( $_POST['token'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
-		$order_id          = sanitize_text_field( wp_unslash( $_POST['order_id'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
-		$amount            = sanitize_text_field( wp_unslash( $_POST['order_total'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+		$currency_codes = WCRed()->get_currencies();
+		$customer       = $redsys_insite->customer;
+		$terminal       = $redsys_insite->terminal;
+		$currency       = $currency_codes[ get_woocommerce_currency() ];
+		$final_notify_url = $redsys_insite->notify_url;
+		$redsys_token     = sanitize_text_field( wp_unslash( $_POST['token'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+		$order_id         = sanitize_text_field( wp_unslash( $_POST['order_id'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+		$amount           = sanitize_text_field( wp_unslash( $_POST['order_total'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		// $merchan_name      = sanitize_text_field( wp_unslash( $_POST['billing_first_name'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		// $merchant_lastnme  = sanitize_text_field( wp_unslash( $_POST['billing_last_name'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		$user_id           = sanitize_text_field( wp_unslash( $_POST['user_id'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
@@ -5821,12 +5853,18 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		$need_token        = sanitize_text_field( wp_unslash( $_POST['need_token'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		$token_type_needed = sanitize_text_field( wp_unslash( $_POST['token_needed'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		$merchant_module   = 'WooCommerce_Redsys_Gateway_' . REDSYS_VERSION . '_WooCommerce.com';
+		$preauth           = sanitize_text_field( wp_unslash( $_POST['preauth'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		$merchant_data     = false;
 		$identifier        = false;
 		$cof_ini           = false;
 		$cof_type          = false;
 		$lwv               = false;
 		$tra               = false;
+		if ( 'yes' === $preauth ) {
+			$transaction_type = '1';
+		} else {
+			$transaction_type = '0';
+		}
 
 		if ( 'yes' === $redsys_insite->debug ) {
 			$redsys_insite->log->add( 'insite', ' ' );
@@ -6302,8 +6340,12 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				'notificationURL'          => (string) $final_notify_url,
 				'threeDSCompInd'           => (string) 'Y',
 			);
-			$acctinfo      = WCPSD2()->get_acctinfo( $order, $datos_usuario );
-
+			if ( WCRed()->order_needs_preauth( $order->get_id() ) ) {
+				$transaction_type = '1';
+			} else {
+				$transaction_type = '0';
+			}
+			$acctinfo       = WCPSD2()->get_acctinfo( $order, $datos_usuario );
 			$datos_entrada  = '<DATOSENTRADA>';
 			$datos_entrada .= '<DS_MERCHANT_AMOUNT>' . $order_total_sign . '</DS_MERCHANT_AMOUNT>';
 			$datos_entrada .= '<DS_MERCHANT_ORDER>' . $orderid2 . '</DS_MERCHANT_ORDER>';
@@ -6517,6 +6559,10 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					}
 				}
 				$order->payment_complete();
+				$needs_preauth = WCRed()->order_needs_preauth( $order->get_id() );
+				if ( $needs_preauth ) {
+					$order->update_status( 'redsys-pre', __( 'Preauthorized by Redsys', 'woocommerce-redsys' ) );
+				}
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'insite', 'Payment complete.' );
 				}
@@ -7139,7 +7185,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		} else {
 			$merchant_txnid_d = '';
 		}
-		
+
 		$order_total_sign        = get_transient( $order_id . '_insite_merchant_amount' );
 		$orderid2                = get_transient( $order_id . '_insite_merchant_order' );
 		$customer                = get_transient( $order_id . '_insite_merchantcode' );
@@ -7191,6 +7237,11 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		);
 		$response3ds_json = wp_json_encode( $response3ds );
 
+		if ( WCRed()->order_needs_preauth( $order_id ) ) {
+			$transaction_type = '1';
+		} else {
+			$transaction_type = '0';
+		}
 		if ( $merchant_identifier && $merchant_txnid ) {
 			$datos_entrada  = '<DATOSENTRADA>';
 			$datos_entrada .= '<DS_MERCHANT_AMOUNT>' . $order_total_sign . '</DS_MERCHANT_AMOUNT>';
@@ -7366,6 +7417,10 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					}
 				}
 				$order->payment_complete();
+				$needs_preauth = WCRed()->order_needs_preauth( $order->get_id() );
+				if ( $needs_preauth ) {
+					$order->update_status( 'redsys-pre', __( 'Preauthorized by Redsys', 'woocommerce-redsys' ) );
+				}
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'insite', 'Payment complete.' );
 				}
@@ -7516,6 +7571,10 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					}
 				}
 				$order->payment_complete();
+				$needs_preauth = WCRed()->order_needs_preauth( $order->get_id() );
+				if ( $needs_preauth ) {
+					$order->update_status( 'redsys-pre', __( 'Preauthorized by Redsys', 'woocommerce-redsys' ) );
+				}
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'insite', 'Payment complete.' );
 				}
@@ -7675,7 +7734,11 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			}
 			$lwv = '<DS_MERCHANT_EXCEP_SCA>TRA</DS_MERCHANT_EXCEP_SCA>';
 		}
-
+		if ( WCRed()->order_needs_preauth( $order_id ) ) {
+			$transaction_type = '1';
+		} else {
+			$transaction_type = '0';
+		}
 		$datos_entrada  = '<DATOSENTRADA>';
 		$datos_entrada .= '<DS_MERCHANT_AMOUNT>' . $order_total_sign . '</DS_MERCHANT_AMOUNT>';
 		$datos_entrada .= '<DS_MERCHANT_ORDER>' . $orderid2 . '</DS_MERCHANT_ORDER>';
@@ -7683,7 +7746,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		$datos_entrada .= '<DS_MERCHANT_TERMINAL>' . $ds_merchant_terminal . '</DS_MERCHANT_TERMINAL>';
 		$datos_entrada .= '<DS_MERCHANT_CURRENCY>' . $currency . '</DS_MERCHANT_CURRENCY>';
 		$datos_entrada .= '<DS_MERCHANT_PRODUCTDESCRIPTION>' . $description . '</DS_MERCHANT_PRODUCTDESCRIPTION>';
-		$datos_entrada .= '<DS_MERCHANT_TRANSACTIONTYPE>0</DS_MERCHANT_TRANSACTIONTYPE>';
+		$datos_entrada .= '<DS_MERCHANT_TRANSACTIONTYPE>' . $transaction_type . '</DS_MERCHANT_TRANSACTIONTYPE>';
 		$datos_entrada .= '<DS_MERCHANT_IDENTIFIER>' . $customer_token_c . '</DS_MERCHANT_IDENTIFIER>';
 		$datos_entrada .= '<DS_MERCHANT_COF_INI>' . $cof_ini . '</DS_MERCHANT_COF_INI>';
 		$datos_entrada .= '<DS_MERCHANT_COF_TYPE>' . $cof_type . '</DS_MERCHANT_COF_TYPE>';
@@ -7760,6 +7823,10 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 						}
 					}
 					$order->payment_complete();
+					$needs_preauth = WCRed()->order_needs_preauth( $order->get_id() );
+					if ( $needs_preauth ) {
+						$order->update_status( 'redsys-pre', __( 'Preauthorized by Redsys', 'woocommerce-redsys' ) );
+					}
 					do_action( 'insite_post_payment_complete', $order->get_id() );
 					return true;
 				}
@@ -8118,6 +8185,10 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				}
 			}
 			$order->payment_complete();
+			$needs_preauth = WCRed()->order_needs_preauth( $order->get_id() );
+			if ( $needs_preauth ) {
+				$order->update_status( 'redsys-pre', __( 'Preauthorized by Redsys', 'woocommerce-redsys' ) );
+			}
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'insite', 'Payment complete.' );
 			}

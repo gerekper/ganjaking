@@ -73,13 +73,14 @@ class WC_MS_Admin {
      */
     public function save_settings() {
         $settings       = array();
-        $methods        = (isset($_POST['shipping_methods'])) ? $_POST['shipping_methods'] : array();
-        $products       = (isset($_POST['products'])) ? $_POST['products'] : array();
-        $categories     = (isset($_POST['categories'])) ? $_POST['categories'] : array();
-        $duplication    = (isset($_POST['cart_duplication']) && $_POST['cart_duplication'] == 1) ? true : false;
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing --- already authenticated in admin_post_{$action} hook
+        $methods        = (isset($_POST['shipping_methods'])) ? wc_clean( $_POST['shipping_methods'] ) : array(); //phpcs:ignore
+        $products       = (isset($_POST['products'])) ? wc_clean( $_POST['products'] ) : array(); //phpcs:ignore
+        $categories     = (isset($_POST['categories'])) ? wc_clean( $_POST['categories'] ) : array(); //phpcs:ignore
+        $duplication    = (isset($_POST['cart_duplication']) && 1 === intval( $_POST['cart_duplication'] ) ) ? true : false; //phpcs:ignore
 
-        if ( isset($_POST['lang']) && is_array($_POST['lang']) ) {
-            update_option( 'wcms_lang', $_POST['lang'] );
+        if ( isset($_POST['lang']) && is_array($_POST['lang']) ) { // phpcs:ignore
+            update_option( 'wcms_lang', wc_clean( $_POST['lang'] ) ); // phpcs:ignore
         }
 
         foreach ( $methods as $id => $method ) {
@@ -101,7 +102,7 @@ class WC_MS_Admin {
         update_option( $this->wcms->meta_key_settings, $settings );
         update_option( '_wcms_cart_duplication', $duplication );
 
-        wp_redirect( add_query_arg( 'saved', 1, 'admin.php?page=wc-ship-multiple-products' ) );
+        wp_safe_redirect( add_query_arg( 'saved', 1, admin_url( 'admin.php?page=wc-ship-multiple-products' ) ) );
         exit;
     }
 
@@ -109,8 +110,8 @@ class WC_MS_Admin {
         $section_end = array_pop($settings);
         $shipping_table = array_pop($settings);
         $settings[] = array(
-            'name'  =>  __( 'Multiple Shipping Addresses', 'wc_shipping_multiple_address' ),
-            'desc'  => __( 'Page contents: [woocommerce_select_multiple_addresses] Parent: "Checkout"', 'wc_shipping_multiple_address' ),
+            'name'  =>  esc_html__( 'Multiple Shipping Addresses', 'wc_shipping_multiple_address' ),
+            'desc'  => esc_html__( 'Page contents: [woocommerce_select_multiple_addresses] Parent: "Checkout"', 'wc_shipping_multiple_address' ),
             'id'    => 'woocommerce_multiple_addresses_page_id',
             'type'  => 'single_select_page',
             'std'   => true,
@@ -129,8 +130,8 @@ class WC_MS_Admin {
             if ( $setting['type'] == 'sectionend' && $setting['id'] == 'account_page_options' ){
                 $front = array_slice( $settings, 0, $idx );
                 $front[] = array(
-                    'name'  =>  __( 'Account Shipping Addresses', 'wc_shipping_multiple_address' ),
-                    'desc'  => __( 'Page contents: [woocommerce_account_addresses] Parent: "My Account"', 'wc_shipping_multiple_address' ),
+                    'name'  => esc_html__( 'Account Shipping Addresses', 'wc_shipping_multiple_address' ),
+                    'desc'  => esc_html__( 'Page contents: [woocommerce_account_addresses] Parent: "My Account"', 'wc_shipping_multiple_address' ),
                     'id'    => 'woocommerce_account_addresses_page_id',
                     'type'  => 'single_select_page',
                     'std'   => true,
@@ -147,8 +148,8 @@ class WC_MS_Admin {
     }
 
 	public function show_shipping_address_notices() {
-		if ( isset( $_GET['wcms_address_deleted'] ) ) {
-			echo '<div class="updated"><p>' . __('Shipping address deleted', 'wc_shipping_multiple_address' ) . '</p></div>';
+		if ( isset( $_GET['wcms_address_deleted'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			echo '<div class="updated"><p>' . esc_html__('Shipping address deleted', 'wc_shipping_multiple_address' ) . '</p></div>';
 		}
 	}
 
@@ -157,10 +158,10 @@ class WC_MS_Admin {
 			return;
 		}
 		?>
-		<h3><?php _e( 'Other Shipping Addresses', 'wc_shipping_multiple_address' ); ?></h3>
+		<h3><?php esc_html_e( 'Other Shipping Addresses', 'wc_shipping_multiple_address' ); ?></h3>
 
 		<p>
-			<a class="button view-addresses-table" href="#"><?php _e( 'View Addresses', 'wc_shipping_multiple_address' ); ?></a>
+			<a class="button view-addresses-table" href="#"><?php esc_html_e( 'View Addresses', 'wc_shipping_multiple_address' ); ?></a>
 		</p>
 
 		<div id="other_addresses_div" style="display: none;">
@@ -180,8 +181,8 @@ class WC_MS_Admin {
 	public function delete_user_shipping_address() {
 		check_admin_referer( 'delete_shipping_address' );
 
-		$user_id    = $_REQUEST['user_id'];
-		$index      = $_REQUEST['index'];
+		$user_id    = isset( $_REQUEST['user_id'] ) ? intval( $_REQUEST['user_id'] ) : 0;
+		$index      = isset( $_REQUEST['index'] ) ? intval( $_REQUEST['index'] ) : 0;
 
 		$user = new WP_User( $user_id );
 		$addresses = $this->wcms->address_book->get_user_addresses( $user, false );
@@ -208,14 +209,16 @@ class WC_MS_Admin {
 			die( esc_html__( 'Permission denied: Not enough capability', 'wc_shipping_multiple_address' ) );
 		}
 
+		// No need to sanitize in this line. It will be sanitized after being parsed on line 220.
+		$data    = isset( $_POST['data'] ) ? wp_unslash( $_POST['data'] ) : '';// phpcs:ignore
 		$address = array();
-		$data    = isset( $_POST['data'] ) ? wp_unslash( $_POST['data'] ) : '';
 
 		if ( empty( $data ) ) {
 			die( esc_html__( 'No address data', 'wc_shipping_multiple_address' ) );
 		}
 
 		parse_str( $data, $address );
+		$address = wc_clean( $address );
 
 		$index   = isset( $_POST['index'] ) ? sanitize_text_field( wp_unslash( $_POST['index'] ) ) : '';
 		$user_id = isset( $_POST['user'] ) ? sanitize_text_field( wp_unslash( $_POST['user'] ) ) : '';
@@ -237,6 +240,7 @@ class WC_MS_Admin {
 
 		$this->wcms->address_book->save_user_addresses( $user_id, $addresses );
 
-		die( wcms_get_formatted_address( $address ) );
+		// No need to escape. It's already been escaped by `wcms_get_formatted_address()`.
+		die( wcms_get_formatted_address( $address ) ); //phpcs:ignore
 	}
 }

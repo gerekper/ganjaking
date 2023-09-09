@@ -20,28 +20,74 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 	);
 
 	/**
+	 * Order handling fee.
+	 * @var     float
+	 */
+	protected $order_handling_fee;
+
+	/**
+	 * Calculation type.
+	 * @var     string
+	 */
+	protected $calculation_type;
+
+	/**
+	 * Calculate the Min-Max after discount.
+	 * @var     boolean
+	 */
+	protected $minmax_after_discount;
+
+	/**
+	 * Calculate the Min-Max with tax.
+	 * @var     boolean
+	 */
+	protected $minmax_with_tax;
+
+	/**
+	 * Minimum cost value.
+	 * @var     float
+	 */
+	protected $min_cost;
+
+	/**
+	 * Maximum cost value.
+	 * @var     float
+	 */
+	protected $max_cost;
+
+	/**
+	 * Maximum cost that the customer will pay after all the shipping rules have been applied. If the shipping cost calculated is bigger than this value, this cost will be the one shown.
+	 * @var     float
+	 */
+	protected $max_shipping_cost;
+
+	/**
+	 * Name of the table rates in database.
+	 * @var     string
+	 */
+	protected $rates_table;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct( $instance_id = 0 ) {
 		global $wpdb;
 
+		// Default properties.
 		$this->id                 = 'table_rate';
 		$this->instance_id        = absint( $instance_id );
 		$this->method_title       = __( 'Table rates', 'woocommerce-table-rate-shipping' );
 		$this->method_description = __( 'Table rates are dynamic rates based on a number of cart conditions.', 'woocommerce-table-rate-shipping' );
-		$this->title              = $this->method_title;
-		$this->has_settings       = false;
 		$this->supports           = array( 'zones', 'shipping-zones', 'instance-settings' );
-
+		$this->enabled            = 'yes';
 		// Load the form fields.
 		$this->init_form_fields();
 
 		// Get settings
-		$this->enabled               = 'yes';
-		$this->title                 = $this->get_option( 'title', __( 'Table Rate', 'woocommerce-table-rate-shipping' ) );
+		$this->title                 = $this->get_option( 'title', $this->method_title );
 		$this->fee                   = $this->get_option( 'handling_fee' );
-		$this->order_handling_fee    = $this->get_option( 'order_handling_fee' );
 		$this->tax_status            = $this->get_option( 'tax_status' );
+		$this->order_handling_fee    = $this->get_option( 'order_handling_fee' );
 		$this->calculation_type      = $this->get_option( 'calculation_type' );
 		$this->minmax_after_discount = $this->get_option( 'minmax_after_discount' );
 		$this->minmax_with_tax       = $this->get_option( 'minmax_with_tax' );
@@ -54,6 +100,7 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 		$this->available_rates = array();
 
 		add_action( 'woocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
+		add_filter( 'woocommerce_package_rates', array( $this, 'maybe_display_notice' ), 10, 2 );
 	}
 
 	/**
@@ -131,6 +178,10 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 	public function init_instance_settings() {
 		// 2nd option is for BW compat
 		$this->instance_settings = get_option( $this->get_instance_option_key(), get_option( $this->plugin_id . $this->id . '-' . $this->instance_id . '_settings', null ) );
+
+		if ( empty( $this->instance_settings ) ) {
+			$this->instance_settings = array();
+		}
 
 		/*
 		 * Order handling fee does not handle percentages. So
@@ -1097,42 +1148,57 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 	}
 
 	/**
-	 * Adds a notice to the cart/checkout header.
+	 * Save the abort notice in the session (to display when shipping methods are loaded from cache).
 	 *
 	 * @since 3.0.19
 	 * @param string $message Message to show
 	 * @return void
 	 */
 	private function add_notice( $message, $package = null ) {
-		$this->save_abort_message( $message, $package );
-
-		// Only display shipping notices in cart/checkout.
-		if ( ! is_cart() && ! is_checkout() ) {
-			return;
-		}
-
-		if ( ! wc_has_notice( $message, 'notice' ) ) {
-			wc_add_notice( $message, 'notice', array( 'wc_trs' => 'yes' ) );
-		}
-	}
-
-	/**
-	 * Save the abort notice in the session (to display when shipping methods are loaded from cache).
-	 *
-	 * @since 3.0.25
-	 * @param string $message Abort message.
-	 */
-	private function save_abort_message( $message, $package = null ) {
 		$abort = WC()->session->get( WC_Table_Rate_Shipping::$abort_key );
 
-        if ( empty( $abort ) ) {
+		if ( ! is_array( $abort ) ) {
 			$abort = array();
 		}
 
-        $package_hash           = WC_Table_Rate_Shipping::create_package_hash( $package );
+		$package_hash           = WC_Table_Rate_Shipping::create_package_hash( $package );
 		$abort[ $package_hash ] = $message;
 
 		WC()->session->set( WC_Table_Rate_Shipping::$abort_key, $abort );
+	}
+
+	/**
+	 * Print the abort text if no other available rates.
+	 *
+	 * @param array $rates   Shipping rates.
+	 * @param array $package Shipping package.
+	 *
+	 * @return array.
+	 */
+	public function maybe_display_notice( $rates, $package ) {
+		// Only display shipping notices in cart/checkout.
+		if ( ! is_cart() && ! is_checkout() ) {
+			return $rates;
+		}
+
+		if ( ! empty( $rates ) ) {
+			$this->unset_abort_message( $package );
+			return $rates;
+		}
+
+		$abort = WC()->session->get( WC_Table_Rate_Shipping::$abort_key );
+
+		if ( ! is_array( $abort ) ) {
+			return $rates;
+		}
+
+		$package_hash = WC_Table_Rate_Shipping::create_package_hash( $package );
+
+		if ( isset( $abort[ $package_hash ] ) && ! wc_has_notice( $abort[ $package_hash ], 'notice' ) ) {
+			wc_add_notice( $abort[ $package_hash ], 'notice', array( 'wc_trs' => 'yes' ) );
+		}
+
+		return $rates;
 	}
 
 	/**

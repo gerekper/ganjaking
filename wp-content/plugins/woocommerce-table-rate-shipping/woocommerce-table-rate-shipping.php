@@ -3,17 +3,17 @@
  * Plugin Name: WooCommerce Table Rate Shipping
  * Plugin URI: https://woocommerce.com/products/table-rate-shipping/
  * Description: Table rate shipping lets you define rates depending on location vs shipping class, price, weight, or item count.
- * Version: 3.1.2
+ * Version: 3.1.4
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * Requires at least: 4.0
- * Tested up to: 6.2
+ * Tested up to: 6.3
  * Text Domain: woocommerce-table-rate-shipping
  * Copyright: © 2023 WooCommerce
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Domain Path: /languages
- * WC tested up to: 7.5
+ * WC tested up to: 8.0
  * WC requires at least: 3.0
  *
  * Woo: 18718:3034ed8aff427b0f635fe4c86bbf008a
@@ -41,7 +41,7 @@ class WC_Table_Rate_Shipping {
 	 * Constructor.
 	 */
 	public function __construct() {
-		define( 'TABLE_RATE_SHIPPING_VERSION', '3.1.2' ); // WRCS: DEFINED_VERSION.
+		define( 'TABLE_RATE_SHIPPING_VERSION', '3.1.4' ); // WRCS: DEFINED_VERSION.
 		define( 'TABLE_RATE_SHIPPING_DEBUG', defined( 'WP_DEBUG' ) && WP_DEBUG && ( ! defined( 'WP_DEBUG_DISPLAY' ) || WP_DEBUG_DISPLAY ) );
 		define( 'WC_TABLE_RATE_SHIPPING_MAIN_FILE', __FILE__ );
 
@@ -104,19 +104,7 @@ class WC_Table_Rate_Shipping {
 			$this->install();
 		}
 
-		// 2.6.0+ supports zones and instances.
-		if ( version_compare( WC_VERSION, '2.6.0', '>=' ) ) {
-			add_filter( 'woocommerce_shipping_methods', array( $this, 'woocommerce_shipping_methods' ) );
-		} else {
-			if ( ! defined( 'SHIPPING_ZONES_TEXTDOMAIN' ) ) {
-				define( 'SHIPPING_ZONES_TEXTDOMAIN', 'woocommerce-table-rate-shipping' );
-			}
-			if ( ! class_exists( 'WC_Shipping_zone' ) ) {
-				include_once __DIR__ . '/includes/legacy/shipping-zones/class-wc-shipping-zones.php';
-			}
-			add_action( 'woocommerce_load_shipping_methods', array( $this, 'load_shipping_methods' ) );
-			add_action( 'admin_notices', array( $this, 'welcome_notice' ) );
-		}
+		add_filter( 'woocommerce_shipping_methods', array( $this, 'woocommerce_shipping_methods' ) );
 
 		// Hooks.
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
@@ -169,25 +157,6 @@ class WC_Table_Rate_Shipping {
 	}
 
 	/**
-	 * Admin welcome notice.
-	 */
-	public function welcome_notice() {
-		if ( get_option( 'hide_table_rate_welcome_notice' ) ) {
-			return;
-		}
-		wp_enqueue_style( 'woocommerce-activation', WC()->plugin_url() . '/assets/css/activation.css', array(), TABLE_RATE_SHIPPING_VERSION );
-		?>
-		<div id="message" class="updated woocommerce-message wc-connect">
-			<div class="squeezer">
-				<h4><?php echo wp_kses_post( '<strong>Table Rates is installed</strong> &#8211; Add some shipping zones to get started :)', 'woocommerce-table-rate-shipping' ); ?></h4>
-				<p class="submit"><a href="<?php echo esc_url( admin_url( 'admin.php?page=shipping_zones' ) ); ?>" class="button-primary"><?php esc_html_e( 'Setup Zones', 'woocommerce-table-rate-shipping' ); ?></a> <a class="skip button-primary" href="https://docs.woocommerce.com/document/table-rate-shipping/"><?php esc_html_e( 'Documentation', 'woocommerce-table-rate-shipping' ); ?></a></p>
-			</div>
-		</div>
-		<?php
-		update_option( 'hide_table_rate_welcome_notice', 1 );
-	}
-
-	/**
 	 * Admin styles + scripts.
 	 */
 	public function admin_enqueue_scripts() {
@@ -223,36 +192,6 @@ class WC_Table_Rate_Shipping {
 	public function shipping_init() {
 		include_once __DIR__ . '/includes/class-wc-shipping-table-rate.php';
 		include_once __DIR__ . '/includes/class-wc-shipping-table-rate-privacy.php';
-	}
-
-	/**
-	 * Load shipping methods.
-	 *
-	 * @param array $package Shipping package.
-	 */
-	public function load_shipping_methods( $package ) {
-		// Register the main class.
-		woocommerce_register_shipping_method( 'WC_Shipping_Table_Rate' );
-
-		if ( ! $package ) {
-			return;
-		}
-
-		// Get zone for package.
-		$zone = woocommerce_get_shipping_zone( $package );
-
-		if ( TABLE_RATE_SHIPPING_DEBUG ) {
-			$notice_text = 'Customer matched shipping zone <strong>' . $zone->zone_name . '</strong> (#' . $zone->zone_id . ')';
-
-			if ( ! wc_has_notice( $notice_text, 'notice' ) ) {
-				wc_add_notice( $notice_text, 'notice' );
-			}
-		}
-
-		if ( $zone->exists() ) {
-			// Register zone methods.
-			$zone->register_shipping_methods();
-		}
 	}
 
 	/**

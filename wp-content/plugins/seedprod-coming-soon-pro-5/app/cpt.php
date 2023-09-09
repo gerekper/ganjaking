@@ -12,9 +12,10 @@ function seedprod_pro_post_type() {
 		'public'             => false,
 		'capability_type'    => 'page',
 		'show_ui'            => false,
-		'publicly_queryable' => false,
+		'publicly_queryable' => true,
 		'can_export'         => false,
 	);
+
 	register_post_type( 'seedprod', $args );
 
 }

@@ -10,15 +10,12 @@ class WC_MS_Address_Book {
     public function __construct( WC_Ship_Multiple $wcms ) {
         $this->wcms = $wcms;
 
-        // delete address request
-        add_action( 'template_redirect', array($this, 'delete_address') );
+		add_action( 'template_redirect', array( $this, 'save_shipping_addresses' ) );
+		add_action( 'template_redirect', array( $this, 'save_account_shipping_addresses' ) );
+		add_action( 'template_redirect', array( $this, 'save_addresses_book_from_post' ) );
 
-		    add_action( 'template_redirect', array( $this, 'save_shipping_addresses' ) );
-		    add_action( 'template_redirect', array( $this, 'save_account_shipping_addresses' ) );
-		    add_action( 'template_redirect', array( $this, 'save_addresses_book_from_post' ) );
-
-        add_action( 'wp_ajax_wc_ms_delete_address', array( $this, 'ajax_delete_address' ) );
-        add_action( 'wp_ajax_nopriv_wc_ms_delete_address', array( $this, 'ajax_delete_address' ) );
+		add_action( 'wp_ajax_wc_ms_delete_address', array( $this, 'ajax_delete_address' ) );
+		add_action( 'wp_ajax_nopriv_wc_ms_delete_address', array( $this, 'ajax_delete_address' ) );
     }
 
     /**
@@ -54,67 +51,6 @@ class WC_MS_Address_Book {
         return apply_filters( 'wc_ms_default_user_address', $default_address );
     }
 
-    public function delete_address() {
-
-        $user = wp_get_current_user();
-
-        if ( isset($_REQUEST['address-delete']) && isset($_REQUEST['id']) ) {
-            $id         = $_REQUEST['id'];
-            $addresses  = $this->get_user_addresses( $user );
-
-            if ($user->ID != 0) {
-                $addresses = get_user_meta($user->ID, 'wc_other_addresses', true);
-
-                if (! $addresses) {
-                    $addresses = array();
-                }
-
-                $default_address = $this->get_user_default_address( $user->ID );
-
-                if ( $default_address['address_1'] && $default_address['postcode'] ) {
-                    array_unshift($addresses, $default_address);
-                }
-
-                if ( $id == 0 ) {
-                    $default_address = $addresses[0];
-
-                    if ( $default_address['shipping_address_1'] && $default_address['shipping_postcode'] ) {
-                        update_user_meta( $user->ID, 'shipping_first_name', '' );
-                        update_user_meta( $user->ID, 'shipping_last_name',  '' );
-                        update_user_meta( $user->ID, 'shipping_company',    '' );
-                        update_user_meta( $user->ID, 'shipping_address_1',  '' );
-                        update_user_meta( $user->ID, 'shipping_address_2',  '' );
-                        update_user_meta( $user->ID, 'shipping_city',       '' );
-                        update_user_meta( $user->ID, 'shipping_state',      '' );
-                        update_user_meta( $user->ID, 'shipping_postcode',   '' );
-                        update_user_meta( $user->ID, 'shipping_country',    '' );
-                    }
-                } else {
-                    unset( $addresses[ $id ] );
-                }
-
-                unset( $addresses[0] );
-
-                update_user_meta($user->ID, 'wc_other_addresses', $addresses);
-
-            } else {
-                // guests
-                unset( $addresses[ $id ] );
-                wcms_session_set( 'user_addresses', $addresses );
-
-            }
-
-            if ( function_exists('wc_add_notice') )
-                wc_add_notice(__('Address deleted', 'wc_shipping_multiple_address'), 'success');
-            else
-                WC()->add_message( __('Address deleted', 'wc_shipping_multiple_address') );
-
-            wp_redirect( get_permalink( wc_get_page_id('multiple_addresses') ) );
-            exit;
-
-        }
-    }
-
 	public function save_shipping_addresses() {
 		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['_wpnonce'] ), 'shipping_address_action' ) ) {
 			return;
@@ -137,11 +73,11 @@ class WC_MS_Address_Book {
 
 		if ( isset( $_POST['items'] ) ) {
 
-			$items = $_POST['items'];
+			$items = wc_clean( $_POST['items'] );
 
 			// handler for delete requests.
 			if ( isset( $_POST['delete_line'] ) ) {
-				$delete   = $_POST['delete'];
+				$delete   = wc_clean( $_POST['delete'] );
 				$cart_key = $delete['key'];
 				$index    = $delete['index'];
 
@@ -263,7 +199,7 @@ class WC_MS_Address_Book {
 		}
 
 		$user = wp_get_current_user();
-		$idx  = $_POST['idx'];
+		$idx  = intval( $_POST['idx'] );
 
 		$addresses = get_user_meta( $user->ID, 'wc_other_addresses', true );
 
@@ -404,11 +340,11 @@ class WC_MS_Address_Book {
 		}
 
 		$user       = wp_get_current_user();
-		$id         = $_POST['id'];
-		$address = $_POST['address'];
+		$id         = intval( $_POST['id'] );
+		$address    = wc_clean( $_POST['address'] );
 		$addresses  = $this->get_user_addresses( $user );
 		$shipFields = WC()->countries->get_address_fields( $address['shipping_country'], 'shipping_' );
-		$redirect_url   = (isset($_POST['next'])) ? $_POST['next'] : get_permalink( wc_get_page_id('multiple_addresses') );
+		$redirect_url = ( isset( $_POST['next'] ) ) ? esc_url_raw( $_POST['next'] ) : get_permalink( wc_get_page_id('multiple_addresses') );
 
 		$validation = $this->validate_addresses_book( $shipFields );
 
@@ -419,7 +355,8 @@ class WC_MS_Address_Book {
 				WC()->add_error( __( 'Please enter the complete address', 'wc_shipping_multiple_address' ) );
 			}
 			$next = add_query_arg( $address, $redirect_url );
-			wp_redirect( add_query_arg('address-form', 1, $next ) );
+			$next = add_query_arg( 'address-form', 1, $next );
+			wp_safe_redirect( esc_url( $next ) );
 			exit;
 		}
 
@@ -449,7 +386,8 @@ class WC_MS_Address_Book {
 						WC()->add_error( __( 'Address is already in your address book', 'wc_shipping_multiple_address' ) );
 					}
 					$next = add_query_arg( $address, $redirect_url );
-					wp_redirect( add_query_arg('address-form', 1, $next ) );
+					$next = add_query_arg( 'address-form', 1, $next );
+					wp_safe_redirect( esc_url( $next ) );
 					exit;
 				}
 			}
@@ -489,29 +427,29 @@ class WC_MS_Address_Book {
 			$next = add_query_arg( 'new', '1', $redirect_url );
 		}
 
-		wp_redirect( $next );
+		wp_safe_redirect( esc_url( $next ) );
 		exit;
-    }
+	}
 
     public function ajax_delete_address() {
-		if ( ! isset( $_POST['_wcmsnonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['_wcmsnonce'] ), 'wcms-action_' . WC()->session->get_customer_unique_id() ) ) {
-			exit;
-		}
-
-		if ( ! isset( $_POST['idx'] ) ) {
-			exit;
-		}
-
-		$user      = wp_get_current_user();
-		$idx       = absint( sanitize_text_field( wp_unslash( $_POST['idx'] ) ) );
-		$addresses = $this->get_user_addresses( $user );
-
-        unset( $addresses[ $idx ] );
-
-        $this->save_user_addresses( $user->ID, $addresses );
-
-        wp_send_json( array('ack' => 'OK') );
+      if ( ! isset( $_POST['_wcmsnonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['_wcmsnonce'] ), 'wcms-action_' . WC()->session->get_customer_unique_id() ) ) {
         exit;
+      }
+
+      if ( ! isset( $_POST['idx'] ) ) {
+        exit;
+      }
+
+      $user      = wp_get_current_user();
+      $idx       = absint( sanitize_text_field( wp_unslash( $_POST['idx'] ) ) );
+      $addresses = $this->get_user_addresses( $user );
+
+      unset( $addresses[ $idx ] );
+
+      $this->save_user_addresses( $user->ID, $addresses );
+
+      wp_send_json( array('ack' => 'OK') );
+      exit;
     }
 
     public function get_user_addresses( $user, $include_default = true ) {

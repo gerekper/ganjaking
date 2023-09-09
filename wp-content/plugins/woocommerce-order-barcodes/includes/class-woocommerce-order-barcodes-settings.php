@@ -175,7 +175,7 @@ class WooCommerce_Order_Barcodes_Settings {
 		if ( isset( $_POST['wc_order_barcodes_colours_foreground'] ) ) {
 
 			// Get posted settings.
-			$foreground = ( isset( $_POST['wc_order_barcodes_colours_foreground'] ) ) ? wc_format_hex( $_POST['wc_order_barcodes_colours_foreground'] ) : '';
+			$foreground = ( isset( $_POST['wc_order_barcodes_colours_foreground'] ) ) ? wc_format_hex( sanitize_text_field( wp_unslash( $_POST['wc_order_barcodes_colours_foreground'] ) ) ) : '';
 
 			// Set settings array.
 			$colours = array(
@@ -245,7 +245,7 @@ class WooCommerce_Order_Barcodes_Settings {
 	 * @since  1.0.0
 	 */
 	public function __clone () {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?' ), $this->parent->_version );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?' ), esc_html( $this->parent->_version ) );
 	} // End __clone ()
 
 	/**
@@ -254,7 +254,7 @@ class WooCommerce_Order_Barcodes_Settings {
 	 * @since  1.0.0
 	 */
 	public function __wakeup () {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?' ), $this->parent->_version );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?' ), esc_html( $this->parent->_version ) );
 	} // End __wakeup ()
 
 }

@@ -51,8 +51,8 @@ class WC_MS_Gifts {
         <div class="gift-form">
             <p>
                 <label>
-                    <input type="checkbox" class="chk-gift" name="shipping_gift[<?php echo $loop; ?>]" value="yes" data-index="<?php echo $loop; ?>" />
-                    <?php _e( 'This is a gift', 'wc_shipping_multiple_address' ); ?>
+                    <input type="checkbox" class="chk-gift" name="shipping_gift[<?php echo esc_attr( $loop ); ?>]" value="yes" data-index="<?php echo esc_attr( $loop ); ?>" />
+                    <?php esc_html_e( 'This is a gift', 'wc_shipping_multiple_address' ); ?>
                 </label>
             </p>
         </div>
@@ -65,12 +65,13 @@ class WC_MS_Gifts {
      * and at the same time, populate the WC_Gift_Checkout::gifts array
      */
     public static function apply_gift_data_to_packages( $packages ) {
+		// No need to use nonce verification. it has been verified on `WC_Checkout::process_checkout()`.
+		$shipping_gift = isset( $_POST['shipping_gift'] ) ? wc_clean( $_POST['shipping_gift'] ) : array(); // phpcs:ignore
+		if ( empty( $shipping_gift ) ) {
+			return $packages;
+		}
 
-        if (! isset($_POST['shipping_gift']) || empty($_POST['shipping_gift']) )
-            return $packages;
-
-
-        foreach ( $_POST['shipping_gift'] as $idx => $value ) {
+		foreach ( $shipping_gift as $idx => $value ) {
 
             if ( $value != 'yes' ) {
                 continue;
@@ -89,20 +90,21 @@ class WC_MS_Gifts {
     }
 
     public static function store_order_gift_data( $order_id ) {
-
-        if ( empty($_POST['shipping_gift'] ) ) {
-            return;
-        }
-
-		$order = wc_get_order( $order_id );
-
-		if ( ! $order ) {
+		// No need for nonce verification. It has been verified on `WC_Checkout::process_checkout()`.
+		$shipping_gift = isset( $_POST['shipping_gift'] ) ? wc_clean( $_POST['shipping_gift'] ) : array(); //phpcs:ignore
+		if ( empty( $shipping_gift ) ) {
 			return;
 		}
 
+        $order = wc_get_order( $order_id );
+
+        if ( ! $order ) {
+          return;
+        }
+
         $packages = $order->get_meta( '_wcms_packages' );
 
-        foreach ( $_POST['shipping_gift'] as $idx => $value ) {
+        foreach ( $shipping_gift as $idx => $value ) {
 
             if ( $value != 'yes' )
                 continue;
@@ -110,10 +112,10 @@ class WC_MS_Gifts {
             if ( ! array_key_exists( $idx, $packages ) )
                 continue;
 
-			$order->update_meta_data( '_gift_'. $idx, true );
+            $order->update_meta_data( '_gift_'. $idx, true );
         }
 
-		$order->save();
+        $order->save();
     }
 
     /**
@@ -129,7 +131,7 @@ class WC_MS_Gifts {
             <p>
                 <label>
                     <input type="checkbox" class="chk-gift" name="checkout_shipping_gift" value="yes" />
-                    <?php _e( 'This is a gift', 'wc_shipping_multiple_address' ); ?>
+                    <?php esc_html_e( 'This is a gift', 'wc_shipping_multiple_address' ); ?>
                 </label>
             </p>
         </div>
@@ -137,22 +139,23 @@ class WC_MS_Gifts {
     }
 
     public static function store_shipping_address_gift_data( $order_id ) {
-		$order = wc_get_order( $order_id );
+        $order = wc_get_order( $order_id );
 
-		if ( ! $order ) {
-			return; 
-		}
+        if ( ! $order ) {
+          return;
+        }
 
-        if ( ! empty( $_POST['checkout_shipping_gift'] ) ) {
+		// No need for nonce verification. It has been verified on `WC_Checkout::process_checkout()`.
+        if ( ! empty( $_POST['checkout_shipping_gift'] ) ) { //phpcs:ignore
             $order->update_meta_data( '_gift', true );
-			$order->save();
+            $order->save();
         }
     }
 
     public static function render_order_shipping_gift_data( $order ) {
-		if ( ! is_callable( array( $order, 'get_meta' ) ) ) {
-			return;
-		}
+        if ( ! is_callable( array( $order, 'get_meta' ) ) ) {
+          return;
+        }
 
         $is_gift = $order->get_meta( '_gift' );
 
@@ -162,9 +165,9 @@ class WC_MS_Gifts {
     }
 
     public static function render_gift_data( $order, $package, $package_index ) {
-		if ( is_callable( array( $order, 'get_meta' ) ) ) {
-			return;
-		}
+        if ( is_callable( array( $order, 'get_meta' ) ) ) {
+          return;
+        }
 
         $packages      = $order->get_meta( '_wcms_packages' );
         $order_is_gift = ( true == $order->get_meta( '_gift_' . $package_index ) ) ? true : false;
@@ -179,7 +182,7 @@ class WC_MS_Gifts {
         if ( isset( $package['gift'] ) && true == $package['gift'] ) {
             ?>
             <div class="gift-package">
-                <h5><div class="dashicons dashicons-yes"></div><?php _e('This is a Gift', 'wc_shipping_multiple_address'); ?></h5>
+                <h5><div class="dashicons dashicons-yes"></div><?php esc_html_e('This is a Gift', 'wc_shipping_multiple_address'); ?></h5>
             </div>
             <?php
 

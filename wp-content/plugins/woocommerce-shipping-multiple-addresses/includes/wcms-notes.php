@@ -81,18 +81,17 @@ class WC_MS_Notes {
 
                     var apply_notes = function() {
                         $("textarea.ms_shipping_note").each(function() {
-                            var index = $(this).data("index");
-                            var note  = localStorage["ms_note_"+ index];
-
-                            $(this).val(note);
+							var hash = $( this ).data( 'hash' );
+							var note_hash = localStorage["ms_note_" + hash ];
+							$(this).val(note_hash);
                         });
                     };
 
                     $("div.woocommerce").on("change", "textarea.ms_shipping_note", function() {
-                        var index = $(this).data("index");
                         var note  = $(this).val();
 
-                        localStorage["ms_note_"+ index] = note;
+						var hash = $( this ).data( 'hash' );
+						localStorage["ms_note_"+ hash] = note;
                     });
 
                     $("body").on("updated_checkout", function() {
@@ -101,8 +100,8 @@ class WC_MS_Notes {
 
                     $("form.checkout").on("submit", function() {
                         $("textarea.ms_shipping_note").each(function() {
-                            var index = $(this).data("index");
-                            localStorage.removeItem("ms_note_"+index);
+							var hash = $( this ).data( 'hash' );
+							localStorage.removeItem("ms_note_" + hash);
                         });
                     });
                 }
@@ -117,6 +116,8 @@ class WC_MS_Notes {
     public static function render_note_form( $loop, $package ) {
         global $wcms;
 
+		$package_hash = md5( json_encode( $package ) );
+
         if ( !isset( $wcms->gateway_settings['checkout_notes'] ) ) {
             $wcms->gateway_settings['checkout_notes'] = 'yes';
         }
@@ -127,9 +128,10 @@ class WC_MS_Notes {
         if ( $show_datepicker ):
             $value    = '';
             $postdata = array();
-
-            if ( !empty( $_POST['post_data'] ) ) {
-                parse_str( $_POST['post_data'], $postdata );
+			// No need to verify nonce. It's already verified.
+            if ( !empty( $_POST['post_data'] ) ) { // phpcs:ignore
+                parse_str( $_POST['post_data'], $postdata ); //phpcs:ignore
+				$postdata = wc_clean( $postdata );
             }
 
             if ( isset( $postdata['shipping_date'] ) && isset( $postdata['shipping_date'][ $loop ]) ) {
@@ -139,9 +141,9 @@ class WC_MS_Notes {
         <div class="datepicker-form">
             <p>
                 <label>
-                    <?php _e( 'Shipping Date', 'wc_shipping_multiple_address' ); ?>
+                    <?php esc_html_e( 'Shipping Date', 'wc_shipping_multiple_address' ); ?>
                 </label>
-                <input type="text" class="datepicker ms_shipping_date" name="shipping_date[<?php echo $loop; ?>]" data-index="<?php echo $loop; ?>" value="<?php echo esc_attr( $value ); ?>" />
+                <input type="text" class="datepicker ms_shipping_date" name="shipping_date[<?php echo esc_attr( $loop ); ?>]" data-index="<?php echo esc_attr( $loop ); ?>" value="<?php echo esc_attr( $value ); ?>" />
             </p>
         </div>
         <?php
@@ -153,11 +155,11 @@ class WC_MS_Notes {
         <div class="note-form">
             <p>
                 <label>
-                    <?php _e( 'Note', 'wc_shipping_multiple_address' ); ?>
+                    <?php esc_html_e( 'Note', 'wc_shipping_multiple_address' ); ?>
                 </label>
-                <textarea name="shipping_note[<?php echo $loop; ?>]" rows="2" cols="30" class="ms_shipping_note" data-index="<?php echo $loop; ?>" data-limit="<?php echo $limit; ?>"></textarea>
-                <?php if ( !empty( $limit ) ): ?>
-                    <small><em><?php printf( __('Character Limit: %d', 'wc_shipping_multiple_address'), $limit ); ?></em></small>
+                <textarea name="shipping_note[<?php echo esc_attr( $loop ); ?>]" rows="2" cols="30" class="ms_shipping_note" data-index="<?php echo esc_attr( $loop ); ?>" data-hash="<?php echo esc_attr( $package_hash ); ?>" data-limit="<?php echo esc_attr( $limit ); ?>"></textarea>
+                <?php if ( ! empty( $limit ) ): ?>
+                    <small><em><?php printf( esc_html__( 'Character Limit: %d', 'wc_shipping_multiple_address' ), esc_html( $limit ) ); ?></em></small>
                 <?php endif; ?>
             </p>
         </div>
@@ -170,9 +172,12 @@ class WC_MS_Notes {
      * Modify the 'wcms_packages' session data to attach notes from POST
      */
     public static function apply_notes_to_packages( $packages ) {
+		// No need to verify. It's already been verified.
+		$post_note = isset( $_POST['shipping_note'] ) ? wc_clean( $_POST['shipping_note'] ) : array(); //phpcs:ignore
+		$post_date = isset( $_POST['shipping_date'] ) ? wc_clean( $_POST['shipping_date'] ) : array(); //phpcs:ignore
 
-        if ( !empty($_POST['shipping_note']) ) {
-            foreach ( $_POST['shipping_note'] as $idx => $value ) {
+        if ( !empty( $post_note ) && is_array( $post_note ) ) {
+            foreach ( $post_note as $idx => $value ) {
 
                 if ( !isset( $packages[ $idx ] ) ) {
                     continue;
@@ -183,8 +188,8 @@ class WC_MS_Notes {
             }
         }
 
-        if ( !empty($_POST['shipping_date']) ) {
-            foreach ( $_POST['shipping_date'] as $idx => $value ) {
+        if ( ! empty( $post_date ) && is_array( $post_date ) ) {
+            foreach ( $post_date as $idx => $value ) {
 
                 if ( !isset( $packages[ $idx ] ) ) {
                     continue;
@@ -212,10 +217,13 @@ class WC_MS_Notes {
             return;
         }
 
-        $packages = $order->get_meta( '_wcms_packages' );
+		// No need to verify nonce. It's already verified.
+        $packages  = $order->get_meta( '_wcms_packages' );
+		$post_note = isset( $_POST['shipping_note'] ) ? wc_clean( $_POST['shipping_note'] ) : array(); //phpcs:ignore
+		$post_date = isset( $_POST['shipping_date'] ) ? wc_clean( $_POST['shipping_date'] ) : array(); //phpcs:ignore
 
-        if ( ! empty( $_POST['shipping_note'] ) ) {
-            foreach ( $_POST['shipping_note'] as $idx => $value ) {
+        if ( ! empty( $post_note ) && is_array( $post_note ) ) {
+            foreach ( $post_note as $idx => $value ) {
                 if ( ! array_key_exists( $idx, $packages ) ) {
                     continue;
                 }
@@ -224,8 +232,8 @@ class WC_MS_Notes {
             }
         }
 
-        if ( ! empty( $_POST['shipping_date'] ) ) {
-            foreach ( $_POST['shipping_date'] as $idx => $value ) {
+        if ( ! empty( $post_date ) && is_array( $post_date ) ) {
+            foreach ( $post_date as $idx => $value ) {
                 if ( ! array_key_exists( $idx, $packages ) ) {
                     continue;
 				}
@@ -238,13 +246,22 @@ class WC_MS_Notes {
     }
 
     public static function render_notes( $order, $package, $package_index ) {
+		$allowed_html = array(
+			'a'      => array(
+				'href'  => array(),
+				'title' => array(),
+			),
+			'br'     => array(),
+			'em'     => array(),
+			'strong' => array(),
+		);
 
         if ( isset( $package['note'] ) && !empty( $package['note'] ) ) {
         ?>
             <ul class="order_notes">
                 <li class="note">
                     <div class="note_content">
-                        <?php echo esc_html( $package['note'] ); ?>
+                        <?php echo wp_kses( nl2br( $package['note'] ), $allowed_html ); ?>
                     </div>
                 </li>
             </ul>
@@ -261,7 +278,7 @@ class WC_MS_Notes {
             <ul class="order_notes">
                 <li class="note">
                     <div class="note_content">
-                        <?php printf( __('Shipping Date: %s', 'wc_shipping_multiple_address'), esc_html( $package['date'] ) ); ?>
+                        <?php printf( esc_html__('Shipping Date: %s', 'wc_shipping_multiple_address'), esc_html( $package['date'] ) ); ?>
                     </div>
                 </li>
             </ul>

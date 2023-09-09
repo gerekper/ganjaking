@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-chase-paymentech/
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2022, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2013-2023, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_11_7 as Framework;
 
 /**
  * Chase Paymentech Payment Gateway
@@ -113,6 +113,9 @@ class WC_Gateway_Chase_Paymentech extends Framework\SV_WC_Payment_Gateway_Direct
 	 */
 	public function __construct() {
 
+		// adjust FW-provided form fields - this _has_ to be queued before the parent constructor
+		add_filter( 'wc_payment_gateway_' . WC_Chase_Paymentech::CREDIT_CARD_GATEWAY_ID . '_form_fields', [ $this, 'adjust_accepted_logos_form_field' ] );
+
 		parent::__construct(
 			WC_Chase_Paymentech::CREDIT_CARD_GATEWAY_ID,
 			wc_chase_paymentech(),
@@ -193,13 +196,9 @@ class WC_Gateway_Chase_Paymentech extends Framework\SV_WC_Payment_Gateway_Direct
 	 * @since 1.2.0
 	 * @return boolean true if the direct API settings are configured
 	 */
-	public function is_direct_api_configured() {
+	public function is_direct_api_configured(): bool {
 
-		if ( $this->get_username() && $this->get_password() && $this->get_merchant_id() && $this->get_terminal_id() ) {
-			return true;
-		}
-
-		return false;
+		return $this->get_username() && $this->get_password() && $this->get_merchant_id() && $this->get_terminal_id();
 	}
 
 
@@ -380,6 +379,30 @@ class WC_Gateway_Chase_Paymentech extends Framework\SV_WC_Payment_Gateway_Direct
 	}
 
 
+	/**
+	 * Adjusts the title and description of the accepted logos form field.
+	 *
+	 * @internal
+	 * @since 1.18.0
+	 * @param array $form_fields
+	 * @return array
+	 */
+	public function adjust_accepted_logos_form_field( $form_fields ) : array {
+
+		if ( isset( $form_fields['card_types'] ) ) {
+			$form_fields['card_types']['title']       = esc_html__( 'Accepted Cards', 'woocommerce-gateway-chase-paymentech' );
+			$form_fields['desc_tip']['desc_tip']      = __( 'These are the card logos that are displayed to customers as accepted during checkout.', 'woocommerce-gateway-chase-paymentech' );
+			$form_fields['card_types']['description'] = sprintf(
+				__( 'Clearing this field will disable the gateway.', 'woocommerce-gateway-chase-paymentech' ),
+				'<strong>',
+				'</strong>'
+			);
+		}
+
+		return $form_fields;
+	}
+
+
 	/** Frontend methods ******************************************************/
 
 
@@ -479,6 +502,16 @@ class WC_Gateway_Chase_Paymentech extends Framework\SV_WC_Payment_Gateway_Direct
 		$order = wc_get_order( $order_id );
 
 		if ( Framework\SV_WC_Helper::get_posted_value( 'woocommerce_pay_page' ) || ( $this->supports_subscriptions() && wcs_order_contains_renewal( $order_id ) && $this->get_order_meta( $order, 'payment_token' ) ) ) {
+
+			// Redirect to order pay page if renewal request come from checkout page.
+			if( Framework\SV_WC_Helper::get_posted_value( 'payment_method' ) == $this->get_id() ) {
+				$this->log_transaction_request( $_POST );
+				return array(
+					'result'   => 'success',
+					'redirect' => $order->get_checkout_payment_url( true ),
+				);
+			}
+
 			// direct (tokenized) checkout from Pay page or processing subscription renewal (2.0.x only)
 			return parent::process_payment( $order_id );
 		}
@@ -628,16 +661,18 @@ class WC_Gateway_Chase_Paymentech extends Framework\SV_WC_Payment_Gateway_Direct
 
 			$this->render_add_payment_method_form();
 
+			$this->payment_method_selector_styles();
+
 		} elseif ( $this->is_certification_mode() ) {
 
 			$this->get_plugin()->get_certification_handler()->display_payment_fields();
+
+			$this->payment_method_selector_styles();
 
 		} else {
 
 			parent::payment_fields();
 		}
-
-		echo '<style type="text/css">#payment ul.payment_methods li label[for="payment_method_' . esc_attr( $this->get_id() ) . '"] img:nth-child(n+2) { margin-left:1px; }</style>';
 	}
 
 
@@ -1161,7 +1196,7 @@ class WC_Gateway_Chase_Paymentech extends Framework\SV_WC_Payment_Gateway_Direct
 
 		} catch ( Framework\SV_WC_Plugin_Exception $e ) {
 
-			$result  = 'error';
+			$result = 'error';
 
 			/** translators: Placeholders: %s - the reason for failure */
 			$this->add_debug_message( sprintf( __( 'Add Payment Method failure. %s', 'woocommerce-gateway-chase-paymentech' ), $e->getMessage() ), $result );
@@ -1281,13 +1316,13 @@ class WC_Gateway_Chase_Paymentech extends Framework\SV_WC_Payment_Gateway_Direct
 		foreach ( $error_codes as $code ) {
 
 			if ( isset( $code_to_message['error_codes'][ $code ] ) ) {
-				$index = $code_to_message['error_codes'][ $code ];
+				$index            = $code_to_message['error_codes'][ $code ];
 				$error_messages[] = $code_to_message[ $index ];
 			}
 		}
 
 		// compose the order note: include any available error messages
-		$order_note = implode( '.  ', $error_messages );
+		$order_note   = implode( '.  ', $error_messages );
 		if ( $order_note )
 			$order_note .= '.  ';
 
@@ -1364,7 +1399,7 @@ class WC_Gateway_Chase_Paymentech extends Framework\SV_WC_Payment_Gateway_Direct
 
 		$headers = '';
 		foreach ( $request['headers'] as $name => $value ) {
-			$padding = $max_header_name - strlen( $name );
+			$padding  = $max_header_name - strlen( $name );
 			$headers .= sprintf( "\t%s: %s%s\n", $name, str_repeat( ' ', $padding ), $value );
 		}
 		$headers = rtrim( $headers );
@@ -1558,6 +1593,7 @@ class WC_Gateway_Chase_Paymentech extends Framework\SV_WC_Payment_Gateway_Direct
 
 		return parent::perform_credit_card_charge( $order );
 	}
+
 
 	/**
 	 * Determines if a credit card authorization should be performed.

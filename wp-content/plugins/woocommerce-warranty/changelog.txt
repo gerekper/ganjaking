@@ -1,5 +1,9 @@
 *** Warranty Requests Changelog ***
 
+2023-09-05 - version 2.2.6
+* Update - Security update.
+* Fix    - PHP database error on comment feed.
+
 2023-08-29 - version 2.2.5
 * Fix - Warranty add-on cannot be saved on "Manage Warranties" page.
 

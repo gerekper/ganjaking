@@ -4,7 +4,7 @@
 
         <div id="addresses">
 
-            <div class="shipping_address address_block" id="shipping_address_<?php echo $idx; ?>">
+            <div class="shipping_address address_block" id="shipping_address_<?php echo esc_attr( $idx ); ?>">
                 <?php
                 foreach ( $shipFields as $key => $field ) {
                     $val = '';
@@ -38,7 +38,7 @@
 
     <div class="form-row">
 		<?php wp_nonce_field( 'shipping_account_address_action' ); ?>
-        <input type="submit" name="set_addresses" value="<?php _e( 'Save Address', 'wc_shipping_multiple_address' ); ?>" class="button alt" />
+        <input type="submit" name="set_addresses" value="<?php esc_attr_e( 'Save Address', 'wc_shipping_multiple_address' ); ?>" class="button alt" />
     </div>
 </form>
 <script type="text/javascript">

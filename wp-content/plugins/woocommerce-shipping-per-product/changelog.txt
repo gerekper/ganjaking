@@ -1,5 +1,8 @@
 *** Shipping Per Product Changelog ***
 
+2023-09-05 - version 2.5.2
+* Tweak - Add Text Domain to plugin header.
+
 2023-08-03 - version 2.5.1
 * Fix - Shipping rates for Australia three digits state codes.
 

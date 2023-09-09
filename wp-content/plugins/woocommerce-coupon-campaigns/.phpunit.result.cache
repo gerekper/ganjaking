@@ -1,0 +1,1 @@
+{"version":1,"defects":[],"times":{"WCCouponCampaignsTest::test_remove_view_action_campaign_returns_modified_array":0.004,"WCCouponCampaignsTest::test_remove_view_action_campaign_returns_same_array":0.001,"WCCouponCampaignsTest::test_remove_view_action_campaign_returns_empty_array":0.001}}

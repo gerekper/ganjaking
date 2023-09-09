@@ -518,7 +518,7 @@ class WC_Product_Vendors_Commission {
 		$sql_where = ( $sql_where ? ( ' WHERE ' . implode( ' AND ', $sql_where ) ) : '' );
 
 		$items = $wpdb->get_results(
-			'SELECT `commission`.`order_id`, `commission`.`order_date`, `commission`.`vendor_name`,
+			'SELECT `commission`.`order_id`, `commission`.`order_date`, `commission`.`vendor_id`, `commission`.`vendor_name`,
 			`commission`.`product_name`, `commission`.`variation_attributes`, `commission`.`product_amount`,
 			`commission`.`product_quantity`, `commission`.`product_shipping_amount`,
 			`commission`.`product_shipping_tax_amount`, `commission`.`product_tax_amount`,
@@ -527,6 +527,20 @@ class WC_Product_Vendors_Commission {
 			FROM ' . WC_PRODUCT_VENDORS_COMMISSION_TABLE . ' AS `commission` ' . $sql_where, // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			ARRAY_A
 		);
+
+		$vendor_ids = array_unique( wp_list_pluck( $items, 'vendor_id' ) );
+		_prime_term_caches( $vendor_ids );
+		// Convert vendor id to vendor name.
+		foreach ( $items as &$commission ) {
+			$vendor = get_term( (int) $commission['vendor_id'], WC_PRODUCT_VENDORS_TAXONOMY );
+			if ( ! is_wp_error( $vendor ) && is_object( $vendor ) ) {
+				// Replace vendor name with current vendor name.
+				$commission['vendor_name'] = wp_strip_all_tags( $vendor->name );
+			}
+
+			// Remove the vendor ID as it's not needed anymore.
+			unset( $commission['vendor_id'] );
+		}
 
 		// we need to unserialize possible variation attributes.
 		$items = array_map( array( 'WC_Product_Vendors_Utils', 'unserialize_attributes' ), $items );

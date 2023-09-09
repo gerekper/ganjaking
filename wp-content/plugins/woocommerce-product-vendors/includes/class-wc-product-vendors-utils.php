@@ -1999,7 +1999,7 @@ class WC_Product_Vendors_Utils {
 			$product_commission_amount = $commission->product_commission_amount ?: '0';
 			$product_amount            = $commission->product_amount ?: '0';
 			$refunded_amount           = $order->get_total_refunded_for_item( (int) $commission->order_item_id );
-			$refunded_commission       = $refunded_amount * $product_commission_amount / $product_amount;
+			$refunded_commission       = ! empty( $product_amount ) ? ( $refunded_amount * $product_commission_amount / $product_amount ) : 0;
 		}
 
 		$refund = empty( $refunded_commission ) ?

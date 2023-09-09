@@ -31,8 +31,8 @@
 			<?php
 			do_action('woocommerce_after_checkout_shipping_form', $checkout);
 			?>
-		<input type="hidden" name="addresses[]" value="<?php echo $x; ?>" />
-		<textarea style="display:none;"><?php echo $json_address; ?></textarea>
+		<input type="hidden" name="addresses[]" value="<?php echo esc_attr( $x ); ?>" />
+		<textarea style="display:none;"><?php echo $json_address; // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped --- already escaped above. ?></textarea>
 		</div>
 		<?php
 	}
@@ -42,7 +42,7 @@
 	?>
 
 	<div>
-		<a class="h2-link" href="<?php echo $add_url; ?>"><?php _e('Add a new shipping address', 'wc_shipping_multiple_address'); ?></a>
+		<a class="h2-link" href="<?php echo esc_url( $add_url ); ?>"><?php esc_html_e('Add a new shipping address', 'wc_shipping_multiple_address'); ?></a>
 
 		<?php
 		if ( isset($ms_settings['cart_duplication']) && $ms_settings['cart_duplication'] != 'no' ):
@@ -52,8 +52,8 @@
 			), get_permalink( wc_get_page_id( 'multiple_addresses' ) ) );
 		?>
 			<div style="float: right;">
-				<a class="h2-link" href="<?php echo esc_url( $dupe_url ); ?>"><?php _e( 'Duplicate Cart', 'wc_shipping_multiple_address' ); ?></a>
-				<img class="help_tip" title="<?php _e( 'Duplicating your cart will allow you to ship the exact same cart contents to multiple locations. This will also increase the price of your purchase.', 'wc_shipping_multiple_address' ); ?>" src="<?php echo WC()->plugin_url(); ?>/assets/images/help.png" height="16" width="16">
+				<a class="h2-link" href="<?php echo esc_url( $dupe_url ); ?>"><?php esc_html_e( 'Duplicate Cart', 'wc_shipping_multiple_address' ); ?></a>
+				<img class="help_tip" title="<?php esc_html_e( 'Duplicating your cart will allow you to ship the exact same cart contents to multiple locations. This will also increase the price of your purchase.', 'wc_shipping_multiple_address' ); ?>" src="<?php echo WC()->plugin_url(); ?>/assets/images/help.png" height="16" width="16">
 			</div>
 		<?php
 		endif;
@@ -63,10 +63,10 @@
 	<table class="wc-shipping-multiple-addresses shop_table cart" cellspacing="0">
 		<thead>
 			<tr>
-				<th class="product-name" width="20%"><?php _e( 'Product', 'wc_shipping_multiple_address' ); ?></th>
-				<th class="product-quantity" width="20%"><?php _e( 'Quantity', 'wc_shipping_multiple_address' ); ?></th>
+				<th class="product-name" width="20%"><?php esc_html_e( 'Product', 'wc_shipping_multiple_address' ); ?></th>
+				<th class="product-quantity" width="20%"><?php esc_html_e( 'Quantity', 'wc_shipping_multiple_address' ); ?></th>
 				<?php do_action('wc_ms_address_table_head'); ?>
-				<th class="shipping-address" width="30%"><?php _e( 'Shipping Address', 'wc_shipping_multiple_address' ); ?></th>
+				<th class="shipping-address" width="30%"><?php esc_html_e( 'Shipping Address', 'wc_shipping_multiple_address' ); ?></th>
 				<th class="remove-item" width="20%">&nbsp;</th>
 			</tr>
 		</thead>
@@ -138,7 +138,7 @@
 					</select>
 
 				</td>
-				<td><input type="submit" name="delete_line" class="button delete-line-item" data-key="<?php echo $key; ?>" data-index="<?php echo $x; ?>" value="<?php _e('Delete', 'wc_shipping_multiple_address'); ?>" /></td>
+				<td><input type="submit" name="delete_line" class="button delete-line-item" data-key="<?php echo $key; ?>" data-index="<?php echo $x; ?>" value="<?php esc_attr_e( 'Delete', 'wc_shipping_multiple_address' ); ?>" /></td>
 			</tr>
 		<?php
 			endfor;
@@ -155,11 +155,11 @@
 		<input type="hidden" name="shipping_address_action" value="save" />
 
 		<div class="update-shipping-addresses">
-			<input type="submit" name="update_quantities" class="button" value="<?php _e('Update', 'wc_shipping_multiple_address'); ?>" />
+			<input type="submit" name="update_quantities" class="button" value="<?php esc_attr_e( 'Update', 'wc_shipping_multiple_address' ); ?>" />
 		</div>
 
 		<div class="set-shipping-addresses">
-			<input class="button alt" type="submit" name="set_addresses" value="<?php echo __('Save Addresses and Continue', 'wc_shipping_multiple_address'); ?>" />
+			<input class="button alt" type="submit" name="set_addresses" value="<?php esc_attr_e( 'Save Addresses and Continue', 'wc_shipping_multiple_address' ); ?>" />
 		</div>
 
 	</div>
@@ -167,7 +167,7 @@
 	<div class="clear"></div>
 
 	<small>
-		<?php _e('Please note: To send a single item to more than one person, you must change the quantity of that item to match the number of people you\'re sending it to, then click the Update button.', 'wc_shipping_multiple_address'); ?>
+		<?php esc_html_e( 'Please note: To send a single item to more than one person, you must change the quantity of that item to match the number of people you\'re sending it to, then click the Update button.', 'wc_shipping_multiple_address' ); ?>
 	</small>
 
 </form>

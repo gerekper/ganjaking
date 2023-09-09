@@ -6,11 +6,11 @@
  * Description: Accept credit cards in WooCommerce with the Chase Paymentech gateway
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com/
- * Version: 1.16.3
+ * Version: 1.18.0
  * Text Domain: woocommerce-gateway-chase-paymentech
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2013-2022, SkyVerge, Inc. (info@skyverge.com)
+ * Copyright: (c) 2013-2023, SkyVerge, Inc. (info@skyverge.com)
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -22,7 +22,7 @@
  *
  * Woo: 333964:167a54da3dfd72e35d61dc7bd810cb85
  * WC requires at least: 3.9.4
- * WC tested up to: 6.8.0
+ * WC tested up to: 7.9.0
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -36,16 +36,16 @@ class WC_Chase_Paymentech_Loader {
 
 
 	/** minimum PHP version required by this plugin */
-	const MINIMUM_PHP_VERSION = '7.0';
+	const MINIMUM_PHP_VERSION = '7.4';
 
 	/** minimum WordPress version required by this plugin */
-	const MINIMUM_WP_VERSION = '5.2';
+	const MINIMUM_WP_VERSION = '5.6';
 
 	/** minimum WooCommerce version required by this plugin */
 	const MINIMUM_WC_VERSION = '3.9.4';
 
 	/** SkyVerge plugin framework version used by this plugin */
-	const FRAMEWORK_VERSION = '5.10.12';
+	const FRAMEWORK_VERSION = '5.11.7';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Chase Paymentech Gateway';

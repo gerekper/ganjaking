@@ -51,9 +51,9 @@ class WC_MS_Shipworks {
             $is_customer_note = intval( 1 );
 
             if ( isset( $_SERVER['HTTP_HOST'] ) )
-                $comment_author_email 	= sanitize_email( strtolower( __( 'WooCommerce', 'wc_shipping_multiple_address' ) ) . '@' . str_replace( 'www.', '', $_SERVER['HTTP_HOST'] ) );
+                $comment_author_email 	= sanitize_email( strtolower( esc_html__( 'WooCommerce', 'wc_shipping_multiple_address' ) ) . '@' . str_replace( 'www.', '', sanitize_text_field( $_SERVER['HTTP_HOST'] ) ) );
             else
-                $comment_author_email 	= sanitize_email( strtolower( __( 'WooCommerce', 'wc_shipping_multiple_address' ) ) . '@noreply.com' );
+                $comment_author_email 	= sanitize_email( strtolower( esc_html__( 'WooCommerce', 'wc_shipping_multiple_address' ) ) . '@noreply.com' );
 
             $comment_post_ID 		= $parent_id;
             $comment_author 		= __( 'WooCommerce', 'wc_shipping_multiple_address' );

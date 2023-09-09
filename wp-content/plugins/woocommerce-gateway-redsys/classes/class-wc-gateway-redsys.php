@@ -6787,42 +6787,6 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$url = WCRed()->get_url_redsys_payment( $order_id, $final_notify_url );
 				wp_safe_redirect( $url );
 				exit;
-				/*
-				if ( $order->has_status( array( 'pending', 'failed' ) ) ) {
-					WC()->cart->empty_cart( true );
-
-					foreach ( $order->get_items() as $item_id => $line_item ) {
-
-						unset( $_GET['item'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-						$order_item         = WCRed()->get_order_item( $item_id, $order );
-						$product            = wc_get_product( WCRed()->get_canonical_product_id( $order_item ) );
-						$product_id         = $product->is_type( 'variation' ) ? $product->get_parent_id() : $product->get_id();
-						$order_product_data = array(
-							'_qty'          => (int) $line_item['qty'],
-							'_variation_id' => (int) $line_item['variation_id'],
-						);
-
-						$variations = array();
-
-						foreach ( $order_item['item_meta'] as $meta_key => $meta_value ) {
-							$meta_value = is_array( $meta_value ) ? $meta_value[0] : $meta_value; // In WC 3.0 the meta values are no longer arrays.
-
-							if ( taxonomy_is_product_attribute( $meta_key ) || meta_is_product_attribute( $meta_key, $meta_value, $product_id ) ) {
-								$variations[ $meta_key ]           = $meta_value;
-								$_POST[ 'attribute_' . $meta_key ] = $meta_value;
-							}
-						}
-
-						$passed_validation = apply_filters( 'woocommerce_add_to_cart_validation', true, $product_id, $order_product_data['_qty'], $order_product_data['_variation_id'] );
-
-						if ( $passed_validation ) {
-							$cart_item_key = WC()->cart->add_to_cart( $product_id, $order_product_data['_qty'], $order_product_data['_variation_id'], $variations, array() );
-						}
-					}
-				}
-				wp_safe_redirect( wc_get_checkout_url() );
-				exit;
-				*/
 			}
 		}
 	}

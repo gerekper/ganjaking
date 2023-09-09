@@ -1,5 +1,9 @@
 *** Redsys Gateway Change Log ***
 
+2023.09.05 - version 22.2.0
+
+* NEW: Preauthorizations with InSite
+
 2023.08.19 - version 22.1.1
 
 * FIX: InSite compatibility with SUMO Subscriptions.

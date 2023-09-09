@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Ship to Multiple Addresses
  * Plugin URI: https://woocommerce.com/products/shipping-multiple-addresses/
  * Description: Allow customers to ship orders with multiple products or quantities to separate addresses instead of forcing them to place multiple orders for different delivery addresses.
- * Version: 3.8.8
+ * Version: 3.8.9
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: wc_shipping_multiple_address
@@ -33,7 +33,7 @@ function woocommerce_shipping_multiple_addresses_missing_wc_notice() {
 }
 
 if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
-	define( 'WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION', '3.8.8' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION', '3.8.9' ); // WRCS: DEFINED_VERSION.
 
 	class WC_Ship_Multiple {
 
@@ -46,6 +46,10 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 		public $checkout;
 		public $notes;
 		public $gifts;
+		public $admin;
+		public $order;
+		public $shipments;
+		public $csv_export;
 
 		public $meta_key_order      = '_shipping_methods';
 		public $meta_key_settings   = '_shipping_settings';
@@ -281,19 +285,20 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 			$method     = $this->get_product_shipping_method( $thepostid );
 			?>
 			<p style="border-top: 1px solid #DFDFDF;">
-				<strong><?php _e( 'Shipping Options', 'periship' ); ?></strong>
+				<strong><?php esc_html_e( 'Shipping Options', 'periship' ); ?></strong>
 			</p>
 			<p class="form-field method_field">
-				<label for="product_method"><?php _e( 'Shipping Methods', 'wc_shipping_multiple_address' ); ?></label>
+				<label for="product_method"><?php esc_html_e( 'Shipping Methods', 'wc_shipping_multiple_address' ); ?></label>
 				<select name="product_method[]" id="product_method" class="chzn-select" multiple>
 					<option value=""></option>
 					<?php
 					foreach ($ship_methods_array as $value => $label):
 						$selected = (in_array($value, $method)) ? 'selected' : '';
 					?>
-					<option value="<?php echo $value; ?>" <?php echo $selected; ?>><?php echo $label; ?></option>
+					<option value="<?php echo esc_attr( $value ); ?>" <?php echo esc_attr( $selected ); ?>><?php echo esc_html( $label ); ?></option>
 					<?php endforeach; ?>
 				</select>
+				<input type="hidden" name="product_option_nonce" value="<?php echo esc_attr( wp_create_nonce( 'wcms_product_option') ); ?>" />
 			</p>
 			<script type="text/javascript">jQuery("#product_method").chosen();</script>
 			<?php
@@ -302,10 +307,17 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 		public function process_metabox( $post_id ) {
 			$settings = $this->settings;
 
-			$zip_origin = null;
-			$method     = ( ! empty( $_POST['product_method'] ) && is_array( $_POST['product_method'] ) ) ? $_POST['product_method'] : false;
+			$nonce = ( isset( $_POST['product_option_nonce'] ) ) ? sanitize_text_field( wp_unslash( $_POST['product_option_nonce'] ) ) : '';
+			if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'wcms_product_option' ) ) {
+				return;
+			}
 
-			if (! $method ) return;
+			$zip_origin = null;
+			$method     = ( ! empty( $_POST['product_method'] ) && is_array( $_POST['product_method'] ) ) ? sanitize_text_field( wp_unslash( $_POST['product_method'] ) ) : false;
+
+			if ( ! $method ) {
+				return;
+			}
 
 			// remove all instances of this product is first
 			foreach ( $settings as $idx => $setting ) {
@@ -369,16 +381,14 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 				return;
 			}
 
-			if ( isset( $_GET['edit'] ) ) {
+			$idx = isset( $_GET['edit'] ) ? absint( $_GET['edit'] ) : -1; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			if ( -1 !== $idx ) {
 				$updating   = true;
-				$idx        = absint( $_GET['edit'] );
-
-				$otherAddr  = get_user_meta($user->ID, 'wc_other_addresses', true);
-				$address    = $otherAddr[ $idx ];
+				$other_addr = get_user_meta( $user->ID, 'wc_other_addresses', true );
+				$address    = $other_addr[ $idx ];
 			} else {
-				$updating   = false;
-				$idx        = -1;
-				$address    = array();
+				$updating = false;
+				$address  = array();
 			}
 
 				// Enqueue scripts
@@ -410,7 +420,7 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 
 			ob_start();
 
-			if (!isset($_GET['order_id']) || empty($_GET['order_id'])) {
+			if ( ! isset( $_GET['order_id'] ) || empty( $_GET['order_id'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 				$this->cart->load_cart_files();
 
@@ -422,19 +432,20 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 				$addresses  = $this->address_book->get_user_addresses( $user );
 				unset( $shipFields['shipping_state']['country'] );
 
-				if ( isset($_GET['new']) ) {
+				if ( isset($_GET['new']) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 					if ( function_exists('wc_add_notice') )
 						wc_add_notice(__('New address saved', 'wc_shipping_multiple_address'), 'success');
 					else
 						WC()->add_message( __('New address saved', 'wc_shipping_multiple_address') );
 				}
 
-				if ( function_exists('wc_print_notices') )
+				if ( function_exists( 'wc_print_notices' ) ) {
 					wc_print_notices();
-				else
+				} else {
 					WC()->show_messages();
+				}
 
-				if ( empty( $addresses ) || isset( $_REQUEST['address-form'] ) ) {
+				if ( empty( $addresses ) || isset( $_REQUEST['address-form'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 					wc_get_template(
 						'address-form.php',
 						array(
@@ -488,7 +499,7 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 
 			} else {
 				// Load order and display the addresses.
-				$order_id = intval( $_GET['order_id'] );
+				$order_id = intval( $_GET['order_id'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$order    = wc_get_order( $order_id );
 
 				if ( ! is_user_logged_in() ) {
@@ -514,7 +525,7 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 				// load the address fields.
 				$this->cart->load_cart_files();
 
-				echo '<table class="shop_tabe"><thead><tr><th class="product-name">'. __( 'Product', 'wc_shipping_multiple_address' ) .'</th><th class="product-quantity">'. __( 'Qty', 'wc_shipping_multiple_address' ) .'</th><th class="product-address">'. __( 'Address', 'wc_shipping_multiple_address' ) .'</th></thead>';
+				echo '<table class="shop_tabe"><thead><tr><th class="product-name">'. esc_html__( 'Product', 'wc_shipping_multiple_address' ) .'</th><th class="product-quantity">'. esc_html__( 'Qty', 'wc_shipping_multiple_address' ) .'</th><th class="product-address">'. esc_html__( 'Address', 'wc_shipping_multiple_address' ) .'</th></thead>';
 				echo '<tbody>';
 
 				$tr_class = '';
@@ -532,10 +543,12 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 							$item_meta .= '</pre>';
 						}
 
-						echo '<tr class="'. $tr_class .'">';
-						echo '<td class="product-name"><a href="'. get_permalink($product['data']->get_id()) .'">'. apply_filters( 'wcms_product_title', get_the_title($product['data']->get_id()), $product ) .'</a><br />'. $item_meta .'</td>';
-						echo '<td class="product-quantity">'. $product['quantity'] .'</td>';
-						echo '<td class="product-address"><address>'. wcms_get_formatted_address( $package['destination'] ) .'</td>';
+						$package_product_title = apply_filters( 'wcms_product_title', get_the_title( $product['data']->get_id() ), $product );
+						echo '<tr class="' . esc_attr( $tr_class ) . '">';
+						echo '<td class="product-name"><a href="' . esc_url( get_permalink( $product['data']->get_id() ) ) . '">' . wp_kses_post( $package_product_title ) . '</a><br />' . wp_kses_post( $item_meta ) . '</td>';
+						echo '<td class="product-quantity">' . esc_html( $product['quantity'] ) . '</td>';
+						// no need to escape. It's already been filtered by `wcms_get_formatted_address()`.
+						echo '<td class="product-address"><address>' . wcms_get_formatted_address( $package['destination'] ) . '</td>'; //phpcs:ignore
 						echo '</tr>';
 					}
 				}
@@ -602,16 +615,18 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 				$field_name = 'shipping_method';
 			}
 
-			if ( isset($_POST['post_data']) ) {
-				parse_str($_POST['post_data'], $post);
+			// No need for nonce verification. It has been verified on `WC_AJAX::update_order_review()`.
+			if ( isset( $_POST['post_data'] ) ) { //phpcs:ignore
+				parse_str($_POST['post_data'], $post); //phpcs:ignore
 			}
 
 			if ( $type == 0 || $type == 1):
 
 			?>
 			<tr class="multi_shipping">
-				<td style="vertical-align: top;" colspan="<?php if ( version_compare( WOOCOMMERCE_VERSION, '2.0', '<' ) ) echo '2'; else echo '1'; ?>">
-					<?php _e( 'Shipping Methods', 'wc_shipping_multiple_address' ); ?>
+				<?php $colspan_output = ( version_compare( WOOCOMMERCE_VERSION, '2.0', '<' ) ) ? 2 : 1; ?>
+				<td style="vertical-align: top;" colspan="<?php echo esc_attr( $colspan_output ); ?>">
+					<?php esc_html_e( 'Shipping Methods', 'wc_shipping_multiple_address' ); ?>
 
 					<div id="shipping_addresses">
 						<?php
@@ -620,11 +635,11 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 
 							if ( $this->is_address_empty( $package['destination'] ) ) {
 
-								$error_message = __( 'The following items do not have a shipping address assigned.', 'wc_shipping_multiple_address' );
-							
+								$error_message = esc_html__( 'The following items do not have a shipping address assigned.', 'wc_shipping_multiple_address' );
+
 							} elseif ( !isset( $package['rates'] ) || empty( $package['rates'] ) ) {
 
-								$error_message = __( 'There are no shipping options available for the following items.', 'wc_shipping_multiple_address' );
+								$error_message = esc_html__( 'There are no shipping options available for the following items.', 'wc_shipping_multiple_address' );
 
 							}
 
@@ -633,17 +648,18 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 								$products           = $package['contents'];
 								?>
 								<div class="ship_address no_shipping_address">
-									<em><?php echo $error_message; ?></em>
+									<em><?php echo esc_html( $error_message ); ?></em>
 									<ul>
 									<?php
 										foreach ($products as $i => $product):
 											$attributes = html_entity_decode( WC_MS_Compatibility::get_item_data( $product ) );
 											?>
 											<li>
-												<strong><?php echo wp_kses_post( apply_filters( 'wcms_product_title', get_the_title($product['data']->get_id()), $product ) ); ?> x <?php echo $product['quantity']; ?></strong>
+												<strong><?php echo wp_kses_post( apply_filters( 'wcms_product_title', get_the_title( $product['data']->get_id() ), $product ) ); ?> x <?php echo esc_html( $product['quantity'] ); ?></strong>
 												<?php
 												if ( !empty( $attributes ) ) {
-													echo '<small class="data">'. str_replace( "\n", "<br/>", $attributes ) .'</small>';
+													$output_attr = str_replace( "\n", "<br/>", $attributes );
+													echo '<small class="data">' . wp_kses_post( $output_attr ) . '</small>';
 												}
 												?>
 											</li>
@@ -652,7 +668,7 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 										<?php
 										$sess_cart_addresses = wcms_session_get( 'cart_item_addresses' );
 										//if ( $sess_cart_addresses && !empty($sess_cart_addresses) ) {
-											echo '<p style="text-align: center"><a href="'. get_permalink($page_id) .'" class="button modify-address-button">'. __( 'Assign Shipping Address', 'wc_shipping_multiple_address' ) .'</a></p>';
+											echo '<p style="text-align: center"><a href="' . esc_url( get_permalink( $page_id ) ) . '" class="button modify-address-button">'. esc_html__( 'Assign Shipping Address', 'wc_shipping_multiple_address' ) .'</a></p>';
 										//}
 								?>
 								</div>
@@ -675,10 +691,11 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 									$attributes = html_entity_decode( WC_MS_Compatibility::get_item_data( $product, true ) );
 							?>
 							<dd>
-								<strong><?php echo wp_kses_post( apply_filters( 'wcms_product_title', get_the_title($product['data']->get_id()), $product ) ); ?> x <?php echo $product['quantity']; ?></strong>
+								<strong><?php echo wp_kses_post( apply_filters( 'wcms_product_title', get_the_title($product['data']->get_id()), $product ) ); ?> x <?php echo esc_html( $product['quantity'] ); ?></strong>
 								<?php
-									if ( !empty( $attributes ) ) {
-										echo '<small class="data">'. str_replace( "\n", "<br/>", $attributes )  .'</small>';
+									if ( ! empty( $attributes ) ) {
+										$output_attr = str_replace( "\n", "<br/>", $attributes );
+										echo '<small class="data">' . wp_kses_post( $output_attr )  . '</small>';
 									}
 								?>
 							</dd>
@@ -686,7 +703,9 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 							</dl>
 								<?php
 								$formatted_address = wcms_get_formatted_address( $package['destination'] );
-								echo '<address>'. $formatted_address .'</address><br />'; ?>
+
+								// no need to escape. it's already filtered by `wcms_get_formatted_address()`.
+								echo '<address>'. $formatted_address .'</address><br />'; //phpcs:ignore ?>
 								<?php
 
 								do_action( 'wc_ms_shipping_package_block', $x, $package );
@@ -734,8 +753,8 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 								if ( 1 === count( $shipping_methods ) ) {
 									$method = $shipping_methods[0];
 
-									echo $method->label;
-									echo '<input type="hidden" class="shipping_methods shipping_method" name="'. $field_name .'['. $x .']" value="'.esc_attr( $method->id ).'">';
+									echo esc_html( $method->label );
+									echo '<input type="hidden" class="shipping_methods shipping_method" name="' . esc_attr( $field_name .'['. $x .']' ) . '" value="' . esc_attr( $method->id ) . '">';
 
 								// Show multiple shipping methods in a select list
 								} elseif ( count( $shipping_methods ) > 1 ) {
@@ -747,7 +766,7 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 										}
 									}
 
-									echo '<select class="shipping_methods shipping_method" name="'. $field_name .'['. $x .']">';
+									echo '<select class="shipping_methods shipping_method" name="' . esc_attr( $field_name .'[' . $x . ']' ) . '">';
 
 									foreach ( $package['rates'] as $rate ) {
 										if ( $rate->id == 'multiple_shipping' ) continue;
@@ -755,19 +774,20 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 
 										if ( isset( $selected[$x]['id'] ) && $selected[$x]['id'] === $rate->id ) $sel = 'selected';
 
-										echo '<option value="'.esc_attr( $rate->id ).'" '. $sel .'>';
-										echo strip_tags( $rate->label );
+										echo '<option value="' . esc_attr( $rate->id ) . '" ' . esc_attr( $sel ) . '>';
+										// No need to escape. Already use `strip_tags()`
+										echo strip_tags( $rate->label ); //phpcs:ignore
 										echo '</option>';
 									}
 
 									echo '</select>';
 								} else {
-									echo '<p>'.__( '(1) Sorry, it seems that there are no available shipping methods for your state. Please contact us if you require assistance or wish to make alternate arrangements.', 'wc_shipping_multiple_address' ).'</p>';
+									echo '<p>' . esc_html__( '(1) Sorry, it seems that there are no available shipping methods for your state. Please contact us if you require assistance or wish to make alternate arrangements.', 'wc_shipping_multiple_address' ) . '</p>';
 								}
 
 								$sess_cart_addresses = wcms_session_get( 'cart_item_addresses' );
 								if ( $sess_cart_addresses && !empty($sess_cart_addresses) ) {
-									echo '<p><a href="'. get_permalink($page_id) .'" class="modify-address-button">'. __( 'Modify address', 'wc_shipping_multiple_address' ) .'</a></p>';
+									echo '<p><a href="' . esc_url( get_permalink( $page_id ) ) . '" class="modify-address-button">'. esc_html__( 'Modify address', 'wc_shipping_multiple_address' ) .'</a></p>';
 								}
 						?>
 						</div>
@@ -781,10 +801,11 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 									$attributes = WC_MS_Compatibility::get_item_data( $product );
 							?>
 							<dd>
-								<strong><?php echo esc_html( apply_filters( 'wcms_product_title', get_the_title($product['data']->get_id()), $product ) ); ?> x <?php echo $product['quantity']; ?></strong>
+								<strong><?php echo esc_html( apply_filters( 'wcms_product_title', get_the_title($product['data']->get_id()), $product ) ); ?> x <?php echo esc_html( $product['quantity'] ); ?></strong>
 									<?php
 									if ( !empty($attributes) ) {
-										echo '<small class="data">'. str_replace( "\n", "<br/>", $attributes )  .'</small>';
+										$output_attr = str_replace( "\n", "<br/>", $attributes );
+										echo '<small class="data">'. wp_kses_post( $output_attr )  .'</small>';
 									}
 									?>
 							</dd>
@@ -851,32 +872,37 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 								if ( 1 === count( $shipping_methods ) ) {
 									$method = $shipping_methods[0];
 
-									echo $method->label;
-									echo '<input type="hidden" class="shipping_methods shipping_method" name="'. $field_name .'['. $x .']" value="'.esc_attr( $method->id ).'||'. strip_tags($method->label) .'">';
+									echo esc_html( $method->label );
+									// no need to escape. it's already using `strip_tags`.
+									echo '<input type="hidden" class="shipping_methods shipping_method" name="'. $field_name .'['. $x .']" value="'.esc_attr( $method->id ).'||'. strip_tags($method->label) .'">';//phpcs:ignore
 
 								// Show multiple shipping methods in a select list
 								} elseif ( count( $shipping_methods ) > 1 ) {
-									echo '<select class="shipping_methods shipping_method" name="'. $field_name .'['. $x .']">';
+									echo '<select class="shipping_methods shipping_method" name="' . esc_attr( $field_name .'['. $x .']' ) . '">';
 									foreach ( $shipping_methods as $method ) {
 										if ($method->id == 'multiple_shipping' ) continue;
 										$current_selected = ( isset($selected[ $x ])  ) ? $selected[ $x ]['id'] : '';
-										echo '<option value="'.esc_attr( $method->id ).'||'. strip_tags($method->label) .'" '.selected( $current_selected, $method->id, false).'>';
+										
+										// no need to escape. it's already using `strip_tags`.
+										echo '<option value="'.esc_attr( $method->id ).'||'. strip_tags($method->label) .'" '.selected( $current_selected, $method->id, false).'>';//phpcs:ignore
 
-										if ( function_exists('wc_cart_totals_shipping_method_label') )
+										if ( function_exists('wc_cart_totals_shipping_method_label') ) {
 											echo wp_kses_post( wc_cart_totals_shipping_method_label( $method ));
-										else
-											echo strip_tags( $method->label );
+										} else {
+											// no need to escape. it's already using `strip_tags`.
+											echo strip_tags( $method->label );// phpcs:ignore
+										}
 
 										echo '</option>';
 									}
 									echo '</select>';
 								} else {
-									echo '<p>'.__( '(2) Sorry, it seems that there are no available shipping methods for your state. Please contact us if you require assistance or wish to make alternate arrangements.', 'wc_shipping_multiple_address' ).'</p>';
+									echo '<p>' . esc_html__( '(2) Sorry, it seems that there are no available shipping methods for your state. Please contact us if you require assistance or wish to make alternate arrangements.', 'wc_shipping_multiple_address' ) . '</p>';
 								}
 
 								$sess_cart_addresses = wcms_session_get( 'cart_item_addresses' );
 								if ( $sess_cart_addresses && !empty($sess_cart_addresses) ) {
-									echo '<p><a href="'. get_permalink($page_id) .'" class="modify-address-button">'. __( 'Modify address', 'wc_shipping_multiple_address' ) .'</a></p>';
+									echo '<p><a href="' . esc_url( get_permalink( $page_id ) ) . '" class="modify-address-button">' . esc_html__( 'Modify address', 'wc_shipping_multiple_address' ) . '</a></p>';
 								}
 						?>
 						</div>
@@ -899,7 +925,7 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 						<input type="hidden" name="shipping_method" value="multiple_shipping" />
 						<?php endif; ?>
 
-                        <input type="hidden" name="all_shipping_methods" value="<?php echo esc_attr( wp_json_encode( $all_shippings ) ); ?>" />
+						<input type="hidden" name="all_shipping_methods" value="<?php echo isset( $all_shippings ) ? esc_attr( wp_json_encode( $all_shippings ) ) : ''; ?>" />
 					</div>
 
 				</td>
@@ -920,8 +946,8 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 							}
 						}
 					}
-
-					echo wc_price( $shipping_total ) . ' ' . $inc_or_exc_tax;
+					// no need to escape. It has been filtered by `wc_price`.
+					echo wc_price( $shipping_total ) . ' ' . esc_html( $inc_or_exc_tax ); //phpcs:ignore
 					?>
 				</td>
 				<script type="text/javascript">
@@ -940,7 +966,7 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 			?>
 			<tr class="multi_shipping">
 				<td style="vertical-align: top;" colspan="<?php if ( version_compare( WOOCOMMERCE_VERSION, '2.0', '<' ) ) echo '2'; else echo '1'; ?>">
-					<?php _e( 'Shipping Methods', 'wc_shipping_multiple_address' ); ?>
+					<?php esc_html_e( 'Shipping Methods', 'wc_shipping_multiple_address' ); ?>
 
 					<?php
 					foreach ($packages as $x => $package):
@@ -1001,32 +1027,33 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 							// Print a single available shipping method as plain text
 							if ( 1 === count( $shipping_methods ) ) {
 								$method = $shipping_methods[0];
-								echo $method->label;
-								echo '<input type="hidden" class="shipping_methods shipping_method" name="'. $field_name .'['. $x .']" value="'.esc_attr( $method->id ).'">';
+								echo esc_html( $method->label );
+								echo '<input type="hidden" class="shipping_methods shipping_method" name="' . esc_attr( $field_name .'['. $x .']' ) . '" value="'.esc_attr( $method->id ).'">';
 
 							// Show multiple shipping methods in a select list
 							} elseif ( count( $shipping_methods ) > 1 ) {
-								echo '<select class="shipping_methods shipping_method" name="'. $field_name .'['. $x .']">';
+								echo '<select class="shipping_methods shipping_method" name="'. esc_attr( $field_name .'['. $x .']' ) . '">';
 								foreach ( $shipping_methods as $method ) {
 									if ($method->id == 'multiple_shipping' ) continue;
 									echo '<option value="'.esc_attr( $method->id ).'" '.selected( $method->id, (isset($post['shipping_method'])) ? $post['shipping_method'] : '', false).'>';
-									echo strip_tags( $method->label );
+									echo esc_html( $method->label );
 									echo '</option>';
 								}
 								echo '</select>';
 							} else {
-								echo '<p>'.__( '(3) Sorry, it seems that there are no available shipping methods for your state. Please contact us if you require assistance or wish to make alternate arrangements.', 'wc_shipping_multiple_address' ).'</p>';
+								echo '<p>' . esc_html__( '(3) Sorry, it seems that there are no available shipping methods for your state. Please contact us if you require assistance or wish to make alternate arrangements.', 'wc_shipping_multiple_address' ) . '</p>';
 							}
 
 							$sess_cart_addresses = wcms_session_get( 'cart_item_addresses' );
 							if ( $sess_cart_addresses && !empty($sess_cart_addresses) ) {
-								echo '<p><a href="'. get_permalink($page_id) .'" class="modify-address-button">'. __( 'Modify address', 'wc_shipping_multiple_address' ) .'</a></p>';
+								echo '<p><a href="'. esc_url( get_permalink($page_id) ) .'" class="modify-address-button">'. esc_html__( 'Modify address', 'wc_shipping_multiple_address' ) .'</a></p>';
 							}
 						endif;
 					endforeach;
 					?>
 				</td>
-				<td style="vertical-align: top;"><?php echo wc_price( WC()->cart->shipping_total + WC()->cart->shipping_tax_total ); ?></td>
+				<?php // no need to escape. It has been filtered from `wc_price`. ?>
+				<td style="vertical-align: top;"><?php echo wc_price( WC()->cart->shipping_total + WC()->cart->shipping_tax_total ); ?></td><?php // phpcs:ignore ?>
 				<script type="text/javascript">
 				jQuery("tr.shipping").remove();
 				<?php

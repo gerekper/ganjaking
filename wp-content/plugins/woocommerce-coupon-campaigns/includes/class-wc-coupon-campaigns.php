@@ -51,6 +51,9 @@ class WC_Coupon_Campaigns {
 		// Register shortcode.
 		add_shortcode( 'coupon_info', array( $this, 'coupon_info' ) );
 
+		// Hide View row action for coupon campaigns.
+		add_filter( $this->tax . '_row_actions', array( $this, 'remove_view_action_campaign' ), 10, 1 );
+
 		if ( is_admin() ) {
 
 			// Add menu items.
@@ -77,6 +80,21 @@ class WC_Coupon_Campaigns {
 
 		// Register JS used in WooCommerce admin.
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_script' ) );
+	}
+
+	/**
+	 * Hides View row action on coupon campaigns page.
+	 *
+	 * @param array $actions Array of all action links.
+	 * @return array Modified array of action links without view action.
+	 * @since x.x.x
+	 */
+	public function remove_view_action_campaign( $actions ) {
+		if ( isset( $actions['view'] ) ) {
+			unset( $actions['view'] );
+		}
+
+		return $actions;
 	}
 
 	/**
