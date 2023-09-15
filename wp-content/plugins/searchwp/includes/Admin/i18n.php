@@ -106,6 +106,8 @@ class i18n {
 			'_index_outdated' => __( 'The index needs to be rebuilt.', 'searchwp' ),
 			'_index_outdated_tooltip' => __( 'After certain engine configuration changes the index must be rebuilt', 'searchwp' ),
 			'_indexer_blocked_note' => __( 'Indexer BLOCKED by HTTP Basic Authentication!', 'searchwp' ),
+			'_indexer_paused' => __( 'The indexer is paused.', 'searchwp' ),
+			'_indexer_paused_tooltip' => __( 'You can unpause the indexer from the Settings.', 'searchwp' ),
 			'_invalid_default_engine_source_note' => __( 'Custom content Sources cannot be used in the Default engine', 'searchwp' ),
 			'_keyword_stems_note' => __( 'Disregard keyword suffixes when searches are performed', 'searchwp' ),
 			'_license_activation_problem' => __( 'There was a problem activating your license. Please ensure this server can communicate with searchwp.com and try again.', 'searchwp' ),
@@ -145,7 +147,7 @@ class i18n {
 				sprintf(
 					// Translators: 1st placeholder opens the link, 2nd placeholder closes it.
 					__( 'Stopwords are <em>ignored</em> so as to improve relevancy and performance. %1$sMore info%2$s', 'searchwp' ),
-					'<a href="https://searchwp.com/?p=218825#stopwords" target="_blank">',
+					'<a href="https://searchwp.com/?p=424396#stopwords" target="_blank">',
 					'</a>'
 				),
 				[ 'em' => [], 'a' => [ 'href' => [], 'target' => [] ] ]
@@ -156,7 +158,7 @@ class i18n {
 				sprintf(
 					// Translators: 1st placeholder opens the link, 2nd placeholder closes it.
 					__( 'Synonyms facilitate <em>replacement</em> of search terms. Use <code>*</code> wildcard for partial matching. %1$sMore info%2$s', 'searchwp' ),
-					'<a href="https://searchwp.com/?p=218825#synonyms" target="_blank">',
+					'<a href="https://searchwp.com/?p=424396#synonyms" target="_blank">',
 					'</a>'
 				),
 				[ 'em' => [], 'a' => [ 'href' => [], 'target' => [] ], 'code' => [], ]

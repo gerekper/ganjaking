@@ -114,8 +114,72 @@ class EVO_Shortcodes {
 		}
 	
 
-	// single events
+	// single events @up 4.5
 		function single_event_box($atts){
+			extract($atts);
+
+			if(empty($id)) return;
+
+			// if just data parts @4.5
+			if( !empty($ep_display_style) && $ep_display_style == '1' && !empty($event_datavals) && !empty($ep_data_fields) ){
+
+				EVO()->calendar->process_arguments( $atts);	
+				$args = EVO()->calendar->shortcode_args;
+				extract($args);
+
+				$event_id = (int)$id;
+				$event_ri = !empty($repeat_interval) ? (int)$repeat_interval:'0';
+
+				ob_start();
+
+				$fields = explode(',', $ep_data_fields);
+				if( is_array($fields)){
+
+					$EVENT = new EVO_Event($event_id,'', $event_ri );
+
+					
+
+					foreach($fields as $ff){
+						switch ($ff) {
+						case 'event_time':
+							echo $EVENT->get_formatted_smart_time();
+							break;
+
+						case 'event_stime':
+							$start = $EVENT->get_start_time();
+							echo $EVENT->get_readable_formatted_date( $start);
+						break;
+						case 'event_etime':
+							$start = $EVENT->get_end_time();
+							echo $EVENT->get_readable_formatted_date( $start);
+						break;
+						case 'event_link':
+							echo $EVENT->get_permalink($event_ri, $lang);
+						break;
+						case 'event_subtitle':
+							echo $EVENT->get_subtitle();
+						break;
+						case 'event_location_name':
+							echo $EVENT->get_location_name();
+						break;
+						case 'event_location_add':
+							echo $EVENT->get_location_address();
+						break;
+						case 'event_organizers':
+							$names = $EVENT->get_organizer_names();
+							if( $names && is_array($names)){
+								echo implode(', ', $names);
+							}
+						break;
+						}
+					}
+				}
+
+				return ob_get_clean();
+
+			}
+
+			// regular event box
 			EVO()->frontend->load_evo_scripts_styles();		
 			
 			add_filter('eventon_shortcode_defaults', array($this,'shortcode_defaults_single_event'), 10, 1);
@@ -126,15 +190,11 @@ class EVO_Shortcodes {
 			// intial checks
 				if(empty($args['id'])) return false; // when the id value was not passed
 
-
-
 			// show just parts of the event
 				$is_event_parts = isset($atts['event_parts'] ) && $atts['event_parts'] == 'yes' ? true:false;
 				if($is_event_parts){
 					$args['show_exp_evc'] = 'yes';
-				}
-					
-
+				}					
 
 			// user interaction for this event box
 				$ev_uxval = 4; // default open as event page

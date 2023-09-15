@@ -24,6 +24,7 @@ var shortcode = wp.shortcode;
 if( wp.blocks === undefined ) return;
 if( wp.blocks.registerBlockType === undefined ) return;
 
+
 wp.blocks.registerBlockType( 'eventon-blocks/evo-eventon-main', {
     title: 'EventON',
     icon: evo_icon,

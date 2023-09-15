@@ -35,12 +35,14 @@ class WoocommerceGpfWoocommerceProductBundles {
 	 * @return array
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
+	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 	public function assign_price_calculator( $calculator, $product_type, $product ) {
 		if ( 'bundle' === $product_type ) {
 			return [ $this, 'calculate_prices' ];
 		}
 		return $calculator;
 	}
+	// phpcs:enable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
 	/**
 	 * Calculate prices for Bundle products.

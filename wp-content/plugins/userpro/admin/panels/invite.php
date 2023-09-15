@@ -27,6 +27,7 @@
 </table>
 
 <p class="submit">
+    <input type="hidden" name="user_pro_nonce" value="<?= wp_create_nonce("user_pro_nonce"); ?>";>
 	<input type="submit" name="submit" id="submit" class="up-admin-btn up-admin-btn--dark-blue small" value="<?php _e('Save Settings','userpro'); ?>"  />
 </p>
 

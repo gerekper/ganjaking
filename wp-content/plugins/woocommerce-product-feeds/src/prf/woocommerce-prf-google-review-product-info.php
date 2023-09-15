@@ -121,7 +121,7 @@ class WoocommercePrfGoogleReviewProductInfo {
 
 		// Internal IDs are requested as a fallback, add them if necessary.
 		if ( empty( $product_info['gtins'] ) &&
-			 ( empty( $product_info['mpns'] ) || empty( $product_info['brands'] ) )
+			( empty( $product_info['mpns'] ) || empty( $product_info['brands'] ) )
 		) {
 			$product_info['skus'][] = $gpf_feed_item->guid;
 		}

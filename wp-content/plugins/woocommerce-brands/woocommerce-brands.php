@@ -9,7 +9,7 @@
  * Developer URI: http://woocommerce.com/
  * Requires at least: 4.4
  * Tested up to: 6.3
- * Version: 1.6.57
+ * Version: 1.6.58
  * Text Domain: woocommerce-brands
  * Domain Path: /languages/
  * WC tested up to: 8.1
@@ -36,6 +36,9 @@
  */
 
 use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\WooCommerce\Admin\BlockTemplates\BlockTemplateInterface;
+use Automattic\WooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates\ProductFormTemplateInterface;
+
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -62,13 +65,12 @@ add_action(
  * Initialize plugin.
  */
 function wc_brands_init() {
-
 	if ( ! class_exists( 'WooCommerce' ) ) {
 		add_action( 'admin_notices', 'wc_brands_woocommerce_deactivated' );
 		return;
 	}
 
-	define( 'WC_BRANDS_VERSION', '1.6.57' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_BRANDS_VERSION', '1.6.58' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Localisation
@@ -95,7 +97,6 @@ function wc_brands_init() {
  * @return array
  */
 function wc_brands_plugin_action_links( $actions ) {
-
 	$custom_actions = array();
 
 	// Documentation URL.
@@ -133,4 +134,31 @@ function wc_brands_activate() {
 		require_once 'includes/class-wc-brands.php';
 		WC_Brands::init_taxonomy();
 	}
+}
+
+if ( ! function_exists( 'wc_brands_on_block_template_register' ) ) {
+	/**
+	 * Add a new block to the template.
+	 */
+	function wc_brands_on_block_template_register( BlockTemplateInterface $template ) {
+		if ( $template instanceof ProductFormTemplateInterface && 'simple-product' === $template->get_id() ) {
+			$section = $template->get_section_by_id( 'product-catalog-section' );
+			if ( $section !== null ) {
+				$section->add_block(
+					[
+						'id'         => 'woocommerce-brands-select',
+						'blockName'  => 'woocommerce/product-taxonomy-field',
+						'order'      => 15,
+						'attributes' => [
+							'label'       => __( 'Brands', 'woocommerce-brands' ),
+							'createTitle' => __( 'Create new brand', 'woocommerce-brands' ),
+							'slug'        => 'product_brand',
+							'property'    => 'brands',
+						],
+					]
+				);
+			}
+		}
+	}
+	add_action( 'woocommerce_block_template_register', 'wc_brands_on_block_template_register' );
 }

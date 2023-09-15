@@ -1,7 +1,5 @@
 <?php
 
-use Pimple\Container as Container;
-
 class WoocommerceProductFeedsFeedConfigFactory {
 	/**
 	 * @var WoocommerceProductFeedsFeedConfigRepository

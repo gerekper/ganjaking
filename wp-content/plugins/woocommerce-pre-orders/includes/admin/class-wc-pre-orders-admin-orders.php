@@ -148,11 +148,12 @@ class WC_Pre_Orders_Admin_Orders {
 				continue;
 			}
 
-			if ( 'yes' === get_post_meta( $product->get_id(), '_wc_pre_orders_enabled', true ) ) {
-				// Set correct flags for this order, making it a pre order.
+			if ( WC_Pre_Orders_Product::product_can_be_pre_ordered( $product ) ) {
+				// Set correct flags for this order, making it a pre-order.
 				$order->update_meta_data( '_wc_pre_orders_is_pre_order', 1 );
 				$order->update_meta_data( '_wc_pre_orders_when_charged', get_post_meta( $product->get_id(), '_wc_pre_orders_when_to_charge', true ) );
 				$order->save();
+
 				return;
 			}
 		}

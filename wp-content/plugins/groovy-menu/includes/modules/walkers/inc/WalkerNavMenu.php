@@ -213,32 +213,35 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 				],
 				'megamenu-bg'                      => [
 					'id'          => 'megamenu-bg',
-					'label'       => esc_attr__( 'Background image for next level dropdown', 'groovy-menu' ),
+					'label'       => esc_attr__( 'Mega menu background image', 'groovy-menu' ),
 					'description' => '',
 					'type'        => 'media',
 					'default'     => '',
 					'save_id'     => self::MEGAMENU_BACKGROUND,
 					'depth'       => 0,
+					'field_class' => 'megamenu-options-depend',
 				],
 				'megamenu-bg-position'             => [
 					'id'          => 'megamenu-bg-position',
-					'label'       => esc_attr__( 'Background image position', 'groovy-menu' ),
+					'label'       => esc_attr__( 'Mega menu columns', 'groovy-menu' ),
 					'choices'     => self::$backgroundPositions,
 					'description' => '',
 					'type'        => 'select',
 					'default'     => 'top center',
 					'save_id'     => self::MEGAMENU_BACKGROUND_POSITION,
 					'depth'       => 0,
+					'field_class' => 'megamenu-options-depend',
 				],
 				'megamenu-bg-repeat'               => [
 					'id'          => 'megamenu-bg-repeat',
-					'label'       => esc_attr__( 'Background image repeat', 'groovy-menu' ),
+					'label'       => esc_attr__( 'Background repeat', 'groovy-menu' ),
 					'choices'     => self::$backgroundRepeats,
 					'description' => '',
 					'type'        => 'select',
 					'default'     => 'repeat',
 					'save_id'     => self::MEGAMENU_BACKGROUND_REPEAT,
 					'depth'       => 0,
+					'field_class' => 'megamenu-options-depend',
 				],
 				'megamenu-bg-size'                 => [
 					'id'          => 'megamenu-bg-size',
@@ -249,6 +252,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'default'     => 'full',
 					'save_id'     => self::MEGAMENU_BACKGROUND_SIZE,
 					'depth'       => 0,
+					'field_class' => 'megamenu-options-depend',
 				],
 				// ------------------------------------------------------------------------------- Thumbnail settings
 				'thumb-enable'                     => [
@@ -1090,43 +1094,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 
 				$mm_content = ob_get_clean();
 
-
-				// All other cases.
 			} else {
-
-				// Check Bricks builder content.
-				if ( defined( 'BRICKS_DB_PAGE_CONTENT' ) && class_exists( '\Bricks\Frontend' ) && class_exists( '\Bricks\Assets' ) ) {
-
-					$bricks_data = get_post_meta( $post_id, BRICKS_DB_PAGE_CONTENT, true );
-
-					// Check for old section, row, column layout syntax
-					if ( ! isset( $bricks_data[0]['parent'] ) ) {
-						$bricks_data = get_post_meta( $post_id, '_bricks_page_content', true );
-					}
-
-					if ( ! empty( $bricks_data ) && is_array( $bricks_data ) && method_exists( '\Bricks\Frontend', 'render_data' ) ) {
-
-						// Store the current main render_data \Bricks\Frontend::$elements
-						$store_elements = \Bricks\Frontend::$elements;
-
-						$bricks_content = \Bricks\Frontend::render_data( $bricks_data, $post_id, 'content', true );
-
-						// Reset the main render_data \Bricks\Frontend::$elements
-						\Bricks\Frontend::$elements = $store_elements;
-
-
-						\Bricks\Assets::$inline_css['content'] = '';
-
-						\Bricks\Assets::generate_css_from_elements( $bricks_data, 'content' );
-						$inline_css = \Bricks\Assets::$inline_css['content'];
-
-						\Bricks\Assets::$inline_css['content'] = '';
-
-						$bricks_content .= "\n <style>{$inline_css}</style>";
-
-						return $bricks_content;
-					}
-				}
 
 				$raw_content = empty( $post->post_content ) ? '' : $post->post_content;
 

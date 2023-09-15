@@ -92,7 +92,7 @@ class WoocommerceGpfAbstractCacheRebuildBatchJob extends WoocommerceGpfAbstractC
 	 */
 	public function filter_query( $query, $query_vars ) {
 		if ( empty( $this->term_filter['taxonomy'] ) ||
-			 empty( $this->term_filter['term_id'] ) ) {
+			empty( $this->term_filter['term_id'] ) ) {
 			return $query;
 		}
 		$query['tax_query'][] = array(

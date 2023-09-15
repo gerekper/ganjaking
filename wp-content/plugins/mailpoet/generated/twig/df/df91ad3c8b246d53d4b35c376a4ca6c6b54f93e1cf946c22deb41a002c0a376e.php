@@ -107,7 +107,7 @@ class __TwigTemplate_97885955d9a61cd687e4b5c17a9f999c888cf1faf1a92c3e61951df9645
 <div class=\"mailpoet_form_field\">
   <p class=\"mailpoet_settings_notice\">";
         // line 44
-        echo MailPoet\Util\Helpers::replaceLinkTags($this->extensions['MailPoet\Twig\I18n']->translateWithContext("A [link]few email clients[/link] do not show background images. Make sure you have a good background color to fall back on if the image is not displayed.", "Editor > right sidebar for column block settings."), "https://kb.mailpoet.com/article/261-add-a-background-image-to-your-newsletter", ["target" => "_blank", "data-beacon-article" => "5bf5863104286304a71c7e1a"]);
+        echo MailPoet\Util\Helpers::replaceLinkTags($this->extensions['MailPoet\Twig\I18n']->translateWithContext("A [link]few email clients[/link] do not show background images. Make sure you have a good background color to fall back on if the image is not displayed.", "Editor > right sidebar for column block settings."), "https://kb.mailpoet.com/article/261-add-a-background-image-to-your-newsletter", ["target" => "_blank"]);
         echo "</p>
 </div>
 <div class=\"mailpoet_form_field\">

@@ -59,15 +59,23 @@ class WC_Pre_Orders_Email_New_Pre_Order extends WC_Email {
 	 * @since 1.0
 	 */
 	public function trigger( $order_id ) {
-
 		if ( $order_id ) {
 			$this->object = new WC_Order( $order_id );
 
-			$this->find[]    = '{order_date}';
-			$this->replace[] = date_i18n( wc_date_format(), strtotime( ( $this->object->get_date_created() ? gmdate( 'Y-m-d H:i:s', $this->object->get_date_created()->getOffsetTimestamp() ) : '' ) ) );
-
-			$this->find[]    = '{order_number}';
-			$this->replace[] = $this->object->get_order_number();
+			$this->placeholders = array_merge(
+				array(
+					'{order_date}'   => date_i18n(
+						wc_date_format(),
+						strtotime( (
+						$this->object->get_date_created()
+							? gmdate( 'Y-m-d H:i:s', $this->object->get_date_created()->getOffsetTimestamp() )
+							: ''
+						) )
+					),
+					'{order_number}' => $this->object->get_order_number()
+				),
+				$this->placeholders
+			);
 		}
 
 		if ( ! $this->is_enabled() || ! $this->get_recipient() ) {

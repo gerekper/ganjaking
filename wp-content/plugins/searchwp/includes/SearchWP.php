@@ -387,8 +387,10 @@ class SearchWP {
 		echo '<p class="searchwp-revised-search-notice">';
 		echo wp_kses(
 			sprintf(
-				// Translators: Placeholder is the revised search string.
-				__( 'Showing results for <em class="searchwp-suggested-revision-query">%s</em>', 'searchwp' ),
+				apply_filters( 'searchwp\query\revised_search_notice',
+					// Translators: Placeholder is the revised search string.
+					__( 'Showing results for <em class="searchwp-suggested-revision-query">%s</em>', 'searchwp' )
+				),
 				esc_html( $suggestion )
 			),
 			[ 'em' => [ 'class' => [], ], ]

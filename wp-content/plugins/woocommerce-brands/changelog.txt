@@ -1,5 +1,11 @@
 *** Brands Changelog ***
 
+2023-09-12 - version 1.6.58
+* Add - Add support for the new product block editor.
+* Dev - Update to node v16.
+* Fix - Brands with out-of-stock products being listed when excluded from the catalog.
+* Fix - Update tooling for PHP 7.4 - 8.2.
+
 2023-09-05 - version 1.6.57
 * Add - Implement blockified template.
 * Fix - Release 1.6.56.

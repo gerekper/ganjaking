@@ -7,7 +7,7 @@ jQuery(document).ready(function() {
 		td = jQuery(this).parents('tr');
 		jQuery.ajax({
 			url: ajaxurl,
-			data: 'action=userpro_delete_achievement_badge&btype=' + btype + '&bid=' + bid,
+			data: 'action=userpro_delete_achievement_badge&btype=' + btype + '&bid=' + bid + '&nonce=' + USER_PRO_DATA.nonce,
 			dataType: 'JSON',
 			type: 'POST',
 			success:function(data){
@@ -50,7 +50,7 @@ jQuery(document).ready(function() {
 		
 		jQuery.ajax({
 			url: ajaxurl,
-			data: 'action=userpro_delete_user_badge&user_id=' + user_id + '&badge_url=' + badge_url,
+			data: 'action=userpro_delete_user_badge&user_id=' + user_id + '&badge_url=' + badge_url + '&nonce=' + USER_PRO_DATA.nonce,
 			dataType: 'JSON',
 			type: 'POST',
 			success:function(data){
@@ -76,7 +76,7 @@ jQuery(document).ready(function() {
 			jQuery(this).attr('disabled');
 			jQuery.ajax({
 				url: ajaxurl,
-				data: 'action=userpro_delete_all_user_badge&selected_badge=' + selected_badge,
+				data: 'action=userpro_delete_all_user_badge&selected_badge=' + selected_badge + '&nonce=' + USER_PRO_DATA.nonce,
 				dataType: 'JSON',
 				type: 'POST',
 				success:function(data){

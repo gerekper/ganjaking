@@ -108,7 +108,7 @@ class WoocommerceGpfAdmin {
 	public function initialise() {
 
 		$this->settings = get_option( 'woocommerce_gpf_config', array() );
-		$this->base_dir = dirname( dirname( dirname( __FILE__ ) ) );
+		$this->base_dir = dirname( dirname( __DIR__ ) );
 
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'admin_init', array( $this, 'admin_init' ), 11 );
@@ -144,7 +144,7 @@ class WoocommerceGpfAdmin {
 	public function init() {
 
 		// Add a Settings link to the plugin page.
-		$plugin_file = basename( dirname( dirname( dirname( __FILE__ ) ) ) ) . '/woocommerce-gpf.php';
+		$plugin_file = basename( dirname( dirname( __DIR__ ) ) ) . '/woocommerce-gpf.php';
 		add_filter( 'plugin_action_links_' . $plugin_file, array( $this, 'add_settings_link' ), 11 );
 
 		// Handle ajax requests for the google taxonomy search
@@ -504,13 +504,13 @@ class WoocommerceGpfAdmin {
 
 				// Skip if not enabled & not mandatory.
 				if ( ! isset( $this->settings['product_fields'][ $key ] ) &&
-					 ( ! isset( $this->product_fields[ $key ]['mandatory'] ) || ! $this->product_fields[ $key ]['mandatory'] )
+					( ! isset( $this->product_fields[ $key ]['mandatory'] ) || ! $this->product_fields[ $key ]['mandatory'] )
 				) {
 					continue;
 				}
 				// Skip if not to be shown on product pages.
 				if ( isset( $this->product_fields[ $key ]['skip_on_category_pages'] ) &&
-					 $this->product_fields[ $key ]['skip_on_category_pages']
+					$this->product_fields[ $key ]['skip_on_category_pages']
 				) {
 					continue;
 				}
@@ -681,8 +681,7 @@ class WoocommerceGpfAdmin {
 						$placeholder,
 						$loop_idx
 					);
-				} else {
-					if ( isset( $current_data[ $key ] ) ) {
+				} elseif ( isset( $current_data[ $key ] ) ) {
 						$variables['field_input'] = call_user_func(
 							array( $this, $fieldinfo['callback'] ),
 							$key,
@@ -691,16 +690,15 @@ class WoocommerceGpfAdmin {
 							$placeholder,
 							$loop_idx
 						);
-					} else {
-						$variables['field_input'] = call_user_func(
-							array( $this, $fieldinfo['callback'] ),
-							$key,
-							'variation',
-							null,
-							$placeholder,
-							$loop_idx
-						);
-					}
+				} else {
+					$variables['field_input'] = call_user_func(
+						array( $this, $fieldinfo['callback'] ),
+						$key,
+						'variation',
+						null,
+						$placeholder,
+						$loop_idx
+					);
 				}
 				$group_content .= $this->template_loader->get_template_with_variables( 'woo-gpf', 'product-meta-field-row', $variables );
 			}
@@ -758,13 +756,13 @@ class WoocommerceGpfAdmin {
 
 				// Skip if not enabled & not mandatory.
 				if ( ! isset( $this->settings['product_fields'][ $key ] ) &&
-					 ( ! isset( $this->product_fields[ $key ]['mandatory'] ) || ! $this->product_fields[ $key ]['mandatory'] )
+					( ! isset( $this->product_fields[ $key ]['mandatory'] ) || ! $this->product_fields[ $key ]['mandatory'] )
 				) {
 					continue;
 				}
 				// Skip if not to be shown on product pages.
 				if ( isset( $this->product_fields[ $key ]['skip_on_product_pages'] ) &&
-					 $this->product_fields[ $key ]['skip_on_product_pages']
+					$this->product_fields[ $key ]['skip_on_product_pages']
 				) {
 					continue;
 				}
@@ -859,12 +857,10 @@ class WoocommerceGpfAdmin {
 				if ( isset( $current_data[ $key ] ) ) {
 					unset( $current_data[ $key ] );
 				}
-			} else {
-				if ( is_array( $value ) ) {
+			} elseif ( is_array( $value ) ) {
 					$post_data[ $key ] = stripslashes_deep( $value );
-				} else {
-					$post_data[ $key ] = stripslashes( $value );
-				}
+			} else {
+				$post_data[ $key ] = stripslashes( $value );
 			}
 		}
 		// Including missing checkboxes
@@ -930,9 +926,9 @@ class WoocommerceGpfAdmin {
 			$variables['key'] = $loop_idx . '][' . esc_attr( $key );
 		}
 		if ( isset( $_REQUEST['post'] ) ||
-			 isset( $_REQUEST['taxonomy'] ) ||
-			 isset( $_REQUEST['post_type'] ) ||
-			 ! is_null( $loop_idx ) ) {
+			isset( $_REQUEST['taxonomy'] ) ||
+			isset( $_REQUEST['post_type'] ) ||
+			! is_null( $loop_idx ) ) {
 			$variables['emptytext'] = __( 'Use default', 'woocommerce_gpf' );
 		} else {
 			$variables['emptytext'] = __( 'No default', 'woocommerce_gpf' );
@@ -1064,9 +1060,11 @@ class WoocommerceGpfAdmin {
 	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
+	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 	private function render_description( $key, $context, $current_data = null, $placeholder = null, $loop_idx = null ) {
 		return '';
 	}
+	// phpcs:enable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
 	/**
 	 * Let people choose whether a product is_bundle.
@@ -1836,7 +1834,7 @@ class WoocommerceGpfAdmin {
 			$current_data = isset( $this->settings['product_defaults'][ $key ] ) ? $this->settings['product_defaults'][ $key ] : '';
 		}
 		if ( ! isset( $this->{'product_fields'}[ $key ]['callback'] ) ||
-			 ! is_callable( array( $this, $this->{'product_fields'}[ $key ]['callback'] ) ) ) {
+			! is_callable( array( $this, $this->{'product_fields'}[ $key ]['callback'] ) ) ) {
 			$variables['defaultvalue'] = esc_attr( $current_data );
 
 			return $this->template_loader->get_template_with_variables(

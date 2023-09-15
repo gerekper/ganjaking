@@ -45,4 +45,3 @@ class WoocommerceGpfTheContentProtection {
 		wp_reset_postdata();
 	}
 }
-

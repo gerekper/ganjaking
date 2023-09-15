@@ -42,7 +42,10 @@ jQuery(document).ready(function () {
 
         jQuery.ajax({
             url: ajaxurl,
-            data: 'action=userpro_default_background_img_remove',
+            data: {
+                action: 'userpro_default_background_img_remove',
+                nonce: USER_PRO_DATA.nonce
+            },
             dataType: 'JSON',
             type: 'POST',
             success: function (data) {
@@ -129,7 +132,7 @@ jQuery(document).ready(function () {
             jQuery('.up-service-loading').show();
             jQuery.ajax({
                 url: ajaxurl,
-                data: form.serialize() + '&action=userpro_service_request',
+                data: form.serialize() + '&action=userpro_service_request' + '&nonce=' + USER_PRO_DATA.nonce,
                 type: 'POST',
                 success: function (data) {
                     jQuery('.up-service-message').html(data);
@@ -216,7 +219,11 @@ jQuery(document).ready(function () {
         var parent = jQuery(this).parents('.upadmin-pending-verify');
         jQuery.ajax({
             url: ajaxurl,
-            data: 'action=userpro_admin_user_deny&user_id=' + jQuery(this).data('user'),
+            data: {
+                action: 'userpro_admin_user_deny',
+                user_id: jQuery(this).data('user'),
+                nonce: USER_PRO_DATA.nonce
+            },
             dataType: 'JSON',
             type: 'POST',
             success: function (data) {
@@ -354,7 +361,11 @@ jQuery(document).ready(function () {
         var parent = jQuery(this).parents('.upadmin-pending-verify');
         jQuery.ajax({
             url: ajaxurl,
-            data: 'action=userpro_admin_user_approve&user_id=' + jQuery(this).data('user'),
+            data: {
+                action: 'userpro_admin_user_approve',
+                user_id: jQuery(this).data('user'),
+                nonce: USER_PRO_DATA.nonce
+            },
             dataType: 'JSON',
             type: 'POST',
             success: function (data) {
@@ -384,7 +395,11 @@ jQuery(document).ready(function () {
         var parent = jQuery(this).parents('.upadmin-verify-v2');
         jQuery.ajax({
             url: ajaxurl,
-            data: 'action=userpro_verify_user&user_id=' + link.data('user'),
+            data: {
+                action: 'userpro_verify_user',
+                user_id: link.data('user'),
+                nonce: USER_PRO_DATA.nonce
+            },
             dataType: 'JSON',
             type: 'POST',
             success: function (data) {
@@ -424,6 +439,7 @@ jQuery(document).ready(function () {
             ccEmails = ccEmails.replace(/\s/g,'');
             var data = {
                 'action': 'userpro_user_invite',
+                nonce: USER_PRO_DATA.nonce,
                 'emails': emails ,
                 'cc_emails': ccEmails
             };
@@ -470,6 +486,7 @@ jQuery(document).ready(function () {
 
         var data = {
             action: action,
+            nonce: USER_PRO_DATA.nonce,
             email: email,
         };
 
@@ -505,7 +522,11 @@ jQuery(document).ready(function () {
         var parent = jQuery(this).parents('.upadmin-verify-v2');
         jQuery.ajax({
             url: ajaxurl,
-            data: 'action=userpro_verify_invite&user_id=' + link.data('user'),
+            data: {
+                action: 'userpro_verify_invite',
+                user_id: link.data('user'),
+                nonce: USER_PRO_DATA.nonce
+            },
             dataType: 'JSON',
             type: 'POST',
             success: function (data) {
@@ -522,7 +543,7 @@ jQuery(document).ready(function () {
         var parent = jQuery(this).parents('.upadmin-pending-verify');
         jQuery.ajax({
             url: ajaxurl,
-            data: 'action=userpro_verify_user&user_id=' + jQuery(this).data('user'),
+            data: 'action=userpro_verify_user&user_id=' + jQuery(this).data('user') + '&nonce=' + USER_PRO_DATA.nonce,
             dataType: 'JSON',
             type: 'POST',
             success: function (data) {
@@ -587,7 +608,11 @@ jQuery(document).ready(function () {
         var parent = jQuery(this).parents('.upadmin-block-v2');
         jQuery.ajax({
             url: ajaxurl,
-            data: 'action=userpro_block_account&user_id=' + link.data('user'),
+            data: {
+                action: 'userpro_block_account',
+                user_id: link.data('user'),
+                nonce: USER_PRO_DATA.nonce
+            },
             dataType: 'JSON',
             type: 'POST',
             success: function (data) {
@@ -604,7 +629,11 @@ jQuery(document).ready(function () {
         var parent = jQuery(this).parents('.upadmin-block-v2');
         jQuery.ajax({
             url: ajaxurl,
-            data: 'action=userpro_unblock_account&user_id=' + link.data('user'),
+            data: {
+                action: 'userpro_unblock_account',
+                user_id: link.data('user'),
+                nonce: USER_PRO_DATA.nonce
+            },
             dataType: 'JSON',
             type: 'POST',
             success: function (data) {
@@ -683,7 +712,7 @@ jQuery(document).ready(function () {
             jQuery(this).parents('li').fadeOut();
             jQuery.ajax({
                 url: ajaxurl,
-                data: 'action=userpro_delete_field&field=' + field,
+                data: 'action=userpro_delete_field&field=' + field + '&nonce=' + USER_PRO_DATA.nonce,
                 dataType: 'JSON',
                 type: 'POST',
                 success: function (data) {
@@ -716,7 +745,7 @@ jQuery(document).ready(function () {
 
         jQuery.ajax({
             url: ajaxurl,
-            data: 'action=userpro_update_field&field=' + field + str,
+            data: 'action=userpro_update_field&field=' + field + str + '&nonce=' + USER_PRO_DATA.nonce,
             //dataType: 'JSON',
             type: 'POST',
             success: function (data) {
@@ -870,7 +899,10 @@ jQuery(document).ready(function () {
         form.find('.upadmin-loader').addClass('loading');
         jQuery.ajax({
             url: ajaxurl,
-            data: 'action=userpro_restore_builtin_fields',
+            data: {
+                action: 'userpro_restore_builtin_fields',
+                nonce: USER_PRO_DATA.nonce
+            },
             dataType: 'JSON',
             type: 'POST',
             success: function (data) {
@@ -890,7 +922,10 @@ jQuery(document).ready(function () {
         form.find('.upadmin-loader').addClass('loading');
         jQuery.ajax({
             url: ajaxurl,
-            data: 'action=userpro_restore_builtin_groups',
+            data: {
+                action: 'userpro_restore_builtin_groups',
+                nonce: USER_PRO_DATA.nonce
+            },
             dataType: 'JSON',
             type: 'POST',
             success: function (data) {
@@ -915,7 +950,7 @@ jQuery(document).ready(function () {
         form.parents('.upadmin-fieldlist').find('.upadmin-loader').addClass('loading');
         jQuery.ajax({
             url: ajaxurl,
-            data: form.serialize() + '&action=userpro_create_field',
+            data: form.serialize() + '&action=userpro_create_field' + '&nonce=' + USER_PRO_DATA.nonce,
             dataType: 'JSON',
             type: 'POST',
             success: function (data) {
@@ -943,7 +978,7 @@ jQuery(document).ready(function () {
         form.find('.upadmin-tpl-head').append('<img src="' + form.data('loading') + '" alt="" class="upadmin-miniload" />');
         jQuery.ajax({
             url: ajaxurl,
-            data: form.serialize() + '&action=userpro_reset_group&role=' + role,
+            data: form.serialize() + '&action=userpro_reset_group&role=' + role + '&nonce=' + USER_PRO_DATA.nonce,
             dataType: 'JSON',
             type: 'POST',
             success: function (data) {
@@ -975,7 +1010,7 @@ jQuery(document).ready(function () {
 
         jQuery.ajax({
             url: ajaxurl,
-            data: form.serialize() + '&action=userpro_save_group&role=' + role + '&group=' + group,
+            data: form.serialize() + '&action=userpro_save_group&role=' + role + '&group=' + group + '&nonce=' + USER_PRO_DATA.nonce,
             dataType: 'JSON',
             type: 'POST',
             success: function (data) {
@@ -1039,6 +1074,7 @@ jQuery(document).ready(function () {
                 dataType: 'json',
                 data: {
                     action: 'userpro_field_sort',
+                    nonce: USER_PRO_DATA.nonce,
                     order: itemList.sortable('toArray').toString()
                 },
                 success: function (data) {
@@ -1119,7 +1155,11 @@ function up_preview_email(elm) {
     }
     jQuery.ajax({
         url: ajaxurl,
-        data: {'action': 'userpro_preview_email', 'template': template},
+        data: {
+            'action': 'userpro_preview_email',
+            'template': template,
+            nonce: USER_PRO_DATA.nonce
+        },
         dataType: 'JSON',
         type: 'POST',
         success: function (data) {
@@ -1220,6 +1260,7 @@ function denyApproveActionsWithUser(thisElement, actionType){
         'action': 'userpro_verifyUnverifyAllUsers',
         'user_id': users_ids,
         'action_type': actionType,
+        'user_pro_nonce': USER_PRO_DATA.nonce
     };
     jQuery.ajax({
         url: ajaxurl,

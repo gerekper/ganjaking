@@ -67,13 +67,20 @@ class StatisticsWooCommercePurchaseEntity {
    */
   private $orderPriceTotal;
 
+  /**
+   * @ORM\Column(type="string")
+   * @var string
+   */
+  private $status;
+
   public function __construct(
     NewsletterEntity $newsletter,
     SendingQueueEntity $queue,
     StatisticsClickEntity $click,
     int $orderId,
     string $orderCurrency,
-    float $orderPriceTotal
+    float $orderPriceTotal,
+    string $status
   ) {
     $this->newsletter = $newsletter;
     $this->queue = $queue;
@@ -81,6 +88,7 @@ class StatisticsWooCommercePurchaseEntity {
     $this->orderId = $orderId;
     $this->orderCurrency = $orderCurrency;
     $this->orderPriceTotal = $orderPriceTotal;
+    $this->status = $status;
   }
 
   public function getNewsletter(): ?NewsletterEntity {
@@ -125,5 +133,13 @@ class StatisticsWooCommercePurchaseEntity {
 
   public function setOrderPriceTotal(float $orderPriceTotal): void {
     $this->orderPriceTotal = $orderPriceTotal;
+  }
+
+  public function getStatus(): string {
+    return $this->status;
+  }
+
+  public function setStatus(string $status): void {
+    $this->status = $status;
   }
 }

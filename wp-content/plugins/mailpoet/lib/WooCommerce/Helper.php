@@ -28,6 +28,14 @@ class Helper {
     return $this->isWooCommerceActive() ? get_plugin_data(WP_PLUGIN_DIR . '/woocommerce/woocommerce.php')['Version'] : null;
   }
 
+  public function getPurchaseStates(): array {
+
+    return (array)$this->wp->applyFilters(
+      'mailpoet_purchase_order_states',
+      ['completed']
+    );
+  }
+
   public function isWooCommerceBlocksActive($min_version = '') {
     if (!class_exists('\Automattic\WooCommerce\Blocks\Package')) {
       return false;

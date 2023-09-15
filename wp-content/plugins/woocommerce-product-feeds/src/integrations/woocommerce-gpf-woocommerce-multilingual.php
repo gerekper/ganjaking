@@ -59,6 +59,7 @@ class WoocommerceGpfWoocommerceMultilingual {
 	 *
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
+	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 	public function add_currency_arg_to_product_permalinks( $feed_item, $wc_product ) {
 		$feed_item->purchase_link = add_query_arg(
 			[ 'currency' => $this->currency ],
@@ -67,4 +68,5 @@ class WoocommerceGpfWoocommerceMultilingual {
 
 		return $feed_item;
 	}
+	// phpcs:enable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 }

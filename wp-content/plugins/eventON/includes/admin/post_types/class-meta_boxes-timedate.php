@@ -397,13 +397,13 @@ $jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
 								'value'=> $evo_rep_WKwk,
 								'select_multi_options'=> true,
 								'options'=> array(
-									'_0'=>'S',
-									'1'=>'M',
-									'2'=>'T',
-									'3'=>'W',
-									'4'=>'T',
-									'5'=>'F',
-									'6'=>'S'
+									'_0'=>__('S','eventon'),
+									'1'=>__('M','eventon'),
+									'2'=>__('T','eventon'),
+									'3'=>__('W','eventon'),
+									'4'=>__('T','eventon'),
+									'5'=>__('F','eventon'),
+									'6'=>__('S','eventon')
 								)
 							)
 						);

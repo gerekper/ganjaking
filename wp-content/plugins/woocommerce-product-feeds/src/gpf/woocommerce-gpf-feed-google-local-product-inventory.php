@@ -69,5 +69,4 @@ class WoocommerceGpfFeedGoogleLocalProductInventory extends WoocommerceGpfFeedGo
 
 		return $output;
 	}
-
 }

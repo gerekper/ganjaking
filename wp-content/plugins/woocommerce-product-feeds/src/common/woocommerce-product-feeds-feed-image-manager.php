@@ -162,23 +162,23 @@ class WoocommerceProductFeedsFeedImageManager {
 			switch ( $source ) {
 				case 'product_image':
 					$image_source_content .= '<li>' .
-											 __( 'Set as product image', 'woocommerce_gpf' ) .
-											 '</li>';
+											__( 'Set as product image', 'woocommerce_gpf' ) .
+											'</li>';
 					break;
 				case 'product_gallery':
 					$image_source_content .= '<li>' .
-											 __( 'Added via product gallery', 'woocommerce_gpf' ) .
-											 '</li>';
+											__( 'Added via product gallery', 'woocommerce_gpf' ) .
+											'</li>';
 					break;
 				case 'attachment':
 					$image_source_content .= '<li>' .
-											 __( 'Attached as media to product', 'woocommerce_gpf' ) .
-											 '</li>';
+											__( 'Attached as media to product', 'woocommerce_gpf' ) .
+											'</li>';
 					break;
 				default:
 					$image_source_content .= '<li>' .
-											 __( 'Added via filters', 'woocommerce_gpf' ) .
-											 '</li>';
+											__( 'Added via filters', 'woocommerce_gpf' ) .
+											'</li>';
 					break;
 			}
 		}

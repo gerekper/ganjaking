@@ -61,6 +61,7 @@ class WoocommerceGpfRestApi {
 	 *
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
+	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 	public function rest_api_output_v2( $response, $product, $request ) {
 		$response->data['gpf_data'] = array();
 		$meta                       = get_post_meta( $product->get_id(), '_woocommerce_gpf_data', true );
@@ -75,6 +76,7 @@ class WoocommerceGpfRestApi {
 
 		return $response;
 	}
+	// phpcs:enable
 
 	/**
 	 * Update the MSRP for a product via REST API v2.
@@ -83,6 +85,7 @@ class WoocommerceGpfRestApi {
 	 *
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
+	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 	public function rest_api_maybe_update_v2( $product, $request, $creating ) {
 		// Do nothing if no GPF data passed in for update.
 		if ( ! isset( $request['gpf_data'] ) ) {
@@ -99,6 +102,7 @@ class WoocommerceGpfRestApi {
 
 		return $product;
 	}
+	// phpcs:enable
 
 	/**
 	 * Generate a list of our elements from the common field class.

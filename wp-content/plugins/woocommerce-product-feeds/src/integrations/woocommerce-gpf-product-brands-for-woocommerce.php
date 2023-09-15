@@ -26,4 +26,3 @@ class WoocommerceGpfProductBrandsForWooCommerce {
 		return $field_list;
 	}
 }
-

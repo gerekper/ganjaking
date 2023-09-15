@@ -42,19 +42,36 @@ class WC_Pre_Orders_Admin_Products {
 	}
 
 	/**
-	 * Add 'Pre-Orders' tab to product writepanel.
+	 * Add 'Pre-Orders' tab to product write panel.
 	 *
-	 * @param  array $tabs
-	 * @return array
+	 * @since 2.0.2 Hide pre-order options for unsupported product types.
+	 *
+	 * @param array $tabs Product tabs.
+	 *
+	 * @return array Product tabs.
 	 */
 	public static function product_data_tab( $tabs ) {
-
-		$supported_types = WC_Pre_Orders::get_supported_product_types();
+		$supported_types    = WC_Pre_Orders::get_supported_product_types();
+		$un_supported_types = array_diff( array_keys( wc_get_product_types() ), $supported_types );
 
 		$classes = array( 'wc_pre_orders_tab', 'wc_pre_orders_options' );
 
 		foreach ( $supported_types as $product_type ) {
 			$classes[] = 'show_if_' . $product_type;
+		}
+
+		if ( $un_supported_types ) {
+			foreach ( $un_supported_types as $product_type ) {
+				// Skip variable-subscription as it's not supported by pre-order.
+				// We hide pre-order option with javascript custom code because woocommerce-subscriptions-core/assets/js/admin/admin.js:showHideVariableSubscriptionMeta function cause of a conflict.
+				// This function toggle display product type class and after that handle only specific product type which means pre-order options will be shown for other product types.
+				// We can remove this condition if issue will be fixed in next version of woocommerce-subscriptions-core.
+				if ( 'variable-subscription' === $product_type ) {
+					continue;
+				}
+
+				$classes[] = 'hide_if_' . $product_type;
+			}
 		}
 
 		$tabs['pre_orders'] = array(

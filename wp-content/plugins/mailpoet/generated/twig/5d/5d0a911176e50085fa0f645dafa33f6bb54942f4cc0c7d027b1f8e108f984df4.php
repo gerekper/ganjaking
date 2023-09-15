@@ -365,7 +365,7 @@ class __TwigTemplate_8581a8ede6c645c86df82d14a0f9727da4ff92aa0bb85d1970f9d521978
 
 ";
         // line 196
-        if (($this->extensions['MailPoet\Twig\Functions']->libs3rdPartyEnabled() &&  !$this->extensions['MailPoet\Twig\Functions']->isDotcomEcommercePlan())) {
+        if ((($context["display_docsbot_widget"] ?? null) &&  !$this->extensions['MailPoet\Twig\Functions']->isDotcomEcommercePlan())) {
             // line 197
             echo "  ";
             echo $this->extensions['MailPoet\Twig\Assets']->generateJavascript("lib/analytics.js");
@@ -391,94 +391,100 @@ class __TwigTemplate_8581a8ede6c645c86df82d14a0f9727da4ff92aa0bb85d1970f9d521978
             echo "        event.preventDefault(); // Prevent default behavior opening the url.
         window.open(mailpoet_redirect_support_link, '_blank');
       },
-    });
+    }).then(() => {
+        // stopping propagation to avoid conflicts with other keydown events form WP.com
+      function writingFixer (e) {
+        e.stopPropagation();
+      }
+      document.getElementById('docsbotai-root').addEventListener(\"keydown\", writingFixer);
+    })
   </script>
 ";
         }
-        // line 215
+        // line 221
         echo "
 <script>
   Parsley.addMessages('mailpoet', {
     defaultMessage: '";
-        // line 218
+        // line 224
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value seems to be invalid.");
         echo "',
     type: {
       email: '";
-        // line 220
+        // line 226
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value should be a valid email.");
         echo "',
       url: '";
-        // line 221
+        // line 227
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value should be a valid url.");
         echo "',
       number: '";
-        // line 222
+        // line 228
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value should be a valid number.");
         echo "',
       integer: '";
-        // line 223
+        // line 229
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value should be a valid integer.");
         echo "',
       digits: '";
-        // line 224
+        // line 230
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value should be digits.");
         echo "',
       alphanum: '";
-        // line 225
+        // line 231
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value should be alphanumeric.");
         echo "'
     },
     notblank: '";
-        // line 227
+        // line 233
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value should not be blank.");
         echo "',
     required: '";
-        // line 228
+        // line 234
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value is required.");
         echo "',
     pattern: '";
-        // line 229
+        // line 235
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value seems to be invalid.");
         echo "',
     min: '";
-        // line 230
+        // line 236
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value should be greater than or equal to %s.");
         echo "',
     max: '";
-        // line 231
+        // line 237
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value should be lower than or equal to %s.");
         echo "',
     range: '";
-        // line 232
+        // line 238
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value should be between %s and %s.");
         echo "',
     minlength: '";
-        // line 233
+        // line 239
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value is too short. It should have %s characters or more.");
         echo "',
     maxlength: '";
-        // line 234
+        // line 240
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value is too long. It should have %s characters or fewer.");
         echo "',
     length: '";
-        // line 235
+        // line 241
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value length is invalid. It should be between %s and %s characters long.");
         echo "',
     mincheck: '";
-        // line 236
+        // line 242
         echo $this->extensions['MailPoet\Twig\I18n']->translate("You must select at least %s choices.");
         echo "',
     maxcheck: '";
-        // line 237
+        // line 243
         echo $this->extensions['MailPoet\Twig\I18n']->translate("You must select %s choices or fewer.");
         echo "',
     check: '";
-        // line 238
+        // line 244
         echo $this->extensions['MailPoet\Twig\I18n']->translate("You must select between %s and %s choices.");
         echo "',
     equalto: '";
-        // line 239
+        // line 245
         echo $this->extensions['MailPoet\Twig\I18n']->translate("This value should be the same.");
         echo "'
   });
@@ -486,9 +492,9 @@ class __TwigTemplate_8581a8ede6c645c86df82d14a0f9727da4ff92aa0bb85d1970f9d521978
   Parsley.setLocale('mailpoet');
 </script>
 ";
-        // line 244
+        // line 250
         $this->displayBlock('after_javascript', $context, $blocks);
-        // line 245
+        // line 251
         echo "<div id=\"mailpoet-modal\"></div>
 ";
     }
@@ -562,7 +568,7 @@ class __TwigTemplate_8581a8ede6c645c86df82d14a0f9727da4ff92aa0bb85d1970f9d521978
         $macros = $this->macros;
     }
 
-    // line 244
+    // line 250
     public function block_after_javascript($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -580,7 +586,7 @@ class __TwigTemplate_8581a8ede6c645c86df82d14a0f9727da4ff92aa0bb85d1970f9d521978
 
     public function getDebugInfo()
     {
-        return array (  563 => 244,  557 => 189,  551 => 187,  545 => 38,  539 => 32,  533 => 30,  528 => 33,  526 => 32,  523 => 31,  521 => 30,  504 => 15,  500 => 14,  494 => 11,  489 => 245,  487 => 244,  479 => 239,  475 => 238,  471 => 237,  467 => 236,  463 => 235,  459 => 234,  455 => 233,  451 => 232,  447 => 231,  443 => 230,  439 => 229,  435 => 228,  431 => 227,  426 => 225,  422 => 224,  418 => 223,  414 => 222,  410 => 221,  406 => 220,  401 => 218,  396 => 215,  388 => 209,  384 => 207,  380 => 205,  378 => 204,  367 => 197,  365 => 196,  360 => 194,  356 => 192,  354 => 190,  352 => 189,  349 => 188,  347 => 187,  344 => 186,  342 => 155,  341 => 154,  340 => 118,  336 => 116,  334 => 112,  329 => 109,  323 => 107,  321 => 106,  316 => 104,  312 => 103,  308 => 102,  304 => 101,  300 => 100,  296 => 99,  292 => 98,  288 => 97,  284 => 96,  280 => 95,  276 => 94,  272 => 93,  268 => 92,  264 => 91,  260 => 90,  256 => 89,  252 => 88,  248 => 87,  244 => 86,  240 => 85,  236 => 84,  232 => 83,  228 => 82,  224 => 81,  218 => 78,  214 => 77,  210 => 76,  205 => 74,  201 => 73,  197 => 72,  193 => 71,  189 => 70,  185 => 69,  181 => 68,  177 => 67,  173 => 66,  169 => 65,  165 => 64,  161 => 63,  157 => 62,  153 => 61,  149 => 60,  143 => 57,  139 => 56,  135 => 55,  131 => 54,  127 => 53,  123 => 52,  119 => 51,  115 => 50,  111 => 49,  107 => 48,  103 => 47,  99 => 46,  95 => 45,  91 => 44,  87 => 43,  83 => 42,  79 => 41,  75 => 39,  73 => 38,  68 => 36,  65 => 35,  63 => 14,  59 => 12,  57 => 11,  45 => 1,);
+        return array (  569 => 250,  563 => 189,  557 => 187,  551 => 38,  545 => 32,  539 => 30,  534 => 33,  532 => 32,  529 => 31,  527 => 30,  510 => 15,  506 => 14,  500 => 11,  495 => 251,  493 => 250,  485 => 245,  481 => 244,  477 => 243,  473 => 242,  469 => 241,  465 => 240,  461 => 239,  457 => 238,  453 => 237,  449 => 236,  445 => 235,  441 => 234,  437 => 233,  432 => 231,  428 => 230,  424 => 229,  420 => 228,  416 => 227,  412 => 226,  407 => 224,  402 => 221,  388 => 209,  384 => 207,  380 => 205,  378 => 204,  367 => 197,  365 => 196,  360 => 194,  356 => 192,  354 => 190,  352 => 189,  349 => 188,  347 => 187,  344 => 186,  342 => 155,  341 => 154,  340 => 118,  336 => 116,  334 => 112,  329 => 109,  323 => 107,  321 => 106,  316 => 104,  312 => 103,  308 => 102,  304 => 101,  300 => 100,  296 => 99,  292 => 98,  288 => 97,  284 => 96,  280 => 95,  276 => 94,  272 => 93,  268 => 92,  264 => 91,  260 => 90,  256 => 89,  252 => 88,  248 => 87,  244 => 86,  240 => 85,  236 => 84,  232 => 83,  228 => 82,  224 => 81,  218 => 78,  214 => 77,  210 => 76,  205 => 74,  201 => 73,  197 => 72,  193 => 71,  189 => 70,  185 => 69,  181 => 68,  177 => 67,  173 => 66,  169 => 65,  165 => 64,  161 => 63,  157 => 62,  153 => 61,  149 => 60,  143 => 57,  139 => 56,  135 => 55,  131 => 54,  127 => 53,  123 => 52,  119 => 51,  115 => 50,  111 => 49,  107 => 48,  103 => 47,  99 => 46,  95 => 45,  91 => 44,  87 => 43,  83 => 42,  79 => 41,  75 => 39,  73 => 38,  68 => 36,  65 => 35,  63 => 14,  59 => 12,  57 => 11,  45 => 1,);
     }
 
     public function getSourceContext()

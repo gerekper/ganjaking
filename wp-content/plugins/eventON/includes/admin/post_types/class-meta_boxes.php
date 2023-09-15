@@ -293,7 +293,9 @@ class evo_event_metaboxes{
 						
 			// $_POST FIELDS array
 				$fields_ar =apply_filters('eventon_event_metafields', array(
-					'evcal_allday','evcal_event_color','evcal_event_color_n',
+					'evcal_allday',
+					'evcal_event_color','evcal_event_color_n',
+					'evcal_event_color2','evcal_event_color_n2',
 					'evcal_exlink','evcal_lmlink','evcal_subtitle',
 					'evcal_hide_locname','evcal_gmap_gen','evcal_name_over_img', 'evo_access_control_location',
 					'evcal_mu_id','evcal_paypal_item_price','evcal_paypal_text','evcal_paypal_email',

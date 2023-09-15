@@ -66,8 +66,13 @@ class UP_UserAdminAjax extends UP_Ajax{
      * Send user invitation email.
      * @since 4.9.31
      */
-    public static function user_invite()
-    {
+    public static function user_invite(){
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
         if(empty($_POST['emails'])){
             wp_send_json_error(__('Please enter email address to invite user', 'userpro'), 409);
         }
@@ -120,9 +125,16 @@ class UP_UserAdminAjax extends UP_Ajax{
      * @return JSON
      */
     public static function verifyUnverifyAllUsers(){
-    
+
+        if( isset( $_POST['user_pro_nonce'] ) ) {
+            if ( ! wp_verify_nonce( $_POST['user_pro_nonce'], 'user_pro_nonce' ) ) {
+                wp_send_json_error( 'Invalid nonce.' );
+                return;
+            }
+        }
+
         if (!current_user_can('manage_options')){
-            die(); 
+            die();
         }// admin priv
 
         global $userpro,$userpro_request_admin;

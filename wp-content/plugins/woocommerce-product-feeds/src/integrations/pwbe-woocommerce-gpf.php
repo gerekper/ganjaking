@@ -8,4 +8,3 @@
  */
 class PWBE_WooCommerce_GPF {
 }
-

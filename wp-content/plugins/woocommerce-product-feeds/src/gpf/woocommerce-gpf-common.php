@@ -62,7 +62,7 @@ class WoocommerceGpfCommon {
 	 */
 	public function initialise() {
 		$this->settings       = get_option( 'woocommerce_gpf_config' );
-		$this->base_dir       = dirname( dirname( dirname( __FILE__ ) ) );
+		$this->base_dir       = dirname( dirname( __DIR__ ) );
 		$this->product_fields = apply_filters(
 			'woocommerce_gpf_all_product_fields',
 			[
@@ -811,7 +811,7 @@ class WoocommerceGpfCommon {
 	}
 
 	/**
-	 * Get all of the configured feed types.
+	 * Get all the configured feed types.
 	 *
 	 * @return array  The feed type configs for all feed types, keyed by feed
 	 *                type identifier.
@@ -825,7 +825,18 @@ class WoocommerceGpfCommon {
 	 * @return array
 	 */
 	public function get_prepopulations() {
-		return isset( $this->settings['product_prepopulate'] ) ? $this->settings['product_prepopulate'] : [];
+		// Get a list of pre-populations chosen for fields.
+		$prepopulations = array_filter( $this->settings['product_prepopulate'] ?? [] );
+		// Find out which fields are enabled.
+		$product_fields = array_filter(
+			$this->settings['product_fields'],
+			static function ( $value ) {
+				return $value === 'on';
+			},
+			0
+		);
+		// Filter the required pre-populations to only those that exist on enabled fields.
+		return array_intersect_key( $prepopulations, $product_fields );
 	}
 
 	/**
@@ -891,8 +902,8 @@ class WoocommerceGpfCommon {
 				}
 			}
 			if ( '' === $array[ $key ] ||
-				 is_null( $array[ $key ] ) ||
-				 ( empty( $this->settings['product_fields'][ $key ] ) && $remove_disabled )
+				is_null( $array[ $key ] ) ||
+				( empty( $this->settings['product_fields'][ $key ] ) && $remove_disabled )
 			) {
 				unset( $array[ $key ] );
 				continue;
@@ -918,7 +929,7 @@ class WoocommerceGpfCommon {
 		}
 		foreach ( array_keys( $array ) as $key ) {
 			if ( empty( $this->product_fields[ $key ] )
-				 || ! in_array( $feed_format, $this->product_fields[ $key ]['feed_types'], true )
+				|| ! in_array( $feed_format, $this->product_fields[ $key ]['feed_types'], true )
 			) {
 				unset( $array[ $key ] );
 			}
@@ -974,8 +985,8 @@ class WoocommerceGpfCommon {
 	public function limit_max_values( $data ) {
 		foreach ( $this->product_fields as $key => $element_settings ) {
 			if ( empty( $element_settings['max_values'] ) ||
-				 empty( $data[ $key ] ) ||
-				 ! is_array( $data[ $key ] ) ) {
+				empty( $data[ $key ] ) ||
+				! is_array( $data[ $key ] ) ) {
 				continue;
 			}
 			$limit        = intval( $element_settings['max_values'] );

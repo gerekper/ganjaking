@@ -1,7 +1,7 @@
 <?php global $userpro, $userpro_badges; ?>
 
 <form action="" method="post">
-
+<input type="hidden" name="user_pro_nonce" value="<?php echo wp_create_nonce( 'user_pro_nonce' ); ?>">
 <h3><?php _e('Edit/Delete User Badges','userpro'); ?></h3>
 <table class="form-table">
 	<tr valign="top">

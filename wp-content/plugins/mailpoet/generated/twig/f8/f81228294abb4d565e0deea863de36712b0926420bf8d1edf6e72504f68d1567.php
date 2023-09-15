@@ -63,13 +63,6 @@ class __TwigTemplate_72cb81adca1fcada3d740fa851dd9cdc07463639615e596a1f2d37bd9b4
         $macros = $this->macros;
         // line 8
         echo "
-<script type=\"text/javascript\">
-  var mailpoet_beacon_articles = [
-    '5fac13f2cff47e00160b8dff',
-    '5e43d3ec2c7d3a7e9ae79da9',
-  ];
-</script>
-
 <div class=\"block-editor\">
   <div id=\"mailpoet_form_edit_templates\">
   </div>
@@ -77,28 +70,28 @@ class __TwigTemplate_72cb81adca1fcada3d740fa851dd9cdc07463639615e596a1f2d37bd9b4
 
 <script>
   ";
-        // line 23
+        // line 16
         echo "  var mailpoet_templates = ";
         echo json_encode(($context["templates"] ?? null));
         echo ";
   var mailpoet_form_edit_url =
     \"";
-        // line 25
+        // line 18
         echo admin_url("admin.php?page=mailpoet-form-editor&template_id=");
         echo "\";
   ";
-        // line 27
+        // line 20
         echo "</script>
 
 <style id=\"mailpoet-form-editor-form-styles\"></style>
 ";
     }
 
-    // line 32
+    // line 25
     public function block_after_javascript($context, array $blocks = [])
     {
         $macros = $this->macros;
-        // line 33
+        // line 26
         echo $this->extensions['MailPoet\Twig\Assets']->generateJavascript("form_editor.js");
         echo "
 ";
@@ -116,7 +109,7 @@ class __TwigTemplate_72cb81adca1fcada3d740fa851dd9cdc07463639615e596a1f2d37bd9b4
 
     public function getDebugInfo()
     {
-        return array (  99 => 33,  95 => 32,  88 => 27,  84 => 25,  78 => 23,  62 => 8,  58 => 7,  52 => 4,  48 => 3,  37 => 1,);
+        return array (  92 => 26,  88 => 25,  81 => 20,  77 => 18,  71 => 16,  62 => 8,  58 => 7,  52 => 4,  48 => 3,  37 => 1,);
     }
 
     public function getSourceContext()

@@ -21,6 +21,7 @@ class WoocommerceMinMaxQuantities {
 	 *
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
+	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 	public function multiply_out_by_minimum_quantities( $feed_item, $wc_product ) {
 		if ( ! apply_filters( 'woocommerce_gpf_integration_minmax', true ) ) {
 			return $feed_item;
@@ -51,8 +52,8 @@ class WoocommerceMinMaxQuantities {
 			$feed_item->price_ex_tax          *= $minimum_quantity;
 			$feed_item->price_inc_tax         *= $minimum_quantity;
 			if ( empty( $feed_item->additional_elements['unit_pricing_measure'] ) &&
-				 empty( $feed_item->additional_elements['unit_pricing_base_measure'] ) &&
-				 apply_filters( 'woocommerce_gpf_minmax_send_unit_pricing', true ) ) {
+				empty( $feed_item->additional_elements['unit_pricing_base_measure'] ) &&
+				apply_filters( 'woocommerce_gpf_minmax_send_unit_pricing', true ) ) {
 				$feed_item->additional_elements['unit_pricing_measure']      = array( $minimum_quantity . ' ct' );
 				$feed_item->additional_elements['unit_pricing_base_measure'] = array( '1 ct' );
 			}
@@ -60,4 +61,5 @@ class WoocommerceMinMaxQuantities {
 
 		return $feed_item;
 	}
+	// phpcs:enable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 }

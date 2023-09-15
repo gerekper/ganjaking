@@ -55,7 +55,19 @@ class Rewrite extends FreeRewrite {
         $base = $this->get_base_slug();
 
         if ( betterdocs()->settings->get( 'multiple_kb', false ) ) {
+            $this->add_rewrite_rule( $base . '/(feed|rdf|rss|rss2|atom)/?$', 'index.php?post_type=docs&feed=$matches[1]' );
+            $this->add_rewrite_rule(
+                $base . '/([^/]+)/(feed|rdf|rss|rss2|atom)/?$',
+                'index.php?knowledge_base=$matches[1]&feed=$matches[2]'
+            );
+
+            $this->add_rewrite_rule(
+                $base . '/([^/]+)/([^/]+)/(feed|rdf|rss|rss2|atom)/?$',
+                'index.php?knowledge_base=$matches[1]&doc_category=$matches[2]&feed=$matches[3]'
+            );
+
             $this->add_rewrite_rule( $base . '/([^/]+)/?$', 'index.php?knowledge_base=$matches[1]' );
+
             $this->add_rewrite_rule(
                 $base . '/([^/]+)/([^/]+)/?$',
                 'index.php?knowledge_base=$matches[1]&doc_category=$matches[2]'

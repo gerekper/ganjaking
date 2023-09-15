@@ -86,7 +86,6 @@ abstract class WoocommerceGpfFeed {
 		}
 
 		return apply_filters( 'ses_wpscd_csv_escape_string', $string );
-
 	}
 
 	/**

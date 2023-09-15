@@ -93,13 +93,13 @@ class GettingStartedView {
                             </p>
 
                             <p class="swp-margin-b15">
-                                <a class="swp-a" href="https://searchwp.com/documentation/setup/settings/?utm_source=WordPress&utm_medium=Getting+Started+Documentation+Link&utm_campaign=SearchWP" target="_blank">
+                                <a class="swp-a" href="https://searchwp.com/documentation/setup/global-rules/?utm_source=WordPress&utm_medium=Getting+Started+Documentation+Link&utm_campaign=SearchWP" target="_blank">
                                     <?php esc_html_e( 'Configuring Synonyms and Stopwords', 'searchwp' ); ?>&nbsp;&rarr;
                                 </a>
                             </p>
 
                             <p class="swp-margin-b15">
-                                <a class="swp-a" href="https://searchwp.com/documentation/setup/advanced/?utm_source=WordPress&utm_medium=Getting+Started+Documentation+Link&utm_campaign=SearchWP" target="_blank">
+                                <a class="swp-a" href="https://searchwp.com/documentation/setup/settings/?utm_source=WordPress&utm_medium=Getting+Started+Documentation+Link&utm_campaign=SearchWP" target="_blank">
                                     <?php esc_html_e( 'Configuring Fuzzy Matches, Did You Mean? and More', 'searchwp' ); ?>&nbsp;&rarr;
                                 </a>
                             </p>

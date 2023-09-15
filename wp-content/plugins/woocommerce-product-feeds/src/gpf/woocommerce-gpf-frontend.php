@@ -213,6 +213,7 @@ class WoocommerceGpfFrontend {
 	 *
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
+	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 	public function limit_query_by_category( $query, $query_vars ) {
 		$categories = array_map( 'intval', $this->feed_config->categories );
 		if ( empty( $categories ) || '' === $this->feed_config->category_filter ) {
@@ -231,6 +232,7 @@ class WoocommerceGpfFrontend {
 
 		return $query;
 	}
+	// phpcs:enable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
 	/**
 	 * Render the product feed requests - calls the sub-classes according
@@ -277,7 +279,7 @@ class WoocommerceGpfFrontend {
 					if ( ! empty( $outputs[ $product_id ] ) ) {
 						$this->debug->log( 'Retrieved %d from cache', [ $product_id ] );
 						echo $outputs[ $product_id ];
-						$output_count++;
+						++$output_count;
 					} else {
 						$this->debug->log( 'Retrieved empty record from cache for %d', [ $product_id ] );
 					}
@@ -299,7 +301,7 @@ class WoocommerceGpfFrontend {
 			// If we have any still to generate, go do them.
 			foreach ( $products as $product ) {
 				if ( $this->process_product( $product ) ) {
-					$output_count++;
+					++$output_count;
 				}
 				// Quit if we've done all of the products
 				if ( -1 !== $limit && $output_count >= $limit ) {
@@ -362,7 +364,7 @@ class WoocommerceGpfFrontend {
 			$woocommerce_product
 		);
 		if ( $woocommerce_product instanceof WC_Product_Variable &&
-			 $include_variations ) {
+			$include_variations ) {
 			return $this->process_variable_product( $woocommerce_product );
 		}
 

@@ -104,7 +104,6 @@ class WoocommerceGpfFeedBing extends WoocommerceGpfFeed {
 		}
 		do_action( 'woocommerce_gpf_bing_feed_header_output', $this->settings );
 		echo "\r\n";
-
 	}
 
 	/**

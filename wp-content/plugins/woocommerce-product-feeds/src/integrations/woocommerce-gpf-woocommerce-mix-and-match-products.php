@@ -33,6 +33,7 @@ class WoocommerceGpfWoocommerceMixAndMatchProducts {
 	 * @return mixed
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
+	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 	public function manipulate_prices( $prices, $specific_product, $general_product ) {
 
 		// Do nothing if it is not a mix and match product.
@@ -88,5 +89,5 @@ class WoocommerceGpfWoocommerceMixAndMatchProducts {
 
 		return $prices;
 	}
+	// phpcs:enable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 }
-

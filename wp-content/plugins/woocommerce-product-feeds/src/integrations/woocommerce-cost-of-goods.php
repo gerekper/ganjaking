@@ -10,7 +10,7 @@ class WoocommerceCostOfGoods {
 	}
 
 	/**
-	 * Register the field so it can be chosen as a prepopulate option.
+	 * Register the field so that it can be chosen as a prepopulate option.
 	 *
 	 * @param $field_list
 	 *
@@ -42,4 +42,3 @@ class WoocommerceCostOfGoods {
 	}
 	// phpcs:enable WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
 }
-

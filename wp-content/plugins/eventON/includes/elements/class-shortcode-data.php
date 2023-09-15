@@ -39,6 +39,8 @@ class EVO_Shortcode_Data{
 							,$this->shortcode_default_field('ft_event_priority')
 							,$this->shortcode_default_field('ml_priority')
 							,$this->shortcode_default_field('yl_priority')
+							,$this->shortcode_default_field('ml_toend')
+							,$this->shortcode_default_field('yl_toend')
 							,$this->shortcode_default_field('only_ft')
 							,$this->shortcode_default_field('hide_ft')
 							,$this->shortcode_default_field('evc_open')				
@@ -239,9 +241,39 @@ class EVO_Shortcode_Data{
 							'placeholder'=>'eg. 4',							
 						),
 						array(
-							'name'=>__('Show only parts of the event','eventon'),
+							'name'=>__('Select Event Display Style','eventon'),
+							'type'=>'select',
+							'var'=>'ep_display_style',
+							'options'=> array(
+								'0'=> __('Event box'),
+								'1'=> __('Only selected event Data values'),
+							),
+							'guide'=>__('If you choose to show just event data values, you must enabled show only data values and select the values to show.','eventon'),
+						),
+
+						array(
+							'name'=>__('Show only select Data values of event','eventon'),
 							'type'=>'YN',
-							'guide'=>__('This will allow you to show only certain parts of the event anywhere you want using this shortcode. eg. Only event location map.','eventon'),
+							'guide'=>__('This will show just bare minimal event data values without any eventon nesting html. If no value, it will show nothing','eventon'),
+							'var'=>'event_datavals',
+							'default'=>'no',
+							'afterstatement'=>'event_datavals'
+						),
+							array(
+								'name'=>__('Select data fields to show','eventon'),
+								'type'=>'select_in_lightbox',
+								'var'=>'ep_data_fields',
+								'options'=> $this->get_event_data_values(),
+							),							
+							array(
+								'name'=>'Custom Code','type'=>'customcode', 'value'=>'',
+								'closestatement'=>'event_datavals'
+							),
+
+						array(
+							'name'=>__('Show only select Eventcard boxes on eventcard','eventon'),
+							'type'=>'YN',
+							'guide'=>__('This will allow you to show only certain boxes of the eventcard anywhere you want using this shortcode. eg. Only event location map.','eventon'),
 							'var'=>'event_parts',
 							'default'=>'no',
 							'afterstatement'=>'event_parts'
@@ -253,6 +285,13 @@ class EVO_Shortcode_Data{
 								'options'=> $this->get_event_card_fields(),
 								'placeholder'=>'eg. time',
 							)
+								/*array(
+								'name'=>'Hide EventTop',
+								'type'=>'YN',
+								'guide'=>'Hide the eventtop and only show selected eventcard boxes',
+								'var'=>'hide_eventtop',
+								'default'=>'no'
+							) -- @ 4.5*/
 							
 							,array(
 								'name'=>'Custom Code','type'=>'customcode', 'value'=>'',
@@ -293,9 +332,6 @@ class EVO_Shortcode_Data{
 						),
 						$this->shortcode_default_field('lang')
 						,
-
-						
-
 						array('name'=>'Display Design Options','type'=>'collapsable','closed'=>true),
 							$this->shortcode_default_field('show_et_ft_img'),
 							$this->shortcode_default_field('etc_override'),
@@ -311,15 +347,14 @@ class EVO_Shortcode_Data{
 								$this->shortcode_default_field('tile_style'),
 							$this->shortcode_default_field('close_tiles'),
 							
-							array('type'=>'close_div'),	
-						
+							array('type'=>'close_div'),							
 					)
 				),
 
 				// event from anywhere
 				array(
 					'id'=>'eventon_anywhere',
-					'name'=>__('Single Event from Anywhere [Beta]','eventon'),
+					'name'=>__('Single Event from Anywhere','eventon'),
 					'code'=>'eventon_anywhere',
 					'variables'=>array(						
 						array(
@@ -376,9 +411,7 @@ class EVO_Shortcode_Data{
 						)
 						
 					)
-				),
-
-				
+				),				
 
 				array(
 					'id'=>'evosv',
@@ -438,6 +471,18 @@ class EVO_Shortcode_Data{
 		return $this->fields->get_fields($A);
 	}
 
+	public function get_event_data_values(){
+		return array(
+			'event_time'=> __('Event Readable Time','eventon'),
+			'event_stime'=> __('Event Start Time','eventon'),
+			'event_etime'=> __('Event End Time','eventon'),
+			'event_link'=> __('Event Link','eventon'),
+			'event_subtitle'=> __('Event Subtitle','eventon'),
+			'event_location_name'=> __('Event Location Name','eventon'),
+			'event_location_add'=> __('Event Location Address','eventon'),
+			'event_organizers'=> __('Event Organizer Names','eventon'),
+		);
+	}
 	public function get_event_card_fields(){
 		$HH = new evo_cal_help();
 		return $HH->get_eventcard_fields( );
@@ -454,7 +499,7 @@ class EVO_Shortcode_Data{
 				FROM $wpdb->posts 
 				WHERE $wpdb->posts.post_type ='ajde_events' 
 				AND $wpdb->posts.post_status = 'publish'
-				ORDER BY $wpdb->posts.post_date DESC
+				ORDER BY $wpdb->posts.post_name ASC
 			");
 						
 			$ids = array();

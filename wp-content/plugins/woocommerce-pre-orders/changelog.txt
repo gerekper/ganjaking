@@ -1,5 +1,25 @@
 *** WooCommerce Pre-Orders Plugin ***
 
+2023-09-12 - version 2.0.5
+* Dev - Bump WooCommerce "tested up to" version 7.9.
+* Dev - Bump WooCommerce minimum supported version from 7.2 to 7.7.
+* Dev - Bump PHP minimum supported version from 7.2 to 7.3.
+
+2023-08-30 - version 2.0.4
+* Fix - Set order status to pre-ordered when processing failed order if the product can be pre-ordered.
+* Dev - Bump WordPress "tested up to" version from 6.2 to 6.3.
+* Add - Introduced filter wc_pre_orders_product_can_be_pre_ordered within WC_Pre_Orders_Product::product_can_be_pre_ordered().
+* Tweak - Use variation ID for determining if cart contains a pre-order product.
+
+2023-07-04 - version 2.0.3
+* Fix - Hide Pre-Orders option for unsupported product types.
+* Fix - Adjust the logic before performing pre-orders actions.
+* Dev - Bump WooCommerce "tested up to" version 7.8.
+* Dev - Bump WooCommerce minimum supported version from 6.8 to 7.2.
+* Dev - Bump WordPress minimum supported version from 5.8 to 6.1.
+* Dev - Update like statement preparation in pre-order searches.
+* Dev - Wrap the contents of the countdown shortcode without WC_Shortcodes::shortcode_wrapper.
+
 2023-05-24 - version 2.0.2
 * Dev – Bump WooCommerce “tested up to” version 7.6.
 * Dev – Bump WordPress minimum supported version from 5.6 to 5.8.

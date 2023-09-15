@@ -106,7 +106,7 @@ class WoocommerceProductFeedsIntegrationManager {
 	 */
 	private function the_content_protection_integration() {
 		if ( ! defined( 'ELEMENTOR_VERSION' ) &&
-			 ! defined( 'SITEORIGIN_PANELS_VERSION' ) ) {
+			! defined( 'SITEORIGIN_PANELS_VERSION' ) ) {
 			return;
 		}
 
@@ -120,7 +120,7 @@ class WoocommerceProductFeedsIntegrationManager {
 	 */
 	private function product_vendors_integration() {
 		if ( ! defined( 'WC_PRODUCT_VENDORS_VERSION' ) ||
-			 version_compare( WC_PRODUCT_VENDORS_VERSION, '2.1.16', 'lt' ) ) {
+			version_compare( WC_PRODUCT_VENDORS_VERSION, '2.1.16', 'lt' ) ) {
 			return;
 		}
 		$this->container['WoocommerceProductVendors']->run();
@@ -133,7 +133,7 @@ class WoocommerceProductFeedsIntegrationManager {
 	 */
 	private function min_max_quantities_integration() {
 		if ( ! defined( 'WC_MIN_MAX_QUANTITIES' ) ||
-			 version_compare( WC_MIN_MAX_QUANTITIES, '2.4.5', 'lt' ) ) {
+			version_compare( WC_MIN_MAX_QUANTITIES, '2.4.5', 'lt' ) ) {
 			return;
 		}
 		$this->container['WoocommerceMinMaxQuantities']->run();
@@ -146,7 +146,7 @@ class WoocommerceProductFeedsIntegrationManager {
 	 */
 	private function multicurrency_integration() {
 		if ( ! defined( 'WOOCOMMERCE_MULTICURRENCY_VERSION' ) ||
-			 version_compare( WOOCOMMERCE_MULTICURRENCY_VERSION, '1.9.0', 'lt' ) ) {
+			version_compare( WOOCOMMERCE_MULTICURRENCY_VERSION, '1.9.0', 'lt' ) ) {
 			return;
 		}
 		$this->container['WoocommerceGpfMulticurrency']->run();
@@ -187,7 +187,7 @@ class WoocommerceProductFeedsIntegrationManager {
 		}
 		$mnm_instance = WC_Mix_and_Match::instance();
 		if ( empty( $mnm_instance->version ) ||
-			 version_compare( $mnm_instance->version, '1.10.2', '<' ) ) {
+			version_compare( $mnm_instance->version, '1.10.2', '<' ) ) {
 			return;
 		}
 		$this->container['WoocommerceGpfWoocommerceMixAndMatchProducts']->run();
@@ -201,8 +201,8 @@ class WoocommerceProductFeedsIntegrationManager {
 	private function currency_switcher_for_woocommerce_integration() {
 		$wccs = $GLOBALS['WCCS'] ?? new stdClass();
 		if ( ! defined( 'WCCS_VERSION' ) ||
-			 version_compare( WCCS_VERSION, '1.2.2', 'lt' ) ||
-			 ! is_callable( [ $wccs, 'wccs_get_currencies' ] ) ) {
+			version_compare( WCCS_VERSION, '1.2.2', 'lt' ) ||
+			! is_callable( [ $wccs, 'wccs_get_currencies' ] ) ) {
 			return;
 		}
 		$this->container['WoocommerceGpfCurrencySwitcherForWooCommerce']->run();
@@ -215,7 +215,7 @@ class WoocommerceProductFeedsIntegrationManager {
 	 */
 	private function woocommerce_composite_products_integration() {
 		if ( ! class_exists( 'WC_Composite_Products' ) ||
-			 ! is_callable( 'WC_Composite_Products::instance' ) ) {
+			! is_callable( 'WC_Composite_Products::instance' ) ) {
 			return;
 		}
 		$wc_cp = WC_Composite_Products::instance();
@@ -232,7 +232,7 @@ class WoocommerceProductFeedsIntegrationManager {
 	 */
 	private function product_bundles_integration() {
 		if ( ! class_exists( 'WC_Bundles' ) ||
-			 ! is_callable( 'WC_Bundles::instance' ) ) {
+			! is_callable( 'WC_Bundles::instance' ) ) {
 			return;
 		}
 		$wc_pb = WC_Bundles::instance();
@@ -309,7 +309,7 @@ class WoocommerceProductFeedsIntegrationManager {
 	 */
 	private function woocommerce_additional_variation_images_integration() {
 		if ( ! defined( 'WC_ADDITIONAL_VARIATION_IMAGES_VERSION' ) ||
-			 version_compare( WC_ADDITIONAL_VARIATION_IMAGES_VERSION, '1.9.0', 'lt' ) ) {
+			version_compare( WC_ADDITIONAL_VARIATION_IMAGES_VERSION, '1.9.0', 'lt' ) ) {
 			return;
 		}
 		$this->container['WoocommerceProductFeedsWoocommerceAdditionalVariationImages']->run();
@@ -322,7 +322,7 @@ class WoocommerceProductFeedsIntegrationManager {
 	 */
 	private function measurement_price_calculator_integration() {
 		if ( ! class_exists( 'WC_Measurement_Price_Calculator_Loader' ) ||
-			 version_compare( WC_Measurement_Price_Calculator::VERSION, '3.20.1', 'lt' ) ) {
+			version_compare( WC_Measurement_Price_Calculator::VERSION, '3.20.1', 'lt' ) ) {
 			return;
 		}
 		$this->container['WoocommerceProductFeedsMeasurementPriceCalculator']->run();

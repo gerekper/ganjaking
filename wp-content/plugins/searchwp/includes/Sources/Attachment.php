@@ -166,6 +166,8 @@ final class Attachment extends Post {
 				new Option( 'iwork', __( 'iWork Documents', 'searchwp' ) ),
 			],
 			'application' => function( $properties ) {
+				global $wpdb;
+
 				$mimes = call_user_func_array( 'array_merge', array_map( function( $mime_group ) {
 					switch ( $mime_group ) {
 						case 'documents':
@@ -222,13 +224,19 @@ final class Attachment extends Post {
 					]
 				) );
 
+				$condition = 'NOT IN' === $properties['condition'] ? 'NOT IN' : 'IN';
+
 				// Return the IDs we already did the work to find if there aren't too many.
 				if ( empty( $file_type_wp_query->posts ) ) {
 					return [ 0 ];
+
 				} else if ( ! empty( $file_type_wp_query->posts ) && $file_type_wp_query->found_posts < 20 ) {
-					return $file_type_wp_query->posts;
+					return $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE ID {$condition}  ("
+						. implode( ',', array_fill( 0, count( $file_type_wp_query->posts ), '%s' ) )
+						. ')', $file_type_wp_query->posts );
+
 				} else {
-					return $file_type_wp_query->request;
+					return "SELECT ID FROM {$wpdb->posts} WHERE ID {$condition} ({$file_type_wp_query->request})";
 				}
 			},
 		];
@@ -713,6 +721,7 @@ final class Attachment extends Post {
 			'image/bmp',
 			'image/tiff',
 			'image/x-icon',
+			'image/svg+xml'
 		],
 		'video' => [
 			'video/x-ms-asf',

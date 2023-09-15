@@ -200,7 +200,7 @@ class WoocommercePrfGoogleReviewFeed {
 					continue;
 				}
 				if ( $this->render_item( $review ) ) {
-					$output_count++;
+					++$output_count;
 				}
 				// Quit if we've done all of the reviews
 				if ( -1 !== $limit && $output_count >= $limit ) {
@@ -278,5 +278,4 @@ class WoocommercePrfGoogleReviewFeed {
 
 		return $this->feed->render_item( $feed_item );
 	}
-
 }

@@ -396,7 +396,21 @@ class Native {
 
 			// If the search string is empty and the orderby was not set, order results by date.
 			if ( empty( $args['orderby'] ) && empty( trim( $args['s'] ) ) ) {
-				$args['orderby'] = 'date';
+				add_filter( 'searchwp\query\mods', function( $mods ) {
+					$mod = new \SearchWP\Mod();
+
+					$mod->raw_join_sql( function( $runtime ) {
+						global $wpdb;
+
+						return "LEFT JOIN {$wpdb->posts} emptyqueryorder ON (emptyqueryorder.ID = {$runtime->get_foreign_alias()}.id)";
+					} );
+
+					$mod->order_by( 'emptyqueryorder.post_date', 'DESC', 10 );
+
+					$mods[] = $mod;
+
+					return $mods;
+				} );
 			}
 
 			$this->results = apply_filters(

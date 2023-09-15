@@ -54,7 +54,7 @@ class WoocommerceGpfStructuredData {
 	public function structured_data_product( $markup, $product ) {
 
 		if ( $product instanceof WC_Product_Simple ||
-			 $product instanceof WC_Product_Bundle ) {
+			$product instanceof WC_Product_Bundle ) {
 			return $this->structured_data_simple_product( $markup, $product );
 		}
 		if ( $product instanceof WC_Product_Variable ) {
@@ -79,7 +79,7 @@ class WoocommerceGpfStructuredData {
 	public function structured_data_product_offer( $markup, $offer_product ) {
 
 		if ( ! $offer_product instanceof WC_Product_Variable &&
-			 ! $offer_product instanceof WC_Product_Variation ) {
+			! $offer_product instanceof WC_Product_Variation ) {
 			return $markup;
 		}
 		$parent_product = $offer_product;

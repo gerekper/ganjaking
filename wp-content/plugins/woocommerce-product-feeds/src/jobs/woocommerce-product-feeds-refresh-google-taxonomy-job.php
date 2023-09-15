@@ -14,8 +14,8 @@ class WoocommerceProductFeedsRefreshGoogleTaxonomyJob extends AbstractWoocommerc
 
 		$request = wp_remote_get( 'http://www.google.com/basepages/producttype/taxonomy.' . $locale . '.txt' );
 		if ( is_wp_error( $request ) ||
-			 ! isset( $request['response']['code'] ) ||
-			 200 !== (int) $request['response']['code']
+			! isset( $request['response']['code'] ) ||
+			200 !== (int) $request['response']['code']
 		) {
 			return false;
 		}
@@ -38,7 +38,7 @@ class WoocommerceProductFeedsRefreshGoogleTaxonomyJob extends AbstractWoocommerc
 			$values[] = $locale;
 			$values[] = $term;
 			$values[] = strtolower( $term );
-			$cnt++;
+			++$cnt;
 			if ( 150 === $cnt ) {
 				// Bulk insert them all.
 				$sql  = "INSERT INTO {$table_name}";

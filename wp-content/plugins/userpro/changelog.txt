@@ -1,4 +1,12 @@
 ==================================
+Version 5.1.1 (27 Jul 2023)
+==================================
+ - Security fix
+ - Fixed bug: Fixed custom user role field error.
+ - Fixed bug: Fixed empty label in a field issue.
+
+
+==================================
 Version 5.1.0 (09 Aug 2022)
 ==================================
  - Update: Increased datepicker date range.

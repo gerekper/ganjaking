@@ -1,20 +1,28 @@
 <?php
 /**
 Zoom integration with eventon
-@version 2.8.10
+@version 4.4.5
 */
+
+
 
 class EVO_Zoom_Int{
 
 	public function __construct(){
 		if(is_admin()){
+
+			include_once( EVO_ABSPATH.'includes/integration/zoom/class-S2SOAuth.php' );
+
 			add_filter('eventon_settings_3rdparty', array($this, 'settings'),10,1);
 
 			add_action( 'wp_ajax_evo_zoom_settings', array( $this, 'ajax_zoom_settings' ) );
 			add_action( 'wp_ajax_evo_zoom_connect', array( $this, 'ajax_zoom_connect' ) );
+
+			add_action( 'evo_after_settings_saved', array( $this, 'after_settings_saved' ), 10, 3 );
 		}
 	}
 
+	// ajax settings for event edit
 	function ajax_zoom_settings(){
 
 		global $ajde;
@@ -67,7 +75,7 @@ class EVO_Zoom_Int{
 			<input type="hidden" name="event_id" value='<?php echo $eid;?>'>
 			<input type="hidden" name="_evoz_mtg_id" value='<?php echo $E->get_eprop('_evoz_mtg_id');?>'>
 			
-			<p class='evoz_mtg_id' style='display: <?php echo ($mtg_id)? 'block':'none';?>'><?php _e('Zoom Meeting','eventon');?> <a href='https://zoom.us/meeting/<?php echo $E->get_eprop('_evoz_mtg_id');?>' class='evo_admin_btn btn_secondary ' target='_blank'><?php echo $mtg_id;?></a></p>
+			<p class='evoz_mtg_id' style='display: <?php echo ($mtg_id)? 'block':'none';?>'><?php _e('Zoom Meeting','eventon');?> <a href='https://zoom.us/meeting/<?php echo $E->get_eprop('_evoz_mtg_id');?>' class='evo_admin_btn' target='_blank'><?php echo $mtg_id;?></a></p>
 			
 			<p>
 				<label><?php _e('Meeting Name','eventon');?></label>
@@ -239,7 +247,7 @@ class EVO_Zoom_Int{
 				
 				$this->update_event_meta( $R, $P, $E, $DD->format('U'));
 		
-				echo json_encode(array(
+				wp_send_json(array(
 					'status'=>'good',
 					'id'=> $R->id,
 					'join_url'=> $R->join_url,
@@ -252,7 +260,7 @@ class EVO_Zoom_Int{
 					'r'=> $R,
 				));
 			}else{
-				echo json_encode(array(
+				wp_send_json(array(
 					'status'=>'bad','msg'=> __('Could not connect with zoom API, try again later or create meeting manual at zoom.com','eventon'),
 					'r'=> $R,
 				));
@@ -270,7 +278,7 @@ class EVO_Zoom_Int{
 					
 					$this->delete_event_meeting_meta( $E );
 					
-					echo json_encode(array(
+					wp_send_json(array(
 						'status'=>'bad',
 						'code'=> 3001,
 						'msg'=> __('Meeting does not exist in zoom, you may create a new meeting','eventon'),
@@ -281,7 +289,7 @@ class EVO_Zoom_Int{
 
 					$this->update_event_meta( $R, $P, $E, $DD->format('U'));
 					
-					echo json_encode(array(
+					wp_send_json(array(
 						'status'=>'good',
 						'id'=> $R->id,
 						'join_url'=> $R->join_url,
@@ -289,7 +297,7 @@ class EVO_Zoom_Int{
 						'msg'=> __('Successfully Updated Meeting.','eventon')
 					));
 				}else{
-					echo json_encode(array(
+					wp_send_json(array(
 						'status'=>'bad',
 						'msg'=> __('Could not connect with zoom API, try again later or create meeting manual at zoom.com','eventon'),
 						'r'=> $R
@@ -297,10 +305,10 @@ class EVO_Zoom_Int{
 				}
 
 			}else{
-				echo json_encode(array(
-					'status'=>'bad',
-					'msg'=> __('Could not update with zoom. Make sure your event is schedule in future.','eventon'),
-					'error'=>'no_return_from_zoom',
+				wp_send_json(array(
+					'status'=>'good',
+					'msg'=> __('Successfully Updated Meeting.','eventon'),
+					'error'=>'',
 					'd'=> $data
 				));
 			}
@@ -310,7 +318,7 @@ class EVO_Zoom_Int{
 		}elseif($P['type'] == 'delete'){
 
 			if(!isset($P['_evoz_mtg_id'])){
-				echo json_encode(array(
+				wp_send_json(array(
 					'status'=>'bad',
 					'msg'=> __('Meeting ID is missing.','eventon'),
 					'type'=>'delete',
@@ -322,7 +330,7 @@ class EVO_Zoom_Int{
 			// return back with a response code
 			if($R && !empty($R->code)){
 				$this->delete_event_meeting_meta( $E );
-				echo json_encode(array(
+				wp_send_json(array(
 					'status'=>'good',
 					'code'=> $R->code,
 					'msg'=> ( !empty($R->message)? $R->message.' ':''). __('Local meeting data has been deleted','eventon'),
@@ -333,7 +341,7 @@ class EVO_Zoom_Int{
 				
 			}else{
 				$this->delete_event_meeting_meta( $E );
-				echo json_encode(array(
+				wp_send_json(array(
 					'status'=>'good',
 					'msg'=> __('Meeting deleted Successfully.','eventon'),
 					'action_html'=> "<p><span class='evo_btn evoz_connect'>".__('Create Meeting','eventon')."</span></p>",
@@ -341,79 +349,165 @@ class EVO_Zoom_Int{
 				));
 			}
 		}
-		exit;
+		wp_die();
 	}
 
 	// SUPPORTIVES
-	function update_event_meta($R, $P, $E, $unix){
-		if(!empty($R->id)) $E->set_eprop('_evoz_mtg_id', $R->id, false);
-		if(!empty($R->start_url)) $E->set_eprop('_evoz_start_url', $R->start_url, false);
-		if(!empty($R->duration)) $E->set_eprop('_evoz_d', $R->duration, false);
-		$E->set_eprop('_evoz_unix', $unix, false);
+		function update_event_meta($R, $P, $E, $unix){
+			if(!empty($R->id)) $E->set_eprop('_evoz_mtg_id', $R->id, false);
+			if(!empty($R->start_url)) $E->set_eprop('_evoz_start_url', $R->start_url, false);
+			if(!empty($R->duration)) $E->set_eprop('_evoz_d', $R->duration, false);
+			$E->set_eprop('_evoz_unix', $unix, false);
 
-		foreach( $this->_extra_zoom_meeting_meta_fields() as $f){
-			if(!isset($P[$f])) continue;
-			$E->set_eprop($f, $P[$f] , false);
+			foreach( $this->_extra_zoom_meeting_meta_fields() as $f){
+				if(!isset($P[$f])) continue;
+				$E->set_eprop($f, $P[$f] , false);
+			}
+
+			$E->save_eprops('_evoz');
+
+			$E->set_prop('_vir_url', $R->join_url, false);
+			$E->set_prop('_vir_pass', $R->password , false);
+		}
+		function delete_event_meeting_meta($E){
+			$E->del_mul_prop( array('_vir_url','_vir_pass'));
+			$E->del_mul_eprop( array('_evoz_mtg_id','_evoz_start_url','_evoz_d','_evoz_unix') );
+			$E->del_mul_eprop( $this->_extra_zoom_meeting_meta_fields() );
+		}
+		function _extra_zoom_meeting_meta_fields(){
+			return array('_evoz_jbh','_evoz_tz','_evoz_hv', '_evoz_pv','_evoz_ewr','_evoz_mpoj','_evoz_rmopc');
 		}
 
-		$E->save_eprops('_evoz');
+		function _get_zoom_mtg_id($id){
+			$a = substr($id, 0, 3);
+			$b = substr($id, 3, 4);
+			$c = substr($id, 7);
+			return $a.' '. $b.' '. $c;
 
-		$E->set_prop('_vir_url', $R->join_url, false);
-		$E->set_prop('_vir_pass', $R->password , false);
-	}
-	function delete_event_meeting_meta($E){
-		$E->del_mul_prop( array('_vir_url','_vir_pass'));
-		$E->del_mul_eprop( array('_evoz_mtg_id','_evoz_start_url','_evoz_d','_evoz_unix') );
-		$E->del_mul_eprop( $this->_extra_zoom_meeting_meta_fields() );
-	}
-	function _extra_zoom_meeting_meta_fields(){
-		return array('_evoz_jbh','_evoz_tz','_evoz_hv', '_evoz_pv','_evoz_ewr','_evoz_mpoj','_evoz_rmopc');
-	}
+		}
+		function get_authenticated(){
+			$meeting_id = '';
 
-	function _get_zoom_mtg_id($id){
-		$a = substr($id, 0, 3);
-		$b = substr($id, 3, 4);
-		$c = substr($id, 7);
-		return $a.' '. $b.' '. $c;
+			if( $this->is_sdk_ok() ){
 
-	}
+				$sdk_key    = EVO()->cal->get_prop('_evo_zoom_sdk_id');
+				$secret_key = EVO()->cal->get_prop('_evo_zoom_sdk_secret');
+				$signature  = $this->generate_sdk_signature( $sdk_key, $secret_key, $meeting_id, 0 );
+				wp_send_json_success( [ 'sig' => $signature, 'key' => $sdk_key, 'type' => 'sdk' ] );
+
+			}elseif( $this-is_zoom_ok()){
+				$zoom_api_key = EVO()->cal->get_prop('_evo_zoom_key');
+				$zoom_api_secret = EVO()->cal->get_prop('_evo_zoom_secret');
+
+				$signature = $this->generate_signature( $zoom_api_key, $zoom_api_secret, $meeting_id, 0 );
+				wp_send_json_success( [ 'sig' => $signature, 'key' => $zoom_api_key, 'type' => 'jwt' ] );
+			}else{
+
+			}
+
+			wp_die();
+		}
+		private function generate_sdk_signature( $sdk_key, $secret_key, $meeting_number, $role ) {
+			$iat     = round( ( time() * 1000 - 30000 ) / 1000 );
+			$exp     = $iat + 86400;
+			$payload = [
+				'sdkKey'   => $sdk_key,
+				'mn'       => $meeting_number,
+				'role'     => $role,
+				'iat'      => $iat,
+				'exp'      => $exp,
+				'appKey'   => $sdk_key,
+				'tokenExp' => $exp,
+			];
+
+			if ( empty( $secret_key ) ) {
+				return false;
+			}
+
+			return \Firebase\JWT\JWT::encode( $payload, $secret_key, 'HS256' );
+		}
 
 	// EventON Settings
-	function settings($A){
-		$B = array(
-			array('type'=>'sub_section_open','name'=>__('Zoom','eventon')),
-			array('id'=>'_evo_zoom','type'=>'yesno','name'=>__('Enable Zoom API','eventon'),'afterstatement'=>'_evo_zoom', 'legend'=>'This will allow you to integrate zoom direct into each event using the API information from zoom.'),
-			array('id'=>'_evo_zoom','type'=>'begin_afterstatement'),
+		function after_settings_saved($focus_tab, $current_section,  $evcal_options){
 
-				array('id'=>'_evo_zoom','type'=>'subheader','name'=> __('Server to server Oauth Connection','eventon'). ' [Beta]' ),
-					array('id'=>'_evo_zoom_oauth_id','type'=>'text',
-						'name'=>__('Oauth Account ID','eventon'),'hideable'=>true
-					),array('id'=>'_evo_zoom_oauth_cid','type'=>'text',
-						'name'=>__('Oauth Client ID','eventon'),'hideable'=>true
-					),array('id'=>'_evo_zoom_oauth_csecret','type'=>'text',
-						'name'=>__('Oauth Client Secret','eventon'),'hideable'=>true
-					),
+			if( $focus_tab == 'evcal_1' && !EVO()->cal->get_prop('_evo_zoom_oauth_data') && 
+				!empty($evcal_options['_evo_zoom_oauth_id']) && 
+				!empty($evcal_options['_evo_zoom_oauth_cid']) && 
+				!empty($evcal_options['_evo_zoom_oauth_csecret']) 
+			){
+				\evozoomoauth\ZOOM_S2SOAuth::get_instance()->run_access_token_process();
+			}
+		}
 
-				array('id'=>'_evo_zoom','type'=>'subheader','name'=> __('JWT Connection: Deprecating','eventon')),
-				array('id'=>'_evo_zoom_key','type'=>'text',
-					'name'=>__('API Key','eventon'),'hideable'=>true
-				),	
-				array('id'=>'_evo_zoom_secret','type'=>'text',
-					'name'=>__('API Secret Key','eventon'), 'hideable'=>true
-				),	
-				array('id'=>'_evo_zoom_note','type'=>'note',
-					'name'=> sprintf('<a href="%s" target="_blank">%s</a>',
-						'http://docs.myeventon.com/documentations/how-to-find-zoom-api-keys/',
-						__('Learn how to find Zoom API key and other information.','eventon') 
-					)
-				),			
-						
-			array('id'=>'_evo_zoom','type'=>'end_afterstatement'),
-			array('type'=>'sub_section_close'),
-		);
+		// check if zoom api data saved
+		function is_zoom_ok(){
+			return ( !EVO()->cal->get_prop('_evo_zoom_key') && !EVO()->cal->get_prop('_evo_zoom_secret') ) ? false : true;
+		}
+		// check if sdk data is saved
+		function is_sdk_ok(){
+			return ( !EVO()->cal->get_prop('_evo_zoom_sdk_id') && !EVO()->cal->get_prop('_evo_zoom_sdk_secret') ) ? false : true;
+		}
+		// check if oauth data is saved in settings
+		function is_oauth_active(){
+			return ( !EVO()->cal->get_prop('_evo_zoom_oauth_id') && !EVO()->cal->get_prop('_evo_zoom_oauth_cid') && !EVO()->cal->get_prop('_evo_zoom_oauth_csecret') ) ? false : true;
+		}
+		function settings($A){
+			$B = array(
+				array('type'=>'sub_section_open','name'=>__('Zoom','eventon')),
+				array('id'=>'_evo_zoom','type'=>'yesno','name'=>__('Enable Zoom API','eventon'),'afterstatement'=>'_evo_zoom', 'legend'=>'This will allow you to integrate zoom direct into each event using the API information from zoom.'),
+				array('id'=>'_evo_zoom','type'=>'begin_afterstatement'),
 
-		return array_merge($A, $B);
-	}
+					array('id'=>'_evo_zoom','type'=>'subheader',
+						'name'=> __('Server to server OAuth Credentials','eventon') ),
+						array('id'=>'_evo_zoom','type'=>'note',
+							'name'=> sprintf('S2S connection is needed from sept 2023, in order for zoom to work. <a href="%s" target="_blank">%s</a>',
+								'https://docs.myeventon.com/documentations/how-to-generate-zoom-api-credentials/',
+								__('Guide on S2S Setup.','eventon') 
+							)
+						),
+						array('id'=>'_evo_zoom_oauth_id','type'=>'text',
+							'name'=>__('Oauth Account ID','eventon'),'hideable'=>true
+						),array('id'=>'_evo_zoom_oauth_cid','type'=>'text',
+							'name'=>__('Oauth Client ID','eventon'),'hideable'=>true
+						),array('id'=>'_evo_zoom_oauth_csecret','type'=>'text',
+							'name'=>__('Oauth Client Secret','eventon'),'hideable'=>true
+						),
+
+					/*
+					array('id'=>'_evo_zoom','type'=>'subheader','name'=> __('Meeting SDK App Credentials','eventon') ),
+						array('id'=>'_evo_zoom','type'=>'note',
+							'name'=> sprintf('SDK App access info is required to join via broswer to function. <a href="%s" target="_blank">%s</a>',
+								'https://docs.myeventon.com/documentations/how-to-generate-zoom-api-credentials/',
+								__('Guide on SDK Setup.','eventon') 
+							) 
+						),
+						array('id'=>'_evo_zoom_sdk_id','type'=>'text',
+							'name'=>__('Client ID','eventon'),'hideable'=>true
+						),array('id'=>'_evo_zoom_sdk_secret','type'=>'text',
+							'name'=>__('Client Secret','eventon'),'hideable'=>true
+						),
+
+					*/
+					array('id'=>'_evo_zoom','type'=>'subheader','name'=> __('JWT Connection [Legacy]','eventon')),
+					array('id'=>'_evo_zoom_key','type'=>'text',
+						'name'=>__('API Key','eventon'),'hideable'=>true
+					),	
+					array('id'=>'_evo_zoom_secret','type'=>'text',
+						'name'=>__('API Secret Key','eventon'), 'hideable'=>true
+					),	
+					array('id'=>'_evo_zoom_note','type'=>'note',
+						'name'=> sprintf('<a href="%s" target="_blank">%s</a>',
+							'http://docs.myeventon.com/documentations/how-to-find-zoom-api-keys/',
+							__('Learn how to find Zoom API key and other information.','eventon') 
+						)
+					),			
+							
+				array('id'=>'_evo_zoom','type'=>'end_afterstatement'),
+				array('type'=>'sub_section_close'),
+			);
+
+			return array_merge($A, $B);
+		}
 }
 
 new EVO_Zoom_Int();

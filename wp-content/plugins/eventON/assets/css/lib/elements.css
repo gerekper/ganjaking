@@ -98,6 +98,45 @@
     .evo_inside .yesno_row span.field_name{pointer-events:auto;}
     .yesno_row .ajde_yn_btn { padding: 0;}
 
+/* angle button */
+    .evo_elm_row.angle{display: flex;align-items: center;}
+    .evo_elm_row.angle .evo_elm_ang_hold{
+            display: flex;
+        height: 36px;
+        width: 36px;
+        border: 3px solid #333;
+        border-radius: 18px;
+        box-sizing: border-box;
+        justify-content: center;
+        align-items: center;
+        flex:1 0 auto;
+    }
+    .evo_elm_row.angle .evo_elm_ang_center{
+        position: relative;
+        width: 6px;
+        height: 30px;
+        pointer-events: none;
+    }
+    .evo_elm_row.angle .evo_elm_ang_pointer{
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        top: 2px;
+        border-radius: 3px;
+        background: #1F2667;
+    }
+    .evo_elm_row .evo_elm_ang_inp{
+        width: calc(100% - 12px);
+        height: 30px;
+        padding: 0 8px;
+        margin-left: 12px;
+        border: 1px solid #bbbfc5;
+        border-radius: 6px;
+        -webkit-transition: all 175ms ease-out;
+        transition: all 175ms ease-out;
+        text-align: center;
+    }
+
 /* icon selector on taxonomy page */
     .ajde_fa_icons_selector {
       background-color: #fff;
@@ -297,7 +336,7 @@
     p.evo_row_select span span:hover{ color: #9c9c9c;}
     p.evo_row_select span span.select{   background-color: var(--evo_color_1);color:#fff;border-radius: 20px}
     
-    p.evo_row_select span span{padding:8px 15px;color:#636363;cursor: pointer;line-height: 1    }
+    p.evo_row_select span span{padding:8px 15px;color:#636363;cursor: pointer;line-height: 1 ; margin-bottom: 5px;   }
 
 /* afterstatement field */
     .evo_elm_afterstatement {
@@ -463,5 +502,5 @@
     .evo_meta_elements .evo_elm_row .evo_field_container.visi .evo_elm_color{margin-right: 10px}
 
 /* general meta boxes */
-    .evo_elm_row.yesno_row, .yesno_row{display: flex; padding:5px 0;}
+    .evo_elm_row.yesno_row, .yesno_row{display: flex; padding:5px 0;justify-content: flex-start;}
     .evo_elm_row.yesno_row .field_name{margin-bottom: 10px;}

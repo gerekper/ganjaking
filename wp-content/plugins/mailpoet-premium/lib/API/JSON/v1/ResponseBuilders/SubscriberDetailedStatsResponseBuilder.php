@@ -106,6 +106,9 @@ class SubscriberDetailedStatsResponseBuilder {
     $linkUrl = ($link instanceof NewsletterLinkEntity) ? $link->getUrl() : '';
     $purchases = [];
     foreach ($click->getWooCommercePurchases() as $purchase) {
+      if (!in_array($purchase->getStatus(), $this->wooCommerce->getPurchaseStates(), true)) {
+        continue;
+      }
       $purchases[] = [
         'id' => $purchase->getId(),
         'created_at' => ($createdAt = $purchase->getCreatedAt()) ? $createdAt->format(self::DATE_FORMAT) : null,

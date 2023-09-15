@@ -35,11 +35,11 @@ class WoocommerceGpfDebugService {
 		$this->wc_context = [ 'source' => 'woocommerce-product-feeds' ];
 
 		$this->enabled = isset( $_REQUEST['debug_key'] ) &&
-						 $_REQUEST['debug_key'] === $debug_key;
+						$_REQUEST['debug_key'] === $debug_key;
 
 		$this->destination = 'wc-log';
 		if ( isset( $_REQUEST['destination'] ) &&
-			 in_array( $_REQUEST['destination'], [ 'xml' ], true )
+			in_array( $_REQUEST['destination'], [ 'xml' ], true )
 		) {
 			$this->destination = $_REQUEST['destination'];
 		}
@@ -91,6 +91,5 @@ class WoocommerceGpfDebugService {
 			echo $log_msg;
 			echo ' -->' . PHP_EOL;
 		}
-
 	}
 }

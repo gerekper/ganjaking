@@ -1,6 +1,6 @@
 /**
  * EventON elements
- * version: 4.4.3
+ * version: 4.5
  */
 jQuery(document).ready(function($){
 
@@ -24,6 +24,34 @@ jQuery(document).ready(function($){
 		$(this).evo_process_element_interactivity();
 	});
 
+// angle button
+	var dragging = false;
+	$('body').on('mousedown', '.evo_elm_ang_hold',function(){
+		dragging = true
+	}).on('mouseup','.evo_elm_ang_hold',function(){
+		dragging = false
+	}).on('mousemove','.evo_elm_ang_hold',function(e){
+		if (dragging) {
+			//console.log(e);
+			tar = $(this).find('.evo_elm_ang_center');
+			var mouse_x = e.offsetX;
+            var mouse_y = e.offsetY;
+            var radians = Math.atan2(mouse_x - 10, mouse_y - 10);
+            var degree = parseInt( (radians * (180 / Math.PI) * -1) + 180 );
+			//console.log(degree+ ' '+ mouse_x +' '+mouse_y);
+
+			tar.css('transform', 'rotate(' + degree + 'deg)');
+			$(this).siblings('.evo_elm_ang_inp').val( degree +'°');
+
+			$('body').trigger('evo_angle_set',[$(this), degree]);
+		}
+	}).on('keyup','.evo_elm_ang_inp',function(){
+		deg = parseInt($(this).val());
+		$(this).val( deg +'°');
+		tar.css('transform', 'rotate(' + deg + 'deg)');
+		
+		$('body').trigger('evo_angle_set',[$(this), deg]);
+	});
 
 
 // yes no button		
@@ -165,7 +193,7 @@ jQuery(document).ready(function($){
 		$('body').trigger('evo_row_select_selected',[P, $(this).attr('value'), val]);			
 	});
 
-// Color picker
+// Color picker @+4.5
 	setup_colorpicker();
 	$('body').on('evo_page_run_colorpicker_setup',function(){
 		setup_colorpicker();
@@ -209,6 +237,54 @@ jQuery(document).ready(function($){
 		
 		return parseInt((rgb['r'] + rgb['g'] + rgb['b'])/3);			
 	}
+
+	// color picker 2
+	$.fn.evo_colorpicker_init = function(opt){
+		var el = this;
+		var el_color = el.find('.evo_set_color');
+
+		var init = function(){
+			el.ColorPicker({		
+				color: get_default_set_color(),
+				onChange:function(hsb, hex, rgb,el){
+					set_hex_values(hex,rgb);
+				},
+				onSubmit: function(hsb, hex, rgb, el) {
+					set_hex_values(hex,rgb);
+					$(el).ColorPickerHide();
+
+					// trigger
+					$('body').trigger('evo_colorpicker_2_submit', [ el, hex, rgb]);
+				}		
+			});
+		} 			
+
+		var set_hex_values = function(hex,rgb){			
+			el.find('.evcal_color_hex').html(hex);
+			el.find('.evo_color_hex').val(hex);
+			el_color.css({'background-color':'#'+hex});		
+			
+			// set RGB val
+			rgb_val = $('body').evo_rgb_process({ data : rgb, type:'rgb',method:'rgb_to_val'});
+			el.find('.evo_color_n').val( rgb_val );
+		}
+		
+		var get_default_set_color = function(){
+			var colorraw = el_color.css("background-color");						
+			var def_color = el.evo_rgb_process({data: colorraw, method:'rgb_to_hex'});	
+			return def_color;
+		}
+
+		init();
+	}
+	$('body').on('evo_eventedit_dom_loaded_evo_color',function(event, val){
+		$('body').find('.evo_color_selector').each(function(){
+			$(this).evo_colorpicker_init();	
+		});					
+	});
+
+
+
 	
 // plus minus changer
 	$('body').on('click','.evo_plusminus_change', function(event){

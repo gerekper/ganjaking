@@ -158,14 +158,12 @@ class WoocommerceProductFeedsMain {
 			$this->prf_admin->initialise();
 			$this->import_export_integration->initialise();
 			$this->admin_notices->initialise();
-		} else {
-			if ( $use_expanded_schema ) {
+		} elseif ( $use_expanded_schema ) {
 				$this->expanded_structured_data = $this->container['WoocommerceProductFeedsExpandedStructuredData'];
 				$this->expanded_structured_data->initialise();
-			} else {
-				$this->structured_data = $this->container['WoocommerceGpfStructuredData'];
-				$this->structured_data->initialise();
-			}
+		} else {
+			$this->structured_data = $this->container['WoocommerceGpfStructuredData'];
+			$this->structured_data->initialise();
 		}
 		if ( $use_expanded_schema ) {
 			$this->expanded_structured_data_cache_invalidator =

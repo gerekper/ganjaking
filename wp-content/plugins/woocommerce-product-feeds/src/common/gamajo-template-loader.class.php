@@ -65,7 +65,7 @@ if ( ! class_exists( 'Gamajo_Template_Loader' ) ) {
 
 
 		public function __construct() {
-			$this->plugin_directory = plugin_dir_path( dirname( __FILE__ ) );
+			$this->plugin_directory = plugin_dir_path( __DIR__ );
 		}
 
 		/**

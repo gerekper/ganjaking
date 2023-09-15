@@ -80,6 +80,9 @@ class Customizer extends Base {
     }
 
     public function dynamic_css() {
+        if ( ! betterdocs()->helper->is_templates() ) {
+            return false;
+        }
         /**
          * Don't remove this line, it's used in dynamic.css.php file.
          */

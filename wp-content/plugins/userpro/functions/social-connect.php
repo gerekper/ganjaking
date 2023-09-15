@@ -81,7 +81,7 @@ function userpro_social_connect($array){
                                     alert("Cannot Sign in! Looks like some error with Facebook email id");}
                                 jQuery.ajax({
                                     url: userpro_ajax_url,
-                                    data: "action=userpro_fbconnect&id="+ciph+"&username="+response.username+"&first_name="+response.first_name+"&last_name="+response.last_name+"&gender="+response.gender+"&email="+response.email+"&name="+response.name+"&link="+response.link+"&profilepicture="+encodeURIComponent(profilepicture)+"&redirect="+redirect,
+                                    data: "action=userpro_fbconnect&id="+ciph+"&username="+response.username+"&first_name="+response.first_name+"&last_name="+response.last_name+"&gender="+response.gender+"&email="+response.email+"&name="+response.name+"&link="+response.link+"&profilepicture="+encodeURIComponent(profilepicture)+"&redirect="+redirect + '&nonce=' + USER_PRO_DATA.nonce,
                                     dataType: 'JSON',
                                     type: 'POST',
                                     success:function(data){

@@ -1,7 +1,7 @@
 <?php
 /** 
  * Eventcard virtual event html content
- * @version 4.0.6
+ * @version 4.5
  */
 
 	
@@ -56,13 +56,11 @@ class EVO_Event_Virtual{
 					<?php echo $this->get_pre_content();?>						
 				</div>			
 				
-				<?php	do_action('evo_vir_before_main_content', $this );	?>				
+				<?php do_action('evo_vir_before_main_content', $this );	?>				
+								
+				<?php echo $this->get_main_content();	?>					
 				
-				<div class='evo_vir_main_content evo_vir_box'>
-					<?php	echo $this->get_main_content();	?>
-				</div>		
-				
-				<div class='evo_vir_post_content'><?php echo $this->get_post_content();?>	</div>
+				<?php echo $this->get_post_content();?>
 				
 				<?php
 
@@ -184,11 +182,16 @@ class EVO_Event_Virtual{
 	// MAIN event content
 	public function get_main_content($user = ''){
 
+		// is event is past = skip
+		if( $this->is_past ) return;
+
 		ob_start();
 
 		$show_details = $mod_joined = false;	
-		$EVENT = $this->EVENT;									
-				
+		$EVENT = $this->EVENT;		
+
+		echo "<div class='evo_vir_main_content evo_vir_box'>";							
+
 		// Event is Live
 			if($this->is_live_now){
 				
@@ -240,7 +243,7 @@ class EVO_Event_Virtual{
 			}else{
 
 				if( !$this->_is_user_moderator){
-					echo "<div class='evo_vir_access'>
+					echo "<div class='evo_vir_access' style='margin-bottom:10px;'>
 						<p class='evo_vir_access_title'><span>". evo_lang('Join the live stream') ."</span></p>					
 						<p class='evo_vir_access_actions'>
 						<span class='evo_vir_access_actions_in'>";
@@ -256,37 +259,39 @@ class EVO_Event_Virtual{
 
 			// EMBED CODE
 				if($embed = $EVENT->get_prop('_vir_embed')){
-					echo "<div class='evo_vir_embed' style='margin-top:5px;'>";
+					echo "<div class='evo_vir_embed' style='margin-bottom:10px;'>";
 					echo $embed;
 					echo "</div>";
 				}
 
 			// other event access details
 				if($v_other = $EVENT->get_prop('_vir_other')){
-					echo "<h4 class='evo_h4' style='margin-bottom:10px'>". evo_lang('Other Access Information') ."</h4>";
-					echo "<p class='evo_vir_other'>". $v_other ."</p>";
+					echo "<h4 class='evo_h4' style=''>". evo_lang('Other Access Information') ."</h4>";
+					echo "<p class='evo_vir_other' style='margin-bottom:10px'>". $v_other ."</p>";
 				}
 
 			echo apply_filters('evo_eventcard_vir_main_content', ob_get_clean(), $EVENT, $this->current_user);
 
 		// if main content is not showing
 		}else{			
-			
-			// if the event is past
-			if( $this->is_past ){
-				echo "<p class='event_is_past'></p>";
-			}else{
+
+			// if the event is NOT past
+			if( !$this->is_past ){
 				if( $this->is_live_now){
 
 					if( $EVENT->check_yn('_vir_hide') ){
 						echo "<p>". evo_lang('Event has already started and the access to the event is closed') . "!</p>";
-					}					
+					}else{
+
+					}				
 
 				// not past not live
 				}else{
 
+					// event is starting soon within 30 minutes
 					if( $EVENT->is_event_starting_soon()){
 						echo "<div class='evo_vir_access startingsoon'><p class='evo_vir_access_title '><span>". evo_lang('Event starting shortly..'). "</span></p></div>";
+					// event is not starting for longer than 30 minutes
 					}else{
 						echo "<p>". apply_filters('evo_eventcard_vir_txt_cur', evo_lang('Event access information coming soon, Please check back again closer to event start time.'), $EVENT, $this->_is_user_moderator) . "</p>";
 					}
@@ -298,6 +303,8 @@ class EVO_Event_Virtual{
 		// PLUG
 		do_action('evo_eventcard_vir_after_details', $this );
 
+		echo "</div>";
+
 		return ob_get_clean();
 		
 	}
@@ -305,16 +312,22 @@ class EVO_Event_Virtual{
 	// POST event content
 	public function get_post_content(){
 
-		
+		// make sure event is ended before showing content
 		if( !$this->EVENT->is_vir_event_ended()) return;	
 
-		ob_start();											
+		ob_start();		
+
+		echo "<div class='evo_vir_post_content'>";									
 		
+		// checks for when to show after event content
 		if($after_content = $this->EVENT->is_vir_after_content() ){
 			echo apply_filters('evo_eventcard_virtual_after_content', $after_content, $this->EVENT);
 		}else{
 			echo "<p class='evo_vir_past_content'>". evo_lang('Event has already taken place') . "!</p>";
 		}
+
+		echo "</div>";
+
 		return ob_get_clean();
 	}
 

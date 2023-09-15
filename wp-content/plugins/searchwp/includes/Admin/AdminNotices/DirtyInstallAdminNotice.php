@@ -31,7 +31,7 @@ class DirtyInstallAdminNotice extends AdminNotice {
 		$this->slug    = 'dirty-installation';
 		$this->message = sprintf(
 			// Translators: Placeholder is a link to the Migration Guide.
-			__( 'Error: Duplicate SearchWP version detected! When upgrading SearchWP from version 3.x to 4 you must follow the %1$s%2$s%3$s which will resove this error.', 'searchwp' ),
+			__( 'Error: Duplicate SearchWP version detected! When upgrading SearchWP from version 3.x to 4 you must follow the %1$s%2$s%3$s which will resolve this error.', 'searchwp' ),
 			'<a href="https://searchwp.com/?p=218795" target="_blank">',
 			__( 'Migration Guide', 'searchwp' ),
 			'</a>'

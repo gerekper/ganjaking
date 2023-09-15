@@ -600,6 +600,17 @@ class NewsletterEntity extends \MailPoet\Entities\NewsletterEntity implements \M
     /**
      * {@inheritDoc}
      */
+    public function getFilterSegmentId(): ?int
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFilterSegmentId', []);
+
+        return parent::getFilterSegmentId();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getQueues()
     {
 

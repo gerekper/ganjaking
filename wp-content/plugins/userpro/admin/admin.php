@@ -47,6 +47,12 @@ class userpro_admin {
 			'jquery-ui-droppable',
 			'jquery-ui-sortable'
 		) );
+
+        wp_localize_script( 'userpro_admin', 'USER_PRO_DATA', array(
+            'ajaxurl' => admin_url( 'admin-ajax.php' ),
+            'nonce' => wp_create_nonce( 'user_pro_nonce' )
+        ) );
+
 		wp_enqueue_script( 'userpro_admin' );
 		wp_enqueue_script('jquery');
 		wp_enqueue_script('jquery-ui-datepicker');
@@ -446,7 +452,9 @@ class userpro_admin {
 		if (isset( $_POST['userpro_import_groups'] ) && $_POST['userpro_import_groups'] != ''){
 			$import_code = $_POST['userpro_import_groups'];
 			$import_code = base64_decode($import_code);
-			$import_code = unserialize($import_code);
+//			$import_code = unserialize($import_code);
+            $import_code = json_decode($import_code, true);
+
 			if (is_array($import_code)){
 			update_option('userpro_fields_groups', $import_code);
 			echo '<div class="updated fade"><p><strong>'.__('Your UserPro field groups have been imported.','userpro').'</strong></p></div>';
@@ -460,7 +468,9 @@ class userpro_admin {
 		if (isset( $_POST['userpro_import_fields'] ) && $_POST['userpro_import_fields'] != ''){
 			$import_code = $_POST['userpro_import_fields'];
 			$import_code = base64_decode($import_code);
-			$import_code = unserialize($import_code);
+			//$import_code = unserialize($import_code);
+            $import_code = json_decode($import_code, true);
+
 			if (is_array($import_code)){
 			update_option('userpro_fields', $import_code);
 			echo '<div class="updated fade"><p><strong>'.__('Your UserPro fields have been imported.','userpro').'</strong></p></div>';
@@ -471,27 +481,48 @@ class userpro_admin {
 	}
 
 	function import_settings(){
+        if( isset( $_POST['user_pro_nonce'] ) ) {
+            if ( ! wp_verify_nonce( $_POST['user_pro_nonce'], 'user_pro_nonce' ) ) {
+                wp_send_json_error( 'Invalid nonce.' );
+                return;
+            }
+        }
+
 		if (isset( $_POST['userpro_import'] ) && $_POST['userpro_import'] != ''){
 			$import_code = $_POST['userpro_import'];
 			$import_code = base64_decode($import_code);
-			$import_code = unserialize($import_code);
-			if (is_array($import_code)){
+//			$import_code = unserialize($import_code);
+            $import_code = json_decode($import_code, true);
+
+            if (is_array($import_code)){
 			update_option('userpro', $import_code);
 			echo '<div class="updated fade"><p><strong>'.__('Your UserPro settings have been imported.','userpro').'</strong></p></div>';
 			} else {
 			echo '<div class="error"><p><strong>'.__('This is not a valid import file.','userpro').'</strong></p></div>';
 			}
 		}
-	}
+    }
 
 	function export_users() {
-		global $userpro;
+
+        if( isset($_POST['user_pro_nonce']) ) {
+            if( ! wp_verify_nonce($_POST['user_pro_nonce'], 'user_pro_nonce') ) {
+                return;
+            }
+        }
+
+        global $userpro;
 
 		if (!file_exists( $userpro->upload_base_dir . 'downloads/' )) {
 			@mkdir( $userpro->upload_base_dir . 'downloads/', 0777, true);
 		}
 
-		$export = array( 'id' => 'ID', 'user_login' => 'Username', 'user_email' => 'Email');
+        if (!file_exists($userpro->upload_base_dir . 'downloads/index.php')) {
+            $indexFileContent = "<?php\n// Silence is golden.";
+            file_put_contents($userpro->upload_base_dir . 'downloads/index.php', $indexFileContent);
+        }
+
+        $export = array( 'id' => 'ID', 'user_login' => 'Username', 'user_email' => 'Email');
 
 		$export = array_merge( array_keys($export), array_keys($userpro->fields) );
 
@@ -682,6 +713,19 @@ if(!empty($_POST['formdate']))
 	}
 
 	function admin_page() {
+        if( isset( $_POST['user_pro_nonce'] ) ) {
+            if ( ! wp_verify_nonce( $_POST['user_pro_nonce'], 'user_pro_nonce' ) ) {
+                wp_send_json_error( 'Invalid nonce.' );
+                return;
+            }
+        }
+
+        if( isset( $_GET['user_pro_nonce'] ) ) {
+            if ( ! wp_verify_nonce( $_GET['user_pro_nonce'], 'user_pro_nonce' ) ) {
+                wp_send_json_error( 'Invalid nonce.' );
+                return;
+            }
+        }
 
 		if (isset($_POST['export_users'])){
 			$this->export_users();

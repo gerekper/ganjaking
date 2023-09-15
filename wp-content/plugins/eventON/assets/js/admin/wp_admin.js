@@ -447,7 +447,7 @@ jQuery(document).ready(function($){
 	// get term list
 	.on('evo_ajax_success_evo_get_tax_list',function(event, OO, data){
 		if(data.status=='good'){
-			console.log('dd');						
+			//console.log('dd');						
 			$('.evo_config_term').find('select.field').select2();						
 		}
 	})
@@ -457,7 +457,7 @@ jQuery(document).ready(function($){
 			$('.evo_singular_tax_for_event.'+ data.tax ).html(data.htmldata);
 
 			// when setting event location
-			if(data.tax == 'event_location'){
+			if(data.tax == 'event_location' && evo_admin_ajax_handle.setting_evo_gen_map){
 				var inp = $('body').find('input[name="evcal_gmap_gen"]');
 				if( inp.val() == 'no') inp.siblings('span').trigger('click');
 			}
@@ -469,7 +469,7 @@ jQuery(document).ready(function($){
 			$('.evo_singular_tax_for_event.'+ data.tax ).html(data.htmldata);
 
 			// when setting event location
-			if(data.tax == 'event_location'){
+			if(data.tax == 'event_location' && evo_admin_ajax_handle.setting_evo_gen_map){
 				var inp = $('body').find('input[name="evcal_gmap_gen"]');
 				if( inp.val() == 'no') inp.siblings('span').trigger('click');
 			}

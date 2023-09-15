@@ -1,7 +1,7 @@
 <?php
 /**
   * evo settings class
-  * @version 4.4.1
+  * @version 4.5
   */
 class evo_settings_settings{
 	private $evcal_opt;
@@ -402,7 +402,8 @@ class evo_settings_settings{
 				))
 			)
 			// event top
-			,array(
+			,
+			'evcal_004aa'=> array(
 				'id'=>'evcal_004aa',
 				'name'=>__('EventTop Settings (EventTop is the event row on calendar)','eventon'),
 				'tab_name'=>__('EventTop','eventon'),
@@ -445,6 +446,17 @@ class evo_settings_settings{
 							'_0'=>'Clear with left border colors',
 							'_4'=>'Clear with left border colors and gaps',
 						),'default'=>'_2',		
+					),
+					array('id'=>'evo_eventtop_org_link','type'=>'dropdown',
+						'name'=>__('Select EventTop Organizer click action','eventon'),
+						'legend'=>'Set how you want the organizer name on eventtop to interact when clicked on.',
+						'options'=>array(
+							'0'=>'Open more details in lightbox',					
+							'1'=>'Open organizer archive page',					
+							'2'=>'Open organizer learn more link, if available',
+							'x'=>'Do nothing',
+						),'default'=>'0',	
+						'ver'=> '4.5',	
 					),
 					array('id'=>'evo_etop_tags', 'type'=>'checkboxes',
 						'name'=>__('Select below EventTop tags to HIDE (Tags you selected below will be hidden from view on frontend.)','eventon'),
@@ -852,17 +864,24 @@ class evo_settings_settings{
 			</div>
 			<p><a class='evo_admin_btn btn_triad' id='evo_load_environment'><?php _e('Load Environment Stats','eventon');?></a></p>
 
-			<p><a class='evo_admin_btn btn_triad ajde_popup_trig' data-popc='evo_log_lightbox' id='evo_load_log' data-n='<?php echo wp_create_nonce('evo_data_log');?>'><?php _e('View EventON System Log','eventon');?></a></p>
-			<?php
-
-
+			<?php 
+				EVO()->elements->print_trigger_element(array(
+					'title'=>__('View eventon system log','eventon'),
+					'class_attr'=>'evo_admin_btn evolb_trigger btn_triad',
+					'dom_element'=> 'span',
+					'uid'=>'evo_admin_system_log',
+					'lb_class' =>'evoadmin_system_log',
+					'lb_title'=> __('EventON System Log','eventon'),
+					'ajax_data' =>array(
+						'action'=>'eventon_admin_system_log'
+					),
+				), 'trig_lb');
 
 			return ob_get_clean();
 		}
 
 	// HTML code for export events in csv and ics format
 		function export(){
-			global $ajde;
 
 			$nonce = wp_create_nonce('eventon_download_events');
 			
@@ -906,12 +925,12 @@ class evo_settings_settings{
 
 			// event top layout
 			$evo_etl = isset($this->evcal_opt[1]['evo_etl']) ? 
-				 json_decode( html_entity_decode($this->evcal_opt[1]['evo_etl'] ), true): 
+				 json_decode( stripslashes($this->evcal_opt[1]['evo_etl'] ), true): 
 				 array();
 
 			$cal_help = new evo_cal_help();
 			$eventtop_fields = $cal_help->get_eventtop_fields_array();
-			//print_r($eventtop_fields);
+			//print_r($eventtop_fields['layout']);
 
 			?>
 			<div class='evotop_designer' >
@@ -948,13 +967,13 @@ class evo_settings_settings{
 				<div id='evotop_field_selector' class=''>
 					<h4 style='margin:0 0 10px'><?php _e('Unused Event Top Fields','eventon');?></h4>
 					<div id='evotop_field_selector_f'>
-						<?php
+					<?php
 						if( is_array($unused_fields) && count($unused_fields)>0){
 							foreach($unused_fields as $ff){
 								echo "<span data-f='{$ff}'>". $eventtop_fields['all'][$ff] ."</span>";
 							}
 						}
-						?>
+					?>
 					</div>
 					<p class='nothing' style='<?php echo count($unused_fields) > 0 ? "display:none":'';?>'><?php _e('You are using all the available fields','eventon');?>!</p>
 					<span style='margin-top:10px' id='evotop_field_selector_c' class='evo_admin_btn btn_triad'><?php _e('Cancel','eventon');?></span>
@@ -1022,7 +1041,7 @@ class evo_settings_settings{
 
 			// variable to save this data -- evo_ecl - eventcard layout
 			$evo_ecl = isset($this->evcal_opt[1]['evo_ecl']) ? 
-				 json_decode( html_entity_decode($this->evcal_opt[1]['evo_ecl'] ), true): 
+				 json_decode( stripslashes($this->evcal_opt[1]['evo_ecl'] ), true): 
 				 array();
 
 			//$evo_ecl = array();
@@ -1079,6 +1098,7 @@ class evo_settings_settings{
 			$default_evc_color = EVO()->cal->get_prop('evcal__bc1in','evcal_1');
 			if( !$default_evc_color) $default_evc_color = 'f3f3f3';
 
+			$processed_fields = array();
 
 			?>
 			<div class='evo_card_designer' data-dc='<?php echo $default_evc_color;?>'>
@@ -1106,6 +1126,10 @@ class evo_settings_settings{
 							$C = !empty($DD['c']) ? $DD['c']:$default_evc_color;
 
 							if( !isset( $event_card_fields[$N][1] )) continue;
+
+							// if already processed
+							if( in_array( $N, $processed_fields)) continue;
+							$processed_fields[] = $N;
 							
 
 							// stacked boxes begin container

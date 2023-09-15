@@ -3,8 +3,9 @@
  * Helper functions to be used by eventon or its addons
  * front-end only
  *
- * @version 4.3.5
+ * @version 4.4.5
  */
+
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 

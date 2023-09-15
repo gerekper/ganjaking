@@ -233,8 +233,8 @@ class WC_Pre_Orders_Cart {
 		if ( ! empty( $woocommerce->cart->cart_contents ) ) {
 
 			foreach ( $woocommerce->cart->cart_contents as $cart_item ) {
-
-				if ( WC_Pre_Orders_Product::product_can_be_pre_ordered( $cart_item['product_id'] ) ) {
+				$product_id = ! empty( $cart_item['variation_id'] ) ? $cart_item['variation_id'] : $cart_item['product_id'];
+				if ( WC_Pre_Orders_Product::product_can_be_pre_ordered( $product_id ) ) {
 
 					$contains_pre_order = true;
 					break;

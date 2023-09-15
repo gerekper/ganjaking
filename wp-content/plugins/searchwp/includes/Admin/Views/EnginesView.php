@@ -509,6 +509,9 @@ class EnginesView {
 							&& isset( $_GET['welcome'] ),
 			'migrated' => $migrated,
 			'cron'     => \SearchWP\Utils::is_cron_operational(),
+			// Use the source prefix to exclude all sources from that family. (e.g. 'taxonomy.' excludes all Taxonomy sources).
+			// Use the whole source name to exclude a specific source only (e.g. 'post.page' excludes Pages only).
+			'newEngineExcludedSources' => ['taxonomy.']
 		], $settings ) );
 	}
 

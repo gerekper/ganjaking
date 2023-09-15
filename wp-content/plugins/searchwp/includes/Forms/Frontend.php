@@ -30,13 +30,19 @@ class Frontend {
 	 */
 	public function hooks() {
 
+		self::register_gutenberg_block();
+
+		if ( version_compare( get_bloginfo( 'version' ), '5.8', '>=' ) ) {
+			add_filter( 'block_categories_all', [ __CLASS__, 'register_gutenberg_block_category' ] );
+		} else {
+			add_filter( 'block_categories', [ __CLASS__, 'register_gutenberg_block_category' ] );
+		}
+
 		add_action( 'wp_enqueue_scripts', [ __CLASS__, 'assets' ] );
 
 		add_filter( 'searchwp\query\mods', [ __CLASS__, 'taxonomy_mod' ], 20, 2 );
 		add_filter( 'searchwp\query\mods', [ __CLASS__, 'author_mod' ], 20, 2 );
 		add_filter( 'searchwp\query\mods', [ __CLASS__, 'post_type_mod' ], 20, 2 );
-
-		self::register_gutenberg_block();
 	}
 
 	/**
@@ -49,6 +55,29 @@ class Frontend {
 		register_block_type( SEARCHWP_PLUGIN_DIR . '/assets/gutenberg/build', [ 'render_callback' => [ __CLASS__, 'render' ] ] );
 
 		wp_localize_script('searchwp-search-form-editor-script', 'searchwpForms', Storage::get_all() );
+	}
+
+	/**
+	 * Add a block category for SearchWP if it doesn't exist already.
+     *
+     * @since 4.3.4
+	 *
+	 * @param array $categories Array of block categories.
+	 *
+	 * @return array
+	 */
+	public static function register_gutenberg_block_category( $categories ) {
+		$category_slugs = wp_list_pluck( $categories, 'slug' );
+		return in_array( 'searchwp', $category_slugs, true ) ? $categories : array_merge(
+			$categories,
+			array(
+				array(
+					'slug'  => 'searchwp',
+					'title' => 'SearchWP',
+					'icon'  => null,
+				),
+			)
+		);
 	}
 
 	/**

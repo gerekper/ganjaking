@@ -37,7 +37,7 @@ class WoocommerceGpfTemplateLoader extends Gamajo_Template_Loader {
 	 * Constructor. Stores needed config.
 	 */
 	public function __construct() {
-		$this->plugin_directory = dirname( dirname( dirname( __FILE__ ) ) );
+		$this->plugin_directory = dirname( dirname( __DIR__ ) );
 	}
 
 	/**

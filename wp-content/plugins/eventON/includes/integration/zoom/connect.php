@@ -1,7 +1,7 @@
 <?php
 /**
  * Zoom Connect functions
- * @version 2.9
+ * @version 4.4.5
  */
 
 require 'vendor/autoload.php';
@@ -12,8 +12,17 @@ class EVO_Zoom_Run{
 
 	private $api_url = 'https://api.zoom.us/v2/';
 
+	public static $OAuth_revalidate_attempts = 0;
+
 	public $zoom_api_key;
 	public $zoom_api_secret;
+
+	public static function instance() {
+		if ( is_null( self::$_instance ) ) {
+			self::$_instance = new self();
+		}
+		return self::$_instance;
+	}
 
 	public function __construct(){
 
@@ -22,56 +31,93 @@ class EVO_Zoom_Run{
 	}
 
 	protected function sendRequest($calledFunction, $data, $request = "GET" ) {
-        $request_url = 'https://api.zoom.us/v2/users/me/meetings';
+        //$request_url = 'https://api.zoom.us/v2/users/me/meetings';
+        $initialRequest = $request;
         $request_url = $this->api_url . $calledFunction;
+        $bearerToken    = $this->getBearerToken();
 
         $args        = array(
+        	'timeout' => 30,
 			'headers' => array(
-				'Authorization' => 'Bearer ' . $this->generateJWTKey(),
+				'Authorization' => 'Bearer ' . $bearerToken,
 				'Content-Type'  => 'application/json'
 			)
 		);
 
-        if ( $request == "GET" ) {
-			$args['body'] = ! empty( $data ) ? $data : array();
-			$response     = wp_remote_get( $request_url, $args );
-		} else if ( $request == "DELETE" ) {
-			$args['body']   = ! empty( $data ) ? json_encode( $data ) : array();
-			$args['method'] = "DELETE";
-			$response       = wp_remote_request( $request_url, $args );
-		} else if ( $request == "PATCH" ) {
-			$args['body']   = ! empty( $data ) ? json_encode( $data ) : array();
-			$args['method'] = "PATCH";
-			$response       = wp_remote_request( $request_url, $args );
-		} else {
-			$args['body']   = ! empty( $data ) ? json_encode( $data ) : array();
-			$args['method'] = "POST";
-			$response       = wp_remote_post( $request_url, $args );
-		}
-		
+        // retrive validation
+	        if ( $request == "GET" ) {
+				$args['body'] = ! empty( $data ) ? $data : array();
+				$request      = wp_remote_get( $request_url, $args );
+			} elseif ( $request == "DELETE" ) {
+				$args['body']   = ! empty( $data ) ? json_encode( $data ) : array();
+				$args['method'] = "DELETE";
+				$request        = wp_remote_request( $request_url, $args );
+			} elseif ( $request == "PATCH" ) {
+				$args['body']   = ! empty( $data ) ? json_encode( $data ) : array();
+				$args['method'] = "PATCH";
+				$request        = wp_remote_request( $request_url, $args );
+			} elseif ( $request == "PUT" ) {
+				$args['body']   = ! empty( $data ) ? json_encode( $data ) : array();
+				$args['method'] = "PUT";
+				$request        = wp_remote_request( $request_url, $args );
+			} else {
+				$args['body']   = ! empty( $data ) ? json_encode( $data ) : array();
+				$args['method'] = "POST";
+				$request        = wp_remote_post( $request_url, $args );
+			}
 
-		$response = wp_remote_retrieve_body( $response );
-		
-		//print_r( json_decode($response) );
-		//die;
+		if ( !is_wp_error( $request ) ) {
+			$responseCode = wp_remote_retrieve_response_code( $request );
+			$response = wp_remote_retrieve_body( $request );
 
-		if ( ! $response ) {
+			if( $responseCode == 401 && $this->is_oauth_active()){
+
+				// retry access token only twice
+				if ( self::$OAuth_revalidate_attempts <= 2 ) {
+
+					\evozoomoauth\ZOOM_S2SOAuth::get_instance()->run_access_token_process();
+					self::$OAuth_revalidate_attempts ++;
+
+					//resend the request after regenerating access token
+						return $this->sendRequest( $calledFunction, $data, $initialRequest );
+
+				}else{
+					self::$OAuth_revalidate_attempts = 0;
+						
+				}
+
+			}
+
+			return json_decode($response);
+		}else{
 			return false;
-		}
-
-		return json_decode($response);
+		}	
 	}
+
+	// S2S access
+		private function getBearerToken() {			
+			$OauthData = EVO()->cal->get_prop('_evo_zoom_oauth_data','evcal_1');
+			
+			if ( ! empty( $OauthData ) ) {
+				return $OauthData->access_token;
+			} else {
+				return $this->generateJWTKey();
+			}
+
+		}
 
 	//function to generate JWT
 	    private function generateJWTKey() {
 	        $key = $this->zoom_api_key;
 	        $secret = $this->zoom_api_secret;
+
+	        if ( empty( $secret ) ) {	return false; }
 	        
 	        $token = array(
 	            "iss" => $key,
 	            "exp" => time() + 3600 //60 seconds as suggested
 	        );
-	        return JWT::encode( $token, $secret );
+	        return JWT::encode( $token, $secret, 'HS256' );
 	    }
 	
 	// Users
@@ -169,6 +215,10 @@ class EVO_Zoom_Run{
 		public function delete_meeting( $meeting_id ) {
 			$deleteAMeetingArray = array();
 			return $this->sendRequest( 'meetings/' . $meeting_id, $deleteAMeetingArray, "DELETE" );
+		}
+
+		function is_oauth_active(){
+			return ( !EVO()->cal->get_prop('_evo_zoom_oauth_id','evcal_1') && !EVO()->cal->get_prop('_evo_zoom_oauth_cid','evcal_1') && !EVO()->cal->get_prop('_evo_zoom_oauth_csecret','evcal_1') ) ? false : true;
 		}
 }
 

@@ -114,6 +114,12 @@ class userpro_ed_admin {
 	}
 
 	function admin_page() {
+        if( isset( $_POST['user_pro_nonce'] ) ) {
+            if ( ! wp_verify_nonce( $_POST['user_pro_nonce'], 'user_pro_nonce' ) ) {
+                wp_send_json_error( 'Invalid nonce.' );
+                return;
+            }
+        }
 
 		if (isset($_POST['submit'])) {
 			$this->save();

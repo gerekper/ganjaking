@@ -59,7 +59,7 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 
 		if ( ! empty( $this->store_info->base_country ) ) {
 			if ( 'US' === substr( $this->store_info->base_country, 0, 2 ) ||
-				 'CA' === substr( $this->store_info->base_country, 0, 2 ) ) {
+				'CA' === substr( $this->store_info->base_country, 0, 2 ) ) {
 				$this->tax_excluded = true;
 				if ( 'US' === substr( $this->store_info->base_country, 0, 2 ) ) {
 					$this->tax_attribute = true;
@@ -158,7 +158,7 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 			return false;
 		}
 		if ( empty( $item->additional_elements['gtin'] ) &&
-			 empty( $item->additional_elements['mpn'] ) ) {
+			empty( $item->additional_elements['mpn'] ) ) {
 			return false;
 		}
 
@@ -182,13 +182,16 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 		}
 		// Core feed information
 		echo "<?xml version='1.0' encoding='UTF-8' ?>\n";
-		echo "<rss version='2.0' xmlns:atom='http://www.w3.org/2005/Atom' xmlns:g='http://base.google.com/ns/1.0'>\n";
+		echo "<rss version='2.0' xmlns:g='http://base.google.com/ns/1.0'>\n";
 		echo "  <channel>\n";
 		$this->render_feed_title();
 		echo '    <link>' . $this->store_info->site_url . "</link>\n";
-		echo "    <description>This is the WooCommerce Product List RSS feed</description>\n";
-		echo '    <generator>WooCommerce Google Product Feed Plugin v' . WOOCOMMERCE_GPF_VERSION . " (https://plugins.leewillis.co.uk/downloads/woocommerce-google-product-feed/)</generator>\n";
-		echo "    <atom:link href='" . esc_url( $this->store_info->feed_url ) . "' rel='self' type='application/rss+xml' />\n";
+		echo '    <description>';
+		echo 'This is the WooCommerce Product List RSS feed. ';
+		echo 'Generate by WooCommerce Google Product Feed Plugin v' . WOOCOMMERCE_GPF_VERSION . '. ';
+		echo '(https://plugins.leewillis.co.uk/downloads/woocommerce-google-product-feed/). ';
+		echo 'Feed URL: ' . esc_url( $this->store_info->feed_url );
+		echo '</description>' . PHP_EOL;
 	}
 
 
@@ -253,7 +256,7 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 					break;
 				}
 				$output .= '      <g:additional_image_link>' . $this->esc_xml( $image_url ) . "</g:additional_image_link>\n";
-				$cnt ++;
+				++$cnt;
 			}
 		}
 
@@ -363,7 +366,7 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 
 		// Include start / end dates if provided.
 		if ( ! empty( $feed_item->sale_price_start_date ) &&
-			 ! empty( $feed_item->sale_price_end_date ) ) {
+			! empty( $feed_item->sale_price_end_date ) ) {
 			$effective_date  = (string) $feed_item->sale_price_start_date;
 			$effective_date .= '/';
 			$effective_date .= (string) $feed_item->sale_price_end_date;

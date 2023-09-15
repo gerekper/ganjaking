@@ -374,6 +374,9 @@ abstract class BackgroundProcess {
 			}
 		}
 
+		// Encode cookies before use.
+		$cookies = array_map( 'rawurlencode', $cookies );
+
 		$args = array(
 			'timeout'   => 0.1,
 			'blocking'  => false,

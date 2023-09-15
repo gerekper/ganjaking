@@ -213,7 +213,6 @@ class Initializer {
         'https://kb.mailpoet.com/article/200-solving-database-connection-issues',
         [
           'target' => '_blank',
-          'data-beacon-article' => '596de7db2c7d3a73488b2f8d',
         ]
       ));
     }
@@ -250,6 +249,12 @@ class Initializer {
       $this,
       'initialize',
     ]);
+
+    $this->wpFunctions->addAction(
+      'init',
+      [$this, 'maybeRunActivator'],
+      PHP_INT_MIN
+    );
 
     $this->wpFunctions->addAction('admin_init', [
       $this,
@@ -318,7 +323,6 @@ class Initializer {
   public function initialize() {
     try {
       $this->migratorCli->initialize();
-      $this->maybeDbUpdate();
       $this->setupInstaller();
       $this->setupUpdater();
 
@@ -376,7 +380,14 @@ class Initializer {
     $this->changelog->redirectToLandingPage();
   }
 
-  public function maybeDbUpdate() {
+  /**
+   * Checks if the plugin was updated and runs the activator if needed. The activator
+   * will run the database migrations and update the db version among a few other things.
+   *
+   * @return void
+   * @throws InvalidStateException
+   */
+  public function maybeRunActivator() {
     try {
       $currentDbVersion = $this->settings->get('db_version');
     } catch (\Exception $e) {

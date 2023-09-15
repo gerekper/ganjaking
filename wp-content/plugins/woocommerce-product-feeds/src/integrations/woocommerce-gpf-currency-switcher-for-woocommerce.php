@@ -93,6 +93,7 @@ class WoocommerceGpfCurrencySwitcherForWooCommerce {
 	 *
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
+	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 	public function column_currency( $item, $column_name ) {
 		$currency = $item->currency;
 		if ( empty( $currency ) ) {
@@ -100,6 +101,7 @@ class WoocommerceGpfCurrencySwitcherForWooCommerce {
 		}
 		echo esc_html( $currency );
 	}
+	// phpcs:enable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
 	/**
 	 * Render the currency dropdown on the manage feed page for a feed.
@@ -115,7 +117,7 @@ class WoocommerceGpfCurrencySwitcherForWooCommerce {
 			'admin-feed-edit-woocommerce-multicurrency',
 			$template_vars
 		);
-		$base_dir = dirname( dirname( dirname( __FILE__ ) ) );
+		$base_dir = dirname( dirname( __DIR__ ) );
 		wp_enqueue_script(
 			'woo-gpf-admin-feed-edit-woocommerce-multicurrency',
 			plugins_url( basename( $base_dir ) ) . '/js/admin-feed-edit-woocommerce-multicurrency.js',
@@ -172,6 +174,7 @@ class WoocommerceGpfCurrencySwitcherForWooCommerce {
 	 *
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
+	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 	public function add_currency_arg_to_product_permalinks( $feed_item, $wc_product ) {
 		$feed_item->purchase_link = add_query_arg(
 			[
@@ -182,6 +185,7 @@ class WoocommerceGpfCurrencySwitcherForWooCommerce {
 
 		return $feed_item;
 	}
+	// phpcs:enable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
 	/**
 	 * Register our key with the config class.

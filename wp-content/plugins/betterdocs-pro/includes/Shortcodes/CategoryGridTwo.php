@@ -47,6 +47,10 @@ class CategoryGridTwo extends CategoryGrid {
             'terms'                    => '',
             'terms_orderby'            => '',
             'terms_order'              => '',
+            'terms_include'            => '',
+            'terms_exclude'            => '',
+            'terms_offset'             => '',
+            'kb_slug'                  => '',
             'multiple_knowledge_base'  => false,
             'disable_customizer_style' => false,
             'title_tag'                => 'h2'

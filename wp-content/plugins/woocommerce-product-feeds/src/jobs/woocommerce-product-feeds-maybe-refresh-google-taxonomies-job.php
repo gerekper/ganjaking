@@ -102,5 +102,4 @@ class WoocommerceProductFeedsMaybeRefreshGoogleTaxonomiesJob extends AbstractWoo
 			);
 		}
 	}
-
 }

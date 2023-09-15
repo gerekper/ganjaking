@@ -1,6 +1,6 @@
 /**
  * Javascript code that is associated with the front end of the calendar
- * @version 4.4
+ * @version 4.5
  */
 
 jQuery(document).ready(function($){
@@ -2225,9 +2225,7 @@ jQuery(document).ready(function($){
 	// edit event button redirect
 		$('body').on('click','.editEventBtnET', function(event){
 			event.stopPropagation();
-
 			href = $(this).attr('href');
-			//console.log(href);
 			window.open(href);
 		});
 
@@ -2238,6 +2236,12 @@ jQuery(document).ready(function($){
 				URL =  $(this).data('l');
 				window.location = URL;
 			}
+		});
+
+	// Tax Archive Content
+		// organizer links from eventtop @4.5
+		$('body').on('click','.evo_org_clk_link',function(){
+			window.open( $(this).data('link') , "_blank");
 		});
 
 	// event location archive card page
@@ -2377,7 +2381,6 @@ jQuery(document).ready(function($){
 					$('body').trigger('evo_slidedown_eventcard_complete',[ event_id, obj]);	
 				});
 
-
 	// HELPER items script
 		// yes no button		
 			$('body').on('click','.ajde_yn_btn ', function(event){
@@ -2492,8 +2495,10 @@ jQuery(document).ready(function($){
 		}
 
 	// submit search from calendar
-		$('body').on('click','.evosr_search_btn',function(){	search_within_calendar( $(this).siblings('input') );		});
-		$(".evo_search_bar_in input").evo_enterKey(function () {	search_within_calendar( $(this) );		});
+		$('body').on('click','.evosr_search_btn',function(){	
+			search_within_calendar( $(this).siblings('input') );		});
+		$(".evo_search_bar_in input").evo_enterKey(function () {	
+			search_within_calendar( $(this) );		});
 
 		function search_within_calendar(obj){
 
@@ -2506,6 +2511,25 @@ jQuery(document).ready(function($){
 			
 		   	return false;	
 		}	
+
+		// reset search field @since 4.5
+		$('body').on('evo_main_ajax_complete',function(event,CAL, ajaxtype, responseJSON , data_arg ){
+
+			if(ajaxtype == 'search' ){
+				if( data_arg.shortcode['s'] != '' ){
+					CAL.find('.evosr_search_clear_btn').addClass('show');
+				}					
+			}
+		}).on('click','.evosr_search_clear_btn',function(event){
+			event.preventDefault();
+			const obj = $(this);
+			var ev_cal = obj.closest('.ajde_evcal_calendar');
+			ev_cal.evo_update_cal_sc({F:'s',V: '' });
+			run_cal_ajax( ev_cal.attr('id'),'none','search');
+
+			obj.removeClass('show');
+			obj.siblings('input').val('');
+		});
 
 
 	// More event images interaction

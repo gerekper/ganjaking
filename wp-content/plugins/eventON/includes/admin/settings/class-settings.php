@@ -1,7 +1,7 @@
 <?php
 /**
  *	EventON Settings Main Object
- *	@version 4.4
+ *	@version 4.5
  */
 
 class EVO_Settings{
@@ -13,8 +13,6 @@ class EVO_Settings{
 		$this->focus_tab = (isset($_GET['tab']) )? sanitize_text_field( urldecode($_GET['tab'])):'evcal_1';
 		$this->current_section = (isset($_GET['section']) )? sanitize_text_field( urldecode($_GET['section'])):'';
 		$this->options_pre = 'evcal_options_';
-
-		$this->set_settings_tab_prop();
 	}
 
 // Styles and scripts
@@ -62,7 +60,7 @@ class EVO_Settings{
 				$this->evo_save_settings();
 				
 			// Load eventon settings values for current tab
-				$evcal_opt = $this->get_current_tab_values('evcal_options_');	
+				$evcal_opt = $this->get_current_tab_values();	
 			
 			// activation notification
 				$EVO_prod = new EVO_Product_Lic('eventon');
@@ -98,30 +96,20 @@ class EVO_Settings{
 // INITIATION
 	function get_current_tab_values(){		
 		$current_tab_number = substr($this->focus_tab, -1);
-		// if the tab last character is not numeric then get the whole tab name as the variable name for the options 		
-		if(!is_numeric($current_tab_number)){ 
-			$current_tab_number = $this->focus_tab;
-		}	
-		return array($current_tab_number=> $this->tab_props );
-	}
+		EVO()->cal->reload_option_data( $this->focus_tab );
 
-	private function set_settings_tab_prop(){	
-		if(array_key_exists('EVO_Settings', $GLOBALS) && isset($GLOBALS['EVO_Settings'][$this->options_pre .$this->focus_tab])){
-			global $EVO_Settings;
-			$this->tab_props  = $EVO_Settings[$this->options_pre .$this->focus_tab];
-		}else{
-			$this->tab_props = get_option( $this->options_pre .$this->focus_tab);
-			$GLOBALS['EVO_Settings'][$this->options_pre .$this->focus_tab] = $this->tab_props;
-		}
-		
+		$tab_props = $this->tab_props = EVO()->cal->get_op( $this->focus_tab  );
+
+		return array( $current_tab_number => $tab_props );
 	}
+	
 	function get_prop($field){
 		if(!isset($this->tab_props[$field])) return false;
 		return $this->tab_props[$field];
 	}
 
 // Event Edit Settings
-// @since 4.2.1 @updated 4.2.2
+// @since 4.2.1 @updated 4.5
 	function get_event_edit_settings($data){
 		ob_start();
 
@@ -237,6 +225,7 @@ class EVO_Settings{
 		?></div></div><?php
 	}
 
+	// deprecating
 	function save_settings($nonce_key, $nonce_field, $options_pre){
 		if( isset($_POST[$nonce_field]) && isset( $_POST ) ){
 			if ( wp_verify_nonce( $_POST[$nonce_field], $nonce_key ) ){
@@ -244,11 +233,13 @@ class EVO_Settings{
 					$pv = (is_array($pv))? $pv: addslashes(esc_html(stripslashes(($pv)))) ;
 					$options[$pf] = $pv;
 				}
-				update_option($options_pre.$this->focus_tab, $options);
+				EVO()->cal->set_cur( $this->focus_tab );
+				EVO()->cal->set_option_values( $options );
 			}
 		}
 	}
 
+	// @updated 4.5
 	function evo_save_settings(){
 		$focus_tab = $this->focus_tab;
 		$current_section = $this->current_section;
@@ -261,15 +252,20 @@ class EVO_Settings{
 				// run through all post values
 				foreach($_POST as $pf=>$pv){
 					// skip fields
-					if(in_array($pf, array('option_page', 'action','_wpnonce','_wp_http_referer','evcal_noncename'))) continue;
+					if(in_array($pf, array('option_page', 'action','_wpnonce','_wp_http_referer','evcal_noncename',
+					))) continue;
 
-					if( ($pf!='evcal_styles' && $focus_tab!='evcal_4') || $pf!='evcal_sort_options'){
+					$none_san_fields = array('evo_ecl','evo_etl','evcal_top_fields','evcal_sort_options');
+
+					if( ($pf!='evcal_styles' && $focus_tab!='evcal_4') || !in_array($pf, $none_san_fields) ){
 						
-						$pv = (is_array($pv))? $pv: addslashes(esc_html(stripslashes(($pv)))) ;
+						// none array values
+						if( !is_array($pv) )	$pv = sanitize_text_field( $pv );
+
 						$evcal_options[$pf] = $pv;
 					}
-					if($pf=='evcal_sort_options'){
-						$evcal_options[$pf] =$pv;
+					if( in_array($pf, $none_san_fields) ){
+						$evcal_options[$pf] = $pv;
 					}				
 				}
 				
@@ -409,6 +405,7 @@ class EVO_Settings{
 				// EACH field
 				foreach($cpav['fields'] as $field){
 
+
 					if( !isset($field['type'])) continue;
 
 					if($field['type']=='text' || $field['type']=='textarea'){
@@ -419,6 +416,11 @@ class EVO_Settings{
 					// LEGEND or tooltip
 					$legend_code = (!empty($field['legend']) )? EVO()->elements->tooltips($field['legend'], 'L', false):
 						( (!empty($field['tooltip']) )? EVO()->elements->tooltips($field['tooltip'], 'L', false): null );
+
+					// new label
+					if( isset($field['ver']) && $field['ver'] == EVO()->version){
+						$legend_code .= "<span class='new' title='".__('New in version','eventon') .' '. EVO()->version."'>new</span>";
+					}
 									
 					switch ($field['type']){
 						// notices

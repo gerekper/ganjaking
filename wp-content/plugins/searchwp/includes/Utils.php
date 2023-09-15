@@ -1754,7 +1754,7 @@ class Utils {
 
 		$length = (int) apply_filters( 'excerpt_length', $length );
 		$more   = apply_filters( 'searchwp\utils\excerpt_more', ' [&hellip;] ' );
-		$flag   = false;
+		$flag   = '';
 
 		$substrings_list = explode( ' ', $substrings );
 
@@ -1775,7 +1775,7 @@ class Utils {
 
 		$exact_match_pos = stripos( $string, $flag );
 
-		if ( $exact_match_pos !== false ) {
+		if ( ! empty( $flag ) && $exact_match_pos !== false ) {
 			$exact_match_end_pos = strpos( $string, ' ', $exact_match_pos + strlen( $flag ) );
 			$exact_match_length  = $exact_match_end_pos - $exact_match_pos;
 

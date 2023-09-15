@@ -166,7 +166,7 @@ abstract class WoocommerceGpfAbstractCacheRebuildJob {
 			$woocommerce_product
 		);
 		if ( $woocommerce_product instanceof WC_Product_Variable &&
-			 $include_variations ) {
+			$include_variations ) {
 			return $this->process_variable_product( $woocommerce_product );
 		}
 

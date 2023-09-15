@@ -26,6 +26,7 @@
 	<form action="" method="post">
 		<br />
 		<?php _e('Before resetting, please remove all UserPro pages from your Pages.','userpro'); ?><br />
+        <input type="hidden" name="user_pro_nonce" value="<?= wp_create_nonce("user_pro_nonce"); ?>";>
 		<input type="submit" name="userpro-reinstall" id="userpro-reinstall" value="<?php _e('Re-Install UserPro (Warning: This will reset all fields and settings)','userpro'); ?>" class="button-primary" />
 	</form>
 	

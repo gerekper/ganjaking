@@ -50,10 +50,10 @@ class WoocommerceProductFeedsExpandedStructuredDataCacheInvalidator {
 	 */
 	public function register_protected_meta( $protected, $meta_key, $meta_type ) {
 		if ( 'post' === $meta_type &&
-			 (
+			(
 				'woocommerce_gpf_schema_cache_timestamp' === $meta_key ||
 				'woocommerce_gpf_schema_cache' === $meta_key
-			 )
+			)
 		) {
 			return true;
 		}
@@ -84,7 +84,6 @@ class WoocommerceProductFeedsExpandedStructuredDataCacheInvalidator {
 		}
 		// Call invalidate_schema_cache() for parent product
 		$this->invalidate_schema_cache( $parent_id, $parent_wc_product );
-
 	}
 
 	/**

@@ -207,7 +207,7 @@ class WC_Pre_Orders {
 			add_action( 'init', array( $this->manager, 'check_cancel_pre_order' ) );
 
 			// add countdown shortcode
-			add_shortcode( 'woocommerce_pre_order_countdown', array( $this, 'pre_order_countdown_shortcode' ) );
+			$this->add_countdown_shortcode();
 		}
 	}
 
@@ -226,24 +226,13 @@ class WC_Pre_Orders {
 	}
 
 	/**
-	 * Pre-order countdown shortcode
+	 * Adds the countdown shortcode.
 	 *
-	 * @param array $atts associative array of shortcode parameters
-	 *
-	 * @return string shortcode content
+	 * @return void
 	 */
-	public function pre_order_countdown_shortcode( $atts ) {
-
+	private function add_countdown_shortcode() {
 		require_once 'shortcodes/class-wc-pre-orders-shortcode-countdown.php';
-
-		return WC_Shortcodes::shortcode_wrapper(
-			array(
-				'WC_Pre_Orders_Shortcode_Countdown',
-				'output',
-			),
-			$atts,
-			array( 'class' => 'woocommerce-pre-orders' )
-		);
+		add_shortcode( 'woocommerce_pre_order_countdown', array( 'WC_Pre_Orders_Shortcode_Countdown', 'get_pre_order_countdown_shortcode_content' ) );
 	}
 
 	/**

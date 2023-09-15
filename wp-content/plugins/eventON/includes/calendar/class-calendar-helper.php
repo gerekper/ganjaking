@@ -292,7 +292,7 @@ class evo_cal_help {
 		public function get_eventcard_fields_array(){
 			$opt = $this->opt1;
 			if( isset($opt['evo_ecl'])){
-				$evo_ecl = json_decode( html_entity_decode($opt['evo_ecl'] ), true);
+				$evo_ecl = json_decode( stripslashes($opt['evo_ecl'] ), true);
 			}else{
 
 				$fields = $hidden_items = array();
@@ -410,7 +410,7 @@ class evo_cal_help {
 			$this->opt1 = get_option('evcal_options_evcal_1');
 
 			$evo_etl = isset($this->opt1['evo_etl']) ? 
-				 json_decode( html_entity_decode($this->opt1['evo_etl'] ), true): 
+				 json_decode( stripslashes($this->opt1['evo_etl'] ), true): 
 				 false;
 
 			$saved_eventtop_fields = isset($this->opt1['evcal_top_fields']) ? 

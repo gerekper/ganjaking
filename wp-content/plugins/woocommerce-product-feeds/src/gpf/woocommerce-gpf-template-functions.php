@@ -68,7 +68,7 @@ function woocommerce_gpf_get_feed_item( WP_Post $post ) {
 	global $woocommerce_gpf_di;
 	// Bail if it's not a WooCommerce product / variation.
 	if ( empty( $post->ID ) || empty( $post->post_type ) ||
-		 ( 'product' !== $post->post_type && 'product_variation' !== $post->post_type ) ) {
+		( 'product' !== $post->post_type && 'product_variation' !== $post->post_type ) ) {
 		return null;
 	}
 	if ( 'product_variation' === $post->post_type ) {
@@ -93,5 +93,5 @@ function woocommerce_gpf_get_feed_item( WP_Post $post ) {
  */
 function woocommerce_gpf_is_generating_feed() {
 	return ( isset( $_SERVER['REQUEST_URI'] ) && stripos( $_SERVER['REQUEST_URI'], '/woocommerce_gpf' ) === 0 ) ||
-		   isset( $_REQUEST['woocommerce_gpf'] );
+			isset( $_REQUEST['woocommerce_gpf'] );
 }

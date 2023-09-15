@@ -16,6 +16,7 @@
 		<th scope="row"><label for="userpro_import"><?php _e('Import Settings','userpro'); ?></label></th>
 		<td>
 			<textarea name="userpro_import" id="userpro_import" class="large-text" rows="10"></textarea>
+            <input type="hidden" name="user_pro_nonce" value="<?= wp_create_nonce("user_pro_nonce"); ?>";>
 			<p><input type="submit" name="import_settings" id="import_settings" class="up-admin-btn up-admin-btn--dark-blue small" value="<?php _e('Import','userpro'); ?>" /></p>
 			<span class="up-description"><?php _e('Just copy the export file data in to above text box and click on the import button','userpro'); ?></span>
 		</td>
@@ -38,6 +39,7 @@
 	<tr valign="top">
 		<th scope="row"><label for="userpro_import_fields"><?php _e('Import Fields','userpro'); ?></label></th>
 		<td>
+            <input type="hidden" name="user_pro_nonce" value="<?= wp_create_nonce("user_pro_nonce"); ?>";>
 			<textarea name="userpro_import_fields" id="userpro_import_fields" class="large-text" rows="10"></textarea>
 			<p><input type="submit" name="import_fields" id="import_fields" class="up-admin-btn up-admin-btn--dark-blue small" value="<?php _e('Import','userpro'); ?>" /></p><span class="up-description"><?php _e('Just copy the export file data in to above text box and click on the import button','userpro'); ?></span>
 		</td>
@@ -60,6 +62,7 @@
 	<tr valign="top">
 		<th scope="row"><label for="userpro_import_groups"><?php _e('Import Field Groups','userpro'); ?></label></th>
 		<td>
+            <input type="hidden" name="user_pro_nonce" value="<?= wp_create_nonce("user_pro_nonce"); ?>";>
 			<textarea name="userpro_import_groups" id="userpro_import_groups" class="large-text" rows="10"></textarea>
 			<p><input type="submit" name="import_groups" id="import_groups" class="up-admin-btn up-admin-btn--dark-blue small" value="<?php _e('Import','userpro'); ?>" /></p><span class="up-description"><?php _e('Just copy the export file data in to above text box and click on the import button','userpro'); ?></span>
 		</td>

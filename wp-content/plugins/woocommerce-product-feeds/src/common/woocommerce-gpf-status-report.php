@@ -341,7 +341,6 @@ class WoocommerceGpfStatusReport {
 			'footer',
 			[]
 		);
-
 	}
 
 	/**
@@ -361,7 +360,6 @@ class WoocommerceGpfStatusReport {
 				)
 			);
 		}
-
 	}
 
 	/**

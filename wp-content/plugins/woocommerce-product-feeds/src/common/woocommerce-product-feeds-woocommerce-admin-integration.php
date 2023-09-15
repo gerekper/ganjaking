@@ -15,7 +15,7 @@ class WoocommerceProductFeedsWoocommerceAdminIntegration {
 	public function initialise() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		add_filter( 'woocommerce_get_registered_extended_tasks', array( $this, 'register_extended_task' ), 10, 1 );
-		$this->base_dir = dirname( dirname( dirname( __FILE__ ) ) );
+		$this->base_dir = dirname( dirname( __DIR__ ) );
 	}
 
 	/**

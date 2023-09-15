@@ -98,7 +98,7 @@ class WC_Pre_Orders_Shortcode_Countdown {
 	 *
 	 * @param array $atts associative array of shortcode parameters
 	 */
-	public static function output( $atts ) {
+	public static function get_pre_order_countdown_shortcode_content( $atts ) {
 		global $woocommerce, $product, $wpdb;
 
 		$shortcode_atts = shortcode_atts(
@@ -177,8 +177,14 @@ class WC_Pre_Orders_Shortcode_Countdown {
 			$woocommerce->add_inline_js( $javascript );
 		}
 
-		// the countdown element with a unique identifier to allow multiple countdowns on the same page, and common class for ease of styling
-		echo '<div class="woocommerce-pre-orders-countdown" id="woocommerce-pre-orders-countdown-' . esc_attr( $until ) . '"></div>';
+		ob_start();
+		?>
+		<div class="woocommerce-pre-orders">
+			<?php // the countdown element with a unique identifier to allow multiple countdowns on the same page, and common class for ease of styling ?>
+			<div class="woocommerce-pre-orders-countdown" id="woocommerce-pre-orders-countdown-<?php echo esc_attr( $until ); ?>"></div>
+		</div>
+		<?php
+		return ob_get_clean();
 	}
 
 

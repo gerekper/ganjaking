@@ -1,8 +1,7 @@
 /**
  * all event post types and taxonomy styles
- * @version 4.4.2
+ * @version 4.5
  */
-
 
 
 /* hide location and organizer tag boxes */
@@ -20,8 +19,23 @@
 	    border-radius: 3px;
 	}
 	.evoadmin_eventedit_boxhead .evoadmin_eventedit_reloadbox:hover{opacity: 0.7}
+	.post-type-ajde_events .edit-post-meta-boxes-area.is-side .postbox-container .inside{padding: 0 15px 15px;}
+	.post-type-ajde_events .edit-post-meta-boxes-area.is-side .postbox-container .inside .evo_edit_field_box
+	{
+		margin:0px;
+	    background-color: transparent;
+    	padding: 10px 5px;
+    }
+    .event_status_settings p.evo_row_select span.values{background-color: transparent;}
+    .event_status_settings p.evo_row_select span.values span{
+    	    border: 1px solid var(--evo_border_c);
+	    border-radius: 25px;
+	    margin: 0 5px 5px 0;
+    }
+
 
 /** EVENT COLOR **/
+	.evo_mb_color_box{padding:10px;}
 	.evcal_color_box{
 		cursor:pointer;height:20px; 
 		width:20px; 
@@ -30,23 +44,25 @@
 		border-radius:50%;
 	}
 	.evcal_color_box:hover{border:2px solid #8f8f8f}
-	#evColor{
+	.evo_set_color{
 		display:block;
-		position:absolute;
 		height:35px; width:60px;
-		top:20px; left:13px;
+		top:0px; left:6px;
 		border-radius:25px;
 	}
-	#color_selector .evselectedColor{
-		padding-left:70px;
-		margin:0;
+	.evo_color_selector .evselectedColor{ margin: 0 0 0 10px}
+	.evo_color_selector span{display:block;color:#545454}
+	.evcal_color_hex{padding:0;font-size:20px; text-transform:uppercase}
+	.evo_color_selector:hover{opacity:0.7}
+	.evo_color_selector{
+		position:relative;
+		cursor:pointer;
+		display: flex;
+		margin-bottom: 10px;
 	}
-	#color_selector span{display:block;color:#545454}
-	.evcal_color_hex{padding:12px 20px 0;font-size:20px; text-transform:uppercase}
-	.evcal_color_selector_text{padding:0 20px 15px ; font:normal 12px var(--evo_main_font);}
-	#color_selector:hover{opacity:0.7}
-	#color_selector{
-		position:relative;cursor:pointer;border-radius: 15px;background-color:#efefef;
+	.evo_colors_used{
+		display: flex;
+    	flex-wrap: wrap;
 	}
 	#meta_tb .div_bar.div_bar_sm{border-top: 1px dashed #e5e5e5;	}
 	#meta_tb .div_bar{height:9px;position:relative;margin:0 -10px}
@@ -91,6 +107,15 @@
 	    color: #4e4d4d;
 	    font: 13px var(--evo_main_font);
 	}
+	.evo_color_grad_prev{
+		    height: 90px;
+	    width: 100%;
+	    border: 2px solid #333;
+	    margin-top: 15px;
+	    border-radius: 10px;
+	}
+	.evo_mb_color_box .evo_elm_afterstatement {padding: 10px;}
+
 /* GB blocks */
 	.block-editor-editor-skeleton__content .edit-post-layout__metaboxes .edit-post-meta-boxes-area{margin:0;}
 	.block-editor-editor-skeleton__content #poststuff .inside{margin:0; padding:15px;}
@@ -501,7 +526,7 @@
 	}
 	.evo_event_images_notice.bad{background-color: #ff6c6d;}
 
-/* related images */
+/* related events */
 	.evolb_content .evo_rel_events_list{
 		display: block;
 	    height: 400px;
@@ -527,7 +552,7 @@
 	    border: 3px solid #dedede;
 	}
 	.evo_rel_events_list span.rel_event .n{display: block;    text-transform: uppercase;  font-weight: bold;}
-	.evo_rel_events_list span.rel_event .t{display: block; font-size: 12px; opacity: 0.5}
+	.evo_rel_events_list span.rel_event .t{display: block; font-size: 12px; opacity: 0.5; text-transform: uppercase;}
 	.evolb_content .evo_rel_events_list span.select{background-color:#f9f9f9 }
 	.evolb_content .evo_rel_events_list span.select b{background-color:#7b7b7b }
 	
@@ -562,6 +587,12 @@
 	.evo_rel_events_box .ev_rel_events_list span.n{text-transform: uppercase;font-weight: bold;}
 	.evo_rel_events_box .ev_rel_events_list span.l:hover{background-color: #ffce71; color: #7b7a7a;}
 	.evo_rel_events_box .ev_rel_events_list span.l:hover i{ color: #fff;}
+	.evo_rel_events_form .evo_rel_search{margin-bottom: 10px;}
+	.evo_rel_events_form .evo_rel_search input{
+		border: 2px solid var(--evo_color_1);
+	    border-radius: 25px;
+	    padding: 5px 20px;
+	}
 
 /* other */
 	form.evoz_form ..evo_date_time_select.start{

@@ -101,6 +101,12 @@
 	add_action('wp_ajax_nopriv_userpro_delete_user_badge', 'userpro_delete_user_badge');
 	add_action('wp_ajax_userpro_delete_user_badge', 'userpro_delete_user_badge');
 	function userpro_delete_user_badge(){
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error(  'Invalid nonce.' );
+            die();
+        }
+
 		global $userpro_badges;
 		if (!current_user_can('manage_options'))
 			die();
@@ -119,6 +125,12 @@
 	add_action('wp_ajax_nopriv_userpro_delete_achievement_badge', 'userpro_delete_achievement_badge');
 	add_action('wp_ajax_userpro_delete_achievement_badge', 'userpro_delete_achievement_badge');
 	function userpro_delete_achievement_badge(){
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
 		global $userpro_badges;
 		if (!current_user_can('manage_options'))
 			die();
@@ -137,6 +149,12 @@
 	add_action('wp_ajax_nopriv_userpro_delete_all_user_badge', 'userpro_delete_all_user_badge');
 	add_action('wp_ajax_userpro_delete_all_user_badge', 'userpro_delete_all_user_badge');
 	function userpro_delete_all_user_badge(){
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
 		global $userpro_badges;
 		if (!current_user_can('manage_options'))
 			die();

@@ -200,7 +200,7 @@ class Scheduler {
     $taskModel = $queue->task();
     $taskEntity = $this->scheduledTasksRepository->findOneById($taskModel->id);
     if ($taskEntity instanceof ScheduledTaskEntity) {
-      $subscribersCount = $this->subscribersFinder->addSubscribersToTaskFromSegments($taskEntity, $segments);
+      $subscribersCount = $this->subscribersFinder->addSubscribersToTaskFromSegments($taskEntity, $segments, $newsletter->getFilterSegmentId());
     }
 
     if (empty($subscribersCount)) {
@@ -321,7 +321,7 @@ class Scheduler {
     $taskEntity = $this->scheduledTasksRepository->findOneById($taskModel->id);
 
     if ($taskEntity instanceof ScheduledTaskEntity) {
-      $this->subscribersFinder->addSubscribersToTaskFromSegments($taskEntity, $segments);
+      $this->subscribersFinder->addSubscribersToTaskFromSegments($taskEntity, $segments, $newsletter->getFilterSegmentId());
     }
 
     // update current queue

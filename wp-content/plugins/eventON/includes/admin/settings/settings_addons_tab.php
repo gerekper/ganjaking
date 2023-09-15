@@ -1,7 +1,7 @@
 <?php
 /**
  * EventON Settings Tab for addons and licensing
- * @version 2.6.1
+ * @version 4.5
  */
 
 global $ajde, $eventon;
@@ -14,9 +14,6 @@ $views = new EVO_Views();
 </div>
 <div id="evcal_4" class="postbox evcal_admin_meta curve" style='overflow: hidden'>	
 	<?php
-
-		// Display log of errors and recordings
-		EVO_Error()->display_log();
 		
 		// UPDATE eventon addons list
 		EVO_Prods()->update_addons();	

@@ -63,8 +63,8 @@ class WoocommerceProductFeedsAdvancedCustomFields {
 		// Splice them in above custom fields.
 		$idx     = array_search( 'disabled:meta', array_keys( $options ), true );
 		$options = array_slice( $options, 0, $idx, true ) +
-				   $acf_options +
-				   array_slice( $options, $idx, null, true );
+					$acf_options +
+					array_slice( $options, $idx, null, true );
 		return $options;
 	}
 

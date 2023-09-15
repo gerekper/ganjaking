@@ -266,6 +266,8 @@ class NewsletterStatisticsRepository extends Repository {
       return null;
     }
 
+    $revenueStatus = $this->wcHelper->getPurchaseStates();
+
     $currency = $this->wcHelper->getWoocommerceCurrency();
     $query = $this->entityManager
       ->createQueryBuilder()
@@ -273,8 +275,10 @@ class NewsletterStatisticsRepository extends Repository {
       ->from(StatisticsWooCommercePurchaseEntity::class, 'stats')
       ->where('stats.newsletter IN (:newsletters)')
       ->andWhere('stats.orderCurrency = :currency')
+      ->andWhere('stats.status IN (:revenue_status)')
       ->setParameter('newsletters', $newsletters)
       ->setParameter('currency', $currency)
+      ->setParameter('revenue_status', $revenueStatus)
       ->groupBy('stats.newsletter');
 
     if ($from && $to) {

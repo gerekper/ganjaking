@@ -53,20 +53,16 @@ class WooCommercePurchases {
   }
 
   public function trackPurchase($id, $useCookies = true) {
+
     $order = $this->woocommerceHelper->wcGetOrder($id);
-    if (!$order instanceof WC_Order) {
+    if (!$order instanceof WC_Order || $this->trackExistingStatistic($order)) {
       return;
     }
 
-    // limit clicks to 'USE_CLICKS_SINCE_DAYS_AGO' range before order has been created
-    $fromDate = $order->get_date_created();
-    if (is_null($fromDate)) {
-      return;
-    }
-    $from = clone $fromDate;
-    $from->modify(-self::USE_CLICKS_SINCE_DAYS_AGO . ' days');
+
+    $from = $this->getFromDate($order);
     $to = $order->get_date_created();
-    if (is_null($to)) {
+    if (is_null($to) || is_null($from)) {
       return;
     }
 
@@ -97,6 +93,48 @@ class WooCommercePurchases {
       }
       $this->statisticsWooCommercePurchasesRepository->createOrUpdateByClickDataAndOrder($click, $order);
     }
+  }
+
+  public function trackRefund($id) {
+    $order = $this->woocommerceHelper->wcGetOrder($id);
+    if (!$order instanceof WC_Order) {
+      return;
+    }
+    $this->trackExistingStatistic($order);
+  }
+
+  /**
+   * Returns true when a valid purchase statistic for an order was found.
+   *
+   * @param WC_Order $order
+   * @return bool
+   */
+  private function trackExistingStatistic(\WC_Order $order): bool {
+    $statistics = $this->statisticsWooCommercePurchasesRepository->findOneBy(['orderId' => $order->get_id()]);
+    if ($statistics && $statistics->getClick()) {
+      $this->statisticsWooCommercePurchasesRepository->createOrUpdateByClickDataAndOrder(
+        $statistics->getClick(),
+        $order
+      );
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Limit clicks to 'USE_CLICKS_SINCE_DAYS_AGO' range before order has been created.
+   *
+   * @param WC_Order $order
+   * @return \WC_DateTime|null
+   */
+  private function getFromDate(\WC_Order $order) {
+    $fromDate = $order->get_date_created();
+    if (is_null($fromDate)) {
+      return null;
+    }
+    $from = clone $fromDate;
+    $from->modify(-self::USE_CLICKS_SINCE_DAYS_AGO . ' days');
+    return $from;
   }
 
   /**

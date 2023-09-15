@@ -11,7 +11,7 @@ $pid = get_the_ID();
 $current_page_uri = get_permalink($pid);
 $_SESSION['current_page_uri']= $current_page_uri;
 ?>
-<a href="#" class="userpro-close-popup"><?php _e('Close','userpro'); ?></a>	
+<a href="#" class="userpro-close-popup"><?php esc_html_e('Close','userpro'); ?></a>
 <div class="userpro userpro-<?php echo $i; ?> userpro-<?php echo $layout; ?>" <?php userpro_args_to_data( $args ); ?>>
 
 
@@ -88,7 +88,7 @@ $_SESSION['current_page_uri']= $current_page_uri;
                     <a class="userpro-button secondary" href="<?= get_permalink(userpro_get_option('register_page')) ?>" ><?= $args["{$template}_button_secondary"]; ?></a>
                 <?php } ?>
 
-				<img src="<?php echo $userpro->skin_url(); ?>loading.gif" alt="" class="userpro-loading" />
+				<img src="<?php echo esc_url($userpro->skin_url()); ?>loading.gif" alt="" class="userpro-loading" />
 				<div class="userpro-clear"></div>
 				
 			</div>

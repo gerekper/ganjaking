@@ -68,4 +68,3 @@ class WoocommerceProductVendors {
 		return $feed_item;
 	}
 }
-

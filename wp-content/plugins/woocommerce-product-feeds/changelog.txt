@@ -1,5 +1,11 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2023.09.11 - version 10.10.6
+* New: WooCommerce compatibility up to 8.1
+* Change: Performance improvement - only calculate prepopulations required by active fields
+* Change: Avoid deprecated call to get_terms()
+* Change: Minor change to XML format for product feed
+
 2023.07.26 - version 10.10.5
 * New: WooCommerce compatibility up to 8.0
 * Fix: Resolve warning on recent PHP versions when Composite Products and Expanded Structured datai feature are both active

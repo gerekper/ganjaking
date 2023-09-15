@@ -110,6 +110,15 @@
 	add_action('wp_ajax_nopriv_userpro_new_redirect', 'userpro_new_redirect');
 	add_action('wp_ajax_userpro_new_redirect', 'userpro_new_redirect');
 	function userpro_new_redirect(){
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
+        if( ! current_user_can( 'manage_options' ) )
+            die(); // admin priv
+
 		$output = array();
 		
 		if (!$_POST['rd_url']){
@@ -142,7 +151,16 @@
 	add_action('wp_ajax_nopriv_userpro_remove_redirect', 'userpro_remove_redirect');
 	add_action('wp_ajax_userpro_remove_redirect', 'userpro_remove_redirect');
 	function userpro_remove_redirect(){
-		$output = array();
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
+        if( ! current_user_can( 'manage_options' ) )
+            die(); // admin priv
+
+        $output = array();
 		
 		if (!$_POST['key']) 
 		{

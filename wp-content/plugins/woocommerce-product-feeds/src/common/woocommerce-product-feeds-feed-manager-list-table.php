@@ -76,7 +76,6 @@ class WoocommerceProductFeedsFeedManagerListTable extends WP_List_Table {
 		$this->_column_headers = array( $columns, $hidden, $sortable );
 
 		$this->items = $this->repository->all();
-
 	}
 
 	/**

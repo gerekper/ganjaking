@@ -1,27 +1,24 @@
 /**
  * AJDE backender styles
- * @version 4.4.3
+ * @version 4.5
  */
 
 /* General Appearace */
 	.ajde_settings{
-		background-color: #525b62;
 	    margin: 0;
-	    margin-left: -20px;
 	    padding-right: 20px;
-	    padding-left: 20px;
 	    padding-top: 20px;
 	    padding-bottom: 50px;
 	}
 	.ajde_settings.evcal_1{padding-left: 0px;}
 	.evo_settings_header{
-		  color: #fff;
-	}.evo_settings_header h2{
-		font-size: 24px;color: #fff;
+		background-color: #fff;
+	    padding: 30px 50px 10px;
+	    margin: -20px -20px 30px;
 	}
+	.evo_settings_header h2{	font-size: 24px;}
 	.evo_settings_header div{color:#202124;}
 
-	.ajde_settings .evo_settings_header,
 	.ajde_settings .evo_lang_export{margin-left: 155px;}
 
 	.ajde_settings.evcal_2 .evo_settings_header,.ajde_settings.evcal_2 .evo_lang_export,
@@ -29,6 +26,21 @@
 	.ajde_settings.evcal_4 .evo_settings_header,.ajde_settings.evcal_4 .evo_lang_export,
 	.ajde_settings.evcal_5 .evo_settings_header,.ajde_settings.evcal_5 .evo_lang_export{
 		margin-left: 0px;
+	}
+
+/* new tag */
+	.acus_line .new{
+		    position: absolute;
+	    right: 10px;
+	    background-color: var(--evo_color_prime);
+	    color: #fff;
+	    padding: 3px 5px;
+	    /* display: flex; */
+	    line-height: 1;
+	    font-size: 10px;
+	    border-radius: 5px;
+	    text-transform: uppercase;
+	    top: 30%;
 	}
 
 
@@ -86,16 +98,18 @@
 /* top menu*/
 	#evcal_settings #meta_tabs{ border-bottom: none; margin:0px 0 10px;}
 	#evcal_settings #meta_tabs a {
-		border-radius: 8px;
-		border:none;
-		margin:0 10px 10px 0;
+		border-radius: 30px;
+	    border: 1px solid #e8e8e8;
+	    margin: 0 10px 10px 0;
+	    padding: 5px 15px;
+	    background-color: transparent;
 	}
 	#evcal_settings #meta_tabs a.nav-tab-active{
-		background-color: #fff
+		background-color: #fed584; border-color: var(--evo_color_1)
 	}
 
 /* save settings */
-	.evo_diag {padding:20px;	}
+	.evo_diag {padding:20px 40px;	}
 	.evo_diag a:hover{opacity:1}
 
 /* left menu pane */
@@ -129,7 +143,7 @@
 		margin-top: 3px;
 	}
 	#acus_left ul a.focused{
-		color:#fff; font-weight: bold;
+		color:var(--evo_color_1); font-weight: bold;
 		margin-left:-1px;
 	}
 	#acus_left ul a, #acus_left ul p{
@@ -145,8 +159,7 @@
 		padding-left: 40px;
 	}
 	#acus_left ul a:hover{
-		background-color:#f4f4f4; 
-		color:#3d3d3d; 
+		color: var(--evo_color_1); 
 		outline:none;
 	}
 	#acus_left ul p{font-style:italic; font-family:georgia; color:#aeaeae}
@@ -268,11 +281,13 @@
 /* hidden yes no section */
 	.customization_right_in .backender_yn_sec{border-top: none;}
 	.backender_yn_sec .evosettings_field_child{
-		background-color: #d6d6d6; border-radius: 10px;
+		background-color: #f2f2f2; border-radius: 10px;
 		margin: 0;padding: 10px 15px;
 	}
 	.backender_yn_sec .backender_yn_sec{background-color: #c6c6c6; border-radius: 10px;}
-	.backender_yn_sec .backender_yn_sec .evosettings_field_child{background-color: transparent;}
+	.evo_settings_subsection .backender_yn_sec .evosettings_field_child{
+		border:1px solid #cfcfcf;
+	}
 	.evosettings_field_child em.hr_line:last-child{display: none;}
 
 /* fonts */
@@ -292,8 +307,7 @@
 	#acus_right p.tab_description{
 		font-size: 14px; margin-top: -5px; opacity: 0.5;
 	}
-	.customization_right_in p{margin: 0 0 3px;min-height: 23px;
-	}
+	.customization_right_in p{margin: 0 0 3px;min-height: 23px;position: relative;}
 	h4.acus_subheader{margin:0 0 10px; padding: 0;}
 
 /* horizontal divider */
@@ -302,6 +316,7 @@
 		display:block; 
 		margin:8px -20px;
 	}
+	.evo_settings_subsection .evosettings_field_child em.hr_line{margin:8px -16px;}
 	em.hr_line.noexpand{margin:10px -10px}	
 
 /* I/O */
@@ -382,7 +397,7 @@
 		border-top:1px solid #e9cfab;
 		border-bottom:1px solid #e9cfab;
 	}	
-	#acus_right .customization_right_in{padding:20px; min-width:410px}
+	#acus_right .customization_right_in{padding:40px; min-width:410px}
 
 	.customization_right_in .nfe_f_width input, 
 	.customization_right_in .nfe_f_width textarea{
@@ -467,7 +482,7 @@
 	.ajdeSET_hidden_body{
 		background-color: #fff;padding: 10px;margin: -8px -20px 8px;border-bottom: 1px solid #e8e8e8;
 	}
-	.ajdeSET_hidden_body .evo_in{background-color: #ececec; border-radius: 10px;padding: 20px}
+	.ajdeSET_hidden_body .evo_in{background-color: #ececec; border-radius: 15px;padding: 20px}
 	.ajdeSET_hidden_body .evo_in em.hr_line{border-color: #d8d8d8;}
 	.ajdeSET_hidden_body .evo_in em.hr_line:last-child{display: none;}
 /*-- arrgange box */
@@ -571,7 +586,7 @@
 	.evo_lang_export{
 		position: relative;
 		background-color: #00aafb;color:#fff;
-	    border-radius: 8px;
+	    border-radius: 15px;
 	    padding: 30px;
 	    margin-top: 20px;
 	}

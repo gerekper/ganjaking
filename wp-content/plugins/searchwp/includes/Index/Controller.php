@@ -1349,11 +1349,12 @@ class Controller extends BackgroundProcess {
 		}
 
 		return [
-			'lastActivity' => $this->get_last_activity(),
-			'indexed'      => $indexed,
-			'total'        => $total,
-			'omitted'      => $omitted,
-			'outdated'     => (bool) \SearchWP\Settings::get( 'index_outdated' ),
+			'lastActivity'  => $this->get_last_activity(),
+			'indexed'       => $indexed,
+			'total'         => $total,
+			'omitted'       => $omitted,
+			'outdated'      => (bool) \SearchWP\Settings::get( 'index_outdated' ),
+			'indexerPaused' => ! $this->enabled,
 		];
 	}
 

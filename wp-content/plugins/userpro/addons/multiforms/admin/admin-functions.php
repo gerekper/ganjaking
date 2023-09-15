@@ -4,6 +4,12 @@
 	add_action('wp_ajax_nopriv_userpro_mu_create', 'userpro_mu_create');
 	add_action('wp_ajax_userpro_mu_create', 'userpro_mu_create');
 	function userpro_mu_create(){
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
 		if (!current_user_can('manage_options'))
 			die(); // admin priv
 			
@@ -109,6 +115,12 @@
 	add_action('wp_ajax_nopriv_userpro_mu_delete_form', 'userpro_mu_delete_form');
 	add_action('wp_ajax_userpro_mu_delete_form', 'userpro_mu_delete_form');
 	function userpro_mu_delete_form(){
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
 		if (!current_user_can('manage_options'))
 			die(); // admin priv
 			

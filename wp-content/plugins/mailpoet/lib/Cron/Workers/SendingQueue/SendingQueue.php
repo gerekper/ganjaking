@@ -14,6 +14,7 @@ use MailPoet\Cron\Workers\StatsNotifications\Scheduler as StatsNotificationsSche
 use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Entities\ScheduledTaskEntity;
 use MailPoet\Entities\SubscriberEntity;
+use MailPoet\InvalidStateException;
 use MailPoet\Logging\LoggerFactory;
 use MailPoet\Mailer\MailerLog;
 use MailPoet\Mailer\MetaInfo;
@@ -200,8 +201,15 @@ class SendingQueue {
     $this->mailerTask->configureMailer($newsletter);
     // get newsletter segments
     $newsletterSegmentsIds = $newsletterEntity->getSegmentIds();
+    $segmentIdsToCheck = $newsletterSegmentsIds;
+    $filterSegmentId = $newsletterEntity->getFilterSegmentId();
+
+    if (is_int($filterSegmentId)) {
+      $segmentIdsToCheck[] = $filterSegmentId;
+    }
+
     // Pause task in case some of related segments was deleted or trashed
-    if ($newsletterSegmentsIds && !$this->checkDeletedSegments($newsletterSegmentsIds)) {
+    if ($newsletterSegmentsIds && !$this->checkDeletedSegments($segmentIdsToCheck)) {
       $this->loggerFactory->getLogger(LoggerFactory::TOPIC_NEWSLETTERS)->info(
         'pause task in sending queue due deleted or trashed segment',
         ['task_id' => $queue->taskId]
@@ -233,7 +241,17 @@ class SendingQueue {
       );
       if (!empty($newsletterSegmentsIds[0])) {
         // Check that subscribers are in segments
-        $foundSubscribersIds = $this->subscribersFinder->findSubscribersInSegments($subscribersToProcessIds, $newsletterSegmentsIds);
+        try {
+          $foundSubscribersIds = $this->subscribersFinder->findSubscribersInSegments($subscribersToProcessIds, $newsletterSegmentsIds, $filterSegmentId);
+        } catch (InvalidStateException $exception) {
+          $this->loggerFactory->getLogger(LoggerFactory::TOPIC_NEWSLETTERS)->info(
+            'paused task in sending queue due to problem finding subscribers: ' . $exception->getMessage(),
+            ['task_id' => $queue->taskId]
+          );
+          $queue->status = ScheduledTaskEntity::STATUS_PAUSED;
+          $queue->save();
+          return;
+        }
         $foundSubscribers = empty($foundSubscribersIds) ? [] : SubscriberModel::whereIn('id', $foundSubscribersIds)
           ->whereNull('deleted_at')
           ->findMany();

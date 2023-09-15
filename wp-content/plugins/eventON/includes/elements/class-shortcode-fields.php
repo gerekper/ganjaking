@@ -1,7 +1,7 @@
 <?php
 /**
  * Shortcode Field Data Array
- * @updated 4.2
+ * @updated 4.5
  */
 
 class Evo_Shortcode_Fields{
@@ -496,6 +496,20 @@ class Evo_Shortcode_Fields{
 				'var'=>'yl_priority',
 				'default'=>'no',
 			),
+			'ml_toend'=>array(
+				'name'=>'Move month long events to bottom',
+				'type'=>'YN',
+				'guide'=>'Show month long events at the bottom after regular events',
+				'var'=>'ml_toend',
+				'default'=>'no',
+			),
+			'yl_toend'=>array(
+				'name'=>'Move year long events to bottom',
+				'type'=>'YN',
+				'guide'=>'Show year long events at the bottom after regular events',
+				'var'=>'yl_toend',
+				'default'=>'no',
+			),
 			'eventtop_style'=> array(				
 				'name'=>'EventTop Design Style',
 				'type'=>'select',
@@ -574,6 +588,8 @@ class Evo_Shortcode_Fields{
 					'0'=>'Default',
 					'1'=>'Details under colored tile box',
 					'2'=>'Details under clean tile box',
+					'3'=>'Details to right of date on tile box',
+					'4'=>'No details, bare minimal',
 					),
 				'guide'=>'With this you can select different layout styles for tiles',
 				'var'=>'tile_style','default'=>'0'

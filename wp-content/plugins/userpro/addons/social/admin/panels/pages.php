@@ -20,6 +20,7 @@
 </table>
 
 <p class="submit">
+    <input type="hidden" name="user_pro_nonce" value="<?= wp_create_nonce("user_pro_nonce"); ?>";>
 	<input type="submit" name="submit" id="submit" class="button button-primary" value="<?php _e('Save Changes','userpro'); ?>"  />
 	<input type="submit" name="reset-options" id="reset-options" class="button" value="<?php _e('Reset Options','userpro'); ?>"  />
 </p>
@@ -58,6 +59,7 @@
 </table>
 
 <p class="submit">
+    <input type="hidden" name="user_pro_nonce" value="<?= wp_create_nonce("user_pro_nonce"); ?>";>
 	<input type="submit" name="rebuild-pages" id="rebuild-pages" class="button button-primary" value="<?php _e('Rebuild Pages','userpro'); ?>"  />
 </p>
 

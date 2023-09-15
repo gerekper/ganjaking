@@ -236,8 +236,11 @@ class WC_Pre_Orders_Product {
 	/**
 	 * Checks if a given product can be pre-ordered by verifying pre-orders are enabled for it
 	 *
+	 * @since 2.0.2 Validate compatible pre-order product types.
 	 * @since 1.0
+	 *
 	 * @param object|int $product preferably the product object, or product ID if object is inconvenient to provide
+	 *
 	 * @return bool true if product can be pre-ordered, false otherwise
 	 */
 	public static function product_can_be_pre_ordered( $product ) {
@@ -249,9 +252,34 @@ class WC_Pre_Orders_Product {
 			}
 		}
 
-		$product_id = $product->is_type( 'variation' ) ? $product->get_parent_id() : $product->get_id();
+		if ( $product->is_type( 'variation' ) ) {
+			$variant = clone $product;
+			$product = wc_get_product( $variant->get_parent_id() );
+			if ( ! is_object( $product ) ) {
+				return false;
+			}
+			$product_id = $product->get_id();
+		} else {
+			$variant    = null;
+			$product_id = $product->get_id();
+		}
 
-		return is_object( $product ) && 'yes' === get_post_meta( $product_id, '_wc_pre_orders_enabled', true );
+		$can_be_pre_ordered = 'yes' === get_post_meta( $product_id, '_wc_pre_orders_enabled', true ) &&
+			in_array( $product->get_type(), WC_Pre_Orders::get_supported_product_types(), true );
+
+		/**
+		 * Filter whether a product can be pre-ordered.
+		 *
+		 * The result of this filter is cast to a boolean to ensure the method
+		 * WC_Pre_Orders_Product::product_can_be_pre_ordered() returns the correct type.
+		 *
+		 * @since 2.0.4
+		 *
+		 * @param bool            $can_be_pre_ordered Whether the product can be pre-ordered.
+		 * @param WC_Product      $product            The product object. For variants, this is the parent product.
+		 * @param WC_Product|null $variant            The variant product object. Null for non-variants.
+		 */
+		return (bool) apply_filters( 'wc_pre_orders_product_can_be_pre_ordered', $can_be_pre_ordered, $product, $variant );
 	}
 
 	/**

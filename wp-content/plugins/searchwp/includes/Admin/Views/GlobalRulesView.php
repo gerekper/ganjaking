@@ -159,7 +159,7 @@ class GlobalRulesView {
 
                             <p class="swp-p">
                                 Synonyms facilitate replacement of search terms. Use * wildcard for partial matching.
-                                <a class="swp-a" href="https://searchwp.com/?p=218825#synonyms" target="_blank">More info &rarr;</a>
+                                <a class="swp-a" href="https://searchwp.com/?p=424396#synonyms" target="_blank">More info &rarr;</a>
                             </p>
 
                         </div>
@@ -562,7 +562,7 @@ class GlobalRulesView {
 
                             <p class="swp-p">
                                 Stopwords are ignored so as to improve relevancy and performance.
-                                <a class="swp-a" href="https://searchwp.com/?p=218825#stopwords" target="_blank">More info &rarr;</a>
+                                <a class="swp-a" href="https://searchwp.com/?p=424396#stopwords" target="_blank">More info &rarr;</a>
                             </p>
 
                         </div>

@@ -35,6 +35,7 @@ class Request extends FreeRequest {
             ]);
 
             $this->set_query_vars([
+                'is_docs_feed' => [ 'doc_category', 'knowledge_base' ],
                 'is_knowledge_base' => [ 'knowledge_base' ],
                 'is_knowledge_base_category' => [ 'doc_category', 'knowledge_base' ],
             ]);

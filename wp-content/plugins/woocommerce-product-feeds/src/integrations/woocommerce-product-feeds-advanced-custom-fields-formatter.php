@@ -60,6 +60,7 @@ class WoocommerceProductFeedsAdvancedCustomFieldsFormatter {
 	 *
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
+	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 	private function get_optioned_value( $field_object, $default ) {
 		$results = [];
 		$values  = ! is_array( $field_object['value'] ) ?
@@ -73,6 +74,7 @@ class WoocommerceProductFeedsAdvancedCustomFieldsFormatter {
 
 		return $results;
 	}
+	// phpcs:enable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
 	/**
 	 * @param $field_object
@@ -125,11 +127,13 @@ class WoocommerceProductFeedsAdvancedCustomFieldsFormatter {
 	 * @return mixed
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
+	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 	private function get_true_false_value( $field_object, $default ) {
 		return $field_object['value'] ?
 			$field_object['ui_on_text'] :
 			$field_object['ui_off_text'];
 	}
+	// phpcs:enable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
 	/**
 	 * Get the value, and map the term IDs or term objects to term names.
@@ -140,6 +144,7 @@ class WoocommerceProductFeedsAdvancedCustomFieldsFormatter {
 	 * @return array
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
+	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 	private function get_taxonomy_value( $field_object, $default ) {
 		$values = $field_object['value'];
 		// Handle fields that only contain a single value.
@@ -158,4 +163,5 @@ class WoocommerceProductFeedsAdvancedCustomFieldsFormatter {
 
 		return $results;
 	}
+	// phpcs:enable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 }

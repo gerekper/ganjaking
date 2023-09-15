@@ -5,7 +5,7 @@
  * @author 		AJDE
  * @category 	Admin
  * @package 	eventon/Admin
- * @version     4.4
+ * @version     4.5
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -275,6 +275,7 @@ class evo_admin {
 					'edit_item'=> esc_html__('Edit item', 'eventon'),
 					'evo_ajax_url' => evo_ajax::get_endpoint('%%endpoint%%') , 
 					'rest_url'=> EVO_Rest_API::get_rest_api('%%endpoint%%'),
+					'setting_evo_gen_map'=> EVO()->cal->check_yn('evo_gen_map','evcal_1'),
 				)
 			);
 

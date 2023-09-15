@@ -454,7 +454,7 @@
         $group = $array[$template][$group];
         if (isset($group) && !empty($group)){
             foreach($group as $k=> $arr){
-                if (isset($arr['heading']) && $arr['heading'] != '' || isset($arr['label']) && $arr['label'] != '') {
+                if (isset($arr['heading']) && $arr['heading'] != '' || isset($arr['label']) && $arr['label'] != '' || isset($arr['placeholder']) && $arr['placeholder'] != '') {
                     if (isset($arr['heading'])) { // seperator
                         $output .= '<li class="heading" data-special="'.$k.'"><span>'.$arr['heading'].'</span> <span class="ufieldkey">'.$k.'</span>';
 
@@ -702,6 +702,12 @@
     add_action('wp_ajax_nopriv_userpro_default_background_img_remove', 'userpro_default_background_img_remove');
     add_action('wp_ajax_userpro_default_background_img_remove', 'userpro_default_background_img_remove');
     function userpro_default_background_img_remove(){
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
     	if (!current_user_can('manage_options'))
     		die(); // admin priv
 
@@ -715,6 +721,12 @@
     add_action('wp_ajax_nopriv_userpro_field_sort', 'userpro_field_sort');
     add_action('wp_ajax_userpro_field_sort', 'userpro_field_sort');
     function userpro_field_sort(){
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
         if (!current_user_can('manage_options'))
             die(); // admin priv
         $output='';
@@ -739,6 +751,12 @@
     add_action('wp_ajax_nopriv_userpro_create_field', 'userpro_create_field');
     add_action('wp_ajax_userpro_create_field', 'userpro_create_field');
     function userpro_create_field(){
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
         if (!current_user_can('manage_options'))
             die(); // admin priv
 
@@ -821,6 +839,12 @@
     add_action('wp_ajax_nopriv_userpro_restore_builtin_fields', 'userpro_restore_builtin_fields');
     add_action('wp_ajax_userpro_restore_builtin_fields', 'userpro_restore_builtin_fields');
     function userpro_restore_builtin_fields(){
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
         if (!current_user_can('manage_options'))
             die(); // admin priv
 
@@ -841,6 +865,12 @@
     add_action('wp_ajax_nopriv_userpro_restore_builtin_groups', 'userpro_restore_builtin_groups');
     add_action('wp_ajax_userpro_restore_builtin_groups', 'userpro_restore_builtin_groups');
     function userpro_restore_builtin_groups(){
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
         if (!current_user_can('manage_options'))
             die(); // admin priv
 
@@ -859,6 +889,12 @@
     add_action('wp_ajax_nopriv_userpro_reset_group', 'userpro_reset_group');
     add_action('wp_ajax_userpro_reset_group', 'userpro_reset_group');
     function userpro_reset_group(){
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
         if (!current_user_can('manage_options'))
             die(); // admin priv
 
@@ -885,6 +921,12 @@
     add_action('wp_ajax_nopriv_userpro_save_group', 'userpro_save_group');
     add_action('wp_ajax_userpro_save_group', 'userpro_save_group');
     function userpro_save_group(){
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
         if (!current_user_can('manage_options'))
             die(); // admin priv
 
@@ -934,6 +976,12 @@
     add_action('wp_ajax_nopriv_userpro_admin_user_deny', 'userpro_admin_user_deny');
     add_action('wp_ajax_userpro_admin_user_deny', 'userpro_admin_user_deny');
     function userpro_admin_user_deny(){
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
         if (!current_user_can('manage_options'))
             die(); // admin priv
 
@@ -959,6 +1007,12 @@
     add_action('wp_ajax_nopriv_userpro_admin_user_approve', 'userpro_admin_user_approve');
     add_action('wp_ajax_userpro_admin_user_approve', 'userpro_admin_user_approve');
     function userpro_admin_user_approve(){
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
         if (!current_user_can('manage_options'))
             die(); // admin priv
 
@@ -986,6 +1040,12 @@
     add_action('wp_ajax_nopriv_userpro_verify_user', 'userpro_verify_user');
     add_action('wp_ajax_userpro_verify_user', 'userpro_verify_user');
     function userpro_verify_user(){
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
         if (!current_user_can('manage_options'))
             die(); // admin priv
 
@@ -1047,6 +1107,12 @@
     add_action('wp_ajax_userpro_block_account', 'userpro_block_account');
 
     function userpro_block_account(){
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
         if (!current_user_can('manage_options'))
             die(); // admin priv
 
@@ -1070,6 +1136,12 @@
     add_action('wp_ajax_nopriv_userpro_unblock_account', 'userpro_unblock_account');
     add_action('wp_ajax_userpro_unblock_account', 'userpro_unblock_account');
     function userpro_unblock_account(){
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
         if (!current_user_can('manage_options'))
             die(); // admin priv
 
@@ -1090,8 +1162,16 @@
     add_action('wp_ajax_nopriv_up_delete_invitation', 'deleteUserInvitation');
     add_action('wp_ajax_up_delete_invitation', 'deleteUserInvitation');
 
-    function deleteUserInvitation()
-    {
+    function deleteUserInvitation(){
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
+        if ( ! current_user_can( 'manage_options' ) )
+            die(); // admin priv
+
         $userInvitation = new UP_UserInvitation();
         $userInvitation->deleteInvitation($_POST['email']);
 
@@ -1106,8 +1186,16 @@
 add_action('wp_ajax_nopriv_up_resend_invitation', 'reSendUserInvitation');
 add_action('wp_ajax_up_resend_invitation', 'reSendUserInvitation');
 
-function reSendUserInvitation()
-{
+function reSendUserInvitation(){
+
+    if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+        wp_send_json_error( 'Invalid nonce.' );
+        die();
+    }
+
+    if (!current_user_can('manage_options'))
+        die(); // admin priv
+
     $userInvitation = new UP_UserInvitation();
     $userInvitation->resend($_POST['email']);
 
@@ -1125,6 +1213,12 @@ function reSendUserInvitation()
     add_action('wp_ajax_nopriv_userpro_verify_invite', 'userpro_verify_invite');
     add_action('wp_ajax_userpro_verify_invite', 'userpro_verify_invite');
     function userpro_verify_invite(){
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
         if (!current_user_can('manage_options'))
             die(); // admin priv
 
@@ -1148,6 +1242,12 @@ function reSendUserInvitation()
     add_action('wp_ajax_nopriv_userpro_delete_field', 'userpro_delete_field');
     add_action('wp_ajax_userpro_delete_field', 'userpro_delete_field');
     function userpro_delete_field(){
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
         if (!current_user_can('manage_options'))
             die(); // admin priv
 
@@ -1172,6 +1272,12 @@ function reSendUserInvitation()
     add_action('wp_ajax_nopriv_userpro_update_field', 'userpro_update_field');
     add_action('wp_ajax_userpro_update_field', 'userpro_update_field');
     function userpro_update_field(){
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
         if (!current_user_can('manage_options'))
             die(); // admin priv
 
@@ -1208,6 +1314,14 @@ function reSendUserInvitation()
 
     function userpro_save_email_template(){
 
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
+        if ( ! current_user_can( 'manage_options' ) )
+            die(); // admin priv
+
     	$template = $_POST['template'];
     	$template_file = userpro_path.'email-templates/'.$template.'.html';
 		$theme_name = get_template();
@@ -1239,6 +1353,16 @@ function reSendUserInvitation()
     add_action('wp_ajax_userpro_delete_email_template', 'userpro_delete_email_template');
 
     function userpro_delete_email_template(){
+
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
+        if ( ! current_user_can( 'manage_options' ) )
+            die(); // admin priv
+
     	$template = $_POST['template'];
     	$theme_name = get_template();
     	$output = '';
@@ -1266,6 +1390,12 @@ function reSendUserInvitation()
     add_action('wp_ajax_userpro_preview_email', 'userpro_preview_email');
 
     function userpro_preview_email(){
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
     	$template = $_POST['template'];
     	$html = '';
 		if (locate_template('userpro/email-templates/' . $template . '.html') != '') {
@@ -1282,6 +1412,14 @@ function reSendUserInvitation()
     add_action( 'wp_ajax_nopriv_userpro_service_request', 'userpro_service_request');
 
     function userpro_service_request(){
+
+        if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            die();
+        }
+
+        if ( ! current_user_can( 'manage_options' ) )
+            die(); // admin priv
 
         $to = 'userpro.services@gmail.com';
         $f_email = $_POST['email'];

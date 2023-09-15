@@ -10,7 +10,7 @@ jQuery(document).ready(function() {
 			jQuery('img.upadmin-load-inline').show();
 			jQuery.ajax({
 				url: ajaxurl,
-				data: form.serialize() + '&action=userpro_mu_create&name='+name,
+				data: form.serialize() + '&action=userpro_mu_create&name='+name + '&nonce=' + USER_PRO_DATA.nonce,
 				dataType: 'JSON',
 				type: 'POST',
 				success:function(data){
@@ -73,7 +73,7 @@ function up_delete_form( title, e, elm ){
 	if(res){
 		jQuery.ajax({
 		url:ajaxurl,
-		data:'action=userpro_mu_delete_form&name='+title,
+		data:'action=userpro_mu_delete_form&name='+title + '&nonce=' + USER_PRO_DATA.nonce,
 		dataType:'JSON',
 		type:'POST',
 		success:function(data){

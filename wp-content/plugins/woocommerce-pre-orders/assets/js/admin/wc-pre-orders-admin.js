@@ -31,4 +31,16 @@ jQuery( document ).ready( function( $ ) {
 			}
 		}).trigger( 'change' );
 	}
+
+	/**
+	 * Hide pre-orders options when product type is changed to variable-subscription.
+	 *
+	 * Read explanation about this change in  WC_Pre_Orders_Admin_Products::product_data_tab function
+	 * @since 2.0.2
+	 */
+	$( 'body' ).on( 'woocommerce-product-type-change', function ( e, select_val ) {
+		if ( 'variable-subscription' === select_val ) {
+			$( 'li.pre_orders_options' ).hide();
+		}
+	} );
 });

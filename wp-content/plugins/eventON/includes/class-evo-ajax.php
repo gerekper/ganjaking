@@ -338,7 +338,7 @@ class EVO_AJAX{
 		public static function refresh_elm(){
 
 			$PP = EVO()->helper->sanitize_array( $_POST );
-			wp_send_json($this->get_refresh_elm_data( $PP ));	
+			wp_send_json( self::get_refresh_elm_data( $PP ));	
 		}
 
 		//get ajax refresh element's data array

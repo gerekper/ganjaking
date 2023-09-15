@@ -115,7 +115,7 @@ class __TwigTemplate_d397b2a974f636a1e1c9b326eb2ccfd5695d20d9e10469f6f7ff8efdcee
         echo $this->extensions['MailPoet\Twig\I18n']->translate("List of fields to export");
         echo "
         <p class=\"description\">
-          <a href=\"https://kb.mailpoet.com/article/245-what-is-global-status\" target=\"_blank\" data-beacon-article=\"5a9548782c7d3a75495122f9\">
+          <a href=\"https://kb.mailpoet.com/article/245-what-is-global-status\" target=\"_blank\">
             ";
         // line 41
         echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Read about the Global status.", "Link to a documentation page in the knowledge base about what is the subscriber global status");

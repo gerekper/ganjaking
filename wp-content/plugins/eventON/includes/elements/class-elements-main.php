@@ -1,7 +1,7 @@
 <?php
 /**
  * EventON General Calendar Elements
- * @version 4.4.4
+ * @version 4.5
 
 Items //
 print_date_time_selector
@@ -32,10 +32,12 @@ class EVO_General_Elements{
 	function get_element($A){ 
 		$A = array_merge( array(
 			'id'=>'',
+			'index'=>'',// referance index
 			'name'=>'',	
 			'label'=>'',		
 			'hideable'=> false,
 			'value'=>'','default'=>'','values'=> array(),'values_array'=> array(),
+			'value_2'=>'',
 			'max'=>'','min'=>'','step'=>'','readonly'=>false,
 			'TD'=>'eventon', // text domain
 			'legend'=>'','tooltip'=>'',
@@ -177,6 +179,22 @@ class EVO_General_Elements{
 				//echo "<input class='evo_elm_rgb' type='hidden' name='{$rgb_field_name}' value='{$rgb_num}'/>";
 
 				echo "</p></div>";
+			break;
+
+			// bigger color picker @4.5
+			case 'colorpicker_2':
+
+				$clean_hex = str_replace('#', '', $value);
+
+				echo "<div class='evo_elm_row evo_color_selector {$index}' id='{$id}' >
+					<em class='evo_set_color' style='background-color:{$value}'></em>
+					<p class='evselectedColor'>
+						<span class='evcal_color_hex evcal_chex'  >{$value}</span>
+						<span class='evo_mb_color_caption'>{$label}</span>
+					</p>
+					<input class='evo_color_hex' type='hidden' name='evcal_event_color{$index}' value='{$clean_hex}'/>
+					<input class='evo_color_n' type='hidden' name='evcal_event_color_n{$index}' value='{$value_2}'/>
+				</div>";
 			break;
 
 			case 'plusminus':
@@ -383,7 +401,9 @@ class EVO_General_Elements{
 						'var'=> $value,
 						'afterstatement'=> $afterstatement,
 						'input'=> true,
-						'guide'=> $tooltip
+						'guide'=> $tooltip,
+						'guide_position'=> $tooltip_position,
+						'label'=> $label,
 					))."<span class='field_name'>". $name ."{$legend_code}</span>";
 
 					// description text for this field
@@ -401,13 +421,33 @@ class EVO_General_Elements{
 					'var'=> $value,
 					'afterstatement'=> $afterstatement,
 					'input'=> true,
-					'guide'=> $tooltip, 'guide_position'=> $tooltip_position,
+					'guide'=> $tooltip, 
+					'guide_position'=> $tooltip_position,
 					'label'=> $label,
 					'inputAttr'=>$inputAttr,
 					'attr'=>$attr,
 				));
 
 				echo'</p>';	
+			break;
+
+			case 'angle_field':						
+				$value = empty( $value) ? '0' : (int)$value;
+				
+				echo "<div class='evo_elm_row angle {$id} {$row_class}' style='{$row_style}'>
+					<div class='evo_elm_ang_hold'>
+						<span class='evo_elm_ang_center' style='transform:rotate({$value}deg);'>
+							<span class='evo_elm_ang_pointer'></span>
+						</span>	
+					</div>
+					<input class='evo_elm_ang_inp' name='{$id}' value='{$value}°'/>
+				";
+
+					// description text for this field
+					if(!empty( $legend )){
+						echo"<i style='opacity:0.6; padding-top:8px; display:block'>".$legend."</i>";
+					}
+				echo'</div>';
 			break;
 
 			case 'button':

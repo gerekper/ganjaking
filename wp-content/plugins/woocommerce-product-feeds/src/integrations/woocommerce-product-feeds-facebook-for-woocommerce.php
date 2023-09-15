@@ -29,4 +29,3 @@ class WoocommerceProductFeedsFacebookForWoocommerce {
 		return $field_list;
 	}
 }
-

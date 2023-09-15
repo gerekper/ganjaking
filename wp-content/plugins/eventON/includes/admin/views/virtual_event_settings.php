@@ -251,7 +251,7 @@ $EVENT->localize_edata('_evojitsi');
 
 <div class='evo_edit_field_box' style='background-color: #e0e0e0;' >
 	<p style='font-size: 16px;'><b><?php _e('After Event Information','eventon');?></b></p>
-	<p style=''><?php _e('This information will appear before the event goes live. You can set when to show this content.','eventon');?></p>
+	<p style=''><?php _e('This information will appear after the event is over. You can set when to show this content.','eventon');?></p>
 
 	<?php
 	echo EVO()->elements->process_multiple_elements(

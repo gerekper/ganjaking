@@ -163,7 +163,10 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 			return;
 		}
 
-		if ( ! empty( $_GET['cancel_pre_order_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['cancel_pre_order_nonce'] ) ), 'cancel_pre_order' ) ) {
+		if (
+			empty( $_GET['cancel_pre_order_nonce'] ) ||
+			! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['cancel_pre_order_nonce'] ) ), 'cancel_pre_order' )
+		) {
 			wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'woocommerce-pre-orders' ) );
 		}
 
@@ -190,11 +193,11 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 		}
 
 		// Security check.
-		if ( isset( $_POST['_wpnonce'] ) ) {
-			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-			if ( ! wp_verify_nonce( wp_unslash( $_POST['_wpnonce'] ), 'wc-pre-orders-process-actions' ) ) {
-				wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'woocommerce-pre-orders' ) );
-			}
+		if (
+			! isset( $_POST['_wpnonce'] ) ||
+			! wp_verify_nonce( wp_unslash( $_POST['_wpnonce'] ), 'wc-pre-orders-process-actions' ) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		) {
+			wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'woocommerce-pre-orders' ) );
 		}
 
 		// User check.

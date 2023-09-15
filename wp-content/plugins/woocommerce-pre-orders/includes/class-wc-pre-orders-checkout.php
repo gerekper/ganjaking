@@ -239,6 +239,7 @@ class WC_Pre_Orders_Checkout {
 	 * updates order status to pre-ordered for orders that are charged upfront. This handles gateways that don't call
 	 * payment_complete(). Unfortunately status changes show like pending->processing/completed->pre-ordered
 	 *
+	 * @since 2.0.4 Check whether product can be pre-ordered when processing failed order.
 	 * @since 1.9.1 Improve support for "Failed" orders.
 	 * @since 1.9.0 Check whether the order item was pre-ordered to process failed pre-ordered order.
 	 * @since 1.0
@@ -248,6 +249,8 @@ class WC_Pre_Orders_Checkout {
 	public function update_manual_payment_complete_order_status( $order_id ) {
 
 		$order = new WC_Order( $order_id );
+		$order_item = WC_Pre_Orders_Order::get_pre_order_item( $order );
+		$product_id = $order_item ? wc_get_product( $order_item['product_id'] ) : null;
 
 		// Failed order does not have "_wc_pre_orders_is_pre_order" meta key.
 		// We remove this meta key to hide failed orders from the "Pre-orders" page.
@@ -256,8 +259,10 @@ class WC_Pre_Orders_Checkout {
 			'woocommerce_order_status_failed_to_processing',
 			'woocommerce_order_status_failed_to_completed'
 		];
+
 		$is_failed_pre_order = in_array( current_action(), $action_hooks ) &&
-			( WC_Pre_Orders_Order::get_pre_order_item( $order ) instanceof WC_Order_Item );
+			( WC_Pre_Orders_Order::get_pre_order_item( $order ) instanceof WC_Order_Item ) &&
+			( $product_id && WC_Pre_Orders_Product::product_can_be_pre_ordered( $product_id ) );
 
 
 		// don't update status for non pre-order orders

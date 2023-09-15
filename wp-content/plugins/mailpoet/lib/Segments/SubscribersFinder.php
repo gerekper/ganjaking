@@ -36,7 +36,11 @@ class SubscribersFinder {
     $this->entityManager = $entityManager;
   }
 
-  public function findSubscribersInSegments($subscribersToProcessIds, $newsletterSegmentsIds) {
+  /**
+   * @return array
+   * @throws InvalidStateException
+   */
+  public function findSubscribersInSegments($subscribersToProcessIds, $newsletterSegmentsIds, ?int $filterSegmentId = null) {
     $result = [];
     foreach ($newsletterSegmentsIds as $segmentId) {
       $segment = $this->segmentsRepository->findOneById($segmentId);
@@ -45,6 +49,13 @@ class SubscribersFinder {
       }
       $result = array_merge($result, $this->findSubscribersInSegment($segment, $subscribersToProcessIds));
     }
+
+    if (is_int($filterSegmentId)) {
+      $filterSegment = $this->segmentsRepository->verifyDynamicSegmentExists($filterSegmentId);
+      $idsInFilterSegment = $this->findSubscribersInSegment($filterSegment, $subscribersToProcessIds);
+      $result = array_intersect($result, $idsInFilterSegment);
+    }
+
     return $this->unique($result);
   }
 
@@ -62,8 +73,15 @@ class SubscribersFinder {
    *
    * @return float|int
    */
-  public function addSubscribersToTaskFromSegments(ScheduledTaskEntity $task, array $segmentIds) {
+  public function addSubscribersToTaskFromSegments(ScheduledTaskEntity $task, array $segmentIds, ?int $filterSegmentId = null) {
     // Prepare subscribers on the DB side for performance reasons
+    if (is_int($filterSegmentId)) {
+      try {
+        $this->segmentsRepository->verifyDynamicSegmentExists($filterSegmentId);
+      } catch (InvalidStateException $exception) {
+        return 0;
+      }
+    }
     $staticSegmentIds = [];
     $dynamicSegmentIds = [];
     foreach ($segmentIds as $segment) {
@@ -78,10 +96,10 @@ class SubscribersFinder {
     }
     $count = 0;
     if (!empty($staticSegmentIds)) {
-      $count += $this->addSubscribersToTaskFromStaticSegments($task, $staticSegmentIds);
+      $count += $this->addSubscribersToTaskFromStaticSegments($task, $staticSegmentIds, $filterSegmentId);
     }
     if (!empty($dynamicSegmentIds)) {
-      $count += $this->addSubscribersToTaskFromDynamicSegments($task, $dynamicSegmentIds);
+      $count += $this->addSubscribersToTaskFromDynamicSegments($task, $dynamicSegmentIds, $filterSegmentId);
     }
     return $count;
   }
@@ -92,41 +110,37 @@ class SubscribersFinder {
    *
    * @return int
    */
-  private function addSubscribersToTaskFromStaticSegments(ScheduledTaskEntity $task, array $segmentIds) {
-    $processedStatus = ScheduledTaskSubscriberEntity::STATUS_UNPROCESSED;
-    $subscribersStatus = SubscriberEntity::STATUS_SUBSCRIBED;
-    $relationStatus = SubscriberEntity::STATUS_SUBSCRIBED;
+  private function addSubscribersToTaskFromStaticSegments(ScheduledTaskEntity $task, array $segmentIds, ?int $filterSegmentId = null) {
     $scheduledTaskSubscriberTable = $this->entityManager->getClassMetadata(ScheduledTaskSubscriberEntity::class)->getTableName();
     $subscriberSegmentTable = $this->entityManager->getClassMetadata(SubscriberSegmentEntity::class)->getTableName();
     $subscriberTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
 
     $connection = $this->entityManager->getConnection();
+    $selectQueryBuilder = $connection->createQueryBuilder();
+    $selectQueryBuilder
+      ->select('DISTINCT :task_id as task_id', 'subscribers.id as subscriber_id', ':processed as processed')
+      ->from($subscriberSegmentTable, 'relation')
+      ->join('relation', $subscriberTable, 'subscribers', 'subscribers.id = relation.subscriber_id')
+      ->where('subscribers.deleted_at IS NULL')
+      ->andWhere('subscribers.status = :subscribers_status')
+      ->andWhere('relation.status = :relation_status')
+      ->andWhere($selectQueryBuilder->expr()->in('relation.segment_id', ':segment_ids'))
+      ->setParameter('task_id', $task->getId(), ParameterType::INTEGER)
+      ->setParameter('processed', ScheduledTaskSubscriberEntity::STATUS_UNPROCESSED, ParameterType::INTEGER)
+      ->setParameter('subscribers_status', SubscriberEntity::STATUS_SUBSCRIBED, ParameterType::STRING)
+      ->setParameter('relation_status', SubscriberEntity::STATUS_SUBSCRIBED, ParameterType::STRING)
+      ->setParameter('segment_ids', $segmentIds, Connection::PARAM_INT_ARRAY);
 
-    $result = $connection->executeQuery(
-      "INSERT IGNORE INTO $scheduledTaskSubscriberTable
-       (task_id, subscriber_id, processed)
-       SELECT DISTINCT ? as task_id, subscribers.`id` as subscriber_id, ? as processed
-       FROM $subscriberSegmentTable relation
-       JOIN $subscriberTable subscribers ON subscribers.id = relation.subscriber_id
-       WHERE subscribers.`deleted_at` IS NULL
-       AND subscribers.`status` = ?
-       AND relation.`status` = ?
-       AND relation.`segment_id` IN (?)",
-      [
-        $task->getId(),
-        $processedStatus,
-        $subscribersStatus,
-        $relationStatus,
-        $segmentIds,
-      ],
-      [
-        ParameterType::INTEGER,
-        ParameterType::INTEGER,
-        ParameterType::STRING,
-        ParameterType::STRING,
-        Connection::PARAM_INT_ARRAY,
-      ]
-    );
+    if ($filterSegmentId) {
+      $filterSegmentSubscriberIds = $this->segmentSubscriberRepository->findSubscribersIdsInSegment($filterSegmentId);
+      $selectQueryBuilder
+        ->andWhere($selectQueryBuilder->expr()->in('subscribers.id', ':filterSegmentSubscriberIds'))
+        ->setParameter('filterSegmentSubscriberIds', $filterSegmentSubscriberIds, Connection::PARAM_INT_ARRAY);
+    }
+
+    // queryBuilder doesn't support INSERT IGNORE directly
+    $sql = "INSERT IGNORE INTO $scheduledTaskSubscriberTable (task_id, subscriber_id, processed) " . $selectQueryBuilder->getSQL();
+    $result = $connection->executeQuery($sql, $selectQueryBuilder->getParameters(), $selectQueryBuilder->getParameterTypes());
 
     return (int)$result->rowCount();
   }
@@ -137,19 +151,25 @@ class SubscribersFinder {
    *
    * @return int
    */
-  private function addSubscribersToTaskFromDynamicSegments(ScheduledTaskEntity $task, array $segmentIds) {
+  private function addSubscribersToTaskFromDynamicSegments(ScheduledTaskEntity $task, array $segmentIds, ?int $filterSegmentId = null) {
     $count = 0;
     foreach ($segmentIds as $segmentId) {
-      $count += $this->addSubscribersToTaskFromDynamicSegment($task, (int)$segmentId);
+      $count += $this->addSubscribersToTaskFromDynamicSegment($task, (int)$segmentId, $filterSegmentId);
     }
     return $count;
   }
 
-  private function addSubscribersToTaskFromDynamicSegment(ScheduledTaskEntity $task, int $segmentId) {
+  private function addSubscribersToTaskFromDynamicSegment(ScheduledTaskEntity $task, int $segmentId, ?int $filterSegmentId) {
     $count = 0;
-    $subscribers = $this->segmentSubscriberRepository->getSubscriberIdsInSegment($segmentId);
-    if ($subscribers) {
-      $count += $this->addSubscribersToTaskByIds($task, $subscribers);
+    $subscriberIds = $this->segmentSubscriberRepository->getSubscriberIdsInSegment($segmentId);
+
+    if ($filterSegmentId) {
+      $filterSegmentSubscriberIds = $this->segmentSubscriberRepository->getSubscriberIdsInSegment($filterSegmentId);
+      $subscriberIds = array_intersect($subscriberIds, $filterSegmentSubscriberIds);
+    }
+
+    if ($subscriberIds) {
+      $count += $this->addSubscribersToTaskByIds($task, $subscriberIds);
     }
     return $count;
   }

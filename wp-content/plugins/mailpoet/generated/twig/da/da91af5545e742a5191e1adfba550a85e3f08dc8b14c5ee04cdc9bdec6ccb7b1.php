@@ -58,10 +58,10 @@ class __TwigTemplate_8a6f0398fffc82506ba46e70538b728a453c02bea83ac685560c22b44c4
     <p class=\"mailpoet_sending_methods_help help\">
       ";
         // line 8
-        $context["allowedHtml"] = ["a" => ["href" => [], "target" => [], "id" => [], "data-beacon-article" => []], "strong" => []];
+        $context["allowedHtml"] = ["a" => ["href" => [], "target" => [], "id" => []], "strong" => []];
         // line 9
         echo "      ";
-        echo $this->extensions['MailPoet\Twig\Filters']->wpKses(MailPoet\Util\Helpers::replaceLinkTags($this->extensions['MailPoet\Twig\I18n']->translate("<strong>Tip:</strong> check out [link]this list[/link] of form plugins that integrate with MailPoet."), "https://kb.mailpoet.com/article/198-list-of-forms-plugins-that-work-with-mailpoet?utm_source=plugin&utm_medium=settings&utm_campaign=helpdocs", ["target" => "_blank", "id" => "mailpoet_helper_link", "data-beacon-article" => "5953a9720428637ff8d42272"]),         // line 11
+        echo $this->extensions['MailPoet\Twig\Filters']->wpKses(MailPoet\Util\Helpers::replaceLinkTags($this->extensions['MailPoet\Twig\I18n']->translate("<strong>Tip:</strong> check out [link]this list[/link] of form plugins that integrate with MailPoet."), "https://kb.mailpoet.com/article/198-list-of-forms-plugins-that-work-with-mailpoet?utm_source=plugin&utm_medium=settings&utm_campaign=helpdocs", ["target" => "_blank", "id" => "mailpoet_helper_link"]),         // line 11
 ($context["allowedHtml"] ?? null));
         // line 12
         echo "
@@ -87,61 +87,53 @@ class __TwigTemplate_8a6f0398fffc82506ba46e70538b728a453c02bea83ac685560c22b44c4
         // line 22
         echo admin_url("admin.php?page=mailpoet-form-editor&id=");
         echo "\";
-    var mailpoet_beacon_articles = [
-      '5fac13f2cff47e00160b8dff',
-      '5e43d3ec2c7d3a7e9ae79da9',
-      '5e3a166204286364bc94dda4',
-      '5e95cc092c7d3a7e9aeae815',
-      '58a718a6dd8c8e56bfa7cad6',
-      '5d1f468504286369ad8d57ff'
-    ];
 
     var mailpoet_display_nps_poll = ";
-        // line 32
+        // line 24
         echo json_encode(($context["display_nps_survey"] ?? null));
         echo ";
 
     ";
-        // line 34
+        // line 26
         if (($context["display_nps_survey"] ?? null)) {
-            // line 35
+            // line 27
             echo "      var mailpoet_display_nps_form = true;
       var mailpoet_current_wp_user = ";
-            // line 36
+            // line 28
             echo json_encode(($context["current_wp_user"] ?? null));
             echo ";
       var mailpoet_current_wp_user_firstname = '";
-            // line 37
+            // line 29
             echo \MailPoetVendor\twig_escape_filter($this->env, ($context["current_wp_user_firstname"] ?? null), "html", null, true);
             echo "';
       var mailpoet_review_request_illustration_url = '";
-            // line 38
+            // line 30
             echo $this->extensions['MailPoet\Twig\Assets']->generateCdnUrl("review-request/review-request-illustration.20190815-1427.svg");
             echo "';
     ";
         }
-        // line 40
+        // line 32
         echo "  </script>
 ";
     }
 
-    // line 43
+    // line 35
     public function block_translations($context, array $blocks = [])
     {
         $macros = $this->macros;
-        // line 44
+        // line 36
         echo "  ";
         echo $this->extensions['MailPoet\Twig\I18n']->localize(["pageTitle" => $this->extensions['MailPoet\Twig\I18n']->translate("Forms"), "searchLabel" => $this->extensions['MailPoet\Twig\I18n']->translate("Search"), "loadingItems" => $this->extensions['MailPoet\Twig\I18n']->translate("Loading forms..."), "noItemsFound" => $this->extensions['MailPoet\Twig\I18n']->translate("No forms were found. Why not create a new one?"), "permanentlyDeleted" => $this->extensions['MailPoet\Twig\I18n']->translate("%d forms permanently deleted."), "selectBulkAction" => $this->extensions['MailPoet\Twig\I18n']->translate("Select bulk action"), "bulkActions" => $this->extensions['MailPoet\Twig\I18n']->translate("Bulk Actions"), "apply" => $this->extensions['MailPoet\Twig\I18n']->translate("Apply"), "filter" => $this->extensions['MailPoet\Twig\I18n']->translate("Filter"), "emptyTrash" => $this->extensions['MailPoet\Twig\I18n']->translate("Empty Trash"), "selectAll" => $this->extensions['MailPoet\Twig\I18n']->translate("Select All"), "restore" => $this->extensions['MailPoet\Twig\I18n']->translate("Restore"), "deletePermanently" => $this->extensions['MailPoet\Twig\I18n']->translate("Delete Permanently"), "status" => $this->extensions['MailPoet\Twig\I18n']->translate("Status"), "active" => $this->extensions['MailPoet\Twig\I18n']->translate("Active"), "inactive" => $this->extensions['MailPoet\Twig\I18n']->translate("Not Active"), "formActivated" => $this->extensions['MailPoet\Twig\I18n']->translate("Your Form is now activated!"), "previousPage" => $this->extensions['MailPoet\Twig\I18n']->translate("Previous page"), "firstPage" => $this->extensions['MailPoet\Twig\I18n']->translate("First page"), "nextPage" => $this->extensions['MailPoet\Twig\I18n']->translate("Next page"), "lastPage" => $this->extensions['MailPoet\Twig\I18n']->translate("Last page"), "currentPage" => $this->extensions['MailPoet\Twig\I18n']->translate("Current Page"), "pageOutOf" => $this->extensions['MailPoet\Twig\I18n']->translate("of"), "numberOfItemsSingular" => $this->extensions['MailPoet\Twig\I18n']->translate("1 item"), "numberOfItemsMultiple" => $this->extensions['MailPoet\Twig\I18n']->translate("%1\$d items"), "formName" => $this->extensions['MailPoet\Twig\I18n']->translate("Name"), "noName" => $this->extensions['MailPoet\Twig\I18n']->translateWithContext("no name", "fallback for forms without a name in a form list"), "segments" => $this->extensions['MailPoet\Twig\I18n']->translate("Lists"), "type" => $this->extensions['MailPoet\Twig\I18n']->translate("Type"), "userChoice" => $this->extensions['MailPoet\Twig\I18n']->translate("User choice:"), "signups" => $this->extensions['MailPoet\Twig\I18n']->translate("Sign-ups"), "updatedAt" => $this->extensions['MailPoet\Twig\I18n']->translate("Modified date"), "oneFormTrashed" => $this->extensions['MailPoet\Twig\I18n']->translate("1 form was moved to the trash."), "multipleFormsTrashed" => $this->extensions['MailPoet\Twig\I18n']->translate("%1\$d forms were moved to the trash."), "oneFormDeleted" => $this->extensions['MailPoet\Twig\I18n']->translate("1 form was permanently deleted."), "multipleFormsDeleted" => $this->extensions['MailPoet\Twig\I18n']->translate("%1\$d forms were permanently deleted."), "oneFormRestored" => $this->extensions['MailPoet\Twig\I18n']->translate("1 form has been restored from the trash."), "multipleFormsRestored" => $this->extensions['MailPoet\Twig\I18n']->translate("%1\$d forms have been restored from the trash."), "edit" => $this->extensions['MailPoet\Twig\I18n']->translate("Edit"), "duplicate" => $this->extensions['MailPoet\Twig\I18n']->translate("Duplicate"), "formDuplicated" => $this->extensions['MailPoet\Twig\I18n']->translate("Form \"%1\$s\" has been duplicated."), "trash" => $this->extensions['MailPoet\Twig\I18n']->translate("Trash"), "moveToTrash" => $this->extensions['MailPoet\Twig\I18n']->translate("Move to trash"), "new" => $this->extensions['MailPoet\Twig\I18n']->translate("New Form"), "placeFormBellowPages" => $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Below pages", "This is a text on a widget that leads to settings for form placement"), "placeFixedBarFormOnPages" => $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Fixed bar", "This is a text on a widget that leads to settings for form placement - form type is fixed bar"), "placeSlideInFormOnPages" => $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Slide–in", "This is a text on a widget that leads to settings for form placement - form type is slide in"), "placePopupFormOnPages" => $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Pop-up", "This is a text on a widget that leads to settings for form placement - form type is pop-up, it will be displayed on page in a small modal window"), "placeFormOthers" => $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Others (widget)", "Placement of the form using theme widget"), "formSettingsCorrupted" => $this->extensions['MailPoet\Twig\I18n']->translate("Form settings of \"%1\$s\" form are corrupted. Please [link]reconfigure the form in the editor[/link].")]);
-        // line 98
+        // line 90
         echo "
 ";
     }
 
-    // line 101
+    // line 93
     public function block_after_javascript($context, array $blocks = [])
     {
         $macros = $this->macros;
-        // line 102
+        // line 94
         echo "<script type=\"text/javascript\">
   jQuery('#mailpoet_helper_link').on('click', function() {
     MailPoet.trackEvent('Forms page > link to doc page');
@@ -162,7 +154,7 @@ class __TwigTemplate_8a6f0398fffc82506ba46e70538b728a453c02bea83ac685560c22b44c4
 
     public function getDebugInfo()
     {
-        return array (  142 => 102,  138 => 101,  133 => 98,  130 => 44,  126 => 43,  121 => 40,  116 => 38,  112 => 37,  108 => 36,  105 => 35,  103 => 34,  98 => 32,  85 => 22,  80 => 20,  75 => 18,  71 => 17,  64 => 12,  62 => 11,  60 => 9,  58 => 8,  52 => 4,  48 => 3,  37 => 1,);
+        return array (  134 => 94,  130 => 93,  125 => 90,  122 => 36,  118 => 35,  113 => 32,  108 => 30,  104 => 29,  100 => 28,  97 => 27,  95 => 26,  90 => 24,  85 => 22,  80 => 20,  75 => 18,  71 => 17,  64 => 12,  62 => 11,  60 => 9,  58 => 8,  52 => 4,  48 => 3,  37 => 1,);
     }
 
     public function getSourceContext()

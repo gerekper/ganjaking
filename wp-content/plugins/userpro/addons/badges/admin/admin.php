@@ -28,6 +28,12 @@ class userpro_dg_admin {
 		wp_register_script( 'userpro_badges', userpro_dg_url . 'admin/scripts/admin.js', array( 
 			'jquery'
 		) );
+
+        wp_localize_script( 'userpro_badges', 'USER_PRO_DATA', array(
+            'ajaxurl' => admin_url( 'admin-ajax.php' ),
+            'nonce' => wp_create_nonce( 'user_pro_nonce' )
+        ) );
+
 		wp_enqueue_script( 'userpro_badges' );
 	}
 	
@@ -138,6 +144,16 @@ class userpro_dg_admin {
 	}
 
 	function admin_page() {
+
+        if( isset( $_POST['user_pro_nonce'] ) ) {
+            if ( ! wp_verify_nonce( $_POST['user_pro_nonce'], 'user_pro_nonce' ) ) {
+                wp_send_json_error( 'Invalid nonce.' );
+                return;
+            }
+        }
+
+        if ( ! current_user_can(  'manage_options' ) )
+            die(); // admin priv
 	
 		if (isset($_POST['find-user-badges'])){
 			$this->find_badges();

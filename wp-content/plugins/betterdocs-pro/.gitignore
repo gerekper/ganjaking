@@ -1,8 +1,0 @@
-**/.DS_Store
-public/instant-answer
-instant-answer/
-package-lock.json
-.distignore
-node_modules
-.map
-.vscode

@@ -42,6 +42,7 @@
 </table>
 
 <p class="submit submit-static">
+    <input type="hidden" name="user_pro_nonce" value="<?= wp_create_nonce("user_pro_nonce"); ?>";>
 	<input type="submit" name="export_users" id="export_users" class="up-admin-btn up-admin-btn--dark-blue small" value="<?php _e('Export to CSV','userpro'); ?>"  />
 </p>
 <h3><?php _e('Import Users from CSV','userpro'); ?></h3>
@@ -63,6 +64,7 @@
 	</tr>	
 </table>
 <p class="submit submit-static">
+    <input type="hidden" name="user_pro_nonce" value="<?= wp_create_nonce("user_pro_nonce"); ?>";>
 	<input type="submit" name="import_users" id="import_users" class="up-admin-btn up-admin-btn--dark-blue small" value="<?php _e('Import from CSV','userpro'); ?>"  />
 </p>
 

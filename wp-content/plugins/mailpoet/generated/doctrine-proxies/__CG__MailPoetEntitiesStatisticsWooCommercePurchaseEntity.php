@@ -70,10 +70,10 @@ class StatisticsWooCommercePurchaseEntity extends \MailPoet\Entities\StatisticsW
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'newsletter', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'queue', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'subscriber', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'click', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'orderId', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'orderCurrency', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'orderPriceTotal', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'createdAt', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'updatedAt'];
+            return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'newsletter', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'queue', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'subscriber', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'click', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'orderId', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'orderCurrency', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'orderPriceTotal', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'status', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'createdAt', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'updatedAt'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'newsletter', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'queue', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'subscriber', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'click', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'orderId', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'orderCurrency', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'orderPriceTotal', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'createdAt', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'updatedAt'];
+        return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'newsletter', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'queue', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'subscriber', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'click', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'orderId', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'orderCurrency', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'orderPriceTotal', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'status', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'createdAt', '' . "\0" . 'MailPoet\\Entities\\StatisticsWooCommercePurchaseEntity' . "\0" . 'updatedAt'];
     }
 
     /**
@@ -288,6 +288,28 @@ class StatisticsWooCommercePurchaseEntity extends \MailPoet\Entities\StatisticsW
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setOrderPriceTotal', [$orderPriceTotal]);
 
         parent::setOrderPriceTotal($orderPriceTotal);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getStatus(): string
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStatus', []);
+
+        return parent::getStatus();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setStatus(string $status): void
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStatus', [$status]);
+
+        parent::setStatus($status);
     }
 
     /**

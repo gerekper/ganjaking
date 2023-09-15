@@ -21,6 +21,7 @@ use MailPoet\Segments\SegmentSubscribersRepository;
 use MailPoet\Subscribers\SubscribersRepository;
 use MailPoet\Subscription\Pages;
 use MailPoet\WP\Functions as WPFunctions;
+use MailPoetVendor\Carbon\CarbonImmutable;
 
 class Shortcodes {
   /** @var Pages */
@@ -143,17 +144,11 @@ class Shortcodes {
     }
   }
 
-  public function getArchive($params) {
-    $segmentIds = [];
-    if (!empty($params['segments'])) {
-      $segmentIds = array_map(function($segmentId) {
-        return (int)trim($segmentId);
-      }, explode(',', $params['segments']));
-    }
-
+  public function getArchive($params = '') {
     $html = '';
 
-    $newsletters = $this->newslettersRepository->getArchives($segmentIds);
+    $parsedParams = $this->getParsedArchiveParams($params);
+    $newsletters = $this->newslettersRepository->getArchives($parsedParams);
 
     $subscriber = $this->subscribersRepository->getCurrentWPUser();
 
@@ -183,6 +178,59 @@ class Shortcodes {
       $html .= '</ul>';
     }
     return $html;
+  }
+
+  public function getParsedArchiveParams($params): array {
+    $parsedParams = [
+      'startDate' => null,
+      'endDate' => null,
+      'segmentIds' => [],
+      'subjectContains' => '',
+      'limit' => null,
+    ];
+
+    if (!is_array($params)) {
+      return $parsedParams;
+    }
+
+    if (!empty($params['segments'])) {
+      $parsedParams['segmentIds'] = array_map(function($segmentId) {
+        return (int)trim($segmentId);
+      }, explode(',', $params['segments']));
+    }
+
+    if ($params['start_date'] ?? null) {
+      try {
+        $parsedParams['startDate'] = new CarbonImmutable(trim($params['start_date']));
+      } catch (\Throwable $throwable) {
+        // Don't error out if invalid date
+      }
+    }
+
+    if ($params['end_date'] ?? null) {
+      try {
+        $parsedParams['endDate'] = new CarbonImmutable(trim($params['end_date']));
+      } catch (\Throwable $throwable) {
+        // Don't error out if invalid date
+      }
+    }
+
+    $lastDays = $params['in_the_last_days'] ?? null;
+    if ($lastDays && intval(($lastDays) > 0)) {
+      $parsedParams['endDate'] = null;
+      $parsedParams['startDate'] = CarbonImmutable::now()->subDays(intval($lastDays))->startOfDay();
+    }
+
+    if ($params['subject_contains'] ?? null) {
+      $parsedParams['subjectContains'] = trim($params['subject_contains']);
+    }
+
+    $limit = $params['limit'] ?? null;
+    if ($limit && intval($limit) > 0) {
+      $parsedParams['limit'] = intval($limit);
+    }
+
+    return $parsedParams;
   }
 
   public function renderArchiveDate(NewsletterEntity $newsletter) {

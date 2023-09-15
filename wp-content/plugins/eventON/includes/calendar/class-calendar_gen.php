@@ -2,7 +2,7 @@
 /**
  * Calendar Data Generator, Calendar Options
  * @version 2.6.14
- * @updated 4.1
+ * @updated 4.5
 
  * called using EVO()->cal
  */
@@ -11,7 +11,8 @@ class EVO_Cal_Gen{
 	public $loaded_options = array();
 	public $debug = 'good';
 
-	public $current_options = false; // same as op_tab
+	public $current_options = false; // same as op_tab eg. evcal_1
+	// $op_name = $op_pre.$op_tab;
 	private $op_pre = '';
 
 	public function __construct(){
@@ -44,7 +45,7 @@ class EVO_Cal_Gen{
 		$this->loaded_options[$op_tab] = $this->get_options_data($op_pre,$op_tab, true);
 	}
 
-	// return a already loaded cal options
+	// return a already loaded cal options for a tab
 	public function get_op($op_tab){
 		if(!isset($this->loaded_options[$op_tab])) return false;
 		$this->current_options = $op_tab;
@@ -84,7 +85,7 @@ class EVO_Cal_Gen{
 		}
 
 	// SET values for an option
-		function set_prop($field, $value){
+		public function set_prop($field, $value){
 			if(!isset($this->loaded_options[$this->current_options])) return false;
 
 			$this->loaded_options[$this->current_options][$field] = $value;
@@ -94,6 +95,14 @@ class EVO_Cal_Gen{
 
 			return true;
 		}
+		// @4.5
+		public function set_option_values( $new_values ){
+			$op_name = $this->op_pre.$this->current_options;
+			update_option($op_name, $new_values );
+
+			return true;
+		}
+
 
 	// Testing  debug functions
 	public function _print($op_tab){
@@ -119,7 +128,9 @@ class EVO_Cal_Gen{
 				'cancelled'=> 	array(evo_lang('Cancelled'), __('Cancelled','eventon') ),
 				'movedonline'=> array(evo_lang('Moved Online'), __('Moved Online','eventon') ),
 				'postponed'=> 	array(evo_lang('Postponed'), __('Postponed','eventon') ),
-				'rescheduled'=> array(evo_lang('Rescheduled'), __('Rescheduled','eventon') )
+				'rescheduled'=> array(evo_lang('Rescheduled'), __('Rescheduled','eventon') ),
+				'preliminary'=> array(evo_lang('Preliminary'), __('Preliminary','eventon') ),
+				'tentative'=> array(evo_lang('Tentative'), __('Tentative','eventon') ),
 			));
 
 			$O = array();

@@ -1,6 +1,6 @@
 /*
  * Javascript: EventON functions for all calendars
- * @version: 4.4.4
+ * @version: 4.5
  */
 (function($){
 
@@ -86,9 +86,6 @@
 
   			var el = $(this);
   			var OO = $.extend({}, defs, opt);
-
-  			//console.log(OO);
-
   			
   			var ajaxdata = OO.ajaxdata;
 
@@ -125,7 +122,8 @@
 				url: ajax_url,
 				data: ajaxdata,
 				dataType:'json',
-				success:function(data){					
+				success:function(data){		
+					//return;			
 					//console.log(OO);
 					if( LB ){
 
@@ -476,19 +474,30 @@
 			}	
 		}
 	
-	// Count down	// @+ 4.4.4
+	// Count down	// @+ 4.5
 		$.fn.evo_countdown_get = function(opt){
 			var defaults = { gap:'', endutc: ''};
 			var OPT = $.extend({}, defaults, opt);
 			var gap = OPT.gap;
-			console.log(OPT);
 
-			// get gap using end time utc
+			// if gap not provided use endutc
+			if( gap == '' ){				
 				var Mnow = moment().utc();
 				var M = moment();
 				M.set('millisecond', OPT.endutc );
 
 				gap = OPT.endutc - Mnow.unix();
+			}
+			
+			// if negative gap
+			if( gap < 0){
+				return {
+					'd': 0,
+					'h':0,
+					'm':0,
+					's':0
+				}; 
+			}
 		
 			distance = ( gap * 1000);
 
@@ -516,34 +525,40 @@
 			const days_text = ( el.data('ds') !== undefined && el.data('ds') != '' )? el.data('ds'):'Days';
 
 			// intial run
-			var gap = parseInt(el.data('gap'));
+			//var gap = parseInt(el.data('gap'));
+			var duration = el.data('dur');
 			var endutc = parseInt(el.data('endutc'));
 			var text = el.data('t');
+			
 			if(text === undefined) text = '';
 
 			if( el.hasClass('evo_cd_on')) return;
 
+			// get gap using end time utc
+				var Mnow = moment().utc();
+				var M = moment();
+				M.set('millisecond', OPT.endutc );
+
+				gap = endutc - Mnow.unix();
+
+
 			if( gap > 0 ){
-				dd = el.evo_countdown_get({ 'gap': gap, 'endutc':endutc });
+
+				// initial
+				dd = el.evo_countdown_get({ 'gap': gap });
+				
 				el.html( ( dd.d>0 ? dd.d + ' ' + ( dd.d >1 ? days_text: day_text ) + " "  :'') + dd.h + ":" + dd.m +':'+ dd.s +'  '+text );
 				
-				el.data('gap', (gap -1) );
-				var duration = el.data('dur');
-
+				el.data('gap', ( gap - 1)  );	// save new gap value
 				el.addClass('evo_cd_on');
-
-				// maybe adopt moment
-				//var M = moment();
-				//console.log(M);
 				
 				// set intervals
 				var CD = setInterval(function(){
 					
-					gap = el.data('gap');
+					gap = el.data('gap'); // get gap for this cycle
 					duration = el.data('dur');	
 
-					const bar_elm = el.closest('.evo_event_progress').find('.evo_ep_bar');									
-
+					const bar_elm = el.closest('.evo_event_progress').find('.evo_ep_bar');						
 					if( gap > 0 ){
 
 						// increase bar width if exists
@@ -552,7 +567,7 @@
 							bar_elm.find('b').css('width',perc+'%');							
 						}
 						
-						dd = el.evo_countdown_get({ 'gap': gap, 'endutc':endutc });	
+						dd = el.evo_countdown_get({ 'gap': gap });	
 
 						el.html( ( dd.d>0 ? dd.d + ' '  + ( dd.d >1 ? days_text: day_text ) + " ":'') + dd.h + ":" + dd.m +':'+ dd.s +' '+text );
 						el.data('gap', ( gap - 1)  );						
@@ -955,6 +970,47 @@
 
 			return luma>155? true:false;
 		}
+
+		// get rgb from hex code @4.5
+			$.fn.evo_rgb_process = function(opt){
+				var defaults = { data:'808080',type:'rgb', method:'rgb_to_val'}
+				var opt = $.extend({}, defaults, opt);
+
+				const color = opt.data;
+
+				// RGB => hex
+				if( opt.method == 'rgb_to_hex'){
+					if(color == '1'){
+						return;
+					}else{
+						if(color !=='' && color){
+							rgb = color.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+							
+							return "#" +
+							("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
+							("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
+							("0" + parseInt(rgb[3],10).toString(16)).slice(-2);
+						}
+					}
+				}
+
+				// RGB => rgb val
+				if( opt.method == 'rgb_to_val'){
+					if( opt.type == 'hex'){
+						var rgba = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color);	
+						var rgb = new Array();
+						rgb['r']= parseInt(rgba[1], 16);			
+						rgb['g']= parseInt(rgba[2], 16);			
+						rgb['b']= parseInt(rgba[3], 16);
+						
+					}else{
+						rgb = color;
+					}
+					
+					return parseInt((rgb['r'] + rgb['g'] + rgb['b'])/3);
+				}				
+			}
+
 		// Other data
 			$.fn.evo_get_OD = function(){			
 				var ev_cal = $(this);

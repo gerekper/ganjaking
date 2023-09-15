@@ -1,7 +1,7 @@
 <?php
 /**
  * Function ajax for backend
- * @version   4.4
+ * @version   4.5
  */
 class EVO_admin_ajax{
 	public $helper, $post_data;
@@ -23,6 +23,7 @@ class EVO_admin_ajax{
 			'admin_test_email'		=>'admin_test_email',
 			'admin_get_environment'		=>'admin_get_environment',
 			'admin_system_log'		=>'admin_system_log',
+			'admin_system_log_flush'		=>'admin_system_log_flush',
 			'admin_get_views'		=>'admin_get_views',
 			'rel_event_list'		=>'rel_event_list',
 			'get_latlng'				=>'get_latlng',
@@ -184,6 +185,8 @@ class EVO_admin_ajax{
 
 			
 		}
+
+		// @updated 4.5
 		public function save_virtual_event_settings(){
 			$post_data = $this->helper->sanitize_array( $_POST);
 
@@ -193,7 +196,7 @@ class EVO_admin_ajax{
 			foreach($post_data as $key=>$val){
 
 				if( in_array($key, array( '_vir_url','_vir_after_content','_vir_pre_content','_vir_embed'))){
-					$val = $post_data[$key] = $_POST[ $key ];
+					$val = $post_data[$key];
 				}
 
 				$EVENT->save_meta($key, $val);
@@ -225,29 +228,36 @@ class EVO_admin_ajax{
 			$event_id = (int)$post_data['eventid'];
 			$EVs = json_decode( stripslashes($post_data['EVs']), true );
 
-			$events = get_posts(
-				array(
-					'posts_per_page'=>-1,
-					'post_type'=>'ajde_events',
-					'exclude'=> $event_id,
-					'post_status'=>'publish'
-				)
+			$wp_args = array(
+				'posts_per_page'=>-1,
+				'post_type'=>'ajde_events',
+				'exclude'=> $event_id,
+				'post_status'=>'publish'
 			);
+			$events = new WP_Query($wp_args );
 
+		
 
 			ob_start();
 
-			echo "<div class='evo_rel_events_form' data-eventid='{$event_id}'>";
+			echo "<div class='evo_rel_events_form' data-eventid='{$event_id}'>
+			<div class='evo_rel_search'>
+			<input class='evo_rel_search_input' type='text' name='event' value='' placeholder='Search events by name'/>
+			</div>";
 
-			if(count($events)>0){				
+			if($events->have_posts()){				
 				?><div class='evo_rel_events_list'><?php
-				
-				foreach ( $events as $post ) {		
+					
+				$events_list = array();
+
+				foreach( $events->posts as $post ) {		
 
 					$event_id = $post->ID;
 					$EV = new EVO_Event($event_id);
 
 					$time = $EV->get_formatted_smart_time();
+
+					ob_start();
 					?><span class='rel_event<?php echo (is_array($EVs) && array_key_exists($event_id.'-0', $EVs))?' select':'';?>' data-id="<?php echo $event_id.'-0';?>" data-n="<?php echo htmlentities($post->post_title, ENT_QUOTES)?>" data-t='<?php echo $time;?>'><b></b>
 						<span class='o'>
 							<span class='t'><?php echo $time;?></span>
@@ -255,10 +265,15 @@ class EVO_admin_ajax{
 						</span>
 					</span><?php
 
+					$events_list[ $EV->get_start_time() ] = ob_get_clean();
+
 					$repeats = $EV->get_repeats_count();
 					if($repeats){
 						for($x=1; $x<=$repeats; $x++){
+							$EV->load_repeat($x);
 							$time = $EV->get_formatted_smart_time($x);
+
+							ob_start();
 
 							$select = (is_array($EVs) && array_key_exists($event_id.'-'.$x, $EVs) ) ?' select':'';
 							
@@ -268,8 +283,16 @@ class EVO_admin_ajax{
 									<span class='n'><?php echo $post->post_title;?></span>
 								</span>
 							</span><?php
+
+							$events_list[ $EV->get_start_time() ] = ob_get_clean();
 						}
 					}
+				}
+
+				krsort($events_list);
+
+				foreach($events_list as $ed=>$ee){
+					echo $ee;
 				}
 				
 				?></div>
@@ -281,10 +304,10 @@ class EVO_admin_ajax{
 
 			echo "</div>";
 
-			echo json_encode(array(
+			wp_send_json(array(
 				'status'=>'good',
 				'content'=>ob_get_clean()
-			)); exit;
+			)); wp_die();
 		}
 
 	// Get Location Cordinates
@@ -1156,39 +1179,46 @@ class EVO_admin_ajax{
 
 		// system log
 		function admin_system_log(){
-			if(!wp_verify_nonce($_REQUEST['nonce'], 'eventon_admin_nonce')) die('Security Check Failed!');
-
+			
 			$html = '';
 			ob_start();
 
-			echo "<div style='padding:20px; font-family:courier; line-height:1.5; max-height:500px; overflow-y:auto;background-color: #5f5f5f;color: #fff;'>";
-			$log = EVO_Error()->get_log('general');
+			echo EVO_Error()->_get_html_log_view();
 
-			if($log){
-				$log = array_filter($log);
+			echo "<div class='evopadt20'>";
 
-				if(sizeof($log)==0){ 
-					echo 'No Log!'; 
-				}else{
-					echo "<b>Data Log</b><br/><i>This data is stored in your website wp_optinos table and is not shared with anyone.</i><br/>";
+				EVO()->elements->print_trigger_element(array(
+					'extra_classes'=>'',
+					'title'=>__('Flush Log','eventon'),
+					'dom_element'=> 'span',
+					'uid'=>'evo_admin_flush_log',
+					'lb_class' =>'evoadmin_system_log',
+					'lb_load_new_content'=> true,	
+					'ajax_data' =>array('action'=>'eventon_admin_system_log_flush'),
+				), 'trig_ajax');
 
-					echo "<br/><br/>";
-					foreach($log as $time=>$data){
-						$time = explode('-', $time);
-						echo date('Y-m-d h:i:s',$time[0]).": ". $data."<br/>";
-					}
-				}				
-			}else{
-				echo 'No Log!';
-			}		
 			echo "</div>";
 
 
 			$html = ob_get_clean();
 
-			echo json_encode(array(
-				'html'=> $html
-			));exit;
+			wp_send_json(array(
+				'status'=>'good',
+				'content'=> $html
+			));
+			wp_die();
+		}
+		function admin_system_log_flush(){
+			EVO_Error()->_flush_all_logs();
+
+			$html = EVO_Error()->_get_html_log_view();
+			
+			wp_send_json(array(
+				'status'=>'good',
+				'msg'=> __('All system logs flushed'),
+				'content'=> $html
+			));
+			wp_die();
 		}
 
 		// environment

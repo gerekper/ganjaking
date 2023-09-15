@@ -8,7 +8,7 @@ jQuery(document).ready(function() {
 		form.find('.upadmin-errors').empty();
 		jQuery.ajax({
 			url: ajaxurl,
-			data: form.serialize() + '&action=userpro_new_redirect',
+			data: form.serialize() + '&action=userpro_new_redirect' + '&nonce=' + USER_PRO_DATA.nonce,
 			dataType: 'JSON',
 			type: 'POST',
 			success:function(data){
@@ -34,7 +34,7 @@ jQuery(document).ready(function() {
 		var type = form.find('input[type=hidden]#type').val();
 		jQuery.ajax({
 			url: ajaxurl,
-			data: 'action=userpro_remove_redirect&key='+key+'&type='+type,
+			data: 'action=userpro_remove_redirect&key='+key+'&type='+type + '&nonce=' + USER_PRO_DATA.nonce,
 			dataType: 'JSON',
 			type: 'POST',
 			success:function(data){

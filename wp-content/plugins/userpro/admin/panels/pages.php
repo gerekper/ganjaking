@@ -1,5 +1,5 @@
 <form method="post" action="">
-
+<input type="hidden" name="user_pro_nonce" value="<?php echo wp_create_nonce( 'user_pro_nonce' ); ?>">
 <p class="upadmin-highlight"><?php printf(__('You must update your permalinks or Save Changes on your permalinks setup for the nice URLs to work fine.','userpro'), admin_url().'options-permalink.php'); ?></p>
 
 <h3><i class="userpro-icon-edit-sign"></i><?php _e('Manage Page Slugs','userpro'); ?></h3>
@@ -51,6 +51,7 @@
 </table>
 
 <p class="submit">
+    <input type="hidden" name="user_pro_nonce" value="<?= wp_create_nonce("user_pro_nonce"); ?>";>
 	<input type="submit" name="submit" id="submit" class="up-admin-btn up-admin-btn--dark-blue small" value="<?php _e('Save Changes','userpro'); ?>"  />
 	<input type="submit" name="reset-options" id="reset-options" class="up-admin-btn remove small" value="<?php _e('Reset Options','userpro'); ?>"  />
 </p>
@@ -139,6 +140,7 @@
 </table>
 
 <p class="submit submit-static">
+    <input type="hidden" name="user_pro_nonce" value="<?= wp_create_nonce("user_pro_nonce"); ?>";>
 	<input type="submit" name="rebuild-pages" id="rebuild-pages" class="up-admin-btn approve small" value="<?php _e('Rebuild UserPro Pages','userpro'); ?>"  />
 </p>
 

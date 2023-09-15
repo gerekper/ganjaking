@@ -330,29 +330,44 @@ class EVO_Cal_Event_Structure{
 					$OT.="<span class='evcal_oganizer level_4'>
 						<em><i>".( eventon_get_custom_language( '','evcal_evcard_org', 'Event Organized By')  ).'</i></em>';
 
+						$org_link_type = EVO()->cal->get_prop('evo_eventtop_org_link','evcal_1');
+
 						foreach($event_organizer as $EO_id=>$EO){
+
 							if( empty( $EO->name)) continue;
-
-							$btn_data = array(
-								'lbvals'=> array(
-									'lbc'=>'evo_organizer_lb_'.$EO->term_id,
-									't'=>	$EO->name,
-									'ajax'=>'yes',
-									'ajax_type'=>'endpoint',
-									'ajax_action'=>'eventon_get_tax_card_content',
-									'end'=>'client',
-									'd'=> array(					
-										'eventid'=> $EVENT->ID,
-										'ri'=> $EVENT->ri,
-										'term_id'=> $EO->term_id,
-										'tax'=>'event_organizer',
-										'load_lbcontent'=>true
+							
+							// open as lightbox
+							if( $org_link_type == 0 || !$org_link_type){
+								$btn_data = array(
+									'lbvals'=> array(
+										'lbc'=>'evo_organizer_lb_'.$EO->term_id,
+										't'=>	$EO->name,
+										'ajax'=>'yes',
+										'ajax_type'=>'endpoint',
+										'ajax_action'=>'eventon_get_tax_card_content',
+										'end'=>'client',
+										'd'=> array(					
+											'eventid'=> $EVENT->ID,
+											'ri'=> $EVENT->ri,
+											'term_id'=> $EO->term_id,
+											'tax'=>'event_organizer',
+											'load_lbcontent'=>true
+										)
 									)
-								)
-							);
+								);
 
+								$OT.='<em class="evoet_dataval evolb_trigger" '. $this->help->array_to_html_data($btn_data) .'>'.$EO->name."</em>";
+							}
 
-							$OT.='<em class="evoet_dataval evolb_trigger" '. $this->help->array_to_html_data($btn_data) .'>'.$EO->name."</em>";
+							// open as archive page
+							if( $org_link_type == 1){
+								$OT.='<em class="evoet_dataval evo_org_clk_link evo_hover_op7 evo_curp" data-link="'. $EO->link .'">'.$EO->name."</em>";
+							}
+							// open as organizer link if available page
+							if( $org_link_type == 2){
+								$link = !empty($EO->organizer_link) ? $EO->organizer_link : false;
+								$OT.='<em class="evoet_dataval '. ( $link ? 'evo_org_clk_link evo_hover_op7 evo_curp':'') .'" data-link="'. $link .'">'.$EO->name."</em>";
+							}
 						}
 						
 					$OT.="</span>";
@@ -532,7 +547,7 @@ class EVO_Cal_Event_Structure{
 		EVO()->cal->set_cur('evcal_1');
 
 		// open for pluggability 
-			$eventtop_fields = apply_filters('evoet_data_structure', $eventtop_fields, $EventData, $EVENT);
+			$eventtop_fields = apply_filters('evoet_data_structure', $this->custom_eventtop_layout( $eventtop_fields, $SC) , $EventData, $EVENT);
 
 			$layout = $eventtop_fields['layout'];
 			//print_r($layout);
@@ -573,6 +588,14 @@ class EVO_Cal_Event_Structure{
 		return $OT;
 	}
 
+	// @since 4.5
+	function custom_eventtop_layout( $eventtop_fields, $SC){
+
+		
+
+		return $eventtop_fields;
+	}
+
 // EvnetCard HTML
 	function get_event_card($array, $EventData, $evOPT, $evoOPT2, $ep_fields = ''){
 		// INIT
@@ -585,6 +608,8 @@ class EVO_Cal_Event_Structure{
 			$OT ='';
 			$count = 1;
 			$items = count($array);	
+
+			//print_r($array);
 
 			extract($EventData);
 
@@ -606,6 +631,10 @@ class EVO_Cal_Event_Structure{
 		$eventcard_fields = EVO()->calendar->helper->get_eventcard_fields_array();
 
 		//print_r($eventcard_fields);
+
+		if( !is_array($eventcard_fields)) return ob_get_clean();
+
+		$processed_fields = array();		
 		
 		$rows = count($eventcard_fields);
 		$i = 1;
@@ -634,6 +663,10 @@ class EVO_Cal_Event_Structure{
 
 				// if only specific fields set
 					if( $ep_fields && !in_array($NN, $ep_fields) ) continue;
+
+				// if already processed
+					if( in_array( $NN, $processed_fields)) continue;
+					$processed_fields[] = $NN;
 
 				// box content
 				$BCC = $this->get_eventcard_box_content( $NN, $BDO, $EVENT , $EventData);
@@ -918,6 +951,12 @@ class EVO_Cal_Event_Structure{
 
 				// GOOGLE map
 					case 'gmap':	
+
+						// since 4.5
+						$is_google_map_good = true;
+						if( !EVO()->cal->get_prop('evo_gmap_api_key')) $is_google_map_good = false;
+
+						if( !$is_google_map_good ) break;
 
 						if( $EventData['location_type'] != 'virtual' || !isset($EventData['location_type'])){
 							$OT.="<div class='evcal_evdata_row evo_metarow_gmap evorow evcal_gmaps ".$object->id."_gmap' id='".$object->id."_gmap' style='max-width:none'></div>";

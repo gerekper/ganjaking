@@ -1146,6 +1146,18 @@ class EVO_Event extends EVO_Data_Store{
 				return false;
 			}
 		}
+		// @4.5
+		public function get_location_address(){
+			$location_term = wp_get_post_terms($this->ID, 'event_location', array('fields'=>'ids'));
+			
+			if ( $location_term && ! is_wp_error( $location_term ) && is_array($location_term) ){
+				$location_meta = evo_get_term_meta( 'event_location', (int)$location_term[0]);
+				
+				return isset($location_meta['location_address'] ) ? $location_meta['location_address'] : '';
+			}else{
+				return false;
+			}
+		}
 
 	// Organizer
 		function get_organizer_term_id($type='id'){ // @+2.8
@@ -1184,6 +1196,17 @@ class EVO_Event extends EVO_Data_Store{
 				}				
 
 				return $R;
+			}else{
+				return false;
+			}
+		}
+		// @4.5
+		public function get_organizer_names(){
+			$org_term = wp_get_post_terms($this->ID, 'event_organizer', array('fields'=>'names'));
+			
+			if ( $org_term && ! is_wp_error( $org_term ) && is_array($org_term) ){
+
+				return $org_term;
 			}else{
 				return false;
 			}
@@ -1274,6 +1297,14 @@ class EVO_Event extends EVO_Data_Store{
 	// @+ 3.0.7
 		public function get_hex(){
 			return apply_filters('evodata_hex', $this->get_prop('evcal_event_color'), $this);
+		}
+		// @ 4.5
+		function get_gradient(){
+			if( !$this->check_yn('_evo_event_grad_colors')) return false;
+			if( !$this->get_prop('evcal_event_color2')) return false;
+
+			return "linear-gradient(". (int)$this->get_prop('_evo_event_grad_ang') ."deg, #". $this->get_prop('evcal_event_color2') ." 0%, #" . $this->get_prop('evcal_event_color') ." 100%)";
+
 		}
 
 	// image data

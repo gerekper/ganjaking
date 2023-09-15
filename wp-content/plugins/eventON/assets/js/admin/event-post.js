@@ -1,5 +1,5 @@
 /** 
- * @version  4.4
+ * @version  4.5
  */
 jQuery(document).ready(function($){
 
@@ -282,6 +282,26 @@ jQuery(document).ready(function($){
 			});
 			rel_box.find('.evo_rel_events_sel_list').val( JSON.stringify( EV ));
 		})
+		// search related events @4.5
+		.on('keyup', '.evo_rel_search_input',function(event){
+			var keycode = (event.keyCode ? event.keyCode : event.which);
+			var typed_val = $(this).val().toLowerCase();
+			
+			$(this).closest('.evo_rel_events_form').find('.rel_event').each(function(){
+				const n = $(this).find('.n').html().toLowerCase();
+
+				if( typed_val == ''){
+					$(this).show();
+				}else{
+					if( n.includes(typed_val ) ){
+						$(this).show();
+					}else{
+						$(this).hide();
+					}
+				}				
+			});		
+		})
+		
 		;
 
 		// after event details meta content loaded
@@ -294,6 +314,7 @@ jQuery(document).ready(function($){
 				}
 			});
 		});
+
 		
 
 		function update_rel_event_ids(obj){
@@ -332,101 +353,61 @@ jQuery(document).ready(function($){
 			$('body').find('#evo_collapse_meta_boxes').val(box_ids);
 		}
 	
-	
-	
-	
-	/** COLOR picker **/	
-		$.fn.evo_colorpicker_init = function(opt){
- 			var el = this;
- 			var el_color = el.find('.evo_set_color');
+	// Event Color - existing colors selection
+		$('body').on('click','.evcal_color_box',function(){	
+			const main_color_metabox = $('#color_selector_1');
 
- 			var init = function(){
- 				el.find('.evo_color_selector').ColorPicker({		
-					color: get_default_set_color(),
-					onChange:function(hsb, hex, rgb,el){
-						set_hex_values(hex,rgb);
-					},onSubmit: function(hsb, hex, rgb, el) {
-						set_hex_values(hex,rgb);
-						$(el).ColorPickerHide();
-					}		
-				});
- 			}
- 			
-
-			var set_hex_values = function(hex,rgb){
-				
-				el_color.find('.evcal_color_hex').html(hex);
-				el.find('.evcal_event_color').attr({'value':hex});
-				el_color.css({'background-color':'#'+hex});		
-				
-				set_rgb_min_value(rgb,'rgb');
-			}
+			$(this).addClass('selected');
+			var new_hex = $(this).attr('color');
+			var new_hex_var = '#'+new_hex;
 			
-			var get_default_set_color = function(){
-				var colorraw = el_color.css("background-color");
-						
-				var def_color =rgb2hex( colorraw);	
-				return def_color;
-			}
+			// set rgb val
+			rgb_val = $(this).evo_rgb_process({ data : new_hex_var, type:'hex',method:'rgb_to_val'});
+			$(this).find('.evo_color_n').val( rgb_val );
+		
+			main_color_metabox.find('.evo_color_hex').val( new_hex );
+			
+			main_color_metabox.find('.evo_set_color').css({'background-color':new_hex_var});
+			main_color_metabox.find('.evcal_color_hex').html(new_hex);
 
-			var interaction = function(){
-				$('body').on('click','.evcal_color_box',function(){	
-					const color_metabox = $('#evo_mb_color');
+			$('body').trigger('evo_event_color_changed');
+			
+		})
+		// on colorpicker 2 color is set -> set gradient if enable
+		.on('evo_event_color_changed',function(event){
 
-					$(this).addClass('selected');
-					var new_hex = $(this).attr('color');
-					var new_hex_var = '#'+new_hex;
-					
-					set_rgb_min_value(new_hex_var,'hex');		
-					color_metabox.find('.evcal_event_color').val( new_hex );
-					
-					color_metabox.find('.evo_set_color').css({'background-color':new_hex_var});
-					color_metabox.find('.evcal_color_hex').html(new_hex);
-					
+			el = $('body').find('.evo_mb_color_box');
+
+			// if gradient colors set
+			if( el.find('input[name="_evo_event_grad_colors"]').val() == 'yes' ){
+				
+				const grad_ang = parseInt(el.find('input[name="_evo_event_grad_ang"]').val());
+				const color1 = el.find('input[name="evcal_event_color"]').val();
+				const color2 = el.find('input[name="evcal_event_color2"]').val();
+
+				const css = 'linear-gradient('+grad_ang+'deg, #' + color2+ ' 0%, #'+  color1 + ' 100%)';
+
+				el.find('.evo_color_grad_prev').css({
+					'background-image': css,
 				});
 			}
 
-			init();
-			interaction();
-		}
-		$('body').on('evo_eventedit_dom_loaded_evo_color',function(event, val){
-			$('#evo_mb_color').evo_colorpicker_init();			
-		});
+		})
+		.on('evo_colorpicker_2_submit',function(event,el){
+			if( $(el).closest('.evo_mb_color_box') ){
+				$('body').trigger('evo_event_color_changed');
+			}
+		})
+		.on('evo_angle_set',function(event,el, deg){
+			if( $(el).closest('.evo_mb_color_box') ){
+				$('body').trigger('evo_event_color_changed');
+			}
+		})
+		;
+
 		
 				
-	/** convert the HEX color code to RGB and get color decimal value**/
-		function set_rgb_min_value(color,type){
-			
-			if( type === 'hex' ) {			
-				var rgba = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color);	
-				var rgb = new Array();
-				 rgb['r']= parseInt(rgba[1], 16);			
-				 rgb['g']= parseInt(rgba[2], 16);			
-				 rgb['b']= parseInt(rgba[3], 16);	
-			}else{
-				var rgb = color;
-			}
-			
-			var val = parseInt((rgb['r'] + rgb['g'] + rgb['b'])/3);
-			
-			$('#evcal_event_color_n').attr({'value':val});
-		}
-		
-		function rgb2hex(rgb){
-			
-			if(rgb=='1'){
-				return;
-			}else{
-				if(rgb!=='' && rgb){
-					rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-					
-					return "#" +
-					("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
-					("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
-					("0" + parseInt(rgb[3],10).toString(16)).slice(-2);
-				}
-			}
-		}
+	
 		
 	/** User interaction meta field 	 **/
 		// new window

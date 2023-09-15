@@ -44,8 +44,12 @@ function userpro_upload_file_name($file)
 
 add_action('wp_ajax_nopriv_userpro_ajax_fileupload', 'userpro_ajax_fileupload');
 add_action('wp_ajax_userpro_ajax_fileupload', 'userpro_ajax_fileupload');
-function userpro_ajax_fileupload()
-{
+function userpro_ajax_fileupload(){
+
+    if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+        wp_send_json_error( 'Invalid nonce.' );
+        die();
+    }
 
     global $userpro;
     if (isset($_GET['webcam'])) {
@@ -119,8 +123,12 @@ function userpro_ajax_fileupload()
 add_action('wp_ajax_nopriv_userpro_remove_connection', 'userpro_remove_connection');
 add_action('wp_ajax_userpro_remove_connection', 'userpro_remove_connection');
 
-function userpro_remove_connection()
-{
+function userpro_remove_connection(){
+
+    if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+        wp_send_json_error( 'Invalid nonce.' );
+        die();
+    }
 
     $current_user = wp_get_current_user();
     $current_user_id = $current_user->ID;
@@ -144,8 +152,12 @@ function userpro_remove_connection()
 add_action('wp_ajax_nopriv_userpro_reject_user_request', 'userpro_reject_user_request');
 add_action('wp_ajax_userpro_reject_user_request', 'userpro_reject_user_request');
 
-function userpro_reject_user_request()
-{
+function userpro_reject_user_request(){
+
+    if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+        wp_send_json_error( 'Invalid nonce.' );
+        die();
+    }
 
     $current_user = wp_get_current_user();
     $current_user_id = $current_user->ID;
@@ -161,8 +173,12 @@ function userpro_reject_user_request()
 
 add_action('wp_ajax_nopriv_userpro_accept_user_request', 'userpro_accept_user_request');
 add_action('wp_ajax_userpro_accept_user_request', 'userpro_accept_user_request');
-function userpro_accept_user_request()
-{
+function userpro_accept_user_request(){
+
+    if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+        wp_send_json_error( 'Invalid nonce.' );
+        die();
+    }
 
     $current_user = wp_get_current_user();
     $current_user_id = $current_user->ID;
@@ -222,8 +238,12 @@ function userpro_post_sort()
 
 add_action('wp_ajax_nopriv_userpro_delete_post', 'userpro_delete_post');
 add_action('wp_ajax_userpro_delete_post', 'userpro_delete_post');
-function userpro_delete_post()
-{
+function userpro_delete_post(){
+
+    if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+        wp_send_json_error( 'Invalid nonce.' );
+        die();
+    }
 
     $my_post = get_post($_POST['post_id']); // $id - Post ID
     $author_id = $my_post->post_author;
@@ -487,7 +507,7 @@ function userpro_process_form()
         case 'delete':
             $output['error'] = [];
             $user = get_userdata($user_id);
-   
+
             $user_roles = $user->roles;
             $user_role = array_shift($user_roles);
 
@@ -534,14 +554,8 @@ function userpro_process_form()
         case 'change':
             $output['error'] = [];
 
-            if (get_current_user_id() != $user_id) {
-                die();
-            }
-
             if (!$form['secretkey']) {
                 $output['error']['secretkey'] = __('You did not provide a secret key.', 'userpro');
-            } elseif (strlen($form['secretkey']) != 20) {
-                $output['error']['secretkey'] = __('The secret key you entered is invalid.', 'userpro');
             }
 
             /* Form validation */
@@ -605,7 +619,8 @@ function userpro_process_form()
             if (empty($output['error'])) {
 
                 $user = get_user_by('login', $username_or_email);
-                $uniquekey = wp_generate_password(20, $include_standard_special_chars = false);
+                $uniquekey_pre_hash = wp_generate_password(20, $include_standard_special_chars = false);
+                $uniquekey = wp_hash_password($uniquekey_pre_hash);
 
                 update_user_meta($user->ID, 'userpro_secret_key', $uniquekey);
                 if (userpro_get_option('enable_reset_by_mail') == 'y') {
@@ -1132,14 +1147,16 @@ function userpro_side_validate()
             break;
 
         case 'validatesecretkey':
-            if (strlen($input_value) != 20) {
-                $output['error'] = __('The secret key you entered is invalid.', 'userpro');
+
+            if( ! $input_value ) {
+                return;
             } else {
                 $users = get_users([
                     'meta_key' => 'userpro_secret_key',
                     'meta_value' => $input_value,
                     'meta_compare' => '=',
                 ]);
+
                 if (!$users[0]) {
                     $output['error'] = __('The secret key is invalid or expired.', 'userpro');
                 }
@@ -1243,8 +1260,12 @@ function userpro_crop_picupload()
 /* save user data form */
 add_action('wp_ajax_nopriv_userpro_save_userdata', 'userpro_save_userdata');
 add_action('wp_ajax_userpro_save_userdata', 'userpro_save_userdata');
-function userpro_save_userdata()
-{
+function userpro_save_userdata(){
+
+    if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+        wp_send_json_error( 'Invalid nonce.' );
+        die();
+    }
 
     global $userpro;
 
@@ -1278,25 +1299,37 @@ function userpro_save_userdata()
 /* Get shortcode template */
 add_action('wp_ajax_nopriv_userpro_shortcode_template', 'userpro_shortcode_template');
 add_action('wp_ajax_userpro_shortcode_template', 'userpro_shortcode_template');
-function userpro_shortcode_template()
-{
-    $shortcode = $_POST['shortcode'];
-    ob_start();
 
-    if (isset($_POST['up_username'])) {
-        set_query_var('up_username', stripslashes($_POST['up_username']));
-    }
-    echo do_shortcode(stripslashes($shortcode));
-    $output['response'] = ob_get_contents();
-    ob_end_clean();
+function userpro_shortcode_template() {
+    $shortcode = isset( $_POST['shortcode'] ) ? wp_strip_all_tags( $_POST['shortcode'] ) : '';
+    $nonce = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
 
-    $output = json_encode($output);
-    if (is_array($output)) {
-        print_r($output);
+    if( wp_verify_nonce($nonce, 'user_pro_nonce') ) {
+
+        ob_start();
+
+        if ( isset( $_POST['up_username'] ) ) {
+            $username = wp_strip_all_tags( $_POST['up_username'] );
+            set_query_var( 'up_username', stripslashes( $username ) );
+        }
+
+        echo do_shortcode( stripslashes( $shortcode ) );
+        $output['response'] = ob_get_contents();
+        ob_end_clean();
+
+        $output = array( 'response' => $output['response'] );
+        $json_response = json_encode( $output );
+
+        if ( $json_response === false ) {
+            die( 'JSON encoding error: ' . json_last_error_msg() );
+        }
+
+        echo $json_response;
+
+        die;
     } else {
-        echo $output;
+        die('Invalid nonce');
     }
-    die;
 }
 
 /* Facebook Connect */
@@ -1304,6 +1337,10 @@ add_action('wp_ajax_nopriv_userpro_fbconnect', 'userpro_fbconnect');
 add_action('wp_ajax_userpro_fbconnect', 'userpro_fbconnect');
 function userpro_fbconnect()
 {
+    if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+        wp_send_json_error( 'Invalid nonce.' );
+        die();
+    }
 
     global $userpro;
     $output = [];
@@ -1559,8 +1596,15 @@ function complete_invited_user_registration($codes)
 add_action('wp_ajax_nopriv_userpro_performance', 'userpro_userpro_performance');
 add_action('wp_ajax_userpro_performance', 'userpro_userpro_performance');
 
-function userpro_userpro_performance()
-{
+function userpro_userpro_performance(){
+
+    if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+        wp_send_json_error( 'Invalid nonce.' );
+        die();
+    }
+
+    if ( ! current_user_can( 'manage_options' ) )
+        die(); // admin priv
 
     global $post;
     $ajax_url = parse_url(admin_url('admin-ajax.php'));

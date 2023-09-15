@@ -14,6 +14,8 @@ use MailPoet\Entities\NewsletterSegmentEntity;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\SubscriberSegmentEntity;
 use MailPoet\Form\FormsRepository;
+use MailPoet\InvalidStateException;
+use MailPoet\Logging\LoggerFactory;
 use MailPoet\Newsletter\Segment\NewsletterSegmentRepository;
 use MailPoet\NotFoundException;
 use MailPoet\WP\Functions as WPFunctions;
@@ -36,16 +38,21 @@ class SegmentsRepository extends Repository {
   /** @var WPFunctions */
   private $wp;
 
+  /** @var LoggerFactory */
+  private $loggerFactory;
+
   public function __construct(
     EntityManager $entityManager,
     NewsletterSegmentRepository $newsletterSegmentRepository,
     FormsRepository $formsRepository,
-    WPFunctions $wp
+    WPFunctions $wp,
+    LoggerFactory $loggerFactory
   ) {
     parent::__construct($entityManager);
     $this->newsletterSegmentRepository = $newsletterSegmentRepository;
     $this->formsRepository = $formsRepository;
     $this->wp = $wp;
+    $this->loggerFactory = $loggerFactory;
   }
 
   protected function getEntityClassName() {
@@ -137,6 +144,28 @@ class SegmentsRepository extends Repository {
     if (!$this->isNameUnique($name, $id)) {
       throw new ConflictException("Could not create new segment with name [{$name}] because a segment with that name already exists.");
     }
+  }
+
+  /**
+   * @param int $id
+   *
+   * @return SegmentEntity
+   * @throws InvalidStateException
+   */
+  public function verifyDynamicSegmentExists(int $id): SegmentEntity {
+    try {
+      $dynamicSegment = $this->findOneById($id);
+      if (!$dynamicSegment instanceof SegmentEntity) {
+        throw InvalidStateException::create()->withMessage(sprintf("Could not find segment with ID %s.", $id));
+      }
+      if ($dynamicSegment->getType() !== SegmentEntity::TYPE_DYNAMIC) {
+        throw InvalidStateException::create()->withMessage(sprintf("Segment with ID %s is not a dynamic segment. Its type is %s.", $id, $dynamicSegment->getType()));
+      }
+    } catch (InvalidStateException $exception) {
+      $this->loggerFactory->getLogger(LoggerFactory::TOPIC_SEGMENTS)->error(sprintf("Could not verify existence of dynamic segment: %s", $exception->getMessage()));
+      throw $exception;
+    }
+    return $dynamicSegment;
   }
 
   /**

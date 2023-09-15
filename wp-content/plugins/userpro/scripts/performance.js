@@ -5,7 +5,7 @@ jQuery(document).ready(function(){
 		var params = elem.data('parameters');
 		jQuery.ajax({
 			url: userpro_ajax_url,
-			data: "action=userpro_performance&params="+params,
+			data: "action=userpro_performance&params="+params+ '&nonce=' + USER_PRO_DATA.nonce,
 			dataType: 'JSON',
 			type: 'POST',
 			error: function(xhr, status, error){

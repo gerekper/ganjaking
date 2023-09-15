@@ -716,36 +716,44 @@ class EVO_Cal_Filering{
 		}
 		function move_ml_yl_to_top($eventlist){
 			$args = $this->cal->shortcode_args;
-			if(isset($args['ml_priority']) && $args['ml_priority']=='yes' ){
 
-				$ml_events = $events = array();
+			$ml_events = $yl_events = array();
 
-				foreach($eventlist as $event){
-					if(isset($event['event_pmv']['_evo_month_long']) && isset($event['event_pmv']['_evo_month_long'][0]) && $event['event_pmv']['_evo_month_long'][0]=='yes' ){
-						$ml_events[]=$event;
-					}else{
-						$events[]=$event;
-					}
+			foreach($eventlist as $event){
+				if(isset($event['event_pmv']['_evo_month_long']) && isset($event['event_pmv']['_evo_month_long'][0]) && $event['event_pmv']['_evo_month_long'][0]=='yes' ){
+					$ml_events[]=$event;
+				}elseif(isset($event['event_pmv']['evo_year_long']) && isset($event['event_pmv']['evo_year_long'][0]) && $event['event_pmv']['evo_year_long'][0]=='yes' ){
+					$yl_events[]=$event;
+				}else{
+					$events[]=$event;
 				}
+			}
+
+			if(isset($args['ml_priority']) && $args['ml_priority']=='yes' ){
+				
 				// move featured events to top
 				return array_merge($ml_events,$events);
 			}
 
 			if(isset($args['yl_priority']) && $args['yl_priority']=='yes' ){
 
-				$yl_events = $events = array();
-				foreach($eventlist as $event){
-
-					if(isset($event['event_pmv']['evo_year_long']) && isset($event['event_pmv']['evo_year_long'][0]) && $event['event_pmv']['evo_year_long'][0]=='yes' ){
-						$yl_events[]=$event;
-					}else{
-						$events[]=$event;
-					}
-				}
-
 				// move featured events to top
 				return array_merge($yl_events,$events);
 			}
+
+			// if move month long events to the bottom
+			if(isset($args['ml_toend']) && $args['ml_toend']=='yes' ){
+				
+				// move featured events to top
+				return array_merge( $events , $ml_events);
+			}
+			// if move year long events to the bottom
+			if(isset($args['yl_toend']) && $args['yl_toend']=='yes' ){
+				
+				// move featured events to top
+				return array_merge( $events , $ml_events);
+			}
+
 			return $eventlist;
 		}
 }

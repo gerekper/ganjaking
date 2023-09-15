@@ -36,8 +36,8 @@ class WoocommerceProductFeedsMeasurementPriceCalculator {
 
 		// Bail if we don't need, or want to generate unit_pricing_measure fields.
 		if ( ! empty( $feed_item->additional_elements['unit_pricing_measure'] ) ||
-			 ! empty( $feed_item->additional_elements['unit_pricing_base_measure'] ) ||
-			 ! apply_filters( 'woocommerce_gpf_mpc_send_unit_pricing', true, $product ) ) {
+			! empty( $feed_item->additional_elements['unit_pricing_base_measure'] ) ||
+			! apply_filters( 'woocommerce_gpf_mpc_send_unit_pricing', true, $product ) ) {
 			return $feed_item;
 		}
 

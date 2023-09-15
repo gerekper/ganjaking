@@ -1,3 +1,7 @@
+<?php
+$nonce = wp_create_nonce('user_pro_nonce');
+?>
+
 <form id="userpro-settings-form" name="userpro-settings-form" method="post" action="">
 
 <h3><i class="fas fa-tools"></i><?php _e('Quick Maintenance','userpro'); ?></h3>
@@ -6,13 +10,13 @@
 	<tr valign="top">
 		<th scope="row"><label><?php _e('Clear unused Junk','userpro'); ?></label></th>
 		<td>
-			<a href="admin.php?page=userpro&tab=settings&userpro_act=clear_unused_uploads" class="up-admin-btn up-admin-btn--dark-blue small"><?php _e('Clear un-used uploads','userpro'); ?></a>
+			<a href="admin.php?page=userpro&tab=settings&userpro_act=clear_unused_uploads&user_pro_nonce=<?php echo $nonce;?>" class="up-admin-btn up-admin-btn--dark-blue small"><?php _e('Clear un-used uploads','userpro'); ?></a>
 		</td>
 	</tr>
 	<tr valign="top">
 		<th scope="row"><label><?php _e('Clear Members Cache','userpro'); ?></label></th>
 		<td>
-			<a href="admin.php?page=userpro&tab=settings&userpro_act=clear_cache" class="up-admin-btn up-admin-btn--dark-blue small"><?php _e('Clear Members Cache','userpro'); ?></a>
+			<a href="admin.php?page=userpro&tab=settings&userpro_act=clear_cache&user_pro_nonce=<?php echo $nonce;?>" class="up-admin-btn up-admin-btn--dark-blue small"><?php _e('Clear Members Cache','userpro'); ?></a>
 		</td>
 	</tr>
 	
@@ -27,14 +31,14 @@
 	<tr valign="top">
 		<th scope="row"><label><?php _e('Clear deleted users stuff','userpro'); ?></label></th>
 		<td>
-			<a href="admin.php?page=userpro&tab=settings&userpro_act=clear_deleted_users" class="up-admin-btn up-admin-btn--dark-blue small"><?php _e('Clear deleted users stuff','userpro'); ?></a>
+			<a href="admin.php?page=userpro&tab=settings&userpro_act=clear_deleted_users&user_pro_nonce=<?php echo $nonce;?>" class="up-admin-btn up-admin-btn--dark-blue small"><?php _e('Clear deleted users stuff','userpro'); ?></a>
 		</td>
 	</tr>
 	
 	<tr valign="top">
 		<th scope="row"><label><?php _e('Purge online users data','userpro'); ?></label></th>
 		<td>
-			<a href="admin.php?page=userpro&tab=settings&userpro_act=reset_online_users" class="up-admin-btn up-admin-btn--dark-blue small"><?php _e('Reset online users','userpro'); ?></a>
+			<a href="admin.php?page=userpro&tab=settings&userpro_act=reset_online_users&user_pro_nonce=<?php echo $nonce;?>" class="up-admin-btn up-admin-btn--dark-blue small"><?php _e('Reset online users','userpro'); ?></a>
             <?php if(get_transient('userpro_users_online') !== FALSE):
                 echo count(get_transient('userpro_users_online'));
             else:
@@ -48,7 +52,7 @@
 	<tr valign="top">
 		<th scope="row"><label><?php _e('Clear activity stream','userpro'); ?></label></th>
 		<td>
-			<a href="admin.php?page=userpro&tab=settings&userpro_act=clear_activity" class="up-admin-btn up-admin-btn--dark-blue small"><?php _e('Delete all activity','userpro'); ?></a>
+			<a href="admin.php?page=userpro&tab=settings&userpro_act=clear_activity&user_pro_nonce=<?php echo $nonce;?>" class="up-admin-btn up-admin-btn--dark-blue small"><?php _e('Delete all activity','userpro'); ?></a>
 		</td>
 	</tr>
 	
@@ -1645,6 +1649,7 @@
 <!--Globla hook for adding extra setting fields   Added by Rahul-->
 <?php do_action("userpro_add_setting_fields");?>
 <p class="submit">
+    <input type="hidden" name="user_pro_nonce" value="<?= wp_create_nonce("user_pro_nonce"); ?>";>
 	<input type="submit" name="submit" id="submit" class="up-admin-btn up-admin-btn--dark-blue small" value="<?php _e('Save Changes','userpro'); ?>"  />
 	<input type="submit" name="reset-options" id="reset-options" class="up-admin-btn small remove" value="<?php _e('Reset Options','userpro'); ?>"  />
 </p>

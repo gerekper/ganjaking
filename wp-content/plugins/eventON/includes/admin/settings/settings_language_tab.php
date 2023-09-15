@@ -248,6 +248,8 @@ class evo_settings_lang{
 					array('label'=>'Moved Online','var'=>1),	
 					array('label'=>'Postponed','var'=>1),	
 					array('label'=>'Rescheduled','var'=>1),	
+					array('label'=>'Preliminary','var'=>1),	
+					array('label'=>'Tentative','var'=>1),	
 					array('label'=>'Completed','var'=>1),	
 					array('label'=>'Virtual Event','var'=>1),	
 					array('label'=>'Virtual/ Physical Event','var'=>1),	

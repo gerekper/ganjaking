@@ -1,10 +1,9 @@
 <?php
 /*
-Plugin Name: UserPro (5.1.0)
-Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
+Plugin Name: UserPro (5.1.1)
 Plugin URI: http://codecanyon.net/user/DeluxeThemes/portfolio?ref=DeluxeThemes
 Description: The ultimate user profiles and community plugin for WordPress.
-Version: 5.1.0
+Version: 5.1.1
 Author: Deluxe Themes
 Author URI: http://codecanyon.net/user/DeluxeThemes/portfolio?ref=DeluxeThemes
 */
@@ -27,5 +26,4 @@ function userpro_init()
 userpro_init();
 
 $GLOBALS['userpro'] = new userpro_api();
-/* Anti-Leecher Identifier */
-/* Credited By BABIATO-FORUM */
+

@@ -130,4 +130,3 @@ function woocommerce_gpf_install() {
 		);
 	}
 }
-

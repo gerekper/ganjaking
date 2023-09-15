@@ -30,6 +30,7 @@ class EVO_Elementor{
        require_once( $widget_file );
 
        $widget_manager->register( new \EVO_Elementor_Wig() );
+       $widget_manager->register( new \EVO_Elementor_Wig_title() );
     }
 
     // Loading eventON parts to editor

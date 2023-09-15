@@ -4,8 +4,8 @@ Plugin Name: EventON
 Author URI: http://ashanjay.com/
 Tags: calendar, event calendar, events, directory, location, organizer, repeating event
 Requires at least: 6.0
-Tested up to: 6.3
-Stable tag: 4.4.4
+Tested up to: 6.3.1
+Stable tag: 4.5
 Initial Release: 2011-12-21
 
 EventON is an event calendar plugin for WordPress, that helps you showcase and present your events to your audiences in a clean and clutter-free layout. 
@@ -52,6 +52,40 @@ Automatic updates will work for plugin update after you have registered and acti
 How to update eventON: http://docs.myeventon.com/documentations/update-eventon/ 
 
 == Changelog ==
+= 4.5 (2023-9-11) =
+ADDED: zoom server to server OAuth connection
+ADDED: new event tile style details next to date
+ADDED: new event tile style bare minimal tile_style = 4
+ADDED: custom eventtop data structure that can override default
+ADDED: diagnose settings option to flush eventon system log
+ADDED: option to move month and year long events to the bottom of list
+ADDED: reset button for calendar search bar
+ADDED: Elementor event title widget
+ADDED: preliminary and tenative event status type options
+ADDED: single event shortcode to allow outputting just event data values
+ADDED: search field to related events box on event edit 
+ADDED: support for secondary event color to create gradient event colors
+ADDED: eventtop organizer click action configure setting in eventON settings > eventtop
+FIXED: XSS vulnerability with virtual event link field
+FIXED: XSS vulnerability eventon settigns custom login link field
+FIXED: evo ajax refresh_elm() function reference error
+FIXED: live now events countdown timer not working
+FIXED: WPML current language value not passing using ICL_LANGUAGE_CODE any more
+FIXED: generate google map from the address event edit setting to use settings value
+FIXED: subtitle on lightbox window going in same line as title
+FIXED: tile styles
+FIXED: related events to show ordered by event time on admin
+FIXED: responsive styles for organizer lightbox
+FIXED: add to cal field showing twice on eventcard
+FIXED: empty box displaying when google map api is not entered
+FIXED: virtual event main and after content issues
+FIXED: for ux_val= 4 show href value for <a>
+FIXED: event edit healthcare guide yes no button alignment
+UPDATED: event edit event status UI design
+UPDATED: settings styles
+UPDATED: eventon system log to use modular lightbox and ajax library
+UPDATED: Moment.js to 2.29.4
+
 = 4.4.4 (2023-8-24) = 
 FIXED: organizer name clicked on eventtop not loading anything
 FIXED: event archive pages layout styles

@@ -131,8 +131,8 @@ class WoocommerceGpfCacheInvalidator {
 	public function pre_delete_variation( $post_id ) {
 		$post = get_post( $post_id );
 		if ( ! $post ||
-			 'product_variation' !== $post->post_type ||
-			 empty( $post->post_parent ) ) {
+			'product_variation' !== $post->post_type ||
+			empty( $post->post_parent ) ) {
 			return;
 		}
 		$this->parent_map[ $post_id ] = $post->post_parent;

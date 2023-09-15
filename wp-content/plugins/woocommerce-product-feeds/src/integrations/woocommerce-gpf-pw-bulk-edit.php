@@ -128,7 +128,7 @@ class WoocommerceGpfPwBulkEdit {
 				continue;
 			}
 			if ( isset( $field_info['options_callback'] ) &&
-				 is_callable( $field_info['options_callback'] ) ) {
+				is_callable( $field_info['options_callback'] ) ) {
 				$select_options[ '_woocommerce_gpf_data___' . $key ] = array_merge(
 					[
 						'' => [
@@ -272,19 +272,19 @@ class WoocommerceGpfPwBulkEdit {
 	private function field_excluded( $key ) {
 		// Skip if not enabled & not mandatory.
 		if ( ! isset( $this->gpf_settings['product_fields'][ $key ] ) &&
-			 ( ! isset( $this->gpf_fields[ $key ]['mandatory'] ) || ! $this->gpf_fields[ $key ]['mandatory'] )
+			( ! isset( $this->gpf_fields[ $key ]['mandatory'] ) || ! $this->gpf_fields[ $key ]['mandatory'] )
 		) {
 			return true;
 		}
 		// Skip if not to be shown on product pages.
 		if ( isset( $this->gpf_fields[ $key ]['skip_on_product_pages'] ) &&
-			 $this->gpf_fields[ $key ]['skip_on_product_pages']
+			$this->gpf_fields[ $key ]['skip_on_product_pages']
 		) {
 			return true;
 		}
 		// Skip if not bulk editable
 		if ( isset( $this->gpf_fields[ $key ]['skip_on_bulk_edit'] ) &&
-			 $this->gpf_fields[ $key ]['skip_on_bulk_edit'] ) {
+			$this->gpf_fields[ $key ]['skip_on_bulk_edit'] ) {
 			return true;
 		}
 

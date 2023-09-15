@@ -3,7 +3,7 @@
  * EVO_generator class.
  *
  * @class 		EVO_generator
- * @version		4.4.1
+ * @version		4.5
  * @package		EventON/Classes
  * @category	Class
  * @author 		AJDE
@@ -207,14 +207,18 @@ class EVO_generator {
 				// Evo language @+2.6.10
 					evo_set_global_lang($args['lang']);
 
-				// process WPML
-					if(defined('ICL_LANGUAGE_CODE')){
-						$lang_count = apply_filters('eventon_lang_var_count', 3); // @version 2.2.24
-						for($x=1; $x <= $lang_count; $x++){
-							if(!empty($args['wpml_l'.$x]) && $args['wpml_l'.$x]==ICL_LANGUAGE_CODE){
-								$args['lang']='L'.$x;
+				// process WPML @u 4.5			
+					if( has_filter( 'wpml_current_language ')){
+						$my_current_lang = apply_filters( 'wpml_current_language', NULL );
+
+						if( !empty($my_current_lang)){
+							$lang_count = apply_filters('eventon_lang_var_count', 3); // @version 2.2.24
+							for($x=1; $x <= $lang_count; $x++){
+								if(!empty($args['wpml_l'.$x]) && $args['wpml_l'.$x]== $my_current_lang ){
+									$args['lang']='L'.$x;
+								}
 							}
-						}
+						}						
 					}
 
 			// hide_past => event_past_future filter - v2.8
@@ -2133,6 +2137,10 @@ class EVO_generator {
 									
 									}else{ 
 										$_eventInAttr['style'][] = 'background-color:'.$EventData['color'].';';	
+										// gradient color
+										if( $ev_grad = $EVENT->get_gradient() ){
+											$_eventInAttr['style'][] = 'background-image: '.$ev_grad.';';
+										}
 									}
 
 									// img bg
@@ -2196,10 +2204,17 @@ class EVO_generator {
 									$__shortC_arg['eventtop_style'] == 3 ) 
 							){
 								$_eventInAttr['style'][] = 'background-color: '.$EventData['color'].';';
+								
+								// gradient color
+								if( $ev_grad = $EVENT->get_gradient() ){
+									$_eventInAttr['style'][] = 'background-image: '.$ev_grad.';';
+								}
 							}else{
 								$_eventInAttr['style'][] = 'border-color: '.$EventData['color'].';';
 							}	
 						}
+
+
 
 					// Unique repeating event class name
 						$_eventClasses[] = 'event_'.$EVENT->ID.'_'.$EVENT->ri;
@@ -2221,6 +2236,9 @@ class EVO_generator {
 				if( $EventData['cancelled'] )  $_eventInAttr['data-text'] = evo_lang('Cancelled');
 				$_eventInAttr['data-j'] = apply_filters('evo_event_json_data', array(), $event_id);
 				$_eventInAttr['data-runjs'] = apply_filters('evo_event_run_json_onclick', false, $EVENT);
+				
+				// for ux val 4 show href value for <a>
+					if($event_ux_val == '4') $_eventInAttr['href'] = $EVENT->get_permalink();
 
 				// if event is linking to external site
 					if($event_ux_val == '2'){
@@ -2231,7 +2249,6 @@ class EVO_generator {
 							$_eventInAttr['target'] = '_blank';
 						}						
 					}
-
 
 
 				$attsIn = $this->helper->get_attrs( apply_filters('evo_cal_eventtop_in_attrs',$_eventInAttr, $EVENT->ID, $EVENT));

@@ -1846,24 +1846,31 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 	    return $val;
 	}
 
-	// get hex color in correct format (with #) @updated 4.2.3
-	function eventon_get_hex_color($event_hex_color='', $defaultColor=''){
+	// get hex color in correct format (with #) @updated 4.5
+	function eventon_get_hex_color($event_hex_color = '', $defaultColor = ''){
 
 		$pure_hex_val = '';
 
-		if(!empty($event_hex_color)){
-			// remove #
-			$pure_hex_val = str_replace('#','',$event_hex_color);
-			$pure_hex_val = substr($pure_hex_val, 0,6);
-		}else{	// if there are no event colors saved
+		if( is_array($event_hex_color)) return false;
 
+		// remove #
+		if( !empty($event_hex_color)) $event_hex_color = str_replace('#','',$event_hex_color);
+
+		if(!empty($event_hex_color)){
+			$pure_hex_val = substr($event_hex_color, 0,6);			
+		}else{	
+			// if there are no event colors saved
 			if(!empty($defaultColor)){
-				$pure_hex_val = $defaultColor;
+				$pure_hex_val = str_replace('#','', $defaultColor);
 			}else{
-				$opt = (!empty($opt))? $opt: EVO()->calendar->evopt1;
-				$pure_hex_val = ( !empty($opt['evcal_hexcode'])? $opt['evcal_hexcode']: '4bb5d8');
+				$evo_color_1 = EVO()->cal->get_prop('evcal_hexcode','evcal_1');
+				$pure_hex_val = !empty($evo_color_1) ? $evo_color_1 : '4bb5d8';
 			}				
 		}
+
+		// remove #
+		$pure_hex_val = str_replace('#', '', $pure_hex_val);
+
 		return '#'.$pure_hex_val;
 	}
 

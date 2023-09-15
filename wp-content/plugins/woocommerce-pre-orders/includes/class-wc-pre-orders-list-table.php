@@ -141,7 +141,7 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 			// build the set of views, if any
 			foreach ( $counts as $status => $count ) {
 				if ( $count > 0 ) {
-					if ( $this->get_current_pre_order_status( $counts ) == $status ) {
+					if ( $this->get_current_pre_order_status( $counts ) === $status ) {
 						$class = ' class="current"';
 					} else {
 						$class = '';
@@ -490,14 +490,13 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 		// filtering by product id
 		if ( ! empty( $product_ids ) ) {
 			$product_ids = implode( ',', array_map( 'absint', $product_ids ) );
-			$order_ids = $wpdb->get_col(
+			$order_ids   = $wpdb->get_col(
 				"
 				SELECT order_id
 				FROM {$wpdb->prefix}woocommerce_order_items as order_items
 				JOIN {$wpdb->prefix}woocommerce_order_itemmeta as order_itemmeta
 					ON order_itemmeta.order_item_id = order_items.order_item_id
-				WHERE meta_key = '_product_id' AND meta_value IN (" . esc_sql( $product_ids ) . ")
-				"
+				WHERE meta_key = '_product_id' AND meta_value IN (" . esc_sql( $product_ids ) . ")" // phpcs:ignore Squiz.Strings.DoubleQuoteUsage.NotRequired
 			);
 
 			$args['post__in'] = ! empty( $order_ids ) ? $order_ids : array( 0 );
@@ -543,25 +542,14 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 		global $wpdb;
 
 		if ( isset( $_GET['s'] ) && ! empty( $_GET['s'] ) ) {
-			$search_query  = sanitize_text_field( wp_unslash( $_GET['s'] ) );
-			$search_fields = array_map(
-				'esc_attr',
-				apply_filters(
-					'wc_pre_orders_search_fields',
-					array(
-						'_order_key',
-						'_billing_email',
-						'_wc_pre_orders_status',
-					)
-				)
-			);
-
+			$search_query    = sanitize_text_field( wp_unslash( $_GET['s'] ) );
 			$search_order_id = str_replace( 'Order #', '', $search_query );
 			if ( ! is_numeric( $search_order_id ) ) {
 				$search_order_id = 0;
 			}
 
-			$search_ids_by_meta = array();
+			$escaped_search_like_query = '%' . $wpdb->esc_like( $search_query ) . '%';
+			$search_ids_by_meta        = array();
 			if ( WC_Pre_Orders::is_hpos_enabled() ) {
 				$search_ids_by_meta = $wpdb->get_col(
 					$wpdb->prepare(
@@ -573,26 +561,41 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 						INNER JOIN {$wpdb->prefix}wc_order_operational_data AS operational_data ON ( orders.id = operational_data.order_id )
 						WHERE ( orders.type = 'shop_order' )
 						AND ( meta0.meta_key = '_wc_pre_orders_is_pre_order' AND meta0.meta_value = '1' )
-						AND ( ( orders.billing_email LIKE '%%%1\$s%%' )
-						OR ( meta1.meta_key = '_wc_pre_orders_status' AND meta1.meta_value LIKE '%%%1\$s%%' )
-						OR ( operational_data.order_key LIKE '%%%1\$s%%' ) )
+						AND ( ( orders.billing_email LIKE %s )
+						OR ( meta1.meta_key = '_wc_pre_orders_status' AND meta1.meta_value LIKE %s )
+						OR ( operational_data.order_key LIKE %s ) )
 						",
-						esc_attr( $search_query ),
-						esc_attr( $search_query ),
-						esc_attr( $search_query )
+						$escaped_search_like_query,
+						$escaped_search_like_query,
+						$escaped_search_like_query
 					)
 				);
 			} else {
-				$search_ids_by_meta = $wpdb->get_col(
+				$search_fields = array_map(
+					'esc_attr',
+					apply_filters(
+						'wc_pre_orders_search_fields',
+						array(
+							'_order_key',
+							'_billing_email',
+							'_wc_pre_orders_status',
+						)
+					)
+				);
+
+				$search_fields_string = implode( "','", esc_sql( $search_fields ) );
+				$search_ids_by_meta   = $wpdb->get_col(
+					// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
 					$wpdb->prepare(
 						"
 						SELECT post_id
 						FROM {$wpdb->postmeta}
-						WHERE meta_key IN ('" . implode( "','", $search_fields ) . "')
-						AND meta_value LIKE '%%%s%%'
+						WHERE meta_key IN ('" . $search_fields_string . "')
+						AND meta_value LIKE %s
 						",
-						esc_attr( $search_query )
+						$escaped_search_like_query
 					)
+					// phpcs:enable WordPress.DB.PreparedSQL.NotPrepared
 				);
 			}
 
@@ -604,14 +607,14 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 						FROM {$wpdb->prefix}wc_orders as _order
 						LEFT JOIN {$wpdb->users} as users ON _order.customer_id = users.ID
 						WHERE
-							user_login    LIKE '%%%1\$s%%' OR
-							user_nicename LIKE '%%%1\$s%%' OR
-							user_email    LIKE '%%%1\$s%%' OR
-							display_name  LIKE '%%%1\$s%%'",
-						esc_attr( $search_query ),
-						esc_attr( $search_query ),
-						esc_attr( $search_query ),
-						esc_attr( $search_query )
+							user_login    LIKE %s OR
+							user_nicename LIKE %s OR
+							user_email    LIKE %s OR
+							display_name  LIKE %s",
+						$escaped_search_like_query,
+						$escaped_search_like_query,
+						$escaped_search_like_query,
+						$escaped_search_like_query
 					)
 				);
 			} else {
@@ -623,24 +626,24 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 						LEFT JOIN {$wpdb->postmeta} as postmeta ON posts.ID = postmeta.post_id
 						LEFT JOIN {$wpdb->users} as users ON postmeta.meta_value = users.ID
 						WHERE
-							post_excerpt LIKE '%%%1\$s%%' OR
-							post_title   LIKE '%%%1\$s%%' OR
+							post_excerpt LIKE %s OR
+							post_title   LIKE %s OR
 							(
 								meta_key = '_customer_user' AND
 								(
-									user_login    LIKE '%%%1\$s%%' OR
-									user_nicename LIKE '%%%1\$s%%' OR
-									user_email    LIKE '%%%1\$s%%' OR
-									display_name  LIKE '%%%1\$s%%'
+									user_login    LIKE %s OR
+									user_nicename LIKE %s OR
+									user_email    LIKE %s OR
+									display_name  LIKE %s
 								)
 							)
 						",
-						esc_attr( $search_query ),
-						esc_attr( $search_query ),
-						esc_attr( $search_query ),
-						esc_attr( $search_query ),
-						esc_attr( $search_query ),
-						esc_attr( $search_query )
+						$escaped_search_like_query,
+						$escaped_search_like_query,
+						$escaped_search_like_query,
+						$escaped_search_like_query,
+						$escaped_search_like_query,
+						$escaped_search_like_query
 					)
 				);
 			}
@@ -652,9 +655,9 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 						"
 						SELECT order_id
 						FROM {$wpdb->prefix}woocommerce_order_items as order_items
-						WHERE order_item_name LIKE '%%%s%%'
+						WHERE order_item_name LIKE %s
 						",
-						esc_attr( $search_query )
+						$escaped_search_like_query
 					)
 				),
 				$search_ids_by_customer,

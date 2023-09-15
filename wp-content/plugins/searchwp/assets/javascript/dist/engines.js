@@ -28733,7 +28733,10 @@
 			},
 			httpBasicAuthLinkText: function() {
 				return __('Fix this');
-			}
+			},
+	        indexerPaused: function() {
+	            return this.$store.state.index.indexerPaused;
+	        },
 		},
 		methods: {
 			altIndexMessage: function() {
@@ -28796,22 +28799,22 @@
 	/* script */
 	const __vue_script__$2 = script$2;
 	/* template */
-	var __vue_render__$2 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"swp-alternate-indexer"},[(_vm.memoryLimits && !_vm.memoryLimits.sufficient)?_c('Notice',{attrs:{"type":'warning',"message":_vm._f("i18n")('_memory_limit_note',[_vm.memoryLimits.recommended, _vm.memoryLimits.wp, _vm.memoryLimits.php]),"more":{
-				target: 'https://searchwp.com/?p=299348',
-				text: _vm.moreInfoText
-			}}}):_vm._e(),_vm._v(" "),(!_vm.cron)?_c('Notice',{attrs:{"type":'warning',"message":_vm._f("i18n")('_cron_note'),"more":{
-				target: 'https://searchwp.com/?p=299347',
-				text: _vm.moreInfoText
-			}}}):_vm._e(),_vm._v(" "),(_vm.suggestAlternateIndexer && 'alternate' !== _vm.type)?_c('Notice',{attrs:{"type":'warning',"message":_vm._f("i18n")('_suggest_alternate_indexer_note'),"more":{
-				target: 'https://searchwp.com/?p=223030',
-				text: _vm.moreInfoText
-			}}}):_vm._e(),_vm._v(" "),('alternate' === _vm.type)?_c('Notice',{attrs:{"type":'warning',"message":_vm.altIndexMessage(),"more":{
-				target: 'https://searchwp.com/?p=223030',
-				text: _vm.moreInfoText
-			},"tooltip":_vm._f("i18n")('_http_loopback_note')}}):('basicauth' === _vm.type)?_c('Notice',{attrs:{"type":'error',"message":_vm._f("i18n")('_indexer_blocked_note'),"more":{
-				target: 'https://searchwp.com/?p=223034',
-				text: _vm.httpBasicAuthLinkText
-			}}}):_vm._e()],1)};
+	var __vue_render__$2 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"swp-alternate-indexer"},[(_vm.indexerPaused)?_c('Notice',{attrs:{"type":'warning',"message":_vm._f("i18n")('_indexer_paused'),"tooltip":_vm._f("i18n")('_indexer_paused_tooltip')}}):_vm._e(),_vm._v(" "),(_vm.memoryLimits && !_vm.memoryLimits.sufficient)?_c('Notice',{attrs:{"type":'warning',"message":_vm._f("i18n")('_memory_limit_note',[_vm.memoryLimits.recommended, _vm.memoryLimits.wp, _vm.memoryLimits.php]),"more":{
+					target: 'https://searchwp.com/?p=299348',
+					text: _vm.moreInfoText
+				}}}):_vm._e(),_vm._v(" "),(!_vm.cron)?_c('Notice',{attrs:{"type":'warning',"message":_vm._f("i18n")('_cron_note'),"more":{
+					target: 'https://searchwp.com/?p=299347',
+					text: _vm.moreInfoText
+				}}}):_vm._e(),_vm._v(" "),(!_vm.indexerPaused && _vm.suggestAlternateIndexer && 'alternate' !== _vm.type)?_c('Notice',{attrs:{"type":'warning',"message":_vm._f("i18n")('_suggest_alternate_indexer_note'),"more":{
+					target: 'https://searchwp.com/?p=223030',
+					text: _vm.moreInfoText
+				}}}):_vm._e(),_vm._v(" "),('alternate' === _vm.type)?_c('Notice',{attrs:{"type":'warning',"message":_vm.altIndexMessage(),"more":{
+					target: 'https://searchwp.com/?p=223030',
+					text: _vm.moreInfoText
+				},"tooltip":_vm._f("i18n")('_http_loopback_note')}}):('basicauth' === _vm.type)?_c('Notice',{attrs:{"type":'error',"message":_vm._f("i18n")('_indexer_blocked_note'),"more":{
+					target: 'https://searchwp.com/?p=223034',
+					text: _vm.httpBasicAuthLinkText
+				}}}):_vm._e()],1)};
 	var __vue_staticRenderFns__$2 = [];
 
 	  /* style */
@@ -29271,7 +29274,8 @@
 				indexed: _SEARCHWP.index.indexed,
 				omitted: _SEARCHWP.index.omitted,
 				total: _SEARCHWP.index.total,
-				outdated: false
+				outdated: false,
+				indexerPaused: _SEARCHWP.index.indexerPaused,
 			},
 			view: lodash_clonedeep(_SEARCHWP.view),
 			cache: {
@@ -29387,8 +29391,12 @@
 
 				// New engines have Sources that have Attributes with Defaults.
 				const sources = lodash_clonedeep(_SEARCHWP.sources);
+				const newEngineExcludedSources = _SEARCHWP.newEngineExcludedSources;
 				let newEngineSources = {};
 				for (const newEngineSource in sources) {
+				    if (newEngineExcludedSources.some(excludedSource => newEngineSource.startsWith(excludedSource))) {
+				        continue;
+				    }
 					let newSourceModel = normalizeSource(sources, newEngineSource);
 
 					for (const attribute in newSourceModel.attributes) {

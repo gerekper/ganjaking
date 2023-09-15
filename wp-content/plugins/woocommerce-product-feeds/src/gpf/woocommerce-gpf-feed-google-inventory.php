@@ -23,8 +23,8 @@ class WoocommerceGpfFeedGoogleInventory extends WoocommerceGpfFeed {
 		parent::__construct( $woocommerce_gpf_common, $debug );
 		if ( ! empty( $this->store_info->base_country ) ) {
 			if ( 'US' === substr( $this->store_info->base_country, 0, 2 ) ||
-				 'CA' === substr( $this->store_info->base_country, 0, 2 ) ||
-				 'IN' === substr( $this->store_info->base_country, 0, 2 ) ) {
+				'CA' === substr( $this->store_info->base_country, 0, 2 ) ||
+				'IN' === substr( $this->store_info->base_country, 0, 2 ) ) {
 				$this->tax_excluded = true;
 				if ( 'US' === substr( $this->store_info->base_country, 0, 2 ) ) {
 					$this->tax_attribute = true;
@@ -56,7 +56,6 @@ class WoocommerceGpfFeedGoogleInventory extends WoocommerceGpfFeed {
 		echo "    <description>This is the WooCommerce Product Inventory feed</description>\n";
 		echo '    <generator>WooCommerce Google Product Feed Plugin v' . WOOCOMMERCE_GPF_VERSION . " (https://plugins.leewillis.co.uk/downloads/woocommerce-google-product-feed/)</generator>\n";
 		echo "    <atom:link href='" . esc_url( $this->store_info->feed_url ) . "' rel='self' type='application/rss+xml' />\n";
-
 	}
 
 
@@ -136,7 +135,7 @@ class WoocommerceGpfFeedGoogleInventory extends WoocommerceGpfFeed {
 
 		// Include start / end dates if provided.
 		if ( ! empty( $feed_item->sale_price_start_date ) &&
-			 ! empty( $feed_item->sale_price_end_date ) ) {
+			! empty( $feed_item->sale_price_end_date ) ) {
 			$effective_date  = (string) $feed_item->sale_price_start_date;
 			$effective_date .= '/';
 			$effective_date .= (string) $feed_item->sale_price_end_date;
@@ -156,5 +155,4 @@ class WoocommerceGpfFeedGoogleInventory extends WoocommerceGpfFeed {
 		echo '</rss>';
 		exit();
 	}
-
 }

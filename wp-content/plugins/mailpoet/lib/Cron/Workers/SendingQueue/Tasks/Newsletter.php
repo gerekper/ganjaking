@@ -10,6 +10,7 @@ use MailPoet\Cron\Workers\SendingQueue\Tasks\Posts as PostsTask;
 use MailPoet\Cron\Workers\SendingQueue\Tasks\Shortcodes as ShortcodesTask;
 use MailPoet\DI\ContainerWrapper;
 use MailPoet\Entities\NewsletterEntity;
+use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Logging\LoggerFactory;
 use MailPoet\Mailer\MailerLog;
@@ -19,6 +20,7 @@ use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Newsletter\Renderer\PostProcess\OpenTracking;
 use MailPoet\Newsletter\Renderer\Renderer;
 use MailPoet\Newsletter\Sending\SendingQueuesRepository;
+use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Settings\TrackingConfig;
 use MailPoet\Statistics\GATracking;
 use MailPoet\Tasks\Sending;
@@ -63,6 +65,9 @@ class Newsletter {
   /** @var SendingQueuesRepository */
   private $sendingQueuesRepository;
 
+  /** @var SegmentsRepository */
+  private $segmentsRepository;
+
   public function __construct(
     WPFunctions $wp = null,
     PostsTask $postsTask = null,
@@ -93,6 +98,7 @@ class Newsletter {
     $this->linksTask = ContainerWrapper::getInstance()->get(LinksTask::class);
     $this->newsletterLinks = ContainerWrapper::getInstance()->get(NewsletterLinks::class);
     $this->sendingQueuesRepository = ContainerWrapper::getInstance()->get(SendingQueuesRepository::class);
+    $this->segmentsRepository = ContainerWrapper::getInstance()->get(SegmentsRepository::class);
   }
 
   public function getNewsletterFromQueue(Sending $sendingTask): ?NewsletterEntity {
@@ -191,6 +197,14 @@ class Newsletter {
 
     if ($campaignId !== null) {
       $this->sendingQueuesRepository->saveCampaignId($sendingQueueEntity, $campaignId);
+    }
+
+    $filterSegmentId = $newsletter->getFilterSegmentId();
+    if ($filterSegmentId) {
+      $filterSegment = $this->segmentsRepository->findOneById($filterSegmentId);
+      if ($filterSegment instanceof SegmentEntity && $filterSegment->getType() === SegmentEntity::TYPE_DYNAMIC) {
+        $this->sendingQueuesRepository->saveFilterSegmentMeta($sendingQueueEntity, $filterSegment);
+      }
     }
 
     // update queue with the rendered and pre-processed newsletter

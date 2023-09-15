@@ -1046,25 +1046,27 @@ class Query {
 				"{$index_alias}.id",
 				"{$index_alias}.source",
 				"{$index_alias}.site",
-				! empty( $this->tokens )
-					? "SUM(relevance) {$this->weight_calc_sql( true )} AS relevance"
-					: '1 AS relevance',
+				"SUM(relevance) {$this->weight_calc_sql( true )} AS relevance"
 			],
 			'from'     => [
 				'select'   => [
 					false === $weight_transfers ? "{$index_alias}.id"     : $weight_transfers['id_cases'],
 					false === $weight_transfers ? "{$index_alias}.source" : $weight_transfers['source_cases'],
 					"{$index_alias}.site",
-					"{$index_alias}.attribute",
-					"((SUM({$index_alias}.occurrences) {$this->weight_cases()}) {$this->weight_calc_sql()} ) AS relevance",
+					! empty( $this->keywords_orig ) ? "{$index_alias}.attribute" : '',
+					! empty( $this->keywords_orig )
+						? "((SUM({$index_alias}.occurrences) {$this->weight_cases()}) {$this->weight_calc_sql()} ) AS relevance"
+						: "1 AS relevance",
 					$this->custom_columns()
 				],
 				'from'     => [
-					"{$this->index->get_tables()['index']->table_name} {$index_alias}"
+					! empty( $this->keywords_orig )
+						? "{$this->index->get_tables()['index']->table_name} {$index_alias}"
+						: "{$this->index->get_tables()['status']->table_name} {$index_alias}"
 				],
 				'join'     => false === $weight_transfers
-								? $this->joins
-								: array_merge( $this->joins, $weight_transfers['joins'] ),
+					? $this->joins
+					: array_merge( $this->joins, $weight_transfers['joins'] ),
 				'where'    => [
 					'1=1',
 					$this->site_where(),
@@ -1075,7 +1077,7 @@ class Query {
 				'group_by' => [
 					"{$index_alias}.site",
 					"{$index_alias}.source",
-					"{$index_alias}.attribute",
+					! empty( $this->keywords_orig ) ? "{$index_alias}.attribute" : '',
 					"{$index_alias}.id",
 				],
 			],
@@ -1198,7 +1200,7 @@ class Query {
 	 * @return string SQL clause.
 	 */
 	private function token_where() {
-		if ( empty( $this->tokens ) ) {
+		if ( empty( $this->keywords_orig ) ) {
 			return '';
 		}
 
@@ -1275,9 +1277,11 @@ class Query {
 			$this->values[] = $source;
 
 			// Source Attributes limiter.
-			$source_where[]   = $this->get_source_attributes_as_where_sql( array_keys( $settings['attributes'] ) );
-			$attribute_values = $this->get_source_attributes_as_values( array_keys( $settings['attributes'] ) );
-			$this->values     = array_merge( $this->values, $attribute_values );
+			if ( ! empty( $this->keywords_orig ) ) {
+				$source_where[]   = $this->get_source_attributes_as_where_sql( array_keys( $settings['attributes'] ) );
+				$attribute_values = $this->get_source_attributes_as_values( array_keys( $settings['attributes'] ) );
+				$this->values     = array_merge( $this->values, $attribute_values );
+			}
 
 			// Consider Mods for this Source.
 			$source_where = array_merge( $source_where, $this->source_where( $source ) );

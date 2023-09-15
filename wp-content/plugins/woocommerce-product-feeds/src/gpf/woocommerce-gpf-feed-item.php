@@ -449,7 +449,7 @@ class WoocommerceGpfFeedItem {
 		unset( $this->additional_elements['title'] );
 
 		if ( $this->is_variation &&
-			 apply_filters( 'woocommerce_gpf_include_variation_attributes_in_title', true )
+			apply_filters( 'woocommerce_gpf_include_variation_attributes_in_title', true )
 		) {
 			$include_labels = apply_filters( 'woocommerce_gpf_include_attribute_labels_in_title', true );
 			$suffix         = wc_get_formatted_variation( $this->specific_product, true, $include_labels );
@@ -698,7 +698,7 @@ class WoocommerceGpfFeedItem {
 		// phpcs:enable
 
 		if ( ( empty( $sale_price ) && $active_price < $regular_price ) ||
-			 ( ! empty( $sale_price ) && $active_price < $sale_price ) ) {
+			( ! empty( $sale_price ) && $active_price < $sale_price ) ) {
 			$sale_price = $active_price;
 		}
 		if ( '' !== $sale_price ) {
@@ -718,22 +718,22 @@ class WoocommerceGpfFeedItem {
 		}
 		// If we have a sale end date in the future, but no start date, set the start date to now()
 		if ( ! empty( $prices['sale_price_end_date'] ) &&
-			 $prices['sale_price_end_date'] > $now &&
-			 empty( $prices['sale_price_start_date'] )
+			$prices['sale_price_end_date'] > $now &&
+			empty( $prices['sale_price_start_date'] )
 		) {
 			$prices['sale_price_start_date'] = $now;
 		}
 		// If we have a sale start date in the past, but no end date, do not include the start date.
 		if ( ! empty( $prices['sale_price_start_date'] ) &&
-			 $prices['sale_price_start_date'] < $now &&
-			 empty( $prices['sale_price_end_date'] )
+			$prices['sale_price_start_date'] < $now &&
+			empty( $prices['sale_price_end_date'] )
 		) {
 			$prices['sale_price_start_date'] = null;
 		}
 		// If we have a start date in the future, but no end date, assume a one-day sale.
 		if ( ! empty( $prices['sale_price_start_date'] ) &&
-			 $prices['sale_price_start_date'] > $now &&
-			 empty( $prices['sale_price_end_date'] )
+			$prices['sale_price_start_date'] > $now &&
+			empty( $prices['sale_price_end_date'] )
 		) {
 			$prices['sale_price_end_date'] = clone $prices['sale_price_start_date'];
 			$prices['sale_price_end_date']->add( new DateInterval( 'P1D' ) );
@@ -883,13 +883,13 @@ class WoocommerceGpfFeedItem {
 	 */
 	private function all_or_nothing_shipping_elements() {
 		if ( empty( $this->additional_elements['shipping_width'] ) &&
-			 empty( $this->additional_elements['shipping_length'] ) &&
-			 empty( $this->additional_elements['shipping_height'] ) ) {
+			empty( $this->additional_elements['shipping_length'] ) &&
+			empty( $this->additional_elements['shipping_height'] ) ) {
 			return;
 		}
 		if ( empty( $this->additional_elements['shipping_width'] ) ||
-			 empty( $this->additional_elements['shipping_length'] ) ||
-			 empty( $this->additional_elements['shipping_height'] ) ) {
+			empty( $this->additional_elements['shipping_length'] ) ||
+			empty( $this->additional_elements['shipping_height'] ) ) {
 			unset( $this->additional_elements['shipping_length'] );
 			unset( $this->additional_elements['shipping_width'] );
 			unset( $this->additional_elements['shipping_height'] );
@@ -1229,15 +1229,17 @@ class WoocommerceGpfFeedItem {
 			$prepopulation_options = $this->common->get_prepopulate_options();
 		}
 		if ( ! in_array( $prepopulate, array_keys( $prepopulation_options ), true ) ) {
-			return '';
+			return [];
 		}
 
 		// Call the specific method.
-		$fq_method = str_replace( 'method:', '', $prepopulate );
+		$fq_method          = str_replace( 'method:', '', $prepopulate );
+		[ $class, $method ] = explode( '::', $fq_method );
+		if ( is_callable( [ $class, $method ] ) ) {
+			return call_user_func( [ $class, $method ], $product );
+		}
 
-		list( $class, $method ) = explode( '::', $fq_method );
-
-		return call_user_func( array( $class, $method ), $product );
+		return [];
 	}
 
 	/**
@@ -1466,6 +1468,7 @@ class WoocommerceGpfFeedItem {
 	 *
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
+	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter.Found
 	public function set_taxable_address_to_base( $address ) {
 		$wc_class = WC();
 
@@ -1476,6 +1479,7 @@ class WoocommerceGpfFeedItem {
 			$wc_class->countries->get_base_city(),
 		);
 	}
+	// phpcs:enable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
 	/**
 	 * Generate an array of image URLs keyed by ID, showing how they were retrieved. Options are:

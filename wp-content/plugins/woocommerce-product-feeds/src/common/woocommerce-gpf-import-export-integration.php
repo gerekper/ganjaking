@@ -31,7 +31,6 @@ class WoocommerceGpfImportExportIntegration {
 		add_filter( 'woocommerce_csv_product_import_mapping_options', array( $this, 'add_columns' ) );
 		add_filter( 'woocommerce_csv_product_import_mapping_default_columns', array( $this, 'add_default_mapping_columns' ) );
 		add_filter( 'woocommerce_product_import_pre_insert_product_object', array( $this, 'process_import' ), 10, 2 );
-
 	}
 
 	/**
@@ -94,14 +93,14 @@ class WoocommerceGpfImportExportIntegration {
 	/**
 	 * Process a set of import data.
 	 *
-	 * @param  WC_Product $object  The product being imported.
+	 * @param  WC_Product $product  The product being imported.
 	 * @param  array      $data    The data processed from the CSV file and mapped.
 	 *
 	 * @return WC_Product          The product with updates applied.
 	 */
-	public function process_import( $object, $data ) {
+	public function process_import( $product, $data ) {
 		$fields       = $this->generate_column_list();
-		$product_data = $object->get_meta( '_woocommerce_gpf_data' );
+		$product_data = $product->get_meta( '_woocommerce_gpf_data' );
 		if ( empty( $product_data ) ) {
 			$product_data = array();
 		}
@@ -117,8 +116,8 @@ class WoocommerceGpfImportExportIntegration {
 				$product_data[ str_replace( 'gpf_', '', $key ) ] = $data[ $key ];
 			}
 		}
-		$object->update_meta_data( '_woocommerce_gpf_data', $product_data );
-		return $object;
+		$product->update_meta_data( '_woocommerce_gpf_data', $product_data );
+		return $product;
 	}
 
 	/**

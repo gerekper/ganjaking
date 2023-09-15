@@ -47,10 +47,13 @@ class PurchasedProducts {
       return [];
     }
 
+    $revenueStatus = $this->woocommerceHelper->getPurchaseStates();
+
     $currency = $this->woocommerceHelper->getWoocommerceCurrency();
     $purchases = $this->statisticsWooCommercePurchasesRepository->findBy([
       'newsletter' => $newsletter,
       'orderCurrency' => $currency,
+      'status' => $revenueStatus,
     ]);
 
     $result = $this->getStatsForPurchases($purchases);

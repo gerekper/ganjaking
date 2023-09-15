@@ -58,6 +58,7 @@ class WoocommerceProductFeedsFeedManager {
 	/**
 	 * Register our menu links/page.
 	 */
+	// phpcs:disable WordPress.WP.Capabilities.Unknown
 	public function admin_menu() {
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
 			return;
@@ -72,6 +73,7 @@ class WoocommerceProductFeedsFeedManager {
 		);
 		add_action( 'admin_print_styles-' . $page, [ $this, 'enqueue_scripts' ] );
 	}
+	// phpcs:enable WordPress.WP.Capabilities.Unknown
 
 	/**
 	 * Enqueue styles / scripts for the manage feeds page.
@@ -85,9 +87,11 @@ class WoocommerceProductFeedsFeedManager {
 	 * The manage feeds page.
 	 */
 	public function admin_page() {
+		// phpcs:disable WordPress.WP.Capabilities.Unknown
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
 			return;
 		}
+		// phpcs:enable WordPress.WP.Capabilities.Unknown
 		$gpf_action = isset( $_REQUEST['gpf_action'] ) ? $_REQUEST['gpf_action'] : '';
 		switch ( $gpf_action ) {
 			case 'add':
@@ -186,7 +190,12 @@ class WoocommerceProductFeedsFeedManager {
 	 * @return array
 	 */
 	private function get_term_hierarchy_for_select2( $taxonomy, $parent = 0, $prefix = '' ) {
-		$terms    = get_terms( $taxonomy, array( 'parent' => $parent ) );
+		$terms    = get_terms(
+			[
+				'taxonomy' => $taxonomy,
+				'parent'   => $parent,
+			]
+		);
 		$children = [];
 		// go through all the direct descendants of $parent, and gather their children
 		foreach ( $terms as $term ) {

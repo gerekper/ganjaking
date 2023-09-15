@@ -94,6 +94,8 @@ class EVO_Calendar_Shortcode_Defaults extends evo_cal_shell{
 
 				'ml_priority'=>'no',
 				'yl_priority'=>'no',
+				'ml_toend'=>'no',
+				'yl_toend'=>'no',
 
 				'eventtop_style' => 2, // event top style
 				'eventtop_date_style' => 0, // event top date style

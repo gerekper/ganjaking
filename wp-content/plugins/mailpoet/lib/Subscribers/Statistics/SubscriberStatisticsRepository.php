@@ -38,55 +38,58 @@ class SubscriberStatisticsRepository extends Repository {
     return SubscriberEntity::class;
   }
 
-  public function getStatistics(SubscriberEntity $subscriber) {
+  public function getStatistics(SubscriberEntity $subscriber, ?Carbon $startTime = null) {
     return new SubscriberStatistics(
-      $this->getStatisticsClickCount($subscriber),
-      $this->getStatisticsOpenCount($subscriber),
-      $this->getStatisticsMachineOpenCount($subscriber),
-      $this->getTotalSentCount($subscriber),
-      $this->getWooCommerceRevenue($subscriber)
+      $this->getStatisticsClickCount($subscriber, $startTime),
+      $this->getStatisticsOpenCount($subscriber, $startTime),
+      $this->getStatisticsMachineOpenCount($subscriber, $startTime),
+      $this->getTotalSentCount($subscriber, $startTime),
+      $this->getWooCommerceRevenue($subscriber, $startTime)
     );
   }
 
-  public function getStatisticsClickCount(SubscriberEntity $subscriber): int {
-    $dateTime = (new Carbon())->subYear();
-    return (int)$this->getStatisticsCountQuery(StatisticsClickEntity::class, $subscriber)
-      ->andWhere('stats.createdAt > :dateTime')
-      ->setParameter('dateTime', $dateTime)
+  public function getStatisticsClickCount(SubscriberEntity $subscriber, ?Carbon $startTime = null): int {
+    $queryBuilder = $this->getStatisticsCountQuery(StatisticsClickEntity::class, $subscriber);
+    if ($startTime) {
+      $this->applyDateConstraint($queryBuilder, $startTime);
+    }
+    return (int)$queryBuilder
       ->getQuery()
       ->getSingleScalarResult();
   }
 
-  public function getStatisticsOpenCountQuery(SubscriberEntity $subscriber): QueryBuilder {
-    $dateTime = (new Carbon())->subYear();
-    return $this->getStatisticsCountQuery(StatisticsOpenEntity::class, $subscriber)
-      ->join('stats.newsletter', 'newsletter')
-      ->andWhere('(newsletter.sentAt > :dateTime OR newsletter.sentAt IS NULL)')
-      ->andWhere('stats.createdAt > :dateTime')
-      ->setParameter('dateTime', $dateTime);
+  public function getStatisticsOpenCountQuery(SubscriberEntity $subscriber, ?Carbon $startTime = null): QueryBuilder {
+    $queryBuilder = $this->getStatisticsCountQuery(StatisticsOpenEntity::class, $subscriber);
+    if ($startTime) {
+      $this->applyDateConstraint($queryBuilder, $startTime);
+    }
+    return $queryBuilder;
   }
 
-  public function getStatisticsOpenCount(SubscriberEntity $subscriber): int {
-    return (int)$this->getStatisticsOpenCountQuery($subscriber)
+  public function getStatisticsOpenCount(SubscriberEntity $subscriber, ?Carbon $startTime = null): int {
+    return (int)$this->getStatisticsOpenCountQuery($subscriber, $startTime)
       ->andWhere('(stats.userAgentType = :userAgentType)')
       ->setParameter('userAgentType', UserAgentEntity::USER_AGENT_TYPE_HUMAN)
       ->getQuery()
       ->getSingleScalarResult();
   }
 
-  public function getStatisticsMachineOpenCount(SubscriberEntity $subscriber): int {
-    return (int)$this->getStatisticsOpenCountQuery($subscriber)
+  public function getStatisticsMachineOpenCount(SubscriberEntity $subscriber, ?Carbon $startTime = null): int {
+    return (int)$this->getStatisticsOpenCountQuery($subscriber, $startTime)
       ->andWhere('(stats.userAgentType = :userAgentType)')
       ->setParameter('userAgentType', UserAgentEntity::USER_AGENT_TYPE_MACHINE)
       ->getQuery()
       ->getSingleScalarResult();
   }
 
-  public function getTotalSentCount(SubscriberEntity $subscriber): int {
-    $dateTime = (new Carbon())->subYear();
-    return $this->getStatisticsCountQuery(StatisticsNewsletterEntity::class, $subscriber)
-      ->andWhere('stats.sentAt > :dateTime')
-      ->setParameter('dateTime', $dateTime)
+  public function getTotalSentCount(SubscriberEntity $subscriber, ?Carbon $startTime = null): int {
+    $queryBuilder = $this->getStatisticsCountQuery(StatisticsNewsletterEntity::class, $subscriber);
+    if ($startTime) {
+      $queryBuilder
+        ->andWhere('stats.sentAt >= :dateTime')
+        ->setParameter('dateTime', $startTime);
+    }
+    return $queryBuilder
       ->getQuery()
       ->getSingleScalarResult();
   }
@@ -99,26 +102,33 @@ class SubscriberStatisticsRepository extends Repository {
       ->setParameter('subscriber', $subscriber);
   }
 
-  public function getWooCommerceRevenue(SubscriberEntity $subscriber) {
+  public function getWooCommerceRevenue(SubscriberEntity $subscriber, ?Carbon $startTime = null): ?WooCommerceRevenue {
     if (!$this->wcHelper->isWooCommerceActive()) {
       return null;
     }
 
-    $dateTime = (new Carbon())->subYear();
-
+    $revenueStatus = $this->wcHelper->getPurchaseStates();
     $currency = $this->wcHelper->getWoocommerceCurrency();
-    $purchases = $this->entityManager->createQueryBuilder()
+    $queryBuilder = $this->entityManager->createQueryBuilder()
       ->select('stats.orderPriceTotal')
       ->from(StatisticsWooCommercePurchaseEntity::class, 'stats')
       ->where('stats.subscriber = :subscriber')
       ->andWhere('stats.orderCurrency = :currency')
-      ->andWhere('stats.createdAt > :dateTime')
       ->setParameter('subscriber', $subscriber)
       ->setParameter('currency', $currency)
-      ->setParameter('dateTime', $dateTime)
-      ->groupBy('stats.orderId, stats.orderPriceTotal')
-      ->getQuery()
-      ->getResult();
+      ->andWhere('stats.status IN (:revenue_status)')
+      ->setParameter('subscriber', $subscriber)
+      ->setParameter('currency', $currency)
+      ->setParameter('revenue_status', $revenueStatus)
+      ->groupBy('stats.orderId, stats.orderPriceTotal');
+    if ($startTime) {
+      $queryBuilder
+        ->andWhere('stats.createdAt >= :dateTime')
+        ->setParameter('dateTime', $startTime);
+    }
+    $purchases =
+      $queryBuilder->getQuery()
+        ->getResult();
     $sum = array_sum(array_column($purchases, 'orderPriceTotal'));
     return new WooCommerceRevenue(
       $currency,
@@ -126,5 +136,12 @@ class SubscriberStatisticsRepository extends Repository {
       count($purchases),
       $this->wcHelper
     );
+  }
+
+  private function applyDateConstraint(QueryBuilder $queryBuilder, Carbon $startTime): QueryBuilder {
+    $queryBuilder->join(StatisticsNewsletterEntity::class, 'sent_stats', 'WITH', 'stats.newsletter = sent_stats.newsletter AND stats.subscriber = sent_stats.subscriber AND sent_stats.sentAt >= :dateTime')
+      ->setParameter('dateTime', $startTime);
+
+    return $queryBuilder;
   }
 }

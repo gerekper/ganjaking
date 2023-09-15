@@ -2323,10 +2323,10 @@ class GroovyMenuUtils {
 	 * @return bool|string
 	 */
 	public static function check_lic( $immediately = false, $reload = false ) {
-	update_option(GROOVY_MENU_DB_VER_OPTION . '__lic_data', array('product'=>'groovy-menu','item_id'=>'99999999','active_site'=>'ALL domains!', 'active_theme'=>'',
-	'type'=>'extended','supported_until'=>'2029-05-19T21:07:58+10:00', 'purchase_key'=>'11777777-3333-4444-8000-eeeefffff55899', 'approve'=>true,'gm_version'=>GROOVY_MENU_VERSION));
-	update_option(GROOVY_MENU_DB_VER_OPTION . '__lic', GROOVY_MENU_VERSION);
-	return true;
+		update_option(GROOVY_MENU_DB_VER_OPTION . '__lic_data', array('product'=>'groovy-menu','item_id'=>'99999999','active_site'=>'ALL domains!', 'active_theme'=>'',
+		'type'=>'extended','supported_until'=>'2029-05-19T21:07:58+10:00', 'purchase_key'=>'11777777-3333-4444-8000-eeeefffff55899', 'approve'=>true,'gm_version'=>GROOVY_MENU_VERSION));
+		update_option(GROOVY_MENU_DB_VER_OPTION . '__lic', GROOVY_MENU_VERSION);
+		return true;
 		if ( ! $immediately && get_transient( GROOVY_MENU_DB_VER_OPTION . '__lic_cache' ) ) {
 			$lic_opt = get_option( GROOVY_MENU_DB_VER_OPTION . '__lic' );
 			if ( empty( $lic_opt ) || ! $lic_opt ) {
@@ -2688,11 +2688,6 @@ class GroovyMenuUtils {
 			$detected = 'visual_composer_builder';
 		}
 
-		// "Bricks" page builder plugin.
-		if ( defined( 'BRICKS_BUILDER_PARAM' ) && ! empty( $_GET['bricks'] ) && 'run' === $_GET['bricks'] ) { // @codingStandardsIgnoreLine
-			$detected = 'bricks_builder';
-		}
-
 		return $detected;
 	}
 
@@ -3017,9 +3012,7 @@ class GroovyMenuUtils {
 	 * @param $saved_preset_version
 	 */
 	public static function enquare_styles_recompile( $compiled_css, $saved_preset_version ) {
-		global $groovyMenuPreview;
-
-		if ( empty( $compiled_css ) || $saved_preset_version !== GROOVY_MENU_VERSION || $groovyMenuPreview ) {
+		if ( empty( $compiled_css ) || $saved_preset_version !== GROOVY_MENU_VERSION ) {
 			wp_enqueue_script( 'groovy-menu-style-update', GROOVY_MENU_URL . 'assets/js/styleupdate.js', [], GROOVY_MENU_VERSION, true );
 		}
 	}

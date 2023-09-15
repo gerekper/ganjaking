@@ -57,20 +57,26 @@ class WC_Pre_Orders_Email_Pre_Order_Available extends WC_Email {
 	 * @since 1.0
 	 */
 	public function trigger( $order_id, $message = '' ) {
-
 		if ( $order_id ) {
 			$this->object    = new WC_Order( $order_id );
 			$this->recipient = $this->object->get_billing_email();
 			$this->message   = $message;
 
-			$this->find[]    = '{order_date}';
-			$this->replace[] = date_i18n( wc_date_format(), strtotime( ( $this->object->get_date_created() ? gmdate( 'Y-m-d H:i:s', $this->object->get_date_created()->getOffsetTimestamp() ) : '' ) ) );
-
-			$this->find[]    = '{release_date}';
-			$this->replace[] = WC_Pre_Orders_Product::get_localized_availability_date( WC_Pre_Orders_Order::get_pre_order_product( $this->object ) );
-
-			$this->find[]    = '{order_number}';
-			$this->replace[] = $this->object->get_order_number();
+			$this->placeholders = array_merge(
+				array(
+					'{order_date}'   => date_i18n(
+						wc_date_format(),
+						strtotime( (
+						$this->object->get_date_created() ?
+							gmdate( 'Y-m-d H:i:s', $this->object->get_date_created()->getOffsetTimestamp() )
+							: ''
+						) )
+					),
+					'{release_date}' => WC_Pre_Orders_Product::get_localized_availability_date( WC_Pre_Orders_Order::get_pre_order_product( $this->object ) ),
+					'{order_number}' => $this->object->get_order_number()
+				),
+				$this->placeholders
+			);
 		}
 
 		if ( ! $this->is_enabled() || ! $this->get_recipient() ) {

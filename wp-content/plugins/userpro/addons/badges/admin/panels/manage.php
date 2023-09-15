@@ -3,7 +3,7 @@
 <p class="upadmin-highlight"><?php printf(__('If you want to add more badges, please put your badges as PNG in <code>%s</code>. To give a new badge, or assign a new achievement, click on a badge below to start.','userpro'), userpro_dg_url . 'badges/'); ?></p>
 
 <form action="" method="post">
-
+<input type="hidden" name="user_pro_nonce" value="<?php echo wp_create_nonce( 'user_pro_nonce' ); ?>">
 <h3><?php echo userpro_badges_admin_title(); ?></h3>
 <table class="form-table">
 

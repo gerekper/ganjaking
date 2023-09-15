@@ -50,22 +50,26 @@ class WC_Pre_Orders_Email_Admin_Pre_Order_Cancelled extends WC_Email {
 	 * Dispatch the email
 	 */
 	public function trigger( $order_id, $message ) {
-
 		if ( $order_id ) {
-			$pre_wc_30 = version_compare( WC_VERSION, '3.0', '<' );
-
 			$this->object    = new WC_Order( $order_id );
 			$this->recipient = get_option( 'admin_email' );
 			$this->message   = $message;
 
-			$this->find[]    = '{order_date}';
-			$this->replace[] = date_i18n( wc_date_format(), strtotime( $pre_wc_30 ? $this->object->order_date : ( $this->object->get_date_created() ? gmdate( 'Y-m-d H:i:s', $this->object->get_date_created()->getOffsetTimestamp() ) : '' ) ) );
-
-			$this->find[]    = '{release_date}';
-			$this->replace[] = WC_Pre_Orders_Product::get_localized_availability_date( WC_Pre_Orders_Order::get_pre_order_product( $this->object ) );
-
-			$this->find[]    = '{order_number}';
-			$this->replace[] = $this->object->get_order_number();
+			$this->placeholders = array_merge(
+				array(
+					'{order_date}'   => date_i18n(
+						wc_date_format(),
+						strtotime(
+							$this->object->get_date_created()
+								? gmdate( 'Y-m-d H:i:s', $this->object->get_date_created()->getOffsetTimestamp() )
+								: ''
+						)
+					),
+					'{release_date}' => WC_Pre_Orders_Product::get_localized_availability_date( WC_Pre_Orders_Order::get_pre_order_product( $this->object ) ),
+					'{order_number}' => $this->object->get_order_number()
+				),
+				$this->placeholders
+			);
 		}
 
 		if ( ! $this->is_enabled() || ! $this->get_recipient() ) {

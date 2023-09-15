@@ -1,36 +1,29 @@
 <?php
 /**
  * event post color meta box
- * @updated 4.3
+ * @updated 4.5
  */
-		
 
 ?>		
 
-<div class=''>	
+<div class='evo_mb_color_box'>	
 	<?php
 		// Hex value cleaning
-		$hexcolor = eventon_get_hex_color($EVENT->get_prop('evcal_event_color')  );	
-	?>			
-	<div class='evo_color_selector' id='color_selector' >
-		<em class='evo_set_color' id='evColor' style='background-color:<?php echo (!empty($hexcolor) )? $hexcolor: 'na'; ?>'></em>
-		<p class='evselectedColor'>
-			<span class='evcal_color_hex evcal_chex'  ><?php echo (!empty($hexcolor) )? $hexcolor: 'Hex code'; ?></span>
-			<span class='evcal_color_selector_text evcal_chex'><?php _e('Select Event Color','eventon');?></span>
-		</p>
-	</div>
-	<?php /*
-	<div class='evo_color_selector' id='color_selector' >
-		<em class='evo_set_color' id='evColor' style='background-color:<?php echo (!empty($hexcolor) )? $hexcolor: 'na'; ?>'></em>
-		<p class='evselectedColor'>
-			<span class='evcal_color_hex evcal_chex'  ><?php echo (!empty($hexcolor) )? $hexcolor: 'Hex code'; ?></span>
-			<span class='evcal_color_selector_text evcal_chex'><?php _e('Select Event Title Color','eventon');?></span>
-		</p>
-	</div>
-	*/?>
+		$hexcolor = eventon_get_hex_color($EVENT->get_prop('evcal_event_color')  );			
+
+		echo EVO()->elements->get_element(array(
+			'type'=>'colorpicker_2',
+			'id'=>'color_selector_1',
+			'value'=> $hexcolor,
+			'value_2'=> $EVENT->get_prop('evcal_event_color_n'),
+			'index'=>'',
+			'label'=> __('Main Color','eventon'),
+		));
+	?>	
+	
 	<p style='margin-bottom:0; padding:5px 0'><?php _e('OR Select from other colors','eventon');?></p>
 	
-	<div id='evcal_colors'>
+	<div id='evcal_colors' class='evo_colors_used evopadb10'>
 		<?php 
 
 			global $wpdb;
@@ -67,9 +60,56 @@
 			}							
 		?>				
 	</div>
-	<div class='clear'></div>
-	<input class='evcal_event_color' type='hidden' name='evcal_event_color' 
-		value='<?php echo str_replace('#','',$hexcolor); ?>'/>
-	<input class='evcal_event_color_n' type='hidden' name='evcal_event_color_n' 
-		value='<?php echo ($EVENT->get_prop("evcal_event_color_n") )? $EVENT->get_prop("evcal_event_color_n"): null ?>'/>
+	
+
+	<?php 
+	echo EVO()->elements->get_element(array(
+		'type'=>'yesno_btn',
+		'id'=>'_evo_event_grad_colors',
+		'value'=> $EVENT->get_prop('_evo_event_grad_colors'),
+		'afterstatement'=>'color_selector_content',
+		'label'=> __('Set Gradient Colors'),
+	));
+	echo EVO()->elements->get_element(array(
+		'type'=>'begin_afterstatement',
+		'id'=>'color_selector_content',
+		'value'=>$EVENT->get_prop('_evo_event_grad_colors')
+	));
+
+	// color selector
+		$hexcolor2 = eventon_get_hex_color($EVENT->get_prop('evcal_event_color2')  );	
+		echo EVO()->elements->get_element(array(
+			'type'=>'colorpicker_2',
+			'id'=>'color_selector_2',
+			'value'=> $hexcolor2,
+			'value_2'=> $EVENT->get_prop('evcal_event_color_n2'),
+			'index'=>'2',
+			'label'=> __('Secondary Color','eventon'),
+		));
+	
+	// gradient angle
+	echo EVO()->elements->get_element(array(
+		'type'=>'angle_field',
+		'id'=>'_evo_event_grad_ang',
+		'value'=> $EVENT->get_prop('_evo_event_grad_ang'),
+		'label'=> __('Set Gradient Angle'),
+	));
+
+	// Gradients preview
+		$styles = "background-color:". $hexcolor .';';
+		
+		if( $hexcolor != $hexcolor2 ){
+
+			$ang = $EVENT->get_prop('_evo_event_grad_ang') ? (int)$EVENT->get_prop('_evo_event_grad_ang') : 0; 
+			$styles .= "background-image: linear-gradient({$ang}deg, {$hexcolor2} 0%, {$hexcolor} 100%);";
+
+		}
+		echo "<div class='evo_color_grad_prev' style='{$styles}'></div>";
+
+		echo "<p class='evopadt15'>".__('Note: Gradients are only available with eventtop full background color on.','eventon') .'</p>';
+
+		echo EVO()->elements->get_element(array(
+			'type'=>'end_afterstatement',
+		));
+	?>
 </div>	

@@ -38,7 +38,7 @@
                             <?php
                                 betterdocs()->views->get( 'template-parts/category-image', [
                                     'term'            => $current_category,
-                                    'image_size'      => 'thumbnail',
+                                    'image_size'      => 'full',
                                     'show_term_image' => true
                                 ] );
                             ?>

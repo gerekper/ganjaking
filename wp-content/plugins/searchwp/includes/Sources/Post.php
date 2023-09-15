@@ -389,6 +389,18 @@ class Post extends Source {
 					return $terms;
 				},
 			],
+			[	// Post Author.
+				'name'    => 'author',
+				'label'   => __( 'Author', 'searchwp' ),
+				'default' => $this->is_excluded_from_search() ? false : Utils::get_max_engine_weight(),
+				'data'    => function( $post_id ) {
+					return apply_filters(
+						'searchwp\source\post\attributes\author',
+						get_the_author_meta( 'display_name', get_post_field( 'post_author', $post_id ) ),
+						[ 'post_id' => $post_id ]
+					);
+				},
+			],
 		];
 
 		return $attributes;
@@ -812,7 +824,7 @@ class Post extends Source {
 		] );
 		
 		// Skip highlighting if this is an empty search.
-		$highlighter = ! empty( $doing_query->get_tokens() ) ? $highlighter : false;
+		$highlighter = ! empty( $doing_query ) && ! empty( $doing_query->get_tokens() ) ? $highlighter : false;
 
 		// Determine whether we're going to find a global excerpt based on whether highlighting is enabled.
 		$global_excerpt = apply_filters( 'searchwp\source\post\global_excerpt', ! empty( $highlighter ), [ 'entry' => $entry, ] );
@@ -1098,6 +1110,14 @@ class Post extends Source {
 		if ( ! has_action( 'edited_term', [ $this, 'updated_taxonomy_term' ] ) ) {
 			add_action( 'edited_term', [ $this, 'updated_taxonomy_term' ], 10, 3 );
 		}
+
+		if ( ! has_action( 'profile_update', [ $this, 'updated_author_profile' ] ) ) {
+			add_action( 'profile_update', [ $this, 'updated_author_profile' ], 10, 3 );
+		}
+
+		if ( ! has_action( 'delete_user', [ $this, 'updated_author_profile' ] ) ) {
+			add_action( 'delete_user', [ $this, 'deleted_author_profile' ], 10 );
+		}
 	}
 
 	/**
@@ -1219,17 +1239,10 @@ class Post extends Source {
 	 */
 	public function updated_taxonomy_term( $term_id, $tt_id, $taxonomy ) {
 
-		global $wpdb;
-
 		// If this taxonomy is not included in any engine settings bail out.
 		if ( ! Utils::any_engine_has_source_attribute_option( $this->get_attributes()['taxonomy'], $this, $taxonomy ) ) {
 			return;
 		}
-
-		$index        = \SearchWP::$index;
-		$tables       = $index->get_tables();
-		$index_table  = $tables['index']->table_name;
-		$status_table = $tables['status']->table_name;
 
 		// Fetch all post IDs associated with the taxonomy term.
 		$term_posts = new \WP_Query(
@@ -1248,25 +1261,7 @@ class Post extends Source {
 			]
 		);
 
-		// Split the array of post IDs into batches.
-		$post_batches = array_chunk( $term_posts->posts, 500 );
-
-		// Process each batch separately to prevent database issues.
-		foreach ( $post_batches as $batch ) {
-
-			// Delete the entries in the index and status tables.
-			$wpdb->query(
-				$wpdb->prepare( "
-					DELETE i, s
-					FROM {$index_table} AS i
-					LEFT JOIN {$status_table} AS s
-					ON i.id = s.id
-					WHERE i.attribute = %s
-					AND i.id IN (" . implode( ', ', array_fill( 0, count( $batch ), '%s' ) ) . ')',
-					array_merge( [ 'taxonomy.' . $taxonomy ], $batch )
-				)
-			);
-		}
+		$this->drop_posts_by_attribute( $term_posts, 'taxonomy.' . $taxonomy );
 
 		do_action( 'searchwp\debug\log', "{$taxonomy} id {$term_id} updated dropping posts" );
 	}
@@ -1340,6 +1335,105 @@ class Post extends Source {
 
 		// Drop this post from the index.
 		\SearchWP::$index->drop( $this, $post_id );
+	}
+
+	/**
+	 * Callback from delete_post action to drop a post from the index.
+	 *
+	 * @since 4.3.4
+	 *
+	 * @param $user_id
+	 * @param $old_user_data
+	 * @param $new_user_data
+	 * @return void
+	 */
+	public function updated_author_profile( $user_id, $old_user_data, $new_user_data ) {
+
+		// If the Author display name hasn't changed, bail out.
+		if ( $old_user_data->data->display_name === $new_user_data['display_name'] ) {
+			return;
+		}
+
+		$this->updated_posts_author( $user_id );
+	}
+
+	/**
+	 * Callback from delete_user action to drop a post from the index.
+	 *
+	 * @since 4.3.4
+	 *
+	 * @param $user_id
+	 * @return void
+	 */
+	public function deleted_author_profile( $user_id ) {
+
+		$this->updated_posts_author( $user_id );
+	}
+
+	/**
+	 * Drop posts from the index if the author's profile is updated.
+	 * @param $user_id
+	 * @return void
+	 */
+	private function updated_posts_author( $user_id ) {
+		// If Author is not included in any engine settings, bail out.
+		if ( ! Utils::any_engine_has_source_attribute( $this->get_attributes()['author'], $this ) ) {
+			return;
+		}
+
+		// Fetch all post IDs associated with the author.
+		$author_posts = new \WP_Query(
+			[
+				'post_type'   => 'any',
+				'post_status' => 'any',
+				'fields'      => 'ids',
+				'nopaging'    => true,
+				'author'      => $user_id,
+			]
+		);
+
+		// Drop the posts from the index.
+		$this->drop_posts_by_attribute( $author_posts->posts, 'author' );
+
+		do_action( 'searchwp\debug\log', "Author id {$user_id} updated, dropping posts" );
+	}
+
+	/**
+	 * Drop posts from the index by attribute.
+	 *
+	 * @since 4.3.4
+	 *
+	 * @param $post_ids
+	 * @param $attribute
+	 * @return void
+	 */
+	private function drop_posts_by_attribute( $post_ids, $attribute ) {
+		global $wpdb;
+
+		$index        = \SearchWP::$index;
+		$tables       = $index->get_tables();
+		$index_table  = $tables['index']->table_name;
+		$status_table = $tables['status']->table_name;
+
+		// Split the array of post IDs into batches.
+		$post_batches = array_chunk( $post_ids, 500 );
+
+		// Process each batch separately to prevent database issues.
+		foreach ( $post_batches as $batch ) {
+
+			// Delete the entries in the index and status tables.
+			$wpdb->query(
+				$wpdb->prepare( "
+					DELETE i, s
+					FROM {$index_table} AS i
+					LEFT JOIN {$status_table} AS s
+					ON i.id = s.id
+					WHERE i.attribute = %s
+					AND i.id IN (" . implode( ', ', array_fill( 0, count( $batch ), '%s' ) ) . ')',
+					array_merge( [ $attribute ], $batch )
+				)
+			);
+		}
 	}
 
 	/**

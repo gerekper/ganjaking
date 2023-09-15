@@ -183,9 +183,11 @@ class Initializer {
     // Print and dequeue the premium script immediately, so it is correctly placed
     // between "admin_vendor" and "admin" scripts from the free plugin.
     // This is a temporary solution until we use WP queuing for all translations.
-    \wp_scripts()->do_item('wp-i18n');
+    if (!\wp_script_is('wp-i18n', 'done')) {
+      \wp_scripts()->do_item('wp-i18n');
+      $this->wp->wpDequeueScript('wp-i18n');
+    }
     \wp_scripts()->do_item('premium');
-    $this->wp->wpDequeueScript('wp-i18n');
     $this->wp->wpDequeueScript('premium');
   }
 
