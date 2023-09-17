@@ -368,6 +368,11 @@ class EVO_Cal_Event_Structure{
 								$link = !empty($EO->organizer_link) ? $EO->organizer_link : false;
 								$OT.='<em class="evoet_dataval '. ( $link ? 'evo_org_clk_link evo_hover_op7 evo_curp':'') .'" data-link="'. $link .'">'.$EO->name."</em>";
 							}
+
+							// do nothing
+							if( $org_link_type == 'x'){
+								$OT.='<em class="evoet_dataval">'.$EO->name."</em>";
+							}
 						}
 						
 					$OT.="</span>";

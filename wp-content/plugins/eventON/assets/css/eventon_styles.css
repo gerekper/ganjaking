@@ -1905,12 +1905,12 @@
 	    align-items: center;
 	    margin: 0 10px 10px 0;
 	    flex-direction: row;
-	    background-color: #ececec;color:#8d8d8d;
+	    background-color: #ececec;color:var(--evo_color_1);
 	    border-radius: 15px;padding: 10px;text-align: center; line-height: 1.3; 
 	}
 	.evo_card_health_boxes .evo_health_b_o{flex:1 1 auto;}
 	.evo_card_health_boxes .evo_health_b svg,.evo_card_health_boxes .evo_health_b i.fa
-		{fill: #8d8d8d; color:#8d8d8d; margin-right: 15px;
+		{fill: var(--evo_color_1); color:var(--evo_color_1); margin-right: 15px;
 			height: 30px;width: auto; font-size: 30px;min-width: 40px;
 		}
 	.evo_health_b.ehb_other{    background-color: #e8e8e8;border-radius: 8px;padding: 10px 10px;}
@@ -3548,7 +3548,9 @@
 			{width: 50%;}
 		}
 		@media (max-width: 650px){
-			.ajde_evcal_calendar.boxy .eventon_list_event{width: 100%;}
+			.ajde_evcal_calendar.boxy .eventon_list_event,
+			.ajde_evcal_calendar.boxy.box_2 .eventon_list_event
+			{width: 100%;}
 		}
 		@media (max-width: 480px){
 			

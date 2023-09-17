@@ -1,7 +1,7 @@
 <?php
 /**
  *	EventON Settings Main Object
- *	@version 4.5
+ *	@version 4.5.1
  */
 
 class EVO_Settings{
@@ -108,90 +108,6 @@ class EVO_Settings{
 		return $this->tab_props[$field];
 	}
 
-// Event Edit Settings
-// @since 4.2.1 @updated 4.5
-	function get_event_edit_settings($data){
-		ob_start();
-
-		$args = array(
-			'hidden_fields'=> array(),
-			'form_class'=>'',
-			'container_class'=>'',
-			'fields'=> array(),
-			'save_btn_data'=> array(),
-			'footer_btns'=> array(
-				'save_changes'=> array(
-					'label'=> __('Save Changes','eventon'),
-					'data'=> array(),
-					'class'=> 'evo_btn evolb_trigger_save',
-					'href'=>'',
-					'target'=> ''
-				)
-			)
-		);
-
-		$args = array_merge($args, $data);
-		extract($args);
-		?>
-		<div class='<?php echo $container_class;?>'>
-			<form class='<?php echo $form_class;?>'>
-				<?php 
-				foreach($hidden_fields as $k=>$v){
-					echo "<input type='hidden' name='{$k}' value='{$v}'>";
-				}
-
-				echo EVO()->elements->process_multiple_elements( $fields );
-
-				?>
-				<p>					
-					<?php 
-					foreach( $footer_btns as $btn):
-						if(!isset( $btn['label'] )) continue;
-						$href = isset($btn['href']) && !empty( $btn['href'] )? 'href="'. $btn['href'] .'"':'';
-						$target = isset($btn['target']) && !empty( $btn['target'] ) ? 'target="'. $btn['target'] .'"' : '';
-
-						?><a <?php echo $href; echo $target;?> class='<?php echo $btn['class'];?>' data-d='<?php echo json_encode($btn['data']);?>' style=''><?php echo $btn['label'];?></a>
-					<?php endforeach;?>
-					
-				</p>	
-			</form>
-		</div>
-		<?php 
-		return ob_get_clean();
-	}
-	function print_event_edit_box_yn_header($data){
-		extract( array_merge(array(
-			'value'=> '',
-			'id'=>'',
-			'name'=>'',
-			'tooltip'=>'',
-			'reload_btn'=>false,
-			'afterstatement'=>'',
-			'reload_id'=> '',
-			'eid'=>''
-		), $data));
-		?>
-		<p class='evoadmin_eventedit_boxhead yesno_leg_line ' style='padding:10px'>
-			<?php 
-			echo EVO()->elements->yesno_btn(array(
-				'id'=> $id,
-				'var'=> $value, 
-				'guide'=> $tooltip,
-				'label'=> $name,
-				'afterstatement'=> $afterstatement,
-				'input'=> true,
-			));
-
-			if( !empty($reload_id)){
-				echo "<span class='evoadmin_eventedit_reloadbox' data-id='$reload_id' data-eid='{$eid}'><i class='fa fa-refresh'></i></span>";
-			}
-
-			?>			
-		</p>
-		<?php 
-	}
-
-
 // OTHER
 	function header_wraps($args){
 		?>
@@ -225,19 +141,6 @@ class EVO_Settings{
 		?></div></div><?php
 	}
 
-	// deprecating
-	function save_settings($nonce_key, $nonce_field, $options_pre){
-		if( isset($_POST[$nonce_field]) && isset( $_POST ) ){
-			if ( wp_verify_nonce( $_POST[$nonce_field], $nonce_key ) ){
-				foreach($_POST as $pf=>$pv){
-					$pv = (is_array($pv))? $pv: addslashes(esc_html(stripslashes(($pv)))) ;
-					$options[$pf] = $pv;
-				}
-				EVO()->cal->set_cur( $this->focus_tab );
-				EVO()->cal->set_option_values( $options );
-			}
-		}
-	}
 
 	// @updated 4.5
 	function evo_save_settings(){
@@ -275,8 +178,8 @@ class EVO_Settings{
 				}		
 
 				// Hook
-					do_action('evo_before_settings_saved', $focus_tab, $current_section,  $evcal_options);			
-				
+					do_action('evo_before_settings_saved', $focus_tab, $current_section,  $evcal_options);
+					
 				//language tab
 					if($focus_tab=='evcal_2'){						
 						
@@ -361,6 +264,9 @@ class EVO_Settings{
 			//define variables
 			$leftside=$rightside='';
 			$count=1;
+
+		// icon selection
+			$rightside.= EVO()->elements->icons();
 		
 		// different types of content
 			/*
@@ -386,21 +292,7 @@ class EVO_Settings{
 						$rightside.= "<p class='tab_description'>".$cpav['description']."</p>";
 				
 				$rightside.="<em class='hr_line'></em>";					
-					// font awesome
-					require_once(AJDE_EVCAL_PATH.'/assets/fonts/fa_fonts.php');	
-
-					$rightside.= "<div style='display:none' class='fa_icons_selection'><div class='fai_in'><ul class='faicon_ul'>";
 					
-					// $font_ passed from incldued font awesome file above
-					if(!empty($font_)){
-						$C = 1;
-						foreach($font_ as $fa){
-							$rightside.= "<li class='{$C}'><i data-name='".$fa."' class='fa ".$fa."' title='{$fa}'></i></li>";
-							$C++;
-						}
-					}
-					$rightside.= "</ul>";
-					$rightside.= "</div></div>";
 
 				// EACH field
 				foreach($cpav['fields'] as $field){
@@ -410,7 +302,8 @@ class EVO_Settings{
 
 					if($field['type']=='text' || $field['type']=='textarea'){
 						$FIELDVALUE = (!empty($ajdePT[ $field['id']]))? 
-								stripslashes($ajdePT[ $field['id']]): null;
+							htmlspecialchars( stripslashes($ajdePT[ $field['id']]) ): 
+								null;
 					}
 					
 					// LEGEND or tooltip
@@ -455,10 +348,18 @@ class EVO_Settings{
 								$ajdePT[ $field['id']]:$field['default'];
 
 							$rightside.= "<div class='row_faicons'><p class='fieldname'>".__($field['name'],$textdomain)."</p>";
+							
 							// code
-							$rightside.= "<p class='acus_line faicon'>
+							$rightside .= EVO()->elements->get_element(array(
+								'type'=>'icon_select',
+								'id'=> $field['id'],
+								'value'=> $field_value,
+								'close'=>false,
+							));
+
+							/*$rightside.= "<p class='acus_line faicon'>
 								<i class='fa ".$field_value."'></i>
-								<input name='".$field['id']."' class='backender_colorpicker evocolorp_val' type='hidden' value='".$field_value."' /></p>";
+								<input name='".$field['id']."' class='backender_colorpicker evocolorp_val' type='hidden' value='".$field_value."' /></p>";*/
 							$rightside.= "<div class='clear'></div></div>";
 						break;
 
@@ -582,7 +483,7 @@ class EVO_Settings{
 
 										// code
 										$rightside.= "<p class='acus_line color'>
-											<em><span id='{$variation['id']}' class='colorselector ".( ($_has_title)? 'hastitle': '')."' style='background-color:#".$hex_color."' hex='".$hex_color."' title='".$hex_color."' alt='".$title."'></span>
+											<em><span id='{$variation['id']}' class='colorselector ".( ($_has_title)? 'hastitle': '')."' style='background-color:#".$hex_color."' hex='".$hex_color."' title='".$title."' alt='".$title."'></span>
 											<input name='".$variation['id']."' class='backender_colorpicker evocolorp_val' type='hidden' value='".$hex_color_val."' default='".$variation['default']."'/></em></p>";
 
 									break;
@@ -922,6 +823,103 @@ class EVO_Settings{
 		<?php
 		echo ob_get_clean();
 		
+	}
+
+// Event Edit Settings
+// @since 4.2.1 @updated 4.5
+	function get_event_edit_settings($data){
+		ob_start();
+
+		$args = array(
+			'hidden_fields'=> array(),
+			'form_class'=>'',
+			'container_class'=>'',
+			'fields'=> array(),
+			'save_btn_data'=> array(),
+			'footer_btns'=> array(
+				'save_changes'=> array(
+					'label'=> __('Save Changes','eventon'),
+					'data'=> array(),
+					'class'=> 'evo_btn evolb_trigger_save',
+					'href'=>'',
+					'target'=> ''
+				)
+			)
+		);
+
+		$args = array_merge($args, $data);
+		extract($args);
+		?>
+		<div class='<?php echo $container_class;?>'>
+			<form class='<?php echo $form_class;?>'>
+				<?php 
+				foreach($hidden_fields as $k=>$v){
+					echo "<input type='hidden' name='{$k}' value='{$v}'>";
+				}
+
+				echo EVO()->elements->process_multiple_elements( $fields );
+
+				?>
+				<p>					
+					<?php 
+					foreach( $footer_btns as $btn):
+						if(!isset( $btn['label'] )) continue;
+						$href = isset($btn['href']) && !empty( $btn['href'] )? 'href="'. $btn['href'] .'"':'';
+						$target = isset($btn['target']) && !empty( $btn['target'] ) ? 'target="'. $btn['target'] .'"' : '';
+
+						?><a <?php echo $href; echo $target;?> class='<?php echo $btn['class'];?>' data-d='<?php echo json_encode($btn['data']);?>' style=''><?php echo $btn['label'];?></a>
+					<?php endforeach;?>
+					
+				</p>	
+			</form>
+		</div>
+		<?php 
+		return ob_get_clean();
+	}
+	function print_event_edit_box_yn_header($data){
+		extract( array_merge(array(
+			'value'=> '',
+			'id'=>'',
+			'name'=>'',
+			'tooltip'=>'',
+			'reload_btn'=>false,
+			'afterstatement'=>'',
+			'reload_id'=> '',
+			'eid'=>''
+		), $data));
+		?>
+		<p class='evoadmin_eventedit_boxhead yesno_leg_line ' style='padding:10px'>
+			<?php 
+			echo EVO()->elements->yesno_btn(array(
+				'id'=> $id,
+				'var'=> $value, 
+				'guide'=> $tooltip,
+				'label'=> $name,
+				'afterstatement'=> $afterstatement,
+				'input'=> true,
+			));
+
+			if( !empty($reload_id)){
+				echo "<span class='evoadmin_eventedit_reloadbox' data-id='$reload_id' data-eid='{$eid}'><i class='fa fa-refresh'></i></span>";
+			}
+
+			?>			
+		</p>
+		<?php 
+	}
+
+// deprecating
+	function save_settings($nonce_key, $nonce_field, $options_pre){
+		if( isset($_POST[$nonce_field]) && isset( $_POST ) ){
+			if ( wp_verify_nonce( $_POST[$nonce_field], $nonce_key ) ){
+				foreach($_POST as $pf=>$pv){
+					$pv = (is_array($pv))? $pv: addslashes(esc_html(stripslashes(($pv)))) ;
+					$options[$pf] = $pv;
+				}
+				EVO()->cal->set_cur( $this->focus_tab );
+				EVO()->cal->set_option_values( $options );
+			}
+		}
 	}
 
 }

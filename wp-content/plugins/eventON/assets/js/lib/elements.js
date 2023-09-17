@@ -1,6 +1,6 @@
 /**
  * EventON elements
- * version: 4.5
+ * version: 4.5.1
  */
 jQuery(document).ready(function($){
 
@@ -53,7 +53,6 @@ jQuery(document).ready(function($){
 		$('body').trigger('evo_angle_set',[$(this), deg]);
 	});
 
-
 // yes no button		
 	$('body').on('click','.ajde_yn_btn', function(){
 
@@ -99,6 +98,99 @@ jQuery(document).ready(function($){
 			obj.closest('.evo_elm_row').next().hide();
 		}
 	});
+
+// Side panel @4.5.1
+	// move the sidepanel to body
+		var SP = $('.evo_sidepanel');
+		$('.evo_sidepanel').remove();
+		$('body').append(SP);
+
+
+
+// ICON font awesome selector	
+	// move the icon selector to body
+		var FA = $('.ajde_fa_icons_selector');
+		$('.ajde_fa_icons_selector').remove();
+		$('body').append(FA);
+
+		const FAS = $('body').find('.ajde_fa_icons_selector');
+
+
+	var fa_icon_selection = '';
+
+	// click on icon trigger box
+	$('body').on('click','.evo_icons', function(){
+		
+		FAS.addClass('show');
+
+		FAS.find('li').removeClass('selected');
+		const selected_icon = FAS.find('li[data-v="'+ $(this).data('val') +'"]');
+		selected_icon.addClass('selected');		
+
+		$('body').find('.evo_icons').removeClass('focused');
+		$(this).addClass('focused');
+
+		fa_icon_selection = $(this);
+	});
+	
+
+	//Select NEW font icon
+		FAS.on('click','li', function(){
+			
+			var icon = $(this).find('i').data('name');
+
+			FAS.find('li').removeClass('selected');
+			FAS.find('li[data-v="'+ icon +'"]').addClass('selected');
+
+			var extra_classes = '';
+			if( fa_icon_selection.hasClass('so')) extra_classes += ' so';
+
+			fa_icon_selection
+				.attr({'class':'evo_icons ajde_icons default fa '+icon + extra_classes })
+				.data('val', icon);
+			fa_icon_selection.siblings('input').val(icon);
+
+			$('.ajde_fa_icons_selector').removeClass('show');
+		});
+
+	// remove icon
+		$('body').on('click','i.evo_icons em', function(){
+			$(this).parent().attr({'class':'evo_icons ajde_icons default'}).data('val','');
+			$(this).parent().siblings('input').val('');
+		});
+	
+	// close with click outside popup box when pop is shown	
+		$(document).mouseup(function (e){
+			var container=$('.ajde_fa_icons_selector');
+			
+			if (!container.is(e.target) // if the target of the click isn't the container...
+			&& container.has(e.target).length === 0) // ... nor a descendant of the container
+			{
+				$('.ajde_fa_icons_selector').removeClass('show');
+			}		
+		});
+
+	// search icon
+		$('body').on('keyup', '.evo_icon_search',function(event){
+			var keycode = (event.keyCode ? event.keyCode : event.which);
+			var typed_val = $(this).val().toLowerCase();
+			
+			$(this).closest('.ajde_fa_icons_selector').find('li').each(function(){
+				const nn = $(this).data('v');
+				const n = nn.substr(3);
+
+				if( typed_val == ''){
+					$(this).show();
+				}else{
+					if( n.includes(typed_val ) ){
+						$(this).show();
+					}else{
+						$(this).hide();
+					}
+				}				
+			});		
+		});
+	
 
 // select2 dropdown field - 4.0.3
 	if ( $.isFunction($.fn.select2) )  $('.ajdebe_dropdown.evo_select2').select2();

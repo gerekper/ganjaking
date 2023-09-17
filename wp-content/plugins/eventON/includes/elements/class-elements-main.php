@@ -52,7 +52,8 @@ class EVO_General_Elements{
 			'nesting'=>'', // pass nesting class name
 			'row_style'=> '',// pass styles 
 			'content'=> '', 'field_after_content'=>'', 'field_before_content'=>'',
-			'support_input'=>false
+			'support_input'=>false,
+			'close'=>false,
 
 		), $A);
 		extract($A);
@@ -455,6 +456,15 @@ class EVO_General_Elements{
 				echo "<p class='evo_elm_row btn {$id} {$row_class}' style='{$row_style}'>";
 				echo "<a class='evo_btn {$unqiue_class}' data-d='{$data}'>{$name}</a>";
 				echo'</p>';
+			break;
+
+			case 'icon_select':
+				$value = empty( $value) ? '' : $value;
+				$close_ = $close ? '<em class="ajde_icon_close">X</em>':'';
+				echo "<p class='evo_elm_row icon faicon'>
+						<i class='evo_icons ajde_icons default fa {$value} ". (!$close ?'so':'')."' data-val='{$value}'>{$close_}</i> 
+						<input type='hidden' name='{$id}' id='{$id}' value='{$value}'></p>";			
+				if( !empty($legend)) echo "<p class='description'>{$legend}</p>";
 			break;
 			case 'begin_afterstatement': 						
 				$yesno_val = (!empty($value))? $value:'no';				
@@ -969,18 +979,42 @@ class EVO_General_Elements{
 		$this->tooltips($content, $position,true);
 	}
 
+// Side panel
+	function _print_side_panel(){
+		?>
+		<div class='evo_sidepanel' style='display:none'>
+			<div class='evo_sp_in'>
+				<span class='evo_sp_close'><i class='fa fa-close'></i></span>
+				<div class='evo_sp_head'>
+					
+				</div>
+				<div class='evo_sp_body'>
+					
+				</div>
+				<div class='evo_sp_foot'>
+					
+				</div>
+			</div>
+		</div>
+		<?php
+	}
+
 // Icon Selector
 	function icons(){
 		include_once( AJDE_EVCAL_PATH.'/assets/fonts/fa_fonts.php' );
 		ob_start();?>			
 		<div class='ajde_fa_icons_selector'>
+			<div class='iconsel_header'>
+				<h3><?php _e('Select Icon','eventon');?></h3>
+				<p><input id='evo_icon_search' type='text' class='evo_icon_search' placeholder='<?php _e('Type name to search icons','eventon');?>'/></p>
+			</div>
 			<div class="fai_in">
 				<ul class="faicon_ul">
 				<?php
 				// $font_ passed from incldued font awesome file above
 				if(!empty($font_)){
 					foreach($font_ as $fa){
-						echo "<li><i data-name='".$fa."' class='fa ".$fa."' title='{$fa}'></i></li>";
+						echo "<li data-v='".$fa."'><i data-name='".$fa."' class='fa ".$fa."' title='{$fa}'></i></li>";
 					}
 				}
 				?>						

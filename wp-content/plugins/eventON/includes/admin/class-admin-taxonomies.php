@@ -123,16 +123,22 @@ class EVO_Taxonomies extends EVO_Taxonomies_editor{
 
 				echo EVO()->elements->icons();
 				?>
-				<div class="form-field " id='evo_evnet_type_icon'>				
-					<p class='icon faicon'>
-						<i class="ajde_icons default fa fa-circle-thin"></i> 
-						<input type="hidden" name="term_meta[et_icon]" id="term_meta[et_icon]" value=""></p>				
-					<p class="description"><?php _e( 'Select an Icon','eventon' ); ?></p>
+				<div class="form-field " id='evo_evnet_type_icon'>	
+				<?php 
+					echo EVO()->elements->get_element(array(
+						'type'=>'icon_select',
+						'id'=>'term_meta[et_icon]',
+						'value'=>'',
+						'legend'=> __( 'Select an Icon','eventon' )
+					));
+				?>	
 				</div>
 				<?php
 			}
 		// Edit term page
-			function evo_tax_edit_new_meta_field_et1($term) {		 
+			function evo_tax_edit_new_meta_field_et1($term) {	
+
+
 				// put the term ID into a variable
 					$t_id = $term->term_id;
 				 
@@ -152,13 +158,18 @@ class EVO_Taxonomies extends EVO_Taxonomies_editor{
 				</tr>
 				<tr class="form-field">
 				<th scope="row" valign="top"><label for="term_meta[et_icon]"><?php _e( 'Icon', 'eventon' ); ?></label></th>
-					<td id='evo_et1_color'>
-						<?php $__this_value = ( !empty($term_meta['et_icon']) ) ? esc_attr( $term_meta['et_icon'] ) : ''; ?>
-						<p class='icon faicon' >
-							<i class="ajde_icons default fa <?php echo $__this_value;?>"></i> 
-							<input type="hidden" name="term_meta[et_icon]" id="term_meta[et_icon]" value="<?php echo $__this_value;?>">
-						</p>
-						<p class="description"><?php _e( 'Select an Icon','eventon' ); ?></p>
+					<td id='evo_et1_icon'>
+						<?php $__this_value = ( !empty($term_meta['et_icon']) ) ? esc_attr( $term_meta['et_icon'] ) : ''; 
+
+
+							echo EVO()->elements->get_element(array(
+								'type'=>'icon_select',
+								'id'=>'term_meta[et_icon]',
+								'value'=> $__this_value,
+								'close'=>true,
+								'legend'=> __( 'Select an Icon','eventon' )
+							));
+						?>
 					</td>
 				</tr>
 			<?php

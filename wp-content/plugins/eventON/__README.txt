@@ -5,7 +5,7 @@ Author URI: http://ashanjay.com/
 Tags: calendar, event calendar, events, directory, location, organizer, repeating event
 Requires at least: 6.0
 Tested up to: 6.3.1
-Stable tag: 4.5
+Stable tag: 4.5.1
 Initial Release: 2011-12-21
 
 EventON is an event calendar plugin for WordPress, that helps you showcase and present your events to your audiences in a clean and clutter-free layout. 
@@ -52,6 +52,17 @@ Automatic updates will work for plugin update after you have registered and acti
 How to update eventON: http://docs.myeventon.com/documentations/update-eventon/ 
 
 == Changelog ==
+= 4.5.1 (2023-9-14) =
+ADDED: new side panel based icon selector
+FIXED: outputting errors after sanitizing settings values
+FIXED: move year long events to end
+FIXED: organizer click action do nothing not showing organizer names
+FIXED: Settings color title showing hex color
+FIXED: Live progress bar color changes not reflecting on frontend
+FIXED: icon selector
+FIXED: eventtop field values not processed correct in settings
+UPDATED: healthcare content default color to evo_color_1
+
 = 4.5 (2023-9-11) =
 ADDED: zoom server to server OAuth connection
 ADDED: new event tile style details next to date

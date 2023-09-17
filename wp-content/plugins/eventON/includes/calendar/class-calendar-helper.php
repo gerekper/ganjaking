@@ -3,7 +3,7 @@
  * helper functions for calendar
  *
  * @class 		evo_cal_help
- * @version		4.4.2
+ * @version		4.5.1
  * @package		EventON/Classes
  * @category	Class
  * @author 		AJDE
@@ -289,10 +289,18 @@ class evo_cal_help {
 		}
 
 	// Get EventCard Fields Array - 4.0
+		// @+4.5.1
+		function get_eventcard_structure_array($options=''){
+			$opt = empty($options) ? get_option('evcal_options_evcal_1'): $options;
+
+			return isset($opt['evo_ecl']) ? 
+				 json_decode( html_entity_decode( stripslashes($opt['evo_ecl'] ) ), true): 
+				 false;
+		}
 		public function get_eventcard_fields_array(){
 			$opt = $this->opt1;
 			if( isset($opt['evo_ecl'])){
-				$evo_ecl = json_decode( stripslashes($opt['evo_ecl'] ), true);
+				$evo_ecl = $this->get_eventcard_structure_array( $opt );
 			}else{
 
 				$fields = $hidden_items = array();
@@ -397,6 +405,15 @@ class evo_cal_help {
 			return $base;
 		}
 
+		// @+4.5.1
+		function get_eventtop_structure_array($options=''){
+			$opt = empty($options) ? get_option('evcal_options_evcal_1'): $options;
+
+			return isset($opt['evo_etl']) ? 
+				 json_decode( html_entity_decode( stripslashes($opt['evo_etl'] ) ), true): 
+				 false;
+		}
+
 		function get_eventtop_fields_array(){
 
 			$all_fields = $this->get_eventtop_all_fields();
@@ -407,14 +424,12 @@ class evo_cal_help {
 				$all_fields_array[] = $f;
 			}
 
-			$this->opt1 = get_option('evcal_options_evcal_1');
+			$this->opt1 = $opt = get_option('evcal_options_evcal_1');
 
-			$evo_etl = isset($this->opt1['evo_etl']) ? 
-				 json_decode( stripslashes($this->opt1['evo_etl'] ), true): 
-				 false;
-
+			$evo_etl = $this->get_eventtop_structure_array( $opt );
+			
 			$saved_eventtop_fields = isset($this->opt1['evcal_top_fields']) ? 
-				$this->opt1['evcal_top_fields']: array();
+					$this->opt1['evcal_top_fields']: array();
 
 			// if fields are not set, using for first times
 			// f - field v - visibility
@@ -459,6 +474,7 @@ class evo_cal_help {
 				}
 
 				// add default fields of image and day block
+
 				$saved_eventtop_fields[] = 'day_block';
 				$saved_eventtop_fields[] = 'ft_img';
 				$saved_eventtop_fields[] = 'title';

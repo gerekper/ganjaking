@@ -923,12 +923,11 @@ class evo_settings_settings{
 				$this->evcal_opt[1]['evcal_top_fields']: array();
 
 
-			// event top layout
-			$evo_etl = isset($this->evcal_opt[1]['evo_etl']) ? 
-				 json_decode( stripslashes($this->evcal_opt[1]['evo_etl'] ), true): 
-				 array();
-
 			$cal_help = new evo_cal_help();
+
+			// event top layout
+			$evo_etl = $cal_help->get_eventtop_structure_array( $this->evcal_opt[1] );
+
 			$eventtop_fields = $cal_help->get_eventtop_fields_array();
 			//print_r($eventtop_fields['layout']);
 
@@ -1031,6 +1030,8 @@ class evo_settings_settings{
 		function eventcard_meta_fields(){
 			ob_start();
 
+			$cal_help = new evo_cal_help();
+
 			$event_card_fields = $this->rearrange_code();
 
 			$all_fields = array();
@@ -1040,11 +1041,7 @@ class evo_settings_settings{
 			}
 
 			// variable to save this data -- evo_ecl - eventcard layout
-			$evo_ecl = isset($this->evcal_opt[1]['evo_ecl']) ? 
-				 json_decode( stripslashes($this->evcal_opt[1]['evo_ecl'] ), true): 
-				 array();
-
-			//$evo_ecl = array();
+			$evo_ecl = $cal_help->get_eventcard_structure_array( $this->evcal_opt[1] );
 
 			// preprocess legacy settings to new version
 			if( empty($evo_ecl)){

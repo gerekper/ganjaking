@@ -397,7 +397,7 @@
 		border-top:1px solid #e9cfab;
 		border-bottom:1px solid #e9cfab;
 	}	
-	#acus_right .customization_right_in{padding:40px; min-width:410px}
+	#acus_right .customization_right_in{padding:40px; min-width:410px;position: relative;}
 
 	.customization_right_in .nfe_f_width input, 
 	.customization_right_in .nfe_f_width textarea{

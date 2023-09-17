@@ -751,7 +751,7 @@ class EVO_Cal_Filering{
 			if(isset($args['yl_toend']) && $args['yl_toend']=='yes' ){
 				
 				// move featured events to top
-				return array_merge( $events , $ml_events);
+				return array_merge( $events , $yl_events);
 			}
 
 			return $eventlist;

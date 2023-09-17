@@ -37,18 +37,15 @@ switch ($this->focus_tab):
 		
 		$this->settings_tab_end();
 
-
 		// lightbox
-		EVO()->lightbox->admin_lightbox_content(array(
-			'class'=>'evo_log_lightbox', 
-			'content'=>"<p class='evo_lightbox_loading'></p>",
-			'title'=>__('EventON System Log','eventon'),
-			'width'=>'900'
-			)
-		);
-
+			EVO()->lightbox->admin_lightbox_content(array(
+				'class'=>'evo_log_lightbox', 
+				'content'=>"<p class='evo_lightbox_loading'></p>",
+				'title'=>__('EventON System Log','eventon'),
+				'width'=>'900'
+				)
+			);
 		?>
-
 			
 		</form>
 

@@ -119,7 +119,7 @@ class evoadmin_set_appearance{
 							'variations'=>array(
 							array('id'=>'evosr_1', 'name'=>__('Border Color','eventon'),'type'=>'color', 'default'=>$evo_color_1),
 							array('id'=>'evosr_2', 'name'=>__('Background Color','eventon'),'type'=>'color', 'default'=>'F2F2F2'),
-							array('id'=>'evosr_3', 'name'=>__('Border Color (Hover)','eventon'),'type'=>'color', 'default'=>'c5c5c5')	
+							array('id'=>'evosr_3', 'name'=>__('Border Color (Hover)','eventon'),'type'=>'color', 'default'=> $evo_color_1)	
 						)
 					),
 					array('id'=>'evors','type'=>'fontation','name'=>__('Search Icon','eventon'),
@@ -346,8 +346,8 @@ class evoadmin_set_appearance{
 						array('id'=>'fs_fonti6','type'=>'fontation','name'=>__('Health Box','eventon'),
 						'variations'=>array(
 								array('id'=>'evo_health_1', 'name'=>__('Background Color','eventon'), 'type'=>'color', 'default'=>'ececec'),
-								array('id'=>'evo_health_2', 'name'=>__('Text Color','eventon'), 'type'=>'color', 'default'=>'8d8d8d'),
-								array('id'=>'evo_health_3', 'name'=>__('Icon Color','eventon'), 'type'=>'color', 'default'=>'8d8d8d'),
+								array('id'=>'evo_health_2', 'name'=>__('Text Color','eventon'), 'type'=>'color', 'default'=> $evo_color_1),
+								array('id'=>'evo_health_3', 'name'=>__('Icon Color','eventon'), 'type'=>'color', 'default'=> $evo_color_1),
 							)
 						),
 						array('id'=>'evo_health_4','type'=>'color','name'=>__('Other Health Guidelines Box Color','eventon'), 'default'=>'e8e8e8'),

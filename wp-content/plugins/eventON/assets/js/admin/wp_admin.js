@@ -1,11 +1,9 @@
 /*
  * EventON Back end scripts for general backend of wordpress
- * @version 4.3
+ * @version 4.5.1
  */
 
-
 jQuery(document).ready(function($){	
-
 
 // color picker
 	if( $.isFunction($.fn.ColorPicker) ) { 
@@ -142,51 +140,26 @@ jQuery(document).ready(function($){
 		});
 	});
 
-// font awesome selector
-	var FA = $('.ajde_fa_icons_selector');
-	$('.ajde_fa_icons_selector').remove();
-	$('body').append(FA);
-
-	$('.ajde_icons').html('<em class="ajde_icon_close">X</em>');
-
-	var fa_icon_selection = '';
-	$('body').on('click','.ajde_icons', function(){
-		var poss = $(this).offset();
-		// /console.log(poss);
-		$('.ajde_fa_icons_selector').css({'top':(poss.top-220)+'px', 'left':(poss.left-68)}).fadeIn('fast');
-
-		fa_icon_selection = $(this);
+// Side panel @4.5.1
+	$('body').on('click','.evosp_trigger', function(event){
+		if( event !== undefined ){
+			event.preventDefault();
+			event.stopPropagation();
+		}
+		
+		$(this).evo_sp_open($(this).data('spvals'));
 	});
 
-	// remove icon
-		$('body').on('click','i.ajde_icons em', function(){
-			$(this).parent().attr({'class':'ajde_icons default'});
-			$(this).parent().siblings('input').val('');
-		});
+	$.fn.evo_sp_open = function (opt){
+		var defaults = { 
+			
+		};
 
-	//selection of new font icon
-		$('.ajde_fa_icons_selector').on('click','li', function(){
+		var OO = $.extend({}, defaults, opt);
 
-			var icon = $(this).find('i').data('name');
-			//console.log(icon);
+	}
 
-			fa_icon_selection.attr({'class':'ajde_icons default fa '+icon});
-			fa_icon_selection.siblings('input').val(icon);
-
-			$('.ajde_fa_icons_selector').fadeOut('fast');
-		});
-	// close with click outside popup box when pop is shown
-	$(document).mouseup(function (e){
-		var container=$('.ajde_fa_icons_selector');
-		
-			if (!container.is(e.target) // if the target of the click isn't the container...
-			&& container.has(e.target).length === 0) // ... nor a descendant of the container
-			{
-				$('.ajde_fa_icons_selector').fadeOut('fast');
-			}
-		
-	});
-
+	
 // LIGHTBOX function 
 	// since 4.2 moved to funtctions
 

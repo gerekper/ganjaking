@@ -2,14 +2,14 @@
 /**
  * EventON Setup
  *
- * @since 4.5
+ * @since 4.5.1
  */
 
 defined( 'ABSPATH' ) || exit;
 
 // Main EventON Class
 final class EventON {
-	public $version = '4.5';
+	public $version = '4.5.1';
 	
 	
 	public $template_url;

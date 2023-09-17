@@ -2,7 +2,7 @@
 /**
  * dynamic styles for front end
  *
- * @updated 	4.4.1
+ * @updated 	4.5.1
  * @package		eventon/Styles
  * @author 		AJDE
  */
@@ -254,10 +254,10 @@
 
 			// live event progress
 			,array(
-				'item'=>'.evcal_desc3 .evo_ep_bar b, .evcal_desc3 .evo_ep_bar b:before',
+				'item'=>'.evoet_cx .evo_ep_bar b, .evoet_cx .evo_ep_bar b:before',
 				'css'=>'background-color:#$', 'var'=>'evoeventtop_live1',	'default'=>'f79191'
 			),array(
-				'item'=>'.evcal_desc3 .evo_ep_bar.evo_completed b',
+				'item'=>'.evoet_cx .evo_ep_bar.evo_completed b',
 				'css'=>'background-color:#$', 'var'=>'evoeventtop_live2',	'default'=>'9a9a9a'
 			)
 
@@ -516,14 +516,14 @@
 			array(
 				'item'=>'.evo_card_health_boxes .evo_health_b','multicss'=>array(
 					array('css'=>'background-color:#$', 'var'=>'evo_health_1','default'=>'ececec'),
-					array('css'=>'color:#$', 'var'=>'evo_health_2','default'=>'8d8d8d')
+					array('css'=>'color:#$', 'var'=>'evo_health_2','default'=> $evo_color_1)
 				)	
 			),
 			array(
 				'item'=>'.evo_card_health_boxes .evo_health_b svg, .evo_card_health_boxes .evo_health_b i.fa',
 				'multicss'=>array(
-					array('css'=>'fill:#$', 'var'=>'evo_health_3','default'=>'8d8d8d'),
-					array('css'=>'color:#$', 'var'=>'evo_health_3','default'=>'8d8d8d')
+					array('css'=>'fill:#$', 'var'=>'evo_health_3','default'=> $evo_color_1),
+					array('css'=>'color:#$', 'var'=>'evo_health_3','default'=> $evo_color_1)
 				)	
 			),
 			array(
@@ -596,7 +596,7 @@
 				)	
 			),array(
 				'item'=>'body .EVOSR_section input[type=text]:hover, .evo_search_bar input[type=text]:hover',
-				'css'=>'border-color:#$', 'var'=>'evosr_3',	'default'=>'c5c5c5'
+				'css'=>'border-color:#$', 'var'=>'evosr_3',	'default'=> $evo_color_1
 			),array(
 				'item'=>'.evo_search_results_count',
 				'css'=>'color:#$', 'var'=>'evosr_8',	'default'=>'14141E'
@@ -641,7 +641,7 @@
 	), 
 	$evo_css_vars);
 
-	
+	// @+4.5.1
 	if(sizeof($style_array)>0){
 		foreach($style_array as $sa){
 			if(!empty($sa['multicss']) && is_array($sa['multicss'])){
@@ -660,7 +660,9 @@
 						
 						echo $css.';';
 					}else{
-						$css_val  = (!empty($opt[ $sin_CSS['var'] ] ))? $opt[ $sin_CSS['var'] ] : $sin_CSS['default'];						
+						$field_var = $sin_CSS['var'];
+
+						$css_val  = (!empty($opt[ $field_var ] ))? stripslashes( $opt[ $field_var ] ) : $sin_CSS['default'];						
 						$css = str_replace('$',$css_val,$sin_CSS['css'] );
 						echo $css.';';
 					}
@@ -668,7 +670,10 @@
 				}
 				echo '}';
 			}else{
-				$css_val  = (!empty($opt[ $sa['var'] ] ))? $opt[ $sa['var'] ] : $sa['default'];
+				$field_var = $sa['var'];
+
+				$css_val  = (!empty($opt[ $field_var ] ))? 
+					stripslashes( $opt[ $field_var ] ) : $sa['default'];
 				$css_val = html_entity_decode($css_val);
 				$css_val = str_replace('&#039;',"'",$css_val );
 				$css = str_replace('$',$css_val,$sa['css'] );

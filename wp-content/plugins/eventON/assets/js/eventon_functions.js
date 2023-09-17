@@ -1,6 +1,6 @@
 /*
  * Javascript: EventON functions for all calendars
- * @version: 4.5
+ * @version: 4.5.1
  */
 (function($){
 
