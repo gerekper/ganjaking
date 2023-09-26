@@ -30,13 +30,20 @@ class WC_OD_Meta_Box_Subscription_Delivery {
 	 * @param mixed $the_subscription Post object or post ID of the subscription.
 	 */
 	public static function init_fields( $the_subscription ) {
-		$subscription  = wcs_get_subscription( $the_subscription );
-		$delivery_date = wc_od_get_subscription_delivery_field_value( $subscription, 'delivery_date' );
+		$subscription    = wcs_get_subscription( $the_subscription );
+		$shipping_method = wc_od_get_order_shipping_method( $subscription );
+		$delivery_date   = wc_od_get_subscription_delivery_field_value( $subscription, 'delivery_date' );
+
+		if ( wc_od_shipping_method_is_local_pickup( $shipping_method ) ) {
+			$date_field_label = __( 'Pickup date:', 'woocommerce-order-delivery' );
+		} else {
+			$date_field_label = __( 'Delivery date:', 'woocommerce-order-delivery' );
+		}
 
 		$fields = array(
 			'delivery_date' => array(
 				'id'                => '_delivery_date',
-				'label'             => __( 'Delivery date:', 'woocommerce-order-delivery' ),
+				'label'             => $date_field_label,
 				'type'              => 'text',
 				'value'             => $delivery_date,
 				'custom_attributes' => array(
@@ -49,10 +56,7 @@ class WC_OD_Meta_Box_Subscription_Delivery {
 		if ( $delivery_date ) {
 			$choices = wc_od_get_time_frames_choices_for_date(
 				$delivery_date,
-				array(
-					'subscription'    => $subscription,
-					'shipping_method' => wc_od_get_order_shipping_method( $subscription ),
-				),
+				compact( 'subscription', 'shipping_method' ),
 				'subscription'
 			);
 

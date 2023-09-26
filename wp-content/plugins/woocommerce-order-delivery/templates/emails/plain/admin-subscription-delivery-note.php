@@ -3,14 +3,14 @@
  * Admin subscription delivery note email (plain text)
  *
  * @package WC_OD/Templates/Emails/Plain
- * @version 1.5.0
+ * @version 2.6.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
 echo '= ' . esc_html( $email_heading ) . " =\n\n";
 
-echo esc_html__( 'A delivery note has been added to the subscription:', 'woocommerce-order-delivery' ) . "\n\n";
+echo esc_html__( 'A note has been added to the subscription:', 'woocommerce-order-delivery' ) . "\n\n";
 
 echo "----------\n\n";
 

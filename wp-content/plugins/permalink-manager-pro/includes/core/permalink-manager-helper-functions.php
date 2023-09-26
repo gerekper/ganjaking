@@ -90,6 +90,10 @@ class Permalink_Manager_Helper_Functions {
 		else if ( function_exists( 'seopress_init' ) && $taxonomy == 'category' ) {
 			$primary_cat_id = get_post_meta( $post_id, '_seopress_robots_primary_cat', true );
 			$primary_term   = ( ! empty( $primary_cat_id ) ) ? get_term( $primary_cat_id, 'category' ) : '';
+		} // E. SmartCrawler
+		else if ( class_exists( '\SmartCrawl\SmartCrawl' )  ) {
+			$primary_cat_id = get_post_meta( $post_id, "wds_primary_{$taxonomy}", true );
+			$primary_term   = ( ! empty( $primary_cat_id ) ) ? get_term( $primary_cat_id, $taxonomy ) : '';
 		}
 
 		if ( ! empty( $primary_term ) && ! is_wp_error( $primary_term ) ) {

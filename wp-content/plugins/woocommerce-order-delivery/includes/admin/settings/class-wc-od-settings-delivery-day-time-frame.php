@@ -140,7 +140,7 @@ class WC_OD_Settings_Delivery_Day_Time_Frame extends WC_OD_Settings_Time_Frame {
 			),
 			array(
 				wc_od_get_weekday( $this->day_id ),
-				( $this->is_new() ? __( 'Add Time Frame', 'woocommerce-order-delivery' ) : $this->settings['title'] ),
+				( $this->is_new() ? __( 'Add time frame', 'woocommerce-order-delivery' ) : $this->settings['title'] ),
 			),
 			esc_html_x( 'Delivery days > [delivery_day] > [time_frame]', 'time frame settings page title', 'woocommerce-order-delivery' )
 		);

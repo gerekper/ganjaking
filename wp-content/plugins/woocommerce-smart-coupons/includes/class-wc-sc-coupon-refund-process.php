@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       5.2.0
- * @version     1.9.0
+ * @version     2.0.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -342,53 +342,40 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 						var wc_sc_refund_line_total = 0;
 						var wc_sc_refund_line_tax = 0;
 						jQuery('.line_cost .refund .refund_line_total').each(function() {
-							wc_sc_refund_line_total += Number(accounting.formatNumber(
-								jQuery(this).val(),
-								woocommerce_admin_meta_boxes.currency_format_num_decimals,
-								'',
-								woocommerce_admin.mon_decimal_point
-							));
+							wc_sc_refund_line_unit_total = accounting.unformat( jQuery(this).val(), woocommerce_admin.mon_decimal_point );
+							wc_sc_refund_line_total += wc_sc_refund_line_unit_total;
 						});
 						jQuery('.line_tax .refund .refund_line_tax').each(function() {
-							wc_sc_refund_line_tax += Number(accounting.formatNumber(
-								jQuery(this).val(),
-								woocommerce_admin_meta_boxes.currency_format_num_decimals,
-								'',
-								woocommerce_admin.mon_decimal_point
-							));
+							wc_sc_refund_line_unit_tax = accounting.unformat( jQuery(this).val(), woocommerce_admin.mon_decimal_point );
+							wc_sc_refund_line_tax += wc_sc_refund_line_unit_tax;
 						});
 						jQuery('.refund_used_sc').each(function(){
-							var max_limit = jQuery(this).attr('max');
-							wc_sc_refund_line_total = Number(accounting.formatNumber(
-								wc_sc_refund_line_total,
-								woocommerce_admin_meta_boxes.currency_format_num_decimals,
-								'',
-								woocommerce_admin.mon_decimal_point
-							));
+							var max_limit = accounting.unformat( jQuery(this).attr('max') );
+							wc_sc_refund_line_total = accounting.unformat( wc_sc_refund_line_total, woocommerce_admin.mon_decimal_point );
 							var new_refund_amount = Math.min( wc_sc_refund_line_total, max_limit );
-							jQuery(this).val( accounting.formatNumber(
-								new_refund_amount,
-								woocommerce_admin_meta_boxes.currency_format_num_decimals,
-								'',
-								woocommerce_admin.mon_decimal_point
-							) );
+							jQuery(this).val( 
+								accounting.formatNumber(
+									new_refund_amount,
+									woocommerce_admin_meta_boxes.currency_format_num_decimals,
+									'',
+									woocommerce_admin.mon_decimal_point
+								)
+							);
 							wc_sc_refund_line_total -= new_refund_amount;
 						});
 						jQuery('.refund_used_sc_tax').each(function(){
-							var max_limit = jQuery(this).attr('max');
-							wc_sc_refund_line_tax = Number(accounting.formatNumber(
-								wc_sc_refund_line_tax,
-								woocommerce_admin_meta_boxes.currency_format_num_decimals,
-								'',
-								woocommerce_admin.mon_decimal_point
-							));
+							var max_limit = accounting.unformat( jQuery(this).attr('max') );
+							wc_sc_refund_line_tax = accounting.unformat( wc_sc_refund_line_tax, woocommerce_admin.mon_decimal_point );
 							var new_refund_amount = Math.min( wc_sc_refund_line_tax, max_limit );
-							jQuery(this).val( accounting.formatNumber(
-								new_refund_amount,
-								woocommerce_admin_meta_boxes.currency_format_num_decimals,
-								'',
-								woocommerce_admin.mon_decimal_point
-							) );
+							jQuery(this).val( 
+
+								accounting.formatNumber(
+									new_refund_amount,
+									woocommerce_admin_meta_boxes.currency_format_num_decimals,
+									'',
+									woocommerce_admin.mon_decimal_point
+								)
+							);
 							wc_sc_refund_line_tax -= new_refund_amount;
 						});
 						refund_amount = wc_sc_refund_line_total + wc_sc_refund_line_tax;
@@ -408,12 +395,14 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 							jQuery('#refund_amount').val('');
 							jQuery('button.do-api-refund').hide();
 						} else {
-							jQuery('#refund_amount').val( accounting.formatNumber(
-								refund_amount,
-								woocommerce_admin_meta_boxes.currency_format_num_decimals,
-								'',
-								woocommerce_admin.mon_decimal_point
-							) );
+							jQuery('#refund_amount').val( 
+								accounting.formatNumber(
+									refund_amount,
+									woocommerce_admin_meta_boxes.currency_format_num_decimals,
+									'',
+									woocommerce_admin.mon_decimal_point
+								)
+							);
 							jQuery('button.do-api-refund').show();
 						}
 					}
@@ -442,9 +431,9 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 					foreach ( $line_items as $line_item ) {
                         $total_refunded             = $total_refunded_tax = $order_discount_amount = $refunded_amount = $refunded_tax_amount = $order_discount_tax_amount = 0;  // phpcs:ignore
 						$smart_coupon_id            = ( ! empty( $line_item['coupon_id'] ) ) ? $line_item['coupon_id'] : 0;
-						$refund_amount              = ( ! empty( $line_item['refund_amount'] ) ) ? $line_item['refund_amount'] : 0;
+						$refund_amount              = ( ! empty( $line_item['refund_amount'] ) ) ? wc_format_decimal( $line_item['refund_amount'] ) : 0;
 						$item_id                    = ( ! empty( $line_item['order_sc_item_id'] ) ) ? $line_item['order_sc_item_id'] : 0;
-						$order_sc_refund_tax_amount = ( ! empty( $line_item['order_sc_refund_tax_amount'] ) ) ? $line_item['order_sc_refund_tax_amount'] : 0;
+						$order_sc_refund_tax_amount = ( ! empty( $line_item['order_sc_refund_tax_amount'] ) ) ? wc_format_decimal( $line_item['order_sc_refund_tax_amount'] ) : 0;
 						$order_id                   = ( ! empty( $line_item['sc_order_id'] ) ) ? $line_item['sc_order_id'] : 0;
 						$order                      = ( ! is_a( $order, 'WC_Order' ) ) ? wc_get_order( $order_id ) : $order;
 

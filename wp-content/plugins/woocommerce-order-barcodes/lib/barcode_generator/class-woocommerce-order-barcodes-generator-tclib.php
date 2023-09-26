@@ -2,7 +2,7 @@
 /**
  * Class WooCommerce Order Barcodes Generator Tclib file.
  *
- * @package WooCommerce_Order_Barcodes
+ * @package woocommerce-order-barcodes
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -13,7 +13,7 @@ if ( class_exists( 'WooCommerce_Order_Barcodes_Generator_Tclib' ) ) {
 	return;
 }
 
-require_once( WC_ORDER_BARCODES_DIR_PATH . '/lib/barcode_generator/class-woocommerce-order-barcodes-generator.php' );
+require_once WC_ORDER_BARCODES_DIR_PATH . '/lib/barcode_generator/class-woocommerce-order-barcodes-generator.php';
 
 /**
  * Class WooCommerce_Order_Barcodes_Generator_Tclib
@@ -68,7 +68,6 @@ class WooCommerce_Order_Barcodes_Generator_Tclib extends WooCommerce_Order_Barco
 	 * Get generated barcode.
 	 *
 	 * @param String $barcode        Barcode text.
-	 * @param String $barcode_type   Type of barcode that will be used.
 	 * @param String $barcode_output Type of barcode content. Example : 'PNG', 'HTML', 'SVG'.
 	 *
 	 * @return String.

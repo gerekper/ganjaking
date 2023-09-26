@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     6.3.0
+ * @version     6.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -388,7 +388,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			if ( $this->is_wc_gte_30() && $expiry_date instanceof WC_DateTime ) {
 				$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : null;
 			} elseif ( ! is_int( $expiry_date ) ) {
-				$expiry_date = strtotime( $expiry_date );
+				$expiry_date = $this->strtotime( $expiry_date );
 			}
 
 			$expiry_date += $this->wc_timezone_offset();
@@ -1172,7 +1172,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 									if ( $data instanceof WC_DateTime ) {
 										$expiry_date = ( is_object( $data ) && is_callable( array( $data, 'getTimestamp' ) ) ) ? $data->getTimestamp() : null;
 									} elseif ( ! is_int( $expiry_date ) ) {
-										$expiry_date = strtotime( $expiry_date );
+										$expiry_date = $this->strtotime( $expiry_date );
 									}
 									if ( ! empty( $expiry_date ) && is_int( $expiry_date ) && ! empty( $expiry_time ) ) {
 										$expiry_date += $expiry_time; // Adding expiry time to expiry date.
@@ -1798,7 +1798,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				return $expired; // Expiry time feature is not supported for lower version of WooCommerce.
 			}
 
-			$expiry_time = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_meta' ) ) ) ? $coupon->get_meta( 'wc_sc_expiry_time' ) : 0;
+			$expiry_time = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_meta' ) ) ) ? (int) $coupon->get_meta( 'wc_sc_expiry_time' ) : 0;
 
 			if ( ! empty( $expiry_time ) ) {
 				$expiry_date = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_date_expires' ) ) ) ? $coupon->get_date_expires() : '';
@@ -1806,7 +1806,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					if ( $expiry_date instanceof WC_DateTime ) {
 						$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : null;
 					} elseif ( ! is_int( $expiry_date ) ) {
-						$expiry_date = strtotime( $expiry_date );
+						$expiry_date = $this->strtotime( $expiry_date );
 					}
 					if ( is_int( $expiry_date ) ) {
 						$expiry_date += $expiry_time; // Adding expiry time to expiry date.
@@ -1820,6 +1820,20 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			}
 
 			return $expired;
+		}
+
+		/**
+		 * Wrapper function for strtotime
+		 *
+		 * @param string $date_time The date time.
+		 * @return int
+		 */
+		public function strtotime( $date_time = '' ) {
+			$parsed_date = ( is_string( $date_time ) ) ? date_parse( $date_time ) : array( 'warning_count' => 1 );
+			if ( ! empty( $parsed_date['warning_count'] ) ) {
+				return 0;
+			}
+			return strtotime( $date_time );
 		}
 
 		/**
@@ -3456,7 +3470,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				if ( $this->is_wc_gte_30() && $expiry_date instanceof WC_DateTime ) {
 					$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : null;
 				} elseif ( ! is_int( $expiry_date ) ) {
-					$expiry_date = strtotime( $expiry_date );
+					$expiry_date = $this->strtotime( $expiry_date );
 				}
 
 				if ( ! empty( $coupon_id ) && ! empty( $sc_coupon_validity ) ) {
@@ -3465,9 +3479,9 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 						$validity_suffix = ( true === $is_callable_coupon_get_meta ) ? $coupon->get_meta( 'validity_suffix' ) : get_post_meta( $coupon_id, 'validity_suffix', true );
 						// In case of scheduled coupon, expiry date is calculated from scheduled publish date.
 						if ( isset( $smart_coupon_args['post_date_gmt'] ) ) {
-							$expiry_date = strtotime( $smart_coupon_args['post_date_gmt'] . "+$sc_coupon_validity $validity_suffix" );
+							$expiry_date = $this->strtotime( $smart_coupon_args['post_date_gmt'] . "+$sc_coupon_validity $validity_suffix" );
 						} else {
-							$expiry_date = strtotime( "+$sc_coupon_validity $validity_suffix" );
+							$expiry_date = $this->strtotime( "+$sc_coupon_validity $validity_suffix" );
 						}
 					}
 				}
@@ -3895,7 +3909,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					$data[ $i ]['usage_limit_per_user']   = ( isset( $post['usage_limit_per_user'] ) ) ? $post['usage_limit_per_user'] : '';
 					$data[ $i ]['limit_usage_to_x_items'] = ( isset( $post['limit_usage_to_x_items'] ) ) ? $post['limit_usage_to_x_items'] : '';
 					if ( empty( $post['expiry_date'] ) && ! empty( $post['sc_coupon_validity'] ) && ! empty( $post['validity_suffix'] ) ) {
-						$data[ $i ]['expiry_date'] = gmdate( 'Y-m-d', strtotime( '+' . $post['sc_coupon_validity'] . ' ' . $post['validity_suffix'] ) + $this->wc_timezone_offset() );
+						$data[ $i ]['expiry_date'] = gmdate( 'Y-m-d', $this->strtotime( '+' . $post['sc_coupon_validity'] . ' ' . $post['validity_suffix'] ) + $this->wc_timezone_offset() );
 					} else {
 						$data[ $i ]['expiry_date'] = $post['expiry_date'];
 					}
@@ -3988,7 +4002,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					unset( $result['coupon_meta_value'] );
 
 					if ( ! empty( $result['post_date'] ) ) {
-						$timestamp           = strtotime( $result['post_date'] ) + 1;
+						$timestamp           = $this->strtotime( $result['post_date'] ) + 1;
 						$result['post_date'] = gmdate( 'd-m-Y H:i:s', $timestamp );
 					}
 
@@ -4118,7 +4132,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 					$array = str_replace( array( "\n", "\n\r", "\r\n", "\r" ), "\t", $row_each_field );
 
-					$array = str_getcsv( $array, ',', '"', '\\' );
+					$array = ( is_string( $array ) ) ? str_getcsv( $array, ',', '"', '\\' ) : array();
 
 					$str = ( $array && is_array( $array ) ) ? implode( ', ', $array ) : '';
 
@@ -4398,7 +4412,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			if ( $expiry_date instanceof WC_DateTime ) {
 				$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : null;
 			} elseif ( ! is_int( $expiry_date ) ) {
-				$expiry_date = strtotime( $expiry_date );
+				$expiry_date = $this->strtotime( $expiry_date );
 			}
 
 			if ( ! empty( $expiry_date ) && is_int( $expiry_date ) ) {
@@ -6484,7 +6498,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			$valid     = $discounts->is_coupon_valid( $coupon );
 
 			if ( is_wp_error( $valid ) ) {
-				$this->error_message = $valid->get_error_message();
+				$coupon->error_message = $valid->get_error_message();
 				return false;
 			}
 
@@ -6868,6 +6882,16 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		 */
 		public function is_sc_gte( $version ) {
 			return version_compare( $this->plugin_data['Version'], $version, '>=' );
+		}
+
+		/**
+		 * Function to compare with current version of PHP
+		 *
+		 * @param string $version Version number to compare.
+		 * @return boolean
+		 */
+		public function is_php_gte( $version ) {
+			return version_compare( PHP_VERSION, $version, '>=' );
 		}
 
 		/**

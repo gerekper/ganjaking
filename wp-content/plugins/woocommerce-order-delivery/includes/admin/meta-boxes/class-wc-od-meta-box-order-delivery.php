@@ -60,6 +60,12 @@ class WC_OD_Meta_Box_Order_Delivery {
 			),
 		);
 
+		if ( wc_od_order_is_local_pickup( $order ) ) {
+			unset( $fields['shipping_date'] );
+
+			$fields['delivery_date']['label'] = __( 'Pickup date:', 'woocommerce-order-delivery' );
+		}
+
 		/**
 		 * Filters the order delivery fields.
 		 *
@@ -127,6 +133,12 @@ class WC_OD_Meta_Box_Order_Delivery {
 			$order->update_meta_data( '_delivery_time_frame', $delivery_time_frame );
 		} else {
 			$order->delete_meta_data( '_delivery_time_frame' );
+		}
+
+		if ( wc_od_order_is_local_pickup( $order ) ) {
+			$order->delete_meta_data( '_shipping_date' );
+			$order->save();
+			return;
 		}
 
 		// Process the shipping_date field.

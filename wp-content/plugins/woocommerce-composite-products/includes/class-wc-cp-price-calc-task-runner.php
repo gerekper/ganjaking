@@ -25,7 +25,7 @@ if ( ! class_exists( 'WP_Background_Process', false ) ) {
  * Uses https://github.com/A5hleyRich/wp-background-processing to handle tasks in the background.
  *
  * @class    WC_CP_Price_Calc_Task_Runner
- * @version  4.0.0
+ * @version  x.x.x
  */
 class WC_CP_Price_Calc_Task_Runner extends WP_Background_Process {
 
@@ -253,5 +253,59 @@ class WC_CP_Price_Calc_Task_Runner extends WP_Background_Process {
 
 		WC_CP_Core_Compatibility::log( 'Task complete.', 'info', 'wc_cp_price_calc_tasks' );
 		return false;
+	}
+
+	/**
+	 * Handle
+	 *
+	 * @override 
+	 * @since x.x.x
+	 * 
+	 * Pass each queue item to the task handler, while remaining
+	 * within server memory and time limit constraints.
+	 */
+	protected function handle() {
+		$this->lock_process();
+
+		do {
+			$batch = $this->get_batch();
+
+			foreach ( $batch->data as $key => $value ) {
+				$task = $this->task( $value );
+
+				if ( false !== $task ) {
+					$batch->data[ $key ] = $task;
+				} else {
+					unset( $batch->data[ $key ] );
+				}
+
+				if ( $this->time_exceeded() || $this->memory_exceeded() ) {
+					// Batch limits reached.
+					break;
+				}
+			}
+
+			// Update or delete current batch.
+			if ( ! empty( $batch->data ) ) {
+				$this->update( $batch->key, $batch->data );
+			} else {
+				$this->delete( $batch->key );
+			}
+		} while ( ! $this->time_exceeded() && ! $this->memory_exceeded() && ! $this->is_queue_empty() );
+
+		$this->unlock_process();
+
+		// Start next batch or complete process.
+		if ( ! $this->is_queue_empty() ) {
+			$this->dispatch();
+		} else {
+			$this->complete();
+		}
+
+		if ( defined('DOING_AJAX') && DOING_AJAX ) {
+			wp_die();
+		}
+
+		return;
 	}
 }

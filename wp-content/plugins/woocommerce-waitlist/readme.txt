@@ -45,6 +45,9 @@ If you’re using the Advanced Notifications extension make sure you disable the
 
 == Changelog ==
 
+2023.09.18 - Version 2.4.2
+* Fix: Waitlist counts for variations not showing correctly
+
 2023.08.23 - Version 2.4.1
 * Fix: Full pass adding validations where required to correct edge cases where product objects were assumed to be properly loaded, leading to errors
 

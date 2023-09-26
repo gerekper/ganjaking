@@ -29,7 +29,7 @@ final class WC_Order_Delivery {
 	 *
 	 * @var string
 	 */
-	public $version = '2.5.3';
+	public $version = '2.6.0';
 
 	/**
 	 * Constructor.
@@ -116,6 +116,7 @@ final class WC_Order_Delivery {
 		add_action( 'before_woocommerce_init', array( $this, 'declare_compatibility' ) );
 		add_action( 'plugins_loaded', array( $this, 'init' ) );
 		add_filter( 'woocommerce_data_stores', array( $this, 'register_data_stores' ) );
+		add_action( 'after_setup_theme', array( $this, 'include_template_functions' ), 15 );
 	}
 
 	/**
@@ -163,6 +164,15 @@ final class WC_Order_Delivery {
 		$stores['time_frame']     = 'WC_OD_Data_Store_Time_Frame';
 
 		return $stores;
+	}
+
+	/**
+	 * Includes the template functions - This makes them pluggable by plugins and themes.
+	 *
+	 * @since 2.6.0
+	 */
+	public function include_template_functions() {
+		include_once WC_OD_PATH . 'includes/wc-od-template-functions.php';
 	}
 
 	/**

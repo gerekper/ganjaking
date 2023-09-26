@@ -12,5 +12,6 @@ $seedprod_app_default_settings = '{
    "facebook_g_app_id":"",
    "google_places_app_key":"",
    "yelp_app_api_key":"",
-   "disable_seedprod_button":false
+   "disable_seedprod_button":false,
+   "disable_seedprod_notification":false
 }';

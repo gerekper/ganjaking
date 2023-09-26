@@ -155,7 +155,7 @@ function wc_od_subscription_needs_delivery_details( $the_subscription ) {
 		$shipping_method = wc_od_get_order_shipping_method( $subscription );
 
 		if ( 0 === strpos( $shipping_method, 'local_pickup' ) ) {
-			$needs_details = wc_string_to_bool( WC_OD()->settings()->get_setting( 'enable_local_pickup' ) );
+			$needs_details = wc_od_is_local_pickup_enabled();
 		} else {
 			$needs_details = $subscription->needs_shipping_address();
 		}
@@ -742,25 +742,41 @@ function wc_od_get_subscription_delivery_fields( $the_subscription ) {
 		return false;
 	}
 
-	$delivery_date = wc_od_get_subscription_delivery_field_value( $subscription, 'delivery_date' );
+	$shipping_method = wc_od_get_order_shipping_method( $subscription );
+	$delivery_date   = wc_od_get_subscription_delivery_field_value( $subscription, 'delivery_date' );
+
+	$date_field_args = array();
+
+	if ( wc_od_shipping_method_is_local_pickup( $shipping_method ) ) {
+		$descriptions = array(
+			'next_order'  => __( 'These will be the pickup details for the next order.', 'woocommerce-order-delivery' ),
+			'preferences' => __( "We will try to adapt the renewals' pickup details to your preferences.", 'woocommerce-order-delivery' ),
+		);
+	} else {
+		$descriptions = array(
+			'next_order'  => __( 'These will be the delivery details for the next order.', 'woocommerce-order-delivery' ),
+			'preferences' => __( "We will try to adapt the renewals' delivery details to your preferences.", 'woocommerce-order-delivery' ),
+		);
+	}
+
+	if ( wc_od_shipping_method_is_local_pickup( $shipping_method ) ) {
+		$date_field_args['label'] = __( 'Pickup date', 'woocommerce-order-delivery' );
+	}
 
 	$fields = array(
 		'next_order_start' => array(
 			'type'        => 'wc_od_subscription_section_start',
 			'title'       => __( 'Next order', 'woocommerce-order-delivery' ),
-			'description' => __( 'This will be the delivery details for the next order.', 'woocommerce-order-delivery' ),
+			'description' => $descriptions['next_order'],
 			'class'       => array( 'wc-od-subscription-next-order' ),
 		),
-		'delivery_date'    => wc_od_get_delivery_date_field_args( array(), 'subscription' ),
+		'delivery_date'    => wc_od_get_delivery_date_field_args( $date_field_args, 'subscription' ),
 	);
 
 	if ( $delivery_date ) {
 		$choices = wc_od_get_time_frames_choices_for_date(
 			$delivery_date,
-			array(
-				'subscription'    => $subscription,
-				'shipping_method' => wc_od_get_order_shipping_method( $subscription ),
-			),
+			compact( 'subscription', 'shipping_method' ),
 			'subscription'
 		);
 
@@ -781,14 +797,13 @@ function wc_od_get_subscription_delivery_fields( $the_subscription ) {
 		),
 		'delivery_preferences_start' => array(
 			'type'        => 'wc_od_subscription_section_start',
-			'title'       => __( 'Delivery preferences', 'woocommerce-order-delivery' ),
-			'description' => __( 'We will try to adapt the delivery details of the future orders to your preferences.', 'woocommerce-order-delivery' ),
+			'title'       => __( 'Preferences', 'woocommerce-order-delivery' ),
+			'description' => $descriptions['preferences'],
 			'class'       => array( 'wc-od-subscription-delivery-preferences' ),
 		),
 		'delivery_days'              => array(
 			'subscription_id' => $subscription->get_id(),
 			'type'            => 'wc_od_subscription_delivery_days',
-			'label'           => __( 'Delivery days', 'woocommerce-order-delivery' ),
 			'required'        => true,
 		),
 		'delivery_preferences_end'   => array(
@@ -920,15 +935,19 @@ function wc_od_subscription_delivery_days_field( $field, $key, $args, $value ) {
 	);
 
 	$columns = array(
-		'delivery_day' => _x( 'Delivery day', 'Subscription delivery: column name', 'woocommerce-order-delivery' ),
-		'enabled'      => _x( 'Enabled', 'Subscription delivery: column name', 'woocommerce-order-delivery' ),
-		'time_frame'   => _x( 'Time frame', 'Subscription delivery: column name', 'woocommerce-order-delivery' ),
+		'delivery_day' => __( 'Day', 'woocommerce-order-delivery' ),
+		'enabled'      => __( 'Enabled', 'woocommerce' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
+		'time_frame'   => __( 'Time frame', 'woocommerce-order-delivery' ),
 	);
 
 	ob_start();
 	?>
 	<div class="form-row <?php echo esc_attr( implode( ' ', $args['class'] ) ); ?>" id="<?php echo esc_attr( $key ); ?>">
-		<label><?php echo esc_html( $args['label'] ) . $required; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></label>
+		<?php
+		if ( ! empty( $args['label'] ) ) :
+			printf( '<label>%1$s%2$s</label>', esc_html( $args['label'] ), wp_kses_post( $required ) );
+		endif;
+		?>
 		<table class="<?php echo esc_attr( $class['base'] ); ?> shop_table shop_table_responsive">
 			<thead>
 				<tr>
@@ -1050,8 +1069,8 @@ function wc_od_admin_subscription_delivery_preferences( $subscription ) {
 	$preferred_days = wc_od_get_subscription_preferred_delivery_days( $subscription );
 
 	$columns = array(
-		'delivery_day' => _x( 'Delivery day', 'Subscription delivery: column name', 'woocommerce-order-delivery' ),
-		'time_frame'   => _x( 'Time frame', 'Subscription delivery: column name', 'woocommerce-order-delivery' ),
+		'delivery_day' => __( 'Day', 'woocommerce-order-delivery' ),
+		'time_frame'   => __( 'Time frame', 'woocommerce-order-delivery' ),
 	);
 	?>
 	<table class="wc-od-subscription-delivery-days widefat">

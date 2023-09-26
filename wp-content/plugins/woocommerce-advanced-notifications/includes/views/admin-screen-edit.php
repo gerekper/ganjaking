@@ -43,7 +43,7 @@
 					<label for="recipient_phone"><?php esc_html_e( 'Phone', 'woocommerce-advanced-notifications' ); ?></label>
 				</th>
 				<td>
-					<input type="text" name="recipient_phone" id="recipient_phone" class="input-text regular-text" value="<?php echo esc_attr( $admin->field_value( 'recipient_phone' ) ); ?>" />
+					<input type="tel" name="recipient_phone" id="recipient_phone" class="input-text regular-text" value="<?php echo esc_attr( $admin->field_value( 'recipient_phone' ) ); ?>" />
 				</td>
 			</tr>
 			<tr>

@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Catalog Visibility Options 3.3.1\n"
+"Project-Id-Version: WooCommerce Catalog Visibility Options 3.3.2\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-catalog-visibility-options\n"
-"POT-Creation-Date: 2023-06-10 11:23:02+00:00\n"
+"POT-Creation-Date: 2023-09-16 16:47:28+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -497,17 +497,17 @@ msgstr ""
 msgid "Logged set title:"
 msgstr ""
 
-#: dist/woocommerce-catalog-visibility-options/lib/woocommerce-catalog-restrictions/woocommerce-catalog-restrictions-functions.php:12
+#: dist/woocommerce-catalog-visibility-options/lib/woocommerce-catalog-restrictions/woocommerce-catalog-restrictions-functions.php:83
 #: lib/woocommerce-catalog-restrictions/woocommerce-catalog-restrictions-functions.php:83
 msgid "Select your location"
 msgstr ""
 
-#: dist/woocommerce-catalog-visibility-options/lib/woocommerce-catalog-restrictions/woocommerce-catalog-restrictions-functions.php:21
+#: dist/woocommerce-catalog-visibility-options/lib/woocommerce-catalog-restrictions/woocommerce-catalog-restrictions-functions.php:93
 #: lib/woocommerce-catalog-restrictions/woocommerce-catalog-restrictions-functions.php:93
 msgid "Select your country / state&hellip;"
 msgstr ""
 
-#: dist/woocommerce-catalog-visibility-options/lib/woocommerce-catalog-restrictions/woocommerce-catalog-restrictions-functions.php:56
+#: dist/woocommerce-catalog-visibility-options/lib/woocommerce-catalog-restrictions/woocommerce-catalog-restrictions-functions.php:124
 #: lib/woocommerce-catalog-restrictions/woocommerce-catalog-restrictions-functions.php:124
 msgid "Select your country&hellip;"
 msgstr ""
@@ -565,85 +565,85 @@ msgstr ""
 
 #: dist/woocommerce-catalog-visibility-options/woocommerce-catalog-visibility-options.php:64
 #: dist/woocommerce-catalog-visibility-options/woocommerce-catalog-visibility-options.php:107
-#: woocommerce-catalog-visibility-options.php:64
-#: woocommerce-catalog-visibility-options.php:107
+#: woocommerce-catalog-visibility-options.php:74
+#: woocommerce-catalog-visibility-options.php:117
 msgid "Visibility Options"
 msgstr ""
 
 #: dist/woocommerce-catalog-visibility-options/woocommerce-catalog-visibility-options.php:169
-#: woocommerce-catalog-visibility-options.php:169
+#: woocommerce-catalog-visibility-options.php:179
 msgid "Location Filter Options"
 msgstr ""
 
 #: dist/woocommerce-catalog-visibility-options/woocommerce-catalog-visibility-options.php:175
-#: woocommerce-catalog-visibility-options.php:175
+#: woocommerce-catalog-visibility-options.php:185
 msgid "Location Filter Functionality"
 msgstr ""
 
 #: dist/woocommerce-catalog-visibility-options/woocommerce-catalog-visibility-options.php:186
-#: woocommerce-catalog-visibility-options.php:186
+#: woocommerce-catalog-visibility-options.php:196
 msgid "Location Filter Type"
 msgstr ""
 
 #: dist/woocommerce-catalog-visibility-options/woocommerce-catalog-visibility-options.php:197
-#: woocommerce-catalog-visibility-options.php:197
+#: woocommerce-catalog-visibility-options.php:207
 msgid "Location Selection Page"
 msgstr ""
 
 #: dist/woocommerce-catalog-visibility-options/woocommerce-catalog-visibility-options.php:198
-#: woocommerce-catalog-visibility-options.php:198
+#: woocommerce-catalog-visibility-options.php:208
 msgid ""
 "This sets the page where users will pick their location - page should have "
 "the [location_picker] shortcode."
 msgstr ""
 
 #: dist/woocommerce-catalog-visibility-options/woocommerce-catalog-visibility-options.php:207
-#: woocommerce-catalog-visibility-options.php:207
+#: woocommerce-catalog-visibility-options.php:217
 msgid "Location Selection Requirements"
 msgstr ""
 
 #: dist/woocommerce-catalog-visibility-options/woocommerce-catalog-visibility-options.php:220
-#: woocommerce-catalog-visibility-options.php:220
+#: woocommerce-catalog-visibility-options.php:230
 msgid "Allow Changes to Location Selection?"
 msgstr ""
 
 #: dist/woocommerce-catalog-visibility-options/woocommerce-catalog-visibility-options.php:234
-#: woocommerce-catalog-visibility-options.php:234
+#: woocommerce-catalog-visibility-options.php:244
 msgid "Use Geo Location"
 msgstr ""
 
 #: dist/woocommerce-catalog-visibility-options/woocommerce-catalog-visibility-options.php:245
-#: woocommerce-catalog-visibility-options.php:245
+#: woocommerce-catalog-visibility-options.php:255
 msgid "Clear cart when location changes"
 msgstr ""
 
 #: dist/woocommerce-catalog-visibility-options/woocommerce-catalog-visibility-options.php:265
-#: woocommerce-catalog-visibility-options.php:265
+#: woocommerce-catalog-visibility-options.php:275
 msgid "Shopping"
 msgstr ""
 
 #: dist/woocommerce-catalog-visibility-options/woocommerce-catalog-visibility-options.php:271
-#: woocommerce-catalog-visibility-options.php:271
+#: woocommerce-catalog-visibility-options.php:281
 msgid "Purchases"
 msgstr ""
 
 #: dist/woocommerce-catalog-visibility-options/woocommerce-catalog-visibility-options.php:284
-#: woocommerce-catalog-visibility-options.php:284
+#: woocommerce-catalog-visibility-options.php:294
 msgid "Prices"
 msgstr ""
 
 #: dist/woocommerce-catalog-visibility-options/woocommerce-catalog-visibility-options.php:297
-#: woocommerce-catalog-visibility-options.php:297
+#: woocommerce-catalog-visibility-options.php:307
 msgid "Catalog Add to Cart Button Text"
 msgstr ""
 
 #: dist/woocommerce-catalog-visibility-options/woocommerce-catalog-visibility-options.php:305
-#: woocommerce-catalog-visibility-options.php:305
+#: woocommerce-catalog-visibility-options.php:315
 msgid "Catalog Price Text"
 msgstr ""
 
 #: dist/woocommerce-catalog-visibility-options/woocommerce-catalog-visibility-options.php:313
-#: woocommerce-catalog-visibility-options.php:313
+#: woocommerce-catalog-visibility-options.php:323
 msgid "Alternate Content"
 msgstr ""
 

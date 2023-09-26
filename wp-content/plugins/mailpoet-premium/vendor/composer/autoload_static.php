@@ -7,7 +7,7 @@ namespace Composer\Autoload;
 if (!defined('ABSPATH')) exit;
 
 
-class ComposerStaticInit7ea12c7abdf3a654d8e9ac7200c5bbb9
+class ComposerStaticInite5e4e88d8dd3ff242441e9f1e5a1b1df
 {
     public static $prefixLengthsPsr4 = array (
         'M' => 
@@ -58,9 +58,6 @@ class ComposerStaticInit7ea12c7abdf3a654d8e9ac7200c5bbb9
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\ContextFactory' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/ContextFactory.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/MailPoetPremiumIntegration.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Templates\\PremiumTemplatesFactory' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php',
-        'MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\Triggers\\AbandonedCart\\AbandonedCartHandler' => __DIR__ . '/../..' . '/lib/Automation/Integrations/WooCommerce/Triggers/AbandonedCart/AbandonedCartHandler.php',
-        'MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\Triggers\\AbandonedCart\\AbandonedCartTrigger' => __DIR__ . '/../..' . '/lib/Automation/Integrations/WooCommerce/Triggers/AbandonedCart/AbandonedCartTrigger.php',
-        'MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\WooCommerceIntegration' => __DIR__ . '/../..' . '/lib/Automation/Integrations/WooCommerce/WooCommerceIntegration.php',
         'MailPoet\\Premium\\Config\\Env' => __DIR__ . '/../..' . '/lib/Config/Env.php',
         'MailPoet\\Premium\\Config\\Hooks' => __DIR__ . '/../..' . '/lib/Config/Hooks.php',
         'MailPoet\\Premium\\Config\\Initializer' => __DIR__ . '/../..' . '/lib/Config/Initializer.php',
@@ -82,9 +79,9 @@ class ComposerStaticInit7ea12c7abdf3a654d8e9ac7200c5bbb9
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit7ea12c7abdf3a654d8e9ac7200c5bbb9::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit7ea12c7abdf3a654d8e9ac7200c5bbb9::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit7ea12c7abdf3a654d8e9ac7200c5bbb9::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInite5e4e88d8dd3ff242441e9f1e5a1b1df::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite5e4e88d8dd3ff242441e9f1e5a1b1df::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInite5e4e88d8dd3ff242441e9f1e5a1b1df::$classMap;
 
         }, null, ClassLoader::class);
     }

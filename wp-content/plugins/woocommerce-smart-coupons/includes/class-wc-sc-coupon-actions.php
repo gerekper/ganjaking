@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.5.0
- * @version     1.6.0
+ * @version     1.7.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -149,7 +149,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Actions' ) ) {
 			if ( ! empty( $cart_item_data['wc_sc_product_source'] ) ) {
 				$coupon_code    = $cart_item_data['wc_sc_product_source'];
 				$coupon_actions = $this->get_coupon_actions( $coupon_code );
-				if ( ! empty( $coupon_actions ) ) {
+				if ( ! empty( $coupon_actions ) && ! is_scalar( $coupon_actions ) ) {
 					foreach ( $coupon_actions as $product_data ) {
 						if ( ! empty( $product_data['product_id'] ) && in_array( absint( $product_data['product_id'] ), array_map( 'absint', array( $product_id, $variation_id ) ), true ) ) {
 							$discount_amount = ( '' !== $product_data['discount_amount'] ) ? $product_data['discount_amount'] : '';
@@ -275,7 +275,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Actions' ) ) {
 		 */
 		public function remove_products_from_validation( $items = array(), $discounts = null ) {
 
-			if ( ! empty( $items ) ) {
+			if ( ! empty( $items ) && ! is_scalar( $items ) ) {
 				foreach ( $items as $index => $item ) {
 					$coupon_code = '';
 					if ( is_array( $item->object ) && isset( $item->object['wc_sc_product_source'] ) ) {
@@ -286,7 +286,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Actions' ) ) {
 					if ( ! empty( $coupon_code ) ) {
 						$item_product_id = ( is_a( $item->product, 'WC_Product' ) && is_callable( array( $item->product, 'get_id' ) ) ) ? $item->product->get_id() : 0;
 						$coupon_actions  = $this->get_coupon_actions( $coupon_code );
-						if ( ! empty( $coupon_actions ) ) {
+						if ( ! empty( $coupon_actions ) && ! is_scalar( $coupon_actions ) ) {
 							foreach ( $coupon_actions as $product_data ) {
 								if ( ! empty( $product_data['product_id'] ) && absint( $product_data['product_id'] ) === absint( $item_product_id ) ) {
 									$discount_amount = ( '' !== $product_data['discount_amount'] ) ? $product_data['discount_amount'] : '';
@@ -407,7 +407,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Actions' ) ) {
 				}
 			}
 
-			if ( ! empty( $products ) ) {
+			if ( ! empty( $products ) && ! is_scalar( $products ) ) {
 				foreach ( $products as $coupon_code => $product_names ) {
 					/* translators: 1. Product/s 2. Product names 3. is/are 4. Coupons code */
 					wc_add_notice( sprintf( __( '%1$s %2$s %3$s removed because coupon %4$s is removed.', 'woocommerce-smart-coupons' ), _n( 'Product', 'Products', count( $products[ $coupon_code ] ), 'woocommerce-smart-coupons' ), '<strong>' . implode( ', ', $products[ $coupon_code ] ) . '</strong>', _n( 'is', 'are', count( $products[ $coupon_code ] ), 'woocommerce-smart-coupons' ), '<code>' . $coupon_code . '</code>' ), 'error' );
@@ -552,7 +552,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Actions' ) ) {
 					$product_ids = array_filter( array_map( 'trim', explode( ',', sanitize_text_field( wp_unslash( $post['wc_sc_add_product_ids'] ) ) ) ) ); // phpcs:ignore
 				}
 				$add_product_details = array();
-				if ( ! empty( $product_ids ) ) {
+				if ( ! empty( $product_ids ) && ! is_scalar( $product_ids ) ) {
 					$quantity        = ( isset( $post['wc_sc_add_product_qty'] ) ) ? wc_clean( wp_unslash( $post['wc_sc_add_product_qty'] ) ) : 1;
 					$discount_amount = ( isset( $post['wc_sc_product_discount_amount'] ) ) ? wc_clean( wp_unslash( $post['wc_sc_product_discount_amount'] ) ) : '';
 					$discount_type   = ( isset( $post['wc_sc_product_discount_type'] ) ) ? wc_clean( wp_unslash( $post['wc_sc_product_discount_type'] ) ) : '';
@@ -717,7 +717,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Actions' ) ) {
 			$cart = ( is_object( WC() ) && isset( WC()->cart ) ) ? WC()->cart : null;
 			if ( empty( $cart ) || WC()->cart->is_empty() ) {
 				$coupons_data = ( ! empty( $args['coupons_data'] ) ) ? $args['coupons_data'] : array();
-				if ( ! empty( $coupons_data ) ) {
+				if ( ! empty( $coupons_data ) && ! is_scalar( $coupons_data ) ) {
 					foreach ( $coupons_data as $coupon_data ) {
 						$coupon_code = ( ! empty( $coupon_data['coupon-code'] ) ) ? $coupon_data['coupon-code'] : '';
 						if ( ! empty( $coupon_code ) ) {

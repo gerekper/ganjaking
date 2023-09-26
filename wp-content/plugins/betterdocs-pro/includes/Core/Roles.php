@@ -59,6 +59,14 @@ class Roles extends FreeRoles {
         }
     }
 
+    protected function take_action( $role, $_role, $action = 'add_cap' ){
+        $_default_roles = $this->defaults_capabilities();
+        $caps           = isset( $_default_roles[$_role] ) ? $_default_roles[$_role] : $_default_roles['other'];
+        foreach ( $caps as $_cap ) {
+            call_user_func([ $role, $action ], $_cap );
+        }
+    }
+
     public function saved_settings( $is_saved, $_normalized_settings, $old_settings, $settings ) {
         if ( $is_saved ) {
             $this->reset_settings( 'article_roles', $_normalized_settings, $settings );
@@ -79,10 +87,12 @@ class Roles extends FreeRoles {
                             $role = get_role( $_role );
                             if ( ! is_null( $role ) && $role instanceof \WP_Role ) {
                                 if ( $cap === 'edit_docs' ) {
-                                    $_default_roles = $this->defaults_capabilities();
-                                    foreach ( $_default_roles[$_role] as $_cap ) {
-                                        $role->remove_cap( $_cap );
-                                    }
+                                    $this->take_action( $role, $_role, 'remove_cap' );
+                                    // $_default_roles = $this->defaults_capabilities();
+                                    // $caps           = isset( $_default_roles[$_role] ) ? $_default_roles[$_role] : $_default_roles['other'];
+                                    // foreach ( $caps as $_cap ) {
+                                    //     $role->remove_cap( $_cap );
+                                    // }
                                 } else {
                                     $role->remove_cap( $cap );
                                 }
@@ -101,10 +111,12 @@ class Roles extends FreeRoles {
                         $role = get_role( $_role );
                         if ( ! is_null( $role ) && $role instanceof \WP_Role ) {
                             if ( $cap === 'edit_docs' ) {
-                                $_default_roles = $this->defaults_capabilities();
-                                foreach ( $_default_roles[$_role] as $_cap ) {
-                                    $role->add_cap( $_cap );
-                                }
+                                $this->take_action( $role, $_role, 'add_cap' );
+                                // $_default_roles = $this->defaults_capabilities();
+                                // $caps           = isset( $_default_roles[$_role] ) ? $_default_roles[$_role] : $_default_roles['other'];
+                                // foreach ( $caps as $_cap ) {
+                                //     $role->add_cap( $_cap );
+                                // }
                             } else {
                                 $role->add_cap( $cap );
                             }

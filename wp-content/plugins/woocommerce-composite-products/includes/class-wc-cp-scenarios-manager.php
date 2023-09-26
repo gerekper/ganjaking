@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Validates configurations against scenarios.
  *
  * @class    WC_CP_Scenarios_Manager
- * @version  8.3.4
+ * @version  8.10.2
  */
 class WC_CP_Scenarios_Manager {
 
@@ -220,7 +220,12 @@ class WC_CP_Scenarios_Manager {
 				}
 
 				if ( $scenario_hides_option ) {
-					$scenarios_hiding_option[] = $scenario->get_id();
+
+					$matching_shaping_components = array_diff( $matching_components, $hidden_components, $scenario->get_masked_components() );
+
+					if ( ! empty( $matching_shaping_components ) ) {
+						$scenarios_hiding_option[] = $scenario->get_id();
+					}
 				}
 			}
 

@@ -39,7 +39,7 @@
 				position: relative;
 
 				a[class$="delete"] {
-					color: red;
+					color: #f00;
 				}
 			}
 
@@ -245,7 +245,7 @@
 		.delete {
 			float: right;
 			margin-top: 4px;
-			color: red;
+			color: #f00;
 		}
 	}
 }

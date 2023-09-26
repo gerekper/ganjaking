@@ -38,7 +38,7 @@ class WC_OD_Admin_Field_Delivery_Ranges extends WC_OD_Admin_Field_Table {
 	public function __construct( $field ) {
 		$columns = array(
 			'title'            => array(
-				'label' => __( 'Title', 'woocommerce-order-delivery' ),
+				'label' => __( 'Title', 'woocommerce' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			),
 			'range'            => array(
 				'label' => __( 'Range (days)', 'woocommerce-order-delivery' ),
@@ -164,14 +164,14 @@ class WC_OD_Admin_Field_Delivery_Ranges extends WC_OD_Admin_Field_Table {
 	public function get_row_actions( $row ) {
 		$actions = array(
 			'settings' => array(
-				'label' => __( 'Edit', 'woocommerce-order-delivery' ),
+				'label' => __( 'Edit', 'woocommerce' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 				'url'   => $this->get_row_url( $row ),
 			),
 		);
 
 		if ( 0 !== $row ) {
 			$actions['delete'] = array(
-				'label' => __( 'Delete', 'woocommerce-order-delivery' ),
+				'label' => __( 'Delete', 'woocommerce' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 				'url'   => '#',
 			);
 		}

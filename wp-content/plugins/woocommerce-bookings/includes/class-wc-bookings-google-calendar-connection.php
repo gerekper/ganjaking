@@ -185,7 +185,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	 * @since 1.3.12
 	 */
 	public function enqueue_scripts() {
-		wp_enqueue_script( 'wc_bookings_calendar_connection_scripts', WC_BOOKINGS_PLUGIN_URL . '/dist/admin-calendar-connection.js', array( 'jquery' ), WC_BOOKINGS_VERSION, true );
+		wp_enqueue_script( 'wc_bookings_calendar_connection_scripts', WC_BOOKINGS_PLUGIN_URL . '/dist/admin-calendar-connection.js', wc_booking_get_script_dependencies( 'admin-calendar-connection' ), WC_BOOKINGS_VERSION, true );
 	}
 
 	/**

@@ -73,6 +73,7 @@ class WC_Deposits_Scheduled_Order_Manager {
 		if ( $percent_remaining <= 0 ) {
 			$original_order = wc_get_order( $original_order_id );
 			$original_order->add_order_note( __( 'Error: Unable to schedule orders for product with payment plan. Reason: Already fully paid.', 'woocommerce-deposits' ) );
+			return;
 		}
 
 		foreach ( $schedule as $schedule_row ) {

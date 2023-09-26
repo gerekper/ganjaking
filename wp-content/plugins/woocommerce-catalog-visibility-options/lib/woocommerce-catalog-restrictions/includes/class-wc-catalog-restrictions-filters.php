@@ -5,7 +5,7 @@ class WC_Catalog_Restrictions_Filters {
 	private static $instance;
 
 	public static function instance() {
-		if ( !self::$instance ) {
+		if ( ! self::$instance ) {
 			self::$instance = new WC_Catalog_Restrictions_Filters();
 		}
 
@@ -18,7 +18,7 @@ class WC_Catalog_Restrictions_Filters {
 	public $buffer_on = false;
 	public $action_removed = false;
 	public $did_after_cart_button = false;
-    public $is_booking_product = false;
+	public $is_booking_product = false;
 
 	public function __construct() {
 
@@ -90,7 +90,7 @@ class WC_Catalog_Restrictions_Filters {
 	}
 
 	public function bind_filters_late() {
-		 add_action( 'woocommerce_before_booking_form', array( $this, 'on_before_booking_form' ), 1 );
+		add_action( 'woocommerce_before_booking_form', array( $this, 'on_before_booking_form' ), 1 );
 
 		if ( WC_Catalog_Visibility_Compatibility::is_wc_version_gt( '3.4' ) ) {
 			add_action( 'woocommerce_before_single_variation', array( $this, 'on_before_single_variation' ), 0 );
@@ -122,8 +122,8 @@ class WC_Catalog_Restrictions_Filters {
 	public function on_before_booking_form() {
 		remove_action( 'woocommerce_before_add_to_cart_button', array( $this, 'on_before_add_to_cart_button' ), 1 );
 		global $product;
-		if ( $product && !WC_Catalog_Restrictions_Filters::instance()->user_can_purchase( $product ) ) {
-			$this->buffer_on = ob_start();
+		if ( $product && ! WC_Catalog_Restrictions_Filters::instance()->user_can_purchase( $product ) ) {
+			$this->buffer_on          = ob_start();
 			$this->is_booking_product = true;
 		}
 	}
@@ -134,7 +134,7 @@ class WC_Catalog_Restrictions_Filters {
 		//Paypal Express Handling
 
 		if ( defined( 'WC_GATEWAY_PPEC_VERSION' ) ) {
-			if ( $product && !$this->user_can_purchase( $product ) ) {
+			if ( $product && ! $this->user_can_purchase( $product ) ) {
 				remove_action( 'woocommerce_after_add_to_cart_form', array(
 					wc_gateway_ppec()->cart,
 					'display_paypal_button_product'
@@ -170,7 +170,7 @@ class WC_Catalog_Restrictions_Filters {
 
 	public function plugin_compatibility_filters() {
 		if ( is_product() ) {
-			if ( !$this->user_can_purchase( wc_get_product( get_the_ID() ) ) ) {
+			if ( ! $this->user_can_purchase( wc_get_product( get_the_ID() ) ) ) {
 				add_filter( 'woocommerce_bv_render_form', '__return_false' );
 			}
 		}
@@ -189,7 +189,7 @@ class WC_Catalog_Restrictions_Filters {
 	 */
 	public function on_get_woocommerce_available_variation( $variation_data, $variable, $variation ) {
 
-		if ( $variable && ( !$this->user_can_view_price( $variable ) ) ) {
+		if ( $variable && ( ! $this->user_can_view_price( $variable ) ) ) {
 			$variation_data['availability_html']     = '';
 			$variation_data['display_price']         = '';
 			$variation_data['display_regular_price'] = '';
@@ -200,8 +200,8 @@ class WC_Catalog_Restrictions_Filters {
 
 	public function on_get_price( $price, $product ) {
 		global $wc_cvo;
-		if ($product && !$this->user_can_view_price( $product ) ) {
-			if ( !$this->user_can_view_price( $product ) ) {
+		if ( $product && ! $this->user_can_view_price( $product ) ) {
+			if ( ! $this->user_can_view_price( $product ) ) {
 				return '';
 			}
 		}
@@ -220,7 +220,7 @@ class WC_Catalog_Restrictions_Filters {
 			$_product = wc_get_product( $_product->get_parent_id() );
 		}
 
-		if ( $_product && !$this->user_can_view_price( $_product ) ) {
+		if ( $_product && ! $this->user_can_view_price( $_product ) ) {
 			return apply_filters( 'catalog_visibility_alternate_price_html', do_shortcode( wptexturize( $wc_cvo->setting( 'wc_cvo_c_price_text' ) ) ), $_product );
 		}
 
@@ -231,7 +231,7 @@ class WC_Catalog_Restrictions_Filters {
 		global $wc_cvo;
 		$product = $cart_item['data'];
 
-		if ( $product && !$this->user_can_view_price( $product ) ) {
+		if ( $product && ! $this->user_can_view_price( $product ) ) {
 			return apply_filters( 'catalog_visibility_alternate_cart_item_price_html', do_shortcode( wptexturize( $wc_cvo->setting( 'wc_cvo_c_price_text' ) ) ), $cart_item );
 		}
 
@@ -241,7 +241,7 @@ class WC_Catalog_Restrictions_Filters {
 	public function on_cart_item_subtotal( $price, $cart_item ) {
 		$product = $cart_item['data'];
 
-		if ( $product && !$this->user_can_view_price( $product ) ) {
+		if ( $product && ! $this->user_can_view_price( $product ) ) {
 			return apply_filters( 'catalog_visibility_alternate_cart_item_subtotal_html', '', $cart_item );
 		}
 
@@ -259,7 +259,7 @@ class WC_Catalog_Restrictions_Filters {
 		try {
 			$product = $item->get_product();
 
-			if ( $product && !$this->user_can_view_price( $product ) ) {
+			if ( $product && ! $this->user_can_view_price( $product ) ) {
 				return apply_filters( 'catalog_visibility_alternate_order_formatted_line_subtotal', '', $item );
 			}
 		} catch ( Exception $exception ) {
@@ -272,7 +272,7 @@ class WC_Catalog_Restrictions_Filters {
 	public function on_cart_subtotal( $subtotal ) {
 		global $wc_cvo;
 		foreach ( WC()->cart->get_cart() as $cart_item ) {
-			if ( !$this->user_can_view_price( $cart_item['data'] ) ) {
+			if ( ! $this->user_can_view_price( $cart_item['data'] ) ) {
 				return apply_filters( 'catalog_visibility_alternate_cart_subtotal', do_shortcode( wptexturize( $wc_cvo->setting( 'wc_cvo_c_price_text' ) ) ), $cart_item );
 			}
 		}
@@ -283,7 +283,7 @@ class WC_Catalog_Restrictions_Filters {
 	public function on_cart_total( $total ) {
 		global $wc_cvo;
 		foreach ( WC()->cart->get_cart() as $cart_item ) {
-			if ( !$this->user_can_view_price( $cart_item['data'] ) ) {
+			if ( ! $this->user_can_view_price( $cart_item['data'] ) ) {
 				return apply_filters( 'catalog_visibility_alternate_cart_total', do_shortcode( wptexturize( $wc_cvo->setting( 'wc_cvo_c_price_text' ) ) ), $cart_item );
 			}
 		}
@@ -301,7 +301,7 @@ class WC_Catalog_Restrictions_Filters {
 			$product = wc_get_product( $product->get_parent_id() );
 		}
 
-		if ( !$this->user_can_view_price( $product ) ) {
+		if ( ! $this->user_can_view_price( $product ) ) {
 			return '';
 		}
 
@@ -317,8 +317,8 @@ class WC_Catalog_Restrictions_Filters {
 	public function on_before_add_to_cart_button() {
 		global $product;
 
-		if ( $product && !$this->user_can_purchase( $product ) ) {
-			if ( !$this->buffer_on ) {
+		if ( $product && ! $this->user_can_purchase( $product ) ) {
+			if ( ! $this->buffer_on ) {
 				$this->buffer_on = ob_start();
 			}
 		}
@@ -337,15 +337,15 @@ class WC_Catalog_Restrictions_Filters {
 			$this->did_after_cart_button = true;
 		}
 
-		if ( $product && !$this->user_can_purchase( $product ) ) {
+		if ( $product && ! $this->user_can_purchase( $product ) ) {
 			if ( $this->buffer_on ) {
 				ob_end_clean();
 			}
 
-			if ($this->is_booking_product) {
-			    // close the <div id="wc-bookings-booking-form" class="wc-bookings-booking-form" style="display:none">
-			    echo '</div>';
-            }
+			if ( $this->is_booking_product ) {
+				// close the <div id="wc-bookings-booking-form" class="wc-bookings-booking-form" style="display:none">
+				echo '</div>';
+			}
 
 		} else {
 			return;
@@ -361,12 +361,12 @@ class WC_Catalog_Restrictions_Filters {
 		if ( $product->is_type( 'variable' ) ) {
 			?>
 
-            <div class="single_variation woocommerce-variation"></div>
-            <div class="variations_button">
+			<div class="single_variation woocommerce-variation"></div>
+			<div class="variations_button">
 				<?php echo $html; ?>
-                <input type="hidden" name="product_id" value="<?php echo absint( $product->get_id() ); ?>"/>
-                <input type="hidden" name="variation_id" class="variation_id" value="0"/>
-            </div>
+				<input type="hidden" name="product_id" value="<?php echo absint( $product->get_id() ); ?>"/>
+				<input type="hidden" name="variation_id" class="variation_id" value="0"/>
+			</div>
 			<?php do_action( 'wc_cvo_after_single_variation', $product ); ?>
 
 			<?php
@@ -399,7 +399,7 @@ class WC_Catalog_Restrictions_Filters {
 				$_product = wc_get_product( $_product->get_parent_id() );
 			}
 
-			if ( !$this->user_can_view_price( $_product ) ) {
+			if ( ! $this->user_can_view_price( $_product ) ) {
 				$located = $wc_cvo->plugin_dir() . '/templates/variation.php';
 			}
 		}
@@ -427,7 +427,7 @@ class WC_Catalog_Restrictions_Filters {
 
 		//If the result was OK, but the user can not purchase the product the result of this function will be false.
 		//When adding an item to a wishlist however we need the result to be true as long as the regular validation is true;
-		if ( $result && !$user_can_purchase ) {
+		if ( $result && ! $user_can_purchase ) {
 			add_filter( 'woocommerce_add_to_wishlist_validation', array(
 				$this,
 				'on_woocommerce_add_to_wishlist_validation'
@@ -467,7 +467,7 @@ class WC_Catalog_Restrictions_Filters {
 	 */
 	public function on_loop_add_to_cart_link( string $markup, $product ) {
 		global $wc_cvo;
-		if ( $product && !$this->user_can_purchase( $product ) ) {
+		if ( $product && ! $this->user_can_purchase( $product ) ) {
 			$label = wptexturize( $wc_cvo->setting( 'wc_cvo_atc_text' ) );
 			if ( empty( $label ) ) {
 				return "";
@@ -475,6 +475,7 @@ class WC_Catalog_Restrictions_Filters {
 
 			$link = $product->get_permalink();
 			$link = apply_filters( 'catalog_visibility_alternate_add_to_cart_link_url', $link, $product );
+
 			return apply_filters( 'catalog_visibility_alternate_add_to_cart_link', sprintf( '<a href="%s" data-product_id="%s" class="button product_type_%s">%s</a>', $link, $product->get_id(), $product->get_type(), $label ) );
 		} else {
 			return $markup;
@@ -483,7 +484,7 @@ class WC_Catalog_Restrictions_Filters {
 
 	public function on_woocommerce_product_add_to_cart_text( $text, $product ) {
 		global $wc_cvo;
-		if ( $product && !$this->user_can_purchase( $product ) ) {
+		if ( $product && ! $this->user_can_purchase( $product ) ) {
 			$label = wptexturize( $wc_cvo->setting( 'wc_cvo_atc_text' ) );
 			if ( empty( $label ) ) {
 				return "";
@@ -496,10 +497,11 @@ class WC_Catalog_Restrictions_Filters {
 	}
 
 	public function on_woocommerce_product_add_to_cart_url( $url, $product ) {
-		if ( $product && !$this->user_can_purchase( $product ) ) {
+		if ( $product && ! $this->user_can_purchase( $product ) ) {
 			$link = get_permalink( $product->get_id() );
 
 			$url = apply_filters( 'catalog_visibility_alternate_add_to_cart_link_url', $link, $product );
+
 			return $url;
 		} else {
 			return $url;
@@ -509,7 +511,7 @@ class WC_Catalog_Restrictions_Filters {
 
 	public function on_get_woocommerce_structured_data_product( $markup, $product ) {
 
-		if ( !$this->user_can_view_price( $product ) ) {
+		if ( ! $this->user_can_view_price( $product ) ) {
 			$markup['offers'] = array();
 		}
 
@@ -539,7 +541,7 @@ class WC_Catalog_Restrictions_Filters {
 			$user_roles = $this->get_roles_for_current_user();
 
 			if ( $roles && is_array( $roles ) ) {
-				if ( !is_user_logged_in() ) {
+				if ( ! is_user_logged_in() ) {
 					if ( count( array_intersect( $roles, $user_roles ) ) > 0 ) {
 						$result = true;
 					}
@@ -556,7 +558,7 @@ class WC_Catalog_Restrictions_Filters {
 			global $wc_catalog_restrictions;
 			$t_loc = $wc_catalog_restrictions->get_location_for_current_user();
 
-			if ( !is_array( $t_loc ) ) {
+			if ( ! is_array( $t_loc ) ) {
 				$t_loc = (array) $t_loc;
 			}
 
@@ -564,14 +566,14 @@ class WC_Catalog_Restrictions_Filters {
 			$result    = count( array_intersect( $t_loc, $locations ) ) > 0;
 
 			if ( $pfilter == 'locations_restricted' ) {
-				$result = !$result;
+				$result = ! $result;
 			}
 
 		} else {
 			$result = $this->user_can_purchase_in_category( $product );
 		}
 
-		$result                                         = apply_filters( 'catalog_visibility_user_can_purchase', $result, $product );
+		$result = apply_filters( 'catalog_visibility_user_can_purchase', $result, $product );
 		$this->cache_can_purchase[ $product->get_id() ] = $result;
 
 		return $result;
@@ -596,7 +598,7 @@ class WC_Catalog_Restrictions_Filters {
 				$result = $this->check_category_purchase_access( $category_id, $default );
 				if ( $result ) {
 					$category_result = true;
-					if ( !$default ) {
+					if ( ! $default ) {
 						break;
 					}
 				} else {
@@ -621,7 +623,7 @@ class WC_Catalog_Restrictions_Filters {
 			$user_roles = $this->get_roles_for_current_user();
 
 			if ( $roles && is_array( $roles ) ) {
-				if ( !is_user_logged_in() ) {
+				if ( ! is_user_logged_in() ) {
 					if ( count( array_intersect( $roles, $user_roles ) ) > 0 ) {
 						$result = true;
 					}
@@ -638,7 +640,7 @@ class WC_Catalog_Restrictions_Filters {
 			global $wc_catalog_restrictions;
 			$t_loc = $wc_catalog_restrictions->get_location_for_current_user();
 
-			if ( !is_array( $t_loc ) ) {
+			if ( ! is_array( $t_loc ) ) {
 				$t_loc = (array) $t_loc;
 			}
 
@@ -646,7 +648,7 @@ class WC_Catalog_Restrictions_Filters {
 			$result    = count( array_intersect( $t_loc, $locations ) ) > 0;
 
 			if ( $pfilter == 'locations_restricted' ) {
-				$result = !$result;
+				$result = ! $result;
 			}
 		} else {
 			$result = $default;
@@ -678,7 +680,7 @@ class WC_Catalog_Restrictions_Filters {
 			$user_roles = $this->get_roles_for_current_user();
 
 			if ( $roles && is_array( $roles ) ) {
-				if ( !is_user_logged_in() ) {
+				if ( ! is_user_logged_in() ) {
 					if ( count( array_intersect( $roles, $user_roles ) ) > 0 ) {
 						$result = true;
 					}
@@ -695,20 +697,20 @@ class WC_Catalog_Restrictions_Filters {
 			global $wc_catalog_restrictions;
 			$t_loc = $wc_catalog_restrictions->get_location_for_current_user();
 
-			if ( !is_array( $t_loc ) ) {
+			if ( ! is_array( $t_loc ) ) {
 				$t_loc = (array) $t_loc;
 			}
 
 			$locations = $product->get_meta( '_wc_restrictions_price_locations', true );
 
-			if ( !is_array( $locations ) ) {
+			if ( ! is_array( $locations ) ) {
 				$locations = (array) $locations;
 			}
 
 			$result = count( array_intersect( $t_loc, $locations ) ) > 0;
 
 			if ( $pfilter == 'locations_restricted' ) {
-				$result = !$result;
+				$result = ! $result;
 			}
 
 		} else {
@@ -741,7 +743,7 @@ class WC_Catalog_Restrictions_Filters {
 				$result = $this->check_category_price_access( $category_id, $default );
 				if ( $result ) {
 					$category_result = true;
-					if ( !$default ) {
+					if ( ! $default ) {
 						break;
 					}
 				} else {
@@ -767,7 +769,7 @@ class WC_Catalog_Restrictions_Filters {
 			$user_roles = $this->get_roles_for_current_user();
 
 			if ( $roles && is_array( $roles ) ) {
-				if ( !is_user_logged_in() ) {
+				if ( ! is_user_logged_in() ) {
 					if ( count( array_intersect( $roles, $user_roles ) ) > 0 ) {
 						$result = true;
 					}
@@ -784,7 +786,7 @@ class WC_Catalog_Restrictions_Filters {
 			global $wc_catalog_restrictions;
 			$t_loc = $wc_catalog_restrictions->get_location_for_current_user();
 
-			if ( !is_array( $t_loc ) ) {
+			if ( ! is_array( $t_loc ) ) {
 				$t_loc = (array) $t_loc;
 			}
 
@@ -792,7 +794,7 @@ class WC_Catalog_Restrictions_Filters {
 			$result    = count( array_intersect( $t_loc, $locations ) ) > 0;
 
 			if ( $pfilter == 'locations_restricted' ) {
-				$result = !$result;
+				$result = ! $result;
 			}
 		} else {
 			$result = $default;
@@ -807,7 +809,7 @@ class WC_Catalog_Restrictions_Filters {
 
 		if ( is_user_logged_in() ) {
 			$user = new WP_User( get_current_user_id() );
-			if ( !empty( $user->roles ) && is_array( $user->roles ) ) {
+			if ( ! empty( $user->roles ) && is_array( $user->roles ) ) {
 				foreach ( $user->roles as $role ) {
 					$roles[ $role ] = $role;
 				}

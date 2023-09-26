@@ -86,11 +86,19 @@ class Permalink_Manager_URI_Editor_Post extends WP_List_Table {
 	public function column_default( $item, $column_name ) {
 		global $permalink_manager_options;
 
-		$uri = Permalink_Manager_URI_Functions_Post::get_post_uri( $item['ID'], true );
-		$uri = ( ! empty( $permalink_manager_options['general']['decode_uris'] ) ) ? urldecode( $uri ) : $uri;
+		if ( Permalink_Manager_Helper_Functions::is_front_page( $item['ID'] ) ) {
+			$uri           = '';
+			$permalink     = Permalink_Manager_Helper_Functions::get_permalink_base( $item['ID'] );
+			$is_front_page = true;
+		} else {
+			$is_draft      = ( $item["post_status"] == 'draft' ) ? true : false;
+			$uri           = Permalink_Manager_URI_Functions_Post::get_post_uri( $item['ID'], true, $is_draft );
+			$uri           = ( ! empty( $permalink_manager_options['general']['decode_uris'] ) ) ? urldecode( $uri ) : $uri;
+			$permalink     = get_permalink( $item['ID'] );
+			$is_front_page = false;
+		}
 
 		$field_args_base = array( 'type' => 'text', 'value' => $uri, 'without_label' => true, 'input_class' => 'custom_uri', 'extra_atts' => "data-element-id=\"{$item['ID']}\"" );
-		$permalink       = get_permalink( $item['ID'] );
 		$post_title      = sanitize_text_field( $item['post_title'] );
 
 		$post_statuses_array            = get_post_statuses();
@@ -107,8 +115,10 @@ class Permalink_Manager_URI_Editor_Post extends WP_List_Table {
 				$auto_update_val = get_post_meta( $item['ID'], "auto_update_uri", true );
 				$auto_update_uri = ( ! empty( $auto_update_val ) ) ? $auto_update_val : $permalink_manager_options["general"]["auto_update_uris"];
 
-				// Check if drafts are allowed
-				if ( Permalink_Manager_Helper_Functions::is_draft_excluded( (int) $item['ID'] ) ) {
+				if ( $is_front_page) {
+					$field_args_base['disabled']       = true;
+					$field_args_base['append_content'] = sprintf( '<p class="small uri_locked">%s %s</p>', '<span class="dashicons dashicons-lock"></span>', __( 'URI Editor is disabled because a custom permalink cannot be set for a front page.', 'permalink-manager' ) );
+				} else if ( Permalink_Manager_Helper_Functions::is_draft_excluded( (int) $item['ID'] ) ) {
 					$field_args_base['disabled']       = true;
 					$field_args_base['append_content'] = sprintf( '<p class="small uri_locked">%s %s</p>', '<span class="dashicons dashicons-lock"></span>', __( 'URI Editor disabled due to "Exclude drafts & pending posts" setting and the post status.', 'permalink-manager' ) );
 				} else if ( $auto_update_uri == 1 ) {

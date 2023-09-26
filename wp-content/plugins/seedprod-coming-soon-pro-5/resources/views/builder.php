@@ -201,11 +201,11 @@ if ( empty( $seedprod_stripe_connect_origin ) ) {
 // Set stripe token
 if ( ! empty( $_GET['seedprod_stripe_connect_token'] ) ) {
 	if ( ! empty( $_GET['seedprod_stripe_connect_origin'] ) ) {
-		if ( $seedprod_stripe_connect_origin == $_GET['seedprod_stripe_connect_origin'] ) {
-		}
-		update_option( 'seedprod_stripe_connect_token', $_GET['seedprod_stripe_connect_token'] );
+		if ( $seedprod_stripe_connect_origin == $_GET['seedprod_stripe_connect_origin'] && current_user_can( 'manage_options' ) ) {
+			update_option( 'seedprod_stripe_connect_token', $_GET['seedprod_stripe_connect_token'] );
+		}	
 	}
-}
+} 
 // get stripe token
 $seedprod_stripe_connect_token = get_option( 'seedprod_stripe_connect_token' );
 if ( empty( $seedprod_stripe_connect_token ) ) {

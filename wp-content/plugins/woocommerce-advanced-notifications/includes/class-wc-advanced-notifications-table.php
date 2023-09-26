@@ -233,7 +233,7 @@ class WC_Advanced_Notifications_Table extends WP_List_Table {
 				}
 			}
 
-			echo '<div class="updated"><p>' . __( 'Notifications updated', 'woocommerce-advanced-notifications' ) . '</p></div>';
+			echo '<div class="updated"><p>' . esc_html__( 'Notifications updated', 'woocommerce-advanced-notifications' ) . '</p></div>';
 		}
 	}
 

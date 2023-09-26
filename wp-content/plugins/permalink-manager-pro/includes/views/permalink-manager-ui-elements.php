@@ -260,7 +260,7 @@ class Permalink_Manager_UI_Elements {
 				$fields .= "</div>";
 
 				// 3. Show toggle button
-				$fields .= sprintf( "<p class=\"permastruct-toggle-button\"><a href=\"#\"><span class=\"dashicons dashicons-admin-settings\"></span> %s</a></p>", __( "Show additional settings", "permalink-manager" ) );
+				$fields .= sprintf( "<p class=\"permastruct-buttons\"><a href=\"#\"><span class=\"dashicons dashicons-admin-settings\"></span> %s</a></p>", __( "Show additional settings", "permalink-manager" ) );
 
 				$fields .= "</div>";
 

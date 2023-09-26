@@ -13,10 +13,10 @@ function wc_cvo_register_url( $atts, $content = '' ) {
 	if ( is_null( $content ) || empty( $content ) ) {
 		$content = __( 'Register' );
 	}
-	
+
 	$account_page_id = wc_get_page_id('myaccount');
 	$url = get_permalink($account_page_id);
-	
+
 	return '<a href="' . $url . '">' . $content . '</a>';
 }
 
@@ -75,9 +75,8 @@ function wcvo_login_fields(  ) {
 			</p>
 
 			<?php do_action( 'woocommerce_login_form_end' );
-	
+
 	return ob_get_clean();
-	return $form;
 }
 
 add_shortcode( 'woocommerce_logon_link', 'wc_cvo_login_url' );

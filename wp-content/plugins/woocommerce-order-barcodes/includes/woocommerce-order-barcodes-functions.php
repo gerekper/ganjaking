@@ -1,14 +1,21 @@
 <?php
+/**
+ * WC Order Barcodes function file.
+ *
+ * @package woocommerce-order-barcodes
+ */
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-if( ! function_exists( 'wc_order_barcode' ) ) {
+if ( ! function_exists( 'wc_order_barcode' ) ) {
 	/**
 	 * Fetch a barcode for a given order
 	 *
-	 * @param  integer $order_id Order ID
-	 * @param  string  $before   Content to display before the barcode.
-	 * @param  string  $after    Content to display after the barcode.
+	 * @param int    $order_id Order ID.
+	 * @param string $before   Content to display before the barcode.
+	 * @param string $after    Content to display after the barcode.
 	 *
 	 * @return string            Order barcode
 	 */
@@ -23,7 +30,7 @@ if( ! function_exists( 'wc_order_barcode' ) ) {
  * @since  1.0.0
  * @return object WooCommerce_Order_Barcodes instance
  */
-function WC_Order_Barcodes() {
+function WC_Order_Barcodes() { // phpcs:ignore
 	$instance = WooCommerce_Order_Barcodes::instance();
 	if ( is_null( $instance->settings ) ) {
 		$instance->settings = WooCommerce_Order_Barcodes_Settings::instance( $instance );

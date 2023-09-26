@@ -302,7 +302,7 @@ function seedprod_pro_woocommerce_template_tags_product_meta_shortcode( $atts ) 
 	do_action( 'woocommerce_product_meta_start' );
 
 	if ( wc_product_sku_enabled() && ( $sku || $product->is_type( 'variable' ) ) ) {
-		$render .= '<span class="sp-sku-wrapper sp-detail-container"><span class="detail-label">' . esc_html__( 'SKU', 'seedprod-pro' ) . '</span> <span class="sp-sku-detail">' . $sku . '</span>';
+		$render .= '<span class="sp-sku-wrapper sp-detail-container product_meta"><span class="detail-label">' . esc_html__( 'SKU', 'seedprod-pro' ) . '</span> <span class="sp-sku-detail sku">' . $sku . '</span>';
 
 		if ( count( $product->get_category_ids() ) || count( $product->get_tag_ids() ) ) {
 			$render .= '<span class="sp-product-meta-divider">' . $shortcode_args['divider'] . '</span>';

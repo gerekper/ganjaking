@@ -1,0 +1,37 @@
+div.pp_woocommerce {
+	.pp_inline {
+		padding: 30px;
+		box-sizing: border-box;
+	}
+
+	.pp_content {
+		.splash-content {
+			p:last-child {
+				margin-bottom: 0;
+			}
+
+			ul.products {
+				margin-left: 0;
+				margin-right: 0;
+				width: 100%;
+				padding: 0;
+
+				&::after {
+					content: "";
+					display: block;
+					clear: both;
+				}
+
+				li.product {
+					width: 22.05%;
+					margin-right: 3.8%;
+					margin-left: 0;
+
+					&.last {
+						margin-right: 0;
+					}
+				}
+			}
+		}
+	}
+}

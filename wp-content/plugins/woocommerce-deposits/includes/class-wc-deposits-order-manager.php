@@ -85,9 +85,6 @@ class WC_Deposits_Order_Manager {
 		// Send WooCommerce emails on custom status transitions.
 		add_filter( 'woocommerce_email_actions', array( $this, 'register_status_transitions_for_core_emails' ), 10, 1 );
 		add_action( 'woocommerce_email', array( $this, 'send_core_emails_on_status_changes' ), 10, 1 );
-
-		// Fix tax for scheduled orders when order is placed using block-based checkout.
-		add_filter( 'woocommerce_order_get_tax_location', array( $this, 'order_tax_location' ), 99 );
 	}
 
 	/**
@@ -1343,31 +1340,6 @@ class WC_Deposits_Order_Manager {
 		if ( isset( $email_class->emails['WC_Email_Customer_On_Hold_Order'] ) ) {
 			add_action( 'woocommerce_order_status_pending-deposit_to_on-hold_notification', array( $email_class->emails['WC_Email_Customer_On_Hold_Order'], 'trigger' ) );
 		}
-	}
-
-	/**
-	 * Return an Associative array of tax location if the tax location is indexed array.
-	 * This is a temporary fix until WC 7.6 become the minimum supported version.
-	 *
-	 * TODO: Remove this function when WC 7.6 become the minimum supported version.
-	 *
-	 * @param array $location Tax location array.
-	 * @return array
-	 */
-	public function order_tax_location( $location ) {
-		// Check if location is not an associative array and has 4 elements.
-		if ( ! isset( $location['country'] ) && count( $location ) === 4 ) {
-			list( $country, $state, $postcode, $city ) = $location;
-
-			$location = array(
-				'country'  => $country,
-				'state'    => $state,
-				'postcode' => $postcode,
-				'city'     => $city,
-			);
-		}
-
-		return $location;
 	}
 }
 

@@ -1,17 +1,17 @@
-# Copyright (C) 2023 Themesquad
+# Copyright (C) 2023 KoiLab
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Force Sells 1.2.0\n"
+"Project-Id-Version: WooCommerce Force Sells 1.3.0\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-01-10T09:53:06+00:00\n"
+"POT-Creation-Date: 2023-09-18T10:37:21+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: woocommerce-force-sells\n"
 
 #. Plugin Name of the plugin
@@ -27,43 +27,63 @@ msgid "Allows you to select products which will be used as force-sells - items w
 msgstr ""
 
 #. Author of the plugin
-msgid "Themesquad"
+msgid "KoiLab"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "https://themesquad.com"
+msgid "https://koilab.com"
 msgstr ""
 
-#: woocommerce-force-sells.php:191
+#: src/Admin/Admin.php:43
+msgctxt "aria-label: documentation link"
+msgid "View WooCommerce Force Sells documentation"
+msgstr ""
+
+#: src/Admin/Admin.php:44
+msgctxt "plugin row link"
+msgid "Docs"
+msgstr ""
+
+#: src/Admin/Admin.php:50
+msgctxt "aria-label: support link"
+msgid "Open a support ticket at WooCommerce.com"
+msgstr ""
+
+#: src/Admin/Admin.php:51
+msgctxt "plugin row link"
+msgid "Support"
+msgstr ""
+
+#: woocommerce-force-sells.php:160
 msgid "Linked to"
 msgstr ""
 
-#: woocommerce-force-sells.php:239
+#: woocommerce-force-sells.php:208
 msgid "Force Sells"
 msgstr ""
 
-#: woocommerce-force-sells.php:243
-#: woocommerce-force-sells.php:262
+#: woocommerce-force-sells.php:209
+#: woocommerce-force-sells.php:226
 msgid "Search for a product&hellip;"
 msgstr ""
 
-#: woocommerce-force-sells.php:255
+#: woocommerce-force-sells.php:222
 msgid "These products will be added to the cart when the main product is added. Quantity will not be synced in case the main product quantity changes."
 msgstr ""
 
-#: woocommerce-force-sells.php:258
+#: woocommerce-force-sells.php:225
 msgid "Synced Force Sells"
 msgstr ""
 
-#: woocommerce-force-sells.php:275
+#: woocommerce-force-sells.php:239
 msgid "These products will be added to the cart when the main product is added and quantity will be synced in case the main product quantity changes."
 msgstr ""
 
-#: woocommerce-force-sells.php:328
+#: woocommerce-force-sells.php:280
 msgid "This will also add the following products to your cart:"
 msgstr ""
 
 #. translators: %s: Product title
-#: woocommerce-force-sells.php:394
+#: woocommerce-force-sells.php:345
 msgid "%s will also be removed as they're sold together."
 msgstr ""

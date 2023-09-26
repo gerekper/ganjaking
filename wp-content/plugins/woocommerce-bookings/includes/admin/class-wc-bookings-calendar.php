@@ -161,7 +161,7 @@ class WC_Bookings_Calendar {
 
 		wp_localize_script( 'wc_bookings_admin_calendar_gutenberg_js', 'wc_bookings_admin_calendar_js_params', $calendar_params );
 
-		include( 'views/html-calendar-' . $view . '.php' );
+		include( 'views/html-calendar-' . $view . '.php' ); // nosemgrep:scanner.php.lang.security.file.inclusion -- $view is checked to be a known calendar view (see above).
 	}
 
 

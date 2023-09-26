@@ -96,26 +96,33 @@ function seedprod_pro_save_app_settings() {
 			// Edit Button
 			if ( isset( $app_settings['disable_seedprod_button'] ) && 'true' === $app_settings['disable_seedprod_button'] ) {
 				$new_app_settings['disable_seedprod_button'] = true;
-				update_option( 'seedprod_allow_usage_tracking' , true );
+				update_option( 'seedprod_allow_usage_tracking', true );
 			} else {
 				$new_app_settings['disable_seedprod_button'] = false;
-				update_option( 'seedprod_allow_usage_tracking' , false );
+				update_option( 'seedprod_allow_usage_tracking', false );
 			}
 
 			// Usage Tracking
 			if ( isset( $app_settings['enable_usage_tracking'] ) && 'true' === $app_settings['enable_usage_tracking'] ) {
 				$new_app_settings['enable_usage_tracking'] = true;
-				update_option('seedprod_allow_usage_tracking' , true);
+				update_option( 'seedprod_allow_usage_tracking', true );
 			} else {
 				$new_app_settings['enable_usage_tracking'] = false;
-				update_option('seedprod_allow_usage_tracking' , false);
+				update_option( 'seedprod_allow_usage_tracking', false );
+			}
+
+			// Edit Notification
+			if ( isset( $app_settings['disable_seedprod_notification'] ) && 'true' === $app_settings['disable_seedprod_notification'] ) {
+				$new_app_settings['disable_seedprod_notification'] = true;
+			} else {
+				$new_app_settings['disable_seedprod_notification'] = false;
 			}
 
 			// Facebook ID
-			$new_app_settings['facebook_g_app_id'] = sanitize_text_field( $app_settings['facebook_g_app_id'] );
+			$new_app_settings['facebook_g_app_id']     = sanitize_text_field( $app_settings['facebook_g_app_id'] );
 			$new_app_settings['google_places_app_key'] = sanitize_text_field( $app_settings['google_places_app_key'] );
-			$new_app_settings['yelp_app_api_key'] = sanitize_text_field( $app_settings['yelp_app_api_key'] );
-			$app_settings_encode                   = wp_json_encode( $new_app_settings );
+			$new_app_settings['yelp_app_api_key']      = sanitize_text_field( $app_settings['yelp_app_api_key'] );
+			$app_settings_encode                       = wp_json_encode( $new_app_settings );
 
 			update_option( 'seedprod_app_settings', $app_settings_encode );
 			$response = array(

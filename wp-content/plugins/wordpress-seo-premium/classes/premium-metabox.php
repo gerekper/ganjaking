@@ -123,6 +123,7 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 
 	/**
 	 * Send data to assets by using wp_localize_script.
+	 * Also localizes the Table of Contents heading title to the wp-seo-premium-blocks asset.
 	 *
 	 * @return void
 	 */
@@ -169,6 +170,17 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 
 		// Use an extra level in the array to preserve booleans. WordPress sanitizes scalar values in the first level of the array.
 		wp_localize_script( 'yoast-seo-premium-metabox', 'wpseoPremiumMetaboxData', [ 'data' => $data ] );
+
+		// Localize the title of the Table of Contents block: the translation needs to be based on the site language instead of the user language.
+		wp_localize_script(
+			'wp-seo-premium-blocks',
+			'wpseoTOCData',
+			[
+				'data' => [
+					'TOCTitle' => \__( 'Table of contents', 'wordpress-seo-premium' ),
+				],
+			]
+		);
 	}
 
 	/**

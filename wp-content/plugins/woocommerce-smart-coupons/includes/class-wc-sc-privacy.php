@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.3.0
+ * @version     1.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -756,7 +756,7 @@ if ( ! class_exists( 'WC_SC_Privacy' ) ) {
 		public function is_retention_expired( $created_date ) {
 			$retention  = wc_parse_relative_date_option( get_option( 'woocommerce_smart_coupons_retention' ) );
 			$is_expired = false;
-			$time_span  = time() - strtotime( $created_date );
+			$time_span  = time() - $this->strtotime( $created_date );
 
 			if ( empty( $retention ) || empty( $created_date ) ) {
 				return false;

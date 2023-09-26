@@ -5,14 +5,17 @@ Plugin URI: http://hide-my-wp.wpwave.com/
 Description: An excellent security plugin to hide your WordPress installation packed with some of the coolest and most unique features in the community.
 Author: wpWave
 Author URI: http://wpwave.com
-Version: 6.2.9
+Version: 6.2.11
 Text Domain: hide_my_wp
 Domain Path: /lang
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Network: True
 */
-
+$hide_my_wp_settings = get_option( 'hide_my_wp' );
+$hide_my_wp_settings['li'] = 'purchase-code';
+update_option( 'hide_my_wp', $hide_my_wp_settings );
+delete_option( 'pp_important_messages');
 
 /**
  *   ++ Credits ++
@@ -21,7 +24,7 @@ Network: True
  *   Some code from dxplugin base by mpeshev, plugin base v2 by Brad Vincent, weDevs Settings API by Tareq Hasan, rootstheme by Ben Word, Minify by Stephen Clay and Mute Scemer by ampt
  */
 define('HMW_TITLE', 'Hide My WP');
-define('HMW_VERSION', '6.2.9');
+define('HMW_VERSION', '6.2.10.1');
 define('HMW_SLUG', 'hide_my_wp'); //use _
 define('HMW_PATH', dirname(__FILE__));
 define('HMW_DIR', basename(HMW_PATH));
@@ -112,7 +115,7 @@ class HideMyWP
 			}
 		}
 	}
-	
+
 	function hmwp_plugin_update_checker() {
 		require_once('lib/plugin-update/plugin-update-checker.php');
 		$HMWP_UpdateChecker = PucFactory::buildUpdateChecker(
@@ -347,7 +350,7 @@ class HideMyWP
 			}
 			$show_access_message = false;
 		}
-		
+
 
 		if (isset($_GET['page']) && $_GET['page'] == self::slug && (isset($_GET['settings-updated']) || isset($_GET['settings-imported'])) && is_multisite()) {
             echo '<div class="error"><p>' . __('You have enabled Multisite. It\'s require to (re)configure Hide My WP after changing settings or activating new plugin or theme. <br><br><a target="_blank" href="' . add_query_arg(array('die_message' => 'multisite')) . '" class="button">' . __('Multisite Configuration', self::slug) . '</a>', self::slug) . '</p></div>';
@@ -372,9 +375,11 @@ class HideMyWP
         if (isset($_GET['page']) && $_GET['page'] == self::slug && isset($_GET['undo_config']) && $_GET['undo_config'])
             echo '<div class="updated fade"><p>' . __('Previous settings have been restored!', self::slug) . '</p></div>';
 
-        if (isset($_GET['page']) && $_GET['page'] == self::slug && !$writable && !$nginx && !$win && !function_exists('bulletproof_security_load_plugin_textdomain')) {
-            echo '<div class="error"><p>' . __('It seems there is no writable htaccess file in your WP directory. If you use Apache (and not Nginx or IIS) please change permission of .htaccess file.', self::slug) . '</p></div>';
-            $show_access_message = false;
+        if(strtolower($_SERVER['SERVER_SOFTWARE'])!='nginx' && get_option('skip_htaccess_error')!=true) {
+			if (isset($_GET['page']) && $_GET['page'] == self::slug && !$writable && !$nginx && !$win && !function_exists('bulletproof_security_load_plugin_textdomain')) {
+				echo '<div class="error"><p>' . __('It seems there is no writable htaccess file in your WP directory. If you use Apache (and not Nginx or IIS) please change permission of .htaccess file.', self::slug) . '</p></div>';
+				$show_access_message = false;
+			}
         }
 
         if (basename($_SERVER['PHP_SELF']) == 'options-permalink.php' && $this->is_permalink() && isset($_POST['permalink_structure'])) {
@@ -395,9 +400,9 @@ class HideMyWP
 	}
 
     function access_test()
-    {        
+    {
         $response = wp_remote_get($this->partial_filter(get_stylesheet_uri()));
-            
+
         if (200 !== wp_remote_retrieve_response_code($response)
             AND 'OK' !== wp_remote_retrieve_response_message($response)
             AND is_wp_error($response)
@@ -528,7 +533,7 @@ class HideMyWP
             $this->block_access();
         if (is_tag() && !isset($_GET['tag']) && !$this->opt('tag_enable'))
             $this->block_access();
-         * 
+         *
          */
         if ((is_date() || is_time()) && !isset($_GET['monthnum']) && !isset($_GET['m']) && !isset($_GET['w']) && !isset($_GET['second']) && !isset($_GET['year']) && !isset($_GET['day']) && !isset($_GET['hour']) && !isset($_GET['second']) && !isset($_GET['minute']) && !isset($_GET['calendar']) && $this->opt('disable_archive'))
             $this->block_access();
@@ -635,15 +640,15 @@ class HideMyWP
         //wp_register_style( self::slug.'_admin_css', self::url. '/css/admin.css', array(), self::ver, 'all' );
         //wp_enqueue_style( self::slug.'_admin_css' );
     }
-    
+
     /**
      * HideMyWP::front_css_js()
      *
      * Adds buddypress ajax solution
      * @return
-     * 
+     *
      */
-    function front_css_js(){        
+    function front_css_js(){
         if($this->opt('replace_wpnonce') == 'on'){ ?>
             <script type="text/javascript">
                 jQuery(document).ajaxSuccess(function (event, xhr, settings) {
@@ -666,10 +671,10 @@ class HideMyWP
                     return str;
                 }
             </script>
-        <?php        
-        }        
+        <?php
+        }
     }
-    
+
     /**
      * HideMyWP::pp_settings_api_reset()
      * Filter after reseting Options
@@ -682,6 +687,7 @@ class HideMyWP
         delete_option('pp_important_messages_last');
         delete_option('trust_network_rules');
         delete_option('hmwp_internal_assets');
+        delete_option('skip_htaccess_error');
 
         update_option('hmwp_temp_admin_path', 'wp-admin');
         flush_rewrite_rules();
@@ -697,14 +703,17 @@ class HideMyWP
     function pp_settings_api_filter($post)
     {
         global $wp_rewrite;
-		
+
 		$filename = ABSPATH . '.htaccess';
-		if(!is_writable($filename)){
-			$options_file = (is_multisite()) ? 'network/settings.php' : 'admin.php';
-            $page_url = admin_url(add_query_arg('page', 'hide_my_wp', $options_file));
-			$goback = add_query_arg(array('htaccess-write' => 'true'), $page_url);
-			wp_redirect($goback);
-			exit;
+
+		if(strtolower($_SERVER['SERVER_SOFTWARE'])!='nginx' && get_option('skip_htaccess_error')!=true) {
+			if(!is_writable($filename)){
+				$options_file = (is_multisite()) ? 'network/settings.php' : 'admin.php';
+				$page_url = admin_url(add_query_arg('page', 'hide_my_wp', $options_file));
+				$goback = add_query_arg(array('htaccess-write' => 'true'), $page_url);
+				wp_redirect($goback);
+				exit;
+			}
 		}
 
         update_option(self::slug . '_undo', get_option(self::slug));
@@ -747,7 +756,7 @@ class HideMyWP
         if ($new_admin_path != $current_admin_path) {
             //save temp value and return everything back whether it was enter by user or import fields
             if (isset($post['import_field']) && $post['import_field'])
-                $post['import_field'] = str_replace('\"new_admin_path\":\"' . $new_admin_path . '\"', '\"new_admin_path\":\"' . $current_admin_path . '\"');
+                $post['import_field'] = str_replace('\"new_admin_path\":\"' . $new_admin_path . '\"', '\"new_admin_path\":\"' . $current_admin_path . '\"', $post['import_field']);
             else
                 $post[self::slug]['new_admin_path'] = $current_admin_path;
 
@@ -965,7 +974,7 @@ class HideMyWP
      * Is permalink enabled?
      * @return
      */
-    function is_permalink()
+    public static function is_permalink()
     {
         global $wp_rewrite;
         if (!isset($wp_rewrite) || !is_object($wp_rewrite) || !$wp_rewrite->using_permalinks())
@@ -979,9 +988,11 @@ class HideMyWP
      * @return
      */
     function block_access()
-    {        
+    {
         global $wp_query, $current_user;
-        include_once(ABSPATH . '/wp-includes/pluggable.php');
+        if(!function_exists('wp_get_current_user')) {
+			include_once(ABSPATH . '/wp-includes/pluggable.php');
+		}
 
 
         if (function_exists('is_user_logged_in') && is_user_logged_in())
@@ -1282,7 +1293,7 @@ class HideMyWP
                 $this->preg_replace_new[] = ' ';
                 $this->preg_replace_old[] = "%(\s){3,}%";
                 $this->preg_replace_new[] = ' ';
-                
+
             } elseif ($this->opt('remove_html_comments') == 'safe') {
                 require_once('lib/class.HTML-minify.php');
                 $min = new Minify_HTML($buffer, array('xhtml' => true));
@@ -1978,11 +1989,11 @@ class HideMyWP
                         $replace_word[0] = str_replace(array('amp;', '%2F', '//', '.'), array('', '/', '/', '.'), $replace_word[0]);
                         $replace_word[1] = str_replace(array('.', 'amp;'), array('\.', ''), $replace_word[1]);
 
-                        if ($is_folder) {
+                        $rule_0 = trim($replace_word[0], '/ ');
+						$rule_1 = trim($replace_word[1], '/ ');
+						if ($is_folder) {
                             $new_non_wp_rules[$rule_1 . '/(.*)'] = $this->sub_folder . $rule_0 . '/$1' . $this->trust_key;
                         } else {
-							$rule_0 = trim($replace_word[0], '/ ');
-							$rule_1 = trim($replace_word[1], '/ ');
 							$file_url = $this->sub_folder . $rule_0;
 							if (strpos($file_url, '?') !== FALSE) {
 								$new_non_wp_rules[$rule_1] = $file_url . str_replace('?', '&', $this->trust_key);
@@ -2523,7 +2534,7 @@ class HideMyWP
             delete_optioon_deactivate_callbackn(self::slug);
             delete_option('hmwp_temp_admin_path');
             delete_option('trust_network_rules');
-            delete_option('hmwp_internal_assets');            
+            delete_option('hmwp_internal_assets');
         }
         flush_rewrite_rules();
     }
@@ -2562,7 +2573,7 @@ class HideMyWP
 		$tag_base = get_option('tag_base');
 		$settings = array(
 			'low_privacy' => '{"replace_javascript_path":"0","disable_directory_listing":"on","exclude_plugins_access":"","exclude_theme_access":"","replace_wpnonce":"","replace_mode":"safe","custom_404":"0","custom_404_page":"","login_query":"' . self::slug . '","admin_key":"1234","remove_feed_meta":"on","hide_admin_bar":"","remove_other_meta":"on","clean_post_class":"","remove_menu_class":"","remove_default_description":"on","remove_ver_scripts":"","direct_access_except":"index.php, wp-content/repair.php, wp-comments-post.php, wp-includes/js/tinymce/wp-tinymce.php, xmlrpc.php, wp-cron.php","disable_canonical_redirect":"","email_from_name":"' . get_bloginfo('blogname') . '","email_from_address":"' . $admin_email . '","replace_in_html":"","new_theme_path":"/static","new_style_name":"","style_expiry_days":"","new_include_path":"/static/lib","new_plugin_path":"/static/ext","new_upload_path":"/file","replace_comments_post":"","replace_admin_ajax":"ajax","new_content_path":"","author_enable":"1","author_base":"","author_query":"","feed_enable":"1","feed_base":"","feed_query":"","post_enable":"1","post_base":"' . $permalink . '","post_query":"","page_enable":"1","page_base":"","page_query":"","paginate_enable":"1","paginate_base":"","paginate_query":"","category_enable":"1","category_base":"' . $category_base . '","category_query":"","tag_enable":"1","tag_base":"' . $tag_base . '","tag_query":"","search_enable":"1","search_base":"","search_query":"","nice_search_redirect":"","import_options":"","export_options":"","debug_report":"","minify_new_style":"","clean_new_style":"","rename_plugins":"","separator2":"","author_without_base":"","disable_archive":"","disable_other_wp":"","trusted_user_roles":"","hide_wp_login":"on","hide_wp_admin":"on","spy_notifier":"","separator":"","remove_body_class":"","remove_html_comments":"","antispam":"on","avoid_direct_access":"","hide_other_wp_files":"on","enable_ids":"","ids_mode":"0","ids_level":"0","ids_admin_include":"","ids_cookie":"","log_ids_min":"10","block_ids_min":"30","full_hide":"","cdn_path":"","li":"' . $li . '","customized_htaccess":"","email_ids_min":"30","ids_html_fields":"","replace_in_ajax":"","blocked_ip_message":"You are blocked. Please contact site administrator if you think there is a problem.","blocked_countries":"","blocked_ips":"","new_login_path":"","help_trust_network":"","trust_network":"on","exception_fields":"' . $ids_except . '"}',
-			'medium_privacy' => '{"replace_javascript_path":"3","disable_directory_listing":"on","exclude_plugins_access":"","exclude_theme_access":"","replace_wpnonce":"","replace_mode":"safe","custom_404":"0","custom_404_page":"","login_query":"' . self::slug . '","admin_key":"1234","remove_feed_meta":"on","hide_admin_bar":"","remove_other_meta":"on","clean_post_class":"","remove_menu_class":"","remove_default_description":"on","remove_ver_scripts":"on","direct_access_except":"index.php, wp-comments-post.php, wp-includes/js/tinymce/wp-tinymce.php, xmlrpc.php, wp-cron.php","disable_canonical_redirect":"","email_from_name":"' . get_bloginfo('blogname') . '","email_from_address":"' . $admin_email . '","replace_in_html":"","new_theme_path":"/skin","new_style_name":"main.css","style_expiry_days":"3","new_include_path":"/other","new_plugin_path":"/ext","new_upload_path":"/file","replace_comments_post":"","replace_admin_ajax":"ajax","new_content_path":"inc","author_enable":"1","author_base":"","author_query":"","feed_enable":"1","feed_base":"","feed_query":"","post_enable":"1","post_base":"' . $permalink . '","post_query":"","page_enable":"1","page_base":"","page_query":"","paginate_enable":"1","paginate_base":"","paginate_query":"","category_enable":"1","category_base":"' . $category_base . '","category_query":"","tag_enable":"1","tag_base":"' . $tag_base . '","tag_query":"","search_enable":"1","search_base":"","search_query":"","nice_search_redirect":"","import_options":"","export_options":"","debug_report":"","minify_new_style":"safe","clean_new_style":"","rename_plugins":"","separator2":"","author_without_base":"","disable_archive":"","disable_other_wp":"","trusted_user_roles":"","hide_wp_login":"on","hide_wp_admin":"on","spy_notifier":"","separator":"","remove_body_class":"","remove_html_comments":"","antispam":"on","avoid_direct_access":"","hide_other_wp_files":"on","enable_ids":"on","ids_mode":"0","ids_level":"0","ids_admin_include":"","ids_cookie":"","log_ids_min":"5","block_ids_min":"20","full_hide":"","cdn_path":"","li":"' . $li . '","customized_htaccess":"","email_ids_min":"30","ids_html_fields":"","replace_in_ajax":"","blocked_ip_message":"You are blocked. Please contact site administrator if you think there is a problem.","blocked_countries":"","blocked_ips":"","help_trust_network":"on","trust_network":"on","api_base":"","api_query":"","new_login_path":"","exception_fields":"' . $ids_except . '"}',
+			'medium_privacy' => '{"replace_javascript_path":"3","disable_directory_listing":"on","exclude_plugins_access":"","exclude_theme_access":"","replace_wpnonce":"","replace_mode":"safe","custom_404":"0","custom_404_page":"","login_query":"' . self::slug . '","admin_key":"1234","remove_feed_meta":"on","hide_admin_bar":"","remove_other_meta":"on","clean_post_class":"","remove_menu_class":"","remove_default_description":"on","remove_ver_scripts":"on","direct_access_except":"index.php, wp-comments-post.php, wp-includes/js/tinymce/wp-tinymce.php, xmlrpc.php, wp-cron.php","disable_canonical_redirect":"","email_from_name":"' . get_bloginfo('blogname') . '","email_from_address":"' . $admin_email . '","replace_in_html":"","new_theme_path":"/skin","new_style_name":"main.css","style_expiry_days":"3","new_include_path":"/other","new_plugin_path":"/ext","new_upload_path":"/file","replace_comments_post":"","replace_admin_ajax":"ajax","new_content_path":"inc","author_enable":"1","author_base":"","author_query":"","feed_enable":"1","feed_base":"","feed_query":"","post_enable":"1","post_base":"' . $permalink . '","post_query":"","page_enable":"1","page_base":"","page_query":"","paginate_enable":"1","paginate_base":"","paginate_query":"","category_enable":"1","category_base":"' . $category_base . '","category_query":"","tag_enable":"1","tag_base":"' . $tag_base . '","tag_query":"","search_enable":"1","search_base":"","search_query":"","nice_search_redirect":"","import_options":"","export_options":"","debug_report":"","minify_new_style":"safe","clean_new_style":"","rename_plugins":"","separator2":"","author_without_base":"","disable_archive":"","disable_other_wp":"","trusted_user_roles":"","hide_wp_login":"on","hide_wp_admin":"on","spy_notifier":"","separator":"","remove_body_class":"","remove_html_comments":"","antispam":"on","avoid_direct_access":"","hide_other_wp_files":"on","enable_ids":"on","ids_mode":"0","ids_level":"0","ids_admin_include":"","ids_cookie":"","log_ids_min":"15","block_ids_min":"30","full_hide":"","cdn_path":"","li":"' . $li . '","customized_htaccess":"","email_ids_min":"0","ids_html_fields":"","replace_in_ajax":"","blocked_ip_message":"You are blocked. Please contact site administrator if you think there is a problem.","blocked_countries":"","blocked_ips":"","help_trust_network":"on","trust_network":"","api_base":"","api_query":"","new_login_path":"","exception_fields":"' . $ids_except . '"}',
 			'high_privacy' => '{"replace_javascript_path":"3","disable_directory_listing":"on","exclude_plugins_access":"","exclude_theme_access":"","replace_wpnonce":"","replace_mode":"safe","custom_404":"0","custom_404_page":"","hide_wp_login":"on","login_query":"' . self::slug . '","admin_key":"1234","hide_wp_admin":"on","remove_feed_meta":"on","hide_admin_bar":"on","remove_other_meta":"on","remove_body_class":"on","clean_post_class":"on","remove_menu_class":"on","remove_default_description":"on","remove_html_comments":"simple","remove_ver_scripts":"on","avoid_direct_access":"","direct_access_except":"index.php, wp-comments-post.php, wp-includes/js/tinymce/wp-tinymce.php, xmlrpc.php, wp-cron.php","hide_other_wp_files":"on","disable_canonical_redirect":"on","email_from_name":"' . get_bloginfo('blogname') . '","email_from_address":"' . $admin_email . '","replace_in_html":"","new_theme_path":"/template","new_style_name":"main.css","style_expiry_days":"3","minify_new_style":"quick","clean_new_style":"on","new_include_path":"/template/lib","new_plugin_path":"/template/ext","rename_plugins":"all","new_upload_path":"/storage","replace_comments_post":"submit_comment.php","replace_admin_ajax":"ajax","new_content_path":"inc","author_enable":"1","author_base":"profile","author_query":"profile","author_without_base":"","feed_enable":"1","feed_base":"rss.xml","feed_query":"rss","post_enable":"1","post_base":"' . $permalink . '","post_query":"entry","page_enable":"1","page_base":"/page","page_query":"page_num","paginate_enable":"1","paginate_base":"list","paginate_query":"list","category_enable":"1","category_base":"' . $category_base . '","category_query":"category","tag_enable":"1","tag_base":"' . $tag_base . '","tag_query":"keyword","search_enable":"1","search_base":"find","search_query":"find","nice_search_redirect":"on","disable_archive":"","disable_other_wp":"","import_options":"","export_options":"","debug_report":"","separator2":"","trusted_user_roles":"","antispam":"on","spy_notifier":"","separator":"","enable_ids":"on","ids_mode":"0","ids_level":"1","ids_admin_include":"","ids_cookie":"","log_ids_min":"1","block_ids_min":"20","full_hide":"on","cdn_path":"","li":"' . $li . '","customized_htaccess":"","email_ids_min":"20","ids_html_fields":"","replace_in_ajax":"","blocked_ip_message":"You are blocked. Please contact site administrator if you think there is a problem.","blocked_countries":"","blocked_ips":"","help_trust_network":"on","trust_network":"on","api_base":"api","api_query":"api","new_login_path":"", "hide_whatcms_detection" : "on", "api_disable": "on", "auto_config_plugins":"on","exception_fields":"' . $ids_except . '"}',
 		);
 		$settings = apply_filters('hmwp_pre_made_settings', $settings);
@@ -3536,7 +3547,7 @@ RewriteRule ^((wp-content|wp-includes|wp-admin)/(.*)) /" . $sub_install . "nothi
             $output .= 'RewriteCond %{REQUEST_URI} !(' . $white_regex . ')(.*)' . "\n";
             $output .= 'RewriteRule ^(.*)\.php(.*)' . ' /nothing_404_404' . $this->trust_key . ' [QSA,L]' . "\n";
         }
-                
+
         if (!$output)
             $output = __('Nothing to add for current settings!', self::slug);
         else
@@ -3766,12 +3777,12 @@ RewriteRule ^((wp-content|wp-includes|wp-admin)/(.*)) " . $this->sub_folder . '/
         if ($new_admin_path && $new_admin_path != 'wp-admin')
             $output .= 'RewriteRule ^' . $new_admin_path . '/(.*) /' . $this->sub_folder . 'wp-admin/$1' . $this->trust_key . ' [QSA,L]' . "\n";
 
-        if ($new_login_path && $new_login_path != 'wp-login.php') {			
+        if ($new_login_path && $new_login_path != 'wp-login.php') {
             if(is_multisite()) {
 				$blogs = get_sites();
 				foreach( $blogs as $blog ){
 					$output .= 'RewriteRule ^'.str_replace("/".$this->sub_folder,'',$blog->path) . $new_login_path . ' /' . $blog->path . 'wp-login.php' . $this->trust_key . ' [QSA,L]' . "\n";
-				}  
+				}
 			} else {
 				$output .= 'RewriteRule ^' . $new_login_path . ' /' . $this->sub_folder . 'wp-login.php' . $this->trust_key . ' [QSA,L]' . "\n";
 			}
@@ -3953,7 +3964,7 @@ RewriteRule ^((wp-content|wp-includes|wp-admin)/(.*)) " . $this->sub_folder . '/
     {
         return $this->global_html_filter($buffer);
     }
-    
+
     /**
      * Redirect wp-register.page to 404 page
      */
@@ -3971,11 +3982,11 @@ RewriteRule ^((wp-content|wp-includes|wp-admin)/(.*)) " . $this->sub_folder . '/
             }
         }
     }
-    
+
     /**
      * @version 6.0.0
      * @param type $schedules
-     * @return Create weekly cron job 
+     * @return Create weekly cron job
      */
     function hmwp_cron_add_weekly( $schedules ) {
         // Adds once weekly to the existing schedules.
@@ -3985,7 +3996,7 @@ RewriteRule ^((wp-content|wp-includes|wp-admin)/(.*)) " . $this->sub_folder . '/
         );
         return $schedules;
     }
-    
+
     /**
      * Function to run the cron job
      */
@@ -4002,7 +4013,7 @@ RewriteRule ^((wp-content|wp-includes|wp-admin)/(.*)) " . $this->sub_folder . '/
             update_option('wpw_api_weekly_cron_job', 'yes');
         }
         /**
-        * No need to get trust network rules as we have made it dynamic : 02-12-2019    
+        * No need to get trust network rules as we have made it dynamic : 02-12-2019
         $rules = get_option('trust_network_rules');
         */
         $banned_ips = $this->opt('blocked_ips') != '' ? explode(',', $this->opt('blocked_ips')) : array();
@@ -4031,7 +4042,7 @@ RewriteRule ^((wp-content|wp-includes|wp-admin)/(.*)) " . $this->sub_folder . '/
             }
         }
     }
-    
+
     public function hmwp_activation_redirect($plugin){
         if( $plugin == plugin_basename( __FILE__ ) ) {
            if(get_option('hmwp_setup_run') !== 'yes' && !is_multisite()){
@@ -4127,7 +4138,7 @@ RewriteRule ^((wp-content|wp-includes|wp-admin)/(.*)) " . $this->sub_folder . '/
 		}
 		return $url;
 	}
-	
+
 	public function get_client_ip()
 	{
 		// Nothing to do without any reliable information

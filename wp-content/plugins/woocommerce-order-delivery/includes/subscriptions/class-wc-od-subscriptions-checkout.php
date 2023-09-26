@@ -140,21 +140,6 @@ if ( ! class_exists( 'WC_OD_Subscriptions_Checkout' ) ) {
 		}
 
 		/**
-		 * Filters the registered delivery fields in the checkout form.
-		 *
-		 * @since 1.5.5
-		 * @deprecated 2.0.0
-		 *
-		 * @param array $fields The checkout fields.
-		 * @return array
-		 */
-		public function checkout_fields( $fields ) {
-			wc_deprecated_function( __FUNCTION__, '2.0.0' );
-
-			return $fields;
-		}
-
-		/**
 		 * Whether to enable the delivery fees for the specified cart.
 		 *
 		 * @since 2.0.0

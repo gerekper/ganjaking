@@ -6,7 +6,7 @@
  */
 
 /**
- * Implements multi keyword int he admin.
+ * Implements multi keyword in the admin.
  */
 class WPSEO_Multi_Keyword implements WPSEO_WordPress_Integration {
 

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Product Class.
  *
  * @class    WC_Product_Composite
- * @version  8.8.0
+ * @version  8.10.0
  */
 class WC_Product_Composite extends WC_Product {
 
@@ -1036,6 +1036,9 @@ class WC_Product_Composite extends WC_Product {
 	 * @return string
 	 */
 	public function get_add_to_cart_form_location( $context = 'view' ) {
+		if ( ! wc_cp_has_legacy_product_template( $this ) ) {
+			return 'default';
+		}
 		return $this->get_prop( 'add_to_cart_form_location', $context );
 	}
 

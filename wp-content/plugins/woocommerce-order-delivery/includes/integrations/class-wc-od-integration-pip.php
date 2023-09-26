@@ -66,10 +66,15 @@ class WC_OD_Integration_PIP implements WC_OD_Integration {
 		$delivery_date = $order->get_meta( '_delivery_date' );
 
 		if ( $delivery_date ) {
+			$time_frame = $order->get_meta( '_delivery_time_frame' );
+
 			$args = array(
 				'document_type'       => $document_type,
-				'delivery_date'       => $delivery_date,
-				'delivery_time_frame' => $order->get_meta( '_delivery_time_frame' ),
+				'date'                => $delivery_date,
+				'time_frame'          => $time_frame,
+				'is_local_pickup'     => wc_od_order_is_local_pickup( $order ),
+				'delivery_date'       => $delivery_date, // Deprecated.
+				'delivery_time_frame' => $time_frame, // Deprecated.
 			);
 
 			ob_start();

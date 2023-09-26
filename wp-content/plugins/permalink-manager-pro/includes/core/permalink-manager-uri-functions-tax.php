@@ -518,9 +518,9 @@ class Permalink_Manager_URI_Functions_Tax {
 					$old_uris[ $id ] = $new_uri;
 					$updated_array[] = array( 'item_title' => $this_term->name, 'ID' => $term_id, 'old_uri' => $old_uri, 'new_uri' => $new_uri, 'tax' => $this_term->taxonomy );
 					$updated_slugs_count ++;
-				}
 
-				do_action( 'permalink_manager_updated_term_uri', $term_id, $new_uri, $old_uri, $native_uri, $default_uri );
+					do_action( 'permalink_manager_updated_term_uri', $term_id, $new_uri, $old_uri, $native_uri, $default_uri );
+				}
 			}
 
 			// Filter array before saving & append the global

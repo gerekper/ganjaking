@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product Add-ons 6.4.6\n"
+"Project-Id-Version: WooCommerce Product Add-ons 6.4.7\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-09-04T10:24:13+00:00\n"
+"POT-Creation-Date: 2023-09-19T09:42:13+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "language-team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -35,141 +35,146 @@ msgstr ""
 msgid "https://woocommerce.com"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:61
-#: includes/admin/class-wc-product-addons-admin.php:443
+#: includes/admin/class-wc-product-addons-admin.php:63
+#: includes/admin/class-wc-product-addons-admin.php:465
+#: includes/admin/views/html-global-admin.php:13
 msgid "Add-ons"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:76
+#: includes/admin/class-wc-product-addons-admin.php:78
 #: includes/admin/class-wc-product-addons-privacy.php:24
 msgid "Product Add-ons"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:89
+#: includes/admin/class-wc-product-addons-admin.php:91
 msgid "Show Incomplete subtotal"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:104
+#: includes/admin/class-wc-product-addons-admin.php:106
 msgid "Show running subtotal, even if not all required add-on choices have been made."
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:207
+#: includes/admin/class-wc-product-addons-admin.php:209
 msgid "All fields must have a title and/or option name. Please review the settings highlighted in red border."
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:208
+#: includes/admin/class-wc-product-addons-admin.php:210
 #: includes/admin/views/html-addon.php:204
 msgid "Limit price range"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:209
+#: includes/admin/class-wc-product-addons-admin.php:211
 #: includes/admin/views/html-addon.php:208
 msgid "Limit quantity range"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:210
+#: includes/admin/class-wc-product-addons-admin.php:212
 #: includes/admin/views/html-addon.php:211
 #: includes/admin/views/html-addon.php:214
 msgid "Limit character length"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:211
+#: includes/admin/class-wc-product-addons-admin.php:213
 #: includes/admin/views/html-addon.php:198
 msgid "Restrictions"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:212
+#: includes/admin/class-wc-product-addons-admin.php:214
 msgid "Are you sure you want remove this add-on field?"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:213
+#: includes/admin/class-wc-product-addons-admin.php:215
 msgid "Are you sure you want delete this option?"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:214
+#: includes/admin/class-wc-product-addons-admin.php:216
 msgid "Add Image Swatch"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:215
+#: includes/admin/class-wc-product-addons-admin.php:217
 msgid "Add Image"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:247
-#: includes/admin/class-wc-product-addons-admin.php:470
-msgid "Product Add-Ons has detected that your server may have failed to process and save some of the data on this page. Please get in touch with your server's host or administrator and (kindly) ask them to increase the number of variables that PHP scripts can post and process%1$s."
-msgstr ""
-
-#: includes/admin/class-wc-product-addons-admin.php:247
-#: includes/admin/class-wc-product-addons-admin.php:470
-msgid " (currently %s)"
-msgstr ""
-
-#: includes/admin/class-wc-product-addons-admin.php:258
-msgid "Add-on saved successfully"
+#: includes/admin/class-wc-product-addons-admin.php:251
+msgid "Global add-ons"
 msgstr ""
 
 #: includes/admin/class-wc-product-addons-admin.php:269
-#: includes/admin/class-wc-product-addons-admin.php:286
+#: includes/admin/class-wc-product-addons-admin.php:492
+msgid "Product Add-Ons has detected that your server may have failed to process and save some of the data on this page. Please get in touch with your server's host or administrator and (kindly) ask them to increase the number of variables that PHP scripts can post and process%1$s."
+msgstr ""
+
+#: includes/admin/class-wc-product-addons-admin.php:269
+#: includes/admin/class-wc-product-addons-admin.php:492
+msgid " (currently %s)"
+msgstr ""
+
+#: includes/admin/class-wc-product-addons-admin.php:280
+msgid "Add-on saved successfully"
+msgstr ""
+
+#: includes/admin/class-wc-product-addons-admin.php:291
+#: includes/admin/class-wc-product-addons-admin.php:308
 msgid "Error: Add-on not found"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:301
-#: includes/admin/class-wc-product-addons-admin.php:376
+#: includes/admin/class-wc-product-addons-admin.php:323
+#: includes/admin/class-wc-product-addons-admin.php:398
 msgid "Add-ons Group"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:313
+#: includes/admin/class-wc-product-addons-admin.php:335
 msgid "Add-on deleted successfully"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:330
+#: includes/admin/class-wc-product-addons-admin.php:352
 msgid "Checkbox"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:333
+#: includes/admin/class-wc-product-addons-admin.php:355
 #: includes/admin/views/html-addon.php:170
 msgid "Price"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:336
+#: includes/admin/class-wc-product-addons-admin.php:358
 #: includes/admin/views/html-addon.php:81
 msgid "Quantity"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:339
+#: includes/admin/class-wc-product-addons-admin.php:361
 #: includes/admin/views/html-addon.php:77
 msgid "Short Text"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:342
+#: includes/admin/class-wc-product-addons-admin.php:364
 #: includes/admin/views/html-addon.php:78
 msgid "Long Text"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:345
+#: includes/admin/class-wc-product-addons-admin.php:367
 #: includes/admin/views/html-addon.php:79
 msgid "File Upload"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:348
+#: includes/admin/class-wc-product-addons-admin.php:370
 msgid "Dropdown"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:352
+#: includes/admin/class-wc-product-addons-admin.php:374
 #: includes/admin/views/html-addon.php:75
 msgid "Multiple Choice"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:763
+#: includes/admin/class-wc-product-addons-admin.php:785
 msgid "SKU:"
 msgstr ""
 
 #. translators: %s ID of variation
-#: includes/admin/class-wc-product-addons-admin.php:772
+#: includes/admin/class-wc-product-addons-admin.php:794
 msgid "%s (No longer exists)"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:775
+#: includes/admin/class-wc-product-addons-admin.php:797
 msgid "Variation ID:"
 msgstr ""
 
@@ -383,84 +388,80 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: includes/admin/views/html-global-admin-add.php:19
+#: includes/admin/views/html-global-admin-add.php:17
 msgid "Set up add-ons that apply to all products or specific product categories."
 msgstr ""
 
-#: includes/admin/views/html-global-admin-add.php:28
-#: includes/admin/views/html-global-admin.php:20
+#: includes/admin/views/html-global-admin-add.php:26
+#: includes/admin/views/html-global-admin.php:18
 msgid "Name"
 msgstr ""
 
-#: includes/admin/views/html-global-admin-add.php:32
+#: includes/admin/views/html-global-admin-add.php:30
 msgid "This name is for your reference only and will not be visible to customers."
 msgstr ""
 
-#: includes/admin/views/html-global-admin-add.php:37
-#: includes/admin/views/html-global-admin.php:21
+#: includes/admin/views/html-global-admin-add.php:35
+#: includes/admin/views/html-global-admin.php:19
 msgid "Priority"
 msgstr ""
 
-#: includes/admin/views/html-global-admin-add.php:41
+#: includes/admin/views/html-global-admin-add.php:39
 msgid "This determines the order when there are multiple add-ons. Add-ons for individual products are set to order 10."
 msgstr ""
 
-#: includes/admin/views/html-global-admin-add.php:46
-#: includes/admin/views/html-global-admin.php:22
+#: includes/admin/views/html-global-admin-add.php:44
+#: includes/admin/views/html-global-admin.php:20
 msgid "Product Categories"
 msgstr ""
 
-#: includes/admin/views/html-global-admin-add.php:49
+#: includes/admin/views/html-global-admin-add.php:47
 msgid "Choose categories&hellip;"
 msgstr ""
 
-#: includes/admin/views/html-global-admin-add.php:50
-#: includes/admin/views/html-global-admin.php:48
+#: includes/admin/views/html-global-admin-add.php:48
+#: includes/admin/views/html-global-admin.php:46
 msgid "All Products"
 msgstr ""
 
-#: includes/admin/views/html-global-admin-add.php:51
+#: includes/admin/views/html-global-admin-add.php:49
 msgid "Product categories"
 msgstr ""
 
-#: includes/admin/views/html-global-admin-add.php:62
+#: includes/admin/views/html-global-admin-add.php:60
 msgid "Select which categories this add-on should apply to. Create add-ons for a single product when editing that product."
 msgstr ""
 
-#: includes/admin/views/html-global-admin.php:15
-msgid "Add-Ons"
-msgstr ""
-
-#: includes/admin/views/html-global-admin.php:15
+#: includes/admin/views/html-global-admin.php:13
 msgid "Create New"
 msgstr ""
 
-#: includes/admin/views/html-global-admin.php:23
+#: includes/admin/views/html-global-admin.php:21
 msgid "Number of Fields"
 msgstr ""
 
-#: includes/admin/views/html-global-admin.php:39
+#: includes/admin/views/html-global-admin.php:37
 msgid "Edit"
 msgstr ""
 
-#: includes/admin/views/html-global-admin.php:39
+#: includes/admin/views/html-global-admin.php:37
 msgid "Delete"
 msgstr ""
 
-#: includes/admin/views/html-global-admin.php:50
+#: includes/admin/views/html-global-admin.php:48
 msgid "No Products Assigned"
 msgstr ""
 
-#: includes/admin/views/html-global-admin.php:66
+#: includes/admin/views/html-global-admin.php:64
 msgid "No add-ons found."
 msgstr ""
 
-#: includes/admin/views/html-global-admin.php:66
+#: includes/admin/views/html-global-admin.php:64
 msgid "Create add-ons."
 msgstr ""
 
 #. translators: %1$s is the HTML for the opening tag of the link element. 'Documentation' will be an <a> element linking to the WooCommerce.com docs %2$s is the closing tag.
-#: includes/admin/views/html-global-admin.php:86
+#: includes/admin/views/html-global-admin.php:84
 msgid "Need help with add-ons? Visit the %1$sDocumentation%2$s."
 msgstr ""
 

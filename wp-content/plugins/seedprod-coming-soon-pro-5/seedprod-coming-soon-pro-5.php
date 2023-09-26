@@ -3,7 +3,7 @@
 Plugin Name: SeedProd Pro
 Plugin URI: https://www.seedprod.com/lite-upgrade/?utm_source=WordPress&utm_campaign=liteplugin&utm_medium=plugin-uri-link
 Description: The Easiest WordPress Drag & Drop Page Builder that allows you to build your webiste, create Landing Pages, Coming Soon Pages, Maintenance Mode Pages and more.
-Version:  6.15.15.2
+Version:  6.15.15.3
 Author: SeedProd
 Author URI: https://www.seedprod.com/lite-upgrade/?utm_source=WordPress&utm_campaign=liteplugin&utm_medium=author-uri-link
 Text Domain: seedprod-pro
@@ -17,7 +17,7 @@ License: GPLv2 or later
 
 define( 'SEEDPROD_PRO_BUILD', 'pro' );
 define( 'SEEDPROD_PRO_SLUG', 'seedprod-coming-soon-pro-5/seedprod-coming-soon-pro-5.php' );
-define( 'SEEDPROD_PRO_VERSION', '6.15.15.2' );
+define( 'SEEDPROD_PRO_VERSION', '6.15.15.3' );
 define( 'SEEDPROD_PRO_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 // Example output: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/seedprod/
 define( 'SEEDPROD_PRO_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -27,13 +27,7 @@ if ( defined( 'SEEDPROD_LOCAL_JS' ) ) {
 //	define( 'SEEDPROD_PRO_API_URL', 'http://v4app.seedprod.test/v4/' );
 	define( 'SEEDPROD_PRO_WEB_API_URL', 'http://v4app.seedprod.test/' );
 	define( 'SEEDPROD_PRO_BACKGROUND_DOWNLOAD_API_URL', 'https://api.seedprod.com/v3/background_download' );
-
-} else {
-//	define( 'SEEDPROD_PRO_API_URL', 'https://api.seedprod.com/v4/' );
-	define( 'SEEDPROD_PRO_WEB_API_URL', 'https://app.seedprod.com/' );
-	define( 'SEEDPROD_PRO_BACKGROUND_DOWNLOAD_API_URL', 'https://api.seedprod.com/v3/background_download' );
-}
-add_action( 'plugins_loaded', function() {
+	add_action( 'plugins_loaded', function() {
 update_option( 'seedprod_user_id', wp_get_current_user() );
 update_option( 'seedprod_api_token', 'api_token');
 update_option( 'seedprod_api_key', 'api_key');
@@ -81,6 +75,12 @@ register_rest_route( 'seedprod/v1', '/templates', [
 ] );
 
 } );
+} else {
+//	define( 'SEEDPROD_PRO_API_URL', 'https://api.seedprod.com/v4/' );
+	define( 'SEEDPROD_PRO_WEB_API_URL', 'https://app.seedprod.com/' );
+	define( 'SEEDPROD_PRO_BACKGROUND_DOWNLOAD_API_URL', 'https://api.seedprod.com/v3/background_download' );
+}
+
 
 
 /**

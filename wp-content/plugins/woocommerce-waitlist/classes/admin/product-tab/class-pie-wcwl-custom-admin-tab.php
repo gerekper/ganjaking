@@ -82,7 +82,7 @@ if ( ! class_exists( 'Pie_WCWL_Custom_Tab' ) ) {
 				return '#ERROR: VARIATION NOT FOUND';
 			}
 			$title = self::get_variation_name( $variation );
-			$count = get_post_meta( $variation, '_woocommerce_waitlist_count', true );
+			$count = get_post_meta( $variation->get_id(), '_woocommerce_waitlist_count', true );
 			if ( ! $count ) {
 				$count = 0;
 			}

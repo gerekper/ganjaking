@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.3.0
+ * @version     1.4.0
  * @package     WooCommerce Smart Coupons
  */
 
@@ -94,13 +94,17 @@ if ( ! class_exists( 'WC_SC_Act_Deact' ) ) {
 				}
 			}
 
+			if ( is_multisite() ) {
+				require_once ABSPATH . WPINC . '/ms-blogs.php';
+			}
+
 			foreach ( $blog_ids as $blogid ) {
 
 				if ( ( file_exists( WP_PLUGIN_DIR . '/woocommerce/woocommerce.php' ) ) && ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) ) {
 
-					$wpdb_obj     = clone $wpdb;
-					$wpdb->blogid = $blogid;
-					$wpdb->set_prefix( $wpdb->base_prefix );
+					if ( is_multisite() ) {
+						switch_to_blog( $blogid );
+					}
 
 					$results = $wpdb->get_col(
 						$wpdb->prepare(
@@ -181,7 +185,9 @@ if ( ! class_exists( 'WC_SC_Act_Deact' ) ) {
 						}
 					}
 
-					$wpdb = clone $wpdb_obj; // phpcs:ignore
+					if ( is_multisite() ) {
+						restore_current_blog();  // phpcs:ignore
+					}
 				}
 			}
 

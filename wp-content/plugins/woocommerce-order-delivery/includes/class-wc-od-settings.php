@@ -130,6 +130,7 @@ class WC_OD_Settings {
 				'delivery_events'          => array(),
 				'delivery_fields_option'   => 'optional',
 				'checkout_text'            => '',
+				'pickup_text'              => '',
 			);
 
 			/**

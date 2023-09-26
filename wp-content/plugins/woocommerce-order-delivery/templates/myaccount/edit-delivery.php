@@ -1,9 +1,9 @@
 <?php
 /**
- * My Account edit-delivery
+ * My Account edit-delivery.
  *
  * @package WC_OD/Templates
- * @version 1.5.4
+ * @version 2.6.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -41,7 +41,7 @@ $fields = wc_od_get_subscription_delivery_fields( $subscription );
 		echo wp_kses_post(
 			sprintf(
 				/* translators: %s: view subscription URL */
-				__( 'Here you can change the delivery preferences for the subscription: %s', 'woocommerce-order-delivery' ),
+				__( 'Here you can change the preferences for subscription: %s', 'woocommerce-order-delivery' ),
 				sprintf( '<a href="%1$s">#%2$s</a>', esc_url( $subscription->get_view_order_url() ), esc_html( $subscription->get_id() ) )
 			)
 		);
@@ -66,7 +66,7 @@ $fields = wc_od_get_subscription_delivery_fields( $subscription );
 				<?php wp_nonce_field( 'wc_od_edit_delivery' ); ?>
 				<input type="hidden" name="action" value="edit_delivery" />
 				<input type="hidden" name="subscription_id" id="subscription_id" value="<?php echo esc_attr( $subscription->get_id() ); ?>" />
-				<input type="submit" class="button" name="save_delivery" value="<?php esc_attr_e( 'Save Preferences', 'woocommerce-order-delivery' ); ?>" />
+				<input type="submit" class="button" name="save_delivery" value="<?php esc_attr_e( 'Save preferences', 'woocommerce-order-delivery' ); ?>" />
 			</p>
 		</form>
 

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.2.0
+ * @version     2.3.0
  * @package     woocommerce-smart-coupons/includes/
  */
 
@@ -1041,7 +1041,7 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 				'discount_type'      => __( 'Discount', 'woocommerce-smart-coupons' ),
 				'coupon_description' => __( 'Hurry. Going fast! On the entire range of products.', 'woocommerce-smart-coupons' ),
 				'coupon_code'        => 'sample-code',
-				'coupon_expiry'      => $this->get_expiration_format( strtotime( 'Dec 31' ) ),
+				'coupon_expiry'      => $this->get_expiration_format( $this->strtotime( 'Dec 31' ) ),
 				'thumbnail_src'      => $this->get_coupon_design_thumbnail_src(),
 				'classes'            => '',
 				'template_id'        => $design,

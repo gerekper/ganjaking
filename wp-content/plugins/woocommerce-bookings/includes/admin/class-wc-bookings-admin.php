@@ -620,34 +620,37 @@ class WC_Bookings_Admin {
 		}
 
 		wp_enqueue_style( 'jquery-ui-style', WC_BOOKINGS_PLUGIN_URL . '/dist/css/jquery-ui-styles.css', array(), '1.11.4-wc-bookings.' . WC_BOOKINGS_VERSION );
-		wp_enqueue_style( 'wc_bookings_admin_styles', WC_BOOKINGS_PLUGIN_URL . '/dist/css/admin.css', null, WC_BOOKINGS_VERSION );
-		wp_register_script( 'wc_bookings_admin_js', WC_BOOKINGS_PLUGIN_URL . '/dist/admin.js', array( 'jquery', 'jquery-ui-datepicker', 'jquery-ui-sortable' ), WC_BOOKINGS_VERSION, true );
+		wp_enqueue_style( 'wc_bookings_admin_styles', WC_BOOKINGS_PLUGIN_URL . '/dist/css/admin.css', array( 'wp-components' ), WC_BOOKINGS_VERSION );
+		$admin_script_dependencies = wc_booking_get_script_dependencies( 'admin', array( 'jquery-ui-datepicker', 'jquery-ui-sortable' ) );
+		wp_register_script( 'wc_bookings_admin_js', WC_BOOKINGS_PLUGIN_URL . '/dist/admin.js', $admin_script_dependencies, WC_BOOKINGS_VERSION, true );
 
 		if ( 'wc_booking_page_create_booking' === $screen->id ) {
 			wp_enqueue_script( 'wc-bookings-date' );
-			wp_register_script( 'wc_bookings_admin_time_picker_js', WC_BOOKINGS_PLUGIN_URL . '/dist/admin-time-picker.js', null, WC_BOOKINGS_VERSION, true );
+			wp_register_script( 'wc_bookings_admin_time_picker_js', WC_BOOKINGS_PLUGIN_URL . '/dist/admin-time-picker.js', wc_booking_get_script_dependencies( 'admin-time-picker' ), WC_BOOKINGS_VERSION, true );
 		}
 
 		if ( 'wc_booking_page_booking_calendar' === $screen->id ) {
 			if ( WC_BOOKINGS_GUTENBERG_EXISTS ) {
-				wp_register_script( 'wc_bookings_admin_calendar_gutenberg_js', WC_BOOKINGS_PLUGIN_URL . '/dist/admin-calendar-gutenberg.js', array( 'wc_bookings_admin_js', 'wp-components', 'wp-element' ), WC_BOOKINGS_VERSION, true );
+				$admin_calendar_gutenberg_deps = wc_booking_get_script_dependencies( 'admin-calendar-gutenberg', array( 'wc_bookings_admin_js' ) );
+				wp_register_script( 'wc_bookings_admin_calendar_gutenberg_js', WC_BOOKINGS_PLUGIN_URL . '/dist/admin-calendar-gutenberg.js', $admin_calendar_gutenberg_deps, WC_BOOKINGS_VERSION, true );
 				wp_enqueue_style( 'wc_bookings_admin_calendar_css', WC_BOOKINGS_PLUGIN_URL . '/dist/css/admin-calendar-gutenberg.css', null, WC_BOOKINGS_VERSION );
 			}
-			wp_register_script( 'wc_bookings_admin_calendar_js', WC_BOOKINGS_PLUGIN_URL . '/dist/admin-calendar.js', array(), WC_BOOKINGS_VERSION, true );
+			wp_register_script( 'wc_bookings_admin_calendar_js', WC_BOOKINGS_PLUGIN_URL . '/dist/admin-calendar.js', wc_booking_get_script_dependencies( 'admin-calendar' ), WC_BOOKINGS_VERSION, true );
 		}
 		if ( 'wc_booking_page_wc_bookings_settings' === $screen->id ) {
 			if ( WC_BOOKINGS_GUTENBERG_EXISTS ) {
-				wp_register_script( 'wc_bookings_admin_store_availability_js', WC_BOOKINGS_PLUGIN_URL . '/dist/admin-store-availability.js', array( 'wc_bookings_admin_js', 'wp-components', 'wp-element' ), WC_BOOKINGS_VERSION, true );
+				$admin_store_availability_deps = wc_booking_get_script_dependencies( 'admin-store-availability.js', array( 'wc_bookings_admin_js' ) );
+				wp_register_script( 'wc_bookings_admin_store_availability_js', WC_BOOKINGS_PLUGIN_URL . '/dist/admin-store-availability.js', $admin_store_availability_deps, WC_BOOKINGS_VERSION, true );
 				wp_enqueue_style( 'wc_bookings_admin_store_availability_css', WC_BOOKINGS_PLUGIN_URL . '/dist/css/admin-store-availability.css', null, WC_BOOKINGS_VERSION );
 			}
 		}
 
 		if ( 'wc_booking' === $screen->id ) {
-			wp_enqueue_script( 'wc_bookings_admin_edit_booking_js', WC_BOOKINGS_PLUGIN_URL . '/dist/admin-edit-booking.js', array( 'jquery', 'wp-i18n' ), WC_BOOKINGS_VERSION, true );
+			wp_enqueue_script( 'wc_bookings_admin_edit_booking_js', WC_BOOKINGS_PLUGIN_URL . '/dist/admin-edit-booking.js', wc_booking_get_script_dependencies( 'admin-edit-booking' ), WC_BOOKINGS_VERSION, true );
 		}
 
 		if ( 'product' === $screen->id ) {
-			wp_enqueue_script( 'wc_bookings_admin_edit_bookable_product_js', WC_BOOKINGS_PLUGIN_URL . '/dist/admin-edit-bookable-product.js', array( 'jquery' ), WC_BOOKINGS_VERSION, true );
+			wp_enqueue_script( 'wc_bookings_admin_edit_bookable_product_js', WC_BOOKINGS_PLUGIN_URL . '/dist/admin-edit-bookable-product.js', wc_booking_get_script_dependencies( 'admin-edit-bookable-product' ), WC_BOOKINGS_VERSION, true );
 		}
 
 		$params = array(

@@ -3,12 +3,12 @@
  * Plugin Name: WooCommerce Servired/RedSys Spain Gateway
  * Plugin URI: https://woocommerce.com/products/redsys-gateway/
  * Description: Extends WooCommerce with RedSys gateway.
- * Version: 22.2.0
+ * Version: 22.2.1
  * Author: José Conti
  * Author URI: https://www.joseconti.com/
  * Tested up to: 6.3
  * WC requires at least: 7.4
- * WC tested up to: 8.0
+ * WC tested up to: 8.1
  * Woo: 187871:50392593e834002d8bee386333d1ed3c
  * Text Domain: woocommerce-redsys
  * Domain Path: /languages/
@@ -24,7 +24,7 @@
 use Automattic\WooCommerce\Utilities\OrderUtil;
 
 if ( ! defined( 'REDSYS_VERSION' ) ) {
-	define( 'REDSYS_VERSION', '22.2.0' );
+	define( 'REDSYS_VERSION', '22.2.1' );
 }
 if ( ! defined( 'REDSYS_LICENSE_SITE_ID' ) ) {
 	define( 'REDSYS_LICENSE_SITE_ID', 1 );
@@ -55,6 +55,15 @@ if ( ! defined( 'REDSYS_PLUGIN_BASENAME' ) ) {
 
 if ( ! defined( 'REDSYS_POST_UPDATE_URL_P' ) ) {
 	define( 'REDSYS_POST_UPDATE_URL_P', 'https://redsys.joseconti.com/2023/09/05/woocommerce-redsys-gateway-22-2-x/' );
+}
+
+if ( ! defined( 'REDSYS_ITEM_NANE' ) ) {
+	define( 'REDSYS_ITEM_NANE', 'woocommerce-gateway-redsys' );
+}
+$spaces = wp_spaces_regexp();
+$prefix = preg_replace( "/$spaces/", '_', strtolower( REDSYS_ITEM_NANE ) );
+if ( ! defined( 'REDSYS_PREFIX' ) ) {
+	define( 'REDSYS_PREFIX', $prefix );
 }
 
 add_action(
@@ -806,6 +815,22 @@ function woocommerce_gateway_redsys_premium_init() {
 			)
 		);
 	}
+	/*
+	require_once REDSYS_PLUGIN_PATH_P . 'classes/class-wc-gateway-redsys-license.php';
+
+	new WC_Gateway_Redsys_License(
+		'https://redsys.joseconti.com/',
+		__FILE__,
+		array(
+			'version'    => REDSYS_VERSION,
+			'item_name'  => REDSYS_ITEM_NANE,
+			'menu_slug'  => REDSYS_ITEM_NANE . '-license',
+			'menu_title' => 'REDSYS License',
+			'license'    => '', // current license key.
+			'prefix'     => REDSYS_PREFIX,
+		)
+	);
+	*/
 }
 
 /**
@@ -813,3 +838,5 @@ function woocommerce_gateway_redsys_premium_init() {
  */
 
 require_once REDSYS_PLUGIN_PATH_P . 'includes/load-checkout-blocks.php';
+
+// WooCommerce Redsys Gateway License.

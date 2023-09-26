@@ -44,7 +44,7 @@ $has_outdated = false;
 			<td>
 				<?php
 				if ( empty( $data['overrides'] ) ) :
-					esc_html_e( '-', 'woocommerce-order-delivery' );
+					echo '-';
 				else :
 					$overrides_html = array();
 

@@ -80,7 +80,7 @@ class WC_Stamps_Balance {
 			return;
 		}
 
-		$balance = $this->get_current_balance( isset( $_GET['wc-stamps-refresh'] ) );
+		$balance = $this->get_current_balance( isset( $_GET['wc-stamps-refresh'] ) && check_admin_referer( 'wc-stamps-refresh' ) );
 
 		if ( false === $balance ) {
 			$balance_string     = __( 'API Error', 'woocommerce-shipping-stamps' );
@@ -94,7 +94,7 @@ class WC_Stamps_Balance {
 			'id'     => 'stamps-com',
 			'parent' => 'top-secondary',
 			'title'  => '<span class="ab-icon"></span> Stamps: ' . $balance_string,
-			'href'   => add_query_arg( 'wc-stamps-refresh', 'true' ),
+			'href'   => wp_nonce_url( add_query_arg( 'wc-stamps-refresh', 'true' ), 'wc-stamps-refresh' ),
 			'meta'   => array( 'class' => $balance_node_class ),
 		) );
 
@@ -102,7 +102,7 @@ class WC_Stamps_Balance {
 			'parent' => 'stamps-com',
 			'id'     => 'stamps-com-topup',
 			'title'  => __( 'Top-up Balance', 'woocommerce-shipping-stamps' ),
-			'href'   => admin_url( 'index.php?page=wc-stamps-topup' ),
+			'href'   => wp_nonce_url( admin_url( 'index.php?page=wc-stamps-topup' ), 'wc-stamps-topup', '_wpnonce_stamps-topup' ),
 			'meta'   => false,
 		) );
 
@@ -121,7 +121,7 @@ class WC_Stamps_Balance {
 				'parent' => 'stamps-com',
 				'id'     => 'stamps-com-' . sanitize_title( $key ),
 				'title'  => $value,
-				'href'   => add_query_arg( 'stamps_redirect', $key, admin_url() ),
+				'href'   => wp_nonce_url( add_query_arg( 'stamps_redirect', $key, admin_url() ), 'stamps-redirect' ),
 				'meta'   => false,
 			) );
 		}
@@ -137,8 +137,10 @@ class WC_Stamps_Balance {
 		if ( empty( $_GET['page'] ) ) {
 			return;
 		}
+
 		switch ( $_GET['page'] ) {
 			case 'wc-stamps-topup' :
+				check_admin_referer( 'wc-stamps-topup','_wpnonce_stamps-topup' );
 				$page = add_dashboard_page( __( 'Stamps.com balance top-up', 'woocommerce-shipping-stamps' ), __( 'Stamps.com top-up', 'woocommerce-shipping-stamps' ), 'manage_woocommerce', 'wc-stamps-topup', array( $this, 'topup_screen' ) );
 			break;
 		}
@@ -158,12 +160,12 @@ class WC_Stamps_Balance {
 	 * Redirect to stamps.com.
 	 */
 	public function stamps_redirect() {
-		if ( ! empty( $_GET['stamps_redirect'] ) ) {
+		if ( ! empty( $_GET['stamps_redirect'] ) && check_admin_referer( 'stamps-redirect' ) ) {
 			$url = WC_Stamps_API::get_url( sanitize_text_field( $_GET['stamps_redirect'] ) );
 
 			if ( $url ) {
-				// phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect -- Redirect to Stamps.com
-				wp_redirect( $url );
+				// Redirect to Stamps.com.
+				wp_redirect( $url ); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
 				exit;
 			}
 		}
@@ -429,9 +431,7 @@ class WC_Stamps_Balance {
 	 * Screen for adding stamps balance manually.
 	 */
 	public function topup_screen() {
-		if ( ! empty( $_POST['stamps_topup_amount'] ) ) {
-			check_admin_referer( 'woocommerce-stamps-topup' );
-
+		if ( ! empty( $_POST['stamps_topup_amount'] ) && check_admin_referer( 'woocommerce-stamps-topup' ) ) {
 			// Schedule a forced top-up (i.e. a top-up that happens even if other
 			// top-ups are already scheduled).
 			self::schedule_top_up( absint( $_POST['stamps_topup_amount'] ), $this->get_current_control_total(), true );

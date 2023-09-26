@@ -1,4 +1,10 @@
 <?php
+/**
+ * Class WooCommerce_Order_Barcodes file.
+ *
+ * @package woocommerce-order-barcodes
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -8,94 +14,99 @@ use \Milon\Barcode\DNS2D;
 
 use WooCommerce\OrderBarcodes\Order_Util;
 
+/**
+ * Class WooCommerce_Order_Barcodes.
+ *
+ * @package woocommerce-order-barcodes
+ */
 class WooCommerce_Order_Barcodes {
 	use Order_Util;
 
 	/**
 	 * The single instance of WooCommerce_Order_Barcodes.
-	 * @var 	object
-	 * @access  private
-	 * @since 	1.0.0
+	 *
+	 * @var   object
+	 * @since 1.0.0
 	 */
-	private static $_instance = null;
+	private static $instance = null;
 
 	/**
 	 * Settings class object
-	 * @var     object
-	 * @access  public
-	 * @since   1.0.0
+	 *
+	 * @var   object
+	 * @since 1.0.0
 	 */
 	public $settings = null;
 
 	/**
 	 * The version number.
-	 * @var     string
-	 * @access  public
-	 * @since   1.0.0
+	 *
+	 * @var   string
+	 * @since 1.0.0
 	 */
-	public $_version;
+	public $version;
 
 	/**
 	 * The token.
-	 * @var     string
-	 * @access  public
-	 * @since   1.0.0
+	 *
+	 * @var   string
+	 * @since 1.0.0
 	 */
-	public $_token;
+	public $token;
 
 	/**
 	 * The main plugin file.
-	 * @var     string
-	 * @access  public
-	 * @since   1.0.0
+	 *
+	 * @var   string
+	 * @since 1.0.0
 	 */
 	public $file;
 
 	/**
 	 * The main plugin directory.
-	 * @var     string
-	 * @access  public
-	 * @since   1.0.0
+	 *
+	 * @var   string
+	 * @since 1.0.0
 	 */
 	public $dir;
 
 	/**
 	 * The plugin assets directory.
-	 * @var     string
-	 * @access  public
-	 * @since   1.0.0
+	 *
+	 * @var   string
+	 * @since 1.0.0
 	 */
 	public $assets_dir;
 
 	/**
 	 * The plugin assets URL.
-	 * @var     string
-	 * @access  public
-	 * @since   1.0.0
+	 *
+	 * @var   string
+	 * @since 1.0.0
 	 */
 	public $assets_url;
 
 	/**
 	 * Suffix for Javascripts.
-	 * @var     string
-	 * @access  public
-	 * @since   1.0.0
+	 *
+	 * @var   string
+	 * @since 1.0.0
 	 */
 	public $script_suffix;
 
 	/**
 	 * Barcode enabled or not.
-	 * @var     string
-	 * @access  public
-	 * @since   1.6.4
+	 *
+	 * @var   string
+	 * @since 1.6.4
 	 */
 	public $barcode_enable;
 
 	/**
 	 * Type of barcode to be used.
-	 * @var     string
-	 * @access  public
-	 * @since   1.0.0
+	 *
+	 * @var   string
+	 * @since 1.0.0
 	 */
 	public $barcode_type = 'code128';
 
@@ -108,37 +119,37 @@ class WooCommerce_Order_Barcodes {
 
 	/**
 	 * Color of barcode.
-	 * @var     string
-	 * @access  public
-	 * @since   1.0.0
+	 *
+	 * @var   string
+	 * @since 1.0.0
 	 */
 	public $barcode_colours = array( 'foreground' => '#000000' );
 
 	/**
 	 * Constructor function.
-	 * @access  public
+	 *
 	 * @since   1.0.0
-	 * @param   string $file    Plugin file
-	 * @param   string $version Plugin version
+	 * @param   string $file    Plugin file.
+	 * @param   string $version Plugin version.
 	 * @return  void
 	 */
-	public function __construct ( $file = WC_ORDER_BARCODES_FILE, $version = WC_ORDER_BARCODES_VERSION ) {
+	public function __construct( $file = WC_ORDER_BARCODES_FILE, $version = WC_ORDER_BARCODES_VERSION ) {
 
-		// Set plugin data
-		$this->_version = $version;
-		$this->_token = 'woocommerce_order_barcodes';
+		// Set plugin data.
+		$this->version = $version;
+		$this->token   = 'woocommerce_order_barcodes';
 
 		// Set global variables.
-		$this->file = $file;
-		$this->dir = dirname( $this->file );
-		$this->assets_dir = trailingslashit( $this->dir ) . 'assets';
-		$this->assets_url = esc_url( trailingslashit( plugins_url( '/assets/', $this->file ) ) );
+		$this->file          = $file;
+		$this->dir           = dirname( $this->file );
+		$this->assets_dir    = trailingslashit( $this->dir ) . 'assets';
+		$this->assets_url    = esc_url( trailingslashit( plugins_url( '/assets/', $this->file ) ) );
 		$this->script_suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 		// Apply plugin settings.
-		$this->barcode_enable = get_option( 'wc_order_barcodes_enable', 'yes' );
-		$this->barcode_type = get_option( 'wc_order_barcodes_type', 'code128' );
-		$this->barcode_colours = get_option( 'wc_order_barcodes_colours', array( 'foreground' => '#000000' ) );
+		$this->barcode_enable    = get_option( 'wc_order_barcodes_enable', 'yes' );
+		$this->barcode_type      = get_option( 'wc_order_barcodes_type', 'code128' );
+		$this->barcode_colours   = get_option( 'wc_order_barcodes_colours', array( 'foreground' => '#000000' ) );
 		$this->barcode_generator = new WooCommerce_Order_Barcodes_Generator_Tclib( $this->barcode_colours['foreground'], $this->barcode_type );
 
 		// Declare HPOS Compatibility.
@@ -148,7 +159,7 @@ class WooCommerce_Order_Barcodes {
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_assets' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_frontend_assets' ) );
 
-		// Add barcode to order complete email
+		// Add barcode to order complete email.
 		add_action( 'woocommerce_email_after_order_table', array( $this, 'get_email_barcode' ), 1, 1 );
 
 		// Display barcode on order details page.
@@ -165,7 +176,7 @@ class WooCommerce_Order_Barcodes {
 		add_action( 'wp_ajax_save_barcode', array( $this, 'save_barcode' ) );
 		add_action( 'wp_ajax_nopriv_save_barcode', array( $this, 'save_barcode' ) );
 
-		// Add shortcode for barcode scanner
+		// Add shortcode for barcode scanner.
 		add_shortcode( 'scan_barcode', array( $this, 'barcode_scan_form' ) );
 
 		// Process barcode input/scan.
@@ -176,12 +187,20 @@ class WooCommerce_Order_Barcodes {
 		add_action( 'woocommerce_admin_order_data_after_order_details', array( $this, 'checkin_status_edit_field' ), 10, 1 );
 		add_action( 'woocommerce_process_shop_order_meta', array( $this, 'checkin_status_edit_save' ), 40, 2 );
 
-		// Remove the barcode from API responses. Disabled by default. Can use __return_true or __return_false to toggle.
+		/**
+		 * Remove the barcode from API responses. Disabled by default. Can use __return_true or __return_false to toggle.
+		 *
+		 * @since 1.3.1
+		 */
 		if ( true === apply_filters( 'wc_order_barcodes_remove_image_from_api', false ) ) {
 			add_filter( 'woocommerce_rest_prepare_shop_order_object', array( $this, 'remove_barcode_from_api_response' ), null, 3 );
 		}
 
-		// Add barcode url in API responses. Enabled by default. Can use __return_true or __return_false to toggle.
+		/**
+		 * Add barcode url in API responses. Enabled by default. Can use __return_true or __return_false to toggle.
+		 *
+		 * @since 1.3.24
+		 */
 		if ( true === apply_filters( 'wc_order_barcodes_add_url_in_api', true ) ) {
 			add_filter( 'woocommerce_rest_prepare_shop_order_object', array( $this, 'add_barcode_url_in_api_response' ), 10, 3 );
 		}
@@ -274,9 +293,8 @@ class WooCommerce_Order_Barcodes {
 	/**
 	 * Save barcode via ajax.
 	 *
-	 * @access  public
-	 * @since   1.0.0
-	 * @return  void
+	 * @since  1.0.0
+	 * @return void
 	 */
 	public function save_barcode() {
 		$nonce = ! empty( $_REQUEST['security'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['security'] ) ) : '';
@@ -291,47 +309,58 @@ class WooCommerce_Order_Barcodes {
 	}
 
 	/**
-	 * Get text string for barcode
-	 * @access  public
-	 * @since   1.0.0
-	 * @return  void
+	 * Get text string for barcode.
+	 *
+	 * @since  1.0.0
+	 * @return string
 	 */
-	public function get_barcode_string () {
+	public function get_barcode_string() {
 
-		// Use PHP's uniqid() for the barcode
+		// Use PHP's uniqid() for the barcode.
 		$barcode_string = uniqid();
 
-		// Check if this barcode already exists and add increment if so
+		// Check if this barcode already exists and add increment if so.
 		$existing_order_id = $this->get_barcode_order( $barcode_string );
-		$orig_string = $barcode_string;
-		$i = 1;
-		while( $existing_order_id != 0 ) {
-			$barcode_string = $orig_string . $i;
+		$orig_string       = $barcode_string;
+		$i                 = 1;
+		while ( 0 !== $existing_order_id ) {
+			$barcode_string    = $orig_string . $i;
 			$existing_order_id = $this->get_barcode_order( $barcode_string );
 			++$i;
 		}
 
-		// Return unique barcode
-		return apply_filters( $this->_token . '_barcode_string', $barcode_string );
+		/**
+		 * Filter to manipulate barcode string.
+		 * Return unique barcode.
+		 *
+		 * @since 1.1.2
+		 */
+		return apply_filters( $this->token . '_barcode_string', $barcode_string );
 
 	} // End get_barcode_string ()
 
 	/**
 	 * Get barcode for display in an email.
-	 * @since   1.0.0
-	 * @param   object $order Order object
-	 * @return  void
+	 *
+	 * @since  1.0.0
+	 * @param  object $order WC_Order object.
+	 * @return void
 	 */
 	public function get_email_barcode( $order ) {
 		if ( ! $order ) {
 			return;
 		}
 
+		/**
+		 * Filter to hide barcode display.
+		 *
+		 * @since 1.3.19
+		 */
 		if ( ! apply_filters( 'woocommerce_order_barcodes_display_barcode', true ) ) {
 			return;
 		}
 
-		// Generate correctly formatted HTML for email
+		// Generate correctly formatted HTML for email.
 		ob_start(); ?>
 		<table cellspacing="0" cellpadding="0" border="0" style="width:100%;border:0;text-align:center;margin-top:20px;margin-bottom:20px;">
 			<tbody>
@@ -339,31 +368,37 @@ class WooCommerce_Order_Barcodes {
 					<td style="text-align:center;vertical-align:middle;word-wrap:normal;">
 						<?php
 						// The method use `display_barcode()` which already has an escape function.
-						echo $this->maybe_display_barcode( $order );//phpcs:ignore
+						echo $this->maybe_display_barcode( $order ); //phpcs:ignore
 						?>
 					</td>
 				</tr>
 			</tbody>
 		</table>
 		<?php
-		// Get after text
+		// Get after text.
 		$email = ob_get_clean();
 
 		// The output will only has <table> tag and `maybe_display_barcode()` return value.
-		echo $email;//phpcs:ignore
+		echo $email; //phpcs:ignore
 	}
 
 	/**
 	 * Get barcode for frontend display
+	 *
 	 * @since   1.0.0
-	 * @param   object $order Order object
-	 * @return  void
+	 * @param  object $order WC_Order object.
+	 * @return void
 	 */
 	public function get_display_barcode( $order ) {
 		if ( ! $order ) {
 			return;
 		}
 
+		/**
+		 * Filter to hide barcode display.
+		 *
+		 * @since 1.3.19
+		 */
 		if ( ! apply_filters( 'woocommerce_order_barcodes_display_barcode', true ) ) {
 			return;
 		}
@@ -379,7 +414,6 @@ class WooCommerce_Order_Barcodes {
 	/**
 	 * Add barcode meta box to order edit screen
 	 *
-	 * @access  public
 	 * @since   1.0.0
 	 * @param   String           $post_type Current post type.
 	 * @param   WP_Post|WC_Order $post_or_order_object Either Post object or Order object.
@@ -414,7 +448,7 @@ class WooCommerce_Order_Barcodes {
 		$order        = $this->init_theorder_object( $post_or_order_object );
 		$barcode_text = $this->get_order_or_post_meta( $order->get_id(), '_barcode_text' );
 
-		wp_enqueue_style( $this->_token . '-admin' );
+		wp_enqueue_style( $this->token . '-admin' );
 
 		if ( ! $barcode_text ) {
 			$this->generate_barcode( $order->get_id() );
@@ -469,7 +503,7 @@ class WooCommerce_Order_Barcodes {
 			return ob_get_clean();
 		}
 
-		$barcode  = '<div class="woocommerce-order-barcodes-container" style="text-align:center;justify-content: center;display:grid;margin-top:5px;">';
+		$barcode = '<div class="woocommerce-order-barcodes-container" style="text-align:center;justify-content: center;display:grid;margin-top:5px;">';
 
 		// Generate barcode image based on string and selected type. And use SVG for datamatrix.
 		$barcode_output = ( 'datamatrix' === $this->barcode_type ) ? 'SVG' : 'HTML';
@@ -508,12 +542,17 @@ class WooCommerce_Order_Barcodes {
 	 * @return string Form markup
 	 */
 	public function barcode_scan_form( $params = array() ) {
+		/**
+		 * Filter to check if user has barcode scanning permissions.
+		 *
+		 * @since 1.1.0
+		 */
+		$can_scan = apply_filters( $this->token . '_scan_permission', current_user_can( 'manage_woocommerce' ), 0 );
+		if ( ! $can_scan ) {
+			return;
+		}
 
-		// Check if user has barcode scanning permissions
-		$can_scan = apply_filters( $this->_token . '_scan_permission', current_user_can( 'manage_woocommerce' ), 0 );
-		if( ! $can_scan ) return;
-
-		// Get shortcode parameters
+		// Get shortcode parameters.
 		$atts = shortcode_atts(
 			array(
 				'action' => '',
@@ -523,10 +562,10 @@ class WooCommerce_Order_Barcodes {
 
 		$action = esc_html( $atts['action'] );
 
-		// Add .woocommerce class as CSS namespace
+		// Add .woocommerce class as CSS namespace.
 		$html = '<div class="woocommerce">';
 
-			// Create form
+			// Create form.
 			$html .= '<div id="barcode-scan-form">
 						<form name="barcode-scan" action="" method="post">
 							<select name="scan-action" id="scan-action" class="scan_action" required>
@@ -543,15 +582,15 @@ class WooCommerce_Order_Barcodes {
 						</form>
 					  </div>';
 
-			// Add loading text
+			// Add loading text.
 			$html .= '<div id="barcode-scan-loader">' . __( 'Processing barcode...', 'woocommerce-order-barcodes' ) . '</div>';
 
-			// Add empty div for scan results to be loaded via ajax
+			// Add empty div for scan results to be loaded via ajax.
 			$html .= '<div id="barcode-scan-result"></div>';
 
 		$html .= '</div>';
 
-		// Load necessary JS & CSS
+		// Load necessary JS & CSS.
 		$this->load_barcode_assets();
 
 		return $html;
@@ -564,9 +603,13 @@ class WooCommerce_Order_Barcodes {
 	 * @return void
 	 */
 	public function scan_barcode() {
-		// Security check.
-		$do_nonce_check = apply_filters( $this->_token . '_do_nonce_check', true );
-		$scan_nonce     = isset( $_POST[ $this->_token . '_scan_nonce' ] ) ? sanitize_text_field( wp_unslash( $_POST[ $this->_token . '_scan_nonce' ] ) ) : '';
+		/**
+		 * Filter to bypass nonce check.
+		 *
+		 * @since 1.1.0
+		 */
+		$do_nonce_check = apply_filters( $this->token . '_do_nonce_check', true );
+		$scan_nonce     = isset( $_POST[ $this->token . '_scan_nonce' ] ) ? sanitize_text_field( wp_unslash( $_POST[ $this->token . '_scan_nonce' ] ) ) : '';
 		if ( $do_nonce_check && ! wp_verify_nonce( $scan_nonce, 'scan-barcode' ) ) {
 			$this->display_notice( __( 'Permission denied: Security check failed', 'woocommerce-order-barcodes' ), 'error' );
 			exit;
@@ -574,20 +617,30 @@ class WooCommerce_Order_Barcodes {
 
 		// Retrieve order ID from barcode.
 		$barcode_input = isset( $_POST['barcode_input'] ) ? sanitize_text_field( wp_unslash( $_POST['barcode_input'] ) ) : '';
+
+		if ( empty( $barcode_input ) ) {
+			$this->display_notice( __( 'Invalid barcode', 'woocommerce-order-barcodes' ), 'error' );
+			exit;
+		}
+
 		$order_id = $this->get_barcode_order( $barcode_input );
 		if ( ! $order_id ) {
 			$this->display_notice( __( 'Invalid barcode', 'woocommerce-order-barcodes' ), 'error' );
 			exit;
 		}
 
-		// Check if user has barcode scanning permissions.
-		$can_scan = apply_filters( $this->_token . '_scan_permission', current_user_can( 'manage_woocommerce' ), $order_id );
+		/**
+		 * Check if user has barcode scanning permissions.
+		 *
+		 * @since 1.1.0
+		 */
+		$can_scan = apply_filters( $this->token . '_scan_permission', current_user_can( 'manage_woocommerce' ), $order_id );
 		if ( ! $can_scan ) {
 			$this->display_notice( __( 'Permission denied: You do not have sufficient permissions to scan barcodes', 'woocommerce-order-barcodes' ), 'error' );
 			exit;
 		}
 
-		// Get order object
+		// Get order object.
 		$order = wc_get_order( $order_id );
 
 		if ( ! is_a( $order, 'WC_Order' ) || is_wp_error( $order ) ) {
@@ -597,53 +650,59 @@ class WooCommerce_Order_Barcodes {
 
 		$response_type = 'success';
 
-		// Get selected action and process accordingly
+		// Get selected action and process accordingly.
 		$action = isset( $_POST['scan_action'] ) ? sanitize_text_field( wp_unslash( $_POST['scan_action'] ) ) : '';
-		switch( $action ) {
+		switch ( $action ) {
 			case 'complete':
-				if ( apply_filters( $this->_token . '_complete_order', true, $order_id ) ) {
+				/**
+				 * Filter that can be used to skip order status updates.
+				 *
+				 * @since 1.0.0
+				 */
+				if ( apply_filters( $this->token . '_complete_order', true, $order_id ) ) {
 					if ( 'completed' === $order->get_status() ) {
 						$response      = __( 'Order already completed', 'woocommerce-order-barcodes' );
 						$response_type = 'notice';
 					} else {
 						$order->update_status( 'completed' );
 						$response = __( 'Order marked as complete', 'woocommerce-order-barcodes' );
-						$order = new WC_Order( $order_id );
+						$order    = new WC_Order( $order_id );
 					}
 				} else {
-					$response = __( 'Not able to complete order', 'woocommerce-order-barcodes' );
+					$response      = __( 'Not able to complete order', 'woocommerce-order-barcodes' );
 					$response_type = 'error';
 				}
-			break;
+				break;
 
 			case 'checkin':
 				if ( 'yes' === $this->get_order_or_post_meta( $order_id, '_checked_in' ) ) {
-					$response      = __( 'Customer already checked in', 'woocommerce-order-barcodes' );
+					$response      = esc_html__( 'Customer already checked in', 'woocommerce-order-barcodes' );
 					$response_type = 'notice';
 				} else {
 					$this->save_order_meta( $order_id, '_checked_in', 'yes' );
-					$response = __( 'Customer has checked in', 'woocommerce-order-barcodes' );
+					$response = esc_html__( 'Customer has checked in', 'woocommerce-order-barcodes' );
 				}
-			break;
+				break;
 
 			case 'checkout':
 				if ( 'no' === $this->get_order_or_post_meta( $order_id, '_checked_in' ) ) {
-					$response      = __( 'Customer already checked out', 'woocommerce-order-barcodes' );
+					$response      = esc_html__( 'Customer already checked out', 'woocommerce-order-barcodes' );
 					$response_type = 'notice';
 				} else {
 					$this->save_order_meta( $order_id, '_checked_in', 'no' );
-					$response = __( 'Customer has checked out', 'woocommerce-order-barcodes' );
+					$response = esc_html__( 'Customer has checked out', 'woocommerce-order-barcodes' );
 				}
-			break;
+				break;
 
 			case 'lookup':
+				// translators: %s is Order ID.
 				$response = sprintf( __( 'Found matched order: #%s', 'woocommerce-order-barcodes' ), $order_id );
-			break;
+				break;
 
 			default:
 				$response      = __( 'Please select an action to perform', 'woocommerce-order-barcodes' );
 				$response_type = 'error';
-			break;
+				break;
 		}
 
 		// Display response notice.
@@ -663,20 +722,27 @@ class WooCommerce_Order_Barcodes {
 			echo '<h3 class="checked_in ' . esc_attr( $checked_in ) . '">' . esc_html( $checkin_status ) . '</h3>';
 		}
 
-		// Display order details template
-		wc_get_template( 'myaccount/view-order.php', array(
-			'status'    => get_term_by( 'slug', $order->get_status(), 'shop_order_status' ),
-			'order'     => $order,
-			'order_id'  => $order_id
-		) );
+		// Display order details template.
+		wc_get_template(
+			'myaccount/view-order.php',
+			array(
+				'status'   => get_term_by( 'slug', $order->get_status(), 'shop_order_status' ),
+				'order'    => $order,
+				'order_id' => $order_id,
+			)
+		);
 
-		// Exit function to prevent '0' displaying at the end of ajax request
+		// Exit function to prevent '0' displaying at the end of ajax request.
 		exit;
 
 	} // End scan_barcode ()
 
 	/**
-	 * Display custom WooCommerce notice
+	 * Display custom WooCommerce notice.
+	 *
+	 * @param string $message Message text.
+	 * @param string $type    Type of notice.
+	 *
 	 * @return void
 	 */
 	public function display_notice( $message = '', $type = 'success' ) {
@@ -685,8 +751,8 @@ class WooCommerce_Order_Barcodes {
 			return;
 		}
 
-		// Display notice template
-		echo '<div class="woocommerce-' . esc_attr( $type ) . '" role="alert">' . wc_kses_notice( $message ) . '</div>';
+		// Display notice template.
+		echo '<div class="woocommerce-' . esc_attr( $type ) . '" role="alert">' . wc_kses_notice( $message ) . '</div>';// phpcs:ignore
 
 	}
 
@@ -703,7 +769,8 @@ class WooCommerce_Order_Barcodes {
 			return 0;
 		}
 
-		// Set up query.
+		// Set up query with using meta key and meta value.
+		// phpcs:disable
 		$args = array(
 			'post_type'      => 'shop_order',
 			'posts_per_page' => 1,
@@ -711,11 +778,12 @@ class WooCommerce_Order_Barcodes {
 			'meta_value'     => $barcode,
 			'post_status'    => array_keys( wc_get_order_statuses() ),
 		);
+		// phpcs:enable
 
-		// Get orders
+		// Get orders.
 		$orders = get_posts( $args );
 
-		// Get order ID
+		// Get order ID.
 		$order_id = 0;
 		if ( 0 < count( $orders ) ) {
 			foreach ( $orders as $order ) {
@@ -768,10 +836,10 @@ class WooCommerce_Order_Barcodes {
 
 	/**
 	 * Display check in status field on order edit screen
-	 * @access  public
-	 * @since   1.0.0
-	 * @param   object $order Order object
-	 * @return  void
+	 *
+	 * @since  1.0.0
+	 * @param  WC_Order $order WC_Order object.
+	 * @return void
 	 */
 	public function checkin_status_edit_field( $order ) {
 		$order_id   = $order->get_id();
@@ -790,13 +858,14 @@ class WooCommerce_Order_Barcodes {
 
 	/**
 	 * Save check in status on order edit screen
-	 * @access  public
+	 *
 	 * @since   1.0.0
-	 * @param   integer $post_id Order post ID
-	 * @param   object  $post    Order post object
+	 * @param   integer $post_id Order post ID.
+	 * @param   WP_POST $post    Order post object.
+	 *
 	 * @return  void
 	 */
-	public function checkin_status_edit_save ( $post_id, $post ) {
+	public function checkin_status_edit_save( $post_id, $post ) {
 		// No need to use nonce. It has been done before the action take place.
 		$checkin_status = isset( $_POST['checkin_status'] ) ? sanitize_text_field( wp_unslash( $_POST['checkin_status'] ) ) : ''; // phpcs:ignore
 		if ( ! empty( $checkin_status ) ) {
@@ -806,19 +875,20 @@ class WooCommerce_Order_Barcodes {
 
 	/**
 	 * Remove the _barcode_image metadata from REST API responses.
-	 * @access  public
+	 *
 	 * @since   1.3.1
-	 * @param   object  $response 	WP_REST_Response
-	 * @param   object  $object     Order Object
-	 * @param   object  $request    The request made to WC-API
-	 * @return  object  $response
+	 * @param   WP_REST  $response WP_REST_Response.
+	 * @param   WC_Order $object   Order Object.
+	 * @param   object   $request  The request made to WC-API.
+	 *
+	 * @return  object.
 	 */
-	public function remove_barcode_from_api_response ( $response, $object, $request ) {
+	public function remove_barcode_from_api_response( $response, $object, $request ) {
 		if ( is_a( $response, 'WP_REST_Response' ) && isset( $response->data['meta_data'] ) ) {
 			if ( 0 < count( $response->data['meta_data'] ) ) {
 				foreach ( $response->data['meta_data'] as $k => $v ) {
-					if ( '_barcode_image' == $v->key ) {
-						unset( $response->data['meta_data'][$k] );
+					if ( '_barcode_image' === $v->key ) {
+						unset( $response->data['meta_data'][ $k ] );
 					}
 				}
 			}
@@ -828,14 +898,15 @@ class WooCommerce_Order_Barcodes {
 
 	/**
 	 * Add the barcode URL in REST API responses.
-	 * @access  public
+	 *
 	 * @since   1.3.24
-	 * @param   object  $response 	WP_REST_Response
-	 * @param   object  $object     Order Object
-	 * @param   object  $request    The request made to WC-API
+	 * @param   WP_REST  $response  WP_REST_Response.
+	 * @param   WC_Order $object    WC_Order Object.
+	 * @param   object   $request   The request made to WC-API.
+	 *
 	 * @return  object  $response
 	 */
-	public function add_barcode_url_in_api_response ( $response, $object, $request ) {
+	public function add_barcode_url_in_api_response( $response, $object, $request ) {
 		if ( is_a( $response, 'WP_REST_Response' ) && is_a( $object, 'WC_Order' ) ) {
 			$barcode_url = $this->barcode_url( $object->get_id() );
 
@@ -848,12 +919,13 @@ class WooCommerce_Order_Barcodes {
 
 	/**
 	 * Register all required JS & CSS for admin.
+	 *
 	 * @since   1.0.0
 	 * @since   1.3.19 Isolate to admin assets.
 	 * @return  void
 	 */
 	public function register_admin_assets() {
-		wp_register_style( $this->_token . '-admin', esc_url( $this->assets_url ) . 'css/admin.css', array(), $this->_version );
+		wp_register_style( $this->token . '-admin', esc_url( $this->assets_url ) . 'css/admin.css', array(), $this->version );
 	}
 
 	/**
@@ -863,25 +935,27 @@ class WooCommerce_Order_Barcodes {
 	 * @return void
 	 */
 	public function load_onscan_js() {
-		wp_enqueue_script( $this->_token . '-frontend-onscan', esc_url( plugins_url( '/assets/js/', $this->file ) ) . 'onscan' . $this->script_suffix . '.js', array( 'jquery' ), $this->_version, true );
+		wp_enqueue_script( $this->token . '-frontend-onscan', esc_url( plugins_url( '/assets/js/', $this->file ) ) . 'onscan' . $this->script_suffix . '.js', array( 'jquery' ), $this->version, true );
 	}
 
 	/**
 	 * Register all required JS & CSS for frontend.
+	 *
 	 * @since   1.0.0
 	 * @since   1.3.19 Isolate to frontend assets.
 	 * @return  void
 	 */
 	public function register_frontend_assets() {
-		wp_register_script( $this->_token . '-frontend', esc_url( $this->assets_url ) . 'js/frontend' . $this->script_suffix . '.js', array( 'jquery', $this->_token . '-frontend-onscan' ), $this->_version, true );
+		wp_register_script( $this->token . '-frontend', esc_url( $this->assets_url ) . 'js/frontend' . $this->script_suffix . '.js', array( 'jquery', $this->token . '-frontend-onscan' ), $this->version, true );
 
-		wp_register_style( $this->_token . '-frontend', esc_url( $this->assets_url ) . 'css/frontend.css', array(), $this->_version );
+		wp_register_style( $this->token . '-frontend', esc_url( $this->assets_url ) . 'css/frontend.css', array(), $this->version );
 
 		// Pass data to frontend JS.
 		wp_localize_script(
-			$this->_token . '-frontend', 'wc_order_barcodes',
+			$this->token . '-frontend',
+			'wc_order_barcodes',
 			array(
-				'ajaxurl' => admin_url( 'admin-ajax.php' ),
+				'ajaxurl'    => admin_url( 'admin-ajax.php' ),
 				'scan_nonce' => wp_create_nonce( 'scan-barcode' ),
 			)
 		);
@@ -889,16 +963,17 @@ class WooCommerce_Order_Barcodes {
 
 	/**
 	 * Load JS & CSS required for barcode generation
+	 *
 	 * @since   1.0.0
 	 * @since   1.3.19 Remove deprecated qr code script.
 	 * @return  void
 	 */
 	public function load_barcode_assets() {
 		$this->load_onscan_js();
-		wp_enqueue_script( $this->_token . '-frontend' );
+		wp_enqueue_script( $this->token . '-frontend' );
 
 		if ( ! is_admin() ) {
-			wp_enqueue_style( $this->_token . '-frontend' );
+			wp_enqueue_style( $this->token . '-frontend' );
 		}
 	}
 
@@ -924,7 +999,7 @@ class WooCommerce_Order_Barcodes {
 			}
 		}
 
-		// Check if barcode is an order id
+		// Check if barcode is an order id.
 		$order = wc_get_order( $barcode );
 
 		if ( ! $order_id && is_a( $order, 'WC_Order' ) ) {
@@ -945,7 +1020,7 @@ class WooCommerce_Order_Barcodes {
 
 		// Set headers for image output.
 		if ( ini_get( 'zlib.output_compression' ) ) {
-			ini_set( 'zlib.output_compression', 'Off' );
+			ini_set( 'zlib.output_compression', 'Off' ); // phpcs:ignore --- Necessary for image output.
 		}
 
 		header( 'Pragma: public' );
@@ -1047,12 +1122,14 @@ class WooCommerce_Order_Barcodes {
 		$args = array(
 			'post_type'      => 'shop_order',
 			'posts_per_page' => -1,
+			// phpcs:disable
 			'meta_query'     => array(
 				array(
 					'key'     => '_barcode_text',
 					'compare' => 'NOT EXISTS',
 				),
 			),
+			// phpcs:enable
 			'post_status'    => array_keys( wc_get_order_statuses() ),
 		);
 
@@ -1143,35 +1220,109 @@ class WooCommerce_Order_Barcodes {
 	}
 
 	/**
+	 * Sanitize the barcode html using `wp_kses()`.
+	 *
+	 * @param string $barcode_text Barcode HTML text.
+	 *
+	 * @return string.
+	 */
+	public function sanitize_barcode_html( $barcode_text ) {
+		$allowed_html = array(
+			'img'   => array(
+				'src'   => array(),
+				'title' => array(),
+				'alt'   => array(),
+				'style' => array(),
+			),
+			'svg'   => array(
+				'xmlns'       => array(),
+				'fill'        => array(),
+				'viewbox'     => array(),
+				'role'        => array(),
+				'aria-hidden' => array(),
+				'focusable'   => array(),
+				'height'      => array(),
+				'width'       => array(),
+			),
+			'path'  => array(
+				'd'    => array(),
+				'fill' => array(),
+			),
+			'div'   => array(
+				'style' => array(),
+				'class' => array(),
+			),
+			'span'  => array(
+				'style' => array(),
+				'class' => array(),
+			),
+			'br'    => array(),
+			'table' => array(
+				'class'       => array(),
+				'id'          => array(),
+				'cellspacing' => array(),
+				'cellpadding' => array(),
+				'border'      => array(),
+				'style'       => array(),
+			),
+			'thead' => array(
+				'style' => array(),
+				'class' => array(),
+			),
+			'tbody' => array(
+				'style' => array(),
+				'class' => array(),
+			),
+			'tfoot' => array(
+				'style' => array(),
+				'class' => array(),
+			),
+			'tr'    => array(
+				'style' => array(),
+				'class' => array(),
+			),
+			'td'    => array(
+				'style' => array(),
+				'class' => array(),
+			),
+		);
+
+		return wp_kses( $barcode_text, $allowed_html );
+	}
+
+	/**
 	 * Main class instance - ensures only one instance of the class is loaded or can be loaded
-	 * @access public
+	 *
 	 * @since  1.0.0
 	 * @static
 	 * @see    WC_Order_Barcodes()
+	 * @param string $file Path of file.
+	 * @param string $version Version of the plugin.
+	 *
 	 * @return Main WooCommerce_Order_Barcodes instance
 	 */
-	public static function instance ( $file = WC_ORDER_BARCODES_FILE, $version = WC_ORDER_BARCODES_VERSION ) {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self( $file, $version );
+	public static function instance( $file = WC_ORDER_BARCODES_FILE, $version = WC_ORDER_BARCODES_VERSION ) {
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self( $file, $version );
 		}
-		return self::$_instance;
+		return self::$instance;
 	} // End instance ()
 
 	/**
-	 * Cloning is forbidden
-	 * @access public
+	 * Cloning is forbidden.
+	 *
 	 * @since  1.0.0
 	 */
-	public function __clone () {
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?' ), esc_html( $this->_version ) );
+	public function __clone() {
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'woocommerce-order-barcodes' ), esc_html( $this->version ) );
 	} // End __clone ()
 
 	/**
-	 * Unserializing instances of this class is forbidden
-	 * @access public
+	 * Unserializing instances of this class is forbidden.
+	 *
 	 * @since  1.0.0
 	 */
-	public function __wakeup () {
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?' ), esc_html( $this->_version ) );
+	public function __wakeup() {
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'woocommerce-order-barcodes' ), esc_html( $this->version ) );
 	} // End __wakeup ()
 }

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Data tabs/panels for the Composite type.
  *
  * @class    WC_CP_Meta_Box_Product_Data
- * @version  8.9.1
+ * @version  8.10.0
  */
 class WC_CP_Meta_Box_Product_Data {
 
@@ -367,6 +367,10 @@ class WC_CP_Meta_Box_Product_Data {
 	 * @return void
 	 */
 	public static function composite_form_location( $composite_product_object ) {
+
+		if ( ! wc_cp_has_legacy_product_template( $composite_product_object ) ) {
+			return;
+		}
 
 		$options  = WC_Product_Composite::get_add_to_cart_form_location_options();
 		$help_tip = '';

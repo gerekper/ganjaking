@@ -2,7 +2,7 @@
 /**
  * Abstract Class WooCommerce Order Barcodes Generator file.
  *
- * @package WooCommerce_Order_Barcodes
+ * @package woocommerce-order-barcodes
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

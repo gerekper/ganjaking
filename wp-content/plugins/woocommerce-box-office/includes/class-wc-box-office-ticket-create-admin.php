@@ -110,7 +110,6 @@ class WC_Box_Office_Ticket_Create_Admin {
 	 * @return void
 	 */
 	public function render( $posted_data = array() ) {
-		$this->errors = array();
 		$ticket_form  = null;
 		$step         = $this->_get_step( $posted_data );
 

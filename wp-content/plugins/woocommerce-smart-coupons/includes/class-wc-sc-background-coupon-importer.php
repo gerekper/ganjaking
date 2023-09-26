@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.8.6
- * @version     2.2.0
+ * @version     2.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1064,7 +1064,9 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 				if ( $encoding ) {
 					setlocale( LC_ALL, 'en_US.' . $encoding );
 				}
-				ini_set( 'auto_detect_line_endings', true ); // phpcs:ignore
+				if ( ! $this->is_php_gte( '8.0.0' ) ) {
+					ini_set( 'auto_detect_line_endings', true ); // phpcs:ignore
+				}
 				$csv_file_handler = fopen( $csvfilename, 'r' ); // phpcs:ignore
 				if ( false !== $csv_file_handler ) {
 					$csv_header = fgetcsv( $csv_file_handler, 0 );

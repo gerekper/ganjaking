@@ -1398,7 +1398,9 @@ function seedprod_pro_is_child_of( $pid ) {
 	$anc = get_post_ancestors( $post->ID );
 	if ( count( $anc ) > 0 ) {
 		foreach ( $anc as $ancestor ) {
-			if ( is_page() && $ancestor == $pid ) {
+			$ancestor_post = get_post( $ancestor ); 
+			$pslug = $ancestor_post->post_name;
+			if ( is_page() && ( $ancestor == $pid || $pslug == $pid ) ) {
 				return true;
 			}
 		}

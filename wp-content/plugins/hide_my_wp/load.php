@@ -256,10 +256,10 @@ add_action('wp', array(&$this, 'global_assets_filter'));
  * Remove all dns-prefetch links
  */
 remove_action('wp_head', 'wp_resource_hints', 2);
-if(!function_exists('wp_get_current_user')) {
-    include("../wp-includes/pluggable.php"); 
-}
-if (isset($_GET['die_message']) && is_admin() && current_user_can( 'manage_options' )) {
+/*if(!function_exists('wp_get_current_user')) {
+	include_once(ABSPATH . '/wp-includes/pluggable.php');
+}*/
+if (isset($_GET['die_message']) && is_admin()) {
     add_action('admin_init', array(&$this, 'die_message'), 1000);
 }
 

@@ -12773,7 +12773,7 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 			var valid       = true,
 				addons_form = this.component_selection_model.get_addons_form();
 
-			if ( addons_form ) {
+			if ( addons_form && addons_form.$addons ) {
 				valid = addons_form.validation.validate();
 			}
 
@@ -12787,7 +12787,7 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 			var valid       = false,
 				addons_form = this.component_selection_model.get_addons_form();
 
-			if ( addons_form ) {
+			if ( addons_form && addons_form.$addons ) {
 				var validation_state = addons_form.validation.getValidationState();
 
 				$.each( validation_state, function() {

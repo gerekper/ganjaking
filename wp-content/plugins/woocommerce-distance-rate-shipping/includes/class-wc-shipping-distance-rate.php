@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Shipping method with distance rate.
  *
@@ -41,6 +42,111 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 		 * @var string
 		 */
 		public $notice = '';
+
+		/**
+		 * Origin address.
+		 *
+		 * @var string
+		 */
+		public $origin = '';
+
+		/**
+		 * Debug flag.
+		 *
+		 * @var boolean
+		 */
+		public $debug;
+
+		/**
+		 * Google Maps API Key.
+		 *
+		 * @var string
+		 */
+		protected $api_key;
+
+		/**
+		 * Google Maps mode.
+		 *
+		 * @var string
+		 */
+		protected $mode;
+
+		/**
+		 * Avoid flag for Google Maps.
+		 *
+		 * @var string
+		 */
+		protected $avoid;
+
+		/**
+		 * Distance unit.
+		 *
+		 * @var string
+		 */
+		protected $unit;
+
+		/**
+		 * Flag for show distance in frontend shipping option.
+		 *
+		 * @var boolean
+		 */
+		protected $show_distance;
+
+		/**
+		 * Flag for show duration in frontend shipping option.
+		 *
+		 * @var boolean
+		 */
+		protected $show_duration;
+
+		/**
+		 * User input for shipping address 1.
+		 *
+		 * @var string
+		 */
+		protected $address_1;
+
+		/**
+		 * User input for shipping address 2.
+		 *
+		 * @var string
+		 */
+		protected $address_2;
+
+		/**
+		 * User input for shipping city address.
+		 *
+		 * @var string
+		 */
+		protected $city;
+
+		/**
+		 * User input for shipping postal code.
+		 *
+		 * @var string
+		 */
+		protected $postal_code;
+
+		/**
+		 * User input for shipping state.
+		 *
+		 * @var string
+		 */
+		protected $state_country;
+
+		/**
+		 * User input for shipping country.
+		 *
+		 * @var string
+		 */
+		protected $country;
+
+		/**
+		 * Distance rate shipping rules.
+		 *
+		 * @var array
+		 */
+		protected $rules;
 
 		/**
 		 * Constructor.
@@ -150,12 +256,12 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 					'default'         => __( 'Distance Rate', 'woocommerce-distance-rate-shipping' ),
 				),
 				'tax_status' => array(
-					'title' 		=> __( 'Tax Status', 'woocommerce-distance-rate-shipping' ),
-					'type' 			=> 'select',
-					'default' 		=> 'taxable',
-					'options'		=> array(
-						'taxable' 	=> __( 'Taxable', 'woocommerce-distance-rate-shipping' ),
-						'none' 		=> _x( 'None', 'Tax status', 'woocommerce-distance-rate-shipping' ),
+					'title'         => __( 'Tax Status', 'woocommerce-distance-rate-shipping' ),
+					'type'          => 'select',
+					'default'       => 'taxable',
+					'options'       => array(
+						'taxable' => __( 'Taxable', 'woocommerce-distance-rate-shipping' ),
+						'none'    => _x( 'None', 'Tax status', 'woocommerce-distance-rate-shipping' ),
 					),
 				),
 				'mode'  => array(
@@ -201,9 +307,9 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 					'default' => 'no',
 				),
 				'distance_rate_address' => array(
-					'title' 		=> __( 'Shipping Address', 'woocommerce-distance-rate-shipping' ),
-					'type' 			=> 'title',
-					'description' 	=> __( 'Please enter the address that you are shipping from below to work out the distance of the customer from the shipping location.', 'woocommerce-distance-rate-shipping' ),
+					'title'         => __( 'Shipping Address', 'woocommerce-distance-rate-shipping' ),
+					'type'          => 'title',
+					'description'   => __( 'Please enter the address that you are shipping from below to work out the distance of the customer from the shipping location.', 'woocommerce-distance-rate-shipping' ),
 				),
 				'address_1' => array(
 					'title'           => __( 'Address 1', 'woocommerce-distance-rate-shipping' ),
@@ -244,16 +350,16 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 			);
 
 			$this->form_fields = array(
-				'api_key'		=> array(
-					'title' => __( 'API Key', 'woocommerce-distance-rate-shipping' ),
-					'type'	=> 'text',
-					'description'	=> __( 'Your <a href="https://docs.woocommerce.com/document/woocommerce-distance-rate-shipping/#section-3">Google API Key</a>', 'woocommerce-distance-rate-shipping' ),
+				'api_key' => array(
+					'title'       => __( 'API Key', 'woocommerce-distance-rate-shipping' ),
+					'type'        => 'text',
+					'description' => __( 'Your <a href="https://docs.woocommerce.com/document/woocommerce-distance-rate-shipping/#section-3">Google API Key</a>', 'woocommerce-distance-rate-shipping' ),
 				),
 				'debug' => array(
-					'title'			=> __( 'Debug Mode', 'woocommerce-distance-rate-shipping' ),
-					'type'			=> 'checkbox',
-					'label'			=> __( 'Enable/Disable Debug Mode, display API calls on frontend', 'woocommerce-distance-rate-shipping' ),
-					'default'		=> 'no',
+					'title'   => __( 'Debug Mode', 'woocommerce-distance-rate-shipping' ),
+					'type'    => 'checkbox',
+					'label'   => __( 'Enable/Disable Debug Mode, display API calls on frontend', 'woocommerce-distance-rate-shipping' ),
+					'default' => 'no',
 
 				),
 			);
@@ -271,7 +377,7 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 				?>
 				<tr valign="top">
 					<td colspan="2">
-						<iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=<?php echo urlencode( $this->get_shipping_address_string() ); ?>&key=<?php echo $this->api_key; ?>"></iframe>
+						<iframe width="600" height="450" frameborder="0" style="border:0" src="<?php echo esc_url( 'https://www.google.com/maps/embed/v1/place?q=' . urlencode( $this->get_shipping_address_string() ) . '&key=' . $this->api_key ); ?>"></iframe>
 					</td>
 				</tr>
 				<?php
@@ -288,8 +394,8 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 			ob_start();
 			?>
 			<tr valign="top">
-				<th scope="row" class="titledesc"><?php _e( 'Distance Rate Rules', 'woocommerce-distance-rate-shipping' ); ?>:</th>
-				<td class="forminp" id="<?php echo $this->id; ?>_rules">
+				<th scope="row" class="titledesc"><?php esc_html_e( 'Distance Rate Rules', 'woocommerce-distance-rate-shipping' ); ?>:</th>
+				<td class="forminp" id="<?php echo esc_attr( $this->id ); ?>_rules">
 					<table class="shippingrows widefat striped" cellspacing="0">
 						<thead>
 							<tr>
@@ -308,7 +414,7 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 						</thead>
 						<tfoot>
 							<tr>
-								<th colspan="11"><a href="#" class="add button"><?php _e( 'Add Distance Rule', 'woocommerce-distance-rate-shipping' ); ?></a> <a href="#" class="remove button"><?php _e( 'Delete selected rule', 'woocommerce-distance-rate-shipping' ); ?></a> <a href="#" class="advanced_mode turn_on button"><?php _e( 'Enable Advanced Mode', 'woocommerce-distance-rate-shipping' ); ?></a> <a href="#" class="advanced_mode turn_off button"><?php _e( 'Disable Advanced Mode', 'woocommerce-distance-rate-shipping' ); ?></a></th>
+								<th colspan="11"><a href="#" class="add button"><?php esc_html_e( 'Add Distance Rule', 'woocommerce-distance-rate-shipping' ); ?></a> <a href="#" class="remove button"><?php esc_html_e( 'Delete selected rule', 'woocommerce-distance-rate-shipping' ); ?></a> <a href="#" class="advanced_mode turn_on button"><?php esc_html_e( 'Enable Advanced Mode', 'woocommerce-distance-rate-shipping' ); ?></a> <a href="#" class="advanced_mode turn_off button"><?php esc_html_e( 'Disable Advanced Mode', 'woocommerce-distance-rate-shipping' ); ?></a></th>
 							</tr>
 						</tfoot>
 						<tbody class="distance_rates">
@@ -318,20 +424,9 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 								foreach ( $this->rules as $rule ) {
 									$i++;
 
-									$checked_break = '';
-									if ( 'yes' == $rule['break'] ) {
-										$checked_break = 'checked="checked"';
-									}
-
-									$checked_abort = '';
-									if ( isset( $rule['abort'] ) && 'yes' == $rule['abort'] ) {
-										$checked_abort = 'checked="checked"';
-									}
-
-									$checked_per_qty = '';
-									if ( isset( $rule['per_qty'] ) && 'yes' == $rule['per_qty'] ) {
-										$checked_per_qty = 'checked="checked"';
-									}
+									$checked_break   = isset( $rule['break'] ) ? $rule['break'] : '';
+									$checked_abort   = isset( $rule['abort'] ) ? $rule['abort'] : '';
+									$checked_per_qty = isset( $rule['per_qty'] ) ? $rule['per_qty'] : '';
 
 									$min_rule = isset( $rule['min'] ) ? $rule['min'] : '';
 									$max_rule = isset( $rule['max'] ) ? $rule['max'] : '';
@@ -350,8 +445,8 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 													'condition' => $rule['condition'],
 													'min'       => $min_rule,
 													'max'       => $max_rule,
-												)
-											)
+												),
+											),
 										);
 									}
 
@@ -363,21 +458,21 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 
 									$table_conditions = $this->create_table_conditions( $i, $rule['conditions'] );
 
-									echo '<tr class="distance_rule" data-row="' . $i . '">
+									echo '<tr class="distance_rule" data-row="' . esc_attr( $i ) . '">
 										<th class="check-column"><input type="checkbox" name="select" /></th>
-										<td colspan="3" class="table-condition-column">
-											' . $table_conditions . '
-										</td>
-										<td><input type="text" name="' . $this->id . '_cost[' . $i . ']' . '" value="' . wc_format_localized_price( $rule['cost'] ) . '" placeholder="' . wc_format_localized_price( 0 ) . '" size="4" class="wc_input_price" /></td>
-										<td><input type="text" name="' . $this->id . '_cost_unit[' . $i . ']' . '" value="' . wc_format_localized_price( $rule['cost_unit'] ) . '" placeholder="' . wc_format_localized_price( 0 ) . '" size="4" class="wc_input_price" /></td>
-										<td><select name="' . $this->id . '_unit[' . $i . ']" class="wc-shipping-distance-rate-unit">
-											<option value="distance" ' . selected( $rule['unit'], 'distance', false ) . '>' . __( 'Distance', 'woocommerce-distance-rate-shipping' ) . '</option>
-											<option value="time" ' . selected( $rule['unit'], 'time', false ) . '>' . __( 'Travel Time', 'woocommerce-distance-rate-shipping' ) . '</option>
+										<td colspan="3" class="table-condition-column">' .
+											$table_conditions . // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped --- It has been escaped on `create_table_conditions()`.
+										'</td>
+										<td><input type="text" name="' . esc_attr( $this->id . '_cost[' . $i . ']' ) . '" value="' . esc_attr( wc_format_localized_price( $rule['cost'] ) ) . '" placeholder="' . esc_attr( wc_format_localized_price( 0 ) ) . '" size="4" class="wc_input_price" /></td>
+										<td><input type="text" name="' . esc_attr( $this->id . '_cost_unit[' . $i . ']' ) . '" value="' . esc_attr( wc_format_localized_price( $rule['cost_unit'] ) ) . '" placeholder="' . esc_attr( wc_format_localized_price( 0 ) ) . '" size="4" class="wc_input_price" /></td>
+										<td><select name="' . esc_attr( $this->id . '_unit[' . $i . ']' ) . '" class="wc-shipping-distance-rate-unit">
+											<option value="distance" ' . selected( $rule['unit'], 'distance', false ) . '>' . esc_html__( 'Distance', 'woocommerce-distance-rate-shipping' ) . '</option>
+											<option value="time" ' . selected( $rule['unit'], 'time', false ) . '>' . esc_html__( 'Travel Time', 'woocommerce-distance-rate-shipping' ) . '</option>
 										</select></td>
-										<td><input type="checkbox" name="' . $this->id . '_per_qty[' . $i . ']' . '" ' . $checked_per_qty . ' /></td>
-										<td><input type="text" name="' . $this->id . '_fee[' . $i . ']' . '" value="' . wc_format_localized_price( $rule['fee'] ) . '" placeholder="' . wc_format_localized_price( 0 ) . '" size="4" class="wc_input_price" /></td>
-										<td><input type="checkbox" name="' . $this->id . '_break[' . $i . ']' . '" ' . $checked_break . ' /></td>
-										<td><input type="checkbox" name="' . $this->id . '_abort[' . $i . ']' . '" ' . $checked_abort . ' /></td>
+										<td><input type="checkbox" name="' . esc_attr( $this->id . '_per_qty[' . $i . ']' ) . '" ' . checked( $checked_per_qty, 'yes', false ) . ' /></td>
+										<td><input type="text" name="' . esc_attr( $this->id . '_fee[' . $i . ']' ) . '" value="' . esc_attr( wc_format_localized_price( $rule['fee'] ) ) . '" placeholder="' . esc_attr( wc_format_localized_price( 0 ) ) . '" size="4" class="wc_input_price" /></td>
+										<td><input type="checkbox" name="' . esc_attr( $this->id . '_break[' . $i . ']' ) . '" ' . checked( $checked_break, 'yes', false ) . ' /></td>
+										<td><input type="checkbox" name="' . esc_attr( $this->id . '_abort[' . $i . ']' ) . '" ' . checked( $checked_abort, 'yes', false ) . ' /></td>
 									</tr>';
 								}
 							}
@@ -418,18 +513,16 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 							display: none;
 						}
 
-						table.shippingrows.advanced_mode table.distance_rule_add_table_button{
+						table.shippingrows.advanced_mode table.distance_rule_add_table_button {
 							display: table;
 						}
-						
+
 						table.shippingrows.advanced_mode table.distance_rule_conditions .add_condition_row,
 						table.shippingrows.advanced_mode table.distance_rule_conditions .remove_condition_row {
 							display: inline-block;
 						}
-						
-						table.shippingrows table.distance_rule_conditions .add_condition_text {
-							
-						}
+
+						table.shippingrows table.distance_rule_conditions .add_condition_text {}
 
 						table.shippingrows.advanced_mode table.distance_rule_conditions .add_condition_text,
 						table.shippingrows table.distance_rule_conditions tr.distance_rule_group:last-child .add_condition_text {
@@ -476,222 +569,222 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 						}
 					</style>
 					<script type="text/javascript">
-					function wc_generate_distance_rule_conditions_row( size, group, row, is_first_table = false ) {
-						var remove_button = ( true !== is_first_table ) ? '<a href="#" class="remove_condition_row dashicons dashicons-no">&nbsp;</a>' : '';
+						function wc_generate_distance_rule_conditions_row(size, group, row, is_first_table = false) {
+							var remove_button = (true !== is_first_table) ? '<a href="#" class="remove_condition_row dashicons dashicons-no">&nbsp;</a>' : '';
 
-						return '\
-							<tr class="distance_rule_group distance_rule_group_' + group + ' distance_rule_group_'+ group +'_row_' + row + '" data-group="' + group + '">\
-								<td><select name="<?php echo $this->id; ?>_conditions[' + size + '][' + group + '][' + row + '][condition]" class="wc-shipping-distance-rate-condition">\
+							return '\
+							<tr class="distance_rule_group distance_rule_group_' + group + ' distance_rule_group_' + group + '_row_' + row + '" data-group="' + group + '">\
+								<td><select name="<?php echo esc_attr( $this->id ); ?>_conditions[' + size + '][' + group + '][' + row + '][condition]" class="wc-shipping-distance-rate-condition">\
 									<option value="distance"><?php esc_html_e( 'Distance', 'woocommerce-distance-rate-shipping' ); ?></option>\
 									<option value="time"><?php esc_html_e( 'Total Travel Time', 'woocommerce-distance-rate-shipping' ); ?></option>\
 									<option value="weight"><?php esc_html_e( 'Weight', 'woocommerce-distance-rate-shipping' ); ?></option>\
 									<option value="total"><?php esc_html_e( 'Order Total', 'woocommerce-distance-rate-shipping' ); ?></option>\
 									<option value="quantity"><?php esc_html_e( 'Quantity', 'woocommerce-distance-rate-shipping' ); ?></option>\
 								</select></td>\
-								<td><input type="text" name="<?php echo $this->id; ?>_conditions[' + size + '][' + group + '][' + row + '][min]" size="4" class="wc-shipping-distance-rate-min wc_input_price" /></td>\
-								<td><input type="text" name="<?php echo $this->id; ?>_conditions[' + size + '][' + group + '][' + row + '][max]" size="4" class="wc-shipping-distance-rate-max wc_input_price" /></td>\
-								<td><button class="add_condition_row button"><?php _e( 'and', 'woocommerce-distance-rate-shipping'); ?></button><span class="add_condition_text"><?php _e( 'and', 'woocommerce-distance-rate-shipping'); ?></span></td>\
+								<td><input type="text" name="<?php echo esc_attr( $this->id ); ?>_conditions[' + size + '][' + group + '][' + row + '][min]" size="4" class="wc-shipping-distance-rate-min wc_input_price" /></td>\
+								<td><input type="text" name="<?php echo esc_attr( $this->id ); ?>_conditions[' + size + '][' + group + '][' + row + '][max]" size="4" class="wc-shipping-distance-rate-max wc_input_price" /></td>\
+								<td><button class="add_condition_row button"><?php esc_html_e( 'and', 'woocommerce-distance-rate-shipping' ); ?></button><span class="add_condition_text"><?php esc_html_e( 'and', 'woocommerce-distance-rate-shipping' ); ?></span></td>\
 								<td>' + remove_button + '</td>\
 							</tr>';
-					}
+						}
 
-					function wc_generate_distance_or_text(){
-						return '\
+						function wc_generate_distance_or_text() {
+							return '\
 							<tr class="distance_or_text">\
-								<td colspan="3"><?php _e( 'or', 'woocommerce-distance-rate-shipping' ); ?></td>\
+								<td colspan="3"><?php esc_html_e( 'or', 'woocommerce-distance-rate-shipping' ); ?></td>\
 							</tr>\
 						';
-					}
-
-					function wc_generate_distance_rule_conditions_table( size, group, row, is_first_row = true, is_first_table = false ) {
-						var row = wc_generate_distance_rule_conditions_row( size, group, row, is_first_table );
-						
-						if ( true !== is_first_row ) {
-							row = wc_generate_distance_or_text() + row;
 						}
-						return '\
+
+						function wc_generate_distance_rule_conditions_table(size, group, row, is_first_row = true, is_first_table = false) {
+							var row = wc_generate_distance_rule_conditions_row(size, group, row, is_first_table);
+
+							if (true !== is_first_row) {
+								row = wc_generate_distance_or_text() + row;
+							}
+							return '\
 							<table class="distance_rule_conditions">\
 							<tbody>\
-								' + row  + '\
+								' + row + '\
 							</tbody>\
 							</table>';
-					}
+						}
 
-					function wc_generate_distance_rule_conditions_final_table( size, group, row ) {
-						var table = wc_generate_distance_rule_conditions_table( size, group, row, true, true );
-						
-						return table  + '\
+						function wc_generate_distance_rule_conditions_final_table(size, group, row) {
+							var table = wc_generate_distance_rule_conditions_table(size, group, row, true, true);
+
+							return table + '\
 							<table class="distance_rule_add_table_button">\
 								' + wc_generate_distance_or_text() + '\
 								<tr>\
-									<td colspan="3" class="distance_or_button"><button class="or_condition_row button"><?php _e( 'Add rule group', 'woocommerce-distance-rate-shipping'); ?></button></td>\
+									<td colspan="3" class="distance_or_button"><button class="or_condition_row button"><?php esc_html_e( 'Add rule group', 'woocommerce-distance-rate-shipping' ); ?></button></td>\
 								</tr>\
 							</table>';
-					}
-
-					function wc_event_add_rule_button_on_click( evt ) {
-						evt.preventDefault();
-						
-						var parent_dr     = jQuery( this ).closest( '.distance_rule' );
-						var parent_table  = jQuery( this ).closest( '.distance_rule_add_table_button' );
-						var parent_column = parent_table.closest( '.table-condition-column' );
-						var table_count   = parent_column.find('.distance_rule_conditions').length;
-						var row_number    = parent_dr.data( 'row' );
-
-						parent_table.before( wc_generate_distance_rule_conditions_table( row_number, table_count, 0, false, false ) );
-
-						parent_column.find('.distance_rule_conditions').last().find( '.add_condition_row.button').on( 'click', wc_event_add_row_button_on_click );
-						parent_column.find('.distance_rule_conditions').last().find( '.remove_condition_row').on( 'click', wc_event_remove_row_button_on_click );
-					}
-
-					function wc_event_add_row_button_on_click( evt ) {
-						evt.preventDefault();
-
-						var parent_table = jQuery( this ).closest( '.distance_rule_conditions' );
-						var parent_dr    = parent_table.closest( '.distance_rule' );
-						var parent_tr    = jQuery( this ).closest( 'tr' );
-						var group        = parent_tr.data( 'group' );
-						var group_class  = '.distance_rule_group_' + group;
-						var row_length   = parent_table.find( group_class ).length;
-						var row_number   = parent_dr.data( 'row' );
-
-						parent_table.find('tbody').append( wc_generate_distance_rule_conditions_row( row_number, group, row_length, false ) );
-
-						parent_table.find( 'tr' ).last().find( '.add_condition_row.button').on( 'click', wc_event_add_row_button_on_click );
-						parent_table.find( 'tr' ).last().find( '.remove_condition_row').on( 'click', wc_event_remove_row_button_on_click );
-					}
-
-					function wc_event_remove_row_button_on_click( evt ) {
-						evt.preventDefault();
-						
-						var parent_tr    = jQuery( this ).closest( 'tr' );
-						var parent_table = parent_tr.closest( '.distance_rule_conditions' );
-						var row_length   = parent_table.find( 'tr.distance_rule_group' ).length;
-
-						if ( row_length == 1 ) {
-							parent_table.remove();
-						} else {
-							parent_tr.remove();
 						}
-					}
 
-					jQuery(function() {
-						jQuery( '.or_condition_row.button' ).on( 'click', wc_event_add_rule_button_on_click );
-						jQuery( '.add_condition_row.button').on( 'click', wc_event_add_row_button_on_click );
-						jQuery( '.remove_condition_row').on( 'click', wc_event_remove_row_button_on_click );
+						function wc_event_add_rule_button_on_click(evt) {
+							evt.preventDefault();
 
-						var is_adv_mode_activated = false;
+							var parent_dr = jQuery(this).closest('.distance_rule');
+							var parent_table = jQuery(this).closest('.distance_rule_add_table_button');
+							var parent_column = parent_table.closest('.table-condition-column');
+							var table_count = parent_column.find('.distance_rule_conditions').length;
+							var row_number = parent_dr.data('row');
 
-						jQuery( '#<?php echo $this->id; ?>_rules tr.distance_rule' ).each( function( idx ){
-							var rule_group_length = jQuery( this ).find( '.distance_rule_group' ).length;
+							parent_table.before(wc_generate_distance_rule_conditions_table(row_number, table_count, 0, false, false));
 
-							if ( rule_group_length > 1 ) {
-								is_adv_mode_activated = true;
+							parent_column.find('.distance_rule_conditions').last().find('.add_condition_row.button').on('click', wc_event_add_row_button_on_click);
+							parent_column.find('.distance_rule_conditions').last().find('.remove_condition_row').on('click', wc_event_remove_row_button_on_click);
+						}
+
+						function wc_event_add_row_button_on_click(evt) {
+							evt.preventDefault();
+
+							var parent_table = jQuery(this).closest('.distance_rule_conditions');
+							var parent_dr = parent_table.closest('.distance_rule');
+							var parent_tr = jQuery(this).closest('tr');
+							var group = parent_tr.data('group');
+							var group_class = '.distance_rule_group_' + group;
+							var row_length = parent_table.find(group_class).length;
+							var row_number = parent_dr.data('row');
+
+							parent_table.find('tbody').append(wc_generate_distance_rule_conditions_row(row_number, group, row_length, false));
+
+							parent_table.find('tr').last().find('.add_condition_row.button').on('click', wc_event_add_row_button_on_click);
+							parent_table.find('tr').last().find('.remove_condition_row').on('click', wc_event_remove_row_button_on_click);
+						}
+
+						function wc_event_remove_row_button_on_click(evt) {
+							evt.preventDefault();
+
+							var parent_tr = jQuery(this).closest('tr');
+							var parent_table = parent_tr.closest('.distance_rule_conditions');
+							var row_length = parent_table.find('tr.distance_rule_group').length;
+
+							if (row_length == 1) {
+								parent_table.remove();
+							} else {
+								parent_tr.remove();
 							}
-						});
-
-						if ( is_adv_mode_activated ) {
-							jQuery('#<?php echo $this->id; ?>_rules .shippingrows').addClass( 'advanced_mode' );
 						}
 
-						jQuery('#<?php echo $this->id; ?>_rules').on( 'click', 'a.add', function(){
+						jQuery(function() {
+							jQuery('.or_condition_row.button').on('click', wc_event_add_rule_button_on_click);
+							jQuery('.add_condition_row.button').on('click', wc_event_add_row_button_on_click);
+							jQuery('.remove_condition_row').on('click', wc_event_remove_row_button_on_click);
 
-							var size             = jQuery('#<?php echo $this->id; ?>_rules tbody .distance_rule').length;
-							var table_conditions = wc_generate_distance_rule_conditions_final_table( size, 0 , 0 );
-							var distance_rates   = jQuery( '#<?php echo $this->id; ?>_rules table.shippingrows tbody.distance_rates' );
+							var is_adv_mode_activated = false;
 
-							var new_distance_row = jQuery('<tr class="distance_rule" data-row="' + size + '">\
+							jQuery('#<?php echo esc_js( $this->id ); ?>_rules tr.distance_rule').each(function(idx) {
+								var rule_group_length = jQuery(this).find('.distance_rule_group').length;
+
+								if (rule_group_length > 1) {
+									is_adv_mode_activated = true;
+								}
+							});
+
+							if (is_adv_mode_activated) {
+								jQuery('#<?php echo esc_js( $this->id ); ?>_rules .shippingrows').addClass('advanced_mode');
+							}
+
+							jQuery('#<?php echo esc_js( $this->id ); ?>_rules').on('click', 'a.add', function() {
+
+								var size = jQuery('#<?php echo esc_js( $this->id ); ?>_rules tbody .distance_rule').length;
+								var table_conditions = wc_generate_distance_rule_conditions_final_table(size, 0, 0);
+								var distance_rates = jQuery('#<?php echo esc_js( $this->id ); ?>_rules table.shippingrows tbody.distance_rates');
+
+								var new_distance_row = jQuery('<tr class="distance_rule" data-row="' + size + '">\
 								<th class="check-column"><input type="checkbox" name="select" /></th>\
 								<td colspan="3" class="table-condition-column">' + table_conditions + '</td>\
-								<td><input type="text" name="<?php echo $this->id; ?>_cost[' + size + ']" placeholder="<?php echo wc_format_localized_price( 0 ); ?>" size="4" class="wc_input_price" /></td>\
-								<td><input type="text" name="<?php echo $this->id; ?>_cost_unit[' + size + ']" placeholder="<?php echo wc_format_localized_price( 0 ); ?>" size="4" class="wc_input_price" /></td>\
-								<td><select name="<?php echo $this->id; ?>_unit[' + size + ']" class="wc-shipping-distance-rate-unit">\
+								<td><input type="text" name="<?php echo esc_attr( $this->id ); ?>_cost[' + size + ']" placeholder="<?php echo esc_attr( wc_format_localized_price( 0 ) ); ?>" size="4" class="wc_input_price" /></td>\
+								<td><input type="text" name="<?php echo esc_attr( $this->id ); ?>_cost_unit[' + size + ']" placeholder="<?php echo esc_attr( wc_format_localized_price( 0 ) ); ?>" size="4" class="wc_input_price" /></td>\
+								<td><select name="<?php echo esc_attr( $this->id ); ?>_unit[' + size + ']" class="wc-shipping-distance-rate-unit">\
 									<option value="distance"><?php esc_html_e( 'Distance', 'woocommerce-distance-rate-shipping' ); ?></option>\
 									<option value="time"><?php esc_html_e( 'Travel Time', 'woocommerce-distance-rate-shipping' ); ?></option>\
 								</select></td>\
-								<td><input type="checkbox" name="<?php echo $this->id; ?>_per_qty[' + size + ']" /></td>\
-								<td><input type="text" name="<?php echo $this->id; ?>_fee[' + size + ']" placeholder="<?php echo wc_format_localized_price( 0 ); ?>" size="4" class="wc_input_price" /></td>\
-								<td><input type="checkbox" name="<?php echo $this->id; ?>_break[' + size + ']" /></td>\
-								\<td><input type="checkbox" name="<?php echo $this->id; ?>_abort[' + size + ']" /></td>\
+								<td><input type="checkbox" name="<?php echo esc_attr( $this->id ); ?>_per_qty[' + size + ']" /></td>\
+								<td><input type="text" name="<?php echo esc_attr( $this->id ); ?>_fee[' + size + ']" placeholder="<?php echo esc_attr( wc_format_localized_price( 0 ) ); ?>" size="4" class="wc_input_price" /></td>\
+								<td><input type="checkbox" name="<?php echo esc_attr( $this->id ); ?>_break[' + size + ']" /></td>\
+								\<td><input type="checkbox" name="<?php echo esc_attr( $this->id ); ?>_abort[' + size + ']" /></td>\
 							</tr>');
 
-							new_distance_row.appendTo( distance_rates );
+								new_distance_row.appendTo(distance_rates);
 
-							new_distance_row.find( '.or_condition_row.button' ).on( 'click', wc_event_add_rule_button_on_click );
-							new_distance_row.find( '.add_condition_row.button').on( 'click', wc_event_add_row_button_on_click );
-							new_distance_row.find( '.remove_condition_row').on( 'click', wc_event_remove_row_button_on_click );
+								new_distance_row.find('.or_condition_row.button').on('click', wc_event_add_rule_button_on_click);
+								new_distance_row.find('.add_condition_row.button').on('click', wc_event_add_row_button_on_click);
+								new_distance_row.find('.remove_condition_row').on('click', wc_event_remove_row_button_on_click);
 
-							jQuery( '.wc-shipping-distance-rate-condition' ).trigger( 'change' );
-							return false;
+								jQuery('.wc-shipping-distance-rate-condition').trigger('change');
+								return false;
+							});
+
+							// Remove row
+							jQuery('#<?php echo esc_js( $this->id ); ?>_rules').on('click', 'a.remove', function() {
+								var answer = confirm("<?php esc_html_e( 'Delete the selected rule?', 'woocommerce-distance-rate-shipping' ); ?>");
+								if (answer) {
+									jQuery('#<?php echo esc_js( $this->id ); ?>_rules table tbody tr th.check-column input:checked').each(function(i, el) {
+										jQuery(el).closest('tr').remove();
+									});
+								}
+								return false;
+							});
+
+							jQuery('#<?php echo esc_js( $this->id ); ?>_rules').on('click', 'a.advanced_mode', function() {
+								jQuery('#<?php echo esc_js( $this->id ); ?>_rules .shippingrows').toggleClass('advanced_mode');
+								return false;
+							});
+
+							const priceInputClass = 'wc_input_price';
+							jQuery('#<?php echo esc_js( $this->id ); ?>_rules').on('change', '.wc-shipping-distance-rate-condition', function() {
+								switch (jQuery(this).val()) {
+									case 'distance':
+									case 'time':
+									case 'weight':
+									case 'quantity':
+										jQuery(this).parents('tr.distance_rule').find('.wc-shipping-distance-rate-min').removeClass(priceInputClass);
+										jQuery(this).parents('tr.distance_rule').find('.wc-shipping-distance-rate-max').removeClass(priceInputClass);
+										break;
+									case 'total':
+										jQuery(this).parents('tr.distance_rule').find('.wc-shipping-distance-rate-min').addClass(priceInputClass);
+										jQuery(this).parents('tr.distance_rule').find('.wc-shipping-distance-rate-max').addClass(priceInputClass);
+										break;
+								}
+							});
+
+							jQuery('.wc-shipping-distance-rate-condition').trigger('change');
+							jQuery('.shippingrows .distance_rule, .distance_rule_conditions .distance_rule_group, .distance_rule_add_table_button .distance_or_text').removeClass('alternate');
 						});
-
-						// Remove row
-						jQuery('#<?php echo $this->id; ?>_rules').on( 'click', 'a.remove', function(){
-							var answer = confirm("<?php _e( 'Delete the selected rule?', 'woocommerce-distance-rate-shipping' ); ?>");
-							if (answer) {
-								jQuery('#<?php echo $this->id; ?>_rules table tbody tr th.check-column input:checked').each(function(i, el){
-									jQuery(el).closest('tr').remove();
-								});
-							}
-							return false;
-						});
-
-						jQuery('#<?php echo $this->id; ?>_rules').on( 'click', 'a.advanced_mode', function(){
-							jQuery('#<?php echo $this->id; ?>_rules .shippingrows').toggleClass( 'advanced_mode' );
-							return false;
-						});
-
-						const priceInputClass = 'wc_input_price';
-						jQuery( '#<?php echo $this->id; ?>_rules' ).on( 'change', '.wc-shipping-distance-rate-condition', function() {
-							switch ( jQuery( this ).val() ) {
-								case 'distance':
-								case 'time':
-								case 'weight':
-								case 'quantity':
-									jQuery( this ).parents( 'tr.distance_rule' ).find( '.wc-shipping-distance-rate-min' ).removeClass( priceInputClass );
-									jQuery( this ).parents( 'tr.distance_rule' ).find( '.wc-shipping-distance-rate-max' ).removeClass( priceInputClass );
-									break;
-								case 'total':
-									jQuery( this ).parents( 'tr.distance_rule' ).find( '.wc-shipping-distance-rate-min' ).addClass( priceInputClass );
-									jQuery( this ).parents( 'tr.distance_rule' ).find( '.wc-shipping-distance-rate-max' ).addClass( priceInputClass );
-									break;
-							}
-						} );
-
-						jQuery( '.wc-shipping-distance-rate-condition' ).trigger( 'change' );
-						jQuery( '.shippingrows .distance_rule, .distance_rule_conditions .distance_rule_group, .distance_rule_add_table_button .distance_or_text' ).removeClass( 'alternate' );
-					});
-				</script>
+					</script>
 				</td>
 			</tr>
-			<?php
+<?php
 			return ob_get_clean();
 		}
 
 		public function re_order_array( $array ) {
 			if ( ! is_array( $array ) ) {
-				 return $array;
+				return $array;
 			}
 
 			$count  = 0;
 			$result = array();
-			
-			foreach( $array as $k => $v ) {
+
+			foreach ( $array as $k => $v ) {
 				if ( $this->is_integer_value( $k ) ) {
-				   $result[$count] = $this->re_order_array( $v );
-				   
-				   ++$count;
+					$result[ $count ] = $this->re_order_array( $v );
+
+					++$count;
 				} else {
-				  $result[$k] = $this->re_order_array( $v );
+					$result[ $k ] = $this->re_order_array( $v );
 				}
 			}
 
 			return $result;
 		}
-	
-		public function is_integer_value($value) {
+
+		public function is_integer_value( $value ) {
 			if ( ! is_int( $value ) ) {
-				if( is_string( $value ) && preg_match( "/^-?\d+$/i", $value ) ) {
+				if ( is_string( $value ) && preg_match( "/^-?\d+$/i", $value ) ) {
 					return true;
 				}
 
@@ -709,6 +802,10 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 		 * @return array
 		 */
 		public function validate_distance_rate_rule_table_field( $key ) {
+			// No need to verify. It has been verified on `WC_Settings_Shipping::instance_settings_screen()`.
+			// The post data also has been sanitized using array map.
+			// phpcs:disable WordPress.Security.NonceVerification.Missing
+			// phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$rule_conditions = array();
 			$rule_condition  = array();
 			$rule_min        = array();
@@ -732,51 +829,54 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 			}
 
 			if ( isset( $_POST[ $this->id . '_condition' ] ) ) {
-				$rule_condition = array_map( 'stripslashes', $_POST[ $this->id . '_condition' ] );
+				$rule_condition = wc_clean( wp_unslash( $_POST[ $this->id . '_condition' ] ) );
 			}
 
 			if ( isset( $_POST[ $this->id . '_min' ] ) ) {
-				$rule_min = array_map( 'stripslashes', $_POST[ $this->id . '_min' ] );
+				$rule_min = wc_clean( wp_unslash( $_POST[ $this->id . '_min' ] ) );
 			}
 
 			if ( isset( $_POST[ $this->id . '_max' ] ) ) {
-				$rule_max = array_map( 'stripslashes', $_POST[ $this->id . '_max' ] );
+				$rule_max = wc_clean( wp_unslash( $_POST[ $this->id . '_max' ] ) );
 			}
 
 			if ( isset( $_POST[ $this->id . '_cost' ] ) ) {
-				$rule_cost = array_map( 'stripslashes', $_POST[ $this->id . '_cost' ] );
+				$rule_cost = wc_clean( wp_unslash( $_POST[ $this->id . '_cost' ] ) );
 			}
 
 			if ( isset( $_POST[ $this->id . '_cost_unit' ] ) ) {
-				$rule_cost_unit = array_map( 'stripslashes', $_POST[ $this->id . '_cost_unit' ] );
+				$rule_cost_unit = wc_clean( wp_unslash( $_POST[ $this->id . '_cost_unit' ] ) );
 			}
 
 			if ( isset( $_POST[ $this->id . '_unit' ] ) ) {
-				$rule_unit = array_map( 'stripslashes', $_POST[ $this->id . '_unit' ] );
+				$rule_unit = wc_clean( wp_unslash( $_POST[ $this->id . '_unit' ] ) );
 			}
 
 			if ( isset( $_POST[ $this->id . '_per_qty' ] ) ) {
-				$rule_per_qty = array_map( 'stripslashes', $_POST[ $this->id . '_per_qty' ] );
+				$rule_per_qty = wc_clean( wp_unslash( $_POST[ $this->id . '_per_qty' ] ) );
 			}
 
 			if ( isset( $_POST[ $this->id . '_fee' ] ) ) {
-				$rule_fee = array_map( 'stripslashes', $_POST[ $this->id . '_fee' ] );
+				$rule_fee = wc_clean( wp_unslash( $_POST[ $this->id . '_fee' ] ) );
 			}
 
 			if ( isset( $_POST[ $this->id . '_break' ] ) ) {
-				$rule_break = array_map( 'stripslashes', $_POST[ $this->id . '_break' ] );
+				$rule_break = wc_clean( wp_unslash( $_POST[ $this->id . '_break' ] ) );
 			}
 
 			if ( isset( $_POST[ $this->id . '_abort' ] ) ) {
-				$rule_abort = array_map( 'stripslashes', $_POST[ $this->id . '_abort' ] );
+				$rule_abort = wc_clean( wp_unslash( $_POST[ $this->id . '_abort' ] ) );
 			}
+			// phpcs:enable WordPress.Security.NonceVerification.Missing
+			// phpcs:enable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
-			for ( $i = 0; $i <= count( $rule_conditions ); $i++ ) {
+			$total_role_conditions = count( $rule_conditions );
+			for ( $i = 0; $i <= $total_role_conditions; $i++ ) {
 
 				if ( isset( $rule_conditions[ $i ] ) ) {
 
 					foreach ( $rule_conditions[ $i ] as $or_idx => $or_conditions ) {
-						foreach( $or_conditions as $and_idx => $and_rule ) {
+						foreach ( $or_conditions as $and_idx => $and_rule ) {
 							$min       = stripslashes( $and_rule['min'] );
 							$max       = stripslashes( $and_rule['max'] );
 							$condition = stripslashes( $and_rule['condition'] );
@@ -815,7 +915,7 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 						$rule_max[ $i ] = wc_format_decimal( $rule_max[ $i ] );
 					}
 
-					$rule_cost[ $i ] = wc_format_decimal( $rule_cost[ $i ] );
+					$rule_cost[ $i ]      = wc_format_decimal( $rule_cost[ $i ] );
 					$rule_cost_unit[ $i ] = wc_format_decimal( $rule_cost_unit[ $i ] );
 
 					if ( empty( $rule_unit[ $i ] ) ) {
@@ -935,7 +1035,6 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 		 * @version 1.0.7
 		 *
 		 * @param  array $package Package to ship.
-		 * @return array
 		 */
 		public function calculate_shipping( $package = array() ) {
 			if ( $this->available_rates ) {
@@ -959,15 +1058,15 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 
 			// If they update information on the checkout and WC calls ajax,
 			// but they still didn't enter a shipping address, skip calculation.
-			if ( isset( $_GET['wc-ajax'] ) && 'update_order_review' === $_GET['wc-ajax'] && empty( $package['destination']['address'] ) ) {
+			if ( isset( $_GET['wc-ajax'] ) && 'update_order_review' === $_GET['wc-ajax'] && empty( $package['destination']['address'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended --- It has been verified.
 				return;
 			}
 
 			/*
 			 * Make sure the customer address is not only the country code.
 			 * as this means the customer has not yet entered an address.
-			 */ 
-			if ( 2 === strlen( $this->get_customer_address_string( $package, false ) )  ) {
+			 */
+			if ( 2 === strlen( $this->get_customer_address_string( $package, false ) ) ) {
 				return;
 			}
 
@@ -978,15 +1077,13 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 			}
 
 			// Get language code to allow localization.
-			$language = get_bloginfo("language");
-			
+			$language = get_bloginfo( 'language' );
+
 			$distance = $this->get_api()->get_distance( $this->get_shipping_address_string(), $this->get_customer_address_string( $package ), false, $this->mode, $this->avoid, $this->unit, $region, $language );
 
 			// Check if a valid response was received.
 			if ( ! isset( $distance->rows[0] ) || 'OK' !== $distance->rows[0]->elements[0]->status ) {
-
 				return;
-
 			}
 
 			$label_suffix = array();
@@ -1012,16 +1109,17 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 			$distance_value      = $distance->rows[0]->elements[0]->distance->value;
 
 			// Get product quantities from package contents.
-			$package_quantities  = array_map( function( $package_items ) {
+			$package_quantities = array_map(
+				function ( $package_items ) {
+					return ! empty( $package_items['quantity'] ) ? $package_items['quantity'] : 0;
+				},
+				$package['contents']
+			);
 
-				return ! empty( $package_items['quantity'] ) ? $package_items['quantity'] : 0;
-
-			}, $package['contents'] );
-			
 			// Calculate the product quantities.
-			$quantity            = is_array( $package_quantities ) ? array_sum( $package_quantities ) : 0;
-			$weight              = WC()->cart->cart_contents_weight;
-			$order_total         = $package['cart_subtotal'];
+			$quantity    = is_array( $package_quantities ) ? array_sum( $package_quantities ) : 0;
+			$weight      = WC()->cart->cart_contents_weight;
+			$order_total = $package['cart_subtotal'];
 
 			if ( 'imperial' === $this->unit ) {
 				$distance = round( $distance_value * 0.000621371192, $rounding_precision );
@@ -1059,12 +1157,12 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 
 				$first_condition     = '';
 				$more_than_one_rules = false;
-				
+
 				if ( count( $rule['conditions'] ) > 0 ) {
 					foreach ( $rule['conditions'] as $or_idx => $or_conditions ) {
 						$and_result = null;
-	
-						foreach( $or_conditions as $and_idx => $and_rule ) {
+
+						foreach ( $or_conditions as $and_idx => $and_rule ) {
 							$result = false;
 
 							if ( empty( $first_condition ) ) {
@@ -1072,36 +1170,36 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 							} else {
 								$more_than_one_rules = true;
 							}
-	
-							switch( $and_rule['condition'] ) {
+
+							switch ( $and_rule['condition'] ) {
 								case 'distance':
 									$result = $this->distance_shipping_rule( $and_rule, $distance, $package, $distance_value );
-								break;
-	
+									break;
+
 								case 'time':
 									$result = $this->time_shipping_rule( $and_rule, $travel_time_minutes, $package );
-								break;
-	
+									break;
+
 								case 'weight':
 									$result = $this->weight_shipping_rule( $and_rule, $distance, $package, $weight );
-								break;
-	
+									break;
+
 								case 'total':
 									$result = $this->order_total_shipping_rule( $and_rule, $distance, $package, $order_total );
-								break;
-	
+									break;
+
 								case 'quantity':
 									$result = $this->quantity_shipping_rule( $and_rule, $distance, $package, $quantity );
-								break;
+									break;
 							}
-	
-							$and_result = ( ! is_bool( $and_result) ) ? $result : ( $result && $and_result );
+
+							$and_result = ( ! is_bool( $and_result ) ) ? $result : ( $result && $and_result );
 						}
-	
+
 						$final_result = ( ! is_bool( $final_result ) ) ? $and_result : ( $and_result || $final_result );
 					}
 				}
-				
+
 				$rule_found = false;
 
 				if ( true === $final_result ) {
@@ -1110,36 +1208,35 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 					// For backward compatibility. Use the condition to determine the total_unit.
 					if ( ! isset( $rule['unit'] ) ) {
 						$total_unit = ( isset( $rule['condition'] ) && 'time' === $rule['condition'] ) ? $travel_time_minutes : $distance;
-					
-					// Use distance value if the unit used is not 'time';
+
+						// Use distance value if the unit used is not 'time'.
 					} else {
 						$total_unit = ( 'time' === $rule['unit'] ) ? $travel_time_minutes : $distance;
 					}
 
 					$rule_cost       = $this->rule_cost_calculation( $rule, $total_unit, $quantity, $package );
 					$shipping_total += $rule_cost;
-				
 				} elseif ( false === $more_than_one_rules ) {
 					switch ( $first_condition ) {
 						case 'distance':
 							$this->show_notice( __( 'Sorry, that shipping location is beyond our shipping radius.', 'woocommerce-distance-rate-shipping' ) );
-						break;
+							break;
 
 						case 'time':
 							$this->show_notice( __( 'Sorry, that shipping location is beyond our shipping travel time.', 'woocommerce-distance-rate-shipping' ) );
-						break;
+							break;
 
 						case 'weight':
 							$this->show_notice( __( 'Sorry, the total weight of your chosen items is beyond what we can ship.', 'woocommerce-distance-rate-shipping' ) );
-						break;
+							break;
 
 						case 'total':
 							$this->show_notice( __( 'Sorry, the total order cost is beyond what we can ship.', 'woocommerce-distance-rate-shipping' ) );
-						break;
+							break;
 
 						case 'quantity':
 							$this->show_notice( __( 'Sorry, the total quantity of items is beyond what we can ship.', 'woocommerce-distance-rate-shipping' ) );
-						break;
+							break;
 					}
 				}
 
@@ -1169,20 +1266,31 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 				return false;
 			}
 
-			// Set available
+			// Set available.
 			$this->available_rates = $rates;
 
 			return true;
 		}
 
+		/**
+		 * Creating the output of the table condition
+		 *
+		 * @since 1.0.29
+		 * @version 1.0.29
+		 *
+		 * @param string $rule_row   Row of rule.
+		 * @param array  $conditions All conditions.
+		 *
+		 * @return String.
+		 */
 		public function create_table_conditions( $rule_row, $conditions = array() ) {
 			$table_conditions = '';
 
 			if ( count( $conditions ) > 0 ) {
-				foreach( $conditions as $idx_group => $or_conditions ) {
+				foreach ( $conditions as $idx_group => $or_conditions ) {
 					$row_conditions = '';
 
-					foreach( $or_conditions as $idx_and => $and_rule ) {
+					foreach ( $or_conditions as $idx_and => $and_rule ) {
 						$condition = $conditions[ $idx_group ][ $idx_and ]['condition'];
 						$min       = $conditions[ $idx_group ][ $idx_and ]['min'];
 						$max       = $conditions[ $idx_group ][ $idx_and ]['max'];
@@ -1196,9 +1304,9 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 						}
 
 						$row_conditions .= '
-						<tr class="'. esc_attr( $row_class ) .'" data-group="' . esc_attr( $idx_group ) . '">
+						<tr class="' . esc_attr( $row_class ) . '" data-group="' . esc_attr( $idx_group ) . '">
 							<td>
-								<select name="' . $this->id . '_'. $array_str .'[condition]" class="wc-shipping-distance-rate-condition">
+								<select name="' . esc_attr( $this->id . '_' . $array_str ) . '[condition]" class="wc-shipping-distance-rate-condition">
 									<option value="distance" ' . selected( $condition, 'distance', false ) . '>' . __( 'Distance', 'woocommerce-distance-rate-shipping' ) . '</option>
 									<option value="time" ' . selected( $condition, 'time', false ) . '>' . __( 'Total Travel Time', 'woocommerce-distance-rate-shipping' ) . '</option>
 									<option value="weight" ' . selected( $condition, 'weight', false ) . '>' . __( 'Weight', 'woocommerce-distance-rate-shipping' ) . '</option>
@@ -1206,9 +1314,9 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 									<option value="quantity" ' . selected( $condition, 'quantity', false ) . '>' . __( 'Quantity', 'woocommerce-distance-rate-shipping' ) . '</option>
 								</select>
 							</td>
-							<td><input type="text" name="' . $this->id . '_'. $array_str .'[min]" size="4" class="wc-shipping-distance-rate-min wc_input_price" value="' . esc_attr( $min ) . '" /></td>
-							<td><input type="text" name="' . $this->id . '_'. $array_str .'[max]" size="4" class="wc-shipping-distance-rate-max wc_input_price" value="' . esc_attr( $max ) . '"/></td>
-							<td><button class="add_condition_row button">' . __( 'and', 'woocommerce-distance-rate-shipping') . '</button><span class="add_condition_text">'. __( 'and', 'woocommerce-distance-rate-shipping' ) .'</span></td>
+							<td><input type="text" name="' . esc_attr( $this->id . '_' . $array_str ) . '[min]" size="4" class="wc-shipping-distance-rate-min wc_input_price" value="' . esc_attr( $min ) . '" /></td>
+							<td><input type="text" name="' . esc_attr( $this->id . '_' . $array_str ) . '[max]" size="4" class="wc-shipping-distance-rate-max wc_input_price" value="' . esc_attr( $max ) . '"/></td>
+							<td><button class="add_condition_row button">' . esc_html__( 'and', 'woocommerce-distance-rate-shipping' ) . '</button><span class="add_condition_text">' . esc_html__( 'and', 'woocommerce-distance-rate-shipping' ) . '</span></td>
 							<td>' . $remove_button . '</td>
 						</tr>';
 					}
@@ -1216,7 +1324,7 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 					if ( ! empty( $table_conditions ) ) {
 						$row_conditions = '
 						<tr class="distance_or_text">
-							<td colspan="3">' . __( 'or', 'woocommerce-distance-rate-shipping' ) . '</td>
+							<td colspan="3">' . esc_html__( 'or', 'woocommerce-distance-rate-shipping' ) . '</td>
 						</tr>' . $row_conditions;
 					}
 
@@ -1234,19 +1342,19 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 				$table_conditions .= '
 				<table class="distance_rule_conditions">
 				<tbody>
-				<tr class="'. esc_attr( $row_class ) .'" data-group="0">
+				<tr class="' . esc_attr( $row_class ) . '" data-group="0">
 					<td>
-						<select name="' . $this->id . '_condition'. $array_str .'" class="wc-shipping-distance-rate-condition">
-							<option value="distance">' . __( 'Distance', 'woocommerce-distance-rate-shipping' ) . '</option>
-							<option value="time">' . __( 'Total Travel Time', 'woocommerce-distance-rate-shipping' ) . '</option>
-							<option value="weight">' . __( 'Weight', 'woocommerce-distance-rate-shipping' ) . '</option>
-							<option value="total">' . __( 'Order Total', 'woocommerce-distance-rate-shipping' ) . '</option>
-							<option value="quantity">' . __( 'Quantity', 'woocommerce-distance-rate-shipping' ) . '</option>
+						<select name="' . esc_attr( $this->id . '_condition' . $array_str ) . '" class="wc-shipping-distance-rate-condition">
+							<option value="distance">' . esc_html__( 'Distance', 'woocommerce-distance-rate-shipping' ) . '</option>
+							<option value="time">' . esc_html__( 'Total Travel Time', 'woocommerce-distance-rate-shipping' ) . '</option>
+							<option value="weight">' . esc_html__( 'Weight', 'woocommerce-distance-rate-shipping' ) . '</option>
+							<option value="total">' . esc_html__( 'Order Total', 'woocommerce-distance-rate-shipping' ) . '</option>
+							<option value="quantity">' . esc_html__( 'Quantity', 'woocommerce-distance-rate-shipping' ) . '</option>
 						</select>
 					</td>
-					<td><input type="text" name="' . $this->id . '_min'. $array_str .'" size="4" class="wc-shipping-distance-rate-min wc_input_price" value="" /></td>
-					<td><input type="text" name="' . $this->id . '_max'. $array_str .'" size="4" class="wc-shipping-distance-rate-max wc_input_price" value=""/></td>
-					<td><button class="add_condition_row button">' . __( 'and', 'woocommerce-distance-rate-shipping') . '</button><span class="add_condition_text">'. __( 'and', 'woocommerce-distance-rate-shipping' ) .'</span></td>
+					<td><input type="text" name="' . esc_attr( $this->id . '_min' . $array_str ) . '" size="4" class="wc-shipping-distance-rate-min wc_input_price" value="" /></td>
+					<td><input type="text" name="' . esc_attr( $this->id . '_max' . $array_str ) . '" size="4" class="wc-shipping-distance-rate-max wc_input_price" value=""/></td>
+					<td><button class="add_condition_row button">' . esc_html__( 'and', 'woocommerce-distance-rate-shipping' ) . '</button><span class="add_condition_text">' . esc_html__( 'and', 'woocommerce-distance-rate-shipping' ) . '</span></td>
 					<td></td>
 				</tr>
 				</tbody>
@@ -1256,10 +1364,10 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 			return $table_conditions . '
 				<table class="distance_rule_add_table_button">
 					<tr class="distance_or_text">
-						<td colspan="3">' . __( 'or', 'woocommerce-distance-rate-shipping' ) . '</td>
+						<td colspan="3">' . esc_html__( 'or', 'woocommerce-distance-rate-shipping' ) . '</td>
 					</tr>
 					<tr>
-						<td colspan="3" class="distance_or_button"><button class="or_condition_row button">' . __( 'Add rule group', 'woocommerce-distance-rate-shipping') . '</button></td>
+						<td colspan="3" class="distance_or_button"><button class="or_condition_row button">' . esc_html__( 'Add rule group', 'woocommerce-distance-rate-shipping' ) . '</button></td>
 					</tr>
 				</table>';
 		}
@@ -1274,7 +1382,7 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 		 * @param  float  $total_unit Value of the chosen unit.
 		 * @param  int    $quantity   Cart quantity.
 		 * @param  object $package  Package to ship.
-		 * 
+		 *
 		 * @return float  Cost of the shipping.
 		 */
 		public function rule_cost_calculation( $rule, $total_unit, $quantity, $package ) {
@@ -1309,9 +1417,9 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 			 * @param array $package       Package to ship.
 			 */
 			$condition = empty( $rule['condition'] ) ? $rule['conditions'][0][0]['condition'] : $rule['condition'];
-			$condition = 'total' === $condition ? 'order_total' : $condition;// Rename `total` condition to match legacy filter name.
-			$rule_cost = apply_filters( 
-				'woocommerce_distance_rate_shipping_rule_cost_'. $condition .'_shipping', 
+			$condition = 'total' === $condition ? 'order_total' : $condition; // Rename `total` condition to match legacy filter name.
+			$rule_cost = apply_filters(
+				'woocommerce_distance_rate_shipping_rule_cost_' . $condition . '_shipping',
 				$rule_cost,
 				$rule,
 				$total_unit,
@@ -1350,7 +1458,7 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 		 * @param  float  $distance   Distance in KM.
 		 * @param  object $package    Package to ship.
 		 * @param  float  $distance_m Distance in M.
-		 * 
+		 *
 		 * @return bool  Result of the rule.
 		 */
 		public function distance_shipping_rule( $rule, $distance, $package, $distance_m ) {
@@ -1389,6 +1497,18 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 			);
 		}
 
+		/**
+		 * Processing the time shipping rule.
+		 *
+		 * @since 1.0.29
+		 * @version 1.0.29
+		 *
+		 * @param  array  $rule                Rule.
+		 * @param  float  $travel_time_minutes Travel time in minutes.
+		 * @param  object $package             Package to ship.
+		 *
+		 * @return bool  Result of the rule.
+		 */
 		public function time_shipping_rule( $rule, $travel_time_minutes, $package ) {
 			$min_match = false;
 			$max_match = false;
@@ -1424,6 +1544,19 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 			);
 		}
 
+		/**
+		 * Processing the weight shipping rule.
+		 *
+		 * @since 1.0.29
+		 * @version 1.0.29
+		 *
+		 * @param array  $rule     Rule.
+		 * @param float  $distance Distance.
+		 * @param object $package  Package to ship.
+		 * @param float  $weight   Weight of the package.
+		 *
+		 * @return bool  Result of the rule.
+		 */
 		public function weight_shipping_rule( $rule, $distance, $package, $weight ) {
 			$min_match = false;
 			$max_match = false;
@@ -1461,6 +1594,19 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 			);
 		}
 
+		/**
+		 * Processing the weight shipping rule.
+		 *
+		 * @since 1.0.29
+		 * @version 1.0.29
+		 *
+		 * @param array  $rule        Rule.
+		 * @param float  $distance    Distance.
+		 * @param object $package     Package to ship.
+		 * @param float  $order_total Amount of total order.
+		 *
+		 * @return bool  Result of the rule.
+		 */
 		public function order_total_shipping_rule( $rule, $distance, $package, $order_total ) {
 			$min_match = false;
 			$max_match = false;
@@ -1498,6 +1644,19 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 			);
 		}
 
+		/**
+		 * Processing the quantity shipping rule.
+		 *
+		 * @since 1.0.29
+		 * @version 1.0.29
+		 *
+		 * @param array  $rule     Rule.
+		 * @param float  $distance Distance.
+		 * @param object $package  Package to ship.
+		 * @param float  $quantity Quantity of the items.
+		 *
+		 * @return bool  Result of the rule.
+		 */
 		public function quantity_shipping_rule( $rule, $distance, $package, $quantity ) {
 			$min_match = false;
 			$max_match = false;
@@ -1539,7 +1698,7 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 		 * Build customer address string from package.
 		 *
 		 * @param  array $package Package to ship.
-		 * @param  bool  $convert_country_code Use full country name or just the country code ( France vs. FR )
+		 * @param  bool  $convert_country_code Use full country name or just the country code ( France vs. FR ).
 		 * @return string
 		 */
 		public function get_customer_address_string( $package, $convert_country_code = true ) {
@@ -1547,29 +1706,29 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 
 			if ( ! empty( $package['destination']['address'] ) ) {
 				$address['address_1'] = $package['destination']['address'];
-			} else if ( ! empty( WC()->customer ) && ! empty( WC()->customer->get_shipping_address() ) ) {
+			} elseif ( ! empty( WC()->customer ) && ! empty( WC()->customer->get_shipping_address() ) ) {
 				$address['address_1'] = WC()->customer->get_shipping_address();
 			}
 
 			if ( ! empty( $package['destination']['address_2'] ) ) {
 				$address['address_2'] = $package['destination']['address_2'];
-			} else if ( ! empty( WC()->customer ) && ! empty( WC()->customer->get_shipping_address_2() ) ) {
+			} elseif ( ! empty( WC()->customer ) && ! empty( WC()->customer->get_shipping_address_2() ) ) {
 				$address['address_2'] = WC()->customer->get_shipping_address_2();
 			}
 
 			if ( ! empty( $package['destination']['city'] ) ) {
 				$address['city'] = $package['destination']['city'];
-			} else if ( ! empty( WC()->customer ) && ! empty( WC()->customer->get_shipping_city() ) ) {
+			} elseif ( ! empty( WC()->customer ) && ! empty( WC()->customer->get_shipping_city() ) ) {
 				$address['city'] = WC()->customer->get_shipping_city();
 			}
 
 			if ( ! empty( $package['destination']['state'] ) ) {
-				$state = $package['destination']['state'];
+				$state   = $package['destination']['state'];
 				$country = $package['destination']['country'];
 
-				// Convert state code to full name if available
+				// Convert state code to full name if available.
 				if ( isset( WC()->countries->states[ $country ], WC()->countries->states[ $country ][ $state ] ) ) {
-					$state = WC()->countries->states[ $country ][ $state ];
+					$state   = WC()->countries->states[ $country ][ $state ];
 					$country = WC()->countries->countries[ $country ];
 				}
 				$address['state'] = $state;
@@ -1583,7 +1742,7 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 			if ( ! empty( $package['destination']['country'] ) ) {
 				$country = $package['destination']['country'];
 
-				// Convert country code to full name if available
+				// Convert country code to full name if available.
 				if ( $convert_country_code && isset( WC()->countries->countries[ $country ] ) ) {
 					$country = WC()->countries->countries[ $country ];
 				}
@@ -1639,9 +1798,10 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 
 			require 'class-wc-google-distance-matrix-api.php';
 			$api_key = $this->api_key;
-			$debug = $this->debug;
+			$debug   = $this->debug;
 
-			return $this->api = new WC_Google_Distance_Matrix_API( $api_key, $debug );
+			$this->api = new WC_Google_Distance_Matrix_API( $api_key, $debug );
+			return $this->api;
 		}
 
 		/**

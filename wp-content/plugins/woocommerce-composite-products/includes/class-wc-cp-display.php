@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Products display functions and filters.
  *
  * @class    WC_CP_Display
- * @version  8.8.0
+ * @version  8.10.2
  */
 class WC_CP_Display {
 
@@ -97,7 +97,7 @@ class WC_CP_Display {
 		 */
 
 		// Display notice when editing a composite product from the cart.
-		add_action( 'woocommerce_before_single_product', array( $this, 'add_edit_in_cart_notice' ), 0 );
+		add_action( 'template_redirect', array( $this, 'add_edit_in_cart_notice' ), 0 );
 
 		// Display info notice when viewing a composite product whose catalog price is being calculated in the background.
 		add_action( 'woocommerce_before_single_product', array( $this, 'add_price_calc_task_notice' ), 0 );
@@ -428,11 +428,27 @@ class WC_CP_Display {
 
 		global $product;
 
-		if ( $product->is_type( 'composite' ) && isset( $_GET[ 'update-composite' ] ) ) {
+		if ( ! is_product() ) {
+			return;
+		}
+
+		if ( isset( $_GET[ 'update-composite' ] ) ) {
+			$current_product   = $product;
 			$updating_cart_key = wc_clean( $_GET[ 'update-composite' ] );
+
 			if ( isset( WC()->cart->cart_contents[ $updating_cart_key ] ) ) {
-				/* translators: Product title. */
-				$notice = sprintf ( __( 'You are currently editing &quot;%1$s&quot;. When finished, click the <strong>Update Cart</strong> button.', 'woocommerce-composite-products' ), $product->get_title() );
+
+				if ( ! is_a( $current_product, 'WC_Product' ) ) {
+					$current_product = WC()->cart->cart_contents[ $updating_cart_key ][ 'data' ];
+				}
+
+				if ( is_a( $current_product, 'WC_Product' ) && $current_product->is_type( 'composite' ) ) {
+					/* translators: Product title. */
+					$notice = sprintf( __( 'You are currently editing &quot;%1$s&quot;. When finished, click the <strong>Update Cart</strong> button.', 'woocommerce-composite-products' ), $current_product->get_title() );
+				} else {
+					$notice = __( 'You are currently editing this composite. When finished, click the <strong>Update Cart</strong> button.', 'woocommerce-composite-products' );
+				}
+
 				wc_add_notice( $notice, 'notice' );
 			}
 		}

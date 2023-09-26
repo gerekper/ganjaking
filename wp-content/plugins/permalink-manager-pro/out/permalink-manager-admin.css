@@ -121,7 +121,7 @@
 .permalink-manager-edit-uri-box .default-permalink-row,.permalink-manager-edit-uri-box .redirects-row{border-top:1px solid #eee;padding-top:15px}
 .permalink-manager-edit-uri-box .default-permalink-row,.permalink-manager-edit-uri-box .default-permastruct-row,.permalink-manager-edit-uri-box .redirects-row{color:#aaa;font-size:90%}
 
-#permalink-manager .restore-default,#permalink-manager .permastruct-toggle-button a{display:inline-block;width:100%;border-radius:0;color:#959595;text-decoration:none}
+#permalink-manager .restore-default,#permalink-manager .permastruct-buttons a{display:inline-block;width:100%;border-radius:0;color:#959595;text-decoration:none}
 #permalink-manager .restore-default{text-align:right}
 #permalink-manager .widefat,#permalink-manager #redirect-panel-inside,#permalink-manager #redirect-panel-inside table{width:100%!important;max-width:none;min-height:0!important;box-sizing:border-box;height:32px}
 #permalink-manager textarea.widefat,#permalink-manager #redirect-panel-inside table{height:auto}
@@ -191,7 +191,7 @@
 #permalink-manager .all-permastruct-container label{font-weight:600;margin-top:15px!important;font-size:13px;margin-bottom:5px!important;display:block;clear:both}
 #permalink-manager .all-permastruct-container .permastruct-field:disabled{cursor:not-allowed}
 #permalink-manager .all-permastruct-container .settings-container label{font-weight:400}
-#permalink-manager .permastruct-toggle-button a{font-size:90%;font-weight:bold}
+#permalink-manager .permastruct-buttons a{font-size:90%;font-weight:bold}
 
 
 /**

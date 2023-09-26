@@ -1,5 +1,8 @@
 *** WooCommerce One Page Checkout Changelog ***
 
+2023-09-19 - version 2.8.0
+* Fix - Prevent warnings if the post object becomes null during pageload.
+
 2023-08-08 - version 2.7.0
 * Tweak - WC 7.9 compatibility.
 * Tweak - WP 6.3 compatibility.

@@ -96,11 +96,6 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\NotificationEmailAction::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Templates\PremiumTemplatesFactory::class)->setPublic(true);
 
-    // Automation - WooCommerce integration
-    $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerce\WooCommerceIntegration::class)->setPublic(true);
-    $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerce\Triggers\AbandonedCart\AbandonedCartTrigger::class)->setPublic(true);
-    $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerce\Triggers\AbandonedCart\AbandonedCartHandler::class)->setPublic(true);
-
     // Automation - Analytics
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Analytics\Analytics::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Analytics\Endpoints\OrderEndpoint::class)->setPublic(true);

@@ -86,7 +86,7 @@ class PP_Settings_API {
         $attack_type = '';
         if(isset($_POST['attack_type']))
         {
-            $attack_type = $_POST['attack_type'];    
+            $attack_type = $_POST['attack_type'];
         }
         $sale_data = array();
         global $wpdb;
@@ -187,8 +187,10 @@ class PP_Settings_API {
             add_submenu_page('settings.php', $this->settings_menu['title'], $this->settings_menu['title'], $role, $this->settings_menu['name'], array(&$this, 'render_option_page'));
         } else {
             $hmwp_options = get_option('hide_my_wp');
-            if (!$hmwp_options['enable_ids']) {
-                include_once('mute-screamer/mute-screamer.php');
+            if (is_array($hmwp_options) && isset($hmwp_options['enable_ids'])) {
+                if (!$hmwp_options['enable_ids']) {
+                    include_once('mute-screamer/mute-screamer.php');
+                }
             }
             $intrusion_count = (int) HMWP_MS_IDS::instance()->opt( 'new_intrusions_count' );
             $intrusions_menu_title = sprintf( __( 'Intrusions %s', 'mute-screamer' ), "<span class='update-plugins count-$intrusion_count' title='$intrusion_count'><span class='update-count'>" . number_format_i18n( $intrusion_count ) . '</span></span>' );
@@ -202,7 +204,7 @@ class PP_Settings_API {
             //add_options_page($this->settings_menu['title'],  $this->settings_menu['title'], $role, $this->settings_menu['name'], array(&$this, 'render_option_page'));
         }
     }
-    
+
     /**
      * @version 6.0
      * redirect to google form
@@ -211,7 +213,7 @@ class PP_Settings_API {
         <script>
             window.location.href = "https://app.productstash.io/roadmaps/5f801fa2538d060029898a69/public#ideas";
         </script>
-    <?php    
+    <?php
     }
 
     /**
@@ -370,10 +372,11 @@ class PP_Settings_API {
             //Get old setting
             $hmwp_settings = get_option($this->settings_menu['name']);
             $admin_email = get_option('admin_email');
-            
+
             if ( isset($_POST['hmwp_setup_nonce']) && wp_verify_nonce($_POST['hmwp_setup_nonce'], 'hmwp_setup_setting') ){
                 $options_file = (is_multisite()) ? 'network/settings.php' : 'admin.php';
                 $page_url = admin_url(add_query_arg('page', $this->settings_menu['name'], $options_file));
+
 
 
                 $new_settings = stripslashes($_POST['setup-eb-setting']);
@@ -383,16 +386,22 @@ class PP_Settings_API {
                 $new_settings = str_replace('[quotation]', '"', $new_settings);
                 $new_settings = str_replace('[o_cb]', '{', $new_settings);
                 $new_settings = str_replace('[c_cb]', '}', $new_settings);
-				
+
 				if (!is_multisite()) {
 					global $wp_rewrite;
 					$is_permalink = HideMyWP::is_permalink();
 					if (!$is_permalink && empty($new_settings['post_base'])) {
 						$new_settings['post_base'] = '/%category%/%postname%/';
 					}
-					$wp_rewrite->set_permalink_structure(trim($new_settings['post_base'], ' '));
-					$wp_rewrite->set_category_base(trim($new_settings['category_base'], '/ '));
-					$wp_rewrite->set_tag_base(trim($new_settings['tag_base'], '/ '));
+					if (is_array($new_settings) && isset($new_settings['post_base'])) {
+					    $wp_rewrite->set_permalink_structure(trim($new_settings['post_base'], ' '));
+					}
+					if (is_array($new_settings) && isset($new_settings['category_base'])) {
+					    $wp_rewrite->set_category_base(trim($new_settings['category_base'], '/ '));
+					}
+					if (is_array($new_settings) && isset($new_settings['tag_base'])) {
+				    	$wp_rewrite->set_tag_base(trim($new_settings['tag_base'], '/ '));
+					}
 				}
 
                 if (isset($new_settings['li']) && !trim($new_settings['li']) && $_POST['setup-purchase-code'])
@@ -432,7 +441,7 @@ class PP_Settings_API {
                             <span class="enable-ele"><span class="dashicons dashicons-yes"></span> Intrusion Detection</span>
                             <span class="enable-ele"><span class="dashicons dashicons-yes"></span> Rename Plugins</span>
                             <span class="enable-ele"><span class="dashicons dashicons-yes"></span> Trust Network</span>
-                            
+
                         </div>
                         <div class="setup-dots">
                             <ul>
@@ -522,7 +531,7 @@ class PP_Settings_API {
                 $new_settings = str_replace('[quotation]', '"', $new_settings);
                 $new_settings = str_replace('[o_cb]', '{', $new_settings);
                 $new_settings = str_replace('[c_cb]', '}', $new_settings);
-				
+
 				if (!is_multisite()) {
 					global $wp_rewrite;
 					$wp_rewrite->set_permalink_structure(trim($new_settings['post_base'], ' '));
@@ -591,9 +600,18 @@ class PP_Settings_API {
 
             //echo '<br />';
             //settings_errors();
+			$options_file = (is_multisite()) ? 'network/settings.php' : 'admin.php';
+			$page_url = admin_url(add_query_arg('page', 'hide_my_wp', $options_file));
+			$skip = add_query_arg(array('skip-htaccess' => 'true'), $page_url);
+
             if (isset($_GET['htaccess-write']) && $_GET['htaccess-write'])
-				echo '<div class="error fade"><p><strong>' . __('Plugin is not able to write .htaccess file, Please make it writable. If not writable then do not apply HMWP settings.') . '</strong></p></div>';
-			
+				echo '<div class="error fade"><p><strong>' . __('Plugin is not able to write .htaccess file, Please make it writable. If not writable then do not apply HMWP settings.') . '</strong> <a href="'.$skip.'" class="button button-primary">Ignore & Continue</a></p></div>';
+
+			if (isset($_GET['skip-htaccess']) && $_GET['skip-htaccess']) {
+				update_option( 'skip_htaccess_error', true );
+				echo '<div class="updated fade"><p><strong>' . __('htaccess writable error has been skipped!') . '</p></strong></div>';
+			}
+
 			if (isset($_GET['settings-updated']) && $_GET['settings-updated'] == 'true')
                 echo '<div class="updated fade"><p><strong>' . __('Settings was updated successfully!', $this->settings_menu['name']) . '</p></strong></div>';
 
@@ -626,7 +644,7 @@ class PP_Settings_API {
         $setting_name = $this->settings_menu['name'];
         $settings = get_option($setting_name);
         $count = 0;
-        $htaccess = $api_msg = $tn_msg = '';        
+        $htaccess = $api_msg = $tn_msg = '';
         if(isset($settings['full_hide']) && $settings['full_hide'] !== 'on'){
             $api_msg = 'Your full hide is disable, Wapplyzer will detect you are using WordPress.';
             $count = $count + 1;
@@ -640,7 +658,7 @@ class PP_Settings_API {
             $tn_msg = 'Trust network is disabled, we can not fetch dangerous IPS.';
             $count = $count + 1;
         }
-        
+
         $filename = ABSPATH . '.htaccess';
         if(!is_writable($filename)){
             $htaccess = 'Plugin is not able to write .htaccess file, Please make it writable.';
@@ -663,7 +681,7 @@ class PP_Settings_API {
         <div class="js">
             <div class="wrap">
                 <h1><?php _e('Dashboard', 'hide_my_wp'); ?></h1>
-                <?php 
+                <?php
                 $hide_notice = get_option('hmwp_remove_dashboard_notice_opt');
                 if($count !== 0 && $hide_notice != 1){ ?>
                 <div id="welcome-panel" class="welcome-panel">
@@ -688,7 +706,7 @@ class PP_Settings_API {
                     </div>
                 </div>
                 <?php } ?>
-                
+
                 <?php
                 //Weekly ids data
                 $now = new DateTime( "6 days ago", new DateTimeZone('America/New_York'));
@@ -875,7 +893,7 @@ class PP_Settings_API {
                                             </table>
                                         </div>
                                     </div>
-                                </div>     
+                                </div>
                             </div>
                         </div>
                         <div id="postbox-container-2" class="postbox-container" >

@@ -1,4 +1,8 @@
-*** WooCommerce Box Office Changelog ***
+*** WooCommerce Box Office Changelog ***	       	    		       
+   	  	  	      	     	     	       	     	 
+2023-09-18 - version 1.2.1	
+* Add - Compatibility testing with "WooCommerce Payments".
+* Dev - QIT related fixes.
 
 2023-08-28 - version 1.2.0
 * Dev - Add Playwright end-to-end tests.

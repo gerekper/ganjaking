@@ -1,76 +1,47 @@
 <?php
 /**
- * Order delivery details
+ * Order delivery details.
  *
  * @package WC_OD/Templates
- * @version 1.5.4
+ * @version 2.6.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Global variables.
+ * Template vars.
  *
- * @global string $shipping_date
- * @global string $delivery_date
- * @global array  $delivery_time_frame
- * @global array  $delivery_range
+ * @var array  $args             Template arguments.
+ * @var string $title            The section title.
+ * @var string $details_template The details template to load.
  */
 ?>
-<div id="wc-od">
-	<header>
-		<h2><?php echo esc_html( $title ); ?></h2>
-	</header>
+<section id="wc-od" class="wc-od-order-details">
+	<?php
+	if ( ! empty( $title ) ) :
+		echo '<h2 class="wc-od-order-details-title">' . esc_html( $title ) . '</h2>';
+	endif;
 
-	<?php do_action( 'wc_od_order_before_delivery_details', $args ); ?>
+	/**
+	 * Fired before displaying the delivery details in the order view.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @param array $args Template arguments.
+	 */
+	do_action( 'wc_od_order_before_delivery_details', $args );
 
-	<?php if ( isset( $delivery_date ) ) : ?>
+	if ( ! empty( $details_template ) ) :
+		wc_od_get_template( $details_template, $args );
+	endif;
 
-		<p>
-			<?php
-			/* translators: %s: delivery date */
-			printf( wp_kses_post( __( 'We will try our best to deliver your order on %s.', 'woocommerce-order-delivery' ) ), "<strong>{$delivery_date}</strong>" ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			?>
-		</p>
-
-		<?php if ( ! empty( $delivery_time_frame ) ) : ?>
-			<p>
-				<?php
-				/* translators: %s: delivery time frame */
-				printf( wp_kses_post( __( 'Time frame: %s', 'woocommerce-order-delivery' ) ), '<strong>' . wc_od_time_frame_to_string( $delivery_time_frame ) . '</strong>' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				?>
-			</p>
-		<?php endif; ?>
-
-	<?php elseif ( isset( $shipping_date ) ) : ?>
-
-		<p>
-			<?php
-			/* translators: %s: shipping date */
-			printf( wp_kses_post( __( 'We estimate that your order will be shipped on %s.', 'woocommerce-order-delivery' ) ), "<strong>{$shipping_date}</strong>" ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			?>
-		</p>
-
-		<p>
-			<?php
-			if ( 0 < $delivery_range['max'] ) :
-				printf(
-					wp_kses_post(
-					/* translators: %s: minimum delivery days */
-						_n(
-							'The delivery will take approximately %s working day from the shipping date.',
-							'The delivery will take approximately %s working days from the shipping date.',
-							( $delivery_range['min'] === $delivery_range['max'] && 1 === $delivery_range['min'] ? 1 : $delivery_range['max'] ),
-							'woocommerce-order-delivery'
-						)
-					),
-					'<strong>' . wc_od_format_delivery_range( $delivery_range ) . '</strong>' // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				);
-			endif;
-			?>
-		</p>
-
-	<?php endif; ?>
-
-	<?php do_action( 'wc_od_order_after_delivery_details', $args ); ?>
-</div>
+	/**
+	 * Fired after displaying the delivery details in the order view.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @param array $args Template arguments.
+	 */
+	do_action( 'wc_od_order_after_delivery_details', $args );
+	?>
+</section>

@@ -1,5 +1,8 @@
 *** WooCommerce Stamps.com shipping and API integration ***
 
+2023-09-18 - version 1.9.6
+* Update - Security update.
+
 2023-08-22 - version 1.9.5
 * Fix - Use latest AddonType version.
 * Fix - Unable to get labels when destination was to Virgin Islands.

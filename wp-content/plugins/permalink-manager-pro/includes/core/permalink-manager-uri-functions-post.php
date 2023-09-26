@@ -649,11 +649,12 @@ class Permalink_Manager_URI_Functions_Post {
 			foreach ( $new_uris as $id => $new_uri ) {
 				// Prepare variables
 				$this_post = get_post( $id );
+				$is_draft  = ( ! empty( $this_post->post_status ) && $this_post->post_status == 'draft' ) ? true : false;
 
 				// Get default & native URL
 				$native_uri  = self::get_default_post_uri( $this_post, true );
-				$default_uri = self::get_default_post_uri( $this_post );
-				$old_uri     = isset( $old_uris[ $id ] ) ? trim( $old_uris[ $id ], "/" ) : "";
+				$default_uri = ( $is_draft ) ? '' : self::get_default_post_uri( $this_post );
+				$old_uri     = isset( $old_uris[ $id ] ) ? trim( $old_uris[ $id ], '/' ) : '';
 
 				// Process new values - empty entries will be treated as default values
 				$new_uri = Permalink_Manager_Helper_Functions::sanitize_title( $new_uri );
@@ -663,9 +664,9 @@ class Permalink_Manager_URI_Functions_Post {
 					$old_uris[ $id ] = $new_uri;
 					$updated_array[] = array( 'item_title' => get_the_title( $id ), 'ID' => $id, 'old_uri' => $old_uri, 'new_uri' => $new_uri );
 					$updated_slugs_count ++;
-				}
 
-				do_action( 'permalink_manager_updated_post_uri', $id, $new_uri, $old_uri, $native_uri, $default_uri );
+					do_action( 'permalink_manager_updated_post_uri', $id, $new_uri, $old_uri, $native_uri, $default_uri );
+				}
 			}
 
 			// Filter array before saving & append the global
@@ -784,9 +785,10 @@ class Permalink_Manager_URI_Functions_Post {
 
 		if ( $column_name == "permalink-manager-col" ) {
 			$exclude_drafts = ( isset( $permalink_manager_options['general']['ignore_drafts'] ) ) ? $permalink_manager_options['general']['ignore_drafts'] : false;
+			$is_draft       = ( get_post_status( $post_id ) == 'draft' ) ? true : false;
 
 			// A. Disable the "Quick Edit" form for draft posts if "Exclude drafts" option is turned on
-			if ( $exclude_drafts && get_post_status( $post_id ) == 'draft' ) {
+			if ( $exclude_drafts && $is_draft ) {
 				$disabled = 1;
 			} // B. Get auto-update settings
 			else {
@@ -794,7 +796,7 @@ class Permalink_Manager_URI_Functions_Post {
 				$disabled        = ( ! empty( $auto_update_val ) ) ? $auto_update_val : $permalink_manager_options["general"]["auto_update_uris"];
 			}
 
-			$uri = ( ! empty( $permalink_manager_uris[ $post_id ] ) ) ? rawurldecode( $permalink_manager_uris[ $post_id ] ) : self::get_post_uri( $post_id, true );
+			$uri = ( ! empty( $permalink_manager_uris[ $post_id ] ) ) ? rawurldecode( $permalink_manager_uris[ $post_id ] ) : self::get_post_uri( $post_id, true, $is_draft );
 			printf( '<span class="permalink-manager-col-uri" data-disabled="%s">%s</span>', intval( $disabled ), $uri );
 		}
 	}

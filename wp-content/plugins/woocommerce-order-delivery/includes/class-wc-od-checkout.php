@@ -144,7 +144,7 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		 * @return bool
 		 */
 		public function is_local_pickup() {
-			return ( 0 === strpos( (string) $this->get_shipping_method(), 'local_pickup' ) );
+			return wc_od_shipping_method_is_local_pickup( $this->get_shipping_method() );
 		}
 
 		/**
@@ -157,7 +157,7 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		public function needs_details() {
 			$needs_details = (
 				is_checkout() && WC()->cart->needs_shipping() &&
-				( ! $this->is_local_pickup() || wc_string_to_bool( WC_OD()->settings()->get_setting( 'enable_local_pickup' ) ) )
+				( ! $this->is_local_pickup() || wc_od_is_local_pickup_enabled() )
 			);
 
 			/**
@@ -231,6 +231,10 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		 * @return array An array with the delivery date field arguments.
 		 */
 		public function get_delivery_date_field_args( $args = array() ) {
+			if ( $this->is_local_pickup() ) {
+				$args['label'] = __( 'Pickup date', 'woocommerce-order-delivery' );
+			}
+
 			return wc_od_get_delivery_date_field_args( $args, 'checkout' );
 		}
 
@@ -454,7 +458,7 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		}
 
 		/**
-		 * Adds the custom content to the checkout form.
+		 * Outputs the checkout content.
 		 *
 		 * @since 1.0.0
 		 */
@@ -465,32 +469,44 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 				return;
 			}
 
-			$checkout = WC()->checkout();
+			$is_local_pickup = $this->is_local_pickup();
+			$checkout_option = WC_OD()->settings()->get_setting( 'checkout_delivery_option' );
+			$range           = WC_OD_Delivery_Ranges::get_range_matching_shipping_method( $this->get_shipping_method() );
 
-			$shipping_method = $this->get_shipping_method();
-			$range           = WC_OD_Delivery_Ranges::get_range_matching_shipping_method( $shipping_method );
+			if ( $is_local_pickup ) {
+				$title         = __( 'Pickup details', 'woocommerce-order-delivery' );
+				$checkout_text = WC_OD()->settings()->get_setting( 'pickup_text' );
+			} else {
+				$title         = __( 'Delivery details', 'woocommerce-order-delivery' );
+				$checkout_text = WC_OD()->settings()->get_setting( 'checkout_text' );
+			}
 
 			/**
 			 * Filters the arguments used by the checkout/form-delivery-date.php template.
 			 *
 			 * @since 1.1.0
 			 * @since 1.5.0 The parameter `delivery_date_field` is deprecated.
+			 * @since 1.9.5 Added `checkout_text` parameter.
 			 * @since 2.0.0 The parameter `delivery_date_field` is no longer provided.
+			 * @since 2.6.0 Added `checkout_option`, and `is_local_pickup` parameters.
+			 * @since 2.6.0 The parameters `delivery_option` is deprecated. Use `checkout_option` instead.
 			 *
-			 * @param array $args The arguments.
+			 * @param array $args The template arguments.
 			 */
 			$args = apply_filters(
 				'wc_od_checkout_delivery_details_args',
 				array(
-					'title'           => __( 'Shipping and delivery', 'woocommerce-order-delivery' ),
-					'checkout'        => $checkout,
-					'delivery_option' => WC_OD()->settings()->get_setting( 'checkout_delivery_option' ),
+					'title'           => $title,
+					'checkout_text'   => $checkout_text,
+					'checkout_option' => $checkout_option,
+					'is_local_pickup' => $is_local_pickup,
+					'checkout'        => WC()->checkout(),
+					'delivery_option' => $checkout_option, // Deprecated.
 					'shipping_date'   => wc_od_localize_date( $this->get_first_shipping_date() ),
 					'delivery_range'  => array(
 						'min' => $range->get_from(),
 						'max' => $range->get_to(),
 					),
-					'checkout_text'   => WC_OD()->settings()->get_setting( 'checkout_text' ),
 				)
 			);
 
@@ -821,6 +837,11 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 
 			if ( $time_frame ) {
 				$order->update_meta_data( '_delivery_time_frame', $time_frame );
+			}
+
+			// Don't calculate the shipping date for local pickup orders.
+			if ( wc_od_order_is_local_pickup( $order ) ) {
+				return;
 			}
 
 			$shipping_date = $this->get_order_shipping_date( $delivery_date );

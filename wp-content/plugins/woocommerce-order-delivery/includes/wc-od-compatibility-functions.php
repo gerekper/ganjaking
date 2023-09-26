@@ -133,3 +133,29 @@ function wc_od_get_post_or_object_meta( $post, $data, $key, $single ) {
 
 	return get_post_meta( $post->ID, $key, $single );
 }
+
+/**
+ * Gets the ID of the currently editing post or object.
+ *
+ * @since 2.6.0
+ *
+ * @param string $screen Optional. Check the current screen matches the provided. Default empty.
+ * @return int|false The object ID. False otherwise.
+ */
+function wc_od_get_current_post_or_object_id( $screen = '' ) {
+	if ( $screen && wc_od_get_current_screen_id() !== $screen ) {
+		return false;
+	}
+
+	$object_id = false;
+
+	// phpcs:disable WordPress.Security.NonceVerification
+	if ( isset( $_GET['id'] ) ) {
+		$object_id = absint( wp_unslash( $_GET['id'] ) );
+	} elseif ( isset( $_GET['post'] ) ) {
+		$object_id = absint( wp_unslash( $_GET['post'] ) );
+	}
+	// phpcs:enable WordPress.Security.NonceVerification
+
+	return $object_id;
+}

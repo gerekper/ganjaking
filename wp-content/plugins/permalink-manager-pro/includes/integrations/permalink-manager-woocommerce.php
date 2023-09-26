@@ -15,7 +15,7 @@ class Permalink_Manager_WooCommerce {
 	 */
 	function init_hooks() {
 		if ( class_exists( 'WooCommerce' ) ) {
-			add_filter( 'permalink_manager_filter_query', array( $this, 'woocommerce_detect' ), 9, 5 );
+			add_filter( 'permalink_manager_filter_query', array( $this, 'woocommerce_detect' ), 8, 5 );
 			add_filter( 'template_redirect', array( $this, 'woocommerce_checkout_fix' ), 9 );
 
 			if ( class_exists( 'Permalink_Manager_Pro_Functions' ) ) {

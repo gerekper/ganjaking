@@ -1,9 +1,6 @@
 <?php
 
-/**
- * woocommerce_product_addons class
- * */
-if ( !class_exists( 'WC_Catalog_Restrictions' ) ) {
+if ( ! class_exists( 'WC_Catalog_Restrictions' ) ) {
 
 	class WC_Catalog_Restrictions {
 
@@ -33,11 +30,13 @@ if ( !class_exists( 'WC_Catalog_Restrictions' ) ) {
 			require untrailingslashit( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'shortcodes/class-wc-catalog-restrictions-location-picker-shortcode.php';
 			require untrailingslashit( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'widgets/class-wc-catalog-restrictions-location-picker-widget.php';
 
+			require untrailingslashit( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'includes/class-wc-catalog-restrictions-transient-helper.php';
+
 			WC_Catalog_Restrictions_Location_Picker_ShortCode::instance();
 
 			WC_Catalog_Restrictions_Location_Picker_Widget::register();
 
-			if ( is_admin() && !defined( 'DOING_AJAX' ) ) {
+			if ( is_admin() && ! defined( 'DOING_AJAX' ) ) {
 				require untrailingslashit( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'includes/class-wc-catalog-restrictions-product-admin.php';
 				require untrailingslashit( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'includes/class-wc-catalog-restrictions-category-admin.php';
 
@@ -50,31 +49,31 @@ if ( !class_exists( 'WC_Catalog_Restrictions' ) ) {
 					WC_Catalog_Restrictions_User_Admin::instance();
 				}
 			} else {
-				if ( !defined( 'DOING_CRON' ) ) {
-					add_action( 'woocommerce_init', array( $this, 'on_init' ), 0 );
+				if ( ! defined( 'DOING_CRON' ) ) {
+					add_action( 'woocommerce_init', [ $this, 'on_init' ], 0 );
 				}
 			}
 
-			if ( is_admin() && !defined( 'DOING_AJAX' ) && !defined( 'DOING_CRON' ) ) {
+			if ( is_admin() && ! defined( 'DOING_AJAX' ) && ! defined( 'DOING_CRON' ) ) {
 				require 'woocommerce-catalog-restrictions-installer.php';
 				$this->install();
 
-				add_action( 'admin_init', array( $this, 'on_admin_init' ) );
+				add_action( 'admin_init', [ $this, 'on_admin_init' ] );
 			}
 
 			//Setup Hooks to clear transients when a post is saved, a category is saved, a user changes their location, a user is updated, a user logs on / out.
-			add_action( 'save_post', array( $this, 'clear_transients' ) );
-			add_action( 'created_term', array( $this, 'clear_transients' ) );
-			add_action( 'edit_term', array( $this, 'clear_transients' ) );
-			add_action( 'edit_user_profile_update', array( $this, 'clear_transients' ) );
+			add_action( 'save_post', [ $this, 'clear_transients_on_save_product' ] );
+			add_action( 'created_term', [ $this, 'clear_transients' ] );
+			add_action( 'edit_term', [ $this, 'clear_transients' ] );
+			add_action( 'edit_user_profile_update', [ $this, 'clear_transients' ] );
 
-			add_action( 'user_register', array( $this, 'clear_session_transients' ) );
-			add_action( 'wp_login', array( $this, 'clear_session_transients' ) );
-			add_action( 'wp_logout', array( $this, 'clear_session_transients' ) );
-			add_action( 'wc_restrictions_location_updated', array( $this, 'clear_session_transients' ) );
-			add_action( 'wc_restrictions_location_updated', array( $this, 'maybe_clear_cart' ) );
+			add_action( 'user_register', [ $this, 'clear_session_transients' ] );
+			add_action( 'wp_login', [ $this, 'clear_session_transients' ] );
+			add_action( 'wp_logout', [ $this, 'clear_session_transients' ] );
+			add_action( 'wc_restrictions_location_updated', [ $this, 'clear_session_transients' ] );
+			add_action( 'wc_restrictions_location_updated', [ $this, 'maybe_clear_cart' ] );
 
-			add_action( 'init', array( $this, 'on_global_init' ), 9999 );
+			add_action( 'init', [ $this, 'on_global_init' ], 9999 );
 		}
 
 		public function on_global_init() {
@@ -89,50 +88,22 @@ if ( !class_exists( 'WC_Catalog_Restrictions' ) ) {
 			}
 		}
 
-		public function clear_transients() {
-			global $wpdb;
-
-			if (self::$transient_clear_count < self::$max_transient_clear_count) {
-				$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_wc_related%'" );
-				$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_wc_loop%'" );
-				$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_wc_product_loop%'" );
-				$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_product_query%'" );
-
-				$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_twccr%'" );
-				$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_timeout_twccr%'" );
-
-				if ( $this->use_db_filter_cache ) {
-					$table = $wpdb->prefix . 'wc_cvo_cache';
-					$wpdb->query( "DELETE FROM $table" );
+		public function clear_transients_on_save_product( $post_id ) {
+			if ( self::$transient_clear_count < self::$max_transient_clear_count ) {
+				$post_type = get_post_type( $post_id );
+				if ( $post_type == 'product' ) {
+					// Note - Calling this function will increment the transient clear count
+					$this->clear_transients();
 				}
-
-				wp_cache_flush();
-				self::$transient_clear_count++;
 			}
 		}
 
+		public function clear_transients() {
+			WC_Catalog_Restrictions_Transient_Helper::queue_delete_transients();
+		}
+
 		public function clear_session_transients() {
-			global $wpdb;
-
-			$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_wc_loop%'" );
-			$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_wc_product_loop%'" );
-			$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_product_query%'" );
-			$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_twccr%'" );
-			$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_timeout_twccr%'" );
-
-			if ( $this->use_db_filter_cache ) {
-				$table = $wpdb->prefix . 'wc_cvo_cache';
-				$wpdb->query( "DELETE FROM $table" );
-			}
-
-			$session = WC_Catalog_Visibility_Compatibility::WC()->session;
-			if ( isset( $session ) ) {
-				$session_id = WC_Catalog_Visibility_Compatibility::WC()->session->get_customer_id();
-				$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_twccr_" . $session_id . "%'" );
-				$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_timeout_twccr_" . $session_id . "%'" );
-
-				wp_cache_flush();
-			}
+			WC_Catalog_Restrictions_Transient_Helper::queue_delete_transients();
 		}
 
 		public function maybe_clear_cart() {
@@ -142,11 +113,11 @@ if ( !class_exists( 'WC_Catalog_Restrictions' ) ) {
 		}
 
 		public function on_init() {
-			if ( !WC() ) {
+			if ( ! WC() ) {
 				return;
 			}
 
-			if (apply_filters('woocommerce_catalog_restrictions_allow_editors', false) && current_user_can('edit_posts')) {
+			if ( apply_filters( 'woocommerce_catalog_restrictions_allow_editors', false ) && current_user_can( 'edit_posts' ) ) {
 				return;
 			}
 
@@ -158,10 +129,10 @@ if ( !class_exists( 'WC_Catalog_Restrictions' ) ) {
 			//load after woocommerce
 
 			if ( $this->get_setting( '_wc_restrictions_locations_enabled', 'no' ) == 'yes' ) {
-				add_filter( 'template_redirect', array( $this, 'template_redirect' ), 999 );
+				add_filter( 'template_redirect', [ $this, 'template_redirect' ], 999 );
 			}
 
-			if ( $_POST && !empty( $_POST ) ) {
+			if ( $_POST && ! empty( $_POST ) ) {
 				if ( isset( $_POST['save-location'] ) ) {
 					$location = $_POST['location'];
 
@@ -228,7 +199,7 @@ if ( !class_exists( 'WC_Catalog_Restrictions' ) ) {
 			$location   = isset( $session ) && isset( $session->wc_location ) ? $session->wc_location : '';
 			$changeable = apply_filters( 'wc_location_changeable', $wc_cvo->setting( '_wc_restrictions_locations_changeable' ) == 'yes' );
 
-			if ( !$changeable || empty( $location ) ) {
+			if ( ! $changeable || empty( $location ) ) {
 				if ( function_exists( 'wc_get_customer_default_location' ) && $this->get_setting( '_wc_restrictions_locations_use_geo', 'yes' ) == 'yes' ) {
 					$l = wc_get_customer_default_location();
 
@@ -256,8 +227,8 @@ if ( !class_exists( 'WC_Catalog_Restrictions' ) ) {
 
 			if ( empty( $location ) && $this->get_setting( '_wc_restrictions_locations_required', 'no' ) == 'yes' && ( empty( $can_change ) || $can_change == 'yes' ) ) {
 				$location_page_id = wc_get_page_id( 'choose_location' );
-				if ( $location_page_id && !is_page( $location_page_id ) ) {
-					$woocommerce->session->wc_catalog_restrictions_return_url = esc_url_raw( add_query_arg( array( 'locationset' => '1' ) ) );
+				if ( $location_page_id && ! is_page( $location_page_id ) ) {
+					$woocommerce->session->wc_catalog_restrictions_return_url = esc_url_raw( add_query_arg( [ 'locationset' => '1' ] ) );
 					$location_url                                             = get_permalink( $location_page_id );
 					if ( $location_url ) {
 						wp_safe_redirect( $location_url );

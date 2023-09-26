@@ -1,4 +1,16 @@
-*** WooCommerce Bookings Changelog ***
+*** WooCommerce Bookings Changelog ***	       	    		       	   
+  	  	      	     	     	       	     	 		
+2023-09-18 - version 2.0.3
+* Dev - Bump WooCommerce "tested up to" version from 7.8.0 to 8.0.
+* Dev - Bump WooCommerce minimum supported version from 7.2 to 7.8.
+* Dev - PHPCS/SemGrep fixes.
+* Dev - Replace $eval with locator in playwright E2E tests.
+* Fix - Date selection for bookings on the front-end when customer allocated resources are modified.
+* Fix - Ensure JavaScript dependencies load correctly.
+* Fix - Fatal Error with PHP 8.1: "Call to a member function has_qty() on bool".
+* Fix - Incorrect extension name in block-based error message.
+* Fix - Potential error handling on unsaved orders for virtual bookings.
+* Fix - Visual feedback for vendors editing booking availability.
 
 2023-08-14 - version 2.0.2
 * Dev - Bump PHP minimum supported version from 7.2 to 7.3.

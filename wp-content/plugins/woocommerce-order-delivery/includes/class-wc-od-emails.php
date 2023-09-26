@@ -83,14 +83,14 @@ if ( ! class_exists( 'WC_OD_Emails' ) ) {
 		}
 
 		/**
-		 * Displays the delivery information in the emails.
+		 * Displays the delivery details in the emails.
 		 *
 		 * @since 1.4.1
 		 *
 		 * @param WC_Order $order         Order instance.
-		 * @param bool     $sent_to_admin If should sent to admin.
-		 * @param bool     $plain_text    If is plain text email.
-		 * @param WC_Email $email         Optional. The email instance.
+		 * @param bool     $sent_to_admin Optional. If the email is for the admin. Default false.
+		 * @param bool     $plain_text    Optional. If it's a plain-text email. Default false.
+		 * @param WC_Email $email         Optional. The email instance. Default null.
 		 */
 		public function delivery_details( $order, $sent_to_admin = false, $plain_text = false, $email = null ) {
 			$delivery_date = $order->get_meta( '_delivery_date' );
@@ -141,38 +141,47 @@ if ( ! class_exists( 'WC_OD_Emails' ) ) {
 				return;
 			}
 
-			$delivery_date_i18n = wc_od_localize_date( $delivery_date );
+			$is_local_pickup = wc_od_order_is_local_pickup( $order );
 
-			if ( $delivery_date_i18n ) {
-				/**
-				 * Filter the arguments used by the emails/email-delivery-date.php template.
-				 *
-				 * @since 1.1.0
-				 * @since 1.5.0 Added `delivery_time_frame` parameter.
-				 *
-				 * @param array $args The arguments.
-				 */
-				$args = apply_filters(
-					'wc_od_email_delivery_details_args',
-					array(
-						'title'               => __( 'Delivery details', 'woocommerce-order-delivery' ),
-						'delivery_date'       => $delivery_date_i18n,
-						'delivery_time_frame' => $order->get_meta( '_delivery_time_frame' ),
-						'order'               => $order,
-						'sent_to_admin'       => $sent_to_admin,
-						'plain_text'          => $plain_text,
-						'email'               => $email,
-					)
-				);
-
-				$template_name = 'emails/' . ( $plain_text ? 'plain/' : '' ) . 'email-delivery-date.php';
-
-				wc_od_get_template( $template_name, $args );
+			if ( $is_local_pickup ) {
+				$title = __( 'Pickup details', 'woocommerce-order-delivery' );
+			} else {
+				$title = __( 'Delivery details', 'woocommerce-order-delivery' );
 			}
+
+			$time_frame = $order->get_meta( '_delivery_time_frame' );
+
+			/**
+			 * Filter the arguments used by the emails/email-delivery-date.php template.
+			 *
+			 * @since 1.1.0
+			 * @since 1.5.0 Added `delivery_time_frame` parameter.
+			 * @since 2.6.0 Deprecated `delivery_date` parameter. Use `date` instead.
+			 * @since 2.6.0 Deprecated `delivery_time_frame` parameter. Use `time_frame` instead.
+			 *
+			 * @param array $args The arguments.
+			 */
+			$args = apply_filters(
+				'wc_od_email_delivery_details_args',
+				array(
+					'title'               => $title,
+					'date'                => $delivery_date,
+					'time_frame'          => $time_frame,
+					'delivery_date'       => wc_od_localize_date( $delivery_date ), // Deprecated.
+					'delivery_time_frame' => $time_frame, // Deprecated.
+					'is_local_pickup'     => $is_local_pickup,
+					'order'               => $order,
+					'sent_to_admin'       => $sent_to_admin,
+					'plain_text'          => $plain_text,
+					'email'               => $email,
+				)
+			);
+
+			$template_name = 'emails/' . ( $plain_text ? 'plain/' : '' ) . 'email-delivery-date.php';
+
+			wc_od_get_template( $template_name, $args );
 		}
-
 	}
-
 }
 
 return new WC_OD_Emails();

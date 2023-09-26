@@ -61,6 +61,12 @@ class Current_Page_Helper {
 			return \sanitize_text_field( \wp_unslash( $_GET['post_type'] ) );
 		}
 
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Reason: should be done outside the helper function.
+		if ( isset( $_POST['post_type'] ) && \is_string( $_POST['post_type'] ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Reason: should be done outside the helper function.
+			return \sanitize_text_field( \wp_unslash( $_POST['post_type'] ) );
+		}
+
 		$post_id = $this->get_current_post_id();
 
 		if ( $post_id ) {

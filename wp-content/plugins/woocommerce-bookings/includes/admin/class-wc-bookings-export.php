@@ -42,7 +42,7 @@ class WC_Bookings_Single_Export {
 		}
 
 		// Check if the nonce is valid.
-		if ( ! wp_verify_nonce( $_GET['_wpnonce'], $nonce_action ) ) {
+		if ( empty( $_GET['_wpnonce'] ) || ! wp_verify_nonce( wp_unslash( $_GET['_wpnonce'] ), $nonce_action ) ) { //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			wp_die( esc_html__( 'Unauthorised request, please try again.', 'woocommerce-bookings' ) );
 		}
 

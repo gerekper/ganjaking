@@ -1396,8 +1396,8 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				if ( $authorisationcode ) {
 					$data                 = array();
 					$data['_redsys_done'] = 'yes';
-					$dsdate = date( 'd/m/Y', current_time( 'timestamp', 0 ) ); // phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested,WordPress.DateTime.RestrictedFunctions.date_date
-					$dshour = date( 'H:i', current_time( 'timestamp', 0 ) ); // phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested,WordPress.DateTime.RestrictedFunctions.date_date
+					$dsdate               = date( 'd/m/Y', current_time( 'timestamp', 0 ) ); // phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested,WordPress.DateTime.RestrictedFunctions.date_date
+					$dshour               = date( 'H:i', current_time( 'timestamp', 0 ) ); // phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested,WordPress.DateTime.RestrictedFunctions.date_date
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'insite', 'payment_complete() 1' );
 					}
@@ -5190,7 +5190,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				} else {
 					$ini = '';
 				}
-				if ( $insite_ds_merchant_cof_type && 'yes' === $save ) {
+				if ( $insite_ds_merchant_cof_type && 'yes' === $insite_save ) {
 					$cof = '<DS_MERCHANT_COF_TYPE>' . $insite_ds_merchant_cof_type . '</DS_MERCHANT_COF_TYPE>';
 				} else {
 					$cof = '';
@@ -7546,8 +7546,8 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				if ( ! empty( $dscargtype ) ) {
 					WCRed()->update_order_meta( $order->id, '_card_type_insite', 'C' === $dscargtype ? 'Credit' : 'Debit' );
 				}
-				if ( ! empty( $dstermnal ) ) {
-					WCRed()->update_order_meta( $order->id, '_payment_terminal_redsys', $dstermnal );
+				if ( ! empty( $terminal ) ) {
+					WCRed()->update_order_meta( $order->id, '_payment_terminal_redsys', $terminal );
 				}
 				// Payment completed.
 				$order->add_order_note( __( 'HTTP Notification received - payment completed', 'woocommerce-redsys' ) );

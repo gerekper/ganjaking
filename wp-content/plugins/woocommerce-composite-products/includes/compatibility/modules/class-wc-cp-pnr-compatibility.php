@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Points and Rewards Compatibility.
  *
- * @version  3.12.0
+ * @version  8.10.0
  */
 class WC_CP_PnR_Compatibility {
 
@@ -146,18 +146,22 @@ class WC_CP_PnR_Compatibility {
 
 				$composite_points = WC_Points_Rewards_Product::get_points_earned_for_product_purchase( $product );
 
-				if ( '' !== $max_composite_price ) {
+				// Do not print any PnR message if 0 points are earned from the purchase of the Composite.
+				if ( 0 !== absint( $composite_points ) ) {
 
-					if ( $max_composite_price === $min_composite_price ) {
-						self::$single_product_message_filter_active = false;
-						$message = $points_n_rewards->render_product_message();
-						self::$single_product_message_filter_active = true;
+					if ( '' !== $max_composite_price ) {
+
+						if ( $max_composite_price === $min_composite_price ) {
+							self::$single_product_message_filter_active = false;
+							$message                                    = $points_n_rewards->render_product_message();
+							self::$single_product_message_filter_active = true;
+						} else {
+							$message = $points_n_rewards->create_variation_message_to_product_summary( $composite_points );
+						}
+
 					} else {
-						$message = $points_n_rewards->create_variation_message_to_product_summary( $composite_points );
+						$message = $points_n_rewards->create_at_least_message_to_product_summary( $composite_points );
 					}
-
-				} else {
-					$message = $points_n_rewards->create_at_least_message_to_product_summary( $composite_points );
 				}
 
 				remove_filter( 'woocommerce_product_get_price', array( __CLASS__, 'replace_price' ), 9999, 2 );

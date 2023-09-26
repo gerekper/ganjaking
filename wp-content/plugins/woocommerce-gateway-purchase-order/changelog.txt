@@ -1,5 +1,18 @@
 ** WooCommerce Gateway Purchase Order Changelog **
 
+2023-09-18 - version 1.4.4
+* Dev - Bump WordPress "tested up to" version to 6.3.
+* Dev - Bump WooCommerce "tested up to" version 7.9.
+* Dev - Bump WooCommerce minimum supported version to 7.7.
+* Dev - Bump PHP minimum supported version to 7.3.
+* Dev - Added new GitHub Workflow to run Quality Insights Toolkit tests.
+* Dev - Add Playwright end-to-end tests.
+
+2023-07-04 - version 1.4.3
+* Dev - Bump WooCommerce "tested up to" version 7.8.
+* Dev - Bump WooCommerce minimum supported version from 6.8 to 7.2.
+* Dev - Bump WordPress minimum supported version from 5.8 to 6.1.
+
 2023-05-25 - version 1.4.2
 * Dev - Resolve PHPCS warnings.
 * Dev - Bump WooCommerce "tested up to" version 7.6.  

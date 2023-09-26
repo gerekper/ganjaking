@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MailPoet plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet 4.27.0\n"
+"Project-Id-Version: MailPoet 4.28.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-09-11T17:08:43+00:00\n"
+"POT-Creation-Date: 2023-09-19T10:29:25+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -7940,7 +7940,7 @@ msgstr ""
 #: lib/Automation/Engine/Builder/DuplicateAutomationController.php:52
 #: lib/Form/FormSaveController.php:28
 #: lib/Newsletter/NewsletterSaveController.php:180
-#: lib/Segments/DynamicSegments/SegmentSaveController.php:50
+#: lib/Segments/DynamicSegments/SegmentSaveController.php:55
 #: lib/Segments/SegmentSaveController.php:47
 msgid "Copy of %s"
 msgstr ""
@@ -8681,6 +8681,10 @@ msgstr ""
 #. translators: %d is the order ID.
 #: lib/Automation/Integrations/WooCommerce/Subjects/OrderSubject.php:51
 msgid "Order with ID '%d' not found."
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Triggers/AbandonedCart/AbandonedCartTrigger.php:56
+msgid "Abandoned cart"
 msgstr ""
 
 #: lib/Automation/Integrations/WooCommerce/Triggers/OrderStatusChangedTrigger.php:40
@@ -9792,11 +9796,11 @@ msgstr ""
 msgid "Daemon does not set correctly."
 msgstr ""
 
-#: lib/Cron/Workers/SendingQueue/Tasks/Newsletter.php:219
+#: lib/Cron/Workers/SendingQueue/Tasks/Newsletter.php:227
 msgid "No subject"
 msgstr ""
 
-#: lib/Cron/Workers/SendingQueue/Tasks/Newsletter.php:299
+#: lib/Cron/Workers/SendingQueue/Tasks/Newsletter.php:307
 msgid "There was an error processing your newsletter during sending. If possible, please contact us and report this issue."
 msgstr ""
 
@@ -9948,6 +9952,7 @@ msgstr ""
 #: lib/Newsletter/Sending/ScheduledTaskSubscribersListingRepository.php:48
 #: lib/Segments/SegmentListingRepository.php:94
 #: lib/Subscribers/SubscriberListingRepository.php:228
+#: assets/dist/js/admin.js:2
 #: assets/dist/js/automation.js:1
 msgid "All"
 msgstr ""
@@ -12621,6 +12626,106 @@ msgstr ""
 
 #: assets/dist/js/admin.js:2
 msgid "december"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Recently Subscribed"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Contacts who have subscribed to your emails within the last 30 days."
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Engaged Subscribers (30 days)"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Contacts who have interacted with your emails or made at least one purchase, and received emails from you in the last 30 days."
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Engaged Subscribers (3 months)"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Contacts who have interacted with your emails or made at least one purchase, and received emails from you in the last 3 months."
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Engaged Subscribers (6 months)"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Contacts who have interacted with your emails or made at least one purchase, and received emails from you in the last 6 months."
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Recent Buyers"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Customers who have made a purchase within the last 30 days. "
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Repeat Buyers"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Customers who have made at least two purchases in the last 6 months."
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Loyal Buyers"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Customers who have made at least five purchases in the last 12 months."
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Win-Back"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Customers who have previously purchased, but haven’t made a purchase in the last 6 months."
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Lapsed Customers"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Customers who haven’t made a purchase in the last 9 months."
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Recent Openers"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Contacts who have opened an email in the last 7 days."
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Big Spenders"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Customers who have completed $100 or more worth of orders in the last 12 months."
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Engagement"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Purchase History"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Shopping Behavior"
 msgstr ""
 
 #: assets/dist/js/admin.js:2

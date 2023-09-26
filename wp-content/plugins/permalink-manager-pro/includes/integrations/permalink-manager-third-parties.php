@@ -106,6 +106,16 @@ class Permalink_Manager_Third_Parties {
 		if ( class_exists( 'LearnPress' ) ) {
 			add_filter( 'permalink_manager_excluded_post_ids', array( $this, 'learnpress_exclude_pages' ) );
 		}
+
+		// Bricks
+		if ( class_exists( '\Bricks\Theme' ) ) {
+			add_filter( 'permalink_manager_filter_query', array( $this, 'bricks_fix_template' ), 10, 5 );
+		}
+
+		// Google Site Kit
+		if ( class_exists( '\Google\Site_Kit\Plugin' ) ) {
+			add_filter( 'request', array( $this, 'googlesitekit_fix_request' ), 10, 1 );
+		}
 	}
 
 	/**
@@ -1101,6 +1111,26 @@ class Permalink_Manager_Third_Parties {
 	}
 
 	/**
+	 * Remove the obsolete 'term' and 'taxonomy' query parameters if Bricks theme is detected
+	 *
+	 * @param array $query The query object.
+	 * @param array $old_query The original query array.
+	 * @param array $uri_parts An array of the URI parts.
+	 * @param array $pm_query
+	 * @param string $content_type
+	 *
+	 * @return array
+	 */
+	function bricks_fix_template( $query, $old_query, $uri_parts, $pm_query, $content_type ) {
+		if ( ! empty( $pm_query ) && ! empty( $query['term'] ) && ! empty( $query['taxonomy'] ) ) {
+			unset( $query['taxonomy'] );
+			unset( $query['term'] );
+		}
+
+		return $query;
+	}
+
+	/**
 	 * Regenerate the default permalink for the post after the custom permalink is imported by Store Locator - CSV Manager
 	 *
 	 * @param int $meta_id The ID of the metadata entry.
@@ -1119,6 +1149,28 @@ class Permalink_Manager_Third_Parties {
 				update_option( 'permalink-manager-uris', $permalink_manager_uris );
 			}
 		}
+	}
+
+	/**
+	 * Support custom permalinks in query functions used by Google Site Kit plugin
+	 *
+	 * @param $request
+	 *
+	 * @return array
+	 */
+	function googlesitekit_fix_request( $request ) {
+		if ( ! empty( $_GET['permaLink'] ) && ! empty( $_GET['page'] ) && $_GET['page'] === 'googlesitekit-dashboard' ) {
+			global $pm_query;
+
+			$old_url   = trim( esc_url_raw( $_GET['permaLink'] ), '/' );
+			$new_query = Permalink_Manager_Core_Functions::detect_post( null, $old_url );
+
+			if ( ! empty( $new_query ) && ! empty( $pm_query['id'] ) ) {
+				$request = $new_query;
+			}
+		}
+
+		return $request;
 	}
 
 }

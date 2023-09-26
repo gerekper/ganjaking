@@ -3,7 +3,7 @@
  * Admin order delivery note email
  *
  * @package WC_OD/Templates/Emails
- * @version 1.5.0
+ * @version 2.6.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
  */
 do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
-<p><?php esc_html_e( 'A delivery note has been added to the order:', 'woocommerce-order-delivery' ); ?></p>
+<p><?php esc_html_e( 'A note has been added to the order:', 'woocommerce-order-delivery' ); ?></p>
 
 <blockquote><?php echo wpautop( wptexturize( $note ) ); ?></blockquote>
 

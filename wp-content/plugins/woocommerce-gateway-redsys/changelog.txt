@@ -1,5 +1,10 @@
 *** Redsys Gateway Change Log ***
 
+2023.09.19 - version 22.2.1
+
+* FIX: Fixed the terminal saving issue in one of the processes. It was causing issues with returns through InSite.
+* FIX: Fixed an issue with sending COF_TYPE in one of the processes with InSite.
+
 2023.09.05 - version 22.2.0
 
 * NEW: Preauthorizations with InSite

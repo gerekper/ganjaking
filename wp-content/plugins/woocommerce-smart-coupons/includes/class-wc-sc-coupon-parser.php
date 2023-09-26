@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.4.0
+ * @version     1.5.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -209,7 +209,9 @@ if ( ! class_exists( 'WC_SC_Coupon_Parser' ) ) {
 			if ( $enc ) {
 				setlocale( LC_ALL, 'en_US.' . $enc );
 			}
-			ini_set( 'auto_detect_line_endings', true ); // phpcs:ignore
+			if ( ! $this->is_php_gte( '8.0.0' ) ) {
+				ini_set( 'auto_detect_line_endings', true ); // phpcs:ignore
+			}
 
 			$parsed_data = array();
 

@@ -1,5 +1,23 @@
 *** WooCommerce Order Delivery Changelog ***
 
+2023-09-25 - version 2.6.0
+* Feature - Use different texts than delivery on local pickup orders.
+* Tweak - Don't calculate the shipping date for local pickup orders.
+* Tweak - Display empty the 'Shipping date' column in the order list for local pickup orders.
+* Tweak - Changed the delivery section title in the checkout form to 'Delivery details'.
+* Tweak - Don't display the delivery heading in the checkout form if the text is empty.
+* Tweak - Added specific CSS classes to the delivery section in the checkout form.
+* Tweak - Updated the title of the subscription delivery metabox.
+* Tweak - Optimized the number of strings in the translation file.
+* Tweak - Updated plugin author.
+* Tweak - Tested compatibility up to WC 8.1.
+* Tweak - Tested compatibility up to WP 6.3.
+* Fix - Address PHP 8.1+ deprecation notices.
+* Dev - Dropped deprecated filter hook `wc_od_get_order_shipping_method`.
+* Dev - Dropped deprecated plugin code up to version 2.3.
+* Dev - Dropped `woo-includes/` files.
+* Dev - Updated plugin templates.
+
 2023-05-26 - version 2.5.3
 * Fix - Fixed undefined function `wcs_get_page_screen_id` error when using a WooCommerce Subscriptions version lower than 4.8.0.
 
@@ -28,7 +46,7 @@
 * Dev - Include the table columns parameter when filtering the position of the delivery columns in the order list table.
 
 2023-02-07 - version 2.4.0
-* Tweak - Include the tax amount in the time frame fee when displaying prices with tax included at checkout. 
+* Tweak - Include the tax amount in the time frame fee when displaying prices with tax included at checkout.
 * Tweak - Display an admin notice when executing the 'Calculate shipping date' bulk action without affecting any orders.
 * Tweak - Redirect to the create delivery range form when the URL parameter `range_id` is invalid.
 * Tweak - Register the plugin integrations when all plugins have been loaded.
@@ -103,7 +121,7 @@
 * Tweak - Prevent the interaction with the delivery fields while the checkout fragments are being refreshed.
 * Tweak - Validate the 'Delivery days' form field is not empty when adding a time frame to multiple delivery days.
 * Tweak - Display the info 'Number of orders' in the 'Description' column of the 'Delivery days' setting table.
-* Tweak - Don't display the delivery estimation text when the range of days is zero. 
+* Tweak - Don't display the delivery estimation text when the range of days is zero.
 * Tweak - Added a link to get support in the plugin list.
 * Tweak - Improved formatting of the System Status Report.
 * Tweak - Tested compatibility up to WC 6.5.
@@ -325,7 +343,7 @@
 2018-07-05 - version 1.4.0
 * Feature - Calculate the 'recommended' shipping date for each order based on its delivery date.
 * Feature - Added 'shipping_date' and 'delivery_date' filters to the shop order table list to filter the orders by these fields.
-* Feature - Send an email to the merchant when a note related with the delivery is added to an order/subscription.
+* Feature - Email to the merchant when a note related with the delivery is added to an order/subscription.
 * Tweak - Added setting to deactivate the restriction that limits the available dates in the calendar to the billing interval of the subscription.
 * Tweak - Hide the 'Shipping & delivery' section in the checkout page when the customer selects 'Local Pickup' as the shipping method.
 * Tweak - Hide the 'Shipping & delivery' section in the checkout page when the 'WooCommerce Ship to Multiple Addresses' extension is used in the checkout page.
@@ -373,53 +391,53 @@
 * Fix - Fixed issue when updating the delivery date and the status of an order at the same time. The delivery date in the emails was outdated.
 
 2017-03-30 - version 1.1.1
-* Fix - Fixed empty value in the 'states' field for the events of the delivery calendar.
 * Tweak - Added 'clear' option in the 'states' field for the events of the delivery calendar.
 * Tweak - Renamed WooCommerce version 2.7 to 3.0.
+* Fix - Fixed empty value in the 'states' field for the events of the delivery calendar.
 
 2017-03-09 - version 1.1.0
- * Feature - Added a setting to make the delivery date an optional, required or auto-generated field in the checkout form.
- * Fix - Missing delivery info in the 'customer_on_hold_order' emails.
- * Fix - Display always the 'Delivery Date' column before the 'Date' column in the order list.
- * Fix - Fixed the appearance of the 'help tips' icons on the settings page.
- * Dev - Added plugin constants.
- * Dev - Deprecated 'dir_path', 'dir_url', 'date_format', 'date_format_js' and 'prefix' properties in the main class.
- * Dev - Updated bootstrap-datepicker.js library to the version 1.6.4.
- * Dev - Added wc-od-datepicker.js script to abstract the datepicker library.
- * Dev - Checkout class rewritten to make it more extensible by developers.
- * Dev - Set the minimum requirements to WP 4.1+ and WC 2.5+.
- * Dev - Moved class loading (autoload) code to the 'WC_OD_Autoloader' class.
- * Dev - Refactored singleton pattern code in the 'WC_OD_Singleton' class.
- * Tweak - Added compatibility with WooCommerce 2.7.
- * Tweak - Removed Select2 and jquery.BlockUI assets. It only uses the libraries included with WooCommerce.
- * Tweak - Added the template 'emails/email-delivery-date.php' to display the delivery details on emails.
- * Tweak - Updated the templates 'order/delivery-date.php' and 'checkout/form-delivery-date.php' to make them more customizable.
- * Tweak - Avoid duplicate numbers when displaying a delivery range with the minimum value equal to the maximum value.
- * Tweak - Added singular string for the delivery range text displayed in the checkout form.
- * Tweak - Use the global variable '$wp_locale' to fetch the weekdays strings in the function 'wc_od_get_week_days'.
- * Tweak - Use the timezone of the site instead of UTC for all the date operations.
- * Tweak - Added hooks to customize the calendar styles.
+* Feature - Added a setting to make the delivery date an optional, required or auto-generated field in the checkout form.
+* Tweak - Removed Select2 and jquery.BlockUI assets. It only uses the libraries included with WooCommerce.
+* Tweak - Added the template 'emails/email-delivery-date.php' to display the delivery details on emails.
+* Tweak - Updated the templates 'order/delivery-date.php' and 'checkout/form-delivery-date.php' to make them more customizable.
+* Tweak - Avoid duplicate numbers when displaying a delivery range with the minimum value equal to the maximum value.
+* Tweak - Added singular string for the delivery range text displayed in the checkout form.
+* Tweak - Use the global variable '$wp_locale' to fetch the weekdays strings in the function 'wc_od_get_week_days'.
+* Tweak - Use the timezone of the site instead of UTC for all the date operations.
+* Tweak - Added hooks to customize the calendar styles.
+* Tweak - Added compatibility with WooCommerce 2.7.
+* Fix - Missing delivery info in the 'customer_on_hold_order' emails.
+* Fix - Display always the 'Delivery Date' column before the 'Date' column in the order list.
+* Fix - Fixed the appearance of the 'help tips' icons on the settings page.
+* Dev - Added plugin constants.
+* Dev - Deprecated 'dir_path', 'dir_url', 'date_format', 'date_format_js' and 'prefix' properties in the main class.
+* Dev - Updated bootstrap-datepicker.js library to the version 1.6.4.
+* Dev - Added wc-od-datepicker.js script to abstract the datepicker library.
+* Dev - Checkout class rewritten to make it more extensible by developers.
+* Dev - Set the minimum requirements to WP 4.1+ and WC 2.5+.
+* Dev - Moved class loading (autoload) code to the 'WC_OD_Autoloader' class.
+* Dev - Refactored singleton pattern code in the 'WC_OD_Singleton' class.
 
 2017-01-19 - version 1.0.6
- * Tweak - Calculate the first shipping and delivery dates using the site's timezone instead of UTC for a more accurate result.
+* Tweak - Calculate the first shipping and delivery dates using the site's timezone instead of UTC for a more accurate result.
 
 2016-11-30 - version 1.0.5
- * Fix - Fixed bug calculating the first shipping date for orders with min_working_days > 0 and ordered after the time limit.
- * Fix - Fixed deprecated notice with the woocommerce_update_option_X action hook when saving the plugin settings.
+* Fix - Fixed bug calculating the first shipping date for orders with min_working_days > 0 and ordered after the time limit.
+* Fix - Fixed deprecated notice with the woocommerce_update_option_X action hook when saving the plugin settings.
 
 2016-11-21 - version 1.0.4
- * Fix - Fixed issue when checking the time limit to deliver orders on the same day.
+* Fix - Fixed issue when checking the time limit to deliver orders on the same day.
 
 2016-10-18 - version 1.0.3
- * Fix - Fixed the earlier day for UTC minus timezones in the checkout calendar.
+* Fix - Fixed the earlier day for UTC minus timezones in the checkout calendar.
 
 2016-06-28 - version 1.0.2
- * Tweak - Added WooCommerce 2.6 compatibility.
- * Fix - Fixed datepicker styles for the themes: Storefront 2.0, Twenty Fifteen 1.5 and Twenty Sixteen 1.2.
- * Fix - Fixed typo when calling the 'woocommerce_email_subject_customer_processing_order' in the WC_OD_Order_Details class.
+* Tweak - Added WooCommerce 2.6 compatibility.
+* Fix - Fixed datepicker styles for the themes: Storefront 2.0, Twenty Fifteen 1.5 and Twenty Sixteen 1.2.
+* Fix - Fixed typo when calling the 'woocommerce_email_subject_customer_processing_order' in the WC_OD_Order_Details class.
 
 2015-12-14 - version 1.0.1
- * Fix - Added required field validation in the checkout form.
+* Fix - Added required field validation in the checkout form.
 
 2015-06-04 - version 1.0.0
- * Initial Release! Woo!
+* Initial Release! Woo!.

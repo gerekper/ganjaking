@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * API functions to support product modifications when contained in Composites.
  *
  * @class    WC_CP_Products
- * @version  8.4.2
+ * @version  8.10.2
  */
 class WC_CP_Products {
 
@@ -221,6 +221,7 @@ class WC_CP_Products {
 			add_filter( 'woocommerce_variation_prices', array( __CLASS__, 'filter_get_variation_prices' ), 16, 2 );
 			add_filter( 'woocommerce_available_variation', array( __CLASS__, 'filter_available_variation' ), 10, 3 );
 			add_filter( 'woocommerce_show_variation_price', array( __CLASS__, 'filter_show_variation_price' ), 10, 3 );
+			add_filter( 'woocommerce_get_variation_prices_hash', array( __CLASS__, 'filter_variation_prices_hash' ), 10, 2 );
 
 			add_filter( 'woocommerce_product_is_on_sale', array( __CLASS__, 'filter_is_on_sale' ), 16, 2 );
 
@@ -267,6 +268,7 @@ class WC_CP_Products {
 			remove_filter( 'woocommerce_variation_prices', array( __CLASS__, 'filter_get_variation_prices' ), 16, 2 );
 			remove_filter( 'woocommerce_available_variation', array( __CLASS__, 'filter_available_variation' ), 10, 3 );
 			remove_filter( 'woocommerce_show_variation_price', array( __CLASS__, 'filter_show_variation_price' ), 10, 3 );
+			remove_filter( 'woocommerce_get_variation_prices_hash', array( __CLASS__, 'filter_variation_prices_hash' ), 10, 2 );
 
 			remove_filter( 'woocommerce_product_is_on_sale', array( __CLASS__, 'filter_is_on_sale' ), 16, 2 );
 
@@ -414,6 +416,29 @@ class WC_CP_Products {
 				do_action( self::$price_calc_task_runner->get_cron_hook_identifier() );
 			}
 		}
+	}
+
+	/**
+	 * Filter variation prices hash to load different prices for variable products with variation filters and/or discounts.
+	 *
+	 * @param  array                $hash
+	 * @param  WC_Product_Variable  $product
+	 * @return array
+	 */
+	public static function filter_variation_prices_hash( $hash, $product ) {
+
+		$filtered_component_option = self::$filtered_component_option;
+
+		if ( ! empty( $filtered_component_option  ) ) {
+
+			$discount = $filtered_component_option->get_discount();
+
+			if ( ! empty( $discount ) ) {
+				$hash[] = $filtered_component_option->get_product_id();
+			}
+		}
+
+		return $hash;
 	}
 
 	/**

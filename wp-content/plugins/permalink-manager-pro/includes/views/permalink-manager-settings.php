@@ -210,6 +210,12 @@ class Permalink_Manager_Settings {
 						'class_exists' => 'UM',
 						'description'  => __( 'If enabled, Permalink Manager will detect the additional Ultimate Member pages (eg. "account" sections).', 'permalink-manager' )
 					),
+					'rankmath_redirect'     => array(
+						'type'        => 'single_checkbox',
+						'label'       => __( 'RankMath\'s "Redirections" fix redirect conflict', 'permalink-manager' ),
+						'input_class' => '',
+						'description' => sprintf( '%s<br />%s', __( 'If enabled, the Permalink Manager plugin <strong>will stop a redirect set with the RankMath SEO plugin\'s "Source URLs"</strong> if this URL is already being used as a custom permalink by any post or term.', 'permalink-manager' ), __( 'This prevents redirect loops from forming when both plugins manage redirects on the same URL.', 'permalink-manager' ) )
+					),
 					'yoast_breadcrumbs'     => array(
 						'type'        => 'single_checkbox',
 						'label'       => __( 'Breadcrumbs support', 'permalink-manager' ),

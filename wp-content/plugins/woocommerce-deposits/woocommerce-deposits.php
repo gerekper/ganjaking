@@ -3,15 +3,15 @@
  * Plugin Name: WooCommerce Deposits
  * Plugin URI: https://woocommerce.com/products/woocommerce-deposits/
  * Description: Mark items as deposit items which customers can then place deposits on, rather than paying in full.
- * Version: 2.1.6
+ * Version: 2.1.9
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-deposits
  * Domain Path: /languages
- * Requires at least: 5.8
- * Tested up to: 6.2
- * WC tested up to: 7.6
- * WC requires at least: 6.8
+ * Requires at least: 6.1
+ * Tested up to: 6.3
+ * WC tested up to: 8.0
+ * WC requires at least: 7.8
  * Requires PHP: 7.2
  *
  * Copyright: © 2023 WooCommerce
@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WC_DEPOSITS_VERSION', '2.1.6' ); // WRCS: DEFINED_VERSION.
+define( 'WC_DEPOSITS_VERSION', '2.1.9' ); // WRCS: DEFINED_VERSION.
 define( 'WC_DEPOSITS_FILE', __FILE__ );
 
 /**

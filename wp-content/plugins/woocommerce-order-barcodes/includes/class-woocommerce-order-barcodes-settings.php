@@ -1,126 +1,150 @@
 <?php
+/**
+ * Class WooCommerce_Order_Barcodes_Settings.
+ *
+ * @package woocommerce-order-barcodes
+ */
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
+/**
+ * Class WooCommerce_Order_Barcodes_Settings.
+ *
+ * A class to handle the plugin settings.
+ */
 class WooCommerce_Order_Barcodes_Settings {
 
 	/**
 	 * The single instance of WooCommerce_Order_Barcodes_Settings.
-	 * @var 	object
-	 * @access  private
-	 * @since 	1.0.0
+	 *
+	 * @var     object
+	 * @since   1.0.0
 	 * @static
 	 */
-	private static $_instance = null;
+	private static $instance = null;
 
 	/**
 	 * The main plugin object.
-	 * @var 	object
-	 * @access  public
-	 * @since 	1.0.0
+	 *
+	 * @var   object
+	 * @since 1.0.0
 	 */
 	public $parent = null;
 
 	/**
 	 * Prefix for plugin settings.
-	 * @var     string
-	 * @access  public
-	 * @since   1.0.0
+	 *
+	 * @var   string
+	 * @since 1.0.0
 	 */
 	public $base = '';
 
 	/**
 	 * Available settings for plugin.
-	 * @var     array
-	 * @access  public
-	 * @since   1.0.0
+	 *
+	 * @var   array
+	 * @since 1.0.0
 	 */
 	public $settings = array();
 
 	/**
 	 * Constructor
-	 * @access public
-	 * @since  1.0.0
-	 * @param  object $parent Main plugin object
+	 *
+	 * @since 1.0.0
+	 * @param object $parent Main plugin object.
 	 */
-	public function __construct ( $parent ) {
+	public function __construct( $parent ) {
 
-		// Set main plugin class as parent
+		// Set main plugin class as parent.
 		$this->parent = $parent;
 
-		// Initialise settings
+		// Initialise settings.
 		$this->init_settings();
 
-		// Set up settings fields
+		// Set up settings fields.
 		add_filter( 'woocommerce_general_settings', array( $this, 'add_settings' ), 10, 1 );
 		add_action( 'woocommerce_admin_field_barcode_colors', array( $this, 'colour_settings' ) );
 		add_action( 'woocommerce_settings_save_general', array( $this, 'colour_settings_save' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_assets' ) );
 
-		// Add settings link to plugins list table
-		add_filter( 'plugin_action_links_' . plugin_basename( $this->parent->file ) , array( $this, 'add_settings_link' ) );
+		// Add settings link to plugins list table.
+		add_filter( 'plugin_action_links_' . plugin_basename( $this->parent->file ), array( $this, 'add_settings_link' ) );
 
 	} // End __construct ()
 
 	/**
 	 * Initialise settings
-	 * @access public
+	 *
 	 * @since  1.0.0
 	 * @return void
 	 */
-	public function init_settings () {
+	public function init_settings() {
 		$this->settings = $this->settings_fields();
 	} // End init_settings ()
 
 	/**
 	 * Build settings fields
-	 * @access private
+	 *
 	 * @since  1.0.0
 	 * @return array Fields to be displayed on settings page
 	 */
-	private function settings_fields () {
+	private function settings_fields() {
 
 		// Set up available barcode types.
 		$type_options = array(
-			'code39'		=> __( 'Code 39', 'woocommerce-order-barcodes' ),
-			'code93'		=> __( 'Code 93', 'woocommerce-order-barcodes' ),
-			'code128' 		=> __( 'Code 128', 'woocommerce-order-barcodes' ),
-			'datamatrix'	=> __( 'Data Matrix', 'woocommerce-order-barcodes' ),
-			'qr' 			=> __( 'QR Code', 'woocommerce-order-barcodes' ),
+			'code39'     => __( 'Code 39', 'woocommerce-order-barcodes' ),
+			'code93'     => __( 'Code 93', 'woocommerce-order-barcodes' ),
+			'code128'    => __( 'Code 128', 'woocommerce-order-barcodes' ),
+			'datamatrix' => __( 'Data Matrix', 'woocommerce-order-barcodes' ),
+			'qr'         => __( 'QR Code', 'woocommerce-order-barcodes' ),
 		);
 
 		// Register settings fields.
 		$settings = array(
-			array( 'title'	=> __( 'Order Barcodes', 'woocommerce-order-barcodes' ), 'type' => 'title', 'desc' => '', 'id' => 'order_barcodes' ),
-
 			array(
-				'title' 	=> __( 'Enable Barcodes', 'woocommerce-order-barcodes' ),
-				'desc' 		=> __( 'This will enable unique barcode generation for each order.', 'woocommerce-order-barcodes' ),
-				'id' 		=> 'wc_order_barcodes_enable',
-				'default'	=> 'yes',
-				'type' 		=> 'checkbox',
-				'class' 	=> 'checkbox',
-				'desc_tip'	=> true,
+				'title' => __( 'Order Barcodes', 'woocommerce-order-barcodes' ),
+				'type'  => 'title',
+				'desc'  => '',
+				'id'    => 'order_barcodes',
 			),
 
 			array(
-				'title' 	=> __( 'Barcode Type', 'woocommerce-order-barcodes' ),
-				'desc' 		=> __( 'This is the type of barcode that will be generated for your orders - changing this will only affect future orders.', 'woocommerce-order-barcodes' ),
-				'id' 		=> 'wc_order_barcodes_type',
-				'css' 		=> 'min-width:350px;',
-				'default'	=> 'code128',
-				'type' 		=> 'select',
-				'class' 	=> 'wc-enhanced-select',
-				'desc_tip'	=> true,
-				'options'	=> $type_options,
+				'title'    => __( 'Enable Barcodes', 'woocommerce-order-barcodes' ),
+				'desc'     => __( 'This will enable unique barcode generation for each order.', 'woocommerce-order-barcodes' ),
+				'id'       => 'wc_order_barcodes_enable',
+				'default'  => 'yes',
+				'type'     => 'checkbox',
+				'class'    => 'checkbox',
+				'desc_tip' => true,
 			),
 
-			array( 'type'	=> 'barcode_colors' ),
+			array(
+				'title'    => __( 'Barcode Type', 'woocommerce-order-barcodes' ),
+				'desc'     => __( 'This is the type of barcode that will be generated for your orders - changing this will only affect future orders.', 'woocommerce-order-barcodes' ),
+				'id'       => 'wc_order_barcodes_type',
+				'css'      => 'min-width:350px;',
+				'default'  => 'code128',
+				'type'     => 'select',
+				'class'    => 'wc-enhanced-select',
+				'desc_tip' => true,
+				'options'  => $type_options,
+			),
 
-			array( 'type'	=> 'sectionend', 'id' => 'order_barcodes' ),
+			array( 'type' => 'barcode_colors' ),
+
+			array(
+				'type' => 'sectionend',
+				'id'   => 'order_barcodes',
+			),
 		);
 
-		// Allow settings to be filtered
+		/**
+		 * Allow settings to be filtered.
+		 *
+		 * @since 1.0.0
+		 */
 		$settings = apply_filters( 'wc_order_barcodes_settings_fields', $settings );
 
 		return $settings;
@@ -129,11 +153,11 @@ class WooCommerce_Order_Barcodes_Settings {
 
 	/**
 	 * Markup for colour settings
-	 * @access public
+	 *
 	 * @since  1.0.0
 	 * @return void
 	 */
-	public function colour_settings () {
+	public function colour_settings() {
 		?>
 		<tr valign="top" class="wc_order_barcodes_colours">
 			<th scope="row" class="titledesc">
@@ -161,11 +185,11 @@ class WooCommerce_Order_Barcodes_Settings {
 
 	/**
 	 * Save colour settings.
-	 * @access public
+	 *
 	 * @since  1.0.0
 	 * @return void
 	 */
-	public function colour_settings_save () {
+	public function colour_settings_save() {
 		check_admin_referer( 'woocommerce-settings' );
 
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
@@ -179,7 +203,7 @@ class WooCommerce_Order_Barcodes_Settings {
 
 			// Set settings array.
 			$colours = array(
-				'foreground' => $foreground
+				'foreground' => $foreground,
 			);
 
 			// Save settings.
@@ -189,72 +213,76 @@ class WooCommerce_Order_Barcodes_Settings {
 
 	/**
 	 * Add settings to WooCommerce General settings
-	 * @access public
+	 *
 	 * @since  1.0.0
-	 * @param  array $settings Default settings
+	 * @param  array $settings Default settings.
 	 * @return array           Modified settings
 	 */
-	public function add_settings ( $settings = array() ) {
+	public function add_settings( $settings = array() ) {
 		$settings = array_merge( $settings, $this->settings );
 		return $settings;
 	} // End add_settings ()
 
 	/**
 	 * Load assets
-	 * @access public
+	 *
 	 * @since  1.0.0
-	 * @param  string $hook_suffix Current hook
+	 * @param  string $hook_suffix Current hook.
 	 * @return void
 	 */
-	public function load_assets ( $hook_suffix = '' ) {
-		if( 'woocommerce_page_wc-settings' != $hook_suffix ) return;
-		wp_enqueue_style( $this->parent->_token . '-admin' );
+	public function load_assets( $hook_suffix = '' ) {
+		if ( 'woocommerce_page_wc-settings' !== $hook_suffix ) {
+			return;
+		}
+		wp_enqueue_style( $this->parent->token . '-admin' );
 	} // End load_assets ()
 
 	/**
 	 * Add settings link to plugin list table
-	 * @access public
+	 *
 	 * @since  1.0.0
-	 * @param  array $links Existing links
-	 * @return array 		Modified links
+	 * @param  array $links Existing links.
+	 * @return array        Modified links
 	 */
-	public function add_settings_link ( $links ) {
-		$settings_link = '<a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=general' ) ) . '">' . __( 'Settings', 'woocommerce-order-barcodes' ) . '</a>';
-  		array_push( $links, $settings_link );
-  		return $links;
+	public function add_settings_link( $links ) {
+		$settings_link = '<a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=general' ) ) . '">' . esc_html__( 'Settings', 'woocommerce-order-barcodes' ) . '</a>';
+		array_push( $links, $settings_link );
+		return $links;
 	} // End add_settings_link ()
 
 	/**
-	 * Main class instance - ensures only one instance of the class is loaded or can be loaded
-	 * @access public
+	 * Main class instance - ensures only one instance of the class is loaded or can be loaded.
+	 *
 	 * @since  1.0.0
 	 * @static
+	 *
+	 * @param  WooCommerce_Order_Barcodes $parent `WooCommerce_Order_Barcodes` object.
 	 * @see    WC_Order_Barcodes()
 	 * @return WooCommerce_Order_Barcodes_Settings instance
 	 */
-	public static function instance ( $parent ) {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self( $parent );
+	public static function instance( $parent ) {
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self( $parent );
 		}
-		return self::$_instance;
+		return self::$instance;
 	} // End instance ()
 
 	/**
 	 * Cloning is forbidden
-	 * @access public
+	 *
 	 * @since  1.0.0
 	 */
-	public function __clone () {
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?' ), esc_html( $this->parent->_version ) );
+	public function __clone() {
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'woocommerce-order-barcodes' ), esc_html( $this->parent->version ) );
 	} // End __clone ()
 
 	/**
 	 * Unserializing instances of this class is forbidden
-	 * @access public
+	 *
 	 * @since  1.0.0
 	 */
-	public function __wakeup () {
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?' ), esc_html( $this->parent->_version ) );
+	public function __wakeup() {
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'woocommerce-order-barcodes' ), esc_html( $this->parent->version ) );
 	} // End __wakeup ()
 
 }

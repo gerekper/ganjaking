@@ -1,5 +1,23 @@
 *** WooCommerce Composite Products ***
 
+2023.09.19 - version 8.10.3
+* Fix - Resolved fatal error that was triggered when Attributes are sorted by 'Name (numeric)' and 'Options filtering' is enabled in a Composite Product.
+* Fix - Fixed Composite totals in the block-based cart when the number of displayed decimals was 0.
+* Tweak - Used admin theme colors in settings.
+
+2023.08.28 - version 8.10.2
+* Fix - Resolved an issue that prevented the component discount from applying to the displayed Variable composited prices.
+* Tweak - Ensure that hidden components do not contribute to Scenarios.
+* Fix - Ensure that the 'Currently editing' notice shows up in the block-based Single Product Template when editing a Composite.
+
+2023.07.10 - version 8.10.1
+* Fix - Resolved script error when a Product Bundle without add-ons was added to a component and Product Add-Ons was active. 
+* Fix - Resolved an issue that deducted stock for composited items in manually created orders before the orders were submitted.
+
+2023.07.03 - version 8.10.0
+* Tweak - Important: The 'Form Location' option is no longer supported when using a block theme. Use the following snippet to force its use: 'add_filter( 'woocommerce_composite_has_legacy_product_template', '__return_true' );'
+* Fix - Resolved a compatibility issue with Points and Rewards that made a 'Earn at least 0 points by purchasing this product' message show up when purchasing a Composite Product with optional components.
+
 2023.06.22 - version 8.9.1
 * Fix - Removed duplicate tooltip under Product Data > Inventory.
 * Tweak - Changed the Product Data > Inventory > Sold Individually dropdown to radio buttons for Product Bundles. 

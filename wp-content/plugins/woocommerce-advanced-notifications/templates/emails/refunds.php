@@ -20,31 +20,25 @@ $allowed_tags = array(
 $text_align = is_rtl() ? 'right' : 'left';
 ?>
 
-<p><?php printf( __( 'Hi %s,', 'woocommerce-advanced-notifications' ), esc_html( $recipient_name ) ); ?></p>
+<p><?php printf( esc_html__( 'Hi %s,', 'woocommerce-advanced-notifications' ), esc_html( $recipient_name ) ); ?></p>
 
 <p>
 	<?php 
 	if ( $partial_refund ) {
-		printf( __( 'Order #%s has been partially refunded.', 'woocommerce-advanced-notifications' ), esc_html( $order->get_order_number() ) ); 
+		printf( esc_html__( 'Order #%s has been partially refunded.', 'woocommerce-advanced-notifications' ), esc_html( $order->get_order_number() ) );
 	} else {
-		printf( __( 'Order #%s has been refunded.', 'woocommerce-advanced-notifications' ), esc_html( $order->get_order_number() ) ); 
+		printf( esc_html__( 'Order #%s has been refunded.', 'woocommerce-advanced-notifications' ), esc_html( $order->get_order_number() ) );
 	}
 	?>
 </p>
 
 <h2>
-	<?php 
-	if ( version_compare( WC_VERSION, '3.0.0', '<' ) ) {
-		$order_edit_url  = admin_url( 'post.php?post=' . $order->id . '&action=edit' );
-		$order_date_c 	 = date_i18n( 'c', strtotime( $order->order_date ) );
-		$order_date_text = date_i18n( wc_date_format(), strtotime( $order->order_date ) );
-	} else {
-		$order_edit_url  = admin_url( 'post.php?post=' . $order->get_id() . '&action=edit' );
-		$order_date_c 	 = $order->get_date_created()->format( 'c' );
-		$order_date_text = wc_format_datetime( $order->get_date_created() );
-	}
+	<?php
+	$order_edit_url  = admin_url( 'post.php?post=' . $order->get_id() . '&action=edit' );
+	$order_date_c    = $order->get_date_created()->format( 'c' );
+	$order_date_text = wc_format_datetime( $order->get_date_created() );
 	?>
-	<a class="link" href="<?php echo esc_url( $order_edit_url ); ?>"><?php printf( __( 'Order #%s', 'woocommerce-advanced-notifications' ), esc_html( $order->get_order_number() ) ); ?></a> (<?php printf( '<time datetime="%s">%s</time>', esc_attr( $order_date_c ), esc_html( $order_date_text ) ); ?>)
+	<a class="link" href="<?php echo esc_url( $order_edit_url ); ?>"><?php printf( esc_html__( 'Order #%s', 'woocommerce-advanced-notifications' ), esc_html( $order->get_order_number() ) ); ?></a> (<?php printf( '<time datetime="%1$s">%2$s</time>', esc_attr( $order_date_c ), esc_html( $order_date_text ) ); ?>)
 </h2>
 
 
@@ -56,7 +50,7 @@ $text_align = is_rtl() ? 'right' : 'left';
 			<th class="td" scope="col" style="text-align:left;"><?php esc_html_e( 'Product', 'woocommerce-advanced-notifications' ); ?></th>
 			<th class="td" scope="col" style="text-align:left;" <?php if ( ! $show_prices ) : ?>colspan="2"<?php endif; ?>><?php esc_html_e( 'Quantity', 'woocommerce-advanced-notifications' ); ?></th>
 			<?php if ( $show_prices ) : ?>
-				<th class="td" scope="col" style="text-align:left;"><?php _e( 'Price', 'woocommerce-advanced-notifications' ); ?></th>
+				<th class="td" scope="col" style="text-align:left;"><?php esc_html_e( 'Price', 'woocommerce-advanced-notifications' ); ?></th>
 			<?php endif; ?>
 		</tr>
 	</thead>
@@ -75,7 +69,7 @@ $text_align = is_rtl() ? 'right' : 'left';
 
 			$display = false;
 
-			$product_id = $_product->is_type( 'variation' ) && version_compare( WC_VERSION, '3.0', '>=' ) ? $_product->get_parent_id() : $_product->get_id();
+			$product_id = $_product->is_type( 'variation' ) ? $_product->get_parent_id() : $_product->get_id();
 
 			if ( $triggers['all'] || in_array( $product_id, $triggers['product_ids'] ) || in_array( $_product->get_shipping_class_id(), $triggers['shipping_classes'] ) ) {
 				$display = true;
@@ -100,33 +94,30 @@ $text_align = is_rtl() ? 'right' : 'left';
 
 			$displayed_total += $order->get_line_total( $item, true );
 
-			$item_meta = version_compare( WC_VERSION, '3.0', '<' ) ? new WC_Order_Item_Meta( $item ) : new WC_Order_Item_Product( $item_id );
+			$item_meta = new WC_Order_Item_Product( $item_id );
 			?>
 			<tr>
 				<td class="td" style="text-align:left; vertical-align:middle; border: 1px solid #eee; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap:break-word;"><?php
 
-					// Product name
-					echo apply_filters( 'woocommerce_order_product_title', $item['name'], $_product );
+					// Product name.
+					$product_name = apply_filters( 'woocommerce_order_product_title', $item['name'], $_product );
+					echo esc_html( $product_name );
 
-					// SKU
-					echo $_product->get_sku() ? ' (#' . $_product->get_sku() . ')' : '';
+					// SKU.
+					echo $_product->get_sku() ? ' (#' . esc_html( $_product->get_sku() ) . ')' : '';
 
-					// allow other plugins to add additional product information here
+					// Allow other plugins to add additional product information here.
 					do_action( 'woocommerce_order_item_meta_start', $item_id, $item, $order, $plain_text );
 
-					// Variation
-					if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-						echo $item_meta->meta ? '<br/><small>' . nl2br( $item_meta->display( true, true ) ) . '</small>' : '';
-					} else {
-						wc_display_item_meta( $item );
-					}
+					// Variation.
+					wc_display_item_meta( $item );
 
-					// File URLs
+					// File URLs.
 					if ( $show_download_links ) {
-						version_compare( WC_VERSION, '3.0.0', '<' ) ? $order->display_item_downloads( $item ) : wc_display_item_downloads( $item );
+						wc_display_item_downloads( $item );
 					}
 
-					// allow other plugins to add additional product information here
+					// Allow other plugins to add additional product information here.
 					do_action( 'woocommerce_order_item_meta_end', $item_id, $item, $order, $plain_text );
 				?></td>
 				<td class="td" style="text-align:left; vertical-align:middle; border: 1px solid #eee; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;" <?php if ( ! $show_prices ) : ?>colspan="2"<?php endif; ?>>
@@ -163,8 +154,12 @@ $text_align = is_rtl() ? 'right' : 'left';
 					$i++;
 					?>
 					<tr>
-						<th class="td" scope="col" colspan="2" style="font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; text-align:left;"><?php echo esc_html( $total['label'] ); ?></th>
-						<td style="text-align:left;border: 1px solid #eee;"><?php echo wp_kses( $total['value'], $allowed_tags ); ?></td>
+						<th class="td" scope="col" colspan="2" style="font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; text-align:left;">
+							<?php echo esc_html( $total['label'] ); ?>
+						</th>
+						<td style="text-align:left;border: 1px solid #eee;">
+							<?php echo wp_kses( $total['value'], $allowed_tags ); ?>
+						</td>
 					</tr>
 					<?php
 				}
@@ -172,8 +167,12 @@ $text_align = is_rtl() ? 'right' : 'left';
 				// Only show the total for displayed items
 				?>
 				<tr>
-					<th class="td" scope="col" colspan="2" style="font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; text-align:left;"><?php _e( 'Total', 'woocommerce-advanced-notifications' ); ?></th>
-					<td style="text-align:left;border: 1px solid #eee;"><?php echo wp_kses( wc_price( $displayed_total ), $allowed_tags ); ?></td>
+					<th class="td" scope="col" colspan="2" style="font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; text-align:left;">
+						<?php esc_html_e( 'Total', 'woocommerce-advanced-notifications' ); ?>
+					</th>
+					<td style="text-align:left;border: 1px solid #eee;">
+						<?php echo wp_kses( wc_price( $displayed_total ), $allowed_tags ); ?>
+					</td>
 				</tr>
 				<?php
 			}
@@ -181,8 +180,12 @@ $text_align = is_rtl() ? 'right' : 'left';
 
 		if ( $order->get_customer_note() ) {
 			?><tr>
-				<th class="td" scope="row" colspan="2" style="text-align:<?php echo $text_align; ?>;"><?php _e( 'Note:', 'woocommerce-advanced-notifications' ); ?></th>
-				<td class="td" style="text-align:<?php echo $text_align; ?>;"><?php echo wptexturize( $order->get_customer_note() ); ?></td>
+				<th class="td" scope="row" colspan="2" style="text-align:<?php echo esc_attr( $text_align ); ?>;">
+					<?php esc_html_e( 'Note:', 'woocommerce-advanced-notifications' ); ?>
+				</th>
+				<td class="td" style="text-align:<?php echo esc_attr( $text_align ); ?>;">
+					<?php echo wp_kses_post( nl2br( wptexturize( $order->get_customer_note() ) ) ); ?>
+				</td>
 			</tr><?php
 		}
 		?>

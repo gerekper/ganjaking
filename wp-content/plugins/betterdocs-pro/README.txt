@@ -5,7 +5,7 @@ Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, 
 Requires at least: 4.0
 Tested up to: 6.3
 Requires PHP: 7.0
-Stable tag: 2.5.6
+Stable tag: 2.5.7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -91,6 +91,13 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 2.5.7 - 21/09/2023 =
+
+- Fixed: Permalink issue for a certain use-case
+- Fixed: Role management issue for shop manager
+- Few minor bug fixes & improvements
+
 
 = 2.5.6 - 11/09/2023 =
 

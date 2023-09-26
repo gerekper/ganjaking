@@ -112,8 +112,8 @@ if ( ! class_exists( 'WC_OD_Subscriptions_Emails' ) ) {
 				$text = wp_kses(
 					/* translators: %s: subscription links */
 					_n(
-						'Edit the delivery preferences for the subscription: %s',
-						'Edit the delivery preferences for the subscriptions: %s',
+						'Edit the preferences for subscription: %s',
+						'Edit the preferences for subscriptions: %s',
 						count( $links ),
 						'woocommerce-order-delivery'
 					),

@@ -58,11 +58,11 @@ class WC_Catalog_Restrictions_Query {
 	public function on_woocommerce_loaded() {
 		global $wpdb;
 		if ( WC_Catalog_Visibility_Compatibility::use_wp_term_meta_table() ) {
-			//Clean up old rules. 
+			//Clean up old rules.
 			$this->table_term_meta    = $wpdb->termmeta;
 			$this->term_meta_id_field = 'term_id';
 		} else {
-			//Clean up old rules. 
+			//Clean up old rules.
 			$this->table_term_meta    = $wpdb->prefix . 'woocommerce_termmeta';
 			$this->term_meta_id_field = 'woocommerce_term_id';
 		}
@@ -139,7 +139,7 @@ class WC_Catalog_Restrictions_Query {
 
 				$disallowed = $wpdb->get_col( $sql );
 
-				if ( $disallowed !== false ) {
+				if ( $disallowed ) {
 					$cache_key = $this->get_cache_key_for_current_user( false );
 					set_transient( 'twccr_' . $cache_key . '_cat', $disallowed, 60 * 60 * 24 );
 				}
@@ -196,16 +196,16 @@ class WC_Catalog_Restrictions_Query {
 
 		if ( $this->is_bound_to_query( $query ) ) {
 			/*
-			 * These queries work by first finding all products that do not have any rules applied.  It looks at both the 
-			 * category and the product meta to determine if there are any rules present. 
-			 * 
+			 * These queries work by first finding all products that do not have any rules applied.  It looks at both the
+			 * category and the product meta to determine if there are any rules present.
+			 *
 			 * Second the query finds all products that have a restriction that is not set to public or where the meta_value for the assigned roles / locations
-			 * is in the values we pass in. 
-			 * 
-			 * Third the query finds all proudcts which do not have specific product rules, because product rules override category rules, and filters where the
-			 * taxonomy meta is in the list of values we pass in. 
-			 * 
-			 * Finally we modify the where statement of the main query to include only the product ID's we found. 
+			 * is in the values we pass in.
+			 *
+			 * Third the query finds all products which do not have specific product rules, because product rules override category rules, and filters where the
+			 * taxonomy meta is in the list of values we pass in.
+			 *
+			 * Finally we modify the where statement of the main query to include only the product ID's we found.
 			 */
 
 			$filtered = $this->get_disallowed_products();
@@ -256,7 +256,7 @@ class WC_Catalog_Restrictions_Query {
 	public function get_cache_key_for_current_user( $use_session = false ) {
 		$session_id = '';
 		if ( $use_session === false ) {
-			//Get a key based on role, since all rules use roles.  
+			//Get a key based on role, since all rules use roles.
 			$roles = $this->get_roles_for_current_user();
 			if ( ! empty( $roles ) ) {
 				$session_id = implode( '', $roles );
@@ -264,8 +264,8 @@ class WC_Catalog_Restrictions_Query {
 				$session_id = 'norole';
 			}
 		} else {
-			//Use session will be true for location filters. 
-			//Location filters will have already started a woocommerce session so this value is good. 
+			//Use session will be true for location filters.
+			//Location filters will have already started a woocommerce session so this value is good.
 			$session_id = WC_Catalog_Visibility_Compatibility::WC()->session->get_customer_id();
 		}
 

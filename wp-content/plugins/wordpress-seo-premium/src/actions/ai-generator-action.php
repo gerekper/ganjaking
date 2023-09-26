@@ -156,7 +156,7 @@ class AI_Generator_Action {
 	 * @param string $access_jwt     The access JWT.
 	 * @param string $refresh_jwt    The refresh JWT.
 	 * @param string $code_challenge The verification code.
-	 * @param string $user_id        The user ID.
+	 * @param int    $user_id        The user ID.
 	 *
 	 * @throws \Yoast\WP\SEO\Premium\Exceptions\Remote_Request\Unauthorized_Exception Unauthorized_Exception.
 	 *
@@ -166,7 +166,7 @@ class AI_Generator_Action {
 		string $access_jwt,
 		string $refresh_jwt,
 		string $code_challenge,
-		string $user_id
+		int $user_id
 	): string {
 		try {
 			$code_verifier = $this->ai_generator_helper->get_code_verifier( $user_id );
@@ -357,7 +357,11 @@ class AI_Generator_Action {
 	 * @return void
 	 */
 	private function token_invalidate( string $user_id ): void {
-		$access_jwt = $this->ai_generator_helper->get_access_token( $user_id );
+		try {
+			$access_jwt = $this->ai_generator_helper->get_access_token( $user_id );
+		} catch ( RuntimeException $e ) {
+			$access_jwt = '';
+		}
 
 		$request_body    = [
 			'user_id' => (string) $user_id,

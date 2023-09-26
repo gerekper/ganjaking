@@ -27,7 +27,7 @@ class WC_Booking_Order_Manager {
 		add_action( 'woocommerce_account_' . $this->get_endpoint() . '_endpoint', array( $this, 'endpoint_content' ) );
 
 		// Complete booking orders if virtual
-		add_filter( 'woocommerce_payment_complete_order_status', array( $this, 'complete_order' ), 20, 2 );
+		add_filter( 'woocommerce_payment_complete_order_status', array( $this, 'complete_order' ), 20, 3 );
 
 		// When an order is processed or completed, we can mark publish the pending bookings
 		add_action( 'woocommerce_order_status_processing', array( $this, 'publish_bookings' ), 10, 1 );
@@ -205,7 +205,8 @@ class WC_Booking_Order_Manager {
 			return;
 		}
 
-		wp_enqueue_script( 'wc-bookings-user-my-account', WC_BOOKINGS_PLUGIN_URL . '/dist/user-my-account.js', array( 'wc-bookings-date' ), WC_BOOKINGS_VERSION, true );
+		$user_my_account_dependencies = wc_booking_get_script_dependencies( 'user-my-account', array( 'wc-bookings-date' ) );
+		wp_enqueue_script( 'wc-bookings-user-my-account', WC_BOOKINGS_PLUGIN_URL . '/dist/user-my-account.js', $user_my_account_dependencies, WC_BOOKINGS_VERSION, true );
 
 		$date_format = apply_filters( 'woocommerce_bookings_date_format', wc_bookings_date_format() );
 		$time_format = apply_filters( 'woocommerce_bookings_time_format', ', ' . wc_bookings_time_format() );
@@ -356,12 +357,23 @@ class WC_Booking_Order_Manager {
 	 *
 	 * Hooked into a filter that changes the status for bookings.
 	 *
-	 * @param $order_status
-	 * @param $order_id
-	 * @return string
+	 * @param string        $order_status The order status.
+	 * @param int           $order_id     The order ID. Zero (0) for unsaved orders.
+	 * @param WC_Order|null $order        The order object. Optional. For backward compatibility this is optional
+	 *                                    but it is recommended to be passed in to account for unsaved orders.
+	 * @return string Modified order status.
 	 */
-	public function complete_order( $order_status, $order_id ) {
-		$order = wc_get_order( $order_id );
+	public function complete_order( $order_status, $order_id, $order = null ) {
+		if ( null === $order ) {
+			// Use legacy method to get order. Fails for unsaved orders.
+			$order = wc_get_order( $order_id );
+		}
+
+		if ( ! ( $order instanceof WC_Order ) ) {
+			// Return the status if the data type is unexpected.
+			return $order_status;
+		}
+
 		if ( 'processing' === $order_status
 			&& $order->has_status( array( 'on-hold', 'pending', 'failed' ) ) ) {
 			$virtual_booking_order = false;

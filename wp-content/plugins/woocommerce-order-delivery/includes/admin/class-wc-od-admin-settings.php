@@ -439,7 +439,7 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 					array(
 						'id'                => wc_od_maybe_prefix( 'checkout_text' ),
 						'title'             => __( 'Checkout text', 'woocommerce-order-delivery' ),
-						'desc_tip'          => __( 'Add a description of the shipping & delivery during checkout.', 'woocommerce-order-delivery' ),
+						'desc_tip'          => __( 'Add a description of the delivery details during checkout.', 'woocommerce-order-delivery' ),
 						'type'              => 'textarea',
 						'custom_attributes' => array(
 							'rows' => 3,
@@ -485,10 +485,21 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 					array(
 						'id'       => wc_od_maybe_prefix( 'enable_local_pickup' ),
 						'title'    => __( 'Enable for Local Pickup', 'woocommerce-order-delivery' ),
-						'desc'     => __( "Display the 'Shipping & Delivery' section on the checkout page when the shipping method is 'Local Pickup'", 'woocommerce-order-delivery' ),
-						'desc_tip' => __( 'Recommended if you only provide local pickup and you want to use the delivery calendar for the pickup date.', 'woocommerce-order-delivery' ),
+						'desc'     => __( "Enable 'Order Delivery' when the shipping method is 'Local Pickup'", 'woocommerce-order-delivery' ),
+						'desc_tip' => __( 'Use this plugin to collect and display the order pickup details.', 'woocommerce-order-delivery' ),
 						'type'     => 'checkbox',
 						'default'  => WC_OD()->settings()->get_default( 'enable_local_pickup' ),
+					),
+
+					array(
+						'id'                => wc_od_maybe_prefix( 'pickup_text' ),
+						'title'             => __( 'Pickup text', 'woocommerce-order-delivery' ),
+						'desc_tip'          => __( 'Add a description of the pickup details during checkout.', 'woocommerce-order-delivery' ),
+						'type'              => 'textarea',
+						'custom_attributes' => array(
+							'rows' => 3,
+							'cols' => 20,
+						),
 					),
 
 					array(

@@ -44,17 +44,6 @@ if ( ! class_exists( 'WC_OD_Subscription_Delivery' ) ) {
 		}
 
 		/**
-		 * Registers the custom endpoints.
-		 *
-		 * @since 1.3.0
-		 * @deprecated 2.1.0
-		 */
-		public function add_endpoints() {
-			wc_deprecated_function( __FUNCTION__, '2.1.0' );
-			add_rewrite_endpoint( 'edit-delivery', EP_ROOT | EP_PAGES );
-		}
-
-		/**
 		 * Registers custom query vars.
 		 *
 		 * @since 1.3.0
@@ -123,9 +112,15 @@ if ( ! class_exists( 'WC_OD_Subscription_Delivery' ) ) {
 		 */
 		public function view_subscription_actions( $actions, $subscription ) {
 			if ( wc_od_subscription_has_delivery_preferences( $subscription ) ) {
+				if ( wc_od_order_is_local_pickup( $subscription ) ) {
+					$name = __( 'Change pickup', 'woocommerce-order-delivery' );
+				} else {
+					$name = __( 'Change delivery', 'woocommerce-order-delivery' );
+				}
+
 				$actions['change_delivery'] = array(
 					'url'  => wc_od_edit_delivery_endpoint( $subscription->get_id() ),
-					'name' => __( 'Change Delivery', 'woocommerce-order-delivery' ),
+					'name' => $name,
 				);
 			}
 
@@ -160,39 +155,47 @@ if ( ! class_exists( 'WC_OD_Subscription_Delivery' ) ) {
 			}
 
 			$args = array(
-				'subscription' => $subscription,
+				'order'        => $subscription,
+				'subscription' => $subscription, // Deprecated.
 			);
-
-			$delivery_date = false;
 
 			if ( wc_od_subscription_needs_delivery_date( $subscription ) ) {
 				$delivery_date = $subscription->get_meta( '_delivery_date' );
 
 				if ( $delivery_date ) {
-					$args['delivery_date'] = wc_od_localize_date( $delivery_date );
+					$args['date']          = $delivery_date;
+					$args['delivery_date'] = wc_od_localize_date( $delivery_date ); // Deprecated.
 
-					$time_frame = $subscription->get_meta( '_delivery_time_frame' );
+					$time_frame_id = $subscription->get_meta( '_delivery_time_frame' );
 
-					if ( $time_frame ) {
-						$args['delivery_time_frame'] = wc_od_get_time_frame_for_date( $delivery_date, $time_frame );
+					if ( $time_frame_id ) {
+						$time_frame = wc_od_get_time_frame_for_date( $delivery_date, $time_frame_id );
+
+						$args['time_frame']          = $time_frame;
+						$args['delivery_time_frame'] = $time_frame; // Deprecated.
 					}
 				}
 			}
 
-			if ( ! $delivery_date ) {
+			if ( empty( $args['date'] ) ) {
 				$shipping_method = wc_od_get_order_shipping_method( $subscription );
 				$range           = WC_OD_Delivery_Ranges::get_range_matching_shipping_method( $shipping_method );
 
-				$args = array_merge(
-					$args,
-					array(
-						'shipping_date'  => wc_od_localize_date( wc_od_get_subscription_first_shipping_date( $subscription_id ) ),
-						'delivery_range' => array(
-							'min' => $range->get_from(),
-							'max' => $range->get_to(),
-						),
-					)
+				$shipping_date = wc_od_localize_date( wc_od_get_subscription_first_shipping_date( $subscription ) );
+				$range_data    = array(
+					'min' => $range->get_from(),
+					'max' => $range->get_to(),
 				);
+
+				$args['details_type'] = 'estimated';
+
+				if ( wc_od_shipping_method_is_local_pickup( $shipping_method ) ) {
+					$args['pickup_date']  = $shipping_date;
+					$args['pickup_range'] = $range_data;
+				} else {
+					$args['shipping_date']  = $shipping_date;
+					$args['delivery_range'] = $range_data;
+				}
 			}
 
 			wc_od_order_delivery_details( $args );
@@ -208,11 +211,17 @@ if ( ! class_exists( 'WC_OD_Subscription_Delivery' ) ) {
 		 * @return string
 		 */
 		public function edit_delivery_title( $deprecated = '' ) {
-			return sprintf(
+			$subscription_id = wc_od_get_current_subscription_id();
+
+			if ( wc_od_order_is_local_pickup( $subscription_id ) ) {
 				/* translators: %s: subscription ID. */
-				esc_html_x( 'Subscription delivery #%s', 'edit subscription delivery title', 'woocommerce-order-delivery' ),
-				wc_od_get_current_subscription_id()
-			);
+				$title = _x( 'Subscription pickup #%s', 'edit subscription delivery title', 'woocommerce-order-delivery' );
+			} else {
+				/* translators: %s: subscription ID. */
+				$title = _x( 'Subscription delivery #%s', 'edit subscription delivery title', 'woocommerce-order-delivery' );
+			}
+
+			return sprintf( $title, $subscription_id );
 		}
 
 		/**
@@ -363,7 +372,11 @@ if ( ! class_exists( 'WC_OD_Subscription_Delivery' ) ) {
 				 */
 				do_action( 'wc_od_updated_subscription_fields', $values, $previous_values, $subscription );
 
-				wc_add_notice( __( 'Delivery preferences changed successfully.', 'woocommerce-order-delivery' ) );
+				if ( wc_od_order_is_local_pickup( $subscription ) ) {
+					wc_add_notice( __( 'Pickup preferences changed successfully.', 'woocommerce-order-delivery' ) );
+				} else {
+					wc_add_notice( __( 'Delivery preferences changed successfully.', 'woocommerce-order-delivery' ) );
+				}
 
 				wp_safe_redirect( $subscription->get_view_order_url() );
 				exit;

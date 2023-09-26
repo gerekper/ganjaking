@@ -523,7 +523,9 @@ class HMWP_MS_IDS {
 
 
         function block_access(){
-            include_once(ABSPATH . '/wp-includes/pluggable.php');
+            if(!function_exists('wp_get_current_user')) {
+				include_once(ABSPATH . '/wp-includes/pluggable.php');
+			}
             status_header( 404 );
             nocache_headers();
 

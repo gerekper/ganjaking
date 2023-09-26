@@ -254,7 +254,7 @@ jQuery(document).ready(function() {
 	/**
 	 * Display additional permastructure settings
 	 */
-	jQuery('#permalink-manager').on('click', '.permastruct-toggle-button a', function() {
+	jQuery('#permalink-manager').on('click', '.permastruct-buttons a', function() {
 		jQuery(this).parents('.field-container').find('.permastruct-toggle').slideToggle();
 
 		return false;

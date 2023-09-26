@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.6.0
+ * @version     1.7.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -123,7 +123,7 @@ if ( ! class_exists( 'WC_SC_Ajax' ) ) {
 
 			$all_discount_types = wc_get_coupon_types();
 
-			if ( $posts ) {
+			if ( $posts && ! is_scalar( $posts ) ) {
 				foreach ( $posts as $post ) {
 
 					$discount_type = ( ! empty( $post->ID ) ) ? $this->get_post_meta( $post->ID, 'discount_type', true ) : 'fixed_cart';

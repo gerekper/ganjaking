@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.5.1
+ * @version     2.6.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -872,7 +872,7 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 					'discount_type'      => 'smart_coupon',
 					'amount'             => 1.99,
 					'description'        => __( 'This is a sample coupon', 'woocommerce_smart_coupons' ),
-					'date_expires'       => strtotime( '+20 years' ),
+					'date_expires'       => $this->strtotime( '+20 years' ),
 					'email_restrictions' => array( get_option( 'admin_email' ) ),
 				);
 				$coupon_code = $this->generate_coupon( $args );

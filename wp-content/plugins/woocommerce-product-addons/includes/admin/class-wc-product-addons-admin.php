@@ -20,7 +20,7 @@ use Automattic\WooCommerce\Admin\Features\Features;
  * Product Add-Ons admin.
  *
  * @class    WC_Product_Addons_Admin
- * @version  6.3.3
+ * @version  6.4.7
  */
 class WC_Product_Addons_Admin {
 
@@ -40,6 +40,8 @@ class WC_Product_Addons_Admin {
 		add_action( 'admin_enqueue_scripts', array( $this, 'script_styles' ), 100 );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ), 9 );
 		add_filter( 'woocommerce_screen_ids', array( $this, 'add_screen_id' ) );
+		add_filter( 'woocommerce_navigation_screen_ids', array( $this, 'add_screen_id' ) );
+		add_action( 'admin_menu', array( $this, 'wc_admin_connect_pao_pages' ) );
 		add_action( 'woocommerce_product_write_panel_tabs', array( $this, 'tab' ) );
 		add_action( 'woocommerce_product_data_panels', array( $this, 'panel' ) );
 		add_action( 'woocommerce_process_product_meta', array( $this, 'process_meta_box' ), 1 );
@@ -231,6 +233,26 @@ class WC_Product_Addons_Admin {
 		$screen_ids = array_merge( $screen_ids, WC_PAO()->get_screen_ids() );
 
 		return $screen_ids;
+	}
+
+	/**
+	 * Connect pages with navigation bar.
+	 *
+	 * @since 6.4.7
+	 * @return void
+	 */
+	public static function wc_admin_connect_pao_pages() {
+
+		if ( function_exists( 'wc_admin_connect_page' ) ) {
+			wc_admin_connect_page(
+				array(
+					'id'        => 'woocommerce-product-addons',
+					'screen_id' => 'product_page_addons',
+					'title'     => __( 'Global add-ons', 'woocommerce-product-addons' ),
+				)
+			);
+
+		}
 	}
 
 	/**

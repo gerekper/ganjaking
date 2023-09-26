@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Products edit-order functions and filters.
  *
  * @class    WC_CP_Admin_Order
- * @version  8.8.0
+ * @version  8.10.1
  */
 class WC_CP_Admin_Order {
 
@@ -126,14 +126,8 @@ class WC_CP_Admin_Order {
 					if ( ! is_wp_error( $added_to_order ) ) {
 
 						$new_container_item = $order->get_item( $added_to_order );
-
-						if ( $item_reduced_stock = $item->get_meta( '_reduced_stock', true ) ) {
-							$new_container_item->add_meta_data( '_reduced_stock', $item_reduced_stock, true );
-							$new_container_item->save();
-						}
-
-						$components_to_add = wc_cp_get_composited_order_items( $new_container_item, $order );
-						$order_notes       = array();
+						$components_to_add  = wc_cp_get_composited_order_items( $new_container_item, $order );
+						$order_notes        = array();
 
 						foreach ( $components_to_add as $order_item_id => $order_item ) {
 
@@ -149,19 +143,6 @@ class WC_CP_Admin_Order {
 
 							/* translators: %1$s: Component title, %2$s: Product name, %3$s: Product SKU. */
 							$order_note = sprintf( _x( '%1$s: %2$s (%3$s)', 'component stock change note format', 'woocommerce-composite-products' ), $component_title, $order_item->get_name(), $composited_product_sku );
-
-							if ( $composited_product->managing_stock() ) {
-
-								$qty           = $order_item->get_quantity();
-								$old_stock     = $composited_product->get_stock_quantity();
-								$new_stock     = wc_update_product_stock( $composited_product, $qty, 'decrease' );
-								$stock_from_to = $old_stock . '&rarr;' . $new_stock;
-								/* translators: %1$s: Component title, %2$s: Product name, %3$s: Product SKU. */
-								$order_note    = sprintf( _x( '%1$s: %2$s (%3$s)', 'component change note format', 'woocommerce-composite-products' ), $component_title, $order_item->get_name(), $composited_product_sku, $stock_from_to );
-
-								$order_item->add_meta_data( '_reduced_stock', $qty, true );
-								$order_item->save();
-							}
 
 							$order_notes[] = $order_note;
 						}

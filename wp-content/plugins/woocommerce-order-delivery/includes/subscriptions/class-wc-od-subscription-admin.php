@@ -50,7 +50,16 @@ if ( ! class_exists( 'WC_OD_Subscription_Admin' ) ) {
 		 * @since 1.5.0
 		 */
 		public function add_meta_boxes() {
-			add_meta_box( 'woocommerce-subscription-delivery', _x( 'Next order delivery', 'meta box title', 'woocommerce-order-delivery' ), 'WC_OD_Meta_Box_Subscription_Delivery::output', wc_od_get_subscription_screen_id( 'shop_subscription' ), 'side', 'core' );
+			$screen          = wc_od_get_subscription_screen_id( 'shop_subscription' );
+			$subscription_id = wc_od_get_current_post_or_object_id( $screen );
+
+			if ( $subscription_id && wc_od_order_is_local_pickup( $subscription_id ) ) {
+				$title = __( 'Pickup details', 'woocommerce-order-delivery' );
+			} else {
+				$title = __( 'Delivery details', 'woocommerce-order-delivery' );
+			}
+
+			add_meta_box( 'woocommerce-subscription-delivery', $title, 'WC_OD_Meta_Box_Subscription_Delivery::output', $screen, 'side', 'core' );
 		}
 
 		/**

@@ -539,7 +539,7 @@ function seedprod_pro_block_options() {
 		),
 
 		array(
-			'name'   => __( 'Twitter Embed Tweet', 'seedprod-pro' ),
+			'name'   => __( 'X (Twitter) Embed Tweet', 'seedprod-pro' ),
 			'is_pro' => true,
 			'cat'    => 'adv',
 			'type'   => 'twitterembedtweet',
@@ -551,7 +551,7 @@ function seedprod_pro_block_options() {
 		),
 
 		array(
-			'name'   => __( 'Twitter Embed Timeline', 'seedprod-pro' ),
+			'name'   => __( 'X (Twitter) Embed Timeline', 'seedprod-pro' ),
 			'is_pro' => true,
 			'cat'    => 'adv',
 			'type'   => 'twitterembedtimeline',
@@ -563,7 +563,7 @@ function seedprod_pro_block_options() {
 		),
 
 		array(
-			'name'   => __( 'Twitter Tweet Button', 'seedprod-pro' ),
+			'name'   => __( 'X (Twitter) Tweet Button', 'seedprod-pro' ),
 			'is_pro' => true,
 			'cat'    => 'adv',
 			'type'   => 'twittertweetbutton',
@@ -575,7 +575,7 @@ function seedprod_pro_block_options() {
 		),
 
 		array(
-			'name'   => __( 'Twitter Follow Button', 'seedprod-pro' ),
+			'name'   => __( 'X (Twitter) Follow Button', 'seedprod-pro' ),
 			'is_pro' => true,
 			'cat'    => 'adv',
 			'type'   => 'twitterfollowbutton',

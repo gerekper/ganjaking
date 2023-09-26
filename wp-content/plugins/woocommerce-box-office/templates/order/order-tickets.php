@@ -1,7 +1,7 @@
-<h2><?php echo apply_filters( 'woocommerce_box_office_order_tickets_title', esc_html__( 'Order Tickets', 'woocommerce-box-office' ) ); ?></h2>
+<h2><?php echo apply_filters( 'woocommerce_box_office_order_tickets_title', esc_html__( 'Order Tickets', 'woocommerce-box-office' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h2>
 
 <p class="ticket-list-description">
-	<?php echo apply_filters( 'woocommerce_box_office_order_tickets_description', esc_html__( 'View or edit each of your purchased tickets using the links below.', 'woocommerce-box-office' ) ); ?>
+	<?php echo apply_filters( 'woocommerce_box_office_order_tickets_description', esc_html__( 'View or edit each of your purchased tickets using the links below.', 'woocommerce-box-office' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 </p>
 
 <dl class="purchased-tickets">

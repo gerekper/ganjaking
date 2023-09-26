@@ -1,5 +1,22 @@
 *** WooCommerce Deposits Changelog ***
 
+2023-09-13 - version 2.1.9
+* Dev - Bump WooCommerce "tested up to" version 8.0.
+* Dev - Bump WooCommerce minimum supported version from 7.2 to 7.8.
+* Dev - Bump WordPress "tested up to" version 6.3.
+* Tweak - Removed the temporary tax calculation fix for block checkout since it has been resolved upstream.
+
+2023-08-23 - version 2.1.8
+* Fix - Allow 0% entry for the initial payment in a payment plan.
+* Fix - Payment plan description hidden when pay in full is the default payment option.
+* Dev - Added new GitHub Workflow to run Quality Insights Toolkit tests.
+
+2023-07-11 - version 2.1.7
+* Dev - Bump WooCommerce "tested up to" version 7.8.
+* Dev - Bump WooCommerce minimum supported version from 6.8 to 7.2.
+* Dev - Bump WordPress minimum supported version from 5.8 to 6.1
+* Dev - Migrate end-to-end tests to Playwright.
+
 2023-05-24 - version 2.1.6
 * Fix – Conflict with WooCommerce Bookings in which customers are not able to book multiple dates of the same product through a single checkout.
 * Fix – Tax not applied for scheduled payments when an order placed using block-based checkout.
@@ -17,7 +34,7 @@
 * Fix – PHP Notice in the cart and checkout when deposits amount of a product is empty.
 
 2023-02-22 - version 2.1.3
-* Add – Variations support for Deposits.  
+* Add – Variations support for Deposits.
 * Add – Display deposit payment description for payment plan deposit products.
 
 2023-01-17 - version 2.1.2

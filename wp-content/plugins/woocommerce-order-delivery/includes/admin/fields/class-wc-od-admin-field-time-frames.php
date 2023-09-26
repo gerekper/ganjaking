@@ -47,10 +47,10 @@ class WC_OD_Admin_Field_Time_Frames extends WC_OD_Admin_Field_Table {
 
 		$columns = array(
 			'title'            => array(
-				'label' => __( 'Title', 'woocommerce-order-delivery' ),
+				'label' => __( 'Title', 'woocommerce' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			),
 			'description'      => array(
-				'label' => __( 'Description', 'woocommerce-order-delivery' ),
+				'label' => __( 'Description', 'woocommerce' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			),
 			'number_of_orders' => array(
 				'label' => __( 'Number of orders', 'woocommerce-order-delivery' ),
@@ -147,11 +147,11 @@ class WC_OD_Admin_Field_Time_Frames extends WC_OD_Admin_Field_Table {
 	public function get_row_actions( $row ) {
 		return array(
 			'settings' => array(
-				'label' => __( 'Edit', 'woocommerce-order-delivery' ),
+				'label' => __( 'Edit', 'woocommerce' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 				'url'   => $this->get_row_url( $row ),
 			),
 			'delete'   => array(
-				'label' => __( 'Delete', 'woocommerce-order-delivery' ),
+				'label' => __( 'Delete', 'woocommerce' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 				'url'   => '#',
 			),
 		);

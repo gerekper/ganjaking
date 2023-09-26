@@ -1,0 +1,62 @@
+*** WooCommerce API Manager Changelog ***
+
+2023-09-14 - version 3.1.2
+* Fix: Cronjob cleanup of expired API Key activations queried a database column using a misspelled name.
+* New: Added if the Homepage is cachable to the WooCommerce > Status > WooCommmerce API Manager status report.
+
+2023-09-05 - version 3.1.1
+* New: Added Action Filters, wc_api_manager_endpoint_title_api_keys, wc_api_manager_endpoint_title_api_downloads, wc_api_manager_add_menu_items_api_keys, wc_api_manager_add_menu_items_api_downloads. Changing endpoints requires Settings > Permalink Settings to be manually Saved to refresh the endpoints.
+
+2023-09-03 - version 3.1.0
+* Fix: Order edit screen > Access Expires was failing to update when new expiration date set.
+* Fix: localized_datetime_timestamp() method to correctly return localized timestamp.
+* Tweak: Confirm an API Resource is not a lifetime subscription before sending renewal email notifications.
+* New: Toggle log for API Resources cleanup event added to Settings.
+* New: Added templates/myaccount/related-api-resources.php with Action Filters to add API Keys and API Downloads links to Order Details and Thank You pages.
+* New: Added to templates/emails/api-keys-order-complete.php. Action Filters, wc_api_manager_email_api_product_heading, wc_api_manager_email_product_order_api_keys_row, wc_api_manager_email_master_api_key_row, wc_api_manager_email_master_api_key_message_row. HTML ID email_master_api_key_message_row.
+* New: Added to templates/emails/plain/api-keys-order-complete.php. Action Filters, wc_api_manager_email_api_product_heading, wc_api_manager_email_product_order_api_keys_row, wc_api_manager_email_master_api_key_row, wc_api_manager_email_master_api_key_message_row.
+* New: Added to templates/myaccount/api-keys.php. Action Filters wc_api_manager_my_account_master_api_key_heading, wc_api_manager_my_account_product_order_api_key_message, wc_api_manager_my_account_product_order_api_key_heading. HTML IDs master-api-key-header, product-order-api-key-header.
+
+2023-06-26 - version 3.0.7
+* Update: Fix format of changelog for WooCommerce.com Version history parser. Gap in versions is due to difficulty with formatting for changelog parser at WooCommerce.com.
+
+2023-06-25 - version 3.0.4
+* Tweak: Do not select product_order_api_key data for API Customer dashboard since it is not used.
+* Tweak: Make slight adjustments to the WooCommerce > Settings > API Manager UI for clearer readability.
+
+2023-06-23 - version 3.0.3
+* Fix: Array to string conversion when building where clause for API Customers dashboard.
+* Fix: InvalidArgumentException: API Resource argument passed in is not an object.
+* Fix: PHP Warning: filemtime(): stat failed.
+
+2023-06-21 - version 3.0.2
+* Fix: Email address search on API Customer dashboard.
+* Fix: Enter the page number and hit enter to go to that page on API Customer dashboard.
+
+2023-06-20 - version 3.0.1
+* Fix: Renewal quantity added to the cart when Renew button clicked. Checked for is_expired before setting the value of the quantity, so the default of 1 was used.
+* Update: Change to the api-keys.php template related to the fix noted above.
+* Dev: Compatible with WooCommerce Cart and Checkout blocks.
+
+2023-06-18 - version 3.0.0
+* Update: Replace get_page_by_title(), deprecated in WP 6.2, with get_posts() which calls WP_Query().
+* Update: Changes to the api-keys.php template for API Resource Renewal button, and other renewal related features.
+* Update: PHP 7.4 is now the minimum required.
+* Fix: API Customer dashboard Product sorting column.
+* Tweak: Sort the API Customer dashboard by Access Granted by default.
+* Tweak: Added to the API Customer dashboard: Subscription Type and Grace Period columns.
+* Tweak: Removed from the API Customer dashboard: User ID and Product Order API Key columns.
+* Tweak: Improved the appearance of the WooCommerce > Settings > API Manager screen.
+* New: Added feature to renew an API Resource Subscription that will carryover the API Key activations for the same Product ID.
+* New: A renewed API Resource Subscription will carryover the remaining time from the renewed API Resource to the new API Resource to extend the new expiration end date.
+* New: Added renew link in My Account > API Keys to renew API Manager Subscription.
+* New: Added Manual Renewal Period to Settings that allows the renew link to only display within a time period close to the expiration date.
+* New: Expanded Grace Period to include API Resource Subscriptions.
+* New: Added line item data visible on the order screen for new API Resource Subscription renewals, and previous API Resource Subscription.
+* New: Added "Expiring Subscription" email text/html template to WooCommerce > Settings > Emails.
+* New: "Expiring Subscription" emails have the messages soon to expire, expired but renewable, and expired, with custom information delivered with each to encourage renewals and inform the customer.
+* New: "Expiring Subscription" emails are automatically delivered when 30 days, 7 days, away from the expiration date, and 1 day after the expiration date if there is a grace period of more than 1 day.
+* Dev: Added the verify_api_key_is_active API endpoint.
+
+2023-06-04 - version 2.8.1
+* Other: See archive_changelog.txt for historical changelog entries.

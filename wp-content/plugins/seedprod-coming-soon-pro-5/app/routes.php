@@ -24,6 +24,19 @@ function seedprod_pro_create_menus() {
 	$n                   = new SeedProd_Notifications();
 	$notifications_count = $n->get_count();
 
+	$seedprod_app_settings = get_option( 'seedprod_app_settings' );
+	if ( ! empty( $seedprod_app_settings ) ) {
+		$seedprod_app_settings = json_decode( stripslashes( $seedprod_app_settings ) );
+	}
+	// if notification disabled than change value to 0
+	if ( isset( $seedprod_app_settings ) ) {
+		if ( isset( $seedprod_app_settings->disable_seedprod_notification ) ) {
+			if ( $seedprod_app_settings->disable_seedprod_notification === true ) {
+				$notifications_count = 0;
+			}
+		}
+	}
+
 	
 	// check for invalid license
 	$seedprod_a = get_option( 'seedprod_per' );

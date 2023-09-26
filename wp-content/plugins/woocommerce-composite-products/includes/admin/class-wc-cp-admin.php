@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Setup admin hooks.
  *
  * @class    WC_CP_Admin
- * @version  8.7.0
+ * @version  8.10.3
  */
 class WC_CP_Admin {
 
@@ -24,7 +24,7 @@ class WC_CP_Admin {
 	 *
 	 * @var string
 	 */
-	private static $bundled_selectsw_version = '1.2.1';
+	private static $bundled_selectsw_version = '1.2.2';
 
 	/**
 	 * Setup admin hooks.
@@ -174,12 +174,18 @@ class WC_CP_Admin {
 	 */
 	public static function include_admin_body_class( $classes ) {
 
-		if ( strpos( $classes, 'sw-wp-version-gte-53' ) !== false ) {
+		if ( strpos( $classes, 'sw-wp-version-gte-53' ) !== false
+		     || strpos( $classes, 'sw-wp-version-gte-55' ) !== false
+		) {
 			return $classes;
 		}
 
 		if ( WC_CP_Core_Compatibility::is_wp_version_gte( '5.3' ) ) {
 			$classes .= ' sw-wp-version-gte-53';
+		}
+
+		if ( WC_CP_Core_Compatibility::is_wp_version_gte( '5.5' ) ) {
+			$classes .= ' sw-wp-version-gte-55';
 		}
 
 		return $classes;

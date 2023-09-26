@@ -24,13 +24,6 @@ if ( class_exists( 'WP_Importer' ) ) {
 		public $id;
 
 		/**
-		 * File URL.
-		 *
-		 * @var string
-		 */
-		public $file_url;
-
-		/**
 		 * Import page slug.
 		 *
 		 * @var string
@@ -85,8 +78,12 @@ if ( class_exists( 'WP_Importer' ) ) {
 		function dispatch() {
 			$this->header();
 
+            if ( ! empty( $_POST['import-upload-form'] ) || ! empty( $_GET['step'] ) ) {
+	            check_admin_referer( 'import-upload' );
+            }
+
 			if ( ! empty( $_POST['delimiter'] ) ) {
-				$this->delimiter = stripslashes( trim( $_POST['delimiter'] ) );
+				$this->delimiter = sanitize_text_field( wp_unslash( $_POST['delimiter'] ) );
 			}
 
 			if ( ! $this->delimiter ) {
@@ -99,14 +96,8 @@ if ( class_exists( 'WP_Importer' ) ) {
 					$this->greet();
 					break;
 				case 1:
-					check_admin_referer( 'import-upload' );
 					if ( $this->handle_upload() ) {
-
-						if ( $this->id ) {
-							$file = get_attached_file( $this->id );
-						} else {
-							$file = ABSPATH . $this->file_url;
-						}
+						$file = get_attached_file( $this->id );
 
 						add_filter( 'http_request_timeout', array( $this, 'bump_request_timeout' ) );
 
@@ -145,12 +136,18 @@ if ( class_exists( 'WP_Importer' ) ) {
 		function import( $file ) {
 			global $wpdb;
 
-			$this->imported = 0;
-			$this->skipped = 0;
+			$this->imported      = 0;
+			$this->skipped       = 0;
+			$override_product_id = ! empty( $_GET['override_product_id'] ) ? absint( $_GET['override_product_id'] ) : false;
+
+            // Check if product ID doesn't change.
+            if ( $override_product_id ) {
+	            check_admin_referer( 'override-product-id-' . absint( $_GET['override_product_id'] ), '_wpnonce_override-product-id' );
+            }
 
 			if ( ! is_file( $file ) ) {
-				echo '<p><strong>' . __( 'Sorry, there has been an error.', 'woocommerce-shipping-per-product' ) . '</strong><br />';
-				echo __( 'The file does not exist, please try again.', 'woocommerce-shipping-per-product' ) . '</p>';
+				echo '<p><strong>' . esc_html__( 'Sorry, there has been an error.', 'woocommerce-shipping-per-product' ) . '</strong><br />';
+				echo esc_html__( 'The file does not exist, please try again.', 'woocommerce-shipping-per-product' ) . '</p>';
 				$this->footer();
 				die();
 			}
@@ -163,8 +160,8 @@ if ( class_exists( 'WP_Importer' ) ) {
 
 					$loop = 0;
 
-					if ( ! empty( $_GET['override_product_id'] ) ) {
-						$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}woocommerce_per_product_shipping_rules WHERE product_id = %d;", absint( $_GET['override_product_id'] ) ) );
+					if ( $override_product_id ) {
+						$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}woocommerce_per_product_shipping_rules WHERE product_id = %d;", $override_product_id ) );
 					}
 
 					while ( ( $row = fgetcsv( $handle, 0, $this->delimiter ) ) !== false ) {
@@ -206,8 +203,8 @@ if ( class_exists( 'WP_Importer' ) ) {
 						$this->imported++;
 					}
 				} else {
-					echo '<p><strong>' . __( 'Sorry, there has been an error.', 'woocommerce-shipping-per-product' ) . '</strong><br />';
-					echo __( 'The CSV is invalid.', 'woocommerce-shipping-per-product' ) . '</p>';
+					echo '<p><strong>' . esc_html__( 'Sorry, there has been an error.', 'woocommerce-shipping-per-product' ) . '</strong><br />';
+					echo esc_html__( 'The CSV is invalid.', 'woocommerce-shipping-per-product' ) . '</p>';
 					$this->footer();
 					die();
 
@@ -217,26 +214,24 @@ if ( class_exists( 'WP_Importer' ) ) {
 			}
 
 			// Show Result.
+			echo '<div class="updated settings-error below-h2"><p>';
 			printf(
-				'<div class="updated settings-error below-h2"><p>%s</p></div>',
-				sprintf(
-					/* translators: 1) Total imported 2) Total skipped */
-					__( 'Import complete - imported <strong>%1$s</strong> shipping rates and skipped <strong>%2$s</strong>.', 'woocommerce-shipping-per-product' ),
-					$this->imported,
-					$this->skipped
-				)
+			// translators: 1) Total imported 2) Total skipped.
+				esc_html__( 'Import complete - imported %1$s shipping rates and skipped %2$s.', 'woocommerce-shipping-per-product' ),
+				'<strong>' . esc_html( $this->imported ) . '</strong>',
+				'<strong>' . esc_html( $this->skipped ) . '</strong>'
 			);
+			echo '</p></div>';
 
-			// Let the user know why rows were skipped
+			// Let the user know why rows were skipped.
 			if ( $this->skipped > 0 ) {
+				echo '<div class="error settings-error below-h2"><p>';
 				printf(
-					'<div class="error settings-error below-h2"><p>%s</p></div>',
-					sprintf(
-						/* translators: 1) Total skipped */
-						__( '<strong>%1$s</strong> rows were missing a valid product ID', 'woocommerce-shipping-per-product' ),
-						$this->skipped
-					)
+				// translators: 1) Total skipped.
+					esc_html__( '%1$s rows were missing a valid product ID', 'woocommerce-shipping-per-product' ),
+					'<strong>' . esc_html( $this->skipped ) . '</strong>'
 				);
+				echo '</p></div>';
 			}
 
 			$this->import_end();
@@ -246,7 +241,7 @@ if ( class_exists( 'WP_Importer' ) ) {
 		 * Performs post-import cleanup of files and the cache.
 		 */
 		public function import_end() {
-			echo '<p>' . __( 'All done!', 'woocommerce-shipping-per-product' ) . '</p>';
+			echo '<p>' . esc_html__( 'All done!', 'woocommerce-shipping-per-product' ) . '</p>';
 			do_action( 'import_end' );
 		}
 
@@ -257,31 +252,16 @@ if ( class_exists( 'WP_Importer' ) ) {
 		 * @return bool False if error uploading or invalid file, true otherwise.
 		 */
 		public function handle_upload() {
+			$file = wp_import_handle_upload();
 
-			if ( empty( $_POST['file_url'] ) ) {
+			if ( isset( $file['error'] ) || is_wp_error( $file['id'] ) ) {
+				echo '<p><strong>' . esc_html__( 'Sorry, there has been an error.', 'woocommerce-shipping-per-product' ) . '</strong><br />';
+				echo esc_html( $file['error'] ) . '</p>';
 
-				$file = wp_import_handle_upload();
-
-				if ( isset( $file['error'] ) ) {
-					echo '<p><strong>' . __( 'Sorry, there has been an error.', 'woocommerce-shipping-per-product' ) . '</strong><br />';
-					echo esc_html( $file['error'] ) . '</p>';
-					return false;
-				}
-
-				$this->id = (int) $file['id'];
-
-			} else {
-
-				if ( file_exists( ABSPATH . $_POST['file_url'] ) ) {
-
-					$this->file_url = esc_attr( $_POST['file_url'] );
-
-				} else {
-
-					echo '<p><strong>' . __( 'Sorry, there has been an error.', 'woocommerce-shipping-per-product' ) . '</strong></p>';
-					return false;
-				}
+				return false;
 			}
+
+			$this->id = (int) $file['id'];
 
 			return true;
 		}
@@ -294,7 +274,7 @@ if ( class_exists( 'WP_Importer' ) ) {
 		 */
 		public function header() {
 			echo '<div class="wrap">';
-			echo '<h2>' . __( 'Import Per-product Shipping Rates', 'woocommerce-shipping-per-product' ) . '</h2>';
+			echo '<h2>' . esc_html__( 'Import Per-product Shipping Rates', 'woocommerce-shipping-per-product' ) . '</h2>';
 		}
 
 		/**
@@ -315,22 +295,23 @@ if ( class_exists( 'WP_Importer' ) ) {
 		 */
 		function greet() {
 			echo '<div class="narrow">';
-			echo '<p>' . __( 'Hi there! Upload a CSV file containing per-product shipping rates to import the contents into your shop. Choose a .csv file to upload, then click "Upload file and import".', 'woocommerce-shipping-per-product' ) . '</p>';
+			echo '<p>' . esc_html__( 'Hi there! Upload a CSV file containing per-product shipping rates to import the contents into your shop. Choose a .csv file to upload, then click "Upload file and import".', 'woocommerce-shipping-per-product' ) . '</p>';
 
-			echo '<p>' . __( 'Rates need to be defined with columns in a specific order (6 columns). Product ID, Country Code, State Code, Postcode, Cost, Item Cost', 'woocommerce-shipping-per-product' ) . '</p>';
+			echo '<p>' . esc_html__( 'Rates need to be defined with columns in a specific order (6 columns). Product ID, Country Code, State Code, Postcode, Cost, Item Cost', 'woocommerce-shipping-per-product' ) . '</p>';
 
 			$action = 'admin.php?import=woocommerce_per_product_shipping_csv&step=1';
 
-			if ( ! empty( $_GET['override_product_id'] ) ) {
-				$action .= '&override_product_id=' . absint( $_GET['override_product_id'] );
+			if ( ! empty( $_GET['override_product_id'] ) && check_admin_referer( 'override-product-id-' . absint( $_GET['override_product_id'] ), '_wpnonce_override-product-id' )) {
+                // Pass the nonce to check if product ID changed.
+				$action .= '&override_product_id=' . absint( $_GET['override_product_id'] ) . '&_wpnonce_override-product-id=' . sanitize_text_field( $_GET['_wpnonce_override-product-id'] );
 			}
 
 			$bytes = apply_filters( 'import_upload_size_limit', wp_max_upload_size() );
 			$size = size_format( $bytes );
 			$upload_dir = wp_upload_dir();
 			if ( ! empty( $upload_dir['error'] ) ) :
-				?><div class="error"><p><?php _e( 'Before you can upload your import file, you will need to fix the following error:' ); ?></p>
-				<p><strong><?php echo $upload_dir['error']; ?></strong></p></div><?php
+				?><div class="error"><p><?php esc_html_e( 'Before you can upload your import file, you will need to fix the following error:', 'woocommerce-shipping-per-product' ); ?></p>
+				<p><strong><?php esc_html_e( $upload_dir['error'] ); ?></strong></p></div><?php
 			else :
 				?>
 				<form enctype="multipart/form-data" id="import-upload-form" method="post" action="<?php echo esc_attr( wp_nonce_url( $action, 'import-upload' ) ); ?>">
@@ -338,28 +319,28 @@ if ( class_exists( 'WP_Importer' ) ) {
 						<tbody>
 							<tr>
 								<th>
-									<label for="upload"><?php _e( 'Choose a file from your computer:' ); ?></label>
+									<label for="upload"><?php esc_html_e( 'Choose a file from your computer:', 'woocommerce-shipping-per-product' ); ?></label>
 								</th>
 								<td>
 									<input type="file" id="upload" name="import" size="25" />
 									<input type="hidden" name="action" value="save" />
-									<input type="hidden" name="max_file_size" value="<?php echo $bytes; ?>" />
+									<input type="hidden" name="max_file_size" value="<?php echo esc_attr( $bytes ); ?>" />
 									<small>
 									<?php
 									/* translators: Maximum size of file */
-									printf( __( 'Maximum size: %s', 'woocommerce-shipping-per-product' ), $size );
+									printf( esc_html__( 'Maximum size: %s', 'woocommerce-shipping-per-product' ), esc_html( $size ) );
 									?>
 									</small>
 								</td>
 							</tr>
 							<tr>
-								<th><label><?php _e( 'Delimiter', 'woocommerce-shipping-per-product' ); ?></label><br/></th>
+								<th><label><?php esc_html_e( 'Delimiter', 'woocommerce-shipping-per-product' ); ?></label><br/></th>
 								<td><input type="text" name="delimiter" placeholder="," size="2" /></td>
 							</tr>
 						</tbody>
 					</table>
 					<p class="submit">
-						<input type="submit" class="button" value="<?php esc_attr_e( 'Upload file and import' ); ?>" />
+						<input type="submit" name="import-upload-form" class="button" value="<?php esc_attr_e( 'Upload file and import', 'woocommerce-shipping-per-product' ); ?>" />
 					</p>
 				</form>
 				<?php

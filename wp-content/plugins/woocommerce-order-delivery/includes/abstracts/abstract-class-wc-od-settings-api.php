@@ -524,30 +524,4 @@ abstract class WC_OD_Settings_API extends WC_Settings_API {
 		</tr>
 		<?php
 	}
-
-	/**
-	 * Gets the 'number_of_orders' field ready to be registered in the form fields.
-	 *
-	 * @since 1.8.0
-	 * @deprecated 2.1.0
-	 *
-	 * @return array
-	 */
-	protected function get_number_of_orders_field() {
-		wc_deprecated_function( __FUNCTION__, '2.1.0', 'WC_OD_Settings_Lockout->get_lockout_fields()' );
-
-		return array(
-			'number_of_orders' => array(
-				'title'             => __( 'Number of orders', 'woocommerce-order-delivery' ),
-				'description'       => __( '0 means that there is no limit of orders.', 'woocommerce-order-delivery' ),
-				'desc_tip'          => __( 'Maximum number of orders that can be delivered on the day.', 'woocommerce-order-delivery' ),
-				'type'              => 'number',
-				'css'               => 'width: 50px;',
-				'custom_attributes' => array(
-					'min'  => 0,
-					'step' => 1,
-				),
-			),
-		);
-	}
 }

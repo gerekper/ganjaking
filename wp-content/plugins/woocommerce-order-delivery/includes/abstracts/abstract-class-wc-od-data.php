@@ -17,7 +17,7 @@ if ( ! class_exists( 'WC_Data', false ) ) {
 /**
  * Abstract WC_OD_Data class.
  */
-abstract class WC_OD_Data extends WC_Data implements ArrayAccess {
+abstract class WC_OD_Data extends WC_Data {
 
 	/**
 	 * Constructor.
@@ -215,71 +215,5 @@ abstract class WC_OD_Data extends WC_Data implements ArrayAccess {
 	 */
 	public function __toString() {
 		return $this->to_json();
-	}
-
-	/*
-	|--------------------------------------------------------------------------
-	| Array Access Methods (Deprecated)
-	|--------------------------------------------------------------------------
-	|
-	| Backward compatibility with legacy arrays.
-	|
-	*/
-
-	/**
-	 * OffsetExists for ArrayAccess.
-	 *
-	 * @since 1.6.0
-	 * @deprecated 2.0.0
-	 *
-	 * @param string $offset Offset.
-	 * @return bool
-	 */
-	public function offsetExists( $offset ) {
-		wc_deprecated_function( 'Array access', '2.0.0' );
-
-		return array_key_exists( $offset, $this->data );
-	}
-
-	/**
-	 * OffsetGet for ArrayAccess.
-	 *
-	 * @since 1.6.0
-	 * @deprecated 2.0.0
-	 *
-	 * @param string $offset Offset.
-	 * @return mixed
-	 */
-	public function offsetGet( $offset ) {
-		wc_deprecated_function( 'Array access', '2.0.0', "get_{$offset}()" );
-
-		return $this->data_get( $offset );
-	}
-
-	/**
-	 * OffsetSet for ArrayAccess.
-	 *
-	 * @since 1.6.0
-	 * @deprecated 2.0.0
-	 *
-	 * @param string $offset Offset.
-	 * @param mixed  $value  Value.
-	 */
-	public function offsetSet( $offset, $value ) {
-		wc_deprecated_function( 'Array access', '2.0.0', "set_{$offset}()" );
-
-		$this->data_set( $offset, $value );
-	}
-
-	/**
-	 * OffsetUnset for ArrayAccess.
-	 *
-	 * @since 1.6.0
-	 * @deprecated 2.0.0
-	 *
-	 * @param string $offset Offset.
-	 */
-	public function offsetUnset( $offset ) {
-		wc_deprecated_function( 'Array access', '2.0.0' );
 	}
 }

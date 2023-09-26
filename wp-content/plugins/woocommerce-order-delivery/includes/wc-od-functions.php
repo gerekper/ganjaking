@@ -311,18 +311,44 @@ function wc_od_format_delivery_range( $range, $echo = false ) {
  * @param array $args The arguments.
  */
 function wc_od_order_delivery_details( $args = array() ) {
-	$defaults = array(
-		'title' => __( 'Shipping and delivery', 'woocommerce-order-delivery' ),
+	$args = wp_parse_args(
+		$args,
+		array(
+			'order'           => '',
+			'details_type'    => 'specific', // Accepts: 'specific' or 'estimated'.
+			'is_local_pickup' => false,
+		)
+	);
+
+	if ( $args['order'] instanceof WC_Order ) {
+		$args['is_local_pickup'] = wc_od_order_is_local_pickup( $args['order'] );
+	}
+
+	if ( ! isset( $args['title'] ) ) {
+		if ( wc_string_to_bool( $args['is_local_pickup'] ) ) {
+			$args['title'] = __( 'Pickup details', 'woocommerce-order-delivery' );
+		} else {
+			$args['title'] = __( 'Delivery details', 'woocommerce-order-delivery' );
+		}
+	}
+
+	$args['details_template'] = sprintf(
+		'order-delivery/%1$s-%2$s-details.php',
+		sanitize_text_field( $args['details_type'] ),
+		( $args['is_local_pickup'] ? 'pickup' : 'delivery' )
 	);
 
 	/**
 	 * Filter the arguments used by the order/delivery-date.php template.
 	 *
 	 * @since 1.1.0
+	 * @since 2.6.0 Added `order`, `details_type`, and `is_local_pickup` parameters.
+	 * @since 2.6.0 Deprecated `delivery_date` parameter. Use `date` instead.
+	 * @since 2.6.0 Deprecated `delivery_time_frame` parameter. Use `time_frame` instead.
 	 *
-	 * @param array $args The arguments.
+	 * @param array $args The template arguments.
 	 */
-	$args = apply_filters( 'wc_od_order_delivery_details_args', wp_parse_args( $args, $defaults ) );
+	$args = apply_filters( 'wc_od_order_delivery_details_args', $args );
 
 	wc_od_get_template( 'order/delivery-date.php', $args );
 }
@@ -396,7 +422,7 @@ function wc_od_get_country_states_for_select2() {
 function wc_od_get_delivery_date_field_args( $args = array(), $context = '' ) {
 	$defaults = array(
 		'type'              => 'delivery_date',
-		'label'             => _x( 'Delivery Date', 'field label', 'woocommerce-order-delivery' ),
+		'label'             => __( 'Delivery date', 'woocommerce-order-delivery' ),
 		'placeholder'       => '',
 		'class'             => array( 'form-row-wide' ),
 		'required'          => ( 'required' === WC_OD()->settings()->get_setting( 'delivery_fields_option' ) ),
@@ -623,4 +649,15 @@ function wc_od_get_datepicker_custom_styles( $context = '' ) {
 	 * @param string $context The context.
 	 */
 	return apply_filters( 'wc_od_datepicker_custom_styles', $styles, $context );
+}
+
+/**
+ * Gets if the plugin should work for local pickup too.
+ *
+ * @since 2.6.0
+ *
+ * @return bool
+ */
+function wc_od_is_local_pickup_enabled() {
+	return wc_string_to_bool( WC_OD()->settings()->get_setting( 'enable_local_pickup' ) );
 }

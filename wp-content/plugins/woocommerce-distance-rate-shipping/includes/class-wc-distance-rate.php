@@ -181,7 +181,7 @@ class WC_Distance_Rate {
 			<p>
 			<?php
 				/* translators: %1s: Shipping zones link start %2s: Link end */
-				echo sprintf( __( 'Distance Rate now supports shipping zones. The zone settings were added to a new Distance Rate method on the "Rest of the World" Zone. See the zones %1$shere%2$s ', 'woocommerce-distance-rate-shipping' ), '<a href="' . $zones_admin_url . '">', '</a>' );
+				echo sprintf( esc_html__( 'Distance Rate now supports shipping zones. The zone settings were added to a new Distance Rate method on the "Rest of the World" Zone. See the zones %1$shere%2$s ', 'woocommerce-distance-rate-shipping' ), '<a href="' . esc_url( $zones_admin_url ) . '">', '</a>' );
 			?>
 			</p>
 		</div>

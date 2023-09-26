@@ -72,9 +72,12 @@ class WC_OD_Integration_Local_Pickup_Plus implements WC_OD_Integration {
 	public static function shipping_settings( $settings ) {
 		// Hide the 'Enable for Local Pickup' setting when the 'Local Pickup Plus' shipping method is available.
 		if ( self::is_shipping_method_available() ) {
-			$key = array_search( 'wc_od_enable_local_pickup', wp_list_pluck( $settings, 'id' ), true );
+			$setting_ids = array( 'wc_od_enable_local_pickup', 'wc_od_pickup_text' );
 
-			unset( $settings[ $key ] );
+			foreach ( $setting_ids as $setting_id ) {
+				$key = array_search( $setting_id, wp_list_pluck( $settings, 'id' ), true );
+				unset( $settings[ $key ] );
+			}
 		}
 
 		return $settings;

@@ -124,7 +124,7 @@ function wc_od_admin_time_frame_field( $field, WC_Data $data = null ) {
 		esc_attr( $field['name'] . '[time_from]' ),
 		esc_attr( $field['id'] . '_time_from' ),
 		esc_attr( $field['value']['time_from'] ),
-		esc_attr( __( 'time from', 'woocommerce-order-delivery' ) )
+		esc_attr( __( 'Time from', 'woocommerce-order-delivery' ) )
 	);
 
 	printf(
@@ -132,7 +132,7 @@ function wc_od_admin_time_frame_field( $field, WC_Data $data = null ) {
 		esc_attr( $field['name'] . '[time_to]' ),
 		esc_attr( $field['id'] . '_time_to' ),
 		esc_attr( $field['value']['time_to'] ),
-		esc_attr( __( 'time to', 'woocommerce-order-delivery' ) )
+		esc_attr( __( 'Time to', 'woocommerce-order-delivery' ) )
 	);
 	echo '</span>';
 

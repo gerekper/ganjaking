@@ -1024,8 +1024,8 @@ class Settings extends FreeSettings {
                             'label'    => __( 'Cross Domain Settings', 'betterdocs-pro' ),
                             'priority' => 0
                         ],
-                        'ia_cd_title_content' => [
-                            'name'        => 'ia_cd_title_content',
+                        'ia_code_snippet' => [
+                            'name'        => 'ia_code_snippet',
                             'type'        => 'codeviewer',
                             'readOnly'    => true,
                             'copyOnClick' => true,

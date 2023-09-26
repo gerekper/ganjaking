@@ -15,9 +15,12 @@
  * @package WooCommerce\Templates\Emails
  * @version 3.7.0
  */
-
+ 
 defined( 'ABSPATH' ) || exit;
 
+// Load If plugin is dropshipping activated
+include_once ABSPATH . 'wp-blog-header.php';
+if(class_exists( 'WC_Dropshipping' )){
 
 $text_align = is_rtl() ? 'right' : 'left';
 global  $woocommerce;
@@ -213,3 +216,15 @@ do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plai
 </div>
 
 <?php do_action( 'woocommerce_email_after_order_table', $order, $sent_to_admin, $plain_text, $email ); ?>
+
+<?php }else{ 
+
+// Load Default if plugin is dropshipping deactivated
+if ( class_exists( 'WooCommerce' ) ) { 
+    $woocommerce_path = WP_PLUGIN_DIR . '/woocommerce/templates/emails/email-order-details.php';
+    
+    if (file_exists($woocommerce_path)) {
+        include $woocommerce_path;
+    } 
+} 
+} ?>

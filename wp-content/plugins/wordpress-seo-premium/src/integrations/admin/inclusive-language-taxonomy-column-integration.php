@@ -76,8 +76,12 @@ class Inclusive_Language_Taxonomy_Column_Integration implements Integration_Inte
 	 * Register hooks that need to be registered after `init` due to all post types not yet being registered.
 	 */
 	public function register_init_hooks() {
-		$taxonomy = $this->current_page_helper->get_current_taxonomy();
-		if ( $taxonomy ) {
+		$taxonomy       = $this->current_page_helper->get_current_taxonomy();
+		$is_product     = $this->current_page_helper->get_current_post_type() === 'product';
+		$is_product_cat = $taxonomy === 'product_cat';
+		$is_product_tag = $taxonomy === 'product_tag';
+
+		if ( ( $is_product && ( $is_product_cat || $is_product_tag ) ) || ( ! $is_product && $taxonomy ) ) {
 			\add_filter( 'manage_edit-' . $taxonomy . '_columns', [ $this, 'add_inclusive_language_column' ] );
 			\add_filter( 'manage_' . $taxonomy . '_custom_column', [ $this, 'column_content' ], 10, 3 );
 		}

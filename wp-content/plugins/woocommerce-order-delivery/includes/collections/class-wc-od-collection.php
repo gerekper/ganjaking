@@ -71,6 +71,7 @@ class WC_OD_Collection implements Iterator, ArrayAccess, Countable {
 	 *
 	 * @return int
 	 */
+	#[\ReturnTypeWillChange]
 	public function count() {
 		return count( $this->items );
 	}
@@ -479,8 +480,9 @@ class WC_OD_Collection implements Iterator, ArrayAccess, Countable {
 	 *
 	 * @since 1.6.0
 	 *
-	 * @return array Of items at current priority.
+	 * @return mixed
 	 */
+	#[\ReturnTypeWillChange]
 	public function current() {
 		return current( $this->items );
 	}
@@ -492,6 +494,7 @@ class WC_OD_Collection implements Iterator, ArrayAccess, Countable {
 	 *
 	 * @return array Of items at next priority.
 	 */
+	#[\ReturnTypeWillChange]
 	public function next() {
 		return next( $this->items );
 	}
@@ -503,6 +506,7 @@ class WC_OD_Collection implements Iterator, ArrayAccess, Countable {
 	 *
 	 * @return mixed Returns current priority on success, or NULL on failure
 	 */
+	#[\ReturnTypeWillChange]
 	public function key() {
 		return key( $this->items );
 	}
@@ -514,6 +518,7 @@ class WC_OD_Collection implements Iterator, ArrayAccess, Countable {
 	 *
 	 * @return boolean
 	 */
+	#[\ReturnTypeWillChange]
 	public function valid() {
 		return ( key( $this->items ) !== null );
 	}
@@ -523,6 +528,7 @@ class WC_OD_Collection implements Iterator, ArrayAccess, Countable {
 	 *
 	 * @since 1.6.0
 	 */
+	#[\ReturnTypeWillChange]
 	public function rewind() {
 		reset( $this->items );
 	}
@@ -544,6 +550,7 @@ class WC_OD_Collection implements Iterator, ArrayAccess, Countable {
 	 * @param mixed $offset The offset to check for.
 	 * @return bool
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetExists( $offset ) {
 		return isset( $this->items[ $offset ] );
 	}
@@ -556,6 +563,7 @@ class WC_OD_Collection implements Iterator, ArrayAccess, Countable {
 	 * @param mixed $offset The offset to retrieve.
 	 * @return mixed If set, the value at the specified offset, null otherwise.
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetGet( $offset ) {
 		return ( isset( $this->items[ $offset ] ) ? $this->items[ $offset ] : null );
 	}
@@ -568,6 +576,7 @@ class WC_OD_Collection implements Iterator, ArrayAccess, Countable {
 	 * @param mixed $offset The offset to assign the value to.
 	 * @param mixed $value The value to set.
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetSet( $offset, $value ) {
 		if ( is_null( $offset ) ) {
 			$this->items[] = $value;
@@ -583,6 +592,7 @@ class WC_OD_Collection implements Iterator, ArrayAccess, Countable {
 	 *
 	 * @param mixed $offset The offset to unset.
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetUnset( $offset ) {
 		unset( $this->items[ $offset ] );
 	}

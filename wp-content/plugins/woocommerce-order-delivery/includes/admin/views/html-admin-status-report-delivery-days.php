@@ -15,17 +15,17 @@
 <table class="wc_status_table widefat" cellspacing="0">
 	<thead>
 		<tr>
-			<th colspan="6" data-export-label="Delivery Days">
-				<h2><?php esc_html_e( 'Delivery Days', 'woocommerce-order-delivery' ); ?><?php echo wc_help_tip( esc_html__( 'This section shows the delivery days defined with WooCommerce Order Delivery.', 'woocommerce-order-delivery' ) ); ?></h2>
+			<th colspan="6" data-export-label="Delivery days">
+				<h2><?php esc_html_e( 'Delivery days', 'woocommerce-order-delivery' ); ?><?php echo wc_help_tip( esc_html__( 'This section shows the delivery days defined with WooCommerce Order Delivery.', 'woocommerce-order-delivery' ) ); ?></h2>
 			</th>
 		</tr>
 		<tr>
-			<td><strong><?php echo esc_html_x( 'Day', 'delivery days: table column', 'woocommerce-order-delivery' ); ?></strong></td>
+			<td><strong><?php echo esc_html__( 'Day', 'woocommerce-order-delivery' ); ?></strong></td>
 			<td class="help"></td>
-			<td><strong><?php echo esc_html_x( 'Enabled', 'delivery days: table column', 'woocommerce-order-delivery' ); ?></strong></td>
-			<td><strong><?php echo esc_html_x( 'Nº of orders', 'delivery days: table column', 'woocommerce-order-delivery' ); ?></strong></td>
-			<td><strong><?php echo esc_html_x( 'Shipping methods', 'delivery days: table column', 'woocommerce-order-delivery' ); ?></strong></td>
-			<td><strong><?php echo esc_html_x( 'Time frames', 'delivery days: table column', 'woocommerce-order-delivery' ); ?></strong></td>
+			<td><strong><?php echo esc_html__( 'Enabled', 'woocommerce' ); // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch ?></strong></td>
+			<td><strong><?php echo esc_html__( 'Nº of orders', 'woocommerce-order-delivery' ); ?></strong></td>
+			<td><strong><?php echo esc_html__( 'Shipping methods', 'woocommerce-order-delivery' ); ?></strong></td>
+			<td><strong><?php echo esc_html__( 'Time frames', 'woocommerce-order-delivery' ); ?></strong></td>
 		</tr>
 	</thead>
 	<tbody>

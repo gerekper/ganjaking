@@ -14,7 +14,7 @@ if ( ! WC_Deposits_Product_Manager::deposits_enabled( $product_id ) ) {
 }
 
 $default_selected_type = WC_Deposits_Product_Manager::get_deposit_selected_type( $product_id );
-$style                 = 'deposit' === $default_selected_type ? 'style="display:block;"' : 'style="display:none;"';
+$display_style         = 'deposit' === $default_selected_type ? 'block' : 'none';
 ?>
 <div class="wc-deposits-wrapper <?php echo WC_Deposits_Product_Manager::deposits_forced( $product_id ) ? 'wc-deposits-forced' : 'wc-deposits-optional'; ?>">
 	<?php if ( ! WC_Deposits_Product_Manager::deposits_forced( $product_id ) ) : ?>
@@ -35,7 +35,7 @@ $style                 = 'deposit' === $default_selected_type ? 'style="display:
 	<?php endif; ?>
 
 	<?php if ( 'plan' === WC_Deposits_Product_Manager::get_deposit_type( $product_id ) ) : ?>
-		<ul class="wc-deposits-payment-plans" <?php echo $style; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped ?>>
+		<ul class="wc-deposits-payment-plans" style="display:<?php echo esc_attr( $display_style ); ?>;">
 			<?php foreach ( WC_Deposits_Plans_Manager::get_plans_for_product( $product_id ) as $key => $plan ) : ?>
 				<li class="wc-deposits-payment-plan">
 					<input type="radio" name="wc_deposit_payment_plan" <?php checked( $key, 0 ); ?> value="<?php echo esc_attr( $plan->get_id() ); ?>" id="wc-deposits-payment-plan-<?php echo esc_attr( $plan->get_id() ); ?>" />
@@ -46,7 +46,7 @@ $style                 = 'deposit' === $default_selected_type ? 'style="display:
 				</li>
 			<?php endforeach; ?>
 		</ul>
-		<div class="wc-deposits-payment-description" <?php echo esc_attr( $style ); ?>>
+		<div class="wc-deposits-payment-description" style="display:<?php echo esc_attr( $display_style ); ?>;">
 			<?php foreach ( WC_Deposits_Plans_Manager::get_plans_for_product( $product_id ) as $key => $plan ) : ?>
 				<p id="payment-plan-description-<?php echo esc_attr( $plan->get_id() ); ?>" style="display: none;">
 					<?php
@@ -56,10 +56,10 @@ $style                 = 'deposit' === $default_selected_type ? 'style="display:
 						);
 					?>
 				</p>
-			<?php endforeach; ?>			
+			<?php endforeach; ?>
 		</div>
 	<?php else : ?>
-		<div class="wc-deposits-payment-description" <?php echo $style; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped ?>>
+		<div class="wc-deposits-payment-description" style="display:<?php echo esc_attr( $display_style ); ?>;">
 			<?php echo wp_kses_post( WC_Deposits_Product_Manager::get_formatted_deposit_amount( $product_id ) ); ?>
 		</div>
 	<?php endif; ?>

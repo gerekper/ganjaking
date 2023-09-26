@@ -15,15 +15,15 @@
 <table class="wc_status_table widefat" cellspacing="0">
 	<thead>
 		<tr>
-			<th colspan="4" data-export-label="Shipping Days">
-				<h2><?php esc_html_e( 'Shipping Days', 'woocommerce-order-delivery' ); ?><?php echo wc_help_tip( esc_html__( 'This section shows the shipping days defined with WooCommerce Order Delivery.', 'woocommerce-order-delivery' ) ); ?></h2>
+			<th colspan="4" data-export-label="Shipping days">
+				<h2><?php esc_html_e( 'Shipping days', 'woocommerce-order-delivery' ); ?><?php echo wc_help_tip( esc_html__( 'This section shows the shipping days defined with WooCommerce Order Delivery.', 'woocommerce-order-delivery' ) ); ?></h2>
 			</th>
 		</tr>
 		<tr>
-			<td><strong><?php echo esc_html_x( 'Day', 'shipping days: table column', 'woocommerce-order-delivery' ); ?></strong></td>
+			<td><strong><?php echo esc_html__( 'Day', 'woocommerce-order-delivery' ); ?></strong></td>
 			<td class="help"></td>
-			<td><strong><?php echo esc_html_x( 'Enabled', 'shipping days: table column', 'woocommerce-order-delivery' ); ?></strong></td>
-			<td><strong><?php echo esc_html_x( 'Cut-off time', 'shipping days: table column', 'woocommerce-order-delivery' ); ?></strong></td>
+			<td><strong><?php echo esc_html__( 'Enabled', 'woocommerce' ); // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch ?></strong></td>
+			<td><strong><?php echo esc_html__( 'Cut-off time', 'woocommerce-order-delivery' ); ?></strong></td>
 		</tr>
 	</thead>
 	<tbody>

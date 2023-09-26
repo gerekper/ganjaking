@@ -34,11 +34,11 @@ class WC_OD_Admin_Field_Delivery_Days extends WC_OD_Admin_Field_Table {
 				'label' => __( 'Delivery day', 'woocommerce-order-delivery' ),
 			),
 			'status'      => array(
-				'label' => __( 'Enabled', 'woocommerce-order-delivery' ),
+				'label' => __( 'Enabled', 'woocommerce' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 				'width' => '1%',
 			),
 			'description' => array(
-				'label' => __( 'Description', 'woocommerce-order-delivery' ),
+				'label' => __( 'Description', 'woocommerce' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 			),
 			'action'      => array(
 				'label' => '',
@@ -89,7 +89,7 @@ class WC_OD_Admin_Field_Delivery_Days extends WC_OD_Admin_Field_Table {
 	 */
 	public function output_column_status( $day_id, $delivery_day ) {
 		$enabled = $delivery_day->is_enabled();
-		$label   = ( $enabled ? __( 'Yes', 'woocommerce-order-delivery' ) : __( 'No', 'woocommerce-order-delivery' ) );
+		$label   = ( $enabled ? __( 'Yes', 'woocommerce' ) : __( 'No', 'woocommerce' ) ); // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 
 		echo '<label class="wc-od-input-toggle">';
 

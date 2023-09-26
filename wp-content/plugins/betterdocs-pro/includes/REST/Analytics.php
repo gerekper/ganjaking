@@ -37,9 +37,9 @@ class Analytics extends BaseAPI {
     public function get_feedbacks( $request ) {
         global $wpdb;
         $type       = $request->get_param( 'type' );
-        $start_date = ( $request->get_param( 'start_date' ) ) ? $request->get_param( 'start_date' ) : '';
-        $end_date   = ( $request->get_param( 'end_date' ) ) ? $request->get_param( 'end_date' ) : '';
-        $post_id    = ( $request->get_param( 'post_id' ) ) ? $request->get_param( 'post_id' ) : '';
+        $start_date = ( $request->get_param( 'start_date' ) ) ? esc_sql( $request->get_param( 'start_date' ) ) : '';
+        $end_date   = ( $request->get_param( 'end_date' ) ) ? esc_sql( $request->get_param( 'end_date' ) ) : '';
+        $post_id    = ( $request->get_param( 'post_id' ) ) ? esc_sql( $request->get_param( 'post_id' ) ) : '';
 
         $select    = "SELECT analytics.post_id, docs.post_title, SUM(analytics.happy) as happy, SUM(analytics.sad) as sad, SUM(analytics.normal) as normal, analytics.created_at";
         $from      = "FROM {$wpdb->prefix}betterdocs_analytics AS analytics";
@@ -62,13 +62,13 @@ class Analytics extends BaseAPI {
 
             if ( $orderby == 'least_helpful' ) {
                 if ( $start_date && $end_date ) {
-                    $where = "WHERE docs.post_type = 'docs' AND docs.post_status = 'publish' AND sad > 0 AND analytics.created_at BETWEEN '" . $start_date . "' AND '" . $end_date . "'";
+                    $where = "WHERE docs.post_type = 'docs' AND docs.post_status = 'publish' AND sad > 0 AND analytics.created_at BETWEEN '" . esc_sql($start_date) . "' AND '" . esc_sql($end_date) . "'";
                 } else {
                     $where = "WHERE docs.post_type = 'docs' AND docs.post_status = 'publish' AND sad > 0";
                 }
             } else {
                 if ( $start_date && $end_date ) {
-                    $where = "WHERE docs.post_type = 'docs' AND docs.post_status = 'publish' AND happy > 0 AND analytics.created_at BETWEEN '" . $start_date . "' AND '" . $end_date . "'";
+                    $where = "WHERE docs.post_type = 'docs' AND docs.post_status = 'publish' AND happy > 0 AND analytics.created_at BETWEEN '" . esc_sql($start_date) . "' AND '" . esc_sql($end_date) . "'";
                 } else {
                     $where = "WHERE docs.post_type = 'docs' AND docs.post_status = 'publish' AND happy > 0";
                 }
@@ -128,7 +128,7 @@ class Analytics extends BaseAPI {
                 $wpdb->prepare( "
                     SELECT post_id, sum(impressions) as views, sum(unique_visit) as unique_visit, sum(happy + sad + normal) as reactions, created_at as date
                     FROM {$wpdb->prefix}betterdocs_analytics
-                    WHERE (post_id='" . $post_id . "' AND created_at BETWEEN '" . $start_date . "' AND '" . $end_date . "')
+                    WHERE (post_id='" . esc_sql($post_id) . "' AND created_at BETWEEN '" . esc_sql($start_date) . "' AND '" . esc_sql($end_date) . "')
                     GROUP BY created_at
                     ORDER BY created_at DESC
                 " )
@@ -138,7 +138,7 @@ class Analytics extends BaseAPI {
                 $wpdb->prepare( "
                     SELECT post_id, sum(impressions) as views, sum(unique_visit) as unique_visit, sum(happy + sad + normal) as reactions, created_at as date
                     FROM {$wpdb->prefix}betterdocs_analytics
-                    WHERE (created_at BETWEEN '" . $start_date . "' AND '" . $end_date . "')
+                    WHERE (created_at BETWEEN '" . esc_sql($start_date) . "' AND '" . esc_sql($end_date) . "')
                     GROUP BY created_at
                     ORDER BY created_at DESC
                 " )
@@ -148,7 +148,7 @@ class Analytics extends BaseAPI {
                 $wpdb->prepare( "
                     SELECT post_id, sum(impressions) as views, sum(unique_visit) as unique_visit, sum(happy + sad + normal) as reactions, created_at as date
                     FROM {$wpdb->prefix}betterdocs_analytics
-                    WHERE post_id='" . $post_id . "'
+                    WHERE post_id='" . esc_sql($post_id) . "'
                     GROUP BY created_at
                     ORDER BY created_at DESC
                 " )
@@ -165,11 +165,11 @@ class Analytics extends BaseAPI {
         } else if ( ! empty( $type ) && $type == 'totalCount' ) {
             $where = '';
             if ( $start_date && $end_date && $post_id ) {
-                $where = "WHERE post_id='" . $post_id . "' AND (created_at BETWEEN '" . $start_date . "' AND '" . $end_date . "')";
+                $where = "WHERE post_id='" . esc_sql($post_id) . "' AND (created_at BETWEEN '" . esc_sql($start_date) . "' AND '" . esc_sql($end_date) . "')";
             } else if ( $start_date && $end_date ) {
-                $where = "WHERE (created_at BETWEEN '" . $start_date . "' AND '" . $end_date . "')";
+                $where = "WHERE (created_at BETWEEN '" . esc_sql($start_date) . "' AND '" . esc_sql($end_date) . "')";
             } else if ( $post_id ) {
-                $where = "WHERE post_id='" . $post_id . "'";
+                $where = "WHERE post_id='" . esc_sql($post_id) . "'";
             }
 
             $analytics = $wpdb->get_results(
@@ -194,7 +194,7 @@ class Analytics extends BaseAPI {
             ];
 
             if ( empty( $post_id ) ) {
-                $where = ( $start_date && $end_date ) ? "WHERE (created_at BETWEEN '" . $start_date . "' AND '" . $end_date . "')" : "";
+                $where = ( $start_date && $end_date ) ? "WHERE (created_at BETWEEN '" . esc_sql($start_date) . "' AND '" . esc_sql($end_date) . "')" : "";
 
                 $totalSearch = $wpdb->get_results(
                     $wpdb->prepare( "SELECT sum(count + not_found_count) as totalSearch,
@@ -218,7 +218,7 @@ class Analytics extends BaseAPI {
                     "{$select}
                     {$from}
                     {$left_join}
-                    WHERE (analytics.created_at BETWEEN '" . $start_date . "' AND '" . $end_date . "')
+                    WHERE (analytics.created_at BETWEEN '" . esc_sql($start_date) . "' AND '" . esc_sql($end_date) . "')
                     GROUP BY analytics.created_at
                     ORDER BY analytics.created_at DESC"
                 )
@@ -232,14 +232,14 @@ class Analytics extends BaseAPI {
         global $wpdb;
         $results    = [];
         $type       = $request->get_param( 'type' );
-        $start_date = ( $request->get_param( 'start_date' ) ) ? $request->get_param( 'start_date' ) : '';
-        $end_date   = ( $request->get_param( 'end_date' ) ) ? $request->get_param( 'end_date' ) : '';
+        $start_date = ( $request->get_param( 'start_date' ) ) ? esc_sql( $request->get_param( 'start_date' ) ) : '';
+        $end_date   = ( $request->get_param( 'end_date' ) ) ? esc_sql( $request->get_param( 'end_date' ) ) : '';
         $join       = "FROM {$wpdb->prefix}betterdocs_search_keyword as search_keyword
             JOIN {$wpdb->prefix}betterdocs_search_log as search_log on search_keyword.id = search_log.keyword_id";
 
         if ( $start_date && $end_date ) {
-            $where_count           = "WHERE count > 0 AND search_log.created_at BETWEEN '" . $start_date . "' AND '" . $end_date . "'";
-            $where_not_found_count = "WHERE not_found_count > 0 AND search_log.created_at BETWEEN '" . $start_date . "' AND '" . $end_date . "'";
+            $where_count           = "WHERE count > 0 AND search_log.created_at BETWEEN '" . esc_sql($start_date) . "' AND '" . esc_sql($end_date) . "'";
+            $where_not_found_count = "WHERE not_found_count > 0 AND search_log.created_at BETWEEN '" . esc_sql($start_date) . "' AND '" . esc_sql($end_date) . "'";
         } else {
             $where_count           = "WHERE count > 0";
             $where_not_found_count = "WHERE not_found_count > 0";
@@ -300,7 +300,7 @@ class Analytics extends BaseAPI {
                 $wpdb->prepare(
                     "SELECT created_at as search_date, SUM(count + not_found_count) as search_count, SUM(count) as search_found, SUM(not_found_count) as search_not_found_count
                     FROM {$wpdb->prefix}betterdocs_search_log as search_log
-                    WHERE (search_log.created_at BETWEEN '" . $start_date . "' AND '" . $end_date . "')
+                    WHERE (search_log.created_at BETWEEN '" . esc_sql($start_date) . "' AND '" . esc_sql($end_date) . "')
                     GROUP BY search_log.created_at
                     ORDER BY search_log.created_at DESC"
                 )
@@ -322,7 +322,7 @@ class Analytics extends BaseAPI {
                 )
             );
         } else if ( ! empty( $type ) && $type == 'totalCount' ) {
-            $where = ( $start_date && $end_date ) ? "WHERE (created_at BETWEEN '" . $start_date . "' AND '" . $end_date . "')" : "";
+            $where = ( $start_date && $end_date ) ? "WHERE (created_at BETWEEN '" . esc_sql($start_date) . "' AND '" . esc_sql($end_date) . "')" : "";
 
             $totalSearch = $wpdb->get_results(
                 $wpdb->prepare( "SELECT sum(count + not_found_count) as totalSearch,
@@ -351,14 +351,14 @@ class Analytics extends BaseAPI {
 
     public function get_leading_docs( $request ) {
         global $wpdb;
-        $start_date = ( $request->get_param( 'start_date' ) ) ? $request->get_param( 'start_date' ) : '';
-        $end_date   = ( $request->get_param( 'end_date' ) ) ? $request->get_param( 'end_date' ) : '';
+        $start_date = ( $request->get_param( 'start_date' ) ) ? esc_sql( $request->get_param( 'start_date' ) ) : '';
+        $end_date   = ( $request->get_param( 'end_date' ) ) ? esc_sql( $request->get_param( 'end_date' ) ) : '';
         $select     = "SELECT docs.ID, docs.post_author, docs.post_title, SUM(analytics.impressions) as total_views, SUM(analytics.unique_visit) as total_unique_visit, SUM(analytics.happy + analytics.sad + analytics.normal) as total_reactions";
         $join       = "FROM {$wpdb->prefix}posts as docs
                 JOIN {$wpdb->prefix}betterdocs_analytics as analytics on docs.ID = analytics.post_id";
 
         if ( $start_date && $end_date ) {
-            $where = "WHERE post_type = 'docs' AND post_status = 'publish' AND created_at BETWEEN '" . $start_date . "' AND '" . $end_date . "'";
+            $where = "WHERE post_type = 'docs' AND post_status = 'publish' AND created_at BETWEEN '" . esc_sql($start_date) . "' AND '" . esc_sql($end_date) . "'";
         } else {
             $where = "WHERE post_type = 'docs' AND post_status = 'publish'";
         }
@@ -472,8 +472,8 @@ class Analytics extends BaseAPI {
 
     public function get_leading_category( $request ) {
         $type       = $request->get_param( 'type' );
-        $start_date = ( $request->get_param( 'start_date' ) ) ? $request->get_param( 'start_date' ) : '';
-        $end_date   = ( $request->get_param( 'end_date' ) ) ? $request->get_param( 'end_date' ) : '';
+        $start_date = ( $request->get_param( 'start_date' ) ) ? esc_sql( $request->get_param( 'start_date' ) ) : '';
+        $end_date   = ( $request->get_param( 'end_date' ) ) ? esc_sql( $request->get_param( 'end_date' ) ) : '';
 
         if ( ! empty( $type ) && $type == '_category' ) {
             $term = 'doc_category';
@@ -494,7 +494,7 @@ class Analytics extends BaseAPI {
 
         if ( $start_date && $end_date ) {
             $where = "WHERE {$wpdb->prefix}postmeta.meta_key = '_betterdocs_meta_views' AND {$wpdb->prefix}posts.post_status = 'publish' AND {$wpdb->prefix}term_taxonomy.taxonomy = '" . $term . "'
-            AND {$wpdb->prefix}betterdocs_analytics.created_at BETWEEN '" . $start_date . "' AND '" . $end_date . "'";
+            AND {$wpdb->prefix}betterdocs_analytics.created_at BETWEEN '" . esc_sql($start_date) . "' AND '" . esc_sql($end_date) . "'";
         } else {
             $where = "WHERE {$wpdb->prefix}postmeta.meta_key = '_betterdocs_meta_views' AND {$wpdb->prefix}posts.post_status = 'publish' AND {$wpdb->prefix}term_taxonomy.taxonomy = '" . $term . "'";
         }

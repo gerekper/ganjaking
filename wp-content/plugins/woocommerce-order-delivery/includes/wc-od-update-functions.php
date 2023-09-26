@@ -114,17 +114,6 @@ function wc_od_update_150_subscriptions_bool_values_to_string() {
 }
 
 /**
- * Sync the 'delivery_days' setting with the new default values.
- *
- * @deprecated 2.0.0
- */
-function wc_od_update_150_delivery_days_setting() {
-	wc_deprecated_function( __FUNCTION__, '2.0.0', 'wc_od_update_200_update_settings' );
-
-	wc_od_update_200_update_settings();
-}
-
-/**
  * Update DB Version.
  */
 function wc_od_update_150_db_version() {

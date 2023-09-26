@@ -96,7 +96,8 @@ class WC_Booking_Form {
 			array( 'booking_duration_type' => $this->product->get_duration_type() )
 		);
 
-		wp_enqueue_script( 'wc-bookings-booking-form', WC_BOOKINGS_PLUGIN_URL . '/dist/frontend.js', array( 'jquery', 'jquery-blockui', 'jquery-ui-datepicker', 'underscore', 'wp-hooks' ), WC_BOOKINGS_VERSION, true );
+		$bookings_form_script_dependencies = wc_booking_get_script_dependencies( 'frontend', array( 'jquery-blockui', 'jquery-ui-datepicker' ) );
+		wp_enqueue_script( 'wc-bookings-booking-form', WC_BOOKINGS_PLUGIN_URL . '/dist/frontend.js', $bookings_form_script_dependencies, WC_BOOKINGS_VERSION, true );
 		wp_localize_script( 'wc-bookings-booking-form', 'wc_bookings_booking_form', $wc_bookings_booking_form_args );
 		wp_localize_script( 'wc-bookings-booking-form', "wc_bookings_booking_form_{$wc_bookings_booking_form_product_args['product_id']}", $wc_bookings_booking_form_product_args );
 		wp_localize_script( 'wc-bookings-booking-form', 'wc_bookings_date_picker_args', $wc_bookings_date_picker_args );

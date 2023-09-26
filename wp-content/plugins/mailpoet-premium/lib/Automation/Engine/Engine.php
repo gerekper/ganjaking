@@ -10,26 +10,20 @@ use MailPoet\Automation\Engine\Hooks as AutomationHooks;
 use MailPoet\Premium\Automation\Engine\Endpoints\Automations\AutomationsPostEndpoint;
 use MailPoet\Premium\Automation\Engine\Endpoints\Automations\AutomationsPutEndpoint;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\MailPoetPremiumIntegration;
-use MailPoet\Premium\Automation\Integrations\WooCommerce\WooCommerceIntegration;
 use MailPoet\WP\Functions as WPFunctions;
 
 class Engine {
   /** @var MailPoetPremiumIntegration */
   private $mailpoetPremiumIntegration;
 
-  /** @var WooCommerceIntegration */
-  private $woocommerceIntegration;
-
   /** @var WPFunctions */
   private $wp;
 
   public function __construct(
     MailPoetPremiumIntegration $mailpoetPremiumIntegration,
-    WooCommerceIntegration $woocommerceIntegration,
     WPFunctions $wp
   ) {
     $this->mailpoetPremiumIntegration = $mailpoetPremiumIntegration;
-    $this->woocommerceIntegration = $woocommerceIntegration;
     $this->wp = $wp;
   }
 
@@ -42,11 +36,6 @@ class Engine {
 
     $this->wp->addAction(AutomationHooks::INITIALIZE, [
       $this->mailpoetPremiumIntegration,
-      'register',
-    ]);
-
-    $this->wp->addAction(AutomationHooks::INITIALIZE, [
-      $this->woocommerceIntegration,
       'register',
     ]);
   }

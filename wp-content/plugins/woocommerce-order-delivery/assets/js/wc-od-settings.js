@@ -22,6 +22,7 @@ jQuery(function( $ ) {
 			this.statusToggle();
 			this.shippingMethodsFieldsToggle();
 			this.feeFieldsToggle();
+			this.localPickupToggle();
 
 			if ( $eventCalendar.length && typeof $.fn.WC_OD_Calendar === 'function' ) {
 				// Init calendar.
@@ -33,6 +34,10 @@ jQuery(function( $ ) {
 			}
 		},
 
+		isCheckoutOption: function( option ) {
+			return ( option === $( 'input[name="wc_od_checkout_delivery_option"]' ).filter( ':checked' ).val() );
+		},
+
 		deliveryCheckoutOptionsToggle: function() {
 			var that   = this,
 			    $field = $( 'input[name="wc_od_checkout_delivery_option"]' ),
@@ -41,7 +46,8 @@ jQuery(function( $ ) {
 					'#wc_od_checkout_text,' +
 					'.wc_od_delivery_days,' +
 					'#wc_od_max_delivery_days,' +
-					'[name="wc_od_delivery_fields_option"]'
+					'[name="wc_od_delivery_fields_option"],' +
+					'#wc_od_pickup_text'
 				).closest( 'tr' );
 
 			if ( $field.length ) {
@@ -55,6 +61,7 @@ jQuery(function( $ ) {
 
 					$toggleFields.toggle( display );
 					that.settingsSectionToggle( 'subscription_options', display );
+					that.localPickupToggle();
 				});
 			}
 		},
@@ -144,7 +151,21 @@ jQuery(function( $ ) {
 					$( '#fee_tax_status' ).trigger( 'change' );
 				}
 			}).trigger( 'keyup' );
-		}
+		},
+
+		localPickupToggle: function() {
+			var $field = $( 'input#wc_od_enable_local_pickup' ),
+				$toggleField = $( 'textarea#wc_od_pickup_text' ).closest( 'tr' ),
+				isCalendarOption = this.isCheckoutOption( 'calendar' );
+
+			if( ! $field.prop( 'checked' ) || ! isCalendarOption ) {
+				$toggleField.hide();
+			}
+
+			$field.on( 'change', function() {
+				$toggleField.toggle( $field.prop( 'checked' ) && isCalendarOption );
+			});
+		},
 	};
 
 	WC_OD_Settings.init();

@@ -37,6 +37,7 @@ class SidebarList extends Shortcode {
             'terms_order'             => $this->settings->get( 'alphabetically_order_term' ) ? 'ASC' : $this->settings->get( 'terms_order' ),
             'terms_orderby'           => $this->settings->get( 'alphabetically_order_term' ) ? 'name' : $this->settings->get( 'terms_orderby' ),
             'orderby'                 => $this->settings->get( 'alphabetically_order_post' ),
+            'posts_per_page'          => $this->settings->get( 'posts_number', 0 ),
             'order'                   => $this->settings->get( 'docs_order' ),
             'title_tag'               => 'h2',
             'terms'                   => '',

@@ -4,22 +4,25 @@
  */
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-printf( __( 'Hi %s,', 'woocommerce-advanced-notifications' ), esc_html( $recipient_name ) );
+printf( esc_html__( 'Hi %s,', 'woocommerce-advanced-notifications' ), esc_html( $recipient_name ) );
 
 echo "\n\n";
 
 /* translators: 1: first name 2: last name */
-printf( __( 'You have received an order from %s %s:', 'woocommerce-advanced-notifications' ), version_compare( WC_VERSION, '3.0.0', '<' ) ? $order->billing_first_name : $order->get_billing_first_name(), version_compare( WC_VERSION, '3.0.0', '<' ) ? $order->billing_last_name : $order->get_billing_last_name() );
+$order_first_name = $order->get_billing_first_name();
+$order_last_name  = $order->get_billing_last_name();
+printf( esc_html__( 'You have received an order from %1$s %2$s:', 'woocommerce-advanced-notifications' ), esc_html( $order_first_name ), esc_html( $order_last_name ) );
 
 echo "\n\n";
 
 echo "============================================================\n";
 
-printf( __( 'Order: %s', 'woocommerce-advanced-notifications' ), esc_html( $order->get_order_number() ) );
+printf( esc_html__( 'Order: %s', 'woocommerce-advanced-notifications' ), esc_html( $order->get_order_number() ) );
 
 echo "\n";
 
-printf( '%s', version_compare( WC_VERSION, '3.0.0', '<' ) ? date_i18n( __( 'jS F Y', 'woocommerce-advanced-notifications' ), strtotime( $order->order_date ) ) : wc_format_datetime( $order->get_date_created() ) );
+$datetime_formatted = wc_format_datetime( $order->get_date_created() );
+printf( '%s', esc_html( $datetime_formatted ) );
 
 echo "\n";
 
@@ -37,7 +40,7 @@ foreach ( $order->get_items() as $item_id => $item ) {
 
 	$display = false;
 
-	$product_id = $_product->is_type( 'variation' ) && version_compare( WC_VERSION, '3.0', '>=' ) ? $_product->get_parent_id() : $_product->get_id();
+	$product_id = $_product->is_type( 'variation' ) ? $_product->get_parent_id() : $_product->get_id();
 
 	if ( $triggers['all'] || in_array( $product_id, $triggers['product_ids'] ) || in_array( $_product->get_shipping_class_id(), $triggers['shipping_classes'] ) )
 		$display = true;
@@ -62,41 +65,46 @@ foreach ( $order->get_items() as $item_id => $item ) {
 
 	$displayed_total += $order->get_line_total( $item, true );
 
-	$item_meta = version_compare( WC_VERSION, '3.0', '<' ) ? new WC_Order_Item_Meta( $item ) : new WC_Order_Item_Product( $item_id );
+	$item_meta = new WC_Order_Item_Product( $item_id );
 
-	// Product name
-	echo "\n" . apply_filters( 'woocommerce_order_product_title', $item['name'], $_product );
+	// Product name.
+	$item_product_name = apply_filters( 'woocommerce_order_product_title', $item['name'], $_product );
+	echo "\n" . esc_html( $item_product_name );
 
-	// SKU
-	echo $_product->get_sku() ? ' (#' . $_product->get_sku() . ')' : '';
+	// SKU.
+	echo $_product->get_sku() ? ' (#' . esc_html( $_product->get_sku() ) . ')' : '';
 
-	if ( $show_prices )
-		echo " (" . $order->get_line_subtotal( $item ) . ")";
+	if ( $show_prices ) {
+		echo ' (' . esc_html( $order->get_line_subtotal( $item ) ) . ')';
+	}
 
-	echo " X " . $item['qty'];
+	echo ' X ' . esc_html( $item['qty'] );
 
-	// allow other plugins to add additional product information here
+	// Allow other plugins to add additional product information here.
 	do_action( 'woocommerce_order_item_meta_start', $item_id, $item, $order, $plain_text );
 
-	// Variation
-	if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-		echo $item_meta->meta ? ( "\n --> " . str_replace( "\n", '', $item_meta->display( true, true ) ) ) : '';
-	} else {
-		echo strip_tags( wc_display_item_meta( $item, array(
-			'before'    => "\n- ",
-			'separator' => "\n- ",
-			'after'     => "",
-			'echo'      => false,
-			'autop'     => false,
-		) ) );
-	}
+	// Variation.
+	$item_string = wp_strip_all_tags(
+		wc_display_item_meta(
+			$item,
+			array(
+				'before'    => "\n- ",
+				'separator' => "\n- ",
+				'after'     => "",
+				'echo'      => false,
+				'autop'     => false,
+			)
+		)
+	);
 
-	// File URLs
+	echo esc_html( $item_string );
+
+	// File URLs.
 	if ( $show_download_links ) {
-		version_compare( WC_VERSION, '3.0.0', '<' ) ? $order->display_item_downloads( $item ) : wc_display_item_downloads( $item );
+		wc_display_item_downloads( $item );
 	}
 
-	// allow other plugins to add additional product information here
+	// Allow other plugins to add additional product information here.
 	do_action( 'woocommerce_order_item_meta_end', $item_id, $item, $order, $plain_text );
 
 	echo "\n";
@@ -110,22 +118,22 @@ if ( $show_totals ) {
 	$totals = $order->get_order_item_totals();
 	if ( $totals ) {
 		foreach ( $totals as $total ) {
-			echo $total['label'] . ' ';
-			echo preg_replace( "/&#?[a-z0-9]{2,8};/i", "", $total['value'] );
+			echo esc_html( $total['label'] ) . ' ';
+			echo esc_html( preg_replace( "/&#?[a-z0-9]{2,8};/i", "", $total['value'] ) );
 			echo "\n";
 		}
 	} else {
-		// Only show the total for displayed items
-		echo __( 'Total', 'woocommerce-advanced-notifications' ) . ': ';
-		echo $displayed_total;
+		// Only show the total for displayed items.
+		echo esc_html__( 'Total', 'woocommerce-advanced-notifications' ) . ': ';
+		echo esc_html( $displayed_total );
 		echo "\n";
 	}
 
 }
 
 if ( $order->get_customer_note() ) {
-	echo __( 'Note', 'woocommerce-advanced-notifications' ) . ': ';
-	echo $order->get_customer_note();
+	echo esc_html__( 'Note', 'woocommerce-advanced-notifications' ) . ': ';
+	echo wp_kses_post( wptexturize( $order->get_customer_note() ) );
 	echo "\n";
 }
 
@@ -139,4 +147,4 @@ do_action( 'woocommerce_email_customer_details', $order, $sent_to_admin, $plain_
 
 echo "\n\n";
 
-echo "Regards,\n" . $blogname;
+echo "Regards,\n" . esc_html( $blogname );

@@ -69,7 +69,9 @@ class HMWP_MS_Log_Email extends IDS_Log_Email {
 	* @return boolean
 	*/
 	protected function send( $address, $data, $headers, $envelope = null ) {
-        include_once(ABSPATH . '/wp-includes/pluggable.php');
+        if(!function_exists('wp_get_current_user')) {
+			include_once(ABSPATH . '/wp-includes/pluggable.php');
+		}
 		return wp_mail( $address, $this->subject, $data );
 
 	}

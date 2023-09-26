@@ -259,7 +259,7 @@ class WC_Bookings_Init {
 	 */
 	public function booking_admin_dependencies() {
 		// Analytics Page JS.
-		wp_enqueue_script( 'wc_bookings_analytics_script', WC_BOOKINGS_PLUGIN_URL . '/dist/admin-bookings-analytics.js', array(), WC_BOOKINGS_VERSION, true );
+		wp_enqueue_script( 'wc_bookings_analytics_script', WC_BOOKINGS_PLUGIN_URL . '/dist/admin-bookings-analytics.js', wc_booking_get_script_dependencies( 'admin-bookings-analytics' ), WC_BOOKINGS_VERSION, true );
 	}
 
 	/**
@@ -363,7 +363,7 @@ class WC_Bookings_Init {
 	 * @return array Updated query arguments.
 	 */
 	public function analytics_products_query_args( $args ) {
-		if ( 'bookings' === filter_input( INPUT_GET, 'filter' ) ) {
+		if ( 'bookings' === wc_clean( wp_unslash( $_GET['filter'] ?? '' ) ) ) {
 			if ( isset( $args['meta_query'] ) ) {
 				$args['meta_query'][] = array(
 					'relation' => 'AND',
@@ -405,7 +405,7 @@ class WC_Bookings_Init {
 	public function analytics_clauses_join( $clauses, $context ) {
 		global $wpdb;
 
-		if ( 'bookings' === filter_input( INPUT_GET, 'filter' ) ) {
+		if ( 'bookings' === wc_clean( wp_unslash( $_GET['filter'] ?? '' ) ) ) {
 			$clauses[] = " JOIN {$wpdb->prefix}term_relationships ON {$wpdb->prefix}wc_order_product_lookup.product_id = {$wpdb->prefix}term_relationships.object_id";
 			$clauses[] = " JOIN {$wpdb->prefix}term_taxonomy ON {$wpdb->prefix}term_taxonomy.term_taxonomy_id = {$wpdb->prefix}term_relationships.term_taxonomy_id";
 			$clauses[] = " JOIN {$wpdb->prefix}terms ON {$wpdb->prefix}term_taxonomy.term_id = {$wpdb->prefix}terms.term_id";
@@ -425,7 +425,7 @@ class WC_Bookings_Init {
 	public function analytics_clauses_where( $clauses, $context ) {
 		global $wpdb;
 
-		if ( 'bookings' === filter_input( INPUT_GET, 'filter' ) ) {
+		if ( 'bookings' === wc_clean( wp_unslash( $_GET['filter'] ?? '' ) ) ) {
 			$clauses[] = " AND {$wpdb->prefix}term_taxonomy.taxonomy = 'product_type'";
 			$clauses[] = " AND {$wpdb->prefix}terms.slug = 'booking'";
 		}

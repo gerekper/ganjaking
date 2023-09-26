@@ -1,0 +1,2945 @@
+# Copyright (C) 2022 Admin Columns Pro
+# This file is distributed under the same license as the Admin Columns Pro package.
+# Translators:
+# Pedro Mendonça <ped.gaspar@gmail.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Admin Columns Pro\n"
+"PO-Revision-Date: 2014-05-22 15:53+0000\n"
+"Last-Translator: Pedro Mendonça <ped.gaspar@gmail.com>, 2019\n"
+"Language-Team: Portuguese (Portugal) (http://www.transifex.com/codepress/admin-columns-pro/language/pt_PT/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_PT\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: admin-columns-pro/admin-columns-pro.php:117
+msgid ""
+"This plugin is not compatible with %s. It cannot be activated because it "
+"might stop the WordPress Admin from working properly. Try updating this "
+"plugin to the latest version and then activate it again. "
+msgstr ""
+
+#: admin-columns-pro/classes/API.php:119
+msgid "The Admin Columns Server was unreachable."
+msgstr ""
+
+#: admin-columns-pro/classes/PluginActionLinks.php60,
+#: admin-columns-pro/templates/admin/list-screen-settings.php:15
+msgid "Settings"
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/MenuFactory.php51,
+#: admin-columns-pro/templates/admin/page/tools.php:1
+msgid "Tools"
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/MenuFactory.php73,
+#: admin-columns-pro/classes/Admin/Page/License.php222,
+#: admin-columns-pro/classes/Admin/Page/License.php274,
+#: admin-columns-pro/templates/admin/page/license.php:1
+msgid "License"
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Settings.php:75
+msgid "(no name)"
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Settings.php:156
+msgid "Select roles"
+msgstr "Seleccionar papéis"
+
+#: admin-columns-pro/classes/Admin/Settings.php:157
+msgid "Select users"
+msgstr "Seleccionar utilizadores"
+
+#: admin-columns-pro/classes/Admin/Settings.php172,
+#: admin-columns-pro/classes/Table/HorizontalScrolling.php95,
+#: admin-columns-pro/templates/admin/list-screen-settings.php:86
+msgid "Horizontal Scrolling"
+msgstr "Scroll horizontal"
+
+#: admin-columns-pro/classes/Admin/Settings.php189,
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/Filters.php:12
+msgid "Filters"
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Settings.php:348
+msgid "Sets"
+msgstr "Conjuntos"
+
+#: admin-columns-pro/classes/Admin/Settings.php:351
+msgid "Sets allow users to switch between different column views."
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Settings.php:354
+msgid ""
+"Available sets are selectable from the overview screen. Users can have their"
+" own column view preference."
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Settings.php360,
+#: admin-columns-pro/templates/table/tooltip-saved-filters.php:14
+msgid "Online documentation"
+msgstr "Documentação online"
+
+#: admin-columns-pro/classes/Admin/Settings.php:401
+msgid "Other"
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Settings.php405,
+#: admin-columns-pro/templates/admin/list-screen-settings.php:157
+msgid "Default"
+msgstr "Por omissão"
+
+#: admin-columns-pro/classes/Admin/Settings.php:471
+msgid "You can make an editable copy of this set by clicking %s on the right."
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Settings.php471,
+#: admin-columns-pro/templates/admin/list-screens-sidebar.php:19
+msgid "+ Add set"
+msgstr "+ Adicionar conjunto"
+
+#: admin-columns-pro/classes/Check/Activation.php169,
+#: admin-columns-pro/classes/Check/LockedSettings.php:123
+msgid "enter your license key"
+msgstr ""
+
+#: admin-columns-pro/classes/Check/Activation.php173,
+#: admin-columns-pro/classes/Check/Activation.php194,
+#: admin-columns-pro/classes/Check/LockedSettings.php:91
+msgid "You can find your license key on your %s."
+msgstr "Pode encontrar a sua chave de licença na %s."
+
+#: admin-columns-pro/classes/Check/Activation.php177,
+#: admin-columns-pro/classes/Check/Activation.php198,
+#: admin-columns-pro/classes/Check/LockedSettings.php95,
+#: admin-columns-pro/templates/admin/section-license.php:35
+msgid "account page"
+msgstr "página da sua conta"
+
+#: admin-columns-pro/classes/Check/Beta.php:63
+msgid "You are using a beta version of %s."
+msgstr "Está a usar uma versão beta do %s."
+
+#: admin-columns-pro/classes/Check/Beta.php:64
+msgid "If you have feedback or have found a bug, please %s."
+msgstr ""
+
+#: admin-columns-pro/classes/Check/Beta.php:65
+msgid "leave us a message"
+msgstr ""
+
+#: admin-columns-pro/classes/Check/Expired.php:160
+msgid ""
+"Your Admin Columns Pro license has expired on %s. To receive updates, renew "
+"your license on the %s."
+msgstr ""
+
+#: admin-columns-pro/classes/Check/Expired.php:162
+msgid "My Account Page"
+msgstr ""
+
+#: admin-columns-pro/classes/Check/LockedSettings.php:104
+msgid "activating %s"
+msgstr ""
+
+#: admin-columns-pro/classes/Check/LockedSettings.php:108
+msgid "To start using Admin Columns Pro, fill in your license key below."
+msgstr ""
+
+#: admin-columns-pro/classes/Check/RecommendedAddons.php:71
+msgid "We recommend installing this integration add-on:"
+msgid_plural "We recommend installing these integration add-ons:"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: admin-columns-pro/classes/Check/Renewal.php:243
+msgid "Renew your license"
+msgstr "Renove a sua licença"
+
+#: admin-columns-pro/classes/Check/Renewal.php:248
+msgid ""
+"Your Admin Columns Pro license will expire in %s. In order get access to new"
+" features and receive security updates, please %s before %s."
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Settings.php:80
+msgid "Enable Editing"
+msgstr "Activar edição"
+
+#: admin-columns-pro/classes/Editing/Settings.php:103
+msgid "Inline Editing"
+msgstr "Edição em linha"
+
+#: admin-columns-pro/classes/Export/Strategy.php:90
+msgid "Invalid value supplied for export counter."
+msgstr ""
+
+#: admin-columns-pro/classes/Export/TableScreenOptions.php:56
+msgid "Export Button"
+msgstr ""
+
+#: admin-columns-pro/classes/Export/TableScreenOptions.php63,
+#: admin-columns-pro/templates/admin/section-export.php11,
+#: admin-columns-pro/classes/Export/HideOnScreen/Export.php10,
+#: admin-columns-pro/classes/Export/Settings/Column.php54,
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:33
+msgid "Export"
+msgstr "Exportar"
+
+#: admin-columns-pro/classes/Export/TableScreenOptions.php:62
+msgid "Export to CSV"
+msgstr "Exportar para CSV"
+
+#: admin-columns-pro/classes/Filtering/Helper.php:144
+msgid "Future dates"
+msgstr "Datas futuras"
+
+#: admin-columns-pro/classes/Filtering/Helper.php:145
+msgid "Past dates"
+msgstr "Datas passadas"
+
+#: admin-columns-pro/classes/Filtering/Model.php215,
+#: ac-addon-woocommerce/classes/Filtering/Product/Thumb.php12,
+#: ac-addon-woocommerce/classes/Filtering/ShopOrder/Refunds.php13,
+#: ac-addon-woocommerce/classes/Search/ShopOrder/Refunds.php:22
+msgid "Without %s"
+msgstr "Sem %s"
+
+#: admin-columns-pro/classes/Filtering/Model.php216,
+#: ac-addon-woocommerce/classes/Filtering/Product/Thumb.php13,
+#: ac-addon-woocommerce/classes/Filtering/ShopOrder/Refunds.php14,
+#: ac-addon-woocommerce/classes/Search/ShopOrder/Refunds.php:23
+msgid "Has %s"
+msgstr "Tem %s"
+
+#: admin-columns-pro/classes/Filtering/Settings.php:46
+msgid "Enable Filtering"
+msgstr "Activar filtragem"
+
+#: admin-columns-pro/classes/Filtering/Settings.php:62
+msgid "Filtering"
+msgstr "Filtrar"
+
+#: admin-columns-pro/classes/Filtering/Settings.php:73
+msgid "Set the name of the label in the filter menu"
+msgstr ""
+
+#: admin-columns-pro/classes/Filtering/Settings.php:72
+msgid "Top label"
+msgstr ""
+
+#: admin-columns-pro/classes/Filtering/Settings.php:113
+msgid "Any %s"
+msgstr "Qualquer %s"
+
+#: admin-columns-pro/classes/Filtering/TableScreen.php:71
+msgid "Loading values"
+msgstr "A carregar valores"
+
+#: admin-columns-pro/classes/Helper/FilterButton.php:37
+msgid "Filter"
+msgstr "Filtrar"
+
+#: admin-columns-pro/classes/RequestHandler/LicenseActivate.php:81
+msgid "Empty license key."
+msgstr ""
+
+#: admin-columns-pro/classes/RequestHandler/LicenseActivate.php:87
+msgid "Invalid license key."
+msgstr ""
+
+#: admin-columns-pro/classes/RequestHandler/LicenseUpdate.php:56
+msgid "License information has been updated."
+msgstr ""
+
+#: admin-columns-pro/classes/RequestHandler/ListScreenCreate.php:62
+msgid "Name can not be empty."
+msgstr ""
+
+#: admin-columns-pro/classes/RequestHandler/ListScreenDelete.php:41
+msgid "Column set %s successfully deleted."
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Labels.php:11
+msgid "is"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Labels.php:12
+msgid "is not"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Labels.php:13
+msgid "is larger than"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Labels.php:14
+msgid "is larger or equal than"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Labels.php:15
+msgid "is smaller than"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Labels.php:16
+msgid "is smaller or equal than"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Labels.php17,
+#: admin-columns-pro/classes/Search/Comparison/Meta/Posts.php:14
+msgid "contains"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Labels.php18,
+#: admin-columns-pro/classes/Search/Comparison/Meta/Posts.php:15
+msgid "does not contain"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Labels.php:19
+msgid "starts with"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Labels.php:20
+msgid "ends with"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Labels.php:21
+msgid "in"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Labels.php:22
+msgid "not in"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Labels.php:23
+msgid "between"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Labels.php:24
+msgid "is not set"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Labels.php:25
+msgid "is set"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Labels.php:26
+msgid "is current user"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/TableScreenOptions.php78,
+#: admin-columns-pro/classes/Search/Settings/Column.php:52
+msgid "Smart Filtering"
+msgstr ""
+
+#: admin-columns-pro/classes/Sorting/Settings.php:29
+msgid "Enable Sorting"
+msgstr "Activar ordenação"
+
+#: admin-columns-pro/classes/Sorting/Settings.php44,
+#: admin-columns-pro/templates/admin/list-screen-settings.php:113
+msgid "Sorting"
+msgstr "Ordenar"
+
+#: admin-columns-pro/classes/Table/HorizontalScrolling.php:98
+msgid "hold down SHIFT key"
+msgstr ""
+
+#: admin-columns-pro/classes/Table/StickyTableRow.php:73
+msgid "Sticky Headers"
+msgstr ""
+
+#: admin-columns-pro/classes/Table/Switcher.php60,
+#: admin-columns-pro/classes/Table/Switcher.php:74
+msgid "Switch View"
+msgstr ""
+
+#: admin-columns-pro/classes/Table/Switcher.php69,
+#: admin-columns-pro/classes/Storage/ListScreen/LegacyCollectionDecoder/Version332.php:36
+msgid "Original"
+msgstr "Original"
+
+#: admin-columns-pro/templates/admin/create-list-screen.php:22
+msgid ""
+"Create new sets to switch between different column views on the %s screen."
+msgstr ""
+
+#: admin-columns-pro/templates/admin/create-list-screen.php26,
+#: admin-columns-pro/templates/table/segment-modal.php52,
+#: admin-columns-pro/templates/table/segment-modal.php53,
+#: admin-columns-pro/classes/Column/NetworkSite/Name.php9,
+#: ac-addon-events-calendar/classes/Settings/Venue.php32,
+#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php:107
+msgid "Name"
+msgstr "Nome"
+
+#: admin-columns-pro/templates/admin/create-list-screen.php:31
+msgid "Please enter a title."
+msgstr ""
+
+#: admin-columns-pro/templates/admin/create-list-screen.php:34
+msgid "Enter name"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/create-list-screen.php:39
+msgid "Copy current settings"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/create-list-screen.php47,
+#: admin-columns-pro/templates/table/segment-modal.php28,
+#: admin-columns-pro/templates/table/segment-modal.php29,
+#: admin-columns-pro/classes/ThirdParty/Polylang/Column/Language.php:26
+msgid "Instructions"
+msgstr "Instruções"
+
+#: admin-columns-pro/templates/admin/create-list-screen.php50,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php87,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:91
+msgid "Add"
+msgstr "Adicionar"
+
+#: admin-columns-pro/templates/admin/list-screen-settings.php16,
+#: admin-columns-pro/templates/admin/list-screen-settings.php32,
+#: admin-columns-pro/templates/admin/list-screen-settings.php:41
+msgid "optional"
+msgstr "opcional"
+
+#: admin-columns-pro/templates/admin/list-screen-settings.php:23
+msgid "Conditionals"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/list-screen-settings.php:24
+msgid "Make this column set available only for specific users or roles."
+msgstr ""
+
+#: admin-columns-pro/templates/admin/list-screen-settings.php31,
+#: admin-columns-pro/templates/admin/list-screens-sidebar.php84,
+#: admin-columns-pro/classes/Column/User/Roles.php18,
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/SubMenu/CommentStatus.php10,
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/SubMenu/Roles.php:10
+msgid "Roles"
+msgstr "Papéis"
+
+#: admin-columns-pro/templates/admin/list-screen-settings.php:53
+msgid "Toggle Elements"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/list-screen-settings.php:54
+msgid "Show or hide elements from the table list screen."
+msgstr ""
+
+#: admin-columns-pro/templates/admin/list-screen-settings.php:75
+msgid "Preferences"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/list-screen-settings.php:76
+msgid ""
+"Set default settings that users will see when they visit the list table."
+msgstr ""
+
+#: admin-columns-pro/templates/admin/list-screen-settings.php:149
+msgid "Pre-applied Filters"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/list-screen-settings.php:162
+msgid "No public saved filters available."
+msgstr ""
+
+#: admin-columns-pro/templates/admin/list-screen-title.php:9
+msgid "Add title"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/list-screens-sidebar.php:17
+msgid "Column Sets"
+msgstr "Conjuntos de colunas"
+
+#: admin-columns-pro/templates/admin/list-screens-sidebar.php20,
+#: admin-columns-pro/templates/table/segment-modal.php66,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:84
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: admin-columns-pro/templates/admin/list-screens-sidebar.php:40
+msgid ""
+"Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to"
+" delete, 'Cancel' to stop"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/list-screens-sidebar.php95,
+#: admin-columns-pro/classes/Settings/Column/CustomFieldType.php68,
+#: admin-columns-pro/classes/Settings/Column/User.php:22
+msgid "User"
+msgstr "Utilizador"
+
+#: admin-columns-pro/templates/admin/list-screens-sidebar.php112,
+#: admin-columns-pro/classes/Column/Taxonomy/ID.php17,
+#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php:109
+msgid "ID"
+msgstr "ID"
+
+#: admin-columns-pro/templates/admin/list-screens-sidebar.php:118
+msgid "Read Only"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/list-screens-sidebar.php129,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:70
+msgid "Delete"
+msgstr "Eliminar"
+
+#: admin-columns-pro/templates/admin/modal-feedback.php:14
+msgid "Leave your feedback"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/modal-feedback.php:24
+msgid "Your Email"
+msgstr "O seu email"
+
+#: admin-columns-pro/templates/admin/modal-feedback.php:28
+msgid "Feedback"
+msgstr "Feedback"
+
+#: admin-columns-pro/templates/admin/modal-feedback.php:34
+msgid "Send feedback"
+msgstr "Enviar feedback"
+
+#: admin-columns-pro/templates/admin/section-export.php:13
+msgid "Select the columns settings you would like to export."
+msgstr ""
+
+#: admin-columns-pro/templates/admin/section-export.php:14
+msgid ""
+"The result is a JSON file that can be imported in any WordPress install that"
+" uses Admin Columns Pro."
+msgstr ""
+
+#: admin-columns-pro/templates/admin/section-export.php:27
+msgid "Export To JSON"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/section-export.php:30
+msgid "Looking for PHP Export?"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/section-export.php:32
+msgid "Read about its successor: %s"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/section-export.php:32
+msgid "Local Storage"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/section-import.php:8
+msgid "Import"
+msgstr "Importar"
+
+#: admin-columns-pro/templates/admin/section-import.php:11
+msgid ""
+"Select the Admin Columns JSON file you would like to import. When you click "
+"the import button below, Admin Columns will import the column settings."
+msgstr ""
+
+#: admin-columns-pro/templates/admin/section-import.php:18
+msgid "Select File"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/section-import.php:22
+msgid "Import File"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/section-license.php:7
+msgid "Automatic updates are disabled."
+msgstr ""
+
+#: admin-columns-pro/templates/admin/section-license.php:10
+msgid "Automatic updates are enabled."
+msgstr "Actualizações automáticas activadas."
+
+#: admin-columns-pro/templates/admin/section-license.php:13
+msgid "License has expired on %s"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/section-license.php:16
+msgid "Your subscription is cancelled."
+msgstr ""
+
+#: admin-columns-pro/templates/admin/section-license.php:19
+msgid "License is valid until %s"
+msgstr "A licença é válida até %s"
+
+#: admin-columns-pro/templates/admin/section-license.php:28
+msgid "Enter your license key"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/section-license.php:29
+msgid "Activate"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/section-license.php:32
+msgid "Enter your license key to receive automatic updates."
+msgstr ""
+
+#: admin-columns-pro/templates/admin/section-license.php:35
+msgid "You can find your license key in the welcome email or in your %s."
+msgstr ""
+
+#: admin-columns-pro/templates/admin/section-license.php:24
+msgid "Deactivate"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/section-license.php:25
+msgctxt "Refresh license"
+msgid "Refresh"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/section-update.php15,
+#: admin-columns-pro/classes/Asset/Script/LicenseManager.php:28
+msgid "This plugin is up to date"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/section-update.php:10
+msgid "Available version"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/section-updates.php9,
+#: admin-columns-pro/templates/admin/section-updates.php13,
+#: ac-addon-acf/classes/Service/LegacyColumnMapper.php:44
+msgid "Update Now"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/section-updates.php:20
+msgid "Check for Updates"
+msgstr ""
+
+#: admin-columns-pro/templates/table/edit-button.php9,
+#: admin-columns-pro/classes/Editing/HideOnScreen/InlineEdit.php10,
+#: admin-columns-pro/classes/Editing/Admin/HideOnScreen/InlineEdit.php10,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:78
+msgid "Inline Edit"
+msgstr "Editar em linha"
+
+#: admin-columns-pro/templates/table/segment-modal.php11,
+#: admin-columns-pro/templates/table/segment-modal.php:46
+msgid "Save Filters"
+msgstr ""
+
+#: admin-columns-pro/templates/table/segment-modal.php18,
+#: admin-columns-pro/templates/table/tooltip-saved-filters.php10,
+#: admin-columns-pro/templates/admin/tooltip/preferred-segment.php:8
+msgid "Public"
+msgstr ""
+
+#: admin-columns-pro/templates/table/segment-modal.php:56
+msgid "Make available to all users"
+msgstr ""
+
+#: admin-columns-pro/templates/table/segment-modal.php:67
+msgid "Save"
+msgstr ""
+
+#: admin-columns-pro/templates/table/tooltip-saved-filters.php:4
+msgid "Save a set of custom smart filters for later use."
+msgstr ""
+
+#: admin-columns-pro/templates/table/tooltip-saved-filters.php:7
+msgid ""
+"This can be useful to group your WordPress content based on different "
+"criteria."
+msgstr ""
+
+#: admin-columns-pro/templates/table/tooltip-saved-filters.php:7
+msgid "Click on a segment to load the filtered list."
+msgstr ""
+
+#: admin-columns-pro/templates/table/tooltip-saved-filters.php:10
+msgid "The %s segments are available to all users."
+msgstr ""
+
+#: admin-columns-pro/templates/tooltip/serialized.php:2
+msgid "Serialized Array Keys"
+msgstr ""
+
+#: admin-columns-pro/templates/tooltip/serialized.php:5
+msgid "Fill in the key(s) of the nested element that you want to display."
+msgstr ""
+
+#: admin-columns-pro/templates/tooltip/serialized.php:12
+msgid "Fill in %s"
+msgstr ""
+
+#: admin-columns-pro/templates/tooltip/serialized.php:15
+msgid "Displayed value is %s"
+msgstr ""
+
+#: ac-addon-pods/classes/Column.php:23
+msgid "Pods"
+msgstr "Pods"
+
+#: ac-addon-woocommerce/classes/Subscriptions.php:44
+msgid "WooCommerce Subscriptions"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/TableScreen.php:130
+msgid "This note will be send to the customer by email"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/TableScreen.php:132
+msgid "Clear Sale Price"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/TableScreen.php:133
+msgid "Decrease by"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/TableScreen.php:137
+msgid "Increase by"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/TableScreen.php:142
+msgid "Regular"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/TableScreen.php:143
+msgid "Regular Price"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/TableScreen.php:144
+msgid "Replace"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/TableScreen.php:147
+msgid "Sale from"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/TableScreen.php:148
+msgid "Sale To"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/TableScreen.php:149
+msgid "Set New"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/TableScreen.php:150
+msgid "Set the sale price based on the regular price"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/TableScreen.php152,
+#: ac-addon-woocommerce/classes/Filtering/Product/Sale.php40,
+#: ac-addon-woocommerce/classes/Search/Product/Sale.php:26
+msgid "Scheduled"
+msgstr "Agendado"
+
+#: ac-addon-woocommerce/classes/TableScreen.php:159
+msgid "No Rounding"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/TableScreen.php:160
+msgid "Round up"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/TableScreen.php:161
+msgid "Round down"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/TableScreen.php:162
+msgid "Example:"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/TableScreen.php:164
+msgid "Delete note"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/TableScreen.php:165
+msgid "Are you sure you want to delete this note?"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/TableScreen.php221,
+#: ac-addon-woocommerce/classes/Service/ColumnGroups.php15,
+#: ac-addon-woocommerce/classes/Service/ListScreenGroups.php15,
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Customer.php:27
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: ac-addon-woocommerce/classes/TableScreen.php258,
+#: ac-addon-woocommerce/classes/TableScreen.php:283
+msgid "View Variations"
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Page/License.php:150
+msgid "Updates"
+msgstr "Actualizações"
+
+#: admin-columns-pro/classes/Admin/Page/License.php:183
+msgid "Enter your license code to receive automatic updates."
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Page/License.php:188
+msgid "Enter your license key to %s."
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Page/License.php:191
+msgid "unlock all settings"
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Page/License.php:202
+msgid "network settings page"
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Page/License.php:211
+msgid "The license can be managed on the %s."
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Section/AddonStatus.php:50
+msgid "Network Enable"
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Section/AddonStatus.php70,
+#: admin-columns-pro/classes/Admin/Section/AddonStatus.php:82
+msgid "Enable"
+msgstr ""
+
+#: admin-columns-pro/classes/Asset/Script/LicenseManager.php:24
+msgid "Are you sure you want deactivate Admin Columns Pro?"
+msgstr ""
+
+#: admin-columns-pro/classes/Asset/Script/LicenseManager.php:25
+msgid "You need to fill in your license key again if you want to reactivate."
+msgstr ""
+
+#: admin-columns-pro/classes/Asset/Script/LicenseManager.php:27
+msgid "Updating plugin"
+msgstr ""
+
+#: admin-columns-pro/classes/Column/Comment/HasReplies.php:13
+msgid "Has Replies"
+msgstr ""
+
+#: admin-columns-pro/classes/Column/Comment/IsReply.php:13
+msgid "Is Reply"
+msgstr ""
+
+#: admin-columns-pro/classes/Column/Comment/PostType.php17,
+#: admin-columns-pro/classes/Column/Media/PostType.php17,
+#: admin-columns-pro/classes/Column/Post/PostType.php15,
+#: admin-columns-pro/classes/Settings/Column/TaxonomyPostType.php27,
+#: ac-addon-types/classes/Settings/ChildPostType.php31,
+#: ac-addon-types/classes/Settings/ParentPostType.php31,
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/PostCount.php:33
+msgid "Post Type"
+msgstr "Tipo de conteúdo"
+
+#: admin-columns-pro/classes/Column/CustomField/EditingModelFactory.php51,
+#: ac-addon-acf/classes/Editing/ModelViewFactory.php40,
+#: ac-addon-pods/classes/Filtering/TrueFalse.php39,
+#: ac-addon-types/classes/Search/Checkbox.php28,
+#: admin-columns-pro/classes/Editing/Service/User/RichEditing.php20,
+#: admin-columns-pro/classes/Editing/Service/User/ShowToolbar.php19,
+#: admin-columns-pro/classes/Filtering/Model/CustomField/Checkmark.php13,
+#: admin-columns-pro/classes/Search/Comparison/Comment/HasReplies.php41,
+#: admin-columns-pro/classes/Search/Comparison/Comment/IsReply.php41,
+#: admin-columns-pro/classes/Search/Comparison/Meta/Checkmark.php29,
+#: ac-addon-acf/classes/Filtering/Model/Toggle.php39,
+#: ac-addon-events-calendar/classes/Search/Event/Featured.php32,
+#: ac-addon-events-calendar/classes/Search/Event/Recurring.php48,
+#: ac-addon-events-calendar/classes/Search/Event/Sticky.php28,
+#: ac-addon-woocommerce/classes/Search/Comment/ProductReview.php45,
+#: ac-addon-woocommerce/classes/Search/Product/LowOnStock.php46,
+#: ac-addon-woocommerce/classes/Search/ProductVariation/Enabled.php:28
+msgid "False"
+msgstr "Falso"
+
+#: admin-columns-pro/classes/Column/CustomField/EditingModelFactory.php52,
+#: ac-addon-acf/classes/Editing/ModelViewFactory.php41,
+#: ac-addon-pods/classes/Filtering/TrueFalse.php42,
+#: ac-addon-types/classes/Search/Checkbox.php27,
+#: admin-columns-pro/classes/Editing/Service/User/RichEditing.php19,
+#: admin-columns-pro/classes/Editing/Service/User/ShowToolbar.php18,
+#: admin-columns-pro/classes/Filtering/Model/CustomField/Checkmark.php12,
+#: admin-columns-pro/classes/Search/Comparison/Comment/HasReplies.php40,
+#: admin-columns-pro/classes/Search/Comparison/Comment/IsReply.php40,
+#: admin-columns-pro/classes/Search/Comparison/Meta/Checkmark.php28,
+#: ac-addon-acf/classes/Filtering/Model/Toggle.php42,
+#: ac-addon-events-calendar/classes/Search/Event/Featured.php33,
+#: ac-addon-events-calendar/classes/Search/Event/Recurring.php47,
+#: ac-addon-events-calendar/classes/Search/Event/Sticky.php27,
+#: ac-addon-woocommerce/classes/Search/Comment/ProductReview.php44,
+#: ac-addon-woocommerce/classes/Search/Product/LowOnStock.php45,
+#: ac-addon-woocommerce/classes/Search/ProductVariation/Enabled.php:29
+msgid "True"
+msgstr "Verdadeiro"
+
+#: admin-columns-pro/classes/Column/Media/UsedAsFeaturedImage.php:16
+msgid "Featured Image"
+msgstr ""
+
+#: admin-columns-pro/classes/Column/NetworkSite/BlogID.php:9
+msgid "Blog ID"
+msgstr "ID do site"
+
+#: admin-columns-pro/classes/Column/NetworkSite/CommentCount.php:12
+msgid "Comments"
+msgstr "Comentários"
+
+#: admin-columns-pro/classes/Column/NetworkSite/Domain.php:9
+msgid "Domain"
+msgstr "Domínio"
+
+#: admin-columns-pro/classes/Column/NetworkSite/Options.php:12
+msgid "Options"
+msgstr "Opções"
+
+#: admin-columns-pro/classes/Column/NetworkSite/Path.php9,
+#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php:92
+msgid "Path"
+msgstr "Caminho"
+
+#: admin-columns-pro/classes/Column/NetworkSite/PostCount.php:12
+msgid "Post Count"
+msgstr "Contagem de conteúdos"
+
+#: admin-columns-pro/classes/Column/NetworkSite/SiteID.php:9
+msgid "Site ID"
+msgstr "ID do site"
+
+#: admin-columns-pro/classes/Column/NetworkSite/Status.php11,
+#: ac-addon-woocommerce/classes/Settings/User/OrderStatus.php28,
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/SubMenu/PostStatus.php:10
+msgid "Status"
+msgstr "Estado"
+
+#: admin-columns-pro/classes/Column/NetworkSite/Theme.php:12
+msgid "Theme"
+msgstr "Tema"
+
+#: admin-columns-pro/classes/Column/NetworkSite/UploadSpace.php:11
+msgid "Storage Space"
+msgstr "Espaço de armazenamento"
+
+#: admin-columns-pro/classes/Column/NetworkSite/UploadSpace.php26,
+#: admin-columns-pro/classes/Column/NetworkSite/UploadSpace.php:30
+msgid "%s MB"
+msgstr "%s MB"
+
+#: admin-columns-pro/classes/Column/Post/Ancestors.php:21
+msgid "Ancestors"
+msgstr ""
+
+#: admin-columns-pro/classes/Column/Post/ChildPages.php:15
+msgid "Child Pages"
+msgstr ""
+
+#: admin-columns-pro/classes/Column/Post/GutenbergBlocks.php:15
+msgid "Gutenberg Blocks"
+msgstr ""
+
+#: admin-columns-pro/classes/Column/Post/HasTerm.php:13
+msgid "Has Term"
+msgstr ""
+
+#: admin-columns-pro/classes/Column/Post/Images.php:17
+msgid "Images"
+msgstr "Imagens"
+
+#: admin-columns-pro/classes/Column/Post/Images.php:132
+msgid "%s image"
+msgid_plural "%s images"
+msgstr[0] "%s imagem"
+msgstr[1] "%s imagens"
+msgstr[2] "%s imagens"
+
+#: admin-columns-pro/classes/Column/Post/LatestComment.php:17
+msgid "Latest Comment"
+msgstr ""
+
+#: admin-columns-pro/classes/Column/Post/LinkCount.php:15
+msgid "Link Count"
+msgstr "Contagem de ligações"
+
+#: admin-columns-pro/classes/Column/Post/PostVisibility.php:13
+msgid "Post Visibility"
+msgstr ""
+
+#: admin-columns-pro/classes/Column/Post/Revisions.php:15
+msgid "Revisions"
+msgstr "Revisões"
+
+#: admin-columns-pro/classes/Column/Post/Revisions.php:25
+msgid "%s revision"
+msgid_plural "%s revisions"
+msgstr[0] "%s revisão"
+msgstr[1] "%s revisões"
+msgstr[2] "%s revisões"
+
+#: admin-columns-pro/classes/Column/Post/Shortcode.php14,
+#: admin-columns-pro/classes/Settings/Column/Shortcodes.php:25
+msgid "Shortcode"
+msgstr ""
+
+#: admin-columns-pro/classes/Column/Taxonomy/Excerpt.php:16
+msgid "Excerpt"
+msgstr "Excerto"
+
+#: admin-columns-pro/classes/Column/Taxonomy/TaxonomyParent.php:14
+msgid "Parent"
+msgstr "Superior"
+
+#: admin-columns-pro/classes/Column/User/Gravatar.php:15
+msgid "Profile Picture"
+msgstr "Imagem de perfil"
+
+#: admin-columns-pro/classes/Column/User/UserPosts.php:13
+msgid "Posts by Author"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/HideOnScreen/BulkEdit.php10,
+#: admin-columns-pro/classes/Editing/Admin/HideOnScreen/BulkEdit.php10,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:97
+msgid "Bulk Edit"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/RequestHandler/InlineSave.php:57
+msgid "You don't have permissions to edit this item"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Settings/BulkEditing.php:36
+msgid "Enable Bulk Editing"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Settings/BulkEditing.php:54
+msgid "Bulk Editing"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Settings/CreateTerms.php:30
+msgid "Allow new %s to be created whilst editing"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Settings/CreateTerms.php:29
+msgid "Allow new %s?"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Settings/CustomField.php:18
+msgid "Learn more about %s."
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Settings/CustomField.php:22
+msgid "custom field save formats"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Settings/EditableType.php:57
+msgid "Input Type"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/View/FullName.php:12
+msgid "First Name"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/View/FullName.php:13
+msgid "Last Name"
+msgstr ""
+
+#: admin-columns-pro/classes/Export/Settings/Column.php:29
+msgid "Enable Export"
+msgstr ""
+
+#: admin-columns-pro/classes/Filtering/Markup/Dropdown.php50,
+#: ac-addon-woocommerce/classes/Filtering/ShopOrder/CustomerMessage.php:30
+msgid "Empty"
+msgstr ""
+
+#: admin-columns-pro/classes/Filtering/Markup/Dropdown.php:72
+msgid "Not empty"
+msgstr ""
+
+#: admin-columns-pro/classes/Filtering/Markup/Dropdown.php:196
+msgid "Filter by %s"
+msgstr "Filtrar por %s"
+
+#: admin-columns-pro/classes/Filtering/Settings/Date.php:12
+msgid "Future / Past"
+msgstr "Futuro / Passado"
+
+#: admin-columns-pro/classes/Filtering/Settings/Ranged.php:30
+msgid "Range"
+msgstr ""
+
+#: admin-columns-pro/classes/Filtering/Settings/Ranged.php:36
+msgid "This will allow you to set the filter format."
+msgstr ""
+
+#: admin-columns-pro/classes/Filtering/Settings/Ranged.php:35
+msgid "Filter by"
+msgstr "Filtrar por"
+
+#: admin-columns-pro/classes/Migrate/Import/Request.php:90
+msgid "Uploaded file does not have a %s extension."
+msgstr ""
+
+#: admin-columns-pro/classes/Migrate/Import/Request.php:98
+msgid "Uploaded file is empty or not readable."
+msgstr ""
+
+#: admin-columns-pro/classes/Migrate/Import/Request.php:106
+msgid "Error parsing the uploaded file."
+msgstr ""
+
+#: admin-columns-pro/classes/Migrate/Import/Request.php:118
+msgid "Error parsing the contents from the uploaded file."
+msgstr ""
+
+#: admin-columns-pro/classes/Migrate/Import/Request.php:132
+msgid "Column settings with id %s cannot be imported."
+msgstr ""
+
+#: admin-columns-pro/classes/Migrate/Import/Request.php:139
+msgid "The uploaded file does not contain any column settings."
+msgstr ""
+
+#: admin-columns-pro/classes/Migrate/Import/Request.php:148
+msgid "Columns settings with id %s could not be saved."
+msgstr ""
+
+#: admin-columns-pro/classes/Migrate/Import/Request.php:168
+msgid "Successfully imported %s for %s."
+msgstr ""
+
+#: admin-columns-pro/classes/Migrate/Import/Request.php:169
+msgid "set"
+msgid_plural "sets"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: admin-columns-pro/classes/QuickAdd/Table/Loader.php70,
+#: admin-columns-pro/classes/QuickAdd/Admin/HideOnScreen/QuickAdd.php15,
+#: admin-columns-pro/classes/QuickAdd/Table/Checkbox/ShowButton.php:11
+msgid "Add Row"
+msgstr ""
+
+#: admin-columns-pro/classes/RequestHandler/Ajax/AddonInstaller.php:98
+msgid "License is not active."
+msgstr ""
+
+#: admin-columns-pro/classes/RequestHandler/Ajax/AddonInstaller.php:100
+msgid "Enter your license key on <a href=\"%s\">the settings page</a>."
+msgstr ""
+
+#: admin-columns-pro/classes/RequestHandler/Ajax/AddonInstaller.php:121
+msgid "Install failed."
+msgstr ""
+
+#: admin-columns-pro/classes/RequestHandler/Ajax/AddonInstaller.php:132
+msgid "Installed"
+msgstr ""
+
+#: admin-columns-pro/classes/RequestHandler/Ajax/AddonInstaller.php:136
+msgid "Network Active"
+msgstr ""
+
+#: admin-columns-pro/classes/RequestHandler/Ajax/AddonInstaller.php137,
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php:87
+msgid "Active"
+msgstr "Activa"
+
+#: admin-columns-pro/classes/RequestHandler/Ajax/Feedback.php30,
+#: admin-columns-pro/classes/RequestHandler/Ajax/LicenseActivate.php:70
+msgid "Invalid request"
+msgstr ""
+
+#: admin-columns-pro/classes/RequestHandler/Ajax/Feedback.php:36
+msgid "Please insert a valid email so we can reply to your feedback."
+msgstr ""
+
+#: admin-columns-pro/classes/RequestHandler/Ajax/Feedback.php:42
+msgid "Your feedback form is empty."
+msgstr ""
+
+#: admin-columns-pro/classes/RequestHandler/Ajax/LicenseActivate.php:76
+msgid "Empty license."
+msgstr ""
+
+#: admin-columns-pro/classes/RequestHandler/Ajax/LicenseActivate.php:80
+msgid "Invalid license."
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Labels/Date.php:12
+msgid "is after"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Labels/Date.php:13
+msgid "is before"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Labels/Date.php:14
+msgid "is today"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Labels/Date.php:15
+msgid "is in the past"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Labels/Date.php:16
+msgid "is in the future"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Labels/Date.php:17
+msgid "is less than"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Labels/Date.php:18
+msgid "is more than"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Labels/Date.php:19
+msgid "is within"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/RequestHandler/Rules.php:58
+msgid "Smart filter for %s could not be applied."
+msgstr ""
+
+#: admin-columns-pro/classes/Search/RequestHandler/Rules.php:59
+msgid "Try to re-apply the filter."
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Settings/Column.php:27
+msgid "Enable Smart Filtering"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/Column/CustomFieldType.php:67
+msgid "Post"
+msgstr "Conteúdo"
+
+#: admin-columns-pro/classes/Settings/Column/FeaturedImage.php72,
+#: admin-columns-pro/classes/Settings/Column/Gutenberg.php30,
+#: ac-addon-events-calendar/classes/Settings/OrganizerDisplay.php74,
+#: ac-addon-woocommerce/classes/Settings/Address.php36,
+#: ac-addon-woocommerce/classes/Settings/DateType.php40,
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php25,
+#: ac-addon-acf/classes/Settings/Column/FlexibleContent.php34,
+#: ac-addon-woocommerce/classes/Settings/ProductVariation/Variation.php38,
+#: ac-addon-woocommerce/classes/Settings/ShopCoupon/Limit.php34,
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/IP.php33,
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Notes.php37,
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php30,
+#: ac-addon-woocommerce/classes/Settings/User/AddressType.php51,
+#: ac-addon-woocommerce/classes/Settings/User/Country.php50,
+#: ac-addon-woocommerce/classes/Settings/User/Order.php49,
+#: ac-addon-woocommerce/classes/Settings/User/Products.php35,
+#: ac-addon-woocommerce/classes/Settings/User/Ratings.php:33
+msgid "Display"
+msgstr "Mostrar"
+
+#: admin-columns-pro/classes/Settings/Column/FeaturedImage.php:82
+msgid "Filesize"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/Column/FeaturedImageDisplay.php:28
+msgid "True / False"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/Column/FeaturedImageDisplay.php:32
+msgid "Field Type"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/Column/Gutenberg.php:25
+msgid "Block Count"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/Column/Gutenberg.php:26
+msgid "Block Structure"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/Column/LinkCount.php:27
+msgid "Total Links"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/Column/LinkCount.php:28
+msgid "Internal Links"
+msgstr "Ligações internas"
+
+#: admin-columns-pro/classes/Settings/Column/LinkCount.php:29
+msgid "External Links"
+msgstr "Ligações externas"
+
+#: admin-columns-pro/classes/Settings/Column/LinkCount.php34,
+#: ac-addon-types/classes/Settings/Field.php38,
+#: ac-addon-woocommerce/classes/Column/Product/ProductType.php:18
+msgid "Type"
+msgstr "Tipo"
+
+#: admin-columns-pro/classes/Settings/Column/SerializedArray.php:26
+msgid "example"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/Column/SerializedArray.php:32
+msgid "Array Keys"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/Column/Term.php:44
+msgid "No terms available."
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/Column/Term.php:49
+msgid "Term"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/Column/User.php:15
+msgid "Gravatar"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/Column/User.php26,
+#: admin-columns-pro/classes/Settings/Column/User.php28,
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Product.php39,
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Product.php:41
+msgid "Custom Field"
+msgstr "Campo personalizado"
+
+#: admin-columns-pro/classes/Sorting/Admin/ShowAllResults.php:24
+msgid "Include empty values in sorting results."
+msgstr ""
+
+#: admin-columns-pro/classes/Sorting/Admin/ShowAllResults.php:39
+msgid ""
+"As a default, when sorting a list table by a column it will exclude items "
+"where its value is empty."
+msgstr ""
+
+#: admin-columns-pro/classes/Sorting/Admin/ShowAllResults.php:40
+msgid ""
+"By enabling this setting the sorting results will include empty values."
+msgstr ""
+
+#: admin-columns-pro/classes/Sorting/Admin/ShowAllResults.php:44
+msgid "Read more &raquo;"
+msgstr ""
+
+#: admin-columns-pro/classes/Sorting/Controller/ResetSorting.php:30
+msgid "All sorting preferences have been reset."
+msgstr "Foram repostas todas as preferências de ordenação."
+
+#: admin-columns-pro/classes/Sorting/Table/ResetButton.php:86
+msgid "Reset Sorting"
+msgstr "Repor ordenação"
+
+#: admin-columns-pro/classes/Sorting/Table/ResetButton.php:84
+msgid "Sorted by "
+msgstr "Ordenado por"
+
+#: admin-columns-pro/classes/Table/Script/ColumnResize.php:47
+msgid ""
+"Are you sure you want to set the current column widths as the default for "
+"the %s screen for ALL users?"
+msgstr ""
+
+#: admin-columns-pro/classes/Table/Script/ColumnResize.php48,
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/ColumnResize.php:10
+msgid "Resize Columns"
+msgstr ""
+
+#: admin-columns-pro/classes/Table/Script/ColumnResize.php:49
+msgid "Reset column widths"
+msgstr ""
+
+#: admin-columns-pro/classes/Table/Script/ColumnResize.php:50
+msgid "Set as default"
+msgstr ""
+
+#: admin-columns-pro/classes/Table/Script/ColumnResize.php:51
+msgid "Enable the column width resize tool."
+msgstr ""
+
+#: admin-columns-pro/classes/Table/Script/ColumnResize.php:51
+msgid "Drag the edge of a column header to resize it."
+msgstr ""
+
+#: admin-columns-pro/classes/Table/Script/ColumnResize.php:52
+msgid "Reset columns to their default width."
+msgstr ""
+
+#: admin-columns-pro/classes/Table/Script/ColumnResize.php:53
+msgctxt "column-resize-button"
+msgid "Reset"
+msgstr ""
+
+#: admin-columns-pro/classes/Table/Script/ColumnResize.php:54
+msgid "Set current column widths as their default for ALL users."
+msgstr ""
+
+#: admin-columns-pro/classes/ThirdParty/bbPress/Addon.php:83
+msgid "bbPress"
+msgstr "bbPress"
+
+#: admin-columns-pro/classes/ThirdParty/BeaverBuilder/Addon.php:25
+msgid "Beaver Builder"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/page/settings-section-sorting.php:3
+msgid "Reset"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/tooltip/horizontal-scrolling.php:2
+msgid "Make horizontal scrolling the default when users visit the table."
+msgstr ""
+
+#: admin-columns-pro/templates/admin/tooltip/horizontal-scrolling.php:3
+msgid ""
+"Users can change this preference by opening “screen options” on the table "
+"screen."
+msgstr ""
+
+#: admin-columns-pro/templates/admin/tooltip/horizontal-scrolling.php:6
+msgid ""
+"This feature will automatically adjust the width of the columns based on the"
+" screen size."
+msgstr ""
+
+#: admin-columns-pro/templates/admin/tooltip/horizontal-scrolling.php:7
+msgid ""
+"When the columns do not fit on the screen you can horizontally scroll your "
+"columns by dragging the horizontal scrollbar or by swiping left or right "
+"with the mouse."
+msgstr ""
+
+#: admin-columns-pro/templates/admin/tooltip/preferred-segment.php:3
+msgid ""
+"Select the filtered segment that you want as the default when users visit "
+"the table."
+msgstr ""
+
+#: admin-columns-pro/templates/admin/tooltip/preferred-segment.php:7
+msgid "Only saved filtered segments marked as %s are selectable."
+msgstr ""
+
+#: admin-columns-pro/templates/admin/tooltip/preferred-segment.php:16
+msgid "How to create a filtered segment"
+msgstr ""
+
+#: ac-addon-acf/classes/Column/Deprecated.php:15
+msgid "ACF (Deprecated)"
+msgstr ""
+
+#: ac-addon-acf/classes/Column/Deprecated.php:35
+msgid "Update Message"
+msgstr ""
+
+#: ac-addon-acf/classes/Column/Deprecated.php:42
+msgid "ACF Field"
+msgstr ""
+
+#: ac-addon-acf/classes/Service/LegacyColumnMapper.php:38
+msgid "These settings contain at least one deprecated ACF column."
+msgstr ""
+
+#: ac-addon-acf/classes/Service/LegacyColumnMapper.php:39
+msgid "You can automatically update these columns to the latest version."
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Column/UpcomingEvent.php:15
+msgid "Upcoming Event"
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Filtering/UpcomingEvent.php:58
+msgid "Has Upcoming Event"
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Filtering/UpcomingEvent.php:59
+msgid "Has No Upcoming Event"
+msgstr ""
+
+#: ac-addon-events-calendar/classes/ImportListscreens/Message.php:43
+msgid "Enable our predefined column sets for %s?"
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Service/TableScreen.php:105
+msgid "upcoming"
+msgstr "próximos"
+
+#: ac-addon-events-calendar/classes/Service/TableScreen.php:110
+msgid "previous"
+msgstr "anteriores"
+
+#: ac-addon-events-calendar/classes/Service/TableScreen.php:114
+msgid "all"
+msgstr "todos"
+
+#: ac-addon-events-calendar/classes/Service/TableScreen.php:118
+msgid "Filtering on %s: Showing %s events from %s."
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Service/TableScreen.php:127
+msgid "Return to %s"
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Service/TableScreen.php:139
+msgid "Remove this filter"
+msgstr "Remover este filtro"
+
+#: ac-addon-events-calendar/classes/Settings/EventDates.php:40
+msgid "Event Date"
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Settings/EventDisplay.php:40
+msgid "Show Events"
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Settings/EventDisplay.php:50
+msgid "Upcoming Events"
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Settings/EventDisplay.php:51
+msgid "Past Events"
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Settings/OrganizerDisplay.php85,
+#: ac-addon-events-calendar/classes/Settings/Venue.php31,
+#: ac-addon-events-calendar/classes/Column/Organizer/Phone.php14,
+#: ac-addon-events-calendar/classes/Column/Venue/Phone.php:14
+msgid "Phone"
+msgstr "Telefone"
+
+#: ac-addon-events-calendar/classes/Settings/OrganizerDisplay.php86,
+#: ac-addon-events-calendar/classes/Settings/OrganizerLink.php9,
+#: ac-addon-events-calendar/classes/Column/Organizer/Email.php:16
+msgid "Email"
+msgstr "Email"
+
+#: ac-addon-events-calendar/classes/Settings/OrganizerDisplay.php87,
+#: ac-addon-events-calendar/classes/Settings/OrganizerLink.php10,
+#: ac-addon-events-calendar/classes/Settings/Venue.php33,
+#: ac-addon-events-calendar/classes/Column/Organizer/Website.php15,
+#: ac-addon-events-calendar/classes/Column/Venue/Website.php:15
+msgid "Website"
+msgstr "Site"
+
+#: ac-addon-events-calendar/classes/Settings/ShowEventDate.php:24
+msgid "Show Event Date"
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Settings/ShowEventDate.php:25
+msgid "This will show the event date below the events title."
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Settings/ShowFilterLink.php:25
+msgid "Link to Filtered Overview"
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Settings/ShowFilterLink.php:26
+msgid ""
+"Enabling this option to create a link to the filtered overview of the "
+"related post type "
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Settings/Venue.php28,
+#: ac-addon-events-calendar/classes/Column/Venue/Address.php:14
+msgid "Address"
+msgstr "Endereço"
+
+#: ac-addon-events-calendar/classes/Settings/Venue.php29,
+#: ac-addon-events-calendar/classes/Column/Venue/City.php:14
+msgid "City"
+msgstr "Cidade"
+
+#: ac-addon-events-calendar/classes/Settings/Venue.php30,
+#: ac-addon-events-calendar/classes/Column/Venue/Country.php:18
+msgid "Country"
+msgstr "País"
+
+#: ac-addon-events-calendar/classes/Settings/Venue.php:34
+msgid "ZIP"
+msgstr ""
+
+#: ac-addon-pods/classes/Setting/Field.php30,
+#: ac-addon-types/classes/Settings/Field.php:31
+msgid "No %s fields available."
+msgstr ""
+
+#: ac-addon-pods/classes/Setting/Field.php:31
+msgid "Create your first %s field."
+msgstr ""
+
+#: ac-addon-pods/classes/Setting/Field.php40,
+#: ac-addon-types/classes/Settings/Field.php:37
+msgid "Field"
+msgstr "Campo"
+
+#: ac-addon-pods/classes/Setting/Field.php:89
+msgid "empty label"
+msgstr ""
+
+#: ac-addon-types/classes/Settings/ChildPostType.php:27
+msgid "No child post types available."
+msgstr ""
+
+#: ac-addon-types/classes/Settings/Field.php31,
+#: ac-addon-types/classes/Settings/Field.php:38
+msgid "Types"
+msgstr ""
+
+#: ac-addon-types/classes/Settings/Field.php:38
+msgid "Select your %s field."
+msgstr ""
+
+#: ac-addon-types/classes/Settings/IntermediaryRelationship.php23,
+#: ac-addon-types/classes/Settings/Relationship.php:27
+msgid "No relations available."
+msgstr ""
+
+#: ac-addon-types/classes/Settings/IntermediaryRelationship.php29,
+#: ac-addon-types/classes/Settings/Relationship.php:33
+msgid "Relationship"
+msgstr ""
+
+#: ac-addon-types/classes/Settings/ParentPostType.php:27
+msgid "No parent post types available."
+msgstr ""
+
+#: ac-addon-woocommerce/classes/ListTable/ProductVariation.php:223
+msgid "Search Variable Product"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/ListTable/ProductVariation.php:239
+msgid "When you create a product variation, it will appear here."
+msgstr ""
+
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php67,
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:69
+msgid "Product Variations"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:68
+msgid "Product Variation"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:70
+msgid "Add New"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:71
+msgid "Add new variation"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:72
+msgid "Edit"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:73
+msgid "Edit variation"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:74
+msgid "New variation"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php75,
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:76
+msgid "View variation"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:78
+msgid "No variations found"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:79
+msgid "No variations found in trash"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:80
+msgid "Insert into variation"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/Address.php:43
+msgid "Full Address"
+msgstr "Endereço completo"
+
+#: ac-addon-woocommerce/classes/Settings/Address.php:51
+msgid "Full Name"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:65
+msgid "Select author"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:67
+msgid "Redo"
+msgstr "Refazer"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:68
+msgid "Undo"
+msgstr "Anular"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:71
+msgid "Download"
+msgstr "Descarregar"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:73
+msgid "This field is required."
+msgstr "Este campo é obrigatório."
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:74
+msgid "Please enter a valid float value."
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:75
+msgid "Please enter valid float values."
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:76
+msgid "Something went wrong."
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:79
+msgid "Media"
+msgstr "Multimédia"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php80,
+#: ac-addon-woocommerce/classes/Filtering/Product/Thumb.php12,
+#: ac-addon-woocommerce/classes/Filtering/Product/Thumb.php:13
+msgid "Image"
+msgstr "Imagem"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:81
+msgid "Audio"
+msgstr "Áudio"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:82
+msgid "Time"
+msgstr "Hora"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:83
+msgid "Update"
+msgstr "Actualizar"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:85
+msgid "Done"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:86
+msgid "Replace with"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php88,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:92
+msgid "Remove"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:90
+msgid "Subtract"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:93
+msgid "Multiply"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:94
+msgid "Divide"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:99
+msgid "Select all {0} entries"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:100
+msgid "<strong>{0} entries</strong> selected for Bulk Edit."
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:101
+msgid "Done & Deselect All"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:104
+msgid "This will update {0} entries."
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:105
+msgid "You are about to clear {0} entries."
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:106
+msgid "You are about to update {0} entries."
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:107
+msgid "Are you sure?"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:108
+msgid "Yes, Update"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:111
+msgid "Show items"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:112
+msgid "Hide items"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:113
+msgid "Processed {0} entries"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:114
+msgid "Updating entries."
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:115
+msgid "Processed {0} of {1} entries."
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:116
+msgid "Updating failed. Please try again."
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:117
+msgctxt "bulk edit errors"
+msgid "We have found {0} while processing."
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:118
+msgid "These items are not editable and could not be modified:"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Service/Post/CommentStatus.php16,
+#: admin-columns-pro/classes/Editing/Service/Post/PingStatus.php18,
+#: admin-columns-pro/classes/Search/Comparison/Post/CommentStatus.php:23
+msgid "Closed"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Service/Post/CommentStatus.php17,
+#: admin-columns-pro/classes/Editing/Service/Post/PingStatus.php19,
+#: admin-columns-pro/classes/Search/Comparison/Post/CommentStatus.php:22
+msgid "Open"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Service/Post/Excerpt.php:13
+msgid "Excerpt automatically generated from content."
+msgstr "Excerto gerado automaticamente a partir do conteúdo."
+
+#: admin-columns-pro/classes/Editing/Service/Post/Slug.php:22
+msgid "Enter slug"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Settings/EditableType/Content.php16,
+#: admin-columns-pro/classes/Editing/Settings/EditableType/Text.php:16
+msgid "Textarea"
+msgstr "Área de texto"
+
+#: admin-columns-pro/classes/Editing/Settings/EditableType/Content.php:17
+msgid "WYSIWYG"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Settings/EditableType/Text.php:17
+msgid "Text"
+msgstr "Texto"
+
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:34
+msgid "Something went wrong during exporting. Please try again."
+msgstr ""
+
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:35
+msgid "Processed {0} of {1} items ({2}%)."
+msgstr "Processados {0} de {1} itens ({2}%)."
+
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:36
+msgid "Exporting current list of items."
+msgstr "A exportar a lista actual de itens."
+
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:37
+msgid ""
+"Export completed ({0} items). Your download will start automatically. If "
+"this does not happen, you can download the file again: "
+msgstr ""
+
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:38
+msgid "Download File"
+msgstr "Descarregar ficheiro"
+
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:39
+msgid ""
+"You are currently generating an export file. Leaving the page will cancel "
+"this process. Are you sure you want to leave the page?"
+msgstr ""
+
+#: admin-columns-pro/classes/Filtering/Markup/Ranged/Date.php:12
+msgid "Start date"
+msgstr "Data de início"
+
+#: admin-columns-pro/classes/Filtering/Markup/Ranged/Date.php:13
+msgid "End date"
+msgstr "Data de fim"
+
+#: admin-columns-pro/classes/Filtering/Markup/Ranged/Number.php:13
+msgid "Min"
+msgstr "Mín"
+
+#: admin-columns-pro/classes/Filtering/Markup/Ranged/Number.php:14
+msgid "Max"
+msgstr "Máx"
+
+#: admin-columns-pro/classes/Filtering/Model/CustomField/Hascontent.php:11
+msgid "Content"
+msgstr "Conteúdo"
+
+#: admin-columns-pro/classes/Filtering/Model/Media/Comments.php:30
+msgid "No comments"
+msgstr "Sem comentários"
+
+#: admin-columns-pro/classes/Filtering/Model/Media/Comments.php:31
+msgid "Has comments"
+msgstr "Tem comentários"
+
+#: admin-columns-pro/classes/Filtering/Model/Media/UsedAsFeaturedImage.php:38
+msgid "Not used as Featured Image"
+msgstr ""
+
+#: admin-columns-pro/classes/Filtering/Model/Media/UsedAsFeaturedImage.php:39
+msgid "Used as Featured Image"
+msgstr ""
+
+#: admin-columns-pro/classes/Filtering/Model/Post/Excerpt.php:12
+msgid "Without Excerpt"
+msgstr "Sem excerto"
+
+#: admin-columns-pro/classes/Filtering/Model/Post/Excerpt.php:13
+msgid "Has Excerpt"
+msgstr "Tem excerto"
+
+#: admin-columns-pro/classes/Filtering/Model/Post/Sticky.php35,
+#: admin-columns-pro/classes/Search/Comparison/Post/Sticky.php:24
+msgid "Not sticky"
+msgstr ""
+
+#: admin-columns-pro/classes/Filtering/Model/Post/Sticky.php36,
+#: admin-columns-pro/classes/Search/Comparison/Post/Sticky.php:25
+msgid "Sticky"
+msgstr "Fixo"
+
+#: admin-columns-pro/classes/Helper/Select/Group/MimeType.php:31
+msgctxt "mediatype"
+msgid "Image"
+msgstr ""
+
+#: admin-columns-pro/classes/Helper/Select/Group/MimeType.php:32
+msgctxt "mediatype"
+msgid "Audio"
+msgstr ""
+
+#: admin-columns-pro/classes/Helper/Select/Group/MimeType.php:33
+msgctxt "mediatype"
+msgid "Video"
+msgstr ""
+
+#: admin-columns-pro/classes/Helper/Select/Group/MimeType.php:34
+msgctxt "mediatype"
+msgid "Document"
+msgstr ""
+
+#: admin-columns-pro/classes/Helper/Select/Group/MimeType.php:35
+msgctxt "mediatype"
+msgid "Spreadsheet"
+msgstr ""
+
+#: admin-columns-pro/classes/Helper/Select/Group/MimeType.php:36
+msgctxt "mediatype"
+msgid "Interactive"
+msgstr ""
+
+#: admin-columns-pro/classes/Helper/Select/Group/MimeType.php:37
+msgctxt "mediatype"
+msgid "Text"
+msgstr ""
+
+#: admin-columns-pro/classes/Helper/Select/Group/MimeType.php:38
+msgctxt "mediatype"
+msgid "Archive"
+msgstr ""
+
+#: admin-columns-pro/classes/Helper/Select/Group/MimeType.php:39
+msgctxt "mediatype"
+msgid "Code"
+msgstr ""
+
+#: admin-columns-pro/classes/Helper/Select/Group/PostTypeType.php:17
+msgctxt "post_types"
+msgid "Public"
+msgstr ""
+
+#: admin-columns-pro/classes/Helper/Select/Group/PostTypeType.php:20
+msgctxt "post_types"
+msgid "Custom"
+msgstr ""
+
+#: admin-columns-pro/classes/Helper/Select/Group/PostTypeType.php:20
+msgctxt "post_types"
+msgid "Hidden"
+msgstr ""
+
+#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php:42
+msgid "No column settings available."
+msgstr ""
+
+#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php:73
+msgid "Database"
+msgstr ""
+
+#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php:74
+msgid "File"
+msgstr ""
+
+#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php:106
+msgid "List Table"
+msgstr ""
+
+#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php:108
+msgid "Source"
+msgstr ""
+
+#: admin-columns-pro/classes/Migrate/Export/Response/File.php41,
+#: admin-columns-pro/classes/Migrate/Export/Response/Screen.php:33
+msgid "No screens selected for export."
+msgstr ""
+
+#: admin-columns-pro/classes/QuickAdd/Admin/HideOnScreen/QuickAdd.php:16
+msgid "Quick Add"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:65
+msgctxt "select placeholder"
+msgid "Select"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:66
+msgid "Add Filter"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:67
+msgid "days ago"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:68
+msgid "days"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:69
+msgid "Available to all users"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:70
+msgid "Clear filters"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Comparison/Media/UsedAsFeaturedImage.php:47
+msgid "In use"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Comparison/Media/UsedAsFeaturedImage.php:48
+msgid "Not used"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Comparison/Post/PostParent.php:28
+msgid "Has No Parent"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Comparison/Post/PostParent.php:29
+msgid "Has Parent"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Settings/HideOnScreen/SavedFilters.php:10
+msgid "Saved Filters"
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Settings/HideOnScreen/SmartFilters.php:12
+msgid "Smart Filters"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/Options.php17,
+#: ac-addon-acf/classes/Settings/Column/RepeaterDisplay.php:43
+msgid "Option"
+msgstr "Opção"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/Plugins.php20,
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Notes.php:32
+msgid "Count"
+msgstr "Contagem"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/Plugins.php:21
+msgid "List"
+msgstr "Lista"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/Plugins.php25,
+#: ac-addon-acf/classes/Settings/Column/Date.php32,
+#: ac-addon-acf/classes/Settings/Column/Time.php:34
+msgid "Display Format"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/PluginsInclude.php:23
+msgid "Include network plugins"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/PostCount.php:44
+msgid "Does not include %s"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/PostCount.php:48
+msgid "Post Status"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/PostCount.php:54
+msgid "Display Options"
+msgstr "Opções de visualização"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/PostCount.php:117
+msgid "All post types"
+msgstr "Todos os tipos de conteúdo"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/PostCount.php:147
+msgid "Any post status"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/PostCount.php:148
+msgid "Any post status without Trash"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php:34
+msgid "Active Theme"
+msgstr "Tema activo"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php:35
+msgid "Allowed Themes"
+msgstr "Temas permitidos"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php:36
+msgid "Available Themes"
+msgstr "Temas disponíveis"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php:93
+msgid "Site Enabled"
+msgstr "Activado no site"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php:91
+msgid "Network Enabled"
+msgstr "Activado na rede"
+
+#: admin-columns-pro/classes/Settings/Column/Post/TaxonomyTerm.php:55
+msgid "No taxonomies available."
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/Column/Post/TaxonomyTerm.php:61
+msgid "Taxonomy"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/BulkActions.php:10
+msgid "Bulk Actions"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/FilterCategory.php13,
+#: ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterProductCategory.php:12
+msgid "Category"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/FilterCommentType.php:13
+msgid "Comment Types"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/FilterMediaItem.php:13
+msgid "Media Items"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/FilterPostDate.php13,
+#: ac-addon-events-calendar/classes/Column/Event/DisplayDate.php19,
+#: ac-addon-woocommerce/classes/Column/ShopSubscription/SubscriptionDate.php21,
+#: ac-addon-woocommerce/classes/Settings/User/Order.php:56
+msgid "Date"
+msgstr "Data"
+
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/FilterPostFormat.php:13
+msgid "Post Format"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/RowActions.php:10
+msgid "Row Actions"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/RowActions.php:10
+msgid "Below Title"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/Search.php:10
+msgid "Search"
+msgstr ""
+
+#: admin-columns-pro/classes/Sorting/Admin/Section/ResetSorting.php:20
+msgid "Sorting Preferences"
+msgstr "Preferências de ordenação"
+
+#: admin-columns-pro/classes/Sorting/Admin/Section/ResetSorting.php:21
+msgid "Reset the sorting preference for all users."
+msgstr ""
+
+#: admin-columns-pro/classes/ThirdParty/Polylang/Column/Language.php:14
+msgid "Polylang Language"
+msgstr ""
+
+#: ac-addon-acf/classes/Settings/Column/Date.php:26
+msgid "ACF Date Format"
+msgstr ""
+
+#: ac-addon-acf/classes/Settings/Column/Date.php32,
+#: ac-addon-acf/classes/Settings/Column/Time.php:34
+msgid "%s uses the %s from it's field settings."
+msgstr ""
+
+#: ac-addon-acf/classes/Settings/Column/FlexibleContent.php:29
+msgid "Layout Type Count"
+msgstr ""
+
+#: ac-addon-acf/classes/Settings/Column/FlexibleContent.php:30
+msgid "Layout Structure"
+msgstr ""
+
+#: ac-addon-acf/classes/Settings/Column/Oembed.php:39
+msgid "Display format"
+msgstr "Formato de visualização"
+
+#: ac-addon-acf/classes/Settings/Column/RepeaterDisplay.php38,
+#: ac-addon-acf/classes/Settings/Column/RepeaterSubField.php:44
+msgid "Subfield"
+msgstr ""
+
+#: ac-addon-acf/classes/Settings/Column/RepeaterDisplay.php:39
+msgid "Number of Rows"
+msgstr ""
+
+#: ac-addon-acf/classes/Settings/Column/Time.php:28
+msgid "ACF Time Format"
+msgstr ""
+
+#: ac-addon-acf/classes/Value/Formatter/File.php:18
+msgid "Invalid attachment"
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Column/Event/Costs.php:14
+msgid "Costs"
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Column/Event/Duration.php:16
+msgid "Duration"
+msgstr "Duração"
+
+#: ac-addon-events-calendar/classes/Column/Event/Featured.php18,
+#: ac-addon-events-calendar/classes/Filtering/Event/Featured.php:16
+msgid "Featured"
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Column/Event/HideFromUpcoming.php:16
+msgid "Hide from Event Listing"
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Column/Event/Organizer.php:19
+msgid "Organizer"
+msgstr "Organizador"
+
+#: ac-addon-events-calendar/classes/Column/Event/Sticky.php:16
+msgid "Sticky in Month View"
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Column/Event/Venue.php:18
+msgid "Venue"
+msgstr "Local"
+
+#: ac-addon-events-calendar/classes/Column/Event/Website.php:14
+msgid "Event Website"
+msgstr "Site do evento"
+
+#: ac-addon-events-calendar/classes/Column/Venue/PostalCode.php:14
+msgid "Postal Code"
+msgstr "Código postal"
+
+#: ac-addon-events-calendar/classes/Column/Venue/StateProvince.php:14
+msgid "State or Province"
+msgstr "Estado ou província"
+
+#: ac-addon-events-calendar/classes/Filtering/Event/AllDayEvent.php:16
+msgid "All Day Events"
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Filtering/Event/AllDayEvent.php:17
+msgid "Not All Day Events"
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Filtering/Event/Featured.php:17
+msgid "Not Featured"
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Filtering/Event/HiddenFromUpcoming.php:16
+msgid "Hidden from Event Listing"
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Filtering/Event/HiddenFromUpcoming.php:17
+msgid "Visible on Event Listing"
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Filtering/Event/Sticky.php:12
+msgid "Sticky Events"
+msgstr "Eventos afixados"
+
+#: ac-addon-events-calendar/classes/Filtering/Event/Sticky.php:13
+msgid "Not Sticky Events"
+msgstr "Eventos não afixados"
+
+#: ac-addon-woocommerce/classes/Asset/Script/TableVariation.php:19
+msgid "Back to products"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/Comment/ProductReview.php:19
+msgid "Product Review"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/Product/Attributes.php:154
+msgid "Is a taxonomy"
+msgstr "É uma taxonomia"
+
+#: ac-addon-woocommerce/classes/Column/Product/AvgOrderInterval.php:20
+msgid "Average Order Interval"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/Product/BackordersAllowed.php:18
+msgid "Backorders Allowed"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/Product/Coupons.php:19
+msgid "Coupons"
+msgstr "Cupões"
+
+#: ac-addon-woocommerce/classes/Column/Product/Crosssells.php:19
+msgid "Cross Sells"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/Product/Customers.php:17
+msgid "Customers"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/Product/DefaultFormValues.php:19
+msgid "Default Form Values"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/Product/Dimensions.php:79
+msgid "Length"
+msgstr "Comprimento"
+
+#: ac-addon-woocommerce/classes/Column/Product/Dimensions.php:80
+msgid "Width"
+msgstr "Largura"
+
+#: ac-addon-woocommerce/classes/Column/Product/Dimensions.php:81
+msgid "Height"
+msgstr "Altura"
+
+#: ac-addon-woocommerce/classes/Column/Product/LowOnStock.php:15
+msgid "Low on Stock"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/Product/LowOnStock.php:36
+msgid "Current stock of %s is lower than the set threshold of  %s"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/Product/OrderTotal.php14,
+#: ac-addon-woocommerce/classes/Column/ShopSubscription/TotalRevenue.php:15
+msgid "Total Revenue"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/Product/ProductParent.php:20
+msgid "Grouped By"
+msgstr "Agrupado por"
+
+#: ac-addon-woocommerce/classes/Column/Product/ReviewsEnabled.php:20
+msgid "Reviews Enabled"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/Product/Sale.php:25
+msgid "Sale"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/Product/Sale.php101,
+#: ac-addon-woocommerce/classes/Export/Product/Sale.php:30
+msgctxt "Product on sale from (date)"
+msgid "From"
+msgstr "De"
+
+#: ac-addon-woocommerce/classes/Column/Product/Sale.php:102
+msgctxt "Product on sale until (date)"
+msgid "Until"
+msgstr "Até"
+
+#: ac-addon-woocommerce/classes/Column/Product/Sales.php14,
+#: ac-addon-woocommerce/classes/Column/ProductVariation/Sales.php:14
+msgid "Sales"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/Product/StockStatus.php36,
+#: ac-addon-woocommerce/classes/Search/Product/StockStatus.php:23
+msgid "In stock"
+msgstr "Em stock"
+
+#: ac-addon-woocommerce/classes/Column/Product/StockStatus.php38,
+#: ac-addon-woocommerce/classes/Search/Product/StockStatus.php:24
+msgid "Out of stock"
+msgstr "Esgotado"
+
+#: ac-addon-woocommerce/classes/Column/Product/StockStatus.php:40
+msgid "On backorder"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/Product/Upsells.php:19
+msgid "Upsells"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/Product/Visibility.php:19
+msgid "Catalog Visibility"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ProductSubscription/Period.php:21
+msgid "Price Period"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ProductVariation/ShippingClass.php:35
+msgid "Shipping Class managed by product"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ProductVariation/SKU.php:36
+msgid "SKU from product"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ProductVariation/Stock.php:39
+msgid "Stock managed by product"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ProductVariation/TaxClass.php:30
+msgid "Tax Class managed by product"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ProductVariation/Taxonomy.php:17
+msgid "Product Taxonomy"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ShopCoupon/CouponDescription.php:19
+msgid "Description"
+msgstr "Descrição"
+
+#: ac-addon-woocommerce/classes/Column/ShopCoupon/EmailRestrictions.php:20
+msgid "Email Restrictions"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ShopCoupon/ExcludeProducts.php:19
+msgid "Excluded Products"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ShopCoupon/ExcludeProductsCategories.php:21
+msgid "Exclude Product Categories"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ShopCoupon/FreeShipping.php:20
+msgid "Free Shipping"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ShopCoupon/FreeShipping.php:32
+msgid ""
+"The free shipping method must be enabled with the &quot;must use "
+"coupon&quot; setting."
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ShopCoupon/IncludeProducts.php:20
+msgid "Included Products"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ShopCoupon/Limit.php:15
+msgid "Coupon limit"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ShopCoupon/MaximumAmount.php:19
+msgid "Maximum Amount"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ShopCoupon/MinimumAmount.php:19
+msgid "Minimum Amount"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ShopCoupon/Orders.php:17
+msgid "Orders"
+msgstr "Encomendas"
+
+#: ac-addon-woocommerce/classes/Column/ShopCoupon/UsedBy.php:18
+msgid "Used By"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ShopCoupon/UsedBy.php:61
+msgid "Not a registered user"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ShopOrder/CouponsUsed.php18,
+#: ac-addon-woocommerce/classes/Column/User/CouponsUsed.php:14
+msgid "Coupons Used"
+msgstr "Cupões usados"
+
+#: ac-addon-woocommerce/classes/Column/ShopOrder/CustomerNote.php:20
+msgid "Customer Note"
+msgstr "Nota do cliente"
+
+#: ac-addon-woocommerce/classes/Column/ShopOrder/Discount.php:15
+msgid "Order Discount"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ShopOrder/IP.php:18
+msgid "Customer IP address"
+msgstr "Endereço de IP do cliente"
+
+#: ac-addon-woocommerce/classes/Column/ShopOrder/OrderNumber.php:15
+msgid "Order Number"
+msgstr "Número da encomenda"
+
+#: ac-addon-woocommerce/classes/Column/ShopOrder/PaidAmount.php:15
+msgid "Paid Amount"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ShopOrder/PaymentMethod.php16,
+#: ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterSubscriptionPayment.php:12
+msgid "Payment Method"
+msgstr "Método de pagamento"
+
+#: ac-addon-woocommerce/classes/Column/ShopOrder/ProductCategories.php:20
+msgid "Product Categories"
+msgstr "Categorias de produto"
+
+#: ac-addon-woocommerce/classes/Column/ShopOrder/ProductTags.php:17
+msgid "Product Tags"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ShopOrder/Purchased.php:21
+msgid "Purchased"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ShopOrder/Purchased.php:36
+msgid "%d item"
+msgid_plural "%d items"
+msgstr[0] "%d item"
+msgstr[1] "%d itens"
+msgstr[2] "%d itens"
+
+#: ac-addon-woocommerce/classes/Column/ShopOrder/Refunds.php17,
+#: ac-addon-woocommerce/classes/Filtering/ShopOrder/Refunds.php13,
+#: ac-addon-woocommerce/classes/Filtering/ShopOrder/Refunds.php14,
+#: ac-addon-woocommerce/classes/Search/ShopOrder/Refunds.php22,
+#: ac-addon-woocommerce/classes/Search/ShopOrder/Refunds.php23,
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:41
+msgid "Refunds"
+msgstr "Rembolsos"
+
+#: ac-addon-woocommerce/classes/Column/ShopOrder/Shipping.php17,
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:39
+msgid "Shipping Costs"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ShopOrder/Tax.php16,
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:40
+msgid "Tax"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ShopOrder/Totals.php:24
+msgid "Totals"
+msgstr "Total"
+
+#: ac-addon-woocommerce/classes/Column/ShopOrder/TotalWeight.php:18
+msgid "Total Order Weight"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ShopSubscription/AutoRenewal.php:17
+msgid "Auto Renewal"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/User/Address.php58,
+#: ac-addon-woocommerce/classes/Editing/Comment/Rating.php26,
+#: ac-addon-woocommerce/classes/Editing/ShopOrder/AddressFactory.php:23
+msgid "None"
+msgstr "Nenhum"
+
+#: ac-addon-woocommerce/classes/Column/User/CustomerSince.php16,
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Customer.php:18
+msgid "Customer Since"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/User/FirstOrder.php:20
+msgid "First Order"
+msgstr "Primeira encomenda"
+
+#: ac-addon-woocommerce/classes/Column/User/LastOrder.php:21
+msgid "Last Order"
+msgstr "Última encomenda"
+
+#: ac-addon-woocommerce/classes/Column/User/Orders.php:96
+msgid "items"
+msgstr "itens"
+
+#: ac-addon-woocommerce/classes/Column/User/Products.php:21
+msgid "Products"
+msgstr "Produtos"
+
+#: ac-addon-woocommerce/classes/Column/User/TotalSales.php19,
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Customer.php:21
+msgid "Total Sales"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Editing/Product/Attributes.php:56
+msgid "Non existing attribute."
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Editing/Product/Price.php:30
+msgid "%s can not be edited."
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Editing/Product/ShippingClass.php:21
+msgid "No shipping class"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Editing/Product/TaxClass.php:12
+msgid "Standard"
+msgstr "Standard"
+
+#: ac-addon-woocommerce/classes/Editing/ProductSubscription/Period.php:37
+msgid "Product Type not supported"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Editing/ProductVariation/ShippingClass.php:12
+msgid "Use Product Shipping Class"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Editing/ProductVariation/TaxClass.php:28
+msgid "Use Product Tax Class"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Export/Product/Sale.php:34
+msgctxt "Product on sale from (date)"
+msgid "Until"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Export/ShopCoupon/Usage.php:20
+msgid "Infinity"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Filtering/Comment/ProductReview.php:32
+msgid "Exclude Product Reviews"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Filtering/Comment/ProductReview.php:33
+msgid "Only Product Reviews"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Filtering/Product/Sale.php38,
+#: ac-addon-woocommerce/classes/Search/Product/Sale.php:24
+msgid "On Sale"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Filtering/Product/Sale.php39,
+#: ac-addon-woocommerce/classes/Search/Product/Sale.php:25
+msgid "Not on Sale"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Filtering/Product/ShortDescription.php:15
+msgid "Without Short Description"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Filtering/Product/ShortDescription.php:16
+msgid "Has Short Description"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Filtering/Product/SoldIndividually.php30,
+#: ac-addon-woocommerce/classes/Search/Product/SoldIndividually.php:24
+msgid "Sold Individually"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Filtering/Product/SoldIndividually.php31,
+#: ac-addon-woocommerce/classes/Search/Product/SoldIndividually.php:25
+msgid "Not Sold Individually"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Filtering/ProductVariation/Downloadable.php:11
+msgid "Is Downloadable"
+msgstr "É descarregável"
+
+#: ac-addon-woocommerce/classes/Filtering/ProductVariation/Downloadable.php12,
+#: ac-addon-woocommerce/classes/Filtering/ProductVariation/Virtual.php:12
+msgid "Exclude %s"
+msgstr "Excluir %s"
+
+#: ac-addon-woocommerce/classes/Filtering/ProductVariation/Virtual.php:11
+msgid "Is Virtual"
+msgstr "É virtual"
+
+#: ac-addon-woocommerce/classes/Filtering/Settings/ShowVariableProducts.php:49
+msgid ""
+"This will allow you to include variable products in the filter drop down."
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Filtering/Settings/ShowVariableProducts.php:48
+msgid "Show variable products"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Filtering/ShopOrder/CustomerMessage.php:31
+msgid "Has customer message"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Search/Product/Featured.php:20
+msgid "Is featured"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Search/Product/Featured.php:21
+msgid "Is not featured"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Search/ShopOrder/PaymentMethod.php:33
+msgid "disabled"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterOrderCustomer.php:12
+msgid "Registered Customer"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterProductStockStatus.php:12
+msgid "Stock Status"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterProductType.php:12
+msgid "Product Type"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterSubscriptionCustomer.php:12
+msgid "Customer"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterSubscriptionProduct.php12,
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Product.php:32
+msgid "Product"
+msgstr "Produto"
+
+#: ac-addon-woocommerce/classes/Settings/Product/Attributes.php:30
+msgid "All attributes"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/Product/Attributes.php:38
+msgid "Show Single"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/Product/Attributes.php:39
+msgid "Display a single attribute."
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/Product/Attributes.php:39
+msgid "Only works for taxonomy attributes."
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/Product/Period.php:34
+msgid "Period"
+msgstr "Período"
+
+#: ac-addon-woocommerce/classes/Settings/Product/Period.php:35
+msgid "Select the time period from now"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/Product/Period.php:42
+msgid "Last year"
+msgstr "Último ano"
+
+#: ac-addon-woocommerce/classes/Settings/Product/Period.php:43
+msgid "Last quarter"
+msgstr "Último trimestre"
+
+#: ac-addon-woocommerce/classes/Settings/Product/Period.php:44
+msgid "Last month"
+msgstr "Último mês"
+
+#: ac-addon-woocommerce/classes/Settings/Product/Period.php:45
+msgid "Last week"
+msgstr "Última semana"
+
+#: ac-addon-woocommerce/classes/Settings/Product/UseIcon.php:40
+msgid "Use an icon?"
+msgstr "Usar um ícone?"
+
+#: ac-addon-woocommerce/classes/Settings/Product/UseIcon.php:41
+msgid "Use an icon instead of text for displaying the note."
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/ProductVariation/Attribute.php:29
+msgid "Attribute"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/ProductVariation/Attribute.php:99
+msgid "Global Attributes"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/ProductVariation/Attribute.php:103
+msgid "Product Attributes"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/ProductVariation/Variation.php:46
+msgid "Without label"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/ProductVariation/Variation.php103,
+#: ac-addon-woocommerce/classes/Settings/User/OrderStatus.php:34
+msgid "Any"
+msgstr "Qualquer"
+
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Customer.php:15
+msgid "Billing Company"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Customer.php:16
+msgid "Billing Country"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Customer.php:17
+msgid "Billing Email"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Customer.php:19
+msgid "Order Count"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/IP.php:40
+msgid "IP Address"
+msgstr "Endereço de IP"
+
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/IP.php:41
+msgid "IP Country Code"
+msgstr "Código de país do IP"
+
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Notes.php:33
+msgid "Last Order Note"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/NoteType.php:34
+msgid "All Notes"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/NoteType.php:35
+msgid "System Notes"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/NoteType.php:36
+msgid "Private Notes"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/NoteType.php:37
+msgid "Notes to Customer"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/NoteType.php:41
+msgid "Note Type"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/ShippingMethodType.php:31
+msgid "Method Label"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/ShippingMethodType.php:32
+msgid "Method Type"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/ShippingMethodType.php:36
+msgid "Shipping Method Type"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Status.php:20
+msgid "Order Status"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:37
+msgid "Total"
+msgstr "Total"
+
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:38
+msgid "Subtotal"
+msgstr "Subtotal"
+
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:42
+msgid "Discounts"
+msgstr "Descontos"
+
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php43,
+#: ac-addon-woocommerce/classes/Field/ShopOrder/OrderDate/Paid.php:17
+msgid "Paid"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/User/AddressType.php58,
+#: ac-addon-woocommerce/classes/Settings/User/Country.php:37
+msgid "Shipping"
+msgstr "Envio"
+
+#: ac-addon-woocommerce/classes/Settings/User/AddressType.php59,
+#: ac-addon-woocommerce/classes/Settings/User/Country.php:38
+msgid "Billing"
+msgstr "Facturação"
+
+#: ac-addon-woocommerce/classes/Settings/User/Order.php:57
+msgid "Amount"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/User/Products.php:42
+msgid "Total products purchased"
+msgstr "Total de produtos comprados"
+
+#: ac-addon-woocommerce/classes/Settings/User/Products.php:43
+msgid "Unique products purchased"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/User/Ratings.php:40
+msgid "Number of ratings"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/User/Ratings.php:41
+msgid "Average rating"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ShopOrder/Address/Billing.php:15
+msgid "Billing Address"
+msgstr "Endereço de facturação"
+
+#: ac-addon-woocommerce/classes/Column/ShopOrder/Address/Shipping.php:16
+msgid "Shipping Address"
+msgstr "Endereço de envio"
+
+#: ac-addon-woocommerce/classes/Editing/StorageModel/Product/Price.php:40
+msgid "Price can not be zero or lower."
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Editing/StorageModel/Product/SalePrice.php:29
+msgid "Sale price can not be zero or lower."
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Editing/StorageModel/Product/SalePrice.php:33
+msgid "Sale price can not be higher than the regular price."
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Field/ShopOrder/OrderDate/Completed.php:18
+msgid "Completed"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Field/ShopOrder/OrderDate/Created.php:15
+msgid "Created"
+msgstr "Criado"
+
+#: ac-addon-woocommerce/classes/Field/ShopOrder/OrderDate/Modified.php:15
+msgid "Modified"
+msgstr "Modificado"
+
+#: ac-addon-woocommerce/classes/Field/ShopSubscription/SubscriptionDate/NextPayment.php:13
+msgid "Next Payment"
+msgstr ""

@@ -36,7 +36,7 @@ function wc_od_event_modal_content( $extra_content = '' ) {
 			<div class="row">
 				<div class="full-column columns">
 					<div class="column-wrap">
-						<label><?php _e( 'Title', 'woocommerce-order-delivery' ); ?></label>
+						<label><?php esc_html_e( 'Title', 'woocommerce' ); // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch ?></label>
 						<input class="widefat" type="text" name="title" value="" placeholder="<?php _e( 'Enter the event title', 'woocommerce-order-delivery' ); ?>" required />
 					</div>
 				</div>
@@ -63,9 +63,9 @@ function wc_od_event_modal_content( $extra_content = '' ) {
 				<div class="full-column columns">
 					<div class="column-wrap">
 						<p>
-							<input class="button" type="submit" value="<?php _e( 'Save', 'woocommerce-order-delivery' ); ?>" />
-							<a class="cancel" href="#"><?php _e( 'Cancel', 'woocommerce-order-delivery' ); ?></a>
-							<a class="delete" href="#"><?php _e( 'Delete', 'woocommerce-order-delivery' ); ?></a>
+							<input class="button" type="submit" value="<?php esc_html_e( 'Save', 'woocommerce' ); // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch ?>" />
+							<a class="cancel" href="#"><?php esc_html_e( 'Cancel', 'woocommerce' ); // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch ?></a>
+							<a class="delete" href="#"><?php esc_html_e( 'Delete', 'woocommerce' ); // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch ?></a>
 						</p>
 					</div>
 				</div>

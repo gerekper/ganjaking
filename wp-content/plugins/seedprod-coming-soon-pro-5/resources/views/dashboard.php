@@ -118,6 +118,14 @@ if ( ! empty( $seedprod_app_settings ) ) {
 	$seedprod_app_settings = json_decode( $seedprod_app_default_settings );
 }
 
+if ( isset( $seedprod_app_settings ) ) {
+	if ( isset( $seedprod_app_settings->disable_seedprod_notification ) ) {
+		if ( $seedprod_app_settings->disable_seedprod_notification === true ) {
+			$notifications = array();
+		}
+	}
+}
+
 $seedprod_upgrade_link = seedprod_pro_upgrade_link( '' );
 
 $lmsg = get_option( 'seedprod_api_message' );
@@ -184,27 +192,27 @@ if ( empty( get_option( 'seedprod_onetime_flush_rewrite' ) ) ) {
 $csp_preview_url = '';
 if ( ! empty( $csp_id ) ) {
 	$csp_preview_url = get_preview_post_link( $csp_id );
-	//$csp_preview_url = home_url(). "/?post_type=seedprod&page_id=".$csp_id."&preview_nonce=".wp_create_nonce('post_preview_' . $csp_id);
-	//$csp_preview_url = home_url(). '/?post_type=seedprod&p='.$csp_id.'&preview=true';
+	// $csp_preview_url = home_url(). "/?post_type=seedprod&page_id=".$csp_id."&preview_nonce=".wp_create_nonce('post_preview_' . $csp_id);
+	// $csp_preview_url = home_url(). '/?post_type=seedprod&p='.$csp_id.'&preview=true';
 }
 $mmp_preview_url = '';
 if ( ! empty( $mmp_id ) ) {
 	$mmp_preview_url = get_preview_post_link( $mmp_id );
-	//$mmp_preview_url = home_url(). "/?post_type=seedprod&page_id=".$mmp_id."&preview_nonce=".wp_create_nonce('post_preview_' . $mmp_id);
-	//$mmp_preview_url= home_url(). '/?post_type=seedprod&p='.$mmp_id.'&preview=true';
+	// $mmp_preview_url = home_url(). "/?post_type=seedprod&page_id=".$mmp_id."&preview_nonce=".wp_create_nonce('post_preview_' . $mmp_id);
+	// $mmp_preview_url= home_url(). '/?post_type=seedprod&p='.$mmp_id.'&preview=true';
 }
 $p404_preview_url = '';
 if ( ! empty( $p404_id ) ) {
 	$p404_preview_url = get_preview_post_link( $p404_id );
-	//$p404_preview_url = home_url(). "/?post_type=seedprod&page_id=".$p404_id."&preview_nonce=".wp_create_nonce('post_preview_' . $p404_id);
-	//$p404_preview_url= home_url(). '/?post_type=seedprod&p='.$p404_id.'&preview=true';
+	// $p404_preview_url = home_url(). "/?post_type=seedprod&page_id=".$p404_id."&preview_nonce=".wp_create_nonce('post_preview_' . $p404_id);
+	// $p404_preview_url= home_url(). '/?post_type=seedprod&p='.$p404_id.'&preview=true';
 }
 
 $loginp_preview_url = '';
 if ( ! empty( $loginp_id ) ) {
 	$loginp_preview_url = get_preview_post_link( $loginp_id );
-	//$loginp_preview_url = home_url(). "/?post_type=seedprod&page_id=".$loginp_id."&preview_nonce=".wp_create_nonce('post_preview_' . $loginp_id);
-	//$loginp_preview_url= home_url(). '/?post_type=seedprod&p='.$loginp_id.'&preview=true';
+	// $loginp_preview_url = home_url(). "/?post_type=seedprod&page_id=".$loginp_id."&preview_nonce=".wp_create_nonce('post_preview_' . $loginp_id);
+	// $loginp_preview_url= home_url(). '/?post_type=seedprod&p='.$loginp_id.'&preview=true';
 }
 
 

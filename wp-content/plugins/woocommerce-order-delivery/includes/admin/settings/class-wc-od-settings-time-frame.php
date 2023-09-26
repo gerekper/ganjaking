@@ -72,7 +72,7 @@ class WC_OD_Settings_Time_Frame extends WC_OD_Settings_API {
 	public function init_form_fields() {
 		$this->form_fields = array(
 			'title'     => array(
-				'title'             => __( 'Title', 'woocommerce-order-delivery' ),
+				'title'             => __( 'Title', 'woocommerce' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 				'type'              => 'text',
 				'description'       => __( 'This controls the title which the user sees during checkout.', 'woocommerce-order-delivery' ),
 				'desc_tip'          => true,

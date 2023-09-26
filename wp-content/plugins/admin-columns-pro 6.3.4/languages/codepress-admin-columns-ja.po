@@ -1,0 +1,3522 @@
+# Copyright (C) 2023 Admin Columns Pro
+# This file is distributed under the same license as the Admin Columns Pro package.
+# Translators:
+# ishihara takashi <ishihara@grow-group.jp>, 2019-2021
+# Takafumi Sekine <sekine@rabi.co.jp>, 2016
+# takashi ishihara <akeome1369@gmail.com>, 2023
+# Yamana Kazuo <yamana@lanc.jp>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Admin Columns Pro\n"
+"PO-Revision-Date: 2014-05-22 15:53+0000\n"
+"Last-Translator: takashi ishihara <akeome1369@gmail.com>, 2023\n"
+"Language-Team: Japanese (Japan) (http://app.transifex.com/codepress/admin-columns-pro/language/ja_JP/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja_JP\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: admin-columns-pro/classes/API.php:98
+msgid "The Admin Columns Server was unreachable."
+msgstr "Admin Columnsのサーバーに到達できませんでした。"
+
+#: admin-columns-pro/classes/PluginActionLinks.php:63
+msgid "Settings"
+msgstr "設定"
+
+#: admin-columns-pro/classes/Admin/MenuFactory.php:39
+msgid "Tools"
+msgstr "ツール"
+
+#: admin-columns-pro/classes/Admin/MenuFactory.php57,
+#: admin-columns-pro/classes/Admin/Page/License.php209,
+#: admin-columns-pro/classes/Admin/Page/License.php:268
+msgid "License"
+msgstr "ライセンス"
+
+#: admin-columns-pro/classes/Admin/Settings.php196,
+#: admin-columns-pro/classes/Table/HorizontalScrolling.php:88
+msgid "Horizontal Scrolling"
+msgstr "水平スクロール"
+
+#: admin-columns-pro/classes/Admin/Settings.php212,
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/Filters.php:12
+msgid "Filters"
+msgstr "フィルター"
+
+#: admin-columns-pro/classes/Admin/Settings.php:228
+msgid "Primary Column"
+msgstr "最優先カラム"
+
+#: admin-columns-pro/classes/Admin/Settings.php:343
+msgid "Table Views"
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Settings.php:347
+msgid ""
+"Table views allow users to switch between different views on the list table."
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Settings.php:354
+msgid "Available views are selectable from the list table."
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Settings.php:365
+msgid "Online documentation"
+msgstr "オンラインドキュメント"
+
+#: admin-columns-pro/classes/Admin/Settings.php:400
+msgid "Other"
+msgstr "その他"
+
+#: admin-columns-pro/classes/Admin/Settings.php404,
+#: admin-columns-pro/classes/Admin/Settings.php438,
+#: admin-columns-pro/addons/gravityforms/classes/TableScreen/Entry.php:138
+msgid "Default"
+msgstr "デフォルト"
+
+#: admin-columns-pro/classes/Admin/Settings.php:476
+msgid "You can make an editable copy of this set by clicking %s on the right."
+msgstr "編集可能なコピーを作成するには、右側の %s をクリックします。"
+
+#: admin-columns-pro/classes/Admin/Settings.php:480
+msgid "+ Add set"
+msgstr "+ セットの追加"
+
+#: admin-columns-pro/classes/Check/Activation.php168,
+#: admin-columns-pro/classes/Check/LockedSettings.php:87
+msgid "You can find your license key on your %s."
+msgstr "ライセンスキーは %s で確認できます。"
+
+#: admin-columns-pro/classes/Check/Activation.php172,
+#: admin-columns-pro/classes/Check/LockedSettings.php:91
+msgid "account page"
+msgstr "アカウント ページ"
+
+#: admin-columns-pro/classes/Check/Beta.php:64
+msgid "You are using a beta version of %s."
+msgstr "%s のベータ版を使用しています。"
+
+#: admin-columns-pro/classes/Check/Beta.php:65
+msgid "If you have feedback or have found a bug, please %s."
+msgstr "フィードバックがある場合、またはバグが見つかった場合は、%sをしてください。"
+
+#: admin-columns-pro/classes/Check/Beta.php:66
+msgid "leave us a message"
+msgstr "メッセージを残す"
+
+#: admin-columns-pro/classes/Check/Expired.php:144
+msgid ""
+"Your Admin Columns Pro license has expired on %s. To receive updates, renew "
+"your license on the %s."
+msgstr "Admin Columns Pro ライセンスの有効期限は %s です。更新するには、 %s のライセンスを更新してください。"
+
+#: admin-columns-pro/classes/Check/Expired.php:149
+msgid "My Account Page"
+msgstr "会員情報ページ"
+
+#: admin-columns-pro/classes/Check/LockedSettings.php:101
+msgid "activating %s"
+msgstr "有効化しています"
+
+#: admin-columns-pro/classes/Check/LockedSettings.php:105
+msgid "To start using Admin Columns Pro, fill in your license key below."
+msgstr "Admin Columns Proを利用するには、ライセンスキーを入力してください。"
+
+#: admin-columns-pro/classes/Check/Renewal.php:220
+msgid "Renew your license"
+msgstr "ライセンスの更新"
+
+#: admin-columns-pro/classes/Check/Renewal.php:226
+msgid ""
+"Your Admin Columns Pro license will expire in %s. In order get access to new"
+" features and receive security updates, please %s before %s."
+msgstr "Admin Columns Proライセンスは %s %s に期限切れになり、 %s の前に割引が適用されます。"
+
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:64
+msgctxt "operator"
+msgid "Contains"
+msgstr "含む"
+
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:68
+msgctxt "operator"
+msgid "Does Not Contain"
+msgstr "含まない"
+
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:72
+msgctxt "operator"
+msgid "Starts With"
+msgstr "開始"
+
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:76
+msgctxt "operator"
+msgid "Ends With"
+msgstr "終了"
+
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:82
+msgctxt "operator"
+msgid "Equals"
+msgstr "等しい"
+
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:86
+msgctxt "operator"
+msgid "Not Equals"
+msgstr "等しくない"
+
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:90
+msgctxt "operator"
+msgid "Less Than"
+msgstr "未満"
+
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:94
+msgctxt "operator"
+msgid "Less Than or Equal"
+msgstr "以下または等しい"
+
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:98
+msgctxt "operator"
+msgid "Greater Than"
+msgstr "より大きい"
+
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:102
+msgctxt "operator"
+msgid "Greater Than or Equal"
+msgstr "大きいまたは等しい"
+
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:107
+msgctxt "operator"
+msgid "Between"
+msgstr "含む"
+
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:112
+msgctxt "operator"
+msgid "Not Between"
+msgstr "含まない"
+
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:118
+msgctxt "operator"
+msgid "Date is"
+msgstr "日付は"
+
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:122
+msgctxt "operator"
+msgid "Date is After"
+msgstr "日付以降"
+
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:126
+msgctxt "operator"
+msgid "Date is Before"
+msgstr "日付以降"
+
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:130
+msgctxt "operator"
+msgid "Date Between"
+msgstr "日付間に含まない"
+
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:135
+msgctxt "operator"
+msgid "Past"
+msgstr "過去"
+
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:140
+msgctxt "operator"
+msgid "Today"
+msgstr "今日"
+
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:145
+msgctxt "operator"
+msgid "Future"
+msgstr "未来"
+
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:149
+msgctxt "operator"
+msgid "Within … days"
+msgstr ""
+
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:153
+msgctxt "operator"
+msgid "More than … days ago"
+msgstr ""
+
+#: admin-columns-pro/classes/ConditionalFormat/Operators.php:157
+msgctxt "operator"
+msgid "Less than … days ago"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Settings.php:86
+msgid "Enable Editing"
+msgstr "編集を有効にする"
+
+#: admin-columns-pro/classes/Editing/Settings.php:111
+msgid "Inline Editing"
+msgstr "インライン編集"
+
+#: admin-columns-pro/classes/Export/Strategy.php:83
+msgid "Invalid value supplied for export counter."
+msgstr "エクスポート カウンタに指定された無効な値です。"
+
+#: admin-columns-pro/classes/Export/Strategy.php:258
+msgid "No exportable columns found."
+msgstr "エクスポート可能な列が見つかりませんでした。"
+
+#: admin-columns-pro/classes/Export/TableScreen.php:89
+msgid "Export Button"
+msgstr "エクスポートボタン"
+
+#: admin-columns-pro/classes/Filtering/Helper.php:144
+msgid "Future dates"
+msgstr "将来の日付"
+
+#: admin-columns-pro/classes/Filtering/Helper.php:145
+msgid "Past dates"
+msgstr "過去の日付"
+
+#: admin-columns-pro/classes/Filtering/Model.php235,
+#: admin-columns-pro/addons/woocommerce/classes/Filtering/Product/Thumb.php12,
+#: admin-columns-pro/addons/woocommerce/classes/Filtering/ShopOrder/Refunds.php13,
+#: admin-columns-pro/addons/woocommerce/classes/Search/ShopOrder/HasFees.php28,
+#: admin-columns-pro/addons/woocommerce/classes/Search/ShopOrder/Refunds.php:22
+msgid "Without %s"
+msgstr "%s なし"
+
+#: admin-columns-pro/classes/Filtering/Model.php236,
+#: admin-columns-pro/addons/woocommerce/classes/Filtering/Product/Thumb.php13,
+#: admin-columns-pro/addons/woocommerce/classes/Filtering/ShopOrder/Refunds.php14,
+#: admin-columns-pro/addons/woocommerce/classes/Search/ShopOrder/HasFees.php32,
+#: admin-columns-pro/addons/woocommerce/classes/Search/ShopOrder/Refunds.php:23
+msgid "Has %s"
+msgstr "%s を含む"
+
+#: admin-columns-pro/classes/Filtering/Settings.php:46
+msgid "Enable Filtering"
+msgstr "フィルタリングを有効にする"
+
+#: admin-columns-pro/classes/Filtering/Settings.php:62
+msgid "Filtering"
+msgstr "フィルタリング"
+
+#: admin-columns-pro/classes/Filtering/Settings.php:73
+msgid "Set the name of the label in the filter menu"
+msgstr "フィルタ メニューでラベルの名前を設定する"
+
+#: admin-columns-pro/classes/Filtering/Settings.php:72
+msgid "Top label"
+msgstr "トップラベル"
+
+#: admin-columns-pro/classes/Filtering/Settings.php:113
+msgid "Any %s"
+msgstr "任意の %s"
+
+#: admin-columns-pro/classes/Filtering/TableScreen.php:71
+msgid "Loading values"
+msgstr "値の読み込み"
+
+#: admin-columns-pro/classes/Helper/FilterButton.php:37
+msgid "Filter"
+msgstr "フィルター"
+
+#: admin-columns-pro/classes/RequestHandler/LicenseActivate.php:93
+msgid "Empty license key."
+msgstr "ライセンスキーが空です。"
+
+#: admin-columns-pro/classes/RequestHandler/LicenseActivate.php:99
+msgid "Invalid license key."
+msgstr "ライセンスキーが無効です。"
+
+#: admin-columns-pro/classes/RequestHandler/LicenseActivate.php:119
+msgid "Product is activated, but automatic updates are disabled."
+msgstr "プラグインは有効ですが、自動更新が無効になっています。"
+
+#: admin-columns-pro/classes/RequestHandler/LicenseUpdate.php:59
+msgid "License information has been updated."
+msgstr "ライセンス情報を更新しました。"
+
+#: admin-columns-pro/classes/RequestHandler/ListScreenCreate.php:59
+msgid "Name can not be empty."
+msgstr "名称を空にすることはできません。"
+
+#: admin-columns-pro/classes/RequestHandler/ListScreenDelete.php:42
+msgid "Table view %s successfully deleted."
+msgstr ""
+
+#: admin-columns-pro/classes/Search/Labels.php:11
+msgid "is"
+msgstr "一致"
+
+#: admin-columns-pro/classes/Search/Labels.php:12
+msgid "is not"
+msgstr "一致しない"
+
+#: admin-columns-pro/classes/Search/Labels.php:13
+msgid "is larger than"
+msgstr "より大きい"
+
+#: admin-columns-pro/classes/Search/Labels.php:14
+msgid "is larger or equal than"
+msgstr "より大きいか等しい"
+
+#: admin-columns-pro/classes/Search/Labels.php:15
+msgid "is smaller than"
+msgstr "より小さい"
+
+#: admin-columns-pro/classes/Search/Labels.php:16
+msgid "is smaller or equal than"
+msgstr "より小さいか等しい"
+
+#: admin-columns-pro/classes/Search/Labels.php17,
+#: admin-columns-pro/classes/Search/Comparison/Meta/Posts.php:14
+msgid "contains"
+msgstr "含む"
+
+#: admin-columns-pro/classes/Search/Labels.php18,
+#: admin-columns-pro/classes/Search/Comparison/Meta/Posts.php:15
+msgid "does not contain"
+msgstr "含まない"
+
+#: admin-columns-pro/classes/Search/Labels.php:19
+msgid "starts with"
+msgstr "始まる"
+
+#: admin-columns-pro/classes/Search/Labels.php:20
+msgid "ends with"
+msgstr "終わる"
+
+#: admin-columns-pro/classes/Search/Labels.php:21
+msgid "in"
+msgstr "イン"
+
+#: admin-columns-pro/classes/Search/Labels.php:22
+msgid "not in"
+msgstr "が次の値に含まれない"
+
+#: admin-columns-pro/classes/Search/Labels.php:23
+msgid "between"
+msgstr "間"
+
+#: admin-columns-pro/classes/Search/Labels.php:24
+msgid "is not set"
+msgstr "は設定されていません"
+
+#: admin-columns-pro/classes/Search/Labels.php:25
+msgid "is set"
+msgstr "が設定されています"
+
+#: admin-columns-pro/classes/Search/Labels.php:26
+msgid "is current user"
+msgstr "現在のユーザー"
+
+#: admin-columns-pro/classes/Search/TableScreenOptions.php76,
+#: admin-columns-pro/classes/Search/Settings/Column.php:51
+msgid "Smart Filtering"
+msgstr "スマートフィルタリング"
+
+#: admin-columns-pro/classes/Service/PluginNotice.php:31
+msgid ""
+"This integration add-on is no longer required by %s and can be safely "
+"removed."
+msgstr "このアドオンは、現在では必要ではないため削除することができます。"
+
+#: admin-columns-pro/classes/Sorting/Settings.php:40
+msgid "Enable Sorting"
+msgstr "並べ替えを有効にする"
+
+#: admin-columns-pro/classes/Sorting/Settings.php:52
+msgid "This sorting query can be slow on very large datasets."
+msgstr "このソートクエリは、非常に大きなデータセットでは低速になることがあります。"
+
+#: admin-columns-pro/classes/Sorting/Settings.php:54
+msgid "Notice"
+msgstr "お知らせ"
+
+#: admin-columns-pro/classes/Sorting/Settings.php:72
+msgid "Sorting"
+msgstr "並び替え"
+
+#: admin-columns-pro/classes/Table/HorizontalScrolling.php:91
+msgid "hold down SHIFT key"
+msgstr "Shiftキーを押したままにします"
+
+#: admin-columns-pro/classes/Table/StickyTableRow.php:80
+msgid "Sticky Headers"
+msgstr "固定ヘッダー"
+
+#: admin-columns-pro/addons/pods/classes/Column.php:24
+msgid "Pods"
+msgstr "ポッド"
+
+#: admin-columns-pro/classes/Admin/Notice/NotSavedListScreen.php:23
+msgid "These settings are %s."
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Notice/NotSavedListScreen.php:24
+msgid "inactive"
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Notice/NotSavedListScreen.php:27
+msgid "Click %s to apply these column settings to the %s list table."
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Notice/NotSavedListScreen.php31,
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:79
+msgid "Save"
+msgstr "保存"
+
+#: admin-columns-pro/classes/Admin/Page/Addons.php27,
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php:87
+msgid "Active"
+msgstr "有効"
+
+#: admin-columns-pro/classes/Admin/Page/Addons.php:37
+msgid "Available"
+msgstr "利用可能"
+
+#: admin-columns-pro/classes/Admin/Page/License.php:129
+msgid "Updates"
+msgstr "更新"
+
+#: admin-columns-pro/classes/Admin/Page/License.php:165
+msgid "Enter your license code to receive automatic updates."
+msgstr "自動更新を受け取るためにライセンス コードを入力します。"
+
+#: admin-columns-pro/classes/Admin/Page/License.php:170
+msgid "Enter your license key to %s."
+msgstr "%s にライセンス キーを入力してください。"
+
+#: admin-columns-pro/classes/Admin/Page/License.php:173
+msgid "unlock all settings"
+msgstr "すべての設定を解除する"
+
+#: admin-columns-pro/classes/Admin/Page/License.php:189
+msgid "network settings page"
+msgstr "ネットワーク設定ページ"
+
+#: admin-columns-pro/classes/Admin/Page/License.php:198
+msgid "The license can be managed on the %s."
+msgstr "ライセンスは %s で管理できます。"
+
+#: admin-columns-pro/classes/Admin/Page/Tools.php:61
+msgid "excluded"
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Page/Tools.php:62
+msgid "included"
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Page/Tools.php:63
+msgctxt "x out of x"
+msgid "out of"
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Page/Tools.php:64
+msgid "Select / Deselect All"
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/ScriptFactory/SettingsFactory.php:39
+msgid "Select roles"
+msgstr "権限の選択"
+
+#: admin-columns-pro/classes/Admin/ScriptFactory/SettingsFactory.php:40
+msgid "Select users"
+msgstr "ユーザー選択"
+
+#: admin-columns-pro/classes/Admin/ScriptFactory/SettingsFactory.php:50
+msgid "Features"
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/ScriptFactory/SettingsFactory.php:51
+msgid "Default Elements"
+msgstr ""
+
+#: admin-columns-pro/classes/Asset/Script/LicenseManager.php:25
+msgid "Are you sure you want deactivate Admin Columns Pro?"
+msgstr "本当にAdmin Columns Proを無効化しますか？"
+
+#: admin-columns-pro/classes/Asset/Script/LicenseManager.php:26
+msgid "You need to fill in your license key again if you want to reactivate."
+msgstr "最有効化するためにははライセンス キーを再度入力する必要があります。"
+
+#: admin-columns-pro/classes/Asset/Script/LicenseManager.php:28
+msgid "Updating plugin"
+msgstr "プラグインを更新しています"
+
+#: admin-columns-pro/classes/Asset/Script/LicenseManager.php:29
+msgid "This plugin is up to date"
+msgstr "このプラグインは最新版です"
+
+#: admin-columns-pro/classes/Asset/Script/Table.php:65
+msgctxt "number of items"
+msgid "%s more"
+msgstr ""
+
+#: admin-columns-pro/classes/Asset/Script/Table.php:66
+msgid "Switch View"
+msgstr "ビューの切り替え"
+
+#: admin-columns-pro/classes/Asset/Script/Table.php:69
+msgctxt "column-resize-button"
+msgid "Reset"
+msgstr "リセット"
+
+#: admin-columns-pro/classes/Asset/Script/Table.php:70
+msgid "Columns"
+msgstr "カラム"
+
+#: admin-columns-pro/classes/Asset/Script/Table.php71,
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/ColumnResize.php:10
+msgid "Resize Columns"
+msgstr "列のサイズ変更"
+
+#: admin-columns-pro/classes/Asset/Script/Table.php:74
+msgid "Restore the current column widths and order to their defaults."
+msgstr "現在の列の幅と順序を初期状態に戻します。"
+
+#: admin-columns-pro/classes/Asset/Script/Table.php75,
+#: admin-columns-pro/classes/Asset/Script/Table.php84,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:195
+msgid "Are you sure?"
+msgstr "よろしいですか?"
+
+#: admin-columns-pro/classes/Asset/Script/Table.php:77
+msgid "Save changes"
+msgstr "変更を保存"
+
+#: admin-columns-pro/classes/Asset/Script/Table.php:80
+msgid ""
+"Save the current column widths and order changes as the new default for ALL "
+"users."
+msgstr "現在の列幅と順序の変更をすべてのユーザーの初期状態として保存します。"
+
+#: admin-columns-pro/classes/Asset/Script/Table.php:86
+msgid "Reset columns to their default widths and order."
+msgstr "列の幅と順序を初期値にリセットします。"
+
+#: admin-columns-pro/classes/Asset/Script/Table.php:90
+msgid "Save the current column widths and order changes."
+msgstr "現在の列幅と順序の変更を保存します。"
+
+#: admin-columns-pro/classes/Asset/Script/Table.php:223
+msgid "Filtered by: %s"
+msgstr ""
+
+#: admin-columns-pro/classes/Column/Comment/HasReplies.php:13
+msgid "Has Replies"
+msgstr "返信あり"
+
+#: admin-columns-pro/classes/Column/Comment/IsReply.php:13
+msgid "Is Reply"
+msgstr "返信です"
+
+#: admin-columns-pro/classes/Column/Comment/PostType.php20,
+#: admin-columns-pro/classes/Column/Media/PostType.php17,
+#: admin-columns-pro/classes/Column/Post/PostType.php15,
+#: admin-columns-pro/classes/Settings/Column/TaxonomyPostType.php27,
+#: admin-columns-pro/addons/types/classes/Settings/ChildPostType.php30,
+#: admin-columns-pro/addons/types/classes/Settings/ParentPostType.php31,
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/PostCount.php:33
+msgid "Post Type"
+msgstr "投稿タイプ"
+
+#: admin-columns-pro/classes/Column/CustomField/EditingModelFactory.php51,
+#: admin-columns-pro/addons/acf/classes/Editing/ModelViewFactory.php40,
+#: admin-columns-pro/addons/pods/classes/Filtering/TrueFalse.php39,
+#: admin-columns-pro/addons/types/classes/Search/Checkbox.php28,
+#: admin-columns-pro/classes/Editing/Service/User/RichEditing.php21,
+#: admin-columns-pro/classes/Editing/Service/User/ShowToolbar.php21,
+#: admin-columns-pro/classes/Filtering/Model/CustomField/Checkmark.php13,
+#: admin-columns-pro/classes/Search/Comparison/Comment/HasReplies.php41,
+#: admin-columns-pro/classes/Search/Comparison/Comment/IsReply.php41,
+#: admin-columns-pro/classes/Search/Comparison/Meta/Checkmark.php29,
+#: admin-columns-pro/addons/acf/classes/Filtering/Model/Toggle.php39,
+#: admin-columns-pro/addons/events-calendar/classes/Search/Event/Featured.php32,
+#: admin-columns-pro/addons/events-calendar/classes/Search/Event/Recurring.php48,
+#: admin-columns-pro/addons/events-calendar/classes/Search/Event/Sticky.php28,
+#: admin-columns-pro/addons/woocommerce/classes/Search/Comment/ProductReview.php45,
+#: admin-columns-pro/addons/woocommerce/classes/Search/Product/LowOnStock.php46,
+#: admin-columns-pro/addons/woocommerce/classes/Search/ProductVariation/Enabled.php:28
+msgid "False"
+msgstr "無効"
+
+#: admin-columns-pro/classes/Column/CustomField/EditingModelFactory.php52,
+#: admin-columns-pro/addons/acf/classes/Editing/ModelViewFactory.php41,
+#: admin-columns-pro/addons/pods/classes/Filtering/TrueFalse.php42,
+#: admin-columns-pro/addons/types/classes/Search/Checkbox.php27,
+#: admin-columns-pro/classes/Editing/Service/User/RichEditing.php20,
+#: admin-columns-pro/classes/Editing/Service/User/ShowToolbar.php20,
+#: admin-columns-pro/classes/Filtering/Model/CustomField/Checkmark.php12,
+#: admin-columns-pro/classes/Search/Comparison/Comment/HasReplies.php40,
+#: admin-columns-pro/classes/Search/Comparison/Comment/IsReply.php40,
+#: admin-columns-pro/classes/Search/Comparison/Meta/Checkmark.php28,
+#: admin-columns-pro/addons/acf/classes/Filtering/Model/Toggle.php42,
+#: admin-columns-pro/addons/events-calendar/classes/Search/Event/Featured.php33,
+#: admin-columns-pro/addons/events-calendar/classes/Search/Event/Recurring.php47,
+#: admin-columns-pro/addons/events-calendar/classes/Search/Event/Sticky.php27,
+#: admin-columns-pro/addons/woocommerce/classes/Search/Comment/ProductReview.php44,
+#: admin-columns-pro/addons/woocommerce/classes/Search/Product/LowOnStock.php45,
+#: admin-columns-pro/addons/woocommerce/classes/Search/ProductVariation/Enabled.php:29
+msgid "True"
+msgstr "有効"
+
+#: admin-columns-pro/classes/Column/Media/UsedAsFeaturedImage.php:16
+msgid "Featured Image"
+msgstr "アイキャッチ画像"
+
+#: admin-columns-pro/classes/Column/NetworkSite/BlogID.php:13
+msgid "Blog ID"
+msgstr "ブログID"
+
+#: admin-columns-pro/classes/Column/NetworkSite/CommentCount.php:15
+msgid "Comments"
+msgstr "コメント"
+
+#: admin-columns-pro/classes/Column/NetworkSite/Domain.php:13
+msgid "Domain"
+msgstr "ドメイン"
+
+#: admin-columns-pro/classes/Column/NetworkSite/Name.php9,
+#: admin-columns-pro/addons/events-calendar/classes/Settings/Venue.php32,
+#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php176,
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:77
+msgid "Name"
+msgstr "名前"
+
+#: admin-columns-pro/classes/Column/NetworkSite/Options.php:12
+msgid "Options"
+msgstr "オプション"
+
+#: admin-columns-pro/classes/Column/NetworkSite/Path.php13,
+#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php:160
+msgid "Path"
+msgstr "パス"
+
+#: admin-columns-pro/classes/Column/NetworkSite/PostCount.php:15
+msgid "Post Count"
+msgstr "投稿数"
+
+#: admin-columns-pro/classes/Column/NetworkSite/SiteID.php:13
+msgid "Site ID"
+msgstr "サイトID"
+
+#: admin-columns-pro/classes/Column/NetworkSite/Status.php14,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/User/Order.php65,
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/SubMenu/PostStatus.php:10
+msgid "Status"
+msgstr "ステータス"
+
+#: admin-columns-pro/classes/Column/NetworkSite/Theme.php:15
+msgid "Theme"
+msgstr "テーマ"
+
+#: admin-columns-pro/classes/Column/NetworkSite/UploadSpace.php:11
+msgid "Storage Space"
+msgstr "ストレージスペース"
+
+#: admin-columns-pro/classes/Column/NetworkSite/UploadSpace.php26,
+#: admin-columns-pro/classes/Column/NetworkSite/UploadSpace.php:30
+msgid "%s MB"
+msgstr "%s MB"
+
+#: admin-columns-pro/classes/Column/Post/Ancestors.php:27
+msgid "Ancestors"
+msgstr "祖先"
+
+#: admin-columns-pro/classes/Column/Post/ChildPages.php:15
+msgid "Child Pages"
+msgstr "子ページ"
+
+#: admin-columns-pro/classes/Column/Post/GutenbergBlocks.php:15
+msgid "Gutenberg Blocks"
+msgstr "グーテンベルク ブロック"
+
+#: admin-columns-pro/classes/Column/Post/HasTerm.php:13
+msgid "Has Term"
+msgstr "ターム有り"
+
+#: admin-columns-pro/classes/Column/Post/Images.php:20
+msgid "Images"
+msgstr "画像"
+
+#: admin-columns-pro/classes/Column/Post/Images.php:135
+msgid "%s image"
+msgid_plural "%s images"
+msgstr[0] "%s の画像"
+
+#: admin-columns-pro/classes/Column/Post/LatestComment.php:20
+msgid "Latest Comment"
+msgstr "最新のコメント"
+
+#: admin-columns-pro/classes/Column/Post/LinkCount.php:19
+msgid "Link Count"
+msgstr "リンク数"
+
+#: admin-columns-pro/classes/Column/Post/PostVisibility.php:16
+msgid "Post Visibility"
+msgstr "投稿の表示"
+
+#: admin-columns-pro/classes/Column/Post/Revisions.php15,
+#: admin-columns-pro/classes/Column/Post/Revisions.php:29
+msgid "Revisions"
+msgstr "リビジョン"
+
+#: admin-columns-pro/classes/Column/Post/Revisions.php:27
+msgid "%s revision"
+msgid_plural "%s revisions"
+msgstr[0] "%s リビジョン"
+
+#: admin-columns-pro/classes/Column/Post/Shortcode.php14,
+#: admin-columns-pro/classes/Settings/Column/Shortcodes.php:25
+msgid "Shortcode"
+msgstr "ショートコード"
+
+#: admin-columns-pro/classes/Column/Post/Title.php:16
+msgid "Add title"
+msgstr "タイトルを追加"
+
+#: admin-columns-pro/classes/Column/Taxonomy/Excerpt.php20,
+#: admin-columns-pro/addons/metabox/classes/Column/PostType/Description.php11,
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopCoupon/CouponDescription.php:21
+msgid "Description"
+msgstr "説明"
+
+#: admin-columns-pro/classes/Column/Taxonomy/ID.php22,
+#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php179,
+#: admin-columns-pro/addons/buddypress/classes/Column/Group/Id.php14,
+#: admin-columns-pro/addons/metabox/classes/Column/MetaBox/Id.php:11
+msgid "ID"
+msgstr "ID"
+
+#: admin-columns-pro/classes/Column/Taxonomy/TaxonomyParent.php:17
+msgid "Parent"
+msgstr "親"
+
+#: admin-columns-pro/classes/Column/User/Gravatar.php:15
+msgid "Profile Picture"
+msgstr "プロフィール画像"
+
+#: admin-columns-pro/classes/Column/User/Password.php:14
+msgid "Password"
+msgstr ""
+
+#: admin-columns-pro/classes/Column/User/Password.php20,
+#: admin-columns-pro/classes/Editing/View/WpPassword.php:14
+msgid "Set new password"
+msgstr ""
+
+#: admin-columns-pro/classes/Column/User/Password.php:21
+msgid "Enable Inline Edit to change password"
+msgstr ""
+
+#: admin-columns-pro/classes/Column/User/Roles.php21,
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/SubMenu/CommentStatus.php10,
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/SubMenu/Roles.php:10
+msgid "Roles"
+msgstr "権限"
+
+#: admin-columns-pro/classes/Column/User/UserPosts.php:15
+msgid "Posts by Author"
+msgstr "著者の投稿"
+
+#: admin-columns-pro/classes/ConditionalFormat/Asset/Table.php:79
+msgctxt "between_operator"
+msgid "and"
+msgstr "と"
+
+#: admin-columns-pro/classes/ConditionalFormat/Asset/Table.php:80
+msgid "Save &amp; Apply"
+msgstr "保存して有効"
+
+#: admin-columns-pro/classes/ConditionalFormat/Asset/Table.php81,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php111,
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php55,
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:78
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: admin-columns-pro/classes/ConditionalFormat/Asset/Table.php:82
+msgid "Add Rule"
+msgstr "ルールを追加"
+
+#: admin-columns-pro/classes/ConditionalFormat/Asset/Table.php:83
+msgid "Add condition"
+msgstr "条件の追加"
+
+#: admin-columns-pro/classes/ConditionalFormat/Asset/Table.php84,
+#: admin-columns-pro/classes/ConditionalFormat/Asset/Table.php85,
+#: admin-columns-pro/classes/ConditionalFormat/Settings/ListScreen/HideOnScreenFactory.php:14
+msgid "Conditional Formatting"
+msgstr "条件付き書式"
+
+#: admin-columns-pro/classes/ConditionalFormat/Asset/Table.php:86
+msgid "Formatting Style"
+msgstr "フォーマット スタイル"
+
+#: admin-columns-pro/classes/ConditionalFormat/Asset/Table.php:103
+msgid "documentation"
+msgstr "ドキュメント"
+
+#: admin-columns-pro/classes/Editing/HideOnScreen/BulkDelete.php10,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:142
+msgid "Bulk Delete"
+msgstr "一括削除"
+
+#: admin-columns-pro/classes/Editing/HideOnScreen/BulkEdit.php10,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:189
+msgid "Bulk Edit"
+msgstr "一括編集"
+
+#: admin-columns-pro/classes/Editing/HideOnScreen/InlineEdit.php10,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:104
+msgid "Inline Edit"
+msgstr "インラインで編集"
+
+#: admin-columns-pro/classes/Editing/RequestHandler/BulkDelete.php:37
+msgid "Table does not support bulk delete."
+msgstr "テーブルは一括削除をサポートしていません。"
+
+#: admin-columns-pro/classes/Editing/RequestHandler/BulkDelete.php:44
+msgid "Current user has no delete permissions."
+msgstr "現在のユーザーには削除権限がありません。"
+
+#: admin-columns-pro/classes/Editing/RequestHandler/BulkSave.php:126
+msgid "Missing id"
+msgstr "ID がありません"
+
+#: admin-columns-pro/classes/Editing/RequestHandler/InlineSave.php59,
+#: admin-columns-pro/classes/Editing/RequestHandler/Exception/InvalidUserPermissionException.php:10
+msgid "You don't have permissions to edit this item"
+msgstr "この項目を編集する権限がありません"
+
+#: admin-columns-pro/classes/Editing/Service/ComputedNumber.php:41
+msgid "Cannot divide by zero"
+msgstr "0で割ることはできません"
+
+#: admin-columns-pro/classes/Editing/Service/SerializedMeta.php:41
+msgid "Data must be `scalar`."
+msgstr "データは「スカラー」でなければなりません。"
+
+#: admin-columns-pro/classes/Editing/Settings/BulkEditing.php:35
+msgid "Enable Bulk Editing"
+msgstr "一括編集を有効にする"
+
+#: admin-columns-pro/classes/Editing/Settings/BulkEditing.php:53
+msgid "Bulk Editing"
+msgstr "一括編集"
+
+#: admin-columns-pro/classes/Editing/Settings/CreateTerms.php:30
+msgid "Allow new %s to be created whilst editing"
+msgstr "編集中に新しい %s を作成できるようにする"
+
+#: admin-columns-pro/classes/Editing/Settings/CreateTerms.php:29
+msgid "Allow new %s?"
+msgstr "新しい %s を許可しますか?"
+
+#: admin-columns-pro/classes/Editing/Settings/CustomField.php:18
+msgid "Learn more about %s."
+msgstr "%s についてもっと詳しく読む。"
+
+#: admin-columns-pro/classes/Editing/Settings/CustomField.php:22
+msgid "custom field save formats"
+msgstr "カスタム フィールドの保存形式"
+
+#: admin-columns-pro/classes/Editing/Settings/EditableType.php:57
+msgid "Input Type"
+msgstr "入力の種類"
+
+#: admin-columns-pro/classes/Editing/View/FullName.php:12
+msgid "First Name"
+msgstr "名"
+
+#: admin-columns-pro/classes/Editing/View/FullName.php:13
+msgid "Last Name"
+msgstr "姓"
+
+#: admin-columns-pro/classes/Export/HideOnScreen/Export.php10,
+#: admin-columns-pro/classes/Export/Settings/Column.php53,
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php46,
+#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php:102
+msgid "Export"
+msgstr "エクスポート"
+
+#: admin-columns-pro/classes/Export/Settings/Column.php:28
+msgid "Enable Export"
+msgstr "エクスポートを有効にする"
+
+#: admin-columns-pro/classes/Filtering/Markup/Dropdown.php54,
+#: admin-columns-pro/addons/woocommerce/classes/Filtering/ShopOrder/CustomerMessage.php:30
+msgid "Empty"
+msgstr "空"
+
+#: admin-columns-pro/classes/Filtering/Markup/Dropdown.php:78
+msgid "Not empty"
+msgstr "空ではない"
+
+#: admin-columns-pro/classes/Filtering/Markup/Dropdown.php:210
+msgid "Filter by %s"
+msgstr "%s でフィルターします。"
+
+#: admin-columns-pro/classes/Filtering/Settings/Date.php:12
+msgid "Future / Past"
+msgstr "未来 /過去"
+
+#: admin-columns-pro/classes/Filtering/Settings/Ranged.php:30
+msgid "Range"
+msgstr "範囲"
+
+#: admin-columns-pro/classes/Filtering/Settings/Ranged.php:36
+msgid "This will allow you to set the filter format."
+msgstr "これにより、フィルタ形式を設定できます。"
+
+#: admin-columns-pro/classes/Filtering/Settings/Ranged.php:35
+msgid "Filter by"
+msgstr "フィルター"
+
+#: admin-columns-pro/classes/Migrate/Import/Request.php:95
+msgid "Uploaded file does not have a %s extension."
+msgstr "アップロードしたファイルの拡張子は%sではありません。"
+
+#: admin-columns-pro/classes/Migrate/Import/Request.php:106
+msgid "Uploaded file is empty or not readable."
+msgstr "アップロードされたファイルが空か、読み込みできません。"
+
+#: admin-columns-pro/classes/Migrate/Import/Request.php:114
+msgid "Error parsing the uploaded file."
+msgstr "アップロードされたファイルの解析中にエラーが発生しました。"
+
+#: admin-columns-pro/classes/Migrate/Import/Request.php:132
+msgid "Columns settings with id %s could not be saved."
+msgstr "ID %s の列設定を保存できませんでした。"
+
+#: admin-columns-pro/classes/Migrate/Import/Request.php:153
+msgid "Segment \"%s\" for %s could not be saved."
+msgstr ""
+
+#: admin-columns-pro/classes/Migrate/Import/Request.php:166
+msgid "The uploaded file does not contain any column settings."
+msgstr "アップロードされたファイルにはカラム設定が含まれていません。"
+
+#: admin-columns-pro/classes/Migrate/Import/Request.php:194
+msgid "Successfully imported %s for %s."
+msgstr "正常に%sの%sがインポートされました。"
+
+#: admin-columns-pro/classes/Migrate/Import/Request.php:195
+msgid "set"
+msgid_plural "sets"
+msgstr[0] "セット"
+
+#: admin-columns-pro/classes/QuickAdd/Table/Loader.php70,
+#: admin-columns-pro/classes/QuickAdd/Admin/HideOnScreen/QuickAdd.php15,
+#: admin-columns-pro/classes/QuickAdd/Table/Checkbox/ShowButton.php:11
+msgid "Add Row"
+msgstr "行を追加"
+
+#: admin-columns-pro/classes/RequestHandler/Ajax/Feedback.php30,
+#: admin-columns-pro/classes/RequestHandler/Ajax/LicenseActivate.php:79
+msgid "Invalid request"
+msgstr "不正なリクエスト"
+
+#: admin-columns-pro/classes/RequestHandler/Ajax/Feedback.php:37
+msgid "Please insert a valid email so we can reply to your feedback."
+msgstr "フィードバックに返信できるように、有効なメールを挿入してください。"
+
+#: admin-columns-pro/classes/RequestHandler/Ajax/Feedback.php:44
+msgid "Your feedback form is empty."
+msgstr "フィードバック フォームが空です。"
+
+#: admin-columns-pro/classes/RequestHandler/Ajax/Feedback.php:59
+msgid "Thank you very much for your feedback!"
+msgstr ""
+
+#: admin-columns-pro/classes/RequestHandler/Ajax/LicenseActivate.php:85
+msgid "Empty license."
+msgstr "空のライセンス。"
+
+#: admin-columns-pro/classes/RequestHandler/Ajax/LicenseActivate.php:89
+msgid "Invalid license."
+msgstr "ライセンスが無効."
+
+#: admin-columns-pro/classes/Search/Labels/Date.php:12
+msgid "is after"
+msgstr "は後です"
+
+#: admin-columns-pro/classes/Search/Labels/Date.php:13
+msgid "is before"
+msgstr "より前"
+
+#: admin-columns-pro/classes/Search/Labels/Date.php:14
+msgid "is today"
+msgstr "は今日です"
+
+#: admin-columns-pro/classes/Search/Labels/Date.php:15
+msgid "is in the past"
+msgstr "過去"
+
+#: admin-columns-pro/classes/Search/Labels/Date.php:16
+msgid "is in the future"
+msgstr "未来"
+
+#: admin-columns-pro/classes/Search/Labels/Date.php:17
+msgid "is less than"
+msgstr "未満"
+
+#: admin-columns-pro/classes/Search/Labels/Date.php:18
+msgid "is more than"
+msgstr "以上"
+
+#: admin-columns-pro/classes/Search/Labels/Date.php:19
+msgid "is within"
+msgstr "内にある"
+
+#: admin-columns-pro/classes/Search/RequestHandler/Rules.php:58
+msgid "Smart filter for %s could not be applied."
+msgstr "%s のスマート フィルターを適用できませんでした。"
+
+#: admin-columns-pro/classes/Search/RequestHandler/Rules.php:59
+msgid "Try to re-apply the filter."
+msgstr "フィルターを再度適用してみてください。"
+
+#: admin-columns-pro/classes/Search/Settings/Column.php:26
+msgid "Enable Smart Filtering"
+msgstr "スマート フィルタリングを有効にする"
+
+#: admin-columns-pro/classes/Settings/Column/CustomFieldType.php:67
+msgid "Post"
+msgstr "投稿"
+
+#: admin-columns-pro/classes/Settings/Column/CustomFieldType.php68,
+#: admin-columns-pro/classes/Settings/Column/User.php24,
+#: admin-columns-pro/addons/gravityforms/classes/Column/Entry/Custom/User.php:14
+msgid "User"
+msgstr "ユーザー"
+
+#: admin-columns-pro/classes/Settings/Column/FeaturedImage.php72,
+#: admin-columns-pro/classes/Settings/Column/Gutenberg.php29,
+#: admin-columns-pro/addons/buddypress/classes/Settings/Group.php56,
+#: admin-columns-pro/addons/events-calendar/classes/Settings/OrganizerDisplay.php74,
+#: admin-columns-pro/addons/gravityforms/classes/Settings/ChoiceDisplay.php55,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/Address.php36,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/DateType.php40,
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php25,
+#: admin-columns-pro/addons/acf/classes/Settings/Column/FlexibleContent.php34,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ProductVariation/Variation.php38,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopCoupon/Limit.php34,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/IP.php33,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Notes.php37,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Totals.php30,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/User/AddressType.php51,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/User/Country.php50,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/User/Order.php55,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/User/Products.php35,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/User/Ratings.php:33
+msgid "Display"
+msgstr "表示"
+
+#: admin-columns-pro/classes/Settings/Column/FeaturedImage.php:82
+msgid "Filesize"
+msgstr "ファイルサイズ"
+
+#: admin-columns-pro/classes/Settings/Column/FeaturedImageDisplay.php:28
+msgid "True / False"
+msgstr "○×問題"
+
+#: admin-columns-pro/classes/Settings/Column/FeaturedImageDisplay.php:32
+msgid "Field Type"
+msgstr "フィールドタイプ"
+
+#: admin-columns-pro/classes/Settings/Column/Gutenberg.php:24
+msgid "Block Count"
+msgstr "ブロック数"
+
+#: admin-columns-pro/classes/Settings/Column/Gutenberg.php:25
+msgid "Block Structure"
+msgstr "ブロック構造"
+
+#: admin-columns-pro/classes/Settings/Column/LinkCount.php:27
+msgid "Total Links"
+msgstr "総リンク数"
+
+#: admin-columns-pro/classes/Settings/Column/LinkCount.php:28
+msgid "Internal Links"
+msgstr "内部リンク"
+
+#: admin-columns-pro/classes/Settings/Column/LinkCount.php:29
+msgid "External Links"
+msgstr "外部リンク"
+
+#: admin-columns-pro/classes/Settings/Column/LinkCount.php34,
+#: admin-columns-pro/addons/types/classes/Settings/Field.php38,
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/ProductType.php:20
+msgid "Type"
+msgstr "タイプ"
+
+#: admin-columns-pro/classes/Settings/Column/SerializedArray.php:26
+msgid "example"
+msgstr "example"
+
+#: admin-columns-pro/classes/Settings/Column/SerializedArray.php:32
+msgid "Array Keys"
+msgstr "配列キー"
+
+#: admin-columns-pro/classes/Settings/Column/Term.php:44
+msgid "No terms available."
+msgstr "条件はありません。"
+
+#: admin-columns-pro/classes/Settings/Column/Term.php:49
+msgid "Term"
+msgstr "用語"
+
+#: admin-columns-pro/classes/Settings/Column/User.php:17
+msgid "Gravatar"
+msgstr "Gravatar"
+
+#: admin-columns-pro/classes/Settings/Column/User.php28,
+#: admin-columns-pro/classes/Settings/Column/User.php30,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Product.php39,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Product.php:41
+msgid "Custom Field"
+msgstr "カスタムフィールド"
+
+#: admin-columns-pro/classes/Sorting/Controller/ResetSorting.php:31
+msgid "All sorting preferences have been reset."
+msgstr "すべての並べ替え設定がリセットされました。"
+
+#: admin-columns-pro/classes/Sorting/Table/ResetButton.php:61
+msgid "Reset Sorting"
+msgstr "並べ替えのリセット"
+
+#: admin-columns-pro/classes/Sorting/Table/ResetButton.php:59
+msgid "Sorted by "
+msgstr "並替"
+
+#: admin-columns-pro/addons/acf/classes/Column/Deprecated.php:15
+msgid "ACF (Deprecated)"
+msgstr "ACF (非推奨)"
+
+#: admin-columns-pro/addons/acf/classes/Column/Deprecated.php:35
+msgid "Update Message"
+msgstr "メッセージの更新"
+
+#: admin-columns-pro/addons/acf/classes/Column/Deprecated.php:42
+msgid "ACF Field"
+msgstr "ACF フィールド"
+
+#: admin-columns-pro/addons/acf/classes/Column/Unsupported.php:14
+msgid "Unsupported value format"
+msgstr ""
+
+#: admin-columns-pro/addons/acf/classes/Service/LegacyColumnMapper.php:39
+msgid "These settings contain at least one deprecated ACF column."
+msgstr "これらの設定には、少なくとも1つの非推奨のACFカラムが含まれています。"
+
+#: admin-columns-pro/addons/acf/classes/Service/LegacyColumnMapper.php:40
+msgid "You can automatically update these columns to the latest version."
+msgstr "これらの列を最新バージョンに自動的に更新できます。"
+
+#: admin-columns-pro/addons/acf/classes/Service/LegacyColumnMapper.php:45
+msgid "Update Now"
+msgstr "今すぐ更新"
+
+#: admin-columns-pro/addons/acf/classes/Service/ListScreens.php:31
+msgid "Advanced Custom Fields"
+msgstr ""
+
+#: admin-columns-pro/addons/bbpress/classes/Service/Editing.php:16
+msgid "bbPress"
+msgstr "bbPress"
+
+#: admin-columns-pro/addons/beaver-builder/classes/Service/ListScreens.php:36
+msgid "Beaver Builder"
+msgstr "Beaver Builder"
+
+#: admin-columns-pro/addons/buddypress/classes/ListScreen/Group.php:25
+msgid "Groups"
+msgstr "グループ"
+
+#: admin-columns-pro/addons/buddypress/classes/Settings/ActivityType.php:35
+msgid "Activity Type"
+msgstr "アクティビティタイプ"
+
+#: admin-columns-pro/addons/buddypress/classes/Settings/Date.php:16
+msgid "BuddyPress Difference"
+msgstr "BuddyPress の違い"
+
+#: admin-columns-pro/addons/buddypress/classes/Settings/Date.php:19
+msgid "The difference is returned in a human readable format."
+msgstr "違いは、人間が読める形式で返されます。"
+
+#: admin-columns-pro/addons/buddypress/classes/Settings/Date.php:19
+msgid "For example: %s."
+msgstr "例: %s。"
+
+#: admin-columns-pro/addons/buddypress/classes/Settings/GroupLink.php:49
+msgid "Link To"
+msgstr "リンク先"
+
+#: admin-columns-pro/addons/buddypress/classes/Settings/Profile.php29,
+#: admin-columns-pro/addons/pods/classes/Setting/Field.php30,
+#: admin-columns-pro/addons/types/classes/Settings/Field.php:31
+msgid "No %s fields available."
+msgstr "%s フィールドは使用できません。"
+
+#: admin-columns-pro/addons/buddypress/classes/Settings/Profile.php:29
+msgid "BuddyPress"
+msgstr "BuddyPress"
+
+#: admin-columns-pro/addons/buddypress/classes/Settings/Profile.php35,
+#: admin-columns-pro/addons/pods/classes/Setting/Field.php40,
+#: admin-columns-pro/addons/types/classes/Settings/Field.php37,
+#: admin-columns-pro/addons/metabox/classes/Column/MetaBox/Fields.php:11
+msgid "Field"
+msgstr "フィールド"
+
+#: admin-columns-pro/addons/buddypress/classes/Settings/Profile.php36,
+#: admin-columns-pro/addons/types/classes/Settings/Field.php:38
+msgid "Select your %s field."
+msgstr "%s フィールドを選択します。"
+
+#: admin-columns-pro/addons/buddypress/classes/Settings/Profile.php:36
+msgid "BuddyPress profile"
+msgstr "BuddyPress プロフィール"
+
+#: admin-columns-pro/addons/events-calendar/classes/Column/UpcomingEvent.php:15
+msgid "Upcoming Event"
+msgstr "今後のイベント"
+
+#: admin-columns-pro/addons/events-calendar/classes/Filtering/UpcomingEvent.php:58
+msgid "Has Upcoming Event"
+msgstr "今後のイベントがあります"
+
+#: admin-columns-pro/addons/events-calendar/classes/Filtering/UpcomingEvent.php:59
+msgid "Has No Upcoming Event"
+msgstr "今後のイベントはありません"
+
+#: admin-columns-pro/addons/events-calendar/classes/Service/TableScreen.php:113
+msgid "upcoming"
+msgstr "開催"
+
+#: admin-columns-pro/addons/events-calendar/classes/Service/TableScreen.php:118
+msgid "previous"
+msgstr "前へ"
+
+#: admin-columns-pro/addons/events-calendar/classes/Service/TableScreen.php:122
+msgid "all"
+msgstr "すべて"
+
+#: admin-columns-pro/addons/events-calendar/classes/Service/TableScreen.php:127
+msgid "Filtering on %s: Showing %s events from %s."
+msgstr "%s でのフィルタリング: %s からの %s イベントを表示します。"
+
+#: admin-columns-pro/addons/events-calendar/classes/Service/TableScreen.php:137
+msgid "Return to %s"
+msgstr "%s へ戻る"
+
+#: admin-columns-pro/addons/events-calendar/classes/Service/TableScreen.php:150
+msgid "Remove this filter"
+msgstr "このフィルタを削除する"
+
+#: admin-columns-pro/addons/events-calendar/classes/Settings/EventDates.php:40
+msgid "Event Date"
+msgstr "イベント日程"
+
+#: admin-columns-pro/addons/events-calendar/classes/Settings/EventDisplay.php:40
+msgid "Show Events"
+msgstr "イベントの表示"
+
+#: admin-columns-pro/addons/events-calendar/classes/Settings/EventDisplay.php:50
+msgid "Upcoming Events"
+msgstr "直近のイベント"
+
+#: admin-columns-pro/addons/events-calendar/classes/Settings/EventDisplay.php:51
+msgid "Past Events"
+msgstr "過去のイベント"
+
+#: admin-columns-pro/addons/events-calendar/classes/Settings/OrganizerDisplay.php85,
+#: admin-columns-pro/addons/events-calendar/classes/Settings/Venue.php31,
+#: admin-columns-pro/addons/events-calendar/classes/Column/Organizer/Phone.php18,
+#: admin-columns-pro/addons/events-calendar/classes/Column/Venue/Phone.php:17
+msgid "Phone"
+msgstr "電話番号"
+
+#: admin-columns-pro/addons/events-calendar/classes/Settings/OrganizerDisplay.php86,
+#: admin-columns-pro/addons/events-calendar/classes/Settings/OrganizerLink.php9,
+#: admin-columns-pro/addons/events-calendar/classes/Column/Organizer/Email.php:18
+msgid "Email"
+msgstr "メールアドレス"
+
+#: admin-columns-pro/addons/events-calendar/classes/Settings/OrganizerDisplay.php87,
+#: admin-columns-pro/addons/events-calendar/classes/Settings/OrganizerLink.php10,
+#: admin-columns-pro/addons/events-calendar/classes/Settings/Venue.php33,
+#: admin-columns-pro/addons/events-calendar/classes/Column/Organizer/Website.php19,
+#: admin-columns-pro/addons/events-calendar/classes/Column/Venue/Website.php:18
+msgid "Website"
+msgstr "ウェブサイト"
+
+#: admin-columns-pro/addons/events-calendar/classes/Settings/ShowEventDate.php:24
+msgid "Show Event Date"
+msgstr "イベントの日付の表示"
+
+#: admin-columns-pro/addons/events-calendar/classes/Settings/ShowEventDate.php:25
+msgid "This will show the event date below the events title."
+msgstr "これにより、イベントタイトルの下にイベントの日付が表示されます。"
+
+#: admin-columns-pro/addons/events-calendar/classes/Settings/ShowFilterLink.php:25
+msgid "Link to Filtered Overview"
+msgstr "フィルタされた概要へのリンク"
+
+#: admin-columns-pro/addons/events-calendar/classes/Settings/ShowFilterLink.php:26
+msgid ""
+"Enabling this option to create a link to the filtered overview of the "
+"related post type "
+msgstr "このオプションを有効にして、関連する転記タイプのフィルター処理された概要へのリンクを作成します。"
+
+#: admin-columns-pro/addons/events-calendar/classes/Settings/Venue.php28,
+#: admin-columns-pro/addons/events-calendar/classes/Column/Venue/Address.php:17
+msgid "Address"
+msgstr "住所"
+
+#: admin-columns-pro/addons/events-calendar/classes/Settings/Venue.php29,
+#: admin-columns-pro/addons/events-calendar/classes/Column/Venue/City.php:17
+msgid "City"
+msgstr "市区町村"
+
+#: admin-columns-pro/addons/events-calendar/classes/Settings/Venue.php30,
+#: admin-columns-pro/addons/events-calendar/classes/Column/Venue/Country.php:21
+msgid "Country"
+msgstr "国"
+
+#: admin-columns-pro/addons/events-calendar/classes/Settings/Venue.php:34
+msgid "ZIP"
+msgstr "郵便番号"
+
+#: admin-columns-pro/addons/gravityforms/classes/HideOnScreen/EntryFilters.php:10
+msgid "Entry Search"
+msgstr "エントリー検索"
+
+#: admin-columns-pro/addons/gravityforms/classes/HideOnScreen/WordPressNotifications.php:10
+msgid "WordPress Notifications"
+msgstr "WordPress 通知"
+
+#: admin-columns-pro/addons/gravityforms/classes/Service/ColumnGroup.php20,
+#: admin-columns-pro/addons/gravityforms/classes/Service/ListScreens.php:20
+msgid "Gravity Forms"
+msgstr "Gravity Forms"
+
+#: admin-columns-pro/addons/jetengine/classes/Column/Relation.php:19
+msgid "JetEngine Relation"
+msgstr "JetEngine 関係"
+
+#: admin-columns-pro/addons/jetengine/classes/Column/RelationLegacy.php:22
+msgid "JetEngine RelationLegacy"
+msgstr "JetEngine 関係レガシー"
+
+#: admin-columns-pro/addons/jetengine/classes/Search/ComparisonFactory.php:32
+msgid "On"
+msgstr "オン"
+
+#: admin-columns-pro/addons/jetengine/classes/Search/ComparisonFactory.php:32
+msgid "Off"
+msgstr "オフ"
+
+#: admin-columns-pro/addons/jetengine/classes/Service/ColumnGroups.php:18
+msgid "JetEngine"
+msgstr "JetEngine"
+
+#: admin-columns-pro/addons/jetengine/classes/Service/ColumnGroups.php:19
+msgid "JetEngine Relationship"
+msgstr "JetEngine関係"
+
+#: admin-columns-pro/addons/metabox/classes/Column/Map.php:19
+msgid "Latitude"
+msgstr "緯度"
+
+#: admin-columns-pro/addons/metabox/classes/Column/Map.php:20
+msgid "Longitude"
+msgstr "経度"
+
+#: admin-columns-pro/addons/metabox/classes/Column/Map.php:21
+msgid "Zoom"
+msgstr "ズーム"
+
+#: admin-columns-pro/addons/metabox/classes/Column/Relation.php:20
+msgid "Metabox Relation"
+msgstr "メタボックスの関係"
+
+#: admin-columns-pro/addons/metabox/classes/Setting/GroupField.php:31
+msgid "Group Field"
+msgstr ""
+
+#: admin-columns-pro/addons/pods/classes/Setting/Field.php:31
+msgid "Create your first %s field."
+msgstr "最初の %s フィールドを作成します。"
+
+#: admin-columns-pro/addons/pods/classes/Setting/Field.php:89
+msgid "empty label"
+msgstr "空のラベル"
+
+#: admin-columns-pro/addons/polylang/classes/Column/Language.php:14
+msgid "Polylang Language"
+msgstr "Polylang"
+
+#: admin-columns-pro/addons/polylang/classes/Column/Language.php26,
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:80
+msgid "Instructions"
+msgstr "インストール手順"
+
+#: admin-columns-pro/addons/types/classes/Settings/ChildPostType.php:26
+msgid "No child post types available."
+msgstr "使用できる子ポストの種類がありません。"
+
+#: admin-columns-pro/addons/types/classes/Settings/Field.php31,
+#: admin-columns-pro/addons/types/classes/Settings/Field.php:38
+msgid "Types"
+msgstr "タイプ"
+
+#: admin-columns-pro/addons/types/classes/Settings/IntermediaryRelationship.php23,
+#: admin-columns-pro/addons/types/classes/Settings/Relationship.php:27
+msgid "No relations available."
+msgstr "使用できるリレーションシップがありません。"
+
+#: admin-columns-pro/addons/types/classes/Settings/IntermediaryRelationship.php29,
+#: admin-columns-pro/addons/types/classes/Settings/Relationship.php:33
+msgid "Relationship"
+msgstr "関連"
+
+#: admin-columns-pro/addons/types/classes/Settings/ParentPostType.php:27
+msgid "No parent post types available."
+msgstr "使用できる親投稿の種類がありません。"
+
+#: admin-columns-pro/addons/woocommerce/classes/ListTable/ProductVariation.php156,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php107,
+#: admin-columns-pro/addons/woocommerce/classes/Filtering/Product/Thumb.php12,
+#: admin-columns-pro/addons/woocommerce/classes/Filtering/Product/Thumb.php:13
+msgid "Image"
+msgstr "画像"
+
+#: admin-columns-pro/addons/woocommerce/classes/ListTable/ProductVariation.php:254
+msgid "Search Variable Product"
+msgstr "可変製品の検索"
+
+#: admin-columns-pro/addons/woocommerce/classes/ListTable/ProductVariation.php:273
+msgid "When you create a product variation, it will appear here."
+msgstr "製品バリエーションを作成すると、ここに表示されます。"
+
+#: admin-columns-pro/addons/woocommerce/classes/PostType/ProductVariation.php72,
+#: admin-columns-pro/addons/woocommerce/classes/PostType/ProductVariation.php:74
+msgid "Product Variations"
+msgstr "製品バリエーション"
+
+#: admin-columns-pro/addons/woocommerce/classes/PostType/ProductVariation.php:73
+msgid "Product Variation"
+msgstr "製品バリエーション"
+
+#: admin-columns-pro/addons/woocommerce/classes/PostType/ProductVariation.php:75
+msgid "Add New"
+msgstr "新規追加"
+
+#: admin-columns-pro/addons/woocommerce/classes/PostType/ProductVariation.php:76
+msgid "Add new variation"
+msgstr "新しいバリエーションの追加"
+
+#: admin-columns-pro/addons/woocommerce/classes/PostType/ProductVariation.php:77
+msgid "Edit"
+msgstr "編集"
+
+#: admin-columns-pro/addons/woocommerce/classes/PostType/ProductVariation.php:78
+msgid "Edit variation"
+msgstr "バリエーションの編集"
+
+#: admin-columns-pro/addons/woocommerce/classes/PostType/ProductVariation.php:79
+msgid "New variation"
+msgstr "新しいバリエーション"
+
+#: admin-columns-pro/addons/woocommerce/classes/PostType/ProductVariation.php80,
+#: admin-columns-pro/addons/woocommerce/classes/PostType/ProductVariation.php:81
+msgid "View variation"
+msgstr "バリエーションを表示"
+
+#: admin-columns-pro/addons/woocommerce/classes/PostType/ProductVariation.php:83
+msgid "No variations found"
+msgstr "バリエーションはありません。"
+
+#: admin-columns-pro/addons/woocommerce/classes/PostType/ProductVariation.php:84
+msgid "No variations found in trash"
+msgstr "ゴミの中にバリエーションは見当たりません。"
+
+#: admin-columns-pro/addons/woocommerce/classes/PostType/ProductVariation.php:85
+msgid "Insert into variation"
+msgstr "バリエーションに挿入"
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/ColumnGroups.php18,
+#: admin-columns-pro/addons/woocommerce/classes/Service/ListScreenGroups.php38,
+#: admin-columns-pro/addons/woocommerce/classes/Service/ListScreenGroups.php41,
+#: admin-columns-pro/addons/woocommerce/classes/Service/ListScreenGroups.php48,
+#: admin-columns-pro/addons/woocommerce/classes/Service/TableScreen.php242,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Customer.php:30
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/ListScreenGroups.php41,
+#: admin-columns-pro/classes/Settings/Column/Post/TaxonomyTerm.php:61
+msgid "Taxonomy"
+msgstr "分類"
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/ListScreenGroups.php49,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ProductVariation/Attribute.php:29
+msgid "Attribute"
+msgstr "属性"
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/Subscriptions.php61,
+#: admin-columns-pro/addons/woocommerce/classes/Service/SubscriptionsPostType.php:26
+msgid "WooCommerce Subscriptions"
+msgstr "WooCommerceサブスクリプション"
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/TableScreen.php:139
+msgid "This note will be send to the customer by email"
+msgstr "この注意事項は、お客様に電子メールで送信されます"
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/TableScreen.php:144
+msgid "Clear Sale Price"
+msgstr "セール価格をクリア"
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/TableScreen.php:145
+msgid "Decimals"
+msgstr "小数"
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/TableScreen.php:146
+msgid "Decrease by"
+msgstr "減少"
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/TableScreen.php:150
+msgid "Increase by"
+msgstr "増加"
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/TableScreen.php:156
+msgid "Regular"
+msgstr "レギュラー"
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/TableScreen.php:157
+msgid "Regular Price"
+msgstr "通常価格"
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/TableScreen.php:158
+msgid "Replace"
+msgstr "置換"
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/TableScreen.php:161
+msgid "Sale from"
+msgstr "販売元"
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/TableScreen.php:162
+msgid "Sale To"
+msgstr "販売先"
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/TableScreen.php:163
+msgid "Set New"
+msgstr "新規に設定"
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/TableScreen.php:164
+msgid "Set the sale price based on the regular price"
+msgstr "通常価格をもとにセール価格を設定"
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/TableScreen.php:169
+msgctxt "schedule"
+msgid "From"
+msgstr "から"
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/TableScreen.php:170
+msgctxt "schedule"
+msgid "To"
+msgstr "まで"
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/TableScreen.php171,
+#: admin-columns-pro/addons/woocommerce/classes/Filtering/Product/Sale.php40,
+#: admin-columns-pro/addons/woocommerce/classes/Search/Product/Sale.php:26
+msgid "Scheduled"
+msgstr "予定済み"
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/TableScreen.php:178
+msgid "No Rounding"
+msgstr "丸めなし"
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/TableScreen.php:179
+msgid "Round up"
+msgstr "切り上げ"
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/TableScreen.php:180
+msgid "Round down"
+msgstr "切り捨て"
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/TableScreen.php:181
+msgid "Example:"
+msgstr "例："
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/TableScreen.php:183
+msgid "Delete note"
+msgstr "ノートを削除"
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/TableScreen.php:184
+msgid "Are you sure you want to delete this note?"
+msgstr "本当にこのノートを削除しますか？"
+
+#: admin-columns-pro/addons/woocommerce/classes/Service/TableScreen.php276,
+#: admin-columns-pro/addons/woocommerce/classes/Service/TableScreen.php:304
+msgid "View Variations"
+msgstr "バリエーションの表示"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/Address.php:43
+msgid "Full Address"
+msgstr "住所"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/Address.php:51
+msgid "Full Name"
+msgstr "フルネーム"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/OrderStatuses.php:46
+msgid "Order Status"
+msgstr "注文状況"
+
+#: admin-columns-pro/addons/woocommerce/templates/modal-value/products-by-user.php4,
+#: admin-columns-pro/addons/woocommerce/templates/modal-value/purchased.php7,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/HideOnScreen/FilterSubscriptionProduct.php10,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Product.php:32
+msgid "Product"
+msgstr "商品"
+
+#: admin-columns-pro/addons/woocommerce/templates/modal-value/products-by-user.php5,
+#: admin-columns-pro/addons/woocommerce/templates/modal-value/purchased.php:8
+msgid "Quantity"
+msgstr "数量"
+
+#: admin-columns-pro/classes/Admin/Section/Partial/LayoutTabs.php:22
+msgctxt "table view display"
+msgid "Tabs"
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Section/Partial/LayoutTabs.php:23
+msgctxt "table view display"
+msgid "Dropdown"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:87
+msgid "Select author"
+msgstr "著者の選択"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:89
+msgid "Redo"
+msgstr "やり直す"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:90
+msgid "Undo"
+msgstr "取り消し"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:92
+msgid "Delete"
+msgstr "削除"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:93
+msgid "Generate"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:94
+msgid "Restore"
+msgstr "復元"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:95
+msgid "Show"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:96
+msgid "Hide"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:97
+msgid "Download"
+msgstr "ダウンロード"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:99
+msgid "This field is required."
+msgstr "この項目は必須です。"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:100
+msgid "Please enter a valid float value."
+msgstr "有効な浮動小数点数値を入力してください。"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:101
+msgid "Please enter valid float values."
+msgstr "有効な浮動小数点数の値を入力してください。"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:102
+msgid "Something went wrong."
+msgstr "何かが間違っていました"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php105,
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:53
+msgid "Failed"
+msgstr "失敗"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:106
+msgid "Media"
+msgstr "メディア"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:108
+msgid "Audio"
+msgstr "オーディオ"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:109
+msgid "Time"
+msgstr "時間"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:110
+msgid "Update"
+msgstr "更新"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php112,
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:54
+msgid "Done"
+msgstr "完了"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:113
+msgid "Replace with"
+msgstr "を"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php114,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:118
+msgid "Add"
+msgstr "追加"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php115,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:119
+msgid "Remove"
+msgstr "削除"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:117
+msgid "Subtract"
+msgstr "減算"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:120
+msgid "Multiply"
+msgstr "乗算"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:121
+msgid "Divide"
+msgstr "分割"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:124
+msgctxt "bulk-delete"
+msgid "This will affect {0}"
+msgstr "これは {0} に影響します"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:125
+msgid "all selected items"
+msgstr "選択したすべての項目"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php126,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:127
+msgid "all items"
+msgstr "すべての項目"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php128,
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:58
+msgid "{0} items"
+msgstr "{0} 項目"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php129,
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:59
+msgid "1 item"
+msgstr "1項目"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:130
+msgid "Select all {0} items"
+msgstr "{0} 個の項目をすべて選択"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:132
+msgid "{0} selected for %s."
+msgstr "%s に対して {0} が選択されました。"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:137
+msgctxt "bulk-delete"
+msgid "Assign all content to:"
+msgstr "すべてのコンテンツを次のように割り当てます :"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:143
+msgid "Bulk Restore"
+msgstr "一括復元"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:144
+msgid "Do you want to bulk delete all selected items?"
+msgstr "選択したすべての項目を一括削除しますか?"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:148
+msgid "Do you want to bulk restore all selected items?"
+msgstr "選択したすべての項目を一括復元しますか?"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:152
+msgctxt "bulk-delete"
+msgid "current user"
+msgstr "現在のユーザー"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:153
+msgctxt "bulk-delete"
+msgid "Delete all content"
+msgstr "すべてのコンテンツを削除"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:158
+msgctxt "bulk-delete"
+msgid "Delete the items permanently"
+msgstr "項目を完全に削除する"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:163
+msgctxt "bulk-delete"
+msgid "The selected items will be deleted permanently."
+msgstr "選択した項目は完全に削除されます。"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:168
+msgctxt "bulk-delete"
+msgid "Restore"
+msgstr "復元"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:169
+msgctxt "bulk-delete"
+msgid "Restore the items"
+msgstr "項目を復元する"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php174,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:201
+msgid "Processed {0} items"
+msgstr "{0} 個の項目を処理しました"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:175
+msgctxt "bulk-delete"
+msgid "Move the items to trash"
+msgstr "項目をゴミ箱に移動"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:180
+msgctxt "bulk-delete"
+msgid "What should be done with content owned by these users?"
+msgstr "これらのユーザーのコンテンツをどのように処理しますか ?"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:185
+msgid "Yes, Delete"
+msgstr "はい、削除します"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:186
+msgid "Yes, Restore"
+msgstr "はい、復元します"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:190
+msgid "Done & Deselect All"
+msgstr "完了し、選択されたすべてを解除"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:192
+msgid "This will update {0} items."
+msgstr "これにより、{0} 項目が更新されます。"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:193
+msgid "You are about to clear {0} items."
+msgstr "{0} 個の項目を消去しようとしています。"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:194
+msgid "You are about to update {0} items."
+msgstr "{0} 個の項目を更新しようとしています。"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:196
+msgid "Yes, Update"
+msgstr "はい、更新"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:199
+msgid "Show items"
+msgstr "項目を表示"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:200
+msgid "Hide items"
+msgstr "項目を非表示"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:202
+msgid "Updating items."
+msgstr "項目を更新しています。"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:203
+msgid "Processed {0} of {1} items."
+msgstr "{1} 項目中 {0} 件が処理されました。"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:204
+msgid "Updating failed. Please try again."
+msgstr "更新に失敗しました。もう一度やり直してください。"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:205
+msgctxt "bulk edit errors"
+msgid "We have found {0} while processing."
+msgstr "処理中に {0} が見つかりました。"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:210
+msgid "These items are not editable and could not be modified:"
+msgstr "これらの項目は編集不可のため、変更することができませんでした:"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:226
+msgid "bulk edit"
+msgstr "一括編集"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:227
+msgid ""
+"Bulk edit items by clicking the Bulk Edit button below the column labels."
+msgstr "列のラベルの下にある「一括編集」ボタンをクリックすると、項目を一括編集できます。"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:233
+msgid "bulk delete"
+msgstr "一括削除"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:234
+msgid "Bulk delete items by clicking the trash icon in the top left corner."
+msgstr "左上のゴミ箱アイコンをクリックして、項目を一括削除します。"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:240
+msgid "export"
+msgstr "出力"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:241
+msgid "Export items by clicking the Export button."
+msgstr "[エクスポート] ボタンをクリックして項目をエクスポートします。"
+
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:264
+msgid "current user"
+msgstr "現在のユーザー"
+
+#: admin-columns-pro/classes/Editing/BulkDelete/RequestHandler/Comment.php15,
+#: admin-columns-pro/classes/Editing/BulkDelete/RequestHandler/Comment.php:27
+msgid "Comment does not exists."
+msgstr "コメントは存在しません。"
+
+#: admin-columns-pro/classes/Editing/BulkDelete/RequestHandler/Comment.php19,
+#: admin-columns-pro/classes/Editing/BulkDelete/RequestHandler/Post.php55,
+#: admin-columns-pro/classes/Editing/BulkDelete/RequestHandler/Taxonomy.php:24
+msgid "You have no permission to delete this item."
+msgstr "この項目を削除する権限がありません。"
+
+#: admin-columns-pro/classes/Editing/BulkDelete/RequestHandler/Post.php:39
+msgid "You have no permission to restore this item."
+msgstr "この項目を復元する権限はありません。"
+
+#: admin-columns-pro/classes/Editing/BulkDelete/RequestHandler/Post.php:45
+msgid "%s is not in Trash."
+msgstr "%s はゴミ箱にありません。"
+
+#: admin-columns-pro/classes/Editing/BulkDelete/RequestHandler/Post.php:73
+msgid "%s has already been deleted."
+msgstr "%s は既に削除されています。"
+
+#: admin-columns-pro/classes/Editing/BulkDelete/RequestHandler/Post.php:94
+msgid "%s is currently being edited by %s."
+msgstr "%s は現在 %s によって編集されています。"
+
+#: admin-columns-pro/classes/Editing/BulkDelete/RequestHandler/Taxonomy.php:30
+msgid "Term does not exists."
+msgstr "タームが存在しません。"
+
+#: admin-columns-pro/classes/Editing/BulkDelete/RequestHandler/Taxonomy.php:33
+msgid "A default term can not be deleted."
+msgstr "初期値として設定されるタームは削除できません。"
+
+#: admin-columns-pro/classes/Editing/BulkDelete/RequestHandler/User.php:14
+msgid "You do not have permissions to delete this user."
+msgstr "このユーザーを削除する権限がありません。"
+
+#: admin-columns-pro/classes/Editing/BulkDelete/RequestHandler/User.php:18
+msgid "The current user can not be deleted."
+msgstr "現在のユーザーは削除できません。"
+
+#: admin-columns-pro/classes/Editing/BulkDelete/RequestHandler/User.php:26
+msgid "The assigned user can not be deleted."
+msgstr "割り当てられたユーザーは削除できません。"
+
+#: admin-columns-pro/classes/Editing/BulkDelete/RequestHandler/User.php:32
+msgid "User does not exists."
+msgstr "ユーザーが存在しません。"
+
+#: admin-columns-pro/classes/Editing/RequestHandler/Exception/NotEditableException.php:10
+msgid "Item can not be edited."
+msgstr "項目は編集できません。"
+
+#: admin-columns-pro/classes/Editing/Service/Media/AlternateText.php:21
+msgid "Item is not an image."
+msgstr "商品は画像ではありません。"
+
+#: admin-columns-pro/classes/Editing/Service/Post/Author.php:28
+msgid "You can not change the author."
+msgstr "作者の変更はできません。"
+
+#: admin-columns-pro/classes/Editing/Service/Post/CommentStatus.php20,
+#: admin-columns-pro/classes/Editing/Service/Post/PingStatus.php18,
+#: admin-columns-pro/classes/Search/Comparison/Post/CommentStatus.php:23
+msgid "Closed"
+msgstr "閉じる"
+
+#: admin-columns-pro/classes/Editing/Service/Post/CommentStatus.php21,
+#: admin-columns-pro/classes/Editing/Service/Post/PingStatus.php19,
+#: admin-columns-pro/classes/Search/Comparison/Post/CommentStatus.php:22
+msgid "Open"
+msgstr "開く"
+
+#: admin-columns-pro/classes/Editing/Service/Post/Date.php:27
+msgid "Date can not be updated for %s with %s status."
+msgstr "%s ステータスの %s の日付を更新できません。"
+
+#: admin-columns-pro/classes/Editing/Service/Post/Excerpt.php:16
+msgid "Excerpt automatically generated from content."
+msgstr "コンテンツから自動的に生成される抜粋。"
+
+#: admin-columns-pro/classes/Editing/Service/Post/Slug.php:24
+msgid "Enter slug"
+msgstr "スラッグを入力してください"
+
+#: admin-columns-pro/classes/Editing/Service/Post/Sticky.php18,
+#: admin-columns-pro/classes/Filtering/Model/Post/Sticky.php35,
+#: admin-columns-pro/classes/Search/Comparison/Post/Sticky.php:24
+msgid "Not sticky"
+msgstr "スティッキーではない"
+
+#: admin-columns-pro/classes/Editing/Service/Post/Sticky.php18,
+#: admin-columns-pro/classes/Filtering/Model/Post/Sticky.php36,
+#: admin-columns-pro/classes/Search/Comparison/Post/Sticky.php:25
+msgid "Sticky"
+msgstr "固定表示"
+
+#: admin-columns-pro/classes/Editing/Service/User/Role.php:43
+msgid "Current user can not change user role."
+msgstr "現在のユーザーはユーザー ロールを変更できません。"
+
+#: admin-columns-pro/classes/Editing/Settings/EditableType/Content.php16,
+#: admin-columns-pro/classes/Editing/Settings/EditableType/Text.php:17
+msgid "Textarea"
+msgstr "テキストエリア"
+
+#: admin-columns-pro/classes/Editing/Settings/EditableType/Content.php17,
+#: admin-columns-pro/classes/Editing/Settings/EditableType/Text.php:19
+msgid "WYSIWYG"
+msgstr "WYSIWYG"
+
+#: admin-columns-pro/classes/Editing/Settings/EditableType/Text.php:18
+msgid "Text"
+msgstr "テキスト"
+
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:47
+msgid "Export to CSV"
+msgstr "CSVにエクスポート"
+
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:48
+msgid "Something went wrong during exporting. Please try again."
+msgstr "エクスポート中に問題が発生しました。もう一度やり直してください。"
+
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:49
+msgid "Processed {0} of {1} items ({2}%)."
+msgstr "{1} 項目の {0} が処理されました ({2}%)。"
+
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:50
+msgid "Exporting current list of items."
+msgstr "アイテムの現在のリストをエクスポートしています。"
+
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:51
+msgid "Exported {0} items"
+msgstr "{0} 個の項目をエクスポートしました"
+
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:52
+msgid "Download File"
+msgstr "ダウンロードファイル"
+
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:56
+msgid ""
+"You are currently generating an export file. Leaving the page will cancel "
+"this process. Are you sure you want to leave the page?"
+msgstr "現在、エクスポートファイルを生成しています。ページを離れると、この処理はキャンセルされます。ページを離れてもよろしいですか？"
+
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:57
+msgctxt "export"
+msgid "This will affect {0}"
+msgstr "これは {0} に影響します"
+
+#: admin-columns-pro/classes/Filtering/Markup/Ranged/Date.php:12
+msgid "Start date"
+msgstr "開始日"
+
+#: admin-columns-pro/classes/Filtering/Markup/Ranged/Date.php:13
+msgid "End date"
+msgstr "終了日"
+
+#: admin-columns-pro/classes/Filtering/Markup/Ranged/Number.php:13
+msgid "Min"
+msgstr "最小"
+
+#: admin-columns-pro/classes/Filtering/Markup/Ranged/Number.php:14
+msgid "Max"
+msgstr "最大"
+
+#: admin-columns-pro/classes/Filtering/Model/CustomField/Hascontent.php:11
+msgid "Content"
+msgstr "コンテンツ"
+
+#: admin-columns-pro/classes/Filtering/Model/Media/Comments.php:30
+msgid "No comments"
+msgstr "コメントなし"
+
+#: admin-columns-pro/classes/Filtering/Model/Media/Comments.php:31
+msgid "Has comments"
+msgstr "コメントを持っています"
+
+#: admin-columns-pro/classes/Filtering/Model/Media/UsedAsFeaturedImage.php:38
+msgid "Not used as Featured Image"
+msgstr "おすすめ画像として使用しない"
+
+#: admin-columns-pro/classes/Filtering/Model/Media/UsedAsFeaturedImage.php:39
+msgid "Used as Featured Image"
+msgstr "おすすめ画像として使用"
+
+#: admin-columns-pro/classes/Filtering/Model/Post/Excerpt.php:12
+msgid "Without Excerpt"
+msgstr "抜粋なし"
+
+#: admin-columns-pro/classes/Filtering/Model/Post/Excerpt.php:13
+msgid "Has Excerpt"
+msgstr "抜粋を持っています"
+
+#: admin-columns-pro/classes/Helper/Select/Group/MimeType.php:31
+msgctxt "mediatype"
+msgid "Image"
+msgstr "画像"
+
+#: admin-columns-pro/classes/Helper/Select/Group/MimeType.php:32
+msgctxt "mediatype"
+msgid "Audio"
+msgstr "オーディオ"
+
+#: admin-columns-pro/classes/Helper/Select/Group/MimeType.php:33
+msgctxt "mediatype"
+msgid "Video"
+msgstr "動画"
+
+#: admin-columns-pro/classes/Helper/Select/Group/MimeType.php:34
+msgctxt "mediatype"
+msgid "Document"
+msgstr "ドキュメント"
+
+#: admin-columns-pro/classes/Helper/Select/Group/MimeType.php:35
+msgctxt "mediatype"
+msgid "Spreadsheet"
+msgstr "スプレッドシート"
+
+#: admin-columns-pro/classes/Helper/Select/Group/MimeType.php:36
+msgctxt "mediatype"
+msgid "Interactive"
+msgstr "対話型"
+
+#: admin-columns-pro/classes/Helper/Select/Group/MimeType.php:37
+msgctxt "mediatype"
+msgid "Text"
+msgstr "テキスト"
+
+#: admin-columns-pro/classes/Helper/Select/Group/MimeType.php:38
+msgctxt "mediatype"
+msgid "Archive"
+msgstr "アーカイブ"
+
+#: admin-columns-pro/classes/Helper/Select/Group/MimeType.php:39
+msgctxt "mediatype"
+msgid "Code"
+msgstr "コード"
+
+#: admin-columns-pro/classes/Helper/Select/Group/PostTypeType.php:17
+msgctxt "post_types"
+msgid "Public"
+msgstr "公開"
+
+#: admin-columns-pro/classes/Helper/Select/Group/PostTypeType.php:20
+msgctxt "post_types"
+msgid "Custom"
+msgstr "カスタム"
+
+#: admin-columns-pro/classes/Helper/Select/Group/PostTypeType.php:20
+msgctxt "post_types"
+msgid "Hidden"
+msgstr "非表示"
+
+#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php:57
+msgid "No column settings available."
+msgstr "列の設定はありません。"
+
+#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php:122
+msgid "%s saved filter"
+msgid_plural "%s saved filters"
+msgstr[0] ""
+
+#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php:141
+msgid "Database"
+msgstr "データベース"
+
+#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php:142
+msgid "File"
+msgstr "ファイル"
+
+#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php:175
+msgid "List Table"
+msgstr "一覧表"
+
+#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php:177
+msgid "Source"
+msgstr "ソース"
+
+#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php178,
+#: admin-columns-pro/classes/Search/Settings/HideOnScreen/SavedFilters.php:10
+msgid "Saved Filters"
+msgstr "保存済みフィルター"
+
+#: admin-columns-pro/classes/Migrate/Export/Response/File.php:43
+msgid "No screens selected for export."
+msgstr "エクスポートに選択された画面はありません。"
+
+#: admin-columns-pro/classes/QuickAdd/Admin/HideOnScreen/QuickAdd.php:16
+msgid "Quick Add"
+msgstr "クイック追加"
+
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:68
+msgctxt "select placeholder"
+msgid "Select"
+msgstr "選択"
+
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:69
+msgid "Add Filter"
+msgstr "フィルタの追加"
+
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:70
+msgid "days ago"
+msgstr "日前"
+
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:71
+msgid "days"
+msgstr "日"
+
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:72
+msgid "Available to all users"
+msgstr "すべてのユーザーが利用可能"
+
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:73
+msgid "Clear filters"
+msgstr "フィルターをクリア"
+
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:75
+msgid "Save Filters"
+msgstr "フィルターを保存"
+
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:76
+msgid "Public"
+msgstr "公開"
+
+#: admin-columns-pro/classes/Search/Comparison/Media/UsedAsFeaturedImage.php:47
+msgid "In use"
+msgstr "使用中"
+
+#: admin-columns-pro/classes/Search/Comparison/Media/UsedAsFeaturedImage.php:48
+msgid "Not used"
+msgstr "未使用"
+
+#: admin-columns-pro/classes/Search/Comparison/Post/Attachment.php:21
+msgid "Has No Attachment"
+msgstr "添付ファイルなし"
+
+#: admin-columns-pro/classes/Search/Comparison/Post/Attachment.php:22
+msgid "Has Attachment"
+msgstr "添付ファイルあり"
+
+#: admin-columns-pro/classes/Search/Comparison/Post/PostParent.php:28
+msgid "Has No Parent"
+msgstr "親なし"
+
+#: admin-columns-pro/classes/Search/Comparison/Post/PostParent.php:29
+msgid "Has Parent"
+msgstr "親あり"
+
+#: admin-columns-pro/classes/Search/Settings/HideOnScreen/SmartFilters.php:12
+msgid "Smart Filters"
+msgstr "スマートフィルター"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/Options.php17,
+#: admin-columns-pro/addons/acf/classes/Settings/Column/RepeaterDisplay.php:43
+msgid "Option"
+msgstr "オプション"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/Plugins.php20,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Notes.php:32
+msgid "Count"
+msgstr "カウント"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/Plugins.php:21
+msgid "List"
+msgstr "リスト"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/Plugins.php25,
+#: admin-columns-pro/addons/acf/classes/Settings/Column/Date.php39,
+#: admin-columns-pro/addons/acf/classes/Settings/Column/Time.php:41
+msgid "Display Format"
+msgstr "表示形式"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/PluginsInclude.php:23
+msgid "Include network plugins"
+msgstr "ネットワーク プラグインを含める"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/PostCount.php:44
+msgid "Does not include %s"
+msgstr "%s を含まない"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/PostCount.php:48
+msgid "Post Status"
+msgstr "投稿ステータス"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/PostCount.php:54
+msgid "Display Options"
+msgstr "表示オプション"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/PostCount.php:117
+msgid "All post types"
+msgstr "すべての投稿タイプ"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/PostCount.php:147
+msgid "Any post status"
+msgstr "任意の投稿ステータス"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/PostCount.php:148
+msgid "Any post status without Trash"
+msgstr "ゴミ箱のない任意の投稿ステータス"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php:34
+msgid "Active Theme"
+msgstr "現在のテーマ"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php:35
+msgid "Allowed Themes"
+msgstr "許可されたテーマ"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php:36
+msgid "Available Themes"
+msgstr "利用可能なテーマ"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php:93
+msgid "Site Enabled"
+msgstr "サイトが有効"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php:91
+msgid "Network Enabled"
+msgstr "ネットワークが有効"
+
+#: admin-columns-pro/classes/Settings/Column/Post/TaxonomyTerm.php:55
+msgid "No taxonomies available."
+msgstr "利用可能なタクソノミーはありません。"
+
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/BulkActions.php:10
+msgid "Bulk Actions"
+msgstr "一括操作"
+
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/ColumnOrder.php:10
+msgid "Column Order"
+msgstr "カラムの順序"
+
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/FilterCategory.php12,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/HideOnScreen/FilterProductCategory.php:10
+msgid "Category"
+msgstr "カテゴリー"
+
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/FilterCommentType.php:10
+msgid "Comment Types"
+msgstr "コメントの種類"
+
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/FilterMediaItem.php:10
+msgid "Media Items"
+msgstr "メディア項目"
+
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/FilterPostDate.php10,
+#: admin-columns-pro/addons/events-calendar/classes/Column/Event/DisplayDate.php20,
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopSubscription/SubscriptionDate.php21,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/User/Order.php:63
+msgid "Date"
+msgstr "日付"
+
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/FilterPostFormat.php:10
+msgid "Post Format"
+msgstr "投稿フォーマット"
+
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/RowActions.php:10
+msgid "Row Actions"
+msgstr "行の操作"
+
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/RowActions.php:10
+msgid "Below Title"
+msgstr "タイトル下"
+
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/Search.php:10
+msgid "Search"
+msgstr "検索"
+
+#: admin-columns-pro/classes/Sorting/Admin/Section/ResetSorting.php:21
+msgid "Sorting Preferences"
+msgstr "並べ替えの設定"
+
+#: admin-columns-pro/classes/Sorting/Admin/Section/ResetSorting.php:22
+msgid "Reset the sorting preference for all users."
+msgstr "すべてのユーザーの並べ替え設定をリセットします。"
+
+#: admin-columns-pro/addons/acf/classes/Settings/Column/Date.php:33
+msgid "ACF Date Format"
+msgstr "ACF 日付形式"
+
+#: admin-columns-pro/addons/acf/classes/Settings/Column/Date.php39,
+#: admin-columns-pro/addons/acf/classes/Settings/Column/Time.php:41
+msgid "%s uses the %s from it's field settings."
+msgstr "%s は、フィールド設定の %s を使用します。"
+
+#: admin-columns-pro/addons/acf/classes/Settings/Column/FlexibleContent.php:29
+msgid "Layout Type Count"
+msgstr "レイアウトタイプカウント"
+
+#: admin-columns-pro/addons/acf/classes/Settings/Column/FlexibleContent.php:30
+msgid "Layout Structure"
+msgstr "レイアウト構造"
+
+#: admin-columns-pro/addons/acf/classes/Settings/Column/Oembed.php:39
+msgid "Display format"
+msgstr "表示形式"
+
+#: admin-columns-pro/addons/acf/classes/Settings/Column/RepeaterDisplay.php38,
+#: admin-columns-pro/addons/acf/classes/Settings/Column/RepeaterSubField.php44,
+#: admin-columns-pro/addons/jetengine/classes/Settings/Column/RepeaterField.php:42
+msgid "Subfield"
+msgstr "サブフィールド"
+
+#: admin-columns-pro/addons/acf/classes/Settings/Column/RepeaterDisplay.php:39
+msgid "Number of Rows"
+msgstr "行数"
+
+#: admin-columns-pro/addons/acf/classes/Settings/Column/Time.php:35
+msgid "ACF Time Format"
+msgstr "ACF 時間形式"
+
+#: admin-columns-pro/addons/acf/classes/Settings/Column/Unsupported.php:26
+msgid "This ACF field is not supported"
+msgstr "このACFフィールドはサポートされていません"
+
+#: admin-columns-pro/addons/acf/classes/Settings/Column/Unsupported.php:30
+msgid ""
+"This specific ACF field type is not supported in this integration. Although "
+"the column may work, it could lead to unexpected behavior. Sorting, "
+"Filtering and Inline Editing are disabled for this field."
+msgstr "この特定のACFフィールドタイプは、この統合ではサポートされていません。カラムは動作するかもしれませんが、予期せぬ動作につながる可能性があります。このフィールドでは、ソート、フィルタリング、インライン編集は無効です。"
+
+#: admin-columns-pro/addons/acf/classes/Value/Formatter/File.php18,
+#: admin-columns-pro/addons/jetengine/classes/Value/Format/Media.php:15
+msgid "Invalid attachment"
+msgstr "無効な添付ファイル"
+
+#: admin-columns-pro/addons/buddypress/classes/Column/Group/Avatar.php:11
+msgid "Avatar"
+msgstr "アバター"
+
+#: admin-columns-pro/addons/buddypress/classes/Column/Group/Creator.php:14
+msgid "Creator"
+msgstr "作成者"
+
+#: admin-columns-pro/addons/buddypress/classes/Column/Group/NameOnly.php:16
+msgid "Name Only"
+msgstr "名称のみ"
+
+#: admin-columns-pro/addons/buddypress/classes/Column/User/ActivityUpdates.php:19
+msgid "Activity Updates"
+msgstr "アクティビティーの更新"
+
+#: admin-columns-pro/addons/buddypress/classes/Column/User/LastActivity.php:17
+msgid "Last Activity"
+msgstr "最後の活動"
+
+#: admin-columns-pro/addons/buddypress/classes/Column/User/LastSeen.php:17
+msgid "Last Seen"
+msgstr "最終表示"
+
+#: admin-columns-pro/addons/buddypress/classes/Filtering/User/Groups.php:51
+msgid "Group"
+msgstr "グループ"
+
+#: admin-columns-pro/addons/events-calendar/classes/Column/Event/Costs.php:17
+msgid "Costs"
+msgstr "コスト"
+
+#: admin-columns-pro/addons/events-calendar/classes/Column/Event/Duration.php:20
+msgid "Duration"
+msgstr "期間"
+
+#: admin-columns-pro/addons/events-calendar/classes/Column/Event/Featured.php18,
+#: admin-columns-pro/addons/events-calendar/classes/Filtering/Event/Featured.php:16
+msgid "Featured"
+msgstr "おすすめ"
+
+#: admin-columns-pro/addons/events-calendar/classes/Column/Event/HideFromUpcoming.php:16
+msgid "Hide from Event Listing"
+msgstr "イベント一覧から非表示にする"
+
+#: admin-columns-pro/addons/events-calendar/classes/Column/Event/Organizer.php:24
+msgid "Organizer"
+msgstr "主催者"
+
+#: admin-columns-pro/addons/events-calendar/classes/Column/Event/Sticky.php:17
+msgid "Sticky in Month View"
+msgstr "月表示に固定"
+
+#: admin-columns-pro/addons/events-calendar/classes/Column/Event/Venue.php:21
+msgid "Venue"
+msgstr "場所"
+
+#: admin-columns-pro/addons/events-calendar/classes/Column/Event/Website.php:16
+msgid "Event Website"
+msgstr "URL"
+
+#: admin-columns-pro/addons/events-calendar/classes/Column/Venue/PostalCode.php:17
+msgid "Postal Code"
+msgstr "郵便番号"
+
+#: admin-columns-pro/addons/events-calendar/classes/Column/Venue/StateProvince.php:17
+msgid "State or Province"
+msgstr "都道府県名"
+
+#: admin-columns-pro/addons/events-calendar/classes/Filtering/Event/AllDayEvent.php:16
+msgid "All Day Events"
+msgstr "オールデイイベント"
+
+#: admin-columns-pro/addons/events-calendar/classes/Filtering/Event/AllDayEvent.php:17
+msgid "Not All Day Events"
+msgstr "オールデイイベントではない"
+
+#: admin-columns-pro/addons/events-calendar/classes/Filtering/Event/Featured.php:17
+msgid "Not Featured"
+msgstr "おすすめページではない"
+
+#: admin-columns-pro/addons/events-calendar/classes/Filtering/Event/HiddenFromUpcoming.php:16
+msgid "Hidden from Event Listing"
+msgstr "イベント一覧から非表示"
+
+#: admin-columns-pro/addons/events-calendar/classes/Filtering/Event/HiddenFromUpcoming.php:17
+msgid "Visible on Event Listing"
+msgstr "イベント一覧に表示"
+
+#: admin-columns-pro/addons/events-calendar/classes/Filtering/Event/Sticky.php:12
+msgid "Sticky Events"
+msgstr "スティッキーイベント"
+
+#: admin-columns-pro/addons/events-calendar/classes/Filtering/Event/Sticky.php:13
+msgid "Not Sticky Events"
+msgstr "スティッキーイベントではない"
+
+#: admin-columns-pro/addons/metabox/classes/Column/MetaBox/CustomTable.php:11
+msgid "Custom Table"
+msgstr ""
+
+#: admin-columns-pro/addons/metabox/classes/Column/MetaBox/NumberOfFields.php:11
+msgid "Number of Fields"
+msgstr ""
+
+#: admin-columns-pro/addons/metabox/classes/Column/PostType/PluralName.php:11
+msgid "Label"
+msgstr ""
+
+#: admin-columns-pro/addons/metabox/classes/Column/PostType/Supports.php:11
+msgctxt "post_type"
+msgid "Supports"
+msgstr ""
+
+#: admin-columns-pro/addons/metabox/classes/Column/PostType/Taxonomies.php:12
+msgid "Taxonomies"
+msgstr ""
+
+#: admin-columns-pro/addons/woocommerce/classes/Asset/Script/TableVariation.php:19
+msgid "Back to products"
+msgstr "製品に戻る"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Comment/ProductReview.php:19
+msgid "Product Review"
+msgstr "製品レビュー"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/CouponsUsed.php17,
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/CouponsUsed.php19,
+#: admin-columns-pro/addons/woocommerce/classes/Column/User/ShopOrder/CouponsUsed.php:18
+msgid "Coupons Used"
+msgstr "使用されたクーポン"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/CreatedVersion.php:19
+msgid "WooCommerce Version"
+msgstr ""
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/CreatedVia.php:19
+msgid "Created via"
+msgstr ""
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/Currency.php:19
+msgid "Currency"
+msgstr ""
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/Customer.php22,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/HideOnScreen/FilterSubscriptionCustomer.php:10
+msgid "Customer"
+msgstr "顧客"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/CustomerNote.php15,
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/CustomerNote.php:17
+msgid "Customer Note"
+msgstr "お客様メモ"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/Discount.php:19
+msgid "Discount"
+msgstr ""
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/Downloads.php:15
+msgid "Downloads"
+msgstr ""
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/Fees.php15,
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/Fees.php14,
+#: admin-columns-pro/addons/woocommerce/classes/Search/ShopOrder/HasFees.php29,
+#: admin-columns-pro/addons/woocommerce/classes/Search/ShopOrder/HasFees.php33,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Totals.php:44
+msgid "Fees"
+msgstr ""
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/Ip.php18,
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/IP.php:20
+msgid "Customer IP address"
+msgstr "お客様の IP アドレス"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/IsCustomer.php:16
+msgid "Is Customer"
+msgstr ""
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/OrderNumber.php19,
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/OrderNumber.php:19
+msgid "Order Number"
+msgstr "注文番号"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/PaidAmount.php17,
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/PaidAmount.php:15
+msgid "Paid Amount"
+msgstr "支払金額"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/PaymentMethod.php18,
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/PaymentMethod.php19,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/HideOnScreen/FilterSubscriptionPayment.php:10
+msgid "Payment Method"
+msgstr "支払い方法"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/ProductTaxonomy.php16,
+#: admin-columns-pro/addons/woocommerce/classes/Column/ProductVariation/Taxonomy.php:21
+msgid "Product Taxonomy"
+msgstr "製品タクソノミー"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/Purchased.php15,
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/Sales.php18,
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/ShopOrder/Sales.php:22
+msgid "Products Sold"
+msgstr ""
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/Purchased.php28,
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/Purchased.php:37
+msgid "%d item"
+msgid_plural "%d items"
+msgstr[0] "%dアイテム"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/Refunds.php14,
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/Refunds.php19,
+#: admin-columns-pro/addons/woocommerce/classes/Filtering/ShopOrder/Refunds.php13,
+#: admin-columns-pro/addons/woocommerce/classes/Filtering/ShopOrder/Refunds.php14,
+#: admin-columns-pro/addons/woocommerce/classes/Search/ShopOrder/Refunds.php22,
+#: admin-columns-pro/addons/woocommerce/classes/Search/ShopOrder/Refunds.php23,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Totals.php:41
+msgid "Refunds"
+msgstr "払戻し"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/Shipping.php18,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/User/AddressType.php58,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/User/Country.php:37
+msgid "Shipping"
+msgstr "配送"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/Tax.php20,
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/Tax.php19,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Totals.php:40
+msgid "Tax"
+msgstr "税"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/TotalWeight.php15,
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/TotalWeight.php:20
+msgid "Total Order Weight"
+msgstr "合計注文重量"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/OrderSubscription/AutoRenewal.php17,
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopSubscription/AutoRenewal.php17,
+#: admin-columns-pro/addons/woocommerce/classes/Search/OrderSubscription/AutoRenewal.php:27
+msgid "Auto Renewal"
+msgstr "自動更新"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/OrderSubscription/BillingInterval.php:17
+msgid "Billing Interval"
+msgstr ""
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/OrderSubscription/BillingPeriod.php:17
+msgid "Billing Period"
+msgstr ""
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/Attributes.php:164
+msgid "Is a taxonomy"
+msgstr "分類です"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/AvgOrderInterval.php19,
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/ShopOrder/AvgOrderInterval.php:25
+msgid "Average Order Interval"
+msgstr "平均注文間隔"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/BackordersAllowed.php:17
+msgid "Backorders Allowed"
+msgstr "受注注文が許可される"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/Coupons.php:17
+msgid "Coupons"
+msgstr "クーポン"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/Crosssells.php:17
+msgid "Cross Sells"
+msgstr "クロスセル"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/Customers.php18,
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/ShopOrder/Customers.php:21
+msgid "Customers"
+msgstr "お客様"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/DefaultFormValues.php:19
+msgid "Default Form Values"
+msgstr "フォームの初期値"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/Dimensions.php:80
+msgid "Length"
+msgstr "長さ"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/Dimensions.php:81
+msgid "Width"
+msgstr "幅"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/Dimensions.php:82
+msgid "Height"
+msgstr "高さ"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/LowOnStock.php:16
+msgid "Low on Stock"
+msgstr "在庫僅少"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/LowOnStock.php:37
+msgid "Current stock of %s is lower than the set threshold of  %s"
+msgstr "現在のストック数 %sが設定したしきい値 %s を下回っています。"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/OrderTotal.php16,
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopSubscription/TotalRevenue.php15,
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/ShopOrder/OrderTotal.php:19
+msgid "Total Revenue"
+msgstr "総収益"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/ProductParent.php:17
+msgid "Grouped By"
+msgstr "グループ化"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/ReviewsEnabled.php:20
+msgid "Reviews Enabled"
+msgstr "有効なレビュー"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/Sale.php:27
+msgid "Sale Price"
+msgstr ""
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/Sale.php103,
+#: admin-columns-pro/addons/woocommerce/classes/Export/Product/Sale.php:28
+msgctxt "Product on sale from (date)"
+msgid "From"
+msgstr "から"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/Sale.php:104
+msgctxt "Product on sale until (date)"
+msgid "Until"
+msgstr "まで"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/StockStatus.php36,
+#: admin-columns-pro/addons/woocommerce/classes/Search/Product/StockStatus.php:23
+msgid "In stock"
+msgstr "在庫あり"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/StockStatus.php38,
+#: admin-columns-pro/addons/woocommerce/classes/Search/Product/StockStatus.php:24
+msgid "Out of stock"
+msgstr "在庫切れ"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/StockStatus.php:40
+msgid "On backorder"
+msgstr "バックオーダー"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/Upsells.php:21
+msgid "Upsells"
+msgstr "上位商品"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Product/Visibility.php:21
+msgid "Catalog Visibility"
+msgstr "カタログの表示"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/ProductSubscription/Period.php:21
+msgid "Price Period"
+msgstr "価格期間"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/ProductVariation/ShippingClass.php:37
+msgid "Shipping Class managed by product"
+msgstr "商品ごとに管理された出荷クラス"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/ProductVariation/SKU.php:41
+msgid "SKU from product"
+msgstr "製品からのSKU"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/ProductVariation/Stock.php:39
+msgid "Stock managed by product"
+msgstr "製品別管理在庫"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/ProductVariation/TaxClass.php:30
+msgid "Tax Class managed by product"
+msgstr "製品で管理している税金の種類"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopCoupon/EmailRestrictions.php:22
+msgid "Email Restrictions"
+msgstr "メール制限"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopCoupon/ExcludeProducts.php:21
+msgid "Excluded Products"
+msgstr "除外製品"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopCoupon/ExcludeProductsCategories.php:21
+msgid "Exclude Product Categories"
+msgstr "製品カテゴリを除外する"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopCoupon/FreeShipping.php:20
+msgid "Free Shipping"
+msgstr "送料無料"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopCoupon/FreeShipping.php:32
+msgid ""
+"The free shipping method must be enabled with the &quot;must use "
+"coupon&quot; setting."
+msgstr "送料無料の方法は、クーポン&quot;設定を使用する必要があります&quot;で有効にする必要があります。"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopCoupon/IncludeProducts.php:21
+msgid "Included Products"
+msgstr "含まれる製品"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopCoupon/Limit.php:17
+msgid "Coupon limit"
+msgstr "クーポン限度額"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopCoupon/MaximumAmount.php:21
+msgid "Maximum Amount"
+msgstr "最大金額"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopCoupon/MinimumAmount.php:21
+msgid "Minimum Amount"
+msgstr "最小額"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopCoupon/Orders.php20,
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopCoupon/ShopOrder/Orders.php:23
+msgid "Orders"
+msgstr "注文"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopCoupon/UsedBy.php:19
+msgid "Used By"
+msgstr "使用者"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopCoupon/UsedBy.php:62
+msgid "Not a registered user"
+msgstr "登録ユーザーではない"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/Discount.php:14
+msgid "Order Discount"
+msgstr "値引き"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/ProductCategories.php:17
+msgid "Product Categories"
+msgstr "商品カテゴリ"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/ProductTags.php:17
+msgid "Product Tags"
+msgstr "製品タグ"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/Purchased.php:22
+msgid "Purchased"
+msgstr "購入済み"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/Shipping.php19,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Totals.php:39
+msgid "Shipping Costs"
+msgstr "送料"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/Totals.php:26
+msgid "Totals"
+msgstr "合計"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/User/Address.php63,
+#: admin-columns-pro/addons/woocommerce/classes/Editing/Comment/Rating.php23,
+#: admin-columns-pro/addons/woocommerce/classes/Editing/ShopOrder/AddressFactory.php:23
+msgid "None"
+msgstr "なし"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/User/CustomerSince.php18,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Customer.php21,
+#: admin-columns-pro/addons/woocommerce/classes/Column/User/ShopOrder/CustomerSince.php:18
+msgid "Customer Since"
+msgstr "お客様以降"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/User/FirstOrder.php24,
+#: admin-columns-pro/addons/woocommerce/classes/Column/User/ShopOrder/FirstOrder.php:23
+msgid "First Order"
+msgstr "1番目"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/User/LastOrder.php21,
+#: admin-columns-pro/addons/woocommerce/classes/Column/User/ShopOrder/LastOrder.php:20
+msgid "Last Order"
+msgstr "最近の注文"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/User/Orders.php88,
+#: admin-columns-pro/addons/woocommerce/classes/Column/User/ShopOrder/Orders.php:97
+msgid "items"
+msgstr "アイテム"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/User/Products.php24,
+#: admin-columns-pro/addons/woocommerce/classes/Column/User/ShopOrder/Products.php:23
+msgid "Products"
+msgstr "商品"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/User/Products.php:38
+msgid "Products by"
+msgstr ""
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/User/Products.php:102
+msgid "Product removed"
+msgstr ""
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/User/TotalSales.php22,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Customer.php24,
+#: admin-columns-pro/addons/woocommerce/classes/Column/User/ShopOrder/TotalSales.php:21
+msgid "Total Sales"
+msgstr "売上合計"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/UserOrderSubscription/InactiveSubscriber.php60,
+#: admin-columns-pro/addons/woocommerce/classes/Column/UserSubscription/InactiveSubscriber.php:60
+msgid "since %s"
+msgstr "%s以降"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/UserOrderSubscription/InactiveSubscriber.php92,
+#: admin-columns-pro/addons/woocommerce/classes/Column/UserSubscription/InactiveSubscriber.php:92
+msgid "%s since %s"
+msgstr "%sから%s"
+
+#: admin-columns-pro/addons/woocommerce/classes/Editing/Comment/Rating.php:18
+msgid "Item is not a rating."
+msgstr "項目は評価ではありません。"
+
+#: admin-columns-pro/addons/woocommerce/classes/Editing/Comment/Rating.php:41
+msgid "Maximum rating is %s"
+msgstr "最大評価は%sです"
+
+#: admin-columns-pro/addons/woocommerce/classes/Editing/Product/BackordersAllowed.php:18
+msgid "Backorder value could not be changed."
+msgstr "以前の受注値を変更できませんでした。"
+
+#: admin-columns-pro/addons/woocommerce/classes/Editing/Product/BackordersAllowed.php:18
+msgid "Only product that have \"%s\" can have back orders"
+msgstr "\"%s\" を持つ製品のみが前の受注履歴を持つことができます"
+
+#: admin-columns-pro/addons/woocommerce/classes/Editing/Product/BackordersAllowed.php:18
+msgid "manage stock enabled"
+msgstr "在庫管理を有効"
+
+#: admin-columns-pro/addons/woocommerce/classes/Editing/Product/Dimensions.php25,
+#: admin-columns-pro/addons/woocommerce/classes/Editing/Product/ProductNotSupportedReasonTrait.php:15
+msgid "%s can not be edited."
+msgstr "%s は編集できません。"
+
+#: admin-columns-pro/addons/woocommerce/classes/Editing/Product/ShippingClass.php:17
+msgid "Product does not have a shipping class."
+msgstr "商品に配送クラスがありません。"
+
+#: admin-columns-pro/addons/woocommerce/classes/Editing/Product/ShippingClass.php:21
+msgid "No shipping class"
+msgstr "配送クラス費用"
+
+#: admin-columns-pro/addons/woocommerce/classes/Editing/Product/TaxClass.php:12
+msgid "Standard"
+msgstr "標準"
+
+#: admin-columns-pro/addons/woocommerce/classes/Editing/Product/Weight.php:18
+msgid "Virtual product can not be edited."
+msgstr "バーチャル プロダクトは編集できません。"
+
+#: admin-columns-pro/addons/woocommerce/classes/Editing/ProductVariation/ShippingClass.php:15
+msgid "Use Product Shipping Class"
+msgstr "商品配送クラスを使用する"
+
+#: admin-columns-pro/addons/woocommerce/classes/Editing/ProductVariation/TaxClass.php:21
+msgid "Use Product Tax Class"
+msgstr "商品税クラスを使用"
+
+#: admin-columns-pro/addons/woocommerce/classes/Export/Product/Sale.php:32
+msgctxt "Product on sale from (date)"
+msgid "Until"
+msgstr "まで"
+
+#: admin-columns-pro/addons/woocommerce/classes/Export/ShopCoupon/Usage.php:16
+msgid "Infinity"
+msgstr "無限"
+
+#: admin-columns-pro/addons/woocommerce/classes/Filtering/Comment/ProductReview.php:32
+msgid "Exclude Product Reviews"
+msgstr "製品レビューを除外する"
+
+#: admin-columns-pro/addons/woocommerce/classes/Filtering/Comment/ProductReview.php:33
+msgid "Only Product Reviews"
+msgstr "製品レビューのみ"
+
+#: admin-columns-pro/addons/woocommerce/classes/Filtering/Product/Sale.php38,
+#: admin-columns-pro/addons/woocommerce/classes/Search/Product/Sale.php:24
+msgid "On Sale"
+msgstr "セール中"
+
+#: admin-columns-pro/addons/woocommerce/classes/Filtering/Product/Sale.php39,
+#: admin-columns-pro/addons/woocommerce/classes/Search/Product/Sale.php:25
+msgid "Not on Sale"
+msgstr "販売中ではありません"
+
+#: admin-columns-pro/addons/woocommerce/classes/Filtering/Product/ShortDescription.php:15
+msgid "Without Short Description"
+msgstr "短い説明なし"
+
+#: admin-columns-pro/addons/woocommerce/classes/Filtering/Product/ShortDescription.php:16
+msgid "Has Short Description"
+msgstr "短い説明を持っています"
+
+#: admin-columns-pro/addons/woocommerce/classes/Filtering/Product/SoldIndividually.php30,
+#: admin-columns-pro/addons/woocommerce/classes/Search/Product/SoldIndividually.php:24
+msgid "Sold Individually"
+msgstr "個別に販売可"
+
+#: admin-columns-pro/addons/woocommerce/classes/Filtering/Product/SoldIndividually.php31,
+#: admin-columns-pro/addons/woocommerce/classes/Search/Product/SoldIndividually.php:25
+msgid "Not Sold Individually"
+msgstr "個別に販売しない"
+
+#: admin-columns-pro/addons/woocommerce/classes/Filtering/ProductVariation/Downloadable.php:11
+msgid "Is Downloadable"
+msgstr "ダウンロード可能"
+
+#: admin-columns-pro/addons/woocommerce/classes/Filtering/ProductVariation/Downloadable.php12,
+#: admin-columns-pro/addons/woocommerce/classes/Filtering/ProductVariation/Virtual.php:12
+msgid "Exclude %s"
+msgstr "%s の除外"
+
+#: admin-columns-pro/addons/woocommerce/classes/Filtering/ProductVariation/Virtual.php:11
+msgid "Is Virtual"
+msgstr "仮想"
+
+#: admin-columns-pro/addons/woocommerce/classes/Filtering/Settings/ShowVariableProducts.php:49
+msgid ""
+"This will allow you to include variable products in the filter drop down."
+msgstr "これにより、フィルタドロップダウンに可変製品を含めることができます。"
+
+#: admin-columns-pro/addons/woocommerce/classes/Filtering/Settings/ShowVariableProducts.php:48
+msgid "Show variable products"
+msgstr "変動製品の表示"
+
+#: admin-columns-pro/addons/woocommerce/classes/Filtering/ShopOrder/CustomerMessage.php:31
+msgid "Has customer message"
+msgstr "顧客メッセージを持っている"
+
+#: admin-columns-pro/addons/woocommerce/classes/Search/Order/PaymentMethod.php58,
+#: admin-columns-pro/addons/woocommerce/classes/Search/ShopOrder/PaymentMethod.php:32
+msgid "disabled"
+msgstr "無効"
+
+#: admin-columns-pro/addons/woocommerce/classes/Search/Product/Featured.php:20
+msgid "Is featured"
+msgstr "特集されている"
+
+#: admin-columns-pro/addons/woocommerce/classes/Search/Product/Featured.php:21
+msgid "Is not featured"
+msgstr "特集されていません"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/HideOnScreen/FilterOrderCustomer.php:10
+msgid "Registered Customer"
+msgstr "登録されているお客様"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/HideOnScreen/FilterProductStockStatus.php:10
+msgid "Stock Status"
+msgstr "在庫状況"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/HideOnScreen/FilterProductType.php:10
+msgid "Product Type"
+msgstr "製品種別"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/Product/Attributes.php:30
+msgid "All attributes"
+msgstr "すべての属性"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/Product/Attributes.php:38
+msgid "Show Single"
+msgstr "シングルを表示"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/Product/Attributes.php:39
+msgid "Display a single attribute."
+msgstr "1 つの属性を表示します。"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/Product/Attributes.php:39
+msgid "Only works for taxonomy attributes."
+msgstr "分類属性に対してのみ機能します。"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/Product/Period.php:34
+msgid "Period"
+msgstr "期間"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/Product/Period.php:35
+msgid "Select the time period from now"
+msgstr "今から期間を選択します"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/Product/Period.php:42
+msgid "Last year"
+msgstr "前年"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/Product/Period.php:43
+msgid "Last quarter"
+msgstr "前期"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/Product/Period.php:44
+msgid "Last month"
+msgstr "先月"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/Product/Period.php:45
+msgid "Last week"
+msgstr "前週"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/Product/UseIcon.php:40
+msgid "Use an icon?"
+msgstr "アイコンを使用?"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/Product/UseIcon.php:41
+msgid "Use an icon instead of text for displaying the note."
+msgstr "メモを表示するには、テキストの代わりにアイコンを使用します。"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ProductVariation/Attribute.php:99
+msgid "Global Attributes"
+msgstr "グローバル属性"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ProductVariation/Attribute.php:103
+msgid "Product Attributes"
+msgstr "商品属性"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ProductVariation/Variation.php:46
+msgid "Without label"
+msgstr "ラベルなし"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ProductVariation/Variation.php:103
+msgid "Any"
+msgstr "任意"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Customer.php:18
+msgid "Billing Company"
+msgstr "課金会社"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Customer.php:19
+msgid "Billing Country"
+msgstr "請求先住所(国)"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Customer.php:20
+msgid "Billing Email"
+msgstr "請求先のメールアドレス"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Customer.php:22
+msgid "Order Count"
+msgstr "注文数"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/IP.php:40
+msgid "IP Address"
+msgstr "IPアドレス"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/IP.php:41
+msgid "IP Country Code"
+msgstr "IP 国コード"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Notes.php:33
+msgid "Last Order Note"
+msgstr "最後の受注ノート"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/NoteType.php:34
+msgid "All Notes"
+msgstr "すべてのメモ"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/NoteType.php:35
+msgid "System Notes"
+msgstr "システムノート"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/NoteType.php:36
+msgid "Private Notes"
+msgstr "プライベートノート"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/NoteType.php:37
+msgid "Notes to Customer"
+msgstr "お客様への注意事項"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/NoteType.php:41
+msgid "Note Type"
+msgstr "ノート種別"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/ShippingMethodType.php:31
+msgid "Method Label"
+msgstr "メソッド ラベル"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/ShippingMethodType.php:32
+msgid "Method Type"
+msgstr "方法のタイプ"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/ShippingMethodType.php:36
+msgid "Shipping Method Type"
+msgstr "配送方法の種類"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Totals.php:37
+msgid "Total"
+msgstr "合計"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Totals.php:38
+msgid "Subtotal"
+msgstr "小計"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Totals.php:42
+msgid "Discounts"
+msgstr "割引"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/ShopOrder/Totals.php43,
+#: admin-columns-pro/addons/woocommerce/classes/Field/ShopOrder/OrderDate/Paid.php:17
+msgid "Paid"
+msgstr "支払い済み"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/User/AddressType.php59,
+#: admin-columns-pro/addons/woocommerce/classes/Settings/User/Country.php:38
+msgid "Billing"
+msgstr "請求処理"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/User/Order.php:64
+msgid "Amount"
+msgstr "量"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/User/Products.php:42
+msgid "Total products purchased"
+msgstr "購入した製品の合計"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/User/Products.php:43
+msgid "Unique products purchased"
+msgstr "ユニークな製品を購入"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/User/Ratings.php:40
+msgid "Number of ratings"
+msgstr "評価数"
+
+#: admin-columns-pro/addons/woocommerce/classes/Settings/User/Ratings.php:41
+msgid "Average rating"
+msgstr "評価順"
+
+#: admin-columns-pro/addons/yoast-seo/classes/Column/Post/FacebookDescription.php:17
+msgid "Facebook Description"
+msgstr "Facebookの説明"
+
+#: admin-columns-pro/addons/yoast-seo/classes/Column/Post/FacebookImage.php:16
+msgid "Facebook Image"
+msgstr "Facebook画像"
+
+#: admin-columns-pro/addons/yoast-seo/classes/Column/Post/FacebookTitle.php:17
+msgid "Facebook Title"
+msgstr "Facebook タイトル"
+
+#: admin-columns-pro/addons/yoast-seo/classes/Column/Post/FocusKeywordCount.php:13
+msgid "Keyphrase Occurrence"
+msgstr "キーフレーズの出現率"
+
+#: admin-columns-pro/addons/yoast-seo/classes/Column/Post/FocusKW.php:23
+msgid "Enter your SEO Focus Keywords"
+msgstr "SEO フォーカス キーワードを入力してください"
+
+#: admin-columns-pro/addons/yoast-seo/classes/Column/Post/IsIndexed.php:27
+msgid "Implicit"
+msgstr "暗黙の了解"
+
+#: admin-columns-pro/addons/yoast-seo/classes/Column/Post/MetaDesc.php:25
+msgid "Enter your SEO Meta Description"
+msgstr "SEOメタディスクリプションを入力してください"
+
+#: admin-columns-pro/addons/yoast-seo/classes/Column/Post/PrimaryTaxonomy.php:17
+msgid "Primary Taxonomy"
+msgstr "プライマリータクソノミー"
+
+#: admin-columns-pro/addons/yoast-seo/classes/Column/Post/SchemaArticleType.php:20
+msgid "Schema Article type"
+msgstr ""
+
+#: admin-columns-pro/addons/yoast-seo/classes/Column/Post/SchemaPageType.php:20
+msgid "Schema Page type"
+msgstr ""
+
+#: admin-columns-pro/addons/yoast-seo/classes/Column/Post/Title.php:26
+msgid "Enter your SEO Title"
+msgstr "SEO タイトルを入力してください"
+
+#: admin-columns-pro/addons/yoast-seo/classes/Column/Post/TwitterDescription.php:17
+msgid "Twitter Description"
+msgstr "Twitterプロフィール"
+
+#: admin-columns-pro/addons/yoast-seo/classes/Column/Post/TwitterImage.php:16
+msgid "Twitter Image"
+msgstr "Twitter画像"
+
+#: admin-columns-pro/addons/yoast-seo/classes/Column/Post/TwitterTitle.php:17
+msgid "Twitter Title"
+msgstr "Twitterのタイトル"
+
+#: admin-columns-pro/addons/yoast-seo/classes/Column/Taxonomy/IncludeInSitemap.php:14
+msgid "Include in Sitemap"
+msgstr "サイトマップに含める"
+
+#: admin-columns-pro/addons/yoast-seo/classes/Column/Taxonomy/NoIndex.php:18
+msgid "Noindex"
+msgstr "インデックスなし"
+
+#: admin-columns-pro/addons/yoast-seo/classes/Column/Taxonomy/NoIndex.php:32
+msgid "Use default"
+msgstr "デフォルト値を使用する"
+
+#: admin-columns-pro/addons/yoast-seo/classes/Column/User/AuthorPageMetaDesc.php:23
+msgid "SEO Meta Description"
+msgstr "SEO メタディスクリプション"
+
+#: admin-columns-pro/addons/yoast-seo/classes/Column/User/AuthorPageTitle.php:23
+msgid "SEO Title"
+msgstr "SEOタイトル"
+
+#: admin-columns-pro/addons/yoast-seo/classes/Column/User/AuthorPageTitle.php:45
+msgid ""
+"Specific title is missing. The current title is generated by Yoast SEO."
+msgstr "特定のタイトルがありません。現在のタイトルは Yoast SEO によって生成されています。"
+
+#: admin-columns-pro/addons/yoast-seo/classes/Search/Post/IsIndexed.php:32
+msgid "Default for Post Type"
+msgstr "投稿タイプの初期設定"
+
+#: admin-columns-pro/classes/Editing/Service/Media/MetaData/Audio.php:18
+msgid "Item is not an audio file."
+msgstr "項目は音声ファイルではありません。"
+
+#: admin-columns-pro/addons/acf/classes/Search/Comparison/FieldGroup/Location.php:40
+msgctxt "ACF location"
+msgid "Block"
+msgstr ""
+
+#: admin-columns-pro/addons/acf/classes/Search/Comparison/FieldGroup/Location.php:41
+msgctxt "ACF location"
+msgid "Users"
+msgstr ""
+
+#: admin-columns-pro/addons/acf/classes/Search/Comparison/FieldGroup/Location.php:44
+msgctxt "ACF location"
+msgid "Post Type"
+msgstr ""
+
+#: admin-columns-pro/addons/acf/classes/Search/Comparison/FieldGroup/Location.php:45
+msgctxt "ACF location"
+msgid "Widget"
+msgstr ""
+
+#: admin-columns-pro/addons/acf/classes/Search/Comparison/FieldGroup/Location.php:46
+msgctxt "ACF location"
+msgid "Option Page"
+msgstr ""
+
+#: admin-columns-pro/addons/acf/classes/Search/Comparison/FieldGroup/Location.php:47
+msgctxt "ACF location"
+msgid "Menu"
+msgstr ""
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/Address/BillingAddress.php23,
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/Address/Billing.php:15
+msgid "Billing Address"
+msgstr "請求先住所"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/Address/ShippingAddress.php22,
+#: admin-columns-pro/addons/woocommerce/classes/Column/ShopOrder/Address/Shipping.php:16
+msgid "Shipping Address"
+msgstr "配送先住所"
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/Date/CompletedDate.php:18
+msgid "Date Completed"
+msgstr ""
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/Date/CreatedDate.php:15
+msgid "Date Created"
+msgstr ""
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/Date/ModifiedDate.php:15
+msgid "Date Modified"
+msgstr ""
+
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/Date/PaidDate.php:18
+msgid "Date Paid"
+msgstr ""
+
+#: admin-columns-pro/addons/woocommerce/classes/Editing/Storage/Product/Attributes.php:40
+msgid "Non existing attribute."
+msgstr "既存の属性以外。"
+
+#: admin-columns-pro/addons/woocommerce/classes/Editing/StorageModel/Product/Price.php:40
+msgid "Price can not lower than zero."
+msgstr ""
+
+#: admin-columns-pro/addons/woocommerce/classes/Editing/StorageModel/Product/SalePrice.php:29
+msgid "Sale price can not be zero or lower."
+msgstr "売却価格が0以下になることはありません。"
+
+#: admin-columns-pro/addons/woocommerce/classes/Editing/StorageModel/Product/SalePrice.php:33
+msgid "Sale price can not be higher than the regular price."
+msgstr "セール価格は定価より高くすることはできません。"
+
+#: admin-columns-pro/addons/woocommerce/classes/Field/ShopOrder/OrderDate/Completed.php:18
+msgid "Completed"
+msgstr "完了"
+
+#: admin-columns-pro/addons/woocommerce/classes/Field/ShopOrder/OrderDate/Created.php:17
+msgid "Created"
+msgstr "作成日"
+
+#: admin-columns-pro/addons/woocommerce/classes/Field/ShopOrder/OrderDate/Modified.php:17
+msgid "Modified"
+msgstr "更新日"
+
+#: admin-columns-pro/addons/woocommerce/classes/Field/ShopSubscription/SubscriptionDate/NextPayment.php:14
+msgid "Next Payment"
+msgstr "次の支払い"
+
+#: admin-columns-pro/addons/yoast-seo/classes/Editing/Service/Post/IsIndexed.php:32
+msgid "Default for %s, currently: %s"
+msgstr "初期値は %s で、現在は %s です"
+
+#: admin-columns-pro/addons/yoast-seo/classes/Settings/ListScreen/HideOnScreen/FilterReadabilityScore.php:10
+msgid "Readability Score"
+msgstr "可読性スコア"
+
+#: admin-columns-pro/addons/yoast-seo/classes/Settings/ListScreen/HideOnScreen/FilterSeoScores.php:10
+msgid "SEO Scores"
+msgstr "SEO スコア"

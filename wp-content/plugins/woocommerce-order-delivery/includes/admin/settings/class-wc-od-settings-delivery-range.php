@@ -76,7 +76,7 @@ class WC_OD_Settings_Delivery_Range extends WC_OD_Settings_API {
 
 		$this->form_fields = array(
 			'title' => array(
-				'title'             => __( 'Title', 'woocommerce-order-delivery' ),
+				'title'             => __( 'Title', 'woocommerce' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 				'type'              => 'text',
 				'description'       => __( 'This controls the title which the user sees during checkout.', 'woocommerce-order-delivery' ),
 				'desc_tip'          => true,
@@ -176,7 +176,7 @@ class WC_OD_Settings_Delivery_Range extends WC_OD_Settings_API {
 		return sprintf(
 			/* translators: %s: delivery range title */
 			_x( 'Delivery ranges > %s', 'settings page title', 'woocommerce-order-delivery' ),
-			( $this->is_new() ? __( 'Add Delivery Range', 'woocommerce-order-delivery' ) : $this->settings['title'] )
+			( $this->is_new() ? __( 'Add delivery range', 'woocommerce-order-delivery' ) : $this->settings['title'] )
 		);
 	}
 

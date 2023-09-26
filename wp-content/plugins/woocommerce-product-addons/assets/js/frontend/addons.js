@@ -201,11 +201,30 @@
 
 			// Special handling for image swatches.
 			// When a user clicks on an image swatch, the selection is transferred to a hidden select element.
+			var touchTime;
+
+			self.$el.on(
+				'touchstart',
+				'.wc-pao-addon-image-swatch',
+				function (e) {
+					touchTime = new Date();
+				}
+			);
+
 			self.$el.on(
 				'click touchend',
 				'.wc-pao-addon-image-swatch',
 				function (e) {
 					e.preventDefault();
+
+					if ( 'touchend' === e.type && touchTime ) {
+						var diff = new Date() - touchTime;
+
+						if ( diff > 100 ) {
+							// This is a scroll event and not a tap, so skip.
+							return;
+						}
+					}
 
 					var selected_value = $(this).data( 'value' ),
 						$parent        = $(this).parents( '.wc-pao-addon-wrap' ),

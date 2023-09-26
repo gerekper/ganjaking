@@ -18,6 +18,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 /*---------------------------------------------------------*/
 
 /**
+ * Checks whether this product is rendered using a legacy template; an indication that a classic theme is in use.
+ * Although a legacy PHP template might be in use with a block theme (via the "Legacy PHP Product Block", the extension does not account for this scenario when gating template features.
+ *
+ * @since  8.10.0
+ *
+ * @param  WC_Product  $product
+ * @return boolean
+ */
+function wc_cp_has_legacy_product_template( $product ) {
+	$is_block_theme = WC_CP_Core_Compatibility::wc_current_theme_is_fse_theme();
+	return (bool) apply_filters( 'woocommerce_composite_has_legacy_product_template', $is_block_theme === false, $product );
+}
+
+/**
  * Add-to-cart template for composite products. Form location: After summary.
  *
  * @since  3.13.0

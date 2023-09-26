@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce Composite Products
 * Plugin URI: https://woocommerce.com/products/composite-products/
 * Description: Create personalized product kits and configurable products.
-* Version: 8.9.1
+* Version: 8.10.3
 * Author: WooCommerce
 * Author URI: https://somewherewarm.com/
 *
@@ -18,7 +18,7 @@
 * Tested up to: 6.0
 *
 * WC requires at least: 3.9
-* WC tested up to: 6.8
+* WC tested up to: 7.8
 *
 * License: GNU General Public License v3.0
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -33,11 +33,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Main plugin class.
  *
  * @class    WC_Composite_Products
- * @version  8.9.1
+ * @version  8.10.3
  */
 class WC_Composite_Products {
 
-	public $version  = '8.9.1';
+	public $version  = '8.10.3';
 	public $required = '3.9.0';
 
 	/**
@@ -439,9 +439,16 @@ class WC_Composite_Products {
 	 * @return void
 	 */
 	public function on_activation() {
-		$this->define_constants();
-		require_once  WC_CP_ABSPATH . 'includes/class-wc-cp-install.php';
-		WC_CP_Install::create_events();
+
+		// Add daily maintenance process.
+		if ( ! wp_next_scheduled( 'wc_cp_daily' ) ) {
+			wp_schedule_event( time() + 10, 'daily', 'wc_cp_daily' );
+		}
+
+		// Add hourly maintenance process.
+		if ( ! wp_next_scheduled( 'wc_cp_hourly' ) ) {
+			wp_schedule_event( time() + 10, 'hourly', 'wc_cp_hourly' );
+		}
 	}
 
 	/**
@@ -452,10 +459,9 @@ class WC_Composite_Products {
 	 * @return void
 	 */
 	public function on_deactivation() {
-		$this->define_constants();
-		require_once  WC_CP_ABSPATH . 'includes/class-wc-cp-install.php';
 		// Clear daily maintenance process.
 		wp_clear_scheduled_hook( 'wc_cp_daily' );
+		wp_clear_scheduled_hook( 'wc_cp_hourly' );
 	}
 }
 

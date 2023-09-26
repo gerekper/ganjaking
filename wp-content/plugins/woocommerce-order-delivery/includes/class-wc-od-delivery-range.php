@@ -192,19 +192,4 @@ class WC_OD_Delivery_Range extends WC_OD_Data {
 
 		return true;
 	}
-
-	/**
-	 * Gets if this delivery range is valid for the specified shipping method.
-	 *
-	 * @since 1.7.0
-	 * @deprecated 2.0.0
-	 *
-	 * @param string $shipping_method The shipping method.
-	 * @return bool
-	 */
-	public function is_valid_for_shipping_method( $shipping_method ) {
-		wc_deprecated_function( __FUNCTION__, '2.0.0', 'WC_OD_Delivery_Range->validate_shipping_method()' );
-
-		return $this->validate_shipping_method( $shipping_method );
-	}
 }

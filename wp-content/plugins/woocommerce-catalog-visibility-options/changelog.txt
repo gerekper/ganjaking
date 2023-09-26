@@ -1,4 +1,11 @@
 *** Catalog Visibility Options Changelog ***
+2023.09.16 - version 3.3.2
+    * Update: WP and WC version compatibility.
+    * Update: Move clearing of transients into a separate class so it can be queued and called during shutdown.
+    * Update: Remove legacy code for WC 2.6 and older.
+    * Update: Remove legacy code regarding extension updates and WC active check.
+    * Update: General code cleanup.
+
 2023.06.10 - version 3.3.1
     * Update: WP and WC version compatibility.
     * Update: Call catalog_visibility_alternate_add_to_cart_link_url filter on the add to cart link for shop links.

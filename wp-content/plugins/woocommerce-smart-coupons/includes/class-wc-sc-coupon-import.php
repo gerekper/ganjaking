@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     3.1.0
+ * @version     3.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -232,7 +232,9 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 				$_POST['export_file'] = $csv_file_data;
 
 				if ( ! isset( $_POST['no_of_coupons_to_generate'] ) ) {
-					ini_set( 'auto_detect_line_endings', true ); // phpcs:ignore
+					if ( ! $this->is_php_gte( '8.0.0' ) ) {
+						ini_set( 'auto_detect_line_endings', true ); // phpcs:ignore
+					}
 					$fp = file( $file );
 					if ( is_array( $fp ) && ! empty( $fp ) ) {
 						$_POST['no_of_coupons_to_generate'] = count( $fp ) - 1;
@@ -370,8 +372,8 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 			$postdata = array(
 				'import_id'      => $post['post_id'],
 				'post_author'    => ( ! empty( $post['post_author'] ) ) ? absint( $post['post_author'] ) : get_current_user_id(),
-				'post_date'      => ( ! empty( $post['post_date'] ) ) ? gmdate( 'Y-m-d H:i:s', strtotime( $post['post_date'] ) ) : gmdate( 'Y-m-d H:i:s', time() ),
-				'post_date_gmt'  => ( ! empty( $post['post_date_gmt'] ) ) ? gmdate( 'Y-m-d H:i:s', strtotime( $post['post_date_gmt'] ) ) : ( ( ! empty( $post['post_date'] ) ) ? gmdate( 'Y-m-d H:i:s', ( strtotime( $post['post_date'] ) - $this->wc_timezone_offset() ) ) : gmdate( 'Y-m-d H:i:s', time() ) ),
+				'post_date'      => ( ! empty( $post['post_date'] ) ) ? gmdate( 'Y-m-d H:i:s', $this->strtotime( $post['post_date'] ) ) : gmdate( 'Y-m-d H:i:s', time() ),
+				'post_date_gmt'  => ( ! empty( $post['post_date_gmt'] ) ) ? gmdate( 'Y-m-d H:i:s', $this->strtotime( $post['post_date_gmt'] ) ) : ( ( ! empty( $post['post_date'] ) ) ? gmdate( 'Y-m-d H:i:s', ( $this->strtotime( $post['post_date'] ) - $this->wc_timezone_offset() ) ) : gmdate( 'Y-m-d H:i:s', time() ) ),
 				'post_content'   => $post['post_content'],
 				'post_excerpt'   => $post['post_excerpt'],
 				'post_title'     => $post_title,
@@ -465,7 +467,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 							if ( empty( $meta_value ) && ! empty( $postmeta['sc_coupon_validity'] ) && ! empty( $postmeta['validity_suffix'] ) ) {
 								$sc_coupon_validity = $postmeta['sc_coupon_validity'];
 								$validity_suffix    = $postmeta['validity_suffix'];
-								$meta_value         = gmdate( 'Y-m-d', strtotime( "+$sc_coupon_validity $validity_suffix" ) );
+								$meta_value         = gmdate( 'Y-m-d', $this->strtotime( "+$sc_coupon_validity $validity_suffix" ) );
 							}
 							break;
 
@@ -559,7 +561,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 										update_post_meta( $post_id, 'date_expires', $meta_value );
 									}
 								} else {
-									$key          = ltrim( $meta_key, '_' );
+									$key          = ! empty( $meta_key ) && is_string( $meta_key ) ? ltrim( $meta_key, '_' ) : '';
 									$key_to_props = array(
 										'coupon_amount'  => 'amount',
 										'customer_email' => 'email_restrictions',
@@ -809,7 +811,9 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 			if ( $enc ) {
 				setlocale( LC_ALL, 'en_US.' . $enc );
 			}
-			ini_set( 'auto_detect_line_endings', true ); // phpcs:ignore
+			if ( ! $this->is_php_gte( '8.0.0' ) ) {
+				ini_set( 'auto_detect_line_endings', true ); // phpcs:ignore
+			}
 
 			$is_email_present = false;
 

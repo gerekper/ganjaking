@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Advanced Notifications 1.4.2\n"
+"Project-Id-Version: WooCommerce Advanced Notifications 1.4.3\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-advanced-notifications\n"
-"POT-Creation-Date: 2023-08-08 23:14:41+00:00\n"
+"POT-Creation-Date: 2023-09-18 16:31:54+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -64,29 +64,29 @@ msgstr ""
 msgid "Choose recipients for this product&hellip;"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-admin.php:178
-#: includes/class-wc-advanced-notifications-admin.php:231
+#: includes/class-wc-advanced-notifications-admin.php:180
+#: includes/class-wc-advanced-notifications-admin.php:233
 msgid "Notification deleted successfully"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-admin.php:192
-#: includes/class-wc-advanced-notifications-admin.php:216
-#: includes/class-wc-advanced-notifications-admin.php:227
+#: includes/class-wc-advanced-notifications-admin.php:194
+#: includes/class-wc-advanced-notifications-admin.php:218
+#: includes/class-wc-advanced-notifications-admin.php:229
 msgid "Notification saved successfully"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-admin.php:296
-#: includes/class-wc-advanced-notifications-admin.php:387
+#: includes/class-wc-advanced-notifications-admin.php:297
+#: includes/class-wc-advanced-notifications-admin.php:390
 msgid "Recipient name is a required field"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-admin.php:300
-#: includes/class-wc-advanced-notifications-admin.php:391
+#: includes/class-wc-advanced-notifications-admin.php:301
+#: includes/class-wc-advanced-notifications-admin.php:394
 msgid "Recipient email is a required field"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-admin.php:307
-#: includes/class-wc-advanced-notifications-admin.php:398
+#: includes/class-wc-advanced-notifications-admin.php:308
+#: includes/class-wc-advanced-notifications-admin.php:401
 msgid "A recipient email is invalid:"
 msgstr ""
 
@@ -214,7 +214,7 @@ msgstr ""
 #: includes/class-wc-advanced-notifications.php:425
 #: includes/class-wc-advanced-notifications.php:475
 #: includes/class-wc-advanced-notifications.php:541
-#: templates/emails/new-order-plain.php:7 templates/emails/new-order.php:19
+#: templates/emails/new-order-plain.php:7 templates/emails/new-order.php:12
 #: templates/emails/refunds-plain.php:7 templates/emails/refunds.php:23
 msgid "Hi %s,"
 msgstr ""
@@ -418,47 +418,42 @@ msgstr ""
 msgid "Are you sure you want to delete this notification?"
 msgstr ""
 
-#: templates/emails/new-order-plain.php:12 templates/emails/new-order.php:23
+#: templates/emails/new-order-plain.php:14 templates/emails/new-order.php:18
 #. translators: 1: first name 2: last name
-msgid "You have received an order from %s %s:"
+msgid "You have received an order from %1$s %2$s:"
 msgstr ""
 
-#: templates/emails/new-order-plain.php:18
+#: templates/emails/new-order-plain.php:20
 msgid "Order: %s"
 msgstr ""
 
-#: templates/emails/new-order-plain.php:22
-#: templates/emails/refunds-plain.php:17
-msgid "jS F Y"
-msgstr ""
-
-#: templates/emails/new-order-plain.php:119 templates/emails/new-order.php:154
-#: templates/emails/refunds-plain.php:114 templates/emails/refunds.php:175
+#: templates/emails/new-order-plain.php:127 templates/emails/new-order.php:157
+#: templates/emails/refunds-plain.php:120 templates/emails/refunds.php:171
 msgid "Total"
 msgstr ""
 
-#: templates/emails/new-order-plain.php:127
-#: templates/emails/refunds-plain.php:122
+#: templates/emails/new-order-plain.php:135
+#: templates/emails/refunds-plain.php:128
 msgid "Note"
 msgstr ""
 
-#: templates/emails/new-order.php:38 templates/emails/refunds.php:47
+#: templates/emails/new-order.php:28 templates/emails/refunds.php:41
 msgid "Order #%s"
 msgstr ""
 
-#: templates/emails/new-order.php:51 templates/emails/refunds.php:56
+#: templates/emails/new-order.php:43 templates/emails/refunds.php:50
 msgid "Product"
 msgstr ""
 
-#: templates/emails/new-order.php:52 templates/emails/refunds.php:57
+#: templates/emails/new-order.php:46 templates/emails/refunds.php:51
 msgid "Quantity"
 msgstr ""
 
-#: templates/emails/new-order.php:54 templates/emails/refunds.php:59
+#: templates/emails/new-order.php:50 templates/emails/refunds.php:53
 msgid "Price"
 msgstr ""
 
-#: templates/emails/new-order.php:163 templates/emails/refunds.php:184
+#: templates/emails/new-order.php:170 templates/emails/refunds.php:184
 msgid "Note:"
 msgstr ""
 

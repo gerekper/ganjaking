@@ -4,11 +4,11 @@
  *
  * Plugin URI: https://woocommerce.com/products/catalog-visibility-options/
  * Description: Provides the ability to hide prices, or show prices only to authenticated users. Provides the ability to disable e-commerce functionality by disabling the cart.
- * Version: 3.3.1
+ * Version: 3.3.2
  * Author: Lucas Stark
  * Author URI: https://www.elementstark.com/
  * Requires at least: 4.0
- * Tested up to: 6.2
+ * Tested up to: 6.3
  *
  * Text Domain: wc_catalog_restrictions
  * Domain Path: /i18n/languages/
@@ -17,24 +17,31 @@
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
- * WC tested up to: 7.7
+ * WC tested up to: 8.1
  * WC requires at least: 6.0
  * Woo: 18648:12e791110365fdbb5865c8658907967e
  */
 
-/**
- * Required functions
- */
-if ( ! function_exists( 'woothemes_queue_update' ) ) :
-	require_once( 'woo-includes/woo-functions.php' );
-endif;
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
 
-/**
- * Plugin updates
- */
-woothemes_queue_update( plugin_basename( __FILE__ ), '12e791110365fdbb5865c8658907967e', '18648' );
+function wc_catalog_visibility_options_is_woocommerce_active(): bool {
+	// Test to see if WooCommerce is active (including network activated).
+	$plugin_path = trailingslashit( WP_PLUGIN_DIR ) . 'woocommerce/woocommerce.php';
 
-if ( is_woocommerce_active() ) {
+	if (
+		in_array( $plugin_path, wp_get_active_and_valid_plugins() )
+		|| in_array( $plugin_path, wp_get_active_network_plugins() )
+	) {
+		return true;
+	}
+
+	return false;
+}
+
+if ( wc_catalog_visibility_options_is_woocommerce_active() ) {
 	require 'wc-catalog-visibility-compatibility.php';
 
 	load_plugin_textdomain( 'wc_catalog_restrictions', null, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
@@ -52,14 +59,17 @@ if ( is_woocommerce_active() ) {
 	//Initialize the Catalog Restrictions included plugin.
 	require 'lib/woocommerce-catalog-restrictions/woocommerce-catalog-restrictions.php';
 
-	define( 'WC_CATALOG_VISIBILITY_OPTIONS_VERSION', '2.8.5' );
+	define( 'WC_CATALOG_VISIBILITY_OPTIONS_VERSION', '3.3.2' );
 
 	class WC_Catalog_Visibility_Options {
 
+		/**
+		 * @var array
+		 */
+		private $settings_tabs;
+
 		public function __construct() {
 
-
-			$this->current_tab   = ( isset( $_GET['tab'] ) ) ? $_GET['tab'] : 'general';
 			$this->settings_tabs = array(
 				'visibility_options' => __( 'Visibility Options', 'wc_catalog_restrictions' )
 			);

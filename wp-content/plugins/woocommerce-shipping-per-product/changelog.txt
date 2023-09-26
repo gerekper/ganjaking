@@ -1,5 +1,8 @@
 *** Shipping Per Product Changelog ***
 
+2023-09-18 - version 2.5.3
+* Update - Security Update.
+
 2023-09-05 - version 2.5.2
 * Tweak - Add Text Domain to plugin header.
 

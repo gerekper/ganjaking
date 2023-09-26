@@ -3,17 +3,17 @@
  * Plugin Name: WooCommerce Force Sells
  * Plugin URI: https://woocommerce.com/products/force-sells/
  * Description: Allows you to select products which will be used as force-sells - items which get added to the cart along with other items.
- * Version: 1.2.0
- * Author: Themesquad
- * Author URI: https://themesquad.com
+ * Version: 1.3.0
+ * Author: KoiLab
+ * Author URI: https://koilab.com
  * Requires PHP: 5.6
  * Requires at least: 4.7
- * Tested up to: 6.1
+ * Tested up to: 6.3
  * Domain: woocommerce-force-sells
  * Domain Path: /languages
  *
  * WC requires at least: 3.5
- * WC tested up to: 7.3
+ * WC tested up to: 8.1
  * Woo: 18678:3ebddfc491ca168a4ea4800b893302b0
  *
  * License: GNU General Public License v3.0
@@ -22,52 +22,39 @@
  * @package woocommerce-force-sells
  */
 
-// Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+defined( 'ABSPATH' ) || exit;
+
+// Load the class autoloader.
+require __DIR__ . '/src/Autoloader.php';
+
+if ( ! \KoiLab\WC_Force_Sells\Autoloader::init() ) {
+	return;
 }
 
-add_action( 'plugins_loaded', array( 'WC_Force_Sells', 'get_instance' ) );
+// Define plugin file constant.
+if ( ! defined( 'WC_FORCE_SELLS_FILE' ) ) {
+	define( 'WC_FORCE_SELLS_FILE', __FILE__ );
+}
+
+add_action( 'plugins_loaded', array( 'WC_Force_Sells', 'instance' ) );
+
+use KoiLab\WC_Force_Sells\Utilities\Product_Utils;
 
 if ( ! class_exists( 'WC_Force_Sells' ) ) :
-	define( 'WC_FORCE_SELLS_VERSION', '1.2.0' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Main plugin class.
 	 */
-	class WC_Force_Sells {
-
-		/**
-		 * Meta data for synced products.
-		 *
-		 * @var array
-		 */
-		private $synced_types = array(
-			'normal' => array(
-				'field_name' => 'force_sell_ids',
-				'meta_name'  => '_force_sell_ids',
-			),
-			'synced' => array(
-				'field_name' => 'force_sell_synced_ids',
-				'meta_name'  => '_force_sell_synced_ids',
-			),
-		);
-
-		/**
-		 * Instance of this class.
-		 *
-		 * @var Class instance
-		 */
-		protected static $instance = null;
+	class WC_Force_Sells extends \KoiLab\WC_Force_Sells\Plugin {
 
 		/**
 		 * Constructor
 		 */
-		public function __construct() {
-			add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
-			add_action( 'before_woocommerce_init', array( $this, 'declare_compatibility' ) );
+		protected function __construct() {
+			parent::__construct();
+
 			add_action( 'woocommerce_product_options_related', array( $this, 'write_panel_tab' ) );
-			add_action( 'woocommerce_process_product_meta', array( $this, 'process_extra_product_meta' ), 1, 2 );
+			add_action( 'woocommerce_process_product_meta', array( $this, 'process_extra_product_meta' ), 1 );
 			add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'show_force_sell_products' ) );
 			add_action( 'woocommerce_add_to_cart', array( $this, 'add_force_sell_items_to_cart' ), 11, 6 );
 			add_action( 'woocommerce_after_cart_item_quantity_update', array( $this, 'update_force_sell_quantity_in_cart' ), 1, 2 );
@@ -89,34 +76,16 @@ if ( ! class_exists( 'WC_Force_Sells' ) ) :
 		}
 
 		/**
-		 * Load translations.
-		 */
-		public function load_plugin_textdomain() {
-			load_plugin_textdomain( 'woocommerce-force-sells', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-		}
-
-		/**
-		 * Declares compatibility with the WC features.
-		 *
-		 * @since 1.2.0
-		 */
-		public function declare_compatibility() {
-			// Compatible with the 'High-Performance Order Storage' feature.
-			if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
-				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
-			}
-		}
-
-		/**
 		 * If the single instance hasn't been set, set it now.
+		 *
+		 * @deprecated 1.3.0
 		 *
 		 * @return WC_Force_Sells
 		 */
 		public static function get_instance() {
-			if ( null === self::$instance ) {
-				self::$instance = new self();
-			}
-			return self::$instance;
+			wc_deprecated_function( __FUNCTION__, '1.3.0', 'WC_Force_Sells::instance()' );
+
+			return self::instance();
 		}
 
 		/**
@@ -237,40 +206,35 @@ if ( ! class_exists( 'WC_Force_Sells' ) ) :
 			?>
 			<p class="form-field">
 				<label for="force_sell_ids"><?php esc_html_e( 'Force Sells', 'woocommerce-force-sells' ); ?></label>
-				<?php
-					$product_ids = $this->get_force_sell_ids( $post->ID, array( 'normal' ) );
-				?>
 				<select id="force_sell_ids" class="wc-product-search" multiple="multiple" style="width: 50%;" name="force_sell_ids[]" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce-force-sells' ); ?>" data-action="woocommerce_json_search_products_and_variations" data-exclude="<?php echo intval( $post->ID ); ?>" data-exclude_type="variable">
 					<?php
-					foreach ( $product_ids as $product_id ) :
-						$product = wc_get_product( $product_id );
+					$products = Product_Utils::get_force_sells( $post->ID, 'normal', 'objects' );
 
-						if ( ! $product ) {
-							continue;
-						}
-						?>
-						<option value="<?php echo esc_attr( $product_id ); ?>" selected="selected"><?php echo wp_kses_post( $product->get_formatted_name() ); ?></option>
-					<?php endforeach; ?>
+					foreach ( $products as $product ) :
+						printf(
+							'<option value="%1$s" selected="selected">%2$s</option>',
+							esc_attr( $product->get_id() ),
+							wp_kses_post( $product->get_formatted_name() )
+						);
+					endforeach;
+					?>
 				</select>
 				<?php echo wc_help_tip( esc_html__( 'These products will be added to the cart when the main product is added. Quantity will not be synced in case the main product quantity changes.', 'woocommerce-force-sells' ) ); ?>
 			</p>
 			<p class="form-field">
 				<label for="force_sell_synced_ids"><?php esc_html_e( 'Synced Force Sells', 'woocommerce-force-sells' ); ?></label>
-				<?php
-					$product_ids = $this->get_force_sell_ids( $post->ID, array( 'synced' ) );
-				?>
 				<select id="force_sell_synced_ids" class="wc-product-search" multiple="multiple" style="width: 50%;" name="force_sell_synced_ids[]" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce-force-sells' ); ?>" data-action="woocommerce_json_search_products_and_variations" data-exclude="<?php echo intval( $post->ID ); ?>" data-exclude_type="variable">
-
 					<?php
-					foreach ( $product_ids as $product_id ) :
-						$product = wc_get_product( $product_id );
+					$products = Product_Utils::get_force_sells( $post->ID, 'synced', 'objects' );
 
-						if ( ! $product ) {
-							continue;
-						}
-						?>
-						<option value="<?php echo esc_attr( $product_id ); ?>" selected="selected"><?php echo wp_kses_post( $product->get_formatted_name() ); ?></option>
-					<?php endforeach; ?>
+					foreach ( $products as $product ) :
+						printf(
+							'<option value="%1$s" selected="selected">%2$s</option>',
+							esc_attr( $product->get_id() ),
+							wp_kses_post( $product->get_formatted_name() )
+						);
+					endforeach;
+					?>
 				</select>
 				<?php echo wc_help_tip( esc_html__( 'These products will be added to the cart when the main product is added and quantity will be synced in case the main product quantity changes.', 'woocommerce-force-sells' ) ); ?>
 			</p>
@@ -280,27 +244,22 @@ if ( ! class_exists( 'WC_Force_Sells' ) ) :
 		/**
 		 * Save Force Sell Ids into post meta when product is saved.
 		 *
-		 * @param int     $post_id Post ID.
-		 * @param WP_Post $post    Post object.
+		 * @param int $post_id Post ID.
 		 */
-		public function process_extra_product_meta( $post_id, $post ) {
-			foreach ( $this->synced_types as $key => $value ) {
-				if ( isset( $_POST[ $value['field_name'] ] ) ) {
-					$force_sells = array();
-					$ids         = $_POST[ $value['field_name'] ];
-					$ids         = array_filter( array_map( 'absint', $ids ) );
+		public function process_extra_product_meta( $post_id ) {
+			// phpcs:disable WordPress.Security.NonceVerification
+			foreach ( array( 'force_sell_ids', 'force_sell_synced_ids' ) as $field_name ) {
+				$meta_name = "_$field_name";
 
-					foreach ( $ids as $id ) {
-						if ( $id && $id > 0 ) {
-							$force_sells[] = $id;
-						}
-					}
+				if ( isset( $_POST[ $field_name ] ) ) {
+					$force_sells = array_filter( array_map( 'absint', wp_unslash( $_POST[ $field_name ] ) ) );
 
-					update_post_meta( $post_id, $value['meta_name'], $force_sells );
+					update_post_meta( $post_id, $meta_name, $force_sells );
 				} else {
-					delete_post_meta( $post_id, $value['meta_name'] );
+					delete_post_meta( $post_id, $meta_name );
 				}
 			}
+			// phpcs:enable WordPress.Security.NonceVerification
 		}
 
 		/**
@@ -310,30 +269,22 @@ if ( ! class_exists( 'WC_Force_Sells' ) ) :
 		public function show_force_sell_products() {
 			global $post;
 
-			$product_ids = $this->get_force_sell_ids( $post->ID, array( 'normal', 'synced' ) );
-			$titles      = array();
+			$force_sells = Product_Utils::get_valid_force_sells( $post->ID, '', 'objects' );
 
-			// Make sure the products still exist and don't display duplicates.
-			foreach ( array_values( array_unique( $product_ids ) ) as $key => $product_id ) {
-				$product = wc_get_product( $product_id );
-
-				if ( $product && $product->exists() && 'trash' !== $product->get_status() ) {
-					$titles[] = $product->get_title();
-				}
+			if ( ! $force_sells ) {
+				return;
 			}
 
-			if ( ! empty( $titles ) ) {
-				echo '<div class="clear"></div>';
-				echo '<div class="wc-force-sells">';
-				echo '<p>' . esc_html__( 'This will also add the following products to your cart:', 'woocommerce-force-sells' ) . '</p>';
-				echo '<ul>';
+			echo '<div class="clear"></div>';
+			echo '<div class="wc-force-sells">';
+			echo '<p>' . esc_html__( 'This will also add the following products to your cart:', 'woocommerce-force-sells' ) . '</p>';
+			echo '<ul>';
 
-				foreach ( $titles as $title ) {
-					echo '<li>' . esc_html( $title ) . '</li>';
-				}
-
-				echo '</ul></div>';
+			foreach ( $force_sells as $force_sell ) {
+				echo '<li>' . esc_html( $force_sell->get_title() ) . '</li>';
 			}
+
+			echo '</ul></div>';
 		}
 
 		/**
@@ -359,7 +310,7 @@ if ( ! class_exists( 'WC_Force_Sells' ) ) :
 			}
 
 			// Check if this product is already forcing a cart item. If so, we don't need to handle add to cart logic because qty will be updated by update_force_sell_quantity_in_cart.
-			foreach ( WC()->cart->cart_contents as $key => $value ) {
+			foreach ( WC()->cart->cart_contents as $value ) {
 				if ( isset( $value['forced_by'] ) && $cart_item_key === $value['forced_by'] ) {
 					return;
 				}
@@ -371,8 +322,8 @@ if ( ! class_exists( 'WC_Force_Sells' ) ) :
 			}
 
 			$product        = wc_get_product( $product_id );
-			$force_sell_ids = array_filter( $this->get_force_sell_ids( $product_id, array( 'normal', 'synced' ) ), array( $this, 'force_sell_is_valid' ) );
-			$synced_ids     = array_filter( $this->get_force_sell_ids( $product_id, array( 'synced' ) ), array( $this, 'force_sell_is_valid' ) );
+			$force_sell_ids = Product_Utils::get_valid_force_sells( $product_id );
+			$synced_ids     = Product_Utils::get_valid_force_sells( $product_id, 'synced' );
 
 			if ( ! empty( $force_sell_ids ) ) {
 				foreach ( $force_sell_ids as $id ) {
@@ -417,52 +368,6 @@ if ( ! class_exists( 'WC_Force_Sells' ) ) :
 						WC()->cart->set_quantity( $key, $new_quantity );
 					}
 				}
-			}
-		}
-
-		/**
-		 * Get force sell IDs from a given product ID and force sell type(s).
-		 *
-		 * @param int   $product_id Product ID.
-		 * @param array $types      Force sell types (normal and/or synched).
-		 *
-		 * @return array Force sell IDs.
-		 */
-		private function get_force_sell_ids( $product_id, $types ) {
-			if ( ! is_array( $types ) || empty( $types ) ) {
-				return array();
-			}
-
-			$ids = array();
-
-			foreach ( $types as $type ) {
-				$new_ids = array();
-
-				if ( isset( $this->synced_types[ $type ] ) ) {
-					$new_ids = get_post_meta( $product_id, $this->synced_types[ $type ]['meta_name'], true );
-
-					if ( is_array( $new_ids ) && ! empty( $new_ids ) ) {
-						$ids = array_merge( $ids, $new_ids );
-					}
-				}
-			}
-
-			return $ids;
-		}
-
-		/**
-		 * Check if a given force sells ID is for a valid product.
-		 *
-		 * @param int $force_sell_id Force Sell ID.
-		 * @return bool Whether the product is valid or not.
-		 */
-		private function force_sell_is_valid( $force_sell_id ) {
-			$product = wc_get_product( $force_sell_id );
-
-			if ( ! $product || ! $product->exists() || 'trash' === $product->get_status() ) {
-				return false;
-			} else {
-				return true;
 			}
 		}
 

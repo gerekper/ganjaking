@@ -99,7 +99,7 @@ class WC_Shipping_Per_Product_Admin {
 	public function variation_options( $loop, $variation_data, $variation ) {
 		wp_enqueue_script( 'wc-shipping-per-product' );
 		?>
-		<label><input type="checkbox" class="checkbox enable_per_product_shipping" name="_per_variation_shipping[<?php echo $variation->ID; ?>]" <?php checked( get_post_meta( $variation->ID, '_per_product_shipping', true ), 'yes' ); ?> /> <?php _e( 'Per-variation shipping', 'woocommerce-shipping-per-product' ); ?></label>
+		<label><input type="checkbox" class="checkbox enable_per_product_shipping" name="_per_variation_shipping[<?php echo esc_attr( $variation->ID ); ?>]" <?php checked( get_post_meta( $variation->ID, '_per_product_shipping', true ), 'yes' ); ?> /> <?php esc_html_e( 'Per-variation shipping', 'woocommerce-shipping-per-product' ); ?></label>
 		<?php
 	}
 
@@ -143,33 +143,35 @@ class WC_Shipping_Per_Product_Admin {
 					)
 				);
 			}
+
+			wp_nonce_field( 'per-product-export', '_export_nonce' );
 			?>
 
 			<table class="widefat">
 				<thead>
 					<tr>
 						<th>&nbsp;</th>
-						<th><?php _e( 'Country Code', 'woocommerce-shipping-per-product' ); ?>&nbsp;<a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'A 2 digit country code, e.g. US. Leave blank to apply to all.', 'woocommerce-shipping-per-product' ) ); ?>">[?]</a></th>
-						<th><?php _e( 'State/County Code', 'woocommerce-shipping-per-product' ); ?>&nbsp;<a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'A state code, e.g. AL. Leave blank to apply to all.', 'woocommerce-shipping-per-product' ) ); ?>">[?]</a></th>
-						<th><?php _e( 'Zip/Postal Code', 'woocommerce-shipping-per-product' ); ?>&nbsp;<a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Postcode for this rule. Wildcards (*) can be used. Leave blank to apply to all areas.', 'woocommerce-shipping-per-product' ) ); ?>">[?]</a></th>
-						<th class="cost"><?php _e( 'Line Cost (Excl. Tax)', 'woocommerce-shipping-per-product' ); ?>&nbsp;<a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Decimal cost for the line as a whole.', 'woocommerce-shipping-per-product' ) ); ?>">[?]</a></th>
-						<th class="item_cost"><?php _e( 'Item Cost (Excl. Tax)', 'woocommerce-shipping-per-product' ); ?>&nbsp;<a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Decimal cost for the item (multiplied by qty).', 'woocommerce-shipping-per-product' ) ); ?>">[?]</a></th>
+						<th><?php esc_html_e( 'Country Code', 'woocommerce-shipping-per-product' ); ?>&nbsp;<a class="tips" data-tip="<?php esc_attr_e( 'A 2 digit country code, e.g. US. Leave blank to apply to all.', 'woocommerce-shipping-per-product' ); ?>">[?]</a></th>
+						<th><?php esc_html_e( 'State/County Code', 'woocommerce-shipping-per-product' ); ?>&nbsp;<a class="tips" data-tip="<?php esc_attr_e( 'A state code, e.g. AL. Leave blank to apply to all.', 'woocommerce-shipping-per-product' ); ?>">[?]</a></th>
+						<th><?php esc_html_e( 'Zip/Postal Code', 'woocommerce-shipping-per-product' ); ?>&nbsp;<a class="tips" data-tip="<?php esc_attr_e( 'Postcode for this rule. Wildcards (*) can be used. Leave blank to apply to all areas.', 'woocommerce-shipping-per-product' ); ?>">[?]</a></th>
+						<th class="cost"><?php esc_html_e( 'Line Cost (Excl. Tax)', 'woocommerce-shipping-per-product' ); ?>&nbsp;<a class="tips" data-tip="<?php esc_attr_e( 'Decimal cost for the line as a whole.', 'woocommerce-shipping-per-product' ); ?>">[?]</a></th>
+						<th class="item_cost"><?php esc_html_e( 'Item Cost (Excl. Tax)', 'woocommerce-shipping-per-product' ); ?>&nbsp;<a class="tips" data-tip="<?php esc_attr_e( 'Decimal cost for the item (multiplied by qty).', 'woocommerce-shipping-per-product' ); ?>">[?]</a></th>
 					</tr>
 				</thead>
 				<tfoot>
 					<tr>
 						<th colspan="6">
 							<?php if ( $count < self::$rule_count_limit ) : ?>
-								<a href="#" class="button button-primary insert" data-postid="<?php echo esc_attr( $post_id ); ?>"><?php _e( 'Insert row', 'woocommerce-shipping-per-product' ); ?></a>
+								<a href="#" class="button button-primary insert" data-postid="<?php echo esc_attr( $post_id ); ?>"><?php esc_html_e( 'Insert row', 'woocommerce-shipping-per-product' ); ?></a>
 							<?php endif; ?>
 
 							<?php if ( $count <= self::$rule_count_limit ) : ?>
-								<a href="#" class="button remove"><?php _e( 'Remove row', 'woocommerce-shipping-per-product' ); ?></a>
+								<a href="#" class="button remove"><?php esc_html_e( 'Remove row', 'woocommerce-shipping-per-product' ); ?></a>
 							<?php endif; ?>
 
-							<a href="#" class="button export" data-postid="<?php echo esc_attr( $post_id ); ?>"><?php _e( 'Export CSV', 'woocommerce-shipping-per-product' ); ?></a>
-							<a href="<?php echo esc_url( admin_url( 'admin.php?import=woocommerce_per_product_shipping_csv' ) ); ?>" class="button import"><?php _e( 'Import CSV', 'woocommerce-shipping-per-product' ); ?></a>
-							<a href="<?php echo esc_url( admin_url( 'admin.php?import=woocommerce_per_product_shipping_csv&override_product_id=' . absint( $post_id ) ) ); ?>" class="button import"><?php _e( 'Import CSV (override)', 'woocommerce-shipping-per-product' ); ?></a>
+							<a href="#" class="button export" data-postid="<?php echo esc_attr( $post_id ); ?>"><?php esc_html_e( 'Export CSV', 'woocommerce-shipping-per-product' ); ?></a>
+							<a href="<?php echo esc_url( admin_url( 'admin.php?import=woocommerce_per_product_shipping_csv' ) ); ?>" class="button import"><?php esc_html_e( 'Import CSV', 'woocommerce-shipping-per-product' ); ?></a>
+							<a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin.php?import=woocommerce_per_product_shipping_csv&override_product_id=' . absint( $post_id ) ), 'override-product-id-' . absint( $post_id ), '_wpnonce_override-product-id') ); ?>" class="button import"><?php esc_html_e( 'Import CSV (override)', 'woocommerce-shipping-per-product' ); ?></a>
 						</th>
 					</tr>
 				</tfoot>
@@ -196,11 +198,11 @@ class WC_Shipping_Per_Product_Admin {
 							<td colspan="6" style="text-align:center;padding:50px 1%;">
 								<?php
 								printf(
-										__( '%1$sNOTICE:%2$s Only tables with %3$d rules or fewer can be edited within the product editor. %4$sPlease export your rules, modify as needed, and use the "Import CSV (override)" button to update this product\'s rules.', 'woocommerce-shipping-per-product' ),
-										'<h2>',
-										'</h2>',
-										self::$rule_count_limit,
-										'<br>'
+									esc_html__( '%1$sNOTICE:%2$s Only tables with %3$d rules or fewer can be edited within the product editor. %4$sPlease export your rules, modify as needed, and use the "Import CSV (override)" button to update this product\'s rules.', 'woocommerce-shipping-per-product' ),
+									'<h2>',
+									'</h2>',
+									esc_html( self::$rule_count_limit ),
+									'<br>'
 								);
 								?>
 							</td>
@@ -220,6 +222,7 @@ class WC_Shipping_Per_Product_Admin {
 	 * @param int $post_id Post ID.
 	 */
 	public function save( $post_id ) {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		// Enabled or Disabled.
 		$enabled              = ! empty( $_POST['_per_product_shipping'] );
 		$saved_enable_setting = get_post_meta( $post_id, '_per_product_shipping', true ) === 'yes';
@@ -233,12 +236,14 @@ class WC_Shipping_Per_Product_Admin {
 			delete_post_meta( $post_id, '_per_product_shipping_add_to_all' );
 		}
 
-		$countries  = ! empty( $_POST['per_product_country'][ $post_id ] ) ? $_POST['per_product_country'][ $post_id ] : array();
-		$states     = ! empty( $_POST['per_product_state'][ $post_id ] ) ? $_POST['per_product_state'][ $post_id ] : array();
-		$postcodes  = ! empty( $_POST['per_product_postcode'][ $post_id ] ) ? $_POST['per_product_postcode'][ $post_id ] : array();
-		$costs      = ! empty( $_POST['per_product_cost'][ $post_id ] ) ? $_POST['per_product_cost'][ $post_id ] : array();
-		$item_costs = ! empty( $_POST['per_product_item_cost'][ $post_id ] ) ? $_POST['per_product_item_cost'][ $post_id ] : array();
-		$order      = ! empty( $_POST['per_product_order'][ $post_id ] ) ? $_POST['per_product_order'][ $post_id ] : array();
+		$countries  = ! empty( $_POST['per_product_country'][ $post_id ] ) ? wc_clean( $_POST['per_product_country'][ $post_id ] ) : array();
+		$states     = ! empty( $_POST['per_product_state'][ $post_id ] ) ? wc_clean( $_POST['per_product_state'][ $post_id ] ) : array();
+		$postcodes  = ! empty( $_POST['per_product_postcode'][ $post_id ] ) ? wc_clean( $_POST['per_product_postcode'][ $post_id ] ) : array();
+		$costs      = ! empty( $_POST['per_product_cost'][ $post_id ] ) ? wc_clean( $_POST['per_product_cost'][ $post_id ] ) : array();
+		$item_costs = ! empty( $_POST['per_product_item_cost'][ $post_id ] ) ? wc_clean( $_POST['per_product_item_cost'][ $post_id ] ) : array();
+		$order      = ! empty( $_POST['per_product_order'][ $post_id ] ) ? wc_clean( $_POST['per_product_order'][ $post_id ] ) : array();
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
+
 		if ( ! empty( $countries ) ) {
 			$data = compact( 'countries', 'states', 'postcodes', 'costs', 'item_costs', 'order' );
 			$this->save_product_rules( $post_id, $data );
@@ -267,13 +272,14 @@ class WC_Shipping_Per_Product_Admin {
 	 * @param int $index   Index.
 	 */
 	public function save_variation( $post_id, $index ) {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		$enabled    = isset( $_POST['_per_variation_shipping'][ $post_id ] );
-		$countries  = ! empty( $_POST['per_product_country'][ $post_id ] ) ? $_POST['per_product_country'][ $post_id ] : array();
-		$states     = ! empty( $_POST['per_product_state'][ $post_id ] ) ? $_POST['per_product_state'][ $post_id ] : array();
-		$postcodes  = ! empty( $_POST['per_product_postcode'][ $post_id ] ) ? $_POST['per_product_postcode'][ $post_id ] : array();
-		$costs      = ! empty( $_POST['per_product_cost'][ $post_id ] ) ? $_POST['per_product_cost'][ $post_id ] : array();
-		$item_costs = ! empty( $_POST['per_product_item_cost'][ $post_id ] ) ? $_POST['per_product_item_cost'][ $post_id ] : array();
-		$order      = ! empty( $_POST['per_product_order'][ $post_id ] ) ? $_POST['per_product_order'][ $post_id ] : array();
+		$countries  = ! empty( $_POST['per_product_country'][ $post_id ] ) ? wc_clean( $_POST['per_product_country'][ $post_id ]) : array();
+		$states     = ! empty( $_POST['per_product_state'][ $post_id ] ) ? wc_clean( $_POST['per_product_state'][ $post_id ]) : array();
+		$postcodes  = ! empty( $_POST['per_product_postcode'][ $post_id ] ) ? wc_clean( $_POST['per_product_postcode'][ $post_id ] ) : array();
+		$costs      = ! empty( $_POST['per_product_cost'][ $post_id ] ) ? wc_clean( $_POST['per_product_cost'][ $post_id ] ) : array();
+		$item_costs = ! empty( $_POST['per_product_item_cost'][ $post_id ] ) ? wc_clean( $_POST['per_product_item_cost'][ $post_id ] ) : array();
+		$order      = ! empty( $_POST['per_product_order'][ $post_id ] ) ? wc_clean( $_POST['per_product_order'][ $post_id ] ) : array();
 		$saved_enable_setting = get_post_meta( $post_id, '_per_product_shipping', true ) === 'yes';
 
 		$this->clear_shipping_cache_if_necessary( $enabled, $saved_enable_setting );
@@ -288,6 +294,7 @@ class WC_Shipping_Per_Product_Admin {
 			delete_post_meta( $post_id, '_per_product_shipping' );
 			delete_post_meta( $post_id, '_per_product_shipping_add_to_all' );
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 	/**
@@ -492,7 +499,9 @@ class WC_Shipping_Per_Product_Admin {
 	 * Retrieve and send shipping rules with the given product ID
 	 */
 	public function export_rules() {
-		$product_id = $_POST['product_id'];
+		check_ajax_referer( 'per-product-export', 'security' );
+
+		$product_id = isset( $_POST['product_id'] ) ? absint( $_POST['product_id'] ) : 0;
 		$response   = array(
 			'success' => false,
 		);

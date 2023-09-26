@@ -657,7 +657,7 @@ function wc_bookings_get_time_slots( $bookable_product, $blocks, $intervals = ar
 
 		$booking_resource = $resource_id ? $bookable_product->get_resource( $resource_id ) : null;
 		$available_slots  = array();
-		$has_qty          = ! is_null( $booking_resource ) ? $booking_resource->has_qty() : false;
+		$has_qty          = is_object( $booking_resource ) ? $booking_resource->has_qty() : false;
 		$has_resources    = $bookable_product->has_resources();
 
 		/*
@@ -1468,4 +1468,31 @@ function wc_bookings_date_format() {
 function wc_booking_search( $term ) {
 	$data_store = WC_Data_Store::load( 'booking' );
 	return $data_store->search_bookings( str_replace( 'Booking #', '', wc_clean( $term ) ) );
+}
+
+/**
+ * Get script dependencies from wp-scripts generated asset file.
+ *
+ * @since 2.0.3
+ *
+ * @param string   $entry_point             The entry point name in the webpack config.
+ * @param string[] $additional_dependencies Additional dependencies to add to the list.
+ * @return string[] An array of dependencies.
+ */
+function wc_booking_get_script_dependencies( $entry_point, $additional_dependencies = array() ) {
+	/*
+	 * Prevent attempts at path traversal.
+	 *
+	 * As the directory structure of the dist folder is flat, it's possible to use
+	 * the basename of the entry point to prevent path traversal.
+	 */
+	$entry_point = basename( $entry_point );
+	$asset_file  = WC_BOOKINGS_PLUGIN_PATH . '/dist/' . $entry_point . '.asset.php';
+
+	if ( ! file_exists( $asset_file ) ) {
+		return array();
+	}
+
+	$asset_data = require $asset_file;
+	return array_merge( $asset_data['dependencies'], $additional_dependencies );
 }

@@ -25,7 +25,7 @@ if ( ! class_exists( 'WC_OD_Order_Details' ) ) {
 		}
 
 		/**
-		 * Displays the delivery date section at the end of the order details.
+		 * Displays the delivery details in the view order screen.
 		 *
 		 * @since 1.0.0
 		 *
@@ -40,20 +40,22 @@ if ( ! class_exists( 'WC_OD_Order_Details' ) ) {
 
 			$delivery_date = $order->get_meta( '_delivery_date' );
 
-			if ( $delivery_date ) {
-				$delivery_date_i18n = wc_od_localize_date( $delivery_date );
-
-				if ( $delivery_date_i18n ) {
-					wc_od_order_delivery_details(
-						array(
-							'title'               => __( 'Delivery details', 'woocommerce-order-delivery' ),
-							'delivery_date'       => $delivery_date_i18n,
-							'delivery_time_frame' => $order->get_meta( '_delivery_time_frame' ),
-							'order_id'            => $order_id,
-						)
-					);
-				}
+			if ( ! $delivery_date ) {
+				return;
 			}
+
+			$time_frame = $order->get_meta( '_delivery_time_frame' );
+
+			wc_od_order_delivery_details(
+				array(
+					'order_id'            => $order_id, // Deprecated.
+					'order'               => $order,
+					'date'                => $delivery_date,
+					'time_frame'          => $time_frame,
+					'delivery_date'       => wc_od_localize_date( $delivery_date ), // Deprecated.
+					'delivery_time_frame' => $time_frame, // Deprecated.
+				)
+			);
 		}
 	}
 }

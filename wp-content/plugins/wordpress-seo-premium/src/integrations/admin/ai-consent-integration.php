@@ -91,10 +91,6 @@ class Ai_Consent_Integration implements Integration_Interface {
 	 * @return void
 	 */
 	public function register_hooks() {
-		if ( ! $this->options_helper->get( 'enable_ai_generator', false ) ) {
-			return;
-		}
-
 		// Hide AI feature option in user profile if the user is not allowed to use it.
 		if ( current_user_can( 'edit_posts' ) ) {
 			\add_action( 'wpseo_user_profile_additions', [ $this, 'render_user_profile' ], 12 );

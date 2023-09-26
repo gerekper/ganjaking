@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 if ( ! defined( 'WCWL_VERSION' ) ) {
-	define( 'WCWL_VERSION', '2.4.1' );
+	define( 'WCWL_VERSION', '2.4.2' );
 }
 if ( ! defined( 'WCWL_SLUG' ) ) {
 	define( 'WCWL_SLUG', 'woocommerce_waitlist' );

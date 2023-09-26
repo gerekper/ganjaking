@@ -85,7 +85,7 @@ class Cornerstone_Column_Integration implements Integration_Interface {
 		\add_filter( 'posts_clauses', [ $this, 'order_by_cornerstone' ], 1, 2 );
 		\add_action( 'admin_init', [ $this, 'register_init_hooks' ] );
 
-		// // Adds a filter to exclude the attachments from the cornerstone column.
+		// Adds a filter to exclude the attachments from the cornerstone column.
 		\add_filter( 'wpseo_cornerstone_column_post_types', [ 'WPSEO_Post_Type', 'filter_attachment_post_type' ] );
 
 		\add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );

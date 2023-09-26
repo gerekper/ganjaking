@@ -29,9 +29,16 @@ class WC_OD_Admin_Meta_Boxes {
 	 * @since 2.4.0
 	 */
 	public static function add_meta_boxes() {
-		$screen = wc_od_get_order_admin_screen();
+		$screen   = wc_od_get_order_admin_screen();
+		$order_id = wc_od_get_current_post_or_object_id( $screen );
 
-		add_meta_box( 'woocommerce-order-delivery', _x( 'Delivery', 'meta box title', 'woocommerce-order-delivery' ), 'WC_OD_Meta_Box_Order_Delivery::output', $screen, 'side', 'core' );
+		if ( $order_id && wc_od_order_is_local_pickup( $order_id ) ) {
+			$title = __( 'Pickup details', 'woocommerce-order-delivery' );
+		} else {
+			$title = __( 'Delivery details', 'woocommerce-order-delivery' );
+		}
+
+		add_meta_box( 'woocommerce-order-delivery', $title, 'WC_OD_Meta_Box_Order_Delivery::output', $screen, 'side', 'core' );
 	}
 }
 

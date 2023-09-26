@@ -15,15 +15,15 @@
 <table class="wc_status_table widefat" cellspacing="0">
 	<thead>
 		<tr>
-			<th colspan="4" data-export-label="Delivery Ranges">
-				<h2><?php esc_html_e( 'Delivery Ranges', 'woocommerce-order-delivery' ); ?><?php echo wc_help_tip( esc_html__( 'This section shows the delivery ranges defined with WooCommerce Order Delivery.', 'woocommerce-order-delivery' ) ); ?></h2>
+			<th colspan="4" data-export-label="Delivery ranges">
+				<h2><?php esc_html_e( 'Delivery ranges', 'woocommerce-order-delivery' ); ?><?php echo wc_help_tip( esc_html__( 'This section shows the delivery ranges defined with WooCommerce Order Delivery.', 'woocommerce-order-delivery' ) ); ?></h2>
 			</th>
 		</tr>
 		<tr>
-			<td><strong><?php echo esc_html_x( 'Title', 'delivery ranges: table column', 'woocommerce-order-delivery' ); ?></strong></td>
+			<td><strong><?php echo esc_html__( 'Title', 'woocommerce' ); // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch ?></strong></td>
 			<td class="help"></td>
-			<td><strong><?php echo esc_html_x( 'Range', 'delivery ranges: table column', 'woocommerce-order-delivery' ); ?></strong></td>
-			<td><strong><?php echo esc_html_x( 'Shipping methods', 'delivery ranges: table column', 'woocommerce-order-delivery' ); ?></strong></td>
+			<td><strong><?php echo esc_html__( 'Range', 'woocommerce-order-delivery' ); ?></strong></td>
+			<td><strong><?php echo esc_html__( 'Shipping methods', 'woocommerce-order-delivery' ); ?></strong></td>
 		</tr>
 	</thead>
 	<tbody>

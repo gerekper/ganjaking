@@ -1,0 +1,131 @@
+# Copyright (C) 2023 Themesquad
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Splash Popup 1.5.0\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-05-17T15:43:11+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.7.1\n"
+"X-Domain: woocommerce-splash-popup\n"
+
+#. Plugin Name of the plugin
+msgid "WooCommerce Splash Popup"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://woocommerce.com/products/woocommerce-splash-popup/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Allows store owners to display a lightbox popup on their web site containing page content based on whether the user is logged in or not, and whether the user is a customer or not. Once hidden the popup remains hidden via cookie."
+msgstr ""
+
+#. Author of the plugin
+msgid "Themesquad"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://themesquad.com"
+msgstr ""
+
+#: src/Admin/Admin.php:39
+msgctxt "aria-label: settings link"
+msgid "View WooCommerce Product Finder settings"
+msgstr ""
+
+#: src/Admin/Admin.php:40
+msgctxt "plugin action link"
+msgid "Settings"
+msgstr ""
+
+#: src/Admin/Admin.php:65
+msgctxt "aria-label: documentation link"
+msgid "View WooCommerce Splash Popup documentation"
+msgstr ""
+
+#: src/Admin/Admin.php:66
+msgctxt "plugin row link"
+msgid "Docs"
+msgstr ""
+
+#: src/Admin/Admin.php:72
+msgctxt "aria-label: support link"
+msgid "Open a support ticket at WooCommerce.com"
+msgstr ""
+
+#: src/Admin/Admin.php:73
+msgctxt "plugin row link"
+msgid "Support"
+msgstr ""
+
+#: woocommerce-splash-popup-privacy.php:24
+#: woocommerce-splash-popup.php:103
+msgid "Splash Popup"
+msgstr ""
+
+#: woocommerce-splash-popup-privacy.php:32
+msgid "By using this extension, you may be storing personal data or sharing data with an external service."
+msgstr ""
+
+#: woocommerce-splash-popup-privacy.php:34
+msgid "Learn more about how this works, including what you may want to include in your privacy policy."
+msgstr ""
+
+#. translators: %s: WooCommerce link
+#: woocommerce-splash-popup.php:59
+msgid "WooCommerce Splash Popup requires %s to be installed and active."
+msgstr ""
+
+#: woocommerce-splash-popup.php:161
+msgid "Splash Popup Options"
+msgstr ""
+
+#: woocommerce-splash-popup.php:166
+msgid "Logged Out Users See"
+msgstr ""
+
+#: woocommerce-splash-popup.php:167
+msgid "The content of this page will be displayed in your splash popup to logged out users."
+msgstr ""
+
+#: woocommerce-splash-popup.php:176
+msgid "Logged In Users See"
+msgstr ""
+
+#: woocommerce-splash-popup.php:177
+msgid "The content of this page will be displayed in your splash popup to logged in users."
+msgstr ""
+
+#: woocommerce-splash-popup.php:186
+msgid "Logged In Customers See"
+msgstr ""
+
+#: woocommerce-splash-popup.php:187
+msgid "The content of this page will be displayed in your splash popup to logged in customers."
+msgstr ""
+
+#: woocommerce-splash-popup.php:196
+msgid "Cookie Expiration (days)"
+msgstr ""
+
+#: woocommerce-splash-popup.php:197
+msgid "Define how many consecutive days the popup will stay hidden for once closed."
+msgstr ""
+
+#: woocommerce-splash-popup.php:203
+msgid "Force Display"
+msgstr ""
+
+#: woocommerce-splash-popup.php:204
+msgid "Force the pop up to display regardless of the cookie (only recommended for testing purposes)."
+msgstr ""
+
+#: woocommerce-splash-popup.php:379
+msgid "Welcome back "
+msgstr ""

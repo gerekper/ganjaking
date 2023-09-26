@@ -1,5 +1,13 @@
 *** WooCommerce Force Sells ***
 
+2023-09-18 - version 1.3.0
+* Tweak - Added links to the documentation page, and to get support, in the plugin list.
+* Tweak - Sanitize input values before saving the product metadata.
+* Tweak - Updated plugin author.
+* Tweak - Tested compatibility up to WC 8.1.
+* Tweak - Tested compatibility up to WP 6.3.
+* Fix - Don't allow removing synced force sells from the cart when loaded from an "Order again" action.
+
 2023-01-10 - version 1.2.0
 * Tweak - Declare compatibility with WooCommerce High-Performance Order Storage (HPOS).
 * Tweak - Updated plugin author.
@@ -66,7 +74,7 @@
 * Update - WC 3.5 compatibility.
 
 2018-05-21 - version 1.1.16
-* Fix    - Use product title instead of relying on post for compatibility.
+* Fix - Use product title instead of relying on post for compatibility.
 * Update - WC 3.4 compatibility.
 
 2018-01-16 - version 1.1.15
@@ -86,14 +94,14 @@
 * New - Introduce "wc_force_sell_disallow_no_stock" filter to allow main product to be added even when forced item is out of stock.
 
 2016-10-05 - version 1.1.10
-* Fix - PHP Notice caused by invalid value passed to foreach()
-* Tweak - Make sure get_force_sell_ids always returns array
+* Fix - PHP Notice caused by invalid value passed to foreach().
+* Tweak - Make sure get_force_sell_ids always returns array.
 * Fix - Prevent duplication of the same forced product in single product page.
 
 2015-01-13 - version 1.1.9
 * Hook the remove and restore actions later so plugins like Bookings can clean up their data first, before a force sell is removed.
 
-2015-12-03 = version 1.1.8
+2015-12-03 - version 1.1.8
 * Fix - Make sure to delete orphan force sells if the product gets deleted (like inactive bookings).
 
 2015-02-02 - version 1.1.7
@@ -101,27 +109,27 @@
 * Removed $woocommerce globals.
 
 2015-01-29 - version 1.1.6
-* Fix - Backwards compatibility
+* Fix - Backwards compatibility.
 
 2015-01-28 - version 1.1.5
-* New - WC 2.3 compatibility (chosen -> select2)
+* New - WC 2.3 compatibility (chosen -> select2).
 
 2014-11-27 - version 1.1.4
-* Update class structure / loading
-* Don't use global variables
+* Update class structure / loading.
+* Don't use global variables.
 
 2013-10-24 - version 1.1.3
-* Cleaned pass by reference notices
-* Added filters to manipulate products and quantities being added
+* Cleaned pass by reference notices.
+* Added filters to manipulate products and quantities being added.
 
 2013-01-21 - version 1.1.2
-* WC 2.0 compat
+* WC 2.0 compat.
 
 2012-12-07 - version 1.1.1
-* Fixed bug where products forcing each other ended up in a loop
+* Fixed bug where products forcing each other ended up in a loop.
 
 2012-12-04 - version 1.1
-* New updater
+* New updater.
 
 2012-05-10 - version 1.0
-* First release
+* First release.

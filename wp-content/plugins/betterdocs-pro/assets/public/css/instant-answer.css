@@ -206,18 +206,18 @@
           -ms-transform: translateY(-3px);
               transform: translateY(-3px);
       cursor: pointer; }
-    .betterdocs-messages-container .betterdocs-card-link .betterdocs-card-title-wrapper {
-      margin-bottom: 10px; }
-      .betterdocs-messages-container .betterdocs-card-link .betterdocs-card-title-wrapper .betterdocs-card-title {
-        margin: 0;
-        font-size: 16px;
-        font-weight: 600; }
-    .betterdocs-messages-container .betterdocs-card-link .betterdocs-card-body-wrapper .betterdocs-card-body {
+    .betterdocs-messages-container .betterdocs-card-link .betterdocs-card-title-wrapper .betterdocs-card-title {
+      margin: 0;
       font-size: 16px;
-      line-height: 1.6;
-      margin-bottom: 0; }
-      .betterdocs-messages-container .betterdocs-card-link .betterdocs-card-body-wrapper .betterdocs-card-body p {
-        margin-bottom: 0px; }
+      font-weight: 600; }
+    .betterdocs-messages-container .betterdocs-card-link .betterdocs-card-body-wrapper {
+      margin-top: 10px; }
+      .betterdocs-messages-container .betterdocs-card-link .betterdocs-card-body-wrapper .betterdocs-card-body {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 0; }
+        .betterdocs-messages-container .betterdocs-card-link .betterdocs-card-body-wrapper .betterdocs-card-body p {
+          margin-bottom: 0px; }
   .betterdocs-messages-container .betterdocs-modal-wrapper {
     -webkit-transition: all 300ms ease-in-out;
     -o-transition: all 300ms ease-in-out;
@@ -400,7 +400,10 @@
   -ms-flex-align: center;
       align-items: center; }
   .betterdocs-list-title-wrapper .bd-ia-card-back {
-    display: block;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+        align-items: center;
     width: 100%;
     font-size: 13px;
     cursor: pointer;

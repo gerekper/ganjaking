@@ -34,11 +34,11 @@ class Permalink_Manager_Tools {
 				),
 				'stop_words'       => array(
 					'name'     => __( 'Stop Words', 'permalink-manager' ),
-					'function' => array( 'class' => 'Permalink_Manager_Admin_Functions', 'method' => 'pro_text' )
+					'function' => array( 'class' => 'Permalink_Manager_UI_Elements', 'method' => 'pro_text' )
 				),
 				'import'           => array(
 					'name'     => __( 'Custom Permalinks', 'permalink-manager' ),
-					'function' => array( 'class' => 'Permalink_Manager_Admin_Functions', 'method' => 'pro_text' )
+					'function' => array( 'class' => 'Permalink_Manager_UI_Elements', 'method' => 'pro_text' )
 				)
 			)
 		);

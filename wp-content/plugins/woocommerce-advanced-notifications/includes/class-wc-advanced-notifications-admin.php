@@ -76,12 +76,12 @@ class WC_Advanced_Notifications_Admin {
 	 */
 	public function pass_custom_columns( $columns ) {
 		return array(
-			'notification_type' => __( 'Notification Types', 'woocommerce-advanced-notifications' ),
-			'notification_triggers' => __( 'Triggers', 'woocommerce-advanced-notifications' ),
-			'notification_plain_text' => __( 'Plain text?', 'woocommerce-advanced-notifications' ),
-			'notification_prices' => __( 'Prices?', 'woocommerce-advanced-notifications' ),
-			'notification_totals' => __( 'Totals?', 'woocommerce-advanced-notifications' ),
-			'notification_sent_count' => __( 'Sent count', 'woocommerce-advanced-notifications' ),
+			'notification_type' => esc_html__( 'Notification Types', 'woocommerce-advanced-notifications' ),
+			'notification_triggers' => esc_html__( 'Triggers', 'woocommerce-advanced-notifications' ),
+			'notification_plain_text' => esc_html__( 'Plain text?', 'woocommerce-advanced-notifications' ),
+			'notification_prices' => esc_html__( 'Prices?', 'woocommerce-advanced-notifications' ),
+			'notification_totals' => esc_html__( 'Totals?', 'woocommerce-advanced-notifications' ),
+			'notification_sent_count' => esc_html__( 'Sent count', 'woocommerce-advanced-notifications' ),
 		);
 	}
 
@@ -129,14 +129,16 @@ class WC_Advanced_Notifications_Admin {
 		$recipients = array( 0 );
 		$triggers   = array();
 
-		// Get new
-		if ( isset( $_POST['notification_recipients'] ) ) {
-			if ( is_array( $_POST['notification_recipients'] ) ) {
-				foreach ( $_POST['notification_recipients'] as $recipient ) {
-					$recipient    = absint( $recipient );
-					$recipients[] = $recipient;
-					$triggers[]   = "( {$recipient}, {$post_id}, 'product' )";
-				}
+		// Get new notification recipients.
+		// No need to be verified as it has been verified on WC_Meta_Box_Product_Data::save().
+		// It's sanitized later using `absint()` on line 139.
+		$notification_recipients = isset( $_POST['notification_recipients'] ) ? $_POST['notification_recipients'] : ''; // phpcs:ignore
+			
+		if ( is_array( $notification_recipients ) ) {
+			foreach ( $notification_recipients as $recipient ) {
+				$recipient    = absint( $recipient );
+				$recipients[] = $recipient;
+				$triggers[]   = "( {$recipient}, {$post_id}, 'product' )";
 			}
 		}
 
@@ -175,7 +177,7 @@ class WC_Advanced_Notifications_Admin {
 			$wpdb->query( "DELETE FROM {$wpdb->prefix}advanced_notifications WHERE notification_id = {$delete};" );
 			$wpdb->query( "DELETE FROM {$wpdb->prefix}advanced_notification_triggers WHERE notification_id = {$delete};" );
 
-			echo '<div class="updated fade"><p>' . __( 'Notification deleted successfully', 'woocommerce-advanced-notifications' ) . '</p></div>';
+			echo '<div class="updated fade"><p>' . esc_html__( 'Notification deleted successfully', 'woocommerce-advanced-notifications' ) . '</p></div>';
 
 		} elseif ( ! empty( $_GET['add'] ) ) {
 
@@ -186,10 +188,10 @@ class WC_Advanced_Notifications_Admin {
 				$result = $this->add_recipient();
 
 				if ( is_wp_error( $result ) ) {
-					echo '<div class="error"><p>' . $result->get_error_message() . '</p></div>';
+					echo '<div class="error"><p>' . esc_html( $result->get_error_message() ) . '</p></div>';
 				} elseif ( $result ) {
 
-					echo '<div class="updated fade"><p>' . __( 'Notification saved successfully', 'woocommerce-advanced-notifications' ) . '</p></div>';
+					echo '<div class="updated fade"><p>' . esc_html__( 'Notification saved successfully', 'woocommerce-advanced-notifications' ) . '</p></div>';
 
 				}
 
@@ -210,10 +212,10 @@ class WC_Advanced_Notifications_Admin {
 				$result = $this->save_recipient();
 
 				if ( is_wp_error( $result ) ) {
-					echo '<div class="error"><p>' . $result->get_error_message() . '</p></div>';
+					echo '<div class="error"><p>' . esc_html( $result->get_error_message() ) . '</p></div>';
 				} elseif ( $result ) {
 
-					echo '<div class="updated fade"><p>' . __( 'Notification saved successfully', 'woocommerce-advanced-notifications' ) . '</p></div>';
+					echo '<div class="updated fade"><p>' . esc_html__( 'Notification saved successfully', 'woocommerce-advanced-notifications' ) . '</p></div>';
 
 				}
 
@@ -224,11 +226,11 @@ class WC_Advanced_Notifications_Admin {
 		}
 
 		if ( ! empty( $_GET['success'] ) ) {
-			echo '<div class="updated fade"><p>' . __( 'Notification saved successfully', 'woocommerce-advanced-notifications' ) . '</p></div>';
+			echo '<div class="updated fade"><p>' . esc_html__( 'Notification saved successfully', 'woocommerce-advanced-notifications' ) . '</p></div>';
 		}
 
 		if ( ! empty( $_GET['deleted'] ) ) {
-			echo '<div class="updated fade"><p>' . __( 'Notification deleted successfully', 'woocommerce-advanced-notifications' ) . '</p></div>';
+			echo '<div class="updated fade"><p>' . esc_html__( 'Notification deleted successfully', 'woocommerce-advanced-notifications' ) . '</p></div>';
 		}
 
 		if ( ! class_exists( 'WP_List_Table' ) ) {
@@ -259,11 +261,8 @@ class WC_Advanced_Notifications_Admin {
 
 		}
 
-		$value = maybe_unserialize( $value );
-
-		if ( isset( $_POST[ $name ] ) ) {
-			$value = $_POST[ $name ];
-		}
+		// It has been verified on WC_Advanced_Notifications_Admin::admin_screen() and will be sanitized later on line 266.
+		$value = isset( $_POST[ $name ] ) ? $_POST[ $name ] : maybe_unserialize( $value ); // phpcs:ignore
 
 		if ( is_array( $value ) ) {
 			$value = array_map( 'trim', array_map( 'esc_attr', array_map( 'stripslashes', $value ) ) );
@@ -280,16 +279,18 @@ class WC_Advanced_Notifications_Admin {
 	function add_recipient() {
 		global $wpdb;
 
-		$recipient_name          = sanitize_text_field( stripslashes( $_POST['recipient_name'] ) );
-		$recipient_email         = sanitize_text_field( stripslashes( $_POST['recipient_email'] ) );
-		$recipient_address       = sanitize_text_field( stripslashes( $_POST['recipient_address'] ) );
-		$recipient_phone         = sanitize_text_field( stripslashes( $_POST['recipient_phone'] ) );
-		$recipient_website       = sanitize_text_field( stripslashes( $_POST['recipient_website'] ) );
-		$notification_type       = isset( $_POST['notification_type'] ) ? array_filter( array_map( 'sanitize_text_field', array_map( 'stripslashes', (array) $_POST['notification_type'] ) ) ) : array();
+		// phpcs:disable WordPress.Security.NonceVerification.Missing --- No need to verify as it has been verified on WC_Advanced_Notifications_Admin::admin_screen().
+		$recipient_name          = sanitize_text_field( wp_unslash( $_POST['recipient_name'] ) ); 
+		$recipient_email         = sanitize_email( wp_unslash( $_POST['recipient_email'] ) );
+		$recipient_address       = sanitize_text_field( wp_unslash( $_POST['recipient_address'] ) );
+		$recipient_phone         = sanitize_text_field( wp_unslash( $_POST['recipient_phone'] ) );
+		$recipient_website       = esc_url_raw( wp_unslash( $_POST['recipient_website'] ) );
+		$notification_type       = isset( $_POST['notification_type'] ) ? array_filter( array_map( 'sanitize_text_field', array_map( 'wp_unslash', (array) $_POST['notification_type'] ) ) ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized --- It has been sanitized using array_map().
 		$notification_plain_text = ! empty( $_POST['notification_plain_text'] ) ? 1 : 0;
 		$notification_totals     = ! empty( $_POST['notification_totals'] ) ? 1 : 0;
 		$notification_prices     = ! empty( $_POST['notification_prices'] ) ? 1 : 0;
 		$notification_all_items  = ! empty( $_POST['notification_include_all_items'] ) ? 1 : 0;
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 
 		// Validate
 		if ( empty( $recipient_name ) ) {
@@ -334,8 +335,8 @@ class WC_Advanced_Notifications_Admin {
 
 			$triggers = array();
 
-			// Store triggers
-			$posted_triggers = isset( $_POST['notification_triggers'] ) ? array_filter( array_map( 'esc_attr', array_map( 'trim', (array) $_POST['notification_triggers'] ) ) ) : array();
+			// Store triggers. No need to verify as it has been verified on WC_Advanced_Notifications_Admin::admin_screen().
+			$posted_triggers = isset( $_POST['notification_triggers'] ) ? array_filter( array_map( 'esc_attr', array_map( 'trim', (array) $_POST['notification_triggers'] ) ) ) : array(); // phpcs:ignore
 
 			foreach ( $posted_triggers as $trigger ) {
 				if ( $trigger == 'all' ) {
@@ -344,9 +345,8 @@ class WC_Advanced_Notifications_Admin {
 
 				} else {
 					$trigger = explode( ':', $trigger );
-
-					$term 	= esc_attr( $trigger[0] );
-					$id 	= absint( $trigger[1] );
+					$term    = esc_attr( $trigger[0] );
+					$id      = absint( $trigger[1] );
 
 					$triggers[] = "( {$notification_id}, {$id}, '{$term}' )";
 				}
@@ -371,16 +371,19 @@ class WC_Advanced_Notifications_Admin {
 	function save_recipient() {
 		global $wpdb;
 
-		$recipient_name          = sanitize_text_field( stripslashes( $_POST['recipient_name'] ) );
-		$recipient_email         = sanitize_text_field( stripslashes( $_POST['recipient_email'] ) );
-		$recipient_address       = sanitize_text_field( stripslashes( $_POST['recipient_address'] ) );
-		$recipient_phone         = sanitize_text_field( stripslashes( $_POST['recipient_phone'] ) );
-		$recipient_website       = sanitize_text_field( stripslashes( $_POST['recipient_website'] ) );
-		$notification_type       = isset( $_POST['notification_type'] ) ? array_filter( array_map( 'sanitize_text_field', array_map( 'stripslashes', (array) $_POST['notification_type'] ) ) ) : array();
+		// No need to verify as it has been verified on WC_Advanced_Notifications_Admin::admin_screen().
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
+		$recipient_name          = sanitize_text_field( wp_unslash( $_POST['recipient_name'] ) );
+		$recipient_email         = sanitize_text_field( wp_unslash( $_POST['recipient_email'] ) );
+		$recipient_address       = sanitize_text_field( wp_unslash( $_POST['recipient_address'] ) );
+		$recipient_phone         = sanitize_text_field( wp_unslash( $_POST['recipient_phone'] ) );
+		$recipient_website       = sanitize_text_field( wp_unslash( $_POST['recipient_website'] ) );
+		$notification_type       = isset( $_POST['notification_type'] ) ? array_filter( array_map( 'sanitize_text_field', array_map( 'wp_unslash', (array) $_POST['notification_type'] ) ) ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized --- It has been sanitized using array_map().
 		$notification_plain_text = ! empty( $_POST['notification_plain_text'] ) ? 1 : 0;
-		$notification_totals	 = ! empty( $_POST['notification_totals'] ) ? 1 : 0;
-		$notification_prices	 = ! empty( $_POST['notification_prices'] ) ? 1 : 0;
+		$notification_totals     = ! empty( $_POST['notification_totals'] ) ? 1 : 0;
+		$notification_prices     = ! empty( $_POST['notification_prices'] ) ? 1 : 0;
 		$notification_all_items  = ! empty( $_POST['notification_include_all_items'] ) ? 1 : 0;
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 
 		// Validate
 		if ( empty( $recipient_name ) ) {
@@ -430,8 +433,8 @@ class WC_Advanced_Notifications_Admin {
 
 		$triggers = array();
 
-		// Store triggers
-		$posted_triggers = isset( $_POST['notification_triggers'] ) ? array_filter( array_map( 'esc_attr', array_map( 'trim', (array) $_POST['notification_triggers'] ) ) ) : array();
+		// Store triggers. No need to verify as it has been verified on WC_Advanced_Notifications_Admin::admin_screen().
+		$posted_triggers = isset( $_POST['notification_triggers'] ) ? array_filter( array_map( 'esc_attr', array_map( 'trim', (array) $_POST['notification_triggers'] ) ) ) : array(); // phpcs:ignore
 
 		foreach ( $posted_triggers as $trigger ) {
 			if ( $trigger == 'all' ) {
@@ -440,9 +443,8 @@ class WC_Advanced_Notifications_Admin {
 
 			} else {
 				$trigger = explode( ':', $trigger );
-
-				$term 	= esc_attr( $trigger[0] );
-				$id 	= absint( $trigger[1] );
+				$term    = esc_attr( $trigger[0] );
+				$id      = absint( $trigger[1] );
 
 				$triggers[] = "( " . absint( $this->editing_id ) . ", {$id}, '{$term}' )";
 			}

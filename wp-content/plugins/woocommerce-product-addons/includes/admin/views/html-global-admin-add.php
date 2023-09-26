@@ -12,9 +12,7 @@ if ( isset( $_POST ) && ! empty( $_POST['save_addon'] ) || ! empty( $_GET['edit'
 }
 ?>
 <div class="wrap woocommerce">
-	<div class="icon32 icon32-posts-product" id="icon-woocommerce"><br/></div>
-
-	<h2><?php echo esc_html( $page_title ); ?></h2>
+	<h1 class="wp-heading-inline"><?php echo esc_html( $page_title ); ?></h1>
 
 	<div><?php esc_html_e( 'Set up add-ons that apply to all products or specific product categories.', 'woocommerce-product-addons' ); ?></div><br />
 

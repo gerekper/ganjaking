@@ -4,7 +4,6 @@ namespace Yoast\WP\SEO\Premium\Helpers;
 
 use RuntimeException;
 use WP_User;
-use wpdb;
 use WPSEO_Utils;
 use Yoast\WP\SEO\Helpers\Options_Helper;
 use Yoast\WP\SEO\Helpers\User_Helper;
@@ -47,25 +46,16 @@ class AI_Generator_Helper {
 	protected $user_helper;
 
 	/**
-	 * The database object.
-	 *
-	 * @var wpdb
-	 */
-	protected $wpdb;
-
-	/**
 	 * AI_Generator_Helper constructor.
 	 *
 	 * @codeCoverageIgnore It only sets dependencies.
 	 *
 	 * @param Options_Helper $options     The options helper.
 	 * @param User_Helper    $user_helper The User helper.
-	 * @param wpdb           $wpdb        The wpdb object.
 	 */
-	public function __construct( Options_Helper $options, User_Helper $user_helper, wpdb $wpdb ) {
+	public function __construct( Options_Helper $options, User_Helper $user_helper ) {
 		$this->options_helper = $options;
 		$this->user_helper    = $user_helper;
-		$this->wpdb           = $wpdb;
 	}
 
 	/**
@@ -328,6 +318,15 @@ class AI_Generator_Helper {
 		}
 
 		return $refresh_jwt;
+	}
+
+	/**
+	 * Checks if the AI Generator feature is active.
+	 *
+	 * @return bool Whether the feature is active.
+	 */
+	public function is_ai_generator_enabled() {
+		return $this->options_helper->get( 'enable_ai_generator', false );
 	}
 
 	/**

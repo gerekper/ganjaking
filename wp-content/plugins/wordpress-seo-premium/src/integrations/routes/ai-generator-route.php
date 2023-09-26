@@ -100,6 +100,28 @@ class AI_Generator_Route implements Route_Interface {
 	 * @return void
 	 */
 	public function register_routes() {
+		\register_rest_route(
+			Main::API_V1_NAMESPACE,
+			self::CONSENT_ROUTE,
+			[
+				'methods'             => 'POST',
+				'args'                => [
+					'consent' => [
+						'required'    => true,
+						'type'        => 'boolean',
+						'description' => 'Whether the consent to use AI-based services has been given by the user.',
+					],
+				],
+				'callback'            => [ $this, 'consent' ],
+				'permission_callback' => [ $this, 'check_permissions' ],
+			]
+		);
+
+		// Avoid registering the other routes if the feature is not enabled.
+		if ( ! $this->ai_generator_helper->is_ai_generator_enabled() ) {
+			return;
+		}
+
 		$callback_route_args = [
 			'methods'             => 'POST',
 			'args'                => [
@@ -120,7 +142,7 @@ class AI_Generator_Route implements Route_Interface {
 				],
 				'user_id'        => [
 					'required'    => true,
-					'type'        => 'string',
+					'type'        => 'integer',
 					'description' => 'The id of the user associated to the code verifier.',
 				],
 			],
@@ -172,23 +194,6 @@ class AI_Generator_Route implements Route_Interface {
 					],
 				],
 				'callback'            => [ $this, 'get_suggestions' ],
-				'permission_callback' => [ $this, 'check_permissions' ],
-			]
-		);
-
-		\register_rest_route(
-			Main::API_V1_NAMESPACE,
-			self::CONSENT_ROUTE,
-			[
-				'methods'             => 'POST',
-				'args'                => [
-					'consent' => [
-						'required'    => true,
-						'type'        => 'boolean',
-						'description' => 'Whether the consent to use AI-based services has been given by the user.',
-					],
-				],
-				'callback'            => [ $this, 'consent' ],
 				'permission_callback' => [ $this, 'check_permissions' ],
 			]
 		);
@@ -279,9 +284,11 @@ class AI_Generator_Route implements Route_Interface {
 	}
 
 	/**
-	 * Checks if the user is logged in and can edit posts.
+	 * Checks:
+	 * - if the user is logged
+	 * - if the user can edit posts
 	 *
-	 * @return bool Whether the user is logged in and can edit posts.
+	 * @return bool Whether the user is logged in, can edit posts and the feature is active.
 	 */
 	public function check_permissions() {
 		$user = \wp_get_current_user();

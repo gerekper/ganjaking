@@ -1,5 +1,26 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2023.09.22 - version 8.6.0
+* New: Tested up to WooCommerce 8.1.1
+* Fix: PHP Warning:  mysqli_free_result(): Couldn't fetch mysqli_result
+* Fix: Refund of store credit from order admin page is not working with all possible decimal point
+* Tweak: Database query performance optimization
+* Update: POT file
+
+2023.09.15 - version 8.5.0
+* New: Tested with PHP 8.0, 8.1 & 8.2
+* New: Tested up to WooCommerce 8.1.0
+* New: Tested up to WordPress 6.3.1
+* Fix: PHP Fatal error: Uncaught TypeError: str_getcsv(): Argument #1 ($string) must be of type string, array given
+* Fix: PHP Fatal error: Uncaught TypeError: call_user_func_array(): Argument #1 ($callback) must be a valid callback, class SA_WC_Compatibility_4_4 does not have a method 'save_shortcode_generated_coupon'
+* Fix: PHP Fatal error: Uncaught TypeError: Unsupported operand types: string + string
+* Fix: PHP Fatal error: Uncaught TypeError: Unsupported operand types: int + string
+* Fix: PHP Warning: foreach() argument must be of type array|object, string given
+* Fix: PHP Deprecated: auto_detect_line_endings is deprecated
+* Fix: PHP Deprecated: ltrim(): Passing null to parameter #1 ($string) of type string is deprecated
+* Fix: PHP Deprecated: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+* Update: POT file
+
 2023.08.21 - version 8.4.0
 * New: Tested up to WordPress 6.3.0
 * New: Tested up to WooCommerce 8.0.2

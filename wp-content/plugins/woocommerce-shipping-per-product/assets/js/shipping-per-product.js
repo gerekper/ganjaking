@@ -172,6 +172,7 @@ jQuery(function($) {
 				data: {
 					action: 'wc_shipping_per_product_export_rules',
 					product_id: post_id,
+					security: $( '#_export_nonce' ).val(),
 				},
 				success: function( response ) {
 					if ( response.success ) {

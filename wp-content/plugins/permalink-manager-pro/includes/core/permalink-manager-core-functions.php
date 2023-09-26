@@ -264,8 +264,8 @@ class Permalink_Manager_Core_Functions {
 					$term_element_id = apply_filters( 'permalink_manager_detected_term_id', $term_element_id, $uri_parts, true );
 
 					// Get the variables to filter wp_query and double-check if taxonomy exists
-					$term          = $element_object = get_term( $term_element_id );
-					$term_taxonomy = ( ! empty( $term->taxonomy ) ) ? $term->taxonomy : false;
+					$term = $element_object = ( ! empty( $term_element_id ) && is_numeric( $term_element_id ) ) ? get_term( $term_element_id ) : false;
+					$term_taxonomy  = ( ! empty( $term->taxonomy ) ) ? $term->taxonomy : false;
 
 					// Check if term is allowed
 					$disabled = ( $term_taxonomy && Permalink_Manager_Helper_Functions::is_term_excluded( $term ) ) ? true : false;
@@ -319,7 +319,7 @@ class Permalink_Manager_Core_Functions {
 					// Filter detected post ID
 					$post_element_id = apply_filters( 'permalink_manager_detected_post_id', $element_id, $uri_parts );
 
-					$post_to_load = $element_object = get_post( $post_element_id );
+					$post_to_load = $element_object = ( ! empty( $post_element_id ) && is_numeric( $post_element_id ) ) ? get_post( $post_element_id ) : false;
 					$final_uri    = ( ! empty( $post_to_load->post_name ) ) ? $post_to_load->post_name : false;
 					$post_type    = ( ! empty( $post_to_load->post_type ) ) ? $post_to_load->post_type : false;
 
@@ -517,10 +517,8 @@ class Permalink_Manager_Core_Functions {
 		$uri_parts = ( ! empty( $uri_parts ) ) ? $uri_parts : '';
 		$query     = apply_filters( 'permalink_manager_filter_query', $query, $old_query, $uri_parts, $pm_query, $content_type, $element_object );
 
-		if ( $return_object && ! empty( $term ) ) {
-			return $term;
-		} else if ( $return_object && ! empty( $post_to_load ) ) {
-			return $post_to_load;
+		if ( $return_object && ! empty( $element_object ) ) {
+			return $element_object;
 		} else {
 			return $query;
 		}
@@ -920,7 +918,7 @@ class Permalink_Manager_Core_Functions {
 		}
 
 		if ( ! empty( $wp->query_vars['do_not_redirect'] ) ) {
-			if ( function_exists( 'rank_math' ) ) {
+			if ( function_exists( 'rank_math' ) && ! empty( $permalink_manager_options['general']['rankmath_redirect'] ) ) {
 				$rank_math_instance = rank_math();
 
 				if ( property_exists( $rank_math_instance, 'container' ) && is_array( $rank_math_instance->container ) && is_object( $rank_math_instance->container['manager'] ) && method_exists( $rank_math_instance->container['manager'], 'get_module' ) ) {

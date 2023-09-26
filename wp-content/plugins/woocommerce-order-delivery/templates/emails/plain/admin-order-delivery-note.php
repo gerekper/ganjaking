@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 
 echo '= ' . esc_html( $email_heading ) . " =\n\n";
 
-echo esc_html__( 'A delivery note has been added to the order:', 'woocommerce-order-delivery' ) . "\n\n";
+echo esc_html__( 'A note has been added to the order:', 'woocommerce-order-delivery' ) . "\n\n";
 
 echo "----------\n\n";
 

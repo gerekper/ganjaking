@@ -76,11 +76,17 @@ class WC_OD_Admin_List_Table_Orders extends WC_OD_Admin_List_Table {
 		 */
 		$position = apply_filters( 'wc_od_admin_shop_order_columns_position', $position, $columns );
 
+		if ( wc_od_is_local_pickup_enabled() ) {
+			$label = __( 'Delivery / pickup date', 'woocommerce-order-delivery' );
+		} else {
+			$label = __( 'Delivery date', 'woocommerce-order-delivery' );
+		}
+
 		return array_merge(
 			array_slice( $columns, 0, $position ),
 			array(
-				'shipping_date' => __( 'Shipping Date', 'woocommerce-order-delivery' ),
-				'delivery_date' => __( 'Delivery Date', 'woocommerce-order-delivery' ),
+				'shipping_date' => __( 'Shipping date', 'woocommerce-order-delivery' ),
+				'delivery_date' => $label,
 			),
 			array_slice( $columns, $position )
 		);
@@ -138,7 +144,7 @@ class WC_OD_Admin_List_Table_Orders extends WC_OD_Admin_List_Table {
 	protected function output_shipping_date_column( $order ) {
 		$shipping_date = $order->get_meta( '_shipping_date' );
 
-		if ( $shipping_date ) {
+		if ( $shipping_date && ! wc_od_order_is_local_pickup( $order ) ) {
 			$this->output_datetime( wc_string_to_datetime( $shipping_date ) );
 		} else {
 			echo '<span class="na">–</span>';
@@ -210,6 +216,14 @@ class WC_OD_Admin_List_Table_Orders extends WC_OD_Admin_List_Table {
 	 * @since 1.4.0
 	 */
 	public function load_filters() {
+		if ( wc_od_is_local_pickup_enabled() ) {
+			$filter_label = _x( 'Filter by delivery / pickup date', 'shop order filter', 'woocommerce-order-delivery' );
+			$empty_label  = _x( 'All delivery / pickup dates', 'shop order filter', 'woocommerce-order-delivery' );
+		} else {
+			$filter_label = _x( 'Filter by delivery date', 'shop order filter', 'woocommerce-order-delivery' );
+			$empty_label  = _x( 'All delivery dates', 'shop order filter', 'woocommerce-order-delivery' );
+		}
+
 		/**
 		 * Allow to customize the shop order filters.
 		 *
@@ -229,8 +243,8 @@ class WC_OD_Admin_List_Table_Orders extends WC_OD_Admin_List_Table {
 				'delivery_date' => array(
 					'id'    => 'delivery_date',
 					'type'  => 'date',
-					'label' => _x( 'Filter by delivery date', 'shop order filter', 'woocommerce-order-delivery' ),
-					'empty' => _x( 'All delivery dates', 'shop order filter', 'woocommerce-order-delivery' ),
+					'label' => $filter_label,
+					'empty' => $empty_label,
 				),
 			)
 		);
@@ -364,7 +378,7 @@ class WC_OD_Admin_List_Table_Orders extends WC_OD_Admin_List_Table {
 	protected function update_shipping_date( $order_id ) {
 		$order = wc_get_order( $order_id );
 
-		if ( ! $order ) {
+		if ( ! $order || wc_od_order_is_local_pickup( $order ) ) {
 			return false;
 		}
 

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Component abstraction. Contains data and maintains view state.
  *
  * @class    WC_CP_Component
- * @version  8.6.1
+ * @version  8.10.3
  */
 class WC_CP_Component implements ArrayAccess {
 
@@ -549,10 +549,13 @@ class WC_CP_Component implements ArrayAccess {
 							case 'name' :
 								$args = array( 'orderby' => 'name', 'hide_empty' => false, 'menu_order' => false );
 							break;
+							case 'name_num' :
+								$args = array( 'orderby' => 'name_num', 'hide_empty' => false, 'menu_order' => false );
+							break;
 							case 'id' :
 								$args = array( 'orderby' => 'id', 'order' => 'ASC', 'menu_order' => false, 'hide_empty' => false );
 							break;
-							case 'menu_order' :
+							default: // Default sorting option is menu_order.
 								$args = array( 'menu_order' => 'ASC', 'hide_empty' => false );
 							break;
 						}

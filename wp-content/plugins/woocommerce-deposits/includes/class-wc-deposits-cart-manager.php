@@ -95,9 +95,9 @@ class WC_Deposits_Cart_Manager {
 
 		// Change button/cart URLs.
 		add_filter( 'add_to_cart_text', array( $this, 'add_to_cart_text' ), 15 );
-		add_filter( 'woocommerce_product_add_to_cart_text', array( $this, 'add_to_cart_text' ), 15 );
+		add_filter( 'woocommerce_product_add_to_cart_text', array( $this, 'add_to_cart_text' ), 15, 2 );
 		add_filter( 'woocommerce_add_to_cart_url', array( $this, 'add_to_cart_url' ), 10, 1 );
-		add_filter( 'woocommerce_product_add_to_cart_url', array( $this, 'add_to_cart_url' ), 10, 1 );
+		add_filter( 'woocommerce_product_add_to_cart_url', array( $this, 'add_to_cart_url' ), 10, 2 );
 		add_filter( 'woocommerce_loop_add_to_cart_link', array( $this, 'remove_add_to_cart_class' ), 10, 2 );
 
 		// Handle Order Again.
@@ -111,6 +111,9 @@ class WC_Deposits_Cart_Manager {
 		add_filter( 'woocommerce_cart_totals_taxes_total_html', array( $this, 'cart_totals_taxes_total_html' ) );
 
 		add_filter( 'woocommerce_available_variation', array( $this, 'variation_deposits_form' ), 10, 3 );
+
+		// Disable AJAX add to cart for products with deposits options.
+		add_filter( 'woocommerce_product_supports', array( $this, 'ajax_add_to_cart_supports' ), 10, 3 );
 	}
 
 	/**
@@ -126,8 +129,10 @@ class WC_Deposits_Cart_Manager {
 	 * Show deposits form.
 	 */
 	public function deposits_form_output() {
-		global $post;
-		$product = wc_get_product( $post->ID );
+		global $product;
+		if ( ! is_a( $product, 'WC_Product' ) ) {
+			return;
+		}
 
 		$should_display_form = WC_Deposits_Product_Manager::deposits_enabled( $product->get_id() );
 
@@ -755,7 +760,9 @@ class WC_Deposits_Cart_Manager {
 					// Then scale and defer the entire discount.
 					$deferred_discount_amount = min( $full_amount - $deposit_amount, $discount );
 					$present_discount_amount  = min( $discounting_amount, $discount - $deferred_discount_amount );
-					$present_discount_tax     = ( $present_discount_amount / $deferred_discount_amount ) * $item_tax;
+					if ( $deferred_discount_amount > 0 ) {
+						$present_discount_tax = ( $present_discount_amount / $deferred_discount_amount ) * $item_tax;
+					}
 				}
 			}
 
@@ -1555,13 +1562,16 @@ class WC_Deposits_Cart_Manager {
 	/**
 	 * Add to cart text.
 	 *
-	 * @param string $text Add to cart text.
+	 * @param string     $text Add to cart text.
+	 * @param WC_Product $product Product object.
 	 * @return string
 	 */
-	public function add_to_cart_text( $text ) {
-		global $product;
+	public function add_to_cart_text( $text, $product = null ) {
+		if ( null === $product ) {
+			global $product;
+		}
 
-		if ( ! is_object( $product ) ) {
+		if ( ! is_a( $product, 'WC_Product' ) ) {
 			return $text;
 		}
 
@@ -1590,15 +1600,17 @@ class WC_Deposits_Cart_Manager {
 	 *
 	 * @version 1.2.2
 	 *
-	 * @param string $url URL.
+	 * @param string     $url URL.
+	 * @param WC_Product $product Product object.
 	 *
 	 * @return string URL.
 	 */
-	public function add_to_cart_url( $url ) {
-		global $product;
+	public function add_to_cart_url( $url, $product = null ) {
+		if ( is_null( $product ) ) {
+			global $product;
+		}
 
-		$product = wc_get_product( $product );
-		if ( ! is_object( $product ) ) {
+		if ( ! is_a( $product, 'WC_Product' ) ) {
 			return $url;
 		}
 
@@ -1792,6 +1804,31 @@ class WC_Deposits_Cart_Manager {
 		}
 
 		$cart->set_total( $cart->get_total( 'total' ) - ( $this->get_deposit_remaining_amount( null, true ) + $this->get_credit_amount( null, true ) ) + self::get_deferred_discount_amount() + $total_deferred_discount_tax );
+	}
+
+	/**
+	 * Disable ajax-add-to-cart functionality if product has deposits enabled.
+	 * (If the product has a Payment Plan or Deposits are optional)
+	 *
+	 * @since x.x.x
+	 * @param  bool       $supports If support a feature.
+	 * @param  string     $feature  Feature to support.
+	 * @param  WC_Product $product  Product data.
+	 * @return bool
+	 */
+	public function ajax_add_to_cart_supports( $supports, $feature, $product ) {
+		if ( 'ajax_add_to_cart' === $feature ) {
+			$product_id = $product->get_id();
+			if ( WC_Deposits_Product_Manager::deposits_enabled( $product_id ) ) {
+				$deposit_type = WC_Deposits_Product_Manager::get_deposit_type( $product_id );
+				// If the product has a Payment Plan or Deposits are optional, return true.
+				if ( 'plan' === $deposit_type || ! WC_Deposits_Product_Manager::deposits_forced( $product_id ) ) {
+					$supports = false;
+				}
+			}
+		}
+
+		return $supports;
 	}
 }
 

@@ -138,7 +138,7 @@ class WC_Deposits_Plans_Admin {
 	 */
 	public function validate_plan_amounts( $plan_amounts = array() ) {
 		if ( count( $plan_amounts ) ) {
-			if ( in_array( '', $plan_amounts, true ) || in_array( '0', $plan_amounts, true ) ) {
+			if ( in_array( '', $plan_amounts, true ) ) {
 				echo '<div class="notice error is-dismissible"><p>' . esc_html__( 'Please enter a valid amount', 'woocommerce-deposits' ) . '</p></div>';
 
 				return false;

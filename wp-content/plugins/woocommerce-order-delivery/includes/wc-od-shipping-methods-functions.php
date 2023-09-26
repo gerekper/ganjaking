@@ -310,23 +310,38 @@ function wc_od_get_order_shipping_method( $the_order ) {
 	 */
 	$shipping_method = apply_filters( 'wc_od_order_shipping_method_value', $value, $shipping_item, $order );
 
-	if ( has_filter( 'wc_od_get_order_shipping_method' ) ) {
-		wc_deprecated_hook( 'wc_od_get_order_shipping_method', '2.2.0', 'wc_od_order_shipping_method_value' );
-
-		/**
-		 * Filters the first shipping method used in the specified order.
-		 *
-		 * @since 1.6.0
-		 * @deprecated 2.2.0
-		 *
-		 * @param string   $shipping_method The shipping method.
-		 * @param WC_Order $order           The order object.
-		 */
-		$shipping_method = apply_filters( 'wc_od_get_order_shipping_method', $shipping_method, $order );
-	}
-
 	// Cache the result.
 	wp_cache_set( $cache_key, $shipping_method, 'shipping_methods' );
 
 	return $shipping_method;
+}
+
+/**
+ * Gets if the shipping method is local pickup or not.
+ *
+ * @since 2.6.0
+ *
+ * @param string $shipping_method The shipping method.
+ * @return bool
+ */
+function wc_od_shipping_method_is_local_pickup( $shipping_method ) {
+	return ( 0 === strpos( (string) $shipping_method, 'local_pickup' ) );
+}
+
+/**
+ * Gets if the shipping method of the order is a local pickup or not.
+ *
+ * @since 2.6.0
+ *
+ * @param mixed $the_order Post object or post ID of the order.
+ * @return bool
+ */
+function wc_od_order_is_local_pickup( $the_order ) {
+	$shipping_method = wc_od_get_order_shipping_method( $the_order );
+
+	if ( ! $shipping_method ) {
+		return false;
+	}
+
+	return wc_od_shipping_method_is_local_pickup( $shipping_method );
 }

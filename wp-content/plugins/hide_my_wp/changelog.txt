@@ -1,3 +1,12 @@
+<h3>6.2.11 (Aug 02, 2023)</h3>
+<ul>
+	<li>Post SMTP compatibility  fix.</li>
+</ul>
+<h3>6.2.10 (Jan 29, 2023)</h3>
+<ul>
+	<li>Fixed htaccess error for Ngnix.</li>
+	<li>Resolved the warning message display while using few other plugins in the same website.</li>
+</ul>
 <h3>6.2.9 (December 28, 2022)</h3>
 <ul>
 	<li>Whitelisting Google, Bing and other good IP's.</li>

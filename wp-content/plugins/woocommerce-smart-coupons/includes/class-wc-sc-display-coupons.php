@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     3.4.0
+ * @version     3.6.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -248,7 +248,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 					if ( $this->is_wc_gte_30() && $expiry_date instanceof WC_DateTime ) {
 						$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : null;
 					} elseif ( ! is_int( $expiry_date ) ) {
-						$expiry_date = strtotime( $expiry_date );
+						$expiry_date = $this->strtotime( $expiry_date );
 					}
 
 					if ( ! empty( $expiry_date ) && is_int( $expiry_date ) ) {
@@ -1044,7 +1044,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 				if ( $this->is_wc_gte_30() && $expiry_date instanceof WC_DateTime ) {
 					$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : null;
 				} elseif ( ! is_int( $expiry_date ) ) {
-					$expiry_date = strtotime( $expiry_date );
+					$expiry_date = $this->strtotime( $expiry_date );
 				}
 
 				if ( ! empty( $expiry_date ) && is_int( $expiry_date ) ) {
@@ -1341,9 +1341,11 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 							"SELECT *
 								FROM {$wpdb->prefix}posts
 								WHERE FIND_IN_SET (ID, (SELECT GROUP_CONCAT(option_value SEPARATOR ',') FROM {$wpdb->prefix}options WHERE option_name = %s)) > 0
+									AND post_type = %s
 								GROUP BY ID
 								ORDER BY post_date DESC",
-							'sc_display_global_coupons'
+							'sc_display_global_coupons',
+							'shop_coupon'
 						)
 					);
 					wp_cache_set( 'wc_sc_global_coupons', $global_coupons, 'woocommerce_smart_coupons' );
@@ -2247,7 +2249,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 							if ( $this->is_wc_gte_30() && $expiry_date instanceof WC_DateTime ) {
 								$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : null;
 							} elseif ( ! is_int( $expiry_date ) ) {
-								$expiry_date = strtotime( $expiry_date );
+								$expiry_date = $this->strtotime( $expiry_date );
 							}
 
 							if ( ! empty( $expiry_date ) && is_int( $expiry_date ) ) {
