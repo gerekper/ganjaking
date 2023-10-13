@@ -1,13 +1,13 @@
 /*!
-	autosize 4.0.4
-	license: MIT
-	http://www.jacklmoore.com/autosize
+	Copyright (c) 2018 Jed Watson.
+	Licensed under the MIT License (MIT), see
+	http://jedwatson.github.io/classnames
 */
 
 /*!
-  Copyright (c) 2018 Jed Watson.
-  Licensed under the MIT License (MIT), see
-  http://jedwatson.github.io/classnames
+	autosize 4.0.4
+	license: MIT
+	http://www.jacklmoore.com/autosize
 */
 
 /*! *****************************************************************************
@@ -25,9 +25,9 @@ OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 
-/*! https://mths.be/punycode v1.3.2 by @mathias */
+/*! https://mths.be/punycode v1.4.1 by @mathias */
 
-/*! js-cookie v3.0.1 | MIT */
+/*! js-cookie v3.0.5 | MIT */
 
 /*! showdown v 1.9.1 - 02-11-2019 */
 

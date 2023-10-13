@@ -3,7 +3,7 @@
 /**
  * Description of A2W_ReviewFrontendController
  * 
- * @author MA_GROUP
+ * @author Ali2Woo Team
  * 
  * @autoload: init
  */

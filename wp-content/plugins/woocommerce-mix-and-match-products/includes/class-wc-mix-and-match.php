@@ -5,7 +5,7 @@
  * @class    WC_Mix_and_Match
  * @package  WooCommerce Mix and Match
  * @since    1.0.0
- * @version  2.4.0
+ * @version  2.5.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -33,7 +33,7 @@ class WC_Mix_and_Match {
 	 *
 	 * @var str
 	 */
-	public $version = '2.4.10';
+	public $version = '2.5.0';
 
 	/**
 	 * Required Version of WooCommerce.
@@ -92,9 +92,11 @@ class WC_Mix_and_Match {
 		$this->initialize_plugin();
 	}
 
-	/*-----------------------------------------------------------------------------------*/
-	/*  Helper Functions                                                                 */
-	/*-----------------------------------------------------------------------------------*/
+	/*
+	|--------------------------------------------------------------------------
+	| Helper Functions.
+	|--------------------------------------------------------------------------
+	*/
 
 	/**
 	 * Get the plugin url.
@@ -141,9 +143,11 @@ class WC_Mix_and_Match {
 		return $version ? $version : $this->version;
 	}
 
-	/*-----------------------------------------------------------------------------------*/
-	/*  Load Files                                                                       */
-	/*-----------------------------------------------------------------------------------*/
+	/*
+	|--------------------------------------------------------------------------
+	| Load Files.
+	|--------------------------------------------------------------------------
+	*/
 
 	/**
 	 * Fire in the hole!
@@ -166,14 +170,13 @@ class WC_Mix_and_Match {
 		WC_MNM_Customizer::get_instance();
 		WC_Mix_and_Match_Cart::get_instance();
 
-		// Include theme-level hooks and actions files. (re-test with Variable MNM)
+		// Include theme-level hooks and actions files. (re-test with Variable MNM).
 		add_action( 'after_setup_theme', array( $this, 'theme_includes' ), 11 );
 
 		/**
 		 * WooCommerce Mix and Match is fully loaded.
 		 */
 		do_action( 'wc_mnm_loaded' );
-
 	}
 
 	/**
@@ -240,13 +243,12 @@ class WC_Mix_and_Match {
 
 		// Include order-again related functions.
 		require_once 'class-wc-mnm-order-again.php';
-		
+
 		// Ajax functions and hooks.
 		require_once 'class-wc-mnm-ajax.php';
 
 		// Customizer functions and hooks.
 		require_once 'customizer/class-wc-mnm-customizer.php';
-
 	}
 
 	/**
@@ -268,7 +270,7 @@ class WC_Mix_and_Match {
 	public function admin_notice() {
 		wc_deprecated_function( 'WC_Mix_and_Match::admin_notice()', '1.6.0', 'Function is no longer used.' );
 		// translators: %1$s is opening link to WordPress plugin site. 2$s is closing link. %3$s is minimum version of WooCommerce.
-		echo '<div class="error"><p>' . sprintf( __( '<strong>WooCommerce Mix and Match is inactive.</strong> The %1$sWooCommerce plugin%2$s must be active and at least version %3$s for Mix and Match to function. Please upgrade or activate WooCommerce.', 'woocommerce-mix-and-match-products' ), '<a href="http://wordpress.org/extend/plugins/woocommerce/">', '</a>', $this->required_woo ) . '</p></div>';
+		echo '<div class="error"><p>' . sprintf( wp_kses_post( __( '<strong>WooCommerce Mix and Match is inactive.</strong> The %1$sWooCommerce plugin%2$s must be active and at least version %3$s for Mix and Match to function. Please upgrade or activate WooCommerce.', 'woocommerce-mix-and-match-products' ), '<a href="http://wordpress.org/extend/plugins/woocommerce/">', '</a>', $this->required_woo ) ) . '</p></div>';
 	}
 
 	/**
@@ -279,9 +281,11 @@ class WC_Mix_and_Match {
 		require_once 'wc-mnm-template-hooks.php';
 	}
 
-	/*-----------------------------------------------------------------------------------*/
-	/*  Localization                                                                     */
-	/*-----------------------------------------------------------------------------------*/
+	/*
+	|--------------------------------------------------------------------------
+	| Localization.
+	|--------------------------------------------------------------------------
+	*/
 
 	/**
 	 * Make the plugin translation ready.
@@ -295,10 +299,11 @@ class WC_Mix_and_Match {
 		load_plugin_textdomain( 'woocommerce-mix-and-match-products', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 
-	/*-----------------------------------------------------------------------------------*/
-	/*  Resources                                                                        */
-	/*-----------------------------------------------------------------------------------*/
-
+	/*
+	|--------------------------------------------------------------------------
+	| Resources.
+	|--------------------------------------------------------------------------
+	*/
 
 	/**
 	 * Returns URL to a doc or support resource.
@@ -338,5 +343,4 @@ class WC_Mix_and_Match {
 
 		return $resource;
 	}
-
 } // End class: do not remove or there will be no more guacamole for you.

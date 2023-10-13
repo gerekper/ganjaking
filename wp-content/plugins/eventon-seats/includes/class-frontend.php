@@ -17,8 +17,8 @@ class evost_front{
 		$this->opt_tx = get_option('evcal_options_evcal_tx');
 
 		// scripts and styles 
-		add_action( 'evo_register_other_styles_scripts', array( $this, 'register_styles_scripts' ) );
-		add_action('eventon_enqueue_scripts', array($this, 'enqueue_scripts'));
+		add_action( 'evo_register_other_styles_scripts', array( $this, 'register_styles_scripts' ),12 );
+		add_action('eventon_enqueue_scripts', array($this, 'enqueue_scripts'),12);
 		add_filter('evo_ajax_script_data', array($this, 'evo_script_data'), 10, 1);
 
 	}

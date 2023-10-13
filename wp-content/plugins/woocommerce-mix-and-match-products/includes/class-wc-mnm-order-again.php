@@ -36,7 +36,6 @@ class WC_MNM_Order_Again {
 			add_action( 'woocommerce_cart_loaded_from_session', array( __CLASS__, 'cart_loaded_from_session' ), -100 );
 
 		}
-
 	}
 
 	/*
@@ -125,7 +124,6 @@ class WC_MNM_Order_Again {
 		}
 
 		return $cart_item;
-
 	}
 
 
@@ -214,6 +212,5 @@ class WC_MNM_Order_Again {
 			}
 		}
 	}
-
 }
 WC_MNM_Order_Again::init();

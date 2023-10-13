@@ -1,7 +1,8 @@
 <?php
 /*
-	events map admin functions
-*/
+ * events map admin functions
+ * @version 1.5
+ */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
@@ -15,10 +16,11 @@ class evoem_admin{
 	// language settings additinos
 	function evoEM_language_additions($_existen){
 		$new_ar = array(
-				array('type'=>'togheader','name'=>'Event Map Text'),
+				array('type'=>'togheader','name'=>'ADDON: Event Map'),
 				array('label'=>'Events at this location','name'=>'evoEM_l1','legend'=>''),
 				array('label'=>'No Events Available','name'=>'evoEM_l3'),
 				array('label'=>'All Map','name'=>'evoEM_l2',),
+				array('label'=>'All Events','var'=>1,),
 				array('type'=>'togend'),
 			);
 			return (is_array($_existen))? array_merge($_existen, $new_ar): $_existen;

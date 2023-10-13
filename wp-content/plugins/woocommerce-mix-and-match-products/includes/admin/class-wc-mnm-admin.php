@@ -37,14 +37,13 @@ class WC_Mix_and_Match_Admin {
 		add_filter( 'woocommerce_template_overrides_scan_paths', array( __CLASS__, 'template_scan_path' ) );
 
 		// Show outdated templates in the system status.
-		add_action( 'woocommerce_system_status_report', array( __CLASS__ , 'render_system_status_items' ) );
+		add_action( 'woocommerce_system_status_report', array( __CLASS__, 'render_system_status_items' ) );
 
 		// Add links.
 		add_filter( 'plugin_row_meta', array( __CLASS__, 'plugin_row_meta' ), 10, 2 );
 
 		// Upgrade Warning.
 		add_action( 'in_plugin_update_message-woocommerce-mix-and-match-products/woocommerce-mix-and-match-products.php', array( __CLASS__, 'update_notice' ), 10, 2 );
-
 	}
 
 	/**
@@ -96,7 +95,6 @@ class WC_Mix_and_Match_Admin {
 
 		// Admin Notes.
 		include_once WC_Mix_and_Match()->plugin_path() . '/includes/admin/class-wc-mnm-admin-notes.php';
-
 	}
 
 	/**
@@ -115,19 +113,19 @@ class WC_Mix_and_Match_Admin {
 	 */
 	public static function admin_scripts() {
 
-		$suffix      = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 		$script_path = 'assets/js/admin/meta-boxes-product' . $suffix . '.js';
-		wp_register_script( 'wc-mnm-admin-product-panel',WC_Mix_and_Match()->plugin_url() . '/' . $script_path, array( 'wc-admin-product-meta-boxes', 'wc-enhanced-select' ),  WC_Mix_and_Match()->get_file_version( WC_MNM_ABSPATH . $script_path ), true );
+		wp_register_script( 'wc-mnm-admin-product-panel', WC_Mix_and_Match()->plugin_url() . '/' . $script_path, array( 'wc-admin-product-meta-boxes', 'wc-enhanced-select' ), WC_Mix_and_Match()->get_file_version( WC_MNM_ABSPATH . $script_path ), true );
 
 		$script_path = 'assets/js/admin/meta-boxes-order' . $suffix . '.js';
 		wp_register_script( 'wc-mnm-admin-order-panel', WC_Mix_and_Match()->plugin_url() . '/' . $script_path, array( 'wc-admin-order-meta-boxes', 'wc-add-to-cart-mnm' ), WC_Mix_and_Match()->get_file_version( WC_MNM_ABSPATH . $script_path ), true );
 
-		$style_path  = 'assets/css/admin/mnm-edit-product' . $suffix . '.css';
+		$style_path = 'assets/css/admin/mnm-edit-product' . $suffix . '.css';
 		wp_register_style( 'wc-mnm-admin-product-panel', WC_Mix_and_Match()->plugin_url() . '/assets/css/admin/mnm-edit-product.css', array( 'woocommerce_admin_styles' ), WC_Mix_and_Match()->get_file_version( WC_MNM_ABSPATH . $style_path ) );
 		wp_style_add_data( 'wc-mnm-admin-product-panel', 'rtl', 'replace' );
 
-		$style_path  = 'assets/css/admin/mnm-edit-order' . $suffix . '.css';
+		$style_path = 'assets/css/admin/mnm-edit-order' . $suffix . '.css';
 		wp_register_style( 'wc-mnm-admin-order-style', WC_Mix_and_Match()->plugin_url() . '/' . $style_path, array( 'woocommerce_admin_styles' ), WC_Mix_and_Match()->get_file_version( WC_MNM_ABSPATH . $style_path ) );
 		wp_style_add_data( 'wc-mnm-admin-order-style', 'rtl', 'replace' );
 
@@ -149,7 +147,7 @@ class WC_Mix_and_Match_Admin {
 			wp_enqueue_style( 'wc-mnm-admin-product-panel' );
 			wp_enqueue_script( 'wc-mnm-admin-product-panel' );
 
-		} elseif ( in_array( $screen_id, array( 'shop_order', 'shop_subscription', 'woocommerce_page_wc-orders' ) ) ) {
+		} elseif ( in_array( $screen_id, array( 'shop_order', 'shop_subscription', 'woocommerce_page_wc-orders', 'woocommerce_page_wc-orders--shop_subscription' ) , true ) ) {
 
 			if ( WC_MNM_Core_Compatibility::is_wc_version_gte( '3.6' ) ) {
 
@@ -178,7 +176,8 @@ class WC_Mix_and_Match_Admin {
 	 *
 	 * @deprecated 1.7.0 - Rule is in mnm-admin.css.
 	 */
-	public static function admin_header() { ?>
+	public static function admin_header() {
+		?>
 		<style>
 			#woocommerce-product-data ul.wc-tabs li.mnm_product_options a:before { content: "\f538"; font-family: "Dashicons"; }
 		</style>
@@ -198,21 +197,22 @@ class WC_Mix_and_Match_Admin {
 
 	/**
 	 * Renders the MNM information in the WC status page
+	 *
 	 * @props to ProsPress
 	 */
 	public static function render_system_status_items() {
 		$debug_data = array(
 			'version'    => array(
-				'name'      => _x( 'Version', 'label for the system staus page', 'woocommerce-mix-and-match-products' ),
-				'note'      => get_option( 'wc_mix_and_match_version', null ),
+				'name' => _x( 'Version', 'label for the system staus page', 'woocommerce-mix-and-match-products' ),
+				'note' => get_option( 'wc_mix_and_match_version', null ),
 			),
 			'db_version' => array(
-				'name'      => _x( 'Database Version', 'label for the system staus page', 'woocommerce-mix-and-match-products' ),
-				'note'      => get_option( 'wc_mix_and_match_db_version', null ),
+				'name' => _x( 'Database Version', 'label for the system staus page', 'woocommerce-mix-and-match-products' ),
+				'note' => get_option( 'wc_mix_and_match_db_version', null ),
 			),
 		);
 
-		$theme_overrides = self::get_theme_overrides();
+		$theme_overrides                   = self::get_theme_overrides();
 		$debug_data['mnm_theme_overrides'] = array(
 			'name'      => _x( 'Template Overrides', 'label for the system status page', 'woocommerce-mix-and-match-products' ),
 			'mark'      => '',
@@ -225,13 +225,13 @@ class WC_Mix_and_Match_Admin {
 				'name'      => _x( 'Outdated Templates', 'label for the system status page', 'woocommerce-mix-and-match-products' ),
 				'mark'      => 'error',
 				'mark_icon' => 'warning',
-				'note'    => '<a href="' . esc_url( WC_Mix_and_Match()->get_resource_url( 'outdated-templates' ) ) . '" target="_blank">' . __( 'Learn how to update', 'woocommerce-mix-and-match-products' ) . '</a>'
+				'note'      => '<a href="' . esc_url( WC_Mix_and_Match()->get_resource_url( 'outdated-templates' ) ) . '" target="_blank">' . __( 'Learn how to update', 'woocommerce-mix-and-match-products' ) . '</a>',
 			);
 		}
 
 		$debug_data = apply_filters( 'wc_mnm_system_status', $debug_data );
 
-		include( 'views/status.php' );
+		include 'views/status.php';
 	}
 
 	/**
@@ -249,8 +249,9 @@ class WC_Mix_and_Match_Admin {
 		$templates        = WC_Admin_Status::scan_template_files( $mnm_template_dir );
 
 		foreach ( $templates as $file ) {
-			$theme_file = $is_outdated = false;
-			$locations  = array(
+			$theme_file  = false;
+			$is_outdated = false;
+			$locations   = array(
 				get_stylesheet_directory() . "/{$file}",
 				get_stylesheet_directory() . "/{$wc_template_path}{$file}",
 				get_template_directory() . "/{$file}",
@@ -268,7 +269,8 @@ class WC_Mix_and_Match_Admin {
 				$core_version  = WC_Admin_Status::get_file_version( $mnm_template_dir . $file );
 				$theme_version = WC_Admin_Status::get_file_version( $theme_file );
 				if ( $core_version && ( empty( $theme_version ) || version_compare( $theme_version, $core_version, '<' ) ) ) {
-					$outdated = $is_outdated = true;
+					$outdated    = true;
+					$is_outdated = true;
 				}
 				$overridden[] = array(
 					'file'         => str_replace( $theme_root, '', $theme_file ),
@@ -294,17 +296,16 @@ class WC_Mix_and_Match_Admin {
 	 */
 	public static function plugin_row_meta( $links, $file ) {
 
-		if ( $file == WC_Mix_and_Match()->plugin_basename() ) {
+		if ( WC_Mix_and_Match()->plugin_basename() === $file ) {
 			$row_meta = array(
 				'docs'    => '<a href="' . esc_url( WC_Mix_and_Match()->get_resource_url( 'docs' ) ) . '">' . __( 'Documentation', 'woocommerce-mix-and-match-products' ) . '</a>',
-				'support' => '<a href="' . esc_url( WC_MNM_SUPPORT_URL )  . '">' . __( 'Support', 'woocommerce-mix-and-match-products' ) . '</a>',
+				'support' => '<a href="' . esc_url( WC_MNM_SUPPORT_URL ) . '">' . __( 'Support', 'woocommerce-mix-and-match-products' ) . '</a>',
 			);
 
 			$links = array_merge( $links, $row_meta );
 		}
 
 		return $links;
-
 	}
 
 
@@ -324,7 +325,7 @@ class WC_Mix_and_Match_Admin {
 			'2.0.0' => sprintf( __( '<strong>Warning!</strong> Version 2.0.0 is a major update to the database and templates. Before updating, please test the upgrade on a staging site. %1$sLearn more about the changes in version 2.0.0 &raquo;%2$s', 'woocommerce-mix-and-match-products' ), '<a href="' . esc_url( WC_Mix_and_Match()->get_resource_url( 'new-2.0' ) ) . '">', '</a>' ),
 		);
 
-		$upgrade_notice    = '';
+		$upgrade_notice = '';
 
 		foreach ( $major_notices as $check_version => $notice ) {
 			// Skip if the update notice is not relevant.
@@ -337,9 +338,7 @@ class WC_Mix_and_Match_Admin {
 		}
 
 		echo $upgrade_notice ? '</p>' . wp_kses_post( $upgrade_notice ) . '<p class="hidden">' : '';
-
 	}
-
 }
 // launch the admin class.
 WC_Mix_and_Match_Admin::init();

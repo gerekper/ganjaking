@@ -20,12 +20,14 @@ class WC_MNM_Min_Max_Compatibility {
 
 	/**
 	 * The child item object whose qty input is being filtered.
+	 *
 	 * @var WC_MNM_Child_Item
 	 */
 	public static $child_item = false;
 
 	/**
 	 * Unfiltered quantity input data used at restoration time.
+	 *
 	 * @var array
 	 */
 	public static $unfiltered_args = false;
@@ -73,7 +75,6 @@ class WC_MNM_Min_Max_Compatibility {
 		// Skip using the groupof/step as the min for child items.
 		add_filter( 'wc_min_max_use_group_as_min_quantity', array( __CLASS__, 'skip_group_for_child_items' ), 10, 3 );
 		add_filter( 'wc_min_max_use_group_as_input_quantity', array( __CLASS__, 'skip_group_for_child_items' ), 10, 3 );
-
 	}
 
 	/**
@@ -92,13 +93,13 @@ class WC_MNM_Min_Max_Compatibility {
 			array(
 				'id'          => '_mnm_ignore_min_max_rules',
 				'label'       => __( 'WooCommmerce Min/Max Quantities compatibility', 'woocommerce-mix-and-match-products' ),
-				'value'       => $mnm_product_object->get_meta( '_mnm_ignore_min_max_rules' ) == 'yes' ? 'ignore': 'default',
+				'value'       => $mnm_product_object->get_meta( '_mnm_ignore_min_max_rules' ) == 'yes' ? 'ignore' : 'default',
 				'description' => __( 'Select ignore to disregard the Min/Max Quantities plugin\'s rules for products in this container.', 'woocommerce-mix-and-match-products' ),
 				'desc_tip'    => true,
 				'options'     => array(
-					'default'    => __( 'Apply rules in container', 'woocommerce-mix-and-match-products' ),
-					'ignore'     => __( 'Ignore rules in container', 'woocommerce-mix-and-match-products' ),
-				)
+					'default' => __( 'Apply rules in container', 'woocommerce-mix-and-match-products' ),
+					'ignore'  => __( 'Ignore rules in container', 'woocommerce-mix-and-match-products' ),
+				),
 			)
 		);
 	}
@@ -112,7 +113,7 @@ class WC_MNM_Min_Max_Compatibility {
 	 */
 	public static function process_mnm_min_max_data( $product ) {
 		if ( wc_mnm_is_product_container_type( $product ) && ! defined( 'WC_MNM_UPDATING' ) ) {
-			$ignore = wc_bool_to_string( isset( $_POST['_mnm_ignore_min_max_rules'] ) && $_POST['_mnm_ignore_min_max_rules'] == 'ignore' );
+			$ignore = wc_bool_to_string( isset( $_POST['_mnm_ignore_min_max_rules'] ) && 'ignore' === $_POST['_mnm_ignore_min_max_rules'] );
 			$product->update_meta_data( '_mnm_ignore_min_max_rules', $ignore );
 		}
 	}
@@ -140,8 +141,8 @@ class WC_MNM_Min_Max_Compatibility {
 
 			if ( ! $is_valid ) {
 				// translators: %s product title.
-				$notice = sprintf( _x( '&quot;%s&quot; cannot  be added to the cart as configured.', '[Frontend]', 'woocommerce-mix-and-match-products' ), $container->get_title() );
-				throw new Exception( $notice );
+				$notice = sprintf( esc_html_x( '&quot;%s&quot; cannot  be added to the cart as configured.', '[Frontend]', 'woocommerce-mix-and-match-products' ), wp_kses_post( $container->get_title() ) );
+				throw new Exception( $notice );  // phpcs:ignore WordPress.Security.EscapeOutput
 			}
 		}
 
@@ -206,18 +207,18 @@ class WC_MNM_Min_Max_Compatibility {
 			$group_of_qty = 0;
 
 			if ( isset( self::$unfiltered_args['min_value'] ) ) {
-				if ( self::$unfiltered_args['min_value'] > 0 || self::$unfiltered_args['min_value'] === 0 ) {
+				if ( self::$unfiltered_args['min_value'] > 0 || 0 === self::$unfiltered_args['min_value'] ) {
 					$min_qty = absint( self::$unfiltered_args['min_value'] );
 				}
-			} elseif ( isset( $data['min_value'] ) && ( $data['min_value'] > 0 || $data['min_value'] === 0 ) ) {
+			} elseif ( isset( $data['min_value'] ) && ( $data['min_value'] > 0 || 0 === $data['min_value'] ) ) {
 				$min_qty = absint( $data['min_value'] );
 			}
 
 			if ( isset( self::$unfiltered_args['max_value'] ) ) {
-				if ( self::$unfiltered_args['max_value'] > 0 || self::$unfiltered_args['max_value'] === 0 ) {
+				if ( self::$unfiltered_args['max_value'] > 0 || 0 === self::$unfiltered_args['max_value'] ) {
 					$max_qty = absint( self::$unfiltered_args['max_value'] );
 				}
-			} elseif ( isset( $data['max_value'] ) && ( $data['max_value'] > 0 || $data['max_value'] === 0 ) ) {
+			} elseif ( isset( $data['max_value'] ) && ( $data['max_value'] > 0 || 0 === $data['max_value'] ) ) {
 				$max_qty = absint( $data['max_value'] );
 			}
 
@@ -316,7 +317,9 @@ class WC_MNM_Min_Max_Compatibility {
 
 		if ( wc_mnm_is_child_cart_item( $cart_item ) ) {
 
-			if ( $container_item = wc_mnm_get_cart_item_container( $cart_item ) ) {
+			$container_item = wc_mnm_get_cart_item_container( $cart_item );
+
+			if ( $container_item ) {
 
 				$container_product = $container_item['data'];
 
@@ -361,7 +364,7 @@ class WC_MNM_Min_Max_Compatibility {
 		if ( $child_product && ! self::contents_ignores_rules( $container_product ) ) {
 
 			$current_filter = str_replace( 'wc_mnm_child_item_quantity_input_', '', current_filter() );
-			$prefix         = $child_item->get_variation_id() ? 'variation_': '';
+			$prefix         = $child_item->get_variation_id() ? 'variation_' : '';
 
 			switch ( $current_filter ) {
 				case 'min':
@@ -374,10 +377,9 @@ class WC_MNM_Min_Max_Compatibility {
 					break;
 				case 'group':
 					$step = WC_Min_Max_Quantities::get_instance()->get_group_of_quantity_for_product( $child_product );
-					$qty = $step ? $step : $qty;
+					$qty  = $step ? $step : $qty;
 					break;
 			}
-
 		}
 
 		return $qty;
@@ -403,8 +405,10 @@ class WC_MNM_Min_Max_Compatibility {
 	}
 
 
-	/*-----------------------------------------------------------------*/
-	/*  Deprecated    .                                                */
+	/*
+	-----------------------------------------------------------------*/
+	/*
+		Deprecated    .                                                */
 	/*-----------------------------------------------------------------*/
 
 	/**

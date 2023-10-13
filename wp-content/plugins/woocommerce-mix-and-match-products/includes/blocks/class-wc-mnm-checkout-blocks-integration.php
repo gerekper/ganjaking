@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Blocks
  * @since    2.0.0
- * @version  2.3.0
+ * @version  2.5.0
  */
 
 use Automattic\WooCommerce\Blocks\Integrations\IntegrationInterface;
@@ -45,14 +45,14 @@ class WC_MNM_Checkout_Blocks_Integration implements IntegrationInterface {
 	 * Cloning is forbidden.
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cloning this object is forbidden.', 'woocommerce-mix-and-match-products' ) );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cloning this object is forbidden.', 'woocommerce-mix-and-match-products' ) );
 	}
 
 	/**
 	 * Unserializing instances of this class is forbidden.
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'woocommerce-mix-and-match-products' ) );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Unserializing instances of this class is forbidden.', 'woocommerce-mix-and-match-products' ) );
 	}
 
 	/**
@@ -87,8 +87,8 @@ class WC_MNM_Checkout_Blocks_Integration implements IntegrationInterface {
 		wp_register_script(
 			'wc-mnm-checkout-blocks',
 			$script_url,
-			$script_asset[ 'dependencies' ],
-			$script_asset[ 'version' ],
+			$script_asset['dependencies'],
+			$script_asset['version'],
 			true
 		);
 
@@ -103,7 +103,7 @@ class WC_MNM_Checkout_Blocks_Integration implements IntegrationInterface {
 
 		add_action(
 			'wp_enqueue_scripts',
-			function() {
+			function () {
 
 				$style_path = '/assets/css/frontend/blocks/checkout-blocks.css';
 				$style_url  = WC_Mix_and_Match()->plugin_url() . $style_path;
@@ -117,12 +117,12 @@ class WC_MNM_Checkout_Blocks_Integration implements IntegrationInterface {
 				);
 				wp_style_add_data( 'wc-mnm-checkout-blocks', 'rtl', 'replace' );
 
-				// Classnames are statically generated in WC 7.3 using Woo Blocks 9.1. @see: https://github.com/woocommerce/woocommerce/pull/35876
+				// Classnames are statically generated in WC 7.3 using Woo Blocks 9.1. @see: https://github.com/woocommerce/woocommerce/pull/35876.
 				if ( ! WC_MNM_Core_Compatibility::is_wc_version_gte( '7.3' ) ) {
 
 					$meta_suffix = _wp_to_kebab_case( esc_html__( 'Selections', 'woocommerce-mix-and-match-products' ) );
 
-					$inline_css   = array();
+					$inline_css = array();
 
 					if ( 'selections' !== $meta_suffix ) {
 						$inline_css[] = 'table.wc-block-cart-items .wc-block-cart-items__row.is-mnm-container .wc-block-components-product-details__' . $meta_suffix . ' .wc-block-components-product-details__name { display:none; }';
@@ -131,10 +131,9 @@ class WC_MNM_Checkout_Blocks_Integration implements IntegrationInterface {
 						$inline_css[] = '.wc-block-components-order-summary-item.is-mnm-container .wc-block-components-product-details__' . $meta_suffix . ' + li:not( .wc-block-components-product-details__' . $meta_suffix . ' ) { margin-top:0.5em }';
 					}
 
-					wp_add_inline_style( 'wc-mnm-checkout-blocks', implode( ' ' , $inline_css ) );
+					wp_add_inline_style( 'wc-mnm-checkout-blocks', implode( ' ', $inline_css ) );
 
 				}
-
 			}
 		);
 

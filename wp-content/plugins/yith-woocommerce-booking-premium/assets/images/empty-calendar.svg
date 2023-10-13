@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="129px" height="92px" viewBox="0 0 129 92" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-7" transform="translate(1.000000, 0.222656)">
+            <g id="calendar" transform="translate(24.000000, 25.777344)" stroke="#333333" stroke-width="2.44">
+                <path d="M67.3416671,6.01327495 L69.3644455,6.01327495 C70.5616486,5.91894302 71.743667,6.33047539 72.6242508,7.14821107 C73.5048346,7.96594676 74.0036794,9.11531267 74,10.3179663 L74,59.6953086 C74,62.072724 72.0755184,64 69.7015753,64 L4.29840428,64 C1.92446115,64 0,62.072724 0,59.6953086 L0,10.3179663 C0,7.94055093 1.92446115,6.01327495 4.29840428,6.01327495 L6.57403008,6.01327495"
+                      id="Path"></path>
+                <line x1="47" y1="6" x2="26" y2="6" id="Path"></line>
+                <polyline id="Path" points="10 0 10 13 23 13 23 0"></polyline>
+                <polyline id="Path" points="51 0 51 13 64 13 64 0"></polyline>
+                <polyline id="Path" points="26 31.04 26 24.96 35 24.96"></polyline>
+                <polyline id="Path" points="41 31.04 41 24.96 50 24.96"></polyline>
+                <polyline id="Path" points="55 31.04 55 24.96 64 24.96"></polyline>
+                <polyline id="Path" points="26 41.04 26 34.96 35 34.96"></polyline>
+                <polyline id="Path" points="41 41.04 41 34.96 50 34.96"></polyline>
+                <polyline id="Path" points="55 41.04 55 34.96 64 34.96"></polyline>
+                <polyline id="Path" points="12 52 12 46 21 46"></polyline>
+                <polyline id="Path" points="12 41.04 12 34.96 21 34.96"></polyline>
+                <polyline id="Path" points="26 52 26 46 35 46"></polyline>
+                <polyline id="Path" points="41 52 41 46 50 46"></polyline>
+            </g>
+            <circle id="Oval" stroke="#000000" stroke-width="2" cx="124" cy="60.7773438" r="3"></circle>
+            <polygon id="+" fill="#000000" fill-rule="nonzero"
+                     points="6.83007812 9.46289062 6.83007812 5.53710938 10.7265625 5.53710938 10.7265625 3.89648438 6.83007812 3.89648438 6.83007812 0 5.16992188 0 5.16992188 3.89648438 1.2734375 3.89648438 1.2734375 5.53710938 5.16992188 5.53710938 5.16992188 9.46289062"></polygon>
+            <text id="+" font-family="ArialMT, Arial" font-size="20" font-weight="normal" fill="#000000">
+                <tspan x="109.160156" y="81.7773438">+</tspan>
+            </text>
+            <circle id="Oval" stroke="#000000" stroke-width="2" cx="2.5" cy="23.2773438" r="2.5"></circle>
+            <circle id="Oval" stroke="#000000" stroke-width="2" cx="24.5" cy="9.27734375" r="2.5"></circle>
+        </g>
+    </g>
+</svg>

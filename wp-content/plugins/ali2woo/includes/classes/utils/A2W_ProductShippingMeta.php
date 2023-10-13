@@ -2,7 +2,7 @@
 /**
  * Description of A2W_ProductShippingMeta
  *
- * @author MA_GROUP
+ * @author Ali2Woo Team
  *
  */
 

@@ -63,7 +63,7 @@ class WC_MNM_Legacy_Meta {
 
 					$parent_id = wp_get_post_parent_id( $product_id );
 
-					$item_data = array( 
+					$item_data = array(
 						'product_id'   => $parent_id > 0 ? $parent_id : $product_id,
 						'variation_id' => $parent_id > 0 ? $product_id : 0,
 						'container_id' => $product->get_id(),
@@ -76,7 +76,6 @@ class WC_MNM_Legacy_Meta {
 				if ( $legacy_item->exists() && $legacy_item->is_visible() ) {
 					$legacy_items[ 'product-' . $item_key ] = $legacy_item;
 				}
-
 			}
 
 			WC_Mix_and_Match_Helpers::cache_set( $product->get_id(), $legacy_items, 'child_items_legacy' );
@@ -100,11 +99,11 @@ class WC_MNM_Legacy_Meta {
 
 		if ( $is_virtual && $per_product_shipping ) {
 			$mode = 'separate';
-		} else if ( $is_virtual && ! $per_product_shipping ) {
+		} elseif ( $is_virtual && ! $per_product_shipping ) {
 			$mode = 'virtual';
-		} else if ( ! $is_virtual && $per_product_shipping ) {
+		} elseif ( ! $is_virtual && $per_product_shipping ) {
 			$mode = 'separate_plus';
-		} else if ( ! $is_virtual && ! $per_product_shipping ) {
+		} elseif ( ! $is_virtual && ! $per_product_shipping ) {
 			$mode = 'together';
 		}
 
@@ -147,20 +146,17 @@ class WC_MNM_Legacy_Meta {
 
 		} elseif ( is_array( $old_categories ) ) {
 
-			foreach( $old_categories as $slug ) {
+			foreach ( $old_categories as $slug ) {
 
 				$cat = get_term_by( 'slug', $slug, 'product_cat' );
 
 				if ( $cat instanceof WP_Term ) {
 					$new_categories[] = $cat->term_id;
 				}
-
 			}
-
 		}
 
 		return $new_categories;
 	}
-
 }
 WC_MNM_Legacy_Meta::init();

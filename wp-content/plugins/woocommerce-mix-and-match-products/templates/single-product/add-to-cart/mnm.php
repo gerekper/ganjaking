@@ -24,12 +24,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $product;
 
 /**
- * woocommerce_before_add_to_cart_form hook.
+ * Hook: `woocommerce_before_add_to_cart_form`
  */
 do_action( 'woocommerce_before_add_to_cart_form' );
 ?>
 
-<form class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" method="post" enctype="multipart/form-data" <?php echo wc_implode_html_attributes( $product->get_data_attributes() ); ?>>
+<form class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" method="post" enctype="multipart/form-data" <?php echo wc_implode_html_attributes( $product->get_data_attributes() ); // phpcs:ignore WordPress.Security.EscapeOutput ?>>
 
 	<?php
 
@@ -61,7 +61,7 @@ do_action( 'woocommerce_before_add_to_cart_form' );
 
 <?php
 /**
- * woocommerce_after_add_to_cart_form hook.
+ * Hook: `woocommerce_after_add_to_cart_form`
  */
 do_action( 'woocommerce_after_add_to_cart_form' );
 ?>

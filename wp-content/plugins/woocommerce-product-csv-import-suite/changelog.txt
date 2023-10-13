@@ -1,5 +1,10 @@
 *** Product CSV Import Suite Changelog ***
 
+2023-10-10 - version 1.10.62
+* Dev - Add end-to-end tests using Playwright.
+* Fix - Compatibility issue with PHP 8.1 that caused errors in exported CSV files.
+* Fix - Export and import of product tags, shipping classes and other term data uses names consistently.
+
 2023-08-17 - version 1.10.61
 * Dev - Bump PHP minimum supported version from 7.2 to 7.3.
 * Dev - Bump WooCommerce "tested up to" version from 7.8 to 8.0.

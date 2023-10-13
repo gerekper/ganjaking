@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MailPoet Premium plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet Premium 4.28.0\n"
+"Project-Id-Version: MailPoet Premium 4.31.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-09-18T15:19:24+00:00\n"
+"POT-Creation-Date: 2023-10-10T11:48:41+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -205,66 +205,70 @@ msgstr ""
 msgid "Missing subscriber id."
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Actions/AddTagAction.php:38
+#: lib/Automation/Integrations/MailPoetPremium/Actions/AddTagAction.php:45
 #: assets/dist/js/premium.js:2
 msgid "Add tag"
 msgstr ""
 
 #. translators: %d is the ID of the tag, which was not found.
-#: lib/Automation/Integrations/MailPoetPremium/Actions/AddTagAction.php:51
+#: lib/Automation/Integrations/MailPoetPremium/Actions/AddTagAction.php:59
 msgid "Tag %d was not found."
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Actions/AddToListAction.php:36
+#: lib/Automation/Integrations/MailPoetPremium/Actions/AddToListAction.php:37
 #: assets/dist/js/premium.js:2
 msgid "Add to list"
 msgstr ""
 
 #. translators: %d is the ID of the segment
-#: lib/Automation/Integrations/MailPoetPremium/Actions/AddToListAction.php:74
-#: lib/Automation/Integrations/MailPoetPremium/Actions/RemoveFromListAction.php:83
+#: lib/Automation/Integrations/MailPoetPremium/Actions/AddToListAction.php:75
+#: lib/Automation/Integrations/MailPoetPremium/Actions/RemoveFromListAction.php:84
 msgid "Segment with ID '%s' not found."
 msgstr ""
 
+#: lib/Automation/Integrations/MailPoetPremium/Actions/CustomAction.php:33
+msgid "Custom action"
+msgstr ""
+
 #. translators: %s is the actual error message
-#: lib/Automation/Integrations/MailPoetPremium/Actions/NotificationEmailAction.php:67
+#: lib/Automation/Integrations/MailPoetPremium/Actions/NotificationEmailAction.php:68
 msgid "Failed to send notification email: %s"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Actions/NotificationEmailAction.php:79
+#: lib/Automation/Integrations/MailPoetPremium/Actions/NotificationEmailAction.php:80
 #: assets/dist/js/premium.js:2
 msgid "Send notification email"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Actions/NotificationEmailAction.php:92
+#: lib/Automation/Integrations/MailPoetPremium/Actions/NotificationEmailAction.php:93
 msgid "MailPoet Automation Notification"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Actions/RemoveFromListAction.php:36
+#: lib/Automation/Integrations/MailPoetPremium/Actions/RemoveFromListAction.php:37
 #: assets/dist/js/premium.js:2
 msgid "Remove from list"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Actions/RemoveTagAction.php:36
+#: lib/Automation/Integrations/MailPoetPremium/Actions/RemoveTagAction.php:43
 #: assets/dist/js/premium.js:2
 msgid "Remove tag"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Actions/UnsubscribeAction.php:45
+#: lib/Automation/Integrations/MailPoetPremium/Actions/UnsubscribeAction.php:46
 msgid "Unsubscribe"
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Actions/UpdateSubscriberAction.php:36
+#: lib/Automation/Integrations/MailPoetPremium/Actions/UpdateSubscriberAction.php:37
 #: assets/dist/js/premium.js:2
 msgid "Update subscriber"
 msgstr ""
 
 #. translators: %d is the ID of the custom field
-#: lib/Automation/Integrations/MailPoetPremium/Actions/UpdateSubscriberAction.php:110
+#: lib/Automation/Integrations/MailPoetPremium/Actions/UpdateSubscriberAction.php:111
 msgid "Custom field with ID '%d' not found."
 msgstr ""
 
-#: lib/Automation/Integrations/MailPoetPremium/Actions/UpdateSubscriberAction.php:118
+#: lib/Automation/Integrations/MailPoetPremium/Actions/UpdateSubscriberAction.php:119
 msgid "Custom field '%1$s' with ID '%2$d' expects type '%3$s' but type '%4$s' was provided."
 msgstr ""
 
@@ -291,6 +295,19 @@ msgstr ""
 #: lib/Automation/Integrations/MailPoetPremium/Analytics/Storage/SubscriberStatistics.php:206
 #: assets/dist/js/premium.js:2
 msgid "Completed"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/Subjects/CustomDataSubject.php:24
+msgid "Custom data"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/Subjects/TagSubject.php:35
+msgid "MailPoet tag"
+msgstr ""
+
+#. translators: %d is the ID.
+#: lib/Automation/Integrations/MailPoetPremium/Subjects/TagSubject.php:49
+msgid "Tag with ID '%d' not found."
 msgstr ""
 
 #: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:45
@@ -345,6 +362,19 @@ msgstr ""
 #: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:175
 #: lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php:176
 msgid "Important information about your order"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/Triggers/CustomTrigger.php:50
+#: assets/dist/js/premium.js:2
+msgid "Custom trigger"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/Triggers/TagAddedTrigger.php:42
+msgid "Tag added"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/Triggers/TagRemovedTrigger.php:42
+msgid "Tag removed"
 msgstr ""
 
 #: lib/Config/Hooks.php:45
@@ -481,11 +511,19 @@ msgid "Delete step"
 msgstr ""
 
 #: assets/dist/js/premium.js:2
+msgid "Do not trigger automations"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
 msgid "Tags to add"
 msgstr ""
 
 #: assets/dist/js/premium.js:2
 msgid "Please select a tag"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Adding a tag to a subscriber won't trigger other automations"
 msgstr ""
 
 #: assets/dist/js/premium.js:2
@@ -531,6 +569,10 @@ msgid "Tags to remove"
 msgstr ""
 
 #: assets/dist/js/premium.js:2
+msgid "Removing a tag from a subscriber won't trigger other automations"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
 msgid "Remove a tag or multiple tags from a subscriber."
 msgstr ""
 
@@ -549,14 +591,6 @@ msgid "remove tags"
 msgstr ""
 
 #: assets/dist/js/premium.js:2
-msgid "Do not trigger automations"
-msgstr ""
-
-#: assets/dist/js/premium.js:2
-msgid "Adding a subscriber to a list won't trigger other automations"
-msgstr ""
-
-#: assets/dist/js/premium.js:2
 msgid "Trigger settings"
 msgstr ""
 
@@ -566,6 +600,10 @@ msgstr ""
 
 #: assets/dist/js/premium.js:2
 msgid "Please select a list"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Adding a subscriber to a list won't trigger other automations"
 msgstr ""
 
 #: assets/dist/js/premium.js:2
@@ -734,6 +772,82 @@ msgstr ""
 
 #: assets/dist/js/premium.js:2
 msgid "email"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Added to clipboard."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Could not add the text to clipboard."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "You can find a developer on codeable.io."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "This is an advanced feature for developers. Triggers an automation when a certain action is fired. The action's first argument must be the email address of a subscriber."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Learn more"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "custom"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "hook"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "code"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Hook"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Copy code snippet"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Example code:"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "This is an advanced feature for developers. It fires a customizable hook."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Fires the \"%s\" hook"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Tags"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Tag added to subscriber"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Start the automation when a tag is added to a subscriber."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Trigger"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Tag removed from subscriber"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Start the automation when a tag is removed from a subscriber."
 msgstr ""
 
 #: assets/dist/js/premium.js:2

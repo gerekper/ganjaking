@@ -60,7 +60,7 @@ $a2w_shipping_html = str_replace(array("\r", "\n"), '', $a2w_shipping_html);
                 </div>
                 <div class="a2w-div-table-col"><?php echo A2W_Shipping::process_delivery_time($method['time']); ?></div>
                 <div class="a2w-div-table-col"><?php echo ($method['price'] ? $method['formated_price'] : esc_html__('free', 'ali2woo')); ?></div>
-                <div class="a2w-div-table-col"><?php echo ($method['tracking'] ? 'yes' : 'no'); ?></div>
+                <div class="a2w-div-table-col"><?php echo (isset($method['tracking']) && $method['tracking'] ? 'yes' : 'no'); ?></div>
                 <div class="a2w-div-table-col"><?php echo $method['company']; ?></div></div>
             <?php endforeach; ?>
         </div>  

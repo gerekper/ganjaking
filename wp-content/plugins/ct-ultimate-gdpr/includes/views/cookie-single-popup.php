@@ -230,7 +230,7 @@ if ( empty( $options['cookie_modal_always_visible'] ) ) :
         <div class="ct-ultimate-gdpr-cookie-fullPanel-overlay"></div>
 	<?php endif; ?>
 
-	<div id="ct-ultimate-gdpr-cookie-popup" class="<?=ct_gdpr_set_class_attr( $class_array )?>" style="background-color: <?=esc_attr( $options['cookie_background_color'] )?>;color: <?=esc_attr( $options['cookie_text_color'] )?>;<?=ct_gdpr_set_class_attr( $attr_array )?> ">
+	<div id="ct-ultimate-gdpr-cookie-popup" data-class="<?php echo $box_style_class; ?>" class="<?=ct_gdpr_set_class_attr( $class_array )?>" style="background-color: <?=esc_attr( $options['cookie_background_color'] )?>;color: <?=esc_attr( $options['cookie_text_color'] )?>;<?=ct_gdpr_set_class_attr( $attr_array )?> ">
 
 		<?=$popup_panel_open_tag?>
 

@@ -4,13 +4,13 @@
 		<?php wp_nonce_field( 'gpf_update_feed' ); ?>
         <input type="hidden" name="feed_id" value="{feed_id}">
         <p>
-            <label><?php _e( 'Your name for this feed', 'woocommerce_gpf' ); ?></label><br>
+            <label><?php esc_html_e( 'Your name for this feed', 'woocommerce_gpf' ); ?></label><br>
             <input type="text" class="widefat" name="name" value="{name}"
-                   placeholder="<?php _e( 'Enter a name for this feed (for your use only)', 'woocommerce_gpf' ); ?>"
+                   placeholder="<?php esc_html_e( 'Enter a name for this feed (for your use only)', 'woocommerce_gpf' ); ?>"
                    required>
         </p>
         <p>
-            <label><?php _e( 'Feed type', 'woocommerce_gpf' ); ?></label><br>
+            <label><?php esc_html_e( 'Feed type', 'woocommerce_gpf' ); ?></label><br>
             <select name="type" id="feed_type">
 				<?php foreach ( $args['types'] as $type_id => $type_def ) : ?>
                     <option value="<?php echo esc_attr( $type_id ); ?>" <?php selected( $args['type'], $type_id ); ?>><?php echo esc_html( $type_def['name'] ); ?></option>
@@ -18,27 +18,27 @@
             </select>
         </p>
         <p id="category_filter_container">
-            <label for="category_filter"><?php _e( 'Category filtering', 'woocommerce_gpf' ); ?></label><br>
+            <label for="category_filter"><?php esc_html_e( 'Category filtering', 'woocommerce_gpf' ); ?></label><br>
             <select name="category_filter" id="category_filter">
-                <option value="" <?php selected( $args['category_filter'], '' ); ?>><?php _e( 'Include products from ALL categories', 'woocommerce_gpf' ); ?></option>
-                <option value="only" <?php selected( $args['category_filter'], 'only' ); ?>><?php _e( 'Include products ONLY from&hellip;', 'woocommerce_gpf' ); ?></option>
-                <option value="except" <?php selected( $args['category_filter'], 'except' ); ?>><?php _e( 'Include all products EXCEPT from&hellip;', 'woocommerce_gpf' ); ?></option>
+                <option value="" <?php selected( $args['category_filter'], '' ); ?>><?php esc_html_e( 'Include products from ALL categories', 'woocommerce_gpf' ); ?></option>
+                <option value="only" <?php selected( $args['category_filter'], 'only' ); ?>><?php esc_html_e( 'Include products ONLY from&hellip;', 'woocommerce_gpf' ); ?></option>
+                <option value="except" <?php selected( $args['category_filter'], 'except' ); ?>><?php esc_html_e( 'Include all products EXCEPT from&hellip;', 'woocommerce_gpf' ); ?></option>
             </select>
         </p>
         <p id="category_container">
             <select name="categories[]" id="category_selector" style="width: 75%" multiple></select>
         </p>
         <p id="prf_limit_container">
-            <label for="limit"><?php _e( 'Which reviews to include', 'woocommerce_gpf' ); ?></label><br>
+            <label for="limit"><?php esc_html_e( 'Which reviews to include', 'woocommerce_gpf' ); ?></label><br>
             <select id="limit">
-                <option value="" <?php selected( $args['limit'], '' ); ?>><?php _e( 'All reviews', 'woocommerce_gpf' ); ?></option>
-                <option value="week" <?php selected( $args['limit'], 'week' ); ?>><?php _e( 'Reviews in the last 7 days', 'woocommerce_gpf' ); ?></option>
-                <option value="yesterday" <?php selected( $args['limit'], 'yesterday' ); ?>><?php _e( 'Reviews yesterday', 'woocommerce_gpf' ); ?></option>
+                <option value="" <?php selected( $args['limit'], '' ); ?>><?php esc_html_e( 'All reviews', 'woocommerce_gpf' ); ?></option>
+                <option value="week" <?php selected( $args['limit'], 'week' ); ?>><?php esc_html_e( 'Reviews in the last 7 days', 'woocommerce_gpf' ); ?></option>
+                <option value="yesterday" <?php selected( $args['limit'], 'yesterday' ); ?>><?php esc_html_e( 'Reviews yesterday', 'woocommerce_gpf' ); ?></option>
             </select>
         </p>
 		<?php do_action( 'woocommerce_gpf_feed_edit_page', $args['feed'], $args ); ?>
         <p>
-            <input type="submit" name="save" value="<?php _e( 'Save', 'woocommerce_gpf' ); ?>"
+            <input type="submit" name="save" value="<?php esc_html_e( 'Save', 'woocommerce_gpf' ); ?>"
                    class="button button-primary">
         </p>
     </form>
@@ -80,7 +80,7 @@
 
 			jQuery( '#category_selector' ).selectWoo( {
 														  data: <?php echo wp_json_encode( $args['categories'] ); ?>,
-														  placeholder: <?php echo json_encode( __( 'Choose one or more categories', 'woocommerce_gpf' ) ); ?>
+														  placeholder: <?php echo json_encode( esc_html( __( 'Choose one or more categories', 'woocommerce_gpf' ) ) ); ?>
 													  } );
 
 			jQuery( document ).on( 'change', '#feed_type, #category_filter', woocommerce_gpf_visibility_updates );

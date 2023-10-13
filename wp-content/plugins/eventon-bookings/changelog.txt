@@ -1,5 +1,12 @@
 Bookings addon for EventON Plugin
 ====================================
+v 1.4.1 (2023-8-3)
+ADDED: eventon tickets environment setup check before initiate addon
+FIXED: minor style issues
+FIXED: reset ticket notice message when calendar date clicked
+FIXED: block editor has variations incorrection tooltip
+FIXED: init addon after tickets is initiated
+
 v 1.4 (2023-7-12)
 FIXED: public released incompleted seat feature by accident
 FIXED: sold individually not honored in booking blocks

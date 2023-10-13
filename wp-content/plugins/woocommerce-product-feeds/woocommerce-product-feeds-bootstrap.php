@@ -31,6 +31,10 @@ $woocommerce_gpf_di['WoocommerceGpfAdmin'] = function ( $c ) {
 	return $woocommerce_gpf_admin;
 };
 
+$woocommerce_gpf_di['WoocommerceProductFeedsAddToCartSupport'] = function () {
+	return new WoocommerceProductFeedsAddToCartSupport();
+};
+
 $woocommerce_gpf_di['WoocommerceProductFeedsFeedManager'] = function ( $c ) {
 	return new WoocommerceProductFeedsFeedManager(
 		$c['WoocommerceProductFeedsFeedConfigRepository'],

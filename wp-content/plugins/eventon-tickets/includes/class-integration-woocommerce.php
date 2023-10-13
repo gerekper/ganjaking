@@ -1,7 +1,7 @@
 <?php
 /**
  * Ticket Integration with Woocommerce
- * @version 2.0
+ * @version 2.2.3
  */
 
 class EVOTX_WC{
@@ -543,7 +543,9 @@ class EVOTX_WC{
 				if(sizeof( $order->get_items() ) <= 0) return false;
 
 				// if restocking tickets and auto restock ticket stock is disabled, bail
-				if( $type=='restock' && !evo_settings_val( 'evotx_restock',EVOTX()->evotx_opt)) return false;
+				// @updated 2.2.2
+				if( $type == 'restock' && !EVO()->cal->check_yn('evotx_restock','evcal_tx') ) 
+					return false;
 				
 				// check if the stock was reduced when order placed
 					//$evo_stock_reduced = get_post_meta($order_id, 'evo_stock_reduced',true);
@@ -558,6 +560,9 @@ class EVOTX_WC{
 					if( $type == 'reduce' && $evo_stock_reduced ) $proceed = false;
 					if( $type == 'reduce' && !$evo_stock_reduced ) $proceed = true;
 					
+				// if auto restock failed orders
+					$restock_failed_val = EVO()->cal->check_yn('evotx_restock_failed','evcal_tx');
+					$restock_failed = ( $stage == 'failed' && $restock_failed_val ) ? true: false;
 
 				// BAIL
 				if(!$proceed) return false;
@@ -590,9 +595,16 @@ class EVOTX_WC{
 				    			// update repeat stock
 					    			$qty_adjust = ($type == 'reduce')? $qty * -1: $qty * +1;
 				    				EVOTX()->functions->update_repeat_capacity($qty_adjust, $ri, $event_id );
+
+				    				// NOTICE
+									$order->add_order_note( __(sprintf( 
+										'Event: (%s) repeat instance capacity changed by %s.', 
+										$TIX_EVENT->get_title(), $qty_adjust 
+									), 'evotx' ));
+
 				    			
 				    			// restock ONLY on def or failed stage
-				    				if(($stage == 'def' || $stage == 'failed') && $type == 'restock' && !empty($new_quantity)){
+				    				if(($stage == 'def' || $restock_failed ) && $type == 'restock' && !empty($new_quantity)){
 				    					// adjust product stock
 				    					$new_quantity = wc_update_product_stock($_product, $qty, 'increase' );	
 				    					
@@ -602,19 +614,13 @@ class EVOTX_WC{
 				    					),'evotx' ) 
 				    					);
 				    				}
-
-				    			// NOTICE
-									$order->add_order_note( __(sprintf( 
-										'Event: (%s) repeat instance capacity changed by %s.', 
-										$TIX_EVENT->get_title(), $qty_adjust 
-									), 'evotx' ));
-
+				    			
 								if($type=='reduce') $stock_reduced = true;
 				    		// none repeating capacity activated events
 				    		}else{
 
 				    			// only for def stage
-				    			if($stage == 'def' || $stage == 'failed'){
+				    			if($stage == 'def' || $restock_failed ){
 				    				
 					    			// adjust product stock
 					    			$new_quantity = wc_update_product_stock($_product, $qty, ($type == 'reduce')?'decrease':'increase' );	

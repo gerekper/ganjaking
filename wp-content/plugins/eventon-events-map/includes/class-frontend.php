@@ -85,7 +85,7 @@ class evoem_frontend{
 
 
 				if($args['map_type']=='upcoming'){
-					echo '<a class="evo-mapfocus evo_btn">'. evo_lang_get('evoEM_l2','All Map').'</a>';
+					//echo '<a class="evo-mapfocus evo_btn">'. evo_lang_get('evoEM_l2','All Map').'</a>';
 				}
 
 				

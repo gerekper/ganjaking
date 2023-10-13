@@ -7,22 +7,22 @@ namespace Composer\Autoload;
 class ComposerStaticInit6cd39ad071973d12e23974cf675cdc17
 {
     public static $prefixLengthsPsr4 = array (
-        'O' => 
+        'O' =>
         array (
             'OomphInc\\ComposerInstallersExtender\\' => 36,
         ),
-        'C' => 
+        'C' =>
         array (
             'Composer\\Installers\\' => 20,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'OomphInc\\ComposerInstallersExtender\\' => 
+        'OomphInc\\ComposerInstallersExtender\\' =>
         array (
             0 => __DIR__ . '/..' . '/oomphinc/composer-installers-extender/src',
         ),
-        'Composer\\Installers\\' => 
+        'Composer\\Installers\\' =>
         array (
             0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
         ),
@@ -40,6 +40,7 @@ class ComposerStaticInit6cd39ad071973d12e23974cf675cdc17
         'CT_Ultimate_GDPR_Controller_Interface' => __DIR__ . '/../..' . '/includes/controller/controller-interface.php',
         'CT_Ultimate_GDPR_Controller_Optimization' => __DIR__ . '/../..' . '/includes/controller/controller-optimization.php',
         'CT_Ultimate_GDPR_Controller_Plugins' => __DIR__ . '/../..' . '/includes/controller/controller-plugins.php',
+        'CT_Ultimate_GDPR_Controller_Optimization' => __DIR__ . '/../..' . '/includes/controller/controller-optimization.php',
         'CT_Ultimate_GDPR_Controller_Policy' => __DIR__ . '/../..' . '/includes/controller/controller-policy.php',
         'CT_Ultimate_GDPR_Controller_Pseudonymization' => __DIR__ . '/../..' . '/includes/controller/controller-pseudonymization.php',
         'CT_Ultimate_GDPR_Controller_Rectification' => __DIR__ . '/../..' . '/includes/controller/controller-rectification.php',
@@ -47,6 +48,7 @@ class ComposerStaticInit6cd39ad071973d12e23974cf675cdc17
         'CT_Ultimate_GDPR_Controller_Terms' => __DIR__ . '/../..' . '/includes/controller/controller-terms.php',
         'CT_Ultimate_GDPR_Controller_Unsubscribe' => __DIR__ . '/../..' . '/includes/controller/controller-unsubscribe.php',
         'CT_Ultimate_GDPR_Controller_Wizard' => __DIR__ . '/../..' . '/includes/controller/controller-wizard.php',
+        'CT_Ultimate_GDPR_Controller_Cmptcf' => __DIR__ . '/../..' . '/includes/controller/controller-cmptcf.php',
         'CT_Ultimate_GDPR_Model_Dummy' => __DIR__ . '/../..' . '/includes/model/model-phpmailer-dummy.php',
         'CT_Ultimate_GDPR_Model_Front_View' => __DIR__ . '/../..' . '/includes/model/model-front-view.php',
         'CT_Ultimate_GDPR_Model_Group' => __DIR__ . '/../..' . '/includes/model/model-group.php',
@@ -72,13 +74,12 @@ class ComposerStaticInit6cd39ad071973d12e23974cf675cdc17
         'CT_Ultimate_GDPR_Service_Formcraft' => __DIR__ . '/../..' . '/includes/service/service-formcraft.php',
         'CT_Ultimate_GDPR_Service_Formcraft_Form_Builder' => __DIR__ . '/../..' . '/includes/service/service-formcraft-form-builder.php',
         'CT_Ultimate_GDPR_Service_Formidable_Forms' => __DIR__ . '/../..' . '/includes/service/service-formidable-forms.php',
-        'CT_Ultimate_GDPR_Service_Fusion_Builder' => __DIR__ . '/../..' . '/includes/service/service-fusion-builder.php',
         'CT_Ultimate_GDPR_Service_GA_Google_Analytics' => __DIR__ . '/../..' . '/includes/service/service-ga-google-analytics.php',
         'CT_Ultimate_GDPR_Service_Google_Adsense' => __DIR__ . '/../..' . '/includes/service/service-google-adsense.php',
         'CT_Ultimate_GDPR_Service_Google_Analytics' => __DIR__ . '/../..' . '/includes/service/service-google-analytics.php',
+        'CT_Ultimate_GDPR_Service_Google_Tag_Manager' => __DIR__ . '/../..' . '/includes/service/service-google-tag-manager.php',
         'CT_Ultimate_GDPR_Service_Google_Analytics_Dashboard_For_WP' => __DIR__ . '/../..' . '/includes/service/service-google-analytics-dashboard-for-wp.php',
         'CT_Ultimate_GDPR_Service_Google_Analytics_For_Wordpress' => __DIR__ . '/../..' . '/includes/service/service-google-analytics-for-wordpress.php',
-        'CT_Ultimate_GDPR_Service_Google_Tag_Manager' => __DIR__ . '/../..' . '/includes/service/service-google-tag-manager.php',
         'CT_Ultimate_GDPR_Service_Gravity_Forms' => __DIR__ . '/../..' . '/includes/service/service-gravity-forms.php',
         'CT_Ultimate_GDPR_Service_Hotjar' => __DIR__ . '/../..' . '/includes/service/service-hotjar.php',
         'CT_Ultimate_GDPR_Service_Interface' => __DIR__ . '/../..' . '/includes/service/service-interface.php',
@@ -87,7 +88,6 @@ class ComposerStaticInit6cd39ad071973d12e23974cf675cdc17
         'CT_Ultimate_GDPR_Service_Mailerlite' => __DIR__ . '/../..' . '/includes/service/service-mailerlite.php',
         'CT_Ultimate_GDPR_Service_Mailpoet' => __DIR__ . '/../..' . '/includes/service/service-mailpoet.php',
         'CT_Ultimate_GDPR_Service_Mailster' => __DIR__ . '/../..' . '/includes/service/service-mailster.php',
-        'CT_Ultimate_GDPR_Service_Metform' => __DIR__ . '/../..' . '/includes/service/service-metform.php',
         'CT_Ultimate_GDPR_Service_Metorik_Helper' => __DIR__ . '/../..' . '/includes/service/service-metorik-helper.php',
         'CT_Ultimate_GDPR_Service_Newsletter' => __DIR__ . '/../..' . '/includes/service/service-newsletter.php',
         'CT_Ultimate_GDPR_Service_Ninja_Forms' => __DIR__ . '/../..' . '/includes/service/service-ninja-forms.php',
@@ -97,7 +97,6 @@ class ComposerStaticInit6cd39ad071973d12e23974cf675cdc17
         'CT_Ultimate_GDPR_Service_Quform' => __DIR__ . '/../..' . '/includes/service/service-quform.php',
         'CT_Ultimate_GDPR_Service_Sell_Personal_Data' => __DIR__ . '/../..' . '/includes/service/service-sell-personal-data.php',
         'CT_Ultimate_GDPR_Service_Siteorigin_Panels' => __DIR__ . '/../..' . '/includes/service/service-siteorigin-panels.php',
-        'CT_Ultimate_GDPR_Service_Sitepress_WPML' => __DIR__ . '/../..' . '/includes/service/service-sitepress-multilingual-cms.php',
         'CT_Ultimate_GDPR_Service_Ultimate_Member' => __DIR__ . '/../..' . '/includes/service/service-ultimate-member.php',
         'CT_Ultimate_GDPR_Service_WPForms_Lite' => __DIR__ . '/../..' . '/includes/service/service-wpforms-lite.php',
         'CT_Ultimate_GDPR_Service_WP_Comments' => __DIR__ . '/../..' . '/includes/service/service-wp-comments.php',
@@ -122,7 +121,11 @@ class ComposerStaticInit6cd39ad071973d12e23974cf675cdc17
         'CT_Ultimate_GDPR_Shortcode_Protection' => __DIR__ . '/../..' . '/includes/shortcode/shortcode-protection.php',
         'CT_Ultimate_GDPR_Shortcode_Terms_Accept' => __DIR__ . '/../..' . '/includes/shortcode/shortcode-terms-accept.php',
         'CT_Ultimate_GDPR_Update_Legacy_Options' => __DIR__ . '/../..' . '/includes/update/update-legacy-options.php',
-        'IP2Location\\Database' => __DIR__ . '/..' . '/ip2location/ip2location-php/IP2Location.php',
+        'CT_Ultimate_GDPR_Service_Sitepress_WPML' => __DIR__ . '/../..' . '/includes/service/service-sitepress-multilingual-cms.php',
+        'CT_Ultimate_GDPR_Service_Siteorigin_Panels' => __DIR__ . '/../..' . '/includes/service/service-siteorigin-panels.php',
+        'CT_Ultimate_GDPR_Service_Metform' => __DIR__  . '/../..' . '/includes/service/service-metform.php',
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'IP2Location\\Database' => __DIR__ . '/..' . '/ip2location/IP2Location-PHP-Module/src/Database.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

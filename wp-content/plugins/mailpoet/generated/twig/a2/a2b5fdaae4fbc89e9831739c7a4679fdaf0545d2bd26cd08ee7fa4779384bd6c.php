@@ -29,7 +29,6 @@ class __TwigTemplate_176225ef6518abb3a235b9f1785c332f068c4c798b602f397b3f290225c
 
         $this->blocks = [
             'content' => [$this, 'block_content'],
-            'translations' => [$this, 'block_translations'],
         ];
     }
 
@@ -69,17 +68,11 @@ class __TwigTemplate_176225ef6518abb3a235b9f1785c332f068c4c798b602f397b3f290225c
 </div>
 
 ";
-    }
-
-    // line 19
-    public function block_translations($context, array $blocks = [])
-    {
-        $macros = $this->macros;
-        // line 20
-        echo "  ";
+        // line 17
         echo $this->extensions['MailPoet\Twig\I18n']->localize(["pageTitle" => $this->extensions['MailPoet\Twig\I18n']->translate("Logs"), "tableHeaderName" => $this->extensions['MailPoet\Twig\I18n']->translate("Name"), "tableHeaderMessage" => $this->extensions['MailPoet\Twig\I18n']->translate("Message"), "tableHeaderCreatedOn" => $this->extensions['MailPoet\Twig\I18n']->translate("Created On"), "searchLabel" => $this->extensions['MailPoet\Twig\I18n']->translate("Search"), "offsetLabel" => $this->extensions['MailPoet\Twig\I18n']->translate("Offset"), "limitLabel" => $this->extensions['MailPoet\Twig\I18n']->translate("Limit"), "from" => $this->extensions['MailPoet\Twig\I18n']->translateWithContext("From", "date from"), "to" => $this->extensions['MailPoet\Twig\I18n']->translateWithContext("To", "date to"), "filter" => $this->extensions['MailPoet\Twig\I18n']->translate("Filter")]);
-        // line 31
+        // line 28
         echo "
+
 ";
     }
 
@@ -95,7 +88,7 @@ class __TwigTemplate_176225ef6518abb3a235b9f1785c332f068c4c798b602f397b3f290225c
 
     public function getDebugInfo()
     {
-        return array (  79 => 31,  76 => 20,  72 => 19,  65 => 14,  60 => 12,  51 => 4,  47 => 3,  36 => 1,);
+        return array (  71 => 28,  69 => 17,  64 => 14,  59 => 12,  50 => 4,  46 => 3,  35 => 1,);
     }
 
     public function getSourceContext()

@@ -1,14 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: SearchWP\n"
-"POT-Creation-Date: 2023-09-11 11:43+0200\n"
-"PO-Revision-Date: 2023-09-11 11:43+0200\n"
+"Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-09-11 11:43+0200\n"
+"PO-Revision-Date: 2023-09-11 11:43+0200\n"
+"Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.4.2\n"
 "X-Poedit-Basepath: ..\n"
@@ -34,11 +35,13 @@ msgstr ""
 msgid "Activate License"
 msgstr "Lizenz aktivieren"
 
-#: includes/Admin/AdminBar.php:108 includes/Admin/OptionsView.php:370
+#: includes/Admin/AdminBar.php:108
+#: includes/Admin/OptionsView.php:370
 msgid "Algorithm"
 msgstr ""
 
-#: includes/Admin/AdminBar.php:118 includes/Admin/OptionsView.php:380
+#: includes/Admin/AdminBar.php:118
+#: includes/Admin/OptionsView.php:380
 msgid "Statistics"
 msgstr "Statistiken"
 
@@ -81,11 +84,11 @@ msgstr ""
 
 #: includes/Admin/LegacyMetricsCompat.php:200
 #, fuzzy
-#| msgid "SearchWP Settings"
 msgid "SearchWP Metrics"
 msgstr "SearchWP-Einstellungen"
 
-#: includes/Admin/NavTab.php:103 includes/Admin/OptionsView.php:375
+#: includes/Admin/NavTab.php:103
+#: includes/Admin/OptionsView.php:375
 #: includes/Admin/i18n.php:332
 msgid "Settings"
 msgstr "Einstellungen"
@@ -94,7 +97,6 @@ msgstr "Einstellungen"
 #: includes/Admin/Notifications/Notifications.php:200
 #: includes/Admin/Notifications/Notifications.php:222
 #, fuzzy
-#| msgid "Actions"
 msgid "Notifications"
 msgstr "Aktionen"
 
@@ -112,7 +114,6 @@ msgstr "SearchWP"
 #: includes/Admin/Views/SearchFormsView.php:37
 #: includes/Admin/Views/SearchFormsView.php:195
 #, fuzzy
-#| msgid "Search Term(s)"
 msgid "Search Forms"
 msgstr "Suchbegriff(e)"
 
@@ -124,15 +125,18 @@ msgstr "Erweiterungen"
 msgid "Tools"
 msgstr ""
 
-#: includes/Admin/OptionsView.php:395 includes/Admin/Views/AboutUsView.php:43
+#: includes/Admin/OptionsView.php:395
+#: includes/Admin/Views/AboutUsView.php:43
 msgid "About Us"
 msgstr ""
 
-#: includes/Admin/OptionsView.php:439 includes/Admin/OptionsView.php:493
+#: includes/Admin/OptionsView.php:439
+#: includes/Admin/OptionsView.php:493
 msgid "Search Statistics"
 msgstr "Statistiken durchsuchen"
 
-#: includes/Admin/OptionsView.php:440 includes/Admin/OptionsView.php:494
+#: includes/Admin/OptionsView.php:440
+#: includes/Admin/OptionsView.php:494
 msgid "Search Stats"
 msgstr "Suchstatistik"
 
@@ -142,7 +146,6 @@ msgstr "<p> Siteübergreifende Suchvorgänge sind in SearchWP möglich. Jede Eng
 
 #: includes/Admin/OptionsView.php:772
 #, fuzzy
-#| msgid "Get Help"
 msgid "Help"
 msgstr "Hilfe erhalten"
 
@@ -152,7 +155,6 @@ msgstr ""
 
 #: includes/Admin/Views/AboutUsView.php:112
 #, fuzzy
-#| msgid "Options"
 msgid "OptinMonster"
 msgstr "Optionen"
 
@@ -375,28 +377,29 @@ msgstr ""
 #: includes/Admin/Views/AboutUsView.php:606
 #: includes/Admin/Views/ExtensionsView.php:404
 #, fuzzy
-#| msgid "Index Status"
 msgid "Status"
 msgstr "Indexstatus"
 
 #: includes/Admin/Views/AboutUsView.php:635
-#: includes/Admin/Views/ExtensionsView.php:430 includes/Admin/i18n.php:219
+#: includes/Admin/Views/ExtensionsView.php:430
+#: includes/Admin/i18n.php:219
 msgid "Active"
 msgstr "Aktiv"
 
 #: includes/Admin/Views/AboutUsView.php:636
 #, fuzzy
-#| msgid "Activate"
 msgid "Activated"
 msgstr "Aktivieren"
 
 #: includes/Admin/Views/AboutUsView.php:641
-#: includes/Admin/Views/ExtensionsView.php:437 includes/Admin/i18n.php:267
+#: includes/Admin/Views/ExtensionsView.php:437
+#: includes/Admin/i18n.php:267
 msgid "Inactive"
 msgstr "Inaktiv"
 
 #: includes/Admin/Views/AboutUsView.php:642
-#: includes/Admin/Views/ExtensionsView.php:438 includes/Admin/i18n.php:218
+#: includes/Admin/Views/ExtensionsView.php:438
+#: includes/Admin/i18n.php:218
 msgid "Activate"
 msgstr "Aktivieren"
 
@@ -461,13 +464,11 @@ msgstr ""
 
 #: includes/Admin/Views/ExtensionsView.php:144
 #, fuzzy
-#| msgid "SearchWP Engines"
 msgid "SearchWP Extensions"
 msgstr "SearchWP-Engines"
 
 #: includes/Admin/Views/ExtensionsView.php:146
 #, fuzzy
-#| msgid "Extensions"
 msgid "Search Extensions"
 msgstr "Erweiterungen"
 
@@ -483,7 +484,6 @@ msgstr ""
 
 #: includes/Admin/Views/ExtensionsView.php:303
 #, fuzzy
-#| msgid "Extensions"
 msgid "Extension image"
 msgstr "Erweiterungen"
 
@@ -495,7 +495,8 @@ msgstr ""
 msgid "Upgrade"
 msgstr ""
 
-#: includes/Admin/Views/ExtensionsView.php:431 includes/Admin/i18n.php:242
+#: includes/Admin/Views/ExtensionsView.php:431
+#: includes/Admin/i18n.php:242
 msgid "Deactivate"
 msgstr "Deaktivieren"
 
@@ -505,7 +506,6 @@ msgstr ""
 
 #: includes/Admin/Views/ExtensionsView.php:504
 #, fuzzy
-#| msgid "Extensions"
 msgid "Extension installed."
 msgstr "Erweiterungen"
 
@@ -519,7 +519,6 @@ msgstr ""
 
 #: includes/Admin/Views/ExtensionsView.php:602
 #, fuzzy
-#| msgid "Extensions"
 msgid "Extension activated."
 msgstr "Erweiterungen"
 
@@ -545,7 +544,6 @@ msgstr ""
 
 #: includes/Admin/Views/GeneralSettingsView.php:96
 #, fuzzy
-#| msgid "Find partial matches when search terms yield no results"
 msgid "Find partial matches when search terms yield no results. Spelling corrections are applied if necessary."
 msgstr "Finden Sie Teilübereinstimmungen, wenn Suchbegriffe keine Ergebnisse liefern"
 
@@ -555,43 +553,36 @@ msgstr ""
 
 #: includes/Admin/Views/GeneralSettingsView.php:100
 #, fuzzy
-#| msgid "Use the closest match for searches with no results and output a notice (requires partial matches)"
 msgid "Use the closest match for searches that yield no results and output a notice (requires Partial Matches)."
 msgstr "Verwenden Sie die nächstgelegene Übereinstimmung für Suchvorgänge ohne Ergebnisse und geben Sie einen Hinweis aus (erfordert teilweise Übereinstimmungen)"
 
 #: includes/Admin/Views/GeneralSettingsView.php:103
 #, fuzzy
-#| msgid " Searches"
 msgid "\"Quoted\" Searches"
 msgstr " Suchen"
 
 #: includes/Admin/Views/GeneralSettingsView.php:104
 #, fuzzy
-#| msgid "When search terms are wrapped in double quotes, results will be limited to those with exact matches"
 msgid "When search terms are wrapped in double quotes, results will be limited to those with exact matches."
 msgstr "Wenn Suchbegriffe in doppelte Anführungszeichen gesetzt werden, sind die Ergebnisse auf diejenigen mit genauen Übereinstimmungen beschränkt"
 
 #: includes/Admin/Views/GeneralSettingsView.php:107
 #, fuzzy
-#| msgid "Highlight terms in results"
 msgid "Highlight Terms"
 msgstr "Markieren Sie Begriffe in den Ergebnissen"
 
 #: includes/Admin/Views/GeneralSettingsView.php:108
 #, fuzzy
-#| msgid "Automatically highlight search terms when possible"
 msgid "Automatically highlight terms in search results when possible."
 msgstr "Markieren Sie Suchbegriffe nach Möglichkeit automatisch"
 
 #: includes/Admin/Views/GeneralSettingsView.php:111
 #, fuzzy
-#| msgid "Parse Shortcodes when indexing"
 msgid "Parse Shortcodes"
 msgstr "Analysieren Sie Shortcodes beim Indizieren"
 
 #: includes/Admin/Views/GeneralSettingsView.php:112
 #, fuzzy
-#| msgid "Index expanded Shortcode output (at the time of indexing)"
 msgid "Index expanded Shortcode output (at the time of indexing)."
 msgstr "Index erweitert Shortcode-Ausgabe (zum Zeitpunkt der Indizierung)"
 
@@ -618,14 +609,12 @@ msgstr ""
 
 #: includes/Admin/Views/GettingStartedView.php:109
 #, fuzzy
-#| msgid "Search Statistics"
 msgid "Analyzing Search Statistics"
 msgstr "Statistiken durchsuchen"
 
 #: includes/Admin/Views/GettingStartedView.php:117
 #: includes/Admin/Views/WelcomeView.php:180
 #, fuzzy
-#| msgid "SearchWP Engines"
 msgid "SearchWP Engine Overview"
 msgstr "SearchWP-Engines"
 
@@ -649,7 +638,6 @@ msgstr ""
 
 #: includes/Admin/Views/GettingStartedView.php:149
 #, fuzzy
-#| msgid "SearchWP Document Content"
 msgid "Search related content"
 msgstr "SearchWP Dokumentinhalt"
 
@@ -703,31 +691,32 @@ msgstr ""
 
 #: includes/Admin/Views/GlobalRulesView.php:36
 #, fuzzy
-#| msgid "%s Rules"
 msgid "Global Rules"
 msgstr "%s Regeln"
 
 #: includes/Admin/Views/GlobalRulesView.php:184
 #: includes/Admin/Views/GlobalRulesView.php:282
-#: includes/Admin/Views/GlobalRulesView.php:403 includes/Admin/i18n.php:168
+#: includes/Admin/Views/GlobalRulesView.php:403
+#: includes/Admin/i18n.php:168
 msgid "What visitors search for (separate different search terms by commas)"
 msgstr "Was Besucher suchen (verschiedene Suchbegriffe durch Kommas trennen)"
 
 #: includes/Admin/Views/GlobalRulesView.php:208
 #: includes/Admin/Views/GlobalRulesView.php:312
-#: includes/Admin/Views/GlobalRulesView.php:433 includes/Admin/i18n.php:167
+#: includes/Admin/Views/GlobalRulesView.php:433
+#: includes/Admin/i18n.php:167
 msgid "Term(s) that are synonymous with the Search Term(s)"
 msgstr "Begriff(e), die gleichbedeutend mit dem/den Suchbegriff(en) sind"
 
 #: includes/Admin/Views/GlobalRulesView.php:230
 #: includes/Admin/Views/GlobalRulesView.php:346
-#: includes/Admin/Views/GlobalRulesView.php:467 includes/Admin/i18n.php:166
+#: includes/Admin/Views/GlobalRulesView.php:467
+#: includes/Admin/i18n.php:166
 msgid "When enabled, original Search Term(s) will be removed"
 msgstr "Wenn diese Option aktiviert ist, werden die ursprünglichen Suchbegriffe entfernt"
 
 #: includes/Admin/Views/ImportExportView.php:35
 #, fuzzy
-#| msgid "Export"
 msgid "Import/Export"
 msgstr "Export"
 
@@ -737,13 +726,11 @@ msgstr ""
 
 #: includes/Admin/Views/MiscSettingsView.php:92
 #, fuzzy
-#| msgid "Debugging enabled"
 msgid "Debugging"
 msgstr "Debugging aktiviert"
 
 #: includes/Admin/Views/MiscSettingsView.php:93
 #, fuzzy
-#| msgid "Log information during indexing and searching for review"
 msgid "Log information during indexing and searching for review."
 msgstr "Protokollieren Sie Informationen während der Indizierung und der Suche zur Überprüfung"
 
@@ -753,19 +740,16 @@ msgstr ""
 
 #: includes/Admin/Views/MiscSettingsView.php:97
 #, fuzzy
-#| msgid "When enabled, additional tokens will be generated from regex pattern matches"
 msgid "When enabled, additional tokens will be generated from regex pattern matches."
 msgstr "Wenn diese Option aktiviert ist, werden zusätzliche Token aus Regex-Musterübereinstimmungen generiert"
 
 #: includes/Admin/Views/MiscSettingsView.php:100
 #, fuzzy
-#| msgid "Remove minimum word length"
 msgid "Remove Minimum Word Length"
 msgstr "Entfernen Sie die minimale Wortlänge"
 
 #: includes/Admin/Views/MiscSettingsView.php:101
 #, fuzzy
-#| msgid "Index everything regardless of token length"
 msgid "Index everything regardless of token length."
 msgstr "Indizieren Sie alles unabhängig von der Tokenlänge"
 
@@ -775,35 +759,31 @@ msgstr ""
 
 #: includes/Admin/Views/MiscSettingsView.php:105
 #, fuzzy
-#| msgid "Queued updates will be processed immediately when the indexer is unpaused"
 msgid "Continue to queue (but do not apply) delta index updates. Queued updates will be processed immediately when the indexer is unpaused."
 msgstr "Aktualisierungen in der Warteschlange werden sofort verarbeitet, wenn der Indexer nicht angehalten wird"
 
 #: includes/Admin/Views/MiscSettingsView.php:108
 #, fuzzy
-#| msgid "Reduced indexer aggressiveness"
 msgid "Reduce Indexer Load"
 msgstr "Reduzierte Aggressivität des Indexers"
 
 #: includes/Admin/Views/MiscSettingsView.php:109
 #, fuzzy
-#| msgid "Process less data per index pass (less resource intensive, but slower)"
 msgid "Process less data per index pass (less resource intensive, but slower)."
 msgstr "Verarbeiten Sie weniger Daten pro Indexdurchlauf (weniger ressourcenintensiv, aber langsamer)."
 
 #: includes/Admin/Views/MiscSettingsView.php:112
 #, fuzzy
-#| msgid "SearchWP Document Content"
 msgid "Re-parse Document Content"
 msgstr "SearchWP Dokumentinhalt"
 
 #: includes/Admin/Views/MiscSettingsView.php:113
 #, fuzzy
-#| msgid "Remove extracted Document Content, PDF Metadata, and image EXIF data and re-parse when rebuilding Index"
 msgid "Remove extracted Document Content, PDF Metadata, and image EXIF data and re-parse when rebuilding Index. Leaving this parsed content in place speeds up index rebuilds."
 msgstr "Entfernen Sie extrahierten Dokumentinhalt, PDF-Metadaten und EXIF-Bilddaten und analysieren Sie sie erneut, wenn Sie den Index neu erstellen"
 
-#: includes/Admin/Views/MiscSettingsView.php:116 includes/Admin/i18n.php:259
+#: includes/Admin/Views/MiscSettingsView.php:116
+#: includes/Admin/i18n.php:259
 msgid "Hide Announcements"
 msgstr ""
 
@@ -813,30 +793,27 @@ msgstr ""
 
 #: includes/Admin/Views/MiscSettingsView.php:120
 #, fuzzy
-#| msgid "SearchWP"
 msgid "Uninstall SearchWP"
 msgstr "SearchWP"
 
 #: includes/Admin/Views/MiscSettingsView.php:121
 #, fuzzy
-#| msgid "Remove all traces of SearchWP when it is deactivated and deleted from the Plugins page"
 msgid "Remove all traces of SearchWP when it is deactivated and deleted from the Plugins page."
 msgstr "SearchWP wird restlos entfernt, wenn es deaktiviert und von der Plugins-Seite gelöscht wird"
 
-#: includes/Admin/Views/SearchFormsView.php:198 includes/Admin/i18n.php:220
+#: includes/Admin/Views/SearchFormsView.php:198
+#: includes/Admin/i18n.php:220
 msgid "Add New"
 msgstr "Neue hinzufügen"
 
 #: includes/Admin/Views/SearchFormsView.php:207
 #: includes/Sources/Taxonomy.php:114
 #, fuzzy
-#| msgid "Last Name"
 msgid "Name"
 msgstr "Nachname"
 
 #: includes/Admin/Views/SearchFormsView.php:211
 #, fuzzy
-#| msgid "File Type"
 msgid "Type"
 msgstr "Dateityp"
 
@@ -847,7 +824,6 @@ msgstr ""
 
 #: includes/Admin/Views/SearchFormsView.php:219
 #, fuzzy
-#| msgid "Actions"
 msgid "Action"
 msgstr "Aktionen"
 
@@ -859,7 +835,8 @@ msgstr ""
 msgid "Embed"
 msgstr ""
 
-#: includes/Admin/Views/SearchFormsView.php:325 includes/Admin/i18n.php:317
+#: includes/Admin/Views/SearchFormsView.php:325
+#: includes/Admin/i18n.php:317
 msgid "Save"
 msgstr "Speichern"
 
@@ -883,15 +860,14 @@ msgstr ""
 #: includes/Admin/Views/SearchFormsView.php:400
 #: includes/Admin/Views/SearchFormsView.php:579
 #, fuzzy
-#| msgid " Searches"
 msgid "Quick Search"
 msgstr " Suchen"
 
 #: includes/Admin/Views/SearchFormsView.php:413
 #: includes/Admin/Views/SearchFormsView.php:467
-#: includes/Admin/Views/SearchFormsView.php:604 includes/Forms/Frontend.php:167
+#: includes/Admin/Views/SearchFormsView.php:604
+#: includes/Forms/Frontend.php:167
 #, fuzzy
-#| msgid "Advanced"
 msgid "Advanced Search"
 msgstr "Fortgeschrittene"
 
@@ -914,13 +890,11 @@ msgstr ""
 
 #: includes/Admin/Views/SearchFormsView.php:453
 #, fuzzy
-#| msgid "Searches"
 msgid "Search"
 msgstr "Suchen"
 
 #: includes/Admin/Views/SearchFormsView.php:493
 #, fuzzy
-#| msgid " Searches"
 msgid "Popular searches:"
 msgstr " Suchen"
 
@@ -946,7 +920,6 @@ msgstr ""
 
 #: includes/Admin/Views/SearchFormsView.php:637
 #, fuzzy
-#| msgid "Type to search %1$s..."
 msgid "Type of search"
 msgstr "Geben Sie ein, um %1$s zu suchen ..."
 
@@ -956,19 +929,16 @@ msgstr ""
 
 #: includes/Admin/Views/SearchFormsView.php:694
 #, fuzzy
-#| msgid "Engine Label"
 msgid "Field Label"
 msgstr "Engine Label"
 
 #: includes/Admin/Views/SearchFormsView.php:712
 #, fuzzy
-#| msgid "Search Stats"
 msgid "Search Button"
 msgstr "Suchstatistik"
 
 #: includes/Admin/Views/SearchFormsView.php:744
 #, fuzzy
-#| msgid " Searches"
 msgid "Quick Search Items"
 msgstr " Suchen"
 
@@ -978,13 +948,11 @@ msgstr ""
 
 #: includes/Admin/Views/SearchFormsView.php:806
 #, fuzzy
-#| msgid "Advanced Settings"
 msgid "Advanced Search Filter/s"
 msgstr "Erweiterte Einstellungen"
 
 #: includes/Admin/Views/SearchFormsView.php:816
 #, fuzzy
-#| msgid "Author Name"
 msgid "Authors"
 msgstr "Autorenname"
 
@@ -1140,28 +1108,29 @@ msgstr ""
 msgid "#%d (no title)"
 msgstr ""
 
-#: includes/Admin/Views/StatisticsView.php:182 includes/Admin/i18n.php:328
+#: includes/Admin/Views/StatisticsView.php:182
+#: includes/Admin/i18n.php:328
 msgid "SearchWP Statistics"
 msgstr "SearchWP-Statistiken"
 
-#: includes/Admin/Views/SystemInfoView.php:36 includes/Admin/i18n.php:344
+#: includes/Admin/Views/SystemInfoView.php:36
+#: includes/Admin/i18n.php:344
 msgid "Support"
 msgstr "Support"
 
 #: includes/Admin/Views/SystemInfoView.php:93
 #: includes/Admin/Views/SystemInfoView.php:174
 #, fuzzy
-#| msgid "System Information"
 msgid "System Info"
 msgstr "System Information"
 
-#: includes/Admin/Views/SystemInfoView.php:111 includes/Admin/i18n.php:258
+#: includes/Admin/Views/SystemInfoView.php:111
+#: includes/Admin/i18n.php:258
 msgid "Get Help"
 msgstr "Hilfe erhalten"
 
 #: includes/Admin/Views/SystemInfoView.php:129
 #, fuzzy
-#| msgid "Review SearchWP Documentation"
 msgid "View Documentation"
 msgstr "Schauen Sie sich die SearchWP-Dokumentation an"
 
@@ -1171,13 +1140,11 @@ msgstr ""
 
 #: includes/Admin/Views/SystemInfoView.php:137
 #, fuzzy
-#| msgid "Review SearchWP Documentation"
 msgid "View All Documentation"
 msgstr "Schauen Sie sich die SearchWP-Dokumentation an"
 
 #: includes/Admin/Views/SystemInfoView.php:151
 #, fuzzy
-#| msgid "Support"
 msgid "Get Support"
 msgstr "Support"
 
@@ -1191,7 +1158,6 @@ msgstr ""
 
 #: includes/Admin/Views/SystemInfoView.php:182
 #, fuzzy
-#| msgid "Copy to clipboard"
 msgid "Copy to Clipboard"
 msgstr "In die Zwischenablage kopieren"
 
@@ -1220,7 +1186,6 @@ msgstr ""
 
 #: includes/Admin/Views/WelcomeView.php:215
 #, fuzzy
-#| msgid "SearchWP Settings"
 msgid "SearchWP Features & Addons"
 msgstr "SearchWP-Einstellungen"
 
@@ -1252,7 +1217,6 @@ msgstr ""
 
 #: includes/Admin/Views/WelcomeView.php:261
 #, fuzzy
-#| msgid "SearchWP Engines"
 msgid "Multiple Search Engines"
 msgstr "SearchWP-Engines"
 
@@ -1265,7 +1229,6 @@ msgstr ""
 
 #: includes/Admin/Views/WelcomeView.php:277
 #, fuzzy
-#| msgid "Keyword Stems"
 msgid "Keyword Stemming"
 msgstr "Schlüsselwortstämme"
 
@@ -1275,7 +1238,6 @@ msgstr ""
 
 #: includes/Admin/Views/WelcomeView.php:291
 #, fuzzy
-#| msgid "SearchWP Settings"
 msgid "Search Everything"
 msgstr "SearchWP-Einstellungen"
 
@@ -1288,7 +1250,6 @@ msgstr ""
 
 #: includes/Admin/Views/WelcomeView.php:307
 #, fuzzy
-#| msgid "Custom Fields"
 msgid "Advanced Custom Fields Support"
 msgstr "Benutzerdefinierte Felder"
 
@@ -1320,7 +1281,6 @@ msgstr ""
 
 #: includes/Admin/Views/WelcomeView.php:352
 #, fuzzy
-#| msgid "Search Statistics"
 msgid "Search Statistics and Insights"
 msgstr "Statistiken durchsuchen"
 
@@ -1386,7 +1346,6 @@ msgstr ""
 
 #: includes/Admin/Views/WelcomeView.php:453
 #, fuzzy
-#| msgid "Document Content"
 msgid "Related Content"
 msgstr "Dokumentinhalt"
 
@@ -1400,7 +1359,6 @@ msgstr ""
 
 #: includes/Admin/Views/WelcomeView.php:456
 #, fuzzy
-#| msgid "Document Content"
 msgid "Custom Content"
 msgstr "Dokumentinhalt"
 
@@ -1410,13 +1368,11 @@ msgstr ""
 
 #: includes/Admin/Views/WelcomeView.php:461
 #, fuzzy
-#| msgid "Support"
 msgid "WPML Support"
 msgstr "Support"
 
 #: includes/Admin/Views/WelcomeView.php:462
 #, fuzzy
-#| msgid "Support"
 msgid "ACF Support"
 msgstr "Support"
 
@@ -1497,7 +1453,6 @@ msgstr "Möchten Sie die Statistiken wirklich zurücksetzen? Das kann nicht rüc
 
 #: includes/Admin/i18n.php:69
 #, fuzzy
-#| msgid "Potential WP-Cron issue detected, background process may not be fully functional"
 msgid "Potential WP-Cron issue detected, background process may not be fully functional."
 msgstr "Möglicherweise wurde ein WP-Cron-Problem festgestellt. Der Hintergrundprozess ist möglicherweise nicht voll funktionsfähig"
 
@@ -1566,7 +1521,6 @@ msgstr "Indexer durch HTTP-Basisauthentifizierung blockiert!"
 
 #: includes/Admin/i18n.php:109
 #, fuzzy
-#| msgid "Indexer Paused"
 msgid "The indexer is paused."
 msgstr "Indexer angehalten"
 
@@ -1875,7 +1829,8 @@ msgstr ""
 msgid "Highlight terms in results"
 msgstr "Markieren Sie Begriffe in den Ergebnissen"
 
-#: includes/Admin/i18n.php:262 includes/Sources/Post.php:728
+#: includes/Admin/i18n.php:262
+#: includes/Sources/Post.php:728
 #: includes/Sources/Taxonomy.php:180
 msgid "ID"
 msgstr "ID"
@@ -2021,10 +1976,11 @@ msgid "Query to ignore, use * as wildcard"
 msgstr "Abfrage zum Ignorieren verwenden Sie * als Platzhalter"
 
 #. translators: %s: Query number.
-#: includes/Admin/i18n.php:299 includes/Debug/Console/Panels.php:55
-#: includes/Debug/Console/Panels.php:83 includes/Statistics.php:354
-#, fuzzy, php-format
-#| msgid "Query"
+#: includes/Admin/i18n.php:299
+#: includes/Debug/Console/Panels.php:55
+#: includes/Debug/Console/Panels.php:83
+#: includes/Statistics.php:354
+#, fuzzy,php-format
 msgid "Query"
 msgid_plural "Query %s"
 msgstr[0] "Abfrage"
@@ -2254,7 +2210,8 @@ msgstr "Sollen Schlüsselwortstämme verwendet werden"
 msgid "Use the closest match for searches with no results and output a notice (requires partial matches)"
 msgstr "Verwenden Sie die nächstgelegene Übereinstimmung für Suchvorgänge ohne Ergebnisse und geben Sie einen Hinweis aus (erfordert teilweise Übereinstimmungen)"
 
-#: includes/Admin/i18n.php:360 includes/Sources/Attachment.php:533
+#: includes/Admin/i18n.php:360
+#: includes/Sources/Attachment.php:533
 msgid "Value"
 msgstr "Wert"
 
@@ -2286,11 +2243,13 @@ msgstr "Wenn Suchbegriffe in doppelte Anführungszeichen gesetzt werden, sind di
 msgid "Would you prefer that SearchWP remove all stored Document Content, PDF Metadata, and image EXIF data so it can be re-parsed during Index rebuilds?"
 msgstr "Möchten Sie, dass SearchWP alle gespeicherten Dokumentinhalte, PDF-Metadaten und EXIF-Bilddaten entfernt, damit sie während der Indexwiederherstellung erneut analysiert werden können?"
 
-#: includes/Attribute.php:126 includes/Attribute.php:134
+#: includes/Attribute.php:126
+#: includes/Attribute.php:134
 msgid "Missing data property for SearchWP Attribute:"
 msgstr "Fehlende Dateneigenschaft für SearchWP-Attribut:"
 
-#: includes/Attribute.php:127 includes/Attribute.php:135
+#: includes/Attribute.php:127
+#: includes/Attribute.php:135
 msgid "SearchWP Attribute Error"
 msgstr "SearchWP-Attributfehler"
 
@@ -2301,13 +2260,11 @@ msgstr "Alle %d Minuten"
 
 #: includes/Debug/Console/Console.php:81
 #, fuzzy
-#| msgid "SearchWP"
 msgid "SearchWP Debug"
 msgstr "SearchWP"
 
 #: includes/Debug/Console/Console.php:125
 #, fuzzy
-#| msgid "SearchWP Engines"
 msgid "SearchWP Console"
 msgstr "SearchWP-Engines"
 
@@ -2321,7 +2278,6 @@ msgstr ""
 
 #: includes/Debug/Console/Panels.php:101
 #, fuzzy
-#| msgid "Error"
 msgid "Errors"
 msgstr "Fehler"
 
@@ -2343,7 +2299,6 @@ msgstr ""
 
 #: includes/Debug/Console/Panels.php:158
 #, fuzzy
-#| msgid "Add"
 msgid "And"
 msgstr "Hinzufügen"
 
@@ -2369,7 +2324,6 @@ msgstr ""
 
 #: includes/Forms/Frontend.php:185
 #, fuzzy
-#| msgid " Searches"
 msgid "Popular searches"
 msgstr " Suchen"
 
@@ -2389,7 +2343,6 @@ msgstr ""
 
 #: includes/Forms/Frontend.php:299
 #, fuzzy
-#| msgid "Invalid post type"
 msgid "Any Post Type"
 msgstr "Ungültiger post type"
 
@@ -2402,12 +2355,12 @@ msgstr ""
 
 #. translators: %d: Form id.
 #: includes/Forms/Storage.php:66
-#, fuzzy, php-format
-#| msgid "Search Term(s)"
+#, fuzzy,php-format
 msgid "Search Form %d"
 msgstr "Suchbegriff(e)"
 
-#: includes/Index/Controller.php:441 includes/Utils.php:121
+#: includes/Index/Controller.php:441
+#: includes/Utils.php:121
 msgid "Invalid SearchWP Source name"
 msgstr "Ungültiger SearchWP-Source name"
 
@@ -2420,7 +2373,8 @@ msgstr "vor %s"
 msgid "Waiting in network queue"
 msgstr "Warten in der Netzwerkwarteschlange"
 
-#: includes/License.php:185 includes/License.php:314
+#: includes/License.php:185
+#: includes/License.php:314
 msgid "An error occurred, please try again."
 msgstr "Es ist ein Fehler aufgetreten. Versuchen Sie es erneut."
 
@@ -2433,7 +2387,8 @@ msgstr "Ihr Lizenzschlüssel ist am %s abgelaufen"
 msgid "Your license key has been disabled"
 msgstr "Ihr Lizenzschlüssel wurde deaktiviert"
 
-#: includes/License.php:341 includes/License.php:365
+#: includes/License.php:341
+#: includes/License.php:365
 msgid "Invalid license"
 msgstr "Ungültige Lizenz"
 
@@ -2450,7 +2405,8 @@ msgstr "Dies scheint ein ungültiger Lizenzschlüssel für %s zu sein"
 msgid "Your license key has reached its activation limit"
 msgstr "Ihr Lizenzschlüssel hat sein Aktivierungslimit erreicht"
 
-#: includes/License.php:359 includes/License.php:363
+#: includes/License.php:359
+#: includes/License.php:363
 msgid "An error occurred, please try again"
 msgstr "Es ist ein Fehler aufgetreten. Versuchen Sie es erneut"
 
@@ -2491,7 +2447,8 @@ msgstr "Ungültige Engine für \\SearchWP\\Query"
 msgid "Invalid name for SearchWP Rule:"
 msgstr "Ungültiger Name für SearchWP-Regel:"
 
-#: includes/Rule.php:139 includes/Rule.php:147
+#: includes/Rule.php:139
+#: includes/Rule.php:147
 msgid "SearchWP Rule Error"
 msgstr "SearchWP-Regelfehler"
 
@@ -2520,7 +2477,8 @@ msgstr ""
 msgid "Document Content"
 msgstr "Dokumentinhalt"
 
-#: includes/Sources/Attachment.php:45 includes/Sources/Attachment.php:528
+#: includes/Sources/Attachment.php:45
+#: includes/Sources/Attachment.php:528
 msgid "PDF Metadata"
 msgstr "PDF Metadaten"
 
@@ -2613,7 +2571,8 @@ msgstr "Schlüssel"
 msgid "Comments"
 msgstr "Kommentare"
 
-#: includes/Sources/Comment.php:53 includes/Sources/Comment.php:62
+#: includes/Sources/Comment.php:53
+#: includes/Sources/Comment.php:62
 msgid "Comment"
 msgstr "Kommentar"
 
@@ -2625,17 +2584,22 @@ msgstr "Autorenname"
 msgid "Author Email"
 msgstr "Autor E-Mail"
 
-#: includes/Sources/Comment.php:89 includes/Sources/Post.php:268
-#: includes/Sources/Taxonomy.php:140 includes/Sources/User.php:89
+#: includes/Sources/Comment.php:89
+#: includes/Sources/Post.php:268
+#: includes/Sources/Taxonomy.php:140
+#: includes/Sources/User.php:89
 msgid "Custom Fields"
 msgstr "Benutzerdefinierte Felder"
 
-#: includes/Sources/Comment.php:91 includes/Sources/Post.php:270
-#: includes/Sources/Taxonomy.php:142 includes/Sources/User.php:91
+#: includes/Sources/Comment.php:91
+#: includes/Sources/Post.php:270
+#: includes/Sources/Taxonomy.php:142
+#: includes/Sources/User.php:91
 msgid "Tip: Match multiple keys using * as wildcard and hitting Enter"
 msgstr "Tipp: Ordnen Sie mehrere Schlüssel zu, indem Sie * als Platzhalter verwenden und die Eingabetaste drücken"
 
-#: includes/Sources/Comment.php:231 includes/Sources/Post.php:447
+#: includes/Sources/Comment.php:231
+#: includes/Sources/Post.php:447
 #, php-format
 msgid "To %s Parent"
 msgstr "%s Parent"
@@ -2644,15 +2608,18 @@ msgstr "%s Parent"
 msgid "Note: Comment relevance is automatically transferred to its parent, causing the Comment parent to be returned as a result."
 msgstr "Hinweis: Die Relevanz von Kommentaren wird automatisch an das übergeordnete Element übertragen, wodurch das übergeordnete Element des Kommentars zurückgegeben wird."
 
-#: includes/Sources/Comment.php:570 includes/Sources/Post.php:1530
+#: includes/Sources/Comment.php:570
+#: includes/Sources/Post.php:1530
 msgid "Any Meta Key"
 msgstr "Irgendein Meta Key"
 
-#: includes/Sources/Post.php:65 includes/Sources/Post.php:76
+#: includes/Sources/Post.php:65
+#: includes/Sources/Post.php:76
 msgid "Invalid post type for SearchWP Source Post:"
 msgstr "Ungültiger post type  für SearchWP Source Post:"
 
-#: includes/Sources/Post.php:66 includes/Sources/Post.php:77
+#: includes/Sources/Post.php:66
+#: includes/Sources/Post.php:77
 msgid "SearchWP Source Error"
 msgstr "SearchWP Source Fehler"
 
@@ -2669,7 +2636,8 @@ msgstr "Titel"
 msgid "Content"
 msgstr "Inhalt"
 
-#: includes/Sources/Post.php:243 includes/Sources/Taxonomy.php:132
+#: includes/Sources/Post.php:243
+#: includes/Sources/Taxonomy.php:132
 msgid "Slug"
 msgstr "Slug"
 
@@ -2683,11 +2651,11 @@ msgstr "Taxonomien"
 
 #: includes/Sources/Post.php:394
 #, fuzzy
-#| msgid "Author Name"
 msgid "Author"
 msgstr "Autorenname"
 
-#: includes/Sources/Post.php:422 includes/Sources/Taxonomy.php:208
+#: includes/Sources/Post.php:422
+#: includes/Sources/Taxonomy.php:208
 #, php-format
 msgid "To %s ID"
 msgstr "%s ID"
@@ -2728,7 +2696,8 @@ msgstr ""
 msgid "Users"
 msgstr "Benutzer"
 
-#: includes/Sources/User.php:53 includes/Sources/User.php:59
+#: includes/Sources/User.php:53
+#: includes/Sources/User.php:59
 msgid "User"
 msgstr "Benutzer"
 

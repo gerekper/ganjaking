@@ -139,4 +139,10 @@ class Renderer {
       $this->assetsManifestJs[$asset] :
       $asset;
   }
+
+  public function getCssAsset($asset) {
+    return (!empty($this->assetsManifestCss[$asset])) ?
+      $this->assetsManifestCss[$asset] :
+      $asset;
+  }
 }

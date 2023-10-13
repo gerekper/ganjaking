@@ -63,12 +63,11 @@ class WC_MNM_X_Compatibility {
 	 */
 	public static function inline_style() {
 
-		$custom_css = "
+		$custom_css = '
 			.mnm_form.layout_grid ul.products li.product .entry-wrap { box-shadow: none; }
-		";
+		';
 
 		wp_add_inline_style( 'wc-mnm-frontend', $custom_css );
 	}
-
 } // End class.
 WC_MNM_X_Compatibility::init();

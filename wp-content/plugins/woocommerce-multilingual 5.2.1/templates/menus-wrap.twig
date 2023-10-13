@@ -1,0 +1,26 @@
+<div class="wrap">
+    <h1>{{ strings.title }}</h1>
+
+    {% if is_standalone %}
+        {% include 'nav-menus-standalone.twig' %}
+    {% elseif set_up_wizard_run %}
+        {% include 'nav-menus-full.twig' %}
+    {% else %}
+        <nav class="wcml-tabs wpml-tabs"></nav>
+    {% endif %}
+
+    <div class="wcml-wrap">
+    {{ content|raw }}
+    </div>
+
+    {% if rate.on %}
+        <div class="wcml-wrap wcml-notice otgs-is-dismissible">
+            <p>{{ rate.message|raw }}</p>
+            <button class="notice-dismiss hide-rate-block" data-setting="rate-block">
+                    <span class="screen-reader-text">{{ rate.hide_text }}</span>
+            </button>
+            {{ rate.nonce|raw }}
+        </div>
+    {% endif %}
+
+</div>

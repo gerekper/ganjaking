@@ -3,6 +3,7 @@ namespace Composer\Autoload;
 if (!defined('ABSPATH')) exit;
 class ClassLoader
 {
+ private static $includeFile;
  private $vendorDir;
  // PSR-4
  private $prefixLengthsPsr4 = array();
@@ -20,6 +21,7 @@ class ClassLoader
  public function __construct($vendorDir = null)
  {
  $this->vendorDir = $vendorDir;
+ self::initializeIncludeClosure();
  }
  public function getPrefixes()
  {
@@ -54,50 +56,52 @@ class ClassLoader
  }
  public function add($prefix, $paths, $prepend = false)
  {
+ $paths = (array) $paths;
  if (!$prefix) {
  if ($prepend) {
  $this->fallbackDirsPsr0 = array_merge(
- (array) $paths,
+ $paths,
  $this->fallbackDirsPsr0
  );
  } else {
  $this->fallbackDirsPsr0 = array_merge(
  $this->fallbackDirsPsr0,
- (array) $paths
+ $paths
  );
  }
  return;
  }
  $first = $prefix[0];
  if (!isset($this->prefixesPsr0[$first][$prefix])) {
- $this->prefixesPsr0[$first][$prefix] = (array) $paths;
+ $this->prefixesPsr0[$first][$prefix] = $paths;
  return;
  }
  if ($prepend) {
  $this->prefixesPsr0[$first][$prefix] = array_merge(
- (array) $paths,
+ $paths,
  $this->prefixesPsr0[$first][$prefix]
  );
  } else {
  $this->prefixesPsr0[$first][$prefix] = array_merge(
  $this->prefixesPsr0[$first][$prefix],
- (array) $paths
+ $paths
  );
  }
  }
  public function addPsr4($prefix, $paths, $prepend = false)
  {
+ $paths = (array) $paths;
  if (!$prefix) {
  // Register directories for the root namespace.
  if ($prepend) {
  $this->fallbackDirsPsr4 = array_merge(
- (array) $paths,
+ $paths,
  $this->fallbackDirsPsr4
  );
  } else {
  $this->fallbackDirsPsr4 = array_merge(
  $this->fallbackDirsPsr4,
- (array) $paths
+ $paths
  );
  }
  } elseif (!isset($this->prefixDirsPsr4[$prefix])) {
@@ -107,18 +111,18 @@ class ClassLoader
  throw new \InvalidArgumentException("A non-empty PSR-4 prefix must end with a namespace separator.");
  }
  $this->prefixLengthsPsr4[$prefix[0]][$prefix] = $length;
- $this->prefixDirsPsr4[$prefix] = (array) $paths;
+ $this->prefixDirsPsr4[$prefix] = $paths;
  } elseif ($prepend) {
  // Prepend directories for an already registered namespace.
  $this->prefixDirsPsr4[$prefix] = array_merge(
- (array) $paths,
+ $paths,
  $this->prefixDirsPsr4[$prefix]
  );
  } else {
  // Append directories for an already registered namespace.
  $this->prefixDirsPsr4[$prefix] = array_merge(
  $this->prefixDirsPsr4[$prefix],
- (array) $paths
+ $paths
  );
  }
  }
@@ -190,7 +194,8 @@ class ClassLoader
  public function loadClass($class)
  {
  if ($file = $this->findFile($class)) {
- includeFile($file);
+ $includeFile = self::$includeFile;
+ $includeFile($file);
  return true;
  }
  return null;
@@ -286,8 +291,13 @@ class ClassLoader
  }
  return false;
  }
-}
-function includeFile($file)
-{
+ private static function initializeIncludeClosure()
+ {
+ if (self::$includeFile !== null) {
+ return;
+ }
+ self::$includeFile = \Closure::bind(static function($file) {
  include $file;
+ }, null, null);
+ }
 }

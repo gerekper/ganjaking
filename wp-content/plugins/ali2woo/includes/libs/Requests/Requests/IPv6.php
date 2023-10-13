@@ -1,4 +1,5 @@
-<?php
+<?php 
+            namespace Ali2Woo\Lib;
 /**
  * Class to validate and to work with IPv6 addresses
  *

@@ -106,8 +106,7 @@ class Initializer {
   }
 
   public function setupRenderer() {
-    $container = ContainerWrapper::getInstance(WP_DEBUG)->getPremiumContainer();
-    $this->renderer = $container->get(Renderer::class);
+    $this->renderer = ContainerWrapper::getInstance()->get(Renderer::class);
   }
 
   public function setupLocalizer() {
@@ -167,28 +166,23 @@ class Initializer {
   }
 
   public function includePremiumStyles() {
-    $this->renderView('styles.html');
+    $this->wp->wpEnqueueStyle(
+      'mailpoet_premium',
+      Env::$assetsUrl . '/dist/css/' . $this->renderer->getCssAsset('mailpoet-premium.css'),
+      [],
+      Env::$version
+    );
   }
 
   public function includePremiumJavascript() {
     $this->wp->wpEnqueueScript(
       'premium',
       Env::$assetsUrl . '/dist/js/' . $this->renderer->getJsAsset('premium.js'),
-      [],
+      ['mailpoet_admin_vendor'],
       Env::$version,
       true
     );
     $this->wp->wpSetScriptTranslations('premium', 'mailpoet-premium');
-
-    // Print and dequeue the premium script immediately, so it is correctly placed
-    // between "admin_vendor" and "admin" scripts from the free plugin.
-    // This is a temporary solution until we use WP queuing for all translations.
-    if (!\wp_script_is('wp-i18n', 'done')) {
-      \wp_scripts()->do_item('wp-i18n');
-      $this->wp->wpDequeueScript('wp-i18n');
-    }
-    \wp_scripts()->do_item('premium');
-    $this->wp->wpDequeueScript('premium');
   }
 
   /**

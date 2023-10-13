@@ -116,7 +116,7 @@
             if($items){
                 foreach($items as $item){
                     if($item['serviceName'] == $shipping_method){
-                        $shiping_info = $shipping_country_from.", ".$shipping_country_to.", ".$item['company'].", ".($shipping_cost ? (isset($item['localPriceFormatStr'])?$item['localPriceFormatStr']:$item['priceFormatStr']) : 'free');
+                        $shiping_info = $shipping_country_from.", ".$shipping_country_to.", ".$item['company'].", ".($shipping_cost ? (isset($item['freightAmount']['formatedAmount'])?$item['freightAmount']['formatedAmount']:$item['freightAmount']['value']) : 'free');
                         break;
                     }
                 }
@@ -161,7 +161,7 @@
                                 if (json.state !== 'ok') {
                                     console.log(json);
                                 }else{
-                                    jQuery('.a2w-shiping-info').html(country_from+", "+country_to+", "+method+", "+(cost?(item.localPriceFormatStr?item.localPriceFormatStr:item.priceFormatStr):'free'));
+                                    jQuery('.a2w-shiping-info').html(country_from+", "+country_to+", "+method+", "+(cost?(item.freightAmount.formatedAmount?item.freightAmount.formatedAmount:item.freightAmount.value):'free'));
                                 }
                             }).fail(function (xhr, status, error) {
                                 console.log(error);

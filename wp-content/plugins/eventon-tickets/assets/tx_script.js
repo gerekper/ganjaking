@@ -1,6 +1,6 @@
 /**
  * Event Ticket script 
- * @version 2.2.1
+ * @version 2.2.2
  */
 jQuery(document).ready(function($){
 
@@ -251,6 +251,8 @@ jQuery(document).ready(function($){
         OBJ.siblings('em').html(NEWQTY);
         OBJ.siblings('input').val(NEWQTY);
 
+        //console.log(MAX);
+
         if( QTY != NEWQTY) $('body').trigger('evotx_qty_changed',[NEWQTY, MAX, OBJ]);
        
         if(NEWQTY == MAX){
@@ -450,9 +452,11 @@ jQuery(document).ready(function($){
         }
         var OO = $.extend({}, defs, opt);
         el = $(this);
-        const TIX_SECTION = el.hasClass('evotx_ticket_purchase_section') ? el : el.closest('.evotx_ticket_purchase_section');
+        const TIX_SECTION = el.hasClass('evotx_ticket_purchase_section') ? 
+            el : el.closest('.evotx_ticket_purchase_section');
         const msg_el = TIX_SECTION.find('.tx_wc_notic');
         var evotx_data = TIX_SECTION.evotx_get_data();
+        
         var msg_data = evotx_data.msg_interaction;
 
         // button
@@ -485,6 +489,12 @@ jQuery(document).ready(function($){
     }; 
     $.fn.evotx_hide_msg = function(){
         el = $(this);
+        const TIX_SECTION = el.hasClass('evotx_ticket_purchase_section') ? 
+            el : el.closest('.evotx_ticket_purchase_section');
+        const msg_el = TIX_SECTION.find('.tx_wc_notic');
+
+        msg_el.hide();
+
         if( el.hasClass('evorow')){
             el.closest('.evorow').find('.evotx_addtocart_msg').hide();
         }else{
@@ -575,7 +585,7 @@ jQuery(document).ready(function($){
                         success: function(response, textStatus, jqXHR){
 
                             // Show success message
-                            TICKET_ROW.evotx_show_msg();
+                            thisButton.evotx_show_msg();
 
                         }, complete: function(){
                             thisButton.closest('.evoTX_wc').removeClass('evoloading');

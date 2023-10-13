@@ -7,6 +7,6 @@
 
 ?>
 <p>
-    <label for="woocommerce_gpf_config[shop_code]"><?php echo __( 'Store code (for local product inventory feed).', 'woocommerce_gpf' ); ?></label>
+    <label for="woocommerce_gpf_config[shop_code]"><?php esc_html_e( 'Store code (for local product inventory feed).', 'woocommerce_gpf' ); ?></label>
 	<input type="text" class="woocommerce_gpf_field_selector" name="woocommerce_gpf_config[shop_code]" id="woocommerce_gpf_config[shop_code]" value="{shop_code}">
 </p>

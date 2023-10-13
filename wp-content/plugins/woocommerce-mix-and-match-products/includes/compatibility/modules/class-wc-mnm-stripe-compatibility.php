@@ -28,7 +28,6 @@ class WC_MNM_Stripe_Compatibility {
 
 		// Hide Stripe's payment request buttons for MNNM products on single product page.
 		add_filter( 'wc_stripe_hide_payment_request_on_product_page', array( __CLASS__, 'hide_payment_request_on_product_page' ), 10, 2 );
-
 	}
 
 	/**
@@ -62,7 +61,6 @@ class WC_MNM_Stripe_Compatibility {
 
 		return $hide;
 	}
-
 } // End class: do not remove or there will be no more guacamole for you.
 
 WC_MNM_Stripe_Compatibility::init();

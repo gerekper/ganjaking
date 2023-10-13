@@ -127,8 +127,8 @@ class EVOVO_tx{
 			$PO = new EVOVO_Var_opts($EVENT, $EVENT->wcid, 'option');
 
 			// prelim values
-				$po_sep = $EVENT->check_yn('_evovo_po_sep_sold')? true: false;
-				$var_sep = $EVENT->check_yn('_evovo_var_sep_sold')? true: false;
+				$po_sep = $EVENT->check_yn('_evovo_po_sep_sold');
+				$var_sep = $EVENT->check_yn('_evovo_var_sep_sold');
 				$po_uncor = $po_sep ? false: $EVENT->check_yn('_evovo_po_uncor_qty');
 				
 				$outofstock = false;
@@ -230,6 +230,7 @@ class EVOVO_tx{
 
 				$all_variations_data = $PO->get_all_variation_types_dataset( $parent_id, $parent_type );
 				
+
 				$c = 0; 
 				foreach($variations as $var_id => $var_qty ){
 
@@ -241,6 +242,7 @@ class EVOVO_tx{
 						$cart_item_keys = false; // flush previous data
 						
 						if( $var_qty == 0 ) continue;
+
 
 						$CID = $cart_item_data; // use fresh CIDs
 
@@ -261,7 +263,10 @@ class EVOVO_tx{
 						$CID['evovo_data']['vart'] = $all_variations_data['variations'][ $var_id ]['variations'];
 
 						$CID['evovo_data']['def_price'] = $sin_price;
-						$CID['evovo_price'] = $item_price_additions;
+						//$CID['evovo_price'] = $item_price_additions;
+						$CID['evovo_price'] = $sin_price;
+
+						//print_r($CID);
 						
 						
 						$cart_item_keys = WC()->cart->add_to_cart(

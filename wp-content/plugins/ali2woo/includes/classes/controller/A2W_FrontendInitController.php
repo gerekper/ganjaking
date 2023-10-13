@@ -3,7 +3,7 @@
 /**
  * Description of A2W_FrontendInitController
  *
- * @author Mikhail
+ * @author Ali2Woo Team
  *
  * @autoload: init
  *
@@ -212,6 +212,26 @@ if (!class_exists('A2W_FrontendInitController')) {
 
         }
 
+        private function get_plugin_data_from_request(){
+            $data = ['a2w_shipping_method_field' => false, 'a2w_to_country_field'=> false];
+    
+            if (isset($_REQUEST['a2w_shipping_method_field']) && !empty($_REQUEST['a2w_shipping_method_field'])){
+                $data['a2w_shipping_method_field'] = $_REQUEST['a2w_shipping_method_field'];
+            } elseif (isset($_REQUEST['data']['a2w_shipping_method_field']) && !empty($_REQUEST['data']['a2w_shipping_method_field'])){
+                $data['a2w_shipping_method_field'] = $_REQUEST['data']['a2w_shipping_method_field'];
+            }
+    
+            if (isset($_REQUEST['a2w_to_country_field']) && !empty($_REQUEST['a2w_to_country_field'])){
+                $data['a2w_to_country_field'] = $_REQUEST['a2w_to_country_field'];
+            } elseif (isset($_REQUEST['data']['a2w_to_country_field']) && !empty($_REQUEST['data']['a2w_to_country_field'])){
+                $data['a2w_to_country_field'] = $_REQUEST['data']['a2w_to_country_field'];
+            }
+    
+            return $data;
+            
+             
+        }
+
         public function product_shipping_fields_validation($passed, $product_id, $quantity)
         {
 
@@ -219,17 +239,18 @@ if (!class_exists('A2W_FrontendInitController')) {
 
             if ($external_id) {
 
-                if (!isset($_REQUEST['a2w_shipping_method_field']) || empty($_REQUEST['a2w_shipping_method_field'])) {
+                $plugin_request_data = $this->get_plugin_data_from_request();
+    
+                if ($plugin_request_data['a2w_shipping_method_field'] === false) {
                     wc_add_notice(__('Please select the shipping method', 'woocommerce'), 'error');
                     $passed = false;
                 }
-
-                if (!isset($_REQUEST['a2w_to_country_field']) || empty($_REQUEST['a2w_to_country_field'])) {
+    
+                if ($plugin_request_data['a2w_to_country_field'] === false) {
                     wc_add_notice(__('Please select the country where you would like your items to be delivered', 'woocommerce'), 'error');
-
                     $passed = false;
                 }
-
+    
             }
 
             return $passed;
@@ -238,12 +259,14 @@ if (!class_exists('A2W_FrontendInitController')) {
         public function add_cart_item_data($cart_item_meta, $product_id)
         {
 
-            if (isset($_REQUEST['a2w_shipping_method_field'])) {
-                $cart_item_meta['a2w_shipping_method'] = $_REQUEST['a2w_shipping_method_field'];
-            }
+            $plugin_request_data = $this->get_plugin_data_from_request();
 
-            if (isset($_REQUEST['a2w_to_country_field'])) {
-                $cart_item_meta['a2w_to_country'] = $_REQUEST['a2w_to_country_field'];
+            if ($plugin_request_data['a2w_shipping_method_field'] !== false) {
+                $cart_item_meta['a2w_shipping_method'] =  $plugin_request_data['a2w_shipping_method_field'];
+            }
+    
+            if ($plugin_request_data['a2w_to_country_field'] !== false) {
+                $cart_item_meta['a2w_to_country'] = $plugin_request_data['a2w_to_country_field'];
             }
 
             return $cart_item_meta;

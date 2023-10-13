@@ -3,7 +3,7 @@
 /**
  * Description of A2W_SettingPage
  *
- * @author Andrey
+ * @author Ali2Woo Team
  *
  * @autoload: a2w_admin_init
  */
@@ -162,8 +162,6 @@ if (!class_exists('A2W_SettingPageController')) {
 
                 a2w_set_setting('order_translitirate', isset($_POST['a2w_order_translitirate']));
                 a2w_set_setting('order_third_name', isset($_POST['a2w_order_third_name']));
-                a2w_set_setting('order_autopay', $_POST['a2w_order_awaiting_payment'] === "no");
-                a2w_set_setting('order_awaiting_payment', $_POST['a2w_order_awaiting_payment'] === "yes");
 
                 a2w_settings()->commit();
                 a2w_settings()->auto_commit(true);
@@ -172,6 +170,7 @@ if (!class_exists('A2W_SettingPageController')) {
             $localizator = A2W_AliexpressLocalizator::getInstance();
             $countryModel = new A2W_Country();
             $language_model = new A2W_Language();
+            $this->model_put("shipping_options", A2W_Utils::get_aliexpress_shipping_options());
             $this->model_put("currencies", $localizator->getCurrencies(false));
             $this->model_put("custom_currencies", $localizator->getCurrencies(true));
             $this->model_put("order_statuses", function_exists('wc_get_order_statuses') ? wc_get_order_statuses() : array());
@@ -194,7 +193,10 @@ if (!class_exists('A2W_SettingPageController')) {
                     if ($_POST['a2w_account_type'] == 'aliexpress') {
                         $account->save_aliexpress_account(isset($_POST['a2w_appkey']) ? $_POST['a2w_appkey'] : '', isset($_POST['a2w_secretkey']) ? $_POST['a2w_secretkey'] : '', isset($_POST['a2w_trackingid']) ? $_POST['a2w_trackingid'] : '');
                     } else if ($_POST['a2w_account_type'] == 'admitad') {
-                        $account->save_admitad_account(isset($_POST['a2w_admitad_cashback_url']) ? $_POST['a2w_admitad_cashback_url'] : '');
+                        $account->save_admitad_account(
+                            $_POST['a2w_admitad_cashback_url'] ?? '',
+                            $_POST['a2w_admitad_account_name'] ?? '',
+                        );
                     } else if ($_POST['a2w_account_type'] == 'epn') {
                         $account->save_epn_account(isset($_POST['a2w_epn_cashback_url']) ? $_POST['a2w_epn_cashback_url'] : '');
                     }
@@ -301,10 +303,9 @@ if (!class_exists('A2W_SettingPageController')) {
                 //update more field
                 a2w_set_setting('review_load_attributes', isset($_POST['a2w_review_load_attributes']));
 
-                $a2w_review_show_image_list = $_POST['a2w_review_show_image_list'];
-                a2w_set_setting('review_show_image_list', isset($a2w_review_show_image_list));
+                a2w_set_setting('review_show_image_list', isset($_POST['a2w_review_show_image_list']));
 
-                if (isset($a2w_review_show_image_list)) {
+                if (isset($_POST['a2w_review_show_image_list'])) {
                     $a2w_review_thumb_width = intval($_POST['a2w_review_thumb_width']);
 
                     if ($a2w_review_thumb_width > 0) {

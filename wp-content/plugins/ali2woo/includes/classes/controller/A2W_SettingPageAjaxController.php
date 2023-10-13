@@ -3,7 +3,7 @@
 /**
  * Description of A2W_SettingPageAjaxController
  *
- * @author Andrey
+ * @author Ali2Woo Team
  *
  * @autoload: a2w_admin_init
  *
@@ -345,15 +345,17 @@ if (!class_exists('A2W_SettingPageAjaxController')) {
         public function ajax_build_aliexpress_api_auth_url()
         {
           
-            $result = array('state' => 'ok', 'url' => 'https://oauth.aliexpress.com/authorize?response_type=code&client_id=33446317&view=web&sp=ae&redirect_uri=https://api.ali2woo.com/v1/auth.php&state=');
-      
+            $state = urlencode(trailingslashit(get_bloginfo('wpurl')));
+            $result = array('state' => 'ok', 'url' => 'https://oauth.aliexpress.com/authorize?response_type=code&client_id=33446317&view=web&sp=ae&redirect_uri=https://api.ali2woo.com/v3/auth.php&state=' . $state);
+        
              
             $pc = a2w_get_setting('item_purchase_code');
             if ($pc) {
                 // $pc = md5($pc);
+                $state = $state . ";" . $pc;
                 $result = array(
                     'state' => 'ok',
-                    'url' => 'https://oauth.aliexpress.com/authorize?response_type=code&client_id=33446317&view=web&sp=ae&redirect_uri=https://api.ali2woo.com/v1/auth.php&state=' . $pc,
+                    'url' => 'https://oauth.aliexpress.com/authorize?response_type=code&client_id=33446317&view=web&sp=ae&redirect_uri=https://api.ali2woo.com/v3/auth.php&state=' . $state,
                 );
             } else {
                 $result = array('state' => 'error', 'message' => 'Input your purchase code in the plugin settings');
@@ -369,6 +371,8 @@ if (!class_exists('A2W_SettingPageAjaxController')) {
             if (isset($_POST['token'])) {
                 $token = A2W_AliexpressToken::getInstance();
                 $token->add($_POST['token']);
+
+                A2W_Utils::clear_system_error_messages();
 
                 $tokens = $token->tokens();
                 $data = '';

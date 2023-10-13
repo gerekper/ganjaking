@@ -1,7 +1,7 @@
 <?php
 /**
  * Integration with Booking Addon
- * @version 
+ * @version 1.1.2
  */
 
 class EVOVO_BO{
@@ -13,19 +13,25 @@ class EVOVO_BO{
 			add_action('evobo_new_block_form', array($this, 'new_block_form'), 10, 3);
 			add_action('evovo_after_save', array($this, 'save_block_variation'), 10, 4);
 			add_filter('evobo_after_save_block', array($this, 'save_booking_block'),10,3);
+			add_filter('evovo_variations_form_fields', array($this, 'variations_form'),10,4);
 
 			add_action('evobo_auto_generator_form', array($this, 'autogen_form'),10,2);
 			add_action('evobo_autogen_after_saved', array($this, 'autogen_slot'),10,3);
 
 			add_action('evobo_delete_all_blocks', array($this, 'delete_all'),10,1);
 			add_action('evobo_delete_single_blocks', array($this, 'delete_single'),10,2);
+			
 		}
 
 		// front end 
 		add_filter('evobo_block_preview', array($this, 'preview_blocks'), 10, 3);
 		add_filter('evovo_ticket_frontend_mod', array($this, 'frontend_mod'),10, 4);
 		add_action('evovo_add_to_cart_before', array($this, 'default_values'), 10, 1);
-
+		
+		if(!is_admin()){
+			add_filter('evovo_vo_item_stock_return', array($this, 'evovo_vo_item_stock_return'), 10, 2);
+		}
+	
 		add_filter('evobo_blocks_json', array($this, 'json_blocks'), 10, 3);
 
 	}
@@ -51,6 +57,22 @@ class EVOVO_BO{
 		}
 
 	// FRONTEND
+		// evovo_data array
+			function evovo_vo_item_stock_return( $stock, $class){
+
+				// if variations are set
+				if( $class->method == 'variation' && !$stock && $class->get_parent_type() == 'booking'){
+					
+					$BLOCKS = new EVOBO_Blocks( $class->event);
+					$BLOCKS->set_block_data( $class->get_parent_id() );
+
+					$block_stock = $BLOCKS->has_stock();
+
+					$stock = $block_stock;
+				}
+				return $stock;
+			}
+
 		// make sure if blocks are enable show blocks instead of VOs
 			function frontend_mod($boolean, $EVENT, $content, $product){
 				$BLOCKS = new EVOBO_Blocks( $EVENT);
@@ -174,6 +196,27 @@ class EVOVO_BO{
 				// delete the auto gen VOS
 				$VO->delete_allitems_for_parent('G123456','booking_generator');
 
+			}
+
+		// variations form from booking
+			function variations_form( $fields, $post, $values, $EVENT){
+
+				if( $post['parent_type'] == 'booking' && $post['method'] == 'variation'){
+					$block_index = $post['parent_id'];
+					$BLOCKS = new EVOBO_Blocks( $EVENT);
+					$BLOCKS->set_block_data( $block_index );
+
+					$block_stock = $BLOCKS->has_stock();
+
+
+					$fields['evovobo_notice'] =array(
+						'name'=> __('NOTE: Variations stock must be less than block capacity','evovo') . 
+							($block_stock ? ': '. $block_stock: '' ) .' ' . __('If variation stock left blank for unlimited, variations stock will be capped at block capacity.','evovo'),
+						'type'=>'notice',
+					);
+				}
+
+				return $fields;
 			}
 
 		// booking block form -> VO html

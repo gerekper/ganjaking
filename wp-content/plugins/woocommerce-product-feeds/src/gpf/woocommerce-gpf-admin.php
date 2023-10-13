@@ -148,16 +148,18 @@ class WoocommerceGpfAdmin {
 		add_filter( 'plugin_action_links_' . $plugin_file, array( $this, 'add_settings_link' ), 11 );
 
 		// Handle ajax requests for the google taxonomy search
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
 		if ( isset( $_GET['woocommerce_gpf_search'] ) ) {
-			$this->ajax_handler( $_GET['query'] );
+			$this->ajax_handler( sanitize_text_field( $_GET['query'] ) );
 			exit();
 		}
 
 		// Handle ajax requests for the bing taxonomy search
 		if ( isset( $_GET['woocommerce_gpf_bing_search'] ) ) {
-			$this->bing_ajax_handler( $_GET['query'] );
+			$this->bing_ajax_handler( sanitize_text_field( $_GET['query'] ) );
 			exit();
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 		// Read in the field data.
 		$this->product_fields = apply_filters( 'woocommerce_gpf_product_fields', $this->common->product_fields );
@@ -268,7 +270,7 @@ class WoocommerceGpfAdmin {
 			);
 		}
 		if ( isset( $_GET['gpf_action'] ) && 'rebuild_cache' === $_GET['gpf_action'] ) {
-			if ( wp_verify_nonce( $_GET['_wpnonce'], 'gpf_rebuild_cache' ) ) {
+			if ( wp_verify_nonce( sanitize_text_field( $_GET['_wpnonce'] ), 'gpf_rebuild_cache' ) ) {
 				$this->cache->flush_all();
 			}
 			wp_safe_redirect(
@@ -283,7 +285,7 @@ class WoocommerceGpfAdmin {
 			exit;
 		}
 		if ( isset( $_GET['gpf_action'] ) && 'refresh_custom_fields' === $_GET['gpf_action'] ) {
-			if ( wp_verify_nonce( $_GET['_wpnonce'], 'gpf_refresh_custom_fields' ) ) {
+			if ( wp_verify_nonce( sanitize_text_field( $_GET['_wpnonce'] ), 'gpf_refresh_custom_fields' ) ) {
 				delete_transient( 'woocommerce_gpf_meta_prepopulate_options' );
 				wp_safe_redirect(
 					add_query_arg(
@@ -566,8 +568,8 @@ class WoocommerceGpfAdmin {
 				}
 			}
 			if ( ! empty( $group_content ) ) {
-				echo $group_header;
-				echo $group_content;
+				echo $group_header; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo $group_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 		}
 	}
@@ -580,12 +582,16 @@ class WoocommerceGpfAdmin {
 	 * @param unknown $term_id
 	 */
 	public function save_category( $term_id ) {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		if ( isset( $_POST['_woocommerce_gpf_data'] ) ) {
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			foreach ( $_POST['_woocommerce_gpf_data'] as $key => $value ) {
 				$_POST['_woocommerce_gpf_data'][ $key ] = stripslashes_deep( $value );
 			}
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			update_term_meta( $term_id, '_woocommerce_gpf_data', $_POST['_woocommerce_gpf_data'] );
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 	/**
@@ -599,11 +605,13 @@ class WoocommerceGpfAdmin {
 
 		echo '<div class="wc_gpf_metabox closed">';
 		echo '<h2><strong>';
-		echo __( 'Product Feed Information', 'woocommerce_gpf' );
+		esc_html_e( 'Product Feed Information', 'woocommerce_gpf' );
 		echo '</strong><div class="handlediv" aria-label="Click to toggle"></div>';
 		echo '</h2>';
 		echo '<div class="wc_gpf_metabox_content" style="display:none;">';
-		echo '<p>' . __( 'Set values here if you want to override the information for this specific variation. If information should apply to all variations, then set it against the main product.', 'woocommerce_gpf' ) . '</p>';
+		echo '<p>';
+		esc_html_e( 'Set values here if you want to override the information for this specific variation. If information should apply to all variations, then set it against the main product.', 'woocommerce_gpf' );
+		echo '</p>';
 		$current_data     = get_post_meta( $variation->ID, '_woocommerce_gpf_data', true );
 		$product_defaults = $this->common->get_defaults_for_product( $variation->ID, 'all' );
 
@@ -703,8 +711,8 @@ class WoocommerceGpfAdmin {
 				$group_content .= $this->template_loader->get_template_with_variables( 'woo-gpf', 'product-meta-field-row', $variables );
 			}
 			if ( ! empty( $group_content ) ) {
-				echo $group_header;
-				echo $group_content;
+				echo $group_header; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo $group_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 		}
 		$this->template_loader->output_template_with_variables( 'woo-gpf', 'product-meta-edit-footer', array() );
@@ -819,8 +827,8 @@ class WoocommerceGpfAdmin {
 				$group_content .= $this->template_loader->get_template_with_variables( 'woo-gpf', 'product-meta-field-row', $variables );
 			}
 			if ( ! empty( $group_content ) ) {
-				echo $group_header;
-				echo $group_content;
+				echo $group_header; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo $group_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 		}
 		$this->template_loader->output_template_with_variables( 'woo-gpf', 'product-meta-edit-footer', array() );
@@ -834,6 +842,7 @@ class WoocommerceGpfAdmin {
 	 * @param unknown $product_id
 	 */
 	public function save_product( $product_id ) {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
@@ -844,6 +853,7 @@ class WoocommerceGpfAdmin {
 		if ( ! $current_data ) {
 			$current_data = array();
 		}
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$post_data = $_POST['_woocommerce_gpf_data'];
 		// Remove entries that are blanked out
 		foreach ( $post_data as $key => $value ) {
@@ -878,12 +888,14 @@ class WoocommerceGpfAdmin {
 			}
 		}
 		update_post_meta( $product_id, '_woocommerce_gpf_data', $current_data );
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 	/**
 	 * Store GPF data set specifically against the variation.
 	 */
 	public function save_variation( $product_id, $idx ) {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		if ( empty( $_POST['_woocommerce_gpf_data'][ $idx ] ) ) {
 			return;
 		}
@@ -892,6 +904,7 @@ class WoocommerceGpfAdmin {
 			$current_data = array();
 		}
 		// Remove entries that are blanked out
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		foreach ( $_POST['_woocommerce_gpf_data'][ $idx ] as $key => $value ) {
 			if ( empty( $value ) ) {
 				unset( $_POST['_woocommerce_gpf_data'][ $idx ][ $key ] );
@@ -906,8 +919,10 @@ class WoocommerceGpfAdmin {
 		if ( ! isset( $_POST['_woocommerce_gpf_data'][ $idx ]['exclude_product'] ) ) {
 			unset( $current_data['exclude_product'] );
 		}
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$current_data = array_merge( $current_data, $_POST['_woocommerce_gpf_data'][ $idx ] );
 		update_post_meta( $product_id, '_woocommerce_gpf_data', $current_data );
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 	/**
@@ -916,6 +931,7 @@ class WoocommerceGpfAdmin {
 	 * @param string $key The key being processed.
 	 *
 	 * @return array        The default variables array.
+	 * @throws Exception
 	 */
 	private function default_field_variables( $key, $loop_idx = null ) {
 		$variables            = array();
@@ -925,6 +941,7 @@ class WoocommerceGpfAdmin {
 		} else {
 			$variables['key'] = $loop_idx . '][' . esc_attr( $key );
 		}
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
 		if ( isset( $_REQUEST['post'] ) ||
 			isset( $_REQUEST['taxonomy'] ) ||
 			isset( $_REQUEST['post_type'] ) ||
@@ -933,6 +950,7 @@ class WoocommerceGpfAdmin {
 		} else {
 			$variables['emptytext'] = __( 'No default', 'woocommerce_gpf' );
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 		return $variables;
 	}
@@ -1858,8 +1876,9 @@ class WoocommerceGpfAdmin {
 	}
 
 	public function save_general_settings() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$new_country     = sanitize_text_field( $_POST['woocommerce_default_country'] );
 		$current_country = WC()->countries->get_base_country();
-		$new_country     = $_POST['woocommerce_default_country'];
 		if ( ! isset( $new_country ) || $current_country === $new_country ) {
 			// Country unchanged. Do nothing.
 			return;
@@ -1894,8 +1913,8 @@ class WoocommerceGpfAdmin {
 	public function save_settings() {
 
 		// Check nonce
-		if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'woocommerce-settings' ) ) {
-			die( __( 'Action failed. Please refresh the page and retry.', 'woothemes' ) );
+		if ( ! wp_verify_nonce( sanitize_text_field( $_REQUEST['_wpnonce'] ), 'woocommerce-settings' ) ) {
+			die( esc_html( __( 'Action failed. Please refresh the page and retry.', 'woothemes' ) ) );
 		}
 
 		if ( ! $this->settings ) {
@@ -1905,21 +1924,26 @@ class WoocommerceGpfAdmin {
 
 		if ( ! empty( $_POST['_woocommerce_gpf_data'] ) ) {
 			// We do these so we can re-use the same form field rendering code for the fields
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			foreach ( $_POST['_woocommerce_gpf_data'] as $key => $value ) {
 				$_POST['_woocommerce_gpf_data'][ $key ] = stripslashes( $value );
 			}
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$_POST['woocommerce_gpf_config']['product_defaults'] = $_POST['_woocommerce_gpf_data'];
 			unset( $_POST['_woocommerce_gpf_data'] );
 		}
 
 		if ( ! empty( $_POST['_woocommerce_gpf_prepopulate'] ) ) {
 			// We do these so we can re-use the same form field rendering code for the fields
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			foreach ( $_POST['_woocommerce_gpf_prepopulate'] as $key => $value ) {
 				$_POST['_woocommerce_gpf_prepopulate'][ $key ] = stripslashes( $value );
 			}
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$_POST['woocommerce_gpf_config']['product_prepopulate'] = $_POST['_woocommerce_gpf_prepopulate'];
 			unset( $_POST['_woocommerce_gpf_prepopulate'] );
 		}
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$this->settings = $_POST['woocommerce_gpf_config'];
 		update_option( 'woocommerce_gpf_config', $this->settings );
 	}

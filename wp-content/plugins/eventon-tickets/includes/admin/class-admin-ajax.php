@@ -419,7 +419,7 @@ class evotx_admin_ajax{
 							echo "<option value='".$x."'>".$time['start']."</option>"; $x++;
 						}
 						echo "</select>";
-						echo $eventon->throw_guide("Select which instance of repeating events of this event you want to use for this emailing action.", '',false);
+						echo EVO()->throw_guide("Select which instance of repeating events of this event you want to use for this emailing action.", '',false);
 						echo "</p>";
 					}
 				}
@@ -441,6 +441,7 @@ class evotx_admin_ajax{
 					'title'=>__('Send Email','evotx'),
 					'uid'=>'evotx_send_emails',
 					'lb_class' =>'evotx_emailing',
+					'lb_loader'=>true
 				), 'trig_form_submit');
 			?></p>
 

@@ -1,9 +1,9 @@
-# Copyright (C) 2021 MA-Group
+# Copyright (C) 2021 Dropshipping Guru
 # This file is distributed under the GPLv2+.
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Aliexpress Dropship for Woocommerce 1.18.4\n"
+"Project-Id-Version: Aliexpress Dropshipping for Woocommerce 1.18.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ali2woo\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -127,12 +127,12 @@ msgid "Ali2Woo report: Changes in your products"
 msgstr ""
 
 #. Name of the plugin
-msgid "Aliexpress Dropship for Woocommerce"
+msgid "Aliexpress Dropshipping for Woocommerce"
 msgstr ""
 
 #. Description of the plugin
 msgid ""
-"Aliexpress Dropship for Woocommerce is a WordPress plugin created for "
+"Aliexpress Dropshipping for Woocommerce is a WordPress plugin created for "
 "AliExpress Drop Shipping and Affiliate marketing"
 msgstr ""
 
@@ -817,7 +817,7 @@ msgid "Loading"
 msgstr ""
 
 #. Author of the plugin
-msgid "MA-Group"
+msgid "Dropshipping Guru"
 msgstr ""
 
 #: view/product_edit_photo.php:22
@@ -1228,7 +1228,7 @@ msgstr ""
 
 #: view/chrome_notify.php:6
 msgid ""
-"Save time adding and ordering products by using the MA Aliexpress Dropship "
+"Save time adding and ordering products by using free chrome extension "
 "Chrome Extension!"
 msgstr ""
 
@@ -1721,7 +1721,7 @@ msgstr ""
 
 #: view/settings/settings_head.php:1
 msgctxt "Setting title"
-msgid "Aliexpress Dropship Settings"
+msgid "Aliexpress Dropshipping Settings"
 msgstr ""
 
 #: view/settings/shipping.php:103

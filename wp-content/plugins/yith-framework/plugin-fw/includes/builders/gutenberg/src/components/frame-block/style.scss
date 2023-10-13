@@ -1,0 +1,16 @@
+.yith-plugin-fw-blocks__edit-preview-iframe {
+    width: 100%;
+    border: none;
+    display: block;
+
+    &.yith-plugin-fw-blocks__edit-preview-iframe--is-loading {
+        display: none;
+    }
+}
+
+.yith-plugin-fw-blocks__edit-preview-iframe__loading-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 0;
+}

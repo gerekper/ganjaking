@@ -277,16 +277,25 @@ class Panels {
 		foreach ( $raw_results as $result ) {
 			$title = $result->source;
 
-			// If we're outputting WP_Posts we can find the Title.
-			$flag = 'post' . SEARCHWP_SEPARATOR;
-			if ( strpos( $result->source, $flag ) === 0 ) {
+			if ( strpos( $result->source, 'post' . SEARCHWP_SEPARATOR ) === 0 ) {
 				$title = html_entity_decode( get_the_title( $result->id ) );
+			}
+
+			if ( $result->source === 'user' ) {
+				$user  = get_userdata( $result->id );
+				$title = $user instanceof \WP_User ? html_entity_decode( $user->display_name ) : $title;
+			}
+
+			if ( strpos( $result->source, 'taxonomy' . SEARCHWP_SEPARATOR ) === 0 ) {
+				$term  = get_term( $result->id );
+				$title = $term instanceof \WP_Term ? html_entity_decode( $term->name ) : $title;
 			}
 
 			$debug_data[] = [
 				'Relevance' => $result->relevance,
 				'ID'        => $result->id,
 				'Title'     => $title,
+				'Source'    => $result->source,
 				'Site'      => $result->site,
 			];
 		}

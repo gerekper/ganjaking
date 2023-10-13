@@ -83,6 +83,7 @@ class Storage {
 			'swp-sfbutton-filled'     => '',
 			'search-form-color'       => '',
 			'search-form-font-size'   => '',
+			'button-label'            => '',
 			'button-background-color' => '',
 			'button-font-color'       => '',
 			'button-font-size'        => '',

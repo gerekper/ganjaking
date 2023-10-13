@@ -483,7 +483,7 @@ class WC_PCSVIS_Exporter {
 
 							$row[] = self::format_data( implode( '|', $formatted_terms ) );
 						} else {
-							$terms = wp_get_post_terms( $product->ID, $taxonomy->name, array( 'fields' => 'slugs' ) );
+							$terms = wp_get_post_terms( $product->ID, $taxonomy->name, array( 'fields' => 'names' ) );
 
 							$row[] = self::format_data( implode( '|', $terms ) );
 						}
@@ -619,6 +619,10 @@ class WC_PCSVIS_Exporter {
 	 * @return string wrapped data
 	 */
 	public static function wrap_column( $data ) {
+		if ( is_null( $data ) ) {
+			return '""';
+		}
+
 		return '"' . str_replace( '"', '""', $data ) . '"';
 	}
 

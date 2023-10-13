@@ -119,10 +119,10 @@ class __TwigTemplate_9b0ddf3688f2dc81e331ee62fce3c53bfc8110f9d6615c3cf10d5c5c68f
         echo "    ";
         echo $this->extensions['MailPoet\Twig\Filters']->wpKses(($context["fonts_link"] ?? null), ($context["allowedHtml"] ?? null));
         echo "
-    ";
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"";
         // line 66
-        echo $this->extensions['MailPoet\Twig\Assets']->generateStylesheet("mailpoet-public.css");
-        echo "
+        echo \MailPoetVendor\twig_escape_filter($this->env, ($context["mailpoet_public_css_url"] ?? null), "html", null, true);
+        echo "\" />
     ";
         // line 67
         echo ($context["scripts"] ?? null);

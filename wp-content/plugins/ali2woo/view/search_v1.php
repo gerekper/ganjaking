@@ -3,7 +3,7 @@
         
         <?php include_once A2W()->plugin_path() . '/view/chrome_notify.php';?>
         
-        <?php if (A2W_Account::getInstance()->is_activated()): ?>
+        <?php if (!A2W_Account::getInstance()->is_activated()): ?>
         <div class="a2w-pc-warn"><p>You didn't activate Ali2Woo! Please open the Ali2Woo plugin <a href="<?php echo admin_url('admin.php?page=a2w_setting') ?>">settings</a> and input your purchase key.</p></div>
         <?php endif;?>
         

@@ -4,14 +4,14 @@
  Plugin URI: http://www.myeventon.com/
  Description: Create a week view of events for EventON Calendar
  Author: Ashan Jay
- Version: 2.0
+ Version: 2.0.2
  Author URI: http://www.ashanjay.com/
- Requires at least: 5.0
- Tested up to: 5.8
+ Requires at least: 6.0
+ Tested up to: 6.3.1
  */
 class eventon_weeklyview{	
-	public $version='2.0';
-	public $eventon_version = '4.0';
+	public $version='2.0.2';
+	public $eventon_version = '4.5';
 	public $name = 'WeeklyView';
 
 	public $addon_data = array();
@@ -31,14 +31,19 @@ class eventon_weeklyview{
 			}
 			return self::$_instance;
 		}
-		public function __construct(){			
+		public function __construct(){	
+			$this->super_init();
+			add_action('plugins_loaded', array($this, 'plugin_init'), 10);
+		}
+
+		public function plugin_init(){
+
 			// check if eventon exists with addon class
 			if( !isset($GLOBALS['eventon']) || !class_exists('evo_addons') ){
 				add_action('admin_notices', array($this, 'notice'));
 				return false;			
 			}
 			
-			$this->super_init();
 			$this->addon = new evo_addons($this->addon_data);
 
 			if($this->addon->evo_version_check()){
@@ -81,11 +86,9 @@ class eventon_weeklyview{
 
 			include_once( 'includes/class-frontend.php' );
 			include_once( 'includes/class-shortcode.php' );
+			include_once( 'includes/class-ajax.php' );
 
-			if ( defined('DOING_AJAX') ){
-				include_once( 'includes/class-ajax.php' );
-			}
-
+			
 			$this->shortcodes = new EVOWV_shortcode();
 			$this->frontend = new EVOWV_frontend();
 		}

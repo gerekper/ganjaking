@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    2.0.0
- * @version  2.4.0
+ * @version  2.5.0
  */
 
 // Exit if accessed directly.
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * The Main WC_MNM_APFS_Switching_Compatibility class
- **/
+ */
 if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 	class WC_MNM_APFS_Switching_Compatibility {
@@ -31,9 +31,11 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		 */
 		public static function add_hooks() {
 
-			/*-----------------------------------------------------------------------------------*/
-			/*  All types: Application layer integration                                         */
-			/*-----------------------------------------------------------------------------------*/
+			/*
+			|--------------------------------------------------------------------------
+			| All types: Application layer integration.
+			|--------------------------------------------------------------------------
+			*/
 
 			// Hide child cart item options.
 			add_filter( 'wcsatt_show_cart_item_options', array( __CLASS__, 'hide_child_item_options' ), 10, 3 );
@@ -50,9 +52,11 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 			// Pass subscription details placeholder to JS script.
 			add_filter( 'wcsatt_single_product_subscription_option_data', array( __CLASS__, 'container_subscription_option_data' ), 10, 3 );
 
-			/*-----------------------------------------------------------------------------------*/
-			/*  Cart                                                                             */
-			/*-----------------------------------------------------------------------------------*/
+			/*
+			|--------------------------------------------------------------------------
+			| Cart.
+			|--------------------------------------------------------------------------
+			*/
 
 			// Add subscription details next to subtotal of per-item-priced container container cart items.
 			add_filter( 'woocommerce_cart_item_subtotal', array( __CLASS__, 'filter_container_item_subtotal' ), 1000, 3 );
@@ -60,9 +64,11 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 			// Modify container cart item options to include child item prices.
 			add_filter( 'wcsatt_cart_item_options', array( __CLASS__, 'container_item_options' ), 10, 4 );
 
-			/*-----------------------------------------------------------------------------------*/
-			/*  Subscriptions management: 'My Account > Subscriptions' actions                                                                             */
-			/*-----------------------------------------------------------------------------------*/
+			/*
+			|--------------------------------------------------------------------------
+			| Subscriptions management: 'My Account > Subscriptions' actions.
+			|--------------------------------------------------------------------------
+			*/
 
 			// Change text for Mix and Match switch link.
 			if ( version_compare( WC_Subscriptions::$version, '4.5.0', '>=' ) ) {
@@ -83,14 +89,16 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 			// Handle parent subscription line item re-additions under 'My Account > Subscriptions'.
 			add_action( 'wcs_user_readded_item', array( __CLASS__, 'user_readded_parent_subscription_item' ), 10, 2 );
 
-			/*-----------------------------------------------------------------------------------*/
-			/*  Subscriptions management: Switching                                              */
-			/*-----------------------------------------------------------------------------------*/
+			/*
+			|--------------------------------------------------------------------------
+			| Subscriptions management: Switching.
+			|--------------------------------------------------------------------------
+			*/
 
 			// Add extra 'Allow Switching' options. See 'WCS_ATT_Admin::allow_switching_options'.
 			add_filter( 'woocommerce_subscriptions_allow_switching_options', array( __CLASS__, 'add_container_switching_options' ), 11 );
 
-			// Add the settings to control whether Switching is enabled and how it will behave
+			// Add the settings to control whether Switching is enabled and how it will behave.
 			add_filter( 'woocommerce_subscription_settings', array( __CLASS__, 'add_settings' ), 20 );
 
 			// Hide "Upgrade or Downgrade" switching buttons of container line items under 'My Account > Subscriptions'.
@@ -121,9 +129,11 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 			// Copy switch parameters from parent item.
 			add_filter( 'wc_mnm_child_cart_item_data', array( __CLASS__, 'child_item_switch_cart_data' ), 10, 2 );
 
-			/*-----------------------------------------------------------------------------------*/
-			/*  Subscriptions management: Add products/carts to subscriptions                                                                             */
-			/*-----------------------------------------------------------------------------------*/
+			/*
+			|--------------------------------------------------------------------------
+			| Subscriptions management: Add products/carts to subscriptions.
+			|--------------------------------------------------------------------------
+			*/
 
 			// Modify the validation context when adding a container to an order.
 			add_action( 'wcsatt_pre_add_product_to_subscription_validation', array( __CLASS__, 'set_container_type_validation_context' ), 10 );
@@ -144,13 +154,14 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 			// Add scheme data to runtime price cache hashes.
 			add_filter( 'wc_mnm_prices_hash', array( __CLASS__, 'container_prices_hash' ), 10, 2 );
 
-			/*-----------------------------------------------------------------------------------*/
-			/*  Line item editing:                                                               */
-			/*-----------------------------------------------------------------------------------*/
+			/*
+			|--------------------------------------------------------------------------
+			| Line item editing.
+			|--------------------------------------------------------------------------
+			*/
 
-			// Copy order/subscription meta,
+			// Copy order/subscription meta.
 			add_filter( 'wc_mnm_edit_container_order_item_args', array( __CLASS__, 'child_item_scheme_meta' ), 10, 4 );
-
 		}
 
 		/*
@@ -180,7 +191,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		 */
 		private static function calculate_container_item_subtotal( $cart_item, $scheme_key, $tax = '' ) {
 
-			$product          = $cart_item[ 'data' ];
+			$product          = $cart_item['data'];
 			$tax_display_cart = '' === $tax ? get_option( 'woocommerce_tax_display_cart' ) : $tax;
 
 			if ( 'excl' === $tax_display_cart ) {
@@ -195,12 +206,24 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 				foreach ( $child_items as $child_key => $child_item ) {
 
-					$child_qty = ceil( $child_item[ 'quantity' ] / $cart_item[ 'quantity' ] );
+					$child_qty = ceil( $child_item['quantity'] / $cart_item['quantity'] );
 
 					if ( 'excl' === $tax_display_cart ) {
-						$subtotal += wc_get_price_excluding_tax( $child_item[ 'data' ], array( 'price' => WCS_ATT_Product_Prices::get_price( $child_item[ 'data' ], $scheme_key ), 'qty' => $child_qty ) );
+						$subtotal += wc_get_price_excluding_tax(
+							$child_item['data'],
+							array(
+								'price' => WCS_ATT_Product_Prices::get_price( $child_item['data'], $scheme_key ),
+								'qty'   => $child_qty,
+							)
+						);
 					} else {
-						$subtotal += wc_get_price_including_tax( $child_item[ 'data' ], array( 'price' => WCS_ATT_Product_Prices::get_price( $child_item[ 'data' ], $scheme_key ), 'qty' => $child_qty ) );
+						$subtotal += wc_get_price_including_tax(
+							$child_item['data'],
+							array(
+								'price' => WCS_ATT_Product_Prices::get_price( $child_item['data'], $scheme_key ),
+								'qty'   => $child_qty,
+							)
+						);
 					}
 				}
 			}
@@ -217,20 +240,20 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		 */
 		public static function add_container_to_order( $subscription, $cart_item, $recurring_cart ) {
 
-			$configuration = $cart_item[ 'mnm_config' ];
+			$configuration = $cart_item['mnm_config'];
 
 			// Copy child item totals over from recurring cart.
 			foreach ( wc_mnm_get_child_cart_items( $cart_item, $recurring_cart->cart_contents ) as $child_cart_item_key => $child_cart_item ) {
 
-				$child_item_id = $child_cart_item[ 'mnm_child_id' ];
+				$child_item_id = $child_cart_item['mnm_child_id'];
 
-				$configuration[ $child_item_id ][ 'args' ] = array(
-					'subtotal' => $child_cart_item[ 'line_total' ],
-					'total'    => $child_cart_item[ 'line_subtotal' ]
+				$configuration[ $child_item_id ]['args'] = array(
+					'subtotal' => $child_cart_item['line_total'],
+					'total'    => $child_cart_item['line_subtotal'],
 				);
 			}
 
-			return WC_Mix_and_Match()->order->add_container_to_order( $cart_item[ 'data' ], $subscription, $cart_item[ 'quantity' ], array( 'configuration' => $configuration ) );
+			return WC_Mix_and_Match()->order->add_container_to_order( $cart_item['data'], $subscription, $cart_item['quantity'], array( 'configuration' => $configuration ) );
 		}
 
 		/*
@@ -249,7 +272,9 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		 */
 		public static function hide_child_item_options( $show, $cart_item, $cart_item_key ) {
 
-			if ( $container_cart_item = wc_mnm_get_cart_item_container( $cart_item ) ) {
+			$container_cart_item = wc_mnm_get_cart_item_container( $cart_item );
+
+			if ( $container_cart_item ) {
 				if ( self::has_scheme_data( $container_cart_item ) ) {
 					$show = false;
 				}
@@ -268,9 +293,11 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		 */
 		public static function set_child_item_subscription_scheme( $scheme_key, $cart_item, $cart_level_schemes ) {
 
-			if ( $container_cart_item = wc_mnm_get_cart_item_container( $cart_item ) ) {
+			$container_cart_item = wc_mnm_get_cart_item_container( $cart_item );
+
+			if ( $container_cart_item ) {
 				if ( self::has_scheme_data( $container_cart_item ) ) {
-					$scheme_key = $container_cart_item[ 'wcsatt_data' ][ 'active_subscription_scheme' ];
+					$scheme_key = $container_cart_item['wcsatt_data']['active_subscription_scheme'];
 				}
 			}
 
@@ -288,11 +315,13 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 			foreach ( $cart->cart_contents as $cart_item_key => $cart_item ) {
 
 				// Is it a child item?
-				if ( $container_cart_item = wc_mnm_get_cart_item_container( $cart_item ) ) {
+				$container_cart_item = wc_mnm_get_cart_item_container( $cart_item );
+
+				if ( $container_cart_item ) {
 					if ( self::has_scheme_data( $container_cart_item ) ) {
-						self::set_child_product_subscription_schemes( $cart_item[ 'data' ], $container_cart_item[ 'data' ] );
-					} elseif ( WCS_ATT_Product_Schemes::has_subscription_schemes( $cart_item[ 'data' ] ) ) {
-						WCS_ATT_Product_Schemes::set_subscription_schemes( $cart_item[ 'data' ], array() );
+						self::set_child_product_subscription_schemes( $cart_item['data'], $container_cart_item['data'] );
+					} elseif ( WCS_ATT_Product_Schemes::has_subscription_schemes( $cart_item['data'] ) ) {
+						WCS_ATT_Product_Schemes::set_subscription_schemes( $cart_item['data'], array() );
 					}
 				}
 			}
@@ -365,9 +394,11 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		public static function set_child_item_schemes( $cart_item, $cart_item_key ) {
 
 			// Is it a child item?
-			if ( $container_cart_item = wc_mnm_get_cart_item_container( $cart_item ) ) {
+			$container_cart_item = wc_mnm_get_cart_item_container( $cart_item );
+
+			if ( $container_cart_item ) {
 				if ( self::has_scheme_data( $container_cart_item ) ) {
-					self::set_child_product_subscription_schemes( $cart_item[ 'data' ], $container_cart_item[ 'data' ] );
+					self::set_child_product_subscription_schemes( $cart_item['data'], $container_cart_item['data'] );
 				}
 			}
 
@@ -390,43 +421,43 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 				$subscription_schemes  = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
 				$force_subscription    = WCS_ATT_Product_Schemes::has_forced_subscription_scheme( $product );
-				$dropdown_details_html = isset( $data[ 'dropdown_details_html' ] ) ? $data[ 'dropdown_details_html' ] : WCS_ATT_Product_Prices::get_price_html(
-                    $product,
-                    $subscription_scheme->get_key(),
-                    array(
-					'context'      => 'dropdown',
-					'price'        => '%p',
-					'append_price' => false === $force_subscription,
-					'hide_price'   => $subscription_scheme->get_length() > 0 && false === $force_subscription // "Deliver every month for 6 months for $8.00 (10% off)" is just too confusing, isn't it?
-                    ) 
-                );
+				$dropdown_details_html = isset( $data['dropdown_details_html'] ) ? $data['dropdown_details_html'] : WCS_ATT_Product_Prices::get_price_html(
+					$product,
+					$subscription_scheme->get_key(),
+					array(
+						'context'      => 'dropdown',
+						'price'        => '%p',
+						'append_price' => false === $force_subscription,
+						'hide_price'   => $subscription_scheme->get_length() > 0 && false === $force_subscription, // "Deliver every month for 6 months for $8.00 (10% off)" is just too confusing, isn't it?
+					)
+				);
 
 				// Base scheme defines the prompt string.
-				if ( $data[ 'subscription_scheme' ][ 'is_base' ] ) {
-					$data[ 'prompt_details_html' ] = WCS_ATT_Product_Prices::get_price_html(
-                        $product,
-                        null,
-                        array(
-						'context'    => 'prompt',
-						'base_price' => '%p'
-                        ) 
-                    );
+				if ( $data['subscription_scheme']['is_base'] ) {
+					$data['prompt_details_html'] = WCS_ATT_Product_Prices::get_price_html(
+						$product,
+						null,
+						array(
+							'context'    => 'prompt',
+							'base_price' => '%p',
+						)
+					);
 				}
 
-				$data[ 'option_details_html' ] = WCS_ATT_Product_Prices::get_price_html(
-                    $product,
-                    $subscription_scheme->get_key(),
-                    array(
-					'context' => 1 === sizeof( $subscription_schemes ) && $force_subscription ? 'catalog' : 'options',
-					'price'   => '%p'
-                    ) 
-                );
+				$data['option_details_html'] = WCS_ATT_Product_Prices::get_price_html(
+					$product,
+					$subscription_scheme->get_key(),
+					array(
+						'context' => 1 === count( $subscription_schemes ) && $force_subscription ? 'catalog' : 'options',
+						'price'   => '%p',
+					)
+				);
 
-				$data[ 'option_has_price' ]           = false !== strpos( $data[ 'option_details_html' ], '%p' );
-				$data[ 'dropdown_format' ]            = ucfirst( trim( wp_kses( $dropdown_details_html, array() ) ) );
-				$data[ 'dropdown_discounted_format' ] = sprintf( _x( '%1$s (%2$s off)', 'discounted dropdown option price', 'woocommerce-mix-and-match-products' ), '%p', sprintf( _x( '%s%%', 'dropdown option discount', 'woocommerce-mix-and-match-products' ), '%d' ) );
-				$data[ 'dropdown_discount_decimals' ] = WCS_ATT_Product_Prices::get_formatted_discount_precision();
-				$data[ 'dropdown_sale_format' ]       = sprintf( _x( '%1$s (was %2$s)', 'dropdown option sale price', 'woocommerce-mix-and-match-products' ), '%p', '%r' );
+				$data['option_has_price']           = false !== strpos( $data['option_details_html'], '%p' );
+				$data['dropdown_format']            = ucfirst( trim( wp_kses( $dropdown_details_html, array() ) ) );
+				$data['dropdown_discounted_format'] = sprintf( _x( '%1$s (%2$s off)', 'discounted dropdown option price', 'woocommerce-mix-and-match-products' ), '%p', sprintf( _x( '%s%%', 'dropdown option discount', 'woocommerce-mix-and-match-products' ), '%d' ) );
+				$data['dropdown_discount_decimals'] = WCS_ATT_Product_Prices::get_formatted_discount_precision();
+				$data['dropdown_sale_format']       = sprintf( _x( '%1$s (was %2$s)', 'dropdown option sale price', 'woocommerce-mix-and-match-products' ), '%p', '%r' );
 			}
 
 			return $data;
@@ -449,24 +480,26 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		public static function filter_container_item_subtotal( $subtotal, $cart_item, $cart_item_key ) {
 
 			// MnM container subtotals originally modified by WCS are not overwritten by MnM.
-			if ( wc_mnm_is_product_container_type( $cart_item[ 'data' ] ) ) {
+			if ( wc_mnm_is_product_container_type( $cart_item['data'] ) ) {
 				return $subtotal;
 			}
 
 			if ( wc_mnm_is_container_cart_item( $cart_item ) && self::has_scheme_data( $cart_item ) ) {
 
-				if ( $scheme = WCS_ATT_Product_Schemes::get_subscription_scheme( $cart_item[ 'data' ], 'object' ) ) {
+				$scheme = WCS_ATT_Product_Schemes::get_subscription_scheme( $cart_item['data'], 'object' );
+
+				if ( $scheme ) {
 
 					if ( $scheme->is_synced() ) {
 						$subtotal = wc_price( self::calculate_container_item_subtotal( $cart_item, $scheme->get_key() ) );
 					}
 
 					$subtotal = WCS_ATT_Product_Prices::get_price_string(
-                        $cart_item[ 'data' ],
-                        array(
-						'price' => $subtotal
-                        ) 
-                    );
+						$cart_item['data'],
+						array(
+							'price' => $subtotal,
+						)
+					);
 				}
 
 				$subtotal = WC_Subscriptions_Switcher::add_cart_item_switch_direction( $subtotal, $cart_item, $cart_item_key );
@@ -490,7 +523,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 			if ( ! empty( $child_items ) ) {
 
-				$product                        = $cart_item[ 'data' ];
+				$product                        = $cart_item['data'];
 				$price_filter_exists            = WCS_ATT_Product_Schemes::price_filter_exists( $subscription_schemes );
 				$force_subscription             = WCS_ATT_Product_Schemes::has_forced_subscription_scheme( $product );
 				$active_subscription_scheme_key = WCS_ATT_Product_Schemes::get_subscription_scheme( $product );
@@ -501,7 +534,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 					$container_price = array();
 
 					foreach ( $scheme_keys as $scheme_key ) {
-						$price_key                  = false === $scheme_key ? '0' : $scheme_key;
+						$price_key                     = false === $scheme_key ? '0' : $scheme_key;
 						$container_price[ $price_key ] = self::calculate_container_item_subtotal( $cart_item, $scheme_key );
 					}
 
@@ -512,7 +545,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 						$options[] = array(
 							'class'       => 'one-time-option',
-							'description' => wc_price( $container_price[ '0' ] ),
+							'description' => wc_price( $container_price['0'] ),
 							'value'       => '0',
 							'selected'    => false === $active_subscription_scheme_key,
 						);
@@ -524,12 +557,12 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 						$subscription_scheme_key = $subscription_scheme->get_key();
 
 						$description = WCS_ATT_Product_Prices::get_price_string(
-                            $product,
-                            array(
-							'scheme_key' => $subscription_scheme_key,
-							'price'      => wc_price( $container_price[ $subscription_scheme_key ] )
-                            ) 
-                        );
+							$product,
+							array(
+								'scheme_key' => $subscription_scheme_key,
+								'price'      => wc_price( $container_price[ $subscription_scheme_key ] ),
+							)
+						);
 
 						$options[] = array(
 							'class'       => 'subscription-option',
@@ -560,7 +593,6 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		 * @param array $item An order line item
 		 * @param object $subscription A WC_Subscription object
 		 * @return string
-		 *
 		 */
 		public static function switch_link_text( $switch_link_text, $item_id, $item, $subscription ) {
 
@@ -572,7 +604,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 			return $switch_link_text;
 		}
-	
+
 		/**
 		 * Change the switch button text for Mix and Match subscriptions.
 		 *
@@ -583,7 +615,6 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		 * @param array $item An order line item
 		 * @param object $subscription A WC_Subscription object
 		 * @return string
-		 *
 		 */
 		public static function switch_link( $switch_link, $item_id, $item, $subscription ) {
 
@@ -610,7 +641,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 			if ( $can ) {
 
 				$items    = $subscription->get_items();
-				$count    = sizeof( $items );
+				$count    = count( $items );
 				$subtract = 0;
 
 				foreach ( $items as $item ) {
@@ -695,7 +726,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 					}
 
 					// Update session data for un-doing.
-					$removed_mnm_child_item_ids = WC()->session->get( 'removed_mnm_child_subscription_items', array() );
+					$removed_mnm_child_item_ids                    = WC()->session->get( 'removed_mnm_child_subscription_items', array() );
 					$removed_mnm_child_item_ids[ $item->get_id() ] = $child_item_keys;
 					WC()->session->set( 'removed_mnm_child_subscription_items', $removed_mnm_child_item_ids );
 				}
@@ -738,7 +769,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 							$downloads = wcs_get_objects_property( $child_product, 'downloads' );
 
 							foreach ( array_keys( $downloads ) as $download_id ) {
-								wc_downloadable_file_permission( $download_id, $child_product_id, $subscription, $child_item[ 'qty' ] );
+								wc_downloadable_file_permission( $download_id, $child_product_id, $subscription, $child_item['qty'] );
 							}
 						}
 
@@ -770,7 +801,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 			$data[] = array(
 				'id'    => 'mnm_contents',
-				'label' => esc_html__( 'Between Mix and Match Configurations', 'woocommerce-mix-and-match-products' )
+				'label' => esc_html__( 'Between Mix and Match Configurations', 'woocommerce-mix-and-match-products' ),
 			);
 
 			return $data;
@@ -784,14 +815,14 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		public static function add_settings( $settings ) {
 
 			$switching_settings = array(
-					'name'     => esc_html__( 'Mix and Match Configuration Switch Button Text', 'woocommerce-mix-and-match-products' ),
-					'desc'     => esc_html__( 'Customize the text displayed on the button next to the mix and match product subscription on the subscriber\'s account page. The default is "Update selections", but you may wish to change this to "Change selections".', 'woocommerce-mix-and-match-products' ),
-					'tip'      => '',
-					'id'       => 'wc_mnm_subscription_switch_button_text',
-					'css'      => 'min-width:150px;',
-					'default'  => esc_html__( 'Update selections', 'woocommerce-mix-and-match-products' ),
-					'type'     => 'text',
-					'desc_tip' => true,
+				'name'     => esc_html__( 'Mix and Match Configuration Switch Button Text', 'woocommerce-mix-and-match-products' ),
+				'desc'     => esc_html__( 'Customize the text displayed on the button next to the mix and match product subscription on the subscriber\'s account page. The default is "Update selections", but you may wish to change this to "Change selections".', 'woocommerce-mix-and-match-products' ),
+				'tip'      => '',
+				'id'       => 'wc_mnm_subscription_switch_button_text',
+				'css'      => 'min-width:150px;',
+				'default'  => esc_html__( 'Update selections', 'woocommerce-mix-and-match-products' ),
+				'type'     => 'text',
+				'desc_tip' => true,
 			);
 
 			// Insert the switch settings in after the switch button text setting otherwise add them to the end.
@@ -818,7 +849,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 			if ( $is_container_type_container_order_item && ! $is_child_type_order_item ) {
 
-				// See 'WCS_ATT_Manage_Switch::can_switch_item' for > 3.1.17
+				// See 'WCS_ATT_Manage_Switch::can_switch_item' for > 3.1.17.
 				if ( version_compare( WCS_ATT::VERSION, '3.1.17' ) < 0 ) {
 
 					$product = $item->get_product();
@@ -836,15 +867,13 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 					if ( ! $found ) {
 						$can = false;
 					}
-
 				}
-
 			} elseif ( $is_child_type_order_item ) {
 
 				// Don't render 'Upgrade/Downgrade' button for child items: Switches are handled through the parent!
 				if ( doing_action( 'woocommerce_order_item_meta_end' ) ) {
 					$can = false;
-				// If the parent is switchable, then the child is switchable, too!
+					// If the parent is switchable, then the child is switchable, too!
 				} else {
 					$can = WC_Subscriptions_Switcher::can_item_be_switched( wc_mnm_get_order_item_container( $item, $subscription ), $subscription );
 				}
@@ -870,7 +899,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 			} elseif ( 'subscription_content_switching' === $feature && false === $is_feature_supported && wc_mnm_is_product_container_type( $product ) ) {
 
-				$subscription_has_fixed_length = isset( $args[ 'subscription' ] ) ? $args[ 'subscription' ]->get_time( 'end', '' ) : false;
+				$subscription_has_fixed_length = isset( $args['subscription'] ) ? $args['subscription']->get_time( 'end', '' ) : false;
 				// Length Proration must be enabled for switching to be possible when the current subscription/plan has a fixed length.
 				if ( $subscription_has_fixed_length && 'yes' !== get_option( WC_Subscriptions_Admin::$option_prefix . '_apportion_length', 'no' ) ) {
 
@@ -882,11 +911,9 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 					if ( 'no' !== $option_value ) {
 						$subscription_schemes = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
-						$is_feature_supported = sizeof( $subscription_schemes );
+						$is_feature_supported = count( $subscription_schemes );
 					}
-
 				}
-
 			}
 
 			return $is_feature_supported;
@@ -933,7 +960,6 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 						$is_identical = $item->get_meta( '_mnm_config', true ) === $configuration;
 
 					}
-
 				}
 			}
 
@@ -949,26 +975,26 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		 */
 		public static function child_item_switch_cart_data( $child_item_cart_data, $cart_item_data ) {
 
-			if ( ! isset( $_GET[ 'switch-subscription' ] ) ) {
+			if ( ! isset( $_GET['switch-subscription'] ) ) {
 				return $child_item_cart_data;
 			}
 
-			if ( empty( $cart_item_data[ 'subscription_switch' ] ) ) {
+			if ( empty( $cart_item_data['subscription_switch'] ) ) {
 				return $child_item_cart_data;
 			}
 
-			if ( ! isset( $cart_item_data[ 'subscription_switch' ][ 'subscription_id' ], $cart_item_data[ 'subscription_switch' ][ 'item_id' ], $cart_item_data[ 'subscription_switch' ][ 'next_payment_timestamp' ] ) ) {
+			if ( ! isset( $cart_item_data['subscription_switch']['subscription_id'], $cart_item_data['subscription_switch']['item_id'], $cart_item_data['subscription_switch']['next_payment_timestamp'] ) ) {
 				return $child_item_cart_data;
 			}
 
-			$subscription_id   = $cart_item_data[ 'subscription_switch' ][ 'subscription_id' ];
-			$container_item_id = $cart_item_data[ 'subscription_switch' ][ 'item_id' ];
+			$subscription_id   = $cart_item_data['subscription_switch']['subscription_id'];
+			$container_item_id = $cart_item_data['subscription_switch']['item_id'];
 
-			$child_item_cart_data[ 'subscription_switch' ] = array(
+			$child_item_cart_data['subscription_switch'] = array(
 				'subscription_id'        => $subscription_id,
 				'item_id'                => '',
-				'next_payment_timestamp' => $cart_item_data[ 'subscription_switch' ][ 'next_payment_timestamp' ],
-				'upgraded_or_downgraded' => ''
+				'next_payment_timestamp' => $cart_item_data['subscription_switch']['next_payment_timestamp'],
+				'upgraded_or_downgraded' => '',
 			);
 
 			$subscription = wcs_get_subscription( $subscription_id );
@@ -976,12 +1002,12 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 			if ( $container_item_id ) {
 
 				$parent_item       = wcs_get_order_item( $container_item_id, $subscription );
-				$child_item_id     = $child_item_cart_data[ 'mnm_child_id' ];
+				$child_item_id     = $child_item_cart_data['mnm_child_id'];
 				$child_order_items = wc_mnm_get_child_order_items( $parent_item, $subscription );
 
 				foreach ( $child_order_items as $child_order_item_id => $child_order_item ) {
 					if ( absint( $child_item_id ) === absint( $child_order_item->get_id() ) ) {
-						$child_item_cart_data[ 'subscription_switch' ][ 'item_id' ] = $child_order_item_id;
+						$child_item_cart_data['subscription_switch']['item_id'] = $child_order_item_id;
 						break;
 					}
 				}
@@ -1003,7 +1029,9 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 			if ( wc_mnm_is_container_order_item( $item, $subscription ) ) {
 
-				if ( $configuration = WC_Mix_and_Match_Order::get_current_container_configuration( $item, $subscription ) ) {
+				$configuration = WC_Mix_and_Match_Order::get_current_container_configuration( $item, $subscription );
+
+				if ( $configuration ) {
 
 					$args = WC_Mix_and_Match()->cart->rebuild_posted_container_form_data( $configuration, $item->get_product() );
 					$args = WC_MNM_Helpers::urlencode_recursive( $args );
@@ -1011,9 +1039,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 					if ( ! empty( $args ) ) {
 						$url = add_query_arg( $args, $url );
 					}
-
 				}
-
 			}
 
 			return $url;
@@ -1032,7 +1058,9 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 			$removing_item = $subscription->get_item( $removing_item_id );
 
-			if ( $child_items = wc_mnm_get_child_order_items( $removing_item, $subscription, true ) ) {
+			$child_items = wc_mnm_get_child_order_items( $removing_item, $subscription, true );
+
+			if ( $child_items ) {
 				foreach ( $child_items as $child_item ) {
 					wcs_update_order_item_type( $child_item, 'line_item_switched', $subscription->get_id() );
 				}
@@ -1070,17 +1098,19 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 			if ( wc_mnm_is_product_container_type( $product ) ) {
 				if ( WCS_ATT_Manage_Switch::is_switch_request_for_product( $product ) ) {
 
-					$subscription = wcs_get_subscription( $_GET[ 'switch-subscription' ] );
+					if ( ! empty( $_GET['switch-subscription'] ) ) {
+						$subscription = wcs_get_subscription( sanitize_text_field( wp_unslash( $_GET['switch-subscription'] ) ) );
 
-					if ( ! $subscription ) {
-						return $schemes;
-					}
+						if ( ! $subscription ) {
+							return $schemes;
+						}
 
-					// Does a matching scheme exist?
-					foreach ( $schemes as $scheme_id => $scheme ) {
-						if ( $scheme->matches_subscription( $subscription ) ) {
-							$schemes = array( $scheme_id => $scheme );
-							break;
+						// Does a matching scheme exist?
+						foreach ( $schemes as $scheme_id => $scheme ) {
+							if ( $scheme->matches_subscription( $subscription ) ) {
+								$schemes = array( $scheme_id => $scheme );
+								break;
+							}
 						}
 					}
 				}
@@ -1139,7 +1169,12 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 				try {
 
-					$stock_manager->validate_stock( array( 'throw_exception' => true, 'context' => 'add-to-order' ) );
+					$stock_manager->validate_stock(
+						array(
+							'throw_exception' => true,
+							'context'         => 'add-to-order',
+						)
+					);
 
 				} catch ( Exception $e ) {
 
@@ -1169,7 +1204,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		public static function found_container_in_subscription( $found_order_item, $matching_cart_item, $recurring_cart, $subscription ) {
 
 			if ( $found_order_item ) {
-				if ( self::is_container_type_product( $matching_cart_item[ 'data' ] ) ) {
+				if ( self::is_container_type_product( $matching_cart_item['data'] ) ) {
 					$found_order_item = false;
 				} elseif ( wc_mnm_is_child_cart_item( $matching_cart_item, $recurring_cart->cart_contents ) ) {
 					$found_order_item = false;
@@ -1191,10 +1226,9 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 			if ( wc_mnm_is_container_cart_item( $cart_item, $recurring_cart->cart_contents ) ) {
 
-				if ( wc_mnm_is_product_container_type( $cart_item[ 'data' ] ) ) {
+				if ( wc_mnm_is_product_container_type( $cart_item['data'] ) ) {
 					$callback = array( __CLASS__, 'add_container_to_order' );
 				}
-
 			} elseif ( wc_mnm_is_child_cart_item( $cart_item, $recurring_cart->cart_contents ) ) {
 				$callback = null;
 			}
@@ -1219,7 +1253,6 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 			if ( WCS_ATT_Product_Schemes::has_single_forced_subscription_scheme( $container ) && ! WCS_ATT_Product_Schemes::get_subscription_scheme( $container ) ) {
 				WCS_ATT_Product_Schemes::set_subscription_scheme( $container, WCS_ATT_Product_Schemes::get_default_subscription_scheme( $container ) );
 			}
-
 		}
 
 		/**
@@ -1255,9 +1288,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 						WCS_ATT_Product_Schemes::set_subscription_schemes( $child_product, array() );
 
 					}
-
 				}
-
 			}
 
 			return $child_product;
@@ -1272,8 +1303,10 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		 */
 		public static function container_prices_hash( $hash, $container ) {
 
-			if ( $scheme = WCS_ATT_Product_Schemes::get_subscription_scheme( $container ) ) {
-				$hash[ 'satt_scheme' ] = $scheme;
+			$scheme = WCS_ATT_Product_Schemes::get_subscription_scheme( $container );
+
+			if ( $scheme ) {
+				$hash['satt_scheme'] = $scheme;
 			}
 
 			return $hash;
@@ -1296,9 +1329,11 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 			if ( $is_container_type_container_cart_item || $is_container_type_cart_item ) {
 
 				// Calculate correct switch type based on aggregated parent/child costs.
-				if ( $is_container_type_container_cart_item && ! empty( $cart_item[ 'subscription_switch' ][ 'item_id' ] ) ) {
+				if ( $is_container_type_container_cart_item && ! empty( $cart_item['subscription_switch']['item_id'] ) ) {
 
-					if ( $item = $subscription->get_item( $cart_item[ 'subscription_switch' ][ 'item_id' ] ) ) {
+					$item = $subscription->get_item( $cart_item['subscription_switch']['item_id'] );
+
+					if ( $item ) {
 
 						$aggregated_total_old = $item->get_total();
 
@@ -1324,8 +1359,8 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 					}
 				}
 
-				if ( isset( $cart_item[ 'key' ] ) ) {
-					self::$cache[ 'wcs_switch_types' ][ $cart_item[ 'key' ] ] = sprintf( '%sd', $switch_type );
+				if ( isset( $cart_item['key'] ) ) {
+					self::$cache['wcs_switch_types'][ $cart_item['key'] ] = sprintf( '%sd', $switch_type );
 				}
 
 				$switch_type = 'crossgrade';
@@ -1346,8 +1381,8 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 			foreach ( WC()->cart->cart_contents as $cart_item_key => $cart_item ) {
 				if ( wc_mnm_is_container_cart_item( $cart_item ) || wc_mnm_is_child_cart_item( $cart_item ) ) {
-					if ( isset( self::$cache[ 'wcs_switch_types' ][ $cart_item_key ], $cart_item[ 'subscription_switch' ], $cart_item[ 'subscription_switch' ][ 'upgraded_or_downgraded' ] ) ) {
-						WC()->cart->cart_contents[ $cart_item_key ][ 'subscription_switch' ][ 'upgraded_or_downgraded' ] = self::$cache[ 'wcs_switch_types' ][ $cart_item_key ];
+					if ( isset( self::$cache['wcs_switch_types'][ $cart_item_key ], $cart_item['subscription_switch'], $cart_item['subscription_switch']['upgraded_or_downgraded'] ) ) {
+						WC()->cart->cart_contents[ $cart_item_key ]['subscription_switch']['upgraded_or_downgraded'] = self::$cache['wcs_switch_types'][ $cart_item_key ];
 					}
 				}
 			}
@@ -1356,7 +1391,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 		/**
 		 * Pass parent scheme meta to children.
-		 * 
+		 *
 		 * @since 2.3.0
 		 *
 		 * Use this filter to modify the posted configuration.
@@ -1368,34 +1403,33 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		 */
 		public static function child_item_scheme_meta( $order_item_args, $product, $order_item, $order ) {
 
-			$scheme_key = WCS_ATT_Order::get_subscription_scheme( $order_item, array(
-				'order'     => $order,
-				'product'   => $product,
-			) );
+			$scheme_key = WCS_ATT_Order::get_subscription_scheme(
+				$order_item,
+				array(
+					'order'   => $order,
+					'product' => $product,
+				)
+			);
 
 			if ( null !== $scheme_key && ! empty( $order_item_args['configuration'] ) ) {
 
-				foreach( $order_item_args['configuration'] as $i => $config ) {
+				foreach ( $order_item_args['configuration'] as $i => $config ) {
 
 					// Add a meta key if it doesn't yet exist or is not an array.
-					if ( ! isset( $order_item_args['configuration'][$i]['meta_data'] ) || ! is_array( $order_item_args['configuration'][$i]['meta_data'] ) ) {
-						$order_item_args['configuration'][$i]['meta_data'] = array();
+					if ( ! isset( $order_item_args['configuration'][ $i ]['meta_data'] ) || ! is_array( $order_item_args['configuration'][ $i ]['meta_data'] ) ) {
+						$order_item_args['configuration'][ $i ]['meta_data'] = array();
 					}
 
 					// Add parent scheme key to each child.
-					$order_item_args['configuration'][$i]['meta_data'][] = array(
-						'key' => '_wcsatt_scheme',
+					$order_item_args['configuration'][ $i ]['meta_data'][] = array(
+						'key'   => '_wcsatt_scheme',
 						'value' => $scheme_key,
 					);
 				}
-
 			}
 
 			return $order_item_args;
-
 		}
-		
-
 	} // End class: do not remove or there will be no more guacamole for you.
 
 endif; // End class_exists check.

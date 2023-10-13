@@ -28,8 +28,9 @@ class WoocommercePrfAdmin {
 	 * Show a metabox on the comment edit pages.
 	 */
 	public function add_meta_boxes() {
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
 		if ( 'comment' === get_current_screen()->id && isset( $_GET['c'] ) ) {
-			if ( ! $this->is_review_comment( $_GET['c'] ) ) {
+			if ( ! $this->is_review_comment( (int) $_GET['c'] ) ) {
 				return;
 			}
 			add_meta_box(
@@ -41,6 +42,7 @@ class WoocommercePrfAdmin {
 				'high'
 			);
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	}
 
 	/**
@@ -63,6 +65,7 @@ class WoocommercePrfAdmin {
 	 * Save the metabox info on the comment edit pages.
 	 */
 	public function save_comment_meta( $location, $comment_id ) {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		$excluded = isset( $_POST['_wc_prf_no_feed'] ) ? ( 'on' === $_POST['_wc_prf_no_feed'] ) : 0;
 		if ( $excluded ) {
 			update_comment_meta( $comment_id, '_wc_prf_no_feed', $excluded );
@@ -77,6 +80,7 @@ class WoocommercePrfAdmin {
 		}
 
 		return $location;
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 	/**

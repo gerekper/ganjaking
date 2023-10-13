@@ -5,6 +5,7 @@ namespace MailPoet\AdminPages\Pages;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\AdminPages\AssetsController;
 use MailPoet\AdminPages\PageRenderer;
 use MailPoet\API\JSON\ResponseBuilders\CustomFieldsResponseBuilder;
 use MailPoet\Automation\Engine\Data\Automation;
@@ -24,6 +25,9 @@ use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Doctrine\Common\Collections\Criteria;
 
 class DynamicSegments {
+  /** @var AssetsController */
+  private $assetsController;
+
   /** @var PageRenderer */
   private $pageRenderer;
 
@@ -61,6 +65,7 @@ class DynamicSegments {
   private $automationStorage;
 
   public function __construct(
+    AssetsController $assetsController,
     PageRenderer $pageRenderer,
     PageLimit $listingPageLimit,
     WPFunctions $wp,
@@ -74,6 +79,7 @@ class DynamicSegments {
     FormsRepository $formsRepository,
     AutomationStorage $automationStorage
   ) {
+    $this->assetsController = $assetsController;
     $this->pageRenderer = $pageRenderer;
     $this->listingPageLimit = $listingPageLimit;
     $this->wp = $wp;
@@ -152,7 +158,6 @@ class DynamicSegments {
 
     $data['woocommerce_payment_methods'] = [];
     $data['woocommerce_shipping_methods'] = [];
-    $data['woocommerce_coupons'] = [];
 
     if ($this->woocommerceHelper->isWooCommerceActive()) {
       $allGateways = $this->woocommerceHelper->getPaymentGateways()->payment_gateways();
@@ -166,12 +171,6 @@ class DynamicSegments {
       $data['woocommerce_payment_methods'] = $paymentMethods;
 
       $data['woocommerce_shipping_methods'] = $this->woocommerceHelper->getShippingMethodInstancesData();
-      $data['woocommerce_coupons'] = array_map(function(array $couponData) {
-        return [
-          'id' => $couponData['id'],
-          'name' => $couponData['text'],
-        ];
-      }, $this->woocommerceHelper->getCouponList());
     }
     $data['automations'] = array_map(function(Automation $automation) {
       return [
@@ -180,6 +179,7 @@ class DynamicSegments {
       ];
     }, $this->automationStorage->getAutomations());
 
+    $this->assetsController->setupDynamicSegmentsDependencies();
     $this->pageRenderer->displayPage('segments/dynamic.html', $data);
   }
 

@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/REST API
  * @since    2.0.0
- * @version  2.4.10
+ * @version  2.5.0
  */
 
 // Exit if accessed directly.
@@ -52,7 +52,7 @@ class WC_MNM_Store_API {
 
 		// Remove quantity selectors from child items.
 		add_filter( 'woocommerce_store_api_product_quantity_editable', array( __CLASS__, 'product_quantity_editable' ), 10, 3 );
-		 
+
 		// Prevent access to the checkout block.
 		add_action( 'woocommerce_store_api_checkout_update_order_meta', array( __CLASS__, 'validate_draft_order' ) );
 
@@ -79,12 +79,13 @@ class WC_MNM_Store_API {
 				'schema_type'     => ARRAY_A,
 			)
 		);
-		
 	}
 
-	/*-----------------------------------------------------------------------------------*/
-	/*  Cart Item Functions                                                             */
-	/*-----------------------------------------------------------------------------------*/
+	/*
+	|--------------------------------------------------------------------------
+	| Cart Item Functions.
+	|--------------------------------------------------------------------------
+	*/
 
 	/**
 	 * Register parent/child product data into cart/items endpoint.
@@ -98,11 +99,11 @@ class WC_MNM_Store_API {
 
 		if ( wc_mnm_is_container_cart_item( $cart_item ) ) {
 
-			if ( ! wc_mnm_is_product_container_type( $cart_item[ 'data' ] ) ) {
+			if ( ! wc_mnm_is_product_container_type( $cart_item['data'] ) ) {
 				return $item_data;
 			}
 
-			$container = $cart_item[ 'data' ];
+			$container = $cart_item['data'];
 
 			// Reset last item key.
 			self::$last_child_item_key = false;
@@ -114,38 +115,43 @@ class WC_MNM_Store_API {
 				self::$last_child_item_key = end( $child_cart_keys );
 			}
 
-			$item_data[ 'child_items' ] = $cart_item[ 'mnm_contents' ];
-			$item_data[ 'container_data' ] = array(
-				'configuration'         => $cart_item[ 'mnm_config' ],
+			$item_data['child_items']    = $cart_item['mnm_contents'];
+			$item_data['container_data'] = array(
+				'configuration'         => $cart_item['mnm_config'],
 				'is_priced_per_product' => $container->is_priced_per_product(),
-				'is_editable'           => apply_filters( 'wc_mnm_show_edit_it_cart_link', true, $cart_item, $cart_item[ 'key' ] ),
+				'is_editable'           => apply_filters( 'wc_mnm_show_edit_it_cart_link', true, $cart_item, $cart_item['key'] ),
 			);
 
-		} elseif ( $container_item = wc_mnm_get_cart_item_container( $cart_item ) ) {
+		} elseif ( wc_mnm_maybe_is_child_cart_item( $cart_item ) ) {
 
-			$container = $container_item[ 'data' ];
+			$container_item = wc_mnm_get_cart_item_container( $cart_item );
 
-			if ( ! wc_mnm_is_product_container_type( $container ) ) {
-				return $item_data;
+			if ( $container_item ) {
+
+				$container = $container_item['data'];
+
+				if ( ! wc_mnm_is_product_container_type( $container ) ) {
+					return $item_data;
+				}
+
+				$child_item = $container->get_child_item( $cart_item['child_item_id'] );
+
+				if ( ! $child_item ) {
+					return $item_data;
+				}
+
+				$item_data['container'] = $cart_item['mnm_container'];
+
+				$child_config_qty = $cart_item['quantity'] / $container_item['quantity'];
+
+				$item_data['child_item_data'] = array(
+					'container_id'          => $container_item['product_id'],
+					'child_item_id'         => $cart_item['child_item_id'],
+					'child_qty'             => $child_config_qty,
+					'is_priced_per_product' => $container->is_priced_per_product(),
+					'is_last'               => self::$last_child_item_key === $cart_item['key'],
+				);
 			}
-
-			$child_item = $container->get_child_item( $cart_item[ 'child_item_id' ] );
-
-			if ( ! $child_item ) {
-				return $item_data;
-			}
-
-			$item_data[ 'container' ]   = $cart_item[ 'mnm_container' ];
-
-			$child_config_qty      = $cart_item[ 'quantity' ] / $container_item[ 'quantity' ];
-
-			$item_data[ 'child_item_data' ] = array(
-				'container_id'          => $container_item[ 'product_id' ],
-				'child_item_id'         => $cart_item[ 'child_item_id' ],
-				'child_qty'             => $child_config_qty,
-				'is_priced_per_product' => $container->is_priced_per_product(),
-				'is_last'               => self::$last_child_item_key === $cart_item[ 'key' ],
-			);
 		}
 
 		return $item_data;
@@ -158,30 +164,30 @@ class WC_MNM_Store_API {
 	 */
 	public static function extend_cart_item_schema() {
 		return array(
-			'mnm_container'           => array(
-				'description' => __( 'Cart item key of mix and match product that contains this item.', 'woocommerce-mix-and-match-products' ),
+			'mnm_container'   => array(
+				'description' => esc_html__( 'Cart item key of mix and match product that contains this item.', 'woocommerce-mix-and-match-products' ),
 				'type'        => array( 'string', 'null' ),
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
-			'child_items'        => array(
-				'description' => __( 'List of cart item keys grouped by this mix and match product.', 'woocommerce-mix-and-match-products' ),
+			'child_items'     => array(
+				'description' => esc_html__( 'List of cart item keys grouped by this mix and match product.', 'woocommerce-mix-and-match-products' ),
 				'type'        => array( 'array', 'null' ),
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
-			'container_data'          => array(
-				'description' => __( 'Mix and Match product data.', 'woocommerce-mix-and-match-products' ),
+			'container_data'  => array(
+				'description' => esc_html__( 'Mix and Match product data.', 'woocommerce-mix-and-match-products' ),
 				'type'        => array( 'object', 'null' ),
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
-			'child_item_data'    => array(
-				'description' => __( 'ID of this child item.', 'woocommerce-mix-and-match-products' ),
+			'child_item_data' => array(
+				'description' => esc_html__( 'ID of this child item.', 'woocommerce-mix-and-match-products' ),
 				'type'        => array( 'object', 'null' ),
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
-			)
+			),
 		);
 	}
 
@@ -193,13 +199,13 @@ class WC_MNM_Store_API {
 	 */
 	private static function filter_container_cart_item_prices( &$item_data, $cart_item ) {
 
-		if ( ! $cart_item[ 'data' ]->is_type( 'mix-and-match' ) || ! $cart_item[ 'data' ]->is_priced_per_product() ) {
+		if ( ! $cart_item['data']->is_type( 'mix-and-match' ) || ! $cart_item['data']->is_priced_per_product() ) {
 			return;
 		}
 
-		$item_data[ 'prices' ]->raw_prices[ 'price' ]         = self::prepare_money_response( WC_Mix_and_Match()->display->get_container_cart_item_price_amount( $cart_item, 'price' ), wc_get_rounding_precision(), PHP_ROUND_HALF_UP );
-		$item_data[ 'prices' ]->raw_prices[ 'regular_price' ] = self::prepare_money_response( WC_Mix_and_Match()->display->get_container_cart_item_price_amount( $cart_item, 'regular_price' ), wc_get_rounding_precision(), PHP_ROUND_HALF_UP );
-		$item_data[ 'prices' ]->raw_prices[ 'sale_price' ]    = self::prepare_money_response( WC_Mix_and_Match()->display->get_container_cart_item_price_amount( $cart_item, 'sale_price' ), wc_get_rounding_precision(), PHP_ROUND_HALF_UP );
+		$item_data['prices']->raw_prices['price']         = self::prepare_money_response( WC_Mix_and_Match()->display->get_container_cart_item_price_amount( $cart_item, 'price' ), wc_get_rounding_precision(), PHP_ROUND_HALF_UP );
+		$item_data['prices']->raw_prices['regular_price'] = self::prepare_money_response( WC_Mix_and_Match()->display->get_container_cart_item_price_amount( $cart_item, 'regular_price' ), wc_get_rounding_precision(), PHP_ROUND_HALF_UP );
+		$item_data['prices']->raw_prices['sale_price']    = self::prepare_money_response( WC_Mix_and_Match()->display->get_container_cart_item_price_amount( $cart_item, 'sale_price' ), wc_get_rounding_precision(), PHP_ROUND_HALF_UP );
 	}
 
 	/**
@@ -210,16 +216,16 @@ class WC_MNM_Store_API {
 	 */
 	private static function filter_container_cart_item_totals( &$item_data, $cart_item ) {
 
-		if ( ! $cart_item[ 'data' ]->is_type( 'mix-and-match' ) || ! $cart_item[ 'data' ]->is_priced_per_product() ) {
+		if ( ! $cart_item['data']->is_type( 'mix-and-match' ) || ! $cart_item['data']->is_priced_per_product() ) {
 			return;
 		}
 
-		$decimals = isset( $item_data[ 'totals' ]->currency_minor_unit ) ? $item_data[ 'totals' ]->currency_minor_unit : wc_get_price_decimals();
+		$decimals = isset( $item_data['totals']->currency_minor_unit ) ? $item_data['totals']->currency_minor_unit : wc_get_price_decimals();
 
-		$item_data[ 'totals' ]->line_total        = self::prepare_money_response( WC_Mix_and_Match()->display->get_container_cart_item_subtotal_amount( $cart_item, 'total' ), $decimals );
-		$item_data[ 'totals' ]->line_total_tax    = self::prepare_money_response( WC_Mix_and_Match()->display->get_container_cart_item_subtotal_amount( $cart_item, 'tax' ), $decimals );
-		$item_data[ 'totals' ]->line_subtotal     = self::prepare_money_response( WC_Mix_and_Match()->display->get_container_cart_item_subtotal_amount( $cart_item, 'subtotal' ), $decimals );
-		$item_data[ 'totals' ]->line_subtotal_tax = self::prepare_money_response( WC_Mix_and_Match()->display->get_container_cart_item_subtotal_amount( $cart_item, 'subtotal_tax' ), $decimals );
+		$item_data['totals']->line_total        = self::prepare_money_response( WC_Mix_and_Match()->display->get_container_cart_item_subtotal_amount( $cart_item, 'total' ), $decimals );
+		$item_data['totals']->line_total_tax    = self::prepare_money_response( WC_Mix_and_Match()->display->get_container_cart_item_subtotal_amount( $cart_item, 'tax' ), $decimals );
+		$item_data['totals']->line_subtotal     = self::prepare_money_response( WC_Mix_and_Match()->display->get_container_cart_item_subtotal_amount( $cart_item, 'subtotal' ), $decimals );
+		$item_data['totals']->line_subtotal_tax = self::prepare_money_response( WC_Mix_and_Match()->display->get_container_cart_item_subtotal_amount( $cart_item, 'subtotal_tax' ), $decimals );
 	}
 
 	/**
@@ -230,23 +236,25 @@ class WC_MNM_Store_API {
 	 */
 	private static function filter_container_cart_item_quantity_limits( &$item_data, $cart_item ) {
 
-		if ( ! $cart_item[ 'data' ]->is_type( 'mix-and-match' ) ) {
+		if ( ! $cart_item['data']->is_type( 'mix-and-match' ) ) {
 			return;
 		}
 
-		if ( $child_cart_items = wc_mnm_get_child_cart_items( $cart_item ) ) {
+		$child_cart_items = wc_mnm_get_child_cart_items( $cart_item );
+
+		if ( $child_cart_items ) {
 
 			foreach ( $child_cart_items as $child_cart_item_key => $child_cart_item ) {
 
 				// Let's cache this now, as we'll need it later.
 				WC_MNM_Helpers::cache_set(
-                    'child_item_quantity_limits_' . $child_cart_item_key,
-                    array(
-					'multiple_of' => $child_cart_item['quantity'],
-					'minimum'     => $child_cart_item['quantity'],
-					'maximum'     => $child_cart_item['quantity'],
-                    ) 
-                );
+					'child_item_quantity_limits_' . $child_cart_item_key,
+					array(
+						'multiple_of' => $child_cart_item['quantity'],
+						'minimum'     => $child_cart_item['quantity'],
+						'maximum'     => $child_cart_item['quantity'],
+					)
+				);
 
 			}
 		}
@@ -264,24 +272,23 @@ class WC_MNM_Store_API {
 
 		if ( wc_mnm_is_container_cart_item( $cart_item ) ) {
 
-			$container = $cart_item[ 'data' ];
+			$container = $cart_item['data'];
 
 			if ( ! $container->is_type( 'mix-and-match' ) ) {
 				return;
 			}
 
-			if ( apply_filters( 'wc_mnm_show_edit_it_cart_link', true, $cart_item, $cart_item[ 'key' ] ) ) {
+			if ( apply_filters( 'wc_mnm_show_edit_it_cart_link', true, $cart_item, $cart_item['key'] ) ) {
 
 				$trimmed_short_description = '';
 
-				if ( $item_data[ 'short_description' ] ) {
-					$trimmed_short_description = '<p class="wc-block-components-product-metadata__description-text">' . wp_trim_words( $item_data[ 'short_description' ], 12 ) . '</p>';
+				if ( $item_data['short_description'] ) {
+					$trimmed_short_description = '<p class="wc-block-components-product-metadata__description-text">' . wp_trim_words( $item_data['short_description'], 12 ) . '</p>';
 				}
 
-				$edit_in_cart_link = esc_url( $container->get_cart_edit_link( $cart_item ) );
-				$item_data[ 'short_description' ] = '<p class="wc-block-cart-item__edit"><a class="components-button wc-block-components-button wp-element-button outlined wc-block-cart-item__edit-link contained" href="' . $edit_in_cart_link . '"><span class="wc-block-components-button__text">' .  _x( 'Edit selections', 'edit in cart link text', 'woocommerce-mix-and-match-products' ) . '</span></a></p>' . $trimmed_short_description;
+				$edit_in_cart_link              = esc_url( $container->get_cart_edit_link( $cart_item ) );
+				$item_data['short_description'] = '<p class="wc-block-cart-item__edit"><a class="components-button wc-block-components-button wp-element-button outlined wc-block-cart-item__edit-link contained" href="' . $edit_in_cart_link . '"><span class="wc-block-components-button__text">' . _x( 'Edit selections', 'edit in cart link text', 'woocommerce-mix-and-match-products' ) . '</span></a></p>' . $trimmed_short_description;
 			}
-
 		}
 	}
 
@@ -293,21 +300,20 @@ class WC_MNM_Store_API {
 	 */
 	private static function filter_child_cart_item_quantity_limits( &$item_data, $cart_item ) {
 
-		$child_cart_item_key        = $cart_item[ 'key' ];
+		$child_cart_item_key        = $cart_item['key'];
 		$child_item_quantity_limits = WC_MNM_Helpers::cache_get( 'child_item_quantity_limits_' . $child_cart_item_key );
 
 		if ( is_null( $child_item_quantity_limits ) ) {
 			return;
 		}
 
-		$step = $child_item_quantity_limits[ 'multiple_of' ];
-		$min  = $child_item_quantity_limits[ 'minimum' ];
-		$max  = $child_item_quantity_limits[ 'maximum' ];
+		$step = $child_item_quantity_limits['multiple_of'];
+		$min  = $child_item_quantity_limits['minimum'];
+		$max  = $child_item_quantity_limits['maximum'];
 
-		$item_data[ 'quantity_limits' ]->multiple_of = $step;
-		$item_data[ 'quantity_limits' ]->minimum     = $min;
-		$item_data[ 'quantity_limits' ]->maximum     = $max;
-
+		$item_data['quantity_limits']->multiple_of = $step;
+		$item_data['quantity_limits']->minimum     = $min;
+		$item_data['quantity_limits']->maximum     = $max;
 	}
 
 	/**
@@ -322,15 +328,14 @@ class WC_MNM_Store_API {
 
 		if ( $container_item ) {
 
-			$container = $container_item[ 'data' ];
+			$container = $container_item['data'];
 
 			if ( ! $container->is_type( 'mix-and-match' ) ) {
 				return;
 			}
 
-			$item_data[ 'catalog_visibility' ] = 'hidden';
+			$item_data['catalog_visibility'] = 'hidden';
 		}
-
 	}
 
 
@@ -382,15 +387,15 @@ class WC_MNM_Store_API {
 
 		$data = $response->get_data();
 
-		if ( empty( $data[ 'items' ] ) ) {
+		if ( empty( $data['items'] ) ) {
 			return $response;
 		}
 
 		$cart = WC()->cart->get_cart();
 
-		foreach ( $data[ 'items' ] as &$item_data ) {
+		foreach ( $data['items'] as &$item_data ) {
 
-			$cart_item_key = $item_data[ 'key' ];
+			$cart_item_key = $item_data['key'];
 			$cart_item     = isset( $cart[ $cart_item_key ] ) ? $cart[ $cart_item_key ] : null;
 
 			if ( is_null( $cart_item ) ) {
@@ -407,11 +412,11 @@ class WC_MNM_Store_API {
 			 * @see https://github.com/woocommerce/woocommerce-product-bundles/issues/1096
 			 * @see https://github.com/woocommerce/woocommerce-blocks/issues/7275
 			 */
-			
-			$item_data[ 'quantity_limits' ] = (object) $item_data[ 'quantity_limits' ];
-			$item_data[ 'prices' ]          = (object) $item_data[ 'prices' ];
-			$item_data[ 'totals' ]          = (object) $item_data[ 'totals' ];
-			$item_data[ 'extensions' ]      = (object) $item_data[ 'extensions' ];
+
+			$item_data['quantity_limits'] = (object) $item_data['quantity_limits'];
+			$item_data['prices']          = (object) $item_data['prices'];
+			$item_data['totals']          = (object) $item_data['totals'];
+			$item_data['extensions']      = (object) $item_data['extensions'];
 
 			if ( wc_mnm_is_container_cart_item( $cart_item ) ) {
 
@@ -448,7 +453,7 @@ class WC_MNM_Store_API {
 				WC_Mix_and_Match()->cart->validate_container_in_cart( $request );
 			} catch ( Exception $e ) {
 				$notice = $e->getMessage();
-				throw new RouteException( 'woocommerce_store_api_invalid_container_configuration', $notice );
+				throw new RouteException( 'woocommerce_store_api_invalid_container_configuration', wp_kses_post( $notice ) );
 			}
 		}
 	}
@@ -462,6 +467,7 @@ class WC_MNM_Store_API {
 	 *
 	 * @param  WC_Product  $product
 	 * @param  array       $cart_item
+	 * @throws RouteException On error.
 	 */
 	public static function validate_cart_item( $product, $cart_item ) {
 
@@ -470,14 +476,14 @@ class WC_MNM_Store_API {
 				WC_Mix_and_Match()->cart->validate_container_in_cart( $cart_item );
 			} catch ( Exception $e ) {
 				$notice = $e->getMessage();
-				throw new RouteException( 'woocommerce_store_api_invalid_container_configuration', $notice );
+				throw new RouteException( 'woocommerce_store_api_invalid_container_configuration', wp_kses_post( $notice ) );
 			}
 		}
 	}
 
 	/**
 	 * Remove quantity inputs from child items in Store API context.
-	 * 
+	 *
 	 * @param bool $qty_is_editable
 	 * @param  WC_Product  $product
 	 * @param  array       $cart_item
@@ -496,12 +502,12 @@ class WC_MNM_Store_API {
 	 * @throws RouteException
 	 *
 	 * @param  WC_Order  $order
-	 * @return array
+	 * @throws RouteException On error.
 	 */
 	public static function validate_draft_order( $order ) {
 
 		foreach ( WC()->cart->cart_contents as $cart_item_key => $cart_item ) {
-			self::validate_cart_item( $cart_item[ 'data' ], $cart_item );
+			self::validate_cart_item( $cart_item['data'], $cart_item );
 		}
 	}
 
@@ -516,12 +522,12 @@ class WC_MNM_Store_API {
 	 */
 	public static function prevent_child_item_removal( $cart_item_key, $cart ) {
 
-		if ( ! WC_MNM_Core_Compatibility::is_store_api_request( 'cart/remove-item' ) || ! $cart->find_product_in_cart( $cart_item_key ) || ! wc_mnm_is_child_cart_item( $cart->cart_contents[$cart_item_key] ) ) {
+		if ( ! WC_MNM_Core_Compatibility::is_store_api_request( 'cart/remove-item' ) || ! $cart->find_product_in_cart( $cart_item_key ) || ! wc_mnm_is_child_cart_item( $cart->cart_contents[ $cart_item_key ] ) ) {
 			return;
 		}
 
-		$notice = __( 'This product is part of a mix and match container and cannot be removed independently.', 'woocommerce-mix-and-match-products' );
-		throw new RouteException( 'woocommerce_store_api_mnm_child_item', $notice );
+		$notice = esc_html( 'This product is part of a mix and match container and cannot be removed independently.', 'woocommerce-mix-and-match-products' );
+		throw new RouteException( 'woocommerce_store_api_mnm_child_item', wp_kses_post( $notice ) );
 	}
 
 	/**
@@ -536,5 +542,4 @@ class WC_MNM_Store_API {
 		wc_deprecated_function( 'WC_MNM_Store_API::filter_container_cart_item_permalink()', '2.0.7', 'WC_MNM_Store_API::filter_container_cart_item_short_description()' );
 		return self::filter_container_cart_item_short_description( $item_data, $cart_item );
 	}
-
 }

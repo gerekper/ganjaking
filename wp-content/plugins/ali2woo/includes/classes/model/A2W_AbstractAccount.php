@@ -3,7 +3,7 @@
 /* * class
  * Description of A2W_AbstractAccount
  *
- * @author Andrey
+ * @author Ali2Woo Team
  * 
  * @position: 1
  */

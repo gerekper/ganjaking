@@ -3,7 +3,7 @@
 /**
  * Description of A2W_DebugPageController
  *
- * @author andrey
+ * @author Ali2Woo Team
  *
  * @autoload: a2w_before_admin_menu
  */

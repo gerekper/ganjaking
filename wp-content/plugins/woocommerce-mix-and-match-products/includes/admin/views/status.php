@@ -61,14 +61,14 @@ if ( ! isset( $debug_data ) || ! is_array( $debug_data ) ) {
 						if ( empty( $mark ) ) {
 							echo wp_kses_post( $data['note'] );
 						} else {
-						?>
+							?>
 							<mark class="<?php echo esc_html( $mark ); ?>">
 													<?php
-							if ( $mark_icon ) {
-								echo '<span class="dashicons dashicons-' . esc_attr( $mark_icon ) . '"></span> ';
-							}
-							echo wp_kses_post( $data['note'] );
-							?>
+													if ( $mark_icon ) {
+														echo '<span class="dashicons dashicons-' . esc_attr( $mark_icon ) . '"></span> ';
+													}
+													echo wp_kses_post( $data['note'] );
+													?>
 							</mark>
 							<?php
 						}
@@ -86,7 +86,7 @@ if ( ! isset( $debug_data ) || ! is_array( $debug_data ) ) {
 					printf( '<code>%s</code> ', esc_html( $override['file'] ) );
 					if ( $override['is_outdated'] ) {
 						printf(
-							/* translators: %1$s is the file version, %2$s is the core version */
+							// translators: %1$s is the file version, %2$s is the core version.
 							esc_html__( 'version %1$s is out of date. The core version is %2$s', 'woocommerce-mix-and-match-products' ),
 							'<strong style="color:red">' . esc_html( $override['version'] ) . '</strong>',
 							'<strong>' . esc_html( $override['core_version'] ) . '</strong>'

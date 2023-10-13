@@ -10,11 +10,14 @@ use MailPoet\API\JSON\Error as APIError;
 use MailPoet\Config\AccessControl;
 use MailPoet\Config\ServicesChecker;
 use MailPoet\WP\Functions as WPFunctions;
+use MailPoet\WPCOM\DotcomHelperFunctions;
 use WP_Error;
 
 class Premium extends APIEndpoint {
   const PREMIUM_PLUGIN_SLUG = 'mailpoet-premium';
   const PREMIUM_PLUGIN_PATH = 'mailpoet-premium/mailpoet-premium.php';
+  // This is the path to the managed plugin on Dotcom platform. It is relative to WP_PLUGIN_DIR.
+  const DOTCOM_SYMLINK_PATH = '../../../../wordpress/plugins/mailpoet-premium/latest';
 
   public $permissions = [
     'global' => AccessControl::PERMISSION_MANAGE_SETTINGS,
@@ -26,12 +29,17 @@ class Premium extends APIEndpoint {
   /** @var WPFunctions */
   private $wp;
 
+  /** @var DotcomHelperFunctions */
+  private $dotcomHelperFunctions;
+
   public function __construct(
     ServicesChecker $servicesChecker,
-    WPFunctions $wp
+    WPFunctions $wp,
+    DotcomHelperFunctions $dotcomHelperFunctions
   ) {
     $this->servicesChecker = $servicesChecker;
     $this->wp = $wp;
+    $this->dotcomHelperFunctions = $dotcomHelperFunctions;
   }
 
   public function installPlugin() {
@@ -49,6 +57,19 @@ class Premium extends APIEndpoint {
     }
 
     $pluginInfo = (array)$pluginInfo;
+
+    // If we are in Dotcom platform, we try to symlink the plugin instead of downloading it
+    try {
+      if ($this->dotcomHelperFunctions->isDotcom()) {
+        $result = symlink(self::DOTCOM_SYMLINK_PATH, WP_PLUGIN_DIR . '/' . self::PREMIUM_PLUGIN_SLUG);
+        if ($result === true) {
+          return $this->successResponse();
+        }
+      }
+    } catch (\Exception $e) {
+      // Do nothing and continue with a regular installation
+    }
+
     $result = $this->wp->installPlugin($pluginInfo['download_link']);
     if ($result !== true) {
       return $this->error(__('Error when installing MailPoet Premium plugin.', 'mailpoet'));

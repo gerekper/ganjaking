@@ -1,4 +1,5 @@
-<?php
+<?php 
+            namespace Ali2Woo\Lib;
 /**
  * Exception for 408 Request Timeout responses
  *

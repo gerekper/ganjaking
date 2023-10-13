@@ -3,7 +3,7 @@
 /**
  * Description of A2W_Migrate
  *
- * @author Andrey
+ * @author Ali2Woo Team
  * 
  * @autoload: a2w_admin_init
  */
@@ -74,6 +74,14 @@ if (!class_exists('A2W_Migrate')) {
 
             if(version_compare($cur_version, "1.18.15", '<')) {
                 $this->migrate_to_1_18_15();
+            }
+
+            if(version_compare($cur_version, "1.23.0", '<')) {
+                $this->migrate_to_1_23_0();
+            }
+
+            if(version_compare($cur_version, "1.24.0", '<')) {
+                $this->migrate_to_1_24_0();
             }
 
             if(is_a($this, 'A2WL_Migrate') && version_compare($cur_version, "2.0.5", '<')) {
@@ -399,6 +407,16 @@ if (!class_exists('A2W_Migrate')) {
             $wpdb->query("UPDATE {$wpdb->options} SET autoload='no' WHERE option_name like 'a2w\_%' OR option_name like '_transient_a2w\_%'");
         }
 
+        private function migrate_to_1_23_0(){
+            a2w_error_log('migrate to 1.23.0'); 
+            
+            a2w_set_setting('api_endpoint', 'https://api.ali2woo.com/v3/');
+        }
+
+        private function migrate_to_1_24_0(){
+            a2w_error_log('migrate to 1.24.0');
+            A2W_CurrencyRates::sync();
+        }
 
         private function migrate_to_2_0_5(){
             a2w_error_log('migrate to 2.0.5');

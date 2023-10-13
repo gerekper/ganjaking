@@ -1,4 +1,5 @@
-<?php
+<?php 
+            namespace Ali2Woo\Lib;
 /**
  * SSL utilities for Requests
  *

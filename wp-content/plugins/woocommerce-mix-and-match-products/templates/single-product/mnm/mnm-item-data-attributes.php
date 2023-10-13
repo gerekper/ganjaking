@@ -14,7 +14,7 @@
  * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   1.4.0
- * @version 2.0.0
+ * @version 2.5.0
  */
 
 // Exit if accessed directly.
@@ -22,6 +22,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<div class="mnm-item-data" style="display: none;" <?php echo wc_implode_html_attributes( $child_item->get_data_attributes() ); ?>></div>
+<div class="mnm-item-data" style="display: none;" <?php echo wc_implode_html_attributes( $child_item->get_data_attributes() ); // phpcs:ignore WordPress.Security.EscapeOutput ?>></div>
 
 

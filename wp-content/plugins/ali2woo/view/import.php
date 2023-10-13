@@ -3,7 +3,7 @@
         
         <?php include_once A2W()->plugin_path() . '/view/chrome_notify.php'; ?>        
         
-        <?php if (A2W_Account::getInstance()->is_activated()):?>
+        <?php if (!A2W_Account::getInstance()->is_activated()):?>
         <div class="a2w-pc-warn"><p>You didn't activate Ali2Woo! Please open the Ali2Woo plugin <a href="<?php echo admin_url('admin.php?page=a2w_setting') ?>">settings</a> and input your purchase key.</p></div>
         <?php endif; ?>
         
@@ -84,7 +84,9 @@
                     <div class='row space-top'>
                         <div class='col-xs-12'>                            
                             <div class='product<?php echo isset($product['shipping_cost'])?" shiping_loaded":""?>' data-id="<?php echo $product['import_id']; ?>" data-country_from_list="<?php echo empty($product['shipping_from_country_list'])?'':implode(";",$product['shipping_from_country_list']); ?>" data-country_from="<?php echo isset($product['shipping_from_country'])?$product['shipping_from_country']:''; ?>" data-country_to="<?php echo isset($product['shipping_to_country'])?$product['shipping_to_country']:''; ?>">
-                                <div class="a2w-row">
+                            <?php if (!isset($product['sku_products']['variations'])) $product['sku_products']['variations'] = [];  ?>
+                            <?php if (!isset($product['sku_products']['attributes'])) $product['sku_products']['attributes'] = [];  ?>
+                            <div class="a2w-row">
                                     <ul class="nav nav-tabs">
                                         <li class="select darker-background"><span class="for-checkbox"><input type="checkbox" class="form-control" value="<?php echo $product['import_id']; ?>"></span></li>
                                         <li class="active"><a href="#" rel="product"><?php _e('Product', 'ali2woo'); ?></a></li>
@@ -107,6 +109,9 @@
                                                     <li><a href="#" class="product-card-split-product"><?php _e('Split Product', 'ali2woo'); ?></a></li>
                                                 <?php endif;?>
                                                 <li><a href="<?php echo admin_url('admin.php?page=' . $_REQUEST['page']) . '&delete_id=' . $product['import_id']; ?>"><?php _e('Remove Product', 'ali2woo'); ?></a></li>
+                                                <?php if (isset($product['store_id']) && !empty($product['store_id']) && isset($product['seller_id']) && !empty($product['seller_id'])) : ?>
+                                                    <li><a href="<?php echo admin_url('admin.php?page=a2w_store') . '&a2w_store_id=' . $product['store_id']  . '&a2w_seller_id=' . $product['seller_id'] . '&a2w_search=1'; ?>"><?php _e('Find All Products of Store', 'ali2woo'); ?></a></li>
+                                                <?php endif; ?>
                                             </ul>
                                         </div>
 

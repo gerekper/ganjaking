@@ -3,7 +3,7 @@
 /**
  * Description of A2W_ShippingPriceFormula
  *
- * @author Mikhail
+ * @author Ali2Woo Team
  */
 class A2W_ShippingPriceFormula {
 
@@ -112,7 +112,7 @@ class A2W_ShippingPriceFormula {
 
     public static function get_default_formula() {
         $formula = a2w_get_setting('shipping_default_formula');
-        return new A2W_ShippingPriceFormula($formula && is_array($formula) ? $formula : array('value' => 1, 'sign' => '*'));
+        return new A2W_ShippingPriceFormula($formula && is_array($formula) && $formula['value'] !== ""  ? $formula : array('value' => 1, 'sign' => '*'));
     }
 
     public static function set_default_formula($formula) {

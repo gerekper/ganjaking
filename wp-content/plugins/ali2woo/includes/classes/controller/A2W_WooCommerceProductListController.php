@@ -2,7 +2,7 @@
 /* * class
  * Description of A2W_WooCommerceProductListController
  *
- * @author MA_GROUP
+ * @author Ali2Woo Team
  *
  * @autoload: a2w_admin_init
  *
@@ -204,10 +204,20 @@ if (!class_exists('A2W_WooCommerceProductListController')) {
             $content[] = "Product: <a target='_blank' href='" . $product_url . "'>here</a>";
 
             $seller_url = get_post_meta($post_id, '_a2w_seller_url', true);
+            $store_id = get_post_meta($post_id, '_a2w_store_id', true);
+            $seller_id = get_post_meta($post_id, '_a2w_seller_id', true);
             $seller_name = get_post_meta($post_id, '_a2w_seller_name', true);
 
             if ($seller_url && $seller_name) {
                 $content[] = "Seller: <a target='_blank' href='" . $seller_url . "'>" . $seller_name . "</a>";
+            }
+
+            if ($store_id){
+                $content[] = "Store ID: <span class='a2w_value'>" . $store_id . "</span>"; 
+            }
+
+            if ($seller_id){
+                $content[] = "Seller ID: <span class='a2w_value'>" . $seller_id . "</span>";   
             }
 
             $content[] = "External ID: <span class='a2w_value'>" . $external_id . "</span>";
@@ -232,6 +242,7 @@ if (!class_exists('A2W_WooCommerceProductListController')) {
                 $on_stock_changes = a2w_get_setting('on_stock_changes');
 
                 $products = array();
+               
                 foreach ($ids as $post_id) {
                     $product = $woocommerce_model->get_product_by_post_id($post_id, false);
                     if ($product) {
@@ -242,6 +253,7 @@ if (!class_exists('A2W_WooCommerceProductListController')) {
                 }
 
                 $result = array("state" => "ok", "update_state" => array('ok' => count($ids), 'error' => 0));
+
                 if (count($products) > 0) {
                     $product_ids = array_map(function ($p) {
                         $complex_id = $p['id'] . ';' . $p['import_lang'];

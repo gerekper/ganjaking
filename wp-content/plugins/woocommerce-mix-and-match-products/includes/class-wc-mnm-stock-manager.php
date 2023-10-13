@@ -21,28 +21,30 @@ class WC_Mix_and_Match_Stock_Manager {
 
 	/**
 	 * The collection of items in the container.
+	 *
 	 * @var str
 	 */
 	private $items;
 
 	/**
 	 * Total quantity of items in the container.
+	 *
 	 * @var str
 	 */
 	private $total_qty;
 
 	/**
 	 * The Mix and Match Product Object.
+	 *
 	 * @var obj WC_Product
 	 */
 	public $product;
 
 	public function __construct( \WC_Product $product ) {
 
-		$this->items  = array();
+		$this->items     = array();
 		$this->total_qty = 0;
-		$this->product = $product;
-
+		$this->product   = $product;
 	}
 
 	/**
@@ -68,7 +70,6 @@ class WC_Mix_and_Match_Stock_Manager {
 		} else {
 			$this->total_qty += $quantity;
 		}
-
 	}
 
 	/**
@@ -93,7 +94,6 @@ class WC_Mix_and_Match_Stock_Manager {
 	public function get_total_quantity() {
 
 		return $this->total_qty;
-
 	}
 
 	/**
@@ -129,9 +129,9 @@ class WC_Mix_and_Match_Stock_Manager {
 	 * Note that in some cases, stock for a variation might be managed by the parent - this is tracked by the managed_by_id property in WC_Mix_and_Match_Stock_Manager_Item.
 	 *
 	 * @return array { int $managed_by_id {
-	 * 		@type WC_Product $product  The product object controlling this item's stock
+	 *      @type WC_Product $product  The product object controlling this item's stock
 	 *      @type int        $quantity The selected quantity for this item.
-	 * 	}
+	 *  }
 	 * }
 	 */
 	public function get_managed_items() {
@@ -151,7 +151,7 @@ class WC_Mix_and_Match_Stock_Manager {
 				} else {
 
 					// Store the managed product.
-					$managed_items[ $managed_by_id ]['product']  = $purchased_item->get_managed_product();
+					$managed_items[ $managed_by_id ]['product'] = $purchased_item->get_managed_product();
 
 					// Store initial quantity.
 					$managed_items[ $managed_by_id ]['quantity'] = $purchased_item->get_quantity();
@@ -187,12 +187,12 @@ class WC_Mix_and_Match_Stock_Manager {
 		// If we are updating a container in-cart, subtract the child item cart quantites that belong to the container_id being updated, since it's going to be removed later on.
 		if ( isset( $_POST['update-container'] ) ) {
 
-			$updating_cart_key = wc_clean( $_POST['update-container'] );
+			$updating_cart_key = wc_clean(wp_unslash( $_POST['update-container'] ) );
 
 			if ( isset( WC()->cart->cart_contents[ $updating_cart_key ] ) ) {
 
-				$container_cart_item   = WC()->cart->cart_contents[ $updating_cart_key ];
-				$mnm_cart_items = wc_mnm_get_child_cart_items( $container_cart_item );
+				$container_cart_item = WC()->cart->cart_contents[ $updating_cart_key ];
+				$mnm_cart_items      = wc_mnm_get_child_cart_items( $container_cart_item );
 
 				if ( isset( $quantities_in_cart[ $container_cart_item['product_id'] ] ) ) {
 					$quantities_in_cart[ $container_cart_item['product_id'] ] -= $container_cart_item['quantity'];
@@ -307,7 +307,7 @@ class WC_Mix_and_Match_Stock_Manager {
 
 					throw new Exception( $notice );
 
-				// Not enough stock for this configuration.
+					// Not enough stock for this configuration.
 				} elseif ( ! $managed_product->has_enough_stock( $quantity ) ) {
 					// translators: %1$s product title. %2$s quantity in stock.
 					$reason = sprintf( _x( 'There is not enough stock of &quot;%1$s&quot; (%2$s remaining).', '[Frontend]', 'woocommerce-mix-and-match-products' ), $managed_product_title, $managed_product->get_stock_quantity() );
@@ -328,7 +328,8 @@ class WC_Mix_and_Match_Stock_Manager {
 				if ( $managed_product->managing_stock() || $managed_product->is_sold_individually() ) {
 
 					// Get quantities of items already in cart: returns array of IDs => quantity.
-					$cart_quantities = $quantities_in_cart = $this->get_quantities_in_cart();
+					$cart_quantities    = $this->get_quantities_in_cart();
+					$quantities_in_cart = $cart_quantities;
 
 					if ( isset( $cart_quantities[ $managed_item_id ] ) && ! $managed_product->has_enough_stock( $cart_quantities[ $managed_item_id ] + $quantity ) ) {
 
@@ -363,15 +364,13 @@ class WC_Mix_and_Match_Stock_Manager {
 						throw new Exception( $notice );
 
 					}
-
 				}
-
 			} catch ( Exception $e ) {
 
 				$error = $e->getMessage();
 
 				if ( $throw_exception ) {
-					throw new Exception( $error );
+					throw new Exception( wp_kses_post( $error ) );
 				} else {
 					return false;
 				}
@@ -388,7 +387,7 @@ class WC_Mix_and_Match_Stock_Manager {
  * These 2 will differ only if stock for a variation is managed by its parent.
  *
  * @class    WC_Mix_and_Match_Stock_Manager_Item
- * 
+ *
  * @since    1.0.5
  * @version  2.4.0
  */
@@ -436,12 +435,12 @@ class WC_Mix_and_Match_Stock_Manager_Item {
 		if ( is_callable( array( $this, $get_fn ) ) ) {
 			return $this->$get_fn();
 		}
-		
+
 		switch ( $prop ) {
 			case 'product_id':
 				$product = $this->get_product();
 				if ( $product ) {
-					$value = $product->get_parent_id() ? $product->get_parent_id(): $product->get_id();
+					$value = $product->get_parent_id() ? $product->get_parent_id() : $product->get_id();
 				} else {
 					$value = 0;
 				}
@@ -457,7 +456,6 @@ class WC_Mix_and_Match_Stock_Manager_Item {
 			default:
 				$value = '';
 		}
-
 	}
 
 	/**
@@ -475,20 +473,21 @@ class WC_Mix_and_Match_Stock_Manager_Item {
 			$this->child_item = $child_item;
 			$this->quantity   = $quantity;
 
-		} else if ( is_int( $child_item ) ) {
+		} elseif ( is_int( $child_item ) ) {
 			wc_deprecated_argument( '$product_id', '2.4.0', 'WC_Mix_and_Match_Stock_Manager_Item should be instantiated with a WC_MNM_Child_Item object. Warning! This will break in 3.0.0.' );
 			$this->quantity = $deprecated;
 
 			// Not entirely certain this is going to work without the container_id.
-			$this->child_item = new WC_MNM_Child_Item( array(
-				'product_id' => $child_item,
-				'variation_id' => $quantity,
-			 	)
+			$this->child_item = new WC_MNM_Child_Item(
+				array(
+					'product_id'   => $child_item,
+					'variation_id' => $quantity,
+				)
 			);
 
 			// Get the managed by ID from post meta in the absence of the product object.
 			$variation_manage_stock = get_post_meta( $this->variation_id, '_manage_stock', true );
-			
+
 			$this->get_managed_by_id = 'parent' === $variation_manage_stock ? $this->product_id : $this->variation_id;
 		}
 
@@ -498,16 +497,15 @@ class WC_Mix_and_Match_Stock_Manager_Item {
 		}
 
 		if ( $this->child_item instanceof WC_MNM_Child_Item && $this->child_item->get_product() instanceof WC_Product ) {
-			$this->managed_by_id = $child_item->get_product()->get_stock_managed_by_id();	
+			$this->managed_by_id = $child_item->get_product()->get_stock_managed_by_id();
 		} else {
 			wc_doing_it_wrong( 'WC_Mix_and_Match_Stock_Manager_Item __construct()', 'WC_Mix_and_Match_Stock_Manager_Item constructed with a WC_MNM_Child_Item that had no valid product.', '2.4.0' );
 		}
-
 	}
 
 	/**
 	 * Get the stock managed by ID.
-	 * 
+	 *
 	 * @return int
 	 */
 	public function get_managed_by_id() {
@@ -516,7 +514,7 @@ class WC_Mix_and_Match_Stock_Manager_Item {
 
 	/**
 	 * Get the configured quantity.
-	 * 
+	 *
 	 * @return int
 	 */
 	public function get_quantity() {
@@ -525,7 +523,7 @@ class WC_Mix_and_Match_Stock_Manager_Item {
 
 	/**
 	 * Get the child item object for this item.
-	 * 
+	 *
 	 * @return WC_MNM_Child_Item
 	 */
 	public function get_child_item() {
@@ -534,7 +532,7 @@ class WC_Mix_and_Match_Stock_Manager_Item {
 
 	/**
 	 * Get the product object for this item.
-	 * 
+	 *
 	 * @return WC_Product}false
 	 */
 	public function get_product() {
@@ -544,7 +542,7 @@ class WC_Mix_and_Match_Stock_Manager_Item {
 	/**
 	 * Get the stock-managed product object for this item.
 	 * Mostly it's the same, except when a variation is managed at the parent-product level.
-	 * 
+	 *
 	 * @return WC_Product|false
 	 */
 	public function get_managed_product() {
@@ -559,5 +557,4 @@ class WC_Mix_and_Match_Stock_Manager_Item {
 
 		return $this->managed_product;
 	}
-	
 }

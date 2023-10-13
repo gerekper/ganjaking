@@ -1,0 +1,3855 @@
+# Translation of YITH WooCommerce Wishlist in Dutch
+# This file is distributed under the same license as the YITH WooCommerce Wishlist package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Wishlist\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"wishlist.premium\n"
+"POT-Creation-Date: 2023-10-05 12:54:37+00:00\n"
+"PO-Revision-Date: 2021-10-12 07:54:31+0000\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+
+#: includes/class-yith-wcwl-admin-extended.php:85
+#: includes/class-yith-wcwl-admin-premium.php:109
+msgid "Email Settings"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin-extended.php:105
+#: includes/class-yith-wcwl-admin-premium.php:450
+#: includes/class-yith-wcwl-admin-premium.php:465
+#: plugin-options/settings/wishlist_page-options.php:56
+#: plugin-options/settings/wishlist_page-options.php:65
+#: plugin-options/settings/wishlist_page-options.php:74
+#: plugin-options/settings/wishlist_page-options.php:83
+#: plugin-options/settings/wishlist_page-options.php:92
+#: plugin-options/settings/wishlist_page-options.php:101
+#: plugin-options/settings/wishlist_page-options.php:110
+msgid "In wishlist table show"
+msgstr "Toon in verlanglijst tabel"
+
+#: includes/class-yith-wcwl-admin-extended.php:106
+msgid ""
+"Product quantity (so users can manage the quantity of each product from the "
+"wishlist)"
+msgstr ""
+"Product hoeveelheid (zodat gebruikers de hoeveelheid van ieder product uit "
+"de verlanglijst kunnen beheren) "
+
+#: includes/class-yith-wcwl-admin-extended.php:152
+msgid "Customer"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin-premium.php:130
+msgid "Enable wishlist for"
+msgstr "Verlanglijst inschakelen voor"
+
+#: includes/class-yith-wcwl-admin-premium.php:131
+msgid ""
+"Choose whether to enable the wishlist feature for all users or only for "
+"logged-in users"
+msgstr ""
+"Bepaal of u de verlanglijst optie wilt inschakelen voor alle gebruikers of "
+"alleen voor ingelogde gebruikers"
+
+#: includes/class-yith-wcwl-admin-premium.php:134
+#: includes/class-yith-wcwl-admin-premium.php:211
+msgid "All users"
+msgstr "Alle gebruikers"
+
+#: includes/class-yith-wcwl-admin-premium.php:135
+#: includes/class-yith-wcwl-admin-premium.php:212
+msgid "Only authenticated users"
+msgstr "Alleen geautoriseerde gebruikers"
+
+#: includes/class-yith-wcwl-admin-premium.php:143
+msgid "Enable Added/Removed notices"
+msgstr "Toegevoegde/verwijderde meldingen inschakelen"
+
+#: includes/class-yith-wcwl-admin-premium.php:144
+msgid ""
+"Enable popup notices when the product is added or removed from the wishlist"
+msgstr ""
+"Inschakelen van pop-up meldingen wanneer een product is toegevoegd of "
+"verwijderd van de verlanglijst."
+
+#: includes/class-yith-wcwl-admin-premium.php:152
+msgid "Enable \"Add to wishlist\" tooltip"
+msgstr "De \"Toevoegen aan verlanglijst\" tooltip inschakelen"
+
+#: includes/class-yith-wcwl-admin-premium.php:153
+msgid ""
+"Choose whether to display a tooltip when hovering over Add to wishlist link"
+msgstr ""
+"Bepaal of u de tooltip wilt weergeven wanneer u over de toevoegen aan "
+"verlanglijst link zweeft"
+
+#: includes/class-yith-wcwl-admin-premium.php:161
+msgid "Add to wishlist tooltip style"
+msgstr "Tooltip stijl voor toevoegen aan verlanglijst"
+
+#: includes/class-yith-wcwl-admin-premium.php:162
+msgid "Choose colors for Add to wishlist tooltip"
+msgstr "Bepaal de kleur van de toevoegen aan verlanglijst tooltip"
+
+#: includes/class-yith-wcwl-admin-premium.php:168
+#: plugin-options/settings/add_to_wishlist-options.php:198
+#: plugin-options/settings/ask_an_estimate-options.php:239
+#: plugin-options/settings/wishlist_page-options.php:288
+#: plugin-options/settings/wishlist_page-options.php:386
+#: plugin-options/settings/wishlist_page-options.php:435
+#: plugin-options/settings/wishlist_page-options.php:483
+#: plugin-options/settings/wishlist_page-options.php:570
+#: plugin-options/settings/wishlist_page-options.php:610
+#: plugin-options/settings/wishlist_page-options.php:650
+#: plugin-options/settings/wishlist_page-options.php:690
+#: plugin-options/settings/wishlist_page-options.php:730
+msgid "Background"
+msgstr "Achtergrond"
+
+#: includes/class-yith-wcwl-admin-premium.php:173
+#: plugin-options/settings/add_to_wishlist-options.php:203
+#: plugin-options/settings/ask_an_estimate-options.php:134
+#: plugin-options/settings/ask_an_estimate-options.php:244
+#: plugin-options/settings/wishlist_page-options.php:293
+#: plugin-options/settings/wishlist_page-options.php:391
+#: plugin-options/settings/wishlist_page-options.php:440
+#: plugin-options/settings/wishlist_page-options.php:488
+#: plugin-options/settings/wishlist_page-options.php:525
+msgid "Text"
+msgstr "Tekst"
+
+#: includes/class-yith-wcwl-admin-premium.php:191
+msgid "Multi-wishlist settings"
+msgstr "Multi-verlanglijst instellingen"
+
+#: includes/class-yith-wcwl-admin-premium.php:198
+msgid "Enable multi-wishlist feature"
+msgstr "Multi-verlanglijst optie inschakelen"
+
+#: includes/class-yith-wcwl-admin-premium.php:199
+msgid "Allow customers to create and manage multiple wishlists"
+msgstr "Toestaan dat klanten meerdere verlanglijsten kunnen maken en beheren"
+
+#: includes/class-yith-wcwl-admin-premium.php:207
+msgid "Enable multiple wishlists for"
+msgstr "Meerdere verlanglijsten inschakelen voor"
+
+#: includes/class-yith-wcwl-admin-premium.php:208
+msgid ""
+"Choose whether to enable the multi-wishlist feature for all users or just "
+"for logged-in users"
+msgstr ""
+"Bepaal of u de multi-verlanglijst optie wilt inschakelen voor alle "
+"gebruikers of alleen voor ingelogde gebruikers"
+
+#: includes/class-yith-wcwl-admin-premium.php:224
+msgid "Login message for non-authenticated users"
+msgstr "Login bericht voor niet geverifieerde gebruikers"
+
+#: includes/class-yith-wcwl-admin-premium.php:226
+msgid ""
+"Enter the message to ask unauthenticated users to login so they will be able "
+"to use the multi-wishlist feature.<br/>Use the placeholder %login_anchor% "
+"(set up the text in the following option) to add an anchor and redirect "
+"users to the Login page."
+msgstr ""
+"Voer het bericht in dat niet-geverifieerde gebruikers vraagt om in te "
+"loggen, waardoor zij de multi-verlanglijst optie kunnen gebruiken.<br/"
+">Gebruik het invulveld %login_anchor% (bepaal de tekst in de volgende optie) "
+"om een anker te plaatsen en de gebruiker door te sturen naar de login pagina."
+
+#: includes/class-yith-wcwl-admin-premium.php:227
+msgid "Please %login_anchor% to use all the wishlist features"
+msgstr "Gelieve %login_anchor% om alle verlanglijst opties te gebruiken"
+
+#: includes/class-yith-wcwl-admin-premium.php:237
+msgid "Login anchor text"
+msgstr "Inlog anker tekst"
+
+#: includes/class-yith-wcwl-admin-premium.php:239
+msgid "Set up here the text of the Login link that replace %login_anchor%"
+msgstr "Bepaal de tekst voor de login link die de %login_anchor% vervangt"
+
+#: includes/class-yith-wcwl-admin-premium.php:240
+msgid "login"
+msgstr "inloggen"
+
+#: includes/class-yith-wcwl-admin-premium.php:278
+msgid "When clicking on Add to wishlist"
+msgstr "Bij het klikken op toevoegen aan verlanglijst"
+
+#: includes/class-yith-wcwl-admin-premium.php:279
+msgid "Choose the default action for new products added to the wishlist."
+msgstr ""
+"Kies de standaardactie voor nieuwe producten die worden toegevoegd aan de "
+"verlanglijst."
+
+#: includes/class-yith-wcwl-admin-premium.php:285
+msgid "Automatically add to the default list"
+msgstr "Automatisch toevoegen aan de standaardlijst"
+
+#: includes/class-yith-wcwl-admin-premium.php:286
+msgid "Show a modal window to allow users to choose a wishlist"
+msgstr ""
+"Toon een modaal venster zodat gebruikers een verlanglijst kunnen keizen"
+
+#: includes/class-yith-wcwl-admin-premium.php:287
+msgid "Show a dropdown to allow users to choose a wishlist"
+msgstr "Toon een dropdown menu zodat gebruikers een verlanglijst kunnen kiezen"
+
+#: includes/class-yith-wcwl-admin-premium.php:291
+msgid "When product is added to wishlist"
+msgstr "Wanneer een product is toegevoegd aan de verlanglijst"
+
+#: includes/class-yith-wcwl-admin-premium.php:292
+msgid ""
+"Choose what should happen to the modal, when a product is added to the list."
+msgstr ""
+"Bepaal wat er gebeurd met het modaal scherm, wanneer een product is "
+"toegevoegd aan verlanglijst."
+
+#: includes/class-yith-wcwl-admin-premium.php:302
+msgid "Automatically close the modal"
+msgstr "Modaal scherm automatisch sluiten"
+
+#: includes/class-yith-wcwl-admin-premium.php:303
+msgid "Leave the modal open"
+msgstr "Laat modaal scherm open"
+
+#: includes/class-yith-wcwl-admin-premium.php:310
+msgid ""
+"Add to wishlist button now opens a modal to move or remove items (available "
+"only with multi-wishlist option enabled)"
+msgstr ""
+"De toevoegen aan verlanglijst knop opent een modaal scherm om items te "
+"verplaatsen of verwijderen (alleen beschikbaar wanneer multi-verlanglijst "
+"optie is ingeschakeld)"
+
+#: includes/class-yith-wcwl-admin-premium.php:318
+msgid "Show a count of users with a specific product in wishlist"
+msgstr ""
+"Toon het aantal gebruikers met een specifiek product in hun verlanglijst"
+
+#: includes/class-yith-wcwl-admin-premium.php:319
+msgid ""
+"Show a counter on the product page that allows your customers to know how "
+"many times the product has been added to a wishlist"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin-premium.php:333
+msgid "\"Add to wishlist\" popup button text"
+msgstr "\"Toevoegen aan verlanglijst\" pop-up knop tekst"
+
+#: includes/class-yith-wcwl-admin-premium.php:335
+msgid "Text of the \"Add to wishlist\" button in the popup"
+msgstr "Tekst voor de \"Toevoegen aan verlanglijst\" knop in de pop-up"
+
+#: includes/class-yith-wcwl-admin-premium.php:336
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:118
+#: plugin-options/settings/add_to_wishlist-options.php:136
+msgid "Add to wishlist"
+msgstr "Toevoegen aan verlanglijst"
+
+#: includes/class-yith-wcwl-admin-premium.php:363
+msgid "Layout for wishlist view"
+msgstr "Lay-out voor verlanglijst weergave"
+
+#: includes/class-yith-wcwl-admin-premium.php:364
+msgid "Select a style for your \"Manage wishlists\" page"
+msgstr "Selecteer een stijl voor uw \"Beheer verlanglijst\" pagina"
+
+#: includes/class-yith-wcwl-admin-premium.php:369
+#: includes/class-yith-wcwl-admin-premium.php:437
+msgid "Traditional"
+msgstr "Traditioneel"
+
+#: includes/class-yith-wcwl-admin-premium.php:370
+#: includes/class-yith-wcwl-admin-premium.php:438
+msgid "Modern grid"
+msgstr "Modern grid"
+
+#: includes/class-yith-wcwl-admin-premium.php:375
+#: includes/class-yith-wcwl-admin-premium.php:383
+#: includes/class-yith-wcwl-admin-premium.php:391
+#: includes/class-yith-wcwl-admin-premium.php:399
+#: includes/class-yith-wcwl-admin-premium.php:407
+msgid "Show wishlist info"
+msgstr "Toon verlanglijst info"
+
+#: includes/class-yith-wcwl-admin-premium.php:376
+msgid "Number of items in wishlist"
+msgstr "Aantal items in verlanglijst"
+
+#: includes/class-yith-wcwl-admin-premium.php:384
+msgid "Date of creation of the wishlist"
+msgstr "Aanmaakdatum verlanglijst"
+
+#: includes/class-yith-wcwl-admin-premium.php:392
+msgid "Download a PDF version of the wishlist"
+msgstr "Download een PDV versie van de verlanglijst"
+
+#: includes/class-yith-wcwl-admin-premium.php:400
+msgid "Rename wishlist button"
+msgstr "Hernoem de verlanglijst knop"
+
+#: includes/class-yith-wcwl-admin-premium.php:408
+msgid "Delete wishlist button"
+msgstr "Verwijder verlanglijst knop"
+
+#: includes/class-yith-wcwl-admin-premium.php:415
+msgid "\"Create wishlist\" in popup"
+msgstr "\"Maak verlanglijst\" in pop-up"
+
+#: includes/class-yith-wcwl-admin-premium.php:416
+msgid "Create a new wishlist in the popup instead of using the endpoint"
+msgstr ""
+"Maak een nieuwe verlanglijst in de pop-up in plaats van gebruik te maken van "
+"het endpoint"
+
+#: includes/class-yith-wcwl-admin-premium.php:430
+msgid "Layout for product list"
+msgstr "Lay-out voor product lijst"
+
+#: includes/class-yith-wcwl-admin-premium.php:431
+msgid "Select a style for displaying your wishlist page"
+msgstr "Selecteer een weergavestijl voor uw verlanglijst pagina"
+
+#: includes/class-yith-wcwl-admin-premium.php:439
+msgid "Only images with info at click"
+msgstr "Uitsluitend afbeeldingen met informatie bij klikken"
+
+#: includes/class-yith-wcwl-admin-premium.php:451
+msgid ""
+"Price variation info (show the price difference compared to when the product "
+"was added to the list)"
+msgstr ""
+"Prijs variatie info (toon het prijsverschil in vergelijking met toen het "
+"product werd toegevoegd aan de lijst)."
+
+#: includes/class-yith-wcwl-admin-premium.php:466
+msgid ""
+"Checkbox to select multiple items, add them to the cart or delete them with "
+"one click"
+msgstr ""
+"Keuzevakje om meerdere items te selecteren, voeg ze toe aan de winkelwagen "
+"of verwijder ze in een klik"
+
+#: includes/class-yith-wcwl-admin-premium.php:480
+msgid "Show Move to another wishlist"
+msgstr "Toon verplaats naar andere verlanglijst"
+
+#: includes/class-yith-wcwl-admin-premium.php:481
+msgid "Enable the option to move the product to another wishlist"
+msgstr "Optie inschakelen om producten naar andere verlanglijst te verplaatsen"
+
+#: includes/class-yith-wcwl-admin-premium.php:488
+msgid "Move to another wishlist - style"
+msgstr "Verplaats naar andere verlanglijst - stijl"
+
+#: includes/class-yith-wcwl-admin-premium.php:489
+msgid "Choose the look and feel of the \"Move to another wishlist\" option"
+msgstr "Kies de stijl van de \"Verplaats naar andere verlanglijst\" optie"
+
+#: includes/class-yith-wcwl-admin-premium.php:495
+msgid "Select dropdown with all wishlists"
+msgstr "Selecteer dropdown menu met alle verlanglijsten"
+
+#: includes/class-yith-wcwl-admin-premium.php:496
+msgid "Link to a popup"
+msgstr "Link aan een pop-up"
+
+#: includes/class-yith-wcwl-admin-premium.php:511
+msgid "Enable \"Add all to cart\""
+msgstr "Optie \"Alles toevoegen aan winkelwagen\" inschakelen"
+
+#: includes/class-yith-wcwl-admin-premium.php:512
+msgid ""
+"Enable \"Add all to cart\" button to let customers add all the products in "
+"the wishlist to the cart"
+msgstr ""
+"De \"Alles toevoegen aan winkelwagen\" knop inschakelen, om klanten alle "
+"producten in de verlanglijst te laten toevoegen aan de winkelwagen"
+
+#: includes/class-yith-wcwl-admin-premium.php:519
+msgid "Enable drag and drop option"
+msgstr "Slepen en droppen optie inschakelen"
+
+#: includes/class-yith-wcwl-admin-premium.php:520
+msgid ""
+"Enable drag and drop option so users can arrange the order of products in "
+"the wishlist"
+msgstr ""
+"Slepen en droppen optie inschakelen zodat gebruikers de volgorde van "
+"producten in de verlanglijst kunnen bepalen"
+
+#: includes/class-yith-wcwl-admin-premium.php:527
+msgid "Show links to pages"
+msgstr "Toon links naar pagina's"
+
+#: includes/class-yith-wcwl-admin-premium.php:528
+msgid ""
+"Show the links to \"Manage\", \"Create\" and \"Search\" pages after the "
+"wishlist table"
+msgstr ""
+"Toon de links naar \"Beheren\", \"Maken\" en \"Zoeken\" pagina's na de "
+"verlanglijst tabel"
+
+#: includes/class-yith-wcwl-admin-premium.php:542
+msgid "\"Create wishlist\" page name"
+msgstr "\"Verlanglijst maken\" pagina naam"
+
+#: includes/class-yith-wcwl-admin-premium.php:544
+msgid "Enter the title for the \"Create wishlist\" page"
+msgstr "Titel invoeren voor de \"Verlanglijst maken\" pagina"
+
+#: includes/class-yith-wcwl-admin-premium.php:545
+#: templates/wishlist-popup-create.php:61
+msgid "Create a new wishlist"
+msgstr "Nieuwe verlanglijst maken"
+
+#: includes/class-yith-wcwl-admin-premium.php:549
+msgid "\"Manage wishlist\" page name"
+msgstr "\"Verlanglijst beheren\" pagina naam"
+
+#: includes/class-yith-wcwl-admin-premium.php:551
+msgid "Enter the title for \"Manage wishlists\" page"
+msgstr "Titel invoeren voor de \"Verlanglijst beheren\" pagina"
+
+#: includes/class-yith-wcwl-admin-premium.php:552
+#: includes/class-yith-wcwl-frontend-premium.php:364
+msgid "Your wishlists"
+msgstr "Uw verlanglijsten"
+
+#: includes/class-yith-wcwl-admin-premium.php:556
+msgid "\"Search wishlist\" page name"
+msgstr "\"Verlanglijst zoeken\" pagina naam"
+
+#: includes/class-yith-wcwl-admin-premium.php:558
+msgid "Enter the title for \"Search wishlists\" page"
+msgstr "Titel invoeren voor de \"Verlanglijst zoeken\" pagina"
+
+#: includes/class-yith-wcwl-admin-premium.php:559
+msgid "Search a wishlist"
+msgstr "Verlanglijst zoeken"
+
+#: includes/class-yith-wcwl-admin-premium.php:609
+msgid "\"Promotional\" email"
+msgstr "\"Promotionele\" e-mail"
+
+#: includes/class-yith-wcwl-admin-premium.php:616
+#: includes/class-yith-wcwl-admin-premium.php:718
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:355
+#: includes/emails/class-yith-wcwl-estimate-email.php:260
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:360
+#: includes/emails/class-yith-wcwl-promotion-email.php:389
+#: plugin-options/promotion_email-options.php:93
+msgid "Email type"
+msgstr "E-mail type"
+
+#: includes/class-yith-wcwl-admin-premium.php:617
+#: includes/class-yith-wcwl-admin-premium.php:719
+#: plugin-options/promotion_email-options.php:94
+msgid "Choose which type of email to send"
+msgstr "Bepaal welk type e-mail wordt verzonden"
+
+#: includes/class-yith-wcwl-admin-premium.php:624
+#: includes/class-yith-wcwl-admin-premium.php:726
+#: plugin-options/promotion_email-options.php:101
+msgid "Plain"
+msgstr "Zonder opmaak"
+
+#: includes/class-yith-wcwl-admin-premium.php:625
+#: includes/class-yith-wcwl-admin-premium.php:727
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:362
+#: includes/emails/class-yith-wcwl-estimate-email.php:267
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:367
+#: includes/emails/class-yith-wcwl-promotion-email.php:396
+#: plugin-options/promotion_email-options.php:102
+msgid "HTML"
+msgstr "HTML"
+
+#: includes/class-yith-wcwl-admin-premium.php:626
+#: includes/class-yith-wcwl-admin-premium.php:728
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:363
+#: includes/emails/class-yith-wcwl-estimate-email.php:268
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:368
+#: includes/emails/class-yith-wcwl-promotion-email.php:397
+#: plugin-options/promotion_email-options.php:103
+msgid "Multipart"
+msgstr "Multipart"
+
+#: includes/class-yith-wcwl-admin-premium.php:631
+#: includes/class-yith-wcwl-admin-premium.php:733
+#: includes/emails/class-yith-wcwl-promotion-email.php:380
+#: plugin-options/promotion_email-options.php:108
+msgid "Email heading"
+msgstr "E-mail hoofd"
+
+#: includes/class-yith-wcwl-admin-premium.php:632
+msgid ""
+"Enter the title for the email notification. Leave blank to use the default "
+"heading: \"<i>There is a deal for you!</i>\""
+msgstr ""
+"Titel invoeren voor de e-mail melding. Laat leeg als je de standaardtitel "
+"wilt gebruiken: \"<i>Er is een aanbieding voor je!</i>\""
+
+#: includes/class-yith-wcwl-admin-premium.php:639
+#: includes/class-yith-wcwl-admin-premium.php:741
+#: plugin-options/promotion_email-options.php:116
+msgid "Email subject"
+msgstr "E-mail onderwerp"
+
+#: includes/class-yith-wcwl-admin-premium.php:640
+msgid ""
+"Enter the mail subject line. Leave blank to use the default subject: \"<i>A "
+"product of your wishlist is on sale</i>\""
+msgstr ""
+"Onderwerp regel van mail invoeren. Laat leeg als u het standaardonderwerp "
+"wilt gebruiken: \"<i>Een product uit uw verlanglijst is in de aanbieding</"
+"i>\""
+
+#: includes/class-yith-wcwl-admin-premium.php:647
+#: includes/class-yith-wcwl-admin-premium.php:749
+#: includes/emails/class-yith-wcwl-promotion-email.php:402
+#: plugin-options/promotion_email-options.php:124
+msgid "Email HTML content"
+msgstr "E-mail HTML inhoud"
+
+#: includes/class-yith-wcwl-admin-premium.php:648
+msgid ""
+"This field lets you modify the main content of the HTML email. You can use "
+"the following placeholders: <code>{user_name}</code> <code>{user_email}</"
+"code> <code>{user_first_name}</code> <code>{user_last_name}</code> "
+"<code>{product_image}</code> <code>{product_name}</code> "
+"<code>{product_price}</code> <code>{coupon_code}</code> <code>{coupon_amount}"
+"</code> <code>{product_url}</code> <code>{add_to_cart_url}</code>"
+msgstr ""
+"Dit veld laat je de hoofdinhoud van de HTML e-mail aanpassen. Je kunt "
+"gebruikmaken van de volgende invulvelden: <code>{user_name}</code> "
+"<code>{user_email}</code> <code>{user_first_name}</code> "
+"<code>{user_last_name}</code> <code>{product_image}</code> "
+"<code>{product_name}</code> <code>{product_price}</code> <code>{coupon_code}"
+"</code> <code>{coupon_amount}</code> <code>{product_url}</code> "
+"<code>{add_to_cart_url}</code>"
+
+#: includes/class-yith-wcwl-admin-premium.php:660
+#: includes/class-yith-wcwl-admin-premium.php:758
+#: plugin-options/promotion_email-options.php:133
+msgid "Email plain content"
+msgstr "E-mail inhoud zonder opmaak"
+
+#: includes/class-yith-wcwl-admin-premium.php:661
+msgid ""
+"This field lets you modify the main content of the text email. You can use "
+"the following placeholders: <code>{user_name}</code> <code>{user_email}</"
+"code> <code>{user_first_name}</code> <code>{user_last_name}</code> "
+"<code>{product_name}</code> <code>{product_price}</code> <code>{coupon_code}"
+"</code> <code>{coupon_amount}</code> <code>{coupon_value}</code> "
+"<code>{product_url}</code> <code>{add_to_cart_url}</code>"
+msgstr ""
+"Dit veld laat je de hoofdinhoud van de tekstuele e-mail aanpassen. Je kunt "
+"gebruikmaken van de volgende invulvelden: <code>{user_name}</code> "
+"<code>{user_email}</code> <code>{user_first_name}</code> "
+"<code>{user_last_name}</code> <code>{product_name}</code> "
+"<code>{product_price}</code> <code>{coupon_code}</code> <code>{coupon_amount}"
+"</code> <code>{coupon_value}</code> <code>{product_url}</code> "
+"<code>{add_to_cart_url}</code>"
+
+#: includes/class-yith-wcwl-admin-premium.php:680
+msgid "\"On sale item\" email"
+msgstr "\"Item in uitverkoop\" e-mail"
+
+#: includes/class-yith-wcwl-admin-premium.php:687
+msgid "Enable \"On sale item\" email"
+msgstr "De \"Item in uitverkoop\" e-mail inschakelen"
+
+#: includes/class-yith-wcwl-admin-premium.php:688
+msgid ""
+"Enable this email to send notifications to your customers whenever a product "
+"in their wishlist is on sale"
+msgstr ""
+"Deze e-mail inschakelen om meldingen naar uw klanten te sturen wanneer een "
+"product van hun verlanglijst in de uitverkoop is"
+
+#: includes/class-yith-wcwl-admin-premium.php:696
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:341
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:344
+#: plugin-options/promotion_email-options.php:71
+msgid "Product exclusions"
+msgstr "Product uitzonderingen"
+
+#: includes/class-yith-wcwl-admin-premium.php:697
+msgid ""
+"Select products that should not trigger the \"on sale item\" notifications"
+msgstr ""
+"Selecteer producten die niet mogen worden getriggerd voor \"item in "
+"uitverkoop\" meldingen"
+
+#: includes/class-yith-wcwl-admin-premium.php:707
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:348
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:352
+#: plugin-options/promotion_email-options.php:82
+msgid "Category exclusions"
+msgstr "Categorie uitzonderingen"
+
+#: includes/class-yith-wcwl-admin-premium.php:708
+msgid ""
+"Select product categories that should not trigger the \"on sale item\" "
+"notification"
+msgstr ""
+"Selecteer product categorieën die niet mogen worden getriggerd voor \"item "
+"in uitverkoop\" meldingen"
+
+#: includes/class-yith-wcwl-admin-premium.php:734
+msgid ""
+"Enter the title for the email notification. Leave blank to use the default "
+"heading: \"<i>An item of your wishlist is on sale!</i>\""
+msgstr ""
+"Titel invoeren voor de e-mail melding. Laat leeg om de standaardtitel te "
+"gebruiken: \"<i>Een item van uw verlanglijst is in de uitverkoop!</i>\""
+
+#: includes/class-yith-wcwl-admin-premium.php:742
+msgid ""
+"Enter the mail subject line. Leave blank to use the default subject: \"<i>An "
+"item of your wishlist is on sale!</i>\""
+msgstr ""
+"Onderwerp regel voor mail invoeren. Laat leeg als u het standardonderwerp "
+"wilt gebruiken: \"<i>Een item van uw verlanglijst is in de uitverkoop!</i>\""
+
+#: includes/class-yith-wcwl-admin-premium.php:750
+#: plugin-options/promotion_email-options.php:125
+msgid ""
+"This field lets you modify the main content of the HTML email. You can use "
+"the following placeholders: <code>{user_name}</code> <code>{user_email}</"
+"code> <code>{user_first_name}</code> <code>{user_last_name}</code> "
+"<code>{products_table}</code> <code>{unsubscribe_link}</code>"
+msgstr ""
+"Dit veld laat u de hoofdinhoud van de HTML e-mail aanpassen. U kunt "
+"gebruikmaken van de volgende invulvelden: <code>{user_name}</code> "
+"<code>{user_email}</code> <code>{user_first_name}</code> "
+"<code>{user_last_name}</code> <code>{products_table}</code> "
+"<code>{unsubscribe_link}</code>"
+
+#: includes/class-yith-wcwl-admin-premium.php:759
+#: plugin-options/promotion_email-options.php:134
+msgid ""
+"This field lets you modify the main content of the text email. You can use "
+"the following placeholders: <code>{user_name}</code> <code>{user_email}</"
+"code> <code>{user_first_name}</code> <code>{user_last_name}</code> "
+"<code>{products_list}</code> <code>{unsubscribe_url}</code>"
+msgstr ""
+"Dit veld laat u de hoofdinhoud van de tekst e-mail aanpassen. U kunt "
+"gebruikmaken van de volgende invulvelden:  <code>{user_name}</code> "
+"<code>{user_email}</code> <code>{user_first_name}</code> "
+"<code>{user_last_name}</code> <code>{products_list}</code> "
+"<code>{unsubscribe_url}</code>"
+
+#: includes/class-yith-wcwl-admin-premium.php:830
+msgid "Promotional email correctly scheduled"
+msgstr "Promotionele e-mail juist gepland"
+
+#: includes/class-yith-wcwl-admin-premium.php:836
+msgid "There was an error while scheduling emails; please, try again later"
+msgstr ""
+"Er is een fout opgetreden bij het plannen van e-mails; probeer het opnieuw a."
+"u.b"
+
+#: includes/class-yith-wcwl-admin-premium.php:979
+msgid "User ID"
+msgstr "Gebruikers ID"
+
+#: includes/class-yith-wcwl-admin-premium.php:980
+msgid "User Email"
+msgstr "E-mail van de gebruiker"
+
+#: includes/class-yith-wcwl-admin-premium.php:981
+msgid "User First Name"
+msgstr "Voornaam van gebruiker"
+
+#: includes/class-yith-wcwl-admin-premium.php:982
+msgid "User Last Name"
+msgstr "Achternaam van gebruiker"
+
+#: includes/class-yith-wcwl-admin-premium.php:1015
+msgid "Wishlist Count"
+msgstr "Verlanglijst teller"
+
+#: includes/class-yith-wcwl-admin-premium.php:1208
+msgid "user"
+msgid_plural "users"
+msgstr[0] "gebruiker"
+msgstr[1] "gebruikers"
+
+#: includes/class-yith-wcwl-admin-premium.php:1368
+msgid "Wishlist \"Ask an estimate\""
+msgstr "Verlanglijst \"Vraag om een offerte\""
+
+#: includes/class-yith-wcwl-admin-premium.php:1372
+msgid "Wishlist Promotion"
+msgstr "Verlanglijst promotie"
+
+#: includes/class-yith-wcwl-admin.php:115
+msgid "Wishlist Page"
+msgstr "Verlanglijst pagina"
+
+#: includes/class-yith-wcwl-admin.php:252
+msgid ""
+"Allows your customers to create and share lists of products that they want "
+"to purchase on your e-commerce."
+msgstr ""
+"Laat uw klanten een lijst met producten die zij willen kopen in uw e-"
+"commerce, maken en delen."
+
+#: includes/class-yith-wcwl-admin.php:292
+msgid ""
+"Enable the wishlist feature for all users or <b>only for registered users</b>"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:293
+msgid ""
+"Allow users to create <b>multiple wishlists</b> (Ex: Christmas, Birthday, "
+"etc.) <br>Users can choose the wishlist from a dropdown menu when they click "
+"on \"Add to wishlist\""
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:294
+msgid ""
+"Allow users to set <b>visibility options for each wishlist</b>, by making "
+"them either public (visible to everyone), private or shared (visible only to "
+"people it has been shared with)"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:295
+msgid ""
+"Choose between <b>different layouts</b> for the wishlist page and for the "
+"wishlist content"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:296
+msgid ""
+"<b>Allow users to manage their wishlists:</b> rename and delete wishlists, "
+"move a product from one wishlist to another, change order of items, "
+"quantity, etc."
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:297
+msgid ""
+"Enable an <b>\"Ask for an estimate\" button</b> to let customers send the "
+"content of their wishlist to the admin and get a custom quote"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:298
+msgid ""
+"<b>Show a wishlist widget</b> that lists all the products in the wishlists "
+"(available also with \"mini-cart\" style for the header)"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:299
+msgid ""
+"View the most popular products added to the wishlist by your customers and "
+"<b>send promotional emails to users</b> who have added specific products to "
+"their wishlist"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:300
+msgid ""
+"<b>Send an automatic email to the wishlist owner</b> whenever a product in "
+"the list is back in stock or on sale"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:301
+msgid "Regular updates, Translations and Premium Support"
+msgstr ""
+
+#. translators: 1. Destination wishlist name.
+#: includes/class-yith-wcwl-ajax-handler-premium.php:180
+#: includes/class-yith-wcwl-form-handler-premium.php:388
+msgid "Element correctly moved to %s"
+msgstr "Element juist verplaatst naar %s"
+
+#: includes/class-yith-wcwl-ajax-handler-premium.php:217
+#: includes/class-yith-wcwl-form-handler-premium.php:607
+#: includes/class-yith-wcwl-premium.php:228
+#: includes/class-yith-wcwl-premium.php:268
+msgid "There was an error while processing your request; please, try later"
+msgstr ""
+"Er is een fout opgetreden tijdens het verwerken van je verzoek; probeer het "
+"later opnieuw"
+
+#: includes/class-yith-wcwl-ajax-handler-premium.php:259
+msgid "Estimate request sent"
+msgstr "Offerteverzoek verzonden"
+
+#: includes/class-yith-wcwl-ajax-handler-premium.php:304
+msgid "Your request has been sent.<br/>Thanks!"
+msgstr "Uw verzoek is verzonden.<br/>Bedankt!"
+
+#: includes/class-yith-wcwl-ajax-handler-premium.php:315
+msgid ""
+"We will reply to you as soon as possible. For any questions, feel free to "
+"contact our customer service at"
+msgstr ""
+"We zullen u zo spoedig mogelijk beantwoorden. Voor vragen, kunt u onze "
+"klantenservice bereiken op"
+
+#: includes/class-yith-wcwl-ajax-handler-premium.php:356
+msgid ""
+"You should provide a valid email address that we can use to get back to you"
+msgstr ""
+"U dient een geldig e-mailadres in te voeren, die wij kunnen gebruiken om te "
+"reageren"
+
+#: includes/class-yith-wcwl-ajax-handler.php:94
+#: templates/add-to-wishlist-move.php:74
+#: templates/add-to-wishlist-remove.php:81
+msgid "View &rsaquo;"
+msgstr "Bekijk &rsaquo;"
+
+#: includes/class-yith-wcwl-ajax-handler.php:95
+#: templates/add-to-wishlist-move.php:75 templates/add-to-wishlist-move.php:248
+#: templates/add-to-wishlist-popup.php:120
+#: templates/add-to-wishlist-remove.php:69
+msgid "or"
+msgstr "of"
+
+#: includes/class-yith-wcwl-ajax-handler.php:96
+#: templates/wishlist-view-images.php:108
+msgid "Close"
+msgstr "Sluiten"
+
+#: includes/class-yith-wcwl-ajax-handler.php:203
+#: includes/class-yith-wcwl-ajax-handler.php:252
+msgid "Product successfully removed."
+msgstr "Product succesvol verwijderd."
+
+#: includes/class-yith-wcwl-form-handler-extended.php:83
+#: includes/class-yith-wcwl-form-handler-premium.php:227
+msgid "Changes applied correctly"
+msgstr "Wijzigingen succesvol toegepast"
+
+#: includes/class-yith-wcwl-form-handler-extended.php:113
+msgid "Please, log in to continue with the unsubscribe process"
+msgstr "Log-in om door te gaan met het uitschrijvingsproces"
+
+#: includes/class-yith-wcwl-form-handler-extended.php:138
+msgid ""
+"The token provided does not match the current user; make sure to log in with "
+"the right account"
+msgstr ""
+"De geboden token komt niet overeen met de huidige gebruiker; let op dat u "
+"inlogt met het juiste account"
+
+#: includes/class-yith-wcwl-form-handler-extended.php:144
+msgid ""
+"The token provided is expired; contact us to so we can manually unsubscribe "
+"your from the list"
+msgstr ""
+"De geboden token is verlopen; neem contact met ons op zodat wij u handmatig "
+"kunnen uitschrijven van de lijst"
+
+#: includes/class-yith-wcwl-form-handler-extended.php:160
+msgid "You have unsubscribed from our wishlist-related mailing lists"
+msgstr ""
+"U heeft zich uitgeschreven van onze verlanglijst-gerelateerde mailinglijst"
+
+#: includes/class-yith-wcwl-form-handler-premium.php:69
+msgid "You have to select at least one product"
+msgstr "U moet minstens een product selecteren"
+
+#. translators: 1. Product title.
+#: includes/class-yith-wcwl-form-handler-premium.php:112
+#: includes/class-yith-wcwl-form-handler-premium.php:305
+msgid ""
+"Error, you cannot add \"%s\" to the cart if you don't select a variation "
+"first"
+msgstr ""
+"Fout, je kunt \"%s\" toevoegen aan de winkelwagen als je niet eerst een "
+"variatie selecteert"
+
+#: includes/class-yith-wcwl-form-handler-premium.php:150
+msgid "The items have been correctly added to the cart"
+msgstr "De items zijn succesvol toegevoegd aan de winkelwagen"
+
+#: includes/class-yith-wcwl-form-handler-premium.php:153
+msgid "The items have been correctly removed"
+msgstr "De items zijn succesvol verwijderd"
+
+#. translators: 1. Destination wishlist name.
+#: includes/class-yith-wcwl-form-handler-premium.php:157
+msgid "The items have been correctly moved to %s"
+msgstr "De items zijn succesvol verplaatst naar %s"
+
+#: includes/class-yith-wcwl-form-handler-premium.php:173
+msgid "An error occurred while processing this action"
+msgstr "Er is een fout opgetreden tijdens het verwerken van deze actie"
+
+#: includes/class-yith-wcwl-form-handler-premium.php:328
+msgid "Items correctly added to the cart"
+msgstr "Items succesvol toegevoegd aan winkelwagen"
+
+#: includes/class-yith-wcwl-form-handler-premium.php:339
+msgid ""
+"An error occurred while adding the items to the cart; please, try again "
+"later."
+msgstr ""
+"Er is een fout opgetreden tijdens het toevoegen van het item aan de "
+"winkelwagen; probeer het opnieuw a.u.b."
+
+#: includes/class-yith-wcwl-form-handler-premium.php:390
+msgid ""
+"An error occurred while moving item to destination wishlist; please, try "
+"again"
+msgstr ""
+"Er is een fout opgetreden tijdens het verplaatsten van het item naar de "
+"verlanglijst; probeer het opnieuw a.u.b"
+
+#: includes/class-yith-wcwl-form-handler-premium.php:427
+msgid "Wishlist created successfully"
+msgstr "Verlanglijst succesvol gemaakt"
+
+#: includes/class-yith-wcwl-form-handler-premium.php:484
+msgid "Changes saved"
+msgstr "Wijzigingen opgeslagen"
+
+#: includes/class-yith-wcwl-form-handler-premium.php:530
+msgid "Wishlist deleted successfully"
+msgstr "Verlanglijst succesvol verwijderd"
+
+#: includes/class-yith-wcwl-form-handler-premium.php:634
+msgid "Price estimate request sent"
+msgstr "Offerteverzoek verzonden"
+
+#: includes/class-yith-wcwl-form-handler-premium.php:645
+msgid ""
+"You should provide a valid email address, that we can use to get back to you"
+msgstr ""
+"U dient een geldig e-mailadres in te voeren, die wij kunnen gebruiken om te "
+"reageren"
+
+#: includes/class-yith-wcwl-form-handler-premium.php:796
+msgid "Yes"
+msgstr "Ja"
+
+#: includes/class-yith-wcwl-form-handler.php:193
+msgid "Please, make sure to enter a valid title"
+msgstr "let op dat u een geldige titel invoert"
+
+#: includes/class-yith-wcwl-frontend-premium.php:241
+msgid "Back to all wishlists"
+msgstr "Terugkeren naar alle verlanglijsten"
+
+#: includes/class-yith-wcwl-frontend-premium.php:241
+msgid "&lsaquo; Back to all wishlists"
+msgstr "&lsaquo; Terugkeren naar alle verlanglijsten"
+
+#: includes/class-yith-wcwl-frontend-premium.php:312
+#: includes/class-yith-wcwl-frontend-premium.php:323
+#: includes/class-yith-wcwl-frontend-premium.php:487
+#: templates/wishlist-popup-create.php:75
+msgid "Create a wishlist"
+msgstr "Maak een verlanglijst"
+
+#: includes/class-yith-wcwl-frontend-premium.php:338
+#: includes/class-yith-wcwl-frontend-premium.php:349
+msgid "Search wishlist"
+msgstr "Zoek verlanglijst"
+
+#: includes/class-yith-wcwl-frontend-premium.php:375
+msgid "Manage wishlists"
+msgstr "Beheer verlanglijsten"
+
+#: includes/class-yith-wcwl-frontend-premium.php:390
+msgid "Your wishlist"
+msgstr "Je verlanglijst"
+
+#: includes/class-yith-wcwl-frontend-premium.php:401
+msgid "View your wishlists"
+msgstr "Bekijk je verlanglijst"
+
+#. translators: 1. Create new wishlist url. 2. Create new wishlist title. 3.
+#. Custom attributes for create new wishlist anchor.
+#: includes/class-yith-wcwl-frontend-premium.php:496
+msgid ""
+"You don't have any wishlist yet. <a href=\"%1$s\" title=\"%2$s\" %3$s>Create "
+"your first wishlist &rsaquo;</a>"
+msgstr ""
+"Je hebt nog geen verlanglijst. <a href=\"%1$s\" title=\"%2$s\" %3$s>Maak je "
+"eerste verlanglijst aan &rsaquo;</a>"
+
+#: includes/class-yith-wcwl-frontend-premium.php:653
+msgid "Please, log in to use the wishlist features"
+msgstr "Log alstublieft in om de verlanglijst opties te gebruiken"
+
+#: includes/class-yith-wcwl-frontend.php:795
+msgid ""
+"We are sorry, but this feature is available only if cookies on your browser "
+"are enabled."
+msgstr ""
+"Sorry, deze optie is alleen beschikbaar als cookies in uw browser zijn "
+"ingeschakeld."
+
+#: includes/class-yith-wcwl-frontend.php:805
+msgid "Product added to cart successfully"
+msgstr "Product succesvol toegevoegd aan winkelwagen"
+
+#: includes/class-yith-wcwl-frontend.php:1090
+#: includes/class-yith-wcwl-shortcode.php:257
+#: plugin-options/settings/wishlist_page-options.php:249
+#: templates/wishlist-view-footer-mobile.php:59
+#: templates/wishlist-view-footer.php:59
+msgid "Add to cart"
+msgstr "Toevoegen aan winkelwagen"
+
+#: includes/class-yith-wcwl-install.php:342
+#: templates/wishlist-widget-items.php:64
+msgid "Wishlist"
+msgstr "Verlanglijst"
+
+#: includes/class-yith-wcwl-premium.php:179
+#: includes/class-yith-wcwl-premium.php:235
+msgid "Wishlist name is required"
+msgstr "Naam verlanglijst is verplicht"
+
+#: includes/class-yith-wcwl-premium.php:181
+#: includes/class-yith-wcwl-premium.php:237
+msgid "Wishlist name exceeds the maximum number of characters allowed"
+msgstr "Naam verlanglijst overschrijd het maximaal aantal toegestane tekens"
+
+#: includes/class-yith-wcwl-premium.php:224
+#: includes/class-yith-wcwl-premium.php:264
+msgid "Couldn't find any wishlist with the provided ID"
+msgstr "Er is geen verlanglijst met het geboden ID gevonden"
+
+#: includes/class-yith-wcwl-privacy.php:51
+msgid "While you visit our site, we’ll track:"
+msgstr "Terwijl u onze site bezoekt, volgen wij:"
+
+#: includes/class-yith-wcwl-privacy.php:53
+msgid ""
+"Products you’ve added to the wishlist: we’ll use this to show you and other "
+"users your favourite products, and to create targeted email campaigns."
+msgstr ""
+"Producten die u aan de verlanglijst hebt toegevoegd: we gebruiken dit om u "
+"en andere gebruikers onze favoriete producten te laten zien en om gerichte e-"
+"mailcampagnes te maken."
+
+#: includes/class-yith-wcwl-privacy.php:54
+msgid ""
+"Wishlists you’ve created: we’ll keep track of the wishlists you create, and "
+"make them visible to the store staff"
+msgstr ""
+"Verlanglijst die u heeft gemaakt: we houden de verlanglijst bij die u heeft "
+"gemaakt, en maken deze zichtbaar voor het winkelpersoneel"
+
+#: includes/class-yith-wcwl-privacy.php:56
+msgid ""
+"We’ll also use cookies to keep track of wishlist contents while you’re "
+"browsing our site."
+msgstr ""
+"We zullen ook cookies gebruiken om de inhoud van uw verlanglijst bij te "
+"houden terwijl u onze site bezoekt."
+
+#: includes/class-yith-wcwl-privacy.php:59
+msgid ""
+"Members of our team have access to the information you provide us with. For "
+"example, both Administrators and Shop Managers can access:"
+msgstr ""
+"Onze teamleden hebben toegang tot de informatie die u met ons deelt. "
+"Bijvoorbeeld. zowel administrateurs en winkel managers hebben toegang tot:"
+
+#: includes/class-yith-wcwl-privacy.php:61
+msgid ""
+"Wishlist details, such as products added, date of addition, name and privacy "
+"settings of your wishlists"
+msgstr ""
+"Verlanglijstdetails, zoals toegevoegde producten, datum van toevoeging, naam "
+"en privacy-instellingen van uw verlanglijst"
+
+#: includes/class-yith-wcwl-privacy.php:63
+msgid ""
+"Our team members have access to this information to offer you better deals "
+"for the products you love."
+msgstr ""
+"Onze teamleden hebben toegang tot deze informatie om u betere deals te "
+"bieden voor de producten waar u van houdt."
+
+#: includes/class-yith-wcwl-privacy.php:93
+#: includes/class-yith-wcwl-privacy.php:109
+msgid "Customer wishlists"
+msgstr "Verlanglijsten klant"
+
+#: includes/class-yith-wcwl-privacy.php:146 templates/wishlist-manage.php:47
+msgid "Wishlists"
+msgstr "Verlanglijst"
+
+#. Translators: %s Order number.
+#: includes/class-yith-wcwl-privacy.php:232
+msgid "Removed wishlist %s."
+msgstr "Verwijderde verlanglijst %s."
+
+#. Translators: %s Order number.
+#: includes/class-yith-wcwl-privacy.php:236
+msgid "Wishlist %s has been retained."
+msgstr "Verlanglijst%s is bewaard gebleven."
+
+#: includes/class-yith-wcwl-privacy.php:271
+msgid "Token"
+msgstr "Token"
+
+#: includes/class-yith-wcwl-privacy.php:272
+msgid "Wishlist URL"
+msgstr "URL verlanglijst"
+
+#: includes/class-yith-wcwl-privacy.php:273
+msgid "Title"
+msgstr "Titel"
+
+#: includes/class-yith-wcwl-privacy.php:275
+msgid "Visibility"
+msgstr "Zichtbaarheid"
+
+#: includes/class-yith-wcwl-privacy.php:276
+msgid "Items added"
+msgstr "Items toegevoegd"
+
+#: includes/class-yith-wcwl-shortcode-premium.php:139
+#: includes/class-yith-wcwl-shortcode-premium.php:155
+#: plugin-options/settings/ask_an_estimate-options.php:28
+#: plugin-options/settings/ask_an_estimate-options.php:186
+msgid "Ask for an estimate"
+msgstr "Vraag om een offerte"
+
+#: includes/class-yith-wcwl-shortcode-premium.php:415
+msgid "Select a wishlist"
+msgstr "Selecteer een verlanglijst"
+
+#: includes/class-yith-wcwl-shortcode-premium.php:479
+#: includes/class-yith-wcwl-shortcode.php:754
+msgid "Remove from list"
+msgstr "Verwijderen van lijst"
+
+#: includes/class-yith-wcwl-shortcode-premium.php:494
+msgid "Move &rsaquo;"
+msgstr "Verplaatsen &rsaquo;"
+
+#: includes/class-yith-wcwl-shortcode-premium.php:496
+#: templates/add-to-wishlist-move.php:94 templates/wishlist-popup-move.php:56
+#: templates/wishlist-popup-move.php:59
+msgid "Move to another wishlist"
+msgstr "Verplaatsen naar andere verlanglijst"
+
+#: includes/class-yith-wcwl-shortcode.php:58
+msgid ""
+"ID of the product to add to the wishlist (leave empty to use the global "
+"product)"
+msgstr ""
+"ID van het product om toe te voegen aan verlanglijst (laat leeg om een "
+"algemeen product te gebruiken)"
+
+#: includes/class-yith-wcwl-shortcode.php:63
+msgid "URL of the wishlist page (leave empty to use the default settings)"
+msgstr ""
+"URL van de verlanglijst pagina (laat leeg om de standaardinstellingen te "
+"gebruiken)"
+
+#: includes/class-yith-wcwl-shortcode.php:68
+msgid "Button label (leave empty to use the default settings)"
+msgstr "Knop label (laat leeg om de standaardinstellingen te gebruiken)"
+
+#: includes/class-yith-wcwl-shortcode.php:73
+msgid "\"Browse wishlist\" label (leave empty to use the default settings)"
+msgstr ""
+"\"Browse verlanglijst\" label (laat leeg om de standaardinstellingen te "
+"gebruiken)"
+
+#: includes/class-yith-wcwl-shortcode.php:78
+msgid ""
+"\"Product already in wishlist\" label (leave empty to use the default "
+"settings)"
+msgstr ""
+"\"Product al toegevoegd aan verlanglijst\" label (laat leeg om "
+"standaardinstellingen te gebruiken)"
+
+#: includes/class-yith-wcwl-shortcode.php:83
+msgid ""
+"\"Product added to wishlist\" label (leave empty to use the default settings)"
+msgstr ""
+"\"Product toegevoegd aan verlanglijst\" label (laat leeg om de "
+"standaardinstellingen te gebruiken)"
+
+#: includes/class-yith-wcwl-shortcode.php:88
+msgid ""
+"Icon for the button (use any FontAwesome valid class, or leave empty to use "
+"the default settings)"
+msgstr ""
+"Icoon voor de knop (Gebruik een FontAwesome valid class, of laat het leeg om "
+"de standaardinstellingen te gebruiken)"
+
+#: includes/class-yith-wcwl-shortcode.php:93
+msgid ""
+"Additional CSS classes for the button (leave empty to use the default "
+"settings)"
+msgstr ""
+"Aanvullende CSS klassen voor de knop (laat leeg om de standaardinstellingen "
+"te gebruiken)"
+
+#: includes/class-yith-wcwl-shortcode.php:107
+msgid "Choose whether to paginate items in the wishlist or show them all"
+msgstr ""
+"Kies of items in de verlanglijst moeten worden gepagineerd of laat ze "
+"allemaal zien"
+
+#: includes/class-yith-wcwl-shortcode.php:110
+#: includes/widgets/elementor/class-yith-wcwl-elementor-wishlist.php:118
+msgid "Paginate"
+msgstr "Paginering"
+
+#: includes/class-yith-wcwl-shortcode.php:111
+#: includes/widgets/elementor/class-yith-wcwl-elementor-wishlist.php:119
+msgid "Do not paginate"
+msgstr "Items niet pagineren"
+
+#: includes/class-yith-wcwl-shortcode.php:116
+msgid "Number of items to show per page"
+msgstr "Aantal items om weer te geven per pagina"
+
+#: includes/class-yith-wcwl-shortcode.php:121
+msgid "ID of the wishlist to show (e.g. K6EOWXB888ZD)"
+msgstr "Verlanglijst ID om weer te geven (vb. K6EOWXB888ZD)"
+
+#: includes/class-yith-wcwl-shortcode.php:461
+msgid "Share on:"
+msgstr "Delen op:"
+
+#: includes/class-yith-wcwl-shortcode.php:507
+#: plugin-options/settings/wishlist_page-options.php:147
+msgid "Share on Facebook"
+msgstr "Delen op Facebook"
+
+#: includes/class-yith-wcwl-shortcode.php:524
+#: plugin-options/settings/wishlist_page-options.php:156
+msgid "Tweet on Twitter"
+msgstr "Tweet op Twitter"
+
+#: includes/class-yith-wcwl-shortcode.php:542
+#: plugin-options/settings/wishlist_page-options.php:165
+msgid "Pin on Pinterest"
+msgstr "Pin op Pinterest"
+
+#: includes/class-yith-wcwl-shortcode.php:556
+msgid "Share via email"
+msgstr "Delen via e-mail"
+
+#: includes/class-yith-wcwl-shortcode.php:579
+#: plugin-options/settings/wishlist_page-options.php:183
+msgid "Share on WhatsApp"
+msgstr "Delen via WhatsApp"
+
+#: includes/class-yith-wcwl-wishlist-item.php:203
+msgid "Free!"
+msgstr "Gratis!"
+
+#: includes/class-yith-wcwl.php:233
+msgid "The item cannot be added to this wishlist"
+msgstr "Het item kan niet worden toegevoegd aan deze verlanglijst"
+
+#: includes/class-yith-wcwl.php:237 includes/class-yith-wcwl.php:243
+msgid "An error occurred while adding the products to the wishlist."
+msgstr ""
+"Er is een fout opgetreden tijdens het toevoegen van het product aan de "
+"verlanglijst."
+
+#: includes/class-yith-wcwl.php:340 includes/class-yith-wcwl.php:366
+msgid "Error. Unable to remove the product from the wishlist."
+msgstr "Fout. Het product kon niet van de verlanglijst worden verwijderd."
+
+#: includes/data-stores/class-yith-wcwl-wishlist-data-store.php:252
+#: includes/data-stores/class-yith-wcwl-wishlist-data-store.php:274
+msgid "Invalid wishlist."
+msgstr "Ongeldige verlanglijst."
+
+#: includes/data-stores/class-yith-wcwl-wishlist-item-data-store.php:210
+msgid "Invalid wishlist item."
+msgstr "Ongeldig verlanglijst item."
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:50
+msgid "Wishlist \"Back in stock\" email"
+msgstr "Verlanglijst \"terug op voorraad\" e-mail"
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:51
+msgid ""
+"This email is sent to customers when an item of their wishlist is back in "
+"stock"
+msgstr ""
+"Deze e-mail wordt verzonden aan klanten wanneer een item in hun verlanglijst "
+"terug op voorraad is"
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:53
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:54
+msgid "An item of your wishlist is back in stock!"
+msgstr "Een item van uw verlanglijst is terug op voorraad!"
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:191
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:194
+msgid "unsubscribe"
+msgstr "uitschrijven"
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:316
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:319
+msgid "Enable/Disable"
+msgstr "Inschakelen/Uitschakelen"
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:319
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:321
+msgid "Enable this email notification"
+msgstr "Deze e-mailmelding inschakelen"
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:323
+#: includes/emails/class-yith-wcwl-estimate-email.php:230
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:326
+#: includes/emails/class-yith-wcwl-promotion-email.php:371
+msgid "Subject"
+msgstr "Onderwerp"
+
+#. translators: 1. Default subject.
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:327
+#: includes/emails/class-yith-wcwl-estimate-email.php:233
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:329
+#: includes/emails/class-yith-wcwl-promotion-email.php:374
+msgid ""
+"This field lets you modify the email subject line. <br> Leave blank to use "
+"the default subject: <code>%s</code>."
+msgstr ""
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:332
+#: includes/emails/class-yith-wcwl-estimate-email.php:252
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:335
+msgid "Email Heading"
+msgstr "E-mail heading"
+
+#. translators: 1. Default email heading.
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:336
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:338
+#: includes/emails/class-yith-wcwl-promotion-email.php:383
+msgid ""
+"This field lets you modify the main heading contained within the email "
+"notification. <br> Leave blank to use the default heading: <code>%s</code>."
+msgstr ""
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:343
+msgid "Select the products for which you don't want to send a reminder email"
+msgstr "Selecteer de producten waarvoor u geen e-mail herinnering wilt sturen"
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:351
+msgid ""
+"Select the product categories for which you don't want to send a reminder "
+"email"
+msgstr ""
+"Selecteer de productcategorieën waarvoor u geen e-mail herinnering wilt "
+"sturen"
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:357
+#: includes/emails/class-yith-wcwl-estimate-email.php:262
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:362
+#: includes/emails/class-yith-wcwl-promotion-email.php:391
+msgid "Choose which type of email to send."
+msgstr "Kies welk type e-mail moet worden verstuurd."
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:361
+#: includes/emails/class-yith-wcwl-estimate-email.php:266
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:366
+#: includes/emails/class-yith-wcwl-promotion-email.php:395
+msgid "Plain text"
+msgstr "Eenvoudige tekst"
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:367
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:373
+msgid "Email HTML Content"
+msgstr "E-mail HTML Inhoud"
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:370
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:375
+msgid ""
+"This field lets you modify the main content of the HTML email. <br> You can "
+"use the following placeholders: <code>{user_name}</code> <code>{user_email}</"
+"code> <code>{user_first_name}</code><br><code>{user_last_name}</code> "
+"<code>{products_table}</code> <code>{unsubscribe_link}</code>"
+msgstr ""
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:376
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:382
+#: includes/emails/class-yith-wcwl-promotion-email.php:412
+msgid "Email text content"
+msgstr "E-mail tekst inhoud"
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:379
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:384
+msgid ""
+"This field lets you modify the main content of the text email. <br> You can "
+"use the following placeholders: <code>{user_name}</code> <code>{user_email}</"
+"code> <code>{user_first_name}</code><br><code>{user_last_name}</code> "
+"<code>{products_list}</code> <code>{unsubscribe_url}</code>"
+msgstr ""
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:396
+msgid ""
+"Hi {user_name}\n"
+"A product of your wishlist is back in stock!\n"
+"\n"
+"{products_list}\n"
+"\n"
+"We only have limited stock, so don't wait any longer, and take this chance "
+"to make it yours!\n"
+"\n"
+"****************************************************\n"
+"\n"
+"If you don't want to receive any further notification, please follow this "
+"link [{unsubscribe_url}]\n"
+"\n"
+msgstr ""
+"Hoi {user_name}\n"
+"Een product van uw verlanglijst is terug op voorraad!\n"
+"\n"
+"{products_list}\n"
+"\n"
+"We hebben maar een beperkte voorraad, dus wacht niet langer, grijp deze kans "
+"en zorg dat het product van u is!\n"
+"\n"
+"****************************************************\n"
+"\n"
+"Als u geen verdere meldingen wilt ontvangen, klik dan op deze link "
+"[{unsubscribe_url}]\n"
+"\n"
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:412
+msgid ""
+"<p>Hi {user_name}</p>\n"
+"<p>A product of your wishlist is back in stock!</p>\n"
+"{products_table}\n"
+"<p>We only have limited stock, so don't wait any longer, and take this "
+"chance to make it yours!</p>\n"
+"<p><small>If you don't want to receive any further notification, please "
+"{unsubscribe_link}</small></p>"
+msgstr ""
+"<p>Hoi {user_name}</p>\n"
+"<p>Een product van uw verlanglijst is terug op voorraad!</p>\n"
+"{products_table}\n"
+"<p>We hebben maar een beperkte voorraad, dus wacht niet langer, grijp deze "
+"kans en zorg dat het product van u is!</p>\n"
+"<p><small>Als u geen verdere meldingen wilt ontvangen, kunt u zich hier "
+"{unsubscribe_link}</small></p>"
+
+#: includes/emails/class-yith-wcwl-estimate-email.php:71
+msgid "Wishlist \"Ask for an estimate\" email"
+msgstr "Verlanglijst \"Vraag om een offerte\" e-mail"
+
+#: includes/emails/class-yith-wcwl-estimate-email.php:72
+msgid ""
+"This email is sent to users who click the \"ask for an estimate\" button, "
+"only if this feature has been enabled in the wishlist option panel"
+msgstr ""
+"Deze e-mail wordt verstuurd naar gebruikers die klikken op \"Vraag om een "
+"offerte\" knop, alleen als deze optie is ingeschakeld in het verlanglijst "
+"optiepaneel"
+
+#: includes/emails/class-yith-wcwl-estimate-email.php:74
+msgid "Price estimate request"
+msgstr "Offerte verzoek"
+
+#: includes/emails/class-yith-wcwl-estimate-email.php:75
+msgid "[Price estimate request]"
+msgstr "[Price estimate request]"
+
+#: includes/emails/class-yith-wcwl-estimate-email.php:238
+msgid "Recipient(s)"
+msgstr "Ontvanger(s)"
+
+#. translators: 1. Default recipients.
+#: includes/emails/class-yith-wcwl-estimate-email.php:241
+msgid ""
+"Enter recipients (comma separated) for this email. Defaults to <code>%s</"
+"code>"
+msgstr ""
+"Vul ontvangers in voor deze e-mail (gescheiden met komma). Defaults voor "
+"<code>%s</code>"
+
+#: includes/emails/class-yith-wcwl-estimate-email.php:246
+msgid "Send CC copy"
+msgstr "Verstuur CC kopie"
+
+#: includes/emails/class-yith-wcwl-estimate-email.php:248
+msgid "Send a copy to the user"
+msgstr "Stuur een kopie naar de gebruiker"
+
+#. translators: 1. Default email heading.
+#: includes/emails/class-yith-wcwl-estimate-email.php:255
+msgid ""
+"This field lets you modify the main heading contained within the email "
+"notification. Leave blank to use the default heading: <code>%s</code>."
+msgstr ""
+"Dit veld laat u de hoofd titel bijgaande met de e-mail melding aanpassen. "
+"Laat leeg als u de standaard titel wilt gebruiken: <code>%s</code>."
+
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:50
+msgid "Wishlist \"On sale item\" email"
+msgstr "Verlanglijst \"Item in uitverkoop\" e-mail"
+
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:51
+msgid ""
+"This email is sent to customers when an item of their wishlist is on sale"
+msgstr ""
+"Deze e-mail wordt verstuurd naar klanten wanneer een item in hun "
+"verlanglijst in de uitverkoop is"
+
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:53
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:54
+msgid "An item of your wishlist is on sale!"
+msgstr "Een item in uw verlanglijst is in de uitverkoop!"
+
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:346
+msgid "Select products for which you don't want to send a reminder email"
+msgstr "Selecteer de producten waarvoor u geen e-mail herinnering wilt sturen"
+
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:355
+msgid ""
+"Select product categories for which you don't want to send a reminder email"
+msgstr ""
+"Selecteer de productcategorieën waarvoor u geen e-mail herinnering wilt "
+"sturen"
+
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:401
+msgid ""
+"Hi {user_name}\n"
+"A product of your wishlist is on sale!\n"
+"\n"
+"{products_list}\n"
+"\n"
+"We only have limited stock, so don't wait any longer, and take this chance "
+"to make it yours!\n"
+"\n"
+"****************************************************\n"
+"\n"
+"If you don't want to receive any further notification, please follow this "
+"link [{unsubscribe_url}]\n"
+"\n"
+msgstr ""
+"Hoi {user_name}\n"
+"Een product van uw verlanglijst is terug op voorraad!\n"
+"\n"
+"{products_list}\n"
+"\n"
+"We hebben maar een beperkte voorraad, dus wacht niet langer, grijp deze kans "
+"en zorg dat het product van u is!\n"
+"\n"
+"****************************************************\n"
+"\n"
+"Als u geen verdere meldingen wilt ontvangen, volg dan a.u.b. deze link "
+"[{unsubscribe_url}]\n"
+"\n"
+
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:417
+msgid ""
+"<p>Hi {user_name}</p>\n"
+"<p>A product of your wishlist is on sale!</p>\n"
+"{products_table}\n"
+"<p>We only have limited stock, so don't wait any longer, and take this "
+"chance to make it yours!</p>\n"
+"<p><small>If you don't want to receive any further notification, please "
+"{unsubscribe_link}</small></p>"
+msgstr ""
+"<p>Hoi {user_name}</p>\n"
+"<p>Een product van uw verlanglijst is in de uitverkoop!</p>\n"
+"{products_table}\n"
+"<p>We hebben maar een beperkte voorraad, dus wacht niet langer, grijp deze "
+"kans en zorg dat het product van u is!</p>\n"
+"<p><small>Als u geen verdere meldingen wilt ontvangen, kunt u zich hier "
+"{unsubscribe_link}</small></p>"
+
+#: includes/emails/class-yith-wcwl-promotion-email.php:50
+msgid "Wishlist promotional email"
+msgstr "Promotionele e-mail verlanglijst"
+
+#: includes/emails/class-yith-wcwl-promotion-email.php:51
+msgid ""
+"This email is sent to users to inform them about a promotion on a product in "
+"their wishlist"
+msgstr ""
+"Deze e-mail wordt verstuurd aan gebruikers om ze te informeren dat een van "
+"de producten in hun verlanglijst een aanbieding heeft."
+
+#: includes/emails/class-yith-wcwl-promotion-email.php:53
+msgid "There is a deal for you!"
+msgstr "Er is een aanbieding voor u!"
+
+#: includes/emails/class-yith-wcwl-promotion-email.php:54
+msgid "A product of your wishlist is on sale"
+msgstr "Een product van uw verlanglijst is in de aanbieding"
+
+#: includes/emails/class-yith-wcwl-promotion-email.php:257
+msgid "Product image"
+msgstr "Productafbeelding"
+
+#. translators: 1. Available placeholders.
+#: includes/emails/class-yith-wcwl-promotion-email.php:405
+msgid ""
+"This field lets you modify the main content of the HTML email. <br> You can "
+"use the following placeholders: %s"
+msgstr ""
+
+#. translators: 1. Available placeholders.
+#: includes/emails/class-yith-wcwl-promotion-email.php:415
+msgid ""
+"This field lets you modify the main content of the text email. <br> You can "
+"use the following placeholders: %s"
+msgstr ""
+
+#: includes/emails/class-yith-wcwl-promotion-email.php:451
+msgid ""
+"Hi {user_name}\n"
+"A product of your wishlist is on sale!\n"
+"\n"
+"{product_name} {product_price}\n"
+"\n"
+"Visit {add_to_cart_url} and use this coupon code\n"
+"{coupon_code}\n"
+"to get an amazing discount!"
+msgstr ""
+"Hoi {user_name}\n"
+"Een product in uw verlanglijst is in de uitverkoop!\n"
+"\n"
+"{product_name} {product_price}\n"
+"\n"
+"bezoek {add_to_cart_url} en gebruik deze kortingscode\n"
+"{coupon_code}\n"
+"voor een geweldige korting!"
+
+#: includes/emails/class-yith-wcwl-promotion-email.php:463
+msgid ""
+"<p>Hi {user_name}</p>\n"
+"<p>A product of your wishlist is on sale!</p>\n"
+"<p>\n"
+"\t<table style=\"width: 100%;border-top: 1px solid #cdcdcd; border-bottom: "
+"1px solid #cdcdcd; margin-bottom: 25px;\">\n"
+"\t    <tr>\n"
+"\t        <td style=\"width: 90px;\">{product_image}</td>\n"
+"\t        <td>{product_name}</td>\n"
+"\t        <td>{product_price}</td>\n"
+"\t    </tr>\n"
+"\t</table>\n"
+"</p>\n"
+"<p>Use this coupon code <a href=\"{add_to_cart_url}\"><b>{coupon_code}</b></"
+"a> to get an amazing discount!</p>"
+msgstr ""
+
+#. translators: 1. Number of users.
+#: includes/functions-yith-wcwl.php:309
+msgid "%d user"
+msgid_plural "%d users"
+msgstr[0] "%d gebruiker"
+msgstr[1] "%d gebruikers"
+
+#: includes/functions-yith-wcwl.php:310
+msgid "has this item in wishlist"
+msgid_plural "have this item in wishlist"
+msgstr[0] "heeft dit item in de verlanglijst"
+msgstr[1] "hebben dit item in de verlanglijst"
+
+#: includes/functions-yith-wcwl.php:312
+msgid "You're the first"
+msgstr "U bent de eerste"
+
+#: includes/functions-yith-wcwl.php:313
+msgid "to add this item in wishlist"
+msgstr "dit item toevoegen aan verlanglijst"
+
+#. translators: 1. Count of users when many, or "another" when only one.
+#: includes/functions-yith-wcwl.php:317
+msgid "You and %s user"
+msgid_plural "You and %d users"
+msgstr[0] "Jij en %s gebruiker"
+msgstr[1] "Jij en %d gebruikers"
+
+#: includes/functions-yith-wcwl.php:317
+msgid "another"
+msgstr "een andere"
+
+#: includes/functions-yith-wcwl.php:318
+msgid "have this item in wishlist"
+msgstr "hebben dit item in de verlanglijst"
+
+#: includes/functions-yith-wcwl.php:534
+msgid "None"
+msgstr "Geen"
+
+#: includes/functions-yith-wcwl.php:535
+msgid "Custom"
+msgstr "Aangepaste CSS"
+
+#: includes/functions-yith-wcwl.php:567
+#: includes/tables/class-yith-wcwl-admin-table.php:158
+msgid "Shared"
+msgstr "Gedeeld"
+
+#: includes/functions-yith-wcwl.php:571
+msgid "Only people with a link to this list can see it"
+msgstr "Alleen mensen met een link naar deze lijst kunnen hem zien"
+
+#: includes/functions-yith-wcwl.php:577
+#: includes/tables/class-yith-wcwl-admin-table.php:161
+msgid "Private"
+msgstr "Prive"
+
+#: includes/functions-yith-wcwl.php:581
+msgid "Only you can see this list"
+msgstr "Alleen u kunt deze lijst zien"
+
+#: includes/functions-yith-wcwl.php:587
+#: includes/tables/class-yith-wcwl-admin-table.php:155
+msgid "Public"
+msgstr "Openbaar"
+
+#: includes/functions-yith-wcwl.php:591
+msgid "Anyone can search for and see this list"
+msgstr "Iedereen kan zoeken naar deze verlanglijst en deze lijst zien"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:33
+msgid "wishlist"
+msgstr "verlanglijst"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:34
+msgid "wishlists"
+msgstr "verlanglijsten"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:104
+#: includes/tables/class-yith-wcwl-users-popular-table.php:82
+msgid "guest"
+msgstr "gast"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:164
+msgid "N/D"
+msgstr "Z/D"
+
+#. translators: 1. Date diff since wishlist creation (EG: 1 hour, 2 seconds,
+#. etc...).
+#: includes/tables/class-yith-wcwl-admin-table.php:205
+msgid "%s ago"
+msgstr "%s geleden"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:234
+msgid "View wishlist"
+msgstr ""
+
+#: includes/tables/class-yith-wcwl-admin-table.php:241
+msgid "Delete wishlist"
+msgstr ""
+
+#: includes/tables/class-yith-wcwl-admin-table.php:260
+#: includes/tables/class-yith-wcwl-popular-table.php:203
+#: includes/tables/class-yith-wcwl-users-popular-table.php:169
+#: templates/wishlist-search.php:99
+msgid "Name"
+msgstr "Naam"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:261
+msgid "Username"
+msgstr "Gebruikersnaam"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:262
+#: templates/wishlist-manage.php:64
+msgid "Privacy"
+msgstr "Privacy"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:263
+msgid "Items in wishlist"
+msgstr "Items in verlanglijst"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:264
+#: plugin-options/settings/ask_an_estimate-options.php:139
+msgid "Date"
+msgstr "Datum"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:304
+#: plugin-options/settings/ask_an_estimate-options.php:166
+#: templates/wishlist-manage.php:151 templates/wishlist-manage.php:245
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: includes/tables/class-yith-wcwl-popular-table-premium.php:33
+msgid "N/A"
+msgstr "N.v.t"
+
+#: includes/tables/class-yith-wcwl-popular-table-premium.php:51
+msgid "Last promotional email sent"
+msgstr "Laatste promotie e-mail verzonden"
+
+#: includes/tables/class-yith-wcwl-popular-table-premium.php:108
+#: includes/tables/class-yith-wcwl-users-popular-table-premium.php:56
+msgid "Create promotion"
+msgstr "Maak een offerte"
+
+#: includes/tables/class-yith-wcwl-popular-table-premium.php:119
+msgid "Export users that have added this product to their wishlist"
+msgstr ""
+"Exporteer gebruikers die dit product aan hun verlanglijst hebben toegevoegd"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:60
+msgid "Edit this item"
+msgstr "Bewerk dit item"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:60
+#: includes/tables/class-yith-wcwl-users-popular-table.php:90
+#: templates/admin/email-settings-tab.php:46
+msgid "Edit"
+msgstr "Bewerken"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:74
+msgid "View a list with users that have added this product to their wishlist"
+msgstr ""
+"Bekijk een lijst met gebruikers die dit product hebben toegevoegd aan hun "
+"verlanglijst"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:75
+msgid "View users"
+msgstr "Bekijk gebruikers"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:77
+msgid "View Product"
+msgstr "Bekijk Product"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:204
+msgid "Category"
+msgstr "Catogorie"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:205
+msgid "Wishlist count"
+msgstr "Verlanglijst teller"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:353
+msgid "View users that have added this product to their wishlist"
+msgstr "Bekijk gebruikers die producten hebben toegevoegd aan hun verlanglijst"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:407
+msgid "Select a product"
+msgstr "Selecteer een product"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:415
+msgid "From:"
+msgstr "Van:"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:416
+msgid "To:"
+msgstr "Tot:"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:419
+msgid "Filter"
+msgstr "Filter"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:433
+msgid "Reset"
+msgstr "Resetten"
+
+#: includes/tables/class-yith-wcwl-users-popular-table.php:43
+#: includes/tables/class-yith-wcwl-users-popular-table.php:45
+msgid "product"
+msgstr "product"
+
+#: includes/tables/class-yith-wcwl-users-popular-table.php:90
+msgid "Edit this user"
+msgstr "Bewerk deze gebruiker"
+
+#: includes/tables/class-yith-wcwl-users-popular-table.php:91
+msgid "Email this user"
+msgstr "E-mail deze gebruiker"
+
+#: includes/tables/class-yith-wcwl-users-popular-table.php:91
+msgid "Email user"
+msgstr "E-mail gebruiker"
+
+#: includes/tables/class-yith-wcwl-users-popular-table.php:168
+msgid "Image"
+msgstr "Afbeelding"
+
+#: includes/tables/class-yith-wcwl-users-popular-table.php:170
+msgid "Added on"
+msgstr "Toegevoegd op"
+
+#: includes/widgets/class-yith-wcwl-items-widget.php:27
+msgid "YITH Wishlist Items"
+msgstr "YITH Wishlist Items"
+
+#: includes/widgets/class-yith-wcwl-items-widget.php:28
+msgid "A list of products in the user's wishlists"
+msgstr "Een lijst van producten in de verlanglijst van de gebruiker"
+
+#: includes/widgets/class-yith-wcwl-items-widget.php:150
+#: includes/widgets/class-yith-wcwl-widget.php:88
+msgid "Title:"
+msgstr "Titel:"
+
+#: includes/widgets/class-yith-wcwl-items-widget.php:156
+msgid "Show extended widget"
+msgstr "Toon uitgebreide widget"
+
+#: includes/widgets/class-yith-wcwl-items-widget.php:160
+msgid "Show mini widget"
+msgstr "Toon mini widget"
+
+#: includes/widgets/class-yith-wcwl-items-widget.php:166
+msgid "Show items count"
+msgstr "Toon item telling"
+
+#: includes/widgets/class-yith-wcwl-items-widget.php:170
+msgid "Show items from default wishlist only"
+msgstr "Toon uitsluitend items van de standaard verlanglijst"
+
+#: includes/widgets/class-yith-wcwl-items-widget.php:174
+msgid "Show Add all to Cart button"
+msgstr "Toon Alles toevoegen aan winkelwagen knop"
+
+#: includes/widgets/class-yith-wcwl-items-widget.php:178
+msgid "Show View Wishlists link"
+msgstr "Toon Bekijk verlanglijsten link"
+
+#: includes/widgets/class-yith-wcwl-widget.php:27
+msgid "YITH Wishlist Lists"
+msgstr "YITH Wishlist Lijsten"
+
+#: includes/widgets/class-yith-wcwl-widget.php:28
+msgid "A list of all the user's wishlists"
+msgstr "Een lijst met alle verlanglijsten van de gebruiker"
+
+#: includes/widgets/class-yith-wcwl-widget.php:92
+msgid "\"Your wishlist\" link:"
+msgstr "\"Uw wishlist\" link:"
+
+#: includes/widgets/class-yith-wcwl-widget.php:98
+msgid "Show create link"
+msgstr "Creëer link weergeven"
+
+#: includes/widgets/class-yith-wcwl-widget.php:102
+msgid "Show search link"
+msgstr "Zoeklink weergeven"
+
+#: includes/widgets/class-yith-wcwl-widget.php:106
+msgid "Show manage link"
+msgstr "Link beheren weergeven"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:128
+#: plugin-options/settings/add_to_wishlist-options.php:152
+msgid "Browse wishlist"
+msgstr "Browse verlanglijst"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:138
+msgid "Product already in wishlist"
+msgstr "Product bevindt zich al in verlanglijst"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:148
+msgid "Product added to wishlist"
+msgstr "Product toegevoegd aan verlanglijst"
+
+#: init.php:207
+msgid ""
+"YITH WooCommerce Wishlist was deactivated as you're running an higher tier "
+"version of the same plugin."
+msgstr ""
+
+#: init.php:223
+msgid "is enabled but not effective. It requires WooCommerce to work."
+msgstr ""
+"is ingeschakeld maar niet werkend. Het heeft WooCommerce nodig om te werken."
+
+#: plugin-options/dashboard/lists-options.php:25
+msgid "Search list"
+msgstr "Lijst zoeken"
+
+#. translators: 1. Product name.
+#: plugin-options/dashboard/popular-options.php:54
+msgid "Users that added \"%s\" to wishlist"
+msgstr "Gebruikers die \"%s\" hebben toegevoegd aan de verlanglijst"
+
+#: plugin-options/dashboard/popular-options.php:54
+msgid "Users that added product to wishlist"
+msgstr "Gebruikers die producten hebben toegevoegd aan verlanglijst"
+
+#: plugin-options/dashboard/popular-options.php:55
+msgid "< Back to popular"
+msgstr "< terugkeren naar populair"
+
+#: plugin-options/email-options.php:17
+msgid "Emails"
+msgstr ""
+
+#: plugin-options/email-options.php:18
+msgid "Manage and customize the emails sent to users about wishlists."
+msgstr ""
+
+#: plugin-options/promotion_email-options.php:55
+msgid "\"Back in stock\" email"
+msgstr "\"Terug op voorraad\" e-mail"
+
+#: plugin-options/promotion_email-options.php:62
+msgid "Enable \"Back in stock\" email"
+msgstr "De \"Terug op voorraad\" e-mail inschakelen"
+
+#: plugin-options/promotion_email-options.php:63
+msgid ""
+"Enable this email to send notifications to your customers whenever a product "
+"in their wishlist is back in stock"
+msgstr ""
+"Deze e-mail inschakelen om meldingen naar uw klanten te sturen wanneer in "
+"product uit hun verlanglijst terug op voorraad is"
+
+#: plugin-options/promotion_email-options.php:72
+msgid ""
+"Select products that shouldn't trigger the \"back in stock\" notifications"
+msgstr ""
+"Selecteer producten die niet mogen worden getriggerd voor \"terug op "
+"voorraad\" meldingen"
+
+#: plugin-options/promotion_email-options.php:83
+msgid ""
+"Select the product categories that should not trigger the \"back in stock\" "
+"notification"
+msgstr ""
+"Selecteer productcategorieën die niet mogen worden getriggerd voor de "
+"\"terug op voorraad\" meldingen"
+
+#: plugin-options/promotion_email-options.php:109
+msgid ""
+"Enter the title of the email notification. Leave blank to use the default "
+"heading: \"<i>An item of your wishlist is back in stock!</i>\""
+msgstr ""
+"Titel invoeren van de e-mail melding. Laat leeg om de standaardtitel te "
+"gebruiken \"<i>Een item van uw verlanglijst is terug op voorraad!</i>\""
+
+#: plugin-options/promotion_email-options.php:117
+msgid ""
+"Enter the mail subject line. Leave blank to use the default subject: \"<i>An "
+"item of your wishlist is back in stock!</i>\""
+msgstr ""
+"Onderwerp regel voor mail invoeren. Laat leeg als u het standardonderwerp "
+"wilt gebruiken: \"<i>Een item van uw verlanglijst is terug op voorraad!</i>\""
+
+#: plugin-options/settings/add_to_wishlist-options.php:29
+#: plugin-options/settings/general-options.php:34
+msgid "General Settings"
+msgstr "Algemene Instellingen"
+
+#: plugin-options/settings/add_to_wishlist-options.php:36
+msgid "After product is added to wishlist"
+msgstr "Nadat een product is toegevoegd aan verlanglijst"
+
+#: plugin-options/settings/add_to_wishlist-options.php:37
+msgid ""
+"Choose the look of the Wishlist button when the product has already been "
+"added to a wishlist"
+msgstr ""
+"Kies de look van de verlanglijst knop, wanneer het product al is toegevoegd "
+"aan de verlanglijst"
+
+#: plugin-options/settings/add_to_wishlist-options.php:41
+msgid "Show \"Add to wishlist\" button"
+msgstr "Toon \"Toevoegen aan verlanglijst\" knop"
+
+#: plugin-options/settings/add_to_wishlist-options.php:42
+msgid "Show \"View wishlist\" link"
+msgstr "Toon \"Bekijk verlanglijst\" link"
+
+#: plugin-options/settings/add_to_wishlist-options.php:43
+msgid "Show \"Remove from list\" link"
+msgstr "Toon \"Van lijst verwijderen\" link"
+
+#: plugin-options/settings/add_to_wishlist-options.php:57
+msgid "Loop settings"
+msgstr "Loop instellingen"
+
+#: plugin-options/settings/add_to_wishlist-options.php:59
+msgid ""
+"Loop options will be visible on Shop page, category pages, product "
+"shortcodes, products sliders, and all the other places where the WooCommerce "
+"products' loop is used"
+msgstr ""
+"Loop opties zullen zichtbaar blijven in de winkelpagina, categorie pagina, "
+"product shortcodes, product sliders, en alle andere plaatsen waar de "
+"WooCommerce product loop wordt gebruikt"
+
+#: plugin-options/settings/add_to_wishlist-options.php:64
+msgid "Show \"Add to wishlist\" in loop"
+msgstr "Toon \"Toevoegen aan verlanglijst\" in loop"
+
+#: plugin-options/settings/add_to_wishlist-options.php:65
+msgid "Enable the \"Add to wishlist\" feature in WooCommerce products' loop"
+msgstr ""
+"De \"Toevoegen aan verlanglijst\" optie inschakelen in WooCommerce product "
+"loop"
+
+#: plugin-options/settings/add_to_wishlist-options.php:73
+msgid "Position of \"Add to wishlist\" in loop"
+msgstr "Positie van \"Toevoegen aan verlanglijst\" in loop"
+
+#: plugin-options/settings/add_to_wishlist-options.php:74
+msgid ""
+"Choose where to show \"Add to wishlist\" button or link in WooCommerce "
+"products' loop. <span class=\"addon\">Copy this shortcode <span "
+"class=\"code\"><code>[yith_wcwl_add_to_wishlist]</code></span> and paste it "
+"where you want to show the \"Add to wishlist\" link or button</span>"
+msgstr ""
+"Bepaal waar u de \"Toevoegen aan verlanglijst\" knop of link wilt weergeven "
+"in WooCommerce product loop. <span class=\"addon\">Kopieer deze shortcode "
+"<span class=\"code\"><code>[yith_wcwl_add_to_wishlist]</code></span> en plak "
+"het waar u wilt om de \"Toevoegen aan verlanglijst\" link of knop wilt "
+"weergeven</span>"
+
+#: plugin-options/settings/add_to_wishlist-options.php:81
+msgid "On top of the image"
+msgstr "Boven de afbeelding"
+
+#: plugin-options/settings/add_to_wishlist-options.php:82
+msgid "Before \"Add to cart\" button"
+msgstr "Voor de \"Toevoegen aan winkelwagen\" knop"
+
+#: plugin-options/settings/add_to_wishlist-options.php:83
+msgid "After \"Add to cart\" button"
+msgstr "Na de \"Toevoegen aan winkelwagen\" knop"
+
+#: plugin-options/settings/add_to_wishlist-options.php:84
+#: plugin-options/settings/add_to_wishlist-options.php:116
+msgid "Use shortcode"
+msgstr "Gebruik shortcode"
+
+#: plugin-options/settings/add_to_wishlist-options.php:98
+msgid "Product page settings"
+msgstr "Product pagina instellingen"
+
+#: plugin-options/settings/add_to_wishlist-options.php:105
+msgid "Position of \"Add to wishlist\" on product page"
+msgstr "Positie van \"Toevoegen aan verlanglijst\" op product pagina"
+
+#: plugin-options/settings/add_to_wishlist-options.php:106
+msgid ""
+"Choose where to show \"Add to wishlist\" button or link on the product page. "
+"<span class=\"addon\">Copy this shortcode <span "
+"class=\"code\"><code>[yith_wcwl_add_to_wishlist]</code></span> and paste it "
+"where you want to show the \"Add to wishlist\" link or button</span>"
+msgstr ""
+"Bepaal waar u de \"Toevoegen aan verlanglijst\" knop of link wilt weergeven "
+"op de product pagina. <span class=\"addon\">Kopieer deze shortcode <span "
+"class=\"code\"><code>[yith_wcwl_add_to_wishlist]</code></span> en plak het "
+"waar u wilt om de \"Toevoegen aan verlanglijst\" link of knop wilt "
+"weergeven</span>"
+
+#: plugin-options/settings/add_to_wishlist-options.php:113
+msgid "After \"Add to cart\""
+msgstr "Na \"Toevoegen aan winkelwagen\""
+
+#: plugin-options/settings/add_to_wishlist-options.php:114
+msgid "After thumbnails"
+msgstr "Na Thumbnails"
+
+#: plugin-options/settings/add_to_wishlist-options.php:115
+msgid "After summary"
+msgstr "Na samenvatting"
+
+#: plugin-options/settings/add_to_wishlist-options.php:126
+#: plugin-options/settings/ask_an_estimate-options.php:176
+#: plugin-options/settings/wishlist_page-options.php:231
+msgid "Text customization"
+msgstr "Tekst aanpassen"
+
+#: plugin-options/settings/add_to_wishlist-options.php:133
+msgid "\"Add to wishlist\" text"
+msgstr "\"Toevoegen aan verlanglijst\" tekst"
+
+#: plugin-options/settings/add_to_wishlist-options.php:134
+msgid "Enter a text for \"Add to wishlist\" button"
+msgstr "Tekst invoeren voor \"Toevoegen aan verlanglijst\" knop"
+
+#: plugin-options/settings/add_to_wishlist-options.php:141
+msgid "\"Product added\" text"
+msgstr "\"Product toegevoegd\" tekst"
+
+#: plugin-options/settings/add_to_wishlist-options.php:142
+msgid ""
+"Enter the text of the message displayed when the user adds a product to the "
+"wishlist"
+msgstr ""
+"Tekst invoeren voor het bericht dat wordt weergegeven wanneer een gebruiker "
+"een product toevoegt aan de verlanglijst"
+
+#: plugin-options/settings/add_to_wishlist-options.php:144
+msgid "Product added!"
+msgstr "Product toegevoegd!"
+
+#: plugin-options/settings/add_to_wishlist-options.php:149
+msgid "\"Browse wishlist\" text"
+msgstr "\"Browse wishlist\" tekst"
+
+#: plugin-options/settings/add_to_wishlist-options.php:150
+msgid "Enter a text for the \"Browse wishlist\" link on the product page"
+msgstr ""
+"Tekst invoeren voor de \"Browse verlanglijst\" link op de product pagina"
+
+#: plugin-options/settings/add_to_wishlist-options.php:157
+msgid "\"Product already in wishlist\" text"
+msgstr "\"Product is al toegevoegd aan verlanglijst\" tekst"
+
+#: plugin-options/settings/add_to_wishlist-options.php:158
+msgid ""
+"Enter the text for the message displayed when the user views a product that "
+"is already in the wishlist"
+msgstr ""
+"Tekst invoeren voor het bericht dat wordt weergegeven wanneer een gebruiker "
+"een product ziet dat al is toegevoegd aan de verlanglijst"
+
+#: plugin-options/settings/add_to_wishlist-options.php:160
+msgid "The product is already in your wishlist!"
+msgstr "Het product is al toegevoegd aan uw verlanglijst!"
+
+#: plugin-options/settings/add_to_wishlist-options.php:170
+#: plugin-options/settings/ask_an_estimate-options.php:210
+msgid "Style & Color customization"
+msgstr "Stijl & kleur aanpassing"
+
+#: plugin-options/settings/add_to_wishlist-options.php:177
+msgid "Style of \"Add to wishlist\""
+msgstr "Stijl van \"Toevoegen aan verlanglijst\"v"
+
+#: plugin-options/settings/add_to_wishlist-options.php:178
+msgid ""
+"Choose if you want to show a textual \"Add to wishlist\" link or a button"
+msgstr ""
+"Bepaal of u de tekstuele \"Toevoegen aan verlanglijst\" link of knop wilt "
+"weergeven"
+
+#: plugin-options/settings/add_to_wishlist-options.php:181
+#: plugin-options/settings/ask_an_estimate-options.php:221
+#: plugin-options/settings/wishlist_page-options.php:270
+msgid "Textual (anchor)"
+msgstr "Tekstueel (anker)"
+
+#: plugin-options/settings/add_to_wishlist-options.php:182
+#: plugin-options/settings/ask_an_estimate-options.php:222
+#: plugin-options/settings/wishlist_page-options.php:271
+msgid "Button with theme style"
+msgstr "Knop met stijl thema"
+
+#: plugin-options/settings/add_to_wishlist-options.php:183
+#: plugin-options/settings/ask_an_estimate-options.php:223
+#: plugin-options/settings/wishlist_page-options.php:272
+msgid "Button with custom style"
+msgstr "Knop met aangepaste stijl"
+
+#: plugin-options/settings/add_to_wishlist-options.php:191
+msgid "\"Add to wishlist\" button style"
+msgstr "\"Toevoegen aan verlanglijst\" knop stijl"
+
+#: plugin-options/settings/add_to_wishlist-options.php:208
+#: plugin-options/settings/ask_an_estimate-options.php:249
+#: plugin-options/settings/wishlist_page-options.php:298
+#: plugin-options/settings/wishlist_page-options.php:396
+#: plugin-options/settings/wishlist_page-options.php:445
+#: plugin-options/settings/wishlist_page-options.php:493
+msgid "Border"
+msgstr "Rand"
+
+#: plugin-options/settings/add_to_wishlist-options.php:215
+#: plugin-options/settings/ask_an_estimate-options.php:257
+#: plugin-options/settings/wishlist_page-options.php:306
+#: plugin-options/settings/wishlist_page-options.php:404
+#: plugin-options/settings/wishlist_page-options.php:453
+msgid "Background Hover"
+msgstr "Achtergrond zweven"
+
+#: plugin-options/settings/add_to_wishlist-options.php:220
+#: plugin-options/settings/ask_an_estimate-options.php:262
+#: plugin-options/settings/wishlist_page-options.php:311
+#: plugin-options/settings/wishlist_page-options.php:409
+#: plugin-options/settings/wishlist_page-options.php:458
+msgid "Text Hover"
+msgstr "Tekst zweven"
+
+#: plugin-options/settings/add_to_wishlist-options.php:225
+#: plugin-options/settings/ask_an_estimate-options.php:267
+#: plugin-options/settings/wishlist_page-options.php:316
+#: plugin-options/settings/wishlist_page-options.php:414
+#: plugin-options/settings/wishlist_page-options.php:463
+msgid "Border Hover"
+msgstr "Rand zweven"
+
+#: plugin-options/settings/add_to_wishlist-options.php:238
+#: plugin-options/settings/ask_an_estimate-options.php:280
+#: plugin-options/settings/wishlist_page-options.php:329
+msgid "Border radius"
+msgstr "Rand Radius"
+
+#: plugin-options/settings/add_to_wishlist-options.php:239
+msgid "Choose radius for the \"Add to wishlist\" button"
+msgstr "Bepaal de radius voor de \"Toevoegen aan verlanglijst\" knop"
+
+#: plugin-options/settings/add_to_wishlist-options.php:253
+msgid "\"Add to wishlist\" icon"
+msgstr "\"Toevoegen aan verlanglijst\" icoon"
+
+#: plugin-options/settings/add_to_wishlist-options.php:254
+msgid "Select an icon for the \"Add to wishlist\" button (optional)"
+msgstr ""
+"Selecteer een icoon voor de \"Toevoegen aan verlanglijst\" knop (optioneel)"
+
+#: plugin-options/settings/add_to_wishlist-options.php:273
+msgid "\"Add to wishlist\" custom icon"
+msgstr "\"Toevoegen aan verlanglijst\" aangepast icoon"
+
+#: plugin-options/settings/add_to_wishlist-options.php:274
+#: plugin-options/settings/add_to_wishlist-options.php:307
+msgid ""
+"Upload an icon you'd like to use for \"Add to wishlist\" button (suggested "
+"32px x 32px)"
+msgstr ""
+"Upload een icoon die je wilt gebruiken voor de \"Toevoegen aan "
+"verlanglijst\" knop (aanbevolen 32 x 32px)"
+
+#: plugin-options/settings/add_to_wishlist-options.php:286
+msgid "\"Added to wishlist\" icon"
+msgstr "\"Toevoegen aan verlanglijst\" icoon"
+
+#: plugin-options/settings/add_to_wishlist-options.php:287
+msgid "Select an icon for the \"Added to wishlist\" button (optional)"
+msgstr ""
+"Selecteer een icoon voor de \"Toevoegen aan verlanglijst\" knop (optioneel)"
+
+#: plugin-options/settings/add_to_wishlist-options.php:302
+msgid "Same used for Add to wishlist"
+msgstr "Hetzelfde gebruikt voor Toevoegen aan verlanglijst"
+
+#: plugin-options/settings/add_to_wishlist-options.php:306
+msgid "\"Added to wishlist\" custom icon"
+msgstr "\"Toevoegen aan verlanglijst\" aangepast icoon"
+
+#: plugin-options/settings/add_to_wishlist-options.php:319
+msgid "Custom CSS"
+msgstr "Custom CSS"
+
+#: plugin-options/settings/add_to_wishlist-options.php:320
+msgid "Enter custom CSS to be applied to Wishlist elements (optional)"
+msgstr ""
+"Aangepaste CSS invoeren om toe te passen op de verlanglijst elementen "
+"(optioneel)"
+
+#: plugin-options/settings/ask_an_estimate-options.php:35
+msgid "Enable \"Ask for an estimate\" button"
+msgstr "Inschakelen \"Vraag om een offerte\" knop"
+
+#: plugin-options/settings/ask_an_estimate-options.php:38
+msgid "Shows \"Ask for an estimate\" button on Wishlist page"
+msgstr "Toon \"Vraag om een offerte\" knop op verlanglijst pagina"
+
+#: plugin-options/settings/ask_an_estimate-options.php:39
+msgid ""
+"If you want to customize the email that will be sent to the admin, please, "
+"visit the"
+msgstr ""
+
+#: plugin-options/settings/ask_an_estimate-options.php:47
+msgid "emails settings page"
+msgstr ""
+
+#: plugin-options/settings/ask_an_estimate-options.php:60
+msgid "Additional Popup"
+msgstr "Aanvullende pop-up"
+
+#: plugin-options/settings/ask_an_estimate-options.php:62
+msgid ""
+"These fields will be shown in the popup opened by Ask an Estimate button. "
+"The Email field will be prepended for unauthenticated users. An Additional "
+"Notes textarea will be postponed to the selected fields."
+msgstr ""
+"Deze velden worden weergegeven in de pop-up die wordt geopend bij klikken op "
+"de 'vraag om een offerte' knop. Het e-mail veld zal worden weergegeven voor "
+"niet geverifieerde gebruikers. Een 'aanvullende notities' tekst veld zal "
+"worden uitgesteld naar de geselecteerde velden."
+
+#: plugin-options/settings/ask_an_estimate-options.php:67
+msgid "Enable \"Additional notes\" popup"
+msgstr "De \"Aanvullende notities\" pop-up inschakelen"
+
+#: plugin-options/settings/ask_an_estimate-options.php:68
+msgid ""
+"Show an Additional notes popup before submitting the price estimate request "
+"to let customers add extra notes"
+msgstr ""
+"Toon een aanvullende notities pop-up voor het indienen van de offerte, om de "
+"klant extra notities te laten toevoegen"
+
+#: plugin-options/settings/ask_an_estimate-options.php:83
+msgid "Add new field"
+msgstr "Nieuw veld toevoegen"
+
+#: plugin-options/settings/ask_an_estimate-options.php:84
+msgid "Field %%label%%"
+msgstr "Veld %%label%%"
+
+#: plugin-options/settings/ask_an_estimate-options.php:89
+msgid "Label for the field"
+msgstr "Label voor het veld"
+
+#: plugin-options/settings/ask_an_estimate-options.php:90
+msgid "Enter the label that will be shown for this field"
+msgstr "Label invoeren die wordt weergegeven voor dit veld"
+
+#: plugin-options/settings/ask_an_estimate-options.php:96
+msgid "Required field"
+msgstr "Verplicht veld"
+
+#: plugin-options/settings/ask_an_estimate-options.php:97
+msgid "Choose whether this field is required or not"
+msgstr "Bepaal of dit veld verplicht is of niet"
+
+#: plugin-options/settings/ask_an_estimate-options.php:103
+msgid "Placeholder for the field"
+msgstr "Invulveld voor het veld"
+
+#: plugin-options/settings/ask_an_estimate-options.php:104
+msgid "Enter the placeholder that will be shown in the field"
+msgstr "Voer het invulveld in dat wordt weergegeven in het veld"
+
+#: plugin-options/settings/ask_an_estimate-options.php:110
+msgid "Field description"
+msgstr "Veld omschrijving"
+
+#: plugin-options/settings/ask_an_estimate-options.php:111
+msgid "Enter the description that will be shown above the field"
+msgstr "Voer de omschrijving in die wordt weergegeven boven het veld"
+
+#: plugin-options/settings/ask_an_estimate-options.php:117
+msgid "Position of the field in the form"
+msgstr "Positie van het veld in het formulier"
+
+#: plugin-options/settings/ask_an_estimate-options.php:118
+msgid ""
+"Choose between first (the field will be the first in a row that contains two "
+"items), last (the field will be the second in a row of two) or wide (the "
+"field will take an entire row)"
+msgstr ""
+"Kies uit eerste (het veld in de eerste rij, welke twee items bevat), laatste "
+"(het veld in de tweede rij) of breed (het veld omvat de hele rij)"
+
+#: plugin-options/settings/ask_an_estimate-options.php:122
+msgid "First"
+msgstr "Eerste"
+
+#: plugin-options/settings/ask_an_estimate-options.php:123
+msgid "Last"
+msgstr "Laatste"
+
+#: plugin-options/settings/ask_an_estimate-options.php:124
+msgid "Wide"
+msgstr "Breed"
+
+#: plugin-options/settings/ask_an_estimate-options.php:129
+msgid "Type of field"
+msgstr "Type veld"
+
+#: plugin-options/settings/ask_an_estimate-options.php:130
+msgid "Choose the type of field to print in the form"
+msgstr "Kies het type veld om het formulier te printen"
+
+#: plugin-options/settings/ask_an_estimate-options.php:135
+#: templates/share.php:102 templates/share.php:103
+msgid "Email"
+msgstr "E-mail"
+
+#: plugin-options/settings/ask_an_estimate-options.php:136
+msgid "Phone"
+msgstr "Telefoon"
+
+#: plugin-options/settings/ask_an_estimate-options.php:137
+msgid "URL"
+msgstr "URL"
+
+#: plugin-options/settings/ask_an_estimate-options.php:138
+msgid "Number"
+msgstr "Nummer"
+
+#: plugin-options/settings/ask_an_estimate-options.php:140
+msgid "Textarea"
+msgstr "Tekstvak"
+
+#: plugin-options/settings/ask_an_estimate-options.php:141
+msgid "Radio"
+msgstr "Radio"
+
+#: plugin-options/settings/ask_an_estimate-options.php:142
+msgid "Checkbox"
+msgstr "Keuzevakje"
+
+#: plugin-options/settings/ask_an_estimate-options.php:143
+msgid "Select"
+msgstr "Selecteer"
+
+#: plugin-options/settings/ask_an_estimate-options.php:148
+msgid "Enter options for the field"
+msgstr "Opties invoeren voor het veld"
+
+#: plugin-options/settings/ask_an_estimate-options.php:149
+msgid ""
+"Enter the options for the field type you've selected. Separate options with "
+"pipes (|), and key from value with double colon (::). E.g. key::value|key2::"
+"value2"
+msgstr ""
+"Opties invoeren voor het veld type dat u heeft geselecteerd. Scheid optie "
+"met pijpjes (|), en de key van waarde met dubbele punt (::). Vb. key::waarde|"
+"key2::waarde2"
+
+#: plugin-options/settings/ask_an_estimate-options.php:162
+#: templates/admin/email-settings-single.php:22
+msgid "Save"
+msgstr "Opslaan"
+
+#: plugin-options/settings/ask_an_estimate-options.php:183
+msgid "\"Ask for an estimate\" button label"
+msgstr "\"Vraag om een offerte\" knop label"
+
+#: plugin-options/settings/ask_an_estimate-options.php:185
+msgid ""
+"This option lets you customize the label of \"Ask for an Estimate\" button"
+msgstr ""
+"Deze optie laat u het label van de \"Vraag om een offerte\" knop aanpassen"
+
+#: plugin-options/settings/ask_an_estimate-options.php:196
+msgid "\"Additional notes\" textarea label"
+msgstr "\"Aanvullende notities\" tekstvak label"
+
+#: plugin-options/settings/ask_an_estimate-options.php:198
+msgid ""
+"This option lets you customize the label for the \"Additional notes\" text "
+"area"
+msgstr ""
+"Deze optie laat u het label van het \"Aanvullende  notities\" tekstvak "
+"aanpassen"
+
+#: plugin-options/settings/ask_an_estimate-options.php:199
+msgid "Additional notes"
+msgstr "Aanvullende notities"
+
+#: plugin-options/settings/ask_an_estimate-options.php:217
+msgid "Style of \"Ask for an estimate\""
+msgstr "Stijl van \"Vraag om een offerte\""
+
+#: plugin-options/settings/ask_an_estimate-options.php:218
+msgid ""
+"Choose if you want to show a textual \"Ask for an Estimate\" link or a button"
+msgstr ""
+"Bepaal of u een tekstuele \"Vraag om een offerte\" link of knop wilt tonen"
+
+#: plugin-options/settings/ask_an_estimate-options.php:231
+msgid "\"Ask for an Estimate\" button style"
+msgstr "\"Vraag om een offerte\" knop stijl"
+
+#: plugin-options/settings/ask_an_estimate-options.php:237
+msgid "Choose colors for the \"Ask for an estimate\" button"
+msgstr "Kies de kleuren van de \"Vraag om een offerte\" knop"
+
+#: plugin-options/settings/ask_an_estimate-options.php:255
+msgid "Choose colors for the \"Ask for an estimate\" button on hover state"
+msgstr ""
+"Kies de kleuren van de \"Vraag om een offerte\" knop bij erover zweven met "
+"muis"
+
+#: plugin-options/settings/ask_an_estimate-options.php:281
+msgid "Choose radius for the \"Ask for an Estimate\" button"
+msgstr "Bepaal de radius voor de \"Vraag om een offerte\" knop"
+
+#: plugin-options/settings/ask_an_estimate-options.php:295
+msgid "\"Ask for an estimate\" icon"
+msgstr "\"Vraag om een offerte\" icoon"
+
+#: plugin-options/settings/ask_an_estimate-options.php:296
+msgid "Select an icon for the \"Ask for an Estimate\" button (optional)"
+msgstr "Selecteer een icoon voor de \"Vraag om een offerte\" knop (optioneel)"
+
+#: plugin-options/settings/ask_an_estimate-options.php:319
+msgid "\"Ask for an estimate\" custom icon"
+msgstr "\"Vraag om een offerte\" aangepast icoon"
+
+#: plugin-options/settings/ask_an_estimate-options.php:320
+msgid ""
+"Upload an icon you'd like to use for \"Ask for an estimate\" button "
+"(suggested 32px x 32px)"
+msgstr ""
+"Upload een icoon dat u wilt gebruiken voor het gebruik van de \"Vraag om een "
+"offerte\" knop (aanbevolen 32 x 32px)"
+
+#: plugin-options/settings/general-options.php:40
+msgid "Enable AJAX loading"
+msgstr "AJAX loading inschakelen"
+
+#: plugin-options/settings/general-options.php:41
+msgid "Load any cacheable wishlist item via AJAX"
+msgstr "Laad elk cacheable verlanglijst item met AJAX"
+
+#: plugin-options/settings/general-options.php:55
+msgid "YITH WooCommerce Frequently Bought Together Integration"
+msgstr "YITH WooCommerce Frequently Bought Together Integratie"
+
+#: plugin-options/settings/general-options.php:61
+msgid "Enable slider in wishlist"
+msgstr "Slider in verlanglijst  inschakelen"
+
+#: plugin-options/settings/general-options.php:62
+msgid "Enable the slider with linked products on the Wishlist page."
+msgstr ""
+
+#: plugin-options/settings/wishlist_page-options.php:28
+#: plugin-options/settings/wishlist_page-options.php:35
+msgid "Wishlist page"
+msgstr "Verlanglijst pagina"
+
+#: plugin-options/settings/wishlist_page-options.php:36
+msgid ""
+"Pick a page as the main Wishlist page; make sure you add the <span "
+"class=\"code\"><code>[yith_wcwl_wishlist]</code></span> shortcode into the "
+"page content"
+msgstr ""
+"Selecteer een pagina als de hoofd verlanglijst pagina; Let op dat u de  "
+"<span class=\"code\"><code>[yith_wcwl_wishlist]</code></span> shortcode "
+"toevoegt in de pagina inhoud"
+
+#: plugin-options/settings/wishlist_page-options.php:49
+msgid "Wishlist Detail Page"
+msgstr "Verlanglijst detailpagina"
+
+#: plugin-options/settings/wishlist_page-options.php:57
+msgid "Product variations selected by the user (example: size or color)"
+msgstr ""
+"Product variaties geselecteerd door de gebruiker (voorbeeld: maat of kleur)"
+
+#: plugin-options/settings/wishlist_page-options.php:66
+msgid "Product price"
+msgstr "Productprijs"
+
+#: plugin-options/settings/wishlist_page-options.php:75
+msgid "Product stock (show if the product is available or not)"
+msgstr "Product voorraad (toon of een product beschikbaar is of niet)"
+
+#: plugin-options/settings/wishlist_page-options.php:84
+msgid "Date on which the product was added to the wishlist"
+msgstr "Datum waarop het product is toegevoegd aan de verlanglijst"
+
+#: plugin-options/settings/wishlist_page-options.php:93
+msgid "Add to cart option for each product"
+msgstr "Toevoegen aan winkelwagen optie voor ieder product"
+
+#: plugin-options/settings/wishlist_page-options.php:102
+msgid ""
+"Icon to remove the product from the wishlist - to the left of the product"
+msgstr ""
+"Icoon om het product uit de verlanglijst te verwijderen - aan de rechterkant "
+"van het product"
+
+#: plugin-options/settings/wishlist_page-options.php:111
+msgid ""
+"Button to remove the product from the wishlist - to the right of the product"
+msgstr ""
+"Knop om het product uit de verlanglijst te verwijderen - aan de rechterkant "
+"van het product"
+
+#: plugin-options/settings/wishlist_page-options.php:119
+msgid "Redirect to cart"
+msgstr "Doorverwijzen naar winkelwagen"
+
+#: plugin-options/settings/wishlist_page-options.php:120
+msgid ""
+"Redirect users to the cart page when they add a product to the cart from the "
+"wishlist page"
+msgstr ""
+"Gebruikers doorsturen naar de winkelwagen pagina, wanneer zij een product "
+"van de verlanglijst toevoegen aan winkelwagen"
+
+#: plugin-options/settings/wishlist_page-options.php:128
+msgid "Remove if added to the cart"
+msgstr "Verwijder als het toegevoegd is aan winkelwagen"
+
+#: plugin-options/settings/wishlist_page-options.php:129
+msgid ""
+"Remove the product from the wishlist after it has been added to the cart"
+msgstr ""
+"Product verwijderen van verlanglijst nadat het is toegevoegd aan de "
+"winkelwagen"
+
+#: plugin-options/settings/wishlist_page-options.php:137
+msgid "Share wishlist"
+msgstr "Verlanglijst delen"
+
+#: plugin-options/settings/wishlist_page-options.php:138
+msgid "Enable this option to let users share their wishlist on social media"
+msgstr ""
+"Deze optie inschakelen om gebruikers hun verlanglijst te laten delen op "
+"social media"
+
+#: plugin-options/settings/wishlist_page-options.php:146
+#: plugin-options/settings/wishlist_page-options.php:155
+#: plugin-options/settings/wishlist_page-options.php:164
+#: plugin-options/settings/wishlist_page-options.php:173
+#: plugin-options/settings/wishlist_page-options.php:182
+msgid "Share on social media"
+msgstr "Delen op social media"
+
+#: plugin-options/settings/wishlist_page-options.php:174
+msgid "Share by email"
+msgstr "Delen via e-mail"
+
+#: plugin-options/settings/wishlist_page-options.php:191
+msgid "Share by URL"
+msgstr "Delen via URL"
+
+#: plugin-options/settings/wishlist_page-options.php:192
+msgid "Show \"Share URL\" field on wishlist page"
+msgstr "Toon \"URL delen\" veld op verlanglijst pagina"
+
+#: plugin-options/settings/wishlist_page-options.php:200
+msgid "Sharing title"
+msgstr "Delen titel"
+
+#: plugin-options/settings/wishlist_page-options.php:201
+msgid "Wishlist title used for sharing (only used on Twitter and Pinterest)"
+msgstr ""
+"Verlanglijst titel die wordt gebruikt voor delen (wordt alleen gebruikt op "
+"Twitter en Pinterest)"
+
+#. translators: 1. Blog name.
+#: plugin-options/settings/wishlist_page-options.php:204
+msgid "My wishlist on %s"
+msgstr "Mijn verlanglijst op %s"
+
+#: plugin-options/settings/wishlist_page-options.php:209
+msgid "Social text"
+msgstr "Social tekst"
+
+#: plugin-options/settings/wishlist_page-options.php:210
+msgid ""
+"Type the message you want to publish when you share your wishlist on Twitter "
+"and Pinterest"
+msgstr ""
+"Typ het bericht dat u wilt publiceren wanneer u uw verlanglijst deelt op "
+"Twitter en Pinterest"
+
+#: plugin-options/settings/wishlist_page-options.php:218
+msgid "Social image URL"
+msgstr "Social afbeelding URL"
+
+#: plugin-options/settings/wishlist_page-options.php:219
+msgid "It will be used to pin the wishlist on Pinterest."
+msgstr "Zal worden gebruikt om de verlanglijst te pinnen op Pinterest."
+
+#: plugin-options/settings/wishlist_page-options.php:238
+msgid "Default wishlist name"
+msgstr "Standaard naam verlanglijst"
+
+#: plugin-options/settings/wishlist_page-options.php:239
+msgid ""
+"Enter a name for the default wishlist. This is the wishlist that will be "
+"automatically generated for all users if they do not create any custom one"
+msgstr ""
+"Naam invoeren voor de standaard verlanglijst. Dit is de verlanglijst die "
+"automatisch wordt gegenereerd voor alle gebruikers, als zij geen aangepaste "
+"lijst aanmaken."
+
+#: plugin-options/settings/wishlist_page-options.php:241
+msgid "My wishlist"
+msgstr "Mijn verlanglijst"
+
+#: plugin-options/settings/wishlist_page-options.php:246
+msgid "\"Add to cart\" text"
+msgstr "\"Toevoegen aan winkelwagen\" tekst"
+
+#: plugin-options/settings/wishlist_page-options.php:247
+msgid "Enter a text for the \"Add to cart\" button"
+msgstr "Tekst invoeren voor de \"Toevoegen aan winkelwagen\" knop"
+
+#: plugin-options/settings/wishlist_page-options.php:259
+msgid "Style & color customization"
+msgstr "Stijl & kleur aanpassing"
+
+#: plugin-options/settings/wishlist_page-options.php:266
+msgid "Style of \"Add to cart\""
+msgstr "Stijl van \"Toevoegen aan winkelwagen\""
+
+#: plugin-options/settings/wishlist_page-options.php:267
+msgid "Choose whether to show a textual \"Add to cart\" link or a button"
+msgstr ""
+"Bepaal of u een tekstuele \"Toevoegen aan winkelwagen\" link of knop wilt "
+"weergeven"
+
+#: plugin-options/settings/wishlist_page-options.php:280
+msgid "\"Add to cart\" button style"
+msgstr "\"Toevoegen aan winkelwagen\" knop stijl"
+
+#: plugin-options/settings/wishlist_page-options.php:286
+msgid "Choose the colors for the \"Add to cart\" button"
+msgstr "Kies de kleuren van de \"Toevoegen aan winkelwagen\" knop"
+
+#: plugin-options/settings/wishlist_page-options.php:304
+msgid "Choose colors for the \"Add to cart\" button on hover state"
+msgstr ""
+"Kies de kleuren van de \"Toevoegen aan winkelwagen\" knop bij erover zweven "
+"met muis"
+
+#: plugin-options/settings/wishlist_page-options.php:330
+msgid "Set the radius for the \"Add to cart\" button"
+msgstr "Bepaal de radius voor de \"Toevoegen aan winkelwagen\" knop"
+
+#: plugin-options/settings/wishlist_page-options.php:344
+msgid "\"Add to cart\" icon"
+msgstr "\"Toevoegen aan winkelwagen\" icoon"
+
+#: plugin-options/settings/wishlist_page-options.php:345
+msgid "Select an icon for the \"Add to cart\" button (optional)"
+msgstr ""
+"Selecteer een icoon voor de \"Toevoegen aan winkelwagen\" knop (optioneel)"
+
+#: plugin-options/settings/wishlist_page-options.php:369
+msgid "\"Add to cart\" custom icon"
+msgstr "\"Toevoegen aan winkelwagen\" aangepast icoon"
+
+#: plugin-options/settings/wishlist_page-options.php:370
+msgid ""
+"Upload an icon you'd like to use for the \"Add to cart\" button (suggested "
+"32px x 32px)"
+msgstr ""
+"Een icoon uploaden dat u wilt gebruiken voor de \"Toevoegen aan "
+"winkelwagen\" knop (aanbevolen 32 x 32px)"
+
+#: plugin-options/settings/wishlist_page-options.php:378
+msgid "Primary button style"
+msgstr "Eerste knop stijl"
+
+#: plugin-options/settings/wishlist_page-options.php:384
+msgid ""
+"Choose colors for the primary button<br/><small>This style will be applied "
+"to \"Edit title\" button on Wishlist view, \"Submit Changes\" button on "
+"Manage view and \"Search wishlist\" button on Search view</small>"
+msgstr ""
+"Kies de kleuren voor de eerste knop <br/><small>Deze stijl wordt toegepast "
+"op de \"Bewerk titel\" knop in de verlanglijst weergave, \"Wijzigingen "
+"indienen\" knop in de Beheren weergave en \"Verlanglijst zoeken\" knop in de "
+"Zoeken weergave</small>"
+
+#: plugin-options/settings/wishlist_page-options.php:402
+msgid ""
+"Choose colors for the primary button on hover state<br/><small>This style "
+"will be applied to \"Edit title\" button on Wishlist view, \"Submit "
+"Changes\" button on Manage view and \"Search wishlist\" button on Search "
+"view</small>"
+msgstr ""
+"Kies de kleuren voor de eerste knop bij erover zweven met muist <br/"
+"><small>Deze stijl wordt toegepast op de \"Bewerk titel\" knop in de "
+"verlanglijst weergave, \"Wijzigingen indienen\" knop in de Beheren weergave "
+"en \"Verlanglijst zoeken\" knop in de Zoeken weergave</small>"
+
+#: plugin-options/settings/wishlist_page-options.php:427
+msgid "Secondary button style"
+msgstr "Tweede knop stijl"
+
+#: plugin-options/settings/wishlist_page-options.php:433
+#: plugin-options/settings/wishlist_page-options.php:451
+msgid ""
+"Choose colors of the secondary button<br/><small>This style will be applied "
+"to the buttons that allow showing and hiding the Edit title form on Wishlist "
+"view and \"Create new Wishlist\" button on Manage view</small>"
+msgstr ""
+"Kies de kleuren van de tweede knop <br/><small>Deze stijl wordt toegepast op "
+"de tonen of verbergen knoppen van het 'titel bewerken' formulier in de "
+"verlanglijst weergave, en de \"Nieuwe verlanglijst maken\" knop in de beheer "
+"weergave</small>"
+
+#: plugin-options/settings/wishlist_page-options.php:476
+msgid "Wishlist table style"
+msgstr "Tabelstijl verlanglijst"
+
+#: plugin-options/settings/wishlist_page-options.php:477
+msgid ""
+"Choose the colors for the wishlist table (when set to \"Traditional\" layout)"
+msgstr ""
+"Kies de kleuren van de verlanglijst tabel (bij instellen op \"Traditionele\" "
+"lay-out)"
+
+#: plugin-options/settings/wishlist_page-options.php:505
+msgid "Highlight color"
+msgstr "Highlight kleur"
+
+#: plugin-options/settings/wishlist_page-options.php:506
+msgid ""
+"Choose the color for all sections with background<br/><small>This color will "
+"be used as background for the wishlist table heading and footer (when set to "
+"\"Traditional\" layout), and for various form across wishlist views</small>"
+msgstr ""
+"Kies een kleur voor alle secties met achtergrond<br/><small>Deze kleur zal "
+"worden gebruikt als achtergrond voor het verlanglijst tabelhoofd en footer "
+"(bij instellen op \"Traditionele\" lay-out), en voor verschillende "
+"formulieren in verlanglijst weergaven</small>"
+
+#: plugin-options/settings/wishlist_page-options.php:518
+msgid "Share button text color"
+msgstr "Delen knop tekst kleur"
+
+#: plugin-options/settings/wishlist_page-options.php:519
+msgid "Choose colors for share buttons text"
+msgstr "Kies tekst kleur voor delen knoppen"
+
+#: plugin-options/settings/wishlist_page-options.php:530
+msgid "Text hover"
+msgstr "Tekst zweven"
+
+#: plugin-options/settings/wishlist_page-options.php:543
+msgid "Facebook share button icon"
+msgstr "Icoon voor Facebook delen knop"
+
+#: plugin-options/settings/wishlist_page-options.php:544
+msgid "Select an icon for the Facebook share button"
+msgstr "Selecteer een icoon voor de Facebook delen knop"
+
+#: plugin-options/settings/wishlist_page-options.php:554
+msgid "Facebook share button custom icon"
+msgstr "Aangepast icoon voor Facebook delen knop"
+
+#: plugin-options/settings/wishlist_page-options.php:555
+msgid ""
+"Upload an icon you'd like to use for Facebook share button (suggested 32px x "
+"32px)"
+msgstr ""
+"Upload een icoon dat u wilt gebruiken voor de Facebook delen knop "
+"(aanbevolen 32 x 32px)"
+
+#: plugin-options/settings/wishlist_page-options.php:563
+msgid "Facebook share button style"
+msgstr "Stijl voor Facebook delen knop"
+
+#: plugin-options/settings/wishlist_page-options.php:564
+msgid "Choose colors for Facebook share button"
+msgstr "Kies kleuren voor Facebook delen knop"
+
+#: plugin-options/settings/wishlist_page-options.php:575
+#: plugin-options/settings/wishlist_page-options.php:615
+#: plugin-options/settings/wishlist_page-options.php:655
+#: plugin-options/settings/wishlist_page-options.php:695
+#: plugin-options/settings/wishlist_page-options.php:735
+msgid "Background hover"
+msgstr "Achtergrond zweven"
+
+#: plugin-options/settings/wishlist_page-options.php:583
+msgid "Twitter share button icon"
+msgstr "Icoon voor Twitter delen knop"
+
+#: plugin-options/settings/wishlist_page-options.php:584
+msgid "Select an icon for the Twitter share button"
+msgstr "Selecteer een icoon voor de Twitter delen knop"
+
+#: plugin-options/settings/wishlist_page-options.php:594
+msgid "Twitter share button custom icon"
+msgstr "Aangepast icoon voor Twitter delen knop"
+
+#: plugin-options/settings/wishlist_page-options.php:595
+msgid ""
+"Upload an icon you'd like to use for Twitter share button (suggested 32px x "
+"32px)"
+msgstr ""
+"Upload een icoon dat u wilt gebruiken voor de Twitter delen knop (aanbevolen "
+"32 x 32px)"
+
+#: plugin-options/settings/wishlist_page-options.php:603
+msgid "Twitter share button style"
+msgstr "Stijl voor Twitter delen knop"
+
+#: plugin-options/settings/wishlist_page-options.php:604
+msgid "Choose colors for Twitter share button"
+msgstr "Kies kleuren voor Twitter delen knop"
+
+#: plugin-options/settings/wishlist_page-options.php:623
+msgid "Pinterest share button icon"
+msgstr "Icoon voor Pinterest delen knop"
+
+#: plugin-options/settings/wishlist_page-options.php:624
+msgid "Select an icon for the Pinterest share button"
+msgstr "Selecteer een icoon voor de Pinterest delen knop"
+
+#: plugin-options/settings/wishlist_page-options.php:634
+msgid "Pinterest share button custom icon"
+msgstr "Aangepast icoon voor Pinterest delen knop"
+
+#: plugin-options/settings/wishlist_page-options.php:635
+msgid ""
+"Upload an icon you'd like to use for Pinterest share button (suggested 32px "
+"x 32px)"
+msgstr ""
+"Upload een icoon dat u wilt gebruiken voor de Pinterest delen knop "
+"(aanbevolen 32 x 32px)"
+
+#: plugin-options/settings/wishlist_page-options.php:643
+msgid "Pinterest share button style"
+msgstr "Stijl voor Pinterest delen knop"
+
+#: plugin-options/settings/wishlist_page-options.php:644
+msgid "Choose colors for Pinterest share button"
+msgstr "Kies kleuren voor Pinterest delen knop"
+
+#: plugin-options/settings/wishlist_page-options.php:663
+msgid "Email share button icon"
+msgstr "Icoon voor e-mail delen knop"
+
+#: plugin-options/settings/wishlist_page-options.php:664
+msgid "Select an icon for the Email share button"
+msgstr "Selecteer een icoon voor de e-mail delen knop"
+
+#: plugin-options/settings/wishlist_page-options.php:674
+msgid "Email share button custom icon"
+msgstr "Aangepaste icoon voor e-mail delen knop"
+
+#: plugin-options/settings/wishlist_page-options.php:675
+msgid ""
+"Upload an icon you'd like to use for the Email share button (suggested 32px "
+"x 32px)"
+msgstr ""
+"Upload een icoon dat u wilt gebruiken voor de e-mail delen knop (aanbevolen "
+"32 x 32px)"
+
+#: plugin-options/settings/wishlist_page-options.php:683
+msgid "Email share button style"
+msgstr "Stijl voor e-mail delen knop"
+
+#: plugin-options/settings/wishlist_page-options.php:684
+msgid "Choose colors for the Email share button"
+msgstr "Kies kleuren voor e-mail delen knop"
+
+#: plugin-options/settings/wishlist_page-options.php:703
+msgid "WhatsApp share button icon"
+msgstr "Icoon voor WhatsApp delen knop"
+
+#: plugin-options/settings/wishlist_page-options.php:704
+msgid "Select an icon for the WhatsApp share button"
+msgstr "Selecteer een icoon voor de WhatsApp delen knop"
+
+#: plugin-options/settings/wishlist_page-options.php:714
+msgid "WhatsApp share button custom icon"
+msgstr "Aangepast icoon voor WhatsApp delen knop"
+
+#: plugin-options/settings/wishlist_page-options.php:715
+msgid ""
+"Upload an icon you'd like to use for WhatsApp share button (suggested 32px x "
+"32px)"
+msgstr ""
+"Upload een icoon dat u wilt gebruiken voor de WhatsApp delen knop "
+"(aanbevolen 32 x 32px)"
+
+#: plugin-options/settings/wishlist_page-options.php:723
+msgid "WhatsApp share button style"
+msgstr "Stijl voor WhatsApp delen knop"
+
+#: plugin-options/settings/wishlist_page-options.php:724
+msgid "Choose colors for WhatsApp share button"
+msgstr "Kies kleuren voor de WhatsApp delen knop"
+
+#: templates/add-to-wishlist-move.php:58
+msgid "In your wishlist"
+msgstr "In uw verlanglijst"
+
+#. translators: 1. Wishlist formatted name.
+#: templates/add-to-wishlist-move.php:154
+msgid ""
+"This item is already in the <b>%s wishlist</b>.<br/>You can move it to "
+"another list:"
+msgstr ""
+"Dit item is al toegevoegd aan de <b>%s verlanglijst</b>.<br/>Je kunt het "
+"verplaatsen naar een andere lijst:"
+
+#: templates/add-to-wishlist-move.php:185
+#: templates/add-to-wishlist-popup.php:121
+#: templates/add-to-wishlist-popup.php:159
+msgid "Create a new list"
+msgstr "Nieuwe lijst maken"
+
+#: templates/add-to-wishlist-move.php:204
+msgid "Wishlist name"
+msgstr "Naam verlanglijst"
+
+#: templates/add-to-wishlist-move.php:242 templates/wishlist-popup-move.php:98
+#: templates/wishlist-view-images.php:229
+#: templates/wishlist-view-mobile.php:232
+#: templates/wishlist-view-modern.php:207 templates/wishlist-view.php:544
+msgid "Move"
+msgstr "Verplaatsen"
+
+#: templates/add-to-wishlist-move.php:250
+msgid "click to remove it"
+msgstr "klikken om te verwijderen"
+
+#: templates/add-to-wishlist-popup.php:119
+msgid "Choose a wishlist"
+msgstr "Kies een verlanglijst"
+
+#: templates/add-to-wishlist-popup.php:178
+msgid "Enter wishlist name"
+msgstr "Naam invoeren voor verlanglijst"
+
+#: templates/admin/promotion-wizard.php:36
+msgid "Set a promotional e-mail"
+msgstr "Een promotionele e-mail instellen"
+
+#: templates/admin/promotion-wizard.php:40
+msgid "E-mail HTML content"
+msgstr "Inhoud HTML e-mail"
+
+#: templates/admin/promotion-wizard.php:41
+msgid "E-mail Text content"
+msgstr "Inhoud tekst e-mail"
+
+#: templates/admin/promotion-wizard.php:47
+msgid ""
+"This field lets you modify the main content of the HTML version of the email."
+msgstr ""
+"Dit veld laat u de hoofdinhoud van de HTML versie van de e-mail aanpassen."
+
+#: templates/admin/promotion-wizard.php:51
+#: templates/admin/promotion-wizard.php:71
+msgid "You can use the following placeholder:"
+msgstr "U kunt gebruikmaken van de volgende invulvelden:"
+
+#: templates/admin/promotion-wizard.php:59
+#: templates/admin/promotion-wizard.php:79
+msgid "Note: "
+msgstr "Let op:"
+
+#: templates/admin/promotion-wizard.php:60
+#: templates/admin/promotion-wizard.php:80
+msgid ""
+"you can customize the header in WooCommerce &rsaquo; Settings &rsaquo; "
+"Emails."
+msgstr ""
+"u kunt het hoofd aanpassen in WooCommerce &rsaquo; Instellingen &rsaquo; E-"
+"mails."
+
+#: templates/admin/promotion-wizard.php:67
+msgid ""
+"This field lets you modify the main content of the text version of the email"
+msgstr ""
+"Dit veld laat u de hoofdinhoud van de tekst versie van de e-mail aanpassen."
+
+#: templates/admin/promotion-wizard.php:86
+msgid "Coupon"
+msgstr "Kortingsbon"
+
+#: templates/admin/promotion-wizard.php:88
+msgid "Select a coupon"
+msgstr "Selecteer een kortingsbon"
+
+#: templates/admin/promotion-wizard.php:92
+msgid "This field lets you choose coupon to use for the email."
+msgstr "Dit veld laat u de kortingsbon kiezen voor de e-mail."
+
+#: templates/admin/promotion-wizard.php:96
+msgid "Preview:"
+msgstr "Voorbeeld:"
+
+#: templates/admin/promotion-wizard.php:103
+msgid "Save draft &rsaquo;"
+msgstr "Concept opslaan &rsaquo;"
+
+#: templates/admin/promotion-wizard.php:104
+msgid "Continue"
+msgstr "Doorgaan"
+
+#: templates/admin/promotion-wizard.php:110
+msgid "&lsaquo; Back"
+msgstr "&lsaquo; Terugkeren"
+
+#: templates/admin/promotion-wizard.php:111
+msgid "Ready to send?"
+msgstr "Klaar om te versturen?"
+
+#: templates/admin/promotion-wizard.php:113
+msgid "You're about to send this promotional email to"
+msgstr "U staat op het punt deze promotionele e-mail te sturen naar"
+
+#: templates/admin/promotion-wizard.php:114
+msgid "(calculating...) users"
+msgstr "(tellen...) gebruikers"
+
+#. translators: 1. Number of emails sent per hours.
+#: templates/admin/promotion-wizard.php:131
+msgid ""
+"In order to avoid overloading your server, we will send %d emails every "
+"hour. This will take some time; please relax and wait for the operation to "
+"complete ;)"
+msgstr ""
+"Om te voorkomen dat je server overbelast raakt, sturen we je elk uur %d e-"
+"mails. Dit kost wat tijd; ontspan en wacht tot het proces is afgerond ;)"
+
+#: templates/admin/promotion-wizard.php:142
+msgid "Send email"
+msgstr "Verstuur e-mail"
+
+#. translators: 1. User name.
+#. translators: 1. Customer full name.
+#: templates/emails/ask-estimate.php:28
+#: templates/emails/plain/ask-estimate.php:28
+msgid ""
+"You have received an estimate request from %s. The request is the following:"
+msgstr ""
+"U heeft een offerteverzoek ontvangen van %s. Het verzoek is het volgende:"
+
+#. translators: 1. Wishlist name.
+#. translators: 1. Wishlist token.
+#: templates/emails/ask-estimate.php:48
+#: templates/emails/plain/ask-estimate.php:42
+msgid "Wishlist: %s"
+msgstr "Wishlist: %s"
+
+#: templates/emails/ask-estimate.php:53
+msgid "Wishlist:"
+msgstr "Wishlist:"
+
+#: templates/emails/ask-estimate.php:59 templates/emails/products-table.php:30
+msgid "Product"
+msgstr "Product"
+
+#: templates/emails/ask-estimate.php:60 templates/wishlist-pdf.php:152
+#: templates/wishlist-view.php:143
+msgid "Quantity"
+msgstr "Hoeveelheid"
+
+#: templates/emails/ask-estimate.php:61 templates/emails/products-table.php:31
+msgid "Price"
+msgstr "Prijs"
+
+#: templates/emails/ask-estimate.php:94
+#: templates/emails/plain/ask-estimate.php:61
+msgid "Additional info:"
+msgstr "Aanvullende informatie:"
+
+#: templates/emails/ask-estimate.php:102
+#: templates/emails/plain/ask-estimate.php:69
+msgid "Additional data:"
+msgstr "Aanvullende data:"
+
+#: templates/emails/ask-estimate.php:129
+#: templates/emails/plain/ask-estimate.php:92
+msgid "Customer details"
+msgstr "Klantdetails"
+
+#: templates/emails/ask-estimate.php:132
+#: templates/emails/plain/ask-estimate.php:94
+msgid "Email:"
+msgstr "E-mail:"
+
+#. translators: 1. Url to wishlist page.
+#: templates/emails/plain/ask-estimate.php:44
+msgid "Wishlist link: %s"
+msgstr "Wishlist link: %s"
+
+#: templates/share.php:56 templates/share.php:57
+msgid "Facebook"
+msgstr "Facebook"
+
+#: templates/share.php:64 templates/share.php:65
+msgid "Twitter"
+msgstr "Twitter"
+
+#: templates/share.php:72 templates/share.php:73
+msgid "Pinterest"
+msgstr "Pinterest"
+
+#: templates/share.php:110
+msgid "WhatsApp"
+msgstr "WhatsApp"
+
+#: templates/share.php:111
+msgid "Whatsapp"
+msgstr "Whatsapp"
+
+#: templates/share.php:120
+msgid "(Now"
+msgstr "(U kunt nu"
+
+#: templates/share.php:120
+msgid "copy"
+msgstr "Kopieer"
+
+#: templates/share.php:120
+msgid "this wishlist link and share it anywhere)"
+msgstr "en overal delen)"
+
+#: templates/wishlist-create.php:29
+msgid "Name your list"
+msgstr "Geef uw lijst een naam"
+
+#: templates/wishlist-create.php:57
+msgid "Create wishlist"
+msgstr "Maak verlanglijst"
+
+#: templates/wishlist-manage-mobile.php:99
+#: templates/wishlist-manage-modern.php:99
+msgid "Items:"
+msgstr "Items:"
+
+#. translators: 1. number of items in wishlist.
+#. translators: 1. Wishlist items count.
+#: templates/wishlist-manage-mobile.php:103
+#: templates/wishlist-manage-modern.php:103 templates/wishlist-manage.php:224
+#: templates/wishlist-search.php:169
+msgid "%d items"
+msgstr "%d items"
+
+#: templates/wishlist-manage-mobile.php:110
+#: templates/wishlist-manage-modern.php:110
+msgid "Visibility:"
+msgstr "Zichtbaarheid:"
+
+#: templates/wishlist-manage-mobile.php:122
+#: templates/wishlist-manage-modern.php:122
+msgid "Created on:"
+msgstr "Gemaakt op:"
+
+#: templates/wishlist-manage-mobile.php:137
+#: templates/wishlist-manage-modern.php:137 templates/wishlist-manage.php:245
+msgid "Are you sure you want to delete this wishlist?"
+msgstr "Weet u zeker dat u deze verlanglijst wilt verwijderen?"
+
+#: templates/wishlist-manage-modern.php:166
+msgid "This wishlist is empty.<br/>Add some item soon!"
+msgstr "De verlanglijst is leeg <br/>Voeg snel een item toe!"
+
+#: templates/wishlist-manage.php:85 templates/wishlist-search.php:115
+msgid "Count of items"
+msgstr "Items tellen"
+
+#: templates/wishlist-manage.php:107
+msgid "Created on"
+msgstr "Gemaakt op"
+
+#: templates/wishlist-manage.php:129
+msgid "PDF Download"
+msgstr "PDF Download"
+
+#: templates/wishlist-pdf.php:109
+msgid "Product Name"
+msgstr "Productnaam"
+
+#: templates/wishlist-pdf.php:130
+msgid "Unit Price"
+msgstr "Eenheidsprijs"
+
+#: templates/wishlist-pdf.php:174 templates/wishlist-view.php:164
+msgid "Stock status"
+msgstr "Voorraad status"
+
+#: templates/wishlist-pdf.php:262 templates/wishlist-view-images.php:211
+#: templates/wishlist-view-mobile.php:199
+#: templates/wishlist-view-modern.php:189 templates/wishlist-view.php:431
+msgid "Out of stock"
+msgstr "Niet op voorraad"
+
+#: templates/wishlist-pdf.php:262 templates/wishlist-view-images.php:211
+#: templates/wishlist-view-mobile.php:199
+#: templates/wishlist-view-modern.php:189 templates/wishlist-view.php:431
+msgid "In Stock"
+msgstr "Op voorraad"
+
+#. translators: 1. Date product was added to wishlist.
+#. translators: date added label: 1 date added.
+#: templates/wishlist-pdf.php:273 templates/wishlist-view.php:479
+msgid "Added on: %s"
+msgstr "Toegevoegd op: %s"
+
+#: templates/wishlist-pdf.php:297 templates/wishlist-view-images.php:307
+#: templates/wishlist-view-mobile.php:304
+#: templates/wishlist-view-modern.php:283 templates/wishlist-view.php:649
+msgid "No products added to the wishlist"
+msgstr "Geen producten toegevoegd aan de verlanglijst"
+
+#: templates/wishlist-popup-ask-an-estimate.php:52
+msgid "Ask for an estimate for this list"
+msgstr "Vraag om een offerte voor deze verlanglijst"
+
+#: templates/wishlist-popup-ask-an-estimate.php:66
+msgid "Ask for an estimate for this list:"
+msgstr "Vraag om een offerte voor deze verlanglijst:"
+
+#: templates/wishlist-popup-ask-an-estimate.php:83
+msgid "Your email"
+msgstr "Uw e-mail"
+
+#. translators: 1. Wishlist formatted name.
+#: templates/wishlist-popup-move.php:65
+msgid ""
+"This item is already in the <b>%s wishlist</b>.<br/>You can move it in "
+"another list:"
+msgstr ""
+"Dit item is al toegevoegd aan de <b>%s verlanglijst</b>.<br/>Je kunt het "
+"verplaatsen naar een andere lijst:"
+
+#: templates/wishlist-search.php:38
+msgid "Type a name or an email address"
+msgstr "Typ een naam of e-mailadres"
+
+#: templates/wishlist-search.php:83
+msgid "Wishlist of:"
+msgstr "Verlanglijst van:"
+
+#. translators: 1. Query searched.
+#: templates/wishlist-search.php:189
+msgid "0 results for \"%s\" in the wishlist"
+msgstr "0 resultaten voor \"%s\" in de verlanglijst"
+
+#: templates/wishlist-view-footer-mobile.php:55
+#: templates/wishlist-view-footer.php:55
+msgid "Apply this action to all the selected items:"
+msgstr "Deze actie toepassen op alle geselecteerde items:"
+
+#: templates/wishlist-view-footer-mobile.php:73
+#: templates/wishlist-view-footer.php:73
+msgid "Remove from wishlist"
+msgstr "Verwijderen van verlanglijst"
+
+#. translators: 1. Wishlist formatted name.
+#: templates/wishlist-view-footer-mobile.php:93
+#: templates/wishlist-view-footer.php:93
+msgid "Move to %s"
+msgstr "Verplaatsen naar %s"
+
+#: templates/wishlist-view-footer-mobile.php:99
+#: templates/wishlist-view-footer.php:99
+msgid "Apply"
+msgstr "Toepassen"
+
+#: templates/wishlist-view-footer-mobile.php:107
+#: templates/wishlist-view-footer.php:107
+msgid "Update"
+msgstr "Bijwerken"
+
+#: templates/wishlist-view-footer-mobile.php:113
+#: templates/wishlist-view-footer.php:151
+#: templates/wishlist-widget-items.php:121
+msgid "Add all to cart"
+msgstr "Alles toevoegen aan winkelwagen"
+
+#: templates/wishlist-view-header.php:86
+msgid "Edit title"
+msgstr "Bewerk titel"
+
+#: templates/wishlist-view-images.php:163
+#: templates/wishlist-view-mobile.php:143
+#: templates/wishlist-view-modern.php:141
+msgid "Added on:"
+msgstr "Toegevoegd op:"
+
+#: templates/wishlist-view-images.php:174
+#: templates/wishlist-view-mobile.php:154
+msgid "Price:"
+msgstr "Prijs:"
+
+#: templates/wishlist-view-images.php:193
+#: templates/wishlist-view-mobile.php:181
+#: templates/wishlist-view-modern.php:171
+msgid "Quantity:"
+msgstr "Hoeveelheid:"
+
+#: templates/wishlist-view-images.php:208
+#: templates/wishlist-view-mobile.php:196
+#: templates/wishlist-view-modern.php:186
+msgid "Stock:"
+msgstr "Voorraad:"
+
+#: templates/wishlist-view-images.php:260
+#: templates/wishlist-view-mobile.php:263
+#: templates/wishlist-view-modern.php:236 templates/wishlist-view.php:575
+msgid "Move to another list &rsaquo;"
+msgstr "Verplaatsen naar een andere lijst &rsaquo;"
+
+#: templates/wishlist-view-images.php:280
+#: templates/wishlist-view-mobile.php:283
+#: templates/wishlist-view-modern.php:256 templates/wishlist-view.php:250
+#: templates/wishlist-view.php:607
+msgid "Remove this product"
+msgstr "Verwijder dit product"
+
+#: templates/wishlist-view-modern.php:152
+msgid "Unit Price:"
+msgstr "Eenheidsprijs:"
+
+#: templates/wishlist-view.php:102
+msgid "Product name"
+msgstr "Productnaam"
+
+#: templates/wishlist-view.php:122
+msgid "Unit price"
+msgstr "Eenheidsprijs"
+
+#: templates/wishlist-view.php:206
+msgid "Arrange"
+msgstr "Schikken"
+
+#: templates/wishlist-view.php:607
+msgid "Remove"
+msgstr "Verwijderen"
+
+#. translators: 1. Number of items in wishlist.
+#: templates/wishlist-widget-items.php:73
+msgid "%d items in wishlist"
+msgstr "%d items in verlanglijst"
+
+#: templates/wishlist-widget-items.php:103
+msgid "In"
+msgstr "In"
+
+#: templates/wishlist-widget-items.php:112
+msgid "Please, add your first item to the wishlist"
+msgstr "Voeg uw eerste item toe aan de verlanglijst"
+
+#: templates/wishlist-widget-items.php:117
+msgid "View your wishlist &rsaquo;"
+msgstr "Bekijk uw verlanglijst &rsaquo;"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Wishlist</strong></code> gives your users the "
+"possibility to create, fill, manage and share their wishlists allowing you "
+"to analyze their interests and needs to improve your marketing strategies. "
+"<a href=\"https://yithemes.com/\" target=\"_blank\">Get more plugins for "
+"your e-commerce on <strong>YITH</strong></a>"
+msgstr ""
+"<code><strong>YITH WooCommerce Wishlist</strong></code> geeft je gebruikers "
+"de de mogelijkheid om hun verlanglijsten te maken, invullen, beheren en "
+"delen. Je kunt de interesses en behoeften van je klanten analyseren en "
+"gebruiken voor marketingdoeleinden. <a href=\"https://yithemes.com/\" "
+"target=\"_blank\">Verkrijg meer plugins voor je e-commerce op <strong>YITH</"
+"strong></a>"
+
+#: includes/class-yith-wcwl-admin-extended.php:76
+msgctxt "Settings tab name"
+msgid "Popular"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin-extended.php:81
+#: includes/class-yith-wcwl-admin-premium.php:105
+#: includes/class-yith-wcwl-admin.php:223
+msgctxt "Settings tab name"
+msgid "Settings"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin-premium.php:101
+msgctxt "Settings tab name"
+msgid "Dashboard"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin-extended.php:77
+#: plugin-options/dashboard-options.php:21
+msgctxt "Tab description in plugin settings panel"
+msgid "Check the most popular products in your site."
+msgstr ""
+
+#: plugin-options/dashboard-options.php:16
+msgctxt "Tab description in plugin settings panel"
+msgid "See all the wishlists created in your site."
+msgstr ""
+
+#: plugin-options/settings-options.php:16
+msgctxt "Tab description in plugin settings panel"
+msgid "Configure the plugin general settings."
+msgstr ""
+
+#: plugin-options/settings-options.php:21
+msgctxt "Tab description in plugin settings panel"
+msgid "Configure the Add to wishlist settings."
+msgstr ""
+
+#: plugin-options/settings-options.php:26
+msgctxt "Tab description in plugin settings panel"
+msgid "Configure the wishlist page settings."
+msgstr ""
+
+#: plugin-options/settings-options.php:31
+msgctxt "Tab description in plugin settings panel"
+msgid "Configure the Ask an estimate settings."
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:271
+msgctxt "[HELP TAB] Video title"
+msgid ""
+"Check this video to learn how to <b>configure wishlist and customize options:"
+"</b>"
+msgstr ""
+"Bekijk deze video om te leren hoe <b>je de verlanglijst kunt configureren en "
+"opties kunt aanpassen:</b>"
+
+#: includes/class-yith-wcwl-admin.php:316
+msgctxt ""
+"[YOUR STORE TOOLS TAB] Description for plugin YITH WooCommerce Gift Cards"
+msgid ""
+"Sell gift cards in your shop to increase your earnings and attract new "
+"customers."
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:328
+msgctxt ""
+"[YOUR STORE TOOLS TAB] Description for plugin YITH WooCommerce Ajax Product "
+"Filter"
+msgid ""
+"Help your customers to easily find the products they are looking for and "
+"improve the user experience of your shop."
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:340
+msgctxt "[YOUR STORE TOOLS TAB] Description for plugin YITH Bookings"
+msgid ""
+"Enable a booking/appointment system to manage renting or booking of "
+"services, rooms, houses, cars, accommodation facilities and so on."
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:353
+msgctxt ""
+"[YOUR STORE TOOLS TAB] Description for plugin YITH WooCommerce Request a "
+"Quote"
+msgid ""
+"Hide prices and/or the \"Add to cart\" button and let your customers request "
+"a custom quote for every product."
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:365
+msgctxt ""
+"[YOUR STORE TOOLS TAB] Description for plugin YITH WooCommerce Product Add-"
+"Ons"
+msgid ""
+"Add paid or free advanced options to your product pages using fields like "
+"radio buttons, checkboxes, drop-downs, custom text inputs, and more."
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:377
+msgctxt ""
+"[YOUR STORE TOOLS TAB] Description for plugin YITH WooCommerce Dynamic "
+"Pricing and Discounts"
+msgid ""
+"Increase conversions through dynamic discounts and price rules, and build "
+"powerful and targeted offers."
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:389
+msgctxt ""
+"[YOUR STORE TOOLS TAB] Description for plugin YITH WooCommerce Customize My "
+"Account"
+msgid ""
+"Customize the My Account page of your customers by creating custom sections "
+"with promotions and ad-hoc content based on your needs."
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:397
+msgctxt "[YOUR STORE TOOLS TAB] Description for plugin Recover Abandoned Cart"
+msgid ""
+"Contact users who have added products to the cart without completing the "
+"order and try to recover lost sales."
+msgstr ""
+
+#. translators: 1. name of the missing parameter.
+#: includes/class-yith-wcwl-form-handler-premium.php:851
+msgctxt "Ask for an estimate submit error"
+msgid "Missing required argument: %s"
+msgstr "Vereist argument ontbreekt: %s"
+
+#: includes/class-yith-wcwl-install.php:340
+msgctxt "page_slug"
+msgid "wishlist"
+msgstr "Verlanglijst"
+
+#: includes/class-yith-wcwl-privacy.php:274
+msgctxt "date when wishlist was created"
+msgid "Created on"
+msgstr "Aangemaakt op"
+
+#: includes/class-yith-wcwl-shortcode-premium.php:65
+msgctxt "[gutenberg]: block name"
+msgid "YITH public wishlist link"
+msgstr "Link voor openbare verlanglijst YITH"
+
+#: includes/class-yith-wcwl-shortcode.php:52
+msgctxt "[gutenberg]: block name"
+msgid "YITH Add to wishlist"
+msgstr "YITH Toevoegen aan verlanglijst"
+
+#: includes/class-yith-wcwl-shortcode.php:101
+msgctxt "[gutenberg]: block name"
+msgid "YITH Wishlist"
+msgstr "YITH Wishlist"
+
+#: includes/class-yith-wcwl-shortcode-premium.php:66
+msgctxt "[gutenberg]: block description"
+msgid "Shows all public wishlists"
+msgstr "Toon alle openbare verlanglijsten"
+
+#: includes/class-yith-wcwl-shortcode.php:53
+msgctxt "[gutenberg]: block description"
+msgid "Shows Add to wishlist button"
+msgstr "Toont toevoegen aan verlanglijst knop"
+
+#: includes/class-yith-wcwl-shortcode.php:102
+msgctxt "[gutenberg]: block description"
+msgid "Shows a list of products in wishlist"
+msgstr "Toont een lijst met producten in verlanglijst"
+
+#. translators: 1. % of reduction/increase in price.
+#: includes/class-yith-wcwl-wishlist-item.php:478
+msgctxt ""
+"Part of the template that shows price variation since addition to list; "
+"placeholder will be replaced with a percentage"
+msgid "Price is %1$s%%"
+msgstr "De prijs is %1$s%%"
+
+#. translators: 2: original product price.
+#: includes/class-yith-wcwl-wishlist-item.php:480
+msgctxt ""
+"Part of the template that shows price variation since addition to list; "
+"placeholder will be replaced with a price"
+msgid "(Was %2$s when added  in list)"
+msgstr "(deze was %2$s wanneer het werd toegevoegd aan de lijst)"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:323
+msgctxt "Admin: \"all wishlists\" table views"
+msgid "All"
+msgstr "Alle"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:338
+msgctxt "Admin: \"all wishlists\" table views"
+msgid "Public"
+msgstr "Openbaar"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:353
+msgctxt "Admin: \"all wishlists\" table views"
+msgid "Shared"
+msgstr "Gedeeld"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:368
+msgctxt "Admin: \"all wishlists\" table views"
+msgid "Private"
+msgstr "Privé"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:45
+msgctxt "Elementor widget name"
+msgid "YITH Wishlist Add button"
+msgstr "YITH Wishlist toevoegen knop"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-wishlist.php:45
+msgctxt "Elementor widget name"
+msgid "YITH Wishlist"
+msgstr "YITH Wishlist"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:87
+msgctxt "Elementor section title"
+msgid "Product"
+msgstr "Product"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:107
+msgctxt "Elementor section title"
+msgid "Labels"
+msgstr "Labels"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:157
+msgctxt "Elementor section title"
+msgid "Advanced"
+msgstr "Geavanceerd"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-wishlist.php:87
+msgctxt "Elementor section title"
+msgid "Wishlist"
+msgstr "Verlanglijst"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-wishlist.php:107
+msgctxt "Elementor section title"
+msgid "Pagination"
+msgstr "Paginering"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:95
+msgctxt "Elementor control label"
+msgid "Product ID"
+msgstr "Product ID"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:115
+msgctxt "Elementor control label"
+msgid "Button label"
+msgstr "Knop label"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:125
+msgctxt "Elementor control label"
+msgid "\"Browse wishlist\" label"
+msgstr "\"Verlanglijst browsen\" label"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:135
+msgctxt "Elementor control label"
+msgid "\"Product already in wishlist\" label"
+msgstr "\"Product bevindt zich al in verlanglijst\" label"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:145
+msgctxt "Elementor control label"
+msgid "\"Product added to wishlist\" label"
+msgstr "\"Product toegevoegd aan verlanglijst\" label"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:165
+msgctxt "Elementor control label"
+msgid "URL of the wishlist page"
+msgstr "URL van verlanglijst pagina"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:175
+msgctxt "Elementor control label"
+msgid "Icon for the button"
+msgstr "Icoon voor de knop"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:185
+msgctxt "Elementor control label"
+msgid "Additional CSS classes for the button"
+msgstr "Aanvullende CSS klassen voor de knop"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-wishlist.php:95
+msgctxt "Elementor control label"
+msgid "Wishlist ID"
+msgstr "Verlanglijst ID"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-wishlist.php:115
+msgctxt "Elementor control label"
+msgid "Paginate items"
+msgstr "Items pagineren"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-wishlist.php:128
+msgctxt "yith-woocommerce-wishlist"
+msgid "Items per page"
+msgstr "Items per pagina"
+
+#: plugin-options/dashboard-options.php:14
+msgctxt "Tab title in plugin settings panel"
+msgid "Wishlists"
+msgstr ""
+
+#: plugin-options/dashboard-options.php:19
+msgctxt "Tab title in plugin settings panel"
+msgid "Popular"
+msgstr ""
+
+#: plugin-options/settings-options.php:14
+msgctxt "Tab title in plugin settings panel"
+msgid "General"
+msgstr ""
+
+#: plugin-options/settings-options.php:19
+msgctxt "Tab title in plugin settings panel"
+msgid "Add to wishlist"
+msgstr ""
+
+#: plugin-options/settings-options.php:24
+msgctxt "Tab title in plugin settings panel"
+msgid "Wishlist page"
+msgstr ""
+
+#: plugin-options/settings-options.php:29
+msgctxt "Tab title in plugin settings panel"
+msgid "Ask an estimate"
+msgstr ""

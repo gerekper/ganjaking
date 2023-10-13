@@ -1,4 +1,5 @@
-<?php
+<?php 
+            namespace Ali2Woo\Lib;
 /**
  * Session handler for persistent requests and default parameters
  *

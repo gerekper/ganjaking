@@ -1,0 +1,914 @@
+{
+  "AED": {
+    "position": "right_space",
+    "thousand_sep": ",",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "AFN": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ".",
+    "num_decimals": 0
+  },
+  "ANG": {
+    "position": "left_space",
+    "thousand_sep": ".",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "AOA": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "ARS": {
+    "position": "left_space",
+    "thousand_sep": ".",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "AUD": {
+    "position": "left",
+    "thousand_sep": ",",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "AZN": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "BAM": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "BDT": {
+    "position": "right",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "BGN": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "BIF": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 0
+  },
+  "BMD": {
+    "position": "left",
+    "thousand_sep": ",",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "BND": {
+    "position": "left_space",
+    "thousand_sep": ".",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "BOB": {
+    "position": "left",
+    "thousand_sep": " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "BRL": {
+    "position": "left_space",
+    "thousand_sep": ".",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "BSD": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "BTC": {
+    "position": "right_space",
+    "thousand_sep": ",",
+    "decimal_sep": ".",
+    "num_decimals": 8
+  },
+  "BWP": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "BYR": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "BZD": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "CAD": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "CDF": {
+    "position": "left_space",
+    "thousand_sep": ".",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "CHF": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "CLP": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ",",
+    "num_decimals": 0
+  },
+  "CNY": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "COP": {
+    "position": "left_space",
+    "thousand_sep": ".",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "CRC": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "CUP": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "CVE": {
+    "position":  "left",
+    "thousand_sep": " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "CZK": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "DJF": {
+    "position": "right_space",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 0
+  },
+  "DKK": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "DOP": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "DZD": {
+    "position": "right",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "EGP": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "ERN": {
+    "position": "left_space",
+    "thousand_sep": ",",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "ETB": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "EUR": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "FJD": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "FKP": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "GBP": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "GEL": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "GGP": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "GHC": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "GIP": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "GMD": {
+    "position": "right_space",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "GNF": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 0
+  },
+  "GTQ": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "GYD": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "HKD": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "HNL": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "HRK": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "HTG": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "HUF": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "IDR": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "ILS": {
+    "position": "left_space",
+    "thousand_sep": ",",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "IMP": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "INR": {
+    "position": "left_space",
+    "thousand_sep": ",",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "IQD": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "IRT": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "ISK": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ".",
+    "num_decimals": 0
+  },
+  "JEP": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "JMD": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "JOD": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 3
+  },
+  "JPY": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 0
+  },
+  "KES": {
+    "position": "left_space",
+    "thousand_sep": ",",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "KGS": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "KHR": {
+    "position": "right",
+    "thousand_sep":  " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "KMF": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 0
+  },
+  "KPW": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ",",
+    "num_decimals": 0
+  },
+  "KRW": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ",",
+    "num_decimals": 0
+  },
+  "KWD": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 3
+  },
+  "KYD": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "KZT": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "LAK": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 0
+  },
+  "LBP": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "LKR": {
+    "position": "left_space",
+    "thousand_sep": ",",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "LRD": {
+    "position": "right_space",
+    "thousand_sep":  " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "LSL": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "LYD": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 3
+  },
+  "MAD": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "MDL": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "MGA": {
+    "position": "left_space",
+    "thousand_sep": ",",
+    "decimal_sep": ".",
+    "num_decimals": 0
+  },
+  "MKD": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "MMK": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 0
+  },
+  "MNT": {
+    "position": "left_space",
+    "thousand_sep": ",",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "MOP": {
+    "position": "right_space",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "MRO": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "MUR": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "MVR": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "MWK": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "MXN": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "MYR": {
+    "position": "left_space",
+    "thousand_sep": ",",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "MZN": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 0
+  },
+  "NAD": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "NGN": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "NIO": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "NOK": {
+    "position": "left_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "NPR": {
+    "position": "left_space",
+    "thousand_sep": ",",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "NZD": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "OMR": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 3
+  },
+  "PAB": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "PEN": {
+    "position": "left_space",
+    "thousand_sep": ",",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "PGK": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "PHP": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "PKR": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "PLN": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "PRB": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "PYG": {
+    "position": "right_space",
+    "thousand_sep": ".",
+    "decimal_sep": ",",
+    "num_decimals": 0
+  },
+  "QAR": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "RON": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "RSD": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ".",
+    "num_decimals": 0
+  },
+  "RUB": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "RWF": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 0
+  },
+  "SAR": {
+    "position": "right_space",
+    "thousand_sep": ",",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "SBD": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "SCR": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "SDG": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "SEK": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "SGD": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "SHP": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "SLL": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ",",
+    "num_decimals": 0
+  },
+  "SOS": {
+    "position": "left_space",
+    "thousand_sep": ",",
+    "decimal_sep": ".",
+    "num_decimals": 0
+  },
+  "SRD": {
+    "position": "left_space",
+    "thousand_sep": ".",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "SSP": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "STN": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "SYP": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "SZL": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "THB": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "TJS": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "TMT": {
+    "position": "right",
+    "thousand_sep":  " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "TND": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 3
+  },
+  "TOP": {
+    "position": "left_space",
+    "thousand_sep": ",",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "TRY": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "TTD": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "TWD": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "TZS": {
+    "position": "left_space",
+    "thousand_sep": ",",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "UAH": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "UGX": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ",",
+    "num_decimals": 0
+  },
+  "USD": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "UYU": {
+    "position": "left_space",
+    "thousand_sep": ".",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "UZS": {
+    "position": "right_space",
+    "thousand_sep": ".",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "VES": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "VND": {
+    "position": "right_space",
+    "thousand_sep": ".",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "VUV": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 0
+  },
+  "WST": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "XAF": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 0
+  },
+  "XCD": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "XOF": {
+    "position": "right_space",
+    "thousand_sep": " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "YER": {
+    "position": "right_space",
+    "thousand_sep": ",",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  },
+  "ZAR": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ",",
+    "num_decimals": 2
+  },
+  "ZMW": {
+    "position": "left",
+    "thousand_sep":  " ",
+    "decimal_sep": ".",
+    "num_decimals": 2
+  }
+}

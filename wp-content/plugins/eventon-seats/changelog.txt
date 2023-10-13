@@ -1,5 +1,15 @@
 ﻿Event Seats (ST) addon for EventON Plugin
 ====================================
+v 1.2.3 (2023-8-21)
+FIXED: one click add to cart not working right
+
+v 1.2.2 (2023-8-3)
+ADDED: eventon tickets environment setup check before initiate addon
+FIXED: seat map image not saving correctly
+FIXED: on evetcard seat map not loading after slide down event
+FIXED: one-click add seat to cart not working
+UPDATED: eventcard seatmap data to load via endpoint ajax
+
 v 1.2.1 (2023-7-20)
 ADDED: new seat map size 650x600
 ADDED: seat shape option with box and circle seat shapes

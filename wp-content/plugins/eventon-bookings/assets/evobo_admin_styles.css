@@ -75,8 +75,9 @@
     .evobo_editor .evoboE_slots .line .other span b{font-weight: bold;}
     .evobo_editor .evoboE_slots .line .other {flex-grow:1;}
     
-    .evobo_editor .evoboE_slots .line .other i.del,  .evobo_editor .evoboE_slots .line .other i.edit{
-        background-color: #f58585;
+    .evobo_editor .evoboE_slots .line .other i.del,  
+    .evobo_editor .evoboE_slots .line .other i.edit{
+        background-color: #ff4848;
         border-radius: 20px;
         padding: 0px 10px;
         color: #fff;
@@ -92,10 +93,13 @@
         top: 0;
         margin: 8px 15px 0 0;
     }
-    .evobo_editor .evoboE_slots .line .other i.edit{right:30px;background-color: #b1b1b1}
+    .evobo_editor .evoboE_slots .line .other i.edit{right:30px;background-color:var(--evo_color_1)}
     .evobo_editor .evoboE_slots .line:hover i.del,
      .evobo_editor .evoboE_slots .line:hover .other i.edit
     {display: flex;}
+    .evobo_editor .evoboE_slots .line .other i.edit:hover,
+    .evobo_editor .evoboE_slots .line .other i.del:hover
+    {opacity: 0.7}
     .evobo_editor .evoboE_slots .line .other span i{opacity: 0.5; font-style: normal;}
     .evobo_customers .evotxVA_ticket{padding: 10px 0;}
 

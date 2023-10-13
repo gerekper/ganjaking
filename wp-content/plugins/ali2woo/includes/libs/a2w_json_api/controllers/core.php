@@ -13,6 +13,8 @@ class A2W_JSON_API_Core_Controller
 
     public function __construct()
     {
+        A2W_Utils::clear_system_error_messages();
+
         $this->product_import_model = new A2W_ProductImport();
         $this->woocommerce_model = new A2W_Woocommerce();
         $this->loader = new A2W_Aliexpress();

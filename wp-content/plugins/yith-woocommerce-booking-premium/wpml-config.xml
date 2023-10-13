@@ -1,0 +1,142 @@
+<wpml-config>
+    <custom-fields>
+        <custom-field action="copy">_yith_booking_duration_type</custom-field>
+        <custom-field action="copy">_yith_booking_duration</custom-field>
+        <custom-field action="copy">_yith_booking_duration_unit</custom-field>
+        <custom-field action="copy">_yith_booking_minimum_duration</custom-field>
+        <custom-field action="copy">_yith_booking_maximum_duration</custom-field>
+        <custom-field action="copy">_yith_booking_enable_calendar_range_picker</custom-field>
+        <custom-field action="copy">_yith_booking_all_day</custom-field>
+        <custom-field action="copy">_yith_booking_request_confirmation</custom-field>
+        <custom-field action="copy">_yith_booking_can_be_cancelled</custom-field>
+        <custom-field action="copy">_yith_booking_cancelled_duration</custom-field>
+        <custom-field action="copy">_yith_booking_cancelled_unit</custom-field>
+        <custom-field action="copy">_yith_booking_location</custom-field>
+        <custom-field action="copy">_yith_booking_location_lat</custom-field>
+        <custom-field action="copy">_yith_booking_location_lng</custom-field>
+        <custom-field action="copy">_yith_booking_max_per_block</custom-field>
+        <custom-field action="copy">_yith_booking_allow_after</custom-field>
+        <custom-field action="copy">_yith_booking_allow_after_unit</custom-field>
+        <custom-field action="copy">_yith_booking_allow_until</custom-field>
+        <custom-field action="copy">_yith_booking_allow_until_unit</custom-field>
+        <custom-field action="copy">_yith_booking_buffer</custom-field>
+        <custom-field action="translate">_yith_booking_checkin</custom-field>
+        <custom-field action="translate">_yith_booking_checkout</custom-field>
+        <custom-field action="copy">_yith_booking_allowed_start_days</custom-field>
+        <custom-field action="copy">_yith_booking_default_start_date</custom-field>
+        <custom-field action="copy">_yith_booking_default_start_date_custom</custom-field>
+        <custom-field action="copy">_yith_booking_default_start_time</custom-field>
+        <custom-field action="copy">_yith_booking_daily_start_time</custom-field>
+        <custom-field action="copy">_yith_booking_time_increment_based_on_duration</custom-field>
+        <custom-field action="copy">_yith_booking_availability_range</custom-field>
+        <custom-field action="copy">_yith_booking_costs_range</custom-field>
+        <custom-field action="copy">_yith_booking_default_availabilities</custom-field>
+        <custom-field action="copy">_yith_booking_base_cost</custom-field>
+        <custom-field action="copy">_yith_booking_block_cost</custom-field>
+        <custom-field action="copy">_yith_booking_has_persons</custom-field>
+        <custom-field action="copy">_yith_booking_min_persons</custom-field>
+        <custom-field action="copy">_yith_booking_max_persons</custom-field>
+        <custom-field action="copy">_yith_booking_multiply_costs_by_persons</custom-field>
+        <custom-field action="copy">_yith_booking_count_persons_as_bookings</custom-field>
+        <custom-field action="copy">_yith_booking_enable_person_types</custom-field>
+        <custom-field action="copy">_yith_booking_person_types</custom-field>
+        <custom-field action="copy">_yith_booking_services</custom-field>
+        <custom-field action="copy">_yith_booking_external_calendars</custom-field>
+        <custom-field action="copy">_yith_booking_external_calendars_key</custom-field>
+        <custom-field action="copy">_yith_booking_external_calendars_last_sync</custom-field>
+        <custom-field action="copy">_yith_booking_time_increment_including_buffer</custom-field>
+        <custom-field action="copy">_yith_booking_multiply_base_price_by_number_of_people</custom-field>
+        <custom-field action="copy">_yith_booking_extra_price_per_person</custom-field>
+        <custom-field action="copy">_yith_booking_extra_price_per_person_greater_than</custom-field>
+        <custom-field action="copy">_yith_booking_weekly_discount</custom-field>
+        <custom-field action="copy">_yith_booking_monthly_discount</custom-field>
+        <custom-field action="copy">_yith_booking_last_minute_discount</custom-field>
+        <custom-field action="copy">_yith_booking_last_minute_discount_days_before_arrival</custom-field>
+        <custom-field action="copy">_yith_booking_multiply_fixed_base_fee_by_number_of_people</custom-field>
+        <custom-field action="copy">_yith_booking_extra_costs</custom-field>
+    </custom-fields>
+    <custom-types>
+        <custom-type translate="1">ywcbk-person-type</custom-type>
+        <custom-type translate="1">ywcbk-extra-cost</custom-type>
+        <custom-type translate="0">yith_booking</custom-type>
+    </custom-types>
+    <taxonomies>
+        <taxonomy translate="0">yith_booking_service</taxonomy>
+    </taxonomies>
+    <admin-texts>
+        <key name="woocommerce_yith_wcbk_customer_new_booking_settings">
+            <key name="subject" />
+            <key name="heading" />
+            <key name="custom_message" />
+        </key>
+        <key name="woocommerce_yith_wcbk_customer_paid_booking_settings">
+            <key name="subject" />
+            <key name="heading" />
+            <key name="custom_message" />
+        </key>
+        <key name="woocommerce_yith_wcbk_customer_cancelled_booking_settings">
+            <key name="subject" />
+            <key name="heading" />
+            <key name="custom_message" />
+        </key>
+        <key name="woocommerce_yith_wcbk_customer_confirmed_booking_settings">
+            <key name="subject" />
+            <key name="heading" />
+            <key name="custom_message" />
+        </key>
+        <key name="woocommerce_yith_wcbk_customer_unconfirmed_booking_settings">
+            <key name="subject" />
+            <key name="heading" />
+            <key name="custom_message" />
+        </key>
+        <key name="woocommerce_yith_wcbk_customer_completed_booking_settings">
+            <key name="subject" />
+            <key name="heading" />
+            <key name="custom_message" />
+        </key>
+        <key name="woocommerce_yith_wcbk_customer_booking_note_settings">
+            <key name="subject" />
+            <key name="heading" />
+            <key name="custom_message" />
+        </key>
+        <key name="woocommerce_yith_wcbk_customer_booking_notification_after_end_settings">
+            <key name="subject" />
+            <key name="heading" />
+            <key name="custom_message" />
+        </key>
+        <key name="woocommerce_yith_wcbk_customer_booking_notification_after_start_settings">
+            <key name="subject" />
+            <key name="heading" />
+            <key name="custom_message" />
+        </key>
+        <key name="woocommerce_yith_wcbk_customer_booking_notification_before_end_settings">
+            <key name="subject" />
+            <key name="heading" />
+            <key name="custom_message" />
+        </key>
+        <key name="woocommerce_yith_wcbk_customer_booking_notification_before_start_settings">
+            <key name="subject" />
+            <key name="heading" />
+            <key name="custom_message" />
+        </key>
+        <key name="yith-wcbk-label-add-to-cart"></key>
+        <key name="yith-wcbk-label-additional-services"></key>
+        <key name="yith-wcbk-label-bookable"></key>
+        <key name="yith-wcbk-label-check-in"></key>
+        <key name="yith-wcbk-label-check-out"></key>
+        <key name="yith-wcbk-label-dates"></key>
+        <key name="yith-wcbk-label-duration"></key>
+        <key name="yith-wcbk-label-end-date"></key>
+        <key name="yith-wcbk-label-from"></key>
+        <key name="yith-wcbk-label-included-services"></key>
+        <key name="yith-wcbk-label-not-bookable"></key>
+        <key name="yith-wcbk-label-people"></key>
+        <key name="yith-wcbk-label-read-more"></key>
+        <key name="yith-wcbk-label-request-confirmation"></key>
+        <key name="yith-wcbk-label-services"></key>
+        <key name="yith-wcbk-label-start-date"></key>
+        <key name="yith-wcbk-label-time"></key>
+        <key name="yith-wcbk-label-to"></key>
+        <key name="yith-wcbk-label-total-people"></key>
+    </admin-texts>
+</wpml-config>

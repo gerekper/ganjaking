@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html
+  lang="{{newsletter_language}}"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:v="urn:schemas-microsoft-com:vml"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+>
+  <title>{{newsletter_subject}}</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="format-detection" content="telephone=no" />
+  {{email_meta_robots}}
+
+  <style type="text/css">
+    {{email_template_styles}}
+  </style>
+  <body style="word-spacing:normal;background:{{background}};">
+    <div class="email_layout_wrapper" style="background:{{background}}">
+      <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:{{width}}px;" width="{{width}}" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+      <div style="margin: 0px auto; max-width: {{width}}px">
+        <table
+          align="center"
+          border="0"
+          cellpadding="0"
+          cellspacing="0"
+          role="presentation"
+          style="width: 100%"
+        >
+          <tbody>
+            <tr>
+              <td
+                class="email_preheader"
+                style="
+                  -webkit-text-size-adjust: none;
+                  font-size: 1px;
+                  line-height: 1px;
+                  color: #333333;
+                "
+                height="1"
+              >
+                {{email_preheader}}
+              </td>
+            </tr>
+            <tr>
+              <td
+                class="email_content_wrapper"
+                style="
+                  direction: ltr;
+                  font-size: 0px;
+                  padding: 8px;
+                  text-align: center;
+                "
+              >
+                <table
+                  role="presentation"
+                  border="0"
+                  cellpadding="0"
+                  cellspacing="0"
+                >
+                  <tbody>
+                    {{email_body}}
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!--[if mso | IE]></td></tr></table><![endif]-->
+    </div>
+  </body>
+</html>

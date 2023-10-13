@@ -1,0 +1,4202 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 1\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: uk_UA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 3.2.2\n"
+
+#. Plugin Name of the plugin
+#: includes/controller/controller-admin.php:579
+#: includes/controller/controller-admin.php:580
+#: includes/views/admin/admin-age.php:21
+#: includes/views/admin/admin-breach.php:21
+#: includes/views/admin/admin-cookie.php:21
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:21
+#: includes/views/admin/admin-data-access.php:32
+#: includes/views/admin/admin-forgotten.php:30
+#: includes/views/admin/admin-optimization.php:21
+#: includes/views/admin/admin-plugins.php:21
+#: includes/views/admin/admin-policy.php:21
+#: includes/views/admin/admin-pseudonymization.php:30
+#: includes/views/admin/admin-rectification.php:32
+#: includes/views/admin/admin-services.php:21
+#: includes/views/admin/admin-terms.php:22
+#: includes/views/admin/admin-unsubscribe.php:30
+msgid "Ultimate GDPR & CCPA"
+msgstr "Ultimate GDPR & CCPA"
+
+#. Description of the plugin
+msgid "Complete General Data Protection Regulation compliance toolkit plugin for WordPress."
+msgstr "Повний плагін для WordPress, що відповідає вимогам Загального регламенту про захист даних."
+
+#. Author of the plugin
+msgid "CreateIT"
+msgstr "createIT"
+
+#. Author URI of the plugin
+msgid "https://www.createit.pl"
+msgstr "https://www.createit.pl"
+
+#: includes/controller/controller-admin.php:174
+msgid "Your server is running PHP version %s but Ultimate GDPR & CCPA %s requires at least %s"
+msgstr "На вашому сервері використовується версія PHP %s, але Ultimate GDPR & CCPA % вимагається щонайменше %s"
+
+#: includes/controller/controller-admin.php:194
+msgid "[Ultimate GDPR & CCPA] Your license key is missing, <a href=%s>add valid purchase code</a> to use the cookie scanner"
+msgstr "[Ultimate GDPR & CCPA] Ваш ліцензійний ключ відсутній, <a href=%s>add valid purchase code</a> для використання сканера файлів cookie"
+
+#: includes/controller/controller-admin.php:295
+#: includes/controller/controller-admin.php:340
+msgid "Please upload a file to import"
+msgstr "Будь ласка, завантажте файл для імпорту"
+
+#: includes/controller/controller-admin.php:304
+#: includes/controller/controller-admin.php:349
+msgid "No options were imported"
+msgstr "Опції не були імпортовані"
+
+#: includes/controller/controller-admin.php:325
+msgid "Settings imported successfully"
+msgstr "Налаштування успішно імпортовані"
+
+#: includes/controller/controller-admin.php:326
+msgid "Settings were not imported. Please check the import file."
+msgstr "Налаштування не були імпортовані. Будь ласка, перевірте файл імпорту."
+
+#: includes/controller/controller-admin.php:360
+msgid "Wrong file format for services."
+msgstr "Невірний формат файлу для послуг."
+
+#: includes/controller/controller-admin.php:390
+msgid "Services imported successfully"
+msgstr "Сервіси успішно імпортовані"
+
+#: includes/controller/controller-admin.php:391
+msgid "No service was imported"
+msgstr "Послугу імпортовано не було"
+
+#: includes/controller/controller-admin.php:554
+#: includes/controller/controller-cookie.php:194
+#: includes/views/admin/wizard/includes/step3.php:33
+#: includes/views/admin/wizard/includes/step3.php:43
+#: includes/views/admin/wizard/includes/step3.php:68
+#: includes/views/admin/wizard/includes/step4.php:28
+#: includes/views/admin/wizard/includes/step5.php:33
+#: includes/views/admin/wizard/includes/step5.php:43
+#: includes/views/admin/wizard/includes/step5.php:53
+#: includes/views/admin/wizard/includes/step5.php:85
+#: includes/views/admin/wizard/includes/step5.php:95
+#: includes/views/admin/wizard/includes/step5.php:105
+#: includes/views/admin/wizard/includes/step7.php:73
+#: includes/views/admin/wizard/includes/step7.php:85
+#: includes/views/admin/wizard/includes/step7.php:97
+#: includes/views/admin/wizard/includes/step7.php:109
+#: includes/views/admin/wizard/includes/step7.php:122
+#: includes/views/admin/wizard/includes/step7.php:134
+#: includes/views/admin/wizard/includes/step7.php:146
+#: includes/views/admin/wizard/includes/step7.php:158
+#: includes/views/admin/wizard/includes/step7.php:171
+#: includes/views/admin/wizard/includes/step7.php:183
+#: includes/views/admin/wizard/includes/step7.php:195
+#: includes/views/admin/wizard/includes/step7.php:207
+#: includes/views/admin/wizard/includes/step7.php:220
+#: includes/views/admin/wizard/includes/step7.php:232
+#: includes/views/admin/wizard/includes/step7.php:242
+#: includes/views/admin/wizard/includes/step7.php:254
+#: includes/views/admin/wizard/includes/step7.php:267
+#: includes/views/admin/wizard/includes/step7.php:279
+#: includes/views/admin/wizard/includes/step7.php:291
+#: includes/views/admin/wizard/includes/step7.php:303
+#: includes/views/admin/wizard/includes/step7.php:316
+#: includes/views/admin/wizard/includes/step7.php:328
+#: includes/views/admin/wizard/includes/step7.php:340
+#: includes/views/admin/wizard/includes/step7.php:352
+#: includes/views/admin/wizard/includes/step7.php:365
+#: includes/views/admin/wizard/includes/step7.php:377
+#: includes/views/admin/wizard/includes/step7.php:389
+#: includes/views/admin/wizard/includes/step7.php:399
+#: includes/views/admin/wizard/includes/step7.php:409
+#: includes/views/admin/wizard/includes/step7.php:422
+#: includes/views/admin/wizard/includes/step7.php:434
+#: includes/views/admin/wizard/includes/step7.php:446
+#: includes/views/admin/wizard/includes/step7.php:458
+#: includes/views/admin/wizard/includes/step7.php:471
+#: includes/views/admin/wizard/includes/step7.php:483
+#: includes/views/admin/wizard/includes/step7.php:493
+#: includes/views/admin/wizard/includes/step7.php:503
+#: includes/views/admin/wizard/includes/step7.php:515
+#: includes/views/admin/wizard/includes/step7.php:527
+#: includes/views/admin/wizard/includes/step7.php:542
+msgid "Enabled"
+msgstr "Увімкнено"
+
+#: includes/controller/controller-admin.php:555
+#: includes/controller/controller-cookie.php:195
+#: includes/views/admin/wizard/includes/step3.php:33
+#: includes/views/admin/wizard/includes/step3.php:43
+#: includes/views/admin/wizard/includes/step3.php:68
+#: includes/views/admin/wizard/includes/step4.php:28
+#: includes/views/admin/wizard/includes/step5.php:33
+#: includes/views/admin/wizard/includes/step5.php:43
+#: includes/views/admin/wizard/includes/step5.php:53
+#: includes/views/admin/wizard/includes/step5.php:85
+#: includes/views/admin/wizard/includes/step5.php:95
+#: includes/views/admin/wizard/includes/step5.php:105
+#: includes/views/admin/wizard/includes/step7.php:73
+#: includes/views/admin/wizard/includes/step7.php:85
+#: includes/views/admin/wizard/includes/step7.php:97
+#: includes/views/admin/wizard/includes/step7.php:109
+#: includes/views/admin/wizard/includes/step7.php:122
+#: includes/views/admin/wizard/includes/step7.php:134
+#: includes/views/admin/wizard/includes/step7.php:146
+#: includes/views/admin/wizard/includes/step7.php:158
+#: includes/views/admin/wizard/includes/step7.php:171
+#: includes/views/admin/wizard/includes/step7.php:183
+#: includes/views/admin/wizard/includes/step7.php:195
+#: includes/views/admin/wizard/includes/step7.php:207
+#: includes/views/admin/wizard/includes/step7.php:220
+#: includes/views/admin/wizard/includes/step7.php:232
+#: includes/views/admin/wizard/includes/step7.php:242
+#: includes/views/admin/wizard/includes/step7.php:254
+#: includes/views/admin/wizard/includes/step7.php:267
+#: includes/views/admin/wizard/includes/step7.php:279
+#: includes/views/admin/wizard/includes/step7.php:291
+#: includes/views/admin/wizard/includes/step7.php:303
+#: includes/views/admin/wizard/includes/step7.php:316
+#: includes/views/admin/wizard/includes/step7.php:328
+#: includes/views/admin/wizard/includes/step7.php:340
+#: includes/views/admin/wizard/includes/step7.php:352
+#: includes/views/admin/wizard/includes/step7.php:365
+#: includes/views/admin/wizard/includes/step7.php:377
+#: includes/views/admin/wizard/includes/step7.php:389
+#: includes/views/admin/wizard/includes/step7.php:399
+#: includes/views/admin/wizard/includes/step7.php:409
+#: includes/views/admin/wizard/includes/step7.php:422
+#: includes/views/admin/wizard/includes/step7.php:434
+#: includes/views/admin/wizard/includes/step7.php:446
+#: includes/views/admin/wizard/includes/step7.php:458
+#: includes/views/admin/wizard/includes/step7.php:471
+#: includes/views/admin/wizard/includes/step7.php:483
+#: includes/views/admin/wizard/includes/step7.php:493
+#: includes/views/admin/wizard/includes/step7.php:503
+#: includes/views/admin/wizard/includes/step7.php:515
+#: includes/views/admin/wizard/includes/step7.php:527
+#: includes/views/admin/wizard/includes/step7.php:542
+msgid "Enable"
+msgstr "Увімкнути"
+
+#: includes/controller/controller-admin.php:556
+#: includes/controller/controller-cookie.php:196
+msgid "Disabled"
+msgstr "Вимкнуто"
+
+#: includes/controller/controller-admin.php:557
+#: includes/controller/controller-cookie.php:197
+#: includes/views/admin/wizard/includes/step3.php:33
+#: includes/views/admin/wizard/includes/step3.php:43
+#: includes/views/admin/wizard/includes/step3.php:68
+#: includes/views/admin/wizard/includes/step4.php:28
+#: includes/views/admin/wizard/includes/step5.php:33
+#: includes/views/admin/wizard/includes/step5.php:43
+#: includes/views/admin/wizard/includes/step5.php:53
+#: includes/views/admin/wizard/includes/step5.php:85
+#: includes/views/admin/wizard/includes/step5.php:95
+#: includes/views/admin/wizard/includes/step5.php:105
+#: includes/views/admin/wizard/includes/step7.php:73
+#: includes/views/admin/wizard/includes/step7.php:85
+#: includes/views/admin/wizard/includes/step7.php:97
+#: includes/views/admin/wizard/includes/step7.php:109
+#: includes/views/admin/wizard/includes/step7.php:122
+#: includes/views/admin/wizard/includes/step7.php:134
+#: includes/views/admin/wizard/includes/step7.php:146
+#: includes/views/admin/wizard/includes/step7.php:158
+#: includes/views/admin/wizard/includes/step7.php:171
+#: includes/views/admin/wizard/includes/step7.php:183
+#: includes/views/admin/wizard/includes/step7.php:195
+#: includes/views/admin/wizard/includes/step7.php:207
+#: includes/views/admin/wizard/includes/step7.php:220
+#: includes/views/admin/wizard/includes/step7.php:232
+#: includes/views/admin/wizard/includes/step7.php:242
+#: includes/views/admin/wizard/includes/step7.php:254
+#: includes/views/admin/wizard/includes/step7.php:267
+#: includes/views/admin/wizard/includes/step7.php:279
+#: includes/views/admin/wizard/includes/step7.php:291
+#: includes/views/admin/wizard/includes/step7.php:303
+#: includes/views/admin/wizard/includes/step7.php:316
+#: includes/views/admin/wizard/includes/step7.php:328
+#: includes/views/admin/wizard/includes/step7.php:340
+#: includes/views/admin/wizard/includes/step7.php:352
+#: includes/views/admin/wizard/includes/step7.php:365
+#: includes/views/admin/wizard/includes/step7.php:377
+#: includes/views/admin/wizard/includes/step7.php:389
+#: includes/views/admin/wizard/includes/step7.php:399
+#: includes/views/admin/wizard/includes/step7.php:409
+#: includes/views/admin/wizard/includes/step7.php:422
+#: includes/views/admin/wizard/includes/step7.php:434
+#: includes/views/admin/wizard/includes/step7.php:446
+#: includes/views/admin/wizard/includes/step7.php:458
+#: includes/views/admin/wizard/includes/step7.php:471
+#: includes/views/admin/wizard/includes/step7.php:483
+#: includes/views/admin/wizard/includes/step7.php:493
+#: includes/views/admin/wizard/includes/step7.php:503
+#: includes/views/admin/wizard/includes/step7.php:515
+#: includes/views/admin/wizard/includes/step7.php:527
+#: includes/views/admin/wizard/includes/step7.php:542
+msgid "Disable"
+msgstr "Вимкнути"
+
+#: includes/controller/controller-admin.php:639
+msgid "License"
+msgstr "Ліцензія"
+
+#: includes/controller/controller-admin.php:647
+msgid "Envato key"
+msgstr "Ключ Envato"
+
+#: includes/controller/controller-age.php:281
+msgid "OK!"
+msgstr "ОК!"
+
+#: includes/controller/controller-age.php:524
+#: includes/controller/controller-age.php:525
+#: includes/views/admin/wizard/includes/step4.php:14
+#: includes/views/admin/wizard/includes/step4.php:86
+#: includes/views/shortcode/shortcode-myaccount.php:45
+msgid "Age Verification"
+msgstr "Перевірка віку"
+
+#: includes/controller/controller-age.php:550
+msgid "Popup content"
+msgstr "Спливаючий вміст"
+
+#: includes/controller/controller-age.php:557
+#: includes/controller/controller-age.php:564
+#: includes/controller/controller-cookie.php:1568
+msgid "Options"
+msgstr "Параметри"
+
+#: includes/controller/controller-age.php:573
+msgid "Epiration time"
+msgstr "Час закінчення терміну дії"
+
+#: includes/controller/controller-age.php:580
+msgid "Position of the age popup"
+msgstr "Позиція вікового спливаючого вікна"
+
+#: includes/controller/controller-age.php:587
+#: includes/controller/controller-cookie.php:1592
+#: includes/views/admin/wizard/includes/step2.php:195
+msgid "Buttons styles"
+msgstr "Стилі кнопок"
+
+#: includes/controller/controller-age.php:594
+#: includes/views/admin/wizard/includes/step4.php:64
+msgid "Popup box"
+msgstr "Спливаюче вікно"
+
+#: includes/controller/controller-age.php:601
+#: includes/controller/controller-age.php:841
+#: includes/controller/controller-cookie.php:1634
+#: includes/controller/controller-cookie.php:2103
+msgid "Custom style CSS"
+msgstr "Користувацький стиль CSS"
+
+#: includes/controller/controller-age.php:612
+#: includes/views/admin/wizard/includes/step4.php:48
+msgid "Popup title"
+msgstr "Заголовок спливаючого вікна"
+
+#: includes/controller/controller-age.php:620
+#: includes/views/admin/wizard/includes/step4.php:53
+msgid "Age popup content"
+msgstr "Вік вмісту спливаючих вікон"
+
+#: includes/controller/controller-age.php:628
+#: includes/views/admin/wizard/includes/step4.php:58
+msgid "Popup 'Submit' button label"
+msgstr "Спливаюча мітка кнопки \"Надіслати\""
+
+#: includes/controller/controller-age.php:637
+#: includes/controller/controller-cookie.php:1821
+#: includes/controller/controller-policy.php:169
+#: includes/controller/controller-terms.php:519
+msgid "Do not block user agents (eg. bots) containing the following texts (comma separated)"
+msgstr "Не блокуйте користувацькі агенти (наприклад, боти), що містять наступні тексти (розділяються комами)"
+
+#: includes/controller/controller-age.php:645
+#: includes/views/admin/wizard/includes/step4.php:38
+msgid "Lower age limit to enter the website"
+msgstr "Нижня вікова межа для входу на веб-сайт"
+
+#: includes/controller/controller-age.php:653
+#: includes/views/admin/wizard/includes/step4.php:43
+msgid "Lower age limit to provide personal data"
+msgstr "Нижня вікова межа для надання персональних даних"
+
+#: includes/controller/controller-age.php:661
+msgid "Default age select placeholder"
+msgstr "Вибір віку за умовчанням"
+
+#: includes/controller/controller-age.php:669
+msgid "Enter age value to assume if age not yet entered"
+msgstr "Введіть значення віку, якщо вік ще не введено"
+
+#: includes/controller/controller-age.php:678
+#: includes/views/admin/wizard/includes/step4.php:25
+msgid "Enable Age Verification"
+msgstr "Увімкнення перевірки віку"
+
+#: includes/controller/controller-age.php:686
+msgid "Display the popup on all pages"
+msgstr "Відображення спливаючого вікна на всіх сторінках"
+
+#: includes/controller/controller-age.php:694
+msgid "Check if user is from California"
+msgstr "Перевірте, чи користувач з Каліфорнії"
+
+#: includes/controller/controller-age.php:702
+msgid "Select page where to display the popup"
+msgstr "Виберіть сторінку, на якій відображатиметься спливаюче вікно"
+
+#: includes/controller/controller-age.php:710
+msgid "Select 'my account' page (one to redirect to when user is underage, eg. show link on registration form)"
+msgstr "Виберіть сторінку \"Мій обліковий запис\" (на яку можна перенаправити, коли користувач неповнолітній, наприклад, показати посилання в реєстраційній формі)"
+
+#: includes/controller/controller-age.php:720
+msgid "Set age verification expire time [s]"
+msgstr "Установлення часу закінчення терміну дії перевірки віку [s]"
+
+#: includes/controller/controller-age.php:731
+#: includes/controller/controller-cookie.php:1892
+#: includes/views/admin/wizard/includes/step2.php:211
+#: includes/views/admin/wizard/includes/step4.php:78
+msgid "Button shape"
+msgstr "Форма кнопки"
+
+#: includes/controller/controller-age.php:740
+#: includes/controller/controller-cookie.php:1920
+#: includes/controller/controller-cookie.php:2077
+msgid "Button background color"
+msgstr "Колір тла кнопки"
+
+#: includes/controller/controller-age.php:749
+#: includes/controller/controller-cookie.php:1910
+#: includes/controller/controller-cookie.php:2085
+msgid "Button text color"
+msgstr "Колір тексту кнопки"
+
+#: includes/controller/controller-age.php:759
+#: includes/controller/controller-cookie.php:1981
+msgid "Position  (bottom, top and full page layout)"
+msgstr "Розташування (нижній, верхній і повний макет сторінки)"
+
+#: includes/controller/controller-age.php:767
+#: includes/controller/controller-cookie.php:1989
+msgid "Distance from border [px]"
+msgstr "Відстань від межі [px]"
+
+#: includes/controller/controller-age.php:777
+#: includes/controller/controller-cookie.php:2000
+#: includes/views/admin/wizard/includes/step2.php:173
+#: includes/views/admin/wizard/includes/step4.php:68
+msgid "Box style"
+msgstr "Стиль коробки"
+
+#: includes/controller/controller-age.php:785
+#: includes/controller/controller-cookie.php:2008
+#: includes/views/admin/wizard/includes/step2.php:184
+#: includes/views/admin/wizard/includes/step4.php:73
+msgid "Box shape"
+msgstr "Фігура коробки"
+
+#: includes/controller/controller-age.php:793
+#: includes/controller/controller-cookie.php:2016
+msgid "Background color"
+msgstr "Колір фону"
+
+#: includes/controller/controller-age.php:801
+#: includes/controller/controller-cookie.php:2024
+msgid "Background image"
+msgstr "Фонове зображення"
+
+#: includes/controller/controller-age.php:810
+#: includes/controller/controller-cookie.php:1967
+msgid "Active Tab"
+msgstr "Активна вкладка"
+
+#: includes/controller/controller-age.php:821
+#: includes/controller/controller-cookie.php:2032
+msgid "Text color"
+msgstr "Колір тексту"
+
+#: includes/controller/controller-age.php:831
+#: includes/controller/controller-cookie.php:2042
+msgid "Protection shortcode label"
+msgstr "Мітка шорткода захисту"
+
+#: includes/controller/controller-age.php:960
+#: includes/controller/controller-cookie.php:2904
+msgid "Update"
+msgstr "Оновити"
+
+#: includes/controller/controller-age.php:961
+#: includes/controller/controller-cookie.php:2905
+msgid "Remove"
+msgstr "Видалити"
+
+#: includes/controller/controller-age.php:979
+#: includes/controller/controller-wizard.php:561
+msgid "Red Velvet"
+msgstr "Червоний оксамит"
+
+#: includes/controller/controller-age.php:980
+#: includes/controller/controller-wizard.php:562
+msgid "Thin Mint"
+msgstr "Тонка м'ята"
+
+#: includes/controller/controller-age.php:981
+#: includes/controller/controller-wizard.php:563
+msgid "Mint Chocolate"
+msgstr "М'ятний шоколад"
+
+#: includes/controller/controller-age.php:982
+#: includes/controller/controller-wizard.php:564
+msgid "Classic createIT"
+msgstr "Класичний createIT"
+
+#: includes/controller/controller-age.php:983
+#: includes/controller/controller-wizard.php:565
+msgid "Blueberry with Orange"
+msgstr "Чорниця з апельсином"
+
+#: includes/controller/controller-age.php:984
+#: includes/controller/controller-wizard.php:566
+msgid "Blue Velvet"
+msgstr "Синій оксамит"
+
+#: includes/controller/controller-age.php:985
+#: includes/controller/controller-wizard.php:567
+msgid "Chocolate Matcha"
+msgstr "Шоколад матча"
+
+#: includes/controller/controller-age.php:986
+#: includes/controller/controller-cookie.php:2923
+#: includes/controller/controller-wizard.php:446
+#: includes/controller/controller-wizard.php:568
+msgid "Classic Dark"
+msgstr "Класичний темний"
+
+#: includes/controller/controller-age.php:987
+#: includes/controller/controller-cookie.php:2924
+#: includes/controller/controller-wizard.php:447
+#: includes/controller/controller-wizard.php:569
+msgid "Classic Light"
+msgstr "Класичне світло"
+
+#: includes/controller/controller-age.php:988
+#: includes/controller/controller-wizard.php:570
+msgid "Oreo"
+msgstr "Орео"
+
+#: includes/controller/controller-age.php:989
+#: includes/controller/controller-wizard.php:571
+msgid "Blue Shortbread"
+msgstr "Синє пісочне печиво"
+
+#: includes/controller/controller-age.php:990
+#: includes/controller/controller-wizard.php:572
+msgid "Light Mint"
+msgstr "Світла м'ята"
+
+#: includes/controller/controller-age.php:991
+#: includes/controller/controller-wizard.php:573
+msgid "Blue Cupcake"
+msgstr "Блакитний кекс"
+
+#: includes/controller/controller-age.php:992
+#: includes/controller/controller-wizard.php:574
+msgid "Matcha"
+msgstr "Матча"
+
+#: includes/controller/controller-age.php:993
+#: includes/controller/controller-wizard.php:575
+msgid "Mint"
+msgstr "М'ята"
+
+#: includes/controller/controller-age.php:994
+#: includes/controller/controller-wizard.php:576
+msgid "None"
+msgstr "Жодний"
+
+#: includes/controller/controller-age.php:1024
+#: includes/controller/controller-age.php:1087
+#: includes/controller/controller-cookie.php:2985
+#: includes/controller/controller-cookie.php:3046
+#: includes/controller/controller-cookie.php:4276
+#: includes/controller/controller-wizard.php:485
+#: includes/controller/controller-wizard.php:499
+#: includes/controller/controller-wizard.php:582
+#: includes/controller/controller-wizard.php:589
+msgid "Squared"
+msgstr "Квадраті"
+
+#: includes/controller/controller-age.php:1025
+#: includes/controller/controller-age.php:1088
+#: includes/controller/controller-cookie.php:2984
+#: includes/controller/controller-cookie.php:3045
+#: includes/controller/controller-cookie.php:4275
+#: includes/controller/controller-wizard.php:484
+#: includes/controller/controller-wizard.php:498
+#: includes/controller/controller-wizard.php:583
+#: includes/controller/controller-wizard.php:590
+msgid "Rounded"
+msgstr "Закруглені"
+
+#: includes/controller/controller-age.php:1056
+#: includes/controller/controller-cookie.php:3015
+#: includes/controller/controller-cookie.php:4103
+#: includes/controller/controller-wizard.php:491
+msgid "Text Only"
+msgstr "Лише текст"
+
+#: includes/controller/controller-age.php:1057
+#: includes/controller/controller-cookie.php:3016
+#: includes/controller/controller-cookie.php:4105
+#: includes/controller/controller-wizard.php:492
+msgid "Icon and Text"
+msgstr "Піктограма і текст"
+
+#: includes/controller/controller-age.php:1161
+#: includes/controller/controller-cookie.php:3116
+#: includes/controller/controller-wizard.php:505
+msgid "Normal"
+msgstr "Нормальний"
+
+#: includes/controller/controller-age.php:1162
+#: includes/controller/controller-cookie.php:3117
+#: includes/controller/controller-wizard.php:506
+msgid "Large"
+msgstr "Великий"
+
+#: includes/controller/controller-age.php:1397
+#: includes/controller/controller-cookie.php:4051
+#: includes/controller/controller-wizard.php:544
+msgid "Bottom left"
+msgstr "Внизу ліворуч"
+
+#: includes/controller/controller-age.php:1398
+#: includes/controller/controller-cookie.php:4052
+#: includes/controller/controller-wizard.php:545
+msgid "Bottom right"
+msgstr "Унизу праворуч"
+
+#: includes/controller/controller-age.php:1399
+#: includes/controller/controller-cookie.php:4053
+#: includes/controller/controller-wizard.php:546
+msgid "Bottom panel"
+msgstr "Нижня панель"
+
+#: includes/controller/controller-age.php:1400
+#: includes/controller/controller-cookie.php:4054
+#: includes/controller/controller-wizard.php:547
+msgid "Top left"
+msgstr "Угорі ліворуч"
+
+#: includes/controller/controller-age.php:1401
+#: includes/controller/controller-cookie.php:4055
+#: includes/controller/controller-wizard.php:548
+msgid "Top right"
+msgstr "Угорі праворуч"
+
+#: includes/controller/controller-age.php:1402
+#: includes/controller/controller-cookie.php:4056
+#: includes/controller/controller-wizard.php:549
+msgid "Top panel"
+msgstr "Верхня панель"
+
+#: includes/controller/controller-age.php:1403
+#: includes/controller/controller-cookie.php:4057
+#: includes/controller/controller-wizard.php:550
+msgid "Full page layout"
+msgstr "Макет повної сторінки"
+
+#: includes/controller/controller-age.php:1467
+#: includes/controller/controller-age.php:1509
+#: includes/controller/controller-cookie.php:4023
+msgid "Front page"
+msgstr "Перша шпальта"
+
+#: includes/controller/controller-age.php:1470
+#: includes/controller/controller-age.php:1512
+#: includes/controller/controller-cookie.php:4026
+msgid "Posts page"
+msgstr "Сторінка публікацій"
+
+#: includes/controller/controller-age.php:1542
+#: includes/views/admin/wizard/includes/step1b.php:52
+#: includes/views/admin/wizard/includes/step1c.php:77
+#: includes/views/admin/wizard/includes/step2.php:290
+#: includes/views/admin/wizard/includes/step2b.php:21
+#: includes/views/admin/wizard/includes/step3.php:114
+#: includes/views/admin/wizard/includes/step4.php:93
+#: includes/views/admin/wizard/includes/step5.php:146
+#: includes/views/admin/wizard/includes/step6.php:22
+#: includes/views/admin/wizard/includes/step7.php:557
+#: includes/views/admin/wizard/includes/step8.php:97
+#: includes/views/admin/wizard/includes/step8b.php:22
+#: includes/views/admin/wizard/includes/step8c.php:26
+#: includes/views/shortcode/shortcode-myaccount.php:109
+#: includes/views/shortcode/shortcode-myaccount.php:149
+#: includes/views/shortcode/shortcode-myaccount.php:227
+#: includes/views/shortcode/shortcode-myaccount.php:307
+#: includes/views/shortcode/shortcode-myaccount.php:368
+msgid "Submit"
+msgstr "Надіслати"
+
+#: includes/controller/controller-age.php:1559
+#: includes/controller/controller-cookie.php:4442
+#: includes/views/cookie-group-popup.php:367
+#: includes/views/cookie-group-popup.php:411
+#: includes/views/cookie-single-popup.php:325
+#: includes/views/cookie-single-popup.php:370
+msgid "Trigger"
+msgstr "Тригер"
+
+#: includes/controller/controller-age.php:1564
+#: includes/controller/controller-cookie.php:4447
+#: includes/views/cookie-group-popup.php:641
+#: includes/views/cookie-group-popup.php:686
+#: includes/views/cookie-group-popup.php:706
+#: includes/views/cookie-group-popup.php:730
+#: includes/views/cookie-group-popup.php:773
+#: includes/views/cookie-single-popup.php:464
+msgid "This website will:"
+msgstr "Цей веб-сайт:"
+
+#: includes/controller/controller-age.php:1565
+#: includes/controller/controller-cookie.php:4448
+msgid "This website won't:"
+msgstr "Цей веб-сайт не буде:"
+
+#: includes/controller/controller-age.php:1566
+#: includes/controller/controller-cookie.php:4449
+#: includes/views/cookie-group-popup.php:818
+#: includes/views/cookie-single-popup.php:553
+msgid "Save & Close"
+msgstr "Зберегти та Закрити"
+
+#: includes/controller/controller-age.php:1567
+#: includes/controller/controller-cookie.php:4450
+#: includes/model/model-group.php:98 includes/model/model-group.php:154
+msgid "Block all"
+msgstr "Заблокувати всі"
+
+#: includes/controller/controller-age.php:1568
+#: includes/controller/controller-cookie.php:4451
+msgid "Essentials"
+msgstr "Необхідні"
+
+#: includes/controller/controller-age.php:1569
+#: includes/controller/controller-cookie.php:4452
+#: includes/model/model-group.php:80 includes/model/model-group.php:151
+msgid "Functionality"
+msgstr "Функціональні"
+
+#: includes/controller/controller-age.php:1570
+#: includes/controller/controller-cookie.php:4453
+#: includes/model/model-group.php:86 includes/model/model-group.php:152
+msgid "Analytics"
+msgstr "Аналітичні"
+
+#: includes/controller/controller-age.php:1571
+#: includes/controller/controller-cookie.php:4454
+#: includes/model/model-group.php:92 includes/model/model-group.php:153
+msgid "Advertising"
+msgstr "Рекламні"
+
+#: includes/controller/controller-age.php:1572
+#: includes/controller/controller-cookie.php:4455
+#: includes/controller/controller-cookie.php:4463
+msgid "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected;"
+msgstr "Необхідні: запам’ятайте налаштування дозволу на файли cookie; Необхідні: дозволити сеансові файли cookie; Необхідні: збирайте інформацію, яку ви вводите в контактні форми, інформаційний бюлетень та інші форми на всіх сторінках; Необхідні: відстежуйте, що ви вводите в кошик для покупок; Необхідні: підтвердьте, що ви ввійшли у свій обліковий запис користувача; Необхідні: запам’ятати вибрану вами мовну версію;"
+
+#: includes/controller/controller-age.php:1574
+#: includes/controller/controller-cookie.php:4456
+msgid "Remember your login details; Functionality: Remember social media settings; Functionality: Remember selected region and country; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions; Advertising: Tailor information and advertising to your interests based on e.g. the content you have visited before. (Currently we do not use targeting or targeting cookies.; Advertising: Gather personally identifiable information such as name and location;"
+msgstr "Запам'ятайте свої дані для входу; Функціональні: запам'ятовувати налаштування соціальних мереж; Функціональні: запам'ятати вибраний регіон і країну; Аналітичні: стежте за відвіданими вами сторінками та здійсненими взаємодіями; Аналітичні: відстежуйте своє місцезнаходження та регіон на основі вашого IP-номера; Аналітичні: відстежуйте час, витрачений на кожну сторінку; Аналітичні: підвищення якості даних статистичних функцій; Рекламні: адаптуйте інформацію та рекламу до ваших інтересів, наприклад, на основі вмісту, який ви відвідували раніше. (Наразі ми не використовуємо націлювання чи націлювання на файли cookie.; Рекламні: збирайте особисту інформацію, таку як ім’я та місцезнаходження;"
+
+#: includes/controller/controller-age.php:1576
+#: includes/controller/controller-cookie.php:4457
+msgid "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected; Functionality: Remember social media settings; Functionality: Remember selected region and country;"
+msgstr "Необхідні: запам’ятайте налаштування дозволу на файли cookie; Необхідні: дозволити сеансові файли cookie; Необхідні: збирайте інформацію, яку ви вводите в контактні форми, інформаційний бюлетень та інші форми на всіх сторінках; Необхідні: відстежуйте, що ви вводите в кошик для покупок; Необхідні: підтвердьте, що ви ввійшли у свій обліковий запис користувача; Необхідні: запам’ятати вибрану вами мовну версію; Функціональні: запам'ятовувати налаштування соціальних мереж; Функціональні: запам'ятати вибраний регіон і країну;"
+
+#: includes/controller/controller-age.php:1578
+#: includes/controller/controller-cookie.php:4458
+msgid "Remember your login details; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions; Advertising: Tailor information and advertising to your interests based on e.g. the content you have visited before. (Currently we do not use targeting or targeting cookies.; Advertising: Gather personally identifiable information such as name and location;"
+msgstr "Запам'ятайте свої дані для входу; Аналітичні: стежте за відвіданими вами сторінками та здійсненими взаємодіями; Аналітичні: відстежуйте своє місцезнаходження та регіон на основі вашого IP-номера; Аналітичні: відстежуйте час, витрачений на кожну сторінку; Аналітичні: підвищення якості даних статистичних функцій; Рекламні: адаптуйте інформацію та рекламу до ваших інтересів, наприклад, на основі вмісту, який ви відвідували раніше. (Наразі ми не використовуємо націлювання чи націлювання на файли cookie.; Рекламні: збирайте особисту інформацію, таку як ім’я та місцезнаходження;"
+
+#: includes/controller/controller-age.php:1580
+#: includes/controller/controller-cookie.php:4459
+msgid "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected; Functionality: Remember social media settings; Functionality: Remember selected region and country; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions;"
+msgstr "Необхідні: запам’ятайте налаштування дозволу на файли cookie; Необхідні: дозволити сеансові файли cookie; Необхідні: збирайте інформацію, яку ви вводите в контактні форми, інформаційний бюлетень та інші форми на всіх сторінках; Необхідні: відстежуйте, що ви вводите в кошик для покупок; Необхідно: підтвердьте, що ви ввійшли у свій обліковий запис користувача; Необхідні: запам’ятати вибрану вами мовну версію; Функціональні: запам'ятовувати налаштування соціальних мереж; Функціональні: запам'ятати вибраний регіон і країну; Аналітичні: стежте за відвіданими вами сторінками та здійсненими взаємодіями; Аналітичні: відстежуйте своє місцезнаходження та регіон на основі вашого IP-номера; Аналітичні: відстежуйте час, витрачений на кожну сторінку; Аналітичні: підвищення якості даних статистичних функцій;"
+
+#: includes/controller/controller-age.php:1582
+#: includes/controller/controller-cookie.php:4460
+msgid "Remember your login details; Advertising: Use information for tailored advertising with third parties; Advertising: Allow you to connect to social sites; Advertising: Identify device you are using; Advertising: Gather personally identifiable information such as name and location"
+msgstr "Запам'ятайте свої дані для входу; Рекламні: Використовуйте інформацію для індивідуальної реклами з третіми сторонами; Рекламні: дозволяє підключатися до соціальних сайтів; Рекламні: ідентифікуйте пристрій, який ви використовуєте; Рекламні: збирайте особисту інформацію, таку як ім’я та місцезнаходження"
+
+#: includes/controller/controller-age.php:1584
+#: includes/controller/controller-cookie.php:4461
+msgid "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected; Functionality: Remember social media settings; Functionality: Remember selected region and country; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions; Advertising: Use information for tailored advertising with third parties; Advertising: Allow you to connect to social sitesl Advertising: Identify device you are using; Advertising: Gather personally identifiable information such as name and location"
+msgstr "Необхідні: Запам'ятайте налаштування дозволів на файли cookie; Необхідні: дозволити файли cookie сеансу; Необхідні: Збирайте інформацію, яку ви вводите в контактні форми, інформаційні бюлетені та інші форми на всіх сторінках; Необхідні: Відстежуйте, що ви вводите в кошик для покупок; Необхідні: Автентифікація, що ви ввійшли у свій обліковий запис користувача; Необхідні: Запам'ятайте мовну версію, яку ви вибрали; Функціональні: запам'ятовування налаштувань соціальних мереж; Функціональні : Запам'ятайте вибраний регіон і країну; Аналітичні: відстежуйте відвідані сторінки та взаємодію; Аналітичні: відстежуйте своє місцезнаходження та регіон на основі вашого IP-номера; Аналітичні: відстежуйте час, проведений на кожній сторінці; Аналітичні: підвищення якості даних функцій статистики; Рекламні: використовувати інформацію для персоналізованої реклами з третіми сторонами; Рекламні: дозволяє підключатися до соціальних сайтів; Рекламні: Ідентифікуйте пристрій, який ви використовуєте; Рекламні: збирайте особисту інформацію, таку як ім'я та місцезнаходження"
+
+#: includes/controller/controller-age.php:1586
+#: includes/controller/controller-cookie.php:4462
+#: includes/views/cookie-single-popup.php:517
+msgid "Remember your login details"
+msgstr "Запам'ятайте свої дані для входу"
+
+#: includes/controller/controller-age.php:1590
+#: includes/controller/controller-cookie.php:4470
+msgid "This content requires cookies"
+msgstr "Для цього вмісту потрібні файли cookies"
+
+#: includes/controller/controller-age.php:1591
+#: includes/controller/controller-cookie.php:4471
+msgid "Removal of your data will not limit in any way the system functionalities"
+msgstr "Видалення ваших даних жодним чином не обмежить функціональні можливості системи"
+
+#: includes/controller/controller-age.php:1597
+#: includes/views/shortcode/shortcode-privacy-center.php:64
+msgid "Age verification"
+msgstr "Перевірка віку"
+
+#: includes/controller/controller-age.php:1598
+msgid "Enter your date of birth"
+msgstr "Введіть свою дату народження"
+
+#: includes/controller/controller-breach.php:98
+#: includes/controller/controller-breach.php:99
+#: includes/controller/controller-breach.php:127
+#: includes/views/admin/admin-breach.php:36
+#: includes/views/admin/admin-data-access.php:47
+#: includes/views/admin/admin-forgotten.php:43
+#: includes/views/admin/admin-rectification.php:47
+#: includes/views/admin/wizard/includes/step3.php:88
+msgid "Data Breach"
+msgstr "Порушення даних"
+
+#: includes/controller/controller-breach.php:136
+#: includes/controller/controller-data-access.php:543
+#: includes/views/admin/wizard/includes/step3.php:79
+#: includes/views/admin/wizard/includes/step3.php:91
+msgid "Mail title"
+msgstr "Назва листа"
+
+#: includes/controller/controller-breach.php:144
+#: includes/controller/controller-data-access.php:551
+msgid "Mail content"
+msgstr "Вміст пошти"
+
+#: includes/controller/controller-breach.php:152
+msgid "Collect user emails from services"
+msgstr "Збирайте електронні листи користувачів із служб"
+
+#: includes/controller/controller-breach.php:223
+msgid "[Ultimate GDPR & CCPA] Data breach information from %s"
+msgstr "[Ultimate GDPR & CCPA] Інформація про порушення даних від %s"
+
+#: includes/controller/controller-breach.php:226
+msgid "There was a data breach on our page..."
+msgstr "На нашій сторінці стався витік даних..."
+
+#: includes/controller/controller-cookie.php:1360
+#: includes/controller/controller-cookie.php:4741
+msgid "<h3>Please navigate to <a href='%s'>Service Manager</a> tab to see all detected cookies.</h3>"
+msgstr "<h3>Please navigate to <a href='%s'>Service Manager</a> tab to see all detected cookies.</h3>"
+
+#: includes/controller/controller-cookie.php:1522
+#: includes/controller/controller-cookie.php:1523
+msgid "Cookie Consent"
+msgstr "Згода на файли cookies"
+
+#: includes/controller/controller-cookie.php:1531
+#: includes/controller/controller-cookie.php:1532
+msgid "Services Manager"
+msgstr "Менеджер Сервісів"
+
+#: includes/controller/controller-cookie.php:1554
+#: includes/controller/controller-cookie.php:1730
+#: includes/views/admin/wizard/includes/step2.php:61
+msgid "Cookie popup content"
+msgstr "Вміст спливаючого файлу Cookie"
+
+#: includes/controller/controller-cookie.php:1561
+msgid "Buttons labels"
+msgstr "Етикетки кнопок"
+
+#: includes/controller/controller-cookie.php:1575
+msgid "Google Analytics Tracking ID"
+msgstr "Ідентифікатор відстеження Google Analytics"
+
+#: includes/controller/controller-cookie.php:1585
+msgid "Cookie scanner settings"
+msgstr "Налаштування сканера файлів Cookie"
+
+#: includes/controller/controller-cookie.php:1599
+#: includes/controller/controller-cookie.php:4424
+#: includes/shortcode/shortcode-cookie-popup.php:761
+#: includes/views/cookie-group-popup.php:305
+#: includes/views/cookie-popup.php:196
+#: includes/views/cookie-single-popup.php:273
+#: includes/views/shortcode/shortcode-privacy-center.php:47
+#: includes/views/shortcode/shortcode-privacy-center.php:75
+#: includes/views/shortcode/shortcode-privacy-center.php:103
+#: includes/views/shortcode/shortcode-privacy-center.php:129
+#: includes/views/shortcode/shortcode-privacy-center.php:156
+#: includes/views/shortcode/shortcode-privacy-center.php:166
+#: includes/views/shortcode/shortcode-privacy-center.php:175
+#: includes/views/shortcode/shortcode-privacy-center.php:187
+#: includes/views/shortcode/shortcode-privacy-center.php:197
+msgid "Read more"
+msgstr "Читати далі"
+
+#: includes/controller/controller-cookie.php:1606
+msgid "Reject All Cookies"
+msgstr "Відхилити всі файли Cookie"
+
+#: includes/controller/controller-cookie.php:1613
+msgid "Position of the cookie notice box"
+msgstr "Розташування поля сповіщень про файли Cookie"
+
+#: includes/controller/controller-cookie.php:1620
+#: includes/views/admin/wizard/includes/step2.php:168
+msgid "Cookie notice box"
+msgstr "Поле повідомлення про файли Cookie"
+
+#: includes/controller/controller-cookie.php:1627
+msgid "Protection shortcode"
+msgstr "Шорткоди захисту"
+
+#: includes/controller/controller-cookie.php:1641
+#: includes/controller/controller-cookie.php:4472
+msgid "Withdrawal Cookie Agreement"
+msgstr "Угода про вилучення файлів Cookie"
+
+#: includes/controller/controller-cookie.php:1648
+#: includes/controller/controller-cookie.php:2052
+msgid "My account disclaimer"
+msgstr "Застереження щодо мого облікового запису"
+
+#: includes/controller/controller-cookie.php:1655
+#: includes/controller/controller-cookie.php:2113
+msgid "Disable Google Fonts"
+msgstr "Вимкніть Google Fonts"
+
+#: includes/controller/controller-cookie.php:1664
+msgid "Advanced Cookies Settings"
+msgstr "Розширені налаштування файлів Cookie"
+
+#: includes/controller/controller-cookie.php:1672
+msgid "Trigger cookie"
+msgstr "Активувати файл cookie"
+
+#: includes/controller/controller-cookie.php:1679
+msgid "Modal styles"
+msgstr "Модальні стилі"
+
+#: includes/controller/controller-cookie.php:1687
+msgid "Lists of features for groups"
+msgstr "Списки функцій для груп"
+
+#: includes/controller/controller-cookie.php:1695
+msgid "Lists of features for individual"
+msgstr "Переліки ознак для індивід"
+
+#: includes/controller/controller-cookie.php:1703
+#: includes/views/admin/wizard/includes/step2.php:73
+msgid "Labels"
+msgstr "Етикетки"
+
+#: includes/controller/controller-cookie.php:1710
+msgid "Additional settings"
+msgstr "Додаткові налаштування"
+
+#: includes/controller/controller-cookie.php:1722
+#: includes/views/admin/wizard/includes/step2.php:46
+msgid "Provide default content for the selected language (remember to save changes)"
+msgstr "Надайте стандартний вміст для вибраної мови (не забудьте зберегти зміни)"
+
+#: includes/controller/controller-cookie.php:1739
+msgid "Cookie popup 'accept' button label (leave empty for default)"
+msgstr "Мітка кнопки \"Прийняти\" спливаючого вікна cookie (за умовчанням залиште пустим)"
+
+#: includes/controller/controller-cookie.php:1747
+msgid "Cookie popup 'read more' button label (leave empty for default)"
+msgstr "Мітка кнопки спливаючого вікна cookie \"Читати далі\" (за замовчуванням залиште пустим)"
+
+#: includes/controller/controller-cookie.php:1755
+msgid "Cookie popup 'change settings' button label (leave empty for default)"
+msgstr "Мітка кнопки «змінити налаштування» спливаючого вікна cookie (за умовчанням залиште пустим)"
+
+#: includes/controller/controller-cookie.php:1763
+msgid "Open \"Read More\" in a new tab"
+msgstr "Відкрийте «Читати далі» в новій вкладці"
+
+#: includes/controller/controller-cookie.php:1772
+msgid "Display cookie popup on all pages"
+msgstr "Відображати спливаюче вікно cookie на всіх сторінках"
+
+#: includes/controller/controller-cookie.php:1780
+msgid "Check if user is from European Union"
+msgstr "Перевірте, чи є користувач із Європейського Союзу"
+
+#: includes/controller/controller-cookie.php:1789
+msgid "Reset cookie settings after ended session"
+msgstr "Скинути налаштування файлів cookie після завершення сеансу"
+
+#: includes/controller/controller-cookie.php:1797
+msgid "Ask users to accept/reject cookies with every visit on the website"
+msgstr "Попросіть користувачів прийняти/відхилити файли cookie під час кожного відвідування веб-сайту"
+
+#: includes/controller/controller-cookie.php:1813
+msgid "Select page where to display the cookie popup"
+msgstr "Виберіть сторінку, де відобразити спливаюче вікно файлів cookie"
+
+#: includes/controller/controller-cookie.php:1829
+msgid "Always display cookie popup"
+msgstr "Завжди відображати спливаюче вікно cookie"
+
+#: includes/controller/controller-cookie.php:1840
+#: includes/views/admin/wizard/includes/step1c.php:53
+msgid "Choose how often cookie scans should be performed"
+msgstr "Виберіть частоту сканування файлів cookie"
+
+#: includes/controller/controller-cookie.php:1848
+#: includes/views/admin/wizard/includes/step1c.php:62
+msgid "Choose default level of new cookies"
+msgstr "Виберіть стандартний рівень нових файлів cookie"
+
+#: includes/controller/controller-cookie.php:1856
+msgid "Cookies whitelist (never block these cookies, comma separated)"
+msgstr "Білий список файлів cookie (ніколи не блокуйте ці файли cookie, розділені комами)"
+
+#: includes/controller/controller-cookie.php:1864
+msgid "Block selected/all cookies until user consents"
+msgstr "Блокувати вибрані/всі файли cookie до згоди користувача"
+
+#: includes/controller/controller-cookie.php:1872
+#: includes/controller/controller-policy.php:137
+#: includes/controller/controller-terms.php:495
+msgid "Set consent expire time [s]"
+msgstr "Установити термін дії згоди [s]"
+
+#: includes/controller/controller-cookie.php:1883
+#: includes/views/admin/wizard/includes/step2.php:200
+msgid "Button settings by"
+msgstr "Налаштування кнопок за"
+
+#: includes/controller/controller-cookie.php:1901
+#: includes/views/admin/wizard/includes/step2.php:222
+msgid "Button size"
+msgstr "Розмір кнопки"
+
+#: includes/controller/controller-cookie.php:1929
+#: includes/controller/controller-cookie.php:2093
+msgid "Button border color"
+msgstr "Колір рамки кнопки"
+
+#: includes/controller/controller-cookie.php:1939
+msgid "Cookie close modal button (an option to decline the cookies completely)"
+msgstr "Модальна кнопка закриття файлів cookie (можливість повністю відхилити файли cookie)"
+
+#: includes/controller/controller-cookie.php:1950
+msgid "Read more page"
+msgstr "Детальніше сторінка"
+
+#: includes/controller/controller-cookie.php:1958
+msgid "Read More Custom URL"
+msgstr "Детальніше Спеціальна URL-адреса"
+
+#: includes/controller/controller-cookie.php:2061
+msgid "Heading"
+msgstr "Заголовок"
+
+#: includes/controller/controller-cookie.php:2069
+msgid "Description"
+msgstr "Опис"
+
+#: includes/controller/controller-cookie.php:2125
+msgid "Show advanced cookie popup always, even when the consent is given"
+msgstr "Завжди показувати розширене спливаюче вікно cookie, навіть якщо надано згоду"
+
+#: includes/controller/controller-cookie.php:2133
+msgid "Use advanced cookie groups popup"
+msgstr "Використовуйте спливаюче вікно розширених груп файлів cookie"
+
+#: includes/controller/controller-cookie.php:2141
+msgid "Block each cookie group individually"
+msgstr "Блокуйте кожну групу cookie окремо"
+
+#: includes/controller/controller-cookie.php:2149
+#: includes/controller/controller-cookie.php:2157
+#: includes/views/admin/wizard/includes/step2.php:66
+msgid "Advanced cookie groups popup header content"
+msgstr "Вміст спливаючого заголовка розширених груп файлів cookie"
+
+#: includes/controller/controller-cookie.php:2168
+msgid "Trigger cookie settings by"
+msgstr "Активувати налаштування файлів cookie за"
+
+#: includes/controller/controller-cookie.php:2176
+msgid "Trigger cookie settings icon"
+msgstr "Значок налаштування файлів cookie"
+
+#: includes/controller/controller-cookie.php:2184
+msgid "Trigger cookie settings text"
+msgstr "Текст налаштувань файлів cookie"
+
+#: includes/controller/controller-cookie.php:2192
+msgid "Trigger cookie settings background color"
+msgstr "Колір тла налаштувань файлів cookie"
+
+#: includes/controller/controller-cookie.php:2200
+msgid "Trigger cookie settings shape"
+msgstr "Активувати форму налаштувань файлів cookie"
+
+#: includes/controller/controller-cookie.php:2208
+msgid "Trigger cookie settings position"
+msgstr "Активувати позицію налаштувань файлів cookie"
+
+#: includes/controller/controller-cookie.php:2216
+msgid "Trigger cookie settings color"
+msgstr "Колір налаштувань файлів cookie"
+
+#: includes/controller/controller-cookie.php:2226
+#: includes/controller/controller-cookie.php:2460
+#: includes/views/admin/wizard/includes/step2.php:237
+msgid "List of features available for Essential level (semicolon separated)"
+msgstr "Список функцій, доступних для Необхідного рівня(розділені крапкою з комою)"
+
+#: includes/controller/controller-cookie.php:2234
+#: includes/views/admin/wizard/includes/step2.php:242
+msgid "List of features not available for Essential level (semicolon separated)"
+msgstr "Список функцій, недоступних для Необхідного рівня (розділені крапкою з комою)"
+
+#: includes/controller/controller-cookie.php:2242
+#: includes/controller/controller-cookie.php:2468
+#: includes/views/admin/wizard/includes/step2.php:247
+msgid "List of features available for Functionality level (semicolon separated)"
+msgstr "Список функцій, доступних для Функціонального рівня  (розділені крапкою з комою)"
+
+#: includes/controller/controller-cookie.php:2250
+#: includes/views/admin/wizard/includes/step2.php:252
+msgid "List of features not available for Functionality level (semicolon separated)"
+msgstr "Список функцій, недоступних для Функціонального рівня (розділені крапкою з комою)"
+
+#: includes/controller/controller-cookie.php:2258
+#: includes/controller/controller-cookie.php:2476
+#: includes/views/admin/wizard/includes/step2.php:257
+msgid "List of features available for Analytics level (semicolon separated)"
+msgstr "Список функцій, доступних для Аналітичного рівня  (розділені крапкою з комою)"
+
+#: includes/controller/controller-cookie.php:2266
+#: includes/views/admin/wizard/includes/step2.php:262
+msgid "List of features not available for Analytics level (semicolon separated)"
+msgstr "Список функцій, недоступних для Аналітичного рівня (розділені крапкою з комою)"
+
+#: includes/controller/controller-cookie.php:2274
+#: includes/controller/controller-cookie.php:2484
+#: includes/views/admin/wizard/includes/step2.php:267
+msgid "List of features available for Advertising level (semicolon separated)"
+msgstr "Список функцій, доступних для Рекламного рівня (розділені крапкою з комою)"
+
+#: includes/controller/controller-cookie.php:2282
+#: includes/views/admin/wizard/includes/step2.php:272
+msgid "List of features not available for Advertising level (semicolon separated)"
+msgstr "Список функцій, недоступних для Рекламного рівня (розділені крапкою з комою)"
+
+#: includes/controller/controller-cookie.php:2293
+msgid "Cookie modal header color"
+msgstr "Колір модального заголовка файлу cookie"
+
+#: includes/controller/controller-cookie.php:2301
+msgid "Cookie modal text color"
+msgstr "Модальний колір тексту cookie"
+
+#: includes/controller/controller-cookie.php:2309
+msgid "Cookie modal skin"
+msgstr "Модальна оболонка cookie"
+
+#: includes/controller/controller-cookie.php:2317
+msgid "Cookie close modal text (If empty, button X(close) will display. If not, it will display the text)"
+msgstr "Модальний текст закриття файлу cookie (якщо порожній, відображатиметься кнопка X (закрити). Якщо ні, відображатиметься текст)"
+
+#: includes/controller/controller-cookie.php:2327
+msgid "<i>This website will</i> label"
+msgstr "<i>This website will</i> label"
+
+#: includes/controller/controller-cookie.php:2335
+msgid "<i>This website won't</i> label"
+msgstr "<i>This website won't</i> label"
+
+#: includes/controller/controller-cookie.php:2343
+msgid "Hide \"Block All\" level features"
+msgstr "Приховати функції рівня \"Заблокувати всі\""
+
+#: includes/controller/controller-cookie.php:2351
+msgid "Hide \"Essential\" level features"
+msgstr "Приховати функції рівня «Необхідні»"
+
+#: includes/controller/controller-cookie.php:2359
+msgid "Hide \"Functionality\" level features"
+msgstr "Приховати функції рівня «Функціональні»"
+
+#: includes/controller/controller-cookie.php:2367
+msgid "Hide \"Analytics\" level features"
+msgstr "Приховати функції рівня \"Аналітичні\""
+
+#: includes/controller/controller-cookie.php:2375
+msgid "Hide \"Advertising\" level features"
+msgstr "Приховати функції рівня \"Рекламні\""
+
+#: includes/controller/controller-cookie.php:2383
+msgid "<i>Block all</i> label"
+msgstr "Мітка <i>Block all</i>"
+
+#: includes/controller/controller-cookie.php:2391
+msgid "<i>Essentials</i> label"
+msgstr "Мітка <i>Essentials</i>"
+
+#: includes/controller/controller-cookie.php:2399
+msgid "<i>Functionality</i> label"
+msgstr "Мітка <i>Functionality</i>"
+
+#: includes/controller/controller-cookie.php:2407
+msgid "<i>Analytics</i> label"
+msgstr "Мітка <i>Analytics</i>"
+
+#: includes/controller/controller-cookie.php:2415
+msgid "<i>Advertising</i> label"
+msgstr "<i>Advertising</i> label"
+
+#: includes/controller/controller-cookie.php:2425
+msgid "Advanced cookie popup 'save & close' button label (leave empty for default)"
+msgstr "Позначка кнопки розширеного спливаючого вікна cookie \"зберегти та закрити\" (за умовчанням залиште пустим)"
+
+#: includes/controller/controller-cookie.php:2433
+msgid "Select default privacy group"
+msgstr "Виберіть групу конфіденційності за умовчанням"
+
+#: includes/controller/controller-cookie.php:2441
+msgid "Reload page when user saves changes"
+msgstr "Перезавантажте сторінку, коли користувач збереже зміни"
+
+#: includes/controller/controller-cookie.php:2450
+msgid "Select privacy group after user accepts cookies in the popup"
+msgstr "Виберіть групу конфіденційності після того, як користувач прийме файли cookie у спливаючому вікні"
+
+#: includes/controller/controller-cookie.php:2582
+#: includes/controller/controller-wizard.php:372
+msgid "Never"
+msgstr "Ніколи"
+
+#: includes/controller/controller-cookie.php:2583
+#: includes/controller/controller-wizard.php:373
+msgid "Weekly"
+msgstr "Щотижня"
+
+#: includes/controller/controller-cookie.php:2584
+#: includes/controller/controller-wizard.php:374
+msgid "Monthly"
+msgstr "Щомісяця"
+
+#: includes/controller/controller-cookie.php:2585
+#: includes/controller/controller-wizard.php:375
+msgid "Quarterly"
+msgstr "Щоквартально"
+
+#: includes/controller/controller-cookie.php:2613
+#: includes/controller/controller-wizard.php:396
+msgid "Select"
+msgstr "Виберіть"
+
+#: includes/controller/controller-cookie.php:2645
+#: includes/views/admin/wizard/includes/step2.php:52
+#: includes/views/admin/wizard/includes/step2.php:53
+msgid "Load"
+msgstr "Завантаження"
+
+#: includes/controller/controller-cookie.php:2922
+#: includes/controller/controller-wizard.php:445
+msgid "Classic"
+msgstr "Класичний"
+
+#: includes/controller/controller-cookie.php:2925
+#: includes/controller/controller-wizard.php:448
+msgid "Modern"
+msgstr "Сучасний"
+
+#: includes/controller/controller-cookie.php:2926
+#: includes/controller/controller-wizard.php:449
+msgid "Apas Blue"
+msgstr "Апас Блакитний"
+
+#: includes/controller/controller-cookie.php:2927
+#: includes/controller/controller-wizard.php:450
+msgid "Apas Black"
+msgstr "Апас Чорний"
+
+#: includes/controller/controller-cookie.php:2928
+#: includes/controller/controller-wizard.php:451
+msgid "Apas White"
+msgstr "Апас Білий"
+
+#: includes/controller/controller-cookie.php:2929
+#: includes/controller/controller-wizard.php:452
+msgid "Kahk Blue"
+msgstr "Кахк Блакитний"
+
+#: includes/controller/controller-cookie.php:2930
+#: includes/controller/controller-wizard.php:453
+msgid "Kahk Black"
+msgstr "Кахк Чорний"
+
+#: includes/controller/controller-cookie.php:2931
+#: includes/controller/controller-wizard.php:454
+msgid "Kahk White"
+msgstr "Кахк Білий"
+
+#: includes/controller/controller-cookie.php:2932
+#: includes/controller/controller-wizard.php:455
+msgid "Oreo Blue"
+msgstr "Орео Блакитний"
+
+#: includes/controller/controller-cookie.php:2933
+#: includes/controller/controller-wizard.php:456
+msgid "Oreo Black"
+msgstr "Орео Чорний"
+
+#: includes/controller/controller-cookie.php:2934
+#: includes/controller/controller-wizard.php:457
+msgid "Oreo White"
+msgstr "Орео Білий"
+
+#: includes/controller/controller-cookie.php:2935
+#: includes/controller/controller-wizard.php:458
+msgid "Wafer Blue"
+msgstr "Вафельний Блакитний"
+
+#: includes/controller/controller-cookie.php:2936
+#: includes/controller/controller-wizard.php:459
+msgid "Wafer Black"
+msgstr "Вафельний Чорний"
+
+#: includes/controller/controller-cookie.php:2937
+#: includes/controller/controller-wizard.php:460
+msgid "Wafer White"
+msgstr "Вафельний Білий"
+
+#: includes/controller/controller-cookie.php:2938
+#: includes/controller/controller-wizard.php:461
+msgid "Jumble Blue"
+msgstr "Джамбл Блакитний"
+
+#: includes/controller/controller-cookie.php:2939
+#: includes/controller/controller-wizard.php:462
+msgid "Jumble Black"
+msgstr "Джамбл Чорний"
+
+#: includes/controller/controller-cookie.php:2940
+#: includes/controller/controller-wizard.php:463
+msgid "Jumble White"
+msgstr "Джамбл Білий"
+
+#: includes/controller/controller-cookie.php:2941
+#: includes/controller/controller-wizard.php:464
+msgid "Khapse Blue"
+msgstr "Хапсе Блакитний"
+
+#: includes/controller/controller-cookie.php:2942
+#: includes/controller/controller-wizard.php:465
+msgid "Khapse Black"
+msgstr "Хапсе Блек"
+
+#: includes/controller/controller-cookie.php:2943
+#: includes/controller/controller-wizard.php:466
+msgid "Khapse White"
+msgstr "Хапсе Білий"
+
+#: includes/controller/controller-cookie.php:2944
+#: includes/controller/controller-wizard.php:467
+msgid "Tareco Blue"
+msgstr "Тареко Блакитний"
+
+#: includes/controller/controller-cookie.php:2945
+#: includes/controller/controller-wizard.php:468
+msgid "Tareco Black"
+msgstr "Тареко Чорний"
+
+#: includes/controller/controller-cookie.php:2946
+#: includes/controller/controller-wizard.php:469
+msgid "Tareco White"
+msgstr "Тареко Білий"
+
+#: includes/controller/controller-cookie.php:2947
+#: includes/controller/controller-wizard.php:470
+msgid "Kichel Blue"
+msgstr "Кічель Блакитний"
+
+#: includes/controller/controller-cookie.php:2948
+#: includes/controller/controller-wizard.php:471
+msgid "Kichel Black"
+msgstr "Кічель Блек"
+
+#: includes/controller/controller-cookie.php:2949
+#: includes/controller/controller-wizard.php:472
+msgid "Kichel White"
+msgstr "Кічель Білий"
+
+#: includes/controller/controller-cookie.php:2950
+#: includes/controller/controller-wizard.php:473
+msgid "Macaron Blue"
+msgstr "Макарон Блакитний"
+
+#: includes/controller/controller-cookie.php:2951
+#: includes/controller/controller-wizard.php:474
+msgid "Macaron Black"
+msgstr "Макарон Чорний"
+
+#: includes/controller/controller-cookie.php:2952
+#: includes/controller/controller-wizard.php:475
+msgid "Macaron White"
+msgstr "Макарон Білий"
+
+#: includes/controller/controller-cookie.php:2953
+#: includes/controller/controller-wizard.php:476
+msgid "Wibele Blue"
+msgstr "Вайбел Блакитний"
+
+#: includes/controller/controller-cookie.php:2954
+#: includes/controller/controller-wizard.php:477
+msgid "Wibele Black"
+msgstr "Вайбел Чорний"
+
+#: includes/controller/controller-cookie.php:2955
+#: includes/controller/controller-wizard.php:478
+msgid "Wibele White"
+msgstr "Вайбел Білий"
+
+#: includes/controller/controller-cookie.php:4104
+msgid "Icon Only"
+msgstr "Лише значок"
+
+#: includes/controller/controller-cookie.php:4202
+msgid "Top Left"
+msgstr "Зліва вгорі"
+
+#: includes/controller/controller-cookie.php:4203
+msgid "Top center"
+msgstr "Верхній центр"
+
+#: includes/controller/controller-cookie.php:4204
+msgid "Top Right"
+msgstr "Верхній правий"
+
+#: includes/controller/controller-cookie.php:4205
+msgid "Center Left"
+msgstr "Центр Ліворуч"
+
+#: includes/controller/controller-cookie.php:4206
+msgid "Center Right"
+msgstr "Центр праворуч"
+
+#: includes/controller/controller-cookie.php:4207
+msgid "Bottom Left"
+msgstr "Внизу зліва"
+
+#: includes/controller/controller-cookie.php:4208
+msgid "Bottom Center"
+msgstr "Нижній центр"
+
+#: includes/controller/controller-cookie.php:4209
+msgid "Bottom Right"
+msgstr "Внизу праворуч"
+
+#: includes/controller/controller-cookie.php:4274
+msgid "Round"
+msgstr "Круглий"
+
+#: includes/controller/controller-cookie.php:4352
+#: includes/controller/controller-forgotten.php:809
+msgid "Default"
+msgstr "За замовчуванням"
+
+#: includes/controller/controller-cookie.php:4353
+msgid "Neutral"
+msgstr "Нейтральний"
+
+#: includes/controller/controller-cookie.php:4354
+msgid "Modern Blue"
+msgstr "Сучасний синій"
+
+#: includes/controller/controller-cookie.php:4355
+msgid "Compact Dark Blue"
+msgstr "Компактний темно-синій"
+
+#: includes/controller/controller-cookie.php:4356
+msgid "Compact Light Blue"
+msgstr "Компактний світло-блакитний"
+
+#: includes/controller/controller-cookie.php:4357
+msgid "Compact Green"
+msgstr "Компактний зелений"
+
+#: includes/controller/controller-cookie.php:4423
+#: includes/views/age-popup.php:43 includes/views/cookie-group-popup.php:121
+#: includes/views/cookie-popup.php:30
+#: includes/views/cookie-single-popup.php:121
+#: includes/views/shortcode/shortcode-policy-accept.php:54
+#: includes/views/shortcode/shortcode-terms-accept.php:54
+msgid "Accept"
+msgstr "Прийняти"
+
+#: includes/controller/controller-cookie.php:4425
+#: includes/views/cookie-group-popup.php:129 includes/views/cookie-popup.php:38
+#: includes/views/cookie-single-popup.php:129
+msgid "Change Settings"
+msgstr "Змінити налаштування"
+
+#: includes/controller/controller-cookie.php:4464
+msgid "Functionality: Remember social media settings; Functionality: Remember selected region and country;"
+msgstr "Функціональні: запам'ятовувати налаштування соціальних мереж; Функціональні: запам'ятати вибраний регіон і країну;"
+
+#: includes/controller/controller-cookie.php:4465
+msgid "Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions;"
+msgstr "Аналітичні: стежте за відвіданими вами сторінками та здійсненими взаємодіями; Аналітичні: відстежуйте своє місцезнаходження та регіон на основі вашого IP-номера; Аналітичні: відстежуйте час, витрачений на кожну сторінку; Аналітичні: підвищення якості даних статистичних функцій;"
+
+#: includes/controller/controller-cookie.php:4466
+msgid "Advertising: Tailor information and advertising to your interests based on e.g. the content you have visited before. (Currently we do not use targeting or targeting cookies.; Advertising: Gather personally identifiable information such as name and location;"
+msgstr "Рекламні: налаштуйте інформацію та рекламу відповідно до ваших інтересів на основі, напр. вміст, який ви відвідували раніше. (Наразі ми не використовуємо націлювання чи націлювання на файли cookie.; Рекламні: збирайте особисту інформацію, таку як ім’я та місцезнаходження;"
+
+#: includes/controller/controller-cookie.php:4473
+msgid "Decide to block all cookies which we're using. You can change these settings at any time. Learn more about the cookies we use."
+msgstr "Вирішіть заблокувати всі файли cookie, які ми використовуємо. Ви можете будь-коли змінити ці налаштування. Дізнайтеся більше про файли cookie, які ми використовуємо."
+
+#: includes/controller/controller-cookie.php:4614
+msgid "Every week"
+msgstr "Кожного тижня"
+
+#: includes/controller/controller-cookie.php:4618
+msgid "Every month"
+msgstr "Щомісяця"
+
+#: includes/controller/controller-cookie.php:4622
+msgid "Every quarter"
+msgstr "Кожного кварталу"
+
+#: includes/controller/controller-cookie.php:4728
+msgid "Cookies detected: %s, Cookies saved: %s"
+msgstr "Виявлено файли cookie: %s, файли cookie збережено: %s"
+
+#: includes/controller/controller-cookie.php:4953
+msgid "There was a problem with connecting to the cookie scanner. Skipped this url."
+msgstr "Виникла проблема з підключенням до сканера файлів cookie. Пропущено цю URL-адресу."
+
+#: includes/controller/controller-data-access.php:170
+#: includes/controller/controller-forgotten.php:221
+#: includes/controller/controller-rectification.php:188
+#: includes/controller/controller-unsubscribe.php:192
+msgid "Wrong email!"
+msgstr "Неправильна електронна адреса!"
+
+#: includes/controller/controller-data-access.php:176
+#: includes/controller/controller-forgotten.php:226
+#: includes/controller/controller-rectification.php:193
+#: includes/controller/controller-unsubscribe.php:198
+msgid "Recaptcha error!"
+msgstr "Помилка Recaptcha!"
+
+#: includes/controller/controller-data-access.php:189
+msgid "[Ultimate GDPR & CCPA] New Data Access request"
+msgstr "[Ultimate GDPR & CCPA] Новий запит на доступ до даних"
+
+#: includes/controller/controller-data-access.php:191
+msgid "There is a new data access request from email %s. See details at %s"
+msgstr "Є новий запит на доступ до даних з електронної пошти %s. Див. подробиці на %s"
+
+#: includes/controller/controller-data-access.php:199
+#: includes/controller/controller-forgotten.php:265
+#: includes/controller/controller-rectification.php:219
+#: includes/controller/controller-unsubscribe.php:238
+msgid "Your request was sent!"
+msgstr "Ваш запит відправлено!"
+
+#: includes/controller/controller-data-access.php:311
+#: includes/controller/controller-rectification.php:323
+#: includes/controller/controller-unsubscribe.php:392
+msgid "Data was sent to email: %s"
+msgstr "Дані надіслано на адресу електронної пошти: %s"
+
+#: includes/controller/controller-data-access.php:347
+#: includes/controller/controller-rectification.php:362
+#: includes/controller/controller-unsubscribe.php:432
+msgid "The following emails were removed from the list: %s"
+msgstr "Наступні електронні адреси було видалено зі списку: %s"
+
+#: includes/controller/controller-data-access.php:430
+#: includes/views/admin/admin-data-access.php:97
+#: includes/views/admin/admin-forgotten.php:132
+#: includes/views/admin/admin-rectification.php:95
+#: includes/views/admin/admin-unsubscribe.php:116
+msgid "Not sent"
+msgstr "Не відправлено"
+
+#: includes/controller/controller-data-access.php:468
+#: includes/controller/controller-data-access.php:469
+#: includes/views/admin/admin-breach.php:33
+#: includes/views/admin/admin-data-access.php:44
+#: includes/views/admin/admin-forgotten.php:40
+#: includes/views/admin/admin-rectification.php:44
+#: includes/views/admin/wizard/includes/step3.php:60
+msgid "Data Access"
+msgstr "Доступ до даних"
+
+#: includes/controller/controller-data-access.php:508
+msgid "Data access settings"
+msgstr "Налаштування доступу до даних"
+
+#: includes/controller/controller-data-access.php:519
+#: includes/views/admin/wizard/includes/step3.php:64
+msgid "Automatically send data to all users on their request"
+msgstr "Автоматично надсилати дані всім користувачам за їх запитом"
+
+#: includes/controller/controller-data-access.php:527
+msgid "Remove empty fields in Data Access Request List"
+msgstr "Видаліть порожні поля в списку запитів доступу до даних"
+
+#: includes/controller/controller-data-access.php:535
+#: includes/views/admin/wizard/includes/step3.php:74
+msgid "Email to send new request notifications to"
+msgstr "Електронна адреса, на яку потрібно надсилати сповіщення про нові запити"
+
+#: includes/controller/controller-data-access.php:649
+msgid "[Ultimate GDPR & CCPA] Data request results from %s"
+msgstr "[Ultimate GDPR & CCPA] Результати запиту даних від %s"
+
+#: includes/controller/controller-data-access.php:650
+msgid "Please find data attached"
+msgstr "Дані додаються"
+
+#: includes/controller/controller-forgotten.php:110
+#: includes/controller/controller-forgotten.php:345
+msgid "[Ultimate GDPR & CCPA] New Right To Be Forgotten request from %s"
+msgstr "[Ultimate GDPR & CCPA] Новий запит щодо права бути забутим від %s"
+
+#: includes/controller/controller-forgotten.php:129
+#: includes/controller/controller-forgotten.php:353
+msgid "There is a new Right To Be Forgotten request from email %s. See details at %s"
+msgstr "Є новий запит на право бути забутим з електронної пошти %s. Див. подробиці на %s"
+
+#: includes/controller/controller-forgotten.php:180
+#: includes/controller/controller-forgotten.php:181
+#: includes/views/admin/admin-breach.php:30
+#: includes/views/admin/admin-data-access.php:41
+#: includes/views/admin/admin-forgotten.php:37
+#: includes/views/admin/admin-rectification.php:41
+msgid "Right To Be Forgotten"
+msgstr "Право бути забутим"
+
+#: includes/controller/controller-forgotten.php:259
+msgid "[Ultimate GDPR & CCPA] Please confirm request to be forgotten from %s"
+msgstr "[Ultimate GDPR & CCPA] Будь ласка, підтвердьте запит на забуття від %s"
+
+#: includes/controller/controller-forgotten.php:309
+#: includes/controller/controller-rectification.php:106
+#: includes/controller/controller-unsubscribe.php:102
+msgid "Your request was already confirmed."
+msgstr "Ваш запит уже підтверджено."
+
+#: includes/controller/controller-forgotten.php:334
+#: includes/controller/controller-rectification.php:131
+#: includes/controller/controller-unsubscribe.php:127
+msgid "Your request was successfully confirmed."
+msgstr "Ваш запит успішно підтверджено."
+
+#: includes/controller/controller-forgotten.php:395
+#: includes/controller/controller-rectification.php:171
+#: includes/controller/controller-unsubscribe.php:175
+msgid "Your request was not confirmed. Please check the link or contact admin."
+msgstr "Ваш запит не підтверджено. Будь ласка, перевірте посилання або зверніться до адміністратора."
+
+#: includes/controller/controller-forgotten.php:513
+msgid "[Ultimate GDPR & CCPA] Emails were sent to the following users: %s"
+msgstr "[Ultimate GDPR & CCPA] Електронні листи надіслано таким користувачам: %s"
+
+#: includes/controller/controller-forgotten.php:551
+msgid "[Ultimate GDPR & CCPA] The following emails were removed from list: %s"
+msgstr "[Ultimate GDPR & CCPA] Наступні електронні адреси видалено зі списку: %s"
+
+#: includes/controller/controller-forgotten.php:584
+#: includes/controller/controller-unsubscribe.php:487
+msgid "Non existing service id: %s"
+msgstr "Неіснуючий ідентифікатор служби: %s"
+
+#: includes/controller/controller-forgotten.php:604
+msgid "There was an error forgetting %s service: %s"
+msgstr "Під час забуття служби %s сталася помилка: %s"
+
+#: includes/controller/controller-forgotten.php:629
+msgid "[Ultimate GDPR & CCPA] Services data were removed"
+msgstr "[Ultimate GDPR & CCPA] Дані сервісів видалено"
+
+#: includes/controller/controller-forgotten.php:645
+msgid "Forms skin"
+msgstr "Формує оболонку"
+
+#: includes/controller/controller-forgotten.php:652
+msgid "Right to be forgotten settings"
+msgstr "Налаштування права на забуття"
+
+#: includes/controller/controller-forgotten.php:663
+msgid "Skin"
+msgstr "Оболонка"
+
+#: includes/controller/controller-forgotten.php:671
+msgid "Automatically forget users who confirmed their mail"
+msgstr "Автоматично забувати користувачів, які підтвердили свою пошту"
+
+#: includes/controller/controller-forgotten.php:679
+#: includes/views/admin/wizard/includes/step3.php:39
+msgid "Automatically send email about data removal to users who confirmed their email"
+msgstr "Автоматично надсилати електронний лист про видалення даних користувачам, які підтвердили свою електронну адресу"
+
+#: includes/controller/controller-forgotten.php:687
+msgid "Permit users of selected roles only to be forgotten automatically"
+msgstr "Дозволити автоматичне видалення користувачів лише з вибраними ролями"
+
+#: includes/controller/controller-forgotten.php:695
+#: includes/views/admin/wizard/includes/step3.php:49
+msgid "Admin email to send new request notifications to"
+msgstr "Електронна адреса адміністратора, на яку потрібно надсилати сповіщення про нові запити"
+
+#: includes/controller/controller-forgotten.php:703
+#: includes/views/admin/wizard/includes/step3.php:54
+msgid "User notification email subject"
+msgstr "Тема сповіщення користувача"
+
+#: includes/controller/controller-forgotten.php:711
+msgid "User notification email message"
+msgstr "Сповіщення користувача електронною поштою"
+
+#: includes/controller/controller-forgotten.php:719
+#: includes/controller/controller-rectification.php:561
+#: includes/controller/controller-unsubscribe.php:653
+msgid "Set custom URL to the page containing Ultimate GDPR & CCPA shortcode as the email confirmation target page (or leave empty for autodetect)"
+msgstr "Встановіть спеціальну URL-адресу сторінки, що містить шорткод Ultimate GDPR & CCPA, як цільову сторінку підтвердження електронною поштою (або залиште пустим для автоматичного визначення)"
+
+#: includes/controller/controller-forgotten.php:810
+msgid "Simple form"
+msgstr "Проста форма"
+
+#: includes/controller/controller-forgotten.php:811
+msgid "Rounded form"
+msgstr "Округла форма"
+
+#: includes/controller/controller-forgotten.php:812
+msgid "Tabbed form"
+msgstr "Форма з вкладками"
+
+#: includes/controller/controller-forgotten.php:911
+#: includes/controller/controller-forgotten.php:912
+msgid "[Ultimate GDPR & CCPA] Your data has been forgotten"
+msgstr "[Ultimate GDPR & CCPA] Ваші дані були забуті"
+
+#: includes/controller/controller-optimization.php:62
+#: includes/controller/controller-optimization.php:63
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:44
+#: includes/views/admin/admin-optimization.php:36
+#: includes/views/admin/admin-plugins.php:36
+msgid "Optimization"
+msgstr "Оптимізація"
+
+#: includes/controller/controller-optimization.php:165
+msgid "Optimization Setting"
+msgstr "Налаштування оптимізації"
+
+#: includes/controller/controller-optimization.php:172
+msgid "Defer Javascript Setting"
+msgstr "Налаштування Defer Javascript"
+
+#: includes/controller/controller-optimization.php:179
+msgid "Defer CSS Setting"
+msgstr "Відкласти налаштування CSS"
+
+#: includes/controller/controller-optimization.php:187
+msgid "Enable optimization"
+msgstr "Увімкнути оптимізацію"
+
+#: includes/controller/controller-optimization.php:193
+msgid "Enabling optimization mode will postpone JS and CSS and will only loads when user interacts with the website."
+msgstr "Увімкнення режиму оптимізації відкладе роботу JS і CSS і завантажуватиметься лише тоді, коли користувач взаємодіє з веб-сайтом."
+
+#: includes/controller/controller-optimization.php:201
+msgid "Defer Age Popup JS"
+msgstr "Відкласти вікно віку JS"
+
+#: includes/controller/controller-optimization.php:207
+#: includes/controller/controller-optimization.php:222
+#: includes/controller/controller-optimization.php:237
+#: includes/controller/controller-optimization.php:252
+#: includes/controller/controller-optimization.php:267
+#: includes/controller/controller-optimization.php:282
+#: includes/controller/controller-optimization.php:297
+msgid "Postpone %s until user interacts with the website."
+msgstr "Відкласти %s до взаємодії користувача з веб-сайтом."
+
+#: includes/controller/controller-optimization.php:208
+msgid "Age Popup JS"
+msgstr "Вікно віку JS"
+
+#: includes/controller/controller-optimization.php:216
+msgid "Defer Cookie Popup JS"
+msgstr "Відкласти вікно cookie JS"
+
+#: includes/controller/controller-optimization.php:223
+msgid "Cookie Popup JS"
+msgstr "Вікно cookie JS"
+
+#: includes/controller/controller-optimization.php:231
+msgid "Defer Cookie List JS"
+msgstr "Відкласти список файлів cookie JS"
+
+#: includes/controller/controller-optimization.php:238
+msgid "Cookie List JS"
+msgstr "Список файлів cookie JS"
+
+#: includes/controller/controller-optimization.php:246
+msgid "Defer JqueryBase64 JS"
+msgstr "Відкласти JqueryBase64 JS"
+
+#: includes/controller/controller-optimization.php:253
+msgid "JqueryBase64 JS"
+msgstr "JqueryBase64 JS"
+
+#: includes/controller/controller-optimization.php:261
+msgid "Defer Shortcode My-account JS"
+msgstr "Відкласти Шорткод My-account JS"
+
+#: includes/controller/controller-optimization.php:268
+msgid "Shortcode My-account JS"
+msgstr "Шорткод My-account JS"
+
+#: includes/controller/controller-optimization.php:276
+msgid "Defer Facebook Pixel JS"
+msgstr "Відкласти Facebook Pixel JS"
+
+#: includes/controller/controller-optimization.php:283
+msgid "Facebook Pixel JS"
+msgstr "Facebook Pixel JS"
+
+#: includes/controller/controller-optimization.php:291
+msgid "Defer Shortcode Block Cookie JS"
+msgstr "Відкласти Шорткод Block Cookie JS"
+
+#: includes/controller/controller-optimization.php:298
+msgid "Shortcode Block Cookie JS"
+msgstr "Шорткод Block Cookie JS"
+
+#: includes/controller/controller-optimization.php:307
+#: includes/controller/controller-optimization.php:314
+msgid "Defer Main CSS"
+msgstr "Відкласти Основний CSS"
+
+#: includes/controller/controller-optimization.php:313
+#: includes/controller/controller-optimization.php:328
+#: includes/controller/controller-optimization.php:343
+#: includes/controller/controller-optimization.php:358
+#: includes/controller/controller-optimization.php:373
+msgid "You might want to leave this as Disabled. If enabled, styles will only load when user interacts with the website."
+msgstr "Ви можете залишити це вимкненим. Якщо ввімкнено, стилі завантажуватимуться лише під час взаємодії користувача з веб-сайтом."
+
+#: includes/controller/controller-optimization.php:322
+#: includes/controller/controller-optimization.php:329
+msgid "Defer JqueryUI CSS"
+msgstr "Відкласти JqueryUI CSS"
+
+#: includes/controller/controller-optimization.php:337
+#: includes/controller/controller-optimization.php:344
+msgid "Defer Age Popup CSS"
+msgstr "Відкласти Спливаюче Вікове Вікно CSS"
+
+#: includes/controller/controller-optimization.php:352
+#: includes/controller/controller-optimization.php:359
+msgid "Defer Cookie Popup CSS"
+msgstr "Відкласти Cookie Popup CSS"
+
+#: includes/controller/controller-optimization.php:367
+#: includes/controller/controller-optimization.php:374
+msgid "Defer Font Awesome CSS"
+msgstr "Відкласти Шрифт Awesome CSS"
+
+#: includes/controller/controller-plugins.php:135
+#: includes/controller/controller-plugins.php:136
+msgid "Plugins"
+msgstr "Плагіни"
+
+#: includes/controller/controller-policy.php:20
+#: includes/controller/controller-policy.php:21
+#: includes/controller/controller-policy.php:45
+#: includes/controller/controller-policy.php:902
+#: includes/views/admin/admin-policy.php:32
+#: includes/views/admin/admin-terms.php:33
+#: includes/views/admin/wizard/includes/step5.php:77
+msgid "Privacy Policy"
+msgstr "Політика конфіденційності"
+
+#: includes/controller/controller-policy.php:54
+#: includes/controller/controller-pseudonymization.php:155
+#: includes/controller/controller-terms.php:428
+msgid "Instructions"
+msgstr "Інструкції"
+
+#: includes/controller/controller-policy.php:65
+#: includes/views/admin/wizard/includes/step5.php:81
+msgid "Require administrators to accept Privacy Policy (redirect)"
+msgstr "Вимагати від адміністраторів прийняття Політики конфіденційності (перенаправлення)"
+
+#: includes/controller/controller-policy.php:73
+#: includes/views/admin/wizard/includes/step5.php:91
+msgid "Require logged in users to accept Privacy Policy (redirect)"
+msgstr "Вимагати від користувачів, які ввійшли в систему, прийняти Політику конфіденційності (перенаправлення)"
+
+#: includes/controller/controller-policy.php:81
+#: includes/views/admin/wizard/includes/step5.php:101
+msgid "Require not logged in users/guests to accept Privacy Policy (redirect)"
+msgstr "Вимагати від користувачів/гостей, які не ввійшли в систему, прийняти Політику конфіденційності (перенаправлення)"
+
+#: includes/controller/controller-policy.php:89
+#: includes/views/admin/wizard/includes/step5.php:112
+msgid "WordPress Privacy Policy page"
+msgstr "Сторінка політики конфіденційності WordPress"
+
+#: includes/controller/controller-policy.php:97
+#: includes/views/admin/wizard/includes/step5.php:127
+msgid "Page with existing Privacy Policy"
+msgstr "Сторінка з існуючою Політикою конфіденційності"
+
+#: includes/controller/controller-policy.php:105
+#: includes/views/admin/wizard/includes/step5.php:137
+msgid "Privacy Policy Custom URL"
+msgstr "Політика конфіденційності Спеціальна URL-адреса"
+
+#: includes/controller/controller-policy.php:113
+msgid "Open Privacy Policy in a new Tab"
+msgstr "Відкрийте Політику конфіденційності в новій вкладці"
+
+#: includes/controller/controller-policy.php:121
+msgid "Page to redirect to after Privacy Policy accepted"
+msgstr "Сторінка для перенаправлення після прийняття Політики конфіденційності"
+
+#: includes/controller/controller-policy.php:129
+#: includes/controller/controller-terms.php:487
+msgid "Shortcode Button Styling"
+msgstr "Стиль кнопки шорткоди"
+
+#: includes/controller/controller-policy.php:145
+msgid "Privacy Policy version, eg. 1.0 (if you change it, user has to give consent again)"
+msgstr "Версія політики конфіденційності, напр. 1.0 (якщо ви зміните це, користувач повинен дати згоду повторно)"
+
+#: includes/controller/controller-policy.php:153
+msgid "Redirect to Privacy Policy first (if Terms and Conditions also redirect)"
+msgstr "Спочатку переспрямуйте до Політики конфіденційності (якщо Умови використання також перенаправляють)"
+
+#: includes/controller/controller-policy.php:161
+msgid "Convert the following text to Privacy Policy link in all services templates, eg. 'Privacy Policy'"
+msgstr "Перетворіть наведений нижче текст на посилання Політика конфіденційності в усіх шаблонах сервісів, наприклад. 'Політика конфіденційності'"
+
+#: includes/controller/controller-policy.php:206
+#: includes/views/admin/wizard/includes/step5.php:117
+msgid "Click here to create"
+msgstr "Натисніть тут, щоб створити"
+
+#: includes/controller/controller-policy.php:217
+msgid "1. Place %s shortcode on your existing Privacy Policy page to add an accept button.%s2. Select Privacy Policy page below, so users can be redirected there to give their consent."
+msgstr "1. Розмістіть шорткод %s на існуючій сторінці політики конфіденційності, щоб додати кнопку прийняти.%s 2. Виберіть сторінку «Політика конфіденційності» нижче, щоб користувачі могли бути перенаправлені туди, щоб дати свою згоду."
+
+#: includes/controller/controller-policy.php:682
+#: includes/controller/controller-policy.php:744
+#: includes/controller/controller-terms.php:735
+#: includes/controller/controller-wizard.php:632
+msgid "Don't redirect"
+msgstr "Не перенаправляйте"
+
+#: includes/controller/controller-policy.php:687
+#: includes/controller/controller-wizard.php:633
+msgid "WordPress Privacy page"
+msgstr "Сторінка конфіденційності WordPress"
+
+#: includes/controller/controller-policy.php:743
+#: includes/controller/controller-terms.php:734
+msgid "Last visited page"
+msgstr "Остання відвідана сторінка"
+
+#: includes/controller/controller-policy.php:770
+#: includes/controller/controller-terms.php:657
+msgid "Theme Default"
+msgstr "Тема за замовчуванням"
+
+#: includes/controller/controller-policy.php:771
+#: includes/controller/controller-terms.php:658
+msgid "Cookie box buttons"
+msgstr "Кнопки коробки для Cookies"
+
+#: includes/controller/controller-pseudonymization.php:111
+#: includes/controller/controller-pseudonymization.php:112
+#: includes/controller/controller-pseudonymization.php:135
+msgid "Pseudonymization"
+msgstr "Псевдонімізація"
+
+#: includes/controller/controller-pseudonymization.php:126
+#: includes/controller/controller-pseudonymization.php:265
+msgid "Encryption is not possible. Please check your openssl library."
+msgstr "Шифрування неможливе. Перевірте свою бібліотеку openssl."
+
+#: includes/controller/controller-pseudonymization.php:144
+#: includes/views/admin/wizard/includes/foot.php:17
+msgid "Warning"
+msgstr "УВАГА"
+
+#: includes/controller/controller-pseudonymization.php:166
+msgid "Automatically encrypt new data"
+msgstr "Автоматично шифрувати нові дані"
+
+#: includes/controller/controller-pseudonymization.php:174
+msgid "Automatically decrypt all data on the fly (if you have anything encrypted, this is recommended)"
+msgstr "Автоматично розшифровувати всі дані на льоту (якщо у вас є щось зашифроване, це рекомендується)"
+
+#: includes/controller/controller-pseudonymization.php:182
+msgid "Select data to encrypt"
+msgstr "Виберіть дані для шифрування"
+
+#: includes/controller/controller-pseudonymization.php:230
+msgid "This feature is experimental and may lead to irreversible data lost! After encryption, it may be impossible for anyone to decrypt your data. "
+msgstr "Ця функція є експериментальною та може призвести до незворотної втрати даних! Після шифрування нікому може бути неможливо розшифрувати ваші дані. "
+
+#: includes/controller/controller-pseudonymization.php:242
+msgid "Pseudonymization feature allows you to encrypt some of the data stored in the database. That way, if anyone got access to your database, the user's data would be pseudonymized. Database contents are permanently encrypted and can be decrypted on the fly when accessed by users. You can also permanently decrypt all your contents."
+msgstr "Функція псевдонімізації дозволяє шифрувати деякі дані, що зберігаються в базі даних. Таким чином, якщо хтось отримає доступ до вашої бази даних, дані користувача будуть псевдонімізовані. Вміст бази даних постійно зашифрований і може бути розшифрований на льоту під час доступу користувачів. Ви також можете остаточно розшифрувати весь свій вміст."
+
+#: includes/controller/controller-pseudonymization.php:245
+msgid "How to use:"
+msgstr "Як використовувати:"
+
+#: includes/controller/controller-pseudonymization.php:247
+msgid "1. Make a backup"
+msgstr "1. Зробіть резервну копію"
+
+#: includes/controller/controller-pseudonymization.php:249
+msgid "2. Select which data to encrypt"
+msgstr "2. Виберіть дані для шифрування"
+
+#: includes/controller/controller-pseudonymization.php:251
+msgid "3. (Optionally) Select 'automatically encrypt new data' for continuous encryption of all incoming data"
+msgstr "3. (За бажанням) Виберіть «автоматично шифрувати нові дані» для постійного шифрування всіх вхідних даних"
+
+#: includes/controller/controller-pseudonymization.php:253
+msgid "4. Click 'Save changes'"
+msgstr "4. Натисніть «Зберегти зміни»"
+
+#: includes/controller/controller-pseudonymization.php:255
+msgid "5. (Optionally) Click 'Encrypt selected' to encrypt all current data which has not been yet encrypted"
+msgstr "5. (За бажанням) Натисніть «Зашифрувати вибрані», щоб зашифрувати всі поточні дані, які ще не були зашифровані"
+
+#: includes/controller/controller-pseudonymization.php:279
+msgid "Data encrypted successfully"
+msgstr "Дані успішно зашифровано"
+
+#: includes/controller/controller-pseudonymization.php:289
+msgid "Decryption is not possible. Please check your openssl library."
+msgstr "Розшифровка неможлива. Перевірте свою бібліотеку openssl."
+
+#: includes/controller/controller-pseudonymization.php:303
+msgid "Data decrypted successfully"
+msgstr "Дані успішно розшифровано"
+
+#: includes/controller/controller-rectification.php:142
+msgid "[Ultimate GDPR & CCPA] New Data Rectification request from %s"
+msgstr "[Ultimate GDPR & CCPA] Новий запит на виправлення даних від %s"
+
+#: includes/controller/controller-rectification.php:150
+msgid "There is a new Data Rectification request from email %s. See details at %s"
+msgstr "Є новий запит на виправлення даних з електронної пошти %s. Див. подробиці на %s"
+
+#: includes/controller/controller-rectification.php:213
+msgid "[Ultimate GDPR & CCPA] Please confirm your data rectification request from %s"
+msgstr "[Ultimate GDPR & CCPA] Підтвердьте свій запит на виправлення даних від %s"
+
+#: includes/controller/controller-rectification.php:491
+#: includes/controller/controller-rectification.php:492
+#: includes/views/admin/admin-breach.php:39
+#: includes/views/admin/admin-data-access.php:50
+#: includes/views/admin/admin-forgotten.php:46
+#: includes/views/admin/admin-rectification.php:50
+#: includes/views/admin/wizard/includes/step3.php:98
+msgid "Data Rectification"
+msgstr "Виправлення даних"
+
+#: includes/controller/controller-rectification.php:527
+msgid "Data Rectification settings"
+msgstr "Параметри виправлення даних"
+
+#: includes/controller/controller-rectification.php:537
+#: includes/controller/controller-unsubscribe.php:629
+#: includes/views/admin/wizard/includes/step3.php:101
+msgid "Email to send admin notifications to"
+msgstr "Електронна адреса для надсилання сповіщень адміністратора"
+
+#: includes/controller/controller-rectification.php:545
+#: includes/controller/controller-unsubscribe.php:637
+#: includes/views/admin/wizard/includes/step3.php:106
+msgid "User mail title"
+msgstr "Назва електронної пошти користувача"
+
+#: includes/controller/controller-rectification.php:553
+#: includes/controller/controller-unsubscribe.php:645
+msgid "User mail content"
+msgstr "Вміст пошти користувача"
+
+#: includes/controller/controller-rectification.php:647
+msgid "[Ultimate GDPR & CCPA] Data rectification notice from %s"
+msgstr "[Ultimate GDPR & CCPA] Сповіщення про виправлення даних від %s"
+
+#: includes/controller/controller-rectification.php:648
+msgid "Your data has been rectified"
+msgstr "Ваші дані виправлено"
+
+#: includes/controller/controller-services.php:99
+#: includes/controller/controller-services.php:100
+#: includes/controller/controller-services.php:339
+#: includes/controller/controller-services.php:355
+msgid "Services"
+msgstr "Послуги"
+
+#: includes/controller/controller-services.php:116
+#: includes/controller/controller-services.php:123
+#: includes/controller/controller-services.php:130
+msgid "Services options"
+msgstr "Варіанти сервісів"
+
+#: includes/controller/controller-services.php:141
+msgid "Recaptcha key (for myaccount shortcode submissions)"
+msgstr "Ключ Recaptcha (для надсилання шорткоду мого облікового запису)"
+
+#: includes/controller/controller-services.php:149
+msgid "Recaptcha secret key (for myaccount shortcode submissions)"
+msgstr "Секретний ключ Recaptcha (для надсилання шорткоду мого облікового запису)"
+
+#: includes/controller/controller-services.php:157
+msgid "When logging consents of users who did not accept Privacy Policy, log their IP"
+msgstr "Під час реєстрації згоди користувачів, які не прийняли Політику конфіденційності, реєструйте їхні IP-адреси"
+
+#: includes/controller/controller-services.php:165
+msgid "When logging consents of users who did not accept Privacy Policy, log their User Agent"
+msgstr "Під час реєстрації згоди користувачів, які не прийняли Політику конфіденційності, зареєструйте їхній агент користувача"
+
+#: includes/controller/controller-services.php:337
+msgctxt "Post Type General Name"
+msgid "Services"
+msgstr "Послуги"
+
+#: includes/controller/controller-services.php:338
+msgctxt "Post Type Singular Name"
+msgid "Services"
+msgstr "Послуги"
+
+#: includes/controller/controller-services.php:340
+msgid "Parent Services"
+msgstr "Батьківські служби"
+
+#: includes/controller/controller-services.php:341
+msgid "All Services"
+msgstr "Всі послуги"
+
+#: includes/controller/controller-services.php:342
+msgid "View Service"
+msgstr "Перегляд служби"
+
+#: includes/controller/controller-services.php:343
+msgid "Add New Service"
+msgstr "Додати нову послугу"
+
+#: includes/controller/controller-services.php:344
+msgid "Add New"
+msgstr "Додати новий"
+
+#: includes/controller/controller-services.php:345
+msgid "Edit Service"
+msgstr "Редагувати службу"
+
+#: includes/controller/controller-services.php:346
+msgid "Update Service"
+msgstr "Служба оновлення"
+
+#: includes/controller/controller-services.php:347
+msgid "Search Services"
+msgstr "Пошукові служби"
+
+#: includes/controller/controller-services.php:348
+msgid "Not Found"
+msgstr "Не знайдено"
+
+#: includes/controller/controller-services.php:349
+msgid "Not found in Trash"
+msgstr "Не знайдено в кошику"
+
+#: includes/controller/controller-services.php:354
+msgid "services"
+msgstr "послуги"
+
+#: includes/controller/controller-terms.php:169
+#: includes/controller/controller-terms.php:170
+msgid "Terms And Conditions"
+msgstr "Правила та умови"
+
+#: includes/controller/controller-terms.php:419
+#: includes/controller/controller-terms.php:813
+#: includes/views/admin/admin-policy.php:29
+#: includes/views/admin/admin-terms.php:30
+#: includes/views/admin/wizard/includes/step5.php:25
+msgid "Terms and Conditions"
+msgstr "Правила та умови"
+
+#: includes/controller/controller-terms.php:439
+#: includes/views/admin/wizard/includes/step5.php:29
+msgid "Require administrators to accept Terms and Conditions (redirect)"
+msgstr "Вимагати від адміністраторів прийняття Загальних положень та умов (перенаправлення)"
+
+#: includes/controller/controller-terms.php:447
+#: includes/views/admin/wizard/includes/step5.php:39
+msgid "Require logged in users to accept Terms and Conditions (redirect)"
+msgstr "Вимагати від користувачів, які ввійшли в систему, прийняти Загальні положення та умови (перенаправлення)"
+
+#: includes/controller/controller-terms.php:455
+#: includes/views/admin/wizard/includes/step5.php:49
+msgid "Require guest users to accept Terms and Conditions (redirect)"
+msgstr "Вимагати від гостьових користувачів прийняття Загальних положень та умов (перенаправлення)"
+
+#: includes/controller/controller-terms.php:463
+#: includes/views/admin/wizard/includes/step5.php:60
+msgid "The page with existing Terms and Conditions"
+msgstr "Сторінка з існуючими положеннями та умовами"
+
+#: includes/controller/controller-terms.php:471
+msgid "The page to redirect to after Terms accepted"
+msgstr "Сторінка для перенаправлення після прийняття Умов"
+
+#: includes/controller/controller-terms.php:479
+#: includes/views/admin/wizard/includes/step5.php:69
+msgid "Terms and Condition Custom URL"
+msgstr "Правила та умови Спеціальна URL-адреса"
+
+#: includes/controller/controller-terms.php:503
+msgid "Terms version, eg. 1.0 (if you change it, user has to give consent again)"
+msgstr "Версія термінів, напр. 1.0 (якщо ви зміните це, користувач повинен дати згоду повторно)"
+
+#: includes/controller/controller-terms.php:511
+msgid "Convert the following text to Terms and Conditions link in all services templates, eg. 'Terms and Conditions'"
+msgstr "Перетворіть наведений нижче текст на посилання \"Загальні положення та умови\" в усіх шаблонах послуг, наприклад. 'Правила та умови'"
+
+#: includes/controller/controller-terms.php:549
+msgid "1. Place %s shortcode on your existing Terms and Conditions page to add an accept button.%s2. Select Terms and Conditions page below, so users can be redirected there to give their consent."
+msgstr "1. Розмістіть шорткод %s на вашій існуючій сторінці Загальних положень та умов, щоб додати кнопку прийняти.%s2. Виберіть сторінку \"Загальні положення та умови\" нижче, щоб користувачі могли бути перенаправлені туди, щоб дати свою згоду."
+
+#: includes/controller/controller-unsubscribe.php:143
+msgid "There is a new Unsubscribe request from email %s. See details at %s"
+msgstr "Є новий запит на скасування підписки з електронної пошти %s. Див. подробиці на %s"
+
+#: includes/controller/controller-unsubscribe.php:232
+msgid "[Ultimate GDPR & CCPA] Please confirm request to be unsubscribed from %s newsletters"
+msgstr "[Ultimate GDPR & CCPA] Підтвердьте запит на скасування підписки на %s інформаційні бюлетені"
+
+#: includes/controller/controller-unsubscribe.php:507
+msgid "There was an error unsubscribing %s from %s service: %s"
+msgstr "Під час скасування підписки %s на службу %s сталася помилка: %s"
+
+#: includes/controller/controller-unsubscribe.php:533
+msgid "[Ultimate GDPR & CCPA] Unsubscription finished!"
+msgstr "[Ultimate GDPR & CCPA] Скасування підписки завершено!"
+
+#: includes/controller/controller-unsubscribe.php:563
+#: includes/controller/controller-unsubscribe.php:564
+#: includes/views/shortcode/shortcode-myaccount.php:67
+#: includes/views/shortcode/shortcode-privacy-center.php:146
+msgid "Unsubscribe"
+msgstr "Відписатися"
+
+#: includes/controller/controller-unsubscribe.php:595
+msgid "Unsubscribe settings"
+msgstr "Налаштування скасування підписки"
+
+#: includes/controller/controller-unsubscribe.php:605
+msgid "Hide Unsubscribe Tab"
+msgstr "Приховати вкладку «Скасувати підписку»"
+
+#: includes/controller/controller-unsubscribe.php:613
+msgid "Automatically unsubscribe users who confirmed their mail"
+msgstr "Автоматично відписувати користувачів, які підтвердили свою пошту"
+
+#: includes/controller/controller-unsubscribe.php:621
+msgid "Automatically send email about unsubscription to users who confirmed their email"
+msgstr "Автоматично надсилати електронні листи про скасування підписки користувачам, які підтвердили свою електронну адресу"
+
+#: includes/controller/controller-unsubscribe.php:661
+msgid "Enter custom subheader for 'Unsubscribe' tab in 'my account' shortcode (or leave empty for default content)"
+msgstr "Введіть спеціальний підзаголовок для вкладки «Скасувати підписку» в шорткоді «Мій обліковий запис» (або залиште пустим для вмісту за замовчуванням)"
+
+#: includes/controller/controller-unsubscribe.php:814
+msgid "[Ultimate GDPR & CCPA] Unsubscribe notice from %s"
+msgstr "[Ultimate GDPR & CCPA] Сповіщення про скасування підписки від %s"
+
+#: includes/controller/controller-unsubscribe.php:815
+msgid "You have been unsubscribed"
+msgstr "Ви відписалися"
+
+#: includes/controller/controller-wizard.php:806
+#: includes/controller/controller-wizard.php:807
+#: includes/controller/controller-wizard.php:815
+#: includes/controller/controller-wizard.php:816
+msgid "Wizard"
+msgstr "Майстерня"
+
+#: includes/controller/controller-wizard.php:878
+#: includes/views/admin/wizard/includes/step2.php:278
+#: includes/views/admin/wizard/includes/step2b.php:7
+#: includes/views/admin/wizard/includes/step4.php:84
+#: includes/views/admin/wizard/includes/step7.php:550
+#: includes/views/admin/wizard/includes/step8b.php:8
+msgid "Preview"
+msgstr "Попередній перегляд"
+
+#: includes/helpers.php:116
+msgid "To confirm, please follow this link: %s"
+msgstr "Для підтвердження перейдіть за цим посиланням: %s"
+
+#: includes/model/model-group.php:73 includes/model/model-group.php:150
+msgid "Essential"
+msgstr "Необхідні"
+
+#: includes/service/service-abstract.php:471
+msgid "not applicable"
+msgstr "не застосовується"
+
+#: includes/service/service-addthis.php:95
+msgid "[%s] Block Addthis cookies when a user doesn't accept Functionality cookies"
+msgstr "[%s] Блокувати файли cookie Addthis, якщо користувач не приймає функціональні файли cookie"
+
+#: includes/service/service-addthis.php:103
+#: includes/service/service-arforms.php:140
+#: includes/service/service-bbpress.php:194
+#: includes/service/service-buddypress.php:358
+#: includes/service/service-caldera-forms.php:157
+#: includes/service/service-cf7db.php:132
+#: includes/service/service-contact-form-7.php:129
+#: includes/service/service-ct-waitlist.php:143
+#: includes/service/service-custom-facebook-feed.php:64
+#: includes/service/service-eform.php:159
+#: includes/service/service-events-manager.php:122
+#: includes/service/service-flamingo.php:114
+#: includes/service/service-formcraft-form-builder.php:99
+#: includes/service/service-formcraft.php:122
+#: includes/service/service-formidable-forms.php:171
+#: includes/service/service-ga-google-analytics.php:96
+#: includes/service/service-google-analytics-dashboard-for-wp.php:96
+#: includes/service/service-google-analytics-for-wordpress.php:95
+#: includes/service/service-gravity-forms.php:117
+#: includes/service/service-hotjar.php:79
+#: includes/service/service-klaviyo.php:74
+#: includes/service/service-mailchimp.php:102
+#: includes/service/service-mailerlite.php:86
+#: includes/service/service-mailpoet.php:124
+#: includes/service/service-mailster.php:232
+#: includes/service/service-metorik-helper.php:97
+#: includes/service/service-newsletter.php:168
+#: includes/service/service-ninja-forms.php:89
+#: includes/service/service-quform.php:153
+#: includes/service/service-sitepress-multilingual-cms.php:102
+#: includes/service/service-ultimate-member.php:85
+#: includes/service/service-woocommerce.php:237
+#: includes/service/service-wordfence.php:78
+#: includes/service/service-wp-comments.php:132
+#: includes/service/service-wp-foro.php:452
+#: includes/service/service-wp-job-manager.php:94
+#: includes/service/service-wp-posts.php:132
+#: includes/service/service-wp-simple-paypal-shopping-cart.php:157
+#: includes/service/service-wp-user.php:168
+#: includes/service/service-wpforms-lite.php:77
+#: includes/service/service-yith-woocommerce-wishlist.php:98
+#: includes/service/service-youtube.php:108
+msgid "[%s] Hide from Forget Me Form"
+msgstr "[%s] Приховати від форми «Забути мене»"
+
+#: includes/service/service-akismet.php:131
+msgid "Akismet: Could not update comment data for comments: %s ||"
+msgstr "Akismet: Не вдалося оновити дані коментарів для коментарів: %s ||"
+
+#: includes/service/service-akismet.php:150
+#: includes/service/service-ultimate-member.php:77
+msgid "Inject consent checkbox to all forms"
+msgstr "Додати прапорець згоди до всіх форм"
+
+#: includes/service/service-akismet.php:185
+msgid "<i>Set this on Akismet Plugin %s </i>"
+msgstr "<i>Set this on Akismet Plugin %s </i>"
+
+#: includes/service/service-akismet.php:311
+msgid "Akismet process data from user's comments"
+msgstr "Akismet обробляє дані з коментарів користувачів"
+
+#: includes/service/service-arforms.php:130
+#: includes/service/service-bbpress.php:178
+#: includes/service/service-buddypress.php:350
+#: includes/service/service-caldera-forms.php:149
+#: includes/service/service-contact-form-7.php:103
+#: includes/service/service-ct-waitlist.php:111
+#: includes/service/service-eform.php:149
+#: includes/service/service-events-manager.php:112
+#: includes/service/service-formidable-forms.php:153
+#: includes/service/service-fusion-builder.php:101
+#: includes/service/service-gravity-forms.php:99
+#: includes/service/service-klaviyo.php:64
+#: includes/service/service-mailerlite.php:76
+#: includes/service/service-newsletter.php:150
+#: includes/service/service-ninja-forms.php:79
+#: includes/service/service-quform.php:132
+#: includes/service/service-wp-foro.php:436
+#: includes/service/service-wpforms-lite.php:67
+#: includes/service/service-yikes-inc-easy-mailchimp-extender.php:140
+msgid "[%s] Inject consent checkbox to all forms"
+msgstr "[%s] Додати прапорець згоди до всіх форм"
+
+#: includes/service/service-arforms.php:148
+msgid "ARForms"
+msgstr "ARForms"
+
+#: includes/service/service-arforms.php:266
+msgid "ARForms gathers data entered by users in forms"
+msgstr "ARForms збирає дані, введені користувачами у форми"
+
+#: includes/service/service-bbpress.php:162
+#: includes/service/service-buddypress.php:334
+#: includes/service/service-caldera-forms.php:133
+#: includes/service/service-cf7db.php:116
+#: includes/service/service-ct-waitlist.php:94
+#: includes/service/service-custom-facebook-feed.php:56
+#: includes/service/service-eform.php:132
+#: includes/service/service-flamingo.php:98
+#: includes/service/service-formcraft.php:95
+#: includes/service/service-formidable-forms.php:136
+#: includes/service/service-hotjar.php:63
+#: includes/service/service-mailpoet.php:108
+#: includes/service/service-mailster.php:183
+#: includes/service/service-ninja-forms.php:62
+#: includes/service/service-quform.php:115
+#: includes/service/service-siteorigin-panels.php:64
+#: includes/service/service-woocommerce.php:181
+#: includes/service/service-wp-comments.php:109
+#: includes/service/service-wp-foro.php:420
+#: includes/service/service-wp-job-manager.php:78
+#: includes/service/service-wp-posts.php:116
+#: includes/service/service-wp-simple-paypal-shopping-cart.php:141
+#: includes/service/service-wp-user.php:112
+#: includes/service/service-yith-woocommerce-wishlist.php:82
+msgid "[%s] Name"
+msgstr "[%s] Ім'я"
+
+#: includes/service/service-bbpress.php:170
+#: includes/service/service-buddypress.php:342
+#: includes/service/service-caldera-forms.php:141
+#: includes/service/service-cf7db.php:124
+#: includes/service/service-ct-waitlist.php:102
+#: includes/service/service-eform.php:140
+#: includes/service/service-flamingo.php:106
+#: includes/service/service-formcraft.php:103
+#: includes/service/service-formidable-forms.php:144
+#: includes/service/service-hotjar.php:71
+#: includes/service/service-mailster.php:191
+#: includes/service/service-ninja-forms.php:70
+#: includes/service/service-quform.php:123
+#: includes/service/service-siteorigin-panels.php:72
+#: includes/service/service-wp-foro.php:428
+#: includes/service/service-wp-simple-paypal-shopping-cart.php:149
+#: includes/service/service-yith-woocommerce-wishlist.php:90
+msgid "[%s] Description"
+msgstr "[%s] Опис"
+
+#: includes/service/service-bbpress.php:202
+#: includes/service/service-buddypress.php:371
+#: includes/service/service-wp-foro.php:460
+msgid "[%s] Enter the existing user's email whom the posts will be reassigned to (or leave empty to delete them when forgetting)"
+msgstr "[%s] Введіть електронну адресу існуючого користувача, якому будуть перепризначені публікації (або залиште порожнім, щоб видалити їх, якщо забудете)"
+
+#: includes/service/service-bbpress.php:274
+msgid "bbPress gathers users activity in forums"
+msgstr "bbPress збирає активність користувачів на форумах"
+
+#: includes/service/service-bbpress.php:305
+msgid "<strong>ERROR</strong>: Please consent to storage of your data"
+msgstr "<strong>ПОМИЛКА</strong>: погодьтеся на зберігання ваших даних"
+
+#: includes/service/service-buddypress.php:111
+#: includes/service/service-wp-user.php:77
+msgid "Could not delete user data for user: %s"
+msgstr "Не вдалося видалити дані користувача: %s"
+
+#: includes/service/service-buddypress.php:147
+#: includes/service/service-buddypress.php:159
+#: includes/service/service-buddypress.php:171
+#: includes/service/service-buddypress.php:183
+#: includes/service/service-buddypress.php:195
+#: includes/service/service-buddypress.php:218
+#: includes/service/service-buddypress.php:229
+#: includes/service/service-buddypress.php:240
+#: includes/service/service-buddypress.php:251
+#: includes/service/service-buddypress.php:262
+msgid "Could not reassign user data for user: %s"
+msgstr "Не вдалося перепризначити дані користувача для користувача: %s"
+
+#: includes/service/service-buddypress.php:439
+msgid "BuddyPress gathers users activity in profile pages and groups"
+msgstr "BuddyPress збирає активність користувачів на сторінках профілів і в групах"
+
+#: includes/service/service-caldera-forms.php:229
+msgid "Caldera Forms gathers data entered by users in forms"
+msgstr "Caldera Forms збирає дані, які користувачі вводять у форми"
+
+#: includes/service/service-cf7db.php:197
+msgid "Contact Form CFDB7 gathers data entered by users in Contact Form 7"
+msgstr "Контактна форма CFDB7 збирає дані, введені користувачами у контактній формі 7"
+
+#: includes/service/service-contact-form-7.php:113
+msgid "[Contact Form 7] Inject consent checkbox as the first field instead of the last"
+msgstr "[Контактна форма 7] Введіть прапорець згоди як перше поле замість останнього"
+
+#: includes/service/service-contact-form-7.php:121
+msgid "[%s] Filter for Email sent at the bottom of contact form 7"
+msgstr "[%s] Фільтр електронної пошти, надісланої внизу contact form 7"
+
+#: includes/service/service-contact-form-7.php:236
+msgid "Contact Form 7 gathers data entered by users in forms"
+msgstr "Контактна форма 7 збирає дані, введені користувачами у форми"
+
+#: includes/service/service-ct-waitlist.php:76
+#: includes/service/service-mailster.php:155
+#: includes/service/service-quform.php:87
+msgid "There were problems forgetting data for user: %s"
+msgstr "Виникли проблеми із забуттям даних для користувача: %s"
+
+#: includes/service/service-ct-waitlist.php:122
+msgid "[%s] Consent Message"
+msgstr "[%s] Повідомлення про згоду"
+
+#: includes/service/service-ct-waitlist.php:151
+msgid "Waitlist for WooCommerce - Back In Stock Notifier"
+msgstr "Список очікування для WooCommerce - оповіщення про повернення в запас"
+
+#: includes/service/service-ct-waitlist.php:278
+msgid "Waitlist for WooCommerce - Back In Stock Notifier by CreateIT gathers data entered by users in forms"
+msgstr "Список очікування для WooCommerce - Back In Stock Notifier від createIT збирає дані, введені користувачами у формах"
+
+#: includes/service/service-eform.php:253
+msgid "eForm gathers data entered by users in forms"
+msgstr "eForm збирає дані, введені користувачами у форми"
+
+#: includes/service/service-events-manager.php:179
+msgid "%s is required."
+msgstr "Потрібен %s."
+
+#: includes/service/service-events-manager.php:180
+#: includes/service/service-formidable-forms.php:262
+#: includes/service/service-woocommerce.php:567
+msgid "Consent"
+msgstr "Згода"
+
+#: includes/service/service-events-manager.php:195
+msgid "Events Manager gathers data entered by users in booking order forms"
+msgstr "Менеджер подій збирає дані, введені користувачами у форми замовлення бронювання"
+
+#: includes/service/service-flamingo.php:132
+msgid "Flamingo gathers data entered by users in CF7 forms"
+msgstr "Flamingo збирає дані, які користувачі вводять у форми CF7"
+
+#: includes/service/service-formcraft-form-builder.php:89
+msgid "[%s] Inject consent checkbox to all forms (Basic)"
+msgstr "[%s] Додати прапорець згоди до всіх форм (базова)"
+
+#: includes/service/service-formcraft.php:112
+msgid "[%s] Inject consent checkbox to all forms (Premium)"
+msgstr "[%s] Додати прапорець згоди до всіх форм (Преміум)"
+
+#: includes/service/service-formcraft.php:178
+#: includes/service/service-formidable-forms.php:327
+msgid "Formidable Forms gathers data entered by users in forms"
+msgstr "Formidable Forms збирає дані, які користувачі вводять у форми"
+
+#: includes/service/service-formidable-forms.php:163
+msgid "[Formidable Forms] Inject consent checkbox as the first field instead of the last"
+msgstr "[Formidable Forms] Введіть прапорець згоди як перше поле замість останнього"
+
+#: includes/service/service-formidable-forms.php:238
+#: includes/service/service-formidable-forms.php:281
+msgid "This field is required"
+msgstr "Це поле є обов'язковим"
+
+#: includes/service/service-google-analytics.php:56
+msgid "Google Analytics Tracking ID (disable tracking for this ID when cookies consent not given), eg. UA-118586768-1"
+msgstr "Ідентифікатор відстеження Google Analytics (вимкнути відстеження для цього ідентифікатора, якщо згода на файли cookie не надається), наприклад. UA-118586768-1"
+
+#: includes/service/service-google-analytics.php:65
+msgid "Enable Google Analytics anonymized IP tracking (<a href='%s' target='_blank'>read more</a>)"
+msgstr "Увімкнути анонімне IP-відстеження Google Analytics (<a href='%s' target='_blank'>read more</a>)"
+
+#: includes/service/service-google-analytics.php:73
+msgid "Please note that even when enabled, Ultimate GDPR & CCPA will still block Google Analytics without user consent. If you would like to track anonymously users without accepting cookies, please <a href='%s' target='_blank'>read more here</a>."
+msgstr "Зауважте, що навіть якщо ввімкнено, Ultimate GDPR & CCPA все одно блокуватимуть Google Analytics без згоди користувача. Якщо ви хочете анонімно відстежувати користувачів, не приймаючи файли cookie, <a href='%s' target='_blank'>read more here</a>."
+
+#: includes/service/service-gravity-forms.php:109
+msgid "[Gravity Forms] Inject consent checkbox as the first field instead of the last"
+msgstr "[Gravity Forms] Введіть прапорець згоди як перше поле замість останнього"
+
+#: includes/service/service-gravity-forms.php:125
+msgid "Gravity Forms"
+msgstr "Форми тяжіння"
+
+#: includes/service/service-gravity-forms.php:259
+#: includes/views/admin/admin-plugins.php:97
+#: includes/views/admin/admin-plugins.php:115
+msgid "Yes"
+msgstr "Так"
+
+#: includes/service/service-gravity-forms.php:317
+msgid "Gravity forms gathers data entered by users in forms"
+msgstr "Gravity forms збирає дані, введені користувачами у форми"
+
+#: includes/service/service-hotjar.php:137
+msgid "Hotjar works most accurately if the Hotjar Tracking Code is in the Head tag (<head>) of every page you want to track on your site. This ensures that Hotjar will start tracking visitors as soon as possible."
+msgstr "Hotjar працює найточніше, якщо код відстеження Hotjar міститься в тегу Head (<head>) кожної сторінки, яку ви хочете відстежувати на своєму сайті. Це гарантує, що Hotjar якнайшвидше почне відстежувати відвідувачів."
+
+#: includes/service/service-mailchimp.php:86
+#: includes/views/admin/wizard/includes/step7.php:287
+msgid "[Mailchimp] Inject consent checkbox to order fields"
+msgstr "[Mailchimp] Додайте прапорець згоди до полів замовлення"
+
+#: includes/service/service-mailchimp.php:94
+msgid "[Mailchimp] Inject consent checkbox as the first field instead of the last"
+msgstr "[Mailchimp] Ввести прапорець згоди як перше поле замість останнього"
+
+#: includes/service/service-mailchimp.php:207
+msgid "Consent is mandatory to proceed"
+msgstr "Для продовження обов’язкова згода"
+
+#: includes/service/service-mailchimp.php:221
+msgid "Mailchimp gathers data entered by users in forms"
+msgstr "Mailchimp збирає дані, які користувачі вводять у форми"
+
+#: includes/service/service-mailerlite.php:168
+msgid "Mailer Lite gathers data entered by users in forms"
+msgstr "Mailer Lite збирає дані, введені користувачами у форми"
+
+#: includes/service/service-mailpoet.php:116
+msgid "[Mailpoet] Description"
+msgstr "[Mailpoet] Опис"
+
+#: includes/service/service-mailpoet.php:132
+msgid "Mailpoet"
+msgstr "Mailpoet"
+
+#: includes/service/service-mailpoet.php:233
+msgid "Mailpoet gathers data entered by users in forms"
+msgstr "Mailpoet збирає дані, які користувачі вводять у форми"
+
+#: includes/service/service-mailster.php:200
+#: includes/service/service-metorik-helper.php:87
+msgid "[%s] Inject consent checkbox to subscribe forms"
+msgstr "[%s] Ввести прапорець згоди, щоб підписатися на форми"
+
+#: includes/service/service-mailster.php:211
+#: includes/service/service-quform.php:143
+msgid "[%s] Inject consent checkbox as the first field instead of the last"
+msgstr "[%s] Ввести прапорець згоди як перше поле замість останнього"
+
+#: includes/service/service-mailster.php:222
+msgid "[%s] Inject consent checkbox to unsubscribe forms"
+msgstr "[%s] Ввести прапорець згоди, щоб скасувати підписку на форми"
+
+#: includes/service/service-mailster.php:241
+msgid "Mailster"
+msgstr "Mailster"
+
+#: includes/service/service-mailster.php:455
+msgid "Consent is missing"
+msgstr "Згода відсутня"
+
+#: includes/service/service-mailster.php:468
+msgid "Mailster collects signed in user data"
+msgstr "Mailster збирає дані користувачів, які ввійшли в систему"
+
+#: includes/service/service-newsletter.php:160
+msgid "[Newsletter] Inject consent checkbox as the first field instead of the last"
+msgstr "[Newsletter] Додайте прапорець згоди як перше поле замість останнього"
+
+#: includes/service/service-newsletter.php:176
+msgid "Newsletter"
+msgstr "Інформаційний бюлетень"
+
+#: includes/service/service-newsletter.php:342
+msgid "Newsletter gathers data entered by users in newsletter forms"
+msgstr "Інформаційний бюлетень збирає дані, введені користувачами у форми розсилки"
+
+#: includes/service/service-ninja-forms.php:145
+msgid "Ninja Forms gathers data entered by users in forms"
+msgstr "Ninja Forms збирає дані, які користувачі вводять у форми"
+
+#: includes/service/service-quform.php:161
+msgid "Quform"
+msgstr "Quform"
+
+#: includes/service/service-quform.php:383
+msgid "Quform gathers data entered by users in forms"
+msgstr "Quform збирає дані, які користувачі вводять у форми"
+
+#: includes/service/service-sell-personal-data.php:27
+msgid "Do not sell my information"
+msgstr "Не продавайте мою інформацію"
+
+#: includes/service/service-sell-personal-data.php:76
+msgid "Request not to sell personal information"
+msgstr "Прохання не продавати особисту інформацію"
+
+#: includes/service/service-siteorigin-panels.php:80
+msgid "[%s] Inject consent to privacy policy"
+msgstr "[%s] Ввести згоду на політику конфіденційності"
+
+#: includes/service/service-siteorigin-panels.php:134
+msgid "Page Builder by SiteOrigin does not collect users data, however it may use services from Google Fonts, Google Maps, and embed external videos from Youtube or Vimeo. By using this Site, you signify your acceptance of this policy."
+msgstr "Page Builder від SiteOrigin не збирає дані користувачів, однак він може використовувати сервіси Google Fonts, Google Maps і вставляти зовнішні відео з Youtube або Vimeo. Використовуючи цей сайт, ви підтверджуєте свою згоду з цією політикою."
+
+#: includes/service/service-sitepress-multilingual-cms.php:94
+msgid "[%s] Block WPML cookies when a user doesn't accept Functionality cookies"
+msgstr "[%s] Блокувати файли cookie WPML, якщо користувач не приймає функціональні файли cookie"
+
+#: includes/service/service-ultimate-member.php:126
+#: includes/service/service-woocommerce.php:584
+#: includes/service/service-wp-user.php:359
+#: includes/service/service-wp-user.php:385
+#: includes/service/service-wp-user.php:411
+msgid "Consent is required"
+msgstr "Потрібна згода"
+
+#: includes/service/service-ultimate-member.php:164
+msgid "%s gathers data entered by users in forms"
+msgstr "%s збирає дані, введені користувачами у форми"
+
+#: includes/service/service-woocommerce.php:189
+msgid "[WooCommerce] Description"
+msgstr "[WooCommerce] Опис"
+
+#: includes/service/service-woocommerce.php:197
+#: includes/views/admin/wizard/includes/step7.php:385
+msgid "[WooCommerce] Inject consent checkbox to order fields"
+msgstr "[WooCommerce] Додайте прапорець згоди до полів замовлення"
+
+#: includes/service/service-woocommerce.php:205
+#: includes/views/admin/wizard/includes/step7.php:395
+msgid "[WooCommerce] Inject consent checkbox to account forms"
+msgstr "[WooCommerce] Додати прапорець згоди до форм облікового запису"
+
+#: includes/service/service-woocommerce.php:213
+#: includes/views/admin/wizard/includes/step7.php:405
+msgid "[WooCommerce] Inject consent checkbox to checkout"
+msgstr "[WooCommerce] Вставити прапорець згоди для оформлення замовлення"
+
+#: includes/service/service-woocommerce.php:221
+msgid "[WooCommerce] Additional checkout consent label"
+msgstr "[WooCommerce] Додаткова мітка згоди на оформлення замовлення"
+
+#: includes/service/service-woocommerce.php:229
+msgid "[WooCommerce] Inject Additional consent checkbox to checkout"
+msgstr "[WooCommerce] Встановіть прапорець «Додаткова згода» для оформлення замовлення"
+
+#: includes/service/service-woocommerce.php:245
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: includes/service/service-woocommerce.php:253
+msgid "[WooCommerce] Pseudonymize first and last name"
+msgstr "[WooCommerce] Псевдонімізація імені та прізвища"
+
+#: includes/service/service-woocommerce.php:261
+msgid "[WooCommerce] Pseudonymize address information"
+msgstr "[WooCommerce] Псевдонімізація адресної інформації"
+
+#: includes/service/service-woocommerce.php:269
+msgid "[WooCommerce] Pseudonymize billing email"
+msgstr "[WooCommerce] Псевдонімізація платіжної електронної пошти"
+
+#: includes/service/service-woocommerce.php:324
+#: includes/views/service/service-arforms-consent-field.php:18
+#: includes/views/service/service-caldera-forms-consent-field.php:18
+#: includes/views/service/service-contact-form-7-consent-field.php:19
+#: includes/views/service/service-eform-consent-field.php:19
+#: includes/views/service/service-events-manager-consent-field.php:17
+#: includes/views/service/service-formidable-forms-consent-field.php:12
+#: includes/views/service/service-newsletter-consent-field-widget-minimal.php:16
+#: includes/views/service/service-newsletter-consent-field-widget.php:16
+#: includes/views/service/service-newsletter-consent-field.php:16
+#: includes/views/service/service-ninja-forms-consent-field.php:18
+#: includes/views/service/service-quform-consent-field.php:12
+#: includes/views/service/service-woocommerce-checkout-consent-field.php:16
+#: includes/views/service/service-woocommerce-consent-field-label.php:12
+#: includes/views/service/service-woocommerce-consent-field.php:16
+#: includes/views/service/service-wp-comments-consent-field.php:16
+#: includes/views/service/service-wp-user-consent-field.php:17
+#: includes/views/service/service-wpforms-lite-consent-field.php:18
+msgid "I consent to the storage of my data according to the Privacy Policy"
+msgstr "Я даю згоду на зберігання моїх даних відповідно до Політики Конфіденційності"
+
+#: includes/service/service-woocommerce.php:795
+msgid "WooCommerce gathers data entered by users in shop orders"
+msgstr "WooCommerce збирає дані, які користувачі вводять у замовлення в магазині"
+
+#: includes/service/service-wordfence.php:70
+msgid "[%s] Block Wordfence cookies when a user doesn't accept Functionality cookies"
+msgstr "[%s] Блокувати файли cookie Wordfence, якщо користувач не приймає функціональні файли cookie"
+
+#: includes/service/service-wp-comments.php:71
+msgid "Anonymous"
+msgstr "Анонім"
+
+#: includes/service/service-wp-comments.php:83
+msgid "Could not update comment data for comments: %s"
+msgstr "Не вдалося оновити дані коментарів для коментарів: %s"
+
+#: includes/service/service-wp-comments.php:116
+msgid "[WP Comments] Description"
+msgstr "[WP Comments]  Опис"
+
+#: includes/service/service-wp-comments.php:124
+#: includes/views/admin/wizard/includes/step7.php:430
+msgid "[WP Comments] Inject consent checkbox to comments fields"
+msgstr "[WP Comments]  Додати прапорець згоди до полів коментарів"
+
+#: includes/service/service-wp-comments.php:194
+msgid "Please give consent to collect your data"
+msgstr "Будь ласка, дайте згоду на збір ваших даних"
+
+#: includes/service/service-wp-comments.php:205
+msgid "WordPress Comments are data entered by users in comments"
+msgstr "WordPress Comment — це дані, які користувачі вводять у коментарях"
+
+#: includes/service/service-wp-foro.php:526
+msgid "wpForo gathers users activity in forums"
+msgstr "wpForo збирає активність користувачів на форумах"
+
+#: includes/service/service-wp-job-manager.php:50
+msgid "Could not delete posts for user: %s"
+msgstr "Не вдалося видалити повідомлення для користувача: %s"
+
+#: includes/service/service-wp-job-manager.php:86
+msgid "[WP Job Manager] Description"
+msgstr "[WP Job Manager] Опис"
+
+#: includes/service/service-wp-job-manager.php:137
+msgid "WP Job Manager gathers data entered by users in forms"
+msgstr "WP Job Manager збирає дані, введені користувачами у форми"
+
+#: includes/service/service-wp-posts.php:82
+msgid "Could not update post data for posts: %s"
+msgstr "Не вдалося оновити дані публікацій для публікацій: %s"
+
+#: includes/service/service-wp-posts.php:100
+msgid "[WP Posts] Delete posts instead of reassigning to a different user?"
+msgstr "[WP Posts] Видалити дописи замість перепризначення іншому користувачеві?"
+
+#: includes/service/service-wp-posts.php:124
+msgid "[WordPress Posts] Description"
+msgstr "[WordPress Posts] Опис"
+
+#: includes/service/service-wp-posts.php:140
+msgid "[WP Posts] Enter the user email whom the posts will be reassigned to (default is admin)"
+msgstr "[WP Posts] Введіть адресу електронної пошти користувача, якому будуть перепризначені публікації (за замовчуванням – admin)"
+
+#: includes/service/service-wp-posts.php:198
+msgid "WordPress posts author data"
+msgstr "WordPress розміщує авторські дані"
+
+#: includes/service/service-wp-simple-paypal-shopping-cart.php:177
+msgid "[WP Simple Paypal Shopping Cart] Pseudonymize user order data"
+msgstr "[WP Simple Paypal Shopping Cart] Псевдонімізація даних замовлення користувача"
+
+#: includes/service/service-wp-simple-paypal-shopping-cart.php:264
+msgid "WP Simple Paypal Shopping Cart gathers consumer orders data"
+msgstr "WP Simple Paypal Shopping Cart збирає дані про замовлення споживачів"
+
+#: includes/service/service-wp-user.php:96
+msgid "WP User Data"
+msgstr "Дані користувача WP"
+
+#: includes/service/service-wp-user.php:120
+msgid "[WP User Data] Description"
+msgstr "[WP User Data] Опис"
+
+#: includes/service/service-wp-user.php:128
+msgid "[WP User Data] Pseudonymize first and last name"
+msgstr "[WP User Data] Псевдонімізація імені та прізвища"
+
+#: includes/service/service-wp-user.php:144
+#: includes/views/admin/wizard/includes/step7.php:479
+msgid "[WP User] Inject consent checkbox to User network signup form fields"
+msgstr "[WP User] Додайте прапорець згоди до полів форми реєстрації користувача в мережі"
+
+#: includes/service/service-wp-user.php:152
+#: includes/views/admin/wizard/includes/step7.php:489
+msgid "[WP User] Inject consent checkbox to User register form fields"
+msgstr "[WP User] Додати прапорець згоди до полів форми реєстрації користувача"
+
+#: includes/service/service-wp-user.php:160
+#: includes/views/admin/wizard/includes/step7.php:499
+msgid "[WP User] Inject consent checkbox to lost password form fields"
+msgstr "[WP User] Додати прапорець згоди до полів форми втраченого пароля"
+
+#: includes/service/service-wp-user.php:462
+msgid "WordPress user data stored as user meta data in database"
+msgstr "Дані користувача WordPress зберігаються як метадані користувача в базі даних"
+
+#: includes/service/service-wpforms-lite.php:122
+msgid "WPForms Lite gathers data entered by users in forms"
+msgstr "WPForms Lite збирає дані, введені користувачами у форми"
+
+#: includes/service/service-yikes-inc-easy-mailchimp-extender.php:151
+msgid "[%s] Compliance Consent Text"
+msgstr "[%s] Текст згоди щодо відповідності"
+
+#: includes/service/service-yikes-inc-easy-mailchimp-extender.php:294
+msgid "Easy Form for Mailchimp gathers data entered by users in forms"
+msgstr "Easy Form для Mailchimp збирає дані, які користувачі вводять у форми"
+
+#: includes/service/service-yith-woocommerce-wishlist.php:214
+msgid "WooCommerce Wishlist gathers data entered by users in shop orders"
+msgstr "WooCommerce Wishlist збирає дані, введені користувачами в замовлення в магазині"
+
+#: includes/service/service-youtube.php:100
+#: includes/views/admin/wizard/includes/step7.php:523
+msgid "[Youtube] Remove youtube iframes until Necessary cookies accepted"
+msgstr "[Youtube] Видаляйте iframe youtube, доки не буде прийнято необхідні файли cookie"
+
+#: includes/service/service-youtube.php:159
+msgid "Youtube creates cookies"
+msgstr "Youtube створює файли cookie"
+
+#: includes/shortcode/shortcode-block-cookies.php:40
+msgid "Save"
+msgstr "Зберегти"
+
+#: includes/shortcode/shortcode-myaccount.php:37
+msgid "There was an error in your request"
+msgstr "У вашому запиті сталася помилка"
+
+#: includes/shortcode/shortcode-myaccount.php:40
+msgid "You need to be at least %s years old to make full use of the website."
+msgstr "Вам має бути принаймні %s років, щоб повноцінно користуватися веб-сайтом."
+
+#: includes/shortcode/shortcode-privacy-policy.php:24
+msgid "First or Third Party Filter"
+msgstr "Фільтр першої чи третьої сторони"
+
+#: includes/shortcode/shortcode-privacy-policy.php:26
+msgid "Any"
+msgstr "Будь-який"
+
+#: includes/shortcode/shortcode-privacy-policy.php:27
+#: includes/shortcode/shortcode-privacy-policy.php:84
+msgid "First party"
+msgstr "Перша  сторона"
+
+#: includes/shortcode/shortcode-privacy-policy.php:28
+#: includes/shortcode/shortcode-privacy-policy.php:85
+msgid "Third party"
+msgstr "Третя сторона"
+
+#: includes/shortcode/shortcode-privacy-policy.php:36
+msgid "Cookie names"
+msgstr "Назви файлів cookie"
+
+#: includes/shortcode/shortcode-privacy-policy.php:39
+msgid "Type of cookie"
+msgstr "Тип файлу cookie"
+
+#: includes/shortcode/shortcode-privacy-policy.php:42
+msgid "First or Third party"
+msgstr "Перша або Третя сторона"
+
+#: includes/shortcode/shortcode-privacy-policy.php:45
+msgid "Can be blocked"
+msgstr "Може бути заблокований"
+
+#: includes/shortcode/shortcode-privacy-policy.php:48
+msgid "Session or Persistent"
+msgstr "Сесія або Постійний"
+
+#: includes/shortcode/shortcode-privacy-policy.php:51
+msgid "Expiry Time"
+msgstr "Термін придатності"
+
+#: includes/shortcode/shortcode-privacy-policy.php:54
+msgid "Purpose"
+msgstr "Призначення"
+
+#: includes/shortcode/shortcode-privacy-policy.php:88
+msgid "Session"
+msgstr "Сесія"
+
+#: includes/shortcode/shortcode-privacy-policy.php:89
+msgid "Persistent"
+msgstr "Постійний"
+
+#: includes/views/admin/admin-age.php:22
+#: includes/views/admin/admin-breach.php:22
+#: includes/views/admin/admin-cookie.php:22
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:22
+#: includes/views/admin/admin-data-access.php:33
+#: includes/views/admin/admin-forgotten.php:31
+#: includes/views/admin/admin-optimization.php:22
+#: includes/views/admin/admin-plugins.php:22
+#: includes/views/admin/admin-policy.php:22
+#: includes/views/admin/admin-pseudonymization.php:31
+#: includes/views/admin/admin-rectification.php:33
+#: includes/views/admin/admin-services.php:22
+#: includes/views/admin/admin-terms.php:23
+#: includes/views/admin/admin-unsubscribe.php:31
+msgid "Settings"
+msgstr "Налаштування"
+
+#: includes/views/admin/admin-age.php:57
+msgid "Age verification popup"
+msgstr "Спливаюче вікно підтвердження віку"
+
+#: includes/views/admin/admin-age.php:60
+#: includes/views/admin/admin-cookie.php:60
+msgid "Preferences"
+msgstr "Уподобання"
+
+#: includes/views/admin/admin-breach-send.php:17
+msgid "Emails were sent."
+msgstr "Листи були надіслані."
+
+#: includes/views/admin/admin-breach-send.php:25
+msgid "You will send emails to the following emails:"
+msgstr "Ви будете надсилати електронні листи на такі електронні адреси:"
+
+#: includes/views/admin/admin-breach-send.php:40
+msgid "Send"
+msgstr "Надіслати"
+
+#: includes/views/admin/admin-breach.php:56
+msgid "Press 'Save changes' before sending emails if you changed any options"
+msgstr "Натисніть «Зберегти зміни» перед надсиланням електронних листів, якщо ви змінили будь-які параметри"
+
+#: includes/views/admin/admin-breach.php:70
+msgid "Go to send emails screen"
+msgstr "Перейдіть до екрана надсилання електронних листів"
+
+#: includes/views/admin/admin-cookie.php:57
+msgid "Cookie popup"
+msgstr "Спливаюче вікно файлу cookie"
+
+#: includes/views/admin/admin-cookie.php:63
+msgid "Advanced settings"
+msgstr "Розширені налаштування"
+
+#: includes/views/admin/admin-cookie.php:79
+#: includes/views/admin/admin-optimization.php:56
+msgid "Press 'Save changes' before downloading logs if you changed any options"
+msgstr "Натисніть «Зберегти зміни» перед завантаженням журналів, якщо ви змінили будь-які параметри"
+
+#: includes/views/admin/admin-cookie.php:90
+msgid "Download consents log as CSV file"
+msgstr "Завантажити журнал згод як файл CSV"
+
+#: includes/views/admin/admin-cookie.php:96
+msgid "Download consents log as text file"
+msgstr "Завантажте журнал згод як текстовий файл"
+
+#: includes/views/admin/admin-cookie.php:103
+msgid "Delete consents log"
+msgstr "Видалити журнал згод"
+
+#: includes/views/admin/admin-cookie.php:104
+msgid "NOTE: Once it is deleted you cannot retrieved the consent logs again."
+msgstr "ПРИМІТКА. Після видалення ви не зможете знову отримати журнали згоди."
+
+#: includes/views/admin/admin-cookie.php:111
+#: includes/views/admin/wizard/includes/step1a.php:23
+#: includes/views/admin/wizard/includes/step1b.php:22
+msgid "Scan for cookies"
+msgstr "Сканувати файли cookie"
+
+#: includes/views/admin/admin-cookie.php:115
+msgid "Last scan: "
+msgstr "Останнє сканування:"
+
+#: includes/views/admin/admin-cookie.php:120
+msgid "The website has not been scanned yet."
+msgstr "Сайт ще не проскановано."
+
+#: includes/views/admin/admin-cookie.php:126
+msgid "Your website should be publicly accessible so that the Cookie Detector can work properly."
+msgstr "Ваш веб-сайт має бути загальнодоступним, щоб детектор файлів cookie міг працювати належним чином."
+
+#: includes/views/admin/admin-cookie.php:132
+msgid "Make sure that you're using, <a href=%s>valid purchase code</a> to use the cookie scanner."
+msgstr "Переконайтеся, що ви використовуєте <a href=%s>valid purchase code</a>, щоб використовувати сканер файлів cookie."
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:38
+#: includes/views/admin/admin-optimization.php:30
+#: includes/views/admin/admin-plugins.php:30
+msgid "Introduction"
+msgstr "Вступ"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:41
+#: includes/views/admin/admin-optimization.php:33
+#: includes/views/admin/admin-plugins.php:33
+msgid "Compatibility"
+msgstr "Сумісність"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:53
+msgid "The GDPR was approved and adopted by the EU Parliament in April 2016."
+msgstr "GDPR був схвалений і прийнятий Європейським парламентом у квітні 2016 року."
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:54
+msgid " The regulation will take effect after a two-year transition period and, unlike a Directive it does not require any enabling legislation to be passed by government; meaning it will be in force May 2018."
+msgstr " Постанова набуде чинності після дворічного перехідного періоду і, на відміну від Директиви, не потребує ухвалення урядом жодних законодавчих актів; тобто він набуде чинності у травні 2018 року."
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:58
+msgid "The GDPR not only applies to organisations located within the EU but it will also apply to organisations located outside of the EU if they offer goods or services to, or monitor the behaviour of, EU data subjects. It applies to all companies processing and holding the personal data of data subjects residing in the European Union, regardless of the company's location."
+msgstr "GDPR поширюється не лише на організації, розташовані в ЄС, але й на організації, розташовані за межами ЄС, якщо вони пропонують товари чи посгули суб’єктам даних ЄС або контролюють їх поведінку. Це стосується всіх компаній, які обробляють і зберігають персональні дані суб’єктів даних, які проживають у Європейському Союзі, незалежно від місцезнаходження компанії."
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:63
+msgid "This plugin will create a form where users can request access to or deletion of their personal data, stored on your website. It is also possible to:"
+msgstr "Цей плагін створить форму, у якій користувачі зможуть подати запит на доступ або видалення своїх особистих даних, що зберігаються на вашому веб-сайті. Також можливо:"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:67
+msgid "Create a custom cookie notice and block all cookies until cookie consent is given."
+msgstr "Створіть спеціальне сповіщення про файли cookie та заблокуйте всі файли cookie, доки не буде надано згоду на файли cookie."
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:68
+msgid "Set up redirects for your Terms and Conditions and Privacy Policy pages until consent is given."
+msgstr "Налаштуйте переспрямування для своїх сторінок Умов використання та Політики конфіденційності до отримання згоди."
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:69
+msgid "Browse user requests for data access/deletion and set custom email notifications."
+msgstr "Переглядайте запити користувачів на доступ/видалення даних і встановлюйте спеціальні сповіщення електронною поштою."
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:70
+msgid "Send custom email informing about data breach to all users which left their email at your site."
+msgstr "Надішліть персоналізовану електронну пошту з повідомленням про витік даних усім користувачам, які залишили свою електронну пошту на вашому сайті."
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:71
+msgid "Automatically add consent boxes for various forms on your website."
+msgstr "Автоматично додавайте вікна згоди для різних форм на вашому веб-сайті."
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:72
+msgid "Pseudonymize some of user data stored in database."
+msgstr "Псевдонімізація деяких даних користувача, що зберігаються в базі даних."
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:73
+msgid "Check currently activated plugins for GDPR compliance."
+msgstr "Перевірте поточні активовані плагіни на відповідність GDPR."
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:78
+msgid "To start, browse through settings. Then, create a new page with shortcode:"
+msgstr "Для початку перегляньте налаштування. Потім створіть нову сторінку з шорткодом:"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:79
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:97
+msgid "[ultimate_gdpr_myaccount]"
+msgstr "[ultimate_gdpr_myaccount]"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:86
+msgid "Available Shortcodes"
+msgstr "Доступні шорткоди"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:93
+#: includes/views/admin/wizard/includes/step8.php:18
+msgid "User Settings:"
+msgstr "Налаштування користувача:"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:105
+#: includes/views/admin/wizard/includes/step8.php:30
+msgid "Privacy Policy Button:"
+msgstr "Кнопка політики конфіденційності:"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:109
+msgid "[ultimate_gdpr_policy_accept]"
+msgstr "[ultimate_gdpr_policy_accept]"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:117
+#: includes/views/admin/wizard/includes/step8.php:39
+msgid "Terms and Conditions Button:"
+msgstr "Кнопка \"Положення та умови\":"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:121
+msgid "[ultimate_gdpr_terms_accept]"
+msgstr "[ultimate_gdpr_terms_accept]"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:129
+#: includes/views/admin/wizard/includes/step8.php:49
+msgid "Cookie Popup Link:"
+msgstr "Посилання на спливаюче вікно cookie:"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:133
+msgid "[ultimate_gdpr_cookie_popup]Link [/ultimate_gdpr_cookie_popup]"
+msgstr "[ultimate_gdpr_cookie_popup]Link[/ultimate_gdpr_cookie_popup]"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:141
+#: includes/views/admin/wizard/includes/step8.php:61
+msgid "Display Cookies List:"
+msgstr "Показати список файлів cookie:"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:145
+msgid "[render_cookies_list]"
+msgstr "[render_cookies_list]"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:153
+#: includes/views/admin/wizard/includes/step8.php:73
+msgid "Protect Content:"
+msgstr "Захист вмісту:"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:160
+msgid "content"
+msgstr "вміст"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:171
+#: includes/views/admin/wizard/includes/step8.php:85
+msgid "Privacy Center:"
+msgstr "Центр конфіденційності:"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:187
+msgid "System requirements:"
+msgstr "Системні вимоги:"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:194
+msgid "PHP Version:"
+msgstr "Версія PHP:"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:198
+msgid "5.4+"
+msgstr "5,4+"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:206
+msgid "Memory limit:"
+msgstr "Ліміт пам'яті:"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:210
+msgid "64 MB"
+msgstr "64 Мб"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:218
+msgid "Disk space:"
+msgstr "Місце на диску:"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:222
+msgid "10 MB"
+msgstr "10 Мб"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:261
+msgid "Export/import options"
+msgstr "Параметри експорту/імпорту"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:263
+msgid "You can export current plugin settings to a file which can be used to import the settings on other websites"
+msgstr "Ви можете експортувати поточні налаштування плагіна у файл, який можна використовувати для імпорту налаштувань на інших веб-сайтах"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:267
+msgid "Export plugin settings"
+msgstr "Експорт налаштувань плагіна"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:272
+msgid "Select file to import settings from. Your current settings will be overwritten."
+msgstr "Виберіть файл, з якого потрібно імпортувати налаштування. Ваші поточні налаштування буде перезаписано."
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:278
+msgid "Import plugin settings"
+msgstr "Імпорт налаштувань плагіна"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:283
+msgid "Export services from Service Manager"
+msgstr "Експортуйте сервіси з Service Manager"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:287
+msgid "Export services"
+msgstr "Експортувати послуги"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:292
+msgid "Select file to add services from. Your current services will not be removed."
+msgstr "Виберіть файл, з якого потрібно додати сервіси. Ваші поточні сервіси не буде видалено."
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:298
+msgid "Import services to Service Manager"
+msgstr "Імпортуйте служби в Service Manager"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:309
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:315
+msgid "Any questions?"
+msgstr "Виникли питання?"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:311
+msgid "Please have a look at the"
+msgstr "Будь ласка, подивіться на"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:313
+msgid "Support forum"
+msgstr "Форум підтримки"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:313
+msgid "or ask your questions via email"
+msgstr "або задайте свої запитання електронною поштою"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:317
+msgid "Link to our "
+msgstr "Посилання на наш"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:319
+msgid "Documentation"
+msgstr "Документація"
+
+#: includes/views/admin/admin-data-access-user-details.php:16
+msgid "Collected data for user: %s"
+msgstr "Зібрані дані для користувача: %s"
+
+#: includes/views/admin/admin-data-access-user-details.php:20
+#: includes/views/admin/admin-data-access-user-details.php:34
+#: includes/views/admin/admin-rectification-user-details.php:34
+msgid "Go back"
+msgstr "Повертайся"
+
+#: includes/views/admin/admin-data-access-user-details.php:26
+msgid "No data collected for this service"
+msgstr "Дані для цієї служби не збираються"
+
+#: includes/views/admin/admin-data-access.php:71
+msgid "Data access requests list"
+msgstr "Список запитів на доступ до даних"
+
+#: includes/views/admin/admin-data-access.php:76
+#: includes/views/admin/admin-forgotten.php:70
+#: includes/views/admin/admin-rectification.php:74
+#: includes/views/admin/admin-unsubscribe.php:54
+msgid "User ID"
+msgstr "Ідентифікатор користувача"
+
+#: includes/views/admin/admin-data-access.php:77
+#: includes/views/admin/admin-forgotten.php:71
+#: includes/views/admin/admin-rectification.php:75
+#: includes/views/admin/admin-unsubscribe.php:55
+msgid "Email"
+msgstr "Електронна пошта"
+
+#: includes/views/admin/admin-data-access.php:78
+#: includes/views/admin/admin-forgotten.php:73
+#: includes/views/admin/admin-rectification.php:76
+#: includes/views/admin/admin-unsubscribe.php:57
+msgid "Date of request"
+msgstr "Дата запиту"
+
+#: includes/views/admin/admin-data-access.php:79
+#: includes/views/admin/admin-rectification.php:77
+msgid "Date of data sent"
+msgstr "Дата надсилання даних"
+
+#: includes/views/admin/admin-data-access.php:80
+#: includes/views/admin/admin-rectification.php:78
+msgid "Select for action"
+msgstr "Виберіть для дії"
+
+#: includes/views/admin/admin-data-access.php:81
+#: includes/views/admin/admin-rectification.php:79
+msgid "See details"
+msgstr "Дивіться деталі"
+
+#: includes/views/admin/admin-data-access.php:94
+#: includes/views/admin/admin-forgotten.php:88
+#: includes/views/admin/admin-rectification.php:92
+#: includes/views/admin/admin-unsubscribe.php:72
+msgid "Not registered"
+msgstr "Не зареєстрований"
+
+#: includes/views/admin/admin-data-access.php:105
+msgid "Preview data"
+msgstr "Попередній перегляд даних"
+
+#: includes/views/admin/admin-data-access.php:124
+#: includes/views/admin/admin-rectification.php:122
+msgid "Send data to selected emails"
+msgstr "Надіслати дані на вибрані електронні адреси"
+
+#: includes/views/admin/admin-data-access.php:126
+#: includes/views/admin/admin-forgotten.php:153
+#: includes/views/admin/admin-rectification.php:124
+#: includes/views/admin/admin-unsubscribe.php:137
+msgid "Remove selected requests from list"
+msgstr "Видалити вибрані запити зі списку"
+
+#: includes/views/admin/admin-data-access.php:128
+#: includes/views/admin/admin-forgotten.php:155
+#: includes/views/admin/admin-rectification.php:126
+#: includes/views/admin/admin-unsubscribe.php:139
+msgid "Remove all sent requests from list"
+msgstr "Видалити всі надіслані запити зі списку"
+
+#: includes/views/admin/admin-forgotten.php:65
+msgid "Right To Be Forgotten request list"
+msgstr "Список запитів на право бути забутим"
+
+#: includes/views/admin/admin-forgotten.php:72
+msgid "Services to forget (user selected)"
+msgstr "Сервіси , які потрібно забути (вибрано користувачем)"
+
+#: includes/views/admin/admin-forgotten.php:74
+#: includes/views/admin/admin-unsubscribe.php:58
+msgid "Date of mail sent"
+msgstr "Дата відправлення листа"
+
+#: includes/views/admin/admin-forgotten.php:75
+#: includes/views/admin/admin-unsubscribe.php:59
+msgid "Email user / remove request"
+msgstr "Надіслати електронного листа користувачу / запит на видалення"
+
+#: includes/views/admin/admin-forgotten.php:95
+#: includes/views/admin/admin-unsubscribe.php:79
+msgid "Select all"
+msgstr "Вибрати все"
+
+#: includes/views/admin/admin-forgotten.php:114
+msgid "Forgotten at %s"
+msgstr "Забутий у %s"
+
+#: includes/views/admin/admin-forgotten.php:151
+msgid "Forget and notify selected users"
+msgstr "Забути та повідомити вибраних користувачів"
+
+#: includes/views/admin/admin-plugins.php:45
+msgid "Plugin"
+msgstr "Підключати"
+
+#: includes/views/admin/admin-plugins.php:46
+msgid "Collects user data"
+msgstr "Збирає дані користувача"
+
+#: includes/views/admin/admin-plugins.php:47
+msgid "Compatible with Ultimate GDPR & CCPA"
+msgstr "Сумісний із Ultimate GDPR & CCPA"
+
+#: includes/views/admin/admin-plugins.php:99
+#: includes/views/admin/admin-plugins.php:119
+msgid "No"
+msgstr "Немає"
+
+#: includes/views/admin/admin-plugins.php:101
+msgid "Probably"
+msgstr "Ймовірно"
+
+#: includes/views/admin/admin-plugins.php:103
+msgid "Unknown"
+msgstr "Невідомо"
+
+#: includes/views/admin/admin-plugins.php:117
+msgid "Partly"
+msgstr "Частково"
+
+#: includes/views/admin/admin-policy.php:47
+#: includes/views/admin/admin-terms.php:48
+msgid "Press \"Save changes\" before downloading logs if you changed any options"
+msgstr "Натисніть «Зберегти зміни» перед завантаженням журналів, якщо ви змінили будь-які параметри"
+
+#: includes/views/admin/admin-policy.php:58
+#: includes/views/admin/admin-terms.php:59
+msgid "Download consents log"
+msgstr "Завантажте журнал дозволів"
+
+#: includes/views/admin/admin-pseudonymization.php:47
+msgid "Press 'Save changes' before pressing encryption buttons if you changed any options"
+msgstr "Натисніть «Зберегти зміни» перед натисканням кнопок шифрування, якщо ви змінили будь-які параметри"
+
+#: includes/views/admin/admin-pseudonymization.php:58
+msgid "Encrypt selected"
+msgstr "Зашифрувати вибрано"
+
+#: includes/views/admin/admin-pseudonymization.php:60
+msgid "Decrypt selected"
+msgstr "Розшифруйте вибрано"
+
+#: includes/views/admin/admin-rectification-user-details.php:16
+msgid "Rectified data for user: %s"
+msgstr "Виправлені дані для користувача: %s"
+
+#: includes/views/admin/admin-rectification-user-details.php:18
+msgid "Current data:"
+msgstr "Поточні дані:"
+
+#: includes/views/admin/admin-rectification-user-details.php:24
+msgid "Rectified data:"
+msgstr "Виправлені дані:"
+
+#: includes/views/admin/admin-rectification.php:69
+msgid "Data rectification requests list"
+msgstr "Список запитів на виправлення даних"
+
+#: includes/views/admin/admin-rectification.php:103
+msgid "See rectified data"
+msgstr "Перегляньте виправлені дані"
+
+#: includes/views/admin/admin-services.php:48
+msgid "Download all consents log"
+msgstr "Завантажте журнал усіх згод"
+
+#: includes/views/admin/admin-unsubscribe.php:49
+msgid "Unsubscribe request list"
+msgstr "Список запитів на скасування підписки"
+
+#: includes/views/admin/admin-unsubscribe.php:56
+msgid "Services to unsubscribe from (user selected)"
+msgstr "Сервіси , від яких потрібно скасувати підписку (вибрано користувачем)"
+
+#: includes/views/admin/admin-unsubscribe.php:98
+msgid "Unsubscribed at %s"
+msgstr "Скасовано підписку на %s"
+
+#: includes/views/admin/admin-unsubscribe.php:135
+msgid "Unsubscribe and notify selected users"
+msgstr "Скасувати підписку та сповістити вибраних користувачів"
+
+#: includes/views/admin/includes/cookie-scanner.php:8
+msgid "Close"
+msgstr "Закрити"
+
+#: includes/views/admin/includes/cookie-scanner.php:10
+msgid "Cookies scanner"
+msgstr "Сканер файлів cookie"
+
+#: includes/views/admin/includes/cookie-scanner.php:13
+msgid "Our busy bees are searching for cookies on:"
+msgstr "Наші зайняті бджілки шукають cookies на:"
+
+#: includes/views/admin/includes/cookie-scanner.php:17
+msgid "posts and pages"
+msgstr "публікації та сторінки"
+
+#: includes/views/admin/includes/cookie-scanner.php:19
+msgid " of your WordPress site."
+msgstr " вашого сайту WordPress."
+
+#: includes/views/admin/includes/cookie-scanner.php:28
+msgid "It can take up to few minutes. Thanks for your patience!"
+msgstr "Це може зайняти кілька хвилин. Дякую за Ваше терпіння!"
+
+#: includes/views/admin/includes/cookie-scanner.php:29
+msgid "One of our bees returned with: "
+msgstr " Одна з наших бджіл повернулася з:"
+
+#: includes/views/admin/includes/cookie-scanner.php:32
+msgid "Other bees are still searching..."
+msgstr "Інші бджоли все ще шукають..."
+
+#: includes/views/admin/includes/cookie-scanner.php:33
+msgid "All our busy bees are back with these results: "
+msgstr "Всі наші зайняті бджоли повернулися з цими результатами:"
+
+#: includes/views/admin/includes/cookie-scanner.php:41
+msgid "We are currently scanning:"
+msgstr "Зараз ми скануємо:"
+
+#: includes/views/admin/includes/cookie-scanner.php:46
+msgid "Failed scans:"
+msgstr "Невдалі сканування:"
+
+#: includes/views/admin/includes/cookie-scanner.php:51
+msgid "Show failed scans"
+msgstr "Показати невдалі сканування"
+
+#: includes/views/admin/includes/cookie-scanner.php:52
+msgid "Retry failed scans"
+msgstr "Повторіть спробу невдалого сканування"
+
+#: includes/views/admin/includes/cookie-scanner.php:56
+msgid "Are you sure you want to retry failed scans?"
+msgstr "Ви впевнені, що бажаєте повторити невдале сканування?"
+
+#: includes/views/admin/includes/cookie-scanner.php:63
+msgid "Currently scanned URL:"
+msgstr "Поточна сканована URL-адреса:"
+
+#: includes/views/admin/wizard/includes/foot.php:10
+#: includes/views/admin/wizard/includes/foot.php:21
+msgid "Cancel Creator"
+msgstr "Скасувати Creator"
+
+#: includes/views/admin/wizard/includes/foot.php:18
+msgid "Creator is the easiest way to configure the basic parameters of the plugin. If you are not an advanced user, we recommend finishing the setup wizard. After completing the setup, you will have access to all options."
+msgstr "Creator — це найпростіший спосіб налаштувати основні параметри плагіна. Якщо ви не досвідчений користувач, радимо завершити роботу майстра налаштування. Після завершення налаштування ви матимете доступ до всіх параметрів."
+
+#: includes/views/admin/wizard/includes/foot.php:22
+msgid "Back to Creator"
+msgstr "Назад до Creator"
+
+#: includes/views/admin/wizard/includes/foot.php:31
+#: includes/views/admin/wizard/includes/foot.php:35
+#: includes/views/admin/wizard/includes/foot.php:39
+msgid "Back"
+msgstr "Назад"
+
+#: includes/views/admin/wizard/includes/foot.php:43
+msgid "Scan For Cookies"
+msgstr "Сканувати файли cookie"
+
+#: includes/views/admin/wizard/includes/foot.php:45
+msgid "Go To Display"
+msgstr "Перейти до дисплея"
+
+#: includes/views/admin/wizard/includes/foot.php:47
+msgid "I Understand"
+msgstr "Я розумію"
+
+#: includes/views/admin/wizard/includes/foot.php:49
+msgid "Next step"
+msgstr "Наступний крок"
+
+#: includes/views/admin/wizard/includes/foot.php:57
+msgid "NOT RIGHT NOW"
+msgstr "НЕ ЗАРАЗ"
+
+#: includes/views/admin/wizard/includes/nav.php:16
+msgid "Step"
+msgstr "Крок"
+
+#: includes/views/admin/wizard/includes/step1a.php:7
+msgid "Cookie scanner"
+msgstr "Сканер файлів cookie"
+
+#: includes/views/admin/wizard/includes/step1a.php:8
+msgid "This website has not been scanned yet."
+msgstr "Цей веб-сайт ще не проскановано."
+
+#: includes/views/admin/wizard/includes/step1a.php:8
+msgid "We need to know what cookies are already in use to ensure proper functioning of the plugin. "
+msgstr "Нам потрібно знати, які файли cookie вже використовуються, щоб забезпечити належне функціонування плагіна."
+
+#: includes/views/admin/wizard/includes/step1a.php:9
+msgid "We recommend you repeat the scan from time to time to keep the cookie list up to date."
+msgstr "Ми рекомендуємо час від часу повторювати сканування, щоб підтримувати список файлів cookie в актуальному стані."
+
+#: includes/views/admin/wizard/includes/step1a.php:9
+msgid "You can manage automatic cookie scans in 'Cookie scanner settings'."
+msgstr "Ви можете керувати автоматичним скануванням файлів cookie в «Налаштуваннях сканера файлів cookie»."
+
+#: includes/views/admin/wizard/includes/step1a.php:10
+msgid "Before start paste your license key from <a href=\"https://help.market.envato.com/hc/en-us/articles/202822600-Where-Is-My-Purchase-Code-\" target=\"_blank\">Envato.com</a>"
+msgstr "Перш ніж почати, вставте свій ліцензійний ключ із <a href=\"https://help.market.envato.com/hc/en-us/articles/202822600-Where-Is-My-Purchase-Code-\"target=\"_blank\">Envato.com</a>"
+
+#: includes/views/admin/wizard/includes/step1a.php:19
+msgid "License Envato key"
+msgstr "Ліцензійний ключ Envato"
+
+#: includes/views/admin/wizard/includes/step1b.php:8
+msgid "Scanner of cookies"
+msgstr "Сканер файлів cookie"
+
+#: includes/views/admin/wizard/includes/step1b.php:26
+msgid "Skip"
+msgstr "Пропустити"
+
+#: includes/views/admin/wizard/includes/step1b.php:46
+msgid "Show results"
+msgstr "Показати результати"
+
+#: includes/views/admin/wizard/includes/step1c.php:7
+msgid "Cookies Scanner"
+msgstr "Сканер файлів cookie"
+
+#: includes/views/admin/wizard/includes/step1c.php:8
+msgid "Our busy bees are back with the following results. Please take a moment to verify if all cookies are correctly assigned to the groups."
+msgstr "Наші бджоли повертаються з результатами. Будь ласка, знайдіть хвилинку, щоб перевірити, чи всі файли cookie правильно призначено групам."
+
+#: includes/views/admin/wizard/includes/step1c.php:9
+msgid "You can edit all the settings below now or get back to these anytime later in the Cookie Consent Settings."
+msgstr "Ви можете змінити всі наведені нижче налаштування зараз або повернутися до них будь-коли пізніше в налаштуваннях згоди на файли cookie."
+
+#: includes/views/admin/wizard/includes/step1c.php:34
+msgid "Move"
+msgstr "Перемістити"
+
+#: includes/views/admin/wizard/includes/step1c.php:37
+msgid "Move to:"
+msgstr "Перемістити до:"
+
+#: includes/views/admin/wizard/includes/step1c.php:70
+msgid "Notice!"
+msgstr "Зверніть увагу!"
+
+#: includes/views/admin/wizard/includes/step1c.php:71
+msgid "If we install new things, the list of cookies may change."
+msgstr "Якщо ми встановлюємо щось нове, список файлів cookie може змінитися."
+
+#: includes/views/admin/wizard/includes/step2.php:34
+msgid "Cookie popup display"
+msgstr "Спливаюче вікно файлів cookie"
+
+#: includes/views/admin/wizard/includes/step2.php:43
+msgid "Cookies"
+msgstr "Cookies"
+
+#: includes/views/admin/wizard/includes/step2.php:44
+msgid ""
+"You can import general cookie information notice that will be displayed inside your cookie popup. You can import the text in one of the following languages: Cestina, Deutsch, English, Espanol, Francais, Hrvatskim Magyar, Norwegian, Italiano, Nederlands, Polski, Portugues, Romana, Pyccknn, Slovencia, Danish, Bulgaria, Swedish. \n"
+"You can also type your custom message in the text area below, or edit imported content. "
+msgstr ""
+" Ви можете імпортувати повідомлення про загальну інформацію про файли cookie, яке відображатиметься у спливаючому вікні файлів cookie. Ви можете імпортувати текст однією з таких мов: Cestina, Deutsch, English, Espanol, Francais, Hrvatskim Magyar, Norwegian, Italiano, Nederlands, Polski, Portugues, Romana, Russian, Slovencia, Danish, Bulgaria, Swedish. \n"
+"Ви також можете ввести власне повідомлення в текстовій області нижче або відредагувати імпортований вміст."
+
+#: includes/views/admin/wizard/includes/step2.php:78
+msgid "Cookie popup 'accept' button"
+msgstr "Кнопка «прийняти» спливаюче вікно cookie"
+
+#: includes/views/admin/wizard/includes/step2.php:85
+msgid "Cookie popup 'read more' button"
+msgstr "Кнопка спливаючого файлу cookie «читати далі»"
+
+#: includes/views/admin/wizard/includes/step2.php:95
+msgid "Cookie popup 'change settings' button"
+msgstr "Кнопка «змінити налаштування» спливаючого файлу cookie"
+
+#: includes/views/admin/wizard/includes/step2.php:102
+msgid "This website will label"
+msgstr "Цей веб-сайт буде позначено"
+
+#: includes/views/admin/wizard/includes/step2.php:112
+msgid "This website won't label"
+msgstr "Цей веб-сайт не буде відмічений"
+
+#: includes/views/admin/wizard/includes/step2.php:119
+msgid "Block all label"
+msgstr "Заблокувати всі мітки"
+
+#: includes/views/admin/wizard/includes/step2.php:130
+msgid "Essentials label"
+msgstr "Етикетка предметів першої необхідності"
+
+#: includes/views/admin/wizard/includes/step2.php:137
+msgid "Functionality label"
+msgstr "Етикетка функціональності"
+
+#: includes/views/admin/wizard/includes/step2.php:147
+msgid "Analytics label"
+msgstr "Аналітичні мітка"
+
+#: includes/views/admin/wizard/includes/step2.php:154
+msgid "Advertising label"
+msgstr "Рекламні мітка"
+
+#: includes/views/admin/wizard/includes/step2.php:233
+msgid "Lists of features"
+msgstr "Списки особливостей"
+
+#: includes/views/admin/wizard/includes/step2.php:281
+msgid "Show result"
+msgstr "Показати результат"
+
+#: includes/views/admin/wizard/includes/step3.php:15
+#: includes/views/shortcode/shortcode-myaccount.php:51
+msgid "Personal Data Access"
+msgstr "Доступ до персональних даних"
+
+#: includes/views/admin/wizard/includes/step3.php:16
+msgid ""
+"Define how we should process visitor’s requests for their personal data information access. Also, set custom messages for the email title, content, \n"
+"and the sender’s email address."
+msgstr "Визначте, як ми повинні обробляти запити відвідувачів на доступ до їх персональних даних. Крім того, установіть спеціальні повідомлення для заголовка електронної пошти, вмісту та адреси електронної пошти відправника."
+
+#: includes/views/admin/wizard/includes/step3.php:26
+msgid "Right To Be Forgotten Settings"
+msgstr "Налаштування «Право бути забутим»"
+
+#: includes/views/admin/wizard/includes/step3.php:29
+msgid "Automatically remove data of users who confirmed their email"
+msgstr "Автоматично видаляти дані користувачів, які підтвердили свою електронну адресу"
+
+#: includes/views/admin/wizard/includes/step4.php:33
+msgid "Position (bottom, top and full page layout)"
+msgstr "Позиція (знизу, вгорі та повний макет сторінки)"
+
+#: includes/views/admin/wizard/includes/step5.php:14
+msgid "Accept Terms"
+msgstr "Прийняти умови"
+
+#: includes/views/admin/wizard/includes/step5.php:15
+msgid ""
+"You can require from all visitors of your website to accept the Privacy Policy and/or Terms and Conditions before accessing any other web pages. \n"
+"You can enable these settings below."
+msgstr "Ви можете вимагати від усіх відвідувачів вашого веб-сайту прийняти Політику конфіденційності та/або Умови перед тим, як отримати доступ до будь-яких інших веб-сторінок. Ви можете ввімкнути ці налаштування нижче."
+
+#: includes/views/admin/wizard/includes/step6.php:6
+msgid "Consents log"
+msgstr "Журнал згод"
+
+#: includes/views/admin/wizard/includes/step6.php:7
+msgid "You can download a log file with all the information about consents given by visitors of your website under <i>Cookie Consent</i> >>>>>> <i>Consent Log</i>."
+msgstr "Ви можете завантажити файл журналу з усією інформацією про згоду, надану відвідувачами вашого веб-сайту, у розділі <i>Cookie Consent</i> >>>>>> <i>Consent Log</i>."
+
+#: includes/views/admin/wizard/includes/step7.php:44
+msgid "3rd party services and plugins"
+msgstr "Сторонні сервіси та плагіни"
+
+#: includes/views/admin/wizard/includes/step7.php:53
+msgid "If you use 3rd party software to create forms on your website, please note that you should include a dedicated checkbox to collect visitor's consent to process his data, you can select the forms to which we should add this consent checkbox automatically."
+msgstr "Якщо ви використовуєте програмне забезпечення третьої сторони для створення форм на своєму веб-сайті, зверніть увагу, що ви повинні включити спеціальний прапорець для отримання згоди відвідувача на обробку його даних, ви можете вибрати форми, до яких ми повинні автоматично додати цей прапорець згоди."
+
+#: includes/views/admin/wizard/includes/step7.php:56
+msgid "Choose plugin"
+msgstr "Виберіть плагін"
+
+#: includes/views/admin/wizard/includes/step7.php:69
+msgid "[Addthis] Block Addthis cookies when a user doesn't accept Functionality cookies"
+msgstr "[Addthis] Блокувати файли cookie Addthis, якщо користувач не приймає функціональні файли cookie"
+
+#: includes/views/admin/wizard/includes/step7.php:81
+msgid "[ARForms] Inject consent checkbox to all forms"
+msgstr "[ARForms] Додати прапорець згоди до всіх форм"
+
+#: includes/views/admin/wizard/includes/step7.php:93
+msgid "[bbPress] Inject consent checkbox to all forms"
+msgstr "[bbPress] Додати прапорець згоди до всіх форм"
+
+#: includes/views/admin/wizard/includes/step7.php:105
+msgid "[BuddyPress] Inject consent checkbox to all forms"
+msgstr "[BuddyPress] Додати прапорець згоди до всіх форм"
+
+#: includes/views/admin/wizard/includes/step7.php:118
+msgid "[Caldera Forms] Inject consent checkbox to all forms"
+msgstr "[Caldera Forms] Додати прапорець згоди до всіх форм"
+
+#: includes/views/admin/wizard/includes/step7.php:130
+msgid "[Contact Form CFDB7] Hide from Forget Me Form"
+msgstr "[Contact Form CFDB7] Сховати від форми Forget Me"
+
+#: includes/views/admin/wizard/includes/step7.php:142
+msgid "[WPForms Lite] Inject consent checkbox to all forms"
+msgstr "[WPForms Lite] Додати прапорець згоди до всіх форм"
+
+#: includes/views/admin/wizard/includes/step7.php:154
+msgid "[Contact Form 7] Inject consent checkbox to all forms"
+msgstr "[Contact Form 7] Додати прапорець згоди до всіх форм"
+
+#: includes/views/admin/wizard/includes/step7.php:167
+msgid "[Easy Forms for Mailchimp] Inject consent checkbox to all forms"
+msgstr "[Easy Forms for Mailchimp] Додайте прапорець згоди до всіх форм"
+
+#: includes/views/admin/wizard/includes/step7.php:179
+msgid "[Waitlist for WooCommerce - Back In Stock Notifier by CreateIT] Inject consent checkbox to all forms"
+msgstr "[Waitlist for WooCommerce - Back In Stock Notifier by createIT] Додайте прапорець згоди до всіх форм"
+
+#: includes/views/admin/wizard/includes/step7.php:191
+msgid "[eForm - WordPress Form Builder] Inject consent checkbox to all forms"
+msgstr "[eForm - WordPress Form Builder] Додайте прапорець згоди до всіх форм"
+
+#: includes/views/admin/wizard/includes/step7.php:203
+msgid "[Events Manager] Inject consent checkbox to all forms"
+msgstr "[Events Manager] Додати прапорець згоди до всіх форм"
+
+#: includes/views/admin/wizard/includes/step7.php:216
+msgid "[Flamingo] Hide from Forget Me Form"
+msgstr "[Flamingo] Сховайся від форми «Забудь мене»"
+
+#: includes/views/admin/wizard/includes/step7.php:228
+msgid "[Formcraft] Inject consent checkbox to all forms (Premium)"
+msgstr "[Formcraft] Додати прапорець згоди до всіх форм (Преміум)"
+
+#: includes/views/admin/wizard/includes/step7.php:238
+msgid "[Formcraft] Inject consent checkbox to all forms (Basic)"
+msgstr "[Formcraft] Додати прапорець згоди до всіх форм (Базова)"
+
+#: includes/views/admin/wizard/includes/step7.php:250
+msgid "[Formidable Forms] Inject consent checkbox to all forms"
+msgstr "[Formidable Forms] Додайте прапорець згоди до всіх форм"
+
+#: includes/views/admin/wizard/includes/step7.php:263
+msgid "[Gravity Forms] Inject consent checkbox to all forms"
+msgstr "[Gravity Forms] Додати прапорець згоди до всіх форм"
+
+#: includes/views/admin/wizard/includes/step7.php:275
+msgid "[Klaviyo] Inject consent checkbox to all forms"
+msgstr "[Klaviyo] Додати прапорець згоди до всіх форм"
+
+#: includes/views/admin/wizard/includes/step7.php:299
+msgid "[Mailerlite] Inject consent checkbox to all forms"
+msgstr "[Mailerlite] Додати прапорець згоди до всіх форм"
+
+#: includes/views/admin/wizard/includes/step7.php:312
+msgid "[Mailster] Inject consent checkbox to subscribe forms"
+msgstr "[Mailster] Поставте прапорець згоди, щоб підписатися на форми"
+
+#: includes/views/admin/wizard/includes/step7.php:324
+msgid "[Metorik Helper] Inject consent checkbox to subscribe forms"
+msgstr "[Metorik Helper] Поставити прапорець згоди для підписки на форми"
+
+#: includes/views/admin/wizard/includes/step7.php:336
+msgid "[Newsletter] Inject consent checkbox to all forms"
+msgstr "[Newsletter] Додати прапорець згоди до всіх форм"
+
+#: includes/views/admin/wizard/includes/step7.php:348
+msgid "[Ninja-Forms] Inject consent checkbox to all forms"
+msgstr "[Ninja-Forms] Додати прапорець згоди до всіх форм"
+
+#: includes/views/admin/wizard/includes/step7.php:361
+msgid "[Quform] Inject consent checkbox to all forms"
+msgstr "[Quform] Додати прапорець згоди до всіх форм"
+
+#: includes/views/admin/wizard/includes/step7.php:373
+msgid "[Ultimate Member] Inject consent checkbox to all forms"
+msgstr "[Ultimate Member] Додати прапорець згоди до всіх форм"
+
+#: includes/views/admin/wizard/includes/step7.php:418
+msgid "[Wordfence] Block Wordfence cookies when a user doesn't accept Functionality cookies"
+msgstr "[Wordfence] Блокувати файли cookie Wordfence, якщо користувач не приймає функціональні файли cookie"
+
+#: includes/views/admin/wizard/includes/step7.php:442
+msgid "[wpForo] Inject consent checkbox to all forms"
+msgstr "[wpForo] Додати прапорець згоди до всіх форм"
+
+#: includes/views/admin/wizard/includes/step7.php:454
+msgid "[WP Job Manager] Hide from Forget Me Form"
+msgstr "[WP Job Manager] Сховати від форми «Забути мене»"
+
+#: includes/views/admin/wizard/includes/step7.php:467
+msgid "[WordPress Posts] Hide from Forget Me Form"
+msgstr "[WordPress Posts] Сховати від форми Forget Me"
+
+#: includes/views/admin/wizard/includes/step7.php:511
+msgid "[YITH Woocommerce Wishlist] Hide from Forget Me Form"
+msgstr "[YITH Woocommerce Wishlist]  Приховати від форми «Забудь мене»"
+
+#: includes/views/admin/wizard/includes/step7.php:538
+msgid "[Akismet Anti-Spam] Inject consent checkbox to all forms"
+msgstr "[Akismet Anti-Spam] Додати прапорець згоди до всіх форм"
+
+#: includes/views/admin/wizard/includes/step8.php:4
+msgid "Shortcodes"
+msgstr "Шорткоди"
+
+#: includes/views/admin/wizard/includes/step8.php:11
+msgid "Shortcodes allow you to render complex elements on your WordPress page without coding. Below you will see the list of all shortcodes available to use with our plugin. Just paste the [shortcode] in your page content, and we will do the rest: display the contact form to the user, render the cookie list and more 😊"
+msgstr "Шорткоди дозволяють відтворювати складні елементи на сторінці WordPress без кодування. Нижче ви побачите список усіх шорткодів, доступних для використання з нашим плагіном. Просто вставте [shortcode] у вміст вашої сторінки, а ми зробимо все інше: відобразимо контактну форму для користувача, візуалізуємо список файлів cookie тощо 😊"
+
+#: includes/views/admin/wizard/includes/step8.php:13
+msgid "We recommend you to use at least the [ultimate_gdpr_myaccount] shortcode, so your visitors could easily contact you for information about their personal data."
+msgstr "Ми рекомендуємо вам використовувати принаймні шорткод [ultimate_gdpr_myaccount], щоб ваші відвідувачі могли легко зв’язатися з вами для отримання інформації про свої особисті дані."
+
+#: includes/views/admin/wizard/includes/step8.php:25
+msgid "Generates form for the user, which allows please about share, changing it or deleting his data."
+msgstr "Генерує форму для користувача, яка дозволяє поділитися, змінити або видалити його дані."
+
+#: includes/views/admin/wizard/includes/step8.php:56
+msgid "Generates a link to subsites connected with GDPR."
+msgstr "Створює посилання на субсайти, пов’язані з GDPR."
+
+#: includes/views/admin/wizard/includes/step8.php:68
+msgid "Shows table with discovered and save on the list file cookies."
+msgstr "Показує таблицю з виявленими та збереженими файлами cookie у списку."
+
+#: includes/views/admin/wizard/includes/step8.php:80
+msgid "If we put content in this shortcode it will be hide till the user accept cookie files at a given level."
+msgstr "Якщо ми розмістимо вміст у цьому шорткоді, він буде прихований, доки користувач не прийме файли cookie на заданому рівні."
+
+#: includes/views/admin/wizard/includes/step8.php:92
+msgid "Txt about this code. "
+msgstr " Надішліть текстове повідомлення про цей код."
+
+#: includes/views/admin/wizard/includes/step8c.php:14
+msgid "That's all"
+msgstr "Це все"
+
+#: includes/views/admin/wizard/includes/step8c.php:15
+msgid "Thank you for your time. Plugin is now configured and ready to use."
+msgstr "Спасибі за ваш час. Тепер плагін налаштований і готовий до використання."
+
+#: includes/views/admin/wizard/includes/step8c.php:16
+msgid "You can update any of the plugin settings under: Ultimate GDPR & CCPA. Check also our"
+msgstr "Ви можете оновити будь-які налаштування плагіна в розділі: Ultimate GDPR & CCPA. Перевірте також наш"
+
+#: includes/views/admin/wizard/includes/step8c.php:16
+msgid "documentation"
+msgstr "документація"
+
+#: includes/views/admin/wizard/includes/step8c.php:17
+msgid "If you need any assistance, don't hesitate to contact our"
+msgstr "Якщо вам потрібна допомога, не соромтеся звертатися до нас"
+
+#: includes/views/admin/wizard/includes/step8c.php:17
+msgid "support team"
+msgstr "команда підтримки"
+
+#: includes/views/admin/wizard/includes/step8c.php:20
+msgid "Go to Dashboard"
+msgstr "Перейдіть на інформаційну панель"
+
+#: includes/views/admin/wizard/not-found.php:3
+msgid "Error"
+msgstr "Помилка"
+
+#: includes/views/admin/wizard/welcome.php:9
+msgid "Thank you for choosing the Ultimate GDPR & CCPA Compliance Toolkit for WordPress. "
+msgstr " Дякуємо, що вибрали Ultimate GDPR & CCPA Compliance Toolkit для WordPress."
+
+#: includes/views/admin/wizard/welcome.php:10
+msgid "This quick setup wizard will help you to configure basic settings."
+msgstr "Ця Майстерня швидкого налаштування допоможе вам налаштувати основні параметри."
+
+#: includes/views/admin/wizard/welcome.php:10
+msgid "It's completely optional and shouldn't take longer than 3 minutes. "
+msgstr " Це абсолютно за бажанням й не займе більше 3 хвилин."
+
+#: includes/views/admin/wizard/welcome.php:11
+msgid "If you don't want to go through the wizard, you can cancel the wizard and return to your WordPress dashboard."
+msgstr "Якщо ви не хочете проходити через Майстерню, ви можете скасувати роботу Майстрню та повернутися до інформаційної панелі WordPress."
+
+#: includes/views/admin/wizard/welcome.php:11
+msgid "Come back anytime if you change your mind!"
+msgstr "Повертайтеся будь-коли, якщо передумаєте!"
+
+#: includes/views/admin/wizard/welcome.php:13
+msgid "START"
+msgstr "ПОЧАТОК"
+
+#: includes/views/admin/wizard/welcomeb.php:9
+msgid "One more"
+msgstr "Ще один"
+
+#: includes/views/admin/wizard/welcomeb.php:10
+msgid "<strong>Remember</strong>, you can always adjust each option from this wizard in the settings tab of Ultimate CCPA & GDPR,<br/> or you can start this wizard again."
+msgstr "<strong>Remember</strong>, що ви завжди можете змінити кожен параметр у цьому Майстрі на вкладці налаштувань Ultimate CCPA & GDPR,<br/> або запустити цю Майстерню знову."
+
+#: includes/views/admin/wizard/welcomeb.php:12
+msgid "OK, Let’s start"
+msgstr "Добре, почнемо"
+
+#: includes/views/cookie-group-popup-header-content.php:23
+msgid "Privacy settings"
+msgstr "Налаштування конфіденційності"
+
+#: includes/views/cookie-group-popup-header-content.php:25
+msgid "Decide which cookies you want to allow."
+msgstr "Вирішіть, які файли cookie ви хочете дозволити."
+
+#: includes/views/cookie-group-popup-header-content.php:26
+msgid "You can change these settings at any time. However, this can result in some functions no longer being available. For information on deleting the cookies, please consult your browser’s help function."
+msgstr "Ви можете будь-коли змінити ці налаштування. Однак це може призвести до того, що деякі функції стануть недоступними. Щоб отримати інформацію про видалення файлів cookie, зверніться до довідкової функції свого браузера."
+
+#: includes/views/cookie-group-popup-header-content.php:27
+msgid "Learn more about the cookies we use."
+msgstr "Дізнайтеся більше про файли cookie, які ми використовуємо."
+
+#: includes/views/cookie-group-popup-header-content.php:29
+msgid "With the slider, you can enable or disable different types of cookies:"
+msgstr "За допомогою повзунка ви можете ввімкнути або вимкнути різні типи файлів cookie:"
+
+#: includes/views/cookie-group-popup.php:361
+#: includes/views/cookie-group-popup.php:372
+#: includes/views/cookie-group-popup.php:405
+#: includes/views/cookie-group-popup.php:416
+#: includes/views/cookie-single-popup.php:319
+#: includes/views/cookie-single-popup.php:330
+#: includes/views/cookie-single-popup.php:364
+#: includes/views/cookie-single-popup.php:375
+msgid "Cookie Box Settings"
+msgstr "Налаштування файлу cookie"
+
+#: includes/views/cookie-group-popup.php:565
+msgid "Hide details"
+msgstr "Приховати деталі"
+
+#: includes/views/cookie-group-popup.php:584
+#: includes/views/service/service-arforms-consent-field.php:29
+msgid "OK"
+msgstr "ОК"
+
+#: includes/views/cookie-group-popup.php:661
+#: includes/views/cookie-group-popup.php:750
+#: includes/views/cookie-group-popup.php:793
+#: includes/views/cookie-single-popup.php:467
+msgid "This website wont't:"
+msgstr "Цей веб-сайт не:"
+
+#: includes/views/service/service-arforms-consent-field.php:26
+msgid "This field cannot be blank."
+msgstr "Це поле не може бути порожнім."
+
+#: includes/views/service/service-bbpress-consent-field.php:16
+#: includes/views/service/service-buddypress-consent-field.php:16
+msgid "I consent to the storage of my data according to the Privacy Policy (required)"
+msgstr "Я даю згоду на зберігання моїх даних відповідно до Політики конфіденційності (обов'язково)"
+
+#: includes/views/service/service-ct-waitlist-consent-field.php:17
+#: includes/views/service/service-formcraft-consent-field.php:16
+#: includes/views/service/service-gravity-forms-consent-field-label.php:12
+#: includes/views/service/service-mailerlite-consent-field.php:16
+#: includes/views/service/service-mailster-consent-field.php:16
+msgid "I consent to my data being stored according to the Privacy Policy"
+msgstr "Я даю згоду на зберігання моїх даних відповідно до Політики конфіденційності"
+
+#: includes/views/service/service-gravity-forms-consent-field-description.php:12
+msgid "Follow this link to access Privacy Policy"
+msgstr "Перейдіть за цим посиланням, щоб отримати доступ до Політики конфіденційності"
+
+#: includes/views/service/service-gravity-forms-consent-field-error-message.php:12
+#: includes/views/service/service-woocommerce-forms-consent-field-error-message.php:12
+msgid "You must accept the Privacy Policy before submitting the form"
+msgstr "Перш ніж надсилати форму, ви повинні прийняти Політику конфіденційності"
+
+#: includes/views/service/service-klaviyo-consent-field.php:17
+msgid "I consent to the storage of my data according to the Privacy Policy (required to submit)"
+msgstr "Я даю згоду на зберігання моїх даних відповідно до Політики конфіденційності (обов’язково для подання)"
+
+#: includes/views/service/service-mailchimp-consent-field.php:16
+#: includes/views/service/service-metorik-helper-consent-field.php:17
+#: includes/views/service/service-ultimate-member-consent-field.php:20
+msgid "I consent to the storage of my data according to the Privacy Policy "
+msgstr " Я даю згоду на зберігання моїх даних відповідно до Політики Конфіденційності"
+
+#: includes/views/service/service-ninja-forms-consent-field.php:24
+msgid "This is a required field."
+msgstr "Це обов’язкове поле."
+
+#: includes/views/service/service-quform-consent-field-error-message.php:12
+msgid "This field is mandatory"
+msgstr "Це поле є обов'язковим для заповнення"
+
+#: includes/views/service/service-wp-user-link.php:17
+msgid "Parent or guard authorization required"
+msgstr "Потрібен дозвіл батьків або охоронців"
+
+#: includes/views/shortcode/shortcode-myaccount.php:24
+msgid "Below, you can browse services which sign up users to newsletters. Check services which newsletters you wish to be unsubscribed from. The subscription will stop immediately."
+msgstr "Нижче ви можете переглянути сервіси, які підписують користувачів на інформаційні бюлетені. Перевірте сервіси, від яких інформаційних бюлетенів ви хочете скасувати підписку. Підписку буде негайно припинено."
+
+#: includes/views/shortcode/shortcode-myaccount.php:56
+msgid "Forget me"
+msgstr "Забудь мене"
+
+#: includes/views/shortcode/shortcode-myaccount.php:61
+#: includes/views/shortcode/shortcode-privacy-center.php:118
+msgid "Data rectification"
+msgstr "Виправлення даних"
+
+#: includes/views/shortcode/shortcode-myaccount.php:80
+msgid "You need to be at least %s years old to enter this website"
+msgstr "Вам має бути принаймні %s років, щоб зайти на цей веб-сайт"
+
+#: includes/views/shortcode/shortcode-myaccount.php:83
+#: includes/views/shortcode/shortcode-myaccount.php:100
+msgid "Date of birth"
+msgstr "Дата народження"
+
+#: includes/views/shortcode/shortcode-myaccount.php:93
+msgid "Parent or guard authorization."
+msgstr "Дозвіл батьків або охоронців."
+
+#: includes/views/shortcode/shortcode-myaccount.php:93
+msgid "Your guard needs to be at least %s years old."
+msgstr "Вашому охоронцю має бути принаймні %s років."
+
+#: includes/views/shortcode/shortcode-myaccount.php:97
+msgid "Name"
+msgstr "Ім'я"
+
+#: includes/views/shortcode/shortcode-myaccount.php:119
+msgid "Below, you can request for your personal data that's collected by this website sent to you in an email."
+msgstr "Нижче ви можете запитати, щоб ваші персональні дані, зібрані цим веб-сайтом, були надіслані вам електронною поштою."
+
+#: includes/views/shortcode/shortcode-myaccount.php:123
+#: includes/views/shortcode/shortcode-myaccount.php:197
+#: includes/views/shortcode/shortcode-myaccount.php:272
+#: includes/views/shortcode/shortcode-myaccount.php:340
+msgid "Email:"
+msgstr "Електронна пошта:"
+
+#: includes/views/shortcode/shortcode-myaccount.php:135
+msgid "I consent to have my email collected in order to receive my requested data. See Privacy Policy page for more information."
+msgstr "Я даю згоду на те, щоб моя електронна пошта була зібрана для отримання запитуваних даних. Для отримання додаткової інформації перегляньте сторінку Політика конфіденційності."
+
+#: includes/views/shortcode/shortcode-myaccount.php:157
+msgid "Below, you can browse services which collects your personal data on this website. Check services you wish to be forgotten by. This will send a request to the website admin. You will be notified by email once this is done.\""
+msgstr "Нижче ви можете переглянути сервіси, які збирають ваші особисті дані на цьому веб-сайті. Перевірте сервіси, про які ви хочете забути. Це надішле запит адміністратору веб-сайту. Ви отримаєте сповіщення електронною поштою, коли це буде зроблено»."
+
+#: includes/views/shortcode/shortcode-myaccount.php:212
+#: includes/views/shortcode/shortcode-myaccount.php:292
+#: includes/views/shortcode/shortcode-myaccount.php:354
+msgid "I consent to have my email collected in order to process this request. See Privacy Policy page for more information."
+msgstr "Я погоджуюся на те, щоб моя електронна пошта була зібрана для обробки цього запиту. Для отримання додаткової інформації перегляньте сторінку Політика конфіденційності."
+
+#: includes/views/shortcode/shortcode-myaccount.php:237
+msgid "Below, you can send a request to have your data rectified by  the website admin. Enter what you would like to be rectified. You will be notified by email once this is done."
+msgstr "Нижче ви можете надіслати запит на виправлення ваших даних адміністратором сайту. Введіть те, що ви хочете виправити. Ви отримаєте сповіщення електронною поштою, коли це буде зроблено."
+
+#: includes/views/shortcode/shortcode-myaccount.php:245
+msgid "Current data"
+msgstr "Актуальні дані"
+
+#: includes/views/shortcode/shortcode-myaccount.php:259
+msgid "Rectified data"
+msgstr "Виправлені дані"
+
+#: includes/views/shortcode/shortcode-policy-accept.php:34
+msgid "You have already accepted Privacy Policy"
+msgstr "Ви вже прийняли Політику конфіденційності"
+
+#: includes/views/shortcode/shortcode-policy-accept.php:43
+#: includes/views/shortcode/shortcode-terms-accept.php:43
+msgid "Decline"
+msgstr "Відхилити"
+
+#: includes/views/shortcode/shortcode-privacy-center.php:36
+msgid "Data access"
+msgstr "Доступ до даних"
+
+#: includes/views/shortcode/shortcode-privacy-center.php:92
+msgid "Right to be forgotten"
+msgstr "Право бути забутим"
+
+#: includes/views/shortcode/shortcode-privacy-center.php:165
+msgid "Cookie settings"
+msgstr "Налаштування файлів cookie"
+
+#: includes/views/shortcode/shortcode-privacy-center.php:174
+msgid "Privacy policy"
+msgstr "Політика конфіденційності"
+
+#: includes/views/shortcode/shortcode-privacy-center.php:186
+msgid "Terms &amp; conditions pages"
+msgstr "Умови та умови сторінки умов"
+
+#: includes/views/shortcode/shortcode-privacy-center.php:196
+msgid "Contact DPO"
+msgstr "Зверніться до DPO"
+
+#: includes/views/shortcode/shortcode-terms-accept.php:34
+msgid "You have already accepted Terms and Conditions"
+msgstr "Ви вже прийняли Загальні положення та умови"

@@ -1,0 +1,477 @@
+/**
+ * Frontend style for BOOKING FORM
+ *
+ * @author YITH <plugins@yithemes.com>
+ * @version 1.0.0
+ */
+
+.yith-wcbk-booking-form {
+	max-width     : 700px;
+	margin-bottom : 15px;
+	box-sizing    : border-box;
+}
+
+.yith-wcbk-booking-form * {
+	box-sizing : border-box;
+}
+
+.yith-wcbk-booking-form-message p,
+.yith-wcbk-booking-form-message .yith-wcbk-bookable {
+	padding    : 2px;
+	border     : none;
+	background : #fff;
+	color      : #999;
+	margin     : 5px 0 15px 0;
+	font-size  : 12px;
+}
+
+.yith-wcbk-booking-form-message .yith-wcbk-bookable.not-bookable,
+.yith-wcbk-booking-form-message .non-available-reason {
+	color : var(--yith-wcbk-error);
+}
+
+.yith-wcbk-booking-form-message p.error {
+	border-color : var(--yith-wcbk-error);
+	color        : var(--yith-wcbk-error);
+}
+
+.yith-wcbk-booking-form-message .yith-wcbk-bookable.bookable {
+	border-color : var(--yith-wcbk-success);
+	color        : var(--yith-wcbk-success);
+}
+
+.yith-wcbk-form-section {
+	padding  : 2px 0;
+	position : relative;
+}
+
+input.yith-wcbk-number-minifield {
+	width : 80px;
+}
+
+/*----- Month Picker ------- */
+.yith-wcbk-month-picker-wrapper {
+	position       : relative;
+	text-transform : uppercase;
+	font-size      : 16px;
+	max-width      : 250px;
+}
+
+.yith-wcbk-month-picker-wrapper .top-actions {
+	position : absolute;
+	width    : 100%;
+	top      : 0;
+	left     : 0;
+	z-index  : 10;
+}
+
+.yith-wcbk-month-picker-wrapper .top-actions .prev,
+.yith-wcbk-month-picker-wrapper .top-actions .next {
+	position  : absolute;
+	font-size : 15px;
+	top       : 13px;
+	color     : inherit;
+	opacity   : .5;
+}
+
+.yith-wcbk-month-picker-wrapper .top-actions .prev.enabled,
+.yith-wcbk-month-picker-wrapper .top-actions .next.enabled {
+	cursor  : pointer;
+	opacity : 1;
+}
+
+.yith-wcbk-month-picker-wrapper .top-actions .prev.enabled:hover,
+.yith-wcbk-month-picker-wrapper .top-actions .next.enabled:hover {
+	color : var(--yith-wcbk-primary);
+}
+
+.yith-wcbk-month-picker-wrapper .top-actions .prev {
+	left : 15px;
+}
+
+.yith-wcbk-month-picker-wrapper .top-actions .next {
+	right : 15px;
+}
+
+.yith-wcbk-month-picker-wrapper table {
+	border          : 1px solid var(--yith-wcbk-border-color) !important;
+	background      : #fff;
+	border-collapse : separate;
+	border-spacing  : 0;
+	margin          : 0 0 1.6em;
+	width           : 100%;
+}
+
+.yith-wcbk-month-picker-wrapper table td, .yith-wcbk-month-picker-wrapper table th {
+	border  : 1px solid #fff !important;
+	padding : 0.4em;
+	height  : 25px;
+}
+
+.yith-wcbk-month-picker-wrapper table td {
+	cursor : pointer !important;
+	height : 25px;
+}
+
+.yith-wcbk-month-picker-wrapper table td:hover {
+	background : var(--yith-wcbk-primary-light);
+	color      : var(--yith-wcbk-primary-contrast);
+}
+
+.yith-wcbk-month-picker-wrapper table td.disabled {
+	background : #f5f5f5 !important;
+	color      : #777 !important;
+	cursor     : not-allowed !important;
+}
+
+.yith-wcbk-month-picker-wrapper table td.selected {
+	background : var(--yith-wcbk-primary);
+	color      : var(--yith-wcbk-primary-contrast);
+}
+
+.yith-wcbk-month-picker-wrapper table * {
+	text-align : center;
+}
+
+/* Form Fields */
+.yith-wcbk-booking-form label.yith-wcbk-booking-form__label {
+	display     : block;
+	font-weight : 600;
+	margin      : .8em 0 .3em 0;
+}
+
+.yith-wcbk-booking-form input:not([type='checkbox']),
+.yith-wcbk-booking-form input.yith-wcbk-date-picker--formatted,
+.yith-wcbk-booking-form select,
+.yith-wcbk-booking-form textarea {
+	width         : 100% !important;
+	height        : auto;
+	box-shadow    : none;
+	display       : block;
+	outline       : none;
+	background    : #fff -webkit-linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
+	border        : 1px solid var(--yith-wcbk-border-color);
+	border-radius : 0;
+	color         : #484848;
+	padding       : 8px 14px;
+	font-size     : var(--yith-wcbk-fields-font-size);
+	line-height   : 1.5em;
+	min-height    : 42px;
+}
+
+.yith-wcbk-booking-form input:not([type='checkbox']).yith-wcbk-booking-real-duration {
+	width        : 80px !important;
+	display      : inline-block;
+	margin-right : 5px;
+	min-width    : 0;
+}
+
+.yith-wcbk-booking-form .yith-wcbk-booking-service-quantity__container {
+	margin-left : auto;
+}
+
+.yith-wcbk-booking-form input.yith-wcbk-booking-service-quantity {
+	width     : 80px !important;
+	display   : inline-block;
+	max-width : 100%;
+	font-size : inherit;
+}
+
+.yith-wcbk-booking-form select {
+	-webkit-appearance : none;
+	-moz-appearance    : none;
+	appearance         : none;
+}
+
+.yith-wcbk-booking-form input:not([type='checkbox']):disabled,
+.yith-wcbk-booking-form select:disabled,
+.yith-wcbk-booking-form textarea:disabled {
+	opacity : 0.5;
+}
+
+.yith-wcbk-booking-form .yith-wcbk-form-section-duration--no-field .yith-wcbk-form-section__content {
+	padding     : 7px 15px;
+	background  : #f4f4f4;
+	min-height  : 42px;
+	display     : flex;
+	align-items : center;
+}
+
+.yith-wcbk-booking-form .yith-wcbk-form-section-duration--no-field .yith-wcbk-booking-duration__label {
+	font-size   : var(--yith-wcbk-fields-font-size);
+	line-height : 1.5em;
+}
+
+.yith-wcbk-booking-form .yith-wcbk-form-section-service {
+	padding       : 2px 0;
+	display       : flex;
+	align-items   : center;
+	flex-wrap     : wrap;
+	margin-bottom : 5px;
+	font-size     : var(--yith-wcbk-fields-font-size);
+}
+
+.yith-wcbk-booking-form .yith-wcbk-form-section-service .yith-wcbk-booking-service__pricing--inline {
+	margin-left : 5px;
+}
+
+.yith-wcbk-booking-form .yith-wcbk-form-section-service .yith-wcbk-booking-service__description,
+.yith-wcbk-booking-form .yith-wcbk-form-section-service .yith-wcbk-booking-service__pricing {
+	font-size : .85em;
+}
+
+.yith-wcbk-booking-form .yith-wcbk-form-section-service .yith-wcbk-booking-service__description,
+.yith-wcbk-booking-form .yith-wcbk-form-section-service .yith-wcbk-booking-service__pricing--block {
+	flex       : 100%;
+	margin-top : 5px;
+}
+
+.yith-wcbk-booking-form .yith-wcbk-form-section-service .yith-wcbk-booking-service__description p {
+	margin : 0;
+}
+
+.yith-wcbk-booking-form .yith-wcbk-form-section-service--hidden {
+	display : none;
+}
+
+.yith-wcbk-booking-form input[type="checkbox"].yith-wcbk-booking-service {
+	width : auto;
+}
+
+.yith-wcbk-booking-form .yith-wcbk-form-section-service label:not(.yith-wcbk-checkbox) {
+	display : inline;
+}
+
+.yith-wcbk-booking-form .yith-wcbk-form-section-service label {
+	font-weight : 400;
+	color       : inherit;
+	margin      : 0;
+	font-size   : inherit;
+}
+
+.yith-wcbk-form-section-services-wrapper {
+	margin : 10px 0 5px 0;
+}
+
+.yith-wcbk-booking-form .yith-wcbk-form-section-service .help_tip {
+	margin-left : 5px;
+}
+
+.yith-wcbk-booking-form .yith-wcbk-form-section-service .help_tip svg {
+	margin-bottom : -2px;
+}
+
+.yith-wcbk-booking-form .yith-wcbk-booking-time-select-list .yith-wcbk-select-list__options {
+	grid-template-columns : repeat( auto-fit, minmax(80px, 1fr) );
+}
+
+.yith-wcbk-booking-form .yith-wcbk-booking-time-select-list .yith-wcbk-select-list__option {
+	text-align : center;
+}
+
+.yith-wcbk-booking-form .yith-wcbk-form-section-totals label.yith-wcbk-form-section__label,
+.yith-wcbk-booking-form .yith-wcbk-form-section-price label.yith-wcbk-form-section__label {
+	display : none;
+}
+
+.yith-booking-meta {
+	display : flex;
+}
+
+.yith-booking-meta .yith-booking-checkin, .yith-booking-meta .yith-booking-checkout {
+	text-align : center;
+	font-size  : .9em;
+	padding    : .4em 0;
+	flex       : 1;
+}
+
+.yith-booking-meta__label {
+	font-weight : 600;
+}
+
+.yith-booking-meta__label:after {
+	content : ':';
+}
+
+.yith-wcbk-booking-form-totals__list {
+	display : table;
+	width   : 100%;
+	margin  : 5px 0;
+}
+
+.yith-wcbk-booking-form-total {
+	display : table-row;
+}
+
+.yith-wcbk-booking-form-total__label,
+.yith-wcbk-booking-form-total__value {
+	display       : table-cell;
+	border-bottom : 1px solid var(--yith-wcbk-border-color);
+	padding       : 5px 2px;
+}
+
+.yith-wcbk-booking-form-total__value {
+	text-align : right;
+}
+
+.yith-wcbk-booking-form-total--discount {
+	color : var(--yith-wcbk-discount);
+}
+
+.yith-wcbk-booking-form-total--total-price .yith-wcbk-booking-form-total__label,
+.yith-wcbk-booking-form-total--total-price .yith-wcbk-booking-form-total__value {
+	border-bottom : none;
+	font-weight   : 600;
+}
+
+/**
+ * Errors
+ */
+
+.yith-wcbk-booking-form-error {
+	color      : var(--yith-wcbk-error);
+	font-size  : .9em;
+	margin-top : 8px;
+}
+
+.yith-wcbk-form-section__content--with-error > .yith-wcbk-date-range-picker,
+.yith-wcbk-form-section__content--with-error > .yith-wcbk-date-picker--inline .ui-widget-content,
+.yith-wcbk-form-section__content--with-error > .yith-wcbk-booking-persons,
+.yith-wcbk-form-section__content--with-error > .yith-wcbk-select-alt__container > select,
+.yith-wcbk-form-section__content--with-error > .yith-wcbk-date-picker-wrapper > .yith-wcbk-date-picker--formatted,
+.yith-wcbk-form-section__content--with-error > .yith-wcbk-booking-duration {
+	border : 2px solid var(--yith-wcbk-error) !important;
+}
+
+.yith-booking--simple-style .yith-wcbk-form-section__content--with-error .yith-wcbk-date-picker--inline .ui-widget-content {
+	box-shadow : none !important;
+}
+
+
+/* TIP TIP */
+.yith-wcbk-booking-form .help_tip {
+	cursor : pointer;
+}
+
+.yith-booking #tiptip_holder {
+	display  : none;
+	position : absolute;
+	top      : 0;
+	left     : 0;
+	z-index  : 9999999;
+}
+
+.yith-booking #tiptip_holder.tip_top {
+	padding-bottom : 5px;
+}
+
+.yith-booking #tiptip_holder.tip_top #tiptip_arrow_inner {
+	margin-top  : -7px;
+	margin-left : -6px;
+	border      : none;
+}
+
+.yith-booking #tiptip_holder.tip_top #tiptip_arrow_inner:before {
+	content     : '';
+	position    : absolute;
+	height      : 18px;
+	width       : 18px;
+	border      : none;
+	background  : #fff;
+	margin-top  : -7px;
+	margin-left : 3px;
+	transform   : rotateZ(45deg);
+	z-index     : -1;
+	box-shadow  : 1px 1px 4px 0 rgba(0, 0, 0, 0.3)
+}
+
+.yith-booking #tiptip_holder.tip_top #tiptip_arrow_inner:after {
+	content     : '';
+	position    : absolute;
+	height      : 18px;
+	width       : 18px;
+	border      : none;
+	background  : #fff;
+	margin-top  : -7px;
+	margin-left : 3px;
+	transform   : rotateZ(45deg);
+}
+
+.yith-booking #tiptip_holder.tip_bottom {
+	padding-top : 5px;
+}
+
+.yith-booking #tiptip_holder.tip_bottom #tiptip_arrow_inner {
+	margin-top  : -5px;
+	margin-left : -6px;
+	border      : none;
+}
+
+.yith-booking #tiptip_holder.tip_bottom #tiptip_arrow_inner:before {
+	content     : '';
+	position    : absolute;
+	height      : 18px;
+	width       : 18px;
+	border      : none;
+	background  : #fff;
+	margin-top  : 11px;
+	margin-left : 3px;
+	transform   : rotateZ(45deg);
+	z-index     : -1;
+	box-shadow  : 0 0 3px 0 rgba(0, 0, 0, 0.3)
+}
+
+.yith-booking #tiptip_holder.tip_bottom #tiptip_arrow_inner:after {
+	content     : '';
+	position    : absolute;
+	height      : 18px;
+	width       : 18px;
+	border      : none;
+	background  : #fff;
+	margin-top  : 11px;
+	margin-left : 3px;
+	transform   : rotateZ(45deg);
+}
+
+.yith-booking #tiptip_content {
+	font-size     : .8em;
+	max-width     : 500px;
+	text-align    : center;
+	box-shadow    : 0 1px 3px rgba(0, 0, 0, .2);
+	background    : #fff;
+	color         : #484848;
+	border-radius : 0;
+	border        : 1px solid #dbdbdb;
+	padding       : 18px;
+}
+
+.yith-booking #tiptip_content code {
+	padding    : 1px;
+	background : #888;
+}
+
+.yith-booking #tiptip_arrow, .yith-booking #tiptip_arrow_inner {
+	position : absolute;
+	border   : 6px solid transparent;
+	height   : 0;
+	width    : 0;
+}
+
+/**
+ * Focusing
+ */
+
+.yith-wcbk-booking-form input:not([type='checkbox']):focus,
+.yith-wcbk-booking-form input.yith-wcbk-date-picker--formatted:focus,
+.yith-wcbk-booking-form select:focus,
+.yith-wcbk-booking-form textarea:focus {
+	border-color : var(--yith-wcbk-border-color-focus);
+	box-shadow   : var(--yith-wcbk-shadow-focus);
+}
+
+/**
+ * Elementor
+ */
+.woocommerce div.elementor.product.product-type-booking form.cart:not(.grouped_form):not(.variations_form) {
+	display : block;
+}

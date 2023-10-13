@@ -3,7 +3,7 @@
 /**
  * Description of A2W_ReviewBackendController
  *
- * @author MA_GROUP
+ * @author Ali2Woo Team
  * 
  * @autoload: a2w_admin_init
  * 
@@ -26,6 +26,8 @@ if (!class_exists('A2W_ReviewBackendController')) {
             add_action('wp_ajax_a2w_arvi_save_comment_photos', array($this, 'ajax_save_comment_photos'));
 
             add_filter('a2w_ajax_product_info', array($this, 'product_info'), 4, 10);
+
+            //todo: this doesn't work for new Woocommerce, because they moved reviews to a separate section
             add_filter('comment_row_actions', array($this, 'row_actions'), 10, 2);
 
             if (is_admin()) {

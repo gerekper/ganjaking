@@ -67,6 +67,20 @@ if (!function_exists('a2w_error_handler')) {
 
 }
 
+if (!function_exists('a2w_random_str')) {
+    function a2w_random_str(int $length = 12, string $keyspace = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'): string {
+        if ($length < 1) {
+            throw new \RangeException("Length must be a positive integer");
+        }
+        $pieces = [];
+        $max = mb_strlen($keyspace, '8bit') - 1;
+        for ($i = 0; $i < $length; ++$i) {
+            $pieces []= $keyspace[random_int(0, $max)];
+        }
+        return implode('', $pieces);
+    }
+}    
+
 if (!function_exists('a2w_init_error_handler')) {
 
     function a2w_init_error_handler()
@@ -105,9 +119,9 @@ if (!function_exists('a2w_remote_get')) {
             unset($args['headers']);
         }
 
-        // If we've got cookies, use and convert them to Requests_Cookie.
+        // If we've got cookies, use and convert them to Ali2Woo\Lib\Requests_Cookie.
         if (!empty($args['cookies'])) {
-            $cookie_jar = new Requests_Cookie_Jar();
+            $cookie_jar = new Ali2Woo\Lib\Requests_Cookie_Jar();
             $tmp_cookies = array();
             foreach ($args['cookies'] as $cookie) {
                 $tmp_cookies[] = $cookie_jar->normalize_cookie($cookie);
@@ -123,7 +137,7 @@ if (!function_exists('a2w_remote_get')) {
                 a2w_error_log('WARNING! function mbstring_binary_safe_encoding is not exist!');
             }
 
-            $requests_response = Requests::get($url, $headers, $args);
+            $requests_response = Ali2Woo\Lib\Requests::get($url, $headers, $args);
 
             // Convert the response into an array
             $http_response = new A2W_Requests_Response($requests_response);
@@ -137,7 +151,7 @@ if (!function_exists('a2w_remote_get')) {
             } else {
                 a2w_error_log('WARNING! function reset_mbstring_encoding is not exist!');
             }
-        } catch (Requests_Exception $e) {
+        } catch (Ali2Woo\Lib\Requests_Exception $e) {
             $response = new WP_Error('http_request_failed', $e->getMessage());
         } catch (Throwable $e) {
             a2w_print_throwable($e);
@@ -179,9 +193,9 @@ if (!function_exists('a2w_remote_post')) {
             unset($args['headers']);
         }
 
-        // If we've got cookies, use and convert them to Requests_Cookie.
+        // If we've got cookies, use and convert them to Ali2Woo\Lib\Requests_Cookie.
         if (!empty($args['cookies'])) {
-            $cookie_jar = new Requests_Cookie_Jar();
+            $cookie_jar = new Ali2Woo\Lib\Requests_Cookie_Jar();
             $tmp_cookies = array();
             foreach ($args['cookies'] as $cookie) {
                 $tmp_cookies[] = $cookie_jar->normalize_cookie($cookie);
@@ -197,7 +211,7 @@ if (!function_exists('a2w_remote_post')) {
                 a2w_error_log('WARNING! function mbstring_binary_safe_encoding is not exist!');
             }
 
-            $requests_response = Requests::post($url, $headers, $data, $args);
+            $requests_response = Ali2Woo\Lib\Requests::post($url, $headers, $data, $args);
 
             // Convert the response into an array
             $http_response = new A2W_Requests_Response($requests_response);
@@ -211,7 +225,7 @@ if (!function_exists('a2w_remote_post')) {
             } else {
                 a2w_error_log('WARNING! function reset_mbstring_encoding is not exist!');
             }
-        } catch (Requests_Exception $e) {
+        } catch (Ali2Woo\Lib\Requests_Exception $e) {
             $response = new WP_Error('http_request_failed', $e->getMessage());
         } catch (Throwable $e) {
             a2w_print_throwable($e);

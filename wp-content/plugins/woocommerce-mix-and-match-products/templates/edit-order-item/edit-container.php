@@ -24,7 +24,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $product;
 
 /**
- * wc_mnm_before_edit_container_order_item_form hook.
+ * Hook: wc_mnm_before_edit_container_order_item_form.
+ *
+ * @since   2.2.0
  */
 do_action( 'wc_mnm_before_edit_container_order_item_form', $product, $order_item, $order, $source );
 ?>
@@ -36,9 +38,11 @@ do_action( 'wc_mnm_before_edit_container_order_item_form', $product, $order_item
 	/**
 	 * 'wc_mnm_edit_container_content' action.
 	 *
+	 * @since   2.2.0
+	 *
 	 * @param  WC_Mix_and_Match  $product
-     * @param  WC_Order_Item_Product $order_item
-     * @param  WC_Order|WC_Subscription $order
+	 * @param  WC_Order_Item_Product $order_item
+	 * @param  WC_Order|WC_Subscription $order
 	 * @param  string $source The originating source loading this template
 	 *
 	 * @hooked wc_mnm_content_loop - 10
@@ -53,7 +57,7 @@ do_action( 'wc_mnm_before_edit_container_order_item_form', $product, $order_item
 
 <?php
 /**
- * wc_mnm_after_edit_container_order_item_form hook.
+ * Hook: wc_mnm_after_edit_container_order_item_form.
  */
 do_action( 'wc_mnm_after_edit_container_order_item_form', $product, $order_item, $order, $source );
 ?>

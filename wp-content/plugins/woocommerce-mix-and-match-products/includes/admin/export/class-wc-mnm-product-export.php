@@ -102,7 +102,7 @@ class WC_MNM_Product_Export {
 	 */
 	public static function export_child_category_ids( $value, $product ) {
 
-		if ( wc_mnm_is_product_container_type( $product ) ) {		
+		if ( wc_mnm_is_product_container_type( $product ) ) {
 			$value = self::prepare_child_category_ids_for_export( $product );
 		}
 
@@ -284,7 +284,7 @@ class WC_MNM_Product_Export {
 
 	/**
 	 * JSON-encode child items for export.
-	 * 
+	 *
 	 * @since 2.3.0
 	 *
 	 * @param  WC_Product  $product
@@ -294,8 +294,7 @@ class WC_MNM_Product_Export {
 
 		$value = '';
 
-		if ( 
-			is_callable( array( $product, 'get_content_source' ) )
+		if ( is_callable( array( $product, 'get_content_source' ) )
 			&& is_callable( array( $product, 'get_child_items' ) )
 			&& 'products' === $product->get_content_source( 'edit' )
 		) {
@@ -334,7 +333,6 @@ class WC_MNM_Product_Export {
 						);
 
 					}
-
 				}
 
 				$value = json_encode( $data );
@@ -357,14 +355,13 @@ class WC_MNM_Product_Export {
 
 		$value = '';
 
-		if ( 
-			is_callable( array( $product, 'get_content_source' ) )
+		if ( is_callable( array( $product, 'get_content_source' ) )
 			&& is_callable( array( $product, 'get_child_category_ids' ) )
 			&& 'categories' === $product->get_content_source( 'edit' )
 		) {
 			// Use the WC_Product_CSV_Exporter formatting for term IDs.
 			$exporter = new WC_Product_CSV_Exporter();
-			
+
 			$value = $exporter->format_term_ids( $product->get_child_category_ids( 'edit' ), 'product_cat' );
 		}
 

@@ -1,7 +1,7 @@
 <div id="ct-ultimate-gdpr-cookies-scanner">
     <div class="ct-ultimate-gdpr-cookies-scanner-content">
         <div class="row">
-            <div class="col-12 col-lg-6">
+            <div class="col-md-12">
                 <div class="ct-ultimate-gdpr-cookies-scanner-wrapper">
                     <div class="ct-ultimate-gdpr-cookies-scanner__Close">
                         <span class="fa fa-times fa-2" aria-hidden="true"></span>
@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-6">
+            <div class="col-md-12">
                 <div class="ct-ultimate-gdpr-cookies-scanner__right">
                     <div class="ct-ultimate-gdpr-cookies-scanner-content__scan current">
                         <span class="pull-left ct-ultimate-gdpr-cookies-scanner__Message"><?php echo esc_html__('We are currently scanning:', 'ct-ultimate-gdpr'); ?></span>

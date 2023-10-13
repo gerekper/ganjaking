@@ -3,17 +3,17 @@
  * Plugin Name: EventON - Event Map  
  * Plugin URI: http://www.myeventon.com/event-map
  * Description: Create a map of all events
- * Version: 1.4.8
+ * Version: 1.5
  * Author: AshanJay
  * Author URI: http://www.ashanjay.com
- * Requires at least: 5.0
- * Tested up to: 6.0
+ * Requires at least: 6.0
+ * Tested up to: 6.2.2
  */ 
 class evoemap{	
 	
 	// Versions
-	public $version='1.4.8';
-	public $eventon_version = '4.1';
+	public $version='1.5';
+	public $eventon_version = '4.4';
 	public $name = 'EventsMap';
 	
 	public $addon_data = array();

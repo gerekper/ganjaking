@@ -308,6 +308,7 @@
 	.evotx_filter .main_filters{display: flex;gap:10px;}
 	.evotx_filter .other_filters, .evotx_filter .evotx_admin_search_bar
 	{padding-top: 10px;display: flex}
+	.evotx_filter .other_filters{flex-wrap: wrap;}
 	.evotx_filter .other_filters span{display: inline-block;}
 	.evotx_filter span select, .evotx_filter span input[type="text"]{
 		background-color: #fff; border-radius: 10px;
@@ -373,7 +374,8 @@
 	    color: #fff;
 	}
 	.evomb_body .evotx_stats_bar p.stat_bar {
-	    background-color: #1994de;border-radius:15px;height: 12px;padding: 0;overflow: hidden;
+	    background-color: transparent;border-radius:15px;height: 12px;padding: 0;overflow: hidden;
+	    border:1px solid #fff;
 	}
 	.evotx_stats_bar p.stat_bar span {
 	    display: inline-block;
@@ -381,12 +383,13 @@
 	    height: 100%;
 	}
 	.evotx_stats_bar p.stat_bar span.checked , .evotx_stat_text em.checked{background-color: #73AFF9;}
-	.evotx_stats_bar p.stat_bar span.check-in , .evotx_stat_text em.check-in{background-color: #5FC7BE;}
-	.evotx_stats_bar p.stat_bar span.pending , .evotx_stat_text em.pending{background-color: #FFE88E;}
+	.evotx_stats_bar p.stat_bar span.check-in , .evotx_stat_text em.check-in{background-color: #40da6d;}
+	.evotx_stats_bar p.stat_bar span.pending , .evotx_stat_text em.pending{background-color: #ffc11f;}
 	.evotx_stats_bar p.stat_bar span.on-hold , .evotx_stat_text em.on-hold{background-color: #FFE88E;}
-	.evotx_stats_bar p.stat_bar span.cancelled , .evotx_stat_text em.cancelled{background-color: #FFE88E;}
-	.evotx_stats_bar p.stat_bar span.processing , .evotx_stat_text em.processing{background-color: #FFE88E;}
-	.evotx_stats_bar p.stat_bar span.refunded , .evotx_stat_text em.refunded{background-color: #E69168;}
+	.evotx_stats_bar p.stat_bar span.cancelled , .evotx_stat_text em.cancelled{background-color: #737373;}
+	.evotx_stats_bar p.stat_bar span.processing , .evotx_stat_text em.processing{background-color: #f6df39;}
+	.evotx_stats_bar p.stat_bar span.refunded , .evotx_stat_text em.refunded{background-color: #bcbcbc;}
+	.evotx_stats_bar p.stat_bar span.failed , .evotx_stat_text em.failed{background-color: #f9633f;}
 	.evotx_stat_text em.instock{background-color: #9d9d9d;}
 	.evotx_stat_text{padding-top: 10px; font-size: 11px; text-transform: uppercase;}
 	.evotx_stat_text span{margin-right: 5px;}

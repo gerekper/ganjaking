@@ -10,13 +10,19 @@ use MailPoet\Automation\Engine\Integration;
 use MailPoet\Automation\Engine\Registry;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\AddTagAction;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\AddToListAction;
+use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\CustomAction;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\NotificationEmailAction;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\RemoveFromListAction;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\RemoveTagAction;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\UnsubscribeAction;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\UpdateSubscriberAction;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Analytics\Analytics;
+use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Subjects\CustomDataSubject;
+use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Subjects\TagSubject;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Templates\PremiumTemplatesFactory;
+use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Triggers\CustomTrigger;
+use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Triggers\TagAddedTrigger;
+use MailPoet\Premium\Automation\Integrations\MailPoetPremium\Triggers\TagRemovedTrigger;
 
 class MailPoetPremiumIntegration implements Integration {
   /** @var ContextFactory */
@@ -43,6 +49,24 @@ class MailPoetPremiumIntegration implements Integration {
   /** @var NotificationEmailAction */
   private $notificationEmailAction;
 
+  /** @var CustomTrigger */
+  private $customTrigger;
+
+  /** @var CustomDataSubject */
+  private $customDataSubject;
+
+  /** @var CustomAction */
+  private $customAction;
+
+  /** @var TagAddedTrigger  */
+  private $tagAddedTrigger;
+
+  /** @var TagRemovedTrigger  */
+  private $tagRemovedTrigger;
+
+  /** @var TagSubject  */
+  private $tagSubject;
+
   /** @var PremiumTemplatesFactory */
   private $premiumTemplatesFactory;
 
@@ -58,6 +82,12 @@ class MailPoetPremiumIntegration implements Integration {
     RemoveFromListAction $removeFromListAction,
     UpdateSubscriberAction $updateSubscriberAction,
     NotificationEmailAction $notificationEmailAction,
+    CustomTrigger $customTrigger,
+    CustomDataSubject $customDataSubject,
+    CustomAction $customAction,
+    TagAddedTrigger $tagAddedTrigger,
+    TagRemovedTrigger $tagRemovedTrigger,
+    TagSubject $tagSubject,
     PremiumTemplatesFactory $premiumTemplatesFactory,
     Analytics $analytics
   ) {
@@ -66,9 +96,15 @@ class MailPoetPremiumIntegration implements Integration {
     $this->addTagAction = $addTagAction;
     $this->removeTagAction = $removeTagAction;
     $this->addToListAction = $addToListAction;
+    $this->tagRemovedTrigger = $tagRemovedTrigger;
     $this->removeFromListAction = $removeFromListAction;
     $this->updateSubscriberAction = $updateSubscriberAction;
     $this->notificationEmailAction = $notificationEmailAction;
+    $this->customTrigger = $customTrigger;
+    $this->customDataSubject = $customDataSubject;
+    $this->customAction = $customAction;
+    $this->tagAddedTrigger = $tagAddedTrigger;
+    $this->tagSubject = $tagSubject;
     $this->premiumTemplatesFactory = $premiumTemplatesFactory;
     $this->analytics = $analytics;
   }
@@ -85,6 +121,12 @@ class MailPoetPremiumIntegration implements Integration {
     $registry->addAction($this->removeFromListAction);
     $registry->addAction($this->updateSubscriberAction);
     $registry->addAction($this->notificationEmailAction);
+    $registry->addTrigger($this->customTrigger);
+    $registry->addSubject($this->customDataSubject);
+    $registry->addAction($this->customAction);
+    $registry->addTrigger($this->tagAddedTrigger);
+    $registry->addTrigger($this->tagRemovedTrigger);
+    $registry->addSubject($this->tagSubject);
 
     // remove free only templates
     foreach ($registry->getTemplates() as $template) {

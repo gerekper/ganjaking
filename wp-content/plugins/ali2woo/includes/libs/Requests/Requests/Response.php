@@ -1,4 +1,5 @@
-<?php
+<?php 
+            namespace Ali2Woo\Lib;
 /**
  * HTTP response class
  *

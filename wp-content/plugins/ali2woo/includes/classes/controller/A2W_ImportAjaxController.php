@@ -3,7 +3,7 @@
 /**
  * Description of A2W_ImportAjaxController
  *
- * @author Andrey
+ * @author Ali2Woo Team
  *
  * @autoload: a2w_admin_init
  *
@@ -15,6 +15,8 @@ if (!class_exists('A2W_ImportAjaxController')) {
     {
         public function __construct()
         {
+       //     A2W_Utils::clear_system_error_messages();
+
             add_filter('a2w_woocommerce_after_add_product', array($this, 'woocommerce_after_add_product'), 30, 4);
 
             add_action('wp_ajax_a2w_push_product', array($this, 'ajax_push_product'));
@@ -797,8 +799,14 @@ if (!class_exists('A2W_ImportAjaxController')) {
         public function ajax_add_to_import()
         {
             if (isset($_POST['id'])) {
+
                 $product = array();
-                $products = a2w_get_transient('a2w_search_result');
+
+                if ($_POST['page'] === 'a2w_dashboard'){
+                    $products = a2w_get_transient('a2w_search_result');
+                } elseif ($_POST['page'] === 'a2w_store'){
+                    $products = a2w_get_transient('a2w_search_store_result');
+                }
 
                 $product_import_model = new A2W_ProductImport();
                 $loader = new A2W_Aliexpress();
@@ -812,10 +820,12 @@ if (!class_exists('A2W_ImportAjaxController')) {
                     }
                 }
 
+
                 global $wpdb;
                 $post_id = $wpdb->get_var($wpdb->prepare("SELECT post_id FROM $wpdb->postmeta WHERE meta_key='_a2w_external_id' AND meta_value='%s' LIMIT 1", $_POST['id']));
                 if (a2w_get_setting('allow_product_duplication') || !$post_id) {
                     $params = empty($_POST['apd']) ? array() : array('data' => array('apd' => json_decode(stripslashes($_POST['apd']))));
+
                     $res = $loader->load_product($_POST['id'], $params);
                     if ($res['state'] !== 'error') {
                         $product = array_replace_recursive($product, $res['product']);
@@ -845,7 +855,12 @@ if (!class_exists('A2W_ImportAjaxController')) {
         {
             if (isset($_POST['id'])) {
                 $product = false;
-                $products = a2w_get_transient('a2w_search_result');
+
+                if ($_POST['page'] === 'a2w_dashboard'){
+                    $products = a2w_get_transient('a2w_search_result');
+                } elseif ($_POST['page'] === 'a2w_store'){
+                    $products = a2w_get_transient('a2w_search_store_result');
+                }
 
                 $product_import_model = new A2W_ProductImport();
 
@@ -871,7 +886,7 @@ if (!class_exists('A2W_ImportAjaxController')) {
         {
             if (isset($_POST['id'])) {
                 $ids = is_array($_POST['id']) ? $_POST['id'] : array($_POST['id']);
-                $page = isset($_POST['page']) ? $_POST['page'] : 'search';
+                $page = isset($_POST['page']) ? $_POST['page'] : 'a2w_dashboard';
 
                 $woocommerce_model = new A2W_Woocommerce();
                 $product_import_model = new A2W_ProductImport();
@@ -880,7 +895,12 @@ if (!class_exists('A2W_ImportAjaxController')) {
                 $default_ff_method = a2w_get_setting('fulfillment_prefship');
 
                 $product = false;
-                $products = $page === 'search' ? a2w_get_transient('a2w_search_result') : array();
+                $products = array();
+                if ($page  === 'a2w_dashboard'){
+                    $products = a2w_get_transient('a2w_search_result');
+                } elseif ($page === 'a2w_store'){
+                    $products = a2w_get_transient('a2w_search_store_result');
+                }
                 $result = array();
                 foreach ($ids as $id) {
                     if ($page == 'product') {
@@ -914,7 +934,7 @@ if (!class_exists('A2W_ImportAjaxController')) {
                             $items = isset($product['shipping_info'][$country]) ? $product['shipping_info'][$country] : array();
                             $result[] = array('product_id' => $id, 'default_method' => isset($product['shipping_default_method']) ? $product['shipping_default_method'] : '', 'items' => $items, 'shipping_cost' => isset($product['shipping_cost'])?$product['shipping_cost']:'', 'variations' => $variations);
 
-                            if ($page !== 'search') {
+                            if ($page !== 'a2w_dashboard' && $page !== 'a2w_store') {
                                 $product_import_model->upd_product($product);
                             }
                             break;
@@ -922,8 +942,10 @@ if (!class_exists('A2W_ImportAjaxController')) {
                     }
                 }
 
-                if ($page === 'search') {
+                if ($page === 'a2w_dashboard') {
                     a2w_set_transient('a2w_search_result', $products);
+                }elseif ($page === 'a2w_store'){
+                    a2w_set_transient('a2w_search_store_result', $products);
                 }
 
                 echo json_encode(A2W_ResultBuilder::buildOk(array('products' => $result)));

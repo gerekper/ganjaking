@@ -2,7 +2,7 @@
 /* * class
  * Description of A2W_WooCommerceOrderListController
  *
- * @author MA_GROUP
+ * @author Ali2Woo Team
  *
  * @autoload: a2w_admin_init
  *

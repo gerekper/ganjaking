@@ -5,6 +5,7 @@ namespace MailPoet\AdminPages\Pages;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\AdminPages\AssetsController;
 use MailPoet\AdminPages\PageRenderer;
 use MailPoet\API\JSON\ResponseBuilders\CustomFieldsResponseBuilder;
 use MailPoet\Config\Localizer;
@@ -196,7 +197,11 @@ class FormEditor {
     ],
   ];
 
+  /** @var AssetsController */
+  private $assetsController;
+
   public function __construct(
+    AssetsController $assetsController,
     PageRenderer $pageRenderer,
     CustomFieldsRepository $customFieldsRepository,
     CustomFieldsResponseBuilder $customFieldsResponseBuilder,
@@ -210,6 +215,7 @@ class FormEditor {
     FormsRepository $formsRepository,
     SegmentsSimpleListRepository $segmentsListRepository
   ) {
+    $this->assetsController = $assetsController;
     $this->pageRenderer = $pageRenderer;
     $this->customFieldsRepository = $customFieldsRepository;
     $this->customFieldsResponseBuilder = $customFieldsResponseBuilder;
@@ -272,6 +278,7 @@ class FormEditor {
       'is_administrator' => $this->wp->currentUserCan('administrator'),
     ];
     $this->wp->wpEnqueueMedia();
+    $this->assetsController->setupFormEditorDependencies();
     $this->pageRenderer->displayPage('form/editor.html', $data);
   }
 
@@ -291,6 +298,7 @@ class FormEditor {
     $data = [
       'templates' => $templatesData,
     ];
+    $this->assetsController->setupFormEditorDependencies();
     $this->pageRenderer->displayPage('form/template_selection.html', $data);
   }
 

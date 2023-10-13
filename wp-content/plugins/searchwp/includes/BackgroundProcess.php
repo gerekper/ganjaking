@@ -363,25 +363,13 @@ abstract class BackgroundProcess {
 	 */
 	public function get_post_args() {
 		// In some cases cookie values can get exponentially encoded as the background process progresses.
-		$cookies = $_COOKIE;
-		if ( is_array( $cookies ) && ! empty( $cookies ) ) {
-			foreach ( $cookies as $cookie_name => $cookie_value ) {
-				if ( is_string( $cookie_value ) && false !== strpos( $cookie_value, '\"' ) ) {
-					$cookies[ $cookie_name ] = stripslashes( $cookie_value );
-				} else {
-					$cookies[ $cookie_name ] = $cookie_value;
-				}
-			}
-		}
-
-		// Encode cookies before use.
-		$cookies = array_map( 'rawurlencode', $cookies );
+		$cookies = $this->get_rawurlencoded_cookies( $_COOKIE );
 
 		$args = array(
 			'timeout'   => 0.1,
 			'blocking'  => false,
 			'body'      => '',
-			'cookies'   => apply_filters( 'searchwp\indexer\loopback\args\cookies', $cookies, [ 'original' => $_COOKIE, ] ),
+			'cookies'   => apply_filters( 'searchwp\indexer\loopback\args\cookies', $cookies, [ 'original' => $_COOKIE ] ),
 			'sslverify' => apply_filters( 'https_local_ssl_verify', false ),
 		);
 
@@ -398,6 +386,52 @@ abstract class BackgroundProcess {
 
 		return apply_filters( 'searchwp\background_process\loopbackargs', $args );
 	}
+
+	/**
+	 * URL encode cookies.
+	 *
+	 * @since 4.3.8
+	 * @param $cookies
+	 * @return mixed
+	 */
+	private function get_rawurlencoded_cookies( $cookies ){
+
+		$cookies = $_COOKIE;
+
+		if ( is_array( $cookies ) && ! empty( $cookies ) ) {
+			foreach ( $cookies as $cookie_name => $cookie_value ) {
+
+				if ( is_string( $cookie_value ) ) {
+					$cookie_value = false !== strpos( $cookie_value, '\"' )
+						? stripslashes( $cookie_value )
+						: $cookie_value;
+
+					$cookies[ $cookie_name ] = rawurlencode( $cookie_value );
+
+				} else if ( is_array( $cookie_value ) ) {
+
+					foreach( $cookie_value as $index => $value ) {
+						if ( is_string( $value ) ) {
+							$value = false !== strpos( $value, '\"' )
+								? stripslashes( $value )
+								: $value;
+
+							$value = rawurlencode( $value );
+						}
+						$cookies[ $cookie_name . '[' . $index .']' ] = $value;
+					}
+					// This cookie stores an array of values. It will be replicated into multiple single cookies, so we can remove the original copy.
+					unset( $cookies[$cookie_name] );
+
+				} else {
+					$cookies[ $cookie_name ] = $cookie_value;
+				}
+			}
+		}
+
+		return $cookies;
+	}
+
 
 	/**
 	 * Whether memory usage has been exceeded.

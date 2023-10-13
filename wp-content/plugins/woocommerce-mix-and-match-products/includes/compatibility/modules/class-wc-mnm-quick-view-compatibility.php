@@ -27,7 +27,6 @@ class WC_MNM_Quick_View_Compatibility {
 		// QuickView support.
 		add_action( 'wc_quick_view_enqueue_scripts', array( __CLASS__, 'load_scripts' ) );
 		add_action( 'wc_quick_view_before_single_product', array( __CLASS__, 'attach_hooks' ) );
-
 	}
 
 	/**
@@ -57,8 +56,6 @@ class WC_MNM_Quick_View_Compatibility {
 	public static function filter_form_location( $location ) {
 		return 'default';
 	}
-
-
 } // End class: do not remove or there will be no more guacamole for you.
 
 WC_MNM_Quick_View_Compatibility::init();

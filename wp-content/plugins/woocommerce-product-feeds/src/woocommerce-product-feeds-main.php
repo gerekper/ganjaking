@@ -112,6 +112,11 @@ class WoocommerceProductFeedsMain {
 	private $gpf_db_manager;
 
 	/**
+	 * @var WoocommerceProductFeedsAddToCartSupport
+	 */
+	private $add_to_cart_support;
+
+	/**
 	 * WoocommerceProductFeedsMain constructor.
 	 *
 	 * @param WoocommerceGpfCommon $woocommerce_gpf_common
@@ -158,12 +163,16 @@ class WoocommerceProductFeedsMain {
 			$this->prf_admin->initialise();
 			$this->import_export_integration->initialise();
 			$this->admin_notices->initialise();
-		} elseif ( $use_expanded_schema ) {
+		} else {
+			$this->add_to_cart_support = $this->container['WoocommerceProductFeedsAddToCartSupport'];
+			$this->add_to_cart_support->initialise();
+			if ( $use_expanded_schema ) {
 				$this->expanded_structured_data = $this->container['WoocommerceProductFeedsExpandedStructuredData'];
 				$this->expanded_structured_data->initialise();
-		} else {
-			$this->structured_data = $this->container['WoocommerceGpfStructuredData'];
-			$this->structured_data->initialise();
+			} else {
+				$this->structured_data = $this->container['WoocommerceGpfStructuredData'];
+				$this->structured_data->initialise();
+			}
 		}
 		if ( $use_expanded_schema ) {
 			$this->expanded_structured_data_cache_invalidator =
@@ -219,6 +228,7 @@ class WoocommerceProductFeedsMain {
 	 * Disable attempts to GZIP the feed output to avoid memory issues.
 	 */
 	public function block_wordpress_gzip_compression() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( isset( $_GET['woocommerce_gpf'] ) ) {
 			remove_action( 'init', 'ezgz_buffer' );
 		}

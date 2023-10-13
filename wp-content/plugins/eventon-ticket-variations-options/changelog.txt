@@ -1,5 +1,12 @@
 Variations & Options (EVOVO) addon for EventON Plugin
 ====================================
+v 1.1.2 (2023-8-3)
+FIXED: variations sold as separate adding incorrect cart price
+FIXED: enable variation on event edit page not reflecting changes
+FIXED: booking unlimited variations to be caped at booking block capacity
+FIXED: add to cart error notice not loading correct on eventcard
+UDATED: admin side edit forms elements to use EVO()->elements
+
 v 1.1.1 (2023-7-20)
 FIXED: tooltip for variations setting not working
 FIXED: variations for seats not getting added

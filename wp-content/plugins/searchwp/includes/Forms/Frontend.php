@@ -174,15 +174,18 @@ class Frontend {
 
 						<?php $search_input_name = ! empty( $form['input_name'] ) ? $form['input_name'] : 's'; ?>
 						<?php $search_query = ! empty( $_GET[ $search_input_name ] ) ? sanitize_text_field( wp_unslash( $_GET[ $search_input_name ] ) ) : get_search_query(); ?>
-						<input type="search" class="swp-input--search swp-input"
-						       <?php echo ( function_exists( 'searchwp_live_search' ) && searchwp_live_search()->get( 'Settings_Api' )->get( 'enable-live-search' ) ) ? 'data-swplive="true"' : ''; ?>
+						<input type="search"
+                               class="swp-input--search swp-input"
 						       placeholder="<?php echo esc_attr( $form['field-label'] ); ?>"
-						       value="<?php echo esc_attr( $search_query ); ?>" name="<?php echo esc_attr( ! empty( $form['input_name'] ) ? $form['input_name'] : 's' ); ?>"
-						       title="<?php echo esc_attr( $form['field-label'] ); ?>" />
+						       value="<?php echo esc_attr( $search_query ); ?>"
+                               name="<?php echo esc_attr( $search_input_name ); ?>"
+						       title="<?php echo esc_attr( $form['field-label'] ); ?>"
+							<?php echo ( function_exists( 'searchwp_live_search' ) && searchwp_live_search()->get( 'Settings_Api' )->get( 'enable-live-search' ) ) ? ' data-swplive="true"' : ''; ?>
+                        />
 					</div>
 
 					<?php if ( ! empty( $form['search-button'] ) ) : ?>
-						<input type="submit" class="search-submit swp-button" value="Search"/>
+						<input type="submit" class="search-submit swp-button" value="<?php echo esc_attr( ! empty( $form['button-label'] ) ? $form['button-label'] : __( 'Search', 'searchwp' ) ); ?>"/>
 					<?php endif; ?>
 
 				</div>
@@ -213,7 +216,16 @@ class Frontend {
 					<div class="searchwp-form-quick-search">
 						<span><?php esc_html_e( 'Popular searches', 'searchwp' ); ?>: </span>
 						<?php foreach ( $form['quick-search-items'] as $item ) : ?>
-							<a href="<?php echo esc_url( add_query_arg( ! empty( $form['input_name'] ) ? $form['input_name'] : 's', esc_attr( $item ), home_url( ! empty( $form['target_url'] ) ? $form['target_url'] : '/' ) ) ); ?>" class=""><?php echo esc_html( $item ); ?></a>
+                            <?php
+                            $quick_search_link = add_query_arg(
+                                [
+                                    ! empty( $form['input_name'] ) ? $form['input_name'] : 's' => esc_attr( $item ),
+                                    'swp_form' => [ 'form_id' => $form_id ],
+                                ],
+	                            home_url( ! empty( $form['target_url'] ) ? $form['target_url'] : '/' )
+                            );
+                            ?>
+							<a href="<?php echo esc_url( $quick_search_link ); ?>" class=""><?php echo esc_html( $item ); ?></a>
 						<?php endforeach; ?>
 					</div>
 				<?php endif; ?>

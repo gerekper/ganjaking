@@ -1,4 +1,6 @@
-<?php
+<?php 
+namespace Ali2Woo\Lib;
+
 /**
  * Handles adding and dispatching events
  *

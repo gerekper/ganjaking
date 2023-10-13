@@ -1,6 +1,6 @@
 /**
  * Javascript for event map
- * @version  1.4.8
+ * @version  1.5
  */
 jQuery(document).ready(function($){
 	var geocoder;
@@ -85,12 +85,6 @@ jQuery(document).ready(function($){
 			events_list_display(calObj);			
 		});	
 
-	// Search
-		$(".eventmap .evo_search_bar_in input").evo_enterKey(function (){
-			var this_cal_id = $(this).closest('.eventmap').attr('id');					
-			run_redo_map_upon_AJAX(this_cal_id);
-		});
-
 		
 	// MONTH JUMPER
 		$('.ajde_evcal_calendar.eventmap').on('click','.evo_j_container a',function(){
@@ -104,12 +98,6 @@ jQuery(document).ready(function($){
 	// MONTH SWITCHING
 		$('.eventmap').on('click', '.evcal_arrows', function(){			
 			var this_cal_id = $(this).closest('.eventmap').attr('id');					
-			run_redo_map_upon_AJAX(this_cal_id);
-		});
-
-	// SORT and FIltering
-		$('.eventon_filter_dropdown').on('click','p',function(){
-			var this_cal_id = $(this).closest('.eventmap').attr('id');
 			run_redo_map_upon_AJAX(this_cal_id);
 		});
 
@@ -342,11 +330,20 @@ jQuery(document).ready(function($){
 
 
 		// re-build the event map with markers
+			$('body').on('evo_main_ajax_success',function( event, CAL, ajaxtype, data, data_arg){
+				if( $(CAL).hasClass('eventmap')){
+					const calid = $(CAL).attr('id');
+					process_events_list(calid,'redo');
+					$('.eventmap').off('click', '.evcal_arrows');
+				}
+			});
+					
 			function run_redo_map_upon_AJAX(calid){
 				// hide new events list on months
 				if( $('#'+calid).hasClass('eventmap')){
+
 					$( document ).ajaxComplete(function(event, xhr, settings) {
-						
+
 						var data = settings.data;
 						if( data.indexOf('action=the_ajax_hook') != -1){						
 							//calObj.find('.eventon_list_event').hide();				

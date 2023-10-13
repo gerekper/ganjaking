@@ -1,12 +1,13 @@
 <?php
 /** 
  * Ticket Variations and Options
- * @version 1.1.1
+ * @version 1.1.2
  */
 
 class EVOVO_Var_opts{
 	public $dataset = array();
 	public $item_data = array();
+	public $parent_id, $parent_type;
 	private $user_loggedin = false;
 	private $vo_id;
 
@@ -135,8 +136,14 @@ class EVOVO_Var_opts{
 		}
 		return $stock;
 	}
+	function get_parent_id(){
+		return $this->get_item_prop('parent_id');
+	}
+	function get_parent_type(){
+		return $this->get_item_prop('parent_type');
+	}
 	function get_item_stock(){
-		$stock = $this->get_item_prop('stock');
+		$stock = apply_filters('evovo_vo_item_stock_return', $this->get_item_prop('stock'), $this );
 		if($stock === false) return false;
 		return $stock;
 	}
@@ -152,6 +159,11 @@ class EVOVO_Var_opts{
 			if( $data['parent_type'] != $parent_type) continue;
 			if( !isset($data['parent_id']) ) continue;
 			if( $data['parent_id'] != $parent_id) continue;
+
+			$this->set_item_data( $vo_id, $data);
+			$stock = $this->get_item_stock();
+
+			if( $stock) $data['stock'] = $stock;		
 
 			$parent_vos[ $vo_id ] = $data;
 		}
@@ -417,6 +429,7 @@ class EVOVO_Var_opts{
 			$variation_types = $VTs->dataset;
 
 			$variations = $VOs->get_parent_vos($parent_id, $parent_type);
+			//print_r($variations);
 
 			// BUILD an array of VTs used for making existing Vs
 			$vts_exists = array(); 
@@ -425,6 +438,7 @@ class EVOVO_Var_opts{
 			foreach($variations as $v_id=>$v){
 
 				$variation_types_array = array();
+				$this->set_item_data( $v_id );
 
 				if(!isset($v['variations'])) continue;
 				if(sizeof($v['variations'])==0) continue;
@@ -438,13 +452,15 @@ class EVOVO_Var_opts{
 				if( $cart_vos && count($cart_vos)>0 && isset( $cart_vos['vars']) && isset( $cart_vos['vars'][$v_id] )){
 					$this_var_cart_stock = $cart_vos['vars'][$v_id];
 
+					// variations stock
 					$v_stock = 0;
 					if( isset($v['stock'])) $v_stock = $v['stock'];
-
+					
 					$new_var_stock = $v_stock - $this_var_cart_stock;
 					if( $new_var_stock < 0 ) $new_var_stock = 0;
 
-					$variations[$v_id]['stock'] = $new_var_stock;
+					//$variations[$v_id]['stock'] = $new_var_stock;
+					$variations[$v_id]['stock'] = 99;
 
 				}
 
@@ -610,6 +626,8 @@ class EVOVO_Var_opts{
 
 				// if there are no variations for parent
 				if(count($variations)>0):
+
+					//print_r($variations);
 
 					// Variation types exists
 					if( count($vts_exists)>0){
@@ -890,7 +908,7 @@ class EVOVO_Var_opts{
 			echo "<div class='evotx_addon_data'>";
 			if( $has_vos){
 				$new_evotx_data = array(
-					'evovo_data'=>array(
+					'evovo_data'=> apply_filters('evovo_evotx_addon_data', array(
 						'defp'=>$default_price,
 						'var_id'=>$default_var_id,
 						'v'=>	$variations,
@@ -900,7 +918,7 @@ class EVOVO_Var_opts{
 						'po_uncor_qty'=> $_evovo_po_uncor_qty ? 'yes':'no',
 						'varmethod'=> $var_as_separate? 'separate':'combined',
 						'outofstock'=>$outofstock
-					),
+					), $this)
 				);
 
 				$this->evotx_data = array_merge_recursive ($this->evotx_data, $new_evotx_data);

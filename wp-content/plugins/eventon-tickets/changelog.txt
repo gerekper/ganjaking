@@ -1,5 +1,16 @@
 Tickets (TX) addon for EventON Plugin
 ====================================
+v 2.2.3 (2023-8-7)
+FIXED: checkout ticket error
+FIXED: event edit ticket data bar colors duplicates
+
+v 2.2.2 (2023-8-3)
+ADDED: separate settings to restock failed orders
+FIXED: wc variations add to cart not working
+FIXED: evotx_hide_msg() js function error
+FIXED: auto restock validation to use EVO()->cal
+FIXED: email attendees lightbox loading animation
+
 v 2.2.1 (2023-7-20)
 FIXED: ticket data loading function for js
 FIXED: ticket concatenated styles not loading correct

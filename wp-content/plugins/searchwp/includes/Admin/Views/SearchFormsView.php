@@ -105,6 +105,7 @@ class SearchFormsView {
 			SEARCHWP_PLUGIN_URL . 'assets/js/admin/pages/search-forms.js',
 			[
 				'underscore',
+				Utils::$slug . 'choices',
 				Utils::$slug . 'collapse',
 				Utils::$slug . 'color-picker',
 				Utils::$slug . 'copy-input-text',
@@ -629,6 +630,80 @@ class SearchFormsView {
 					
 					<div class="swp-flex--col swp-flex--gap30">
 
+                        <div class="swp-flex--row sm:swp-flex--col sm:swp-flex--gap30">
+
+                            <div class="swp-col swp-col--title-width--sm">
+
+                                <h3 class="swp-h3">
+									<?php esc_html_e( 'Engine', 'searchwp' ); ?>
+                                </h3>
+
+                            </div>
+
+                            <div class="swp-col">
+
+                                <div class="swp-w-1/4">
+									<?php
+									$engines = \SearchWP\Settings::get_engines();
+									$selected_engine = isset( $form['engine'] ) ? $form['engine'] : 'default';
+									?>
+                                    <select class="swp-choicesjs-single" name="engine">
+										<?php foreach ( $engines as $_engine ) : ?>
+											<?php $engine_name = $_engine->get_name(); ?>
+                                            <option value="<?php echo esc_attr( $engine_name ); ?>"<?php selected( $selected_engine, $engine_name ); ?>><?php echo esc_html( $_engine->get_label() ); ?></option>
+										<?php endforeach; ?>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="swp-flex--row sm:swp-flex--col sm:swp-flex--gap30">
+
+                            <div class="swp-col swp-col--title-width--sm">
+
+                                <h3 class="swp-h3">
+									<?php esc_html_e( 'Results Page', 'searchwp' ); ?>
+                                </h3>
+
+                            </div>
+
+                            <div class="swp-col">
+
+                                <div class="swp-w-1/4">
+                                    <?php $selected_search_page = isset( $form['input_name'] ) ? $form['input_name'] : 's'; ?>
+                                    <select class="swp-choicesjs-single" name="input_name">
+                                        <?php if ( ! in_array( $selected_search_page, [ 's', 'swps' ], true ) ) : ?>
+                                            <option value="<?php echo esc_attr( $selected_search_page ); ?>" selected="selected">
+                                                <?php
+                                                echo esc_html(
+                                                    sprintf(
+                                                        /* translators: %s: Custom name of search input. */
+                                                        __( 'Custom: %s', 'searchwp' ),
+                                                        $selected_search_page
+                                                    )
+                                                );
+                                                ?>
+                                            </option>
+                                        <?php endif; ?>
+                                        <option value="s"<?php selected( $selected_search_page, 'default' ); ?>><?php esc_html_e( 'Default', 'searchwp' ); ?></option>
+                                        <option value="swps"<?php selected( $selected_search_page, 'swps' ); ?>><?php esc_html_e( 'SearchWP', 'searchwp' ); ?></option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="swp-row">
+
+                    <div class="swp-flex--col swp-flex--gap30">
+
 						<div class="swp-flex--row sm:swp-flex--col sm:swp-flex--gap30">
 
 							<div class="swp-col swp-col--title-width--sm">
@@ -909,26 +984,26 @@ class SearchFormsView {
 
 									<div class="swp-flex--row swp-flex--gap17">
 
-										<div class="swp-sf-style--input">
+										<div class="swp-inputbox-vertical">
 
 											<label for="" class="swp-label">
 												<?php esc_html_e( 'Border Color', 'searchwp' ); ?>
 											</label>
 
-											<span class="swp-sf--colorpicker">
+											<span class="swp-input--colorpicker">
 											<input type="text" class="swp-input" name="search-form-color" value="<?php echo esc_attr( $form['search-form-color'] ); ?>" placeholder="default" maxlength="7">
 											<svg fill="none" height="18" viewBox="0 0 18 18" width="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g mask="url(#a)"><path d="m9.74075 15.25c-1.53556 0-2.82666-.5274-3.90225-1.5897-1.07639-1.0631-1.60779-2.3322-1.60779-3.8353 0-.76007.1438-1.45237.42598-2.08339.28739-.64268.68359-1.21661 1.19118-1.72371l3.89288-3.8176 3.89285 3.81755c.5076.50712.9038 1.08106 1.1912 1.72376.2822.63102.426 1.32332.426 2.08339 0 1.5031-.5312 2.7723-1.6071 3.8353-1.0761 1.0623-2.3675 1.5897-3.90295 1.5897z" fill="#fff" stroke="#e1e1e1"/></g></svg>
 										</span>
 
 										</div>
 
-										<div class="swp-sf-style--input">
+										<div class="swp-inputbox-vertical">
 
 											<label for="" class="swp-label">
 												<?php esc_html_e( 'Font', 'searchwp' ); ?>
 											</label>
 
-											<span class="swp-sf--font-input">
+											<span class="swp-input--font-input">
 											<input type="number" min="0" class="swp-input" name="search-form-font-size"<?php echo ! empty( $form['search-form-font-size'] ) ? ' value="' . absint( $form['search-form-font-size'] ) . '"' : ''; ?> placeholder="-">
 										</span>
 
@@ -1007,43 +1082,57 @@ class SearchFormsView {
 
 									</div>
 
+                                    <div class="swp-flex--row swp-flex--gap17">
+
+                                        <div class="swp-inputbox-vertical swp-w-1/3">
+
+                                            <label for="" class="swp-label">
+												<?php esc_html_e( 'Label', 'searchwp' ); ?>
+                                            </label>
+
+                                            <input class="swp-input swp-w-full" type="text" name="button-label" value="<?php echo ! empty( $form['button-label'] ) ? esc_attr( $form['button-label'] ) : ''; ?>" placeholder="<?php esc_html_e( 'Search', 'searchwp' ); ?>">
+
+                                        </div>
+
+                                    </div>
+
 									<div class="swp-flex--row swp-flex--gap17">
 
-										<div class="swp-sf-style--input">
+										<div class="swp-inputbox-vertical">
 
 											<label for="" class="swp-label">
 												<?php esc_html_e( 'Background', 'searchwp' ); ?>
 											</label>
 
-											<span class="swp-sf--colorpicker">
-											<input type="text" class="swp-input" name="button-background-color" value="<?php echo esc_attr( $form['button-background-color'] ); ?>" placeholder="default" maxlength="7">
-											<svg fill="none" height="18" viewBox="0 0 18 18" width="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g mask="url(#a)"><path d="m9.74075 15.25c-1.53556 0-2.82666-.5274-3.90225-1.5897-1.07639-1.0631-1.60779-2.3322-1.60779-3.8353 0-.76007.1438-1.45237.42598-2.08339.28739-.64268.68359-1.21661 1.19118-1.72371l3.89288-3.8176 3.89285 3.81755c.5076.50712.9038 1.08106 1.1912 1.72376.2822.63102.426 1.32332.426 2.08339 0 1.5031-.5312 2.7723-1.6071 3.8353-1.0761 1.0623-2.3675 1.5897-3.90295 1.5897z" fill="#fff" stroke="#e1e1e1"/></g></svg>
-										</span>
+											<span class="swp-input--colorpicker">
+                                                <input type="text" class="swp-input" name="button-background-color" value="<?php echo esc_attr( $form['button-background-color'] ); ?>" placeholder="default" maxlength="7">
+                                                <svg fill="none" height="18" viewBox="0 0 18 18" width="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g mask="url(#a)"><path d="m9.74075 15.25c-1.53556 0-2.82666-.5274-3.90225-1.5897-1.07639-1.0631-1.60779-2.3322-1.60779-3.8353 0-.76007.1438-1.45237.42598-2.08339.28739-.64268.68359-1.21661 1.19118-1.72371l3.89288-3.8176 3.89285 3.81755c.5076.50712.9038 1.08106 1.1912 1.72376.2822.63102.426 1.32332.426 2.08339 0 1.5031-.5312 2.7723-1.6071 3.8353-1.0761 1.0623-2.3675 1.5897-3.90295 1.5897z" fill="#fff" stroke="#e1e1e1"/></g></svg>
+                                            </span>
 
 										</div>
 
-										<div class="swp-sf-style--input">
+										<div class="swp-inputbox-vertical">
 
 											<label for="" class="swp-label">
 												<?php esc_html_e( 'Font Color', 'searchwp' ); ?>
 											</label>
 
-											<span class="swp-sf--colorpicker">
-											<input type="text" class="swp-input" name="button-font-color" value="<?php echo esc_attr( $form['button-font-color'] ); ?>" placeholder="default" maxlength="7">
-											<svg fill="none" height="18" viewBox="0 0 18 18" width="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g mask="url(#a)"><path d="m9.74075 15.25c-1.53556 0-2.82666-.5274-3.90225-1.5897-1.07639-1.0631-1.60779-2.3322-1.60779-3.8353 0-.76007.1438-1.45237.42598-2.08339.28739-.64268.68359-1.21661 1.19118-1.72371l3.89288-3.8176 3.89285 3.81755c.5076.50712.9038 1.08106 1.1912 1.72376.2822.63102.426 1.32332.426 2.08339 0 1.5031-.5312 2.7723-1.6071 3.8353-1.0761 1.0623-2.3675 1.5897-3.90295 1.5897z" fill="#fff" stroke="#e1e1e1"/></g></svg>
-										</span>
+											<span class="swp-input--colorpicker">
+											    <input type="text" class="swp-input" name="button-font-color" value="<?php echo esc_attr( $form['button-font-color'] ); ?>" placeholder="default" maxlength="7">
+                                                <svg fill="none" height="18" viewBox="0 0 18 18" width="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g mask="url(#a)"><path d="m9.74075 15.25c-1.53556 0-2.82666-.5274-3.90225-1.5897-1.07639-1.0631-1.60779-2.3322-1.60779-3.8353 0-.76007.1438-1.45237.42598-2.08339.28739-.64268.68359-1.21661 1.19118-1.72371l3.89288-3.8176 3.89285 3.81755c.5076.50712.9038 1.08106 1.1912 1.72376.2822.63102.426 1.32332.426 2.08339 0 1.5031-.5312 2.7723-1.6071 3.8353-1.0761 1.0623-2.3675 1.5897-3.90295 1.5897z" fill="#fff" stroke="#e1e1e1"/></g></svg>
+                                            </span>
 
 										</div>
 
-										<div class="swp-sf-style--input">
+										<div class="swp-inputbox-vertical">
 
 											<label for="" class="swp-label">
 												<?php esc_html_e( 'Font', 'searchwp' ); ?>
 											</label>
 
-											<span class="swp-sf--font-input">
-											<input type="number" min="0" class="swp-input" name="button-font-size"<?php echo ! empty( $form['button-font-size'] ) ? ' value="' . absint( $form['button-font-size'] ) . '"' : ''; ?> placeholder="-">
-										</span>
+											<span class="swp-input--font-input">
+                                                <input type="number" min="0" class="swp-input" name="button-font-size"<?php echo ! empty( $form['button-font-size'] ) ? ' value="' . absint( $form['button-font-size'] ) . '"' : ''; ?> placeholder="-">
+                                            </span>
 
 										</div>
 

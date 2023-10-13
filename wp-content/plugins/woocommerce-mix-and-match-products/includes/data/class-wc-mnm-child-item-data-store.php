@@ -40,13 +40,13 @@ class WC_MNM_Child_Item_Data_Store {
 			global $wpdb;
 
 			$result = $wpdb->insert(
-                "{$wpdb->prefix}wc_mnm_child_items",
-                array(
-				'product_id'   => $child_item->get_variation_id() ? $child_item->get_variation_id() : $child_item->get_product_id(),
-				'container_id' => $child_item->get_container_id(),
-				'menu_order'   => $child_item->get_menu_order()
-                ) 
-            );
+				"{$wpdb->prefix}wc_mnm_child_items",
+				array(
+					'product_id'   => $child_item->get_variation_id() ? $child_item->get_variation_id() : $child_item->get_product_id(),
+					'container_id' => $child_item->get_container_id(),
+					'menu_order'   => $child_item->get_menu_order(),
+				)
+			);
 
 			if ( false === $result ) {
 				throw new Exception( sprintf( esc_html__( 'Mix and Match child item creation failed. Error: %s', 'woocommerce-mix-and-match-products' ), $wpdb->last_error ) );
@@ -61,10 +61,9 @@ class WC_MNM_Child_Item_Data_Store {
 
 			do_action( 'wc_mnm_new_child_item', $child_item );
 
-		}  catch ( Exception $e ) {
+		} catch ( Exception $e ) {
 			wc_transaction_query( 'rollback' );
 		}
-
 	}
 
 	/**
@@ -82,8 +81,8 @@ class WC_MNM_Child_Item_Data_Store {
 
 		if ( false === $data ) {
 			$data = $wpdb->get_row(
-                $wpdb->prepare(
-                    "
+				$wpdb->prepare(
+					"
 				SELECT items.child_item_id, 
 					CASE
 					WHEN p.post_parent > 0 THEN p.post_parent
@@ -97,14 +96,14 @@ class WC_MNM_Child_Item_Data_Store {
 				FROM {$wpdb->prefix}wc_mnm_child_items AS items 
 				INNER JOIN {$wpdb->prefix}posts as p ON items.product_id = p.ID
 				WHERE items.child_item_id = %d",
-                    $child_item->get_id()
-                ) 
-            );
+					$child_item->get_id()
+				)
+			);
 			wp_cache_set( 'wc-mnm-child-item-' . $child_item->get_id(), $data, 'wc-mnm-child-items' );
 		}
 
 		if ( ! $data ) {
-			throw new Exception( sprintf( esc_html__( 'Invalid Mix and Match child item.', 'woocommerce-mix-and-match-products' ), $wpdb->last_error ) );
+			throw new Exception( sprintf( esc_html__( 'Invalid Mix and Match child item.', 'woocommerce-mix-and-match-products' ), esc_html( $wpdb->last_error ) ) );
 		}
 
 		$child_item->set_props(
@@ -117,7 +116,6 @@ class WC_MNM_Child_Item_Data_Store {
 		);
 
 		$child_item->set_object_read( true );
-
 	}
 
 	/**
@@ -132,17 +130,17 @@ class WC_MNM_Child_Item_Data_Store {
 
 		if ( array_intersect( array( 'menu_order' ), array_keys( $changes ) ) ) {
 			$result = $wpdb->update(
-                "{$wpdb->prefix}wc_mnm_child_items",
-                array(
-				'product_id'   => $child_item->get_variation_id() ? $child_item->get_variation_id() : $child_item->get_product_id(),
-				'container_id' => $child_item->get_container_id(),
-				'menu_order'   => $child_item->get_menu_order()
-                ),
-                array( 'child_item_id' => $child_item->get_id() ) 
-            );
+				"{$wpdb->prefix}wc_mnm_child_items",
+				array(
+					'product_id'   => $child_item->get_variation_id() ? $child_item->get_variation_id() : $child_item->get_product_id(),
+					'container_id' => $child_item->get_container_id(),
+					'menu_order'   => $child_item->get_menu_order(),
+				),
+				array( 'child_item_id' => $child_item->get_id() )
+			);
 
 			if ( false === $result ) {
-				throw new Exception( sprintf( esc_html__( 'Mix and Match child item update failed. Error: %s', 'woocommerce-mix-and-match-products' ), $wpdb->last_error ) );
+				throw new Exception( sprintf( esc_html__( 'Mix and Match child item update failed. Error: %s', 'woocommerce-mix-and-match-products' ), esc_html( $wpdb->last_error ) ) );
 			}
 		}
 
@@ -150,7 +148,6 @@ class WC_MNM_Child_Item_Data_Store {
 		$this->clear_caches( $child_item );
 
 		do_action( 'wc_mnm_update_child_item', $child_item );
-
 	}
 
 	/**
@@ -166,13 +163,12 @@ class WC_MNM_Child_Item_Data_Store {
 			$result = $wpdb->delete( "{$wpdb->prefix}wc_mnm_child_items", array( 'child_item_id' => $child_item->get_id() ) );
 
 			if ( false === $result ) {
-				throw new Exception( sprintf( esc_html__( 'Mix and Match Child Item deletion failed. Error: %s', 'woocommerce-mix-and-match-products' ), $wpdb->last_error ) );
+				throw new Exception( sprintf( esc_html__( 'Mix and Match Child Item deletion failed. Error: %s', 'woocommerce-mix-and-match-products' ), esc_html( $wpdb->last_error ) ) );
 			}
 
 			do_action( 'wc_mnm_delete_child_item', $child_item );
 			$this->clear_caches( $child_item );
 		}
-
 	}
 
 	/**
@@ -207,5 +203,4 @@ class WC_MNM_Child_Item_Data_Store {
 			wp_cache_delete( 'wc-mnm-child-items-' . $container_id, 'products' );
 		}
 	}
-
 }

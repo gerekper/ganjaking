@@ -3,7 +3,7 @@
 /**
  * Description of A2W_Attachment
  *
- * @author Andrey
+ * @author Ali2Woo Team
  */
 if (!class_exists('A2W_Attachment')) {
 

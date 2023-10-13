@@ -11,12 +11,18 @@ class WoocommerceGpfWoocommerceMultilingual {
 	 * Capture the currency requested. Add hooks / filters.
 	 */
 	public function run() {
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		$currency = isset( $_REQUEST['currency'] ) ?
+			sanitize_text_field( $_REQUEST['currency'] ) :
+			'';
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+
 		// Bail if no currency forced.
-		if ( empty( $_REQUEST['currency'] ) ) {
+		if ( empty( $currency ) ) {
 			return;
 		}
 
-		$this->currency = strtoupper( $_REQUEST['currency'] );
+		$this->currency = strtoupper( $currency );
 		add_filter( 'wcml_client_currency', [ $this, 'set_currency' ], 10, 1 );
 		add_filter( 'woocommerce_gpf_cache_name', [ $this, 'granularise_cache_name' ], 10, 1 );
 		add_filter( 'woocommerce_gpf_feed_item', [ $this, 'add_currency_arg_to_product_permalinks' ], 10, 2 );

@@ -81,36 +81,31 @@ class AssetsController {
       Env::$assetsUrl . '/dist/css/' . $this->renderer->getCssAsset('mailpoet-public.css')
     );
 
+    $enqueuePlacementParams = [
+      'in_footer' => true,
+      'strategy' => 'defer',
+    ];
+
+    // BC for WP < 6.3 - Can be removed after we drop support for WP 6.2
+    global $wp_version;
+    if (version_compare($wp_version, '6.3', '<')) {
+      $enqueuePlacementParams = true;
+    }
+    
     $this->wp->wpEnqueueScript(
       'mailpoet_public',
       Env::$assetsUrl . '/dist/js/' . $this->renderer->getJsAsset('public.js'),
       ['jquery'],
       Env::$version,
-      true
+      $enqueuePlacementParams
     );
 
+    $ajaxFailedErrorMessage = __('An error has happened while performing a request, please try again later.', 'mailpoet');
     $this->wp->wpLocalizeScript('mailpoet_public', 'MailPoetForm', [
       'ajax_url' => $this->wp->adminUrl('admin-ajax.php'),
       'is_rtl' => (function_exists('is_rtl') ? (bool)is_rtl() : false),
+      'ajax_common_error_message' => esc_js($ajaxFailedErrorMessage),
     ]);
-
-    $ajaxFailedErrorMessage = __('An error has happened while performing a request, please try again later.', 'mailpoet');
-
-    $inlineScript = <<<EOL
-function initMailpoetTranslation() {
-  if (typeof MailPoet !== 'undefined') {
-    MailPoet.I18n.add('ajaxFailedErrorMessage', '%s')
-  } else {
-    setTimeout(initMailpoetTranslation, 250);
-  }
-}
-setTimeout(initMailpoetTranslation, 250);
-EOL;
-    $this->wp->wpAddInlineScript(
-      'mailpoet_public',
-      sprintf($inlineScript, esc_js($ajaxFailedErrorMessage)),
-      'after'
-    );
   }
 
   public function setupAdminWidgetPageDependencies() {
@@ -129,105 +124,5 @@ EOL;
       Env::$version,
       true
     );
-  }
-
-  public function setupAutomationListingDependencies(): void {
-    $this->wp->wpEnqueueScript(
-      'automation',
-      Env::$assetsUrl . '/dist/js/' . $this->renderer->getJsAsset('automation.js'),
-      [],
-      Env::$version,
-      true
-    );
-    $this->wp->wpSetScriptTranslations('automation', 'mailpoet');
-  }
-
-  public function setupAutomationEditorDependencies(): void {
-    $this->wp->wpEnqueueScript(
-      'automation_editor',
-      Env::$assetsUrl . '/dist/js/' . $this->renderer->getJsAsset('automation_editor.js'),
-      ['wp-date'],
-      Env::$version,
-      true
-    );
-    $this->wp->wpSetScriptTranslations('automation_editor', 'mailpoet');
-  }
-
-  public function setupAutomationAnalyticsDependencies(): void {
-    $this->wp->wpEnqueueScript(
-      'automation_analytics',
-      Env::$assetsUrl . '/dist/js/' . $this->renderer->getJsAsset('automation_analytics.js'),
-      [],
-      Env::$version,
-      true
-    );
-    $this->wp->wpSetScriptTranslations('automation_analytics', 'mailpoet');
-
-    $this->wp->wpEnqueueStyle(
-      'automation_analytics',
-      Env::$assetsUrl . '/dist/css/' . $this->renderer->getCssAsset('mailpoet-automation-analytics.css')
-    );
-  }
-
-  public function setupAutomationTemplatesDependencies(): void {
-    $this->wp->wpEnqueueScript(
-      'automation_templates',
-      Env::$assetsUrl . '/dist/js/' . $this->renderer->getJsAsset('automation_templates.js'),
-      [],
-      Env::$version,
-      true
-    );
-    $this->wp->wpSetScriptTranslations('automation_templates', 'mailpoet');
-  }
-
-  public function setupNewsletterEditorDependencies(): void {
-
-    $this->wp->wpRegisterScript(
-      'newsletter_editor',
-      Env::$assetsUrl . '/dist/js/' . $this->renderer->getJsAsset('newsletter_editor.js'),
-      [],
-      Env::$version,
-      true
-    );
-
-    $this->wp->wpPrintScripts('wp-i18n');
-    $this->wp->wpSetScriptTranslations('newsletter_editor', 'mailpoet');
-
-    /**
-     * The js file needs to be added immediately since the mailpoet_newsletters_editor_initialize hook is dispatched in template files
-     * Update and remove this line in MAILPOET-4930
-     */
-    \wp_scripts()->do_item('newsletter_editor');
-  }
-
-  public function setupAdminPagesDependencies(): void {
-    $this->wp->wpPrintScripts('wp-i18n');
-    $this->addAdminCommons();
-    $this->wp->wpEnqueueScript(
-      'mailpoet_admin_pages',
-      Env::$assetsUrl . '/dist/js/' . $this->renderer->getJsAsset('admin.js'),
-      [],
-      Env::$version,
-      true
-    );
-    $this->wp->wpSetScriptTranslations('mailpoet_admin_pages', 'mailpoet');
-  }
-
-  private function addAdminCommons(): void {
-    $this->wp->wpRegisterScript(
-      'mailpoet_admin_commons',
-      Env::$assetsUrl . '/dist/js/' . $this->renderer->getJsAsset('commons.js'),
-      [],
-      Env::$version,
-      true
-    );
-    $this->wp->wpSetScriptTranslations('mailpoet_admin_commons', 'mailpoet');
-
-
-    /**
-     * The js file needs to be added immediately since the mailpoet_newsletters_editor_initialize hook is dispatched in template files
-     * Update and remove this line in MAILPOET-4930
-     */
-    \wp_scripts()->do_item('mailpoet_admin_commons');
   }
 }

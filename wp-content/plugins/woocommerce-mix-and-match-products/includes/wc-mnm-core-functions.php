@@ -23,9 +23,11 @@ function WC_Mix_and_Match() { // phpcs:ignore WordPress.NamingConventions.ValidF
 	return WC_Mix_and_Match::instance();
 }
 
-/*---------------*/
-/*  Frontend.    */
-/*---------------*/
+/*
+|--------------------------------------------------------------------------
+| Frontend.
+|--------------------------------------------------------------------------
+*/
 
 /**
  * Get a name prefix for quantity input.
@@ -49,7 +51,7 @@ function wc_mnm_get_child_input_name( $container_id, $child_id = null ) {
  *
  * @since  1.2.0
  *
- * @param  obj    $container WC_Product_Mix_and_Match
+ * @param  obj $container WC_Product_Mix_and_Match.
  * @return string
  */
 function wc_mnm_get_quantity_message( $container ) {
@@ -62,26 +64,25 @@ function wc_mnm_get_quantity_message( $container ) {
 		$max_container_size = $container->get_max_container_size();
 
 		// No items required.
-		if ( $min_container_size === 0 ) {
+		if ( 0 === $min_container_size ) {
 			$message = '';
 			// Fixed container size.
-		} else if ( $min_container_size > 0 && $max_container_size > 0 && $min_container_size == $max_container_size ) {
+		} elseif ( $min_container_size > 0 && $max_container_size > 0 && $min_container_size === $max_container_size ) {
 			// translators: %d quantity to select.
 			$message = sprintf( _nx( 'Please select %d item to continue&hellip;', 'Please select %d items to continue&hellip;', $min_container_size, '[Frontend]', 'woocommerce-mix-and-match-products' ), $min_container_size );
 			// Required minimum and required maximum, but unequal min/max.
-		} else if ( $min_container_size > 0 && $max_container_size > 0 ) {
+		} elseif ( $min_container_size > 0 && $max_container_size > 0 ) {
 			// translators: %1$d is minimum quantity to select. %2$d is maximum quantity to select.
 			$message = sprintf( _x( 'Please choose between %1$d and %2$d items to continue&hellip;', '[Frontend]', 'woocommerce-mix-and-match-products' ), $min_container_size, $max_container_size );
 			// Required minimum.
-		} else if ( $min_container_size > 0 ) {
+		} elseif ( $min_container_size > 0 ) {
 			// translators: %d minimum quantity to select.
 			$message = sprintf( _nx( 'Please choose at least %d item to continue&hellip;', 'Please choose at least %d items to continue&hellip;', $min_container_size, '[Frontend]', 'woocommerce-mix-and-match-products' ), $min_container_size );
 			// Required maximum.
-		} else if ( $max_container_size > 0 ) {
+		} elseif ( $max_container_size > 0 ) {
 			// translators: %d maximum quantity to select.
 			$message = sprintf( _nx( 'Please choose fewer than %d item to continue&hellip;', 'Please choose fewer than %d items to continue&hellip;', $max_container_size, '[Frontend]', 'woocommerce-mix-and-match-products' ), $max_container_size );
 		}
-	
 	}
 
 	/**
@@ -91,21 +92,22 @@ function wc_mnm_get_quantity_message( $container ) {
 	 * @param  obj $container WC_Product.
 	 */
 	return apply_filters( 'wc_mnm_container_quantity_message', $message, $container );
-
 }
 
-/*---------------*/
-/*  Cart.        */
-/*---------------*/
+/*
+---------------
+	Cart.
+---------------
+*/
 
 /**
  * Given a child MnM cart item, find and return its container cart item or its cart ID when the $return_id arg is true.
  *
  * @since  1.7.0
  *
- * @param  array $child_cart_item
- * @param  array $cart_contents
- * @param  bool  $return_id
+ * @param  array $child_cart_item The child item cart array.
+ * @param  array $cart_contents The array of all items currently in cart.
+ * @param  bool  $return_id Toggle between returning cart item key or the entire item array.
  * @return mixed
  */
 function wc_mnm_get_cart_item_container( $child_cart_item, $cart_contents = false, $return_id = false ) {
@@ -134,10 +136,10 @@ function wc_mnm_get_cart_item_container( $child_cart_item, $cart_contents = fals
  *
  * @since  1.7.0
  *
- * @param  array    $container_cart_item
- * @param  array    $cart_contents
- * @param  bool  $return_ids
- * @return array Either cart items or their cart keys depending on if the $return_ids arg is true
+ * @param  array $container_cart_item The parent item cart array.
+ * @param  array $cart_contents The array of all items currently in cart.
+ * @param  bool  $return_ids Toggle between returning cart item key or the entire item array.
+ * @return array Either cart items or their cart keys.
  */
 function wc_mnm_get_child_cart_items( $container_cart_item, $cart_contents = false, $return_ids = false ) {
 
@@ -170,8 +172,8 @@ function wc_mnm_get_child_cart_items( $container_cart_item, $cart_contents = fal
  *
  * @since  1.7.0
  *
- * @param  array  $cart_item
- * @param  array  $cart_contents
+ * @param  array $cart_item Cart item array to test.
+ * @param  array $cart_contents The array of all items currently in cart.
  * @return bool
  */
 function wc_mnm_is_child_cart_item( $cart_item, $cart_contents = false ) {
@@ -191,7 +193,7 @@ function wc_mnm_is_child_cart_item( $cart_item, $cart_contents = false ) {
  *
  * @since  1.7.0
  *
- * @param  array  $cart_item
+ * @param  array $cart_item Cart item array to test.
  * @return bool
  */
 function wc_mnm_maybe_is_child_cart_item( $cart_item ) {
@@ -210,7 +212,7 @@ function wc_mnm_maybe_is_child_cart_item( $cart_item ) {
  *
  * @since  1.7.0
  *
- * @param  array  $cart_item
+ * @param  array $cart_item Cart item array to test.
  * @return bool
  */
 function wc_mnm_is_container_cart_item( $cart_item ) {
@@ -224,19 +226,20 @@ function wc_mnm_is_container_cart_item( $cart_item ) {
 	return $is_container;
 }
 
-
-/*---------------*/
-/*  Orders.      */
-/*---------------*/
+/*
+|--------------------------------------------------------------------------
+| Orders.
+|--------------------------------------------------------------------------
+*/
 
 /**
  * Given a MnM child order item, find and return its container order item or its order item ID when the $return_id arg is true.
  *
  * @since  1.7.0
  *
- * @param  array     $child_order_item
- * @param  mixed     array|object $order array of order items or WC_Order
- * @param  bool      $return_id
+ * @param array              $child_order_item Order item to test.
+ * @param mixed array|object $order array of order items or WC_Order.
+ * @param bool               $return_id Either order item or the order item ID.
  * @return mixed
  */
 function wc_mnm_get_order_item_container( $child_order_item, $order = false, $return_id = false ) {
@@ -283,9 +286,9 @@ function wc_mnm_get_order_item_container( $child_order_item, $order = false, $re
  *
  * @since  1.7.0
  *
- * @param  array        $container_order_item
- * @param  array|object $order array of order items or WC_Order
- * @param  bool         $return_ids
+ * @param  array        $container_order_item Order item to test.
+ * @param  array|object $order array of order items or WC_Order.
+ * @param  bool         $return_ids Either order items or the order item IDs.
  * @return mixed
  */
 function wc_mnm_get_child_order_items( $container_order_item, $order = false, $return_ids = false ) {
@@ -313,7 +316,7 @@ function wc_mnm_get_child_order_items( $container_order_item, $order = false, $r
 		$order_items = is_callable( array( $order, 'get_items' ) ) ? $order->get_items() : $order;
 
 		if ( ! empty( $order_items ) ) {
-			
+
 			foreach ( $order_items as $order_item_id => $order_item ) {
 
 				$is_child = ! empty( $order_item['mnm_container'] ) && isset( $container_order_item['mnm_cart_key'] ) && $order_item['mnm_container'] === $container_order_item['mnm_cart_key'];
@@ -323,7 +326,6 @@ function wc_mnm_get_child_order_items( $container_order_item, $order = false, $r
 				}
 			}
 		}
-
 	}
 
 	return $return_ids ? array_keys( $child_order_items ) : $child_order_items;
@@ -335,8 +337,8 @@ function wc_mnm_get_child_order_items( $container_order_item, $order = false, $r
  *
  * @since  1.7.0
  *
- * @param  array     $order_item
- * @param  mixed     array|object $order array of order items or WC_Order
+ * @param  mixed     array|WC_Order_Item $order_item  Order item to test.
+ * @param  mixed     array|WC_Order_Item $order array of order items or WC_Order.
  * @return bool
  */
 function wc_mnm_is_child_order_item( $order_item, $order = false ) {
@@ -356,7 +358,7 @@ function wc_mnm_is_child_order_item( $order_item, $order = false ) {
  *
  * @since  1.7.0
  *
- * @param  array  $order_item
+ * @param  mixed array|WC_Order_Item $order_item Order item to test.
  * @return bool
  */
 function wc_mnm_maybe_is_child_order_item( $order_item ) {
@@ -375,7 +377,7 @@ function wc_mnm_maybe_is_child_order_item( $order_item ) {
  *
  * @since  1.7.0
  *
- * @param  array  $order_item
+ * @param  mixed array|WC_Order_Item $order_item Order item to test.
  * @return bool
  */
 function wc_mnm_is_container_order_item( $order_item ) {
@@ -389,10 +391,11 @@ function wc_mnm_is_container_order_item( $order_item ) {
 	return $is_container;
 }
 
-
-/*---------------*/
-/*  Products.    */
-/*---------------*/
+/*
+|--------------------------------------------------------------------------
+| Products.
+|--------------------------------------------------------------------------
+*/
 
 /**
  * Given a product, test if a Mix and Match container type.
@@ -409,29 +412,36 @@ function wc_mnm_is_product_container_type( $product ) {
 	if ( $product instanceof WC_Product ) {
 		$is_type = $product->is_type( $container_types );
 	} else {
-		$is_type = in_array( $product, $container_types );
+		$is_type = in_array( $product, $container_types, true );
 	}
 
 	return $is_type;
 }
 
-/*---------------*/
-/*  Formatting.  */
-/*---------------*/
+/*
+|--------------------------------------------------------------------------
+| Formatting.
+|--------------------------------------------------------------------------
+*/
 
 /**
  * Given an array, prefix all keys with data-
  *
  * @since  2.3.0
  *
- * @param  array $attributes
+ * @param  array $attributes Data attributes to prefix with data-*.
  * @return array
  */
 function wc_mnm_prefix_data_attribute_keys( $attributes ) {
 
-	if ( ! empty ( $attributes ) ) {
-		$new_keys = array_map(function ($key) { return 'data-' . $key; }, array_keys( $attributes ) );
-		$attributes = array_combine( $new_keys, array_values( $attributes ) );	
+	if ( ! empty( $attributes ) ) {
+		$new_keys   = array_map(
+			function ( $key ) {
+				return 'data-' . $key;
+			},
+			array_keys( $attributes )
+		);
+		$attributes = array_combine( $new_keys, array_values( $attributes ) );
 	}
 
 	return $attributes;
@@ -449,9 +459,9 @@ function wc_mnm_prefix_data_attribute_keys( $attributes ) {
  * @since  1.2.0
  * @deprecated 1.7.0
  *
- * @param  array    $child_cart_item
- * @param  array    $cart_contents
- * @param  bool  $return_id
+ * @param  array $child_cart_item The child item cart array.
+ * @param  array $cart_contents The array of all items currently in cart.
+ * @param  bool  $return_id Toggle between returning cart item key or the entire item array.
  * @return mixed
  */
 function wc_mnm_get_mnm_cart_item_container( $child_cart_item, $cart_contents = false, $return_id = false ) {
@@ -464,9 +474,9 @@ function wc_mnm_get_mnm_cart_item_container( $child_cart_item, $cart_contents = 
  * @since  1.2.0
  * @deprecated 1.7.0
  *
- * @param  array    $container_cart_item
- * @param  array    $cart_contents
- * @param  bool  $return_ids
+ * @param  array $container_cart_item The parent item cart array.
+ * @param  array $cart_contents The array of all items currently in cart.
+ * @param  bool  $return_ids Toggle between returning cart item key or the entire item array.
  * @return mixed
  */
 function wc_mnm_get_mnm_cart_items( $container_cart_item, $cart_contents = false, $return_ids = false ) {
@@ -480,8 +490,8 @@ function wc_mnm_get_mnm_cart_items( $container_cart_item, $cart_contents = false
  * @since  1.2.0
  * @deprecated 1.7.0
  *
- * @param  array  $cart_item
- * @param  array  $cart_contents
+ * @param  array $cart_item Cart item array to test.
+ * @param  array $cart_contents The array of all items currently in cart.
  * @return bool
  */
 function wc_mnm_is_mnm_cart_item( $cart_item, $cart_contents = false ) {
@@ -495,7 +505,7 @@ function wc_mnm_is_mnm_cart_item( $cart_item, $cart_contents = false ) {
  * @since  1.2.0
  * @deprecated 1.7.0
  *
- * @param  array  $cart_item
+ * @param  array $cart_item Cart item array to test.
  * @return bool
  */
 function wc_mnm_maybe_is_mnm_cart_item( $cart_item ) {
@@ -508,7 +518,7 @@ function wc_mnm_maybe_is_mnm_cart_item( $cart_item ) {
  * @since  1.2.0
  * @deprecated 1.7.0
  *
- * @param  array  $cart_item
+ * @param  array $cart_item Cart item array to test.
  * @return bool
  */
 function wc_mnm_is_mnm_container_cart_item( $cart_item ) {
@@ -521,9 +531,9 @@ function wc_mnm_is_mnm_container_cart_item( $cart_item ) {
  * @since  1.2.0
  * @deprecated 1.7.0
  *
- * @param  array     $child_order_item
- * @param  mixed     array|object $order array of order items or WC_Order
- * @param  bool      $return_id
+ * @param array              $child_order_item Order item to test.
+ * @param mixed array|object $order array of order items or WC_Order.
+ * @param bool               $return_id Either order item or the order item ID.
  * @return mixed
  */
 function wc_mnm_get_mnm_order_item_container( $child_order_item, $order = false, $return_id = false ) {
@@ -536,9 +546,9 @@ function wc_mnm_get_mnm_order_item_container( $child_order_item, $order = false,
  * @since  1.2.0
  * @deprecated 1.7.0
  *
- * @param  array        $container_order_item
- * @param  array|object $order array of order items or WC_Order
- * @param  bool         $return_ids
+ * @param  array        $container_order_item Order item to test.
+ * @param  array|object $order array of order items or WC_Order.
+ * @param  bool         $return_ids Either order items or the order item IDs.
  * @return mixed
  */
 function wc_mnm_get_mnm_order_items( $container_order_item, $order = false, $return_ids = false ) {
@@ -552,8 +562,8 @@ function wc_mnm_get_mnm_order_items( $container_order_item, $order = false, $ret
  * @since  1.2.0
  * @deprecated 1.7.0
  *
- * @param  array     $order_item
- * @param  mixed     array|object $order array of order items or WC_Order
+ * @param  mixed     array|WC_Order_Item $order_item  Order item to test.
+ * @param  mixed     array|WC_Order_Item $order array of order items or WC_Order.
  * @return bool
  */
 function wc_mnm_is_mnm_order_item( $order_item, $order = false ) {
@@ -567,7 +577,7 @@ function wc_mnm_is_mnm_order_item( $order_item, $order = false ) {
  * @since  1.2.0
  * @deprecated 1.7.0
  *
- * @param  array  $order_item
+ * @param  mixed array|WC_Order_Item $order_item Order item to test.
  * @return bool
  */
 function wc_mnm_maybe_is_mnm_order_item( $order_item ) {
@@ -580,7 +590,7 @@ function wc_mnm_maybe_is_mnm_order_item( $order_item ) {
  * @since  1.2.0
  * @deprecated 1.7.0
  *
- * @param  array  $order_item
+ * @param  mixed array|WC_Order_Item $order_item Order item to test.
  * @return bool
  */
 function wc_mnm_is_mnm_container_order_item( $order_item ) {
@@ -594,7 +604,7 @@ function wc_mnm_is_mnm_container_order_item( $order_item ) {
  * @since  1.4.0
  * @deprecated 2.0.0
  *
- * @param  WC_Product  $product
+ * @param  WC_Product $product The product to get ratios for.
  * @return array
  */
 function wc_mnm_get_tax_ratios( $product ) {

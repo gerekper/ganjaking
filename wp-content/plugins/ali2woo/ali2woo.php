@@ -1,17 +1,18 @@
 <?php
 /*
-Plugin Name: Aliexpress Dropship for Woocommerce
-Plugin URI: https://codecanyon.net/user/ma-group/portfolio
-Description: Aliexpress Dropship for Woocommerce is a WordPress plugin created for AliExpress Drop Shipping and Affiliate marketing
+Plugin Name: Aliexpress Dropshipping for Woocommerce
+Plugin URI: https://ali2woo.com/dropshipping-plugin/
+Description: Aliexpress Dropshipping for Woocommerce is a WordPress plugin created for AliExpress Drop Shipping and Affiliate marketing
 Text Domain: ali2woo
 Domain Path: /languages
-Version: 1.21.14
-Author: MA-Group
-Author URI: htts://codecanyon.net/user/ma-group
+Version: 1.25.5
+Author: Dropshipping Guru
+Author URI: https://ali2woo.com/
 License: GPLv2+
-Tested up to: 6.0
-WC tested up to: 6.5
+Tested up to: 6.2
+WC tested up to: 7.5
 WC requires at least: 3.0
+Requires PHP: 7.4
  */
 
 if (!defined('A2W_PLUGIN_FILE')) {
@@ -73,9 +74,9 @@ if (!class_exists('A2W_Main')) {
             include_once $this->plugin_path() . "/includes/libs/a2w_json_api/a2w_json_api.php";
             A2W_Json_Api_Configurator::init('a2w_dashboard');
 
-            if (!class_exists('Requests')) {
+            if (!class_exists('Ali2Woo\Lib\Requests')) {
                 include_once $this->plugin_path() . '/includes/libs/Requests/Requests.php';
-                Requests::register_autoloader();
+                Ali2Woo\Lib\Requests::register_autoloader();
             }
 
             // Need to activate cron healthcheck

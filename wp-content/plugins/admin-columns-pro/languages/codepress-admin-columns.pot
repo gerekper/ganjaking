@@ -2479,7 +2479,7 @@ msgstr ""
 msgid "Payment Method"
 msgstr ""
 
-#: admin-columns-pro/addons/woocommerce/classes/Column/Order/ProductTaxonomy.php:16, admin-columns-pro/addons/woocommerce/classes/Column/ProductVariation/Taxonomy.php:21
+#: admin-columns-pro/addons/woocommerce/classes/Column/Order/ProductTaxonomy.php:20, admin-columns-pro/addons/woocommerce/classes/Column/ProductVariation/Taxonomy.php:21
 msgid "Product Taxonomy"
 msgstr ""
 
@@ -3080,7 +3080,7 @@ msgstr ""
 msgid "Enter your SEO Meta Description"
 msgstr ""
 
-#: admin-columns-pro/addons/yoast-seo/classes/Column/Post/PrimaryTaxonomy.php:17
+#: admin-columns-pro/addons/yoast-seo/classes/Column/Post/PrimaryTaxonomy.php:20
 msgid "Primary Taxonomy"
 msgstr ""
 

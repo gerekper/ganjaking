@@ -71,16 +71,21 @@ class Arr {
 	 *
 	 * @param iterable $array
 	 * @param string $prepend
+	 * @param string $key_separator
 	 *
 	 * @return array
 	 */
-	public static function dot( $array, $prepend = '' ) {
+	public static function dot( $array, $prepend = '', $key_separator = null ) {
 
 		$results = [];
 
+		if ( $key_separator === null ) {
+			$key_separator = static::KEY_SEPARATOR;
+		}
+
 		foreach ( $array as $key => $value ) {
 			if ( is_array( $value ) && ! empty( $value ) ) {
-				$results = array_merge( $results, static::dot( $value, $prepend . $key . static::KEY_SEPARATOR ) );
+				$results = array_merge( $results, static::dot( $value, $prepend . $key . $key_separator ) );
 			} else {
 				$results[ $prepend . $key ] = $value;
 			}
@@ -260,10 +265,11 @@ class Arr {
 	 *
 	 * @param array $array
 	 * @param array|string $keys
+	 * @param string $key_separator
 	 *
 	 * @return void
 	 */
-	public static function forget( &$array, $keys ) {
+	public static function forget( &$array, $keys, $key_separator = null ) {
 
 		$original = &$array;
 
@@ -271,6 +277,10 @@ class Arr {
 
 		if ( count( $keys ) === 0 ) {
 			return;
+		}
+
+		if ( $key_separator === null ) {
+			$key_separator = static::KEY_SEPARATOR;
 		}
 
 		foreach ( $keys as $key ) {
@@ -281,7 +291,7 @@ class Arr {
 				continue;
 			}
 
-			$parts       = explode( static::KEY_SEPARATOR, $key );
+			$parts       = explode( $key_separator, $key );
 			$parts_count = count( $parts );
 
 			// Clean up before each pass.
@@ -310,10 +320,11 @@ class Arr {
 	 * @param \ArrayAccess|array $array
 	 * @param string|int|null $key
 	 * @param mixed $default
+	 * @param string $key_separator
 	 *
 	 * @return mixed
 	 */
-	public static function get( $array, $key, $default = null ) {
+	public static function get( $array, $key, $default = null, $key_separator = null ) {
 
 		if ( ! static::accessible( $array ) ) {
 			return $default;
@@ -327,11 +338,15 @@ class Arr {
 			return $array[ $key ];
 		}
 
-		if ( strpos( $key, static::KEY_SEPARATOR ) === false ) {
+		if ( $key_separator === null ) {
+			$key_separator = static::KEY_SEPARATOR;
+		}
+
+		if ( strpos( $key, $key_separator ) === false ) {
 			return $array[ $key ] ?? $default;
 		}
 
-		foreach ( explode( static::KEY_SEPARATOR, $key ) as $segment ) {
+		foreach ( explode( $key_separator, $key ) as $segment ) {
 			if ( static::accessible( $array ) && static::exists( $array, $segment ) ) {
 				$array = $array[ $segment ];
 			} else {
@@ -349,15 +364,20 @@ class Arr {
 	 *
 	 * @param \ArrayAccess|array $array
 	 * @param string|array $keys
+	 * @param string $key_separator
 	 *
 	 * @return bool
 	 */
-	public static function has( $array, $keys ) {
+	public static function has( $array, $keys, $key_separator = null ) {
 
 		$keys = (array) $keys;
 
 		if ( ! $array || $keys === [] ) {
 			return false;
+		}
+
+		if ( $key_separator === null ) {
+			$key_separator = static::KEY_SEPARATOR;
 		}
 
 		foreach ( $keys as $key ) {
@@ -367,7 +387,7 @@ class Arr {
 				continue;
 			}
 
-			foreach ( explode( static::KEY_SEPARATOR, $key ) as $segment ) {
+			foreach ( explode( $key_separator, $key ) as $segment ) {
 				if ( static::accessible( $subKeyArray ) && static::exists( $subKeyArray, $segment ) ) {
 					$subKeyArray = $subKeyArray[ $segment ];
 				} else {
@@ -529,16 +549,21 @@ class Arr {
 	 * @param array $array
 	 * @param string|null $key
 	 * @param mixed $value
+	 * @param string $key_separator
 	 *
 	 * @return array
 	 */
-	public static function set( &$array, $key, $value ) {
+	public static function set( &$array, $key, $value, $key_separator = null ) {
 
 		if ( is_null( $key ) ) {
 			return $array = $value;
 		}
 
-		$keys = explode( static::KEY_SEPARATOR, $key );
+		if ( $key_separator === null ) {
+			$key_separator = static::KEY_SEPARATOR;
+		}
+
+		$keys = explode( $key_separator, $key );
 
 		foreach ( $keys as $i => $_key ) {
 			if ( count( $keys ) === 1 ) {

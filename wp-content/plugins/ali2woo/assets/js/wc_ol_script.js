@@ -20,7 +20,8 @@ jQuery(function ($) {
     });
 
 
-    $(document).on("click", ".a2w-aliexpress-sync", function() {
+    $(document).on("click", ".a2w-aliexpress-sync", function(e) {
+        e.preventDefault();
 
         a2w_show_block(a2w_script_data.lang.order_sync);
         a2w_show_tip(a2w_script_data.lang.please_wait);
@@ -31,9 +32,25 @@ jQuery(function ($) {
         var ext_id = get_id_from_link_anchor(this);
 
         var item_info_btn = $(this).siblings('.a2w-order-info')[0],
-            id = get_id_from_link_anchor(item_info_btn);
+            id = get_id_from_link_anchor( item_info_btn );
+        
+        const orders_data = [ { 'action': 'a2w_sync_order_info', order_id: id } ];
 
+        const on_order_sync = (s) => {
+            if(state.cnt + state.error_cnt === state.total) {
+                a2w_show_tip(a2w_sprintf(a2w_ali_orderfulfill_js.lang.complete_result_sync_d_erros_d, state.cnt, state.error_cnt), false, false, false, true);
+            } else {
+                a2w_show_tip(a2w_sprintf(a2w_ali_orderfulfill_js.lang.process_sync_d_of_d_erros_d, state.cnt, state.total, state.error_cnt), false, false, false, true);
+            }
+            $('.hover_a2w_fulfillment .close').off('click').click(function() {
+                a2w_hide_block();
+            });
+        }
+        
+        var state = { total: orders_data.length, cnt: 0, error_cnt: 0 };
+            a2w_js_sync_order(orders_data, state, on_order_sync);
 
+/*
         if (typeof a2w_get_order_tracking_code !== "undefined") {
 
             ext_id_array = ext_id.split('-');
@@ -96,7 +113,7 @@ jQuery(function ($) {
             });
         }
 
-        return false;
+        return false;*/
     });
 
     $.a2w_show_order = function(id) {

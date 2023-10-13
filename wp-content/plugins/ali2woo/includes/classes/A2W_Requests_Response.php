@@ -12,9 +12,9 @@ class A2W_Requests_Response {
     /**
      * Constructor.
      *
-     * @param Requests_Response $response HTTP response.
+     * @param Ali2Woo\Lib\Requests_Response $response HTTP response.
      */
-    public function __construct(Requests_Response $response) {
+    public function __construct(Ali2Woo\Lib\Requests_Response $response) {
         $this->response = $response;
     }
 
@@ -34,7 +34,7 @@ class A2W_Requests_Response {
      */
     public function get_headers() {
         // Ensure headers remain case-insensitive
-        $converted = new Requests_Utility_CaseInsensitiveDictionary();
+        $converted = new Ali2Woo\Lib\Requests_Utility_CaseInsensitiveDictionary();
 
         foreach ($this->response->headers->getAll() as $key => $value) {
             if (count($value) === 1) {
@@ -53,7 +53,7 @@ class A2W_Requests_Response {
      * @param array $headers Map of header name to header value.
      */
     public function set_headers($headers) {
-        $this->response->headers = new Requests_Response_Headers($headers);
+        $this->response->headers = new Ali2Woo\Lib\Requests_Response_Headers($headers);
     }
 
     /**

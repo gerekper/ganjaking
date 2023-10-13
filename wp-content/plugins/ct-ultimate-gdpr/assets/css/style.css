@@ -8319,3 +8319,325 @@ label[for="ct-ultimate-gdpr-consent-data-access"] {
 .ct-ultimate-gdpr-cookie-modal-content-single.compact-green .ct-ultimate-gdpr-cookie-modal-btn {
   top: 130px;
 }
+
+.klaro .cookie-modal .cm-modal .cm-header, .klaro .cookie-modal .cm-modal .cm-body, .klaro .cookie-modal .cm-modal .cm-footer {
+  padding: 20px !important;
+}
+
+.klaro .cookie-modal .cm-modal .cm-header h1 {
+  text-align: center;
+}
+
+.klaro .cookie-modal .cm-modal .cm-header h1 span u {
+  font-weight: 500;
+  line-height: normal !important;
+  font-family: montserrat_bold,sans-serif;
+  letter-spacing: normal;
+  color: #595959;
+  text-decoration: none;
+}
+
+.klaro .cookie-modal .cm-modal .cm-body {
+  overflow-y: auto !important;
+}
+
+.klaro .cookie-modal p {
+  font-family: Hind,sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 28px;
+  text-transform: none;
+  color: #797979 !important;
+}
+
+@media (min-width: 660px) {
+  .klaro .cookie-modal .cm-modal.cm-klaro {
+    max-width: 800px !important;
+    border-radius: 0 !important;
+  }
+}
+
+.klaro .cookie-modal .cm-btn {
+  border-radius: 0 !important;
+  font-family: montserrat_bold,sans-serif !important;
+  padding: 10px 15px !important;
+  font-size: 15px;
+}
+
+.ct-ultimate-gdpr-cookie-popup-classic .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-classic .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-classic .cm-list-input.required:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-classic .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-classic .cm-btn.cm-btn-info {
+  background-color: #ff7d27 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-classic a {
+  color: #ff7d27 !important;
+}
+
+.ct-ultimate-gdpr-cookie-classic-blue .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-classic-blue .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-classic-blue .cm-list-input.required:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-classic-blue .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-classic-blue .cm-btn.cm-btn-info {
+  background-color: #6a8ee7 !important;
+}
+
+.ct-ultimate-gdpr-cookie-classic-blue a {
+  color: #6a8ee7 !important;
+}
+
+.ct-ultimate-gdpr-cookie-classic-light .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-classic-light .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-classic-light .cm-list-input.required:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-classic-light .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-classic-light .cm-btn.cm-btn-info {
+  background-color: #6a8ee7 !important;
+}
+
+.ct-ultimate-gdpr-cookie-classic-light a {
+  color: #6a8ee7 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-modern .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-modern .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-modern .cm-list-input.required:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-modern .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-modern .cm-btn.cm-btn-info {
+  background-color: #ff7d27 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-modern a {
+  color: #ff7d27 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-apas-blue .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-apas-blue .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-apas-blue .cm-list-input.required:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-apas-blue .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-apas-blue .cm-btn.cm-btn-info {
+  background-color: #369ee3 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-apas-blue a {
+  color: #369ee3 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-apas-black .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-apas-black .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-apas-black .cm-list-input.required:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-apas-black .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-apas-black .cm-btn.cm-btn-info {
+  background-color: #45bba5 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-apas-black a {
+  color: #45bba5 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-apas-white .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-apas-white .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-apas-white .cm-list-input.required:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-apas-white .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-apas-white .cm-btn.cm-btn-info {
+  background-color: #369ee3 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-apas-white a {
+  color: #369ee3 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-kahk-blue .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-kahk-blue .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-kahk-blue .cm-list-input.required:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-kahk-blue .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-kahk-blue .cm-btn.cm-btn-info {
+  background-color: #313641 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-kahk-blue a {
+  color: #44b49f !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-kahk-black .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-kahk-black .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-kahk-black .cm-list-input.required:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-kahk-black .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-kahk-black .cm-btn.cm-btn-info {
+  background-color: #44b49f !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-kahk-black a {
+  color: #44b49f !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-kahk-white .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-kahk-white .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-kahk-white .cm-list-input.required:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-kahk-white .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-kahk-white .cm-btn.cm-btn-info {
+  background-color: #44b49f !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-kahk-white a {
+  color: #44b49f !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-oreo-blue .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-oreo-blue .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-oreo-blue .cm-list-input.required:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-oreo-blue .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-oreo-blue .cm-btn.cm-btn-info {
+  background-color: #369ee3 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-oreo-blue a {
+  color: #369ee3 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-oreo-black .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-oreo-black .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-oreo-black .cm-list-input.required:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-oreo-black .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-oreo-black .cm-btn.cm-btn-info {
+  background-color: #45bba5 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-oreo-black a {
+  color: #45bba5 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-oreo-white .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-oreo-white .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-oreo-white .cm-list-input.required:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-oreo-white .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-oreo-white .cm-btn.cm-btn-info {
+  background-color: #45bba5 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-oreo-white a {
+  color: #45bba5 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-wafer-blue .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-wafer-blue .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-wafer-blue .cm-list-input.required:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-wafer-blue .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-wafer-blue .cm-btn.cm-btn-info {
+  background-color: #369ee3 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-wafer-blue a {
+  color: #369ee3 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-wafer-black .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-wafer-black .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-wafer-black .cm-list-input.required:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-wafer-black .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-wafer-black .cm-btn.cm-btn-info {
+  background-color: #369ee3 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-wafer-black a {
+  color: #369ee3 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-wafer-white .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-wafer-white .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-wafer-white .cm-list-input.required:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-wafer-white .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-wafer-white .cm-btn.cm-btn-info {
+  background-color: #45bba5 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-wafer-white a {
+  color: #45bba5 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-jumble-blue .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-jumble-blue .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-jumble-blue .cm-list-input.required:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-jumble-blue .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-jumble-blue .cm-btn.cm-btn-info {
+  background-color: #369ee3 !important;
+  background-image: -webkit-gradient(linear, left top, right top, from(#4d6dc0), to(#369ee3)) !important;
+  background-image: linear-gradient(to right, #4d6dc0, #369ee3) !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-jumble-blue a {
+  color: #369ee3 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-jumble-black .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-jumble-black .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-jumble-black .cm-list-input.required:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-jumble-black .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-jumble-black .cm-btn.cm-btn-info {
+  background-color: #7889b5 !important;
+  background-image: -webkit-gradient(linear, left top, right top, from(#6b7dac), to(#8393bc)) !important;
+  background-image: linear-gradient(to right, #6b7dac, #8393bc) !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-jumble-black a {
+  color: #7889b5 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-jumble-white .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-jumble-white .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-jumble-white .cm-list-input.required:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-jumble-white .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-jumble-white .cm-btn.cm-btn-info {
+  background-color: #46bcb9 !important;
+  background-image: -webkit-gradient(linear, left top, right top, from(#49bee0), to(#45bba5)) !important;
+  background-image: linear-gradient(to right, #49bee0, #45bba5) !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-jumble-white a {
+  color: #46bcb9 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-khapse-blue .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-khapse-blue .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-khapse-blue .cm-list-input.required:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-khapse-blue .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-khapse-blue .cm-btn.cm-btn-info {
+  background-color: #de7834 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-khapse-blue a {
+  color: #de7834 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-khapse-black .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-khapse-black .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-khapse-black .cm-list-input.required:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-khapse-black .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-khapse-black .cm-btn.cm-btn-info {
+  background-color: #de7834 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-khapse-black a {
+  color: #de7834 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-khapse-white .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-khapse-white .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-khapse-white .cm-list-input.required:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-khapse-white .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-khapse-white .cm-btn.cm-btn-info {
+  background-color: #de7834 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-khapse-white a {
+  color: #de7834 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-tareco-blue .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-tareco-blue .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-tareco-blue .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-tareco-blue .cm-btn.cm-btn-info {
+  background-color: #316ab1 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-tareco-blue a {
+  color: #316ab1 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-tareco-black .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-tareco-black .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-tareco-black .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-tareco-black .cm-btn.cm-btn-info {
+  background-color: #45bba5 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-tareco-black a {
+  color: #45bba5 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-tareco-white .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-tareco-white .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-tareco-white .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-tareco-white .cm-btn.cm-btn-info {
+  background-color: #316ab1 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-tareco-white a {
+  color: #316ab1 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-kichel-blue .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-kichel-blue .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-kichel-blue .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-kichel-blue .cm-btn.cm-btn-info {
+  background-color: #369ee3 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-kichel-blue a {
+  color: #369ee3 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-kichel-black .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-kichel-black .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-kichel-black .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-kichel-black .cm-btn.cm-btn-info {
+  background-color: #51971e !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-kichel-black a {
+  color: #51971e !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-kichel-white .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-kichel-white .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-kichel-white .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-kichel-white .cm-btn.cm-btn-info {
+  background-color: #d71852 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-kichel-white a {
+  color: #d71852 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-macaron-blue .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-macaron-blue .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-macaron-blue .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-macaron-blue .cm-btn.cm-btn-info {
+  background-color: #369ee3 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-macaron-blue a {
+  color: #369ee3 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-macaron-black .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-macaron-black .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-macaron-black .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-macaron-black .cm-btn.cm-btn-info {
+  background-color: #45bba5 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-macaron-black a {
+  color: #45bba5 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-macaron-white .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-macaron-white .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-macaron-white .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-macaron-white .cm-btn.cm-btn-info {
+  background-color: #45bba5 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-macaron-white a {
+  color: #45bba5 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-wibele-blue .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-wibele-blue .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-wibele-blue .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-wibele-blue .cm-btn.cm-btn-info {
+  background-color: #369ee3 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-wibele-blue a {
+  color: #369ee3 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-wibele-black .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-wibele-black .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-wibele-black .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-wibele-black .cm-btn.cm-btn-info {
+  background-color: #45bba5 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-wibele-black a {
+  color: #45bba5 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-wibele-white .cm-list-input:checked + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-wibele-white .cm-list-input.only-required + .cm-list-label .slider, .ct-ultimate-gdpr-cookie-popup-wibele-white .cm-btn.cm-btn-success, .ct-ultimate-gdpr-cookie-popup-wibele-white .cm-btn.cm-btn-info {
+  background-color: #45bba5 !important;
+}
+
+.ct-ultimate-gdpr-cookie-popup-wibele-white a {
+  color: #45bba5 !important;
+}

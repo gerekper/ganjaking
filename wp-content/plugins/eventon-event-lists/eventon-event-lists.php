@@ -4,18 +4,18 @@
  Plugin URI: http://www.myeventon.com/
  Description: Create past and upcoming event lists for eventON
  Author: Ashan Jay
- Version: 1.0
+ Version: 1.0.1
  Author URI: http://www.ashanjay.com/
  Requires at least: 6.0
- Tested up to: 6.2
+ Tested up to: 6.3
  Text Domain: evoel
  Domain Path: /lang/
  */
  
 class eventon_event_lists{
 	
-	public $version='1.0';
-	public $eventon_version = '4.3';
+	public $version='1.0.1';
+	public $eventon_version = '4.4';
 	public $name = 'EventLists';
 	
 	public $addon_data = array();

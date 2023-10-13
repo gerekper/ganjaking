@@ -1,5 +1,8 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2023-09-27 - version 1.7.42
+* Fix - Specify PHP version in composer.json.
+
 2023-09-05 - version 1.7.41
 * Tweak - WC 8.1 compatibility.
 

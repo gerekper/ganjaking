@@ -1,0 +1,461 @@
+.yith-wcbk-form-field {
+    display     : flex;
+    position    : relative;
+    margin      : 15px 0 25px;
+    align-items : baseline;
+}
+
+.yith-wcbk-form-field.align-items-start {
+    align-items : start;
+}
+
+label.yith-wcbk-form-field__label {
+    width         : 185px;
+    flex          : 0 0 185px;
+    float         : none;
+    margin        : 0;
+    padding-right : 10px;
+}
+
+.yith-wcbk-form-field__content {
+    flex : 1;
+}
+
+.yith-wcbk-form-field__container {
+    display     : flex;
+    align-items : center;
+    gap         : 10px;
+    flex-wrap   : wrap;
+}
+
+.yith-wcbk-form-field.align-baseline .yith-wcbk-form-field__container {
+    align-items : baseline;
+}
+
+.yith-wcbk-form-field__container:after {
+    content : "";
+    display : table;
+    clear   : both;
+}
+
+.yith-wcbk-form-field__container label {
+    display : inline-block;
+    width   : auto;
+    margin  : 0;
+}
+
+.yith-wcbk-form-field__container select {
+    width : auto;
+}
+
+.yith-plugin-ui .yith-wcbk-form-field__container select {
+    max-width     : 400px;
+}
+
+.yith-wcbk-form-field__description,
+.yith-wcbk-settings-section__description,
+.yith-wcbk-settings-section-box__description {
+    display     : block;
+    padding     : 0;
+    font-size   : 12px;
+    clear       : both;
+    line-height : 1.4em;
+    margin-top  : 7px;
+}
+
+.yith-wcbk-form-field__description:not(.yith-wcbk-form-field__description--full-width) {
+    max-width : 600px;
+}
+
+.yith_booking_multi_fields input, .yith_booking_multi_fields select, .yith_booking_multi_fields span.select2, .yith_booking_multi_fields span.yith-wcbk-printer-field__admin-datepicker {
+    float : none;
+}
+
+.yith_booking_multi_fields span.yith-wcbk-printer-field__admin-datepicker input {
+    margin-right : 0 !important;
+}
+
+.yith-wcbk-form-field .yith-wcbk-printer-field__on-off {
+    margin-top : 3px;
+}
+
+.yith-wcbk-field-with-top-label {
+    position   : relative;
+    margin-top : 15px;
+}
+
+.yith-wcbk-field-with-top-label > label,
+.yith-wcbk-settings-section .yith-wcbk-field-with-top-label > label {
+    position       : absolute;
+    bottom         : calc(100% + 5px);
+    text-align     : center;
+    width          : 100%;
+    font-size      : .85em;
+    text-transform : uppercase;
+}
+
+
+.yith-wcbk-settings-section {
+    margin        : 20px 20px 30px;
+    border        : 1px solid #ddd;
+    border-radius : 5px;
+}
+
+.yith-wcbk-settings-section label,
+.yith-wcbk-settings-section select,
+.yith-wcbk-settings-section input[type=text],
+.yith-wcbk-settings-section input[type=number],
+.yith-wcbk-settings-section input[type=email],
+.yith-wcbk-settings-section .yith-wcbk-printer-field__admin-datepicker,
+.yith-wcbk-settings-section .select2-container {
+    line-height : normal;
+    width       : auto;
+    float       : none;
+}
+
+.yith-wcbk-settings-section .select2-container .select2-selection--single .select2-selection__rendered {
+    padding-right : 30px;
+}
+
+.yith-plugin-ui .yith-plugin-fw .yith-wcbk-settings-section select {
+    padding-right : 35px;
+}
+
+.yith-wcbk-settings-section input[type=radio],
+.yith-wcbk-settings-section input[type=checkbox] {
+    margin-top : 4px;
+}
+
+.yith-wcbk-settings-section .yith-wcbk-mini-field,
+.yith-wcbk-settings-section input.yith-wcbk-mini-field,
+.yith-wcbk-settings-section input[type=text].yith-wcbk-mini-field,
+.yith-wcbk-settings-section input[type=number].yith-wcbk-mini-field,
+.yith-wcbk-settings-section input[type=email].yith-wcbk-mini-field {
+    width     : 100%;
+    max-width : 150px;
+}
+
+.yith-wcbk-settings-section textarea {
+    width : 50%;
+}
+
+.yith-wcbk-settings-section .yith-wcbk-printer-percentage__container {
+    float : left;
+}
+
+.yith-wcbk-settings-section .yith-wcbk-printer-percentage__container input[type=number] {
+    min-width : 0;
+}
+
+.yith-wcbk-settings-section:after {
+    content : "";
+    display : table;
+    clear   : both;
+}
+
+.yith-wcbk-settings-section__title {
+    position     : relative;
+    border-color : #ccc;
+    border-width : 1px 0;
+    padding      : 20px 0;
+}
+
+.yith-wcbk-settings-section__title h3 {
+    display     : inline-block;
+    position    : relative;
+    font-size   : 15px;
+    margin      : 0;
+    padding     : 0 20px;
+    font-weight : 600;
+    box-sizing  : border-box;
+}
+
+.yith-wcbk-settings-section__content {
+    padding : 0 20px 20px 20px;
+}
+
+.yith-wcbk-settings-section__description {
+    margin-bottom : 25px;
+}
+
+.yith-wcbk-settings-section__toggle {
+    position      : absolute;
+    right         : 20px;
+    top           : 50%;
+    width         : 35px;
+    height        : 35px;
+    transform     : translateY(-50%);
+    color         : #333;
+    cursor        : pointer;
+    border-radius : 50%;
+}
+
+.yith-wcbk-settings-section__toggle:hover {
+    background : rgba(0, 0, 0, 0.05);
+}
+
+.yith-wcbk-settings-section__toggle span {
+    position   : absolute;
+    right      : 50%;
+    top        : 50%;
+    transform  : translateX(50%) translateY(-50%);
+    transition : transform .3s;
+}
+
+.yith-wcbk-settings-section.yith-wcbk-settings-section--closed .yith-wcbk-settings-section__toggle span {
+    transform : translateX(50%) translateY(-50%) rotate(180deg);
+}
+
+.yith-wcbk-settings-section__actions {
+    padding : 20px;
+}
+
+.yith-wcbk-settings-section .yith-wcbk-settings-section__actions > * {
+    float : none;
+}
+
+.yith-wcbk-settings-section__content__actions {
+    margin-top : 20px;
+}
+
+.yith-wcbk-settings-section-box {
+    border        : 1px solid #d9d9d9;
+    border-radius : 4px;
+    margin        : 20px 0;
+}
+
+.yith-wcbk-settings-section-box:after {
+    content : "";
+    display : table;
+    clear   : both;
+}
+
+.yith-wcbk-settings-section-box__title {
+    position     : relative;
+    border-color : #ccc;
+    border-width : 1px 0;
+}
+
+.yith-wcbk-settings-section-box__title h3 {
+    margin      : 0;
+    padding     : 20px 66px 20px 56px;
+    display     : inline-block;
+    position    : relative;
+    min-width   : 173px;
+    box-sizing  : border-box;
+    font-weight : 400;
+    font-size   : 16px;
+}
+
+.yith-wcbk-settings-section-box--no-toggle .yith-wcbk-settings-section-box__title h3 {
+    padding-left : 20px;
+}
+
+.yith-wcbk-settings-section-box__content {
+    padding : 0 20px 20px 20px;
+}
+
+.yith-wcbk-settings-section-box__description {
+    margin-bottom : 25px;
+}
+
+.yith-wcbk-settings-section-box__toggle,
+.yith-wcbk-settings-section-box__enabled {
+    position      : absolute;
+    top           : 50%;
+    border-radius : 50%;
+    transform     : translateY(-50%);
+    color         : #333;
+    cursor        : pointer;
+}
+
+.yith-wcbk-settings-section-box__toggle {
+    left   : 10px;
+    width  : 35px;
+    height : 35px;
+}
+
+.yith-wcbk-settings-section-box__toggle:hover {
+    background : rgba(0, 0, 0, 0.05);
+}
+
+.yith-wcbk-settings-section-box__enabled {
+    right : 20px;
+    width : 55px;
+
+}
+
+.yith-wcbk-settings-section-box__toggle > svg {
+    stroke-width : 2;
+}
+
+.yith-wcbk-settings-section-box__toggle > svg,
+.yith-wcbk-settings-section-box__enabled > span {
+    position   : absolute;
+    right      : 50%;
+    top        : 50%;
+    transform  : translateX(50%) translateY(-50%);
+    transition : transform .3s;
+}
+
+.yith-wcbk-settings-section-box.yith-wcbk-settings-section-box--closed .yith-wcbk-settings-section-box__content {
+    display : none;
+}
+
+.yith-wcbk-settings-section-box.yith-wcbk-settings-section-box--closed .yith-wcbk-settings-section-box__toggle svg {
+    transform : translateX(50%) translateY(-50%) rotate(180deg);
+}
+
+.yith-wcbk-settings-section-box__content__actions {
+    padding-top : 20px;
+}
+
+.yith-wcbk-settings-section-box__content__row {
+    margin-bottom : 10px;
+}
+
+.yith-wcbk-settings-section-box__content__row > label,
+.yith-wcbk-settings-section-box__content__row > input,
+.yith-wcbk-settings-section-box__content__row > input[type=number],
+.yith-wcbk-settings-section-box__content__row > input[type=text] {
+    float          : none;
+    display        : inline-block;
+    margin         : 0;
+    vertical-align : middle;
+    box-sizing     : border-box;
+}
+
+.yith-wcbk-settings-section-box__content__row > input,
+.yith-wcbk-settings-section-box__content__row > input[type=number],
+.yith-wcbk-settings-section-box__content__row > input[type=text] {
+    margin-right : 15px;
+}
+
+.yith-wcbk-settings-section-box__sortable-anchor {
+    cursor : move;
+}
+
+.yith-wcbk-settings-section-box__sortable--disabled .yith-wcbk-settings-section-box__sortable-anchor {
+    cursor : default;
+}
+
+.yith-wcbk-settings-section-box__content .yith-wcbk-form-field {
+
+}
+
+.yith-wcbk-settings-section-box__content label.yith-wcbk-form-field__label {
+    width : 135px;
+    flex  : 0 1 135px;
+}
+
+.yith-wcbk-settings-checkbox-container {
+    display     : inline-flex;
+    float       : left;
+    align-items : center;
+}
+
+.yith-wcbk-settings-checkbox-container > label {
+    float        : none;
+    padding-left : 0;
+    margin-left  : 7px;
+}
+
+.yith-wcbk-settings-checkbox-container > input[type=checkbox] {
+    margin-top : 0;
+}
+
+.yith-plugin-ui #plugin-fw-wc p.yith-wcbk-plugin-panel-info-box-inline {
+    width        : auto;
+    box-sizing   : border-box;
+    display      : inline-block;
+    position     : relative;
+    padding-left : 50px;
+}
+
+.yith-plugin-ui #plugin-fw-wc p.yith-wcbk-plugin-panel-info-box-inline:before {
+    float    : none;
+    position : absolute;
+    left     : 10px;
+}
+
+.yith-plugin-ui span.description {
+    max-width : 100%;
+}
+
+@media only screen and (max-width : 782px) {
+
+    .yith-wcbk-form-field {
+        flex-direction : column;
+        margin-bottom  : 35px;
+    }
+
+    .yith-wcbk-form-field__container {
+        flex-direction : column;
+        align-items    : flex-start;
+        gap            : 5px;
+        padding-top    : 5px;
+    }
+
+    .yith-wcbk-form-field__container label {
+        padding : 0;
+    }
+
+    label.yith-wcbk-form-field__label {
+        width         : auto;
+        flex          : 1;
+        margin-bottom : 12px;
+        font-size     : 1.1em;
+        font-weight   : 600;
+    }
+
+    label.yith-wcbk-form-field__label {
+        position : static;
+    }
+
+    .yith-wcbk-settings-section label,
+    .yith-wcbk-settings-section select,
+    .yith-wcbk-settings-section input[type=text],
+    .yith-wcbk-settings-section input[type=number],
+    .yith-wcbk-settings-section input[type=email],
+    .yith-wcbk-settings-section .yith-wcbk-printer-field__admin-datepicker,
+    .yith-wcbk-settings-section .yith-wcbk-printer-percentage__container,
+    .yith-wcbk-settings-checkbox-container {
+        float   : none !important;
+        width   : 100%;
+        display : block;
+        margin  : 0;
+    }
+
+    .yith-wcbk-settings-checkbox-container label {
+        width   : auto;
+        display : inline-block;
+    }
+
+    .yith-wcbk-settings-section .yith_booking_multi_fields select {
+        float : left !important;
+        width : auto !important;
+    }
+
+    .yith-wcbk-settings-checkbox-container {
+        padding      : 0;
+        margin-right : 5px;
+    }
+
+    .yith-wcbk-printer-field__radios label {
+        float : left !important;
+        width : auto;
+    }
+
+    .yith-wcbk-form-field {
+        padding : 0 !important;
+    }
+
+    .yith-wcbk-printer-percentage__icon {
+        padding-top : 7px;
+        box-sizing  : border-box;
+    }
+
+    .yith-wcbk-settings-section-box__content label.yith-wcbk-form-field__label {
+        flex : 0 1;
+    }
+}

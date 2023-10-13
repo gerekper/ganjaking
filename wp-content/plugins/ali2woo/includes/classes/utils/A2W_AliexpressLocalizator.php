@@ -3,7 +3,7 @@
 /**
  * Description of A2W_AliexpressLocalizator
  *
- * @author Andrey
+ * @author Ali2Woo Team
  */
 if (!class_exists('A2W_AliexpressLocalizator')) {
 
@@ -221,7 +221,7 @@ if (!class_exists('A2W_AliexpressLocalizator')) {
             $result_cookies = array();
             if ($as_object) {
                 foreach ($cookies as $c) {
-                    $result_cookies[] = new Requests_Cookie($c['name'], $c['value'], $c['params'], array('host-only' => false));
+                    $result_cookies[] = new Ali2Woo\Lib\Requests_Cookie($c['name'], $c['value'], $c['params'], array('host-only' => false));
                 }
             } else {
                 $result_cookies = $cookies;

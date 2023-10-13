@@ -680,7 +680,10 @@ class Query {
 	public function run() {
 		global $wpdb;
 
-		if ( ! empty( $this->engine ) && ! empty( $this->engine->get_sources() ) ) {
+		// Empty tokens are permitted only if the search string was empty as well.
+		$has_valid_tokens = ! ( ! empty( $this->keywords_orig ) && empty( $this->tokens ) );
+
+		if ( ! empty( $this->engine ) && ! empty( $this->engine->get_sources() ) && $has_valid_tokens ) {
 			// Build the base query and process query values.
 			$query = $this->build();
 			$this->process_values();

@@ -56,9 +56,9 @@ class WC_MNM_Flatsome_Compatibility {
 	 */
 	public static function loop_classes( $classes, $product ) {
 		if ( 'grid' === $product->get_layout() ) {
-			$columns = wc_get_loop_prop( 'columns' );
+			$columns     = wc_get_loop_prop( 'columns' );
 			$new_classes = explode( ' ', flatsome_product_row_classes( $columns ) );
-			$classes = array_merge( $classes, $new_classes );
+			$classes     = array_merge( $classes, $new_classes );
 		}
 		return $classes;
 	}
@@ -74,7 +74,7 @@ class WC_MNM_Flatsome_Compatibility {
 	public static function child_item_classes( $classes, $child_item, $product ) {
 		if ( 'grid' === $product->get_layout() ) {
 			$new_classes = array( 'product-small', 'col' );
-			$classes = array_merge( $classes, $new_classes );
+			$classes     = array_merge( $classes, $new_classes );
 		}
 		return $classes;
 	}
@@ -118,7 +118,7 @@ class WC_MNM_Flatsome_Compatibility {
 
 	/**
 	 * Add theme-specific wrapper.
-	 * 
+	 *
 	 * @since 2.3.0
 	 *
 	 * @param string
@@ -139,13 +139,12 @@ class WC_MNM_Flatsome_Compatibility {
 	 * Add theme-specific styles.
 	 */
 	public static function inline_style() {
-		$custom_css = "
+		$custom_css = '
 		.mnm_form.layout_grid .mnm_item { margin-left: 0; margin-right: 0; }
 		.mnm_form .mnm_item .box-text .quantity .button { margin-top: 0; }
-		";
+		';
 
 		wp_add_inline_style( 'wc-mnm-frontend', $custom_css );
 	}
-
 } // End class.
 WC_MNM_Flatsome_Compatibility::init();

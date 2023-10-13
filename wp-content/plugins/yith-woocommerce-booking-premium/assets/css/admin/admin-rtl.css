@@ -1,0 +1,107 @@
+/**
+ * RTL Admin style
+ *
+ * @author YITH <plugins@yithemes.com>
+ */
+
+body.rtl .yith-wcbk-form-field {
+    padding : 0 190px 0 0 !important;
+}
+
+body.rtl label.yith-wcbk-form-field__label {
+    margin : 0 -190px 0 0;
+}
+
+body.rtl .yith-wcbk-settings-section label,
+body.rtl .yith-wcbk-settings-section select,
+body.rtl .yith-wcbk-settings-section input,
+body.rtl .yith-wcbk-settings-section input[type=text],
+body.rtl .yith-wcbk-settings-section input[type=number],
+body.rtl .yith-wcbk-settings-section input[type=email],
+body.rtl .yith-wcbk-settings-section input[type=radio],
+body.rtl .yith-wcbk-settings-section input[type=checkbox],
+body.rtl .yith-wcbk-settings-section .yith-wcbk-printer-field__admin-datepicker,
+body.rtl .yith-wcbk-settings-section .yith-wcbk-printer-percentage__container,
+body.rtl .yith-wcbk-availability-rule__bookable-day,
+body.rtl .yith-wcbk-form-field__container .yith-wcbk-time-select__container {
+    float : right;
+}
+
+body.rtl .yith-wcbk-time-select__icon {
+    right        : auto;
+    left         : 0;
+    border-left  : none;
+    border-right : 1px solid #ddd;
+}
+
+body.rtl .yith-wcbk-settings-section__toggle {
+    right : auto;
+    left  : 20px;
+}
+
+body.rtl .yith-wcbk-availability-rules__expand-collapse,
+body.rtl .yith-wcbk-price-rules__expand-collapse {
+    right : auto;
+    left  : 20px;
+}
+
+body.rtl .yith-wcbk-settings-section-box__content .yith-wcbk-form-field {
+    padding : 0 140px 0 0 !important;
+}
+
+body.rtl .yith-wcbk-settings-section-box__content label.yith-wcbk-form-field__label {
+    width  : 135px;
+    margin : 0 -140px 0 0;
+}
+
+body.rtl .yith-wcbk-settings-section-box__enabled {
+    right : auto;
+    left  : 20px;
+}
+
+body.rtl .yith-wcbk-settings-section-box__toggle {
+    left  : auto;
+    right : 20px;
+}
+
+body.rtl .yith-wcbk-settings-checkbox-container {
+    float         : right;
+    padding-left  : 0px;
+    padding-right : 10px;
+}
+
+body.rtl .yith-wcbk-extra-cost--custom:before {
+    right : 161px;
+    left  : auto;
+}
+
+body.rtl .yith-wcbk-extra-cost--custom .yith-wcbk-extra-cost__name {
+    margin-left  : 0;
+    margin-right : -190px;
+}
+
+body.rtl .yith_booking_multi_fields input,
+body.rtl .yith_booking_multi_fields select,
+body.rtl .yith_booking_multi_fields span.select2,
+body.rtl .yith_booking_multi_fields span.yith-wcbk-printer-field__admin-datepicker {
+    margin-right : 0 !important;
+    margin-left  : 15px !important;
+}
+
+body.rtl .yith-wcbk-settings-section-box__content__row > input,
+body.rtl .yith-wcbk-settings-section-box__content__row > input[type=number],
+body.rtl .yith-wcbk-settings-section-box__content__row > input[type=text] {
+    margin-right : 0 !important;
+    margin-left  : 15px !important;
+}
+
+@media only screen and (max-width : 500px) {
+
+    body.rtl .yith-wcbk-form-field {
+        padding : 0 !important;
+    }
+
+    body.rtl label.yith-wcbk-form-field__label {
+        margin : 0 !important;
+    }
+}

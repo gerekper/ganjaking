@@ -52,7 +52,11 @@ class WoocommerceGpfMulticurrency {
 		if ( is_null( $feed_config ) ) {
 			return;
 		}
-		$this->currency = $_GET['currency'] ?? $feed_config->currency;
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		$this->currency = isset( $_GET['currency'] ) ?
+			sanitize_text_field( $_GET['currency'] ) :
+			$feed_config->currency;
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 		if ( empty( $this->currency ) ) {
 			return;
 		}

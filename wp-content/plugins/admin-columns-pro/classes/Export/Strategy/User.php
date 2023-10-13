@@ -10,11 +10,6 @@ use WP_User_Query;
 class User extends Strategy
 {
 
-    public function __construct(AC\ListScreen\User $list_screen)
-    {
-        parent::__construct($list_screen);
-    }
-
     protected function get_list_table(): ?ListTable
     {
         return (new AC\ListTableFactory())->create_from_globals();

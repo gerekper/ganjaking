@@ -5,6 +5,7 @@ namespace MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Automation\Engine\Control\StepRunController;
 use MailPoet\Automation\Engine\Data\StepRunArgs;
 use MailPoet\Automation\Engine\Data\StepValidationArgs;
 use MailPoet\Automation\Engine\Integration\Action;
@@ -102,7 +103,7 @@ class UpdateSubscriberAction implements Action {
   public function validate(StepValidationArgs $args): void {
   }
 
-  public function run(StepRunArgs $args): void {
+  public function run(StepRunArgs $args, StepRunController $controller): void {
     $subscriber = $args->getSinglePayloadByClass(SubscriberPayload::class)->getSubscriber();
 
     foreach ($args->getStep()->getArgs()['custom_fields'] ?? [] as $data) {

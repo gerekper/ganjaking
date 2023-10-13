@@ -1,4 +1,6 @@
-<?php
+<?php 
+namespace Ali2Woo\Lib;
+
 /**
  * Case-insensitive dictionary, suitable for HTTP headers
  *
@@ -12,7 +14,7 @@
  * @package Requests
  * @subpackage Utilities
  */
-class Requests_Utility_CaseInsensitiveDictionary implements ArrayAccess, IteratorAggregate {
+class Requests_Utility_CaseInsensitiveDictionary implements \ArrayAccess, \IteratorAggregate {
 	/**
 	 * Actual item data
 	 *

@@ -3,7 +3,7 @@
 /**
  * Description of A2W_Woocommerce
  *
- * @author andrey
+ * @author Ali2Woo Team
  */
 if (!class_exists('A2W_Woocommerce')) {
 
@@ -234,6 +234,24 @@ if (!class_exists('A2W_Woocommerce')) {
                     ),
                 );
 
+                if (!empty($product['dimensions'])){
+                    if (!empty($product['dimensions']['weight'])){
+                        update_post_meta($product_id, '_weight', $product['dimensions']['weight']);
+                    }
+
+                    if (!empty($product['dimensions']['width'])){
+                        update_post_meta($product_id, '_width', $product['dimensions']['width']);
+                    }
+
+                    if (!empty($product['dimensions']['height'])){
+                        update_post_meta($product_id, '_height', $product['dimensions']['height']);
+                    }
+
+                    if (!empty($product['dimensions']['length'])){
+                        update_post_meta($product_id, '_length', $product['dimensions']['length']);
+                    }
+                }
+           
                 if ($override_product && $this->is_product_exist($product_id)) {
                     // Overide exit product.
                     $post['ID'] = $product_id;
@@ -310,6 +328,15 @@ if (!class_exists('A2W_Woocommerce')) {
                     delete_post_meta($product_id, "_a2w_outofstock");
                 } else {
                     update_post_meta($product_id, "_a2w_outofstock", true);
+                }
+
+                //save seller_id and store_id
+                if (!empty($product['seller_id'])) {
+                    update_post_meta($product_id, '_a2w_seller_id', $product['seller_id']);
+                }
+
+                if (!empty($product['store_id'])) {
+                    update_post_meta($product_id, '_a2w_store_id', $product['store_id']);
                 }
 
                 // set default shipping country from
@@ -487,6 +514,25 @@ if (!class_exists('A2W_Woocommerce')) {
             }
 
             // first, update some meta
+
+            if (!empty($product['dimensions'])){
+                if (!empty($product['dimensions']['weight'])){
+                    update_post_meta($product_id, '_weight', $product['dimensions']['weight']);
+                }
+
+                if (!empty($product['dimensions']['width'])){
+                    update_post_meta($product_id, '_width', $product['dimensions']['width']);
+                }
+
+                if (!empty($product['dimensions']['height'])){
+                    update_post_meta($product_id, '_height', $product['dimensions']['height']);
+                }
+
+                if (!empty($product['dimensions']['length'])){
+                    update_post_meta($product_id, '_length', $product['dimensions']['length']);
+                }
+            }
+
             if (!empty($product['affiliate_url']) && !a2w_check_defined('A2W_DISABLE_UPDATE_AFFILIATE_URL')) {
                 update_post_meta($product_id, '_product_url', $product['affiliate_url']);
                 update_post_meta($product_id, '_a2w_product_url', $product['affiliate_url']);
@@ -502,6 +548,15 @@ if (!class_exists('A2W_Woocommerce')) {
 
             if (!empty($product['video'])) {
                 update_post_meta($product_id, '_a2w_video', $product['video']);
+            }
+
+            //save seller_id and store_id
+            if (!empty($product['seller_id'])) {
+                update_post_meta($product_id, '_a2w_seller_id', $product['seller_id']);
+            }
+
+            if (!empty($product['store_id'])) {
+                update_post_meta($product_id, '_a2w_store_id', $product['store_id']);
             }
 
             // update shipping meta data
@@ -531,6 +586,34 @@ if (!class_exists('A2W_Woocommerce')) {
                 if ($old_aliexpress_sku_props) {
                     $external_variation_id = $product['id'] . '-' . implode('-', explode(';', $old_aliexpress_sku_props));
                     $old_variations = array($external_variation_id);
+                }
+            }
+  
+            if ($old_variations){
+                //previous version of API provided atrributes in another order
+                //therefore here we check that new variants are not the old variants actually
+                $matched_variations = [];
+                foreach ($product['sku_products']['variations'] as $key => $variation) {
+                    if (!in_array($variation['id'], $old_variations)) {
+                        $variation_parts = explode('-', $variation['id']);
+                        $matched_old_variation = false;
+                        foreach ($old_variations as $old_variation){
+                            if ( A2W_Utils::string_contains_all($old_variation, $variation_parts) ){
+                                $matched_old_variation = $old_variation;
+                                break;
+                            }
+                        }
+
+                        if ($matched_old_variation !== false){
+                            $matched_variations[] = array('new' => $variation['id'], 'existed' => $matched_old_variation);
+                            $product['sku_products']['variations'][$key]['id'] = $matched_old_variation;
+                        }
+                    }
+                }
+
+                if (!empty($matched_variations)){
+                    a2w_error_log('we matched the following vars during sync:');
+                    a2w_error_log(print_r($matched_variations, true));
                 }
             }
 
@@ -1853,12 +1936,7 @@ if (!class_exists('A2W_Woocommerce')) {
             a2w_init_error_handler();
             try {
                 $result = A2W_ResultBuilder::buildOk();
-
-                $token = A2W_AliexpressToken::getInstance()->defaultToken();
-                if (!$token) {
-                    return A2W_ResultBuilder::buildError(__('Session token is not found. Add a new token in the plugin settings.', 'ali2woo'));
-                }
-
+    
                 $order = wc_get_order($order_id);
                 if(!$order) {
                     $result = A2W_ResultBuilder::buildError('Order not found');
@@ -1875,10 +1953,10 @@ if (!class_exists('A2W_Woocommerce')) {
 
                     $api = new A2W_Aliexpress();
                     foreach ($external_order_ids as $external_order_id) {
-                        $order_result = $api->load_order($external_order_id, $token['access_token']);
+                        $order_result = $api->load_order($external_order_id);
                         if($order_result['state']==='error' && isset($order_result['error_code']) && $order_result['error_code'] == 404) {
-                            // remove external order id
-                            $this->delete_external_order_id($order_id, $external_order_id);
+                            // remove external order id (decided to not make this, because it can erase data if token aliexpress account changed)
+                           // $this->delete_external_order_id($order_id, $external_order_id);
                         } else if($order_result['state']==='ok') {
                             // update tracking info
                             $tracking_codes = array();
@@ -2179,6 +2257,16 @@ if (!class_exists('A2W_Woocommerce')) {
                 $address2 = $order->get_billing_address_2();
                 $post_code = $order->get_billing_postcode();
             }
+
+            $passport_no = $order->get_meta('_shipping_passport_no');
+            $passport_no_date = $order->get_meta('_shipping_passport_no_date');
+            $passport_organization = $order->get_meta('_shipping_passport_organization');
+            $tax_number = $order->get_meta('_shipping_tax_number');
+            $foreigner_passport_no = $order->get_meta('_shipping_foreigner_passport_no');
+            $is_foreigner = $order->get_meta('_shipping_is_foreigner');
+            $vat_no = $order->get_meta('_shipping_vat_no');
+            $tax_company = $order->get_meta('_shipping_tax_company');
+
             $woo_country = $shipping_country ? $shipping_country : $billing_country;
             $country = A2W_ProductShippingMeta::normalize_country($woo_country);
             $country_name = A2W_Country::get_country($country);
@@ -2194,7 +2282,7 @@ if (!class_exists('A2W_Woocommerce')) {
             } else {
                 $phone = $default_phone_number;
                 if ($default_phone_code) {
-                    $phone_country = A2W_Utils::get_country_by_phone_code($default_phone_code);
+                    $phone_country = $default_phone_code;
                 }
             }
             $states = A2W_Country::get_states($woo_country);
@@ -2331,7 +2419,17 @@ if (!class_exists('A2W_Woocommerce')) {
                 'cpf' => '',
                 'rutNo' => '',
                 'fromOrderId' => $order->get_id(),
+                // aditional fields
+                'passport_no' => $passport_no,
+                'passport_no_date' => $passport_no_date,
+                'passport_organization' => $passport_organization,
+                'tax_number' => $tax_number,
+                'foreigner_passport_no' => $foreigner_passport_no,
+                'is_foreigner' => $is_foreigner,
+                'vat_no' => $vat_no,
+                'tax_company' => $tax_company,
             );
+
             if ($country === 'BR') {
                 $result['cpf'] = $order->get_shipping_company();
                 if (!$result['cpf']) {

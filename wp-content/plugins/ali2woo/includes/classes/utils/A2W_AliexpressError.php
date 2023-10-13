@@ -3,7 +3,7 @@
 /**
  * Description of A2W_AliexpressError
  *
- * @author Andrey
+ * @author Ali2Woo Team
  */
 if (!class_exists('A2W_AliexpressError')) {
 
@@ -25,6 +25,8 @@ if (!class_exists('A2W_AliexpressError')) {
             switch ($error_code) {
                 case 'B_DROPSHIPPER_DELIVERY_ADDRESS_VALIDATE_FAIL':
                     return __('Invalid shipping address', 'ali2woo');
+                case 'ERROR_WHEN_BUILD_FOR_PLACE_ORDER':
+                    return __('Check if each product (or its variant) in your order is still available and in-stock on AliExpress', 'ali2woo');    
                 case 'DELIVERY_METHOD_NOT_EXIST':
                     return __('Invalid shipping method', 'ali2woo');
                 case 'Invalid session':

@@ -2,7 +2,7 @@
 /**
  * Description of A2W_ShippingPostType
  *
- * @author MA_GROUP
+ * @author Ali2Woo Team
  */
   
 if (!class_exists('A2W_ShippingPostType')):

@@ -22,7 +22,7 @@
       display: inline-block;
       margin-left: .5em; }
       .woocommerce_options_panel .options_group fieldset.wc_mnm_radio_images ul li label {
-        border: 2px solid #c2c2c2;
+        border: var(--wp-admin-border-width-focus, 2px) solid #c2c2c2;
         text-align: center;
         -webkit-user-select: none;
            -moz-user-select: none;
@@ -121,7 +121,7 @@
     display: none; }
   .woocommerce_options_panel .options_group fieldset.wc_mnm_radio_images input[type="radio"]:checked + label,
   .woocommerce_options_panel .options_group fieldset.wc_mnm_radio_images input[type="radio"]:focus + label {
-    border-color: var(--wc-blue, #007cba);
+    border-color: var(--wp-admin-theme-color, #007cba);
     background: #fff; }
 
 .woocommerce_options_panel .options_group .wc_mnm_toggle .description {
@@ -160,7 +160,7 @@
     background-color: #8f8f8f; }
 
 .woocommerce_options_panel .options_group .wc_mnm_toggle input[type="checkbox"]:checked + .wc_mnm_toggle_element {
-  background-color: var(--wc-blue, #007cba); }
+  background-color: var(--wp-admin-theme-color, #007cba); }
   .woocommerce_options_panel .options_group .wc_mnm_toggle input[type="checkbox"]:checked + .wc_mnm_toggle_element:before {
     background-color: #fff;
     transform: translateX(-0.875em); }

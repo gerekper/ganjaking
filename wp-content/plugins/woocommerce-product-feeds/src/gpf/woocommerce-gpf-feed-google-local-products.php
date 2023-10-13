@@ -6,7 +6,11 @@ class WoocommerceGpfFeedGoogleLocalProducts extends WoocommerceGpfFeedGoogle {
 	 * Output the "title" element in the feed intro.
 	 */
 	protected function render_feed_title() {
-		echo '    <title>' . $this->esc_xml( $this->store_info->blog_name . ' Local Products' ) . "</title>\n";
+
+		echo '<title>';
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $this->esc_xml( $this->store_info->blog_name . __( ' Local Products', 'woocommerce_gpf' ) );
+		echo "</title>\n";
 	}
 
 	/**

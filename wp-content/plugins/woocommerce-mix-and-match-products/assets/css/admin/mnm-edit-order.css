@@ -91,7 +91,7 @@
       text-align: center; }
       .wc-mnm-backbone-modal table.mnm_child_products td.product-quantity .quantity {
         text-align: center; }
-        .wc-mnm-backbone-modal table.mnm_child_products td.product-quantity .quantity input {
+        .wc-mnm-backbone-modal table.mnm_child_products td.product-quantity .quantity input[type="text"] {
           width: 4em;
           margin: 0 auto;
           padding: .25em .25em .25em 1em; }

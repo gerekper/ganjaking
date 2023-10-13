@@ -1,49 +1,50 @@
-#, fuzzy
+# Copyright (C) 2023 SearchWP
+# This file is distributed under the same license as the SearchWP plugin.
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"Project-Id-Version: SearchWP\n"
-"POT-Creation-Date: 2023-09-11 11:43+0200\n"
-"PO-Revision-Date: 2020-04-01 16:08-0400\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"Project-Id-Version: SearchWP 4.3.5\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/searchwp\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
-"X-Poedit-Basepath: ..\n"
-"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
-"X-Poedit-WPHeader: index.php\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"X-Poedit-SearchPath-0: index.php\n"
-"X-Poedit-SearchPath-1: uninstall.php\n"
-"X-Poedit-SearchPath-2: includes\n"
-"X-Poedit-SearchPath-3: lib/class.swp-query.php\n"
-"X-Poedit-SearchPathExcluded-0: *.min.js\n"
-"X-Poedit-SearchPathExcluded-1: vendor\n"
-"X-Poedit-SearchPathExcluded-2: node_modules\n"
-"X-Poedit-SearchPathExcluded-3: assets\n"
-"X-Poedit-SearchPathExcluded-4: tests\n"
-"X-Poedit-SearchPathExcluded-5: vendor-bin\n"
-"X-Poedit-SearchPathExcluded-6: wordpress\n"
-"X-Poedit-SearchPathExcluded-7: config\n"
-"X-Poedit-SearchPathExcluded-8: lib/vendor\n"
+"POT-Creation-Date: 2023-09-12T14:19:41+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.8.1\n"
+"X-Domain: searchwp\n"
+
+#. Plugin Name of the plugin
+#. Author of the plugin
+#: includes/Admin/OptionsView.php:310
+msgid "SearchWP"
+msgstr ""
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+msgid "https://searchwp.com/"
+msgstr ""
+
+#. Description of the plugin
+msgid "The best WordPress search you can find"
+msgstr ""
 
 #: includes/Admin/AdminBar.php:98
 msgid "Activate License"
 msgstr ""
 
-#: includes/Admin/AdminBar.php:108 includes/Admin/OptionsView.php:370
+#: includes/Admin/AdminBar.php:108
+#: includes/Admin/OptionsView.php:370
 msgid "Algorithm"
 msgstr ""
 
-#: includes/Admin/AdminBar.php:118 includes/Admin/OptionsView.php:380
+#: includes/Admin/AdminBar.php:118
+#: includes/Admin/OptionsView.php:380
 msgid "Statistics"
 msgstr ""
 
+#. Translators: Placeholder is a link to the Migration Guide.
 #: includes/Admin/AdminNotices/DirtyInstallAdminNotice.php:34
-#, php-format
 msgid "Error: Duplicate SearchWP version detected! When upgrading SearchWP from version 3.x to 4 you must follow the %1$s%2$s%3$s which will resolve this error."
 msgstr ""
 
@@ -51,18 +52,17 @@ msgstr ""
 msgid "Migration Guide"
 msgstr ""
 
+#. Translators: 1st placeholder is the name of a Source. 2nd placeholder is the name of an Engine.
 #: includes/Admin/AdminNotices/MissingEngineSourceAdminNotice.php:35
-#, php-format
 msgid "Note: <strong>%1$s</strong> were not added to the <strong>%2$s</strong> SearchWP Engine, which is used for Admin searches. As a result default WordPress results are shown."
 msgstr ""
 
+#. Translators: 1st placeholder is a link, 2nd is a plugin name, 3rd closes the link, 4th is a link to an Extension, 5th is the Extension name, 6th closes the link.
 #: includes/Admin/AdminNotices/MissingIntegrationAdminNotice.php:35
-#, php-format
 msgid "<strong>Missing SearchWP Integration Extension</strong>. For full integration with %1$s%2$s%3$s please install the %4$s%5$s%6$s Extension."
 msgstr ""
 
 #: includes/Admin/DashboardWidgets/StatisticsDashboardWidget.php:51
-#, php-format
 msgid "SearchWP Statistics %d Day Overview"
 msgstr ""
 
@@ -74,6 +74,942 @@ msgstr ""
 msgid "Invalid Engine name"
 msgstr ""
 
+#. Translators: placeholder is the number "1"
+#: includes/Admin/i18n.php:23
+msgid "%s Attribute"
+msgstr ""
+
+#. Translators: placeholder is the number of attributes
+#: includes/Admin/i18n.php:28
+msgid "%s Attributes"
+msgstr ""
+
+#. Translators: placeholder is the number "1"
+#: includes/Admin/i18n.php:33
+msgid "%s Rule"
+msgstr ""
+
+#. Translators: placeholder is the number of attributes
+#: includes/Admin/i18n.php:38
+msgid "%s Rules"
+msgstr ""
+
+#: includes/Admin/i18n.php:41
+msgid "This engine will be used for WordPress Admin searches, it will search these sources:"
+msgstr ""
+
+#: includes/Admin/i18n.php:42
+msgid "When searching a supported Source, this Engine will be used"
+msgstr ""
+
+#. Translators: placeholder is the label of the engine.
+#: includes/Admin/i18n.php:45
+msgid "Already set: %s"
+msgstr ""
+
+#: includes/Admin/i18n.php:48
+msgid "Alternate indexer running: leave this browser window open until the initial index has been built."
+msgstr ""
+
+#: includes/Admin/i18n.php:49
+msgid "Alternate indexer in use: initial index built. This browser window can be closed, the index will be kept up to date automatically."
+msgstr ""
+
+#. Translators: 1st placeholder is the name of a Source, 2nd placeholder is the label of the engine.
+#: includes/Admin/i18n.php:53
+msgid "Choose which %1$s Attributes should be considered when searching the %2$s engine:"
+msgstr ""
+
+#. Translators: 1st placeholder is the label of a Source Attribute.
+#: includes/Admin/i18n.php:62
+msgid "Type to search %1$s..."
+msgstr ""
+
+#: includes/Admin/i18n.php:67
+msgid "There was an error copying to your clipboard, please manually copy and paste"
+msgstr ""
+
+#: includes/Admin/i18n.php:68
+msgid "Are you sure you want to reset statistics? This cannot be undone!"
+msgstr ""
+
+#: includes/Admin/i18n.php:69
+msgid "Potential WP-Cron issue detected, background process may not be fully functional."
+msgstr ""
+
+#: includes/Admin/i18n.php:70
+msgid "This engine will be used for native WordPress searches, it will search these sources:"
+msgstr ""
+
+#: includes/Admin/i18n.php:71
+msgid "This engine will search these sources:"
+msgstr ""
+
+#: includes/Admin/i18n.php:73
+msgid "This engine will be used for native WordPress <strong>and</strong> Admin searches, it will search these sources"
+msgstr ""
+
+#. Translators: 1st placeholder is the label of the Source, 2nd placeholder is the label of the Engine.
+#: includes/Admin/i18n.php:78
+msgid "Edit Rules for %1$s (%2$s Engine)"
+msgstr ""
+
+#. Translators: placeholder is the label of the engine.
+#: includes/Admin/i18n.php:84
+msgid "Edit Settings (%s engine)"
+msgstr ""
+
+#: includes/Admin/i18n.php:88
+msgid "<strong>Exclude</strong> entries if:"
+msgstr ""
+
+#: includes/Admin/i18n.php:91
+msgid "To export: choose what you want to export and then copy to clipboard"
+msgstr ""
+
+#: includes/Admin/i18n.php:92
+msgid "HTTP Loopback connections are not working on this server; this window must be left open for the initial index to build. Subsequent content edits will be reindexed automatically when made."
+msgstr ""
+
+#: includes/Admin/i18n.php:93
+msgid "To import: paste settings export and click Import"
+msgstr ""
+
+#. Translators: 1st placeholder is an opening link, 2nd placeholder is closing, 3rd placeholder is an email link.
+#: includes/Admin/i18n.php:97
+msgid "<p>Your license key can be retrieved or renewed within your %1$sAccount%2$s</p><p>If you are unable to activate your license due to network restrictions, please email %3$s first including your license key and then describing your issue.</p>"
+msgstr ""
+
+#: includes/Admin/i18n.php:104
+msgid "Support and updates require an active license. Please activate your license to receive support."
+msgstr ""
+
+#: includes/Admin/i18n.php:105
+msgid "Note: the index is automatically kept up to date and maintained for optimization"
+msgstr ""
+
+#: includes/Admin/i18n.php:106
+msgid "The index needs to be rebuilt."
+msgstr ""
+
+#: includes/Admin/i18n.php:107
+msgid "After certain engine configuration changes the index must be rebuilt"
+msgstr ""
+
+#: includes/Admin/i18n.php:108
+msgid "Indexer BLOCKED by HTTP Basic Authentication!"
+msgstr ""
+
+#: includes/Admin/i18n.php:109
+msgid "The indexer is paused."
+msgstr ""
+
+#: includes/Admin/i18n.php:110
+msgid "You can unpause the indexer from the Settings."
+msgstr ""
+
+#: includes/Admin/i18n.php:111
+msgid "Custom content Sources cannot be used in the Default engine"
+msgstr ""
+
+#: includes/Admin/i18n.php:112
+msgid "Disregard keyword suffixes when searches are performed"
+msgstr ""
+
+#: includes/Admin/i18n.php:113
+msgid "There was a problem activating your license. Please ensure this server can communicate with searchwp.com and try again."
+msgstr ""
+
+#: includes/Admin/i18n.php:114
+msgid "There was a problem deactivating your license. Please ensure this server can communicate with searchwp.com and try again."
+msgstr ""
+
+#. Translators: 1st placeholder is the label of the Attribute, 2nd placeholder is the label of the Engine.
+#: includes/Admin/i18n.php:117
+msgid "Manage %1$s Attributes (%2$s Engine)"
+msgstr ""
+
+#: includes/Admin/i18n.php:121
+msgid "The following queries have been ignored both when logging and displaying statistics."
+msgstr ""
+
+#: includes/Admin/i18n.php:122
+msgid "There are no ignored queries at this time."
+msgstr ""
+
+#. Translators: first placeholder is the SearchWP recommended RAM amount, second placeholder is the WordPress memory limit, third placeholder is the RAM available to PHP.
+#: includes/Admin/i18n.php:125
+msgid "SearchWP recommends at least %1$s of memory. WordPress is set to use %2$s but there is %3$s available."
+msgstr ""
+
+#: includes/Admin/i18n.php:130
+msgid "To enable SearchWP, please save your initial settings which builds the index"
+msgstr ""
+
+#: includes/Admin/i18n.php:131
+msgid "In order for results to be returned, you must add Attributes to be searched."
+msgstr ""
+
+#: includes/Admin/i18n.php:132
+msgid "There are no rules"
+msgstr ""
+
+#. Translators: placeholder is the label of the Rule.
+#: includes/Admin/i18n.php:135
+msgid "There are currently no rules for %s."
+msgstr ""
+
+#: includes/Admin/i18n.php:138
+msgid "In order for this engine to return results, you must add at least one source"
+msgstr ""
+
+#: includes/Admin/i18n.php:139
+msgid "There are currently no stopwords."
+msgstr ""
+
+#: includes/Admin/i18n.php:140
+msgid "There are no suggested stopwords to add at this time."
+msgstr ""
+
+#: includes/Admin/i18n.php:141
+msgid "There are currently no synonyms."
+msgstr ""
+
+#: includes/Admin/i18n.php:143
+msgid "<strong>Only show</strong> entries if:"
+msgstr ""
+
+#. Translators: 1st placeholder opens the link, 2nd placeholder closes it.
+#: includes/Admin/i18n.php:149
+msgid "Stopwords are <em>ignored</em> so as to improve relevancy and performance. %1$sMore info%2$s"
+msgstr ""
+
+#: includes/Admin/i18n.php:155
+msgid "The following terms may be too common to have a positive effect on searches, consider adding them as Stopwords."
+msgstr ""
+
+#: includes/Admin/i18n.php:156
+msgid "The index does not appear to be building, you may want to enable the alternate indexer:"
+msgstr ""
+
+#. Translators: 1st placeholder opens the link, 2nd placeholder closes it.
+#: includes/Admin/i18n.php:160
+msgid "Synonyms facilitate <em>replacement</em> of search terms. Use <code>*</code> wildcard for partial matching. %1$sMore info%2$s"
+msgstr ""
+
+#: includes/Admin/i18n.php:166
+#: includes/Admin/Views/GlobalRulesView.php:230
+#: includes/Admin/Views/GlobalRulesView.php:346
+#: includes/Admin/Views/GlobalRulesView.php:467
+msgid "When enabled, original Search Term(s) will be removed"
+msgstr ""
+
+#: includes/Admin/i18n.php:167
+#: includes/Admin/Views/GlobalRulesView.php:208
+#: includes/Admin/Views/GlobalRulesView.php:312
+#: includes/Admin/Views/GlobalRulesView.php:433
+msgid "Term(s) that are synonymous with the Search Term(s)"
+msgstr ""
+
+#: includes/Admin/i18n.php:168
+#: includes/Admin/Views/GlobalRulesView.php:184
+#: includes/Admin/Views/GlobalRulesView.php:282
+#: includes/Admin/Views/GlobalRulesView.php:403
+msgid "What visitors search for (separate different search terms by commas)"
+msgstr ""
+
+#: includes/Admin/i18n.php:169
+msgid "Are you sure you want to rebuild the index? This cannot be undone!"
+msgstr ""
+
+#. Translators: 1st placeholder is the name of a Source.
+#: includes/Admin/i18n.php:172
+msgid "Save %1$s Attributes"
+msgstr ""
+
+#: includes/Admin/i18n.php:175
+msgid "Please copy and paste this System Information when requested"
+msgstr ""
+
+#: includes/Admin/i18n.php:176
+msgid "If the indexer appears to be stuck, first review the PHP error log to see if anything needs to be fixed before waking it up. The indexer can become stuck when customizations are not working as expected."
+msgstr ""
+
+#. Translators: 1st placeholder opens the link, 2nd placeholder closes it.
+#: includes/Admin/i18n.php:180
+msgid "<p>A default Engine has been generated as a starting point for you to customize. Once saved, SearchWP will then build its index and provide terrific search results automatically!</p><p>To find out more about customizing SearchWP, please %1$sreview the documentation%2$s.</p><p class=\"description\">Thank you!</p>"
+msgstr ""
+
+#: includes/Admin/i18n.php:186
+msgid "Thank you for activating SearchWP!"
+msgstr ""
+
+#. Translators: 1st placeholder opens the link, 2nd placeholder closes it.
+#: includes/Admin/i18n.php:190
+msgid "Your settings from SearchWP 3.x have been migrated. To delete legacy data from SearchWP 3.x please use %1$sthis Extension%2$s."
+msgstr ""
+
+#. Translators: 1st placeholder opens the link, 2nd placeholder closes it.
+#: includes/Admin/i18n.php:199
+msgid "All data from SearchWP 3.x has been migrated! Legacy data can be removed with %1$sthis Extension%2$s."
+msgstr ""
+
+#: includes/Admin/i18n.php:206
+msgid "Statistics have <strong>NOT</strong> been migrated as it may take some time to do so."
+msgstr ""
+
+#: includes/Admin/i18n.php:210
+msgid "<strong>Before SearchWP can take effect</strong> you will need to <em>review and save</em> your Engine(s)"
+msgstr ""
+
+#. Translators: this is the suffix for the Statistics tooltip.
+#: includes/Admin/i18n.php:214
+msgid " Searches"
+msgstr ""
+
+#. Translators: this is the suffix for the Statistics tooltip.
+#: includes/Admin/i18n.php:215
+msgid "(This setting can be changed at any time on the Advanced tab of the SearchWP settings screen)"
+msgstr ""
+
+#: includes/Admin/i18n.php:216
+msgid "Actions & Settings"
+msgstr ""
+
+#: includes/Admin/i18n.php:217
+msgid "Actions"
+msgstr ""
+
+#: includes/Admin/i18n.php:218
+#: includes/Admin/Views/AboutUsView.php:642
+#: includes/Admin/Views/ExtensionsView.php:438
+msgid "Activate"
+msgstr ""
+
+#: includes/Admin/i18n.php:219
+#: includes/Admin/Views/AboutUsView.php:635
+#: includes/Admin/Views/ExtensionsView.php:430
+msgid "Active"
+msgstr ""
+
+#: includes/Admin/i18n.php:220
+#: includes/Admin/Views/SearchFormsView.php:198
+msgid "Add New"
+msgstr ""
+
+#: includes/Admin/i18n.php:221
+msgid "Add Rule"
+msgstr ""
+
+#: includes/Admin/i18n.php:222
+msgid "Add Stopword"
+msgstr ""
+
+#: includes/Admin/i18n.php:223
+msgid "Add"
+msgstr ""
+
+#: includes/Admin/i18n.php:224
+msgid "Add/Remove Attributes"
+msgstr ""
+
+#: includes/Admin/i18n.php:225
+msgid "Admin Engine"
+msgstr ""
+
+#: includes/Admin/i18n.php:226
+msgid "Advanced Settings"
+msgstr ""
+
+#: includes/Admin/i18n.php:227
+msgid "AND"
+msgstr ""
+
+#: includes/Admin/i18n.php:228
+msgid "Applicable Attribute Relevance"
+msgstr ""
+
+#: includes/Admin/i18n.php:229
+msgid "Are you sure you want to delete this engine?"
+msgstr ""
+
+#: includes/Admin/i18n.php:230
+msgid "Are you sure? The existing background process will be destroyed and then restarted."
+msgstr ""
+
+#: includes/Admin/i18n.php:231
+msgid "Attributes"
+msgstr ""
+
+#: includes/Admin/i18n.php:232
+msgid "Attributes to search (slider sets relevance weight)"
+msgstr ""
+
+#: includes/Admin/i18n.php:233
+msgid "Automatic \"Did you mean?\" corrections"
+msgstr ""
+
+#: includes/Admin/i18n.php:234
+msgid "Automatically highlight search terms when possible"
+msgstr ""
+
+#: includes/Admin/i18n.php:235
+msgid "Cancel"
+msgstr ""
+
+#: includes/Admin/i18n.php:236
+msgid "Clear Stopwords"
+msgstr ""
+
+#: includes/Admin/i18n.php:237
+msgid "Close"
+msgstr ""
+
+#: includes/Admin/i18n.php:238
+msgid "Collapse Sources"
+msgstr ""
+
+#: includes/Admin/i18n.php:239
+msgid "Continue to queue (but do not apply) delta index updates"
+msgstr ""
+
+#: includes/Admin/i18n.php:240
+msgid "Copied!"
+msgstr ""
+
+#: includes/Admin/i18n.php:241
+msgid "Copy to clipboard"
+msgstr ""
+
+#: includes/Admin/i18n.php:242
+#: includes/Admin/Views/ExtensionsView.php:431
+msgid "Deactivate"
+msgstr ""
+
+#: includes/Admin/i18n.php:243
+msgid "Debugging enabled"
+msgstr ""
+
+#: includes/Admin/i18n.php:244
+msgid "Delete Engine"
+msgstr ""
+
+#: includes/Admin/i18n.php:245
+msgid "Delete parsed document content when rebuilding Index"
+msgstr ""
+
+#: includes/Admin/i18n.php:246
+msgid "Delete"
+msgstr ""
+
+#: includes/Admin/i18n.php:247
+msgid "Done"
+msgstr ""
+
+#: includes/Admin/i18n.php:248
+msgid "Edit Rules"
+msgstr ""
+
+#: includes/Admin/i18n.php:249
+msgid "Engine Label"
+msgstr ""
+
+#: includes/Admin/i18n.php:250
+msgid "Engine Name"
+msgstr ""
+
+#: includes/Admin/i18n.php:251
+msgid "Settings import complete"
+msgstr ""
+
+#: includes/Admin/i18n.php:252
+msgid "Exclude entries if:"
+msgstr ""
+
+#: includes/Admin/i18n.php:253
+msgid "Existing settings of the same type will be overwritten. Continue?"
+msgstr ""
+
+#: includes/Admin/i18n.php:254
+msgid "Expand Sources"
+msgstr ""
+
+#: includes/Admin/i18n.php:255
+msgid "Export"
+msgstr ""
+
+#: includes/Admin/i18n.php:256
+msgid "Find partial matches when search terms yield no results"
+msgstr ""
+
+#: includes/Admin/i18n.php:257
+msgid "Fix this"
+msgstr ""
+
+#: includes/Admin/i18n.php:258
+#: includes/Admin/Views/SystemInfoView.php:111
+msgid "Get Help"
+msgstr ""
+
+#: includes/Admin/i18n.php:259
+#: includes/Admin/Views/MiscSettingsView.php:116
+msgid "Hide Announcements"
+msgstr ""
+
+#: includes/Admin/i18n.php:260
+msgid "Hide plugin announcements and update details"
+msgstr ""
+
+#: includes/Admin/i18n.php:261
+msgid "Highlight terms in results"
+msgstr ""
+
+#: includes/Admin/i18n.php:262
+#: includes/Sources/Post.php:728
+#: includes/Sources/Taxonomy.php:180
+msgid "ID"
+msgstr ""
+
+#: includes/Admin/i18n.php:263
+msgid "If you are customizing Document Content, PDF Metadata, or image EXIF in any way, you may want to change that behavior and have SearchWP re-parse that content when rebuilding the index."
+msgstr ""
+
+#: includes/Admin/i18n.php:264
+msgid "Import Settings"
+msgstr ""
+
+#: includes/Admin/i18n.php:265
+msgid "Import"
+msgstr ""
+
+#: includes/Admin/i18n.php:266
+msgid "In order to optimize index rebuilds, SearchWP does not purge extracted Document Content, PDF Metadata, or image EXIF data by default."
+msgstr ""
+
+#: includes/Admin/i18n.php:267
+#: includes/Admin/Views/AboutUsView.php:641
+#: includes/Admin/Views/ExtensionsView.php:437
+msgid "Inactive"
+msgstr ""
+
+#: includes/Admin/i18n.php:268
+msgid "Index everything regardless of token length"
+msgstr ""
+
+#: includes/Admin/i18n.php:269
+msgid "Index expanded Shortcode output (at the time of indexing)"
+msgstr ""
+
+#: includes/Admin/i18n.php:270
+msgid "Index Status"
+msgstr ""
+
+#: includes/Admin/i18n.php:271
+msgid "Indexed"
+msgstr ""
+
+#: includes/Admin/i18n.php:272
+msgid "Indexer communication error. See console."
+msgstr ""
+
+#: includes/Admin/i18n.php:273
+msgid "Indexer Paused"
+msgstr ""
+
+#: includes/Admin/i18n.php:274
+msgid "is"
+msgstr ""
+
+#: includes/Admin/i18n.php:275
+msgid "Keyword Stems"
+msgstr ""
+
+#: includes/Admin/i18n.php:276
+msgid "Last Activity"
+msgstr ""
+
+#: includes/Admin/i18n.php:277
+msgid "Leaving this parsed content in place speeds up index rebuilds"
+msgstr ""
+
+#: includes/Admin/i18n.php:278
+msgid "License"
+msgstr ""
+
+#: includes/Admin/i18n.php:279
+msgid "Log information during indexing and searching for review"
+msgstr ""
+
+#: includes/Admin/i18n.php:280
+msgid "Manage Attributes"
+msgstr ""
+
+#: includes/Admin/i18n.php:281
+msgid "Manage Ignored Queries"
+msgstr ""
+
+#: includes/Admin/i18n.php:282
+msgid "Manage Ignored"
+msgstr ""
+
+#: includes/Admin/i18n.php:283
+msgid "Max"
+msgstr ""
+
+#: includes/Admin/i18n.php:284
+msgid "Migrate Statistics"
+msgstr ""
+
+#: includes/Admin/i18n.php:285
+msgid "Min"
+msgstr ""
+
+#: includes/Admin/i18n.php:286
+msgid "More Info"
+msgstr ""
+
+#: includes/Admin/i18n.php:287
+msgid "Omitted Entries"
+msgstr ""
+
+#: includes/Admin/i18n.php:288
+msgid "Omitted"
+msgstr ""
+
+#: includes/Admin/i18n.php:289
+msgid "Only show entries if:"
+msgstr ""
+
+#: includes/Admin/i18n.php:290
+msgid "Options"
+msgstr ""
+
+#: includes/Admin/i18n.php:291
+msgid "Or choose from the following shortcuts"
+msgstr ""
+
+#: includes/Admin/i18n.php:292
+msgid "OR"
+msgstr ""
+
+#: includes/Admin/i18n.php:293
+msgid "Parse Shortcodes when indexing"
+msgstr ""
+
+#: includes/Admin/i18n.php:294
+msgid "Partial matches (fuzzy when necessary)"
+msgstr ""
+
+#: includes/Admin/i18n.php:295
+msgid "Performing migration, please wait..."
+msgstr ""
+
+#: includes/Admin/i18n.php:296
+msgid "Prevalence"
+msgstr ""
+
+#: includes/Admin/i18n.php:297
+msgid "Process less data per index pass (less resource intensive, but slower)"
+msgstr ""
+
+#: includes/Admin/i18n.php:298
+msgid "Query to ignore, use * as wildcard"
+msgstr ""
+
+#. translators: %s: Query number.
+#: includes/Admin/i18n.php:299
+#: includes/Debug/Console/Panels.php:55
+#: includes/Debug/Console/Panels.php:83
+#: includes/Statistics.php:359
+msgid "Query"
+msgid_plural "Query %s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Admin/i18n.php:300
+msgid "Queued updates will be processed immediately when the indexer is unpaused"
+msgstr ""
+
+#: includes/Admin/i18n.php:301
+msgid "Rebuild Index"
+msgstr ""
+
+#: includes/Admin/i18n.php:302
+msgid "Reduced indexer aggressiveness"
+msgstr ""
+
+#: includes/Admin/i18n.php:303
+msgid "Reintroduce"
+msgstr ""
+
+#: includes/Admin/i18n.php:304
+msgid "Remove"
+msgstr ""
+
+#: includes/Admin/i18n.php:305
+msgid "Remove all data on uninstall"
+msgstr ""
+
+#: includes/Admin/i18n.php:306
+msgid "Remove all traces of SearchWP when it is deactivated and deleted from the Plugins page"
+msgstr ""
+
+#: includes/Admin/i18n.php:307
+msgid "Remove extracted Document Content, PDF Metadata, and image EXIF data and re-parse when rebuilding Index"
+msgstr ""
+
+#: includes/Admin/i18n.php:308
+msgid "Remove minimum word length"
+msgstr ""
+
+#: includes/Admin/i18n.php:309
+msgid "Remove stored Document Content, PDF Metadata, and image EXIF when rebuilding index"
+msgstr ""
+
+#: includes/Admin/i18n.php:310
+msgid "Replace"
+msgstr ""
+
+#: includes/Admin/i18n.php:311
+msgid "Reset"
+msgstr ""
+
+#: includes/Admin/i18n.php:312
+msgid "Resetting index..."
+msgstr ""
+
+#: includes/Admin/i18n.php:313
+msgid "Restore Defaults"
+msgstr ""
+
+#: includes/Admin/i18n.php:314
+msgid "Rules"
+msgstr ""
+
+#: includes/Admin/i18n.php:315
+msgid "Save Engines"
+msgstr ""
+
+#: includes/Admin/i18n.php:316
+msgid "Save Settings"
+msgstr ""
+
+#: includes/Admin/i18n.php:317
+#: includes/Admin/Views/SearchFormsView.php:325
+msgid "Save"
+msgstr ""
+
+#: includes/Admin/i18n.php:318
+msgid "Saving settings FAILED! View console for more information"
+msgstr ""
+
+#: includes/Admin/i18n.php:319
+msgid "Saving engine settings FAILED!"
+msgstr ""
+
+#: includes/Admin/i18n.php:320
+msgid "Saving Engines..."
+msgstr ""
+
+#: includes/Admin/i18n.php:321
+msgid "Search Term(s)"
+msgstr ""
+
+#: includes/Admin/i18n.php:322
+msgid "Search these sources:"
+msgstr ""
+
+#: includes/Admin/i18n.php:323
+msgid "Searches over the past 30 days"
+msgstr ""
+
+#: includes/Admin/i18n.php:324
+msgid "Searches"
+msgstr ""
+
+#: includes/Admin/i18n.php:325
+msgid "SearchWP Advanced"
+msgstr ""
+
+#: includes/Admin/i18n.php:326
+msgid "SearchWP Engines"
+msgstr ""
+
+#: includes/Admin/i18n.php:327
+msgid "SearchWP Settings"
+msgstr ""
+
+#: includes/Admin/i18n.php:328
+#: includes/Admin/Views/StatisticsView.php:182
+msgid "SearchWP Statistics"
+msgstr ""
+
+#: includes/Admin/i18n.php:329
+msgid "SearchWP Support"
+msgstr ""
+
+#: includes/Admin/i18n.php:330
+msgid "SearchWP was unable to index the following content due to an indexing failure. Reviewing server logs may expose the reason for failure."
+msgstr ""
+
+#: includes/Admin/i18n.php:331
+msgid "Settings update FAILED"
+msgstr ""
+
+#: includes/Admin/i18n.php:332
+#: includes/Admin/NavTab.php:103
+#: includes/Admin/OptionsView.php:375
+#: assets/gutenberg/build/index.js:1
+#: assets/gutenberg/src/edit.js:43
+msgid "Settings"
+msgstr ""
+
+#: includes/Admin/i18n.php:333
+msgid "Settings Transfer"
+msgstr ""
+
+#: includes/Admin/i18n.php:334
+msgid "Sort Alphabetically"
+msgstr ""
+
+#: includes/Admin/i18n.php:335
+msgid "Sort ASC"
+msgstr ""
+
+#: includes/Admin/i18n.php:336
+msgid "Sort DESC"
+msgstr ""
+
+#: includes/Admin/i18n.php:337
+msgid "Source"
+msgstr ""
+
+#: includes/Admin/i18n.php:338
+msgid "Sources & Settings"
+msgstr ""
+
+#: includes/Admin/i18n.php:339
+msgid "Sources"
+msgstr ""
+
+#: includes/Admin/i18n.php:340
+msgid "Statistic"
+msgstr ""
+
+#: includes/Admin/i18n.php:341
+msgid "Stopwords"
+msgstr ""
+
+#: includes/Admin/i18n.php:342
+msgid "Suggested Stopwords"
+msgstr ""
+
+#: includes/Admin/i18n.php:343
+msgid "Support \"quoted/phrase searches\""
+msgstr ""
+
+#: includes/Admin/i18n.php:344
+#: includes/Admin/Views/SystemInfoView.php:36
+msgid "Support"
+msgstr ""
+
+#: includes/Admin/i18n.php:345
+msgid "Synonym(s)"
+msgstr ""
+
+#: includes/Admin/i18n.php:346
+msgid "Synonyms"
+msgstr ""
+
+#: includes/Admin/i18n.php:347
+msgid "System Information"
+msgstr ""
+
+#: includes/Admin/i18n.php:348
+msgid "Term"
+msgstr ""
+
+#. Translators: prefaced by (translation of) "transfer weight".
+#: includes/Admin/i18n.php:349
+msgid "There are no omitted entries at this time."
+msgstr ""
+
+#. Translators: prefaced by (translation of) "transfer weight".
+#: includes/Admin/i18n.php:350
+msgid "to entry ID"
+msgstr ""
+
+#. Translators: prefaced by (translation of) "transfer weight".
+#: includes/Admin/i18n.php:351
+msgid "Tokenize regex pattern matches"
+msgstr ""
+
+#. Translators: prefaced by (translation of) "transfer weight".
+#: includes/Admin/i18n.php:352
+msgid "Total"
+msgstr ""
+
+#: includes/Admin/i18n.php:353
+msgid "Trim logs"
+msgstr ""
+
+#: includes/Admin/i18n.php:354
+msgid "Type to search options..."
+msgstr ""
+
+#: includes/Admin/i18n.php:355
+msgid "Unignore"
+msgstr ""
+
+#: includes/Admin/i18n.php:356
+msgid "Update FAILED!"
+msgstr ""
+
+#: includes/Admin/i18n.php:357
+msgid "Use for Admin searches"
+msgstr ""
+
+#: includes/Admin/i18n.php:358
+msgid "Use keyword stems"
+msgstr ""
+
+#: includes/Admin/i18n.php:359
+msgid "Use the closest match for searches with no results and output a notice (requires partial matches)"
+msgstr ""
+
+#: includes/Admin/i18n.php:360
+#: includes/Sources/Attachment.php:541
+msgid "Value"
+msgstr ""
+
+#: includes/Admin/i18n.php:361
+msgid "View Suggestions"
+msgstr ""
+
+#: includes/Admin/i18n.php:362
+msgid "Wake Up Indexer"
+msgstr ""
+
+#: includes/Admin/i18n.php:363
+msgid "Waking indexer FAILED. View console for more information."
+msgstr ""
+
+#: includes/Admin/i18n.php:364
+msgid "Welcome"
+msgstr ""
+
+#: includes/Admin/i18n.php:365
+msgid "When enabled, additional tokens will be generated from regex pattern matches"
+msgstr ""
+
+#: includes/Admin/i18n.php:366
+msgid "When search terms are wrapped in double quotes, results will be limited to those with exact matches"
+msgstr ""
+
+#: includes/Admin/i18n.php:367
+msgid "Would you prefer that SearchWP remove all stored Document Content, PDF Metadata, and image EXIF data so it can be re-parsed during Index rebuilds?"
+msgstr ""
+
 #: includes/Admin/LegacyMetricsCompat.php:120
 #: includes/Admin/LegacyMetricsCompat.php:132
 msgid "Metrics"
@@ -81,11 +1017,6 @@ msgstr ""
 
 #: includes/Admin/LegacyMetricsCompat.php:200
 msgid "SearchWP Metrics"
-msgstr ""
-
-#: includes/Admin/NavTab.php:103 includes/Admin/OptionsView.php:375
-#: includes/Admin/i18n.php:332
-msgid "Settings"
 msgstr ""
 
 #: includes/Admin/Notifications/Notifications.php:154
@@ -96,12 +1027,6 @@ msgstr ""
 
 #: includes/Admin/Notifications/Notifications.php:327
 msgid "Dismiss"
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-#. Author of the plugin/theme
-#: includes/Admin/OptionsView.php:310
-msgid "SearchWP"
 msgstr ""
 
 #: includes/Admin/OptionsView.php:365
@@ -118,15 +1043,18 @@ msgstr ""
 msgid "Tools"
 msgstr ""
 
-#: includes/Admin/OptionsView.php:395 includes/Admin/Views/AboutUsView.php:43
+#: includes/Admin/OptionsView.php:395
+#: includes/Admin/Views/AboutUsView.php:43
 msgid "About Us"
 msgstr ""
 
-#: includes/Admin/OptionsView.php:439 includes/Admin/OptionsView.php:493
+#: includes/Admin/OptionsView.php:439
+#: includes/Admin/OptionsView.php:493
 msgid "Search Statistics"
 msgstr ""
 
-#: includes/Admin/OptionsView.php:440 includes/Admin/OptionsView.php:494
+#: includes/Admin/OptionsView.php:440
+#: includes/Admin/OptionsView.php:494
 msgid "Search Stats"
 msgstr ""
 
@@ -367,23 +1295,8 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: includes/Admin/Views/AboutUsView.php:635
-#: includes/Admin/Views/ExtensionsView.php:430 includes/Admin/i18n.php:219
-msgid "Active"
-msgstr ""
-
 #: includes/Admin/Views/AboutUsView.php:636
 msgid "Activated"
-msgstr ""
-
-#: includes/Admin/Views/AboutUsView.php:641
-#: includes/Admin/Views/ExtensionsView.php:437 includes/Admin/i18n.php:267
-msgid "Inactive"
-msgstr ""
-
-#: includes/Admin/Views/AboutUsView.php:642
-#: includes/Admin/Views/ExtensionsView.php:438 includes/Admin/i18n.php:218
-msgid "Activate"
 msgstr ""
 
 #: includes/Admin/Views/AboutUsView.php:647
@@ -441,7 +1354,6 @@ msgstr ""
 
 #. translators: %s - SearchWP plugin settings URL.
 #: includes/Admin/Views/ExtensionsView.php:124
-#, php-format
 msgid "To access extensions please enter and activate your SearchWP license key in the plugin <a href=\"%s\">settings</a>."
 msgstr ""
 
@@ -455,7 +1367,6 @@ msgstr ""
 
 #. translators: %s - SearchWP.com Account page URL.
 #: includes/Admin/Views/ExtensionsView.php:243
-#, php-format
 msgid "Want to get even more features? <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">Upgrade your SearchWP account</a> and unlock the following extensions."
 msgstr ""
 
@@ -473,10 +1384,6 @@ msgstr ""
 
 #: includes/Admin/Views/ExtensionsView.php:368
 msgid "Upgrade"
-msgstr ""
-
-#: includes/Admin/Views/ExtensionsView.php:431 includes/Admin/i18n.php:242
-msgid "Deactivate"
 msgstr ""
 
 #: includes/Admin/Views/ExtensionsView.php:445
@@ -659,24 +1566,6 @@ msgstr ""
 msgid "Global Rules"
 msgstr ""
 
-#: includes/Admin/Views/GlobalRulesView.php:184
-#: includes/Admin/Views/GlobalRulesView.php:282
-#: includes/Admin/Views/GlobalRulesView.php:403 includes/Admin/i18n.php:168
-msgid "What visitors search for (separate different search terms by commas)"
-msgstr ""
-
-#: includes/Admin/Views/GlobalRulesView.php:208
-#: includes/Admin/Views/GlobalRulesView.php:312
-#: includes/Admin/Views/GlobalRulesView.php:433 includes/Admin/i18n.php:167
-msgid "Term(s) that are synonymous with the Search Term(s)"
-msgstr ""
-
-#: includes/Admin/Views/GlobalRulesView.php:230
-#: includes/Admin/Views/GlobalRulesView.php:346
-#: includes/Admin/Views/GlobalRulesView.php:467 includes/Admin/i18n.php:166
-msgid "When enabled, original Search Term(s) will be removed"
-msgstr ""
-
 #: includes/Admin/Views/ImportExportView.php:35
 msgid "Import/Export"
 msgstr ""
@@ -733,10 +1622,6 @@ msgstr ""
 msgid "Remove extracted Document Content, PDF Metadata, and image EXIF data and re-parse when rebuilding Index. Leaving this parsed content in place speeds up index rebuilds."
 msgstr ""
 
-#: includes/Admin/Views/MiscSettingsView.php:116 includes/Admin/i18n.php:259
-msgid "Hide Announcements"
-msgstr ""
-
 #: includes/Admin/Views/MiscSettingsView.php:117
 msgid "Hide plugin announcements and update details."
 msgstr ""
@@ -747,10 +1632,6 @@ msgstr ""
 
 #: includes/Admin/Views/MiscSettingsView.php:121
 msgid "Remove all traces of SearchWP when it is deactivated and deleted from the Plugins page."
-msgstr ""
-
-#: includes/Admin/Views/SearchFormsView.php:198 includes/Admin/i18n.php:220
-msgid "Add New"
 msgstr ""
 
 #: includes/Admin/Views/SearchFormsView.php:207
@@ -779,10 +1660,6 @@ msgstr ""
 msgid "Embed"
 msgstr ""
 
-#: includes/Admin/Views/SearchFormsView.php:325 includes/Admin/i18n.php:317
-msgid "Save"
-msgstr ""
-
 #: includes/Admin/Views/SearchFormsView.php:337
 msgid "Chose a theme"
 msgstr ""
@@ -807,7 +1684,8 @@ msgstr ""
 
 #: includes/Admin/Views/SearchFormsView.php:413
 #: includes/Admin/Views/SearchFormsView.php:467
-#: includes/Admin/Views/SearchFormsView.php:604 includes/Forms/Frontend.php:167
+#: includes/Admin/Views/SearchFormsView.php:604
+#: includes/Forms/Frontend.php:196
 msgid "Advanced Search"
 msgstr ""
 
@@ -829,6 +1707,7 @@ msgid "Enter keyword and search"
 msgstr ""
 
 #: includes/Admin/Views/SearchFormsView.php:453
+#: includes/Forms/Frontend.php:185
 msgid "Search"
 msgstr ""
 
@@ -1036,25 +1915,12 @@ msgstr ""
 
 #. translators: %d - a post ID.
 #: includes/Admin/Views/SearchFormsView.php:1668
-#, php-format
 msgid "#%d (no title)"
-msgstr ""
-
-#: includes/Admin/Views/StatisticsView.php:182 includes/Admin/i18n.php:328
-msgid "SearchWP Statistics"
-msgstr ""
-
-#: includes/Admin/Views/SystemInfoView.php:36 includes/Admin/i18n.php:344
-msgid "Support"
 msgstr ""
 
 #: includes/Admin/Views/SystemInfoView.php:93
 #: includes/Admin/Views/SystemInfoView.php:174
 msgid "System Info"
-msgstr ""
-
-#: includes/Admin/Views/SystemInfoView.php:111 includes/Admin/i18n.php:258
-msgid "Get Help"
 msgstr ""
 
 #: includes/Admin/Views/SystemInfoView.php:129
@@ -1306,861 +2172,17 @@ msgstr ""
 msgid "Upgrade to SearchWP PRO"
 msgstr ""
 
-#: includes/Admin/i18n.php:23
-#, php-format
-msgid "%s Attribute"
-msgstr ""
-
-#: includes/Admin/i18n.php:28
-#, php-format
-msgid "%s Attributes"
-msgstr ""
-
-#: includes/Admin/i18n.php:33
-#, php-format
-msgid "%s Rule"
-msgstr ""
-
-#: includes/Admin/i18n.php:38
-#, php-format
-msgid "%s Rules"
-msgstr ""
-
-#: includes/Admin/i18n.php:41
-msgid "This engine will be used for WordPress Admin searches, it will search these sources:"
-msgstr ""
-
-#: includes/Admin/i18n.php:42
-msgid "When searching a supported Source, this Engine will be used"
-msgstr ""
-
-#: includes/Admin/i18n.php:45
-#, php-format
-msgid "Already set: %s"
-msgstr ""
-
-#: includes/Admin/i18n.php:48
-msgid "Alternate indexer running: leave this browser window open until the initial index has been built."
-msgstr ""
-
-#: includes/Admin/i18n.php:49
-msgid "Alternate indexer in use: initial index built. This browser window can be closed, the index will be kept up to date automatically."
-msgstr ""
-
-#: includes/Admin/i18n.php:53
-#, php-format
-msgid "Choose which %1$s Attributes should be considered when searching the %2$s engine:"
-msgstr ""
-
-#: includes/Admin/i18n.php:62
-#, php-format
-msgid "Type to search %1$s..."
-msgstr ""
-
-#: includes/Admin/i18n.php:67
-msgid "There was an error copying to your clipboard, please manually copy and paste"
-msgstr ""
-
-#: includes/Admin/i18n.php:68
-msgid "Are you sure you want to reset statistics? This cannot be undone!"
-msgstr ""
-
-#: includes/Admin/i18n.php:69
-msgid "Potential WP-Cron issue detected, background process may not be fully functional."
-msgstr ""
-
-#: includes/Admin/i18n.php:70
-msgid "This engine will be used for native WordPress searches, it will search these sources:"
-msgstr ""
-
-#: includes/Admin/i18n.php:71
-msgid "This engine will search these sources:"
-msgstr ""
-
-#: includes/Admin/i18n.php:73
-msgid "This engine will be used for native WordPress <strong>and</strong> Admin searches, it will search these sources"
-msgstr ""
-
-#: includes/Admin/i18n.php:78
-#, php-format
-msgid "Edit Rules for %1$s (%2$s Engine)"
-msgstr ""
-
-#: includes/Admin/i18n.php:84
-#, php-format
-msgid "Edit Settings (%s engine)"
-msgstr ""
-
-#: includes/Admin/i18n.php:88
-msgid "<strong>Exclude</strong> entries if:"
-msgstr ""
-
-#: includes/Admin/i18n.php:91
-msgid "To export: choose what you want to export and then copy to clipboard"
-msgstr ""
-
-#: includes/Admin/i18n.php:92
-msgid "HTTP Loopback connections are not working on this server; this window must be left open for the initial index to build. Subsequent content edits will be reindexed automatically when made."
-msgstr ""
-
-#: includes/Admin/i18n.php:93
-msgid "To import: paste settings export and click Import"
-msgstr ""
-
-#: includes/Admin/i18n.php:97
-#, php-format
-msgid "<p>Your license key can be retrieved or renewed within your %1$sAccount%2$s</p><p>If you are unable to activate your license due to network restrictions, please email %3$s first including your license key and then describing your issue.</p>"
-msgstr ""
-
-#: includes/Admin/i18n.php:104
-msgid "Support and updates require an active license. Please activate your license to receive support."
-msgstr ""
-
-#: includes/Admin/i18n.php:105
-msgid "Note: the index is automatically kept up to date and maintained for optimization"
-msgstr ""
-
-#: includes/Admin/i18n.php:106
-msgid "The index needs to be rebuilt."
-msgstr ""
-
-#: includes/Admin/i18n.php:107
-msgid "After certain engine configuration changes the index must be rebuilt"
-msgstr ""
-
-#: includes/Admin/i18n.php:108
-msgid "Indexer BLOCKED by HTTP Basic Authentication!"
-msgstr ""
-
-#: includes/Admin/i18n.php:109
-msgid "The indexer is paused."
-msgstr ""
-
-#: includes/Admin/i18n.php:110
-msgid "You can unpause the indexer from the Settings."
-msgstr ""
-
-#: includes/Admin/i18n.php:111
-msgid "Custom content Sources cannot be used in the Default engine"
-msgstr ""
-
-#: includes/Admin/i18n.php:112
-msgid "Disregard keyword suffixes when searches are performed"
-msgstr ""
-
-#: includes/Admin/i18n.php:113
-msgid "There was a problem activating your license. Please ensure this server can communicate with searchwp.com and try again."
-msgstr ""
-
-#: includes/Admin/i18n.php:114
-msgid "There was a problem deactivating your license. Please ensure this server can communicate with searchwp.com and try again."
-msgstr ""
-
-#: includes/Admin/i18n.php:117
-#, php-format
-msgid "Manage %1$s Attributes (%2$s Engine)"
-msgstr ""
-
-#: includes/Admin/i18n.php:121
-msgid "The following queries have been ignored both when logging and displaying statistics."
-msgstr ""
-
-#: includes/Admin/i18n.php:122
-msgid "There are no ignored queries at this time."
-msgstr ""
-
-#: includes/Admin/i18n.php:125
-#, php-format
-msgid "SearchWP recommends at least %1$s of memory. WordPress is set to use %2$s but there is %3$s available."
-msgstr ""
-
-#: includes/Admin/i18n.php:130
-msgid "To enable SearchWP, please save your initial settings which builds the index"
-msgstr ""
-
-#: includes/Admin/i18n.php:131
-msgid "In order for results to be returned, you must add Attributes to be searched."
-msgstr ""
-
-#: includes/Admin/i18n.php:132
-msgid "There are no rules"
-msgstr ""
-
-#: includes/Admin/i18n.php:135
-#, php-format
-msgid "There are currently no rules for %s."
-msgstr ""
-
-#: includes/Admin/i18n.php:138
-msgid "In order for this engine to return results, you must add at least one source"
-msgstr ""
-
-#: includes/Admin/i18n.php:139
-msgid "There are currently no stopwords."
-msgstr ""
-
-#: includes/Admin/i18n.php:140
-msgid "There are no suggested stopwords to add at this time."
-msgstr ""
-
-#: includes/Admin/i18n.php:141
-msgid "There are currently no synonyms."
-msgstr ""
-
-#: includes/Admin/i18n.php:143
-msgid "<strong>Only show</strong> entries if:"
-msgstr ""
-
-#: includes/Admin/i18n.php:149
-#, php-format
-msgid "Stopwords are <em>ignored</em> so as to improve relevancy and performance. %1$sMore info%2$s"
-msgstr ""
-
-#: includes/Admin/i18n.php:155
-msgid "The following terms may be too common to have a positive effect on searches, consider adding them as Stopwords."
-msgstr ""
-
-#: includes/Admin/i18n.php:156
-msgid "The index does not appear to be building, you may want to enable the alternate indexer:"
-msgstr ""
-
-#: includes/Admin/i18n.php:160
-#, php-format
-msgid "Synonyms facilitate <em>replacement</em> of search terms. Use <code>*</code> wildcard for partial matching. %1$sMore info%2$s"
-msgstr ""
-
-#: includes/Admin/i18n.php:169
-msgid "Are you sure you want to rebuild the index? This cannot be undone!"
-msgstr ""
-
-#: includes/Admin/i18n.php:172
-#, php-format
-msgid "Save %1$s Attributes"
-msgstr ""
-
-#: includes/Admin/i18n.php:175
-msgid "Please copy and paste this System Information when requested"
-msgstr ""
-
-#: includes/Admin/i18n.php:176
-msgid "If the indexer appears to be stuck, first review the PHP error log to see if anything needs to be fixed before waking it up. The indexer can become stuck when customizations are not working as expected."
-msgstr ""
-
-#: includes/Admin/i18n.php:180
-#, php-format
-msgid "<p>A default Engine has been generated as a starting point for you to customize. Once saved, SearchWP will then build its index and provide terrific search results automatically!</p><p>To find out more about customizing SearchWP, please %1$sreview the documentation%2$s.</p><p class=\"description\">Thank you!</p>"
-msgstr ""
-
-#: includes/Admin/i18n.php:186
-msgid "Thank you for activating SearchWP!"
-msgstr ""
-
-#: includes/Admin/i18n.php:190
-#, php-format
-msgid "Your settings from SearchWP 3.x have been migrated. To delete legacy data from SearchWP 3.x please use %1$sthis Extension%2$s."
-msgstr ""
-
-#: includes/Admin/i18n.php:199
-#, php-format
-msgid "All data from SearchWP 3.x has been migrated! Legacy data can be removed with %1$sthis Extension%2$s."
-msgstr ""
-
-#: includes/Admin/i18n.php:206
-msgid "Statistics have <strong>NOT</strong> been migrated as it may take some time to do so."
-msgstr ""
-
-#: includes/Admin/i18n.php:210
-msgid "<strong>Before SearchWP can take effect</strong> you will need to <em>review and save</em> your Engine(s)"
-msgstr ""
-
-#: includes/Admin/i18n.php:214
-msgid " Searches"
-msgstr ""
-
-#: includes/Admin/i18n.php:215
-msgid "(This setting can be changed at any time on the Advanced tab of the SearchWP settings screen)"
-msgstr ""
-
-#: includes/Admin/i18n.php:216
-msgid "Actions & Settings"
-msgstr ""
-
-#: includes/Admin/i18n.php:217
-msgid "Actions"
-msgstr ""
-
-#: includes/Admin/i18n.php:221
-msgid "Add Rule"
-msgstr ""
-
-#: includes/Admin/i18n.php:222
-msgid "Add Stopword"
-msgstr ""
-
-#: includes/Admin/i18n.php:223
-msgid "Add"
-msgstr ""
-
-#: includes/Admin/i18n.php:224
-msgid "Add/Remove Attributes"
-msgstr ""
-
-#: includes/Admin/i18n.php:225
-msgid "Admin Engine"
-msgstr ""
-
-#: includes/Admin/i18n.php:226
-msgid "Advanced Settings"
-msgstr ""
-
-#: includes/Admin/i18n.php:227
-msgid "AND"
-msgstr ""
-
-#: includes/Admin/i18n.php:228
-msgid "Applicable Attribute Relevance"
-msgstr ""
-
-#: includes/Admin/i18n.php:229
-msgid "Are you sure you want to delete this engine?"
-msgstr ""
-
-#: includes/Admin/i18n.php:230
-msgid "Are you sure? The existing background process will be destroyed and then restarted."
-msgstr ""
-
-#: includes/Admin/i18n.php:231
-msgid "Attributes"
-msgstr ""
-
-#: includes/Admin/i18n.php:232
-msgid "Attributes to search (slider sets relevance weight)"
-msgstr ""
-
-#: includes/Admin/i18n.php:233
-msgid "Automatic \"Did you mean?\" corrections"
-msgstr ""
-
-#: includes/Admin/i18n.php:234
-msgid "Automatically highlight search terms when possible"
-msgstr ""
-
-#: includes/Admin/i18n.php:235
-msgid "Cancel"
-msgstr ""
-
-#: includes/Admin/i18n.php:236
-msgid "Clear Stopwords"
-msgstr ""
-
-#: includes/Admin/i18n.php:237
-msgid "Close"
-msgstr ""
-
-#: includes/Admin/i18n.php:238
-msgid "Collapse Sources"
-msgstr ""
-
-#: includes/Admin/i18n.php:239
-msgid "Continue to queue (but do not apply) delta index updates"
-msgstr ""
-
-#: includes/Admin/i18n.php:240
-msgid "Copied!"
-msgstr ""
-
-#: includes/Admin/i18n.php:241
-msgid "Copy to clipboard"
-msgstr ""
-
-#: includes/Admin/i18n.php:243
-msgid "Debugging enabled"
-msgstr ""
-
-#: includes/Admin/i18n.php:244
-msgid "Delete Engine"
-msgstr ""
-
-#: includes/Admin/i18n.php:245
-msgid "Delete parsed document content when rebuilding Index"
-msgstr ""
-
-#: includes/Admin/i18n.php:246
-msgid "Delete"
-msgstr ""
-
-#: includes/Admin/i18n.php:247
-msgid "Done"
-msgstr ""
-
-#: includes/Admin/i18n.php:248
-msgid "Edit Rules"
-msgstr ""
-
-#: includes/Admin/i18n.php:249
-msgid "Engine Label"
-msgstr ""
-
-#: includes/Admin/i18n.php:250
-msgid "Engine Name"
-msgstr ""
-
-#: includes/Admin/i18n.php:251
-msgid "Settings import complete"
-msgstr ""
-
-#: includes/Admin/i18n.php:252
-msgid "Exclude entries if:"
-msgstr ""
-
-#: includes/Admin/i18n.php:253
-msgid "Existing settings of the same type will be overwritten. Continue?"
-msgstr ""
-
-#: includes/Admin/i18n.php:254
-msgid "Expand Sources"
-msgstr ""
-
-#: includes/Admin/i18n.php:255
-msgid "Export"
-msgstr ""
-
-#: includes/Admin/i18n.php:256
-msgid "Find partial matches when search terms yield no results"
-msgstr ""
-
-#: includes/Admin/i18n.php:257
-msgid "Fix this"
-msgstr ""
-
-#: includes/Admin/i18n.php:260
-msgid "Hide plugin announcements and update details"
-msgstr ""
-
-#: includes/Admin/i18n.php:261
-msgid "Highlight terms in results"
-msgstr ""
-
-#: includes/Admin/i18n.php:262 includes/Sources/Post.php:728
-#: includes/Sources/Taxonomy.php:180
-msgid "ID"
-msgstr ""
-
-#: includes/Admin/i18n.php:263
-msgid "If you are customizing Document Content, PDF Metadata, or image EXIF in any way, you may want to change that behavior and have SearchWP re-parse that content when rebuilding the index."
-msgstr ""
-
-#: includes/Admin/i18n.php:264
-msgid "Import Settings"
-msgstr ""
-
-#: includes/Admin/i18n.php:265
-msgid "Import"
-msgstr ""
-
-#: includes/Admin/i18n.php:266
-msgid "In order to optimize index rebuilds, SearchWP does not purge extracted Document Content, PDF Metadata, or image EXIF data by default."
-msgstr ""
-
-#: includes/Admin/i18n.php:268
-msgid "Index everything regardless of token length"
-msgstr ""
-
-#: includes/Admin/i18n.php:269
-msgid "Index expanded Shortcode output (at the time of indexing)"
-msgstr ""
-
-#: includes/Admin/i18n.php:270
-msgid "Index Status"
-msgstr ""
-
-#: includes/Admin/i18n.php:271
-msgid "Indexed"
-msgstr ""
-
-#: includes/Admin/i18n.php:272
-msgid "Indexer communication error. See console."
-msgstr ""
-
-#: includes/Admin/i18n.php:273
-msgid "Indexer Paused"
-msgstr ""
-
-#: includes/Admin/i18n.php:274
-msgid "is"
-msgstr ""
-
-#: includes/Admin/i18n.php:275
-msgid "Keyword Stems"
-msgstr ""
-
-#: includes/Admin/i18n.php:276
-msgid "Last Activity"
-msgstr ""
-
-#: includes/Admin/i18n.php:277
-msgid "Leaving this parsed content in place speeds up index rebuilds"
-msgstr ""
-
-#: includes/Admin/i18n.php:278
-msgid "License"
-msgstr ""
-
-#: includes/Admin/i18n.php:279
-msgid "Log information during indexing and searching for review"
-msgstr ""
-
-#: includes/Admin/i18n.php:280
-msgid "Manage Attributes"
-msgstr ""
-
-#: includes/Admin/i18n.php:281
-msgid "Manage Ignored Queries"
-msgstr ""
-
-#: includes/Admin/i18n.php:282
-msgid "Manage Ignored"
-msgstr ""
-
-#: includes/Admin/i18n.php:283
-msgid "Max"
-msgstr ""
-
-#: includes/Admin/i18n.php:284
-msgid "Migrate Statistics"
-msgstr ""
-
-#: includes/Admin/i18n.php:285
-msgid "Min"
-msgstr ""
-
-#: includes/Admin/i18n.php:286
-msgid "More Info"
-msgstr ""
-
-#: includes/Admin/i18n.php:287
-msgid "Omitted Entries"
-msgstr ""
-
-#: includes/Admin/i18n.php:288
-msgid "Omitted"
-msgstr ""
-
-#: includes/Admin/i18n.php:289
-msgid "Only show entries if:"
-msgstr ""
-
-#: includes/Admin/i18n.php:290
-msgid "Options"
-msgstr ""
-
-#: includes/Admin/i18n.php:291
-msgid "Or choose from the following shortcuts"
-msgstr ""
-
-#: includes/Admin/i18n.php:292
-msgid "OR"
-msgstr ""
-
-#: includes/Admin/i18n.php:293
-msgid "Parse Shortcodes when indexing"
-msgstr ""
-
-#: includes/Admin/i18n.php:294
-msgid "Partial matches (fuzzy when necessary)"
-msgstr ""
-
-#: includes/Admin/i18n.php:295
-msgid "Performing migration, please wait..."
-msgstr ""
-
-#: includes/Admin/i18n.php:296
-msgid "Prevalence"
-msgstr ""
-
-#: includes/Admin/i18n.php:297
-msgid "Process less data per index pass (less resource intensive, but slower)"
-msgstr ""
-
-#: includes/Admin/i18n.php:298
-msgid "Query to ignore, use * as wildcard"
-msgstr ""
-
-#. translators: %s: Query number.
-#: includes/Admin/i18n.php:299 includes/Debug/Console/Panels.php:55
-#: includes/Debug/Console/Panels.php:83 includes/Statistics.php:354
-#, php-format
-msgid "Query"
-msgid_plural "Query %s"
-msgstr[0] ""
-msgstr[1] ""
-
-#: includes/Admin/i18n.php:300
-msgid "Queued updates will be processed immediately when the indexer is unpaused"
-msgstr ""
-
-#: includes/Admin/i18n.php:301
-msgid "Rebuild Index"
-msgstr ""
-
-#: includes/Admin/i18n.php:302
-msgid "Reduced indexer aggressiveness"
-msgstr ""
-
-#: includes/Admin/i18n.php:303
-msgid "Reintroduce"
-msgstr ""
-
-#: includes/Admin/i18n.php:304
-msgid "Remove"
-msgstr ""
-
-#: includes/Admin/i18n.php:305
-msgid "Remove all data on uninstall"
-msgstr ""
-
-#: includes/Admin/i18n.php:306
-msgid "Remove all traces of SearchWP when it is deactivated and deleted from the Plugins page"
-msgstr ""
-
-#: includes/Admin/i18n.php:307
-msgid "Remove extracted Document Content, PDF Metadata, and image EXIF data and re-parse when rebuilding Index"
-msgstr ""
-
-#: includes/Admin/i18n.php:308
-msgid "Remove minimum word length"
-msgstr ""
-
-#: includes/Admin/i18n.php:309
-msgid "Remove stored Document Content, PDF Metadata, and image EXIF when rebuilding index"
-msgstr ""
-
-#: includes/Admin/i18n.php:310
-msgid "Replace"
-msgstr ""
-
-#: includes/Admin/i18n.php:311
-msgid "Reset"
-msgstr ""
-
-#: includes/Admin/i18n.php:312
-msgid "Resetting index..."
-msgstr ""
-
-#: includes/Admin/i18n.php:313
-msgid "Restore Defaults"
-msgstr ""
-
-#: includes/Admin/i18n.php:314
-msgid "Rules"
-msgstr ""
-
-#: includes/Admin/i18n.php:315
-msgid "Save Engines"
-msgstr ""
-
-#: includes/Admin/i18n.php:316
-msgid "Save Settings"
-msgstr ""
-
-#: includes/Admin/i18n.php:318
-msgid "Saving settings FAILED! View console for more information"
-msgstr ""
-
-#: includes/Admin/i18n.php:319
-msgid "Saving engine settings FAILED!"
-msgstr ""
-
-#: includes/Admin/i18n.php:320
-msgid "Saving Engines..."
-msgstr ""
-
-#: includes/Admin/i18n.php:321
-msgid "Search Term(s)"
-msgstr ""
-
-#: includes/Admin/i18n.php:322
-msgid "Search these sources:"
-msgstr ""
-
-#: includes/Admin/i18n.php:323
-msgid "Searches over the past 30 days"
-msgstr ""
-
-#: includes/Admin/i18n.php:324
-msgid "Searches"
-msgstr ""
-
-#: includes/Admin/i18n.php:325
-msgid "SearchWP Advanced"
-msgstr ""
-
-#: includes/Admin/i18n.php:326
-msgid "SearchWP Engines"
-msgstr ""
-
-#: includes/Admin/i18n.php:327
-msgid "SearchWP Settings"
-msgstr ""
-
-#: includes/Admin/i18n.php:329
-msgid "SearchWP Support"
-msgstr ""
-
-#: includes/Admin/i18n.php:330
-msgid "SearchWP was unable to index the following content due to an indexing failure. Reviewing server logs may expose the reason for failure."
-msgstr ""
-
-#: includes/Admin/i18n.php:331
-msgid "Settings update FAILED"
-msgstr ""
-
-#: includes/Admin/i18n.php:333
-msgid "Settings Transfer"
-msgstr ""
-
-#: includes/Admin/i18n.php:334
-msgid "Sort Alphabetically"
-msgstr ""
-
-#: includes/Admin/i18n.php:335
-msgid "Sort ASC"
-msgstr ""
-
-#: includes/Admin/i18n.php:336
-msgid "Sort DESC"
-msgstr ""
-
-#: includes/Admin/i18n.php:337
-msgid "Source"
-msgstr ""
-
-#: includes/Admin/i18n.php:338
-msgid "Sources & Settings"
-msgstr ""
-
-#: includes/Admin/i18n.php:339
-msgid "Sources"
-msgstr ""
-
-#: includes/Admin/i18n.php:340
-msgid "Statistic"
-msgstr ""
-
-#: includes/Admin/i18n.php:341
-msgid "Stopwords"
-msgstr ""
-
-#: includes/Admin/i18n.php:342
-msgid "Suggested Stopwords"
-msgstr ""
-
-#: includes/Admin/i18n.php:343
-msgid "Support \"quoted/phrase searches\""
-msgstr ""
-
-#: includes/Admin/i18n.php:345
-msgid "Synonym(s)"
-msgstr ""
-
-#: includes/Admin/i18n.php:346
-msgid "Synonyms"
-msgstr ""
-
-#: includes/Admin/i18n.php:347
-msgid "System Information"
-msgstr ""
-
-#: includes/Admin/i18n.php:348
-msgid "Term"
-msgstr ""
-
-#: includes/Admin/i18n.php:349
-msgid "There are no omitted entries at this time."
-msgstr ""
-
-#: includes/Admin/i18n.php:350
-msgid "to entry ID"
-msgstr ""
-
-#: includes/Admin/i18n.php:351
-msgid "Tokenize regex pattern matches"
-msgstr ""
-
-#: includes/Admin/i18n.php:352
-msgid "Total"
-msgstr ""
-
-#: includes/Admin/i18n.php:353
-msgid "Trim logs"
-msgstr ""
-
-#: includes/Admin/i18n.php:354
-msgid "Type to search options..."
-msgstr ""
-
-#: includes/Admin/i18n.php:355
-msgid "Unignore"
-msgstr ""
-
-#: includes/Admin/i18n.php:356
-msgid "Update FAILED!"
-msgstr ""
-
-#: includes/Admin/i18n.php:357
-msgid "Use for Admin searches"
-msgstr ""
-
-#: includes/Admin/i18n.php:358
-msgid "Use keyword stems"
-msgstr ""
-
-#: includes/Admin/i18n.php:359
-msgid "Use the closest match for searches with no results and output a notice (requires partial matches)"
-msgstr ""
-
-#: includes/Admin/i18n.php:360 includes/Sources/Attachment.php:533
-msgid "Value"
-msgstr ""
-
-#: includes/Admin/i18n.php:361
-msgid "View Suggestions"
-msgstr ""
-
-#: includes/Admin/i18n.php:362
-msgid "Wake Up Indexer"
-msgstr ""
-
-#: includes/Admin/i18n.php:363
-msgid "Waking indexer FAILED. View console for more information."
-msgstr ""
-
-#: includes/Admin/i18n.php:364
-msgid "Welcome"
-msgstr ""
-
-#: includes/Admin/i18n.php:365
-msgid "When enabled, additional tokens will be generated from regex pattern matches"
-msgstr ""
-
-#: includes/Admin/i18n.php:366
-msgid "When search terms are wrapped in double quotes, results will be limited to those with exact matches"
-msgstr ""
-
-#: includes/Admin/i18n.php:367
-msgid "Would you prefer that SearchWP remove all stored Document Content, PDF Metadata, and image EXIF data so it can be re-parsed during Index rebuilds?"
-msgstr ""
-
-#: includes/Attribute.php:126 includes/Attribute.php:134
+#: includes/Attribute.php:126
+#: includes/Attribute.php:134
 msgid "Missing data property for SearchWP Attribute:"
 msgstr ""
 
-#: includes/Attribute.php:127 includes/Attribute.php:135
+#: includes/Attribute.php:127
+#: includes/Attribute.php:135
 msgid "SearchWP Attribute Error"
 msgstr ""
 
 #: includes/BackgroundProcess.php:72
-#, php-format
 msgid "Every %d Minutes"
 msgstr ""
 
@@ -2220,51 +2242,38 @@ msgstr ""
 msgid "Invalid SearchWP engine Source(s)"
 msgstr ""
 
-#: includes/Forms/Frontend.php:135
+#: includes/Forms/Frontend.php:164
 msgid "Any Category"
 msgstr ""
 
-#: includes/Forms/Frontend.php:185
+#: includes/Forms/Frontend.php:214
 msgid "Popular searches"
 msgstr ""
 
-#: includes/Forms/Frontend.php:219
+#: includes/Forms/Frontend.php:248
 msgid "Any Author"
 msgstr ""
 
-#. translators: %s: Author's display name.
-#: includes/Forms/Frontend.php:227
-#, php-format
-msgid "Posts by %s"
-msgstr ""
-
-#: includes/Forms/Frontend.php:261
+#: includes/Forms/Frontend.php:290
 msgid "Any Tag"
 msgstr ""
 
-#: includes/Forms/Frontend.php:299
+#: includes/Forms/Frontend.php:328
 msgid "Any Post Type"
-msgstr ""
-
-#. translators: 1: User's first name, 2: Last name.
-#: includes/Forms/Frontend.php:443
-#, php-format
-msgctxt "Display name based on first name and last name"
-msgid "%1$s %2$s"
 msgstr ""
 
 #. translators: %d: Form id.
 #: includes/Forms/Storage.php:66
-#, php-format
 msgid "Search Form %d"
 msgstr ""
 
-#: includes/Index/Controller.php:441 includes/Utils.php:121
+#: includes/Index/Controller.php:441
+#: includes/Utils.php:121
 msgid "Invalid SearchWP Source name"
 msgstr ""
 
+#. Translators: placeholder is a human readable time reference e.g. "ten hours"
 #: includes/Index/Controller.php:1250
-#, php-format
 msgid "%s ago"
 msgstr ""
 
@@ -2272,12 +2281,13 @@ msgstr ""
 msgid "Waiting in network queue"
 msgstr ""
 
-#: includes/License.php:185 includes/License.php:314
+#: includes/License.php:185
+#: includes/License.php:314
 msgid "An error occurred, please try again."
 msgstr ""
 
+#. Translators: %s is the date the license expired.
 #: includes/License.php:330
-#, php-format
 msgid "Your license key expired on %s"
 msgstr ""
 
@@ -2285,7 +2295,8 @@ msgstr ""
 msgid "Your license key has been disabled"
 msgstr ""
 
-#: includes/License.php:341 includes/License.php:365
+#: includes/License.php:341
+#: includes/License.php:365
 msgid "Invalid license"
 msgstr ""
 
@@ -2293,16 +2304,12 @@ msgstr ""
 msgid "Your license is not active for this URL"
 msgstr ""
 
-#: includes/License.php:351
-#, php-format
-msgid "This appears to be an invalid license key for %s"
-msgstr ""
-
 #: includes/License.php:355
 msgid "Your license key has reached its activation limit"
 msgstr ""
 
-#: includes/License.php:359 includes/License.php:363
+#: includes/License.php:359
+#: includes/License.php:363
 msgid "An error occurred, please try again"
 msgstr ""
 
@@ -2310,8 +2317,8 @@ msgstr ""
 msgid "Lifetime license"
 msgstr ""
 
+#. Translators: First placeholder is the date of license expiration, second placeholder is the time until the license expires.
 #: includes/License.php:382
-#, php-format
 msgid "Active until %s (%s)"
 msgstr ""
 
@@ -2343,7 +2350,8 @@ msgstr ""
 msgid "Invalid name for SearchWP Rule:"
 msgstr ""
 
-#: includes/Rule.php:139 includes/Rule.php:147
+#: includes/Rule.php:139
+#: includes/Rule.php:147
 msgid "SearchWP Rule Error"
 msgstr ""
 
@@ -2351,8 +2359,8 @@ msgstr ""
 msgid "Missing application handler for SearchWP Rule:"
 msgstr ""
 
+#. Translators: Placeholder is the revised search string.
 #: includes/SearchWP.php:392
-#, php-format
 msgid "Showing results for <em class=\"searchwp-suggested-revision-query\">%s</em>"
 msgstr ""
 
@@ -2372,7 +2380,8 @@ msgstr ""
 msgid "Document Content"
 msgstr ""
 
-#: includes/Sources/Attachment.php:45 includes/Sources/Attachment.php:528
+#: includes/Sources/Attachment.php:45
+#: includes/Sources/Attachment.php:536
 msgid "PDF Metadata"
 msgstr ""
 
@@ -2420,44 +2429,43 @@ msgstr ""
 msgid "iWork Documents"
 msgstr ""
 
-#: includes/Sources/Attachment.php:246
+#: includes/Sources/Attachment.php:254
 msgid "Filename"
 msgstr ""
 
-#: includes/Sources/Attachment.php:249
+#: includes/Sources/Attachment.php:257
 msgid "Rule will apply if ANY part of the filename matches (includes upload path, excluding upload base, and is case-insensitive)"
 msgstr ""
 
-#: includes/Sources/Attachment.php:428
+#: includes/Sources/Attachment.php:436
 msgid "SearchWP Document Content"
 msgstr ""
 
-#: includes/Sources/Attachment.php:438
+#: includes/Sources/Attachment.php:446
 msgid "This document is currently in the index queue, but has not yet been processed by SearchWP."
 msgstr ""
 
-#: includes/Sources/Attachment.php:444
+#: includes/Sources/Attachment.php:452
 msgid "Note: SearchWP was unable to extract content from this document."
 msgstr ""
 
-#: includes/Sources/Attachment.php:457
+#: includes/Sources/Attachment.php:465
 msgid "The content below will be indexed for this file. If you are experiencing unexpected search results, ensure accuracy here."
 msgstr ""
 
-#: includes/Sources/Attachment.php:458
+#: includes/Sources/Attachment.php:466
 msgid "If you edit this content and update this Attachment, the changes will persist and be indexed."
 msgstr ""
 
-#: includes/Sources/Attachment.php:476
-#, php-format
+#: includes/Sources/Attachment.php:484
 msgid "<strong>NOTE:</strong> This content is too long to display (%s). Here is a <strong>sample from the indexed content</strong>:"
 msgstr ""
 
-#: includes/Sources/Attachment.php:487
+#: includes/Sources/Attachment.php:495
 msgid "To override this limit you must add the following to your theme's <code>functions.php</code> which will lift this limit:"
 msgstr ""
 
-#: includes/Sources/Attachment.php:532
+#: includes/Sources/Attachment.php:540
 msgid "Key"
 msgstr ""
 
@@ -2465,7 +2473,8 @@ msgstr ""
 msgid "Comments"
 msgstr ""
 
-#: includes/Sources/Comment.php:53 includes/Sources/Comment.php:62
+#: includes/Sources/Comment.php:53
+#: includes/Sources/Comment.php:62
 msgid "Comment"
 msgstr ""
 
@@ -2477,18 +2486,23 @@ msgstr ""
 msgid "Author Email"
 msgstr ""
 
-#: includes/Sources/Comment.php:89 includes/Sources/Post.php:268
-#: includes/Sources/Taxonomy.php:140 includes/Sources/User.php:89
+#: includes/Sources/Comment.php:89
+#: includes/Sources/Post.php:268
+#: includes/Sources/Taxonomy.php:140
+#: includes/Sources/User.php:89
 msgid "Custom Fields"
 msgstr ""
 
-#: includes/Sources/Comment.php:91 includes/Sources/Post.php:270
-#: includes/Sources/Taxonomy.php:142 includes/Sources/User.php:91
+#: includes/Sources/Comment.php:91
+#: includes/Sources/Post.php:270
+#: includes/Sources/Taxonomy.php:142
+#: includes/Sources/User.php:91
 msgid "Tip: Match multiple keys using * as wildcard and hitting Enter"
 msgstr ""
 
-#: includes/Sources/Comment.php:231 includes/Sources/Post.php:447
-#, php-format
+#. Translators: placeholder is singular post type label.
+#: includes/Sources/Comment.php:231
+#: includes/Sources/Post.php:447
 msgid "To %s Parent"
 msgstr ""
 
@@ -2496,20 +2510,23 @@ msgstr ""
 msgid "Note: Comment relevance is automatically transferred to its parent, causing the Comment parent to be returned as a result."
 msgstr ""
 
-#: includes/Sources/Comment.php:570 includes/Sources/Post.php:1530
+#: includes/Sources/Comment.php:570
+#: includes/Sources/Post.php:1530
 msgid "Any Meta Key"
 msgstr ""
 
-#: includes/Sources/Post.php:65 includes/Sources/Post.php:76
+#: includes/Sources/Post.php:65
+#: includes/Sources/Post.php:76
 msgid "Invalid post type for SearchWP Source Post:"
 msgstr ""
 
-#: includes/Sources/Post.php:66 includes/Sources/Post.php:77
+#: includes/Sources/Post.php:66
+#: includes/Sources/Post.php:77
 msgid "SearchWP Source Error"
 msgstr ""
 
+#. Translators: %s is the plural label of a post type.
 #: includes/Sources/Post.php:128
-#, php-format
 msgid "Note: by default %s are set to be excluded from search. Enabling %s overrides this."
 msgstr ""
 
@@ -2521,7 +2538,8 @@ msgstr ""
 msgid "Content"
 msgstr ""
 
-#: includes/Sources/Post.php:243 includes/Sources/Taxonomy.php:132
+#: includes/Sources/Post.php:243
+#: includes/Sources/Taxonomy.php:132
 msgid "Slug"
 msgstr ""
 
@@ -2537,8 +2555,10 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
-#: includes/Sources/Post.php:422 includes/Sources/Taxonomy.php:208
-#, php-format
+#. Translators: placeholder is singular post type label.
+#. Translators: placeholder is singular taxonomy label.
+#: includes/Sources/Post.php:422
+#: includes/Sources/Taxonomy.php:208
 msgid "To %s ID"
 msgstr ""
 
@@ -2578,7 +2598,8 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-#: includes/Sources/User.php:53 includes/Sources/User.php:59
+#: includes/Sources/User.php:53
+#: includes/Sources/User.php:59
 msgid "User"
 msgstr ""
 
@@ -2594,46 +2615,28 @@ msgstr ""
 msgid "Role"
 msgstr ""
 
-#: includes/Statistics.php:296
+#: includes/Statistics.php:301
 msgid "No Results Searches"
 msgstr ""
 
-#: includes/Statistics.php:305
+#: includes/Statistics.php:310
 msgid "Today"
 msgstr ""
 
-#: includes/Statistics.php:312
+#: includes/Statistics.php:317
 msgid "This Month"
 msgstr ""
 
-#: includes/Statistics.php:319
+#: includes/Statistics.php:324
 msgid "This Year"
 msgstr ""
 
-#: includes/Statistics.php:346
+#: includes/Statistics.php:351
 msgid "No searches for this time period."
 msgstr ""
 
-#: includes/Statistics.php:355
+#: includes/Statistics.php:360
 msgid "Count"
-msgstr ""
-
-#: includes/Updater.php:260
-#, php-format
-msgid "There is a new version of %1$s available. %2$sView version %3$s details%4$s."
-msgstr ""
-
-#: includes/Updater.php:268
-#, php-format
-msgid "There is a new version of %1$s available. %2$sView version %3$s details%4$s or %5$supdate now%6$s."
-msgstr ""
-
-#: includes/Updater.php:512
-msgid "You do not have permission to install plugin updates"
-msgstr ""
-
-#: includes/Updater.php:512
-msgid "Error"
 msgstr ""
 
 #: includes/Upgrader.php:249
@@ -2660,18 +2663,18 @@ msgstr ""
 msgid "Not indexed"
 msgstr ""
 
+#. Translators: 1st placeholder is how long ago an entry was indexed.
 #: includes/Utils.php:1879
-#, php-format
 msgid "Indexed %1$s ago"
 msgstr ""
 
+#. Translators: 1st placeholder is how long ago an entry was queued.
 #: includes/Utils.php:1885
-#, php-format
 msgid "Queued for indexing %1$s ago"
 msgstr ""
 
+#. Translators: 1st placeholder is how long ago an entry was omitted.
 #: includes/Utils.php:1891
-#, php-format
 msgid "Omitted from indexing %1$s ago"
 msgstr ""
 
@@ -2683,16 +2686,24 @@ msgstr ""
 msgid "SearchWP requires WordPress 5.3 or higher and as a result has been deactivated. Please upgrade WordPress before activating this plugin."
 msgstr ""
 
+#. Translators: placeholder is the number "1"
 #: index.php:88
-#, php-format
 msgid "SearchWP requires %s %s or higher and as a result has been deactivated. Please contact your host to upgrade %s before activating this plugin."
 msgstr ""
 
-#. Plugin URI of the plugin/theme
-#. Author URI of the plugin/theme
-msgid "https://searchwp.com/"
+#: assets/gutenberg/build/index.js:1
+#: assets/gutenberg/src/edit.js:35
+msgid "Select a Form"
 msgstr ""
 
-#. Description of the plugin/theme
-msgid "The best WordPress search you can find"
+#: assets/gutenberg/build/block.json
+#: assets/gutenberg/src/block.json
+msgctxt "block title"
+msgid "Search Form"
+msgstr ""
+
+#: assets/gutenberg/build/block.json
+#: assets/gutenberg/src/block.json
+msgctxt "block description"
+msgid "The best WordPress search you can find."
 msgstr ""

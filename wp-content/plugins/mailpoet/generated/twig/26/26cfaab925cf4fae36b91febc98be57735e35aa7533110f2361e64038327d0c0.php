@@ -29,7 +29,6 @@ class __TwigTemplate_0caa1806b4e6bad50c4bb59fbbdec799771fc97376dbc0dd12d0fe0df7e
 
         $this->blocks = [
             'content' => [$this, 'block_content'],
-            'translations' => [$this, 'block_translations'],
             'after_translations' => [$this, 'block_after_translations'],
         ];
     }
@@ -60,23 +59,17 @@ class __TwigTemplate_0caa1806b4e6bad50c4bb59fbbdec799771fc97376dbc0dd12d0fe0df7e
         echo \MailPoetVendor\twig_escape_filter($this->env, ($context["items_per_page"] ?? null), "html", null, true);
         echo ";
   </script>
-";
+
+  ";
+        // line 10
+        $this->loadTemplate("segments/translations.html", "segments/static.html", 10)->display($context);
     }
 
-    // line 11
-    public function block_translations($context, array $blocks = [])
-    {
-        $macros = $this->macros;
-        // line 12
-        echo "  ";
-        $this->loadTemplate("segments/translations.html", "segments/static.html", 12)->display($context);
-    }
-
-    // line 15
+    // line 14
     public function block_after_translations($context, array $blocks = [])
     {
         $macros = $this->macros;
-        // line 16
+        // line 15
         echo "  ";
         echo do_action("mailpoet_segments_translations_after");
         echo "
@@ -95,7 +88,7 @@ class __TwigTemplate_0caa1806b4e6bad50c4bb59fbbdec799771fc97376dbc0dd12d0fe0df7e
 
     public function getDebugInfo()
     {
-        return array (  77 => 16,  73 => 15,  68 => 12,  64 => 11,  57 => 7,  52 => 4,  48 => 3,  37 => 1,);
+        return array (  70 => 15,  66 => 14,  62 => 10,  56 => 7,  51 => 4,  47 => 3,  36 => 1,);
     }
 
     public function getSourceContext()

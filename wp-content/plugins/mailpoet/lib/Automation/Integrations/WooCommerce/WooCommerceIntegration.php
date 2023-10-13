@@ -12,6 +12,8 @@ use MailPoet\Automation\Integrations\WooCommerce\Subjects\OrderStatusChangeSubje
 use MailPoet\Automation\Integrations\WooCommerce\Subjects\OrderSubject;
 use MailPoet\Automation\Integrations\WooCommerce\SubjectTransformers\WordPressUserSubjectToWooCommerceCustomerSubjectTransformer;
 use MailPoet\Automation\Integrations\WooCommerce\Triggers\AbandonedCart\AbandonedCartTrigger;
+use MailPoet\Automation\Integrations\WooCommerce\Triggers\BuysAProductTrigger;
+use MailPoet\Automation\Integrations\WooCommerce\Triggers\BuysFromACategoryTrigger;
 use MailPoet\Automation\Integrations\WooCommerce\Triggers\OrderStatusChangedTrigger;
 
 class WooCommerceIntegration {
@@ -21,6 +23,12 @@ class WooCommerceIntegration {
 
   /** @var AbandonedCartTrigger  */
   private $abandonedCartTrigger;
+
+  /** @var BuysAProductTrigger  */
+  private $buysAProductTrigger;
+
+  /** @var BuysFromACategoryTrigger */
+  private $buysFromACategoryTrigger;
 
   /** @var AbandonedCartSubject */
   private $abandonedCartSubject;
@@ -46,6 +54,8 @@ class WooCommerceIntegration {
   public function __construct(
     OrderStatusChangedTrigger $orderStatusChangedTrigger,
     AbandonedCartTrigger $abandonedCartTrigger,
+    BuysAProductTrigger $buysAProductTrigger,
+    BuysFromACategoryTrigger $buysFromACategoryTrigger,
     AbandonedCartSubject $abandonedCartSubject,
     OrderStatusChangeSubject $orderStatusChangeSubject,
     OrderSubject $orderSubject,
@@ -56,6 +66,8 @@ class WooCommerceIntegration {
   ) {
     $this->orderStatusChangedTrigger = $orderStatusChangedTrigger;
     $this->abandonedCartTrigger = $abandonedCartTrigger;
+    $this->buysAProductTrigger = $buysAProductTrigger;
+    $this->buysFromACategoryTrigger = $buysFromACategoryTrigger;
     $this->abandonedCartSubject = $abandonedCartSubject;
     $this->orderStatusChangeSubject = $orderStatusChangeSubject;
     $this->orderSubject = $orderSubject;
@@ -80,6 +92,8 @@ class WooCommerceIntegration {
     $registry->addSubject($this->customerSubject);
     $registry->addTrigger($this->orderStatusChangedTrigger);
     $registry->addTrigger($this->abandonedCartTrigger);
+    $registry->addTrigger($this->buysAProductTrigger);
+    $registry->addTrigger($this->buysFromACategoryTrigger);
     $registry->addSubjectTransformer($this->wordPressUserToWooCommerceCustomerTransformer);
   }
 }

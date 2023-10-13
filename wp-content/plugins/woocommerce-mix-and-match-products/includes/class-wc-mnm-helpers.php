@@ -45,10 +45,11 @@ class WC_MNM_Helpers {
 
 		if ( $group_key ) {
 
-			if ( $group_id = self::cache_get( $group_key . '_id' ) ) {
+			$group_id = self::cache_get( $group_key . '_id' );
+
+			if ( $group_id ) {
 				$value = self::cache_get( $group_key . '_' . $group_id . '_' . $key );
 			}
-
 		} elseif ( isset( self::$cache[ $key ] ) ) {
 			$value = self::$cache[ $key ];
 		}
@@ -67,7 +68,9 @@ class WC_MNM_Helpers {
 
 		if ( $group_key ) {
 
-			if ( null === ( $group_id = self::cache_get( $group_key . '_id' ) ) ) {
+			$group_id = self::cache_get( $group_key . '_id' );
+
+			if ( null === $group_id ) {
 				$group_id = md5( $group_key );
 				self::cache_set( $group_key . '_id', $group_id );
 			}
@@ -90,10 +93,11 @@ class WC_MNM_Helpers {
 
 		if ( $group_key ) {
 
-			if ( $group_id = self::cache_get( $group_key . '_id' ) ) {
+			$group_id = self::cache_get( $group_key . '_id' );
+
+			if ( $group_id ) {
 				self::cache_delete( $group_key . '_' . $group_id . '_' . $key );
 			}
-
 		} elseif ( isset( self::$cache[ $key ] ) ) {
 			unset( self::$cache[ $key ] );
 		}
@@ -118,7 +122,7 @@ class WC_MNM_Helpers {
 
 		/**
 		 * Supported product types.
-		 * 
+		 *
 		 * @since 2.4.6
 		 * @param  array
 		 */
@@ -134,7 +138,7 @@ class WC_MNM_Helpers {
 	 * @return  boolean
 	 */
 	public static function is_child_supported_product_type( $product ) {
-		return $product instanceOf WC_Product && ( in_array( $product->get_type(), self::get_supported_product_types() ) || ( $product->is_type( 'variation' ) && WC_MNM_Core_Compatibility::has_all_attributes_set( $product ) ) );
+		return $product instanceof WC_Product && ( in_array( $product->get_type(), self::get_supported_product_types() ) || ( $product->is_type( 'variation' ) && WC_MNM_Core_Compatibility::has_all_attributes_set( $product ) ) );
 	}
 
 	/**
@@ -149,16 +153,16 @@ class WC_MNM_Helpers {
 	public static function format_product_title( $title, $qty = '', $args = array() ) {
 
 		$args = wp_parse_args(
-            $args,
-            array(
-			'title_first' => true,
-            ) 
-        );
+			$args,
+			array(
+				'title_first' => true,
+			)
+		);
 
 		$title_string = $title;
 
 		if ( $qty ) {
-			if ( $args[ 'title_first' ] ) {
+			if ( $args['title_first'] ) {
 				$title_string = sprintf( esc_html_x( '%1$s &times; %2$d', '[Frontend] product title x quantity', 'woocommerce-mix-and-match-products' ), $title_string, $qty );
 			} else {
 				$title_string = sprintf( esc_html_x( '%1$d &times; %2$s', '[Frontend] quantity x product title', 'woocommerce-mix-and-match-products' ), $qty, $title_string );
@@ -168,10 +172,10 @@ class WC_MNM_Helpers {
 		return $title_string;
 	}
 
-	
+
 	/**
 	 * Recursive version of 'urlencode' for multidimensional assosciative arrays.
-	 * 
+	 *
 	 * Hat tip to Composite Products.
 	 *
 	 * @since  2.2.0
@@ -200,7 +204,7 @@ class WC_MNM_Helpers {
 
 	/**
 	 * Check how long plugin has been active for.
-	 * 
+	 *
 	 * @since   2.4.0
 	 * @param   int $seconds - Time in seconds to check.
 	 * @return  boolean|int Whether or not plugin has been active for $seconds.
@@ -221,8 +225,10 @@ class WC_MNM_Helpers {
 		return ( ( time() - $install_timestamp ) >= $seconds );
 	}
 
-	/*-----------------------------------------------------------------------------------*/
-	/* Deprecated Functions */
+	/*
+	-----------------------------------------------------------------------------------*/
+	/*
+	Deprecated Functions */
 	/*-----------------------------------------------------------------------------------*/
 
 	/**
@@ -284,5 +290,4 @@ class WC_MNM_Helpers {
 		wc_deprecated_function( 'WC_MNM_Helpers::get_formatted_variation_attributes()', '1.2.0', 'wc_get_formatted_variation()' );
 		return wc_get_formatted_variation( $variation, $flat );
 	}
-
-} //end class
+}//end class

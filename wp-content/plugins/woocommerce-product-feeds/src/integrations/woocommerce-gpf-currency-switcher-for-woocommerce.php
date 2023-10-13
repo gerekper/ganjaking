@@ -47,7 +47,8 @@ class WoocommerceGpfCurrencySwitcherForWooCommerce {
 		if ( empty( $feed_config ) ) {
 			return;
 		}
-		$this->currency = $_GET['currency'] ?? $feed_config->currency;
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$this->currency = sanitize_text_field( $_GET['currency'] ) ?? $feed_config->currency;
 		if ( empty( $this->currency ) ) {
 			return;
 		}

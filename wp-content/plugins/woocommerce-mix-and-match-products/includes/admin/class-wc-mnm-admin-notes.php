@@ -6,7 +6,7 @@
  *
  * @since   2.4.0
  * @version 2.4.1
- * 
+ *
  * @package WooCommerce Mix and Match/Admin/Notes
  */
 
@@ -26,7 +26,7 @@ class WC_MNM_Admin_Notes {
 
 	/**
 	 * Include the notes to create.
-	 * 
+	 *
 	 * @since 2.4.1
 	 */
 	public static function possibly_add_notes() {
@@ -34,18 +34,16 @@ class WC_MNM_Admin_Notes {
 		// Start adding our notes/messages.
 		WC_MNM_Notes_Get_Support::possibly_add_note();
 		WC_MNM_Notes_Help_Improve::possibly_add_note();
-
 	}
 
 	/**
 	 * Include the notes to create.
-	 * 
+	 *
 	 * @since 2.4.1 - renamed already.
 	 */
 	public static function initialize_notes() {
 		return self::possibly_add_notes();
 	}
-
 } // END class
 
 return WC_MNM_Admin_Notes::init();

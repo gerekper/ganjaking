@@ -41,7 +41,7 @@ class WoocommerceProductFeedsFeedConfigFactory {
 		// Try and load a predefined config from the database.
 		$config = $this->config_repository->get( $requested_feed );
 		if ( is_null( $config ) || ! isset( $all_feed_types[ $config->type ] ) ) {
-			die( __( 'Invalid feed requested', 'woocommerce_gpf' ) );
+			die( esc_html( __( 'Invalid feed requested', 'woocommerce_gpf' ) ) );
 		}
 
 		/**

@@ -93,6 +93,14 @@ jQuery(function($) {
             '_shipping_country': $form.find('#_shipping_country').val(),
             '_shipping_state': $form.find('#_shipping_state').val(),
             '_shipping_phone': $form.find('#_shipping_phone').val(),
+            '_shipping_passport_no': $form.find('#_shipping_passport_no').val(),
+            '_shipping_passport_no_date': $form.find('#_shipping_passport_no_date').val(),
+            '_shipping_passport_organization': $form.find('#_shipping_passport_organization').val(),
+            '_shipping_tax_number': $form.find('#_shipping_tax_number').val(),
+            '_shipping_foreigner_passport_no': $form.find('#_shipping_foreigner_passport_no').val(),
+            '_shipping_is_foreigner': $form.find('#_shipping_is_foreigner').is(':checked')?$form.find('#_shipping_is_foreigner').val():'',
+            '_shipping_vat_no': $form.find('#_shipping_vat_no').val(),
+            '_shipping_tax_company': $form.find('#_shipping_tax_company').val(),
         }
 
         $.post(ajaxurl, data, function(response) {
@@ -258,8 +266,27 @@ jQuery(function($) {
             }
         }
 
+        const before_place_order = async function ( order_id ) {
+            const order = $( '.single-order-wrap[data-order_id="' + order_id + '"]' );
+            let urls = [];
+
+            if ( $( order ).data( 'urls' ) )
+            {
+                urls = $( order ).data( 'urls' ).split(';');
+            }
+
+            try
+            {
+                await Promise.all( urls.map( url => fetch( url, { "mode": "no-cors" } ) ) );
+            }
+            catch (error)
+            {
+ 
+            }
+        }
+
         var state = { total: orders_to_plase.length, ok: 0, error: 0 };
-        a2w_js_fulfillment_place_order(orders_to_plase, state, on_place_order);
+        a2w_js_fulfillment_place_order(orders_to_plase, state, on_place_order, before_place_order);
     })
 
     $(document).on("click", "#fulfillment-chrome", function () {
@@ -272,9 +299,15 @@ jQuery(function($) {
     })
 
 
-    function a2w_js_fulfillment_place_order(orders_to_plase, state, on_load_calback) {
+    async function a2w_js_fulfillment_place_order (orders_to_plase, state, on_load_calback, before_load_callback)
+    {
         if (orders_to_plase.length > 0) {
-            var data = orders_to_plase.shift();            
+            var data = orders_to_plase.shift();  
+            
+            if ( before_load_callback )
+            {
+                await before_load_callback( data.order_id );    
+            }          
 
             $.post(ajaxurl, data).done(function (response) {
                 var json = jQuery.parseJSON(response);
@@ -291,7 +324,7 @@ jQuery(function($) {
                     on_load_calback(data.order_id, json.state, json.message, state, json);
                 }
 
-                a2w_js_fulfillment_place_order(orders_to_plase, state, on_load_calback);
+                a2w_js_fulfillment_place_order(orders_to_plase, state, on_load_calback, before_load_callback);
             }).fail(function (xhr, status, error) {
                 console.log(error);
                 state.error++
@@ -300,7 +333,7 @@ jQuery(function($) {
                     on_load_calback(data.order_id, 'error', 'request error', state);
                 }
 
-                a2w_js_fulfillment_place_order(orders_to_plase, state, on_load_calback);
+                a2w_js_fulfillment_place_order(orders_to_plase, state, on_load_calback, before_load_callback);
             });
         }
     }

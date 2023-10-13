@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit436006fe301dd1752be8768e31d6d914
+class ComposerStaticInit7ec2d470ebf37b3a3fd4e0c5916327d1
 {
     public static $prefixLengthsPsr4 = array (
         'S' => 
@@ -47,6 +47,7 @@ class ComposerStaticInit436006fe301dd1752be8768e31d6d914
         'SearchWP\\Admin\\Views\\GlobalRulesView' => __DIR__ . '/../..' . '/../includes/Admin/Views/GlobalRulesView.php',
         'SearchWP\\Admin\\Views\\ImportExportView' => __DIR__ . '/../..' . '/../includes/Admin/Views/ImportExportView.php',
         'SearchWP\\Admin\\Views\\MiscSettingsView' => __DIR__ . '/../..' . '/../includes/Admin/Views/MiscSettingsView.php',
+        'SearchWP\\Admin\\Views\\ResultsPageView' => __DIR__ . '/../..' . '/../includes/Admin/Views/ResultsPageView.php',
         'SearchWP\\Admin\\Views\\SearchFormsView' => __DIR__ . '/../..' . '/../includes/Admin/Views/SearchFormsView.php',
         'SearchWP\\Admin\\Views\\StatisticsView' => __DIR__ . '/../..' . '/../includes/Admin/Views/StatisticsView.php',
         'SearchWP\\Admin\\Views\\SystemInfoView' => __DIR__ . '/../..' . '/../includes/Admin/Views/SystemInfoView.php',
@@ -320,6 +321,8 @@ class ComposerStaticInit436006fe301dd1752be8768e31d6d914
         'SearchWP\\Parser' => __DIR__ . '/../..' . '/../includes/Parser.php',
         'SearchWP\\Query' => __DIR__ . '/../..' . '/../includes/Query.php',
         'SearchWP\\Rest' => __DIR__ . '/../..' . '/../includes/Rest.php',
+        'SearchWP\\Results\\Frontend' => __DIR__ . '/../..' . '/../includes/Results/Frontend.php',
+        'SearchWP\\Results\\Settings' => __DIR__ . '/../..' . '/../includes/Results/Settings.php',
         'SearchWP\\Rule' => __DIR__ . '/../..' . '/../includes/Rule.php',
         'SearchWP\\Settings' => __DIR__ . '/../..' . '/../includes/Settings.php',
         'SearchWP\\Source' => __DIR__ . '/../..' . '/../includes/Source.php',
@@ -342,9 +345,9 @@ class ComposerStaticInit436006fe301dd1752be8768e31d6d914
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit436006fe301dd1752be8768e31d6d914::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit436006fe301dd1752be8768e31d6d914::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit436006fe301dd1752be8768e31d6d914::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit7ec2d470ebf37b3a3fd4e0c5916327d1::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit7ec2d470ebf37b3a3fd4e0c5916327d1::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit7ec2d470ebf37b3a3fd4e0c5916327d1::$classMap;
 
         }, null, ClassLoader::class);
     }

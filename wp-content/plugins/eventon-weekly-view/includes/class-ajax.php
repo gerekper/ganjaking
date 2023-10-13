@@ -28,7 +28,7 @@ class EVOWV_ajax{
 		}
 
 	// MAIN AJAX CALL before get events
-		function main_ajax_arg_adds($SC, $POST, $ajaxtype){			
+		function main_ajax_arg_adds($SC, $POST, $ajaxtype){		
 			if($SC['calendar_type'] == 'weekly' && $ajaxtype == 'wv_newweek'){
 				$SC = EVOWV()->frontend->set_week_unix_date_range($SC);	
 			}

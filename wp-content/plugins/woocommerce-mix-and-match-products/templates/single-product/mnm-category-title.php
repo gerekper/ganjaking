@@ -21,7 +21,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * @param WP_Term object $category
- */
+// @param WP_Term object $category
 woocommerce_template_loop_category_title( $category );

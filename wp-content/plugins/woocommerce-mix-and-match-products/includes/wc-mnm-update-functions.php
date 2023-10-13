@@ -33,7 +33,7 @@ function wc_mnm_update_120_main() {
 
 	global $wpdb;
 
-	// Process all the existing MNM products to extract the children products
+	// Process all the existing MNM products to extract the children products.
 	$mnm_term = get_term_by( 'slug', 'mix-and-match', 'product_type' );
 
 	if ( false === $mnm_term ) {
@@ -129,7 +129,6 @@ function wc_mnm_update_120_main() {
 
 			delete_post_meta( $container_id, '_mnm_container_size' );
 		}
-
 	}
 
 	// Start the run again.
@@ -139,7 +138,6 @@ function wc_mnm_update_120_main() {
 
 	delete_option( 'wc_mnm_update_1x2x0_last_product_id' );
 	return false;
-
 }
 
 /**
@@ -155,7 +153,7 @@ function wc_mnm_update_1x10_product_meta() {
 
 	global $wpdb;
 
-	// Process all the existing MNM products to extract the children products
+	// Process all the existing MNM products to extract the children products.
 	$mnm_term = get_term_by( 'slug', 'mix-and-match', 'product_type' );
 
 	if ( false === $mnm_term ) {
@@ -220,7 +218,6 @@ function wc_mnm_update_1x10_product_meta() {
 			update_post_meta( $container_id, '_mnm_data', $new_contents );
 
 		}
-
 	}
 
 	// Start the run again.
@@ -230,7 +227,6 @@ function wc_mnm_update_1x10_product_meta() {
 
 	delete_option( 'wc_mnm_update_1x10_last_product_id' );
 	return false;
-
 }
 
 
@@ -247,7 +243,8 @@ function wc_mnm_update_1x10_order_item_meta() {
 	$wpdb->update(
 		$wpdb->prefix . 'woocommerce_order_itemmeta',
 		array( 'meta_key' => 'mnm_container_size' ),
-		array( 'meta_key' => __( 'Container size', 'woocommerce-mix-and-match-products' )
+		array(
+			'meta_key' => __( 'Container size', 'woocommerce-mix-and-match-products' ),
 		)
 	);
 
@@ -255,7 +252,8 @@ function wc_mnm_update_1x10_order_item_meta() {
 	$wpdb->update(
 		$wpdb->prefix . 'woocommerce_order_itemmeta',
 		array( 'meta_key' => 'mnm_part_of' ),
-		array( 'meta_key' => __( 'Part of', 'woocommerce-mix-and-match-products' )
+		array(
+			'meta_key' => __( 'Part of', 'woocommerce-mix-and-match-products' ),
 		)
 	);
 
@@ -263,10 +261,10 @@ function wc_mnm_update_1x10_order_item_meta() {
 	$wpdb->update(
 		$wpdb->prefix . 'woocommerce_order_itemmeta',
 		array( 'meta_key' => 'mnm_purchased_with' ),
-		array( 'meta_key' => __( 'Purchased with', 'woocommerce-mix-and-match-products' )
+		array(
+			'meta_key' => __( 'Purchased with', 'woocommerce-mix-and-match-products' ),
 		)
 	);
-
 }
 
 /**
@@ -304,7 +302,7 @@ function wc_mnm_update_2x00_customizer_settings() {
 
 	global $wpdb;
 
-	// Process all the existing MNM products to extract the children products
+	// Process all the existing MNM products to extract the children products.
 	$mnm_term = get_term_by( 'slug', 'mix-and-match', 'product_type' );
 
 	if ( false === $mnm_term ) {
@@ -312,16 +310,16 @@ function wc_mnm_update_2x00_customizer_settings() {
 	}
 
 	// Grab post ids to update, storing the last ID processed, so we know where to start next time.
-	$container_id      = 0;
-	$last_product_id   = get_option( 'wc_mnm_update_2x00_customizer_last_product_id', 0 );
+	$container_id    = 0;
+	$last_product_id = get_option( 'wc_mnm_update_2x00_customizer_last_product_id', 0 );
 
 	// Tracking values.
-	$layouts     = get_option( 'wc_mnm_layout_tracker', array() );
-	$locations   = get_option( 'wc_mnm_add_to_cart_form_location_tracker', array() );
+	$layouts   = get_option( 'wc_mnm_layout_tracker', array() );
+	$locations = get_option( 'wc_mnm_add_to_cart_form_location_tracker', array() );
 
 	$containers = $wpdb->get_results(
 		$wpdb->prepare(
-            "
+			"
 			SELECT
 				DISTINCT P.ID AS product_id
 				FROM
@@ -354,8 +352,8 @@ function wc_mnm_update_2x00_customizer_settings() {
 
 			$container_id = intval( $container->product_id );
 
-			$layout     = get_post_meta( $container_id, '_mnm_layout_style', true );
-			$location   = get_post_meta( $container_id, '_mnm_add_to_cart_form_location', true );
+			$layout   = get_post_meta( $container_id, '_mnm_layout_style', true );
+			$location = get_post_meta( $container_id, '_mnm_add_to_cart_form_location', true );
 
 			// Keep track of layouts and IDs.
 			if ( $layout ) {
@@ -374,7 +372,6 @@ function wc_mnm_update_2x00_customizer_settings() {
 					$locations[ $location ] = array( $container_id );
 				}
 			}
-
 		}
 
 		// Store values for next batch.
@@ -391,7 +388,6 @@ function wc_mnm_update_2x00_customizer_settings() {
 		if ( $container_id ) {
 			return update_option( 'wc_mnm_update_2x00_customizer_last_product_id', $container_id );
 		}
-
 	}
 
 	// Section runs on last iteration of updater.
@@ -400,17 +396,16 @@ function wc_mnm_update_2x00_customizer_settings() {
 
 	// Find the layout applied to the most posts.
 	if ( count( $layouts ) > 1 ) {
-		$temp = array_map( 'count', $layouts );
+		$temp   = array_map( 'count', $layouts );
 		$layout = array_search( max( $temp ), $temp );
 
 		// Grab product IDs of products *not* using global $layout.
-		foreach( $layouts as $key => $ids ) {
+		foreach ( $layouts as $key => $ids ) {
 			$all_ids = array_merge( $all_ids, $ids );
 			if ( $layout !== $key ) {
 				$override_ids = array_merge( $override_ids, $ids );
 			}
 		}
-
 	} elseif ( 1 === count( $layouts ) ) {
 		$layout = array_key_first( $layouts );
 	} else {
@@ -419,17 +414,16 @@ function wc_mnm_update_2x00_customizer_settings() {
 
 	// Find the location applied to the most posts.
 	if ( count( $locations ) > 1 ) {
-		$temp = array_map( 'count', $locations );
+		$temp     = array_map( 'count', $locations );
 		$location = array_search( max( $temp ), $temp );
 
 		// Grab product IDs of products *not* using global $location.
-		foreach( $locations as $key => $ids ) {
+		foreach ( $locations as $key => $ids ) {
 			$all_ids = array_merge( $all_ids, $ids );
 			if ( $location !== $key ) {
 				$override_ids = array_merge( $override_ids, $ids );
 			}
 		}
-
 	} elseif ( 1 === count( $locations ) ) {
 		$location = array_key_first( $locations );
 	} else {
@@ -442,14 +436,14 @@ function wc_mnm_update_2x00_customizer_settings() {
 
 	// Update product IDs that are using the global layout.
 	if ( ! empty( $global_ids ) ) {
-		foreach( $global_ids as $id ) {
+		foreach ( $global_ids as $id ) {
 			update_post_meta( $id, '_mnm_layout_override', 'no' );
 		}
 	}
 
 	// Update product IDs that have some kind of override.
 	if ( ! empty( $override_ids ) ) {
-		foreach( $override_ids as $id ) {
+		foreach ( $override_ids as $id ) {
 			update_post_meta( $id, '_mnm_layout_override', 'yes' );
 		}
 	}
@@ -458,7 +452,7 @@ function wc_mnm_update_2x00_customizer_settings() {
 	update_option( 'wc_mnm_layout', $layout );
 	update_option( 'wc_mnm_add_to_cart_form_location', $location );
 
-	$columns = (int) apply_filters( 'wc_mnm_grid_layout_columns', 3, new WC_Product_Mix_and_Match );
+	$columns = (int) apply_filters( 'wc_mnm_grid_layout_columns', 3, new WC_Product_Mix_and_Match() );
 
 	update_option( 'wc_mnm_number_columns', $columns );
 
@@ -471,7 +465,6 @@ function wc_mnm_update_2x00_customizer_settings() {
 	delete_option( 'wc_mnm_add_to_cart_form_location_tracker' );
 
 	return false;
-
 }
 
 /**
@@ -485,7 +478,7 @@ function wc_mnm_update_2x00_packing_mode() {
 
 	global $wpdb;
 
-	// Process all the existing MNM products to extract the children products
+	// Process all the existing MNM products to extract the children products.
 	$mnm_term = get_term_by( 'slug', 'mix-and-match', 'product_type' );
 
 	if ( false === $mnm_term ) {
@@ -493,12 +486,12 @@ function wc_mnm_update_2x00_packing_mode() {
 	}
 
 	// Grab post ids to update, storing the last ID processed, so we know where to start next time.
-	$container_id      = 0;
-	$last_product_id   = get_option( 'wc_mnm_update_2x00_packing_mode_last_product_id', 0 );
+	$container_id    = 0;
+	$last_product_id = get_option( 'wc_mnm_update_2x00_packing_mode_last_product_id', 0 );
 
 	$containers = $wpdb->get_results(
 		$wpdb->prepare(
-            "
+			"
 			SELECT
 				DISTINCT P.ID AS product_id
 				FROM
@@ -529,7 +522,7 @@ function wc_mnm_update_2x00_packing_mode() {
 
 		foreach ( $containers as $container ) {
 
-			$container_id         = intval( $container->product_id );
+			$container_id = intval( $container->product_id );
 
 			$virtual              = get_post_meta( $container_id, '_virtual', true );
 			$per_product_shipping = get_post_meta( $container_id, '_mnm_per_product_shipping', true );
@@ -551,14 +544,12 @@ function wc_mnm_update_2x00_packing_mode() {
 		if ( $container_id ) {
 			return update_option( 'wc_mnm_update_2x00_packing_mode_last_product_id', $container_id );
 		}
-
 	}
 
 	// Delete temporary options.
 	delete_option( 'wc_mnm_update_2x00_packing_mode_last_product_id' );
 
 	return false;
-
 }
 
 /**
@@ -577,7 +568,6 @@ function wc_mnm_update_2x00_order_item_meta() {
 
 	// Update "Purchased with" meta key.
 	$wpdb->update( $wpdb->prefix . 'woocommerce_order_itemmeta', array( 'meta_key' => '_mnm_purchased_with' ), array( 'meta_key' => 'mnm_purchased_with' ) );
-
 }
 
 /**
@@ -589,7 +579,7 @@ function wc_mnm_update_2x00_order_item_meta() {
 function wc_mnm_update_2x00_custom_tables() {
 	global $wpdb;
 
-	// Process all the existing MNM products to extract the children products
+	// Process all the existing MNM products to extract the children products.
 	$mnm_term = get_term_by( 'slug', 'mix-and-match', 'product_type' );
 
 	if ( false === $mnm_term ) {
@@ -601,7 +591,7 @@ function wc_mnm_update_2x00_custom_tables() {
 	$last_product_id = get_option( 'wc_mnm_update_2x00_last_product_id', 0 );
 	$existing_ids    = get_option( 'wc_mnm_update_2x00_product_ids', array() );
 
-	// Fetch the MNM products whose children will be copied to the Child Items table
+	// Fetch the MNM products whose children will be copied to the Child Items table.
 	$containers = $wpdb->get_results(
 		$wpdb->prepare(
 			"SELECT
@@ -609,16 +599,15 @@ function wc_mnm_update_2x00_custom_tables() {
 				FROM
 					{$wpdb->posts} AS P
 					LEFT JOIN
-					-- Fetch only the Mix & Match products
+					-- Fetch only the Mix & Match products.
 					{$wpdb->term_relationships} AS PRODUCT_TYPE 
 						ON PRODUCT_TYPE.object_id = P.ID
 					LEFT JOIN
-					-- Fetch the contents from the product meta
+					-- Fetch the contents from the product meta.
 					{$wpdb->postmeta} AS PM
 						ON PM.post_id = P.ID AND PM.meta_key = '_mnm_data'
 					LEFT JOIN
-					-- Fetch only the MNM products whose child products have not yet been
-					-- stored in the Child Items table
+					-- Fetch only the MNM products whose child products have not yet been stored in the Child Items table.
 					{$wpdb->prefix}wc_mnm_child_items AS CHILD_ITEMS 
 						ON CHILD_ITEMS.product_id = P.ID
 				WHERE
@@ -657,48 +646,47 @@ function wc_mnm_update_2x00_custom_tables() {
 			// Start a transaction, to ensure that the INSERT operation can be rolled back in case of error.
 			wc_transaction_query();
 
-			// Prepare the base SQL query
-			$SQL = "
+			// Prepare the base SQL query.
+			$sql = "
 			INSERT INTO {$wpdb->prefix}wc_mnm_child_items (product_id, container_id, menu_order)
 			VALUES
 			";
 
 			try {
 				$item_menu_order = 0;
-				$insert_rows = array();
+				$insert_rows     = array();
 				foreach ( array_keys( $container_data ) as $child_item_product_id ) {
 
 					// Test if product ID exists.
 					if ( ! array_key_exists( $child_item_product_id, $existing_ids ) ) {
-						$existing_ids[$child_item_product_id] = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE ID=%s", $child_item_product_id ) ); // Comes back null if the product does not exist in DB.
+						$existing_ids[ $child_item_product_id ] = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE ID=%s", $child_item_product_id ) ); // Comes back null if the product does not exist in DB.
 					}
 
 					// Skip any products that don't exist.
-					if ( empty( $existing_ids[$child_item_product_id] ) ) {
+					if ( empty( $existing_ids[ $child_item_product_id ] ) ) {
 						continue;
 					}
 
-					// Add a row for the INSERT query. This will allow to insert multiple rows at once
-					// @link https://dev.mysql.com/doc/refman/8.0/en/insert.html
+					// Add a row for the INSERT query. This will allow to insert multiple rows at once.
+					// @link https://dev.mysql.com/doc/refman/8.0/en/insert.html.
 					$insert_rows[] = $wpdb->prepare( '(%d, %d, %d)', $child_item_product_id, $container_id, $item_menu_order );
-					$item_menu_order++;
+					++$item_menu_order;
 				}
 
-				// Build the SQL statement to insert all the rows
-				$SQL .= implode( ', ', $insert_rows );
+				// Build the SQL statement to insert all the rows.
+				$sql .= implode( ', ', $insert_rows );
 
-				// Add the child items to the child items table
-				if ( false === $wpdb->query( $SQL ) ) {
-					throw new Exception( sprintf( esc_html__( 'Mix and Match child item database conversion failed for product #%d. Error: %s', 'woocommerce-mix-and-match-products' ), $container_id, $wpdb->last_error ) );
+				// Add the child items to the child items table.
+				if ( false === $wpdb->query( $sql ) ) { // phpcs:ignore WordPress.DB.PreparedSQL
+					throw new Exception( sprintf( esc_html__( 'Mix and Match child item database conversion failed for product #%1$d. Error: %2$s', 'woocommerce-mix-and-match-products' ), $container_id, $wpdb->last_error ) );
 				}
 
-				// Commit the transaction. This will ensure that the items will be saved
+				// Commit the transaction. This will ensure that the items will be saved.
 				wc_transaction_query( 'commit' );
 
-			}
-			catch( Exception $e ) {
+			} catch ( Exception $e ) {
 
-				// If anything unexpected happens, roll back the transaction as well
+				// If anything unexpected happens, roll back the transaction as well.
 				wc_transaction_query( 'rollback' );
 
 				wc_get_logger()->log( 'error', $e->getMessage(), array( 'source' => 'wc_mnm_db_updates' ) );
@@ -731,7 +719,7 @@ function wc_mnm_update_2x00_custom_tables() {
 function wc_mnm_update_2x00_category_contents_meta() {
 	global $wpdb;
 
-	// Process all the existing MNM products to extract the children products
+	// Process all the existing MNM products to extract the children products.
 	$mnm_term = get_term_by( 'slug', 'mix-and-match', 'product_type' );
 
 	if ( false === $mnm_term ) {
@@ -739,12 +727,12 @@ function wc_mnm_update_2x00_category_contents_meta() {
 	}
 
 	// Grab post ids to update, storing the last ID processed, so we know where to start next time.
-	$container_id      = 0;
-	$last_product_id   = get_option( 'wc_mnm_update_2x00_category_ids_last_product_id', 0 );
+	$container_id    = 0;
+	$last_product_id = get_option( 'wc_mnm_update_2x00_category_ids_last_product_id', 0 );
 
 	$containers = $wpdb->get_results(
 		$wpdb->prepare(
-            "
+			"
 			SELECT
 				DISTINCT P.ID AS product_id
 				FROM
@@ -788,16 +776,14 @@ function wc_mnm_update_2x00_category_contents_meta() {
 
 			} elseif ( is_array( $old_categories ) ) {
 
-				foreach( $old_categories as $slug ) {
+				foreach ( $old_categories as $slug ) {
 
 					$cat = get_term_by( 'slug', $slug, 'product_cat' );
 
 					if ( $cat instanceof WP_Term ) {
 						$new_categories[] = $cat->term_id;
 					}
-
 				}
-
 			}
 
 			update_post_meta( $container_id, '_mnm_content_source', $source );
@@ -812,14 +798,12 @@ function wc_mnm_update_2x00_category_contents_meta() {
 		if ( $container_id ) {
 			return update_option( 'wc_mnm_update_2x00_category_ids_last_product_id', $container_id );
 		}
-
 	}
 
 	// Delete temporary options.
 	delete_option( 'wc_mnm_update_2x00_category_ids_last_product_id' );
 
 	return false;
-
 }
 
 
@@ -859,12 +843,11 @@ function wc_mnm_update_2x00_product_meta() {
 		WHERE `meta_key` IN ( {$placeholders} )
 	";
 
-	$sql = $wpdb->prepare( $sql, $delete_keys );
+	$sql = $wpdb->prepare( $sql, $delete_keys ); // phpcs:ignore WordPress.DB.PreparedSQL
 
-	if ( false === $wpdb->query( $sql ) ) {
+	if ( false === $wpdb->query( $sql ) ) { // phpcs:ignore WordPress.DB.PreparedSQL
 		wc_get_logger()->log( 'error', 'Mix and Match could not delete duplicate product meta.', array( 'source' => 'wc_mnm_db_updates' ) );
 	}
-
 }
 
 
@@ -873,12 +856,12 @@ function wc_mnm_update_2x00_product_meta() {
  *
  * @since  2.0.0
  */
-function  wc_mnm_update_2x00_cleanup_legacy_child_meta() {
+function wc_mnm_update_2x00_cleanup_legacy_child_meta() {
 
 	global $wpdb;
 
 	$delete_keys = array(
-		'_mnm_data'
+		'_mnm_data',
 	);
 
 	$placeholders = implode( ', ', array_fill( 0, count( $delete_keys ), '%s' ) );
@@ -889,12 +872,11 @@ function  wc_mnm_update_2x00_cleanup_legacy_child_meta() {
 		WHERE `meta_key` IN ( {$placeholders} )
 	";
 
-	$sql = $wpdb->prepare( $sql, $delete_keys );
+	$sql = $wpdb->prepare( $sql, $delete_keys ); // phpcs:ignore WordPress.DB.PreparedSQL
 
-	if ( false === $wpdb->query( $sql ) ) {
+	if ( false === $wpdb->query( $sql ) ) { // phpcs:ignore WordPress.DB.PreparedSQL
 		wc_get_logger()->log( 'error', 'Mix and Match could not delete legacy product meta.', array( 'source' => 'wc_mnm_db_updates' ) );
 	}
-
 }
 
 
@@ -907,7 +889,7 @@ function wc_mnm_update_2x2x0_delete_duplicate_meta() {
 
 	global $wpdb;
 
-	// Process all the existing MNM products to only delete meta for them (as some meta keys are a bit generic)
+	// Process all the existing MNM products to only delete meta for them (as some meta keys are a bit generic).
 	$mnm_term = get_term_by( 'slug', 'mix-and-match', 'product_type' );
 
 	if ( false === $mnm_term ) {
@@ -935,12 +917,12 @@ function wc_mnm_update_2x2x0_delete_duplicate_meta() {
 	);
 
 	// Grab post ids to update, storing the last ID processed, so we know where to start next time.
-	$container_id      = 0;
-	$last_product_id   = get_option( 'wc_mnm_update_2x2x0_delete_duplicate_meta_last_product_id', 0 );
+	$container_id    = 0;
+	$last_product_id = get_option( 'wc_mnm_update_2x2x0_delete_duplicate_meta_last_product_id', 0 );
 
 	$containers = $wpdb->get_results(
 		$wpdb->prepare(
-            "
+			"
 			SELECT
 				DISTINCT P.ID AS product_id
 				FROM
@@ -973,22 +955,19 @@ function wc_mnm_update_2x2x0_delete_duplicate_meta() {
 
 			$container_id = intval( $container->product_id );
 
-			foreach( $delete_keys as $key ) {
+			foreach ( $delete_keys as $key ) {
 				$result = delete_post_meta( $container_id, $key );
 			}
-
 		}
 
 		// Start the run again.
 		if ( $container_id ) {
 			return update_option( 'wc_mnm_update_2x2x0_delete_duplicate_meta_last_product_id', $container_id );
 		}
-
 	}
 
 	// Delete temporary options.
 	delete_option( 'wc_mnm_update_2x2x0_delete_duplicate_meta_last_product_id' );
 
 	return false;
-
 }

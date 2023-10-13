@@ -29,8 +29,6 @@ class __TwigTemplate_d7e5c6eabd771def3ba904afb1433c0226390ff983f51ef08486a758acf
 
         $this->blocks = [
             'content' => [$this, 'block_content'],
-            'translations' => [$this, 'block_translations'],
-            'after_javascript' => [$this, 'block_after_javascript'],
         ];
     }
 
@@ -119,29 +117,13 @@ class __TwigTemplate_d7e5c6eabd771def3ba904afb1433c0226390ff983f51ef08486a758acf
     ";
         // line 24
         echo "  </script>
-";
-    }
 
-    // line 26
-    public function block_translations($context, array $blocks = [])
-    {
-        $macros = $this->macros;
+  ";
+        // line 26
+        $this->loadTemplate("settings_translations.html", "settings.html", 26)->display($context);
         // line 27
         echo "  ";
-        $this->loadTemplate("settings_translations.html", "settings.html", 27)->display($context);
-        // line 28
-        echo "  ";
-        $this->loadTemplate("premium_key_validation_strings.html", "settings.html", 28)->display($context);
-    }
-
-    // line 31
-    public function block_after_javascript($context, array $blocks = [])
-    {
-        $macros = $this->macros;
-        // line 32
-        echo $this->extensions['MailPoet\Twig\Assets']->generateJavascript("settings.js");
-        echo "
-";
+        $this->loadTemplate("premium_key_validation_strings.html", "settings.html", 27)->display($context);
     }
 
     public function getTemplateName()
@@ -156,7 +138,7 @@ class __TwigTemplate_d7e5c6eabd771def3ba904afb1433c0226390ff983f51ef08486a758acf
 
     public function getDebugInfo()
     {
-        return array (  139 => 32,  135 => 31,  130 => 28,  127 => 27,  123 => 26,  118 => 24,  114 => 22,  110 => 21,  106 => 20,  102 => 19,  98 => 18,  94 => 17,  90 => 16,  86 => 15,  82 => 14,  78 => 13,  74 => 12,  70 => 11,  66 => 10,  62 => 9,  57 => 8,  52 => 4,  48 => 3,  37 => 1,);
+        return array (  122 => 27,  120 => 26,  116 => 24,  112 => 22,  108 => 21,  104 => 20,  100 => 19,  96 => 18,  92 => 17,  88 => 16,  84 => 15,  80 => 14,  76 => 13,  72 => 12,  68 => 11,  64 => 10,  60 => 9,  55 => 8,  50 => 4,  46 => 3,  35 => 1,);
     }
 
     public function getSourceContext()

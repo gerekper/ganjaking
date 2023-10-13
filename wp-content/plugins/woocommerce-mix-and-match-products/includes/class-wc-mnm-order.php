@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Orders
  * @since    1.0.0
- * @version  2.3.0
+ * @version  2.5.0
  */
 
 // Exit if accessed directly.
@@ -35,6 +35,7 @@ class WC_Mix_and_Match_Order {
 
 	/**
 	 * The single instance of the class.
+	 *
 	 * @var WC_Mix_and_Match_Order
 	 *
 	 * @since 1.9.2
@@ -107,7 +108,7 @@ class WC_Mix_and_Match_Order {
 		}
 
 		// The original saved config.
-		$configuration       = $order_item->get_meta( '_mnm_config', true );
+		$configuration = $order_item->get_meta( '_mnm_config', true );
 
 		// This returns children that are actually in the ORDER right now.
 		$child_order_items = wc_mnm_get_child_order_items( $order_item, $order );
@@ -163,7 +164,6 @@ class WC_Mix_and_Match_Order {
 	 * - Container item totals can be overridden by passing a 'totals' array in $args, as with 'WC_Order::add_product()'.
 	 * - Child item totals can be overridden in the 'configuration' array, as shown in the example above.
 	 *
-	 *
 	 * @param  WC_Product_Mix_and_Match  $container
 	 * @param  WC_Order                 $order
 	 * @param  integer                  $quantity
@@ -196,7 +196,7 @@ class WC_Mix_and_Match_Order {
 				// Unique hash to use in place of the cart item ID.
 				$container_item_hash = md5( $container_order_item_id );
 
-				$aggregate_weight = 0.0;
+				$aggregate_weight      = 0.0;
 				$items_need_processing = false;
 
 				// Add child items.
@@ -214,7 +214,7 @@ class WC_Mix_and_Match_Order {
 						$child_item_variation_data = $child_product->get_parent_id() > 0 ? $child_product->get_variation_attributes() : array();
 						$child_item_args           = isset( $child_item_configuration['args'] ) ? $child_item_configuration['args'] : array();
 						// Unique hash to use in place of the cart item ID.
-						$child_item_hash           = md5( $child_product_id );
+						$child_item_hash = md5( $child_product_id );
 
 						if ( 0 === $child_item_quantity ) {
 							continue;
@@ -245,8 +245,8 @@ class WC_Mix_and_Match_Order {
 						}
 
 						// Locate the item.
-						$order_items        = $order->get_items( 'line_item' );
-						$child_order_item   = $order_items[ $child_order_item_id ];
+						$order_items      = $order->get_items( 'line_item' );
+						$child_order_item = $order_items[ $child_order_item_id ];
 
 						/*
 						 * Add child order item meta.
@@ -319,7 +319,7 @@ class WC_Mix_and_Match_Order {
 								 * @param obj WC_Product_Mix_and_Match $container Product object of parent container.
 								 */
 								if ( apply_filters( 'wc_mnm_child_item_aggregate_weight', $container->is_weight_cumulative(), $child_product, $child_product_id, $container ) ) {
-									$aggregate_weight += (double) $child_product->get_weight( 'edit' ) * $child_item_quantity;
+									$aggregate_weight += (float) $child_product->get_weight( 'edit' ) * $child_item_quantity;
 								}
 							}
 						}
@@ -348,7 +348,6 @@ class WC_Mix_and_Match_Order {
 								$child_order_item->add_meta_data( $meta['key'], $meta['value'] );
 							}
 						}
-
 
 						// Save the item.
 						$child_order_item->save();
@@ -402,7 +401,7 @@ class WC_Mix_and_Match_Order {
 
 				// If it's a physical container item, grab its aggregate weight from the package data.
 				if ( $container->needs_shipping() ) {
-					$container_order_item->add_meta_data( '_bundle_weight', (double) $container->get_weight( 'edit' ) + $aggregate_weight, true );
+					$container_order_item->add_meta_data( '_bundle_weight', (float) $container->get_weight( 'edit' ) + $aggregate_weight, true );
 					// If it's a virtual container item, look at its children to see if any of them needs processing.
 				} elseif ( false === $items_need_processing ) {
 					$container_order_item->add_meta_data( '_mnm_items_need_processing', 'no', true );
@@ -424,7 +423,7 @@ class WC_Mix_and_Match_Order {
 						}
 
 						// Don't copy core keys OR attributes.
-						if ( in_array( $meta['key'], array( '_mnm_container_size', '_mnm_config', '_mnm_cart_key', '_per_product_pricing','_bundle_weight' ) )
+						if ( in_array( $meta['key'], array( '_mnm_container_size', '_mnm_config', '_mnm_cart_key', '_per_product_pricing', '_bundle_weight' ) )
 							|| '' !== $container->get_attribute( $meta['key'] ) ) {
 							continue;
 						}
@@ -505,7 +504,7 @@ class WC_Mix_and_Match_Order {
 
 				if ( $product && $product->needs_shipping() ) {
 
-					// WC_Order_Item_Product[]
+					// WC_Order_Item_Product[].
 					$child_order_items = wc_mnm_get_child_order_items( $item, $items );
 
 					if ( ! empty( $child_order_items ) ) {
@@ -519,7 +518,7 @@ class WC_Mix_and_Match_Order {
 							'total'        => $item->get_total(),
 							'subtotal_tax' => $item->get_subtotal_tax(),
 							'total_tax'    => $item->get_total_tax(),
-							'taxes'        => $item->get_taxes()
+							'taxes'        => $item->get_taxes(),
 						);
 
 						// Loop through the child order items WC_Order_Item_Product[].
@@ -551,10 +550,10 @@ class WC_Mix_and_Match_Order {
 
 								if ( ! empty( $meta_data ) ) {
 									foreach ( $meta_data as $meta_id => $meta ) {
-										if ( $meta->key !== __( 'Part of', 'woocommerce-mix-and-match-products' ) ) {
+										if ( esc_html__( 'Part of', 'woocommerce-mix-and-match-products' ) !== $meta->key ) {
 											$meta_desc_array[] = array(
 												'key'   => wp_kses_post( $meta->display_key ),
-												'value' => wp_kses_post( trim( strip_tags( $meta->display_value ) ) )
+												'value' => wp_kses_post( trim( strip_tags( $meta->display_value ) ) ),
 											);
 										}
 									}
@@ -562,12 +561,12 @@ class WC_Mix_and_Match_Order {
 
 								$meta_desc_array[] = array(
 									'key'   => _x( 'Qty', 'child order item qty meta key', 'woocommerce-mix-and-match-products' ),
-									'value' => $child_item->get_quantity()
+									'value' => $child_item->get_quantity(),
 								);
 
 								$meta_desc_array[] = array(
 									'key'   => _x( 'SKU', 'child order item SKU meta key', 'woocommerce-mix-and-match-products' ),
-									'value' => $sku
+									'value' => $sku,
 								);
 
 								foreach ( $meta_desc_array as $meta_desc_array_key => $meta_desc_array_value ) {
@@ -594,7 +593,7 @@ class WC_Mix_and_Match_Order {
 									 * @param  WC_Order_Item_Product $item - The container's order item.
 									 * @param  WC_Order       $order
 									 */
-									'description' => apply_filters( 'wc_mnm_child_order_item_meta_description', implode( ', ', wp_list_pluck( $meta_desc_array, 'description' ) ), $meta_desc_array, $child_item, $item, $order )
+									'description' => apply_filters( 'wc_mnm_child_order_item_meta_description', implode( ', ', wp_list_pluck( $meta_desc_array, 'description' ) ), $meta_desc_array, $child_item, $item, $order ),
 								);
 
 								/**
@@ -620,7 +619,7 @@ class WC_Mix_and_Match_Order {
 								$item_meta_data_to_set[] = array(
 									'key'   => $item_meta->key,
 									'value' => $item_meta->value,
-									'id'    => $item_meta->id
+									'id'    => $item_meta->id,
 								);
 							}
 						}
@@ -665,13 +664,12 @@ class WC_Mix_and_Match_Order {
 							foreach ( $item->get_meta_data() as $item_meta ) {
 								if ( in_array( $item_meta->key, $added_keys ) && ! isset( $item_meta->id ) ) {
 									$item_meta->id = $max_id + 1;
-									$max_id++;
+									++$max_id;
 								}
 							}
 						}
 					}
 				}
-
 			} elseif ( wc_mnm_is_child_order_item( $item, $items ) ) {
 
 				$variation_id = $item->get_variation_id();
@@ -686,7 +684,10 @@ class WC_Mix_and_Match_Order {
 						'total'        => 0,
 						'subtotal_tax' => 0,
 						'total_tax'    => 0,
-						'taxes'        => array( 'total' => array(), 'subtotal' => array() )
+						'taxes'        => array(
+							'total'    => array(),
+							'subtotal' => array(),
+						),
 					);
 
 					// Build list of meta to set, with 'id' props intact.
@@ -697,7 +698,7 @@ class WC_Mix_and_Match_Order {
 							$item_meta_data_to_set[] = array(
 								'key'   => $item_meta->key,
 								'value' => $item_meta->value,
-								'id'    => $item_meta->id
+								'id'    => $item_meta->id,
 							);
 						}
 					}
@@ -770,7 +771,8 @@ class WC_Mix_and_Match_Order {
 			if ( $product->needs_shipping() ) {
 
 				// If it needs shipping, modify its weight to include the weight of all "packaged" items.
-				if ( $bundle_weight = $item->get_meta( '_bundle_weight', true ) ) {
+				$bundle_weight = $item->get_meta( '_bundle_weight', true );
+				if ( $bundle_weight ) {
 					$product->set_weight( $bundle_weight );
 				}
 
@@ -828,7 +830,6 @@ class WC_Mix_and_Match_Order {
 					$product->set_virtual( 'yes' );
 					$product->set_weight( '' );
 				}
-
 			} else {
 				$product->set_weight( 0 );
 			}
@@ -877,7 +878,7 @@ class WC_Mix_and_Match_Order {
 					$wrap_end   = '</small>';
 				}
 
-				$subtotal      = $wrap_start . $subtotal . $wrap_end;
+				$subtotal = $wrap_start . $subtotal . $wrap_end;
 			}
 		}
 
@@ -951,7 +952,8 @@ class WC_Mix_and_Match_Order {
 		}
 
 		// If it's a child item...
-		if ( $container_item = wc_mnm_get_order_item_container( $item, $order ) ) {
+		$container_item = wc_mnm_get_order_item_container( $item, $order );
+		if ( $container_item ) {
 			$class .= ' mnm_table_item';
 
 			if ( ! wc_string_to_bool( $container_item->get_meta( '_per_product_pricing', true ) ) ) {
@@ -1016,7 +1018,9 @@ class WC_Mix_and_Match_Order {
 			$needs_shipping = $cart_item_values['data']->needs_shipping();
 			$order_item->add_meta_data( '_mnm_item_needs_shipping', wc_bool_to_string( $needs_shipping, true ) );
 
-			if ( $container = wc_mnm_get_cart_item_container( $cart_item_values ) ) {
+			$container = wc_mnm_get_cart_item_container( $cart_item_values );
+
+			if ( $container ) {
 
 				$part_of_meta_name = '';
 
@@ -1188,10 +1192,11 @@ class WC_Mix_and_Match_Order {
 		if ( ! empty( $product ) && $product->is_virtual() ) {
 
 			// Process container.
-			if ( $child_order_items = wc_mnm_get_child_order_items( $item ) ) {
+			$child_order_items = wc_mnm_get_child_order_items( $item );
+			if ( $child_order_items ) {
 
 				// If no child requires processing and the container is virtual, it should not require processing - @see 'container_item_needs_processing()'.
-				if ( sizeof( $child_order_items ) > 0 ) {
+				if ( count( $child_order_items ) > 0 ) {
 					if ( 'no' === $item->get_meta( '_mnm_items_need_processing', true ) ) {
 						$product->bundle_needs_processing = 'no';
 					}

@@ -1725,7 +1725,6 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 							'en'       => __('English (US)', 'recaptcha-for-woocommerce'),
 							'et'       => __('Estonian', 'recaptcha-for-woocommerce'),
 							'fil'       => __('Filipino', 'recaptcha-for-woocommerce'),
-							'fil'       => __('Finnish', 'recaptcha-for-woocommerce'),
 							'fr'       => __('French', 'recaptcha-for-woocommerce'),
 							'fr-CA'       => __('French (Canadian)', 'recaptcha-for-woocommerce'),
 							'gl'       => __('Galician', 'recaptcha-for-woocommerce'),

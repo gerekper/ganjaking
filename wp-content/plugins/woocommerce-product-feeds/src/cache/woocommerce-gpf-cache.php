@@ -70,6 +70,7 @@ class WoocommerceGpfCache {
 	 * Allows the cache to be forcibly enabled / disabled via a URL arg when in debug mode.
 	 */
 	public function toggle_cache_in_debug_mode( $cache_active ) {
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
 		if ( ! $this->debug_service->debug_active() || ! isset( $_GET['force_cache'] ) ) {
 			return $cache_active;
 		}
@@ -81,6 +82,7 @@ class WoocommerceGpfCache {
 		}
 
 		return $cache_active;
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	}
 
 	/**

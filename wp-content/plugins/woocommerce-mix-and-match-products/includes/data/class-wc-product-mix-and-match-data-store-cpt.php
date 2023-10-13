@@ -77,8 +77,8 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	 * @var array
 	 */
 	protected $global_props = array(
-		'layout'                     => 'wc_mnm_layout',
-		'add_to_cart_form_location'  => 'wc_mnm_add_to_cart_form_location',
+		'layout'                    => 'wc_mnm_layout',
+		'add_to_cart_form_location' => 'wc_mnm_add_to_cart_form_location',
 	);
 
 	/**
@@ -107,7 +107,7 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 
 				// Get a global value for layout/location props (always use global options in customizer).
 				if ( array_key_exists( $property, $this->global_props ) && ( is_customize_preview() || ! $product->has_layout_override() ) ) {
-					$value = get_option( $this->global_props[$property] );
+					$value = get_option( $this->global_props[ $property ] );
 				} else {
 					$value = get_post_meta( $product->get_id(), $meta_key, true );
 				}
@@ -123,7 +123,6 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 			$product->set_regular_price( $min_price );
 			$product->set_sale_price( '' );
 		}
-
 	}
 
 	/**
@@ -137,7 +136,16 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 		parent::update_post_meta( $product, $force );
 
 		$id                 = $product->get_id();
-		$meta_keys_to_props = array_flip( array_diff_key( $this->get_props_to_meta_keys(), array( 'price' => 1, 'min_raw_price' => 1, 'min_raw_regular_price' => 1 ) ) );
+		$meta_keys_to_props = array_flip(
+			array_diff_key(
+				$this->get_props_to_meta_keys(),
+				array(
+					'price'                 => 1,
+					'min_raw_price'         => 1,
+					'min_raw_regular_price' => 1,
+				)
+			)
+		);
 		$props_to_update    = $force ? $meta_keys_to_props : $this->get_props_to_update( $product, $meta_keys_to_props );
 
 		foreach ( $props_to_update as $meta_key => $property ) {
@@ -179,7 +187,7 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 
 		if ( in_array( 'stock_quantity', $this->updated_props ) ) {
 			/**
-			 * woocommerce_product_set_stock hook.
+			 * Hook: `woocommerce_product_set_stock`
 			 *
 			 * @param  obj $product WC_Product
 			 */
@@ -188,7 +196,7 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 
 		if ( in_array( 'stock_status', $this->updated_props ) ) {
 			/**
-			 * woocommerce_product_set_stock_status hook.
+			 * Hook: `woocommerce_product_set_stock_status`
 			 *
 			 * @param  int $product_id
 			 * @param  str $stock_status
@@ -205,7 +213,7 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 		}
 
 		/**
-		 * woocommerce_product_object_updated_props hook.
+		 * Hook: `woocommerce_product_object_updated_props`
 		 *
 		 * Trigger action so 3rd parties can deal with updated props.
 		 *
@@ -231,12 +239,12 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 
 		if ( 'wc_product_meta_lookup' === $table ) {
 
-			$min_price_meta   = (array) get_post_meta( $id, '_price', false );
-			$max_price_meta   = (array) get_post_meta( $id, '_mnm_max_price', false );
-			$manage_stock = get_post_meta( $id, '_manage_stock', true );
-			$stock        = 'yes' === $manage_stock ? wc_stock_amount( get_post_meta( $id, '_stock', true ) ) : null;
-			$price        = wc_format_decimal( get_post_meta( $id, '_price', true ) );
-			$sale_price   = wc_format_decimal( get_post_meta( $id, '_sale_price', true ) );
+			$min_price_meta = (array) get_post_meta( $id, '_price', false );
+			$max_price_meta = (array) get_post_meta( $id, '_mnm_max_price', false );
+			$manage_stock   = get_post_meta( $id, '_manage_stock', true );
+			$stock          = 'yes' === $manage_stock ? wc_stock_amount( get_post_meta( $id, '_stock', true ) ) : null;
+			$price          = wc_format_decimal( get_post_meta( $id, '_price', true ) );
+			$sale_price     = wc_format_decimal( get_post_meta( $id, '_sale_price', true ) );
 
 			return array(
 				'product_id'     => absint( $id ),
@@ -306,7 +314,6 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 
 			do_action( 'woocommerce_product_object_updated_props', $product, $updated_props );
 		}
-
 	}
 
 
@@ -340,7 +347,7 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 				_prime_post_caches( $child_items_data );
 			}
 
-			foreach( $child_items_data as $product_id ) {
+			foreach ( $child_items_data as $product_id ) {
 
 				/**
 				 * Products without a DB entry, are keyed by their product ID.
@@ -348,17 +355,16 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 				 */
 				if ( ! in_array( 'product-' . $product_id, $child_items ) ) {
 					$child_items[ 'product-' . $product_id ] = new WC_MNM_Child_Item(
-                        array(
-						'product_id'   => $product_id,
-						'variation_id' => 0, // Querying by category currently does not support variations.
-						'container_id' => $product->get_id(),
-                        ),
-                        $product 
-                    );
+						array(
+							'product_id'   => $product_id,
+							'variation_id' => 0, // Querying by category currently does not support variations.
+							'container_id' => $product->get_id(),
+						),
+						$product
+					);
 				}
 			}
-
-	   } else {
+		} else {
 
 			$child_items_data = $this->query_child_items_by_container( $product );
 
@@ -366,10 +372,10 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 				_prime_post_caches( $child_items_data );
 			}
 
-			foreach( $child_items_data as $item_key => $item_data ) {
-				$child_items[$item_key] = new WC_MNM_Child_Item( $item_key, $product );
+			foreach ( $child_items_data as $item_key => $item_data ) {
+				$child_items[ $item_key ] = new WC_MNM_Child_Item( $item_key, $product );
 			}
-	   }
+		}
 
 		return $child_items;
 	}
@@ -398,8 +404,8 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 		if ( false === $child_items ) {
 
 			$child_items = $wpdb->get_results(
-                $wpdb->prepare(
-                    "
+				$wpdb->prepare(
+					"
 					SELECT items.child_item_id, items.product_id as p_id,
 					CASE
 						WHEN p.post_parent > 0 THEN p.post_parent
@@ -415,18 +421,17 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 				WHERE items.container_id = %d
 				GROUP BY items.product_id
 				ORDER BY items.menu_order ASC",
-                    $product_id
-                ) 
-            );
+					$product_id
+				)
+			);
 
 			foreach ( $child_items as $child_item ) {
-				wp_cache_set( 'wc-mnm-child-item-' . $child_item->child_item_id, $child_item, 'wc-mnm-child-items' );		
+				wp_cache_set( 'wc-mnm-child-item-' . $child_item->child_item_id, $child_item, 'wc-mnm-child-items' );
 			}
 
 			if ( 0 < $product_id ) {
 				wp_cache_set( 'wc-mnm-child-items-' . $product_id, $child_items, 'products' );
 			}
-
 		}
 
 		return ! empty( $child_items ) ? array_unique( wp_list_pluck( $child_items, 'p_id', 'child_item_id' ) ) : array();
@@ -444,11 +449,9 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 					$results[ $child_item->child_item_id ] = $child_item->p_id;
 				}
 			}
-			
 		}
 
 		return $results;
-
 	}
 
 	/**
@@ -468,7 +471,7 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 		if ( ! empty( $cat_ids ) ) {
 
 			$args = apply_filters(
-                'wc_mnm_query_products_by_categories_args',
+				'wc_mnm_query_products_by_categories_args',
 				array(
 					'query_id'             => 'wc_mnm_query_child_items_by_category',
 					'type'                 => WC_Mix_and_Match_Helpers::get_supported_product_types(),
@@ -486,7 +489,6 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 		}
 
 		return $child_items_data;
-
 	}
 
 
@@ -510,25 +512,23 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 		if ( false === $container_ids ) {
 
 			$container_ids = $wpdb->get_results(
-                $wpdb->prepare(
-                    "
+				$wpdb->prepare(
+					"
 				SELECT items.child_item_id, items.container_id
 				FROM {$wpdb->prefix}wc_mnm_child_items AS items 
 				INNER JOIN {$wpdb->prefix}posts as p ON items.product_id = p.ID
 				WHERE items.product_id = %d OR p.post_parent = %d
 				ORDER BY items.menu_order ASC",
-                    $product_id
-                ) 
-            );
+					$product_id
+				)
+			);
 
 			if ( 0 < $product_id ) {
 				wp_cache_set( 'wc-mnm-container-products-' . $product_id, $container_ids, 'products' );
 			}
-
 		}
 
 		return ! empty( $container_ids ) ? array_unique( wp_list_pluck( $container_ids, 'container_id', 'child_item_id' ) ) : array();
-
 	}
 
 	/**
@@ -541,5 +541,4 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 		parent::clear_caches( $product );
 		wp_cache_delete( 'wc-mnm-child-items-' . $product->get_id(), 'products' );
 	}
-
 }

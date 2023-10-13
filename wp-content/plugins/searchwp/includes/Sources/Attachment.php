@@ -85,12 +85,26 @@ final class Attachment extends Post {
 			],
 		], $this->attributes );
 
+		// Update attribute labels to match WordPress labels.
+		$this->attributes = array_map( function( $attribute ) {
+			if ( $attribute['label'] === __( 'Content', 'searchwp' ) ) {
+				$attribute['label'] = __( 'Description', 'searchwp' );
+			}
+			if ( $attribute['label'] === __( 'Excerpt', 'searchwp' ) ) {
+				$attribute['label'] = __( 'Caption', 'searchwp' );
+			}
+			return $attribute;
+		}, $this->attributes);
+
 		// Extend Post Rules with Attachment Rules.
 		$this->rules = array_merge( [
 				$this->filetype_rule(),
 				$this->filename_rule(),
 			], $this->rules
 		);
+
+		// Adds the quick edits request for Attachments to the list of allowed Ajax requests.
+		$this->allowed_ajax_edits[] = 'save-attachment';
 	}
 
 	/**

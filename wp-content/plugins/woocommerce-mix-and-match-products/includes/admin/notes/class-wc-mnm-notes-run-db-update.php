@@ -3,7 +3,7 @@
  * WooCommerce Mix and Match - Db update note.
  *
  * Adds a note to complete the WooCommerce Mix and Match db update after the upgrade in the WC Admin context.
- * 
+ *
  * @since 2.4.0
  * @version 2.4.4
  *
@@ -12,7 +12,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-use \Automattic\Jetpack\Constants;
+use Automattic\Jetpack\Constants;
 use Automattic\WooCommerce\Admin\Notes\Note;
 
 /**
@@ -307,5 +307,4 @@ class WC_MNM_Notes_Run_Db_Update {
 			}
 		}
 	}
-
 }

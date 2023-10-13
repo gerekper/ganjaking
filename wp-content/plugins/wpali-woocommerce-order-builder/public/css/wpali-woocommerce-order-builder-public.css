@@ -305,7 +305,7 @@ body .extended-checkboxes ul.wwobfield_checkbox {
 }
 .extended-checkboxes ul.wwobfield_checkbox li .selected-product span.selected-product-checked {
     background: url(../img/checked.svg) no-repeat;
-    background-position: center;
+    background-position: 10px 13px;
     background-color: black;
     position: absolute;
     z-index: 9;
@@ -333,6 +333,7 @@ a.wwob-minus, a.wwob-plus {
     width: 30px;
     height: 30px;
     display: block;
+    font-family: Helvetica, Arial, sans-serif;
 }
 a.wwob-minus {
     left: calc( 50% - 65px );
@@ -344,7 +345,9 @@ a.wwob-plus {
 }
 .extended-checkboxes ul.wwobfield_checkbox li .wwob-checkbox-label {
     cursor: pointer;
-	margin-bottom: 15px;	
+    margin-left: 0;
+    margin-right: 0;
+	margin-bottom: 15px;
 }
 .sticky {
   position: relative;

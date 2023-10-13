@@ -1,5 +1,8 @@
 Event Lists Ext (EL) addon for EventON Plugin
 ====================================
+v 1.0.1 (2023-8-21)
+FIXED: concatenate style path
+
 v 1.0 (2023-5-19)
 FIXED: end range +/- days and months value incorrection
 FIXED: number of months value not working when event list type = date range

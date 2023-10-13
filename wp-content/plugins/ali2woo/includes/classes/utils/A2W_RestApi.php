@@ -3,7 +3,7 @@
 /**
  * Description of A2W_RestApi
  *
- * @author Andrey
+ * @author Ali2Woo Team
  * 
  * @autoload: a2w_init
  */

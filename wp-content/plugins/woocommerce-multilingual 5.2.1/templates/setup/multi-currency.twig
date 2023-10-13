@@ -1,0 +1,18 @@
+<span id="{{ strings.step_id }}">
+<h1>{{ strings.heading }}</h1>
+
+<div><strong>{{ strings.description }}</strong></div>
+
+<ul>
+    <li>{{ strings.bullet1 }}</li>
+    <li>{{ strings.bullet2 }}</li>
+    <li>{{ strings.bullet3 }}</li>
+    <li><a target="_blank" class="wpml-external-link" rel="noopener" href="{{ documentation_url }}">{{ strings.bullet4 }}</a></li>
+</ul>
+
+<p class="wcml-setup-actions step">
+    <a href="{{ go_back_url }}" class="go-back">{{ strings.go_back }}</a>
+    <a href="{{ continue_url }}&enabled=1" class="button button-primary submit mc-enabled">{{ strings.enable }}</a>
+    <a href="{{ continue_url }}&enabled=0" class="button button-primary submit mc-disabled">{{ strings.continue }}</a>
+</p>
+</span>

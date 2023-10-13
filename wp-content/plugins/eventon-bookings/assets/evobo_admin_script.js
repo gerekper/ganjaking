@@ -55,10 +55,10 @@ jQuery(document).ready(function($){
 
 						// VO 
 						if( 'vo_opt' in BD ){
-							HTML += "<span class='evobo_po evopadl10' title='Has Variations'><i class='fa fa-plug'></i></span>";
+							HTML += "<span class='evobo_po evopadl10' title='Has Options'><i class='fa fa-plug'></i></span>";
 						}
 						if( 'vo_var' in BD ){
-							HTML += "<span class='evobo_po evopadl10' title='Has Options'><i class='fa fa-random'></i></span>";
+							HTML += "<span class='evobo_po evopadl10' title='Has Variations'><i class='fa fa-random'></i></span>";
 						}
 
 						HTML += '<i class="del evobo_delete_slot" data-bid="'+ BD.index +'">x</i>';
@@ -258,11 +258,11 @@ jQuery(document).ready(function($){
 	
 // Evo VO integration
 	$('body').on('evo_ajax_success_evovo_save_vo_form',function(event, OO, data){
-
 		if( 'total_block_cap' in data && data.total_block_cap > 0 ){
 			$('body').find('form.evobo_block_editor_form').find('input[name="capacity"]').val( data.total_block_cap );
 		}
 	});
+
 
 
 

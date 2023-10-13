@@ -241,8 +241,8 @@ class evovo_admin_ajax{
 								}
 
 								$fields[ 'variations['.$index.']']= array(
-									'label'=> $data['name'],
-									'type'=>'select',
+									'name'=> $data['name'],
+									'type'=>'dropdown',
 									'options'=> $opt_,
 									'value'=> (isset($values['variations'][$index])? 
 											$values['variations'][$index]:'')
@@ -257,44 +257,44 @@ class evovo_admin_ajax{
 						}else{
 
 							$fields['regular_price'] =array(
-								'label'=> sprintf(__('Ticket Variation Price  (%s)','evovo'), $curSYM),
-								'req'=>true, 'type'=>'text'					
+								'name'=> sprintf(__('Ticket Variation Price  (%s)','evovo'), $curSYM) .' *',
+								'req'=>true, 'type'=>'text',
+								'field_class'=> 'input req',					
 							);
 							/*$fields['sales_price'] =array(
-								'label'=>'Ticket Variation Sales Price ('.$curSYM.')',
+								'name'=>'Ticket Variation Sales Price ('.$curSYM.')',
 								'req'=>false, 'type'=>'text'					
 							);
 							$fields['fees'] =array(
-								'label'=>'Ticket Variation Fee Amount ('. $curSYM.' or %, if % type % sign in field)',
+								'name'=>'Ticket Variation Fee Amount ('. $curSYM.' or %, if % type % sign in field)',
 								'req'=>false, 'type'=>'text'			
 							);
 							*/
 							$fields['stock'] =array(
-								'label'=>__('Ticket Variation Stock Quantity (Leave blank for unlimited)','evovo'),
-								'req'=>false, 'type'=>'text'					
+								'name'=>__('Ticket Variation Stock Quantity (Leave blank for unlimited)','evovo'),
+								'req'=>false, 'type'=>'text','field_class'=> 'input',
 							);
 							$fields['stock_status'] =array(
-								'label'=> __('Ticket Variation Stock Status','evovo'),
-								'type'=>'select',
+								'name'=> __('Ticket Variation Stock Status','evovo'),
+								'type'=>'dropdown',
 								'options'=>	array(
 									'instock'=>__('In Stock','evovo'),
 									'outofstock'=>__('Out of Stock','evovo')
 								),
-								'value'=> (isset($values['stock_status'])? $values['stock_status']:'')	
 							);
 							
 
 							$fields['loggedin'] =array(
-								'label'=> __('Who can purchase this variation','evovo'),
-								'type'=>'select',	
+								'name'=> __('Who can purchase this variation','evovo'),
+								'type'=>'dropdown',	
 								'options'=>	array(
 									'nonmember'=>	__('Everyone','evovo'),
 									'member'=>		__('Only loggedin members','evovo')
 								),							
-								'value'=> (isset($values['loggedin'])? $values['loggedin']:'no')			
+								'value'=> (isset($values['loggedin'])? $values['loggedin']:'no')		
 							);
 
-							$form_fields = apply_filters('evovo_variations_form_fields',$fields, $_POST);
+							$form_fields = apply_filters('evovo_variations_form_fields',$fields, $PP, $values, $EVENT);
 						}
 
 				break;
@@ -302,55 +302,62 @@ class evovo_admin_ajax{
 					
 					$form_fields = apply_filters('evovo_variationtype_form_fields',array(
 						'name'=>array(
-							'label'=> __('Ticket Variation Name','evovo'),
-							'req'=>true, 'type'=>'text'					
+							'name'=> __('Ticket Variation Name','evovo') .' *',
+							'req'=>true, 'type'=>'text',
+							'field_class'=> 'input req',			
 						),
 						'options'=>array(
-							'label'=> __('Ticket Variation Options (separated by comma) Do not use - or , as part of a option value','evovo'),
+							'name'=> __('Ticket Variation Options (separated by comma) Do not use - or , as part of a option value','evovo'). ' *',
+							'field_class'=> 'input req',		
 							'req'=>true, 'type'=>'textarea'	,
-							'description'=> ( ($PP['type'] == 'edit' && isset($PP['vo_id']))? __('If you change the ticket variation option values, you will need to re-create ticket variations.','evovo'):'')			
+							'description'=> ( ($PP['type'] == 'edit' && isset($PP['vo_id']))? __('If you change the ticket variation option values, you will need to re-create ticket variations.','evovo'):''),	
 						),
 						
-					), $PP);
+					), $PP,$values, $EVENT);
 
 				break;
 				case 'option':
 					
 					$form_fields = apply_filters('evovo_variations_form_fields',array(
 						'name'=>array(
-							'label'=> __("Ticket Price Option Name (DO not use ' aphostrophe sign)",'evovo'),	
-								'req'=>true, 'type'=>'text'					
-						),'regular_price'=>array(
-							'label'=> sprintf(__('Ticket Option Price  (%s)','evovo'), $curSYM),	'req'=>true, 'type'=>'text'					
-						),'description'=>array(
-							'label'=>__('Ticket Option Description','evovo'),	
-							'type'=>'text'					
-						),'stock'=>array(
-							'label'=>__('Stock (Leave blank for unlimited)','evovo'),
-							'req'=>false, 'type'=>'text'					
+							'name'=> __("Ticket Price Option Name (DO not use ' aphostrophe sign)",'evovo') .' *',
+							'req'=>true, 
+							'field_class'=> 'input req',
+							'type'=>'text',						
+						),
+						'regular_price'=>array(
+							'name'=> sprintf(__('Ticket Option Price  (%s)','evovo'), $curSYM) .' *',	
+							'req'=>true, 'type'=>'text',
+							'field_class'=> 'input req',				
+						),
+						'description'=>array(
+							'name'=>__('Ticket Option Description','evovo'),	
+							'type'=>'text','field_class'=> 'input',				
+						),
+						'stock'=>array(
+							'name'=>__('Stock (Leave blank for unlimited)','evovo'),
+							'req'=>false, 'type'=>'text','field_class'=> 'input',		
 						),
 						'stock_status' => array(
-							'label'=>__('Stock Status','evovo'),
-							'type'=>'select',
+							'name'=>__('Stock Status','evovo'),
+							'type'=>'dropdown',
 							'options'=>	array(
 								'instock'=>__('In Stock','evovo'),
 								'outofstock'=>__('Out of Stock','evovo')
-							),
-							'value'=> (isset($values['stock_status'])? $values['stock_status']:'')				
+							),			
 						),
 						'sold_style' => array(
-							'label'=>__('Sold Style','evovo'),
-							'type'=>'select',
+							'name'=>__('Sold Style','evovo'),
+							'type'=>'dropdown',
 							'options'=>	array(
 								'one'=>__('Individually','evovo'),
 								'mult'=>__('Multiples','evovo')
-							),
-							'value'=> (isset($values['sold_style'])? $values['sold_style']:'')				
+							),		
 						),
 						
 						/*'pricing_type' => array(
-							'label'=>'Options Pricing Type',
-							'type'=>'select',
+							'name'=>'Options Pricing Type',
+							'type'=>'dropdown',
 							'options'=>	array(
 								'include'=>'Include as part of each ticket',
 								'extra'=>'In addition to tickets'
@@ -358,65 +365,39 @@ class evovo_admin_ajax{
 							'value'=> (isset($values['pricing_type'])? $values['pricing_type']:'')				
 						)*/
 						
-					), $_POST);
+					), $PP, $values, $EVENT);
 				break;
 
 			}
 
 			//print_r($form_fields);
 			if( $form_go):
+
+				// custom fields for the form
 				foreach($form_fields as $key=>$data):
-					$required = (isset($data['req']) && $data['req'])?true: false;
+					$form_fields[$key]['id'] = $key;
+					$form_fields[$key]['value'] = $this->check_v( $values, $key);
 
-					// select field type
-						if($data['type'] == 'select'):?>
-							<p><label><?php echo $data['label'];?></label>
-								<select class='input' name='<?php echo $key;?>'>
-								<?php 
-								foreach($data['options'] as $key_=>$val){
-									?><option value="<?php echo addslashes($key_);?>" <?php echo (!empty($data['value']) && $data['value']==$key_)? 'selected="selected"':'' ;?> ><?php echo $val;?></option><?php
-								}
-								?>
-								</select>
-							</p> 
+				endforeach;
 
-						<?php 
+				echo EVO()->elements->process_multiple_elements( $form_fields );
 
+				foreach($form_fields as $key=>$data):
 					// populate button
-						elseif($data['type'] == 'populate_button' && $PP['type']=='new'):
-							$attrs = '';				
-							foreach(array(
-								'data-vos' => $data['data'],
-								'data-vn' => $data['vn'],
-							) as $key=>$val){
-								$attrs .= $key .'="'. htmlentities($val) .'" ';
-							}
+					if($data['type'] == 'populate_button' && $PP['type']=='new'):
+						$attrs = '';				
+						foreach(array(
+							'data-vos' => $data['data'],
+							'data-vn' => $data['vn'],
+						) as $key=>$val){
+							$attrs .= $key .'="'. htmlentities($val) .'" ';
+						}
+					?>
+						<p><a class='evovo_vt_popupate_with evo_admin_btn btn_triad' <?php echo $attrs;?>><?php echo $data['label'];?></a></p>
 
-						?>
-							<p><a class='evovo_vt_popupate_with evo_admin_btn btn_triad' <?php echo $attrs;?>><?php echo $data['label'];?></a></p>
+					<?php
+					endif; 
 
-					<?php 
-
-					// textarea field type
-					elseif($data['type'] == 'textarea'):?>
-						<p><label><?php echo $data['label'];?> <?php echo ($required)?'*':'';?></label>
-							<textarea name="<?php echo $key;?>" class='input <?php echo $required?'req':'';?>' style='width:100%'><?php echo $this->check_v($values,$key);?></textarea>
-							<?php if(isset($data['description'])):?>
-								<span style='padding-top:5px;font-style:italic;font-size:13px'><?php echo $data['description'];?></span>
-							<?php endif;?>
-						</p>
-					<?php 
-
-					// regular input field
-					else:?>
-						<p><label><?php echo $data['label'];?> <?php echo ($required)?'*':'';?></label>
-							<input class='input <?php echo $required?'req':'';?>' name='<?php echo $key;?>' type="text" value='<?php echo $this->check_v($values,$key);?>'>
-							<?php if(isset($data['description'])):?>
-								<span style='padding-top:5px;font-style:italic;font-size:13px'><?php echo $data['description'];?></span>
-							<?php endif;?>
-						</p>
-						
-				<?php endif;
 				endforeach;
 
 			endif;				

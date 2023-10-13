@@ -3,7 +3,7 @@
  * WC_MNM_PIP_Compatibility class
  *
  * @package  WooCommerce Mix and Match Products/Compatibility
- * @since    2.4.10
+ * @since    2.5.0
  */
 
 // Exit if accessed directly.
@@ -20,12 +20,14 @@ class WC_MNM_PIP_Compatibility {
 
 	/**
 	 * The document being processed.
+	 *
 	 * @var WC_PIP_Document
 	 */
 	public static $document;
 
 	/**
 	 * Flag to control internal flow in 'items_count'.
+	 *
 	 * @var bool
 	 */
 	private static $recounting_items = false;
@@ -64,7 +66,6 @@ class WC_MNM_PIP_Compatibility {
 
 		// Add child item class CSS rule.
 		add_action( 'wc_pip_styles', array( __CLASS__, 'add_styles' ) );
-
 	}
 
 	/**
@@ -145,7 +146,7 @@ class WC_MNM_PIP_Compatibility {
 
 		if ( false === self::$recounting_items && self::$document ) {
 			self::$recounting_items = true;
-			$count = self::$document->get_items_count();
+			$count                  = self::$document->get_items_count();
 			self::$recounting_items = false;
 		}
 
@@ -209,7 +210,7 @@ class WC_MNM_PIP_Compatibility {
 
 						if ( $virtual_parent ) {
 							$row_item['quantity'] = str_replace( 'class="quantity', 'class="quantity virtual-container', $row_item['quantity'] );
-							$row_item['weight'] = str_replace( 'class="weight', 'class="weight virtual-container', $row_item['weight'] );
+							$row_item['weight']   = str_replace( 'class="weight', 'class="weight virtual-container', $row_item['weight'] );
 						}
 
 						$sorted_rows[] = $row_item;
@@ -306,7 +307,9 @@ class WC_MNM_PIP_Compatibility {
 
 		if ( self::$document && 'pick-list' === self::$document->type ) {
 
-			if ( $parent_item = wc_mnm_get_order_item_container( $item ) ) {
+			$parent_item = wc_mnm_get_order_item_container( $item );
+
+			if ( $parent_item ) {
 
 				// Is it an assembled item?
 				if ( 'no' === $item->get_meta( '_mnm_item_needs_shipping', true ) ) {
@@ -324,7 +327,7 @@ class WC_MNM_PIP_Compatibility {
 						$assembled_item_meta_html = '<dl class="variation assembled"><dt>' . __( 'Packaged in:', 'woocommerce-mix-and-match-products' ) . '</dt><dd>' . $parent_item->get_name() . '</dd></dl>';
 					}
 
-					echo apply_filters( 'wc_pip_pick-list_order_item_meta_assembled_in_bundle', $assembled_item_meta_html, $item_id, $item, $parent_item );
+					echo wp_kses_post( apply_filters( 'wc_pip_pick-list_order_item_meta_assembled_in_bundle', $assembled_item_meta_html, $item_id, $item, $parent_item ) );
 				}
 			}
 		}
@@ -383,6 +386,7 @@ class WC_MNM_PIP_Compatibility {
 
 	/**
 	 * Add bundled item class CSS rule.
+	 *
 	 * @return  void
 	 */
 	public static function add_styles() {

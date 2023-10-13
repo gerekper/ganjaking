@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Admin/Meta-Boxes/Order
  * @since    1.7.0
- * @version  2.4.0
+ * @version  2.5.0
  */
 
 // Exit if accessed directly.
@@ -19,6 +19,7 @@ class WC_MNM_Meta_Box_Order {
 
 	/**
 	 * Order object to use in 'display_edit_button'.
+	 *
 	 * @var WC_Order
 	 */
 	protected static $order;
@@ -39,7 +40,6 @@ class WC_MNM_Meta_Box_Order {
 
 		// Add JS template.
 		add_action( 'admin_footer', array( __CLASS__, 'add_js_template' ) );
-
 	}
 
 	/*
@@ -81,24 +81,24 @@ class WC_MNM_Meta_Box_Order {
 						$item->get_quantity(),
 						array(
 
-						/**
-						 * 'wc_mnm_auto_add_container_configuration' filter.
-						 *
-						 * See 'wc_mnm_auto_add_child_items' filter above. Use this filter to define the default configuration you want to use.
-						 *
-						 * @param  $config   array
-						 * @param  $product  WC_Product_Mix_and_Match
-						 * @param  $item     WC_Order_Item
-						 * @param  $order    WC_Order
-						 */
-						'configuration' => apply_filters( 'wc_mnm_auto_add_container_configuration', array(), $product, $item, $order )
+							/**
+							 * 'wc_mnm_auto_add_container_configuration' filter.
+							 *
+							 * See 'wc_mnm_auto_add_child_items' filter above. Use this filter to define the default configuration you want to use.
+							 *
+							 * @param  $config   array
+							 * @param  $product  WC_Product_Mix_and_Match
+							 * @param  $item     WC_Order_Item
+							 * @param  $order    WC_Order
+							 */
+							'configuration' => apply_filters( 'wc_mnm_auto_add_container_configuration', array(), $product, $item, $order ),
 						)
 					);
 
 					if ( $added_to_order ) {
 
 						$child_order_items = wc_mnm_get_child_order_items( $order->get_item( $added_to_order ), $order );
-						$order_notes         = array();
+						$order_notes       = array();
 
 						foreach ( $child_order_items as $order_item_id => $order_item ) {
 							$product                       = $order_item->get_product();
@@ -138,7 +138,7 @@ class WC_MNM_Meta_Box_Order {
 
 	/**
 	 * Reattach the edit button when doing ajax.
-	 * 
+	 *
 	 * @since 2.4.0
 	 */
 	public static function reattach_edit_button() {
@@ -164,7 +164,7 @@ class WC_MNM_Meta_Box_Order {
 			 * @param  $item      WC_Order_Item
 			 * @param  $order     WC_Order
 			 */
-			if ( apply_filters( 'wc_mnm_is_container_order_item_editable',  wc_mnm_is_product_container_type( $product ), $product, $item, self::$order ) ) {
+			if ( apply_filters( 'wc_mnm_is_container_order_item_editable', wc_mnm_is_product_container_type( $product ), $product, $item, self::$order ) ) {
 
 				// Load required ajax scripts.
 				WC_MNM_Ajax::load_edit_scripts();
@@ -175,13 +175,12 @@ class WC_MNM_Meta_Box_Order {
 
 				?>
 				<div class="configure_container_order_item">
-					<button type="button" data-order_item_id="<?php echo esc_attr( $item->get_id() );?>" data-container_id="<?php echo esc_attr( $product->get_id() );?>" class="<?php echo $is_configured ? 'edit_container' : 'configure_container'; ?> button">
+					<button type="button" data-order_item_id="<?php echo esc_attr( $item->get_id() ); ?>" data-container_id="<?php echo esc_attr( $product->get_id() ); ?>" class="<?php echo $is_configured ? 'edit_container' : 'configure_container'; ?> button">
 						<?php echo esc_html( $button_text ); ?>
 					</button>
 				</div>
 				<?php
 			}
-		
 		}
 	}
 
@@ -193,9 +192,9 @@ class WC_MNM_Meta_Box_Order {
 
 	/**
 	 * Force tabular layout and hide child links.
-	 * 
+	 *
 	 * @since 2.3.0
-	 * 
+	 *
 	 * @param  $product  WC_Product_Mix_and_Match
 	 * @param  $order_item WC_Order_Item
 	 * @param  $order      WC_Order
@@ -204,22 +203,33 @@ class WC_MNM_Meta_Box_Order {
 	public static function force_container_styles( $product, $order_item, $order, $source ) {
 
 		// Force default location.
-		add_filter( 'woocommerce_product_get_add_to_cart_form_location', function() { return 'default'; }, 9999 );
+		add_filter(
+			'woocommerce_product_get_add_to_cart_form_location',
+			function () {
+				return 'default';
+			},
+			9999
+		);
 
 		// Force tabular layout.
-		add_filter( 'woocommerce_product_get_layout', function() { return 'tabular'; }, 9999 );
+		add_filter(
+			'woocommerce_product_get_layout',
+			function () {
+				return 'tabular';
+			},
+			9999
+		);
 
 		// Prevent theme override of quantity-input.php template in admin.
 		add_filter( 'wc_get_template', array( __CLASS__, 'force_core_template' ), 9999, 5 );
-	
+
 		// Hide links.
 		add_filter( 'woocommerce_product_is_visible', '__return_false' );
-		
 	}
 
 	/**
 	 * Nuke any theme overrides of quantity-input.php template.
-	 * 
+	 *
 	 * @since 2.3.0
 	 *
 	 * @param  $item_id  int
@@ -228,9 +238,9 @@ class WC_MNM_Meta_Box_Order {
 	 * @return void
 	 */
 	public static function force_core_template( $template, $template_name, $args, $template_path, $default_path ) {
-		if ( $template_name === 'global/quantity-input.php' ) {
+		if ( 'global/quantity-input.php' === $template_name ) {
 			$default_path = WC()->plugin_path() . '/templates/';
-			$template = $default_path . $template_name;
+			$template     = $default_path . $template_name;
 		}
 		return $template;
 	}
@@ -249,14 +259,14 @@ class WC_MNM_Meta_Box_Order {
 							<header class="wc-backbone-modal-header">
 								<h1>{{{ data.action }}}</h1>
 								<button class="modal-close modal-close-link dashicons dashicons-no-alt">
-									<span class="screen-reader-text"><?php _e( 'Close modal panel', 'woocommerce-mix-and-match-products' ); ?></span>
+									<span class="screen-reader-text"><?php esc_html_e( 'Close modal panel', 'woocommerce-mix-and-match-products' ); ?></span>
 								</button>
 							</header>
 							<article>
 							</article>
 							<footer>
 								<div class="inner">
-									<button id="btn-ok" class="button button-primary button-large"><?php _e( 'Update', 'woocommerce-mix-and-match-products' ); ?></button>
+									<button id="btn-ok" class="button button-primary button-large"><?php esc_html_e( 'Update', 'woocommerce-mix-and-match-products' ); ?></button>
 								</div>
 							</footer>
 						</section>
@@ -267,6 +277,5 @@ class WC_MNM_Meta_Box_Order {
 			<?php
 		}
 	}
-
 }
 WC_MNM_Meta_Box_Order::init();

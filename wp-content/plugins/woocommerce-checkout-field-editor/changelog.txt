@@ -1,5 +1,13 @@
 *** Checkout Field Editor Changelog ***
 
+2023-10-11 - version 1.7.12
+* Fix - Prevented warning from being displayed on PHP 8.2, and added check for user capabilities before registering menu items.
+* Tweak - WC 8.1 compatibility.
+* Tweak - WP 6.3 compatibility.
+
+2023-10-03 - version 1.7.11
+* Fix - Declare incompatibility with Cart/Checkout blocks.
+
 2023-07-25 - version 1.7.10
 * Fix - Prevented a fatal error from being thrown in certain conditions.
 * Tweak - WC 7.9 compatibility.

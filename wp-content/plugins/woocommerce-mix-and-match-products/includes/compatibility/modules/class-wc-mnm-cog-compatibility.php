@@ -35,7 +35,9 @@ class WC_MNM_COG_Compatibility {
 	 */
 	public static function cost_of_goods_set_order_item_bundled_item_cost( $cost, $item, $order ) {
 
-		if ( $parent_item = wc_mnm_get_order_item_container( $item, $order ) ) {
+		$parent_item = wc_mnm_get_order_item_container( $item, $order );
+
+		if ( $parent_item ) {
 
 			$parent_obj = wc_get_product( $parent_item['product_id'] );
 
@@ -51,4 +53,3 @@ class WC_MNM_COG_Compatibility {
 }
 
 WC_MNM_COG_Compatibility::init();
-

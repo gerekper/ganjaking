@@ -4,10 +4,10 @@
  * Plugin URI: http://www.myeventon.com/addons/event-lists-items
  * Description: Seat selection feature
  * Author: Ashan Jay
- * Version: 1.2.1
+ * Version: 1.2.3
  * Author URI: http://www.ashanjay.com/
  * Requires at least: 6.0
- * Tested up to: 6.2.2
+ * Tested up to: 6.3
  * 
  * Text Domain: evost
  * Domain Path: /lang/
@@ -16,9 +16,9 @@
 
 class EVO_seats{
 	
-	public $version='1.2.1';
+	public $version='1.2.3';
 	public $eventon_version = '4.4.2';
-	public $evotx_version = '2.2.1';
+	public $evotx_version = '2.2.2';
 	public $name = 'Event Seats';
 	public $id = 'EVOST';
 			
@@ -56,10 +56,23 @@ class EVO_seats{
 				}elseif(!class_exists('evotx')){
 					add_action('admin_notices', array($this, '_tx_eventon_warning'));
 				}else{
-					add_action( 'init', array( $this, 'init' ), 0 );
-					$this->helper = new evo_helper();
-					// settings link in plugins page
-					add_filter("plugin_action_links_".$this->plugin_slug, array($this,'eventon_plugin_links' ));
+
+					// if event tickets environment is not setup @since 1.2.2
+					if( !EVOTX()->good ){
+						add_action('admin_notices', function(){
+							?><div class="message error"><p><?php printf(__('Eventon %s can not run, tickets addon is not fully initiated.', 'eventon'), $this->name); ?></p></div><?php
+						});
+						return;
+					}
+
+					if(version_compare(EVOTX()->version , $this->evotx_version)>=0){
+						add_action( 'init', array( $this, 'init' ), 0 );
+						$this->helper = new evo_helper();
+						// settings link in plugins page
+						add_filter("plugin_action_links_".$this->plugin_slug, array($this,'eventon_plugin_links' ));
+					}else{
+						add_action('admin_notices', array($this, '_tx_version_warning'));
+					}
 				}
 			}
 		}	
@@ -152,6 +165,9 @@ class EVO_seats{
 	    }	
 	    public function _tx_eventon_warning(){
 			?><div class="message error"><p><?php _e('Eventon Seats require Event Tickets addon to function properly. Please install Event Tickets addon!', 'eventon'); ?></p></div><?php
+		}
+		public function _tx_version_warning(){
+			?><div class="message error"><p><?php printf(__('Eventon %s require Event Tickets addon version %s or higher to fully function please update tickets addon!', 'eventon'), $this->name, $this->evotx_version); ?></p></div><?php
 		}
 		public function notice(){
 			?><div class="message error"><p><?php printf(__('EventON %s is NOT active! - '), $this->name); 

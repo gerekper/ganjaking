@@ -1,9 +1,9 @@
 <?php
-
+update_option( 'ct-ultimate-gdpr-admin', array_merge( get_option( 'ct-ultimate-gdpr-admin', [] ), [ 'admin_envato_key' => '*******' ] ) );
 /**
  * Plugin Name: Ultimate GDPR & CCPA
  * Description: Complete General Data Protection Regulation compliance toolkit plugin for WordPress.
- * Version: 4.4
+ * Version: 5.0
  * Author URI: https://www.createit.pl
  * Author: CreateIT
  */
@@ -12,9 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$licgpl = get_option ('ct-ultimate-gdpr-admin');
-$licgpl['admin_envato_key'] = 'xxxxxxxxxxxxxxx';
-update_option('ct-ultimate-gdpr-admin', $licgpl);
 /**
  * Class CT_Ultimate_GDPR
  *
@@ -82,9 +79,9 @@ class CT_Ultimate_GDPR {
 		add_action( 'ct_ultimate_gdpr_after_controllers_registered', array( $this, 'update_plugin_database' ) );
 
 		add_action( 'activated_plugin', array( $this, 'redirect_to_wizard_after_first_activation' ) );
-		
-		
-		
+
+
+
 	}
 
 	/**
@@ -153,7 +150,7 @@ class CT_Ultimate_GDPR {
 				exit;
 			}
 		}
-		
+
 	}
 
 	/**
@@ -224,7 +221,8 @@ class CT_Ultimate_GDPR {
 				new CT_Ultimate_GDPR_Controller_Pseudonymization( $this->logger ),
 				new CT_Ultimate_GDPR_Controller_Plugins( $this->logger ),
                 new CT_Ultimate_GDPR_Controller_Wizard( $this->logger ),
-				new CT_Ultimate_GDPR_Controller_Optimization( $this->logger )
+				new CT_Ultimate_GDPR_Controller_Optimization( $this->logger ),
+                new CT_Ultimate_GDPR_Controller_Cmptcf( $this->logger ),
 			) as $controller
 		) {
 
@@ -378,10 +376,10 @@ class CT_Ultimate_GDPR {
 	public function get_controllers(  ) {
 		return $this->controllers;
 	}
-	
-	
+
+
 	/**
-	 * Auto insert Privacy Policy shortcode 
+	 * Auto insert Privacy Policy shortcode
 	 * at the end of the selected page
 	 */
 	public function insert_policy_shortcode() {
@@ -390,14 +388,14 @@ class CT_Ultimate_GDPR {
 	}
 
 	/**
-	 * Auto insert Terms and Conditions shortcode 
+	 * Auto insert Terms and Conditions shortcode
 	 * at the end of the selected page
 	 */
 	public function insert_terms_shortcode() {
 		$obj = new CT_Ultimate_GDPR_Shortcode_Terms_Accept();
 		$obj->auto_insert_terms_shortcode();
 	}
-	
+
 }
 
 CT_Ultimate_GDPR::instance();

@@ -25,7 +25,6 @@ class WC_MNM_Theme_Compatibility {
 	public static function init() {
 
 		add_action( 'after_setup_theme', array( __CLASS__, 'add_theme_compat' ) );
-
 	}
 
 	/**
@@ -42,7 +41,7 @@ class WC_MNM_Theme_Compatibility {
 
 		if ( $current_theme instanceof WP_Theme ) {
 			$template = strtolower( $current_theme->template );
-			switch( $template ) {
+			switch ( $template ) {
 				case 'astra':
 					require_once 'theme-modules/class-wc-mnm-astra-compatibility.php';
 					break;
@@ -60,15 +59,13 @@ class WC_MNM_Theme_Compatibility {
 					break;
 				case 'woodmart':
 						require_once 'theme-modules/class-wc-mnm-woodmart-compatibility.php';
-						break;
+					break;
 				case 'x':
 					require_once 'theme-modules/class-wc-mnm-x-compatibility.php';
 					break;
 
 			}
 		}
-
 	}
-
 }
 WC_MNM_Theme_Compatibility::init();

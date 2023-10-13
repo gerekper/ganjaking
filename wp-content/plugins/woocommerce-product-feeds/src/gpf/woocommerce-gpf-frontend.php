@@ -96,15 +96,18 @@ class WoocommerceGpfFrontend {
 
 		// Add hooks for future processing.
 		add_action( 'template_redirect', [ $this, 'render_product_feed' ], 15 );
-		add_filter(
-			'woocommerce_product_data_store_cpt_get_products_query',
-			[
-				$this,
-				'limit_query_by_category',
-			],
-			10,
-			2
-		);
+		if ( $this->has_category_limit() ) {
+			add_filter(
+				'woocommerce_product_data_store_cpt_get_products_query',
+				[
+					$this,
+					'limit_query_by_category',
+				],
+				10,
+				2
+			);
+		}
+
 		add_filter( 'woocommerce_gpf_store_info', [ $this, 'add_feed_url_to_store_info' ] );
 
 		// Instantiate the feed class.
@@ -113,6 +116,7 @@ class WoocommerceGpfFrontend {
 
 	/**
 	 * Add the feed URL to the store_info object.
+	 *
 	 * @param $store_info
 	 *
 	 * @return mixed
@@ -183,12 +187,11 @@ class WoocommerceGpfFrontend {
 	 * @return array               The arguments array.
 	 */
 	private function get_query_args( $chunk_size ) {
-
 		$args = array(
 			'status'  => array( 'publish' ),
-			'type'    => array( 'simple', 'variable' ),
+			'type'    => [ 'simple', 'variable' ],
 			'limit'   => $chunk_size,
-			'offset'  => intval( $this->feed_config->start ),
+			'offset'  => (int) $this->feed_config->start,
 			'orderby' => 'ID',
 			'order'   => 'ASC',
 		);
@@ -201,6 +204,13 @@ class WoocommerceGpfFrontend {
 			$args,
 			'feed'
 		);
+	}
+
+	private function has_category_limit() {
+		$categories = array_map( 'intval', $this->feed_config->categories );
+
+		return ! empty( $categories ) &&
+				'' !== $this->feed_config->category_filter;
 	}
 
 	/**
@@ -216,9 +226,6 @@ class WoocommerceGpfFrontend {
 	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 	public function limit_query_by_category( $query, $query_vars ) {
 		$categories = array_map( 'intval', $this->feed_config->categories );
-		if ( empty( $categories ) || '' === $this->feed_config->category_filter ) {
-			return $query;
-		}
 
 		$tax_query = [
 			'taxonomy' => 'product_cat',
@@ -272,30 +279,24 @@ class WoocommerceGpfFrontend {
 		$this->debug->log( 'Retrieved %d products', [ $product_count ] );
 		while ( $product_count ) {
 
+			// First, if enabled, we output any that we have in the cache.
 			if ( $this->cache->is_enabled() ) {
-				// Output any that we have in the cache.
 				$outputs = $this->cache->fetch_multi( $products, $this->feed_config->type );
-				foreach ( $products as $product_id ) {
-					if ( ! empty( $outputs[ $product_id ] ) ) {
+				foreach ( $outputs as $product_id => $output ) {
+					if ( ! empty( $output ) ) {
 						$this->debug->log( 'Retrieved %d from cache', [ $product_id ] );
-						echo $outputs[ $product_id ];
+						echo $outputs[ $product_id ]; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						++$output_count;
 					} else {
 						$this->debug->log( 'Retrieved empty record from cache for %d', [ $product_id ] );
 					}
 					if ( -1 !== $limit && $output_count >= $limit ) {
 						$this->debug->log( '[%d] Reached limit (%d). Exiting.', [ __LINE__, $limit ] );
-						break;
+						break 2; // Break out of the containing while loop
 					}
 				}
 				// Remove any we got from the list to be generated.
 				$products = array_diff( $products, array_keys( $outputs ) );
-			}
-
-			// Bail if we're done.
-			if ( -1 !== $limit && $output_count >= $limit ) {
-				$this->debug->log( '[%d] Reached limit (%d). Exiting.', [ __LINE__, $limit ] );
-				break;
 			}
 
 			// If we have any still to generate, go do them.
@@ -303,22 +304,20 @@ class WoocommerceGpfFrontend {
 				if ( $this->process_product( $product ) ) {
 					++$output_count;
 				}
-				// Quit if we've done all of the products
+				// Quit if we've done all the products
 				if ( -1 !== $limit && $output_count >= $limit ) {
 					$this->debug->log( '[%d] Reached limit (%d). Exiting.', [ __LINE__, $limit ] );
-					break;
+					break 2; // Break out of the containing while loop
 				}
 			}
-			if ( -1 !== $limit && $output_count >= $limit ) {
-				$this->debug->log( 'Reached limit (%d). Exiting.', [ $limit ] );
-				break;
-			}
+
 			$args['offset'] += $chunk_size;
 
 			// If we're using the built-in object cache then flush it every chunk so
 			// that we don't keep churning through memory.
 			if ( ! $_wp_using_ext_object_cache ) {
-				wp_cache_flush();
+				wp_cache_flush_group( 'posts' );
+				wp_cache_flush_group( 'products' );
 			}
 
 			$products      = wc_get_products( $args );
@@ -405,7 +404,7 @@ class WoocommerceGpfFrontend {
 			$woocommerce_product
 		);
 		$this->cache->store( $feed_item->ID, $this->feed_config->type, $output );
-		echo $output;
+		echo $output; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		return ! empty( $output );
 	}
@@ -451,7 +450,7 @@ class WoocommerceGpfFrontend {
 			$output .= $this->feed->render_item( $feed_item );
 		}
 		$this->cache->store( $woocommerce_product->get_id(), $this->feed_config->type, $output );
-		echo $output;
+		echo $output; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		return ! empty( $output );
 	}

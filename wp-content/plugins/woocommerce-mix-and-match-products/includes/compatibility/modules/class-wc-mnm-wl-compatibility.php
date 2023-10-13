@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    1.0.5
- * @version  2.0.7
+ * @version  2.5.0
  */
 
 // Exit if accessed directly.
@@ -43,22 +43,22 @@ class WC_MNM_WL_Compatibility {
 
 				if ( ! $mnm_product->is_visible() ) {
 					// translators: %d child quantity in configuration.
-					echo apply_filters( 'woocommerce_cart_item_name', $mnm_product->get_title(), $mnm_item_data, false ) . ' ' . sprintf( _x( '&times; %d', '[Frontend][Wishlists]Quantity suffix on child product title, ie: x 9', 'woocommerce-mix-and-match-products' ), $mnm_item_data['quantity'] );
+					echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', $mnm_product->get_title(), $mnm_item_data, false ) . ' ' . sprintf( esc_html_x( '&times; %d', '[Frontend][Wishlists]Quantity suffix on child product title, ie: x 9', 'woocommerce-mix-and-match-products' ), esc_html( $mnm_item_data['quantity'] ) ) );
 				} else {
 					// translators: %d child quantity in configuration.
-					echo apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', $mnm_product->get_permalink(), $mnm_product->get_title() ), $mnm_item_data, false ) . ' ' . sprintf( _x( '&times; %d', '[Frontend][Wishlists]Quantity suffix on child product title, ie: x 9', 'woocommerce-mix-and-match-products' ), $mnm_item_data['quantity'] );
+					echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', $mnm_product->get_permalink(), $mnm_product->get_title() ), $mnm_item_data, false ) . ' ' . sprintf( esc_html_x( '&times; %d', '[Frontend][Wishlists]Quantity suffix on child product title, ie: x 9', 'woocommerce-mix-and-match-products' ), esc_html( $mnm_item_data['quantity'] ) ) );
 				}
 
 				// Variation Data.
 				if ( $mnm_product->is_type( 'variation' ) ) {
-					echo wc_get_formatted_variation( $mnm_product->get_variation_attributes() );
+					echo wp_kses_post( wc_get_formatted_variation( $mnm_product->get_variation_attributes() ) );
 				}
 			}
 
 			$mnm_container = wc_get_product( $item['product_id'] );
 
 			if ( $item['data']->is_priced_per_product() ) {
-				echo '<p class="wishlist_mnm_notice"><em>' . _x( '* Accurate pricing info available in cart.', '[Frontend][Wishlists]Replaced price notice', 'woocommerce-mix-and-match-products' ) . '</em></p>';
+				echo '<p class="wishlist_mnm_notice"><em>' . esc_html_x( '* Accurate pricing info available in cart.', '[Frontend][Wishlists]Replaced price notice', 'woocommerce-mix-and-match-products' ) . '</em></p>';
 			}
 
 			echo '</div>';

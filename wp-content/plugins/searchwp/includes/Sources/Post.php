@@ -51,6 +51,14 @@ class Post extends Source {
 	protected $db_post_parent_column = 'post_parent';
 
 	/**
+	 * Allowed Ajax requests for post edit
+	 *
+	 * @since 4.3.8
+	 * @var string[]
+	 */
+	protected $allowed_ajax_edits = ['inline-save'];
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 4.0
@@ -1261,7 +1269,7 @@ class Post extends Source {
 			]
 		);
 
-		$this->drop_posts_by_attribute( $term_posts, 'taxonomy.' . $taxonomy );
+		$this->drop_posts_by_attribute( $term_posts->posts, 'taxonomy.' . $taxonomy );
 
 		do_action( 'searchwp\debug\log', "{$taxonomy} id {$term_id} updated dropping posts" );
 	}
@@ -1495,7 +1503,7 @@ class Post extends Source {
 			&& ! (
 				// Quick Edit is still applicable.
 				isset( $_REQUEST['action'] )
-				&& 'inline-save' === $_REQUEST['action']
+				&& in_array( $_REQUEST['action'], $this->allowed_ajax_edits )
 			)
 		) {
 			return false;

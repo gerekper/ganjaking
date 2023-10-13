@@ -3,7 +3,7 @@
 /* * class
  * Description of A2W_WooCommerceProductEditController
  *
- * @author andrey
+ * @author Ali2Woo Team
  * 
  * @autoload: a2w_admin_init
  * 
@@ -28,13 +28,8 @@ if (!class_exists('A2W_WooCommerceProductEditController')) {
         }
 
         public function get_sample_permalink_html($return, $id ){
-
-            $external_id = get_post_meta($id,'_a2w_external_id', true);
-
-            if($external_id){
-                $return .= '<button type="button" data-id="' . $external_id . '" class="sync-ali-product button button-small hide-if-no-js">' . __("AliExpress Sync", 'ali2woo') . '</button>';
-            }
-
+            $return .= '<button type="button" data-id="' . $id . '" class="sync-ali-product button button-small hide-if-no-js">' . __("AliExpress Sync", 'ali2woo') . '</button>';
+   
             return $return;
         }
 

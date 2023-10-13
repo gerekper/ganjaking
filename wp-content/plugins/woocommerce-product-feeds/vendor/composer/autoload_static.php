@@ -88,6 +88,7 @@ class ComposerStaticInitdefa2f895b9c8958a8913d0072ce990a
         'WoocommercePrfGoogle' => __DIR__ . '/../..' . '/src/prf/woocommerce-prf-google.php',
         'WoocommercePrfGoogleReviewFeed' => __DIR__ . '/../..' . '/src/prf/woocommerce-prf-google-review-feed.php',
         'WoocommercePrfGoogleReviewProductInfo' => __DIR__ . '/../..' . '/src/prf/woocommerce-prf-google-review-product-info.php',
+        'WoocommerceProductFeedsAddToCartSupport' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-add-to-cart-support.php',
         'WoocommerceProductFeedsAdminNotices' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-admin-notices.php',
         'WoocommerceProductFeedsAdvancedCustomFields' => __DIR__ . '/../..' . '/src/integrations/woocommerce-product-feeds-advanced-custom-fields.php',
         'WoocommerceProductFeedsAdvancedCustomFieldsFormatter' => __DIR__ . '/../..' . '/src/integrations/woocommerce-product-feeds-advanced-custom-fields-formatter.php',

@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    1.0.5
- * @version  2.1.0
+ * @version  2.5.0
  */
 
 // Exit if accessed directly.
@@ -40,7 +40,7 @@ class WC_MNM_OPC_Compatibility {
 		wp_enqueue_script( 'wc-add-to-cart-mnm' );
 
 		if ( doing_action( 'wcopc_mix-and-match_add_to_cart' ) ) {
-			// If after_summary location, switch default
+			// If after_summary location, switch default.
 			if ( 'after_summary' === $product->get_add_to_cart_form_location() ) {
 				// Single product template for Mix and Match. Form location: After summary.
 				remove_action( 'woocommerce_after_single_product_summary', 'wc_mnm_template_add_to_cart_after_summary', -1000 );
@@ -54,8 +54,7 @@ class WC_MNM_OPC_Compatibility {
 		// Load the add to cart template.
 		wc_mnm_template_add_to_cart( $product );
 
-		echo str_replace( array( '<form','</form>', 'method="post"', 'enctype="multipart/form-data"' ), array( '<div', '</div>', '', '' ), ob_get_clean() );
-
+		echo wp_kses_post( str_replace( array( '<form', '</form>', 'method="post"', 'enctype="multipart/form-data"' ), array( '<div', '</div>', '', '' ), ob_get_clean() ) );
 	}
 
 	/**
@@ -74,7 +73,7 @@ class WC_MNM_OPC_Compatibility {
 		// Load the after summary add to cart template.
 		wc_mnm_template_add_to_cart_after_summary( $product );
 
-		echo str_replace( array( '<form','</form>', 'method="post"', 'enctype="multipart/form-data"' ), array( '<div', '</div>', '', '' ), ob_get_clean() );
+		echo wp_kses_post( str_replace( array( '<form', '</form>', 'method="post"', 'enctype="multipart/form-data"' ), array( '<div', '</div>', '', '' ), ob_get_clean() ) );
 
 		remove_filter( 'woocommerce_product_single_add_to_cart_text', array( 'PP_One_Page_Checkout', 'modify_single_add_to_cart_text' ) );
 	}
@@ -96,8 +95,6 @@ class WC_MNM_OPC_Compatibility {
 
 		return $allow;
 	}
-
-
 }
 
 WC_MNM_OPC_Compatibility::init();

@@ -1,7 +1,8 @@
 /* 
  *	EventON Booking Blocks styles
- *	@version 1.4
+ *	@version 1.4.1
  */
+
 
 /* selection style 2 */
 	.evobo_selections .evobo_selection_row{
@@ -28,6 +29,7 @@
 	    font-size: 14px;
 	    border: 1px solid var(--evo_color_2);
 	}
+	.slot .evobo_selections .evobo_selection_row.evobo_slot_selection span{border:none;}
 	.evobo_selections .evobo_selection_row.evobo_slot_selection span:hover{background-color: #d6d6d6}
 	.evobo_selections .evobo_selection_row.evobo_slot_selection span em{font-style: normal;}
 	.evobo_selections .evobo_selection_row.evobo_slot_selection span.select{
@@ -45,6 +47,11 @@
 
 /* block preview */
 	.evobo_price_values .evovo_price_options{margin-top: 10px;}
+	.evoTX_wc .evotx_ticket_other_data_line.evobo_selected_slot, 
+	body #evcal_list .evoTX_wc .evotx_ticket_other_data_line.evobo_selected_slot{
+		display: flex;justify-content: space-between;
+	}
+	.evoTX_wc .evotx_ticket_other_data_line.evobo_selected_slot .value{text-align: right;}
 /* calendar date style mod */
 	.evoGC .evoGC_week span:before{
 		content:"";
@@ -75,7 +82,10 @@
 		display: flex;
 		flex-direction: row; flex-wrap:wrap;
 	}
-	.evobo_booking_section.def .evobo_selection_row.evobo_slot_selection .slot{flex:0 0 48%; font-size: 13px;}
+	.evobo_booking_section.def .evobo_selection_row.evobo_slot_selection .slot{
+		box-sizing: border-box;flex:0 0 48%; font-size: 13px;
+		display: flex;flex-wrap: wrap;justify-content: center;
+	}
 /* time slot style */
 	.evobo_selections .evobo_selection_row.evobo_slot_selection span.month,
 	.evobo_selections .evobo_selection_row.evobo_slot_selection span.line_slots
@@ -100,7 +110,7 @@
 		flex-wrap: wrap; flex:1;
 	}
 	.evobo_selections .evobo_selection_row.evobo_slot_selection span.line_slots .slot
-	{flex: 0 0 32%;border: 1px solid #d8d8d8;}
+	{flex: 0 0 32%;border: 1px solid var(--evo_color_2);}
 	.evo_lightbox_content .evobo_selections .evobo_selection_row.evobo_slot_selection span.line_slots .slot
 	{flex: 0 0 48%;}
 	
@@ -158,7 +168,7 @@
 	}
 	.evoGC .evoGC_header .evoGC_ar i.fa{
 		font-size: 14px;
-	    margin-top: 4px;
+	    margin-top: 5px;
 	    position: absolute;
 	    width: auto;
 	    height: 100%;
@@ -207,10 +217,10 @@
 		border-radius: 50%;
     	-webkit-border-radius: 50%;
     	-webkit-transition: all .2s ease;
-	-moz-transition: all .2s ease;
-	-ms-transition: all .2s ease;
-	-o-transition: all .2s ease;
-	transition: all .2s ease;
+		-moz-transition: all .2s ease;
+		-ms-transition: all .2s ease;
+		-o-transition: all .2s ease;
+		transition: all .2s ease;
 	}
 	
 	.evoGC .evoGC_week span em{
@@ -218,38 +228,34 @@
 	    margin: 0;
 	    top: 50%;
 	    left: 50%;
-	    width: 40px;
-	    height: 40px;
-	    line-height: 40px;
+	    width: calc(100% - 6px);
+	    height: calc(100% - 6px);
+	    line-height: 1;
 	    font-style: normal; font-weight: bold; font-size:14px;
-
 	    transform: translate(-50%, -50%);
 	    -webkit-transform: translate(-50%, -50%);
 	    border-radius: 50%;
 	    -webkit-border-radius: 50%;
 	    color: var(--evo_color_2);
+	    padding-top: calc(50% - 9px);
+	    box-sizing: border-box;
 	}
 	.evoGC .evoGC_week span i{
 		position: absolute;
 	    margin: 0;
 	    top: 50%;
 	    left: 50%;
-	    width: 44px;
-	    height: 44px;
-	    line-height: 40px;
+	    width: calc(100% - 4px);
+	    height: calc(100% - 4px);
 	    font-style: normal;
 	    transform: translate(-50%, -50%);
 	    -webkit-transform: translate(-50%, -50%);
 	    border-radius: 50%;
+	    display: flex; justify-content: center;align-items: center;
 	}
 	.evotx_hidable_section.trim .evoGC .evoGC_week span i{width: 100%; height: 100%}
-	.evotx_hidable_section.trim .evoGC .evoGC_week span i em{
-		    height: 90%;
-	    width: 90%;
-	    display: flex;
-	    justify-content: center;
-	    align-items: center;
-	}
+	.evotx_hidable_section.trim .evoGC .evoGC_week span i em{}
+
 	.evoGC .evoGC_week .evoGC_date.today i{border:2px solid #ffafaf}
 	.evoGC .evoGC_week .evoGC_date:hover i{background-color: #f3f3f3;}
 	.evoGC .evoGC_week .evoGC_date.select i{border:2px solid #616161}
@@ -276,37 +282,27 @@
 
 /* responsive */
 @media (max-width: 975px){
-	.evoGC .evoGC_week span em{
-		width: 30px; height: 30px; line-height: 30px;
-		font-size: 14px;
-	}
-	.evoGC .evoGC_week span.today em{line-height:27px }
+	.evoGC .evoGC_week span em{font-size: 14px;}
+	.evoGC .evoGC_week span.today em{ }
 }
 @media (max-width: 850px){
 	.evobo_calendar, .evobo_selections{width: 100%;}
 	.evobo_selections{padding: 15px 0;}
 	.evobo_main_selection{flex-direction:column;}
-	.evoGC .evoGC_week span em{
-		width: 40px; height: 40px; line-height: 40px;
-		font-size: inherit;
-	}
-	.evoGC .evoGC_week span.today em{line-height:36px }
+	.evoGC .evoGC_week span em{font-size: inherit;}
+	.evoGC .evoGC_week span.today em{}
 	.evobo_selections .evobo_selection_row.evobo_slot_selection span.line_slots .slot{flex:0 0 48%;}
 }
 @media (max-width: 550px){
 	.evoGC .evoGC_week span.select{}
 	.evoGC .evoGC_week span em,
 	.evo_lightbox_body .evoGC .evoGC_week span em{
-		width: 25px; height: 25px; 
-		line-height: 25px;
 		font-size: 12px;
 		background-color: transparent;
 	}
 	.evoGC .evoGC_week span.today em,
 	.evo_lightbox_body .evoGC .evoGC_week span.today em{
 		border:none;
-		width: 100%;
-	    height: 100%;line-height: 26px;
 	}
 	.evoGC .evoGC_week .evoGC_date.today i,
 	.evoGC .evoGC_week .evoGC_date.select i{height: 100%;width: 100%}

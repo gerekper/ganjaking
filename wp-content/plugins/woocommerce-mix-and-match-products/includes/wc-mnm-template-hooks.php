@@ -70,9 +70,12 @@ add_action( 'wc_mnm_after_child_items', 'wc_mnm_remove_plus_minus_buttons' );
 // Backcompatibility Functions.
 add_action( 'woocommerce_mix-and-match_add_to_cart', '_wc_mnm_add_template_backcompatibility', -10 );
 
-/*-----------------------------------------------------------------------------------*/
-/*  Edit template hooks.                                                                  */
-/*-----------------------------------------------------------------------------------*/
+
+/*
+|--------------------------------------------------------------------------
+| Edit template hooks.
+|--------------------------------------------------------------------------
+*/
 
 // Edit container form - stripped down add to cart form.
 add_action( 'wc_mnm_edit_container_order_item', 'wc_mnm_template_edit_container_order_item', 10, 4 );

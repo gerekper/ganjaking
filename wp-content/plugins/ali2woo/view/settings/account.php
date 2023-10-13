@@ -95,10 +95,24 @@
                     </div>
                 </div>
 
+                <div class="account_fields account_fields_admitad">
+                    <div class="field field_inline">
+                        <div class="field__label">
+                            <label for="a2w_admitad_account_name">
+                                <strong><?php esc_html_e('Account Name', 'ali2woo');?></strong>
+                            </label>
+                            <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x('Your Account Name in Admitad', 'setting description', 'ali2woo'); ?>"></div>
+                        </div>
+                        <div class="field__input-wrap">
+                            <input type="text" class="field__input form-control small-input" id="a2w_admitad_account_name" name="a2w_admitad_account_name" value="<?php echo $account->account_data['admitad']['account_name'] ?? ''; ?>"/>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row account_fields account_fields_admitad">
                     <div class="col-md-12">
                         <div class="row-comments">
-                        <?php echo _x('Enter your cashback url to get up to 12% cashback from each purchase on AliExpress. You will get the URL after registration with <a href="https://www.admitad.com/en/promo/?ref=1e8uh1z6nl">Admitad AliExpress</a> program', 'setting description', 'ali2woo'); ?>">
+                        <?php echo _x('You will get your Cashback URL and Account Name after registration with <strong><a href="https://www.admitad.com/affiliate-publishers/?ref=1e8uh1z6nl">Admitad AliExpress</a></strong> program.<br/><strong>Please register a NEW Admitad account using our previous link otherwise cashback will not be applied.</strong>', 'setting description', 'ali2woo'); ?>
                         </div>
                     </div>
                 </div>

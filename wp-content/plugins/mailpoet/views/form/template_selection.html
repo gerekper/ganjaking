@@ -1,11 +1,6 @@
 <% extends 'layout.html' %>
 
-<% block after_css %>
-<%= stylesheet('mailpoet-form-editor.css') %>
-<% endblock %>
-
 <% block content %>
-
 <div class="block-editor">
   <div id="mailpoet_form_edit_templates">
   </div>
@@ -20,8 +15,4 @@
 </script>
 
 <style id="mailpoet-form-editor-form-styles"></style>
-<% endblock %>
-
-<% block after_javascript %>
-<%= javascript('form_editor.js')%>
 <% endblock %>

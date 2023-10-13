@@ -58,6 +58,7 @@ class StatsResponseBuilder {
           'id' => $queue->getId(),
           'scheduled_at' => is_null($task->getScheduledAt()) ? null : $task->getScheduledAt()->format(self::DATE_FORMAT),
           'created_at' => ($createdAt = $task->getCreatedAt()) ? $createdAt->format(self::DATE_FORMAT) : null,
+          'meta' => $queue->getMeta(),
         ];
       }
     }

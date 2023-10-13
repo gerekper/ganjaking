@@ -21,4 +21,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<li <?php wc_product_class( $classes, $child_item->get_product() ); ?> <?php echo wc_implode_html_attributes( $child_item->get_data_attributes() ); ?> >
+<li <?php wc_product_class( $classes, $child_item->get_product() ); ?> <?php echo wc_implode_html_attributes( $child_item->get_data_attributes() ); // phpcs:ignore WordPress.Security.EscapeOutput ?> >

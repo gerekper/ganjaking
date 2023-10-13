@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products
  * @since    2.0.0
- * @version  2.2.0
+ * @version  2.5.0
  */
 
 // Exit if accessed directly.
@@ -28,7 +28,6 @@ class WC_MNM_DB_Sync {
 		// Delete bundled item DB entries when: i) the container bundle is deleted, or ii) the associated product is deleted.
 		add_action( 'delete_post', array( __CLASS__, 'delete_post' ), 11 );
 		add_action( 'woocommerce_delete_product', array( __CLASS__, 'delete_product' ), 11 );
-
 	}
 
 	/**
@@ -97,24 +96,20 @@ class WC_MNM_DB_Sync {
 				foreach ( $child_items as $child_item ) {
 					$child_item->delete();
 				}
-
 			} catch ( Exception $e ) {
 				wc_get_logger()->error(
 					esc_html__( 'Error deleting Mix and Match product child items.', 'woocommerce-mix-and-match-products' ),
 					array(
-						'source' => 'wc-mix-and-match-product-delete',
-						'product' => $this,
-						'error' => $e,
+						'source'  => 'wc-mix-and-match-product-delete',
+						'product' => $container,
+						'error'   => $e,
 					)
 				);
 				wc_transaction_query( 'rollback' );
 			}
-
 		}
 
 		return $id;
-
 	}
-
 }
 WC_MNM_DB_Sync::init();

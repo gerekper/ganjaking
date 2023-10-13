@@ -6,11 +6,9 @@ if (!defined('ABSPATH')) exit;
 
 
 use Exception;
-use MailPoet\Automation\Engine\Control\Steps\ActionStepRunner;
 use MailPoet\Automation\Engine\Data\Automation;
 use MailPoet\Automation\Engine\Data\AutomationRun;
 use MailPoet\Automation\Engine\Data\AutomationRunLog;
-use MailPoet\Automation\Engine\Data\Step;
 use MailPoet\Automation\Engine\Data\StepRunArgs;
 use MailPoet\Automation\Engine\Data\StepValidationArgs;
 use MailPoet\Automation\Engine\Data\SubjectEntry;
@@ -21,19 +19,12 @@ use MailPoet\Automation\Engine\Integration\Action;
 use MailPoet\Automation\Engine\Integration\Payload;
 use MailPoet\Automation\Engine\Integration\Subject;
 use MailPoet\Automation\Engine\Registry;
-use MailPoet\Automation\Engine\Storage\AutomationRunLogStorage;
 use MailPoet\Automation\Engine\Storage\AutomationRunStorage;
 use MailPoet\Automation\Engine\Storage\AutomationStorage;
 use MailPoet\Automation\Engine\WordPress;
 use Throwable;
 
 class StepHandler {
-  /** @var ActionScheduler */
-  private $actionScheduler;
-
-  /** @var ActionStepRunner */
-  private $actionStepRunner;
-
   /** @var SubjectLoader */
   private $subjectLoader;
 
@@ -46,168 +37,133 @@ class StepHandler {
   /** @var AutomationStorage */
   private $automationStorage;
 
-  /** @var array<string, StepRunner> */
-  private $stepRunners = [];
-
-  /** @var AutomationRunLogStorage */
-  private $automationRunLogStorage;
-
-  /** @var Hooks */
-  private $hooks;
-
   /** @var Registry */
   private $registry;
 
+  /** @var StepRunControllerFactory */
+  private $stepRunControllerFactory;
+
+  /** @var StepRunLoggerFactory */
+  private $stepRunLoggerFactory;
+
+  /** @var StepScheduler */
+  private $stepScheduler;
+
   public function __construct(
-    ActionScheduler $actionScheduler,
-    ActionStepRunner $actionStepRunner,
-    Hooks $hooks,
     SubjectLoader $subjectLoader,
     WordPress $wordPress,
     AutomationRunStorage $automationRunStorage,
-    AutomationRunLogStorage $automationRunLogStorage,
     AutomationStorage $automationStorage,
-    Registry $registry
+    Registry $registry,
+    StepRunControllerFactory $stepRunControllerFactory,
+    StepRunLoggerFactory $stepRunLoggerFactory,
+    StepScheduler $stepScheduler
   ) {
-    $this->actionScheduler = $actionScheduler;
-    $this->actionStepRunner = $actionStepRunner;
-    $this->hooks = $hooks;
     $this->subjectLoader = $subjectLoader;
     $this->wordPress = $wordPress;
     $this->automationRunStorage = $automationRunStorage;
-    $this->automationRunLogStorage = $automationRunLogStorage;
     $this->automationStorage = $automationStorage;
     $this->registry = $registry;
+    $this->stepRunControllerFactory = $stepRunControllerFactory;
+    $this->stepRunLoggerFactory = $stepRunLoggerFactory;
+    $this->stepScheduler = $stepScheduler;
   }
 
   public function initialize(): void {
     $this->wordPress->addAction(Hooks::AUTOMATION_STEP, [$this, 'handle']);
-    $this->addStepRunner(Step::TYPE_ACTION, $this->actionStepRunner);
-    $this->wordPress->doAction(Hooks::STEP_RUNNER_INITIALIZE, [$this]);
-  }
-
-  public function addStepRunner(string $stepType, StepRunner $stepRunner): void {
-    $this->stepRunners[$stepType] = $stepRunner;
-  }
-
-  public function getStepRunners(): array {
-    return $this->stepRunners;
-  }
-
-  /**
-   * @param array<string, StepRunner> $stepRunners
-   */
-  public function setStepRunners(array $stepRunners): void {
-    $this->stepRunners = $stepRunners;
   }
 
   /** @param mixed $args */
   public function handle($args): void {
-    // TODO: args validation
-    if (!is_array($args)) {
+    // TODO: better args validation
+    if (!is_array($args) || !isset($args['automation_run_id']) || !array_key_exists('step_id', $args)) {
       throw new InvalidStateException();
     }
 
-    // Action Scheduler catches only Exception instances, not other errors.
-    // We need to convert them to exceptions to be processed and logged.
+    $runId = (int)$args['automation_run_id'];
+    $stepId = (string)$args['step_id'];
+    $runNumber = (int)($args['run_number'] ?? 1);
+
+    // BC — complete automation run if "step_id" is empty (was nullable in the past)
+    if (!$stepId) {
+      $this->automationRunStorage->updateStatus($runId, AutomationRun::STATUS_COMPLETE);
+      return;
+    }
+
+    $logger = $this->stepRunLoggerFactory->createLogger($runId, $stepId, AutomationRunLog::TYPE_ACTION, $runNumber);
+    $logger->logStart();
     try {
-      $this->handleStep($args);
+      $this->handleStep($runId, $stepId, $runNumber, $logger);
     } catch (Throwable $e) {
-      $status = $e instanceof InvalidStateException && $e->getErrorCode() === 'mailpoet_automation_not_active' ? AutomationRun::STATUS_CANCELLED : AutomationRun::STATUS_FAILED;
+      $status = $e instanceof InvalidStateException && $e->getErrorCode() === 'mailpoet_automation_not_active'
+        ? AutomationRun::STATUS_CANCELLED
+        : AutomationRun::STATUS_FAILED;
       $this->automationRunStorage->updateStatus((int)$args['automation_run_id'], $status);
-      $this->postProcessAutomationRun((int)$args['automation_run_id']);
+      $logger->logFailure($e);
+
+      // Action Scheduler catches only Exception instances, not other errors.
+      // We need to convert them to exceptions to be processed and logged.
       if (!$e instanceof Exception) {
         throw new Exception($e->getMessage(), intval($e->getCode()), $e);
       }
       throw $e;
+    } finally {
+      $this->postProcessAutomationRun($runId);
     }
-    $this->postProcessAutomationRun((int)$args['automation_run_id']);
   }
 
-  private function handleStep(array $args): void {
-    $automationRunId = $args['automation_run_id'];
-    $stepId = $args['step_id'];
-
-    $automationRun = $this->automationRunStorage->getAutomationRun($automationRunId);
+  private function handleStep(int $runId, string $stepId, int $runNumber, StepRunLogger $logger): void {
+    $automationRun = $this->automationRunStorage->getAutomationRun($runId);
     if (!$automationRun) {
-      throw Exceptions::automationRunNotFound($automationRunId);
+      throw Exceptions::automationRunNotFound($runId);
     }
 
     if ($automationRun->getStatus() !== AutomationRun::STATUS_RUNNING) {
-      throw Exceptions::automationRunNotRunning($automationRunId, $automationRun->getStatus());
+      throw Exceptions::automationRunNotRunning($runId, $automationRun->getStatus());
     }
 
     $automation = $this->automationStorage->getAutomation($automationRun->getAutomationId(), $automationRun->getVersionId());
     if (!$automation) {
       throw Exceptions::automationVersionNotFound($automationRun->getAutomationId(), $automationRun->getVersionId());
     }
+
     if (!in_array($automation->getStatus(), [Automation::STATUS_ACTIVE, Automation::STATUS_DEACTIVATING], true)) {
       throw Exceptions::automationNotActive($automationRun->getAutomationId());
-    }
-
-    // complete automation run
-    if (!$stepId) {
-      $this->automationRunStorage->updateStatus($automationRunId, AutomationRun::STATUS_COMPLETE);
-      return;
     }
 
     $stepData = $automation->getStep($stepId);
     if (!$stepData) {
       throw Exceptions::automationStepNotFound($stepId);
     }
+
+    $logger->logStepData($stepData);
+
     $step = $this->registry->getStep($stepData->getKey());
-    $stepType = $stepData->getType();
-    if (isset($this->stepRunners[$stepType])) {
-      $log = new AutomationRunLog($automationRun->getId(), $stepData->getId());
-      try {
-        $requiredSubjects = $step instanceof Action ? $step->getSubjectKeys() : [];
-        $subjectEntries = $this->getSubjectEntries($automationRun, $requiredSubjects);
-        $args = new StepRunArgs($automation, $automationRun, $stepData, $subjectEntries);
-        $validationArgs = new StepValidationArgs($automation, $stepData, array_map(function (SubjectEntry $entry) {
-          return $entry->getSubject();
-        }, $subjectEntries));
-        $this->stepRunners[$stepType]->run($args, $validationArgs);
-        $log->markCompletedSuccessfully();
-      } catch (Throwable $e) {
-        $log->markFailed();
-        $log->setError($e);
-        throw $e;
-      } finally {
-        try {
-          $this->hooks->doAutomationStepAfterRun($log);
-        } catch (Throwable $e) {
-          // Ignore integration errors
-        }
-        $this->automationRunLogStorage->createAutomationRunLog($log);
-      }
-    } else {
+    if (!$step instanceof Action) {
       throw new InvalidStateException();
     }
 
-    $nextStep = $stepData->getNextSteps()[0] ?? null;
-    $nextStepArgs = [
-      [
-        'automation_run_id' => $automationRunId,
-        'step_id' => $nextStep ? $nextStep->getId() : null,
-      ],
-    ];
+    $requiredSubjects = $step->getSubjectKeys();
+    $subjectEntries = $this->getSubjectEntries($automationRun, $requiredSubjects);
+    $args = new StepRunArgs($automation, $automationRun, $stepData, $subjectEntries, $runNumber);
+    $validationArgs = new StepValidationArgs($automation, $stepData, array_map(function (SubjectEntry $entry) {
+      return $entry->getSubject();
+    }, $subjectEntries));
 
-    $this->automationRunStorage->updateNextStep($automationRunId, $nextStep ? $nextStep->getId() : null);
+    $step->validate($validationArgs);
+    $step->run($args, $this->stepRunControllerFactory->createController($args));
 
-    // next step scheduled by action
-    if ($this->actionScheduler->hasScheduledAction(Hooks::AUTOMATION_STEP, $nextStepArgs)) {
-      return;
+    // schedule next step if not scheduled by action
+    if (!$this->stepScheduler->hasScheduledStep($args)) {
+      $this->stepScheduler->scheduleNextStep($args);
     }
 
-    // no need to schedule a new step if the next step is null, complete the run
-    if (!$nextStep) {
-      $this->automationRunStorage->updateStatus($automationRunId, AutomationRun::STATUS_COMPLETE);
-      return;
+    // logging
+    if ($this->stepScheduler->hasScheduledProgress($args)) {
+      $logger->logProgress();
+    } else {
+      $logger->logSuccess();
     }
-
-    // enqueue next step
-    $this->actionScheduler->enqueue(Hooks::AUTOMATION_STEP, $nextStepArgs);
-    // TODO: allow long-running steps (that are not done here yet)
   }
 
   /** @return SubjectEntry<Subject<Payload>>[] */

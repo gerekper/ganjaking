@@ -1,5 +1,17 @@
 == Changelog ==
 
+= 6.3.4 =
+Release Date: September 19th, 2024
+
+* [Fixed] Taxonomy helper class gave a PHP 8.2 warning.
+* [Fixed] Re-added all Pro features for the MS User list table.
+* [Fixed] The Media Library for inline editing sometimes only showed items that were not used.
+* [Improved] More operators for Smart Filtering for the Slug column.
+* [ACF] Added a new hook that allows developers to write custom support for third-party ACF fields: `acp/acf/column`.
+* [WooCommerce] Editing support for the Subscription date columns.
+* [WooCommerce] Editing support for the Product Featured column.
+* [Updated] Admin Columns Core to version 4.6.8.
+
 = 6.3.3 =
 Release Date: 30th August, 2023
 

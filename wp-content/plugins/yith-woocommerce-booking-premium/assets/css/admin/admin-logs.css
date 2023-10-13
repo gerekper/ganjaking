@@ -1,0 +1,208 @@
+/**
+ * Admin Logs style
+ *
+ * @author YITH <plugins@yithemes.com>
+ * @version 1.0.0
+ */
+
+#yith-plugin-fw-panel-custom-tab-tools-tools-logs .yith-plugin-fw-panel-custom-sub-tab-container {
+	position : relative;
+}
+
+#yith-wcbk-logs-page-actions {
+	position : absolute;
+	top      : -95px;
+	right    : 0;
+}
+
+#yith-wcbk-logs-tab-actions {
+	margin-bottom : 15px;
+}
+
+#yith-wcbk-logs-tab-actions .actions {
+	margin-right : 10px;
+}
+
+#yith-wcbk-logs-tab-actions label {
+	margin-right : 3px;
+}
+
+.yith-plugin-ui #yith-wcbk-logs-tab-actions label,
+.yith-plugin-ui #yith-wcbk-logs-tab-actions select,
+.yith-plugin-ui #yith-wcbk-logs-tab-actions input,
+.yith-plugin-ui #yith-wcbk-logs-tab-actions input[type=text],
+.yith-plugin-ui #yith-wcbk-logs-tab-actions input[type=number],
+.yith-plugin-ui #yith-wcbk-logs-tab-actions input[type=email],
+.yith-plugin-ui #yith-wcbk-logs-tab-actions input[type=radio],
+.yith-plugin-ui #yith-wcbk-logs-tab-actions input[type=checkbox],
+.yith-plugin-ui #yith-wcbk-logs-tab-actions .yith-wcbk-printer-field__admin-datepicker {
+	float : none;
+	width : auto;
+}
+
+#yith-wcbk-logs-tab-actions .pagination span {
+	margin : 0 3px;
+}
+
+#yith-wcbk-logs-tab-actions .pagination .navspan {
+	display     : inline-block;
+	min-width   : 17px;
+	border      : 1px solid #ddd;
+	padding     : 3px 5px 7px;
+	background  : #f7f7f7;
+	font-size   : 16px;
+	line-height : 1;
+	font-weight : 400;
+	text-align  : center;
+	color       : #a0a5aa;
+}
+
+#yith-wcbk-logs-tab-actions .pagination a {
+	text-decoration : none;
+	box-shadow      : none;
+	outline         : none;
+}
+
+#yith-wcbk-logs-tab-actions .pagination a .navspan {
+	border-color : #ccc;
+	background   : #e5e5e5;
+	color        : #0073aa;
+}
+
+#yith-wcbk-logs-tab-actions .pagination a:hover .navspan {
+	border-color : #5b9dd9;
+	color        : #fff;
+	background   : #00a0d2;
+}
+
+#yith-wcbk-logs-tab-actions .pagination .current-page input {
+	text-align  : center;
+	line-height : 1;
+	height      : 32px;
+	width       : auto;
+}
+
+#yith-wcbk-logs-tab-table {
+	width : 100%;
+}
+
+#yith-wcbk-logs-tab-table th {
+	padding     : 18px 10px;
+	font-weight : 600;
+}
+
+#yith-wcbk-logs-tab-table .type-column {
+	width      : 70px;
+	text-align : center;
+}
+
+#yith-wcbk-logs-tab-table .group-column {
+	width      : 140px;
+	text-align : center;
+}
+
+#yith-wcbk-logs-tab-table td.description-column {
+	position      : relative;
+	max-width     : 0;
+	padding-right : 10px;
+}
+
+#yith-wcbk-logs-tab-table td.description-column .expand {
+	position : absolute;
+	top      : 0;
+	right    : 0;
+	cursor   : pointer;
+}
+
+#yith-wcbk-logs-tab-table td.description-column .expand:before {
+	position      : absolute;
+	top           : 22px;
+	left          : calc(50% - 13px);
+	content       : "\f347";
+	font-family   : dashicons;
+	font-size     : 16px;
+	text-align    : center;
+	padding-top   : 5px;
+	width         : 26px;
+	height        : 26px;
+	background    : #fff;
+	border-radius : 50%;
+	box-shadow    : 0 2px 8px 0 rgba(0, 0, 0, 0.12);
+	box-sizing    : border-box;
+	color         : #999;
+	transition    : all .2s ease-in-out;
+}
+
+#yith-wcbk-logs-tab-table td.description-column .expand:hover {
+	background : #bde0ff;
+}
+
+#yith-wcbk-logs-tab-table td.description-column .expand:hover:before {
+	color : #5b9dd9;
+}
+
+#yith-wcbk-logs-tab-table td.description-column .expand.disabled:before {
+	display : none;
+}
+
+#yith-wcbk-logs-tab-table td.description-column.expanded .expand:before {
+	transform  : rotateZ(180deg);
+	box-shadow : 0 -2px 8px 0 rgba(0, 0, 0, 0.12);
+}
+
+#yith-wcbk-logs-tab-table td.description-column .log-description {
+	font-family   : monospace;
+	overflow      : hidden;
+	white-space   : pre-wrap;
+	text-overflow : ellipsis;
+	transition    : all 0.5s;
+	height        : 40px;
+	padding       : 0 10px;
+}
+
+#yith-wcbk-logs-tab-table td.description-column.expanded .log-description {
+	height     : 500px;
+	overflow-y : auto;
+}
+
+#yith-wcbk-logs-tab-table .date-column {
+	width      : 100px;
+	text-align : center;
+}
+
+.yith-wcbk-logs-type {
+	display        : inline-block;
+	color          : #828d95;
+	text-transform : uppercase;
+	font-weight    : 600;
+}
+
+.yith-wcbk-logs-type.error {
+	color : #cc2145;
+}
+
+.yith-wcbk-logs-type.info {
+	color : #41add4;
+}
+
+.yith-wcbk-logs-type.warning {
+	color : #f80;
+}
+
+.yith-wcbk-logs-group {
+	font-weight    : 600;
+	color          : #828d95;
+	text-transform : uppercase;
+}
+
+.yith-wcbk-logs-group.general {
+	color : #00bcd4;
+}
+
+.yith-wcbk-logs-group.google-calendar {
+	color : #0077a8;
+}
+
+.yith-wcbk-logs-group.background-process {
+	color : #009688;
+}

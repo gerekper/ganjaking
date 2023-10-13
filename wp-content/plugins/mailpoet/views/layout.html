@@ -33,10 +33,6 @@
 </div>
 <% endblock %>
 
-<%= do_action('mailpoet_styles_admin_after') %>
-
-<% block after_css %><% endblock %>
-
 <script type="text/javascript">
   var mailpoet_datetime_format = "<%= wp_datetime_format()|escape('js') %>";
   var mailpoet_date_format = "<%= wp_date_format()|escape('js') %>";
@@ -108,13 +104,6 @@
   <% endif %>
 </script>
 
-<!-- javascripts -->
-<%= javascript(
-  'runtime.js',
-  'vendor.js',
-  'mailpoet.js'
-)%>
-
 <%= localize({
   'topBarLogoTitle': __('Back to section root'),
   'topBarUpdates': __('Updates'),
@@ -184,17 +173,11 @@
   'close': __('Close'),
   'today': __('Today'),
 }) %>
-<% block translations %><% endblock %>
 
 <% block after_translations %><% endblock %>
-<%= javascript(
-  'admin_vendor.js'
-)%>
-
-<%= do_action('mailpoet_scripts_admin_before') %>
 
 <% if display_docsbot_widget and not is_dotcom_ecommerce_plan() %>
-  <%= javascript('lib/analytics.js') %>
+  <% include 'analytics.html' %>
   <script type="text/javascript">window.DocsBotAI=window.DocsBotAI||{},DocsBotAI.init=function(c){return new Promise(function(e,o){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src="https://widget.docsbot.ai/chat.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n),t.addEventListener("load",function(){window.DocsBotAI.mount({id:c.id,supportCallback:c.supportCallback,identify:c.identify,options:c.options});var t;t=function(n){return new Promise(function(e){if(document.querySelector(n))return e(document.querySelector(n));var o=new MutationObserver(function(t){document.querySelector(n)&&(e(document.querySelector(n)),o.disconnect())});o.observe(document.body,{childList:!0,subtree:!0})})},t&&t("#docsbotai-root").then(e).catch(o)}),t.addEventListener("error",function(t){o(t.message)})})};</script>
   <script type="text/javascript">
     DocsBotAI.init({
@@ -219,33 +202,4 @@
   </script>
 <% endif %>
 
-<script>
-  Parsley.addMessages('mailpoet', {
-    defaultMessage: '<%= __("This value seems to be invalid.") %>',
-    type: {
-      email: '<%= __("This value should be a valid email.") %>',
-      url: '<%= __("This value should be a valid url.") %>',
-      number: '<%= __("This value should be a valid number.") %>',
-      integer: '<%= __("This value should be a valid integer.") %>',
-      digits: '<%= __("This value should be digits.") %>',
-      alphanum: '<%= __("This value should be alphanumeric.") %>'
-    },
-    notblank: '<%= __("This value should not be blank.") %>',
-    required: '<%= __("This value is required.") %>',
-    pattern: '<%= __("This value seems to be invalid.") %>',
-    min: '<%= __("This value should be greater than or equal to %s.") %>',
-    max: '<%= __("This value should be lower than or equal to %s.") %>',
-    range: '<%= __("This value should be between %s and %s.") %>',
-    minlength: '<%= __("This value is too short. It should have %s characters or more.") %>',
-    maxlength: '<%= __("This value is too long. It should have %s characters or fewer.") %>',
-    length: '<%= __("This value length is invalid. It should be between %s and %s characters long.") %>',
-    mincheck: '<%= __("You must select at least %s choices.") %>',
-    maxcheck: '<%= __("You must select %s choices or fewer.") %>',
-    check: '<%= __("You must select between %s and %s choices.") %>',
-    equalto: '<%= __("This value should be the same.") %>'
-  });
-
-  Parsley.setLocale('mailpoet');
-</script>
-<% block after_javascript %><% endblock %>
 <div id="mailpoet-modal"></div>

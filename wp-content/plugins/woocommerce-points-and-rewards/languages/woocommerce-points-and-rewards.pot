@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Points and Rewards 1.7.41\n"
+"Project-Id-Version: WooCommerce Points and Rewards 1.7.42\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-points-and-rewards\n"
-"POT-Creation-Date: 2023-09-05 13:36:11+00:00\n"
+"POT-Creation-Date: 2023-09-27 17:38:22+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -43,13 +43,13 @@ msgid "ReviewsUtil class not found"
 msgstr ""
 
 #: includes/class-wc-points-rewards-admin.php:45
-#: includes/class-wc-points-rewards-admin.php:212
+#: includes/class-wc-points-rewards-admin.php:239
 msgid "Manage Points"
 msgstr ""
 
 #: includes/class-wc-points-rewards-admin.php:46
-#: includes/class-wc-points-rewards-admin.php:206
-#: includes/class-wc-points-rewards-admin.php:352
+#: includes/class-wc-points-rewards-admin.php:233
+#: includes/class-wc-points-rewards-admin.php:379
 msgid "Points Log"
 msgstr ""
 
@@ -57,7 +57,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:126
+#: includes/class-wc-points-rewards-admin.php:129
 #. translators: %1$s link start, %2$s link end
 msgid ""
 "WooCommerce Points and Rewards requires coupons to be %1$senabled%2$s in "
@@ -65,25 +65,22 @@ msgid ""
 "checkout."
 msgstr ""
 
-#. Author of the plugin/theme
-msgid "WooCommerce"
-msgstr ""
-
-#: includes/class-wc-points-rewards-admin.php:168
-#: includes/class-wc-points-rewards-admin.php:169
+#: includes/class-wc-points-rewards-admin.php:176
+#: includes/class-wc-points-rewards-admin.php:177
+#: includes/class-wc-points-rewards-admin.php:201
 #: includes/class-wc-points-rewards-privacy.php:12
 msgid "Points & Rewards"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:323
+#: includes/class-wc-points-rewards-admin.php:350
 msgid "Manage Customer Points"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:378
+#: includes/class-wc-points-rewards-admin.php:405
 msgid "Save Changes"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:436
+#: includes/class-wc-points-rewards-admin.php:463
 msgid ""
 "Are you sure you want to apply points to all previous orders that have not "
 "already had points generated? This cannot be reversed! Note that this can "
@@ -91,95 +88,95 @@ msgid ""
 "simply Apply Points again to continue the process."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:502
+#: includes/class-wc-points-rewards-admin.php:529
 msgid "Points Settings"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:509
+#: includes/class-wc-points-rewards-admin.php:536
 msgid "Earn Points Conversion Rate"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:510
+#: includes/class-wc-points-rewards-admin.php:537
 msgid "Set the number of points awarded based on the product price."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:518
+#: includes/class-wc-points-rewards-admin.php:545
 msgid "Earn Points Rounding Mode"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:519
+#: includes/class-wc-points-rewards-admin.php:546
 msgid "Set how points should be rounded."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:523
+#: includes/class-wc-points-rewards-admin.php:550
 msgid "Round to nearest integer"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:524
+#: includes/class-wc-points-rewards-admin.php:551
 msgid "Always round down"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:525
+#: includes/class-wc-points-rewards-admin.php:552
 msgid "Always round up"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:532
+#: includes/class-wc-points-rewards-admin.php:559
 msgid "Redemption Conversion Rate"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:533
+#: includes/class-wc-points-rewards-admin.php:560
 msgid "Set the value of points redeemed for a discount."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:541
+#: includes/class-wc-points-rewards-admin.php:568
 msgid "Partial Redemption"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:542
+#: includes/class-wc-points-rewards-admin.php:569
 msgid "Enable partial redemption"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:543
+#: includes/class-wc-points-rewards-admin.php:570
 msgid "Lets users enter how many points they wish to redeem during cart/checkout."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:551
+#: includes/class-wc-points-rewards-admin.php:578
 msgid "Minimum Points Discount"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:552
+#: includes/class-wc-points-rewards-admin.php:579
 msgid ""
 "Set the minimum amount a user's points must add up to in order to redeem "
 "points. Use a fixed monetary amount or leave blank to disable."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:555
+#: includes/class-wc-points-rewards-admin.php:582
 msgid "Enter amount"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:561
+#: includes/class-wc-points-rewards-admin.php:588
 #: includes/class-wc-points-rewards-product-admin.php:223
 #: includes/class-wc-points-rewards-product-admin.php:457
 msgid "Maximum Points Discount"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:562
+#: includes/class-wc-points-rewards-admin.php:589
 msgid ""
 "Set the maximum product discount allowed for the cart when redeeming "
 "points. Use either a fixed monetary amount or a percentage based on the "
 "product price. Leave blank to disable."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:565
-#: includes/class-wc-points-rewards-admin.php:575
+#: includes/class-wc-points-rewards-admin.php:592
+#: includes/class-wc-points-rewards-admin.php:602
 msgid "Enter amount or percentage value"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:571
+#: includes/class-wc-points-rewards-admin.php:598
 msgid "Maximum Product Points Discount"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:572
+#: includes/class-wc-points-rewards-admin.php:599
 msgid ""
 "Set the maximum product discount allowed when redeeming points per-product. "
 "Use either a fixed monetary amount or a percentage based on the product "
@@ -187,34 +184,34 @@ msgid ""
 "product level."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:581
+#: includes/class-wc-points-rewards-admin.php:608
 msgid "Tax Setting"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:582
+#: includes/class-wc-points-rewards-admin.php:609
 msgid "Whether or not points should apply to prices inclusive of tax."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:594
+#: includes/class-wc-points-rewards-admin.php:621
 msgid "Points Label"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:595
+#: includes/class-wc-points-rewards-admin.php:622
 msgid ""
 "This is the label that is seen by shoppers on your store. By default, the "
 "label will be Point / Points. You can customize your own singular and "
 "plural labels here."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:597
+#: includes/class-wc-points-rewards-admin.php:624
 #: includes/class-wc-points-rewards-manage-points-list-table.php:40
 #: includes/class-wc-points-rewards-points-log-list-table.php:40
 msgid "Point"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:597
-#: includes/class-wc-points-rewards-admin.php:747
-#: includes/class-wc-points-rewards-admin.php:1134
+#: includes/class-wc-points-rewards-admin.php:624
+#: includes/class-wc-points-rewards-admin.php:774
+#: includes/class-wc-points-rewards-admin.php:1161
 #: includes/class-wc-points-rewards-manage-points-list-table.php:41
 #: includes/class-wc-points-rewards-manage-points-list-table.php:76
 #: includes/class-wc-points-rewards-points-log-list-table.php:41
@@ -222,194 +219,194 @@ msgstr ""
 msgid "Points"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:603
+#: includes/class-wc-points-rewards-admin.php:630
 msgid "Points Expire After"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:604
+#: includes/class-wc-points-rewards-admin.php:631
 msgid "Set the period after which points expire once granted to a user"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:612
+#: includes/class-wc-points-rewards-admin.php:639
 msgid "Product / Cart / Checkout Messages"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:613
+#: includes/class-wc-points-rewards-admin.php:640
 msgid ""
 "Adjust the message by using %1$s{points}%2$s and %1$s{points_label}%2$s to "
 "represent the points earned / available for redemption and the label set "
 "for points."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:620
+#: includes/class-wc-points-rewards-admin.php:647
 msgid "Single Product Page Message"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:621
+#: includes/class-wc-points-rewards-admin.php:648
 msgid ""
 "Add an optional message to the single product page below the price. "
 "Customize the message using {points} and {points_label}. Limited HTML is "
 "allowed. Leave blank to disable."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:624
+#: includes/class-wc-points-rewards-admin.php:651
 msgid "Purchase this product now and earn %s!"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:630
+#: includes/class-wc-points-rewards-admin.php:657
 msgid "Variable Product Page Message"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:631
+#: includes/class-wc-points-rewards-admin.php:658
 msgid ""
 "Add an optional message to the variable product page below the price. "
 "Customize the message using {points} and {points_label}. Limited HTML is "
 "allowed. Leave blank to disable."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:634
+#: includes/class-wc-points-rewards-admin.php:661
 msgid "Earn up to %s."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:640
+#: includes/class-wc-points-rewards-admin.php:667
 msgid "Earn Points Cart/Checkout Page Message"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:641
+#: includes/class-wc-points-rewards-admin.php:668
 msgid ""
 "Displayed on the cart and checkout page when points are earned. Customize "
 "the message using {points} and {points_label}. Limited HTML is allowed."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:644
+#: includes/class-wc-points-rewards-admin.php:671
 msgid "Complete your order and earn %s for a discount on a future purchase"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:650
+#: includes/class-wc-points-rewards-admin.php:677
 msgid "Redeem Points Cart/Checkout Page Message"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:651
+#: includes/class-wc-points-rewards-admin.php:678
 msgid ""
 "Displayed on the cart and checkout page when points are available for "
 "redemption. Customize the message using {points}, {points_value}, and "
 "{points_label}. Limited HTML is allowed."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:654
+#: includes/class-wc-points-rewards-admin.php:681
 msgid "Use %s for a %s discount on this order!"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:660
+#: includes/class-wc-points-rewards-admin.php:687
 msgid "Thank You / Order Received Page Message"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:661
+#: includes/class-wc-points-rewards-admin.php:688
 msgid ""
 "Displayed on the thank you / order received page when points were earned. "
 "Customize the message using {points}, {total_points}, {points_label}, and "
 "{total_points_label}. Limited HTML is allowed."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:664
+#: includes/class-wc-points-rewards-admin.php:691
 msgid "You have earned %s for this order. You have a total of %s."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:671
+#: includes/class-wc-points-rewards-admin.php:698
 msgid "Points Earned for Actions"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:672
+#: includes/class-wc-points-rewards-admin.php:699
 msgid ""
 "Customers can also earn points for actions like creating an account or "
 "writing a product review. You can enter the amount of points the customer "
 "will earn for each action in this section."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:681
+#: includes/class-wc-points-rewards-admin.php:708
 msgid "Actions"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:686
+#: includes/class-wc-points-rewards-admin.php:713
 msgid "Apply Points to Previous Orders"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:687
+#: includes/class-wc-points-rewards-admin.php:714
 msgid ""
 "This will apply points to all previous orders (paid or completed) and "
 "cannot be reversed."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:688
+#: includes/class-wc-points-rewards-admin.php:715
 msgid "Apply Points"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:947
+#: includes/class-wc-points-rewards-admin.php:974
 #. translators: %1$s, %2$s - open and close strong tag, %3$s, %4$s - open and
 #. close em tag
 msgid "%1$sOnly apply to points earned since%2$s - %3$sOptional%4$s"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:949
+#: includes/class-wc-points-rewards-admin.php:976
 msgid "Leave blank to apply to all points"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:985
+#: includes/class-wc-points-rewards-admin.php:1012
 #. translators: %1$s, %2$s - open and close strong tag, %3$s, %4$s - open and
 #. close em tag
 msgid "%1$sSince%2$s - %3$sOptional%4$s: Leave blank to apply to all orders"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1067
+#: includes/class-wc-points-rewards-admin.php:1094
 msgid "Database error while applying user points."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1107
+#: includes/class-wc-points-rewards-admin.php:1134
 #. translators: %s number of orders updated.
 msgid "%s order updated."
 msgid_plural "%s orders updated."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-points-rewards-admin.php:1137
+#: includes/class-wc-points-rewards-admin.php:1164
 msgid "Earned:"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1138
-#: includes/class-wc-points-rewards-admin.php:1142
+#: includes/class-wc-points-rewards-admin.php:1165
+#: includes/class-wc-points-rewards-admin.php:1169
 msgid "None"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1141
+#: includes/class-wc-points-rewards-admin.php:1168
 msgid "Redeemed:"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1163
+#: includes/class-wc-points-rewards-admin.php:1190
 msgid "Points Modifier"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1164
+#: includes/class-wc-points-rewards-admin.php:1191
 msgid ""
 "Enter a percentage which modifies how points are earned when this coupon is "
 "applied. For example, enter 200% to double the amount of points typically "
 "earned when the coupon is applied."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1226
+#: includes/class-wc-points-rewards-admin.php:1253
 msgid "Reset Points and Rewards"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1227
+#: includes/class-wc-points-rewards-admin.php:1254
 msgid "Delete all points and rewards and clear the logs."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1228
+#: includes/class-wc-points-rewards-admin.php:1255
 msgid ""
 "<strong class=\"red\">Note:</strong> This action will remove all customer "
 "points and cannot be undone."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1243
+#: includes/class-wc-points-rewards-admin.php:1270
 msgid "All points and rewards successfully deleted"
 msgstr ""
 
@@ -779,12 +776,16 @@ msgid ""
 "redeemed for discounts"
 msgstr ""
 
+#. Author of the plugin/theme
+msgid "WooCommerce"
+msgstr ""
+
 #. Author URI of the plugin/theme
 msgid "https://woocommerce.com"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:948
-#: includes/class-wc-points-rewards-admin.php:986
+#: includes/class-wc-points-rewards-admin.php:975
+#: includes/class-wc-points-rewards-admin.php:1013
 msgctxt "placeholder"
 msgid "YYYY-MM-DD"
 msgstr ""

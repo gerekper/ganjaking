@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\API\JSON\API;
+use MailPoet\Config\Env;
 use MailPoet\Config\RendererFactory;
 use MailPoet\DI\ContainerWrapper;
 use MailPoet\Entities\FormEntity;
@@ -93,6 +94,7 @@ class Widget extends \WP_Widget {
         'is_rtl' => $isRtl,
       ],
       'fonts_link' => $this->customFonts->generateHtmlCustomFontLink(),
+      'mailpoet_public_css_url' => Env::$assetsUrl . '/dist/css/' . $this->renderer->getCssAsset('mailpoet-public.css'),
     ];
 
     try {

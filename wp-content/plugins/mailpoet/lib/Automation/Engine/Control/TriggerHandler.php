@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Automation\Engine\Data\AutomationRun;
+use MailPoet\Automation\Engine\Data\AutomationRunLog;
 use MailPoet\Automation\Engine\Data\StepRunArgs;
 use MailPoet\Automation\Engine\Data\Subject;
 use MailPoet\Automation\Engine\Exceptions;
@@ -16,9 +17,6 @@ use MailPoet\Automation\Engine\Storage\AutomationStorage;
 use MailPoet\Automation\Engine\WordPress;
 
 class TriggerHandler {
-  /** @var ActionScheduler */
-  private $actionScheduler;
-
   /** @var AutomationStorage */
   private $automationStorage;
 
@@ -34,24 +32,32 @@ class TriggerHandler {
   /** @var FilterHandler */
   private $filterHandler;
 
+  /** @var StepScheduler */
+  private $stepScheduler;
+
+  /** @var StepRunLoggerFactory */
+  private $stepRunLoggerFactory;
+
   /** @var WordPress */
   private $wordPress;
 
   public function __construct(
-    ActionScheduler $actionScheduler,
     AutomationStorage $automationStorage,
     AutomationRunStorage $automationRunStorage,
     SubjectLoader $subjectLoader,
     SubjectTransformerHandler $subjectTransformerHandler,
     FilterHandler $filterHandler,
+    StepScheduler $stepScheduler,
+    StepRunLoggerFactory $stepRunLoggerFactory,
     WordPress $wordPress
   ) {
-    $this->actionScheduler = $actionScheduler;
     $this->automationStorage = $automationStorage;
     $this->automationRunStorage = $automationRunStorage;
     $this->subjectLoader = $subjectLoader;
     $this->subjectTransformerHandler = $subjectTransformerHandler;
     $this->filterHandler = $filterHandler;
+    $this->stepScheduler = $stepScheduler;
+    $this->stepRunLoggerFactory = $stepRunLoggerFactory;
     $this->wordPress = $wordPress;
   }
 
@@ -77,7 +83,7 @@ class TriggerHandler {
       }
 
       $automationRun = new AutomationRun($automation->getId(), $automation->getVersionId(), $trigger->getKey(), $subjects);
-      $stepRunArgs = new StepRunArgs($automation, $automationRun, $step, $subjectEntries);
+      $stepRunArgs = new StepRunArgs($automation, $automationRun, $step, $subjectEntries, 1);
 
       if (!$this->filterHandler->matchesFilters($stepRunArgs)) {
         continue;
@@ -93,16 +99,14 @@ class TriggerHandler {
         continue;
       }
 
-      $automationRunId = $this->automationRunStorage->createAutomationRun($automationRun);
-      $nextStep = $step->getNextSteps()[0] ?? null;
-      $this->actionScheduler->enqueue(Hooks::AUTOMATION_STEP, [
-        [
-          'automation_run_id' => $automationRunId,
-          'step_id' => $nextStep ? $nextStep->getId() : null,
-        ],
-      ]);
 
-      $this->automationRunStorage->updateNextStep($automationRunId, $nextStep ? $nextStep->getId() : null);
+      $automationRunId = $this->automationRunStorage->createAutomationRun($automationRun);
+      $automationRun->setId($automationRunId);
+      $this->stepScheduler->scheduleNextStep($stepRunArgs);
+
+      $logger = $this->stepRunLoggerFactory->createLogger($automationRunId, $step->getId(), AutomationRunLog::TYPE_TRIGGER, 1);
+      $logger->logStepData($step);
+      $logger->logSuccess();
     }
   }
 }

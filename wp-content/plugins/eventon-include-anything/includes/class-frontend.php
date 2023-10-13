@@ -33,6 +33,8 @@ class EVOIA_Frontend{
 		return $array;
 	}
 	function add_shortcode_defaults($arr){
+
+		if( isset($arr['include_any'])) return $arr;
 		return array_merge($arr, array(
 			'include_any'=>'no',
 		));	
@@ -82,6 +84,9 @@ class EVOIA_Frontend{
 		$SC = $this->SC;
 
 		if(!isset($SC['include_any'])) return $text;
+
+		//print_r( $SC['include_any'].'--');
+			
 		if(isset($SC['include_any']) && $SC['include_any'] != 'yes') return $text;
 
 		if( $EVENT->post_type != 'ajde_events'){
@@ -114,6 +119,7 @@ class EVOIA_Frontend{
 		if( $EVENT->post_type != 'ajde_events'){
 
 			foreach($arr as $ck=>$col){
+				if(!is_array($col)) continue;
 				foreach($col as $dk=>$data){
 					if( !isset( $arr[ $ck ] )) continue;
 					if( !isset( $arr[ $ck ][$dk] )) continue;
@@ -139,6 +145,7 @@ class EVOIA_Frontend{
 		if(!isset($SC['include_any'])) return $bool;
 		if(isset($SC['include_any']) && $SC['include_any'] != 'yes') return $bool;
 
+		$this->SC = $SC;
 		return false;
 	}
 	public function evo_wp_query($list,  $SC){		

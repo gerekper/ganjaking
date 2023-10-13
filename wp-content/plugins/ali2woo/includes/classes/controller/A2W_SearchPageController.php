@@ -3,7 +3,7 @@
 /**
  * Description of A2W_SearchPage
  *
- * @author andrey
+ * @author Ali2Woo Team
  *
  * @autoload: a2w_admin_init
  */
@@ -108,7 +108,7 @@ if (!class_exists('A2W_SearchPageController')) {
 
             $this->model_put('load_products_result', $load_products_result);
 
-            $search_version = 'v2';
+            $search_version = 'v3';
             $this->include_view('search_' . $search_version . '.php');
         }
 

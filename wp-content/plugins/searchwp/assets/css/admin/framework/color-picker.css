@@ -1,14 +1,14 @@
-.swp-sf--colorpicker {
+.swp-input--colorpicker {
     position: relative;
     display: inline;
 }
 
-.swp-sf--colorpicker .swp-input {
+.swp-input--colorpicker .swp-input {
     font-weight: 600;
     padding-left: 30px;
 }
 
-.swp-sf--colorpicker svg {
+.swp-input--colorpicker svg {
     position: absolute;
     left: 7px;
     top: 50%;
@@ -19,7 +19,7 @@
     height: 18px;
 }
 
-.swp-sf--colorpicker .iris-picker {
+.swp-input--colorpicker .iris-picker {
     position: absolute;
     z-index: 1;
 }

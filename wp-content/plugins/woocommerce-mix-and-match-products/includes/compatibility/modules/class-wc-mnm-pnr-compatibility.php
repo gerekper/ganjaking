@@ -21,6 +21,7 @@ class WC_MNM_PnR_Compatibility {
 
 	/**
 	 * MnM points - @see 'WC_MNM_PnR_Compatibility::replace_points'.
+	 *
 	 * @var mixed
 	 */
 	private static $mnm_price_max = false;
@@ -28,6 +29,7 @@ class WC_MNM_PnR_Compatibility {
 
 	/**
 	 * Bypass 'wc_points_rewards_single_product_message' filter.
+	 *
 	 * @var bool
 	 */
 	private static $single_product_message_filter_active = true;
@@ -146,7 +148,7 @@ class WC_MNM_PnR_Compatibility {
 					if ( '' !== $max_mnm_price ) {
 						if ( $min_mnm_price === $max_mnm_price ) {
 							self::$single_product_message_filter_active = false;
-							$message = $points_n_rewards->render_product_message();
+							$message                                    = $points_n_rewards->render_product_message();
 							self::$single_product_message_filter_active = true;
 						} else {
 							$message = $points_n_rewards->create_variation_message_to_product_summary( $mnm_points );
@@ -154,12 +156,12 @@ class WC_MNM_PnR_Compatibility {
 					} else {
 						$message = $points_n_rewards->create_at_least_message_to_product_summary( $mnm_points );
 					}
-
 				}
 
 				remove_filter( 'woocommerce_product_get_price', array( __CLASS__, 'replace_price' ), 9999, 2 );
 
-				self::$mnm_price_min = self::$mnm_price_max = false;
+				self::$mnm_price_min = false;
+				self::$mnm_price_max = false;
 			}
 		}
 

@@ -238,7 +238,6 @@ class FirstPurchase {
         'paginate' => true,
       ]
     )->total;
-
-    return $ordersCount;
+    return intval($ordersCount);
   }
 }

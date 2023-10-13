@@ -6,6 +6,7 @@ class WoocommerceGpfFeedGoogleLocalProductInventory extends WoocommerceGpfFeedGo
 	 * Output the "title" element in the feed intro.
 	 */
 	protected function render_feed_title() {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '    <title>' . $this->esc_xml( $this->store_info->blog_name . ' Local Product Inventory' ) . "</title>\n";
 	}
 

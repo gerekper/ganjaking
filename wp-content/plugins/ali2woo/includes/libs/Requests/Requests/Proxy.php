@@ -1,4 +1,6 @@
-<?php
+<?php 
+namespace Ali2Woo\Lib;
+
 /**
  * Proxy connection interface
  *

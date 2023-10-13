@@ -71,12 +71,12 @@ class WC_MNM_Core_Compatibility {
 	public static function query_products_by_category_ids( $wp_query_args, $query_vars ) {
 
 		// Handle product categories by ID.
-		if ( ! empty( $query_vars[ 'category_id' ] ) ) {
-			unset( $wp_query_args[ 'category_id' ] );
-			$wp_query_args[ 'tax_query' ][] = array(
+		if ( ! empty( $query_vars['category_id'] ) ) {
+			unset( $wp_query_args['category_id'] );
+			$wp_query_args['tax_query'][] = array(
 				'taxonomy' => 'product_cat',
 				'field'    => 'term_id',
-				'terms'    => $query_vars[ 'category_id' ],
+				'terms'    => $query_vars['category_id'],
 			);
 		}
 
@@ -95,8 +95,8 @@ class WC_MNM_Core_Compatibility {
 	public static function posts_orderby_category( $orderby, $query ) {
 		global $wpdb;
 
-		if ( ! empty( $query->query_vars[ 'order_by_category_id' ] ) && count( $query->query_vars[ 'order_by_category_id' ] ) > 1 && count( $query->query_vars[ 'tax_query' ] ) > 1 ) {
-			$orderby = "FIELD(tt1.term_taxonomy_id," . implode( ',', array_map( 'absint', (array) $query->query_vars[ 'order_by_category_id' ] ) ) . '), ' . $orderby;
+		if ( ! empty( $query->query_vars['order_by_category_id'] ) && count( $query->query_vars['order_by_category_id'] ) > 1 && count( $query->query_vars['tax_query'] ) > 1 ) {
+			$orderby = 'FIELD(tt1.term_taxonomy_id,' . implode( ',', array_map( 'absint', (array) $query->query_vars['order_by_category_id'] ) ) . '), ' . $orderby;
 		}
 		return $orderby;
 	}
@@ -259,19 +259,19 @@ class WC_MNM_Core_Compatibility {
 	}
 
 	/**
-	*
-	* Gets value of a meta key from WC_Data object if passed, otherwise from the post object.
-	* This helper function support backward compatibility for meta box functions, when moving from posts based store to custom tables.
-	*
-	* @param WP_Post|null  $post Post object, meta will be fetched from this only when `$data` is not passed.
-	* @param \WC_Data|null $data WC_Data object, will be preferred over post object when passed.
-	* @param string        $key Key to fetch metadata for.
-	* @param bool          $single Whether metadata is single.
-	*
-	* @since 2.4.10
-	*
-	* @return array|mixed|string Value of the meta key.
-	*/
+	 *
+	 * Gets value of a meta key from WC_Data object if passed, otherwise from the post object.
+	 * This helper function support backward compatibility for meta box functions, when moving from posts based store to custom tables.
+	 *
+	 * @param WP_Post|null  $post Post object, meta will be fetched from this only when `$data` is not passed.
+	 * @param \WC_Data|null $data WC_Data object, will be preferred over post object when passed.
+	 * @param string        $key Key to fetch metadata for.
+	 * @param bool          $single Whether metadata is single.
+	 *
+	 * @since 2.4.10
+	 *
+	 * @return array|mixed|string Value of the meta key.
+	 */
 	public static function get_post_or_object_meta( ?WP_Post $post, ?\WC_Data $data, string $key, bool $single ) {
 		if ( class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) ) {
 			return Automattic\WooCommerce\Utilities\OrderUtil::get_post_or_object_meta( $post, $data, $key, $single );
@@ -284,6 +284,26 @@ class WC_MNM_Core_Compatibility {
 			return isset( $post->ID ) ? get_post_meta( $post->ID, $key, $single ) : false;
 		}
 	}
+
+	/**
+	 * Wrapper for wc_print_notice
+	 *
+	 * @since 2.5.0
+	 */
+	public static function wc_print_notice( $message = '' ) {
+		if ( ! is_admin() /* && ! $is_block_editor_request */ ) {
+			wc_print_notice( $message, 'notice' );
+		} else {
+			?>
+			<div class="woocommerce-message">
+				<ul class="msg mnm_message_content">
+					<li><?php echo esc_html( wc_mnm_get_quantity_message( $product ) ); ?></li>
+				</ul>
+			</div>
+			<?php
+		}
+	}
+
 
 	/*
 	|--------------------------------------------------------------------------

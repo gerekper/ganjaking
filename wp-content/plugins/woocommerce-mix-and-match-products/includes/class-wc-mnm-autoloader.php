@@ -3,7 +3,7 @@
  * WooCommerce Mix and Match Autoloader.
  *
  * @package WooCommerce Mix and Match\Classes
- * @version 2.4.0
+ * @version 2.5.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -51,7 +51,7 @@ class WC_MNM_Autoloader {
 	 */
 	private function load_file( $path ) {
 		if ( $path && is_readable( $path ) ) {
-			include_once $path;
+			include_once $path; // nosemgrep: audit.php.lang.security.file.inclusion-arg.
 			return true;
 		}
 		return false;
@@ -72,7 +72,7 @@ class WC_MNM_Autoloader {
 		$file = $this->get_file_name_from_class( $class );
 		$path = '';
 
-        if ( 0 === strpos( $class, 'wc_mnm_notes_' ) ) {
+		if ( 0 === strpos( $class, 'wc_mnm_notes_' ) ) {
 			$path = $this->include_path . 'admin/notes/';
 		}
 

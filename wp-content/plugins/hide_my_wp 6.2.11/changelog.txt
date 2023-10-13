@@ -1,0 +1,75 @@
+<h3>6.2.11 (Aug 02, 2023)</h3>
+<ul>
+	<li>Post SMTP compatibility  fix.</li>
+</ul>
+<h3>6.2.10 (Jan 29, 2023)</h3>
+<ul>
+	<li>Fixed htaccess error for Ngnix.</li>
+	<li>Resolved the warning message display while using few other plugins in the same website.</li>
+</ul>
+<h3>6.2.9 (December 28, 2022)</h3>
+<ul>
+	<li>Whitelisting Google, Bing and other good IP's.</li>
+</ul>
+<h3>6.2.8 (December 20, 2022)</h3>
+<ul>
+	<li>Vulnerability fix.</li>
+</ul>
+<h3>6.2.7 (September 02, 2022)</h3>
+<ul>
+	<li>IP Whitelist feature added.</li>
+</ul>
+<h3>6.2.6 (July 17, 2022)</h3>
+<ul>
+	<li>Fixed Multisite Issues.</li>
+	<li>Auto Configuration option in Permalinks tab issue fixed.</li>
+	<li>Notice added for htaccess write permission.</li>
+</ul>
+<h3>6.2.5 (July 17, 2022)</h3>
+<ul>
+	<li>Error showing when multi-site config button is pressed.</li>
+	<li>Access denied error when activating a plugin on multi-site.</li>
+</ul>
+<h3>6.2.4 (October 22, 2021)</h3>
+<ul>
+	<li>Bug: Fixed Validate IP and prepare SQL query to prevent SQL injection.</li>
+	<li>Bug: Fixed Check admin capability for deactivate plugin settings.</li>
+</ul>
+<h3>6.2.3 (January 15, 2021)</h3>
+<ul>
+	<li>Tested up to WordPress 5.6</li>
+	<li>Bug: Fixed IDS Log entry when IDS is disabled.</li>
+	<li>Bug: Fixed Gutenberg saving issue related to Rest API.</li>
+	<li>Bug: Fixed issues in admin settings.</li>
+	<li>Bug: Fixed robots.txt file rewrite issue.</li>
+</ul>
+<h3>6.2.2 (November 10, 2020)</h3>
+<ul>
+	<li>Bug: Fixed export file path issue.</li>
+	<li>Bug: Fixed site crashes issue while activating plugin.</li>
+	<li>Bug: Fixed WP Rocket white labelling issue.</li>
+	<li>Removed Deprecated functions.</li>
+	<li>Redesign Dashboard boxes.</li>
+	<li>Added option to put IDS in "alert" mode.</li>
+	<li>Improve Instructions for renaming 'wp-admin' path.</li>
+</ul>
+<h3>6.2.1 (July 24, 2020)</h3>
+<ul>
+	<li>Bug: Fixed Issue with Elementor when Auto Configuration is enabled.</li>
+	<li>Bug: Fixed site crashes issue while activating plugin.</li>
+	<li>Bug: Fixed warning issue for plugin update.</li>
+</ul>
+<h3>6.2.0 (July 10, 2020)</h3>
+<ul>
+	<li>Support for hide Elementor page builder</li>
+	<li>Hide Online Detectors option</li>
+	<li>Allow Specific Countries</li>
+	<li>Export settings to a file</li>
+	<li>Improve ip lookup service</li>
+	<li>Blocked IPs Listing with options to whitelist & delete</li>
+	<li>Bug: "Open Wizard" link is incorrect when wp-admin path is renamed</li>
+	<li>Bug: Plugin version incorrect</li>
+	<li>Bug: Conflict with WP Rocket plugin</li>
+	<li>Bug: High privacy breaks the site</li>
+	<li>Deprecated: Replace `_wpnonce` option</li>
+</ul>

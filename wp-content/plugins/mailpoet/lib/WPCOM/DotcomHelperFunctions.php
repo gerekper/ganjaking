@@ -5,6 +5,10 @@ namespace MailPoet\WPCOM;
 if (!defined('ABSPATH')) exit;
 
 
+/**
+ * Plan detection documentation:
+ * https://github.com/Automattic/wc-calypso-bridge#active-plan-detection
+ */
 class DotcomHelperFunctions {
   /**
    * Returns true if in the context of WordPress.com Atomic platform.
@@ -23,20 +27,28 @@ class DotcomHelperFunctions {
     return $this->isAtomicPlatform() ;
   }
 
-  /**
-   * Returns true if the site has an ecommerce-related plans on WordPress.com.
-   * See https://github.com/Automattic/wc-calypso-bridge#active-plan-detection
-   */
-  public function isCommerce(): bool {
-    return function_exists('wc_calypso_bridge_has_ecommerce_features') && wc_calypso_bridge_has_ecommerce_features() ;
+  public function isWooExpressPerformance(): bool {
+    return function_exists('wc_calypso_bridge_is_woo_express_performance_plan') && wc_calypso_bridge_is_woo_express_performance_plan();
   }
 
-  /**
-   * Returns true if the site has a business plan on WordPress.com.
-   * See https://github.com/Automattic/wc-calypso-bridge#active-plan-detection
-   */
+  public function isWooExpressEssential(): bool {
+    return function_exists('wc_calypso_bridge_is_woo_express_essential_plan') && wc_calypso_bridge_is_woo_express_essential_plan();
+  }
+
   public function isBusiness(): bool {
-    return function_exists('wc_calypso_bridge_is_business_plan') && wc_calypso_bridge_is_business_plan() ;
+    return function_exists('wc_calypso_bridge_is_business_plan') && wc_calypso_bridge_is_business_plan();
+  }
+
+  public function isEcommerceTrial(): bool {
+    return function_exists('wc_calypso_bridge_is_ecommerce_trial_plan') && wc_calypso_bridge_is_ecommerce_trial_plan();
+  }
+
+  public function isEcommerceWPCom(): bool {
+    return function_exists('wc_calypso_bridge_is_wpcom_ecommerce_plan') && wc_calypso_bridge_is_wpcom_ecommerce_plan();
+  }
+
+  public function isEcommerce(): bool {
+    return function_exists('wc_calypso_bridge_is_ecommerce_plan') && wc_calypso_bridge_is_ecommerce_plan();
   }
 
   /**
@@ -44,14 +56,20 @@ class DotcomHelperFunctions {
    * Empty otherwise.
    */
   public function getDotcomPlan(): string {
-    if ($this->isCommerce()) {
-      return 'commerce';
-    };
-
-    if ($this->isBusiness()) {
+    if ($this->isWooExpressPerformance()) {
+      return 'performance';
+    } elseif ($this->isWooExpressEssential()) {
+      return 'essential';
+    } elseif ($this->isBusiness()) {
       return 'business';
-    };
-
-    return '';
+    } elseif ($this->isEcommerceTrial()) {
+      return 'ecommerce_trial';
+    } elseif ($this->isEcommerceWPCom()) {
+      return 'ecommerce_wpcom';
+    } elseif ($this->isEcommerce()) {
+      return 'ecommerce';
+    } else {
+      return '';
+    }
   }
 }

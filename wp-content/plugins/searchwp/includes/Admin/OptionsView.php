@@ -15,6 +15,7 @@ use SearchWP\Admin\Views\GettingStartedView;
 use SearchWP\Admin\Views\GlobalRulesView;
 use SearchWP\Admin\Views\ImportExportView;
 use SearchWP\Admin\Views\MiscSettingsView;
+use SearchWP\Admin\Views\ResultsPageView;
 use SearchWP\Admin\Views\SystemInfoView;
 use SearchWP\Utils;
 use SearchWP\Settings;
@@ -112,6 +113,8 @@ class OptionsView {
 		$this->init_extensions();
 
         new MiscSettingsView();
+
+        new ResultsPageView();
 
 		if ( apply_filters( 'searchwp\settings\nav\statistics', true ) ) {
 			new StatisticsView();
@@ -223,6 +226,7 @@ class OptionsView {
 	private static function register_framework_scripts() {
 
 		$scripts = [
+            'choices',
             'collapse',
             'color-picker',
             'copy-input-text',
@@ -374,6 +378,11 @@ class OptionsView {
 		    'settings'   => [
 			    'menu_title' => esc_html__( 'Settings', 'searchwp' ),
 			    'menu_slug'  => 'searchwp-settings',
+			    'position'   => 20,
+		    ],
+		    'templates'  => [
+			    'menu_title' => esc_html__( 'Templates', 'searchwp' ),
+			    'menu_slug'  => 'searchwp-templates',
 			    'position'   => 20,
 		    ],
 		    'statistics' => [

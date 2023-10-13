@@ -3,15 +3,15 @@
  * WooCommerce Mix and Match: Survey note.
  *
  * Adds a note to ask users to complete feedback survey.
- * 
+ *
  * @since 2.4.0
  *
  * @package WooCommerce Mix and Match/Admin/Notes
  */
 defined( 'ABSPATH' ) || exit;
 
-use \Automattic\WooCommerce\Admin\Notes\Note;
-use \Automattic\WooCommerce\Admin\Notes\NoteTraits;
+use Automattic\WooCommerce\Admin\Notes\Note;
+use Automattic\WooCommerce\Admin\Notes\NoteTraits;
 
 /**
  * Add_First_Product.

@@ -3,7 +3,7 @@ Contributors: mailpoet, woocommerce, automattic
 Tags: email, email marketing, post notification, woocommerce emails, email automation, newsletter, newsletter builder, newsletter subscribers
 Requires at least: 6.2
 Tested up to: 6.3
-Stable tag: 4.28.0
+Stable tag: 4.31.0
 Requires PHP: 7.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -218,6 +218,31 @@ Check our [Knowledge Base](https://kb.mailpoet.com) or contact us through our [s
 6. WooCommerce emails
 
 == Changelog ==
+
+= 4.31.0 - 2023-10-09 =
+* Added: show segment filter on email listing and stats pages;
+* Added: automation title on the analytics page;
+* Added: apply segment on top of lists on the send email page;
+* Improved: deferred loading of JS on frontend;
+* Improved: new WordPress-like design when adding or editing a segment;
+* Fixed: plugin conflict with Kubio site builder.
+
+= 4.30.0 - 2023-10-03 =
+* Updated: npm dependencies;
+* Fixed: typo in message when creating a segment;
+* Fixed: The automation filter for products works now also with variable products;
+* Fixed: in some themes, pop-up form on mobiles is larger than the screen;
+* Fixed: occasionally, when a different plugin is installed, website redirects to MailPoet landing page.
+
+= 4.29.0 - 2023-09-26 =
+* Added: a filter to remove restrictions on Woo Express;
+* Added: "buys from a category" trigger in automations;
+* Added: "buys a product" trigger in automations;
+* Improved: more robust migrations for automation tables;
+* Improved: skip migration of WooCommerce-related tables, if WooCommerce is no installed;
+* Improved: the premium plugin is now downloaded and installed instead of downloading a .zip file;
+* Fixed: deleting newsletters with relations to WooCommerce purchase stats;
+* Fixed: email editor breaks when the store has many coupons.
 
 = 4.28.0 - 2023-09-18 =
 * Fixed: in Styles section in email editor, titles overflow to 2nd line;

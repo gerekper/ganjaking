@@ -1,7 +1,7 @@
 <?php
 /** 
  * Event Seats Post Meta
- * @version 0.1
+ * @version 1.2.2
  */
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
@@ -14,7 +14,6 @@ class evost_meta_boxes{
 
 	// Event Tickets
 		function event_tickets_metabox($eventid, $epmv, $wooproduct_id, $product_type, $EVENT){
-			global $eventon, $evost, $ajde;
 			$help = new evo_helper();
 
 			$show_content = apply_filters('evost_before_tickets_meta_box', true, $EVENT);
@@ -41,7 +40,7 @@ class evost_meta_boxes{
 							'attr'=>array('afterstatement'=>'evotx_seat_chart')
 						)); ?>
 						<input type='hidden' name='_enable_seat_chart' value="<?php echo $_enable_seat_chart;?>"/>
-						<label for='_enable_seat_chart'><?php _e('Enable Event Seating for this event','evost'); echo $eventon->throw_guide( __('This will allow you to create seat charts with custom prices per seat to allow customers to buy seat of their choice.','evost'),'',false)?></label>
+						<label for='_enable_seat_chart'><?php _e('Enable Event Seating for this event','evost'); echo EVO()->throw_guide( __('This will allow you to create seat charts with custom prices per seat to allow customers to buy seat of their choice.','evost'),'',false)?></label>
 					</p>
 				</td></tr>
 				<tr class='innersection' id='evotx_seat_chart' style='display:<?php echo evo_meta_yesno($epmv,'_enable_seat_chart','yes','','none' );?>'>
@@ -71,7 +70,7 @@ class evost_meta_boxes{
 
 								$_allow_direct_add = $EVENT->check_yn('_allow_direct_add');
 
-								echo $ajde->wp_admin->html_yesnobtn(array(
+								echo EVO()->elements->yesno_btn(array(
 									'id'=>'_allow_direct_add',
 									'var'=> ($_allow_direct_add ? 'yes':'no'), 
 									'input'=>true,

@@ -23,7 +23,7 @@
                     <div class="info-box" data-toggle="tooltip" data-title='<?php esc_html_e('Need for everything.', 'ali2woo');?>'></div>
                 </div>
                 <div class="field__input-wrap">
-                    <input type="<?php echo (a2w_check_defined('A2W_HIDE_KEY_FIELDS') ? 'password' : 'text'); ?>" class="field__input field__input form-control small-input" id="a2w_item_purchase_code" name="a2w_item_purchase_code" value="<?php echo esc_attr(a2w_get_setting('item_purchase_code')); ?>"/>
+                    <input type="<?php echo (a2w_check_defined('A2W_HIDE_KEY_FIELDS') ? 'password' : 'text'); ?>" class="field__input field__input form-control medium-input" id="a2w_item_purchase_code" name="a2w_item_purchase_code" value="<?php echo esc_attr(a2w_get_setting('item_purchase_code')); ?>"/>
                 </div>
             </div>
 
@@ -50,6 +50,7 @@
                             <span class="tariff_name"></span>, <a href="https://ali2woo.com/packages/<?php echo $purchase_code_param; ?>" target="_blank"><?php esc_html_e('change package.', 'ali2woo');?></a>
                         </div>
                         <div class="daily_limits form-group input-block no-margin"></div>
+                        <div class="info-box" data-toggle="tooltip" data-title="<?php esc_html_e('It shows the daily usage quota. It`s reset every day.', 'ali2woo');?>"></div>
                     </div>
                 </div>
             </div>
@@ -343,6 +344,103 @@
                         </select>
                 </div>
             </div>
+
+            
+            <div class="field field_inline">
+            <div class="field__label">
+                <label>
+                    <strong><?php echo esc_html_x('Default shipping method', 'Setting title', 'ali2woo'); ?></strong>
+                </label>
+                <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x('If the option is available, the plugin will automatically select this shipping method during the order fulfillment process. If not, it will either choose the shipping method selected by the user or the cheapest available option.', 'setting description', 'ali2woo'); ?>"></div>
+            </div>
+            <div class="field__input-wrap">
+                <?php $cur_a2w_fulfillment_prefship = a2w_get_setting('fulfillment_prefship', 'CAINIAO_PREMIUM');?>
+                <select name="a2w_fulfillment_prefship" id="a2w_fulfillment_prefship" class="field__input form-control small-input" >
+                    <option value="" <?php if ($cur_a2w_fulfillment_prefship === ""): ?>selected="selected"<?php endif;?>>Default (not override)</option>
+                    <?php foreach ($shipping_options as $shipping_option): ?>
+                        <option value="<?php echo $shipping_option['value'] ?>"<?php if ($cur_a2w_fulfillment_prefship === $shipping_option['value']): ?> selected<?php endif;?>>
+                            <?php echo $shipping_option['label']; ?>
+                        </option>
+                    <?php endforeach;?>
+                </select>
+            </div>
+        </div>
+
+        <div class="field field_inline">
+            <div class="field__label">
+                <label>
+                    <strong><?php echo esc_html_x('Override phone number', 'Setting title', 'ali2woo'); ?></strong>
+                </label>
+                <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x('This will be used instead of a customer phone number.', 'setting description', 'ali2woo'); ?>"></div>
+            </div>
+            <div class="field__input-wrap">
+                <div class="field__input form-group input-block no-margin">
+                    <input type="text" placeholder="code" style="max-width: 60px;" class="field__input form-control" id="a2w_fulfillment_phone_code" maxlength="5" name="a2w_fulfillment_phone_code" value="<?php echo esc_attr(a2w_get_setting('fulfillment_phone_code')); ?>" />
+                    <input type="text" placeholder="phone" class="field__input form-control small-input" id="a2w_fulfillment_phone_number" maxlength="16" name="a2w_fulfillment_phone_number" value="<?php echo esc_attr(a2w_get_setting('fulfillment_phone_number')); ?>" />
+                </div>
+            </div>
+        </div>
+
+        <div class="field field_inline">
+            <div class="field__label">
+                <label>
+                    <strong><?php echo esc_html_x('CPF meta field', 'Setting title', 'ali2woo'); ?></strong>
+                </label>
+                <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x("The order meta field that a 3rd party plugin uses to store customer's CPF field.This is used only for Customers from Brazil. If empty, billing company will be used as CPF when fulfilling AliExpress orders.", 'setting description', 'ali2woo'); ?>"></div>
+            </div>
+            <div class="field__input-wrap">
+                    <input type="text" placeholder="" class="field__input form-control small-input" id="a2w_fulfillment_cpf_meta_key" name="a2w_fulfillment_cpf_meta_key" value="<?php echo esc_attr(a2w_get_setting('fulfillment_cpf_meta_key')); ?>" />
+            </div>
+        </div>
+
+        <div class="field field_inline">
+            <div class="field__label">
+                <label>
+                    <strong><?php echo esc_html_x('RUT meta field', 'Setting title', 'ali2woo'); ?></strong>
+                </label>
+                <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x("The order meta field that a 3rd party plugin uses to store customer's RUT number. RUT number is required when you fulfill orders of Customers from Chile.", 'setting description', 'ali2woo'); ?>"></div>
+            </div>
+            <div class="field__input-wrap">
+                    <input type="text" placeholder="" class="field__input form-control small-input" id="a2w_fulfillment_rut_meta_key" name="a2w_fulfillment_rut_meta_key" value="<?php echo esc_attr(a2w_get_setting('fulfillment_rut_meta_key')); ?>" />
+            </div>
+        </div>
+
+        <div class="field field_inline">
+            <div class="field__label">
+                <label>
+                    <strong><?php echo esc_html_x('Custom note', 'Setting title', 'ali2woo'); ?></strong>
+                </label>
+                <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x('A note to the supplier on the Aliexpress checkout page.', 'setting description', 'ali2woo'); ?>"></div>
+            </div>
+            <div class="field__input-wrap">
+                    <textarea placeholder="<?php esc_html_e('note for aliexpress order', 'ali2woo');?>" maxlength="1000" rows="5" class="field__input form-control" id="a2w_fulfillment_custom_note" name="a2w_fulfillment_custom_note" cols="50"><?php echo esc_attr(a2w_get_setting('fulfillment_custom_note')); ?></textarea>
+            </div>
+        </div>
+
+        <?php $a2w_order_translitirate = a2w_get_setting('order_translitirate');?>
+        <div class="field field_inline">
+            <div class="field__label">
+                <label>
+                    <strong><?php echo esc_html_x('Transliteration', 'Setting title', 'ali2woo'); ?></strong>
+                </label>
+                <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x('Enable the auto-transliteration for AliExpress order details.', 'setting description', 'ali2woo'); ?>"></div>
+            </div>
+            <div class="field__input-wrap">
+                    <input type="checkbox" class="field__input form-control" id="a2w_order_translitirate" name="a2w_order_translitirate" value="yes" <?php if ($a2w_order_translitirate): ?>checked<?php endif;?>/>
+            </div>
+        </div>
+        <?php $a2w_order_third_name = a2w_get_setting('order_third_name');?>
+        <div class="field field_inline">
+            <div class="field__label">
+                <label>
+                    <strong><?php echo esc_html_x('Middle name field', 'Setting title', 'ali2woo'); ?></strong>
+                </label>
+                <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x('Adds the Middle name field to WooCommerce checkout page and then uses it during an order-fulfillment process on AliExpress.', 'setting description', 'ali2woo'); ?>"></div>
+            </div>
+            <div class="field__input-wrap">
+                    <input type="checkbox" class="field__input form-control" id="a2w_order_third_name" name="a2w_order_third_name" value="yes" <?php if ($a2w_order_third_name): ?>checked<?php endif;?>/>
+            </div>
+        </div>
         </div>
     </div>
 
@@ -492,154 +590,6 @@
         </div>
     </div>
 
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="display-inline"><?php echo esc_html_x('Chrome Extension settings', 'Setting title', 'ali2woo'); ?></h3>
-        </div>
-        <div class="panel-body">
-            <div class="field field_inline">
-                <div class="field__label">
-                    <label>
-                        <strong><?php echo esc_html_x('Default shipping method', 'Setting title', 'ali2woo'); ?></strong>
-                    </label>
-                    <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x('If possible, we will auto-select this shipping method during the checkout on AliExpress.', 'setting description', 'ali2woo'); ?>"></div>
-                </div>
-                <div class="field__input-wrap">
-                        <?php $cur_a2w_fulfillment_prefship = a2w_get_setting('fulfillment_prefship', 'EMS_ZX_ZX_US');?>
-                        <select name="a2w_fulfillment_prefship" id="a2w_fulfillment_prefship" class="field__input form-control small-input" >
-                            <option value="" <?php if ($cur_a2w_fulfillment_prefship === ""): ?>selected="selected"<?php endif;?>>Default (not override)</option>
-                            <option value="CAINIAO_STANDARD" <?php if ($cur_a2w_fulfillment_prefship == "CAINIAO_STANDARD"): ?>selected="selected"<?php endif;?>>AliExpress Standard Shipping</option>
-                            <option value="CPAM" <?php if ($cur_a2w_fulfillment_prefship == "CPAM"): ?>selected="selected"<?php endif;?>>China Post Registered Air Mail</option>
-                            <option value="EMS" <?php if ($cur_a2w_fulfillment_prefship == "EMS"): ?>selected="selected"<?php endif;?>>EMS</option>
-                            <option value="EMS_ZX_ZX_US" <?php if ($cur_a2w_fulfillment_prefship == "EMS_ZX_ZX_US"): ?>selected="selected"<?php endif;?>>ePacket</option>
-                            <option value="DHL" <?php if ($cur_a2w_fulfillment_prefship == "DHL"): ?>selected="selected"<?php endif;?>>DHL</option>
-                            <option value="FEDEX" <?php if ($cur_a2w_fulfillment_prefship == "FEDEX"): ?>selected="selected"<?php endif;?>>FedEx</option>
-                            <option value="SGP" <?php if ($cur_a2w_fulfillment_prefship == "SGP"): ?>selected="selected"<?php endif;?>>Singapore Post</option>
-                            <option value="TNT" <?php if ($cur_a2w_fulfillment_prefship == "TNT"): ?>selected="selected"<?php endif;?>>TNT</option>
-                            <option value="UPS" <?php if ($cur_a2w_fulfillment_prefship == "UPS"): ?>selected="selected"<?php endif;?>>UPS</option>
-                            <option value="USPS" <?php if ($cur_a2w_fulfillment_prefship == "USPS"): ?>selected="selected"<?php endif;?>>USPS</option>
-                            <option value="CAINIAO_PREMIUM" <?php if ($cur_a2w_fulfillment_prefship == "CAINIAO_PREMIUM"): ?>selected="selected"<?php endif;?>>AliExpress Premium Shipping</option>
-                            <option value="YANWEN_AM" <?php if ($cur_a2w_fulfillment_prefship == "YANWEN_AM"): ?>selected="selected"<?php endif;?>>Special Line-YW</option>
-                            <option value="CAINIAO_CONSOLIDATION_SA" <?php if ($cur_a2w_fulfillment_prefship == "CAINIAO_CONSOLIDATION_SA"): ?>selected="selected"<?php endif;?>>Aliexpress Direct</option>
-                            <option value="CAINIAO_CONSOLIDATION_BR" <?php if ($cur_a2w_fulfillment_prefship == "CAINIAO_CONSOLIDATION_BR"): ?>selected="selected"<?php endif;?>>Aliexpress Direct (BR)</option>
-                            <option value="CAINIAO_ECONOMY" <?php if ($cur_a2w_fulfillment_prefship == "CAINIAO_ECONOMY"): ?>selected="selected"<?php endif;?>>AliExpress Saver Shipping</option>
-
-                            <option value="Other" <?php if ($cur_a2w_fulfillment_prefship == "Other"): ?>selected="selected"<?php endif;?>>Seller's Shipping Method</option>
-                        </select>
-                </div>
-            </div>
-
-            <div class="field field_inline">
-                <div class="field__label">
-                    <label>
-                        <strong><?php echo esc_html_x('Override phone number', 'Setting title', 'ali2woo'); ?></strong>
-                    </label>
-                    <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x('This will be used instead of a customer phone number.', 'setting description', 'ali2woo'); ?>"></div>
-                </div>
-                <div class="field__input-wrap">
-                    <div class="field__input form-group input-block no-margin">
-                        <input type="text" placeholder="code" style="max-width: 60px;" class="field__input form-control" id="a2w_fulfillment_phone_code" maxlength="5" name="a2w_fulfillment_phone_code" value="<?php echo esc_attr(a2w_get_setting('fulfillment_phone_code')); ?>" />
-                        <input type="text" placeholder="phone" class="field__input form-control small-input" id="a2w_fulfillment_phone_number" maxlength="16" name="a2w_fulfillment_phone_number" value="<?php echo esc_attr(a2w_get_setting('fulfillment_phone_number')); ?>" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="field field_inline">
-                <div class="field__label">
-                    <label>
-                        <strong><?php echo esc_html_x('CPF meta field', 'Setting title', 'ali2woo'); ?></strong>
-                    </label>
-                    <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x("The order meta field that a 3rd party plugin uses to store customer's CPF field.This is used only for Customers from Brazil. If empty, billing company will be used as CPF when fulfilling AliExpress orders.", 'setting description', 'ali2woo'); ?>"></div>
-                </div>
-                <div class="field__input-wrap">
-                        <input type="text" placeholder="" class="field__input form-control small-input" id="a2w_fulfillment_cpf_meta_key" name="a2w_fulfillment_cpf_meta_key" value="<?php echo esc_attr(a2w_get_setting('fulfillment_cpf_meta_key')); ?>" />
-                </div>
-            </div>
-
-            <div class="field field_inline">
-                <div class="field__label">
-                    <label>
-                        <strong><?php echo esc_html_x('RUT meta field', 'Setting title', 'ali2woo'); ?></strong>
-                    </label>
-                    <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x("The order meta field that a 3rd party plugin uses to store customer's RUT number. RUT number is required when you fulfill orders of Customers from Chile.", 'setting description', 'ali2woo'); ?>"></div>
-                </div>
-                <div class="field__input-wrap">
-                        <input type="text" placeholder="" class="field__input form-control small-input" id="a2w_fulfillment_rut_meta_key" name="a2w_fulfillment_rut_meta_key" value="<?php echo esc_attr(a2w_get_setting('fulfillment_rut_meta_key')); ?>" />
-                </div>
-            </div>
-
-
-            <div class="field field_inline">
-                <div class="field__label">
-                    <label>
-                        <strong><?php echo esc_html_x('Custom note', 'Setting title', 'ali2woo'); ?></strong>
-                    </label>
-                    <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x('A note to the supplier on the Aliexpress checkout page.', 'setting description', 'ali2woo'); ?>"></div>
-                </div>
-                <div class="field__input-wrap">
-                        <textarea placeholder="<?php esc_html_e('note for aliexpress order', 'ali2woo');?>" maxlength="1000" rows="5" class="field__input form-control" id="a2w_fulfillment_custom_note" name="a2w_fulfillment_custom_note" cols="50"><?php echo esc_attr(a2w_get_setting('fulfillment_custom_note')); ?></textarea>
-                </div>
-            </div>
-
-            <?php $a2w_order_translitirate = a2w_get_setting('order_translitirate');?>
-            <div class="field field_inline">
-                <div class="field__label">
-                    <label>
-                        <strong><?php echo esc_html_x('Transliteration', 'Setting title', 'ali2woo'); ?></strong>
-                    </label>
-                    <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x('Enable the auto-transliteration for AliExpress order details.', 'setting description', 'ali2woo'); ?>"></div>
-                </div>
-                <div class="field__input-wrap">
-                        <input type="checkbox" class="field__input form-control" id="a2w_order_translitirate" name="a2w_order_translitirate" value="yes" <?php if ($a2w_order_translitirate): ?>checked<?php endif;?>/>
-                </div>
-            </div>
-            <?php $a2w_order_third_name = a2w_get_setting('order_third_name');?>
-            <div class="field field_inline">
-                <div class="field__label">
-                    <label>
-                        <strong><?php echo esc_html_x('Middle name field', 'Setting title', 'ali2woo'); ?></strong>
-                    </label>
-                    <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x('Adds the Middle name field to WooCommerce checkout page and then uses it during an order-fulfillment process on AliExpress.', 'setting description', 'ali2woo'); ?>"></div>
-                </div>
-                <div class="field__input-wrap">
-                        <input type="checkbox" class="field__input form-control" id="a2w_order_third_name" name="a2w_order_third_name" value="yes" <?php if ($a2w_order_third_name): ?>checked<?php endif;?>/>
-                </div>
-            </div>
-            <?php $a2w_order_autopay = a2w_get_setting('order_autopay');?>
-            <?php $a2w_order_awaiting_payment = a2w_get_setting('order_awaiting_payment');?>
-            <div class="field field_inline">
-                <div class="field__label">
-                    <label>
-                        <strong><?php echo esc_html_x('Automatic payments', 'Setting title', 'ali2woo'); ?></strong>
-                    </label>
-                    <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x('Allow the Chrome extension to pay automatically for each order during an order fulfillment process. Also please make sure that you`ve selected your credit card as the payment method on AlIExpress.', 'setting description', 'ali2woo'); ?>"></div>
-                </div>
-                <div class="field__input-wrap">
-                    <div class="form-group input-block no-margin">
-                       <?php /* <input type="checkbox" class="field__input form-control" id="a2w_order_autopay" name="a2w_order_autopay" value="yes" <?php if ($a2w_order_autopay): ?>checked<?php endif; ?>/> */?>
-                        <input type="radio" class="form-check-input"  name="a2w_order_awaiting_payment" id="a2w_order_awaiting_payment1" value="no" <?php if (!$a2w_order_awaiting_payment): ?>checked<?php endif;?>>
-                    </div>
-                </div>
-            </div>
-
-            <div class="field field_inline">
-                <div class="field__label">
-                    <label>
-                        <strong><?php echo esc_html_x('Place order to Awaiting payment list', 'Setting title', 'ali2woo'); ?></strong>
-                    </label>
-                    <div class="info-box" data-toggle="tooltip" data-title="<?php echo esc_html_x('Allow the Chrome extension to place each order to the Awaiting payment list on AlIExpress. It gives ability to pay for all orders at a time.', 'setting description', 'ali2woo'); ?>"></div>
-                </div>
-                <div class="field__input-wrap">
-                    <div class="form-group input-block no-margin">
-                   <?php /*     <input type="checkbox" class="field__input form-control" id="a2w_order_awaiting_payment" name="a2w_order_awaiting_payment" value="yes" <?php if ($a2w_order_awaiting_payment): ?>checked<?php endif; ?>/> */?>
-                        <input type="radio" class="form-check-input"  name="a2w_order_awaiting_payment" id="a2w_order_awaiting_payment2" value="yes" <?php if ($a2w_order_awaiting_payment): ?>checked<?php endif;?>>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
     <div class="container-fluid">
         <div class="row pt20 border-top">
             <div class="col-sm-12">
@@ -662,6 +612,7 @@
     (function ($) {
         $("#a2w_local_currency").select2();
         $("#a2w_import_language").select2();
+        $("#a2w_fulfillment_prefship").select2();
 
         if(jQuery.fn.tooltip) { $('[data-toggle="tooltip"]').tooltip({"placement": "top"}); }
 
@@ -792,12 +743,10 @@
 
                     $('.a2w_purchase_code_info .supported_until').text(json.supported_until)
                     $('.a2w_purchase_code_info .tariff_name').text(json.tariff_name)
-                    $('.a2w_purchase_code_info .daily_limits').html('<?php esc_html_e('Daily limits', 'ali2woo');?>: '+
-                    '<span'+(product_count/product_limit > 0.9?' class="warn"':'')+'>products ('+product_count+'/'+product_limit+')</span>, '+
-                    '<span'+(sync_count/sync_limit > 0.9?' class="warn"':'')+'>product updates ('+sync_count+'/'+sync_limit+')</span>, '+
-                    '<span'+(reviews_count/reviews_limit > 0.9?' class="warn"':'')+'>reviews ('+reviews_count+'/'+reviews_limit+')</span>, '+
-                    '<span'+(shipping_count/shipping_limit > 0.9?' class="warn"':'')+'>shipping ('+shipping_count+'/'+shipping_limit+')</span>')
 
+                    $('.a2w_purchase_code_info .daily_limits').html('<?php esc_html_e('Daily limits', 'ali2woo');?>: '+
+                    '<span'+(reviews_count/reviews_limit > 0.9?' class="warn"':'')+'>reviews ('+reviews_count+'/'+reviews_limit+')</span>')
+                    
                     $('.a2w_purchase_code_info').show()
                 }
             }).fail(function (xhr, status, error) {

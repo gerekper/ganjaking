@@ -1,5 +1,14 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2023.09.27 - version 2.5.0
+* Update: Tested up to WooCommerce 8.2.0.
+* Fix: Update all templates for safer string escaping.
+* Fix: Update KIA Customizer Range Input package to better limit number of columns in Customizer input.
+* Fix: Prevent overfilling of pack on pre-filled packes (pre-filled by URL param).
+* Fix: Enqueue order editing scripts on Subscriptions page when using HPOS.
+* Tweak: Use admin theme colors in product edit admin.
+* Tweak: Slight change to when global mix and match product object is generated in edit screen.
+
 2023.07.11 - version 2.4.10
 * Fix: Format the container line total for per-item priced containers with correct decimal setting in the cart block.
 * Fix: Order item editing script not loaded on HPOS new order page.

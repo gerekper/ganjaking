@@ -92,7 +92,8 @@ class WoocommerceProductFeedsFeedManager {
 			return;
 		}
 		// phpcs:enable WordPress.WP.Capabilities.Unknown
-		$gpf_action = isset( $_REQUEST['gpf_action'] ) ? $_REQUEST['gpf_action'] : '';
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$gpf_action = isset( $_REQUEST['gpf_action'] ) ? sanitize_text_field( $_REQUEST['gpf_action'] ) : '';
 		switch ( $gpf_action ) {
 			case 'add':
 			case 'edit':
@@ -128,9 +129,11 @@ class WoocommerceProductFeedsFeedManager {
 				'add_link' => esc_attr( admin_url( 'admin.php?page=woocommerce-gpf-manage-feeds&gpf_action=add' ) ),
 			]
 		);
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
 		if ( isset( $_GET['gpf_msg'] ) && in_array( (int) $_GET['gpf_msg'], [ 1, 2, 3 ], true ) ) {
 			$this->template->output_template_with_variables( 'woo-gpf', 'admin-feed-list-msg-' . (int) $_GET['gpf_msg'], [] );
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 		$this->list_table->prepare_items();
 		$this->list_table->display();
 		$this->template->output_template_with_variables( 'woo-gpf', 'admin-feed-list-footer', [] );
@@ -142,18 +145,23 @@ class WoocommerceProductFeedsFeedManager {
 	 * Also used for "add".
 	 */
 	private function edit_feed() {
-		$feed = [];
+		$feed    = [];
+		$feed_id = '';
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
 		if ( ! empty( $_REQUEST['feed_id'] ) ) {
-			$feed = $this->repository->get( $_REQUEST['feed_id'] );
-			$feed = $feed->to_array();
+			$feed_id = sanitize_text_field( $_REQUEST['feed_id'] );
+			$feed    = $this->repository->get( $feed_id );
+			$feed    = $feed->to_array();
 		}
-		$categories = $this->get_categories( $feed['categories'] ?? [] );
-		$vars       = [
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+		$categories  = $this->get_categories( $feed['categories'] ?? [] );
+		$page_header = ! empty( $feed_id ) ?
+			__( 'Edit feed', 'woocommerce_gpf' ) :
+			__( 'Add feed', 'woocommerce_gpf' );
+		$vars        = [
 			'feed'            => $feed,
-			'feed_id'         => $_REQUEST['feed_id'] ?? '',
-			'page_header'     => ! empty( $_REQUEST['feed_id'] ) ?
-				__( 'Edit feed', 'woocommerce_gpf' ) :
-				__( 'Add feed', 'woocommerce_gpf' ),
+			'feed_id'         => $feed_id,
+			'page_header'     => $page_header,
 			'name'            => $feed['name'] ?? '',
 			'type'            => $feed['type'] ?? '',
 			'types'           => $this->common->get_feed_types(),
@@ -222,10 +230,10 @@ class WoocommerceProductFeedsFeedManager {
 	 * @return int 1 if existing feed updated. 3 if new feed added.
 	 */
 	private function update_feed() {
-		if ( ! wp_verify_nonce( $_POST['_wpnonce'] ?? '', 'gpf_update_feed' ) ) {
+		if ( ! wp_verify_nonce( sanitize_text_field( $_POST['_wpnonce'] ) ?? '', 'gpf_update_feed' ) ) {
 			wp_die( 'Invalid request' );
 		}
-		$feed_id     = ! empty( $_POST['feed_id'] ) ? $_POST['feed_id'] : null;
+		$feed_id     = ! empty( $_POST['feed_id'] ) ? sanitize_text_field( $_POST['feed_id'] ) : null;
 		$feed_config = $_POST;
 		unset( $feed_config['_wpnonce'] );
 		unset( $feed_config['_wp_http_referer'] );
@@ -242,10 +250,11 @@ class WoocommerceProductFeedsFeedManager {
 	}
 
 	private function delete_ask_feed() {
-		if ( ! wp_verify_nonce( $_GET['_wpnonce'] ?? '', 'gpf_delete_ask_feed' ) ) {
+		if ( ! wp_verify_nonce( sanitize_text_field( $_GET['_wpnonce'] ) ?? '', 'gpf_delete_ask_feed' ) ) {
 			wp_die( 'Invalid request' );
 		}
-		$feed_config = $this->repository->get( $_GET['feed_id'] );
+		$feed_id     = sanitize_text_field( $_GET['feed_id'] );
+		$feed_config = $this->repository->get( $feed_id );
 		if ( ! $feed_config ) {
 			wp_die( 'Invalid request' );
 		}
@@ -254,7 +263,7 @@ class WoocommerceProductFeedsFeedManager {
 			$all_types[ $feed_config->type ]['name'] :
 			$feed_config->type;
 		$vars             = [
-			'feed_id'     => esc_attr( $_GET['feed_id'] ),
+			'feed_id'     => esc_attr( $feed_id ),
 			'name'        => esc_html( $feed_config->name ),
 			'type'        => $type_description,
 			'page_header' => sprintf(
@@ -267,13 +276,14 @@ class WoocommerceProductFeedsFeedManager {
 	}
 
 	private function delete_feed() {
-		if ( ! wp_verify_nonce( $_POST['_wpnonce'] ?? '', 'gpf_delete_feed' ) ) {
+		if ( ! wp_verify_nonce( sanitize_text_field( $_POST['_wpnonce'] ) ?? '', 'gpf_delete_feed' ) ) {
 			wp_die( 'Invalid request' );
 		}
-		$feed_config = $this->repository->get( $_POST['feed_id'] );
+		$feed_id     = sanitize_text_field( $_POST['feed_id'] );
+		$feed_config = $this->repository->get( $feed_id );
 		if ( ! $feed_config ) {
 			wp_die( 'Invalid request' );
 		}
-		$this->repository->delete( $_POST['feed_id'] );
+		$this->repository->delete( $feed_id );
 	}
 }

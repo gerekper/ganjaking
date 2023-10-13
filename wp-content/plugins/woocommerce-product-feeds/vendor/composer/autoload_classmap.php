@@ -55,6 +55,7 @@ return array(
     'WoocommercePrfGoogle' => $baseDir . '/src/prf/woocommerce-prf-google.php',
     'WoocommercePrfGoogleReviewFeed' => $baseDir . '/src/prf/woocommerce-prf-google-review-feed.php',
     'WoocommercePrfGoogleReviewProductInfo' => $baseDir . '/src/prf/woocommerce-prf-google-review-product-info.php',
+    'WoocommerceProductFeedsAddToCartSupport' => $baseDir . '/src/common/woocommerce-product-feeds-add-to-cart-support.php',
     'WoocommerceProductFeedsAdminNotices' => $baseDir . '/src/common/woocommerce-product-feeds-admin-notices.php',
     'WoocommerceProductFeedsAdvancedCustomFields' => $baseDir . '/src/integrations/woocommerce-product-feeds-advanced-custom-fields.php',
     'WoocommerceProductFeedsAdvancedCustomFieldsFormatter' => $baseDir . '/src/integrations/woocommerce-product-feeds-advanced-custom-fields-formatter.php',

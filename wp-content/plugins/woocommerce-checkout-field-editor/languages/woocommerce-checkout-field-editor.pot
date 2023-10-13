@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Checkout Field Editor 1.7.10\n"
+"Project-Id-Version: WooCommerce Checkout Field Editor 1.7.12\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-checkout-field-editor\n"
-"POT-Creation-Date: 2023-07-25 14:21:35+00:00\n"
+"POT-Creation-Date: 2023-10-11 21:46:28+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -27,7 +27,7 @@ msgid "Select which document types should display custom checkout fields."
 msgstr ""
 
 #: includes/class-wc-checkout-field-editor-privacy.php:12
-#: includes/class-wc-checkout-field-editor.php:95
+#: includes/class-wc-checkout-field-editor.php:100
 msgid "Checkout Field Editor"
 msgstr ""
 
@@ -43,8 +43,8 @@ msgstr ""
 msgid "WooCommerce Checkout Field Editor"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:78
-#: includes/class-wc-checkout-field-editor.php:155
+#: includes/class-wc-checkout-field-editor.php:79
+#: includes/class-wc-checkout-field-editor.php:160
 msgid "Checkout Fields"
 msgstr ""
 
@@ -52,209 +52,209 @@ msgstr ""
 msgid "WooCommerce"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:139
+#: includes/class-wc-checkout-field-editor.php:144
 msgid "Checkout field editor is ready &#8211; Customize your forms below"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:140
+#: includes/class-wc-checkout-field-editor.php:145
 msgid "Documentation"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:140
+#: includes/class-wc-checkout-field-editor.php:145
 msgid "Dismiss"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:156
+#: includes/class-wc-checkout-field-editor.php:161
 msgid "Reset Checkout Fields"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:157
+#: includes/class-wc-checkout-field-editor.php:162
 msgid ""
 "This tool will remove all customizations made to the checkout fields using "
 "the checkout field editor."
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:177
+#: includes/class-wc-checkout-field-editor.php:182
 msgid "Checkout fields successfully reset"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:198
+#: includes/class-wc-checkout-field-editor.php:203
 msgid "Fields"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:217
+#: includes/class-wc-checkout-field-editor.php:222
 msgid "Required"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:218
+#: includes/class-wc-checkout-field-editor.php:223
 msgid "Email"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:219
+#: includes/class-wc-checkout-field-editor.php:224
 msgid "Number"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:220
+#: includes/class-wc-checkout-field-editor.php:225
 msgid "Phone"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:227
+#: includes/class-wc-checkout-field-editor.php:232
 msgid "Text"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:228
+#: includes/class-wc-checkout-field-editor.php:233
 msgid "Password"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:229
+#: includes/class-wc-checkout-field-editor.php:234
 msgid "Textarea"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:230
+#: includes/class-wc-checkout-field-editor.php:235
 msgid "Select"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:233
+#: includes/class-wc-checkout-field-editor.php:238
 msgid "Multiselect"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:234
+#: includes/class-wc-checkout-field-editor.php:239
 msgid "Radio"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:235
+#: includes/class-wc-checkout-field-editor.php:240
 msgid "Checkbox"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:236
+#: includes/class-wc-checkout-field-editor.php:241
 msgid "Date Picker"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:237
+#: includes/class-wc-checkout-field-editor.php:242
 msgid "Heading"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:244
+#: includes/class-wc-checkout-field-editor.php:249
 msgid "Left"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:245
+#: includes/class-wc-checkout-field-editor.php:250
 msgid "Full-width"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:246
+#: includes/class-wc-checkout-field-editor.php:251
 msgid "Right"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:253
+#: includes/class-wc-checkout-field-editor.php:258
 msgid "Emails"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:254
+#: includes/class-wc-checkout-field-editor.php:259
 msgid "Order Detail Pages"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:265
+#: includes/class-wc-checkout-field-editor.php:270
 msgid "Name"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:266
+#: includes/class-wc-checkout-field-editor.php:271
 msgid "Type"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:267
+#: includes/class-wc-checkout-field-editor.php:272
 msgid "Label"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:268
+#: includes/class-wc-checkout-field-editor.php:273
 msgid "Placeholder / Option Values"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:269
+#: includes/class-wc-checkout-field-editor.php:274
 msgid "Position"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:271
+#: includes/class-wc-checkout-field-editor.php:276
 msgid "Clear Row"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:273
+#: includes/class-wc-checkout-field-editor.php:278
 msgid "Validation Rules"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:274
+#: includes/class-wc-checkout-field-editor.php:279
 msgid "Display Options"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:280
+#: includes/class-wc-checkout-field-editor.php:285
 msgid "+ Add field"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:281
+#: includes/class-wc-checkout-field-editor.php:286
 msgid "Enable Checked"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:282
+#: includes/class-wc-checkout-field-editor.php:287
 msgid "Disable/Remove Checked"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:288
+#: includes/class-wc-checkout-field-editor.php:293
 msgid ""
 "The fields above show in the \"billing information\" section of the "
 "checkout page. <strong>Disabling core fields can cause unexpected results "
 "with some plugins; we recommend against this if possible.</strong>"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:291
+#: includes/class-wc-checkout-field-editor.php:296
 msgid ""
 "The fields above show in the \"shipping information\" section of the "
 "checkout page. <strong>Disabling core fields can cause unexpected results "
 "with some plugins; we recommend against this if possible.</strong>"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:294
+#: includes/class-wc-checkout-field-editor.php:299
 msgid ""
 "The fields above show beneath the billing and shipping sections on the "
 "checkout page."
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:335
-#: includes/class-wc-checkout-field-editor.php:543
+#: includes/class-wc-checkout-field-editor.php:340
+#: includes/class-wc-checkout-field-editor.php:548
 msgid "Pipe (|) separate options."
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:478
-#: includes/class-wc-checkout-field-editor.php:517
-#: includes/class-wc-checkout-field-editor.php:540
+#: includes/class-wc-checkout-field-editor.php:483
+#: includes/class-wc-checkout-field-editor.php:522
+#: includes/class-wc-checkout-field-editor.php:545
 msgid "This field is address locale dependent and cannot be modified."
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:480
+#: includes/class-wc-checkout-field-editor.php:485
 msgid "This field cannot be modified."
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:638
+#: includes/class-wc-checkout-field-editor.php:643
 msgid "Save Changes"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:661
+#: includes/class-wc-checkout-field-editor.php:666
 msgid "Order Notes"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:808
+#: includes/class-wc-checkout-field-editor.php:813
 msgid "Select option"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:810
+#: includes/class-wc-checkout-field-editor.php:815
 #: includes/wc-checkout-field-functions.php:482
 msgid "Select some options"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:899
+#: includes/class-wc-checkout-field-editor.php:904
 msgid "Your changes were saved."
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:901
+#: includes/class-wc-checkout-field-editor.php:906
 msgid "Your changes were not saved due to an error (or you made none!)."
 msgstr ""
 
@@ -301,20 +301,20 @@ msgstr ""
 msgid "Shipping address"
 msgstr ""
 
-#: woocommerce-checkout-field-editor.php:115
+#: woocommerce-checkout-field-editor.php:118
 #. translators: %s: WooCommerce link
 msgid "WooCommerce Checkout Field Editor requires %s to be installed and active."
 msgstr ""
 
-#: woocommerce-checkout-field-editor.php:143
+#: woocommerce-checkout-field-editor.php:146
 msgid "Settings"
 msgstr ""
 
-#: woocommerce-checkout-field-editor.php:160
+#: woocommerce-checkout-field-editor.php:163
 msgid "Docs"
 msgstr ""
 
-#: woocommerce-checkout-field-editor.php:161
+#: woocommerce-checkout-field-editor.php:164
 msgid "Support"
 msgstr ""
 
@@ -330,7 +330,7 @@ msgstr ""
 msgid "https://woocommerce.com"
 msgstr ""
 
-#: includes/class-wc-checkout-field-editor.php:662
+#: includes/class-wc-checkout-field-editor.php:667
 msgctxt "placeholder"
 msgid "Notes about your order, e.g. special notes for delivery."
 msgstr ""

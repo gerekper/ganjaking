@@ -10,6 +10,7 @@ use Automattic\WooCommerce\Admin\Features\Navigation\Screen;
 class WC_Checkout_Field_Editor {
 	public $locale_fields  = array();
 	public $default_fields = array();
+	public $screen_id      = false;
 
 	/**
 	 * __construct function.
@@ -76,6 +77,10 @@ class WC_Checkout_Field_Editor {
 	 */
 	public function menu() {
 		$this->screen_id = add_submenu_page( 'woocommerce', esc_html__( 'WooCommerce Checkout Field Editor', 'woocommerce-checkout-field-editor' ), esc_html__( 'Checkout Fields', 'woocommerce-checkout-field-editor' ), 'manage_woocommerce', 'checkout_field_editor', array( $this, 'the_editor' ) );
+
+		if ( false === $this->screen_id ) { // Check for user capabilities.
+			return;
+		}
 
 		add_action( 'admin_print_scripts-' . $this->screen_id, array( $this, 'scripts' ) );
 

@@ -2,7 +2,7 @@
 /**
  * Description of A2W_Settings
  *
- * @author andrey
+ * @author Ali2Woo Team
  */
 
 if (!class_exists('A2W_Settings')) {
@@ -13,7 +13,7 @@ if (!class_exists('A2W_Settings')) {
         private $auto_commit = true;
 
         private $static_settings = array(
-            'api_endpoint' => 'https://api.ali2woo.com/v1/',
+            'api_endpoint' => 'https://api.ali2woo.com/v3/',
             'image_editor_srickers' => array(
                 '/assets/img/stickers/stick-001.png',
                 '/assets/img/stickers/stick-002.png',
@@ -86,8 +86,6 @@ if (!class_exists('A2W_Settings')) {
             'fulfillment_rut_meta_key' => '',
             'order_translitirate' => false,
             'order_third_name' => false,
-            'order_autopay' => false,
-            'order_awaiting_payment' => true,
             'pricing_rules_type' => 'sale_price_as_base',
             'use_extended_price_markup' => false,
             'use_compared_price_markup' => false,

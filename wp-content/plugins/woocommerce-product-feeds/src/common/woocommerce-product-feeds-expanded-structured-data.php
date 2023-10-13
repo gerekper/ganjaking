@@ -254,7 +254,8 @@ class WoocommerceProductFeedsExpandedStructuredData {
 			JSON_PRETTY_PRINT :
 			0;
 		if ( is_product() && ! empty( $this->additional_product_markup ) ) {
-			echo '<script id="woocommerce_gpf_schema" type="application/ld+json">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '<script id="woocommerce_gpf_schema" type="application/ld+json">';
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo wc_esc_json(
 				wp_json_encode(
 					[

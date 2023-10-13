@@ -3,7 +3,7 @@
 /**
  * Description of A2W_SynchProductController
  *
- * @author Andrey
+ * @author Ali2Woo Team
  *
  * @autoload: a2w_init
  *
@@ -179,6 +179,7 @@ if (!class_exists('A2W_SynchProductController')) {
                 $product_map = array();
                 foreach ($product_ids as $product_id) {
                     $product = $woocommerce_model->get_product_by_post_id($product_id, false);
+
                     if ($product) {
                         if (!$product['disable_sync']) {
                             $product['disable_var_price_change'] = $product['disable_var_price_change'] || $on_price_changes !== "update";
@@ -191,6 +192,7 @@ if (!class_exists('A2W_SynchProductController')) {
                     }
                     unset($product);
                 }
+
                 $pc = $sync_model->get_product_cnt();
                 while ($product_map) {
                     $tmp_product_map = array_slice($product_map, 0, $update_per_request, true);

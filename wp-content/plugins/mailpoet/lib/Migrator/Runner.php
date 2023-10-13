@@ -6,7 +6,8 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\DI\ContainerWrapper;
-use MailPoet\Migrations\DbMigrationTemplate;
+use MailPoet\Migrations\App\AppMigrationTemplate;
+use MailPoet\Migrations\Db\DbMigrationTemplate;
 use Throwable;
 
 class Runner {
@@ -16,16 +17,12 @@ class Runner {
   /** @var Store */
   private $store;
 
-  /** @var string */
-  private $namespace;
-
   public function __construct(
     ContainerWrapper $container,
     Store $store
   ) {
     $this->container = $container;
     $this->store = $store;
-    $this->namespace = $this->getMigrationsNamespace();
   }
 
   public function runMigration(string $name, string $level): void {
@@ -44,7 +41,8 @@ class Runner {
   }
 
   private function getClassName(string $name, string $level): string {
-    $className = $this->namespace . '\\' . ucfirst($level) . '\\' . $name;
+    $templateClass = $level === Repository::MIGRATIONS_LEVEL_DB ? DbMigrationTemplate::class : AppMigrationTemplate::class;
+    $className = $this->getNamespace($templateClass) . '\\' . $name;
     if (!class_exists($className)) {
       throw MigratorException::migrationClassNotFound($className);
     }
@@ -56,8 +54,8 @@ class Runner {
     return $className;
   }
 
-  private function getMigrationsNamespace(): string {
-    $parts = explode('\\', DbMigrationTemplate::class);
+  private function getNamespace(string $className): string {
+    $parts = explode('\\', $className);
     return implode('\\', array_slice($parts, 0, -1));
   }
 }

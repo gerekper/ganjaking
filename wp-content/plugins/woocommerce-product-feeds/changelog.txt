@@ -1,5 +1,13 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2023.10.11 - version 10.11.1
+* Change: Do not trigger errors on hosts that have disabled some PHP functions
+
+2023.10.02 - version 10.11.0
+* New: WooCommerce compatibility up to 8.2
+* New: Allow WooCommerce add-to-cart URLs to work with product IDs from the feed
+* Change: Various performance optimisations
+
 2023.09.11 - version 10.10.6
 * New: WooCommerce compatibility up to 8.1
 * Change: Performance improvement - only calculate prepopulations required by active fields

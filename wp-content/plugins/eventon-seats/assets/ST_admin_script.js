@@ -1,6 +1,6 @@
 /**
  * Javascript: Seats Admin scripts
- * @version  1.2.1
+ * @version  1.2.2
  */
 jQuery(document).ready(function($){	
 
@@ -802,6 +802,7 @@ jQuery(document).ready(function($){
 
 		    	const LB = obj.closest('.evo_lightbox');
 		    	const LB1 = $('body').find('.evo_lightbox.evost_lightbox');
+		    	const LB2 = $('body').find('.evo_lightbox.evost_lightbox_secondary');
 
 		    	IMG_URL = '';
 
@@ -827,8 +828,8 @@ jQuery(document).ready(function($){
 
 						attachment = file_frame.state().get('selection').first().toJSON();
 						
-						LB.find('.evost_seat_img').val( attachment.id );
-						LB.find('.evost_img_holder').html( '<img src="'+attachment.url+'" style="width:200px"/>' );
+						LB2.find('.evost_seat_img').val( attachment.id );
+						LB2.find('.evost_img_holder').html( '<img src="'+attachment.url+'" style="width:200px"/>' );
 						LB1.find('.evost_sections_container').css('background-image', 'url('+attachment.url+')' );
 						var old_text = obj.attr('value');
 						var new_text = obj.data('txt');
@@ -841,8 +842,8 @@ jQuery(document).ready(function($){
 
 				}else{
 					
-					LB.find('.evost_seat_img').val( '' );
-					LB.find('.evost_img_holder').html('');
+					LB2.find('.evost_seat_img').val( '' );
+					LB2.find('.evost_img_holder').html('');
 			  		LB1.find('.evost_sections_container').css('background-image', '' );
 
 			  		var old_text = obj.attr('value');

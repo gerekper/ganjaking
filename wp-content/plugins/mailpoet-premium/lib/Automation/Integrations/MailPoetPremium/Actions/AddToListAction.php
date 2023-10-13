@@ -5,6 +5,7 @@ namespace MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Automation\Engine\Control\StepRunController;
 use MailPoet\Automation\Engine\Data\StepRunArgs;
 use MailPoet\Automation\Engine\Data\StepValidationArgs;
 use MailPoet\Automation\Engine\Integration\Action;
@@ -55,7 +56,7 @@ class AddToListAction implements Action {
     $this->getSegments($segmentIds);
   }
 
-  public function run(StepRunArgs $args): void {
+  public function run(StepRunArgs $args, StepRunController $controller): void {
     $subscriber = $args->getSinglePayloadByClass(SubscriberPayload::class)->getSubscriber();
     $segmentIds = $args->getStep()->getArgs()['segment_ids'] ?? [];
     $skipTriggers = $args->getStep()->getArgs()['skip_triggers'] ?? false;

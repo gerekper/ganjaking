@@ -2,7 +2,7 @@
 /**
  * Description of A2W_ProductDataTabController
  *
- * @author Andrey
+ * @author Ali2Woo Team
  * 
  * @autoload: a2w_admin_init
  * 

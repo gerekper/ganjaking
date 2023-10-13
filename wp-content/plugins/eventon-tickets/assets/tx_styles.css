@@ -1,5 +1,5 @@
 /* Event Ticket styles */
-/* @version 2.2.1 */
+/* @version 2.2.2 */
 
 /* cart notification */	
 	.ajde_evcal_calendar .evotx_ticket_purchase_section .evotx_next_event{padding-top: 10px;}
@@ -148,6 +148,7 @@
 		font-size: 18px;
 		color: #808080;
     	font-weight: normal;
+    	margin-right: 10px;
 	}
 	.eventon_list_event .evoTX_wc.tximg table.variations td.value{
 		padding-top: 40px; position: relative; padding-left: 0;

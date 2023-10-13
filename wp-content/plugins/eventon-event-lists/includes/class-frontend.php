@@ -420,7 +420,7 @@ class evoel_frontend{
 	//	STYLES
 		function styles(){
 			ob_start();
-			include_once(EVOEL()->assets_path.'el_styles.css');
+			include_once(EVOEL()->plugin_path.'/assets/el_styles.css');
 			echo ob_get_clean();
 		}
 		public function register_styles_scripts(){

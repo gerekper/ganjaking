@@ -76,110 +76,110 @@ class WC_Mix_and_Match_REST_API {
 	private static function get_extended_product_schema() {
 
 		return array(
-			'mnm_layout_override' => array(
-				'description' => __( 'Has product-specific layouts that override global setting. Applicable only for Mix and Match type products.', 'woocommerce-mix-and-match-products' ),
+			'mnm_layout_override'     => array(
+				'description' => esc_html__( 'Has product-specific layouts that override global setting. Applicable only for Mix and Match type products.', 'woocommerce-mix-and-match-products' ),
 				'type'        => 'boolean',
-				'context'     => array( 'view', 'edit' )
+				'context'     => array( 'view', 'edit' ),
 			),
 			'mnm_layout'              => array(
-				'description' => __( 'Single-product details page layout. Applicable only for Mix and Match type products.', 'woocommerce-mix-and-match-products' ),
+				'description' => esc_html__( 'Single-product details page layout. Applicable only for Mix and Match type products.', 'woocommerce-mix-and-match-products' ),
 				'type'        => 'string',
 				'enum'        => array_keys( WC_Product_Mix_and_Match::get_layout_options() ),
-				'context'     => array( 'view', 'edit' )
+				'context'     => array( 'view', 'edit' ),
 			),
-			'mnm_form_location' => array(
-				'description' => __( 'Single-product details page add to cart form location. Applicable only for Mix and Match type products.', 'woocommerce-mix-and-match-products' ),
+			'mnm_form_location'       => array(
+				'description' => esc_html__( 'Single-product details page add to cart form location. Applicable only for Mix and Match type products.', 'woocommerce-mix-and-match-products' ),
 				'type'        => 'string',
 				'enum'        => array_keys( WC_Product_Mix_and_Match::get_add_to_cart_form_location_options() ),
-				'context'     => array( 'view', 'edit' )
+				'context'     => array( 'view', 'edit' ),
 			),
-			'mnm_content_source' => array(
-				'description' => __( 'Source of child products. Applicable only for Mix and Match type products.', 'woocommerce-mix-and-match-products' ),
+			'mnm_content_source'      => array(
+				'description' => esc_html__( 'Source of child products. Applicable only for Mix and Match type products.', 'woocommerce-mix-and-match-products' ),
 				'type'        => 'string',
 				'enum'        => array( 'products', 'categories' ),
-				'context'     => array( 'view', 'edit' )
+				'context'     => array( 'view', 'edit' ),
 			),
-			'mnm_child_category_ids' => array(
-				'description' => __( 'List of child categories allowed in this product.', 'woocommerce-mix-and-match-products' ),
+			'mnm_child_category_ids'  => array(
+				'description' => esc_html__( 'List of child categories allowed in this product.', 'woocommerce-mix-and-match-products' ),
 				'type'        => 'array',
-				'context'     => array( 'view', 'edit' )
+				'context'     => array( 'view', 'edit' ),
 			),
-			'mnm_child_items'              => array(
-				'description' => __( 'List of child items contained in this product.', 'woocommerce-mix-and-match-products' ),
+			'mnm_child_items'         => array(
+				'description' => esc_html__( 'List of child items contained in this product.', 'woocommerce-mix-and-match-products' ),
 				'type'        => 'array',
 				'context'     => array( 'view', 'edit' ),
 				'items'       => array(
 					'type'       => 'object',
 					'properties' => array(
-						'child_id'            => array(
-							'description' => __( 'Child product|variation ID. Deprecated 2.0, use child_item_id instead.', 'woocommerce-mix-and-match-products' ),
+						'child_id'      => array(
+							'description' => esc_html__( 'Child product|variation ID. Deprecated 2.0, use child_item_id instead.', 'woocommerce-mix-and-match-products' ),
 							'type'        => 'integer',
 							'context'     => array( 'view', 'edit' ),
-							'readonly'    => true
+							'readonly'    => true,
 						),
-						'child_item_id'            => array(
-							'description' => __( 'Child item ID.', 'woocommerce-mix-and-match-products' ),
+						'child_item_id' => array(
+							'description' => esc_html__( 'Child item ID.', 'woocommerce-mix-and-match-products' ),
 							'type'        => 'integer',
 							'context'     => array( 'view' ),
-							'readonly'    => true
+							'readonly'    => true,
 						),
-						'delete'       => array(
-							'description' => __( 'Set to true to delete the child item with the specified child item ID.', 'woocommerce-mix-and-match-products' ),
+						'delete'        => array(
+							'description' => esc_html__( 'Set to true to delete the child item with the specified child item ID.', 'woocommerce-mix-and-match-products' ),
 							'type'        => 'boolean',
-							'context'     => array( 'edit' )
+							'context'     => array( 'edit' ),
 						),
-						'product_id'   => array(
-							'description' => __( 'Child product ID.', 'woocommerce-mix-and-match-products' ),
+						'product_id'    => array(
+							'description' => esc_html__( 'Child product ID.', 'woocommerce-mix-and-match-products' ),
 							'type'        => 'integer',
-							'context'     => array( 'view', 'edit' )
+							'context'     => array( 'view', 'edit' ),
 						),
-						'variation_id' => array(
-							'description' => __( 'Child variation ID.', 'woocommerce-mix-and-match-products' ),
+						'variation_id'  => array(
+							'description' => esc_html__( 'Child variation ID.', 'woocommerce-mix-and-match-products' ),
 							'type'        => 'integer',
-							'context'     => array( 'view', 'edit' )
+							'context'     => array( 'view', 'edit' ),
 						),
-					)
-				)
+					),
+				),
 			),
-			'mnm_min_container_size'   => array(
-				'description' => __( 'Minimum container size.', 'woocommerce-mix-and-match-products' ),
+			'mnm_min_container_size'  => array(
+				'description' => esc_html__( 'Minimum container size.', 'woocommerce-mix-and-match-products' ),
 				'type'        => 'integer',
-				'context'     => array( 'view', 'edit' )
+				'context'     => array( 'view', 'edit' ),
 			),
-			'mnm_max_container_size'   => array(
-				'description' => __( 'Maximum container quantity.', 'woocommerce-mix-and-match-products' ),
+			'mnm_max_container_size'  => array(
+				'description' => esc_html__( 'Maximum container quantity.', 'woocommerce-mix-and-match-products' ),
 				'type'        => 'mixed',
 				'oneOf'       => array(
 					'type' => 'integer',
 					'type' => null,
 				),
-				'context'     => array( 'view', 'edit' )
+				'context'     => array( 'view', 'edit' ),
 			),
-			'mnm_discount' => array(
-				'description' => __( 'Indicates the percentage discount to apply to each child product when per-product pricing is enabled.', 'woocommerce-mix-and-match-products' ),
+			'mnm_discount'            => array(
+				'description' => esc_html__( 'Indicates the percentage discount to apply to each child product when per-product pricing is enabled.', 'woocommerce-mix-and-match-products' ),
 				'type'        => 'string',
-				'context'     => array( 'view', 'edit' )
+				'context'     => array( 'view', 'edit' ),
 			),
-			'mnm_priced_per_product' => array(
-				'description' => __( 'Indicates whether the container price is calculated from the price of the selected child products.', 'woocommerce-mix-and-match-products' ),
+			'mnm_priced_per_product'  => array(
+				'description' => esc_html__( 'Indicates whether the container price is calculated from the price of the selected child products.', 'woocommerce-mix-and-match-products' ),
 				'type'        => 'boolean',
-				'context'     => array( 'view', 'edit' )
+				'context'     => array( 'view', 'edit' ),
 			),
-			'mnm_packing_mode' => array(
-				'description' => __( 'Indicates how the child products are packed/shipped.', 'woocommerce-mix-and-match-products' ),
+			'mnm_packing_mode'        => array(
+				'description' => esc_html__( 'Indicates how the child products are packed/shipped.', 'woocommerce-mix-and-match-products' ),
 				'type'        => 'boolean',
 				'enum'        => array( 'virtual', 'together', 'separate', 'separate_plus' ),
 				'context'     => array( 'view', 'edit' ),
 			),
 			'mnm_shipped_per_product' => array(
-				'description' => __( 'Deprecated: Indicates whether the child products are shipped individually.', 'woocommerce-mix-and-match-products' ),
+				'description' => esc_html__( 'Deprecated: Indicates whether the child products are shipped individually.', 'woocommerce-mix-and-match-products' ),
 				'type'        => 'boolean',
-				'context'     => array( 'view' )
+				'context'     => array( 'view' ),
 			),
-			'mnm_weight_cumulative' => array(
-				'description' => __( 'Shipping weight calculation mode.', 'woocommerce-mix-and-match-products' ),
+			'mnm_weight_cumulative'   => array(
+				'description' => esc_html__( 'Shipping weight calculation mode.', 'woocommerce-mix-and-match-products' ),
 				'type'        => 'boolean',
-				'context'     => array( 'view', 'edit' )
+				'context'     => array( 'view', 'edit' ),
 			),
 		);
 	}
@@ -243,9 +243,9 @@ class WC_Mix_and_Match_REST_API {
 	 * @return array
 	 */
 	private static function prepare_child_items_response( $product ) {
-		$child_items = $product->get_child_items();
+		$child_items    = $product->get_child_items();
 		$response_items = array();
-		foreach( $child_items as $child_item ) {
+		foreach ( $child_items as $child_item ) {
 
 			/**
 			 * Individual child item REST response.
@@ -255,13 +255,18 @@ class WC_Mix_and_Match_REST_API {
 			 * @param array $response
 			 * @param  obj WC_MNM_Child_Item $child_item of child item
 			 * @param  obj WC_Product_Mix_and_Match $product
-			 */	
-			$response_items[] = apply_filters( 'wc_mnm_child_item_rest_response', array(
-				'child_item_id'      => $child_item->get_id(),
-				'child_id'           => $child_item->get_variation_id() ? $child_item->get_variation_id() : $child_item->get_product_id(),
-				'product_id'         => $child_item->get_product_id(),
-				'variation_id'       => $child_item->get_variation_id(),		
-			), $child_item, $product );
+			 */
+			$response_items[] = apply_filters(
+				'wc_mnm_child_item_rest_response',
+				array(
+					'child_item_id' => $child_item->get_id(),
+					'child_id'      => $child_item->get_variation_id() ? $child_item->get_variation_id() : $child_item->get_product_id(),
+					'product_id'    => $child_item->get_product_id(),
+					'variation_id'  => $child_item->get_variation_id(),
+				),
+				$child_item,
+				$product
+			);
 		}
 
 		return $response_items;
@@ -340,17 +345,17 @@ class WC_Mix_and_Match_REST_API {
 				if ( $child_item_id > 0 ) {
 					if ( ! array_key_exists( $child_item_id, $allowed_contents ) ) {
 						// translators: %d is the child item ID.
-						throw new WC_REST_Exception( 'woocommerce_rest_invalid_child_item_id', sprintf( __( 'Child item ID #%d does not exist in mix and match container.', 'woocommerce-mix-and-match-products' ), $child_item_id ), 400 );
+						throw new WC_REST_Exception( 'woocommerce_rest_invalid_child_item_id', sprintf( esc_html__( 'Child item ID #%d does not exist in mix and match container.', 'woocommerce-mix-and-match-products' ), esc_html( $child_item_id ) ), 400 );
 					}
 
 					// Add item to 'deleted' array.
 					if ( isset( $data['delete'] ) && true === $data['delete'] ) {
-						$action = 'delete';
+						$action          = 'delete';
 						$deleted_items[] = $child_item_id;
 						continue;
 					}
 
-				// Updating/deleting item by child product ID, for back-compatibility.
+					// Updating/deleting item by child product ID, for back-compatibility.
 				} elseif ( $child_id > 0 ) {
 
 					// Add product to 'deleted' array.
@@ -358,41 +363,41 @@ class WC_Mix_and_Match_REST_API {
 
 						if ( ! in_array( $child_id, $allowed_contents ) ) {
 							// translators: %d is the product|variation ID.
-							throw new WC_REST_Exception( 'woocommerce_rest_invalid_child_id', sprintf( __( 'Child product or variation ID #%d does not exist in mix and match container.', 'woocommerce-mix-and-match-products' ), $child_id ), 400 );
+							throw new WC_REST_Exception( 'woocommerce_rest_invalid_child_id', sprintf( esc_html__( 'Child product or variation ID #%d does not exist in mix and match container.', 'woocommerce-mix-and-match-products' ), esc_html( $child_id ) ), 400 );
 						}
 
-						$action = 'delete';
+						$action    = 'delete';
 						$deleted[] = $child_id;
 						continue;
 					}
 
-				// Creating item.
-				} elseif ( $child_item_id === 0 ) {
+					// Creating item.
+				} elseif ( 0 === $child_item_id ) {
 					$action = 'create';
 				}
 
 				// Validate the child product.
 				if ( ! $child_id ) {
-					$child_id      = $child_variation_id ? $child_variation_id : $child_product_id;
+					$child_id = $child_variation_id ? $child_variation_id : $child_product_id;
 				}
 				$child_product = wc_get_product( $child_id );
 
 				// Ensure product exists when updating/creating.
 				if ( false === $child_product ) {
 					// translators: %d is the product|variation ID.
-					throw new WC_REST_Exception( 'woocommerce_rest_invalid_child_product', sprintf( __( 'Product or variation ID #%d is invalid.', 'woocommerce-mix-and-match-products' ), $child_id ), 400 );
+					throw new WC_REST_Exception( 'woocommerce_rest_invalid_child_product', sprintf( esc_html__( 'Product or variation ID #%d is invalid.', 'woocommerce-mix-and-match-products' ), esc_html( $child_id ) ), 400 );
 				}
 
 				// Ensure product is not the container.
 				if ( $child_id === $product->get_id() ) {
 					// translators: %d is the product|variation ID.
-					throw new WC_REST_Exception( 'woocommerce_rest_invalid_contents', sprintf( __( 'Cannot add product ID #%d to contents for itself.', 'woocommerce-mix-and-match-products' ), $child_id ), 400 );
+					throw new WC_REST_Exception( 'woocommerce_rest_invalid_contents', sprintf( esc_html__( 'Cannot add product ID #%d to contents for itself.', 'woocommerce-mix-and-match-products' ), esc_html( $child_id ) ), 400 );
 				}
 
 				// Ensure the product is a supported type.
 				if ( ! WC_MNM_Helpers::is_child_supported_product_type( $child_product ) ) {
 					// translators: %d is the product|variation ID.
-					throw new WC_REST_Exception( 'woocommerce_rest_invalid_child_product_type', sprintf( __( 'Product or variation ID #%d not a supported product type for Mix and Match contents.', 'woocommerce-mix-and-match-products' ), $child_id ), 400 );
+					throw new WC_REST_Exception( 'woocommerce_rest_invalid_child_product_type', sprintf( esc_html__( 'Product or variation ID #%d not a supported product type for Mix and Match contents.', 'woocommerce-mix-and-match-products' ), esc_html( $child_id ) ), 400 );
 				}
 
 				// Not stored in meta if defined and other than true.
@@ -403,7 +408,7 @@ class WC_Mix_and_Match_REST_API {
 				// Add item to 'new' array.
 				if ( 'create' === $action ) {
 					// Sanitize the input.
-					$child_data_item_array = array(
+					$child_data_item_array           = array(
 						'product_id'   => $child_product->get_parent_id() > 0 ? $child_product->get_parent_id() : $child_product->get_id(),
 						'variation_id' => $child_product->get_parent_id() > 0 ? $child_product->get_id() : 0,
 					);
@@ -422,7 +427,7 @@ class WC_Mix_and_Match_REST_API {
 					// Omit item data if item deleted.
 					if ( in_array( $child_id, $deleted ) || in_array( $child_item_id, $deleted_items ) ) {
 						continue;
-					// Preserve item unless updated/deleted.
+						// Preserve item unless updated/deleted.
 					} else {
 
 						$child_data_items_array[ $child_item_id ] = $child_item;
@@ -457,20 +462,20 @@ class WC_Mix_and_Match_REST_API {
 	private static function get_extended_order_line_item_schema() {
 
 		return array(
-			'mnm_child_of'     => array(
+			'mnm_child_of'      => array(
 				'description' => __( 'Item ID of parent line item, applicable if the item is part of a mix and match container.', 'woocommerce-mix-and-match-products' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
-				'readonly'    => true
+				'readonly'    => true,
 			),
-			'mnm_child_items' => array(
+			'mnm_child_items'   => array(
 				'description' => __( 'Item IDs of mix and match child line items, applicable if the item is a mix and match container.', 'woocommerce-mix-and-match-products' ),
 				'type'        => 'array',
 				'context'     => array( 'view', 'edit' ),
 				'items'       => array(
-					'type'       => 'integer'
+					'type' => 'integer',
 				),
-				'readonly'    => true
+				'readonly'    => true,
 			),
 			'mnm_configuration' => array(
 				'description' => __( 'Mix and match configuration array. Must be defined when adding a mix and match-type line item to an order, to ensure child line items are added to the order as well.', 'woocommerce-mix-and-match-products' ),
@@ -479,24 +484,24 @@ class WC_Mix_and_Match_REST_API {
 				'items'       => array(
 					'type'       => 'object',
 					'properties' => array(
-						'product_id'        => array(
+						'product_id'   => array(
 							'description' => __( 'Child product ID.', 'woocommerce-mix-and-match-products' ),
 							'type'        => 'integer',
-							'context'     => array( 'edit' )
+							'context'     => array( 'edit' ),
 						),
-						'quantity'          => array(
+						'quantity'     => array(
 							'description' => __( 'Chosen child item quantity.', 'woocommerce-mix-and-match-products' ),
 							'type'        => 'integer',
-							'context'     => array( 'edit' )
+							'context'     => array( 'edit' ),
 						),
-						'variation_id'      => array(
+						'variation_id' => array(
 							'description' => __( 'Chosen variation ID, if applicable.', 'woocommerce-mix-and-match-products' ),
 							'type'        => 'integer',
-							'context'     => array( 'edit' )
+							'context'     => array( 'edit' ),
 						),
-					)
-				)
-			)
+					),
+				),
+			),
 		);
 	}
 
@@ -536,8 +541,8 @@ class WC_Mix_and_Match_REST_API {
 			foreach ( $response->data['line_items'] as $order_data_item_index => $order_data_item ) {
 
 				// Default values.
-				$response->data['line_items'][ $order_data_item_index ]['mnm_child_of']         = '';
-				$response->data['line_items'][ $order_data_item_index ]['mnm_child_items']      = array();
+				$response->data['line_items'][ $order_data_item_index ]['mnm_child_of']    = '';
+				$response->data['line_items'][ $order_data_item_index ]['mnm_child_items'] = array();
 
 				$order_data_item_id = $order_data_item['id'];
 
@@ -588,13 +593,12 @@ class WC_Mix_and_Match_REST_API {
 
 				} else {
 
-					$message = __( 'The submitted mix and match container configuration could not be added to this order.', 'woocommerce-mix-and-match-products' );
-					throw new WC_REST_Exception( 'woocommerce_rest_invalid_mnm_configuration', $message, 400 );
+					$message = esc_html__( 'The submitted mix and match container configuration could not be added to this order.', 'woocommerce-mix-and-match-products' );
+					throw new WC_REST_Exception( 'woocommerce_rest_invalid_mnm_configuration', $message, 400 ); // phpcs:ignore WordPress.Security.EscapeOutput
 				}
-
 			} else {
-				$message = __( 'A mix and match container with this ID does not exist.', 'woocommerce-mix-and-match-products' );
-				throw new WC_REST_Exception( 'woocommerce_rest_invalid_mnm', $message, 400 );
+				$message = esc_html__( 'A mix and match container with this ID does not exist.', 'woocommerce-mix-and-match-products' );
+				throw new WC_REST_Exception( 'woocommerce_rest_invalid_mnm', $message, 400 ); // phpcs:ignore WordPress.Security.EscapeOutput
 			}
 		}
 	}
@@ -613,7 +617,10 @@ class WC_Mix_and_Match_REST_API {
 		$items_to_remove = array();
 
 		foreach ( $order->get_items( 'line_item' ) as $item_id => $item ) {
-			if ( $apply_configuration = $item->get_meta( '_mnm_configuration', true ) ) {
+			
+			$apply_configuration = $item->get_meta( '_mnm_configuration', true );
+
+			if ( $apply_configuration ) {
 
 				$container = $item->get_product();
 				$quantity  = $item->get_quantity();
@@ -622,7 +629,7 @@ class WC_Mix_and_Match_REST_API {
 
 				$args = array(
 					'configuration' => $apply_configuration,
-					'meta_data'     => $item->get_meta_data()
+					'meta_data'     => $item->get_meta_data(),
 				);
 
 				foreach ( $item->get_data_keys() as $key ) {
@@ -676,7 +683,7 @@ class WC_Mix_and_Match_REST_API {
 			$child_configuration['product_id']   = ! empty( $child_configuration['product_id'] ) ? absint( $child_configuration['product_id'] ) : 0;
 			$child_configuration['quantity']     = ! empty( $child_configuration['quantity'] ) ? absint( $child_configuration['quantity'] ) : 0;
 
-			$child_id     = $child_configuration['variation_id'] > 0 ? $child_configuration['variation_id'] : $child_configuration['product_id'];
+			$child_id = $child_configuration['variation_id'] > 0 ? $child_configuration['variation_id'] : $child_configuration['product_id'];
 
 			if ( 0 === $child_id || 0 === $child_configuration['quantity'] ) {
 				continue;
@@ -688,6 +695,5 @@ class WC_Mix_and_Match_REST_API {
 
 		return $configuration;
 	}
-
 }
 WC_Mix_and_Match_REST_API::init();

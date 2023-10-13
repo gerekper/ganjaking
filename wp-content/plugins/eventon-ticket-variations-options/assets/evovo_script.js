@@ -1,6 +1,6 @@
 /**
  * frontend script 
- * @version 1.0.4
+ * @version 1.1.2
  */
 jQuery(document).ready(function($){
 
@@ -134,7 +134,7 @@ jQuery(document).ready(function($){
             if(!new_variation_id){
                 SECTION.find('.evotx_add_to_cart_bottom').addClass('outofstock');
                 SECTION.find('.evovo_price_options').hide();
-                EVOROW.evotx_show_msg({'status':'bad','msg':'tvo2','hide_hidables':false});
+                SECTION.evotx_show_msg({'status':'bad','msg':'tvo2','hide_hidables':false});
                 return false;
             }
 
@@ -150,7 +150,7 @@ jQuery(document).ready(function($){
             if(Current_outofstock){
                 SECTION.find('.evotx_add_to_cart_bottom').addClass('outofstock');
                 SECTION.find('.evovo_price_options').hide();
-                EVOROW.evotx_show_msg({'status':'bad','msg':'tvo3','hide_hidables':false});
+                SECTION.evotx_show_msg({'status':'bad','msg':'tvo3','hide_hidables':false});
             }else{
                 SECTION.find('.evotx_add_to_cart_bottom').removeClass('outofstock').show();
                 SECTION.find('.evovo_price_options').show();                

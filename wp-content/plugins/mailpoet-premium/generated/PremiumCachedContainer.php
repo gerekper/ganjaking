@@ -67,6 +67,7 @@ class PremiumCachedContainer extends Container
             'MailPoet\\Premium\\Automation\\Engine\\Engine' => 'getEngineService',
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\AddTagAction' => 'getAddTagActionService',
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\AddToListAction' => 'getAddToListActionService',
+            'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\CustomAction' => 'getCustomActionService',
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\NotificationEmailAction' => 'getNotificationEmailActionService',
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveFromListAction' => 'getRemoveFromListActionService',
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveTagAction' => 'getRemoveTagActionService',
@@ -81,7 +82,12 @@ class PremiumCachedContainer extends Container
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Analytics\\Storage\\SubscriberStatistics' => 'getSubscriberStatisticsService',
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\ContextFactory' => 'getContextFactoryService',
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration' => 'getMailPoetPremiumIntegrationService',
+            'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Subjects\\CustomDataSubject' => 'getCustomDataSubjectService',
+            'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Subjects\\TagSubject' => 'getTagSubjectService',
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Templates\\PremiumTemplatesFactory' => 'getPremiumTemplatesFactoryService',
+            'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\CustomTrigger' => 'getCustomTriggerService',
+            'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\TagAddedTrigger' => 'getTagAddedTriggerService',
+            'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\TagRemovedTrigger' => 'getTagRemovedTriggerService',
             'MailPoet\\Premium\\Config\\Initializer' => 'getInitializerService',
             'MailPoet\\Premium\\Config\\Renderer' => 'getRenderer2Service',
             'MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository' => 'getStatisticsClicksRepositoryService',
@@ -511,7 +517,7 @@ class PremiumCachedContainer extends Container
      */
     protected function getAddTagActionService()
     {
-        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\AddTagAction'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\AddTagAction(($this->services['MailPoet\\Subscribers\\SubscriberTagRepository'] ?? $this->getSubscriberTagRepositoryService()), ($this->services['MailPoet\\Tags\\TagRepository'] ?? $this->getTagRepositoryService()));
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\AddTagAction'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\AddTagAction(($this->services['MailPoet\\Subscribers\\SubscriberTagRepository'] ?? $this->getSubscriberTagRepositoryService()), ($this->services['MailPoet\\Tags\\TagRepository'] ?? $this->getTagRepositoryService()), ($this->services['MailPoet\\Automation\\Engine\\WordPress'] ?? $this->getWordPressService()));
     }
 
     /**
@@ -522,6 +528,16 @@ class PremiumCachedContainer extends Container
     protected function getAddToListActionService()
     {
         return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\AddToListAction'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\AddToListAction(($this->services['MailPoet\\Segments\\SegmentsRepository'] ?? $this->getSegmentsRepositoryService()), ($this->services['MailPoet\\Subscribers\\SubscriberSegmentRepository'] ?? $this->getSubscriberSegmentRepositoryService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\CustomAction' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\CustomAction
+     */
+    protected function getCustomActionService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\CustomAction'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\CustomAction();
     }
 
     /**
@@ -551,7 +567,7 @@ class PremiumCachedContainer extends Container
      */
     protected function getRemoveTagActionService()
     {
-        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveTagAction'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\RemoveTagAction(($this->services['MailPoet\\Subscribers\\SubscriberTagRepository'] ?? $this->getSubscriberTagRepositoryService()), ($this->services['MailPoet\\Tags\\TagRepository'] ?? $this->getTagRepositoryService()));
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveTagAction'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\RemoveTagAction(($this->services['MailPoet\\Subscribers\\SubscriberTagRepository'] ?? $this->getSubscriberTagRepositoryService()), ($this->services['MailPoet\\Tags\\TagRepository'] ?? $this->getTagRepositoryService()), ($this->services['MailPoet\\Automation\\Engine\\WordPress'] ?? $this->getWordPressService()));
     }
 
     /**
@@ -651,7 +667,7 @@ class PremiumCachedContainer extends Container
      */
     protected function getContextFactoryService()
     {
-        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\ContextFactory'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\ContextFactory(($this->services['MailPoet\\CustomFields\\CustomFieldsRepository'] ?? $this->getCustomFieldsRepositoryService()));
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\ContextFactory'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\ContextFactory(($this->services['MailPoet\\CustomFields\\CustomFieldsRepository'] ?? $this->getCustomFieldsRepositoryService()), ($this->services['MailPoet\\Tags\\TagRepository'] ?? $this->getTagRepositoryService()));
     }
 
     /**
@@ -661,7 +677,27 @@ class PremiumCachedContainer extends Container
      */
     protected function getMailPoetPremiumIntegrationService()
     {
-        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\MailPoetPremiumIntegration(($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\ContextFactory'] ?? $this->getContextFactoryService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UnsubscribeAction'] ?? $this->getUnsubscribeActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\AddTagAction'] ?? $this->getAddTagActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveTagAction'] ?? $this->getRemoveTagActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\AddToListAction'] ?? $this->getAddToListActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveFromListAction'] ?? $this->getRemoveFromListActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UpdateSubscriberAction'] ?? $this->getUpdateSubscriberActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\NotificationEmailAction'] ?? $this->getNotificationEmailActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Templates\\PremiumTemplatesFactory'] ?? $this->getPremiumTemplatesFactoryService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Analytics\\Analytics'] ?? $this->getAnalyticsService()));
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\MailPoetPremiumIntegration(($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\ContextFactory'] ?? $this->getContextFactoryService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UnsubscribeAction'] ?? $this->getUnsubscribeActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\AddTagAction'] ?? $this->getAddTagActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveTagAction'] ?? $this->getRemoveTagActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\AddToListAction'] ?? $this->getAddToListActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveFromListAction'] ?? $this->getRemoveFromListActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UpdateSubscriberAction'] ?? $this->getUpdateSubscriberActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\NotificationEmailAction'] ?? $this->getNotificationEmailActionService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\CustomTrigger'] ?? $this->getCustomTriggerService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Subjects\\CustomDataSubject'] ?? ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Subjects\\CustomDataSubject'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Subjects\CustomDataSubject())), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\CustomAction'] ?? ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\CustomAction'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\CustomAction())), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\TagAddedTrigger'] ?? $this->getTagAddedTriggerService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\TagRemovedTrigger'] ?? $this->getTagRemovedTriggerService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Subjects\\TagSubject'] ?? $this->getTagSubjectService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Templates\\PremiumTemplatesFactory'] ?? $this->getPremiumTemplatesFactoryService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Analytics\\Analytics'] ?? $this->getAnalyticsService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\MailPoetPremium\Subjects\CustomDataSubject' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Subjects\CustomDataSubject
+     */
+    protected function getCustomDataSubjectService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Subjects\\CustomDataSubject'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Subjects\CustomDataSubject();
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\MailPoetPremium\Subjects\TagSubject' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Subjects\TagSubject
+     */
+    protected function getTagSubjectService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Subjects\\TagSubject'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Subjects\TagSubject(($this->services['MailPoet\\Tags\\TagRepository'] ?? $this->getTagRepositoryService()));
     }
 
     /**
@@ -672,6 +708,36 @@ class PremiumCachedContainer extends Container
     protected function getPremiumTemplatesFactoryService()
     {
         return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Templates\\PremiumTemplatesFactory'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Templates\PremiumTemplatesFactory(($this->services['MailPoet\\Automation\\Engine\\Templates\\AutomationBuilder'] ?? $this->getAutomationBuilderService()), ($this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\WooCommerce'] ?? $this->getWooCommerceService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\MailPoetPremium\Triggers\CustomTrigger' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Triggers\CustomTrigger
+     */
+    protected function getCustomTriggerService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\CustomTrigger'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Triggers\CustomTrigger(($this->services['MailPoet\\Automation\\Engine\\Storage\\AutomationStorage'] ?? $this->getAutomationStorageService()), ($this->services['MailPoet\\Subscribers\\SubscribersRepository'] ?? $this->getSubscribersRepositoryService()), ($this->services['MailPoet\\WP\\Functions'] ?? $this->getFunctionsService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\MailPoetPremium\Triggers\TagAddedTrigger' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Triggers\TagAddedTrigger
+     */
+    protected function getTagAddedTriggerService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\TagAddedTrigger'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Triggers\TagAddedTrigger(($this->services['MailPoet\\Automation\\Engine\\WordPress'] ?? $this->getWordPressService()), ($this->services['MailPoet\\Tags\\TagRepository'] ?? $this->getTagRepositoryService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\MailPoetPremium\Triggers\TagRemovedTrigger' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Triggers\TagRemovedTrigger
+     */
+    protected function getTagRemovedTriggerService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\TagRemovedTrigger'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Triggers\TagRemovedTrigger(($this->services['MailPoet\\Automation\\Engine\\WordPress'] ?? $this->getWordPressService()), ($this->services['MailPoet\\Tags\\TagRepository'] ?? $this->getTagRepositoryService()));
     }
 
     /**

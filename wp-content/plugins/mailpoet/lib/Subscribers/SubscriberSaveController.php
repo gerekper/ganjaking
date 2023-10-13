@@ -306,22 +306,48 @@ class SubscriberSaveController {
   }
 
   private function updateTags(array $data, SubscriberEntity $subscriber): void {
+    $removedTags = [];
+
+    /**
+     * $data['tags'] is either an array of arrays containing name, id etc. of the tag or an array of strings - the names
+     * of the tag.
+     *
+     * Therefore we map it to be only an array of strings, containing the names of the tag.
+     */
+    $tags = array_map(
+      function($tag): string {
+        if (is_array($tag)) {
+          return array_key_exists('name', $tag) ? (string)$tag['name'] : '';
+        }
+        return (string)$tag;
+      },
+      (array)$data['tags']
+    );
     foreach ($subscriber->getSubscriberTags() as $subscriberTag) {
       $tag = $subscriberTag->getTag();
-      if (!$tag || !in_array($tag->getName(), $data['tags'], true)) {
+      if (!$tag || !in_array($tag->getName(), $tags, true)) {
         $subscriber->getSubscriberTags()->removeElement($subscriberTag);
+        $removedTags[] = $subscriberTag;
       }
     }
 
-    foreach ($data['tags'] as $tagName) {
+    $newlyAddedTags = [];
+    foreach ($tags as $tagName) {
       $tag = $this->tagRepository->createOrUpdate(['name' => $tagName]);
       $subscriberTag = $subscriber->getSubscriberTag($tag);
       if (!$subscriberTag) {
         $subscriberTag = new SubscriberTagEntity($tag, $subscriber);
         $subscriber->getSubscriberTags()->add($subscriberTag);
         $this->subscriberTagRepository->persist($subscriberTag);
+        $newlyAddedTags[] = $subscriberTag;
       }
     }
     $this->subscriberTagRepository->flush();
+    foreach ($newlyAddedTags as $subscriberTag) {
+      $this->wp->doAction('mailpoet_subscriber_tag_added', $subscriberTag);
+    }
+    foreach ($removedTags as $subscriberTag) {
+      $this->wp->doAction('mailpoet_subscriber_tag_removed', $subscriberTag);
+    }
   }
 }

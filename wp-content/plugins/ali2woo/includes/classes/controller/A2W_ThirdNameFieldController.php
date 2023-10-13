@@ -3,7 +3,7 @@
 /**
  * Description of A2W_ThirdNameFieldController
  *
- * @author Mikhail
+ * @author Ali2Woo Team
  * 
  * @autoload: a2w_init
  */

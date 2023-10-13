@@ -55,6 +55,9 @@ class WC_Points_Rewards_Admin {
 		// add 'Points & Rewards' link under WooCommerce menu.
 		add_action( 'admin_menu', array( $this, 'add_menu_link' ) );
 
+		// use WC Admin pages.
+		add_action( 'admin_menu', array( $this, 'wc_admin_connect_points_rewards_pages' ) );
+
 		// enqueue assets.
 		add_action( 'admin_enqueue_scripts', array( $this, 'assets' ) );
 
@@ -132,6 +135,14 @@ class WC_Points_Rewards_Admin {
 		}
 	}
 
+	/**
+	 * Get screen id.
+	 *
+	 * @since 1.7.42
+	 */
+	public function get_screen_id() {
+		return 'woocommerce_page_woocommerce-points-and-rewards';
+	}
 
 	/**
 	 * Add settings/export screen ID to the list of pages for WC to load its JS on
@@ -141,10 +152,7 @@ class WC_Points_Rewards_Admin {
 	 * @return array
 	 */
 	public function load_wc_scripts( $screen_ids ) {
-		$wc_screen_id = sanitize_title( __( 'WooCommerce', 'woocommerce' ) );
-
-		// sub-menu page.
-		$screen_ids[] = $wc_screen_id . '_page_woocommerce-points-and-rewards';
+		$screen_ids[] = $this->get_screen_id();
 
 		// add/edit product category page.
 		$screen_ids[] = 'edit-product_cat';
@@ -176,6 +184,25 @@ class WC_Points_Rewards_Admin {
 		add_action( 'load-' . $this->page_id, array( $this, 'add_list_table_options' ) );
 	}
 
+	/**
+	 * Use WooCommerce Admin pages to display the WooCommerce Admin header
+	 * and to load WooCommerce CSS and JS files.
+	 *
+	 * Reference: https://developer.woocommerce.com/extension-developer-guide/working-with-woocommerce-admin-pages/
+	 *
+	 * @since 1.7.42
+	 */
+	public function wc_admin_connect_points_rewards_pages() {
+		if ( function_exists( 'wc_admin_connect_page' ) ) {
+			wc_admin_connect_page(
+				array(
+					'id'        => $this->get_screen_id(),
+					'screen_id' => $this->get_screen_id(),
+					'title'     => __( 'Points & Rewards', 'woocommerce-points-and-rewards' ),
+				)
+			);
+		}
+	}
 
 	/**
 	 * Save our list table options

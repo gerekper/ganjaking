@@ -755,4 +755,9 @@
     displayItalianDescription();
     alwaysDisplayCookie();
     resetCookieConsent();
+
+    // w_code
+    var className = $('#ct-ultimate-gdpr-cookie-popup').attr('data-class');
+    $('#klaro').addClass(className);
+    // end of w_code
   });

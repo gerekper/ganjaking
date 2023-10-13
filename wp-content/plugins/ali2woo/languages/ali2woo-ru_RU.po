@@ -1,8 +1,8 @@
-# Copyright (C) 2018 Aliexpress Dropship for Woocommerce
-# This file is distributed under the same license as the Aliexpress Dropship for Woocommerce package.
+# Copyright (C) 2018 Aliexpress Dropshipping for Woocommerce
+# This file is distributed under the same license as the Aliexpress Dropshipping for Woocommerce package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Aliexpress Dropship for Woocommerce 1.4.2\n"
+"Project-Id-Version: Aliexpress Dropshipping for Woocommerce 1.4.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ali2woo\n"
 "POT-Creation-Date: 2019-09-14 10:19+0000\n"
 "PO-Revision-Date: 2021-10-17 18:04+0000\n"
@@ -138,15 +138,15 @@ msgid "Ali2Woo report: Changes in your products"
 msgstr "Ali2Woo отчёт: Изменение в ваших продуктах"
 
 #. Name of the plugin
-msgid "Aliexpress Dropship for Woocommerce"
+msgid "Aliexpress Dropshipping for Woocommerce"
 msgstr ""
 
 #. Description of the plugin
 msgid ""
-"Aliexpress Dropship for Woocommerce is a WordPress plugin created for "
+"Aliexpress Dropshipping for Woocommerce is a WordPress plugin created for "
 "AliExpress Drop Shipping and Affiliate marketing"
 msgstr ""
-"Aliexpress Dropship for WooCommerce это WordPress плагин созданный для "
+"Aliexpress Dropshipping for WooCommerce это WordPress плагин созданный для "
 "дропшипинга с AliExpress и аффилированного маркетинга"
 
 #: includes/classes/controller/A2W_WooCommerceOrderListController.php:308
@@ -862,7 +862,7 @@ msgid "Loading"
 msgstr "Загрузка"
 
 #. Author of the plugin
-msgid "MA-Group"
+msgid "Dropshipping Guru"
 msgstr ""
 
 #: view/product_edit_photo.php:22
@@ -1280,11 +1280,11 @@ msgstr "Сохранить настройки"
 
 #: view/chrome_notify.php:6
 msgid ""
-"Save time adding and ordering products by using the MA Aliexpress Dropship "
+"Save time adding and ordering products by using free chrome extension  "
 "Chrome Extension!"
 msgstr ""
-"Сэкономьте своё время и оформляйте покупки на AliExpress используя наше "
-"расширение для браузера Google Chrome!"
+"Сэкономьте своё время и оформляйте покупки на AliExpress используя "
+"расширение для браузера chrome!"
 
 #: view/search_v1.php:55
 msgid "Score from 0"
@@ -1866,8 +1866,8 @@ msgstr "После add-to-cart кнопки"
 
 #: view/settings/settings_head.php:1
 msgctxt "Setting title"
-msgid "Aliexpress Dropship Settings"
-msgstr "Aliexpress Dropship Настройки"
+msgid "Aliexpress Dropshipping Settings"
+msgstr "Aliexpress Dropshipping Настройки"
 
 #: view/settings/shipping.php:103
 msgctxt "Setting title"

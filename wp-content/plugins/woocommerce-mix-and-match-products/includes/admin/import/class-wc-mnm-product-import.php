@@ -20,7 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WC_MNM_Product_Import {
 
 	/**
-	 * var WC_Product_CSV_Importer Class.
+	 * Variable: WC_Product_CSV_Importer Class.
+	 *
 	 * @since 2.0.0
 	 */
 	private $importer = false;
@@ -51,25 +52,24 @@ class WC_MNM_Product_Import {
 	public static function map_columns( $columns ) {
 
 		$columns['mix-and-match'] = array(
-				'name'    => __( 'Mix and Match Products', 'woocommerce-mix-and-match-products' ),
-				'options' => array(
-					'wc_mnm_content_source'            => __( 'MnM Content Source', 'woocommerce-mix-and-match-products' ),
-					'wc_mnm_child_category_ids'        => __( 'MnM Child Category Ids', 'woocommerce-mix-and-match-products' ),
-					'wc_mnm_child_items'               => __( 'MnM Child Items (JSON-encoded)', 'woocommerce-mix-and-match-products' ),
-					'wc_mnm_min_container_size'        => __( 'MnM Minimum Container Size', 'woocommerce-mix-and-match-products' ),
-					'wc_mnm_max_container_size'        => __( 'MnM Maximum Container Size', 'woocommerce-mix-and-match-products' ),
-					'wc_mnm_priced_per_product'        => __( 'MnM Per-Item Pricing', 'woocommerce-mix-and-match-products' ),
-					'wc_mnm_packing_mode'              => __( 'MnM Packing Mode', 'woocommerce-mix-and-match-products' ),
-					'wc_mnm_weight_cumulative'         => __( 'MnM Weight Cumulative', 'woocommerce-mix-and-match-products' ),
-					'wc_mnm_discount'                  => __( 'MnM Per-Item Discount', 'woocommerce-mix-and-match-products' ),
-					'wc_mnm_layout_override'           => __( 'MnM Layout Override', 'woocommerce-mix-and-match-products' ),
-					'wc_mnm_layout'                    => __( 'MnM Layout', 'woocommerce-mix-and-match-products' ),
-					'wc_mnm_add_to_cart_form_location' => __( 'MnM Add to Cart Form Location', 'woocommerce-mix-and-match-products' ),
-				)
-			);
+			'name'    => __( 'Mix and Match Products', 'woocommerce-mix-and-match-products' ),
+			'options' => array(
+				'wc_mnm_content_source'            => __( 'MnM Content Source', 'woocommerce-mix-and-match-products' ),
+				'wc_mnm_child_category_ids'        => __( 'MnM Child Category Ids', 'woocommerce-mix-and-match-products' ),
+				'wc_mnm_child_items'               => __( 'MnM Child Items (JSON-encoded)', 'woocommerce-mix-and-match-products' ),
+				'wc_mnm_min_container_size'        => __( 'MnM Minimum Container Size', 'woocommerce-mix-and-match-products' ),
+				'wc_mnm_max_container_size'        => __( 'MnM Maximum Container Size', 'woocommerce-mix-and-match-products' ),
+				'wc_mnm_priced_per_product'        => __( 'MnM Per-Item Pricing', 'woocommerce-mix-and-match-products' ),
+				'wc_mnm_packing_mode'              => __( 'MnM Packing Mode', 'woocommerce-mix-and-match-products' ),
+				'wc_mnm_weight_cumulative'         => __( 'MnM Weight Cumulative', 'woocommerce-mix-and-match-products' ),
+				'wc_mnm_discount'                  => __( 'MnM Per-Item Discount', 'woocommerce-mix-and-match-products' ),
+				'wc_mnm_layout_override'           => __( 'MnM Layout Override', 'woocommerce-mix-and-match-products' ),
+				'wc_mnm_layout'                    => __( 'MnM Layout', 'woocommerce-mix-and-match-products' ),
+				'wc_mnm_add_to_cart_form_location' => __( 'MnM Add to Cart Form Location', 'woocommerce-mix-and-match-products' ),
+			),
+		);
 
 		return apply_filters( 'wc_mnm_csv_product_import_mapping_options', $columns );
-
 	}
 
 	/**
@@ -121,13 +121,13 @@ class WC_MNM_Product_Import {
 	 */
 	public static function append_formatting_callbacks( $callbacks, $importer ) {
 
-		$mnm_callbacks = array( 
+		$mnm_callbacks = array(
 			'wc_mnm_child_category_ids' => array( $importer, 'parse_categories_field' ),
 			'wc_mnm_child_items'        => array( __CLASS__, 'decode_child_items' ),
 			'wc_mnm_min_container_size' => 'intval',
 			'wc_mnm_max_container_size' => array( __CLASS__, 'maybe_parse_intval' ),
 			'wc_mnm_priced_per_product' => array( $importer, 'parse_bool_field' ),
-			'wc_mnm_weight_cumulative'  => array( $importer, 'parse_bool_field' ),	
+			'wc_mnm_weight_cumulative'  => array( $importer, 'parse_bool_field' ),
 			'wc_mnm_discount'           => 'wc_format_decimal',
 			'wc_mnm_layout_override'    => array( $importer, 'parse_bool_field' ),
 		);
@@ -135,9 +135,9 @@ class WC_MNM_Product_Import {
 		$mapped_keys_reverse = array_flip( $importer->get_mapped_keys() );
 
 		// Add all our callbacks by array index.
-		foreach( $mnm_callbacks as $mnm_key => $mnm_callback ) {
-			if ( isset( $mapped_keys_reverse[$mnm_key] ) ) {
-				$callbacks[$mapped_keys_reverse[$mnm_key]] = $mnm_callback;
+		foreach ( $mnm_callbacks as $mnm_key => $mnm_callback ) {
+			if ( isset( $mapped_keys_reverse[ $mnm_key ] ) ) {
+				$callbacks[ $mapped_keys_reverse[ $mnm_key ] ] = $mnm_callback;
 			}
 		}
 
@@ -146,7 +146,7 @@ class WC_MNM_Product_Import {
 
 	/**
 	 * JSON Decode MNM child data.
-	 * 
+	 *
 	 * @since 2.3.0
 	 *
 	 * @param string $value Field value.
@@ -158,7 +158,7 @@ class WC_MNM_Product_Import {
 
 	/**
 	 * If not null string, parse an integer.
-	 * 
+	 *
 	 * @since 2.3.0
 	 *
 	 * @param string $value Field value.
@@ -184,7 +184,7 @@ class WC_MNM_Product_Import {
 
 		if ( ! empty( $parsed_data['wc_mnm_child_items'] ) ) {
 
-			// Already JSON-decoded by self::decode_child_items()
+			// Already JSON-decoded by self::decode_child_items().
 			$child_data_items = $parsed_data['wc_mnm_child_items'];
 
 			// Clean out JSON.
@@ -200,7 +200,6 @@ class WC_MNM_Product_Import {
 							'variation_id' => ! empty( $child_data['variation_id'] ) ? $importer->parse_relative_field( $child_data['variation_id'] ) : 0,
 						);
 					}
-
 				}
 			}
 		}
@@ -234,7 +233,6 @@ class WC_MNM_Product_Import {
 			if ( ! empty( $props ) ) {
 				$product->set_props( $props );
 			}
-
 		}
 
 		return $product;
@@ -302,7 +300,6 @@ class WC_MNM_Product_Import {
 		}
 
 		return $props;
-
 	}
 
 
@@ -317,8 +314,8 @@ class WC_MNM_Product_Import {
 	 */
 	public static function parse_mnm_items( $parsed_data, $importer ) {
 
-		if ( empty( $parsed_data[ 'wc_mnm_child_items' ] ) && ! empty( $parsed_data[ 'wc_mnm_contents'] ) ) {
-			$parsed_data[ 'wc_mnm_child_items' ] = $parsed_data[ 'wc_mnm_contents'];
+		if ( empty( $parsed_data['wc_mnm_child_items'] ) && ! empty( $parsed_data['wc_mnm_contents'] ) ) {
+			$parsed_data['wc_mnm_child_items'] = $parsed_data['wc_mnm_contents'];
 		}
 		wc_deprecated_function( __METHOD__ . '()', '2.0.0', __CLASS__ . '::parse_child_items()' );
 		return parse_child_items( $parsed_data, $importer );
@@ -344,6 +341,5 @@ class WC_MNM_Product_Import {
 
 		return $parsed_data;
 	}
-
 }
 WC_MNM_Product_Import::init();

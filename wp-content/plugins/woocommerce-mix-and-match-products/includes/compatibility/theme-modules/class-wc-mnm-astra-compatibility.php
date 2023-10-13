@@ -40,7 +40,6 @@ class WC_MNM_Astra_Compatibility {
 
 		// Use astra plus/minus buttons.
 		add_filter( 'pre_option_wc_mnm_display_plus_minus_buttons', array( __CLASS__, 'filter_plus_minus_buttons' ) );
-
 	}
 
 
@@ -60,7 +59,6 @@ class WC_MNM_Astra_Compatibility {
 				$classes[] = 'tablet-columns-' . $shop_grid['tablet'];
 				$classes[] = 'mobile-columns-' . $shop_grid['mobile'];
 			}
-
 		}
 
 		return $classes;
@@ -72,7 +70,7 @@ class WC_MNM_Astra_Compatibility {
 	 */
 	public static function inline_styles() {
 
-		$custom_css = "
+		$custom_css = '
 			.theme-astra .mnm_form .child-item .ast-stock-avail {
 				display: none;
 			}
@@ -80,15 +78,14 @@ class WC_MNM_Astra_Compatibility {
 			.theme-astra .mnm_form .mnm-checkbox-qty.buttons_added .plus {
 				display: none;
 			}
-		";
+		';
 
 		wp_add_inline_style( 'wc-mnm-frontend', $custom_css );
-
 	}
 
 	/**
 	 * Add theme-specific style rules to header.
-	 * 
+	 *
 	 * @since 2.4.5
 	 */
 	public static function init_quick_view() {
@@ -117,7 +114,7 @@ class WC_MNM_Astra_Compatibility {
 
 	/**
 	 * Add filter on the form location prop
-	 * 
+	 *
 	 * @since 2.4.5
 	 */
 	public static function attach_hooks() {
@@ -126,7 +123,7 @@ class WC_MNM_Astra_Compatibility {
 
 	/**
 	 * Set form location prop to default in QV
-	 * 
+	 *
 	 * @since 2.4.5
 	 *
 	 * @param string $location
@@ -139,7 +136,7 @@ class WC_MNM_Astra_Compatibility {
 
 	/**
 	 * Force use of Astra plus/minus buttons
-	 * 
+	 *
 	 * @since 2.4.9
 	 *
 	 * @param string $value
@@ -151,7 +148,5 @@ class WC_MNM_Astra_Compatibility {
 		}
 		return $value;
 	}
-
-
 } // End class.
 WC_MNM_Astra_Compatibility::init();

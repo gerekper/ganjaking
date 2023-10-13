@@ -99,7 +99,7 @@ class WC_MNM_Avada_Compatibility {
 		$columns = wc_get_loop_prop( 'columns' );
 		return array_merge(
 			$classes,
-			array( 'products-'.$columns )
+			array( 'products-' . $columns )
 		);
 	}
 
@@ -108,14 +108,13 @@ class WC_MNM_Avada_Compatibility {
 	 * Add theme-specific styles.
 	 */
 	public static function inline_style() {
-		$dir = is_rtl() ? 'right' : 'left';
-		$custom_css = "
+		$dir        = is_rtl() ? 'right' : 'left';
+		$custom_css = '
 			.mnm_form.layout_grid ul.products li.product .product-quantity { overflow: hidden; }
-			.mnm_form.layout_grid ul.products li.product .product-quantity .quantity { float: " . $dir . "; }
-		";
+			.mnm_form.layout_grid ul.products li.product .product-quantity .quantity { float: ' . $dir . '; }
+		';
 
 		wp_add_inline_style( 'wc-mnm-frontend', $custom_css );
 	}
-
 } // End class.
 WC_MNM_Avada_Compatibility::init();

@@ -22,12 +22,11 @@ class WC_MNM_Storefront_Compatibility {
 	 */
 	public static function init() {
 
-		// Add filters
+		// Add filters.
 		add_action( 'wc_quick_view_before_single_product', array( __CLASS__, 'add_filters' ) );
 
 		// Remove filters.
 		add_action( 'wc_quick_view_after_single_product', array( __CLASS__, 'remove_filters' ) );
-
 	}
 
 	/**
@@ -54,6 +53,5 @@ class WC_MNM_Storefront_Compatibility {
 		$classes[] = 'site-main';
 		return $classes;
 	}
-
 } // End class.
 WC_MNM_Storefront_Compatibility::init();

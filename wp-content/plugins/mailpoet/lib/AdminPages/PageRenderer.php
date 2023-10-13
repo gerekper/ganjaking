@@ -15,7 +15,6 @@ use MailPoet\Cron\Workers\SubscribersCountCacheRecalculation;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\TagEntity;
 use MailPoet\Features\FeaturesController;
-use MailPoet\Form\AssetsController;
 use MailPoet\Referrals\ReferralDetector;
 use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Services\Bridge;
@@ -139,7 +138,10 @@ class PageRenderer {
     if ($this->subscribersFeature->isSubscribersCountEnoughForCache($subscriberCount)) {
       $subscribersCacheCreatedAt = $this->transientCache->getOldestCreatedAt(TransientCache::SUBSCRIBERS_STATISTICS_COUNT_KEY) ?: Carbon::now();
     }
-
+    // Automations are hidden when the subscription is part of a bundle and AutomateWoo is active
+    $showAutomations = !($this->wp->isPluginActive('automatewoo/automatewoo.php') &&
+      $this->servicesChecker->isBundledSubscription());
+    $hideAutomations = !$this->wp->applyFilters('mailpoet_show_automations', $showAutomations);
     $defaults = [
       'current_page' => sanitize_text_field(wp_unslash($_GET['page'] ?? '')),
       'site_name' => $this->wp->wpSpecialcharsDecode($this->wp->getOption('blogname'), ENT_QUOTES),
@@ -180,7 +182,7 @@ class PageRenderer {
       'mss_key_pending_approval' => $this->servicesChecker->isMailPoetAPIKeyPendingApproval(),
       'mss_active' => $this->bridge->isMailpoetSendingServiceEnabled(),
       'plugin_partial_key' => $this->servicesChecker->generatePartialApiKey(),
-      'mailpoet_hide_automations' => $this->servicesChecker->isBundledSubscription() && $this->wp->isPluginActive('automatewoo/automatewoo.php'),
+      'mailpoet_hide_automations' => $hideAutomations,
       'subscriber_count' => $subscriberCount,
       'subscribers_counts_cache_created_at' => $subscribersCacheCreatedAt->format('Y-m-d\TH:i:sO'),
       'subscribers_limit' => $this->subscribersFeature->getSubscribersLimit(),
@@ -218,7 +220,11 @@ class PageRenderer {
         $this->subscribersCountCacheRecalculation->schedule();
       }
 
+      // If the page didn't enqueue any assets, this will act as a fallback.
+      // If some assets were enqueued, this won't change the queue ordering.
       $this->assetsController->setupAdminPagesDependencies();
+      $this->wp->doAction('mailpoet_styles_admin_after');
+
       // We are in control of the template and the data can be considered safe at this point
       // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPressDotOrg.sniffs.OutputEscaping.UnescapedOutputParameter
       echo $this->renderer->render($template, $data + $defaults);

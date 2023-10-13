@@ -1,0 +1,25 @@
+<span id="{{ strings.step_id }}">
+<h1>{{ strings.heading }}</h1>
+
+<ul class="no-bullets">
+    <li>
+        <label>
+            <input type="radio" value="yes" name="display-as-translated" required {% if is_display_as_translated_checked %}checked="checked"{% endif %} />
+            {{ strings.label_display_as_translated|raw }}
+        </label>
+    </li>
+    <li>
+        <label>
+            <input type="radio" value="no" name="display-as-translated" required />
+            {{ strings.label_dont_display_as_translated|raw }}
+        </label>
+    </li>
+</ul>
+
+<p>{{ strings.description_footer|format('<strong>','</strong>')|raw }}</p>
+
+<p class="wcml-setup-actions step">
+    <a href="{{ go_back_url }}" class="go-back">{{ strings.go_back }}</a>
+    <a href="{{ continue_url }}" class="button button-large button-primary submit">{{ strings.continue }}</a>
+</p>
+</span>

@@ -3,7 +3,7 @@
 /**
  * Description of A2W_PhraseFilter
  *
- * @author ma_group
+ * @author Ali2Woo Team
  */
 class A2W_PhraseFilter
 {

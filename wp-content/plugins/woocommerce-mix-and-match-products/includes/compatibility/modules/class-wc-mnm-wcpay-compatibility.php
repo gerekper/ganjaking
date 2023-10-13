@@ -39,8 +39,6 @@ class WC_MNM_WCPay_Compatibility {
 		}
 		return $supported;
 	}
-
-
 } // End class: do not remove or there will be no more guacamole for you.
 
 WC_MNM_WCPay_Compatibility::init();

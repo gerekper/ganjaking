@@ -3,7 +3,7 @@
 /**
  * Description of A2W_FrontendShippingController
  *
- * @author MA_GROUP
+ * @author Ali2Woo Team
  * @autoload: a2w_frontend_init
  */
 if (!class_exists('A2W_FrontendShippingController')):

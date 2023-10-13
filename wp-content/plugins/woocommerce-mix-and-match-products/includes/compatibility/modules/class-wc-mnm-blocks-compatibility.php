@@ -27,28 +27,28 @@ class WC_MNM_Blocks_Compatibility {
 			return;
 		}
 
-		require_once( WC_Mix_and_Match()->plugin_path() . '/includes/api/class-wc-mnm-store-api.php' );
-		require_once( WC_Mix_and_Match()->plugin_path() . '/includes/blocks/class-wc-mnm-checkout-blocks-integration.php' );
+		require_once WC_Mix_and_Match()->plugin_path() . '/includes/api/class-wc-mnm-store-api.php';
+		require_once WC_Mix_and_Match()->plugin_path() . '/includes/blocks/class-wc-mnm-checkout-blocks-integration.php';
 
 		WC_MNM_Store_API::init();
 
 		add_action(
 			'woocommerce_blocks_cart_block_registration',
-			function( $registry ) {
+			function ( $registry ) {
 				$registry->register( WC_MNM_Checkout_Blocks_Integration::instance() );
 			}
 		);
 
 		add_action(
 			'woocommerce_blocks_mini-cart_block_registration',
-			function( $registry ) {
+			function ( $registry ) {
 				$registry->register( WC_MNM_Checkout_Blocks_Integration::instance() );
 			}
 		);
 
 		add_action(
 			'woocommerce_blocks_checkout_block_registration',
-			function( $registry ) {
+			function ( $registry ) {
 				$registry->register( WC_MNM_Checkout_Blocks_Integration::instance() );
 			}
 		);

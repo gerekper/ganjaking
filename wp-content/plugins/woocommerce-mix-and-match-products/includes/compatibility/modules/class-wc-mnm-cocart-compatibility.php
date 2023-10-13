@@ -6,7 +6,7 @@
  *
  * @package WooCommerce Mix and Match Products/Compatibility
  * @since   1.10.0
- * @version 2.4.0
+ * @version 2.5.0
  */
 
 // Exit if accessed directly.
@@ -33,24 +33,24 @@ class WC_MNM_COCART_Compatibility {
 		add_filter( 'cocart_update_cart_validation', array( __CLASS__, 'update_cart_validation' ), 0, 4 );
 
 		// Change packed item quantity.
-		add_filter( 'cocart_cart_contents', array( __CLASS__, 'cart_item_quantity' ), 10, 3 ); // API v1
-		add_filter( 'cocart_cart_item_quantity', array( __CLASS__, 'cart_item_quantity_v2' ), 10, 3 ); // API v2
+		add_filter( 'cocart_cart_contents', array( __CLASS__, 'cart_item_quantity' ), 10, 3 ); // API v1.
+		add_filter( 'cocart_cart_item_quantity', array( __CLASS__, 'cart_item_quantity_v2' ), 10, 3 ); // API v2.
 
 		// Filters item price and subtotal.
-		add_filter( 'cocart_cart_contents', array( __CLASS__, 'cart_item_price' ), 10, 4 ); // API v1
-		add_filter( 'cocart_cart_contents', array( __CLASS__, 'cart_item_subtotal' ), 10, 3 ); // API v1
-		add_filter( 'cocart_cart_item_price', array( __CLASS__, 'cart_item_price_v2' ), 10, 3 ); // API v2
-		add_filter( 'cocart_cart_item_subtotal', array( __CLASS__, 'cart_item_subtotal_v2' ), 10, 3 ); // API v2
+		add_filter( 'cocart_cart_contents', array( __CLASS__, 'cart_item_price' ), 10, 4 ); // API v1.
+		add_filter( 'cocart_cart_contents', array( __CLASS__, 'cart_item_subtotal' ), 10, 3 ); // API v1.
+		add_filter( 'cocart_cart_item_price', array( __CLASS__, 'cart_item_price_v2' ), 10, 3 ); // API v2.
+		add_filter( 'cocart_cart_item_subtotal', array( __CLASS__, 'cart_item_subtotal_v2' ), 10, 3 ); // API v2.
 
 		// Filters the cart schema.
-		add_filter( 'cocart_cart_schema', array( __CLASS__, 'add_additional_cart_schema' ) ); // API v1
-		add_filter( 'cocart_cart_items_schema', array( __CLASS__, 'add_additional_cart_schema_v2' ) ); // API v2
+		add_filter( 'cocart_cart_schema', array( __CLASS__, 'add_additional_cart_schema' ) ); // API v1.
+		add_filter( 'cocart_cart_items_schema', array( __CLASS__, 'add_additional_cart_schema_v2' ) ); // API v2.
 
 		// Adds Mix and Match Product data to the products API.
-		add_filter( 'cocart_products_get_price_range', array( __CLASS__, 'price_range' ), 10, 2 ); // API v2
-		add_filter( 'cocart_products_add_to_cart_rest_url', array( __CLASS__, 'add_to_cart_rest_url' ), 10, 2 ); // API v2
-		add_filter( 'cocart_prepare_product_object', array( __CLASS__, 'add_mnm_product_data' ), 10, 2 ); // API v1
-		add_filter( 'cocart_prepare_product_object_v2', array( __CLASS__, 'add_mnm_product_data_v2' ), 10, 2 ); // API v2
+		add_filter( 'cocart_products_get_price_range', array( __CLASS__, 'price_range' ), 10, 2 ); // API v2.
+		add_filter( 'cocart_products_add_to_cart_rest_url', array( __CLASS__, 'add_to_cart_rest_url' ), 10, 2 ); // API v2.
+		add_filter( 'cocart_prepare_product_object', array( __CLASS__, 'add_mnm_product_data' ), 10, 2 ); // API v1.
+		add_filter( 'cocart_prepare_product_object_v2', array( __CLASS__, 'add_mnm_product_data_v2' ), 10, 2 ); // API v2.
 		add_filter( 'cocart_product_schema', array( __CLASS__, 'add_additional_fields_schema' ) );
 	} // END __construct()
 
@@ -96,11 +96,18 @@ class WC_MNM_COCART_Compatibility {
 				$product = wc_get_product( $product_id );
 
 				try {
-					$passed_validation = wc_mix_and_match()->cart->validate_container_configuration( $product, $quantity, $cart_item_data['mnm_config'], array( 'context' => 'cart', 'throw_exception' => true ) );
+					$passed_validation = wc_mix_and_match()->cart->validate_container_configuration(
+						$product,
+						$quantity,
+						$cart_item_data['mnm_config'],
+						array(
+							'context'         => 'cart',
+							'throw_exception' => true,
+						)
+					);
 				} catch ( Exception $e ) {
 					throw new CoCart_Data_Exception( $e->getCode(), $e->getMessage(), 404, array( 'plugin' => 'woocommerce-mix-and-match' ) );
 				}
-				
 			}
 
 			return $passed_validation;
@@ -128,7 +135,7 @@ class WC_MNM_COCART_Compatibility {
 		}
 
 		foreach ( $cart_item_data['mnm_config'] as $child_item_data ) {
-			$child_id = isset( $child_item_data['variation_id'] ) && $child_item_data['variation_id'] > 0 ? $child_item_data['variation_id'] : $child_item_data['product_id'];
+			$child_id                                      = isset( $child_item_data['variation_id'] ) && $child_item_data['variation_id'] > 0 ? $child_item_data['variation_id'] : $child_item_data['product_id'];
 			$cart_item_data['new_mnm_config'][ $child_id ] = $child_item_data;
 		}
 
@@ -149,7 +156,7 @@ class WC_MNM_COCART_Compatibility {
 	 * Validates add to cart for MNM containers.
 	 *
 	 * Basically ensures that stock for all child products exists before attempting to add them to cart.
-	 * 
+	 *
 	 * @deprecated 2.2.0
 	 *
 	 * @throws CoCart_Data_Exception Exception if invalid data is detected.
@@ -165,11 +172,18 @@ class WC_MNM_COCART_Compatibility {
 		wc_deprecated_function( 'WC_MNM_COCART_Compatibility::validate_container_configuration()', '2.2.0', 'Function is no longer used.' );
 
 		try {
-			return wc_mix_and_match()->cart->validate_container_configuration( $container, $container_quantity, $configuration, array( 'context' => 'cart', 'throw_exception' => true ) );
+			return wc_mix_and_match()->cart->validate_container_configuration(
+				$container,
+				$container_quantity,
+				$configuration,
+				array(
+					'context'         => 'cart',
+					'throw_exception' => true,
+				)
+			);
 		} catch ( Exception $e ) {
-			throw new CoCart_Data_Exception( $e->getCode(), $e->getMessage(), 404, array( 'plugin' => 'woocommerce-mix-and-match' ) );
+			throw new CoCart_Data_Exception( esc_html( $e->getCode( )), wp_kses_post( $e->getMessage() ), 404, array( 'plugin' => 'woocommerce-mix-and-match' ) );
 		}
-
 	} // END validate_container_configuration()
 
 
@@ -193,16 +207,23 @@ class WC_MNM_COCART_Compatibility {
 			}
 
 			if ( $product->is_type( 'mix-and-match' ) && wc_mnm_is_container_cart_item( $values ) ) {
-				
+
 				try {
 					$additional_quantity = $product_quantity - $values['quantity'];
-					$passed_validation = wc_mix_and_match()->cart->validate_container_configuration( $product, $additional_quantity, $values['mnm_config'], array( 'context' => 'cart', 'throw_exception' => true ) );
+					$passed_validation   = wc_mix_and_match()->cart->validate_container_configuration(
+						$product,
+						$additional_quantity,
+						$values['mnm_config'],
+						array(
+							'context'         => 'cart',
+							'throw_exception' => true,
+						)
+					);
 				} catch ( Exception $e ) {
 					throw new CoCart_Data_Exception( $e->getCode(), $e->getMessage(), 404, array( 'plugin' => 'woocommerce-mix-and-match' ) );
 				}
-
 			}
-			
+
 			return $passed_validation;
 
 		} catch ( CoCart_Data_Exception $e ) {
@@ -254,25 +275,27 @@ class WC_MNM_COCART_Compatibility {
 	 */
 	public static function get_cart_item_price( $price, $cart_item, $item_key ) {
 		// Child items.
-		if ( $container_cart_item = wc_mnm_get_cart_item_container( $cart_item ) ) {
+		$container_cart_item = wc_mnm_get_cart_item_container( $cart_item );
+
+		if ( $container_cart_item ) {
 
 			if ( ! $container_cart_item['data']->is_priced_per_product() ) {
 				$price = 0;
 			}
 
-		// Parent container.
-		} else if ( wc_mnm_is_container_cart_item( $cart_item ) ) {
+			// Parent container.
+		} elseif ( wc_mnm_is_container_cart_item( $cart_item ) ) {
 			if ( $cart_item['data']->is_priced_per_product() ) {
 				$child_items_price   = 0;
 				$mnm_container_price = get_option( 'woocommerce_tax_display_cart' ) == 'excl' ? wc_get_price_excluding_tax( $cart_item['data'] ) : wc_get_price_including_tax( $cart_item['data'] );
 
 				foreach ( wc_mnm_get_child_cart_items( $cart_item ) as $child_item_key => $child_item ) {
-					$child_item_price  = get_option( 'woocommerce_tax_display_cart' ) == 'excl' ? wc_get_price_excluding_tax( $child_item['data'], array( 'qty' => $child_item['quantity'] ) ) : wc_get_price_including_tax( $child_item['data'], array( 'qty' => $child_item['quantity'] ) );
-					$child_items_price += (double) $child_item_price;
+					$child_item_price   = get_option( 'woocommerce_tax_display_cart' ) == 'excl' ? wc_get_price_excluding_tax( $child_item['data'], array( 'qty' => $child_item['quantity'] ) ) : wc_get_price_including_tax( $child_item['data'], array( 'qty' => $child_item['quantity'] ) );
+					$child_items_price += (float) $child_item_price;
 				}
 
 				$aggregate_price = $mnm_container_price + $child_items_price / $cart_item['quantity'];
-				$price = $aggregate_price;
+				$price           = $aggregate_price;
 			}
 		}
 
@@ -323,25 +346,27 @@ class WC_MNM_COCART_Compatibility {
 	 */
 	public static function get_cart_item_subtotal( $subtotal, $cart_item, $item_key ) {
 		// Child items.
-		if ( $container_cart_item = wc_mnm_get_cart_item_container( $cart_item ) ) {
+		$container_cart_item = wc_mnm_get_cart_item_container( $cart_item );
+
+		if ( $container_cart_item ) {
 
 			// If not priced per product return zero.
 			if ( ! $container_cart_item['data']->is_priced_per_product() ) {
 				$subtotal = 0;
 			}
 
-		// Parent container.
-		} else if ( wc_mnm_is_container_cart_item( $cart_item ) ) {
+			// Parent container.
+		} elseif ( wc_mnm_is_container_cart_item( $cart_item ) ) {
 			if ( $cart_item['data']->is_priced_per_product() ) {
 				$child_items_price   = 0;
 				$mnm_container_price = get_option( 'woocommerce_tax_display_cart' ) == 'excl' ? wc_get_price_excluding_tax( $cart_item['data'], array( 'qty' => $cart_item['quantity'] ) ) : wc_get_price_including_tax( $cart_item['data'], array( 'qty' => $cart_item['quantity'] ) );
 
 				foreach ( wc_mnm_get_child_cart_items( $cart_item ) as $child_item_key => $child_item ) {
-					$child_item_price  = get_option( 'woocommerce_tax_display_cart' ) == 'excl' ? wc_get_price_excluding_tax( $child_item['data'], array( 'qty' => $child_item['quantity'] ) ) : wc_get_price_including_tax( $child_item['data'], array( 'qty' => $child_item['quantity'] ) );
-					$child_items_price += (double) $child_item_price;
+					$child_item_price   = get_option( 'woocommerce_tax_display_cart' ) == 'excl' ? wc_get_price_excluding_tax( $child_item['data'], array( 'qty' => $child_item['quantity'] ) ) : wc_get_price_including_tax( $child_item['data'], array( 'qty' => $child_item['quantity'] ) );
+					$child_items_price += (float) $child_item_price;
 				}
 
-				$aggregate_subtotal = (double) $mnm_container_price + $child_items_price;
+				$aggregate_subtotal = (float) $mnm_container_price + $child_items_price;
 
 				$subtotal = $aggregate_subtotal;
 			}
@@ -395,7 +420,7 @@ class WC_MNM_COCART_Compatibility {
 			'type'        => 'object',
 			'context'     => array( 'view' ),
 			'properties'  => array(
-				'product_id'      => array(
+				'product_id'   => array(
 					'description' => __( 'Unique identifier for the product in the configuration.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'integer',
 					'context'     => array( 'view' ),
@@ -407,13 +432,13 @@ class WC_MNM_COCART_Compatibility {
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'quantity'        => array(
+				'quantity'     => array(
 					'description' => __( 'Quantity of this item in the configuration.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'float',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'variation'       => array(
+				'variation'    => array(
 					'description' => __( 'Chosen attributes (for variations).', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'array',
 					'context'     => array( 'view' ),
@@ -437,7 +462,7 @@ class WC_MNM_COCART_Compatibility {
 					),
 				),
 			),
-			'readonly' => true,
+			'readonly'    => true,
 		);
 	} // END get_additional_cart_schema()
 
@@ -547,7 +572,7 @@ class WC_MNM_COCART_Compatibility {
 
 			$data = self::mnm_data( $product, $products );
 
-			unset( $data[ 'per_product_shipping' ] );
+			unset( $data['per_product_shipping'] );
 
 			$response->data['mnm_data'] = $data;
 		}
@@ -625,7 +650,7 @@ class WC_MNM_COCART_Compatibility {
 			'type'        => 'object',
 			'context'     => array( 'view' ),
 			'properties'  => array(
-				'base_raw_price' => array(
+				'base_raw_price'         => array(
 					'description' => __( 'Base raw price.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
@@ -637,162 +662,160 @@ class WC_MNM_COCART_Compatibility {
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'base_raw_sale_price' => array(
+				'base_raw_sale_price'    => array(
 					'description' => __( 'Base raw sale price.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'base_price' => array(
+				'base_price'             => array(
 					'description' => __( 'Base price.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'base_regular_price' => array(
+				'base_regular_price'     => array(
 					'description' => __( 'Base regular price.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'base_sale_price' => array(
+				'base_sale_price'        => array(
 					'description' => __( 'Base sale price.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'has_discount' => array(
+				'has_discount'           => array(
 					'description' => __( 'Product has discount?', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'min_raw_price' => array(
+				'min_raw_price'          => array(
 					'description' => __( 'Minimum raw price.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'min_raw_regular_price' => array(
+				'min_raw_regular_price'  => array(
 					'description' => __( 'Minimum raw regular_price.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'max_raw_price' => array(
+				'max_raw_price'          => array(
 					'description' => __( 'Maximum raw price.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'max_raw_regular_price' => array(
+				'max_raw_regular_price'  => array(
 					'description' => __( 'Maximum raw regular price.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'min_price' => array(
+				'min_price'              => array(
 					'description' => __( 'Minimum price.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'min_regular_price' => array(
+				'min_regular_price'      => array(
 					'description' => __( 'Minimum regular price.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'max_price' => array(
+				'max_price'              => array(
 					'description' => __( 'Maximum price.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'max_regular_price' => array(
+				'max_regular_price'      => array(
 					'description' => __( 'Maximum regular price.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'min_container_size' => array(
+				'min_container_size'     => array(
 					'description' => __( 'Minimum container size.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'integer',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'max_container_size' => array(
+				'max_container_size'     => array(
 					'description' => __( 'Maximum container size.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'integer',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'products' => array(
+				'products'               => array(
 					'description' => __( 'Products available for this container.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'object',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'per_product_pricing' => array(
+				'per_product_pricing'    => array(
 					'description' => __( 'Pricing per product.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'per_product_discount' => array(
+				'per_product_discount'   => array(
 					'description' => __( 'Discount per product.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'integer',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'per_product_shipping' => array(
+				'per_product_shipping'   => array(
 					'description' => __( 'Deprecated: Shipping per product, use packing mode instead.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'boolean',
-					'context'     => array( 'view' )
+					'context'     => array( 'view' ),
 				),
-				'per_product_layout' => array(
+				'per_product_layout'     => array(
 					'description' => __( 'Has product-specific layouts that override global setting.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'product_layout' => array(
+				'product_layout'         => array(
 					'description' => __( 'Single-product layout.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'product_form_location' => array(
+				'product_form_location'  => array(
 					'description' => __( 'Single-product add to cart form location.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'packing_mode' => array(
+				'packing_mode'           => array(
 					'description' => __( 'Packing mode.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'string',
-					'context'     => array( 'view' )
+					'context'     => array( 'view' ),
 				),
-				'weight_cumulative' => array(
+				'weight_cumulative'      => array(
 					'description' => __( 'Shipping weight is cumulative.', 'woocommerce-mix-and-match-products' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-			)
+			),
 		);
 
 		// Check if we are adding to a newer schema.
 		if ( isset( $schema['products'] ) ) {
 			$schema['products']['properties']['mnm_data'] = $mnm_fields;
-		}
-		else {
+		} else {
 			$schema['mnm_data'] = $mnm_fields;
 		}
 
 		return $schema;
 	} // END add_additional_fields_schema()
-
 } // END class
 
 WC_MNM_COCART_Compatibility::init();

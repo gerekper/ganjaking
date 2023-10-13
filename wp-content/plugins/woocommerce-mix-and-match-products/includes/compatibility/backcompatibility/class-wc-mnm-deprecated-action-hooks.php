@@ -55,7 +55,6 @@ class WC_MNM_Deprecated_Action_Hooks extends WC_Deprecated_Action_Hooks {
 		'woocommerce_after_mnm_items'                   => '2.0.0',
 		'woocommerce_mnm_content_loop'                  => '2.0.0',
 		'woocommerce_mnm_add_to_cart_wrap'              => '2.0.0',
-		'woocommerce_mnm_product_options'               =>  '2.0.0',
+		'woocommerce_mnm_product_options'               => '2.0.0',
 	);
-
 }

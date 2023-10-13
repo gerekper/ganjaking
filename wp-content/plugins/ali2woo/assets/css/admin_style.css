@@ -784,7 +784,7 @@ body .a2w-content {
 .a2w-content .search-panel-simple:before,.a2w-content .search-panel-simple:after {display: table;content: "";}
 .a2w-content .search-panel-simple:after {clear: both;}
 .a2w-content .search-panel-simple .input-group{width: 100%;}
-.a2w-content .search-panel-simple input[type="text"]{width: 70%;border-right: 0;}
+.a2w-content .search-panel-simple input.search-keyword{width: 70%;border-right: 0;}
 .a2w-content .search-panel-simple select{width: 30%;}
 .a2w-content .search-panel-buttons {text-align: right;}
 .a2w-content .search-panel-buttons .btn{min-width: 49%;}
@@ -806,7 +806,7 @@ body .a2w-content {
 .a2w-content .search-panel-col .opt {margin: 4px 0 0 0;width: 159px;}
 @media screen and (max-width: 767px) {.a2w-content .search-panel-col input {float: none;max-width: 100%;margin-right: 0;margin-bottom: 5px;}}
 .a2w-content .search-panel label {font-size: 14px;font-weight: 600;line-height: 16px;margin-bottom: 4px;}
-.a2w-content .sort-panel #a2w-sort-selector {    display: inline-block;width: inherit;}
+.a2w-content .sort-panel #a2w-sort-selector {    display: inline-block;width: 150px;}
 /* <-- Search page styles */
 
 
@@ -2245,6 +2245,7 @@ body .a2w-content {
 
 .a2w_purchase_code_info .daily_limits{
     font-style: italic;
+    margin-left: 5px;
 }
 
 .a2w_purchase_code_info .daily_limits span.warn{

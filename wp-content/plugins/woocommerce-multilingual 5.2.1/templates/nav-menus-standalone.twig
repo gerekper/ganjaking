@@ -1,0 +1,6 @@
+<nav class="wcml-tabs wpml-tabs">
+    <a class="nav-tab {{ menu.multilingual.active }}" href="{{ menu.multilingual.url }}">{{ menu.multilingual.title }}</a>
+    {%  if can_operate_options %}
+        <a class="nav-tab {{ menu.multi_currency.active }}" href="{{ menu.multi_currency.url }}">{{ menu.multi_currency.name }}</a>
+    {% endif %}
+</nav>

@@ -2,7 +2,7 @@
 /* * class
  * Description of A2W_OrderDataTabController
  *
- * @author Mikhail
+ * @author Ali2Woo Team
  *
  * @autoload: a2w_admin_init
  *

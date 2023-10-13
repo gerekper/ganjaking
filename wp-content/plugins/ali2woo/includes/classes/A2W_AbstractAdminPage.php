@@ -3,7 +3,7 @@
 /* * class
  * Description of A2W_AbstractPage
  *
- * @author andrey
+ * @author Ali2Woo Team
  * 
  * @position: 2
  */

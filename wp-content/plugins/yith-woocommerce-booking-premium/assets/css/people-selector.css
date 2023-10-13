@@ -1,0 +1,191 @@
+/**
+ * People Selector
+ *
+ * @author YITH <plugins@yithemes.com>
+ * @version 1.0.0
+ */
+
+.yith-wcbk-people-selector {
+	position    : relative;
+	user-select : none;
+	width       : 100%;
+	box-shadow  : none;
+	box-sizing  : border-box;
+	color       : #484848;
+	font-size   : var(--yith-wcbk-fields-font-size);
+	line-height : 1.5em;
+}
+
+.yith-wcbk-people-selector__toggle-handler {
+	position        : relative;
+	min-height      : 42px;
+	background      : #fff;
+	border          : 1px solid var(--yith-wcbk-border-color);
+	padding         : 7px 37px 7px 7px;
+	border-radius   : 0;
+	cursor          : pointer;
+	display         : flex;
+	flex-direction  : column;
+	align-items     : flex-start;
+	justify-content : center;
+}
+
+.yith-wcbk-people-selector--opened .yith-wcbk-people-selector__toggle-handler {
+	border-radius : 2px 2px 0 0;
+	border-color  : var(--yith-wcbk-border-color-focus);
+	box-shadow    : var(--yith-wcbk-shadow-focus);
+}
+
+.yith-wcbk-people-selector__toggle-handler:after {
+	position    : absolute;
+	right       : 10px;
+	content     : "\f110";
+	font-family : 'yith-icon';
+	font-size   : 16px;
+	font-weight : 400;
+	transition  : all 0.3s ease-in-out;
+	color       : inherit;
+	opacity     : .7;
+}
+
+.yith-wcbk-people-selector--opened .yith-wcbk-people-selector__toggle-handler:after {
+	transform : rotateZ(180deg);
+	color     : var(--yith-wcbk-border-color-focus);
+	opacity   : .7;
+}
+
+.yith-wcbk-people-selector__totals {
+	padding        : 5px 11px;
+	border-radius  : 4px;
+	vertical-align : middle;
+	display        : inline-block;
+	line-height    : 1em;
+}
+
+.yith-wcbk-people-selector--opened .yith-wcbk-people-selector__totals {
+	background : var(--yith-wcbk-primary);
+	color      : var(--yith-wcbk-primary-contrast);
+}
+
+
+.yith-wcbk-people-selector__fields-container {
+	display       : none;
+	position      : absolute;
+	padding       : 3px 14px;
+	width         : 100%;
+	background    : #fff;
+	border        : 1px solid var(--yith-wcbk-border-color);
+	border-radius : 0;
+	z-index       : 9999;
+	margin-top    : 6px;
+	min-width     : 300px;
+	right         : 0;
+	box-shadow    : 0 2px 13px 0 rgba(0, 0, 0, 0.24), 0 3px 3px -2px rgba(0, 0, 0, 0.12);
+}
+
+.yith-wcbk-people-selector__fields-container:before {
+	content             : '';
+	position            : absolute;
+	height              : 0;
+	width               : 0;
+	border              : 13px solid transparent;
+	border-bottom-color : var(--yith-wcbk-border-color);
+	margin-top          : -26px;
+	margin-right        : 25px;
+	top                 : 0;
+	right               : 0;
+}
+
+.yith-wcbk-people-selector__fields-container:after {
+	content             : '';
+	position            : absolute;
+	height              : 0;
+	width               : 0;
+	border              : 13px solid transparent;
+	border-bottom-color : #fff;
+	margin-top          : -25px;
+	margin-right        : 25px;
+	top                 : 0;
+	right               : 0;
+}
+
+.yith-wcbk-people-selector__field {
+	padding : 10px 0;
+}
+
+.yith-wcbk-people-selector__field__title {
+	float       : left;
+	line-height : 26px;
+}
+
+.yith-wcbk-people-selector__field__totals {
+	float   : right;
+	display : table;
+}
+
+.yith-wcbk-people-selector__field__plus,
+.yith-wcbk-people-selector__field__minus,
+.yith-wcbk-people-selector__field__total {
+	display        : table-cell;
+	vertical-align : middle;
+}
+
+.yith-wcbk-people-selector__field__total {
+	width       : 40px;
+	text-align  : center;
+	line-height : 26px;
+}
+
+.yith-wcbk-people-selector__field__plus,
+.yith-wcbk-people-selector__field__minus {
+	cursor           : pointer;
+	text-align       : center;
+	line-height      : 1;
+	position         : relative;
+	-ms-touch-action : manipulation;
+	touch-action     : manipulation;
+	border           : 1px solid var(--yith-wcbk-primary);;
+	background       : transparent;
+	width            : 26px;
+	height           : 26px;
+}
+
+.yith-wcbk-people-selector__field__button--disabled {
+	opacity : 0.2;
+}
+
+.yith-wcbk-people-selector__field__plus-wrap,
+.yith-wcbk-people-selector__field__minus-wrap {
+	display           : inline-block;
+	position          : absolute;
+	top               : 50%;
+	left              : 50%;
+	-webkit-transform : translate(-50%, -50%);
+	-ms-transform     : translate(-50%, -50%);
+	transform         : translate(-50%, -50%);
+	color             : var(--yith-wcbk-primary);
+	font-size         : 16px;
+}
+
+.yith-wcbk-people-selector__fields-container__footer {
+	padding : 15px 0 5px 0;
+}
+
+.yith-wcbk-people-selector__fields-container__footer .yith-wcbk-people-selector__close-handler {
+	float     : right;
+	font-size : 12px;
+	cursor    : pointer;
+	color     : var(--yith-wcbk-primary);
+}
+
+.yith-wcbk-people-selector__fields-container__footer .yith-wcbk-people-selector__close-handler:hover {
+	text-decoration : underline;
+	color           : var(--yith-wcbk-primary-light);
+}
+
+@media (max-width : 44.375em) {
+	.yith-wcbk-people-selector__fields-container {
+		min-width : 0;
+		width     : 100%;
+	}
+}

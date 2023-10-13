@@ -29,7 +29,6 @@ class __TwigTemplate_be729e36b2f10a697a42c709d5cb98141fdb4921ae8c74bd2bb09c70675
 
         $this->blocks = [
             'content' => [$this, 'block_content'],
-            'translations' => [$this, 'block_translations'],
         ];
     }
 
@@ -57,17 +56,6 @@ class __TwigTemplate_be729e36b2f10a697a42c709d5cb98141fdb4921ae8c74bd2bb09c70675
 ";
     }
 
-    // line 7
-    public function block_translations($context, array $blocks = [])
-    {
-        $macros = $this->macros;
-        // line 8
-        echo "  ";
-        echo do_action(("mailpoet_pages_translations_" . ($context["page_name"] ?? null)));
-        echo "
-";
-    }
-
     public function getTemplateName()
     {
         return "blank.html";
@@ -80,7 +68,7 @@ class __TwigTemplate_be729e36b2f10a697a42c709d5cb98141fdb4921ae8c74bd2bb09c70675
 
     public function getDebugInfo()
     {
-        return array (  62 => 8,  58 => 7,  51 => 4,  47 => 3,  36 => 1,);
+        return array (  50 => 4,  46 => 3,  35 => 1,);
     }
 
     public function getSourceContext()

@@ -1,6 +1,7 @@
 <?php 
 /** 
  * Post Meta Boxes
+ * @version 1.1.2
  */
 
 class evovo_meta_boxes{
@@ -37,7 +38,7 @@ class evovo_meta_boxes{
 				<p class='yesno_leg_line ' >
 					<?php echo eventon_html_yesnobtn(array(
 						'id'=>		'_evovo_activate',
-						'var'=>		evo_meta_yesno($epmv, '_evovo_activate'), 
+						'var'=>		$EVENT->get_prop('_evovo_activate'), 
 						'afterstatement'=>'evovo_section',
 						'input'=>	true,
 						'label'=>	__('Enable ticket variations & options','evovo'),
@@ -45,7 +46,7 @@ class evovo_meta_boxes{
 					)); ?>
 				</p>
 			</td></tr>
-			<tr class='innersection' id='evovo_section' style='display:<?php echo evo_meta_yesno($epmv,'_evovo_activate','yes','','none' );?>'>
+			<tr class='innersection' id='evovo_section' style='display:<?php echo $EVENT->check_yn('_evovo_activate') ? 'block':'none';?>'>
 				<td style='padding:20px 25px;' colspan='2'>
 					
 					<div id='evovo_options_selection' style='display:block' >						

@@ -804,7 +804,7 @@ class Wpali_Woocommerce_Order_Builder_Public
 					}
 
 					.extended-checkboxes ul.wwobfield_checkbox li.selected-item .selected-product span.selected-product-checked {
-						top: calc(100% - 30px)
+						top: calc(100% - 27px)
 					}
 
 					.extended-checkboxes ul.wwobfield_checkbox li.selected-item .wwob-checkbox-label img {
@@ -818,7 +818,7 @@ class Wpali_Woocommerce_Order_Builder_Public
 					}
 
 					.woocommerce .extended-checkboxes ul.wwobfield_checkbox li .wwob-checkbox-label {
-						margin-bottom: 0px;
+						margin: 0;
 					}
 
 					.woocommerce .extended-checkboxes ul.wwobfield_checkbox li .wwob-checkbox-label img {
@@ -834,8 +834,8 @@ class Wpali_Woocommerce_Order_Builder_Public
 					li.quantity-enabled.selected-item a.wwob-minus,
 					a.wwob-plus {
 						border: 2px solid <?php echo $secondary_color ?>;
-						top: calc(100% - 20px);
-						line-height: 36px;
+						top: calc(100% - 13px);
+						line-height: 29px;
 					}
 				</style>
 			<?php

@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Classes/Products
  * @since    2.0.0
- * @version  2.0.0
+ * @version  2.5.0
  */
 
 // Exit if accessed directly.
@@ -69,8 +69,8 @@ class WC_Product_Mix_and_Match_Legacy extends WC_Product {
 
 		$contents = array();
 
-		foreach( $this->get_child_items( $context ) as $child_item ) {
-			$child_id = $child_item->get_variation_id() ? $child_item->get_variation_id() : $child_item->get_product_id();
+		foreach ( $this->get_child_items( $context ) as $child_item ) {
+			$child_id              = $child_item->get_variation_id() ? $child_item->get_variation_id() : $child_item->get_product_id();
 			$contents[ $child_id ] = array(
 				'child_id'     => $child_id,
 				'product_id'   => $child_item->get_product_id(),
@@ -96,13 +96,13 @@ class WC_Product_Mix_and_Match_Legacy extends WC_Product {
 
 			$available_children = array();
 
-			foreach( $this->get_child_items() as $child_item ) {
+			foreach ( $this->get_child_items() as $child_item ) {
 
 				$is_available = true;
 
 				if ( has_filter( 'woocommerce_mnm_is_child_available' ) ) {
 					$is_available = apply_filters( 'woocommerce_mnm_is_child_available', $is_available, $child, $this );
-				};
+				}
 
 				if ( $is_available ) {
 					$available_children[ $child_item->get_product()->get_id() ] = $child_item->get_product();
@@ -138,7 +138,7 @@ class WC_Product_Mix_and_Match_Legacy extends WC_Product {
 
 		wc_deprecated_function( __METHOD__ . '()', '2.0.0', __CLASS__ . '::get_child_item( $item_id )' );
 
-		$child_item = $this->get_child_item_by_product_id( $child_id );
+		$child_item    = $this->get_child_item_by_product_id( $child_id );
 		$child_product = $child_item ? $child_item->get_product() : false;
 
 		/**
@@ -247,7 +247,8 @@ class WC_Product_Mix_and_Match_Legacy extends WC_Product {
 			foreach ( $value as $data ) {
 
 				$child_item   = array();
-				$product_id   = $variation_id = 0;
+				$product_id   = 0;
+				$variation_id = 0;
 
 				$product_id   = isset( $data['product_id'] ) ? intval( $data['product_id'] ) : 0;
 				$variation_id = isset( $data['variation_id'] ) ? intval( $data['variation_id'] ) : 0;
@@ -287,7 +288,7 @@ class WC_Product_Mix_and_Match_Legacy extends WC_Product {
 	 */
 	public function has_children() {
 		wc_deprecated_function( __METHOD__ . '()', '2.0.0', 'Use WC_Product_Mix_and_Match::has_child_items( "edit" )' );
-		return sizeof( $this->get_child_items( 'edit' ) );
+		return count( $this->get_child_items( 'edit' ) );
 	}
 
 
@@ -300,7 +301,7 @@ class WC_Product_Mix_and_Match_Legacy extends WC_Product {
 	 */
 	public function has_available_children() {
 		wc_deprecated_function( __METHOD__ . '()', '2.0.0', 'Use WC_Product_Mix_and_Match::has_child_items()' );
-		return sizeof( $this->get_child_items() );
+		return count( $this->get_child_items() );
 	}
 
 
@@ -333,11 +334,10 @@ class WC_Product_Mix_and_Match_Legacy extends WC_Product {
 
 		if ( $child && $this->has_discount() ) {
 			// Apply discount to regular price and not sale price.
-			$price = apply_filters( 'woocommerce_mnm_item_discount_from_regular', true, $this ) ? $child->get_regular_price() : $child->get_price();
-			$discounted_price = round( (double) $price * ( 100 - $this->get_discount() ) / 100, wc_get_rounding_precision() );
+			$price            = apply_filters( 'woocommerce_mnm_item_discount_from_regular', true, $this ) ? $child->get_regular_price() : $child->get_price();
+			$discounted_price = round( (float) $price * ( 100 - $this->get_discount() ) / 100, wc_get_rounding_precision() );
 			$child->set_price( $discounted_price );
 			$child->set_sale_price( $discounted_price );
 		}
-
 	}
 }

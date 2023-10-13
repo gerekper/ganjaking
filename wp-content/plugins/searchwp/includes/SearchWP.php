@@ -71,7 +71,6 @@ class SearchWP {
 			\SearchWP\Upgrader::run();
 		}, 99999 );
 
-//		set_transient( 'searchwp_activation_redirect', 30 );
 		\SearchWP\Admin\Views\WelcomeView::init();
 
 		add_action( 'init', [ $this, 'init' ], 99999 );
@@ -243,6 +242,10 @@ class SearchWP {
 
 		searchwp()
 			->register( \SearchWP\Forms\Frontend::class )
+			->init();
+
+		searchwp()
+			->register( \SearchWP\Results\Frontend::class )
 			->init();
 
 		// Hook in to core behavior.

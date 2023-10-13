@@ -1,7 +1,7 @@
 <?php
 /** 
  * EVOST - ajax
- * @version 1.2.1
+ * @version 1.2.3
  */
 class EVOST_ajax{
 	public function __construct(){
@@ -15,6 +15,9 @@ class EVOST_ajax{
 		foreach ( $ajax_events as $ajax_event => $class ) {				
 			add_action( 'wp_ajax_'.  $ajax_event, array( $this, $class ) );
 			add_action( 'wp_ajax_nopriv_'.  $ajax_event, array( $this, $class ) );
+
+			// EVO AJAX can be used for frontend ajax requests.
+			add_action( 'evo_ajax_' .  $ajax_event, array( $this , $class ) );
 		}
 
 		$this->help = new evotx_helper();
@@ -41,7 +44,7 @@ class EVOST_ajax{
 
 			if( !empty($l)) evo_set_global_lang( $l);
 
-			// append ticekt structure for lightbox
+			// append ticket structure for lightbox
 			if( !empty($type) && $type == 'lb'){
 
 				ob_start();
@@ -70,6 +73,9 @@ class EVOST_ajax{
 			extract($this->postdata);
 			extract($event_data);
 
+			$cart_meta = array();
+			$cart_meta['event_data'] = $event_data;
+
 			$Helper = new evotx_helper();
 			$ST = new EVOST_Seats_Seat($eid, $wcid, $seat_slug);
 
@@ -88,11 +94,15 @@ class EVOST_ajax{
 				echo json_encode($output); exit;
 			}
 
-			$event_data['qty'] = 1;
+			$cart_meta['qty'] = 1;
+			$cart_meta['other_data']['seat_number'] = $ST->get_seat_number();
+			$cart_meta['other_data']['seat_type'] = $type;
+			$cart_meta['other_data']['seat_slug'] = $seat_slug;
 
 			$TIX = new evotx_event($eid, '', 0, $wcid);
+			//print_r($cart_meta);
 
-			$add_to_cart = $TIX->add_ticket_to_cart($data);
+			$add_to_cart = $TIX->add_ticket_to_cart( $cart_meta );
 
 			if($add_to_cart)
 				echo $add_to_cart; exit;

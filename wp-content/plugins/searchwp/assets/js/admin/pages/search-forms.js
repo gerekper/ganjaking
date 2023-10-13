@@ -33,67 +33,6 @@
          */
         events: () => {
 
-            $('select.swp-choicesjs-single').each( (i, el) => {
-                new Choices(el, {
-                    searchEnabled: false,
-                });
-            } );
-
-            $('select.swp-choicesjs-multiple').each( (i, el) => {
-                const choices = new Choices(el, {
-                    removeItemButton: true,
-                    duplicateItemsAllowed: false,
-                });
-
-                // This makes the input element take as little space as possible.
-                choices.clearInput();
-            } );
-
-            $('select.swp-choicesjs-hybrid').each( (i, el) => {
-                const choices = new Choices(el, {
-                    removeItemButton: true,
-                    duplicateItemsAllowed: false,
-                    noResultsText: 'Press Enter to add item',
-                    fuseOptions: {
-                        threshold: 0,
-                    },
-                });
-
-                // This makes the input element take as little space as possible.
-                choices.clearInput();
-
-                choices.input.element.addEventListener(
-                    'keyup',
-                    function(event) {
-                        if (event.keyCode !== 13) {
-                            return;
-                        }
-                        if ( ! choices.input.value ) {
-                            return;
-                        }
-
-                        const canAddItem = choices._canAddItem( choices._store.activeItems, choices.input.value );
-
-                        if ( ! canAddItem.response ) {
-                            const notice = choices._getTemplate('notice', canAddItem.notice);
-                            choices.choiceList.clear();
-                            choices.choiceList.append(notice);
-                            return;
-                        }
-
-                        const choice = {
-                            "value": choices.input.value,
-                            "isSelected": true,
-                        }
-
-                        choices._addChoice(choice);
-
-                        choices.clearInput();
-                    },
-                    false,
-                );
-            } );
-
             app.initExistingPageEmbedSelect();
 
             $( '#swp-form-save' ).on( 'click', app.saveSettings );
@@ -127,6 +66,8 @@
                 'category-search': $( 'input[name=category-search]' ).is( ':checked' ),
                 'quick-search': $( 'input[name=quick-search]' ).is( ':checked' ),
                 'advanced-search': $( 'input[name=advanced-search]' ).is( ':checked' ),
+                'engine': $( 'select[name=engine]' ).val(),
+                'input_name': $( 'select[name=input_name]' ).val(),
                 'post-type': $( 'select[name=post-type]' ).val(),
                 'category': $( 'select[name=category]' ).val(),
                 'field-label': $( 'input[name=field-label]' ).val(),
@@ -138,29 +79,32 @@
                 'search-form-color': $( 'input[name=search-form-color]' ).val(),
                 'search-form-font-size': $( 'input[name=search-form-font-size]' ).val(),
                 'button-background-color': $( 'input[name=button-background-color]' ).val(),
+                'button-label': $( 'input[name=button-label]' ).val(),
                 'button-font-color': $( 'input[name=button-font-color]' ).val(),
                 'button-font-size': $( 'input[name=button-font-size]' ).val(),
             };
 
-            const data      = {
+            const $saveButton = $( '#swp-form-save' );
+
+            const data = {
                 _ajax_nonce: _SEARCHWP.nonce,
                 action: _SEARCHWP.prefix + 'save_form_settings',
-                form_id: $( '#swp-form-save' ).data( 'form-id' ),
+                form_id: $saveButton.data( 'form-id' ),
                 settings: JSON.stringify( settings ),
             };
 
-            const $allInputs = $( '.swp-content-container button:not(.swp-sf--theme-preview button), .swp-content-container input:not(.swp-sf--theme-preview input)' );
+            const $enabledInputs = $( '.swp-content-container button:not([disabled]), .swp-content-container input:not([disabled])' );
 
-            $allInputs.attr( 'disabled','disabled' );
-            $( '#swp-form-save' ).addClass( 'swp-button--processing' );
+            $enabledInputs.attr( 'disabled','disabled' );
+            $saveButton.addClass( 'swp-button--processing' );
 
             $.post( ajaxurl, data, ( response ) => {
-                $allInputs.removeAttr( 'disabled' );
-                $( '#swp-form-save' ).removeClass( 'swp-button--processing' );
+                $enabledInputs.removeAttr( 'disabled' );
+                $saveButton.removeClass( 'swp-button--processing' );
 
                 if ( response.success ) {
-                    $( '#swp-form-save' ).addClass( 'swp-button--completed' );
-                    setTimeout( () => { $( '#swp-form-save' ).removeClass( 'swp-button--completed' ) }, 1500 );
+                    $saveButton.addClass( 'swp-button--completed' );
+                    setTimeout( () => { $saveButton.removeClass( 'swp-button--completed' ) }, 1500 );
                 }
             } );
         },

@@ -1,5 +1,5 @@
 <div class="woocommerce_gpf_intro_cache_status">
-	<h3><?php _e( 'Feed status', 'woocommerce_gpf' ); ?></h3>
+	<h3><?php esc_html_e( 'Feed status', 'woocommerce_gpf' ); ?></h3>
 	{msg}
 	<hr>
 	<ul class="ul-disc">

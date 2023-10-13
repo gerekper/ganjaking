@@ -3,12 +3,19 @@
 /**
  * Description of A2W_Utils
  *
- * @author Andrey
+ * @author Ali2Woo Team
  */
 if (!class_exists('A2W_Utils')) {
 
     class A2W_Utils
     {
+        public static function show_system_error_message($msg){
+            a2w_set_setting('system_message', array(array('type' => 'error', 'message' => $msg)));
+        }
+
+        public static function clear_system_error_messages(){
+            a2w_set_setting('system_message', array());
+        }
 
         public static function wcae_strack_active()
         {
@@ -288,7 +295,8 @@ if (!class_exists('A2W_Utils')) {
             }
 
             if ($description_images && !empty($product['description'])) {
-                $desc_images = A2W_Utils::get_images_from_description($product['description']);
+                $connector = A2W_AliexpressDefaultConnector::getInstance();
+                $desc_images = $connector::get_images_from_description($product);
                 foreach ($desc_images as $img_id => $img) {
                     if (!isset($tmp_all_images[$img_id])) {
                         $tmp_all_images[$img_id] = array('image' => $img, 'type' => 'description');
@@ -348,29 +356,6 @@ if (!class_exists('A2W_Utils')) {
             }
 
             return $tmp_all_images;
-        }
-
-        public static function get_images_from_description($description)
-        {
-            $src_result = array();
-
-            if ($description && class_exists('DOMDocument')) {
-                $description = htmlspecialchars_decode(utf8_decode(htmlentities($description, ENT_COMPAT, 'UTF-8', false)));
-
-                if (function_exists('libxml_use_internal_errors')) {
-                    libxml_use_internal_errors(true);
-                }
-                $dom = new DOMDocument();
-                @$dom->loadHTML($description);
-                $dom->formatOutput = true;
-                $tags = $dom->getElementsByTagName('img');
-
-                foreach ($tags as $tag) {
-                    $src_result[md5($tag->getAttribute('src'))] = $tag->getAttribute('src');
-                }
-            }
-
-            return $src_result;
         }
 
         public static function normalizeChars($s)
@@ -523,6 +508,15 @@ if (!class_exists('A2W_Utils')) {
             return !$text ? '_' : $text;
         }
 
+        public static function string_contains_all(string $string, array $words) {
+            foreach($words as $word) {
+                if(!is_string($word) || stripos($string,$word) === false){ 
+                    return false; 
+                }
+            }
+            return true;
+        }
+
         public static function get_product_shipping_info($_product, $quantity = 1, $default_country_to = false, $with_vars = true)
         {
             $woocommerce_model = new A2W_Woocommerce();
@@ -546,6 +540,7 @@ if (!class_exists('A2W_Utils')) {
             // Load only if data not in cache
             // TODO: if no items (empty result) then try load again
             if ($shiping_to_country && $items === false/* !empty($items) */) {
+       
                 $res = $loader->load_shipping_info($product['id'], $quantity, $shiping_to_country, $shiping_from_country, $product['price'], $product['price']);
                 if ($res['state'] !== 'error') {
                     $items = $res['items'];
@@ -636,9 +631,11 @@ if (!class_exists('A2W_Utils')) {
             $country_model = new A2W_Country();
 
             $shipping_from_country_list = array();
-            foreach ($product['sku_products']['variations'] as $var) {
-                if (!empty($var['country_code'])) {
-                    $shipping_from_country_list[$var['country_code']] = $var['country_code'];
+            if (isset($product['sku_products'])){
+                foreach ($product['sku_products']['variations'] as $var) {
+                    if (!empty($var['country_code'])) {
+                        $shipping_from_country_list[$var['country_code']] = $var['country_code'];
+                    }
                 }
             }
 
@@ -672,7 +669,7 @@ if (!class_exists('A2W_Utils')) {
                 $loader = new A2W_Aliexpress();
 
                 $country = A2W_ProductShippingMeta::meta_key($country_from, $country_to);
-
+          
                 if (empty($product['shipping_info'][$country])) {
                     $res = $loader->load_shipping_info($product['id'], 1, $country_to, $country_from, $page == 'import' ? $product['price_min'] : $product['price'], $page == 'import' ? $product['price_max'] : $product['price']);
                     if ($res['state'] !== 'error') {
@@ -681,7 +678,7 @@ if (!class_exists('A2W_Utils')) {
                         $product['shipping_info'][$country] = array();
                     }
                 }
-
+                
                 $items = isset($product['shipping_info'][$country]) ? $product['shipping_info'][$country] : array();
 
                 $default_ff_method = a2w_get_setting('fulfillment_prefship');
@@ -725,6 +722,388 @@ if (!class_exists('A2W_Utils')) {
             }
 
             return $product;
+        }
+
+        public static function get_aliexpress_shipping_options(){
+            return
+            [
+                [
+                    'value' => "ECONOMIC139",
+                    'label' => "139Express"
+                ], [
+                    'value' => "AE_360LION_STANDARD",
+                    'label' => "360 Lion Standard Packet"
+                ], [
+                    'value' => "FOURPX_RM",
+                    'label' => "4PX RM"
+                ], [
+                    'value' => "SGP_OMP",
+                    'label' => "4PX Singapore Post OM Pro"
+                ], [
+                    'value' => "CAINIAO_CONSOLIDATION_SA",
+                    'label' => "Aliexpress Direct (Saudi Arabia)"
+                ], [
+                    'value' => "CAINIAO_CONSOLIDATION_AE",
+                    'label' => "Aliexpress Direct (UAE)"
+                ], [
+                    'value' => "CAINIAO_CONSOLIDATION_BR",
+                    'label' => "Aliexpress Direct (Brazil)"
+                ], [
+                    'value' => "CAINIAO_PREMIUM",
+                    'label' => "AliExpress Premium Shipping"
+                ], [
+                    'value' => "CAINIAO_ECONOMY",
+                    'label' => "AliExpress Saver Shipping"
+                ], [
+                    'value' => "CAINIAO_STANDARD",
+                    'label' => "AliExpress Standard Shipping"
+                ], [
+                    'value' => "ARAMEX",
+                    'label' => "ARAMEX"
+                ], [
+                    'value' => "AUSPOST",
+                    'label' => "Australia Post"
+                ], [
+                    'value' => "BSC_ECONOMY_SG",
+                    'label' => "BSC Special Economy"
+                ], [
+                    'value' => "BSC_STANDARD_SG",
+                    'label' => "BSC Special Standard"
+                ], [
+                    'value' => "CAINIAO_EXPEDITED_ECONOMY",
+                    'label' => "Cainiao Expedited Economy"
+                ], [
+                    'value' => "AE_CAINIAO_STANDARD",
+                    'label' => "Cainiao Expedited Standard"
+                ], [
+                    'value' => "CAINIAO_STANDARD_HEAVY",
+                    'label' => "Cainiao Heavy Parcel Line"
+                ], [
+                    'value' => "CAINIAO_ECONOMY_SG",
+                    'label' => "Cainiao Saver Shipping For Special Goods"
+                ], [
+                    'value' => "CAINIAO_STANDARD_SG",
+                    'label' => "Cainiao Standard For Special Goods"
+                ], [
+                    'value' => "CAINIAO_SUPER_ECONOMY",
+                    'label' => "Cainiao Super Economy"
+                ], [
+                    'value' => "CAINIAO_SUPER_ECONOMY_SG",
+                    'label' => "Cainiao Super Economy for Special Goods"
+                ], [
+                    'value' => "AE_CN_SUPER_ECONOMY_G",
+                    'label' => "Cainiao Super Economy Global"
+                ], [
+                    'value' => "CAINIAO_OVERSEAS_WH_EXPPL",
+                    'label' => "Cainiao Warehouse Express Shipping"
+                ], [
+                    'value' => "CDEK_RU",
+                    'label' => "CDEK"
+                ], [
+                    'value' => "CPAP",
+                    'label' => "China Post Air Parcel"
+                ], [
+                    'value' => "YANWEN_JYT",
+                    'label' => "China Post Ordinary Small Packet Plus"
+                ], [
+                    'value' => "CPAM",
+                    'label' => "China Post Registered Air Mail"
+                ], [
+                    'value' => "CHOICE",
+                    'label' => "CHOICE Logistics"
+                ], [
+                    'value' => "CJ",
+                    'label' => "CJ Logistics"
+                ], [
+                    'value' => "CKE",
+                    'label' => "CKE Express"
+                ], [
+                    'value' => "CNE",
+                    'label' => "CNE Express"
+                ], [
+                    'value' => "CORREIOS_BR",
+                    'label' => "Correios Brazil"
+                ], [
+                    'value' => "DEUTSCHE_POST",
+                    'label' => "Deutsche Post"
+                ], [
+                    'value' => "DHL",
+                    'label' => "DHL"
+                ], [
+                    'value' => "DHLECOM",
+                    'label' => "DHL e-commerce"
+                ], [
+                    'value' => "TOLL",
+                    'label' => "DPEX"
+                ], [
+                    'value' => "EMS",
+                    'label' => "EMS"
+                ], [
+                    'value' => "E_EMS",
+                    'label' => "e-EMS"
+                ], [
+                    'value' => "EMS_ZX_ZX_US",
+                    'label' => "ePacket"
+                ], [
+                    'value' => "eTotal",
+                    'label' => "eTotal"
+                ], [
+                    'value' => "FEDEX",
+                    'label' => "FedEx"
+                ], [
+                    'value' => "FEDEX_IE",
+                    'label' => "Fedex IE"
+                ], [
+                    'value' => "FLYT",
+                    'label' => "Flyt Express"
+                ], [
+                    'value' => "FLYT_ECONOMY_SG",
+                    'label' => "Flyt Special Economy"
+                ], [
+                    'value' => "GATI",
+                    'label' => "GATI"
+                ], [
+                    'value' => "GES",
+                    'label' => "GES Express"
+                ], [
+                    'value' => "GLS_FR",
+                    'label' => "GLS France"
+                ], [
+                    'value' => "GLS_ES",
+                    'label' => "GLS Spain"
+                ], [
+                    'value' => "CTR_LAND_PICKUP",
+                    'label' => "J-NET"
+                ], [
+                    'value' => "JCEX",
+                    'label' => "JCEX Express"
+                ], [
+                    'value' => "LAPOSTE",
+                    'label' => "La Poste"
+                ], [
+                    'value' => "MEEST",
+                    'label' => "Meest"
+                ], [
+                    'value' => "POSTKR",
+                    'label' => "POSTKR"
+                ], [
+                    'value' => "POST_NL",
+                    'label' => "PostNL"
+                ], [
+                    'value' => "RUSSIAN_POST",
+                    'label' => "Russian Post"
+                ], [
+                    'value' => "SF_EPARCEL_OM",
+                    'label' => "SF Economic Air Mail"
+                ], [
+                    'value' => "SF_EPARCEL",
+                    'label' => "SF eParcel"
+                ], [
+                    'value' => "SF",
+                    'label' => "SF Express"
+                ], [
+                    'value' => "SGP",
+                    'label' => "Singapore Post"
+                ], [
+                    'value' => "SUNYOU_RM",
+                    'label' => "SunYou"
+                ], [
+                    'value' => "SUNYOU_ECONOMY",
+                    'label' => "SunYou Economic Air Mail"
+                ], [
+                    'value' => "SUNYOU_ECONOMY_SG",
+                    'label' => "SunYou Special Economy"
+                ], [
+                    'value' => "SHUNYOU_STANDARD_SG",
+                    'label' => "SunYou Special Standard"
+                ], [
+                    'value' => "CHP",
+                    'label' => "Swiss Post"
+                ], [
+                    'value' => "TNT",
+                    'label' => "TNT"
+                ], [
+                    'value' => "LAOPOST",
+                    'label' => "TOPYOU"
+                ], [
+                    'value' => "TOPYOU_ECONOMY_SG",
+                    'label' => "TOPYOU Special Economy"
+                ], [
+                    'value' => "PTT",
+                    'label' => "Turkey Post"
+                ], [
+                    'value' => "UBI",
+                    'label' => "UBI"
+                ], [
+                    'value' => "UPS",
+                    'label' => "UPS"
+                ], [
+                    'value' => "UPSE",
+                    'label' => "UPS Expedited"
+                ], [
+                    'value' => "USPS",
+                    'label' => "USPS"
+                ], [
+                    'value' => "YANWEN_ECONOMY",
+                    'label' => "Yanwen Economic Air Mail"
+                ], [
+                    'value' => "YANWEN_ECONOMY_SG",
+                    'label' => "Yanwen Special Economy"
+                ], [
+                    'value' => "YANWEN_AM",
+                    'label' => "Yanwen Special Line-YW"
+                ], [
+                    'value' => "YANWEN_AM",
+                    'label' => "Yanwen Special Standard"
+                ]
+            ];
+        }
+    
+        public static function is_shipping_supported_by_province_city( $country ) {
+            $supportedCountries = array('BR');
+            return in_array( $country, $supportedCountries, true );
+        }
+
+        public static function get_aliexpress_province_code( $country, $state ) {
+            $province_code = array();
+            if ( $country ) {
+                $ali_states = A2W_Country::get_ali_states($country);
+                if ( count( $ali_states ) ) {
+                    if ( $state ) {
+                        $search   = self::strtolower( $state );
+                        $search_1 = array( $search, remove_accents( $search ) );
+                        foreach ( $ali_states['addressList'] as $key => $value ) {
+                            if ( in_array( self::strtolower( $value['n'] ), $search_1, true ) ) {
+                                $province_code = $value;
+                                break;
+                            }
+                        }
+                    } else {
+                        if ( $state === false ) {
+                            $province_code = $ali_states['addressList'];
+                        } else {
+                            $province_code = $ali_states['addressList'][0];
+                        }
+                    }
+                }
+            }
+    
+            return $province_code;
+        }
+
+        public static function get_aliexpress_city_code( $country, $state_code, $city ) {
+            $ali_states = A2W_Country::get_ali_states($country);
+            $city_code  = array();
+            if ( $country && $state_code ) {
+                $found_state = false;
+                foreach ( $ali_states['addressList'] as $key => $value ) {
+                    if ( $state_code === $value['c'] ) {
+                        $found_state = $key;
+                        break;
+                    }
+                }
+                if ( $found_state !== false ) {
+                    if ( isset( $ali_states['addressList'][ $found_state ]['children'] ) && is_array( $ali_states['addressList'][ $found_state ]['children'] ) && count( $ali_states['addressList'][ $found_state ]['children'] ) ) {
+                        if ( $city ) {
+                            $search   = self::strtolower( $city );
+                            $search_1 = array( $search, remove_accents( $search ) );
+                            foreach ( $ali_states['addressList'][ $found_state ]['children'] as $key => $value ) {
+                                if ( in_array( self::strtolower( $value['n'] ), $search_1, true ) ) {
+                                    $city_code = $value;
+                                    break;
+                                }
+                            }
+                        } else {
+                            if ( $city === false ) {
+                                $city_code = $ali_states['addressList'][ $found_state ]['children'];
+                            } else {
+                                $city_code = $ali_states['addressList'][ $found_state ]['children'][0];
+                            }
+                        }
+                    }
+                }
+            }
+    
+            return $city_code;
+        }
+
+        public static function strtolower( $string ) {
+            return function_exists( 'mb_strtolower' ) ? mb_strtolower( $string ) : strtolower( $string );
+        }
+
+        /**
+         * Convert country code from WooCommerce to AliExpress
+         *
+         * @param $country
+         *
+         * @return string
+         */
+        public static function filter_country( $country ) {
+            switch ( $country ) {
+                case 'PT':
+                    $country = 'BR';
+                    break;
+                case 'AQ':
+                case 'BV':
+                case 'IO':
+                case 'CU':
+                case 'TF':
+                case 'HM':
+                case 'IR':
+                case 'IM':
+                case 'SH':
+                case 'PN':
+                case 'SD':
+                case 'SJ':
+                case 'SY':
+                case 'TK':
+                case 'UM':
+                case 'EH':
+                    $country = 'OTHER';
+                    break;
+                case 'AX':
+                    $country = 'ALA';
+                    break;
+                case 'CN':
+                    $country = 'HK';
+                    break;
+                case 'CD':
+                    $country = 'ZR';
+                    break;
+                case 'GG':
+                    $country = 'GGY';
+                    break;
+                case 'JE':
+                    $country = 'JEY';
+                    break;
+                case 'ME':
+                    $country = 'MNE';
+                    break;
+                case 'KP':
+                    $country = 'KR';
+                    break;
+                case 'BL':
+                    $country = 'BLM';
+                    break;
+                case 'MF':
+                    $country = 'MAF';
+                    break;
+                case 'RS':
+                    $country = 'SRB';
+                    break;
+                case 'GS':
+                    $country = 'SGS';
+                    break;
+                case 'TL':
+                    $country = 'TLS';
+                    break;
+                case 'GB':
+                    $country = 'UK';
+                    break;
+                default:
+            }
+
+            return $country;
         }
 
         /**

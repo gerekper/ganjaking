@@ -3,7 +3,7 @@
  * Child Item class.
  *
  * @package  WooCommerce Mix and Match Products/Classes/Products
- * 
+ *
  * @since   2.0.0
  * @version 2.4.2
  */
@@ -36,12 +36,14 @@ class WC_MNM_Child_Item extends WC_Data {
 
 	/**
 	 * Product instance of the associated child product.
+	 *
 	 * @var WC_Product
 	 */
 	private $product;
 
 	/**
 	 * Product instance of the parent container.
+	 *
 	 * @var WC_Product_Mix_and_Match
 	 */
 	private $container;
@@ -91,7 +93,6 @@ class WC_MNM_Child_Item extends WC_Data {
 		if ( is_object( $container ) && $this->get_container_id() === $container->get_id() ) {
 			$this->container = $container;
 		}
-
 	}
 
 	/**
@@ -205,9 +206,7 @@ class WC_MNM_Child_Item extends WC_Data {
 				if ( 'props' === WC_MNM_Product_Prices::get_discount_method() ) {
 					$this->set_price_props();
 				}
-
 			}
-
 		}
 
 		// Backcompatibility.
@@ -262,7 +261,6 @@ class WC_MNM_Child_Item extends WC_Data {
 		 * @param  WC_Child_Item  $this
 		 */
 		return apply_filters( 'wc_mnm_child_item_raw_price', $price, $this );
-
 	}
 
 	/**
@@ -284,7 +282,6 @@ class WC_MNM_Child_Item extends WC_Data {
 		}
 
 		return empty( $regular_price ) ? $product->get_price( 'edit' ) : $regular_price;
-
 	}
 
 
@@ -312,14 +309,14 @@ class WC_MNM_Child_Item extends WC_Data {
 		$product = $this->get_product();
 
 		$atts = array(
-			'child_item_id'     => $this->get_id(),
-			'mnm_item_id'       => $product->get_id(), // Deprecated.
-			'child_id'          => $product->get_id(),
-			'regular_price'     => $is_priced_per_product ? wc_get_price_to_display( $product, array( 'price' => $product->get_regular_price() ) ) : 0,
-			'price'             => $is_priced_per_product ? wc_get_price_to_display( $product, array( 'price' => $product->get_price() ) ) : 0,
-			'price_incl_tax'    => $is_priced_per_product ? wc_get_price_including_tax( $product, array( 'price' => $product->get_price() ) ) : 0,
-			'price_excl_tax'    => $is_priced_per_product ? wc_get_price_excluding_tax( $product, array( 'price' => $product->get_price() ) ) : 0,
-			'max_stock'         => $product->get_max_purchase_quantity(),
+			'child_item_id'  => $this->get_id(),
+			'mnm_item_id'    => $product->get_id(), // Deprecated.
+			'child_id'       => $product->get_id(),
+			'regular_price'  => $is_priced_per_product ? wc_get_price_to_display( $product, array( 'price' => $product->get_regular_price() ) ) : 0,
+			'price'          => $is_priced_per_product ? wc_get_price_to_display( $product, array( 'price' => $product->get_price() ) ) : 0,
+			'price_incl_tax' => $is_priced_per_product ? wc_get_price_including_tax( $product, array( 'price' => $product->get_price() ) ) : 0,
+			'price_excl_tax' => $is_priced_per_product ? wc_get_price_excluding_tax( $product, array( 'price' => $product->get_price() ) ) : 0,
+			'max_stock'      => $product->get_max_purchase_quantity(),
 		);
 
 		/**
@@ -332,7 +329,6 @@ class WC_MNM_Child_Item extends WC_Data {
 		$attributes = (array) apply_filters( 'wc_mnm_child_item_data_attributes', $atts, $this );
 
 		return wc_mnm_prefix_data_attribute_keys( $attributes );
-
 	}
 
 	/**
@@ -345,9 +341,9 @@ class WC_MNM_Child_Item extends WC_Data {
 
 		if ( 'min' === $type ) {
 			$qty = 0;
-		} else if ( 'step' === $type ) {
+		} elseif ( 'step' === $type ) {
 			$qty = 1;
-		} else if ( 'max' === $type ) {
+		} elseif ( 'max' === $type ) {
 			$child_max     = $this->get_product()->get_max_purchase_quantity();
 			$container_max = $this->get_container()->get_max_container_size();
 
@@ -356,14 +352,13 @@ class WC_MNM_Child_Item extends WC_Data {
 			} else {
 				$qty = $container_max;
 			}
-
 		} else {
 			$child_id   = $this->get_product()->get_id();
 			$input_name = $this->get_input_name( false );
 
 			if ( $this->get_quantity( 'min' ) === $this->get_quantity( 'max' ) ) {
 				$qty = $this->get_quantity( 'min' );
-			} else if ( isset( $_REQUEST[ $input_name ] ) && ! empty( $_REQUEST[ $input_name ][ $child_id ] ) ) {
+			} elseif ( isset( $_REQUEST[ $input_name ] ) && ! empty( $_REQUEST[ $input_name ][ $child_id ] ) ) {
 				$qty = intval( $_REQUEST[ $input_name ][ $child_id ] );
 			} else {
 				$qty = $this->get_quantity( 'min' ) ? $this->get_quantity( 'min' ) : '';
@@ -373,9 +368,7 @@ class WC_MNM_Child_Item extends WC_Data {
 					wc_deprecated_hook( 'woocommerce_mnm_quantity_input', '2.0.0', 'wc_mnm_child_item_quantity_input_$type: note that the 2nd parameter will be a WC_MNM_Child_Item instance.' );
 					$qty = apply_filters( 'woocommerce_mnm_quantity_input', $qty, $this->get_product(), $this->get_container() );
 				}
-
 			}
-
 		}
 
 		if ( has_filter( 'woocommerce_mnm_quantity_input_' . $type ) ) {
@@ -393,7 +386,6 @@ class WC_MNM_Child_Item extends WC_Data {
 		$qty = apply_filters( 'wc_mnm_child_item_quantity_input_' . $type, $qty, $this, $this->get_container() );
 
 		return '' !== $qty ? intval( $qty ) : '';
-
 	}
 
 	/**
@@ -452,12 +444,11 @@ class WC_MNM_Child_Item extends WC_Data {
 		}
 
 		return $html;
-
 	}
 
 	/**
 	 * Item title.
-	 * 
+	 *
 	 * @since  2.2.0
 	 *
 	 * @return string
@@ -560,7 +551,6 @@ class WC_MNM_Child_Item extends WC_Data {
 			$this->product->set_sale_price( $discounted_price );
 
 		}
-
 	}
 
 	/*

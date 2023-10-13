@@ -3,15 +3,21 @@
 namespace ACP\ListScreen;
 
 use AC;
-use AC\Column;
 use AC\ColumnRepository;
 use AC\MetaType;
 use AC\Type\Uri;
 use AC\Type\Url;
 use AC\Type\Url\EditorNetworkColumns;
 use AC\WpListTableFactory;
+use ACP\Column;
+use ACP\Editing;
+use ACP\Export;
+use ACP\Filtering;
+use ACP\Sorting;
 
-class MSUser extends AC\ListScreen
+class MSUser extends AC\ListScreen implements Sorting\ListScreen, Editing\ListScreen, Export\ListScreen,
+                                              Filtering\ListScreen, AC\ListScreen\ManageValue,
+                                              AC\ListScreen\ListTable
 {
 
     public function __construct()
@@ -23,6 +29,26 @@ class MSUser extends AC\ListScreen
         $this->group = 'network';
 
         $this->set_meta_type(MetaType::USER);
+    }
+
+    public function sorting(Sorting\AbstractModel $model): Sorting\Strategy
+    {
+        return new Sorting\Strategy\User($model);
+    }
+
+    public function editing()
+    {
+        return new Editing\Strategy\User();
+    }
+
+    public function filtering($model)
+    {
+        return new Filtering\Strategy\User($model);
+    }
+
+    public function export()
+    {
+        return new Export\Strategy\User($this);
     }
 
     public function manage_value(): AC\Table\ManageValue

@@ -6,7 +6,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Functions
  * @since    1.0.0
- * @version  2.4.10
+ * @version  2.5.0
  */
 
 // Exit if accessed directly.
@@ -14,9 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/*--------------------------------------------------------*/
-/*  Mix and Match single product template functions     */
-/*--------------------------------------------------------*/
+/*
+|--------------------------------------------------------------------------
+| Mix and Match single product template functions.
+|--------------------------------------------------------------------------
+*/
 
 /**
  * Checks whether this product is rendered using a legacy template; an indication that a classic theme is in use.
@@ -29,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function wc_mnm_has_legacy_product_template( $product ) {
 	$is_block_theme = WC_MNM_Core_Compatibility::wc_current_theme_is_fse_theme();
-	return (bool) apply_filters( 'wc_mnm_has_legacy_product_template', $is_block_theme === false, $product );
+	return (bool) apply_filters( 'wc_mnm_has_legacy_product_template', false === $is_block_theme, $product );
 }
 
 
@@ -43,7 +45,7 @@ function wc_mnm_template_add_to_cart_after_summary() {
 
 	global $product;
 
-	if ( wc_mnm_is_product_container_type( $product ) && 'after_summary' === $product->get_add_to_cart_form_location() ) { 
+	if ( wc_mnm_is_product_container_type( $product ) && 'after_summary' === $product->get_add_to_cart_form_location() ) {
 		$classes = implode( ' ', apply_filters( 'wc_mnm_form_wrapper_classes', array( 'summary-add-to-cart-form', 'summary-add-to-cart-form-mnm' ), $product ) ); ?>
 		<div class="<?php echo esc_attr( $classes ); ?>">
 			<?php do_action( 'woocommerce_mix-and-match_add_to_cart' ); ?>
@@ -102,7 +104,6 @@ function wc_mnm_template_add_to_cart( $container = false ) {
 
 	// Restore product object.
 	$product = $backup_product;
-
 }
 
 /**
@@ -115,7 +116,7 @@ function wc_mnm_template_add_to_cart( $container = false ) {
  */
 function wc_mnm_get_form_classes( $classes = array(), $product = false ) {
 
-	$defaults = array( 
+	$defaults = array(
 		'mnm_form',
 		'cart',
 		'cart_group',
@@ -147,7 +148,7 @@ function wc_mnm_get_form_classes( $classes = array(), $product = false ) {
 
 	/**
 	 * Form classes.
-	 * 
+	 *
 	 * @since  2.2.0
 	 * @see wc_mnm_template_get_form_classes()
 	 *
@@ -157,7 +158,6 @@ function wc_mnm_get_form_classes( $classes = array(), $product = false ) {
 	$classes = apply_filters( 'wc_mnm_form_classes', wp_parse_args( (array) $classes, $defaults ), $product );
 
 	return array_map( 'esc_attr', array_unique( array_filter( $classes ) ) );
-
 }
 
 /**
@@ -185,7 +185,7 @@ function wc_mnm_content_loop( $product ) {
 
 			/**
 			 * 'wc_mnm_item_details' action.
-			 * 
+			 *
 			 * @since 2.0.0 - variable changed to WC_MNM_Child_Item but most product methods should pass through magic getter.
 			 *
 			 * @param WC_MNM_Child_Item $child_item
@@ -220,7 +220,6 @@ function wc_mnm_content_loop( $product ) {
 		do_action( 'wc_mnm_after_child_items', $product );
 
 	}
-
 }
 
 /**
@@ -235,7 +234,7 @@ function wc_mnm_template_child_items_wrapper_open( $product ) {
 
 		// Get the columns.
 		$default_columns = get_option( 'wc_mnm_number_columns', 3 );
-		$columns = (int) apply_filters( 'wc_mnm_grid_layout_columns', $default_columns, $product );
+		$columns         = (int) apply_filters( 'wc_mnm_grid_layout_columns', $default_columns, $product );
 
 		// Reset the loop.
 		wc_set_loop_prop( 'loop', 0 );
@@ -245,11 +244,11 @@ function wc_mnm_template_child_items_wrapper_open( $product ) {
 
 		// Check whether or not to display thumbnails.
 		if ( wc_string_to_bool( get_option( 'wc_mnm_display_thumbnail', 'yes' ) ) ) {
-			$column_headers[ 'thumbnail' ] = '&nbsp;';
+			$column_headers['thumbnail'] = '&nbsp;';
 		}
 
-		$column_headers[ 'details' ]  = esc_html_x( 'Product', '[Frontend]', 'woocommerce-mix-and-match-products' );
-		$column_headers[ 'quantity' ] = esc_html_x( 'Quantity', '[Frontend]', 'woocommerce-mix-and-match-products' );
+		$column_headers['details']  = esc_html_x( 'Product', '[Frontend]', 'woocommerce-mix-and-match-products' );
+		$column_headers['quantity'] = esc_html_x( 'Quantity', '[Frontend]', 'woocommerce-mix-and-match-products' );
 
 		/**
 		 * Table column headings.
@@ -282,7 +281,6 @@ function wc_mnm_template_child_items_wrapper_open( $product ) {
 			if ( apply_filters( 'wc_mnm_grid_has_flex_layout', true, $product ) ) {
 				$classes[] = 'has-flex';
 			}
-
 		}
 
 		/**
@@ -330,17 +328,16 @@ function wc_mnm_template_child_item_details_wrapper_open( $child_item, $product 
 	wc_get_template(
 		'single-product/mnm/' . $product->get_layout() . '/mnm-child-item-wrapper-open.php',
 		array(
-			'regular_price'  => $product->is_priced_per_product() ? wc_get_price_to_display( $child_item->get_product(), array( 'price' => $child_item->get_product()->get_regular_price() ) ) : 0,
-			'price'          => $product->is_priced_per_product() ? wc_get_price_to_display( $child_item->get_product(), array( 'price' => $child_item->get_product()->get_price() ) ) : 0,
-			'child_item'     => $child_item,
-			'mnm_id'         => $child_item->get_product()->get_id(), // For back-compatibility.
-			'mnm_item'       => $child_item->get_product(), // For back-compatibility.
-			'classes'        => $classes,
+			'regular_price' => $product->is_priced_per_product() ? wc_get_price_to_display( $child_item->get_product(), array( 'price' => $child_item->get_product()->get_regular_price() ) ) : 0,
+			'price'         => $product->is_priced_per_product() ? wc_get_price_to_display( $child_item->get_product(), array( 'price' => $child_item->get_product()->get_price() ) ) : 0,
+			'child_item'    => $child_item,
+			'mnm_id'        => $child_item->get_product()->get_id(), // For back-compatibility.
+			'mnm_item'      => $child_item->get_product(), // For back-compatibility.
+			'classes'       => $classes,
 		),
 		'',
 		WC_Mix_and_Match()->plugin_path() . '/templates/'
 	);
-
 }
 
 /**
@@ -404,7 +401,7 @@ function wc_mnm_template_child_item_thumbnail( $child_item, $product ) {
 	 * @param  obj WC_MNM_Child_Item $child_item of child item
 	 * @param  obj WC_Product_Mix_and_Match $product
 	 */
-	$image_size    = apply_filters( 'wc_mnm_child_item_thumbnail_size', 'woocommerce_thumbnail', $child_item, $product );
+	$image_size = apply_filters( 'wc_mnm_child_item_thumbnail_size', 'woocommerce_thumbnail', $child_item, $product );
 
 	if ( has_filter( 'woocommerce_mnm_product_thumbnail_size' ) ) {
 		wc_deprecated_hook( 'woocommerce_mnm_product_thumbnail_size', '2.0.0', 'wc_mnm_child_item_thumbnail_size' );
@@ -420,9 +417,8 @@ function wc_mnm_template_child_item_thumbnail( $child_item, $product ) {
 	 * @param array $link_classes
 	 * @param  obj WC_MNM_Child_Item $child_item of child item
 	 * @param  obj WC_Product_Mix_and_Match $product
-	 *
 	 */
-	$link_classes    = apply_filters( 'wc_mnm_child_item_thumbnail_link_classes', array( 'image', 'zoom' ), $child_item, $product );
+	$link_classes = apply_filters( 'wc_mnm_child_item_thumbnail_link_classes', array( 'image', 'zoom' ), $child_item, $product );
 
 	if ( has_filter( 'wc_mnm_product_thumbnail_link_classes' ) ) {
 		wc_deprecated_hook( 'wc_mnm_product_thumbnail_link_classes', '2.0.0', 'wc_mnm_child_item_thumbnail_link_classes' );
@@ -443,12 +439,11 @@ function wc_mnm_template_child_item_thumbnail( $child_item, $product ) {
 		'',
 		WC_Mix_and_Match()->plugin_path() . '/templates/'
 	);
-
 }
 
 /**
  * Close the thumbnail section.
- * 
+ *
  * @since 2.2.0
  *
  * @param obj WC_MNM_Child_Item $child_item of child item
@@ -498,7 +493,7 @@ function wc_mnm_template_child_item_title( $child_item, $product ) {
 	$min_qty = $child_item->get_quantity( 'min', $child_item->get_id() );
 	$max_qty = $child_item->get_quantity( 'max', $child_item->get_id() );
 
-	$qty     = 'tabular' !== $product->get_layout() && $min_qty > 1 && $min_qty === $max_qty ? $min_qty : '';
+	$qty = 'tabular' !== $product->get_layout() && $min_qty > 1 && $min_qty === $max_qty ? $min_qty : '';
 
 	wc_get_template(
 		'single-product/mnm/mnm-product-title.php',
@@ -513,7 +508,6 @@ function wc_mnm_template_child_item_title( $child_item, $product ) {
 		'',
 		WC_Mix_and_Match()->plugin_path() . '/templates/'
 	);
-
 }
 
 /**
@@ -533,18 +527,17 @@ function wc_mnm_template_child_item_data_details( $child_item, $product ) {
 	wc_get_template(
 		'single-product/mnm/mnm-item-data-attributes.php',
 		array(
-				'child_item'        => $child_item,
-				'mnm_item'          => $child_item->get_product(), // Preserved for back-compat.
-				'mnm_item_id'       => $child_item->get_product()->get_id(), // Preserved for back-compat.
-				'regular_price'     => $is_priced_per_product ? wc_get_price_to_display( $child_item->get_product(), array( 'price' => $child_item->get_product()->get_regular_price() ) ) : 0,
-				'price'             => $is_priced_per_product ? wc_get_price_to_display( $child_item->get_product(), array( 'price' => $child_item->get_product()->get_price() ) ) : 0,
-				'price_incl_tax'    => $is_priced_per_product ? wc_get_price_including_tax( $child_item->get_product(), array( 'price' => $child_item->get_product()->get_price() ) ) : 0,
-				'price_excl_tax'    => $is_priced_per_product ? wc_get_price_excluding_tax( $child_item->get_product(), array( 'price' => $child_item->get_product()->get_price() ) ) : 0,
-			),
+			'child_item'     => $child_item,
+			'mnm_item'       => $child_item->get_product(), // Preserved for back-compat.
+			'mnm_item_id'    => $child_item->get_product()->get_id(), // Preserved for back-compat.
+			'regular_price'  => $is_priced_per_product ? wc_get_price_to_display( $child_item->get_product(), array( 'price' => $child_item->get_product()->get_regular_price() ) ) : 0,
+			'price'          => $is_priced_per_product ? wc_get_price_to_display( $child_item->get_product(), array( 'price' => $child_item->get_product()->get_price() ) ) : 0,
+			'price_incl_tax' => $is_priced_per_product ? wc_get_price_including_tax( $child_item->get_product(), array( 'price' => $child_item->get_product()->get_price() ) ) : 0,
+			'price_excl_tax' => $is_priced_per_product ? wc_get_price_excluding_tax( $child_item->get_product(), array( 'price' => $child_item->get_product()->get_price() ) ) : 0,
+		),
 		'',
 		WC_Mix_and_Match()->plugin_path() . '/templates/'
 	);
-
 }
 
 
@@ -568,7 +561,6 @@ function wc_mnm_template_child_item_attributes( $child_item, $product ) {
 			WC_Mix_and_Match()->plugin_path() . '/templates/'
 		);
 	}
-
 }
 
 
@@ -599,7 +591,7 @@ function wc_mnm_template_child_item_price( $child_item, $product ) {
  *
  * Since "out of stock" and "Temporarily unavailable" are also printed by the get_availability_html() method
  * We need to separate this part out into it's own template function.
- * 
+ *
  * @since 2.3.0
  *
  * @param obj WC_MNM_Child_Item $child_item of child item
@@ -610,7 +602,6 @@ function wc_mnm_template_child_item_stock_remaining( $child_item, $product ) {
 	if ( $product->is_in_stock() && $child_item->get_product()->is_purchasable() && $child_item->get_product()->is_in_stock() ) {
 		echo wp_kses_post( $child_item->get_availability_html() );
 	}
-
 }
 
 /**
@@ -629,7 +620,6 @@ function wc_mnm_template_child_item_quantity_open( $child_item, $product ) {
 		'',
 		WC_Mix_and_Match()->plugin_path() . '/templates/'
 	);
-
 }
 
 /**
@@ -645,16 +635,16 @@ function wc_mnm_template_child_item_quantity( $child_item, $product ) {
 		return;
 	}
 
-	/* translators: %1$d: Quantity, %2$s: Product name. */
+	// translators: %1$d: Quantity, %2$s: Product name.
 	$required_text = sprintf(
-        _x( '&times;%1$d <span class="screen-reader-text">%2$s</span>', '[Frontend]', 'woocommerce-mix-and-match-products' ),
+		_x( '&times;%1$d <span class="screen-reader-text">%2$s</span>', '[Frontend]', 'woocommerce-mix-and-match-products' ),
 		$child_item->get_quantity( 'min' ),
 		wp_strip_all_tags( $child_item->get_product()->get_name() )
 	);
 
-	/* translators: %1$d: Quantity, %2$s: Product name. */
+	// translators: %1$d: Quantity, %2$s: Product name.
 	$checkbox_label = sprintf(
-        _x( 'Add %1$d <span class="screen-reader-text">%2$s</span>', '[Frontend]', 'woocommerce-mix-and-match-products' ),
+		_x( 'Add %1$d <span class="screen-reader-text">%2$s</span>', '[Frontend]', 'woocommerce-mix-and-match-products' ),
 		$child_item->get_quantity( 'max' ),
 		wp_strip_all_tags( $child_item->get_product()->get_name() )
 	);
@@ -691,7 +681,7 @@ function wc_mnm_template_child_item_quantity( $child_item, $product ) {
 	// Backcompatibility.
 	if ( has_filter( 'woocommerce_mnm_child_quantity_input_args' ) ) {
 		wc_deprecated_hook( 'woocommerce_mnm_child_quantity_input_args', '2.0.0', 'wc_mnm_child_item_quantity_input_args : note that the 2nd parameter will be a WC_MNM_Child_Item instance.' );
-		$input_args = apply_filters( 'woocommerce_mnm_child_quantity_input_args', $input_args, $child_item->get_product(), $this->get_container() );
+		$input_args = apply_filters( 'woocommerce_mnm_child_quantity_input_args', $input_args, $child_item->get_product(), $child_item->get_container() );
 	}
 
 	wc_get_template(
@@ -705,7 +695,6 @@ function wc_mnm_template_child_item_quantity( $child_item, $product ) {
 		'',
 		WC_Mix_and_Match()->plugin_path() . '/templates/'
 	);
-
 }
 
 
@@ -740,7 +729,6 @@ function wc_mnm_template_child_item_details_wrapper_close( $child_item, $product
 		'',
 		WC_Mix_and_Match()->plugin_path() . '/templates/'
 	);
-
 }
 
 
@@ -762,7 +750,6 @@ function wc_mnm_template_child_items_wrapper_close( $product ) {
 		);
 
 	}
-
 }
 
 
@@ -770,6 +757,7 @@ if ( ! function_exists( 'wc_mnm_template_reset_link' ) ) {
 
 	/**
 	 * Add the MNM reset link
+	 *
 	 * @since  1.3.0
 	 */
 	function wc_mnm_template_reset_link( $product ) {
@@ -785,7 +773,7 @@ if ( ! function_exists( 'wc_mnm_template_reset_link' ) ) {
 
 /**
  * Get the Add to Cart button wrap.
- * 
+ *
  * @deprecated 2.2.0
  *
  * @param obj WC_Mix_and_Match product of parent product
@@ -796,7 +784,7 @@ function wc_mnm_template_add_to_cart_wrap( $product ) {
 
 	$purchasable_notice = _x( 'This product is currently unavailable.', '[Frontend]', 'woocommerce-mix-and-match-products' );
 
-	if ( ! $product->is_purchasable()  && current_user_can( 'manage_woocommerce' ) ) {
+	if ( ! $product->is_purchasable() && current_user_can( 'manage_woocommerce' ) ) {
 
 		$purchasable_notice_reason = '';
 
@@ -815,9 +803,9 @@ function wc_mnm_template_add_to_cart_wrap( $product ) {
 	}
 
 	if ( isset( $_GET['update-container'] ) ) {
-		$updating_cart_key = wc_clean( $_GET['update-container'] );
+		$updating_cart_key = wc_clean( wp_unslash( $_GET['update-container'] ) );
 		if ( isset( WC()->cart->cart_contents[ $updating_cart_key ] ) ) {
-			echo '<input type="hidden" name="update-container" value="' . $updating_cart_key . '" />';
+			echo '<input type="hidden" name="update-container" value="' . esc_attr( $updating_cart_key ) . '" />';
 		}
 	}
 
@@ -830,13 +818,12 @@ function wc_mnm_template_add_to_cart_wrap( $product ) {
 		'',
 		WC_Mix_and_Match()->plugin_path() . '/templates/'
 	);
-
 }
 
 
 /**
  * Get the validation status template. (replacing wc_mnm_template_add_to_cart_wrap() but similar)
- * 
+ *
  * @since 2.2.0
  *
  * @param obj WC_Mix_and_Match product of parent product
@@ -844,9 +831,9 @@ function wc_mnm_template_add_to_cart_wrap( $product ) {
 function wc_mnm_template_container_status( $product ) {
 
 	if ( isset( $_GET['update-container'] ) ) {
-		$updating_cart_key = wc_clean( $_GET['update-container'] );
+		$updating_cart_key = wc_clean( wp_unslash( $_GET['update-container'] ) );
 		if ( isset( WC()->cart->cart_contents[ $updating_cart_key ] ) ) {
-			echo '<input type="hidden" name="update-container" value="' . $updating_cart_key . '" />';
+			echo '<input type="hidden" name="update-container" value="' . esc_attr( $updating_cart_key ) . '" />';
 		}
 	}
 
@@ -859,12 +846,11 @@ function wc_mnm_template_container_status( $product ) {
 		'',
 		WC_Mix_and_Match()->plugin_path() . '/templates/'
 	);
-
 }
 
 /**
  * Get the purchasable notice.
- * 
+ *
  * @since 2.5.0
  *
  * @param obj WC_Mix_and_Match product of parent product
@@ -905,20 +891,19 @@ function wc_mnm_template_add_to_cart_button( $product ) {
 	wc_get_template(
 		'single-product/add-to-cart/mnm-add-to-cart-button.php',
 		array(
-			'product'            => $product,
+			'product' => $product,
 		),
 		'',
 		WC_Mix_and_Match()->plugin_path() . '/templates/'
 	);
-
 }
 
 /**
-* Display Mix and Match child product short description
-*
-* @param obj WC_MNM_Child_Item $child_item of child item
-* @param obj WC_Mix_and_Match $product the parent container
-*/
+ * Display Mix and Match child product short description
+ *
+ * @param obj WC_MNM_Child_Item $child_item of child item
+ * @param obj WC_Mix_and_Match $product the parent container
+ */
 function wc_mnm_child_item_short_description( $child_item, $product ) {
 
 	if ( ! wc_string_to_bool( get_option( 'wc_mnm_display_short_description', 'no' ) ) ) {
@@ -932,17 +917,19 @@ function wc_mnm_child_item_short_description( $child_item, $product ) {
 	$_post = get_post( $child_item->get_product_id() );
 
 	// Temporarily switch global $post to our child post.
-	$post = $_post;
+	$post = $_post; // phpcs:ignore WordPress.WP.GlobalVariablesOverride
 
 	woocommerce_template_single_excerpt();
 
 	// Restore the global post object.
-	$post = $backup_post;
+	$post = $backup_post; // phpcs:ignore WordPress.WP.GlobalVariablesOverride
 }
 
-/*-----------------------------------------------------------------------------------*/
-/* Plus/Minus Buttons */
-/*-----------------------------------------------------------------------------------*/
+/*
+|--------------------------------------------------------------------------
+| Plus/Minus Buttons
+|--------------------------------------------------------------------------
+*/
 
 /**
  * Hook plus/minus buttons only in MNM context
@@ -975,8 +962,6 @@ function wc_mnm_remove_plus_minus_buttons() {
  */
 function wc_mnm_template_quantity_minus_button() {
 	echo '<button type="button" tabindex="-1" aria-label="' . esc_attr__( 'Reduce quantity', 'woocommerce-mix-and-match-products' ) . '" class="button button--minus">－</button>';
-	
-	
 }
 
 /**
@@ -989,10 +974,11 @@ function wc_mnm_template_quantity_plus_button() {
 }
 
 
-
-/*-----------------------------------------------------------------------------------*/
-/* Backcompatibility Functions */
-/*-----------------------------------------------------------------------------------*/
+/*
+|--------------------------------------------------------------------------
+| Backcompatibility functions.
+|--------------------------------------------------------------------------
+*/
 
 /**
  * Load backcompatibility functions uniquely on woocommerce_mix-and-match_add_to_cart hook.
@@ -1006,7 +992,7 @@ function _wc_mnm_add_template_backcompatibility() {
  * Restore old 1.0.x "row item" hooks for folks overriding the mnm.php template
  */
 function _wc_mnm_add_deprecated_hooks( $template_name, $template_path, $located, $args ) {
-	if ( $template_name == 'single-product/add-to-cart/mnm.php' ) {
+	if ( 'single-product/add-to-cart/mnm.php' === $template_name ) {
 		if ( false === strpos( $located, 'plugins\woocommerce-mix-and-match-products' ) ) {
 			add_action( 'woocommerce_mnm_row_item_thumbnail', 'wc_mnm_template_child_item_thumbnail', 10, 2 );
 			add_action( 'woocommerce_mnm_row_item_description', 'wc_mnm_template_child_item_title', 10, 2 );
@@ -1021,7 +1007,7 @@ function _wc_mnm_add_deprecated_hooks( $template_name, $template_path, $located,
  * Log errors if the deprecated hooks are called.
  */
 function _wc_mnm_detect_deprecated_hooks( $template_name, $template_path, $located, $args ) {
-	if ( $template_name == 'single-product/add-to-cart/mnm.php' ) {
+	if ( 'single-product/add-to-cart/mnm.php' === $template_name ) {
 		if ( did_action( 'woocommerce_mnm_row_item_thumbnail' ) ) {
 			wc_deprecated_hook( 'woocommerce_mnm_row_item_thumbnail', '1.3.0', 'woocommerce_mnm_child_item_details' );
 		}
@@ -1035,9 +1021,11 @@ function _wc_mnm_detect_deprecated_hooks( $template_name, $template_path, $locat
 	}
 }
 
-/*-----------------------------------------------------------------------------------*/
-/* Deprecated Functions */
-/*-----------------------------------------------------------------------------------*/
+/*
+|--------------------------------------------------------------------------
+| Deprecated.
+|--------------------------------------------------------------------------
+*/
 
 if ( ! function_exists( 'woocommerce_template_mnm_product_title' ) ) {
 
@@ -1150,12 +1138,9 @@ function wc_mnm_category_caption( $child_item, $product ) {
 					$product->remaining_cats = $product->remaining_cats;
 
 				}
-
 			}
 		}
-
 	}
-
 }
 
 
@@ -1194,11 +1179,10 @@ function wc_mnm_first_category_caption( $product ) {
 			$product->current_cat    = $first_cat_id;
 			$product->remaining_cats = $cat_ids;
 		}
-
 	}
 }
 
-	
+
 /**
  * Display the category titles in the loop.
  *
@@ -1219,9 +1203,8 @@ function wc_mnm_category_title( $category, $product ) {
 			'',
 			WC_Mix_and_Match()->plugin_path() . '/templates/'
 		);
-		
-	}
 
+	}
 }
 
 
@@ -1234,7 +1217,7 @@ function wc_mnm_category_title( $category, $product ) {
  * @param WC_Product_Mix_and_Match
  */
 function wc_mnm_category_description( $category, $product ) {
-   if ( $category instanceof WP_Term ) {
+	if ( $category instanceof WP_Term ) {
 		wc_get_template(
 			'single-product/mnm-category-description.php',
 			array(
@@ -1243,21 +1226,22 @@ function wc_mnm_category_description( $category, $product ) {
 			'',
 			WC_Mix_and_Match()->plugin_path() . '/templates/'
 		);
-   }
+	}
 }
 
-
-/*--------------------------------------------------------*/
-/*  Mix and Match edit container template functions       */
-/*--------------------------------------------------------*/
+/*
+|--------------------------------------------------------------------------
+| Mix and Match edit container template functions.
+|--------------------------------------------------------------------------
+*/
 
 if ( ! function_exists( 'wc_mnm_template_edit_container_order_item' ) ) {
 
 	/**
 	 * Edit container template for Mix and Match products.
-	 * 
+	 *
 	 * @since 2.2.0
-	 * 
+	 *
 	 * @param WC_Product_Mix_and_Match
 	 * @param WC_Order_Item $order_item
 	 * @param WC_Order $order
@@ -1284,9 +1268,8 @@ if ( ! function_exists( 'wc_mnm_template_edit_container_order_item' ) ) {
 				'source'     => $source,
 			),
 			'',
-			WC_Mix_and_Match()->plugin_path(). '/templates/'
+			WC_Mix_and_Match()->plugin_path() . '/templates/'
 		);
-
 	}
 
 }

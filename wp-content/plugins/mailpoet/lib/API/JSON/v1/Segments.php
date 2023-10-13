@@ -23,6 +23,7 @@ use MailPoet\Newsletter\Segment\NewsletterSegmentRepository;
 use MailPoet\Segments\SegmentListingRepository;
 use MailPoet\Segments\SegmentSaveController;
 use MailPoet\Segments\SegmentsRepository;
+use MailPoet\Segments\SegmentSubscribersRepository;
 use MailPoet\Segments\WooCommerce;
 use MailPoet\Segments\WP;
 use MailPoet\Subscribers\SubscribersRepository;
@@ -66,12 +67,16 @@ class Segments extends APIEndpoint {
   /** @var FormsRepository */
   private $formsRepository;
 
+  /** @var SegmentSubscribersRepository */
+  private $segmentSubscribersRepository;
+
   public function __construct(
     Listing\Handler $listingHandler,
     SegmentsRepository $segmentsRepository,
     SegmentListingRepository $segmentListingRepository,
     SegmentsResponseBuilder $segmentsResponseBuilder,
     SegmentSaveController $segmentSavecontroller,
+    SegmentSubscribersRepository $segmentSubscribersRepository,
     SubscribersRepository $subscribersRepository,
     WooCommerce $wooCommerce,
     WP $wpSegment,
@@ -90,6 +95,7 @@ class Segments extends APIEndpoint {
     $this->newsletterSegmentRepository = $newsletterSegmentRepository;
     $this->cronWorkerScheduler = $cronWorkerScheduler;
     $this->formsRepository = $formsRepository;
+    $this->segmentSubscribersRepository = $segmentSubscribersRepository;
   }
 
   public function get($data = []) {
@@ -295,6 +301,20 @@ class Segments extends APIEndpoint {
         ->withErrors([APIError::BAD_REQUEST => "Invalid bulk action '{$data['action']}' provided."]);
     }
     return $this->successResponse(null, ['count' => $count]);
+  }
+
+  public function subscriberCount($data = []) {
+    $segmentIds = $data['segmentIds'] ?? [];
+    if (empty($segmentIds)) {
+      return $this->errorResponse([
+        APIError::BAD_REQUEST => __('No segment IDs provided.', 'mailpoet'),
+      ]);
+    }
+    $filterSegmentId = $data['filterSegmentId'] ?? null;
+    $status = $data['status'] ?? SubscriberEntity::STATUS_SUBSCRIBED;
+    $response['count'] = $this->segmentSubscribersRepository->getSubscribersCountBySegmentIds($segmentIds, $status, $filterSegmentId);
+
+    return $this->successResponse($response);
   }
 
   private function isTrashOrRestoreAllowed(SegmentEntity $segment): bool {

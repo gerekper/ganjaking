@@ -1,0 +1,546 @@
+/**
+ * Admin YITH WooCommerce Wishlist CSS
+ *
+ * @author YITH <plugins@yithemes.com>
+ * @package YITH WooCommerce Wishlist
+ * @version 3.0.0
+ */
+
+/**
+ * Index:
+ *
+ * 1. POPULAR TAB
+ * 2. ALL WISHLISTS TAB
+ * 3. GENERAL PLUGIN FW PANEL
+ * 4. PROMOTION WIZARD
+ */
+
+/* === 1. POPULAR TAB === */
+
+#popular-filter .wp-list-table td.column-name img{
+    max-width: 40px;
+    height: auto;
+    float: left;
+}
+
+#popular-filter .wp-list-table td.column-name .product-details{
+    padding-left: 60px;
+}
+
+#popular-filter .wp-list-table th.column-name,
+#popular-filter .wp-list-table td.column-name {
+    width: 25%!important;
+}
+
+#popular-filter .wp-list-table th.column-thumb,
+#popular-filter .wp-list-table td.column-thumb {
+    width: 5%!important;
+}
+
+#popular-filter .wp-list-table th.column-actions,
+#popular-filter .wp-list-table td.column-actions {
+    width: 10%!important;
+    text-align: right;
+}
+
+#popular-filter .wp-list-table tr td.column-actions .yith-plugin-fw__action-button {
+    opacity: 0;
+    transition: .3s;
+}
+
+#popular-filter .wp-list-table tr:hover td.column-actions .yith-plugin-fw__action-button {
+    opacity: 1;
+}
+
+/* === 2. ALL WISHLISTS TAB === */
+
+#wishlist-filter .wp-list-table td.column-username img{
+    float: left;
+}
+
+#wishlist-filter .wp-list-table td.column-username .customer-details{
+    padding-left: 60px;
+}
+
+/* === 3. GENERAL PLUGIN FW PANEL === */
+
+.yith-plugin-ui #plugin-fw-wc .option-icon{
+    margin-right: 5px;
+}
+
+.yith-plugin-ui #plugin-fw-wc h2 + #yith_wcwl_shop_page_settings-description p,
+.yith-plugin-ui #plugin-fw-wc h2 + #yith_wcwl_yith_wfbt-description p,
+.yith-plugin-ui #plugin-fw-wc h2 + #yith_wcwl_additional_fields_settings-description p{
+    background: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+}
+
+.yith-plugin-ui #plugin-fw-wc h2 + #yith_wcwl_shop_page_settings-description p:before,
+.yith-plugin-ui #plugin-fw-wc h2 + #yith_wcwl_yith_wfbt-description p:before,
+.yith-plugin-ui #plugin-fw-wc h2 + #yith_wcwl_additional_fields_settings-description p:before{
+    content: '';
+}
+
+/* === 4. PROMOTION WIZARD === */
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main{
+    padding-bottom: 0;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main .wc-backbone-modal-header{
+    border-bottom: none;
+    padding: 0;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main .wc-backbone-modal-header .modal-close-link{
+    border-left: none;
+    z-index: 1;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article{
+    padding: 0;
+    max-height: calc(100vh - 40px)!important;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article h2{
+    font-size: 1.5em;
+    margin: 0.8em 0 2em;
+
+    color: #007694;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article h4{
+    color: #007694;
+    margin: 1.33em 0;
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article p.description{
+    font-weight: 600;
+    font-style: normal;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article p.placeholders{
+    font-size: .9em;
+    margin-top: 1.33em;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article code{
+    background: none;
+    padding: 0;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article small{
+    font-size: .9em;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article b.alert{
+    color: #a20000;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .form-row{
+    margin-top: 1.5em;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article label{
+    color: #00a79c;
+    font-weight: 600;
+    font-size: 1.1em;
+    margin-bottom: 20px;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .tabs{
+    display: inline-block;
+    margin: 0;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .tabs li{
+    display: inline-block;
+    margin-bottom: 0;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .tabs li a{
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 1.1em;
+    color: #404040;
+    font-weight: 600;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .tabs li a.active {
+    position: relative;
+    background: #fff;
+    box-shadow: 0 0 25px -4px rgba(68,138,133,.4);
+    z-index: 1;
+    color: #00a79c;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .tabs li a:hover{
+    color: #00a79c;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .tab,
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .form-row{
+    padding: 20px;
+
+    position: relative;
+
+    -webkit-box-shadow: 0px 0px 25px -4px rgba(68,138,133,0.4);
+    -moz-box-shadow: 0px 0px 25px -4px rgba(68,138,133,0.4);
+    box-shadow: 0px 0px 25px -4px rgba(68,138,133,0.4);
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .tab:before {
+    content: '';
+    display: block;
+    background: #ffffff;
+    left: 0;
+    right: 0;
+    height: 20px;
+    position: absolute;
+    top: -1px;
+    z-index: 1;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .tab:not(.active){
+    display: none;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .tab > textarea{
+    width: 100%;
+    margin-top: 30px;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .col{
+    padding: 20px 30px;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .step-1{
+    display: flex;
+    width: 100%;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .step-1 > .col{
+    flex: 1;
+    width: 600px;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .step-1 > .col-dx {
+    background-color: #f2f2f2;
+    position: relative;
+    padding-bottom: 80px;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .step-1 #content_html{
+    width: 100%;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .step-1 #content_html_tab .wp-switch-editor {
+    box-sizing: initial;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .step-1 .email-preview{
+    height: 600px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    margin: 30px 0;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .step-1 .email-preview.html td > table {
+    width: 100%!important;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .step-1 .email-preview.plain{
+    padding: 0 20px;
+    background: #fff;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .step-1 .email-preview .no-interactions{
+    pointer-events: none;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .step-1 .email-preview #wrapper{
+    padding: 0!important;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .step-1 .email-preview #wrapper > table{
+    width: 100%!important;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .step-1 .promotion-actions{
+    position: absolute;
+    left: 30px;
+    right: 30px;
+    bottom: 30px;
+    line-height: 40px;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .step-1 .promotion-actions .save-promotion-draft,
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .step-1 .promotion-actions a.back-button{
+    color: #007694;
+    font-weight: 700;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .step-1 .promotion-actions .save-promotion-draft{
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .step-1 .promotion-actions a.continue-button {
+    float: right;
+    background-color: #007694;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 26px;
+    height: auto;
+    padding: 5px 20px;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .step-1 .promotion-actions a.continue-button:hover{
+    background-color: #375f6b;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .step-2{
+    max-width: 500px;
+    min-height: 400px;
+    position: relative;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .step-2 h2{
+    margin-top: 2em;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .step-2 p{
+    font-weight: 600;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .step-2 #main_submit_button{
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    right: 30px;
+    width: calc(100% - 60px);
+    padding: 5px 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+    vertical-align: middle;
+    line-height: 30px;
+    height: auto;
+}
+
+.yith-wcwl-wizard-modal .wc-backbone-modal-main article .step-2 #main_submit_button i{
+    vertical-align: middle;
+    margin-right: 5px;
+    font-size: 22px;
+}
+
+/* Email options */
+
+#yith-wcwl-emails-wrapper table{
+	padding: 0 40px;
+}
+
+#yith-wcwl-emails-wrapper h2{
+	padding-bottom: 15px;
+}
+
+#yith-wcwl-emails-wrapper .description{
+	margin: 15px 0 0 0;
+	font-size: 13px;
+}
+
+#yith-wcwl-emails-wrapper h2,
+#yith-wcwl-emails-wrapper table{
+	border: none;
+}
+
+#yith-wcwl-table-emails .heading-table,
+#yith-wcwl-table-emails .yith-wcwl-row {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+#yith-wcwl-table-emails .yith-wcwl-column:nth-child(1) {
+	flex-basis: 84%;
+}
+
+#yith-wcwl-table-emails .yith-wcwl-column:nth-child(2) {
+	flex-basis: 10%;
+	text-align: right;
+}
+
+#yith-wcwl-table-emails .yith-wcwl-column:nth-child(3) {
+	flex-basis: 4%;
+}
+
+#yith-wcwl-table-emails .yith-wcwl-column.status {
+	text-align: right;
+	box-sizing: border-box;
+}
+
+#yith-wcwl-table-emails .heading-table .yith-wcwl-column.status{
+	padding-right: 40px;
+}
+
+#yith-wcwl-table-emails .content-table .yith-wcwl-column.status{
+	padding-right: 30px;
+	padding-top: 5px;
+}
+
+#yith-wcwl-table-emails .heading-table {
+	margin-bottom: 20px;
+}
+
+#yith-wcwl-table-emails .yith-wcwl-column.email {
+	padding-left: 20px;
+	box-sizing: border-box;
+}
+
+
+#yith-wcwl-table-emails .heading-table .yith-wcwl-column {
+	font-size: 14px;
+	color: #2c3338;
+	font-weight: 600;
+}
+
+
+#yith-wcwl-table-emails .content-table .yith-wcwl-row {
+	background: var(--yith-content-bg);
+	border-radius: 5px;
+	box-shadow: 0 0 0 1px var(--yith-light-border-color), 0 3px 11px 6px var(--yith-light-shadow);
+	transition: background-color .2s ease-in-out;
+	margin-bottom: 30px;
+	padding: 20px 0;
+}
+
+#yith-wcwl-table-emails .content-table .yith-wcwl-column {
+	line-height: 30px;
+	box-sizing: border-box;
+}
+
+#yith-wcwl-table-emails .content-table .yith-wcwl-row:hover{
+	background: var(--yith-table-row-highlight);
+}
+
+#yith-wcwl-table-emails .content-table .yith-wcwl-column.action{
+	opacity: 0;
+	pointer-events: none;
+	position: relative;
+}
+
+#yith-wcwl-table-emails .content-table .yith-wcwl-row:hover .yith-wcwl-column.action{
+	opacity: 1;
+	pointer-events: auto;
+}
+
+#yith-wcwl-table-emails .email-settings{
+	flex-basis: 100%;
+	display: none;
+	margin-top: 15px;
+}
+
+#yith-wcwl-table-emails .email-settings #template{
+	display: none;
+}
+
+#yith-wcwl-table-emails .email-settings form{
+	background: #ffffff;
+	margin-bottom: 0;
+}
+
+#yith-wcwl-table-emails .email-settings .yit-admin-panel-container{
+	margin-right: 0;
+}
+
+#yith-wcwl-table-emails  .email-settings h2,
+#yith-wcwl-table-emails  .email-settings h2 + p{
+	display: none;
+}
+
+
+#yith-wcwl-table-emails  .email-settings table {
+	border: none!important;
+}
+
+#yith-wcwl-table-emails .content-table .yith-wcwl-row.active{
+	background: var(--yith-table-row-highlight);
+	padding-bottom: 0;
+}
+
+#yith-wcwl-table-emails #yith_wcwl_back_in_stock form tr:first-child,
+#yith-wcwl-table-emails #yith_wcwl_on_sale_item form tr:first-child {
+	display: none;
+}
+
+#yith-wcwl-table-emails .woocommerce-help-tip{
+	display: none;
+}
+
+#yith-wcwl-table-emails .email-settings .submit{
+	text-align: right;
+	margin-right: 20px;
+}
+
+#yith_wcwl_panel_dashboard-lists .yith-plugin-fw__panel__option.yith-plugin-fw__panel__option--list-table, #yith_wcwl_panel_dashboard-popular .yith-plugin-fw__panel__option.yith-plugin-fw__panel__option--list-table {
+	max-width: unset;
+}
+
+#yith_wcwl_panel_dashboard-lists .yith-plugin-fw__panel__secondary-notices, #yith_wcwl_panel_dashboard-popular .yith-plugin-fw__panel__secondary-notices {
+	display: none;
+}
+
+#yith_wcwl_panel_dashboard-lists form#plugin-fw-wc, #yith_wcwl_panel_dashboard-popular form#plugin-fw-wc {
+	padding-top: 0;
+}
+
+#yith_wcwl_panel_dashboard-lists td.column-items, #yith_wcwl_panel_dashboard-popular td.column-count {
+	text-align: center;
+}
+
+#popular-filter.users-popular{
+	padding-top: 32px;
+}
+
+#yith_wcwl_ask_an_estimate_fields .yith-toggle-elements .yith-toggle-row, #yith_wcwl_ask_an_estimate_fields_add_box{
+	width: 100%;
+}
+
+#wishlist-filter .subsubsub li {
+	color: #fff;
+	margin-right: 10px;
+	display: flex;
+}
+
+#wishlist-filter .subsubsub {
+	border-bottom: 1px solid #f1f1f1;
+	margin: 25px 0;
+	display: flex;
+}
+
+#wishlist-filter .subsubsub li a.current {
+	border-bottom: 2px solid #00799f;
+	color: #00799f;
+}
+
+#wishlist-filter .subsubsub li a {
+	text-transform: capitalize;
+	color: #666;
+	font-size: 14px;
+	display: block;
+	padding: 7px 5px;
+	line-height: 1em;
+	font-weight: 600;
+}
+
+#yith_wcwl_panel_dashboard-lists input#current-page-selector, #yith_wcwl_panel_dashboard-popular input#current-page-selector{
+	width: unset;
+}

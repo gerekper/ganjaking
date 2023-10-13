@@ -1,0 +1,12 @@
+/**
+ * RTL Frontend style
+ *
+ * @author YITH <plugins@yithemes.com>
+ */
+
+body.rtl .yith-wcbk-date-picker-wrapper .yith-wcbk-booking-date-icon,
+body.rtl .yith-wcbk-select-alt__arrow,
+body.rtl .yith-wcbk-people-selector__toggle-handler__icon{
+    right : auto;
+    left  : 10px;
+}

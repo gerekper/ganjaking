@@ -1,0 +1,3891 @@
+# Translation of YITH WooCommerce Wishlist in Greek
+# This file is distributed under the same license as the YITH WooCommerce Wishlist package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Wishlist\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"wishlist.premium\n"
+"POT-Creation-Date: 2023-10-05 12:54:37+00:00\n"
+"PO-Revision-Date: 2020-12-16 13:53:02+0000\n"
+"Language: el_GR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+
+#: includes/class-yith-wcwl-admin-extended.php:85
+#: includes/class-yith-wcwl-admin-premium.php:109
+msgid "Email Settings"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin-extended.php:105
+#: includes/class-yith-wcwl-admin-premium.php:450
+#: includes/class-yith-wcwl-admin-premium.php:465
+#: plugin-options/settings/wishlist_page-options.php:56
+#: plugin-options/settings/wishlist_page-options.php:65
+#: plugin-options/settings/wishlist_page-options.php:74
+#: plugin-options/settings/wishlist_page-options.php:83
+#: plugin-options/settings/wishlist_page-options.php:92
+#: plugin-options/settings/wishlist_page-options.php:101
+#: plugin-options/settings/wishlist_page-options.php:110
+msgid "In wishlist table show"
+msgstr "Σε εμφάνιση πίνακα λίστας επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-extended.php:106
+msgid ""
+"Product quantity (so users can manage the quantity of each product from the "
+"wishlist)"
+msgstr ""
+"Ποσότητα προϊόντος (έτσι ώστε οι χρήστες να μπορούν να διαχειρίζονται την "
+"ποσότητα κάθε προϊόντος από την λίστα επιθυμιών)"
+
+#: includes/class-yith-wcwl-admin-extended.php:152
+msgid "Customer"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin-premium.php:130
+msgid "Enable wishlist for"
+msgstr "Ενεργοποίηση λίστας επιθυμιών για"
+
+#: includes/class-yith-wcwl-admin-premium.php:131
+msgid ""
+"Choose whether to enable the wishlist feature for all users or only for "
+"logged-in users"
+msgstr ""
+"Επιλέξτε αν θέλετε να ενεργοποιήσετε το χαρακτηριστικό λίστας επιθυμιών για "
+"όλους τους χρήστες ή μόνο για συνδεδεμένους χρήστες"
+
+#: includes/class-yith-wcwl-admin-premium.php:134
+#: includes/class-yith-wcwl-admin-premium.php:211
+msgid "All users"
+msgstr "Όλοι οι χρήστες"
+
+#: includes/class-yith-wcwl-admin-premium.php:135
+#: includes/class-yith-wcwl-admin-premium.php:212
+msgid "Only authenticated users"
+msgstr "Μόνο πιστοποιημένοι χρήστες"
+
+#: includes/class-yith-wcwl-admin-premium.php:143
+msgid "Enable Added/Removed notices"
+msgstr "Ενεργοποίηση Προστιθέμενων/Αφαιρουμένων σημειώσεων"
+
+#: includes/class-yith-wcwl-admin-premium.php:144
+msgid ""
+"Enable popup notices when the product is added or removed from the wishlist"
+msgstr ""
+"Ενεργοποίηση σημείωσης popup κατα την προσθήκη ή αφαίρεση προϊόντος από τη "
+"λίστα επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:152
+msgid "Enable \"Add to wishlist\" tooltip"
+msgstr "Ενεργοποίηση υπόμνησης “Προσθήκη στη λίστα επιθυμιών”"
+
+#: includes/class-yith-wcwl-admin-premium.php:153
+msgid ""
+"Choose whether to display a tooltip when hovering over Add to wishlist link"
+msgstr ""
+"Επιλέξτε αν θέλετε να εμφανίζεται υπόμνηση κατα την αιώρηση πάνω στον "
+"σύνδεσμο Προσθήκης στη λίστα επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:161
+msgid "Add to wishlist tooltip style"
+msgstr "Στυλ υπόμνησης Προσθήκης στη λίστα επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:162
+msgid "Choose colors for Add to wishlist tooltip"
+msgstr "Επιλέξτε χρώματα για την υπόμνηση Προσθήκης στη λίστα επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:168
+#: plugin-options/settings/add_to_wishlist-options.php:198
+#: plugin-options/settings/ask_an_estimate-options.php:239
+#: plugin-options/settings/wishlist_page-options.php:288
+#: plugin-options/settings/wishlist_page-options.php:386
+#: plugin-options/settings/wishlist_page-options.php:435
+#: plugin-options/settings/wishlist_page-options.php:483
+#: plugin-options/settings/wishlist_page-options.php:570
+#: plugin-options/settings/wishlist_page-options.php:610
+#: plugin-options/settings/wishlist_page-options.php:650
+#: plugin-options/settings/wishlist_page-options.php:690
+#: plugin-options/settings/wishlist_page-options.php:730
+msgid "Background"
+msgstr "Φόντο"
+
+#: includes/class-yith-wcwl-admin-premium.php:173
+#: plugin-options/settings/add_to_wishlist-options.php:203
+#: plugin-options/settings/ask_an_estimate-options.php:134
+#: plugin-options/settings/ask_an_estimate-options.php:244
+#: plugin-options/settings/wishlist_page-options.php:293
+#: plugin-options/settings/wishlist_page-options.php:391
+#: plugin-options/settings/wishlist_page-options.php:440
+#: plugin-options/settings/wishlist_page-options.php:488
+#: plugin-options/settings/wishlist_page-options.php:525
+msgid "Text"
+msgstr "Κείμενο"
+
+#: includes/class-yith-wcwl-admin-premium.php:191
+msgid "Multi-wishlist settings"
+msgstr "Ρυθμίσεις multi-wishlist"
+
+#: includes/class-yith-wcwl-admin-premium.php:198
+msgid "Enable multi-wishlist feature"
+msgstr "Ενεργοποίηση χαρακτηριστικού multi-wishlist"
+
+#: includes/class-yith-wcwl-admin-premium.php:199
+msgid "Allow customers to create and manage multiple wishlists"
+msgstr ""
+"Επιτρέψτε στους πελάτες να δημιουργούν και διαχειρίζονται πολλαπλές λίστες "
+"επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:207
+msgid "Enable multiple wishlists for"
+msgstr "Ενεργοποίηση πολλαπλών λιστών επιθυμιών για"
+
+#: includes/class-yith-wcwl-admin-premium.php:208
+msgid ""
+"Choose whether to enable the multi-wishlist feature for all users or just "
+"for logged-in users"
+msgstr ""
+"Επιλέξτε αν θέλετε να ενεργοποιήσετε το χαρακτηριστικό multi-wishlist για "
+"όλους τους χρήστες ή μόνο για συνδεδεμένους χρήστες"
+
+#: includes/class-yith-wcwl-admin-premium.php:224
+msgid "Login message for non-authenticated users"
+msgstr "Μήνυμα Σύνδεσης μη πιστοποιημένων χρηστών"
+
+#: includes/class-yith-wcwl-admin-premium.php:226
+msgid ""
+"Enter the message to ask unauthenticated users to login so they will be able "
+"to use the multi-wishlist feature.<br/>Use the placeholder %login_anchor% "
+"(set up the text in the following option) to add an anchor and redirect "
+"users to the Login page."
+msgstr ""
+"Εισάγετε το μήνυμα με το οποίο θα ρωτάτε τους μη πιστοποιημένους χρήστες να "
+"συνδεθούν έτσι ώστε να μπορούν να χρησιμοποιούν το χαρακτηριστικό multi-"
+"wishlist.<br/>Χρησιμοποιήστε το placeholder %login_anchor% (ορίστε το "
+"κείμενο στην ακόλουθη επιλογή) για να προσθέσετε αγκίστρωση και να "
+"ανακατευθύνετε τους χρήστες στη σελίδα Σύνδεσης."
+
+#: includes/class-yith-wcwl-admin-premium.php:227
+msgid "Please %login_anchor% to use all the wishlist features"
+msgstr ""
+"Παρακαλώ ολοκληρώστε την %login_anchor% για να χρησιμοποιήσετε όλα τα "
+"χαρακτηριστικά της λίστας επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:237
+msgid "Login anchor text"
+msgstr "Κείμενο αγκίστρωσης Σύνδεσης"
+
+#: includes/class-yith-wcwl-admin-premium.php:239
+msgid "Set up here the text of the Login link that replace %login_anchor%"
+msgstr ""
+"Ορίστε εδώ το κείμενο του συνδέσμου Σύνδεσης που αντικαθιστά %login_anchor%"
+
+#: includes/class-yith-wcwl-admin-premium.php:240
+msgid "login"
+msgstr "σύνδεση"
+
+#: includes/class-yith-wcwl-admin-premium.php:278
+msgid "When clicking on Add to wishlist"
+msgstr "Όταν κάνετε κλι σε Προσθήκη στη λίστα επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:279
+msgid "Choose the default action for new products added to the wishlist."
+msgstr ""
+"Επιλέξτε την προεπιλεγμένη ενέργεια για τα νέα προϊόντα που προστίθενται στη "
+"λίστα επιθυμιών."
+
+#: includes/class-yith-wcwl-admin-premium.php:285
+msgid "Automatically add to the default list"
+msgstr "Αυτόματη προσθήκη στην προεπιλεγμένη λίστα"
+
+#: includes/class-yith-wcwl-admin-premium.php:286
+msgid "Show a modal window to allow users to choose a wishlist"
+msgstr ""
+"Εμφάνιση βοηθητικού παραθύρου για να επιτρέπετε στους χρήστες να επιλέγουν "
+"λίστα επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:287
+msgid "Show a dropdown to allow users to choose a wishlist"
+msgstr ""
+"Εμφάνιση αναπτυσσόμενου μενού για να επιτρέπετε στους χρήστες να επιλέγουν "
+"λίστα επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:291
+msgid "When product is added to wishlist"
+msgstr "Όταν το προϊόν έχει προστεθεί σε λίστα επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:292
+msgid ""
+"Choose what should happen to the modal, when a product is added to the list."
+msgstr ""
+"Επιλέξτε τι να συμβαίνει στο βοηθητικό παράθυρο κατα την προσθήκη προϊόντος "
+"στη λίστα."
+
+#: includes/class-yith-wcwl-admin-premium.php:302
+msgid "Automatically close the modal"
+msgstr "Κλείστε αυτόματα το βοηθητικό παράθυρο"
+
+#: includes/class-yith-wcwl-admin-premium.php:303
+msgid "Leave the modal open"
+msgstr "Διατηρήστε το βοηθητικό παράθυρο ανοιχτό"
+
+#: includes/class-yith-wcwl-admin-premium.php:310
+msgid ""
+"Add to wishlist button now opens a modal to move or remove items (available "
+"only with multi-wishlist option enabled)"
+msgstr ""
+"Το κουμπί Προσθήκης στη λίστα επιθυμιών πλέον ανοίγει βοηθητικό παράθυρο για "
+"την μετακίνηση ή αφαίρεση αντικειμένων (διαθέσιμο μόνο αν έχετε "
+"ενεργοποιήσει την επιλογή multi-wishlist)"
+
+#: includes/class-yith-wcwl-admin-premium.php:318
+msgid "Show a count of users with a specific product in wishlist"
+msgstr "Εμφάνιση αρίθμησης χρηστών με συγκεκριμένο προϊόν στη λίστα επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:319
+msgid ""
+"Show a counter on the product page that allows your customers to know how "
+"many times the product has been added to a wishlist"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin-premium.php:333
+msgid "\"Add to wishlist\" popup button text"
+msgstr "Κείμενο κουμπιού popup “Προσθήκη στη λίστα επιθυμιών”"
+
+#: includes/class-yith-wcwl-admin-premium.php:335
+msgid "Text of the \"Add to wishlist\" button in the popup"
+msgstr "Κείμενο κουμπιού “Προσθήκη στη λίστα επιθυμιών” στο popup"
+
+#: includes/class-yith-wcwl-admin-premium.php:336
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:118
+#: plugin-options/settings/add_to_wishlist-options.php:136
+msgid "Add to wishlist"
+msgstr "Προσθήκη στη λίστα επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:363
+msgid "Layout for wishlist view"
+msgstr "Διάταξη προβολής λίστας επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:364
+msgid "Select a style for your \"Manage wishlists\" page"
+msgstr "Επιλέξτε στυλ για την σελίδα “Διαχείρισης λίστας επιθυμιών”"
+
+#: includes/class-yith-wcwl-admin-premium.php:369
+#: includes/class-yith-wcwl-admin-premium.php:437
+msgid "Traditional"
+msgstr "Παραδοσιακό"
+
+#: includes/class-yith-wcwl-admin-premium.php:370
+#: includes/class-yith-wcwl-admin-premium.php:438
+msgid "Modern grid"
+msgstr "Μοντέρνο πλέγμα"
+
+#: includes/class-yith-wcwl-admin-premium.php:375
+#: includes/class-yith-wcwl-admin-premium.php:383
+#: includes/class-yith-wcwl-admin-premium.php:391
+#: includes/class-yith-wcwl-admin-premium.php:399
+#: includes/class-yith-wcwl-admin-premium.php:407
+msgid "Show wishlist info"
+msgstr "Εμφάνιση στοιχείων λίστας επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:376
+msgid "Number of items in wishlist"
+msgstr "Αριθμός αντικειμένων στη λίστα επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:384
+msgid "Date of creation of the wishlist"
+msgstr "Ημερομηνία δημιουργίας λίστας επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:392
+msgid "Download a PDF version of the wishlist"
+msgstr "Κατέβασμα έκδοσης PDF της λίστας επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:400
+msgid "Rename wishlist button"
+msgstr "Μετονομασία κουμπιού λίστας επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:408
+msgid "Delete wishlist button"
+msgstr "Διαγραφή κουμπιού λίστας επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:415
+msgid "\"Create wishlist\" in popup"
+msgstr "“Δημιουργία λίστας επιθυμιών” στο popup"
+
+#: includes/class-yith-wcwl-admin-premium.php:416
+msgid "Create a new wishlist in the popup instead of using the endpoint"
+msgstr ""
+"Δημιουργία νέας λίστας επιθυμιών στο popup αντί για χρήση τελικού σημείου"
+
+#: includes/class-yith-wcwl-admin-premium.php:430
+msgid "Layout for product list"
+msgstr "Διάταξη λίστας προϊόντος"
+
+#: includes/class-yith-wcwl-admin-premium.php:431
+msgid "Select a style for displaying your wishlist page"
+msgstr "Επιλέξτε στυλ για την εμφάνιση της σελίδας λίστας επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:439
+msgid "Only images with info at click"
+msgstr "Μόνο εικόνες με στοιχεία κατα το κλικ"
+
+#: includes/class-yith-wcwl-admin-premium.php:451
+msgid ""
+"Price variation info (show the price difference compared to when the product "
+"was added to the list)"
+msgstr ""
+"Στοιχεία παραλλαγής τιμής (εμφανίστε την διαφορά τιμής σε σύγκριση με όταν "
+"το προϊόν προστέθηκε στη λίστα)"
+
+#: includes/class-yith-wcwl-admin-premium.php:466
+msgid ""
+"Checkbox to select multiple items, add them to the cart or delete them with "
+"one click"
+msgstr ""
+"Πλαίσιο ελέγχου για επιλογή πολλαπλών αντικειμένων, προσθέστε τα στο καλάθι "
+"ή διαγράψτε τα με ένα κλικ"
+
+#: includes/class-yith-wcwl-admin-premium.php:480
+msgid "Show Move to another wishlist"
+msgstr "Εμφάνιση Μετακίνησης σε άλλη λίστα επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:481
+msgid "Enable the option to move the product to another wishlist"
+msgstr ""
+"Ενεργοποίηση της επιλογής μετακίνησης προϊόντος σε άλλη λίστα επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:488
+msgid "Move to another wishlist - style"
+msgstr "Μετακίνηση σε άλλη λίστα επιθυμιών - στυλ"
+
+#: includes/class-yith-wcwl-admin-premium.php:489
+msgid "Choose the look and feel of the \"Move to another wishlist\" option"
+msgstr ""
+"Επιλέξτε την εμφάνιση και αίσθηση της επιλογής “Μετακίνηση σε άλλη λίστα "
+"επιθυμιών”"
+
+#: includes/class-yith-wcwl-admin-premium.php:495
+msgid "Select dropdown with all wishlists"
+msgstr "Επιλογή αναπτυσσόμενου μενού με όλες τις λίστες επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:496
+msgid "Link to a popup"
+msgstr "Σύνδεσμος για popup"
+
+#: includes/class-yith-wcwl-admin-premium.php:511
+msgid "Enable \"Add all to cart\""
+msgstr "Ενεργοποίηση “Προσθήκη όλων στο καλάθι”"
+
+#: includes/class-yith-wcwl-admin-premium.php:512
+msgid ""
+"Enable \"Add all to cart\" button to let customers add all the products in "
+"the wishlist to the cart"
+msgstr ""
+"Ενεργοποίηση κουμπιού “Προσθήκη όλων στο καλάθι” για να επιτρέπετε στους "
+"πελάτες να προσθέτουν όλα τα προϊόντα της λίστας επιθυμιών στο καλάθι"
+
+#: includes/class-yith-wcwl-admin-premium.php:519
+msgid "Enable drag and drop option"
+msgstr "Ενεργοποίηση επιλογής μεταφοράς και απόθεσης"
+
+#: includes/class-yith-wcwl-admin-premium.php:520
+msgid ""
+"Enable drag and drop option so users can arrange the order of products in "
+"the wishlist"
+msgstr ""
+"Ενεργοποίηση επιλογής μεταφοράς και απόθεσης έτσι ώστε οι χρήστες να μπορούν "
+"να ταξινομήσουν την σειρά των προϊόντων της λίστας επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:527
+msgid "Show links to pages"
+msgstr "Εμφάνιση συνδέσμων για σελίδες"
+
+#: includes/class-yith-wcwl-admin-premium.php:528
+msgid ""
+"Show the links to \"Manage\", \"Create\" and \"Search\" pages after the "
+"wishlist table"
+msgstr ""
+"Εμφάνιση συνδέσμων για σελίδες “Διαχείριση”, “Δημιουργία” και “Αναζήτηση” "
+"μετά τον πίνακα λίστας επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:542
+msgid "\"Create wishlist\" page name"
+msgstr "Όνομα σελίδας “Δημιουργία λίστας επιθυμιών”"
+
+#: includes/class-yith-wcwl-admin-premium.php:544
+msgid "Enter the title for the \"Create wishlist\" page"
+msgstr "Εισάγετε τον τίτλο για την σελίδα “Δημιουργία λίστας επιθυμιών”"
+
+#: includes/class-yith-wcwl-admin-premium.php:545
+#: templates/wishlist-popup-create.php:61
+msgid "Create a new wishlist"
+msgstr "Δημιουργία νέας λίστας επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:549
+msgid "\"Manage wishlist\" page name"
+msgstr "Όνομα σελίδας “Διαχείριση λίστας επιθυμιών”"
+
+#: includes/class-yith-wcwl-admin-premium.php:551
+msgid "Enter the title for \"Manage wishlists\" page"
+msgstr "Εισάγετε τον τίτλο για την σελίδα “Διαχείριση λιστών επιθυμιών”"
+
+#: includes/class-yith-wcwl-admin-premium.php:552
+#: includes/class-yith-wcwl-frontend-premium.php:364
+msgid "Your wishlists"
+msgstr "Οι λίστες επιθυμιών σας"
+
+#: includes/class-yith-wcwl-admin-premium.php:556
+msgid "\"Search wishlist\" page name"
+msgstr "Όνομα σελίδας “Αναζήτηση λίστας επιθυμιών”"
+
+#: includes/class-yith-wcwl-admin-premium.php:558
+msgid "Enter the title for \"Search wishlists\" page"
+msgstr "Εισάγετε τον τίτλο για την σελίδα “Αναζήτηση λιστών επιθυμιών”"
+
+#: includes/class-yith-wcwl-admin-premium.php:559
+msgid "Search a wishlist"
+msgstr "Αναζήτηση λίστας επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:609
+msgid "\"Promotional\" email"
+msgstr "“Προωθητικό” email"
+
+#: includes/class-yith-wcwl-admin-premium.php:616
+#: includes/class-yith-wcwl-admin-premium.php:718
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:355
+#: includes/emails/class-yith-wcwl-estimate-email.php:260
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:360
+#: includes/emails/class-yith-wcwl-promotion-email.php:389
+#: plugin-options/promotion_email-options.php:93
+msgid "Email type"
+msgstr "Τύπος email"
+
+#: includes/class-yith-wcwl-admin-premium.php:617
+#: includes/class-yith-wcwl-admin-premium.php:719
+#: plugin-options/promotion_email-options.php:94
+msgid "Choose which type of email to send"
+msgstr "Επιλέξτε ποιος τύπος email να στέλνεται"
+
+#: includes/class-yith-wcwl-admin-premium.php:624
+#: includes/class-yith-wcwl-admin-premium.php:726
+#: plugin-options/promotion_email-options.php:101
+msgid "Plain"
+msgstr "Απλό"
+
+#: includes/class-yith-wcwl-admin-premium.php:625
+#: includes/class-yith-wcwl-admin-premium.php:727
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:362
+#: includes/emails/class-yith-wcwl-estimate-email.php:267
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:367
+#: includes/emails/class-yith-wcwl-promotion-email.php:396
+#: plugin-options/promotion_email-options.php:102
+msgid "HTML"
+msgstr "HTML"
+
+#: includes/class-yith-wcwl-admin-premium.php:626
+#: includes/class-yith-wcwl-admin-premium.php:728
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:363
+#: includes/emails/class-yith-wcwl-estimate-email.php:268
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:368
+#: includes/emails/class-yith-wcwl-promotion-email.php:397
+#: plugin-options/promotion_email-options.php:103
+msgid "Multipart"
+msgstr "Με πολλαπλά μέρη"
+
+#: includes/class-yith-wcwl-admin-premium.php:631
+#: includes/class-yith-wcwl-admin-premium.php:733
+#: includes/emails/class-yith-wcwl-promotion-email.php:380
+#: plugin-options/promotion_email-options.php:108
+msgid "Email heading"
+msgstr "Επικεφαλίδα email"
+
+#: includes/class-yith-wcwl-admin-premium.php:632
+msgid ""
+"Enter the title for the email notification. Leave blank to use the default "
+"heading: \"<i>There is a deal for you!</i>\""
+msgstr ""
+"Εισάγετε τίτλο για την ειδοποίηση email. Διατηρήστε κενό για να "
+"χρησιμοποιήσετε την προεπιλεγμένη επικεφαλίδα: \"<i>Έχετε κερδίσει μια "
+"ειδική προσφορά!</i>\""
+
+#: includes/class-yith-wcwl-admin-premium.php:639
+#: includes/class-yith-wcwl-admin-premium.php:741
+#: plugin-options/promotion_email-options.php:116
+msgid "Email subject"
+msgstr "Θέμα email"
+
+#: includes/class-yith-wcwl-admin-premium.php:640
+msgid ""
+"Enter the mail subject line. Leave blank to use the default subject: \"<i>A "
+"product of your wishlist is on sale</i>\""
+msgstr ""
+"Εισάγετε τη γραμμή θέματος email. Διατηρήστε κενό για να χρησιμοποιήσετε το "
+"προεπιλεγμένο θέμα: \"<i>Ένα αντικείμενο της λίστας επιθυμιών σας είναι προς "
+"πώληση!</i>\""
+
+#: includes/class-yith-wcwl-admin-premium.php:647
+#: includes/class-yith-wcwl-admin-premium.php:749
+#: includes/emails/class-yith-wcwl-promotion-email.php:402
+#: plugin-options/promotion_email-options.php:124
+msgid "Email HTML content"
+msgstr "Περιεχόμενο Email HTML"
+
+#: includes/class-yith-wcwl-admin-premium.php:648
+msgid ""
+"This field lets you modify the main content of the HTML email. You can use "
+"the following placeholders: <code>{user_name}</code> <code>{user_email}</"
+"code> <code>{user_first_name}</code> <code>{user_last_name}</code> "
+"<code>{product_image}</code> <code>{product_name}</code> "
+"<code>{product_price}</code> <code>{coupon_code}</code> <code>{coupon_amount}"
+"</code> <code>{product_url}</code> <code>{add_to_cart_url}</code>"
+msgstr ""
+"Αυτό το πεδίο σας επιτρέπει να αλλάξετε το βασικό περιεχόμενο του email "
+"HTML. Μπορείτε να χρησιμοποιήσετε τα ακόλουθα κείμενα υποκατάστασης "
+"(placeholders): <code>{user_name}</code> <code>{user_email}</code> "
+"<code>{user_first_name}</code> <code>{user_last_name}</code> "
+"<code>{product_image}</code> <code>{product_name}</code> "
+"<code>{product_price}</code> <code>{coupon_code}</code> <code>{coupon_amount}"
+"</code> <code>{product_url}</code> <code>{add_to_cart_url}</code>"
+
+#: includes/class-yith-wcwl-admin-premium.php:660
+#: includes/class-yith-wcwl-admin-premium.php:758
+#: plugin-options/promotion_email-options.php:133
+msgid "Email plain content"
+msgstr "Απλό περιεχόμενο email"
+
+#: includes/class-yith-wcwl-admin-premium.php:661
+msgid ""
+"This field lets you modify the main content of the text email. You can use "
+"the following placeholders: <code>{user_name}</code> <code>{user_email}</"
+"code> <code>{user_first_name}</code> <code>{user_last_name}</code> "
+"<code>{product_name}</code> <code>{product_price}</code> <code>{coupon_code}"
+"</code> <code>{coupon_amount}</code> <code>{coupon_value}</code> "
+"<code>{product_url}</code> <code>{add_to_cart_url}</code>"
+msgstr ""
+"Αυτό το πεδίο σας επιτρέπει να αλλάξετε το βασικό περιεχόμενο του email "
+"κειμένου. Μπορείτε να χρησιμοποιήσετε τα ακόλουθα κείμενα υποκατάστασης "
+"(placeholders): <code>{user_name}</code> <code>{user_email}</code> "
+"<code>{user_first_name}</code> <code>{user_last_name}</code> "
+"<code>{product_name}</code> <code>{product_price}</code> <code>{coupon_code}"
+"</code> <code>{coupon_amount}</code> <code>{coupon_value}</code> "
+"<code>{product_url}</code> <code>{add_to_cart_url}</code>"
+
+#: includes/class-yith-wcwl-admin-premium.php:680
+msgid "\"On sale item\" email"
+msgstr "Email για ”Αντικείμενο σε πώληση”"
+
+#: includes/class-yith-wcwl-admin-premium.php:687
+msgid "Enable \"On sale item\" email"
+msgstr "Ενεργοποίηση email ”Αντικείμενο σε πώληση”"
+
+#: includes/class-yith-wcwl-admin-premium.php:688
+msgid ""
+"Enable this email to send notifications to your customers whenever a product "
+"in their wishlist is on sale"
+msgstr ""
+"Ενεργοποιήστε αυτό το email για την αποστολή ειδοποιήσεων στους πελάτες σας "
+"κάθε φορά που ένα προϊόν στη λίστα επιθυμιών τους είναι σε πώληση"
+
+#: includes/class-yith-wcwl-admin-premium.php:696
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:341
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:344
+#: plugin-options/promotion_email-options.php:71
+msgid "Product exclusions"
+msgstr "Αποκλίσεις προϊόντων"
+
+#: includes/class-yith-wcwl-admin-premium.php:697
+msgid ""
+"Select products that should not trigger the \"on sale item\" notifications"
+msgstr ""
+"Επιλέξτε προϊόντα που δεν θα πρέπει να ενεργοποιούν τις ειδοποιήσεις "
+"“αντικείμενο προς πώληση\""
+
+#: includes/class-yith-wcwl-admin-premium.php:707
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:348
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:352
+#: plugin-options/promotion_email-options.php:82
+msgid "Category exclusions"
+msgstr "Αποκλίσεις κατηγοριών"
+
+#: includes/class-yith-wcwl-admin-premium.php:708
+msgid ""
+"Select product categories that should not trigger the \"on sale item\" "
+"notification"
+msgstr ""
+"Επιλέξτε κατηγορίες προϊόντων που δεν θα πρέπει να ενεργοποιούν την "
+"ειδοποίηση “αντικείμενο προς πώληση”"
+
+#: includes/class-yith-wcwl-admin-premium.php:734
+msgid ""
+"Enter the title for the email notification. Leave blank to use the default "
+"heading: \"<i>An item of your wishlist is on sale!</i>\""
+msgstr ""
+"Εισάγετε τίτλο για την ειδοποίηση email. Διατηρήστε κενό για να "
+"χρησιμοποιήσετε την προεπιλεγμένη επικεφαλίδα: \"<i>Ένα αντικείμενο της "
+"λίστας επιθυμιών σας είναι προς πώληση!</i>\""
+
+#: includes/class-yith-wcwl-admin-premium.php:742
+msgid ""
+"Enter the mail subject line. Leave blank to use the default subject: \"<i>An "
+"item of your wishlist is on sale!</i>\""
+msgstr ""
+"Εισάγετε τη γραμμή θέματος email. Διατηρήστε κενό για να χρησιμοποιήσετε το "
+"προεπιλεγμένο θέμα: \"<i>Ένα αντικείμενο της λίστας επιθυμιών σας είναι προς "
+"πώληση!</i>\""
+
+#: includes/class-yith-wcwl-admin-premium.php:750
+#: plugin-options/promotion_email-options.php:125
+msgid ""
+"This field lets you modify the main content of the HTML email. You can use "
+"the following placeholders: <code>{user_name}</code> <code>{user_email}</"
+"code> <code>{user_first_name}</code> <code>{user_last_name}</code> "
+"<code>{products_table}</code> <code>{unsubscribe_link}</code>"
+msgstr ""
+"Αυτό το πεδίο σας επιτρέπει να αλλάξετε το βασικό περιεχόμενο του HTML "
+"email. Μπορείτε να χρησιμοποιήσετε τα ακόλουθα κείμενα υποκατάστασης "
+"(placeholders): <code>{user_name}</code> <code>{user_email}</code> "
+"<code>{user_first_name}</code> <code>{user_last_name}</code> "
+"<code>{products_table}</code> <code>{unsubscribe_link}</code>"
+
+#: includes/class-yith-wcwl-admin-premium.php:759
+#: plugin-options/promotion_email-options.php:134
+msgid ""
+"This field lets you modify the main content of the text email. You can use "
+"the following placeholders: <code>{user_name}</code> <code>{user_email}</"
+"code> <code>{user_first_name}</code> <code>{user_last_name}</code> "
+"<code>{products_list}</code> <code>{unsubscribe_url}</code>"
+msgstr ""
+"Αυτό το πεδίο σας επιτρέπει να αλλάξετε το βασικό περιεχόμενο του κειμενικού "
+"email. Μπορείτε να χρησιμοποιήσετε τα ακόλουθα κείμενα υποκατάστασης "
+"(placeholders): <code>{user_name}</code> <code>{user_email}</code> "
+"<code>{user_first_name}</code> <code>{user_last_name}</code> "
+"<code>{products_list}</code> <code>{unsubscribe_url}</code>"
+
+#: includes/class-yith-wcwl-admin-premium.php:830
+msgid "Promotional email correctly scheduled"
+msgstr "Επιτυχής προγραμματισμός προωθητικού email"
+
+#: includes/class-yith-wcwl-admin-premium.php:836
+msgid "There was an error while scheduling emails; please, try again later"
+msgstr ""
+"Παρουσιάστηκε σφάλμα κατά τον προγραμματισμό email. Παρακαλώ, προσπαθήστε "
+"ξανά αργότερα"
+
+#: includes/class-yith-wcwl-admin-premium.php:979
+msgid "User ID"
+msgstr "ID Χρήστη"
+
+#: includes/class-yith-wcwl-admin-premium.php:980
+msgid "User Email"
+msgstr "Email Χρήστη"
+
+#: includes/class-yith-wcwl-admin-premium.php:981
+msgid "User First Name"
+msgstr "Όνομα Χρήστη"
+
+#: includes/class-yith-wcwl-admin-premium.php:982
+msgid "User Last Name"
+msgstr "Επίθετο Χρήστη"
+
+#: includes/class-yith-wcwl-admin-premium.php:1015
+msgid "Wishlist Count"
+msgstr "Αρίθμηση Λίστας Επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:1208
+msgid "user"
+msgid_plural "users"
+msgstr[0] "χρήστης"
+msgstr[1] "χρήστες"
+
+#: includes/class-yith-wcwl-admin-premium.php:1368
+msgid "Wishlist \"Ask an estimate\""
+msgstr "“Ζητήστε εκτίμηση” Λίστας Επιθυμιών"
+
+#: includes/class-yith-wcwl-admin-premium.php:1372
+msgid "Wishlist Promotion"
+msgstr "Προώθηση Λίστας Επιθυμιών"
+
+#: includes/class-yith-wcwl-admin.php:115
+msgid "Wishlist Page"
+msgstr "Σελίδα Λίστας Επιθυμιών"
+
+#: includes/class-yith-wcwl-admin.php:252
+msgid ""
+"Allows your customers to create and share lists of products that they want "
+"to purchase on your e-commerce."
+msgstr ""
+"Επιτρέπει στους πελάτες σας να δημιουργήσουν και κοινοποιήσουν λίστες "
+"προϊόντων που επιθυμούν να αγοράσουν στο ηλεκτρονικό σας κατάστημα."
+
+#: includes/class-yith-wcwl-admin.php:292
+msgid ""
+"Enable the wishlist feature for all users or <b>only for registered users</b>"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:293
+msgid ""
+"Allow users to create <b>multiple wishlists</b> (Ex: Christmas, Birthday, "
+"etc.) <br>Users can choose the wishlist from a dropdown menu when they click "
+"on \"Add to wishlist\""
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:294
+msgid ""
+"Allow users to set <b>visibility options for each wishlist</b>, by making "
+"them either public (visible to everyone), private or shared (visible only to "
+"people it has been shared with)"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:295
+msgid ""
+"Choose between <b>different layouts</b> for the wishlist page and for the "
+"wishlist content"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:296
+msgid ""
+"<b>Allow users to manage their wishlists:</b> rename and delete wishlists, "
+"move a product from one wishlist to another, change order of items, "
+"quantity, etc."
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:297
+msgid ""
+"Enable an <b>\"Ask for an estimate\" button</b> to let customers send the "
+"content of their wishlist to the admin and get a custom quote"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:298
+msgid ""
+"<b>Show a wishlist widget</b> that lists all the products in the wishlists "
+"(available also with \"mini-cart\" style for the header)"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:299
+msgid ""
+"View the most popular products added to the wishlist by your customers and "
+"<b>send promotional emails to users</b> who have added specific products to "
+"their wishlist"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:300
+msgid ""
+"<b>Send an automatic email to the wishlist owner</b> whenever a product in "
+"the list is back in stock or on sale"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:301
+msgid "Regular updates, Translations and Premium Support"
+msgstr ""
+
+#. translators: 1. Destination wishlist name.
+#: includes/class-yith-wcwl-ajax-handler-premium.php:180
+#: includes/class-yith-wcwl-form-handler-premium.php:388
+msgid "Element correctly moved to %s"
+msgstr "Το στοιχείο μεταφέρθηκε επιτυχώς στο %s"
+
+#: includes/class-yith-wcwl-ajax-handler-premium.php:217
+#: includes/class-yith-wcwl-form-handler-premium.php:607
+#: includes/class-yith-wcwl-premium.php:228
+#: includes/class-yith-wcwl-premium.php:268
+msgid "There was an error while processing your request; please, try later"
+msgstr ""
+"Παρουσιάστηκε σφάλμα κατά την επεξεργασία του αιτήματος σας· παρακαλώ, "
+"προσπαθήστε αργότερα"
+
+#: includes/class-yith-wcwl-ajax-handler-premium.php:259
+msgid "Estimate request sent"
+msgstr "Εστάλη αίτημα εκτίμησης"
+
+#: includes/class-yith-wcwl-ajax-handler-premium.php:304
+msgid "Your request has been sent.<br/>Thanks!"
+msgstr "Το αίτημα σας έχει σταλεί.<br/>Ευχαριστούμε!"
+
+#: includes/class-yith-wcwl-ajax-handler-premium.php:315
+msgid ""
+"We will reply to you as soon as possible. For any questions, feel free to "
+"contact our customer service at"
+msgstr ""
+"Θα σας απαντήσουμε το γρηγορότερο δυνατό. Για οποιαδήποτε ερώτηση, μην "
+"διστάσετε να επικοινωνήσετε με την εξυπηρέτηση πελατών μας στο"
+
+#: includes/class-yith-wcwl-ajax-handler-premium.php:356
+msgid ""
+"You should provide a valid email address that we can use to get back to you"
+msgstr ""
+"Πρέπει να παραχωρήσετε έγκυρη διεύθυνση email, την οποία θα χρησιμοποιήσουμε "
+"για να επικοινωνήσουμε μαζί σας"
+
+#: includes/class-yith-wcwl-ajax-handler.php:94
+#: templates/add-to-wishlist-move.php:74
+#: templates/add-to-wishlist-remove.php:81
+msgid "View &rsaquo;"
+msgstr "Προβολή &rsaquo;"
+
+#: includes/class-yith-wcwl-ajax-handler.php:95
+#: templates/add-to-wishlist-move.php:75 templates/add-to-wishlist-move.php:248
+#: templates/add-to-wishlist-popup.php:120
+#: templates/add-to-wishlist-remove.php:69
+msgid "or"
+msgstr "ή"
+
+#: includes/class-yith-wcwl-ajax-handler.php:96
+#: templates/wishlist-view-images.php:108
+msgid "Close"
+msgstr "Κλείσιμο"
+
+#: includes/class-yith-wcwl-ajax-handler.php:203
+#: includes/class-yith-wcwl-ajax-handler.php:252
+msgid "Product successfully removed."
+msgstr "Το προϊόν αφαιρέθηκε επιτυχώς."
+
+#: includes/class-yith-wcwl-form-handler-extended.php:83
+#: includes/class-yith-wcwl-form-handler-premium.php:227
+msgid "Changes applied correctly"
+msgstr "Οι αλλαγές εφαρμόστηκαν επιτυχώς"
+
+#: includes/class-yith-wcwl-form-handler-extended.php:113
+msgid "Please, log in to continue with the unsubscribe process"
+msgstr ""
+"Παρακαλώ, συνδεθείτε για να συνεχίσετε την διαδικασία διαγραφής συνδρομής"
+
+#: includes/class-yith-wcwl-form-handler-extended.php:138
+msgid ""
+"The token provided does not match the current user; make sure to log in with "
+"the right account"
+msgstr ""
+"Το token που παραχωρήσατε δεν αντιστοιχεί με τον τρέχον χρήστη· βεβαιωθείτε "
+"ότι συνδεθήκατε με τον σωστό λογαριασμό"
+
+#: includes/class-yith-wcwl-form-handler-extended.php:144
+msgid ""
+"The token provided is expired; contact us to so we can manually unsubscribe "
+"your from the list"
+msgstr ""
+"Το token που παραχωρήσατε έχει λήξει· επικοινωνήστε μαζί μας για να "
+"διαγράψουμε την συνδρομή σας από την λίστα χειροκίνητα"
+
+#: includes/class-yith-wcwl-form-handler-extended.php:160
+msgid "You have unsubscribed from our wishlist-related mailing lists"
+msgstr ""
+"Έχετε διαγράψει την συνδρομή σας από τις σχετικές με την λίστα επιθυμιών "
+"λίστες mail μας"
+
+#: includes/class-yith-wcwl-form-handler-premium.php:69
+msgid "You have to select at least one product"
+msgstr "Πρέπει να επιλέξετε τουλάχιστον ένα προϊόν"
+
+#. translators: 1. Product title.
+#: includes/class-yith-wcwl-form-handler-premium.php:112
+#: includes/class-yith-wcwl-form-handler-premium.php:305
+msgid ""
+"Error, you cannot add \"%s\" to the cart if you don't select a variation "
+"first"
+msgstr ""
+"Σφάλμα, δεν μπορείτε να προσθέσετε \"%s\" στο καλάθι αν δεν επιλέξετε πρώτα "
+"μια παραλλαγή"
+
+#: includes/class-yith-wcwl-form-handler-premium.php:150
+msgid "The items have been correctly added to the cart"
+msgstr "Τα αντικείμενα προστέθηκαν επιτυχώς στο καλάθι"
+
+#: includes/class-yith-wcwl-form-handler-premium.php:153
+msgid "The items have been correctly removed"
+msgstr "Τα αντικείμενα έχουν αφαιρεθεί επιτυχώς"
+
+#. translators: 1. Destination wishlist name.
+#: includes/class-yith-wcwl-form-handler-premium.php:157
+msgid "The items have been correctly moved to %s"
+msgstr "Τα αντικείμενα έχουν μεταφερθεί επιτυχώς στο %s"
+
+#: includes/class-yith-wcwl-form-handler-premium.php:173
+msgid "An error occurred while processing this action"
+msgstr "Παρουσιάστηκε σφάλμα κατά την επεξεργασία αυτής της ενέργειας"
+
+#: includes/class-yith-wcwl-form-handler-premium.php:328
+msgid "Items correctly added to the cart"
+msgstr "Τα αντικείμενα προστέθηκαν επιτυχώς στο καλάθι"
+
+#: includes/class-yith-wcwl-form-handler-premium.php:339
+msgid ""
+"An error occurred while adding the items to the cart; please, try again "
+"later."
+msgstr ""
+"Παρουσιάστηκε σφάλμα κατα την προσθήκη των αντικειμένων στο καλάθι· "
+"παρακαλώ, προσπαθήστε ξανά αργότερα."
+
+#: includes/class-yith-wcwl-form-handler-premium.php:390
+msgid ""
+"An error occurred while moving item to destination wishlist; please, try "
+"again"
+msgstr ""
+"Παρουσιάστηκε σφάλμα κατα την μεταφορά του αντικειμένου στη λίστα επιθυμιών "
+"προορισμού· παρακαλώ, προσπαθήστε ξανά"
+
+#: includes/class-yith-wcwl-form-handler-premium.php:427
+msgid "Wishlist created successfully"
+msgstr "Επιτυχής δημιουργία λίστας επιθυμιών"
+
+#: includes/class-yith-wcwl-form-handler-premium.php:484
+msgid "Changes saved"
+msgstr "Οι αλλαγές αποθηκεύτηκαν"
+
+#: includes/class-yith-wcwl-form-handler-premium.php:530
+msgid "Wishlist deleted successfully"
+msgstr "Επιτυχής διαγραφή λίστας επιθυμιών"
+
+#: includes/class-yith-wcwl-form-handler-premium.php:634
+msgid "Price estimate request sent"
+msgstr "Εστάλη αίτημα εκτίμησης τιμής"
+
+#: includes/class-yith-wcwl-form-handler-premium.php:645
+msgid ""
+"You should provide a valid email address, that we can use to get back to you"
+msgstr ""
+"Πρέπει να παραχωρήσετε έγκυρη διεύθυνση email, την οποία θα χρησιμοποιήσουμε "
+"για να επικοινωνήσουμε μαζί σας"
+
+#: includes/class-yith-wcwl-form-handler-premium.php:796
+msgid "Yes"
+msgstr "Ναι"
+
+#: includes/class-yith-wcwl-form-handler.php:193
+msgid "Please, make sure to enter a valid title"
+msgstr "Παρακαλώ, βεβαιωθείτε ότι πληκτρολογήσατε έγκυρο τίτλο"
+
+#: includes/class-yith-wcwl-frontend-premium.php:241
+msgid "Back to all wishlists"
+msgstr "Πίσω σε όλες τις λίστες επιθυμιών"
+
+#: includes/class-yith-wcwl-frontend-premium.php:241
+msgid "&lsaquo; Back to all wishlists"
+msgstr "&lsaquo; Πίσω σε όλες τις λίστες επιθυμιών"
+
+#: includes/class-yith-wcwl-frontend-premium.php:312
+#: includes/class-yith-wcwl-frontend-premium.php:323
+#: includes/class-yith-wcwl-frontend-premium.php:487
+#: templates/wishlist-popup-create.php:75
+msgid "Create a wishlist"
+msgstr "Δημιουργία λίστας επιθυμιών"
+
+#: includes/class-yith-wcwl-frontend-premium.php:338
+#: includes/class-yith-wcwl-frontend-premium.php:349
+msgid "Search wishlist"
+msgstr "Αναζήτηση λίστας επιθυμιών"
+
+#: includes/class-yith-wcwl-frontend-premium.php:375
+msgid "Manage wishlists"
+msgstr "Διαχείριση λιστών επιθυμιών"
+
+#: includes/class-yith-wcwl-frontend-premium.php:390
+msgid "Your wishlist"
+msgstr "Η λίστα επιθυμιών σας"
+
+#: includes/class-yith-wcwl-frontend-premium.php:401
+msgid "View your wishlists"
+msgstr "Προβολή λιστών επιθυμιών"
+
+#. translators: 1. Create new wishlist url. 2. Create new wishlist title. 3.
+#. Custom attributes for create new wishlist anchor.
+#: includes/class-yith-wcwl-frontend-premium.php:496
+msgid ""
+"You don't have any wishlist yet. <a href=\"%1$s\" title=\"%2$s\" %3$s>Create "
+"your first wishlist &rsaquo;</a>"
+msgstr ""
+"Δεν έχετε καμία λίστα επιθυμιών ακόμη. <a href=\"%1$s\" title=\"%2$s\" "
+"%3$s>Δημιουργήστε την πρώτη σας λίστα &rsaquo;</a>"
+
+#: includes/class-yith-wcwl-frontend-premium.php:653
+msgid "Please, log in to use the wishlist features"
+msgstr ""
+"Παρακαλώ, συνδεθείτε για να χρησιμοποιήσετε τα χαρακτηριστικά λίστας "
+"επιθυμιών"
+
+#: includes/class-yith-wcwl-frontend.php:795
+msgid ""
+"We are sorry, but this feature is available only if cookies on your browser "
+"are enabled."
+msgstr ""
+"Λυπούμαστε, αυτό το χαρακτηριστικό είναι διαθέσιμο μόνο αν έχετε "
+"ενεργοποιήσει cookies στον πλοηγό σας."
+
+#: includes/class-yith-wcwl-frontend.php:805
+msgid "Product added to cart successfully"
+msgstr "Το προϊόν προστέθηκε επιτυχώς στο καλάθι σας"
+
+#: includes/class-yith-wcwl-frontend.php:1090
+#: includes/class-yith-wcwl-shortcode.php:257
+#: plugin-options/settings/wishlist_page-options.php:249
+#: templates/wishlist-view-footer-mobile.php:59
+#: templates/wishlist-view-footer.php:59
+msgid "Add to cart"
+msgstr "Προσθήκη στο καλάθι"
+
+#: includes/class-yith-wcwl-install.php:342
+#: templates/wishlist-widget-items.php:64
+msgid "Wishlist"
+msgstr "Wishlist"
+
+#: includes/class-yith-wcwl-premium.php:179
+#: includes/class-yith-wcwl-premium.php:235
+msgid "Wishlist name is required"
+msgstr "Απαιτείται όνομα λίστας επιθυμιών"
+
+#: includes/class-yith-wcwl-premium.php:181
+#: includes/class-yith-wcwl-premium.php:237
+msgid "Wishlist name exceeds the maximum number of characters allowed"
+msgstr ""
+"Το όνομα λίστας επιθυμιών υπερβαίνει τον μέγιστο αριθμό επιτρεπόμενων "
+"χαρακτήρων"
+
+#: includes/class-yith-wcwl-premium.php:224
+#: includes/class-yith-wcwl-premium.php:264
+msgid "Couldn't find any wishlist with the provided ID"
+msgstr "Δεν βρέθηκε καμία λίστα επιθυμιών με το ID που δόθηκε"
+
+#: includes/class-yith-wcwl-privacy.php:51
+msgid "While you visit our site, we’ll track:"
+msgstr "Κατά την επίσκεψή σας στη σελίδα μας, θα καταγράφουμε:"
+
+#: includes/class-yith-wcwl-privacy.php:53
+msgid ""
+"Products you’ve added to the wishlist: we’ll use this to show you and other "
+"users your favourite products, and to create targeted email campaigns."
+msgstr ""
+"Προϊόντα που έχετε προσθέσει στη λίστα επιθυμιών: θα τα χρησιμοποιήσουμε για "
+"να εμφανίσουμε σε εσάς και σε άλλους χρήστες τα αγαπημένα σας προϊόντα, και "
+"για να δημιουργησουμε στοχοποιημένες καμπάνιες email."
+
+#: includes/class-yith-wcwl-privacy.php:54
+msgid ""
+"Wishlists you’ve created: we’ll keep track of the wishlists you create, and "
+"make them visible to the store staff"
+msgstr ""
+"Λίστες επιθυμιών που έχετε δημιουργήσει: θα καταγράφουμε τις λίστες "
+"επιθυμιών που δημιουργείτε, και θα γίνονται ορατές στο προσωπικό καταστήματος"
+
+#: includes/class-yith-wcwl-privacy.php:56
+msgid ""
+"We’ll also use cookies to keep track of wishlist contents while you’re "
+"browsing our site."
+msgstr ""
+"Επίσης θα χρησιμοποιήσουμε cookies για να καταγράφουμε τα περιεχόμενα λιστών "
+"επιθυμιών κατα την περιήγησή σας στον ιστότοπό μας."
+
+#: includes/class-yith-wcwl-privacy.php:59
+msgid ""
+"Members of our team have access to the information you provide us with. For "
+"example, both Administrators and Shop Managers can access:"
+msgstr ""
+"Μέλη της ομάδας μας έχουν πρόσβαση στις πληροφορίες που μας παραχωρείτε. Για "
+"παράδειγμα, “Διαχειριστές” και “Διαχειριστές καταστήματος” έχουν πρόσβαση:"
+
+#: includes/class-yith-wcwl-privacy.php:61
+msgid ""
+"Wishlist details, such as products added, date of addition, name and privacy "
+"settings of your wishlists"
+msgstr ""
+"Στοιχεία λίστας επιθυμιών, όπως προϊόντα που έχουν προστεθεί, ημερομηνία "
+"προσθήκης, όνομα και ρυθμίσεις ιδιωτικότητας των λιστών επιθυμιών σας"
+
+#: includes/class-yith-wcwl-privacy.php:63
+msgid ""
+"Our team members have access to this information to offer you better deals "
+"for the products you love."
+msgstr ""
+"Τα μέλη της ομάδας μας έχουν πρόσβαση σε αυτές τις πληροφορίες για να σας "
+"προσφέρουν καλύτερες προσφορές για τα προϊόντα που σας αρέσουν."
+
+#: includes/class-yith-wcwl-privacy.php:93
+#: includes/class-yith-wcwl-privacy.php:109
+msgid "Customer wishlists"
+msgstr "Λίστες επιθυμιών πελατών"
+
+#: includes/class-yith-wcwl-privacy.php:146 templates/wishlist-manage.php:47
+msgid "Wishlists"
+msgstr "Λίστες επιθυμιών"
+
+#. Translators: %s Order number.
+#: includes/class-yith-wcwl-privacy.php:232
+msgid "Removed wishlist %s."
+msgstr "Λίστα επιθυμιών που αφαιρέθηκε %s."
+
+#. Translators: %s Order number.
+#: includes/class-yith-wcwl-privacy.php:236
+msgid "Wishlist %s has been retained."
+msgstr "Η λίστα επιθυμιών %s έχει κρατηθεί."
+
+#: includes/class-yith-wcwl-privacy.php:271
+msgid "Token"
+msgstr "Token"
+
+#: includes/class-yith-wcwl-privacy.php:272
+msgid "Wishlist URL"
+msgstr "URL Λίστας επιθυμιών"
+
+#: includes/class-yith-wcwl-privacy.php:273
+msgid "Title"
+msgstr "Τίτλος"
+
+#: includes/class-yith-wcwl-privacy.php:275
+msgid "Visibility"
+msgstr "Ορατότητα"
+
+#: includes/class-yith-wcwl-privacy.php:276
+msgid "Items added"
+msgstr "Αντικείμενα που προστέθηκαν"
+
+#: includes/class-yith-wcwl-shortcode-premium.php:139
+#: includes/class-yith-wcwl-shortcode-premium.php:155
+#: plugin-options/settings/ask_an_estimate-options.php:28
+#: plugin-options/settings/ask_an_estimate-options.php:186
+msgid "Ask for an estimate"
+msgstr "Ζητήστε εκτίμηση"
+
+#: includes/class-yith-wcwl-shortcode-premium.php:415
+msgid "Select a wishlist"
+msgstr "Επιλογή λίστας επιθυμιών"
+
+#: includes/class-yith-wcwl-shortcode-premium.php:479
+#: includes/class-yith-wcwl-shortcode.php:754
+msgid "Remove from list"
+msgstr "Αφαίρεση απο λίστα"
+
+#: includes/class-yith-wcwl-shortcode-premium.php:494
+msgid "Move &rsaquo;"
+msgstr "Μετακίνηση &rsaquo;"
+
+#: includes/class-yith-wcwl-shortcode-premium.php:496
+#: templates/add-to-wishlist-move.php:94 templates/wishlist-popup-move.php:56
+#: templates/wishlist-popup-move.php:59
+msgid "Move to another wishlist"
+msgstr "Μετακίνηση σε άλλη λίστα επιθυμιών"
+
+#: includes/class-yith-wcwl-shortcode.php:58
+msgid ""
+"ID of the product to add to the wishlist (leave empty to use the global "
+"product)"
+msgstr ""
+"ID προϊόντος για προσθήκη στη λίστα επιθυμιών (αφήστε κενό για να "
+"χρησιμοποιήσετε το γενικό προϊόν)"
+
+#: includes/class-yith-wcwl-shortcode.php:63
+msgid "URL of the wishlist page (leave empty to use the default settings)"
+msgstr ""
+"URL της σελίδας λίστας επιθυμιών (αφήστε κενό για να χρησιμοποιήσετε τις "
+"προεπιλεγμένες ρυθμίσεις)"
+
+#: includes/class-yith-wcwl-shortcode.php:68
+msgid "Button label (leave empty to use the default settings)"
+msgstr ""
+"Επιγραφή κουμπιού (αφήστε κενό για να χρησιμοποιήσετε τις προεπιλεγμένες "
+"ρυθμίσεις)"
+
+#: includes/class-yith-wcwl-shortcode.php:73
+msgid "\"Browse wishlist\" label (leave empty to use the default settings)"
+msgstr ""
+"Επιγραφή “Περιήγησης λίστας επιθυμιών” (αφήστε κενό για να χρησιμοποιήσετε "
+"τις προεπιλεγμένες ρυθμίσεις)"
+
+#: includes/class-yith-wcwl-shortcode.php:78
+msgid ""
+"\"Product already in wishlist\" label (leave empty to use the default "
+"settings)"
+msgstr ""
+"Επιγραφή “Προϊόν ήδη σε λίστα επιθυμιών” (αφήστε κενό για να χρησιμοποιήσετε "
+"τις προεπιλεγμένες ρυθμίσεις)"
+
+#: includes/class-yith-wcwl-shortcode.php:83
+msgid ""
+"\"Product added to wishlist\" label (leave empty to use the default settings)"
+msgstr ""
+"Επιγραφή “Προϊόν προστέθηκε στη λίστα επιθυμιών” (αφήστε κενό για να "
+"χρησιμοποιήσετε τις προεπιλεγμένες ρυθμίσεις)"
+
+#: includes/class-yith-wcwl-shortcode.php:88
+msgid ""
+"Icon for the button (use any FontAwesome valid class, or leave empty to use "
+"the default settings)"
+msgstr ""
+"Εικονίδιο για το κουμπί (χρησιμοποιήστε οποιαδήποτε κλάση έγκυρη με "
+"FontAwesome, ή αφήστε κενό για να χρησιμοποιήσετε τις προεπιλεγμένες "
+"ρυθμίσεις)"
+
+#: includes/class-yith-wcwl-shortcode.php:93
+msgid ""
+"Additional CSS classes for the button (leave empty to use the default "
+"settings)"
+msgstr ""
+"Επιπλέον κλάσεις CSS για το κουμπί (αφήστε το κενό για να χρησιμοποιήσετε "
+"τις προεπιλεγμένες ρυθμίσεις)"
+
+#: includes/class-yith-wcwl-shortcode.php:107
+msgid "Choose whether to paginate items in the wishlist or show them all"
+msgstr ""
+"Επιλέξτε αν θέλετε να γίνει σελιδοποίηση αντικειμένων στη λίστα επιθυμιών ή "
+"εμφάνιση όλων"
+
+#: includes/class-yith-wcwl-shortcode.php:110
+#: includes/widgets/elementor/class-yith-wcwl-elementor-wishlist.php:118
+msgid "Paginate"
+msgstr "Σελιδοποίηση"
+
+#: includes/class-yith-wcwl-shortcode.php:111
+#: includes/widgets/elementor/class-yith-wcwl-elementor-wishlist.php:119
+msgid "Do not paginate"
+msgstr "Να μην γίνει σελιδοποίηση"
+
+#: includes/class-yith-wcwl-shortcode.php:116
+msgid "Number of items to show per page"
+msgstr "Αριθμός αντικειμένων προς εμφάνιση ανά σελίδα"
+
+#: includes/class-yith-wcwl-shortcode.php:121
+msgid "ID of the wishlist to show (e.g. K6EOWXB888ZD)"
+msgstr "ID της λίστας επιθυμιών προς εμφάνιση (π.χ. K6EOWXB888ZD)"
+
+#: includes/class-yith-wcwl-shortcode.php:461
+msgid "Share on:"
+msgstr "Κοινοποίηση σε:"
+
+#: includes/class-yith-wcwl-shortcode.php:507
+#: plugin-options/settings/wishlist_page-options.php:147
+msgid "Share on Facebook"
+msgstr "Κοινοποίηση στο Facebook"
+
+#: includes/class-yith-wcwl-shortcode.php:524
+#: plugin-options/settings/wishlist_page-options.php:156
+msgid "Tweet on Twitter"
+msgstr "Τουίταρε στο Twitter"
+
+#: includes/class-yith-wcwl-shortcode.php:542
+#: plugin-options/settings/wishlist_page-options.php:165
+msgid "Pin on Pinterest"
+msgstr "Καρφίτσωσε στο Pinterest"
+
+#: includes/class-yith-wcwl-shortcode.php:556
+msgid "Share via email"
+msgstr "Κοινοποίηση μέσω email"
+
+#: includes/class-yith-wcwl-shortcode.php:579
+#: plugin-options/settings/wishlist_page-options.php:183
+msgid "Share on WhatsApp"
+msgstr "Κοινοποίηση σε WhatsApp"
+
+#: includes/class-yith-wcwl-wishlist-item.php:203
+msgid "Free!"
+msgstr "Δωρεάν!"
+
+#: includes/class-yith-wcwl.php:233
+msgid "The item cannot be added to this wishlist"
+msgstr "Το αντικείμενο δεν μπορεί να προστεθεί σε αυτή τη λίστα επιθυμιών"
+
+#: includes/class-yith-wcwl.php:237 includes/class-yith-wcwl.php:243
+msgid "An error occurred while adding the products to the wishlist."
+msgstr "Παρουσιάστηκε σφάλμα κατα την προσθήκη προϊόντων στη λίστα επιθυμιών."
+
+#: includes/class-yith-wcwl.php:340 includes/class-yith-wcwl.php:366
+msgid "Error. Unable to remove the product from the wishlist."
+msgstr ""
+"Σφάλμα. Η αφαίρεση του προϊόντος από τη λίστα επιθυμιών δεν ήταν δυνατή."
+
+#: includes/data-stores/class-yith-wcwl-wishlist-data-store.php:252
+#: includes/data-stores/class-yith-wcwl-wishlist-data-store.php:274
+msgid "Invalid wishlist."
+msgstr "Μη έγκυρη λίστα επιθυμιών."
+
+#: includes/data-stores/class-yith-wcwl-wishlist-item-data-store.php:210
+msgid "Invalid wishlist item."
+msgstr "Μη έγκυρο αντικείμενο λίστας επιθυμιών."
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:50
+msgid "Wishlist \"Back in stock\" email"
+msgstr "Email Λίστας Επιθυμιών για “Πίσω στο απόθεμα”"
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:51
+msgid ""
+"This email is sent to customers when an item of their wishlist is back in "
+"stock"
+msgstr ""
+"Αυτό το email στέλνεται στους πελάτες όταν ένα αντικείμενο της λίστας "
+"επιθυμιών τους είναι πίσω στο απόθεμα"
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:53
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:54
+msgid "An item of your wishlist is back in stock!"
+msgstr "Ένα αντικείμενο της λίστας επιθυμιών σας είναι πίσω στο απόθεμα!"
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:191
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:194
+msgid "unsubscribe"
+msgstr "διαγραφή συνδρομής"
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:316
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:319
+msgid "Enable/Disable"
+msgstr "Ενεργοποίηση/Απενεργοποίηση"
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:319
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:321
+msgid "Enable this email notification"
+msgstr "Ενεργοποιήστε αυτή την ειδοποίηση email"
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:323
+#: includes/emails/class-yith-wcwl-estimate-email.php:230
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:326
+#: includes/emails/class-yith-wcwl-promotion-email.php:371
+msgid "Subject"
+msgstr "Θέμα"
+
+#. translators: 1. Default subject.
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:327
+#: includes/emails/class-yith-wcwl-estimate-email.php:233
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:329
+#: includes/emails/class-yith-wcwl-promotion-email.php:374
+msgid ""
+"This field lets you modify the email subject line. <br> Leave blank to use "
+"the default subject: <code>%s</code>."
+msgstr ""
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:332
+#: includes/emails/class-yith-wcwl-estimate-email.php:252
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:335
+msgid "Email Heading"
+msgstr "Επικεφαλίδα Email"
+
+#. translators: 1. Default email heading.
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:336
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:338
+#: includes/emails/class-yith-wcwl-promotion-email.php:383
+msgid ""
+"This field lets you modify the main heading contained within the email "
+"notification. <br> Leave blank to use the default heading: <code>%s</code>."
+msgstr ""
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:343
+msgid "Select the products for which you don't want to send a reminder email"
+msgstr ""
+"Επιλέξτε προϊόντα για τα οποία δεν θέλετε να στέλνετε email υπενθύμισης"
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:351
+msgid ""
+"Select the product categories for which you don't want to send a reminder "
+"email"
+msgstr ""
+"Επιλέξτε κατηγορίες προϊόντων για τις οποίες δεν θέλετε να στέλνετε email "
+"υπενθύμισης"
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:357
+#: includes/emails/class-yith-wcwl-estimate-email.php:262
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:362
+#: includes/emails/class-yith-wcwl-promotion-email.php:391
+msgid "Choose which type of email to send."
+msgstr "Επιλέξτε ποιος τύπος email να στέλνεται."
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:361
+#: includes/emails/class-yith-wcwl-estimate-email.php:266
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:366
+#: includes/emails/class-yith-wcwl-promotion-email.php:395
+msgid "Plain text"
+msgstr "Απλό κείμενο"
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:367
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:373
+msgid "Email HTML Content"
+msgstr "Περιεχόμενο HTML Email"
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:370
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:375
+msgid ""
+"This field lets you modify the main content of the HTML email. <br> You can "
+"use the following placeholders: <code>{user_name}</code> <code>{user_email}</"
+"code> <code>{user_first_name}</code><br><code>{user_last_name}</code> "
+"<code>{products_table}</code> <code>{unsubscribe_link}</code>"
+msgstr ""
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:376
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:382
+#: includes/emails/class-yith-wcwl-promotion-email.php:412
+msgid "Email text content"
+msgstr "Περιεχόμενο κειμένου email"
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:379
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:384
+msgid ""
+"This field lets you modify the main content of the text email. <br> You can "
+"use the following placeholders: <code>{user_name}</code> <code>{user_email}</"
+"code> <code>{user_first_name}</code><br><code>{user_last_name}</code> "
+"<code>{products_list}</code> <code>{unsubscribe_url}</code>"
+msgstr ""
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:396
+msgid ""
+"Hi {user_name}\n"
+"A product of your wishlist is back in stock!\n"
+"\n"
+"{products_list}\n"
+"\n"
+"We only have limited stock, so don't wait any longer, and take this chance "
+"to make it yours!\n"
+"\n"
+"****************************************************\n"
+"\n"
+"If you don't want to receive any further notification, please follow this "
+"link [{unsubscribe_url}]\n"
+"\n"
+msgstr ""
+"Γεια σας {user_name}\n"
+"Ένα προϊόν της λίστας επιθυμιών σας είναι πίσω στο απόθεμα!\n"
+"\n"
+"{products_list} \n"
+"\n"
+"Έχουμε μόνο περιορισμένο απόθεμα, οπότε μην περιμένετε άλλο, και πάρτε αυτή "
+"την ευκαιρία για να το κάνετε δικό σας!\n"
+"\n"
+"****************************************************\n"
+"\n"
+"Εάν δεν θέλετε να λαμβάνετε περαιτέρω ειδοποίηση, παρακαλώ ακολουθήστε αυτόν "
+"τον σύνδεσμο [{unsubscribe_url}] \n"
+"\n"
+
+#: includes/emails/class-yith-wcwl-back-in-stock-email.php:412
+msgid ""
+"<p>Hi {user_name}</p>\n"
+"<p>A product of your wishlist is back in stock!</p>\n"
+"{products_table}\n"
+"<p>We only have limited stock, so don't wait any longer, and take this "
+"chance to make it yours!</p>\n"
+"<p><small>If you don't want to receive any further notification, please "
+"{unsubscribe_link}</small></p>"
+msgstr ""
+"<p>Γεια σας {user_name}</p>\n"
+"<p>Ένα προϊόν της λίστας επιθυμιών σας είναι πίσω στο απόθεμα!</p>\n"
+"{products_table}\n"
+"<p>Έχουμε περιορισμένο απόθεμα μόνο, όποτε μην περιμένετε άλλο, και πάρτε "
+"αυτή την ευκαιρία να το κάνετε δικό σας!</p>\n"
+"<p><small>Αν δεν θέλετε να λαμβάνετε περαιτέρω ειδοποίηση, παρακαλώ "
+"{unsubscribe_link}</small></p>"
+
+#: includes/emails/class-yith-wcwl-estimate-email.php:71
+msgid "Wishlist \"Ask for an estimate\" email"
+msgstr "Email Λίστας Επιθυμιών “Ζητήστε εκτίμηση”"
+
+#: includes/emails/class-yith-wcwl-estimate-email.php:72
+msgid ""
+"This email is sent to users who click the \"ask for an estimate\" button, "
+"only if this feature has been enabled in the wishlist option panel"
+msgstr ""
+"Αυτό το email στέλνεται στους χρήστες που κάνουν κλικ στο κουμπί “ζητήστε "
+"εκτίμηση”, μόνο αν το χαρακτηριστικό αυτό έχει ενεργοποιηθεί στο πάνελ "
+"επιλογής λίστας επιθυμιών"
+
+#: includes/emails/class-yith-wcwl-estimate-email.php:74
+msgid "Price estimate request"
+msgstr "Αίτημα εκτίμησης τιμής"
+
+#: includes/emails/class-yith-wcwl-estimate-email.php:75
+msgid "[Price estimate request]"
+msgstr "[Αίτημα εκτίμησης τιμής]"
+
+#: includes/emails/class-yith-wcwl-estimate-email.php:238
+msgid "Recipient(s)"
+msgstr "Παραλήπτης (ες)"
+
+#. translators: 1. Default recipients.
+#: includes/emails/class-yith-wcwl-estimate-email.php:241
+msgid ""
+"Enter recipients (comma separated) for this email. Defaults to <code>%s</"
+"code>"
+msgstr ""
+"Εισάγετε παραλήπτες (διαχωρίστε με κόμμα) για αυτό το email. Προεπιλεγμένα "
+"σε <code>%s</code>"
+
+#: includes/emails/class-yith-wcwl-estimate-email.php:246
+msgid "Send CC copy"
+msgstr "Αποστολή αντιγράφου CC"
+
+#: includes/emails/class-yith-wcwl-estimate-email.php:248
+msgid "Send a copy to the user"
+msgstr "Αποστολή αντιγράφου στον χρήστη"
+
+#. translators: 1. Default email heading.
+#: includes/emails/class-yith-wcwl-estimate-email.php:255
+msgid ""
+"This field lets you modify the main heading contained within the email "
+"notification. Leave blank to use the default heading: <code>%s</code>."
+msgstr ""
+"Αυτό το πεδίο σας επιτρέπει να αλλάξετε την βασική επικεφαλίδα που περιέχει "
+"η ειδοποίηση email. Διατηρήστε κενό για να χρησιμοποιήσετε την προεπιλεγμένη "
+"επικεφαλίδα: <code>%s</code>."
+
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:50
+msgid "Wishlist \"On sale item\" email"
+msgstr "Email Λίστας Επιθυμιών για ”Αντικείμενο σε πώληση”"
+
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:51
+msgid ""
+"This email is sent to customers when an item of their wishlist is on sale"
+msgstr ""
+"Αυτό το email στέλνεται στους πελάτες όταν ένα αντικείμενο της λίστας "
+"επιθυμιών τους είναι προς πώληση"
+
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:53
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:54
+msgid "An item of your wishlist is on sale!"
+msgstr "Ένα αντικείμενο της λίστας επιθυμιών σας είναι προς πώληση!"
+
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:346
+msgid "Select products for which you don't want to send a reminder email"
+msgstr ""
+"Επιλέξτε προϊόντα για τα οποία δεν θέλετε να στέλνετε email υπενθύμισης"
+
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:355
+msgid ""
+"Select product categories for which you don't want to send a reminder email"
+msgstr ""
+"Επιλέξτε κατηγορίες προϊόντων για τις οποίες δεν θέλετε να στέλνετε email "
+"υπενθύμισης"
+
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:401
+msgid ""
+"Hi {user_name}\n"
+"A product of your wishlist is on sale!\n"
+"\n"
+"{products_list}\n"
+"\n"
+"We only have limited stock, so don't wait any longer, and take this chance "
+"to make it yours!\n"
+"\n"
+"****************************************************\n"
+"\n"
+"If you don't want to receive any further notification, please follow this "
+"link [{unsubscribe_url}]\n"
+"\n"
+msgstr ""
+"Γεια σας {user_name}\n"
+"Ένα προϊόν της λίστας επιθυμιών σας είναι προς πώληση!\n"
+"\n"
+"{products_list}\n"
+"\n"
+"Έχουμε μόνο περιορισμένο απόθεμα, οπότε μην περιμένετε άλλο, και πάρτε αυτή "
+"την ευκαιρία για να το κάνετε δικό σας!\n"
+"\n"
+"****************************************************\n"
+"\n"
+"Εάν δεν θέλετε να λαμβάνετε περαιτέρω ειδοποίηση, παρακαλώ ακολουθήστε αυτόν "
+"τον σύνδεσμο [{unsubscribe_url}]\n"
+
+#: includes/emails/class-yith-wcwl-on-sale-item-email.php:417
+msgid ""
+"<p>Hi {user_name}</p>\n"
+"<p>A product of your wishlist is on sale!</p>\n"
+"{products_table}\n"
+"<p>We only have limited stock, so don't wait any longer, and take this "
+"chance to make it yours!</p>\n"
+"<p><small>If you don't want to receive any further notification, please "
+"{unsubscribe_link}</small></p>"
+msgstr ""
+"<p>Γεια σας {user_name}</p>\n"
+"<p>Ένα προϊόν της λίστας επιθυμιών σας είναι προς πώληση!</p>\n"
+"{products_table}\n"
+"<p>Έχουμε μόνο περιορισμένο απόθεμα, όποτε μην περιμένετε άλλο, και πάρτε "
+"αυτή την ευκαιρία να το κάνετε δικό σας!</p>\n"
+"<p><small>Αν δεν θέλετε να λαμβάνετε περαιτέρω ειδοποίηση, παρακαλώ "
+"{unsubscribe_link}</small></p>"
+
+#: includes/emails/class-yith-wcwl-promotion-email.php:50
+msgid "Wishlist promotional email"
+msgstr "Προωθητικό email λίστας επιθυμιών"
+
+#: includes/emails/class-yith-wcwl-promotion-email.php:51
+msgid ""
+"This email is sent to users to inform them about a promotion on a product in "
+"their wishlist"
+msgstr ""
+"Αυτό το email στέλνεται στους χρήστες για να τους ενημερώσει σχετικά με "
+"κάποια προώθηση ενός προϊόντος της λίστας επιθυμιών τους"
+
+#: includes/emails/class-yith-wcwl-promotion-email.php:53
+msgid "There is a deal for you!"
+msgstr "Έχετε κερδίσει μια ειδική προσφορά!"
+
+#: includes/emails/class-yith-wcwl-promotion-email.php:54
+msgid "A product of your wishlist is on sale"
+msgstr "Ένα προϊόν της λίστας επιθυμιών σας είναι προς πώληση"
+
+#: includes/emails/class-yith-wcwl-promotion-email.php:257
+msgid "Product image"
+msgstr "Εικόνα προϊόντος"
+
+#. translators: 1. Available placeholders.
+#: includes/emails/class-yith-wcwl-promotion-email.php:405
+msgid ""
+"This field lets you modify the main content of the HTML email. <br> You can "
+"use the following placeholders: %s"
+msgstr ""
+
+#. translators: 1. Available placeholders.
+#: includes/emails/class-yith-wcwl-promotion-email.php:415
+msgid ""
+"This field lets you modify the main content of the text email. <br> You can "
+"use the following placeholders: %s"
+msgstr ""
+
+#: includes/emails/class-yith-wcwl-promotion-email.php:451
+msgid ""
+"Hi {user_name}\n"
+"A product of your wishlist is on sale!\n"
+"\n"
+"{product_name} {product_price}\n"
+"\n"
+"Visit {add_to_cart_url} and use this coupon code\n"
+"{coupon_code}\n"
+"to get an amazing discount!"
+msgstr ""
+"Γεια σας {user_name}\n"
+"Ένα προϊόν της λίστας επιθυμιών σας είναι προς πώληση\n"
+"\n"
+"{product_name} {product_price}\n"
+"\n"
+"Επισκεφθείτε {add_to_cart_url} και χρησιμοποιήστε αυτόν τον κωδικό "
+"κουπονιού\n"
+"{coupon_code}\n"
+"για να λάβετε μια απίστευτη έκπτωση!"
+
+#: includes/emails/class-yith-wcwl-promotion-email.php:463
+msgid ""
+"<p>Hi {user_name}</p>\n"
+"<p>A product of your wishlist is on sale!</p>\n"
+"<p>\n"
+"\t<table style=\"width: 100%;border-top: 1px solid #cdcdcd; border-bottom: "
+"1px solid #cdcdcd; margin-bottom: 25px;\">\n"
+"\t    <tr>\n"
+"\t        <td style=\"width: 90px;\">{product_image}</td>\n"
+"\t        <td>{product_name}</td>\n"
+"\t        <td>{product_price}</td>\n"
+"\t    </tr>\n"
+"\t</table>\n"
+"</p>\n"
+"<p>Use this coupon code <a href=\"{add_to_cart_url}\"><b>{coupon_code}</b></"
+"a> to get an amazing discount!</p>"
+msgstr ""
+
+#. translators: 1. Number of users.
+#: includes/functions-yith-wcwl.php:309
+msgid "%d user"
+msgid_plural "%d users"
+msgstr[0] "%d χρήστης"
+msgstr[1] "%d χρήστες"
+
+#: includes/functions-yith-wcwl.php:310
+msgid "has this item in wishlist"
+msgid_plural "have this item in wishlist"
+msgstr[0] "έχει αυτό το αντικείμενο στη λίστα επιθυμιών"
+msgstr[1] "έχετε αυτό το αντικείμενο στη λίστα επιθυμιών"
+
+#: includes/functions-yith-wcwl.php:312
+msgid "You're the first"
+msgstr "Είστε ο πρώτος"
+
+#: includes/functions-yith-wcwl.php:313
+msgid "to add this item in wishlist"
+msgstr "που προσθέτει αυτό το αντικείμενο στη λίστα επιθυμιών"
+
+#. translators: 1. Count of users when many, or "another" when only one.
+#: includes/functions-yith-wcwl.php:317
+msgid "You and %s user"
+msgid_plural "You and %d users"
+msgstr[0] "Εσείς και ο χρήστης %s"
+msgstr[1] "Εσείς και οι χρήστες %d"
+
+#: includes/functions-yith-wcwl.php:317
+msgid "another"
+msgstr "ένα ακόμη"
+
+#: includes/functions-yith-wcwl.php:318
+msgid "have this item in wishlist"
+msgstr "έχετε αυτό το αντικείμενο στη λίστα επιθυμιών"
+
+#: includes/functions-yith-wcwl.php:534
+msgid "None"
+msgstr "Κανένα"
+
+#: includes/functions-yith-wcwl.php:535
+msgid "Custom"
+msgstr "Προσαρμοσμένη"
+
+#: includes/functions-yith-wcwl.php:567
+#: includes/tables/class-yith-wcwl-admin-table.php:158
+msgid "Shared"
+msgstr "Κοινοποιημένο"
+
+#: includes/functions-yith-wcwl.php:571
+msgid "Only people with a link to this list can see it"
+msgstr "Μόνο άτομα με σύνδεσμο για αυτή τη λίστα μπορούν να την δουν"
+
+#: includes/functions-yith-wcwl.php:577
+#: includes/tables/class-yith-wcwl-admin-table.php:161
+msgid "Private"
+msgstr "Προσωπική"
+
+#: includes/functions-yith-wcwl.php:581
+msgid "Only you can see this list"
+msgstr "Μόνο εσείς μπορείτε να δείτε αυτή τη λίστα"
+
+#: includes/functions-yith-wcwl.php:587
+#: includes/tables/class-yith-wcwl-admin-table.php:155
+msgid "Public"
+msgstr "Δημόσια"
+
+#: includes/functions-yith-wcwl.php:591
+msgid "Anyone can search for and see this list"
+msgstr "Όλοι μπορούν να κάνουν αναζήτηση και να δουν αυτή τη λίστα"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:33
+msgid "wishlist"
+msgstr "λίστα επιθυμιών"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:34
+msgid "wishlists"
+msgstr "λίστες επιθυμιών"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:104
+#: includes/tables/class-yith-wcwl-users-popular-table.php:82
+msgid "guest"
+msgstr "επισκέπτης"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:164
+msgid "N/D"
+msgstr "N/D"
+
+#. translators: 1. Date diff since wishlist creation (EG: 1 hour, 2 seconds,
+#. etc...).
+#: includes/tables/class-yith-wcwl-admin-table.php:205
+msgid "%s ago"
+msgstr "πριν %s"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:234
+msgid "View wishlist"
+msgstr ""
+
+#: includes/tables/class-yith-wcwl-admin-table.php:241
+msgid "Delete wishlist"
+msgstr ""
+
+#: includes/tables/class-yith-wcwl-admin-table.php:260
+#: includes/tables/class-yith-wcwl-popular-table.php:203
+#: includes/tables/class-yith-wcwl-users-popular-table.php:169
+#: templates/wishlist-search.php:99
+msgid "Name"
+msgstr "Όνομα"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:261
+msgid "Username"
+msgstr "Όνομα Χρήστη"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:262
+#: templates/wishlist-manage.php:64
+msgid "Privacy"
+msgstr "Ιδιωτικότητα"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:263
+msgid "Items in wishlist"
+msgstr "Αντικείμενα στη λίστα επιθυμιών"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:264
+#: plugin-options/settings/ask_an_estimate-options.php:139
+msgid "Date"
+msgstr "Ημερομηνία"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:304
+#: plugin-options/settings/ask_an_estimate-options.php:166
+#: templates/wishlist-manage.php:151 templates/wishlist-manage.php:245
+msgid "Delete"
+msgstr "Διαγραφή"
+
+#: includes/tables/class-yith-wcwl-popular-table-premium.php:33
+msgid "N/A"
+msgstr "N/A"
+
+#: includes/tables/class-yith-wcwl-popular-table-premium.php:51
+msgid "Last promotional email sent"
+msgstr "Τελευταίο προωθητικό email που έχει σταλεί"
+
+#: includes/tables/class-yith-wcwl-popular-table-premium.php:108
+#: includes/tables/class-yith-wcwl-users-popular-table-premium.php:56
+msgid "Create promotion"
+msgstr "Δημιουργία προώθησης"
+
+#: includes/tables/class-yith-wcwl-popular-table-premium.php:119
+msgid "Export users that have added this product to their wishlist"
+msgstr ""
+"Εξαγωγή χρηστών που έχουν προσθέσει αυτό το προϊόν στη λίστα επιθυμιών τους"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:60
+msgid "Edit this item"
+msgstr "Επεξεργασία αντικειμένου"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:60
+#: includes/tables/class-yith-wcwl-users-popular-table.php:90
+#: templates/admin/email-settings-tab.php:46
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:74
+msgid "View a list with users that have added this product to their wishlist"
+msgstr ""
+"Προβολή λίστας χρηστών που έχουν προσθέσει αυτό το προϊόν στη λίστα "
+"επιθυμιών τους"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:75
+msgid "View users"
+msgstr "Προβολή χρηστών"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:77
+msgid "View Product"
+msgstr "Προβολή Προϊόντος"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:204
+msgid "Category"
+msgstr "Κατηγορία"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:205
+msgid "Wishlist count"
+msgstr "Αρίθμηση λίστας επιθυμιών"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:353
+msgid "View users that have added this product to their wishlist"
+msgstr ""
+"Προβολή χρηστών που έχουν προσθέσει αυτό το προϊόν στη λίστα επιθυμιών τους"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:407
+msgid "Select a product"
+msgstr "Επιλογή προϊόντος"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:415
+msgid "From:"
+msgstr "Από:"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:416
+msgid "To:"
+msgstr "Σε:"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:419
+msgid "Filter"
+msgstr "Ταξινόμηση"
+
+#: includes/tables/class-yith-wcwl-popular-table.php:433
+msgid "Reset"
+msgstr "Επαναφορά"
+
+#: includes/tables/class-yith-wcwl-users-popular-table.php:43
+#: includes/tables/class-yith-wcwl-users-popular-table.php:45
+msgid "product"
+msgstr "προϊόν"
+
+#: includes/tables/class-yith-wcwl-users-popular-table.php:90
+msgid "Edit this user"
+msgstr "Επεξεργασία του χρήστη"
+
+#: includes/tables/class-yith-wcwl-users-popular-table.php:91
+msgid "Email this user"
+msgstr "Στείλτε email σε αυτόν τον χρήστη"
+
+#: includes/tables/class-yith-wcwl-users-popular-table.php:91
+msgid "Email user"
+msgstr "Στείλτε email σε χρήστη"
+
+#: includes/tables/class-yith-wcwl-users-popular-table.php:168
+msgid "Image"
+msgstr "Εικόνα"
+
+#: includes/tables/class-yith-wcwl-users-popular-table.php:170
+msgid "Added on"
+msgstr "Προστέθηκε στις"
+
+#: includes/widgets/class-yith-wcwl-items-widget.php:27
+msgid "YITH Wishlist Items"
+msgstr "Αντικείμενα Λίστας Επιθυμιών YITH"
+
+#: includes/widgets/class-yith-wcwl-items-widget.php:28
+msgid "A list of products in the user's wishlists"
+msgstr "Λίστα προϊόντων στις λίστες επιθυμιών του χρήστη"
+
+#: includes/widgets/class-yith-wcwl-items-widget.php:150
+#: includes/widgets/class-yith-wcwl-widget.php:88
+msgid "Title:"
+msgstr "Τίτλος:"
+
+#: includes/widgets/class-yith-wcwl-items-widget.php:156
+msgid "Show extended widget"
+msgstr "Εμφάνιση πλήρους μικροεφαρμογής"
+
+#: includes/widgets/class-yith-wcwl-items-widget.php:160
+msgid "Show mini widget"
+msgstr "Εμφάνιση μίνι μικροεφαρμογής"
+
+#: includes/widgets/class-yith-wcwl-items-widget.php:166
+msgid "Show items count"
+msgstr "Εμφάνιση αρίθμησης αντικειμένων"
+
+#: includes/widgets/class-yith-wcwl-items-widget.php:170
+msgid "Show items from default wishlist only"
+msgstr "Εμφάνιση αντικειμένων από προεπιλεγμένη λίστα επιθυμιών μόνο"
+
+#: includes/widgets/class-yith-wcwl-items-widget.php:174
+msgid "Show Add all to Cart button"
+msgstr "Εμφάνιση κουμπιού Προσθήκη όλων στο Καλάθι"
+
+#: includes/widgets/class-yith-wcwl-items-widget.php:178
+msgid "Show View Wishlists link"
+msgstr "Εμφάνιση συνδέσμου Εμφάνισης Λιστών Επιθυμιών"
+
+#: includes/widgets/class-yith-wcwl-widget.php:27
+msgid "YITH Wishlist Lists"
+msgstr "Λίστες της Λίστας Επιθυμιών YITH"
+
+#: includes/widgets/class-yith-wcwl-widget.php:28
+msgid "A list of all the user's wishlists"
+msgstr "Λίστα με όλες τις λίστες επιθυμιών του χρήστη"
+
+#: includes/widgets/class-yith-wcwl-widget.php:92
+msgid "\"Your wishlist\" link:"
+msgstr "Σύνδεσμος “Η λίστα επιθυμιών σας”:"
+
+#: includes/widgets/class-yith-wcwl-widget.php:98
+msgid "Show create link"
+msgstr "Εμφάνιση δημιουργίας συνδέσμου"
+
+#: includes/widgets/class-yith-wcwl-widget.php:102
+msgid "Show search link"
+msgstr "Εμφάνιση αναζήτησης συνδέσμου"
+
+#: includes/widgets/class-yith-wcwl-widget.php:106
+msgid "Show manage link"
+msgstr "Εμφάνιση διαχείρισης συνδέσμου"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:128
+#: plugin-options/settings/add_to_wishlist-options.php:152
+msgid "Browse wishlist"
+msgstr "Περιήγηση σε λίστα επιθυμιών"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:138
+msgid "Product already in wishlist"
+msgstr "Το προϊόν βρίσκεται ήδη στη λίστα επιθυμιών"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:148
+msgid "Product added to wishlist"
+msgstr "Το προϊόν προστέθηκε στη λίστα επιθυμιών"
+
+#: init.php:207
+msgid ""
+"YITH WooCommerce Wishlist was deactivated as you're running an higher tier "
+"version of the same plugin."
+msgstr ""
+
+#: init.php:223
+msgid "is enabled but not effective. It requires WooCommerce to work."
+msgstr ""
+"είναι ενεργοποιημένο αλλά αναποτελεσματικό. Για σωστή λειτουργία, απαιτείται "
+"WooCommerce."
+
+#: plugin-options/dashboard/lists-options.php:25
+msgid "Search list"
+msgstr "Λίστα αναζήτησης"
+
+#. translators: 1. Product name.
+#: plugin-options/dashboard/popular-options.php:54
+msgid "Users that added \"%s\" to wishlist"
+msgstr "Χρήστες που πρόσθεσαν “%s” στη λίστα επιθυμιών"
+
+#: plugin-options/dashboard/popular-options.php:54
+msgid "Users that added product to wishlist"
+msgstr "Χρήστες που πρόσθεσαν ένα προϊόν στη λίστα επιθυμιών"
+
+#: plugin-options/dashboard/popular-options.php:55
+msgid "< Back to popular"
+msgstr "< Πίσω στα δημοφιλή"
+
+#: plugin-options/email-options.php:17
+msgid "Emails"
+msgstr ""
+
+#: plugin-options/email-options.php:18
+msgid "Manage and customize the emails sent to users about wishlists."
+msgstr ""
+
+#: plugin-options/promotion_email-options.php:55
+msgid "\"Back in stock\" email"
+msgstr "Email “Πίσω στο απόθεμα”"
+
+#: plugin-options/promotion_email-options.php:62
+msgid "Enable \"Back in stock\" email"
+msgstr "Ενεργοποίηση email “Πίσω στο απόθεμα”"
+
+#: plugin-options/promotion_email-options.php:63
+msgid ""
+"Enable this email to send notifications to your customers whenever a product "
+"in their wishlist is back in stock"
+msgstr ""
+"Ενεργοποιήστε αυτό το email για την αποστολή ειδοποιήσεων στους πελάτες σας "
+"κάθε φορά που ένα προϊόν στη λίστα επιθυμιών τους βρίσκεται πίσω στο απόθεμα"
+
+#: plugin-options/promotion_email-options.php:72
+msgid ""
+"Select products that shouldn't trigger the \"back in stock\" notifications"
+msgstr ""
+"Επιλέξτε τα προϊόντα που δεν θα πρέπει να ενεργοποιούν τις ειδοποιήσεις "
+"“πίσω στο απόθεμα”"
+
+#: plugin-options/promotion_email-options.php:83
+msgid ""
+"Select the product categories that should not trigger the \"back in stock\" "
+"notification"
+msgstr ""
+"Επιλέξτε τις κατηγορίες προϊόντων που δεν θα πρέπει να ενεργοποιούν την "
+"ειδοποίηση “πίσω στο απόθεμα”"
+
+#: plugin-options/promotion_email-options.php:109
+msgid ""
+"Enter the title of the email notification. Leave blank to use the default "
+"heading: \"<i>An item of your wishlist is back in stock!</i>\""
+msgstr ""
+"Εισάγετε τίτλο για την ειδοποίηση email. Διατηρήστε κενό για να "
+"χρησιμοποιήσετε την προεπιλεγμένη επικεφαλίδα: \"<i>Ένα αντικείμενο της "
+"λίστας επιθυμιών σας βρίσκεται πίσω στο απόθεμα!</i>\""
+
+#: plugin-options/promotion_email-options.php:117
+msgid ""
+"Enter the mail subject line. Leave blank to use the default subject: \"<i>An "
+"item of your wishlist is back in stock!</i>\""
+msgstr ""
+"Εισάγετε τη γραμμή θέματος email. Διατηρήστε κενό για να χρησιμοποιήσετε το "
+"προεπιλεγμένο θέμα: \"<i>Ένα αντικείμενο της λίστας επιθυμιών σας βρίσκεται "
+"πίσω στο απόθεμα!</i>\""
+
+#: plugin-options/settings/add_to_wishlist-options.php:29
+#: plugin-options/settings/general-options.php:34
+msgid "General Settings"
+msgstr "Γενικές Ρυθμίσεις"
+
+#: plugin-options/settings/add_to_wishlist-options.php:36
+msgid "After product is added to wishlist"
+msgstr "Μετά την προσθήκη του προϊόντος στη λίστα επιθυμιών"
+
+#: plugin-options/settings/add_to_wishlist-options.php:37
+msgid ""
+"Choose the look of the Wishlist button when the product has already been "
+"added to a wishlist"
+msgstr ""
+"Επιλέξτε την εμφάνιση του κουμπιού Λίστας Επιθυμιών όταν το προϊόν έχει ήδη "
+"προστεθεί σε μια λίστα επιθυμιών"
+
+#: plugin-options/settings/add_to_wishlist-options.php:41
+msgid "Show \"Add to wishlist\" button"
+msgstr "Εμφάνιση κουμπιού “Προσθήκη στη λίστα επιθυμιών”"
+
+#: plugin-options/settings/add_to_wishlist-options.php:42
+msgid "Show \"View wishlist\" link"
+msgstr "Εμφάνιση συνδέσμου “Προβολή λίστας επιθυμιών”"
+
+#: plugin-options/settings/add_to_wishlist-options.php:43
+msgid "Show \"Remove from list\" link"
+msgstr "Εμφάνιση συνδέσμου “Αφαίρεση από λίστα”"
+
+#: plugin-options/settings/add_to_wishlist-options.php:57
+msgid "Loop settings"
+msgstr "Ρυθμίσεις βρόχου"
+
+#: plugin-options/settings/add_to_wishlist-options.php:59
+msgid ""
+"Loop options will be visible on Shop page, category pages, product "
+"shortcodes, products sliders, and all the other places where the WooCommerce "
+"products' loop is used"
+msgstr ""
+"Οι επιλογές βρόχου θα είναι ορατές στη σελίδα Καταστήματος, σελίδες "
+"κατηγοριών, μικροκώδικες προϊόντος, κύλιση προϊόντων, και όλα τα άλλα μέρη "
+"όπου χρησιμοποιείται ο βρόχος προϊόντων WooCommerce"
+
+#: plugin-options/settings/add_to_wishlist-options.php:64
+msgid "Show \"Add to wishlist\" in loop"
+msgstr "Εμφάνιση “Προσθήκη στη λίστα επιθυμιών” σε βρόχο"
+
+#: plugin-options/settings/add_to_wishlist-options.php:65
+msgid "Enable the \"Add to wishlist\" feature in WooCommerce products' loop"
+msgstr ""
+"Ενεργοποίηση του χαρακτηριστικού “Προσθήκη στη λίστα επιθυμιών” στον βρόχο "
+"προϊόντων WooCommerce"
+
+#: plugin-options/settings/add_to_wishlist-options.php:73
+msgid "Position of \"Add to wishlist\" in loop"
+msgstr "Θέση “Προσθήκη στη λίστα επιθυμιών” σε βρόχο"
+
+#: plugin-options/settings/add_to_wishlist-options.php:74
+msgid ""
+"Choose where to show \"Add to wishlist\" button or link in WooCommerce "
+"products' loop. <span class=\"addon\">Copy this shortcode <span "
+"class=\"code\"><code>[yith_wcwl_add_to_wishlist]</code></span> and paste it "
+"where you want to show the \"Add to wishlist\" link or button</span>"
+msgstr ""
+"Επιλέξτε πού να εμφανίζετε το κουμπί ή σύνδεσμος για την “Προσθήκη στη λίστα "
+"επιθυμιών” στον βρόχο προϊόντων WooCommerce. <span "
+"class=\"addon\">Αντιγράψτε αυτόν τον μικροκώδικα <span "
+"class=\"code\"><code>[yith_wcwl_add_to_wishlist]</code></span> και κάντε "
+"επικόλληση εκεί που θέλετε να φαίνεται ο σύνδεσμος ή το κουμπί “Προσθήκη στη "
+"λίστα επιθυμιών”</span>"
+
+#: plugin-options/settings/add_to_wishlist-options.php:81
+msgid "On top of the image"
+msgstr "Πάνω στην εικόνα"
+
+#: plugin-options/settings/add_to_wishlist-options.php:82
+msgid "Before \"Add to cart\" button"
+msgstr "Πριν από κουμπί “Προσθήκη στο καλάθι”"
+
+#: plugin-options/settings/add_to_wishlist-options.php:83
+msgid "After \"Add to cart\" button"
+msgstr "Μετά από κουμπί “Προσθήκη στο καλάθι”"
+
+#: plugin-options/settings/add_to_wishlist-options.php:84
+#: plugin-options/settings/add_to_wishlist-options.php:116
+msgid "Use shortcode"
+msgstr "Χρησιμοποιήστε μικροκώδικα"
+
+#: plugin-options/settings/add_to_wishlist-options.php:98
+msgid "Product page settings"
+msgstr "Ρυθμίσεις σελίδας προϊόντος"
+
+#: plugin-options/settings/add_to_wishlist-options.php:105
+msgid "Position of \"Add to wishlist\" on product page"
+msgstr "Θέση “Προσθήκη στη λίστα επιθυμιών” στη σελίδα προϊόντος"
+
+#: plugin-options/settings/add_to_wishlist-options.php:106
+msgid ""
+"Choose where to show \"Add to wishlist\" button or link on the product page. "
+"<span class=\"addon\">Copy this shortcode <span "
+"class=\"code\"><code>[yith_wcwl_add_to_wishlist]</code></span> and paste it "
+"where you want to show the \"Add to wishlist\" link or button</span>"
+msgstr ""
+"Επιλέξτε πού να εμφανίζεται το κουμπί ή ο σύνδεσμος “Προσθήκη στη λίστα "
+"επιθυμιών” στη σελίδα προϊόντος. <span class=\"addon\">Αντιγράψτε αυτόν τον "
+"μικροκώδικα <span class=\"code\"><code>[yith_wcwl_add_to_wishlist]</code></"
+"span> και κάντε επικόλληση εκεί που θέλετε να εμφανίζεται ο σύνδεσμος ή το "
+"κουμπί \"Προσθήκη στη λίστα επιθυμιών\"</span>"
+
+#: plugin-options/settings/add_to_wishlist-options.php:113
+msgid "After \"Add to cart\""
+msgstr "Μετά από “Προσθήκη στο καλάθι”"
+
+#: plugin-options/settings/add_to_wishlist-options.php:114
+msgid "After thumbnails"
+msgstr "Μετά από μικρογραφίες"
+
+#: plugin-options/settings/add_to_wishlist-options.php:115
+msgid "After summary"
+msgstr "Μετά από σύνοψη"
+
+#: plugin-options/settings/add_to_wishlist-options.php:126
+#: plugin-options/settings/ask_an_estimate-options.php:176
+#: plugin-options/settings/wishlist_page-options.php:231
+msgid "Text customization"
+msgstr "Προσαρμογή κειμένου"
+
+#: plugin-options/settings/add_to_wishlist-options.php:133
+msgid "\"Add to wishlist\" text"
+msgstr "Κείμενο για “Προσθήκη στη λίστα επιθυμιών”"
+
+#: plugin-options/settings/add_to_wishlist-options.php:134
+msgid "Enter a text for \"Add to wishlist\" button"
+msgstr "Εισάγετε ένα κείμενο για το κουμπί “Προσθήκη στη λίστα επιθυμιών”"
+
+#: plugin-options/settings/add_to_wishlist-options.php:141
+msgid "\"Product added\" text"
+msgstr "Κείμενο για “Το προϊόν προστέθηκε!”"
+
+#: plugin-options/settings/add_to_wishlist-options.php:142
+msgid ""
+"Enter the text of the message displayed when the user adds a product to the "
+"wishlist"
+msgstr ""
+"Εισάγετε το κείμενο για το μήνυμα που εμφανίζεται όταν ο χρήστης προσθέτει "
+"ένα προϊόν στη λίστα επιθυμιών"
+
+#: plugin-options/settings/add_to_wishlist-options.php:144
+msgid "Product added!"
+msgstr "Το προϊόν προστέθηκε!"
+
+#: plugin-options/settings/add_to_wishlist-options.php:149
+msgid "\"Browse wishlist\" text"
+msgstr "Κείμενο “Περιήγηση σε λίστα επιθυμιών”"
+
+#: plugin-options/settings/add_to_wishlist-options.php:150
+msgid "Enter a text for the \"Browse wishlist\" link on the product page"
+msgstr ""
+"Εισάγετε κείμενο για τον σύνδεσμο “Περιήγηση σε λίστα επιθυμιών” στη σελίδα "
+"προϊόντος"
+
+#: plugin-options/settings/add_to_wishlist-options.php:157
+msgid "\"Product already in wishlist\" text"
+msgstr "Κείμενο για “Προϊόν ήδη σε λίστα επιθυμιών”"
+
+#: plugin-options/settings/add_to_wishlist-options.php:158
+msgid ""
+"Enter the text for the message displayed when the user views a product that "
+"is already in the wishlist"
+msgstr ""
+"Εισάγετε το κείμενο για το μήνυμα που εμφανίζεται όταν ο χρήστης βλέπει ένα "
+"προϊόν που υπάρχει ήδη στη λίστα επιθυμιών"
+
+#: plugin-options/settings/add_to_wishlist-options.php:160
+msgid "The product is already in your wishlist!"
+msgstr "Το προϊόν βρίσκεται ήδη στη λίστα επιθυμιών σας!"
+
+#: plugin-options/settings/add_to_wishlist-options.php:170
+#: plugin-options/settings/ask_an_estimate-options.php:210
+msgid "Style & Color customization"
+msgstr "Προσαρμογή στυλ & χρώματος"
+
+#: plugin-options/settings/add_to_wishlist-options.php:177
+msgid "Style of \"Add to wishlist\""
+msgstr "Στυλ για “Προσθήκη στη λίστα επιθυμιών”"
+
+#: plugin-options/settings/add_to_wishlist-options.php:178
+msgid ""
+"Choose if you want to show a textual \"Add to wishlist\" link or a button"
+msgstr ""
+"Επιλέξτε αν θέλετε να εμφανίζετε ένα κειμενικό σύνδεσμο για την “Προσθήκη "
+"στη λίστα επιθυμιών” ή ένα κουμπί"
+
+#: plugin-options/settings/add_to_wishlist-options.php:181
+#: plugin-options/settings/ask_an_estimate-options.php:221
+#: plugin-options/settings/wishlist_page-options.php:270
+msgid "Textual (anchor)"
+msgstr "Κειμενικό (αγκίστρωση)"
+
+#: plugin-options/settings/add_to_wishlist-options.php:182
+#: plugin-options/settings/ask_an_estimate-options.php:222
+#: plugin-options/settings/wishlist_page-options.php:271
+msgid "Button with theme style"
+msgstr "Κουμπί με στυλ θέματος"
+
+#: plugin-options/settings/add_to_wishlist-options.php:183
+#: plugin-options/settings/ask_an_estimate-options.php:223
+#: plugin-options/settings/wishlist_page-options.php:272
+msgid "Button with custom style"
+msgstr "Κουμπί με προσαρμοσμένο στυλ"
+
+#: plugin-options/settings/add_to_wishlist-options.php:191
+msgid "\"Add to wishlist\" button style"
+msgstr "Στυλ κουμπιού “Προσθήκη στη λίστα επιθυμιών”"
+
+#: plugin-options/settings/add_to_wishlist-options.php:208
+#: plugin-options/settings/ask_an_estimate-options.php:249
+#: plugin-options/settings/wishlist_page-options.php:298
+#: plugin-options/settings/wishlist_page-options.php:396
+#: plugin-options/settings/wishlist_page-options.php:445
+#: plugin-options/settings/wishlist_page-options.php:493
+msgid "Border"
+msgstr "Πλαίσιο"
+
+#: plugin-options/settings/add_to_wishlist-options.php:215
+#: plugin-options/settings/ask_an_estimate-options.php:257
+#: plugin-options/settings/wishlist_page-options.php:306
+#: plugin-options/settings/wishlist_page-options.php:404
+#: plugin-options/settings/wishlist_page-options.php:453
+msgid "Background Hover"
+msgstr "Αιώρηση Φόντου"
+
+#: plugin-options/settings/add_to_wishlist-options.php:220
+#: plugin-options/settings/ask_an_estimate-options.php:262
+#: plugin-options/settings/wishlist_page-options.php:311
+#: plugin-options/settings/wishlist_page-options.php:409
+#: plugin-options/settings/wishlist_page-options.php:458
+msgid "Text Hover"
+msgstr "Αιώρηση Κειμένου"
+
+#: plugin-options/settings/add_to_wishlist-options.php:225
+#: plugin-options/settings/ask_an_estimate-options.php:267
+#: plugin-options/settings/wishlist_page-options.php:316
+#: plugin-options/settings/wishlist_page-options.php:414
+#: plugin-options/settings/wishlist_page-options.php:463
+msgid "Border Hover"
+msgstr "Αιώρηση Πλαισίου"
+
+#: plugin-options/settings/add_to_wishlist-options.php:238
+#: plugin-options/settings/ask_an_estimate-options.php:280
+#: plugin-options/settings/wishlist_page-options.php:329
+msgid "Border radius"
+msgstr "Ακτίνα πλαισίου"
+
+#: plugin-options/settings/add_to_wishlist-options.php:239
+msgid "Choose radius for the \"Add to wishlist\" button"
+msgstr "Επιλέξτε την ακτίνα για το κουμπί “Προσθήκη στη λίστα επιθυμιών”"
+
+#: plugin-options/settings/add_to_wishlist-options.php:253
+msgid "\"Add to wishlist\" icon"
+msgstr "Εικονίδιο ”Προσθήκη στη λίστα επιθυμιών\""
+
+#: plugin-options/settings/add_to_wishlist-options.php:254
+msgid "Select an icon for the \"Add to wishlist\" button (optional)"
+msgstr ""
+"Επιλέξτε ένα εικονίδιο για το κουμπί “Προσθήκη στη λίστα "
+"επιθυμιών” (προαιρετικό)"
+
+#: plugin-options/settings/add_to_wishlist-options.php:273
+msgid "\"Add to wishlist\" custom icon"
+msgstr "Προσαρμοσμένο εικονίδιο ”Προσθήκη στη λίστα επιθυμιών\""
+
+#: plugin-options/settings/add_to_wishlist-options.php:274
+#: plugin-options/settings/add_to_wishlist-options.php:307
+msgid ""
+"Upload an icon you'd like to use for \"Add to wishlist\" button (suggested "
+"32px x 32px)"
+msgstr ""
+"Ανεβάστε ένα εικονίδιο που θα θέλατε να χρησιμοποιήσετε για το κουμπί "
+"“Προσθήκη στη λίστα επιθυμιών” (προτείνεται 32px x 32px)"
+
+#: plugin-options/settings/add_to_wishlist-options.php:286
+msgid "\"Added to wishlist\" icon"
+msgstr "Εικονίδιο \"Προστέθηκε στη λίστα επιθυμιών”"
+
+#: plugin-options/settings/add_to_wishlist-options.php:287
+msgid "Select an icon for the \"Added to wishlist\" button (optional)"
+msgstr ""
+"Επιλέξτε ένα εικονίδιο για το κουμπί “Προστέθηκε στη λίστα "
+"επιθυμιών” (προαιρετικό)"
+
+#: plugin-options/settings/add_to_wishlist-options.php:302
+msgid "Same used for Add to wishlist"
+msgstr "Το ίδιο χρησιμοποιήθηκε για την Προσθήκη στη λίστα επιθυμιών"
+
+#: plugin-options/settings/add_to_wishlist-options.php:306
+msgid "\"Added to wishlist\" custom icon"
+msgstr "Προσαρμοσμένο εικονίδιο ”Προστέθηκε στη λίστα επιθυμιών\""
+
+#: plugin-options/settings/add_to_wishlist-options.php:319
+msgid "Custom CSS"
+msgstr "Προσαρμοσμένο CSS"
+
+#: plugin-options/settings/add_to_wishlist-options.php:320
+msgid "Enter custom CSS to be applied to Wishlist elements (optional)"
+msgstr ""
+"Εισάγετε προσαρμοσμένο CSS για εφαρμογή σε στοιχεία Λίστας Επιθυμιών "
+"(προαιρετικό)"
+
+#: plugin-options/settings/ask_an_estimate-options.php:35
+msgid "Enable \"Ask for an estimate\" button"
+msgstr "Ενεργοποίηση κουμπιού “Ζητήστε εκτίμηση\""
+
+#: plugin-options/settings/ask_an_estimate-options.php:38
+msgid "Shows \"Ask for an estimate\" button on Wishlist page"
+msgstr "Εμφανίζει το κουμπί “Ζητήστε εκτίμηση\" στη σελίδα Λίστας Επιθυμιών"
+
+#: plugin-options/settings/ask_an_estimate-options.php:39
+msgid ""
+"If you want to customize the email that will be sent to the admin, please, "
+"visit the"
+msgstr ""
+
+#: plugin-options/settings/ask_an_estimate-options.php:47
+msgid "emails settings page"
+msgstr ""
+
+#: plugin-options/settings/ask_an_estimate-options.php:60
+msgid "Additional Popup"
+msgstr "Επιπλέον Popup"
+
+#: plugin-options/settings/ask_an_estimate-options.php:62
+msgid ""
+"These fields will be shown in the popup opened by Ask an Estimate button. "
+"The Email field will be prepended for unauthenticated users. An Additional "
+"Notes textarea will be postponed to the selected fields."
+msgstr ""
+"Αυτά τα πεδία θα εμφανίζονται στο popup που θα ανοίγει το κουμπί Ζητήστε "
+"Εκτίμηση. Το πεδίο Email θα εμποδίζεται για μη πιστοποιημένους χρήστες. Θα "
+"μετατεθεί περιοχή κειμένου Επιπλέον Σημειώσεων στα επιλεγμένα πεδία."
+
+#: plugin-options/settings/ask_an_estimate-options.php:67
+msgid "Enable \"Additional notes\" popup"
+msgstr "Ενεργοποίηση popup “Επιπλέον σημειώσεων”"
+
+#: plugin-options/settings/ask_an_estimate-options.php:68
+msgid ""
+"Show an Additional notes popup before submitting the price estimate request "
+"to let customers add extra notes"
+msgstr ""
+"Εμφάνιση popup Επιπλέον σημειώσεων πριν την υποβολή του αιτήματος εκτίμησης "
+"τιμής για να επιτρέπετε στους πελάτες να προσθέτουν επιπλέον σημειώσεις"
+
+#: plugin-options/settings/ask_an_estimate-options.php:83
+msgid "Add new field"
+msgstr "Προσθήκη νέου πεδίου"
+
+#: plugin-options/settings/ask_an_estimate-options.php:84
+msgid "Field %%label%%"
+msgstr "Πεδίο %%label%%"
+
+#: plugin-options/settings/ask_an_estimate-options.php:89
+msgid "Label for the field"
+msgstr "Επιγραφή για το πεδίο"
+
+#: plugin-options/settings/ask_an_estimate-options.php:90
+msgid "Enter the label that will be shown for this field"
+msgstr "Εισάγετε την περιγραφή που θέλετε να εμφανίζεται για αυτό το πεδίο"
+
+#: plugin-options/settings/ask_an_estimate-options.php:96
+msgid "Required field"
+msgstr "Απαιτούμενο πεδίο"
+
+#: plugin-options/settings/ask_an_estimate-options.php:97
+msgid "Choose whether this field is required or not"
+msgstr "Επιλέξτε αν θέλετε αυτό το πεδίο να είναι απαιτούμενο ή όχι"
+
+#: plugin-options/settings/ask_an_estimate-options.php:103
+msgid "Placeholder for the field"
+msgstr "Κείμενο υποκατάστασης (placeholder) για το πεδίο"
+
+#: plugin-options/settings/ask_an_estimate-options.php:104
+msgid "Enter the placeholder that will be shown in the field"
+msgstr ""
+"Εισάγετε το κείμενο υποκατάστασης (placeholder) που θα εμφανίζεται στο πεδίο"
+
+#: plugin-options/settings/ask_an_estimate-options.php:110
+msgid "Field description"
+msgstr "Περιγραφή πεδίου"
+
+#: plugin-options/settings/ask_an_estimate-options.php:111
+msgid "Enter the description that will be shown above the field"
+msgstr "Εισάγετε την περιγραφή που θα εμφανίζεται πάνω από το πεδίο"
+
+#: plugin-options/settings/ask_an_estimate-options.php:117
+msgid "Position of the field in the form"
+msgstr "Θέση του πεδίου στη φόρμα"
+
+#: plugin-options/settings/ask_an_estimate-options.php:118
+msgid ""
+"Choose between first (the field will be the first in a row that contains two "
+"items), last (the field will be the second in a row of two) or wide (the "
+"field will take an entire row)"
+msgstr ""
+"Επιλέξτε μεταξύ πρώτου (το πεδίο θα είναι το πρώτο στη σειρά που "
+"περιλαμβάνει δυο αντικείμενα), τελευταίου (το πεδίο θα είναι το δεύτερο στη "
+"σειρά των δυο) ή πλατύ (το πεδίο θα γεμίσει μια ολόκληρη σειρά)"
+
+#: plugin-options/settings/ask_an_estimate-options.php:122
+msgid "First"
+msgstr "Πρώτο"
+
+#: plugin-options/settings/ask_an_estimate-options.php:123
+msgid "Last"
+msgstr "Τελευταίο"
+
+#: plugin-options/settings/ask_an_estimate-options.php:124
+msgid "Wide"
+msgstr "Πλατύ"
+
+#: plugin-options/settings/ask_an_estimate-options.php:129
+msgid "Type of field"
+msgstr "Τύπος πεδίου"
+
+#: plugin-options/settings/ask_an_estimate-options.php:130
+msgid "Choose the type of field to print in the form"
+msgstr "Επιλέξτε τον τύπο πεδίου που θέλετε να εκτυπώνεται στη φόρμα"
+
+#: plugin-options/settings/ask_an_estimate-options.php:135
+#: templates/share.php:102 templates/share.php:103
+msgid "Email"
+msgstr "Email"
+
+#: plugin-options/settings/ask_an_estimate-options.php:136
+msgid "Phone"
+msgstr "Τηλέφωνο"
+
+#: plugin-options/settings/ask_an_estimate-options.php:137
+msgid "URL"
+msgstr "URL"
+
+#: plugin-options/settings/ask_an_estimate-options.php:138
+msgid "Number"
+msgstr "Αριθμός"
+
+#: plugin-options/settings/ask_an_estimate-options.php:140
+msgid "Textarea"
+msgstr "Περιοχή κειμένου"
+
+#: plugin-options/settings/ask_an_estimate-options.php:141
+msgid "Radio"
+msgstr "Kουμπί επιλογής"
+
+#: plugin-options/settings/ask_an_estimate-options.php:142
+msgid "Checkbox"
+msgstr "Πλαίσιο ελέγχου"
+
+#: plugin-options/settings/ask_an_estimate-options.php:143
+msgid "Select"
+msgstr "Επιλογή"
+
+#: plugin-options/settings/ask_an_estimate-options.php:148
+msgid "Enter options for the field"
+msgstr "Εισάγετε επιλογές για το πεδίο"
+
+#: plugin-options/settings/ask_an_estimate-options.php:149
+msgid ""
+"Enter the options for the field type you've selected. Separate options with "
+"pipes (|), and key from value with double colon (::). E.g. key::value|key2::"
+"value2"
+msgstr ""
+"Εισάγετε τις επιλογές για τον τύπο πεδίου που έχετε επιλέξει. Διαχωρίστε τις "
+"επιλογές με κάθετες μπάρες (|), και το κλειδί από την αξία με διπλή άνω κάτω "
+"τελεία (::). Πχ. κλειδί::αξία|κλειδί2::αξία2"
+
+#: plugin-options/settings/ask_an_estimate-options.php:162
+#: templates/admin/email-settings-single.php:22
+msgid "Save"
+msgstr "Αποθήκευση"
+
+#: plugin-options/settings/ask_an_estimate-options.php:183
+msgid "\"Ask for an estimate\" button label"
+msgstr "Επιγραφή κουμπιού “Ζητήστε εκτίμηση”"
+
+#: plugin-options/settings/ask_an_estimate-options.php:185
+msgid ""
+"This option lets you customize the label of \"Ask for an Estimate\" button"
+msgstr ""
+"Αυτή η επιλογή σας επιτρέπει να προσαρμόσετε την επιγραφή κουμπιού “Ζητήστε "
+"Εκτίμηση”"
+
+#: plugin-options/settings/ask_an_estimate-options.php:196
+msgid "\"Additional notes\" textarea label"
+msgstr "Επιγραφή περιοχής κειμένου “Επιπλέον σημειώσεις”"
+
+#: plugin-options/settings/ask_an_estimate-options.php:198
+msgid ""
+"This option lets you customize the label for the \"Additional notes\" text "
+"area"
+msgstr ""
+"Αυτή η επιλογή σας επιτρέπει να προσαρμόσετε την επιγραφή της περιοχής "
+"κειμένου “Επιπλέον σημειώσεις”"
+
+#: plugin-options/settings/ask_an_estimate-options.php:199
+msgid "Additional notes"
+msgstr "Επιπλέον σημειώσεις"
+
+#: plugin-options/settings/ask_an_estimate-options.php:217
+msgid "Style of \"Ask for an estimate\""
+msgstr "Στυλ “Ζητήστε εκτίμηση”"
+
+#: plugin-options/settings/ask_an_estimate-options.php:218
+msgid ""
+"Choose if you want to show a textual \"Ask for an Estimate\" link or a button"
+msgstr ""
+"Επιλέξτε αν θέλετε να εμφανίζετε ένα κειμενικό σύνδεσμο για το “Ζητήστε "
+"Εκτίμηση” ή ένα κουμπί"
+
+#: plugin-options/settings/ask_an_estimate-options.php:231
+msgid "\"Ask for an Estimate\" button style"
+msgstr "Στυλ κουμπιού “Ζητήστε Εκτίμηση”"
+
+#: plugin-options/settings/ask_an_estimate-options.php:237
+msgid "Choose colors for the \"Ask for an estimate\" button"
+msgstr "Επιλέξτε χρώματα για το κουμπί “Ζητήστε εκτίμηση”"
+
+#: plugin-options/settings/ask_an_estimate-options.php:255
+msgid "Choose colors for the \"Ask for an estimate\" button on hover state"
+msgstr ""
+"Επιλέξτε χρώματα για το κουμπί “Ζητήστε εκτίμηση” στην κατάσταση αιώρησης"
+
+#: plugin-options/settings/ask_an_estimate-options.php:281
+msgid "Choose radius for the \"Ask for an Estimate\" button"
+msgstr "Επιλέξτε την ακτίνα για το κουμπί “Ζητήστε Εκτίμηση”"
+
+#: plugin-options/settings/ask_an_estimate-options.php:295
+msgid "\"Ask for an estimate\" icon"
+msgstr "Εικονίδιο “Ζητήστε εκτίμηση”"
+
+#: plugin-options/settings/ask_an_estimate-options.php:296
+msgid "Select an icon for the \"Ask for an Estimate\" button (optional)"
+msgstr "Επιλέξτε ένα εικονίδιο για το κουμπί “Ζητήστε Εκτίμηση” (προαιρετικό)"
+
+#: plugin-options/settings/ask_an_estimate-options.php:319
+msgid "\"Ask for an estimate\" custom icon"
+msgstr "Προσαρμοσμένο εικονίδιο “Ζητήστε εκτίμηση”"
+
+#: plugin-options/settings/ask_an_estimate-options.php:320
+msgid ""
+"Upload an icon you'd like to use for \"Ask for an estimate\" button "
+"(suggested 32px x 32px)"
+msgstr ""
+"Ανεβάστε ένα εικονίδιο που θα θέλατε να χρησιμοποιήσετε για το κουμπί "
+"“Ζητήστε εκτίμηση” (προτείνεται 32px x 32px)"
+
+#: plugin-options/settings/general-options.php:40
+msgid "Enable AJAX loading"
+msgstr "Ενεργοποίηση φόρτωσης AJAX"
+
+#: plugin-options/settings/general-options.php:41
+msgid "Load any cacheable wishlist item via AJAX"
+msgstr "Φόρτωση πιθανών αντικειμένων λίστας επιθυμιών από το cache μέσω AJAX"
+
+#: plugin-options/settings/general-options.php:55
+msgid "YITH WooCommerce Frequently Bought Together Integration"
+msgstr "Διασύνδεση YITH WooCommerce Frequently Bought Together"
+
+#: plugin-options/settings/general-options.php:61
+msgid "Enable slider in wishlist"
+msgstr "Ενεργοποίηση κύλισης στη λίστα επιθυμιών"
+
+#: plugin-options/settings/general-options.php:62
+msgid "Enable the slider with linked products on the Wishlist page."
+msgstr ""
+
+#: plugin-options/settings/wishlist_page-options.php:28
+#: plugin-options/settings/wishlist_page-options.php:35
+msgid "Wishlist page"
+msgstr "Σελίδα λίστας επιθυμιών"
+
+#: plugin-options/settings/wishlist_page-options.php:36
+msgid ""
+"Pick a page as the main Wishlist page; make sure you add the <span "
+"class=\"code\"><code>[yith_wcwl_wishlist]</code></span> shortcode into the "
+"page content"
+msgstr ""
+"Επιλέξτε μια σελίδα ως τη βασική σελίδα Λίστας Επιθυμιών· βεβαιωθείτε ότι "
+"προσθέσατε τον μικροκώδικα <span class=\"code\"><code>[yith_wcwl_wishlist]</"
+"code></span> στο περιεχόμενο της σελίδας"
+
+#: plugin-options/settings/wishlist_page-options.php:49
+msgid "Wishlist Detail Page"
+msgstr "Σελίδα Στοιχείων Λίστας Επιθυμιών"
+
+#: plugin-options/settings/wishlist_page-options.php:57
+msgid "Product variations selected by the user (example: size or color)"
+msgstr ""
+"Παραλλαγές προϊόντος επιλεγμένες από τον χρήστη (παράδειγμα: μέγεθος ή χρώμα)"
+
+#: plugin-options/settings/wishlist_page-options.php:66
+msgid "Product price"
+msgstr "Τιμή προϊόντος"
+
+#: plugin-options/settings/wishlist_page-options.php:75
+msgid "Product stock (show if the product is available or not)"
+msgstr "Απόθεμα προϊόντος (εμφανίστε εάν το προϊόν είναι διαθέσιμο ή όχι)"
+
+#: plugin-options/settings/wishlist_page-options.php:84
+msgid "Date on which the product was added to the wishlist"
+msgstr "Ημερομηνία κατά την οποία το προϊόν προστέθηκε στη λίστα επιθυμιών"
+
+#: plugin-options/settings/wishlist_page-options.php:93
+msgid "Add to cart option for each product"
+msgstr "Επιλογή προσθήκης στο καλάθι για κάθε προϊόν"
+
+#: plugin-options/settings/wishlist_page-options.php:102
+msgid ""
+"Icon to remove the product from the wishlist - to the left of the product"
+msgstr ""
+"Εικονίδιο αφαίρεσης προϊόντος από την λίστα επιθυμιών - αριστερά του "
+"προϊόντος"
+
+#: plugin-options/settings/wishlist_page-options.php:111
+msgid ""
+"Button to remove the product from the wishlist - to the right of the product"
+msgstr ""
+"Κουμπί αφαίρεσης προϊόντος από τη λίστα επιθυμιών - δεξιά του προϊόντος"
+
+#: plugin-options/settings/wishlist_page-options.php:119
+msgid "Redirect to cart"
+msgstr "Ανακατεύθυνση στο καλάθι"
+
+#: plugin-options/settings/wishlist_page-options.php:120
+msgid ""
+"Redirect users to the cart page when they add a product to the cart from the "
+"wishlist page"
+msgstr ""
+"Ανακατευθύνετε τους χρήστες στη σελίδα καλαθιού όταν προσθέτουν ένα προϊόν "
+"στο καλάθι από τη σελίδα της λίστας επιθυμιών"
+
+#: plugin-options/settings/wishlist_page-options.php:128
+msgid "Remove if added to the cart"
+msgstr "Αφαίρεση αν έχει προστεθεί στο καλάθι"
+
+#: plugin-options/settings/wishlist_page-options.php:129
+msgid ""
+"Remove the product from the wishlist after it has been added to the cart"
+msgstr "Αφαίρεση προϊόντος από τη λίστα επιθυμιών αφού προστεθεί στο καλάθι"
+
+#: plugin-options/settings/wishlist_page-options.php:137
+msgid "Share wishlist"
+msgstr "Κοινοποίηση λίστας επιθυμιών"
+
+#: plugin-options/settings/wishlist_page-options.php:138
+msgid "Enable this option to let users share their wishlist on social media"
+msgstr ""
+"Ενεργοποιήστε να επιτρέπετε στους χρήστες να κοινοποιούν την λίστα επιθυμιών "
+"τους στα κοινωνικά δίκτυα"
+
+#: plugin-options/settings/wishlist_page-options.php:146
+#: plugin-options/settings/wishlist_page-options.php:155
+#: plugin-options/settings/wishlist_page-options.php:164
+#: plugin-options/settings/wishlist_page-options.php:173
+#: plugin-options/settings/wishlist_page-options.php:182
+msgid "Share on social media"
+msgstr "Κοινοποίηση σε κοινωνικά δίκτυα"
+
+#: plugin-options/settings/wishlist_page-options.php:174
+msgid "Share by email"
+msgstr "Κοινοποίηση μέσω email"
+
+#: plugin-options/settings/wishlist_page-options.php:191
+msgid "Share by URL"
+msgstr "Κοινοποίηση μέσω URL"
+
+#: plugin-options/settings/wishlist_page-options.php:192
+msgid "Show \"Share URL\" field on wishlist page"
+msgstr "Εμφάνιση πεδίου “URL Κοινοποίησης” στη σελίδα λίστας επιθυμιών"
+
+#: plugin-options/settings/wishlist_page-options.php:200
+msgid "Sharing title"
+msgstr "Τίτλος κοινοποίησης"
+
+#: plugin-options/settings/wishlist_page-options.php:201
+msgid "Wishlist title used for sharing (only used on Twitter and Pinterest)"
+msgstr ""
+"Τίτλος λίστας επιθυμιών που χρησιμοποιείται για κοινοποίηση (χρησιμοποιείται "
+"μόνο στο Twitter και Pinterest)"
+
+#. translators: 1. Blog name.
+#: plugin-options/settings/wishlist_page-options.php:204
+msgid "My wishlist on %s"
+msgstr "Η λίστα επιθυμιών μου στο %s"
+
+#: plugin-options/settings/wishlist_page-options.php:209
+msgid "Social text"
+msgstr "Κοινωνικό κείμενο"
+
+#: plugin-options/settings/wishlist_page-options.php:210
+msgid ""
+"Type the message you want to publish when you share your wishlist on Twitter "
+"and Pinterest"
+msgstr ""
+"Εισάγετε το μήνυμα που θέλετε να δημοσιεύσετε κατα την κοινοποίηση της "
+"λίστας επιθυμιών σας στο Twitter και Pinterest"
+
+#: plugin-options/settings/wishlist_page-options.php:218
+msgid "Social image URL"
+msgstr "URL κοινωνικής εικόνας"
+
+#: plugin-options/settings/wishlist_page-options.php:219
+msgid "It will be used to pin the wishlist on Pinterest."
+msgstr ""
+"Θα χρησιμοποιηθεί για να καρφιτσώσει την λίστα επιθυμιών στο Pinterest."
+
+#: plugin-options/settings/wishlist_page-options.php:238
+msgid "Default wishlist name"
+msgstr "Προεπιλεγμένο όνομα λίστας επιθυμιών"
+
+#: plugin-options/settings/wishlist_page-options.php:239
+msgid ""
+"Enter a name for the default wishlist. This is the wishlist that will be "
+"automatically generated for all users if they do not create any custom one"
+msgstr ""
+"Εισάγετε όνομα για την προεπιλεγμένη λίστα επιθυμιών. Αυτή είναι η λίστα "
+"επιθυμιών που θα δημιουργηθεί αυτόματα για όλους τους χρήστες αν δεν "
+"δημιουργήσουν κάποια προσαρμοσμένη"
+
+#: plugin-options/settings/wishlist_page-options.php:241
+msgid "My wishlist"
+msgstr "Η λίστα επιθυμιών μου"
+
+#: plugin-options/settings/wishlist_page-options.php:246
+msgid "\"Add to cart\" text"
+msgstr "Κείμενο “Προσθήκη στο καλάθι”"
+
+#: plugin-options/settings/wishlist_page-options.php:247
+msgid "Enter a text for the \"Add to cart\" button"
+msgstr "Εισάγετε ένα κείμενο για το κουμπί “Προσθήκη στο καλάθι”"
+
+#: plugin-options/settings/wishlist_page-options.php:259
+msgid "Style & color customization"
+msgstr "Στυλ & χρώμα προσαρμογής"
+
+#: plugin-options/settings/wishlist_page-options.php:266
+msgid "Style of \"Add to cart\""
+msgstr "Στυλ για “Προσθήκη στο καλάθι”"
+
+#: plugin-options/settings/wishlist_page-options.php:267
+msgid "Choose whether to show a textual \"Add to cart\" link or a button"
+msgstr ""
+"Επιλέξτε αν θέλετε να εμφανίζετε ένα κειμενικό σύνδεσμο για την “Προσθήκη "
+"στο καλάθι” ή κουμπί"
+
+#: plugin-options/settings/wishlist_page-options.php:280
+msgid "\"Add to cart\" button style"
+msgstr "Στυλ κουμπιού “Προσθήκη στο καλάθι”"
+
+#: plugin-options/settings/wishlist_page-options.php:286
+msgid "Choose the colors for the \"Add to cart\" button"
+msgstr "Επιλέξτε χρώματα για το κουμπί “Προσθήκη στο καλάθι”"
+
+#: plugin-options/settings/wishlist_page-options.php:304
+msgid "Choose colors for the \"Add to cart\" button on hover state"
+msgstr ""
+"Επιλέξτε χρώματα για το κουμπί “Προσθήκη στο καλάθι” στην κατάσταση αιώρησης"
+
+#: plugin-options/settings/wishlist_page-options.php:330
+msgid "Set the radius for the \"Add to cart\" button"
+msgstr "Ορίστε την ακτίνα για το κουμπί “Προσθήκη στο καλάθι”"
+
+#: plugin-options/settings/wishlist_page-options.php:344
+msgid "\"Add to cart\" icon"
+msgstr "Εικονίδιο “Προσθήκη στο καλάθι”"
+
+#: plugin-options/settings/wishlist_page-options.php:345
+msgid "Select an icon for the \"Add to cart\" button (optional)"
+msgstr ""
+"Επιλέξτε ένα εικονίδιο για το κουμπί “Προσθήκη στο καλάθι” (προαιρετικό)"
+
+#: plugin-options/settings/wishlist_page-options.php:369
+msgid "\"Add to cart\" custom icon"
+msgstr "Προσαρμοσμένο εικονίδιο “Προσθήκη στο καλάθι”"
+
+#: plugin-options/settings/wishlist_page-options.php:370
+msgid ""
+"Upload an icon you'd like to use for the \"Add to cart\" button (suggested "
+"32px x 32px)"
+msgstr ""
+"Ανεβάστε ένα εικονίδιο που θα θέλατε να χρησιμοποιήσετε για το κουμπί "
+"“Προσθήκη στο καλάθι” (προτείνεται 32px x 32px)"
+
+#: plugin-options/settings/wishlist_page-options.php:378
+msgid "Primary button style"
+msgstr "Στυλ βασικού κουμπιού"
+
+#: plugin-options/settings/wishlist_page-options.php:384
+msgid ""
+"Choose colors for the primary button<br/><small>This style will be applied "
+"to \"Edit title\" button on Wishlist view, \"Submit Changes\" button on "
+"Manage view and \"Search wishlist\" button on Search view</small>"
+msgstr ""
+"Επιλέξτε χρώματα για το βασικό κουμπί σε κατάσταση αιώρησης<br/><small>Αυτό "
+"το στυλ θα εφαρμοστεί στο κουμπί “Επεξεργασία τίτλου” στην προβολή Λίστας "
+"Επιθυμιών, στο κουμπί “Υποβολή Αλλαγών” στην Διαχείριση προβολής και στο "
+"κουμπί “Αναζήτηση λίστας επιθυμιών” στη προβολή Αναζήτησης</small>"
+
+#: plugin-options/settings/wishlist_page-options.php:402
+msgid ""
+"Choose colors for the primary button on hover state<br/><small>This style "
+"will be applied to \"Edit title\" button on Wishlist view, \"Submit "
+"Changes\" button on Manage view and \"Search wishlist\" button on Search "
+"view</small>"
+msgstr ""
+"Επιλέξτε χρώματα για το βασικό κουμπί σε κατάσταση αιώρησης<br/><small>Αυτό "
+"το στυλ θα εφαρμοστεί στο κουμπί “Επεξεργασία τίτλου” στην προβολή Λίστας "
+"Επιθυμιών, στο κουμπί “Υποβολή Αλλαγών” στην Διαχείριση προβολής και στο "
+"κουμπί “Αναζήτηση λίστας επιθυμιών” στη προβολή Αναζήτησης</small>"
+
+#: plugin-options/settings/wishlist_page-options.php:427
+msgid "Secondary button style"
+msgstr "Στυλ δευτερεύοντος κουμπιού"
+
+#: plugin-options/settings/wishlist_page-options.php:433
+#: plugin-options/settings/wishlist_page-options.php:451
+msgid ""
+"Choose colors of the secondary button<br/><small>This style will be applied "
+"to the buttons that allow showing and hiding the Edit title form on Wishlist "
+"view and \"Create new Wishlist\" button on Manage view</small>"
+msgstr ""
+"Επιλέξτε χρώματα για το δευτερεύον κουμπί<br/><small>Αυτό το στυλ θα "
+"εφαρμοστεί στα κουμπιά που επιτρέπουν την εμφάνιση ή απόκρυψη της φόρμας "
+"Επεξεργασίας τίτλου στη προβολή Λίστας Επιθυμιών και στο κουμπί “Δημιουργία "
+"νέας Λίστας Επιθυμιών” στη Διαχείριση προβολής</small>"
+
+#: plugin-options/settings/wishlist_page-options.php:476
+msgid "Wishlist table style"
+msgstr "Στυλ πίνακα λίστας επιθυμιών"
+
+#: plugin-options/settings/wishlist_page-options.php:477
+msgid ""
+"Choose the colors for the wishlist table (when set to \"Traditional\" layout)"
+msgstr ""
+"Επιλέξτε τα χρώματα για τον πίνακα λίστας επιθυμιών (όταν ορίζεται σε "
+"“Παραδοσιακή” διάταξη)"
+
+#: plugin-options/settings/wishlist_page-options.php:505
+msgid "Highlight color"
+msgstr "Χρώμα επισήμανσης"
+
+#: plugin-options/settings/wishlist_page-options.php:506
+msgid ""
+"Choose the color for all sections with background<br/><small>This color will "
+"be used as background for the wishlist table heading and footer (when set to "
+"\"Traditional\" layout), and for various form across wishlist views</small>"
+msgstr ""
+"Επιλέξτε το χρώμα για όλες τις ενότητες με φόντο<br/><small>Αυτό το χρώμα θα "
+"χρησιμοποιηθεί ως φόντο για την επικεφαλίδα και υποσέλιδο του πίνακα λίστας "
+"επιθυμιών (όταν ορίζεται σε “Παραδοσιακή” διάταξη), και για διάφορες φόρμες "
+"στις προβολές της λίστας επιθυμιών</small>"
+
+#: plugin-options/settings/wishlist_page-options.php:518
+msgid "Share button text color"
+msgstr "Χρώμα κειμένου κουμπιού κοινοποίησης"
+
+#: plugin-options/settings/wishlist_page-options.php:519
+msgid "Choose colors for share buttons text"
+msgstr "Επιλέξτε χρώματα για το κείμενο κουμπιών κοινοποίησης"
+
+#: plugin-options/settings/wishlist_page-options.php:530
+msgid "Text hover"
+msgstr "Αιώρηση κειμένου"
+
+#: plugin-options/settings/wishlist_page-options.php:543
+msgid "Facebook share button icon"
+msgstr "Eικονίδιο κουμπιού κοινοποίησης Facebook"
+
+#: plugin-options/settings/wishlist_page-options.php:544
+msgid "Select an icon for the Facebook share button"
+msgstr "Επιλέξτε εικονίδιο για το κουμπί κοινοποίησης Facebook"
+
+#: plugin-options/settings/wishlist_page-options.php:554
+msgid "Facebook share button custom icon"
+msgstr "Προσαρμοσμένο εικονίδιο κουμπιού κοινοποίησης Facebook"
+
+#: plugin-options/settings/wishlist_page-options.php:555
+msgid ""
+"Upload an icon you'd like to use for Facebook share button (suggested 32px x "
+"32px)"
+msgstr ""
+"Ανεβάστε ένα εικονίδιο που θα θέλατε να χρησιμοποιήσετε για το κουμπί "
+"κοινοποίησης Facebook (προτείνεται 32px x 32px)"
+
+#: plugin-options/settings/wishlist_page-options.php:563
+msgid "Facebook share button style"
+msgstr "Στυλ κουμπιού κοινοποίησης Facebook"
+
+#: plugin-options/settings/wishlist_page-options.php:564
+msgid "Choose colors for Facebook share button"
+msgstr "Επιλέξτε χρώματα για το κουμπί κοινοποίησης Facebook"
+
+#: plugin-options/settings/wishlist_page-options.php:575
+#: plugin-options/settings/wishlist_page-options.php:615
+#: plugin-options/settings/wishlist_page-options.php:655
+#: plugin-options/settings/wishlist_page-options.php:695
+#: plugin-options/settings/wishlist_page-options.php:735
+msgid "Background hover"
+msgstr "Αιώρηση Φόντου"
+
+#: plugin-options/settings/wishlist_page-options.php:583
+msgid "Twitter share button icon"
+msgstr "Eικονίδιο κουμπιού κοινοποίησης Twitter"
+
+#: plugin-options/settings/wishlist_page-options.php:584
+msgid "Select an icon for the Twitter share button"
+msgstr "Επιλέξτε εικονίδιο για το κουμπί κοινοποίησης Twitter"
+
+#: plugin-options/settings/wishlist_page-options.php:594
+msgid "Twitter share button custom icon"
+msgstr "Προσαρμοσμένο εικονίδιο κουμπιού κοινοποίησης Twitter"
+
+#: plugin-options/settings/wishlist_page-options.php:595
+msgid ""
+"Upload an icon you'd like to use for Twitter share button (suggested 32px x "
+"32px)"
+msgstr ""
+"Ανεβάστε ένα εικονίδιο που θα θέλατε να χρησιμοποιήσετε για το κουμπί "
+"κοινοποίησης Twitter (προτείνεται 32px x 32px)"
+
+#: plugin-options/settings/wishlist_page-options.php:603
+msgid "Twitter share button style"
+msgstr "Στυλ κουμπιού κοινοποίησης Twitter"
+
+#: plugin-options/settings/wishlist_page-options.php:604
+msgid "Choose colors for Twitter share button"
+msgstr "Επιλέξτε χρώματα για το κουμπί κοινοποίησης Twitter"
+
+#: plugin-options/settings/wishlist_page-options.php:623
+msgid "Pinterest share button icon"
+msgstr "Εικονίδιο κουμπιού κοινοποίησης Pinterest"
+
+#: plugin-options/settings/wishlist_page-options.php:624
+msgid "Select an icon for the Pinterest share button"
+msgstr "Επιλέξτε εικονίδιο για το κουμπί κοινοποίησης Pinterest"
+
+#: plugin-options/settings/wishlist_page-options.php:634
+msgid "Pinterest share button custom icon"
+msgstr "Προσαρμοσμένο εικονίδιο κουμπιού κοινοποίησης Pinterest"
+
+#: plugin-options/settings/wishlist_page-options.php:635
+msgid ""
+"Upload an icon you'd like to use for Pinterest share button (suggested 32px "
+"x 32px)"
+msgstr ""
+"Ανεβάστε ένα εικονίδιο που θα θέλατε να χρησιμοποιήσετε για το κουμπί "
+"κοινοποίησης Pinterest (προτείνεται 32px x 32px)"
+
+#: plugin-options/settings/wishlist_page-options.php:643
+msgid "Pinterest share button style"
+msgstr "Στυλ κουμπιού κοινοποίησης Pinterest"
+
+#: plugin-options/settings/wishlist_page-options.php:644
+msgid "Choose colors for Pinterest share button"
+msgstr "Επιλέξτε χρώματα για το κουμπί κοινοποίησης Pinterest"
+
+#: plugin-options/settings/wishlist_page-options.php:663
+msgid "Email share button icon"
+msgstr "Εικονίδιο κουμπιού κοινοποίησης Email"
+
+#: plugin-options/settings/wishlist_page-options.php:664
+msgid "Select an icon for the Email share button"
+msgstr "Επιλέξτε εικονίδιο για το κουμπί κοινοποίησης Email"
+
+#: plugin-options/settings/wishlist_page-options.php:674
+msgid "Email share button custom icon"
+msgstr "Προσαρμοσμένο εικονίδιο κουμπιού κοινοποίησης Email"
+
+#: plugin-options/settings/wishlist_page-options.php:675
+msgid ""
+"Upload an icon you'd like to use for the Email share button (suggested 32px "
+"x 32px)"
+msgstr ""
+"Ανεβάστε ένα εικονίδιο που θα θέλατε να χρησιμοποιήσετε για το κουμπί "
+"κοινοποίησης Email (προτείνεται 32px x 32px)"
+
+#: plugin-options/settings/wishlist_page-options.php:683
+msgid "Email share button style"
+msgstr "Στυλ κουμπιού κοινοποίησης Email"
+
+#: plugin-options/settings/wishlist_page-options.php:684
+msgid "Choose colors for the Email share button"
+msgstr "Επιλέξτε χρώματα για το κουμπί κοινοποίησης Email"
+
+#: plugin-options/settings/wishlist_page-options.php:703
+msgid "WhatsApp share button icon"
+msgstr "Εικονίδιο κουμπιού κοινοποίησης WhatsApp"
+
+#: plugin-options/settings/wishlist_page-options.php:704
+msgid "Select an icon for the WhatsApp share button"
+msgstr "Επιλέξτε εικονίδιο για το κουμπί κοινοποίησης WhatsApp"
+
+#: plugin-options/settings/wishlist_page-options.php:714
+msgid "WhatsApp share button custom icon"
+msgstr "Προσαρμοσμένο εικονίδιο κουμπιού κοινοποίησης WhatsApp"
+
+#: plugin-options/settings/wishlist_page-options.php:715
+msgid ""
+"Upload an icon you'd like to use for WhatsApp share button (suggested 32px x "
+"32px)"
+msgstr ""
+"Ανεβάστε ένα εικονίδιο που θα θέλατε να χρησιμοποιήσετε για το κουμπί "
+"κοινοποίησης WhatsApp (προτείνεται 32px x 32px)"
+
+#: plugin-options/settings/wishlist_page-options.php:723
+msgid "WhatsApp share button style"
+msgstr "Στυλ κουμπιού κοινοποίησης WhatsApp"
+
+#: plugin-options/settings/wishlist_page-options.php:724
+msgid "Choose colors for WhatsApp share button"
+msgstr "Επιλέξτε χρώματα για το κουμπί κοινοποίησης WhatsApp"
+
+#: templates/add-to-wishlist-move.php:58
+msgid "In your wishlist"
+msgstr "Στη λίστα επιθυμιών σας"
+
+#. translators: 1. Wishlist formatted name.
+#: templates/add-to-wishlist-move.php:154
+msgid ""
+"This item is already in the <b>%s wishlist</b>.<br/>You can move it to "
+"another list:"
+msgstr ""
+"Αυτό το αντικείμενο βρίσκεται ήδη στη <b>%s λίστα επιθυμιών</b>.<br/"
+">Μπορείτε να το μεταφέρετε σε άλλη λίστα:"
+
+#: templates/add-to-wishlist-move.php:185
+#: templates/add-to-wishlist-popup.php:121
+#: templates/add-to-wishlist-popup.php:159
+msgid "Create a new list"
+msgstr "Δημιουργία νέας λίστας"
+
+#: templates/add-to-wishlist-move.php:204
+msgid "Wishlist name"
+msgstr "Όνομα λίστας επιθυμιών"
+
+#: templates/add-to-wishlist-move.php:242 templates/wishlist-popup-move.php:98
+#: templates/wishlist-view-images.php:229
+#: templates/wishlist-view-mobile.php:232
+#: templates/wishlist-view-modern.php:207 templates/wishlist-view.php:544
+msgid "Move"
+msgstr "Μεταφορά"
+
+#: templates/add-to-wishlist-move.php:250
+msgid "click to remove it"
+msgstr "κάντε κλικ για αφαίρεση"
+
+#: templates/add-to-wishlist-popup.php:119
+msgid "Choose a wishlist"
+msgstr "Επιλέξτε λίστα επιθυμιών"
+
+#: templates/add-to-wishlist-popup.php:178
+msgid "Enter wishlist name"
+msgstr "Εισάγετε όνομα λίστας επιθυμιών"
+
+#: templates/admin/promotion-wizard.php:36
+msgid "Set a promotional e-mail"
+msgstr "Ορίστε προωθητικό e-mail"
+
+#: templates/admin/promotion-wizard.php:40
+msgid "E-mail HTML content"
+msgstr "Περιεχόμενο HTML E-mail"
+
+#: templates/admin/promotion-wizard.php:41
+msgid "E-mail Text content"
+msgstr "Περιεχόμενο Κειμένου E-mail"
+
+#: templates/admin/promotion-wizard.php:47
+msgid ""
+"This field lets you modify the main content of the HTML version of the email."
+msgstr ""
+"Αυτό το πεδίο σας επιτρέπει να αλλάξετε το βασικό περιεχόμενο της έκδοσης "
+"HTML του email."
+
+#: templates/admin/promotion-wizard.php:51
+#: templates/admin/promotion-wizard.php:71
+msgid "You can use the following placeholder:"
+msgstr ""
+"Μπορείτε να χρησιμοποιήσετε το ακόλουθο κείμενο υποκατάστασης (placeholder):"
+
+#: templates/admin/promotion-wizard.php:59
+#: templates/admin/promotion-wizard.php:79
+msgid "Note: "
+msgstr "Σημείωση: "
+
+#: templates/admin/promotion-wizard.php:60
+#: templates/admin/promotion-wizard.php:80
+msgid ""
+"you can customize the header in WooCommerce &rsaquo; Settings &rsaquo; "
+"Emails."
+msgstr ""
+"μπορείτε να προσαρμόσετε την επικεφαλίδα στο WooCommerce &rsaquo; Ρυθμίσεις "
+"&rsaquo; Email."
+
+#: templates/admin/promotion-wizard.php:67
+msgid ""
+"This field lets you modify the main content of the text version of the email"
+msgstr ""
+"Αυτό το πεδίο σας επιτρέπει να αλλάξετε το βασικό περιεχόμενο της έκδοσης "
+"κειμένου του email"
+
+#: templates/admin/promotion-wizard.php:86
+msgid "Coupon"
+msgstr "Κουπόνι"
+
+#: templates/admin/promotion-wizard.php:88
+msgid "Select a coupon"
+msgstr "Επιλογή κουπονιού"
+
+#: templates/admin/promotion-wizard.php:92
+msgid "This field lets you choose coupon to use for the email."
+msgstr ""
+"Αυτό το πεδίο σας επιτρέπει να επιλέξετε το κουπόνι που θέλετε να "
+"χρησιμοποιήσετε στο email."
+
+#: templates/admin/promotion-wizard.php:96
+msgid "Preview:"
+msgstr "Προεπισκόπηση:"
+
+#: templates/admin/promotion-wizard.php:103
+msgid "Save draft &rsaquo;"
+msgstr "Αποθήκευση πρόχειρου &rsaquo;"
+
+#: templates/admin/promotion-wizard.php:104
+msgid "Continue"
+msgstr "Συνέχεια"
+
+#: templates/admin/promotion-wizard.php:110
+msgid "&lsaquo; Back"
+msgstr "&lsaquo; Πίσω"
+
+#: templates/admin/promotion-wizard.php:111
+msgid "Ready to send?"
+msgstr "Έτοιμο για αποστολή;"
+
+#: templates/admin/promotion-wizard.php:113
+msgid "You're about to send this promotional email to"
+msgstr "Πρόκειται να στείλετε αυτό το προωθητικό email σε"
+
+#: templates/admin/promotion-wizard.php:114
+msgid "(calculating...) users"
+msgstr "(υπολογίζονται…) χρήστες"
+
+#. translators: 1. Number of emails sent per hours.
+#: templates/admin/promotion-wizard.php:131
+msgid ""
+"In order to avoid overloading your server, we will send %d emails every "
+"hour. This will take some time; please relax and wait for the operation to "
+"complete ;)"
+msgstr ""
+"Προς αποφυγή υπερφόρτωσης του διακομιστή σας, θα στέλνουμε %d email κάθε "
+"ώρα. Αυτή η διαδικασία θα πάρει λίγο χρόνο· παρακαλώ χαλαρώστε και "
+"περιμένετε να ολοκληρωθεί η διαδικασία ;)"
+
+#: templates/admin/promotion-wizard.php:142
+msgid "Send email"
+msgstr "Αποστολή email"
+
+#. translators: 1. User name.
+#. translators: 1. Customer full name.
+#: templates/emails/ask-estimate.php:28
+#: templates/emails/plain/ask-estimate.php:28
+msgid ""
+"You have received an estimate request from %s. The request is the following:"
+msgstr "Έχετε λάβει αίτημα εκτίμησης από %s. Το αίτημα είναι το εξής:"
+
+#. translators: 1. Wishlist name.
+#. translators: 1. Wishlist token.
+#: templates/emails/ask-estimate.php:48
+#: templates/emails/plain/ask-estimate.php:42
+msgid "Wishlist: %s"
+msgstr "Λίστα επιθυμιών: %s"
+
+#: templates/emails/ask-estimate.php:53
+msgid "Wishlist:"
+msgstr "Λίστα επιθυμιών:"
+
+#: templates/emails/ask-estimate.php:59 templates/emails/products-table.php:30
+msgid "Product"
+msgstr "Προϊόν"
+
+#: templates/emails/ask-estimate.php:60 templates/wishlist-pdf.php:152
+#: templates/wishlist-view.php:143
+msgid "Quantity"
+msgstr "Ποσότητα"
+
+#: templates/emails/ask-estimate.php:61 templates/emails/products-table.php:31
+msgid "Price"
+msgstr "Τιμή"
+
+#: templates/emails/ask-estimate.php:94
+#: templates/emails/plain/ask-estimate.php:61
+msgid "Additional info:"
+msgstr "Επιπλέον πληροφορίες:"
+
+#: templates/emails/ask-estimate.php:102
+#: templates/emails/plain/ask-estimate.php:69
+msgid "Additional data:"
+msgstr "Επιπλέον δεδομένα:"
+
+#: templates/emails/ask-estimate.php:129
+#: templates/emails/plain/ask-estimate.php:92
+msgid "Customer details"
+msgstr "Στοιχεία πελάτη"
+
+#: templates/emails/ask-estimate.php:132
+#: templates/emails/plain/ask-estimate.php:94
+msgid "Email:"
+msgstr "Email:"
+
+#. translators: 1. Url to wishlist page.
+#: templates/emails/plain/ask-estimate.php:44
+msgid "Wishlist link: %s"
+msgstr "Σύνδεσμος λίστας επιθυμιών: %s"
+
+#: templates/share.php:56 templates/share.php:57
+msgid "Facebook"
+msgstr "Facebook"
+
+#: templates/share.php:64 templates/share.php:65
+msgid "Twitter"
+msgstr "Twitter"
+
+#: templates/share.php:72 templates/share.php:73
+msgid "Pinterest"
+msgstr "Pinterest"
+
+#: templates/share.php:110
+msgid "WhatsApp"
+msgstr "WhatsApp"
+
+#: templates/share.php:111
+msgid "Whatsapp"
+msgstr "Whatsapp"
+
+#: templates/share.php:120
+msgid "(Now"
+msgstr "(Τώρα"
+
+#: templates/share.php:120
+msgid "copy"
+msgstr "αντιγράψτε"
+
+#: templates/share.php:120
+msgid "this wishlist link and share it anywhere)"
+msgstr "αυτόν τον σύνδεσμο λίστας επιθυμιών και κοινοποιήστε τον όπου θέλετε)"
+
+#: templates/wishlist-create.php:29
+msgid "Name your list"
+msgstr "Τοποθέτησε όνομα στη λίστα σου"
+
+#: templates/wishlist-create.php:57
+msgid "Create wishlist"
+msgstr "Δημιουργία λίστας επιθυμιών"
+
+#: templates/wishlist-manage-mobile.php:99
+#: templates/wishlist-manage-modern.php:99
+msgid "Items:"
+msgstr "Αντικείμενα:"
+
+#. translators: 1. number of items in wishlist.
+#. translators: 1. Wishlist items count.
+#: templates/wishlist-manage-mobile.php:103
+#: templates/wishlist-manage-modern.php:103 templates/wishlist-manage.php:224
+#: templates/wishlist-search.php:169
+msgid "%d items"
+msgstr "%d αντικείμενα"
+
+#: templates/wishlist-manage-mobile.php:110
+#: templates/wishlist-manage-modern.php:110
+msgid "Visibility:"
+msgstr "Ορατότητα:"
+
+#: templates/wishlist-manage-mobile.php:122
+#: templates/wishlist-manage-modern.php:122
+msgid "Created on:"
+msgstr "Δημιουργήθηκε στις:"
+
+#: templates/wishlist-manage-mobile.php:137
+#: templates/wishlist-manage-modern.php:137 templates/wishlist-manage.php:245
+msgid "Are you sure you want to delete this wishlist?"
+msgstr "Είστε σίγουρος ότι θέλετε να διαγράψετε αυτή τη λίστα επιθυμιών;"
+
+#: templates/wishlist-manage-modern.php:166
+msgid "This wishlist is empty.<br/>Add some item soon!"
+msgstr ""
+"Αυτή η λίστα επιθυμιών είναι άδεια.<br/>Προσθέστε σύντομα κάποιο αντικείμενο!"
+
+#: templates/wishlist-manage.php:85 templates/wishlist-search.php:115
+msgid "Count of items"
+msgstr "Αρίθμηση αντικειμένων"
+
+#: templates/wishlist-manage.php:107
+msgid "Created on"
+msgstr "Δημιουργήθηκε στις"
+
+#: templates/wishlist-manage.php:129
+msgid "PDF Download"
+msgstr "Κατέβασμα PDF"
+
+#: templates/wishlist-pdf.php:109
+msgid "Product Name"
+msgstr "Όνομα Προϊόντος"
+
+#: templates/wishlist-pdf.php:130
+msgid "Unit Price"
+msgstr "Τιμή Μονάδας"
+
+#: templates/wishlist-pdf.php:174 templates/wishlist-view.php:164
+msgid "Stock status"
+msgstr "Κατάσταση αποθέματος"
+
+#: templates/wishlist-pdf.php:262 templates/wishlist-view-images.php:211
+#: templates/wishlist-view-mobile.php:199
+#: templates/wishlist-view-modern.php:189 templates/wishlist-view.php:431
+msgid "Out of stock"
+msgstr "Εκτός αποθέματος"
+
+#: templates/wishlist-pdf.php:262 templates/wishlist-view-images.php:211
+#: templates/wishlist-view-mobile.php:199
+#: templates/wishlist-view-modern.php:189 templates/wishlist-view.php:431
+msgid "In Stock"
+msgstr "Σε Απόθεμα"
+
+#. translators: 1. Date product was added to wishlist.
+#. translators: date added label: 1 date added.
+#: templates/wishlist-pdf.php:273 templates/wishlist-view.php:479
+msgid "Added on: %s"
+msgstr "Προστέθηκε στις: %s"
+
+#: templates/wishlist-pdf.php:297 templates/wishlist-view-images.php:307
+#: templates/wishlist-view-mobile.php:304
+#: templates/wishlist-view-modern.php:283 templates/wishlist-view.php:649
+msgid "No products added to the wishlist"
+msgstr "Δεν προστέθηκαν προϊόντα στη λίστα επιθυμιών"
+
+#: templates/wishlist-popup-ask-an-estimate.php:52
+msgid "Ask for an estimate for this list"
+msgstr "Ζητήστε εκτίμηση της λίστας"
+
+#: templates/wishlist-popup-ask-an-estimate.php:66
+msgid "Ask for an estimate for this list:"
+msgstr "Ζητήστε εκτίμηση της λίστας:"
+
+#: templates/wishlist-popup-ask-an-estimate.php:83
+msgid "Your email"
+msgstr "Το email σας"
+
+#. translators: 1. Wishlist formatted name.
+#: templates/wishlist-popup-move.php:65
+msgid ""
+"This item is already in the <b>%s wishlist</b>.<br/>You can move it in "
+"another list:"
+msgstr ""
+"Αυτό το αντικείμενο βρίσκεται ήδη στη <b>%s λίστα επιθυμιών</b>.<br/"
+">Μπορείτε να το μεταφέρετε σε άλλη λίστα:"
+
+#: templates/wishlist-search.php:38
+msgid "Type a name or an email address"
+msgstr "Εισάγετε όνομα ή διεύθυνση email"
+
+#: templates/wishlist-search.php:83
+msgid "Wishlist of:"
+msgstr "Λίστα Επιθυμιών του:"
+
+#. translators: 1. Query searched.
+#: templates/wishlist-search.php:189
+msgid "0 results for \"%s\" in the wishlist"
+msgstr "0 αποτελέσματα για “%s” στη λίστα επιθυμιών"
+
+#: templates/wishlist-view-footer-mobile.php:55
+#: templates/wishlist-view-footer.php:55
+msgid "Apply this action to all the selected items:"
+msgstr "Εφαρμογή ενέργειας σε όλα τα επιλεγμένα αντικείμενα:"
+
+#: templates/wishlist-view-footer-mobile.php:73
+#: templates/wishlist-view-footer.php:73
+msgid "Remove from wishlist"
+msgstr "Αφαίρεση από λίστα επιθυμιών"
+
+#. translators: 1. Wishlist formatted name.
+#: templates/wishlist-view-footer-mobile.php:93
+#: templates/wishlist-view-footer.php:93
+msgid "Move to %s"
+msgstr "Μετακίνηση σε %s"
+
+#: templates/wishlist-view-footer-mobile.php:99
+#: templates/wishlist-view-footer.php:99
+msgid "Apply"
+msgstr "Εφαρμογή"
+
+#: templates/wishlist-view-footer-mobile.php:107
+#: templates/wishlist-view-footer.php:107
+msgid "Update"
+msgstr "Ενημέρωση"
+
+#: templates/wishlist-view-footer-mobile.php:113
+#: templates/wishlist-view-footer.php:151
+#: templates/wishlist-widget-items.php:121
+msgid "Add all to cart"
+msgstr "Προσθήκη όλων στο καλάθι"
+
+#: templates/wishlist-view-header.php:86
+msgid "Edit title"
+msgstr "Επεξεργασία τίτλου"
+
+#: templates/wishlist-view-images.php:163
+#: templates/wishlist-view-mobile.php:143
+#: templates/wishlist-view-modern.php:141
+msgid "Added on:"
+msgstr "Προστέθηκε στις:"
+
+#: templates/wishlist-view-images.php:174
+#: templates/wishlist-view-mobile.php:154
+msgid "Price:"
+msgstr "Τιμή:"
+
+#: templates/wishlist-view-images.php:193
+#: templates/wishlist-view-mobile.php:181
+#: templates/wishlist-view-modern.php:171
+msgid "Quantity:"
+msgstr "Ποσότητα:"
+
+#: templates/wishlist-view-images.php:208
+#: templates/wishlist-view-mobile.php:196
+#: templates/wishlist-view-modern.php:186
+msgid "Stock:"
+msgstr "Απόθεμα:"
+
+#: templates/wishlist-view-images.php:260
+#: templates/wishlist-view-mobile.php:263
+#: templates/wishlist-view-modern.php:236 templates/wishlist-view.php:575
+msgid "Move to another list &rsaquo;"
+msgstr "Μετακίνηση σε άλλη λίστα &rsaquo;"
+
+#: templates/wishlist-view-images.php:280
+#: templates/wishlist-view-mobile.php:283
+#: templates/wishlist-view-modern.php:256 templates/wishlist-view.php:250
+#: templates/wishlist-view.php:607
+msgid "Remove this product"
+msgstr "Αφαίρεση αυτού του προϊόντος"
+
+#: templates/wishlist-view-modern.php:152
+msgid "Unit Price:"
+msgstr "Τιμή Μονάδας:"
+
+#: templates/wishlist-view.php:102
+msgid "Product name"
+msgstr "Όνομα προϊόντος"
+
+#: templates/wishlist-view.php:122
+msgid "Unit price"
+msgstr "Τιμή μονάδας"
+
+#: templates/wishlist-view.php:206
+msgid "Arrange"
+msgstr "Τακτοποίηση"
+
+#: templates/wishlist-view.php:607
+msgid "Remove"
+msgstr "Αφαίρεση"
+
+#. translators: 1. Number of items in wishlist.
+#: templates/wishlist-widget-items.php:73
+msgid "%d items in wishlist"
+msgstr "%d αντικείμενα στη λίστα επιθυμιών"
+
+#: templates/wishlist-widget-items.php:103
+msgid "In"
+msgstr "Μέσα"
+
+#: templates/wishlist-widget-items.php:112
+msgid "Please, add your first item to the wishlist"
+msgstr "Παρακαλώ, προσθέστε το πρώτο αντικείμενό σας στη λίστα επιθυμιών"
+
+#: templates/wishlist-widget-items.php:117
+msgid "View your wishlist &rsaquo;"
+msgstr "Προβολή της λίστας επιθυμιών σας &rsaquo;"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Wishlist</strong></code> gives your users the "
+"possibility to create, fill, manage and share their wishlists allowing you "
+"to analyze their interests and needs to improve your marketing strategies. "
+"<a href=\"https://yithemes.com/\" target=\"_blank\">Get more plugins for "
+"your e-commerce on <strong>YITH</strong></a>"
+msgstr ""
+"Το <code><strong>YITH WooCommerce Wishlist</strong></code> δίνει στους "
+"χρήστες σας την δυνατότητα να δημιουργούν, γεμίζουν, διαχειρίζονται και να "
+"μοιράζονται τις λίστες επιθυμιών τους επιτρέποντάς σας να αναλύετε τα "
+"ενδιαφέροντα και τις ανάγκες τους βελτιώνοντας έτσι τις στρατηγικές "
+"μάρκετινγκ σας. <a href=\"https://yithemes.com/\" target=\"_blank\">Βρείτε "
+"περισσότερα πρόσθετα για το ηλεκτρονικό σας κατάστημα στο <strong>YITH</"
+"strong></a>"
+
+#: includes/class-yith-wcwl-admin-extended.php:76
+msgctxt "Settings tab name"
+msgid "Popular"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin-extended.php:81
+#: includes/class-yith-wcwl-admin-premium.php:105
+#: includes/class-yith-wcwl-admin.php:223
+msgctxt "Settings tab name"
+msgid "Settings"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin-premium.php:101
+msgctxt "Settings tab name"
+msgid "Dashboard"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin-extended.php:77
+#: plugin-options/dashboard-options.php:21
+msgctxt "Tab description in plugin settings panel"
+msgid "Check the most popular products in your site."
+msgstr ""
+
+#: plugin-options/dashboard-options.php:16
+msgctxt "Tab description in plugin settings panel"
+msgid "See all the wishlists created in your site."
+msgstr ""
+
+#: plugin-options/settings-options.php:16
+msgctxt "Tab description in plugin settings panel"
+msgid "Configure the plugin general settings."
+msgstr ""
+
+#: plugin-options/settings-options.php:21
+msgctxt "Tab description in plugin settings panel"
+msgid "Configure the Add to wishlist settings."
+msgstr ""
+
+#: plugin-options/settings-options.php:26
+msgctxt "Tab description in plugin settings panel"
+msgid "Configure the wishlist page settings."
+msgstr ""
+
+#: plugin-options/settings-options.php:31
+msgctxt "Tab description in plugin settings panel"
+msgid "Configure the Ask an estimate settings."
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:271
+msgctxt "[HELP TAB] Video title"
+msgid ""
+"Check this video to learn how to <b>configure wishlist and customize options:"
+"</b>"
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:316
+msgctxt ""
+"[YOUR STORE TOOLS TAB] Description for plugin YITH WooCommerce Gift Cards"
+msgid ""
+"Sell gift cards in your shop to increase your earnings and attract new "
+"customers."
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:328
+msgctxt ""
+"[YOUR STORE TOOLS TAB] Description for plugin YITH WooCommerce Ajax Product "
+"Filter"
+msgid ""
+"Help your customers to easily find the products they are looking for and "
+"improve the user experience of your shop."
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:340
+msgctxt "[YOUR STORE TOOLS TAB] Description for plugin YITH Bookings"
+msgid ""
+"Enable a booking/appointment system to manage renting or booking of "
+"services, rooms, houses, cars, accommodation facilities and so on."
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:353
+msgctxt ""
+"[YOUR STORE TOOLS TAB] Description for plugin YITH WooCommerce Request a "
+"Quote"
+msgid ""
+"Hide prices and/or the \"Add to cart\" button and let your customers request "
+"a custom quote for every product."
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:365
+msgctxt ""
+"[YOUR STORE TOOLS TAB] Description for plugin YITH WooCommerce Product Add-"
+"Ons"
+msgid ""
+"Add paid or free advanced options to your product pages using fields like "
+"radio buttons, checkboxes, drop-downs, custom text inputs, and more."
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:377
+msgctxt ""
+"[YOUR STORE TOOLS TAB] Description for plugin YITH WooCommerce Dynamic "
+"Pricing and Discounts"
+msgid ""
+"Increase conversions through dynamic discounts and price rules, and build "
+"powerful and targeted offers."
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:389
+msgctxt ""
+"[YOUR STORE TOOLS TAB] Description for plugin YITH WooCommerce Customize My "
+"Account"
+msgid ""
+"Customize the My Account page of your customers by creating custom sections "
+"with promotions and ad-hoc content based on your needs."
+msgstr ""
+
+#: includes/class-yith-wcwl-admin.php:397
+msgctxt "[YOUR STORE TOOLS TAB] Description for plugin Recover Abandoned Cart"
+msgid ""
+"Contact users who have added products to the cart without completing the "
+"order and try to recover lost sales."
+msgstr ""
+
+#. translators: 1. name of the missing parameter.
+#: includes/class-yith-wcwl-form-handler-premium.php:851
+msgctxt "Ask for an estimate submit error"
+msgid "Missing required argument: %s"
+msgstr "Λείπει απαιτούμενο επιχείρημα: %s"
+
+#: includes/class-yith-wcwl-install.php:340
+msgctxt "page_slug"
+msgid "wishlist"
+msgstr "λίστα επιθυμιών"
+
+#: includes/class-yith-wcwl-privacy.php:274
+msgctxt "date when wishlist was created"
+msgid "Created on"
+msgstr "Δημιουργήθηκε στις"
+
+#: includes/class-yith-wcwl-shortcode-premium.php:65
+msgctxt "[gutenberg]: block name"
+msgid "YITH public wishlist link"
+msgstr "Σύνδεσμος δημοσίων λιστών επιθυμιών YITH"
+
+#: includes/class-yith-wcwl-shortcode.php:52
+msgctxt "[gutenberg]: block name"
+msgid "YITH Add to wishlist"
+msgstr "Προσθήκη στη λίστα επιθυμιών YITH"
+
+#: includes/class-yith-wcwl-shortcode.php:101
+msgctxt "[gutenberg]: block name"
+msgid "YITH Wishlist"
+msgstr "YITH Wishlist"
+
+#: includes/class-yith-wcwl-shortcode-premium.php:66
+msgctxt "[gutenberg]: block description"
+msgid "Shows all public wishlists"
+msgstr "Εμφανίζει όλες τις δημόσιες λίστες επιθυμιών"
+
+#: includes/class-yith-wcwl-shortcode.php:53
+msgctxt "[gutenberg]: block description"
+msgid "Shows Add to wishlist button"
+msgstr "Εμφανίζει το κουμπί Προσθήκη στη λίστα επιθυμιών"
+
+#: includes/class-yith-wcwl-shortcode.php:102
+msgctxt "[gutenberg]: block description"
+msgid "Shows a list of products in wishlist"
+msgstr "Εμφανίζει λίστα προϊόντων στη λίστα επιθυμιών"
+
+#. translators: 1. % of reduction/increase in price.
+#: includes/class-yith-wcwl-wishlist-item.php:478
+msgctxt ""
+"Part of the template that shows price variation since addition to list; "
+"placeholder will be replaced with a percentage"
+msgid "Price is %1$s%%"
+msgstr "Η τιμή είναι %1$s%%"
+
+#. translators: 2: original product price.
+#: includes/class-yith-wcwl-wishlist-item.php:480
+msgctxt ""
+"Part of the template that shows price variation since addition to list; "
+"placeholder will be replaced with a price"
+msgid "(Was %2$s when added  in list)"
+msgstr "(Ήταν %2$s όταν προστέθηκε  στη λίστα)"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:323
+msgctxt "Admin: \"all wishlists\" table views"
+msgid "All"
+msgstr "Όλα"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:338
+msgctxt "Admin: \"all wishlists\" table views"
+msgid "Public"
+msgstr "Δημόσιο"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:353
+msgctxt "Admin: \"all wishlists\" table views"
+msgid "Shared"
+msgstr "Κοινοποιημένο"
+
+#: includes/tables/class-yith-wcwl-admin-table.php:368
+msgctxt "Admin: \"all wishlists\" table views"
+msgid "Private"
+msgstr "Προσωπικό"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:45
+msgctxt "Elementor widget name"
+msgid "YITH Wishlist Add button"
+msgstr "YITH Wishlist Προσθήκη κουμπιού"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-wishlist.php:45
+msgctxt "Elementor widget name"
+msgid "YITH Wishlist"
+msgstr "YITH Wishlist"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:87
+msgctxt "Elementor section title"
+msgid "Product"
+msgstr "Προϊόν"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:107
+msgctxt "Elementor section title"
+msgid "Labels"
+msgstr "Επιγραφές"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:157
+msgctxt "Elementor section title"
+msgid "Advanced"
+msgstr "Προηγμένο"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-wishlist.php:87
+msgctxt "Elementor section title"
+msgid "Wishlist"
+msgstr "Λίστα επιθυμιών"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-wishlist.php:107
+msgctxt "Elementor section title"
+msgid "Pagination"
+msgstr "Σελιδοποίηση"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:95
+msgctxt "Elementor control label"
+msgid "Product ID"
+msgstr "ID Προϊόντος"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:115
+msgctxt "Elementor control label"
+msgid "Button label"
+msgstr "Επιγραφή κουμπιού"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:125
+msgctxt "Elementor control label"
+msgid "\"Browse wishlist\" label"
+msgstr "Επιγραφή “Περιήγηση σε λίστα επιθυμιών”"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:135
+msgctxt "Elementor control label"
+msgid "\"Product already in wishlist\" label"
+msgstr "Επιγραφή “Το προϊόν βρίσκεται ήδη στη λίστα επιθυμιών”"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:145
+msgctxt "Elementor control label"
+msgid "\"Product added to wishlist\" label"
+msgstr "Επιγραφή “Το προϊόν προστέθηκε στη λίστα επιθυμιών”"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:165
+msgctxt "Elementor control label"
+msgid "URL of the wishlist page"
+msgstr "URL της σελίδας λίστας επιθυμιών"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:175
+msgctxt "Elementor control label"
+msgid "Icon for the button"
+msgstr "Εικονίδιο κουμπιού"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-add-to-wishlist.php:185
+msgctxt "Elementor control label"
+msgid "Additional CSS classes for the button"
+msgstr "Επιπλέον κλάσεις CSS για το κουμπί"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-wishlist.php:95
+msgctxt "Elementor control label"
+msgid "Wishlist ID"
+msgstr "ID λίστας επιθυμιών"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-wishlist.php:115
+msgctxt "Elementor control label"
+msgid "Paginate items"
+msgstr "Σελιδοποίηση αντικειμένων"
+
+#: includes/widgets/elementor/class-yith-wcwl-elementor-wishlist.php:128
+msgctxt "yith-woocommerce-wishlist"
+msgid "Items per page"
+msgstr "Αντικείμενα ανά σελίδα"
+
+#: plugin-options/dashboard-options.php:14
+msgctxt "Tab title in plugin settings panel"
+msgid "Wishlists"
+msgstr ""
+
+#: plugin-options/dashboard-options.php:19
+msgctxt "Tab title in plugin settings panel"
+msgid "Popular"
+msgstr ""
+
+#: plugin-options/settings-options.php:14
+msgctxt "Tab title in plugin settings panel"
+msgid "General"
+msgstr ""
+
+#: plugin-options/settings-options.php:19
+msgctxt "Tab title in plugin settings panel"
+msgid "Add to wishlist"
+msgstr ""
+
+#: plugin-options/settings-options.php:24
+msgctxt "Tab title in plugin settings panel"
+msgid "Wishlist page"
+msgstr ""
+
+#: plugin-options/settings-options.php:29
+msgctxt "Tab title in plugin settings panel"
+msgid "Ask an estimate"
+msgstr ""

@@ -1,4 +1,5 @@
-<?php
+<?php 
+            namespace Ali2Woo\Lib;
 
 class Requests_Exception_Transport_cURL extends Requests_Exception_Transport {
 

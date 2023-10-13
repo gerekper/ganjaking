@@ -258,6 +258,12 @@ class Reporter {
         return $automation->getStatus() === Automation::STATUS_DRAFT;
       }
     );
+    $automationsWithCustomTrigger = array_filter(
+      $activeAutomations,
+      function(Automation $automation): bool {
+        return $automation->getTrigger('mailpoet:custom-trigger') !== null;
+      }
+    );
     $automationsWithWordPressUserSubscribesTrigger = array_filter(
       $activeAutomations,
       function(Automation $automation): bool {
@@ -300,6 +306,36 @@ class Reporter {
     }
     $averageSteps = $activeAutomationCount > 0 ? $totalSteps / $activeAutomationCount : 0;
 
+    $customTriggerHooks = array_unique(array_values(array_map(
+      function(Automation $automation): string {
+        $trigger = $automation->getTrigger('mailpoet:custom-trigger');
+        return $trigger ? (string)$trigger->getArgs()['hook'] : '';
+      },
+      $automationsWithCustomTrigger
+    )));
+    $customActionHooks = array_unique(array_values(array_map(
+      function(Automation $automation): array {
+        $customActionSteps = array_filter(
+          $automation->getSteps(),
+          function(Step $step): bool {
+            return $step->getKey() === 'mailpoet:custom-action';
+          }
+        );
+        if (!$customActionSteps) {
+          return [];
+        }
+
+        return array_map(
+          function(Step $step): string {
+            return (string)$step->getArgs()['hook'];
+          },
+          $customActionSteps
+        );
+
+      },
+      $activeAutomations
+    )));
+    $customActionHooks = array_values(array_filter(array_merge(...$customActionHooks)));
     return [
       'Automation > Number of active automations' => $activeAutomationCount,
       'Automation > Number of draft automations' => count($draftAutomations),
@@ -310,6 +346,8 @@ class Reporter {
       'Automation > Number of steps in shortest active automation' => $minSteps,
       'Automation > Number of steps in longest active automation' => $maxSteps,
       'Automation > Average number of steps in active automations' => $averageSteps,
+      'Automation > Custom Trigger Hooks' => $customTriggerHooks,
+      'Automation > Custom Action Hooks' => $customActionHooks,
     ];
   }
 

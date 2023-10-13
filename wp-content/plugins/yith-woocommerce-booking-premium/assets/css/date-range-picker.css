@@ -1,0 +1,62 @@
+/**
+ * Date Range Picker
+ *
+ * @author YITH <plugins@yithemes.com>
+ * @version 1.0.0
+ */
+
+.yith-wcbk-date-range-picker {
+	width         : 100%;
+	position      : relative;
+	border-radius : 0;
+	background    : #fff;
+	border        : 1px solid var(--yith-wcbk-border-color);
+	color         : #484848;
+}
+
+.yith-wcbk-date-range-picker input.yith-wcbk-date-picker,
+.yith-wcbk-booking-form .yith-wcbk-date-range-picker input.yith-wcbk-date-picker,
+.yith-wcbk-date-range-picker input.yith-wcbk-date-picker--formatted,
+.yith-wcbk-booking-form .yith-wcbk-date-range-picker input.yith-wcbk-date-picker--formatted {
+	background  : transparent;
+	border      : none;
+	float       : left;
+	width       : 50% !important;
+	padding     : 12px 14px;
+	line-height : 1;
+}
+
+.yith-wcbk-date-range-picker input.yith-wcbk-date-picker--formatted {
+	border  : 0;
+	padding : 12px 14px;
+}
+
+.yith-wcbk-date-range-picker .yith-wcbk-date-range-picker__arrow {
+	position    : absolute;
+	font-size   : 14px;
+	left        : 50%;
+	top         : 50%;
+	z-index     : 5;
+	font-weight : 600;
+	transform   : translateX(-50%) translateY(-50%);
+}
+
+.yith-wcbk-date-range-picker--opened {
+	border-color : var(--yith-wcbk-border-color-focus);
+	box-shadow   : var(--yith-wcbk-shadow-focus);
+}
+
+.yith-wcbk-date-range-picker.yith-wcbk-date-range-picker--opened-from input.yith-wcbk-date-picker--formatted.yith-wcbk-booking-start-date,
+.yith-wcbk-date-range-picker.yith-wcbk-date-range-picker--opened-to input.yith-wcbk-date-picker--formatted.yith-wcbk-booking-end-date {
+	border-radius : 14px;
+	border        : 10px solid #fff;
+	padding       : 2px 4px;
+	background    : var(--yith-wcbk-primary);
+	color         : var(--yith-wcbk-primary-contrast);
+}
+
+.yith-wcbk-date-range-picker.yith-wcbk-date-range-picker--opened-from input.yith-wcbk-date-picker--formatted.yith-wcbk-booking-start-date::placeholder,
+.yith-wcbk-date-range-picker.yith-wcbk-date-range-picker--opened-to input.yith-wcbk-date-picker--formatted.yith-wcbk-booking-end-date::placeholder {
+	color   : var(--yith-wcbk-primary-contrast);
+	opacity : 1;
+}

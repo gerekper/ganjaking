@@ -3,15 +3,15 @@
  * WooCommerce Mix and Match: Support note.
  *
  * Adds a note to ask users to contact support if they haven't made any mix and match products yet.
- * 
+ *
  * @since 2.4.0
  *
  * @package WooCommerce Mix and Match/Admin/Notes
  */
 defined( 'ABSPATH' ) || exit;
 
-use \Automattic\WooCommerce\Admin\Notes\Note;
-use \Automattic\WooCommerce\Admin\Notes\NoteTraits;
+use Automattic\WooCommerce\Admin\Notes\Note;
+use Automattic\WooCommerce\Admin\Notes\NoteTraits;
 
 /**
  * Support note.

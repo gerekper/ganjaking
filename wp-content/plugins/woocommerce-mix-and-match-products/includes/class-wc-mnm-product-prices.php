@@ -61,7 +61,9 @@ class WC_MNM_Product_Prices {
 	 */
 	public static function get_discount_method() {
 		/**
-		 * 'wc_mnm_price_discount_method' filter.
+		 * Filter 'wc_mnm_price_discount_method'.
+		 *
+		 * @since 2.0.0
 		 *
 		 * @param  string  $method  Method to use for calculating item discounts. Values: 'filters' | 'props'.
 		 */
@@ -73,7 +75,7 @@ class WC_MNM_Product_Prices {
 	/**
 	 * Returns the incl/excl tax coefficients for calculating prices incl/excl tax on the client side.
 	 *
-	 * @param  WC_Product  $product
+	 * @param  WC_Product  $product The product to get ratios for.
 	 * @return array
 	 */
 	public static function get_tax_ratios( $product ) {
@@ -82,15 +84,27 @@ class WC_MNM_Product_Prices {
 		add_filter( 'option_woocommerce_price_num_decimals', array( __CLASS__, 'extend_rounding_precision' ) );
 
 		$ref_price      = 1000.0;
-		$ref_price_incl = wc_get_price_including_tax( $product, array( 'qty' => 1, 'price' => $ref_price ) );
-		$ref_price_excl = wc_get_price_excluding_tax( $product, array( 'qty' => 1, 'price' => $ref_price ) );
+		$ref_price_incl = wc_get_price_including_tax(
+			$product,
+			array(
+				'qty'   => 1,
+				'price' => $ref_price,
+			)
+		);
+		$ref_price_excl = wc_get_price_excluding_tax(
+			$product,
+			array(
+				'qty'   => 1,
+				'price' => $ref_price,
+			)
+		);
 
 		// Reset applied filters to the 'woocommerce_price_num_decimals' option.
 		remove_filter( 'option_woocommerce_price_num_decimals', array( __CLASS__, 'extend_rounding_precision' ) );
 
 		return array(
 			'incl' => $ref_price_incl / $ref_price,
-			'excl' => $ref_price_excl / $ref_price
+			'excl' => $ref_price_excl / $ref_price,
 		);
 	}
 
@@ -106,7 +120,7 @@ class WC_MNM_Product_Prices {
 		$discounted_price = $price;
 
 		if ( ! empty( $price ) && ! empty( $discount ) ) {
-			$discounted_price = round( ( double ) $price * ( 100 - $discount ) / 100, wc_get_rounding_precision() );
+			$discounted_price = round( (float) $price * ( 100 - $discount ) / 100, wc_get_rounding_precision() );
 		}
 
 		return $discounted_price;
@@ -123,13 +137,13 @@ class WC_MNM_Product_Prices {
 		$defaults = array(
 			'price' => '',
 			'qty'   => 1,
-			'calc'  => ''
+			'calc'  => '',
 		);
 
 		$args  = wp_parse_args( $args, $defaults );
-		$price = $args[ 'price' ];
-		$qty   = $args[ 'qty' ];
-		$calc  = $args[ 'calc' ];
+		$price = $args['price'];
+		$qty   = $args['qty'];
+		$calc  = $args['calc'];
 
 		if ( $price ) {
 
@@ -138,16 +152,27 @@ class WC_MNM_Product_Prices {
 			}
 
 			if ( 'incl_tax' === $calc ) {
-				$price = wc_get_price_including_tax( $product, array( 'qty' => $qty, 'price' => $price ) );
+				$price = wc_get_price_including_tax(
+					$product,
+					array(
+						'qty'   => $qty,
+						'price' => $price,
+					)
+				);
 			} elseif ( 'excl_tax' === $calc ) {
-				$price = wc_get_price_excluding_tax( $product, array( 'qty' => $qty, 'price' => $price ) );
+				$price = wc_get_price_excluding_tax(
+					$product,
+					array(
+						'qty'   => $qty,
+						'price' => $price,
+					)
+				);
 			} else {
 				$price = $price * $qty;
 			}
 		}
 
 		return $price;
-
 	}
 
 	/**
@@ -194,13 +219,12 @@ class WC_MNM_Product_Prices {
 
 			if ( $discount ) {
 				if ( $product->mnm_child_item->is_discounted_from_regular_price() ) {
-					do_action( 'wc_mnm_child_item_get_unfiltered_regular_price_start' );
+					do_action( 'wc_mnm_child_item_get_unfiltered_regular_price_start' ); // phpcs: ignore.
 					$price = $product->get_regular_price();
-					do_action( 'wc_mnm_child_item_get_unfiltered_regular_price_end' );
+					do_action( 'wc_mnm_child_item_get_unfiltered_regular_price_end' ); // phpcs: ignore.
 				}
 				$price = self::get_discounted_price( $price, $discount );
 			}
-
 		}
 		return $price;
 	}
@@ -245,10 +269,8 @@ class WC_MNM_Product_Prices {
 			if ( $discount ) {
 				$sale_price = self::get_discounted_price( $product->mnm_child_item->is_discounted_from_regular_price() || '' === $sale_price ? $product->get_regular_price() : $sale_price, $discount );
 			}
-
 		}
 		return $sale_price;
 	}
-
 }
 WC_MNM_Product_Prices::init();

@@ -4,7 +4,7 @@
  * Plugin URI: http://www.myeventon.com/addons/bookings
  * Description: Sell event tickets as time slot based bookings or appointments
  * Author: Ashan Jay
- * Version: 1.4
+ * Version: 1.4.1
  * Author URI: http://www.ashanjay.com/
  * Requires at least: 5.0
  * Tested up to: 6.2.2
@@ -16,9 +16,9 @@
 
 class eventon_bo{
 	
-	public $version='1.4';
+	public $version='1.4.1';
 	public $eventon_version = '4.4'; 
-	public $evotx_version = '2.2';
+	public $evotx_version = '2.2.2';
 	public $name = 'Bookings';
 	public $frontend, $admin, $assets_path, $int_tix;
 
@@ -36,7 +36,7 @@ class eventon_bo{
 		}
 	public function __construct(){
 		$this->super_init();
-		add_action('plugins_loaded', array($this, 'plugin_init'));
+		add_action('plugins_loaded', array($this, 'plugin_init'), 11);
 	}
 
 	public function plugin_init(){		
@@ -54,9 +54,15 @@ class eventon_bo{
 			}elseif(!class_exists('evotx')){
 				add_action('admin_notices', array($this, '_tx_eventon_warning'));
 			}else{
-				global $evotx;
+				// if event tickets environment is not setup @since 1.4.1
+				if( !EVOTX()->good ){
+					add_action('admin_notices', function(){
+						?><div class="message error"><p><?php printf(__('Eventon %s can not run, tickets addon is not fully initiated.', 'eventon'), $this->name); ?></p></div><?php
+					});
+					return;
+				}
 
-				if(version_compare($evotx->version , $this->evotx_version)>=0){
+				if(version_compare( EVOTX()->version , $this->evotx_version)>=0){
 					add_action( 'init', array( $this, 'init' ), 0 );
 					//add_filter("plugin_action_links_".$this->plugin_slug, array($this,'eventon_plugin_links' ));
 				}else{

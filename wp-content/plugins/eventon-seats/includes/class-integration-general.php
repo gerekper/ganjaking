@@ -1,6 +1,7 @@
 <?php
 /**
  * General Integration with other eventON addons and EventON
+ * @version 1.2.2
  */
 
 class EVOST_Integration{

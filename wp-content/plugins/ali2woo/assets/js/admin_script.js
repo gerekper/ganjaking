@@ -121,7 +121,7 @@ function chech_products_view() {
                         const price = item.previewFreightAmount ? item.previewFreightAmount.value : item.freightAmount.value;
                         if (p < 0 || price < p) {
                             p = price;
-                            fp = p > 0.009 ? (item.localPriceFormatStr || item.priceFormatStr) : 'Free';
+                            fp = p > 0.009 ? (item.freightAmount.formatedAmount) : 'Free';
                             n = item.company;
                             t = item.time + ' days';
                         }
@@ -145,7 +145,7 @@ function find_min_shipping_price(items, default_method) {
         const price = item.previewFreightAmount ? item.previewFreightAmount.value : item.freightAmount.value;
         if (p < 0 || price < p || item.serviceName == default_method) {
             p = price;
-            result = { 'serviceName': item.serviceName, 'price': price, 'formated_price': price > 0.009 ? (item.localPriceFormatStr || item.priceFormatStr) : 'Free', 'name': item.company, 'time': item.time };
+            result = { 'serviceName': item.serviceName, 'price': price, 'formated_price': price > 0.009 ? (item.freightAmount.formatedAmount) : 'Free', 'name': item.company, 'time': item.time };
             if (item.serviceName == default_method) {
                 return false;
             }
@@ -154,7 +154,7 @@ function find_min_shipping_price(items, default_method) {
     return result;
 }
 
-function fill_modal_shipping_info(product_id, country_from_list, country_from, country_to, items, page = 'search', default_method = '', onSelectCallback = null) {    
+function fill_modal_shipping_info(product_id, country_from_list, country_from, country_to, items, page = 'a2w_dashboard', default_method = '', onSelectCallback = null) {    
     const tmp_data = { product_id, country_from_list, country_from, country_to, 'shipping': items, page, default_method, onSelectCallback };
     jQuery(".modal-shipping").data(tmp_data);
 
@@ -175,13 +175,13 @@ function fill_modal_shipping_info(product_id, country_from_list, country_from, c
 
     let html = '<table class="shipping-table"><thead><tr><th></th><th><strong>Shipping Method</strong></th><th><strong>Estimated Delivery Time</strong></th><th><strong>Shipping Cost</strong></th></tr></thead><tbody>';
     jQuery.each(tmp_data.shipping, function (i, item) {
-        html += '<tr><td><input type="radio" class="select_method" value="' + item.serviceName + '" name="p-' + product_id + '" id="' + product_id + '-' + item.serviceName + '" ' + (min_shipping_price && item.serviceName == min_shipping_price.serviceName ? 'checked="checked"' : '') + '></td><td><label for="' + product_id + '-' + item.serviceName + '">' + item.company + '</label></td><td><label for="' + product_id + '-' + item.serviceName + '">' + item.time + '</label></td><td><label for="' + product_id + '-' + item.serviceName + '">' + (item.localPriceFormatStr || item.priceFormatStr) + '</label></td></tr>';
+        html += '<tr><td><input type="radio" class="select_method" value="' + item.serviceName + '" name="p-' + product_id + '" id="' + product_id + '-' + item.serviceName + '" ' + (min_shipping_price && item.serviceName == min_shipping_price.serviceName ? 'checked="checked"' : '') + '></td><td><label for="' + product_id + '-' + item.serviceName + '">' + item.company + '</label></td><td><label for="' + product_id + '-' + item.serviceName + '">' + item.time + '</label></td><td><label for="' + product_id + '-' + item.serviceName + '">' + (item.freightAmount.formatedAmount) + '</label></td></tr>';
     });
     html += '</tbody></table>';
     jQuery('.modal-shipping .shipping-method').html(html);
 }
 
-function a2w_load_shipping_info(product_id, country_from, country_to, page = 'search', callback = null) {
+function a2w_load_shipping_info ( product_id, country_from, country_to, page = 'a2w_dashboard', callback = null ){
     var data = { 'action': 'a2w_load_shipping_info', 'id': product_id, 'country_from':country_from, 'country_to': country_to, 'page': page };
 
     jQuery.post(ajaxurl, data).done(function (response) {
@@ -498,6 +498,7 @@ var Utils = new Utils();
                 });
 
                 const product = $(".modal-override-product").data();
+                product.sku_products.variations = Object.values(product.sku_products.variations); // fix possible bug of previous parser (remove this line later)
                 const variations_data = product.sku_products.variations.map(function (v) { return { id: v.id, text: v.attributes_names.join('#'), thumb: v.image } });
                 $(".override-order-variations .override-order-variation").select2({
                     allowClear: true,
@@ -784,7 +785,9 @@ var Utils = new Utils();
         /* ================================================================================ */
 
         $(".product-card-shipping-info").on("click", function () {
-            const tmp_data = $(this).data();
+            const tmp_data = $( this ).data();
+            
+            if ( !tmp_data.shipping || tmp_data.shipping.constructor !== Array ) return false;
 
             const onSelectCallback = function (product_id, items, country_from, country_to, method) {
                 const product_block = jQuery('.product-card[data-id="' + product_id + '"]');
@@ -793,7 +796,7 @@ var Utils = new Utils();
 
                 if (item) {
                     const price = item.previewFreightAmount ? item.previewFreightAmount.value : item.freightAmount.value;
-                    const formated_price = price > 0.009 ? (item.localPriceFormatStr || item.priceFormatStr) : 'Free';
+                    const formated_price = price > 0.009 ? (item.freightAmount.formatedAmount) : 'Free';
 
                     jQuery(product_block).find('.product-card-shipping-info .shipping-title').html(formated_price + ' ' + item.company);
                     jQuery(product_block).find('.product-card-shipping-info .delivery-time').html(item.time + ' days');
@@ -801,7 +804,7 @@ var Utils = new Utils();
                 }
             }
 
-            fill_modal_shipping_info($(this).closest(".product-card").attr('data-id'), [], tmp_data.country_from || "", tmp_data.country_to || "", tmp_data.shipping ? tmp_data.shipping : [], 'search', tmp_data.default_method ? tmp_data.default_method : '', onSelectCallback);
+            fill_modal_shipping_info($(this).closest(".product-card").attr('data-id'), [], tmp_data.country_from || "", tmp_data.country_to || "", tmp_data.shipping ? tmp_data.shipping : [], $('#page').val(), tmp_data.default_method ? tmp_data.default_method : '', onSelectCallback);
 
             $(".modal-shipping").addClass('opened');
             return false;
@@ -963,7 +966,7 @@ var Utils = new Utils();
                 yes: function () {
                     products_to_import = [];
                     $('.product-card:not(.product-card--added):not(.product-card--promo)').each(function () {
-                        products_to_import.push({ 'action': 'a2w_add_to_import', 'id': $(this).attr('data-id') });
+                        products_to_import.push({ 'action': 'a2w_add_to_import', 'id': $(this).attr('data-id'), 'page': $('#page').val() });
                     });
                     if (products_to_import.length > 0) {
                         $(this_btn).addClass('load');
@@ -1017,7 +1020,7 @@ var Utils = new Utils();
                 $(_this).addClass("btn-success");
                 $(_this).removeClass("btn-default");
 
-                var data = { 'action': 'a2w_remove_from_import', 'id': $(_this).closest(".product-card").attr('data-id') };
+                var data = { 'action': 'a2w_remove_from_import', 'id': $(_this).closest(".product-card").attr('data-id'), 'page': $('#page').val()};
                 jQuery.post(ajaxurl, data).done(function (response) {
                     var json = jQuery.parseJSON(response);
                     if (json.state !== 'ok') {
@@ -1039,7 +1042,7 @@ var Utils = new Utils();
                 });
             } else {
                 products_to_import = [];
-                products_to_import.push({ 'action': 'a2w_add_to_import', 'id': $(_this).closest(".product-card").attr('data-id') });
+                products_to_import.push({ 'action': 'a2w_add_to_import', 'id': $(_this).closest(".product-card").attr('data-id'), 'page': $('#page').val()  });
 
                 var on_import_load = function (id, response_state, response_message, state) {
                     if (response_state !== 'ok') {
@@ -1081,7 +1084,7 @@ var Utils = new Utils();
                 var product_block = $('.product-card[data-id="' + product_id + '"]');
 
                 products_to_import = [];
-                products_to_import.push({ 'action': 'a2w_add_to_import', 'id': product_id });
+                products_to_import.push({ 'action': 'a2w_add_to_import', 'id': product_id, 'page': $('#page').val() });
 
                 var on_import_load = function (id, response_state, response_message, state) {
                     if (response_state !== 'ok') {
@@ -1342,11 +1345,12 @@ var Utils = new Utils();
                     console.log(json);
                 } else {
                     $.each(selected_images_block, function (i, image_block) {
+                        let image_blocks_cont = $( image_block ).parents( '.images-wrap' );
                         $(image_block).find('.image').append('<div class="cancel-image-action"><a href="#" data-action="' + action + '#description">' + (action == 'move' ? 'Cancel move' : 'Cancel copy') + '</a>');
                         if (action == 'move') {
                             $(image_block).detach();
                         }
-                        $(image_block).appendTo($('.row.gallery_images'));
+                        $(image_block).appendTo(image_blocks_cont.find('.grid.gallery_images'));
                     });
                 }
             }).fail(function (xhr, status, error) {
@@ -1362,7 +1366,7 @@ var Utils = new Utils();
             var tmp = $(this).attr('data-action').split('#')
             var data = { 'action': 'a2w_import_cancel_images_action', 'id': $(this).parents('.product').attr('data-id'), 'source': tmp[1], 'type': tmp[0], 'image': $(this).parents('.image').attr('id') };
             var image_block = $(this).parents('.image').parent();
-
+            let image_blocks_cont = $( image_block ).parents( '.images-wrap' );
             jQuery.post(ajaxurl, data).done(function (response) {
                 var json = jQuery.parseJSON(response);
                 if (json.state !== 'ok') {
@@ -1372,10 +1376,10 @@ var Utils = new Utils();
                     if (tmp[0] == 'move') {
                         if (tmp[1] == 'description') {
                             $(image_block).find('.cancel-image-action').remove();
-                            $(image_block).appendTo($('.row.description_images'));
+                            $(image_block).appendTo(image_blocks_cont.find('.grid.description_images'));
                         } else if (tmp[1] == 'variant') {
                             $(image_block).find('.cancel-image-action').remove();
-                            $(image_block).appendTo($('.row.variant_images'));
+                            $(image_block).appendTo(image_blocks_cont.find('.grid.variant_images'));
                         }
                     }
                 }

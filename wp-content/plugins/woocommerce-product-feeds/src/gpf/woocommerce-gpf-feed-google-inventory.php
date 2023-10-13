@@ -41,6 +41,7 @@ class WoocommerceGpfFeedGoogleInventory extends WoocommerceGpfFeed {
 	public function render_header() {
 
 		header( 'Content-Type: application/xml; charset=UTF-8' );
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( isset( $_REQUEST['feeddownload'] ) ) {
 			header( 'Content-Disposition: attachment; filename="E-Commerce_Product_Inventory.xml"' );
 		} else {
@@ -51,10 +52,14 @@ class WoocommerceGpfFeedGoogleInventory extends WoocommerceGpfFeed {
 		echo "<?xml version='1.0' encoding='UTF-8' ?>\n";
 		echo "<rss version='2.0' xmlns:atom='http://www.w3.org/2005/Atom' xmlns:g='http://base.google.com/ns/1.0'>\n";
 		echo "  <channel>\n";
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '    <title>' . $this->esc_xml( $this->store_info->blog_name . ' Products' ) . "</title>\n";
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '    <link>' . $this->store_info->site_url . "</link>\n";
 		echo "    <description>This is the WooCommerce Product Inventory feed</description>\n";
-		echo '    <generator>WooCommerce Google Product Feed Plugin v' . WOOCOMMERCE_GPF_VERSION . " (https://plugins.leewillis.co.uk/downloads/woocommerce-google-product-feed/)</generator>\n";
+		echo '    <generator>WooCommerce Google Product Feed Plugin v';
+		echo esc_html( WOOCOMMERCE_GPF_VERSION );
+		echo " (https://plugins.leewillis.co.uk/downloads/woocommerce-google-product-feed/)</generator>\n";
 		echo "    <atom:link href='" . esc_url( $this->store_info->feed_url ) . "' rel='self' type='application/rss+xml' />\n";
 	}
 

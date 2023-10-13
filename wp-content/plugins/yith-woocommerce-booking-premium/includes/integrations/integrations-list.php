@@ -1,0 +1,133 @@
+<?php
+/**
+ * Integrations list
+ *
+ * @author  YITH <plugins@yithemes.com>
+ * @package YITH\Booking
+ */
+
+defined( 'YITH_WCBK' ) || exit;
+
+return array(
+	'badge-management'  => array(
+		'name'              => 'YITH WooCommerce Badge Management',
+		'title'             => 'Badge Management',
+		'landing_uri'       => '//yithemes.com/themes/plugins/yith-woocommerce-badge-management/',
+		'optional'          => false,
+		'constant'          => 'YITH_WCBM_PREMIUM',
+		'installed_version' => 'YITH_WCBM_VERSION',
+		'min_version'       => '1.2.0',
+		'version_compare'   => '>=',
+	),
+	'catalog-mode'      => array(
+		'name'              => 'YITH WooCommerce Catalog Mode',
+		'title'             => 'Catalog Mode',
+		'landing_uri'       => '//yithemes.com/themes/plugins/yith-woocommerce-catalog-mode/',
+		'optional'          => false,
+		'constant'          => 'YWCTM_PREMIUM',
+		'installed_version' => 'YWCTM_VERSION',
+		'min_version'       => '1.5.8',
+		'version_compare'   => '>=',
+	),
+	'deposits'          => array(
+		'name'              => 'YITH WooCommerce Deposits and Down Payments',
+		'title'             => 'Deposits and Down Payments',
+		'landing_uri'       => '//yithemes.com/themes/plugins/yith-woocommerce-deposits-and-down-payments/',
+		'optional'          => false,
+		'constant'          => 'YITH_WCDP_PREMIUM_INIT',
+		'installed_version' => 'YITH_WCDP::YITH_WCDP_VERSION',
+		'min_version'       => '1.5.0',
+		'version_compare'   => '>=',
+	),
+	'email-templates'   => array(
+		'name'              => 'YITH WooCommerce Email Templates',
+		'title'             => 'Email Templates',
+		'landing_uri'       => '//yithemes.com/themes/plugins/yith-woocommerce-email-templates/',
+		'optional'          => false,
+		'constant'          => 'YITH_WCET_PREMIUM',
+		'installed_version' => 'YITH_WCET_VERSION',
+		'min_version'       => '1.2.6',
+		'version_compare'   => '>=',
+	),
+	'multi-vendor'      => array(
+		'name'              => 'YITH WooCommerce Multi Vendor',
+		'title'             => 'Multi Vendor',
+		'landing_uri'       => '//yithemes.com/themes/plugins/yith-woocommerce-multi-vendor/',
+		'optional'          => true,
+		'constant'          => 'YITH_WPV_PREMIUM',
+		'installed_version' => 'YITH_WPV_VERSION',
+		'min_version'       => '4.0.0',
+		'version_compare'   => '>=',
+	),
+	'multi-currency'    => array(
+		'name'              => 'YITH Multi Currency Switcher for WooCommerce',
+		'title'             => 'Multi Currency Switcher',
+		'landing_uri'       => '//yithemes.com/themes/plugins/yith-multi-currency-switcher-for-woocommerce/',
+		'optional'          => false,
+		'constant'          => 'YITH_WCMCS_VERSION',
+		'installed_version' => 'YITH_WCMCS_VERSION',
+		'min_version'       => '1.0.5',
+		'version_compare'   => '>=',
+	),
+	'quick-view'        => array(
+		'name'              => 'YITH WooCommerce Quick View',
+		'title'             => 'Quick View',
+		'landing_uri'       => '//yithemes.com/themes/plugins/yith-woocommerce-quick-view/',
+		'optional'          => false,
+		'constant'          => 'YITH_WCQV_PREMIUM',
+		'installed_version' => 'YITH_WCQV_VERSION',
+		'min_version'       => '1.1.5',
+		'version_compare'   => '>=',
+	),
+	'request-a-quote'   => array(
+		'name'              => 'YITH WooCommerce Request a Quote',
+		'title'             => 'Request a Quote',
+		'landing_uri'       => '//yithemes.com/themes/plugins/yith-woocommerce-request-a-quote/',
+		'optional'          => false,
+		'constant'          => 'YITH_YWRAQ_PREMIUM',
+		'installed_version' => 'YITH_YWRAQ_VERSION',
+		'min_version'       => '1.5.7',
+		'version_compare'   => '>=',
+	),
+	'review-reminder'   => array(
+		'name'              => 'YITH WooCommerce Review Reminder',
+		'title'             => 'Review Reminder',
+		'landing_uri'       => '//yithemes.com/themes/plugins/yith-woocommerce-review-reminder/',
+		'optional'          => false,
+		'constant'          => 'YWRR_PREMIUM',
+		'installed_version' => 'YWRR_VERSION',
+		'min_version'       => '1.6.0',
+		'version_compare'   => '>=',
+	),
+	'sms-notifications' => array(
+		'name'              => 'YITH WooCommerce SMS Notifications',
+		'title'             => 'SMS Notifications',
+		'landing_uri'       => '//yithemes.com/themes/plugins/yith-woocommerce-sms-notifications/',
+		'optional'          => false,
+		'constant'          => 'YWSN_PREMIUM',
+		'installed_version' => 'YWSN_VERSION',
+		'min_version'       => '1.4.0',
+		'version_compare'   => '>=',
+	),
+	'test-environment'  => array(
+		'name'              => 'YITH WordPress Test Environment',
+		'title'             => 'Test Environment',
+		'landing_uri'       => '//yithemes.com/themes/plugins/yith-wordpress-test-environment/',
+		'optional'          => false,
+		'constant'          => 'YWTENV',
+		'installed_version' => 'YWTENV_VERSION',
+		'min_version'       => '1.0.0',
+		'version_compare'   => '>=',
+	),
+	'wpml'              => array(
+		'visible' => false,
+	),
+	'yith-proteo'       => array(
+		'type'        => 'theme',
+		'name'        => 'YITH Proteo',
+		'title'       => 'Proteo',
+		'landing_uri' => '//proteo.yithemes.com/',
+		'optional'    => false,
+		'visible'     => false,
+	),
+);

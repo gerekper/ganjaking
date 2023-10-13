@@ -1,4 +1,13 @@
-<?php
+<?php 
+namespace Ali2Woo\Lib;
+
+use Ali2Woo\Lib\Requests_Hooks;
+use Ali2Woo\Lib\Requests_Exception;
+use Ali2Woo\Lib\Requests_Auth_Basic;
+use Ali2Woo\Lib\Requests_Proxy_HTTP;
+use Ali2Woo\Lib\Requests_Cookie_Jar;
+use Ali2Woo\Lib\Requests_IRI;
+
 /**
  * Requests for PHP
  *
@@ -137,9 +146,12 @@ class Requests {
 	 */
 	public static function autoloader($class) {
 		// Check that the class starts with "Requests"
-		if (strpos($class, 'Requests') !== 0) {
+
+		if (strpos($class, 'Ali2Woo\Lib\Requests') !== 0) {
 			return;
 		}
+
+		$class = str_replace('Ali2Woo\Lib\\', '', $class);
 
 		$file = str_replace('_', '/', $class);
 		if (file_exists(dirname(__FILE__) . '/' . $file . '.php')) {
@@ -153,7 +165,7 @@ class Requests {
 	 * @codeCoverageIgnore
 	 */
 	public static function register_autoloader() {
-		spl_autoload_register(array('Requests', 'autoloader'));
+		spl_autoload_register(array('Ali2Woo\Lib\Requests', 'autoloader'));
 	}
 
 	/**
@@ -193,8 +205,8 @@ class Requests {
 
 		if (empty(self::$transports)) {
 			self::$transports = array(
-				'Requests_Transport_cURL',
-				'Requests_Transport_fsockopen',
+				'Ali2Woo\Lib\\Requests_Transport_cURL',
+				'Ali2Woo\Lib\\Requests_Transport_fsockopen',
 			);
 		}
 

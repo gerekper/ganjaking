@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Admin
  * @since    1.2.0
- * @version  2.4.0
+ * @version  2.5.0
  */
 
 // Exit if accessed directly.
@@ -32,7 +32,7 @@ class WC_MNM_Admin_Notices {
 	 * @var array
 	 */
 	private static $core_notices = array(
-		'update'             => 'update_notice',
+		'update' => 'update_notice',
 	);
 
 	/**
@@ -52,7 +52,6 @@ class WC_MNM_Admin_Notices {
 		if ( current_user_can( 'manage_woocommerce' ) ) {
 			add_action( 'admin_print_styles', array( __CLASS__, 'add_notices' ) );
 		}
-
 	}
 
 	/**
@@ -148,17 +147,17 @@ class WC_MNM_Admin_Notices {
 	 */
 	public static function hide_notices() {
 
-		if ( isset( $_GET[ 'wc-mnm-hide-notice' ] ) && isset( $_GET[ '_wc_mnm_notice_nonce'] ) ) {
+		if ( isset( $_GET['wc-mnm-hide-notice'] ) && isset( $_GET['_wc_mnm_notice_nonce'] ) ) {
 
 			if ( ! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_wc_mnm_notice_nonce'] ) ), 'wc_mnm_hide_notices' ) ) { // WPCS: input var ok, CSRF ok.
-				wp_die( __( 'Action failed. Please refresh the page and retry.', 'woocommerce-mix-and-match-products' ) );
+				wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'woocommerce-mix-and-match-products' ) );
 			}
 
 			if ( ! current_user_can( 'manage_woocommerce' ) ) {
-				wp_die( __( 'You do not have permission to dismiss this notice.', 'woocommerce-mix-and-match-products' ) );
+				wp_die( esc_html__( 'You do not have permission to dismiss this notice.', 'woocommerce-mix-and-match-products' ) );
 			}
 
-			$notice = sanitize_text_field( $_GET[ 'wc-mnm-hide-notice' ] );
+			$notice = sanitize_text_field( wp_unslash( $_GET['wc-mnm-hide-notice'] ) );
 
 			// If we dismiss an update notice that has a cleanup prompt, let's cleanup the transient.
 			if ( 'cleanup' === $notice ) {
@@ -223,16 +222,14 @@ class WC_MNM_Admin_Notices {
 	public static function add_custom_notice( $name = '', $notice_html = '', $notice_type = 'error' ) {
 
 		add_action(
-            'admin_notices',
-            function() use ( $notice_html, $notice_type ) {
+			'admin_notices',
+			function () use ( $notice_html, $notice_type ) {
 
-			if ( $notice_html ) {
-				include dirname( __FILE__ ) . '/views/html-notice-custom.php';
+				if ( $notice_html ) {
+					include __DIR__ . '/views/html-notice-custom.php';
+				}
 			}
-
-            } 
-        );
-
+		);
 	}
 
 	/**
@@ -250,19 +247,18 @@ class WC_MNM_Admin_Notices {
 			$next_scheduled_date = WC()->queue()->get_next( 'wc_mnm_run_update_callback', null, 'wc_mnm_db_updates' );
 
 			if ( $next_scheduled_date || ! empty( $_GET['do_update_wc_mnm'] ) ) { // WPCS: input var ok, CSRF ok.
-				include dirname( __FILE__ ) . '/views/html-notice-updating.php';
+				include __DIR__ . '/views/html-notice-updating.php';
 			} elseif ( ! WC_MNM_Install::auto_update_enabled() ) {
 
 				if ( version_compare( '2.0.0', WC_MNM_Install::get_latest_update_version(), '==' ) ) {
-					include dirname( __FILE__ ) . '/views/html-notice-update-2x00.php';
+					include __DIR__ . '/views/html-notice-update-2x00.php';
 				} else {
-					include dirname( __FILE__ ) . '/views/html-notice-update.php';
+					include __DIR__ . '/views/html-notice-update.php';
 				}
 			}
 		} else {
-			include dirname( __FILE__ ) . '/views/html-notice-updated.php';
+			include __DIR__ . '/views/html-notice-updated.php';
 		}
-
 	}
 
 
@@ -385,7 +381,6 @@ class WC_MNM_Admin_Notices {
 		wc_deprecated_function( 'WC_MNM_Admin_Notices::updating_notice()', '1.1.0', 'Method renamed update_notice().' );
 		return self::update_notice();
 	}
-
 }
 
 WC_MNM_Admin_Notices::init();

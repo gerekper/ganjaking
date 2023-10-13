@@ -1,0 +1,34 @@
+<span id="{{ strings.step_id }}">
+<h1>{{ strings.heading }}</h1>
+
+<div class="translation-options">
+    <ul class="no-bullets">
+        <li>
+            <label class="wcml-translate-everything">
+                <span class="wpml-translate-choose">{{ strings.label_choose }}</span>
+                <input type="radio" value="translate_everything" name="translation-option" required checked="checked" />
+                <div class="wcml-icon"><i class="otgs-ico otgs-ico-lightning-o"></i></div>
+                <h3>{{ strings.label_translate_everything }}</h3>
+                <p>{{ strings.description_translate_everything }}</p>
+            </label>
+        </li>
+        <li>
+            <label class="wcml-translate-some">
+                <span class="wpml-translate-choose">{{ strings.label_choose }}</span>
+                <input type="radio" value="translate_some" name="translation-option" required />
+                <div class="wcml-icon"><i class="otgs-ico otgs-ico-wpml-translation-management"></i></div>
+                <h3>{{ strings.label_translate_some }}</h3>
+                <strong>{{ strings.label_translate_some }}</strong>
+                <p>{{ strings.description_translate_some }}</p>
+            </label>
+        </li>
+    </ul>
+</div>
+
+<p class="text-center">{{ strings.description_footer|format('<strong>','</strong>')|raw }}</p>
+
+<p class="wcml-setup-actions step">
+    <a href="{{ go_back_url }}" class="go-back">{{ strings.go_back }}</a>
+    <a href="{{ continue_url }}" class="button button-large button-primary submit">{{ strings.continue }}</a>
+</p>
+</span>

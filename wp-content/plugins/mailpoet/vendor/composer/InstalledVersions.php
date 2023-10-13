@@ -35,14 +35,14 @@ class InstalledVersions
  {
  foreach (self::getInstalled() as $installed) {
  if (isset($installed['versions'][$packageName])) {
- return $includeDevRequirements || empty($installed['versions'][$packageName]['dev_requirement']);
+ return $includeDevRequirements || !isset($installed['versions'][$packageName]['dev_requirement']) || $installed['versions'][$packageName]['dev_requirement'] === false;
  }
  }
  return false;
  }
  public static function satisfies(VersionParser $parser, $packageName, $constraint)
  {
- $constraint = $parser->parseConstraints($constraint);
+ $constraint = $parser->parseConstraints((string) $constraint);
  $provided = $parser->parseConstraints(self::getVersionRanges($packageName));
  return $provided->matches($constraint);
  }
@@ -157,7 +157,8 @@ class InstalledVersions
  if (isset(self::$installedByVendor[$vendorDir])) {
  $installed[] = self::$installedByVendor[$vendorDir];
  } elseif (is_file($vendorDir.'/composer/installed.php')) {
- $installed[] = self::$installedByVendor[$vendorDir] = require $vendorDir.'/composer/installed.php';
+ $required = require $vendorDir.'/composer/installed.php';
+ $installed[] = self::$installedByVendor[$vendorDir] = $required;
  if (null === self::$installed && strtr($vendorDir.'/composer', '\\', '/') === strtr(__DIR__, '\\', '/')) {
  self::$installed = $installed[count($installed) - 1];
  }
@@ -168,12 +169,15 @@ class InstalledVersions
  // only require the installed.php file if this file is loaded from its dumped location,
  // and not from its source location in the composer/composer package, see https://github.com/composer/composer/issues/9937
  if (substr(__DIR__, -8, 1) !== 'C') {
- self::$installed = require __DIR__ . '/installed.php';
+ $required = require __DIR__ . '/installed.php';
+ self::$installed = $required;
  } else {
  self::$installed = array();
  }
  }
+ if (self::$installed !== array()) {
  $installed[] = self::$installed;
+ }
  return $installed;
  }
 }

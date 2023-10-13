@@ -63,6 +63,7 @@ class WoocommercePrfGoogle {
 		$this->start_ts  = microtime( true );
 		$this->start_mem = memory_get_peak_usage();
 		header( 'Content-Type: application/xml; charset=UTF-8' );
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( isset( $_REQUEST['feeddownload'] ) ) {
 			header( 'Content-Disposition: attachment; filename="woocommerce-review.xml"' );
 		} else {

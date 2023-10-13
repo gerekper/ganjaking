@@ -6,7 +6,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Admin/Functions
  * @since    2.2.0
- * @version  2.4.10
+ * @version  2.5.0
  */
 
 // Exit if accessed directly.
@@ -14,9 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/*--------------------------------------------------------*/
-/*  Mix and Match admin functions     */
-/*--------------------------------------------------------*/
+/*
+|--------------------------------------------------------------------------
+| Admin functions.
+|--------------------------------------------------------------------------
+*/
 
 /**
  * Output a radio image input box.
@@ -44,11 +46,11 @@ function wc_mnm_wp_radio_images( $field, WC_Data $data = null ) {
 
 	foreach ( $field['options'] as $key => $option ) {
 
-		$use_icon = isset( $option[ 'mb_display' ] ) && $option[ 'mb_display' ];
-		$image    = $use_icon ? '<img src = "' . esc_url( $option['image'] ) .'" alt = "' . sprintf( esc_html__( 'Icon for %s', 'woocommerce-mix-and-match-products' ), ! empty( $option['label'] ) ? $option['label']: $option ) .'" />': '';
-		$tip      = ! empty( $option[ 'description' ] ) ? wc_help_tip( $option[ 'description' ] ) : '';
+		$use_icon = isset( $option['mb_display'] ) && $option['mb_display'];
+		$image    = $use_icon ? '<img src = "' . esc_url( $option['image'] ) . '" alt = "' . sprintf( esc_html__( 'Icon for %s', 'woocommerce-mix-and-match-products' ), ! empty( $option['label'] ) ? $option['label'] : $option ) . '" />' : '';
+		$tip      = ! empty( $option['description'] ) ? wc_help_tip( $option['description'] ) : '';
 
-		$radio_attributes = array( 
+		$radio_attributes = array(
 			'id'    => $field['id'] . '_' . $key,
 			'name'  => $field['name'],
 			'value' => $key,
@@ -58,8 +60,8 @@ function wc_mnm_wp_radio_images( $field, WC_Data $data = null ) {
 		);
 
 		echo '<li class="wc_mnm_radio_image_option ' . esc_attr( $key ) . '" >
-				<input ' . wc_implode_html_attributes( $radio_attributes ) . ' ' . checked( esc_attr( $field['value'] ), esc_attr( $key ), false ) . '/>
-				<label for="' . esc_attr( $radio_attributes['id'] ) . '" class="' . esc_attr( $use_icon ? 'has_svg_icon' : 'has_font_icon' ) . '">' . $image . '<span>' . esc_html( ! empty( $option['label'] ) ? $option['label'] : $option ) . '</span></label>' . $tip .
+				<input ' . wc_implode_html_attributes( $radio_attributes ) /* phpcs:ignore WordPress.Security.EscapeOutput */  . ' ' . checked( esc_attr( $field['value'] ), esc_attr( $key ), false ) . '/>
+				<label for="' . esc_attr( $radio_attributes['id'] ) . '" class="' . esc_attr( $use_icon ? 'has_svg_icon' : 'has_font_icon' ) . '">' . wp_kses_post( $image ) . '<span>' . esc_html( ! empty( $option['label'] ) ? $option['label'] : $option ) . '</span></label>' . wp_kses_post( $tip ) .
 			'</li>';
 	}
 
@@ -91,7 +93,7 @@ function wc_mnm_wp_toggle( $field, WC_Data $data = null ) {
 	$field['name']          = isset( $field['name'] ) ? $field['name'] : $field['id'];
 	$field['desc_tip']      = isset( $field['desc_tip'] ) ? $field['desc_tip'] : false;
 
-	// Custom attribute handling
+	// Custom attribute handling.
 	$custom_attributes = array();
 
 	if ( ! empty( $field['custom_attributes'] ) && is_array( $field['custom_attributes'] ) ) {
@@ -108,9 +110,9 @@ function wc_mnm_wp_toggle( $field, WC_Data $data = null ) {
 		echo wc_help_tip( $field['description'] );
 	}
 
-	echo '<input type="checkbox" class="' . esc_attr( $field['class'] ) . '" style="' . esc_attr( $field['style'] ) . '" name="' . esc_attr( $field['name'] ) . '" id="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $field['cbvalue'] ) . '" ' . checked( $field['value'], $field['cbvalue'], false ) . '  ' . implode( ' ', $custom_attributes ) . '/> ';
+	echo '<input type="checkbox" class="' . esc_attr( $field['class'] ) . '" style="' . esc_attr( $field['style'] ) . '" name="' . esc_attr( $field['name'] ) . '" id="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $field['cbvalue'] ) . '" ' . checked( $field['value'], $field['cbvalue'], false ) . '  ' . implode( ' ', $custom_attributes ) . '/> '; // phpcs:ignore WordPress.Security.EscapeOutput
 
-	echo '<label for="' . $field['id' ]. '" class="wc_mnm_toggle_element"></label>';
+	echo '<label for="' . esc_attr( $field['id'] ) . '" class="wc_mnm_toggle_element"></label>';
 
 	if ( ! empty( $field['description'] ) && false === $field['desc_tip'] ) {
 		echo '<span class="description">' . wp_kses_post( $field['description'] ) . '</span>';
@@ -129,7 +131,8 @@ function wc_mnm_wp_enhanced_select( $field ) {
 	global $post;
 
 	$field = wp_parse_args(
-		$field, array(
+		$field,
+		array(
 			'class'             => 'wc-product-search wc-mnm-enhanced-select',
 			'style'             => '',
 			'wrapper_class'     => 'form-field',
@@ -157,12 +160,15 @@ function wc_mnm_wp_enhanced_select( $field ) {
 	$tooltip     = ! empty( $field['description'] ) && false !== $field['desc_tip'] ? $field['description'] : '';
 	$description = ! empty( $field['description'] ) && false === $field['desc_tip'] ? $field['description'] : '';
 	?>
-	<p <?php echo wc_implode_html_attributes( $wrapper_attributes ); // WPCS: XSS ok. ?>>
-		<label <?php echo wc_implode_html_attributes( $label_attributes ); // WPCS: XSS ok. ?>><?php echo wp_kses_post( $field['label'] ); ?></label>
+	<?php /* phpcs:ignore WordPress.Security.EscapeOutput / */ ?>
+	<p <?php echo wc_implode_html_attributes( $wrapper_attributes ); // WPCS: XSS ok.  ?>>
+	<?php /* phpcs:ignore WordPress.Security.EscapeOutput / */ ?>
+		<label <?php echo wc_implode_html_attributes( $label_attributes ); // WPCS: XSS ok.  ?>><?php echo wp_kses_post( $field['label'] ); ?></label>
 		<?php if ( $tooltip ) : ?>
 			<?php echo wc_help_tip( $tooltip ); // WPCS: XSS ok. ?>
 		<?php endif; ?>
-		<select <?php echo wc_implode_html_attributes( $field_attributes ); // WPCS: XSS ok. ?>>
+		<?php /* phpcs:ignore WordPress.Security.EscapeOutput / */ ?>
+		<select <?php echo wc_implode_html_attributes( $field_attributes ); // WPCS: XSS ok.  ?>>
 			<?php
 			foreach ( $field['value'] as $key => $value ) {
 				echo '<option value="' . esc_attr( $key ) . '"' . selected( true, true, false ) . '>' . esc_html( $value ) . '</option>';

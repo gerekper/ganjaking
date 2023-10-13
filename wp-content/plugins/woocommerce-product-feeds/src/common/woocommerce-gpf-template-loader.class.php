@@ -75,6 +75,7 @@ class WoocommerceGpfTemplateLoader extends Gamajo_Template_Loader {
 	 *
 	 */
 	public function output_template_with_variables( $slug, $name = null, $variables = [] ) {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $this->get_template_with_variables( $slug, $name, $variables );
 	}
 }

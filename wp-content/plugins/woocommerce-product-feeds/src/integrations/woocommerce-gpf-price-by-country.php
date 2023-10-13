@@ -11,11 +11,17 @@ class WoocommerceGpfPriceByCountry {
 	 * Capture the currency requested. Add hooks / filters.
 	 */
 	public function run() {
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		$pricecountry = isset( $_GET['pricecountry'] ) ?
+			sanitize_text_field( $_GET['pricecountry'] ) :
+			'';
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+
 		// Bail if no currency forced.
-		if ( empty( $_GET['pricecountry'] ) ) {
+		if ( empty( $pricecountry ) ) {
 			return;
 		}
-		$this->currency = $_GET['pricecountry'];
+		$this->currency = $pricecountry;
 		add_filter( 'woocommerce_gpf_cache_name', array( $this, 'granularise_cache_name' ), 10, 1 );
 		add_filter( 'woocommerce_gpf_feed_item', array( $this, 'add_currency_arg_to_product_permalinks' ), 10, 2 );
 	}

@@ -5,6 +5,7 @@ namespace MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Automation\Engine\Control\StepRunController;
 use MailPoet\Automation\Engine\Data\StepRunArgs;
 use MailPoet\Automation\Engine\Data\StepValidationArgs;
 use MailPoet\Automation\Engine\Exceptions\RuntimeException;
@@ -44,7 +45,7 @@ class NotificationEmailAction implements Action {
     $this->subscribersRepository = $subscribersRepository;
   }
 
-  public function run(StepRunArgs $args): void {
+  public function run(StepRunArgs $args, StepRunController $controller): void {
     $emails = $args->getStep()->getArgs()['emails'] ?? [];
 
 

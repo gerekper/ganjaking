@@ -1,4 +1,6 @@
-<?php
+<?php 
+namespace Ali2Woo\Lib;
+
 /**
  * Case-insensitive dictionary, suitable for HTTP headers
  *

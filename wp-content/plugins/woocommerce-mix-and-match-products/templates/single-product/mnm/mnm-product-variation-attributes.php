@@ -13,7 +13,7 @@
  * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   1.0.0
- * @version 2.0.0
+ * @version 2.5.0
  */
 
 // Exit if accessed directly.
@@ -21,4 +21,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-echo wc_get_formatted_variation( $child_item->get_product() );
+echo wp_kses_post( wc_get_formatted_variation( $child_item->get_product() ) );

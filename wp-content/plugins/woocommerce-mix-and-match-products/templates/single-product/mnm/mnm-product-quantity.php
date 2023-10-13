@@ -13,7 +13,7 @@
  * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   1.0.0
- * @version 2.4.6
+ * @version 2.5.0
  */
 
 // Exit if accessed directly.
@@ -29,23 +29,24 @@ if ( ! $child_item->get_product()->is_purchasable() || ! $child_item->get_produc
 }
 
 // Checkbox input, only use if plus/minus buttons are disabled.
-if ( ! wc_string_to_bool( get_option( 'wc_mnm_display_plus_minus_buttons', 'no' ) ) && $input_args[ 'step' ] === $input_args[ 'max_value' ] && $input_args[ 'min_value' ] !== $input_args[ 'max_value' ] ) { ?>
+if ( ! wc_string_to_bool( get_option( 'wc_mnm_display_plus_minus_buttons', 'no' ) ) && $input_args['step'] === $input_args['max_value'] && $input_args['min_value'] !== $input_args['max_value'] ) { ?>
 
 	<div class="quantity mnm-checkbox-qty">
-		<input id="<?php echo esc_attr( $input_args[ 'input_id' ] );?>" type="checkbox" class="mnm-quantity mnm-checkbox qty" name="<?php echo esc_attr( $child_item->get_input_name() );?>" value="<?php echo esc_attr( $input_args[ 'max_value' ] );?>" <?php checked( $input_args[ 'max_value' ] === $child_item->get_quantity( 'value' ), true );?>/>
-		<label for="<?php echo esc_attr( $input_args[ 'input_id' ] );?>"><?php echo wp_kses_post( $input_args[ 'checkbox_label' ] );?></label>
+		<input id="<?php echo esc_attr( $input_args['input_id'] ); ?>" type="checkbox" class="mnm-quantity mnm-checkbox qty" name="<?php echo esc_attr( $child_item->get_input_name() ); ?>" value="<?php echo esc_attr( $input_args['max_value'] ); ?>" <?php checked( $input_args['max_value'] === $child_item->get_quantity( 'value' ), true ); ?>/>
+		<label for="<?php echo esc_attr( $input_args['input_id'] ); ?>"><?php echo wp_kses_post( $input_args['checkbox_label'] ); ?></label>
 	</div>
 
 	<?php
 
-// Default number input.
+	// Default number input.
 } else {
 
-	if ( $input_args[ 'max_value' ] && $input_args[ 'min_value' ] === $input_args[ 'max_value' ] ) { ?>
+	if ( $input_args['max_value'] && $input_args['min_value'] === $input_args['max_value'] ) {
+		?>
 
-		<p class="required-quantity"><?php echo wp_kses_post( $input_args[ 'required_text' ] ); ?></p>
+		<p class="required-quantity"><?php echo wp_kses_post( $input_args['required_text'] ); ?></p>
 		
-	<?php
+		<?php
 	}
 
 	ob_start();
@@ -57,8 +58,8 @@ if ( ! wc_string_to_bool( get_option( 'wc_mnm_display_plus_minus_buttons', 'no' 
 		$html = str_replace( '<div class="quantity"', '<div class="' . esc_attr( join( ' ', (array) $input_args['wrapper_classes'] ) ) . '"', $html );
 	}
 
-	echo $html;
+	echo $html; // phpcs:ignore WordPress.Security.EscapeOutput
 
-	
+
 
 }

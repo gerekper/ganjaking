@@ -43,8 +43,6 @@ class WC_MNM_PayPal_Payments_Compatibility {
 		}
 		return $supports;
 	}
-
-
 } // End class: do not remove or there will be no more guacamole for you.
 
 WC_MNM_PayPal_Payments_Compatibility::init();

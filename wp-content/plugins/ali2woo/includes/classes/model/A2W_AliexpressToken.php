@@ -3,7 +3,7 @@
 /**
  * Description of A2W_AliexpressToken
  *
- * @author Andrey
+ * @author Ali2Woo Team
  */
 if (!class_exists('A2W_AliexpressToken')) {
 
@@ -68,13 +68,15 @@ if (!class_exists('A2W_AliexpressToken')) {
         public function defaultToken()
         {
             $tokens = $this->tokens();
+            $any_available_token = false;
             foreach ($tokens as $k => $t) {
+                $any_available_token = $t;
                 if ($t['default']) {
                     return $t;
                 }
             }
-            if (!empty($tokens)) {
-                return $tokens[0];
+            if ($any_available_token !== false) {
+                return $any_available_token;
             }
             return false;
         }

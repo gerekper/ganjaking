@@ -29,7 +29,6 @@ class __TwigTemplate_d397b2a974f636a1e1c9b326eb2ccfd5695d20d9e10469f6f7ff8efdcee
 
         $this->blocks = [
             'content' => [$this, 'block_content'],
-            'translations' => [$this, 'block_translations'],
         ];
     }
 
@@ -210,16 +209,11 @@ class __TwigTemplate_d397b2a974f636a1e1c9b326eb2ccfd5695d20d9e10469f6f7ff8efdcee
      segments: segments.length || null
     };
 </script>
-";
-    }
 
-    // line 95
-    public function block_translations($context, array $blocks = [])
-    {
-        $macros = $this->macros;
-        // line 96
+";
+        // line 94
         echo $this->extensions['MailPoet\Twig\I18n']->localize(["serverError" => $this->extensions['MailPoet\Twig\I18n']->translate("Server error:"), "exportMessage" => $this->extensions['MailPoet\Twig\I18n']->translate("%1\$s subscribers were exported. Get the exported file [link]here[/link].")]);
-        // line 99
+        // line 97
         echo "
 ";
     }
@@ -236,7 +230,7 @@ class __TwigTemplate_d397b2a974f636a1e1c9b326eb2ccfd5695d20d9e10469f6f7ff8efdcee
 
     public function getDebugInfo()
     {
-        return array (  220 => 99,  218 => 96,  214 => 95,  204 => 88,  200 => 87,  189 => 79,  183 => 75,  177 => 72,  174 => 71,  172 => 70,  167 => 68,  159 => 65,  152 => 63,  147 => 61,  136 => 53,  128 => 48,  118 => 41,  112 => 38,  107 => 35,  100 => 31,  92 => 26,  88 => 24,  86 => 23,  75 => 14,  69 => 11,  66 => 10,  64 => 9,  59 => 7,  55 => 6,  51 => 4,  47 => 3,  36 => 1,);
+        return array (  214 => 97,  212 => 94,  203 => 88,  199 => 87,  188 => 79,  182 => 75,  176 => 72,  173 => 71,  171 => 70,  166 => 68,  158 => 65,  151 => 63,  146 => 61,  135 => 53,  127 => 48,  117 => 41,  111 => 38,  106 => 35,  99 => 31,  91 => 26,  87 => 24,  85 => 23,  74 => 14,  68 => 11,  65 => 10,  63 => 9,  58 => 7,  54 => 6,  50 => 4,  46 => 3,  35 => 1,);
     }
 
     public function getSourceContext()

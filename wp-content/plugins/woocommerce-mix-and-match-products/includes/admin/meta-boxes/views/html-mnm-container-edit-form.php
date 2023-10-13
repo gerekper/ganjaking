@@ -3,12 +3,14 @@
  * Mix and Match order item
  *
  * @package  WooCommerce Mix and Match Products/Admin/Meta-Boxes/Order/Views
- * 
+ *
  * @deprecated 2.2.0
  *
  * @var WC_Product_Mix_and_Match $product The mix and match product
  * @var WC_Order_Item_Product $order_item The item being displayed
  * @var int $item_id The id of the item being displayed
+ *
+ * @version  2.5.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -21,8 +23,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<table cellspacing="0" class="mnm_child_products">
 		<thead>
 			<th class="child_item_col child_item_images_head"></th>
-			<th class="child_item_col child_item_details_head"><?php _e( 'Product', 'woocommerce-mix-and-match-products' ); ?></th>
-			<th class="child_item_col child_item_qty_head"><?php _e( 'Quantity', 'woocommerce-mix-and-match-products' ); ?></th>
+			<th class="child_item_col child_item_details_head"><?php esc_html_e( 'Product', 'woocommerce-mix-and-match-products' ); ?></th>
+			<th class="child_item_col child_item_qty_head"><?php esc_html_e( 'Quantity', 'woocommerce-mix-and-match-products' ); ?></th>
 		</thead>
 		<?php
 
@@ -36,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php wc_mnm_template_reset_link( $product ); ?>
 
-    <div class="mnm_cart mnm_data cart" <?php echo $product->get_data_attributes( array( 'context' => 'edit' ) ); ?>>
+	<div class="mnm_cart mnm_data cart" <?php echo $product->get_data_attributes( array( 'context' => 'edit' ) );  // phpcs:ignore WordPress.Security.EscapeOutput ?>>
 
 		<div class="mnm_wrap mnm_button_wrap">
 
@@ -44,7 +46,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<div class="mnm_message woocommerce-message" style="display:none;">
 				<ul class="msg mnm_message_content">
-					<li><?php echo wc_mnm_get_quantity_message( $product ); ?></li>
+					<li><?php echo wp_kses_post( wc_mnm_get_quantity_message( $product ) ); ?></li>
 				</ul>
 			</div>
 
@@ -57,7 +59,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php
 
 				// Availability html.
-				echo wc_get_stock_html( $product );
+				echo wp_kses_post( wc_get_stock_html( $product ) );
 
 				?>
 				

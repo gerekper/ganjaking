@@ -1,4 +1,10 @@
-;( function( $ ) {
+/**
+ * Integrate with All Products for Subscriptions.
+ *
+ * @package  WooCommerce Mix and Match Products/Scripts
+ */
+
+( function ( $ ) {
 
 	// Ensure wcsatt_single_product_params exists to continue.
 	if ( typeof wcsatt_single_product_params === 'undefined' ) {
@@ -6,13 +12,13 @@
 	}
 
 	// Mix and Match integration.
-	var MNM_Integration = function( container ) {
+	var MNM_Integration = function ( container ) {
 
 		var self = this,
 			satt = container.$mnm_form.data( 'satt_script' );
 
 		// Moves SATT options after the price.
-		this.initialize_ui = function() {
+		this.initialize_ui = function () {
 
 			if ( satt.schemes_view.$el_content.length > 0 ) {
 				if ( container.$addons_totals !== false ) {
@@ -24,7 +30,7 @@
 		};
 
 		// Scans for SATT schemes attached on the Bundle.
-		this.initialize_schemes = function() {
+		this.initialize_schemes = function () {
 
 			container.satt_schemes         = [];
 			container.satt_scheme_one_time = false;
@@ -43,24 +49,24 @@
 			var $scheme_options = satt.schemes_view.$el_option_items.filter( '.subscription-option' );
 
 			$scheme_options.each(
-                function() {
+				function () {
 
-                var $scheme_option = $( this ),
-                   scheme_data    = $scheme_option.find( 'input' ).data( 'custom_data' );
+					var $scheme_option = $( this ),
+					scheme_data        = $scheme_option.find( 'input' ).data( 'custom_data' );
 
-                container.satt_schemes.push(
-                    {
-                    $el:  $scheme_option,
-                    data: scheme_data
-                    } 
-                );
+					container.satt_schemes.push(
+						{
+							$el:  $scheme_option,
+							data: scheme_data
+						}
+					);
 
-                } 
-            );
+				}
+			);
 		};
 
 		// Init.
-		this.integrate = function() {
+		this.integrate = function () {
 
 			if ( satt.schemes_view.has_schemes() ) {
 
@@ -76,12 +82,12 @@
 			}
 		};
 
-		this.has_single_forced_subscription = function() {
+		this.has_single_forced_subscription = function () {
 			return container.satt_schemes.length === 1 && false === container.satt_scheme_one_time;
 		};
 
 		// Hide subscription options?
-		this.maybe_hide_subscription_options = function() {
+		this.maybe_hide_subscription_options = function () {
 
 			if ( container.passes_validation() ) {
 				if ( ! self.has_single_forced_subscription() ) {
@@ -93,7 +99,7 @@
 		};
 
 		// Update totals displayed in SATT options.
-		this.update_subscription_totals = function( event, container ) {
+		this.update_subscription_totals = function ( event, container ) {
 
 			if ( ! container.passes_validation() && 'no' !== container.price_data.hide_total_on_validation_fail ) {
 				return;
@@ -129,118 +135,121 @@
 
 				container.$mnm_price.find( '.price' ).html( container.satt_schemes[0].data.option_details_html.replace( /%p/g, container_price_inner_html ) );
 
-			/*
-			 * If multiple options are present, then:
-			 * - Calculate the subscription price for each option that overrides default prices and update its html string.
-			 * - Update the base price plan displayed in the prompt.
-			 */
+				/*
+				* If multiple options are present, then:
+				* - Calculate the subscription price for each option that overrides default prices and update its html string.
+				* - Update the base price plan displayed in the prompt.
+				*/
 			} else if ( container.api.is_priced_per_product() ) {
 
-				$.each( container.satt_schemes, function( index, scheme ) {
+				$.each(
+					container.satt_schemes,
+					function ( index, scheme ) {
 
-					// Do we need to update any prices?
-					if ( scheme.data.option_has_price || satt.schemes_view.has_prompt( 'radio' ) || satt.schemes_view.has_prompt( 'checkbox' ) ) {
+						// Do we need to update any prices?
+						if ( scheme.data.option_has_price || satt.schemes_view.has_prompt( 'radio' ) || satt.schemes_view.has_prompt( 'checkbox' ) ) {
 
-						var scheme_price_data       = $.extend( true, {}, container.price_data ),
+							var scheme_price_data   = $.extend( true, {}, container.price_data ),
 							scheme_price_html       = container_price_html,
 							scheme_price_inner_html = container_price_inner_html;
 
-						// Does the current scheme modify prices in any way? If yes, calculate new totals.
-						if ( scheme.data.subscription_scheme.has_price_filter ) {
+							// Does the current scheme modify prices in any way? If yes, calculate new totals.
+							if ( scheme.data.subscription_scheme.has_price_filter ) {
 
-							if ( scheme.data.subscription_scheme.pricing_mode === 'inherit' && scheme.data.subscription_scheme.discount > 0 ) {
+								if ( scheme.data.subscription_scheme.pricing_mode === 'inherit' && scheme.data.subscription_scheme.discount > 0 ) {
 
-								$.each(
-                                    container.api.get_container_config( 'v2' ),
-                                    function( index, data ) {
+									$.each(
+										container.api.get_container_config( 'v2' ),
+										function ( index, data ) {
 
-										var { product_id } = data;
+											var { product_id } = data;
 
-										if ( scheme.data.discount_from_regular ) {
-											scheme_price_data.prices[ product_id ] = scheme_price_data.regular_prices[ product_id ] * ( 1 - scheme.data.subscription_scheme.discount / 100 );
-										} else {
-											scheme_price_data.prices[ product_id ] = scheme_price_data.prices[ product_id ] * ( 1 - scheme.data.subscription_scheme.discount / 100 );
+											if ( scheme.data.discount_from_regular ) {
+												scheme_price_data.prices[ product_id ] = scheme_price_data.regular_prices[ product_id ] * ( 1 - scheme.data.subscription_scheme.discount / 100 );
+											} else {
+												scheme_price_data.prices[ product_id ] = scheme_price_data.prices[ product_id ] * ( 1 - scheme.data.subscription_scheme.discount / 100 );
+											}
+											// Mix and Match does not yet support addons at the child level.
+											if ( scheme_price_data.hasOwnProperty( 'addons_prices' ) ) {
+												scheme_price_data.addons_prices[ product_id ] = scheme_price_data.addons_prices[ product_id ] * ( 1 - scheme.data.subscription_scheme.discount / 100 );
+											}
 										}
-										// Mix and Match does not yet support addons at the child level.
-										if( scheme_price_data.hasOwnProperty( 'addons_prices' ) ) {
-											scheme_price_data.addons_prices[ product_id ] = scheme_price_data.addons_prices[ product_id ] * ( 1 - scheme.data.subscription_scheme.discount / 100 );
-										}
-                                    } 
-                                );
+									);
 
-								if ( scheme.data.discount_from_regular ) {
-									scheme_price_data.base_price = scheme_price_data.base_regular_price * ( 1 - scheme.data.subscription_scheme.discount / 100 );
-								} else {
-									scheme_price_data.base_price = scheme_price_data.base_price * ( 1 - scheme.data.subscription_scheme.discount / 100 );
+									if ( scheme.data.discount_from_regular ) {
+										scheme_price_data.base_price = scheme_price_data.base_regular_price * ( 1 - scheme.data.subscription_scheme.discount / 100 );
+									} else {
+										scheme_price_data.base_price = scheme_price_data.base_price * ( 1 - scheme.data.subscription_scheme.discount / 100 );
+									}
+
+									// var addons_raw_price = container.get_addons_raw_price();.
+									var addons_raw_price = 0;
+
+									scheme_price_data.addons_regular_price = container.has_addons() && 'yes' === satt.pao.$discount_addons_data.data( 'discount_addons' ) ? addons_raw_price : 0;
+									scheme_price_data.addons_price         = container.has_addons() && 'yes' === satt.pao.$discount_addons_data.data( 'discount_addons' ) ? addons_raw_price * ( 1 - scheme.data.subscription_scheme.discount / 100 ) : 0;
+
+								} else if ( scheme.data.subscription_scheme.pricing_mode === 'override' ) {
+
+									scheme_price_data.base_regular_price = Number( scheme.data.subscription_scheme.regular_price );
+									scheme_price_data.base_price         = Number( scheme.data.subscription_scheme.price );
 								}
 
-								//var addons_raw_price = container.get_addons_raw_price();
-								var addons_raw_price = 0;
+								scheme_price_data = container.calculate_subtotals( false, scheme_price_data );
+								scheme_price_data = container.calculate_totals( scheme_price_data );
 
-								scheme_price_data.addons_regular_price = container.has_addons() && 'yes' === satt.pao.$discount_addons_data.data( 'discount_addons' ) ? addons_raw_price : 0;
-								scheme_price_data.addons_price         = container.has_addons() && 'yes' === satt.pao.$discount_addons_data.data( 'discount_addons' ) ? addons_raw_price * ( 1 - scheme.data.subscription_scheme.discount / 100 ) : 0;
-
-							} else if ( scheme.data.subscription_scheme.pricing_mode === 'override' ) {
-
-								scheme_price_data.base_regular_price = Number( scheme.data.subscription_scheme.regular_price );
-								scheme_price_data.base_price         = Number( scheme.data.subscription_scheme.price );
+								scheme_price_html       = container.get_price_html( scheme_price_data );
+								scheme_price_inner_html = $( scheme_price_html ).html();
 							}
 
-							scheme_price_data = container.calculate_subtotals( false, scheme_price_data );
-							scheme_price_data = container.calculate_totals( scheme_price_data );
-
-							scheme_price_html       = container.get_price_html( scheme_price_data );
-							scheme_price_inner_html = $( scheme_price_html ).html();
-						}
-
-						var $option_price       = scheme.$el.find( '.subscription-price' ),
+							var $option_price   = scheme.$el.find( '.subscription-price' ),
 							option_scheme_price = scheme.data.option_details_html.replace( /%p/g, scheme_price_inner_html );
 
-						// Update prompt.
-						if ( scheme.data.subscription_scheme.is_base && ( satt.schemes_view.has_prompt( 'radio' ) || satt.schemes_view.has_prompt( 'checkbox' ) ) ) {
+							// Update prompt.
+							if ( scheme.data.subscription_scheme.is_base && ( satt.schemes_view.has_prompt( 'radio' ) || satt.schemes_view.has_prompt( 'checkbox' ) ) ) {
 
-							var $prompt_input = satt.schemes_view.$el_prompt.find( '.wcsatt-options-prompt-action-input[value="yes"]' ),
-								$prompt       = $prompt_input.closest( '.wcsatt-options-prompt-label' ).find( '.wcsatt-options-prompt-action' );
+								var $prompt_input = satt.schemes_view.$el_prompt.find( '.wcsatt-options-prompt-action-input[value="yes"]' ),
+								$prompt           = $prompt_input.closest( '.wcsatt-options-prompt-label' ).find( '.wcsatt-options-prompt-action' );
 
-							// If the prompt doesn't contain anything to update, move on.
-							if ( $prompt.find( '.subscription-price' ).length > 0 ) {
-								$prompt.html( scheme.data.prompt_details_html.replace( /%p/g, scheme_price_inner_html ) ).find( 'span.total' ).remove();
-							}
-						}
-
-						// Update plan.
-						if ( scheme.data.option_has_price ) {
-
-							$option_price.html( option_scheme_price ).find( 'span.total' ).remove();
-
-							if ( satt.schemes_view.has_dropdown() ) {
-
-								var dropdown_price = wc_mnm_price_format( scheme_price_data.totals.price, { html: false } ),
-									discount       = '';
-
-								dropdown_price = scheme.data.dropdown_format.replace( '%p', dropdown_price );
-
-								if ( scheme.data.subscription_scheme.has_price_filter ) {
-									if ( scheme.data.subscription_scheme.pricing_mode === 'inherit' && scheme.data.subscription_scheme.discount > 0 ) {
-
-										discount       = satt.round_number( scheme.data.subscription_scheme.discount, scheme.data.dropdown_discount_decimals );
-										dropdown_price = scheme.data.dropdown_discounted_format.replace( '%d', discount ).replace( '%p', dropdown_price );
-
-									} else if ( scheme_price_data.totals.regular_price > scheme_price_data.totals.price ) {
-
-										var dropdown_regular_price = wc_mnm_price_format( scheme_price_data.totals.regular_price, { html: false } );
-
-										dropdown_price = scheme.data.dropdown_sale_format.replace( '%r', dropdown_regular_price ).replace( '%p', dropdown_price );
-									}
+								// If the prompt doesn't contain anything to update, move on.
+								if ( $prompt.find( '.subscription-price' ).length > 0 ) {
+									$prompt.html( scheme.data.prompt_details_html.replace( /%p/g, scheme_price_inner_html ) ).find( 'span.total' ).remove();
 								}
-
-								satt.schemes_view.$el_dropdown.find( 'option[value=' + scheme.data.subscription_scheme.key + ']' ).text( dropdown_price );
 							}
-						}
-						$option_price.trigger( 'wcsatt-updated-mnm-price', [ scheme_price_html, scheme, container, self ] );
-					}
 
-                } );
+							// Update plan.
+							if ( scheme.data.option_has_price ) {
+
+								$option_price.html( option_scheme_price ).find( 'span.total' ).remove();
+
+								if ( satt.schemes_view.has_dropdown() ) {
+
+									var dropdown_price = wc_mnm_price_format( scheme_price_data.totals.price, { html: false } ),
+									discount           = '';
+
+									dropdown_price = scheme.data.dropdown_format.replace( '%p', dropdown_price );
+
+									if ( scheme.data.subscription_scheme.has_price_filter ) {
+										if ( scheme.data.subscription_scheme.pricing_mode === 'inherit' && scheme.data.subscription_scheme.discount > 0 ) {
+
+											discount       = satt.round_number( scheme.data.subscription_scheme.discount, scheme.data.dropdown_discount_decimals );
+											dropdown_price = scheme.data.dropdown_discounted_format.replace( '%d', discount ).replace( '%p', dropdown_price );
+
+										} else if ( scheme_price_data.totals.regular_price > scheme_price_data.totals.price ) {
+
+											var dropdown_regular_price = wc_mnm_price_format( scheme_price_data.totals.regular_price, { html: false } );
+
+											dropdown_price = scheme.data.dropdown_sale_format.replace( '%r', dropdown_regular_price ).replace( '%p', dropdown_price );
+										}
+									}
+
+									satt.schemes_view.$el_dropdown.find( 'option[value=' + scheme.data.subscription_scheme.key + ']' ).text( dropdown_price );
+								}
+							}
+							$option_price.trigger( 'wcsatt-updated-mnm-price', [ scheme_price_html, scheme, container, self ] );
+						}
+
+					}
+				);
 			}
 
 			container.$mnm_form.trigger( 'wcsatt-updated-mnm-subscription-totals', [ container, self ] );
@@ -254,10 +263,10 @@
 	};
 
 	$( 'body' ).on(
-        'wc-mnm-initializing',
-        function( e, container ) {
-		new MNM_Integration( container );
-        }
-    );
+		'wc-mnm-initializing',
+		function ( e, container ) {
+			new MNM_Integration( container );
+		}
+	);
 
 } )( jQuery );

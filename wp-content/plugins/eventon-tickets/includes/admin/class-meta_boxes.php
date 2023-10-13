@@ -89,12 +89,13 @@ class EVOTX_post_meta_boxes{
 				$TH = $TA->_get_tickets_for_event($EVENT->ID, 'order_status_tally');
 				
 				if($TH):
+					ksort($TH);
 					$denominator = (int)$tickets_instock + (int)$TH['total'];
 														
 				?>
 				<div class="evotx_ticket_data">								
 					<div class="evotx_stats_bar">
-						<p class='evotx_stat_subtitle' ><?php _e('Event Ticket Order Data','evotx');?></p>
+						<p class='evotx_stat_subtitle' ><?php _e('Event Ticket Order Data','evotx'); echo ' - '.  (int)$TH['total'].' '. __('Tickets','evotx'); ?></p>
 						<p class='stat_bar'>
 						<?php
 							foreach($TH as $st=>$td){

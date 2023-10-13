@@ -27,7 +27,6 @@ class WC_MNM_Woodmart_Compatibility {
 
 		// Filters the child items classes.
 		add_filter( 'wc_mnm_child_item_classes', array( __CLASS__, 'child_item_classes' ), 10, 2 );
-
 	}
 
 
@@ -42,11 +41,10 @@ class WC_MNM_Woodmart_Compatibility {
 
 		$columns = wc_get_loop_prop( 'columns' );
 
-		$new_classes = array( 'elements-grid', 'wd-products-holder', 'wd-spacing-20', 'wd-quantity-enabled', 'title-line-two', 'align-items-start', 'row' );
+		$new_classes   = array( 'elements-grid', 'wd-products-holder', 'wd-spacing-20', 'wd-quantity-enabled', 'title-line-two', 'align-items-start', 'row' );
 		$new_classes[] = 'grid-columns-' . $columns;
 
 		return array_merge( $classes, $new_classes );
-
 	}
 
 	/**
@@ -62,13 +60,11 @@ class WC_MNM_Woodmart_Compatibility {
 		$columns = (int) apply_filters( 'wc_mnm_grid_layout_columns', get_option( 'wc_mnm_number_columns', 3 ), $product );
 
 		if ( $columns ) {
-			$bootstrap_columns = floor ( 12 / $columns );
-			$new_classes[] = 'col-lg-' . $bootstrap_columns;
+			$bootstrap_columns = floor( 12 / $columns );
+			$new_classes[]     = 'col-lg-' . $bootstrap_columns;
 		}
 
 		return array_merge( $classes, $new_classes );
-		
 	}
-
 } // End class.
 WC_MNM_Woodmart_Compatibility::init();

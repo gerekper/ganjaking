@@ -1,4 +1,5 @@
-<?php
+<?php 
+namespace Ali2Woo\Lib;
 /**
  * Exception for HTTP requests
  *
@@ -10,7 +11,7 @@
  *
  * @package Requests
  */
-class Requests_Exception extends Exception {
+class Requests_Exception extends \Exception {
 	/**
 	 * Type of exception
 	 *

@@ -7,7 +7,7 @@ namespace Composer\Autoload;
 if (!defined('ABSPATH')) exit;
 
 
-class ComposerStaticInite5e4e88d8dd3ff242441e9f1e5a1b1df
+class ComposerStaticInit8ac3f31ff107f86cc2ca371dcc03ea36
 {
     public static $prefixLengthsPsr4 = array (
         'M' => 
@@ -43,6 +43,7 @@ class ComposerStaticInite5e4e88d8dd3ff242441e9f1e5a1b1df
         'MailPoet\\Premium\\Automation\\Engine\\Engine' => __DIR__ . '/../..' . '/lib/Automation/Engine/Engine.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\AddTagAction' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Actions/AddTagAction.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\AddToListAction' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Actions/AddToListAction.php',
+        'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\CustomAction' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Actions/CustomAction.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\NotificationEmailAction' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Actions/NotificationEmailAction.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveFromListAction' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Actions/RemoveFromListAction.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\RemoveTagAction' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Actions/RemoveTagAction.php',
@@ -57,7 +58,14 @@ class ComposerStaticInite5e4e88d8dd3ff242441e9f1e5a1b1df
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Analytics\\Storage\\SubscriberStatistics' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Analytics/Storage/SubscriberStatistics.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\ContextFactory' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/ContextFactory.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/MailPoetPremiumIntegration.php',
+        'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Payloads\\CustomDataPayload' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Payloads/CustomDataPayload.php',
+        'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Payloads\\TagPayload' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Payloads/TagPayload.php',
+        'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Subjects\\CustomDataSubject' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Subjects/CustomDataSubject.php',
+        'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Subjects\\TagSubject' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Subjects/TagSubject.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Templates\\PremiumTemplatesFactory' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Templates/PremiumTemplatesFactory.php',
+        'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\CustomTrigger' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Triggers/CustomTrigger.php',
+        'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\TagAddedTrigger' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Triggers/TagAddedTrigger.php',
+        'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\TagRemovedTrigger' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Triggers/TagRemovedTrigger.php',
         'MailPoet\\Premium\\Config\\Env' => __DIR__ . '/../..' . '/lib/Config/Env.php',
         'MailPoet\\Premium\\Config\\Hooks' => __DIR__ . '/../..' . '/lib/Config/Hooks.php',
         'MailPoet\\Premium\\Config\\Initializer' => __DIR__ . '/../..' . '/lib/Config/Initializer.php',
@@ -79,9 +87,9 @@ class ComposerStaticInite5e4e88d8dd3ff242441e9f1e5a1b1df
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInite5e4e88d8dd3ff242441e9f1e5a1b1df::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInite5e4e88d8dd3ff242441e9f1e5a1b1df::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInite5e4e88d8dd3ff242441e9f1e5a1b1df::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit8ac3f31ff107f86cc2ca371dcc03ea36::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit8ac3f31ff107f86cc2ca371dcc03ea36::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit8ac3f31ff107f86cc2ca371dcc03ea36::$classMap;
 
         }, null, ClassLoader::class);
     }

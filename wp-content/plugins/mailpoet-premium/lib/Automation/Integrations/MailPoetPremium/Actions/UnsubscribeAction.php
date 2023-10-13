@@ -5,6 +5,7 @@ namespace MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Automation\Engine\Control\StepRunController;
 use MailPoet\Automation\Engine\Data\StepRunArgs;
 use MailPoet\Automation\Engine\Data\StepValidationArgs;
 use MailPoet\Automation\Engine\Integration\Action;
@@ -62,7 +63,7 @@ class UnsubscribeAction implements Action {
     // TODO: we may want to add some checks here
   }
 
-  public function run(StepRunArgs $args): void {
+  public function run(StepRunArgs $args, StepRunController $controller): void {
     $subscriberId = $args->getSinglePayloadByClass(SubscriberPayload::class)->getId();
     $subscriber = $this->subscribersRepository->findOneById($subscriberId);
     if (!$subscriber) {

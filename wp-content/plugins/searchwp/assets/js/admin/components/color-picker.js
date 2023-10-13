@@ -23,7 +23,7 @@
          */
         ready: () => {
 
-            $('.swp-sf--colorpicker input').iris({
+            $('.swp-input--colorpicker input').iris({
                 change: function(event, ui) {
                     const $el = $(event.target).siblings('svg').find('path');
                     const color = ui.color.toString();
@@ -32,7 +32,7 @@
                 }
             });
 
-            $('.swp-sf--colorpicker input').each( function () {
+            $('.swp-input--colorpicker input').each( function () {
                 const $el = $(this).siblings('svg').find('path');
                 const color = $(this).iris('color');
 
@@ -49,12 +49,12 @@
          */
         events: () => {
 
-            $('.swp-sf--colorpicker input').on('focus', function () {
-                $('.swp-sf--colorpicker input').iris('hide');
+            $('.swp-input--colorpicker input').on('focus', function () {
+                $('.swp-input--colorpicker input').iris('hide');
                 $(this).iris('show');
             });
 
-            $('.swp-sf--colorpicker input').on('input', function () {
+            $('.swp-input--colorpicker input').on('input', function () {
                 if ( ! $(this).val() ) {
                     const $el = $(this).siblings('svg').find('path');
                     app.updateColorSwatch( $el, null );
@@ -62,14 +62,14 @@
             });
 
             $(window).on('click', function () {
-                $('.swp-sf--colorpicker input').iris('hide');
+                $('.swp-input--colorpicker input').iris('hide');
             });
 
-            $('.swp-sf--colorpicker').on( 'click', function(e){
+            $('.swp-input--colorpicker').on( 'click', function(e){
                 e.stopPropagation();
             });
 
-            $('.swp-sf--colorpicker').on( 'keydown', function(e){
+            $('.swp-input--colorpicker').on( 'keydown', function(e){
                 if (e.keyCode === 13 || e.keyCode === 27) {
                     e.preventDefault();
                     $(this).find('input').iris('hide');
@@ -77,8 +77,8 @@
             });
 
             $('a, button, input, textarea, select').on( 'focus', function(e){
-                if ( ! $(e.target).closest('.swp-sf--colorpicker').length ) {
-                    $('.swp-sf--colorpicker input').iris('hide');
+                if ( ! $(e.target).closest('.swp-input--colorpicker').length ) {
+                    $('.swp-input--colorpicker input').iris('hide');
                 }
             });
         },

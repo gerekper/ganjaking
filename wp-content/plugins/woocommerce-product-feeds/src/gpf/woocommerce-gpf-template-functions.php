@@ -92,6 +92,9 @@ function woocommerce_gpf_get_feed_item( WP_Post $post ) {
  * @return boolean  True if a feed is being generated.
  */
 function woocommerce_gpf_is_generating_feed() {
-	return ( isset( $_SERVER['REQUEST_URI'] ) && stripos( $_SERVER['REQUEST_URI'], '/woocommerce_gpf' ) === 0 ) ||
-			isset( $_REQUEST['woocommerce_gpf'] );
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended
+	return ( isset( $_SERVER['REQUEST_URI'] ) &&
+			stripos( sanitize_text_field( $_SERVER['REQUEST_URI'] ), '/woocommerce_gpf' ) === 0
+			) || isset( $_REQUEST['woocommerce_gpf'] );
+	// phpcs:enable WordPress.Security.NonceVerification.Recommended
 }

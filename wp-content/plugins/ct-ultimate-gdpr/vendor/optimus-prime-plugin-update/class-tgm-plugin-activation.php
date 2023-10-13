@@ -243,6 +243,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 */
 		public $page_hook;
 
+		private $phpVersion;
 		/**
 		 * Adds a reference of this object to $instance, populates default strings,
 		 * does the tgmpa_init action hook, and hooks in the interactions to init.
@@ -273,6 +274,8 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 
 			// When the rest of WP has loaded, kick-start the rest of the class.
 			add_action( 'init', array( $this, 'init' ) );
+
+			$this->phpVersion = PHP_VERSION;
 		}
 
 		/**
@@ -1212,10 +1215,17 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 						$last_plugin    = array_pop( $linked_plugins ); // Pop off last name to prep for readability.
 						$imploded       = empty( $linked_plugins ) ? $last_plugin : ( implode( ', ', $linked_plugins ) . ' ' . esc_html_x( 'and', 'plugin A *and* plugin B', 'ct-ultimate-gdpr' ) . ' ' . $last_plugin );
 
+						// 1257 fatal error with multiple tgmpa - string becomes array of strings.
+						if( is_array($this->strings[ $type ] ) ) {
+							if( isset( $this->strings[ $type ][0])) {
+								$this->strings[ $type ] = $this->strings[ $type ][0];
+							}
+						}
+						
 						$rendered .= sprintf(
 							$line_template,
 							sprintf(
-								translate_nooped_plural( $this->strings[ $type ], $count, 'ct-ultimate-gdpr' ),
+								(version_compare($this->phpVersion, '8.0.0', '<') ) ? translate_nooped_plural( $this->strings[ $type ], $count, 'ct-ultimate-gdpr' ) : $this->strings[ $type ],
 								$imploded,
 								$count
 							)
@@ -1263,14 +1273,21 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 				if ( $install_count > 0 ) {
 					$action_links['install'] = sprintf(
 						$link_template,
-						translate_nooped_plural( $this->strings['install_link'], $install_count, 'ct-ultimate-gdpr' ),
+						(version_compare($this->phpVersion, '8.0.0', '<') ) ? translate_nooped_plural( $this->strings['install_link'], $install_count, 'ct-ultimate-gdpr' ) : $this->strings['install_link'],
 						esc_url( $this->get_tgmpa_status_url( 'install' ) )
 					);
 				}
 				if ( $update_count > 0 ) {
+					
+					if( is_array($this->strings[ 'update_link' ] ) ) {
+						if( isset( $this->strings['update_link'][0] ) ) {
+							$this->strings['update_link'] = $this->strings['update_link'][0];
+						}
+					}
+
 					$action_links['update'] = sprintf(
 						$link_template,
-						translate_nooped_plural( $this->strings['update_link'], $update_count, 'ct-ultimate-gdpr' ),
+						(version_compare($this->phpVersion, '8.0.0', '<') ) ? translate_nooped_plural( $this->strings['update_link'], $update_count, 'ct-ultimate-gdpr' ) : $this->strings['update_link'],
 						esc_url( $this->get_tgmpa_status_url( 'update' ) )
 					);
 				}
@@ -1279,7 +1296,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 			if ( current_user_can( 'activate_plugins' ) && $activate_count > 0 ) {
 				$action_links['activate'] = sprintf(
 					$link_template,
-					translate_nooped_plural( $this->strings['activate_link'], $activate_count, 'ct-ultimate-gdpr' ),
+					(version_compare($this->phpVersion, '8.0.0', '<') ) ? translate_nooped_plural( $this->strings['activate_link'], $activate_count, 'ct-ultimate-gdpr' ) : $this->strings['activate_link'],
 					esc_url( $this->get_tgmpa_status_url( 'activate' ) )
 				);
 			}

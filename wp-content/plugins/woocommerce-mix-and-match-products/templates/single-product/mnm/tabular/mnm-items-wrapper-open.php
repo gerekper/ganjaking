@@ -13,7 +13,7 @@
  * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   1.3.0
- * @version 2.0.0
+ * @version 2.5.0
  */
 
 // Exit if accessed directly.
@@ -26,8 +26,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php if ( count( $column_headers ) ) : ?>
 	<thead>
 		<tr>
-			<?php foreach ( (array) $column_headers as $id => $title ) : ?>
-			<th class="product-<?php echo $id; ?>"><?php echo $title; ?></th>
+			<?php foreach ( (array) $column_headers as $product_id => $product_title ) : ?>
+			<th class="product-<?php echo esc_attr( $product_id ); ?>"><?php echo esc_html( $product_title ); ?></th>
 			<?php endforeach; ?>
 		</tr>
 	</thead>

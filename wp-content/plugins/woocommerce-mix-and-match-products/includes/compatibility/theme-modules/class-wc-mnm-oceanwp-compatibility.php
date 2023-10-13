@@ -41,7 +41,7 @@ class WC_MNM_OceanWP_Compatibility {
 		if ( 'grid' === $product->get_layout() ) {
 
 			// Classes.
-			$classes = array_merge( $classes, array ( 'oceanwp-row', 'clr', 'grid' ) );
+			$classes = array_merge( $classes, array( 'oceanwp-row', 'clr', 'grid' ) );
 
 			// List/grid style.
 			if ( ( oceanwp_is_woo_shop() || oceanwp_is_woo_tax() )
@@ -64,7 +64,6 @@ class WC_MNM_OceanWP_Compatibility {
 				$classes[] = 'mobile-col';
 				$classes[] = 'mobile-' . $mobile_columns . '-col';
 			}
-
 		}
 
 		return $classes;
@@ -76,13 +75,12 @@ class WC_MNM_OceanWP_Compatibility {
 	 */
 	public static function inline_style() {
 
-		$custom_css = "
+		$custom_css = '
 			.mnm_form.layout_grid ul.products li.product { text-align: center; }
 			.mnm_form.layout_grid ul.products li.product .product-quantity { margin-left: auto; margin-right: auto; }
-		";
+		';
 
 		wp_add_inline_style( 'wc-mnm-frontend', $custom_css );
 	}
-
 } // End class.
 WC_MNM_OceanWP_Compatibility::init();

@@ -3,7 +3,7 @@
 /**
  * Description of A2W_WizardPageController
  *
- * @author Mikhail
+ * @author Ali2Woo Team
  * 
  * @autoload: a2w_admin_init 
  */

@@ -14,7 +14,10 @@ use MailPoet\Automation\Integrations\MailPoet\MailPoetIntegration;
 use MailPoet\Automation\Integrations\WooCommerce\WooCommerceIntegration;
 use MailPoet\Cron\CronTrigger;
 use MailPoet\Cron\DaemonActionSchedulerRunner;
-use MailPoet\EmailEditor\Integrations\MailPoet\EmailEditor;
+use MailPoet\EmailEditor\Engine\EmailEditor;
+use MailPoet\EmailEditor\Integrations\Core\Initializer as CoreEmailEditorIntegration;
+use MailPoet\EmailEditor\Integrations\MailPoet\EmailEditor as MailpoetEmailEditorIntegration;
+use MailPoet\Features\FeaturesController;
 use MailPoet\InvalidStateException;
 use MailPoet\Migrator\Cli as MigratorCli;
 use MailPoet\PostEditorBlocks\PostEditorBlock;
@@ -125,6 +128,15 @@ class Initializer {
   /** @var EmailEditor */
   private $emailEditor;
 
+  /** @var MailpoetEmailEditorIntegration */
+  private $mailpoetEmailEditorIntegration;
+
+  /** @var CoreEmailEditorIntegration */
+  private $coreEmailEditorIntegration;
+
+  /** @var FeaturesController */
+  private $featureController;
+
   /** @var Url */
   private $urlHelper;
 
@@ -163,6 +175,9 @@ class Initializer {
     PersonalDataExporters $personalDataExporters,
     DaemonActionSchedulerRunner $actionSchedulerRunner,
     EmailEditor $emailEditor,
+    MailpoetEmailEditorIntegration $mailpoetEmailEditorIntegration,
+    CoreEmailEditorIntegration $coreEmailEditorIntegration,
+    FeaturesController $featureController,
     Url $urlHelper
   ) {
     $this->rendererFactory = $rendererFactory;
@@ -195,6 +210,9 @@ class Initializer {
     $this->personalDataExporters = $personalDataExporters;
     $this->actionSchedulerRunner = $actionSchedulerRunner;
     $this->emailEditor = $emailEditor;
+    $this->mailpoetEmailEditorIntegration = $mailpoetEmailEditorIntegration;
+    $this->coreEmailEditorIntegration = $coreEmailEditorIntegration;
+    $this->featureController = $featureController;
     $this->urlHelper = $urlHelper;
   }
 
@@ -276,6 +294,11 @@ class Initializer {
       'multisiteDropTables',
     ]);
 
+    $this->wpFunctions->addFilter('mailpoet_email_editor_initialized', [
+      $this,
+      'setupEmailEditorIntegrations',
+    ]);
+
     WPFunctions::get()->addAction(AutomationHooks::INITIALIZE, [
       $this->automationMailPoetIntegration,
       'register',
@@ -346,7 +369,9 @@ class Initializer {
       $this->subscriberActivityTracker->trackActivity();
       $this->postEditorBlock->init();
       $this->automationEngine->initialize();
-      $this->emailEditor->initialize();
+      if ($this->featureController->isSupported(FeaturesController::GUTENBERG_EMAIL_EDITOR)) {
+        $this->emailEditor->initialize();
+      }
 
       $this->wpFunctions->doAction('mailpoet_initialized', MAILPOET_VERSION);
     } catch (InvalidStateException $e) {
@@ -372,12 +397,15 @@ class Initializer {
 
     // wp automatically redirect to `wp-admin/plugins.php?activate=true&...` after plugin activation
     $activatedByWpAdmin = !empty(strpos($currentUrl, 'plugins.php')) && isset($_GET['activate']) && (bool)$_GET['activate'];
-    if (!$activatedByWpAdmin) return; // not activated by wp. Do not redirect e.g WooCommerce NUX
 
-    // done with afterPluginActivation actions. Delete before redirect
+    // We want to run this only once immediately after activation.
+    // Delete the flag to prevent triggering on subsequent page loads.
     $this->wpFunctions->deleteOption(self::PLUGIN_ACTIVATED);
 
-    $this->changelog->redirectToLandingPage();
+    // If not activated by wp. Do not redirect e.g WooCommerce NUX
+    if ($activatedByWpAdmin) {
+      $this->changelog->redirectToLandingPage();
+    }
   }
 
   /**
@@ -394,9 +422,17 @@ class Initializer {
       $currentDbVersion = null;
     }
 
+    if (version_compare((string)$currentDbVersion, Env::$version) === 0) {
+      return;
+    }
+
     // if current db version and plugin version differ
-    if (version_compare((string)$currentDbVersion, Env::$version) !== 0) {
+    try {
       $this->activator->activate();
+    } catch (InvalidStateException $e) {
+      $this->handleRunningMigration($e);
+    } catch (\Exception $e) {
+      $this->handleFailedInitialization($e);
     }
   }
 
@@ -520,6 +556,11 @@ class Initializer {
       )
     );
     return array_merge($tables, $mailpoetTables);
+  }
+
+  public function setupEmailEditorIntegrations() {
+    $this->mailpoetEmailEditorIntegration->initialize();
+    $this->coreEmailEditorIntegration->initialize();
   }
 
   public function runDeactivation() {

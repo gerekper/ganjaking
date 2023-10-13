@@ -53,7 +53,7 @@ class WoocommerceProductFeedsAdminNotices {
 	 */
 	public function feedback_admin_notice() {
 		// Only show on settings pages.
-		$current_page = $_GET['page'] ?? '';
+		$current_page = $_GET['page'] ?? ''; // phpcs:ignore
 		if ( 'wc-settings' !== $current_page && 'woocommerce-gpf-manage-feeds' !== $current_page ) {
 			return;
 		}

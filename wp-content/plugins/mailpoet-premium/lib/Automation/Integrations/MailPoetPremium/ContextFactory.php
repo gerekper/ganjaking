@@ -7,15 +7,22 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\CustomFields\CustomFieldsRepository;
 use MailPoet\Entities\CustomFieldEntity;
+use MailPoet\Entities\TagEntity;
+use MailPoet\Tags\TagRepository;
 
 class ContextFactory {
   /** @var CustomFieldsRepository */
   private $customFieldsRepository;
 
+  /** @var TagRepository  */
+  private $tagRepository;
+
   public function __construct(
-    CustomFieldsRepository $customFieldsRepository
+    CustomFieldsRepository $customFieldsRepository,
+    TagRepository $tagRepository
   ) {
     $this->customFieldsRepository = $customFieldsRepository;
+    $this->tagRepository = $tagRepository;
   }
 
   /** @return mixed[] */
@@ -24,6 +31,20 @@ class ContextFactory {
       'custom_fields' => array_map(function (CustomFieldEntity $customField) {
         return $this->buildCustomField($customField);
       }, $this->customFieldsRepository->findAll()),
+      'tags' => array_map(function(TagEntity $tag) {
+        return $this->buildTagField($tag);
+      }, $this->tagRepository->findAll()),
+    ];
+  }
+
+  /**
+   * @param TagEntity $tag
+   * @return array{id:int|null,name:string}
+   */
+  private function buildTagField(TagEntity $tag): array {
+    return [
+      'id' => $tag->getId(),
+      'name' => $tag->getName(),
     ];
   }
 

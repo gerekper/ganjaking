@@ -3,7 +3,7 @@
 /**
  * Description of A2W_Account
  *
- * @author Andrey
+ * @author Ali2Woo Team
  */
 if (!class_exists('A2W_Account')) {
 
@@ -14,7 +14,7 @@ if (!class_exists('A2W_Account')) {
         public $custom_account = false;
         
         public $account_data = array('aliexpress'=>array('appkey'=>'', 'secretkey'=>'', 'trackingid'=>''), 
-                                     'admitad'=>array('cashback_url'=>''),
+                                    'admitad'=>array('cashback_url'=>'', 'account_name' => ''),
                                      'epn'=>array('cashback_url'=>''));
         
         
@@ -46,7 +46,7 @@ if (!class_exists('A2W_Account')) {
         }
         
         public function get_admitad_account() {
-            return !empty($this->account_data['admitad'])?$this->account_data['admitad']:array('cashback_url'=>'');
+            return !empty($this->account_data['admitad'])?$this->account_data['admitad']:array('cashback_url'=>'', 'account_name' => '');
         }
 
         public function get_epn_account() {
@@ -61,8 +61,9 @@ if (!class_exists('A2W_Account')) {
             a2w_set_setting('account_data', $this->account_data);
         }
         
-        public function save_admitad_account($cashback_url) {
+        public function save_admitad_account($cashback_url, $account_name) {
             $this->account_data['admitad']['cashback_url']=$cashback_url;
+            $this->account_data['admitad']['account_name']=$account_name;
             
             a2w_set_setting('account_data', $this->account_data);
         }
@@ -83,11 +84,12 @@ if (!class_exists('A2W_Account')) {
         
         public function build_params(){
             $item_purchase_code = $this->get_purchase_code();
-
+    
             $result="token=".urlencode($item_purchase_code)."&version=".A2W()->version;
             
             if(!empty( $this->account_data['admitad']['cashback_url'])){
-                $result.="&cashback_url=". urlencode($this->account_data['admitad']['cashback_url']);
+                $result.="&cashback_url=". urlencode($this->account_data['admitad']['cashback_url']) . 
+                         "&account_name=". urlencode($this->account_data['admitad']['account_name']);
             }
             
             return $result;

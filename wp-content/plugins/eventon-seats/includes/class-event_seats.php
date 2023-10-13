@@ -1,7 +1,7 @@
 <?php
 /**
  * Event Seats class extension
- * @version 1.2
+ * @version 1.2.2
  */
 
 class EVOST_Seats{
@@ -685,7 +685,8 @@ class EVOST_Seats{
 					'currency'=>get_woocommerce_currency_symbol(),
 					'event_id'=> $event_id,
 					'wcid'=> $wcid,
-					'accord'=> $dis_accrd
+					'accord'=> $dis_accrd,
+					'direct_add'=> $this->event->check_yn('_allow_direct_add') 
 				);
 
 			?>

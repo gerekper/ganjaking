@@ -24,6 +24,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <button type="submit" name="update-container" value="<?php echo esc_attr( $order_item->get_id() ); ?>" class="single_add_to_cart_button mnm_add_to_cart_button button alt" data-order_id="<?php echo esc_attr( $order->get_id() ); ?>" data-product_id="<?php echo esc_attr( $container->get_id() ); ?>" data-security="<?php echo esc_attr( wp_create_nonce( 'wc_mnm_edit_container' ) ); ?>">
-    <?php echo esc_html( $button_text ); ?>
+	<?php echo esc_html( $button_text ); ?>
 </button>
 

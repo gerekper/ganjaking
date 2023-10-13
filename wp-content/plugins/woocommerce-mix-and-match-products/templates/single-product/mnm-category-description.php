@@ -22,5 +22,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! empty( $category->description ) ) {
-	echo '<div class="term-description">' . wc_format_content( wp_kses_post( $category->description ) ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo '<div class="term-description">' . wc_format_content( wp_kses_post( $category->description ) ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput
 }

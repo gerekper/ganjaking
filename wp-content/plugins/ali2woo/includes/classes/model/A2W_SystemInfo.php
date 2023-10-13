@@ -3,7 +3,7 @@
 /**
  * Description of A2W_SystemInfo
  *
- * @author Andrey
+ * @author Ali2Woo Team
  * 
  * @autoload: a2w_admin_init
  * 

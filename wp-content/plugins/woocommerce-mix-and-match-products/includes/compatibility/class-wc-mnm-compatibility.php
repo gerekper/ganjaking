@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    1.0.0
- * @version  2.2.0
+ * @version  2.5.0
  */
 
 // Exit if accessed directly.
@@ -47,6 +47,7 @@ class WC_MNM_Compatibility {
 
 	/**
 	 * The single instance of the class.
+	 *
 	 * @var WC_MNM_Compatibility
 	 *
 	 * @since 1.9.2
@@ -76,8 +77,8 @@ class WC_MNM_Compatibility {
 		require_once 'backcompatibility/class-wc-mnm-deprecated-action-hooks.php';
 		require_once 'backcompatibility/class-wc-mnm-deprecated-filter-hooks.php';
 
-		$this->deprecated_hook_handlers[ 'actions' ] = new WC_MNM_Deprecated_Action_Hooks();
-		$this->deprecated_hook_handlers[ 'filters' ] = new WC_MNM_Deprecated_Filter_Hooks();
+		$this->deprecated_hook_handlers['actions'] = new WC_MNM_Deprecated_Action_Hooks();
+		$this->deprecated_hook_handlers['filters'] = new WC_MNM_Deprecated_Filter_Hooks();
 
 		// Theme compatibility modules.
 		require_once 'class-wc-mnm-theme-compatibility.php';
@@ -146,14 +147,16 @@ class WC_MNM_Compatibility {
 	 */
 	public function init() {
 
+		$module_paths = array();
+
 		// Backcompatibility.
-		if ( ! WC_MNM_Compatibility::is_db_version_gte( '2.0' ) ) {
+		if ( ! self::is_db_version_gte( '2.0' ) ) {
 			$module_paths['legacy_meta'] = 'backcompatibility/class-wc-mnm-legacy-meta.php';
 		}
 
 		// WooCommerce Cart/Checkout Blocks support.
-		if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) && version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), $this->required[ 'blocks' ], '>=' ) ) {
-			$module_paths[ 'blocks' ] = 'modules/class-wc-mnm-blocks-compatibility.php';
+		if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) && version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), $this->required['blocks'], '>=' ) ) {
+			$module_paths['blocks'] = 'modules/class-wc-mnm-blocks-compatibility.php';
 		}
 
 		// Multiple Shipping Addresses support.
@@ -223,9 +226,9 @@ class WC_MNM_Compatibility {
 			$module_paths['quick-view'] = 'modules/class-wc-mnm-quick-view-compatibility.php';
 		}
 
-		// All Products for Subscriptions - per-item pricing and content switching support
-		if ( function_exists( 'WCS_ATT' ) && version_compare( WCS_ATT()->plugin_version(), $this->required[ 'apfs' ], '>=' ) && WCS_ATT()->plugin_initialized() ) {
-			$module_paths['apfs-pricing']   = 'modules/apfs/class-wc-mnm-apfs-pricing-compatibility.php';
+		// All Products for Subscriptions - per-item pricing and content switching support.
+		if ( function_exists( 'WCS_ATT' ) && version_compare( WCS_ATT()->plugin_version(), $this->required['apfs'], '>=' ) && WCS_ATT()->plugin_initialized() ) {
+			$module_paths['apfs-pricing'] = 'modules/apfs/class-wc-mnm-apfs-pricing-compatibility.php';
 
 			/*
 			* Important: Switching Subscriptions and adding products/carts to existing Subscriptions
@@ -249,9 +252,8 @@ class WC_MNM_Compatibility {
 		 */
 		$module_paths = apply_filters( 'wc_mnm_compatibility_modules', $module_paths );
 		foreach ( $module_paths as $name => $path ) {
-			require_once( $path );
+			require_once $path;
 		}
-
 	}
 
 	/**
@@ -349,6 +351,5 @@ class WC_MNM_Compatibility {
 		}
 		return $result;
 	}
-
 }
 WC_MNM_Compatibility::get_instance();

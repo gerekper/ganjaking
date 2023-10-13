@@ -1,6 +1,3 @@
-/* exported wc_mnm_woocommerce_number_format */
-/* NB: ignore jshint defined but not used for deprecated function */
-
 /**
  * Product data metabox.
  *
@@ -44,14 +41,14 @@ function wc_mnm_price_format(price, args) {
 
 	if ('object' !== typeof (args)) {
 		// Backcompatibility for boolean args (plain == true meant no HTML).
-		args = true === args ? { html: false } : {};
+		args = true === args ? { html : false } : {};
 	}
 
-	args = Object.assign(default_args, args);
+	args = Object.assign( default_args, args );
 
-	price = wc_mnm_number_format(price, args);
+	price = wc_mnm_number_format( price, args );
 
-	var formatted_price = price;
+	var formatted_price  = price;
 	var formatted_symbol = args.html ? '<span class="woocommerce-Price-currencySymbol">' + args.currency_symbol + '</span>' : args.currency_symbol;
 
 	switch ( args.currency_position ) {
@@ -81,8 +78,8 @@ function wc_mnm_price_format(price, args) {
  * @see float wc_mnm_price_format()
  * @deprecated 1.12.0
  */
-function wc_mnm_woocommerce_number_format(price, args) {
-	return wc_mnm_price_format(price, args);
+function wc_mnm_woocommerce_number_format(price, args) { // jshint ignore:line
+	return wc_mnm_price_format( price, args );
 }
 
 /**
@@ -105,20 +102,20 @@ function wc_mnm_number_format(number, args) {
 		trim_zeros   : wc_mnm_params.currency_format_trim_zeros
 	};
 
-	args = Object.assign(default_args, args);
+	args = Object.assign( default_args, args );
 
 	var n = number;
-	var c = isNaN(args.num_decimals = Math.abs(args.num_decimals)) ? 2 : args.num_decimals;
+	var c = isNaN( args.num_decimals = Math.abs( args.num_decimals ) ) ? 2 : args.num_decimals;
 	var d = args.decimal_sep === undefined ? ',' : args.decimal_sep;
 	var t = args.thousands_sep === undefined ? '.' : args.thousands_sep;
 	var s = n < 0 ? '-' : '';
-	var i = parseInt(n = Math.abs(+n || 0).toFixed(c), 10) + '';
+	var i = parseInt( n = Math.abs( +n || 0 ).toFixed( c ), 10 ) + '';
 	var j = (j = i.length) > 3 ? j % 3 : 0;
 
-	var formatted_number = s + (j ? i.substring(0, j) + t : '') + i.substring(j).replace(/(\d{3})(?=\d)/g, '$1' + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : '');
+	var formatted_number = s + (j ? i.substring( 0, j ) + t : '') + i.substring( j ).replace( /(\d{3})(?=\d)/g, '$1' + t ) + (c ? d + Math.abs( n - i ).toFixed( c ).slice( 2 ) : '');
 
 	if ( args.trim_zeros ) {
-		var regex       = new RegExp( '\\' + args.decimal_sep + '0+$', 'i' );
+		var regex        = new RegExp( '\\' + args.decimal_sep + '0+$', 'i' );
 		formatted_number = formatted_number.replace( regex, '' );
 	}
 
@@ -133,11 +130,11 @@ function wc_mnm_number_format(number, args) {
  */
 function wc_mnm_number_round(number, precision) {
 
-	precision = 'undefined' !== typeof precision ? parseInt(precision) : wc_mnm_params.currency_format_precision_decimals;
+	precision = 'undefined' !== typeof precision ? parseInt( precision ) : wc_mnm_params.currency_format_precision_decimals;
 
-	var factor = Math.pow(10, precision),
-		tempNumber = number * factor,
-		roundedTempNumber = Math.round(tempNumber);
+	var factor            = Math.pow( 10, precision ),
+		tempNumber        = number * factor,
+		roundedTempNumber = Math.round( tempNumber );
 
 	return roundedTempNumber / factor;
 }
@@ -147,13 +144,13 @@ function wc_mnm_number_round(number, precision) {
  */
 jQuery.fn.wc_get_mnm_script = function () {
 
-	var $mnm_form = jQuery(this);
+	var $mnm_form = jQuery( this );
 
-	if (!$mnm_form.hasClass('mnm_form')) {
+	if ( ! $mnm_form.hasClass( 'mnm_form' )) {
 		return false;
 	}
 
-	var script_id = $mnm_form.data('script_id');
+	var script_id = $mnm_form.data( 'script_id' );
 
 	if (typeof (wc_mnm_scripts[script_id]) !== 'undefined') {
 		return wc_mnm_scripts[script_id];
@@ -173,8 +170,8 @@ jQuery.fn.wc_get_mnm_script = function () {
 	 */
 	function WC_MNM_Container($form) {
 
-		var container = this;
-		this.$mnm_form = $form;
+		var container       = this;
+		this.$mnm_form      = $form;
 		this.is_initialized = false;
 
 		this.api = {
@@ -190,22 +187,21 @@ jQuery.fn.wc_get_mnm_script = function () {
 			 * }
 			 *
 			 * @return v1 returns an object of product ID => product Qty { product_id: product_quantity }
-			 *
 			 */
 			get_container_config: function (version) {
 
 				var config = [];
 
 				if ('v2' === version) {
-					if (Array.isArray(container.container_config)) {
+					if (Array.isArray( container.container_config )) {
 						config = container.container_config;
 					} else if ('object' === typeof (container.container_config)) {
 
 						// If extensions are manually editing container.container_config, we'll need to remap it to v2 to make calculate_subtotals|calculate_totals work internally.
-						Object.keys(container.container_config).foreach(
+						Object.keys( container.container_config ).foreach(
 							function (index) {
-								if (Number.isInteger(container.container_config[index])) {
-									config.push({ product_id: parseInt(index, 10), product_qty: parseInt(container.container_config[index], 10) });
+								if (Number.isInteger( container.container_config[index] )) {
+									config.push( { product_id: parseInt( index, 10 ), product_qty: parseInt( container.container_config[index], 10 ) } );
 								}
 							}
 						);
@@ -214,11 +210,11 @@ jQuery.fn.wc_get_mnm_script = function () {
 
 				} else {
 
-					// Handle backcompat for folks who may have been calling container.api.get_container_config()
+					// Handle backcompat for folks who may have been calling container.api.get_container_config().
 					config = {};
 
 					// This will port current config back to v1 object.
-					if (Array.isArray(container.container_config)) {
+					if (Array.isArray( container.container_config )) {
 						container.container_config.forEach(
 							function (data) {
 								config[data.product_id] = data.product_qty;
@@ -241,8 +237,8 @@ jQuery.fn.wc_get_mnm_script = function () {
 			get_container_price: function (type) {
 				var totals = container.price_data.totals;
 
-				if (type !== 'undefined' && totals.hasOwnProperty(type)) {
-					return Number(totals[type]);
+				if (type !== 'undefined' && totals.hasOwnProperty( type )) {
+					return Number( totals[type] );
 				} else {
 					return totals;
 				}
@@ -254,7 +250,7 @@ jQuery.fn.wc_get_mnm_script = function () {
 			 * @return int
 			 */
 			get_container_size: function () {
-				return parseInt(container.container_size, 10);
+				return parseInt( container.container_size, 10 );
 			},
 
 			/**
@@ -264,7 +260,7 @@ jQuery.fn.wc_get_mnm_script = function () {
 			 */
 			get_min_container_size: function () {
 				if ('undefined' !== typeof (container.min_container_size) && '' !== container.min_container_size) {
-					return parseInt(container.min_container_size, 10);
+					return parseInt( container.min_container_size, 10 );
 				}
 
 				return false;
@@ -277,7 +273,7 @@ jQuery.fn.wc_get_mnm_script = function () {
 			 */
 			get_max_container_size: function () {
 				if ('undefined' !== typeof (container.max_container_size) && '' !== container.max_container_size) {
-					return parseInt(container.max_container_size, 10);
+					return parseInt( container.max_container_size, 10 );
 				}
 
 				return false;
@@ -289,7 +285,7 @@ jQuery.fn.wc_get_mnm_script = function () {
 			 * @return array
 			 */
 			get_status_messages: function () {
-				return container.get_messages('status');
+				return container.get_messages( 'status' );
 			},
 
 			/**
@@ -307,7 +303,7 @@ jQuery.fn.wc_get_mnm_script = function () {
 			 * @return array
 			 */
 			get_validation_messages: function () {
-				return container.get_messages('error');
+				return container.get_messages( 'error' );
 			},
 
 			/**
@@ -337,7 +333,7 @@ jQuery.fn.wc_get_mnm_script = function () {
 			 * @return int
 			 */
 			set_container_size: function (size) {
-				container.container_size = parseInt(size, 10);
+				container.container_size = parseInt( size, 10 );
 			},
 
 			/**
@@ -353,7 +349,6 @@ jQuery.fn.wc_get_mnm_script = function () {
 			 * Array of product ID keys with quantity values.
 			 * [ product_id => product_qty ]
 			 *
-			 *
 			 * @return []
 			 */
 			set_container_config: function (config) {
@@ -365,11 +360,11 @@ jQuery.fn.wc_get_mnm_script = function () {
 					config,
 					function (index, data) {
 
-						if (Number.isInteger(data)) {
-							data = { product_id: index, product_qty: parseInt(data, 10) };
+						if (Number.isInteger( data )) {
+							data = { product_id: index, product_qty: parseInt( data, 10 ) };
 						}
 
-						new_config.push(data);
+						new_config.push( data );
 
 					}
 				);
@@ -385,9 +380,9 @@ jQuery.fn.wc_get_mnm_script = function () {
 		this.add_message = function (message, type) {
 
 			if (type === 'error') {
-				this.validation_messages.push(message.toString());
+				this.validation_messages.push( message.toString() );
 			} else {
-				this.status_messages.push(message.toString());
+				this.status_messages.push( message.toString() );
 			}
 
 		};
@@ -396,36 +391,48 @@ jQuery.fn.wc_get_mnm_script = function () {
 		 * Attach child-item-level event handlers.
 		 */
 		this.bind_child_item_event_handlers = function (child_item) {
-			
+
 			/**
 			 * Update totals upon changing quantities.
 			 */
 			child_item.$mnm_item_qty
-				.on( 'input.wc-mnm-form', function () {
-					clearTimeout(child_item.child_item_timer);
-					var $input = $(this);
-					child_item.child_item_timer = setTimeout(
-						function () {
-							$input.trigger('change.wc-mnm-form');
-						},
-						500
-					);
+				.on(
+					'input.wc-mnm-form',
+					function () {
+						clearTimeout( child_item.child_item_timer );
+						var $input                  = $( this );
+						child_item.child_item_timer = setTimeout(
+							function () {
+								$input.trigger( 'change.wc-mnm-form' );
+							},
+							500
+						);
 
-				} )
-				.on( 'change.wc-mnm-form' , function () {
-					child_item.update_quantity();
-				} );
+					}
+				)
+				.on(
+					'change.wc-mnm-form' ,
+					function () {
+						child_item.update_quantity();
+					}
+				);
 
 			/**
 			 * Plus/minus handlers.
 			 */
-			child_item.$minus_button.on( 'click.wc-mnm-form', function () {
-				child_item.decrease_quantity();
-			} );
+			child_item.$minus_button.on(
+				'click.wc-mnm-form',
+				function () {
+					child_item.decrease_quantity();
+				}
+			);
 
-			child_item.$plus_button.on( 'click.wc-mnm-form', function () {
-				child_item.increase_quantity();
-			} );
+			child_item.$plus_button.on(
+				'click.wc-mnm-form',
+				function () {
+					child_item.increase_quantity();
+				}
+			);
 
 		};
 
@@ -435,22 +442,25 @@ jQuery.fn.wc_get_mnm_script = function () {
 		this.bind_event_handlers = function () {
 
 			if (container.has_addons()) {
-				container.$mnm_data.on('updated_addons', container.updated_addons_handler);
+				container.$mnm_data.on( 'updated_addons', container.updated_addons_handler );
 			}
 
 			// Upon clicking reset link.
-			container.$mnm_reset.on('click.wc-mnm-form', function () {
+			container.$mnm_reset.on(
+				'click.wc-mnm-form',
+				function () {
 
-				if (window.confirm(wc_mnm_params.i18n_confirm_reset)) {
-					container.$mnm_form.trigger('wc-mnm-container-reset');
+					if (window.confirm( wc_mnm_params.i18n_confirm_reset )) {
+						container.$mnm_form.trigger( 'wc-mnm-container-reset' );
+					}
+
 				}
+			);
 
-			});
-
-			container.$mnm_form.on('wc-mnm-container-reset', container.reset);
+			container.$mnm_form.on( 'wc-mnm-container-reset', container.reset );
 
 			// Ignore any accidental press of the enter key.
-			container.$mnm_form.on('keypress', ':input:not(:button)', container.onKeypress);
+			container.$mnm_form.on( 'keypress', ':input:not(:button)', container.onKeypress );
 
 		};
 
@@ -461,60 +471,60 @@ jQuery.fn.wc_get_mnm_script = function () {
 
 			var price_data = typeof (price_data_array) === 'undefined' ? container.price_data : price_data_array;
 
-			qty = typeof (qty) === 'undefined' ? 1 : parseInt(qty, 10);
+			qty          = typeof (qty) === 'undefined' ? 1 : parseInt( qty, 10 );
 			triggered_by = typeof (triggered_by) === 'undefined' ? false : triggered_by;
 
 			// Base.
 			if (false === triggered_by) {
 
-				var base_price = Number(price_data.base_price),
-					base_regular_price = Number(price_data.base_regular_price),
+				var base_price            = Number( price_data.base_price ),
+					base_regular_price    = Number( price_data.base_regular_price ),
 					base_price_tax_ratios = price_data.base_price_tax;
 
-				price_data.base_price_totals = price_data.base_price_subtotals = this.get_taxed_totals(base_price, base_regular_price, base_price_tax_ratios, qty);
+				price_data.base_price_totals = price_data.base_price_subtotals = this.get_taxed_totals( base_price, base_regular_price, base_price_tax_ratios, qty );
 			}
 
 			$.each(
-				container.api.get_container_config('v2'),
+				container.api.get_container_config( 'v2' ),
 				function (index, data) {
 
 					var { product_id, product_qty } = data;
 
-					if (triggered_by.hasOwnProperty('mnm_item_id ') && triggered_by.mnm_item_id !== product_id) {
+					if (triggered_by.hasOwnProperty( 'mnm_item_id ' ) && triggered_by.mnm_item_id !== product_id) {
 						return true;
 					}
 
 					// Non-purchasable items don't have prices in the price_data.
-					var tax_ratios = price_data.prices_tax.hasOwnProperty(product_id) ? price_data.prices_tax[product_id] : { incl: 1, excl: 1 },
-						regular_price = price_data.regular_prices.hasOwnProperty(product_id) ? price_data.regular_prices[product_id] : 0.0,
-						price = price_data.prices.hasOwnProperty(product_id) ? price_data.prices[product_id] : 0.0,
+					var tax_ratios    = price_data.prices_tax.hasOwnProperty( product_id ) ? price_data.prices_tax[product_id] : { incl : 1, excl : 1 },
+						regular_price = price_data.regular_prices.hasOwnProperty( product_id ) ? price_data.regular_prices[product_id] : 0.0,
+						price         = price_data.prices.hasOwnProperty( product_id ) ? price_data.prices[product_id] : 0.0,
 
 						totals = {
 							price: 0.0,
 							regular_price: 0.0,
 							price_incl_tax: 0.0,
 							price_excl_tax: 0.0
-						};
+					};
 
 					if (wc_mnm_params.calc_taxes === 'yes') {
 
 						if (product_qty > 0 && (price > 0 || regular_price > 0)) {
-							totals = container.get_taxed_totals(price, regular_price, tax_ratios, product_qty);
+							totals = container.get_taxed_totals( price, regular_price, tax_ratios, product_qty );
 						}
 
 					} else {
 
-						totals.price = product_qty * price;
-						totals.regular_price = product_qty * regular_price;
+						totals.price          = product_qty * price;
+						totals.regular_price  = product_qty * regular_price;
 						totals.price_incl_tax = product_qty * price;
 						totals.price_excl_tax = product_qty * price;
 
 					}
 
-					if (container.totals_changed(price_data.child_item_subtotals[product_id], totals)) {
-						container.dirty_subtotals = true;
+					if (container.totals_changed( price_data.child_item_subtotals[product_id], totals )) {
+						container.dirty_subtotals                   = true;
 						price_data.child_item_subtotals[product_id] = totals;
-						price_data.child_item_totals[product_id] = totals;
+						price_data.child_item_totals[product_id]    = totals;
 					}
 
 				}
@@ -529,11 +539,11 @@ jQuery.fn.wc_get_mnm_script = function () {
 		 */
 		this.calculate_totals = function (price_data_array) {
 
-			var price_data = typeof (price_data_array) === 'undefined' ? container.price_data : price_data_array,
+			var price_data     = typeof (price_data_array) === 'undefined' ? container.price_data : price_data_array,
 				totals_changed = false;
 
 			// Non-recurring (sub)totals.
-			var totals = {
+			var totals    = {
 				price: price_data.base_price_totals.price,
 				regular_price: price_data.base_price_totals.regular_price,
 				price_incl_tax: price_data.base_price_totals.price_incl_tax,
@@ -544,29 +554,29 @@ jQuery.fn.wc_get_mnm_script = function () {
 					regular_price: price_data.base_price_subtotals.regular_price,
 					price_incl_tax: price_data.base_price_subtotals.price_incl_tax,
 					price_excl_tax: price_data.base_price_subtotals.price_excl_tax
-				};
+			};
 
 			$.each(
-				container.api.get_container_config('v2'),
+				container.api.get_container_config( 'v2' ),
 				function (index, data) {
 
 					var { product_id } = data;
 
-					var item_totals = price_data.child_item_totals[product_id],
+					var item_totals    = price_data.child_item_totals[product_id],
 						item_subtotals = price_data.child_item_subtotals[product_id];
 
 					if (typeof item_totals !== 'undefined') {
 
-						totals.price += item_totals.price;
-						totals.regular_price += item_totals.regular_price;
+						totals.price          += item_totals.price;
+						totals.regular_price  += item_totals.regular_price;
 						totals.price_incl_tax += item_totals.price_incl_tax;
 						totals.price_excl_tax += item_totals.price_excl_tax;
 					}
 
 					if (typeof item_subtotals !== 'undefined') {
 
-						subtotals.price += item_subtotals.price;
-						subtotals.regular_price += item_subtotals.regular_price;
+						subtotals.price          += item_subtotals.price;
+						subtotals.regular_price  += item_subtotals.regular_price;
 						subtotals.price_incl_tax += item_subtotals.price_incl_tax;
 						subtotals.price_excl_tax += item_subtotals.price_excl_tax;
 					}
@@ -574,13 +584,13 @@ jQuery.fn.wc_get_mnm_script = function () {
 				}
 			);
 
-			totals_changed = container.totals_changed(price_data.totals, totals) || container.totals_changed(price_data.subtotals, subtotals);
+			totals_changed = container.totals_changed( price_data.totals, totals ) || container.totals_changed( price_data.subtotals, subtotals );
 
 			// Render.
 			if (totals_changed || false === container.is_initialized) {
 
 				price_data.subtotals = subtotals;
-				price_data.totals = totals;
+				price_data.totals    = totals;
 
 				if (typeof (price_data_array) === 'undefined') {
 					this.updated_totals();
@@ -596,7 +606,7 @@ jQuery.fn.wc_get_mnm_script = function () {
 		this.get_formatted_price_suffix = function (price_data_array, totals) {
 
 			var price_data = typeof (price_data_array) === 'undefined' ? container.price_data : price_data_array,
-				suffix = '';
+				suffix     = '';
 
 			totals = typeof (totals) === 'undefined' ? price_data.totals : totals;
 
@@ -605,11 +615,11 @@ jQuery.fn.wc_get_mnm_script = function () {
 				suffix = price_data.suffix;
 
 				if (price_data.suffix_contains_price_incl) {
-					suffix = suffix.replace('{price_including_tax}', wc_mnm_price_format(totals.price_incl_tax));
+					suffix = suffix.replace( '{price_including_tax}', wc_mnm_price_format( totals.price_incl_tax ) );
 				}
 
 				if (price_data.suffix_contains_price_excl) {
-					suffix = suffix.replace('{price_excluding_tax}', wc_mnm_price_format(totals.price_excl_tax));
+					suffix = suffix.replace( '{price_excluding_tax}', wc_mnm_price_format( totals.price_excl_tax ) );
 				}
 			}
 
@@ -625,7 +635,7 @@ jQuery.fn.wc_get_mnm_script = function () {
 			var messages = [];
 
 			if (type === 'all') {
-				messages = $.merge(this.status_messages, this.validation_messages);
+				messages = $.merge( this.status_messages, this.validation_messages );
 			} else if (type === 'error') {
 				messages = this.validation_messages;
 			} else {
@@ -641,29 +651,29 @@ jQuery.fn.wc_get_mnm_script = function () {
 		 */
 		this.get_price_html = function (price_data_array, config) {
 
-			var price_data = 'undefined' === typeof (price_data_array) ? container.price_data : price_data_array,
+			var price_data           = 'undefined' === typeof (price_data_array) ? container.price_data : price_data_array,
 				container_price_html = '',
-				default_config = {
-					'show_total_string': wc_mnm_number_round(price_data.totals.price) !== wc_mnm_number_round(price_data.raw_container_price_min) || price_data.raw_container_price_min !== price_data.raw_container_price_max,
+				default_config       = {
+					'show_total_string': wc_mnm_number_round( price_data.totals.price ) !== wc_mnm_number_round( price_data.raw_container_price_min ) || price_data.raw_container_price_min !== price_data.raw_container_price_max,
 					'tag': 'p'
-				};
+			};
 
 			config = 'undefined' === typeof (config) ? {} : config;
-			config = $.extend(default_config, config);
+			config = $.extend( default_config, config );
 
 			var total_string = config.show_total_string ? '<span class="total">' + wc_mnm_params.i18n_total + '</span>' : '';
 
 			// Non-recurring price html data.
-			var formatted_price = price_data.totals.price === 0.0 && price_data.show_free_string === 'yes' ? wc_mnm_params.i18n_free : wc_mnm_price_format(price_data.totals.price),
-				formatted_regular_price = wc_mnm_price_format(price_data.totals.price === price_data.subtotals.price ? price_data.totals.regular_price : price_data.subtotals.price),
-				formatted_suffix = container.get_formatted_price_suffix(price_data);
+			var formatted_price         = price_data.totals.price === 0.0 && price_data.show_free_string === 'yes' ? wc_mnm_params.i18n_free : wc_mnm_price_format( price_data.totals.price ),
+				formatted_regular_price = wc_mnm_price_format( price_data.totals.price === price_data.subtotals.price ? price_data.totals.regular_price : price_data.subtotals.price ),
+				formatted_suffix        = container.get_formatted_price_suffix( price_data );
 
 			if (price_data.totals.regular_price > price_data.totals.price) {
-				formatted_price = wc_mnm_params.i18n_strikeout_price_string.replace('%f', formatted_regular_price).replace('%t', formatted_price);
+				formatted_price = wc_mnm_params.i18n_strikeout_price_string.replace( '%f', formatted_regular_price ).replace( '%t', formatted_price );
 			}
 
-			container_price_html = wc_mnm_params.i18n_price_format.replace('%t', total_string).replace('%p', formatted_price).replace('%s', formatted_suffix);
-			container_price_html = '<' + config.tag + ' class="price">' + price_data.price_string.replace('%s', container_price_html) + '</' + config.tag + '>';
+			container_price_html = wc_mnm_params.i18n_price_format.replace( '%t', total_string ).replace( '%p', formatted_price ).replace( '%s', formatted_suffix );
+			container_price_html = '<' + config.tag + ' class="price">' + price_data.price_string.replace( '%s', container_price_html ) + '</' + config.tag + '>';
 
 			return container_price_html;
 		};
@@ -673,20 +683,20 @@ jQuery.fn.wc_get_mnm_script = function () {
 		 */
 		this.get_status_html = function (price_data_array, config) {
 
-			var price_data = 'undefined' === typeof (price_data_array) ? container.price_data : price_data_array,
+			var price_data     = 'undefined' === typeof (price_data_array) ? container.price_data : price_data_array,
 				default_config = {
-					'show_total_string': wc_mnm_number_round(price_data.totals.price) !== wc_mnm_number_round(price_data.raw_container_price_min) || price_data.raw_container_price_min !== price_data.raw_container_price_max,
+					'show_total_string': wc_mnm_number_round( price_data.totals.price ) !== wc_mnm_number_round( price_data.raw_container_price_min ) || price_data.raw_container_price_min !== price_data.raw_container_price_max,
 					'tag': 'span'
-				};
+			};
 
 			config = 'undefined' === typeof (config) ? {} : config;
-			config = $.extend(default_config, config);
+			config = $.extend( default_config, config );
 
-			var mode = container.$mnm_cart.data('validation_mode');
+			var mode = container.$mnm_cart.data( 'validation_mode' );
 
 			// Attempt to grab formatted total from data attributes, for compat alternative validation mini-extensions.
-			var qty = container.$mnm_cart.data('total_' + mode);
-			var formatted_total = container.$mnm_cart.data('formatted_total_' + mode);
+			var qty             = container.$mnm_cart.data( 'total_' + mode );
+			var formatted_total = container.$mnm_cart.data( 'formatted_total_' + mode );
 
 			// If not, rely on quantity count.
 			if ('undefined' === typeof qty || 'undefined' === typeof formatted_total) {
@@ -695,16 +705,16 @@ jQuery.fn.wc_get_mnm_script = function () {
 
 				if (container.api.get_max_container_size()) {
 					formatted_total = 1 === container.api.get_max_container_size() ? wc_mnm_params.i18n_quantity_format_counter_single : wc_mnm_params.i18n_quantity_format_counter;
-					formatted_total = formatted_total.replace('%max', container.api.get_max_container_size());
+					formatted_total = formatted_total.replace( '%max', container.api.get_max_container_size() );
 				} else {
 					formatted_total = 1 === qty ? wc_mnm_params.i18n_quantity_format_single : wc_mnm_params.i18n_quantity_format;
 				}
 
-				formatted_total = formatted_total.replace('%s', qty);
+				formatted_total = formatted_total.replace( '%s', qty );
 
 			}
 
-			return wc_mnm_params.i18n_status_format.replace('%v', container.get_price_html(price_data, config)).replace('%s', formatted_total);
+			return wc_mnm_params.i18n_status_format.replace( '%v', container.get_price_html( price_data, config ) ).replace( '%s', formatted_total );
 		};
 
 		/**
@@ -714,26 +724,26 @@ jQuery.fn.wc_get_mnm_script = function () {
 
 			qty = typeof (qty) === 'undefined' ? 1 : qty;
 
-			var tax_ratio_incl = 'undefined' !== typeof tax_ratios && tax_ratios.hasOwnProperty('incl') ? Number(tax_ratios.incl) : false,
-				tax_ratio_excl = 'undefined' !== typeof tax_ratios && tax_ratios.hasOwnProperty('excl') ? Number(tax_ratios.excl) : false,
-				totals = {
+			var tax_ratio_incl = 'undefined' !== typeof tax_ratios && tax_ratios.hasOwnProperty( 'incl' ) ? Number( tax_ratios.incl ) : false,
+				tax_ratio_excl = 'undefined' !== typeof tax_ratios && tax_ratios.hasOwnProperty( 'excl' ) ? Number( tax_ratios.excl ) : false,
+				totals         = {
 					price: qty * price,
 					regular_price: qty * regular_price,
 					price_incl_tax: qty * price,
 					price_excl_tax: qty * price
-				};
+			};
 
 			if (tax_ratio_incl && tax_ratio_excl) {
 
-				totals.price_incl_tax = wc_mnm_number_round(totals.price * tax_ratio_incl);
-				totals.price_excl_tax = wc_mnm_number_round(totals.price * tax_ratio_excl);
+				totals.price_incl_tax = wc_mnm_number_round( totals.price * tax_ratio_incl );
+				totals.price_excl_tax = wc_mnm_number_round( totals.price * tax_ratio_excl );
 
 				if (wc_mnm_params.tax_display_shop === 'incl') {
-					totals.price = totals.price_incl_tax;
-					totals.regular_price = wc_mnm_number_round(totals.regular_price * tax_ratio_incl);
+					totals.price         = totals.price_incl_tax;
+					totals.regular_price = wc_mnm_number_round( totals.regular_price * tax_ratio_incl );
 				} else {
-					totals.price = totals.price_excl_tax;
-					totals.regular_price = wc_mnm_number_round(totals.regular_price * tax_ratio_excl);
+					totals.price         = totals.price_excl_tax;
+					totals.regular_price = wc_mnm_number_round( totals.regular_price * tax_ratio_excl );
 				}
 			}
 
@@ -745,7 +755,7 @@ jQuery.fn.wc_get_mnm_script = function () {
 		 */
 		this.get_quantity = function () {
 			var qty = container.$mnm_quantity.length > 0 ? container.$mnm_quantity.val() : 1;
-			return isNaN(qty) ? 1 : parseInt(qty, 10);
+			return isNaN( qty ) ? 1 : parseInt( qty, 10 );
 		};
 
 		/**
@@ -771,63 +781,63 @@ jQuery.fn.wc_get_mnm_script = function () {
 		 */
 		this.initialize = function () {
 
-			this.$mnm_data = this.$mnm_form.find('.mnm_data');
+			this.$mnm_data = this.$mnm_form.find( '.mnm_data' );
 			this.$mnm_cart = this.$mnm_data; // For backcompat.
 
 			if ('undefined' === typeof this.$mnm_data) {
 				return false;
 			}
 
-			this.container_id = this.$mnm_data.data('container_id');
+			this.container_id = this.$mnm_data.data( 'container_id' );
 
 			if ('undefined' === typeof this.container_id) {
 				return false;
 			}
 
 			// Store script ID.
-			this.$mnm_form.data('script_id', this.container_id);
+			this.$mnm_form.data( 'script_id', this.container_id );
 
 			// Find relevant elements.
-			this.$mnm_items = this.$mnm_form.find('.mnm_item');
-			this.$mnm_price = this.$mnm_form.find('.mnm_price');
-			this.$mnm_reset = this.$mnm_form.find('.mnm_reset');
-			this.$mnm_button = this.$mnm_form.find('.single_add_to_cart_button');
+			this.$mnm_items  = this.$mnm_form.find( '.mnm_item' );
+			this.$mnm_price  = this.$mnm_form.find( '.mnm_price' );
+			this.$mnm_reset  = this.$mnm_form.find( '.mnm_reset' );
+			this.$mnm_button = this.$mnm_form.find( '.single_add_to_cart_button' );
 
-			if (!this.$mnm_button.length) {
-				this.$mnm_button = this.$mnm_form.find(':submit');
+			if ( ! this.$mnm_button.length) {
+				this.$mnm_button = this.$mnm_form.find( ':submit' );
 			}
 
-			this.$mnm_message = this.$mnm_data.find('.mnm_message');
-			this.$mnm_message_content = this.$mnm_message.find('.mnm_message_content');
-			this.$mnm_quantity = this.$mnm_data.find('.mnm_wrap input.qty');
+			this.$mnm_message         = this.$mnm_data.find( '.mnm_message' );
+			this.$mnm_message_content = this.$mnm_message.find( '.mnm_message_content' );
+			this.$mnm_quantity        = this.$mnm_data.find( '.mnm_wrap input.qty' );
 
-			this.$addons_totals = this.$mnm_data.find('#product-addons-total');
+			this.$addons_totals     = this.$mnm_data.find( '#product-addons-total' );
 			this.show_addons_totals = false;
 
 			this.child_items = [];
 
 			this.price_data = [];
 
-			if (this.$mnm_data.data('price_data')) {
+			if (this.$mnm_data.data( 'price_data' )) {
 				try {
-					this.price_data = JSON.parse(this.$mnm_data.data('price_data'));
+					this.price_data = JSON.parse( this.$mnm_data.data( 'price_data' ) );
 				} catch (e) {
-					this.price_data = this.$mnm_data.data('price_data');
+					this.price_data = this.$mnm_data.data( 'price_data' );
 				}
 			}
 
-			this.container_size = 0;
-			this.min_container_size = this.$mnm_data.data('min_container_size');
-			this.max_container_size = this.$mnm_data.data('max_container_size');
-			this.container_config = [];
+			this.container_size     = 0;
+			this.min_container_size = this.$mnm_data.data( 'min_container_size' );
+			this.max_container_size = this.$mnm_data.data( 'max_container_size' );
+			this.container_config   = [];
 
-			this.update_mnm_timer = false;
+			this.update_mnm_timer   = false;
 			this.update_price_timer = false;
 
-			this.validation_context = this.$mnm_form.data('validation_context') || 'add-to-cart'; // NB: Context is intentionally on the <form> element for future compat with Variable MNM.
-			this.validation_mode = this.$mnm_data.data('validation_mode') || 'quantity';
+			this.validation_context  = this.$mnm_form.data( 'validation_context' ) || 'add-to-cart'; // NB: Context is intentionally on the <form> element for future compat with Variable MNM.
+			this.validation_mode     = this.$mnm_data.data( 'validation_mode' ) || 'quantity';
 			this.validation_messages = [];
-			this.status_messages = [];
+			this.status_messages     = [];
 
 			/**
 			 * Initial states and loading.
@@ -838,21 +848,21 @@ jQuery.fn.wc_get_mnm_script = function () {
 				if (this.$mnm_message.length > 0) {
 					this.$mnm_message.remove();
 				}
-				this.$mnm_price.after('<div class="mnm_message woocommerce-message" aria-live="polite"><ul class="msg mnm_message_content"></ul></div></div>');
-				this.$mnm_message = this.$mnm_data.find('.mnm_message');
-				this.$mnm_message_content = this.$mnm_message.find('.mnm_message_content');
+				this.$mnm_price.after( '<div class="mnm_message woocommerce-message" aria-live="polite"><ul class="msg mnm_message_content"></ul></div></div>' );
+				this.$mnm_message         = this.$mnm_data.find( '.mnm_message' );
+				this.$mnm_message_content = this.$mnm_message.find( '.mnm_message_content' );
 			}
 
 			// Price suffix data.
-			this.price_data.suffix_exists = wc_mnm_params.price_display_suffix !== '';
-			this.price_data.suffix = wc_mnm_params.price_display_suffix !== '' ? ' <small class="woocommerce-price-suffix">' + wc_mnm_params.price_display_suffix + '</small>' : '';
-			this.price_data.suffix_contains_price_incl = wc_mnm_params.price_display_suffix.indexOf('{price_including_tax}') > -1;
-			this.price_data.suffix_contains_price_excl = wc_mnm_params.price_display_suffix.indexOf('{price_excluding_tax}') > -1;
+			this.price_data.suffix_exists              = wc_mnm_params.price_display_suffix !== '';
+			this.price_data.suffix                     = wc_mnm_params.price_display_suffix !== '' ? ' <small class="woocommerce-price-suffix">' + wc_mnm_params.price_display_suffix + '</small>' : '';
+			this.price_data.suffix_contains_price_incl = wc_mnm_params.price_display_suffix.indexOf( '{price_including_tax}' ) > -1;
+			this.price_data.suffix_contains_price_excl = wc_mnm_params.price_display_suffix.indexOf( '{price_excluding_tax}' ) > -1;
 
 			// Totals visible in Addons 3.0.x?
-			if (1 === this.$addons_totals.data('show-sub-total') && wc_mnm_params.addons_three_support === 'yes') {
+			if (1 === this.$addons_totals.data( 'show-sub-total' ) && wc_mnm_params.addons_three_support === 'yes') {
 				// Ensure addons ajax is not triggered at all, as we calculate tax on the client side.
-				this.$addons_totals.data('show-sub-total', 0);
+				this.$addons_totals.data( 'show-sub-total', 0 );
 				this.show_addons_totals = true;
 			}
 
@@ -869,7 +879,7 @@ jQuery.fn.wc_get_mnm_script = function () {
 			/**
 			 * Initialize.
 			 */
-			this.$mnm_form.trigger('wc-mnm-initializing', [this]);
+			this.$mnm_form.trigger( 'wc-mnm-initializing', [this] );
 
 			// Update config and prices.
 			this.update_container_task();
@@ -877,7 +887,7 @@ jQuery.fn.wc_get_mnm_script = function () {
 			this.is_initialized = true;
 
 			// Let 3rd party know that we are ready to rock.
-			this.$mnm_form.trigger('wc-mnm-initialized', [this]);
+			this.$mnm_form.trigger( 'wc-mnm-initialized', [this] );
 
 		};
 
@@ -889,9 +899,9 @@ jQuery.fn.wc_get_mnm_script = function () {
 			container.$mnm_items.each(
 				function (index) {
 
-					container.child_items[index] = new WC_MNM_Child_Item(container, $(this), index);
+					container.child_items[index] = new WC_MNM_Child_Item( container, $( this ), index );
 
-					container.bind_child_item_event_handlers(container.child_items[index]);
+					container.bind_child_item_event_handlers( container.child_items[index] );
 
 				}
 			);
@@ -900,9 +910,9 @@ jQuery.fn.wc_get_mnm_script = function () {
 		/**
 		 * Prevent submit on pressing Enter key.
 		 */
-		this.onKeypress = function( e ) {
+		this.onKeypress = function ( e ) {
 			if ( 'Enter' === e.key ) {
-				e.preventDefault();				
+				e.preventDefault();
 			}
 		};
 
@@ -924,58 +934,58 @@ jQuery.fn.wc_get_mnm_script = function () {
 
 			// When container is updated, tell addons the price.
 			if (typeof (triggered_by) === 'undefined') {
-				container.$addons_totals.data('price', container.api.get_container_price('price'));
-				container.$mnm_data.trigger('woocommerce-product-addons-update');
+				container.$addons_totals.data( 'price', container.api.get_container_price( 'price' ) );
+				container.$mnm_data.trigger( 'woocommerce-product-addons-update' );
 				return false;
 			}
 
 			// Triggered by addons.
 			if (container.show_addons_totals) {
 
-				var price_html = '',
-					html = '',
-					price_data = $.extend(true, {}, container.price_data),
-					qty = container.get_quantity(),
-					tax_ratios = price_data.base_price_tax,
-					addons = container.$addons_totals.data('price_data'),
-					addons_total = 0.0,
-					addons_length = 0,
-					addons_prices = {
+				var price_html      = '',
+					html            = '',
+					price_data      = $.extend( true, {}, container.price_data ),
+					qty             = container.get_quantity(),
+					tax_ratios      = price_data.base_price_tax,
+					addons          = container.$addons_totals.data( 'price_data' ),
+					addons_total    = 0.0,
+					addons_length   = 0,
+					addons_prices   = {
 						price: 0.0,
 						regular_price: 0.0,
 						price_incl_tax: 0.0,
 						price_excl_tax: 0.0
-					},
+				},
 					combined_totals = {
 						price: 0.0,
 						regular_price: 0.0,
 						price_incl_tax: 0.0,
 						price_excl_tax: 0.0
-					};
+				};
 
 				// Calculate Addons Totals.
 				if (typeof (addons) !== 'undefined' && addons.length > 0) {
 					addons_length = addons.length;
 					for (var i = 0; i < addons_length; i++) {
-						addons_total += Number(addons[i].cost);
+						addons_total += Number( addons[i].cost );
 					}
 				}
 
 				// Quantity is 1 as addons already calculates totals based on quantity.
-				addons_prices = container.get_taxed_totals(addons_total, addons_total, tax_ratios, 1);
+				addons_prices = container.get_taxed_totals( addons_total, addons_total, tax_ratios, 1 );
 
 				// Update addons prices in container.
 				price_data.addons_prices = addons_prices;
 
 				if (addons_prices.price > 0) {
 
-					combined_totals.price = qty * price_data.subtotals.price + addons_prices.price;
-					combined_totals.regular_price = qty * price_data.subtotals.price + addons_prices.price;
+					combined_totals.price          = qty * price_data.subtotals.price + addons_prices.price;
+					combined_totals.regular_price  = qty * price_data.subtotals.price + addons_prices.price;
 					combined_totals.price_incl_tax = qty * price_data.subtotals.price_incl_tax + addons_prices.price_incl_tax;
 					combined_totals.price_excl_tax = qty * price_data.subtotals.price_excl_tax + addons_prices.price_excl_tax;
 
 					price_data.subtotals = combined_totals;
-					price_data.totals = combined_totals;
+					price_data.totals    = combined_totals;
 
 					// Done!
 					var config = {
@@ -983,13 +993,13 @@ jQuery.fn.wc_get_mnm_script = function () {
 						'show_total_string': false
 					};
 
-					price_html = container.get_price_html(price_data, config);
+					price_html = container.get_price_html( price_data, config );
 
 					// Alternative Addons Markup.
-					html = '<dl class="product-addon-totals"><dt>' + wc_mnm_params.i18n_addon_total + '</dt><dd><strong><span class="amount">' + wc_mnm_price_format(addons_prices.price) + '</span></strong></dd>';
+					html  = '<dl class="product-addon-totals"><dt>' + wc_mnm_params.i18n_addon_total + '</dt><dd><strong><span class="amount">' + wc_mnm_price_format( addons_prices.price ) + '</span></strong></dd>';
 					html += '<dt>' + wc_mnm_params.i18n_addons_total + '</dt><dd><strong>' + price_html + '</strong></dd></dl>';
 
-					container.$addons_totals.html(html);
+					container.$addons_totals.html( html );
 
 				} else {
 					container.$addons_totals.empty();
@@ -1004,11 +1014,11 @@ jQuery.fn.wc_get_mnm_script = function () {
 		 */
 		this.update_container = function (triggered_by, config) {
 
-			clearTimeout(container.update_mnm_timer);
+			clearTimeout( container.update_mnm_timer );
 
 			container.update_mnm_timer = setTimeout(
 				function () {
-					container.update_container_task(triggered_by, config);
+					container.update_container_task( triggered_by, config );
 				},
 				10
 			);
@@ -1024,14 +1034,14 @@ jQuery.fn.wc_get_mnm_script = function () {
 			this.reset_messages();
 
 			// Get config.
-			this.update_quantities(triggered_by, config);
+			this.update_quantities( triggered_by, config );
 
 			// Validate total quantites.
 			this.validate();
 
 			// Calculate totals.
 			if (false === this.is_initialized || (container.api.is_purchasable() && container.api.is_priced_per_product())) {
-				this.update_totals(triggered_by);
+				this.update_totals( triggered_by );
 			}
 
 			// Update status/notices.
@@ -1039,7 +1049,7 @@ jQuery.fn.wc_get_mnm_script = function () {
 				this.update_ui();
 			}
 
-			this.$mnm_form.trigger('wc-mnm-form-updated', [this]);
+			this.$mnm_form.trigger( 'wc-mnm-form-updated', [this] );
 
 		};
 
@@ -1048,7 +1058,7 @@ jQuery.fn.wc_get_mnm_script = function () {
 		 */
 		this.update_quantities = function (triggered_by, config) {
 
-			var total_qty = 0;
+			var total_qty  = 0;
 			var new_config = [];
 
 			if ('undefined' === typeof (config)) {
@@ -1059,7 +1069,7 @@ jQuery.fn.wc_get_mnm_script = function () {
 					function (index, child_item) {
 
 						var product_qty = child_item.get_quantity();
-						var product_id = child_item.get_item_id();
+						var product_id  = child_item.get_item_id();
 
 						new_config.push(
 							{
@@ -1080,11 +1090,11 @@ jQuery.fn.wc_get_mnm_script = function () {
 					config,
 					function (index, data) {
 
-						if (Number.isInteger(data)) {
-							data = { product_id: index, product_qty: parseInt(data, 10) };
+						if (Number.isInteger( data )) {
+							data = { product_id: index, product_qty: parseInt( data, 10 ) };
 						}
 
-						new_config.push(data);
+						new_config.push( data );
 						total_qty += data.product_qty;
 					}
 				);
@@ -1092,15 +1102,15 @@ jQuery.fn.wc_get_mnm_script = function () {
 			}
 
 			// Set the new config.
-			container.api.set_container_config(new_config);
+			container.api.set_container_config( new_config );
 
 			// Set the container size.
-			container.api.set_container_size(total_qty);
+			container.api.set_container_size( total_qty );
 
 			// Serialize the config to the Add to cart button for ajax add to cart compat.
-			this.$mnm_button.data(this.$mnm_data.data('input_name'), this.api.get_container_config(false));
+			this.$mnm_button.data( this.$mnm_data.data( 'input_name' ), this.api.get_container_config( false ) );
 
-			this.$mnm_form.trigger('wc-mnm-container-quantities-updated', [this, triggered_by]);
+			this.$mnm_form.trigger( 'wc-mnm-container-quantities-updated', [this, triggered_by] );
 
 		};
 
@@ -1108,7 +1118,7 @@ jQuery.fn.wc_get_mnm_script = function () {
 		 * Refresh totals after changes to addons.
 		 */
 		this.updated_addons_handler = function (triggered_by) {
-			container.update_addons_totals(triggered_by);
+			container.update_addons_totals( triggered_by );
 			triggered_by.stopPropagation();
 		};
 
@@ -1117,7 +1127,7 @@ jQuery.fn.wc_get_mnm_script = function () {
 		 */
 		this.updated_totals = function () {
 
-			clearTimeout(container.update_price_timer);
+			clearTimeout( container.update_price_timer );
 
 			container.update_price_timer = setTimeout(
 				function () {
@@ -1138,7 +1148,7 @@ jQuery.fn.wc_get_mnm_script = function () {
 				container.update_addons_totals();
 			}
 
-			container.$mnm_form.trigger('wc-mnm-updated-totals', [container]);
+			container.$mnm_form.trigger( 'wc-mnm-updated-totals', [container] );
 
 		};
 
@@ -1151,52 +1161,52 @@ jQuery.fn.wc_get_mnm_script = function () {
 
 			// Update price.
 			if (container_status_html !== '') {
-				this.$mnm_price.html(container_status_html);
-				this.$mnm_price.slideDown(200);
+				this.$mnm_price.html( container_status_html );
+				this.$mnm_price.slideDown( 200 );
 			} else {
 				// Hide price.
-				this.$mnm_price.slideUp(200);
+				this.$mnm_price.slideUp( 200 );
 			}
 
 			if (this.passes_validation()) {
 
 				// Enable add to cart button.
-				this.$mnm_button.prop('disabled', false).removeClass('disabled');
-				this.$mnm_form.trigger('wc-mnm-display-add-to-cart-button', [container]);
+				this.$mnm_button.prop( 'disabled', false ).removeClass( 'disabled' );
+				this.$mnm_form.trigger( 'wc-mnm-display-add-to-cart-button', [container] );
 
 			} else {
 
 				// Disable add to cart button.
-				this.$mnm_button.prop('disabled', true).addClass('disabled');
-				this.$mnm_form.trigger('wc-mnm-hide-add-to-cart-button', [container]);
+				this.$mnm_button.prop( 'disabled', true ).addClass( 'disabled' );
+				this.$mnm_form.trigger( 'wc-mnm-hide-add-to-cart-button', [container] );
 			}
 
 			// Display the status/error messages.
-			if (this.has_status_messages() || !this.passes_validation()) {
+			if (this.has_status_messages() || ! this.passes_validation()) {
 
-				var $messages = $('<ul/>');
-				var messages = this.get_messages('all');
+				var $messages = $( '<ul/>' );
+				var messages  = this.get_messages( 'all' );
 
 				if (messages.length > 0) {
 					$.each(
 						messages,
 						function (i, message) {
-							$messages.append($('<li/>').html(message));
+							$messages.append( $( '<li/>' ).html( message ) );
 						}
 					);
 				}
 
-				this.$mnm_message_content.html($messages.html());
+				this.$mnm_message_content.html( $messages.html() );
 
-				this.$mnm_message.slideDown(200);
+				this.$mnm_message.slideDown( 200 );
 
 			} else {
-				this.$mnm_message.slideUp(200);
+				this.$mnm_message.slideUp( 200 );
 			}
 
 			// Change message style based on validation.
-			this.$mnm_data.toggleClass('passes_validation', this.passes_validation());
-			this.$mnm_message.toggleClass('woocommerce-error', !this.passes_validation());
+			this.$mnm_data.toggleClass( 'passes_validation', this.passes_validation() );
+			this.$mnm_message.toggleClass( 'woocommerce-error', ! this.passes_validation() );
 
 			// Hide/Show Reset Link.
 			if (container.api.get_container_size() > 0) {
@@ -1220,7 +1230,7 @@ jQuery.fn.wc_get_mnm_script = function () {
 				}
 			);
 
-			if (false !== container.$mnm_reset.triggerHandler('wc-mnm-reset-configuration', [container])) {
+			if (false !== container.$mnm_reset.triggerHandler( 'wc-mnm-reset-configuration', [container] )) {
 				container.update_container();
 			}
 
@@ -1233,7 +1243,7 @@ jQuery.fn.wc_get_mnm_script = function () {
 
 			if ('undefined' === typeof type) {
 				this.validation_messages = [];
-				this.status_messages = [];
+				this.status_messages     = [];
 			} else if ('error' === type) {
 				this.validation_messages = [];
 			} else if ('status' === type) {
@@ -1247,14 +1257,14 @@ jQuery.fn.wc_get_mnm_script = function () {
 		 */
 		this.selected_quantity_message = function (qty) {
 			var message = qty === 1 ? wc_mnm_params.i18n_qty_message_single : wc_mnm_params.i18n_qty_message;
-			return message.replace('%s', qty);
+			return message.replace( '%s', qty );
 		};
 
 		/**
 		 * Shuts down events, actions and filters managed by this script object.
 		 */
 		this.shutdown = function () {
-			this.$mnm_form.find('*').off('.wc-mnm-form');
+			this.$mnm_form.find( '*' ).off( '.wc-mnm-form' );
 		};
 
 		/**
@@ -1274,7 +1284,7 @@ jQuery.fn.wc_get_mnm_script = function () {
 		 */
 		this.update_totals = function (triggered_by) {
 
-			this.calculate_subtotals(triggered_by);
+			this.calculate_subtotals( triggered_by );
 
 			if (container.dirty_subtotals || false === container.is_initialized) {
 				container.dirty_subtotals = false;
@@ -1291,10 +1301,10 @@ jQuery.fn.wc_get_mnm_script = function () {
 			var min_container_size = this.api.get_min_container_size();
 			var max_container_size = this.api.get_max_container_size();
 			var total_qty          = this.api.get_container_size();
-			var qty_message        = this.selected_quantity_message(total_qty); // "Selected X total".
+			var qty_message        = this.selected_quantity_message( total_qty ); // "Selected X total".
 			var error_message      = '';
 			var valid_message      = '';
-			var validation_status  = container.is_initialized ? '': container.api.get_validation_status();
+			var validation_status  = container.is_initialized ? '' : container.api.get_validation_status();
 
 			// Validation.
 			switch (true) {
@@ -1305,8 +1315,8 @@ jQuery.fn.wc_get_mnm_script = function () {
 
 					if (total_qty !== min_container_size) {
 						error_message = min_container_size === 1 ? wc_mnm_params.i18n_qty_error_single : wc_mnm_params.i18n_qty_error;
-						error_message = error_message.replace('%s', min_container_size);
-						this.add_message(error_message.replace('%v', qty_message), 'error');
+						error_message = error_message.replace( '%s', min_container_size );
+						this.add_message( error_message.replace( '%v', qty_message ), 'error' );
 					}
 
 					break;
@@ -1318,8 +1328,8 @@ jQuery.fn.wc_get_mnm_script = function () {
 
 					if (total_qty > max_container_size) {
 						error_message = max_container_size > 1 ? wc_mnm_params.i18n_max_qty_error : wc_mnm_params.i18n_max_qty_error_singular;
-						error_message = error_message.replace('%max', max_container_size).replace('%v', qty_message);
-						this.add_message(error_message, 'error');
+						error_message = error_message.replace( '%max', max_container_size ).replace( '%v', qty_message );
+						this.add_message( error_message, 'error' );
 					}
 
 					break;
@@ -1331,8 +1341,8 @@ jQuery.fn.wc_get_mnm_script = function () {
 
 					if (total_qty < min_container_size || total_qty > max_container_size) {
 						error_message = wc_mnm_params.i18n_min_max_qty_error;
-						error_message = error_message.replace('%max', max_container_size).replace('%min', min_container_size).replace('%v', qty_message);
-						this.add_message(error_message, 'error');
+						error_message = error_message.replace( '%max', max_container_size ).replace( '%min', min_container_size ).replace( '%v', qty_message );
+						this.add_message( error_message, 'error' );
 					}
 					break;
 
@@ -1343,42 +1353,37 @@ jQuery.fn.wc_get_mnm_script = function () {
 
 					if (total_qty < min_container_size) {
 						error_message = min_container_size > 1 ? wc_mnm_params.i18n_min_qty_error : wc_mnm_params.i18n_min_qty_error_singular;
-						error_message = error_message.replace('%min', min_container_size).replace('%v', qty_message);
-						this.add_message(error_message, 'error');
+						error_message = error_message.replace( '%min', min_container_size ).replace( '%v', qty_message );
+						this.add_message( error_message, 'error' );
 					}
 
 					break;
 
 			}
 
-
-			
 			if ( this.passes_validation() ) {
-				
+
 				// Prompt users to change their config when editing.
 				if ( 'edit' === container.validation_context && ! container.is_initialized ) {
 
-					this.add_message( wc_mnm_params.i18n_change_config_prompt.replace('%v', qty_message), 'error' );
+					this.add_message( wc_mnm_params.i18n_change_config_prompt.replace( '%v', qty_message ), 'error' );
 
 					// Add selected qty status message if there are no error messages.
 				} else if (this.passes_validation() && valid_message !== '') {
-	
-					valid_message = valid_message.replace('%max', max_container_size).replace('%min', min_container_size);
-	
-					this.add_message(valid_message.replace('%v', qty_message));
-				}
 
+					valid_message = valid_message.replace( '%max', max_container_size ).replace( '%min', min_container_size );
+
+					this.add_message( valid_message.replace( '%v', qty_message ) );
+				}
 
 			}
 
-			
-
 			// Let mini extensions add their own error/status messages.
-			this.$mnm_form.trigger('wc-mnm-validation', [container, total_qty]);
+			this.$mnm_form.trigger( 'wc-mnm-validation', [container, total_qty] );
 
 			// Validation status changed?
 			if (validation_status !== container.api.get_validation_status()) {
-				this.$mnm_form.triggerHandler('wc-mnm-validation-status-changed', [container]);
+				this.$mnm_form.triggerHandler( 'wc-mnm-validation-status-changed', [container] );
 			}
 
 		};
@@ -1416,7 +1421,7 @@ jQuery.fn.wc_get_mnm_script = function () {
 		 * Schedules an update of the container totals.
 		 */
 		this.update = function (triggered_by) {
-			this.update_container(triggered_by);
+			this.update_container( triggered_by );
 		};
 
 	} // End WC_MNM_Container.
@@ -1431,26 +1436,26 @@ jQuery.fn.wc_get_mnm_script = function () {
 		 */
 		this.initialize = function () {
 
-			this.$self               = $mnm_item;
-			this.$mnm_item_qty       = $mnm_item.find(':input.qty');
-			this.$plus_button        = $mnm_item.find('.button--plus');
-			this.$minus_button       = $mnm_item.find('.button--minus');
-			this.$item_qty_div       = $mnm_item.find('.quantity');
-			this.$mnm_item_data      = $mnm_item.find('.mnm-item-data');
-			this.$mnm_item_images    = $mnm_item.find('.mnm_child_product_images');
-			this.$msg_html           = $mnm_item.find('.wc_mnm_child_item_error');
+			this.$self            = $mnm_item;
+			this.$mnm_item_qty    = $mnm_item.find( ':input.qty' );
+			this.$plus_button     = $mnm_item.find( '.button--plus' );
+			this.$minus_button    = $mnm_item.find( '.button--minus' );
+			this.$item_qty_div    = $mnm_item.find( '.quantity' );
+			this.$mnm_item_data   = $mnm_item.find( '.mnm-item-data' );
+			this.$mnm_item_images = $mnm_item.find( '.mnm_child_product_images' );
+			this.$msg_html        = $mnm_item.find( '.wc_mnm_child_item_error' );
 
-			this.child_item_timer    = false;
-			this.child_item_index    = index;
-			this.mnm_item_index      = index;
-			this.mnm_item_id         = this.$mnm_item_data.data('mnm_item_id');
+			this.child_item_timer = false;
+			this.child_item_index = index;
+			this.mnm_item_index   = index;
+			this.mnm_item_id      = this.$mnm_item_data.data( 'mnm_item_id' );
 
-			this.sold_individually   = typeof (container.price_data.is_sold_individually[this.mnm_item_id]) === 'undefined' ? false: container.price_data.is_sold_individually[this.mnm_item_id] === 'yes';
+			this.sold_individually = typeof (container.price_data.is_sold_individually[this.mnm_item_id]) === 'undefined' ? false : container.price_data.is_sold_individually[this.mnm_item_id] === 'yes';
 
 			this.validation_messages = [];
 
 			// Set original quantity.
-			this.$mnm_item_data.data('original_quantity', this.get_quantity());
+			this.$mnm_item_data.data( 'original_quantity', this.get_quantity() );
 
 			this.init_scripts();
 
@@ -1472,64 +1477,64 @@ jQuery.fn.wc_get_mnm_script = function () {
 
 			switch (type) {
 				case 'checkbox':
-					qty = this.$mnm_item_qty.is(':checked') ? this.$mnm_item_qty.val() : 0;
+					qty = this.$mnm_item_qty.is( ':checked' ) ? this.$mnm_item_qty.val() : 0;
 					break;
 				case 'select':
-					qty = this.$mnm_item_qty.children('option:selected').val();
+					qty = this.$mnm_item_qty.children( 'option:selected' ).val();
 					break;
 				default:
 					qty = this.$mnm_item_qty.val();
 			}
 
-			return qty ? parseInt(qty, 10) : 0;
+			return qty ? parseInt( qty, 10 ) : 0;
 		};
 
 		/**
 		 * Get the original quantity from data attributes so we can enable reset.
 		 */
 		this.get_original_quantity = function () {
-			var original_quantity = this.$mnm_item_data.data('original_quantity');
-			return original_quantity ? parseInt(original_quantity, 10) : 0;
+			var original_quantity = this.$mnm_item_data.data( 'original_quantity' );
+			return original_quantity ? parseInt( original_quantity, 10 ) : 0;
 		};
 
 		/**
 		 * Get the previous quantity from data attributes in case new quantity is not valid.
 		 */
 		this.get_prev_quantity = function () {
-			var qty = this.$self.data('prev_quantity');
-			return 'undefined' !== typeof qty ? parseInt(qty, 10) : this.get_original_quantity();
+			var qty = this.$self.data( 'prev_quantity' );
+			return 'undefined' !== typeof qty ? parseInt( qty, 10 ) : this.get_original_quantity();
 		};
 
 		/**
 		 * Handle the minus button click
 		 */
-		this.decrease_quantity = function() {
+		this.decrease_quantity = function () {
 			var qty = this.get_quantity(),
-			min = parseFloat(this.$mnm_item_qty.attr('min')),
-			max = parseFloat(this.$mnm_item_qty.attr('max')),
-			step = parseFloat(this.$mnm_item_qty.attr('step'));
+			min     = parseFloat( this.$mnm_item_qty.attr( 'min' ) ),
+			max     = parseFloat( this.$mnm_item_qty.attr( 'max' ) ),
+			step    = parseFloat( this.$mnm_item_qty.attr( 'step' ) );
 
 			if ( qty - step <= min ) {
 				this.update_quantity( min );
 			} else {
-			    this.update_quantity( qty - step );
+				this.update_quantity( qty - step );
 			}
 
 			// Conditionally disable buttons.
-			this.$minus_button.prop('disabled',this.get_quantity() === min);
-			this.$plus_button.prop('disabled', this.get_quantity() >= max);
+			this.$minus_button.prop( 'disabled',this.get_quantity() === min );
+			this.$plus_button.prop( 'disabled', this.get_quantity() >= max );
 
 		};
 
 		/**
 		 * Handle the plus button click
 		 */
-		this.increase_quantity = function() {
+		this.increase_quantity = function () {
 			// Restrict to min/max limits.
 			var qty = this.get_quantity(),
-			min = parseFloat(this.$mnm_item_qty.attr('min')),
-			max = parseFloat(this.$mnm_item_qty.attr('max')),
-			step = parseFloat(this.$mnm_item_qty.attr('step'));
+			min     = parseFloat( this.$mnm_item_qty.attr( 'min' ) ),
+			max     = parseFloat( this.$mnm_item_qty.attr( 'max' ) ),
+			step    = parseFloat( this.$mnm_item_qty.attr( 'step' ) );
 
 			if ( qty + step > max ) {
 				this.update_quantity( max );
@@ -1538,90 +1543,93 @@ jQuery.fn.wc_get_mnm_script = function () {
 			}
 
 			// Conditionally disable buttons.
-			this.$minus_button.prop('disabled', this.get_quantity() <= min );
-			this.$plus_button.prop('disabled',this.get_quantity() === max);
+			this.$minus_button.prop( 'disabled', this.get_quantity() <= min );
+			this.$plus_button.prop( 'disabled',this.get_quantity() === max );
 
 		};
 
 		/**
 		 * Try to update to the new quantity and correct as needed.
-		 * 
+		 *
 		 * @param int
 		 * @return int - The adjusted/accepted new quantity.
 		 */
 		this.update_quantity = function (qty) {
 
-			var new_qty = this.validate(qty);
+			var new_qty = this.validate( qty );
 
 			// At the child level, we really only can display one message at a time.
 			if ( ! this.passes_validation() ) {
-				this.$msg_html.html('<span>' + this.get_messages().shift() + '</span>').addClass('show');
+				this.$msg_html.html( '<span>' + this.get_messages().shift() + '</span>' ).addClass( 'show' );
 
 				// Show the messages briefly and then clear. Relay the "this" object into the setTimeout anonymous function as "self".
 				this.child_item_timer = setTimeout(
 					function (self) {
-						self.$msg_html.removeClass('show');
+						self.$msg_html.removeClass( 'show' );
 						self.reset_messages();
-					}, 2000, this);
+					},
+					2000,
+					this
+				);
 
 			} else {
-				this.$msg_html.removeClass('show').html('');
-				clearTimeout(this.child_item_timer);
+				this.$msg_html.removeClass( 'show' ).html( '' );
+				clearTimeout( this.child_item_timer );
 			}
 
-			// Add a class if quantity is non-zero
-			this.$self.toggleClass('has-quantity-selected', new_qty > 0);
+			// Add a class if quantity is non-zero.
+			this.$self.toggleClass( 'has-quantity-selected', new_qty > 0 );
 
 			// Set the new quantity from various types of inputs.
 			switch (this.get_type()) {
 				case 'checkbox':
-					this.$mnm_item_qty.prop('checked', this.$mnm_item_qty.val() && new_qty === parseInt(this.$mnm_item_qty.val()));
+					this.$mnm_item_qty.prop( 'checked', this.$mnm_item_qty.val() && new_qty === parseInt( this.$mnm_item_qty.val() ) );
 					break;
 				case 'select':
-					this.$mnm_item_qty.children('option:selected').val(); // @todo - Support for Select Layout plugin.
+					this.$mnm_item_qty.children( 'option:selected' ).val(); // @todo - Support for Select Layout plugin.
 					break;
 				default:
-					this.$mnm_item_qty.val(new_qty);
+					this.$mnm_item_qty.val( new_qty );
 			}
 
 			// Update the container if there was a change.
 			if (new_qty !== this.get_prev_quantity()) {
-				container.update_container_task(this);
+				container.update_container_task( this );
 			}
 
 			// Store the quantity as prev_quantity for next update.
-			this.$self.data('prev_quantity', new_qty);
+			this.$self.data( 'prev_quantity', new_qty );
 
 		};
 
 		/**
 		 * Test if we can update the input to this specific quantity.
-		 * 
+		 *
 		 * @param int
 		 * @return int - The adjusted/accepted new quantity.
 		 */
-		this.validate = function(qty) {
+		this.validate = function (qty) {
 
 			// Restrict to min/max limits.
-			var current_qty = isNaN(qty) ? this.get_quantity() : parseFloat(qty),
+			var current_qty = isNaN( parseFloat( qty ) ) ? this.get_quantity() : parseFloat( qty ),
 			new_qty         = current_qty,
 			prev_qty        = this.get_prev_quantity(),
-			min             = parseFloat(this.$mnm_item_qty.attr('min')),
-			max             = parseFloat(this.$mnm_item_qty.attr('max')),
-			step            = parseFloat(this.$mnm_item_qty.attr('step')),
+			min             = parseFloat( this.$mnm_item_qty.attr( 'min' ) ),
+			max             = parseFloat( this.$mnm_item_qty.attr( 'max' ) ),
+			step            = parseFloat( this.$mnm_item_qty.attr( 'step' ) ),
 			container_max   = container.api.get_max_container_size(),
 			container_size  = container.api.get_container_size(),
 			potential_size  = container_size + (current_qty - prev_qty);
 
 			// Add the message holder as needed.
-			if (!this.$msg_html.length) {
-				this.$item_qty_div.append('<div class="wc_mnm_child_item_error" aria-live="polite" />');
-				this.$msg_html = this.$item_qty_div.find('.wc_mnm_child_item_error');
+			if ( ! this.$msg_html.length) {
+				this.$item_qty_div.append( '<div class="wc_mnm_child_item_error" aria-live="polite" />' );
+				this.$msg_html = this.$item_qty_div.find( '.wc_mnm_child_item_error' );
 			}
 
 			// Max can't be higher than the container size.
 			if (container_max > 0) {
-				max = Math.min(max, container_max);
+				max = Math.min( max, container_max );
 			}
 
 			// Validation.
@@ -1632,23 +1640,23 @@ jQuery.fn.wc_get_mnm_script = function () {
 					// Handle overfull container.
 					if ( container_size > container_max ) {
 
-						new_qty = Math.min( prev_qty - (container_size - container_max), max);
-                        new_qty = new_qty > 0 ? new_qty : 0;
+						new_qty = Math.min( prev_qty - (container_size - container_max), max );
+						new_qty = new_qty > 0 ? new_qty : 0;
 
-					// Space left to fill.
+						// Space left to fill.
 					} else if ( container_size < container_max ) {
-						new_qty = Math.min(container_max - container_size, max);
+						new_qty = Math.min( container_max - container_size, max );
 
 						// No space left in container, reset to previous.
 					} else {
-						new_qty = prev_qty;						
+						new_qty = prev_qty;
 					}
 
 					// If the new quantity is the individual max, re-use the item-specific error message.
 					if (max === new_qty) {
-						this.add_message(wc_mnm_params.i18n_child_item_max_qty_message.replace('%d', max));
+						this.add_message( wc_mnm_params.i18n_child_item_max_qty_message.replace( '%d', max ) );
 					} else {
-						this.add_message(wc_mnm_params.i18n_child_item_max_container_qty_message.replace('%d', container_max));
+						this.add_message( wc_mnm_params.i18n_child_item_max_container_qty_message.replace( '%d', container_max ) );
 					}
 
 					break;
@@ -1656,28 +1664,28 @@ jQuery.fn.wc_get_mnm_script = function () {
 				// Check the item quantity is not below min.
 				case min >= 0 && current_qty < min:
 					new_qty = min;
-					this.add_message(wc_mnm_params.i18n_child_item_min_qty_message.replace('%d', min));
-					
+					this.add_message( wc_mnm_params.i18n_child_item_min_qty_message.replace( '%d', min ) );
+
 					break;
 
-				// Check the item quantity it not below it's max
+				// Check the item quantity it not below it's max.
 				case max > 0 && current_qty > max:
 					new_qty = max;
-					this.add_message(wc_mnm_params.i18n_child_item_max_qty_message.replace('%d', max));
-					
+					this.add_message( wc_mnm_params.i18n_child_item_max_qty_message.replace( '%d', max ) );
+
 					break;
 
 				// Check the item quantity has correct step.
 				case step > 1 && current_qty % step:
 					new_qty = current_qty - (current_qty % step);
-					this.add_message(wc_mnm_params.i18n_child_item_step_qty_message.replace('%d', step));
-					
+					this.add_message( wc_mnm_params.i18n_child_item_step_qty_message.replace( '%d', step ) );
+
 					break;
-					
+
 			}
 
 			// Let mini extensions set the new quantity and add their own error/status messages.
-			qty = this.$self.triggerHandler('wc-mnm-child-item-valid-quantity', [this, new_qty, current_qty, prev_qty] );
+			qty = this.$self.triggerHandler( 'wc-mnm-child-item-valid-quantity', [this, new_qty, current_qty, prev_qty] );
 
 			if ( 'number' === typeof qty ) {
 				new_qty = qty;
@@ -1689,17 +1697,17 @@ jQuery.fn.wc_get_mnm_script = function () {
 
 		/**
 		 * Get the type of this input, which later determines how we get/set values, etc.
-		 * 
+		 *
 		 * @returns string
 		 */
 		this.get_type = function () {
 			var type = 'input';
 
-			if (this.$mnm_item_qty.is(':checkbox')) {
+			if (this.$mnm_item_qty.is( ':checkbox' )) {
 				type = 'checkbox';
-			} else if (this.$mnm_item_qty.is('select')) {
+			} else if (this.$mnm_item_qty.is( 'select' )) {
 				type = 'select';
-			} else if (this.$mnm_item_qty.is(':hidden')) {
+			} else if (this.$mnm_item_qty.is( ':hidden' )) {
 				type = 'hidden';
 			}
 
@@ -1715,25 +1723,25 @@ jQuery.fn.wc_get_mnm_script = function () {
 
 			switch (type) {
 				case 'checkbox':
-					this.$mnm_item_qty.prop('checked', false);
+					this.$mnm_item_qty.prop( 'checked', false );
 					break;
 				case 'select':
-					this.$mnm_item_qty.val(this.$mnm_item_qty.children(':first-child').val());
+					this.$mnm_item_qty.val( this.$mnm_item_qty.children( ':first-child' ).val() );
 					break;
 				case 'hidden':
 					// Intentionally do nothing on hidden inputs. Min=max=value and does not change.
 					break;
 				default:
-					var min = parseFloat(this.$mnm_item_qty.attr('min'));
-					min = min > 0 ? min : '';
-					this.$mnm_item_qty.val(min);
+					var min = parseFloat( this.$mnm_item_qty.attr( 'min' ) );
+					min     = min > 0 ? min : '';
+					this.$mnm_item_qty.val( min );
 			}
 		};
 
 		/**
 		 * Is child item sold individually?
 		 * Currently unused
-		 * 
+		 *
 		 * @return bool;
 		 */
 		this.is_sold_individually = function () {
@@ -1758,9 +1766,9 @@ jQuery.fn.wc_get_mnm_script = function () {
 		this.init_photoswipe = function () {
 
 			if ('undefined' !== typeof $.fn.wc_product_gallery) {
-				this.$mnm_item_images.wc_product_gallery({ zoom_enabled: false, flexslider_enabled: false });
+				this.$mnm_item_images.wc_product_gallery( { zoom_enabled: false, flexslider_enabled: false } );
 			} else {
-				window.console.log('Failed to initialize PhotoSwipe for mix and match child item images. Your theme declares PhotoSwipe support, but function \'$.fn.wc_product_gallery\' is undefined.');
+				window.console.log( 'Failed to initialize PhotoSwipe for mix and match child item images. Your theme declares PhotoSwipe support, but function \'$.fn.wc_product_gallery\' is undefined.' );
 			}
 
 		};
@@ -1776,7 +1784,7 @@ jQuery.fn.wc_get_mnm_script = function () {
 		 * Add validation message.
 		 */
 		this.add_message = function (message) {
-			this.validation_messages.push(message.toString());
+			this.validation_messages.push( message.toString() );
 		};
 
 		/**
@@ -1813,13 +1821,13 @@ jQuery.fn.wc_get_mnm_script = function () {
 			/**
 			* QuickView compatibility.
 			*/
-			$('body').on(
+			$( 'body' ).on(
 				'quick-view-displayed',
 				function () {
 
-					$('.mnm_form').each(
+					$( '.mnm_form' ).each(
 						function () {
-							$(this).wc_mnm_form();
+							$( this ).wc_mnm_form();
 						}
 					);
 
@@ -1829,29 +1837,29 @@ jQuery.fn.wc_get_mnm_script = function () {
 			/**
 			* PayPal Express Smart buttons compatibility.
 			*/
-			$('.mnm_form').on(
+			$( '.mnm_form' ).on(
 				'wc-mnm-initialized',
 				function (e, wc_mnm) {
 
-					if (!wc_mnm.passes_validation()) {
-						$('#woo_pp_ec_button_product').trigger('disable');
+					if ( ! wc_mnm.passes_validation()) {
+						$( '#woo_pp_ec_button_product' ).trigger( 'disable' );
 					}
 
 					wc_mnm.$mnm_form.on(
 						'wc-mnm-display-add-to-cart-button',
 						function () {
-							$('#woo_pp_ec_button_product').trigger('enable');
+							$( '#woo_pp_ec_button_product' ).trigger( 'enable' );
 						}
 					);
 
 					wc_mnm.$mnm_form.on(
 						'wc-mnm-hide-add-to-cart-button',
 						function () {
-							$('#woo_pp_ec_button_product').trigger('disable');
+							$( '#woo_pp_ec_button_product' ).trigger( 'disable' );
 						}
 					);
 
-					$(document).on(
+					$( document ).on(
 						'wc_ppec_validate_product_form',
 						function (e, is_valid, $form) {
 
@@ -1878,30 +1886,29 @@ jQuery.fn.wc_get_mnm_script = function () {
 			*/
 			$.fn.wc_mnm_form = function () {
 
-				var $mnm_form = $(this),
-					$mnm_data = $mnm_form.find('.mnm_data'),
-					container_id = $mnm_data.data('container_id');
+				var $mnm_form    = $( this ),
+					$mnm_data    = $mnm_form.find( '.mnm_data' ),
+					container_id = $mnm_data.data( 'container_id' );
 
 				if (typeof ($mnm_data) === 'undefined') {
 					return false;
 				}
 
 				if (typeof (container_id) === 'undefined') {
-					container_id = $mnm_data.attr('data-container_id');
+					container_id = $mnm_data.attr( 'data-container_id' );
 
 					if (container_id) {
-						$mnm_data.data('container_id', container_id);
+						$mnm_data.data( 'container_id', container_id );
 					} else {
 						return false;
 					}
 				}
 
-
-				if ('undefined' !== typeof this.data('script_id') && 'undefined' !== typeof (wc_mnm_scripts[this.data('script_id')])) {
-					wc_mnm_scripts[this.data('script_id')].shutdown();
+				if ('undefined' !== typeof this.data( 'script_id' ) && 'undefined' !== typeof (wc_mnm_scripts[this.data( 'script_id' )])) {
+					wc_mnm_scripts[this.data( 'script_id' )].shutdown();
 				}
 
-				var container = new WC_MNM_Container(this);
+				var container = new WC_MNM_Container( this );
 				container.initialize();
 
 				if (container && container.is_initialized) {
@@ -1915,17 +1922,21 @@ jQuery.fn.wc_get_mnm_script = function () {
 			/**
 			 * Initialize form script.
 			 */
-			$(document).on('wc-mnm-initialize.mix-and-match', '.mnm_form', function () {
-				$(this).wc_mnm_form();
-			});
-
-			$('.mnm_form').each(
+			$( document ).on(
+				'wc-mnm-initialize.mix-and-match',
+				'.mnm_form',
 				function () {
-					$(this).trigger('wc-mnm-initialize.mix-and-match');
+					$( this ).wc_mnm_form();
+				}
+			);
+
+			$( '.mnm_form' ).each(
+				function () {
+					$( this ).trigger( 'wc-mnm-initialize.mix-and-match' );
 				}
 			);
 
 		}
 	);
 
-})(jQuery);
+})( jQuery );

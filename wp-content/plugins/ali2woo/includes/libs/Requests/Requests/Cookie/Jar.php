@@ -1,4 +1,6 @@
-<?php
+<?php 
+namespace Ali2Woo\Lib;
+
 /**
  * Cookie holder object
  *
@@ -12,7 +14,7 @@
  * @package Requests
  * @subpackage Cookies
  */
-class Requests_Cookie_Jar implements ArrayAccess, IteratorAggregate {
+class Requests_Cookie_Jar implements \ArrayAccess, \IteratorAggregate {
 	/**
 	 * Actual item data
 	 *

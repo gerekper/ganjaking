@@ -25,14 +25,14 @@ class WC_MNM_Install {
 	 * @var array
 	 */
 	private static $db_updates = array(
-		'1.2.0' => array(
+		'1.2.0'  => array(
 			'wc_mnm_update_120_main',
 		),
 		'1.10.0' => array(
 			'wc_mnm_update_1x10_product_meta',
 			'wc_mnm_update_1x10_order_item_meta',
 		),
-		'2.0.0' => array(
+		'2.0.0'  => array(
 			'wc_mnm_update_2x00_remove_notices',
 			'wc_mnm_update_2x00_customizer_settings',
 			'wc_mnm_update_2x00_custom_tables',
@@ -40,13 +40,14 @@ class WC_MNM_Install {
 			'wc_mnm_update_2x00_category_contents_meta',
 			'wc_mnm_update_2x00_product_meta',
 		),
-		'2.2.0' => array( 
+		'2.2.0'  => array(
 			'wc_mnm_update_2x2x0_delete_duplicate_meta',
 		),
 	);
 
 	/**
 	 * Term runtime cache.
+	 *
 	 * @var boolean
 	 */
 	private static $mnm_term_exists;
@@ -88,7 +89,6 @@ class WC_MNM_Install {
 
 		// Handle any actions from notices.
 		add_action( 'admin_init', array( __CLASS__, 'install_actions' ) );
-
 	}
 
 	/**
@@ -143,24 +143,22 @@ class WC_MNM_Install {
 		if ( self::is_wc_admin_active() ) {
 
 			self::remove_admin_notices();
-			
+
 			new WC_MNM_Notes_Run_Db_Update();
 
 			// If WC Admin is disabled show the old style notices.
-		} else if (
-			self::needs_db_update() && 
-			! self::is_new_install() )
-			{
+		} elseif (
+			self::needs_db_update() &&
+			! self::is_new_install() ) {
 
-				if ( self::auto_update_enabled() ) {
-					self::update();
-				} else {
+			if ( self::auto_update_enabled() ) {
+				self::update();
+			} else {
 
-					// Add 'update' notice.
-					WC_MNM_Admin_Notices::add_notice( 'update', true );
+				// Add 'update' notice.
+				WC_MNM_Admin_Notices::add_notice( 'update', true );
 
-				}
-
+			}
 		}
 	}
 
@@ -178,7 +176,7 @@ class WC_MNM_Install {
 	 * @since 2.0.0
 	 */
 	public static function run_update_callback( $update_callback ) {
-		include_once dirname( __FILE__ ) . '/wc-mnm-update-functions.php';
+		include_once __DIR__ . '/wc-mnm-update-functions.php';
 
 		if ( is_callable( $update_callback ) ) {
 			self::run_update_callback_start( $update_callback );
@@ -224,11 +222,11 @@ class WC_MNM_Install {
 	 * @since  2.0.0
 	 */
 	public static function install_actions() {
-		if ( ! empty( $_GET[ 'wc_mnm_update_action' ] ) ) {
+		if ( ! empty( $_GET['wc_mnm_update_action'] ) ) {
 
 			$result = check_admin_referer( 'wc_mnm_update_action', 'wc_mnm_update_action_nonce' );
 
-			$action = wc_clean( $_GET[ 'wc_mnm_update_action' ] );
+			$action = wc_clean( wp_unslash( $_GET['wc_mnm_update_action'] ) );
 
 			if ( is_callable( array( __CLASS__, $action ) ) ) {
 				call_user_func( array( __CLASS__, $action ) );
@@ -277,7 +275,6 @@ class WC_MNM_Install {
 
 		delete_transient( 'wc_mnm_installing' );
 		do_action( 'woocommerce_flush_rewrite_rules' );
-
 	}
 
 
@@ -290,43 +287,46 @@ class WC_MNM_Install {
 		global $wpdb;
 		$wpdb->hide_errors();
 
-		// Load the file with the required upgrade functions
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		// Load the file with the required upgrade functions.
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		$result = dbDelta( self::get_schema() );
 
-		if ( ! empty( $result ) )  {
+		if ( ! empty( $result ) ) {
 			wc_get_logger()->log( 'info', 'Mix and Match database table installed.', array( 'source' => 'wc_mnm_db_updates' ) );
 		} else {
 			wc_get_logger()->log( 'error', 'Mix and Match database table failed to install.', array( 'source' => 'wc_mnm_db_updates' ) );
 		}
 
 		// Need to check if the foreign key already exists.
-		// @link https://github.com/kathyisawesome/woocommerce-mix-and-match-products/issues/426
+		// @link https://github.com/kathyisawesome/woocommerce-mix-and-match-products/issues/426.
 		$fk_result = $wpdb->get_row( "SHOW CREATE TABLE {$wpdb->prefix}wc_mnm_child_items" ); // WPCS: unprepared SQL ok.
 
 		// Remove 2.0 foreign keys, so we can update them with prefixed keys.
-		if ( false !== strpos( $fk_result->{'Create Table'}, "FK_CHILD_ID" ) ) {
+		if ( false !== strpos( $fk_result->{'Create Table'}, 'FK_CHILD_ID' ) ) {
 			$wpdb->query(
-                "ALTER TABLE {$wpdb->prefix}wc_mnm_child_items
+				"ALTER TABLE {$wpdb->prefix}wc_mnm_child_items
 				DROP CONSTRAINT `FK_CHILD_ID`
 				,
 				DROP CONSTRAINT `FK_PRODUCT_ID`
-			" 
-            );
+			"
+			);
 		}
 
 		// Add 2.0.7 foreign keys using prefixes.
 		if ( false === strpos( $fk_result->{'Create Table'}, "fk_{$wpdb->prefix}wc_mnm_child_items_container_id" ) ) {
 
-			// Add foreign key constraints to the custom table, to ensure data integrity and
-			// delete child rows when the parents are deleted
-			//
-			// Note: we can't add the foreign keys in the dbDelta() call, because it doesn't
-			// support them.
-			// @link https://developer.wordpress.org/reference/functions/dbdelta/#comment-4027
+			/**
+			 * Add foreign key constraints to the custom table, to ensure data integrity and
+			 * delete child rows when the parents are deleted
+			 *
+			 * Note: we can't add the foreign keys in the dbDelta() call, because it doesn't
+			 * support them.
+			 *
+			 * @link https://developer.wordpress.org/reference/functions/dbdelta/#comment-4027
+			*/
 			$wpdb->query(
-                "ALTER TABLE {$wpdb->prefix}wc_mnm_child_items
+				"ALTER TABLE {$wpdb->prefix}wc_mnm_child_items
 				-- Foreign key to parent container products. Ensures that the container_id matches
 				-- a valid product ID (post ID) and deletes the row if the parent is deleted
 				ADD CONSTRAINT `fk_{$wpdb->prefix}wc_mnm_child_items_container_id`
@@ -340,10 +340,9 @@ class WC_MNM_Install {
 					FOREIGN KEY (product_id)
 					REFERENCES {$wpdb->prefix}posts(ID)
 					ON DELETE CASCADE
-			" 
-            );
+			"
+			);
 		}
-
 	}
 
 	/**
@@ -360,8 +359,9 @@ class WC_MNM_Install {
 			$collate = $wpdb->get_charset_collate();
 		}
 
-		/* Add a parent/child relationship table to keep track of the child items
-		 and the products in which they have been included. */
+		/*
+		Add a parent/child relationship table to keep track of the child items
+		and the products in which they have been included. */
 		$tables = "
 		CREATE TABLE IF NOT EXISTS {$wpdb->prefix}wc_mnm_child_items (
 			child_item_id BIGINT UNSIGNED NOT NULL auto_increment,
@@ -419,8 +419,8 @@ class WC_MNM_Install {
 	 * @return string
 	 */
 	public static function get_latest_update_version() {
-		$updates            = self::get_db_update_callbacks();
-		$update_versions    = array_keys( $updates );
+		$updates         = self::get_db_update_callbacks();
+		$update_versions = array_keys( $updates );
 		usort( $update_versions, 'version_compare' );
 		return end( $update_versions );
 	}
@@ -476,7 +476,7 @@ class WC_MNM_Install {
 	private static function update() {
 		$loop = 0;
 
-		foreach (self::get_db_update_callbacks() as $version => $update_callbacks ) {
+		foreach ( self::get_db_update_callbacks() as $version => $update_callbacks ) {
 
 			if ( version_compare( self::$current_db_version, $version, '<' ) ) {
 				foreach ( $update_callbacks as $update_callback ) {
@@ -488,7 +488,7 @@ class WC_MNM_Install {
 						),
 						'wc_mnm_db_updates'
 					);
-					$loop++;
+					++$loop;
 				}
 			}
 		}
@@ -505,7 +505,6 @@ class WC_MNM_Install {
 				'wc_mnm_db_updates'
 			);
 		}
-
 	}
 
 	/**
@@ -514,7 +513,7 @@ class WC_MNM_Install {
 	 * @param  string  $version
 	 */
 	public static function update_db_version( $version = null ) {
-		$version = is_null( $version ) ? WC_Mix_and_Match()->version: $version;
+		$version = is_null( $version ) ? WC_Mix_and_Match()->version : $version;
 		update_option( 'wc_mix_and_match_db_version', $version );
 	}
 
@@ -555,7 +554,6 @@ class WC_MNM_Install {
 		if ( $result ) {
 			delete_transient( 'wc_mnm_show_2x00_cleanup_legacy_child_meta' );
 		}
-
 	}
 
 	/*
@@ -698,7 +696,6 @@ class WC_MNM_Install {
 		wc_deprecated_function( 'WC_MNM_Install::is_update_in_progress()', '1.10.0', 'Method renamed maybe_update_db_version().' );
 		return WC()->queue()->get_next( 'wc_mnm_run_update_callback' );
 	}
-
 }
 
 WC_MNM_Install::init();

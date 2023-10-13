@@ -218,9 +218,9 @@ class WoocommerceProductFeedsFeedImageManager {
 	 * AJAX Callback to handle adding an item to the list of excluded IDs.
 	 */
 	public function exclude_media() {
-		$nonce      = ! empty( $_POST['nonce'] ) ? $_POST['nonce'] : null;
-		$media_id   = ! empty( $_POST['media_id'] ) ? $_POST['media_id'] : null;
-		$product_id = ! empty( $_POST['product_id'] ) ? $_POST['product_id'] : null;
+		$nonce      = ! empty( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : null;
+		$media_id   = ! empty( $_POST['media_id'] ) ? (int) $_POST['media_id'] : null;
+		$product_id = ! empty( $_POST['product_id'] ) ? (int) $_POST['product_id'] : null;
 
 		// Validate nonce
 		if ( ! wp_verify_nonce( $nonce, 'woo_gpf_exclude_media' ) ) {
@@ -263,9 +263,9 @@ class WoocommerceProductFeedsFeedImageManager {
 	 * AJAX Callback to handle removing an item from the list of excluded IDs.
 	 */
 	public function include_media() {
-		$nonce      = ! empty( $_POST['nonce'] ) ? $_POST['nonce'] : null;
-		$media_id   = ! empty( $_POST['media_id'] ) ? $_POST['media_id'] : null;
-		$product_id = ! empty( $_POST['product_id'] ) ? $_POST['product_id'] : null;
+		$nonce      = ! empty( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : null;
+		$media_id   = ! empty( $_POST['media_id'] ) ? (int) $_POST['media_id'] : null;
+		$product_id = ! empty( $_POST['product_id'] ) ? (int) $_POST['product_id'] : null;
 
 		// Validate nonce
 		if ( ! wp_verify_nonce( $nonce, 'woo_gpf_include_media' ) ) {
@@ -295,9 +295,9 @@ class WoocommerceProductFeedsFeedImageManager {
 	 * AJAX Callback to handle setting a media item as primary.
 	 */
 	public function set_primary_media() {
-		$nonce      = ! empty( $_POST['nonce'] ) ? $_POST['nonce'] : null;
-		$media_id   = ! empty( $_POST['media_id'] ) ? $_POST['media_id'] : null;
-		$product_id = ! empty( $_POST['product_id'] ) ? $_POST['product_id'] : null;
+		$nonce      = ! empty( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : null;
+		$media_id   = ! empty( $_POST['media_id'] ) ? (int) $_POST['media_id'] : null;
+		$product_id = ! empty( $_POST['product_id'] ) ? (int) $_POST['product_id'] : null;
 
 		// Validate nonce
 		if ( ! wp_verify_nonce( $nonce, 'woo_gpf_set_primary_media' ) ) {
@@ -317,9 +317,9 @@ class WoocommerceProductFeedsFeedImageManager {
 	 * AJAX Callback to handle setting a media item as primary.
 	 */
 	public function set_lifestyle_media() {
-		$nonce      = ! empty( $_POST['nonce'] ) ? $_POST['nonce'] : null;
-		$media_id   = ! empty( $_POST['media_id'] ) ? $_POST['media_id'] : null;
-		$product_id = ! empty( $_POST['product_id'] ) ? $_POST['product_id'] : null;
+		$nonce      = ! empty( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : null;
+		$media_id   = ! empty( $_POST['media_id'] ) ? (int) $_POST['media_id'] : null;
+		$product_id = ! empty( $_POST['product_id'] ) ? (int) $_POST['product_id'] : null;
 
 		// Validate nonce
 		if ( ! wp_verify_nonce( $nonce, 'woo_gpf_set_lifestyle_media' ) ) {

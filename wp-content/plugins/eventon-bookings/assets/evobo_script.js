@@ -53,7 +53,7 @@ const BB = $('body');
 
         $( window ).resize(function() {
             var w = mainSEL.width();
-            console.log(w);
+            //console.log(w);
             if(w< 650){
                 mainSEL.addClass('trim');
             }else{
@@ -265,7 +265,7 @@ const BB = $('body');
                 // click on a date
                 C.on('click','.evoGC_date',function(event){
                     
-                    $(this).evotx_hide_msg();
+                    C.evotx_hide_msg();
 
                     _click_y = selectDate['y'] = $(this).data('y');
                     _click_m = selectDate['m'] = $(this).data('m');
@@ -372,7 +372,6 @@ const BB = $('body');
                 // after ticket added to cart
                 .on('evotx_added_to_cart', function(event, data, SECTION, ajaxdata){
                     if( 'other_data' in ajaxdata && 'block_id' in ajaxdata.other_data){
-                        console.log('d');
                         $( SECTION ).find('.evobo_price_values').hide();
                     }
                 })

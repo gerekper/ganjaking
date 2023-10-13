@@ -1,5 +1,10 @@
 Include Anything (IA) addon for EventON Plugin
 ====================================
+v 0.6 (2023-8-21)
+ADDED: sync minute increment values to match eventon settings
+FIXED: admin side text translations
+FIXED: if include anything is turned off for a post, skip saving meta values
+
 v 0.5 (2023-6-5)
 FIXED: offset type error on frontend.php 118
 FIXED: event_etop_data() incorrect array filtering 

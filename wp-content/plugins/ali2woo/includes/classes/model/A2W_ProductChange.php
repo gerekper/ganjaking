@@ -3,7 +3,7 @@
 /**
  * Description of A2W_ProductChange
  *
- * @author mikhail
+ * @author Ali2Woo Team
  */
 if (!class_exists('A2W_ProductChange')) {
     class A2W_ProductChange {

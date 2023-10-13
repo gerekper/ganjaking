@@ -49,6 +49,7 @@ class WoocommerceGpfFeedBing extends WoocommerceGpfFeed {
 		// Bing doesn't like foreign chars
 		setlocale( LC_CTYPE, 'en_US.UTF-8' );
 
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( isset( $_REQUEST['feeddownload'] ) ) {
 			header( 'Content-Disposition: attachment; filename="E-Commerce_Product_List.txt"' );
 		} else {

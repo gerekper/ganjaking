@@ -3,7 +3,7 @@
 /**
  * Description of A2W_PriceFormula
  *
- * @author Andrey
+ * @author Ali2Woo Team
  */
 class A2W_PriceFormula
 {

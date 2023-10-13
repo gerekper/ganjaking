@@ -55,12 +55,20 @@ function content(){
 							array(
 								'id'=>'evotx_restock',
 								'type'=>'yesno',
-								'name'=>'Auto re-stock tickets when orders are refunded, cancelled or failed',
-								'legend'=>'This will auto increase the event tickets quantity when orders are refunded, cancelled or failed.',
+								'name'=>'Auto re-stock tickets when orders are refunded or cancelled',
+								'legend'=>'This will auto increase the event tickets quantity when orders are refunded or cancelled.',
 								'afterstatement'=>'evotx_restock'
 							),
 							array('id'=>'evotx_restock','type'=>'begin_afterstatement'),
-								array('type'=>'notice','name'=>'When refunding orders, you must NOT restock refunded items in woocommerce order, which will result in duplicate restocking. <a href="https://docs.myeventon.com/documentations/auto-re-stocking-refunded-cancelled-or-failed-orders/" target="_blank">Learn More >></a>'),
+								
+								array(
+									'id'=>'evotx_restock_failed',
+									'type'=>'yesno',
+									'name'=>'Auto re-stock failed ticket orders',
+									'legend'=>'This will auto increase the event tickets quantity when orders are failed.',
+								),
+								array('type'=>'notice','name'=>'NOTE: When refunding orders, you must NOT restock refunded items in woocommerce order, which will result in duplicate restocking. <a href="https://docs.myeventon.com/documentations/auto-re-stocking-refunded-cancelled-or-failed-orders/" target="_blank">Learn More >></a>'),
+							
 							array('id'=>'evotx_restock','type'=>'end_afterstatement'),		
 							
 							array(

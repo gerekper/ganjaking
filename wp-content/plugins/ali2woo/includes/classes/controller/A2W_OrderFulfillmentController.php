@@ -3,7 +3,7 @@
 /**
  * Description of A2W_OrderFulfillmentController
  *
- * @author MA_GROUP
+ * @author Ali2Woo Team
  *
  * @autoload: a2w_admin_init
  *
@@ -14,6 +14,7 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
     class A2W_OrderFulfillmentController extends A2W_AbstractController
     {
         protected static $shipping_fields = array();
+        protected static $additional_shipping_fields = array();
 
         public function __construct()
         {
@@ -41,6 +42,8 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
         }
 
         public function init() {
+            $shipping_countries = class_exists('WC') ? WC()->countries->get_shipping_countries() : [];
+
             self::$shipping_fields = apply_filters(
                 'woocommerce_admin_shipping_fields',
                 array(
@@ -77,7 +80,7 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
                         'show'    => false,
                         'type'    => 'select',
                         'class'   => 'js_field-country select short',
-                        'options' => array( '' => __( 'Select a country / region&hellip;', 'woocommerce' ) ) + WC()->countries->get_shipping_countries(),
+                        'options' => array( '' => __( 'Select a country / region&hellip;', 'woocommerce' ) ) + $shipping_countries,
                     ),
                     'state'      => array(
                         'label' => __( 'State / County', 'woocommerce' ),
@@ -86,6 +89,45 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
                     ),
                     'phone'      => array(
                         'label' => __( 'Phone', 'woocommerce' ),
+                    ),
+                )
+            );
+
+            self::$additional_shipping_fields = apply_filters(
+                'woocommerce_admin_additional_shipping_fields',
+                array(
+                    'passport_no' => array(
+                        'label' => __( 'Passport number', 'ali2woo' ),
+                        'show'  => false,
+                    ),
+                    'passport_no_date'  => array(
+                        'label' => __( 'Passport date', 'ali2woo' ),
+                        'show'  => false,
+                    ),
+                    'passport_organization'    => array(
+                        'label' => __( 'Passport issuing agency', 'ali2woo' ),
+                        'show'  => false,
+                    ),
+                    'tax_number'  => array(
+                        'label' => __( 'Tax number', 'ali2woo' ),
+                        'show'  => false,
+                    ),
+                    'foreigner_passport_no'  => array(
+                        'label' => __( 'Foreign tax number (For Koreans, foreigners must fill in the registration number or passport number)', 'ali2woo' ),
+                        'show'  => false,
+                    ),
+                    'is_foreigner'       => array(
+                        'type'  => 'checkbox',
+                        'label' => __( 'Is foreigner?', 'ali2woo' ),
+                        'show'  => false,
+                    ),
+                    'vat_no'   => array(
+                        'label' => __( 'VAT number', 'ali2woo' ),
+                        'show'  => false,
+                    ),
+                    'tax_company'   => array(
+                        'label' => __( 'Company Name', 'ali2woo' ),
+                        'show'  => false,
                     ),
                 )
             );
@@ -178,8 +220,6 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
             $def_customer_note = a2w_get_setting('fulfillment_custom_note');
             $def_phone_number = a2w_get_setting('fulfillment_phone_number');
             $def_phone_code = a2w_get_setting('fulfillment_phone_code');
-            $a2w_order_autopay = a2w_get_setting('order_autopay');
-            $a2w_order_awaiting_payment = a2w_get_setting('order_awaiting_payment');
 
             $content = array('id' => $post_id,
                 'defaultShipping' => $def_prefship,
@@ -194,8 +234,8 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
                 'mobile' => $def_phone_number !== "" ? $def_phone_number : $this->get_phone($order),
                 'mobile_code' => $def_phone_code !== "" ? $def_phone_code : '',
                 'zip' => $this->get_zip($order),
-                'autopay' => $a2w_order_autopay,
-                'awaitingpay' => $a2w_order_awaiting_payment,
+                'autopay' => false /* todo: rudiment option remove it*/,
+                'awaitingpay' => false /* todo: rudiment option remove it*/,
                 'cpf' => $this->get_cpf($order),
                 'storeurl' => get_site_url(),
                 'currency' => $this->get_currency($order),
@@ -542,7 +582,7 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
         public function ajax_load_fulfillment_model_html()
         {
 
-            $token = A2W_AliexpressToken::getInstance()->defaultToken();
+            //$token = A2W_AliexpressToken::getInstance()->defaultToken();
             
             $purchase_code = A2W_Account::getInstance()->get_purchase_code();
             
@@ -556,7 +596,7 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
                     </div>
                     <div class="modal-body"></div>
                     <div class="modal-footer">
-                        <?php if($token && $purchase_code):?>
+                        <?php if($purchase_code):?>
                         <div style="display: inline-block;">
                         <a id="pay-for-orders" target="_blank" class="btn btn-success" href="https://www.aliexpress.com/p/order/index.html" title="<?php _e('You will be redirected to the AlIExpress portal. You must be authorized in your account to make the payment', 'ali2woo');?>"><?php _e('Pay for order(s)', 'ali2woo');?></a>
                         <button id="fulfillment-auto" class="btn btn-success" type="button">
@@ -566,18 +606,56 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
                         </div>
 
                         <?php endif; ?>
-
+                        <?php /*
                         <?php if($purchase_code):?>
                         <button id="fulfillment-chrome" class="btn btn-success" type="button">
                             <div class="btn-icon-wrap cssload-container"><div class="cssload-speeding-wheel"></div></div>
                             <?php _e('Fulfil orders via Chrome extension', 'ali2woo');?>
                         </button>
                         <?php endif; ?>
+                        */ ?>
                         <button class="btn btn-default modal-close" type="button"><?php _e('Close');?></button>
                     </div>
                 </div>
             </div>
         <?php wp_die();
+        }
+        
+        private function get_sign_urls($urls){
+            if (a2w_check_defined('A2W_DEMO_MODE')){
+                return [];
+            } 
+
+            $payload = [
+                "urls" => $urls,
+            ];
+    
+            $args = [
+                'headers' => array('Content-Type' => 'application/x-www-form-urlencoded'),
+            ];
+    
+            $args = [];
+    
+            $request_url = A2W_RequestHelper::build_request('sign_urls');
+            $request = a2w_remote_post($request_url, $payload, $args);
+    
+            if (is_wp_error($request)) {
+                $result = A2W_ResultBuilder::buildError($request->get_error_message());
+            } else {
+                if (intval($request['response']['code']) == 200) {
+                    $result = json_decode($request['body'], true);
+                } else {
+                    $result = A2W_ResultBuilder::buildError($request['response']['code'] . ' - ' . $request['response']['message']);
+                }
+            }
+    
+            if ($result['state'] == 'error') {
+                $result = [];
+            } else {
+                $result = $result['urls'];
+            }
+    
+            return $result;
         }
 
         public function ajax_load_fulfillment_orders_html()
@@ -704,8 +782,10 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
 
                     if ($wpml_product_id) {
                         $aliexpress_product_id = get_post_meta($wpml_product_id, '_a2w_external_id', true);
+                        $item_original_url = get_post_meta($wpml_product_id, '_a2w_original_product_url', true);
                     } else {
                         $aliexpress_product_id = get_post_meta($product_id, '_a2w_external_id', true);
+                        $item_original_url = get_post_meta($product_id, '_a2w_original_product_url', true);
                     }
 
                     $aliexpress_price = $this->get_aliexpress_price($item, $is_wpml);
@@ -726,6 +806,7 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
                         'order_item_id' => $item->get_id(),
                         'image' => $image,
                         'name' => $item->get_name(),
+                        'url' => $item_original_url,
                         'sku' => $product->get_sku(),
                         'attributes' => implode(' / ', $attributes),
                         'cost' => $aliexpress_price,
@@ -745,13 +826,20 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
                 }
             }
             
-            if (empty(A2W_Account::getInstance()->get_purchase_code())) {
+            $account =  A2W_Account::getInstance();
+            if (empty($account->get_purchase_code())) {
                 echo '<div class="empty">' . __("Purchase code not found. Input your purchase code in the plugin settings.", 'ali2woo') . '</div>';
             } else  if (empty($orders_data)) {
                 echo '<div class="empty">' . __("Orders not found", 'ali2woo') . '</div>';
             } else {
                 foreach ($orders_data as $order_data) {
-                    echo '<div class="single-order-wrap" data-order_id="' . esc_attr($order_data['order_id']) . '", data-shiping_to_country="' . $order_data['shiping_to_country'] . '">';
+                    $urls = array_column($order_data['items'], 'url');
+                    $urls = $this->get_sign_urls($urls);
+                    $urls_to_data = implode(';', $urls);
+
+                    echo '<div class="single-order-wrap" data-order_id="' . esc_attr($order_data['order_id']) . 
+                    '", data-shiping_to_country="' . $order_data['shiping_to_country'] . 
+                    '", data-urls="' . $urls_to_data . '">';
                     echo '<div  class="order-info">';
                     echo '<div class="order-name">';
                     echo '<strong>' . __('Order', 'ali2woo') . ': </strong>';
@@ -787,9 +875,48 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
                             $field['value'] = $order_data['order']->get_meta( '_' . $field_name );
                         }
 
+                        //we need to set the global post for woocommerce_wp_select and otehr functions below
+                        global $post; 
+                        $post = get_post( $thepostid );
+                        setup_postdata( $post );
+
                         switch ( $field['type'] ) {
                             case 'select':
                                 woocommerce_wp_select( $field );
+                                break;
+                            case 'checkbox':
+                                woocommerce_wp_checkbox( $field );
+                                break;
+                            default:
+                                woocommerce_wp_text_input( $field );
+                                break;
+                        }
+
+                        wp_reset_postdata();
+                    }
+                    echo '<h4>Additional fields</h4>';
+                    foreach ( self::$additional_shipping_fields as $key => $field ) {
+                        if ( ! isset( $field['type'] ) ) {
+                            $field['type'] = 'text';
+                        }
+                        if ( ! isset( $field['id'] ) ) {
+                            $field['id'] = '_shipping_' . $key;
+                        }
+
+                        $field_name = 'shipping_' . $key;
+
+                        if ( is_callable( array( $order_data['order'], 'get_' . $field_name ) ) ) {
+                            $field['value'] = $order_data['order']->{"get_$field_name"}( 'edit' );
+                        } else {
+                            $field['value'] = $order_data['order']->get_meta( '_' . $field_name );
+                        }
+
+                        switch ( $field['type'] ) {
+                            case 'select':
+                                woocommerce_wp_select( $field );
+                                break;
+                            case 'checkbox':
+                                woocommerce_wp_checkbox( $field );
                                 break;
                             default:
                                 woocommerce_wp_text_input( $field );
@@ -824,7 +951,7 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
                         echo '<td class="shipping_company">';
                         echo '<select class="current-shipping-company">';
                         foreach ($item['shipping_items'] as $si) {
-                            echo '<option value="' . $si['serviceName'] . '" ' . ($si['serviceName'] == $item['current_shipping'] ? ' selected="selected"' : '') . '>' . $si['company'] . ' (' . $si['time'] . 'days, ' . $si['localPriceFormatStr'] . ')</option>';
+                            echo '<option value="' . $si['serviceName'] . '" ' . ($si['serviceName'] == $item['current_shipping'] ? ' selected="selected"' : '') . '>' . $si['company'] . ' (' . $si['time'] . 'days, ' . $si['freightAmount']['formatedAmount'] . ')</option>';
                         }
                         echo '</select>';
                         echo '</td>';
@@ -865,10 +992,10 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
                 // Get order object.
                 $order = wc_get_order( $_POST['order_id'] );
                 $props = array();
-
+                $shipping_fields = array_merge(self::$shipping_fields, self::$additional_shipping_fields);
                 // Update shipping fields.
-                if ( ! empty( self::$shipping_fields ) ) {
-                    foreach ( self::$shipping_fields as $key => $field ) {
+                if ( ! empty( $shipping_fields ) ) {
+                    foreach ( $shipping_fields as $key => $field ) {
                         if ( ! isset( $field['id'] ) ) {
                             $field['id'] = '_shipping_' . $key;
                         }
@@ -1044,23 +1171,17 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
             $items = isset($_POST['items']) && is_array($_POST['items']) ? array_map('intval', $_POST['items']) : array();
 
             if ($order_id && $items) {
-
-                $token = A2W_AliexpressToken::getInstance()->defaultToken();
-
-                if (!$token) {
-                    $result = A2W_ResultBuilder::buildError(__('Session token is not found. Add a new token in the plugin settings.', 'ali2woo'));
-                } else {
-                    $order = new WC_Order($order_id);
-                    $order_items = array();
-                    foreach ($order->get_items() as $order_item) {
-                        if (in_array($order_item->get_id(), $items)) {
-                            $order_items[] = $order_item;
-                        }
+                $order = new WC_Order($order_id);
+                $order_items = array();
+                foreach ($order->get_items() as $order_item) {
+                    if (in_array($order_item->get_id(), $items)) {
+                        $order_items[] = $order_item;
                     }
-
-                    $api = new A2W_Aliexpress();
-                    $result = $api->place_order(array('order' => $order, 'order_items' => $order_items), $token['access_token']);
                 }
+
+                $api = new A2W_Aliexpress();
+                $result = $api->place_order(array('order' => $order, 'order_items' => $order_items));
+                
             } else {
                 $result = A2W_ResultBuilder::buildError('wrong params');
             }

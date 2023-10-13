@@ -31,17 +31,17 @@ class WoocommerceGpfDebugService {
 	 * WoocommerceGpfDebugService constructor.
 	 */
 	public function __construct() {
-		$debug_key        = get_option( 'woocommerce_gpf_debug_key' );
-		$this->wc_context = [ 'source' => 'woocommerce-product-feeds' ];
-
-		$this->enabled = isset( $_REQUEST['debug_key'] ) &&
-						$_REQUEST['debug_key'] === $debug_key;
-
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		$debug_key         = get_option( 'woocommerce_gpf_debug_key' );
+		$this->wc_context  = [ 'source' => 'woocommerce-product-feeds' ];
+		$this->enabled     = isset( $_REQUEST['debug_key'] ) &&
+							$_REQUEST['debug_key'] === $debug_key;
 		$this->destination = 'wc-log';
+
 		if ( isset( $_REQUEST['destination'] ) &&
-			in_array( $_REQUEST['destination'], [ 'xml' ], true )
+			$_REQUEST['destination'] === 'xml'
 		) {
-			$this->destination = $_REQUEST['destination'];
+			$this->destination = 'xml';
 		}
 
 		if ( did_action( 'plugins_loaded' ) ) {
@@ -49,6 +49,7 @@ class WoocommerceGpfDebugService {
 		} else {
 			add_action( 'plugins_loaded', [ $this, 'get_logger' ] );
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	}
 
 	/**
@@ -88,6 +89,8 @@ class WoocommerceGpfDebugService {
 			);
 		} elseif ( 'xml' === $this->destination ) {
 			echo '<!-- ';
+			// @TODO - can we just ignore as per below?
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo $log_msg;
 			echo ' -->' . PHP_EOL;
 		}

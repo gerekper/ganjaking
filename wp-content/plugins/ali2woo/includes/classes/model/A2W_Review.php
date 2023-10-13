@@ -3,7 +3,7 @@
 /**
  * Description of A2W_Review
  *
- * @author MA_GROUP
+ * @author Ali2Woo Team
  */
 if (!class_exists('A2W_Review')) {
 
@@ -90,7 +90,7 @@ if (!class_exists('A2W_Review')) {
                                 break;
                             }
 
-                            $rating = $item['buyerEval'] / 20;
+                            $rating = intval($item['review']['reviewStarts']);
                             if ($rating < $this->raiting_from || $rating > $this->raiting_to) {
                                 continue;
                             }
@@ -99,17 +99,18 @@ if (!class_exists('A2W_Review')) {
                                 continue;
                             }
 
-                            $review_cache = md5($post_id . $external_id . $item['buyerName'] . (isset($item['buyerFeedback'])?$item['buyerFeedback']:"") . $item['evalDate']);
+                            $review_cache = md5($post_id . $external_id . $item['buyer']['buyerTitle'] . (isset($item['review']['reviewContent'])?$item['review']['reviewContent']:"") . $item['review']['reviewDate']);
                             $has_same_comment = $wpdb->get_var($wpdb->prepare("SELECT count(c.comment_ID) FROM {$wpdb->comments} c LEFT JOIN {$wpdb->commentmeta} cm ON (c.comment_ID = cm.comment_id and cm.meta_key='a2w_cash') WHERE cm.meta_value=%s", $review_cache)) > 0;
                             if ($has_same_comment || !empty($added_review_cash[$review_cache])) {
                                 continue;
                             }
-
-                            $tmp_text = ($this->review_translated && isset($item['buyerTranslationFeedback'])) ? $item['buyerTranslationFeedback'] : (isset($item['buyerFeedback'])?$item['buyerFeedback']:"");
+                           
+                            $tmp_text = ($this->review_translated && isset($item['review']['translation']) && isset($item['review']['translation']['reviewContent']))  ? $item['review']['translation']['reviewContent'] : (isset($item['review']['reviewContent'])?$item['review']['reviewContent']:"");
+                            
                             $tmp_text = trim(str_replace("\\u0000", '', $tmp_text));
-                            if ($this->review_load_attributes && isset($item['skuInfo'])) {
-                                $tmp_text = $tmp_text . "<br/><br/>" . preg_replace('#([\w\-]+:)#', '<b>$1</b>', str_replace(':', ': ', A2W_PhraseFilter::apply_filter_to_text($item['skuInfo'])));
-                                //$tmp_text = $tmp_text . "<br/><br/>" . str_replace(':', ': ', A2W_PhraseFilter::apply_filter_to_text($item['skuInfo']));
+                            if ($this->review_load_attributes && isset($item['review']['itemSpecInfo'])) {
+                                $tmp_text = $tmp_text . "<br/><br/>" . preg_replace('#([\w\-]+:)#', '<b>$1</b>', str_replace(':', ': ', A2W_PhraseFilter::apply_filter_to_text($item['review']['itemSpecInfo'])));
+                                //$tmp_text = $tmp_text . "<br/><br/>" . str_replace(':', ': ', A2W_PhraseFilter::apply_filter_to_text($item['review']['itemSpecInfo']));
                             }
 
                             $maybe_skip_review = $this->maybe_skip_review($tmp_text);
@@ -120,33 +121,36 @@ if (!class_exists('A2W_Review')) {
 
                             $review_text = A2W_PhraseFilter::apply_filter_to_text($tmp_text);
 
-                            $author = A2W_PhraseFilter::apply_filter_to_text($item['buyerName']);
+                            $author = A2W_PhraseFilter::apply_filter_to_text($item['buyer']['buyerTitle']);
 
-                            $date = date('Y-m-d H:i:s', strtotime($item['evalDate']));
+                            $date = date('Y-m-d H:i:s', strtotime($item['review']['reviewDate']));
 
                             $comment_approved = a2w_get_setting('moderation_reviews') ? 0 : 1;
-
+                            
                             $data = array(
                                 'comment_post_ID' => $post_id,
                                 'comment_author' => $author,
+                                'comment_author_email' => '',
+                                'comment_author_url'   => '',
                                 'comment_content' => wp_slash($review_text),
+                                'comment_agent' =>'',
                                 'comment_date' => $date,
                                 'comment_date_gmt' => $date,
+                                'comment_parent' => 0,
+                                'comment_type' => 'review',
                                 'comment_approved' => $comment_approved,
-                                'comment_type' => 'review'
                             );
-
 
                             $comment_id = wp_insert_comment($data);
 
                             add_comment_meta($comment_id, 'rating', (int) esc_attr($rating), true);
                             add_comment_meta($comment_id, 'a2w_cash', $review_cache, true);
-                            add_comment_meta($comment_id, 'a2w_country', $item['buyerCountry'], true);
+                            add_comment_meta($comment_id, 'a2w_country', $item['buyer']['buyerCountry'], true);
 
                             if($step === false){
                                 // if this is one thread import, then load images
                                 if (a2w_get_setting('review_avatar_import')) {
-                                    $author_photo = isset($item['buyerHeadPortrait']) ? $item['buyerHeadPortrait'] : false;
+                                    $author_photo = isset($item['buyer']['buyerImage']) ? $item['buyer']['buyerImage'] : false;
                                     if ($author_photo !== false) {
                                         $author_photo = $this->helper->image_http_to_https($author_photo);
                                         $photo_id = $this->attachment_model->create_attachment($comment_id, $author_photo);
@@ -159,7 +163,7 @@ if (!class_exists('A2W_Review')) {
                                 $photo_ids = array();
     
                                 if (a2w_get_setting('review_show_image_list')) {
-                                    $photo_list = !empty($item['images']) ? (is_array($item['images']) ? $item['images'] : array($item['images'])) : array();
+                                    $photo_list = !empty($item['review']['reviewImages']) ? (is_array($item['review']['reviewImages']) ? $item['review']['reviewImages'] : array($item['review']['reviewImages'])) : array();
     
                                     foreach ($photo_list as $photo) {
                                         $photo = $this->helper->image_http_to_https($photo);
@@ -174,7 +178,7 @@ if (!class_exists('A2W_Review')) {
                             }else{
                                 // step by step flow. Prepare steps.
                                 if (a2w_get_setting('review_avatar_import')) {
-                                    $author_photo = isset($item['buyerHeadPortrait']) ? $item['buyerHeadPortrait'] : false;
+                                    $author_photo = isset($item['buyer']['buyerImage']) ? $item['buyer']['buyerImage'] : false;
                                     if ($author_photo) {
                                         $author_photo = $this->helper->image_http_to_https($author_photo);
                                         $new_steps[] = "reviews#avatar#".$comment_id."#".$author_photo;
@@ -182,7 +186,7 @@ if (!class_exists('A2W_Review')) {
                                 }
 
                                 if (a2w_get_setting('review_show_image_list')) {
-                                    $photo_list = !empty($item['images']) ? (is_array($item['images']) ? $item['images'] : array($item['images'])) : array();
+                                    $photo_list = !empty($item['review']['reviewImages']) ? (is_array($item['review']['reviewImages']) ? $item['review']['reviewImages'] : array($item['review']['reviewImages'])) : array();
                                     foreach ($photo_list as $photo) {
                                         $photo = $this->helper->image_http_to_https($photo);
                                         $new_steps[] = "reviews#photo#".$comment_id."#".$photo;
@@ -296,7 +300,7 @@ if (!class_exists('A2W_Review')) {
                 return true;
             }
 
-            $review_country = strtoupper($item['buyerCountry']);
+            $review_country = strtoupper($item['buyer']['buyerCountry']);
 
             if (array_search($review_country, $this->allowed_countries) !== false){
                 return true;

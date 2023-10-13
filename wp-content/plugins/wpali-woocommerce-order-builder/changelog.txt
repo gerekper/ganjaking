@@ -67,3 +67,6 @@
 
 = 1.1.6 = 30/09/2022
 * Fix a depracted function from WooCommerce
+
+= 1.1.7 = 12/10/2023
+* Styling fixes

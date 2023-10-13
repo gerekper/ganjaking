@@ -1,0 +1,12 @@
+.vendor_limited_access .yith-plugin-fw__panel__sidebar__header,
+.vendor_limited_access .yith-plugin-fw__panel__mobile__header__logo {
+    display : none !important
+}
+
+.vendor_limited_access .yith-plugin-fw__panel__sidebar .yith-plugin-fw__panel__menu__wrapper {
+    margin-top : 16px
+}
+
+.vendor_limited_access .yith-wcbk-booking-calendar__filter--by-resource {
+    display : none;
+}

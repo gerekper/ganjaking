@@ -13,7 +13,7 @@
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   2.2.0
- * @version 2.3.0
+ * @version 2.5.0
  */
 
 // Exit if accessed directly.
@@ -21,37 +21,37 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<div class="mnm_cart mnm_data mnm_status" data-for_container="<?php echo esc_attr( $product->get_id() ); ?>" <?php echo wc_implode_html_attributes( $product->get_data_attributes() ); ?> >
+<div class="mnm_cart mnm_data mnm_status" data-for_container="<?php echo esc_attr( $product->get_id() ); ?>" <?php echo wc_implode_html_attributes( $product->get_data_attributes() ); // phpcs:ignore WordPress.Security.EscapeOutput ?> >
 
 <?php
 
-	if ( $product->is_purchasable() ) {
-		/**
-		 * wc_mnm_before_container_status hook.
-		 * 
-		 * @param  WC_Mix_and_Match  $product
-		 */
-		do_action( 'wc_mnm_before_container_status', $product );
-		?>
+if ( $product->is_purchasable() ) {
+	/**
+	 * Hook: wc_mnm_before_container_status.
+	 *
+	 * @param  WC_Mix_and_Match  $product
+	 */
+	do_action( 'wc_mnm_before_container_status', $product );
+	?>
 
 		<p class="mnm_price" style="display:none;"></p>
 
 		<div aria-live="polite" role="status" class="mnm_message woocommerce-message" style="display:none;">		
 			<ul class="msg mnm_message_content">
-				<li><?php echo wc_mnm_get_quantity_message( $product ); ?></li>
+				<li><?php echo esc_html( wc_mnm_get_quantity_message( $product ) ); ?></li>
 			</ul>
 		</div>
 
 		<div class="mnm_availability">
 
-			<?php echo wc_get_stock_html( $product ); ?>
+		<?php echo wp_kses_post( wc_get_stock_html( $product ) ); ?>
 			
 		</div>
 
 		<?php
 		/**
-		 * wc_mnm_after_container_status hook.
-		 * 
+		 * Hook: wc_mnm_after_container_status.
+		 *
 		 * @param  WC_Mix_and_Match  $product
 		 */
 		do_action( 'wc_mnm_after_container_status', $product );
