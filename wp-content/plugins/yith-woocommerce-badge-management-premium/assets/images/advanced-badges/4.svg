@@ -1,0 +1,63 @@
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="91.333px" height="91px" viewBox="0 0 91.333 91" enable-background="new 0 0 91.333 91" xml:space="preserve">
+<style>
+.yith-wcbm-badge.yith-wcbm-badge-advanced-4 .yith-wcbm-saved-percentage:before,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-4 .yith-wcbm-saved-money:before {
+	content: '-';
+}
+    .yith-wcbm-badge.yith-wcbm-badge-advanced-4 {
+	width: 92px;
+	height: 92px;
+	overflow: hidden;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-4 .yith-wcbm-badge-text-advanced {
+	width: 100%;
+	height: 100%;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-4.yith-wcbm-advanced-display-percentage .yith-wcbm-saved-percentage,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-4.yith-wcbm-advanced-display-amount .yith-wcbm-saved-money {
+	display: block;
+	font-weight: 600;
+	font-size: 15px;
+	line-height: 0;
+	top: 27px;
+	right: -28px;
+	width: 145px;
+	text-align: center;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-4 .yith-wcbm-badge-text-advanced {
+	transform: rotate(45deg);
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-4.yith-wcbm-badge-advanced--flip-vertical .yith-wcbm-badge-text-advanced {
+	transform: rotate(45deg);
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-4.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-badge-text-advanced {
+	transform: scale(1, -1) rotate(135deg);
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-4.yith-wcbm-badge-advanced--flip-both .yith-wcbm-badge-text-advanced {
+	transform: scale(-1) rotate(45deg) translate(0, 40%);
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-4.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-badge-text-advanced div,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-4.yith-wcbm-badge-advanced--flip-both .yith-wcbm-badge-text-advanced div {
+	transform: scale(1) !important;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-4 .yith-wcbm-badge-primary-color{
+    fill: var(--badge-primary-color, #49dcbf);
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-4 .yith-wcbm-badge-text-advanced {
+    color: var(--badge-text-color, #ffffff);
+}
+</style>
+    <g>
+	<polygon fill="#47DCBF" class="yith-wcbm-badge-primary-color" points="53.666,0 91.333,38.385 91.333,91 0,0 	"/>
+</g>
+</svg>

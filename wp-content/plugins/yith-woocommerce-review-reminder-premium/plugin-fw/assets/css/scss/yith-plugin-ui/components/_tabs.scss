@@ -1,0 +1,51 @@
+.yith-plugin-ui .yith-plugin-fw__tabs {
+    background    : transparent;
+    padding       : 0;
+    margin        : 0;
+    display       : flex;
+    align-items   : center;
+    border-bottom : 1px solid var(--yith-light-border-color);
+    flex-wrap     : wrap;
+
+    .yith-plugin-fw__tab {
+        border  : 0;
+        margin  : 0;
+        display : block;
+    }
+
+    .yith-plugin-fw__tab__handler, a.yith-plugin-fw__tab__handler {
+        background      : var(--yith-content-bg);
+        border          : 0;
+        border-bottom   : 3px solid transparent;
+        padding         : 17px 20px 15px;
+        font-weight     : 600;
+        color           : inherit;
+        text-decoration : none;
+        display         : block;
+        transition      : all .2s ease-in-out;
+        opacity         : .55;
+
+        &:hover {
+            opacity    : 1;
+            background : var(--yith-light-bg);
+            color      : var(--yith-light-accent);
+        }
+    }
+
+    .yith-plugin-fw__tab.yith-plugin-fw__tab--active .yith-plugin-fw__tab__handler,
+    .yith-plugin-fw__tab__handler.yith-plugin-fw__tab__handler--enabled {
+        opacity      : 1;
+        color        : var(--yith-light-accent);
+        border-color : var(--yith-light-accent);
+    }
+}
+
+.yith-plugin-ui .yith-plugin-fw__tab-panel {
+    padding : 20px;
+
+    &.yith-plugin-fw__tab-panel--outlined {
+        border-width : 0 1px 1px 1px;
+        border-style : solid;
+        border-color : var(--yith-light-border-color);
+    }
+}

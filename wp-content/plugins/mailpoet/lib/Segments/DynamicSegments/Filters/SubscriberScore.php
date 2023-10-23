@@ -5,6 +5,7 @@ namespace MailPoet\Segments\DynamicSegments\Filters;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Entities\DynamicSegmentFilterData;
 use MailPoet\Entities\DynamicSegmentFilterEntity;
 use MailPoet\Segments\DynamicSegments\Exceptions\InvalidFilterException;
 use MailPoet\Util\Security;
@@ -45,5 +46,9 @@ class SubscriberScore implements Filter {
     $queryBuilder->setParameter($parameter, (int)$value);
 
     return $queryBuilder;
+  }
+
+  public function getLookupData(DynamicSegmentFilterData $filterData): array {
+    return [];
   }
 }

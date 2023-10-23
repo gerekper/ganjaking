@@ -1,0 +1,24 @@
+<svg>
+    <style>
+        .yith-wcbm-badge.yith-wcbm-badge-css-4 {
+            flex-direction: row;
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-css-4 .yith-wcbm-badge__wrap {
+            padding: 15px 15px;
+            position: relative;
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-css-4 div.yith-wcbm-css-s1 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 75%;
+            padding-top: 75%;
+            z-index: -1;
+            transform: translate(-50%, -50%) rotate(45deg);
+            border-radius: 5%;
+            background: var(--badge-primary-color, #f68d36);
+        }
+    </style>
+</svg>

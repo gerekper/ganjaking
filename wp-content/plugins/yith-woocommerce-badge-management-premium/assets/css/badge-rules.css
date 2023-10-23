@@ -1,0 +1,263 @@
+#yith_wcbm_panel_badge-rules table + .submit,
+#yith_wcbm_panel_badge-rules table + .submit + button + form,
+.yith-wcbm-type__row,
+.edit-php.post-type-ywcbm-badge-rule .subsubsub,
+.post-php.post-type-ywcbm-badge-rule #post-body-content,
+.post-new-php.post-type-ywcbm-badge-rule #post-body-content,
+.post-php.post-type-ywcbm-badge-rule #yith-wcbm-badge-rules .postbox-header,
+.post-new-php.post-type-ywcbm-badge-rule #yith-wcbm-badge-rules .postbox-header,
+.yith-wcbm-association-badge-rule-wrapper:only-child .yith-wcbm-remove-association-badge-rule {
+    display : none;
+}
+
+.post-type-ywcbm-badge-rule.post-php .page-title-action {
+    display : none !important;
+}
+
+.post-type-ywcbm-badge-rule .wp-list-table tbody tr {
+    height : 70px;
+}
+
+.yith_wcbm_actions .yith-plugin-fw-onoff-field-wrapper {
+    display      : inline-block !important;
+    margin-right : 15px;
+}
+
+
+tr:hover .yith_wcbm_actions .yith-plugin-fw__action-button:nth-child(3) {
+    transition-delay : .1s !important;
+}
+
+tr:hover .yith_wcbm_actions .yith-plugin-fw__action-button:nth-child(4) {
+    transition-delay : .2s !important;
+}
+
+.column-yith_wcbm_actions {
+    width : 210px;
+}
+
+.post-type-ywcbm-badge-rule .yith-wcbm-badge-rule--disabled td.column-title a {
+    color  : #999 !important;
+    cursor : default;
+}
+
+.yith-wcbm-badge-rule-actions {
+    display     : flex;
+    align-items : center;
+    height      : 50px;
+}
+
+.yith-wcbm-invalid-badge-rule-type {
+    color : #ae0000;
+}
+
+.yith-wcbm-just-delete-action {
+    float        : right;
+    margin-right : 14px !important;
+}
+
+.yith-plugin-fw__action-button {
+    margin-left : 15px;
+}
+
+#yith_wcbm_panel_rules .yit-admin-panel-content-wrap {
+    background-color : #fff;
+    border           : 1px solid #d8d8d8;
+    border-top       : none;
+    padding          : 35px 20px;
+}
+
+#yith_wcbm_panel_rules h2 {
+    padding : 0;
+    border  : none;
+    margin  : 15px 0;
+}
+
+#yith_wcbm_panel_rules .form-table {
+    margin : 0 -20px;
+    border : none !important;
+}
+
+#yith_wcbm_panel_rules .form-table td, #yith_wcbm_panel_rules .form-table th {
+    margin : 0 -20px;
+    border : none !important;
+}
+
+#yith_wcbm_panel_rules .yit-admin-panel-content-wrap {
+    background-color : #fff;
+    border           : 1px solid #d8d8d8;
+    border-top       : none;
+    padding          : 35px 20px;
+}
+
+#yith_wcbm_panel_rules .yith-plugin-fw__back-to-wp-list {
+    margin-bottom : 25px;
+    display       : block;
+}
+
+#yith_wcbm_panel_rules .yith-plugin-fw__back-to-wp-list > a {
+    text-decoration : none !important;
+}
+
+
+.yith-wcbm-badge-rules-types {
+    padding : 20px 10px;
+}
+
+.yith-wcbm-badge-rules-types .yith-wcbm-badge-rule-type {
+    display         : flex;
+    padding         : 20px;
+    border          : 1px solid #F1F1F1;
+    box-shadow      : 0 2px 8px 6px rgba(238, 238, 238, 0.5);
+    transition      : .3s;
+    cursor          : pointer;
+    text-decoration : none;
+    color           : #3c434a;
+}
+
+.yith-wcbm-badge-rules-types .yith-wcbm-badge-rule-type:hover {
+    border-color : rgb(176, 209, 246);
+    box-shadow   : 0 2px 8px 6px rgba(125, 198, 244, 0.16);
+}
+
+.yith-wcbm-badge-rule-type__info {
+    display         : flex;
+    flex-direction  : column;
+    justify-content : center;
+}
+
+.yith-wcbm-badge-rules-types > .yith-wcbm-badge-rule-type + .yith-wcbm-badge-rule-type {
+    margin-top : 20px;
+}
+
+.yith-wcbm-badge-rules-types .yith-wcbm-badge-rule-type__icon {
+    font-size       : 60px;
+    min-width       : 100px;
+    max-width       : 100px;
+    padding         : 20px 0;
+    display         : flex;
+    align-items     : center;
+    justify-content : center;
+    margin-right    : 15px;
+    color           : #7D7D7D;
+    transition      : color .2s;
+}
+
+.yith-wcbm-badge-rules-types .yith-wcbm-badge-rule-type__icon span,
+.yith-wcbm-badge-rules-types .yith-wcbm-badge-rule-type__icon:before,
+.yith-wcbm-badge-rules-types .yith-wcbm-badge-rule-type__icon span:before {
+    transition : color .2s;
+    color      : #7D7D7D;
+}
+
+.yith-wcbm-badge-rules-types .yith-wcbm-badge-rule-type__icon .path6:before,
+.yith-wcbm-badge-rules-types .yith-wcbm-badge-rule-type__icon .path4:before {
+    color : white !important;
+}
+
+.yith-wcbm-badge-rules-types .yith-wcbm-badge-rule-type__title {
+    font-size     : 15px;
+    font-weight   : 600;
+    margin-bottom : 10px;
+    transition    : color .2s;
+}
+
+.yith-wcbm-badge-rule-type:hover .yith-wcbm-badge-rule-type__title,
+.yith-wcbm-badge-rule-type:hover .yith-wcbm-badge-rule-type__icon,
+.yith-wcbm-badge-rule-type:hover .yith-wcbm-badge-rule-type__icon:before,
+.yith-wcbm-badge-rule-type:hover .yith-wcbm-badge-rule-type__icon span:not(.path4, .path6):before {
+    color : #4589A6 !important;
+}
+
+.yith-wcbm-badge-rule-type__icon.yith-wcbm-icon-dynamic-pricing-badge-rule {
+    font-size : 80px;
+}
+
+.yith-wcbm-association-badge-rule-wrapper {
+    display     : flex;
+    align-items : center;
+}
+
+.yith-wcbm-association-badge-rule-wrapper > div {
+    margin : 10px;
+}
+
+.yith-wcbm-add-association-rule {
+    cursor : pointer;
+    color  : #0875BA;
+}
+
+.yith-wcbm-remove-association-badge-rule {
+    font-size   : 13px !important;
+    line-height : 8px !important;
+    cursor      : pointer;
+    transition  : .2s color;
+}
+
+.yith-wcbm-remove-association-badge-rule:hover {
+    color : #BA3E3E;
+}
+
+.yith-wcbm-associations-badge-rule-field .yith-wcbm-association-badge-rule-wrapper .yith-plugin-fw-select2-wrapper {
+    width : auto;
+}
+
+.yith-wcbm-associations-badge-rule-field .yith-wcbm-association-badge-rule-wrapper .select2-container {
+    width     : fit-content !important;
+    min-width : 160px !important;
+}
+
+.yith-wcbm-associations-badge-rule-field #_dynamic-pricing-rules .yith-wcbm-association-badge-rule-wrapper .select2-container {
+    width     : 1% !important;
+    min-width : 225px !important;
+}
+
+.yith-wcbm-associations-badge-rule-field label {
+    padding-top : 17px;
+}
+
+.post-php.post-type-ywcbm-badge-rule #yith-wcbm-badge-rules,
+.post-new-php.post-type-ywcbm-badge-rule #yith-wcbm-badge-rules {
+    border : none;
+}
+
+#_excluded_products-container > label:nth-child(1) {
+    margin-top : 10px;
+}
+
+#_schedule_dates {
+    display     : flex;
+    align-items : center;
+    column-gap  : 10px;
+}
+
+#_schedule_dates-container > label:nth-child(1) {
+    margin-top : 7px;
+}
+
+#_schedule_dates input {
+    max-width     : 190px;
+    max-height    : 100px;
+    height        : 45px;
+    padding       : 14px 35px 14px 14px;
+    border-radius : 5px;
+}
+
+#_schedule_dates .yith-plugin-fw-datepicker-field-wrapper:before {
+    content      : "\e904";
+    font-family  : yith-icon !important;
+    line-height  : 1;
+    font-size    : 17px;
+    position     : absolute;
+    right        : 0;
+    top          : 50%;
+    transform    : translateY(-50%);
+    margin-right : 11px;
+    color        : #999;
+}
+
+#_newer_then-container .yith-plugin-fw-field-wrapper {
+    display     : flex;
+    align-items : center;
+    column-gap  : 10px;
+}

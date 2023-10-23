@@ -1,0 +1,42 @@
+<svg>
+    <style>
+        .yith-wcbm-badge.yith-wcbm-badge-css-5 .yith-wcbm-badge__wrap {
+            display: flex;
+            align-items: stretch;
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-css-5 {
+            box-sizing: border-box;
+            background-color: transparent;
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-css-5 div.yith-wcbm-css-s2 {
+            padding-right: 25px;
+            background: linear-gradient(to top right, #0000 50.1%,var(--badge-primary-color, #45cfea) 50%);
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-css-5 div.yith-wcbm-css-text {
+            font-family: 'Open Sans', sans-serif;
+            line-height: normal;
+            height: auto;
+            white-space: nowrap;
+            padding: 5px 10px 5px 6px;
+            box-sizing: border-box;
+            display: inline-block;
+            position: relative;
+            background-color: var(--badge-primary-color, #45cfea);
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-css-5 div.yith-wcbm-css-text:after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-right: 5px solid transparent;
+            border-left: 2px solid transparent;
+            position: absolute;
+            right: 0;
+            bottom: -6px;
+            border-top: 6px solid var(--badge-secondary-color, #2e91a3);
+        }
+    </style>
+</svg>

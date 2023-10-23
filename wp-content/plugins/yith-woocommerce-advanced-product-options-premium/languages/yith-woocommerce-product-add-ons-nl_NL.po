@@ -1,0 +1,3584 @@
+# Translation of YITH WooCommerce Products Add-ons in Dutch
+# This file is distributed under the same license as the YITH WooCommerce Products Add-ons package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Products Add-ons\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"advanced-product-options.premium\n"
+"POT-Creation-Date: 2023-09-14 13:11:36+00:00\n"
+"PO-Revision-Date: 2021-09-29 11:07:58+0000\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/class-yith-wapo-addon-premium.php:111
+#: includes/class-yith-wapo-addon.php:696
+msgid "Selection type"
+msgstr "Selectie type"
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/class-yith-wapo-addon-premium.php:175
+#: includes/class-yith-wapo-addon.php:713
+msgid "Force user to select an option"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/class-yith-wapo-addon-premium.php:186
+#: includes/class-yith-wapo-addon.php:724
+msgid ""
+"Enable to force the user to select an option of the select to proceed with "
+"the purchase."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/class-yith-wapo-addon-premium.php:225
+msgid "Sell options individually"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#. (description)
+#: includes/class-yith-wapo-addon-premium.php:234
+msgid ""
+"Enable to sell options individually.\n"
+"\t\t\t\t\t\tThe options are added to the cart in a separate row and their "
+"prices are not affected by the quantity of products purchased."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Display & Style option
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-addon-premium.php:308
+#: includes/class-yith-wapo-admin-premium.php:691
+msgid "Above label"
+msgstr "Boven label"
+
+#. translators: [ADMIN] Add-on editor > Display & Style option
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-addon-premium.php:310
+#: includes/class-yith-wapo-admin-premium.php:693
+msgid "Under label"
+msgstr "Onder label"
+
+#. translators: [ADMIN] Add-on editor > Display & Style option
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-addon-premium.php:312
+#: includes/class-yith-wapo-admin-premium.php:695
+msgid "Left side"
+msgstr "Linker zijde"
+
+#. translators: [ADMIN] Add-on editor > Display & Style option
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-addon-premium.php:314
+#: includes/class-yith-wapo-admin-premium.php:697
+msgid "Right side"
+msgstr "Rechter zijde"
+
+#. translators: [ADMIN] Add-on editor > Display & Style option
+#: includes/class-yith-wapo-addon-premium.php:329
+msgid "Show an image for this set of options"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (description)
+#: includes/class-yith-wapo-addon-premium.php:339
+msgid "Enable to show an additional image or icon near the title."
+msgstr ""
+"Inschakelen als je een aanvullende afbeelding of pictogram wilt tonen naast "
+"de titel."
+
+#. translators: [ADMIN] Add-on editor > Display & Style option
+#: includes/class-yith-wapo-addon-premium.php:344
+msgid "Options set image"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Display & Style option
+#: includes/class-yith-wapo-addon-premium.php:355
+msgid "Product image replacing options"
+msgstr "Opties om de productafbeelding te vervangen"
+
+#. translators: [ADMIN] Add-on editor > Display & Style option
+#: includes/class-yith-wapo-addon-premium.php:365
+msgid "Don't replace the image"
+msgstr "Afbeelding niet vervangen"
+
+#. translators: [ADMIN] Add-on editor > Display & Style option
+#: includes/class-yith-wapo-addon-premium.php:367
+msgid "Replace with block image"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Display & Style option
+#: includes/class-yith-wapo-addon-premium.php:369
+msgid "Replace with options images"
+msgstr "Vervangen met afbeeldingen van opties"
+
+#. translators: [ADMIN] Add-on editor > Display & Style option
+#: includes/class-yith-wapo-addon-premium.php:374
+msgid ""
+"Choose to replace the default product image when an option is selected and "
+"which image to use to replace it."
+msgstr ""
+"Bepaal of je de standaard productafbeelding wilt vervangen wanneer een optie "
+"is geselecteerd en welke afbeelding je wilt gebruiken om deze te vervangen."
+
+#. translators: [ADMIN] Add-on editor > Display & Style option
+#: includes/class-yith-wapo-addon-premium.php:379
+msgid "Hide options images"
+msgstr "Opties afbeeldingen verbergen"
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (description)
+#: includes/class-yith-wapo-addon-premium.php:389
+msgid "Enable to hide the options images."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (title)
+#: includes/class-yith-wapo-addon-premium.php:394
+msgid "Options images position"
+msgstr "Positie van opties afbeeldingen"
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (description)
+#: includes/class-yith-wapo-addon-premium.php:406
+msgid "Choose the position of the options images."
+msgstr "Kies de positie van de opties afbeeldingen."
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (title)
+#: includes/class-yith-wapo-addon-premium.php:410
+msgid "Show as toggle"
+msgstr "Tonen als toggle"
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (option)
+#. translators: [ADMIN] *Only add-on type Labels* Add-on editor > Display &
+#. Style option (title)
+#. translators: [ADMIN] *Only add-on type Labels* Add-on editor > Display &
+#. Style option (option)
+#: includes/class-yith-wapo-addon-premium.php:419
+#: includes/class-yith-wapo-addon-premium.php:675
+#: includes/class-yith-wapo-addon-premium.php:695
+msgid "Default"
+msgstr "Standaard"
+
+#: includes/class-yith-wapo-addon-premium.php:420
+msgid "No"
+msgstr "Nee"
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (option)
+#: includes/class-yith-wapo-addon-premium.php:422
+msgid "Yes, with toggle opened by default"
+msgstr "Ja, met toggle, standaard geopend"
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (option)
+#: includes/class-yith-wapo-addon-premium.php:424
+msgid "Yes, with toggle closed by default"
+msgstr "Ja, met toggle, standaard gesloten"
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (description)
+#: includes/class-yith-wapo-addon-premium.php:431
+msgid "Choose whether to show options in a toggle section."
+msgstr "Bepaal of je opties wilt tonen in een toggle sectie."
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (title)
+#: includes/class-yith-wapo-addon-premium.php:435
+msgid "Hide product prices"
+msgstr "Productprijzen verbergen"
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (description)
+#: includes/class-yith-wapo-addon-premium.php:444
+msgid "Enable if you want to hide the product prices."
+msgstr "Inschakelen als je de productprijzen wilt verbergen."
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (title)
+#: includes/class-yith-wapo-addon-premium.php:449
+msgid "Show SKU label"
+msgstr "SKU label tonen"
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (description)
+#: includes/class-yith-wapo-addon-premium.php:459
+msgid "Enable if you want to show the sku label."
+msgstr "Inschakelen als je het sku label wilt tonen."
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (title)
+#: includes/class-yith-wapo-addon-premium.php:464
+msgid "Show stock label"
+msgstr "Voorraad label tonen"
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (description)
+#: includes/class-yith-wapo-addon-premium.php:474
+msgid "Enable if you want to show the stock label."
+msgstr "Inschakelen als je het voorraad label wilt tonen."
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (title)
+#: includes/class-yith-wapo-addon-premium.php:478
+msgid "Show \"Add to cart\" button"
+msgstr "Toon \"Toevoegen aan winkelwagen\" knop"
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (description)
+#: includes/class-yith-wapo-addon-premium.php:487
+msgid "Enable if you want to show the \"Add to cart\" button."
+msgstr "Inschakelen als je de \"Toevoegen aan winkelwagen\" knop wilt tonen"
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (title)
+#: includes/class-yith-wapo-addon-premium.php:492
+msgid "Show quantity selector"
+msgstr "Toon hoeveelheid selector"
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (description)
+#: includes/class-yith-wapo-addon-premium.php:502
+msgid "Enable if you want to show the quantity selector."
+msgstr "Inschakelen als je de hoeveelheid selector wilt tonen."
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (title)
+#: includes/class-yith-wapo-addon-premium.php:506
+msgid "When a product is out of stock"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (option)
+#: includes/class-yith-wapo-addon-premium.php:515
+msgid "Hide product"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (option)
+#: includes/class-yith-wapo-addon-premium.php:517
+msgid "Disable product"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (description)
+#: includes/class-yith-wapo-addon-premium.php:522
+msgid "Choose if hide the out of stock products or not."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (title)
+#: includes/class-yith-wapo-addon-premium.php:526
+msgid "Hide labels"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (description)
+#: includes/class-yith-wapo-addon-premium.php:535
+msgid "Enable to hide the options labels."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (title)
+#: includes/class-yith-wapo-addon-premium.php:540
+msgid "Hide prices"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (description)
+#: includes/class-yith-wapo-addon-premium.php:550
+msgid "Enable to hide the options prices."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (title)
+#: includes/class-yith-wapo-addon-premium.php:555
+msgid "Options per row"
+msgstr "Opties per rij"
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (description)
+#: includes/class-yith-wapo-addon-premium.php:568
+msgid "Enter how many options to display for each row."
+msgstr "Voor in hoeveel opties je wilt tonen voor elke rij."
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (title)
+#: includes/class-yith-wapo-addon-premium.php:572
+msgid "Adjust options in a grid"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (description).
+#. %s is a line break.
+#: includes/class-yith-wapo-addon-premium.php:582
+msgid ""
+"Enable to adjust the options in a grid based on the page width. %s Using a "
+"grid layout, all options will have the same width."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (title)
+#: includes/class-yith-wapo-addon-premium.php:587
+msgid "Options width"
+msgstr "Breedte opties"
+
+#. translators: [ADMIN] *Only add-on type Selector* Add-on editor > Display &
+#. Style option (title)
+#: includes/class-yith-wapo-addon-premium.php:604
+msgid "Select width (%)"
+msgstr ""
+
+#. translators: [ADMIN] *Only add-on type Selector* Add-on editor > Display &
+#. Style option (description)
+#: includes/class-yith-wapo-addon-premium.php:616
+msgid "Set the width of the select in relation to the container width."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (title)
+#: includes/class-yith-wapo-addon-premium.php:620
+msgid "Content alignment"
+msgstr "Uitlijning inhoud"
+
+#. translators: [ADMIN] *Only add-on type Labels* Add-on editor > Display &
+#. Style option (option)
+#: includes/class-yith-wapo-addon-premium.php:629
+msgid "Left"
+msgstr "Links"
+
+#. translators: [ADMIN] *Only add-on type Labels* Add-on editor > Display &
+#. Style option (option)
+#: includes/class-yith-wapo-addon-premium.php:631
+msgid "Center"
+msgstr "Midden"
+
+#. translators: [ADMIN] *Only add-on type Labels* Add-on editor > Display &
+#. Style option (option)
+#: includes/class-yith-wapo-addon-premium.php:633
+msgid "Right"
+msgstr "Rechts"
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (title)
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-addon-premium.php:641
+#: includes/class-yith-wapo-admin-premium.php:704
+msgid "Force image equal heights"
+msgstr "Forceer gelijke hoogtes voor afbeelding"
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (title)
+#: includes/class-yith-wapo-addon-premium.php:654
+msgid "Image heights (px)"
+msgstr ""
+
+#. translators: [ADMIN] *Only add-on type Labels* Add-on editor > Display &
+#. Style option (title)
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-addon-premium.php:666
+#: includes/class-yith-wapo-admin-premium.php:727
+msgid "Label position"
+msgstr "Positie van label"
+
+#. translators: [ADMIN] *Only add-on type Labels* Add-on editor > Display &
+#. Style option (title)
+#. translators: [ADMIN] *Only add-on type Labels* Add-on editor > Display &
+#. Style option (option)
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-addon-premium.php:677
+#: includes/class-yith-wapo-addon-premium.php:697
+#: includes/class-yith-wapo-admin-premium.php:733
+#: includes/class-yith-wapo-admin-premium.php:746
+msgid "Inside borders"
+msgstr "Binnen randen"
+
+#. translators: [ADMIN] *Only add-on type Labels* Add-on editor > Display &
+#. Style option (title)
+#. translators: [ADMIN] *Only add-on type Labels* Add-on editor > Display &
+#. Style option (option)
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-addon-premium.php:679
+#: includes/class-yith-wapo-addon-premium.php:699
+#: includes/class-yith-wapo-admin-premium.php:735
+#: includes/class-yith-wapo-admin-premium.php:747
+msgid "Outside borders"
+msgstr "Buiten randen"
+
+#. translators: [ADMIN] *Only add-on type Labels*  Add-on editor > Display &
+#. Style option (title)
+#: includes/class-yith-wapo-addon-premium.php:686
+#: includes/class-yith-wapo-admin-premium.php:741
+msgid "Description position"
+msgstr "Positie van beschrijving"
+
+#. translators: [ADMIN] *Only add-on type Labels* Add-on editor > Display &
+#. Style option (title)
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-addon-premium.php:706
+#: includes/class-yith-wapo-admin-premium.php:754
+msgid "Padding"
+msgstr "Padding"
+
+#: includes/class-yith-wapo-admin-premium.php:114
+msgid ""
+"With this plugin you can add advanced options to your product pages using "
+"fields like radio buttons, checkboxes, drop-downs, custom text inputs, and "
+"more."
+msgstr ""
+
+#: includes/class-yith-wapo-admin-premium.php:128
+msgid "Are you ready? Create your first <mark>block of options</mark>"
+msgstr ""
+
+#: includes/class-yith-wapo-admin-premium.php:129
+msgid "... and start the adventure!"
+msgstr ""
+
+#. translators: [HELP TAB] Video title.
+#: includes/class-yith-wapo-admin-premium.php:142
+msgid ""
+"Check this video to learn how to <b>create an options block and show it in a "
+"product page:</b>"
+msgstr ""
+
+#. translators: [Your Store Tools TAB] Plugin description.
+#: includes/class-yith-wapo-admin-premium.php:164
+msgid ""
+"Hide prices and/or the \"Add to cart\" button and let your customers request "
+"a custom quote for every product."
+msgstr ""
+
+#. translators: [Your Store Tools TAB] Plugin description.
+#: includes/class-yith-wapo-admin-premium.php:173
+msgid ""
+"Use your shop as a catalog by hiding prices and/or the \"Add to cart\" "
+"button on product pages."
+msgstr ""
+
+#. translators: [Your Store Tools TAB] Plugin description.
+#: includes/class-yith-wapo-admin-premium.php:181
+msgid ""
+"Sell gift cards in your shop to increase your earnings and attract new "
+"customers."
+msgstr ""
+
+#. translators: [Your Store Tools TAB] Plugin description.
+#: includes/class-yith-wapo-admin-premium.php:190
+msgid ""
+"Help your customers to easily find the products they are looking for and "
+"improve the user experience of your shop."
+msgstr ""
+
+#. translators: [Your Store Tools TAB] Plugin description.
+#: includes/class-yith-wapo-admin-premium.php:198
+msgid ""
+"Allow your customers to create lists of products they want and share them "
+"with family and friends."
+msgstr ""
+
+#. translators: [Your Store Tools TAB] Plugin description.
+#: includes/class-yith-wapo-admin-premium.php:206
+msgid ""
+"Sell products with a subscription plan in your e-commerce and loyalize your "
+"customers."
+msgstr ""
+
+#. translators: [Your Store Tools TAB] Plugin description.
+#: includes/class-yith-wapo-admin-premium.php:214
+msgid ""
+"Activate some sections of your e-commerce with restricted access so as to "
+"create memberships in your store."
+msgstr ""
+
+#. translators: [Your Store Tools TAB] Plugin description.
+#: includes/class-yith-wapo-admin-premium.php:222
+msgid ""
+"Customize the My Account page of your customers by creating custom sections "
+"with promotions and ad-hoc content based on your needs."
+msgstr ""
+
+#. translators: Display & Style tab of the add-on configuration
+#: includes/class-yith-wapo-admin-premium.php:249
+msgid "Display & Style"
+msgstr ""
+
+#. translators: Add-on type date option
+#: includes/class-yith-wapo-admin-premium.php:303 views/addons/date.php:220
+#: views/addons/date.php:459
+msgid "Days"
+msgstr "Dagen"
+
+#. translators: Add-on type date option
+#: includes/class-yith-wapo-admin-premium.php:304 views/addons/date.php:461
+msgid "Days of the week"
+msgstr "Dagen van de week"
+
+#. translators: Add-on type date option
+#: includes/class-yith-wapo-admin-premium.php:305 views/addons/date.php:222
+#: views/addons/date.php:463
+msgid "Months"
+msgstr "Maanden"
+
+#. translators: Add-on type date option
+#: includes/class-yith-wapo-admin-premium.php:306 views/addons/date.php:224
+#: views/addons/date.php:465
+msgid "Years"
+msgstr "Jaren"
+
+#. translators: [ADMIN] Option of add-on type Date
+#. translators: Add-on type date option
+#: includes/class-yith-wapo-admin-premium.php:341 views/addons/date.php:500
+msgid "Monday"
+msgstr "Maandag"
+
+#. translators: [ADMIN] Option of add-on type Date
+#: includes/class-yith-wapo-admin-premium.php:343 views/addons/date.php:501
+msgid "Tuesday"
+msgstr "Dinsdag"
+
+#. translators: [ADMIN] Option of add-on type Date
+#: includes/class-yith-wapo-admin-premium.php:345 views/addons/date.php:502
+msgid "Wednesday"
+msgstr "Woensdag"
+
+#. translators: [ADMIN] Option of add-on type Date
+#: includes/class-yith-wapo-admin-premium.php:347 views/addons/date.php:503
+msgid "Thursday"
+msgstr "Donderdag"
+
+#. translators: [ADMIN] Option of add-on type Date
+#: includes/class-yith-wapo-admin-premium.php:349 views/addons/date.php:504
+msgid "Friday"
+msgstr "Vrijdag"
+
+#. translators: [ADMIN] Option of add-on type Date
+#: includes/class-yith-wapo-admin-premium.php:351 views/addons/date.php:505
+msgid "Saturday"
+msgstr "Zaterdag"
+
+#. translators: [ADMIN] Option of add-on type Date
+#: includes/class-yith-wapo-admin-premium.php:353 views/addons/date.php:506
+msgid "Sunday"
+msgstr "Zondag"
+
+#. translators: [ADMIN] Option of add-on type Date
+#. translators: Add-on type date option
+#: includes/class-yith-wapo-admin-premium.php:373 views/addons/date.php:526
+msgid "January"
+msgstr "Januari"
+
+#. translators: [ADMIN] Option of add-on type Date
+#: includes/class-yith-wapo-admin-premium.php:375 views/addons/date.php:527
+msgid "February"
+msgstr "Februari"
+
+#. translators: [ADMIN] Option of add-on type Date
+#: includes/class-yith-wapo-admin-premium.php:377 views/addons/date.php:528
+msgid "March"
+msgstr "Maart"
+
+#. translators: [ADMIN] Option of add-on type Date
+#: includes/class-yith-wapo-admin-premium.php:379 views/addons/date.php:529
+msgid "April"
+msgstr "April"
+
+#. translators: [ADMIN] Option of add-on type Date
+#: includes/class-yith-wapo-admin-premium.php:381 views/addons/date.php:530
+msgid "May"
+msgstr "Mei"
+
+#. translators: [ADMIN] Option of add-on type Date
+#: includes/class-yith-wapo-admin-premium.php:383 views/addons/date.php:531
+msgid "June"
+msgstr "Juni"
+
+#. translators: [ADMIN] Option of add-on type Date
+#: includes/class-yith-wapo-admin-premium.php:385 views/addons/date.php:532
+msgid "July"
+msgstr "Juli"
+
+#. translators: [ADMIN] Option of add-on type Date
+#: includes/class-yith-wapo-admin-premium.php:387 views/addons/date.php:533
+msgid "August"
+msgstr "Augustus"
+
+#. translators: [ADMIN] Option of add-on type Date
+#: includes/class-yith-wapo-admin-premium.php:389 views/addons/date.php:534
+msgid "September"
+msgstr "September"
+
+#. translators: [ADMIN] Option of add-on type Date
+#: includes/class-yith-wapo-admin-premium.php:391 views/addons/date.php:535
+msgid "October"
+msgstr "Oktober"
+
+#. translators: [ADMIN] Option of add-on type Date
+#: includes/class-yith-wapo-admin-premium.php:393 views/addons/date.php:536
+msgid "November"
+msgstr "November"
+
+#. translators: [ADMIN] Option of add-on type Date
+#: includes/class-yith-wapo-admin-premium.php:395 views/addons/date.php:537
+msgid "December"
+msgstr "December"
+
+#. translators: [ADMIN] General Settings tab option
+#: includes/class-yith-wapo-admin-premium.php:460
+msgid "Upload options"
+msgstr "Upload opties"
+
+#. translators: [ADMIN] General Settings tab option
+#: includes/class-yith-wapo-admin-premium.php:467
+msgid "Uploads folder"
+msgstr ""
+
+#. translators: [ADMIN] General Settings tab option
+#: includes/class-yith-wapo-admin-premium.php:469
+msgid ""
+"Enter the name of the folder used to storage the files uploaded by users."
+msgstr ""
+
+#. translators: [ADMIN] General Settings tab option
+#: includes/class-yith-wapo-admin-premium.php:476
+msgid "Allowed file types"
+msgstr "Toegestane bestandstypes"
+
+#. translators: [ADMIN] General Settings tab option
+#: includes/class-yith-wapo-admin-premium.php:478
+msgid "Enter which file types can be uploaded by users."
+msgstr "Invoeren welke bestandstypes kunnen worden geüpload door gebruikers."
+
+#: includes/class-yith-wapo-admin-premium.php:479
+msgid "Separate each file type with a comma. Example: .jpg, .png, .pdf"
+msgstr "Elke bestandstype scheiden met een komma. Voorbeeld: .jpg, .png, .pdf"
+
+#. translators: [ADMIN] General Settings tab option
+#: includes/class-yith-wapo-admin-premium.php:487
+msgid "Max file size allowed (MB)"
+msgstr "Max toegestane bestandsgrootte (MB)"
+
+#. translators: [ADMIN] General Settings tab option
+#: includes/class-yith-wapo-admin-premium.php:489
+msgid "Enter the maximum allowed size for files uploaded by users."
+msgstr ""
+"Maximaal toegestane grootte invoeren voor bestanden die door gebruikers "
+"worden geüpload."
+
+#. translators: [ADMIN] General Settings tab option
+#: includes/class-yith-wapo-admin-premium.php:496
+msgid "Attach uploaded files to order emails"
+msgstr ""
+
+#. translators: [ADMIN] General Settings tab option
+#: includes/class-yith-wapo-admin-premium.php:498
+msgid ""
+"Enable if you want to receive the files uploaded by users also in the orders "
+"emails."
+msgstr ""
+
+#. translators: [ADMIN] General Settings tab option
+#: includes/class-yith-wapo-admin-premium.php:512
+msgid "Date options"
+msgstr ""
+
+#. translators: [ADMIN] General Settings tab option
+#: includes/class-yith-wapo-admin-premium.php:519
+msgid "24-hour time format"
+msgstr ""
+
+#. translators: [ADMIN] General Settings tab option
+#: includes/class-yith-wapo-admin-premium.php:521
+msgid "Enable to display the time picker in 24-hour format."
+msgstr ""
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:552
+msgid "Toggle"
+msgstr "Toggle"
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:560
+msgid "Show options in toggle"
+msgstr "Toon opties in toggle"
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:562
+msgid "Enable to show the options blocks in toggle sections."
+msgstr "Inschakelen om de opties blokken te tonen in toggle secties."
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:571
+msgid "Show toggle opened by default"
+msgstr "Toon toggle standaard geopend"
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:573
+msgid "Enable to show the toggle opened by default."
+msgstr "Inschakelen om de toggle standaard geopend te tonen."
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:596
+msgid "Price box style"
+msgstr ""
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:604
+msgid "Price box colors"
+msgstr ""
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:606
+msgid "Set the color of the price box."
+msgstr ""
+
+#: includes/class-yith-wapo-admin-premium.php:634
+msgid "Color swatches"
+msgstr "Kleur swatches"
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:642
+msgid "Color swatch style"
+msgstr "Kleur swatch stijl"
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:644
+msgid "Choose the style for color thumbnails."
+msgstr "Kies de stijl voor de kleur thumbnails."
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:650
+#: plugin-options/style-options.php:126
+msgid "Rounded"
+msgstr "Rond"
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:652
+#: plugin-options/style-options.php:128
+msgid "Square"
+msgstr "Vierkant"
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:659
+msgid "Color swatch size"
+msgstr "Kleur swatch grootte"
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:661
+msgid "Set the size of the color thumbnails."
+msgstr "Formaat instellen van de kleur thumbnails."
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:677
+msgid "Labels & Images"
+msgstr ""
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:685
+msgid "Image position"
+msgstr "Positie van afbeelding"
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:713
+msgid "Image heights"
+msgstr "Afbeelding hoogte"
+
+#. translators: [ADMIN] Style tab option
+#. translators: general add-on option.
+#: includes/class-yith-wapo-admin-premium.php:780
+#: modules/color-label-variations/includes/class-yith-wapo-color-label-variations-admin.php:323
+#: modules/color-label-variations/includes/class-yith-wapo-color-label-variations-admin.php:354
+#: views/addon-editor/option-common-fields.php:57
+#: views/premium/addon-editor/option-common-fields.php:229
+msgid "Tooltip"
+msgstr "Tooltip"
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:788
+msgid "Show tooltips"
+msgstr "Toon tooltips"
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:790
+msgid "Enable to show the tooltips in product options."
+msgstr "Inschakelen om de tooltips te tonen in productopties."
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:799
+msgid "Tooltip color"
+msgstr "Tooltip kleur"
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:801
+msgid "Set the color for tooltips."
+msgstr ""
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:807
+#: includes/class-yith-wapo-admin-premium.php:896
+msgid "Background"
+msgstr ""
+
+#. translators: [ADMIN] Style tab option
+#. translators: [ADMIN] Add-on name
+#: includes/class-yith-wapo-admin-premium.php:814
+#: includes/class-yith-wapo.php:188 views/addons/html_text.php:19
+msgid "Text"
+msgstr "Tekst"
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:830
+#: plugin-options/settings/color-label-variations-options.php:48
+msgid "Tooltip position"
+msgstr "Tooltip positie"
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:832
+msgid "Choose the default position for tooltips."
+msgstr "Bepaal de standaardpositie van tooltips."
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:838
+#: plugin-options/settings/color-label-variations-options.php:53
+msgid "Top"
+msgstr "Bovenaan"
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:840
+#: plugin-options/settings/color-label-variations-options.php:54
+msgid "Bottom"
+msgstr "Onderaan"
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:859
+msgid "Upload file"
+msgstr ""
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:867
+msgid "Text to show"
+msgstr "Weer te geven tekst"
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:870
+#: templates/front/addons/file.php:46
+msgid "Drop files to upload or"
+msgstr "Drop bestanden om te uploaden of"
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:875
+msgid "Link to show"
+msgstr "Weer te geven link"
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:881
+msgid "Textual \"browse\""
+msgstr "Tekstueel \"Zoeken\""
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:883
+msgid "Button \"upload\""
+msgstr "Knop  \"uploaden\""
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:890
+msgid "Colors"
+msgstr ""
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:903
+msgid "Border"
+msgstr ""
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:926
+msgid "Required option color"
+msgstr ""
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:928
+msgid "Set the color to use for the required option message."
+msgstr ""
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:938
+msgid "Required option text"
+msgstr ""
+
+#. translators: [ADMIN] Style tab option
+#: includes/class-yith-wapo-admin-premium.php:940
+msgid "Enter the text to identify a required option."
+msgstr ""
+
+#. translators: [FRONT] [FRONT] Text to show when an option is required
+#: includes/class-yith-wapo-admin-premium.php:943
+#: includes/class-yith-wapo-front.php:173
+msgid "This option is required."
+msgstr "Deze optie is verplicht."
+
+#. translators: [ADMIN] Message when restock the Product quantity due to order
+#. cancelled
+#: includes/class-yith-wapo-admin-premium.php:995
+#: includes/class-yith-wapo-admin-premium.php:1032
+msgid "Stock levels increased for add-ons type product:"
+msgstr ""
+
+#. translators: [ADMIN] Message added to order notes when add-on type Product
+#. has stock
+#: includes/class-yith-wapo-admin-premium.php:1067
+msgid "Stock levels reduced for addons type product:"
+msgstr ""
+
+#. translators: [ADMIN] Options tab.
+#: includes/class-yith-wapo-admin-premium.php:1090
+msgid "Debug"
+msgstr "Debug"
+
+#. translators: Get premium tab string.
+#: includes/class-yith-wapo-admin.php:214
+msgid "Choose which users to show the options to  "
+msgstr ""
+
+#. translators: Get premium tab string description.
+#: includes/class-yith-wapo-admin.php:216
+msgid ""
+"In the free version, the options are shown to all users. With the premium "
+"version, you can instead choose whether to show them only to guest users, "
+"users with an account on the shop, or specific user roles. "
+msgstr ""
+
+#. translators: Get premium tab string.
+#: includes/class-yith-wapo-admin.php:220
+msgid "Color, texture, or pattern samples + the option to select the color"
+msgstr ""
+
+#. translators: Get premium tab string description.
+#: includes/class-yith-wapo-admin.php:222
+msgid ""
+"In the premium version, you can use the \"color swatch\" add-on and define a "
+"single or two colors for each sample, or upload an image representing "
+"textures, backgrounds, fabrics, materials, etc. If you don't want to set "
+"samples and want customers to be able to choose any color, use the \"color "
+"picker\" add-on instead: they will be able to select any color from the "
+"entire color wheel."
+msgstr ""
+
+#. translators: Get premium tab string.
+#: includes/class-yith-wapo-admin.php:226
+msgid "Textarea and quantity selector field"
+msgstr ""
+
+#. translators: Get premium tab string description.
+#: includes/class-yith-wapo-admin.php:228
+msgid ""
+"Insert a textarea if you need customers to enter a custom text during the "
+"product configuration (you can also limit the number of characters allowed) "
+"and use the numberic field to allow them to select a quantity."
+msgstr ""
+
+#. translators: Get premium tab string.
+#: includes/class-yith-wapo-admin.php:232
+msgid "Text labels, images, and icons"
+msgstr ""
+
+#. translators: Get premium tab string description.
+#: includes/class-yith-wapo-admin.php:234
+msgid ""
+"Use the \"label or image\" add-on to visually represent options on your "
+"products. You can use this option either for simple text labels (e.g. "
+"showing available sizes within buttons), or to insert a preview image, a "
+"photo of a model, or an icon identifying the option."
+msgstr ""
+
+#. translators: Get premium tab string.
+#: includes/class-yith-wapo-admin.php:238
+msgid "Calendar field with date and time selection"
+msgstr ""
+
+#. translators: Get premium tab string description.
+#: includes/class-yith-wapo-admin.php:240
+msgid ""
+"Use the calendar field if you want your customers to be able to select a "
+"date during the product configuration (e.g. they need to select a delivery "
+"date and time, a date of birth for a customizable product, etc.). \n"
+"                            You can choose which date and time to show by "
+"default in the calendar, disable specific dates, days of the week, or time "
+"slots (e.g. to prevent the customer from selecting Saturdays and Sundays or "
+"the entire month of December), and more!"
+msgstr ""
+
+#. translators: Get premium tab string.
+#: includes/class-yith-wapo-admin.php:245
+msgid "File upload field with drag & drop support"
+msgstr ""
+
+#. translators: Get premium tab string description.
+#: includes/class-yith-wapo-admin.php:247
+msgid ""
+"Allow users to upload files during the product configuration — this option "
+"is essential if you sell customizable products and customers need to be able "
+"to easily upload illustrations, photos, company logos, etc."
+msgstr ""
+
+#. translators: Get premium tab string.
+#: includes/class-yith-wapo-admin.php:251
+msgid "Upsell thanks to the new \"product\" add-on"
+msgstr ""
+
+#. translators: Get premium tab string description.
+#: includes/class-yith-wapo-admin.php:253
+msgid ""
+"The \"product\" add-on allows you to create products that can be assembled, "
+"create product bundles, or simply structure an upsell strategy by showing "
+"next to your products a section with suggested products that are usually "
+"bought with the original product."
+msgstr ""
+
+#. translators: Get premium tab string.
+#: includes/class-yith-wapo-admin.php:257
+msgid ""
+"Hundreds of advanced options to manage product configuration exactly how you "
+"want it to work"
+msgstr ""
+
+#. translators: Get premium tab string description.
+#: includes/class-yith-wapo-admin.php:259
+msgid ""
+"The premium version of the plugin includes hundreds of options for "
+"configuring how add-ons work in your products. For each set of options, you "
+"can define, for example, which ones to make mandatory or set the minimum or "
+"maximum number of options the user can select to proceed with the purchase. "
+"You can also customize the style of the options and choose how to display "
+"them on the page (one below the other, in a horizontal grid, etc.)."
+msgstr ""
+
+#. translators: Get premium tab string.
+#: includes/class-yith-wapo-admin.php:263
+msgid "Regular updates, translations, and technical support"
+msgstr ""
+
+#. translators: Conditional logic - empty selected add-on.
+#. translators: String displayed in the conditional logic selector.
+#: includes/class-yith-wapo-admin.php:312
+#: views/addon-editor/addon-conditional-logic.php:28
+#: views/addon-editor/addon-conditional-logic.php:280
+msgid "Select an add-on"
+msgstr ""
+
+#. translators: Label printed when selecting "Discount the main product price".
+#: includes/class-yith-wapo-admin.php:314
+msgid "Discount"
+msgstr ""
+
+#. translators: Label printed when selecting other option than "Discount the
+#. main product price".
+#. translators: general add-on option.
+#: includes/class-yith-wapo-admin.php:316
+#: views/addon-editor/option-common-fields.php:207
+#: views/premium/addon-editor/option-common-fields.php:399
+msgid "Option cost"
+msgstr "Optie kosten"
+
+#. translators: String printed when user try to save the block and the block
+#. name is empty.
+#: includes/class-yith-wapo-admin.php:318
+msgid "Block name is required"
+msgstr ""
+
+#. translators: [ADMIN] Options tab.
+#: includes/class-yith-wapo-admin.php:515
+msgid "Options Blocks"
+msgstr "Opties blokken"
+
+#. translators: [ADMIN] Options tab.
+#: includes/class-yith-wapo-admin.php:524
+msgid "General Settings"
+msgstr "Algemene instellingen"
+
+#. translators: [ADMIN] Options tab.
+#: includes/class-yith-wapo-admin.php:532
+msgid "Style"
+msgstr "Stijl"
+
+#: includes/class-yith-wapo-admin.php:536
+msgid "Configure style options to customize the add-ons you create."
+msgstr ""
+
+#. translators: [FRONT] Label shown on cart for add-on type Upload
+#: includes/class-yith-wapo-cart.php:1233
+msgid "Attached file"
+msgstr "Bijgevoegd bestand"
+
+#. translators: Label printed in the add-on type Date, when activating the
+#. timepicker.
+#: includes/class-yith-wapo-front.php:136
+msgid "Set time"
+msgstr "Tijd instellen"
+
+#. translators: Label printed in the add-on type Date, when activating the
+#. timepicker.
+#. translators: Add-on editor panel.
+#. translators: [ADMIN] Edit block page > Save button
+#. translators: Add-on editor panel.
+#: includes/class-yith-wapo-front.php:138
+#: views/addon-editor/addon-editor.php:384
+#: views/block-editor/block-editor.php:301
+#: views/premium/addon-editor/addon-editor.php:446
+msgid "Save"
+msgstr "Opslaan"
+
+#. translators: Label printed if minimum value is 1.
+#. translators: [FRONT] Message giving the error after checking minimum and
+#. maximum quantity when adding to cart
+#: includes/class-yith-wapo-front.php:140
+#: includes/class-yith-wapo-front.php:171
+msgid "Please, select an option"
+msgstr ""
+
+#. translators: Label printed if minimum value is more than 1. %d is the number
+#. of options.
+#: includes/class-yith-wapo-front.php:142
+msgid "Please, select at least %d options"
+msgstr ""
+
+#. translators: Label printed for exact selection value. %d is the number of
+#. options.
+#: includes/class-yith-wapo-front.php:144
+msgid "Please, select %d options"
+msgstr ""
+
+#. translators: [FRONT] Error when the user select more than allowed options (
+#. min/max feature ).
+#: includes/class-yith-wapo-front.php:146
+msgid "More options than allowed have been selected"
+msgstr ""
+
+#. translators: [FRONT] Message error when total of add-ons type numbers does
+#. not exceeds the minimum set in the configuration
+#: includes/class-yith-wapo-front.php:167
+msgid "The sum of the numbers is below the minimum. The minimum value is:"
+msgstr ""
+
+#. translators: [FRONT] Message error when total of add-ons type numbers
+#. exceeds the maximum set in the configuration
+#: includes/class-yith-wapo-front.php:169
+msgid "The sum of the numbers exceeded the maximum. The maximum value is:"
+msgstr ""
+
+#. translators: [FRONT] Text to show for maximum files allowed on add-on type
+#. Upload
+#: includes/class-yith-wapo-front.php:175
+msgid ""
+"Maximum uploaded files allowed. The maximum number of files allowed is: "
+msgstr ""
+
+#. translators: [FRONT] Message giving the error when the file upload is not a
+#. supported extension
+#: includes/class-yith-wapo-front.php:177
+msgid "Error - not supported extension!"
+msgstr ""
+
+#. translators: [FRONT] Message giving the error when the file has a hight size
+#: includes/class-yith-wapo-front.php:179
+msgid "Error - file size for %s - max %d MB allowed!"
+msgstr ""
+
+#: includes/class-yith-wapo-front.php:557
+msgid "This is not a product page!"
+msgstr "Dit is geen productpagina!"
+
+#. translators: string that is created as a description of a private product
+#. that the plugin creates.
+#: includes/class-yith-wapo-sold-individually-product.php:99
+msgid ""
+"This product has been created automatically by the plugin YITH WOOCOMMERCE "
+"PRODUCT ADD-ONS & EXTRA OPTIONS. You must not edit it, or the plugin might "
+"not work properly. The main function of this product is to be used for the "
+"feature \"Sold individually\"."
+msgstr ""
+
+#. translators: string that is printed after buying an add-on individually. You
+#. can see it in the order edit page.
+#: includes/class-yith-wapo-sold-individually-product.php:378
+msgid "Individually sold add-on from"
+msgstr ""
+
+#. translators: [ADMIN] Add-on name
+#: includes/class-yith-wapo.php:183 views/addons/html_heading.php:19
+msgid "Heading"
+msgstr "Heading"
+
+#. translators: [ADMIN] Add-on name
+#: includes/class-yith-wapo.php:193 views/addons/html_separator.php:19
+msgid "Separator"
+msgstr "Scheidingsteken"
+
+#. translators: [ADMIN] Add-on name
+#. translators: [ADMIN] Add-on name (option)
+#: includes/class-yith-wapo.php:210 includes/class-yith-wapo.php:212
+msgid "Checkbox"
+msgstr "Checkbox"
+
+#. translators: [ADMIN] Add-on name
+#: includes/class-yith-wapo.php:217
+msgid "Radio"
+msgstr "Radio"
+
+#. translators: [ADMIN] Add-on name (option)
+#: includes/class-yith-wapo.php:219
+msgid "Radio button"
+msgstr ""
+
+#. translators: [ADMIN] Add-on name
+#: includes/class-yith-wapo.php:224
+msgid "Input text"
+msgstr "Input tekst"
+
+#. translators: [ADMIN] Add-on name (option)
+#: includes/class-yith-wapo.php:226
+msgid "Input field"
+msgstr ""
+
+#. translators: [ADMIN] Add-on name
+#. translators: [ADMIN] Add-on name (option)
+#: includes/class-yith-wapo.php:231 includes/class-yith-wapo.php:233
+msgid "Textarea"
+msgstr "Tekstgebied"
+
+#. translators: [ADMIN] Add-on name
+#. translators: [ADMIN] Add-on name (option)
+#. translators: option for Add-on type Color Swatch
+#: includes/class-yith-wapo.php:238 includes/class-yith-wapo.php:240
+#: views/premium/addon-editor/option-common-fields.php:59
+msgid "Color swatch"
+msgstr "Kleur swatch"
+
+#. translators: [ADMIN] Add-on name
+#. translators: [ADMIN] Add-on name (option)
+#: includes/class-yith-wapo.php:245 includes/class-yith-wapo.php:247
+msgid "Number"
+msgstr "Nummer"
+
+#. translators: [ADMIN] Add-on name
+#: includes/class-yith-wapo.php:252
+msgid "Select"
+msgstr "Selectie"
+
+#. translators: [ADMIN] Add-on name (option)
+#: includes/class-yith-wapo.php:254
+msgid "Select item"
+msgstr ""
+
+#. translators: [ADMIN] Add-on name
+#. translators: [ADMIN] Add-on name (option)
+#: includes/class-yith-wapo.php:259 includes/class-yith-wapo.php:261
+msgid "Label or image"
+msgstr "Label of afbeelding"
+
+#. translators: [ADMIN] Add-on name
+#. translators: [ADMIN] Add-on name (option)
+#: includes/class-yith-wapo.php:266 includes/class-yith-wapo.php:268
+msgid "Product"
+msgstr "Product"
+
+#. translators: [ADMIN] Add-on name
+#. translators: [ADMIN] Add-on name (option)
+#: includes/class-yith-wapo.php:273 includes/class-yith-wapo.php:275
+msgid "Date"
+msgstr "Datum"
+
+#. translators: [ADMIN] Add-on name
+#: includes/class-yith-wapo.php:280
+msgid "File upload"
+msgstr ""
+
+#. translators: [ADMIN] Add-on name (option)
+#: includes/class-yith-wapo.php:282
+msgid "File uploader"
+msgstr ""
+
+#. translators: [ADMIN] Add-on name
+#. translators: [ADMIN] Add-on name (option)
+#: includes/class-yith-wapo.php:287 includes/class-yith-wapo.php:289
+msgid "Color picker"
+msgstr ""
+
+#. translators: [ADMIN] Add-on name
+#. translators: [ADMIN] Add-on name (option)
+#: includes/class-yith-wapo.php:294 includes/class-yith-wapo.php:296
+msgid "HTML Heading"
+msgstr ""
+
+#. translators: [ADMIN] Add-on name
+#. translators: [ADMIN] Add-on name (option)
+#: includes/class-yith-wapo.php:301 includes/class-yith-wapo.php:303
+msgid "HTML Text"
+msgstr ""
+
+#. translators: [ADMIN] Add-on name
+#. translators: [ADMIN] Add-on name (option)
+#: includes/class-yith-wapo.php:308 includes/class-yith-wapo.php:310
+msgid "HTML Separator"
+msgstr ""
+
+#. translators: Populate options tab of the add-on configuration
+#: includes/yith-wapo-functions.php:412
+msgid "Populate options"
+msgstr "Opties aanmaken"
+
+#. translators: Options configuration tab of the add-on configuration
+#: includes/yith-wapo-functions.php:418
+msgid "Options configuration"
+msgstr ""
+
+#. translators: Conditional logic tab of the add-on configuration
+#: includes/yith-wapo-functions.php:424
+msgid "Conditional logic"
+msgstr "Voorwaardelijke logica"
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:704
+msgid "Single - Users can fill ONE of the available number fields"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:706
+msgid "Multiple - Users can fill MULTIPLE number fields"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:708
+msgid "Choose if users can fill one or multiple number fields."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:710
+msgid "Set the first number fields selected as free"
+msgstr ""
+
+#. translators: %1$s and %2$s are line breaks.
+#: includes/yith-wapo-functions.php:713
+msgid ""
+"Enable to set a specific number of number fields as free. %1$s For example, "
+"the first three \"pizza toppings\" are free, included in the product price. "
+"%2$s Users will pay from the fourth topping on."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:718 includes/yith-wapo-functions.php:867
+#: includes/yith-wapo-functions.php:905
+msgid "Users can fill for free"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#. (description)
+#: includes/yith-wapo-functions.php:720
+msgid "Set how many number fields users can fill for free."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:722
+msgid "Force user to fill number fields of this block"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#. (description)
+#: includes/yith-wapo-functions.php:724
+msgid ""
+"Enable to force users to fill number fields to proceed with the purchase."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:726 includes/yith-wapo-functions.php:875
+#: includes/yith-wapo-functions.php:913
+msgid "To proceed with the purchase, users have to fill"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#. (description)
+#: includes/yith-wapo-functions.php:728
+msgid ""
+"Set how many number fields need to be filled in order to add a product to "
+"cart."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:730 includes/yith-wapo-functions.php:879
+#: includes/yith-wapo-functions.php:917
+msgid "Users can fill a max of"
+msgstr ""
+
+#. translators: %s is a line break. [ADMIN] Add-on editor > Options
+#. configuration option (description)
+#: includes/yith-wapo-functions.php:733
+msgid ""
+"Optional: set the max number of number fields fillable by users in this "
+"block. %s Leave empty if users can select all number fields without any "
+"limits."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:737
+msgid "Set a min/max value among all number fields"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#. (description)
+#: includes/yith-wapo-functions.php:739
+msgid ""
+"Enable to force users to enter values that are within a specific range when "
+"all number fields are added together."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:742
+msgid "Sum of number fields between"
+msgstr ""
+
+#. translators: [ADMIN] text description on several "Options configuration"
+#. options, depending on add-on type
+#: includes/yith-wapo-functions.php:745
+msgid "number fields"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:749 includes/yith-wapo-functions.php:790
+msgid "Single - Users can select ONE of the available colors"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:751 includes/yith-wapo-functions.php:792
+msgid "Multiple - Users can select MULTIPLE colors"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:753 includes/yith-wapo-functions.php:794
+msgid "Choose if users can select one or multiple colors."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:755 includes/yith-wapo-functions.php:796
+msgid "Set the first colors selected as free"
+msgstr ""
+
+#. translators: %1$s and %2$s are line breaks.
+#: includes/yith-wapo-functions.php:758 includes/yith-wapo-functions.php:799
+msgid ""
+"Enable to set a specific number of colors as free. %1$s For example, the "
+"first three \"pizza toppings\" are free, included in the product price. %2$s "
+"Users will pay from the fourth topping on."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:763 includes/yith-wapo-functions.php:804
+#: includes/yith-wapo-functions.php:970
+msgid "Users can select for free"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#. (description)
+#: includes/yith-wapo-functions.php:765 includes/yith-wapo-functions.php:806
+msgid "Set how many colors users can select for free."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:767 includes/yith-wapo-functions.php:808
+msgid "Force user to select colors of this block"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#. (description)
+#: includes/yith-wapo-functions.php:769 includes/yith-wapo-functions.php:810
+msgid "Enable to force users to select colors to proceed with the purchase."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:771 includes/yith-wapo-functions.php:812
+#: includes/yith-wapo-functions.php:837 includes/yith-wapo-functions.php:978
+msgid "To proceed with the purchase, users have to select"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#. (description)
+#: includes/yith-wapo-functions.php:773 includes/yith-wapo-functions.php:814
+msgid ""
+"Set how many colors need to be selected in order to add a product to cart."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:775 includes/yith-wapo-functions.php:816
+#: includes/yith-wapo-functions.php:841 includes/yith-wapo-functions.php:982
+msgid "Users can select a max of"
+msgstr ""
+
+#. translators: %s is a line break. [ADMIN] Add-on editor > Options
+#. configuration option (description)
+#. translators: %s is a line break. [ADMIN] Add-on editor > Options
+#. configuration option (description).
+#: includes/yith-wapo-functions.php:778 includes/yith-wapo-functions.php:819
+msgid ""
+"Optional: set the max number of colors selectable by users in this block. %s "
+"Leave empty if users can select all colors without any limits."
+msgstr ""
+
+#. translators: [ADMIN] text description on several "Options configuration"
+#. options, depending on add-on type
+#: includes/yith-wapo-functions.php:783 includes/yith-wapo-functions.php:824
+msgid "colors"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:828
+msgid "Single - Users can select ONE of the available products"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:830
+msgid "Multiple - Users can select MULTIPLE products"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:832
+msgid "Choose if users can select one or multiple products."
+msgstr ""
+
+#: includes/yith-wapo-functions.php:833
+msgid "Force user to select products of this block"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#. (description)
+#: includes/yith-wapo-functions.php:835
+msgid "Enable to force users to select products to proceed with the purchase."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#. (description)
+#: includes/yith-wapo-functions.php:839
+msgid ""
+"Set how many products need to be selected in order to add a product to cart."
+msgstr ""
+
+#. translators: %s is a line break. [ADMIN] Add-on editor > Options
+#. configuration option (description)
+#: includes/yith-wapo-functions.php:844
+msgid ""
+"Optional: set the max number of products selectable by users in this block. "
+"%s Leave empty if users can select all products without any limits."
+msgstr ""
+
+#. translators: [ADMIN] text description on several "Options configuration"
+#. options, depending on add-on type
+#: includes/yith-wapo-functions.php:849
+msgid "products"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:853
+msgid "Single - Users can fill ONE of the available fields"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:855
+msgid "Multiple - Users can fill MULTIPLE fields"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:857
+msgid "Choose if users can fill one or multiple fields."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:859
+msgid "Set the first fields selected as free"
+msgstr ""
+
+#. translators: %1$s and %2$s are line breaks.
+#: includes/yith-wapo-functions.php:862
+msgid ""
+"Enable to set a specific number of fields as free. %1$s For example, the "
+"first three \"pizza toppings\" are free, included in the product price. %2$s "
+"Users will pay from the fourth topping on."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#. (description)
+#: includes/yith-wapo-functions.php:869
+msgid "Set how many fields users can fill for free."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:871
+msgid "Force user to fill fields of this block"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#. (description)
+#: includes/yith-wapo-functions.php:873
+msgid "Enable to force users to fill fields to proceed with the purchase."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#. (description)
+#: includes/yith-wapo-functions.php:877
+msgid ""
+"Set how many fields need to be filled in order to add a product to cart."
+msgstr ""
+
+#. translators: %s is a line break. [ADMIN] Add-on editor > Options
+#. configuration option (description)
+#: includes/yith-wapo-functions.php:882
+msgid ""
+"Optional: set the max number of fields fillable by users in this block. %s "
+"Leave empty if users can fill all fields without any limits."
+msgstr ""
+
+#. translators: [ADMIN] text description on several "Options configuration"
+#. options, depending on add-on type
+#: includes/yith-wapo-functions.php:887
+msgid "fields"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:891
+msgid "Single - Users can fill ONE of the available text areas"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:893
+msgid "Multiple - Users can fill MULTIPLE text areas"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:895
+msgid "Choose if users can fill one or multiple text areas."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:897
+msgid "Set the first text areas selected as free"
+msgstr ""
+
+#. translators: %1$s and %2$s are line breaks.
+#: includes/yith-wapo-functions.php:900
+msgid ""
+"Enable to set a specific number of text areas as free. %1$s For example, the "
+"first three \"pizza toppings\" are free, included in the product price. %2$s "
+"Users will pay from the fourth topping on."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#. (description)
+#: includes/yith-wapo-functions.php:907
+msgid "Set how many text areas users can fill for free."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:909
+msgid "Force user to fill text areas of this block"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#. (description)
+#: includes/yith-wapo-functions.php:911
+msgid "Enable to force users to fill text areas to proceed with the purchase."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#. (description)
+#: includes/yith-wapo-functions.php:915
+msgid ""
+"Set how many text areas need to be filled in order to add a product to cart."
+msgstr ""
+
+#. translators: %s is a line break. [ADMIN] Add-on editor > Options
+#. configuration option (description)
+#: includes/yith-wapo-functions.php:920
+msgid ""
+"Optional: set the max number of text areas fillable by users in this block. "
+"%s Leave empty if users can fill all text areas without any limits."
+msgstr ""
+
+#. translators: [ADMIN] text description on several "Options configuration"
+#. options, depending on add-on type
+#: includes/yith-wapo-functions.php:925
+msgid "text areas"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:929
+msgid "Single - Users can make use of ONE of the available uploaders"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:931
+msgid "Multiple - Users can make use of MULTIPLE uploaders"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:933
+msgid "Choose if users can make use of one or multiple uploaders."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:935
+msgid "Force user to make use of uploaders of this block"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#. (description)
+#: includes/yith-wapo-functions.php:937
+msgid ""
+"Enable to force users to make use of uploaders to proceed with the purchase."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:939
+msgid "To proceed with the purchase, users have to make use of"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#. (description)
+#: includes/yith-wapo-functions.php:941
+msgid ""
+"Set how many uploaders need to be make use of in order to add a product to "
+"cart."
+msgstr ""
+
+#. translators: [ADMIN] text description on several "Options configuration"
+#. options, depending on add-on type
+#: includes/yith-wapo-functions.php:944
+msgid "uploaders"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:956
+msgid "Single - Users can select ONE of the available options"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:958
+msgid "Multiple - Users can select MULTIPLE options"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:960
+msgid "Choose if users can select one or multiple options."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:962
+msgid "Set the first options selected as free"
+msgstr ""
+
+#. translators: %1$s and %2$s are line breaks.
+#: includes/yith-wapo-functions.php:965
+msgid ""
+"Enable to set a specific number of options as free. %1$s For example, the "
+"first three \"pizza toppings\" are free, included in the product price. %2$s "
+"Users will pay from the fourth topping on."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#. (description)
+#: includes/yith-wapo-functions.php:972
+msgid "Set how many options users can select for free."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:974
+msgid "Force user to select options of this block"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#. (description)
+#: includes/yith-wapo-functions.php:976
+msgid "Enable to force users to select options to proceed with the purchase."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#. (description)
+#: includes/yith-wapo-functions.php:980
+msgid ""
+"Set how many options need to be selected in order to add a product to cart."
+msgstr ""
+
+#. translators: %s is a line break. [ADMIN] Add-on editor > Options
+#. configuration option (description)
+#: includes/yith-wapo-functions.php:985
+msgid ""
+"Optional: set the max number of options selectable by users in this block. "
+"%s Leave empty if users can select all options without any limits."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:989
+msgid "Set a min/max value among all options"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#. (description)
+#: includes/yith-wapo-functions.php:991
+msgid ""
+"Enable to force users to enter values that are within a specific range when "
+"all options are added together."
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:993
+msgid "Sum of options between"
+msgstr ""
+
+#. translators: [ADMIN] Part of text on block editor, depending on add-on type
+#: includes/yith-wapo-functions.php:996
+msgid "options"
+msgstr "Opties"
+
+#: modules/color-label-variations/includes/class-yith-wapo-color-label-variations-admin.php:324
+#: modules/color-label-variations/includes/class-yith-wapo-color-label-variations-admin.php:355
+msgid ""
+"Use this placeholder {show_image} to show the image on tooltip. Only "
+"available for image type"
+msgstr ""
+"Gebruik deze plaatshouder {show_image} om de afbeelding te tonen op tooltip. "
+"Alleen beschikbaar voor afbeelding type"
+
+#: modules/color-label-variations/includes/class-yith-wapo-color-label-variations-admin.php:473
+msgid "Value"
+msgstr "Waarde"
+
+#: modules/color-label-variations/includes/class-yith-wapo-color-label-variations-admin.php:559
+msgid "Select terms"
+msgstr "Termen selecteren"
+
+#: modules/color-label-variations/includes/class-yith-wapo-color-label-variations-admin.php:570
+msgid "Select all"
+msgstr "Alles selecteren"
+
+#: modules/color-label-variations/includes/class-yith-wapo-color-label-variations-admin.php:571
+msgid "Select none"
+msgstr "Niets selecteren"
+
+#. translators: Add-on editor panel.
+#. translators: add-on option.
+#: modules/color-label-variations/templates/admin/description-field.php:20
+#: modules/color-label-variations/templates/admin/description-field.php:37
+#: views/addon-editor/addon-editor.php:137
+#: views/addon-editor/option-common-fields.php:72
+#: views/premium/addon-editor/addon-editor.php:186
+#: views/premium/addon-editor/option-common-fields.php:244
+msgid "Description"
+msgstr "Beschrijving"
+
+#: modules/color-label-variations/templates/admin/description-field.php:30
+#: modules/color-label-variations/templates/admin/description-field.php:45
+msgid "Description for product attributes."
+msgstr "Beschrijving voor producteigenschappen."
+
+#: modules/color-label-variations/templates/admin/variation-gallery.php:17
+msgid "Variation Image Gallery"
+msgstr "Variatie afbeeldingsgalerij"
+
+#: plugin-options/blocks-options.php:17
+msgid "Options blocks"
+msgstr ""
+
+#: plugin-options/blocks-options.php:18
+msgid "Create blocks of options and set in which products to show them."
+msgstr ""
+
+#. translators: Help tab name.
+#: plugin-options/help-options.php:18
+msgid "Help"
+msgstr "Help"
+
+#. translators: [ADMIN] General Settings tab title.
+#: plugin-options/settings/cart-options.php:18
+msgid "Cart & Order options"
+msgstr "Winkelwagen & bestelling opties"
+
+#. translators: [ADMIN] General Settings > Cart & Order sub-tab option
+#: plugin-options/settings/cart-options.php:26
+msgid "Show options in the cart page"
+msgstr "Toon optie sin winkelwagen pagina"
+
+#. translators: [ADMIN] General Settings > Cart & Order sub-tab option
+#. (description)
+#: plugin-options/settings/cart-options.php:28
+msgid "Enable to show the details of the options in the cart page."
+msgstr ""
+"Inschakelen om de details van de opties te tonen in de winkelwagen pagina."
+
+#. translators: [ADMIN] General Settings > Cart & Order sub-tab option
+#: plugin-options/settings/cart-options.php:36
+msgid "Show the replacement image in the cart"
+msgstr "Toon de vervangende afbeelding in de winkelwagen"
+
+#. translators: [ADMIN] General Settings > Cart & Order sub-tab option
+#. (description)
+#: plugin-options/settings/cart-options.php:38
+msgid "Enable to replace the product image with the option image in the cart."
+msgstr ""
+"Inschakelen om de productafbeelding in de winkelwagen te vervangen met de "
+"optie afbeelding."
+
+#. translators: [ADMIN] General Settings > Cart & Order sub-tab option
+#: plugin-options/settings/cart-options.php:47
+msgid "Hide options in the order email"
+msgstr "Opties verbergen in de bestelling e-mail"
+
+#. translators: [ADMIN] General Settings > Cart & Order sub-tab option
+#. (description)
+#: plugin-options/settings/cart-options.php:49
+msgid "Enable to hide the options in the order email."
+msgstr "Inschakelen om de opties te verbergen in de bestelling e-mail."
+
+#: plugin-options/settings/color-label-variations-options.php:18
+msgid "Manage variations"
+msgstr "Variaties beheren"
+
+#: plugin-options/settings/color-label-variations-options.php:25
+msgid "Attribute behavior"
+msgstr "Eigenschap gedrag"
+
+#: plugin-options/settings/color-label-variations-options.php:26
+msgid "Choose attribute style after selection."
+msgstr "Kies de eigenschap stijl na selectie."
+
+#: plugin-options/settings/color-label-variations-options.php:31
+msgid "Hide attributes"
+msgstr "Eigenschappen verbergen"
+
+#: plugin-options/settings/color-label-variations-options.php:32
+msgid "Blur attributes"
+msgstr "Eigenschappen blurren"
+
+#: plugin-options/settings/color-label-variations-options.php:39
+msgid "Enable tooltip"
+msgstr "Tooltip inschakelen"
+
+#: plugin-options/settings/color-label-variations-options.php:42
+msgid "Enable tooltip on attributes."
+msgstr ""
+
+#: plugin-options/settings/color-label-variations-options.php:49
+msgid "Select tooltip position."
+msgstr ""
+
+#: plugin-options/settings/color-label-variations-options.php:61
+msgid "Tooltip animation"
+msgstr "Tooltip animatie"
+
+#: plugin-options/settings/color-label-variations-options.php:62
+msgid "Select tooltip animation."
+msgstr ""
+
+#: plugin-options/settings/color-label-variations-options.php:66
+msgid "Fade in"
+msgstr "Fade in"
+
+#: plugin-options/settings/color-label-variations-options.php:67
+msgid "Slide in"
+msgstr "Slide in"
+
+#: plugin-options/settings/color-label-variations-options.php:74
+msgid "Show attribute description"
+msgstr "Toon eigenschap beschrijving"
+
+#: plugin-options/settings/color-label-variations-options.php:77
+msgid "Show description below attributes in the single product page."
+msgstr ""
+
+#. translators: [ADMIN] General Settings tab option
+#: plugin-options/settings/general-options.php:18
+msgid "General options"
+msgstr "Algemene opties"
+
+#. translators: [ADMIN] General Settings tab option
+#: plugin-options/settings/general-options.php:25
+msgid "Options position in product page"
+msgstr "Opties positie in product pagina"
+
+#. translators: [ADMIN] General Settings tab option
+#: plugin-options/settings/general-options.php:27
+msgid "Choose the position for the options blocks."
+msgstr "Kies de positie voor de opties blokken."
+
+#. translators: [ADMIN] General Settings tab option
+#: plugin-options/settings/general-options.php:33
+msgid "Before \"Add to cart\""
+msgstr "Voor \"Toevoegen aan winkelwagen\""
+
+#. translators: [ADMIN] General Settings tab option
+#: plugin-options/settings/general-options.php:35
+msgid "After \"Add to cart\""
+msgstr "Na \"Toevoegen aan winkelwagen\""
+
+#. translators: [ADMIN] General Settings tab option
+#: plugin-options/settings/general-options.php:41
+msgid "In WooCommerce pages show"
+msgstr "In WooCommerce pagina's toon"
+
+#. translators: [ADMIN] General Settings tab option
+#: plugin-options/settings/general-options.php:43
+msgid "Choose the button to display on WooCommerce pages."
+msgstr ""
+
+#. translators: [ADMIN] General Settings tab option
+#: plugin-options/settings/general-options.php:49
+msgid "\"Select options\" button"
+msgstr "\"Selecteer opties\" knop"
+
+#. translators: [ADMIN] General Settings tab option
+#: plugin-options/settings/general-options.php:51
+msgid "\"Add to cart\" button"
+msgstr "\"Toevoegen aan winkelwagen\" knop"
+
+#. translators: [ADMIN] General Settings tab option
+#: plugin-options/settings/general-options.php:57
+msgid "Label for \"Select options\" button"
+msgstr "Label voor de \"Selecteer opties\" knop"
+
+#. translators: [ADMIN] General Settings tab option
+#: plugin-options/settings/general-options.php:59
+msgid "Enter the text for the \"Select options\" button."
+msgstr "Tekst invoeren voor de \"Selecteer opties\" knop."
+
+#. translators: [ADMIN] General Settings tab option
+#: plugin-options/settings/general-options.php:72
+msgid "Change the product base price with the calculated total"
+msgstr "Wijzig de basisprijs van het product met het gecalculeerde totaal"
+
+#. translators: [ADMIN] General Settings tab option
+#: plugin-options/settings/general-options.php:74
+msgid ""
+"Enable to replace the product base price (below the title) with the newly "
+"calculated total of the selected options."
+msgstr ""
+"Inschakelen om de basis productprijs (onder de titel) te vervangen met het "
+"nieuw berekende totaal van de geselecteerde opties."
+
+#. translators: [ADMIN] General Settings tab option
+#: plugin-options/settings/general-options.php:82
+msgid "Hide \"Add to cart\" until the required options are selected"
+msgstr ""
+"Verberg \"Toevoegen aan winkelwagen\" totdat alle verplichte opties zijn "
+"geselecteerd"
+
+#. translators: [ADMIN] General Settings tab option
+#: plugin-options/settings/general-options.php:84
+msgid ""
+"Enable to hide the \"Add to cart\" button until the user selects the "
+"required options."
+msgstr ""
+"Inschakelen om de \"Toevoegen aan winkelwagen\" knop te verbergen totdat de "
+"gebruiker de verplichte opties selecteert."
+
+#. translators: [ADMIN] General Settings tab option
+#: plugin-options/settings/general-options.php:92
+msgid "Total price box"
+msgstr "Totaalprijs box"
+
+#. translators: [ADMIN] General Settings tab option
+#: plugin-options/settings/general-options.php:94
+msgid "Choose what information to show in the total price box."
+msgstr "Bepaal welke informatie je wilt tonen in de totaalprijs box."
+
+#. translators: [ADMIN] General Settings tab option
+#: plugin-options/settings/general-options.php:101
+msgid "Show product price and total options"
+msgstr "Toon productprijs en totaalprijs opties."
+
+#. translators: [ADMIN] General Settings tab option
+#: plugin-options/settings/general-options.php:103
+msgid "Show the final total but hide options total only if the value is 0"
+msgstr ""
+"Toon het eindtotaal maar verberg het opties totaal alleen als de waarde 0 is"
+
+#. translators: [ADMIN] General Settings tab option
+#: plugin-options/settings/general-options.php:105
+msgid "Show only the final total"
+msgstr "Toon alleen het eindtotaal"
+
+#. translators: [ADMIN] General Settings tab option
+#: plugin-options/settings/general-options.php:107
+msgid "Hide price box on the product page"
+msgstr "Verberg prijs box op de productpagina"
+
+#. translators: [ADMIN] General Settings tab option
+#: plugin-options/settings/general-options.php:113
+msgid "Hide titles and images of options groups"
+msgstr "Verberg titels en afbeeldingen van opties groepen"
+
+#. translators: [ADMIN] General Settings tab option
+#: plugin-options/settings/general-options.php:115
+msgid ""
+"Enable to hide all titles and images set in the \"Display & Style\" tab of "
+"the options."
+msgstr ""
+
+#. translators: [ADMIN] General Settings tab option
+#: plugin-options/settings/general-options.php:123
+msgid "Hide images of the single options"
+msgstr "Afbeeldingen van single opties verbergen"
+
+#. translators: [ADMIN] General Settings tab option
+#: plugin-options/settings/general-options.php:125
+msgid ""
+"Enable to hide all the images uploaded in the \"populate options\" tab of "
+"the options."
+msgstr ""
+"Inschakelen om alle afbeeldingen te verbergen die zijn geüpload in de "
+"\"Opties aanmaken\" tab van de opties."
+
+#. translators: [ADMIN] Style tab option
+#: plugin-options/style-options.php:20
+msgid "Block style"
+msgstr ""
+
+#. translators: [ADMIN] Style tab option
+#: plugin-options/style-options.php:28
+msgid "Block titles"
+msgstr "Blok titels"
+
+#. translators: [ADMIN] Style tab option (description)
+#: plugin-options/style-options.php:30
+msgid "Choose which heading to use for the titles in the block of options."
+msgstr ""
+"Kies welke heading je wilt gebruiken voor de titels in het opties blok."
+
+#. translators: [ADMIN] Style tab option
+#: plugin-options/style-options.php:47
+msgid "Block background"
+msgstr "Achtergrond blok"
+
+#. translators: [ADMIN] Style tab option
+#: plugin-options/style-options.php:49
+msgid "Set the background color for all block options."
+msgstr "Achtergrondkleur instellen voor alle blok opties."
+
+#. translators: [ADMIN] Style tab option
+#: plugin-options/style-options.php:65
+msgid "Block padding"
+msgstr "Blok padding"
+
+#. translators: [ADMIN] Style tab option
+#: plugin-options/style-options.php:67
+msgid "Set the padding for the content in all block options."
+msgstr "De padding instellen voor de inhoud in alle blok opties."
+
+#. translators: [ADMIN] Style tab option
+#: plugin-options/style-options.php:93 plugin-options/style-options.php:101
+msgid "Form style"
+msgstr "Formulier stijl"
+
+#. translators: [ADMIN] Style tab option
+#: plugin-options/style-options.php:103
+msgid ""
+"Choose the general style for form: checkbox, radio, select, input field, "
+"textarea, etc."
+msgstr ""
+
+#. translators: [ADMIN] Style tab option
+#: plugin-options/style-options.php:109
+msgid "Theme style"
+msgstr "Thema stijl"
+
+#. translators: [ADMIN] Style tab option
+#: plugin-options/style-options.php:111
+msgid "Custom style"
+msgstr "Aangepaste stijl"
+
+#. translators: [ADMIN] Style tab option
+#: plugin-options/style-options.php:118
+msgid "Checkbox style"
+msgstr "Keuzevakje stijl"
+
+#. translators: [ADMIN] Style tab option
+#: plugin-options/style-options.php:120
+msgid "Choose the style for the checkbox."
+msgstr "Kies de stijl van het keuzevakje."
+
+#. translators: [ADMIN] Style tab option
+#: plugin-options/style-options.php:140
+msgid "Accent color"
+msgstr "Accentkleur"
+
+#. translators: [ADMIN] Style tab option
+#: plugin-options/style-options.php:142
+msgid "Set the accent color to use for the selected options."
+msgstr "Accentkleur instellen die wordt gebruikt voor de geselecteerde opties."
+
+#. translators: [ADMIN] Style tab option
+#: plugin-options/style-options.php:163
+msgid "Form border-color"
+msgstr "Randkleur formulier"
+
+#. translators: [ADMIN] Style tab option
+#: plugin-options/style-options.php:165
+msgid "Set the color of the form borders."
+msgstr "Kleur instellen voor de randen van het formulier."
+
+#. translators: [ADMIN] Style tab option
+#: plugin-options/style-options.php:186
+msgid "Label font size"
+msgstr "Lettertype grootte label"
+
+#. translators: [ADMIN] Style tab option
+#: plugin-options/style-options.php:188
+msgid "Set the label font size in pixel."
+msgstr "Lettertypegrootte, in pixel, instellen voor het label."
+
+#. translators: [ADMIN] Style tab option
+#: plugin-options/style-options.php:202
+msgid "Description font size"
+msgstr "Lettertype grootte beschrijving"
+
+#. translators: [ADMIN] Style tab option
+#: plugin-options/style-options.php:204
+msgid "Set the description font size in pixel."
+msgstr "Lettertype grootte, in pixel, instellen voor beschrijving."
+
+#: templates/front/addons/file.php:115
+msgid "browse"
+msgstr "browsen"
+
+#: templates/front/addons/file.php:117
+msgid "upload"
+msgstr ""
+
+#: templates/front/addons/product.php:182
+msgid "in stock"
+msgstr "op voorraad"
+
+#: templates/front/addons/product.php:184
+msgid "In stock"
+msgstr "Op voorraad"
+
+#: templates/front/addons/product.php:188
+msgid "Out of stock"
+msgstr "Niet op voorraad"
+
+#: templates/front/addons/product.php:235
+msgid "Add to cart"
+msgstr "Toevoegen aan winkelwagen"
+
+#: templates/front/addons/product.php:252
+msgid "View product"
+msgstr ""
+
+#: templates/front/addons/select.php:33
+msgid "Select an option"
+msgstr "Selecteer een optie"
+
+#: templates/front/addons/text.php:117
+msgid "You need to enter between %1$d and %2$d characters."
+msgstr ""
+
+#: templates/front/addons/text.php:119
+msgid "You need to enter at least %1$d characters."
+msgstr ""
+
+#: templates/front/addons/text.php:121
+msgid "You need to enter less than %1$d characters."
+msgstr ""
+
+#. translators: [FRONT] Add-ons table shown on the product page
+#: templates/front/addons-price-table.php:18
+msgid "Product price"
+msgstr "Productprijs"
+
+#. translators: [FRONT] Add-ons table shown on the product page
+#: templates/front/addons-price-table.php:20
+msgid "Total options"
+msgstr "Totaal opties"
+
+#. translators: [FRONT] Add-ons table shown on the product page
+#: templates/front/addons-price-table.php:22
+msgid "Order total"
+msgstr "Bestelling totaal"
+
+#: templates/front/block.php:78
+msgid "No title"
+msgstr "Geen titel"
+
+#. translators: When the add-on has no title on the conditional logic selector.
+#: views/addon-editor/addon-conditional-logic.php:55
+msgid "Empty title"
+msgstr ""
+
+#: views/addon-editor/addon-conditional-logic.php:134
+msgid "Set conditions to show or hide this set of options"
+msgstr "Voorwaarden instellen om deze opties set te tonen of verbergen"
+
+#: views/addon-editor/addon-conditional-logic.php:148
+msgid "Enable to set rules to hide or show the options."
+msgstr ""
+"Inschakelen zodat je regels kunt instellen voor het tonen of verbergen van "
+"de opties."
+
+#: views/addon-editor/addon-conditional-logic.php:157
+msgid "Show/hide on specific variations"
+msgstr ""
+
+#: views/addon-editor/addon-conditional-logic.php:171
+msgid ""
+"Enable if you want to set rules to hide or show the options in specific "
+"product variations."
+msgstr ""
+
+#: views/addon-editor/addon-conditional-logic.php:179
+msgid "Display rules"
+msgstr "Weergave regels"
+
+#: views/addon-editor/addon-conditional-logic.php:192
+msgid "Show"
+msgstr "Toon"
+
+#: views/addon-editor/addon-conditional-logic.php:193
+msgid "Hide"
+msgstr "Verberg"
+
+#: views/addon-editor/addon-conditional-logic.php:201
+msgid "in"
+msgstr ""
+
+#: views/addon-editor/addon-conditional-logic.php:215
+msgid "Search for a variation..."
+msgstr ""
+
+#: views/addon-editor/addon-conditional-logic.php:240
+msgid "Set conditions"
+msgstr ""
+
+#: views/addon-editor/addon-conditional-logic.php:245
+msgid "only if"
+msgstr ""
+
+#: views/addon-editor/addon-conditional-logic.php:255
+msgid "All of these rules"
+msgstr "al deze regels"
+
+#: views/addon-editor/addon-conditional-logic.php:256
+msgid "Any of these rules"
+msgstr "een van deze regels"
+
+#: views/addon-editor/addon-conditional-logic.php:262
+msgid "match"
+msgstr "Matcht"
+
+#: views/addon-editor/addon-conditional-logic.php:287
+msgid "is"
+msgstr "is"
+
+#: views/addon-editor/addon-conditional-logic.php:301
+msgid "Selected"
+msgstr "Geselecteerd"
+
+#: views/addon-editor/addon-conditional-logic.php:302
+msgid "Not selected"
+msgstr "Niet geselecteerd"
+
+#: views/addon-editor/addon-conditional-logic.php:303
+msgid "Empty"
+msgstr "Leeg"
+
+#: views/addon-editor/addon-conditional-logic.php:304
+msgid "Not empty"
+msgstr "Niet leeg"
+
+#: views/addon-editor/addon-conditional-logic.php:313 views/addons/date.php:575
+msgid "Add rule"
+msgstr "Regel toevoegen"
+
+#. translators: When creating a new add-on, you can go back to type choice.
+#: views/addon-editor/addon-editor.php:70
+#: views/premium/addon-editor/addon-editor.php:70
+msgid "back to the type choice"
+msgstr "Terug naar type keuze"
+
+#. translators: Add-on editor panel.
+#: views/addon-editor/addon-editor.php:115
+#: views/premium/addon-editor/addon-editor.php:115
+msgid "Title"
+msgstr "Titel"
+
+#. translators: Add-on editor panel.
+#: views/addon-editor/addon-editor.php:126
+#: views/premium/addon-editor/addon-editor.php:146
+msgid "Enter a title to show before the options."
+msgstr "Titel invoeren die wordt getoond vóór de opties."
+
+#. translators: Add-on editor panel.
+#: views/addon-editor/addon-editor.php:145
+#: views/premium/addon-editor/addon-editor.php:194
+msgid "Enter a description to show before the options."
+msgstr ""
+
+#. translators: Add-on editor panel.
+#: views/addon-editor/addon-editor.php:290
+#: views/premium/addon-editor/addon-editor.php:339
+msgid "Selected by default"
+msgstr "Standaard geselecteerd"
+
+#. translators: Add-on editor panel.
+#: views/addon-editor/addon-editor.php:379
+#: views/premium/addon-editor/addon-editor.php:441
+msgid "Cancel"
+msgstr "Annuleren"
+
+#. translators: Add-on editor panel.
+#: views/addon-editor/addon-editor.php:397
+#: views/premium/addon-editor/addon-editor.php:459
+msgid "Add HTML element"
+msgstr "HTML element toevoegen"
+
+#. translators: Add-on editor panel.
+#: views/addon-editor/addon-editor.php:435
+#: views/premium/addon-editor/addon-editor.php:497
+msgid "Add option for the user"
+msgstr "Optie toevoegen voor de gebruiker"
+
+#. translators: add-on option.
+#: views/addon-editor/option-common-fields.php:41
+#: views/premium/addon-editor/option-common-fields.php:157
+msgid "Label"
+msgstr "Label"
+
+#. translators: general add-on option.
+#: views/addon-editor/option-common-fields.php:92
+#: views/premium/addon-editor/option-common-fields.php:264
+msgid "Add image"
+msgstr "Afbeelding toevoegen"
+
+#. translators: general add-on option.
+#: views/addon-editor/option-common-fields.php:112
+#: views/premium/addon-editor/option-common-fields.php:284
+msgid "Enable to upload an image for this option."
+msgstr "Inschakelen voor het uploaden van een afbeelding voor deze optie."
+
+#. translators: general add-on option.
+#: views/addon-editor/option-common-fields.php:117
+#: views/premium/addon-editor/option-common-fields.php:289
+msgid ""
+"You can use this image to %1$s replace the default product image %2$s "
+"(enabling the option in the \"Display & Style\" tab)."
+msgstr ""
+
+#. translators: general add-on option.
+#: views/addon-editor/option-common-fields.php:130
+#: views/premium/addon-editor/option-common-fields.php:131
+#: views/premium/addon-editor/option-common-fields.php:302
+msgid "Image"
+msgstr "Afbeelding"
+
+#. translators: general add-on option.
+#: views/addon-editor/option-common-fields.php:167
+#: views/premium/addon-editor/option-common-fields.php:339
+msgid "Price"
+msgstr "Prijs"
+
+#. translators: general add-on option.
+#: views/addon-editor/option-common-fields.php:175
+#: views/premium/addon-editor/option-common-fields.php:347
+#: views/premium/addon-editor/option-common-fields.php:356
+#: views/premium/addon-editor/option-common-fields.php:366
+msgid "Product price doesn't change - set option as free"
+msgstr "Productprijs wijzigt niet - optie instellen als gratis"
+
+#. translators: general add-on option.
+#: views/addon-editor/option-common-fields.php:177
+#: views/premium/addon-editor/option-common-fields.php:349
+#: views/premium/addon-editor/option-common-fields.php:357
+#: views/premium/addon-editor/option-common-fields.php:367
+msgid "Product price increase - set option price"
+msgstr ""
+
+#. translators: general add-on option.
+#: views/addon-editor/option-common-fields.php:179
+#: views/premium/addon-editor/option-common-fields.php:351
+#: views/premium/addon-editor/option-common-fields.php:358
+#: views/premium/addon-editor/option-common-fields.php:368
+msgid "Product price decrease - set discount"
+msgstr ""
+
+#. translators: general add-on option.
+#: views/addon-editor/option-common-fields.php:214
+#: views/premium/addon-editor/option-common-fields.php:406
+msgid "regular"
+msgstr ""
+
+#. translators: general add-on option.
+#: views/addon-editor/option-common-fields.php:220
+#: views/premium/addon-editor/option-common-fields.php:412
+msgid "discount"
+msgstr ""
+
+#. translators: general add-on option.
+#: views/addon-editor/option-common-fields.php:229
+#: views/premium/addon-editor/option-common-fields.php:421
+msgid "sale"
+msgstr ""
+
+#. translators: general add-on option.
+#: views/addon-editor/option-common-fields.php:238
+#: views/premium/addon-editor/option-common-fields.php:430
+msgid "Fixed amount"
+msgstr "Vast bedrag"
+
+#: views/addon-editor/option-common-fields.php:239
+#: views/premium/addon-editor/option-common-fields.php:431
+msgid "Percentage"
+msgstr "Percentage"
+
+#. translators: general add-on option.
+#: views/addon-editor/option-common-fields.php:243
+#: views/premium/addon-editor/option-common-fields.php:439
+msgid "Price multiplied by string length"
+msgstr "Prijs vermenigvuldigd met string lengte"
+
+#. translators: general add-on option.
+#. translators: Add-on type date option
+#. translators: general add-on option.
+#: views/addon-editor/option-common-fields.php:272 views/addons/date.php:937
+#: views/premium/addon-editor/option-common-fields.php:468
+msgid "Required"
+msgstr "Verplicht"
+
+#. translators: general add-on option.
+#: views/addon-editor/option-common-fields.php:291
+#: views/premium/addon-editor/option-common-fields.php:487
+msgid "Enable to make this option mandatory for users."
+msgstr ""
+
+#. translators: Add-on type date option
+#: views/addons/date.php:39
+msgid "Date format"
+msgstr "Datum formaat"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:53
+msgid "Day / Month / Year"
+msgstr "Dag / Maand / Jaar"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:55
+msgid "Month / Day / Year"
+msgstr "Maand / Dag / Jaar"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:57
+msgid "Day . Month . Year"
+msgstr "Dag . Maand . Jaar"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:71
+msgid "Year"
+msgstr "Jaar"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:78
+msgid "Start year"
+msgstr ""
+
+#. translators: Add-on type date option
+#: views/addons/date.php:100
+msgid "End year"
+msgstr ""
+
+#. translators: Add-on type date option
+#: views/addons/date.php:126
+msgid "Default date"
+msgstr "Standaard datum"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:140
+msgid "None"
+msgstr "Geen"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:142 views/addons/date.php:144
+msgid "Current day"
+msgstr "Huidige dag"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:146
+msgid "Set a specific day"
+msgstr "Specifieke dag instellen"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:148
+msgid "Set a time interval from current day"
+msgstr "Tijd interval instellen vanaf huidige dag"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:150
+msgid "First available day"
+msgstr "Eerste beschikbare dag"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:165
+msgid "Specific day"
+msgstr "Specifieke dag"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:189
+msgid "For default date, calculate"
+msgstr "Voor standaard datum, bereken"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:234
+msgid "from current day"
+msgstr "vanaf huidige dag"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:245
+msgid "Selectable dates"
+msgstr "Te selecteren data"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:260
+msgid "Set no limits"
+msgstr "Geen beperkingen instellen"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:262
+msgid "Set a range of days"
+msgstr "Een dagenreeks instellen"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:264
+msgid "Set a specific date range"
+msgstr "Specifiek dag-bereik instellen"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:266
+msgid "Disable dates previous to current day"
+msgstr ""
+
+#. translators: Add-on type date option
+#: views/addons/date.php:281
+msgid "Selectable days ranges"
+msgstr "Te selecteren dag-bereik"
+
+#. translators: Add-on type date option
+#. translators: '[ADMIN] add-on option after activating "Set min/max number"
+#. for Number in Populate Options tab.
+#: views/addons/date.php:288 views/addons/text.php:57
+#: views/addons/textarea.php:57 views/premium/extra-options/number.php:99
+msgid "MIN"
+msgstr "MIN"
+
+#. translators: Add-on type date option
+#. translators: '[ADMIN] add-on option after activating "Set min/max number"
+#. for Number in Populate Options tab.
+#: views/addons/date.php:307 views/addons/text.php:61
+#: views/addons/textarea.php:61 views/premium/extra-options/number.php:106
+msgid "MAX"
+msgstr "MAX"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:332
+msgid "Selectable date ranges"
+msgstr "Te selecteren datumreeks"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:341
+msgid "min"
+msgstr ""
+
+#. translators: Add-on type date option
+#: views/addons/date.php:360
+msgid "max"
+msgstr ""
+
+#. translators: Add-on type date option
+#: views/addons/date.php:385
+msgid "Enable / disable specific days"
+msgstr "Specifieke dagen inschakelen / uitschakelen"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:410 views/addons/date.php:646
+msgid "Rule type"
+msgstr "Regel type"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:425 views/addons/date.php:660
+msgid "Enable"
+msgstr "Inschakelen"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:427 views/addons/date.php:661
+msgid "Disable"
+msgstr "Uitschakelen"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:436
+msgid "these dates in calendar"
+msgstr "deze data in kalender"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:587
+msgid "Show time selector"
+msgstr "Tijd selector tonen"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:619
+msgid "Enable / disable time slots"
+msgstr "Tijdssloten inschakelen/uitschakelen"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:670
+msgid "the following time slot(s)"
+msgstr ""
+
+#. translators: Add-on type date option
+#: views/addons/date.php:684
+msgid "From"
+msgstr ""
+
+#. translators: Add-on type date option
+#: views/addons/date.php:763
+msgid "To"
+msgstr ""
+
+#: views/addons/date.php:846
+msgid "Add time slot"
+msgstr "Tijdsslot toevoegen"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:856
+msgid "Time interval"
+msgstr "Tijdsinterval"
+
+#. translators: Add-on type date option
+#: views/addons/date.php:919
+msgid "Seconds"
+msgstr "Seconden"
+
+#: views/addons/date.php:920
+msgid "Minutes"
+msgstr "Minuten"
+
+#: views/addons/date.php:921
+msgid "Hours"
+msgstr "Uren"
+
+#: views/addons/html_heading.php:23
+msgid "Heading text"
+msgstr "Heading tekst"
+
+#: views/addons/html_heading.php:26
+msgid "Enter a text for this heading."
+msgstr "Tekst invoeren voor deze heading."
+
+#: views/addons/html_heading.php:33
+msgid "Heading type"
+msgstr "Heading type"
+
+#: views/addons/html_heading.php:56
+msgid "Choose the heading type."
+msgstr "Kies de het heading type."
+
+#: views/addons/html_heading.php:62
+msgid "Heading color"
+msgstr "Heading kleur"
+
+#: views/addons/html_heading.php:79
+msgid "Choose the color of this heading."
+msgstr "Kies de kleur van deze heading."
+
+#: views/addons/html_separator.php:23
+msgid "Separator style"
+msgstr "Scheidingsteken stijl"
+
+#: views/addons/html_separator.php:34
+msgid "Simple Border"
+msgstr "Simpele rand"
+
+#: views/addons/html_separator.php:35
+msgid "Double Border"
+msgstr "Dubbele rand"
+
+#: views/addons/html_separator.php:36
+msgid "Dotted Border"
+msgstr "Gestippelde rand"
+
+#: views/addons/html_separator.php:37
+msgid "Dashed Border"
+msgstr "Gestreepte rand"
+
+#: views/addons/html_separator.php:38
+msgid "Empty Space"
+msgstr "Lege ruimte"
+
+#: views/addons/html_separator.php:45
+msgid "Choose the separator style."
+msgstr "Kies de stijl van het scheidingsteken."
+
+#: views/addons/html_separator.php:51
+msgid "Width"
+msgstr "Breedte"
+
+#: views/addons/html_separator.php:69
+msgid "Set the width value of the separator."
+msgstr "Stel de breedtewaarde van het scheidingsteken in."
+
+#: views/addons/html_separator.php:76
+msgid "Height"
+msgstr "Hoogte"
+
+#: views/addons/html_separator.php:92
+msgid "Set the height value of the separator."
+msgstr "De hoogtewaarde instellen van het scheidingsteken."
+
+#: views/addons/html_separator.php:99
+msgid "Border color"
+msgstr "Randkleur"
+
+#: views/addons/html_separator.php:116
+msgid "Set the color for the separator border."
+msgstr "De kleur instellen voor de scheidingsrand."
+
+#: views/addons/html_text.php:23
+msgid "Enter your text content"
+msgstr "Je tekst inhoud invoeren"
+
+#: views/addons/product.php:25
+msgid "Choose product"
+msgstr ""
+
+#: views/addons/text.php:34 views/addons/textarea.php:34
+msgid "Limit input characters"
+msgstr "Beperk input karakters"
+
+#: views/addons/text.php:54 views/addons/textarea.php:54
+msgid "Number of characters"
+msgstr "Aantal karakters"
+
+#. translators: [ADMIN] Edit block page
+#: views/block-editor/block-editor.php:31
+msgid "Edit block"
+msgstr "Blok bewerken"
+
+#: views/block-editor/block-editor.php:31
+msgid "Add new block"
+msgstr "Nieuw blok toevoegen"
+
+#. translators: [ADMIN] Edit block page
+#: views/block-editor/block-editor.php:43
+msgid "Block name"
+msgstr "Blok naam"
+
+#. translators: [ADMIN] Edit block page
+#: views/block-editor/block-editor.php:66
+msgid "Enter a name to identify this block of options."
+msgstr "Naam invoeren om dit opties blok te identificeren."
+
+#. translators: [ADMIN] Edit block page
+#: views/block-editor/block-editor.php:76
+msgid "Block priority level"
+msgstr "Blokkeer prioriteitsniveau"
+
+#. translators: [ADMIN] Edit block page
+#: views/block-editor/block-editor.php:102
+msgid ""
+"Set the priority level assigned to this rule. The priority level is "
+"important to arrange the different rules that apply to the same products. 1 "
+"is the highest priority level."
+msgstr ""
+
+#. translators: [ADMIN] Edit block page
+#: views/block-editor/block-editor.php:123
+msgid "Options"
+msgstr "Opties"
+
+#. translators: [ADMIN] Edit block page (block actions in the table)
+#: views/block-editor/block-editor.php:195
+msgid "Edit"
+msgstr "Bewerken"
+
+#. translators: [ADMIN] Edit block page (block actions in the table)
+#: views/block-editor/block-editor.php:211
+msgid "Duplicate"
+msgstr "Dupliceren"
+
+#. translators: [ADMIN] Edit block page (block actions in the table)
+#: views/block-editor/block-editor.php:228
+msgid "Delete"
+msgstr "Verwijderen"
+
+#. translators: [ADMIN] Edit block page (delete action)
+#: views/block-editor/block-editor.php:243
+msgid "Confirm delete"
+msgstr "Verwijderen bevestigen"
+
+#. translators: [ADMIN] Edit block page (delete action)
+#: views/block-editor/block-editor.php:245
+msgid "Are you sure you want to delete this add-on?"
+msgstr ""
+
+#. translators: [ADMIN] Edit block page (delete action)
+#: views/block-editor/block-editor.php:247
+msgid "Yes, delete"
+msgstr ""
+
+#. translators: [ADMIN] Edit block page (Move action).
+#: views/block-editor/block-editor.php:253
+msgid "Move"
+msgstr "Verplaatsen"
+
+#. translators: [ADMIN] Edit block page > block not empty
+#: views/block-editor/block-editor.php:273
+msgid "Start to add your options to this block!"
+msgstr "Start met toevoegen van opties in dit blok!"
+
+#. translators: [ADMIN] Edit block page > block not empty
+#: views/block-editor/block-editor.php:277
+msgid "Add option"
+msgstr ""
+
+#. translators: [ADMIN] Edit block page
+#: views/block-editor/block-rules.php:31
+#: views/premium/block-editor/block-rules.php:31
+msgid "Show this block of options in"
+msgstr "Dit opties blok tonen in"
+
+#. translators: [ADMIN] Edit block page
+#. translators: Blocks table - Show on column.
+#. translators: Block options page, "Show on" column.
+#: views/block-editor/block-rules.php:52 views/block-editor/blocks-table.php:78
+#: views/block-editor/blocks-table.php:102
+#: views/premium/block-editor/block-rules.php:52
+#: views/premium/block-editor/blocks-table.php:80
+#: views/premium/block-editor/blocks-table.php:104
+msgid "All products"
+msgstr "Alle producten"
+
+#. translators: [ADMIN] Edit block page
+#: views/block-editor/block-rules.php:54
+#: views/premium/block-editor/block-rules.php:54
+msgid "Specific products or categories"
+msgstr ""
+
+#. translators: [ADMIN] Edit block page
+#: views/block-editor/block-rules.php:64
+#: views/premium/block-editor/block-rules.php:64
+msgid ""
+"Choose to show these options in all products or only specific products or "
+"categories."
+msgstr ""
+"Bepaal hoe je deze opties wilt tonen in alle producten, of alleen in "
+"specifieke producten of categorieën."
+
+#. translators: [ADMIN] Edit block page.
+#: views/block-editor/block-rules.php:74
+#: views/premium/block-editor/block-rules.php:74
+msgid "Show in products"
+msgstr ""
+
+#. translators: [ADMIN] Edit block page.
+#: views/block-editor/block-rules.php:100
+#: views/premium/block-editor/block-rules.php:100
+msgid "Choose in which products to show this block."
+msgstr "Kies in welke producten je dit blok wilt tonen."
+
+#. translators: [ADMIN] Edit block page
+#: views/block-editor/block-rules.php:109
+#: views/premium/block-editor/block-rules.php:109
+msgid "Show in categories"
+msgstr ""
+
+#. translators: [ADMIN] Edit block page
+#: views/block-editor/block-rules.php:126
+#: views/premium/block-editor/block-rules.php:126
+#: views/premium/block-editor/block-rules.php:214
+msgid "Search for categories"
+msgstr "Zoeken naar categorieën"
+
+#. translators: [ADMIN] Edit block page
+#: views/block-editor/block-rules.php:136
+#: views/premium/block-editor/block-rules.php:136
+msgid "Choose in which product categories to show this block."
+msgstr "Kies in welke productcategorieën je dit blok wilt tonen."
+
+#. translators: [ADMIN] Block list page (empty table)
+#: views/block-editor/blocks-table.php:24
+#: views/block-editor/blocks-table.php:232
+#: views/premium/block-editor/blocks-table.php:24
+#: views/premium/block-editor/blocks-table.php:256
+msgid "Add block"
+msgstr "Blok toevoegen"
+
+#. translators: Blocks table > When a block has no name set.
+#: views/block-editor/blocks-table.php:65
+msgid "(No name)"
+msgstr ""
+
+#. translators: Block options page, "Show on" column.
+#: views/block-editor/blocks-table.php:82
+#: views/premium/block-editor/blocks-table.php:84
+msgid "Products"
+msgstr ""
+
+#. translators: Block options page, "Show on" column.
+#: views/block-editor/blocks-table.php:109
+#: views/premium/block-editor/blocks-table.php:111
+msgid "Categories"
+msgstr "Categorieën"
+
+#. translators: Block options page, "Show on" column.
+#: views/block-editor/blocks-table.php:127
+#: views/premium/block-editor/blocks-table.php:129
+msgid "All categories"
+msgstr ""
+
+#. translators: [ADMIN] Block list page (empty table)
+#: views/block-editor/blocks-table.php:220
+#: views/premium/block-editor/blocks-table.php:244
+msgid "You have no options blocks created yet."
+msgstr "Je hebt nog geen opties blokken aangemaakt."
+
+#. translators: [ADMIN] Block list page (empty table)
+#: views/block-editor/blocks-table.php:225
+#: views/premium/block-editor/blocks-table.php:249
+msgid "Now build your first block!"
+msgstr "Bouw nu je eerste blok!"
+
+#. translators: Edit add-on panel > Title option
+#: views/premium/addon-editor/addon-editor.php:138
+msgid "Use also as title in cart"
+msgstr ""
+
+#. translators: Add-on editor panel.
+#: views/premium/addon-editor/addon-editor.php:155
+msgid "Title in cart"
+msgstr ""
+
+#. translators: Add-on editor panel.
+#: views/premium/addon-editor/addon-editor.php:175
+msgid "Enter a title to show in cart, checkout and order."
+msgstr ""
+
+#. translators: option for Add-on type Color Swatch
+#: views/premium/addon-editor/option-common-fields.php:45
+msgid "Show as"
+msgstr "Tonen als"
+
+#. translators: option for Add-on type Color Swatch
+#: views/premium/addon-editor/option-common-fields.php:61
+msgid "Image swatch"
+msgstr "Afbeelding swatch"
+
+#. translators: option for Add-on type Color Swatch.
+#: views/premium/addon-editor/option-common-fields.php:75
+msgid "Color"
+msgstr "Kleur"
+
+#. translators: option for Add-on type Color Swatch.
+#: views/premium/addon-editor/option-common-fields.php:96
+msgid "Add color"
+msgstr ""
+
+#. translators: Edit add-on panel > Label option
+#: views/premium/addon-editor/option-common-fields.php:181
+msgid "Use also as label in cart"
+msgstr ""
+
+#. translators: general add-on option after activating "Use also as label in
+#. cart" option.
+#: views/premium/addon-editor/option-common-fields.php:189
+msgid "Label in cart"
+msgstr ""
+
+#. translators: general add-on option.
+#: views/premium/addon-editor/option-common-fields.php:213
+msgid "Placeholder"
+msgstr "Plaatshouder"
+
+#: views/premium/addon-editor/option-common-fields.php:359
+msgid "Value multiplied by product price"
+msgstr ""
+
+#: views/premium/addon-editor/option-common-fields.php:369
+msgid "Use price of linked product"
+msgstr "Gebruik prijs van gelinkt product"
+
+#: views/premium/addon-editor/option-common-fields.php:370
+msgid "Discount price of linked product"
+msgstr "Korting geven op het gelinkte product"
+
+#. translators: general add-on option.
+#: views/premium/addon-editor/option-common-fields.php:435
+msgid "Price multiplied by value"
+msgstr "Prijs vermenigvuldigd met waarde"
+
+#. translators: general add-on option.
+#: views/premium/addon-editor/option-common-fields.php:502
+msgid "Allow multi-upload"
+msgstr ""
+
+#. translators: general add-on option.
+#: views/premium/addon-editor/option-common-fields.php:522
+msgid "Enable to allow the users to upload multiple files in the uploader."
+msgstr ""
+
+#. translators: general add-on option.
+#: views/premium/addon-editor/option-common-fields.php:533
+msgid "Users can upload a max of"
+msgstr ""
+
+#. translators: %s is a break line.
+#: views/premium/addon-editor/option-common-fields.php:555
+msgid ""
+"Optional: set the max number of files a user can upload. %s Leave empty if "
+"the user can upload files without any limits."
+msgstr ""
+
+#. translators: '[ADMIN] Edit block page'
+#: views/premium/block-editor/block-rules.php:148
+msgid "Exclude products"
+msgstr "Producten uitsluiten"
+
+#. translators: [ADMIN] Edit block page
+#: views/premium/block-editor/block-rules.php:164
+msgid "Enable if you want to hide these options in some products."
+msgstr "Inschakelen als je deze opties wilt verbergen in enkele producten."
+
+#. translators: [ADMIN] Edit block page
+#: views/premium/block-editor/block-rules.php:173
+msgid "Hide in products"
+msgstr ""
+
+#. translators: [ADMIN] Edit block page
+#: views/premium/block-editor/block-rules.php:193
+msgid "Choose the products to exclude."
+msgstr "Kies de producten om uit te sluiten."
+
+#. translators: [ADMIN] Edit block page
+#: views/premium/block-editor/block-rules.php:202
+msgid "Hide in categories"
+msgstr ""
+
+#. translators: [ADMIN] Edit block page
+#: views/premium/block-editor/block-rules.php:223
+msgid "Choose the categories to exclude."
+msgstr "Kies de categorieën om uit te sluiten."
+
+#. translators: [ADMIN] Edit block page
+#: views/premium/block-editor/block-rules.php:232
+msgid "Show options to"
+msgstr "Opties tonen aan"
+
+#. translators: [ADMIN] Edit block page
+#: views/premium/block-editor/block-rules.php:252
+msgid "All users"
+msgstr "Alle gebruikers"
+
+#. translators: [ADMIN] Edit block page
+#: views/premium/block-editor/block-rules.php:254
+msgid "Only to guest users"
+msgstr "Alleen voor gast gebruikers"
+
+#. translators: [ADMIN] Edit block page
+#: views/premium/block-editor/block-rules.php:256
+msgid "Only to logged-in users"
+msgstr "Alleen aan ingelogde gebruikers"
+
+#. translators: [ADMIN] Edit block page
+#: views/premium/block-editor/block-rules.php:258
+msgid "Only to specified user roles"
+msgstr "Alleen aan specifieke gebruikersrollen"
+
+#. translators: [ADMIN] Edit block page
+#: views/premium/block-editor/block-rules.php:263
+msgid "Only to users with a membership plan"
+msgstr "Alleen aan gebruikers met een lidmaatschap plan"
+
+#. translators: [ADMIN] Edit block page
+#: views/premium/block-editor/block-rules.php:283
+msgid ""
+"Choose to show these options to all users, or only to specific user roles or "
+"members of a membership plan."
+msgstr ""
+"Bepaal of je deze opties wilt tonen aan alle gebruikers, alleen specifieke "
+"gebruikersrollen of leden van een lidmaatschap plan."
+
+#. translators: [ADMIN] Edit block page
+#: views/premium/block-editor/block-rules.php:292
+msgid "User roles"
+msgstr "Gebruikersrollen"
+
+#. translators: [ADMIN] Edit block page - When Membership is activated
+#: views/premium/block-editor/block-rules.php:315
+msgid "Membership plan"
+msgstr "Lidmaatschap plan"
+
+#. translators: When activate Membership and the option "Show options to:" on
+#. Edit Block page is "Only to users with a membership plan" and no membership
+#. has been selected yet.
+#: views/premium/block-editor/block-rules.php:327
+msgid "Search for a membership plan..."
+msgstr ""
+
+#. translators: description in Block editor for Show options to: when
+#. 'membership plan' is selected (YITH Membership activated is necessary).
+#: views/premium/block-editor/block-rules.php:334
+msgid "Choose for which membership plan to show this block."
+msgstr ""
+
+#. translators: [ADMIN] Edit block page - When Multi Vendor is activated
+#: views/premium/compatibility/multi-vendor.php:20
+msgid "No vendor"
+msgstr ""
+
+#. translators: [ADMIN] Edit block page - When Multi Vendor is activated
+#: views/premium/compatibility/multi-vendor.php:31
+msgid "Vendor"
+msgstr "Verkoper"
+
+#. translators: description in Block editor for Vendor option (YITH Vendors
+#. activated is necessary).
+#: views/premium/compatibility/multi-vendor.php:49
+msgid "Choose for which vendor to show this block."
+msgstr ""
+
+#. translators: [ADMIN] add-on option for Number in Populate Options tab.
+#: views/premium/extra-options/number.php:22
+msgid "Show field"
+msgstr ""
+
+#. translators: [ADMIN] add-on option for Number in Populate Options tab
+#: views/premium/extra-options/number.php:35
+msgid "Empty by default"
+msgstr ""
+
+#. translators: [ADMIN] add-on option for Number in Populate Options tab
+#: views/premium/extra-options/number.php:37
+msgid "With a default number"
+msgstr ""
+
+#. translators: [ADMIN] add-on option for Number in Populate Options tab
+#: views/premium/extra-options/number.php:50
+msgid "Default number"
+msgstr ""
+
+#. translators: [ADMIN] add-on option for Number in Populate Options tab
+#: views/premium/extra-options/number.php:72
+msgid "Set min/max number"
+msgstr ""
+
+#. translators: '[ADMIN] add-on option after activating "Set min/max number"
+#. for Number in Populate Options tab.
+#: views/premium/extra-options/number.php:94
+msgid "Values allowed"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Product Add-ons & Extra Options</strong></"
+"code> is the plugin that allows you to create new options for WooCommerce "
+"products. <a href=\"https://yithemes.com/\" target=\"_blank\">Get more "
+"plugins for your e-commerce shop on <strong>YITH</strong></a>"
+msgstr ""
+"<code><strong>YITH WooCommerce Product Add-ons & Extra Options</strong></"
+"code> is de plugin waarmee waarmee je nieuwe opties voor WooCommerce "
+"producten kunt aanmaken. <a href=\"https://yithemes.com/\" "
+"target=\"_blank\">Get more plugins for your e-commerce shop on <strong>YITH</"
+"strong></a>"
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/class-yith-wapo-addon-premium.php:207
+msgctxt "Minimum value"
+msgid "MIN"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/class-yith-wapo-addon-premium.php:215
+msgctxt "Maximum value"
+msgid "MAX"
+msgstr ""
+
+#: includes/class-yith-wapo-addon-premium.php:320
+msgctxt "[ADMIN] Add-on editor > Display & Style option (Only Label)"
+msgid "Default"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Display & Style option (description)
+#: includes/class-yith-wapo-addon-premium.php:600
+msgctxt "[ADMIN] Add-on editor > Display & Style option (description)"
+msgid "Set the width of the options in relation to the container width."
+msgstr ""
+
+#. translators: %s: product name
+#: includes/class-yith-wapo-cart.php:147
+msgctxt "[FRONT] Error message when an add-on type Product is out of stock"
+msgid ""
+"You cannot add &quot;%s&quot; to the cart because the product is out of "
+"stock."
+msgstr ""
+
+#. translators: 1: product name 2: quantity in stock
+#: includes/class-yith-wapo-cart.php:156
+msgctxt ""
+"[FRONT] When add-on type Product is added to cart with more amount than "
+"allowed"
+msgid ""
+"You cannot add that amount of &quot;%1$s&quot; to the cart because there is "
+"not enough stock (%2$s remaining)."
+msgstr ""
+
+#: includes/class-yith-wapo-cart.php:173
+msgctxt "[FRONT] Redirect to cart page"
+msgid "View cart"
+msgstr ""
+
+#. translators: 1: quantity in stock 2: current quantity
+#: includes/class-yith-wapo-cart.php:175
+msgctxt ""
+"[FRONT] If sum of already add-ons type Products added to cart and the "
+"current stock selected are higher than expected"
+msgid ""
+"You cannot add that amount to the cart &mdash; we have %1$s in stock and you "
+"already have %2$s in your cart."
+msgstr ""
+
+#: includes/class-yith-wapo-cart.php:506
+msgctxt "[FRONT] Label shown on YITH Bundle products when is added to cart."
+msgid "Base price"
+msgstr ""
+
+#: includes/class-yith-wapo-cart.php:607 includes/class-yith-wapo-cart.php:739
+#: includes/yith-wapo-functions.php:138 includes/yith-wapo-functions.php:140
+msgctxt "[FRONT] Show it in the cart page if the add-on has not a label set"
+msgid "Option"
+msgstr ""
+
+#: includes/class-yith-wapo-cart.php:795
+msgctxt "[FRONT] Default label on archive pages if the product has add-ons"
+msgid "Select options"
+msgstr ""
+
+#: includes/class-yith-wapo-front.php:147
+msgctxt "[FRONT] Percentage done when uploading a file on an add-on type File."
+msgid "done"
+msgstr ""
+
+#: includes/class-yith-wapo.php:990
+msgctxt "[ADMIN] String added to the add-on title when is duplicated"
+msgid "Copy"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:700 includes/yith-wapo-functions.php:785
+#: includes/yith-wapo-functions.php:948 includes/yith-wapo-functions.php:952
+msgctxt "Add-on editor panel > Add a new + add-on name (fem)"
+msgid "Add a new"
+msgstr ""
+
+#. translators: [ADMIN] Add-on editor > Options configuration option
+#: includes/yith-wapo-functions.php:998
+msgctxt "Add-on editor panel > Add a new + add-on name (masc)"
+msgid "Add a new"
+msgstr ""
+
+#: init.php:138
+msgctxt "[ADMIN] Message when WC is not activated on the site"
+msgid ""
+"YITH WooCommerce Product Add-ons & Extra Options is enabled but not "
+"effective. It requires WooCommerce in order to work."
+msgstr ""
+
+#: modules/color-label-variations/class-yith-wapo-color-label-variations.php:149
+msgctxt "Products > Attributes > Types"
+msgid "Color picker"
+msgstr ""
+
+#: modules/color-label-variations/class-yith-wapo-color-label-variations.php:150
+msgctxt "Products > Attributes > Types"
+msgid "Image"
+msgstr ""
+
+#: modules/color-label-variations/class-yith-wapo-color-label-variations.php:151
+msgctxt "Products > Attributes > Types"
+msgid "Label"
+msgstr ""
+
+#: modules/color-label-variations/includes/class-yith-wapo-color-label-variations-admin.php:119
+msgctxt "Admin title of tab"
+msgid "Color and Label Variations"
+msgstr ""
+
+#: modules/color-label-variations/includes/class-yith-wapo-color-label-variations-admin.php:120
+msgctxt "Admin title of tab"
+msgid "Set the options for the color and label variations you create."
+msgstr ""
+
+#: plugin-options/settings-options.php:19
+msgctxt "Admin title of tab"
+msgid "General options"
+msgstr "Algemene opties"
+
+#: plugin-options/settings-options.php:20
+msgctxt "Admin title of tab"
+msgid "Set the general options of the Product Add-ons features."
+msgstr ""
+
+#: plugin-options/settings-options.php:23
+msgctxt "Admin title of tab"
+msgid "Cart & Order"
+msgstr "Winkelwagen & Bestelling"
+
+#: plugin-options/settings-options.php:24
+msgctxt "Admin title of tab"
+msgid ""
+"Set the cart options of the Product Add-ons plugin on the Cart and Checkout "
+"pages."
+msgstr ""
+
+#: modules/color-label-variations/includes/class-yith-wapo-color-label-variations-admin.php:644
+#: modules/color-label-variations/templates/admin/variation-gallery.php:22
+msgctxt "label for remove single image from variation gallery"
+msgid "Remove image"
+msgstr "Afbeelding verwijderen"
+
+#: templates/front/block.php:21
+msgctxt "[FRONT] Text to show when an option is required"
+msgid "This option is required."
+msgstr ""
+
+#. translators: String in the Conditional logic section (select, not select,
+#. empty, not empty).
+#: views/addon-editor/addon-conditional-logic.php:297
+msgctxt "[ADMIN] Translate in second person, not infinitive"
+msgid "Select an option"
+msgstr ""
+
+#: views/addon-editor/addon-editor.php:20
+#: views/premium/addon-editor/addon-editor.php:20
+msgctxt "Add-on editor panel (option action)"
+msgid "Delete"
+msgstr ""
+
+#: views/addon-editor/addon-editor.php:25
+#: views/premium/addon-editor/addon-editor.php:25
+msgctxt "Add-on editor panel (option action)"
+msgid "Confirm delete"
+msgstr ""
+
+#: views/addon-editor/addon-editor.php:26
+#: views/premium/addon-editor/addon-editor.php:26
+msgctxt "Add-on editor panel (option action)"
+msgid "Are you sure you want to delete this option?"
+msgstr ""
+
+#: views/addon-editor/addon-editor.php:27
+#: views/premium/addon-editor/addon-editor.php:27
+msgctxt "Add-on editor panel (option action)"
+msgid "Yes, delete"
+msgstr ""
+
+#. translators: Add-on editor panel
+#: views/addon-editor/addon-editor.php:203
+#: views/premium/addon-editor/addon-editor.php:252
+msgctxt "Add-on editor panel"
+msgid "Selected by default"
+msgstr ""
+
+#: views/addons/colorpicker.php:23
+msgctxt "[ADMIN] Colorpicker add-on option"
+msgid "In picker show"
+msgstr ""
+
+#: views/addons/colorpicker.php:34
+msgctxt "[ADMIN] Colorpicker add-on option"
+msgid "A default color"
+msgstr ""
+
+#: views/addons/colorpicker.php:35
+msgctxt "[ADMIN] Colorpicker add-on option"
+msgid "A placeholder text"
+msgstr ""
+
+#: views/addons/colorpicker.php:46
+msgctxt "[ADMIN] Colorpicker add-on option"
+msgid "Default color"
+msgstr ""
+
+#: views/addons/colorpicker.php:66
+msgctxt "[ADMIN] Colorpicker add-on option > In picker show > Placeholder text"
+msgid "Placeholder"
+msgstr ""
+
+#: views/block-editor/block-editor.php:26
+msgctxt "[ADMIN] Edit block page"
+msgid "Back to blocks list"
+msgstr ""
+
+#. translators: [ADMIN] Edit block page.
+#: views/block-editor/block-editor.php:167
+msgctxt "singular option on Add-on title. Ex: Date (1 option)"
+msgid "option"
+msgstr ""
+
+#: views/block-editor/block-editor.php:167
+msgctxt "several options on Add-on title. Ex: Date (2 options)"
+msgid "options"
+msgstr ""
+
+#: views/block-editor/blocks-table.php:30
+#: views/premium/block-editor/blocks-table.php:30
+msgctxt "[ADMIN] Block list page"
+msgid "Name"
+msgstr ""
+
+#: views/block-editor/blocks-table.php:31
+#: views/premium/block-editor/blocks-table.php:31
+msgctxt "[ADMIN] Block list page"
+msgid "Priority"
+msgstr ""
+
+#: views/block-editor/blocks-table.php:32
+#: views/premium/block-editor/blocks-table.php:32
+msgctxt "[ADMIN] Block list page"
+msgid "Show on"
+msgstr ""
+
+#: views/block-editor/blocks-table.php:33
+#: views/premium/block-editor/blocks-table.php:36
+msgctxt "[ADMIN] Block list page"
+msgid "Active"
+msgstr ""
+
+#: views/premium/block-editor/blocks-table.php:34
+msgctxt "[ADMIN] Block list page"
+msgid "Vendor"
+msgstr ""
+
+#: views/block-editor/blocks-table.php:150
+#: views/premium/block-editor/blocks-table.php:174
+msgctxt "[ADMIN] Block list page (action)"
+msgid "Edit"
+msgstr ""
+
+#: views/block-editor/blocks-table.php:162
+#: views/premium/block-editor/blocks-table.php:186
+msgctxt "[ADMIN] Block list page (action)"
+msgid "Duplicate"
+msgstr ""
+
+#: views/block-editor/blocks-table.php:176
+#: views/premium/block-editor/blocks-table.php:200
+msgctxt "[ADMIN] Block list page (action)"
+msgid "Delete"
+msgstr ""
+
+#: views/block-editor/blocks-table.php:189
+#: views/premium/block-editor/blocks-table.php:213
+msgctxt "[ADMIN] Block list page (action)"
+msgid "Confirm delete"
+msgstr ""
+
+#: views/block-editor/blocks-table.php:190
+#: views/premium/block-editor/blocks-table.php:214
+msgctxt "[ADMIN] Block list page (action)"
+msgid "Are you sure you want to delete this block?"
+msgstr ""
+
+#: views/block-editor/blocks-table.php:196
+#: views/premium/block-editor/blocks-table.php:220
+msgctxt "[ADMIN] Block list page (action)"
+msgid "Move"
+msgstr ""
+
+#: views/block-editor/blocks-table.php:191
+#: views/premium/block-editor/blocks-table.php:215
+msgctxt "Delete confirmation action"
+msgid "Yes, delete"
+msgstr "Ja, verwijderen"
+
+#. translators: [ADMIN] Add-on editor > Options configuration option'
+#: views/premium/addon-editor/addon-advanced-settings.php:58
+msgctxt "[ADMIN] Options configuration tab when editing add-on"
+msgid "At least"
+msgstr ""
+
+#: views/premium/addon-editor/addon-advanced-settings.php:60
+msgctxt "[ADMIN] Options configuration tab when editing add-on"
+msgid "Exactly"
+msgstr ""
+
+#: views/premium/addon-editor/addon-advanced-settings.php:99
+#: views/premium/addon-editor/addon-advanced-settings.php:152
+msgctxt "[ADMIN] Add-on editor > Options configuration option"
+msgid "%s"
+msgstr ""

@@ -5,6 +5,7 @@ namespace MailPoet\Entities;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\InvalidStateException;
 use MailPoet\Segments\DynamicSegments\Filters\UserRole;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceProduct;
 use MailPoetVendor\Doctrine\ORM\Mapping as ORM;
@@ -88,6 +89,35 @@ class DynamicSegmentFilterData {
    */
   public function getParam(string $name) {
     return $this->filterData[$name] ?? null;
+  }
+
+  public function getStringParam(string $name): string {
+    $value = $this->filterData[$name] ?? null;
+    if (!is_string($value)) {
+      throw new InvalidStateException("No string value found in filter data for param $name.");
+    }
+    return $value;
+  }
+
+  public function getIntParam(string $name): int {
+    $value = $this->filterData[$name] ?? null;
+    if (is_int($value)) {
+      return $value;
+    }
+
+    if (is_string($value)) {
+      return (int)($value);
+    }
+
+    throw new InvalidStateException("No compatible integer value found in filter data for param $name.");
+  }
+
+  public function getArrayParam(string $name): array {
+    $value = $this->getParam($name);
+    if (!is_array($value)) {
+      throw new InvalidStateException("No array value found in filter data for param $name.");
+    }
+    return $value;
   }
 
   public function getFilterType(): ?string {

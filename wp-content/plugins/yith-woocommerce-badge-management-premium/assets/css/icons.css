@@ -1,0 +1,70 @@
+@font-face {
+	font-family: 'yith-wcbm-icons';
+	src: url('../fonts/yith-wcbm-icons.eot?4blsby');
+	src: url('../fonts/yith-wcbm-icons.eot?4blsby#iefix') format('embedded-opentype'),
+	url('../fonts/yith-wcbm-icons.ttf?4blsby') format('truetype'),
+	url('../fonts/yith-wcbm-icons.woff?4blsby') format('woff'),
+	url('../fonts/yith-wcbm-icons.svg?4blsby#yith-wcbm-icons') format('svg');
+	font-weight: normal;
+	font-style: normal;
+	font-display: block;
+}
+
+[class^="yith-wcbm-icon-"], [class*=" yith-wcbm-icon-"] {
+	/* use !important to prevent issues with browser extensions that change fonts */
+	font-family: 'yith-wcbm-icons' !important;
+	speak: never;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.yith-wcbm-icon-auction-badge-rule:before {
+	content: "\e901";
+	color: #293f54;
+}
+
+.yith-wcbm-icon-advanced-badge:before {
+	content: "\e900";
+}
+
+.yith-wcbm-icon-category-badge-rule:before {
+	content: "\e916";
+	color: #7d7d7d;
+}
+
+.yith-wcbm-icon-dynamic-pricing-badge-rule:before {
+	content: "\e915";
+	color: #293f54;
+}
+
+.yith-wcbm-icon-image-badge:before {
+	content: "\e908";
+}
+
+.yith-wcbm-icon-product-badge-rule:before {
+	content: "\e909";
+}
+
+.yith-wcbm-icon-shipping-class-badge-rule:before {
+	content: "\e90c";
+	color: #7d7d7d;
+}
+
+.yith-wcbm-icon-svg-badge:before {
+	content: "\e90d";
+}
+
+.yith-wcbm-icon-tag-badge-rule:before {
+	content: "\e913";
+}
+
+.yith-wcbm-icon-text-badge:before {
+	content: "\e914";
+}

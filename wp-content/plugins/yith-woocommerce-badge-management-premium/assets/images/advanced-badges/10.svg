@@ -1,0 +1,106 @@
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+     width="50.132px" height="50px" viewBox="0 0 50.132 50" enable-background="new 0 0 50.132 50" xml:space="preserve">
+<style>
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10 .yith-wcbm-sale-percent:before,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10 .yith-wcbm-saved-money-value:before {
+	content: '-';
+}
+    .yith-wcbm-badge.yith-wcbm-badge-advanced-10 {
+
+	width: 59px;
+	height: 59px;
+	z-index: 10;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10.yith-wcbm-advanced-display-percentage .yith-wcbm-sale-percent,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10.yith-wcbm-advanced-display-amount .yith-wcbm-saved-money-value {
+	display: block;
+	font-size: 15px;
+	line-height: 0;
+    top: 40px;
+    right: 26px;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10.yith-wcbm-advanced-display-percentage .yith-wcbm-symbol-percent,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10.yith-wcbm-advanced-display-amount .yith-wcbm-saved-money-currency {
+	display: block;
+	font-size: 10px;
+	font-weight: 400;
+	line-height: 0;
+	top: 38px;
+	right: 17px;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10 .yith-wcbm-symbol-sale-exclamation {
+	display: block;
+	font-size: 8px;
+	text-transform: uppercase;
+	top: 19px;
+	line-height: 0;
+	right: 17px;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-badge-text-advanced div {
+	transform: scale(1) !important;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10.yith-wcbm-badge-advanced--flip-both .yith-wcbm-sale-percent,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10.yith-wcbm-badge-advanced--flip-both .yith-wcbm-saved-money-value,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-saved-money-value,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-sale-percent {
+	right: 18px;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10.yith-wcbm-badge-advanced--flip-both .yith-wcbm-symbol-percent,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10.yith-wcbm-badge-advanced--flip-both .yith-wcbm-saved-money-currency,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-saved-money-currency,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-symbol-percent {
+	right: 9px;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10.yith-wcbm-badge-advanced--flip-both .yith-wcbm-badge-text-advanced .yith-wcbm-sale-percent,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10.yith-wcbm-badge-advanced--flip-both .yith-wcbm-badge-text-advanced .yith-wcbm-symbol-percent,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10.yith-wcbm-badge-advanced--flip-both .yith-wcbm-badge-text-advanced .yith-wcbm-saved-money-currency,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10.yith-wcbm-badge-advanced--flip-both .yith-wcbm-badge-text-advanced .yith-wcbm-saved-money-value,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10.yith-wcbm-badge-advanced--flip-both .yith-wcbm-badge-text-advanced .yith-wcbm-symbol-sale-exclamation {
+	transform: scale(1, -1);
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10.yith-wcbm-badge-advanced--flip-both .yith-wcbm-badge-text-advanced,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-badge-text-advanced {
+	transform: scale(-1, 1);
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10.yith-wcbm-badge-advanced--flip-both .yith-wcbm-symbol-sale-exclamation,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-symbol-sale-exclamation {
+	right: 22px;
+	top: 20px;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10 .yith-wcbm-badge-primary-color{
+    fill: var(--badge-primary-color, #F56507);
+}
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10 .yith-wcbm-badge-secondary-color{
+    fill: var(--badge-secondary-color, #B72D02);
+}
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10 .yith-wcbm-badge-text-advanced {
+    color: var(--badge-text-color, #ffffff);
+}
+</style>
+    <g>
+	<g>
+		<path fill="#F56507" class="yith-wcbm-badge-primary-color" d="M25.132,0c-1.801,0-3.555,0.195-5.247,0.557c-0.514,2.969-1.003,5.771-1.003,5.771s-6.167,9.666-6.5,9.75
+			c-0.333,0.083-7.167,5.666-8.167,6.083c-0.579,0.241-2.521,1.152-4.059,1.879C0.145,24.359,0.132,24.678,0.132,25
+			c0,13.808,11.193,25,25,25s25-11.192,25-25C50.132,11.193,38.938,0,25.132,0z"/>
+	</g>
+    <path fill="#B72D02" class="yith-wcbm-badge-secondary-color" d="M18.882,6.328c0,0-6.167,9.666-6.5,9.75c-0.31,0.077-6.229,4.9-7.866,5.916h45.43
+		c-0.815-6.799-4.356-12.756-9.503-16.75H19.07C18.954,5.916,18.882,6.328,18.882,6.328z"/>
+    <linearGradient id="SVGID_10_" gradientUnits="userSpaceOnUse" x1="10.0195" y1="12.3418" x2="15.8243" y2="16.6645">
+		<stop  offset="0" style="stop-color:#858584"/>
+        <stop  offset="0.5" style="stop-color:#FAFAFA"/>
+        <stop  offset="1" style="stop-color:#858584"/>
+	</linearGradient>
+    <path fill="url(#SVGID_10_)" d="M19.884,0.529L0,24.04c0,0,11.76-0.704,16.67-9.011C21.58,6.724,19.884,0.529,19.884,0.529z"/>
+    <path fill="#FFFFFF" d="M7.582,8.744"/>
+</g>
+</svg>

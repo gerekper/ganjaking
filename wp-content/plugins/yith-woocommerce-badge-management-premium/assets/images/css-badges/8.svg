@@ -1,0 +1,67 @@
+<svg>
+    <style>
+        .yith-wcbm-badge.yith-wcbm-badge-css-8 {
+            box-sizing: border-box;
+            background-color: transparent;
+            width: 65px !important;
+            height: 65px !important;
+            overflow: hidden;
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-css-8 div.yith-wcbm-css-s1 {
+            position: absolute;
+            z-index: 12;
+            top: 0;
+            left: 2px;
+            border-left: 3px solid transparent;
+            width: 10px;
+            border-bottom: 4px solid var(--badge-secondary-color, #246587);
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-css-8 div.yith-wcbm-css-s2 {
+            position: absolute;
+            z-index: 12;
+            bottom: 2px;
+            right: 0px;
+            border-bottom: 3px solid transparent;
+            height: 10px;
+            border-left: 4px solid var(--badge-secondary-color, #246587);
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-css-8 div.yith-wcbm-css-text {
+            position: absolute;
+            z-index: 14;
+            -webkit-transform: rotate(45deg) translate(-50%, -125%);
+            -ms-transform: rotate(45deg) translate(-50%, -125%);
+            transform: rotate(45deg) translate(-50%, -125%);
+            transform-origin: top left;
+            top: 50%;
+            left: 50%;
+            width: 110px;
+            height: 17px;
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-css-8 div.yith-wcbm-css-text .yith-wcbm-badge-text {
+            position: absolute;
+            width: 100%;
+            transform: translate(-50%, -50%);
+            top: 40%;
+            left: 50%;
+            background: var(--badge-primary-color, #3a86c4);
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-css-8.yith-wcbm-badge-css--flip-vertical div.yith-wcbm-badge-text{
+            transform: scaleY(-1) translate(-50%, 50%);
+            top: 40%;
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-css-8.yith-wcbm-badge-css--flip-horizontal div.yith-wcbm-badge-text{
+            transform: scaleX(-1) translate(50%, -50%);
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-css-8.yith-wcbm-badge-css--flip-both div.yith-wcbm-badge-text {
+            transform: scale(-1) translate(50%, 50%);
+            top: 40%;
+        }
+    </style>
+</svg>

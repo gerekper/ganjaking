@@ -1,0 +1,93 @@
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="65.75px" height="71.375px" viewBox="0 0 65.75 71.375" enable-background="new 0 0 65.75 71.375">
+
+    <style>
+        .yith-wcbm-badge.yith-wcbm-badge-advanced-8 {
+        width: 65px;
+        height: 71px;
+        box-sizing: border-box;
+        background: transparent;
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-advanced-8 .yith-wcbm-badge-shape:before {
+        display: block;
+        top: 37px;
+        left: 33px;
+        font-size: 10px;
+        transform: translate(-50%, -50%);
+        content: var(--badge-discount-text, 'Discount');
+        color: var(--badge-text-color, #ffffff);
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-advanced-8 .yith-wcbm-sale-percent {
+        display: block;
+        font-size: 19px;
+        font-weight: 600;
+        line-height: 0;
+        top: 17px;
+        right: 28px;
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-advanced-8 .yith-wcbm-symbol-percent {
+        display: block;
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 0;
+        top: 18px;
+        right: 16px;
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-advanced-8 .yith-wcbm-save {
+        display: block;
+        font-size: 9px;
+        width: 100%;
+        text-align: center;
+        left: 0;
+        top: 55px;
+        line-height: 0;
+        white-space: nowrap;
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-advanced-8.yith-wcbm-badge-advanced--flip-vertical .yith-wcbm-badge-shape:before {
+        transform: scale(1, -1) translate(-50%, 25%);
+        top: 35px;
+        left: 34px;
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-advanced-8.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-badge-shape:before {
+        top: 33px;
+        transform: scale(-1, 1) translate(50%, -25%);
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-advanced-8.yith-wcbm-badge-advanced--flip-both .yith-wcbm-badge-shape:before {
+        top: 35px;
+        transform: scale(-1) translate(50%, 25%);
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-advanced-8.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-symbol-percent,
+        .yith-wcbm-badge.yith-wcbm-badge-advanced-8.yith-wcbm-badge-advanced--flip-both .yith-wcbm-symbol-percent {
+        right: 40px;
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-advanced-8.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-sale-percent,
+        .yith-wcbm-badge.yith-wcbm-badge-advanced-8.yith-wcbm-badge-advanced--flip-both .yith-wcbm-sale-percent {
+        right: auto;
+        left: 30px;
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-advanced-8 .yith-wcbm-badge-primary-color{
+        fill: var(--badge-primary-color, #4093FD);
+        }
+        .yith-wcbm-badge.yith-wcbm-badge-advanced-8 .yith-wcbm-badge-secondary-dark-color{
+        fill: var(--badge-secondary-dark-color, #113D7A);
+        }
+        .yith-wcbm-badge.yith-wcbm-badge-advanced-8 .yith-wcbm-badge-text-advanced {
+        color: var(--badge-text-color, #ffffff);
+        }
+    </style>
+    <g>
+        <polygon fill="#113D7A" class="yith-wcbm-badge-secondary-dark-color"
+                 points="58.084,0 58.084,71.375 34.875,64.365 8.916,70.625 8.916,0 	"/>
+        <polygon fill="#4093FD" class="yith-wcbm-badge-primary-color"
+                 points="65.75,30.25 32.875,30.25 0,30.25 5.345,38.5 0,45.75 32.875,45.75 65.75,45.75 60.404,38.5 	"/>
+    </g>
+</svg>

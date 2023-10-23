@@ -1,0 +1,65 @@
+<svg>
+    <style>
+        .yith-wcbm-badge.yith-wcbm-badge-css-7 {
+            box-sizing: border-box;
+            width: auto;
+            height: auto;
+            background-color: transparent;
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-css-7 div.yith-wcbm-css-s1 {
+            width: 0;
+            height: 0;
+            border-right: 5px solid transparent;
+            border-left: 2px solid transparent;
+            position: absolute;
+            right: 1px;
+            bottom: -6px;
+            border-top: 6px solid var(--badge-secondary-color, #932a00);
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-css-7 div.yith-wcbm-css-s2 {
+            width: 13px;
+            height: 26px;
+            display: inline-block;
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-css-7 div.yith-wcbm-css-text {
+            height: auto;
+            white-space: nowrap;
+            padding: 3px 10px 3px 8px;
+            position: relative;
+            right: 0;
+            display: inline-block;
+            background: var(--badge-primary-color, #e73e08);
+            border-color: var(--badge-primary-color, #e73e08);
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-css-7 div.yith-wcbm-css-text:before {
+            content: '';
+            width: 0;
+            height: 60%;
+            padding-right: 13px;
+            position: absolute;
+            top: 0;
+            left: 1px;
+            transform: translateX(-100%);
+            background: linear-gradient(to bottom left, var(--badge-primary-color, #e73e08) 50%, #0000 50.1%);
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-css-7 div.yith-wcbm-css-text:after {
+            content: '';
+            height: 60%;
+            padding-right: 13px;
+            position: absolute;
+            bottom: 0;
+            left: 1px;
+            transform: translateX(-100%);
+            background: linear-gradient(to top left, var(--badge-primary-color, #e73e08) 50%, #0000 50.1%);
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-css-7 div.yith-wcbm-badge__wrap {
+            display: flex;
+        }
+    </style>
+</svg>

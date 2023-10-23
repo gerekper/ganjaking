@@ -1,0 +1,1520 @@
+/**
+ * Admin style
+ *
+ * @author YITH <plugins@yithemes.com>
+ * @version 2.0.0
+ *
+ * @package YITH\BadgeManagement\Assets
+ */
+
+.yith-wcbm-hidden,
+#yith-wcbm-metabox .metaboxes-tabs,
+#yith-wcbm-metabox .postbox-header,
+#yith-wcbm-badge-info .postbox-header,
+#yith-wcbm-badge-preview-1 .postbox-header,
+#_yith_wcbm_badge_schedule-container .clear,
+#_yith_wcbm_badge_schedule-container .description,
+#_rotation .yith-wcbm-rotation-slider .maxCaption,
+#_rotation .yith-wcbm-rotation-slider .minCaption,
+#product-badge-options .yith-wcbm-badge-select-row:after,
+.post-type-yith-wcbm-badge .subsubsub,
+.post-type-yith-wcbm-badge #poststuff #post-body-content,
+.post-type-yith-wcbm-badge .columns-prefs label:not(.columns-prefs-1),
+.post-type-yith-wcbm-badge:not(.edit-php) .wrap .wp-heading-inline + a.page-title-action {
+	display : none;
+}
+
+.yith-wcbm-updating-notice {
+	display     : flex;
+	align-items : center;
+	column-gap  : 10px;
+}
+
+.yith-wcbm-updating-notice .yith-wcbm-updating-notice__loader {
+	display : inline-block;
+	width   : 30px;
+}
+
+.yith-wcbm-updating-notice p {
+	display : inline-block;
+}
+
+.yith-wcbm-updating-notice p:after {
+	content     : '🙂';
+	margin-left : 5px;
+}
+
+.edit-php.post-type-yith-wcbm-badge form#posts-filter,
+.edit-php.post-type-ywcbm-badge-rule form#posts-filter {
+	max-width : 1350px;
+}
+
+.edit-php.post-type-yith-wcbm-badge .tablenav.top {
+	height : 35px;
+}
+
+.edit-php.post-type-yith-wcbm-badge .tablenav.top .tablenav-pages {
+	margin : 0;
+}
+
+.post-type-yith-wcbm-badge table .column-title {
+	width : 15em;
+}
+
+.post-type-yith-wcbm-badge #postbox-container-2 #normal-sortables {
+	display        : flex;
+	flex-direction : column;
+}
+
+.post-type-yith-wcbm-badge #postbox-container-2 #normal-sortables .postbox {
+	order : 2;
+}
+
+#yith-wcbm-metabox {
+	order : 1 !important;
+}
+
+#yith-wcbm-badge-preview-1,
+#yith-wcbm-metabox,
+#yith-wcbm-badge-info {
+	border : none;
+}
+
+#yith-wcbm-badge-info,
+#yith-wcbm-badge-info .the-metabox {
+	margin-bottom : 0;
+}
+
+.post-type-yith-wcbm-badge #_text-container {
+	position : relative;
+}
+
+.post-type-yith-wcbm-badge #_text-container > label:nth-child(1) {
+	top      : 35px;
+	position : absolute;
+}
+
+.post-type-yith-wcbm-badge #poststuff {
+	min-width : auto;
+}
+
+.post-type-yith-wcbm-badge #poststuff #post-body {
+	display        : flex;
+	flex-direction : column;
+	width          : 100%;
+	margin         : 0;
+}
+
+#yith-wcbm-badge-preview-1 #preview {
+	padding : 0;
+}
+
+.post-type-yith-wcbm-badge #poststuff #post-body #postbox-container-1 {
+	order : 2;
+}
+
+.post-type-yith-wcbm-badge #poststuff #post-body #postbox-container-2 {
+	order : 1;
+}
+
+.post-type-yith-wcbm-badge #poststuff #titlewrap {
+	display    : flex;
+	margin-top : 10px;
+}
+
+.post-type-yith-wcbm-badge #poststuff #titlewrap label {
+	display     : inline-block;
+	position    : relative;
+	clip-path   : none;
+	clip        : unset;
+	height      : auto;
+	font-size   : 14px;
+	min-width   : 226px;
+	padding     : 0 25px;
+	font-weight : 600;
+	color       : #333;
+}
+
+.post-type-yith-wcbm-badge #poststuff #titlewrap input {
+	font-size     : 14px;
+	display       : inline-block;
+	max-width     : 100%;
+	width         : 401px;
+	border        : 1px solid #d8d8d8;
+	border-radius : 8px;
+	padding       : 8px 10px;
+	height        : 38px;
+	min-width     : 90px;
+	box-shadow    : none;
+	color         : #716269;
+}
+
+.post-type-yith-wcbm-badge #poststuff #titlewrap input:focus {
+	border-color : #a7d9ec !important;
+}
+
+.post-type-yith-wcbm-badge #poststuff #preview {
+	display   : block !important;
+	min-width : 250px;
+}
+
+.post-type-yith-wcbm-badge #poststuff .yith-plugin-fw.metaboxes-tab.yith-plugin-ui.yith-wcbm-badge-options-metabox {
+	display               : grid;
+	grid-template-columns :  minmax(300px, 2fr) minmax(250px, 1fr);
+	border-bottom         : 1px solid #c3c4c7;
+	margin-bottom         : 30px;
+}
+
+#badge-options {
+	max-height    : calc(100vh - 50px);
+	min-height    : 540px;
+	overflow-y    : auto;
+	padding-right : 10px;
+}
+
+#wp-yith-wcbm-text-editor-wrap {
+	max-width : 600px;
+}
+
+span.yith-wcbm-check-for-placeholders {
+	color           : var(--yith-link);
+	text-decoration : underline;
+	cursor          : pointer;
+}
+
+.yith-wcbm-placeholders-list {
+	display        : flex;
+	flex-direction : column;
+	gap            : 20px;
+}
+
+.yith-wcbm-placeholder-wrapper {
+	display        : flex;
+	flex-direction : column;
+	align-items    : center;
+	border         : 1px solid #d9e3e6;
+	border-radius  : 5px;
+	transition     : .3s;
+	cursor         : pointer;
+}
+
+.yith-wcbm-placeholder-wrapper:hover {
+	box-shadow : 0 2px 8px 6px rgba(125, 198, 244, 0.16);
+}
+
+.yith-wcbm-placeholder-wrapper .yith-wcbm-placeholder-note {
+	font-size     : .9em;
+	padding       : 10px 25px;
+	background    : #d9e3e6;
+	border-radius : 0 0 3px 3px;
+	color         : #696e70;
+	min-width     : 100%;
+	box-sizing    : border-box;
+}
+
+.yith-wcbm-placeholder-content {
+	padding         : 10px 25px;
+	display         : flex;
+	align-content   : center;
+	justify-content : space-between;
+	min-width       : 100%;
+	box-sizing      : border-box;
+}
+
+.yith-wcbm-placeholder-wrapper .yith-wcbm-placeholder-description {
+	width  : 300px;
+	margin : 10px 0;
+}
+
+.yith-wcbm-preview-boxed-radio .yith-plugin-fw-radio {
+	display   : flex;
+	max-width : 400px;
+}
+
+.yith-wcbm-preview-boxed-radio .yith-plugin-fw-radio .yith-plugin-fw-radio__row label {
+	background-size : 70% auto;
+	padding         : 0 !important;
+	text-align      : center;
+	text-transform  : uppercase;
+	font-size       : 12px !important;
+	display         : flex !important;
+	flex-direction  : column;
+	align-items     : center;
+	margin-right    : 20px;
+}
+
+.yith-wcbm-preview-boxed-radio .yith-plugin-fw-radio .yith-plugin-fw-radio__row {
+	width : auto;
+}
+
+.yith-wcbm-preview-boxed-radio .yith-plugin-fw-radio .yith-plugin-fw-radio__row label:before,
+.yith-wcbm-preview-boxed-radio .yith-plugin-fw-radio .yith-plugin-fw-radio__row label:after {
+	display : none !important;
+}
+
+.yith-wcbm-preview-boxed-radio .yith-plugin-fw-radio .yith-plugin-fw-radio__row label .yith-wcbm-radio-preview-box {
+	display       : flex;
+	height        : 70px;
+	width         : 70px;
+	position      : relative;
+	border        : 1px solid #d7d7d7;
+	border-radius : 5px;
+	margin-bottom : 10px;
+	transition    : .2s;
+}
+
+.yith-wcbm-preview-boxed-radio .yith-plugin-fw-radio .yith-plugin-fw-radio__row label:hover .yith-wcbm-radio-preview-box,
+.yith-wcbm-badge-list-element:hover {
+	border-color : #abc9ea;
+}
+
+.yith-wcbm-preview-boxed-radio .yith-plugin-fw-radio .yith-plugin-fw-radio__row label .yith-wcbm-radio-preview-box:before {
+	content          : '';
+	position         : relative;
+	display          : block;
+	width            : 100%;
+	height           : 20px;
+	background-color : #d5d5d5;
+}
+
+.yith-wcbm-preview-boxed-radio .yith-plugin-fw-radio .yith-plugin-fw-radio__row input:checked + label .yith-wcbm-radio-preview-box {
+	border-color : #4e8ba2;
+}
+
+.yith-wcbm-preview-boxed-radio .yith-plugin-fw-radio .yith-plugin-fw-radio__row input:checked + label .yith-wcbm-radio-preview-box:after,
+.yith-wcbm-badge-list-element--selected:not(.yith-wcbm-upload-image--locked):before {
+	content          : "\e905";
+	font-family      : yith-icon !important;
+	line-height      : 1;
+	position         : absolute;
+	right            : 0;
+	top              : 0;
+	transform        : translate(40%, -40%);
+	background-color : #4e8ba2;
+	height           : 25px;
+	width            : 25px;
+	color            : white;
+	display          : flex;
+	align-items      : center;
+	justify-content  : center;
+	border-radius    : 50%;
+	font-size        : 10px;
+	font-weight      : bold;
+	z-index          : 2;
+	transition       : .2s;
+}
+
+.yith-wcbm-badge-list-element.yith-wcbm-upload-image {
+	border-style : dashed;
+}
+
+.yith-wcbm-upload-image .yith-wcbm-upload-image-field-content,
+.yith-wcbm-upload-image-field {
+	display         : flex;
+	flex-direction  : column;
+	justify-content : space-around;
+	align-items     : center;
+	width           : 100%;
+	height          : 100%;
+	text-align      : center;
+	color           : #4e8ba2 !important;
+	font-weight     : 500 !important;
+	font-size       : 13px !important;
+	line-height     : normal !important;
+}
+
+.yith-wcbm-upload-image--uploaded .yith-wcbm-upload-image-field,
+.yith-wcbm-upload-image:not(.yith-wcbm-upload-image--uploaded) .yith-wcbm-upload-image-field-content img {
+	display : none;
+}
+
+.yith-wcbm-upload-image .yith-wcbm-upload-image-field-content img {
+	max-width  : 100%;
+	max-height : 100%;
+}
+
+.yith-wcbm-upload-image .yith-icon-upload {
+	font-size : 3rem;
+	color     : #ddd;
+}
+
+#_position-top + label .yith-wcbm-position-preview {
+	align-items : flex-start;
+}
+
+#_position-top + label .yith-wcbm-position-preview:before {
+	border-radius : 4px 4px 0 0;
+}
+
+#_position-middle + label .yith-wcbm-position-preview {
+	align-items : center;
+}
+
+#_position-bottom + label .yith-wcbm-position-preview {
+	align-items : flex-end;
+}
+
+#_position-bottom + label .yith-wcbm-position-preview:before {
+	border-radius : 0 0 4px 4px;
+}
+
+.yith-wcbm-alignment-field.yith-plugin-fw-radio .yith-plugin-fw-radio__row label .yith-wcbm-alignment-preview:before {
+	width      : 30px;
+	transition : .2s;
+}
+
+.yith-wcbm-alignment-field.yith-plugin-fw-radio .yith-plugin-fw-radio__row label .yith-wcbm-alignment-preview--top:before {
+	top       : 0;
+	transform : translateY(0);
+}
+
+#_alignment-left + label .yith-wcbm-alignment-preview--top:before {
+	border-top-left-radius : 4px;
+}
+
+#_alignment-left + label .yith-wcbm-alignment-preview--bottom:before {
+	border-bottom-left-radius : 4px;
+}
+
+#_alignment-right + label .yith-wcbm-alignment-preview--top:before {
+	border-top-right-radius : 4px;
+}
+
+#_alignment-right + label .yith-wcbm-alignment-preview--bottom:before {
+	border-bottom-right-radius : 4px;
+}
+
+.yith-wcbm-alignment-field.yith-plugin-fw-radio .yith-plugin-fw-radio__row label .yith-wcbm-alignment-preview--middle:before {
+	top       : 50%;
+	transform : translateY(-50%);
+}
+
+.yith-wcbm-alignment-field input + label .yith-wcbm-alignment-preview--bottom:before {
+	top       : 100%;
+	transform : translateY(-100%);
+}
+
+#_alignment-left + label .yith-wcbm-alignment-preview {
+	justify-content : flex-start;
+}
+
+#_alignment-center + label .yith-wcbm-alignment-preview {
+	justify-content : center;
+}
+
+#_alignment-right + label .yith-wcbm-alignment-preview {
+	justify-content : flex-end;
+}
+
+.yith-wcbm-preview-metabox {
+	display          : flex;
+	flex-direction   : column;
+	width            : 100%;
+	min-width        : 160px;
+	background-color : #f3f3f3;
+	box-sizing       : border-box;
+	height           : calc(100vh - 200px);
+	min-height       : 450px;
+	overflow         : hidden;
+}
+
+.yith-wcbm-preview-metabox .yith-wcbm-preview-title {
+	font-size   : 16px;
+	font-weight : 700;
+	color       : #03689f;
+	margin      : 30px 30px 0;
+}
+
+.yith-wcbm-preview-metabox .yith-wcbm-preview-description {
+	color  : #000;
+	margin : 20px 30px;
+}
+
+.yith-wcbm-preview-wrapper {
+	height  : 100%;
+	width   : 100%;
+	display : block;
+}
+
+.yith-wcbm-preview-container {
+	position         : relative;
+	width            : calc(100% - 100px);
+	height           : calc(100% - 100px);
+	background-color : #e8e8e8;
+	border           : 1px solid #d0d0d0;
+	margin           : 50px;
+	box-sizing       : border-box;
+}
+
+.yith-wcbm-preview-container:before {
+	content     : '\f10a';
+	position    : absolute;
+	top         : 50%;
+	left        : 50%;
+	transform   : translate(-50%, -50%);
+	font-family : yith-icon !important;
+	font-size   : 115px;
+	line-height : 1;
+	color       : #c7c7c7;
+}
+
+.yith-wcbm-save-badge-button {
+	float          : right;
+	margin         : 30px 0 !important;
+	text-transform : none !important;
+}
+
+.yith-wcbm-badge-library-tabs {
+	display          : flex;
+	background-color : #f0f0f0;
+	border           : 1px solid #dbdbdb;
+	border-radius    : 5px 5px 0 0;
+	user-select      : none;
+}
+
+.yith-wcbm-badge-library-tab:nth-child(1) {
+	border-top-left-radius : 5px;
+}
+
+.yith-wcbm-badge-library-tab:not(.yith-wcbm-badge-library-tab--selected) {
+	cursor : pointer;
+}
+
+.yith-wcbm-badge-library-tab.yith-wcbm-badge-library-tab--selected {
+	color : #0087c4;
+}
+
+.yith-wcbm-badge-library-tab {
+	text-transform : uppercase;
+	padding        : 10px 15px;
+	position       : relative;
+	border-right   : 1px solid #dbdbdb;
+	transition     : background-color .2s;
+}
+
+.yith-wcbm-badge-library-tab:not(.yith-wcbm-badge-library-tab--selected):hover {
+	background-color : #e8e8e8;
+}
+
+.yith-wcbm-badge-library-tab--selected {
+	background-color : #f9f9f9;
+}
+
+.yith-wcbm-badge-library-tab--selected:before {
+	content          : '';
+	position         : absolute;
+	bottom           : 0;
+	height           : 2px;
+	width            : 100%;
+	background-color : #f9f9f9;
+	left             : 0;
+	transform        : translateY(2px);
+}
+
+.yith-wcbm-badge-library-wrapper {
+	padding : 20px;
+}
+
+.yith-wcbm-badge-list-container {
+	display               : grid;
+	grid-template-columns : repeat( auto-fit, minmax(170px, 1fr));
+	background-color      : #f9f9f9;
+	border-radius         : 0 0 5px 5px;
+	border                : 1px solid #dbdbdb;
+	border-top            : 0;
+	max-height            : 364px;
+	overflow-y            : auto;
+	padding               : 20px;
+}
+
+.yith-wcbm-badge-more__badges {
+	display : none;
+}
+
+.yith-wcbm-badge-more__title {
+	color       : #0087c4;
+	font-size   : 16px;
+	font-weight : 600;
+}
+
+.yith-wcbm-badge-more-empty-state {
+	height            : 250px;
+	grid-column-end   : -1;
+	grid-column-start : 1;
+	display           : flex;
+	align-items       : center;
+	justify-content   : center;
+	flex-direction    : column;
+	background-color  : #f0f0f0;
+	margin            : 25px 0 10px;
+	row-gap           : 10px;
+}
+
+.yith-wcbm-badge-more-empty-state__icon {
+	height : 70px;
+}
+
+.yith-wcbm-badge-more-empty-state__icon svg {
+	transform : scale(2);
+}
+
+.yith-wcbm-badge-more-empty-state__message {
+	text-align : center;
+	color      : #676767;
+}
+
+.yith-wcbm-badge-more__description {
+	display     : flex;
+	align-items : center;
+}
+
+.yith-wcbm-badge-more__active-your-license {
+	display     : flex;
+	align-items : center;
+	column-gap  : 15px;
+	color       : #ae0000;
+}
+
+.yith-wcbm-badge-more__active-your-license a {
+	color           : #ae0000 !important;
+	padding         : 7px 15px;
+	border          : 1px solid #ae0000;
+	text-decoration : none;
+	border-radius   : 7px;
+	font-weight     : bold;
+	transition      : .3s;
+}
+
+.yith-wcbm-badge-more__active-your-license a:hover {
+	background-color : #ae0000;
+	color            : white !important;
+}
+
+.yith-wcbm-has-no-license .yith-wcbm-badge-more__add-to-library-button--locked {
+	right            : 0;
+	bottom           : 0;
+	width            : 100%;
+	max-width        : 100%;
+	height           : 100%;
+	overflow         : hidden;
+	background-color : rgba(255, 255, 255, .7);
+	border-radius    : 4px;
+	cursor           : not-allowed;
+}
+
+.yith-wcbm-has-no-license .yith-wcbm-badge-more__add-to-library-button .yith-icon-lock {
+	color     : #0087c4;
+	position  : absolute;
+	top       : 14px;
+	right     : 12px;
+	font-size : 23px;
+}
+
+.yith-wcbm-upload-image--locked:before {
+	content          : '';
+	position         : absolute;
+	z-index          : 2;
+	width            : 100%;
+	height           : 100%;
+	background-color : rgba(255, 255, 255, .6);
+	top              : 0;
+	left             : 0;
+	border-radius    : 4px;
+}
+
+.yith-wcbm-upload-image--locked:after {
+	content     : '\f119';
+	font-size   : 23px;
+	font-weight : normal;
+	font-family : yith-icon !important;
+	position    : absolute;
+	z-index     : 3;
+	top         : 14px;
+	right       : 12px;
+	color       : #0087c4;
+}
+
+.yith-wcbm-upload-image--locked:hover {
+	border-color : #e0e0e0;
+	cursor       : not-allowed;
+}
+
+.yith-wcbm-badge-list-element--disabled:hover {
+	border-color : #e0e0e0;
+}
+
+#badge-options::-webkit-scrollbar,
+.yith-wcbm-badge-list-container::-webkit-scrollbar {
+	width : 8px;
+}
+
+#badge-options::-webkit-scrollbar-track,
+.yith-wcbm-badge-list-container::-webkit-scrollbar-track {
+	background : #e1e1e1;
+}
+
+#badge-options::-webkit-scrollbar-thumb,
+.yith-wcbm-badge-list-container::-webkit-scrollbar-thumb {
+	background    : #aaa;
+	border-radius : 4px;
+}
+
+.yith-wcbm-badge-library-title {
+	margin-bottom : 20px;
+	font-weight   : 600;
+	font-size     : 14px;
+}
+
+.yith-wcbm-badge-list-element {
+	position            : relative;
+	width               : auto !important;
+	height              : 100px;
+	background-repeat   : no-repeat;
+	background-size     : contain;
+	background-origin   : content-box;
+	background-position : center center;
+	background-color    : white;
+	padding             : 20px 40px;
+	margin              : 20px !important;
+	border              : 1px solid #e0e0e0;
+	border-radius       : 5px;
+	transition          : .2s;
+}
+
+.yith-wcbm-badge-list-element--selected,
+.yith-wcbm-badge-list-element--selected:hover {
+	border-color : #4e8ba2;
+}
+
+.yith-wcbm-badge-more__info {
+	grid-column-start : 1;
+	grid-column-end   : -1;
+	display           : grid;
+	align-items       : center;
+	justify-content   : start;
+	flex-wrap         : wrap;
+	grid-gap          : 10px 15px;
+}
+
+.yith-wcbm-has-no-license .yith-wcbm-badge-more__info {
+	grid-template-columns : 100%;
+	margin-bottom         : 5px;
+}
+
+.yith-wcbm-badge-more__add-all-button {
+	grid-column-start : 2;
+}
+
+.yith-wcbm-badge-more__add-all-button--disabled {
+	opacity : 60%;
+}
+
+.yith-wcbm-badge-more__info-content {
+	display         : flex;
+	justify-content : space-between;
+	flex-wrap       : wrap;
+	font-size       : 13px;
+	gap             : 15px 20px;
+}
+
+.yith-wcbm-badge-more__badges:not(.yith-wcbm-has-no-license) .yith-wcbm-badge-more__info-content {
+	grid-column-start : 1;
+	grid-column-end   : 4;
+}
+
+.yith-wcbm-badge-more__add-to-library-button {
+	display          : flex;
+	align-items      : center;
+	justify-content  : flex-start;
+	column-gap       : 10px;
+	position         : absolute;
+	right            : 10px;
+	bottom           : 10px;
+	box-sizing       : border-box;
+	width            : 30px;
+	height           : 30px;
+	overflow         : hidden;
+	background-color : #04799e;
+	color            : white;
+	border-radius    : 30px;
+	transition       : .4s ease-in;
+	font-size        : 10px;
+	user-select      : none;
+}
+
+.yith-wcbm-badge-more__add-to-library-button-loader {
+	position   : relative;
+	width      : 15px;
+	height     : 15px;
+	display    : inline-block;
+	flex       : 0 0 15px;
+	margin     : 8px;
+	transition : margin .3s;
+}
+
+.yith-wcbm-badge-more__add-to-library-button:not(.yith-wcbm-badge-more__add-to-library-button--downloading):hover .yith-wcbm-badge-more__add-to-library-button-loader {
+	margin-right : 2px;
+}
+
+.yith-wcbm-badge-more__add-to-library-button-loader:before,
+.yith-wcbm-badge-more__add-to-library-button:not(.yith-wcbm-badge-more__add-to-library-button--downloaded) .yith-wcbm-badge-more__add-to-library-button-loader:after {
+	content          : '';
+	height           : 15px;
+	width            : 1px;
+	background-color : white;
+	position         : absolute;
+	top              : 50%;
+	left             : 50%;
+	transform        : translate(-50%, -50%);
+}
+
+.yith-wcbm-badge-more__add-to-library-button-loader:after {
+	transform : translate(-50%, -50%) rotate(-90deg) !important;
+}
+
+.yith-wcbm-badge-more__add-to-library-button--downloading .yith-wcbm-badge-more__add-to-library-button-loader {
+	flex : none;
+}
+
+.yith-wcbm-badge-more__add-to-library-button--downloading .yith-wcbm-badge-more__add-to-library-button-loader:after,
+.yith-wcbm-badge-more__add-to-library-button--downloading .yith-wcbm-badge-more__add-to-library-button-loader:before {
+	display : none;
+}
+
+.yith-wcbm-badge-more__add-to-library-button-text {
+	white-space : nowrap;
+	min-width   : fit-content;
+}
+
+.yith-wcbm-badge-more__add-to-library-button:not(.yith-wcbm-badge-more__add-to-library-button--downloading):not(.yith-wcbm-badge-more__add-to-library-button--locked):hover {
+	width      : calc(var(--add-badge-to-library-length, 60px) + 40px);
+	column-gap : 5px;
+}
+
+/* Downloading Badges in Library  */
+
+.yith-wcbm-badge-more__add-to-library-button--downloading {
+	width            : 100%;
+	max-width        : 100%;
+	right            : 0;
+	bottom           : 0;
+	box-sizing       : border-box;
+	height           : 100%;
+	border-radius    : 2px;
+	border           : none;
+	outline          : none;
+	background-color : rgba(0, 121, 159, .95);
+	display          : flex;
+	align-items      : center;
+	justify-content  : center;
+	transition       : 0s, background-color .3s;
+	animation        : .5s fade-in;
+}
+
+.yith-wcbm-badge-more__add-to-library-button--downloaded .yith-wcbm-badge-more__add-to-library-button-loader {
+	height     : 30px !important;
+	margin     : auto !important;
+	transition : height .3s 1.2s;
+}
+
+.yith-wcbm-badge-more__add-to-library-button--downloaded .yith-wcbm-badge-more__add-to-library-button-loader,
+.yith-wcbm-badge-more__add-to-library-button--downloading .yith-wcbm-badge-more__add-to-library-button-loader {
+	position        : relative;
+	width           : 50px;
+	height          : 50px;
+	display         : flex;
+	justify-content : center;
+	align-items     : center;
+	background      : none;
+	border-radius   : 28px;
+	border          : 2px solid transparent;
+}
+
+.yith-wcbm-badge-more__add-to-library-button--downloading .yith-wcbm-badge-more__add-to-library-button-loader {
+	border     : 2px solid white;
+	border-top : 2px solid transparent;
+	animation  : 1.2s fade-in, spinning 1.2s linear infinite;
+}
+
+@keyframes spinning {
+	0% {
+		transform : rotate(0);
+	}
+	100% {
+		transform : rotate(360deg);
+	}
+}
+
+@keyframes fade-in {
+	0% {
+		opacity : 0;
+	}
+	100% {
+		opacity : 1;
+	}
+}
+
+.yith-wcbm-has-no-license .yith-wcbm-badge-more__add-to-library-button .yith-wcbm-badge-more__add-to-library-button-text,
+.yith-wcbm-badge-more__add-to-library-button--downloading .yith-wcbm-badge-more__add-to-library-button-text,
+.yith-wcbm-badge-more__add-to-library-button--downloaded .yith-wcbm-badge-more__add-to-library-button-text {
+	display : none;
+}
+
+/* Downloaded successfully */
+
+.yith-wcbm-badge-more__add-to-library-button--downloaded.yith-wcbm-badge-more__add-to-library-button--downloading .yith-wcbm-badge-more__add-to-library-button-loader {
+	animation    : checked-container 1.2s;
+	border-color : transparent;
+}
+
+@keyframes checked-container {
+	0%, 100% {
+		border : 2px solid white;
+	}
+}
+
+.yith-wcbm-badge-more__add-to-library-button--downloaded.yith-wcbm-badge-more__add-to-library-button--downloading .yith-wcbm-badge-more__add-to-library-button-loader:before {
+	animation : checked 1.2s ease-in-out, checked-symbol 1.2s;
+}
+
+.yith-wcbm-badge-more__add-to-library-button--downloaded .yith-wcbm-badge-more__add-to-library-button-loader:before {
+	content          : '';
+	background-color : unset;
+	display          : block;
+	width            : 6px;
+	height           : 11px;
+	border-bottom    : 1px solid white;
+	border-right     : 1px solid white;
+	transform        : rotate(45deg);
+	transform-origin : center;
+	transition       : border-bottom .5s, border-right .5s;
+	bottom           : 40%;
+	top              : auto;
+	left             : auto;
+	position         : absolute;
+}
+
+@keyframes checked {
+	0% {
+		margin-right : 9px;
+		margin-top   : 16px;
+		width        : 0;
+		height       : 0;
+	}
+	12% {
+		margin-top   : 16px;
+		margin-right : 0;
+		height       : 0;
+		width        : 10px;
+	}
+	24%, 100% {
+		margin-top   : 0;
+		margin-right : 0;
+		width        : 10px;
+		height       : 17px;
+	}
+}
+
+@keyframes checked-symbol {
+	0%, 100% {
+		transform-origin : bottom;
+		left             : 27%;
+		border-bottom    : 2px solid white;
+		border-right     : 2px solid white;
+	}
+}
+
+.yith-wcbm-badge-more__add-to-library-button--downloaded {
+	background-color : #98a936;
+	bottom           : 10px;
+	right            : 10px;
+	width            : 30px;
+	height           : 30px;
+	border-radius    : 400px;
+	overflow         : hidden;
+	transition       : 0.7s 1.2s, border-radius .7s 1.2s;
+}
+
+/* Download Failed */
+
+.yith-wcbm-badge-more__add-to-library-button.yith-wcbm-badge-more__add-to-library-button--failed {
+	animation     : 1.2s failed;
+	width         : 30px;
+	height        : 30px;
+	bottom        : 10px;
+	right         : 10px;
+	border-radius : 200px;
+	transition    : .5s 1.2s;
+}
+
+@keyframes failed {
+	100% {
+		background-color : rgba(180, 10, 10, .8);
+	}
+}
+
+.yith-wcbm-badge-more__add-to-library-button--failed .yith-wcbm-badge-more__add-to-library-button-loader {
+	border    : 2px solid white;
+	animation : .4s border-fade-out 1.2s forwards;
+}
+
+@keyframes border-fade-out {
+	100% {
+		border-color : transparent;
+	}
+}
+
+.yith-wcbm-badge-more__add-to-library-button--failed .yith-wcbm-badge-more__add-to-library-button-loader:before,
+.yith-wcbm-badge-more__add-to-library-button--failed .yith-wcbm-badge-more__add-to-library-button-loader:after {
+	content          : '';
+	display          : block;
+	height           : 25px;
+	width            : 2px;
+	background-color : white;
+	position         : absolute;
+	top              : 50%;
+	left             : 50%;
+	transform        : translate(-50%, -50%) rotate(45deg);
+	animation        : .3s failed-symbol, 0.5s failed-symbol-vertical 1.2s forwards;
+}
+
+.yith-wcbm-badge-more__add-to-library-button--failed .yith-wcbm-badge-more__add-to-library-button-loader:before {
+	transform : translate(-50%, -50%) rotate(-45deg);
+	animation : .3s failed-symbol, 0.5s failed-symbol-horizontal 1.2s forwards;
+}
+
+@keyframes failed-symbol {
+	0% {
+		height : 0;
+	}
+}
+
+@keyframes failed-symbol-horizontal {
+	100% {
+		height    : 15px;
+		width     : 1px;
+		transform : translate(-50%, -50%) rotate(-90deg);
+	}
+}
+
+@keyframes failed-symbol-vertical {
+	100% {
+		height    : 15px;
+		width     : 1px;
+		transform : translate(-50%, -50%);
+	}
+}
+
+.yith-wcbm-badge {
+	user-select         : none;
+	-moz-user-select    : none;
+	-webkit-user-drag   : none;
+	-webkit-user-select : none;
+	-ms-user-select     : none;
+	transition          : .2s;
+}
+
+.yith-wcbm-badge img {
+	user-drag           : none;
+	user-select         : none;
+	-moz-user-select    : none;
+	-webkit-user-drag   : none;
+	-webkit-user-select : none;
+	-ms-user-select     : none;
+}
+
+.yith-wcbm-badge.ui-draggable-dragging {
+	transition : 0s;
+}
+
+.yith_wcbm_actions .yith-plugin-fw-onoff-field-wrapper {
+	display      : inline-block !important;
+	margin-right : 15px;
+}
+
+
+tr:hover .yith_wcbm_actions .yith-plugin-fw__action-button:nth-child(3) {
+	transition-delay : .1s !important;
+}
+
+tr:hover .yith_wcbm_actions .yith-plugin-fw__action-button:nth-child(4) {
+	transition-delay : .2s !important;
+}
+
+.yith-wcbm-preview-column-container {
+	position  : relative;
+	width     : 200px;
+	height    : 60px;
+	max-width : 100%;
+	overflow  : hidden;
+	margin    : auto;
+}
+
+.column-yith_wcbm_preview {
+	text-align : center !important;
+	width      : 100% !important;
+}
+
+.column-yith_wcbm_preview .yith-wcbm-preview-column-container {
+	display         : flex;
+	align-items     : center;
+	justify-content : center;
+}
+
+.column-yith_wcbm_actions {
+	width : 210px;
+}
+
+#yith-wcbm-badge-metabox .yith-wcbm-badge-select-row .yith-plugin-fw-select2-wrapper,
+#yith-wcbm-badge-metabox .yith-wcbm-badge-select-row .select2-container,
+#yith-wcbm-badge-metabox .yith-wcbm-badge-select-row .select2-selection,
+#yith-wcbm-badge-metabox .yith-wcbm-badge-select-row .selection {
+	max-width : 100%;
+}
+
+
+.yith-wcbm-badge-types {
+	padding : 20px 10px;
+}
+
+.yith-wcbm-badge-types .yith-wcbm-badge-type {
+	display         : flex;
+	padding         : 20px;
+	border          : 1px solid #f1f1f1;
+	box-shadow      : 0 2px 8px 6px rgba(238, 238, 238, 0.5);
+	transition      : .3s;
+	cursor          : pointer;
+	text-decoration : none;
+	color           : #3c434a;
+}
+
+.yith-wcbm-badge-types .yith-wcbm-badge-type:hover {
+	border-color : rgb(176, 209, 246);
+	box-shadow   : 0 2px 8px 6px rgba(125, 198, 244, 0.16);
+}
+
+.yith-wcbm-badge-type__info {
+	display         : flex;
+	flex-direction  : column;
+	justify-content : center;
+}
+
+.yith-wcbm-badge-types > .yith-wcbm-badge-type + .yith-wcbm-badge-type {
+	margin-top : 20px;
+}
+
+.yith-wcbm-badge-types .yith-wcbm-badge-type__icon {
+	font-size       : 60px;
+	min-width       : 100px;
+	max-width       : 100px;
+	padding         : 20px 0;
+	display         : flex;
+	align-items     : center;
+	justify-content : center;
+	margin-right    : 15px;
+	transition      : color .2s;
+}
+
+.yith-wcbm-badge-types .yith-wcbm-badge-type__title {
+	font-size     : 15px;
+	font-weight   : 600;
+	margin-bottom : 10px;
+	transition    : color .2s;
+}
+
+.yith-wcbm-badge-type:hover .yith-wcbm-badge-type__title,
+.yith-wcbm-badge-type:hover .yith-wcbm-badge-type__icon {
+	color : #4589a6;
+}
+
+.yith-wcbm-badge-type__icon.yith-wcbm-icon-image-badge {
+	font-size : 70px;
+}
+
+.yith-wcbm-badge-type__icon.yith-wcbm-icon-image-badge:before {
+	max-height : 60px;
+}
+
+.yith-wcbm-badge-type__icon.yith-wcbm-icon-svg-badge {
+	font-size : 40px;
+}
+
+.yith-wcbm-badge-type__icon.yith-wcbm-icon-advanced-badge {
+	font-size : 55px;
+}
+
+#product-badge-options label,
+#product-badge-options .the-metabox {
+	width  : auto;
+	margin : 0;
+}
+
+#_yith_wcbm_badge_schedule-container {
+	display         : flex;
+	align-items     : center;
+	justify-content : space-between;
+	margin          : 20px 5px 20px;
+}
+
+#_bestsellers_period-container .yith-plugin-fw-custom-field-wrapper {
+	display : flex !important;
+	gap     : 5px;
+}
+
+#_bestsellers_period-container .select2-container {
+	width     : 150px !important;
+	height    : 38px;
+	min-width : fit-content;
+}
+
+#_yith_wcbm_badge_ids-container .yith-plugin-fw-field-wrapper {
+	margin-top : 25px;
+}
+
+#_yith_wcbm_badge_to_date-container input,
+#_yith_wcbm_badge_from_date-container input {
+	height        : 45px;
+	border-radius : 5px;
+	padding-right : 40px;
+}
+
+#_yith_wcbm_badge_to_date-container .yith-plugin-fw-datepicker-field-wrapper:before,
+#_yith_wcbm_badge_from_date-container .yith-plugin-fw-datepicker-field-wrapper:before {
+	content      : "\e904";
+	font-family  : yith-icon !important;
+	line-height  : 1;
+	font-size    : 17px;
+	position     : absolute;
+	right        : 0;
+	top          : 50%;
+	transform    : translateY(-50%);
+	margin-right : 11px;
+	color        : #999;
+}
+
+@media only screen and (max-width : 1025px) {
+	.yith-plugin-fw.metaboxes-tab.yith-plugin-ui.yith-wcbm-badge-options-metabox {
+		grid-template-columns : 1fr !important;
+	}
+}
+
+th#taxonomy-yith_shop_vendor {
+	width : 100px;
+}
+
+th.column-yith_wcbm_preview, td.column-yith_wcbm_preview {
+	text-align : center;
+	width      : 250px;
+}
+
+td.column-yith_wcbm_preview {
+	height         : 60px;
+	vertical-align : middle;
+}
+
+.column-yith_wcbm_preview .yith-wcbm-badge {
+	display          : flex;
+	justify-content  : center;
+	flex-direction   : column;
+	position         : relative !important;
+	line-height      : normal;
+	left             : auto !important;
+	top              : auto !important;
+	right            : auto !important;
+	bottom           : auto !important;
+	min-width        : max-content !important;
+	transform-origin : center !important;
+	margin           : 0 !important;
+	transform        : translate(0, 0) !important;
+}
+
+.column-yith_wcbm_preview .yith-wcbm-badge p {
+	line-height : inherit;
+}
+
+
+#_opacity-container > label {
+	padding-top : 0;
+	margin-top  : -10px;
+}
+
+#_rotation-container > label {
+	padding-top : 55px;
+}
+
+#_rotation {
+	display               : grid;
+	grid-template-columns : 100px 100px 100px 25px;
+	grid-column-gap       : 30px;
+}
+
+/**
+Style for Reset rotation button
+#_rotation .yith-wcbm-rotation-input--reset-container {
+	grid-row-start: 1;
+	grid-row-end: 3;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0;
+}
+
+#_rotation .yith-wcbm-rotation-input--reset-container .yith-plugin-fw-field-wrapper {
+	line-height: 10px;
+}
+
+.yith-wcbm-rotation-input--reset {
+	padding: 5px;
+	background-color: #f7f7f7;
+	border-radius: 5px;
+	border: 1px solid #bdbdbd;
+	color: #bdbdbd;
+	cursor: pointer;
+	transition: .2s;
+}
+
+.yith-wcbm-rotation-input--reset:hover {
+	background-color: #efefef;
+}
+*/
+
+#_rotation .option-element.yith-wcbm-rotation-slider {
+	display        : inline-flex;
+	flex-direction : column;
+	align-items    : center;
+}
+
+
+#_rotation .yith-wcbm-rotation-slider label {
+	margin         : 0;
+	padding        : 0 0 5px;
+	width          : auto;
+	text-transform : uppercase;
+	font-size      : 12px;
+	font-weight    : 400;
+}
+
+#_rotation .slider.yith-wcbm-rotation-slider .yith-plugin-fw-slider-field-wrapper {
+	width : 100px;
+}
+
+#_rotation .option-element.yith-wcbm-rotation-input {
+	display         : inline-flex;
+	flex-direction  : column;
+	align-items     : center;
+	justify-content : flex-end;
+	grid-row-start  : 2;
+}
+
+#_rotation input.yith-wcbm-rotation-input {
+	min-width : 70px;
+	max-width : 70px;
+}
+
+#_rotation .yith-plugin-fw-slider-container .ui-slider-horizontal .ui-slider-handle,
+#_rotation .yith-plugin-fw-slider-container .ui-slider-horizontal .ui-slider-handle:before {
+	background-color : transparent;
+	box-shadow       : none;
+	color            : transparent;
+}
+
+.yith-wcbm-radio-pill-style.yith-plugin-fw-radio {
+	display : flex;
+}
+
+.yith-wcbm-radio-pill-style input,
+.yith-wcbm-radio-pill-style input + label:before,
+.yith-wcbm-radio-pill-style input + label:after {
+	display : none;
+}
+
+.yith-wcbm-radio-pill-style .yith-plugin-fw-radio__row {
+	display   : inline-block;
+	width     : 100%;
+	min-width : min-content;
+}
+
+.yith-plugin-ui.metaboxes-tab .yith-wcbm-radio-pill-style input + label {
+	width       : 100% !important;
+	user-select : none;
+}
+
+.yith-wcbm-radio-pill-style input + label,
+.yith-plugin-ui.metaboxes-tab .yith-wcbm-radio-pill-style input + label {
+	padding          : 7px 17px !important;
+	font-size        : 12px;
+	white-space      : nowrap;
+	text-transform   : uppercase;
+	background-color : #e8e8e8;
+	border           : 1px solid #dfdfdf;
+	border-right     : none;
+	transition       : .2s;
+	min-width        : 70px;
+	text-align       : center;
+	width            : 100%;
+	box-sizing       : border-box;
+}
+
+.yith-wcbm-radio-pill-style .yith-plugin-fw-radio__row:hover input + label {
+	background-color : #dfdfdf;
+}
+
+.yith-wcbm-radio-pill-style .yith-plugin-fw-radio__row input:checked + label {
+	color            : white;
+	background-color : #4e8ba2;
+	border-color     : #4e8ba2 !important;
+}
+
+.yith-wcbm-radio-pill-style .yith-plugin-fw-radio__row:nth-child(1) label {
+	border-top-left-radius    : 20px;
+	border-bottom-left-radius : 20px;
+	border-right              : none;
+}
+
+.yith-plugin-ui.metaboxes-tab .yith-wcbm-radio-pill-style .yith-plugin-fw-radio__row:nth-last-child(1) label,
+.yith-wcbm-radio-pill-style .yith-plugin-fw-radio__row:nth-last-child(1) label {
+	border-top-right-radius    : 20px;
+	border-bottom-right-radius : 20px;
+	border-right               : 1px solid #dfdfdf;
+}
+
+#_anchor_point input + label .yith-wcbm-radio-preview-box:before {
+	width : 30px;
+}
+
+#_anchor_point-top-right + label .yith-wcbm-radio-preview-box:before {
+	border-top-right-radius : 4px;
+}
+
+#_anchor_point-top-left + label .yith-wcbm-radio-preview-box:before {
+	border-top-left-radius : 4px;
+}
+
+#_anchor_point-bottom-right + label .yith-wcbm-radio-preview-box:before {
+	border-bottom-right-radius : 4px;
+}
+
+#_anchor_point-bottom-left + label .yith-wcbm-radio-preview-box:before {
+	border-bottom-left-radius : 4px;
+}
+
+#_anchor_point-top-right + label .yith-wcbm-radio-preview-box,
+#_anchor_point-bottom-right + label .yith-wcbm-radio-preview-box {
+	justify-content : flex-end;
+}
+
+#_anchor_point-bottom-right + label .yith-wcbm-radio-preview-box,
+#_anchor_point-bottom-left + label .yith-wcbm-radio-preview-box {
+	align-items : flex-end;
+}
+
+#_position_values-dimension-right {
+	border-radius : 0 6px 6px 0;
+}
+
+#_margin-dimension-bottom,
+#_position_values-dimension-bottom {
+	border-left   : 1px solid #d8d8d8;
+	border-radius : 6px 0 0 6px;
+}
+
+.yith-wcbm-badge-list-element--selected.yith-wcbm-upload-image--uploaded:not(.yith-wcbm-upload-image--locked):hover {
+	border-color : #ba3e3e;
+}
+
+.yith-wcbm-badge-list-element--selected.yith-wcbm-upload-image--uploaded:not(.yith-wcbm-upload-image--locked):hover:before {
+	content          : "\e906";
+	background-color : #ba3e3e;
+}
+
+.yith-wcbm-badge-text {
+	/*
+	position: absolute;
+	top: 50%;
+	width: 100%;
+	transform: translateY(-50%);
+	box-sizing: border-box;
+	 */
+}
+
+#_position_type {
+	width : 250px;
+}
+
+#_text-container .yith-plugin-fw-field-wrapper {
+	padding-right : 20px;
+}
+
+#_flip_text {
+	width : 340px;
+}
+
+#_advanced_display {
+	width : 235px;
+}
+
+.yith-wcbm-badge-primary-color {
+	fill : var(--badge-primary-color);
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-text {
+	background-color : var(--badge-primary-color);
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-14.yith-wcbm-advanced-display-amount .yith-wcbm-saved-money,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-14.yith-wcbm-advanced-display-percentage .yith-wcbm-saved-percentage {
+	color : var(--badge-primary-color);
+}
+
+.yith-wcbm-badge-secondary-color {
+	fill : var(--badge-secondary-color);
+}
+
+.yith-wcbm-badge-secondary-light-color {
+	fill : var(--badge-secondary-light-color);
+}
+
+.yith-wcbm-badge-secondary-dark-color {
+	fill : var(--badge-secondary-dark-color);
+}
+
+.yith-wcbm-badge-tertiary-color {
+	fill : var(--badge-tertiary-color);
+}
+
+.yith-wcbm-badge-triadic-positive-color {
+	fill : var(--badge-triadic-positive-color);
+}
+
+.yith-wcbm-badge-triadic-negative-color {
+	fill : var(--badge-triadic-negative-color);
+}
+
+.yith-wcbm-badge-analogous-positive-color {
+	fill : var(--badge-analogous-positive-color);
+}
+
+.yith-wcbm-badge-analogous-negative-color {
+	fill : var(--badge-analogous-negative-color);
+}
+
+.yith-wcbm-badge-linear-gradient-color__from {
+	stop-color : var(--badge-primary-color) !important;
+}
+
+.yith-wcbm-badge-linear-gradient-color__to {
+	stop-color : var(--badge-triadic-positive-color) !important;
+}
+
+/*.yith-wcbm-badge-linear-gradient-color__to {
+	stop-color: var(--badge-analogous-negative-color) !important;
+}*/
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced {
+	color : var(--badge-text-color) !important;
+}
+
+.yith-wcbm-badge-text-color,
+.yith-wcbm-badge-text-color path {
+	fill : var(--badge-text-color) !important;
+}

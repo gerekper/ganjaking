@@ -1,0 +1,16 @@
+<svg>
+    <style>
+        .yith-wcbm-badge.yith-wcbm-badge-css-6 {
+            box-sizing: border-box;
+            background-color: transparent;
+            overflow: auto;
+        }
+
+        .yith-wcbm-badge.yith-wcbm-badge-css-6 div.yith-wcbm-css-text {
+            font-weight: 400;
+            padding: 3px 0;
+            background: transparent;
+            border-bottom: 3px solid var(--badge-primary-color, #e73e08);
+        }
+    </style>
+</svg>

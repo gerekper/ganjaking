@@ -1,1 +1,0 @@
-!function(){"use strict";var a=window.wp.hooks,o=window.wp.i18n;(0,a.addFilter)("woocommerce_admin_coupons_report_filters","wc-coupon-campaigns",(a=>[...a,{label:(0,o.__)("Coupon Campaign","wc-coupon-campaigns"),staticParams:[],param:"coupon_campaign",showFilters:()=>!0,defaultValue:"all",filters:[...wcSettings.couponCampaigns||[]].map((a=>({...a,settings:{}})))}]),10)}();

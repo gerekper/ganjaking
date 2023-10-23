@@ -1,0 +1,14 @@
+
+.yith-plugin-fw__boxed-row, .yith-plugin-fw__boxed-row--hover-highlight {
+  background: var(--yith-content-bg);
+  border-radius: 5px;
+  box-shadow: 0 0 0 1px var(--yith-light-border-color), 0 3px 11px 6px var(--yith-light-shadow);
+  transition: background-color .2s ease-in-out;
+  padding: 25px;
+  margin-bottom: 25px;
+  margin-top: 25px;
+}
+
+.yith-plugin-fw__boxed-row--hover-highlight:hover {
+  background: var(--yith-table-row-highlight);
+}

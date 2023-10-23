@@ -9,6 +9,7 @@ use MailPoet\Entities\DynamicSegmentFilterData;
 use MailPoet\Entities\DynamicSegmentFilterEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Entities\SubscriberSegmentEntity;
+use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Util\Security;
 use MailPoetVendor\Doctrine\DBAL\Connection;
 use MailPoetVendor\Doctrine\DBAL\Query\QueryBuilder;
@@ -20,10 +21,15 @@ class SubscriberSegment implements Filter {
   /** @var EntityManager */
   private $entityManager;
 
+  /** @var SegmentsRepository */
+  private $segmentsRepository;
+
   public function __construct(
-    EntityManager $entityManager
+    EntityManager $entityManager,
+    SegmentsRepository $segmentsRepository
   ) {
     $this->entityManager = $entityManager;
+    $this->segmentsRepository = $segmentsRepository;
   }
 
   public function apply(QueryBuilder $queryBuilder, DynamicSegmentFilterEntity $filter): QueryBuilder {
@@ -61,5 +67,17 @@ class SubscriberSegment implements Filter {
     }
 
     return $queryBuilder;
+  }
+
+  public function getLookupData(DynamicSegmentFilterData $filterData): array {
+    $lookupData = [
+      'segments' => [],
+    ];
+    $segmentIds = $filterData->getArrayParam('segments');
+    $segments = $this->segmentsRepository->findBy(['id' => $segmentIds]);
+    foreach ($segments as $segment) {
+      $lookupData['segments'][$segment->getId()] = $segment->getName();
+    }
+    return $lookupData;
   }
 }

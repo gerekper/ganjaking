@@ -1,0 +1,1776 @@
+# Translation of YITH WooCommerce Badge Management in Spanish (Spain)
+# This file is distributed under the same license as the YITH WooCommerce Badge Management package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Badge Management\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"badge-management.premium\n"
+"POT-Creation-Date: 2023-09-14 14:43:54+00:00\n"
+"PO-Revision-Date: 2023-08-08 14:33:53+0000\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+
+#. translators: %s is the name of the plugin that is updating data in
+#. background. Don't use the full stop at the end because there will be a smile
+#. emoji.
+#: includes/class-yith-wcbm-admin-premium.php:75
+msgid ""
+"<b>Update of %s:</b> we are updating badges, settings and generating badge "
+"rules. The progress is automatic and can take few minutes. Please wait"
+msgstr ""
+"<b>Actualización de %s:</b> estamos actualizando las insignias, la "
+"configuración y generando las reglas de las insignias. El progreso es "
+"automático y puede tardar unos minutos. Por favor, espere"
+
+#: includes/class-yith-wcbm-admin-premium.php:186
+#: includes/class-yith-wcbm-post-types-premium.php:42
+msgid "Badge Rules"
+msgstr "Reglas de la insignia"
+
+#: includes/class-yith-wcbm-admin-premium.php:268
+msgid "Placeholders"
+msgstr "Marcadores de posición"
+
+#: includes/class-yith-wcbm-admin-premium.php:289
+msgid "Rule type"
+msgstr "Tipo de regla"
+
+#. translators: %s is the input used to insert the number of days.
+#: includes/class-yith-wcbm-admin-premium.php:515
+msgid "%s days"
+msgstr "%s días"
+
+#: includes/class-yith-wcbm-admin-premium.php:630
+#: includes/compatibility/class-yith-wcbm-wpml-compatibility.php:53
+msgid "None"
+msgstr "Ninguna"
+
+#: includes/class-yith-wcbm-admin.php:222
+msgid "Choose image"
+msgstr "Escoge la imagen"
+
+#: includes/class-yith-wcbm-admin.php:231
+msgid "Choose badge type"
+msgstr "Escoge el tipo de insignia"
+
+#. translators: %s is the name of the plugin that is updating data in
+#. background. Don't use the full stop at the end because there will be a smile
+#. emoji.
+#: includes/class-yith-wcbm-admin.php:298
+msgid ""
+"<b>Update of %s:</b> we are updating badges and settings. The progress is "
+"automatic and can take few minutes. Please wait"
+msgstr ""
+"<b>Actualización de %s:</b> estamos actualizando las insignias y la "
+"configuración. El progreso es automático y puede tardar unos minutos. Por "
+"favor, espere"
+
+#: includes/class-yith-wcbm-admin.php:333
+#: includes/class-yith-wcbm-post-types.php:48
+#: includes/compatibility/multi-vendor/class-yith-wcbm-multi-vendor-compatibility-legacy.php:65
+#: includes/compatibility/multi-vendor/class-yith-wcbm-multi-vendor-compatibility.php:68
+#: views/fields/quick-edit-product-badge-field.php:12
+#: views/variation-badge-options.php:19
+msgid "Badges"
+msgstr "Insignias"
+
+#: includes/class-yith-wcbm-admin.php:334
+msgid "General Settings"
+msgstr "Ajustes generales"
+
+#: includes/class-yith-wcbm-admin.php:342
+msgid "Upload a custom image/icon to use as a badge"
+msgstr "Sube una imagen/icono personalizado para usarlo como insignia"
+
+#: includes/class-yith-wcbm-admin.php:343
+msgid ""
+"Access a free library with <b>60 ready-to-use badges</b> for Black Friday, "
+"Christmas, End-of-season sales, Cyber Monday, etc. (and we will add more!)"
+msgstr ""
+"Accede a una biblioteca gratuita con <b>60 insignias listas para usar</b> "
+"para Black Friday, Navidad, rebajas de fin de temporada, Cyber Monday, etc. "
+"(¡y añadiremos más!)"
+
+#: includes/class-yith-wcbm-admin.php:344
+msgid ""
+"Unblock additional customization options: padding, margin, flip text,"
+"position, etc."
+msgstr ""
+"Desbloquea las opciones de personalización adicionales: relleno, margen, "
+"voltear el texto, posición, etc."
+
+#: includes/class-yith-wcbm-admin.php:345
+msgid ""
+"Create dynamic badges for on-sale products and <b>automatically show the "
+"discount % and the saving</b>"
+msgstr ""
+"Crea insignias dinámicas para los productos en oferta y <b>muestra "
+"automáticamente el % de descuento y el ahorro</b>."
+
+#: includes/class-yith-wcbm-admin.php:346
+msgid ""
+"Create rules to automatically show badges in <b>on-sale / recent / low "
+"stock / in stock / back to order and featured products</b>"
+msgstr ""
+"Crea reglas para mostrar automáticamente las insignias en <b>en venta / "
+"recientes / con pocas existencias / en inventario / de nuevo en pedido y "
+"productos destacados</b>."
+
+#: includes/class-yith-wcbm-admin.php:347
+msgid ""
+"Create rules to automatically show badges in products of <b>specific "
+"categories / tags / shipping classes</b>"
+msgstr ""
+"Crea reglas para mostrar automáticamente las insignias en los productos de "
+"<b>categorías / etiquetas / clases de envío específicas</b>."
+
+#: includes/class-yith-wcbm-admin.php:348
+msgid "<b>Schedule badges</b> to set when automatically show and hide them"
+msgstr ""
+"<b>Programar insignias</b> para establecer cuándo se muestran y se ocultan "
+"automáticamente"
+
+#: includes/class-yith-wcbm-admin.php:349
+msgid "Choose to show badges only to specific users, user roles or members"
+msgstr ""
+"Elige mostrar las insignias sólo a usuarios específicos, roles de usuario o "
+"miembros"
+
+#. translators: %s is the name of out plugin YITH WooCommerce Dynamic Pricing
+#. and Discounts.
+#: includes/class-yith-wcbm-admin.php:351
+msgid "Assign badges to discounts and promotions created with our %s"
+msgstr ""
+"Asigna insignias a los descuentos y promociones creados con nuestros %s"
+
+#: includes/class-yith-wcbm-admin.php:352
+msgid "Regular updates, Translations and Premium Support"
+msgstr "Actualizaciones periódicas, traducciones y soporte Premium"
+
+#: includes/class-yith-wcbm-admin.php:486
+msgid "Your Inspiration Themes"
+msgstr "Your Inspiration Themes"
+
+#: includes/class-yith-wcbm-admin.php:490
+msgid "Plugin Documentation"
+msgstr "Documentación del plugin"
+
+#: includes/class-yith-wcbm-admin.php:494
+msgid "Plugin Site"
+msgstr "Sitio del plugin"
+
+#: includes/class-yith-wcbm-admin.php:498
+msgid "Live Demo"
+msgstr "Demo en vivo"
+
+#: includes/class-yith-wcbm-badge-post-type-admin.php:54
+msgid "You have no badges created yet.<br>Build now your first one!"
+msgstr "Aún no has creado insignias.<br>¡Crea la primera!"
+
+#: includes/class-yith-wcbm-badge-rule-post-type-admin.php:65
+msgid "You have no badge rules yet.<br>Set now the first one!"
+msgstr "Aún no tienes reglas de insignia.<br>¡Establece la primera!"
+
+#: includes/class-yith-wcbm-badge-rule-post-type-admin.php:73
+msgid ""
+"We are generating the badge rules.<br>Wait a few minutes to see the rules, "
+"or create a new one."
+msgstr ""
+"Estamos generando las reglas de las insignias.<br>Espera unos minutos para "
+"ver las reglas, o crea una nueva."
+
+#: includes/class-yith-wcbm-badge-rule-post-type-admin.php:95
+msgid "Enable"
+msgstr "Activar"
+
+#: includes/class-yith-wcbm-badge-rule-post-type-admin.php:96
+msgid "Disable"
+msgstr "Desactivar"
+
+#: includes/class-yith-wcbm-badge-rule-post-type-admin.php:97
+msgid "Delete"
+msgstr "Eliminar"
+
+#. translators: %s is the name of the plugin to activate to use that badge
+#. rule.
+#: includes/class-yith-wcbm-badge-rule-post-type-admin.php:160
+msgid "%s is required"
+msgstr "%s es obligatorio"
+
+#: includes/class-yith-wcbm-badge-rules.php:109
+#: includes/class-yith-wcbm-badge-rules.php:110
+#: includes/class-yith-wcbm-badge-rules.php:112
+#: includes/class-yith-wcbm-badge-rules.php:113
+msgid "Badge Rule saved."
+msgstr "Regla de insignia guardada."
+
+#: includes/class-yith-wcbm-badge-rules.php:111
+msgid "Badge Rule created."
+msgstr "Regla de insignia creada."
+
+#. translators: %s is the deleted badge rules number.
+#: includes/class-yith-wcbm-badge-rules.php:131
+msgid "%s badge rule deleted."
+msgid_plural "%s badge rules deleted."
+msgstr[0] "%s regla de insignia eliminada."
+msgstr[1] "%s reglas de insignia eliminadas."
+
+#. translators: %s: Badge Rule ID.
+#: includes/class-yith-wcbm-badge-rules.php:183
+msgid "Error while duplicating badge rule: badge rule #%s not found"
+msgstr ""
+"Error al duplicar la regla de insignia: no se ha encontrado la regla de "
+"insignia #%s"
+
+#: includes/class-yith-wcbm-badge-rules.php:229
+#: includes/compatibility/auctions/class-yith-wcbm-auctions-compatibility.php:87
+#: includes/compatibility/auctions/class-yith-wcbm-auctions-compatibility.php:99
+#: includes/compatibility/auctions/class-yith-wcbm-auctions-compatibility.php:111
+#: plugin-options/badge-rules-types.php:73
+#: views/fields/bulk-edit-product-badge-field.php:13
+#: views/fields/quick-edit-product-badge-field.php:18
+msgid "Search Badge..."
+msgstr "Buscar insignia..."
+
+#: includes/class-yith-wcbm-badges.php:89
+#: includes/class-yith-wcbm-badges.php:90
+#: includes/class-yith-wcbm-badges.php:92
+#: includes/class-yith-wcbm-badges.php:93
+msgid "Badge saved."
+msgstr "Insignia guardada."
+
+#: includes/class-yith-wcbm-badges.php:91
+msgid "Badge created."
+msgstr "Insignia creada."
+
+#. translators: %s is the deleted badges number.
+#: includes/class-yith-wcbm-badges.php:111
+msgid "%s badge deleted."
+msgid_plural "%s badges deleted."
+msgstr[0] "%s insignia eliminada."
+msgstr[1] "%s insignias eliminadas."
+
+#. translators: %s: Badge ID.
+#: includes/class-yith-wcbm-badges.php:163
+msgid "Error while duplicating badge: badge #%s not found"
+msgstr "Error al duplicar la insignia: insignia #%s no encontrada"
+
+#: includes/class-yith-wcbm-post-types-premium.php:43
+msgid "Badge Rule"
+msgstr "Regla de la insignia"
+
+#: includes/class-yith-wcbm-post-types-premium.php:44
+msgid "Add Badge Rule"
+msgstr "Añadir regla de insignia"
+
+#: includes/class-yith-wcbm-post-types-premium.php:45
+msgid "Add new Badge Rule"
+msgstr "Añadir una nueva regla de insignia"
+
+#: includes/class-yith-wcbm-post-types-premium.php:46
+msgid "Edit Badge Rule"
+msgstr "Editar la regla de la insignia"
+
+#: includes/class-yith-wcbm-post-types-premium.php:47
+#: includes/class-yith-wcbm-post-types-premium.php:52
+msgid "View Badge Rule"
+msgstr "Ver la regla de la insignia"
+
+#: includes/class-yith-wcbm-post-types-premium.php:48
+msgid "Badge Rule not found"
+msgstr "Regla de la insignia no encontrada"
+
+#: includes/class-yith-wcbm-post-types-premium.php:49
+msgid "Badge Rule not found in trash"
+msgstr "Regla de la insignia no encontrada en la papelera"
+
+#: includes/class-yith-wcbm-post-types-premium.php:50
+msgid "Edit"
+msgstr "Editar"
+
+#: includes/class-yith-wcbm-post-types-premium.php:51
+msgid "New Badge Rule"
+msgstr "Nueva regla para la insignia"
+
+#: includes/class-yith-wcbm-post-types-premium.php:53
+msgid "Search Badge Rules"
+msgstr "Reglas de búsqueda de insignias"
+
+#: includes/class-yith-wcbm-post-types-premium.php:54
+msgid "Parent Badge Rules"
+msgstr "Reglas de insignia superiores"
+
+#: includes/class-yith-wcbm-post-types-premium.php:56
+msgid "All Badge Rules"
+msgstr "Todas las reglas de insignia"
+
+#: includes/class-yith-wcbm-post-types-premium.php:57
+msgid "View Badge Rules"
+msgstr "Ver las reglas de las insignias"
+
+#: includes/class-yith-wcbm-post-types-premium.php:58
+msgid "Badge Rule archives"
+msgstr "Archivos de regla de insignia"
+
+#: includes/class-yith-wcbm-post-types-premium.php:59
+msgid "Badge Rule attributes"
+msgstr "Atributos de regla de insignia"
+
+#: includes/class-yith-wcbm-post-types-premium.php:60
+msgid "Filter badge rule list"
+msgstr "Filtrar lista de reglas de insignia"
+
+#: includes/class-yith-wcbm-post-types-premium.php:61
+#: includes/class-yith-wcbm-post-types.php:67
+msgid "Filter by date"
+msgstr "Filtrar por fecha"
+
+#: includes/class-yith-wcbm-post-types-premium.php:62
+msgid "Badge Rule list"
+msgstr "Lista de reglas de insignia"
+
+#: includes/class-yith-wcbm-post-types-premium.php:63
+#: includes/class-yith-wcbm-post-types-premium.php:64
+msgid "Badge Rule saved"
+msgstr "Regla de insignia guardada"
+
+#: includes/class-yith-wcbm-post-types.php:49
+#: views/fields/bulk-edit-product-badge-field.php:23
+msgid "Badge"
+msgstr "Insignia"
+
+#: includes/class-yith-wcbm-post-types.php:50
+msgid "Add Badge"
+msgstr "Añadir insignia"
+
+#: includes/class-yith-wcbm-post-types.php:51
+msgid "Add new Badge"
+msgstr "Añadir nueva insignia"
+
+#: includes/class-yith-wcbm-post-types.php:52
+#: includes/class-yith-wcbm-post-types.php:56
+msgid "Edit Badge"
+msgstr "Editar insignia"
+
+#: includes/class-yith-wcbm-post-types.php:53
+#: includes/class-yith-wcbm-post-types.php:58
+msgid "View Badge"
+msgstr "Ver insignia"
+
+#: includes/class-yith-wcbm-post-types.php:54
+msgid "Badge not found"
+msgstr "No se han encontrado insignias"
+
+#: includes/class-yith-wcbm-post-types.php:55
+msgid "Badge not found in trash"
+msgstr "No se han encontrado insignias en la Papelera"
+
+#: includes/class-yith-wcbm-post-types.php:57
+msgid "New Badge"
+msgstr "Nueva Insignia"
+
+#: includes/class-yith-wcbm-post-types.php:59
+#: plugin-options/metaboxes/product-badge-metabox.php:27
+msgid "Search Badges"
+msgstr "Buscar insignias"
+
+#: includes/class-yith-wcbm-post-types.php:60
+msgid "Parent Badges"
+msgstr "Insignias superiores"
+
+#: includes/class-yith-wcbm-post-types.php:62
+msgid "All Badges"
+msgstr "Todas las insignias"
+
+#: includes/class-yith-wcbm-post-types.php:63
+msgid "View Badges"
+msgstr "Ver insignias"
+
+#: includes/class-yith-wcbm-post-types.php:64
+msgid "Badge archives"
+msgstr "Archivos de insignias"
+
+#: includes/class-yith-wcbm-post-types.php:65
+msgid "Badge attributes"
+msgstr "Atributos de la insignia"
+
+#: includes/class-yith-wcbm-post-types.php:66
+msgid "Filter badge list"
+msgstr "Filtrar lista de insignia"
+
+#: includes/class-yith-wcbm-post-types.php:68
+msgid "Badge list"
+msgstr "Lista de insignias"
+
+#: includes/class-yith-wcbm-post-types.php:69
+#: includes/class-yith-wcbm-post-types.php:70
+msgid "Badge saved"
+msgstr "Insignia guardada"
+
+#: includes/compatibility/auctions/class-yith-wcbm-auctions-compatibility.php:82
+msgid "Badge for auctions with status \"scheduled\""
+msgstr "Insignia para las subastas con estado «programado»"
+
+#: includes/compatibility/auctions/class-yith-wcbm-auctions-compatibility.php:83
+msgid "Select the badge for all auctions marked as \"Not Started\"."
+msgstr ""
+"Selecciona la insignia para todas las subastas marcadas como «no iniciadas»."
+
+#: includes/compatibility/auctions/class-yith-wcbm-auctions-compatibility.php:94
+msgid "Badge for auctions with status \"started\""
+msgstr "Insignia para las subastas con estado «iniciado»"
+
+#: includes/compatibility/auctions/class-yith-wcbm-auctions-compatibility.php:95
+msgid "Select the badge for all auctions marked as \"Started\"."
+msgstr ""
+"Selecciona la insignia para todas las subastas marcadas como «iniciadas»."
+
+#: includes/compatibility/auctions/class-yith-wcbm-auctions-compatibility.php:106
+msgid "Badge for auctions with status \"finished\""
+msgstr "Insignia para las subastas con estado «terminado»"
+
+#: includes/compatibility/auctions/class-yith-wcbm-auctions-compatibility.php:107
+msgid "Select the badge for all auctions marked as \"Finished\"."
+msgstr ""
+"Selecciona la insignia para todas las subastas marcadas como «finalizada»"
+
+#: includes/compatibility/class-yith-wcbm-membership-compatibility.php:93
+msgid "Show badge to members of these plans"
+msgstr "Muestra la insignia a los miembros de estos planes"
+
+#: includes/compatibility/class-yith-wcbm-membership-compatibility.php:94
+msgid "Choose which users can access to this products list."
+msgstr "Escoge qué usuarios pueden acceder a esta lista de productos."
+
+#: includes/compatibility/class-yith-wcbm-membership-compatibility.php:99
+msgid "Search Membership plans..."
+msgstr "Buscar planes de membresía..."
+
+#: includes/compatibility/class-yith-wcbm-membership-compatibility.php:109
+msgid "Only members of a specific plan"
+msgstr "Solo a miembros de un plan específico"
+
+#: includes/compatibility/class-yith-wcbm-membership-compatibility.php:110
+msgid ""
+"Choose if the badge will be shown to all users or only specific user roles "
+"or members of a plan"
+msgstr ""
+"Escoge si la insignia se mostrará a todos los usuarios o solo a roles de "
+"usuario específicos o a miembros de un plan"
+
+#. translators: %s is the Default language.
+#: includes/compatibility/class-yith-wcbm-wpml-compatibility.php:71
+msgid "Default Language: %s"
+msgstr "Idioma predeterminado: %s"
+
+#. translators: %s is the Current language.
+#: includes/compatibility/class-yith-wcbm-wpml-compatibility.php:79
+msgid "Current Language: %s"
+msgstr "Idioma actual: %s"
+
+#: includes/compatibility/dynamic-pricing/class-yith-wcbm-dynamic-pricing-compatibility-legacy.php:190
+msgid "Dynamic Pricing badges"
+msgstr "Insignias de precios dinámicos"
+
+#: includes/compatibility/dynamic-pricing/class-yith-wcbm-dynamic-pricing-compatibility-legacy.php:191
+msgid ""
+"Choose which badges to show in products of specific dynamic pricing rules."
+msgstr ""
+"Elige qué insignias mostrar en productos de reglas de precios dinámicos "
+"específicos."
+
+#: includes/compatibility/dynamic-pricing/class-yith-wcbm-dynamic-pricing-compatibility-legacy.php:200
+msgid "Search dynamic pricing rule..."
+msgstr "Buscar regla dinámica de precio..."
+
+#: includes/functions.yith-wcbm.php:655
+msgid "Show the product regular price"
+msgstr "Muestra el precio regular del producto"
+
+#: includes/functions.yith-wcbm.php:659
+msgid "Show the product sale price"
+msgstr "Muestra el precio de venta del producto"
+
+#: includes/functions.yith-wcbm.php:663
+msgid "Show the available stock for the product"
+msgstr "Muestra las existencias disponibles del producto"
+
+#: includes/functions.yith-wcbm.php:664
+msgid "Note: in product without stock management the badge will be not shown"
+msgstr ""
+"Nota: en productos sin gestión de inventario no se mostrará la insignia"
+
+#: includes/functions.yith-wcbm.php:668
+msgid "Show the customer's saving amount"
+msgstr "Muestra la cantidad de ahorro del cliente"
+
+#: includes/functions.yith-wcbm.php:672
+msgid "Show the customer's saving percentage"
+msgstr "Muestra el porcentaje de ahorro del cliente"
+
+#: init.php:88
+msgid ""
+"YITH WooCommerce Badge Management is enabled but not effective. It requires "
+"Woocommerce in order to work."
+msgstr ""
+"YITH WooCommerce Badge Management está activado pero no es efectivo. "
+"Necesita Woocommerce para funcionar."
+
+#: plugin-options/advanced-options.php:17
+#: plugin-options/settings-options.php:13
+msgid "General Options"
+msgstr "Opciones generales"
+
+#: plugin-options/advanced-options.php:23
+#: plugin-options/settings-options.php:19
+msgid "Hide WooCommerce \"On sale\" badge"
+msgstr "Oculta la insignia «en oferta» de WooCommerce"
+
+#: plugin-options/advanced-options.php:27
+#: plugin-options/settings-options.php:23
+msgid "Select to hide the default Woocommerce \"On sale\" badge."
+msgstr ""
+"Selecciona para ocultar la insignia predeterminada de «en descuento» de "
+"WooCommerce"
+
+#: plugin-options/advanced-options.php:32
+#: plugin-options/settings-options.php:28
+msgid "Hide \"On sale\" on:"
+msgstr "Oculta «en oferta» en:"
+
+#: plugin-options/advanced-options.php:36
+#: plugin-options/badge-rules-types.php:171
+#: plugin-options/settings-options.php:32
+msgid "All products"
+msgstr "Todos los productos"
+
+#: plugin-options/advanced-options.php:37
+#: plugin-options/settings-options.php:33
+msgid "Products where a custom badge is applied only"
+msgstr "Solo en productos donde se aplica una insignia personalizada"
+
+#: plugin-options/advanced-options.php:39
+#: plugin-options/settings-options.php:35
+msgid ""
+"Choose whether to always hide the default WooCommerce \"On sale\" badge or "
+"only in products where a custom badge is applied."
+msgstr ""
+"Escoge si ocultar siempre la insignia predetermina de WooCommerce «en "
+"descuento» o solo en productos donde se aplica una insignia personalizada."
+
+#: plugin-options/advanced-options.php:49
+#: plugin-options/settings-options.php:45
+msgid "Hide badges in sidebars"
+msgstr "Oculta las insignias en las barras laterales"
+
+#: plugin-options/advanced-options.php:52
+#: plugin-options/settings-options.php:48
+msgid "Select to hide the badges in sidebars and widgets."
+msgstr "Selecciona para ocultar las insignias en barras laterales y widgets"
+
+#: plugin-options/advanced-options.php:57
+msgid "Hide badges in single product pages"
+msgstr "Oculta las insignias en las páginas de productos individuales"
+
+#: plugin-options/advanced-options.php:60
+msgid "Enable to hide the badges in the product detail pages."
+msgstr ""
+"Activa para ocultar las insignias en las páginas de detalles de los "
+"productos."
+
+#: plugin-options/advanced-options.php:65
+msgid "Mobile Breakpoint (px)"
+msgstr "Punto de ruptura en dispositivo móvil (px)"
+
+#: plugin-options/advanced-options.php:68
+msgid "Set the mobile breakpoint. Default: 768px"
+msgstr "Establece el punto de ruptura móvil. Por defecto: 768px"
+
+#: plugin-options/advanced-options.php:74
+msgid "Hide badges on mobile"
+msgstr "Oculta insignias en el móvil"
+
+#: plugin-options/advanced-options.php:77
+msgid ""
+"Enable to hide all badges on mobile devices, based on the mobile breakpoint "
+"setting."
+msgstr ""
+"Activa para ocultar todas las insignias en los dispositivos móviles, según "
+"la configuración del punto de ruptura para móviles."
+
+#: plugin-options/advanced-options.php:85
+#: plugin-options/settings-options.php:56
+msgid "Extra"
+msgstr "Extra"
+
+#: plugin-options/advanced-options.php:91
+#: plugin-options/settings-options.php:62
+msgid "Enable Shop Manager to edit these options"
+msgstr "Permite al gestor de la tienda editar estas opciones"
+
+#: plugin-options/advanced-options.php:92
+#: plugin-options/settings-options.php:63
+msgid ""
+"Enable to allow your shop managers to manage the options of this plugin."
+msgstr ""
+"Activa para que los administradores de tu tienda puedan gestionar las "
+"opciones de este plugin."
+
+#: plugin-options/advanced-options.php:99
+msgid "Force Badge Positioning"
+msgstr "Fuerza el posicionamiento de la insignia"
+
+#: plugin-options/advanced-options.php:102
+msgid "Enable to force the badge positioning through JS to fix theme issues."
+msgstr ""
+"Activar para forzar el posicionamiento de la insignia a través de JS para "
+"arreglar los problemas del tema."
+
+#: plugin-options/advanced-options.php:107
+msgid "Force Positioning on"
+msgstr "Fuerza el posicionamiento en"
+
+#: plugin-options/advanced-options.php:110
+msgid "Choose where do you want to force the positioning."
+msgstr "Elige dónde quieres forzar el posicionamiento."
+
+#: plugin-options/advanced-options.php:114
+msgid "Single Product"
+msgstr "Producto individual"
+
+#: plugin-options/advanced-options.php:115
+msgid "Single Product Image"
+msgstr "Imagen de producto individual"
+
+#: plugin-options/advanced-options.php:116
+msgid "Shop Page"
+msgstr "Mostrar página"
+
+#: plugin-options/advanced-options.php:117
+msgid "Everywhere"
+msgstr "Todas partes"
+
+#: plugin-options/advanced-options.php:127
+msgid "Force Positioning Timeout"
+msgstr "Fuerza el posicionamiento de tiempo agotado"
+
+#: plugin-options/advanced-options.php:130
+msgid "Number of milliseconds before force positioning."
+msgstr "Número de milisegundos antes de forzar el posicionamiento"
+
+#: plugin-options/advanced-options.php:140
+msgid "Force Positioning On Scrolling on Mobile"
+msgstr "Fuerza el posicionamiento al desplazarse en el móvil"
+
+#: plugin-options/advanced-options.php:143
+msgid "If enabled, force positioning on scrolling on mobile devices."
+msgstr ""
+"Si está activada, fuerza el posicionamiento al desplazarse en los "
+"dispositivos móviles."
+
+#: plugin-options/advanced-options.php:153
+msgid "Show advanced badges in variable products"
+msgstr "Muestra insignias avanzadas en productos variables"
+
+#: plugin-options/advanced-options.php:159
+msgid "Only if the discount % and amount is the same for all variations"
+msgstr ""
+"Solo si el porcentaje de descuento y el importe es el mismo para todas las "
+"variaciones"
+
+#: plugin-options/advanced-options.php:160
+msgid "Show the lowest discount % and amount"
+msgstr "Mostrar el descuento más bajo (%) y la cantidad"
+
+#: plugin-options/advanced-options.php:161
+msgid "Show the highest discount % and amount"
+msgstr "Mostrar el descuento más alto (%) y la cantidad"
+
+#: plugin-options/badge-rules-types.php:19
+msgid "Guest Users"
+msgstr "Usuarios no registrados"
+
+#: plugin-options/badge-rules-types.php:29
+#: plugin-options/badge-rules-types.php:32
+msgid "Rule name"
+msgstr "Nombre de la regla"
+
+#: plugin-options/badge-rules-types.php:30
+msgid "Enter a name to identify this badge rule."
+msgstr "Introduce un nombre para identificar esta regla de insignia."
+
+#: plugin-options/badge-rules-types.php:40
+msgid "Active rule"
+msgstr "Regla activa"
+
+#: plugin-options/badge-rules-types.php:41
+msgid "Choose whether to enable or disable this rule."
+msgstr "Escoge si activar o desactivar esta regla."
+
+#: plugin-options/badge-rules-types.php:46
+msgid "Exclude products"
+msgstr "Excluye productos"
+
+#: plugin-options/badge-rules-types.php:47
+msgid "Enable to exclude some products from this rule."
+msgstr "Activa para excluir algunos productos de esta regla."
+
+#: plugin-options/badge-rules-types.php:52
+msgid "Excluded products"
+msgstr "Productos excluidos"
+
+#: plugin-options/badge-rules-types.php:53
+msgid "Select the products that you want to exclude."
+msgstr "Selecciona los productos que quieres excluir."
+
+#: plugin-options/badge-rules-types.php:58
+msgid "Search Products..."
+msgstr "Buscar productos..."
+
+#: plugin-options/badge-rules-types.php:68
+msgid "Badge to assign"
+msgstr "Insignia a asignar"
+
+#: plugin-options/badge-rules-types.php:69
+msgid "Select the badge to show."
+msgstr "Selecciona la insignia a mostrar."
+
+#: plugin-options/badge-rules-types.php:79
+msgid "Schedule rule"
+msgstr "Programa la regla"
+
+#: plugin-options/badge-rules-types.php:80
+msgid "Enable to show this badge only for a specific time interval."
+msgstr ""
+"Establece si mostrar esta insignia solo por un intervalo de tiempo "
+"específico."
+
+#: plugin-options/badge-rules-types.php:85
+msgid "Schedule rule from"
+msgstr "Programa la regla desde"
+
+#: plugin-options/badge-rules-types.php:86
+msgid "Set a start and end date to show this badge."
+msgstr ""
+"Establece una fecha de inicio y finalización para mostrar esta insignia."
+
+#: plugin-options/badge-rules-types.php:100
+msgid "Show badge to"
+msgstr "Muestra la insignia a"
+
+#: plugin-options/badge-rules-types.php:101
+msgid ""
+"Choose if the badges will be shown to all users or only specific user roles."
+msgstr ""
+"Escoge si las insignias se mostrarán a todos los usuarios o solo a roles de "
+"usuario específicos."
+
+#: plugin-options/badge-rules-types.php:105
+msgid "All users"
+msgstr "Todos los usuarios"
+
+#: plugin-options/badge-rules-types.php:106
+msgid "Only specific users or user roles"
+msgstr "Solo usuarios específicos o roles de usuario"
+
+#: plugin-options/badge-rules-types.php:111
+msgid "Show badge to these user roles"
+msgstr "Muestra la insignia a estos perfiles de usuario"
+
+#: plugin-options/badge-rules-types.php:112
+msgid "Choose which user roles to apply this rule to."
+msgstr "Escoge a qué roles de usuario aplicar esta regla."
+
+#: plugin-options/badge-rules-types.php:118
+msgid "Search user roles..."
+msgstr "Buscar roles de usuario..."
+
+#: plugin-options/badge-rules-types.php:128
+msgid "Show badges to these users"
+msgstr "Muestra insignias a estos usuarios"
+
+#: plugin-options/badge-rules-types.php:129
+msgid "Choose which users to apply this rule to."
+msgstr "Escoge a qué usuarios aplicar esta regla."
+
+#: plugin-options/badge-rules-types.php:134
+msgid "Search users..."
+msgstr "Buscar usuarios..."
+
+#: plugin-options/badge-rules-types.php:146
+msgid "Save Rule"
+msgstr "Guarda la regla"
+
+#: plugin-options/badge-rules-types.php:164
+msgid "Assign a badge to"
+msgstr "Asigna una insignia a"
+
+#: plugin-options/badge-rules-types.php:165
+msgid "Choose in which products to show the badge of this rule."
+msgstr "Escoge en qué productos mostrar la insignia de esta regla."
+
+#: plugin-options/badge-rules-types.php:172
+msgid "Only recent Products"
+msgstr "Solo productos recientes"
+
+#: plugin-options/badge-rules-types.php:173
+msgid "On sale products"
+msgstr "Productos en oferta"
+
+#: plugin-options/badge-rules-types.php:174
+msgid "Featured products"
+msgstr "Productos destacados"
+
+#: plugin-options/badge-rules-types.php:175
+msgid "In stock products"
+msgstr "Productos disponibles"
+
+#: plugin-options/badge-rules-types.php:176
+msgid "Out of stock products"
+msgstr "Productos agotados"
+
+#: plugin-options/badge-rules-types.php:177
+msgid "Back-order products"
+msgstr "Productos pendientes (back-order)"
+
+#: plugin-options/badge-rules-types.php:178
+msgid "Low stock products"
+msgstr "Productos con poco inventario"
+
+#: plugin-options/badge-rules-types.php:179
+#: plugin-options/badge-rules-types.php:212
+msgid "Bestsellers"
+msgstr "Productos más vendidos"
+
+#: plugin-options/badge-rules-types.php:183
+msgid "Assign badge to product newer than"
+msgstr "Asignar la insignia a un producto más nuevo que"
+
+#: plugin-options/badge-rules-types.php:184
+msgid "Show the badge for products that are newer than X days."
+msgstr "Mostrar la insignia para productos que son más recientes que X días."
+
+#: plugin-options/badge-rules-types.php:198
+msgid "Low stock quantity"
+msgstr "Cantidad para productos a punto de agotarse"
+
+#: plugin-options/badge-rules-types.php:199
+msgid "Set the low stock quantity."
+msgstr "Establece la cantidad para inventario bajo."
+
+#: plugin-options/badge-rules-types.php:213
+msgid "Set in how many best seller products to show the badge"
+msgstr ""
+"Establece en cuántos productos de los más vendidos quieres mostrar la "
+"insignia"
+
+#: plugin-options/badge-rules-types.php:234
+msgid "Categories badges"
+msgstr "Insignias de categoría"
+
+#: plugin-options/badge-rules-types.php:235
+msgid "Choose which badges to show in products of specific categories."
+msgstr "Escoge qué insignias mostrar en productos de categorías específicas."
+
+#: plugin-options/badge-rules-types.php:244
+msgid "Search category..."
+msgstr "Buscar categoría..."
+
+#: plugin-options/badge-rules-types.php:259
+msgid "Tags badges"
+msgstr "Insignias de etiqueta"
+
+#: plugin-options/badge-rules-types.php:260
+msgid "Choose which badges to show in products of specific tags."
+msgstr "Escoge qué insignias mostrar en productos con etiquetas específicas."
+
+#: plugin-options/badge-rules-types.php:270
+msgid "Search tag..."
+msgstr "Buscar etiqueta..."
+
+#: plugin-options/badge-rules-types.php:285
+msgid "Shipping Class badges"
+msgstr "Insignias de clase de envío"
+
+#: plugin-options/badge-rules-types.php:286
+msgid "Choose which badges to show in products of specific shipping classes."
+msgstr ""
+"Elige qué insignias mostrar en productos de clases de envio específicas."
+
+#: plugin-options/badge-rules-types.php:296
+msgid "Search shipping class..."
+msgstr "Buscar clase de envío..."
+
+#: plugin-options/metaboxes/badge-metabox.php:13
+#: views/variation-badge-options.php:74
+msgid "Badge Options"
+msgstr "Opciones de insignia"
+
+#: plugin-options/metaboxes/badge-metabox.php:19
+#: views/metaboxes/badge-settings.php:20
+msgid "Text Badge"
+msgstr "Texto de insignia"
+
+#: plugin-options/metaboxes/badge-metabox.php:27
+#: plugin-options/metaboxes/badge-metabox.php:32
+msgid "Badge name"
+msgstr "Nombre de la insignia"
+
+#: plugin-options/metaboxes/badge-metabox.php:35
+msgid "Enter a name to identify this badge"
+msgstr "Introduce un nombre para identificar esta insignia"
+
+#: plugin-options/metaboxes/badge-metabox.php:39
+msgid "Badge type"
+msgstr "Tipo de insignia"
+
+#: plugin-options/metaboxes/badge-metabox.php:44
+#: plugin-options/metaboxes/badge-metabox.php:103
+#: views/metaboxes/badge-settings.php:35
+msgid "Text"
+msgstr "Texto"
+
+#: plugin-options/metaboxes/badge-metabox.php:45
+msgid "Image"
+msgstr "Imagen"
+
+#: plugin-options/metaboxes/badge-metabox.php:46
+msgid "CSS"
+msgstr "CSS"
+
+#: plugin-options/metaboxes/badge-metabox.php:47
+msgid "Advanced"
+msgstr "Avanzada"
+
+#: plugin-options/metaboxes/badge-metabox.php:50
+msgid "Choose the badge type"
+msgstr "Escoge el tipo de insigina"
+
+#. translators: %1$s is an opening HTML Container, %2$s is the closing HTML
+#. Container.
+#: plugin-options/metaboxes/badge-metabox.php:55
+msgid "Choose the badge image or upload a custom one"
+msgstr "Escoge la imagen de insignia o sube una personalizada"
+
+#: plugin-options/metaboxes/badge-metabox.php:67
+#: plugin-options/metaboxes/badge-metabox.php:79
+msgid "Choose the badge image"
+msgstr "Escoge la imagen de la insignia"
+
+#: plugin-options/metaboxes/badge-metabox.php:91
+msgid "Display"
+msgstr "Mostrar"
+
+#: plugin-options/metaboxes/badge-metabox.php:92
+msgid ""
+"Choose if you want to display the amount of the discount on a product or the "
+"discount percentage."
+msgstr ""
+"Elige si quieres mostrar el importe del descuento en un producto o el "
+"porcentaje de descuento."
+
+#: plugin-options/metaboxes/badge-metabox.php:96
+msgid "Amount"
+msgstr "Cantidad"
+
+#: plugin-options/metaboxes/badge-metabox.php:97
+msgid "Percentage"
+msgstr "Porcentaje"
+
+#: plugin-options/metaboxes/badge-metabox.php:106
+msgid ""
+"Use the editor to add the badge text.<br>Need to show dynamic content? <span "
+"class=\"yith-wcbm-check-for-placeholders\">Check the placeholders availables!"
+"</span>"
+msgstr ""
+"Usa el editor para añadir el texto de la insignia.<br>¿Necesitas mostrar "
+"contenido dinámico? <span class=\"yith-wcbm-check-for-"
+"placeholders\">¡Comprueba los marcadores de posición disponibles!</span>"
+
+#: plugin-options/metaboxes/badge-metabox.php:114
+msgid "Background color"
+msgstr "Color de fondo"
+
+#: plugin-options/metaboxes/badge-metabox.php:120
+msgid "Set the badge background color."
+msgstr "Establece el color de fondo de la insignia."
+
+#: plugin-options/metaboxes/badge-metabox.php:124
+msgid "Text color"
+msgstr "Color del texto"
+
+#: plugin-options/metaboxes/badge-metabox.php:130
+msgid "Set the badge text color."
+msgstr "Establece el color de texto de la insignia."
+
+#: plugin-options/metaboxes/badge-metabox.php:134
+msgid "Size (px)"
+msgstr "Tamaño (px)"
+
+#: plugin-options/metaboxes/badge-metabox.php:138
+#: views/metaboxes/badge-settings.php:81
+msgid "Width"
+msgstr "Ancho"
+
+#: plugin-options/metaboxes/badge-metabox.php:139
+#: views/metaboxes/badge-settings.php:82
+msgid "Height"
+msgstr "Altura"
+
+#: plugin-options/metaboxes/badge-metabox.php:153
+msgid "Set the badge size."
+msgstr "Establece el tamaño de la insignia."
+
+#: plugin-options/metaboxes/badge-metabox.php:157
+msgid "Width (px)"
+msgstr "Anchura (px)"
+
+#: plugin-options/metaboxes/badge-metabox.php:161
+msgid "Set the badge width."
+msgstr "Establece el ancho de la insignia."
+
+#: plugin-options/metaboxes/badge-metabox.php:165
+msgid "Padding"
+msgstr "Relleno"
+
+#: plugin-options/metaboxes/badge-metabox.php:166
+msgid "Set the badge content spacing."
+msgstr "Establece el espaciado de contenido de la insignia."
+
+#: plugin-options/metaboxes/badge-metabox.php:170
+#: plugin-options/metaboxes/badge-metabox.php:326
+#: plugin-options/metaboxes/badge-metabox.php:356
+#: plugin-options/metaboxes/badge-metabox.php:382
+msgid "Top"
+msgstr "Arriba"
+
+#: plugin-options/metaboxes/badge-metabox.php:171
+#: plugin-options/metaboxes/badge-metabox.php:334
+#: plugin-options/metaboxes/badge-metabox.php:371
+#: plugin-options/metaboxes/badge-metabox.php:384
+msgid "Right"
+msgstr "Derecha"
+
+#: plugin-options/metaboxes/badge-metabox.php:172
+#: plugin-options/metaboxes/badge-metabox.php:330
+#: plugin-options/metaboxes/badge-metabox.php:358
+#: plugin-options/metaboxes/badge-metabox.php:383
+msgid "Bottom"
+msgstr "Abajo"
+
+#: plugin-options/metaboxes/badge-metabox.php:173
+#: plugin-options/metaboxes/badge-metabox.php:338
+#: plugin-options/metaboxes/badge-metabox.php:369
+#: plugin-options/metaboxes/badge-metabox.php:385
+msgid "Left"
+msgstr "Izquierda"
+
+#: plugin-options/metaboxes/badge-metabox.php:183
+msgid "Border radius"
+msgstr "Radio del borde"
+
+#: plugin-options/metaboxes/badge-metabox.php:184
+msgid "Set the badge border radius."
+msgstr "Establece el radio del borde de la insignia."
+
+#: plugin-options/metaboxes/badge-metabox.php:188
+#: plugin-options/metaboxes/badge-metabox.php:310
+msgid "Top left"
+msgstr "Arriba a la izquierda"
+
+#: plugin-options/metaboxes/badge-metabox.php:189
+#: plugin-options/metaboxes/badge-metabox.php:311
+msgid "Top right"
+msgstr "Arriba a la derecha"
+
+#: plugin-options/metaboxes/badge-metabox.php:190
+#: plugin-options/metaboxes/badge-metabox.php:312
+msgid "Bottom right"
+msgstr "Abajo a la derecha"
+
+#: plugin-options/metaboxes/badge-metabox.php:191
+#: plugin-options/metaboxes/badge-metabox.php:313
+msgid "Bottom left"
+msgstr "Abajo a la izquierda"
+
+#: plugin-options/metaboxes/badge-metabox.php:201
+msgid "Opacity (%)"
+msgstr "Opacidad (%)"
+
+#: plugin-options/metaboxes/badge-metabox.php:202
+msgid "Set the badge opacity. 0 is transparent, 100 is solid color."
+msgstr ""
+"Establece la opacidad de la insignia. 0 es transparente. 100 es un color "
+"sólido."
+
+#: plugin-options/metaboxes/badge-metabox.php:209
+msgid "Rotation"
+msgstr "Rotación"
+
+#: plugin-options/metaboxes/badge-metabox.php:210
+msgid "Use these values to rotate the badge."
+msgstr "Usa estos valores para girar la insignia."
+
+#: plugin-options/metaboxes/badge-metabox.php:270
+msgid "Flip/Mirror text"
+msgstr "Voltear/Espejar el texto"
+
+#: plugin-options/metaboxes/badge-metabox.php:271
+msgid ""
+"Enable a mirror effect on the text.<br>You can flip it both horizontally and "
+"vertically."
+msgstr ""
+"Activa el efecto espejo en el texto.<br>Puedes girarlo horizontal y "
+"verticalmente."
+
+#: plugin-options/metaboxes/badge-metabox.php:277
+msgid "Flip orientation"
+msgstr "Orientación del giro"
+
+#: plugin-options/metaboxes/badge-metabox.php:278
+msgid "Choose the text flipping orientation to apply."
+msgstr "Escoge la orientación para girar el texto."
+
+#: plugin-options/metaboxes/badge-metabox.php:283
+msgid "Vertical"
+msgstr "Vertical"
+
+#: plugin-options/metaboxes/badge-metabox.php:284
+msgid "Horizontal"
+msgstr "Horizontal"
+
+#: plugin-options/metaboxes/badge-metabox.php:285
+msgid "Both"
+msgstr "Ambas"
+
+#: plugin-options/metaboxes/badge-metabox.php:291
+msgid "Set position"
+msgstr "Establece la posición"
+
+#: plugin-options/metaboxes/badge-metabox.php:293
+msgid ""
+"Choose to set the badge position using px or % or to choose a fixed position."
+msgstr ""
+"Establece la posición de la insignia usando px o % o escoge una posición fija"
+
+#: plugin-options/metaboxes/badge-metabox.php:297
+msgid "In px or %"
+msgstr "En px o %"
+
+#: plugin-options/metaboxes/badge-metabox.php:298
+msgid "Fixed"
+msgstr "Fija"
+
+#: plugin-options/metaboxes/badge-metabox.php:304
+msgid "Anchor Point"
+msgstr "Punto de anclaje"
+
+#: plugin-options/metaboxes/badge-metabox.php:305
+msgid "Set the badge anchor point."
+msgstr "Establece el punto de anclaje de la insignia."
+
+#: plugin-options/metaboxes/badge-metabox.php:319
+#: plugin-options/metaboxes/badge-metabox.php:351
+#: views/metaboxes/badge-settings.php:109
+#: views/metaboxes/badge-settings.php:113
+msgid "Position"
+msgstr "Posición"
+
+#: plugin-options/metaboxes/badge-metabox.php:320
+msgid "Set the badge position above the product image."
+msgstr ""
+"Establece la posición de la insignia por encima de la imagen del producto."
+
+#: plugin-options/metaboxes/badge-metabox.php:357
+msgid "Middle"
+msgstr "En medio"
+
+#: plugin-options/metaboxes/badge-metabox.php:364
+msgid "Alignment"
+msgstr "Alineación"
+
+#: plugin-options/metaboxes/badge-metabox.php:370
+msgid "Center"
+msgstr "Centro"
+
+#: plugin-options/metaboxes/badge-metabox.php:377
+msgid "Margin"
+msgstr "Margen"
+
+#: plugin-options/metaboxes/badge-metabox.php:378
+msgid "Set the badge margin."
+msgstr "Establece el margen de la insignia."
+
+#: plugin-options/metaboxes/badge-metabox.php:394
+msgid "Scale on mobile"
+msgstr "Escala en el móvil"
+
+#: plugin-options/metaboxes/badge-metabox.php:395
+msgid "Set the badge scale on mobile view."
+msgstr ""
+"Establece la escala de la insignia en la vista de dispositivos móviles."
+
+#: plugin-options/metaboxes/badge-rule-metabox.php:18
+#: plugin-options/metaboxes/product-badge-metabox.php:11
+msgid "Product Badge"
+msgstr "Insignia de producto"
+
+#: plugin-options/metaboxes/product-badge-metabox.php:34
+msgid "Schedule badge"
+msgstr "Programa la insignia"
+
+#: plugin-options/metaboxes/product-badge-metabox.php:43
+msgid "From... YYYY-MM-DD"
+msgstr "Hasta... AAAA-MM-DD"
+
+#: plugin-options/metaboxes/product-badge-metabox.php:59
+msgid "To... YYYY-MM-DD"
+msgstr "Hasta... AAAA-MM-DD"
+
+#: views/add-badge-modal-content.php:11
+msgid "Text badge"
+msgstr "Insignia de texto"
+
+#: views/add-badge-modal-content.php:12
+msgid "A plain text without background or inside a rectangle or circle shape"
+msgstr "Un texto plano sin fondo o dentro de un rectángulo o círculo"
+
+#: views/add-badge-modal-content.php:16
+msgid "Image badge"
+msgstr "Imagen de Insignia"
+
+#: views/add-badge-modal-content.php:17
+msgid "Choose one of the badges in our library or upload a custom image"
+msgstr ""
+"Escoge una de las insignias de tu biblioteca o sube una imagen personalizada"
+
+#: views/add-badge-modal-content.php:25
+msgid "CSS badge"
+msgstr "Insignia CSS"
+
+#: views/add-badge-modal-content.php:26
+msgid "Beautiful badges fully customizable by CSS"
+msgstr "Magníficas insignias completamente personalizables con CSS"
+
+#: views/add-badge-modal-content.php:30
+msgid "Advanced badge for on sales products"
+msgstr "Insignia avanzada para productos en oferta"
+
+#: views/add-badge-modal-content.php:31
+msgid ""
+"A badge to show the discount percentage using the values in regular price "
+"and sale price for each product."
+msgstr ""
+"Una insignia para mostrar el porcentaje de descuento usando los valores del "
+"precio habitual y del precio de descuento para cada producto."
+
+#: views/fields/badge-library-premium.php:61 views/fields/badge-library.php:29
+msgid "Upload image"
+msgstr "Subir imagen"
+
+#. translators: %d is the number of extra badges, Ex. Extra badges (16).
+#: views/fields/badge-library-premium.php:91
+msgid "Extra badges (%d)"
+msgstr "Insignias extra (%d)"
+
+#: views/fields/badge-library-premium.php:95
+msgid "Add all badges to your library"
+msgstr "Añade todas las insignias a tu biblioteca"
+
+#: views/fields/badge-library-premium.php:98
+msgid "Add the badges to your library to use them in your shop."
+msgstr "Añade las insignias a tu biblioteca para usarlas en tu tienda."
+
+#. Translators: the placeholders are tags to bold the text; %1$s - <b>; %2$s -
+#. </b>.
+#: views/fields/badge-library-premium.php:104
+msgid ""
+"%1$sWarning:%2$s Only users with a valid license can get our extra badges."
+msgstr ""
+"%1$sAdvertencia:%2$s Solo los usuarios con una licencia válida pueden "
+"obtener nuestras insignias extra."
+
+#: views/fields/badge-library-premium.php:107
+msgid "Activate your license"
+msgstr "Activa tu licencia"
+
+#: views/fields/badge-library-premium.php:118
+msgid "Add"
+msgstr "Añade"
+
+#. Translators: %s is the line break '<br>'.
+#: views/fields/badge-library-premium.php:130
+msgid ""
+"All badges are already added in your library.%sDon't worry: soon we will add "
+"new badges here!"
+msgstr ""
+"Todas las insignias han sido añadidas a tu biblioteca.%s¡No te preocupes: "
+"pronto añadiremos nuevas insignias!"
+
+#: views/fields/badge-rule-associations.php:40
+msgid "+ Add rule"
+msgstr "+ Añade una regla"
+
+#: views/metaboxes/badge-preview.php:14 views/metaboxes/badge-settings.php:129
+msgid "Preview"
+msgstr "Vista previa"
+
+#: views/metaboxes/badge-preview.php:19
+msgid "Use the drag and drop to move the badge above the product image."
+msgstr ""
+"Usa la función de arrastrar y soltar para mover la insignia por encima de la "
+"imagen del producto."
+
+#: views/metaboxes/badge-preview.php:30
+msgid "Save badge"
+msgstr "Guarda la insignia"
+
+#: views/metaboxes/badge-settings.php:21
+msgid "Image Badge"
+msgstr "Imagen de Insignia"
+
+#: views/metaboxes/badge-settings.php:31
+msgid "Text Options"
+msgstr "Opciones de texto"
+
+#: views/metaboxes/badge-settings.php:43
+msgid "Text Color"
+msgstr "Color de texto"
+
+#: views/metaboxes/badge-settings.php:55
+msgid "Style Options"
+msgstr "Opciones de estilo"
+
+#: views/metaboxes/badge-settings.php:59
+msgid "Background Color"
+msgstr "Color de fondo"
+
+#: views/metaboxes/badge-settings.php:68
+msgid "Size (pixel)"
+msgstr "Tamaño"
+
+#: views/metaboxes/badge-settings.php:93
+msgid "Select the Image Badge"
+msgstr "Selecciona la imagen de la insignia"
+
+#: views/metaboxes/badge-settings.php:117
+msgid "top-left"
+msgstr "arriba-izquierda"
+
+#: views/metaboxes/badge-settings.php:118
+msgid "top-right"
+msgstr "arriba-derecha"
+
+#: views/metaboxes/badge-settings.php:119
+msgid "bottom-left"
+msgstr "abajo-izquierda"
+
+#: views/metaboxes/badge-settings.php:120
+msgid "bottom-right"
+msgstr "abajo-derecha"
+
+#: views/variation-badge-options.php:24 views/variation-badge-options.php:36
+msgid "Search Badges..."
+msgstr "Buscar insignias..."
+
+#: views/variation-badge-options.php:30
+msgid "Schedule"
+msgstr "Programar"
+
+#: views/variation-badge-options.php:42
+msgid "From"
+msgstr "Desde"
+
+#: views/variation-badge-options.php:46 views/variation-badge-options.php:60
+msgid "YYYY-MM-DD"
+msgstr "AAAA-MM-DD"
+
+#: views/variation-badge-options.php:56
+msgid "To"
+msgstr "Para"
+
+#. Description of the plugin/theme
+msgid ""
+"Highlight discounts, offers and products features using <strong>custom "
+"graphic badges.</strong> <a href=\"https://yithemes.com/\" "
+"target=\"_blank\">Get more plugins for your e-commerce shop on <strong>YITH</"
+"strong></a>"
+msgstr ""
+"Resalta descuentos, ofertas y productos destacados <strong>custom graphic "
+"badges.</strong> <a href=\"https://yithemes.com/\" target=\"_blank\">Obtén "
+"más plugins para tu comercio electrónico en <strong>YITH</strong></a>"
+
+#: includes/class-yith-wcbm-admin-premium.php:201
+msgctxt "[HELP TAB] Video title"
+msgid ""
+"Check this video to learn how to <b>create custom badges to promote offers "
+"and products</b>"
+msgstr ""
+"Comprueba este vídeo para aprender cómo <b>crear insignias personalizadas "
+"para promocionar ofertas y productos</b>"
+
+#: includes/class-yith-wcbm-admin-premium.php:294
+msgctxt "[ADMIN] Confirm delete modal title on badge rules page"
+msgid "Confirm delete"
+msgstr "Confirmar el borrado"
+
+#. translators: %s is the badge rule name.
+#: includes/class-yith-wcbm-admin-premium.php:296
+msgctxt "[ADMIN] Confirm delete modal message on badge rules page"
+msgid "Are you sure you want to delete <b>\"%s\"</b>?"
+msgstr "¿Estás seguro de que quieres eliminar <b>\"%s\"</b>?"
+
+#: includes/class-yith-wcbm-admin-premium.php:297
+msgctxt "[ADMIN] Confirm delete modal button on badge rules page"
+msgid "Delete"
+msgstr "Borrar"
+
+#: includes/class-yith-wcbm-admin-premium.php:358
+msgctxt "Admin:title of column in products table"
+msgid "Badge"
+msgstr "Insignia"
+
+#: includes/class-yith-wcbm-admin.php:224
+msgctxt "[ADMIN] Confirm delete modal title on badges page"
+msgid "Confirm delete"
+msgstr "Confirmar eliminación"
+
+#. translators: %s is the badge rule name.
+#: includes/class-yith-wcbm-admin.php:226
+msgctxt "[ADMIN] Confirm delete modal message on badges page"
+msgid "Are you sure you want to delete <b>\"%s\"</b>?"
+msgstr "¿Estás seguro de que quieres eliminar <b>\"%s\"</b>?"
+
+#: includes/class-yith-wcbm-admin.php:227
+msgctxt "[ADMIN] Confirm delete modal button on badges page"
+msgid "Delete"
+msgstr "Eliminar"
+
+#: includes/class-yith-wcbm-badge-post-type-admin.php:56
+msgctxt "Empty state CTA button text"
+msgid "Create Badge"
+msgstr "Crear insignia"
+
+#: includes/class-yith-wcbm-badge-rule-post-type-admin.php:67
+msgctxt "Empty state CTA button text"
+msgid "Set Rule"
+msgstr "Establecer regla"
+
+#: includes/class-yith-wcbm-badge-post-type-admin.php:74
+msgctxt "[ADMIN] Badge Rules table column name"
+msgid "Name"
+msgstr "Nombre"
+
+#: includes/class-yith-wcbm-badge-rule-post-type-admin.php:138
+msgctxt "[ADMIN] Badge Rules table column name"
+msgid "Type"
+msgstr "Tipo"
+
+#: includes/class-yith-wcbm-badge-rule-post-type-admin.php:139
+msgctxt "[ADMIN] Badge Rules table column name"
+msgid "Enabled"
+msgstr "Activada"
+
+#: includes/class-yith-wcbm-badge-post-type-admin.php:76
+msgctxt "[ADMIN] Badges table column name"
+msgid "Preview"
+msgstr "Vista previa"
+
+#: includes/class-yith-wcbm-badge-post-type-admin.php:77
+msgctxt "[ADMIN] Badges table column name"
+msgid "Enabled"
+msgstr "Activada"
+
+#: includes/class-yith-wcbm-badge-post-type-admin.php:96
+msgctxt "Badge action"
+msgid "Enable"
+msgstr "Activar"
+
+#: includes/class-yith-wcbm-badge-post-type-admin.php:97
+msgctxt "Badge action"
+msgid "Disable"
+msgstr "Desactivar"
+
+#: includes/class-yith-wcbm-badge-post-type-admin.php:98
+msgctxt "Badge action"
+msgid "Delete"
+msgstr "Eliminar"
+
+#: includes/class-yith-wcbm-badge-post-type-admin.php:154
+#: includes/class-yith-wcbm-badge-rule-post-type-admin.php:192
+msgctxt "Action button title"
+msgid "Edit"
+msgstr "Editar"
+
+#: includes/class-yith-wcbm-badge-post-type-admin.php:160
+#: includes/class-yith-wcbm-badge-rule-post-type-admin.php:198
+msgctxt "Action button title"
+msgid "Clone"
+msgstr "Clonar"
+
+#: includes/class-yith-wcbm-badge-post-type-admin.php:176
+#: includes/class-yith-wcbm-badge-rule-post-type-admin.php:215
+msgctxt "Action button title"
+msgid "Delete"
+msgstr "Eliminar"
+
+#. translators: 1. a select with identifier of product groups; 2. is the Badge
+#. select.
+#: includes/class-yith-wcbm-badge-rules.php:222
+msgctxt ""
+"[ADMIN] Field used in Badge Rules editing page (Category and Tag types)"
+msgid "In products of %1$s show %2$s"
+msgstr "En productos de %1$s mostrar %2$s"
+
+#. translators: 1. is the datepicker "From date"; 2. is the datepicker "To
+#. date".
+#: includes/class-yith-wcbm-badge-rules.php:248
+msgctxt "[ADMIN] Field used in Badge Rules editing page (Scheduling range)"
+msgid "%1$s to %2$s"
+msgstr "%1$s a %2$s"
+
+#: includes/class-yith-wcbm-post-types-premium.php:55
+msgctxt "Admin menu name"
+msgid "Badge Rules"
+msgstr "Normas de las insignias"
+
+#: includes/class-yith-wcbm-post-types.php:61
+msgctxt "Admin menu name"
+msgid "Badges"
+msgstr "Insignias"
+
+#: includes/compatibility/auctions/class-yith-wcbm-auctions-compatibility.php:75
+msgctxt "[ADMIN] Badge Rule type title"
+msgid "Auction rules"
+msgstr "Reglas de la subasta"
+
+#: includes/compatibility/dynamic-pricing/class-yith-wcbm-dynamic-pricing-compatibility-legacy.php:183
+msgctxt "[ADMIN] Badge Rule type title"
+msgid "Dynamic pricing & discount rules"
+msgstr "Precios dinámicos y reglas de descuento"
+
+#: plugin-options/badge-rules-types.php:159
+msgctxt "[ADMIN] Badge Rule type title"
+msgid "Products badge"
+msgstr "Insignia de productos"
+
+#: plugin-options/badge-rules-types.php:229
+msgctxt "[ADMIN] Badge Rule type title"
+msgid "Category badge"
+msgstr "Insignia de categoría"
+
+#: plugin-options/badge-rules-types.php:254
+msgctxt "[ADMIN] Badge Rule type title"
+msgid "Tag badge"
+msgstr "Insignia de etiqueta"
+
+#: plugin-options/badge-rules-types.php:280
+msgctxt "[ADMIN] Badge Rule type title"
+msgid "Shipping class"
+msgstr "Clase de envío"
+
+#. translators: %s is the name of out plugin YITH WooCommerce Auction.
+#: includes/compatibility/auctions/class-yith-wcbm-auctions-compatibility.php:77
+msgctxt "[ADMIN] Badge Rule type description"
+msgid "A badge to show in auction products created with the plugin %s."
+msgstr ""
+"Una insignia para mostrar en los productos de subasta creados con el plugin "
+"%s."
+
+#: includes/compatibility/dynamic-pricing/class-yith-wcbm-dynamic-pricing-compatibility-legacy.php:184
+msgctxt "[ADMIN] Badge Rule type description"
+msgid ""
+"A badge to show by a rule created with the plugin YITH Dynamic Pricing & "
+"Discount."
+msgstr ""
+"Una insignia para mostrar una regla creada con el plugin YITH Dynamic "
+"Pricing &  Discount."
+
+#: plugin-options/badge-rules-types.php:160
+msgctxt "[ADMIN] Badge Rule type description"
+msgid ""
+"A badge to show in all products or products with specific conditions "
+"(recently, on sale, featured, out of stock, low stock)."
+msgstr ""
+"Una insignia para mostrar en todos los productos o en productos con "
+"condiciones específicas (reciente, en descuento, destacado, agotado, últimas "
+"unidades)."
+
+#: plugin-options/badge-rules-types.php:230
+msgctxt "[ADMIN] Badge Rule type description"
+msgid "A badge to show in products of specific category."
+msgstr "Una insignia para mostrar en productos de categoría específica."
+
+#: plugin-options/badge-rules-types.php:255
+msgctxt "[ADMIN] Badge Rule type description"
+msgid "A badge to show in products with specific tags."
+msgstr "Una insignia para mostrar en productos con etiquetas específicas."
+
+#: plugin-options/badge-rules-types.php:281
+msgctxt "[ADMIN] Badge Rule type description"
+msgid "A badge to show in products delivered with specific shipping class."
+msgstr ""
+"Una insignia para mostrar en los productos entregados con una clase de envío "
+"específica."
+
+#: includes/data-stores/class-yith-wcbm-badge-data-store-cpt.php:52
+msgctxt ""
+"[Generic] Error that happens when trying to read a Badge that does not exist"
+msgid "Invalid Badge."
+msgstr "Insignia no válida."
+
+#: includes/functions.yith-wcbm-update-premium.php:85
+msgctxt "[ADMIN] Title of the Automatically created Badge Rule"
+msgid "Category Rule"
+msgstr "Regla de categoría"
+
+#: includes/functions.yith-wcbm-update-premium.php:86
+msgctxt "[ADMIN] Title of the Automatically created Badge Rule"
+msgid "Shipping Class Rule"
+msgstr "Regla de la clase de envío"
+
+#: includes/functions.yith-wcbm-update-premium.php:128
+msgctxt "[ADMIN] Title of the Automatically created Badge Rule"
+msgid "Recent Products Rule"
+msgstr "Regla para productos recientes"
+
+#: includes/functions.yith-wcbm-update-premium.php:135
+msgctxt "[ADMIN] Title of the Automatically created Badge Rule"
+msgid "On sale Products Rule"
+msgstr "Regla de productos en venta"
+
+#: includes/functions.yith-wcbm-update-premium.php:139
+msgctxt "[ADMIN] Title of the Automatically created Badge Rule"
+msgid "Featured Products Rule"
+msgstr "Regla para los productos destacados"
+
+#: includes/functions.yith-wcbm-update-premium.php:143
+msgctxt "[ADMIN] Title of the Automatically created Badge Rule"
+msgid "In stock Products Rule"
+msgstr "Regla de productos disponibles"
+
+#: includes/functions.yith-wcbm-update-premium.php:147
+msgctxt "[ADMIN] Title of the Automatically created Badge Rule"
+msgid "Out of stock Products Rule"
+msgstr "Regla de productos agotados"
+
+#: includes/functions.yith-wcbm-update-premium.php:151
+msgctxt "[ADMIN] Title of the Automatically created Badge Rule"
+msgid "Low Stock Products Rule"
+msgstr "Regla de productos con inventario reducido"
+
+#: includes/functions.yith-wcbm-update-premium.php:195
+msgctxt "[ADMIN] Title of the Automatically created Badge Rule"
+msgid "Auction Products Rule"
+msgstr "Regla de productos de subasta"
+
+#: includes/functions.yith-wcbm-update-premium.php:222
+msgctxt "[ADMIN] Title of the Automatically created Badge Rule"
+msgid "Dynamic Pricing Rule"
+msgstr "Regla de precios dinámicos"
+
+#: includes/functions.yith-wcbm.php:467 includes/functions.yith-wcbm.php:478
+msgctxt "Text used inside the badges"
+msgid "Up to"
+msgstr "Hasta"
+
+#: includes/functions.yith-wcbm.php:470 includes/functions.yith-wcbm.php:481
+msgctxt "Text used inside the badges"
+msgid "Discount"
+msgstr "Descuento"
+
+#: views/badges/advanced.php:107
+msgctxt "Text in badge: preserve length"
+msgid "On Sale"
+msgstr "On Sale"
+
+#: views/badges/advanced.php:108
+msgctxt "Text in badge: preserve length"
+msgid "Off"
+msgstr "Off"
+
+#: views/badges/advanced.php:110
+msgctxt "Text in badge: preserve length"
+msgid "Save"
+msgstr "Ahorra"
+
+#: views/badges/advanced.php:113
+msgctxt "Text in badge: preserve length"
+msgid "Sale!"
+msgstr "¡Sale!"
+
+#. translators: 1. the 'Save' text; 2. the saved amount; example: 'Save $9'.
+#: views/badges/advanced.php:112
+msgctxt "Text in badge(preserve length): Save $9"
+msgid "%1$s %2$s"
+msgstr "%1$s %2$s"
+
+#. translators: 1. the saved amount; 2. the currency symbol; example: '9 $'.
+#: views/badges/advanced.php:115
+msgctxt "Text in badge (preserve length): 9 $"
+msgid "%1$s%2$s"
+msgstr "%1$s%2$s"
+
+#. translators: 1. the saved amount; 2. the percentage symbol; example: '9 %'.
+#: views/badges/advanced.php:117
+msgctxt "Text in badge (preserve length): 9 %"
+msgid "%1$s%2$s"
+msgstr "%1$s%2$s"
+
+#: views/edit-badge-rule.php:26
+msgctxt "[Admin] Back link in edit rule page"
+msgid "< back to rules list"
+msgstr "< volver a la lista de reglas"
+
+#: views/edit-badge-rule.php:32
+msgctxt "[ADMIN] Title for rule editing page"
+msgid "Edit rule"
+msgstr "Editar regla"
+
+#: views/edit-badge-rule.php:34
+msgctxt "[ADMIN] Title for new rule page"
+msgid "Add rule"
+msgstr "Añade una regla"
+
+#: views/edit-badge-rule.php:57
+msgctxt "[Admin] Rule save button, in new/edit rule page"
+msgid "Save rule"
+msgstr "Guarda la regla"
+
+#: views/fields/badge-library-premium.php:34
+msgctxt "[ADMIN] Badges Library tab title"
+msgid "Library"
+msgstr "Biblioteca"
+
+#: views/fields/badge-library-premium.php:35
+msgctxt "[ADMIN] Badges Library tab title"
+msgid "Get more badges"
+msgstr "Consigue más insignias"
+
+#: views/fields/badge-library-premium.php:56
+msgctxt ""
+"[ADMIN] ToolTip that shows up when hovering the image uploader without a "
+"valid license"
+msgid "Need a valid license to upload an image"
+msgstr "Necesitas una licencia válida para subir una imagen"
+
+#: views/fields/badge-library-premium.php:58
+msgctxt "[ADMIN] alt tag for uploaded attachment in image badge type"
+msgid "Uploaded image"
+msgstr "Imagen subida"
+
+#: views/fields/badge-library-premium.php:115
+msgctxt ""
+"[ADMIN] ToolTip that shows up when hovering the badge in \"Get more badges\" "
+"tab in badge selector without a valid license"
+msgid "Need a valid license to use this badge"
+msgstr "Necesitas una licencia válida para usar esta insignia"
+
+#: views/fields/badge-library.php:33
+msgctxt "[ADMIN] label shown in premium contents"
+msgid "Premium"
+msgstr "Premium"

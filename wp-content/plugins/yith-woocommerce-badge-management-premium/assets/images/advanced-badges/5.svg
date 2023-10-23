@@ -1,0 +1,82 @@
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="70.267px" height="70.51px" viewBox="0 0 70.267 70.51" enable-background="new 0 0 70.267 70.51" xml:space="preserve">
+<style>
+    .yith-wcbm-badge.yith-wcbm-badge-advanced-5 {
+	width: 71px;
+	height: 71px;
+	z-index: 10;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-5.yith-wcbm-advanced-display-percentage .yith-wcbm-sale-percent,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-5.yith-wcbm-advanced-display-amount .yith-wcbm-saved-money-value {
+	display: block;
+	font-size: 23px;
+	line-height: 0;
+	top: 28px;
+	right: 29px;
+	font-weight: 700;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-5.yith-wcbm-advanced-display-percentage .yith-wcbm-symbol-percent,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-5.yith-wcbm-advanced-display-amount .yith-wcbm-saved-money-currency {
+	display: block;
+	font-size: 13px;
+	line-height: 0;
+	top: 28px;
+	right: 15px;
+	font-weight: 400;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-5 .yith-wcbm-symbol-off {
+	display: block;
+	font-size: 11px;
+	line-height: 0;
+	top: 48px;
+	right: 0;
+	font-weight: 400;
+	width: 100%;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-5.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-sale-percent,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-5.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-saved-money-value,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-5.yith-wcbm-badge-advanced--flip-both .yith-wcbm-sale-percent,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-5.yith-wcbm-badge-advanced--flip-both .yith-wcbm-saved-money-value {
+	left: 27px;
+	right: auto;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-5.yith-wcbm-badge-advanced--flip-both .yith-wcbm-symbol-percent,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-5.yith-wcbm-badge-advanced--flip-both .yith-wcbm-saved-money-currency,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-5.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-saved-money-currency,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-5.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-symbol-percent {
+	right: 47px;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-5 .yith-wcbm-badge-primary-color{
+    fill: var(--badge-primary-color, #e832fd);
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-5 .yith-wcbm-badge-text-advanced {
+    color: var(--badge-text-color, #ffffff);
+}
+</style>
+    <g>
+	<path fill="#E832FD" class="yith-wcbm-badge-primary-color" d="M35.572,1.911c1.641,1.465,4.574,1.819,6.518,0.788l1.247-0.661c1.943-1.031,4.272-0.234,5.176,1.771
+		l0.579,1.287c0.903,2.006,3.438,3.523,5.633,3.371l1.409-0.098c2.194-0.151,3.998,1.523,4.007,3.725l0.006,1.412
+		c0.01,2.199,1.709,4.616,3.775,5.37l1.328,0.484c2.066,0.754,3.032,3.019,2.146,5.032l-0.568,1.291
+		c-0.887,2.014-0.317,4.912,1.263,6.441l1.016,0.982c1.581,1.529,1.543,3.991-0.086,5.471l-1.045,0.949
+		c-1.628,1.479-2.287,4.358-1.465,6.398l0.527,1.31c0.823,2.04-0.213,4.273-2.303,4.962l-1.342,0.442
+		c-2.089,0.688-3.862,3.051-3.941,5.249l-0.05,1.412c-0.079,2.198-1.934,3.816-4.122,3.596l-1.404-0.141
+		c-2.189-0.221-4.771,1.216-5.736,3.192l-0.62,1.269c-0.966,1.977-3.318,2.701-5.229,1.608l-1.227-0.701
+		c-1.91-1.092-4.853-0.829-6.538,0.585l-1.083,0.906c-1.687,1.413-4.13,1.117-5.431-0.656l-0.834-1.139
+		c-1.301-1.775-4.096-2.732-6.211-2.127l-1.359,0.389c-2.115,0.604-4.227-0.66-4.693-2.811l-0.3-1.379
+		c-0.466-2.15-2.63-4.161-4.809-4.469l-1.399-0.197c-2.178-0.308-3.594-2.322-3.145-4.476l0.287-1.382
+		c0.449-2.154-0.71-4.871-2.574-6.039l-1.197-0.749c-1.865-1.167-2.34-3.583-1.055-5.368l0.826-1.146
+		c1.285-1.785,1.331-4.738,0.102-6.563l-0.787-1.171c-1.229-1.824-0.68-4.225,1.221-5.332l1.22-0.712
+		c1.901-1.108,3.144-3.788,2.764-5.954l-0.245-1.392c-0.38-2.167,1.098-4.136,3.285-4.374l1.404-0.154
+		c2.187-0.239,4.413-2.182,4.947-4.315l0.342-1.369c0.534-2.134,2.686-3.331,4.781-2.661L21.926,4.5
+		c2.096,0.671,4.919-0.198,6.274-1.931l0.87-1.111c1.355-1.733,3.808-1.952,5.449-0.487L35.572,1.911z"/>
+</g>
+</svg>

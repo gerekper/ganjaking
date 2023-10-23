@@ -5,10 +5,12 @@ namespace MailPoet\EmailEditor\Integrations\MailPoet;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\API\JSON\API;
 use MailPoet\Config\Env;
 use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Features\FeaturesController;
 use MailPoet\Newsletter\NewslettersRepository;
+use MailPoet\Util\Security;
 use MailPoet\WP\Functions as WPFunctions;
 
 class EmailEditor {
@@ -80,6 +82,7 @@ class EmailEditor {
     $newsletter->setWpPostId($postId);
     $newsletter->setSubject('New Editor Email ' . $postId);
     $newsletter->setType(NewsletterEntity::TYPE_STANDARD); // We allow only standard emails in the new editor for now
+    $newsletter->setHash(Security::generateHash());
     $this->newsletterRepository->persist($newsletter);
     $this->newsletterRepository->flush();
   }
@@ -112,6 +115,22 @@ class EmailEditor {
       Env::$assetsUrl . '/dist/js/email-editor/email_editor.css',
       [],
       $assetsParams['version']
+    );
+
+    // Enqueue inline script with MailPoet specific editor settings
+    $jsonAPIRoot = rtrim($this->wp->escUrlRaw(admin_url('admin-ajax.php')), '/');
+    $token = $this->wp->wpCreateNonce('mailpoet_token');
+    $apiVersion = API::CURRENT_VERSION;
+    $currentUserEmail = $this->wp->wpGetCurrentUser()->user_email;
+    $this->wp->wpLocalizeScript(
+      'mailpoet_email_editor',
+      'MailPoetEmailEditor',
+      [
+        'json_api_root' => esc_js($jsonAPIRoot),
+        'api_token' => esc_js($token),
+        'api_version' => esc_js($apiVersion),
+        'current_wp_user_email' => esc_js($currentUserEmail),
+      ]
     );
   }
 

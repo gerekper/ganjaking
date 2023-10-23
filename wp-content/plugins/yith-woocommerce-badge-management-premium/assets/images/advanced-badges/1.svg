@@ -1,0 +1,144 @@
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="91px" height="60.938px" enable-background="new 0 0 91 60.938" xml:space="preserve">
+
+    <style>
+.yith-wcbm-badge.yith-wcbm-badge-advanced-1 {
+	width: 91px;
+	height: 60px;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-1 .yith-wcbm-badge-text-advanced {
+	height: calc(100% - 6px);
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-1 .yith-wcbm-sale-percent {
+	display: block;
+	font-size: 28px;
+	font-weight: 700;
+	line-height: 0;
+	top: 19px;
+	right: 30px;
+}
+
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-1 .yith-wcbm-save {
+	display: block;
+	font-size: 10px;
+	line-height: 0;
+	bottom: 9px;
+	white-space: nowrap;
+	left: calc(50% + 5px);
+	transform: translateX(-50%);
+}
+
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-1 .yith-wcbm-symbol-percent {
+	display: block;
+	font-size: 12px;
+	line-height: 12px;
+	width: min-content;
+	top: 8px;
+	right: 15px;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-1 .yith-wcbm-symbol-off {
+	display: block;
+	font-size: 10px;
+	line-height: 10px;
+	width: min-content;
+	text-transform: uppercase;
+	top: 20px;
+	right: 7px;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-1.yith-wcbm-badge-advanced--flip-vertical .yith-wcbm-badge-text-advanced .yith-wcbm-sale-percent {
+	right: 33px;
+	top: 21px;
+	transform: scale(1, -1);
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-1.yith-wcbm-badge-advanced--flip-vertical .yith-wcbm-badge-text-advanced .yith-wcbm-save {
+	bottom: 8px;
+	transform: translateX(-50%) scale(1, -1);
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-1.yith-wcbm-badge-advanced--flip-vertical .yith-wcbm-badge-text-advanced .yith-wcbm-symbol-off {
+	right: 10px;
+	top: 10px;
+	transform: scale(1, -1);
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-1.yith-wcbm-badge-advanced--flip-vertical .yith-wcbm-badge-text-advanced .yith-wcbm-symbol-percent {
+	right: 17px;
+	top: 21px;
+	transform: scale(1, -1);
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-1.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-badge-text-advanced .yith-wcbm-sale-percent {
+	left: 43px;
+	right: auto;
+	top: 19px;
+	transform: scale(-1, 1);
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-1.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-badge-text-advanced .yith-wcbm-save {
+	left: calc(50% + 5px);
+	transform: translateX(-50%) scale(-1, 1);
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-1.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-badge-text-advanced .yith-wcbm-symbol-off {
+	left: 20px;
+	transform: scale(-1, 1);
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-1.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-badge-text-advanced .yith-wcbm-symbol-percent {
+	left: 28px;
+	transform: scale(-1, 1);
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-1.yith-wcbm-badge-advanced--flip-both .yith-wcbm-badge-text-advanced .yith-wcbm-sale-percent {
+	transform: scale(-1);
+	top: 20px;
+	left: 44px;
+	right: auto;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-1.yith-wcbm-badge-advanced--flip-both .yith-wcbm-badge-text-advanced .yith-wcbm-save {
+	bottom: 8px;
+	left: calc(50% + 5px);
+	transform: translateX(-50%) scale(-1);
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-1.yith-wcbm-badge-advanced--flip-both .yith-wcbm-badge-text-advanced .yith-wcbm-symbol-off {
+	left: 22px;
+	top: 9px;
+	transform: scale(-1);
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-1.yith-wcbm-badge-advanced--flip-both .yith-wcbm-badge-text-advanced .yith-wcbm-symbol-percent {
+	left: 30px;
+	top: 19px;
+	transform: scale(-1);
+}
+.yith-wcbm-badge.yith-wcbm-badge-advanced-1 .yith-wcbm-badge-primary-color{
+    fill: var(--badge-primary-color, #74c115);
+}
+.yith-wcbm-badge.yith-wcbm-badge-advanced-1 .yith-wcbm-badge-secondary-light-color{
+    fill: var(--badge-secondary-light-color, #5A980D);
+}
+.yith-wcbm-badge.yith-wcbm-badge-advanced-1 .yith-wcbm-badge-tertiary-color{
+    fill: var(--badge-tertiary-color, #44720A);
+}
+.yith-wcbm-badge.yith-wcbm-badge-advanced-1 .yith-wcbm-badge-text-advanced {
+    color: var(--badge-text-color, #ffffff);
+}
+</style>
+
+    <g>
+	    <g>
+		    <polygon fill="#44720A" class="yith-wcbm-badge-tertiary-color" points="91,56 86.063,60.938 86.063,53"/>
+            <polygon fill="#74C114" class="yith-wcbm-badge-primary-color" points="91,0 91,56 15.333,56 0,28 14.5,0"/>
+            <polygon fill="#5A980D" class="yith-wcbm-badge-secondary-light-color"
+                     points="91,38.167 5.568,38.167 15.333,56 91,56"/>
+	    </g>
+    </g>
+</svg>

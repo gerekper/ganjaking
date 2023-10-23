@@ -5,7 +5,9 @@ namespace MailPoet\Segments\DynamicSegments\Filters;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Automation\Engine\Data\Automation;
 use MailPoet\Automation\Engine\Data\AutomationRun;
+use MailPoet\Automation\Engine\Storage\AutomationStorage;
 use MailPoet\Entities\DynamicSegmentFilterData;
 use MailPoet\Entities\DynamicSegmentFilterEntity;
 use MailPoetVendor\Doctrine\DBAL\Connection;
@@ -20,21 +22,27 @@ class AutomationsEvents implements Filter {
 
   const ENTERED_ACTION = 'enteredAutomation';
   const EXITED_ACTION = 'exitedAutomation';
+  const AUTOMATION_IDS_PARAM = 'automation_ids';
 
   /** @var FilterHelper */
   private $filterHelper;
 
+  /** @var AutomationStorage */
+  private $automationStorage;
+
   public function __construct(
-    FilterHelper $filterHelper
+    FilterHelper $filterHelper,
+    AutomationStorage $automationStorage
   ) {
     $this->filterHelper = $filterHelper;
+    $this->automationStorage = $automationStorage;
   }
 
   public function apply(QueryBuilder $queryBuilder, DynamicSegmentFilterEntity $filter): QueryBuilder {
     $filterData = $filter->getFilterData();
     $action = $filterData->getParam('action');
     $operator = $filterData->getParam('operator');
-    $automationIds = $filterData->getParam('automation_ids');
+    $automationIds = $filterData->getParam(self::AUTOMATION_IDS_PARAM);
 
     switch ($operator) {
       case DynamicSegmentFilterData::OPERATOR_ANY:
@@ -92,5 +100,21 @@ class AutomationsEvents implements Filter {
     $queryBuilder
       ->groupBy('inner_subscriber_id')
       ->having("COUNT(DISTINCT automations.id) = " . count($automationIds));
+  }
+
+  public function getLookupData(DynamicSegmentFilterData $filterData): array {
+    $automationIds = $filterData->getArrayParam(self::AUTOMATION_IDS_PARAM);
+    $lookupData = [
+      'automations' => [],
+    ];
+
+    foreach ($automationIds as $automationId) {
+      $automation = $this->automationStorage->getAutomation(intval($automationId));
+      if ($automation instanceof Automation) {
+        $lookupData['automations'][$automationId] = $automation->getName();
+      }
+    }
+
+    return $lookupData;
   }
 }

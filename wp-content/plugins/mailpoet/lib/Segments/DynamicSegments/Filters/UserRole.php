@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) exit;
 use MailPoet\Entities\DynamicSegmentFilterData;
 use MailPoet\Entities\DynamicSegmentFilterEntity;
 use MailPoet\Entities\SubscriberEntity;
+use MailPoet\InvalidStateException;
 use MailPoet\Segments\DynamicSegments\Exceptions\InvalidFilterException;
 use MailPoet\Util\Security;
 use MailPoetVendor\Doctrine\DBAL\Query\QueryBuilder;
@@ -72,5 +73,26 @@ class UserRole implements Filter {
       return join(' AND ', $sqlParts);
     }
     return join(' OR ', $sqlParts);
+  }
+
+  public function getLookupData(DynamicSegmentFilterData $filterData): array {
+    global $wp_roles;
+    $lookupData = [
+      'roles' => [],
+    ];
+    $roles = $filterData->getParam('wordpressRole');
+    if (is_string($roles)) {
+      $roles = [$roles];
+    }
+    if (!is_array($roles)) {
+      throw new InvalidStateException();
+    }
+    foreach ($roles as $roleSlug) {
+      $roleData = $wp_roles->roles[$roleSlug] ?? null;
+      if (is_array($roleData)) {
+        $lookupData['roles'][$roleSlug] = $roleData['name'];
+      }
+    }
+    return $lookupData;
   }
 }

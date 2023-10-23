@@ -39,7 +39,6 @@ class SettingsController {
 }
   }
 
-
   public function get($key, $default = null) {
     $this->ensureLoaded();
     $keyParts = explode('.', $key);

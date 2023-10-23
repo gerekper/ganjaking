@@ -5,6 +5,7 @@ namespace MailPoet\Segments\DynamicSegments\Filters;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\CustomFields\CustomFieldsRepository;
 use MailPoet\Entities\CustomFieldEntity;
 use MailPoet\Entities\DynamicSegmentFilterData;
 use MailPoet\Entities\DynamicSegmentFilterEntity;
@@ -22,10 +23,15 @@ class MailPoetCustomFields implements Filter {
   /** @var EntityManager */
   private $entityManager;
 
+  /** @var CustomFieldsRepository */
+  private $customFieldsRepository;
+
   public function __construct(
-    EntityManager $entityManager
+    EntityManager $entityManager,
+    CustomFieldsRepository $customFieldsRepository
   ) {
     $this->entityManager = $entityManager;
+    $this->customFieldsRepository = $customFieldsRepository;
   }
 
   public function apply(QueryBuilder $queryBuilder, DynamicSegmentFilterEntity $filter): QueryBuilder {
@@ -170,5 +176,17 @@ class MailPoetCustomFields implements Filter {
     }
 
     return $queryBuilder;
+  }
+
+  public function getLookupData(DynamicSegmentFilterData $filterData): array {
+    $lookupData = [
+      'customFields' => [],
+    ];
+    $customFieldId = $filterData->getIntParam('custom_field_id');
+    $customField = $this->customFieldsRepository->findOneById($customFieldId);
+    if ($customField instanceof CustomFieldEntity) {
+      $lookupData['customFields'][$customFieldId] = $customField->getName();
+    }
+    return $lookupData;
   }
 }

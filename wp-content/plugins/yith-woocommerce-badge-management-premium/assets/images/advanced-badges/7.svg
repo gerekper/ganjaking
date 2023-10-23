@@ -1,0 +1,77 @@
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="80px" height="71.084px" viewBox="0 0 80 71.084" enable-background="new 0 0 80 71.084" xml:space="preserve">
+<style>
+    .yith-wcbm-badge.yith-wcbm-badge-advanced-7 {
+	display: block;
+	width: 80px;
+	height: 70px;
+	box-sizing: border-box;
+	overflow: hidden;
+	background: transparent;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-7.yith-wcbm-advanced-display-percentage .yith-wcbm-sale-percent,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-7.yith-wcbm-advanced-display-amount .yith-wcbm-saved-money-value {
+	display: block;
+	font-size: 28px;
+	font-weight: 600;
+	line-height: 0;
+	top: 25px;
+	right: 22px;
+	z-index: 16;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-7.yith-wcbm-advanced-display-percentage .yith-wcbm-symbol-percent,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-7.yith-wcbm-advanced-display-amount .yith-wcbm-saved-money-currency {
+	display: block;
+	font-size: 12px;
+	line-height: 0;
+	top: 26px;
+	right: 9px;
+	z-index: 16;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-7 .yith-wcbm-symbol-off {
+	display: block;
+	font-size: 10px;
+	line-height: 0;
+	top: 53px;
+	right: 17px;
+	z-index: 16;
+	text-transform: uppercase;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-7.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-symbol-percent,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-7.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-saved-money-currency,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-7.yith-wcbm-badge-advanced--flip-both .yith-wcbm-saved-money-currency,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-7.yith-wcbm-badge-advanced--flip-both .yith-wcbm-symbol-percent {
+	right: 50px;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-7.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-sale-percent,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-7.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-saved-money-value,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-7.yith-wcbm-badge-advanced--flip-both .yith-wcbm-saved-money-value,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-7.yith-wcbm-badge-advanced--flip-both .yith-wcbm-sale-percent {
+	right: auto;
+	left: 32px;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-7 .yith-wcbm-badge-primary-color{
+    fill: var(--badge-primary-color, #7131FD);
+}
+.yith-wcbm-badge.yith-wcbm-badge-advanced-7 .yith-wcbm-badge-secondary-color{
+    fill: var(--badge-secondary-color, #3C0EB0);
+}
+.yith-wcbm-badge.yith-wcbm-badge-advanced-7 .yith-wcbm-badge-tertiary-color{
+    fill: var(--badge-tertiary-color, #1C3002);
+}
+.yith-wcbm-badge.yith-wcbm-badge-advanced-7 .yith-wcbm-badge-text-advanced {
+    color: var(--badge-text-color, #ffffff);
+}
+</style>
+    <g>
+	<polygon fill="#1C3002" class="yith-wcbm-badge-tertiary-color" points="80,66 75.063,71.084 75.063,63.146 	"/>
+	<polygon fill="#7131FD" class="yith-wcbm-badge-primary-color" points="80,10.25 80,66 26,62 0,0 	"/>
+	<path fill="#3C0EB0" class="yith-wcbm-badge-secondary-color" d="M22.147,52.812L26,62l54,4V33.342C68.655,37.436,36.216,48.172,22.147,52.812z"/>
+</g>
+</svg>

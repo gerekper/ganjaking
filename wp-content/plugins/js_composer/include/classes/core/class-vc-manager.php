@@ -391,12 +391,12 @@ class Vc_Manager {
 					'edit_post',
 					(int) vc_request_param( 'vc_post_id' ),
 				))->validateDie()->part( 'frontend_editor' )->can()->validateDie();
-
-
-
-
-
-
+				$this->mode = 'page_editable';
+			} elseif (
+				get_transient( 'vc_action' ) === 'vc_editable'
+				&& isset( $_SERVER['HTTP_SEC_FETCH_DEST'] )
+				&& 'iframe' === $_SERVER['HTTP_SEC_FETCH_DEST'] ) {
+				delete_transient( 'vc_action' );
 				$this->mode = 'page_editable';
 			} else {
 				$this->mode = 'page';

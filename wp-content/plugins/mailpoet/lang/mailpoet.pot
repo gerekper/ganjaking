@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MailPoet plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet 4.31.0\n"
+"Project-Id-Version: MailPoet 4.32.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-10-09T12:22:35+00:00\n"
+"POT-Creation-Date: 2023-10-16T12:01:08+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -475,7 +475,7 @@ msgstr ""
 #: views/subscription/manage_subscription.html:9
 #: lib/API/MP/v1/CustomFields.php:27
 #: lib/Automation/Integrations/WordPress/Subjects/UserSubject.php:62
-#: lib/EmailEditor/Integrations/MailPoet/EmailEditor.php:56
+#: lib/EmailEditor/Integrations/MailPoet/EmailEditor.php:58
 #: lib/Form/Templates/Templates/InitialForm.php:22
 #: lib/Subscribers/ImportExport/ImportExportFactory.php:60
 #: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:71
@@ -970,6 +970,7 @@ msgstr ""
 #: assets/dist/js/admin.js:2
 #: assets/dist/js/automation_editor.js:1
 #: assets/dist/js/commons.js:9
+#: assets/dist/js/email-editor/email_editor.js:1
 #: assets/dist/js/newsletter_editor.js:2
 msgid "Close"
 msgstr ""
@@ -3372,6 +3373,7 @@ msgstr ""
 
 #: views/newsletter/templates/blocks/base/toolsGeneric.hbs:18
 #: views/subscribers/importExport/import/step_data_manipulation.html:28
+#: assets/dist/js/admin.js:2
 #: assets/dist/js/automation_editor.js:1
 #: assets/dist/js/commons.js:9
 msgid "Cancel"
@@ -3976,6 +3978,7 @@ msgstr ""
 #: views/settings_translations.html:31
 #: assets/dist/js/admin.js:2
 #: assets/dist/js/commons.js:9
+#: assets/dist/js/email-editor/email_editor.js:1
 msgid "Preview"
 msgstr ""
 
@@ -5800,6 +5803,7 @@ msgid "Test the sending method"
 msgstr ""
 
 #: views/settings_translations.html:233
+#: assets/dist/js/email-editor/email_editor.js:1
 msgid "Send a test email"
 msgstr ""
 
@@ -7336,7 +7340,7 @@ msgid "This form does not exist."
 msgstr ""
 
 #: lib/API/JSON/v1/Forms.php:108
-#: lib/API/JSON/v1/Newsletters.php:172
+#: lib/API/JSON/v1/Newsletters.php:171
 msgid "You need to specify a status."
 msgstr ""
 
@@ -7364,35 +7368,35 @@ msgstr ""
 msgid "The email could not be sent: %s"
 msgstr ""
 
-#: lib/API/JSON/v1/Newsletters.php:123
-#: lib/API/JSON/v1/Newsletters.php:140
-#: lib/API/JSON/v1/Newsletters.php:185
-#: lib/API/JSON/v1/Newsletters.php:244
-#: lib/API/JSON/v1/Newsletters.php:260
-#: lib/API/JSON/v1/Newsletters.php:274
-#: lib/API/JSON/v1/Newsletters.php:291
-#: lib/API/JSON/v1/Newsletters.php:306
-#: lib/API/JSON/v1/Newsletters.php:329
+#: lib/API/JSON/v1/Newsletters.php:122
+#: lib/API/JSON/v1/Newsletters.php:139
+#: lib/API/JSON/v1/Newsletters.php:184
+#: lib/API/JSON/v1/Newsletters.php:243
+#: lib/API/JSON/v1/Newsletters.php:259
+#: lib/API/JSON/v1/Newsletters.php:273
+#: lib/API/JSON/v1/Newsletters.php:290
+#: lib/API/JSON/v1/Newsletters.php:305
+#: lib/API/JSON/v1/Newsletters.php:328
 #: assets/dist/js/admin.js:2
 msgid "This email does not exist."
 msgstr ""
 
-#: lib/API/JSON/v1/Newsletters.php:178
+#: lib/API/JSON/v1/Newsletters.php:177
 #: lib/API/JSON/v1/SendingQueue.php:90
 #: lib/API/JSON/v1/SendingQueue.php:223
 #: lib/Services/Bridge/API.php:373
 msgid "Subscribers limit reached."
 msgstr ""
 
-#: lib/API/JSON/v1/Newsletters.php:204
+#: lib/API/JSON/v1/Newsletters.php:203
 msgid "This email has incorrect state."
 msgstr ""
 
-#: lib/API/JSON/v1/Newsletters.php:299
+#: lib/API/JSON/v1/Newsletters.php:298
 msgid "Newsletter data is missing."
 msgstr ""
 
-#: lib/API/JSON/v1/Newsletters.php:322
+#: lib/API/JSON/v1/Newsletters.php:321
 msgid "Please specify receiver information."
 msgstr ""
 
@@ -8789,7 +8793,7 @@ msgstr ""
 
 #: lib/Config/Menu.php:235
 #: lib/Config/Menu.php:236
-#: lib/EmailEditor/Integrations/MailPoet/EmailEditor.php:55
+#: lib/EmailEditor/Integrations/MailPoet/EmailEditor.php:57
 #: assets/dist/js/automation_analytics.js:9
 msgid "Emails"
 msgstr ""
@@ -11684,19 +11688,23 @@ msgid "Soon"
 msgstr ""
 
 #: assets/dist/js/admin.js:2
-msgid "Choose an email editor"
+msgid "New editor"
 msgstr ""
 
 #: assets/dist/js/admin.js:2
-msgid "Which editor do you want to use?"
+msgid "Beta version"
 msgstr ""
 
 #: assets/dist/js/admin.js:2
-msgid "Legacy editor"
+msgid "Create modern, beautiful emails that embody your brand with advanced customization and editing capabilities."
 msgstr ""
 
 #: assets/dist/js/admin.js:2
-msgid "Gutenberg Editor"
+msgid "Emails created in the new editor cannot be reverted to the legacy version."
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Continue"
 msgstr ""
 
 #: assets/dist/js/admin.js:2
@@ -11720,11 +11728,15 @@ msgid "Convert and retain customers with automated marketing that does the hard 
 msgstr ""
 
 #: assets/dist/js/admin.js:2
-msgid "Send a newsletter with images, buttons, dividers, and social bookmarks. Or, just send a basic text email."
+msgid "Create"
 msgstr ""
 
 #: assets/dist/js/admin.js:2
-msgid "Create"
+msgid "Create using new editor (Beta)"
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Send a newsletter with images, buttons, dividers, and social bookmarks. Or, just send a basic text email."
 msgstr ""
 
 #: assets/dist/js/admin.js:2
@@ -12041,6 +12053,7 @@ msgid "Google Analytics Campaign"
 msgstr ""
 
 #: assets/dist/js/admin.js:2
+#: assets/dist/js/email-editor/email_editor.js:1
 msgid "Send to"
 msgstr ""
 
@@ -12062,6 +12075,10 @@ msgstr ""
 
 #: assets/dist/js/admin.js:2
 msgid "Subscribers selected in 'Send to' will only receive an email if they also belong to this segment."
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Can't find the segment you're looking for? [link]Create new[/link]"
 msgstr ""
 
 #: assets/dist/js/admin.js:2
@@ -12717,6 +12734,10 @@ msgstr ""
 
 #: assets/dist/js/admin.js:2
 msgid "Multiple conditions per segment are not available in the free version of the MailPoet plugin."
+msgstr ""
+
+#: assets/dist/js/admin.js:2
+msgid "Save and return"
 msgstr ""
 
 #: assets/dist/js/admin.js:2
@@ -14856,6 +14877,34 @@ msgstr ""
 
 #: assets/dist/js/email-editor/email_editor.js:1
 msgid "Send or schedule a newsletter to connect with your subscribers."
+msgstr ""
+
+#: assets/dist/js/email-editor/email_editor.js:1
+msgid "Sorry, we were unable to send this email."
+msgstr ""
+
+#: assets/dist/js/email-editor/email_editor.js:1
+msgid "Please check your <link>sending method configuration</link> with your hosting provider."
+msgstr ""
+
+#: assets/dist/js/email-editor/email_editor.js:1
+msgid "Or, sign up for MailPoet Sending Service to easily send emails. <link>Sign up for free</link>"
+msgstr ""
+
+#: assets/dist/js/email-editor/email_editor.js:1
+msgid "Send yourself a test email to test how your email would look like in different email apps. You could also enter your <link1>Mail Tester</link1> email below to test your spam score. <link2>Learn more</link2>."
+msgstr ""
+
+#: assets/dist/js/email-editor/email_editor.js:1
+msgid "Test email sent successfully!"
+msgstr ""
+
+#: assets/dist/js/email-editor/email_editor.js:1
+msgid "Sending..."
+msgstr ""
+
+#: assets/dist/js/email-editor/email_editor.js:1
+msgid "Send test email"
 msgstr ""
 
 #: assets/dist/js/marketing-optin-block/marketing-optin-block.js:1

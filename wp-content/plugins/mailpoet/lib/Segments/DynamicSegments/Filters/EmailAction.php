@@ -5,14 +5,17 @@ namespace MailPoet\Segments\DynamicSegments\Filters;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Cron\Workers\StatsNotifications\NewsletterLinkRepository;
 use MailPoet\Entities\DynamicSegmentFilterData;
 use MailPoet\Entities\DynamicSegmentFilterEntity;
+use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Entities\NewsletterLinkEntity;
 use MailPoet\Entities\StatisticsClickEntity;
 use MailPoet\Entities\StatisticsNewsletterEntity;
 use MailPoet\Entities\StatisticsOpenEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Entities\UserAgentEntity;
+use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Util\Security;
 use MailPoetVendor\Doctrine\DBAL\Connection;
 use MailPoetVendor\Doctrine\DBAL\Query\QueryBuilder;
@@ -43,12 +46,22 @@ class EmailAction implements Filter {
   /** @var FilterHelper */
   private $filterHelper;
 
+  /** @var NewslettersRepository */
+  private $newslettersRepository;
+
+  /** @var NewsletterLinkRepository */
+  private $newsletterLinkRepository;
+
   public function __construct(
     EntityManager $entityManager,
-    FilterHelper $filterHelper
+    FilterHelper $filterHelper,
+    NewslettersRepository $newslettersRepository,
+    NewsletterLinkRepository $newsletterLinkRepository
   ) {
     $this->entityManager = $entityManager;
     $this->filterHelper = $filterHelper;
+    $this->newslettersRepository = $newslettersRepository;
+    $this->newsletterLinkRepository = $newsletterLinkRepository;
   }
 
   public function apply(QueryBuilder $queryBuilder, DynamicSegmentFilterEntity $filter): QueryBuilder {
@@ -217,5 +230,43 @@ class EmailAction implements Filter {
     }
 
     return $queryBuilder;
+  }
+
+  public function getLookupData(DynamicSegmentFilterData $filterData): array {
+    $lookupData = [
+      'newsletters' => [],
+      'links' => [],
+    ];
+    $newsletterIds = $filterData->getParam('newsletters');
+    if (!is_array($newsletterIds)) {
+      $newsletterIds = [];
+    }
+
+    // Clicked action only supports single newsletter ID
+    $singularNewsletterId = $filterData->getParam('newsletter_id');
+    if (!is_null($singularNewsletterId)) {
+      $newsletterIds[] = $singularNewsletterId;
+    }
+
+    $linkIds = $filterData->getParam('link_ids');
+    if (!is_array($linkIds)) {
+      $linkIds = [];
+    }
+
+    foreach ($newsletterIds as $newsletterId) {
+      $newsletter = $this->newslettersRepository->findOneById($newsletterId);
+      if ($newsletter instanceof NewsletterEntity) {
+        $lookupData['newsletters'][$newsletterId] = $newsletter->getSubject();
+      }
+    }
+
+    foreach ($linkIds as $linkId) {
+      $link = $this->newsletterLinkRepository->findOneById($linkId);
+      if ($link instanceof NewsletterLinkEntity) {
+        $lookupData['links'][$linkId] = $link->getUrl();
+      }
+    }
+
+    return $lookupData;
   }
 }

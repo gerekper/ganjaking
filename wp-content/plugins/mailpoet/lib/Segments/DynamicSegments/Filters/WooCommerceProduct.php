@@ -9,9 +9,11 @@ use MailPoet\Entities\DynamicSegmentFilterData;
 use MailPoet\Entities\DynamicSegmentFilterEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Util\Security;
+use MailPoet\WooCommerce\Helper;
 use MailPoetVendor\Doctrine\DBAL\Connection;
 use MailPoetVendor\Doctrine\DBAL\Query\QueryBuilder;
 use MailPoetVendor\Doctrine\ORM\EntityManager;
+use WC_Product;
 
 class WooCommerceProduct implements Filter {
   const ACTION_PRODUCT = 'purchasedProduct';
@@ -25,14 +27,19 @@ class WooCommerceProduct implements Filter {
   /** @var FilterHelper */
   private $filterHelper;
 
+  /** @var Helper */
+  private $wooHelper;
+
   public function __construct(
     EntityManager $entityManager,
     FilterHelper $filterHelper,
+    Helper $wooHelper,
     WooFilterHelper $wooFilterHelper
   ) {
     $this->entityManager = $entityManager;
     $this->wooFilterHelper = $wooFilterHelper;
     $this->filterHelper = $filterHelper;
+    $this->wooHelper = $wooHelper;
   }
 
   public function apply(QueryBuilder $queryBuilder, DynamicSegmentFilterEntity $filter): QueryBuilder {
@@ -82,5 +89,21 @@ class WooCommerceProduct implements Filter {
     return $this->entityManager->getConnection()
       ->createQueryBuilder()
       ->from($table);
+  }
+
+  public function getLookupData(DynamicSegmentFilterData $filterData): array {
+    $lookupData = ['products' => []];
+    if (!$this->wooHelper->isWooCommerceActive()) {
+      return $lookupData;
+    }
+    $productIds = $filterData->getArrayParam('product_ids');
+    foreach ($productIds as $productId) {
+      $product = $this->wooHelper->wcGetProduct($productId);
+      if ($product instanceof WC_Product) {
+        $lookupData['products'][$productId] = $product->get_name();
+      }
+    }
+
+    return $lookupData;
   }
 }

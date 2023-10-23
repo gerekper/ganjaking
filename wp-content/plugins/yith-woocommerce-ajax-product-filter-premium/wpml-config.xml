@@ -1,0 +1,22 @@
+<wpml-config>
+    <custom-types>
+        <custom-type translate="1">yith_wcan_preset</custom-type>
+    </custom-types>
+    <custom-fields>
+        <custom-field action="copy">_enabled</custom-field>
+        <custom-field action="translate">_filters</custom-field>
+    </custom-fields>
+    <custom-fields-texts>
+        <key name="_filters">
+            <key name="*">
+                <key name="title" />
+            </key>
+        </key>
+    </custom-fields-texts>
+    <admin-texts>
+        <key name="yit_wcan_options">
+            <key name="yith_wcan_enable_see_all_categories_link_text" />
+            <key name="yith_wcan_enable_see_all_tags_link_text" />
+        </key>
+    </admin-texts>
+</wpml-config>

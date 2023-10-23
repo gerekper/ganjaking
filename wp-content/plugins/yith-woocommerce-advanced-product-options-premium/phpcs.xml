@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<ruleset name="YITH WooCommerce Product Add-ons and Extra Options Premium">
+    <description>YITH WooCommerce Product Add-ons and Extra Options Premium - PHP_CodeSniffer ruleset.</description>
+
+    <file>.</file>
+
+    <!-- Exclude paths -->
+    <exclude-pattern>Gruntfile.js</exclude-pattern>
+    <exclude-pattern>/.vscode/*</exclude-pattern>
+    <exclude-pattern>/assets/*</exclude-pattern>
+    <exclude-pattern>/bin/*</exclude-pattern>
+    <exclude-pattern>/languages/*</exclude-pattern>
+    <exclude-pattern>/lib/*</exclude-pattern>
+    <exclude-pattern>/node_modules/*</exclude-pattern>
+    <exclude-pattern>/plugin-fw/*</exclude-pattern>
+    <exclude-pattern>/plugin-upgrade/*</exclude-pattern>
+    <exclude-pattern>/tests/*</exclude-pattern>
+    <exclude-pattern>/tools/*</exclude-pattern>
+    <exclude-pattern>/vendor/*</exclude-pattern>
+
+    <!-- Show progress, show the error codes for each message (source). -->
+    <arg value="ps"></arg>
+
+    <!-- Strip the filepaths in reports down to the relevant bit. -->
+    <arg name="basepath" value="./"></arg>
+
+    <!-- Scan PHP files only. -->
+    <arg name="extensions" value="php"></arg>
+
+    <!-- Check up to 8 files simultaneously. -->
+    <arg name="parallel" value="8"></arg>
+
+    <!-- Set the minimum supported WP version -->
+    <config name="minimum_supported_wp_version" value="5.2"></config>
+
+    <!-- Check for cross-version support for PHP 7.0 and higher. -->
+    <config name="testVersion" value="7.0-"></config>
+
+    <!-- Include WordPress rules -->
+    <rule ref="WordPress" ></rule>
+
+    <!-- Include PHPCompatibilityWP rules to check for PHP compatibility -->
+    <rule ref="PHPCompatibilityWP"></rule>
+
+    <!-- Set custom sanitizing functions -->
+    <rule ref="WordPress.Security.ValidatedSanitizedInput">
+        <properties>
+            <property name="customSanitizingFunctions" type="array" value="wc_clean,wc_sanitize_tooltip,wc_format_decimal,wc_stock_amount,wc_sanitize_permalink,wc_sanitize_textarea"></property>
+        </properties>
+    </rule>
+
+    <!-- Set custom escaping functions -->
+    <rule ref="WordPress.Security.EscapeOutput">
+        <properties>
+            <property name="customEscapingFunctions" type="array" value="wc_help_tip,wc_sanitize_tooltip,wc_selected,wc_kses_notice,wc_esc_json,wc_query_string_form_fields,wc_make_phone_clickable"></property>
+        </properties>
+    </rule>
+</ruleset>

@@ -1,0 +1,514 @@
+# Translation of YITH WooCommerce Custom Order Status in Italian
+# This file is distributed under the same license as the YITH WooCommerce Custom Order Status package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Custom Order Status\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"custom-order-status.premium\n"
+"POT-Creation-Date: 2023-09-14 14:16:15+00:00\n"
+"PO-Revision-Date: 2023-05-16 11:58:06+0000\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+
+#: includes/class.yith-wccos-admin.php:163
+msgid ""
+"This status cannot be deleted or moved to trash because it is currently "
+"being used in one or more orders!"
+msgstr ""
+"Non è possibile eliminare o spostare questo stato nel cestino in quanto "
+"attualmente utilizzato in uno o più ordini!"
+
+#: includes/class.yith-wccos-admin.php:164
+msgid ""
+"Before deleting it, you should change the status of the orders that have "
+"this specific status."
+msgstr ""
+"Prima di eliminarlo è consigliabile cambiare questo stato negli ordini in "
+"cui è utilizzato."
+
+#: includes/class.yith-wccos-admin.php:170
+msgid "Error"
+msgstr "Errore"
+
+#. translators: %s: status name.
+#: includes/class.yith-wccos-admin.php:174
+msgid "See orders with the \"%s\" status"
+msgstr "Vedi gli ordini con lo stato \"%s\""
+
+#: includes/class.yith-wccos-admin.php:190
+#: plugin-options/metabox/custom-order-status-options.php:47
+#: plugin-options/metabox/custom-order-status-options.php:54
+#: plugin-options/metabox/custom-order-status-options.php:75
+msgid "Icon"
+msgstr "Icona"
+
+#: includes/class.yith-wccos-admin.php:204
+#: plugin-options/metabox/custom-order-status-options.php:95
+msgid "User can cancel"
+msgstr "L'utente può annullare"
+
+#: includes/class.yith-wccos-admin.php:205
+#: plugin-options/metabox/custom-order-status-options.php:101
+msgid "User can pay"
+msgstr "L'utente può pagare"
+
+#: includes/class.yith-wccos-admin.php:206
+#: plugin-options/metabox/custom-order-status-options.php:107
+msgid "Order is paid"
+msgstr "L'ordine è pagato"
+
+#: includes/class.yith-wccos-admin.php:207
+#: plugin-options/metabox/custom-order-status-options.php:117
+msgid "Allow Downloads"
+msgstr "Consenti i download"
+
+#: includes/class.yith-wccos-admin.php:208
+#: plugin-options/metabox/custom-order-status-options.php:123
+msgid "Display in Reports"
+msgstr "Mostra nei report"
+
+#: includes/class.yith-wccos-admin.php:209
+#: plugin-options/metabox/custom-order-status-options.php:129
+msgid "Restore Stock"
+msgstr "Ripristina stock"
+
+#: includes/class.yith-wccos-admin.php:210
+#: plugin-options/metabox/custom-order-status-options.php:135
+msgid "Show always in Actions"
+msgstr "Mostra sempre nelle Azioni"
+
+#: includes/class.yith-wccos-admin.php:211
+msgid "Send email to"
+msgstr "Invia email a"
+
+#: includes/class.yith-wccos-admin.php:215
+#: plugin-options/metabox/custom-order-status-options.php:15
+msgid "Status Type"
+msgstr "Tipo di stato"
+
+#: includes/class.yith-wccos-admin.php:216
+#: plugin-options/metabox/custom-order-status-options.php:32
+msgid "Slug"
+msgstr "Slug"
+
+#: includes/class.yith-wccos-admin.php:217
+#: plugin-options/metabox/custom-order-status-options.php:82
+msgid "Next Actions"
+msgstr "Prossime azioni"
+
+#: includes/class.yith-wccos-admin.php:294
+msgid "None"
+msgstr "Nessuno"
+
+#: includes/class.yith-wccos-admin.php:330
+msgid "Change status: "
+msgstr "Cambia stato:"
+
+#: includes/class.yith-wccos-admin.php:398
+#: includes/class.yith-wccos-admin.php:533
+msgid "Order Statuses"
+msgstr "Stati dell'ordine"
+
+#: includes/class.yith-wccos-admin.php:399
+msgid "Order Status"
+msgstr "Stato dell'ordine"
+
+#: includes/class.yith-wccos-admin.php:400
+msgid "Add Order Status"
+msgstr "Aggiungi stato dell'ordine"
+
+#: includes/class.yith-wccos-admin.php:401
+msgid "New Order Status"
+msgstr "Nuovo stato dell'ordine"
+
+#: includes/class.yith-wccos-admin.php:402
+msgid "Edit Order Status"
+msgstr "Modifica stato dell'ordine"
+
+#: includes/class.yith-wccos-admin.php:403
+msgid "View Order Status"
+msgstr "Vedi lo stato dell'ordine"
+
+#: includes/class.yith-wccos-admin.php:404
+msgid "Order Status not found"
+msgstr "Stato dell'ordine non trovato"
+
+#: includes/class.yith-wccos-admin.php:405
+msgid "Order Status not found in trash"
+msgstr "Stato dell'ordine non trovato nel cestino"
+
+#: includes/class.yith-wccos-admin.php:428
+msgid "Status Options"
+msgstr "Opzioni di stato"
+
+#: includes/class.yith-wccos-admin.php:534
+#: plugin-options/metabox/custom-order-status-options.php:12
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: includes/class.yith-wccos-admin.php:634
+msgid "Mark"
+msgstr "Contrassegna"
+
+#. translators: 1. the item ID; 2. the variation ID; 3. the initial quantity;
+#. 4. the final quantity.
+#: includes/class.yith-wccos-admin.php:1045
+msgid "Item %1$s variation #%2$s: stock increased from %3$s to %4$s."
+msgstr ""
+"Lo stock della variazione #%2$s dell'articolo %1$s è aumentato da %3$s a "
+"%4$s."
+
+#. translators: 1. the item ID; 2. the initial quantity; 3. the final quantity.
+#: includes/class.yith-wccos-admin.php:1048
+msgid "Item %1$s: stock increased from %2$s to %3$s."
+msgstr "Lo stock dell'articolo %1$s è aumentato da %2$s a %3$s."
+
+#: includes/class.yith-wccos-admin.php:1099
+#: includes/class.yith-wccos-admin.php:1175
+msgid "Complete"
+msgstr "Completa"
+
+#: includes/class.yith-wccos-email.php:76
+msgid "Custom Order Status Mail"
+msgstr "Mail dello stato dell'ordine personalizzato"
+
+#: includes/class.yith-wccos-email.php:77
+msgid "YITH WooCommerce Custom Order Status Mail"
+msgstr "Mail YITH WooCommerce Custom Order Status "
+
+#: includes/class.yith-wccos-email.php:260
+msgid "Enable/Disable"
+msgstr "Attiva/Disattiva"
+
+#: includes/class.yith-wccos-email.php:262
+msgid "Enable this email notification"
+msgstr "Abilita questa notifica email"
+
+#: includes/class.yith-wccos-email.php:266
+msgid "Email type"
+msgstr "Tipo email"
+
+#: includes/class.yith-wccos-email.php:268
+msgid "Choose which format of email to send."
+msgstr "Scegli quale formato email inviare."
+
+#: includes/functions.yith-wccos.php:61
+msgid "Administrator"
+msgstr "Amministratore"
+
+#: includes/functions.yith-wccos.php:62
+msgid "Customer"
+msgstr "Cliente"
+
+#: includes/functions.yith-wccos.php:63
+msgid "Custom Email Address"
+msgstr "Indirizzo email personalizzato"
+
+#: includes/integrations/class.yith-wccos-multi-vendor-integration.php:60
+msgid "Vendor"
+msgstr "Venditore"
+
+#: includes/integrations/class.yith-wccos-wpml-integration.php:74
+msgid "Title"
+msgstr "Titolo"
+
+#: includes/integrations/class.yith-wccos-wpml-integration.php:78
+msgid "Email Custom Message"
+msgstr "Messaggio email personalizzato"
+
+#: includes/integrations/class.yith-wccos-wpml-integration.php:83
+#: plugin-options/metabox/custom-order-status-options.php:189
+msgid "Email Heading"
+msgstr "Intestazione email"
+
+#: includes/integrations/class.yith-wccos-wpml-integration.php:87
+#: plugin-options/metabox/custom-order-status-options.php:182
+msgid "Email Subject"
+msgstr "Soggetto email"
+
+#: includes/integrations/class.yith-wccos-wpml-integration.php:134
+msgid "WPML Traslations"
+msgstr "Traduzioni WPML"
+
+#: init.php:36
+msgid ""
+"YITH WooCommerce Custom Order Status Premium is enabled but not effective. "
+"It requires WooCommerce in order to work."
+msgstr ""
+"YITH WooCommerce Custom Order Status Premium è attivo ma non operativo. Il "
+"suo funzionamento richiede WooCommerce."
+
+#: plugin-options/metabox/custom-order-status-options.php:16
+msgid "Select a type for your status."
+msgstr "Seleziona il tipo di stato."
+
+#: plugin-options/metabox/custom-order-status-options.php:33
+msgid "Unique slug of your status"
+msgstr "Slug unico per questo stato"
+
+#: plugin-options/metabox/custom-order-status-options.php:39
+msgid "Color"
+msgstr "Colore"
+
+#: plugin-options/metabox/custom-order-status-options.php:40
+msgid "Color of your status"
+msgstr "Colore per questo stato"
+
+#: plugin-options/metabox/custom-order-status-options.php:48
+msgid "Icon of your status"
+msgstr "Icona per questo stato"
+
+#: plugin-options/metabox/custom-order-status-options.php:53
+msgid "Default"
+msgstr "Default"
+
+#: plugin-options/metabox/custom-order-status-options.php:59
+msgid "Choose Icon"
+msgstr "Scegli icona"
+
+#: plugin-options/metabox/custom-order-status-options.php:71
+msgid "Graphic Style"
+msgstr "Stile grafico"
+
+#: plugin-options/metabox/custom-order-status-options.php:72
+msgid "Style of your status button and indicator"
+msgstr "Stile del pulsante per questo stato e indicatore"
+
+#: plugin-options/metabox/custom-order-status-options.php:76
+msgid "Text"
+msgstr "Testo"
+
+#: plugin-options/metabox/custom-order-status-options.php:83
+msgid "Select statuses that will be enabled by this status"
+msgstr "Seleziona gli stati che saranno attivati da questo stato"
+
+#: plugin-options/metabox/custom-order-status-options.php:96
+msgid ""
+"Choose whether the customer can cancel orders when this status is applied or "
+"not"
+msgstr ""
+"Scegli se il cliente può o meno cancellare gli ordini quando viene applicato "
+"questo stato"
+
+#: plugin-options/metabox/custom-order-status-options.php:102
+msgid ""
+"Choose whether the customer can pay orders when this status is applied or not"
+msgstr ""
+"Scegli se il cliente può o meno pagare gli ordini quando viene applicato "
+"questo stato"
+
+#: plugin-options/metabox/custom-order-status-options.php:108
+msgid "Choose whether the order is considered paid or not"
+msgstr "Scegli se l'ordine è da considerare pagato o meno"
+
+#: plugin-options/metabox/custom-order-status-options.php:118
+msgid ""
+"Choose whether you want to allow downloads when this status is applied or not"
+msgstr ""
+"Scegli se vuoi permettere i download o meno quando viene applicato questo "
+"stato"
+
+#: plugin-options/metabox/custom-order-status-options.php:124
+msgid ""
+"Choose whether you want to include orders marked with this status in Reports"
+msgstr ""
+"Scegli se vuoi includere nei report gli ordini marcati con questo stato"
+
+#: plugin-options/metabox/custom-order-status-options.php:130
+msgid ""
+"Choose whether you want to restore stock quantities or not when this status "
+"is applied"
+msgstr ""
+"Scegli se vuoi ripristinare le quantità dello stock o meno quando viene "
+"applicato questo stato "
+
+#: plugin-options/metabox/custom-order-status-options.php:136
+msgid ""
+"Choose whether you want to always show this status in WooCommerce Order "
+"Actions"
+msgstr ""
+"Scegli se vuoi sempre mostrare questo stato nelle azioni dell'ordine di "
+"WooCommerce"
+
+#: plugin-options/metabox/custom-order-status-options.php:141
+#: plugin-options/metabox/custom-order-status-options.php:149
+msgid "Email Settings"
+msgstr "Impostazioni email"
+
+#: plugin-options/metabox/custom-order-status-options.php:142
+msgid "To set emails for WooCommerce default status, use WooCommerce Panel in "
+msgstr ""
+"Per impostare lo stato di default di WooCommerce utilizza WooCommerce Panel "
+"in "
+
+#: plugin-options/metabox/custom-order-status-options.php:142
+msgid "WooCommerce -> Settings -> Emails"
+msgstr "WooCommerce -> Settings -> Emails"
+
+#: plugin-options/metabox/custom-order-status-options.php:152
+msgid "Recipients"
+msgstr "Destinatari"
+
+#: plugin-options/metabox/custom-order-status-options.php:153
+msgid "Choose recipients of email notifications for this status"
+msgstr "Scegli i destinatari delle notifiche email per questo stato."
+
+#: plugin-options/metabox/custom-order-status-options.php:161
+msgid "Recipient Email Address"
+msgstr "Indirizzo email destinatario"
+
+#: plugin-options/metabox/custom-order-status-options.php:162
+msgid ""
+"Type here the email address to notify when the selected status is selected"
+msgstr ""
+"Scrivi qui l'indirizzo email per notificare quando lo stato scelto viene "
+"selezionato"
+
+#: plugin-options/metabox/custom-order-status-options.php:168
+msgid "\"From\" Name"
+msgstr "\"Da\" - nome"
+
+#: plugin-options/metabox/custom-order-status-options.php:169
+msgid "Enter the email sender name which will appear to recipients"
+msgstr "Inserisci il nome del mittente email che apparirà ai destinatari"
+
+#: plugin-options/metabox/custom-order-status-options.php:175
+msgid "\"From\" Email Address"
+msgstr "\"Da\" - indirizzo email"
+
+#: plugin-options/metabox/custom-order-status-options.php:176
+msgid "Enter the email address which will appear to recipients"
+msgstr "Inserisci l'indirizzo email che apparirà ai destinatari"
+
+#: plugin-options/metabox/custom-order-status-options.php:183
+msgid "Enter the email subject which will appear to recipients of the email"
+msgstr "Inserisci l'oggetto che apparirà ai destinatari delle email"
+
+#: plugin-options/metabox/custom-order-status-options.php:190
+msgid "Enter the heading you want to appear in the email sent"
+msgstr "Inserisci l'intestazione che desideri visualizzare nella email inviata"
+
+#: plugin-options/metabox/custom-order-status-options.php:196
+msgid "Custom Message"
+msgstr "Messaggio personalizzato"
+
+#: plugin-options/metabox/custom-order-status-options.php:197
+msgid ""
+"Available Shortcodes: {customer_first_name} , {customer_last_name} , "
+"{order_date} , {order_number} , {order_value} , {billing_address} , "
+"{shipping_address}"
+msgstr ""
+"Shortcode disponibili:  {customer_first_name} , {customer_last_name} , "
+"{order_date} , {order_number} , {order_value} , {billing_address} , "
+"{shipping_address}"
+
+#: plugin-options/metabox/custom-order-status-options.php:203
+msgid "Include Order Information"
+msgstr "Includi informazioni dell'ordine"
+
+#: plugin-options/metabox/custom-order-status-options.php:204
+msgid ""
+"Select whether you want to include order information (billing and shipping "
+"address, order items, total, etc)"
+msgstr ""
+"Seleziona se vuoi includere le informazioni dell'ordine (indirizzo di "
+"fatturazione e consegna, prodotti dell'ordine, totale, etc.)"
+
+#: plugin-options/settings-options.php:15
+msgid "General Options"
+msgstr "Opzioni generali"
+
+#: plugin-options/settings-options.php:21
+msgid "Enable Shop Manager to manage Custom Order Statuses"
+msgstr ""
+"Abilita lo Shop manager alla gestione degli stati dell'ordine personalizzati"
+
+#: plugin-options/settings-options.php:27
+#: plugin-options/settings-options.php:31
+msgid "Import Custom Statuses"
+msgstr "Importa stati personalizzati"
+
+#. translators: %s is the order number.
+#: templates/pretty-emails/emails/custom_status_email_template.php:35
+msgid "Order #%s"
+msgstr "Ordine #%s"
+
+#: templates/pretty-emails/emails/custom_status_email_template.php:42
+msgid "Product"
+msgstr "Prodotto"
+
+#: templates/pretty-emails/emails/custom_status_email_template.php:43
+msgid "Quantity"
+msgstr "Quantità"
+
+#: templates/pretty-emails/emails/custom_status_email_template.php:44
+msgid "Price"
+msgstr "Prezzo"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Custom Order Status</strong></code> allows "
+"you to create and manage new custom order statuses. For example, you can "
+"create \"in shipping\" or \"shipped\" before setting orders with those "
+"statuses to completed. A big advantage for your internal management. <a "
+"href=\"https://yithemes.com/\" target=\"_blank\">Get more plugins for your e-"
+"commerce shop on <strong>YITH</strong></a>"
+msgstr ""
+"<code><strong>YITH WooCommerce Custom Order Status</strong></code> ti "
+"permette di creare e gestire nuovi stati personalizzati degli ordini. Ad "
+"esempio puoi creare \"in spedizione\" o \"spedito\" prima di impostare gli "
+"ordini di questi stati a completato. Un grande vantaggio per la gestione "
+"interna. <a href=\"https://yithemes.com/\" target=\"_blank\">Ottieni più "
+"plugin per il tuo e-commerce su <strong>YITH</strong></a>"
+
+#: includes/class.yith-wccos-admin.php:249
+#: plugin-options/metabox/custom-order-status-options.php:19
+msgctxt "Select status type"
+msgid "Custom Status"
+msgstr "Stato personalizzato"
+
+#: includes/class.yith-wccos-admin.php:250
+#: plugin-options/metabox/custom-order-status-options.php:20
+msgctxt "Select status type"
+msgid "Pending Payment"
+msgstr "In attesa di pagamento"
+
+#: includes/class.yith-wccos-admin.php:251
+#: plugin-options/metabox/custom-order-status-options.php:21
+msgctxt "Select status type"
+msgid "Processing"
+msgstr "In elaborazione"
+
+#: includes/class.yith-wccos-admin.php:252
+#: plugin-options/metabox/custom-order-status-options.php:22
+msgctxt "Select status type"
+msgid "On Hold"
+msgstr "In sospeso"
+
+#: includes/class.yith-wccos-admin.php:253
+#: plugin-options/metabox/custom-order-status-options.php:23
+msgctxt "Select status type"
+msgid "Completed"
+msgstr "Completato"
+
+#: includes/class.yith-wccos-admin.php:254
+#: plugin-options/metabox/custom-order-status-options.php:24
+msgctxt "Select status type"
+msgid "Cancelled"
+msgstr "Cancellato"
+
+#: includes/class.yith-wccos-admin.php:255
+#: plugin-options/metabox/custom-order-status-options.php:25
+msgctxt "Select status type"
+msgid "Refunded"
+msgstr "Rimborsato"
+
+#: includes/class.yith-wccos-admin.php:256
+#: plugin-options/metabox/custom-order-status-options.php:26
+msgctxt "Select status type"
+msgid "Failed"
+msgstr "Fallito"

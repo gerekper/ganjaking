@@ -1,0 +1,78 @@
+.yith-plugin-fw__list-items {
+    display  : grid;
+    grid-gap : 13px;
+    margin   : 15px 0 0;
+}
+
+.yith-plugin-fw__list-item {
+    .yith-plugin-fw__list-item__wrap {
+        padding         : 12px 18px;
+        border          : 1px solid #e6e6e6;
+        background      : #f5f5f5;
+        display         : flex;
+        align-items     : center;
+        text-decoration : none;
+        color           : inherit;
+    }
+
+    &:not(.yith-plugin-fw__list-item--no-link) {
+        .yith-plugin-fw__list-item__wrap:hover {
+            border-color : #bcd9f6;
+            background   : #e5eef7;
+
+            .yith-plugin-fw__list-item__step,
+            .yith-plugin-fw__list-item__arrow {
+                color : var(--yith-link);
+            }
+        }
+    }
+
+    mark {
+        background : transparent;
+        color      : var(--yith-link);
+    }
+
+    .yith-plugin-fw__list-item__step {
+        font-size   : 30px;
+        font-weight : 700;
+        text-align  : center;
+        width       : 60px;
+        margin-left : -14px;
+        color       : #717171;
+        opacity     : .36;
+    }
+
+    .yith-plugin-fw__list-item__content {
+        font-weight : 500;
+        flex        : 1;
+    }
+
+    .yith-plugin-fw__list-item__title {
+        font-size : 1.1em;
+    }
+
+    .yith-plugin-fw__list-item__description {
+        font-size  : .85em;
+        margin-top : .5em;
+    }
+
+    .yith-plugin-fw__list-item__cta {
+        margin-top  : .7em;
+        color       : var(--yith-link);
+        font-size   : .85em;
+        font-weight : 500;
+    }
+
+    .yith-plugin-fw__list-item__arrow {
+        color       : #717171;
+        margin-left : 10px;
+        font-size   : 12px;
+        font-weight : 800;
+    }
+}
+
+.yith-plugin-fw__list-items--list {
+    .yith-plugin-fw__list-item__title {
+        font-style : italic;
+    }
+}

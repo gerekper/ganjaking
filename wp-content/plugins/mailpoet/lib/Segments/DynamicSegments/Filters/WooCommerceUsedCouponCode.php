@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) exit;
 use MailPoet\Entities\DynamicSegmentFilterData;
 use MailPoet\Entities\DynamicSegmentFilterEntity;
 use MailPoet\Segments\DynamicSegments\Exceptions\InvalidFilterException;
+use MailPoet\WooCommerce\Helper;
 use MailPoetVendor\Carbon\Carbon;
 use MailPoetVendor\Doctrine\DBAL\Connection;
 use MailPoetVendor\Doctrine\DBAL\Query\QueryBuilder;
@@ -23,12 +24,17 @@ class WooCommerceUsedCouponCode implements Filter {
   /** @var FilterHelper */
   private $filterHelper;
 
+  /** @var Helper */
+  private $wooHelper;
+
   public function __construct(
     WooFilterHelper $wooFilterHelper,
+    Helper $wooHelper,
     FilterHelper $filterHelper
   ) {
     $this->wooFilterHelper = $wooFilterHelper;
     $this->filterHelper = $filterHelper;
+    $this->wooHelper = $wooHelper;
   }
 
   public function apply(QueryBuilder $queryBuilder, DynamicSegmentFilterEntity $filter): QueryBuilder {
@@ -110,5 +116,20 @@ class WooCommerceUsedCouponCode implements Filter {
     ) {
       throw new InvalidFilterException('Missing operator', InvalidFilterException::MISSING_OPERATOR);
     }
+  }
+
+  public function getLookupData(DynamicSegmentFilterData $filterData): array {
+    $lookupData = ['coupons' => []];
+    if (!$this->wooHelper->isWooCommerceActive()) {
+      return $lookupData;
+    }
+    $couponIds = $filterData->getArrayParam(self::COUPON_CODE_IDS_KEY);
+    foreach ($couponIds as $couponId) {
+      $couponCode = $this->wooHelper->wcGetCouponCodeById((int)$couponId);
+      if (!empty($couponCode)) {
+        $lookupData['coupons'][$couponId] = $couponCode;
+      }
+    }
+    return $lookupData;
   }
 }

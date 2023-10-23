@@ -1,0 +1,49 @@
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+     width="69.583px" height="69.583px" viewBox="0 0 69.583 69.583" enable-background="new 0 0 69.583 69.583" xml:space="preserve">
+<style>
+    .yith-wcbm-badge.yith-wcbm-badge-advanced-2.yith-wcbm-advanced-display-percentage .yith-wcbm-saved-percentage,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-2.yith-wcbm-advanced-display-amount .yith-wcbm-saved-money {
+	display: block;
+	font-weight: 600;
+	font-size: 20px;
+	line-height: 20px;
+	top: 20px;
+	text-align: center;
+	width: 100%;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-2 .yith-wcbm-symbol-off {
+	display: block;
+	font-size: 10px;
+	line-height: 0;
+	top: 48px;
+	width: 100%;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-2.yith-wcbm-advanced-display-percentage.yith-wcbm-badge-advanced--flip-vertical .yith-wcbm-saved-percentage,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-2.yith-wcbm-advanced-display-amount.yith-wcbm-badge-advanced--flip-vertical .yith-wcbm-saved-money,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-2.yith-wcbm-advanced-display-percentage.yith-wcbm-badge-advanced--flip-both .yith-wcbm-saved-percentage,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-2.yith-wcbm-advanced-display-amount.yith-wcbm-badge-advanced--flip-both .yith-wcbm-saved-money {
+	top: 30px;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-2.yith-wcbm-badge-advanced--flip-vertical .yith-wcbm-symbol-off,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-2.yith-wcbm-badge-advanced--flip-both .yith-wcbm-symbol-off {
+	top: 20px;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-2 .yith-wcbm-badge-primary-color{
+    fill: var(--badge-primary-color, #f56506);
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-2 .yith-wcbm-badge-text-advanced {
+    color: var(--badge-text-color, #ffffff);
+}
+</style>
+    <g>
+	<path fill="#F56507" class="yith-wcbm-badge-primary-color" d="M34.792,0C15.577,0,0,15.577,0,34.792c0,6.057,1.551,11.751,4.272,16.711l-0.004-0.004L0,60.25
+		l10.215-0.834c6.294,6.282,14.982,10.167,24.577,10.167c19.215,0,34.792-15.576,34.792-34.791S54.006,0,34.792,0z"/>
+</g>
+</svg>

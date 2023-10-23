@@ -1,0 +1,616 @@
+@charset "UTF-8";
+/* === Filter Preset List === */
+#yith_wcan_panel_filter-preset {
+  position: relative; }
+  #yith_wcan_panel_filter-preset #plugin-fw-wc {
+    padding-top: 0; }
+  #yith_wcan_panel_filter-preset .yith-wcan-admin-no-post {
+    text-align: center;
+    padding: 50px; }
+    #yith_wcan_panel_filter-preset .yith-wcan-admin-no-post img {
+      width: 90px;
+      margin-bottom: 15px; }
+    #yith_wcan_panel_filter-preset .yith-wcan-admin-no-post p span {
+      display: block;
+      margin-bottom: 5px; }
+      #yith_wcan_panel_filter-preset .yith-wcan-admin-no-post p span.strong {
+        font-weight: 700;
+        font-size: 16px; }
+    #yith_wcan_panel_filter-preset .yith-wcan-admin-no-post a.yith-add-button {
+      margin-top: 40px;
+      padding: 7px 30px; }
+  #yith_wcan_panel_filter-preset #yith_wcan_update_to_presets {
+    color: #C46D00;
+    font-weight: 700;
+    padding-right: 15px;
+    position: relative;
+    float: right;
+    margin-top: -40px; }
+    #yith_wcan_panel_filter-preset #yith_wcan_update_to_presets:after {
+      border: 1px solid #C46D00;
+      border-radius: 100%;
+      content: '?';
+      display: block;
+      font-size: .8em;
+      line-height: 1;
+      padding: 0 2px;
+      position: absolute;
+      right: 0;
+      top: 0; }
+  #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__content__page__title .yith-add-button {
+    font-size: 13px;
+    margin-left: 15px; }
+  #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table {
+    max-width: none; }
+    #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container {
+      border: none;
+      padding: 0; }
+      #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container .tablenav.top {
+        display: none; }
+      #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table {
+        border: none;
+        border-collapse: separate;
+        border-spacing: 0 25px;
+        box-shadow: none;
+        margin-top: 30px; }
+        #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table tfoot {
+          display: none; }
+        #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table thead tr th {
+          border: none;
+          padding: 0 25px; }
+        #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table tbody tr {
+          background: none;
+          border: 1px solid #e0e0e0;
+          border-radius: 4px;
+          box-shadow: 0 0 10px 0 rgba(167, 217, 236, 0.4); }
+          #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table tbody tr.yith-toggle-row {
+            border-radius: 4px;
+            border: 1px solid #e0e0e0; }
+          #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table tbody tr td {
+            border-color: #e0e0e0;
+            border-width: 1px 0;
+            border-style: solid;
+            padding: 30px 25px; }
+            #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table tbody tr td:first-child {
+              border-bottom-left-radius: 4px;
+              border-left-width: 1px;
+              border-top-left-radius: 4px; }
+            #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table tbody tr td:last-child {
+              border-bottom-right-radius: 4px;
+              border-right-width: 1px;
+              border-top-right-radius: 4px; }
+          #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table tbody tr:last-child td {
+            border-bottom: 1px solid #e0e0e0 !important; }
+          #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table tbody tr:hover td,
+          #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table tbody tr .yith-toggle-title:hover {
+            background: #f0f6fb; }
+          #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table tbody tr td.name a {
+            color: #434343; }
+            #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table tbody tr td.name a:hover {
+              color: #20659d; }
+          #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table tbody tr td.shortcode .copy-on-click {
+            cursor: pointer;
+            display: inline-block;
+            position: relative; }
+            #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table tbody tr td.shortcode .copy-on-click input {
+              background: #f1f1f1;
+              color: #999;
+              border: 1px dashed #ccc;
+              cursor: pointer; }
+            #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table tbody tr td.shortcode .copy-on-click:after {
+              color: #9d9d9d;
+              content: '\f101';
+              font-family: 'yith-icon';
+              font-size: 14px;
+              position: absolute;
+              right: 15px;
+              top: 10px; }
+          #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table tbody tr td.actions {
+            overflow: hidden; }
+            #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table tbody tr td.actions > * {
+              float: right !important; }
+            #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table tbody tr td.actions a {
+              float: right; }
+              #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table tbody tr td.actions a.show-on-hover {
+                align-items: center;
+                background: #fff;
+                box-shadow: 0px 2px 7px rgba(170, 198, 222, 0.5);
+                border-radius: 100%;
+                color: #20659d;
+                display: flex;
+                float: right;
+                font-size: 17px;
+                height: 35px;
+                margin-right: 8px;
+                opacity: 0;
+                transform: translate(0, -70px);
+                transition: all ease .3s;
+                width: 35px;
+                justify-content: center; }
+                #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table tbody tr td.actions a.show-on-hover i {
+                  font-size: 17px; }
+                #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table tbody tr td.actions a.show-on-hover:hover {
+                  background: #f3f3f3; }
+                #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table tbody tr td.actions a.show-on-hover.delete {
+                  color: #ba3e3e;
+                  font-size: 20px;
+                  margin-right: 15px; }
+            #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table tbody tr td.actions .yith-plugin-fw-onoff-field-wrapper {
+              display: inline-block;
+              margin-right: 30px; }
+              #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table tbody tr td.actions .yith-plugin-fw-onoff-field-wrapper .yith-plugin-fw-onoff-container {
+                margin: 5px 0; }
+          #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container table.wp-list-table tbody tr:hover td.actions a.show-on-hover {
+            opacity: 1;
+            transform: none; }
+      #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table .yith-plugin-fw-list-table-container .tablenav-pages .displaying-num {
+        display: none; }
+    #yith_wcan_panel_filter-preset .yith-plugin-fw__panel__option--list-table #filter_presets_table .list-table-title {
+      display: none; }
+
+/* === Upgrade Note Modal === */
+.yith-wcan-upgrade-note.wc-backbone-modal {
+  text-align: center; }
+  .yith-wcan-upgrade-note.wc-backbone-modal .wc-backbone-modal-content {
+    max-width: 300px;
+    border-radius: 15px; }
+    .yith-wcan-upgrade-note.wc-backbone-modal .wc-backbone-modal-content .modal-close-link {
+      background-color: transparent;
+      border: 0;
+      cursor: pointer;
+      color: #cdcdcd;
+      height: 54px;
+      width: 54px;
+      outline: none;
+      padding: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      text-align: center;
+      z-index: 1; }
+      .yith-wcan-upgrade-note.wc-backbone-modal .wc-backbone-modal-content .modal-close-link:hover {
+        color: #666; }
+    .yith-wcan-upgrade-note.wc-backbone-modal .wc-backbone-modal-content .modal-title {
+      color: #C46D00;
+      position: relative;
+      padding-top: 50px; }
+      .yith-wcan-upgrade-note.wc-backbone-modal .wc-backbone-modal-content .modal-title:before {
+        content: '!';
+        display: inline-block;
+        border: 2px solid #C46D00;
+        border-radius: 100%;
+        font-weight: 700;
+        width: 24px;
+        height: 24px;
+        line-height: 22px;
+        position: absolute;
+        top: 0;
+        left: calc(50% - 15px); }
+    .yith-wcan-upgrade-note.wc-backbone-modal .wc-backbone-modal-content section {
+      padding-bottom: 0; }
+      .yith-wcan-upgrade-note.wc-backbone-modal .wc-backbone-modal-content section article {
+        padding: 1.5em 2em; }
+        .yith-wcan-upgrade-note.wc-backbone-modal .wc-backbone-modal-content section article p {
+          line-height: 1.6;
+          margin: 2em 0; }
+        .yith-wcan-upgrade-note.wc-backbone-modal .wc-backbone-modal-content section article .confirm {
+          display: block;
+          margin-bottom: 15px;
+          padding: 8px 20px; }
+        .yith-wcan-upgrade-note.wc-backbone-modal .wc-backbone-modal-content section article .dismiss {
+          display: inline-block;
+          text-decoration: none; }
+
+/* === Filter Preset Edit === */
+#yith_wcan_panel_filter-preset-edit .yith-wcan-admin-no-post {
+  text-align: center;
+  padding: 50px;
+  text-align: center;
+  padding: 50px; }
+  #yith_wcan_panel_filter-preset-edit .yith-wcan-admin-no-post img {
+    width: 90px;
+    margin-bottom: 15px; }
+  #yith_wcan_panel_filter-preset-edit .yith-wcan-admin-no-post p span {
+    display: block;
+    margin-bottom: 5px; }
+    #yith_wcan_panel_filter-preset-edit .yith-wcan-admin-no-post p span.strong {
+      font-weight: 700;
+      font-size: 16px; }
+  #yith_wcan_panel_filter-preset-edit .yith-wcan-admin-no-post a.yith-add-button {
+    margin-top: 40px;
+    padding: 7px 30px; }
+#yith_wcan_panel_filter-preset-edit .yit-admin-panel-content-wrap form {
+  padding: 0 !important; }
+#yith_wcan_panel_filter-preset-edit .view-all-presets {
+  display: block; }
+#yith_wcan_panel_filter-preset-edit h2 {
+  padding: 0;
+  border: none;
+  margin: 15px 0; }
+#yith_wcan_panel_filter-preset-edit h4 {
+  font-size: 14px; }
+#yith_wcan_panel_filter-preset-edit [data-currency] + .currency {
+  margin-left: 10px; }
+#yith_wcan_panel_filter-preset-edit input.validation-error {
+  border-color: red !important; }
+#yith_wcan_panel_filter-preset-edit input.validation-error + span.validation-message {
+  color: red;
+  display: block;
+  margin-top: 5px; }
+#yith_wcan_panel_filter-preset-edit .yith-toggle-row {
+  background: none;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  box-shadow: 0 0 10px 0 rgba(167, 217, 236, 0.4);
+  cursor: default;
+  padding: 0;
+  transition: height ease 0.5s;
+  width: 100%; }
+  #yith_wcan_panel_filter-preset-edit .yith-toggle-row.yith-toggle-row {
+    border-radius: 4px;
+    border: 1px solid #e0e0e0; }
+  #yith_wcan_panel_filter-preset-edit .yith-toggle-row td {
+    border-color: #e0e0e0;
+    border-width: 1px 0;
+    border-style: solid;
+    padding: 30px 25px; }
+    #yith_wcan_panel_filter-preset-edit .yith-toggle-row td:first-child {
+      border-bottom-left-radius: 4px;
+      border-left-width: 1px;
+      border-top-left-radius: 4px; }
+    #yith_wcan_panel_filter-preset-edit .yith-toggle-row td:last-child {
+      border-bottom-right-radius: 4px;
+      border-right-width: 1px;
+      border-top-right-radius: 4px; }
+  #yith_wcan_panel_filter-preset-edit .yith-toggle-row:last-child td {
+    border-bottom: 1px solid #e0e0e0 !important; }
+  #yith_wcan_panel_filter-preset-edit .yith-toggle-row:hover td,
+  #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-title:hover {
+    background: #f0f6fb; }
+  #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle {
+    left: 15px; }
+  #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-title {
+    cursor: pointer;
+    padding: 20px 15px;
+    overflow: hidden; }
+    #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-title .no-title {
+      color: #757575; }
+    #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-title .title-arrow {
+      font-size: 14px;
+      margin: 0 10px;
+      vertical-align: middle; }
+    #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-title h3 {
+      padding: 0 !important;
+      margin: 10px 0 !important;
+      vertical-align: middle; }
+    #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-title .show-on-hover {
+      align-items: center;
+      background: #fff;
+      box-shadow: 0px 2px 7px rgba(170, 198, 222, 0.5);
+      border-radius: 100%;
+      color: #20659d;
+      display: flex;
+      float: right;
+      font-size: 17px;
+      height: 35px;
+      margin-right: 8px;
+      opacity: 0;
+      transform: translate(0, -70px);
+      transition: all ease .3s;
+      width: 35px;
+      justify-content: center; }
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-title .show-on-hover i {
+        font-size: 17px; }
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-title .show-on-hover:hover {
+        background: #f3f3f3; }
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-title .show-on-hover.delete {
+        color: #ba3e3e;
+        font-size: 20px;
+        margin-right: 15px; }
+    #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-title:hover .show-on-hover {
+      opacity: 1;
+      transform: none; }
+    #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-title .yith-plugin-fw-field-wrapper {
+      float: right;
+      display: inline;
+      margin: 6px 0;
+      width: auto; }
+  #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row {
+    width: 100%; }
+    #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row.disabled {
+      display: none !important; }
+    #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row > label {
+      width: 180px; }
+    #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row input {
+      height: auto;
+      padding: 8px 10px; }
+    #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row span.description {
+      max-width: 100%; }
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row span.description > span {
+        display: block; }
+    #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .add-price-range {
+      margin-bottom: 15px; }
+    #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper,
+    #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper {
+      font-size: 0;
+      margin: -10px; }
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .term-box,
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .range-box,
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .term-box,
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .range-box {
+        background: #ebebeb;
+        border-radius: 4px;
+        box-sizing: border-box;
+        display: inline-block;
+        margin: 10px;
+        padding: 25px 20px;
+        position: relative;
+        vertical-align: top;
+        width: calc(25% - 20px); }
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .term-box h4,
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .term-box h4 {
+        margin-top: 0;
+        margin-bottom: 25px; }
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .term-box label,
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .term-box label {
+        display: block;
+        margin-bottom: 7px; }
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .term-box .term-tab-header.active,
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .term-box .term-tab-header.active {
+        color: #434343;
+        text-decoration: none;
+        cursor: initial; }
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .term-box .wp-picker-container,
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .term-box .wp-picker-container {
+        background-color: #fff;
+        display: block; }
+        #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .term-box .wp-picker-container label,
+        #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .term-box .wp-picker-container label {
+          margin-bottom: 0; }
+        #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .term-box .wp-picker-container .wp-picker-default-custom,
+        #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .term-box .wp-picker-container .wp-picker-default-custom {
+          position: absolute;
+          right: 10px;
+          top: 10px; }
+        #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .term-box .wp-picker-container .wp-color-result.button,
+        #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .term-box .wp-picker-container .wp-color-result.button {
+          height: 25px;
+          min-height: initial;
+          width: 25px; }
+        #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .term-box .wp-picker-container .iris-picker,
+        #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .term-box .wp-picker-container .iris-picker {
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+          border: 1px solid #ccc;
+          border-radius: 3px;
+          display: none;
+          position: absolute;
+          z-index: 100; }
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .term-box .additional-color,
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .term-box .additional-color {
+        margin-top: 15px;
+        position: relative; }
+        #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .term-box .additional-color a.term-hide-second-color,
+        #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .term-box .additional-color a.term-hide-second-color {
+          color: #ba3e3e;
+          font-size: 18px;
+          font-weight: 700;
+          line-height: 1em;
+          padding: 5px;
+          position: absolute;
+          right: -20px;
+          text-decoration: none;
+          top: 5px;
+          z-index: 2; }
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .term-box .image-selector .placeholder-image,
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .term-box .image-selector .placeholder-image {
+        background: #e2e2e2;
+        border: 1px solid #cdcdcd;
+        border-radius: 4px;
+        cursor: pointer;
+        padding: 28px 0 25px;
+        text-align: center; }
+        #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .term-box .image-selector .placeholder-image i,
+        #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .term-box .image-selector .placeholder-image i {
+          color: #a5a5a5;
+          font-size: 40px; }
+        #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .term-box .image-selector .placeholder-image p,
+        #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .term-box .image-selector .placeholder-image p {
+          color: #4094bc;
+          font-weight: 700;
+          font-size: 10px;
+          margin: 0; }
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .term-box .image-selector .selected-image,
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .term-box .image-selector .selected-image {
+        position: relative;
+        max-width: 100px;
+        margin: 0 auto; }
+        #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .term-box .image-selector .selected-image img,
+        #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .term-box .image-selector .selected-image img {
+          width: 100%;
+          height: auto; }
+        #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .term-box .image-selector .selected-image .clear-image,
+        #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .term-box .image-selector .selected-image .clear-image {
+          text-indent: -9999px;
+          font-size: 16px;
+          position: absolute;
+          right: -10px;
+          width: 1.4em;
+          height: 1.4em;
+          top: -10px; }
+          #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .term-box .image-selector .selected-image .clear-image:before,
+          #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .term-box .image-selector .selected-image .clear-image:before {
+            background: #fff;
+            border-radius: 50%;
+            color: #a5a5a5;
+            content: "×";
+            height: 1.4em;
+            left: 0px;
+            line-height: 1.4em;
+            position: absolute;
+            text-align: center;
+            text-indent: 0px;
+            top: 0;
+            width: 1.4em; }
+          #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .term-box .image-selector .selected-image .clear-image:hover:before,
+          #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .term-box .image-selector .selected-image .clear-image:hover:before {
+            color: #ba3e3e; }
+        #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .term-box .image-selector .selected-image:hover .clear-image,
+        #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .term-box .image-selector .selected-image:hover .clear-image {
+          display: block; }
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .range-box label,
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .range-box label {
+        display: block;
+        margin-bottom: 7px; }
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .range-box > p, #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .range-box > div,
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .range-box > p,
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .range-box > div {
+        font-size: 13px; }
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .range-box p:first-of-type,
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .range-box p:first-of-type {
+        margin-top: 0; }
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .range-box p:last-of-type,
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .range-box p:last-of-type {
+        margin-bottom: 0; }
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .range-box input[type="number"],
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .range-box input[type="number"] {
+        width: 100%; }
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .terms-wrapper .range-box a.range-remove,
+      #yith_wcan_panel_filter-preset-edit .yith-toggle-row .yith-toggle-content-row .ranges-wrapper .range-box a.range-remove {
+        color: #ba3e3e;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1em;
+        padding: 5px;
+        position: absolute;
+        right: 10px;
+        text-decoration: none;
+        top: 10px;
+        z-index: 2; }
+#yith_wcan_panel_filter-preset-edit .add-new-filter {
+  background-color: #f0f6fb;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  box-shadow: 0 0 10px 0 rgba(167, 217, 236, 0.4);
+  color: #434343;
+  display: block;
+  padding: 15px 40px;
+  text-decoration: none; }
+  #yith_wcan_panel_filter-preset-edit .add-new-filter:hover {
+    background-color: #d3e4e8;
+    border-color: #c4cfd3; }
+#yith_wcan_panel_filter-preset-edit .load-more-filters {
+  display: block;
+  font-weight: 700;
+  margin: 20px 0;
+  padding: 20px 15px;
+  text-align: center;
+  text-decoration: none;
+  background: none;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  box-shadow: 0 0 10px 0 rgba(167, 217, 236, 0.4); }
+  #yith_wcan_panel_filter-preset-edit .load-more-filters.yith-toggle-row {
+    border-radius: 4px;
+    border: 1px solid #e0e0e0; }
+  #yith_wcan_panel_filter-preset-edit .load-more-filters td {
+    border-color: #e0e0e0;
+    border-width: 1px 0;
+    border-style: solid;
+    padding: 30px 25px; }
+    #yith_wcan_panel_filter-preset-edit .load-more-filters td:first-child {
+      border-bottom-left-radius: 4px;
+      border-left-width: 1px;
+      border-top-left-radius: 4px; }
+    #yith_wcan_panel_filter-preset-edit .load-more-filters td:last-child {
+      border-bottom-right-radius: 4px;
+      border-right-width: 1px;
+      border-top-right-radius: 4px; }
+  #yith_wcan_panel_filter-preset-edit .load-more-filters:last-child td {
+    border-bottom: 1px solid #e0e0e0 !important; }
+  #yith_wcan_panel_filter-preset-edit .load-more-filters:hover td,
+  #yith_wcan_panel_filter-preset-edit .load-more-filters .yith-toggle-title:hover {
+    background: #f0f6fb; }
+  #yith_wcan_panel_filter-preset-edit .load-more-filters:hover {
+    background: #f0f6fb; }
+#yith_wcan_panel_filter-preset-edit #icl_div {
+  background-color: #f7f7f7;
+  padding: 20px 15px;
+  border-radius: 4px;
+  margin: 20px 0; }
+#yith_wcan_panel_filter-preset-edit .preset-saved {
+  background: var(--yith-success-lightest) !important;
+  border-radius: 5px;
+  border: 1px solid var(--yith-success-light);
+  box-shadow: 1px 1px 2px var(--yith-success-lighter);
+  color: var(--yith-content-text);
+  font-size: 14px;
+  margin: 15px 0 20px !important;
+  padding: 15px 40px 15px 45px !important;
+  position: relative;
+  text-align: left; }
+  #yith_wcan_panel_filter-preset-edit .preset-saved p {
+    background: none !important;
+    font-weight: 600 !important;
+    margin: 0;
+    padding: 0 !important; }
+    #yith_wcan_panel_filter-preset-edit .preset-saved p:before {
+      display: none !important; }
+  #yith_wcan_panel_filter-preset-edit .preset-saved:before {
+    color: var(--yith-success);
+    content: "\e921";
+    font-family: yith-icon;
+    font-weight: 400;
+    font-size: 21px;
+    left: 13px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); }
+
+/* === Widget Area === */
+.yith_wcan_placeholder + .spinner {
+  background-position: center;
+  float: left;
+  margin: 10px 0;
+  width: 100%; }
+
+.yith_wcan_placeholder table {
+  width: 100%; }
+  .yith_wcan_placeholder table th {
+    text-align: left; }
+  .yith_wcan_placeholder table td {
+    vertical-align: middle; }
+
+p.yit-wcan-display-label,
+p.yit-wcan-display-color,
+p#yit-wcan-style,
+p#yit-wcan-show-count,
+p.yit-wcan-display-tags,
+div.yit-wcan-widget-tag-list {
+  display: none; }
+
+div.yit-wcan-widget-tag-list.tags {
+  display: block; }
+
+p#yit-wcan-style.yit-wcan-style-color,
+p#yit-wcan-style.yit-wcan-style-multicolor,
+p#yit-wcan-show-count.yit-wcan-show-count-list,
+p#yit-wcan-show-count.yit-wcan-show-count-select,
+p#yit-wcan-show-count.yit-wcan-show-count-categories,
+p#yit-wcan-show-count.yit-wcan-show-count-brands,
+p#yit-wcan-show-count.yit-wcan-show-count-tags {
+  display: block; }
+
+label.yith-wcan-reset-table {
+  width: 50%;
+  display: inline-block;
+  vertical-align: top; }
+
+/* === General Options === */
+#yith_wcan_panel_general .yith-plugin-fw-radio__row small,
+#yith_wcan_panel_general .description small {
+  display: block; }
+  #yith_wcan_panel_general .yith-plugin-fw-radio__row small code,
+  #yith_wcan_panel_general .description small code {
+    font-size: .9em; }
+
+/*# sourceMappingURL=admin.css.map */

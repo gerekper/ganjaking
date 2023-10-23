@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>menu / close_small</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="24" height="24"></rect>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="menu-/-close_small">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="menu-/-close_small-(Background/Mask)"></g>
+            <path d="M15.5900002,7 L12,10.5899997 L8.40999985,7 L7,8.40999997 L10.5900002,12 L7,15.5900002 L8.40999997,17 L12,13.4099994 L15.5900002,17 L17,15.5900002 L13.4099998,12 L17,8.40999961 L15.5900002,7 Z" fill="#2E3A59" fill-rule="nonzero" mask="url(#mask-2)"></path>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,231 @@
+@import "../mixins/buttons";
+
+.yith-plugin-ui, .wp-core-ui .yith-plugin-ui {
+
+  // WordPress Buttons.
+  .button-primary,
+  .button-secondary,
+  &.yith-plugin-fw-wp-page-wrapper .page-title-action {
+    border-radius: 3px;
+    text-transform: none;
+    box-shadow: none;
+    border: 1px solid;
+    font-weight: 600;
+    padding: 0 12px;
+    outline: none;
+    height: auto;
+    transition: all ease 0.3s;
+    text-shadow: none;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+
+    &.button-small {
+      padding: 0 8px;
+    }
+  }
+
+  .button-secondary {
+    @include button-secondary;
+  }
+
+  .button-primary,
+  &.yith-plugin-fw-wp-page-wrapper .page-title-action {
+    @include button-primary;
+  }
+
+  &.yith-plugin-fw-wp-page-wrapper .page-title-action {
+    line-height: 2.15em;
+  }
+
+  .button.action,
+  #doaction,
+  #doaction2,
+  #post-query-submit,
+  #posts-filter #delete_all,
+  #search-submit,
+  .button.filter-button {
+    @include button;
+    @include button-secondary;
+    height: auto;
+    line-height: 38px;
+    border-radius: var(--yith-field-border-radius);
+    padding: 0 15px;
+    font-weight: 600;
+  }
+
+  #posts-filter #delete_all {
+    @include button-delete-outline;
+  }
+
+  .tablenav .tablenav-pages .button,
+  .tablenav .tablenav-pages .tablenav-pages-navspan {
+    @include button-secondary;
+  }
+
+  @media screen and (max-width: 782px) {
+    .tablenav .tablenav-pages .button, .tablenav .tablenav-pages .tablenav-pages-navspan {
+      min-width: 44px;
+      padding: 12px 8px;
+      font-size: 18px;
+      line-height: 1;
+    }
+  }
+
+  // YITH Buttons.
+  .yith-plugin-fw__button, [class^="yith-plugin-fw__button--"], [class*=" yith-plugin-fw__button--"],
+  .yith-add-button, .yith-edit-button, .yith-update-button, .yith-remove-button, .yith-plugin-fw-upload-button, .yith-save-button, .yith-plugin-fw-select-all, .yith-plugin-fw-deselect-all, .yith-plugin-fw-upload-button-reset // Old buttons.
+  {
+    @include button;
+  }
+
+  .yith-plugin-fw__button--primary {
+    @include button-primary;
+  }
+
+  .yith-plugin-fw__button--secondary {
+    @include button-secondary;
+  }
+
+  .yith-plugin-fw__button--delete {
+    @include button-delete;
+  }
+
+  .yith-plugin-fw__button--add, .yith-add-button {
+    @include button-primary;
+
+    @include button-with-icon("\f115");
+
+    &:before {
+      display: inline-block;
+      margin: 0 10px 0 -5px;
+      font-size: .95em;
+      transition: transform .2s, margin .2s, font-size .2s;
+      transition-timing-function: ease-in-out;
+    }
+
+    &.closed {
+      @include button-secondary;
+
+      &:before {
+        font-size: 1.15em;
+        margin: 0 8px 0 -5px;
+        transform: rotate(-45deg);
+      }
+    }
+  }
+
+  .yith-plugin-fw__button--close {
+    @include button-secondary;
+
+    @include button-with-icon("\f117");
+  }
+
+  .yith-plugin-fw__button--edit, .yith-edit-button {
+    @include button-secondary;
+
+    @include button-with-icon("\e907");
+  }
+
+  .yith-plugin-fw__button--update, .yith-update-button {
+    @include button-update;
+
+    @include button-with-icon("\e90b");
+  }
+
+  .yith-plugin-fw__button--trash, .yith-remove-button {
+    @include button-delete;
+
+    @include button-with-icon("\e90d");
+  }
+
+  .yith-plugin-fw__button--upload, .yith-plugin-fw-upload-button {
+    @include button-primary;
+
+    @include button-with-icon("\e90c");
+  }
+
+  // Old buttons.
+  .yith-save-button {
+    @include button-primary;
+  }
+
+  .yith-plugin-fw-select-all,
+  .yith-plugin-fw-deselect-all,
+  .yith-plugin-fw-upload-button-reset {
+    @include button-secondary;
+  }
+
+  // with icons.
+  .button-secondary span.yith-icon {
+    margin-left: 0;
+    margin-right: 10px;
+    line-height: normal;
+
+    &:before {
+      color: inherit;
+      font-size: 15px;
+      font-weight: 400;
+    }
+  }
+
+  // With icon
+  .yith-plugin-fw__button--with-icon {
+    position: relative;
+    padding-left: 30px;
+
+    i {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      font-size: 1em;
+      font-weight: 400;
+    }
+  }
+
+
+  // Button Sizes
+  .yith-plugin-fw__button--xl, .button-xl {
+    padding: 0 20px;
+    font-size: 14px;
+    line-height: 38px;
+
+    &::before {
+      margin: 0 10px 0 -5px;
+    }
+
+    &.yith-plugin-fw__button--with-icon {
+      padding-left: 40px;
+
+      i {
+        left: 14px;
+      }
+    }
+  }
+
+  .yith-plugin-fw__button--xxl {
+    padding: 0 28px;
+    font-size: 16px;
+    line-height: 45px;
+
+    &::before {
+      margin: 0 15px 0 -10px;
+    }
+
+    &.yith-plugin-fw__button--with-icon {
+      padding-left: 45px;
+
+      i {
+        left: 15px;
+      }
+    }
+  }
+}
+

@@ -1,0 +1,21 @@
+.yith-plugin-fw-blocks__editor-placeholder {
+    &.yith-plugin-fw-blocks__editor-placeholder--default {
+        padding: 24px;
+        border-radius: 8px;
+        font-size: 14px;
+        border: 2px solid #e9ecee;
+        line-height: 1.5;
+
+        .yith-plugin-fw-blocks__editor-placeholder__title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .yith-plugin-fw-blocks__editor-placeholder__description {
+            margin-top: 1em;
+            opacity: .8;
+        }
+    }
+}

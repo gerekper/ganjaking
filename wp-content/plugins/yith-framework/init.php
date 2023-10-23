@@ -3,7 +3,7 @@
  * Plugin Name: YITH Core Framework
  * Plugin URI: https://babia.to
  * Description: <code><strong>YITH Core Framework</strong></code>
- * Version: 4.4.2
+ * Version: 4.4.1
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-framework
@@ -13,7 +13,7 @@
  *
  * @author YITH <plugins@yithemes.com>
  * @package YITH\Framework
- * @version 4.4.2
+ * @version 2.1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

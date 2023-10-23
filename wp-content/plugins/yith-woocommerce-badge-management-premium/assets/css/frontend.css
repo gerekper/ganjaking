@@ -1,0 +1,347 @@
+/**
+ * Frontend style
+ *
+ * @author YITH <plugins@yithemes.com>
+ * @version 1.0.0
+ */
+
+.woocommerce-product-gallery__image {
+    position : relative;
+}
+
+.yith-wcbm-css-text,
+.yith-wcbm-badge-text {
+    font-size : 12pt;
+}
+
+.yith-wcbm-clearfix:before,
+.yith-wcbm-clearfix:after {
+    content : '';
+    display : table;
+}
+
+.yith-wcbm-clearfix:after {
+    clear : both;
+}
+
+.yith-wcbm-clearfix {
+    zoom : 1; /* For IE 6/7 (trigger hasLayout) */
+}
+
+.yith-wcbm-badge {
+    position        : absolute;
+    display         : flex;
+    justify-content : center;
+    flex-direction  : column;
+    box-sizing      : border-box;
+    text-align      : center;
+    line-height     : normal;
+    z-index         : 10;
+    font-family     : 'Open Sans', sans-serif;
+    font-size       : 13px;
+    min-width       : max-content;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-show-if-variation {
+    display : none;
+}
+
+.yith-wcbm-badge img {
+    display : block;
+}
+
+.yith-wcbm-badge p {
+    margin      : 0 !important;
+    line-height : inherit;
+    font-size   : unset !important;
+}
+
+.yith-wcbm-badge strong,
+.yith-wcbm-badge b {
+    font-weight : 600;
+}
+
+p.yith-wcbm-badge-txt {
+    margin  : 0;
+    padding : 0;
+}
+
+.container-image-and-badge {
+    position    : relative;
+    display     : block;
+    text-indent : 0;
+    line-height : 0;
+}
+
+.yith-wcbm-badge img {
+    margin : 0 !important;
+}
+
+span.onsale {
+    z-index : 10;
+}
+
+/* Shortcode */
+.yith-wcbm-shortcode-badge-container .container-image-and-badge {
+    display : inline-block;
+}
+
+/* ============================================================================================
+ *            T h e m e s  a n d   p l u g i n s    C o m p a t i b i l i t y
+ * ============================================================================================
+*/
+
+/* - - - hide in cart items - - - */
+.cart_item .yith-wcbm-badge {
+    display : none !important;
+}
+
+/* - - - hide badges on product thumbnails - - - - */
+.product-thumbnails .yith-wcbm-badge {
+    display : none !important;
+}
+
+/* ----- Flatsome ----- */
+.yith-wcbm-theme-flatsome .iosSlider.product-thumbnails .yith-wcbm-badge,
+.yith-wcbm-theme-flatsome #mini-cart-content .container-image-and-badge .yith-wcbm-badge {
+    display : none !important;
+}
+
+.yith-wcbm-theme-flatsome #mini-cart-content .container-image-and-badge,
+.yith-wcbm-theme-flatsome .products .container-image-and-badge,
+.yith-wcbm-theme-flatsome .yith-wcbm-badge img {
+    position : static !important;
+}
+
+/* ----- Avada ----- */
+.fusion-menu-cart-items .yith-wcbm-badge {
+    display : none !important;
+}
+
+/* ----- Wishlist ----- */
+#yith-wcwl-form .yith-wcbm-badge {
+    display : none !important;
+}
+
+/* ---- Frequently Bough together ---- */
+.yith-wfbt-section .yith-wcbm-badge, .yith-wfbt-form .yith-wcbm-badge {
+    display : none !important;
+}
+
+/*---- Save for later ---- */
+#ywsfl_container_list .yith-wcbm-badge {
+    display : none !important;
+}
+
+/* ---- Quick View ---- */
+.yith-quick-view-nav .container-image-and-badge {
+    position : static !important;
+    width    : 100% !important;
+    padding  : 0 !important;
+}
+
+.yith-quick-view-nav .yith-wcbm-badge {
+    display : none !important;
+}
+
+/* ---------- Ajax Search ---------- */
+.yith-ajaxsearchform-container .yith-wcbm-badge {
+    display : none !important;
+}
+
+/* ---------- Product Bundles -------------- */
+.yith-wcpb-product-bundled-items .yith-wcbm-badge {
+    display : none !important;
+}
+
+/* ------ Storefront Sticky Add to Cart -------- */
+.ssatc-sticky-add-to-cart .yith-wcbm-badge {
+    display : none !important;
+}
+
+/* ------ Request a Quote ------- */
+.yith-ywraq-list-widget-wrapper .yith-wcbm-badge {
+    display : none !important;
+}
+
+/* ------ Added to cart popup ------- */
+.yith-wacp-content table.cart-list .yith-wcbm-badge {
+    display : none;
+}
+
+/* ------ Basel Theme -------- */
+body.yith-wcbm-theme-basel .container-image-and-badge > img,
+body.yith-wcbm-theme-basel .container-image-and-badge *:not(.yith-wcbm-badge) img {
+    width : 100%;
+}
+
+/* ------ YITH Easy Order Page for WooCommerce -------- */
+.yith-wceop-grid-view-product__img-container .container-image-and-badge,
+.yith-wceop-table-view-product__img-container .container-image-and-badge {
+    position : static;
+}
+
+.yith-wceop-table-view-product__img-container .yith-wcbm-badge {
+    display : none;
+}
+
+/* Badges Style */
+
+/* Badges Text */
+
+.yith-wcbm-badge.yith-wcbm-badge-text {
+    min-width : auto;
+}
+
+/* Badges CSS */
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced .yith-wcbm-badge-shape {
+    display : flex;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced,
+.yith-wcbm-badge.yith-wcbm-badge-advanced .yith-wcbm-badge-text-advanced *,
+.yith-wcbm-badge.yith-wcbm-badge-advanced .yith-wcbm-badge-shape:before,
+.yith-wcbm-badge.yith-wcbm-badge-css {
+    font-family : 'Open Sans', sans-serif;
+    word-break  : keep-all !important;
+    position    : absolute;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-css .yith-wcbm-badge__wrap *,
+.yith-wcbm-badge.yith-wcbm-badge-css .yith-wcbm-badge__wrap .yith-wcbm-css-s1:before,
+.yith-wcbm-badge.yith-wcbm-badge-css .yith-wcbm-badge__wrap .yith-wcbm-css-s1:after {
+    word-break : keep-all !important;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-css svg {
+    display : none;
+}
+
+.yith-wcbm-badge-advanced .yith-wcbm-badge-text, .yith-wcbm-badge-advanced .yith-wcbm-badge-text-advanced {
+    position : absolute;
+    left     : 0;
+    top      : 0;
+    width    : 100%;
+    height   : 100%;
+    z-index  : 14;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-css {
+    color : #3c434a;
+}
+
+.yith-wcbm-badge-css.yith-wcbm-badge-css-14.yith-wcbm-badge-css--flip-vertical .yith-wcbm-css-s1,
+.yith-wcbm-badge-css.yith-wcbm-badge-css-14.yith-wcbm-badge-css--flip-vertical .yith-wcbm-css-s2,
+.yith-wcbm-badge-css.yith-wcbm-badge-css-15.yith-wcbm-badge-css--flip-vertical .yith-wcbm-css-s1,
+.yith-wcbm-badge-css.yith-wcbm-badge-css-15.yith-wcbm-badge-css--flip-vertical .yith-wcbm-css-s2,
+.yith-wcbm-badge-text.yith-wcbm-badge-text--flip-vertical .yith-wcbm-badge-text,
+.yith-wcbm-badge-css.yith-wcbm-badge-css--flip-vertical .yith-wcbm-badge-text {
+    transform : scaleY(-1);
+}
+
+.yith-wcbm-badge-css.yith-wcbm-badge-css-14.yith-wcbm-badge-css--flip-horizontal .yith-wcbm-css-s1,
+.yith-wcbm-badge-css.yith-wcbm-badge-css-14.yith-wcbm-badge-css--flip-horizontal .yith-wcbm-css-s2,
+.yith-wcbm-badge-css.yith-wcbm-badge-css-15.yith-wcbm-badge-css--flip-horizontal .yith-wcbm-css-s1,
+.yith-wcbm-badge-css.yith-wcbm-badge-css-15.yith-wcbm-badge-css--flip-horizontal .yith-wcbm-css-s2,
+.yith-wcbm-badge-text.yith-wcbm-badge-text--flip-horizontal .yith-wcbm-badge-text,
+.yith-wcbm-badge-css.yith-wcbm-badge-css--flip-horizontal .yith-wcbm-badge-text {
+    transform : scaleX(-1);
+}
+
+.yith-wcbm-badge-css.yith-wcbm-badge-css-14.yith-wcbm-badge-css--flip-both .yith-wcbm-css-s1,
+.yith-wcbm-badge-css.yith-wcbm-badge-css-14.yith-wcbm-badge-css--flip-both .yith-wcbm-css-s2,
+.yith-wcbm-badge-css.yith-wcbm-badge-css-15.yith-wcbm-badge-css--flip-both .yith-wcbm-css-s1,
+.yith-wcbm-badge-css.yith-wcbm-badge-css-15.yith-wcbm-badge-css--flip-both .yith-wcbm-css-s2,
+.yith-wcbm-badge-text.yith-wcbm-badge-text--flip-both .yith-wcbm-badge-text,
+.yith-wcbm-badge-css.yith-wcbm-badge-css--flip-both .yith-wcbm-badge-text {
+    transform : scale(-1);
+}
+
+/* Advanced Badges Style */
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced .yith-wcbm-badge-shape:before {
+    display        : none;
+    text-transform : uppercase;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-badge-shape:before,
+.yith-wcbm-badge.yith-wcbm-badge-advanced.yith-wcbm-badge-advanced--flip-horizontal .yith-wcbm-badge-text-advanced div {
+    transform : scale(-1, 1);
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced.yith-wcbm-badge-advanced--flip-vertical .yith-wcbm-badge-shape:before,
+.yith-wcbm-badge.yith-wcbm-badge-advanced.yith-wcbm-badge-advanced--flip-vertical .yith-wcbm-badge-text-advanced div {
+    transform : scale(1, -1);
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced.yith-wcbm-badge-advanced--flip-both .yith-wcbm-badge-shape:before,
+.yith-wcbm-badge.yith-wcbm-badge-advanced.yith-wcbm-badge-advanced--flip-both .yith-wcbm-badge-text-advanced div {
+    transform : scale(-1);
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced .yith-wcbm-badge-shape:before,
+.yith-wcbm-badge.yith-wcbm-badge-advanced .yith-wcbm-badge-text-advanced div {
+    position : absolute;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced div div div {
+    display : none;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced-3 .yith-wcbm-saved-percentage:before,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-3 .yith-wcbm-saved-money:before,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-4 .yith-wcbm-saved-percentage:before,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-4 .yith-wcbm-saved-money:before,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10 .yith-wcbm-sale-percent:before,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-10 .yith-wcbm-saved-money-value:before,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-19 .yith-wcbm-saved-percentage:before,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-20 .yith-wcbm-saved-percentage:before,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-20 .yith-wcbm-saved-money:before,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-26 .yith-wcbm-saved-percentage:before,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-26 .yith-wcbm-saved-money:before,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-28 .yith-wcbm-saved-percentage:before,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-28 .yith-wcbm-saved-money:before,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-29 .yith-wcbm-saved-percentage:before,
+.yith-wcbm-badge.yith-wcbm-badge-advanced-29 .yith-wcbm-saved-money:before {
+    content : '-';
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-advanced {
+    box-sizing : border-box;
+    background : transparent;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-image-uploaded {
+    min-width  : auto;
+    min-height : auto;
+}
+
+.yith-wcbm-badge.yith-wcbm-badge-image-uploaded img {
+    width : inherit;
+}
+
+/* Integration with the blocksy theme */
+
+.yith-wcbm-theme-blocksy [data-products="type-1"] .product {
+    align-items : unset
+}
+
+.woocommerce.widget_shopping_cart {
+    z-index : 51 !important;
+}
+
+/* Integration with Booking Skin of Proteo theme */
+
+.theme-yith-proteo.yith-booking .yith-booking-woocommerce-images.grid-elements-count-5 .container-image-and-badge,
+.theme-yith-proteo.yith-booking .yith-booking-woocommerce-images.grid-elements-count-3 .container-image-and-badge {
+    grid-area : 1/1/3/2;
+}
+
+.theme-yith-proteo.yith-booking .container-image-and-badge > .woocommerce-product-gallery__image {
+    height : 100%;
+}
+
+body.single-product.yith-proteo-booking-product-layout-enabled .yith-booking-woocommerce-images .container-image-and-badge > .yith-wcbm-badge .yith-wcbm-badge__wrap img {
+    min-height : auto;
+}

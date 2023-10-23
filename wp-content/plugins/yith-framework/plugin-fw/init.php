@@ -1,13 +1,13 @@
 <?php
 /**
  * Framework Name: YIT Plugin Framework
- * Version: 4.4.2
+ * Version: 4.4.1
  * Author: YITH
  * Text Domain: yith-plugin-fw
  * Domain Path: /languages/
  *
  * @author  YITH <plugins@yithemes.com>
- * @version 4.4.2
+ * @version 4.4.1
  * @package YITH\PluginFramework
  */
 
@@ -90,4 +90,3 @@ function yit_get_upgrade_files( $plugin_license_path, $plugin_upgrade_path = '' 
 
 		return $to_include;
 	}
-

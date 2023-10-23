@@ -1,0 +1,60 @@
+th#yith_wcbm_badge {
+    width : 10%;
+}
+
+.yith-wcbm-variation-badge-options {
+    border-top  : 1px solid #ccc;
+    padding-top : 25px;
+    margin-top  : 25px;
+    font-size   : 14px;
+}
+
+.yith-wcbm-variation-badge-options__title {
+    font-weight   : bold;
+    font-size     : 14px;
+    margin-bottom : 25px;
+}
+
+.yith-wcbm-variation-field-row {
+    display               : grid;
+    align-items           : center;
+    grid-template-columns : 110px auto;
+    margin-bottom         : 20px;
+}
+
+.yith-wcbm-variation-field-row__badges .select2-search__field {
+    width : auto !IMPORTANT;
+}
+
+#yith_wcbm_quick_badge_ids + .select2-container {
+    width     : 100% !important;
+    max-width : 250px;
+}
+
+.yith-wcbm-variation-field-row__schedule-to input.yith-plugin-fw-datepicker,
+.yith-wcbm-variation-field-row__schedule-from input.yith-plugin-fw-datepicker {
+    max-width     : 190px;
+    padding       : 14px;
+    max-height    : 100px;
+    height        : 45px;
+    padding-right : 35px;
+    border-radius : 5px;
+}
+.yith-wcbm-variation-field-row__schedule-to .yith-plugin-fw-datepicker-field-wrapper,
+.yith-wcbm-variation-field-row__schedule-from .yith-plugin-fw-datepicker-field-wrapper {
+    max-width: fit-content;
+}
+
+.yith-wcbm-variation-field-row__schedule-to .yith-plugin-fw-datepicker-field-wrapper:before,
+.yith-wcbm-variation-field-row__schedule-from .yith-plugin-fw-datepicker-field-wrapper:before {
+    content      : "\e904";
+    font-family  : yith-icon !important;
+    line-height  : 1;
+    font-size    : 17px;
+    position     : absolute;
+    right        : 0;
+    top          : 50%;
+    transform    : translateY(-50%);
+    margin-right : 11px;
+    color        : #999;
+}

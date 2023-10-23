@@ -1,0 +1,36 @@
+/*PROGRESS BAR*/
+
+.yith_wapo_apply_progressbar{
+  position: relative;
+  height: 25px;
+  display: none;
+  background: #ebebeb;
+}
+
+.yith_wapo_apply_progressbar, .form-table .yith_wapo_apply_progressbar .ui-progressbar-value.ui-widget-header{
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+
+}
+
+.yith_wapo_apply_progressbar_percent{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:300px;
+  margin-left:-150px;
+  height:25px;
+  margin-top:-9px;
+  font-weight:bold;
+  text-align:center;
+
+}
+
+.yith_wapo_apply_progressbar .ui-progressbar-value.ui-widget-header{
+  background: #b6e078 url(../img/progressbar.jpg) 50% 50% repeat-x;
+}
+
+.yith-wapo-migration-finished{
+  display: none;
+}

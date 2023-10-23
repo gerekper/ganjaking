@@ -1,0 +1,1208 @@
+// general variables
+$default-accent: #4e8ba2;
+$default-hover: #fff;
+$default-text: #434343;
+
+$accent-color: var( --yith-wcan-filters_colors_accent, $default-accent );
+$anchor-color: var( --yith-wcan-anchors_style_text, $default-text );
+
+$border-color: #D7D7D7;
+$border-radius: 4px;
+$disabled-color: #B4B4B4;
+$star-color: #e3a405;
+$light-grey: #eee;
+$background-gray: #f0f0f0;
+
+$z-index: 1001; // value is this high since modal must be on top of Proteo's sticky header
+
+// mixins
+@mixin star_rating {
+	display: inline-block;
+	line-height: 1.4;
+	margin-right: 10px;
+	vertical-align: middle;
+}
+
+@mixin chevron {
+	cursor: pointer;
+	position: relative;
+
+	&:after {
+		background-size: 100% auto;
+		content: '';
+		display: block;
+		height: 10px;
+		position: absolute;
+		right: 15px;
+		top: calc(50% - 5px);
+		width: 10px;
+	}
+
+	&.closed:after {
+		@include chevron_closed;
+	}
+
+	&.open:after,
+	&.opened:after{
+		@include chevron_open;
+	}
+}
+
+@mixin chevron_open {
+	background-image: url('../images/arrow-up.svg');
+}
+
+@mixin chevron_closed {
+	background-image: url('../images/arrow-down.svg');
+}
+
+@mixin pretty_scrollbar {
+	&::-webkit-scrollbar {
+		-webkit-appearance: none;
+		width: 6px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: $accent-color;
+		border-radius: $border-radius;
+	}
+}
+
+@mixin close_button {
+	background-color: $accent-color;
+	background-image: url('../images/close.svg');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 60%;
+	border-radius: 100%;
+	color: #fff;
+	content: '';
+	font-size: 16px;
+	height: 15px;
+	line-height: 15px;
+	position: absolute;
+	right: -5px;
+	text-align: center;
+	text-decoration: none;
+	top: -5px;
+	width: 15px;
+}
+
+@mixin badge {
+	border: 1px solid $accent-color;
+	border-radius: 5px;
+	color: $anchor-color;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 13px;
+	font-weight: 400;
+	line-height: 1.5;
+	margin-right: 5px;
+	margin-bottom: 0;
+	padding: 4px 15px 3px;
+	position: relative;
+	text-decoration: none;
+}
+
+@mixin tooltip {
+	background-color: $accent-color;
+	border-radius: 0;
+	color: #fff;
+	cursor: initial;
+	font-size: .6875rem;
+	line-height: normal;
+	padding: 7px 10px;
+	pointer-events: none;
+	text-align: center;
+
+	&:before {
+		background: transparent!important;
+		border-top: 5px solid transparent;
+		border-bottom: 5px solid transparent;
+		border-right:5px solid $accent-color;
+		content: '';
+		bottom: -5px;
+		display: block;
+		height: 0;
+		left: -5px;
+		position: absolute;
+		top: calc(50% - 5px);
+		width: 0;
+	}
+
+	& > img {
+		min-width: 40px;
+		height: auto;
+	}
+}
+
+@mixin single_column( $columns_number ) {
+	display: inline-block;
+	margin: 0 5px 10px;
+	vertical-align: top;
+	width: calc(#{100 / $columns_number}% - 10px);
+}
+
+@mixin columns {
+	@for $i from 1 through 8 {
+		&.filter-has-#{$i}-column {
+			@include single_column( $i );
+		}
+	}
+}
+
+/* === 1. PRESET SHORTCODE === */
+
+.yith-wcan-filters {
+	background-color: var( --yith-wcan-filters_colors_background, transparent );
+	margin-bottom: 30px;
+
+	h3 {
+		&.mobile-only {
+			display: none;
+		}
+	}
+
+	.yith-wcan-filter {
+		margin-bottom: 30px;
+
+		// filter area titles
+		.filter-title {
+			color: var( --yith-wcan-filters_colors_titles, #434343 );
+
+			&.collapsable {
+				@include chevron;
+
+				&:after {
+					right: 5px;
+				}
+
+				&.collapsable.closed + .filter-content {
+					display: none;
+				}
+			}
+		}
+
+		// filter items
+		.filter-items {
+			float: none;
+			list-style: none;
+			padding-left: 0;
+
+			&.level-0 {
+				margin: 0;
+				padding: 0;
+
+				ul {
+					padding-left: 15px;
+				}
+			}
+
+			&.filter-color {
+				font-size: 0;
+				margin: 0 -5px;
+			}
+
+			&.filter-label {
+				font-size: 0;
+				margin: 0 -5px;
+			}
+
+			&.filter-dropdown {
+				display: none;
+			}
+
+			.filter-item {
+
+				line-height: 2;
+				margin: 0;
+
+				// basic items
+				& > a,
+				& > label > a {
+					color: $anchor-color;
+					text-decoration: none;
+				}
+
+				& > a:hover,
+				& > label > a:hover {
+					color: var( --yith-wcan-anchors_style_text_hover, $default-accent );
+				}
+
+				&.disabled {
+					opacity: .5;
+				}
+
+				&.disabled > a,
+				&.disabled > label > a {
+					color: $disabled-color;
+					cursor: not-allowed;
+				}
+
+				&.active > a,
+				&.active > label > a {
+					color: var( --yith-wcan-anchors_style_text_active, $default-accent );
+				}
+
+				// color swatches
+				&.color {
+					display: inline-block;
+					margin-bottom: 10px;
+
+					& > a {
+						display: inline-block;
+						position: relative;
+					}
+
+					&.no-color,
+					&.no-image {
+						font-size: 1rem;
+						text-align: center;
+					}
+
+					&.label-below,
+					&.label-right {
+						font-size: 1rem;
+					}
+
+					&.label-right {
+						display: block;
+						margin: 0 0 10px;
+						width: 100%;
+
+						.term-color,
+						.term-image {
+							margin-bottom: 0;
+							margin-right: 10px;
+						}
+
+						.term-label {
+							display: inline-block;
+							font-size: 1em;
+						}
+					}
+
+					.term-color {
+						border: 2px solid transparent;
+						border-radius: var( --yith-wcan-color_swatches_border_radius, $border-radius );
+						display: inline-block;
+						height: calc(var( --yith-wcan-color_swatches_size, 45px ) + 4px);
+						margin-bottom: 5px;
+						overflow: hidden;
+						vertical-align: middle;
+						width: calc(var( --yith-wcan-color_swatches_size, 45px ) + 4px);
+
+						.color-swatch {
+							display: block;
+							height: 100%;
+							width: 100%;
+						}
+
+						&.bi-color .color-swatch {
+							border-style: solid;
+							border-width: 0 0 var( --yith-wcan-color_swatches_size, 45px ) var( --yith-wcan-color_swatches_size, 45px );
+							border-left-color: transparent!important;
+							border-right-color: transparent!important;
+						}
+
+						&:hover {
+							border-color: $accent-color;
+						}
+					}
+
+					.term-image {
+						border: 2px solid transparent;
+						border-radius: var( --yith-wcan-color_swatches_border_radius, $border-radius );
+						display: inline-block;
+						font-size: 0;
+						height: calc(var( --yith-wcan-color_swatches_size, 45px ) + 4px);
+						margin-bottom: 5px;
+						overflow: hidden;
+						vertical-align: middle;
+						width: calc(var( --yith-wcan-color_swatches_size, 45px ) + 4px);
+
+						&:hover {
+							border-color: $accent-color;
+						}
+
+						img {
+							height: auto;
+							width: 100%;
+						}
+					}
+
+					&.disabled .term-color,
+					&.disabled .term-image img {
+						opacity: .4;
+					}
+
+					.term-label {
+						display: block;
+						font-size: .6em;
+						line-height: 1.4;
+						text-align: center;
+					}
+
+					&.label-hide .term-label {
+						display: none;
+					}
+				}
+
+				&.active.color {
+					.term-color, .term-image {
+						border-color: $accent-color;
+					}
+
+					&:not(.no-color):not(.no-image):not(.label-right) > a:after {
+						@include close_button;
+					}
+				}
+
+				// label items
+				&.label {
+					background-color: var( --yith-wcan-labels_style_background, #fff );
+					box-shadow: 0 0 0 1px $border-color;
+					border-radius: $border-radius;
+					display: inline-block;
+					margin: 0 5px 10px;
+					padding: 7px;
+					text-align: center;
+
+					& > a {
+						color: var( --yith-wcan-labels_style_text, $default-text );
+						display: block;
+						height: 100%;
+					}
+
+					&.active.with-image:not(.label-right) > a {
+						position: relative;
+
+						&:after {
+							@include close_button;
+
+							right: -13px;
+							top: -15px;
+						}
+					}
+
+					&.active.with-image,
+					&:not(.disabled):hover {
+						box-shadow: 0 0 0 2px $accent-color;
+						color: $accent-color;
+					}
+
+					&.active:not(.with-image) {
+						background-color: var( --yith-wcan-labels_style_background_active, $default-accent );
+						box-shadow: 0 0 0 2px var( --yith-wcan-labels_style_background_active, $default-accent );
+						color: var( --yith-wcan-labels_style_text_active, $default-hover );
+
+						.term-label,
+						.item-count {
+							color: var( --yith-wcan-labels_style_text_active, $default-hover );
+						}
+					}
+
+					&:not(.with-image):not(.disabled):hover {
+						background-color: var( --yith-wcan-labels_style_background_hover, $default-accent );
+						box-shadow: 0 0 0 2px var( --yith-wcan-labels_style_background_hover, $default-accent );
+						color: var( --yith-wcan-labels_style_text_hover, $default-hover );
+
+						.term-label,
+						.item-count {
+							color: var( --yith-wcan-labels_style_text_hover, $default-hover );
+						}
+					}
+
+					&.label-right.with-image {
+						background: none;
+						box-shadow: none;
+						display: block;
+						padding: 0;
+						text-align: left;
+						width: 100%;
+
+						& > a {
+							display: inline-block;
+							color: $anchor-color;
+
+							&:hover {
+								color: var( --yith-wcan-anchors_style_text_hover, $default-accent );
+							}
+
+							&.active {
+
+							}
+						}
+
+						&.active > a {
+							color: var( --yith-wcan-anchors_style_text_active, $default-accent );
+						}
+
+						.term-image {
+							margin-right: 10px;
+							max-width: 70px;
+							vertical-align: middle;
+						}
+
+						.term-label {
+							display: inline-block;
+							vertical-align: middle;
+						}
+					}
+
+					.term-image {
+						display: inline-block;
+						font-size: 0;
+						max-width: 100%;
+
+						img {
+							width: 100%;
+							height: auto;
+						}
+					}
+
+					.term-label {
+						display: block;
+						font-size: .8rem;
+					}
+
+					&.label-hide.with-image .term-label {
+						display: none;
+					}
+				}
+
+				// hierarchy toggle
+				&.hierarchy-collapsable {
+					position: relative;
+
+					.toggle-handle {
+						background-size: 50% auto;
+						background-position: center center;
+						background-repeat: no-repeat;
+						cursor: pointer;
+						display: block;
+						height: 20px;
+						position: absolute;
+						right: 10px;
+						top: 0;
+						width: 20px;
+					}
+
+					&.closed > .toggle-handle {
+						@include chevron_closed;
+					}
+
+					&.opened > .toggle-handle{
+						@include chevron_open;
+					}
+
+					&:after {
+						top: 5px;
+					}
+				}
+
+				// item count
+				.item-count {
+					color: $disabled-color;
+					font-size: 1em;
+				}
+
+				// star rating
+				.star-rating {
+					@include star_rating;
+				}
+
+				// custom checkbox/radio
+				.checkboxbutton.checked:before {
+					background-color: $accent-color;
+					border-color: $accent-color;
+				}
+				.radiobutton.checked:before {
+					background-color: $accent-color;
+				}
+
+				// columns
+				@include columns;
+			}
+		}
+
+		&.label-design .filter-items {
+			font-size: 0;
+		}
+
+		// tooltips
+		.yith-wcan-tooltip {
+			@include tooltip;
+
+			display: none;
+			top: calc(50% - 15px);
+			z-index: $z-index + 5;
+		}
+
+		.filter-color,
+		.filter-label {
+			.yith-wcan-tooltip {
+				bottom: calc(100% + 15px);
+				top: auto;
+				white-space: nowrap;
+			}
+		}
+
+		.with-tooltip {
+			position: relative;
+
+			.yith-wcan-tooltip{
+				position: absolute;
+			}
+		}
+
+		.filter-color,
+		.filter-label {
+			.with-tooltip .yith-wcan-tooltip:before {
+				border-left: 5px solid transparent;
+				border-right: 5px solid transparent;
+				border-top: 5px solid $accent-color;
+				left: calc(50% - 5px);
+				top: 100%;
+			}
+		}
+
+		// price slider
+		.price-slider {
+			&.both {
+				padding: 20px 10px;
+
+				&:after {
+					content: '';
+					display: block;
+					clear: both;
+				}
+
+				.price-slider-min,
+				.price-slider-max {
+					min-width: 0;
+					width: 50px;
+				}
+
+				.irs {
+					margin-bottom: 20px;
+				}
+
+				.price-slider-min {
+					float: left;
+				}
+
+				.price-slider-max {
+					float: right;
+				}
+			}
+
+			&.fields {
+				padding: 20px 0;
+
+				.price-slider-min,
+				.price-slider-max {
+					min-width: 0;
+					width: 70px;
+					margin: 0 5px;
+				}
+			}
+
+			.irs-bar,
+			.irs-line{
+				height: 5px;
+				border-radius: $border-radius;
+			}
+
+			.irs-bar {
+				background-color: $accent-color;
+			}
+
+			.irs-handle {
+				border: 4px solid $accent-color;
+				background-color: $accent-color;
+				cursor: grab;
+				height: 18px;
+				top: 29px;
+				width: 18px;
+			}
+
+			.irs-min,
+			.irs-max {
+				background: none;
+				top: -5px;
+			}
+
+			.irs-from,
+			.irs-to,
+			.irs-single {
+				@include tooltip;
+
+				top: -8px;
+
+				&:before {
+					border-left: 5px solid transparent;
+					border-right: 5px solid transparent;
+					border-top: 5px solid $accent-color;
+					left: calc(50% - 2px);
+					top: 100%;
+				}
+			}
+		}
+
+		// terms dropdown
+		.yith-wcan-dropdown {
+			border: 1px solid $border-color;
+			border-radius: $border-radius;
+			padding: 8px 15px;
+
+			@include chevron;
+
+			.dropdown-wrapper {
+				background-color: #fff;
+				border: 1px solid rgba( var( --yith-wcan-filters_colors_accent_r, 73 ), var( --yith-wcan-filters_colors_accent_g, 139 ), var( --yith-wcan-filters_colors_accent_b, 162 ), .3 );
+				border-radius: $border-radius;
+				box-shadow: 0 0 7px 0 rgba( var( --yith-wcan-filters_colors_accent_r, 73 ), var( --yith-wcan-filters_colors_accent_g, 139 ), var( --yith-wcan-filters_colors_accent_b, 162 ), .3 );
+				display: none;
+				left: 0;
+				padding: 15px;
+				position: absolute;
+				right: 0;
+				top: calc(100% + 10px);
+				z-index: $z-index + 10;
+
+				.search-field-container {
+					margin-bottom: 15px;
+					position: relative;
+
+					.search-field {
+						padding-right: 40px;
+						width: 100%;
+
+						&:active, &:focus {
+							border-color: $accent-color;
+							box-shadow: 0 0 2px $accent-color;
+							outline-color: $accent-color;
+						}
+					}
+
+					&:after {
+						background-image: url('../images/search.svg');
+						background-size: 100% auto;
+						content: '';
+						display: block;
+						height: 25px;
+						position: absolute;
+						right: 10px;
+						top: 10px;
+						width: 25px;
+					}
+				}
+
+				.matching-items {
+					margin-bottom: 0;
+					max-height: 200px;
+					overflow-y: scroll;
+
+					li {
+						margin-bottom: 5px;
+
+						& > a {
+							display: inline-block;
+							vertical-align: middle;
+						}
+					}
+
+					@include pretty_scrollbar;
+				}
+
+				.show-more {
+					color: var( --yith-wcan-anchors_style_text_hover, $default-accent );
+					display: inline-block;
+					font-size: .8em;
+					margin-top: 10px;
+					text-decoration: none;
+
+					&:hover {
+						color: $anchor-color;
+					}
+				}
+			}
+
+			.dropdown-label {
+				vertical-align: middle;
+
+				.star-rating {
+					@include star_rating;
+				}
+			}
+
+			&.open {
+				border-color: rgba( var( --yith-wcan-filters_colors_accent_r, 73 ), var( --yith-wcan-filters_colors_accent_g, 139 ), var( --yith-wcan-filters_colors_accent_b, 162 ), .3 );
+				box-shadow: 0 0 7px 0 rgba( var( --yith-wcan-filters_colors_accent_r, 73 ), var( --yith-wcan-filters_colors_accent_g, 139 ), var( --yith-wcan-filters_colors_accent_b, 162 ), .3 );
+
+				.dropdown-wrapper {
+					display: block;
+				}
+			}
+		}
+
+		// clear filters
+		a.clear-selection {
+			font-size: .9em;
+			display: inline-block;
+			margin-bottom: 20px;
+			cursor: pointer;
+		}
+	}
+
+	// custom checkbox/radio
+	&.custom-style {
+		span.checkboxbutton {
+			position: relative;
+
+			input[type="checkbox"] {
+				bottom: 0;
+				cursor: pointer;
+				height: 20px;
+				left: 0;
+				opacity: 0;
+				position: absolute;
+				right: 0;
+				width: 20px;
+			}
+
+			&:before {
+				content: "";
+				display: inline-block;
+				width: 20px;
+				height: 20px;
+				background: #ffffff;
+				border: 1px solid $border_color;
+				border-radius: $border_radius;
+				margin-right: 10px;
+				text-align: center;
+				line-height: 23px;
+				font-size: 17px;
+				vertical-align: middle;
+				cursor: pointer;
+				margin-bottom: 5px;
+				transition: background-color ease 0.3s;
+			}
+
+			&.checked:before {
+				background-image: url('../images/check.svg')!important;
+				background-size: 65%;
+				background-position: center center;
+				background-repeat: no-repeat !important;
+				background-color: $accent-color;
+				border-color: $accent-color;
+				color: #ffffff;
+				content: "";
+			}
+		}
+
+		span.radiobutton {
+			position: relative;
+
+			input[type="radio"] {
+				bottom: 0;
+				cursor: pointer;
+				height: 23px;
+				left: 0;
+				opacity: 0;
+				position: absolute;
+				right: 0;
+				width: 23px;
+			}
+
+			&:before {
+				content: "";
+				background: #ffffff;
+				background-clip: content-box;
+				border: 1px solid $border_color;
+				border-radius: 100%;
+				cursor: pointer;
+				display: inline-block;
+				font-size: 20px;
+				height: 20px;
+				line-height: 20px;
+				padding: 2px;
+				margin-bottom: 5px;
+				margin-right: 10px;
+				text-align: center;
+				vertical-align: middle;
+				width: 20px;
+			}
+
+			&.checked:before {
+				background-color: $accent-color;
+				background-clip: content-box !important;
+			}
+		}
+
+		.star-rating {
+			color: $star-color;
+		}
+	}
+
+	// apply filters button
+	.apply-filters {
+		margin-top: 15px;
+	}
+
+	// custom appearance on mobile
+	&.filters-modal {
+		bottom: 0;
+		box-shadow: 0 0 50px 0 rgba( 0, 0, 0, .4);
+		left: 0;
+		margin: 0;
+		position: fixed;
+		right: 0;
+		top: 0;
+		transform: translate(-100%, 0);
+		// transition: transform .3s ease-out;
+		transition: 0.3s transform cubic-bezier(0.645, 0.045, 0.355, 1);
+		z-index: $z-index + 1;
+
+		h3 {
+			background: $light-grey;
+			font-size: 1.2em;
+			height: 60px;
+			left: 0;
+			line-height: 60px;
+			margin: 0;
+			position: absolute;
+			right: 0;
+			text-align: center;
+			top: 0;
+			z-index: $z-index + 6;
+
+			&.mobile-only {
+				display: block;
+			}
+		}
+
+		.filters-container {
+			height: calc(100% - 65px);
+			margin-top: 65px;
+			overflow-y: scroll;
+			padding: 20px;
+
+			@include pretty_scrollbar;
+
+			& > .clear-selection {
+				cursor: pointer;
+				display: inline-block;
+				margin-bottom: 20px;
+			}
+		}
+
+		&.with-filter-button .filters-container {
+			height: calc(100% - 130px);
+		}
+
+		.yith-wcan-filter {
+			border: 1px solid $border-color;
+			border-radius: $border-radius;
+			margin-bottom: 15px;
+			padding: 15px;
+
+			.filter-title {
+				margin: 0;
+
+				&.collapsable:after{
+					right: 5px;
+				}
+			}
+
+			.filter-content {
+				margin-top: 15px
+			}
+		}
+
+		&.open {
+			display: block;
+			opacity: 1;
+			transform: translate(0, 0);
+		}
+
+		.close-button {
+			color: $anchor-color;
+			cursor: pointer;
+			font-size: 1.5em;
+			height: 35px;
+			line-height: 1;
+			position: absolute;
+			text-align: center;
+			text-decoration: none;
+			right: 20px;
+			top: 15px;
+			vertical-align: middle;
+			width: 35px;
+			z-index: $z-index + 7;
+
+			&:hover {
+				color: $accent-color;
+			}
+		}
+
+		.main-modal-button {
+			background-color: $accent-color;
+			border-color: $accent-color;
+			border-radius: 0;
+			bottom: 0;
+			display: none;
+			height: 60px;
+			line-height: 60px;
+			left: 0;
+			margin: 0;
+			padding: 0;
+			position: fixed;
+			right: 0;
+			width: 100%;
+		}
+	}
+
+	// custom appearance for horizontal layout
+	&.horizontal:not(.filters-modal) {
+		text-align: left;
+
+		.yith-wcan-filter {
+			display: inline-block;
+			margin-bottom: 8px;
+			min-width: 200px;
+			position: relative;
+			vertical-align: top;
+
+			.filter-title.collapsable {
+				border: 1px solid $border-color;
+				border-radius: $border-radius;
+				font-weight: 400;
+				margin-top: 0;
+				margin-bottom: 10px;
+				margin-right: 15px;
+				padding: 10px 40px 10px 20px;
+
+				&:after {
+					right: 15px;
+				}
+
+				span.filter-count {
+					border: 2px solid $accent-color;
+					padding: 0 5px;
+					font-size: .8em;
+					margin: 0 10px;
+				}
+
+				&.opened,
+				&.opened + .filter-content {
+					border: 1px solid rgba( var( --yith-wcan-filters_colors_accent_r, 73 ), var( --yith-wcan-filters_colors_accent_g, 139 ), var( --yith-wcan-filters_colors_accent_b, 162 ), .3 );
+					box-shadow: 0 0 7px 0 rgba( var( --yith-wcan-filters_colors_accent_r, 73 ), var( --yith-wcan-filters_colors_accent_g, 139 ), var( --yith-wcan-filters_colors_accent_b, 162 ), .3 );
+				}
+
+				& + .filter-content {
+					background-color: #fff;
+					border: 1px solid $border-color;
+					border-radius: $border-radius;
+					min-width: 300px;
+					position: absolute;
+					padding: 20px;
+					width: 100%;
+					z-index: $z-index;
+
+					.filter-content-footer {
+						background-color: $background-gray;
+						margin: 20px -20px -20px;
+						padding: 15px 20px;
+						text-align: right;
+
+						.apply-filters {
+							margin: 0;
+						}
+
+						.clear-selection {
+							background: #CBCBCB; // To be removed
+							border-color: #CBCBCB; // To be removed
+							color: #434343; // To be removed
+
+							margin-bottom: 0;
+							margin-right: 15px;
+						}
+					}
+				}
+			}
+
+			// filter items
+			.filter-content > .filter-items {
+				max-height: 200px;
+				overflow-y: scroll;
+				overflow-x: hidden;
+				padding: 5px 2px 0 0;
+
+				@include pretty_scrollbar;
+			}
+
+			&.label-design .filter-items {
+				padding-top: 8px;
+			}
+
+			// terms dropdown
+			.dropdown-wrapper {
+				.search-field-container {
+					margin-bottom: 20px;
+
+					input {
+						width: 100%;
+					}
+				}
+
+				.matching-items {
+					a {
+						cursor: pointer;
+					}
+				}
+			}
+		}
+
+		form > .apply-filters {
+			margin-top: 0;
+		}
+	}
+}
+
+body.admin-bar .yith-wcan-filters.filters-modal {
+	top: 32px;
+}
+
+body.yith-wcan-preset-modal-open:after {
+	background: rgba(0,0,0,.5);
+	bottom: 0;
+	content: '';
+	display: block;
+	left: 0;
+	pointer-events: none;
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: $z-index;
+
+	&.admin-bar {
+		top: 32px;
+	}
+}
+
+body.rtl .yith-wcan-filters {
+	.yith-wcan-filter {
+		.filter-items {
+			&.level-0 {
+				ul {
+					padding-left: 0;
+					padding-right: 15px;
+				}
+			}
+		}
+		.filter-title.collapsable:after{
+            left: 5px;
+            right: auto;
+        }
+	}
+}
+
+@media( max-width: 991px ) {
+	body.filters-in-modal .yith-wcan-filters {
+		display: none;
+	}
+}
+
+@media( max-width: 782px ) {
+	body.admin-bar .yith-wcan-filters.filters-modal {
+		top: 46px;
+	}
+}
+
+/* === 2. ACTIVE FILTERS LABELS === */
+
+.yith-wcan-active-filters {
+	font-size: .8em;
+	margin-bottom: 20px;
+
+	.active-filter {
+		display: inline-block;
+		margin-bottom: 5px;
+		margin-right: 15px;
+
+		b {
+			display: inline-block;
+			margin-right: 15px;
+		}
+
+		.active-filter-label {
+			@include badge;
+
+			position: relative;
+
+			&:after {
+				@include close_button;
+			}
+
+			.star-rating {
+				@include star_rating;
+				margin-right: 0;
+			}
+		}
+	}
+
+	&.no-titles .active-filter {
+		margin-right: 0;
+	}
+
+	&.custom-style .star-rating {
+		color: $star-color;
+	}
+
+	.reset-filters {
+		@include badge;
+
+		background-color: $accent-color;
+		color: #fff;
+
+		&:hover {
+			background-color: rgb( calc( var( --yith-wcan-filters_colors_accent_r, 73 ) * 0.8), calc( var( --yith-wcan-filters_colors_accent_g, 139 ) * 0.8), calc( var( --yith-wcan-filters_colors_accent_b, 162 ) * 0.8) );
+			border-color: rgb( calc( var( --yith-wcan-filters_colors_accent_r, 73 ) * 0.8), calc( var( --yith-wcan-filters_colors_accent_g, 139 ) * 0.8), calc( var( --yith-wcan-filters_colors_accent_b, 162 ) * 0.8) );
+		}
+	}
+}
+
+/* === 3. MOBILE FILTERS === */
+
+.yith-wcan-filters-opener {
+	border: 1px solid $border-color;
+	border-radius: $border-radius;
+	background: #fff;
+	color: $anchor-color;
+	display: none;
+	outline-color: $accent-color;
+
+	i.filter-icon {
+		background-image: url( '../images/filters.svg' );
+		background-position: center center;
+		background-size: 100% auto;
+		background-repeat: no-repeat;
+		display: inline-block;
+		height: 15px;
+		margin-right: 2px;
+		vertical-align: middle;
+		width: 15px;
+	}
+
+	&:hover {
+		background: $accent-color;
+		border-color: $accent-color;
+		color: #fff;
+
+		i.filter-icon {
+			filter: brightness(0) invert(1);
+		}
+	}
+}

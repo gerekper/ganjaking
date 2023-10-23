@@ -1,0 +1,769 @@
+/**
+ * The panel
+ */
+
+body.yith-plugin-fw-panel.yith-plugin-fw-panel--version-2 {
+    background: rgb(241, 245, 249);
+
+    h1, h2 {
+        color: inherit;
+    }
+
+    .wrap {
+        margin: 0;
+    }
+
+    #screen-meta-links {
+        position: absolute;
+        right: 0;
+    }
+
+    #yith-plugin-fw__panel__notices {
+        margin: 35px 20px -24px 0;
+
+        .notice {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+
+    #wpbody {
+        @media screen and (max-width: 600px) {
+            padding-top: 46px;
+        }
+    }
+
+    .yith-plugin-fw-rate {
+        margin: 0 25px 20px 0;
+        transform: translateY(20px);
+        @media screen and (max-width: 782px) {
+            font-size: .9em;
+        }
+    }
+}
+
+.yith-plugin-fw__panel__mobile__header {
+    flex-direction: row;
+    align-items: center;
+    background: #fff;
+    width: calc(100% + 10px);
+    position: sticky;
+    top: 0;
+    left: 0;
+    height: 64px;
+    border-bottom: 1px solid rgb(226, 232, 240);
+    display: none;
+    margin-left: -10px;
+    z-index: 9999997;
+
+    .yith-plugin-fw__panel__mobile__header__toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-self: stretch;
+        margin-right: 16px;
+        box-sizing: border-box;
+        padding: 0 20px;
+        border-right: 1px solid rgb(226, 232, 240);
+        cursor: pointer;
+        color: #94a3b8;
+
+        svg {
+            stroke-width: 2;
+            width: 24px;
+        }
+    }
+
+    .yith-plugin-fw__panel__mobile__header__logo {
+        width: 100%;
+        max-width: 50px;
+        margin-right: 8px;
+    }
+
+    .yith-plugin-fw__panel__mobile__header__title {
+        font-size: 1.2em;
+        font-weight: 600;
+        padding-right: 8px;
+        color: #005b7c;
+    }
+
+    @media screen and (max-width: 782px) {
+        display: flex;
+    }
+}
+
+.yith-plugin-fw__panel {
+    display: flex;
+    padding: 35px 24px 16px 0;
+    color: var(--yith-content-text);
+    align-items: flex-start;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    max-width: 2200px;
+
+    @media screen and (max-width: 782px) {
+        padding-right: 8px;
+    }
+
+    p {
+        margin-top: 4px;
+        margin-bottom: 0;
+    }
+}
+
+.yith-plugin-fw__panel__sidebar {
+    flex: 1 0 240px;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5;
+
+    .yith-plugin-fw__panel__sidebar__header {
+        display: flex;
+        flex-direction: column;
+        padding: 0 16px 0 12px;
+
+        .yith-plugin-fw__panel__sidebar__header__logo {
+            width: 100%;
+            max-width: 70px;
+        }
+
+        .yith-plugin-fw__panel__sidebar__header__name {
+            font-size: 1em;
+            font-weight: 600;
+            color: #005b7c;
+            margin-top: .75em;
+            margin-bottom: .25em;
+        }
+    }
+
+    .yith-plugin-fw__panel__menu__wrapper {
+        color: #1e293b;
+        font-size: 13px;
+        margin: 40px 16px 0 0;
+        font-weight: 500;
+    }
+
+    .yith-plugin-fw__panel__menu {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .yith-plugin-fw__panel__menu-item {
+        display: flex;
+        flex-direction: column;
+
+        &.yith-plugin-fw--active {
+            a.yith-plugin-fw__panel__menu-item__content {
+                background: rgb(226, 232, 240);
+            }
+        }
+
+        &.yith-plugin-fw--open {
+            .yith-plugin-fw__panel__menu-item__toggle {
+                transform: rotate(180deg);
+            }
+
+            .yith-plugin-fw__panel__submenu {
+                display: flex;
+            }
+        }
+    }
+
+    .yith-plugin-fw__panel__menu-item__icon {
+        width: 24px;
+        line-height: 12px;
+        margin-right: 12px;
+        margin-left: -4px;
+        color: rgb(148, 163, 184);
+
+        svg {
+            stroke-width: 2px;
+        }
+    }
+
+    .yith-plugin-fw__panel__menu-item__name,
+    .yith-plugin-fw__panel__submenu__head__title {
+        flex: 1;
+    }
+
+    .yith-plugin-fw__panel__menu-item__toggle {
+        width: 16px;
+        color: rgb(148, 163, 184);
+        stroke-width: 3px;
+    }
+
+    a.yith-plugin-fw__panel__menu-item__content {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: inherit;
+        padding: 8px 12px;
+        border-radius: 4px;
+
+        &:hover {
+            background: rgb(248, 250, 252);
+
+            .yith-plugin-fw__panel__menu-item__icon,
+            .yith-plugin-fw__panel__menu-item__toggle {
+                color: rgb(100, 116, 139);
+            }
+        }
+
+        &:focus {
+            box-shadow: none;
+            outline: none;
+        }
+
+        &:focus-visible {
+            box-shadow: 0 0 0 2px var(--yith-primary);
+            outline: none;
+        }
+    }
+
+    .yith-plugin-fw__panel__submenu {
+        display: flex;
+        flex-direction: column;
+        margin-left: 32px;
+        margin-top: .25rem;
+    }
+
+    .yith-plugin-fw__panel__submenu__head {
+        display: none;
+    }
+
+    .yith-plugin-fw__panel__submenu-item {
+        display: flex;
+        flex-direction: column;
+        margin: .25rem 0;
+
+        &.yith-plugin-fw--active {
+            a.yith-plugin-fw__panel__submenu-item__content {
+                background: rgb(226, 232, 240);
+                opacity: 1;
+            }
+        }
+    }
+
+    a.yith-plugin-fw__panel__submenu-item__content {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: #475569;
+        padding: 8px 12px;
+        border-radius: 4px;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.4);
+            opacity: 1;
+            color: inherit;
+        }
+
+        &:focus {
+            box-shadow: none;
+            outline: none;
+        }
+
+        &:focus-visible {
+            box-shadow: 0 0 0 2px var(--yith-primary);
+            outline: none;
+        }
+    }
+
+    .yith-plugin-fw__panel__submenu-item__name {
+        flex: 1
+    }
+
+    @media screen and (max-width: 782px) {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 320px;
+        height: 100%;
+        z-index: 9999999;
+        background: rgb(241, 245, 249);
+        padding: 24px 8px;
+        box-sizing: border-box;
+
+        &.yith-plugin-fw--open {
+            display: block;
+        }
+
+        a.yith-plugin-fw__panel__menu-item__content.yith-plugin-fw__panel__sidebar__collapse {
+            display: none;
+        }
+    }
+
+    @media screen and (min-width: 781px) {
+        &.yith-plugin-fw__panel__sidebar--collapsed {
+            flex: 1;
+            transition: all .3s ease-in-out;
+
+            .yith-plugin-fw__panel__sidebar__header {
+                padding-top: 8px;
+                padding-left: 0;
+            }
+
+            .yith-plugin-fw__panel__sidebar__header__logo {
+                max-width: 48px;
+            }
+
+            .yith-plugin-fw__panel__sidebar__header__name,
+            .yith-plugin-fw__panel__menu-item__name,
+            .yith-plugin-fw__panel__menu-item__toggle {
+                display: none;
+            }
+
+            .yith-plugin-fw__panel__menu-item.yith-plugin-fw__panel__menu-item--current {
+                a.yith-plugin-fw__panel__menu-item__content {
+                    background: rgb(226, 232, 240);
+                }
+            }
+
+            .yith-plugin-fw__panel__submenu {
+                position: absolute;
+                display: none !important;
+                top: 0;
+                left: 100%;
+                margin: 0;
+                padding-left: 8px;
+                width: 200px;
+                z-index: 999999;
+                animation: yith-plugin-fw-fade-in .3s forwards;
+            }
+
+            .yith-plugin-fw__panel__submenu__wrap {
+                box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+                border-radius: 8px;
+                background: rgb(248, 250, 252);
+                padding: 4px 0;
+            }
+
+            .yith-plugin-fw__panel__submenu__head {
+                display: flex;
+                padding: 6px 12px 10px;
+                font-size: 1.1em;
+            }
+
+            .yith-plugin-fw__panel__submenu__content {
+                background: rgb(248, 250, 252);
+                padding: 8px 12px;
+            }
+
+            a.yith-plugin-fw__panel__submenu-item__content {
+                border-radius: 0;
+            }
+
+            .yith-plugin-fw__panel__menu-item.yith-plugin-fw--has-submenu:hover {
+                position: relative;
+
+                .yith-plugin-fw__panel__submenu {
+                    display: block !important;
+                }
+            }
+
+            .yith-plugin-fw__panel__menu-item__icon {
+                margin: 0 !important;
+            }
+
+            .yith-plugin-fw__panel__sidebar__collapse {
+                .yith-plugin-fw__panel__menu-item__icon {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+    }
+}
+
+.yith-plugin-fw__panel__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 100%;
+    min-width: 0;
+    background: var(--yith-content-bg);
+    color: var(--yith-content-text);
+    border-radius: 8px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+
+    .yith-plugin-fw__panel__header-nav__wrapper {
+        .yith-plugin-fw__panel__header-nav {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            flex-wrap: wrap;
+            border-bottom: 1px solid var(--yith-field-border-color);
+            font-weight: 500;
+            font-size: 14px;
+
+            .yith-plugin-fw__panel__header-nav-item {
+                a.yith-plugin-fw__panel__header-nav-item__content {
+                    display: block;
+                    padding: 20px 32px;
+                    text-decoration: none;
+                    color: inherit;
+
+                    &:hover {
+                        color: var(--yith-primary-hover);
+                    }
+
+                    &:focus, &:focus-visible, &:active {
+                        outline: none;
+                        box-shadow: none;
+                    }
+                }
+
+                &.yith-plugin-fw--active {
+                    box-shadow: 0 3px 0 0 var(--yith-primary);
+                    color: var(--yith-primary);
+                }
+            }
+        }
+    }
+
+    .yith-plugin-fw__panel__content__page {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+
+        h1 {
+            color: inherit;
+            font-size: 1.5rem;
+            margin: 0;
+            padding: 0;
+            font-weight: 500;
+        }
+
+        h2 {
+            color: inherit;
+            font-size: 1rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .yith-plugin-fw__panel__content__page__heading {
+            border-bottom: 1px solid var(--yith-field-border-color);
+            padding: 32px;
+
+            h1 {
+                padding-bottom: 0;
+            }
+
+            .yith-plugin-fw__panel__content__page__description {
+                margin-top: .75rem;
+                font-size: .875rem;
+                line-height: 1.5;
+            }
+        }
+
+        .yith-plugin-fw__panel__content__page__container,
+        .yith-plugin-fw-panel-custom-tab-container {
+            padding: 32px;
+        }
+
+        #plugin-fw-wc,
+        #yith-plugin-fw-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            padding: 32px;
+        }
+
+        .yith-plugin-fw__panel__section {
+            display: flex;
+            gap: 32px;
+            position: relative;
+
+            .yith-plugin-fw__panel__section__title {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                flex: 0 1 300px;
+                max-width: 25%;
+            }
+
+            .yith-plugin-fw__panel__section__content {
+                flex: 1
+            }
+
+            @media screen and (max-width: 1280px) {
+                flex-direction: column;
+                .yith-plugin-fw__panel__section__title {
+                    flex: 1;
+                    max-width: 100%;
+                }
+            }
+        }
+    }
+
+    .yith-plugin-fw__panel__section + .yith-plugin-fw__panel__section:before {
+        content: '';
+        width: 100%;
+        border-top: 1px solid #ddd;
+        margin-top: -32px;
+        position: absolute;
+    }
+
+    .yith-plugin-fw__panel__option {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 24px;
+        max-width: 670px;
+        gap: 8px;
+
+        .yith-plugin-fw__panel__option__label {
+            font-size: inherit;
+            font-weight: 500;
+            padding: 0;
+            width: 100%;
+            color: #1e293b;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .yith-plugin-fw__panel__option__label__tags {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .yith-plugin-fw__panel__option__description {
+            display: block;
+            font-weight: 400;
+            font-size: inherit;
+            margin-bottom: 8px;
+        }
+
+        &.yith-plugin-fw__panel__option--onoff {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            .yith-plugin-fw__panel__option__label {
+                flex: 1;
+            }
+
+            .yith-plugin-fw__panel__option__description {
+                flex: 100%;
+            }
+        }
+
+        &.yith-plugin-fw__panel__option--hidden {
+            display: none !important;
+        }
+
+        .yith-plugin-fw__panel__option__wc-row-table {
+            font-size: inherit;
+
+            & > tbody > tr {
+                & > th {
+                    display: none;
+                }
+
+                & > td {
+                    padding: 0;
+                    font-size: inherit;
+
+                    p.description {
+                        display: block;
+                        font-weight: 400;
+                        font-size: inherit;
+                        color: inherit;
+                    }
+                }
+            }
+        }
+
+        &.yith-plugin-fw__panel__option--is-disabled {
+            .yith-plugin-fw__panel__option__label label,
+            .yith-plugin-fw__panel__option__description,
+            .yith-plugin-fw__panel__option__content {
+                opacity: 0.5;
+                pointer-events: none;
+                filter: grayscale(100%);
+                user-select: none;
+            }
+        }
+    }
+
+    .yith-plugin-fw__panel__content__actions {
+        position: sticky;
+        bottom: 0;
+        padding: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        border-bottom-left-radius: inherit;
+        border-bottom-right-radius: inherit;
+        background: rgb(248, 250, 252);
+
+        :not(style) + :not(style) {
+            margin-left: 8px;
+        }
+    }
+
+    &.yith-plugin-fw__panel__content--has-header-nav {
+        .yith-plugin-fw__panel__content__page {
+            .yith-plugin-fw__panel__content__page__heading {
+                border-bottom: none;
+            }
+
+            .yith-plugin-fw__panel__content__page__container,
+            .yith-plugin-fw-panel-custom-tab-container,
+            #plugin-fw-wc,
+            #yith-plugin-fw-panel {
+                padding-top: 0;
+            }
+        }
+    }
+}
+
+#yith-plugin-fw__panel__sidebar__mobile-backdrop {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9999998;
+    background: rgba(71, 85, 105, 0.75);
+}
+
+// RTL.
+
+body.rtl {
+
+    .yith-plugin-fw__panel {
+        padding-left: 24px;
+        padding-right: 0;
+
+        @media screen and (max-width: 782px) {
+            padding-left: 8px;
+            padding-right: 0;
+        }
+    }
+
+    .yith-plugin-fw__panel__sidebar {
+        .yith-plugin-fw__panel__menu__wrapper {
+            margin-left: 16px;
+            margin-right: 0;
+        }
+
+        .yith-plugin-fw__panel__menu-item__icon {
+            margin-left: 12px;
+            margin-right: -4px;
+        }
+
+        .yith-plugin-fw__panel__submenu {
+            margin-left: 0;
+            margin-right: 32px;
+        }
+
+        .yith-plugin-fw__panel__sidebar__collapse .yith-plugin-fw__panel__menu-item__icon {
+            transform: rotate(180deg);
+        }
+
+        &.yith-plugin-fw__panel__sidebar--collapsed {
+            .yith-plugin-fw__panel__sidebar__collapse .yith-plugin-fw__panel__menu-item__icon {
+                transform: rotate(0deg);
+            }
+
+            @media screen and (min-width: 781px) {
+                .yith-plugin-fw__panel__sidebar__header {
+                    padding-left: 16px;
+                    padding-right: 0;
+                }
+
+                .yith-plugin-fw__panel__submenu {
+                    margin: 0;
+                    right: 100%;
+                    left: auto;
+                    padding-right: 8px;
+                    padding-left: 0;
+                }
+            }
+        }
+
+        @media screen and (max-width: 782px) {
+            left: auto;
+            right: 0;
+        }
+    }
+
+    .yith-plugin-fw__panel__mobile__header {
+        margin-left: 0;
+        margin-right: -10px;
+
+        .yith-plugin-fw__panel__mobile__header__toggle {
+            margin-right: 0;
+            margin-left: 16px;
+        }
+    }
+
+    .yith-plugin-fw__panel__content {
+        .yith-plugin-fw__panel__content__actions {
+            :not(style) + :not(style) {
+                margin-left: 0;
+                margin-right: 8px;
+            }
+        }
+    }
+}
+
+// Option Fields.
+.yith-plugin-fw__panel__content__page--options {
+    .yith-plugin-fw-slider-container,
+    .yith-plugin-fw-text-array-table,
+    .yith-plugin-fw-textarea,
+    input[type=email],
+    input[type=text]:not(.select2-search__field),
+    select {
+        width: 400px;
+        max-width: 100%;
+
+        @media screen and (max-width: 782px) {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        &.small-text {
+            width: 100px;
+        }
+    }
+
+    input[type=number] {
+        width: 70px;
+        min-width: 70px;
+    }
+
+    .yith-plugin-fw-text-array-table input {
+        width: 100%;
+    }
+}
+
+.yith-plugin-fw-select,
+.yith-plugin-fw-slider-container,
+.yith-plugin-fw-text-input,
+.yith-plugin-fw-text-array-table,
+.yith-plugin-fw-textarea {
+    width: 400px;
+    max-width: 100%;
+
+    @media screen and (max-width: 782px) {
+        width: 100%;
+        max-width: 400px;
+    }
+}
+
+.yith-plugin-fw__panel__checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
