@@ -1,5 +1,17 @@
 *** WooCommerce Splash Popup ***
 
+2023-05-17 - version 1.5.0
+* Feature - Declared compatibility with WooCommerce High-Performance Order Storage (HPOS).
+* Tweak - Added links to the plugin settings page, the documentation page and to get support, in the plugin list.
+* Tweak - Use the `jquery.cookie.js` library version bundled with WooCommerce.
+* Tweak - Updated plugin author.
+* Tweak - Updated plugin textdomain.
+* Tweak - Tested compatibility up to WC 7.7.
+* Tweak - Tested compatibility up to WP 6.2.
+* Dev - Use SASS instead of LESS for generating the CSS styles.
+* Dev - Implement the singleton pattern in the main plugin class.
+* Dev - Updated minimum requirements to WC 3.5, WP 4.7 and PHP 5.4.
+
 2022-08-16 - version 1.4.1
 * Fix - Fix: Updated the plugin to be compatible with the upcoming Custom Order Tables on WooCommerce.
 * Tweak - WC 6.8.0 compatibility.
