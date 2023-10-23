@@ -53,6 +53,7 @@ class WPBakeryShortCode_VC_Column extends WPBakeryShortCode {
 			$controls_add = '';
 		}
 		$controls_edit = '<a class="vc_control column_edit vc_column-edit"  data-vc-control="edit" href="#" title="' . __( 'Edit this column', 'js_composer' ) . '"><i class="vc-composer-icon vc-c-icon-mode_edit"></i></a>';
+		$controls_paste = '<a class="vc_control column_paste vc_column-paste"  data-vc-control="paste" href="#" title="' . __( 'Paste', 'js_composer' ) . '"><i class="vc-composer-icon vc-c-icon-paste"></i></a>';
 		$controls_delete = '<a class="vc_control column_delete vc_column-delete" data-vc-control="delete"  href="#" title="' . __( 'Delete this column', 'js_composer' ) . '"><i class="vc-composer-icon vc-c-icon-delete_empty"></i></a>';
 		$editAccess = vc_user_access_check_shortcode_edit( $this->shortcode );
 		$allAccess = vc_user_access_check_shortcode_all( $this->shortcode );
@@ -74,9 +75,9 @@ class WPBakeryShortCode_VC_Column extends WPBakeryShortCode {
 			return $output . $controls_end;
 		} elseif ( is_string( $controls ) && 'full' === $controls ) {
 			if ( $allAccess ) {
-				return $output . $controls_add . $controls_edit . $controls_delete . $controls_end;
+				return $output . $controls_add . $controls_edit . $controls_paste . $controls_delete . $controls_end;
 			} elseif ( $editAccess ) {
-				return $output . $controls_add . $controls_edit . $controls_end;
+				return $output . $controls_add . $controls_edit . $controls_paste . $controls_end;
 			}
 
 			return $output . $controls_add . $controls_end;
@@ -89,9 +90,9 @@ class WPBakeryShortCode_VC_Column extends WPBakeryShortCode {
 			return $output . $controls_end;
 		}
 		if ( $allAccess ) {
-			return $output . $controls_add . $controls_edit . $controls_delete . $controls_end;
+			return $output . $controls_add . $controls_edit . $controls_paste . $controls_delete . $controls_end;
 		} elseif ( $editAccess ) {
-			return $output . $controls_add . $controls_edit . $controls_end;
+			return $output . $controls_add . $controls_edit . $controls_paste . $controls_end;
 		}
 
 		return $output . $controls_add . $controls_end;

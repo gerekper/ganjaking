@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="15px" viewBox="0 0 18 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>copylink</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="FAQ-Summary-+-Simple-list-style" transform="translate(-2500.000000, -1062.000000)" stroke="#009F8B" stroke-width="1.44">
+            <g id="copylink" transform="translate(2509.000000, 1069.800000) rotate(-33.000000) translate(-2509.000000, -1069.800000) translate(2502.000000, 1067.000000)">
+                <g id="Group" transform="translate(0.000000, 0.000000)">
+                    <path d="M4.93055556,5.5995668 L2.15277778,5.5995668 C1.5880928,5.61128261 1.04248294,5.38494509 0.637926444,4.97115496 C0.233369947,4.55736482 0.00360551402,3.99063083 0,3.39765381 L0,2.20191299 C0.00757474696,0.989139484 0.942110483,0.00795286905 2.09722222,6.36646291e-13 L4.875,6.36646291e-13" id="Path"></path>
+                    <path d="M9.125,0 L11.9027778,0 C13.0578895,0.00795286905 13.9924253,0.989139484 14,2.20191299 L14,3.39765381 C13.9931526,4.58821309 13.0916947,5.56042465 11.9583333,5.5995668 L9.18055556,5.5995668" id="Path"></path>
+                </g>
+                <line x1="3.17642283" y1="2.63980496" x2="11.5764228" y2="2.63980496" id="Path"></line>
+            </g>
+        </g>
+    </g>
+</svg>

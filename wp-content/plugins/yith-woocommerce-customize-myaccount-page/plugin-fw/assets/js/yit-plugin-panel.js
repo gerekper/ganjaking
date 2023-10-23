@@ -1,12 +1,4 @@
-/**
- * This file belongs to the YIT Plugin Framework.
- *
- * This source file is subject to the GNU GENERAL PUBLIC LICENSE (GPL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://www.gnu.org/licenses/gpl-3.0.txt
- */
-
+/* global setUserSetting, yith, yithFwPluginPanel */
 jQuery( function ( $ ) {
 	// Handle dependencies.
 	function dependencies_handler( id, deps, values, type ) {
@@ -46,7 +38,7 @@ jQuery( function ( $ ) {
 
 		if ( $current_container.length < 1 ) {
 			// container for YIT Plugin Panel WooCommerce
-			$current_container = $current_field.closest( '.yith-plugin-fw-panel-wc-row, .yith-toggle-content-row' );
+			$current_container = $current_field.closest( '.yith-plugin-fw__panel__option, .yith-plugin-fw-panel-wc-row, .yith-toggle-content-row' );
 		}
 
 		var types = type.split( '-' ), j;
@@ -175,15 +167,19 @@ jQuery( function ( $ ) {
 	// Prevent the WC message for changes when leaving the panel page
 	$( '.yith-plugin-fw-panel .woo-nav-tab-wrapper' ).removeClass( 'woo-nav-tab-wrapper' ).addClass( 'yith-nav-tab-wrapper' );
 
-	var wrap    = $( '.wrap.yith-plugin-ui' ).first(),
-		notices = $( 'div.updated, div.error, div.notice' );
+	( function () {
+		var noticesWrapper = $( '#yith-plugin-fw__panel__notices' ),
+			wrap           = $( '.wrap.yith-plugin-ui, .yith-plugin-fw-wp-page-wrapper' ).first(), // TODO: remove when all plugins will use the ui-version 2, since notices will be shown in the noticesWrapper.
+			notices        = $( 'div.updated, div.error, div.notice, .yith-plugin-fw__notice' ).not( '.inline, .yith-plugin-fw--inline' );
 
-	// Prevent moving notices into the wrapper
-	notices.addClass( 'inline' );
-	if ( wrap.length ) {
-		wrap.prepend( notices );
-	}
-
+		// Prevent moving notices into the wrapper
+		notices.addClass( 'inline' );
+		if ( noticesWrapper.length ) {
+			noticesWrapper.append( notices );
+		} else if ( wrap.length ) {
+			wrap.prepend( notices );
+		}
+	} )();
 
 	// Additional wrapping just in case 'wrap' div is placed within a sub-tab and it's not already wrapped twice.
 	// TODO: Deprecated usage, it'll be removed, since also custom panels should use the automatic-wrapping through 'show_container' param.
@@ -213,6 +209,7 @@ jQuery( function ( $ ) {
 	( function () {
 		var floatSaveButton = $( '#yith-plugin-fw-float-save-button' ),
 			mainForm        = $( '#plugin-fw-wc' ),
+			mainFormElement = mainForm.length ? mainForm.get( 0 ) : false,
 			saveButton      = document.querySelector( '#main-save-button' );
 
 		function updateValuesForSpecialEditors() {
@@ -261,6 +258,11 @@ jQuery( function ( $ ) {
 
 				updateValuesForSpecialEditors();
 
+				if ( !!mainFormElement && !mainFormElement.checkValidity() ) {
+					mainFormElement.reportValidity();
+					return;
+				}
+
 				floatSaveButton.block(
 					{
 						message   : null,
@@ -275,7 +277,7 @@ jQuery( function ( $ ) {
 						floatSaveButton.unblock()
 							.addClass( 'green' )
 							.fadeOut( 300 )
-							.html( '<i class="yith-icon yith-icon-check"></i>' + floatSaveButton.data( 'saved-label' ) )
+							.html( floatSaveButton.data( 'saved-label' ) )
 							.fadeIn( 300 )
 							.delay( 2500 )
 							.queue(
@@ -284,7 +286,7 @@ jQuery( function ( $ ) {
 										500,
 										function () {
 											$( this ).removeClass( 'green' );
-											$( this ).html( '<i class="yith-icon yith-icon-save"></i>' + $( this ).data( 'default-label' ) ).fadeIn( 500 );
+											$( this ).html( $( this ).data( 'default-label' ) ).fadeIn( 500 );
 										}
 									);
 									next();
@@ -295,8 +297,137 @@ jQuery( function ( $ ) {
 
 						$( document ).trigger( 'yith-plugin-fw-float-save-button-after-saving', [response] );
 					} );
-			} )
+			} );
 		}
 	} )();
 
+	// Save - Reset.
+	( function () {
+		$( document ).on( 'click', '#yith-plugin-fw__panel__content__save', function () {
+			// Prevent WooCommerce warning for changes without saving.
+			window.onbeforeunload = null;
+			var theForm           = $( 'form#yith-plugin-fw-panel, form#plugin-fw-wc' );
+			if ( theForm.length ) {
+				var formElement = theForm.get( 0 );
+				if ( formElement.checkValidity() ) {
+					theForm.submit();
+				} else {
+					formElement.reportValidity();
+				}
+			}
+		} );
+
+		$( document ).on( 'click', '#yith-plugin-fw__panel__content__reset', function () {
+			// Prevent WooCommerce warning for changes without saving.
+			window.onbeforeunload = null;
+			$( 'form#yith-plugin-fw-panel-reset, form#plugin-fw-wc-reset' ).submit();
+		} );
+
+		$( document ).on( 'submit', 'form#yith-plugin-fw-panel-reset, form#plugin-fw-wc-reset', function ( e ) {
+			var form      = $( this ),
+				confirmed = form.data( 'confirmed' );
+
+			if ( confirmed === 'yes' ) {
+				return;
+			}
+
+			e.preventDefault();
+
+			var modalOptions = {
+				title            : yithFwPluginPanel.i18n.resetConfirmTitle,
+				message          : yithFwPluginPanel.i18n.resetConfirmMessage,
+				closeAfterConfirm: false,
+				onConfirm        : function () {
+					form.data( 'confirmed', 'yes' );
+					form.submit();
+				}
+			};
+
+			yith.ui.confirm( modalOptions );
+
+		} );
+	} )();
+
+	// Panel menu.
+	( function () {
+		function getSidebar() {
+			if ( !this.__sidebar || !( 'node' in this.__sidebar ) || !( 'hasClass' in this.__sidebar.node ) || !this.__sidebar.node.hasClass( 'yith-plugin-fw__panel__sidebar--initialized' ) ) {
+				var sidebar = {};
+
+				sidebar.node = $( '.yith-plugin-fw__panel__sidebar' );
+				sidebar.node.addClass( 'yith-plugin-fw__panel__sidebar--initialized' );
+
+				sidebar.isCollapsed = function () {
+					return sidebar.node.hasClass( 'yith-plugin-fw__panel__sidebar--collapsed' );
+				};
+
+				sidebar.isFixed = function () {
+					return 'fixed' !== sidebar.node.css( 'position' );
+				};
+
+				sidebar.setCollapsed = function ( collapsed ) {
+					if ( collapsed ) {
+						sidebar.node.addClass( 'yith-plugin-fw__panel__sidebar--collapsed' );
+						setUserSetting( 'yithFwSidebarFold', 'f' );
+					} else {
+						sidebar.node.removeClass( 'yith-plugin-fw__panel__sidebar--collapsed' );
+						setUserSetting( 'yithFwSidebarFold', 'o' );
+					}
+				};
+
+				sidebar.setOpen = function ( open ) {
+					var animationClass = !document.body.classList.contains( 'rtl' ) ? 'yith-plugin-fw-animate__appear-from-left-full' : 'yith-plugin-fw-animate__appear-from-right-full';
+					if ( open ) {
+						sidebar.node.addClass( ['yith-plugin-fw--open', animationClass] );
+					} else {
+						sidebar.node.removeClass( ['yith-plugin-fw--open', animationClass] );
+					}
+				};
+
+				this.__sidebar = sidebar;
+			}
+
+			return this.__sidebar;
+		}
+
+		$( document ).on( 'click', '.yith-plugin-fw__panel__mobile__header__toggle', function () {
+			var sidebar = getSidebar();
+			sidebar.setOpen( true );
+			$( document.body ).append( $( '<div id="yith-plugin-fw__panel__sidebar__mobile-backdrop"></div>' ) );
+		} );
+
+		$( document ).on( 'click', '#yith-plugin-fw__panel__sidebar__mobile-backdrop', function () {
+			var sidebar = getSidebar();
+			sidebar.setOpen( false );
+			$( this ).remove();
+		} );
+
+		$( document ).on( 'click', '.yith-plugin-fw__panel__sidebar__collapse', function () {
+			var sidebar = getSidebar();
+			sidebar.setCollapsed( !sidebar.isCollapsed() );
+		} );
+
+		$( document ).on( 'click', '.yith-plugin-fw__panel__menu-item.yith-plugin-fw--has-submenu a.yith-plugin-fw__panel__menu-item__content', function ( event ) {
+			event.preventDefault();
+			var sidebar = getSidebar();
+
+			if ( sidebar.isCollapsed() && sidebar.isFixed() ) {
+				return;
+			}
+
+			var toggle  = $( event.target ),
+				item    = toggle.closest( '.yith-plugin-fw__panel__menu-item' ),
+				submenu = item.find( '.yith-plugin-fw__panel__submenu' );
+
+			if ( item.is( '.yith-plugin-fw--open' ) ) {
+				submenu.slideUp( 200 );
+			} else {
+				submenu.slideDown( 200 );
+			}
+
+			item.toggleClass( 'yith-plugin-fw--open' );
+
+		} );
+
+	} )();
 } );

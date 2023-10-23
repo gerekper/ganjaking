@@ -12,8 +12,7 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 	/**
 	 * YIT_Plugin_Panel_WooCommerce class.
 	 *
-	 * @author Andrea Grillo <andrea.grillo@yithemes.com>
-	 * @author Antonio La Rocca <antonio.larocca@yithemes.com>
+	 * @author YITH <plugins@yithemes.com>
 	 */
 	class YIT_Plugin_Panel_WooCommerce extends YIT_Plugin_Panel {
 		/**
@@ -74,6 +73,10 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 				$this->settings        = $args;
 				$this->tabs_path_files = $this->get_tabs_path_files();
 
+				$this->settings['ui_version'] = $this->settings['ui_version'] ?? 1;
+
+				$this->init_admin_tabs();
+
 				if ( isset( $this->settings['create_menu_page'] ) && $this->settings['create_menu_page'] ) {
 					$this->add_menu_page();
 				}
@@ -82,8 +85,12 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 					$this->links = $this->settings['links'];
 				}
 
+				$this->maybe_init_your_store_tools_tab();
+				$this->maybe_init_help_tab();
 				$this->maybe_init_premium_tab();
+				$this->maybe_init_welcome_modals();
 
+				add_filter( 'admin_body_class', array( $this, 'add_body_class' ) );
 				add_action( 'admin_init', array( $this, 'set_default_options' ) );
 				add_action( 'admin_menu', array( $this, 'add_setting_page' ) );
 				add_action( 'admin_menu', array( $this, 'add_premium_version_upgrade_to_menu' ), 100 );
@@ -95,7 +102,6 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 				add_filter( 'woocommerce_admin_settings_sanitize_option', array( $this, 'maybe_unserialize_panel_data' ), 10, 3 );
 
 				add_action( 'yith_plugin_fw_get_field_after', array( $this, 'add_yith_ui' ) );
-				add_action( 'yith_plugin_fw_before_woocommerce_panel', array( $this, 'add_plugin_banner' ), 10, 1 );
 				add_action( 'admin_action_yith_plugin_fw_save_toggle_element', array( $this, 'save_toggle_element_options' ) );
 				add_filter( 'woocommerce_admin_settings_sanitize_option', array( $this, 'sanitize_onoff_value' ), 20, 3 );
 
@@ -114,13 +120,11 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 		 * Init actions.
 		 *
 		 * @since  3.0.0
-		 * @author Leanza Francesco <leanzafrancesco@gmail.com>
 		 */
 		protected static function init_actions() {
 			if ( ! static::$actions_initialized ) {
 				add_action( 'woocommerce_admin_field_boxinfo', array( __CLASS__, 'add_infobox' ), 10, 1 );
 				add_action( 'woocommerce_admin_field_yith-field', array( __CLASS__, 'add_yith_field' ), 10, 1 );
-				add_filter( 'admin_body_class', array( __CLASS__, 'admin_body_class' ) );
 
 				add_filter( 'woocommerce_admin_settings_sanitize_option', array( __CLASS__, 'sanitize_option' ), 10, 3 );
 
@@ -136,9 +140,6 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 		/**
 		 * Show a tabbed panel to setting page
 		 * a callback function called by add_setting_page => add_submenu_page
-		 *
-		 * @author   Andrea Grillo      <andrea.grillo@yithemes.com>
-		 * @author   Antonio La Rocca   <antonio.larocca@yithemes.com>
 		 */
 		public function yit_panel() {
 			$additional_info = array(
@@ -153,6 +154,8 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 			$additional_info                    = apply_filters( 'yith_admin_tab_params', $additional_info );
 			$additional_info['additional_info'] = $additional_info;
 
+			$this->render_panel_header();
+
 			extract( $additional_info ); // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 			require YIT_CORE_PLUGIN_TEMPLATE_PATH . '/panel/woocommerce/woocommerce-panel.php';
 		}
@@ -163,7 +166,6 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 		 * @param string $option_value The option value.
 		 *
 		 * @return   string
-		 * @author   Emanuela Castorina      <emanuela.castorina@yithemes.com>
 		 */
 		public function yit_upload_update( $option_value ) {
 			return $option_value;
@@ -173,8 +175,6 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 		 * Show a input fields to upload images
 		 *
 		 * @param array $args The arguments.
-		 *
-		 * @author   Emanuela Castorina      <emanuela.castorina@yithemes.com>
 		 */
 		public function yit_upload( $args = array() ) {
 			if ( ! empty( $args ) ) {
@@ -191,7 +191,6 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 		 * @param array $screen_ids Screen IDs.
 		 *
 		 * @return array
-		 * @author Antonino Scarfì <antonino.scarfi@yithemes.com>
 		 */
 		public function add_allowed_screen_id( $screen_ids ) {
 			global $admin_page_hooks;
@@ -210,23 +209,9 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 		 *
 		 * @return string
 		 * @since    2.0.0
-		 * @author   Andrea Grillo      <andrea.grillo@yithemes.com>
-		 * @author   Antonio La Rocca   <antonio.larocca@yithemes.com>
 		 */
 		public function get_current_tab() {
-			// phpcs:disable WordPress.Security.NonceVerification.Recommended
-			global $pagenow;
-			$tabs = $this->get_available_tabs();
-			$tab  = $tabs[0];
-
-			if ( 'admin.php' === $pagenow && isset( $_REQUEST['tab'] ) && in_array( $_REQUEST['tab'], $tabs, true ) ) {
-				$tab = sanitize_key( wp_unslash( $_REQUEST['tab'] ) );
-			} elseif ( isset( $_REQUEST['tab'] ) && 'help' === $_REQUEST['tab'] && ! empty( $this->settings['help_tab'] ) ) {
-				$tab = 'help';
-			}
-
-			return apply_filters( 'yith_wc_plugin_panel_current_tab', $tab );
-			// phpcs:enable
+			return apply_filters( 'yith_wc_plugin_panel_current_tab', parent::get_current_tab() );
 		}
 
 		/**
@@ -236,8 +221,6 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 		 * @param bool $default false for all tabs slug, true for current tab.
 		 *
 		 * @return mixed Array tabs | String current tab
-		 * @author   Andrea Grillo      <andrea.grillo@yithemes.com>
-		 * @author   Antonio La Rocca   <antonio.larocca@yithemes.com>
 		 */
 		public function get_available_tabs( $default = false ) {
 			$tabs = array_keys( $this->settings['admin-tabs'] );
@@ -251,8 +234,6 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 		 * read all options and show sections and fields
 		 *
 		 * @return void
-		 * @author   Andrea Grillo      <andrea.grillo@yithemes.com>
-		 * @author   Antonio La Rocca   <antonio.larocca@yithemes.com>
 		 */
 		public function add_fields() {
 			$yit_options = $this->get_main_array_options();
@@ -262,25 +243,170 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 				return;
 			}
 
-			woocommerce_admin_fields( $yit_options[ $option_key ] );
+			if ( 1 === $this->get_ui_version() ) {
+				woocommerce_admin_fields( $yit_options[ $option_key ] );
+
+				return;
+			}
+
+			$checkbox_group = array();
+
+			foreach ( $yit_options[ $option_key ] as $option ) {
+				if ( ! isset( $option['type'] ) ) {
+					continue;
+				}
+
+				$field = $option;
+
+				$type = $field['yith-type'] ?? $field['type'] ?? '';
+
+				if ( ! isset( $field['title'] ) ) {
+					$field['title'] = $field['name'] ?? '';
+				}
+
+				$field['id']   = $field['id'] ?? '';
+				$field['desc'] = $field['desc'] ?? '';
+
+				if ( 'checkbox' === $type && isset( $field['checkboxgroup'] ) ) {
+					if ( 'start' === $field['checkboxgroup'] ) {
+						$checkbox_group = array();
+					}
+
+					$checkbox_group[] = $field;
+
+					if ( 'end' === $field['checkboxgroup'] ) {
+						$first_checkbox = current( $checkbox_group );
+						$html           = '';
+
+						foreach ( $checkbox_group as $checkbox_field ) {
+							$checkbox_field['name']    = $checkbox_field['id'];
+							$checkbox_field['default'] = $checkbox_field['default'] ?? '';
+							$checkbox_field['value']   = WC_Admin_Settings::get_option( $checkbox_field['id'], $checkbox_field['default'] );
+
+							$html .= '<label>';
+							$html .= yith_plugin_fw_get_field( $checkbox_field );
+							$html .= ! empty( $checkbox_field['desc'] ) ? $checkbox_field['desc'] : '';
+							$html .= '</label>';
+						}
+
+						$field = array(
+							'id'               => '',
+							'type'             => 'yith-field',
+							'yith-type'        => 'html',
+							'title'            => $first_checkbox['name'] ?? '',
+							'html'             => '<fieldset class="yith-plugin-fw__panel__checkbox-group">' . $html . '</fieldset>',
+							'yith-display-row' => true,
+						);
+
+					} else {
+						continue;
+					}
+				}
+
+				switch ( $field['type'] ) {
+					case 'sectionstart':
+						// Do nothing.
+						break;
+					case 'title':
+
+						$class_title = $field['class_title'] ?? '';
+						echo '<div class="yith-plugin-fw__panel__section">';
+						if ( ! empty( $field['title'] ) ) {
+							echo '<div class="yith-plugin-fw__panel__section__title '.esc_attr( $class_title ).'">';
+							echo '<h2>' . esc_html( $field['title'] ) . '</h2>';
+							if ( ! empty( $field['desc'] ) ) {
+								echo '<div class="yith-plugin-fw__panel__section__description">';
+								echo wp_kses_post( wpautop( wptexturize( $field['desc'] ) ) );
+								echo '</div>';
+							}
+							echo '</div>';
+						}
+						echo '<div class="yith-plugin-fw__panel__section__content">';
+						if ( ! empty( $field['id'] ) ) {
+							do_action( 'woocommerce_settings_' . sanitize_title( $field['id'] ) );
+						}
+						break;
+					case 'sectionend':
+						if ( ! empty( $field['id'] ) ) {
+							do_action( 'woocommerce_settings_' . sanitize_title( $field['id'] ) . '_end' );
+						}
+						if ( ! empty( $field['id'] ) ) {
+							do_action( 'woocommerce_settings_' . sanitize_title( $field['id'] ) . '_after' );
+						}
+
+						echo '</div><!-- yith-plugin-fw__panel__section__content -->';
+						echo '</div><!-- yith-plugin-fw__panel__section -->';
+						break;
+					case 'yith-field':
+						$field['type'] = $field['yith-type'] ?? '';
+						if ( ! $field['type'] ) {
+							continue 2;
+						}
+						$field['field_name']  = $field['field_name'] ?? $field['id'];
+						$field['title']       = $field['title'] ?? $field['name'] ?? '';
+						$field['name']        = $field['id'] ?? '';
+						$field['default']     = $field['default'] ?? '';
+						$field['placeholder'] = $field['placeholder'] ?? '';
+
+						$value = apply_filters( 'yith_plugin_fw_wc_panel_pre_field_value', null, $field );
+						if ( is_null( $value ) ) {
+							if ( 'toggle-element' === $field['type'] || 'toggle-element-fixed' === $field['type'] ) {
+								$value = get_option( $field['id'], $field['default'] );
+							} else {
+								$value = WC_Admin_Settings::get_option( $field['id'], $field['default'] );
+							}
+						}
+						$field['value'] = $value;
+
+						if ( 'radio' === $field['type'] && $field['id'] && ! isset( $field['labelled_by'] ) ) {
+							$field['labelled_by'] = $field['id'] . '__label';
+						}
+
+						$field = apply_filters( 'yith_plugin_fw_wc_panel_field_data', $field );
+
+						$this->get_template(
+							'woocommerce/woocommerce-option-row.php',
+							array(
+								'field' => $field,
+								'panel' => $this,
+							)
+						);
+						break;
+					default:
+						$name           = $field['title'] ?? '';
+						$field['title'] = '';
+
+						ob_start();
+						woocommerce_admin_fields( array( $field ) );
+						$html = ob_get_clean();
+
+						$field = array(
+							'type'             => 'html',
+							'name'             => $name,
+							'html'             => '<table class="yith-plugin-fw__panel__option__wc-row-table form-table">' . $html . '</table>',
+							'yith-display-row' => true,
+						);
+
+						$this->get_template(
+							'woocommerce/woocommerce-option-row.php',
+							array(
+								'field'          => $field,
+								'panel'          => $this,
+								'show_container' => false,
+							)
+						);
+
+				}
+			}
 		}
 
 		/**
-		 * Print the panel content
-		 * check if the tab is a wc options tab or custom tab and print the content
-		 *
-		 * @return void
-		 * @author   Andrea Grillo      <andrea.grillo@yithemes.com>
-		 * @author   Antonio La Rocca   <antonio.larocca@yithemes.com>
-		 * @author   Leanza Francesco   <leanzafrancesco@gmail.com>
+		 * Print the panel content page.
 		 */
-		public function print_panel_content() {
+		public function render_panel_content_page() {
 			$yit_options        = $this->get_main_array_options();
-			$page               = $this->settings['page'];
 			$option_key         = $this->get_current_option_key();
 			$custom_tab_options = $this->get_custom_tab_options( $yit_options, $option_key );
-
-			$this->print_tabs_nav();
 
 			if ( $this->is_premium_tab() && $this->has_premium_tab() ) {
 				$this->print_premium_tab();
@@ -288,17 +414,42 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 				$this->print_custom_tab( $custom_tab_options );
 			} elseif ( $this->is_help_tab() ) {
 				$this->print_help_tab();
+			} elseif ( $this->has_your_store_tools_tab() && $this->is_your_store_tools_tab() ) {
+				$this->print_your_store_tools_tab();
 			} else {
-				include YIT_CORE_PLUGIN_TEMPLATE_PATH . '/panel/woocommerce/woocommerce-form.php';
+				$this->get_template(
+					'woocommerce/woocommerce-form.php',
+					array(
+						'panel'      => $this,
+						'option_key' => $option_key,
+					)
+				);
 			}
+		}
+
+		/**
+		 * Print the panel content
+		 * check if the tab is a wc options tab or custom tab and print the content
+		 *
+		 * @return void
+		 */
+		public function print_panel_content() {
+			$option_key = $this->get_current_option_key();
+			$content_id = $this->settings['page'] . '_' . $option_key;
+
+			$this->get_template(
+				'panel-content.php',
+				array(
+					'panel'      => $this,
+					'content_id' => $content_id,
+				)
+			);
 		}
 
 		/**
 		 * Update options
 		 *
 		 * @return void
-		 * @author   Andrea Grillo      <andrea.grillo@yithemes.com>
-		 * @author   Antonio La Rocca   <antonio.larocca@yithemes.com>
 		 * @see      woocommerce_update_options function
 		 * @internal fire two action (before and after update): yit_panel_wc_before_update and yit_panel_wc_after_update
 		 */
@@ -336,9 +487,19 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 					}
 				}
 
-				woocommerce_update_options( $yit_options[ $option_key ] );
+				$options = $yit_options[ $option_key ];
+				$options = array_filter(
+					$options,
+					function ( $option ) {
+						return empty( $option['is_option_disabled'] );
+					}
+				);
+
+				woocommerce_update_options( $options );
 
 				do_action( 'yit_panel_wc_after_update' );
+
+				$this->add_notice( __( 'Options saved!', 'yith-plugin-fw' ), 'success' );
 
 			} elseif (
 				isset( $_REQUEST['yit-action'] ) && 'wc-options-reset' === sanitize_key( wp_unslash( $_REQUEST['yit-action'] ) )
@@ -373,6 +534,12 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 								$default[ $colorpicker['id'] ] = isset( $colorpicker['default'] ) ? $colorpicker['default'] : '';
 							}
 							update_option( $option['id'], $default );
+						} elseif ( isset( $option['yith-type'] ) && 'inline-fields' === $option['yith-type'] && ! empty( $option['fields'] ) ) {
+							$default = array();
+							foreach ( $option['fields'] as $field_id => $field ) {
+								$default[ $field_id ] = isset( $field['default'] ) ? $field['default'] : '';
+							}
+							update_option( $option['id'], $default );
 						} elseif ( isset( $option['default'] ) ) {
 							update_option( $option['id'], $option['default'] );
 						}
@@ -385,15 +552,13 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 				}
 
 				do_action( 'yit_panel_wc_after_reset' );
+
+				$this->add_notice( __( 'Options reset correctly!', 'yith-plugin-fw' ), 'success' );
 			}
 		}
 
 		/**
 		 * Add Admin WC Style and Scripts
-		 *
-		 * @author   Andrea Grillo      <andrea.grillo@yithemes.com>
-		 * @author   Antonio La Rocca   <antonio.larocca@yithemes.com>
-		 * @author   Leanza Francesco   <leanzafrancesco@gmail.com>
 		 */
 		public function admin_enqueue_scripts() {
 			global $woocommerce, $pagenow;
@@ -404,8 +569,9 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 
 			$screen            = function_exists( 'get_current_screen' ) ? get_current_screen() : false;
 			$assets_screen_ids = (array) apply_filters( 'yith_plugin_fw_wc_panel_screen_ids_for_assets', array() );
+			$is_current_panel  = $this->is_current_panel( false );
 
-			if ( $screen && ( 'admin.php' === $pagenow && strpos( $screen->id, $this->settings['page'] ) !== false ) || in_array( $screen->id, $assets_screen_ids, true ) ) {
+			if ( $is_current_panel || in_array( $screen->id, $assets_screen_ids, true ) ) {
 				$woocommerce_version       = function_exists( 'WC' ) ? WC()->version : $woocommerce->version;
 				$woocommerce_settings_deps = array( 'jquery', 'jquery-ui-datepicker', 'jquery-ui-sortable', 'iris' );
 
@@ -418,9 +584,19 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 
 				wp_enqueue_media();
 
+				if ( $is_current_panel ) {
+					if ( 1 === $this->get_ui_version() ) {
+						wp_enqueue_style( 'yit-plugin-style' );
+					} else {
+						// Set the old plugin framework style to be empty, to prevent issues if any plugin is enqueueing it directly.
+						wp_deregister_style( 'yit-plugin-style' );
+						wp_register_style( 'yit-plugin-style', false, array(), yith_plugin_fw_get_version() );
+					}
+				}
+
 				wp_enqueue_style( 'yith-plugin-fw-fields' );
 				wp_enqueue_style( 'woocommerce_admin_styles' );
-				wp_enqueue_style( 'raleway-font' );
+				wp_enqueue_style( 'yith-plugin-panel' );
 
 				wp_enqueue_script( 'woocommerce_settings', $woocommerce->plugin_url() . '/assets/js/admin/settings.min.js', $woocommerce_settings_deps, $woocommerce_version, true );
 				wp_localize_script(
@@ -431,17 +607,16 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 					)
 				);
 				wp_enqueue_script( 'yith-plugin-fw-fields' );
-			}
-
-			if ( $screen && ( 'admin.php' === $pagenow && yith_plugin_fw_is_panel() ) || in_array( $screen->id, $assets_screen_ids, true ) ) {
-				wp_enqueue_media();
-				wp_enqueue_style( 'yit-plugin-style' );
 				wp_enqueue_script( 'yit-plugin-panel' );
 			}
 
 			if ( $screen && 'admin.php' === $pagenow && strpos( $screen->id, 'yith_upgrade_premium_version' ) !== false ) {
 				wp_enqueue_style( 'yit-upgrade-to-pro' );
 				wp_enqueue_script( 'colorbox' );
+			}
+
+			if ( $this->is_current_panel( true ) ) {
+				do_action( 'yith_plugin_fw_panel_enqueue_scripts', $this );
 			}
 		}
 
@@ -481,11 +656,41 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 
 		/**
 		 * Delete the "default options added" option
-		 *
-		 * @author   Leanza Francesco   <leanzafrancesco@gmail.com>
 		 */
 		public static function delete_default_options_set_option() {
 			delete_option( 'yit_plugin_fw_panel_wc_default_options_set' );
+		}
+
+		/**
+		 * Add body classes in Panel pages
+		 *
+		 * @param string $classes Body classes.
+		 *
+		 * @return string
+		 * @since  4.0.0
+		 */
+		public function add_body_class( $classes ) {
+			global $pagenow;
+
+			$assets_screen_ids = (array) apply_filters( 'yith_plugin_fw_wc_panel_screen_ids_for_assets', array() );
+			$is_options_panel  = $this->is_current_panel( false );
+			$is_panel          = $this->is_current_panel();
+
+			if ( $is_panel || in_array( get_current_screen()->id, $assets_screen_ids, true ) ) {
+				$to_add = array(
+					'yith-plugin-fw-panel',
+					$is_options_panel ? 'woocommerce' : '',
+					$is_panel ? ( 'yith-plugin-fw-panel--version-' . $this->get_ui_version() ) : '',
+				);
+
+				$to_add = array_filter( $to_add );
+
+				foreach ( $to_add as $class_to_add ) {
+					$classes = ! substr_count( $classes, " $class_to_add " ) ? $classes . " $class_to_add " : $classes;
+				}
+			}
+
+			return $classes;
 		}
 
 		/**
@@ -494,8 +699,8 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 		 * @param string $admin_body_classes The body classes.
 		 *
 		 * @return string Filtered body classes
-		 * @author Andrea Grillo <andrea.grillo@yithemes.com>
-		 * @since  2.0
+		 * @since      2.0
+		 * @deprecated 4.0.0
 		 */
 		public static function admin_body_class( $admin_body_classes ) {
 			global $pagenow;
@@ -518,7 +723,6 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 		 * @param string $raw_value Raw option value.
 		 *
 		 * @return mixed Filtered return value
-		 * @author Antonio La Rocca <antonio.larocca@yithemes.com>
 		 * @since  2.0
 		 */
 		public function maybe_unserialize_panel_data( $value, $option, $raw_value ) {
@@ -548,7 +752,6 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 		 * @param mixed $raw_value Raw option value.
 		 *
 		 * @return mixed Filtered return value
-		 * @author Leanza Francesco <leanzafrancesco@gmail.com>
 		 * @since  3.0.0
 		 */
 		public static function sanitize_option( $value, $option, $raw_value ) {
@@ -622,7 +825,6 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 		 *
 		 * @return   void
 		 * @since    3.0.0
-		 * @author   Leanza Francesco <leanzafrancesco@gmail.com>
 		 */
 		public static function add_yith_field( $field = array() ) {
 			if ( ! empty( $field ) && isset( $field['yith-type'] ) ) {
@@ -643,6 +845,10 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 				}
 				$field['value'] = $value;
 
+				if ( 'radio' === $field['type'] && $field['id'] && ! isset( $field['labelled_by'] ) ) {
+					$field['labelled_by'] = $field['id'] . '__label';
+				}
+
 				// Let's filter field data just before print.
 				$field = apply_filters( 'yith_plugin_fw_wc_panel_field_data', $field );
 
@@ -654,27 +860,29 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 		 *  Save the content of the toggle element present inside the panel.
 		 *  Called by the action 'admin_action_yith_plugin_fw_save_toggle_element'
 		 *  via Ajax
-		 *
-		 * @author Emanuela Castorina
 		 */
 		public function save_toggle_element_options() {
 
 			check_ajax_referer( 'save-toggle-element', 'security' );
 
 			if ( ! current_user_can( $this->settings['capability'] ) ) {
-				wp_die( -1 );
+				wp_die( - 1 );
 			}
 
-			$posted      = $_POST;
-			$tabs        = $this->get_available_tabs();
-			$yit_options = $this->get_main_array_options();
-			$current_tab = isset( $_REQUEST['tab'] ) ? sanitize_key( wp_unslash( $_REQUEST['tab'] ) ) : false;
-			$current_tab = ! ! $current_tab && in_array( $current_tab, $tabs, true ) ? $current_tab : $tabs[0];
-			$option_id   = isset( $_REQUEST['toggle_id'] ) ? sanitize_key( wp_unslash( $_REQUEST['toggle_id'] ) ) : '';
-			$updated     = false;
+			$posted          = $_POST;
+			$tabs            = $this->get_available_tabs();
+			$yit_options     = $this->get_main_array_options();
+			$current_tab     = isset( $_REQUEST['tab'] ) ? sanitize_key( wp_unslash( $_REQUEST['tab'] ) ) : false;
+			$current_tab     = ! ! $current_tab && in_array( $current_tab, $tabs, true ) ? $current_tab : $tabs[0];
+			$sub_tabs        = array_keys( $this->get_sub_tabs( $current_tab ) );
+			$current_sub_tab = sanitize_key( wp_unslash( $_REQUEST['sub_tab'] ?? '' ) );
+			$current_sub_tab = ! ! $current_sub_tab && in_array( $current_sub_tab, $sub_tabs, true ) ? $current_sub_tab : $sub_tabs[0] ?? '';
+			$option_key      = ! ! $current_sub_tab ? $current_sub_tab : $current_tab;
+			$option_id       = isset( $_REQUEST['toggle_id'] ) ? sanitize_key( wp_unslash( $_REQUEST['toggle_id'] ) ) : '';
+			$updated         = false;
 
-			if ( ! empty( $yit_options[ $current_tab ] ) && ! empty( $option_id ) ) {
-				$tab_options = $yit_options[ $current_tab ];
+			if ( ! empty( $yit_options[ $option_key ] ) && ! empty( $option_id ) ) {
+				$tab_options = $yit_options[ $option_key ];
 				foreach ( $tab_options as $key => $item ) {
 					if ( ! isset( $item['id'] ) ) {
 						unset( $tab_options[ $key ] );
@@ -682,6 +890,7 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 				}
 
 				$option_array = array_combine( wp_list_pluck( $tab_options, 'id' ), $tab_options );
+
 				if ( isset( $option_array[ $option_id ] ) ) {
 					$value = isset( $posted[ $option_id ] ) ? $posted[ $option_id ] : '';
 
@@ -691,7 +900,7 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 						$i         = 0;
 						$new_value = array();
 						foreach ( $order_elements as $key ) {
-							$index               = apply_filters( 'yith_toggle_elements_index', $i++, $key );
+							$index               = apply_filters( 'yith_toggle_elements_index', $i ++, $key );
 							$new_value[ $index ] = $value[ $key ];
 						}
 
@@ -710,17 +919,21 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 		/**
 		 * Print tabs navigation.
 		 *
-		 * @param array $args The arguments.
+		 * @param array $nav_args The arguments.
 		 */
-		public function print_tabs_nav( $args = array() ) {
+		public function print_tabs_nav( $nav_args = array() ) {
 			$defaults = array(
 				'premium_class' => 'yith-premium',
 				'parent_page'   => '',
-				'wrapper_class' => 'nav-tab-wrapper woo-nav-tab-wrapper',
 			);
-			$args     = wp_parse_args( $args, $defaults );
 
-			parent::print_tabs_nav( $args );
+			if ( 1 === $this->get_ui_version() ) {
+				$defaults['wrapper_class'] = 'nav-tab-wrapper woo-nav-tab-wrapper';
+			}
+
+			$nav_args = wp_parse_args( $nav_args, $defaults );
+
+			parent::print_tabs_nav( $nav_args );
 		}
 
 		/**
@@ -731,7 +944,6 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 		 * @param string $raw_value Raw option value.
 		 *
 		 * @return mixed Filtered return value
-		 * @author Andrea Grillo <andrea.grillo@yithemes.com>
 		 * @since  3.0.0
 		 */
 		public static function sanitize_onoff_value( $value, $option, $raw_value ) {
@@ -752,7 +964,6 @@ if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 		 * @param array $yit_options Original options array.
 		 *
 		 * @return mixed|array New options array
-		 * @author Andrea Grillo <andrea.grillo@yithemes.com>
 		 * @since  3.0.0
 		 */
 		public function check_for_save_single_option( $yit_options ) {

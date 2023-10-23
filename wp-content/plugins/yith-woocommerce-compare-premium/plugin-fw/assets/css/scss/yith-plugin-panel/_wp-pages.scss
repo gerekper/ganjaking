@@ -1,0 +1,207 @@
+/**
+ * WP Pages
+ */
+
+.yith-plugin-fw-wp-page-wrapper {
+
+    .yith-plugin-fw__back-to-wp-list__wrapper {
+        margin: -5px 0 15px;
+
+        .yith-plugin-fw__back-to-wp-list {
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--yith-link);
+            vertical-align: middle;
+
+            &:before {
+                content: "\e901";
+                font-family: yith-icon;
+                margin-right: 5px;
+                font-size: .8em;
+                vertical-align: middle;
+            }
+        }
+    }
+
+    .yith-plugin-fw-wp-page__description {
+        margin-top: .75rem;
+        font-size: .875rem;
+        line-height: 1.5;
+    }
+
+    #poststuff {
+        min-width: 0;
+    }
+
+    .postbox {
+        box-shadow: none;
+    }
+
+    .wrap {
+
+        div#message.updated {
+            --yith-fw-notice-bg: #f7fbe9;
+            --yith-fw-notice-icon: '\e921';
+            --yith-fw-notice-border-color: #d7e0b0;
+            --yith-fw-notice-color: #6e861d;
+            display: none;
+            padding: 15px 40px 15px 45px;
+            margin: 15px 0 20px;
+            border-radius: 6px;
+            background: var(--yith-fw-notice-bg);
+            font-weight: 400;
+            font-size: 14px;
+            text-align: left;
+            color: var(--yith-fw-notice-color);
+            border: 1px solid var(--yith-fw-notice-border-color);
+
+            a {
+                color: inherit;
+                font-weight: 500;
+            }
+
+            &:before {
+                font-family: yith-icon;
+                content: var(--yith-fw-notice-icon);
+                position: absolute;
+                top: 50%;
+                left: 13px;
+                font-size: 20px;
+                font-weight: 400;
+                transform: translateY(-50%);
+            }
+
+            p {
+                padding: 0;
+                margin: 0;
+            }
+
+            .notice-dismiss {
+                cursor: pointer;
+                position: absolute;
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                right: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: inherit;
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    top: 0;
+                    left: 0;
+                    border-radius: 50%;
+                    opacity: 0;
+                    box-shadow: 0 0 0 5px;
+                    color: inherit;
+                    background: currentColor;
+                    transition: all .3s ease-in-out;
+                }
+
+                &:after {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    font-family: 'yith-icon';
+                    content: '\f117';
+                    font-size: 12px;
+                    transform: translateY(-50%) translateX(-50%);
+                }
+
+                &:hover:before {
+                    box-shadow: 0 0 0 0;
+                    opacity: .1;
+                }
+
+                &:hover:after, &:active:after, &:focus:after {
+                    color: inherit;
+                }
+            }
+        }
+    }
+
+    #wp-content-editor-tools {
+        background: transparent;
+    }
+
+    @media screen and (max-width: 782px) {
+        p.search-box {
+            display: none;
+        }
+    }
+}
+
+body.yith-plugin-fw-panel--version-2 {
+
+    .yith-plugin-fw-wp-page-wrapper {
+        .wrap {
+            padding: 32px;
+            margin: 0;
+
+            #yith-plugin-fw__back-to-wp-list__wrapper {
+                margin: -16px 0 15px;
+            }
+
+            h1 {
+                color: inherit;
+                font-size: 1.5rem;
+                margin: 0 8px 0 0;
+                padding: 0;
+                font-weight: 500;
+            }
+
+            hr.wp-header-end {
+                margin: 32px -32px;
+                border: 0;
+                border-bottom: 1px solid var(--yith-field-border-color);
+                visibility: visible;
+            }
+        }
+    }
+
+    .yith-plugin-fw__panel__content.yith-plugin-fw__panel__content--has-header-nav {
+        .yith-plugin-fw-wp-page-wrapper {
+            .wrap {
+                hr.wp-header-end {
+                    border-bottom: none;
+                    margin: 16px -16px;
+                }
+            }
+        }
+    }
+
+    &.term-php {
+        .yith-plugin-fw-wp-page-wrapper {
+            &.yith-plugin-ui--taxonomy-type {
+                #ajax-response:after {
+                    content: '';
+                    width: calc(100% + 64px);
+                    margin: 32px -32px;
+                    border: 0;
+                    border-bottom: 1px solid var(--yith-field-border-color);
+                    display: block;
+                }
+            }
+
+            #message {
+                display: none;
+            }
+        }
+
+        .yith-plugin-fw__panel__content.yith-plugin-fw__panel__content--has-header-nav {
+            .yith-plugin-fw-wp-page-wrapper {
+                &.yith-plugin-ui--taxonomy-type {
+                    #ajax-response:after {
+                        border-bottom: none;
+                        margin: 16px -16px;
+                    }
+                }
+            }
+        }
+    }
+}

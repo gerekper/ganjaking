@@ -1,0 +1,319 @@
+html, body {
+    background-color: #f8f9fa !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    margin: 0;
+    color: #007199;
+    font-size: 15px;
+    text-align: center;
+}
+
+header {
+    padding: 40px 0;
+}
+
+header .logo {
+    margin-bottom: 30px;
+}
+
+header h1 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+header h1 span {
+    display: block;
+    font-weight: lighter;
+}
+
+#content {
+    max-width: 550px;
+    margin: 0 auto;
+    background: #ffffff;
+    width: 90vw;
+    padding: 30px 75px 50px;
+    box-sizing: border-box;
+    box-shadow: 0 0 30px 5px rgba(150, 194, 229, 0.15);
+    margin-bottom: 30px;
+}
+
+#content.loading {
+    position: relative;
+    pointer-events: none;
+}
+
+#content.loading .loading-icon {
+    display: inline-block;
+}
+
+#content.loading:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.5);
+}
+
+#content h2 {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 30px;
+    color: #729600;
+}
+
+#content .small-link {
+    font-size: 11px;
+    font-weight: 500;
+    color: #00729f;
+    display: inline-block;
+}
+
+#content ul {
+    margin: 0 0 45px;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+}
+
+#content ul li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 15px;
+}
+
+#content ul li:before {
+    content: '';
+    background-image: url('../images/check.svg');
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top: 3px;
+    left: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#activation-form {
+    text-align: left;
+}
+
+#activation-form p.form-row {
+    margin-bottom: 30px;
+    padding-bottom: 5px;
+    position: relative;
+}
+
+#activation-form p.form-row label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#activation-form p.form-row label .small-link {
+    float: right;
+}
+
+#activation-form p.form-row > span {
+    display: block;
+    margin-top: 15px;
+}
+
+#activation-form p.form-row input[type="text"] {
+    height: 40px;
+    border: 1px solid #dfe3e6;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+#activation-form p.form-row input[type="text"]:focus,
+#activation-form p.form-row input[type="text"]:active {
+    border-color: #a7d9ec;
+}
+
+#activation-form p.form-row input[type="text"].validation-error {
+    border-color: #ff3838;
+}
+
+#activation-form p.form-row span.error {
+    font-size: 11px;
+    color: #d63638;
+    font-weight: bold;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    left: 0;
+    margin: 0;
+}
+
+#activation-form p.form-row.submit span.error {
+    position: static;
+    margin-bottom: 10px;
+}
+
+#activation-form p.form-row input[type="submit"] {
+    cursor: pointer;
+    width: 100%;
+    padding: 15px;
+    transition: all .3s ease;
+    background-color: #007199;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    border: 0;
+    border-radius: 5px;
+}
+
+#activation-form p.form-row input[type="submit"]:hover,
+#activation-form p.form-row input[type="submit"]:active {
+    background-color: #0392c4;
+    transition: all .3s ease;
+}
+
+#activation-success {
+    padding: 20px 0 0;
+}
+
+#activation-success p {
+    color: #729600;
+    font-weight: bold;
+}
+
+#activation-success .button {
+    color: #007199;
+    text-decoration: none;
+    border: 1px solid #007199;
+    border-radius: 5px;
+    padding: 8px 25px;
+    filter: inherit;
+    display: inline-block;
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 22px;
+    outline: none;
+}
+
+#activation-success .button:hover {
+    color: #ffffff;
+    background-color: #007199;
+    transition: all .3s ease;
+}
+
+.loading-icon {
+    display: none;
+    position: absolute;
+    width: 64px;
+    height: 40px;
+    margin: 0 auto;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    margin-top: -20px;
+    margin-left: -32px;
+}
+
+.loading-icon div {
+    position: absolute;
+    top: 15px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #005b7c;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.loading-icon div:nth-child(1) {
+    left: 6px;
+    animation: lds-ellipsis1 0.6s infinite;
+}
+
+.loading-icon div:nth-child(2) {
+    left: 6px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+
+.loading-icon div:nth-child(3) {
+    left: 26px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+
+.loading-icon div:nth-child(4) {
+    left: 45px;
+    animation: lds-ellipsis3 0.6s infinite;
+}
+
+@keyframes lds-ellipsis1 {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes lds-ellipsis3 {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+@keyframes lds-ellipsis2 {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(19px, 0);
+    }
+}
+
+@media (max-width: 768px) {
+    #content {
+        padding: 25px 50px 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    #content {
+        padding: 20px 35px 20px;
+    }
+}
+
+/*****************
+ MODAL STYLE
+******************/
+
+.yith-plugin-fw__modal__wrap .yith-plugin-fw__modal__footer.yith-license-modal-footer {
+    text-align: right;
+}
+
+.yith-plugin-fw__modal__wrap .yith-plugin-fw__modal__content.yith-license-modal-content .yith-license-modal-image {
+    text-align: center;
+    box-shadow: 0 0 10px 3px rgba(34, 59, 80, 0.1);
+}
+
+.yith-plugin-fw__modal__wrap .yith-plugin-fw__modal__content.yith-license-modal-content .yith-license-modal-image img {
+    max-width: 900px;
+    width: 90%;
+}
+
+.yith-plugin-fw__modal__wrap .yith-plugin-fw__modal__content.yith-license-modal-content .yith-license-modal-description {
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.yith-plugin-fw__modal__wrap .yith-plugin-fw__modal__content.yith-license-modal-content .yith-license-modal-description a {
+    color: #00729f;
+}
+
+@media (max-width: 768px) {
+    .yith-plugin-fw__modal__wrap .yith-plugin-fw__modal__content.yith-license-modal-content .yith-license-modal-image {
+        display: none;
+    }
+}

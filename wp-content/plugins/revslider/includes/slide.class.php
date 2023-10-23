@@ -770,7 +770,7 @@ class RevSliderSlide extends RevSliderFunctions {
 		$post	 = get_post($id);
 		$excerpt = trim($post->post_excerpt);
 		$excerpt = (empty($excerpt)) ? $post->post_content : $excerpt;
-		$excerpt = strip_tags($excerpt, '<b><br><br/><i><strong><small>');
+		$excerpt = str_replace(array('<br/>', '<br />'), '', strip_tags($excerpt, '<b><br><i><strong><small>'));
 		if($type === 'words'){
 			$excerpt = $this->get_text_intro($excerpt, $limit);
 		}else{
@@ -2781,7 +2781,7 @@ class RevSliderSlide extends RevSliderFunctions {
 		
 		if(!empty($errors)){
 			foreach($errors as $error){
-				$err .= implode($error, ',');
+				$err .= implode('', $error);
 			}
 			$this->throw_error(__('retrieving categories error: '.esc_html($err)));
 		}

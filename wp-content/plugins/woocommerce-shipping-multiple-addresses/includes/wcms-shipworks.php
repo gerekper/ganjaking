@@ -6,28 +6,48 @@ if (! defined('ABSPATH')) {
 
 class WC_MS_Shipworks {
 
-    public function __construct() {
-        add_filter( 'se_woocommerce_order_rows', array( $this, 'send_split_orders' ), 10, 2 );
-        add_filter( 'sc_orders_rows', array( $this, 'send_split_orders' ), 10, 2 );
-        add_filter( 'woocommerce_new_customer_note', array( $this, 'customer_note_added' ), 1 );
-    }
+	public function __construct() {
+		add_filter( 'se_woocommerce_order_rows', array( $this, 'send_split_orders' ), 10, 2 );
+		add_filter( 'sc_orders_rows', array( $this, 'send_split_orders' ), 10, 2 );
+		add_filter( 'woocommerce_new_customer_note', array( $this, 'customer_note_added' ), 1 );
+	}
 
     public function send_split_orders( $rows, $orders ) {
-        global $wpdb;
-
         $new_rows = array();
 
         foreach ( $rows as $i => $row ) {
-            $ids = WC_MS_Order_Shipment::get_by_order( $row['ID'] );
+			$shipments = WC_MS_Order_Shipment::get_shipment_objects_by_order( $row['ID'] );
 
-            if ( count( $ids ) > 0 ) {
-                foreach ( $ids as $id ) {
-                    $shipment = $wpdb->get_row( $wpdb->prepare(
-                        "SELECT * FROM " . $wpdb->prefix . "posts WHERE ID = %d",
-                        $id
-                    ), ARRAY_A );
+            if ( count( $shipments ) > 0 ) {
+                foreach ( $shipments as $shipment ) {
+	                $order_note_count = count( wc_get_order_notes( array( 'order_id' => $shipment->get_id() ) ) );
 
-                    $new_rows[] = $shipment;
+                    $new_rows[] = array(
+						'ID'                    => $shipment->get_id(),
+	                    // WC always sets this to 1 when using the CPT data store for orders.
+						'post_author'           => 1,
+						'post_date'             => gmdate( 'Y-m-d H:i:s', $shipment->get_date_created( 'edit' )->getOffsetTimestamp() ),
+						'post_date_gmt'         => gmdate( 'Y-m-d H:i:s', $shipment->get_date_created( 'edit' )->getTimestamp() ),
+						'post_content'          => '',
+						'post_title'            => sprintf( __( 'Shipment &ndash; %s', 'wc_shipping_multiple_address' ), date( _x( 'M d, Y @ H:i A', 'Order date parsed by date function', 'wc_shipping_multiple_address' ) ) ),
+						'post_excerpt'          => $shipment->get_customer_note(),
+						'post_status'           => $shipment->get_status(),
+						'comment_status'        => 'open',
+						'ping_status'           => 'closed',
+						'post_password'         => $shipment->get_order_key(),
+						'post_name'             => sprintf( __( 'shipment-%s', 'woocommerce-shipping-multiple-addresses' ), $shipment->get_id() ),
+						'to_ping'               => '',
+						'pinged'                => '',
+						'post_modified'         => gmdate( 'Y-m-d H:i:s', $shipment->get_date_modified( 'edit' )->getOffsetTimestamp() ),
+						'post_modified_gmt'     => gmdate( 'Y-m-d H:i:s', $shipment->get_date_modified( 'edit' )->getTimestamp() ),
+						'post_content_filtered' => '',
+						'post_parent'           => $shipment->get_parent_id(),
+						'guid'                  => $shipment->get_view_order_url(),
+						'menu_order'            => 0,
+						'post_type'             => $shipment->get_type(),
+						'post_mime_type'        => '',
+	                    'comment_count'         => $order_note_count,
+                    );
                 }
 
                 unset( $rows[ $i ] );
@@ -40,36 +60,26 @@ class WC_MS_Shipworks {
         return $rows;
     }
 
-    public function customer_note_added( $data ) {
-        global $wpdb;
+	/**
+	 * Add customer note into the order object.
+	 *
+	 * @param array $data Array of Order ID and customer note.
+	 */
+	public function customer_note_added( $data ) {
+		$order = wc_get_order( $data['order_id'] );
 
-        $post = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->posts} WHERE id = %d", $data['order_id'] ));
+		if ( false === $order || 'order_shipment' !== $order->get_type() ) {
+			return;
+		}
 
-        if ( $post && $post->post_type == 'order_shipment' ) {
-            $parent_id = $post->post_parent;
+		$parent_order = wc_get_order( $order->get_parent_id() );
 
-            $is_customer_note = intval( 1 );
+		if ( false === $parent_order ) {
+			return;
+		}
 
-            if ( isset( $_SERVER['HTTP_HOST'] ) )
-                $comment_author_email 	= sanitize_email( strtolower( esc_html__( 'WooCommerce', 'wc_shipping_multiple_address' ) ) . '@' . str_replace( 'www.', '', sanitize_text_field( $_SERVER['HTTP_HOST'] ) ) );
-            else
-                $comment_author_email 	= sanitize_email( strtolower( esc_html__( 'WooCommerce', 'wc_shipping_multiple_address' ) ) . '@noreply.com' );
-
-            $comment_post_ID 		= $parent_id;
-            $comment_author 		= __( 'WooCommerce', 'wc_shipping_multiple_address' );
-            $comment_author_url 	= '';
-            $comment_content 		= $data['customer_note'];
-            $comment_agent			= 'WooCommerce';
-            $comment_type			= 'order_note';
-            $comment_parent			= 0;
-            $comment_approved 		= 1;
-            $commentdata 			= compact( 'comment_post_ID', 'comment_author', 'comment_author_email', 'comment_author_url', 'comment_content', 'comment_agent', 'comment_type', 'comment_parent', 'comment_approved' );
-
-            $comment_id = wp_insert_comment( $commentdata );
-
-            add_comment_meta( $comment_id, 'is_customer_note', $is_customer_note );
-        }
-    }
+		$parent_order->add_order_note( $data['customer_note'], 1 );
+	}
 }
 
 new WC_MS_Shipworks();

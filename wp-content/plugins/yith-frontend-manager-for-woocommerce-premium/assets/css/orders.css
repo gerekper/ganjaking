@@ -1,0 +1,234 @@
+/* ORDERS */
+
+#yith-wcfm-orders mark{
+    display: block;
+    text-indent: -9999px;
+    position: relative;
+    height: 1em;
+    width: 1em;
+    background: 0 0;
+    font-size: 1.4em;
+    margin: 0 auto;
+    float: left;
+    margin-right: 8px;
+    font-size: 1.1em;
+    margin-top: 2px;
+}
+
+#yith-wcfm-orders mark:after {
+    font-family: WooCommerce;
+    speak: none;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    text-indent: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+#yith-wcfm-orders small.yith-wcmv-suborder-owner:not(.single-order) {
+    display: block;
+}
+
+#yith-wcfm-orders mark.processing:after { content: "\e011"; color: #73a724; }
+#yith-wcfm-orders mark.pending:after { content: "\e012"; color: #ffba00; }
+#yith-wcfm-orders mark.cancelled:after { content: "\e013"; color: #a00; }
+#yith-wcfm-orders mark.refunded:after { content: "\e014"; color: #999; }
+#yith-wcfm-orders mark.completed:after { content: "\e015"; color: #2ea2cc; }
+#yith-wcfm-orders mark.failed:after { content: "\e016"; color: #d0c21f; }
+#yith-wcfm-orders mark.on-hold:after { content: "\e033"; color: #999; }
+
+#yith-wcfm-orders .actions{ white-space: nowrap; }
+/*#yith-wcfm-orders .actions .button { width: 30px; height: 30px; padding: 5px; }*/
+
+#yith-wcfm-orders #order_data,
+#yith-wcfm-orders .order_download_permissions { border: 1px solid #eee; padding: 20px; margin-bottom: 20px; }
+#yith-wcfm-orders .order_actions { border: 1px solid #eee; padding: 20px; margin: 0px 0px 20px 0px; }
+#yith-wcfm-orders .order_actions li { list-style: none; }
+
+#yith-wcfm-orders #order_data .order_data_column { width: 27%; float: left; }
+#yith-wcfm-orders #order_data .order_data_column:first-child { width: 40%; margin-right: 6%; }
+#yith-wcfm-orders #order_data .order_data_column .wc-customer-user label a { display: none; }
+
+#yith-wcfm-orders #woocommerce-order-items { margin-bottom: 30px; }
+
+#yith-wcfm-orders #woocommerce-order-notes ul.order_notes { padding: 0; margin-left: 0; }
+#yith-wcfm-orders #woocommerce-order-notes ul.order_notes li { list-style: none; }
+
+#yith-wcfm-orders .order_actions { border-width:1px; border-style: solid; position: relative; overflow: visible; white-space: nowrap; }
+#yith-wcfm-orders .order_actions a { margin-right: 5px; display: inline-block; }
+#yith-wcfm-orders .order_actions a:after {
+    width: 100%;
+    height: 100%;
+    line-height: 1.85;
+    margin: 0;
+    text-align: center;
+    speak: none;
+    font-family: Dashicons;
+    font-variant: normal;
+    -webkit-font-smoothing: antialiased;
+    text-transform: none;
+    text-indent: 0;
+    top: 0;
+    left: 0;
+    font-weight: 400;
+    position: absolute;
+}
+
+#yith-wcfm-orders .order_actions .view:after { font-family: WooCommerce; }
+#yith-wcfm-orders .order_actions .complete:after { content: ""; }
+#yith-wcfm-orders .order_actions .processing:after { content: ""; font-family: WooCommerce; }
+
+
+
+.yith-wcfm-content table td.order_actions a,
+.yith-wcfm-content table td.user_actions a {
+    cursor: pointer;
+    position: relative;
+    color: #ffffff;
+    border: none;
+    box-shadow: none;
+    text-decoration: none;
+    outline: none;
+    float: none;
+    display: inline-block;
+}
+
+/* === YITH WooCommerce PDF Invoice Style */
+#yith_wcfm-main-content .yith-wcfm-content table td.order_actions a.ywpi_buttons{
+    display:block;
+    margin-left:0;
+    text-align: center;
+    padding: 6px;
+}
+/* ===END === */
+
+.yith-wcfm-content table td.order_actions a:hover,
+.yith-wcfm-content table td.user_actions a:hover {
+    filter: brightness(80%);
+}
+
+.yith-wcfm-content table td.order_actions a:before,
+.yith-wcfm-content table td.user_actions a:before {
+    content: '';
+    display: none;
+}
+
+.yith-wcfm-content table td.order_actions a:after,
+.yith-wcfm-content table td.user_actions a:after {
+    content: '';
+    display: block;
+    font-family: WooCommerce;
+    speak: none;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    top: 2px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+}
+
+.yith-wcfm-content table td.order_actions a.processing {
+    background-color: #2798ff;
+}
+
+.yith-wcfm-content table td.order_actions a.processing:after {
+    content: "\e00f";
+}
+
+.yith-wcfm-content table td.order_actions a.complete {
+    background-color: #7cdc00;
+}
+
+.yith-wcfm-content table td.order_actions a.complete:after {
+    content: '\e017';
+}
+
+.yith-wcfm-content table td.order_actions a.view,
+.yith-wcfm-content table td.user_actions a.view {
+    background-color: #a8a8a8;
+}
+
+.yith-wcfm-content table td.order_actions a.view:after,
+.yith-wcfm-content table td.user_actions a.view:after {
+    content: '\e010';
+}
+.orders-filter ul.yith-wcfm-order-status.subsubsub{
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.orders-filter ul.yith-wcfm-order-status.subsubsub li{
+    display: inline;
+}
+
+.orders-filter ul.yith-wcfm-order-status.subsubsub li:last-of-type{
+    margin-right: 0;
+}
+
+.orders-filter ul.yith-wcfm-order-status.subsubsub li:after{
+    content: "|";
+    margin: 0 5px;
+}
+
+.orders-filter ul.yith-wcfm-order-status.subsubsub li:last-of-type:after{
+    content: "";
+    margin: 0;
+}
+
+.orders-filter ul.yith-wcfm-order-status.subsubsub li.current a{
+    font-weight: bold;
+    color: #000000;
+    cursor: default;
+}
+
+#yith-wcfm-orders #metakeyinput,
+#yith-wcfm-orders #metakeyselect{
+    margin-bottom: 20px;
+    width: 260px;
+    box-sizing: border-box;
+}
+
+#yith_wcfm-main-content .yith-wcfm-content #orders-search {
+    display: table;
+    padding: 20px;
+}
+
+#yith_wcfm-main-content .yith-wcfm-content #orders-search .text-field,
+#yith_wcfm-main-content .yith-wcfm-content #orders-search .search-submit {
+    display: table-cell;
+    width: auto;
+    margin-bottom: 0;
+}
+
+#yith_wcfm-main-content .yith-wcfm-content #orders-search .search-submit{
+    vertical-align: top;
+}
+
+#yith_wcfm-main-content .yith-wcfm-content ul.order_notes li .note_content p {
+    margin: 0;
+    padding: 0;
+    overflow-wrap: anywhere;
+}
+
+/* Responsive */
+@media (max-width:768px){
+    .orders-filter ul.yith-wcfm-order-status.subsubsub li{
+        display: block;
+    }
+
+    .orders-filter ul.yith-wcfm-order-status.subsubsub li:after{
+        content: "";
+        margin: 0;
+    }
+}

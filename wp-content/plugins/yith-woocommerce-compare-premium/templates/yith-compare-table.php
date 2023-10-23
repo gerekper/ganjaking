@@ -2,8 +2,8 @@
 /**
  * Woocommerce Compare page
  *
- * @author  Your Inspiration Themes
- * @package YITH Woocommerce Compare
+ * @author  YITH <plugins@yithemes.com>
+ * @package YITH\Compare
  * @version 1.1.4
  */
 
@@ -13,23 +13,34 @@ global $product, $yith_woocompare;
 
 ?>
 
-<div id="yith-woocompare" class="woocommerce">
+<div id="yith-woocompare" class="woocommerce <?php echo $fixed ? esc_attr( 'fixed-compare-table' ) : ''; ?>">
 
 	<?php
 	if ( empty( $products ) ) :
+		/**
+		 * APPLY_FILTERS: yith_woocompare_empty_compare_message
+		 *
+		 * Filters the message shown when the comparison table is emtpy.
+		 *
+		 * @param string $message Message.
+		 *
+		 * @return string
+		 */
 		echo '<p>' . esc_html( apply_filters( 'yith_woocompare_empty_compare_message', __( 'No products added in the comparison table.', 'yith-woocommerce-compare' ) ) ) . '</p>';
 	else :
+		/**
+		 * DO_ACTION: yith_woocompare_before_main_table
+		 *
+		 * Allows to render some content before the comparison table.
+		 *
+		 * @param array $products Products to show.
+		 * @param bool  $fixed    Whether are products to show or not.
+		 */
+		do_action( 'yith_woocompare_before_main_table', $products, $fixed );
+
 		?>
 
-		<?php do_action( 'yith_woocompare_before_main_table', $products, $fixed ); ?>
-
-		<table id="yith-woocompare-table" class="compare-list 
-		<?php
-		if ( empty( $products ) ) {
-			echo 'empty-list';
-		}
-		?>
-		">
+		<table id="yith-woocompare-table" class="compare-list has-background">
 			<thead>
 			<tr>
 				<th>&nbsp;</th>
@@ -101,6 +112,24 @@ global $product, $yith_woocompare;
 
 								case 'product_info':
 									if ( ! $fixed ) {
+										/**
+										 * APPLY_FILTERS: yith_woocompare_remove_icon
+										 *
+										 * Filters the icon used to remove the product from the comparison table.
+										 *
+										 * @param string $icon Icon to remove product from comparison.
+										 *
+										 * @return string
+										 */
+										/**
+										 * APPLY_FILTERS: yith_woocompare_remove_label
+										 *
+										 * Filters the label to remove the product from the comparison table.
+										 *
+										 * @param string $label Label to remove product from comparison.
+										 *
+										 * @return string
+										 */
 										echo '<div class="remove"><a href="' . esc_url( $yith_woocompare->obj->remove_product_url( $product_id ) ) . '" data-iframe="' . esc_attr( $iframe ) . '" data-product_id="' . esc_attr( $product_id ) . '"><span class="remove">' . wp_kses_post( apply_filters( 'yith_woocompare_remove_icon', 'x' ) ) . '</span>' . wp_kses_post( apply_filters( 'yith_woocompare_remove_label', esc_html__( 'Remove', 'yith-woocommerce-compare' ) ) ) . '</a></div>';
 									}
 
@@ -155,6 +184,15 @@ global $product, $yith_woocompare;
 									break;
 
 								default:
+									/**
+									 * APPLY_FILTERS: yith_woocompare_support_show_single_variations
+									 *
+									 * Filters whether to show the single variations in the comparison table.
+									 *
+									 * @param bool $show_single_variations Whether to show the single variations or not.
+									 *
+									 * @return bool
+									 */
 									if ( $product instanceof WC_Product_Variation && apply_filters( 'yith_woocompare_support_show_single_variations', true ) ) {
 										$parent_product    = wc_get_product( $product->get_parent_id() );
 										$attributes        = $product->get_attributes();
@@ -178,10 +216,32 @@ global $product, $yith_woocompare;
 												echo '-';
 											}
 										} else {
+											/**
+											 * APPLY_FILTERS: yith_woocompare_single_variation_field_value
+											 *
+											 * Filters the field value for the single variation in the comparison table.
+											 *
+											 * @param string     $value   Field value.
+											 * @param WC_Product $product Product object.
+											 * @param string     $field   Field id to show.
+											 *
+											 * @return string
+											 */
 											echo wp_kses_post( apply_filters( 'yith_woocompare_single_variation_field_value', do_shortcode( $product->fields[ $field ] ), $product, $field ) );
 										}
 									} else {
-										echo apply_filters( 'yith_woocompare_value_default_field', empty( $product->fields[ $field ] ) ? '-' : do_shortcode( $product->fields[ $field ] ), $product, $field ) ;
+										/**
+										 * APPLY_FILTERS: yith_woocompare_value_default_field
+										 *
+										 * Filters the default value for the field in the comparison table.
+										 *
+										 * @param string     $value   Field value.
+										 * @param WC_Product $product Product object.
+										 * @param string     $field   Field id to show.
+										 *
+										 * @return string
+										 */
+										echo wp_kses_post( apply_filters( 'yith_woocompare_value_default_field', empty( $product->fields[ $field ] ) ? '-' : do_shortcode( $product->fields[ $field ] ), $product, $field ) );
 									}
 									break;
 							}
@@ -235,7 +295,17 @@ global $product, $yith_woocompare;
 			</tbody>
 		</table>
 
-		<?php do_action( 'yith_woocompare_after_main_table', $products, $fixed ); ?>
+		<?php
+		/**
+		 * DO_ACTION: yith_woocompare_after_main_table
+		 *
+		 * Allows to render some content after the comparison table.
+		 *
+		 * @param array $products Products to show.
+		 * @param bool  $fixed    Whether are products to show or not.
+		 */
+		do_action( 'yith_woocompare_after_main_table', $products, $fixed );
+		?>
 
 	<?php endif; ?>
 

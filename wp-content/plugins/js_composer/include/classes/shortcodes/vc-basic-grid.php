@@ -90,13 +90,40 @@ class WPBakeryShortCode_Vc_Basic_Grid extends WPBakeryShortCode_Vc_Pageable {
 		// fix template
 		'page_id' => '',
 	);
-	protected $grid_settings = array();
+	protected $grid_settings = [];
 	protected $grid_id_unique_name = 'vc_gid'; // if you change this also change in hook-vc-grid.php
 
 	/**
 	 * @var \WP_Query
 	 */
 	protected $query;
+
+	/**
+	 * List of grid item design types that has lightbox functionality.
+	 *
+	 * @var array
+	 */
+	public $lightbox_list = [
+		'mediaGrid_Default',
+		'mediaGrid_SimpleOverlay',
+		'mediaGrid_FadeInWithIcon',
+		'mediaGrid_BorderedScaleWithTitle',
+		'mediaGrid_ScaleWithRotation',
+		'mediaGrid_SlideOutCaption',
+		'mediaGrid_HorizontalFlipWithFade',
+		'mediaGrid_BlurWithContentBlock',
+		'mediaGrid_SlideInTitle',
+		'mediaGrid_ScaleInWithIcon',
+		'masonryMedia_Default',
+		'masonryMedia_BorderedScale',
+		'masonryMedia_SolidBlurOut',
+		'masonryMedia_ScaleWithRotationLight',
+		'masonryMedia_SlideWithTitleAndCaption',
+		'masonryMedia_ScaleWithContentBlock',
+		'masonryMedia_SimpleOverlay',
+		'masonryMedia_SlideTop',
+		'masonryMedia_SimpleBlurWithScale',
+	];
 
 	/**
 	 * WPBakeryShortCode_Vc_Basic_Grid constructor.
@@ -115,17 +142,50 @@ class WPBakeryShortCode_Vc_Basic_Grid extends WPBakeryShortCode_Vc_Pageable {
 		wp_register_script( 'vc_grid', vc_asset_url( 'js/dist/vc_grid.min.js' ), array(
 			'jquery-core',
 			'underscore',
-			'vc_pageable_owl-carousel',
 			'vc_waypoints',
-			// 'isotope',
-			'vc_grid-js-imagesloaded',
 		), WPB_VC_VERSION, true );
 	}
 
 	public function enqueueScripts() {
-		parent::enqueueScripts();
+		if ( $this->isGridPageable() ) {
+			parent::enqueueScripts();
+		}
+		if ( $this->isGridLightbox() ) {
+			wp_enqueue_script( 'lightbox2' );
+			wp_enqueue_style( 'lightbox2' );
+		}
+		wp_enqueue_style( 'vc_animate-css' );
 		wp_enqueue_script( 'vc_grid-js-imagesloaded' );
 		wp_enqueue_script( 'vc_grid' );
+	}
+
+	/**
+	 * Check is grid need pagination functionality.
+	 *
+	 * @return bool
+	 */
+	public function isGridPageable() {
+		$isPageable = true;
+
+		// we don't need pagination if we should show all items
+		if ( isset( $this->atts['style'] ) && 'all' === $this->atts['style'] ) {
+			$isPageable = false;
+		}
+
+		return $isPageable;
+	}
+
+	/**
+	 * Check is grid has lightbox functionality.
+	 *
+	 * @return bool
+	 */
+	public function isGridLightbox() {
+		if ( in_array( $this->atts['item'], $this->lightbox_list ) ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -446,7 +506,6 @@ class WPBakeryShortCode_Vc_Basic_Grid extends WPBakeryShortCode_Vc_Pageable {
 					'hide_empty' => false,
 					'include' => $atts['taxonomies'],
 				) );
-				$settings['tax_query'] = array();
 				$tax_queries = array(); // List of taxnonimes
 				foreach ( $terms as $term ) {
 					if ( ! isset( $tax_queries[ $term->taxonomy ] ) ) {

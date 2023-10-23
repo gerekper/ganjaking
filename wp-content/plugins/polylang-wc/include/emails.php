@@ -292,10 +292,7 @@ class PLLWC_Emails {
 
 		PLL()->curlang = $language;
 
-		// Translates pages ids (to translate urls if any).
-		foreach ( array( 'myaccount', 'shop', 'cart', 'checkout', 'terms' ) as $page ) {
-			add_filter( 'option_woocommerce_' . $page . '_page_id', 'pll_get_post' );
-		}
+		PLLWC_Filter_WC_Pages::init();
 
 		if ( ! is_locale_switched() ) {
 			PLL()->load_strings_translations( $language->get_locale() );
@@ -385,12 +382,6 @@ class PLLWC_Emails {
 		}
 
 		PLL()->curlang = $previous['language'];
-
-		if ( empty( PLL()->curlang ) ) {
-			foreach ( array( 'myaccount', 'shop', 'cart', 'checkout', 'terms' ) as $page ) {
-				remove_filter( 'option_woocommerce_' . $page . '_page_id', 'pll_get_post' );
-			}
-		}
 	}
 
 	/**

@@ -2,40 +2,63 @@
 
 .yith-plugin-fw__confirm__wrap {
 
-  .yith-plugin-fw__confirm__message {
-    margin-bottom: 20px;
-  }
-
-  .yith-plugin-fw__confirm__footer {
-    text-align: right;
-  }
-
-
-  .yith-plugin-fw__confirm__button {
-    height: auto;
-    line-height: 33px;
-    border-radius: 4px;
-    padding: 0 20px;
-    font-weight: 600;
-    cursor: pointer;
-    display: inline-block;
-    margin-right: 10px;
-    white-space: nowrap;
-
-    &:last-child {
-      margin-right: 0;
+    .yith-plugin-fw__confirm__message {
+        margin-bottom: 20px;
     }
 
-    &.yith-plugin-fw__confirm__button--cancel {
-      @include button-secondary;
+    .yith-plugin-fw__confirm__footer {
+        text-align: right;
     }
 
-    &.yith-plugin-fw__confirm__button--confirm {
-      @include button-primary;
-    }
 
-    &.yith-plugin-fw__confirm__button--delete {
-      @include button-delete;
+    .yith-plugin-fw__confirm__button {
+        height: auto;
+        line-height: 33px;
+        border-radius: 4px;
+        padding: 0 20px;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-block;
+        margin-right: 10px;
+        white-space: nowrap;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        &.yith-plugin-fw__confirm__button--cancel {
+            @include button-secondary;
+        }
+
+        &.yith-plugin-fw__confirm__button--confirm {
+            @include button-primary;
+        }
+
+        &.yith-plugin-fw__confirm__button--delete {
+            @include button-delete;
+        }
+
+        &.yith-plugin-fw__confirm__button--is-loading {
+            position: relative;
+            padding-left: 40px;
+            opacity: .7;
+            cursor: progress;
+            user-select: none;
+
+            &:before {
+                content: '';
+                position: absolute;
+                top: calc(50% - 9px);
+                left: 12px;
+                width: 18px;
+                height: 18px;
+                border-radius: 50%;
+                z-index: 999;
+                border: 2px solid #fff;
+                border-top-color: transparent;
+                animation: rotation .8s infinite linear;
+                box-sizing: border-box;
+            }
+        }
     }
-  }
 }

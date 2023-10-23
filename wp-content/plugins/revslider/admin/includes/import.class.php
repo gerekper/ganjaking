@@ -66,8 +66,8 @@ class RevSliderSliderImport extends RevSliderSlider {
 			if($this->exists){
 				$this->init_by_id($this->slider_id);
 			}
-
-			if($this->inited === false && $exact_filepath !== false){
+			
+			if($this->inited === false){
 				$this->slider_id = '';
 				$exec = $this->unzip_slider($exact_filepath);
 				if($exec !== true) return $exec;

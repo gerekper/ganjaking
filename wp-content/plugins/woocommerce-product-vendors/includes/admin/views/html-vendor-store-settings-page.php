@@ -87,7 +87,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 					<td>
 						<select id="wcpv-vendor-timezone" name="vendor_data[timezone]" aria-describedby="timezone-description" class="wc-enhanced-select" style="width:20%">
-							<?php echo wp_timezone_choice( $tzstring ); ?>
+							<?php echo wp_timezone_choice( $tzstring ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 						</select>
 
 						<p><?php esc_html_e( 'Set your local timezone.', 'woocommerce-product-vendors' ); ?></p>

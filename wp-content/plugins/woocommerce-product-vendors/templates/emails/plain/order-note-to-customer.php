@@ -10,17 +10,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-echo "= " . $email_heading . " =\n\n";
+echo "= " . esc_html( wp_strip_all_tags( $email_heading ) ) . " =\n\n";
 
-echo __( "Hello, a note has just been added to your order:", 'woocommerce-product-vendors' ) . "\n\n";
-
-echo "----------\n\n";
-
-echo wptexturize( $note ) . "\n\n";
+echo esc_html__( "Hello, a note has just been added to your order:", 'woocommerce-product-vendors' ) . "\n\n";
 
 echo "----------\n\n";
 
-echo __( "For your reference, your order details are shown below.", 'woocommerce-product-vendors' ) . "\n\n";
+echo esc_html( wp_strip_all_tags( wptexturize( $note ) ) ) . "\n\n";
+
+echo "----------\n\n";
+
+echo esc_html__( "For your reference, your order details are shown below.", 'woocommerce-product-vendors' ) . "\n\n";
 
 echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 
@@ -45,4 +45,4 @@ do_action( 'woocommerce_email_customer_details', $order, $sent_to_admin, $plain_
 
 echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 
-echo apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) );
+echo wp_kses_post( apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) ) );

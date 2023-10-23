@@ -1,40 +1,79 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) )
-    exit; // Exit if accessed directly
+use Automattic\WooCommerce\Utilities\OrderUtil;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
+/**
+ * WC_MS_Order_Shipment class.
+ */
 class WC_MS_Order_Shipment {
 
-    private $wcms;
+	/**
+	 * WC_Ship_Multiple object.
+	 *
+	 * @var WC_Ship_Multiple
+	 */
+	private $wcms;
 
-    public function __construct( WC_Ship_Multiple $wcms ) {
-        $this->wcms = $wcms;
+	/**
+	 * Class constructor.
+	 *
+	 * @param WC_Ship_Multiple $wcms WC_Ship_Multiple object.
+	 */
+	public function __construct( WC_Ship_Multiple $wcms ) {
+		$this->wcms = $wcms;
 
-        add_action( 'woocommerce_order_status_changed', array( $this, 'inherit_order_status' ), 1, 3 );
-    }
+		add_action( 'woocommerce_order_status_changed', array( $this, 'inherit_order_status' ), 1, 3 );
 
-    public function create_from_package( $package, $package_index, $order_id ) {
-        global $wpdb;
+		foreach ( array(
+			'woocommerce_email_enabled_new_order',
+			'woocommerce_email_enabled_failed_order',
+			'woocommerce_email_enabled_cancelled_order',
+			'woocommerce_email_enabled_customer_completed_order',
+			'woocommerce_email_enabled_customer_invoice',
+			'woocommerce_email_enabled_customer_note',
+			'woocommerce_email_enabled_customer_on_hold_order',
+			'woocommerce_email_enabled_customer_processing_order',
+			'woocommerce_email_enabled_customer_refunded_order',
+		) as $hook_name ) {
+			add_filter( $hook_name, array( $this, 'order_shipment_not_send_email' ), 10, 3 );
+		}
+	}
 
-        // Give plugins the opportunity to create the shipment themselves
-        if ( $shipment_id = apply_filters( 'wc_ms_create_shipment', null, $this ) ) {
-            return $shipment_id;
-        }
+	/**
+	 * Creates a single shipment.
+	 *
+	 * @param array $package WCMS package.
+	 * @param int   $package_index Package index.
+	 * @param int   $order_id Order ID.
+	 *
+	 * @return int|mixed|WP_Error
+	 */
+	public function create_from_package( $package, $package_index, $order_id ) {
+		global $wpdb;
 
-        try {
-            $order = wc_get_order( $order_id );
-            $order_post = get_post( $order_id );
+		// Give plugins the opportunity to create the shipment themselves.
+		$shipment_id = apply_filters( 'wc_ms_create_shipment', null, $this );
+		if ( ! empty( $shipment_id ) ) {
+			return $shipment_id;
+		}
 
-            // Start transaction if available
-            $wpdb->query( 'START TRANSACTION' );
+		try {
+			$order = wc_get_order( $order_id );
 
-            $customer_notes        = array();
-            $package_note          = $order->get_meta( '_note_' . $package_index );
-            $package_delivery_date = $order->get_meta( '_date_' . $package_index );
+			// Start transaction if available.
+			$wpdb->query( 'START TRANSACTION' );
 
-            if ( !empty( $order_post->post_excerpt ) ) {
-                $customer_notes[] = $order_post->post_excerpt;
-            }
+			$customer_notes        = array();
+			$package_note          = $order->get_meta( '_note_' . $package_index );
+			$package_delivery_date = $order->get_meta( '_date_' . $package_index );
+
+			if ( ! empty( $order->get_customer_note() ) ) {
+				$customer_notes[] = $order->get_customer_note();
+			}
 
             if ( !empty( $package_note ) ) {
                 $customer_notes[] = __('Note', 'wc_shipping_multiple_address') .': '. $package_note;
@@ -45,11 +84,10 @@ class WC_MS_Order_Shipment {
             }
 
             $shipment_data = array(
-                'status'        => apply_filters( 'wc_ms_default_shipment_status', 'pending' ),
                 'parent'        => $order_id,
                 'customer_id'   => WC_MS_Compatibility::get_order_prop( $order, 'customer_user' ),
                 'customer_note' => implode( "<br/>", $customer_notes ),
-                'created_via'   => 'Multi-Shipping'
+                'created_via'   => 'Multi-Shipping',
             );
 
             $shipment_id = $this->create_shipment( $shipment_data );
@@ -102,7 +140,7 @@ class WC_MS_Order_Shipment {
                     $item_id = $shipment->add_shipping( $shipping_rate );
                 } else {
                     $shipping_item = new WC_Order_Item_Shipping();
-    
+
                     $shipping_item->set_props( array(
                             'method_title' => $shipping_rate->label,
                             'method_id'    => $shipping_rate->id,
@@ -110,13 +148,13 @@ class WC_MS_Order_Shipment {
                             'taxes'        => $shipping_rate->taxes,
                             'order_id'     => $shipment->get_id(),
                     ) );
-    
+
                     foreach ( $shipping_rate->get_meta_data() as $key => $value ) {
                             $shipping_item->add_meta_data( $key, $value, true );
                     }
-    
+
                     $item_id = $shipping_item->save();
-    
+
                     $shipment->add_item( $shipping_item );
                 }
 
@@ -172,24 +210,11 @@ class WC_MS_Order_Shipment {
                 }
             }
 
-            // calculate total
-            $shipment_total = max( 0, apply_filters( 'wc_ms_shipment_calculated_total', round( $package['contents_cost'] + $tax_total + $shipping_tax_total + $shipping_total, 2 ), $shipment, $package ) );
+			// calculate total.
+			$shipment_total = max( 0, apply_filters( 'wc_ms_shipment_calculated_total', round( $package['contents_cost'] + $tax_total + $shipping_tax_total + $shipping_total, 2 ), $shipment, $package ) );
 
-            // Billing address
-            $billing_address = array();
-            $meta = $wpdb->get_results($wpdb->prepare(
-                "SELECT meta_key, meta_value
-                FROM {$wpdb->postmeta}
-                WHERE post_id = %d
-                AND meta_key LIKE '_billing_%%'",
-                $order_id
-            ), ARRAY_A);
-
-            foreach ( $meta as $row ) {
-                $field = str_replace('_billing_', '', $row['meta_key'] );
-                $billing_address[ $field ] = $row['meta_value'];
-            }
-
+			// Billing address.
+			$billing_address = $order->get_address( 'billing' );
 			$shipment->set_address( $billing_address, 'billing' );
 
 			// Shipping address.
@@ -238,9 +263,11 @@ class WC_MS_Order_Shipment {
 
 			if ( WC_MS_Gifts::is_enabled() ) {
 				if ( 1 == $order->get_meta( '_gift_' . $package_index ) ) {
-					update_post_meta( $shipment_id, '_gift', true );
+					$shipment->update_meta_data( '_gift', true );
 				}
 			}
+
+			$shipment->save();
 
 			// If we got here, the order was created without problems!
 			$wpdb->query( 'COMMIT' );
@@ -254,95 +281,141 @@ class WC_MS_Order_Shipment {
 		return $shipment_id;
 	}
 
-    /**
-     * Create a new Order Shipment
-     *
-     * @param array $args
-     * @return int|WP_Error
-     */
-    public function create_shipment( $args ) {
-        $default_args = array(
-            'status'        => '',
-            'customer_id'   => null,
-            'customer_note' => null,
-            'created_via'   => '',
-            'parent'        => 0
-        );
+	/**
+	 * Create a new Order Shipment
+	 *
+	 * @param array $args Arguments to create an order shipment.
+	 *
+	 * @return int|WP_Error
+	 */
+	public function create_shipment( $args ) {
+		$default_args = array(
+			'status'        => apply_filters( 'wc_ms_default_shipment_status', 'pending' ),
+			'customer_id'   => null,
+			'customer_note' => null,
+			'created_via'   => '',
+			'parent'        => 0,
+		);
 
-        $args           = wp_parse_args( $args, $default_args );
-        $shipment_data  = array();
+		$args = wp_parse_args( $args, $default_args );
 
-        if ( empty( $args['parent'] ) ) {
-            return new WP_Error( 'create_shipment', __('Cannot create a shipment without an Order ID', 'wc_shipping_multiple_address') );
-        }
+		if ( empty( $args['parent'] ) ) {
+			return new WP_Error( 'create_shipment', __('Cannot create a shipment without an Order ID', 'wc_shipping_multiple_address') );
+		}
 
-        $order_id = $args['parent'];
-        $wc_order = wc_get_order( $order_id );
-        $post = get_post( $order_id );
+		$parent_order = wc_get_order( $args['parent'] );
 
-        $updating                    = false;
-        $shipment_data['post_type']     = 'order_shipment';
-        $shipment_data['post_status']   = 'wc-' . apply_filters( 'wc_ms_default_shipment_status', 'pending' );
-        $shipment_data['ping_status']   = 'closed';
-        $shipment_data['post_author']   = 1;
-        $shipment_data['post_password'] = $post->post_password;
-        $shipment_data['post_title']    = sprintf( __( 'Shipment &ndash; %s', 'wc_shipping_multiple_address' ), date( _x( 'M d, Y @ H:i A', 'Order date parsed by date function', 'wc_shipping_multiple_address' ) ) );
-        $shipment_data['post_parent']   = $order_id;
+		$shipment_data = array(
+			'post_status'   => $args['status'],
+			'post_password' => $parent_order->get_order_key(),
+			'post_parent'   => $args['parent'],
+		);
 
-        if ( $args['status'] ) {
-            if ( ! in_array( 'wc-' . $args['status'], array_keys( wc_get_order_statuses() ) ) ) {
-                return new WP_Error( 'woocommerce_invalid_order_status', __( 'Invalid shipment status', 'wc_shipping_multiple_address' ) );
-            }
-            $shipment_data['post_status']  = 'wc-' . $args['status'];
-        }
+		if ( ! in_array( 'wc-' . $args['status'], array_keys( wc_get_order_statuses() ) ) ) {
+			return new WP_Error( 'woocommerce_invalid_order_status', __( 'Invalid shipment status', 'wc_shipping_multiple_address' ) );
+		}
 
-        if ( ! is_null( $args['customer_note'] ) ) {
-            $shipment_data['post_excerpt'] = $args['customer_note'];
-        }
+		if ( ! is_null( $args['customer_note'] ) ) {
+			$shipment_data['post_excerpt'] = $args['customer_note'];
+		}
 
-        $shipment_id = wp_insert_post( apply_filters( 'wc_ms_new_shipment_data', $shipment_data ), true );
+		$shipment_data = apply_filters( 'wc_ms_new_shipment_data', $shipment_data );
 
+		try {
+			$shipment = new WC_MS_Order_Type_Order_Shipment();
+			$shipment->set_parent_id( $shipment_data['post_parent'] );
+			$shipment->set_status( $shipment_data['post_status'] );
+			$shipment->set_created_via( sanitize_text_field( $args['created_via'] ) );
+			$shipment->set_order_key( $shipment_data['post_password'] );
+			$shipment->update_meta_data( '_shipment_key', 'wc_' . apply_filters( 'wc_ms_generate_shipment_key', uniqid( 'shipment_' ) ) );
+			$shipment->set_customer_note( $shipment_data['post_excerpt'] );
+			$shipment->set_customer_id( $args['customer_id'] );
 
-        if ( is_wp_error( $shipment_id ) ) {
-            return $shipment_id;
-        }
+			do_action( 'wc_ms_new_shipment_before_save', $shipment );
 
-        update_post_meta( $shipment_id, '_shipment_key', 'wc_' . apply_filters( 'wc_ms_generate_shipment_key', uniqid( 'shipment_' ) ) );
-        update_post_meta( $shipment_id, '_created_via', sanitize_text_field( $args['created_via'] ) );
+			$shipment_id = $shipment->save();
 
-        $shipment = wc_get_order( $shipment_id );
-        $shipment->add_order_note( 'Shipment for Order '. $wc_order->get_order_number() );
+			$shipment->add_order_note( 'Shipment for Order ' . $parent_order->get_order_number() );
 
-        return $shipment_id;
-    }
+			return $shipment_id;
 
-    public function inherit_order_status( $order_id, $old_status, $new_status ) {
-        global $wpdb;
+		} catch ( Exception $e ) {
+			return new WP_Error( 'error', $e->getMessage() );
+		}
+	}
 
-        if ( get_post_type( $order_id ) != 'shop_order' ) {
-            return;
-        }
+	/**
+	 * Manipulate sending new order email.
+	 *
+	 * @param bool     $is_enabled Flag for email being enabled or not.
+	 * @param WC_Order $order Order object.
+	 * @param WC_Email $email Email object.
+	 */
+	public function order_shipment_not_send_email( $is_enabled, $order, $email ) {
+		if ( $order instanceof WC_MS_Order_Type_Order_Shipment ) {
+			return false;
+		}
 
-        $shipment_ids = self::get_by_order( $order_id );
+		return $is_enabled;
+	}
 
-        foreach ( $shipment_ids as $shipment_id ) {
-            wp_update_post( array( 'ID' => $shipment_id, 'post_status' => 'wc-' . $new_status ) );
-        }
+	/**
+	 * Update shipment order post to inherit order status.
+	 *
+	 * @param int    $order_id ID of the order post.
+	 * @param string $old_status Old status of the order.
+	 * @param string $new_status New status of the order.
+	 */
+	public function inherit_order_status( $order_id, $old_status, $new_status ) {
+		if ( 'shop_order' !== OrderUtil::get_order_type( $order_id ) ) {
+			return;
+		}
 
-    }
+		$shipment_ids = self::get_by_order( $order_id );
 
-    public static function get_by_order( $order_id ) {
-        global $wpdb;
+		foreach ( $shipment_ids as $shipment_id ) {
+			$shipment = wc_get_order( $shipment_id );
 
-        $shipment_ids = $wpdb->get_col($wpdb->prepare(
-            "SELECT ID
-            FROM {$wpdb->posts}
-            WHERE post_type = 'order_shipment'
-            AND post_parent = %d",
-            $order_id
-        ));
+			if ( false === $shipment ) {
+				continue;
+			}
+			$shipment->update_status( $new_status );
+		}
+	}
 
-        return $shipment_ids;
-    }
+	/**
+	 * Get order shipment IDs by order ID.
+	 *
+	 * @param int $order_id ID of the order object.
+	 *
+	 * @return int[]
+	 */
+	public static function get_by_order( $order_id ) {
+		return wc_get_orders(
+			array(
+				'type'   => 'order_shipment',
+				'parent' => $order_id,
+				'limit'  => -1,
+				'return' => 'ids',
+			)
+		);
+	}
+
+	/**
+	 * Get order shipments by order ID.
+	 *
+	 * @param int $order_id ID of the order object.
+	 *
+	 * @return WC_MS_Order_Type_Order_Shipment[]
+	 */
+	public static function get_shipment_objects_by_order( $order_id ) {
+		return wc_get_orders(
+			array(
+				'type'   => 'order_shipment',
+				'parent' => $order_id,
+				'limit'  => -1,
+			)
+		);
+	}
 
 }

@@ -1213,18 +1213,14 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'redsys', '$psd2: ' . $psd2 );
 		}
-		if ( 'yes' !== $this->psd2 ) {
-			$customer_token = WCRed()->get_redsys_users_token();
-		} else {
-			$customer_token_r    = WCRed()->get_redsys_users_token( 'R' );
-			$customer_token_c    = WCRed()->get_redsys_users_token( 'C' );
-			$customer_token_r_id = WCRed()->get_redsys_users_token( 'R', 'id' );
-			$customer_token_c_id = WCRed()->get_redsys_users_token( 'C', 'id' );
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', '$customer_token: ' . $customer_token );
-				$this->log->add( 'redsys', '$customer_token_r: ' . $customer_token_r );
-				$this->log->add( 'redsys', '$customer_token_c: ' . $customer_token_c );
-			}
+		$customer_token_r    = WCRed()->get_redsys_users_token( 'R' );
+		$customer_token_c    = WCRed()->get_redsys_users_token( 'C' );
+		$customer_token_r_id = WCRed()->get_redsys_users_token( 'R', 'id' );
+		$customer_token_c_id = WCRed()->get_redsys_users_token( 'C', 'id' );
+		if ( 'yes' === $this->debug ) {
+			$this->log->add( 'redsys', '$customer_token: ' . $customer_token );
+			$this->log->add( 'redsys', '$customer_token_r: ' . $customer_token_r );
+			$this->log->add( 'redsys', '$customer_token_c: ' . $customer_token_c );
 		}
 		$customer_token = WCRed()->get_redsys_users_token();
 
@@ -1308,14 +1304,12 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 								$this->log->add( 'redsys', 'DS_MERCHANT_GROUP: There is no DS_MERCHANT_GROUP defined' );
 							}
 							$this->log->add( 'redsys', 'Ds_Merchant_MerchantData: ' . $ds_merchant_data );
-							if ( $psd2 ) {
-								$this->log->add( 'redsys', '/***************************************************************/' );
-								$this->log->add( 'redsys', ' PSD2 Activado. Enviamos todo lo necesario según nueva normativa ' );
-								$this->log->add( 'redsys', '/***************************************************************/' );
-								$this->log->add( 'redsys', 'DS_MERCHANT_COF_INI: S' );
-								$this->log->add( 'redsys', 'DS_MERCHANT_COF_TYPE: R' );
-								$this->log->add( 'redsys', 'Ds_Merchant_EMV3DS: ' . $psd2 );
-							}
+							$this->log->add( 'redsys', '/***************************************************************/' );
+							$this->log->add( 'redsys', ' PSD2 Activado. Enviamos todo lo necesario según nueva normativa ' );
+							$this->log->add( 'redsys', '/***************************************************************/' );
+							$this->log->add( 'redsys', 'DS_MERCHANT_COF_INI: S' );
+							$this->log->add( 'redsys', 'DS_MERCHANT_COF_TYPE: R' );
+							$this->log->add( 'redsys', 'Ds_Merchant_EMV3DS: ' . $psd2 );
 						}
 					} else {
 						$mi_obj->setParameter( 'Ds_Merchant_MerchantData', '1' );
@@ -1334,11 +1328,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 							$this->log->add( 'redsys', 'DS_MERCHANT_IDENTIFIER: ' . $customer_token_r );
 							$this->log->add( 'redsys', 'DS_MERCHANT_DIRECTPAYMENT: ' . $ds_merchant_direct_payment );
 							$this->log->add( 'redsys', 'Ds_Merchant_MerchantData: ' . $ds_merchant_data );
-							if ( $psd2 ) {
-								$this->log->add( 'redsys', 'DS_MERCHANT_COF_INI: N' );
-								$this->log->add( 'redsys', 'DS_MERCHANT_COF_TYPE: R' );
-								$this->log->add( 'redsys', 'DS_MERCHANT_COF_TXNID: ' . $txnid );
-							}
+							$this->log->add( 'redsys', 'DS_MERCHANT_COF_INI: N' );
+							$this->log->add( 'redsys', 'DS_MERCHANT_COF_TYPE: R' );
+							$this->log->add( 'redsys', 'DS_MERCHANT_COF_TXNID: ' . $txnid );
 						}
 					}
 				}
@@ -1350,12 +1342,10 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					if ( ! empty( $this->merchantgroup ) ) {
 						$mi_obj->setParameter( 'DS_MERCHANT_GROUP', $this->merchantgroup );
 					}
-					if ( $psd2 ) {
-						$mi_obj->setParameter( 'DS_MERCHANT_COF_INI', 'N' );
-						$mi_obj->setParameter( 'DS_MERCHANT_COF_TYPE', 'C' );
-						$mi_obj->setParameter( 'Ds_Merchant_EMV3DS', $psd2 );
-					}
-						$ds_merchant_data = 'no';
+					$mi_obj->setParameter( 'DS_MERCHANT_COF_INI', 'N' );
+					$mi_obj->setParameter( 'DS_MERCHANT_COF_TYPE', 'C' );
+					$mi_obj->setParameter( 'Ds_Merchant_EMV3DS', $psd2 );
+					$ds_merchant_data = 'no';
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'redsys', 'Ds_Merchant_MerchantData: 0' );
 						$this->log->add( 'redsys', 'DS_MERCHANT_IDENTIFIER: REQUIRED' );
@@ -1365,24 +1355,20 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 							$this->log->add( 'redsys', 'DS_MERCHANT_GROUP: There is no DS_MERCHANT_GROUP defined' );
 						}
 						$this->log->add( 'redsys', 'Ds_Merchant_MerchantData: ' . $ds_merchant_data );
-						if ( $psd2 ) {
-							$this->log->add( 'redsys', '/***************************************************************/' );
-							$this->log->add( 'redsys', ' PSD2 Activado. Enviamos todo lo necesario según nueva normativa ' );
-							$this->log->add( 'redsys', '/***************************************************************/' );
-							$this->log->add( 'redsys', 'DS_MERCHANT_COF_INI: N' );
-							$this->log->add( 'redsys', 'DS_MERCHANT_COF_TYPE: C' );
-							$this->log->add( 'redsys', 'Ds_Merchant_EMV3DS: ' . $psd2 );
-						}
+						$this->log->add( 'redsys', '/***************************************************************/' );
+						$this->log->add( 'redsys', ' PSD2 Activado. Enviamos todo lo necesario según nueva normativa ' );
+						$this->log->add( 'redsys', '/***************************************************************/' );
+						$this->log->add( 'redsys', 'DS_MERCHANT_COF_INI: N' );
+						$this->log->add( 'redsys', 'DS_MERCHANT_COF_TYPE: C' );
+						$this->log->add( 'redsys', 'Ds_Merchant_EMV3DS: ' . $psd2 );
 					}
 				} else {
 					$mi_obj->setParameter( 'Ds_Merchant_MerchantData', '1' );
 					$mi_obj->setParameter( 'DS_MERCHANT_IDENTIFIER', $customer_token_c );
-					if ( $psd2 ) {
-						$txnid = WCRed()->get_txnid( $customer_token_c_id );
-						$mi_obj->setParameter( 'DS_MERCHANT_COF_INI', 'N' );
-						$mi_obj->setParameter( 'DS_MERCHANT_COF_TYPE', 'C' );
-						$mi_obj->setParameter( 'DS_MERCHANT_COF_TXNID', $txnid );
-					}
+					$txnid = WCRed()->get_txnid( $customer_token_c_id );
+					$mi_obj->setParameter( 'DS_MERCHANT_COF_INI', 'N' );
+					$mi_obj->setParameter( 'DS_MERCHANT_COF_TYPE', 'C' );
+					$mi_obj->setParameter( 'DS_MERCHANT_COF_TXNID', $txnid );
 					if ( ! empty( $this->merchantgroup ) ) {
 						$mi_obj->setParameter( 'DS_MERCHANT_GROUP', $this->merchantgroup );
 					}
@@ -1392,11 +1378,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'redsys', 'DS_MERCHANT_IDENTIFIER: ' . $customer_token_c );
 						$this->log->add( 'redsys', 'Ds_Merchant_MerchantData: ' . $ds_merchant_data );
-						if ( $psd2 ) {
-							$this->log->add( 'redsys', 'DS_MERCHANT_COF_INI: N' );
-							$this->log->add( 'redsys', 'DS_MERCHANT_COF_TYPE: C' );
-							$this->log->add( 'redsys', 'DS_MERCHANT_COF_TXNID: ' . $txnid );
-						}
+						$this->log->add( 'redsys', 'DS_MERCHANT_COF_INI: N' );
+						$this->log->add( 'redsys', 'DS_MERCHANT_COF_TYPE: C' );
+						$this->log->add( 'redsys', 'DS_MERCHANT_COF_TXNID: ' . $txnid );
 					}
 				}
 				if ( ! empty( $this->merchantgroup ) ) {
@@ -1805,65 +1789,53 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				}
 			} elseif ( 'yes' === $redsys->usetokens ) {
 				// Pago con 1 clic activo.
-				if ( 'yes' === $redsys->psd2 ) {
-					// PSD2 activo.
-					if ( ! $customer_token_c && 'yes' === $save_token ) {
-						$mi_obj->setParameter( 'Ds_Merchant_MerchantData', '0' );
-						$mi_obj->setParameter( 'DS_MERCHANT_IDENTIFIER', 'REQUIRED' );
-						if ( ! empty( $redsys->merchantgroup ) ) {
-							$mi_obj->setParameter( 'DS_MERCHANT_GROUP', $redsys->merchantgroup );
-						}
-						$mi_obj->setParameter( 'DS_MERCHANT_COF_INI', 'N' );
-						$mi_obj->setParameter( 'DS_MERCHANT_COF_TYPE', 'C' );
-						$mi_obj->setParameter( 'Ds_Merchant_EMV3DS', $psd2 );
-						$ds_merchant_data = 'no';
-						if ( 'yes' === $redsys->debug ) {
-							$redsys->log->add( 'redsys', 'Ds_Merchant_MerchantData: 0' );
-							$redsys->log->add( 'redsys', 'DS_MERCHANT_IDENTIFIER: REQUIRED' );
-							if ( ! empty( $redsys->merchantgroup ) ) {
-								$redsys->log->add( 'redsys', 'DS_MERCHANT_GROUP: ' . $redsys->merchantgroup );
-							} else {
-								$redsys->log->add( 'redsys', 'DS_MERCHANT_GROUP: There is no DS_MERCHANT_GROUP defined' );
-							}
-							$redsys->log->add( 'redsys', 'Ds_Merchant_MerchantData: ' . $ds_merchant_data );
-							$redsys->log->add( 'redsys', '/***************************************************************/' );
-							$redsys->log->add( 'redsys', ' PSD2 Activado. Enviamos todo lo necesario según nueva normativa ' );
-							$redsys->log->add( 'redsys', '/***************************************************************/' );
-							$redsys->log->add( 'redsys', 'DS_MERCHANT_COF_INI: N' );
-							$redsys->log->add( 'redsys', 'DS_MERCHANT_COF_TYPE: C' );
-							$redsys->log->add( 'redsys', 'Ds_Merchant_EMV3DS: ' . $psd2 );
-						}
-					} elseif ( $customer_token_c ) {
-						$mi_obj->setParameter( 'Ds_Merchant_MerchantData', '1' );
-						$mi_obj->setParameter( 'DS_MERCHANT_IDENTIFIER', $customer_token_c );
-						$txnid = WCRed()->get_txnid( $customer_token_c_id );
-						$mi_obj->setParameter( 'DS_MERCHANT_COF_INI', 'N' );
-						$mi_obj->setParameter( 'DS_MERCHANT_COF_TYPE', 'C' );
-						$mi_obj->setParameter( 'DS_MERCHANT_COF_TXNID', $txnid );
-						if ( ! empty( $redsys->merchantgroup ) ) {
-							$mi_obj->setParameter( 'DS_MERCHANT_GROUP', $redsys->merchantgroup );
-						}
-						$mi_obj->setParameter( 'DS_MERCHANT_DIRECTPAYMENT', 'false' ); // TODO: Añadir una lógica para que el administrador pueda seleccionar si lo quiere en true o en fasle. True en todos trae probelmas por configuraciones en Redsys.
-						$ds_merchant_data           = 'yes';
-						$ds_merchant_direct_payment = 'false';
-						if ( 'yes' === $redsys->debug ) {
-							$redsys->log->add( 'redsys', 'DS_MERCHANT_IDENTIFIER: ' . $customer_token_c );
-							$redsys->log->add( 'redsys', 'Ds_Merchant_MerchantData: ' . $ds_merchant_data );
-							$redsys->log->add( 'redsys', 'DS_MERCHANT_COF_INI: N' );
-							$redsys->log->add( 'redsys', 'DS_MERCHANT_COF_TYPE: C' );
-							$redsys->log->add( 'redsys', 'DS_MERCHANT_COF_TXNID: ' . $txnid );
-						}
-					}
-				} elseif ( empty( $customer_token ) ) {
+				// PSD2 activo.
+				if ( ! $customer_token_c && 'yes' === $save_token ) {
 					$mi_obj->setParameter( 'Ds_Merchant_MerchantData', '0' );
 					$mi_obj->setParameter( 'DS_MERCHANT_IDENTIFIER', 'REQUIRED' );
 					if ( ! empty( $redsys->merchantgroup ) ) {
 						$mi_obj->setParameter( 'DS_MERCHANT_GROUP', $redsys->merchantgroup );
 					}
+					$mi_obj->setParameter( 'DS_MERCHANT_COF_INI', 'N' );
+					$mi_obj->setParameter( 'DS_MERCHANT_COF_TYPE', 'C' );
+					$mi_obj->setParameter( 'Ds_Merchant_EMV3DS', $psd2 );
 					$ds_merchant_data = 'no';
-				} else {
+					if ( 'yes' === $redsys->debug ) {
+						$redsys->log->add( 'redsys', 'Ds_Merchant_MerchantData: 0' );
+						$redsys->log->add( 'redsys', 'DS_MERCHANT_IDENTIFIER: REQUIRED' );
+						if ( ! empty( $redsys->merchantgroup ) ) {
+							$redsys->log->add( 'redsys', 'DS_MERCHANT_GROUP: ' . $redsys->merchantgroup );
+						} else {
+							$redsys->log->add( 'redsys', 'DS_MERCHANT_GROUP: There is no DS_MERCHANT_GROUP defined' );
+						}
+						$redsys->log->add( 'redsys', 'Ds_Merchant_MerchantData: ' . $ds_merchant_data );
+						$redsys->log->add( 'redsys', '/***************************************************************/' );
+						$redsys->log->add( 'redsys', ' PSD2 Activado. Enviamos todo lo necesario según nueva normativa ' );
+						$redsys->log->add( 'redsys', '/***************************************************************/' );
+						$redsys->log->add( 'redsys', 'DS_MERCHANT_COF_INI: N' );
+						$redsys->log->add( 'redsys', 'DS_MERCHANT_COF_TYPE: C' );
+						$redsys->log->add( 'redsys', 'Ds_Merchant_EMV3DS: ' . $psd2 );
+					}
+				} elseif ( $customer_token_c ) {
 					$mi_obj->setParameter( 'Ds_Merchant_MerchantData', '1' );
-					$mi_obj->setParameter( 'DS_MERCHANT_IDENTIFIER', $customer_token );
+					$mi_obj->setParameter( 'DS_MERCHANT_IDENTIFIER', $customer_token_c );
+					$txnid = WCRed()->get_txnid( $customer_token_c_id );
+					$mi_obj->setParameter( 'DS_MERCHANT_COF_INI', 'N' );
+					$mi_obj->setParameter( 'DS_MERCHANT_COF_TYPE', 'C' );
+					$mi_obj->setParameter( 'DS_MERCHANT_COF_TXNID', $txnid );
+					if ( ! empty( $redsys->merchantgroup ) ) {
+						$mi_obj->setParameter( 'DS_MERCHANT_GROUP', $redsys->merchantgroup );
+					}
+					$mi_obj->setParameter( 'DS_MERCHANT_DIRECTPAYMENT', 'false' ); // TODO: Añadir una lógica para que el administrador pueda seleccionar si lo quiere en true o en fasle. True en todos trae probelmas por configuraciones en Redsys.
+					$ds_merchant_data           = 'yes';
+					$ds_merchant_direct_payment = 'false';
+					if ( 'yes' === $redsys->debug ) {
+						$redsys->log->add( 'redsys', 'DS_MERCHANT_IDENTIFIER: ' . $customer_token_c );
+						$redsys->log->add( 'redsys', 'Ds_Merchant_MerchantData: ' . $ds_merchant_data );
+						$redsys->log->add( 'redsys', 'DS_MERCHANT_COF_INI: N' );
+						$redsys->log->add( 'redsys', 'DS_MERCHANT_COF_TYPE: C' );
+						$redsys->log->add( 'redsys', 'DS_MERCHANT_COF_TXNID: ' . $txnid );
+					}
 				}
 				if ( ! empty( $redsys->merchantgroup ) ) {
 					$mi_obj->setParameter( 'DS_MERCHANT_GROUP', $redsys->merchantgroup );
@@ -12330,6 +12302,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				set_transient( $order_id . '_redsys_token_type', 'no', 36000 );
 			}
 			if ( ! empty( $_POST['_redsys_save_token'] ) ) {
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'redsys', 'Saving YES in set_transient( $order_id . "_redsys_save_token": ' );
+				}
 				set_transient( $order_id . '_redsys_save_token', sanitize_text_field( wp_unslash( $_POST['_redsys_save_token'] ) ), 36000 );
 			} else {
 				set_transient( $order_id . '_redsys_save_token', 'no', 36000 );

@@ -2,8 +2,8 @@
 /**
  * Uninstall plugin
  *
- * @author Your Inspiration Themes
- * @package YITH WooCommerce Compare
+ * @author YITH <plugins@yithemes.com>
+ * @package YITH\Compare
  * @version 1.0.0
  */
 

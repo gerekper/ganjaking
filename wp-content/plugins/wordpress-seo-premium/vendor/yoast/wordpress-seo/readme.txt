@@ -5,7 +5,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 Tags: SEO, XML sitemap, Content analysis, Readability, Schema
 Tested up to: 6.3
-Stable tag: 21.2
+Stable tag: 21.4
 Requires PHP: 7.2.5
 
 Improve your WordPress SEO: Write better content and have a fully optimized WordPress site using the Yoast SEO plugin.
@@ -340,43 +340,44 @@ Your question has most likely been answered on our help center: [yoast.com/help/
 
 == Changelog ==
 
-= 21.2 =
+= 21.4 =
 
-Release date: 2023-09-19
+Release date: 2023-10-17
 
-Yoast SEO 21.2 is out today! In this release, we've improved the naming of several features and enhanced the sidebar in the block editor, making it easier to use. Find out more about what's new in Yoast SEO 21.2 in [our release post](https://yoa.st/release-19-9-23)!
+We've just released Yoast SEO 21.4. In this release, we've focused on general enhancements and fixes to improve how your WordPress SEO plugin functions. Find out more about what's new in Yoast SEO 21.4 in [our release post](https://yoa.st/release-17-10-23)!
 
 #### Enhancements
 
-* Renames Google preview to Search appearance in the metabox and sidebar.
+* Introduces more robust HTML processing and highlighting for the _keyphrase density_ and _single H1_ assessments.
+* Improves the keyphrase matching in the _keyphrase density_ assessment.
+* Improves keyphrase matching in Japanese by being able to match keyphrase occurrences that contain upper case characters.
+* Updates the list of HTML elements that should be excluded from the content analysis.
+* Improves performance in getting the primary term. Props to [nlemoine](https://github.com/nlemoine).
+* Prevent database update requests on page loads when the site representation settings contain conflicting data. Props to [jboonstra](https://github.com/jboonstra).
 
 #### Bugfixes
 
-* Fixes a bug where, even if `Show author archives without posts in search results` is enabled, the archive page would have a `noindex` in the `robots` metatag.
-* Fixes a bug where notices about incorrect calls to `wpdb::prepare` would be thrown on Yoast SEO Premium activation.
-* Fixes a bug where pagination meta tags would be wrong when using Query Loop Block with custom query variables.
-* Fixes a bug where the redirect notification would mention \"posts\" when a tag was deleted or trashed.
-* Fixing a bug where adding special characters like \" »\" as a title separator would break the RSS feed.
+* Fixes a bug where highlighting was not applied to keyphrase occurrences that contained different types of apostrophes than `'`.
+* Fixes a bug where PHP notice would happen when the sitemap index is generated on MySQL 8+.
+* Fixes a bug where resource cleanup regarding emojis would cause a fatal error when enabling the `Remove emoji scripts` option in the _crawl optimization_ settings. Props to [MishaBelikov](https://github.com/MishaBelikov).
+* Fixes a bug where sentences would not be highlighted when square brackets were present in the same sentence.
+* Fixes a bug where the first-time configuration' site representation logo button would not be translated. Props to [fxbenard](https://github.com/fxbenard).
+* Fixes a bug where the _single title_ assessment would be triggered when adding a H1 without text.
 
-#### Other
+= 21.3 =
 
-* Sets the minimum supported WordPress version to 6.2.
+Release date: 2023-10-03
 
-= 21.1 =
+Yoast SEO 21.3 is out! In this release, we've focused on improving the plugin's performance, especially regarding handling huge posts on complex websites. Find out more about what's new in Yoast SEO 21.3 in [our release post](https://yoa.st/release-3-10-23)!
 
-Release date: 2023-09-05
+#### Enhancements
 
-Here's Yoast SEO 21.1! After the AI release, we're back with an update filled with fixes and enhancements to improve your SEO work. Check it out! Find out more about what's new in Yoast SEO 21.1 in [our release post](https://yoa.st/release-5-9-23)!
+* Enhances post-saving performance in certain conditions for a smoother and more efficient user experience.
 
 #### Bugfixes
 
-* Fixes a bug where an error could occur when an indexable was outdated. Props to @jaimearroyonavia.
-* Fixes a bug where the cleanup routine would throw an error when on multisites.
-* Fixes a bug where the notification for a new content type in the notification center would not be dismissed when installing Elementor and reviewing the new content types.
-
-#### Other
-
-* Adds an attribute to the link "See who contributed to" to open in a new browser tab, located in the General tab. Props to @nathanwritescode-uk.
+* Fixes a bug where the notifications counter of the admin bar menu would not show with the correct style on the frontend.
+* Fixes a bug where the slug in the search appearance editor would not be set when published posts were edited in the classic editor and the "core/editor" store was available.
 
 = Earlier versions =
 For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/yoast-seo-changelog).

@@ -2,8 +2,8 @@
 /**
  * Woocommerce Compare page
  *
- * @author Your Inspiration Themes
- * @package YITH Woocommerce Compare
+ * @author YITH <plugins@yithemes.com>
+ * @package YITH\Compare
  * @version 1.1.4
  */
 

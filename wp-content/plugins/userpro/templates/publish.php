@@ -12,7 +12,7 @@
 	 		}
 		}	
 	}
-	 	
+
 ?>
 
 <div class="userpro userpro-<?php echo $i; ?> userpro-<?php echo $layout; ?> custom-publish-layout" <?php userpro_args_to_data( $args ); ?>>
@@ -32,14 +32,14 @@
 		<?php do_action('userpro_pre_form_message'); ?>
 
 		<form action="" method="post" id="publish_form" data-action="<?php echo $template; ?>">
-		
+            <input type="hidden" name="user_pro_nonce" value="<?php echo wp_create_nonce('user_pro_nonce'); ?>">
 			<input type="hidden" name="user_id-<?php echo $i; ?>" id="user_id-<?php echo $i; ?>" value="<?php echo $user_id; ?>" />
 				<?php if (isset($_GET['post_id'])){?>
 				<input type="hidden" name="postid-<?php echo $i; ?>" id="postid-<?php echo $i; ?>" value="<?php echo $_GET['post_id']; ?>" />
 			<?php } // Hook into fields $args, $user_id
 			if (!isset($user_id)) $user_id = 0;
 			$hook_args = array_merge($args, array('user_id' => $user_id, 'unique_id' => $i));
-			do_action('userpro_before_fields', $hook_args);
+		//	do_action('userpro_before_fields', $hook_args);
 			?>
 			
 			<!-- Begin Publisher -->

@@ -3,14 +3,14 @@
  * Plugin Name: WooCommerce Ship to Multiple Addresses
  * Plugin URI: https://woocommerce.com/products/shipping-multiple-addresses/
  * Description: Allow customers to ship orders with multiple products or quantities to separate addresses instead of forcing them to place multiple orders for different delivery addresses.
- * Version: 3.8.9
+ * Version: 4.0.0
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: wc_shipping_multiple_address
  * Domain Path: /languages
  * Tested up to: 6.3
- * WC tested up to: 8.0
- * WC requires at least: 3.2.3
+ * WC tested up to: 8.1
+ * WC requires at least: 8.0
  * Woo: 18741:aa0eb6f777846d329952d5b891d6f8cc
  *
  * Copyright 2020 WooCommerce.
@@ -33,7 +33,7 @@ function woocommerce_shipping_multiple_addresses_missing_wc_notice() {
 }
 
 if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
-	define( 'WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION', '3.8.9' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION', '4.0.0' ); // WRCS: DEFINED_VERSION.
 
 	class WC_Ship_Multiple {
 
@@ -72,6 +72,9 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 			add_action( 'woocommerce_init', array( $this, 'wc_init' ) );
 			add_action( 'woocommerce_init', array( $this, 'maybe_install_pages' ) );
 
+			// Declare the HPOS compatibility for this plugin.
+			add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
+
 			include_once( 'multi-shipping.php' );
 
 			$settings   = get_option( 'woocommerce_multiple_shipping_settings', array() );
@@ -97,6 +100,7 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 			include_once 'includes/wcms-front.php';
 			include_once 'includes/wcms-admin.php';
 			include_once 'includes/wcms-order.php';
+			include_once 'includes/wcms-order-type-order-shipment.php';
 			include_once 'includes/wcms-order-shipment.php';
 
 			include_once 'includes/integrations/wcms-customer-order-csv-export.php';
@@ -198,6 +202,15 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 			}
 		}
 
+		/**
+		 * Declaring HPOS compatibility.
+		 */
+		public function declare_hpos_compatibility() {
+			if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', 'woocommerce-shipping-multiple-addresses/woocommerce-shipping-multiple-addresses.php', true );
+			}
+		}
+
 		public function is_multiship_enabled() {
 			$enabled = true;
 
@@ -246,23 +259,6 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 			add_action( 'woocommerce_before_order_total', array( $this, 'display_shipping_methods' ) );
 			add_action( 'woocommerce_review_order_before_order_total', array( $this, 'display_shipping_methods' ) );
 		}
-
-		/**
-		 * unused
-		 */
-		public function menu() {
-			add_submenu_page( 'woocommerce', __( 'Multiple Shipping Settings', 'wc_shipping_multiple_address' ),  __( 'Multiple Shipping', 'wc_shipping_multiple_address' ) , 'manage_woocommerce', 'wc-ship-multiple-products', array( $this, 'settings' ) );
-		}
-
-
-		/**
-		 * unused
-		 */
-		public function settings() {
-			include 'settings.php';
-		}
-
-
 
 		public function product_options() {
 			global $post, $thepostid;
@@ -882,7 +878,7 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 									foreach ( $shipping_methods as $method ) {
 										if ($method->id == 'multiple_shipping' ) continue;
 										$current_selected = ( isset($selected[ $x ])  ) ? $selected[ $x ]['id'] : '';
-										
+
 										// no need to escape. it's already using `strip_tags`.
 										echo '<option value="'.esc_attr( $method->id ).'||'. strip_tags($method->label) .'" '.selected( $current_selected, $method->id, false).'>';//phpcs:ignore
 
@@ -907,7 +903,7 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 						?>
 						</div>
 						<?php endif;
-                            
+
                             $all_shippings = array();
                             foreach ( $shipping_methods as $shipping_method ) {
                                 if ( ! array_key_exists( $shipping_method->get_id(), $all_shippings ) ) {
@@ -925,7 +921,7 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 						<input type="hidden" name="shipping_method" value="multiple_shipping" />
 						<?php endif; ?>
 
-						<input type="hidden" name="all_shipping_methods" value="<?php echo isset( $all_shippings ) ? esc_attr( wp_json_encode( $all_shippings ) ) : ''; ?>" />
+						<input type="hidden" name="all_shipping_methods" value="<?php echo ! empty( $all_shippings ) ? esc_attr( wp_json_encode( $all_shippings ) ) : ''; ?>" />
 					</div>
 
 				</td>
@@ -1282,7 +1278,8 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 			// look for direct product matches
 			$matched = false;
 			foreach ( $settings as $idx => $setting ) {
-				if ( in_array($product_id, $setting['products']) ) {
+				$products = is_array( $setting['products'] ) ? $setting['products'] : array( $setting['products'] );
+				if ( in_array( $product_id, $products, true ) ) {
 					return $setting['method'];
 				}
 			}
@@ -1455,9 +1452,3 @@ function woocommerce_shipping_multiple_addresses_init() {
 
 	$GLOBALS['wcms'] = new WC_Ship_Multiple();
 }
-
-add_action( 'before_woocommerce_init', function() {
-	if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
-		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', 'woocommerce-shipping-multiple-addresses/woocommerce-shipping-multiple-addresses.php', false );
-	}
-} );

@@ -104,7 +104,6 @@ table.shop_table tr.order td.order-actions a.print-pro-forma-invoice {
 	padding: 0 !important;
 	height: 2em !important;
 	width: 2em;
-
 	position: relative;
 }
 
@@ -185,6 +184,7 @@ table.multi_vendor_invoice thead tr.multi_vendor_invoice_header th {
 	display: block;
 	margin-bottom: 5px;
 }
+
 .ywpi-document-section .ywpi-section-row a.button, .ywpi-document-section .ywpi-refund-actions a.button {
 	margin: 2.5px 0px 2.5px 0px;
 }
@@ -192,6 +192,7 @@ table.multi_vendor_invoice thead tr.multi_vendor_invoice_header th {
 .ywpi-document-section .ywpi-section-row div.ywpi_view_documents, div.ywpi_view_documents.credit_notes_view_all{
 	padding: 10px 0px 10px 0px;
 }
+
 div.ywpi_view_documents.credit_notes_view_all{
 	margin: 0px 0px 5px 5px;
 }
@@ -199,6 +200,7 @@ div.ywpi_view_documents.credit_notes_view_all{
 table.ywpi-refund-table tr td.ywpi-refund-actions{
 	border-right: none;
 }
+
 table.ywpi-refund-table tr td.ywpi-refund-label{
 	border-left: none;
 }
@@ -249,27 +251,24 @@ table.ywpi-refund-table tr td.ywpi-refund-label{
 .alignleft.invoice_date_pickers {
 	display: flex;
 }
-.alignleft.invoice_date_pickers input, .alignleft.invoice_date_pickers .yith-plugin-fw-datepicker-field-wrapper input{
-	max-height: 35px;
-	vertical-align:top;
-}
+
 .documents_date_from_label, .documents_date_to_label{
 	display: flex;
 	align-items: center;
 	margin-right: 5px;
+	margin-left: 10px;
+}
+
+.documents_date_from_label {
+	margin-left: 0px;
+}
+
+div.alignleft.invoice_date_pickers input#post-query-submit {
+	margin-left: 8px;
 }
 
 #yith-ywpi-list-table .yith-plugin-fw-wp-page__sub-tab-wrap {
 	border: none;
-}
-
-.yith-ywpi-list-table-container {
-	border: 1px solid #ccc;
-	border-top: none;
-	margin-top: -20px;
-}
-.yith-ywpi-list-table-elements {
-	padding: 20px;
 }
 
 .yith-ywpi-actions-container{
@@ -286,6 +285,10 @@ table.ywpi-refund-table tr td.ywpi-refund-label{
 	margin-top: 40px;
 }
 
+.ywpi-documents-table table.wp-list-table tr .column-date {
+    width: 8%;
+}
+
 .ywpi-documents-table .tablenav .tablenav-pages .displaying-num{
 	display:none;
 }
@@ -297,9 +300,11 @@ table.ywpi-refund-table tr td.ywpi-refund-label{
 .ywpi-documents-table .tablenav .search-box #search-submit{
 	display:none;
 }
+
 #yith-ywpi-list-table .tablenav.top .tablenav-pages{
 	display:none;
 }
+
 #yith-ywpi-list-table .tablenav.bottom .bulkactions{
 	display:none;
 }
@@ -309,12 +314,25 @@ table.ywpi-refund-table tr td.ywpi-refund-label{
 	top: 50%;
 	transform: translateY(-50%);
 }
+
 #yith-ywpi-list-table .ywpi_empty_state{
 	height: 600px;
 }
+
 #yith-ywpi-list-table .yith-plugin-fw__list-table-blank-state .yith-plugin-fw__list-table-blank-state__icon {
 	width: 60px;
 	margin: 0 auto 30px;
+}
+
+body.post-type-ywpi-pdf-template .yith-plugin-ui .tablenav,
+body.post-php.post-type-ywpi-pdf-template .yith-plugin-fw-wp-page-wrapper .wrap > .page-title-action,
+.post-type-ywpi-pdf-template .yith-plugin-ui--ywpi-pdf-template-post_type .search-box {
+	display:none;
+}
+
+#yith_woocommerce_pdf_invoice_panel_documents_type-invoices .yith-plugin-fw__panel__content__page__title .yith-ywpi-download-all-invoices,
+#yith_woocommerce_pdf_invoice_panel_documents_type-credit-notes .yith-plugin-fw__panel__content__page__title .yith-ywpi-download-all-credit-notes {
+	margin-left: 20px;
 }
 
 /** Invoice List Table Responsive **/
@@ -322,35 +340,42 @@ table.ywpi-refund-table tr td.ywpi-refund-label{
 	#yith-ywpi-list-table .manage-column.column-document_number{
 		width: 15em;
 	}
+
 	#yith-ywpi-list-table .manage-column.column-date{
 		width: 11em;
 	}
+
 	#yith-ywpi-list-table .manage-column.column-order{
 		width: 10em;
 	}
+
 	#yith-ywpi-list-table .manage-column.column-customer{
 		width: 20em;
 	}
+
 	#yith-ywpi-list-table .manage-column.column-subtotal{
 		width: 20em;
 	}
 }
 @media only screen and (max-width: 1755px) {
-
 	#yith-ywpi-list-table .manage-column.column-actions{
 		width: 8em;
 	}
 }
+
 @media (max-width: 768px) {
 	.invoice_date_pickers {
 		flex-direction: column;
 	}
+
 	#yith-ywpi-list-table .yith-ywpi-list-table-container .invoice_date_pickers input[type="submit"]{
 		margin-top: 7px;
 	}
+
 	#yith-ywpi-list-table .yith-ywpi-list-table-container .search-box{
 		position: initial;
 	}
+
 	.ywpi-documents-table .tablenav .search-box #search-submit{
 		display:block;
 	}
@@ -378,9 +403,7 @@ table.ywpi-refund-table tr td.ywpi-refund-label{
 	width: 200px;
 }
 
-div#ywpi_impostazioni_generali-description p::before{
-	margin-top: 10px !important;
-}
-div#ywpi_impostazioni_generali-description p{
-	width: 75% !important;
+#yith_woocommerce_pdf_invoice_panel_electronic-invoice .yith-plugin-fw__panel__section__description,
+#yith-plugins_page_pdf_invoice_for_multivendor_vendor-electronic-invoice .yith-plugin-fw__panel__section__description {
+	margin-bottom: 15px;
 }

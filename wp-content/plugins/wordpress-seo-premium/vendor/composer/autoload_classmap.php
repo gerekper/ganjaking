@@ -133,7 +133,6 @@ return array(
     'Yoast\\WP\\SEO\\Premium\\Config\\Badge_Group_Names' => $baseDir . '/src/config/badge-group-names.php',
     'Yoast\\WP\\SEO\\Premium\\Config\\Migrations\\AddIndexOnIndexableIdAndStem' => $baseDir . '/src/config/migrations/20210827093024_AddIndexOnIndexableIdAndStem.php',
     'Yoast\\WP\\SEO\\Premium\\Database\\Migration_Runner_Premium' => $baseDir . '/src/database/migration-runner-premium.php',
-    'Yoast\\WP\\SEO\\Premium\\Deprecated\\Integrations\\Admin\\Inclusive_Language_Notification_Integration' => $baseDir . '/src/deprecated/integrations/admin/inclusive-language-notification-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Exceptions\\Forbidden_Property_Mutation_Exception' => $baseDir . '/src/exceptions/forbidden-property-mutation-exception.php',
     'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Bad_Request_Exception' => $baseDir . '/src/exceptions/remote-request/bad-request-exception.php',
     'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Forbidden_Exception' => $baseDir . '/src/exceptions/remote-request/forbidden-exception.php',

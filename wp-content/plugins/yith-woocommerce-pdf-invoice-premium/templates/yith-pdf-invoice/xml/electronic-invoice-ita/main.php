@@ -4,7 +4,7 @@
  *
  * Main XML.
  *
- * @author  YITH
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH\PDFInvoice\Templates
  */
 
@@ -40,7 +40,4 @@ wc_get_template(
 	YITH_YWPI_TEMPLATE_DIR
 );
 
-
 echo '</p:FatturaElettronica>';
-
-

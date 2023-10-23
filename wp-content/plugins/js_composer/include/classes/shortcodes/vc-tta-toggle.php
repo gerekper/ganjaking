@@ -33,6 +33,7 @@ class WPBakeryShortCode_Vc_Tta_Toggle extends WPBakeryShortCode_Vc_Tta_Pageable 
 	protected $controls_list = [
 		'edit',
 		'clone',
+		'copy',
 		'delete',
 	];
 

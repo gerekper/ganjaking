@@ -1,15 +1,260 @@
-=== YITH WooCommerce PDF Invoices and Packing Slips Premium ===
+=== YITH WooCommerce PDF Invoices & Packing Slips ===
 
 Contributors: yithemes
 Tags: woocommerce, orders, woocommerce order, pdf, invoice, pdf invoice, delivery note, pdf invoices, automatic invoice, download, download invoice, bill order, billing, automatic billing, order invoice, billing invoice, new order, processing order, shipping list, shipping document, delivery, packing slip, transport document,  delivery, shipping, order, shop, shop invoice, customer, sell, invoices, email invoice, packing slips
-Requires at least: 5.6
-Tested up to: 5.8
-Stable tag: 3.4.0
+Requires at least: 6.1
+Tested up to: 6.3
+Stable tag: 4.12.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Documentation: https://docs.yithemes.com/yith-woocommerce-pdf-invoice
 
 == Changelog ==
+
+= 4.12.0 - Released on 10 October 2023 =
+
+* New: support for WooCommerce 8.2
+* New: panel UI
+* Update: YITH plugin framework
+* Fix: URL to download the XML from the invoices table
+* Fix: invoice creation date to be used with the custom templates
+* Dev: round correctly the PrezzoUnitario in the XML invoice
+* Dev: added new filter yith_ywpi_invoice_tax_label
+* Dev: added new filter yith_ywpi_invoice_totals_label
+
+= 4.11.0 - Released on 06 September 2023 =
+
+* New: support for WooCommerce 8.1
+* Update: YITH plugin framework
+* Fix: fixed the invoice save path when the Electronic Invoice feature is enabled
+* Fix: fixed issue with the packing slip save path
+* Dev: minor changes in the HPOS compatibility
+
+
+= 4.10.0 - Released on 17 August 2023 =
+
+* New: support for WooCommerce 8.0
+* New: support for WordPress 6.3
+* New: HPOS compatibility
+* Tweak: use the yith upload field for "Company logo" option by vendor side
+* Update: YITH plugin framework
+* Dev: minor changes
+
+= 4.9.0 - Released on 19 July 2023 =
+
+* New: support for WooCommerce 7.9
+* Update: YITH plugin framework
+* Dev: added new filter yith_ywpi_apply_old_percentage_tax_calculation_precision
+* Dev: added the invoice_number placeholder in the order number block
+* Dev: retrieve correctly the order refund date for the credit note
+* Dev: remove the zip with the invoices after download it
+
+
+= 4.8.0 - Released on 15 June 2023 =
+
+* New: support for WooCommerce 7.8
+* Tweak: integration with YITH WooCommerce Order & Shipment Tracking
+* Update: YITH plugin framework
+* Dev: added new action yith_pdf_invoice_after_total
+* Dev: added new action yith_ywpi_after_product_image
+* Dev: new filter 'yith_ywpi_packing_slip_generated_label_custom'
+* Dev: added new filters yith_ywpi_packing_slip_status_label and yith_ywpi_no_packing_slip_available_label
+
+= 4.7.0 - Released on 11 May 2023 =
+
+* New: support for WooCommerce 7.7
+* Update: YITH plugin framework
+* Fix: prevent fatal error when the product has no images set
+* Fix: minor fixes
+
+= 4.6.0 - Released on 11 April 2023 =
+
+* New: support for WooCommerce 7.6
+* Update: YITH plugin framework
+* Tweak: possibility to edit natura value by custom meta on order page (Italian electronic Invoice)
+* Fix: fixed usage of deprecated method
+* Dev: added order item object as a parameter to the yith_ywpi_column_product_after_content action
+* Dev: added check to not display the proforma button if it is not generated
+* Dev: minor changes
+
+= 4.5.0 - Released on 13 March 2023 =
+
+* New: support for WordPress 6.2
+* New: support for WooCommerce 7.5
+* New: order date field in electronic invoice for italian customers
+* New: show order number in "DatiOrdineAcquisto" section (electronic invoice)
+* Update: YITH plugin framework
+* Fix: show order number for "DatiOrdineAcquisto -> IdDocumento"
+* Fix: solved a fatal error when the date of the completed order is shown on the invoice
+* Dev: added new filter yith_ywpi_replace_customer_details_pattern
+* Dev: new filters 'yith_ywpi_get_bulk_actions_credit_note', 'yith_ywpi_get_bulk_actions_credit_notes_list_table' and 'yith_ywpi_get_bulk_actions_documents_list'
+* Dev: added new filters yith_ywpi_invoice_list_table_actions, yith_ywpi_order_list_bulk_actions and yith_ywpi_show_regenerate_invoice_button
+* Dev: added new filters yith_ywpi_invoices_table_order and yith_ywpi_credit_notes_table_order
+* Dev: added new filter yith_ywpi_invoice_round_price
+* Dev: added new filters yith_ywpi_invoice_subtotal_label and yith_ywpi_invoice_discount_label
+
+= 4.4.0 - Released on 08 February 2023 =
+
+* New: support for WooCommerce 7.4
+* Update: YITH plugin framework
+* Fix: Prevent empty meta titles to appear under the product data
+* Dev: added new action yith_ywpi_before_process_meta_invoice
+* Dev: added new filter yith_ywpi_invoice_totals_tax_label
+* Dev: added an alternative server to get the templates
+
+= 4.3.0 - Released on 10 January 2023 =
+
+* New: support for WooCommerce 7.3
+* Update: YITH plugin framework
+* Fix: Solved an issue with the integration with POS where sometimes $product didn't exist and generated a fatal error
+* Dev: added new filters yith_ywpi_billing_address_ssn_label and yith_ywpi_billing_address_vat_label
+* Dev: added new filter yith_ywpi_custom_pdf_template_footer
+* Dev: display the billing and shipping state name instead of the code when using the template builder
+* Dev: updated Guzzle library to version 7.5.0
+* Dev: minor changes
+
+= 4.2.0 - Released on 13 December 2022 =
+
+* New: support for WooCommerce 7.2
+* Update: YITH plugin framework
+* Dev: prevent a fatal error in the templates preview
+* Dev: display the country name instead of the code when using the template editor
+* Dev: added new filter ywpi_checkout_ssn_validation to prevent the SSN validation in the checkout
+* Dev: minor changes
+
+= 4.1.1 - Released on 15 November 2022 =
+
+* Tweak: added button to download the invoice in the order details at checkout, if available
+* Update: YITH plugin framework
+* Fix: patched security vulnerability
+* Dev: added new filter yith_ywpi_product_metadata
+
+= 4.1.0 - Released on 26 October 2022 =
+
+* New: support for WordPress 6.1
+* New: support for WooCommerce 7.1
+* Update: YITH plugin framework
+* Dev: added additional argument to yith_ywpi_after_product_name action
+
+= 4.0.3 - Released on 14 October 2022 =
+
+* Fix: javascript issue on PDF template editor
+
+= 4.0.2 - Released on 11 October 2022 =
+
+* Update: YITH plugin framework
+* Dev: change the method to select the templates, to avoid external issues
+
+= 4.0.1 - Released on 6 October 2022 =
+
+* Update: YITH plugin framework
+* Fix: minor fixes
+* Fix: remove free deactivation to avoid a fatal error
+
+= 4.0.0 - Released on 4 October 2022 =
+
+* New: support for WooCommerce 7.0
+* New: PDF builder to create custom templates for the documents
+* Update: YITH plugin framework
+* Fix: fixed issue with default options
+
+= 3.13.0 - Released on 6 September 2022 =
+
+* New: support for WooCommerce 6.9
+* Update: YITH plugin framework
+
+= 3.12.1 - Released on 05 August 2022 =
+
+* Fix: Solved a fatal error when creating the credit note file
+
+= 3.12.0 - Released on 03 August 2022 =
+
+* New: added a new set of options to control the order info on all invoices
+* New: added a new option to display the payment method in the invoices
+* New: support for WooCommerce 6.8
+* Update: YITH plugin framework
+
+= 3.11.1 - Released on 19 July 2022 =
+
+* Update: YITH plugin framework
+* Fix: compatibility issue with YITH EU VAT, now plugin use the VAT field id of EU VAT plugin
+* Fix: invoice PDF not generating when electronic invoice enabled
+
+= 3.11.0 - Released on 06 July 2022 =
+
+* New: support for WooCommerce 6.7
+* Update: YITH plugin framework
+* Fix: display of the receipt selection at checkout
+* Fix: document ID didn't increase for electronic invoice
+
+= 3.10.1 - Released on 16 June 2022 =
+
+* Tweak: get "reason" field from post meta for electronic invoice
+* Update: YITH plugin framework
+* Update: language files
+* Dev: added new filter yith_ywpi_show_invoice_button_view_order
+
+= 3.10.0 - Released on 9 June 2022 =
+
+* New: support for WooCommerce 6.6
+* Update: YITH plugin framework
+* Update: language files
+* Fix: warning on division by zero
+
+= 3.9.0 - Released on 10 May 2022 =
+
+* New: support for WordPress 6.0
+* New: support for WooCommerce 6.5
+* Tweak: added the shipping cost in the Credit note totals
+* Update: YITH plugin framework
+* Fix: issue with the Vendor invoice numbers
+* Fix: issue with the invoice number in the orders panel in Frontend Manager
+* Fix: wrong amount for "Prezzo Unitario" field inside credit note xml file
+* Dev: adding the Italian e-invoice frontend strings in English, and adding the translation to Italian
+* Dev: added new action yith_ywpi_after_product_name
+
+= 3.8.0 - Released on 7 April 2022 =
+* New: support for WooCommerce 6.4
+* Update: YITH plugin framework
+* Tweak: remove hidden item meta fields from invoice
+* Tweak: displayed the VAT and SSN data in the customer billing info, in the order edit page
+* Fix: fixed issue with the invoice number increase when the Italian invoice feature is enabled
+* Dev: re-added deleted filter 'ywpi_allow_sync_to_dropbox'
+* Dev: added new hook yith_ywpi_export_output_column
+
+= 3.7.0 - Released on 10 March 2022 =
+* New: support for WooCommerce 6.3
+* Update: YITH plugin framework
+* Fix: now the XML is generated also in the 'Generate invoices' bulk action
+* Dev: new filter 'yith_wcpdi_document_pattern'
+* Dev: added default invoice generation to the option
+* Dev: added new filter yith_ywpi_show_tax_total_condition
+* Dev: changes in the proforma management options
+
+= 3.6.0 - Released on 14 February 2022 =
+* New: support for WooCommerce 6.2
+* New: added new option to disable the invoice creation when order value is zero.
+* Update: YITH plugin framework
+* Update: language files
+* Fix: plugin version constants
+* Fix: wrong value for "PrezzoUnitario" field in Xml file (Electronic invoice module for Italian Customers)
+* Dev: removed filters placed in wrong place
+* Dev: added a condition to the percentage tax calculation in the invoice, to avoid errors if the product was removed
+* Dev: added new filter yith_ywpi_download_all_files_as_zip_condition_per_order to apply custom conditions when downloading all the invoice in a zip
+* Dev: added new filter yith_ywpi_generate_credit_note_automatically
+* Dev: added new method to generate the packing slip automatically and not based in the invoice generation
+
+= 3.5.0 - Released on 05 January 2022 =
+
+* New: support for WordPress 5.9
+* New: support for WooCommerce 6.1
+* Update: YITH plugin framework
+* Update: language files
+* Fix: avoid issue when no tax rate is configured in WooCommerce
+* Fix: added international date format to improve the date formats conversion
+* Dev: fixed second parameter of 'woocommerce_order_item_name' filter in credit note template
+* Dev: changed default values in the document options
+* Dev: Added new filter 'yith_ywpi_encode_text'
 
 = 3.4.0 - Released on 30 November 2021 =
 

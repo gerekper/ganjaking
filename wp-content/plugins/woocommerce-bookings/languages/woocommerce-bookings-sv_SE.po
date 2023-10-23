@@ -7,13 +7,13 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-09-18T14:45:50+00:00\n"
+"POT-Creation-Date: 2023-10-09T17:54:22+00:00\n"
 "PO-Revision-Date: 2023-08-07 14:43:20+0000\n"
 "Language: sv_SE\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/2.4.0-alpha\n"
 
-#: includes/booking-form/class-wc-booking-form.php:764
+#: includes/booking-form/class-wc-booking-form.php:765
 msgid "left"
 msgstr "vänster"
 
@@ -90,7 +90,7 @@ msgstr "Skapa bokning"
 msgid "Templates"
 msgstr "Mallar"
 
-#: includes/class-wc-booking-order-manager.php:835
+#: includes/class-wc-booking-order-manager.php:847
 msgid "View Booking Calendar &rarr;"
 msgstr "Visa bokningskalender &rarr;"
 
@@ -134,7 +134,7 @@ msgstr "Nästa månad"
 msgid "Previous Month"
 msgstr "Föregående månad"
 
-#: includes/booking-form/class-wc-booking-form.php:120
+#: includes/booking-form/class-wc-booking-form.php:121
 msgid "Please wait, the latest available slots are being processed in the background."
 msgstr "Vänta, de senaste tillgängliga platserna bearbetas i bakgrunden."
 
@@ -205,11 +205,11 @@ msgstr "Obehörig begäran, försök igen."
 msgid "Export"
 msgstr "Exportera"
 
-#: includes/admin/class-wc-bookings-admin.php:677
+#: includes/admin/class-wc-bookings-admin.php:680
 msgid "The booking duration has been set to 24 as a duration greater than 24 hours is not allowed when Availability is \"not-available by default\"."
 msgstr "Bokningen varaktighet måste vara satt till 24 timmar, eftersom en längre varaktighet än 24 timmar inte tillåts när tillgängligheten är \"ej tillgängliga som standard\"."
 
-#: includes/admin/class-wc-bookings-admin.php:676
+#: includes/admin/class-wc-bookings-admin.php:679
 msgid "A duration greater than 24 hours is not allowed when Availability is \"not-available by default\"."
 msgstr "En längre varaktighet än 24 timmar tillåts inte när tillgängligheten är \"ej tillgängliga som standard\"."
 
@@ -225,7 +225,7 @@ msgstr "Aktivera överskrivning"
 msgid "Overwrite Description"
 msgstr "Skriv över beskrivning"
 
-#: includes/class-wc-booking-order-manager.php:833
+#: includes/class-wc-booking-order-manager.php:845
 msgid "View order &rarr;"
 msgstr "Visa beställning &rarr;"
 
@@ -237,11 +237,11 @@ msgstr "Den här sektionen visar alla filer som åsidosätter WooCommerce Bookin
 msgid "WooCommerce Bookings template overrides"
 msgstr "Åsidosättanden av WooCommerce Bookings-mallar"
 
-#: includes/admin/class-wc-bookings-admin.php:705
+#: includes/admin/class-wc-bookings-admin.php:708
 msgid "Maximum duration needs to be greater than or equal to the minimum duration."
 msgstr "Maximal varaktighet måste vara längre än eller lika med den minsta varaktigheten."
 
-#: includes/admin/class-wc-bookings-admin.php:704
+#: includes/admin/class-wc-bookings-admin.php:707
 msgid "Minimum duration needs to be less than or equal to maximum duration."
 msgstr "Minsta varaktighet måste vara mindre än eller lika med maximal varaktighet."
 
@@ -249,19 +249,15 @@ msgstr "Minsta varaktighet måste vara mindre än eller lika med maximal varakti
 msgid "Customer Information"
 msgstr "Kundinformation"
 
-#: includes/admin/class-wc-bookings-admin.php:675
+#: includes/admin/class-wc-bookings-admin.php:678
 msgid "This setting is being overridden at the resource level."
 msgstr "Denna inställning åsidosätts på resursnivå."
 
-#: includes/gateways/class-wc-bookings-gateway.php:15
-msgid "Subject to confirmation"
-msgstr "Kräver bekräftelse"
-
-#: includes/class-wc-booking-order-manager.php:217
+#: includes/class-wc-booking-order-manager.php:218
 msgid "Are you sure you want to cancel your booking?"
 msgstr "Är du säker på att du vill avbryta din bokning?"
 
-#: includes/booking-form/class-wc-booking-form.php:123
+#: includes/booking-form/class-wc-booking-form.php:124
 msgid "We weren't able to get that information. Please contact the store owner for help."
 msgstr "Vi kunde inte hämta denna information. Kontakta butiksägaren för att få hjälp."
 
@@ -300,12 +296,12 @@ msgstr "Borttagningsinställningar"
 msgid "Date should be of the format yyyy-mm-dd and cannot be empty."
 msgstr "Datumet ska vara i formatet åååå-mm-dd och får inte vara tomt."
 
-#: includes/admin/class-wc-bookings-admin.php:698
+#: includes/admin/class-wc-bookings-admin.php:701
 #: includes/admin/class-wc-bookings-details-meta-box.php:563
 msgid "Start date cannot be greater than end date."
 msgstr "Startdatumet kan inte vara ett senare datum än slutdatumet."
 
-#: includes/admin/class-wc-bookings-admin.php:697
+#: includes/admin/class-wc-bookings-admin.php:700
 msgid "\"Start and end date\" should be of the format yyyy-mm-dd and cannot be empty."
 msgstr "\"Start- och slutdatum\" ska vara i formatet åååå-mm-dd och får inte vara tomt."
 
@@ -416,7 +412,7 @@ msgstr "%1$s: %2$s"
 msgid "in timezone: %s"
 msgstr "i tidszon: %s"
 
-#: includes/class-wc-booking-order-manager.php:842
+#: includes/class-wc-booking-order-manager.php:854
 msgid "View my bookings &rarr;"
 msgstr "Visa mina bokningar &rarr;"
 
@@ -707,7 +703,7 @@ msgid_plural "nights"
 msgstr[0] "natt"
 msgstr[1] "nätter"
 
-#: includes/booking-form/class-wc-booking-form.php:345
+#: includes/booking-form/class-wc-booking-form.php:346
 #: includes/data-objects/class-wc-product-booking.php:2490
 #: includes/data-objects/class-wc-product-booking.php:2517
 #: includes/wc-bookings-functions.php:1280
@@ -716,7 +712,7 @@ msgid_plural "minutes"
 msgstr[0] "minut"
 msgstr[1] "minuter"
 
-#: includes/booking-form/class-wc-booking-form.php:347
+#: includes/booking-form/class-wc-booking-form.php:348
 #: includes/data-objects/class-wc-product-booking.php:2492
 #: includes/data-objects/class-wc-product-booking.php:2519
 #: includes/wc-bookings-functions.php:1277
@@ -731,7 +727,7 @@ msgid_plural "weeks"
 msgstr[0] "vecka"
 msgstr[1] "veckor"
 
-#: includes/booking-form/class-wc-booking-form.php:351
+#: includes/booking-form/class-wc-booking-form.php:352
 #: includes/data-objects/class-wc-product-booking.php:2496
 #: includes/data-objects/class-wc-product-booking.php:2523
 #: includes/wc-bookings-functions.php:1266
@@ -1650,19 +1646,19 @@ msgstr "Genom att använda denna utökning kan det hända att du lagrar personup
 msgid "WooCommerce Bookings Data"
 msgstr "WooCommerce Bookings-data"
 
-#: includes/class-wc-booking-order-manager.php:290
+#: includes/class-wc-booking-order-manager.php:291
 msgid "Past Bookings"
 msgstr "Tidigare bokningar"
 
-#: includes/class-wc-booking-order-manager.php:284
+#: includes/class-wc-booking-order-manager.php:285
 msgid "Upcoming Bookings"
 msgstr "Kommande bokningar"
 
-#: includes/class-wc-booking-order-manager.php:278
+#: includes/class-wc-booking-order-manager.php:279
 msgid "Today's Bookings"
 msgstr "Dagens bokningar"
 
-#: includes/class-wc-booking-order-manager.php:216
+#: includes/class-wc-booking-order-manager.php:217
 msgid "All bookings start and end times except where stated differently are displayed in the following timezone: "
 msgstr "Alla bokningars start- och sluttider visas i följande tidszon, förutom där annat anges:"
 
@@ -1713,49 +1709,49 @@ msgstr "Bokningarna för %s har tagits bort från din varukorg på grund av inak
 msgid "A booking for %s has been removed from your cart due to inactivity."
 msgstr "En bokning för %s har tagits bort från din varukorg på grund av inaktivitet."
 
-#: includes/booking-form/class-wc-booking-form.php:737
+#: includes/booking-form/class-wc-booking-form.php:738
 msgid "End time"
 msgstr "Sluttid"
 
-#: includes/booking-form/class-wc-booking-form.php:735
+#: includes/booking-form/class-wc-booking-form.php:736
 msgid "Ends"
 msgstr "Slutar"
 
 #. translators: %d: booking duration in hours
-#: includes/booking-form/class-wc-booking-form.php:707
+#: includes/booking-form/class-wc-booking-form.php:708
 msgid "%d Hour"
 msgid_plural "%d Hours"
 msgstr[0] "%d timme"
 msgstr[1] "%d timmar"
 
 #. translators: %d: booking duration in minutes
-#: includes/booking-form/class-wc-booking-form.php:703
+#: includes/booking-form/class-wc-booking-form.php:704
 msgid "%d Minute"
 msgid_plural "%d Minutes"
 msgstr[0] "%d minut"
 msgstr[1] "%d minuter"
 
 #. translators: 1: quantity available
-#: includes/booking-form/class-wc-booking-form.php:816
+#: includes/booking-form/class-wc-booking-form.php:817
 msgid "%d left"
 msgid_plural "%d left"
 msgstr[0] "%d kvar"
 msgstr[1] "%d kvar"
 
-#: includes/booking-form/class-wc-booking-form.php:579
+#: includes/booking-form/class-wc-booking-form.php:580
 msgid "Start time"
 msgstr "Starttid:"
 
-#: includes/booking-form/class-wc-booking-form.php:577
+#: includes/booking-form/class-wc-booking-form.php:578
 msgid "Starts"
 msgstr "Startar"
 
 #. translators: 1: block cost 2: duration unit
-#: includes/booking-form/class-wc-booking-form.php:377
+#: includes/booking-form/class-wc-booking-form.php:378
 msgid "+%1$1s per %2$2s"
 msgstr "+%1$1s per %2$2s"
 
-#: includes/booking-form/class-wc-booking-form.php:349
+#: includes/booking-form/class-wc-booking-form.php:350
 #: includes/data-objects/class-wc-product-booking.php:2494
 #: includes/data-objects/class-wc-product-booking.php:2521
 #: includes/wc-bookings-functions.php:1270
@@ -1764,7 +1760,7 @@ msgid_plural "days"
 msgstr[0] "dag"
 msgstr[1] "dagar"
 
-#: includes/booking-form/class-wc-booking-form.php:353
+#: includes/booking-form/class-wc-booking-form.php:354
 #: includes/data-objects/class-wc-product-booking.php:2498
 #: includes/data-objects/class-wc-product-booking.php:2525
 msgid "block"
@@ -1773,77 +1769,77 @@ msgstr[0] "block"
 msgstr[1] ""
 
 #. translators: %s: product duration in minutes
-#: includes/booking-form/class-wc-booking-form.php:250
+#: includes/booking-form/class-wc-booking-form.php:251
 msgid "&times; %s minutes"
 msgstr "&times; %s minuter"
 
 #. translators: %s: product duration in hours
-#: includes/booking-form/class-wc-booking-form.php:242
+#: includes/booking-form/class-wc-booking-form.php:243
 msgid "&times; %s hours"
 msgstr "&times; %s timmar"
 
-#: includes/booking-form/class-wc-booking-form.php:236
+#: includes/booking-form/class-wc-booking-form.php:237
 msgid "Night(s)"
 msgstr "Natt/nätter"
 
 #. translators: %s: product duration in nights
-#: includes/booking-form/class-wc-booking-form.php:234
+#: includes/booking-form/class-wc-booking-form.php:235
 msgid "&times; %s nights"
 msgstr "&times; %s nätter"
 
 #. translators: %s product duration in days
-#: includes/booking-form/class-wc-booking-form.php:218
+#: includes/booking-form/class-wc-booking-form.php:219
 msgid "&times; %s days"
 msgstr "&times; %s dagar"
 
 #. translators: %s: product duration in weeks
-#: includes/booking-form/class-wc-booking-form.php:209
-#: includes/booking-form/class-wc-booking-form.php:227
+#: includes/booking-form/class-wc-booking-form.php:210
+#: includes/booking-form/class-wc-booking-form.php:228
 msgid "&times; %s weeks"
 msgstr "&times; %s veckor"
 
 #. translators: %s: product duration in months
-#: includes/booking-form/class-wc-booking-form.php:201
+#: includes/booking-form/class-wc-booking-form.php:202
 msgid "&times; %s Months"
 msgstr "&times; %s månader"
 
-#: includes/booking-form/class-wc-booking-form.php:130
+#: includes/booking-form/class-wc-booking-form.php:131
 msgid "Store server time: "
 msgstr "Butikens servertid:"
 
-#: includes/booking-form/class-wc-booking-form.php:122
+#: includes/booking-form/class-wc-booking-form.php:123
 msgid "To clear selection, pick a new start date"
 msgstr "Välj ett nytt startdatum för att rensa urvalet"
 
-#: includes/booking-form/class-wc-booking-form.php:121
+#: includes/booking-form/class-wc-booking-form.php:122
 msgid "Please select the options for your booking and make sure duration rules apply."
 msgstr "Välj alternativ för din bokning och kontrollera att varaktighetsreglerna gäller."
 
-#: includes/booking-form/class-wc-booking-form.php:119
+#: includes/booking-form/class-wc-booking-form.php:120
 msgid "Dates"
 msgstr "Datum"
 
-#: includes/booking-form/class-wc-booking-form.php:118
+#: includes/booking-form/class-wc-booking-form.php:119
 msgid "Choose an End Date"
 msgstr "Välj ett slutdatum"
 
-#: includes/booking-form/class-wc-booking-form.php:117
+#: includes/booking-form/class-wc-booking-form.php:118
 msgid "Choose a Start Date"
 msgstr "Välj ett startdatum"
 
-#: includes/booking-form/class-wc-booking-form.php:116
+#: includes/booking-form/class-wc-booking-form.php:117
 msgid "This date is available"
 msgstr "Detta datum är tillgängligt"
 
-#: includes/booking-form/class-wc-booking-form.php:115
+#: includes/booking-form/class-wc-booking-form.php:116
 msgid "This date is partially booked - but bookings still remain"
 msgstr "Detta datum är delvis bokat - men det finns fortfarande tillgängliga bokningar"
 
-#: includes/booking-form/class-wc-booking-form.php:114
+#: includes/booking-form/class-wc-booking-form.php:115
 msgid "This date is fully booked and unavailable"
 msgstr "Detta datum är fullbokat och otillgängligt"
 
-#: includes/booking-form/class-wc-booking-form.php:113
+#: includes/booking-form/class-wc-booking-form.php:114
 msgid "This date is unavailable"
 msgstr "Detta datum är inte tillgänglig"
 
@@ -2351,7 +2347,7 @@ msgid "Label"
 msgstr "Etikett"
 
 #: includes/admin/views/html-booking-resources.php:8
-#: includes/booking-form/class-wc-booking-form.php:399
+#: includes/booking-form/class-wc-booking-form.php:400
 #: includes/wc-bookings-functions.php:981
 #: templates/emails/plain/admin-booking-display.php:55
 #: templates/emails/plain/customer-booking-display.php:54
@@ -2580,7 +2576,7 @@ msgstr "Minimun varaktighet"
 
 #: includes/admin/views/html-booking-data.php:24
 #: includes/admin/views/html-booking-data.php:107
-#: includes/booking-form/class-wc-booking-form.php:252
+#: includes/booking-form/class-wc-booking-form.php:253
 msgid "Minute(s)"
 msgstr "Minut(er)"
 
@@ -2673,7 +2669,7 @@ msgstr "in i framatiden"
 #: includes/admin/views/html-booking-availability.php:45
 #: includes/admin/views/html-booking-data.php:23
 #: includes/admin/views/html-booking-data.php:106
-#: includes/booking-form/class-wc-booking-form.php:244
+#: includes/booking-form/class-wc-booking-form.php:245
 msgid "Hour(s)"
 msgstr "Timme(ar)"
 
@@ -2681,14 +2677,14 @@ msgstr "Timme(ar)"
 #: includes/admin/views/html-booking-availability.php:44
 #: includes/admin/views/html-booking-data.php:22
 #: includes/admin/views/html-booking-data.php:105
-#: includes/booking-form/class-wc-booking-form.php:220
+#: includes/booking-form/class-wc-booking-form.php:221
 msgid "Day(s)"
 msgstr "Dag(ar)"
 
 #: includes/admin/views/html-booking-availability.php:33
 #: includes/admin/views/html-booking-availability.php:43
-#: includes/booking-form/class-wc-booking-form.php:211
-#: includes/booking-form/class-wc-booking-form.php:224
+#: includes/booking-form/class-wc-booking-form.php:212
+#: includes/booking-form/class-wc-booking-form.php:225
 msgid "Week(s)"
 msgstr "Vecka(or)"
 
@@ -2696,7 +2692,7 @@ msgstr "Vecka(or)"
 #: includes/admin/views/html-booking-availability.php:42
 #: includes/admin/views/html-booking-data.php:21
 #: includes/admin/views/html-booking-data.php:104
-#: includes/booking-form/class-wc-booking-form.php:203
+#: includes/booking-form/class-wc-booking-form.php:204
 msgid "Month(s)"
 msgstr "Månad(er)"
 
@@ -3076,7 +3072,7 @@ msgstr "Enable_range_picker"
 
 #: includes/admin/class-wc-bookings-products-export.php:44
 #: includes/admin/class-wc-bookings-products-import.php:45
-#: includes/booking-form/class-wc-booking-form.php:261
+#: includes/booking-form/class-wc-booking-form.php:262
 #: includes/wc-bookings-functions.php:71
 msgid "Duration"
 msgstr "Varaktighet"
@@ -3607,56 +3603,56 @@ msgstr "Det gick inte att lägga till resursen"
 msgid "The resource has already been linked to this product"
 msgstr "Resursen har redan länkats till den här produkten"
 
-#: includes/admin/class-wc-bookings-admin.php:732
+#: includes/admin/class-wc-bookings-admin.php:735
 msgid "Enable this if this bookable product has multiple bookable resources, for example room types or instructors."
 msgstr "Aktivera detta om produkten har flera bokningsbara resurser, exempelvis rumstyper eller instruktörer."
 
-#: includes/admin/class-wc-bookings-admin.php:731
+#: includes/admin/class-wc-bookings-admin.php:734
 msgid "Has resources"
 msgstr "Har resurser"
 
-#: includes/admin/class-wc-bookings-admin.php:725
+#: includes/admin/class-wc-bookings-admin.php:728
 msgid "Enable this if this bookable product can be booked by a customer defined number of persons."
 msgstr "Aktivera detta om produkten kan bokas av en kunds definierat antal personer."
 
-#: includes/admin/class-wc-bookings-admin.php:724
+#: includes/admin/class-wc-bookings-admin.php:727
 msgid "Has persons"
 msgstr "Har personer"
 
-#: includes/admin/class-wc-bookings-admin.php:673
+#: includes/admin/class-wc-bookings-admin.php:676
 msgid "Resource"
 msgstr "Resurs"
 
-#: includes/admin/class-wc-bookings-admin.php:672
+#: includes/admin/class-wc-bookings-admin.php:675
 #: includes/admin/views/html-create-booking-page.php:18
 msgid "Customer"
 msgstr "Kund"
 
-#: includes/admin/class-wc-bookings-admin.php:671
+#: includes/admin/class-wc-bookings-admin.php:674
 msgid "View details"
 msgstr "Visa detaljer"
 
-#: includes/admin/class-wc-bookings-admin.php:663
+#: includes/admin/class-wc-bookings-admin.php:666
 msgid "Enter a name for the new resource"
 msgstr "Ange ett namn för den nya resursen"
 
-#: includes/admin/class-wc-bookings-admin.php:662
+#: includes/admin/class-wc-bookings-admin.php:665
 msgid "days"
 msgstr "dagar"
 
-#: includes/admin/class-wc-bookings-admin.php:661
+#: includes/admin/class-wc-bookings-admin.php:664
 msgid "hours"
 msgstr "timmar"
 
-#: includes/admin/class-wc-bookings-admin.php:660
+#: includes/admin/class-wc-bookings-admin.php:663
 msgid "minutes"
 msgstr "minuter"
 
-#: includes/admin/class-wc-bookings-admin.php:657
+#: includes/admin/class-wc-bookings-admin.php:660
 msgid "Are you sure you want to remove this resource?"
 msgstr "Säker att du vill radera denna resurs?"
 
-#: includes/admin/class-wc-bookings-admin.php:654
+#: includes/admin/class-wc-bookings-admin.php:657
 msgid "Are you sure you want to remove this person type?"
 msgstr "Säker att du vill radera persontypen?"
 
@@ -3689,9 +3685,9 @@ msgid "Booking updated."
 msgstr "Bokning uppdaterad."
 
 #: includes/admin/class-wc-bookings-admin.php:371
-#: includes/admin/class-wc-bookings-admin.php:674
+#: includes/admin/class-wc-bookings-admin.php:677
 #: includes/admin/views/html-booking-tab.php:4
-#: includes/booking-form/class-wc-booking-form.php:308
+#: includes/booking-form/class-wc-booking-form.php:309
 #: includes/class-wc-bookings-google-calendar-connection.php:1461
 #: includes/wc-bookings-functions.php:1243
 msgid "Persons"
@@ -3844,5 +3840,6 @@ msgstr "Namn på bokningsbar resurs"
 
 #. Plugin Name of the plugin
 #: includes/admin/class-wc-bookings-menus.php:132
+#: includes/gateways/class-wc-bookings-gateway.php:15
 msgid "WooCommerce Bookings"
 msgstr "WooCommerce Bookings"

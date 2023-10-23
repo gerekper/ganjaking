@@ -43,6 +43,8 @@ final class Permissions
     public function has_usage_permission(): bool
     {
         return true;
+
+        return $this->has_permission(self::USAGE);
     }
 
     public function has_updates_permission(): bool

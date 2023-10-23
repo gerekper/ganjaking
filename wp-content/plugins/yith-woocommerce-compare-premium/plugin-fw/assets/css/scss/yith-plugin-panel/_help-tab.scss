@@ -1,0 +1,311 @@
+/**
+ Help tab
+ */
+
+.yith-plugin-fw-panel-help-tab-container {
+  padding: 60px 25px;
+}
+
+body.yith-plugin-fw-panel.yith-plugin-fw-panel--version-1 {
+  .yith-plugin-fw-panel-help-tab-container {
+    background-color: white;
+    padding: 40px;
+    margin-right: 15px;
+    border: 1px solid #d8d8d8;
+    border-top: none;
+  }
+}
+
+.yith-plugin-fw-panel-help-tab-content {
+  background-color: #f4f4f4;
+  border-radius: 15px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 40px 60px;
+
+  p,
+  a {
+    font-size: 16px;
+  }
+
+  .row {
+    margin: 0 -15px 50px;
+    white-space: nowrap;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .column-left,
+    .column-right {
+      display: inline-block;
+      padding: 0 15px;
+      vertical-align: top;
+      width: 66%;
+    }
+
+    .column-right {
+      width: 33%;
+    }
+  }
+
+  .yith-plugin-fw-help-tab-video,
+  .yith-plugin-fw-help-tab-actions,
+  .yith-plugin-fw-hc-articles,
+  .yith-plugin-fw-submit-ticket {
+    box-sizing: border-box;
+    white-space: normal;
+  }
+
+  h2.yith-plugin-fw-panel-help-tab-title {
+    background: none;
+    border: none;
+    font-size: 22px;
+    line-height: 1.5em;
+    padding: 0;
+    text-align: center;
+  }
+
+  h3 {
+    color: #03689f;
+    font-size: 15px;
+  }
+
+  .yith-plugin-fw-panel-tab-description {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .yith-plugin-fw-help-tab-video {
+    text-align: center;
+
+    p.video-description {
+      margin-bottom: 25px;
+    }
+
+    .video-caption p {
+      margin: 5px 0;
+    }
+
+    .video-container {
+      margin: 0 auto 50px;
+      overflow: hidden;
+      padding-top: 56.25%;
+      position: relative;
+
+      iframe {
+        border: 0;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+      }
+    }
+  }
+
+  .box-with-shadow {
+    display: block;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 15px 5px rgba(174, 201, 207, 0.3);
+    transition: all .2s ease;
+  }
+
+  .box-with-image {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 40px;
+    background-color: #fff;
+    border: 1px solid #ebebeb;
+    padding: 30px 40px;
+    max-width: 60%;
+    margin: 0 auto 40px;
+
+    img {
+      margin: 0 auto;
+      max-width: 100%;
+    }
+
+    .box-content {
+      white-space: initial;
+
+      .button {
+        border-radius: 0;
+        padding: 10px 20px;
+        min-width: 230px;
+        margin-top: 20px;
+        text-align: center;
+        white-space: initial;
+
+        @media (max-width: 480px) {
+          min-width: 0;
+          max-width: 100%;
+        }
+      }
+    }
+
+    @media (max-width: 1210px) {
+      max-width: 100%;
+    }
+  }
+
+  ul.yith-plugin-fw-help-tab-actions,
+  .yith-plugin-fw-submit-ticket {
+    margin: 0 auto;
+    max-width: 640px;
+  }
+
+  ul.yith-plugin-fw-help-tab-actions {
+
+    &:not( .full-width ) {
+      padding-top: 65px !important;
+    }
+
+    li {
+      margin-bottom: 20px;
+
+      & > a {
+        display: block;
+        padding: 15px 20px 15px 75px !important;
+        text-decoration: none;
+      }
+
+      &:hover {
+        box-shadow: 0 0 15px 5px rgba(177, 220, 228, 0.6);
+        transform: scale(1.04);
+      }
+
+      a:before {
+        color: #03689f;
+        float: left;
+        font-family: 'yith-icon';
+        font-size: 36px;
+        line-height: 1;
+        margin-left: -50px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      &.read-documentation a:before {
+        content: '\f10d';
+      }
+
+      &.watch-videotutorials a:before {
+        content: '\f10e';
+      }
+
+      &.check-faqs a:before {
+        content: '\f10c';
+      }
+
+      h4 {
+        margin: 0 0 5px;
+
+        a {
+          color: #03689f;
+          text-decoration: none;
+        }
+      }
+
+      .description {
+        margin: 0;
+        font-size: 14px;
+      }
+
+      .separator {
+        display: inline-block;
+        margin: 0 5px;
+      }
+    }
+  }
+
+  .yith-plugin-fw-hc-articles {
+    h3 {
+      font-size: 18px;
+      margin: 0;
+      padding: 10px 0;
+      position: relative;
+
+      &:before {
+        content: '';
+        background: #03689f;
+        display: block;
+        height: 100%;
+        left: -40px;
+        position: absolute;
+        top: 0;
+        width: 15px;
+      }
+    }
+
+    a.button {
+      font-size: 16px;
+    }
+  }
+
+  .yith-plugin-fw-hc-articles-list {
+    margin: 15px 0 30px;
+
+    li {
+      display: block;
+      margin-bottom: 10px;
+
+      &:before {
+        content: '-';
+      }
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  .yith-plugin-fw-submit-ticket {
+    & > .box-with-shadow {
+      padding: 30px !important;
+    }
+
+    h3 {
+      color: #b90a0a;
+      font-size: 18px;
+      margin: 0 0 15px;
+    }
+
+    p {
+      margin-bottom: 35px;
+    }
+
+    .button {
+      border-radius: 7px;
+      display: block;
+      font-size: 15px;
+      padding: 7px 15px;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .row {
+      white-space: normal;
+      margin-bottom: 0;
+
+      .column-left,
+      .column-right {
+        width: 100%;
+        margin-bottom: 50px;
+      }
+    }
+    ul.yith-plugin-fw-help-tab-actions {
+      padding-top: 0 !important;
+    }
+
+    .box-with-image {
+      display: block;
+      text-align: center;
+    }
+  }
+}
+
+

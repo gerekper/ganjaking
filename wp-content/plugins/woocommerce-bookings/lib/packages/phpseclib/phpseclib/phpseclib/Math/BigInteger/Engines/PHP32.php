@@ -10,7 +10,7 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://pear.php.net/package/Math_BigInteger
  *
- * Modified by woocommerce on 18-September-2023 using Strauss.
+ * Modified by woocommerce on 09-October-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -83,10 +83,10 @@ class PHP32 extends PHP
             }
             $step = count($vals) & 3;
             if ($step) {
-                $digit = floor($digit / pow(2, 2 * $step));
+                $digit = (int) floor($digit / pow(2, 2 * $step));
             }
             if ($step != 3) {
-                $digit &= static::MAX_DIGIT;
+                $digit = (int) fmod($digit, static::BASE_FULL);
                 $i++;
             }
             $vals[] = $digit;

@@ -8,7 +8,7 @@
  * @var array                        $option The option array.
  * @var string                       $value  The value.
  * @var string                       $desc   The description.
- * @author     Emanuela Castorina <emanuela.castorina@yithemes.it>
+ * @author     YITH <plugins@yithemes.com>
  * @package    YITH\PluginFramework\Templates
  */
 

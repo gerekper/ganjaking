@@ -51,7 +51,7 @@
 		$vendor = WC_Product_Vendors_Utils::get_logged_in_vendor( 'id' );
 	}
 ?>
-<tr<?php echo $hide; ?>>
+<tr<?php echo $hide; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 	<td class="sort">&nbsp;</td>
 	<td><input type="hidden" name="wc_booking_availability_vendor[]" value="<?php echo esc_attr( $vendor ); ?>" />
 		<div class="select wc_booking_availability_type">
@@ -110,8 +110,8 @@
 	</div>
 	</td>
 	<td style="border-right:0;" class="bookings-to-label-row">
-		<p><?php _e( 'to', 'woocommerce-product-vendors' ); ?></p>
-		<p class="bookings-datetimerange-second-label"><?php _e( 'to', 'woocommerce-product-vendors' ); ?></p>
+		<p><?php esc_html_e( 'to', 'woocommerce-product-vendors' ); ?></p>
+		<p class="bookings-datetimerange-second-label"><?php esc_html_e( 'to', 'woocommerce-product-vendors' ); ?></p>
 	</td>
 	<td>
 	<div class='bookings-datetime-select-to'>

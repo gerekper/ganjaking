@@ -266,8 +266,8 @@ class Vc_License {
 	 */
 	public function isActivated() {
 		return true;
-		return (bool) $this->getLicenseKey();
 	}
+
 
 	/**
 	 * Check license key from remote
@@ -454,7 +454,6 @@ class Vc_License {
 	 */
 	public function isValid( $license_key ) {
 		return true;
-		return $license_key === $this->getLicenseKey();
 	}
 
 	/**

@@ -13,6 +13,8 @@ class WPBakeryShortCode_Vc_Tta_Accordion extends WPBakeryShortCodesContainer {
 		'add',
 		'edit',
 		'clone',
+		'copy',
+		'paste',
 		'delete',
 	);
 

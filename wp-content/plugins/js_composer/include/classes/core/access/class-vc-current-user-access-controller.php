@@ -57,7 +57,7 @@ class Vc_Current_User_Access_Controller extends Vc_Role_Access_Controller {
 	}
 
 	/**
-	 * Check Wordpress capability. Should be valid one cap at least.
+	 * Check WordPress capability. Should be valid one cap at least.
 	 *
 	 * @return $this
 	 */
@@ -74,7 +74,7 @@ class Vc_Current_User_Access_Controller extends Vc_Role_Access_Controller {
 	}
 
 	/**
-	 * Check Wordpress capability. Should be valid all caps.
+	 * Check WordPress capability. Should be valid all caps.
 	 *
 	 * @return $this
 	 */

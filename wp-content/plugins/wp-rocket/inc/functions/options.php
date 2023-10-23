@@ -415,6 +415,7 @@ function get_rocket_cache_query_string() { // phpcs:ignore WordPress.NamingConve
  * @return bool true if everything is ok, false otherwise
  */
 function rocket_valid_key() {
+	return true;
 	$rocket_secret_key = (string) get_rocket_option( 'secret_key', '' );
 	if ( ! $rocket_secret_key ) {
 		return false;
@@ -577,7 +578,6 @@ function rocket_check_key() {
 	set_transient( rocket_get_constant( 'WP_ROCKET_SLUG' ), $rocket_options );
 	delete_transient( 'rocket_check_key_errors' );
 	rocket_delete_licence_data_file();
-	update_option( 'wp_rocket_no_licence', 0 );
 
 	return $rocket_options;
 }

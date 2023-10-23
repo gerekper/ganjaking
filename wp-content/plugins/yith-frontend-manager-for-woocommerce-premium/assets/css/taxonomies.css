@@ -1,0 +1,15 @@
+
+.yith-wcfm-taxonomies {  }
+.yith-wcfm-taxonomies h2 { margin-top: 30px; }
+
+.yith-wcfm-taxonomies table { margin-top: 30px; }
+.yith-wcfm-taxonomies table img { max-width: 50px; max-height: 50px; margin: 0; }
+
+.yith-wcfm-taxonomies p.form-field { padding-left: 220px; }
+.yith-wcfm-taxonomies p.form-field label { width: 200px; margin-left: -220px; display: inline-block; float: left; }
+.yith-wcfm-taxonomies p.form-field input { margin-right: 5px; }
+
+.yith-wcfm-taxonomies .options_group input[type=text],
+.yith-wcfm-taxonomies .options_group input[type=email] { width: 100%; }
+
+.yith-wcfm-taxonomies #upload_image_input img { width: 70px; padding: 0; margin: 0px 10px 0px 0px; float: left; display: block; }

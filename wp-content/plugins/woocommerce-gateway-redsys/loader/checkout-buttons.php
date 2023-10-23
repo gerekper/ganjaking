@@ -240,6 +240,8 @@ function redsys_color_button_text( $html ) {
 		}
 	} elseif ( 'googlepayredsys' === $chosen_payment_method ) {
 		$html = str_replace( '<button type="submit"', '<button type="submit" style="display:none; visibility:hidden;"', $html );
+	} elseif ( 'applepayredsys' === $chosen_payment_method ) {
+		$html = str_replace( '<button type="submit"', '<button type="submit" style="display:none; visibility:hidden;"', $html );
 	}
 	return $html;
 }

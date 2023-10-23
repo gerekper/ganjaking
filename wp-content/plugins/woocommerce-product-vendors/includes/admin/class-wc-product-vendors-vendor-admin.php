@@ -454,12 +454,12 @@ class WC_Product_Vendors_Vendor_Admin {
 	 * @return bool
 	 */
 	public function vendor_switch_ajax() {
-		if ( ! wp_verify_nonce( $_POST['switch_vendor_nonce'], 'wcpv_switch_vendor' ) ) {
-			wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
+		if ( ! wp_verify_nonce( wc_clean( wp_unslash( $_POST['switch_vendor_nonce'] ) ), 'wcpv_switch_vendor' ) ) {
+			wp_die( esc_html__( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
 		}
 
 		if ( empty( $_POST['vendor'] ) ) {
-			wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
+			wp_die( esc_html__( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
 		}
 
 		$vendor = sanitize_text_field( $_POST['vendor'] );
@@ -489,19 +489,19 @@ class WC_Product_Vendors_Vendor_Admin {
 		global $errors;
 
 		if ( ! is_array( $_POST['form_items'] ) ) {
-			parse_str( $_POST['form_items'], $form_items );
+			parse_str( wp_unslash( $_POST['form_items'] ), $form_items ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		} else {
-			$form_items = $_POST['form_items'];
+			$form_items = wp_unslash( $_POST['form_items'] ?? array() ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		}
 
 		$form_items = array_map( 'sanitize_text_field', $form_items );
 
 		if ( ! isset( $form_items ) ) {
-			wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
+			wp_die( esc_html__( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
 		}
 
-		if ( ! wp_verify_nonce( $_POST['ajaxVendorSupportNonce'], '_wc_product_vendors_vendor_support_nonce' ) ) {
-			wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
+		if ( ! wp_verify_nonce( wp_unslash( $_POST['ajaxVendorSupportNonce'] ?? '' ), '_wc_product_vendors_vendor_support_nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			wp_die( esc_html__( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
 		}
 
 		// handle form submission/validation
@@ -644,7 +644,7 @@ class WC_Product_Vendors_Vendor_Admin {
 	 * @return bool
 	 */
 	public function add_pending_vendor_message() {
-		_e( 'Thanks for registering to become a vendor.  Your application is being reviewed at this time.', 'woocommerce-product-vendors' );
+		esc_html_e( 'Thanks for registering to become a vendor.  Your application is being reviewed at this time.', 'woocommerce-product-vendors' );
 
 		return true;
 	}
@@ -731,7 +731,6 @@ class WC_Product_Vendors_Vendor_Admin {
 			'modalLogoTitle'           => __( 'Add Logo', 'woocommerce-product-vendors' ),
 			'buttonLogoText'           => __( 'Add Logo', 'woocommerce-product-vendors' ),
 			'currentScreen'            => $current_screen->id,
-			'ajaxVendorSupportNonce'   => wp_create_nonce( '_wc_product_vendors_vendor_support_nonce' ),
 			'vendorSupportSuccess'     => __( 'Your question has been submitted.  You will be contacted shortly.', 'woocommerce-product-vendors' ),
 		) );
 
@@ -891,7 +890,7 @@ class WC_Product_Vendors_Vendor_Admin {
 
 		if ( 'post.php' !== $pagenow
 			|| ! isset( $_GET['post'] )
-			|| 'product' !== get_post_type( $_GET['post'] ) )
+			|| 'product' !== get_post_type( wc_clean( wp_unslash( $_GET['post'] ) ) ) )
 		{
 			return;
 		}
@@ -903,7 +902,7 @@ class WC_Product_Vendors_Vendor_Admin {
 			return;
 		}
 
-		wp_die( __( 'You are not allowed to edit this item.', 'woocommerce-product-vendors' ) );
+		wp_die( esc_html__( 'You are not allowed to edit this item.', 'woocommerce-product-vendors' ) );
 	}
 
 	/**
@@ -1379,7 +1378,7 @@ class WC_Product_Vendors_Vendor_Admin {
 			echo '<div class="options_group show_if_variable show_if_booking">';
 			?>
 			<p class="wcpv-commission form-row form-row-first">
-				<label><?php echo esc_html__( 'Commission', 'woocommerce-product-vendors' ) . ' (' . $commission_type . ')'; ?>:</label>
+				<label><?php echo esc_html__( 'Commission', 'woocommerce-product-vendors' ) . ' (' . esc_html( $commission_type ) . ')'; ?>:</label>
 
 				<input type="text" class="short" name="" value="<?php echo esc_attr( $commission ); ?>" disabled="disabled" placeholder="<?php echo esc_attr( $commission_placeholder ); ?>" />
 			</p>
@@ -1407,9 +1406,9 @@ class WC_Product_Vendors_Vendor_Admin {
 		// handle form submission
 		if ( ! empty( $_POST['wcpv_save_vendor_settings_nonce'] ) && ! empty( $_POST['vendor_data'] ) ) {
 			// continue only if nonce passes
-			if ( wp_verify_nonce( $_POST['wcpv_save_vendor_settings_nonce'], 'wcpv_save_vendor_settings' ) ) {
+			if ( wp_verify_nonce( wc_clean( wp_unslash( $_POST['wcpv_save_vendor_settings_nonce'] ) ), 'wcpv_save_vendor_settings' ) ) {
 				$allowed_editable_settings = $this->get_vendor_store_editable_settings_list();
-				$posted_vendor_data        = $_POST['vendor_data'];
+				$posted_vendor_data        = wp_unslash( $_POST['vendor_data'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 				// sanitize
 				$posted_vendor_data = array_map( 'sanitize_text_field', $posted_vendor_data );

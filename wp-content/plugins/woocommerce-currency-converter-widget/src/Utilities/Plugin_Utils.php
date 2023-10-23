@@ -5,7 +5,7 @@
  * @since 1.7.0
  */
 
-namespace Themesquad\WC_Currency_Converter\Utilities;
+namespace KoiLab\WC_Currency_Converter\Utilities;
 
 /**
  * Class Plugin_Utils.

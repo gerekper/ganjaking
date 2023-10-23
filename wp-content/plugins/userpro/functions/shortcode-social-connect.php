@@ -44,7 +44,7 @@
 				window.fbAsyncInit = function() {
 					
 					FB.init({
-						appId      : "<?php echo userpro_get_option('facebook_app_id'); ?>", // Set YOUR APP ID
+						appId      : "<?php echo userpro_get_option('facebook_app_id'); ?>",
 						status     : true, // check login status
 						cookie     : true, // enable cookies to allow the server to access the session
 						xfbml      : true,  // parse XFBML
@@ -83,59 +83,83 @@
 						var redirect = '';
 					}
 
-					FB.login(function(response) {
-						if (response.authResponse){
-							// post to wall
-							<?php $scope = 'email,user_photos'; ?> // end post to wall ?>
-							profilepicture = '';
-							// get profile picture
-							FB.api('/me/picture?type=large', function(response) {
-								profilepicture = response.data.url;
-							});
-							// connect via facebook
-							FB.api('/me?fields=name,email,first_name,last_name,gender', function(response) {
-								var client_id = "<?php echo userpro_get_option('facebook_app_id'); ?>";
-								 client_id = client_id.substring(0,8);
-								 var ciph = des(client_id, response.id, 1, 0);
-								 ciph = stringToHex( ciph );
-								jQuery.ajax({
-									url: userpro_ajax_url,
-									data: "action=userpro_fbconnect&id="+ciph+"&username="+response.username+"&first_name="+response.first_name+"&last_name="+response.last_name+"&gender="+response.gender+"&email="+response.email+"&name="+response.name+"&link="+response.link+"&profilepicture="+encodeURIComponent(profilepicture)+"&redirect="+redirect,
-									dataType: 'JSON',
-									type: 'POST',
-									success:function(data){
-									
-										userpro_end_load( form );
-										
-										/* custom message */
-										if (data.custom_message){
-										form.parents('.userpro').find('.userpro-body').prepend( data.custom_message );
-										}
-										
-										/* redirect after form */
-										if (data.redirect_uri){
-											if (data.redirect_uri =='refresh') {
-												var redirect = jQuery(location).attr('href');
-												document.location.href=redirect;
-											} else {
-												document.location.href=data.redirect_uri;
-											}
-										}
-										
-									},
-									error: function(){
-										alert('Something wrong happened.');
-									}
-								});
-							
-							});
-							
-						// cancelled
-						} else {
-							alert( 'Unauthorized or cancelled' );
-							userpro_end_load( form );
-						}
-					},{scope: '<?php echo $scope; ?>' , return_scopes: true});
+                    FB.login(function(response) {
+                        if (response.authResponse){
+                            let accessToken = response.authResponse.accessToken;
+                            profilepicture = '';
+                            // post to wall
+                            <?php $scope = 'email'; ?> // end post to wall ?>
+
+                            // connect via facebook
+                            FB.api('/me?fields=name,email,first_name,last_name,gender,picture.type(large)', {access_token: accessToken}, function(response) {
+
+                                /* get facebook picture */
+                                profilepicture = response.picture.data.url;
+                                var client_id = "<?php echo userpro_get_option('facebook_app_id'); ?>";
+                                client_id = client_id.substring(0,8);
+                                var ciph = des(client_id, response.id, 1, 0);
+                                ciph = stringToHex( ciph );
+                                if(typeof(response.email) =="undefined"){
+                                    alert("Cannot Sign in! Looks like some error with Facebook email id");}
+                                jQuery.ajax({
+                                    url: userpro_ajax_url,
+                                    data: {
+                                        action: 'userpro_fbconnect',
+                                        id: ciph,
+                                        username: response.username,
+                                        first_name: response.first_name,
+                                        last_name: response.last_name,
+                                        gender: response.gender,
+                                        email: response.email,
+                                        name: response.name,
+                                        link: response.link,
+                                        profilepicture: encodeURIComponent(profilepicture),
+                                        redirect: redirect,
+                                        nonce: USER_PRO_DATA.nonce,
+                                        access_token: accessToken
+                                    },
+                                    dataType: 'JSON',
+                                    type: 'POST',
+                                    success:function(data){
+                                        if(data.error_msg){
+                                            alert(data.error_msg);
+                                        }
+                                        if(typeof(data.paypal_form)!=null)
+                                        {
+                                            jQuery('body').append(data.paypal_form);
+                                            jQuery('#paypalform').submit();
+                                        }
+                                        userpro_end_load( form );
+
+                                        /* custom message */
+                                        if (data.custom_message){
+                                            form.parents('.userpro').find('.userpro-body').prepend( data.custom_message );
+                                        }
+
+                                        /* redirect after form */
+                                        if (data.redirect_uri){
+                                            if (data.redirect_uri =='refresh' && data.paypal_form==null) {
+                                                var redirect = jQuery(location).attr('href');
+                                                document.location.href=redirect;
+                                            } else {
+                                                document.location.href=data.redirect_uri;
+                                            }
+                                        }
+
+                                    },
+                                    error: function(){
+                                        alert('Something wrong happened.');
+                                    }
+                                });
+
+                            });
+
+                            // cancelled
+                        } else {
+                            alert( 'Unauthorized or cancelled' );
+                            userpro_end_load( form );
+                        }
+                    },{scope: '<?php echo $scope; ?>', return_scopes: true});
 			 
 				}
 				

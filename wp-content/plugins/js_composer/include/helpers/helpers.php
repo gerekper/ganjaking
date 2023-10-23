@@ -22,7 +22,7 @@ if ( ! defined( 'WPB_VC_VERSION' ) ) {
  * @since 4.2
  * vc_filter: vc_wpb_getimagesize - to override output of this function
  */
-function wpb_getImageBySize( $params = array() ) {
+function wpb_getImageBySize( $params = array() ) { // phpcs:ignore
 	$params = array_merge( array(
 		'post_id' => null,
 		'attach_id' => null,
@@ -97,15 +97,16 @@ function wpb_getImageBySize( $params = array() ) {
 					$alt = $title;
 				}
 				if ( $p_img ) {
-
-					$attributes = vc_stringify_attributes( array(
+					$attributes = array(
 						'class' => $thumb_class,
 						'src' => $p_img['url'],
 						'width' => $p_img['width'],
 						'height' => $p_img['height'],
 						'alt' => $alt,
 						'title' => $title,
-					) );
+					);
+
+					$attributes = vc_stringify_attributes( vc_add_lazy_loading_attribute( $attributes ) );
 
 					$thumbnail = '<img ' . $attributes . ' />';
 				}
@@ -119,6 +120,23 @@ function wpb_getImageBySize( $params = array() ) {
 		'thumbnail' => $thumbnail,
 		'p_img_large' => $p_img_large,
 	), $attach_id, $params );
+}
+
+/**
+ * Add `loading` attribute with param lazy to attribute list.
+ *
+ * @param array $attributes
+ * @return array
+ * @since 7.1
+ */
+function vc_add_lazy_loading_attribute( $attributes ) {
+	if ( ! is_array( $attributes ) ) {
+		$attributes = [];
+	}
+
+	$attributes['loading'] = 'lazy';
+
+	return $attributes;
 }
 
 /**
@@ -173,7 +191,7 @@ function vc_get_image_by_size( $id, $size ) {
  * @return string
  * @since 4.2
  */
-function wpb_translateColumnWidthToFractional( $width ) {
+function wpb_translateColumnWidthToFractional( $width ) { // phpcs:ignore
 	switch ( $width ) {
 		case 'vc_col-sm-2':
 			$w = '1/6';
@@ -210,7 +228,7 @@ function wpb_translateColumnWidthToFractional( $width ) {
  * @return bool|string
  * @since 4.2
  */
-function wpb_translateColumnWidthToSpan( $width ) {
+function wpb_translateColumnWidthToSpan( $width ) { // phpcs:ignore
 	$output = $width;
 	preg_match( '/(\d+)\/(\d+)/', $width, $matches );
 
@@ -282,7 +300,7 @@ if ( ! function_exists( 'vc_siteAttachedImages' ) ) {
 	 * @return string
 	 * @since 4.11
 	 */
-	function vc_siteAttachedImages( $att_ids = array() ) {
+	function vc_siteAttachedImages( $att_ids = array() ) { // phpcs:ignore
 		$output = '';
 
 		$limit = (int) apply_filters( 'vc_site_attached_images_query_limit', - 1 );
@@ -342,7 +360,7 @@ function vc_field_attached_images( $images = array() ) {
  * @return array
  * @since 4.2
  */
-function wpb_removeNotExistingImgIDs( $param_value ) {
+function wpb_removeNotExistingImgIDs( $param_value ) { // phpcs:ignore
 	$tmp = explode( ',', $param_value );
 	$return_ar = array();
 	foreach ( $tmp as $id ) {
@@ -730,7 +748,7 @@ function wpb_vc_get_column_width_indent( $width ) {
  * @return string
  * @since 4.2
  */
-function vc_colorCreator( $colour, $per = 10 ) {
+function vc_colorCreator( $colour, $per = 10 ) { // phpcs:ignore
 	require_once 'class-vc-color-helper.php';
 	$color = $colour;
 	if ( stripos( $colour, 'rgba(' ) !== false ) {

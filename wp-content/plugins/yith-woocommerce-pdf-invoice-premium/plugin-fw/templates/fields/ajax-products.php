@@ -8,14 +8,16 @@
 
 defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 
+list ( $data ) = yith_plugin_fw_extract( $field, 'data' );
+
 $field['type'] = 'ajax-posts';
 $field_data    = array(
 	'post_type'   => 'product',
-	'placeholder' => __( 'Search Product', 'yith-plugin-fw' ),
+	'placeholder' => __( 'Search for a product...', 'yith-plugin-fw' ),
 	'action'      => 'yith_plugin_fw_json_search_products',
 );
-if ( isset( $field['data'] ) ) {
-	$field_data = wp_parse_args( $field['data'], $field_data );
+if ( ! ! $data ) {
+	$field_data = wp_parse_args( $data, $field_data );
 }
 
 $field['data'] = $field_data;

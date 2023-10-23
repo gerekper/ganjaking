@@ -16,6 +16,8 @@ $form_action = 'editpost';
 $menu = array();
 $plugin_page = 'js_composer';
 $title = __( 'Frontend Editor', 'js_composer' );
+// we use it in case to repair editor if iframe url has redirect
+$editor->setFrontendEditorTransient( $post_ID );
 add_thickbox();
 wp_enqueue_media( array( 'post' => $editor->post_id ) );
 require_once $editor->adminFile( 'admin-header.php' );
@@ -43,7 +45,7 @@ $nav_bar->render();
 
 ?>
 <div id="vc_no-content-helper"
-	 class="vc_welcome vc_select-post-custom-layout-frontend-editor vc_ui-font-open-sans <?php echo wpb_get_name_post_custom_layout() ? 'vc_post-custom-layout-selected' : ''; ?>">
+	class="vc_welcome vc_select-post-custom-layout-frontend-editor vc_ui-font-open-sans <?php echo wpb_get_name_post_custom_layout() ? 'vc_post-custom-layout-selected' : ''; ?>">
 	<?php
 	vc_include_template(
 		'editors/partials/start-logo.tpl.php'

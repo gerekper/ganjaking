@@ -8,20 +8,25 @@
 
 defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 
-list ( $field_id, $class, $name, $selects, $value ) = yith_plugin_fw_extract( $field, 'id', 'class', 'name', 'selects', 'value' );
+list ( $field_id, $class, $name, $selects, $size, $columns, $value ) = yith_plugin_fw_extract( $field, 'id', 'class', 'name', 'selects', 'size', 'columns', 'value' );
 
 if ( empty( $selects ) ) {
 	return;
 }
 
 $selects_count = count( $selects );
+$gap           = 16;
+$columns       = max( 1, absint( $columns ?? 2 ) );
+$default_size  = absint( ( 400 - ( $gap * ( $columns - 1 ) ) ) / $columns );
+$size          = max( 122, absint( $size ?? $default_size ) );
+$max_width     = $size * $columns + ( $gap * ( $columns - 1 ) );
 ?>
-<div class="yith-plugin-fw-multi-select" id="<?php echo esc_attr( $field_id ); ?>">
+<div
+		class="yith-plugin-fw-multi-select"
+		id="<?php echo esc_attr( $field_id ); ?>"
+		style="max-width: <?php echo absint( $max_width ); ?>px; grid-template-columns : repeat( auto-fit, <?php echo absint( $size ); ?>px ); gap: <?php echo absint( $gap ); ?>px"
+>
 	<?php for ( $i = 0; $i < $selects_count; $i ++ ) : ?>
-		<?php if ( ! ( $i % 2 ) ) : ?>
-			<div class="yith-select-group">
-		<?php endif; ?>
-
 		<div class="yith-single-select">
 			<?php
 			$select          = $selects[ $i ];
@@ -35,9 +40,5 @@ $selects_count = count( $selects );
 			<label for="<?php echo esc_attr( $select['id'] ); ?>"><?php echo esc_html( $select['title'] ); ?></label>
 			<?php yith_plugin_fw_get_field( $select, true, false ); ?>
 		</div>
-
-		<?php if ( ( $i % 2 ) !== 0 || ! isset( $selects[ $i + 1 ] ) ) : ?>
-			</div>
-		<?php endif; ?>
 	<?php endfor; ?>
 </div>

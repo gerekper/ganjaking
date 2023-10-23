@@ -43,7 +43,7 @@ class WC_MS_Post_Types {
                     'exclude_from_order_views'         => true,
                     'exclude_from_order_reports'       => true,
                     'exclude_from_order_sales_reports' => true,
-                    'class_name'                       => 'WC_Order'
+                    'class_name'                       => 'WC_MS_Order_Type_Order_Shipment'
                 )
             )
         );

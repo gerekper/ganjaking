@@ -215,7 +215,8 @@ jQuery( document ).ready( function( $ ) {
 				},
 				success: function( response ) {
 					// replace
-					$( ywcmap.contentSelector ).replaceWith( $(response).find( ywcmap.contentSelector ) );
+					const new_content = $(response).find( ywcmap.contentSelector ).first();
+					$( ywcmap.contentSelector ).first().replaceWith( new_content );
 					// change url
 					if( window.location.pathname !== destination ) {
 						window.history.replaceState({url: "" + destination + ""}, "Title", destination);

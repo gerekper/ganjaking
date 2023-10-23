@@ -184,6 +184,7 @@ if ( ! function_exists( 'vc_post_param' ) ) {
 			check_ajax_referer();
 		}
 
+        // phpcs:ignore
 		return isset( $_POST[ $param ] ) ? $_POST[ $param ] : $default;
 	}
 }

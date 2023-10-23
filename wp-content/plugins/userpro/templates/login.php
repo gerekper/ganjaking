@@ -33,9 +33,8 @@ $_SESSION['current_page_uri']= $current_page_uri;
 	<div class="userpro-body">
 	
 		<?php do_action('userpro_pre_form_message'); ?>
-		
 		<form action="" method="post" data-action="<?php echo $template; ?>">
-		
+            <input type="hidden" name="user_pro_nonce" value="<?php echo wp_create_nonce('user_pro_nonce'); ?>">
 			<?php do_action('userpro_super_get_redirect', $i); ?>
 			
 			<input type="hidden" name="force_redirect_uri-<?php echo $i; ?>" id="force_redirect_uri-<?php echo $i; ?>" value="<?php if (isset( $args["force_redirect_uri"] ) ) echo $args["force_redirect_uri"]; ?>" />
@@ -44,7 +43,6 @@ $_SESSION['current_page_uri']= $current_page_uri;
 			<?php // Hook into fields $args, $user_id
 			if (!isset($user_id)) $user_id = 0;
 			$hook_args = array_merge($args, array('user_id' => $user_id, 'unique_id' => $i));
-			do_action('userpro_before_fields', $hook_args);
 			?>
 		
 			<?php foreach( userpro_fields_group_by_template( $template, $args["{$template}_group"] ) as $key => $array ) { ?>

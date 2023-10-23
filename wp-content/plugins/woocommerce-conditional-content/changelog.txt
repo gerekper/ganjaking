@@ -1,4 +1,8 @@
 *** WooCommerce Conditional Content Changelog ***
+2023.04.10 - version 2.2.1
+    * Update: WP and WC compatibility tags.
+    * Update: Make sure that settings from post_meta is deserialized before use.  This fixes an issue where the settings were a string on some sites.
+
 2023.03.01 - version 2.2.0
     * Update:  WP and WC compatibility tags.
     * Update:  PHP 8 compatibility.

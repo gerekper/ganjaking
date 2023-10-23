@@ -12,7 +12,7 @@ if ( ! class_exists( 'YITH_Debug' ) ) {
 	/**
 	 * YITH_Debug class.
 	 *
-	 * @author     Leanza Francesco <leanzafrancesco@gmail.com>
+	 * @author     YITH <plugins@yithemes.com>
 	 * @deprecated 3.7.7
 	 */
 	class YITH_Debug {

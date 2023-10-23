@@ -56,7 +56,7 @@ function redsys_add_notice_intalled_new() {
 						</h3>
 					</p>
 					<p>
-						<?php __( 'This plugin is developed by José Conti.This plugin can only be purchased and downloaded from WooCommerce.com. If you have purchased or acquired it elsewhere, it could be modified and have malware.', 'woocommerce-redsys' ); ?>
+						<?php __( 'This plugin is developed by José Conti.This plugin can only be purchased and downloaded from WooCommerce.com. If you have purchased or acquired it elsewhere, it could be modified and have malware. If you don\'t have a license, acquire one to have support, security, and updates in a totally secure manner.', 'woocommerce-redsys' ); ?>
 					</p>
 					<p>
 					<?php esc_html_e( 'Please, at the slightest problem in the activation or configuration open a ticket for me to help you.', 'woocommerce-redsys' ); ?>
@@ -65,9 +65,9 @@ function redsys_add_notice_intalled_new() {
 					<?php esc_html_e( 'I can install and configure the Redsys plugin for you, it goes with the price of the license you purchased at WooCommerce.com', 'woocommerce-redsys' ); ?>
 					</p>
 					<p class="submit">
+						<a href="<?php echo esc_url( REDSYS_ADD_LICENSE ); ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Acquire a license.', 'woocommerce-redsys' ); ?></a>
 						<a href="<?php echo esc_url( REDSYS_TICKET ); ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Open a ticket NOW for help with installation', 'woocommerce-redsys' ); ?></a>
 						<a href="<?php echo esc_url( admin_url() ); ?>admin.php?page=wc-addons&section=helper" class="button-primary" target="_blank"><?php esc_html_e( 'Connect your Site for get future extension updates', 'woocommerce-redsys' ); ?></a>
-						<a href="<?php echo esc_url( REDSYS_GPL ); ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Learn what is GPL', 'woocommerce-redsys' ); ?></a>
 					</p>
 				</div>
 			</div>
@@ -111,7 +111,6 @@ function redsys_add_notice_new_version() {
 						<a href="<?php echo esc_url( REDSYS_POST_UPDATE_URL_P ); ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Discover the improvements', 'woocommerce-redsys' ); ?></a>
 						<a href="<?php echo esc_url( REDSYS_REVIEW_P ); ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Leave a review', 'woocommerce-redsys' ); ?></a>
 						<a href="<?php echo esc_url( REDSYS_TELEGRAM_SIGNUP_P ); ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Sign up for the Telegram channel', 'woocommerce-redsys' ); ?></a>
-						<a href="<?php echo esc_url( REDSYS_GPL ); ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Learn what is GPL', 'woocommerce-redsys' ); ?></a>
 					</p>
 				</div>
 			</div>

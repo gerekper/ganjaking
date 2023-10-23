@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 18-September-2023 using Strauss.
+ * Modified by woocommerce on 09-October-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -40,7 +40,7 @@ final class PumpStream implements StreamInterface
     private $buffer;
 
     /**
-     * @param callable(int): (string|null|false)  $source  Source of the stream data. The callable MAY
+     * @param callable(int): (string|false|null)  $source  Source of the stream data. The callable MAY
      *                                                     accept an integer argument used to control the
      *                                                     amount of data to return. The callable MUST
      *                                                     return a string when called, or false|null on error
@@ -66,6 +66,7 @@ final class PumpStream implements StreamInterface
                 throw $e;
             }
             trigger_error(sprintf('%s::__toString exception: %s', self::class, (string) $e), E_USER_ERROR);
+
             return '';
         }
     }
@@ -155,8 +156,6 @@ final class PumpStream implements StreamInterface
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @return mixed
      */
     public function getMetadata($key = null)
@@ -175,6 +174,7 @@ final class PumpStream implements StreamInterface
                 $data = call_user_func($this->source, $length);
                 if ($data === false || $data === null) {
                     $this->source = null;
+
                     return;
                 }
                 $this->buffer->write($data);

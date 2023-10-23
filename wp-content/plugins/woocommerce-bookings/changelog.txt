@@ -1,5 +1,14 @@
-*** WooCommerce Bookings Changelog ***	       	    		       	   
-  	  	      	     	     	       	     	 		
+*** WooCommerce Bookings Changelog ***
+
+2023-10-09 - version 2.0.4
+* Dev - Added E2E tests to ensure customer-defined blocks work with resources.
+* Dev - Update E2E tests workflow to only run based on conditions.
+* Dev - Update PHPCS and PHPCompatibility GitHub Actions.
+* Fix - Available slots count not displayed for products with no resources.
+* Fix - Infinite Calendar Load on PHP 8.1 when WooCommerce Vendors is activated.
+* Fix - Non-booking events causing the admin calendar to crash.
+* Fix - Add proper nonce check to prevent unauthorized disconnection of Google Calendar account.
+
 2023-09-18 - version 2.0.3
 * Dev - Bump WooCommerce "tested up to" version from 7.8.0 to 8.0.
 * Dev - Bump WooCommerce minimum supported version from 7.2 to 7.8.

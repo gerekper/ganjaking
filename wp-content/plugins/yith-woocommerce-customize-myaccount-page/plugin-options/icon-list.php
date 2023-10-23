@@ -2,13 +2,20 @@
 /**
  * Icon array list
  *
- * @author  YITH
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH WooCommerce Customize My Account Page
  * @version 1.0.0
  */
 
 defined( 'YITH_WCMAP' ) || exit;
 
+/**
+ * APPLY_FILTERS: yith_wcmap_array_icon_list
+ *
+ * Filters the icon list to use for the endpoints.
+ *
+ * @param array $icon_list Icons.
+ */
 return apply_filters(
 	'yith_wcmap_array_icon_list',
 	array(

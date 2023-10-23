@@ -1,5 +1,13 @@
 *** Redsys Gateway Change Log ***
 
+2023.10.13 - version 23.0.0
+
+* NEW: Added Apple Pay
+* NEW: Added filter redsys_allow_preauth.
+* NEW: Added filter redsys_allow_token_r.
+* UPDATE: Get price from rest API.
+* UPDATE: If in "Bizum in the Checkout" the customer does not add the +34 prefix, it will now be added automatically. In a percentage that is close to 100%, the numbers will be Spanish, so this should help address the oversight of many customers.
+
 2023.09.19 - version 22.2.1
 
 * FIX: Fixed the terminal saving issue in one of the processes. It was causing issues with returns through InSite.

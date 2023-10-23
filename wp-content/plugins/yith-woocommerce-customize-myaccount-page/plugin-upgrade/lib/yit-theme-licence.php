@@ -6,7 +6,7 @@
  * It is also available through the world-wide-web at this URL:
  * http://www.gnu.org/licenses/gpl-3.0.txt
  *
- * @author YITH
+ * @author  YITH
  * @package YITH License & Upgrade Framework
  */
 
@@ -93,9 +93,9 @@ if ( ! class_exists( 'YITH_Theme_Licence' ) ) {
 		 * Main plugin Instance
 		 *
 		 * @static
-		 * @since  1.0
-		 * @author Andrea Grillo <andrea.grillo@yithemes.com>
 		 * @return object Main instance
+		 * @author Andrea Grillo <andrea.grillo@yithemes.com>
+		 * @since  1.0
 		 */
 		public static function instance() {
 			if ( is_null( self::$instance ) ) {
@@ -108,9 +108,9 @@ if ( ! class_exists( 'YITH_Theme_Licence' ) ) {
 		/**
 		 * Add "Activation" submenu page under YITH Plugins
 		 *
-		 * @since  1.0
-		 * @author Andrea Grillo <andrea.grillo@yithemes.com>
 		 * @return void
+		 * @author Andrea Grillo <andrea.grillo@yithemes.com>
+		 * @since  1.0
 		 */
 		public function add_submenu_page() {
 
@@ -136,12 +136,13 @@ if ( ! class_exists( 'YITH_Theme_Licence' ) ) {
 		/**
 		 * Premium product registration
 		 *
+		 * @param string $product_init The product init file.
+		 * @param string $secret_key   The product secret key.
+		 * @param string $product_id   The product slug (product_id).
+		 *
+		 * @return void
 		 * @since    1.0
 		 * @author   Andrea Grillo <andrea.grillo@yithemes.com>
-		 * @param string $product_init The product init file.
-		 * @param string $secret_key The product secret key.
-		 * @param string $product_id The product slug (product_id).
-		 * @return void
 		 */
 		public function register( $product_init, $secret_key, $product_id ) {
 			$theme                                   = wp_get_theme();
@@ -154,9 +155,9 @@ if ( ! class_exists( 'YITH_Theme_Licence' ) ) {
 		/**
 		 * Check for old licence
 		 *
-		 * @since  2.2
-		 * @author Andrea Grillo <andrea.grillo@yithemes.com>
 		 * @return bool True for old licence period, false otherwise
+		 * @author Andrea Grillo <andrea.grillo@yithemes.com>
+		 * @since  2.2
 		 */
 		public function show_old_licence_message() {
 			return time() < $this->old_licence_expires;
@@ -165,9 +166,9 @@ if ( ! class_exists( 'YITH_Theme_Licence' ) ) {
 		/**
 		 * Get old licence message
 		 *
-		 * @since  2.2
-		 * @author Andrea Grillo <andrea.grillo@yithemes.com>
 		 * @return void
+		 * @author Andrea Grillo <andrea.grillo@yithemes.com>
+		 * @since  2.2
 		 */
 		public function get_old_licence_message() {
 			ob_start(); ?>
@@ -193,8 +194,8 @@ if ( ! class_exists( 'YITH_Theme_Licence' ) ) {
 		/**
 		 * Get the product type
 		 *
-		 * @author Francesco Licandro
 		 * @return string
+		 * @author Francesco Licandro
 		 */
 		public function get_product_type() {
 			return $this->product_type;
@@ -203,10 +204,12 @@ if ( ! class_exists( 'YITH_Theme_Licence' ) ) {
 		/**
 		 * Get the activation licence url
 		 *
+		 * @param string $product_id The product ID [non-used].
+		 *
+		 * @return string
 		 * @author Francesco Licandro
-		 * @return bool|string
 		 */
-		public function get_license_url() {
+		public function get_license_url( $product_id = '' ) {
 			return add_query_arg( array( 'page' => 'yit_panel_license' ), admin_url( 'admin.php' ) );
 		}
 	}
@@ -216,9 +219,9 @@ if ( ! function_exists( 'YITH_Theme_Licence' ) ) {
 	/**
 	 * Get the main instance of class
 	 *
-	 * @since  1.0
-	 * @author Francesco Licandro
 	 * @return YITH_Theme_Licence
+	 * @author Francesco Licandro
+	 * @since  1.0
 	 */
 	function YITH_Theme_Licence() { // phpcs:ignore
 		return YITH_Theme_Licence::instance();

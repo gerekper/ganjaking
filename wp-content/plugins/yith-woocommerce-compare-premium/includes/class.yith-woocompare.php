@@ -1,9 +1,9 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 /**
  * Main class
  *
- * @author Your Inspiration Themes
- * @package YITH Woocommerce Compare
+ * @author YITH <plugins@yithemes.com>
+ * @package YITH\Compare
  * @version 1.1.4
  */
 
@@ -45,6 +45,7 @@ if ( ! class_exists( 'YITH_Woocompare' ) ) {
 
 			// Load Plugin Framework.
 			add_action( 'after_setup_theme', array( $this, 'plugin_fw_loader' ), 1 );
+            add_action( 'before_woocommerce_init', array( $this, 'declare_wc_features_support' ) );
 
 			if ( $this->is_frontend() ) {
 
@@ -79,7 +80,6 @@ if ( ! class_exists( 'YITH_Woocompare' ) ) {
 		 * Init plugin
 		 *
 		 * @since 2.0.0
-		 * @author Francesco Licandro <francesco.licandro@yithemes.com>
 		 */
 		public function init() {
 			// Add compare page.
@@ -92,10 +92,21 @@ if ( ! class_exists( 'YITH_Woocompare' ) ) {
 		 * @return bool
 		 */
 		public function is_frontend() {
-			$is_ajax          = ( defined( 'DOING_AJAX' ) && DOING_AJAX );
-			$context_check    = isset( $_REQUEST['context'] ) && 'frontend' === sanitize_text_field( wp_unslash( $_REQUEST['context'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			$actions_to_check = apply_filters( 'yith_woocompare_actions_to_check_frontend', array( 'woof_draw_products', 'prdctfltr_respond_550', 'wbmz_get_products', 'jet_smart_filters' ) );
+			$is_ajax       = ( defined( 'DOING_AJAX' ) && DOING_AJAX );
+			$context_check = isset( $_REQUEST['context'] ) && 'frontend' === sanitize_text_field( wp_unslash( $_REQUEST['context'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+			/**
+			 * APPLY_FILTERS: yith_woocompare_actions_to_check_frontend
+			 *
+			 * Filters the actions to check to load the required files, for better compatibility with third-party software.
+			 *
+			 * @param array $actions Actions to check.
+			 *
+			 * @return array
+			 */
+			$actions_to_check = apply_filters( 'yith_woocompare_actions_to_check_frontend', array( 'woof_draw_products', 'prdctfltr_respond_550', 'wbmz_get_products', 'jet_smart_filters', 'productfilter' ) );
 			$action_check     = isset( $_REQUEST['action'] ) && in_array( sanitize_text_field( wp_unslash( $_REQUEST['action'] ) ), $actions_to_check, true ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
 			return (bool) YITH_Woocompare_Helper::is_elementor_editor() || ( ! is_admin() || ( $is_ajax && ( $context_check || $action_check ) ) );
 		}
 
@@ -107,6 +118,16 @@ if ( ! class_exists( 'YITH_Woocompare' ) ) {
 		public function is_admin() {
 			$is_ajax  = ( defined( 'DOING_AJAX' ) && DOING_AJAX );
 			$is_admin = ( is_admin() || $is_ajax && isset( $_REQUEST['context'] ) && 'admin' === sanitize_text_field( wp_unslash( $_REQUEST['context'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+			/**
+			 * APPLY_FILTERS: yith_woocompare_check_is_admin
+			 *
+			 * Filters whether the current request is made for an admin page.
+			 *
+			 * @param bool $is_admin Whether the request is made for an admin page or not.
+			 *
+			 * @return bool
+			 */
 			return apply_filters( 'yith_woocompare_check_is_admin', (bool) $is_admin );
 		}
 
@@ -116,7 +137,6 @@ if ( ! class_exists( 'YITH_Woocompare' ) ) {
 		 * @since  1.0
 		 * @access public
 		 * @return void
-		 * @author Andrea Grillo <andrea.grillo@yithemes.com>
 		 */
 		public function plugin_fw_loader() {
 
@@ -128,6 +148,18 @@ if ( ! class_exists( 'YITH_Woocompare' ) ) {
 				}
 			}
 		}
+
+        /**
+         * Declare support for WooCommerce features.
+         *
+         * @since 2.26.0
+         */
+        public function declare_wc_features_support() {
+            if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+                $init = defined( 'YITH_WOOCOMPARE_INIT' ) ? YITH_WOOCOMPARE_INIT : false;
+                \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', $init, true );
+            }
+        }
 
 		/**
 		 * Load and register widgets
@@ -182,7 +214,6 @@ if ( ! class_exists( 'YITH_Woocompare' ) ) {
 		 * Filter WooCommerce image size attr
 		 *
 		 * @since 2.3.5
-		 * @author Francesco Licandro
 		 * @param array $size The default image size.
 		 * @return array
 		 */

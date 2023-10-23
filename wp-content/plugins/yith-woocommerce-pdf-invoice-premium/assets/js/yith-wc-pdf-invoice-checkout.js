@@ -6,7 +6,7 @@ jQuery(
 		billingType              = $( "input[name='billing_receiver_type']" ),
 		billingReceiverID        = $( '#billing_receiver_id' ),
 		billingReceiverPec       = $( '#billing_receiver_pec' ),
-		billingReceiverVatNumber = $( '#billing_vat_number' ),
+		billingReceiverVatNumber = $( '#' + ywpi_checkout.billing_vat_field_id ),
 		billingReceiverVatSSN    = $( '#billing_vat_ssn' ),
 		billingInvoiceType       = $( '#billing_invoice_type' );
 
@@ -57,12 +57,14 @@ jQuery(
 			);
 		}
 
-		$( '#billing_vat_ssn' ).on(
-			'focusout',
-			function (e) {
-				validate_ssn_field( 'ssn',jQuery( this ).val() );
-			}
-		);
+		if ( ywpi_checkout.validate_ssn == 'yes' ) {
+			$('#billing_vat_ssn').on(
+				'focusout',
+				function (e) {
+					validate_ssn_field('ssn', jQuery(this).val());
+				}
+			);
+		}
 
 		billingCountry.on(
 			'change',
@@ -81,7 +83,7 @@ var validateFields = function(){
 		billingType              = jQuery( '#billing_receiver_type' ),
 		billingReceiverID        = jQuery( '#billing_receiver_id' ),
 		billingReceiverPec       = jQuery( '#billing_receiver_pec' ),
-		billingReceiverVatNumber = jQuery( '#billing_vat_number' ),
+		billingReceiverVatNumber = jQuery( '#' + ywpi_checkout.billing_vat_field_id ),
 		billingReceiverVatSSN    = jQuery( '#billing_vat_ssn' ),
 		billingTypeValue         = jQuery( "input[name='billing_receiver_type']:checked" ).val(),
 		billingInvoiceType       = jQuery( '#billing_invoice_type' );

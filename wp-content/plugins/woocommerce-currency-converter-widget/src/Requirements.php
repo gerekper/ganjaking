@@ -5,9 +5,9 @@
  * @since 1.7.0
  */
 
-namespace Themesquad\WC_Currency_Converter;
+namespace KoiLab\WC_Currency_Converter;
 
-use Themesquad\WC_Currency_Converter\Utilities\Plugin_Utils;
+use KoiLab\WC_Currency_Converter\Utilities\Plugin_Utils;
 
 /**
  * Class Requirements.
@@ -17,17 +17,17 @@ class Requirements {
 	/**
 	 * Minimum PHP version required.
 	 */
-	const MINIMUM_PHP_VERSION = '5.6';
+	const MINIMUM_PHP_VERSION = '7.0';
 
 	/**
 	 * Minimum WordPress version required.
 	 */
-	const MINIMUM_WP_VERSION = '4.9';
+	const MINIMUM_WP_VERSION = '5.0';
 
 	/**
 	 * Minimum WooCommerce version required.
 	 */
-	const MINIMUM_WC_VERSION = '3.7';
+	const MINIMUM_WC_VERSION = '4.0';
 
 	/**
 	 * Requirements errors.
@@ -138,3 +138,5 @@ class Requirements {
 		return empty( self::$errors );
 	}
 }
+
+class_alias( Requirements::class, 'Themesquad\WC_Currency_Converter\Requirements' );

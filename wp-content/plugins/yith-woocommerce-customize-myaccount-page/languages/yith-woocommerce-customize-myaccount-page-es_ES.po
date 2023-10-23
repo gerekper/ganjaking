@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Customize My Account Page\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "customize-my-account-page\n"
-"POT-Creation-Date: 2022-02-01 10:39:56+00:00\n"
-"PO-Revision-Date: 2022-01-21 11:16:04+0000\n"
+"POT-Creation-Date: 2023-10-04 12:50:31+00:00\n"
+"PO-Revision-Date: 2023-08-30 06:32:52+0000\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -14,98 +14,198 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/3.0.0-alpha.2\n"
 
-#: includes/admin/class.yith-wcmap-admin.php:120
+#: includes/admin/class-yith-wcmap-admin-extended.php:60
+#: includes/admin/class-yith-wcmap-admin-extended.php:61
+#: includes/admin/class-yith-wcmap-admin.php:189
+msgid ""
+"Choose between <b>3 different menu styles</b>: no borders, modern or simple"
+msgstr ""
+"Elige entre <b>3 diferentes estilos de menú</b>: sin bordes, moderno o simple"
+
+#: includes/admin/class-yith-wcmap-admin-extended.php:64
+#: includes/admin/class-yith-wcmap-admin-extended.php:65
+#: includes/admin/class-yith-wcmap-admin.php:190
+msgid "Customize the account color scheme"
+msgstr "Personaliza los colores de la cuenta"
+
+#: includes/admin/class-yith-wcmap-admin-extended.php:68
+#: includes/admin/class-yith-wcmap-admin-extended.php:69
+#: includes/admin/class-yith-wcmap-admin.php:191
+msgid "Create groups of <b>nested endpoints</b>"
+msgstr "Crea grupos de <b>endpoints anidados</b>"
+
+#: includes/admin/class-yith-wcmap-admin-extended.php:72
+#: includes/admin/class-yith-wcmap-admin-extended.php:73
+#: includes/admin/class-yith-wcmap-admin.php:192
+msgid "Add custom URL links"
+msgstr "Añade enlaces URL personalizados"
+
+#: includes/admin/class-yith-wcmap-admin-extended.php:76
+#: includes/admin/class-yith-wcmap-admin-extended.php:77
+#: includes/admin/class-yith-wcmap-admin.php:193
+msgid "Upload custom icons to visually enhance the endpoints"
+msgstr "Sube iconos personalizados para mejorar visualmente los endpoints"
+
+#: includes/admin/class-yith-wcmap-admin-extended.php:80
+#: includes/admin/class-yith-wcmap-admin-extended.php:81
+#: includes/admin/class-yith-wcmap-admin.php:194
+msgid "Show endpoints only to specific user roles"
+msgstr "Muestra endpoints solo para perfiles de usuario específicos"
+
+#: includes/admin/class-yith-wcmap-admin-extended.php:84
+#: includes/admin/class-yith-wcmap-admin-extended.php:85
+#: includes/admin/class-yith-wcmap-admin.php:195
+msgid "Create <b>custom banners</b> to show as endpoint content"
+msgstr ""
+"Crea <b>banners personalizados</b> para mostrar el contenido del endpoint"
+
+#: includes/admin/class-yith-wcmap-admin-extended.php:88
+#: includes/admin/class-yith-wcmap-admin-extended.php:89
+#: includes/admin/class-yith-wcmap-admin.php:196
+msgid "Add Google reCAPTCHA (v2) to the register form on My Account"
+msgstr "Añadir Google reCAPTCHA (v2) al formulario de registro en Mi cuenta"
+
+#: includes/admin/class-yith-wcmap-admin-extended.php:92
+#: includes/admin/class-yith-wcmap-admin-extended.php:93
+#: includes/admin/class-yith-wcmap-admin.php:197
+msgid ""
+"Block specific email domains so users cannot create an account with those "
+"domains"
+msgstr ""
+"Bloquea dominios de correo electrónico específicos para que los usuarios no "
+"puedan crear una cuenta con ellos"
+
+#: includes/admin/class-yith-wcmap-admin-extended.php:96
+#: includes/admin/class-yith-wcmap-admin-extended.php:97
+#: includes/admin/class-yith-wcmap-admin.php:198
+msgid "<b>Allow users to upload their own custom profile pictures</b>"
+msgstr ""
+"<b>Permite a los usuarios subir sus propias fotos de perfil personalizadas</"
+"b>."
+
+#: includes/admin/class-yith-wcmap-admin-extended.php:100
+#: includes/admin/class-yith-wcmap-admin-extended.php:101
+#: includes/admin/class-yith-wcmap-admin.php:199
+msgid "<b>Regular updates, translations and premium support</b>"
+msgstr "<b>Actualizaciones periódicas, traducciones y soporte premium</b>"
+
+#: includes/admin/class-yith-wcmap-admin-premium.php:292
+msgid "Add link"
+msgstr "Añadir enlace"
+
+#: includes/admin/class-yith-wcmap-admin-premium.php:293
+msgid "Close new link"
+msgstr "Cerrar nuevo enlace"
+
+#: includes/admin/class-yith-wcmap-admin-premium.php:296
+msgid "Add group"
+msgstr "Añadir grupo"
+
+#: includes/admin/class-yith-wcmap-admin-premium.php:297
+msgid "Close new group"
+msgstr "Cerrar nuevo grupo"
+
+#: includes/admin/class-yith-wcmap-admin.php:129
 msgid "Are you sure that you want to delete this endpoint?"
 msgstr "¿Estás seguro de que quieres eliminar este endpoint?"
 
-#: includes/admin/class.yith-wcmap-admin.php:158
-msgid "Endpoints"
-msgstr "Endpoints"
+#: includes/admin/class-yith-wcmap-admin.php:276
+msgid "Add endpoint"
+msgstr "Añadir endpoint"
 
-#: includes/admin/class.yith-wcmap-admin.php:159
-msgid "General Settings"
-msgstr "Ajustes generales"
+#: includes/admin/class-yith-wcmap-admin.php:277
+msgid "Close new endpoint"
+msgstr "Cerrar nuevo endpoint"
 
-#: includes/admin/class.yith-wcmap-admin.php:160
-#: plugin-options/style-options.php:36
-msgid "Style Options"
-msgstr "Opciones de estilo"
+#: includes/admin/views/items-list.php:56
+msgid "Save changes"
+msgstr "Guardar cambios"
 
-#: includes/admin/class.yith-wcmap-admin.php:161
-#: plugin-options/banners-options.php:19 plugin-options/banners-options.php:27
-msgid "Banners"
-msgstr "Banners"
+#: includes/admin/views/items-list.php:62
+msgid "Reset Defaults"
+msgstr "Restablecer valores por defecto"
 
-#: includes/admin/class.yith-wcmap-admin.php:162
-#: plugin-options/security-options.php:17
-msgid "Security Options"
-msgstr "Opciones de seguridad"
+#: includes/admin/views/single-item.php:47
+msgid "sub item"
+msgstr "sub elemento"
 
-#: includes/class.yith-wcmap-avatar.php:399
+#: includes/admin/views/single-item.php:70
+msgid "Delete"
+msgstr "Borrar"
+
+#: includes/admin/views/single-item.php:81
+msgid "Default item, it can't be deleted"
+msgstr "Artículo por defecto, no se puede borrar"
+
+#: includes/admin/views/single-item.php:96
+msgid "Rearrange"
+msgstr "Reorganizar"
+
+#: includes/class-yith-wcmap-avatar.php:417
 msgid "Custom Avatar"
 msgstr "Avatar personalizado"
 
-#: includes/class.yith-wcmap-avatar.php:439
+#: includes/class-yith-wcmap-avatar.php:456
 msgid "Removed customer avatar"
 msgstr "Avatar del cliente eliminado"
 
-#: includes/class.yith-wcmap-frontend.php:604
+#: includes/class-yith-wcmap-frontend.php:641
 msgid "There are no available downloads yet."
 msgstr "No hay descargas disponibles aún."
 
-#: includes/class.yith-wcmap-frontend.php:662
+#: includes/class-yith-wcmap-frontend.php:707
 msgid "Invalid order."
 msgstr "Pedido no válido."
 
-#: includes/class.yith-wcmap-frontend.php:662
+#: includes/class-yith-wcmap-frontend.php:707
 msgid "My Account"
 msgstr "Mi cuenta"
 
-#: includes/class.yith-wcmap-items.php:302
+#: includes/class-yith-wcmap-items.php:379
 msgid "Dashboard"
 msgstr "Panel"
 
-#: includes/class.yith-wcmap-items.php:303
+#: includes/class-yith-wcmap-items.php:380
 msgid "My Orders"
 msgstr "Mis pedidos"
 
-#: includes/class.yith-wcmap-items.php:304
+#: includes/class-yith-wcmap-items.php:381
 msgid "My Downloads"
 msgstr "Mis descargas"
 
-#: includes/class.yith-wcmap-items.php:305
+#: includes/class-yith-wcmap-items.php:382
 msgid "Edit Address"
 msgstr "Editar dirección"
 
-#: includes/class.yith-wcmap-items.php:306
+#: includes/class-yith-wcmap-items.php:383
 msgid "Payment Methods"
 msgstr "Métodos de pago"
 
-#: includes/class.yith-wcmap-items.php:307
+#: includes/class-yith-wcmap-items.php:384
 msgid "Edit Account"
 msgstr "Editar cuenta"
 
-#: includes/class.yith-wcmap-items.php:308
-#: templates/ywcmap-myaccount-menu.php:34
+#: includes/class-yith-wcmap-items.php:385
+#: templates/ywcmap-myaccount-menu.php:48
 msgid "Logout"
 msgstr "Cerrar sesión"
 
-#: includes/class.yith-wcmap-security.php:176
+#: includes/class-yith-wcmap-security-premium.php:170
 msgid "ReCaptcha validation error. Please try again."
 msgstr "Error de validación de ReCaptcha. Por favor, inténtalo de nuevo."
 
-#: includes/class.yith-wcmap-security.php:203
+#: includes/class-yith-wcmap-security-premium.php:196
 msgid "Email domain is not valid! Please use a different one and try again."
 msgstr ""
 "¡El dominio del correo electrónico no es válido! Por favor, utiliza uno "
 "diferente e inténtalo de nuevo."
 
-#: includes/class.yith-wcmap-security.php:426
+#: includes/class-yith-wcmap-security.php:283
 msgid "Click here to resend email."
 msgstr "Haz clic aquí para reenviar el correo electrónico."
 
 #. translators: %s stand for the link to resend confirmation email.
-#: includes/class.yith-wcmap-security.php:448
+#: includes/class-yith-wcmap-security.php:304
 msgid ""
 "You have to confirm your account. Please, click on the link in the "
 "verification email. %s"
@@ -115,27 +215,27 @@ msgstr ""
 
 #. translators: %s is a message that ask customer to confirm the account
 #. clicking on the link in the verification email.
-#: includes/class.yith-wcmap-security.php:454
+#: includes/class-yith-wcmap-security.php:310
 msgid "An account is already registered with this email. %s"
 msgstr "Ya hay una cuenta registrada con este correo electrónico. %s"
 
 #. translators: %s is a message that ask customer to confirm the account
 #. clicking on the link in the verification email.
-#: includes/class.yith-wcmap-security.php:458
+#: includes/class-yith-wcmap-security.php:314
 msgid "Login is not permitted! %s"
 msgstr "¡Inicio de sesión no permitido! %s"
 
 #. translators: %s is a message that ask customer to confirm the account
 #. clicking on the link in the verification email.
-#: includes/class.yith-wcmap-security.php:462
+#: includes/class-yith-wcmap-security.php:318
 msgid "Checkout is not permitted! %s"
 msgstr "¡Proceso de pago no permitido! %s"
 
-#: includes/class.yith-wcmap-security.php:465
+#: includes/class-yith-wcmap-security.php:321
 msgid "Thanks your account is now confirmed!"
 msgstr "¡Gracias, tu cuenta ha sido confirmada!"
 
-#: includes/class.yith-wcmap-security.php:468
+#: includes/class-yith-wcmap-security.php:324
 msgid ""
 "A confirmation email has been sent to your email address. Please click on "
 "the confirmation link in the email to complete your account activation."
@@ -144,48 +244,48 @@ msgstr ""
 "electrónico. Por favor, haz clic en el enlace de confirmación en el correo "
 "para completar la activación de tu cuenta."
 
-#: includes/class.yith-wcmap.php:80 includes/class.yith-wcmap.php:89
+#: includes/class-yith-wcmap.php:72 includes/class-yith-wcmap.php:81
 msgid "Cheatin&#8217; huh?"
 msgstr "¿Haciendo trampa&#8217; eh?"
 
-#: includes/compatibilities/class.yith-wcmap-advanced-reviews-compatibility.php:30
+#: includes/compatibilities/class-yith-wcmap-advanced-reviews-compatibility.php:29
 msgid "Reviews"
 msgstr "Reseñas"
 
-#: includes/compatibilities/class.yith-wcmap-auctions-compatibility.php:30
+#: includes/compatibilities/class-yith-wcmap-auctions-compatibility.php:29
 msgid "Auctions"
 msgstr "Subastas"
 
-#: includes/compatibilities/class.yith-wcmap-bookings-compatibility.php:29
+#: includes/compatibilities/class-yith-wcmap-bookings-compatibility.php:29
 msgid "Bookings"
 msgstr "Reservas"
 
-#: includes/compatibilities/class.yith-wcmap-funds-compatibility.php:31
+#: includes/compatibilities/class-yith-wcmap-funds-compatibility.php:30
 msgid "Make a Deposit"
 msgstr "Hacer un depósito"
 
-#: includes/compatibilities/class.yith-wcmap-funds-compatibility.php:37
+#: includes/compatibilities/class-yith-wcmap-funds-compatibility.php:36
 msgid "Income/Expenditure History"
 msgstr "Historial de ingresos/gastos"
 
-#: includes/compatibilities/class.yith-wcmap-gift-cards-compatibility.php:30
+#: includes/compatibilities/class-yith-wcmap-gift-cards-compatibility.php:29
 msgid "Gift Cards"
 msgstr "Tarjetas de regalo"
 
-#: includes/compatibilities/class.yith-wcmap-membership-compatibility.php:28
-#: includes/compatibilities/class.yith-wcmap-membership-compatibility.php:34
+#: includes/compatibilities/class-yith-wcmap-membership-compatibility.php:27
+#: includes/compatibilities/class-yith-wcmap-membership-compatibility.php:33
 msgid "Membership Plans"
 msgstr "Planes de membresía"
 
-#: includes/compatibilities/class.yith-wcmap-membership-compatibility.php:95
+#: includes/compatibilities/class-yith-wcmap-membership-compatibility.php:102
 msgid "Only users of a specific membership plan"
 msgstr "Solo usuarios de un plan de membresía específico"
 
-#: includes/compatibilities/class.yith-wcmap-membership-compatibility.php:100
+#: includes/compatibilities/class-yith-wcmap-membership-compatibility.php:107
 msgid "Membership plans"
 msgstr "Planes de membresía"
 
-#: includes/compatibilities/class.yith-wcmap-membership-compatibility.php:101
+#: includes/compatibilities/class-yith-wcmap-membership-compatibility.php:108
 msgid ""
 "Restrict endpoint visibility to users who are purchased following membership "
 "plan(s)"
@@ -193,309 +293,234 @@ msgstr ""
 "Restringir visibilidad del endpoint a los usuarios que han comprado los "
 "siguientes planes de membresía"
 
-#: includes/compatibilities/class.yith-wcmap-one-click-compatibility.php:30
+#: includes/compatibilities/class-yith-wcmap-one-click-compatibility.php:29
 msgid "One click checkout"
 msgstr "Proceso de pago en un sólo click"
 
-#: includes/compatibilities/class.yith-wcmap-payouts-compatibility.php:30
+#: includes/compatibilities/class-yith-wcmap-payouts-compatibility.php:29
 msgid "Payouts"
 msgstr "Pagos"
 
-#: includes/compatibilities/class.yith-wcmap-refund-requests-compatibility.php:30
+#: includes/compatibilities/class-yith-wcmap-refund-requests-compatibility.php:29
 msgid "Refund Requests"
 msgstr "Solicitudes de reembolso"
 
-#: includes/compatibilities/class.yith-wcmap-request-quote-compatibility.php:31
+#: includes/compatibilities/class-yith-wcmap-request-quote-compatibility.php:31
 msgid "My Quotes"
 msgstr "Mis presupuestos"
 
 #. translators: %s stand for the ID of the quote.
-#: includes/compatibilities/class.yith-wcmap-request-quote-compatibility.php:151
+#: includes/compatibilities/class-yith-wcmap-request-quote-compatibility.php:146
 msgid "Quote #%s"
 msgstr "Presupuesto #%s"
 
-#: includes/compatibilities/class.yith-wcmap-stripe-connect-compatibility.php:30
+#: includes/compatibilities/class-yith-wcmap-stripe-connect-compatibility.php:29
 msgid "Stripe Connect"
 msgstr "Stripe Connect"
 
-#: includes/compatibilities/class.yith-wcmap-subscriptions-compatibility.php:32
+#: includes/compatibilities/class-yith-wcmap-subscriptions-compatibility.php:31
 msgid "My Subscriptions"
 msgstr "Mis suscripciones"
 
-#: includes/compatibilities/class.yith-wcmap-tinv-wishlist-compatibility.php:30
-#: includes/compatibilities/class.yith-wcmap-wishlist-compatibility.php:29
+#: includes/compatibilities/class-yith-wcmap-tinv-wishlist-compatibility.php:29
+#: includes/compatibilities/class-yith-wcmap-wishlist-compatibility.php:29
 msgid "My Wishlist"
 msgstr "Mi Lista de deseos"
 
-#: includes/compatibilities/class.yith-wcmap-waiting-list-compatibility.php:30
+#: includes/compatibilities/class-yith-wcmap-waiting-list-compatibility.php:29
 msgid "My Waiting List"
 msgstr "MI lista de espera"
 
-#: includes/compatibilities/class.yith-wcmap-wc-api-manager-compatibility.php:31
+#: includes/compatibilities/class-yith-wcmap-wc-api-manager-compatibility.php:30
 msgid "API Keys"
 msgstr "Claves API"
 
-#: includes/compatibilities/class.yith-wcmap-wc-api-manager-compatibility.php:35
+#: includes/compatibilities/class-yith-wcmap-wc-api-manager-compatibility.php:34
 msgid "API Downloads"
 msgstr "Descargas API"
 
-#: includes/compatibilities/class.yith-wcmap-wc-membership-compatibility.php:66
+#: includes/compatibilities/class-yith-wcmap-wc-membership-compatibility.php:65
 msgid "My Membership"
 msgstr "Mi membresía"
 
-#: includes/compatibilities/class.yith-wcmap-wc-subscriptions-compatibility.php:30
+#: includes/compatibilities/class-yith-wcmap-wc-subscriptions-compatibility.php:29
 msgid "My Subscription"
 msgstr "Mi suscripción"
 
-#: includes/compatibilities/class.yith-wcmap-wt-smart-coupon-compatibility.php:30
+#: includes/compatibilities/class-yith-wcmap-wt-smart-coupon-compatibility.php:29
 msgid "My Coupons"
 msgstr "Mis cupones"
 
-#: includes/email/class.yith-wcmap-verify-account.php:50
+#: includes/email/class-yith-wcmap-verify-account.php:49
 msgid "YITH Customize My Account Verify Account"
 msgstr "YITH Customize My Account Verify Account"
 
-#: includes/email/class.yith-wcmap-verify-account.php:54
-msgid "{blogname}"
-msgstr "{blogname}"
+#: includes/email/class-yith-wcmap-verify-account.php:53
+msgid "{blogname} - Verify your account"
+msgstr "{blogname} - Verifica tu cuenta"
 
-#: includes/email/class.yith-wcmap-verify-account.php:55
+#: includes/email/class-yith-wcmap-verify-account.php:54
 msgid "You need to verify your account email."
 msgstr "Debes verificar tu cuenta de correo electrónico."
 
-#: init.php:51
+#: init.php:47
 msgid ""
-"YITH WooCommerce Customize My Account Page is enabled but not effective. It "
-"requires WooCommerce in order to work."
+"<b>YITH WooCommerce Customize My Account Page</b> is enabled but not "
+"effective. It requires WooCommerce in order to work."
 msgstr ""
-"YITH WooCommerce Customize My Account Page está activado pero no es "
+"<b>YITH WooCommerce Customize My Account Page </b> está activado pero no es "
 "efectivo. Necesita WooCommerce para funcionar."
 
-#: plugin-options/banners-options.php:30
+#: plugin-options/banners-options.php:18
+msgid "Banners"
+msgstr "Banners"
+
+#: plugin-options/banners-options.php:21
 msgid "Add banner"
 msgstr "Añadir banner"
 
-#: plugin-options/banners-options.php:31
+#: plugin-options/banners-options.php:22
 msgid "Close new element"
 msgstr "Cerrar nuevo elemento"
 
-#: plugin-options/banners-options.php:49
-#: plugin-options/items-options-fields.php:37
-#: plugin-options/items-options-fields.php:125
-#: plugin-options/items-options-fields.php:195
+#: plugin-options/banners-options.php:39
+#: plugin-options/items-options-fields.php:45
+#: plugin-options/items-options-fields.php:133
+#: plugin-options/items-options-fields.php:203
 msgid "Don't show an icon"
 msgstr "No mostrar un icono"
 
-#: plugin-options/banners-options.php:50
-#: plugin-options/items-options-fields.php:38
-#: plugin-options/items-options-fields.php:126
-#: plugin-options/items-options-fields.php:196
+#: plugin-options/banners-options.php:40
+#: plugin-options/items-options-fields.php:46
+#: plugin-options/items-options-fields.php:134
+#: plugin-options/items-options-fields.php:204
 msgid "Show a default icon"
-msgstr "Mostrar icono predeterminado"
+msgstr "Mostrar icono por defecto"
 
-#: plugin-options/banners-options.php:51
-#: plugin-options/items-options-fields.php:39
-#: plugin-options/items-options-fields.php:127
-#: plugin-options/items-options-fields.php:197
+#: plugin-options/banners-options.php:41
+#: plugin-options/items-options-fields.php:47
+#: plugin-options/items-options-fields.php:135
+#: plugin-options/items-options-fields.php:205
 msgid "Upload a custom icon"
 msgstr "Subir un icono personalizado"
 
-#: plugin-options/banners-options.php:197
+#: plugin-options/banners-options.php:196
 msgid "Don't add a link"
 msgstr "No añadir enlace"
 
-#: plugin-options/banners-options.php:198
+#: plugin-options/banners-options.php:197
 msgid "To a specific endpoint"
 msgstr "Un endpoint específico"
 
-#: plugin-options/banners-options.php:199
+#: plugin-options/banners-options.php:198
 msgid "To an external url"
 msgstr "Una URL externa"
 
-#: plugin-options/banners-options.php:205
-#: plugin-options/banners-options.php:217
+#: plugin-options/banners-options.php:204
+#: plugin-options/banners-options.php:216
 msgid "Banner links to"
 msgstr "Enlaces de los banners para"
 
-#: plugin-options/banners-options.php:230
+#: plugin-options/banners-options.php:229
 msgid "Show banner to"
-msgstr "Mostrar banner a"
+msgstr "Muestra el banner a"
 
-#: plugin-options/banners-options.php:231
+#: plugin-options/banners-options.php:230
 msgid ""
 "Choose whether to show this banner to all users or only to specific users"
 msgstr ""
 "Escoge si mostrar este banner a todos los usuarios o solo a usuarios "
 "específicos"
 
-#: plugin-options/banners-options.php:233
-#: plugin-options/items-options-fields.php:68
-#: plugin-options/items-options-fields.php:156
-#: plugin-options/items-options-fields.php:226
-msgid "All users"
-msgstr "Todos los usuarios"
-
-#: plugin-options/banners-options.php:234
-#: plugin-options/items-options-fields.php:69
-#: plugin-options/items-options-fields.php:157
-#: plugin-options/items-options-fields.php:227
-msgid "Only users with a specific role"
-msgstr "Solo usuarios con un rol específico"
-
-#: plugin-options/banners-options.php:242
-#: plugin-options/items-options-fields.php:75
-#: plugin-options/items-options-fields.php:163
-#: plugin-options/items-options-fields.php:233
-msgid "User roles"
-msgstr "Roles de usuario"
-
-#: plugin-options/banners-options.php:243
+#: plugin-options/banners-options.php:232
 #: plugin-options/items-options-fields.php:76
 #: plugin-options/items-options-fields.php:164
 #: plugin-options/items-options-fields.php:234
+msgid "All users"
+msgstr "Todos los usuarios"
+
+#: plugin-options/banners-options.php:233
+#: plugin-options/items-options-fields.php:77
+#: plugin-options/items-options-fields.php:165
+#: plugin-options/items-options-fields.php:235
+msgid "Only users with a specific role"
+msgstr "Solo usuarios con un perfil específico"
+
+#: plugin-options/banners-options.php:241
+#: plugin-options/items-options-fields.php:83
+#: plugin-options/items-options-fields.php:171
+#: plugin-options/items-options-fields.php:241
+msgid "User roles"
+msgstr "Perfiles de usuario"
+
+#: plugin-options/banners-options.php:242
+#: plugin-options/items-options-fields.php:84
+#: plugin-options/items-options-fields.php:172
+#: plugin-options/items-options-fields.php:242
 msgid "Restrict visibility to the following user role(s)."
 msgstr ""
-"Restringir la visibilidad del endpoint a los siguientes roles de usuario."
+"Restringir la visibilidad del endpoint a los siguientes perfiles de usuario."
 
-#: plugin-options/general-options.php:17
-msgid "General Options"
-msgstr "Opciones generales"
-
-#: plugin-options/general-options.php:24 plugin-options/general-options.php:29
-msgid "Default user avatar"
-msgstr "Avatar de usuario predeterminado"
-
-#: plugin-options/general-options.php:25
-msgid ""
-"Choose whether to use a default avatar icon or upload a custom one for your "
-"users."
-msgstr ""
-"Escoge si usar el icono de avatar predeterminado o subir uno personalizado "
-"para tus clientes."
-
-#: plugin-options/general-options.php:30
-msgid "Upload a custom user avatar"
-msgstr "Subir un avatar de usuario personalizado"
-
-#: plugin-options/general-options.php:37
-msgid "Upload default avatar"
-msgstr "Subir avatar predeterminado"
-
-#: plugin-options/general-options.php:38
-msgid ""
-"Upload a custom avatar for you users. A square image with a width of 200px "
-"works best."
-msgstr ""
-"Sube un avatar personalizado para tus clientes. Una imagen cuadrada con un "
-"ancho de 200px funciona mejor."
-
-#: plugin-options/general-options.php:52
-msgid "Avatar size"
-msgstr "Tamaño del avatar"
-
-#: plugin-options/general-options.php:53
-msgid "Set the avatar size in px."
-msgstr "Establece el tamaño del avatar en px."
-
-#: plugin-options/general-options.php:63
-msgid "Avatar border radius"
-msgstr "Radio de borde del avatar"
-
-#: plugin-options/general-options.php:64
-msgid ""
-"Set the avatar border radius. A border radius of 0 means a square avatar, a "
-"border radius of 10 is a circle avatar."
-msgstr ""
-"Establece el radio de borde del avatar. El radio de borde a 0 significa un "
-"avatar cuadrado, un radio de borde de 10 es un avatar en círculo."
-
-#: plugin-options/general-options.php:77
-msgid "Allow users to upload avatar"
-msgstr "Permitir a los usuarios subir un avatar"
-
-#: plugin-options/general-options.php:78
-msgid ""
-"If enabled users can upload a custom image to replace the default avatar."
-msgstr ""
-"Si está activado, los usuarios pueden subir una imagen personalizada para "
-"reemplazar el avatar predeterminado."
-
-#: plugin-options/general-options.php:86
-msgid "Enable AJAX navigation"
-msgstr "Activar navegación AJAX"
-
-#: plugin-options/general-options.php:87
-msgid "Enable AJAX navigation between the endpoints."
-msgstr "Activar navegación AJAX entre endpoints."
-
-#: plugin-options/general-options.php:95
-msgid "Default endpoint"
-msgstr "Endpoint predeterminado"
-
-#: plugin-options/general-options.php:96
-msgid "Choose the default endpoint for \"My account\" page"
-msgstr "Elige el endpoint predeterminado para la página “Mi cuenta”"
-
-#: plugin-options/items-options-fields.php:19
+#: plugin-options/items-options-fields.php:27
 msgid "Endpoint label"
 msgstr "Etiqueta del endpoint"
 
-#: plugin-options/items-options-fields.php:20
+#: plugin-options/items-options-fields.php:28
 msgid "Enter a name to identify this endpoint"
 msgstr "Introduce un nombre para identificar este endpoint"
 
-#: plugin-options/items-options-fields.php:25
+#: plugin-options/items-options-fields.php:33
 msgid "Endpoint slug"
 msgstr "Slug del enpoint"
 
-#: plugin-options/items-options-fields.php:26
+#: plugin-options/items-options-fields.php:34
 msgid "Enter a slug for this endpoint"
 msgstr "Introduce un slug para este endpoint"
 
-#: plugin-options/items-options-fields.php:34
+#: plugin-options/items-options-fields.php:42
 msgid "Endpoint icon"
 msgstr "Icono del endpoint"
 
-#: plugin-options/items-options-fields.php:35
+#: plugin-options/items-options-fields.php:43
 msgid "Choose if show or not an icon to identify this endpoint"
 msgstr "Escoge si mostrar o no un icono para identificar este endpoint"
 
-#: plugin-options/items-options-fields.php:45
-#: plugin-options/items-options-fields.php:133
-#: plugin-options/items-options-fields.php:203
+#: plugin-options/items-options-fields.php:53
+#: plugin-options/items-options-fields.php:141
+#: plugin-options/items-options-fields.php:211
 msgid "Choose icon"
-msgstr "Elegir icono"
+msgstr "Elige el icono"
 
-#: plugin-options/items-options-fields.php:46
+#: plugin-options/items-options-fields.php:54
 msgid "Choose an icon to identify this endpoint"
 msgstr "Elige un icono para identificar este endpoint"
 
-#: plugin-options/items-options-fields.php:56
-#: plugin-options/items-options-fields.php:144
-#: plugin-options/items-options-fields.php:214
+#: plugin-options/items-options-fields.php:64
+#: plugin-options/items-options-fields.php:152
+#: plugin-options/items-options-fields.php:222
 msgid "Upload icon"
 msgstr "Subir icono"
 
-#: plugin-options/items-options-fields.php:57
+#: plugin-options/items-options-fields.php:65
 msgid "Upload you custom icon to identify this endpoint"
 msgstr "Sube tu icono personalizado para identificar este endpoint"
 
-#: plugin-options/items-options-fields.php:65
+#: plugin-options/items-options-fields.php:73
 msgid "Show endpoint to"
-msgstr "Mostrar endpoint a"
+msgstr "Muestra el endpoint a"
 
-#: plugin-options/items-options-fields.php:66
+#: plugin-options/items-options-fields.php:74
 msgid ""
 "Choose whether to show this endpoint to all users or only to specific users"
 msgstr ""
 "Escoge si mostrar el endpoint a todos los usuarios o solo a usuarios "
 "específicos"
 
-#: plugin-options/items-options-fields.php:86
+#: plugin-options/items-options-fields.php:94
 msgid "Content"
 msgstr "Contenido"
 
-#: plugin-options/items-options-fields.php:87
+#: plugin-options/items-options-fields.php:95
 msgid ""
 "Set the endpoint content. Use <code>%%customer_name%%</code> as placeholder "
 "for print the current customer name."
@@ -503,229 +528,289 @@ msgstr ""
 "Establece el contenido del endpoint. Utiliza <code>%%customer_name%%</code> "
 "como marcador de posición para introducir el nombre del cliente actual."
 
-#: plugin-options/items-options-fields.php:93
+#: plugin-options/items-options-fields.php:101
 msgid "Place content"
 msgstr "Colocar contenido"
 
-#: plugin-options/items-options-fields.php:94
+#: plugin-options/items-options-fields.php:102
 msgid ""
 "Choose to overwrite the default content or add before/after the default "
 "content"
 msgstr ""
-"Escoge si sobrescribir el contenido predeterminado o añadir antes/después "
-"del contenido predeterminado"
-
-#: plugin-options/items-options-fields.php:96
-msgid "Before the default content"
-msgstr "Antes del contenido predeterminado"
-
-#: plugin-options/items-options-fields.php:97
-msgid "After the default content"
-msgstr "Después del contenido predeterminado"
-
-#: plugin-options/items-options-fields.php:98
-msgid "Overriding the default content"
-msgstr "Sobrescribir el contenido predeterminado"
+"Escoge si sobrescribir el contenido por defecto o añadir antes/después del "
+"contenido por defecto"
 
 #: plugin-options/items-options-fields.php:104
-#: plugin-options/items-options-fields.php:174
-#: plugin-options/items-options-fields.php:244
+msgid "Before the default content"
+msgstr "Antes del contenido por defecto"
+
+#: plugin-options/items-options-fields.php:105
+msgid "After the default content"
+msgstr "Después del contenido por defecto"
+
+#: plugin-options/items-options-fields.php:106
+msgid "Overriding the default content"
+msgstr "Sobrescribir el contenido por defecto"
+
+#: plugin-options/items-options-fields.php:112
+#: plugin-options/items-options-fields.php:182
+#: plugin-options/items-options-fields.php:252
 msgid "CSS class"
 msgstr "Clase CSS"
 
-#: plugin-options/items-options-fields.php:105
-#: plugin-options/items-options-fields.php:175
+#: plugin-options/items-options-fields.php:113
+#: plugin-options/items-options-fields.php:183
 msgid "Add additional CSS classes to this endpoint container"
 msgstr "Añade clases CSS adicionales a este contendedor de endpoint"
 
-#: plugin-options/items-options-fields.php:111
+#: plugin-options/items-options-fields.php:119
 msgid "Group label"
 msgstr "Etiqueta del grupo"
 
-#: plugin-options/items-options-fields.php:112
+#: plugin-options/items-options-fields.php:120
 msgid "Enter a name to identify this endpoints group"
 msgstr "Introduce un nombre para identificar este grupo de endpoints"
 
-#: plugin-options/items-options-fields.php:117
+#: plugin-options/items-options-fields.php:125
 msgid "Show open"
 msgstr "Mostrar abierto"
 
-#: plugin-options/items-options-fields.php:118
+#: plugin-options/items-options-fields.php:126
 msgid ""
 "Show the group open by default. (Please note: this option is valid only for "
 "\"Sidebar\" style)"
 msgstr ""
-"Muestra el grupo abierto de forma predeterminada. (Por favor, ten en cuenta: "
-"esta opción solo es válida para el estilo “Barra lateral”)"
+"Muestra el grupo abierto por defecto. (Por favor, ten en cuenta: esta opción "
+"solo es válida para el estilo “Barra lateral”)"
 
-#: plugin-options/items-options-fields.php:122
+#: plugin-options/items-options-fields.php:130
 msgid "Group icon"
 msgstr "Icono de grupo"
 
-#: plugin-options/items-options-fields.php:123
+#: plugin-options/items-options-fields.php:131
 msgid "Choose if show or not an icon to identify this endpoints group"
 msgstr ""
 "Elige si mostrar o no un icono para identificar este grupo de endpoints"
 
-#: plugin-options/items-options-fields.php:134
+#: plugin-options/items-options-fields.php:142
 msgid "Choose an icon to identify this endpoints group"
 msgstr "Escoge un icono para identificar este grupo de endpoints"
 
-#: plugin-options/items-options-fields.php:145
+#: plugin-options/items-options-fields.php:153
 msgid "Upload you custom icon to identify this endpoints group"
 msgstr "Sube un icono personalizado para identificar este grupo de endpoints"
 
-#: plugin-options/items-options-fields.php:153
+#: plugin-options/items-options-fields.php:161
 msgid "Show group to"
-msgstr "Mostrar grupo a"
+msgstr "Muestra el grupo a"
 
-#: plugin-options/items-options-fields.php:154
+#: plugin-options/items-options-fields.php:162
 msgid ""
 "Choose whether to show this group to all users or only to specific users"
 msgstr ""
 "Escoge si mostrar este grupo a todos los usuarios o solo a usuarios "
 "específicos"
 
-#: plugin-options/items-options-fields.php:181
-msgid "Link url"
-msgstr "URL del enlace"
+#: plugin-options/items-options-fields.php:189
+msgid "Link URL"
+msgstr "URL"
 
-#: plugin-options/items-options-fields.php:182
-msgid "The url of the menu item"
+#: plugin-options/items-options-fields.php:190
+msgid "The URL of the menu item"
 msgstr "La URL del artículo del menú"
 
-#: plugin-options/items-options-fields.php:186
+#: plugin-options/items-options-fields.php:194
 msgid "Link label"
 msgstr "Etiqueta de enlace"
 
-#: plugin-options/items-options-fields.php:187
+#: plugin-options/items-options-fields.php:195
 msgid "Enter a name to identify this link"
 msgstr "Introduce un nombre para identificar este enlace"
 
-#: plugin-options/items-options-fields.php:192
+#: plugin-options/items-options-fields.php:200
 msgid "Link icon"
 msgstr "Icono de enlace"
 
-#: plugin-options/items-options-fields.php:193
+#: plugin-options/items-options-fields.php:201
 msgid "Choose if show or not an icon to identify this link"
 msgstr "Escoge si mostrar o no un icono para identificar este enlace"
 
-#: plugin-options/items-options-fields.php:204
+#: plugin-options/items-options-fields.php:212
 msgid "Choose an icon to identify this link"
 msgstr "Escoge un icono para identificar este enlace"
 
-#: plugin-options/items-options-fields.php:215
+#: plugin-options/items-options-fields.php:223
 msgid "Upload you custom icon to identify this link"
 msgstr "Sube tu icono personalizado para identificar este enlace"
 
-#: plugin-options/items-options-fields.php:223
+#: plugin-options/items-options-fields.php:231
 msgid "Show link to"
-msgstr "Mostrar enlace a"
+msgstr "Muestra el enlace a"
 
-#: plugin-options/items-options-fields.php:224
+#: plugin-options/items-options-fields.php:232
 msgid "Choose whether to show this link to all users or only to specific users"
 msgstr ""
 "Escoge si mostrar este enlace a todos los usuarios o solo a usuarios "
 "específicos"
 
-#: plugin-options/items-options-fields.php:245
+#: plugin-options/items-options-fields.php:253
 msgid "Add additional CSS classes to this link container"
-msgstr "Añadir clases de CSS adicionales a este contendor de enlace"
+msgstr "Añade clases de CSS adicionales a este contenedor de enlace"
 
-#: plugin-options/items-options-fields.php:249
+#: plugin-options/items-options-fields.php:257
 msgid "Open link in a new tab?"
 msgstr "¿Abrir enlace en una nueva pestaña?"
 
-#: plugin-options/security-options.php:24
+#: plugin-options/settings/general-options.php:15
+msgid "General Options"
+msgstr "Opciones generales"
+
+#: plugin-options/settings/general-options.php:21
+msgid "Enable AJAX navigation"
+msgstr "Activa la navegación AJAX"
+
+#: plugin-options/settings/general-options.php:22
+msgid "Enable AJAX navigation between the endpoints."
+msgstr "Activa la navegación AJAX entre endpoints."
+
+#: plugin-options/settings/general-options.php:29
+msgid "Default endpoint"
+msgstr "Endpoint por defecto"
+
+#: plugin-options/settings/general-options.php:30
+msgid "Choose the default endpoint for \"My account\" page"
+msgstr "Elige el endpoint por defecto para la página «Mi cuenta»"
+
+#: plugin-options/settings/general-options.php:42
+msgid "User Avatar"
+msgstr "Avatar del usuario"
+
+#: plugin-options/settings/general-options.php:48
+#: plugin-options/settings/general-options.php:53
+msgid "Default user avatar"
+msgstr "Avatar de usuario por defecto"
+
+#: plugin-options/settings/general-options.php:49
+msgid ""
+"Choose whether to use a default avatar icon or upload a custom one for your "
+"users."
+msgstr ""
+"Escoge si usar el icono de avatar por defecto o subir uno personalizado para "
+"tus clientes."
+
+#: plugin-options/settings/general-options.php:54
+msgid "Upload a custom user avatar"
+msgstr "Subir un avatar de usuario personalizado"
+
+#: plugin-options/settings/general-options.php:60
+msgid "Upload default avatar"
+msgstr "Subir avatar por defecto"
+
+#: plugin-options/settings/general-options.php:61
+msgid ""
+"Upload a custom avatar for you users. A square image with a width of 200px "
+"works best."
+msgstr ""
+"Sube un avatar personalizado para tus clientes. Una imagen cuadrada con un "
+"ancho de 200px funciona mejor."
+
+#: plugin-options/settings/general-options.php:74
+msgid "Avatar size"
+msgstr "Tamaño del avatar"
+
+#: plugin-options/settings/general-options.php:75
+msgid "Set the avatar size in px."
+msgstr "Establece el tamaño del avatar en px."
+
+#: plugin-options/settings/general-options.php:84
+msgid "Avatar border radius"
+msgstr "Radio de borde del avatar"
+
+#: plugin-options/settings/general-options.php:85
+msgid ""
+"Set the avatar border radius. A border radius of 0 means a square avatar, a "
+"border radius of 10 is a circle avatar."
+msgstr ""
+"Establece el radio de borde del avatar. El radio de borde a 0 significa un "
+"avatar cuadrado, un radio de borde de 10 es un avatar en círculo."
+
+#: plugin-options/settings/general-options.php:98
+msgid "Allow users to upload avatar"
+msgstr "Permite a los usuarios subir un avatar"
+
+#: plugin-options/settings/general-options.php:99
+msgid ""
+"If enabled users can upload a custom image to replace the default avatar."
+msgstr ""
+"Si está activado, los usuarios pueden subir una imagen personalizada para "
+"reemplazar el avatar por defecto."
+
+#: plugin-options/settings/security-options.php:15
+msgid "Security Options"
+msgstr "Opciones de seguridad"
+
+#: plugin-options/settings/security-options.php:21
 msgid "Show reCaptcha in registration form"
-msgstr "Mostrar reCaptcha en el formulario de registro"
+msgstr "Muestra reCaptcha en el formulario de registro"
 
 #. translators: placeholders are used for link to reCaptcha documentation.
-#: plugin-options/security-options.php:26
+#: plugin-options/settings/security-options.php:23
 msgid "Enable reCaptcha in registration form. %1$sRead more here >%2$s"
-msgstr "Activar reCaptcha en el formulario de registro. %1$sLee más aquí >%2$s"
+msgstr "Activa reCaptcha en el formulario de registro. %1$sLee más aquí >%2$s"
 
-#: plugin-options/security-options.php:34
+#: plugin-options/settings/security-options.php:30
 msgid "reCaptcha public key"
 msgstr "Clave pública de reCaptcha"
 
-#: plugin-options/security-options.php:48
+#: plugin-options/settings/security-options.php:42
 msgid "reCaptcha private key"
 msgstr "Clave privada de reCaptcha"
 
-#: plugin-options/security-options.php:61
+#: plugin-options/settings/security-options.php:54
 msgid "Send a verification email to new users"
-msgstr "Enviar un correo electrónico de verificación a los nuevo usuarios"
+msgstr "Envía un correo electrónico de verificación a los nuevo usuarios"
 
-#: plugin-options/security-options.php:62
+#: plugin-options/settings/security-options.php:55
 msgid "Enable to send an email to verify account to new users."
 msgstr ""
 "Activa enviar un correo electrónico para verificar la cuenta a los nuevos "
 "usuarios."
 
-#: plugin-options/security-options.php:70
+#: plugin-options/settings/security-options.php:62
 msgid "Without a verified account"
 msgstr "Sin una cuenta verificada"
 
-#: plugin-options/security-options.php:71
+#: plugin-options/settings/security-options.php:63
 msgid "Set permissions of user without a verified account."
 msgstr "Establecer los permisos del usuario con una cuenta sin verificar."
 
-#: plugin-options/security-options.php:88
+#: plugin-options/settings/security-options.php:79
 msgid "Block email addresses from these domains"
-msgstr "Bloquear direcciones de correo electrónico de estos dominios"
+msgstr "Bloquea direcciones de correo electrónico de estos dominios"
 
-#: plugin-options/security-options.php:89
+#: plugin-options/settings/security-options.php:80
 msgid ""
 "Add a list of email domains (comma separated) you want to block.<br>Example: "
 "<code>yopmail.com, email.org</code>"
 msgstr ""
-"Añadir una lista de dominios de correo electrónico (separados por coma) que "
+"Añade una lista de dominios de correo electrónico (separados por coma) que "
 "quieres bloquear. <br>Ejemplo <code>yopmail.com, email.org</code>"
 
-#: plugin-options/style-options.php:234
+#: plugin-options/settings/style-options.php:34
+msgid "Menu Options"
+msgstr "Opciones de menú"
+
+#: plugin-options/settings/style-options.php:222
 msgid "Padding of menu items"
 msgstr "Padding de artículos del menú"
 
-#: templates/admin/items-list.php:18
-msgid "Manage Endpoints"
-msgstr "Gestionar endpoints"
+#: plugin-options/settings/style-options.php:242
+msgid "Logout Options"
+msgstr "Opciones de cierre de sesión"
 
-#: templates/admin/items-list.php:21
-msgid "Close new endpoint"
-msgstr "Cerrar nuevo endpoint"
-
-#: templates/admin/items-list.php:22
-msgid "Add endpoint"
-msgstr "Añadir endpoint"
-
-#: templates/admin/items-list.php:25
-msgid "Close new link"
-msgstr "Cerrar nuevo enlace"
-
-#: templates/admin/items-list.php:26
-msgid "Add link"
-msgstr "Añadir enlace"
-
-#: templates/admin/items-list.php:29
-msgid "Close new group"
-msgstr "Cerrar nuevo grupo"
-
-#: templates/admin/items-list.php:30
-msgid "Add group"
-msgstr "Añadir grupo"
-
-#: templates/admin/items-list.php:62
-msgid "Save changes"
-msgstr "Guardar cambios"
-
-#: templates/admin/items-list.php:68
-msgid "Reset Defaults"
-msgstr "Restablecer valores predeterminados"
-
-#: templates/admin/single-item.php:33
-msgid "sub item"
-msgstr "sub elemento"
+#: plugin-options/settings/style-options.php:280
+msgid "Ajax Loader"
+msgstr "Cargador Ajax"
 
 #. translators: %s Customer first name
 #: templates/email/customer-verify-account.php:21
@@ -742,18 +827,22 @@ msgstr "Gracias por crear una cuenta en %1$s."
 #: templates/email/customer-verify-account.php:25
 msgid ""
 "To complete registration process you need to verify your account email by "
-"clicking this link: <br>%1$s"
+"clicking this link:"
 msgstr ""
-"Para completar el proceso de registro debes verificar tu cuenta de corre "
-"electrónico haciendo clic en este enlace: <br>%1$s"
+"Para completar el proceso de registro debes verificar tu cuenta de correo "
+"electrónico haciendo clic en este enlace: "
 
 #: templates/email/customer-verify-account.php:26
+msgid "Verify your account >"
+msgstr "Verifica tu cuenta >"
+
+#: templates/email/customer-verify-account.php:27
 #: templates/email/plain/customer-verify-account.php:23
 msgid "We look forward to seeing you soon."
 msgstr "Esperamos verte pronto."
 
 #. translators: %1$s: Site title
-#: templates/email/customer-verify-account.php:28
+#: templates/email/customer-verify-account.php:29
 msgid "Regards, <br>%1$s staff"
 msgstr "Saludos, el equipo de <br>%1$s "
 
@@ -771,8 +860,8 @@ msgstr ""
 msgid ""
 "The <code><strong>YITH WooCommerce Customize My Account Page</strong></code> "
 "lets you customize the layout of the \"My Account\" page, adds new endpoints "
-"and manage its content easily. <a href=\"https://yithemes.com/\" target="
-"\"_blank\">Get more plugins for your e-commerce shop on <strong>YITH</"
+"and manage its content easily. <a href=\"https://yithemes.com/\" "
+"target=\"_blank\">Get more plugins for your e-commerce shop on <strong>YITH</"
 "strong></a>."
 msgstr ""
 "<code><strong>YITH WooCommerce Customize My Account Page</strong></code> te "
@@ -781,299 +870,462 @@ msgstr ""
 "com/\" target=\"_blank\">Obtén más plugins para tu comercio electrónico en "
 "<strong>YITH</strong></a>."
 
-#: includes/admin/class.yith-wcmap-admin.php:180
+#: includes/admin/class-yith-wcmap-admin-premium.php:68
+#: includes/admin/class-yith-wcmap-admin.php:156
+msgctxt "Endpoints tab name"
+msgid "Endpoints"
+msgstr "Endpoints"
+
+#: includes/admin/class-yith-wcmap-admin-premium.php:74
+#: includes/admin/class-yith-wcmap-admin.php:162
+msgctxt "Admin endpoints tab description "
+msgid ""
+"An “Endpoint” is the content shown as a subtab on your customers' My Account "
+"page. With this plugin, you can disable WooCommerce default endpoints "
+"(Dashboard, Orders, etc.), edit their content, and change the order in which "
+"they’re displayed. You can add new endpoints using the dedicated button."
+msgstr ""
+"Una variable o \"endpoint\" es el contenido que se muestra como subpestaña "
+"en la página Mi cuenta de tus clientes. Con este plugin, puedes desactivar "
+"las variables por defecto de WooCommerce (escritorio, pedidos, etc.), editar "
+"su contenido y cambiar el orden en que se muestran. Puedes añadir nuevas "
+"variables utilizando el botón dedicado."
+
+#: includes/admin/class-yith-wcmap-admin-premium.php:77
+msgctxt "Banners tab name"
+msgid "Banners"
+msgstr "Banners"
+
+#: includes/admin/class-yith-wcmap-admin-premium.php:83
+msgctxt "Admin banners tab description "
+msgid "Create custom banners to show advanced content in the endpoints."
+msgstr ""
+"Crea banners personalizados para mostrar contenido avanzado en los endpoints."
+
+#: includes/admin/class-yith-wcmap-admin-premium.php:86
+#: includes/admin/class-yith-wcmap-admin.php:165
+msgctxt "Settings tab name"
+msgid "Settings"
+msgstr "Ajustes"
+
+#: includes/admin/class-yith-wcmap-admin-premium.php:104
+msgctxt ""
+"[YOUR STORE TOOLS TAB] Description for plugin YITH WooCommerce Gift Cards"
+msgid ""
+"Sell gift cards in your shop to increase your earnings and attract new "
+"customers."
+msgstr ""
+"Vende tarjetas de regalo para aumentar las ganancias de tu tienda y atraer "
+"nuevos clientes."
+
+#: includes/admin/class-yith-wcmap-admin-premium.php:116
+msgctxt ""
+"[YOUR STORE TOOLS TAB] Description for plugin YITH WooCommerce Ajax Product "
+"Filter"
+msgid ""
+"Help your customers to easily find the products they are looking for and "
+"improve the user experience of your shop."
+msgstr ""
+"Ayuda a tus clientes a encontrar fácilmente los productos que buscan y "
+"mejora la experiencia de usuario de tu tienda."
+
+#: includes/admin/class-yith-wcmap-admin-premium.php:128
+msgctxt ""
+"[YOUR STORE TOOLS TAB] Description for plugin YITH WooCommerce Wishlist"
+msgid ""
+"Allow your customers to create lists of products they want and share them "
+"with family and friends."
+msgstr ""
+"Permite que tus clientes creen las listas de productos que quieran y que las "
+"compartan con familiares y amigos."
+
+#: includes/admin/class-yith-wcmap-admin-premium.php:136
+msgctxt "[YOUR STORE TOOLS TAB] Description for plugin YITH Bookings"
+msgid ""
+"Enable a booking/appointment system to manage renting or booking of "
+"services, rooms, houses, cars, accommodation facilities and so on."
+msgstr ""
+"Activa un sistema de reservas/citas para gestionar el alquiler o la reserva "
+"de servicios, habitaciones, casas, coches, alojamientos, etc."
+
+#: includes/admin/class-yith-wcmap-admin-premium.php:149
+msgctxt ""
+"[YOUR STORE TOOLS TAB] Description for plugin YITH WooCommerce Request a "
+"Quote"
+msgid ""
+"Hide prices and/or the \"Add to cart\" button and let your customers request "
+"a custom quote for every product."
+msgstr ""
+"Oculta el precio y/o el botón de Añadir al carrito y permite que tus "
+"clientes soliciten un presupuesto personalizado para cada producto."
+
+#: includes/admin/class-yith-wcmap-admin-premium.php:161
+msgctxt ""
+"[YOUR STORE TOOLS TAB] Description for plugin YITH WooCommerce Product Add-"
+"Ons"
+msgid ""
+"Add paid or free advanced options to your product pages using fields like "
+"radio buttons, checkboxes, drop-downs, custom text inputs, and more."
+msgstr ""
+"Añade opciones gratuitas o de pago en la página de tus productos usando "
+"tipos de campo incluyendo botones de radio, casillas de verificación, "
+"desplegables, entradas de texto personalizadas y mucho más."
+
+#: includes/admin/class-yith-wcmap-admin-premium.php:173
+msgctxt ""
+"[YOUR STORE TOOLS TAB] Description for plugin YITH WooCommerce Dynamic "
+"Pricing and Discounts"
+msgid ""
+"Increase conversions through dynamic discounts and price rules, and build "
+"powerful and targeted offers."
+msgstr ""
+"Aumenta las operaciones mediante descuentos dinámicos y reglas de precios y "
+"crea ofertas potentes y específicas."
+
+#: includes/admin/class-yith-wcmap-admin-premium.php:185
+msgctxt "[YOUR STORE TOOLS TAB] Description for plugin Recover Abandoned Cart"
+msgid ""
+"Contact users who have added products to the cart without completing the "
+"order and try to recover lost sales."
+msgstr ""
+"Te pone en contacto con los usuarios que han añadido productos al carrito "
+"sin completar el pedido e intenta recuperarlos."
+
+#: includes/admin/class-yith-wcmap-admin-premium.php:250
 msgctxt "[HELP TAB] Video title"
 msgid ""
-"Check this video to learn how to <b>manage and customize your customer’s My "
-"Account Page</b>"
+"Check this video to learn how to configure the plugin YITH WooCommerce "
+"Customize My Account Page and why you should install it in your shop:"
 msgstr ""
-"Consulta este vídeo para aprender a <b>gestionar y personalizar la página de "
-"Mi Cuenta de tu cliente</b>"
+"Comprueba este vídeo para aprender a configurar el plugin YITH WooCommerce "
+"Customize My Account Page y porqué deberías instalarlo en tu tienda:"
 
-#: includes/class.yith-wcmap-banners.php:66
+#: includes/admin/views/banners-modal.php:13
+msgctxt "Admin banners modal title"
+msgid "Add banners"
+msgstr "Añadir banners"
+
+#: includes/admin/views/banners-modal.php:14
+msgctxt "Admin banners modal content"
+msgid "Choose one or more banner to add to endpoint content"
+msgstr "Escoge uno o más banners para añadir contenido del endpoint"
+
+#: includes/admin/views/items-list.php:29
+msgctxt "Admin button label"
+msgid "Add item"
+msgstr "Añadir artículo"
+
+#: includes/admin/views/single-item.php:125
+msgctxt "Admin button label"
+msgid "Save"
+msgstr "Guardar"
+
+#: includes/admin/views/single-item.php:128
+msgctxt "Admin button label"
+msgid "Reset"
+msgstr "Restablecer"
+
+#: includes/class-yith-wcmap-banners.php:73
 msgctxt "Default banner title"
 msgid "Downloads"
 msgstr "Descargas"
 
-#: includes/class.yith-wcmap-banners.php:76
+#: includes/class-yith-wcmap-banners.php:83
 msgctxt "Default banner title"
 msgid "Orders"
 msgstr "Pedidos"
 
-#: includes/class.yith-wcmap-banners.php:86
+#: includes/class-yith-wcmap-banners.php:93
 msgctxt "Default banner title"
 msgid "Account info"
 msgstr "Información de cuenta"
 
-#: includes/class.yith-wcmap-banners.php:94
+#: includes/class-yith-wcmap-banners.php:101
 msgctxt "Default banner title"
 msgid "Your address"
 msgstr "Tu dirección"
 
-#: includes/class.yith-wcmap-banners.php:102
+#: includes/class-yith-wcmap-banners.php:109
 msgctxt "Default banner title"
 msgid "Payment methods"
 msgstr "Métodos de pago"
 
-#: includes/class.yith-wcmap-banners.php:67
+#: includes/class-yith-wcmap-banners.php:74
 msgctxt "Default banner \"downloads\" text"
 msgid "Check your available downloads"
 msgstr "Comprueba tus descargas disponibles"
 
-#: includes/class.yith-wcmap-banners.php:77
+#: includes/class-yith-wcmap-banners.php:84
 msgctxt "Default banner \"orders\" text"
 msgid "Check the history of all your orders and download the invoices"
 msgstr "Comprueba tu historial de pedidos y descarga las facturas"
 
-#: includes/class.yith-wcmap-banners.php:87
+#: includes/class-yith-wcmap-banners.php:94
 msgctxt "Default banner \"account info\" text"
 msgid "Edit your personal info like name, e-mail address and password."
 msgstr ""
 "Edita tu información personal como el nombre, dirección de correo "
 "electrónico y contraseña."
 
-#: includes/class.yith-wcmap-banners.php:95
+#: includes/class-yith-wcmap-banners.php:102
 msgctxt "Default banner \"your address\" text"
 msgid "Edit and update your address info before to purchase!"
 msgstr "¡Edita y actualiza tu dirección antes de comprar!"
 
-#: includes/class.yith-wcmap-banners.php:103
+#: includes/class-yith-wcmap-banners.php:110
 msgctxt "Default banner \"your address\" text"
 msgid "Manage your payment methods and your credit cards."
 msgstr "Gestiona tus métodos de pago y tus tarjetas de crédito."
 
-#: includes/class.yith-wcmap-banners.php:377
+#: includes/class-yith-wcmap-banners.php:406
 msgctxt "Admin editor button label"
 msgid "Add banner"
 msgstr "Añadir banner"
 
-#: includes/compatibilities/class.yith-wcmap-gift-cards-compatibility.php:52
+#: includes/compatibilities/class-yith-wcmap-gift-cards-compatibility.php:52
 msgctxt "Banner counter option"
 msgid "Gift cards"
 msgstr "Tarjetas regalo"
 
-#: includes/compatibilities/class.yith-wcmap-points-compatibility.php:65
+#: includes/compatibilities/class-yith-wcmap-points-compatibility.php:62
 msgctxt "Banner counter option"
 msgid "Customer points"
 msgstr "Puntos de cliente"
 
-#: includes/compatibilities/class.yith-wcmap-request-quote-compatibility.php:166
+#: includes/compatibilities/class-yith-wcmap-request-quote-compatibility.php:160
 msgctxt "Banner counter option"
 msgid "Quotes"
 msgstr "Presupuestos"
 
-#: includes/compatibilities/class.yith-wcmap-waiting-list-compatibility.php:69
+#: includes/compatibilities/class-yith-wcmap-waiting-list-compatibility.php:66
 msgctxt "Banner counter option"
 msgid "Products in waiting list"
 msgstr "Productos en la lista de espera"
 
-#: includes/compatibilities/class.yith-wcmap-wishlist-compatibility.php:149
+#: includes/compatibilities/class-yith-wcmap-wishlist-compatibility.php:160
 msgctxt "Banner counter option"
 msgid "Products in wishlist"
 msgstr "Productos en la lista de deseos"
 
-#: plugin-options/banners-options.php:160
+#: plugin-options/banners-options.php:159
 msgctxt "Banner counter option"
 msgid "Downloads"
 msgstr "Descargas"
 
-#: plugin-options/banners-options.php:161
+#: plugin-options/banners-options.php:160
 msgctxt "Banner counter option"
 msgid "Orders"
 msgstr "Pedidos"
 
-#: plugin-options/banners-options.php:38
+#: plugin-options/banners-options.php:28
 msgctxt "[admin]Plugin option label"
 msgid "Banner name"
 msgstr "Nombre del banner"
 
-#: plugin-options/banners-options.php:45
+#: plugin-options/banners-options.php:35
 msgctxt "[admin]Plugin option label"
 msgid "Banner icon"
 msgstr "Icono del banner"
 
-#: plugin-options/banners-options.php:59
+#: plugin-options/banners-options.php:49
 msgctxt "[admin]Plugin option label"
 msgid "Choose icon"
-msgstr "Elegir icono"
+msgstr "Elige el icono"
 
-#: plugin-options/banners-options.php:71
+#: plugin-options/banners-options.php:61
 msgctxt "[admin]Plugin option label"
 msgid "Upload icon"
 msgstr "Subir icono"
 
-#: plugin-options/banners-options.php:79
+#: plugin-options/banners-options.php:69
 msgctxt "[admin]Plugin option label"
 msgid "Icon width (px)"
 msgstr "Ancho del icono (px)"
 
-#: plugin-options/banners-options.php:93
+#: plugin-options/banners-options.php:83
 msgctxt "[admin]Plugin option label"
 msgid "Widget width (px)"
 msgstr "Ancho del widget (px)"
 
-#: plugin-options/banners-options.php:102
+#: plugin-options/banners-options.php:92
 msgctxt "[admin]Plugin option label"
 msgid "Widget text"
 msgstr "Texto del widget"
 
-#: plugin-options/banners-options.php:109
+#: plugin-options/banners-options.php:99
 msgctxt "[admin]Plugin option label"
 msgid "Banner colors"
 msgstr "Colores del banner"
 
-#: plugin-options/banners-options.php:147
-#: plugin-options/banners-options.php:154
+#: plugin-options/banners-options.php:137
 msgctxt "[admin]Plugin option label"
 msgid "Show badge with dynamic count of items"
-msgstr "Mostrar insignia con contador de artículos dinámico"
+msgstr "Muestra insignia con contador de artículos dinámico"
 
-#: plugin-options/banners-options.php:171
+#: plugin-options/banners-options.php:144
+msgctxt "[admin]Plugin option label"
+msgid "Show count of"
+msgstr "Muestra el recuento de"
+
+#: plugin-options/banners-options.php:170
 msgctxt "[admin]Plugin option label"
 msgid "Badge colors"
 msgstr "Colores de insignia"
 
-#: plugin-options/banners-options.php:193
+#: plugin-options/banners-options.php:192
 msgctxt "[admin]Plugin option label"
 msgid "Banner links"
 msgstr "Enlaces del banner"
 
-#: plugin-options/style-options.php:92
+#: plugin-options/settings/style-options.php:87
 msgctxt "[admin]Plugin option label"
 msgid "Menu background"
 msgstr "Fondo del menú"
 
-#: plugin-options/style-options.php:104 plugin-options/style-options.php:116
+#: plugin-options/settings/style-options.php:98
+#: plugin-options/settings/style-options.php:109
 msgctxt "[admin]Plugin option label"
 msgid "Border color"
 msgstr "Color de borde"
 
-#: plugin-options/style-options.php:122
+#: plugin-options/settings/style-options.php:115
 msgctxt "[admin]Plugin option label"
 msgid "Default border color"
-msgstr "Color de borde predeterminado"
+msgstr "Color de borde por defecto"
 
-#: plugin-options/style-options.php:127
+#: plugin-options/settings/style-options.php:120
 msgctxt "[admin]Plugin option label"
 msgid "Hover border color"
 msgstr "Color de borde al pasar el cursor"
 
-#: plugin-options/style-options.php:132
+#: plugin-options/settings/style-options.php:125
 msgctxt "[admin]Plugin option label"
 msgid "Active border color"
 msgstr "Color de borde activo"
 
-#: plugin-options/style-options.php:144
+#: plugin-options/settings/style-options.php:136
 msgctxt "[admin]Plugin option label"
 msgid "Shadow color"
 msgstr "Color de sombra"
 
-#: plugin-options/style-options.php:150
+#: plugin-options/settings/style-options.php:142
 msgctxt "[admin]Plugin option label"
 msgid "Default shadow color"
-msgstr "Color de sombra predeterminado"
+msgstr "Color de sombra por defecto"
 
-#: plugin-options/style-options.php:155
+#: plugin-options/settings/style-options.php:147
 msgctxt "[admin]Plugin option label"
 msgid "Hover shadow color"
 msgstr "Color de sombra al pasar el cursor"
 
-#: plugin-options/style-options.php:160
+#: plugin-options/settings/style-options.php:152
 msgctxt "[admin]Plugin option label"
 msgid "Active shadow color"
 msgstr "Color de sombra activo"
 
-#: plugin-options/style-options.php:172
+#: plugin-options/settings/style-options.php:163
 msgctxt "[admin]Plugin option label"
 msgid "Items background color"
 msgstr "Color de fondo de artículos"
 
-#: plugin-options/style-options.php:178
+#: plugin-options/settings/style-options.php:169
 msgctxt "[admin]Plugin option label"
 msgid "Default background color"
-msgstr "Color de fondo predeterminado"
+msgstr "Color de fondo por defecto"
 
-#: plugin-options/style-options.php:183 plugin-options/style-options.php:272
+#: plugin-options/settings/style-options.php:174
+#: plugin-options/settings/style-options.php:269
 msgctxt "[admin]Plugin option label"
 msgid "Hover background color"
 msgstr "Color de fondo al pasar el cursor"
 
-#: plugin-options/style-options.php:188
+#: plugin-options/settings/style-options.php:179
 msgctxt "[admin]Plugin option label"
 msgid "Active background color"
 msgstr "Color de fondo activo"
 
-#: plugin-options/style-options.php:200
+#: plugin-options/settings/style-options.php:190
 msgctxt "[admin]Plugin option label"
 msgid "Items text color"
 msgstr "Color de texto de artículos"
 
-#: plugin-options/style-options.php:206
+#: plugin-options/settings/style-options.php:196
 msgctxt "[admin]Plugin option label"
 msgid "Default text color"
-msgstr "Color de texto predeterminado"
+msgstr "Color de texto por defecto"
 
-#: plugin-options/style-options.php:211 plugin-options/style-options.php:262
+#: plugin-options/settings/style-options.php:201
+#: plugin-options/settings/style-options.php:259
 msgctxt "[admin]Plugin option label"
 msgid "Hover text color"
 msgstr "Color de texto al pasar el cursor"
 
-#: plugin-options/style-options.php:216
+#: plugin-options/settings/style-options.php:206
 msgctxt "[admin]Plugin option label"
 msgid "Active text color"
 msgstr "Color de texto activo"
 
-#: plugin-options/style-options.php:224
+#: plugin-options/settings/style-options.php:213
 msgctxt "[admin]Plugin option label"
 msgid "Text size (px)"
 msgstr "Tamaño del texto (px)"
 
-#: plugin-options/style-options.php:251
+#: plugin-options/settings/style-options.php:248
 msgctxt "[admin]Plugin option label"
 msgid "Logout button colors"
 msgstr "Colores de botón de Cerrar sesión"
 
-#: plugin-options/style-options.php:257
+#: plugin-options/settings/style-options.php:254
 msgctxt "[admin]Plugin option label"
 msgid "Text color"
 msgstr "Color de texto"
 
-#: plugin-options/style-options.php:267
+#: plugin-options/settings/style-options.php:264
 msgctxt "[admin]Plugin option label"
 msgid "Background color"
 msgstr "Color de fondo"
 
-#: plugin-options/style-options.php:280
+#: plugin-options/settings/style-options.php:286
 msgctxt "[admin]Plugin option label"
 msgid "AJAX loader"
-msgstr "Cargado de AJAX"
+msgstr "Cargador de AJAX"
 
-#: plugin-options/style-options.php:287
+#: plugin-options/settings/style-options.php:293
 msgctxt "[admin]Plugin option label"
 msgid "Use default loader"
-msgstr "Usar cargador predeterminado"
+msgstr "Usa un cargador por defecto"
 
-#: plugin-options/style-options.php:288
+#: plugin-options/settings/style-options.php:294
 msgctxt "[admin]Plugin option label"
 msgid "Upload custom loader"
-msgstr "Subir cargador personalizado"
+msgstr "Sube un cargador personalizado"
 
-#: plugin-options/style-options.php:293
+#: plugin-options/settings/style-options.php:298
 msgctxt "[admin]Plugin option label"
 msgid "Custom AJAX loader"
 msgstr "Cargador de AJAX personalizado"
 
-#: plugin-options/banners-options.php:114
-#: plugin-options/banners-options.php:181
+#: plugin-options/banners-options.php:104
+#: plugin-options/banners-options.php:180
 msgctxt "[admin]Plugin option color label"
 msgid "Text"
 msgstr "Texto"
 
-#: plugin-options/banners-options.php:119
-#: plugin-options/banners-options.php:176
+#: plugin-options/banners-options.php:109
+msgctxt "[admin]Plugin option color label"
+msgid "Text hover"
+msgstr "Texto al pasar el cursor"
+
+#: plugin-options/banners-options.php:114
+#: plugin-options/banners-options.php:175
 msgctxt "[admin]Plugin option color label"
 msgid "Background"
 msgstr "Fondo"
+
+#: plugin-options/banners-options.php:119
+msgctxt "[admin]Plugin option color label"
+msgid "Background hover"
+msgstr "Fondo al pasar el cursor"
 
 #: plugin-options/banners-options.php:124
 msgctxt "[admin]Plugin option color label"
@@ -1082,50 +1334,40 @@ msgstr "Bordes"
 
 #: plugin-options/banners-options.php:129
 msgctxt "[admin]Plugin option color label"
-msgid "Text hover"
-msgstr "Texto al pasar el cursor"
-
-#: plugin-options/banners-options.php:134
-msgctxt "[admin]Plugin option color label"
-msgid "Background hover"
-msgstr "Fondo al pasar el cursor"
-
-#: plugin-options/banners-options.php:139
-msgctxt "[admin]Plugin option color label"
 msgid "Borders hover"
 msgstr "Bordes al pasar el cursor"
 
-#: plugin-options/banners-options.php:255
+#: plugin-options/banners-options.php:254
 msgctxt "Save single banner button label"
 msgid "Save"
 msgstr "Guardar"
 
-#: plugin-options/banners-options.php:259
+#: plugin-options/banners-options.php:258
 msgctxt "Delete single banner button label"
 msgid "Delete"
 msgstr "Eliminar"
 
-#: plugin-options/security-options.php:75
+#: plugin-options/settings/security-options.php:67
 msgctxt "\"Without account verified\" option label"
 msgid "the user can't login in the site"
 msgstr "el usuario no puede iniciar sesión en el sitio"
 
-#: plugin-options/security-options.php:76
+#: plugin-options/settings/security-options.php:68
 msgctxt "\"Without account verified\" option label"
 msgid "the user can login but not purchase"
 msgstr "el usuario puede iniciar sesión pero no comprar"
 
-#: plugin-options/style-options.php:46
+#: plugin-options/settings/style-options.php:43
 msgctxt "Option: title"
 msgid "Menu position"
 msgstr "Posición del menú"
 
-#: plugin-options/style-options.php:69
+#: plugin-options/settings/style-options.php:65
 msgctxt "Option: title"
 msgid "Menu layout"
 msgstr "Diseño del menú"
 
-#: plugin-options/style-options.php:47
+#: plugin-options/settings/style-options.php:44
 msgctxt "Option: description"
 msgid ""
 "Choose the position of the links to be displayed in a horizontal or vertical "
@@ -1134,103 +1376,103 @@ msgstr ""
 "Escoge la posición de los enlaces a mostrar en la barra horizontal o "
 "vertical."
 
-#: plugin-options/style-options.php:70
+#: plugin-options/settings/style-options.php:66
 msgctxt "Option: description"
 msgid "Choose the menu layout style."
 msgstr "Escoge el estilo de diseño del menú."
 
-#: plugin-options/style-options.php:51
+#: plugin-options/settings/style-options.php:48
 msgctxt "Option: Menu position"
 msgid "Vertical Left"
 msgstr "Vertical izquierda"
 
-#: plugin-options/style-options.php:55
+#: plugin-options/settings/style-options.php:52
 msgctxt "Option: Menu position"
 msgid "Vertical Right"
 msgstr "Vertical derecha"
 
-#: plugin-options/style-options.php:59
+#: plugin-options/settings/style-options.php:56
 msgctxt "Option: Menu position"
 msgid "Horizontal"
 msgstr "Horizontal"
 
-#: plugin-options/style-options.php:74
+#: plugin-options/settings/style-options.php:70
 msgctxt "Option: Menu position"
 msgid "No borders"
 msgstr "Sin bordes"
 
-#: plugin-options/style-options.php:79
+#: plugin-options/settings/style-options.php:75
 msgctxt "Option: Menu position"
 msgid "Modern banners"
 msgstr "Banners modernos"
 
-#: plugin-options/style-options.php:84
+#: plugin-options/settings/style-options.php:80
 msgctxt "Option: Menu position"
 msgid "Simple tabs"
 msgstr "Pestañas simples"
 
-#: plugin-options/style-options.php:281
+#: plugin-options/settings/style-options.php:287
 msgctxt "[admin]Plugin option description"
 msgid "Choose the style for the AJAX loader icon"
 msgstr "Escoge el estilo para el icono de cargador de AJAX"
 
-#: plugin-options/style-options.php:294
+#: plugin-options/settings/style-options.php:299
 msgctxt "[admin]Plugin option description"
 msgid "Upload an icon you'd like to use as AJAX Loader (suggested 50px x 50px)"
 msgstr ""
 "Sube un icono que quieras usar como cargador de AJAX (sugerido: 50px x 50px)"
 
-#: templates/admin/banners-modal.php:13
-msgctxt "Admin banners modal title"
-msgid "Add banners"
-msgstr "Añadir banners"
+#: plugin-options/settings-options.php:12
+msgctxt "Tab title in plugin settings panel"
+msgid "General"
+msgstr "General"
 
-#: templates/admin/banners-modal.php:14
-msgctxt "Admin banners modal content"
-msgid "Choose one or more banner to add to endpoint content"
-msgstr "Escoge uno o más banners para añadir contenido del endpoint"
+#: plugin-options/settings-options.php:16
+msgctxt "Tab title in plugin settings panel"
+msgid "Style"
+msgstr "Estilo"
 
-#: templates/admin/items-list.php:35
-msgctxt "Admin button label"
-msgid "Add item"
-msgstr "Añadir artículo"
+#: plugin-options/settings-options.php:20
+msgctxt "Tab title in plugin settings panel"
+msgid "Security"
+msgstr "Seguridad"
 
-#: templates/admin/single-item.php:78
-msgctxt "Admin button label"
-msgid "Save"
-msgstr "Guardar"
+#: plugin-options/settings-options.php:13
+msgctxt "Tab description in plugin settings panel"
+msgid "Configure the plugin general settings."
+msgstr "Configura los ajustes generales del plugin."
 
-#: templates/admin/single-item.php:52
-msgctxt "YES/NO button: use MAX 3 characters!"
-msgid "YES"
-msgstr "SÍ"
+#: plugin-options/settings-options.php:17
+msgctxt "Tab description in plugin settings panel"
+msgid "Configure the plugin style settings."
+msgstr "Configura los ajustes de estilo del plugin."
 
-#: templates/admin/single-item.php:53
-msgctxt "YES/NO button: use MAX 3 characters!"
-msgid "NO"
-msgstr "NO"
+#: plugin-options/settings-options.php:21
+msgctxt "Tab description in plugin settings panel"
+msgid "Configure the plugin security settings."
+msgstr "Configura los ajustes de seguridad del plugin."
 
 #: templates/ywcmap-myaccount-avatar-modal.php:25
 msgctxt "Avatar modal title"
 msgid "Your avatar"
 msgstr "Tu avatar"
 
-#: templates/ywcmap-myaccount-avatar-modal.php:37
+#: templates/ywcmap-myaccount-avatar-modal.php:44
 msgctxt "Avatar form label"
 msgid "Upload avatar"
 msgstr "Subir avatar"
 
-#: templates/ywcmap-myaccount-avatar-modal.php:48
+#: templates/ywcmap-myaccount-avatar-modal.php:55
 msgctxt "Reset avatar to the default one"
 msgid "Reset default"
-msgstr "Restablecer predeterminado"
+msgstr "Restablecer por defecto"
 
-#: templates/ywcmap-myaccount-avatar-modal.php:52
+#: templates/ywcmap-myaccount-avatar-modal.php:59
 msgctxt "Cancel custom avatar upload"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: templates/ywcmap-myaccount-avatar-modal.php:57
+#: templates/ywcmap-myaccount-avatar-modal.php:64
 msgctxt "Confirm custom avatar upload"
 msgid "Use it!"
 msgstr "¡Usarlo!"

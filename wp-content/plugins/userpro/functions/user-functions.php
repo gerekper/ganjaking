@@ -85,40 +85,47 @@ function userpro_private_field_class($array)
 }
 
 /* Auto login user */
-function userpro_auto_login($username, $remember = TRUE, $redirect = NULL, $action = NULL)
+function userpro_auto_login($username, $remember = true, $redirect = null, $action = null)
 {
+    require_once userpro_path . "functions/user-redirects.php";
+    ob_start();
 
-	#require user redirects file
-	require_once userpro_path . "functions/user-redirects.php";
-	ob_start();
-	if(!is_user_logged_in()) {
-		$user    = get_user_by('login', $username);
-		$user_id = $user->ID;
-		wp_set_current_user($user_id, $username);
-		wp_set_auth_cookie($user_id, $remember);
-		do_action('wp_login', $username, $user);
+    if (!is_user_logged_in()) {
+        $user = get_user_by('login', $username);
 
-		#Redirect user
-		if(isset($action)) {
+        if ($user && isset($user->ID)) { // Check if a valid user object is returned
+            $user_id = $user->ID;
+            wp_set_current_user($user_id, $username);
+            wp_set_auth_cookie($user_id, $remember);
+            do_action('wp_login', $username, $user);
 
-			$url = userpro_user_redirect($username, $redirect, $action);
+            // Redirect user
+            if (isset($action)) {
+                $url = userpro_user_redirect($username, $redirect, $action);
+                return $url;
+            } else {
+                userpro_user_redirect($username, $redirect);
+            }
+            // Redirect end
+        } else {
+            // Handle the case where the user is not found or is invalid
+            return false; // or handle the error as needed
+        }
+    } else {
+        wp_logout();
+        $user = get_user_by('login', $username);
+        if ($user && isset($user->ID)) {
+            $user_id = $user->ID;
+            wp_set_current_user($user_id, $username);
+            wp_set_auth_cookie($user_id, $remember);
+            do_action('wp_login', $username, $user);
+        } else {
+            // Handle the case where the user is not found or is invalid
+            return false; // or handle the error as needed
+        }
+    }
 
-			return $url;
-		} else {
-			userpro_user_redirect($username, $redirect);
-		}
-		#Redirect end
-
-	} else {
-		wp_logout();
-		$user    = get_user_by('login', $username);
-		$user_id = $user->ID;
-		wp_set_current_user($user_id, $username);
-		wp_set_auth_cookie($user_id, $remember);
-		do_action('wp_login', $username, $user);
-
-	}
-	ob_end_flush();
+    ob_end_flush();
 }
 
 /* Can edit user profile */
@@ -192,12 +199,15 @@ function userpro_get_view_user($arg = NULL, $force = 0)
 	$user_id = 0;
 	if($arg) {
 		$user = $userpro->get_member_by($arg, $force);
-		if(isset($user))
-			if($user->ID || ($user->ID > 0 && $user->ID == get_current_user_id())) {
-				$temp_user = $user->ID;
-			} elseif(!$user->ID) {
-				$temp_user = 'not_found';
-			}
+        if ($user !== false && isset($user->ID)) {
+            if($user->ID || ($user->ID > 0 && $user->ID == get_current_user_id())) {
+                $temp_user = $user->ID;
+            } else {
+                $temp_user = 'not_found';
+            }
+        } else {
+            $temp_user = 'not_found'; // Handle the case where $user is not an object or doesn't have an ID.
+        }
 	}
 	if(userpro_is_logged_in()) {
 		if($arg) {

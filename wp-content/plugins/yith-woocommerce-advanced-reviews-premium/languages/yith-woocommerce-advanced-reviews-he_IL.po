@@ -1,0 +1,1237 @@
+# Translation of YITH WooCommerce Advanced Reviews in Hebrew
+# This file is distributed under the same license as the YITH WooCommerce Advanced Reviews package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Advanced Reviews\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"advanced-reviews.premium\n"
+"POT-Creation-Date: 2023-08-09 14:35:41+00:00\n"
+"PO-Revision-Date: 2023-07-10 11:30:02+0000\n"
+"Language: he_IL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+
+#: functions.php:99
+msgid ""
+"YITH WooCommerce Advanced Reviews is enabled but not effective. It requires "
+"WooCommerce in order to work."
+msgstr ""
+
+#: includes/class.yith-advanced-reviews-list-table.php:56
+#: includes/class.yith-woocommerce-advanced-reviews.php:2151
+msgid "Author"
+msgstr "עורך"
+
+#: includes/class.yith-advanced-reviews-list-table.php:57
+#: templates/shortcodes/ywar-user-reviews-shortcode.php:42
+msgid "Review"
+msgstr "ביקורת"
+
+#: includes/class.yith-advanced-reviews-list-table.php:58
+#: templates/shortcodes/ywar-user-reviews-shortcode.php:43
+msgid "Date"
+msgstr "תאריך"
+
+#: includes/class.yith-advanced-reviews-list-table.php:59
+#: templates/shortcodes/ywar-user-reviews-shortcode.php:44
+msgid "Rate"
+msgstr "דירוג"
+
+#: includes/class.yith-advanced-reviews-list-table.php:60
+#: templates/reports/class.ywar-review-report.php:140
+#: templates/shortcodes/ywar-user-reviews-shortcode.php:45
+msgid "Product"
+msgstr "מוצר"
+
+#: includes/class.yith-advanced-reviews-list-table.php:421
+#: includes/class.yith-advanced-reviews-list-table.php:549
+msgid "Restore"
+msgstr "שחזר"
+
+#: includes/class.yith-advanced-reviews-list-table.php:422
+msgid "Move to bin"
+msgstr "העבר לפח"
+
+#: includes/class.yith-advanced-reviews-list-table.php:424
+#: includes/class.yith-advanced-reviews-list-table.php:554
+msgid "Delete permanently"
+msgstr "למחוק לתמיד"
+
+#: includes/class.yith-advanced-reviews-list-table.php:425
+msgid "Approve reviews"
+msgstr "חוות דעת מאושרות"
+
+#: includes/class.yith-advanced-reviews-list-table.php:426
+msgid "Unapprove reviews"
+msgstr "חוות דעת לא מאושרות"
+
+#: includes/class.yith-advanced-reviews-list-table.php:447
+msgid "All"
+msgstr "הכל"
+
+#: includes/class.yith-advanced-reviews-list-table.php:448
+#: includes/class.yith-advanced-reviews-list-table.php:551
+msgid "Bin"
+msgstr "פח"
+
+#: includes/class.yith-advanced-reviews-list-table.php:449
+msgid "Not approved"
+msgstr "לא אושר"
+
+#: includes/class.yith-advanced-reviews-list-table.php:514
+msgid "[No Title]"
+msgstr "[ללא כותרת]"
+
+#: includes/class.yith-advanced-reviews-list-table.php:549
+msgid "Restore this item from the bin"
+msgstr "שחזר פריט זה מהפח"
+
+#: includes/class.yith-advanced-reviews-list-table.php:551
+msgid "Move this item to the bin"
+msgstr "הזז את הפריט לפח"
+
+#: includes/class.yith-advanced-reviews-list-table.php:554
+msgid "Delete this item permanently"
+msgstr "מחק את הפריט לתמיד"
+
+#. translators: %d: rating of the user over 5 points
+#. translators: %d: rating of the user over 5 points
+#. translators: d: $rating
+#. translators: d: rating
+#: includes/class.yith-advanced-reviews-list-table.php:583
+#: templates/shortcodes/ywar-user-reviews-shortcode.php:117
+#: templates/ywar-review-shortcode.php:96 templates/ywar-review.php:82
+msgid "Rated %d out of 5"
+msgstr "מדורג %d מתוך 5"
+
+#: includes/class.yith-advanced-reviews-list-table.php:586
+#: templates/shortcodes/ywar-user-reviews-shortcode.php:120
+msgid " out of 5"
+msgstr "מתוך 5"
+
+#: includes/class.yith-advanced-reviews-list-table.php:605
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1616
+msgid "Edit"
+msgstr "עריכה"
+
+#: includes/class.yith-advanced-reviews-list-table.php:608
+msgid "View"
+msgstr "הצגה"
+
+#: includes/class.yith-advanced-reviews-list-table.php:640
+#: templates/ywar-review-shortcode.php:47 templates/ywar-review.php:46
+msgid "Anonymous"
+msgstr "אנונימוס"
+
+#: includes/class.yith-advanced-reviews-list-table.php:649
+#: templates/shortcodes/ywar-user-reviews-shortcode.php:88
+msgid "Y/m/d g:i:s a"
+msgstr ""
+
+#. translators: %s: days ago
+#: includes/class.yith-advanced-reviews-list-table.php:657
+#: templates/shortcodes/ywar-user-reviews-shortcode.php:96
+msgid "%s ago"
+msgstr "לפני %s"
+
+#: includes/class.yith-advanced-reviews-list-table.php:659
+#: templates/shortcodes/ywar-user-reviews-shortcode.php:98
+msgid "Y/m/d"
+msgstr ""
+
+#: includes/class.yith-advanced-reviews-list-table.php:703
+msgid "No reviews found."
+msgstr "לא נמצא חוות דעת"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:628
+msgid "Add to featured"
+msgstr "הוסף למומלצים"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:629
+msgid "Remove from featured"
+msgstr "הסר מהמומלצים"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:630
+msgid "Block replies"
+msgstr "חסום תגובות"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:631
+msgid "Unblock replies"
+msgstr "בטל חסימה לתגובות"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:693
+msgid "Inappropriate content"
+msgstr "תוכן לא הולם"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:694
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1102
+msgid "Reply blocked"
+msgstr "חסום לתגובות"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:695
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1101
+msgid "Featured"
+msgstr "מומלצים"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:708
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:3363
+#: includes/class.yith-woocommerce-advanced-reviews.php:418
+#: includes/class.yith-woocommerce-advanced-reviews.php:419
+#: includes/class.yith-woocommerce-advanced-reviews.php:451
+#: includes/class.yith-woocommerce-advanced-reviews.php:1216
+#: templates/reports/class.ywar-review-report.php:141
+#: templates/shortcodes/ywar-product-reviews-shortcode.php:67
+#: templates/ywar-product-reviews.php:62
+msgid "Reviews"
+msgstr "ביקורות"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:711
+msgid "By most commented"
+msgstr "לפי הכי הרבה תגובות"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:717
+msgid "By average rate"
+msgstr "לפי סדר ממוצע"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:723
+msgid "By min rate"
+msgstr "לפי סדר מינימלי"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:729
+msgid "By max rate"
+msgstr "לפי סדר מקסימלי"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:955
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2495
+msgid "Impossible to filter by rate"
+msgstr "בלתי אפשרי לסנן לפי שיעור"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1100
+msgid "Inappropriate"
+msgstr "תוכן לא הולם"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1140
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1147
+msgid "Report for inappropriate content"
+msgstr "דווח על תוכן לא הולם"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1165
+msgid "Select/Deselect this as a featured review"
+msgstr "בחר/בטל את הבחירה בזה כביקורת מוצגת"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1184
+msgid "Select/Deselect to block any reply of this review"
+msgstr "בחר/בטל את הבחירה כדי לחסום כל תשובה של ביקורת זו"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1419
+msgid "Flag as inappropriate content"
+msgstr "סמן תוכן כ-לא הולם"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1527
+msgid "Reply to a previous review"
+msgstr "הגב לחוות הדעת הקודמת"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1528
+msgid "Reply"
+msgstr "הגב"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1593
+msgid "This review cannot receive replies"
+msgstr "ביקורת זו אינה יכולה לקבל תשובות"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1593
+msgid "Block reply"
+msgstr "חסום תשובה"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1596
+msgid "This review cannot receive comments."
+msgstr "ביקורת זו אינה יכולה לקבל הערות."
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1599
+msgid "Allow replies"
+msgstr "אפשר להגיב"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1599
+msgid "Allow reply"
+msgstr "אפשר תשובה"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1612
+msgid "Edit to a previous review"
+msgstr "ערוך את החוות דעת הקודמת"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1744
+msgid "Was this review helpful to you?"
+msgstr "האם החוות דעת עזרה לך?"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1748
+msgid "This reviews is helpful"
+msgstr "חוות הדעת מועילה!"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1749
+msgid "This reviews is not helpful"
+msgstr "חוות הדעה לא מועילה"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1788
+msgid "Most recent reviews"
+msgstr "חוות הדעת האחרונות"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1789
+msgid "Most helpful reviews"
+msgstr "חוות הדעת המועילות ביותר"
+
+#. translators: %s: number of stars
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1861
+msgid "Reviews with %s star"
+msgid_plural "Reviews with %s stars"
+msgstr[0] "חוות דעת עם כוכב %s "
+msgstr[1] "חוות דעת עם %s כוכבים"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1901
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2560
+msgid "star"
+msgid_plural "stars"
+msgstr[0] "כוכב"
+msgstr[1] "כוכבים"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1905
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2583
+msgid "(Show unfiltered results)"
+msgstr "(הראה תוצאות לא מסוננות)"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2005
+msgid "Please, write a review"
+msgstr "רשום את חוות הדעת."
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2006
+msgid "Please, select a rating before submitting your review"
+msgstr "אנא בחר דירוג לפני שליחת חוות דעת שלך"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2007
+msgid "Please, enter valid name"
+msgstr "הקלד שם פרטי"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2008
+msgid "Please, enter valid email"
+msgstr "הקלד כתובת מייל תקינה"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2009
+msgid "Edit review"
+msgstr "ערוך ביקורת"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2010
+#: plugin-options/voting-options.php:125
+msgid "Reply to review"
+msgstr "הגב לחוות הדעת"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2017
+#: templates/shortcodes/ywar-product-reviews-shortcode.php:116
+#: templates/ywar-product-reviews.php:111
+msgid "Add a review"
+msgstr "הוסף חוות דעת"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2355
+msgid "Thanks for your message, we will check the content of the review."
+msgstr "תודה על הודעתך, אנו נבדוק את תוכן הביקורת."
+
+#. translators: %1: number of people yes  %2:total number of people
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2418
+msgid "%1$s of %2$s people found this review helpful"
+msgstr "%1$s מתוך %2$s אנשים מצאו את חוות הדעת מועילה."
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2467
+msgid "Product ID is not valid"
+msgstr "מזהה המוצר לא קיים"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2476
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2617
+msgid "Product ID is in an invalid format"
+msgstr "מזהה המוצר הוא בפורמט לא חוקי"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2952
+#: plugin-options/voting-options.php:77
+msgid ""
+"Only allow one review for a product. Require \"Only allow reviews from "
+"verified owners\" to be set to work properly"
+msgstr ""
+"אפשר רק ביקורת אחת עבור מוצר. דרוש להגדרה של \"אפשר רק ביקורות מבעלים מאומתים"
+"\" כך שיפעל כהלכה"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2990
+msgid ""
+"You can't add more than one review for this product. Would you like to edit "
+"the review you have already written?"
+msgstr ""
+"אתה לא יכול להוסיף יותר מביקורת אחת עבור מוצר זה. האם תרצה לערוך את הביקורת "
+"שכבר כתבת?"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2992
+msgid "You can't add more than one review for this product."
+msgstr "אתה לא יכול להוסיף יותר מביקורת אחת עבור מוצר זה."
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:3042
+msgid ""
+"Bots are not allowed to submit comments. If you are not a bot then please "
+"enable JavaScript in browser."
+msgstr "בוטים אסור להגיש הערות. אם אינך בוט, אנא הפעל JavaScript בדפדפן."
+
+#. translators: %d: Comment ID
+#: includes/class.yith-woocommerce-advanced-reviews-privacy.php:259
+msgid "Review %d contains personal data but could not be anonymized."
+msgstr "סקירה %d מכילה נתונים אישיים אך לא ניתן היה לעשות זאת בעילום שם."
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:383
+msgid "Review title"
+msgstr "כותרת חוות דעת"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:758
+msgid "Approve review"
+msgstr "חוות דעת מאושרת"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:758
+msgid "Approve"
+msgstr "אושר"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:760
+msgid "Unapprove review"
+msgstr "חוות דעת לא מאושרות"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:760
+msgid "Unapprove"
+msgstr "לא אושר"
+
+#. translators: s: average
+#: includes/class.yith-woocommerce-advanced-reviews.php:908
+msgid "Rated %s out of 5 stars"
+msgstr "מדורג %s מתוך 5 כוכבים"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:928
+msgid " review"
+msgid_plural " reviews"
+msgstr[0] "ביקורת"
+msgstr[1] "ביקורות"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:967
+msgid ""
+"YITH WooCommerce Advanced Reviews is available in an outstanding PREMIUM "
+"version with many new options, discover it now."
+msgstr ""
+"YITH WooCommerce Advanced Reviews זמין בגרסת PREMIUM יוצאת דופן עם אפשרויות "
+"חדשות רבות, גלה אותה עכשיו."
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:968
+msgid "Premium version"
+msgstr "גרסת פרימיום"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:976
+msgid ""
+"In YITH tab you can find YITH WooCommerce Advanced Reviews options. From "
+"this menu you can access all settings of YITH plugins activated."
+msgstr ""
+"בלשונית YITH אתה יכול למצוא אפשרויות סקירות מתקדמות של YITH WooCommerce. "
+"מתפריט זה תוכל לגשת לכל ההגדרות של תוספים של YITH שהופעלו."
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:991
+msgid ""
+"From now on, you can find all YITH WooCommerce Advanced Reviews options in "
+"YITH -> Advanced Reviews instead of WooCommerce -> Settings -> Advanced "
+"Reviews, as in the previous version. Any time one of our plugins is updated, "
+"a new entry will be added to this menu."
+msgstr ""
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1028
+msgid "General"
+msgstr "כללי"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1029
+msgid "Layout"
+msgstr "מַעֲרָך/layout"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1030
+msgid "Voting/Review settings"
+msgstr "הגדרות הצבעה/חוות דעת"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1104
+msgid "Too many files selected!"
+msgstr "יותר מדי קבצים נבחרו"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1105
+msgid "No Files Selected"
+msgstr "לא נבחר קבצים"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1217
+msgid "Parent Review"
+msgstr "אחוזי חוות דעת"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1218
+msgid "All reviews"
+msgstr "כל חוות הדעת"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1219
+msgid "View review"
+msgstr "ראה חוות דעת"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1220
+msgid "Add New Review"
+msgstr "הוסף חוות דעת חדשה"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1221
+msgid "Add New"
+msgstr "הוסף"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1222
+msgid "Edit Review"
+msgstr "ערוך חוות דעת"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1223
+msgid "Update Review"
+msgstr "עדכון חוות דעת"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1224
+msgid "Search Review"
+msgstr "חיפוש חוות דעת"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1225
+msgid "Not Found"
+msgstr "לא נמצא"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1226
+msgid "Not found in bin"
+msgstr "לא נמצא בפח"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1232
+msgid "YIT Product reviews"
+msgstr "סקירות מוצרים של YIT"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1233
+msgid "Advanced WooCommerce product reviews"
+msgstr "סקירות מוצר WooCommerce מתקדמת"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1590
+msgid "Your review has been submitted correctly"
+msgstr "הביקורת שלך נשלחה כהלכה"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1600
+msgid "Your review has been submitted and is awaiting approval"
+msgstr "הביקורת שלך נשלחה והיא ממתינה לאישור"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1837
+msgid "Your Rating"
+msgstr "הדירוג שלך"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1839
+msgid "Rate&hellip;"
+msgstr ""
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1840
+msgid "Perfect"
+msgstr "מצויין"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1841
+msgid "Good"
+msgstr "טוב"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1842
+msgid "Average"
+msgstr "ממוצע"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1843
+msgid "Not that bad"
+msgstr "סביר"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1844
+msgid "Very Poor"
+msgstr "גרוע"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1853
+msgid "Attachments"
+msgstr "קבצים מצורפים"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1854
+msgid "Choose file(s)"
+msgstr "לבחור קבצים"
+
+#. translators: %s is the allowed types.
+#: includes/class.yith-woocommerce-advanced-reviews.php:1860
+msgid "Use one of the allowed file type: %s. "
+msgstr "השתמש באחד מסוגי הקבצים המותרים: %s."
+
+#. translators: %s is the max file size allowed.
+#: includes/class.yith-woocommerce-advanced-reviews.php:1865
+msgid "The max size allowed is : %s MB."
+msgstr "הגודל המרבי המותר הוא: %s MB."
+
+#. translators: %d is the number of reviews.
+#: includes/class.yith-woocommerce-advanced-reviews.php:1979
+msgid "Reviews (%d)"
+msgstr "חוות דעת (%d)"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2020
+msgid "Review information"
+msgstr "מידע על חוות הדעת"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2103
+msgid "Rating"
+msgstr "דירוג"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2132
+msgid "Block review edit"
+msgstr "חסום עריכת ביקורת"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2138
+msgid "The review author is a registered user."
+msgstr "כותב הביקורת הוא משתמש רשום."
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2139
+msgid "User profile"
+msgstr "פרופיל משתמש"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2142
+msgid "Use user data"
+msgstr "השתמש בנתוני משתמש"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2159
+msgid "Author email"
+msgstr "דוא\"ל של המחבר"
+
+#. translators: %s is the average rating.
+#. translators: s: average
+#: includes/class.yith-woocommerce-advanced-reviews.php:2409
+#: templates/ywar-rating.php:37
+msgid "Rated %s out of 5"
+msgstr "מדורג %s מתוך 5"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2412
+#: templates/ywar-review-shortcode.php:98 templates/ywar-review.php:83
+msgid "out of 5"
+msgstr "מתוך 5"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2440
+#: includes/class.yith-woocommerce-advanced-reviews.php:2446
+msgid "Convert reviews"
+msgstr "המר ביקורות"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2449
+msgid ""
+"If this is the first time you install the YITH Advanced Reviews plugin, or "
+"if you are using an older version prior to the 1.1.0, first you have to "
+"convert the older reviews if you want to use them."
+msgstr ""
+"אם זו הפעם הראשונה שאתה מתקין את הפלאגין YITH Advanced Reviews, או אם אתה "
+"משתמש בגרסה ישנה יותר לפני ה-1.1.0, ראשית עליך להמיר את הביקורות הישנות יותר "
+"אם ברצונך להשתמש בהן."
+
+#. translators: d: review_converted
+#: includes/class.yith-woocommerce-advanced-reviews.php:2497
+msgid "Task completed. %d reviews have been processed and converted."
+msgstr "משימה הושלמה. %d ביקורות עובדו והומרו."
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2499
+msgid "Task completed. No review to convert has been found."
+msgstr "משימה הושלמה. לא נמצאה ביקורת להמרה."
+
+#: includes/third-party/elementor/class-ywar-reviews-list-widget.php:30
+msgid "YITH Advanced Reviews List"
+msgstr ""
+
+#: includes/third-party/elementor/class-ywar-reviews-list-widget.php:54
+msgid "Content"
+msgstr ""
+
+#: includes/third-party/elementor/class-ywar-reviews-list-widget.php:62
+msgid "Reviews to display"
+msgstr "תגובות להצגה"
+
+#: includes/third-party/elementor/class-ywar-reviews-list-widget.php:71
+msgid "Allow pagination"
+msgstr "אפשר מעבר עמודים"
+
+#: includes/third-party/elementor/class-ywar-reviews-list-widget.php:80
+msgid "Product ID"
+msgstr "מזהה מוצר"
+
+#: plugin-options/general-options.php:20
+msgid "General settings"
+msgstr "הגדרות כלליות"
+
+#: plugin-options/general-options.php:25
+msgid "Show title"
+msgstr "הראה כותרת"
+
+#: plugin-options/general-options.php:28
+msgid "Add a title field in the reviews."
+msgstr "הוסף שדה כותרת בביקורות."
+
+#: plugin-options/general-options.php:33
+msgid "Show attachments"
+msgstr "הצג קבצים מצורפים"
+
+#: plugin-options/general-options.php:36
+msgid "Add an attachment section in the reviews."
+msgstr "הוסף קטע מצורף בביקורות."
+
+#: plugin-options/general-options.php:41
+msgid "Attachment type"
+msgstr "סוג קובץ מצורף"
+
+#: plugin-options/general-options.php:44
+msgid "Set the file type allowed as the review attachment"
+msgstr "הגדר את סוג הקובץ המותר כקובץ המצורף לסקירה"
+
+#: plugin-options/general-options.php:49
+msgid "Multiple attachment limit"
+msgstr "מגבלת ריבוי מצורפים"
+
+#: plugin-options/general-options.php:52
+msgid ""
+"Set the maximum number of attachments that can be selected (0 = no limit)."
+msgstr "הגדר את המספר המרבי של קבצים מצורפים שניתן לבחור (0 = ללא הגבלה)."
+
+#: plugin-options/general-options.php:59
+msgid "Attachment max size"
+msgstr "גודל מקסימלי של קובץ מצורף"
+
+#: plugin-options/general-options.php:62
+msgid "Set the file max size allowed in MB. Set to 0 for no size limit."
+msgstr "הגדר את גודל הקובץ המרבי המותר ב-MB. הגדר ל-0 ללא הגבלת גודל."
+
+#: plugin-options/general-options.php:69
+msgid "Review content selector"
+msgstr "סקור את בורר התוכן"
+
+#: plugin-options/general-options.php:72
+msgid ""
+"Set the id or CSS class that matches the review tab content (default: #tab-"
+"reviews)."
+msgstr ""
+
+#: plugin-options/general-options.php:77
+msgid "reCaptcha"
+msgstr ""
+
+#: plugin-options/general-options.php:80
+msgid "Enable reCaptcha on review submitting"
+msgstr "הפעל את reCaptcha בעת שליחת הביקורת"
+
+#: plugin-options/general-options.php:85
+msgid "reCaptcha site key"
+msgstr "מפתח אתר reCaptcha"
+
+#: plugin-options/general-options.php:88
+msgid "Insert your reCaptcha site key"
+msgstr "הכנס את מפתח האתר reCaptcha שלך"
+
+#: plugin-options/general-options.php:96
+msgid "reCaptcha secret key"
+msgstr "מפתח סודי reCaptcha"
+
+#: plugin-options/general-options.php:99
+msgid "Insert your reCaptcha secret key"
+msgstr "הכנס את המפתח הסודי של reCaptcha"
+
+#: plugin-options/general-options.php:107
+msgid "reCaptcha message error"
+msgstr "שגיאת הודעת reCaptcha"
+
+#: plugin-options/general-options.php:110
+msgid ""
+"Insert your message error when the review is submitted without recaptcha"
+msgstr "הכנס את שגיאת ההודעה שלך כאשר הביקורת נשלחת ללא recaptcha"
+
+#: plugin-options/general-options.php:112
+msgid ""
+"You have entered an incorrect reCAPTCHA value. Click the BACK button on your "
+"browser and try again."
+msgstr "הזנת ערך reCAPTCHA שגוי. לחץ על כפתור החזרה בדפדפן שלך ונסה שוב."
+
+#: plugin-options/general-options.php:119
+msgid "Previous reviews"
+msgstr "ביקורות קודמות"
+
+#: plugin-options/layout-options.php:21
+msgid "Layout options"
+msgstr "אפשרויות פריסה"
+
+#: plugin-options/layout-options.php:27
+msgid "Fixed background bar color"
+msgstr "צבע סרגל רקע קבוע"
+
+#: plugin-options/layout-options.php:35
+msgid "Percentage bar color"
+msgstr "צבע סרגל האחוזים"
+
+#: plugin-options/layout-options.php:43
+msgid "Show percentage value"
+msgstr "הצג ערך באחוזים"
+
+#: plugin-options/layout-options.php:46
+msgid "Show % value on percentage bars."
+msgstr "הצג ערך % על פסי אחוזים."
+
+#: plugin-options/layout-options.php:51
+msgid "Rating label color"
+msgstr "צבע תווית דירוג"
+
+#: plugin-options/layout-options.php:59
+msgid "Percentage value color"
+msgstr "צבע ערך אחוז"
+
+#: plugin-options/layout-options.php:67
+msgid "Rating count color"
+msgstr "צבע ספירת דירוג"
+
+#: plugin-options/layout-options.php:75
+msgid "Tabs bottom border color"
+msgstr "צבע הגבול התחתון של כרטיסיות"
+
+#: plugin-options/voting-options.php:20
+msgid "Voting system"
+msgstr "מערכת הצבעה"
+
+#: plugin-options/voting-options.php:25
+msgid "Show vote section"
+msgstr "הצג את קטע ההצבעה"
+
+#: plugin-options/voting-options.php:28
+msgid "Allow user to upvote or downvote a review."
+msgstr "אפשר למשתמש להצביע בעד או להצביע נגד ביקורת."
+
+#: plugin-options/voting-options.php:33
+msgid "Show review votes"
+msgstr "הצג הצבעות ביקורת"
+
+#: plugin-options/voting-options.php:36
+msgid "Add a string stating how many people found the review useful."
+msgstr "הוסף מחרוזת המציינת כמה אנשים מצאו את הביקורת שימושית."
+
+#: plugin-options/voting-options.php:46
+msgid "Enable vote for all"
+msgstr "אפשר לכולם לדרג ביקורות."
+
+#: plugin-options/voting-options.php:49
+msgid "Allow unregistered users to vote the reviews."
+msgstr "אפשר למשתמשים לא רשומים לדרג ביקורות."
+
+#: plugin-options/voting-options.php:63
+msgid "Review settings"
+msgstr "הגדרות חוות הדעת"
+
+#: plugin-options/voting-options.php:68
+msgid "Manual review approval"
+msgstr "אישור סקירה ידנית"
+
+#: plugin-options/voting-options.php:71
+msgid ""
+"When a user submits a review, it should be manually approved to be showed"
+msgstr "כאשר משתמש שולח ביקורת, יש לאשר אותה באופן ידני להצגה"
+
+#: plugin-options/voting-options.php:76
+msgid "Limit multiple reviews"
+msgstr "הגבל מספר ביקורות"
+
+#: plugin-options/voting-options.php:84
+msgid "Edit reviews"
+msgstr "ערוך"
+
+#: plugin-options/voting-options.php:85
+msgid "Allow the users to edit their review"
+msgstr "אפשר למשתמשים לערוך את הביקורת שלהם"
+
+#: plugin-options/voting-options.php:92
+msgid "Number of reviews to display"
+msgstr "מספר ביקורות להצגה"
+
+#: plugin-options/voting-options.php:95
+msgid "Limit the maximum number of reviews to display, 0 for unlimited"
+msgstr "הגבל את המספר המרבי של ביקורות להצגה, 0 ללא הגבלה"
+
+#: plugin-options/voting-options.php:103
+msgid "\"Load more\""
+msgstr "טען עוד"
+
+#: plugin-options/voting-options.php:106
+msgid ""
+"Choose if reviews should be shown grouped and which link style should be "
+"applied."
+msgstr "בחר אם יש להציג ביקורות מקובצות ואיזה סגנון קישור יש להחיל."
+
+#: plugin-options/voting-options.php:109
+msgid "Don't group reviews"
+msgstr "אין לקבץ ביקורות"
+
+#: plugin-options/voting-options.php:110
+msgid "Group reviews and show a textual link on bottom"
+msgstr "קבוצת סקירות והצג קישור טקסטואלי למטה"
+
+#: plugin-options/voting-options.php:111
+msgid "Group reviews and show a button link on bottom"
+msgstr "קבוצת ביקורות והצג קישור לחצן בתחתית"
+
+#: plugin-options/voting-options.php:117
+msgid "Modal window"
+msgstr "חלון מודאלי"
+
+#: plugin-options/voting-options.php:120
+msgid "Display reviews filtered by rate in a modal window."
+msgstr "הצג ביקורות מסוננות לפי שיעור בחלון מודאלי."
+
+#: plugin-options/voting-options.php:128
+msgid "Choose who can reply to a review."
+msgstr "בחר מי יכול להשיב לביקורת."
+
+#: plugin-options/voting-options.php:131
+msgid "No one can reply"
+msgstr "אף אחד לא יכול להשיב"
+
+#: plugin-options/voting-options.php:132
+msgid "Only administrators can reply"
+msgstr "רק מנהלי מערכת יכולים להשיב"
+
+#: plugin-options/voting-options.php:133
+msgid "Everyone can reply"
+msgstr "כולם יכולים להשיב"
+
+#: plugin-options/voting-options.php:139
+msgid "Inappropriate reviews"
+msgstr "ביקורות לא הולמות"
+
+#: plugin-options/voting-options.php:142
+msgid "Let users report a review as inappropriate content."
+msgstr "אפשר למשתמשים לדווח על ביקורת כתוכן בלתי הולם."
+
+#: plugin-options/voting-options.php:145
+msgid "Not enabled"
+msgstr "לא מופעל"
+
+#: plugin-options/voting-options.php:146
+msgid "Only registered users can report an inappropriate content"
+msgstr "רק משתמשים רשומים יכולים לדווח על תוכן לא הולם"
+
+#: plugin-options/voting-options.php:147
+msgid "Everyone can report an inappropriate content"
+msgstr "כל אחד יכול לדווח על תוכן לא הולם"
+
+#: plugin-options/voting-options.php:153
+msgid "Hiding threshold"
+msgstr "סף הסתרה"
+
+#: plugin-options/voting-options.php:156
+msgid ""
+"Hide temporarily a review when a specific number of users has flagged it as "
+"inappropriate. Set this value to 0 to never hide automatically the reviews."
+msgstr ""
+"הסתר באופן זמני ביקורת כאשר מספר מסוים של משתמשים סימן אותה כלא הולמת. הגדר "
+"ערך זה ל-0 כדי לעולם לא להסתיר אוטומטית את הביקורות."
+
+#: plugin-options/voting-options.php:164
+msgid "Featured reviews"
+msgstr "ביקורות מומלצות"
+
+#: plugin-options/voting-options.php:166
+msgid ""
+"Number of reviews to show as featured items. Set this value to 0 to never "
+"show featured reviews."
+msgstr ""
+"מספר הביקורות להצגה כפריטים מוצגים. הגדר ערך זה ל-0 כדי לעולם לא להציג "
+"ביקורות מוצגות."
+
+#: plugin-options/voting-options.php:174
+msgid "Enable Most Helpful Reviews tab by default"
+msgstr "הפעל הצגה של הביקורות המועילה ביותר שנבחרה כברירת מחדל."
+
+#: plugin-options/voting-options.php:177
+msgid "Show Most Helpful Reviews tab selected by default."
+msgstr "הצג את הביקורות המועילה ביותר שנבחרה כברירת מחדל."
+
+#: plugin-options/voting-options.php:182
+msgid "\"Load more\" text"
+msgstr "טען עוד"
+
+#: plugin-options/voting-options.php:185
+msgid "Text to show in the textual link or button."
+msgstr "טקסט להצגה בקישור הטקסטואלי או בלחצן."
+
+#: plugin-options/voting-options.php:187
+msgid "Load more"
+msgstr "העלה עוד"
+
+#: templates/reports/class.ywar-review-report.php:51
+msgid "Export CSV"
+msgstr "ייצא csv"
+
+#: templates/reports/class.ywar-review-report.php:63
+msgid "Year"
+msgstr "שנה"
+
+#: templates/reports/class.ywar-review-report.php:64
+msgid "Last Month"
+msgstr "חודש קודם"
+
+#: templates/reports/class.ywar-review-report.php:65
+msgid "This Month"
+msgstr "חודש נוכחי"
+
+#: templates/reports/class.ywar-review-report.php:142
+msgid "Best rate"
+msgstr "הדירוג הגבוה ביותר"
+
+#: templates/reports/class.ywar-review-report.php:143
+msgid "Worst rate"
+msgstr "הדירוג הנמוך ביותר"
+
+#: templates/reports/class.ywar-review-report.php:144
+msgid "Average rate"
+msgstr "דירוג ממוצע"
+
+#: templates/reports/class.ywar-review-report.php:166
+msgid "No reviews found in this period"
+msgstr "לא נמצאו ביקורות בתקופה זו"
+
+#: templates/reports/ywar-html-review-report.php:25
+msgid "Custom:"
+msgstr "התאמה אישית"
+
+#: templates/reports/ywar-html-review-report.php:43
+msgid "Go"
+msgstr "פרסם"
+
+#. translators: 1: reviews_count 2: get_the_title()
+#: templates/shortcodes/ywar-product-reviews-shortcode.php:65
+#: templates/ywar-product-reviews.php:60
+msgid "%1$s review for %2$s"
+msgid_plural "%1$s reviews for %2$s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/shortcodes/ywar-product-reviews-shortcode.php:100
+#: templates/ywar-product-reviews.php:95
+msgid "There are no reviews yet."
+msgstr "עדיין לא קיימות חוות דעת"
+
+#: templates/shortcodes/ywar-product-reviews-shortcode.php:116
+#: templates/ywar-product-reviews.php:111
+msgid "Be the first to review"
+msgstr "היה הראשון לכתוב חוות דעת"
+
+#: templates/shortcodes/ywar-product-reviews-shortcode.php:117
+#: templates/ywar-product-reviews.php:112
+msgid "Write a reply"
+msgstr "כתוב תגובה"
+
+#: templates/shortcodes/ywar-product-reviews-shortcode.php:125
+#: templates/ywar-product-reviews.php:120
+msgid "Name"
+msgstr "שם"
+
+#: templates/shortcodes/ywar-product-reviews-shortcode.php:135
+#: templates/ywar-product-reviews.php:130
+msgid "Email"
+msgstr "אימייל"
+
+#: templates/shortcodes/ywar-product-reviews-shortcode.php:138
+#: templates/ywar-product-reviews.php:133
+msgid "Submit"
+msgstr "שלח"
+
+#: templates/shortcodes/ywar-product-reviews-shortcode.php:143
+#: templates/ywar-product-reviews.php:138
+msgid "Your Review"
+msgstr "התגובה שלך"
+
+#: templates/shortcodes/ywar-product-reviews-shortcode.php:170
+#: templates/ywar-product-reviews.php:163
+msgid ""
+"Only logged in customers who have purchased this product may write a review."
+msgstr "רק לקוחות מחוברים שרכשו מוצר זה רשאים לכתוב ביקורת."
+
+#: templates/shortcodes/ywar-product-reviews-shortcode.php:174
+#: templates/ywar-product-reviews.php:167
+msgid "Edit my reviews"
+msgstr "ערוך את התגובה שלי"
+
+#: templates/shortcodes/ywar-user-reviews-shortcode.php:30
+msgid "My Reviews"
+msgstr "חוות הדעת שלי"
+
+#: templates/shortcodes/ywar-user-reviews-shortcode.php:37
+msgid ""
+"You have not written any reviews yet, leave a review on the products you "
+"have purchased and they will appear in this section. "
+msgstr ""
+
+#: templates/ywar-product-reviews-table.php:21
+msgid "Product reviews"
+msgstr "חוות דעת למוצר"
+
+#: templates/ywar-product-reviews-table.php:27
+msgid "Search reviews"
+msgstr "חפש תגובה"
+
+#. translators: 1: span 2: span
+#: templates/ywar-rating.php:40
+msgid "out of %1$s5%2$s"
+msgstr ""
+
+#. translators: s: rating_count
+#: templates/ywar-rating.php:42
+msgid "based on %s customer rating"
+msgid_plural "based on %s customer ratings"
+msgstr[0] "מבוסס על דירוג של לקוח %s"
+msgstr[1] "מבוסס על דירוג של %s לקוחות"
+
+#. translators: s: review_count
+#: templates/ywar-rating.php:57
+msgid "%s customer review"
+msgid_plural "%s customer reviews"
+msgstr[0] "%s חוות הדעת של הלקוח"
+msgstr[1] "%s חוות הדעת של הלקוח"
+
+#. translators: s: $i
+#: templates/ywar-review-bars.php:50
+msgid "%s star"
+msgid_plural "%s stars"
+msgstr[0] " %s כוכב"
+msgstr[1] " %s כוכבים"
+
+#: templates/ywar-review-shortcode.php:107 templates/ywar-review.php:91
+msgid "Your comment is waiting for approval"
+msgstr "חוות הדעת שלך ממתינה לאישור"
+
+#: templates/ywar-review-shortcode.php:136 templates/ywar-review.php:119
+msgid "verified owner"
+msgstr "לקוח מאומת"
+
+#: templates/ywar-review.php:133
+msgid "FEATURED"
+msgstr ""
+
+#: templates/ywar-single-product-reviews.php:26
+msgid "Customer reviews"
+msgstr "חוות דעת של הלקוחות"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Advanced Reviews</strong></code> extends the "
+"basic functionality of WooCommerce reviews and add a histogram table to the "
+"reviews of your products, such as you see in most trendy e-commerce sites. "
+"<a href=\"https://yithemes.com/\" target=\"_blank\">Get more plugins for "
+"your e-commerce on <strong>YITH</strong></a>."
+msgstr ""
+
+#. translators: %s: a link from a reply that points to the parent review
+#: includes/class.yith-advanced-reviews-list-table.php:524
+msgctxt "a link from a reply that points to the parent review"
+msgid "In reply to %s"
+msgstr "בתגובה ל %s"
+
+#. translators: %1$d: count of reviews
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1903
+msgctxt "Number of reviews with rating"
+msgid "%1$d reviews with rating of %2$s %3$s (%4$s of %5$s)"
+msgstr ""
+
+#. translators: %1$d: number of reviews
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2574
+msgctxt "Number of reviews with rating"
+msgid "%1$d reviews with rate of %2$d %3$s (%4$d of %5$d)"
+msgstr ""
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1960
+msgctxt "The user tried to upload more files than allowed."
+msgid "Too many files selected!"
+msgstr "נבחרו יותר מדי קבצים"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1961
+msgctxt "The user tried to upload files with extension or size not allowed."
+msgid ""
+"One or more file was not accepted because do not match the expected "
+"requirements"
+msgstr "קובץ אחד או יותר לא התקבל מכיוון שאינו תואם את הדרישות הצפויות"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1962
+msgctxt "No attachment is selected"
+msgid "No Files Selected"
+msgstr "אין קבצים שנבחרו"
+
+#: includes/class.yith-woocommerce-advanced-reviews-privacy.php:29
+msgctxt "Privacy Policy Content"
+msgid "YITH Advanced Reviews for WooCommerce premium"
+msgstr "YITH ביקורות מתקדמות עבור WooCommerce פרימיום"
+
+#: views/privacy/html-policy-content-collect_and_store.php:9
+msgctxt "Privacy Policy Content"
+msgid ""
+"While you visit our site, we collect information about you during the "
+"process of creating comments or reviews of products. We’ll track:"
+msgstr ""
+"בזמן שאתה מבקר באתר שלנו, אנו אוספים מידע עליך במהלך תהליך יצירת הערות או "
+"ביקורות על מוצרים. נעקוב אחר:"
+
+#: views/privacy/html-policy-content-collect_and_store.php:12
+msgctxt "Privacy Policy Content"
+msgid ""
+"Author name, author email, author IP, date, title, content and review url:  "
+"we’ll use this to create reviews of products"
+msgstr ""
+"שם המחבר, הדוא\"ל של המחבר, ה-IP של המחבר, תאריך, כותרת, תוכן וכתובת אתר "
+"ביקורת: נשתמש בזה כדי ליצור ביקורות על מוצרים"
+
+#: views/privacy/html-policy-content-has_access.php:9
+msgctxt "Privacy Policy Content"
+msgid ""
+"Members of our team have access to the information you provide us. For "
+"example, both Administrators and Shop Managers can access:"
+msgstr ""
+"לחברי הצוות שלנו יש גישה למידע שאתה מספק לנו. לדוגמה, גם מנהלי מערכת וגם "
+"מנהלי חנויות יכולים לגשת:"
+
+#: views/privacy/html-policy-content-has_access.php:12
+msgctxt "Privacy Policy Content"
+msgid ""
+"Author name, author email, author IP, date, title and content of the reviews "
+"you have made"
+msgstr ""
+"שם המחבר, הדוא\"ל של המחבר, ה-IP של המחבר, תאריך, כותרת ותוכן הביקורות שעשית"
+
+#: includes/class.yith-woocommerce-advanced-reviews-privacy.php:79
+#: includes/class.yith-woocommerce-advanced-reviews-privacy.php:191
+msgctxt "GDPR privacy"
+msgid "YITH Advanced Reviews"
+msgstr "YITH Advanced Reviews"
+
+#: includes/class.yith-woocommerce-advanced-reviews-privacy.php:165
+msgctxt "GDPR privacy"
+msgid "Reviews"
+msgstr "חוות דעת"
+
+#: includes/class.yith-woocommerce-advanced-reviews-privacy.php:236
+msgctxt "GDPR privacy"
+msgid "Anonymous"
+msgstr "אנונימי"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1214
+msgctxt "Post Type General Name"
+msgid "Reviews"
+msgstr "חוות דעת"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1215
+msgctxt "Post Type Singular Name"
+msgid "Review"
+msgstr "חוות דעת"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2456
+msgctxt "convert into reviews"
+msgid "CONVERTING COMMENTS INTO REVIEWS"
+msgstr "המרת תגובות לביקורות"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2459
+msgctxt "convert into reviews"
+msgid "comments checked"
+msgstr "הערות נבדקו"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2462
+msgctxt "convert into reviews"
+msgid "comments converted"
+msgstr "הערות הומרו"

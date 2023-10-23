@@ -4,7 +4,7 @@
  *
  * @var array $option   The field.
  * @var mixed $db_value The field value stored in DB.
- * @author     Leanza Francesco <leanzafrancesco@gmail.com>
+ * @author     YITH <plugins@yithemes.com>
  * @since      3.0.0
  * @package    YITH\PluginFramework\Templates
  */

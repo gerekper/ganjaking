@@ -8,6 +8,23 @@ class userpro_api
     var $google, $googleplus, $googleoauth2, $_google_user_cache;
     var $upload_base_dir, $upload_base_url;
 
+    public $temp_id;
+
+    public $badges_url;
+
+    public $fields;
+
+    public $groups;
+
+    public $get_cached_results;
+
+    public $upload_dir;
+
+    public $upload_path_wp;
+
+    public $upload_path;
+
+
     public function __construct()
     {
 
@@ -2341,25 +2358,28 @@ EOF;
      ******************************************/
     function can_view_profile($arg = null)
     {
-
         $user_id = 0;
         $array = (array)userpro_get_option('roles_can_view_profiles');
         $array = array_merge($array, ['administrator']);
+
         if (userpro_is_logged_in()) {
             if ($arg) {
                 $user = $this->get_member_by($arg);
-                if (isset($user)) {
+
+                if ($user !== false && isset($user->ID)) {
                     $user_id = $user->ID;
+
                     if (get_current_user_id() == $user_id) {
                         return true;
                     }
                 }
             }
         }
-        if (userpro_get_option('allow_users_view_profiles') == 0 && userpro_is_logged_in() && $this->user_role_in_array(get_current_user_id(),
-                $array)) {
+
+        if (userpro_get_option('allow_users_view_profiles') == 0 && userpro_is_logged_in() && $this->user_role_in_array(get_current_user_id(), $array)) {
             return true;
         }
+
         if (userpro_get_option('allow_users_view_profiles') == 0 && !current_user_can('manage_options')) {
             return false;
         }
@@ -2484,6 +2504,11 @@ EOF;
      ******************************************/
     function verify($user_id)
     {
+        if (!current_user_can('manage_options')) {
+            return;
+        }
+
+        $user_id = intval($user_id);
 
         // verify him
         update_user_meta($user_id, 'userpro_verified', 1);

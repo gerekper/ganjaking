@@ -105,7 +105,12 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 		}
 		?>
 		<div class="alignleft actions">
-			<label for="filter-by-redirect" class="screen-reader-text"><?php esc_html_e( 'Filter by redirect type', 'wordpress-seo-premium' ); ?></label>
+			<label for="filter-by-redirect" class="screen-reader-text">
+			<?php
+				/* translators: Hidden accessibility text. */
+				esc_html_e( 'Filter by redirect type', 'wordpress-seo-premium' );
+			?>
+			</label>
 			<select name="redirect-type" id="filter-by-redirect">
 				<option<?php selected( $selected, 0 ); ?> value="0"><?php esc_html_e( 'All redirect types', 'wordpress-seo-premium' ); ?></option>
 				<?php
@@ -241,6 +246,7 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 			'<label class="screen-reader-text" for="wpseo-redirects-bulk-cb-%2$s">%3$s</label> <input type="checkbox" name="wpseo_redirects_bulk_delete[]" id="wpseo-redirects-bulk-cb-%2$s" value="%1$s" />',
 			esc_attr( $item['old'] ),
 			$item['row_number'],
+			/* translators: Hidden accessibility text. */
 			esc_html( __( 'Select this redirect', 'wordpress-seo-premium' ) )
 		);
 	}

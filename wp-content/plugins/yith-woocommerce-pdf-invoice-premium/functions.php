@@ -2,7 +2,7 @@
 /**
  * Functions to be used in the plugin.
  *
- * @author  YITH
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH\PDFInvoice\Functions
  */
 
@@ -23,9 +23,10 @@ if ( ! function_exists( 'ywpi_get_filesize_text' ) ) {
 	function ywpi_get_filesize_text( $size ) {
 		$unit = array( 'bytes', 'KB', 'MB', 'GB', 'TB' );
 		$step = 0;
+
 		while ( $size >= 1024 ) {
 			$size = $size / 1024;
-			$step ++;
+			++$step;
 		}
 
 		return sprintf( '%s %s', round( $size ), $unit[ $step ] );
@@ -52,7 +53,6 @@ if ( ! function_exists( 'ywpi_get_option_with_placeholder' ) ) {
 		}
 
 		if ( false === strpos( $value, $placeholder ) ) {
-
 			return $value . $placeholder;
 		}
 
@@ -82,7 +82,6 @@ if ( ! function_exists( 'ywpi_start_plugin_compatibility' ) ) {
 	/**
 	 * Init all third part plugin compatibilities
 	 *
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_start_plugin_compatibility() {
@@ -96,19 +95,18 @@ if ( ! function_exists( 'ywpi_get_option' ) ) {
 	/**
 	 * Make a get_option call with filterable option name
 	 *
-	 * @param string $option  Name of option to retrieve. Expected to not be SQL-escaped.
-	 * @param mixed  $obj     the object id associated to the option.
-	 * @param mixed  $default Optional. Default value to return if the option does not exist.
+	 * @param string $option         Name of option to retrieve. Expected to not be SQL-escaped.
+	 * @param mixed  $obj            The object id associated to the option.
+	 * @param mixed  $default_option Optional. Default value to return if the option does not exist.
 	 *
 	 * @return mixed Value set for the option.
 	 *
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
-	function ywpi_get_option( $option, $obj = null, $default = false ) {
+	function ywpi_get_option( $option, $obj = null, $default_option = false ) {
 		$option = apply_filters( 'ywpi_option_name', $option, $obj );
 
-		return get_option( $option, $default );
+		return get_option( $option, $default_option );
 	}
 }
 
@@ -122,7 +120,6 @@ if ( ! function_exists( 'ywpi_update_option' ) ) {
 	 *
 	 * @return mixed Value set for the option.
 	 *
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_update_option( $option, $value, $obj = null ) {
@@ -140,15 +137,12 @@ if ( ! function_exists( 'ywpi_document_behave_as_invoice' ) ) {
 	 * @param object $document The document object.
 	 *
 	 * @return bool
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_document_behave_as_invoice( $document ) {
-
 		return ( $document instanceof YITH_Invoice ) || ( $document instanceof YITH_Pro_Forma ) || ( $document instanceof YITH_Credit_Note );
 	}
 }
-
 
 if ( ! function_exists( 'ywpi_is_enabled_column_picture' ) ) {
 	/**
@@ -157,7 +151,6 @@ if ( ! function_exists( 'ywpi_is_enabled_column_picture' ) ) {
 	 * @param object $document The document object.
 	 *
 	 * @return bool
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_is_enabled_column_picture( $document ) {
@@ -173,7 +166,6 @@ if ( ! function_exists( 'ywpi_is_enabled_column_picture' ) ) {
 	}
 }
 
-
 if ( ! function_exists( 'ywpi_is_enabled_column_quantity' ) ) {
 	/**
 	 * Check if the quantity column should be shown for a specific document.
@@ -181,7 +173,6 @@ if ( ! function_exists( 'ywpi_is_enabled_column_quantity' ) ) {
 	 * @param object $document The document object.
 	 *
 	 * @return bool
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_is_enabled_column_quantity( $document ) {
@@ -204,7 +195,6 @@ if ( ! function_exists( 'ywpi_is_enabled_column_product_price' ) ) {
 	 * @param object $document The document object.
 	 *
 	 * @return bool
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_is_enabled_column_product_price( $document ) {
@@ -227,7 +217,6 @@ if ( ! function_exists( 'ywpi_is_enabled_column_regular_price' ) ) {
 	 * @param object $document The document object.
 	 *
 	 * @return bool
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_is_enabled_column_regular_price( $document ) {
@@ -250,7 +239,6 @@ if ( ! function_exists( 'ywpi_is_enabled_column_sale_price' ) ) {
 	 * @param object $document The document object.
 	 *
 	 * @return bool
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_is_enabled_column_sale_price( $document ) {
@@ -273,7 +261,6 @@ if ( ! function_exists( 'ywpi_is_enabled_column_line_total' ) ) {
 	 * @param object $document The document object.
 	 *
 	 * @return bool
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_is_enabled_column_line_total( $document ) {
@@ -296,7 +283,6 @@ if ( ! function_exists( 'ywpi_is_enabled_column_percentage' ) ) {
 	 * @param object $document The document object.
 	 *
 	 * @return bool
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_is_enabled_column_percentage( $document ) {
@@ -319,7 +305,6 @@ if ( ! function_exists( 'ywpi_is_enabled_column_total_taxed' ) ) {
 	 * @param object $document The document object.
 	 *
 	 * @return bool
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_is_enabled_column_total_taxed( $document ) {
@@ -342,7 +327,6 @@ if ( ! function_exists( 'ywpi_is_enabled_column_tax' ) ) {
 	 * @param object $document The document object.
 	 *
 	 * @return bool
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_is_enabled_column_tax( $document ) {
@@ -365,7 +349,6 @@ if ( ! function_exists( 'ywpi_is_enabled_column_percentage_tax' ) ) {
 	 * @param object $document The document object.
 	 *
 	 * @return bool
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_is_enabled_column_percentage_tax( $document ) {
@@ -387,7 +370,6 @@ if ( ! function_exists( 'ywpi_is_enabled_column_variation' ) ) {
 	 * @param object $document The document object.
 	 *
 	 * @return bool
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_is_enabled_column_variation( $document ) {
@@ -410,7 +392,6 @@ if ( ! function_exists( 'ywpi_is_enabled_column_sku' ) ) {
 	 * @param object $document The document object.
 	 *
 	 * @return bool
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_is_enabled_column_sku( $document ) {
@@ -433,7 +414,6 @@ if ( ! function_exists( 'ywpi_is_enabled_column_weight_dimension' ) ) {
 	 * @param object $document The document object.
 	 *
 	 * @return bool
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_is_enabled_column_weight_dimension( $document ) {
@@ -454,7 +434,6 @@ if ( ! function_exists( 'ywpi_is_enabled_column_short_description' ) ) {
 	 * @param object $document The document object.
 	 *
 	 * @return bool
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_is_enabled_column_short_description( $document ) {
@@ -477,7 +456,6 @@ if ( ! function_exists( 'ywpi_is_visible_order_totals' ) ) {
 	 * @param object $document The document object.
 	 *
 	 * @return mixed|void
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_is_visible_order_totals( $document ) {
@@ -500,16 +478,15 @@ if ( ! function_exists( 'ywpi_is_visible_order_discount' ) ) {
 	 * @param object $document The document object.
 	 *
 	 * @return mixed|void
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_is_visible_order_discount( $document ) {
-
 		$is_visible = 'yes' === strval( ywpi_get_option( 'ywpi_show_discount', $document, 'yes' ) );
 
 		return apply_filters( 'ywpi_is_visible_order_discount', $is_visible, $document );
 	}
 }
+
 if ( ! function_exists( 'ywpi_is_visible_broken_down_taxes' ) ) {
 	/**
 	 * Retrieve if the broken down taxes should be shown for a document
@@ -517,11 +494,9 @@ if ( ! function_exists( 'ywpi_is_visible_broken_down_taxes' ) ) {
 	 * @param object $document The document object.
 	 *
 	 * @return mixed|void
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_is_visible_broken_down_taxes( $document ) {
-
 		$is_visible = 'yes' === strval( ywpi_get_option( 'ywpi_broken_down_taxes', $document, 'yes' ) );
 
 		return apply_filters( 'ywpi_is_visible_broken_down_taxes', $is_visible, $document );
@@ -536,11 +511,9 @@ if ( ! function_exists( 'ywpi_get_order_document_by_type' ) ) {
 	 * @param string $document_type the document type. The type of document. It could be 'invoice', 'packing-slip', 'credit-note', 'proforma'.
 	 *
 	 * @return YITH_Document|void
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_get_order_document_by_type( $order_id, $document_type = '' ) {
-
 		if ( ! is_numeric( $order_id ) ) {
 			return null;
 		}
@@ -556,7 +529,6 @@ if ( ! function_exists( 'ywpi_get_order_document_by_type' ) ) {
 		switch ( $document_type ) {
 			case 'proforma':
 				$document = new YITH_Pro_Forma( $order_id );
-
 				break;
 
 			case 'credit-note':
@@ -587,11 +559,9 @@ if ( ! function_exists( 'ywpi_get_invoice' ) ) {
 	 * @param string       $type The document type.
 	 *
 	 * @return YITH_Invoice|mixed|void
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_get_invoice( $order, $type = 'invoice' ) {
-
 		return ywpi_get_order_document_by_type( $order, $type );
 	}
 }
@@ -603,11 +573,9 @@ if ( ! function_exists( 'ywpi_get_packing_slip' ) ) {
 	 * @param int|WC_Order $order The order or order id.
 	 *
 	 * @return YITH_Shipping|mixed|void
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_get_packing_slip( $order ) {
-
 		return ywpi_get_order_document_by_type( $order, 'packing-slip' );
 	}
 }
@@ -619,11 +587,9 @@ if ( ! function_exists( 'ywpi_get_pro_forma' ) ) {
 	 * @param int|WC_Order $order the order or order id.
 	 *
 	 * @return YITH_Pro_Forma|mixed|void
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_get_pro_forma( $order ) {
-
 		return ywpi_get_order_document_by_type( $order, 'proforma' );
 	}
 }
@@ -635,11 +601,9 @@ if ( ! function_exists( 'ywpi_get_credit_note' ) ) {
 	 * @param int|WC_Order $order the order or order id.
 	 *
 	 * @return YITH_Credit_Note|mixed|void
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_get_credit_note( $order ) {
-
 		return ywpi_get_order_document_by_type( $order, 'credit-note' );
 	}
 }
@@ -651,7 +615,6 @@ if ( ! function_exists( 'ywpi_is_enabled_credit_note_subtotal_column' ) ) {
 	 * @param YITH_Credit_Note $document The document object.
 	 *
 	 * @return bool
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_is_enabled_credit_note_subtotal_column( $document ) {
@@ -672,7 +635,6 @@ if ( ! function_exists( 'ywpi_is_enabled_credit_note_total_tax_column' ) ) {
 	 * @param YITH_Credit_Note $document The document object.
 	 *
 	 * @return bool
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_is_enabled_credit_note_total_tax_column( $document ) {
@@ -693,7 +655,6 @@ if ( ! function_exists( 'ywpi_is_enabled_credit_note_total_shipping_column' ) ) 
 	 * @param YITH_Credit_Note $document The document object.
 	 *
 	 * @return bool
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_is_enabled_credit_note_total_shipping_column( $document ) {
@@ -714,7 +675,6 @@ if ( ! function_exists( 'ywpi_is_enabled_credit_note_total_column' ) ) {
 	 * @param YITH_Credit_Note $document The document object.
 	 *
 	 * @return bool
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_is_enabled_credit_note_total_column( $document ) {
@@ -727,6 +687,7 @@ if ( ! function_exists( 'ywpi_is_enabled_credit_note_total_column' ) ) {
 		return apply_filters( 'ywpi_is_enabled_credit_note_total_column', $is_visible, $document );
 	}
 }
+
 if ( ! function_exists( 'ywpi_is_enabled_column_picture_credit_notes' ) ) {
 	/**
 	 * Check if the 'total' column is enabled for credit note
@@ -734,7 +695,6 @@ if ( ! function_exists( 'ywpi_is_enabled_column_picture_credit_notes' ) ) {
 	 * @param YITH_Credit_Note $document Document.
 	 *
 	 * @return bool
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_is_enabled_column_picture_credit_notes( $document ) {
@@ -747,6 +707,7 @@ if ( ! function_exists( 'ywpi_is_enabled_column_picture_credit_notes' ) ) {
 		return apply_filters( 'ywpi_is_enabled_credit_note_total_column', $is_visible, $document );
 	}
 }
+
 if ( ! function_exists( 'ywpi_is_enabled_column_sku_credit_notes' ) ) {
 	/**
 	 * Check if the 'total' column is enabled for credit note
@@ -754,7 +715,6 @@ if ( ! function_exists( 'ywpi_is_enabled_column_sku_credit_notes' ) ) {
 	 * @param YITH_Credit_Note $document Document.
 	 *
 	 * @return bool
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_is_enabled_column_sku_credit_notes( $document ) {
@@ -767,6 +727,7 @@ if ( ! function_exists( 'ywpi_is_enabled_column_sku_credit_notes' ) ) {
 		return apply_filters( 'ywpi_is_enabled_credit_note_total_column', $is_visible, $document );
 	}
 }
+
 if ( ! function_exists( 'ywpi_is_enabled_column_product_name_credit_notes' ) ) {
 	/**
 	 * Check if the 'total' column is enabled for credit note
@@ -774,7 +735,6 @@ if ( ! function_exists( 'ywpi_is_enabled_column_product_name_credit_notes' ) ) {
 	 * @param YITH_Credit_Note $document Document.
 	 *
 	 * @return bool
-	 * @author Lorenzo Giuffrida
 	 * @since  1.0.0
 	 */
 	function ywpi_is_enabled_column_product_name_credit_notes( $document ) {

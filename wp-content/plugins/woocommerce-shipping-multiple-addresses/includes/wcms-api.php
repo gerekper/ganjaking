@@ -18,11 +18,7 @@ class WC_MS_API {
      * @return void
      */
     public function init_api_filters() {
-	if ( version_compare( WC_VERSION, '2.6', '<' ) ) {
-	        add_filter( 'woocommerce_api_order_response', array( $this, 'add_shipping_packages_bwc' ), 10, 4 );
-	} else {
-		add_filter( 'woocommerce_rest_prepare_shop_order', array( $this, 'add_shipping_packages' ), 10, 3 );
-	}
+		add_filter( 'woocommerce_rest_prepare_shop_order_object', array( $this, 'add_shipping_packages' ), 10, 3 );
     }
 
     /**
@@ -62,40 +58,22 @@ class WC_MS_API {
         return $retval;
     }
 
-    /**
-     * Add shipping packages to the order response array
-     *
-     * @param WP_REST_Response   $response   The response object.
-     * @param WP_Post            $post       Post object.
-     * @param WP_REST_Request    $request    Request object.
-     *
-     * @return WP_REST_Response $data
-     */
-    public function add_shipping_packages( $response, $post, $request ) {
-        $order = wc_get_order( $post->ID );
+	/**
+	 * Add shipping packages to the order response array
+	 *
+	 * @param WP_REST_Response $response   The response object.
+	 * @param WC_Data          $object      Order object.
+	 * @param WP_REST_Request  $request    Request object.
+	 *
+	 * @return WP_REST_Response $data
+	 */
+	public function add_shipping_packages( $response, $object, $request ) {
+		$order             = wc_get_order( $object->get_id() );
+		$order_data        = $response->get_data();
+		$shipping_packages = $this->calculate_shipping_packages( $order );
 
-        $order_data = $response->get_data();
-        $shipping_packages = $this->calculate_shipping_packages( $order );
+		$response->set_data( array_merge( $order_data, $shipping_packages ) );
 
-        $response->set_data( array_merge( $order_data, $shipping_packages ) );
-
-        return $response;
-    }
-
-    /**
-     * Add shipping packages to the order response array.
-     * This method is for <= 2.5 compatibility.
-     *
-     * @param array         $order_data
-     * @param WC_Order      $order
-     * @param array         $fields
-     * @param WC_API_Server $server
-     * @return array
-     */
-    public function add_shipping_packages_bwc( $order_data, $order, $fields, $server ) {
-        $shipping_packages = $this->calculate_shipping_packages( $order );
-
-        return array_merge( $order_data, $shipping_packages );
-    }
-
+		return $response;
+	}
 }

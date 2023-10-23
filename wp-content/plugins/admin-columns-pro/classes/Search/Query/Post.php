@@ -39,7 +39,7 @@ class Post extends Query
             return $where;
         }
 
-        return str_replace('DECIMAL', 'DECIMAL(10,2)', $where);
+        return str_replace('DECIMAL)', 'DECIMAL(10,2))', $where);
     }
 
     /**

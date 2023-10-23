@@ -120,7 +120,7 @@ jQuery( document ).ready( function( $ ) {
 
 				var $data = {
 						action: 'wc_product_vendors_vendor_support',
-						ajaxVendorSupportNonce: wcpv_vendor_admin_local.ajaxVendorSupportNonce,
+						ajaxVendorSupportNonce: $("#wcpv_vendor_support_nonce").val(),
 						form_items: $( this ).serialize()
 					},
 					form = $( this );

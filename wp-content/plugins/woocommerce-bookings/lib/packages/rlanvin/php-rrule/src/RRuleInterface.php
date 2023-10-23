@@ -8,7 +8,7 @@
  * @author Rémi Lanvin <remi@cloudconnected.fr>
  * @link https://github.com/rlanvin/php-rrule
  *
- * Modified by woocommerce on 18-September-2023 using Strauss.
+ * Modified by woocommerce on 09-October-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 

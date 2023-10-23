@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Modified by woocommerce on 18-September-2023 using Strauss.
+ * Modified by woocommerce on 09-October-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -102,6 +102,11 @@ class GCECredentials extends CredentialsLoader implements
      * The header whose presence indicates GCE presence.
      */
     const FLAVOR_HEADER = 'Metadata-Flavor';
+
+    /**
+     * The Linux file which contains the product name.
+     */
+    private const GKE_PRODUCT_NAME_FILE = '/sys/class/dmi/id/product_name';
 
     /**
      * Note: the explicit `timeout` and `tries` below is a workaround. The underlying
@@ -342,6 +347,22 @@ class GCECredentials extends CredentialsLoader implements
             } catch (RequestException $e) {
             } catch (ConnectException $e) {
             }
+        }
+
+        if (PHP_OS === 'Windows') {
+            // @TODO: implement GCE residency detection on Windows
+            return false;
+        }
+
+        // Detect GCE residency on Linux
+        return self::detectResidencyLinux(self::GKE_PRODUCT_NAME_FILE);
+    }
+
+    private static function detectResidencyLinux(string $productNameFile): bool
+    {
+        if (file_exists($productNameFile)) {
+            $productName = trim((string) file_get_contents($productNameFile));
+            return 0 === strpos($productName, 'Automattic\WooCommerce\Bookings\Vendor\Google');
         }
         return false;
     }

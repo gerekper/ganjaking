@@ -148,7 +148,7 @@ if ( ! class_exists( 'VcGridsCommon' ) ) {
 					'type' => 'textarea_safe',
 					'heading' => esc_html__( 'Custom query', 'js_composer' ),
 					'param_name' => 'custom_query',
-					'description' => sprintf( esc_html__( 'Build custom query according to %sWordPress Codex%s.', 'js_composer' ), '<a href="https://codex.wordpress.org/Function_Reference/query_posts">', '</a>' ),
+					'description' => sprintf( esc_html__( 'Build custom query according to %1$sWordPress Codex%2$s.', 'js_composer' ), '<a href="https://codex.wordpress.org/Function_Reference/query_posts">', '</a>' ),
 
 					'dependency' => array(
 						'element' => 'post_type',
@@ -653,7 +653,7 @@ if ( ! class_exists( 'VcGridsCommon' ) ) {
 					'type' => 'vc_grid_item',
 					'heading' => esc_html__( 'Grid element template', 'js_composer' ),
 					'param_name' => 'item',
-					'description' => sprintf( esc_html__( '%sCreate new%s template or %smodify selected%s. Predefined templates will be cloned.', 'js_composer' ), '<a href="' . esc_url( admin_url( 'post-new.php?post_type=vc_grid_item' ) ) . '" target="_blank">', '</a>', '<a href="#" target="_blank" data-vc-grid-item="edit_link">', '</a>' ),
+					'description' => sprintf( esc_html__( '%1$sCreate new%2$s template or %3$smodify selected%4$s. Predefined templates will be cloned.', 'js_composer' ), '<a href="' . esc_url( admin_url( 'post-new.php?post_type=vc_grid_item' ) ) . '" target="_blank">', '</a>', '<a href="#" target="_blank" data-vc-grid-item="edit_link">', '</a>' ),
 					'group' => esc_html__( 'Item Design', 'js_composer' ),
 					'value' => 'none',
 				),
@@ -678,7 +678,7 @@ if ( ! class_exists( 'VcGridsCommon' ) ) {
 					'type' => 'el_id',
 					'heading' => esc_html__( 'Element ID', 'js_composer' ),
 					'param_name' => 'el_id',
-					'description' => sprintf( esc_html__( 'Enter element ID (Note: make sure it is unique and valid according to %sw3c specification%s).', 'js_composer' ), '<a href="https://www.w3schools.com/tags/att_global_id.asp" target="_blank">', '</a>' ),
+					'description' => sprintf( esc_html__( 'Enter element ID (Note: make sure it is unique and valid according to %1$sw3c specification%2$s).', 'js_composer' ), '<a href="https://www.w3schools.com/tags/att_global_id.asp" target="_blank">', '</a>' ),
 				),
 				array(
 					'type' => 'textfield',
@@ -1026,7 +1026,7 @@ if ( ! class_exists( 'VcGridsCommon' ) ) {
 					'type' => 'vc_grid_item',
 					'heading' => esc_html__( 'Grid element template', 'js_composer' ),
 					'param_name' => 'item',
-					'description' => sprintf( esc_html__( '%sCreate new%s template or %smodify selected%s. Predefined templates will be cloned.', 'js_composer' ), '<a href="' . esc_url( admin_url( 'post-new.php?post_type=vc_grid_item' ) ) . '" target="_blank">', '</a>', '<a href="#" target="_blank" data-vc-grid-item="edit_link">', '</a>' ),
+					'description' => sprintf( esc_html__( '%1$sCreate new%2$s template or %3$smodify selected%4$s. Predefined templates will be cloned.', 'js_composer' ), '<a href="' . esc_url( admin_url( 'post-new.php?post_type=vc_grid_item' ) ) . '" target="_blank">', '</a>', '<a href="#" target="_blank" data-vc-grid-item="edit_link">', '</a>' ),
 					'group' => esc_html__( 'Item Design', 'js_composer' ),
 					'value' => 'mediaGrid_Default',
 				),
@@ -1038,7 +1038,7 @@ if ( ! class_exists( 'VcGridsCommon' ) ) {
 					'type' => 'el_id',
 					'heading' => esc_html__( 'Element ID', 'js_composer' ),
 					'param_name' => 'el_id',
-					'description' => sprintf( esc_html__( 'Enter element ID (Note: make sure it is unique and valid according to %sw3c specification%s).', 'js_composer' ), '<a href="https://www.w3schools.com/tags/att_global_id.asp" target="_blank">', '</a>' ),
+					'description' => sprintf( esc_html__( 'Enter element ID (Note: make sure it is unique and valid according to %1$sw3c specification%2$s).', 'js_composer' ), '<a href="https://www.w3schools.com/tags/att_global_id.asp" target="_blank">', '</a>' ),
 				),
 				array(
 					'type' => 'textfield',

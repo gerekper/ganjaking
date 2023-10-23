@@ -5,11 +5,11 @@
  * @since 2.0.0
  */
 
-namespace Themesquad\WC_Currency_Converter;
+namespace KoiLab\WC_Currency_Converter;
 
 defined( 'ABSPATH' ) || exit;
 
-use Themesquad\WC_Currency_Converter\Utilities\String_Utils;
+use KoiLab\WC_Currency_Converter\Utilities\String_Utils;
 use WC_Logger_Interface;
 
 /**
@@ -171,3 +171,5 @@ class Logger {
 		self::log( $message, 'debug', $context );
 	}
 }
+
+class_alias( Logger::class, 'Themesquad\WC_Currency_Converter\Logger' );

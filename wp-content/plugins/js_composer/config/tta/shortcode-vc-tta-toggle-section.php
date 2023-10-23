@@ -17,7 +17,7 @@ $params = array(
 			'auto_generate' => true,
 		),
 		'heading' => esc_html__( 'Section ID', 'js_composer' ),
-		'description' => sprintf( esc_html__( 'Enter section ID (Note: make sure it is unique and valid according to %sw3c specification%s).', 'js_composer' ), '<a href="https://www.w3schools.com/tags/att_global_id.asp" target="_blank">', '</a>' ),
+		'description' => sprintf( esc_html__( 'Enter section ID (Note: make sure it is unique and valid according to %1$sw3c specification%2$s).', 'js_composer' ), '<a href="https://www.w3schools.com/tags/att_global_id.asp" target="_blank">', '</a>' ),
 	),
 	array(
 		'type' => 'textfield',

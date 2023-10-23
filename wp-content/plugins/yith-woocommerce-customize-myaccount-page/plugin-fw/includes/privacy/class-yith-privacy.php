@@ -4,7 +4,7 @@
  * handle privacy for GDPR
  *
  * @class   YITH_Privacy
- * @author  Leanza Francesco <leanzafrancesco@gmail.com>
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH\PluginFramework\Classes
  */
 

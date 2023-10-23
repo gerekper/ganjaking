@@ -475,7 +475,7 @@ class WC_Product_Vendors_Store_Admin {
 	 */
 	public function save_vendor_fields( $term_id ) {
 		if ( ! empty( $_POST['vendor_data'] ) ) {
-			$posted_vendor_data    = $_POST['vendor_data'];
+			$posted_vendor_data    = wp_unslash( $_POST['vendor_data'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$sanitized_vendor_data = array();
 
 			foreach ( $posted_vendor_data as $data_key => $data_value ) {
@@ -551,7 +551,7 @@ class WC_Product_Vendors_Store_Admin {
 		}
 
 		// Ensure we have proper email data
-		$emails = explode( ',', $_POST['vendor_data']['email'] );
+		$emails = explode( ',', wp_unslash( $_POST['vendor_data']['email'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$errors = 0;
 
 		foreach ( $emails as $email ) {
@@ -931,7 +931,7 @@ class WC_Product_Vendors_Store_Admin {
 			<h2><?php esc_html_e( 'Vendor Commission', 'woocommerce-product-vendors' ); ?>
 				<?php
 				if ( ! empty( $_REQUEST['s'] ) ) {
-					echo '<span class="subtitle">' . esc_html__( 'Search results for', 'woocommerce-product-vendors' ) . ' "' . esc_html( $_REQUEST['s'] ) . '"</span>';
+					echo '<span class="subtitle">' . esc_html__( 'Search results for', 'woocommerce-product-vendors' ) . ' "' . esc_html( wc_clean( wp_unslash( $_REQUEST['s'] ) ) ) . '"</span>';
 				}
 				?>
 			</h2>
@@ -1307,7 +1307,7 @@ class WC_Product_Vendors_Store_Admin {
 				return;
 			}
 
-			$commission = WC_Product_Vendors_Utils::sanitize_commission( $_POST['_wcpv_product_commission'] );
+			$commission = WC_Product_Vendors_Utils::sanitize_commission( wp_unslash( $_POST['_wcpv_product_commission'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 			update_post_meta( $post_id, '_wcpv_product_commission', $commission );
 		}
@@ -1371,7 +1371,7 @@ class WC_Product_Vendors_Store_Admin {
 				return;
 			}
 
-			$commission = WC_Product_Vendors_Utils::sanitize_commission( $_POST['_wcpv_product_commission'] );
+			$commission = WC_Product_Vendors_Utils::sanitize_commission( wp_unslash( $_POST['_wcpv_product_commission'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 			update_post_meta( $product_id, '_wcpv_product_commission', $commission );
 		}
@@ -1395,7 +1395,7 @@ class WC_Product_Vendors_Store_Admin {
 				return;
 			}
 
-			$commission = WC_Product_Vendors_Utils::sanitize_commission( $_POST['_wcpv_product_variation_commission'][ $i ] );
+			$commission = WC_Product_Vendors_Utils::sanitize_commission( wp_unslash( $_POST['_wcpv_product_variation_commission'][ $i ] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 			update_post_meta( $variation_id, '_wcpv_product_commission', $commission );
 		}
@@ -1532,7 +1532,7 @@ class WC_Product_Vendors_Store_Admin {
 			);
 			$product->update_meta_data(
 				'_wcpv_product_taxes',
-				! empty( $_POST['_wcpv_product_taxes'] ) ? $_POST['_wcpv_product_taxes'] : ''
+				wc_clean( wp_unslash( $_POST['_wcpv_product_taxes'] ?? '' ) )
 			);
 			$product->update_meta_data(
 				'_wcpv_product_split_tax',
@@ -1573,7 +1573,7 @@ class WC_Product_Vendors_Store_Admin {
 	 * @return json $found_vendors
 	 */
 	public function vendor_search_ajax() {
-		$nonce = $_GET['security'];
+		$nonce = wc_clean( wp_unslash( $_GET['security'] ) );
 
 		// bail if nonce don't check out
 		if ( ! wp_verify_nonce( $nonce, '_wcpv_vendor_search_nonce' ) ) {
@@ -1734,19 +1734,19 @@ class WC_Product_Vendors_Store_Admin {
 			if ( ! empty( $_REQUEST['_wcpv_product_pass_shipping'] ) ) {
 				$product->update_meta_data(
 					'_wcpv_product_pass_shipping',
-					$_REQUEST['_wcpv_product_pass_shipping']
+					wc_clean( wp_unslash( $_REQUEST['_wcpv_product_pass_shipping'] ) )
 				);
 			}
 			if ( ! empty( $_REQUEST['_wcpv_product_taxes'] ) ) {
 				$product->update_meta_data(
 					'_wcpv_product_taxes',
-					$_POST['_wcpv_product_taxes']
+					wc_clean( wp_unslash( $_POST['_wcpv_product_taxes'] ) )
 				);
 			}
 			if ( ! empty( $_REQUEST['_wcpv_product_split_tax'] ) ) {
 				$product->update_meta_data(
 					'_wcpv_product_split_tax',
-					$_REQUEST['_wcpv_product_split_tax']
+					wc_clean( wp_unslash( $_REQUEST['_wcpv_product_split_tax'] ) )
 				);
 			}
 			$product->save();
@@ -1885,12 +1885,12 @@ class WC_Product_Vendors_Store_Admin {
 			wc_delete_product_transients( $post_id );
 
 		} elseif ( ! empty( $_REQUEST['woocommerce_bulk_edit'] ) && ! empty( $_REQUEST['post'] ) ) {
-			foreach ( $_REQUEST['post'] as $post ) {
+			foreach ( array_map( 'absint', wp_unslash( $_REQUEST['post'] ) ) as $post ) {
 				// update the product term
-				wp_set_object_terms( absint( $post ), $term, WC_PRODUCT_VENDORS_TAXONOMY );
+				wp_set_object_terms( $post, $term, WC_PRODUCT_VENDORS_TAXONOMY );
 
 				// Clear transient
-				wc_delete_product_transients( absint( $post ) );
+				wc_delete_product_transients( $post );
 			}
 		}
 

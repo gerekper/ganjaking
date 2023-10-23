@@ -2,7 +2,7 @@
 /**
  * YITH Help Desk static Class.
  *
- * @class   YIT_Plugin_Panel
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH\PluginFramework\Classes
  */
 
@@ -11,7 +11,6 @@ defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 if ( ! class_exists( 'YIT_Help_Desk' ) ) {
 	/**
 	 * Class YIT_Help_Desk
-	 *
 	 * Contains static utilities for help desk integrations
 	 */
 	class YIT_Help_Desk {
@@ -27,7 +26,7 @@ if ( ! class_exists( 'YIT_Help_Desk' ) ) {
 		/**
 		 * Retrieves latest articles flagged with a give set of labels (and featured)
 		 *
-		 * @param  array $labels Array of labest to search; default to empty array (all featured articles will be retrieved).
+		 * @param array $labels Array of labest to search; default to empty array (all featured articles will be retrieved).
 		 *
 		 * @return array Array of articles, formatted as follows:
 		 * [
@@ -37,7 +36,6 @@ if ( ! class_exists( 'YIT_Help_Desk' ) ) {
 		 *   ],
 		 *   ...
 		 * ]
-		 * @author Antonio La Rocca <antonio.larocca@yithemes.com>
 		 */
 		public static function get_latest_articles( $labels = array() ) {
 			$latest_articles = get_site_transient( 'yith-plugin-fw-latest-hc-articles' );
@@ -113,8 +111,6 @@ if ( ! class_exists( 'YIT_Help_Desk' ) ) {
 		 *
 		 * @return string Parsed body of the answer; if content is valid JSON string, it will be decoded before return.
 		 * @throws Exception When an error occurs with API call; error contains more details about the type of problem.
-		 *
-		 * @author Antonio La Rocca <antonio.larocca@yithemes.com>
 		 */
 		public static function call( $request, $method = 'GET', $query = array(), $body = array(), $args = array() ) {
 			$destination_url = self::get_url( $request );
@@ -159,10 +155,9 @@ if ( ! class_exists( 'YIT_Help_Desk' ) ) {
 		/**
 		 * Get formatted url for API calls
 		 *
-		 * @param  string $request Endpoint to call with url.
-		 * @return string Formatted url.
+		 * @param string $request Endpoint to call with url.
 		 *
-		 * @author Antonio La Rocca <antonio.larocca@yithemes.com>
+		 * @return string Formatted url.
 		 */
 		public static function get_url( $request = '' ) {
 			$base_url = self::PRODUCTION_URL;

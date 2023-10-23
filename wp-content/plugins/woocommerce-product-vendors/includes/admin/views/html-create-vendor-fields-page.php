@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 </div>
 
 <div class="form-field">
-	<a href="#" class="wcpv-term-additional-settings-link"><?php _e( 'Additional Settings', 'woocommerce-product-vendors' ); ?></a>
+	<a href="#" class="wcpv-term-additional-settings-link"><?php esc_html_e( 'Additional Settings', 'woocommerce-product-vendors' ); ?></a>
 </div>
 
 <div class="form-fields wcpv-term-additional-settings" style="display:none">
@@ -121,7 +121,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div>
 		<label for="wcpv-vendor-timezone"><?php esc_html_e( 'Timezone', 'woocommerce-product-vendors' ); ?></label>
 		<select id="wcpv-vendor-timezone" name="vendor_data[timezone]" aria-describedby="timezone-description" class="wc-enhanced-select" style="width:50%">
-			<?php echo wp_timezone_choice( $tzstring ); ?>
+			<?php echo wp_timezone_choice( $tzstring ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 		</select>
 
 		<p><?php esc_html_e( 'Set the local timezone.', 'woocommerce-product-vendors' ); ?></p>

@@ -3,18 +3,23 @@ if ( ! class_exists( 'WC_Abstract_Privacy' ) ) {
 	return;
 }
 
+/**
+ * WC_Currency_Converter_Privacy
+ *
+ * @since 1.6.9
+ * @deprecated 2.1.0
+ */
 class WC_Currency_Converter_Privacy extends WC_Abstract_Privacy {
 	/**
 	 * Constructor
-	 *
 	 */
 	public function __construct() {
 		parent::__construct( __( 'WooCommerce Currency Converter', 'woocommerce-currency-converter-widget' ) );
+		wc_deprecated_function( __FUNCTION__, '2.1.0' );
 	}
 
 	/**
 	 * Gets the message of the privacy to display.
-	 *
 	 */
 	public function get_privacy_message() {
 		return wpautop(

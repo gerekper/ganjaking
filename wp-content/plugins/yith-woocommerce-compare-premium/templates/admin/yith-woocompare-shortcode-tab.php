@@ -2,8 +2,8 @@
 /**
  * Shortcode tab template
  *
- * @author Your Inspiration Themes
- * @package YITH WooCommerce Recently Viewed Products
+ * @author YITH <plugins@yithemes.com>
+ * @package YITH\Compare
  * @version 1.0.0
  */
 

@@ -5,7 +5,7 @@
  * Handles the document object.
  *
  * @class   YITH_Document
- * @author  YITH
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH\PDFInvoice\Classes
  */
 
@@ -14,14 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'YITH_Document' ) ) {
-
 	/**
 	 * Implements features related to a PDF document
 	 *
-	 * @class   YITH_Document
-	 * @package Yithemes
-	 * @since   1.0.0
-	 * @author  Your Inspiration Themes
+	 * @class YITH_Document
+	 * @since 1.0.0
 	 */
 	abstract class YITH_Document {
 
@@ -59,11 +56,9 @@ if ( ! class_exists( 'YITH_Document' ) ) {
 		 * @param int $order_id The order id.
 		 *
 		 * @since  1.0
-		 * @author YITH
 		 * @access public
 		 */
 		public function __construct( $order_id ) {
-
 			if ( ! $order_id ) {
 				return;
 			}
@@ -78,11 +73,9 @@ if ( ! class_exists( 'YITH_Document' ) ) {
 		 * Check if the document is associated to a valid order
 		 *
 		 * @return bool
-		 * @author YITH
 		 * @since  1.0.0
 		 */
 		public function is_valid() {
-
 			return false;
 		}
 
@@ -90,7 +83,6 @@ if ( ! class_exists( 'YITH_Document' ) ) {
 		 * Check if this document has been generated
 		 *
 		 * @return bool
-		 * @author YITH
 		 * @since  1.0.0
 		 */
 		public function generated() {
@@ -101,7 +93,6 @@ if ( ! class_exists( 'YITH_Document' ) ) {
 		 * Retrieve if a file for this document exists
 		 *
 		 * @return bool
-		 * @author YITH
 		 * @since  1.0.0
 		 */
 		public function file_exists() {
@@ -115,11 +106,21 @@ if ( ! class_exists( 'YITH_Document' ) ) {
 		 * @param int    $order_id Order ID.
 		 *
 		 * @return string
-		 * @author YITH
 		 * @since  1.0.0
 		 */
 		public function get_full_path( $extension = 'pdf', $order_id = null ) {
-
+			/**
+			 * APPLY_FILTERS: ywpi_document_save_path
+			 *
+			 * Filter the document save path.
+			 *
+			 * @param string the save path.
+			 * @param string $extension the file extension.
+			 * @param int $order_id the order ID.
+			 * @param object the class object..
+			 *
+			 * @return string
+			 */
 			$this->save_path = apply_filters( 'ywpi_document_save_path', $this->save_path, $extension, $order_id, $this );
 
 			return YITH_YWPI_DOCUMENT_SAVE_DIR . $this->save_folder . '/' . $this->save_path;
@@ -139,6 +140,7 @@ if ( ! class_exists( 'YITH_Document' ) ) {
 		 */
 		public function get_formatted_order_date() {
 			$date = '';
+
 			if ( $this->order ) {
 				$format = apply_filters( 'ywpi_invoice_date_format', ywpi_get_option( 'ywpi_invoice_date_format' ) );
 				$post   = get_post( $this->order->get_id() );

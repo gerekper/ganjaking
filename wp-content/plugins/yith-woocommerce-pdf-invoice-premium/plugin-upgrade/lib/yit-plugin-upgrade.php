@@ -181,8 +181,10 @@ if ( ! class_exists( 'YITH_Plugin_Upgrade' ) ) {
 				if ( ! is_wp_error( $remote_xml ) && isset( $remote_xml['response']['code'] ) && 200 === intval( $remote_xml['response']['code'] ) ) {
 					$plugin_remote_info = function_exists( 'simplexml_load_string' ) ? @simplexml_load_string( $remote_xml['body'] ) : false;
 					if ( $plugin_remote_info ) {
-						$info['Latest']    = (string) $plugin_remote_info->latest;
-						$info['changelog'] = (string) $plugin_remote_info->changelog;
+						$info = array(
+							'Latest'    => (string) $plugin_remote_info->latest,
+							'changelog' => (string) $plugin_remote_info->changelog,
+						);
 
 						set_transient( $transient, $info, DAY_IN_SECONDS );
 					} else {
@@ -518,6 +520,9 @@ if ( ! class_exists( 'YITH_Plugin_Upgrade' ) ) {
 		 * @see    update_plugins transient and pre_set_site_transient_update_plugins hooks
 		 */
 		public function check_update( $transient, $save = false ) {
+			if ( ! $transient ) {
+				return $transient;
+			}
 			foreach ( $this->plugins as $init => $plugin ) {
 
 				$plugin_slug  = $this->plugins[ $init ]['slug'];
@@ -839,22 +844,29 @@ if ( ! class_exists( 'YITH_Plugin_Upgrade' ) ) {
 			global $pagenow;
 
 			// In plugins.php page use the filter after_plugin_row_{plugin_init} instead.
-			if ( 'plugins.php' !== $pagenow ) {
+			if ( 'plugins.php' !== $pagenow && strpos( $path, 'plugin-install.php' ) === 0 ) {
+				$parsed_url = wp_parse_url( $url, PHP_URL_QUERY );
 				$query_args = array();
-				parse_str( parse_url( $url, PHP_URL_QUERY ), $query_args );
 
-				if ( ! empty( $query_args['plugin'] ) ) {
-					$product_id = $query_args['plugin'];
-					$transient  = 'yith_update_core_plugins_list';
-					$plugins    = get_transient( $transient );
+				if ( ! ! $parsed_url ) {
+					parse_str( $parsed_url, $query_args );
+				}
 
-					if ( empty( $plugins ) || count( $plugins ) != count( YITH_Plugin_Licence()->get_products() ) ) {
+				$tab     = $query_args['tab'] ?? '';
+				$plugin  = $query_args['plugin'] ?? '';
+				$section = $query_args['section'] ?? '';
+
+				if ( ! ! $plugin && 'plugin-information' === $tab && 'changelog' === $section ) {
+					$transient = 'yith_update_core_plugins_list';
+					$plugins   = get_transient( $transient );
+
+					if ( empty( $plugins ) || count( $plugins ) !== count( YITH_Plugin_Licence()->get_products() ) ) {
 						$plugins = array_flip( wp_list_pluck( YITH_Plugin_Licence()->get_products(), 'product_id' ) );
 						set_transient( $transient, $plugins, DAY_IN_SECONDS );
 					}
 
-					if ( isset( $plugins[ $product_id ] ) ) {
-						$url = $this->get_view_details_url( $plugins[ $product_id ] );
+					if ( isset( $plugins[ $plugin ] ) ) {
+						$url = $this->get_view_details_url( $plugins[ $plugin ] );
 					}
 				}
 			}

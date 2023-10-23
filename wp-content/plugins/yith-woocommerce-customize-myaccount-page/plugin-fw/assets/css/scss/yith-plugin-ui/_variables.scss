@@ -3,7 +3,7 @@
  */
 
 $content_bg: #ffffff; // Content Background.
-$content_text: #3c434a; // Content Text.
+$content_text: #475569; // Content Text.
 
 $primary: #00799f; // Primary color, for buttons
 $primary_hover: #0094c4; // Primary hover color, for buttons
@@ -37,24 +37,28 @@ $update_focus: #e7eccc; // Text on update button background
 
 $accent: #98aa36;
 
-$light_bg: #f0f6fb;
+$light_bg: #f5fafc;
 $light_border_color: #d7e3e7;
 $light_shadow: rgba(145, 191, 227, 0.11);
-$light_accent: #0079b0;
+$light_accent: #0073aa;
 
 $success: #98aa36;
 $success_light: lighten($success, 30%);
 $success_lighter: lighten($success, 43%);
 $success_lightest: lighten($success, 50%);
 
-
 $table_row_highlight: #f0f6fb;
 $table_row_striped: #f6f7f7;
 $table_border_light: #eff0f0;
 
-$field_border_color: #d8d8d8;
+$field_background: #ffffff;
+$field_border_color: #cbd5e1;
 $field_border_weight: 1px;
 $field_border: $field_border_weight solid $field_border_color;
+$field_shadow_color: rgba(0, 0, 0, 0.05);
+$field_shadow: 0 1px 2px 0 $field_shadow_color;
+$field_border_radius: 6px;
+$field_placeholder_color: #8f9eb0;
 
 $link: #0079b0; // Link Color.
 
@@ -67,55 +71,61 @@ $wp_top_bar_mobile_size: 46px;
 
 // export vars as CSS vars
 :root {
-  --yith-content-bg: #{$content_bg};
-  --yith-content-text: #{$content_text};
-  --yith-primary: #{$primary};
-  --yith-primary-hover: #{$primary_hover};
-  --yith-primary-focus: #{$primary_focus};
-  --yith-primary-text: #{$primary_text};
+    --yith-content-bg: #{$content_bg};
+    --yith-content-text: #{$content_text};
+    --yith-primary: #{$primary};
+    --yith-primary-hover: #{$primary_hover};
+    --yith-primary-focus: #{$primary_focus};
+    --yith-primary-text: #{$primary_text};
 
-  --yith-delete: #{$delete};
-  --yith-delete-hover: #{$delete_hover};
-  --yith-delete-text: #{$delete_text};
-  --yith-delete-focus: #{$delete_focus};
+    --yith-delete: #{$delete};
+    --yith-delete-hover: #{$delete_hover};
+    --yith-delete-text: #{$delete_text};
+    --yith-delete-focus: #{$delete_focus};
 
-  --yith-update: #{$update};
-  --yith-update-hover: #{$update_hover};
-  --yith-update-text: #{$update_text};
-  --yith-update-focus: #{$update_focus};
+    --yith-update: #{$update};
+    --yith-update-hover: #{$update_hover};
+    --yith-update-text: #{$update_text};
+    --yith-update-focus: #{$update_focus};
 
-  --yith-outline-text: #{$outline_text};
-  --yith-outline-border: #{$outline_border};
-  --yith-outline-bg: #{$outline_bg};
-  --yith-outline-bg-hover: #{$outline_bg_hover};
-  --yith-outline-border-hover: #{$outline_border_hover};
-  --yith-outline-focus: #{$outline_focus};
+    --yith-outline-text: #{$outline_text};
+    --yith-outline-border: #{$outline_border};
+    --yith-outline-bg: #{$outline_bg};
+    --yith-outline-bg-hover: #{$outline_bg_hover};
+    --yith-outline-border-hover: #{$outline_border_hover};
+    --yith-outline-focus: #{$outline_focus};
 
-  --yith-delete-outline-text: #{$delete_outline_text};
-  --yith-delete-outline-border: #{$delete_outline_border};
-  --yith-delete-outline-bg: #{$delete_outline_bg};
-  --yith-delete-outline-bg-hover: #{$delete_outline_bg_hover};
-  --yith-delete-outline-border-hover: #{$delete_outline_border_hover};
-  --yith-delete-outline-focus: #{$delete_outline_focus};
+    --yith-delete-outline-text: #{$delete_outline_text};
+    --yith-delete-outline-border: #{$delete_outline_border};
+    --yith-delete-outline-bg: #{$delete_outline_bg};
+    --yith-delete-outline-bg-hover: #{$delete_outline_bg_hover};
+    --yith-delete-outline-border-hover: #{$delete_outline_border_hover};
+    --yith-delete-outline-focus: #{$delete_outline_focus};
 
-  --yith-accent: #{$accent};
+    --yith-accent: #{$accent};
 
-  --yith-light-bg: #{$light_bg};
-  --yith-light-border-color: #{$light_border_color};
-  --yith-light-shadow: #{$light_shadow};
-  --yith-light-accent: #{$light_accent};
+    --yith-light-bg: #{$light_bg};
+    --yith-light-border-color: #{$light_border_color};
+    --yith-light-shadow: #{$light_shadow};
+    --yith-light-accent: #{$light_accent};
 
-  --yith-success: #{$success};
-  --yith-success-light: #{$success_light};
-  --yith-success-lighter: #{$success_lighter};
-  --yith-success-lightest: #{$success_lightest};
+    --yith-success: #{$success};
+    --yith-success-light: #{$success_light};
+    --yith-success-lighter: #{$success_lighter};
+    --yith-success-lightest: #{$success_lightest};
 
-  --yith-table-row-highlight: #{$table_row_highlight};
-  --yith-table-row-striped: #{$table_row_striped};
-  --yith-table-border-light: #{$table_border_light};
+    --yith-table-row-highlight: #{$table_row_highlight};
+    --yith-table-row-striped: #{$table_row_striped};
+    --yith-table-border-light: #{$table_border_light};
 
-  --yith-field-border-color: #{$field_border_color};
-  --yith-field-border-weight: #{$field_border_color};
-  --yith-field-border: #{$field_border};
-  --yith-link: #{$link};
+    --yith-field-background: #{$field_background};
+    --yith-field-border-color: #{$field_border_color};
+    --yith-field-border-weight: #{$field_border_color};
+    --yith-field-border: #{$field_border};
+    --yith-field-shadow: #{$field_shadow};
+    --yith-field-shadow-color: #{$field_shadow_color};
+    --yith-field-border-radius: #{$field_border_radius};
+    --yith-field-placeholder-color: #{$field_placeholder_color};
+
+    --yith-link: #{$link};
 }

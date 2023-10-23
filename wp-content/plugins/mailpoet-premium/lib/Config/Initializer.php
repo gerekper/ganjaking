@@ -145,6 +145,10 @@ class Initializer {
       'mailpoet_dynamic_segments_filter_subscriber_tag_apply',
       [$this->subscriberTag, 'apply'], 10, 2
     );
+    $this->wp->addFilter(
+      'mailpoet_dynamic_segments_filter_subscriber_tag_getLookupData',
+      [$this->subscriberTag, 'getLookupDataFilterCallback'], 10, 2
+    );
   }
 
   public function newslettersCampaignStats() {

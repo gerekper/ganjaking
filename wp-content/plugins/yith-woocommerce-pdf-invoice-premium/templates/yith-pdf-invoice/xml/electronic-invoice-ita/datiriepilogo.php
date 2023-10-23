@@ -4,7 +4,7 @@
  *
  * Dati riepilogo XML.
  *
- * @author  YITH
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH\PDFInvoice\Templates
  */
 
@@ -25,15 +25,14 @@ if ( wc_tax_enabled() ) {
 			}
 		}
 
-		$tax = $item->get_taxes(); //phpcs:ignore
+		$tax = $item->get_taxes(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 
 		$tax_rate_amount = $item->get_total_tax();
 
 		$tax_percentage = '0.00';
 
 		if ( abs( $tax_rate_amount ) > 0 || $item instanceof WC_Order_Item_Product ) {
-
-			$order = isset( $invoice_details['main_order'] ) ? $invoice_details['main_order'] : $document->order; //phpcs:ignore
+			$order = isset( $invoice_details['main_order'] ) ? $invoice_details['main_order'] : $document->order; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 
 			$tax_class = strval( $item->get_tax_class() ) === 'inherit' ? '' : $item->get_tax_class();
 
@@ -49,9 +48,7 @@ if ( wc_tax_enabled() ) {
 
 
 			foreach ( $tax_rates as $tax_rate ) {
-
 				$tax_percentage = number_format( $tax_rate['rate'], 2, '.', '' );
-
 			}
 		}
 
@@ -63,18 +60,14 @@ if ( wc_tax_enabled() ) {
 			'total'     => $new_total,
 			'total_tax' => $new_tax_total,
 		);
-
-
 	endforeach;
 }
-
 
 $taxes = apply_filters( 'ywpi_invoce_taxes', $taxes, $bundle_exists );
 
 ?>
 
-<?php foreach ( $taxes as $key => $tax ) : //phpcs:ignore ?>
-
+<?php foreach ( $taxes as $key => $tax ) : // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited ?>
 	<?php $tax_percentage = number_format( (float) $key, 2, '.', '' ); ?>
 
 	<?php $total = number_format( abs( $tax['total'] ), 2, '.', '' ); ?>
@@ -83,7 +76,7 @@ $taxes = apply_filters( 'ywpi_invoce_taxes', $taxes, $bundle_exists );
 
 	<DatiRiepilogo>
 		<AliquotaIVA><?php echo wp_kses_post( apply_filters( 'ywpi_electronic_invoice_field_value', $tax_percentage, 'AliquotaIVA', $document ) ); ?></AliquotaIVA>
-		<?php if ( '0.00' == $tax_percentage ) :  //phpcs:ignore ?>
+		<?php if ( '0.00' === $tax_percentage ) : ?>
 			<Natura><?php echo wp_kses_post( $invoice_details['natura'] ); ?></Natura>
 		<?php endif; ?>
 		<ImponibileImporto><?php echo wp_kses_post( apply_filters( 'ywpi_electronic_invoice_field_value', $total, 'ImponibileImporto', $document ) ); ?></ImponibileImporto>

@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YITH WooCommerce PDF Invoices and Packing Slips\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
-"pdf-invoice-premium\n"
-"POT-Creation-Date: 2021-11-30 15:03:27+00:00\n"
+"pdf-invoice\n"
+"POT-Creation-Date: 2023-10-10T08:00:13+00:00\n"
 "PO-Revision-Date: 2020-04-01 08:56:24+0000\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
@@ -14,902 +14,1011 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/3.0.0-alpha.2\n"
 
-#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:61
-#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:148
-#: includes/admin/class-yith-ywpi-documents-list-table.php:155
-#: includes/admin/class-yith-ywpi-invoices-list-table.php:110
-msgid "Download PDF"
+#. Plugin Name of the plugin
+msgid "YITH WooCommerce PDF Invoices & Packing Slips Premium"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://yithemes.com/themes/plugins/yith-woocommerce-pdf-invoice/"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"<code><strong>YITH WooCommerce PDF Invoices & Packing Slips</strong></code> "
+"generates PDF invoices, credit notes, pro-forma invoices and packing slips "
+"for WooCommerce orders. You can set manual or automatic invoice generation, "
+"fully customize document templates and sync with your Dropbox and Google "
+"Drive accounts. <a href=\"https://yithemes.com/\" target=\"_blank\">Get more "
+"plugins for your e-commerce shop on <strong>YITH</strong></a>."
+msgstr ""
+
+#. Author of the plugin
+msgid "YITH"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://yithemes.com/"
+msgstr ""
+
+#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:40
+msgctxt "[admin] Invoices table column header"
+msgid "Credit Note No."
 msgstr ""
 
 #: includes/admin/class-yith-ywpi-credit-notes-list-table.php:62
-#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:152
-#: includes/admin/class-yith-ywpi-documents-list-table.php:156
-#: includes/admin/class-yith-ywpi-invoices-list-table.php:114
-msgid "Download XML"
+#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:156
+#: includes/admin/class-yith-ywpi-documents-list-table.php:175
+#: includes/admin/class-yith-ywpi-invoices-list-table.php:107
+msgid "Download PDF"
 msgstr ""
 
 #: includes/admin/class-yith-ywpi-credit-notes-list-table.php:63
-#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:174
-#: includes/admin/class-yith-ywpi-documents-list-table.php:157
-#: includes/admin/class-yith-ywpi-invoices-list-table.php:136
-msgid "Delete"
+#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:160
+#: includes/admin/class-yith-ywpi-documents-list-table.php:176
+#: includes/admin/class-yith-ywpi-invoices-list-table.php:111
+msgid "Download XML"
 msgstr ""
 
 #: includes/admin/class-yith-ywpi-credit-notes-list-table.php:64
-#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:156
-#: includes/admin/class-yith-ywpi-documents-list-table.php:158
-#: includes/admin/class-yith-ywpi-invoices-list-table.php:118
-#: includes/class.yith-ywpi-backend.php:431
-#: includes/class.yith-ywpi-backend.php:433
+#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:182
+#: includes/admin/class-yith-ywpi-documents-list-table.php:177
+#: includes/admin/class-yith-ywpi-invoices-list-table.php:133
+msgid "Delete"
+msgstr ""
+
+#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:65
+#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:164
+#: includes/admin/class-yith-ywpi-documents-list-table.php:178
+#: includes/admin/class-yith-ywpi-invoices-list-table.php:115
+#: includes/class.yith-ywpi-backend.php:451
 msgid "Regenerate"
 msgstr "Regenerar"
 
-#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:118
-#: includes/admin/class-yith-ywpi-invoices-list-table.php:80
-#: includes/class.yith-ywpi-backend.php:417
-#: includes/class.yith-ywpi-backend.php:589
+#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:124
+#: includes/admin/class-yith-ywpi-invoices-list-table.php:76
+#: includes/class.yith-ywpi-backend.php:433
+#: includes/class.yith-ywpi-backend.php:609
 msgid "View"
 msgstr "Ver"
 
-#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:122
-#: includes/admin/class-yith-ywpi-invoices-list-table.php:84
+#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:128
+#: includes/admin/class-yith-ywpi-invoices-list-table.php:80
 msgid "Further actions"
 msgstr ""
 
-#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:152
-#: includes/admin/class-yith-ywpi-invoices-list-table.php:114
-#: includes/class.yith-electronic-invoice.php:457
-#: includes/class.yith-electronic-invoice.php:502
+#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:160
+#: includes/admin/class-yith-ywpi-invoices-list-table.php:111
+#: includes/class.yith-electronic-invoice.php:537
+#: includes/class.yith-electronic-invoice.php:576
 msgid "Create XML"
 msgstr ""
 
-#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:159
-#: includes/admin/class-yith-ywpi-invoices-list-table.php:121
-#: includes/class.yith-woocommerce-pdf-invoice.php:237
+#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:167
+#: includes/admin/class-yith-ywpi-invoices-list-table.php:118
+#: includes/class.yith-woocommerce-pdf-invoice.php:167
 msgid "Confirm regenerate"
 msgstr ""
 
-#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:160
+#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:168
 msgid "Do you want to regenerate this credit note?"
 msgstr ""
 
-#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:164
-#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:167
+#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:172
+#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:175
+#: includes/admin/class-yith-ywpi-invoices-list-table.php:123
 #: includes/admin/class-yith-ywpi-invoices-list-table.php:126
-#: includes/admin/class-yith-ywpi-invoices-list-table.php:129
 msgid "Send to customer"
 msgstr ""
 
-#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:168
+#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:176
 msgid "Do you want to send this credit note to the customer?"
 msgstr ""
 
-#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:169
-#: includes/admin/class-yith-ywpi-invoices-list-table.php:131
-#: includes/admin/class-yith-ywpi-invoices-list-table.php:141
-#: includes/class.yith-woocommerce-pdf-invoice.php:244
+#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:177
+#: includes/admin/class-yith-ywpi-invoices-list-table.php:128
+#: includes/admin/class-yith-ywpi-invoices-list-table.php:138
+#: includes/class.yith-woocommerce-pdf-invoice.php:174
+#: includes/pdf-builder/admin/class-yith-ywpi-pdf-template-list-table.php:230
 msgid "No"
 msgstr ""
 
-#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:170
-#: includes/admin/class-yith-ywpi-invoices-list-table.php:132
+#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:178
+#: includes/admin/class-yith-ywpi-invoices-list-table.php:129
 msgid "Yes, send it"
 msgstr ""
 
-#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:177
-#: includes/admin/class-yith-ywpi-invoices-list-table.php:139
-#: includes/class.yith-woocommerce-pdf-invoice.php:241
+#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:185
+#: includes/admin/class-yith-ywpi-invoices-list-table.php:136
+#: includes/class.yith-woocommerce-pdf-invoice.php:171
+#: includes/pdf-builder/admin/class-yith-ywpi-pdf-template-list-table.php:227
 msgid "Confirm delete"
 msgstr ""
 
-#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:178
-msgid "Are you sure to delete this credit note?"
+#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:186
+msgid "Are you sure you want to delete this credit note?"
 msgstr ""
 
-#: includes/admin/class-yith-ywpi-documents-list-table.php:37
+#: includes/admin/class-yith-ywpi-documents-list-table.php:30
 msgid "Invoice List"
 msgstr ""
 
-#: includes/admin/class-yith-ywpi-documents-list-table.php:38
+#: includes/admin/class-yith-ywpi-documents-list-table.php:31
 msgid "Invoices Tables"
 msgstr ""
 
-#: includes/admin/class-yith-ywpi-documents-list-table.php:105
-#: includes/class.yith-checkout-addon.php:312
-#: includes/class.yith-checkout-addon.php:316
-#: includes/class.yith-checkout-addon.php:389
-#: includes/class.yith-checkout-addon.php:503
-#: includes/class.yith-checkout-addon.php:561
-#: includes/class.yith-woocommerce-pdf-invoice-privacy.php:118
-#: includes/class.yith-ywpi-list-tables.php:319
+#: includes/admin/class-yith-ywpi-documents-list-table.php:46
+#: includes/class.yith-ywpi-list-tables.php:162
+msgctxt "[admin] Invoices table column header"
+msgid "Date"
+msgstr ""
+
+#: includes/admin/class-yith-ywpi-documents-list-table.php:47
+#: includes/class.yith-ywpi-list-tables.php:163
+msgctxt "[admin] Invoices table column header"
+msgid "Invoice No."
+msgstr ""
+
+#: includes/admin/class-yith-ywpi-documents-list-table.php:48
+#: includes/class.yith-ywpi-list-tables.php:164
+msgctxt "[admin] Invoices table column header"
+msgid "Order"
+msgstr ""
+
+#: includes/admin/class-yith-ywpi-documents-list-table.php:49
+#: includes/class.yith-ywpi-list-tables.php:165
+msgctxt "[admin] Invoices table column header"
+msgid "Customer"
+msgstr ""
+
+#: includes/admin/class-yith-ywpi-documents-list-table.php:50
+#: includes/class.yith-ywpi-list-tables.php:166
+msgctxt "[admin] Invoices table column header"
+msgid "Subtotal"
+msgstr ""
+
+#: includes/admin/class-yith-ywpi-documents-list-table.php:51
+#: includes/class.yith-ywpi-list-tables.php:167
+msgctxt "[admin] Invoices table column header"
+msgid "Tax"
+msgstr ""
+
+#: includes/admin/class-yith-ywpi-documents-list-table.php:52
+#: includes/class.yith-ywpi-list-tables.php:168
+msgctxt "[admin] Invoices table column header"
+msgid "Total"
+msgstr ""
+
+#: includes/admin/class-yith-ywpi-documents-list-table.php:108
+#: includes/class.yith-checkout-addon.php:295
+#: includes/class.yith-checkout-addon.php:299
+#: includes/class.yith-checkout-addon.php:374
+#: includes/class.yith-checkout-addon.php:493
+#: includes/class.yith-checkout-addon.php:556
+#: includes/class.yith-woocommerce-pdf-invoice-privacy.php:100
+#: includes/class.yith-ywpi-list-tables.php:308
 msgid "VAT"
 msgstr "Contribuinte"
 
-#: includes/admin/class-yith-ywpi-documents-list-table.php:106
-#: includes/class.yith-checkout-addon.php:288
-#: includes/class.yith-checkout-addon.php:292
-#: includes/class.yith-checkout-addon.php:374
-#: includes/class.yith-checkout-addon.php:496
-#: includes/class.yith-checkout-addon.php:554
-#: includes/class.yith-woocommerce-pdf-invoice-privacy.php:117
-#: includes/class.yith-ywpi-list-tables.php:320
+#: includes/admin/class-yith-ywpi-documents-list-table.php:118
+#: includes/class.yith-checkout-addon.php:253
+#: includes/class.yith-checkout-addon.php:257
+#: includes/class.yith-checkout-addon.php:359
+#: includes/class.yith-checkout-addon.php:486
+#: includes/class.yith-checkout-addon.php:549
+#: includes/class.yith-woocommerce-pdf-invoice-privacy.php:99
+#: includes/class.yith-ywpi-list-tables.php:309
 msgid "SSN"
 msgstr "SSN"
 
-#: includes/admin/class-yith-ywpi-documents-list-table.php:207
+#: includes/admin/class-yith-ywpi-documents-list-table.php:235
 msgid "From"
 msgstr ""
 
-#: includes/admin/class-yith-ywpi-documents-list-table.php:209
+#: includes/admin/class-yith-ywpi-documents-list-table.php:237
 msgid "To"
 msgstr ""
 
-#: includes/admin/class-yith-ywpi-documents-list-table.php:212
+#: includes/admin/class-yith-ywpi-documents-list-table.php:240
 msgid "Filter"
 msgstr ""
 
-#: includes/admin/class-yith-ywpi-documents-list-table.php:214
+#: includes/admin/class-yith-ywpi-documents-list-table.php:242
 msgid "Export CSV of this view"
 msgstr ""
 
-#: includes/admin/class-yith-ywpi-invoices-list-table.php:122
+#: includes/admin/class-yith-ywpi-invoices-list-table.php:119
 msgid "Do you want to regenerate this invoice?"
 msgstr ""
 
-#: includes/admin/class-yith-ywpi-invoices-list-table.php:130
+#: includes/admin/class-yith-ywpi-invoices-list-table.php:127
 msgid "Do you want to send this invoice to the customer?"
 msgstr ""
 
-#: includes/admin/class-yith-ywpi-invoices-list-table.php:140
-msgid "Are you sure to delete this invoice?"
+#: includes/admin/class-yith-ywpi-invoices-list-table.php:137
+msgid "Are you sure you want to delete this invoice?"
 msgstr ""
 
-#: includes/admin/class-yith-ywpi-invoices-list-table.php:142
-#: includes/class.yith-woocommerce-pdf-invoice.php:245
+#: includes/admin/class-yith-ywpi-invoices-list-table.php:139
+#: includes/class.yith-woocommerce-pdf-invoice.php:175
 msgid "Yes, delete"
 msgstr ""
 
-#: includes/class.yith-checkout-addon.php:524
+#: includes/class.yith-checkout-addon.php:401
+msgid "SSN: "
+msgstr ""
+
+#: includes/class.yith-checkout-addon.php:409
+msgid "VAT: "
+msgstr ""
+
+#: includes/class.yith-checkout-addon.php:520
 msgid "Invoice type"
 msgstr ""
 
-#: includes/class.yith-checkout-addon.php:531
-#: includes/class.yith-woocommerce-pdf-invoice-premium.php:450
-#: includes/class.yith-woocommerce-pdf-invoice.php:499
-#: includes/class.yith-woocommerce-pdf-invoice.php:1472
-#: includes/class.yith-ywpi-multivendor-loader.php:639
+#: includes/class.yith-checkout-addon.php:527
+#: includes/class.yith-checkout-addon.php:607
+#: includes/class.yith-woocommerce-pdf-invoice-premium.php:455
+#: includes/class.yith-woocommerce-pdf-invoice.php:475
+#: includes/class.yith-woocommerce-pdf-invoice.php:1733
+#: includes/class.yith-ywpi-multivendor-loader.php:592
+#: includes/pdf-builder/editor/src/blocks/ywpi-order-amount/edit.js:38
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:119
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-totals/edit.js:45
 msgid "Invoice"
 msgstr "Fatura"
 
-#: includes/class.yith-checkout-addon.php:532
-#: includes/class.yith-woocommerce-pdf-invoice-premium.php:285
-#: includes/class.yith-ywpi-backend.php:388
+#: includes/class.yith-checkout-addon.php:528
+#: includes/class.yith-woocommerce-pdf-invoice-premium.php:266
+#: includes/class.yith-ywpi-backend.php:408
 msgid "Receipt"
 msgstr ""
 
-#: includes/class.yith-documents-bulk.php:66
+#: includes/class.yith-documents-bulk.php:65
 msgid "Generate Invoices"
 msgstr ""
 
-#: includes/class.yith-documents-bulk.php:67
+#: includes/class.yith-documents-bulk.php:66
 msgid "Generate Packing Slip"
 msgstr ""
 
-#: includes/class.yith-documents-bulk.php:68
+#: includes/class.yith-documents-bulk.php:67
 msgid "Regenerate Invoices"
 msgstr ""
 
-#: includes/class.yith-documents-bulk.php:69
+#: includes/class.yith-documents-bulk.php:68
 msgid "Regenerate Packing Slip"
 msgstr ""
 
-#: includes/class.yith-electronic-invoice.php:195
-msgid "(optional)"
+#: includes/class.yith-electronic-invoice.php:224
+msgid "The fiscal code entered is incorrect."
 msgstr ""
 
-#: includes/class.yith-electronic-invoice.php:197
-msgid "Il codice fiscale inserito non è corretto"
-msgstr ""
-
-#: includes/class.yith-electronic-invoice.php:200
+#: includes/class.yith-electronic-invoice.php:227
 msgid ""
-"La lunghezza del codice fiscale non è corretta: il codice fiscale dovrebbe "
-"essere lungo esattamente 16 caratteri."
+"The fiscal code length is incorrect: the fiscal code should be exactly 16 "
+"characters long."
 msgstr ""
 
-#: includes/class.yith-electronic-invoice.php:204
-msgid "Il codice fiscale contiene caratteri non validi."
+#: includes/class.yith-electronic-invoice.php:231
+msgid "The fiscal code includes invalid characters."
 msgstr ""
 
-#: includes/class.yith-electronic-invoice.php:208
-msgid "I caratteri peril codice fiscale sono lettere e cifre."
+#: includes/class.yith-electronic-invoice.php:235
+msgid "Only digits and letters are allowed in the fiscal code."
 msgstr ""
 
-#: includes/class.yith-electronic-invoice.php:212
-msgid "Il codice fiscale è errato."
+#: includes/class.yith-electronic-invoice.php:239
+msgid "The fiscal code is incorrect."
 msgstr ""
 
-#: includes/class.yith-electronic-invoice.php:392
-msgid "Tipologia utente"
-msgstr ""
-
-#: includes/class.yith-electronic-invoice.php:399
-msgid "Privato"
-msgstr ""
-
-#: includes/class.yith-electronic-invoice.php:400
-msgid "Libero professionista"
-msgstr ""
-
-#: includes/class.yith-electronic-invoice.php:401
-msgid "Azienda"
-msgstr ""
-
-#: includes/class.yith-electronic-invoice.php:460
 #: includes/class.yith-electronic-invoice.php:472
-#: includes/class.yith-electronic-invoice.php:505
-#: includes/class.yith-electronic-invoice.php:517
+msgid "Private"
+msgstr ""
+
+#: includes/class.yith-electronic-invoice.php:473
+msgid "Freelance"
+msgstr ""
+
+#: includes/class.yith-electronic-invoice.php:474
+msgid "Company"
+msgstr ""
+
+#: includes/class.yith-electronic-invoice.php:540
+#: includes/class.yith-electronic-invoice.php:550
+#: includes/class.yith-electronic-invoice.php:579
+#: includes/class.yith-electronic-invoice.php:589
 msgid "XML"
 msgstr ""
 
-#: includes/class.yith-electronic-invoice.php:542
-#: includes/class.yith-woocommerce-pdf-invoice.php:820
-#: includes/class.yith-ywpi-multivendor-loader.php:678
+#: includes/class.yith-electronic-invoice.php:606
+#: includes/class.yith-woocommerce-pdf-invoice.php:922
+#: includes/class.yith-ywpi-multivendor-loader.php:628
 msgid "View Invoice"
 msgstr "Visualizar fatura"
 
-#. translators: The invoice number.
-#: includes/class.yith-electronic-invoice.php:544
+#. translators: %s is the invoice number.
+#: includes/class.yith-electronic-invoice.php:609
 msgid "View Invoice No. %s (XML)"
 msgstr ""
 
-#: includes/class.yith-invoice-details.php:125
-#: includes/class.yith-invoice-details.php:130
+#: includes/class.yith-invoice-details.php:143
+#: includes/class.yith-invoice-details.php:147
 msgid "SKU: "
 msgstr ""
 
-#: includes/class.yith-invoice-details.php:451
-#: plugin-options/template/content-options.php:329
-#: plugin-options/template/content-options.php:637
-#: templates/yith-pdf-invoice/invoice-details.php:69
+#: includes/class.yith-invoice-details.php:551
+#: plugin-options/template/content-options.php:442
+#: plugin-options/template/content-options.php:757
+#: templates/yith-pdf-invoice/invoice-details.php:70
 #: templates/yith-pdf-invoice/receipt-details.php:40
 #: templates/yith-pdf-invoice/receipt-totals.php:47
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:209
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-totals/edit.js:79
+#: includes/pdf-builder/editor/src/components/OrderTotals/index.js:103
 msgid "Tax"
 msgstr "Imposto"
 
-#: includes/class.yith-pdf-invoice-dropbox.php:131
+#: includes/class.yith-pdf-invoice-dropbox.php:120
 msgid "Error: no Access Token."
 msgstr "Erro: nenhum token de acesso."
 
-#: includes/class.yith-pdf-invoice-dropbox.php:176
+#: includes/class.yith-pdf-invoice-dropbox.php:177
 msgid "Error: unable to send file to Dropbox."
 msgstr "Erro: não foi possível enviar o arquivo para o Dropbox."
 
 #: includes/class.yith-pdf-invoice-google-drive.php:270
-#: plugin-options/documents_storage-options.php:58
-#: plugin-options/documents_storage-options.php:86
-#: plugin-options/documents_type-options.php:19
-#: views/panel/invoices-list-tab.php:36
+#: includes/class.yith-ywpi-plugin-fw-loader.php:108
+#: plugin-options/documents_type-options.php:21
+#: plugin-options/settings/documents_storage-options.php:46
+#: plugin-options/settings/documents_storage-options.php:74
 msgid "Invoices"
 msgstr ""
 
-#: includes/class.yith-woocommerce-pdf-invoice-premium.php:230
+#: includes/class.yith-woocommerce-pdf-invoice-premium.php:164
 msgid "Gift card discount:"
 msgstr "Desconto no cartão de presente:"
 
-#: includes/class.yith-woocommerce-pdf-invoice-premium.php:277
-msgid "Proforma Invoice"
+#: includes/class.yith-woocommerce-pdf-invoice-premium.php:240
+msgid "Pro-forma invoice"
 msgstr ""
 
-#: includes/class.yith-woocommerce-pdf-invoice-premium.php:281
+#: includes/class.yith-woocommerce-pdf-invoice-premium.php:253
+#: includes/pdf-builder/editor/src/blocks/ywpi-order-amount/edit.js:42
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:123
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-totals/edit.js:49
 msgid "Credit note"
 msgstr "Nota de crédito"
 
-#: includes/class.yith-woocommerce-pdf-invoice-premium.php:352
+#: includes/class.yith-woocommerce-pdf-invoice-premium.php:329
 msgid "VAT number source"
 msgstr "Fonte do número de contribuinte"
 
-#: includes/class.yith-woocommerce-pdf-invoice-premium.php:456
-msgid "Proforma"
+#: includes/class.yith-woocommerce-pdf-invoice-premium.php:480
+msgid "Pro-forma"
 msgstr ""
 
-#: includes/class.yith-woocommerce-pdf-invoice-premium.php:470
+#: includes/class.yith-woocommerce-pdf-invoice-premium.php:503
 msgid "Credit Note"
 msgstr ""
 
-#: includes/class.yith-woocommerce-pdf-invoice.php:230
+#: includes/class.yith-woocommerce-pdf-invoice-privacy.php:26
+msgctxt "Privacy Policy Content"
+msgid "YITH WooCommerce PDF Invoices & Packing Slips Premium"
+msgstr ""
+
+#: includes/class.yith-woocommerce-pdf-invoice.php:161
 msgid "The logo you are uploading is "
 msgstr ""
 
-#: includes/class.yith-woocommerce-pdf-invoice.php:231
+#: includes/class.yith-woocommerce-pdf-invoice.php:162
 msgid "Logo must be no bigger than 300 x 150 pixels."
 msgstr ""
 
-#: includes/class.yith-woocommerce-pdf-invoice.php:233
+#: includes/class.yith-woocommerce-pdf-invoice.php:164
 msgid ""
 "In order to correctly generate a credit note, you should set the amount only "
 "on single order items."
 msgstr ""
 
-#: includes/class.yith-woocommerce-pdf-invoice.php:234
+#: includes/class.yith-woocommerce-pdf-invoice.php:165
 msgid "Before proceeding, it is mandatory to enter the reason for the refund."
 msgstr ""
 
-#: includes/class.yith-woocommerce-pdf-invoice.php:236
+#: includes/class.yith-woocommerce-pdf-invoice.php:166
 msgid "Search credit note"
 msgstr ""
 
-#: includes/class.yith-woocommerce-pdf-invoice.php:236
+#: includes/class.yith-woocommerce-pdf-invoice.php:166
 msgid "Search invoice"
 msgstr ""
 
-#: includes/class.yith-woocommerce-pdf-invoice.php:238
+#: includes/class.yith-woocommerce-pdf-invoice.php:168
 msgid "Do you want to regenerate the selected invoices?"
 msgstr ""
 
-#: includes/class.yith-woocommerce-pdf-invoice.php:239
+#: includes/class.yith-woocommerce-pdf-invoice.php:169
 msgid "Do you want to regenerate the selected credit notes?"
 msgstr ""
 
-#: includes/class.yith-woocommerce-pdf-invoice.php:240
+#: includes/class.yith-woocommerce-pdf-invoice.php:170
 msgid "Confirm"
 msgstr ""
 
-#: includes/class.yith-woocommerce-pdf-invoice.php:242
+#: includes/class.yith-woocommerce-pdf-invoice.php:172
 msgid "Do you want to delete the selected invoices?"
 msgstr ""
 
-#: includes/class.yith-woocommerce-pdf-invoice.php:243
+#: includes/class.yith-woocommerce-pdf-invoice.php:173
 msgid "Do you want to delete the selected credit notes?"
 msgstr ""
 
-#: includes/class.yith-woocommerce-pdf-invoice.php:361
+#: includes/class.yith-woocommerce-pdf-invoice.php:306
 msgid "YITH PDF Invoice: unknown document type. Unable to manage this action."
 msgstr ""
 "YITH PDF Invoice: tipo de documento desconhecido. Não é possível gerenciar "
 "essa ação."
 
-#: includes/class.yith-woocommerce-pdf-invoice.php:501
+#: includes/class.yith-woocommerce-pdf-invoice.php:477
 msgid "Packing slip"
 msgstr "Guia de transporte"
 
-#. translators: Invoice number.
-#: includes/class.yith-woocommerce-pdf-invoice.php:822
+#. translators: %s is the invoice number.
+#: includes/class.yith-woocommerce-pdf-invoice.php:925
 msgid "View Invoice No. %s"
 msgstr "Ver fatura nº %s"
 
-#: includes/class.yith-woocommerce-pdf-invoice.php:832
-#: includes/class.yith-woocommerce-pdf-invoice.php:833
+#: includes/class.yith-woocommerce-pdf-invoice.php:945
 msgid "View Receipt"
 msgstr ""
 
-#: includes/class.yith-woocommerce-pdf-invoice.php:1825
+#: includes/class.yith-woocommerce-pdf-invoice.php:2198
 msgid "receipt"
 msgstr ""
 
-#. translators: 1. The example URL. 2. End of the example URL Link (leave as
-#. </a>).
-#: includes/class.yith-ywpi-backend.php:165
+#. translators: 1. The example URL. 2. End of the example URL Link (leave as </a>).
+#: includes/class.yith-ywpi-backend.php:130
 msgid ""
 "Copy and paste the Dropbox authorization code here. %1$sLearn how to find it "
 ">%2$s"
 msgstr ""
 
-#: includes/class.yith-ywpi-backend.php:170
+#: includes/class.yith-ywpi-backend.php:133
 msgid "Get your Dropbox authorization code >"
 msgstr ""
 
-#: includes/class.yith-ywpi-backend.php:202
+#: includes/class.yith-ywpi-backend.php:168
 msgid "YITH PDF Invoice"
 msgstr "YITH PDF Invoice"
 
-#: includes/class.yith-ywpi-backend.php:244
+#: includes/class.yith-ywpi-backend.php:220
 msgid "Show invoice"
 msgstr "Mostrar fatura"
 
-#: includes/class.yith-ywpi-backend.php:248
+#: includes/class.yith-ywpi-backend.php:224
 msgid "Create invoice"
 msgstr "Criar fatura"
 
-#: includes/class.yith-ywpi-backend.php:263
+#: includes/class.yith-ywpi-backend.php:238
 msgid "Regenerate invoice"
 msgstr "Regenerar fatura"
 
-#: includes/class.yith-ywpi-backend.php:292
+#: includes/class.yith-ywpi-backend.php:266
 msgid "Show packing slip"
 msgstr "Mostrar guia de transporte"
 
-#: includes/class.yith-ywpi-backend.php:297
-#: includes/class.yith-ywpi-backend.php:605
+#: includes/class.yith-ywpi-backend.php:270
+#: includes/class.yith-ywpi-backend.php:615
 msgid "Create packing slip"
 msgstr "Criar guia de tranporte"
 
-#: includes/class.yith-ywpi-backend.php:312
-#: includes/class.yith-ywpi-backend.php:599
+#: includes/class.yith-ywpi-backend.php:284
+#: includes/class.yith-ywpi-backend.php:613
 msgid "Regenerate packing slip"
 msgstr "Regenerar guia de transporte"
 
-#: includes/class.yith-ywpi-backend.php:378
-#: includes/class.yith-ywpi-multivendor-loader.php:634
+#: includes/class.yith-ywpi-backend.php:375
+#: includes/class.yith-ywpi-multivendor-loader.php:587
 msgid "Invoice status"
 msgstr "Estado da fatura"
 
-#: includes/class.yith-ywpi-backend.php:383
+#: includes/class.yith-ywpi-backend.php:390
 msgid "Invoice number: "
 msgstr "Número da fatura:"
 
-#: includes/class.yith-ywpi-backend.php:395
+#: includes/class.yith-ywpi-backend.php:416
 msgid "Invoice date: "
 msgstr ""
 
-#: includes/class.yith-ywpi-backend.php:400
+#: includes/class.yith-ywpi-backend.php:421
 msgid "Receipt date: "
 msgstr ""
 
-#: includes/class.yith-ywpi-backend.php:407
-msgid "There is no invoice for this order"
-msgstr "Não há fatura para este pedido"
+#: includes/class.yith-ywpi-backend.php:427
+msgid "There is no invoice for this order."
+msgstr ""
 
-#: includes/class.yith-ywpi-backend.php:419
-#: includes/class.yith-ywpi-backend.php:654
+#: includes/class.yith-ywpi-backend.php:433
+#: includes/class.yith-ywpi-backend.php:668
 msgid "PDF"
 msgstr ""
 
-#: includes/class.yith-ywpi-backend.php:425
-#: includes/class.yith-ywpi-backend.php:427
+#: includes/class.yith-ywpi-backend.php:447
 msgid "Remove"
 msgstr "Remover"
 
-#: includes/class.yith-ywpi-backend.php:438
+#: includes/class.yith-ywpi-backend.php:456
 msgid "View all invoices"
 msgstr ""
 
-#: includes/class.yith-ywpi-backend.php:440
+#: includes/class.yith-ywpi-backend.php:456
 msgid "View all invoices >"
 msgstr ""
 
-#: includes/class.yith-ywpi-backend.php:449
-#: includes/class.yith-ywpi-backend.php:451
-#: includes/class.yith-ywpi-backend.php:516
-#: includes/class.yith-ywpi-backend.php:607
-#: includes/class.yith-ywpi-backend.php:665
+#: includes/class.yith-ywpi-backend.php:472
+#: includes/class.yith-ywpi-backend.php:540
+#: includes/class.yith-ywpi-backend.php:615
+#: includes/class.yith-ywpi-backend.php:671
 msgid "Create"
 msgstr "Criar"
 
-#: includes/class.yith-ywpi-backend.php:480
+#: includes/class.yith-ywpi-backend.php:509
 msgid "Credit note status"
 msgstr "Estado da nota de crédito"
 
-#: includes/class.yith-ywpi-backend.php:489
+#: includes/class.yith-ywpi-backend.php:518
 msgid "Refund #"
 msgstr "Reembolso #"
 
-#: includes/class.yith-ywpi-backend.php:495
+#: includes/class.yith-ywpi-backend.php:522
 msgid "View credit note"
 msgstr "Visualizar nota de crédito"
 
-#: includes/class.yith-ywpi-backend.php:504
+#: includes/class.yith-ywpi-backend.php:522
+msgctxt "Button text to display the credit note"
+msgid "PDF"
+msgstr ""
+
+#: includes/class.yith-ywpi-backend.php:536
 msgid "Remove credit note"
 msgstr "Remover nota de crédito"
 
-#: includes/class.yith-ywpi-backend.php:510
+#: includes/class.yith-ywpi-backend.php:536
+msgctxt "Button text to delete a credit note"
+msgid "Remove"
+msgstr "Remover"
+
+#: includes/class.yith-ywpi-backend.php:538
 msgid "Regenerate credit note"
 msgstr "Regenerar nota de crédito"
 
-#: includes/class.yith-ywpi-backend.php:537
+#: includes/class.yith-ywpi-backend.php:538
+msgctxt "Button text to regenerate a credit note"
+msgid "Regenerate"
+msgstr "Regenerar"
+
+#: includes/class.yith-ywpi-backend.php:540
+msgctxt "Button text to create the credit note"
+msgid "Create"
+msgstr "Criar"
+
+#: includes/class.yith-ywpi-backend.php:554
 msgid "View all credit notes"
 msgstr ""
 
-#: includes/class.yith-ywpi-backend.php:539
+#: includes/class.yith-ywpi-backend.php:554
 msgid "View all credit notes >"
 msgstr ""
 
-#: includes/class.yith-ywpi-backend.php:571
+#: includes/class.yith-ywpi-backend.php:595
 msgid "Packing slip status"
 msgstr "Estado da guia de transporte"
 
-#: includes/class.yith-ywpi-backend.php:575
+#: includes/class.yith-ywpi-backend.php:599
 msgid "Packing slip created."
 msgstr "Guia de transporte criada."
 
-#: includes/class.yith-ywpi-backend.php:579
+#: includes/class.yith-ywpi-backend.php:603
 msgid "There is no packing slip available for this order."
 msgstr "Não há guia de transporte disponível para este pedido."
 
-#: includes/class.yith-ywpi-backend.php:587
+#: includes/class.yith-ywpi-backend.php:609
 msgid "View packing slip"
 msgstr "Ver guia de transporte"
 
-#: includes/class.yith-ywpi-backend.php:593
+#: includes/class.yith-ywpi-backend.php:611
 msgid "Remove packing slip"
 msgstr "Remover guia de transporte"
 
-#: includes/class.yith-ywpi-backend.php:636
-msgid "Proforma status"
-msgstr "Estado Proforma"
+#: includes/class.yith-ywpi-backend.php:611
+msgctxt "Button text to remove a document"
+msgid "Remove"
+msgstr "Remover"
 
-#: includes/class.yith-ywpi-backend.php:640
-msgid "Proforma created."
-msgstr "Proforma criada."
+#: includes/class.yith-ywpi-backend.php:613
+#: includes/class.yith-ywpi-backend.php:669
+msgctxt "Button text to regenerate a document"
+msgid "Regenerate"
+msgstr "Regenerar"
 
-#: includes/class.yith-ywpi-backend.php:644
-msgid "There is no proforma for this order."
-msgstr "Não há proforma para este pedido."
+#: includes/class.yith-ywpi-backend.php:654
+msgid "Pro-forma status"
+msgstr ""
 
-#: includes/class.yith-ywpi-backend.php:652
-msgid "View proforma"
-msgstr "Ver proforma"
+#: includes/class.yith-ywpi-backend.php:658
+msgid "Pro-forma created."
+msgstr ""
 
-#: includes/class.yith-ywpi-backend.php:657
-msgid "Regenerate proforma"
-msgstr "Regenerar proforma"
+#: includes/class.yith-ywpi-backend.php:662
+msgid "There is no pro-forma for this order."
+msgstr ""
 
-#: includes/class.yith-ywpi-backend.php:663
-msgid "Create proforma"
-msgstr "Criar proforma"
+#: includes/class.yith-ywpi-backend.php:668
+msgid "View pro-forma"
+msgstr ""
 
-#: includes/class.yith-ywpi-multivendor-loader.php:242
+#: includes/class.yith-ywpi-backend.php:669
+msgid "Regenerate pro-forma"
+msgstr ""
+
+#: includes/class.yith-ywpi-backend.php:671
+msgid "Create pro-forma"
+msgstr ""
+
+#: includes/class.yith-ywpi-list-tables.php:163
+msgctxt "[admin] Credit notes table column header"
+msgid "Credit Note No."
+msgstr ""
+
+#: includes/class.yith-ywpi-multivendor-loader.php:199
 msgid "This feature is not available when used with YITH Multi Vendor plugin."
 msgstr ""
 "Este recurso não está disponível quando usado com o plugin YITH Multi Vendor."
 
 #. translators: The order number.
-#: includes/class.yith-ywpi-multivendor-loader.php:318
+#: includes/class.yith-ywpi-multivendor-loader.php:280
 msgid "(Main order #%s)"
 msgstr "(Pedido principal # %s)"
 
-#: includes/class.yith-ywpi-multivendor-loader.php:606
-msgid "<b>Current shop</b>"
-msgstr "<b> Loja atual </b>"
+#. translators: %1$s and %2$s are <b> and </b> tags.
+#: includes/class.yith-ywpi-multivendor-loader.php:561
+msgid "%1$sCurrent shop%2$s"
+msgstr ""
 
-#: includes/class.yith-ywpi-multivendor-loader.php:614
+#: includes/class.yith-ywpi-multivendor-loader.php:567
 msgid "Download"
 msgstr "Baixar"
 
-#: includes/class.yith-ywpi-multivendor-loader.php:638
+#: includes/class.yith-ywpi-multivendor-loader.php:591
 msgid "Vendor"
 msgstr "Fornecedor"
 
-#: includes/class.yith-ywpi-multivendor-loader.php:732
+#: includes/class.yith-ywpi-multivendor-loader.php:682
 msgid "Vendor settings"
 msgstr "Configurações do fornecedor"
 
-#: includes/class.yith-ywpi-multivendor-loader.php:734
+#: includes/class.yith-ywpi-multivendor-loader.php:684
+msgid "Configure the invoice settings."
+msgstr ""
+
+#: includes/class.yith-ywpi-multivendor-loader.php:690
 msgid "Vendor Electronic Invoice Settings"
 msgstr ""
 
-#: includes/class.yith-ywpi-plugin-fw-loader.php:148
-msgid "Documents Format"
+#: includes/class.yith-ywpi-multivendor-loader.php:692
+#: includes/class.yith-ywpi-plugin-fw-loader.php:125
+msgid "Configure the settings for the electronic invoice."
 msgstr ""
 
-#: includes/class.yith-ywpi-plugin-fw-loader.php:151
-msgid "Invoices & Credit Notes"
+#: includes/class.yith-ywpi-plugin-fw-loader.php:112
+#: plugin-options/template/content-options.php:22
+msgid "Settings"
 msgstr ""
 
-#: includes/class.yith-ywpi-plugin-fw-loader.php:152
-msgid "General options"
+#: includes/class.yith-ywpi-plugin-fw-loader.php:116
+msgctxt "admin tab title"
+msgid "PDF Templates"
 msgstr ""
 
-#: includes/class.yith-ywpi-plugin-fw-loader.php:153
-msgid "Documents Storage"
+#: includes/class.yith-ywpi-plugin-fw-loader.php:123
+msgid "Electronic Invoice"
 msgstr ""
-
-#: includes/class.yith-ywpi-plugin-fw-loader.php:157
-msgid "Template"
-msgstr "Template"
 
 #: includes/class.yith-ywpi-plugin-fw-loader.php:160
-msgid "Electronic invoice"
-msgstr ""
-
-#: includes/class.yith-ywpi-plugin-fw-loader.php:164
-msgid "Premium Version"
-msgstr "Versão Premium"
-
-#: includes/class.yith-ywpi-plugin-fw-loader.php:249
+msgctxt ""
+"[YOUR STORE TOOLS TAB] Description for plugin YITH WooCommerce Gift Cards"
 msgid ""
-"YITH WooCommerce PDF Invoices & Packing slips is available in an outstanding "
-"PREMIUM version with many new options, discover it now."
+"Sell gift cards in your shop to increase your earnings and attract new "
+"customers."
 msgstr ""
 
-#: includes/class.yith-ywpi-plugin-fw-loader.php:250
-msgid "Premium version"
-msgstr "Versão premium"
-
-#: includes/class.yith-ywpi-plugin-fw-loader.php:258
-msgid "YITH WooCommerce PDF Invoices & Packing slips"
-msgstr ""
-
-#: includes/class.yith-ywpi-plugin-fw-loader.php:259
+#: includes/class.yith-ywpi-plugin-fw-loader.php:172
+msgctxt ""
+"[YOUR STORE TOOLS TAB] Description for plugin YITH WooCommerce Ajax Product "
+"Filter"
 msgid ""
-"In the YITH Plugins tab, you can find YITH WooCommerce PDF Invoices & "
-"Packing slips options.<br> From this menu you can access all settings of "
-"activated YITH plugins.."
+"Help your customers to easily find the products they are looking for and "
+"improve the user experience of your shop."
 msgstr ""
 
-#: includes/templates/class.yith-ywpi-template-default.php:266
+#: includes/class.yith-ywpi-plugin-fw-loader.php:184
+msgctxt "[YOUR STORE TOOLS TAB] Description for plugin YITH Bookings"
+msgid ""
+"Enable a booking/appointment system to manage renting or booking of "
+"services, rooms, houses, cars, accommodation facilities and so on."
+msgstr ""
+
+#: includes/class.yith-ywpi-plugin-fw-loader.php:197
+msgctxt ""
+"[YOUR STORE TOOLS TAB] Description for plugin YITH WooCommerce Request a "
+"Quote"
+msgid ""
+"Hide prices and/or the \"Add to cart\" button and let your customers request "
+"a custom quote for every product."
+msgstr ""
+
+#: includes/class.yith-ywpi-plugin-fw-loader.php:209
+msgctxt ""
+"[YOUR STORE TOOLS TAB] Description for plugin YITH WooCommerce Product Add-"
+"Ons"
+msgid ""
+"Add paid or free advanced options to your product pages using fields like "
+"radio buttons, checkboxes, drop-downs, custom text inputs, and more."
+msgstr ""
+
+#: includes/class.yith-ywpi-plugin-fw-loader.php:221
+msgctxt ""
+"[YOUR STORE TOOLS TAB] Description for plugin YITH WooCommerce Dynamic "
+"Pricing and Discounts"
+msgid ""
+"Increase conversions through dynamic discounts and price rules, and build "
+"powerful and targeted offers."
+msgstr ""
+
+#: includes/class.yith-ywpi-plugin-fw-loader.php:233
+msgctxt ""
+"[YOUR STORE TOOLS TAB] Description for plugin YITH WooCommerce Customize My "
+"Account"
+msgid ""
+"Customize the My Account page of your customers by creating custom sections "
+"with promotions and ad-hoc content based on your needs."
+msgstr ""
+
+#: includes/class.yith-ywpi-plugin-fw-loader.php:245
+msgctxt "[YOUR STORE TOOLS TAB] Description for plugin Recover Abandoned Cart"
+msgid ""
+"Contact users who have added products to the cart without completing the "
+"order and try to recover lost sales."
+msgstr ""
+
+#: includes/class.yith-ywpi-plugin-fw-loader.php:257
+msgctxt "[HELP TAB] Video title"
+msgid ""
+"Check this video to learn how to <b>easily manage PDF invoices and credit "
+"notes:</b>"
+msgstr ""
+
+#: includes/pdf-builder/abstracts/abstract-yith-ywpi-pdf-template-list.php:297
+msgid "Options"
+msgstr ""
+
+#: includes/pdf-builder/admin/class-yith-ywpi-pdf-template-list-table.php:82
+msgctxt "Show if the template is in use"
+msgid "Invoice template"
+msgstr ""
+
+#: includes/pdf-builder/admin/class-yith-ywpi-pdf-template-list-table.php:86
+msgctxt "Show if the template is in use"
+msgid "Pro-forma template"
+msgstr ""
+
+#: includes/pdf-builder/admin/class-yith-ywpi-pdf-template-list-table.php:90
+msgctxt "Show if the template is in use"
+msgid "Packing slip template"
+msgstr ""
+
+#: includes/pdf-builder/admin/class-yith-ywpi-pdf-template-list-table.php:93
+msgctxt "Show if the template is in use"
+msgid "Credit note template "
+msgstr ""
+
+#: includes/pdf-builder/admin/class-yith-ywpi-pdf-template-list-table.php:156
+msgctxt "Message that appears when a post is updated"
+msgid "Template updated."
+msgstr ""
+
+#: includes/pdf-builder/admin/class-yith-ywpi-pdf-template-list-table.php:157
+msgctxt "Message that appears when a post is published"
+msgid "Template published."
+msgstr ""
+
+#. translators: number of templates deleted.
+#: includes/pdf-builder/admin/class-yith-ywpi-pdf-template-list-table.php:176
+msgid "%s template permanently deleted."
+msgid_plural "%s templates permanently deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/pdf-builder/admin/class-yith-ywpi-pdf-template-list-table.php:209
+msgid "Duplicate"
+msgstr ""
+
+#: includes/pdf-builder/admin/class-yith-ywpi-pdf-template-list-table.php:222
+msgctxt "Post action"
+msgid "Delete"
+msgstr ""
+
+#. translators: %s is the title of the post object.
+#: includes/pdf-builder/admin/class-yith-ywpi-pdf-template-list-table.php:229
+msgctxt "translators: %s is the title of the post object"
+msgid "Are you sure you want to delete \"%s\"?"
+msgstr ""
+
+#. translators: %s is the title of the post object.
+#: includes/pdf-builder/admin/class-yith-ywpi-pdf-template-list-table.php:229
+msgid ""
+"This action cannot be undone and you will not be able to recover this data."
+msgstr ""
+
+#: includes/pdf-builder/admin/class-yith-ywpi-pdf-template-list-table.php:231
+msgctxt "Delete confirmation action"
+msgid "Yes, delete"
+msgstr ""
+
+#: includes/pdf-builder/admin/class-yith-ywpi-pdf-template-list-table.php:262
+msgid "Back to templates list"
+msgstr ""
+
+#: includes/pdf-builder/class-yith-ywpi-pdf-template-builder.php:73
+msgctxt "Page title"
+msgid "Simple Invoice"
+msgstr ""
+
+#: includes/pdf-builder/class-yith-ywpi-pdf-template-builder.php:78
+msgctxt "Page title"
+msgid "Simple Credit note"
+msgstr ""
+
+#: includes/pdf-builder/class-yith-ywpi-pdf-template-builder.php:83
+msgctxt "Page title"
+msgid "Simple Pro-forma"
+msgstr ""
+
+#: includes/pdf-builder/class-yith-ywpi-pdf-template-builder.php:88
+msgctxt "Page title"
+msgid "Simple Packing slip"
+msgstr ""
+
+#: includes/pdf-builder/class-yith-ywpi-pdf-template-builder.php:196
+msgctxt "Post Type General Name"
+msgid "PDF Templates"
+msgstr ""
+
+#: includes/pdf-builder/class-yith-ywpi-pdf-template-builder.php:197
+msgctxt "Post Type Singular Name"
+msgid "PDF Template"
+msgstr ""
+
+#: includes/pdf-builder/class-yith-ywpi-pdf-template-builder.php:198
+msgid "PDF Template"
+msgstr ""
+
+#: includes/pdf-builder/class-yith-ywpi-pdf-template-builder.php:199
+msgid "+ Add new template"
+msgstr ""
+
+#: includes/pdf-builder/class-yith-ywpi-pdf-template-builder.php:200
+msgid "New template"
+msgstr ""
+
+#: includes/pdf-builder/class-yith-ywpi-pdf-template-builder.php:201
+msgid "Edit template"
+msgstr ""
+
+#: includes/pdf-builder/class-yith-ywpi-pdf-template-builder.php:202
+msgid "View template"
+msgstr ""
+
+#: includes/pdf-builder/class-yith-ywpi-pdf-template-builder.php:203
+msgid "Search template"
+msgstr ""
+
+#: includes/pdf-builder/class-yith-ywpi-pdf-template-builder.php:204
+msgid "Not found"
+msgstr ""
+
+#: includes/pdf-builder/class-yith-ywpi-pdf-template-builder.php:205
+msgid "Not found in Trash"
+msgstr ""
+
+#: includes/pdf-builder/editor/class-yith-ywpi-pdf-template-editor.php:450
+msgctxt "subtotal label on pdf document"
+msgid "Subtotal"
+msgstr ""
+
+#: includes/pdf-builder/editor/class-yith-ywpi-pdf-template-editor.php:469
+#: templates/yith-pdf-invoice/pdf-builder/product-totals.php:21
+msgctxt "discount included inside subtotal"
+msgid "Discount incl."
+msgstr ""
+
+#: includes/pdf-builder/editor/class-yith-ywpi-pdf-template-editor.php:469
+#: templates/yith-pdf-invoice/pdf-builder/product-totals.php:21
+msgctxt "discount exluded inside subtotal"
+msgid "Discount excl."
+msgstr ""
+
+#: includes/pdf-builder/editor/class-yith-ywpi-pdf-template-editor.php:477
+#: templates/yith-pdf-invoice/pdf-builder/product-totals.php:34
+msgctxt "discount label inside product totals"
+msgid "Discount"
+msgstr ""
+
+#: includes/pdf-builder/editor/class-yith-ywpi-pdf-template-editor.php:481
+#: includes/pdf-builder/editor/class-yith-ywpi-pdf-template-editor.php:494
+msgctxt "taxes label inside product totals"
+msgid "Taxes"
+msgstr ""
+
+#: includes/pdf-builder/editor/class-yith-ywpi-pdf-template-editor.php:484
+msgctxt "total label inside product totals"
+msgid "Total Taxes"
+msgstr ""
+
+#: includes/pdf-builder/editor/class-yith-ywpi-pdf-template-editor.php:485
+#: templates/yith-pdf-invoice/pdf-builder/product-totals.php:82
+msgctxt "total label inside product totals"
+msgid "Total"
+msgstr ""
+
+#: includes/pdf-builder/editor/class-yith-ywpi-pdf-template-editor.php:497
+msgctxt "total label inside product totals"
+msgid "Refunded amount"
+msgstr ""
+
+#: includes/pdf-builder/editor/class-yith-ywpi-pdf-template-editor.php:973
+msgid " SKU:"
+msgstr ""
+
+#: includes/pdf-builder/editor/class-yith-ywpi-pdf-template-editor.php:983
+#: templates/yith-pdf-invoice/pdf-builder/product-table.php:111
+msgid " Weight:"
+msgstr ""
+
+#: includes/pdf-builder/editor/class-yith-ywpi-pdf-template-editor.php:987
+#: templates/yith-pdf-invoice/pdf-builder/product-table.php:119
+msgid " Dimensions:"
+msgstr ""
+
+#: includes/templates/class.yith-ywpi-template-default.php:259
 msgid "Ship to:"
 msgstr ""
 
-#: includes/templates/class.yith-ywpi-template-default.php:268
+#: includes/templates/class.yith-ywpi-template-default.php:261
 msgid "Customer info:"
 msgstr ""
 
-#: init.php:38
+#: init.php:35
 msgid ""
-"YITH WooCommerce PDF Invoice is enabled but not effective. It requires "
-"WooCommerce in order to work."
-msgstr ""
-"YITH WooCommerce PDF Invoice está ativo, mas não é efetivo. Requer o "
-"WooCommerce para funcionar."
-
-#: plugin-options/documents-options.php:20
-msgid "Documents format"
-msgstr ""
-
-#: plugin-options/documents-options.php:25
-msgid "Date format for all documents"
-msgstr ""
-
-#: plugin-options/documents-options.php:33
-msgid "d/m/Y"
-msgstr "d/m/Y"
-
-#: plugin-options/documents-options.php:34
-msgid "d-m-Y"
-msgstr "d-m-y"
-
-#: plugin-options/documents-options.php:35
-msgid "m/d/Y"
-msgstr "m/d/y"
-
-#: plugin-options/documents-options.php:36
-msgid "m-d-Y"
-msgstr "m-d-y"
-
-#: plugin-options/documents-options.php:37
-msgid "Y-M-D"
-msgstr ""
-
-#: plugin-options/documents-options.php:40
-msgid ""
-"Set date format as it should appear on documents (default is d/m/Y).%1$s"
-"%2$sLearn more about Formatting Date and Time%3$s"
-msgstr ""
-
-#: plugin-options/documents-options.php:50
-msgid "Add prefix/suffix to the invoice number"
-msgstr ""
-
-#: plugin-options/documents-options.php:54
-msgid "Enable to show a custom text before or after the invoice number."
-msgstr ""
-
-#: plugin-options/documents-options.php:58 plugin-options/vendor-options.php:47
-msgid "Invoice prefix"
-msgstr "Prefixo da fatura"
-
-#: plugin-options/documents-options.php:63 plugin-options/vendor-options.php:51
-msgid ""
-"Set a text to show before the invoice number. Example: with \"YITH\", "
-"invoice number will be \"%1$sYITH%2$s-485940\""
-msgstr ""
-
-#: plugin-options/documents-options.php:76 plugin-options/vendor-options.php:60
-msgid "Invoice suffix"
-msgstr "Sufixo da fatura"
-
-#: plugin-options/documents-options.php:81 plugin-options/vendor-options.php:64
-msgid ""
-"Set a text to show after the invoice number. Example: with \"YITH\", invoice "
-"number will be \"485940-%1$sYITH%2$s\""
-msgstr ""
-
-#: plugin-options/documents-options.php:94 plugin-options/vendor-options.php:73
-msgid "Invoice number format"
-msgstr "Formato do número da fatura"
-
-#: plugin-options/documents-options.php:98
-msgid ""
-"Set the format for the invoice number. Use [number], [prefix], [suffix], "
-"[year], [month] and [day] as placeholders. <b>The [number] placeholder is "
-"required</b>, if not\n"
-"\t\t\tspecified, it will be queued to the corresponding text."
-msgstr ""
-
-#: plugin-options/documents-options.php:106
-msgid "Invoice file name format"
-msgstr "Formato do nome do arquivo de fatura"
-
-#: plugin-options/documents-options.php:110
-msgid ""
-"Set the format for the invoice file name. Use [number], [prefix], [suffix], "
-"[year], [month], and [day] as placeholders.\n"
-"<b>The [number] placeholder is required</b>. If not specified, it will be "
-"queued to the corresponding text."
-msgstr ""
-
-#: plugin-options/documents-options.php:119
-msgid "Add prefix/suffix to the credit note number"
-msgstr ""
-
-#: plugin-options/documents-options.php:123
-msgid "Enable to show a custom text before or after the credit note number."
-msgstr ""
-
-#: plugin-options/documents-options.php:127
-msgid "Credit note prefix"
-msgstr "Prefixo da nota de crédito"
-
-#: plugin-options/documents-options.php:132
-msgid ""
-"Set a text to show before the credit note number. Example: with \"YITH\", "
-"credit note number will be \"%1$sYITH%2$s-485940\""
-msgstr ""
-
-#: plugin-options/documents-options.php:145
-msgid "Credit note suffix"
-msgstr "Sufixo da nota de crédito"
-
-#: plugin-options/documents-options.php:150
-msgid ""
-"Set a text to show after the credit note number. Example: with \"YITH\", "
-"credit note number will be \"485940-%1$sYITH%2$s\""
-msgstr ""
-
-#: plugin-options/documents-options.php:163
-msgid "Credit note number format"
-msgstr "Formato do número da nota de crédito"
-
-#: plugin-options/documents-options.php:167
-msgid ""
-"Set the format for the credit note number. Use [number], [prefix], [suffix], "
-"[year], [month] and [day] as placeholders. <b>The [number] placeholder is "
-"required</b>, if not\n"
-"specified, it will be queued to the corresponding text."
-msgstr ""
-
-#: plugin-options/documents-options.php:175
-msgid "Credit note file name format"
-msgstr "Formato do nome do arquivo de nota de crédito"
-
-#: plugin-options/documents-options.php:179
-msgid ""
-"Set the format for the credit note file name. Use [number], [prefix], "
-"[suffix], [year], [month] and [day] as placeholders. <b>The [number]\n"
-"placeholder is necessary</b>. If not specified, it will be queued to the "
-"corresponding text."
-msgstr ""
-
-#: plugin-options/documents-options.php:188
-msgid "Proforma invoice file name format"
-msgstr ""
-
-#: plugin-options/documents-options.php:192
-msgid ""
-"Set the format for the pro-forma file name. Use [order_number], [year], "
-"[month] and [day] as placeholders. <b>The [order_number]\n"
-"placeholder is necessary</b>. If not specified, it will be queued to the "
-"corresponding text."
-msgstr ""
-
-#: plugin-options/documents-options.php:201
-msgid "Packing slip file name format"
-msgstr "Formato do nome da guia de transporte"
-
-#: plugin-options/documents-options.php:205
-msgid ""
-"Set the format for the packing slip file name. Use [order_number], [year], "
-"[month] and [day] as placeholders. <b>The [order_number]\n"
-"placeholder is necessary</b>. If not specified, it will be queued to the "
-"corresponding text."
-msgstr ""
-
-#: plugin-options/documents_storage-options.php:21
-msgid "Documents storage"
-msgstr ""
-
-#: plugin-options/documents_storage-options.php:26
-msgid "Invoice sub-folder name"
-msgstr ""
-
-#: plugin-options/documents_storage-options.php:31
-msgid ""
-"Enter a name to identify the folder where you want to store documents (root "
-"is %1$s%2$s wp-content / uploads / ywpi-pdf-invoice%3$s%4$s). Use [year], "
-"[month] and [day] as placeholders. Example:\n"
-"\t\t\t\"Invoices/[year]/[month]\" for invoices stored by year and month. "
-"%5$sLeave empty to store documents in root folder."
-msgstr ""
-
-#: plugin-options/documents_storage-options.php:45
-msgid "Automatically upload documents to Dropbox"
-msgstr ""
-
-#: plugin-options/documents_storage-options.php:49
-msgid ""
-"Enable if you want to automatically save all documents to a Dropbox Folder."
-msgstr ""
-
-#: plugin-options/documents_storage-options.php:53
-msgid "Dropbox folder name"
-msgstr ""
-
-#: plugin-options/documents_storage-options.php:54
-msgid "Name the Dropbox Folder where you want to store the documents."
-msgstr ""
-
-#: plugin-options/documents_storage-options.php:66
-msgid "Dropbox authorization code"
-msgstr ""
-
-#: plugin-options/documents_storage-options.php:67
-msgid "Set automatic document backup to Dropbox."
-msgstr "Defina o backup automático de documentos para o Dropbox."
-
-#: plugin-options/documents_storage-options.php:73
-msgid "Automatically upload documents to Google Drive"
-msgstr ""
-
-#: plugin-options/documents_storage-options.php:77
-msgid ""
-"Enable if you want to automatically save all documents to a Google Drive "
-"Folder."
-msgstr ""
-
-#: plugin-options/documents_storage-options.php:81
-msgid "Google Drive folder name"
-msgstr ""
-
-#: plugin-options/documents_storage-options.php:82
-msgid "Name the Google Drive Folder where you want to store the documents."
-msgstr ""
-
-#: plugin-options/documents_storage-options.php:94
-msgid "Google Drive Client ID"
-msgstr ""
-
-#: plugin-options/documents_storage-options.php:95
-msgid "Copy and paste the Google Drive Client ID here."
-msgstr ""
-
-#: plugin-options/documents_storage-options.php:107
-msgid "Google Drive Client Password"
-msgstr ""
-
-#: plugin-options/documents_storage-options.php:108
-msgid "Copy and paste the Google Drive Client Password here."
-msgstr ""
-
-#. translators: 1. A break line. 2. The Google Drive OAuth link.
-#: plugin-options/documents_storage-options.php:123
-msgid ""
-"Copy and paste the Google Drive authorization code here. %1$s <a href=\"%2$s"
-"\">Get your Google Drive authorization code ></a>%3$s\n"
-"\t\t\t\t\t<b>Your Redirect URI</b>: <i> %4$s </i>"
-msgstr ""
-
-#: plugin-options/documents_storage-options.php:133
-msgid "Google Drive Authorization Code"
-msgstr ""
-
-#. translators: 1. italic html code. 2. The folder path. 3. end of italic html
-#. code.
-#: plugin-options/documents_storage-options.php:152
-msgid ""
-"The documents folder %1$s %2$s %3$s is not writable. Please, check the "
-"folder permissions before starting to create documents!"
+"YITH WooCommerce PDF Invoices & Packing Slips is enabled but not effective. "
+"It requires WooCommerce in order to work."
 msgstr ""
 
 #: plugin-options/documents_type-options.php:22
-#: views/panel/credit-notes-list-tab.php:38
+msgid "A table with all the invoices generated in your shop."
+msgstr ""
+
+#: plugin-options/documents_type-options.php:25
 msgid "Credit Notes"
 msgstr ""
 
-#: plugin-options/electronic-invoice-options.php:26
+#: plugin-options/documents_type-options.php:26
+msgid "A table with all the credit notes generated in your shop."
+msgstr ""
+
+#: plugin-options/electronic-invoice-options.php:23
 msgid ""
 "<span style=\"font-weight: 400\">Il nome di ogni file XML che viene generato "
-"deve essere obbigatoriamente così composto:</span> \n"
+"deve essere obbigatoriamente così composto:</span>\n"
 "\t\t\t\t\t   Codice Paese | Identificativo univoco del Trasmittente _ "
 "Progressivo univoco del file.<span style=\"font-weight: 400\"> Il "
 "progressivo univoco del file è rappresentato da una stringa alfanumerica di "
@@ -922,139 +1031,435 @@ msgid ""
 "                       "
 msgstr ""
 
-#: plugin-options/electronic-invoice-options.php:383
-#: plugin-options/template/content-options.php:483
-#: plugin-options/vendor-options.php:100
+#: plugin-options/electronic-invoice-options.php:401
+#: plugin-options/template/content-options.php:590
+#: plugin-options/vendor-options.php:89
 msgid ""
-"We recommend to carefully verify the correct data provided, to generate the "
-"invoice. The plugin's authors refuse any responsibility about possible "
+"We recommend to carefully verify the data provided is correct, to generate "
+"the invoice. The plugin's authors refuse any responsibility for possible "
 "mistakes or shortcomings when generating invoices."
 msgstr ""
 
-#: plugin-options/general-options.php:24
+#: plugin-options/metabox/pdf-template-options.php:20
+msgid "Template title"
+msgstr ""
+
+#: plugin-options/metabox/pdf-template-options.php:23
+msgid "Enter a title for this template."
+msgstr ""
+
+#: plugin-options/settings-options.php:20
+msgid "General Options"
+msgstr ""
+
+#: plugin-options/settings-options.php:21
+msgid "Configure the plugin's general options."
+msgstr ""
+
+#: plugin-options/settings-options.php:24
+msgid "Documents Format"
+msgstr ""
+
+#: plugin-options/settings-options.php:25
+msgid "Configure the documents' formatting settings."
+msgstr ""
+
+#: plugin-options/settings-options.php:28
+msgid "Documents Storage"
+msgstr ""
+
+#: plugin-options/settings-options.php:29
+msgid "Configure the documents' storage settings."
+msgstr ""
+
+#: plugin-options/settings/documents-options.php:18
+msgid "Documents format"
+msgstr ""
+
+#: plugin-options/settings/documents-options.php:22
+msgid "Date format for all documents"
+msgstr ""
+
+#. translators: %1$s is a <br> tag. %2$s y %3$s are the link tags for the WordPress date and time documentation.
+#: plugin-options/settings/documents-options.php:37
+msgid ""
+"Set date format as it should appear on documents (default is d/m/Y)."
+"%1$s%2$sLearn more about Formatting Date and Time%3$s"
+msgstr ""
+
+#: plugin-options/settings/documents-options.php:43
+msgid "Invoices format"
+msgstr ""
+
+#: plugin-options/settings/documents-options.php:47
+msgid "Add prefix/suffix to the invoice number"
+msgstr ""
+
+#: plugin-options/settings/documents-options.php:51
+msgid "Enable to show a custom text before or after the invoice number."
+msgstr ""
+
+#: plugin-options/settings/documents-options.php:55
+#: plugin-options/vendor-options.php:49
+msgid "Invoice prefix"
+msgstr "Prefixo da fatura"
+
+#. translators: %1$s and %2$s are <b> and </b> tags.
+#: plugin-options/settings/documents-options.php:60
+#: plugin-options/vendor-options.php:54
+msgid ""
+"Set a text to show before the invoice number. Example: with \"YITH\", "
+"invoice number will be \"%1$sYITH%2$s-485940\"."
+msgstr ""
+
+#: plugin-options/settings/documents-options.php:67
+#: plugin-options/vendor-options.php:57
+msgid "Invoice suffix"
+msgstr "Sufixo da fatura"
+
+#. translators: %1$s and %2$s are <b> and </b> tags.
+#: plugin-options/settings/documents-options.php:72
+#: plugin-options/vendor-options.php:62
+msgid ""
+"Set a text to show after the invoice number. Example: with \"YITH\", invoice "
+"number will be \"485940-%1$sYITH%2$s\"."
+msgstr ""
+
+#: plugin-options/settings/documents-options.php:79
+#: plugin-options/vendor-options.php:65
+msgid "Invoice number format"
+msgstr "Formato do número da fatura"
+
+#: plugin-options/settings/documents-options.php:83
+msgid ""
+"Set the format for the invoice number. Use [number], [prefix], [suffix], "
+"[year], [month] and [day] as placeholders. <b>The [number] placeholder is "
+"required</b>. If not specified, it will be queued to the corresponding text."
+msgstr ""
+
+#: plugin-options/settings/documents-options.php:87
+msgid "Invoice file name format"
+msgstr "Formato do nome do arquivo de fatura"
+
+#: plugin-options/settings/documents-options.php:91
+msgid ""
+"Set the format for the invoice file name. Use [number], [prefix], [suffix], "
+"[year], [month], and [day] as placeholders. <b>The [number] placeholder is "
+"required</b>. If not specified, it will be queued to the corresponding text."
+msgstr ""
+
+#: plugin-options/settings/documents-options.php:99
+msgid "Credit notes format"
+msgstr ""
+
+#: plugin-options/settings/documents-options.php:103
+msgid "Add prefix/suffix to the credit note number"
+msgstr ""
+
+#: plugin-options/settings/documents-options.php:107
+msgid "Enable to show a custom text before or after the credit note number."
+msgstr ""
+
+#: plugin-options/settings/documents-options.php:111
+msgid "Credit note prefix"
+msgstr "Prefixo da nota de crédito"
+
+#. translators: %1$s and %2$s are <b> and </b> tags.
+#: plugin-options/settings/documents-options.php:116
+msgid ""
+"Set a text to show before the credit note number. Example: with \"YITH\", "
+"credit note number will be \"%1$sYITH%2$s-485940\"."
+msgstr ""
+
+#: plugin-options/settings/documents-options.php:123
+msgid "Credit note suffix"
+msgstr "Sufixo da nota de crédito"
+
+#. translators: %1$s and %2$s are <b> and </b> tags.
+#: plugin-options/settings/documents-options.php:128
+msgid ""
+"Set a text to show after the credit note number. Example: with \"YITH\", "
+"credit note number will be \"485940-%1$sYITH%2$s\"."
+msgstr ""
+
+#: plugin-options/settings/documents-options.php:135
+msgid "Credit note number format"
+msgstr "Formato do número da nota de crédito"
+
+#: plugin-options/settings/documents-options.php:139
+msgid ""
+"Set the format for the credit note number. Use [number], [prefix], [suffix], "
+"[year], [month] and [day] as placeholders. <b>The [number] placeholder is "
+"required</b>. If not specified, it will be queued to the corresponding text."
+msgstr ""
+
+#: plugin-options/settings/documents-options.php:143
+msgid "Credit note file name format"
+msgstr "Formato do nome do arquivo de nota de crédito"
+
+#: plugin-options/settings/documents-options.php:147
+msgid ""
+"Set the format for the credit note file name. Use [number], [prefix], "
+"[suffix], [year], [month] and [day] as placeholders. <b>The [number] "
+"placeholder is required</b>. If not specified, it will be queued to the "
+"corresponding text."
+msgstr ""
+
+#: plugin-options/settings/documents-options.php:155
+msgid "Pro-forma invoices format"
+msgstr ""
+
+#: plugin-options/settings/documents-options.php:159
+msgid "Pro-forma invoice file name format"
+msgstr ""
+
+#: plugin-options/settings/documents-options.php:163
+msgid ""
+"Set the format for the pro-forma file name. Use [order_number], [year], "
+"[month] and [day] as placeholders. <b>The [order_number] placeholder is "
+"required</b>. If not specified, it will be queued to the corresponding text."
+msgstr ""
+
+#: plugin-options/settings/documents-options.php:171
+msgid "Packing slips format"
+msgstr ""
+
+#: plugin-options/settings/documents-options.php:175
+msgid "Packing slip file name format"
+msgstr "Formato do nome da guia de transporte"
+
+#: plugin-options/settings/documents-options.php:179
+msgid ""
+"Set the format for the packing slip file name. Use [order_number], [year], "
+"[month] and [day] as placeholders. <b>The [order_number] placeholder is "
+"required</b>. If not specified, it will be queued to the corresponding text."
+msgstr ""
+
+#: plugin-options/settings/documents_storage-options.php:20
+msgid "Documents storage"
+msgstr ""
+
+#: plugin-options/settings/documents_storage-options.php:24
+msgid "Invoice sub-folder name"
+msgstr ""
+
+#. translators: all the placeholders are some HTML tags.
+#: plugin-options/settings/documents_storage-options.php:29
+msgid ""
+"Enter a name to identify the folder where you want to store documents (root "
+"is %1$s%2$s wp-content / uploads / ywpi-pdf-invoice%3$s%4$s). Use [year], "
+"[month] and [day] as placeholders. Example: \"Invoices/[year]/[month]\" for "
+"invoices stored by year and month. %5$sLeave empty to store documents in the "
+"root folder."
+msgstr ""
+
+#: plugin-options/settings/documents_storage-options.php:33
+msgid "Automatically upload documents to Dropbox"
+msgstr ""
+
+#: plugin-options/settings/documents_storage-options.php:37
+msgid ""
+"Enable if you want to automatically save all documents to a Dropbox folder."
+msgstr ""
+
+#: plugin-options/settings/documents_storage-options.php:41
+msgid "Dropbox folder name"
+msgstr ""
+
+#: plugin-options/settings/documents_storage-options.php:42
+msgid "Name the Dropbox folder where you want to store the documents."
+msgstr ""
+
+#: plugin-options/settings/documents_storage-options.php:54
+msgid "Dropbox authorization code"
+msgstr ""
+
+#: plugin-options/settings/documents_storage-options.php:55
+msgid "Set automatic document backup to Dropbox."
+msgstr "Defina o backup automático de documentos para o Dropbox."
+
+#: plugin-options/settings/documents_storage-options.php:61
+msgid "Automatically upload documents to Google Drive"
+msgstr ""
+
+#: plugin-options/settings/documents_storage-options.php:65
+msgid ""
+"Enable if you want to automatically save all documents to a Google Drive "
+"folder."
+msgstr ""
+
+#: plugin-options/settings/documents_storage-options.php:69
+msgid "Google Drive folder name"
+msgstr ""
+
+#: plugin-options/settings/documents_storage-options.php:70
+msgid "Name the Google Drive folder where you want to store the documents."
+msgstr ""
+
+#: plugin-options/settings/documents_storage-options.php:82
+msgid "Google Drive Client ID"
+msgstr ""
+
+#: plugin-options/settings/documents_storage-options.php:83
+msgid "Copy and paste the Google Drive Client ID here."
+msgstr ""
+
+#: plugin-options/settings/documents_storage-options.php:94
+msgid "Google Drive Client Password"
+msgstr ""
+
+#: plugin-options/settings/documents_storage-options.php:95
+msgid "Copy and paste the Google Drive Client Password here."
+msgstr ""
+
+#. translators: 1. A break line. 2. The Google Drive OAuth link.
+#: plugin-options/settings/documents_storage-options.php:108
+msgid ""
+"Copy and paste the Google Drive authorization code here. %1$s <a "
+"href=\"%2$s\" target=\"_blank\">Get your Google Drive authorization code ></"
+"a>%3$s<b>Your Redirect URI</b>: <i> %4$s </i>"
+msgstr ""
+
+#: plugin-options/settings/documents_storage-options.php:109
+msgid "Google Drive Authorization Code"
+msgstr ""
+
+#. translators: 1. italic html code. 2. The folder path. 3. end of italic html code.
+#: plugin-options/settings/documents_storage-options.php:126
+msgid ""
+"The documents folder %1$s %2$s %3$s is not writable. Please, check the "
+"folder permissions before starting to create documents!"
+msgstr ""
+
+#: plugin-options/settings/general-options.php:23
 msgid "Invoice options"
 msgstr ""
 
-#: plugin-options/general-options.php:30
+#: plugin-options/settings/general-options.php:28
 msgid "Invoices creation"
 msgstr ""
 
-#: plugin-options/general-options.php:36
+#: plugin-options/settings/general-options.php:34
 msgid "Manually - Create the invoices only for the specific orders you select"
 msgstr ""
 
-#: plugin-options/general-options.php:37
+#: plugin-options/settings/general-options.php:35
 msgid "Automatically - Create the invoices for all orders made in your store"
 msgstr ""
 
-#: plugin-options/general-options.php:41
+#: plugin-options/settings/general-options.php:39
 msgid ""
 "Choose if you want to use the plugin to automatically generate invoices for "
-"all orders, or if you want to manually create invoices\n"
-"\t\t    only for the orders you select."
+"all orders, or if you want to manually create invoices only for the orders "
+"you select."
 msgstr ""
 
-#: plugin-options/general-options.php:48 plugin-options/general-options.php:75
+#: plugin-options/settings/general-options.php:42
+#: plugin-options/settings/general-options.php:69
 msgid "Date of invoice creation"
 msgstr ""
 
-#: plugin-options/general-options.php:54 plugin-options/general-options.php:73
+#: plugin-options/settings/general-options.php:48
+#: plugin-options/settings/general-options.php:67
 msgid "Date of order creation"
 msgstr ""
 
-#: plugin-options/general-options.php:55
+#: plugin-options/settings/general-options.php:49
 msgid "Date when order changes to processing status"
 msgstr ""
 
-#: plugin-options/general-options.php:56
+#: plugin-options/settings/general-options.php:50
 msgid "Date when order changes to completed status"
 msgstr ""
 
-#: plugin-options/general-options.php:59
+#: plugin-options/settings/general-options.php:53
 msgid "Choose on which date the invoices will be automatically generated."
 msgstr ""
 
-#: plugin-options/general-options.php:67
+#: plugin-options/settings/general-options.php:61
 msgid "Date to show in the invoice"
 msgstr ""
 
-#: plugin-options/general-options.php:74
+#: plugin-options/settings/general-options.php:68
 msgid "Date the order is completed"
 msgstr ""
 
-#: plugin-options/general-options.php:78
-msgid "Choose which date to show in the invoices"
+#: plugin-options/settings/general-options.php:72
+msgid "Choose which date to show in the invoices."
 msgstr ""
 
-#: plugin-options/general-options.php:81
+#: plugin-options/settings/general-options.php:75
 msgid "Invoice numbers"
 msgstr ""
 
-#: plugin-options/general-options.php:87
+#: plugin-options/settings/general-options.php:81
 msgid "Use Order number"
 msgstr ""
 
-#: plugin-options/general-options.php:88
+#: plugin-options/settings/general-options.php:82
 msgid "Use Order ID"
 msgstr ""
 
-#: plugin-options/general-options.php:89
+#: plugin-options/settings/general-options.php:83
 msgid "Start sequential numbering from a specific number"
 msgstr ""
 
-#: plugin-options/general-options.php:92
-msgid "Choose how to generate Invoice numbers."
+#: plugin-options/settings/general-options.php:86
+msgid "Choose how to generate invoice numbers."
 msgstr ""
 
-#: plugin-options/general-options.php:96
+#: plugin-options/settings/general-options.php:90
 msgid "Start invoice numbers from"
 msgstr ""
 
-#: plugin-options/general-options.php:101
+#. translators: %s is a <br> tag.
+#: plugin-options/settings/general-options.php:95
 msgid ""
 "Enter the number for the next invoice (if empty, the first invoice will be "
-"the number \"1\"). \n"
-"\t\t    %1$s Sequential numbering will start from this number."
+"with the number \"1\").%sSequential numbering will start from this number."
 msgstr ""
 
-#: plugin-options/general-options.php:117
+#: plugin-options/settings/general-options.php:105
+#: plugin-options/vendor-options.php:41
 msgid "Billing year"
 msgstr "Ano de faturamento"
 
-#: plugin-options/general-options.php:123
+#: plugin-options/settings/general-options.php:113
 msgid "Enforce minimum invoice number length"
 msgstr ""
 
-#: plugin-options/general-options.php:127
+#: plugin-options/settings/general-options.php:117
 msgid ""
 "Enable this option to set a minimum length for your invoice numbers. If the "
 "invoice number does not meet this length, it will get prefixed with zeros."
 msgstr ""
 
-#: plugin-options/general-options.php:131
+#: plugin-options/settings/general-options.php:121
 msgid "Number of digits"
 msgstr ""
 
-#: plugin-options/general-options.php:135
+#: plugin-options/settings/general-options.php:125
 msgid "Enter the minimum number of digits for your invoice number."
 msgstr ""
 
-#: plugin-options/general-options.php:143
-#: plugin-options/general-options.php:285 plugin-options/vendor-options.php:88
-msgid "Reset on 1st January"
-msgstr "Reset a 1 de Janeiro"
+#: plugin-options/settings/general-options.php:133
+#: plugin-options/settings/general-options.php:280
+#: plugin-options/vendor-options.php:76
+msgid "Reset on January 1st"
+msgstr ""
 
-#: plugin-options/general-options.php:147 plugin-options/vendor-options.php:91
+#: plugin-options/settings/general-options.php:137
+#: plugin-options/vendor-options.php:80
 msgid ""
 "Enable to automatically reset and restart sequential numbering from number "
 "\"1\" each January 1st."
 msgstr ""
 
-#: plugin-options/general-options.php:156
+#: plugin-options/settings/general-options.php:146
 msgid "Avoid duplicate invoices"
 msgstr ""
 
-#: plugin-options/general-options.php:160
+#: plugin-options/settings/general-options.php:150
 msgid ""
 "Enable this option if you want to check old invoice numbers before creating "
 "a new one, to avoid duplication.<br><b>Note: </b> this option may affect the "
@@ -1062,283 +1467,435 @@ msgid ""
 "server."
 msgstr ""
 
-#: plugin-options/general-options.php:172
+#: plugin-options/settings/general-options.php:159
+msgid "Avoid invoice generation for orders with value “0”"
+msgstr ""
+
+#: plugin-options/settings/general-options.php:163
+msgid "Enable to avoid generating the invoice when the order value is 0."
+msgstr ""
+
+#: plugin-options/settings/general-options.php:167
 msgid "Enable eletronic invoice (Italian Customers)"
 msgstr ""
 
-#: plugin-options/general-options.php:176
+#: plugin-options/settings/general-options.php:171
 msgid ""
 "Enable the electronic invoice system and save the options. Reload the page "
 "and you'll be able to see a new tab called  \"Electronic Invoice\" and "
 "download an XML to forward to \"Agenzia delle Entrate\"."
 msgstr ""
 
-#: plugin-options/general-options.php:183
-msgid "Viewing Generated Documents"
+#: plugin-options/settings/general-options.php:175
+msgid "Viewing generated documents"
 msgstr ""
 
-#: plugin-options/general-options.php:188
+#: plugin-options/settings/general-options.php:180
 msgid "Download files as PDF"
 msgstr ""
 
-#: plugin-options/general-options.php:189
+#: plugin-options/settings/general-options.php:181
 msgid "Open file in the same browser tab"
 msgstr ""
 
-#: plugin-options/general-options.php:190
+#: plugin-options/settings/general-options.php:182
 msgid "Open file in a new browser tab"
 msgstr ""
 
-#: plugin-options/general-options.php:194
+#: plugin-options/settings/general-options.php:186
 msgid "Choose how to show generated documents to your users."
 msgstr ""
 
-#: plugin-options/general-options.php:203
+#: plugin-options/settings/general-options.php:194
 msgid "Pro-forma options"
 msgstr ""
 
-#: plugin-options/general-options.php:207
+#: plugin-options/settings/general-options.php:198
+msgid "Enable pro-forma"
+msgstr ""
+
+#: plugin-options/settings/general-options.php:202
+msgid ""
+"Enable this option to automatically generate a pro-forma when the order is "
+"created."
+msgstr ""
+
+#: plugin-options/settings/general-options.php:206
 msgid "Allow users to download pro-forma document in My Account"
 msgstr ""
 
-#: plugin-options/general-options.php:211
+#: plugin-options/settings/general-options.php:210
 msgid ""
-"If enabled, customers can download the \"Pro-Forma\" document from their "
+"If enabled, customers can download the \"pro-forma\" document from their "
 "\"My Account -> Orders\" page."
 msgstr ""
 
-#: plugin-options/general-options.php:215
+#: plugin-options/settings/general-options.php:219
 msgid "Attach pro-forma in new orders emails"
 msgstr ""
 
-#: plugin-options/general-options.php:219
+#: plugin-options/settings/general-options.php:223
 msgid ""
-"If enabled, customers will receive a pro-forma document as an attachment of "
-"their order's emails"
+"If enabled, customers will receive a pro-forma document as an attachment to "
+"their order's emails."
 msgstr ""
 
-#: plugin-options/general-options.php:228
+#: plugin-options/settings/general-options.php:236
 msgid "Receipts options"
 msgstr ""
 
-#: plugin-options/general-options.php:232
+#: plugin-options/settings/general-options.php:240
 msgid "Enable receipts"
 msgstr ""
 
-#: plugin-options/general-options.php:236
+#: plugin-options/settings/general-options.php:244
 msgid ""
 "Check this option to allow your customers to select at checkout if they "
 "prefer to receive a receipt instead of an invoice."
 msgstr ""
 
-#: plugin-options/general-options.php:245
+#: plugin-options/settings/general-options.php:252
 msgid "Credit notes options"
 msgstr ""
 
-#: plugin-options/general-options.php:249
+#: plugin-options/settings/general-options.php:256
 msgid "Enable credit notes for refunded orders"
 msgstr ""
 
-#: plugin-options/general-options.php:254
+#. translators: %s is a <br> tag.
+#: plugin-options/settings/general-options.php:261
 msgid ""
-"Check this option to enable credit note management for refunded orders.%1$s\n"
-"\t\t    Customers can download the \"Credit note\" document from their \"My "
-"Account -> Orders\" page "
+"Check this option to enable credit note management for refunded orders."
+"%sCustomers can download the \"Credit note\" document from their \"My "
+"Account -> Orders\" page."
 msgstr ""
 
-#: plugin-options/general-options.php:264
+#: plugin-options/settings/general-options.php:265
 msgid "Credit note sequential numbers start from"
 msgstr ""
 
-#: plugin-options/general-options.php:269
+#. translators: %s is a <br> tag.
+#: plugin-options/settings/general-options.php:270
 msgid ""
 "Enter the number for the next credit note (if empty, the first credit note "
-"will be with number \"1\")%1$s\n"
-"\t\t    Sequential numbering will start from this number"
+"will be with the number \"1\").%sSequential numbering will start from this "
+"number."
 msgstr ""
 
-#: plugin-options/general-options.php:289
+#: plugin-options/settings/general-options.php:284
 msgid ""
 "Enable to automatically reset and restart sequential numbering from \"1\" "
-"each 1st January."
+"each January 1st."
 msgstr ""
 
-#: plugin-options/general-options.php:303
+#: plugin-options/settings/general-options.php:297
 msgid "Packing slip options"
 msgstr ""
 
-#: plugin-options/general-options.php:308
+#: plugin-options/settings/general-options.php:301
 msgid "Enable packing slip (Shipping document)"
 msgstr ""
 
-#: plugin-options/general-options.php:312
+#: plugin-options/settings/general-options.php:305
 msgid ""
 "Check this option to enable packing slip management for products that will "
 "be shipped."
 msgstr ""
 
-#: plugin-options/general-options.php:317
+#: plugin-options/settings/general-options.php:309
 msgid "Packing slip generation"
 msgstr ""
 
-#: plugin-options/general-options.php:322
+#: plugin-options/settings/general-options.php:314
 msgid ""
 "Manually - Create the packing slip only for the specific orders you select"
 msgstr ""
 
-#: plugin-options/general-options.php:323
+#: plugin-options/settings/general-options.php:315
 msgid ""
 "Automatically - Create the packing slip for all orders made in your store"
 msgstr ""
 
-#: plugin-options/general-options.php:327
+#: plugin-options/settings/general-options.php:319
 msgid ""
 "Choose if you want to use the plugin to automatically generate packing slips "
-"for all orders, or if you want to manually create packing slips\n"
-"\t\t\t\tonly for the orders you select."
+"for all orders, or if you want to manually create packing slips only for the "
+"orders you select."
 msgstr ""
 
-#: plugin-options/general-options.php:344
+#: plugin-options/settings/general-options.php:331
 msgid "Checkout options"
 msgstr ""
 
-#: plugin-options/general-options.php:348
-msgid "Add SSN field in Checkout page"
+#: plugin-options/settings/general-options.php:335
+msgid "Add SSN field on Checkout page"
 msgstr ""
 
-#: plugin-options/general-options.php:352
-msgid "Enable to add a SSN input field in form of Checkout page"
+#: plugin-options/settings/general-options.php:339
+msgid "Enable to add an SSN input field in the Checkout page form."
 msgstr ""
 
-#: plugin-options/general-options.php:356
+#: plugin-options/settings/general-options.php:343
 msgid "Make SSN field mandatory"
 msgstr ""
 
-#: plugin-options/general-options.php:360
-msgid "Enable to make the SSN field mandatory to complete checkout process"
+#: plugin-options/settings/general-options.php:347
+msgid ""
+"Enable to make the SSN field mandatory to complete the checkout process."
 msgstr ""
 
-#: plugin-options/general-options.php:369
-msgid "Add VAT field in Checkout page"
+#: plugin-options/settings/general-options.php:356
+msgid "Add VAT field on Checkout page"
 msgstr ""
 
-#: plugin-options/general-options.php:373
-msgid "Enable to add a VAT input field in form of Checkout page"
+#: plugin-options/settings/general-options.php:360
+msgid "Enable to add a VAT input field in the Checkout page form."
 msgstr ""
 
-#: plugin-options/general-options.php:377
+#: plugin-options/settings/general-options.php:364
 msgid "Make VAT field mandatory"
 msgstr ""
 
-#: plugin-options/general-options.php:381
-msgid "Enable to make the VAT field mandatory to complete checkout process"
+#: plugin-options/settings/general-options.php:368
+msgid ""
+"Enable to make the VAT field mandatory to complete the checkout process."
 msgstr ""
 
-#: plugin-options/general-options.php:395
+#: plugin-options/settings/general-options.php:381
 msgid "YITH WooCommerce Delivery Date integration"
 msgstr ""
 
-#: plugin-options/general-options.php:397
+#. translators: %s is the URL to the landing page of Delivery Date.
+#: plugin-options/settings/general-options.php:384
 msgid ""
 "In order to use this integration you have to install and activate YITH "
 "WooCommerce Delivery Date. <a href=\"%s\">Learn more</a>"
 msgstr ""
 
-#: plugin-options/general-options.php:401
+#: plugin-options/settings/general-options.php:388
 msgid "Show Delivery info"
 msgstr ""
 
-#: plugin-options/general-options.php:405
+#: plugin-options/settings/general-options.php:392
 msgid ""
-"Enable to show the delivery details when using the <a target=\"_blank\" href="
-"\"https://yithemes.com/themes/plugins/yith-woocommerce-delivery-date/\">YITH "
-"WooCommerce Delivery Date</a> plugin."
+"Enable to show the delivery details when using the <a target=\"_blank\" "
+"href=\"https://yithemes.com/themes/plugins/yith-woocommerce-delivery-date/"
+"\">YITH WooCommerce Delivery Date</a> plugin."
 msgstr ""
 
-#: plugin-options/template/content-options.php:19
-#: plugin-options/vendor-options.php:98
-msgid "Template settings"
-msgstr "Configurações de modelo"
+#: plugin-options/template-options.php:20
+msgctxt "subtab name"
+msgid "Settings"
+msgstr ""
 
-#: plugin-options/template/content-options.php:24
-#: plugin-options/vendor-options.php:103
-msgid "Company name"
-msgstr "Nome da empresa"
+#: plugin-options/template-options.php:21
+msgid "Configure the PDF template settings."
+msgstr ""
 
-#: plugin-options/template/content-options.php:28
-#: plugin-options/vendor-options.php:106
-msgid "Set the company name to be shown on invoices"
+#: plugin-options/template-options.php:24
+msgid "Style"
+msgstr ""
+
+#: plugin-options/template-options.php:25
+msgid "Configure the PDF template style settings."
+msgstr ""
+
+#: plugin-options/template-options.php:28
+msgctxt "Admin title of tab"
+msgid "Templates"
+msgstr ""
+
+#: plugin-options/template-options.php:29
+msgid ""
+"Create and manage the templates that your customers can download as PDFs."
+msgstr ""
+
+#: plugin-options/template/content-options.php:16
+msgctxt "Admin notice"
+msgid ""
+"In order to use the PDF builder you need to install Gutenberg and update "
+"WordPress to the latest version."
+msgstr ""
+
+#: plugin-options/template/content-options.php:26
+msgid "PDF template to use"
 msgstr ""
 
 #: plugin-options/template/content-options.php:29
-#: plugin-options/vendor-options.php:107
+msgid ""
+"Choose if you want to use the default templates included in the plugin, or "
+"if you want to enable the templates builder to create custom templates for "
+"your documents."
+msgstr ""
+
+#: plugin-options/template/content-options.php:30
+msgctxt "part of a sentence in the option \"PDF template to use\" "
+msgid "Note:"
+msgstr ""
+
+#: plugin-options/template/content-options.php:31
+msgctxt "part of a sentence in the option \"PDF template to use\" "
+msgid "to enable the builder you need to enable Gutenberg."
+msgstr ""
+
+#: plugin-options/template/content-options.php:37
+msgid "Use the default template"
+msgstr ""
+
+#: plugin-options/template/content-options.php:38
+msgid "Create and choose a custom template"
+msgstr ""
+
+#: plugin-options/template/content-options.php:43
+msgctxt "Admin option label"
+msgid "Invoice template"
+msgstr ""
+
+#: plugin-options/template/content-options.php:44
+msgid ""
+"Choose which template to use by default for your PDF invoices. You can "
+"create unlimited templates in the Templates tab."
+msgstr ""
+
+#: plugin-options/template/content-options.php:49
+#: plugin-options/template/content-options.php:65
+#: plugin-options/template/content-options.php:81
+#: plugin-options/template/content-options.php:97
+msgid "Search for templates"
+msgstr ""
+
+#: plugin-options/template/content-options.php:59
+msgctxt "Admin option label"
+msgid "Pro-forma template"
+msgstr ""
+
+#: plugin-options/template/content-options.php:60
+msgid ""
+"Choose which template to use by default for your PDF pro-forma. You can "
+"create unlimited templates in the Templates tab."
+msgstr ""
+
+#: plugin-options/template/content-options.php:75
+msgctxt "Admin option label"
+msgid "Packing slip template"
+msgstr ""
+
+#: plugin-options/template/content-options.php:76
+msgid ""
+"Choose which template to use by default for your PDF packing slip. You can "
+"create unlimited templates in the Templates tab."
+msgstr ""
+
+#: plugin-options/template/content-options.php:91
+msgctxt "Admin option label"
+msgid "Credit note template"
+msgstr ""
+
+#: plugin-options/template/content-options.php:92
+msgid ""
+"Choose which template to use by default for your PDF credit note. You can "
+"create unlimited templates in the Templates tab."
+msgstr ""
+
+#: plugin-options/template/content-options.php:107
+msgid "Show positive amounts on Credit note"
+msgstr ""
+
+#: plugin-options/template/content-options.php:111
+#: plugin-options/template/content-options.php:580
+msgid ""
+"In some countries like Germany or Spain, it is necessary to show amounts on "
+"credit notes with positive values."
+msgstr ""
+
+#: plugin-options/template/content-options.php:119
+#: plugin-options/template/content-options.php:163
+#: plugin-options/vendor-options.php:92
+msgid "Company name"
+msgstr "Nome da empresa"
+
+#: plugin-options/template/content-options.php:123
+#: plugin-options/vendor-options.php:96
+msgid "Set the company name to be shown in the invoices."
+msgstr ""
+
+#: plugin-options/template/content-options.php:124
+#: plugin-options/vendor-options.php:97
 msgid "Your company name"
 msgstr "O nome da sua empresa"
 
-#: plugin-options/template/content-options.php:32
-#: plugin-options/vendor-options.php:110
+#: plugin-options/template/content-options.php:131
+#: plugin-options/vendor-options.php:100
 msgid "Your company logo"
 msgstr "Logotipo da sua empresa"
 
-#: plugin-options/template/content-options.php:36
+#: plugin-options/template/content-options.php:135
+#: plugin-options/vendor-options.php:104
 msgid "Set a default logo to be shown."
 msgstr ""
 
-#: plugin-options/template/content-options.php:39
-#: plugin-options/vendor-options.php:116
+#: plugin-options/template/content-options.php:142
+#: plugin-options/template/content-options.php:179
+#: plugin-options/template/content-options.php:183
+#: plugin-options/vendor-options.php:107
 msgid "Company details"
 msgstr "Detalhes da Companhia"
 
-#: plugin-options/template/content-options.php:44
-msgid "Set company details to use in the invoice."
+#: plugin-options/template/content-options.php:147
+msgid "Set the company details to use in the invoice."
 msgstr ""
 
-#: plugin-options/template/content-options.php:45
-#: plugin-options/vendor-options.php:121
-msgid ""
-"Your company details\n"
-"Address\n"
-"City, State"
+#: plugin-options/template/content-options.php:159
+msgid "Company info to show"
 msgstr ""
-"Os detalhes da sua empresa\n"
-"Endereço\n"
-"Cidade-Estado"
 
-#: plugin-options/template/content-options.php:52
-msgid "Visible sections"
-msgstr "Seções visíveis"
+#: plugin-options/template/content-options.php:171
+#: plugin-options/template/content-options.php:175
+msgid "Company logo"
+msgstr ""
 
-#: plugin-options/template/content-options.php:56
-msgid "Show company name"
-msgstr "Mostrar nome da empresa"
+#: plugin-options/template/content-options.php:191
+#: plugin-options/vendor-options.php:123
+msgid "Invoice and Pro-forma invoice template settings"
+msgstr ""
 
-#: plugin-options/template/content-options.php:60
-#: plugin-options/template/content-options.php:64
-msgid "Show company logo"
-msgstr "Mostrar logotipo da empresa"
+#: plugin-options/template/content-options.php:196
+msgid "Order info to show"
+msgstr ""
 
-#: plugin-options/template/content-options.php:68
-#: plugin-options/template/content-options.php:72
-msgid "Show company details"
-msgstr "Mostrar detalhes da empresa"
+#: plugin-options/template/content-options.php:200
+#: includes/pdf-builder/editor/src/blocks/ywpi-order-number/index.js:10
+msgid "Order number"
+msgstr ""
 
-#: plugin-options/template/content-options.php:76
+#: plugin-options/template/content-options.php:207
+#: templates/yith-pdf-invoice/document-data-packing-slip.php:60
+#: templates/yith-pdf-invoice/document-data-proforma.php:36
+msgid "Order date"
+msgstr "Data do pedido"
+
+#: plugin-options/template/content-options.php:214
+msgid "Order amount"
+msgstr ""
+
+#: plugin-options/template/content-options.php:221
+msgid "Order payment method"
+msgstr ""
+
+#: plugin-options/template/content-options.php:225
 msgid "Customer invoice details"
 msgstr "Detalhes da fatura do cliente"
 
-#: plugin-options/template/content-options.php:81
+#. translators: all the placeholders are a set of HTML tags.
+#: plugin-options/template/content-options.php:231
 msgid ""
-"Set the customer details to use in the invoice. <br>\n"
-"\t\t\tUse the postmeta metakeys as placeholders within double curly "
-"brackets. <br>Example: Use <b>{{_billing_first_name}}</b> to show the order "
-"billing first name. <br>\n"
-"\t\t\tYou can read the documentation <a href=\"https://docs.yithemes.com/"
-"yith-woocommerce-pdf-invoice/premium-version-settings/insert-new-user-"
-"details-documents/\">here</a> for more information.\n"
-"\t\t\t"
+"Set the customer details to use in the invoice.%1$sUse the postmeta metakeys "
+"as placeholders within double curly brackets.%1$sExample: Use "
+"%2$s{{_billing_first_name}}%3$s to show the order billing first name.%1$s "
+"You can read the documentation %4$shere%5$s for more information."
 msgstr ""
 
-#: plugin-options/template/content-options.php:88
+#: plugin-options/template/content-options.php:232
 msgid ""
 "{{_billing_first_name}} {{_billing_last_name}}\n"
 "{{_billing_address_1}}\n"
@@ -1358,499 +1915,482 @@ msgstr ""
 "{{_billing_phone}}\n"
 "{{_billing_email}}"
 
-#: plugin-options/template/content-options.php:101
-msgid "Customer packing slip details"
-msgstr "Detalhes da guia de transporte do cliente"
-
-#: plugin-options/template/content-options.php:106
-msgid ""
-"Set the customer details to use in the invoice. <br>\n"
-"\t\t\t Use the postmeta metakeys as placeholders within double curly "
-"brackets. <br>Example: Use <b>{{_shipping_first_name}}</b> to show the order "
-"shipping first name. <br>\n"
-"\t\t\t You can read the documentation <a href=\"https://docs.yithemes.com/"
-"yith-woocommerce-pdf-invoice/premium-version-settings/insert-new-user-"
-"details-documents/\">here</a> for more information.\n"
-"\t\t\t "
-msgstr ""
-
-#: plugin-options/template/content-options.php:123
-msgid "Invoice and Pro-forma invoice template settings"
-msgstr ""
-
-#: plugin-options/template/content-options.php:128
-#: plugin-options/template/content-options.php:378
+#: plugin-options/template/content-options.php:249
+#: plugin-options/template/content-options.php:490
 msgid "Show notes"
 msgstr "Mostrar notas"
 
-#: plugin-options/template/content-options.php:132
+#: plugin-options/template/content-options.php:253
 msgid "Show the notes in the invoice and pro-forma document."
 msgstr ""
 
-#: plugin-options/template/content-options.php:136
+#: plugin-options/template/content-options.php:257
 #: plugin-options/vendor-options.php:128
 msgid "Invoice notes"
 msgstr "Notas da fatura"
 
-#: plugin-options/template/content-options.php:141
-#: plugin-options/vendor-options.php:132
-msgid "Type the text to show as notes on invoices."
-msgstr "Digite o texto para mostrar como notas nas faturas."
+#: plugin-options/template/content-options.php:262
+#: plugin-options/vendor-options.php:133
+msgid "Type the text to show as notes in the invoices."
+msgstr ""
 
-#: plugin-options/template/content-options.php:149
+#: plugin-options/template/content-options.php:270
 msgid "Pro-forma Invoice notes"
 msgstr ""
 
-#: plugin-options/template/content-options.php:154
-msgid "Type the text to show as notes on Pro-forma invoices."
+#: plugin-options/template/content-options.php:275
+#: plugin-options/vendor-options.php:149
+msgid "Type the text to show as notes in the pro-forma invoices."
 msgstr ""
 
-#: plugin-options/template/content-options.php:162
-#: plugin-options/template/content-options.php:399
-#: plugin-options/template/content-options.php:507
+#: plugin-options/template/content-options.php:283
+#: plugin-options/template/content-options.php:511
+#: plugin-options/template/content-options.php:631
 msgid "Show footer"
 msgstr "Mostrar rodapé"
 
-#: plugin-options/template/content-options.php:166
-msgid "Show the footer in the invoice and pro-forma document"
+#: plugin-options/template/content-options.php:287
+msgid "Show the footer in the invoice and pro-forma document."
 msgstr ""
 
-#: plugin-options/template/content-options.php:170
-#: plugin-options/vendor-options.php:135
+#: plugin-options/template/content-options.php:291
+#: plugin-options/vendor-options.php:136
 msgid "Invoice footer"
 msgstr "Rodapé da fatura"
 
-#: plugin-options/template/content-options.php:175
+#. translators: all the placeholders are a set of HTML tags.
+#: plugin-options/template/content-options.php:297
 msgid ""
-"Type the text to show in the footer of the invoices. <br>\n"
-"\t\t\tYou also can use the postmeta metakeys as placeholders. For more "
-"information read the <a href=\"https://docs.yithemes.com/yith-woocommerce-"
-"pdf-invoice/premium-version-settings/insert-new-user-details-documents/"
-"\">documentation.</a>\n"
-"\t\t\t"
+"Type the text to show in the footer of the invoices.%1$sYou can also use the "
+"postmeta metakeys as placeholders. For more information read the "
+"%2$sdocumentation%3$s."
 msgstr ""
 
-#: plugin-options/template/content-options.php:188
+#: plugin-options/template/content-options.php:305
+#: plugin-options/vendor-options.php:152
 msgid "Pro-forma invoice footer"
 msgstr ""
 
-#: plugin-options/template/content-options.php:193
+#. translators: all the placeholders are a set of HTML tags.
+#: plugin-options/template/content-options.php:311
 msgid ""
-"Type the text to show in the footer of the pro-forma invoices. <br>\n"
-"\t\t\tYou also can use the postmeta metakeys as placeholders. For more "
-"information read the <a href=\"https://docs.yithemes.com/yith-woocommerce-"
-"pdf-invoice/premium-version-settings/insert-new-user-details-documents/"
-"\">documentation.</a>\n"
-"\t\t\t"
+"Type the text to show in the footer of the pro-forma invoices.%1$sYou can "
+"also use the postmeta metakeys as placeholders. For more information read "
+"the %2$sdocumentation%3$s."
 msgstr ""
 
-#: plugin-options/template/content-options.php:206
+#: plugin-options/template/content-options.php:319
 msgid "Show footer only on the last page"
 msgstr ""
 
-#: plugin-options/template/content-options.php:210
+#: plugin-options/template/content-options.php:323
 msgid ""
 "Show the footer only on the last page of the invoice, not on all the pages."
 msgstr ""
 
-#: plugin-options/template/content-options.php:219
+#: plugin-options/template/content-options.php:332
 msgid "Show shipping details"
 msgstr ""
 
-#: plugin-options/template/content-options.php:223
+#: plugin-options/template/content-options.php:336
 msgid "Show the shipping details in the invoice and pro-forma document."
 msgstr ""
 
-#: plugin-options/template/content-options.php:227
+#: plugin-options/template/content-options.php:340
 msgid "Total section"
 msgstr ""
 
-#: plugin-options/template/content-options.php:231
+#: plugin-options/template/content-options.php:344
 msgid "Show order subtotal inclusive of order discount"
 msgstr "Mostrar o subtotal do pedido, incluindo o desconto do pedido"
 
-#: plugin-options/template/content-options.php:235
+#: plugin-options/template/content-options.php:348
 msgid "Show discount"
 msgstr "Mostrar desconto"
 
-#: plugin-options/template/content-options.php:239
+#: plugin-options/template/content-options.php:352
 msgid "Show the order discount in the invoice summary amounts"
 msgstr "Mostrar o desconto do pedido nos valores do resumo da fatura"
 
-#: plugin-options/template/content-options.php:243
+#: plugin-options/template/content-options.php:356
 msgid "Show broken down taxes"
 msgstr ""
 
-#: plugin-options/template/content-options.php:247
+#: plugin-options/template/content-options.php:360
 msgid "Show broken down taxes in the invoice summary"
 msgstr ""
 
-#: plugin-options/template/content-options.php:251
-#: plugin-options/template/content-options.php:541
+#: plugin-options/template/content-options.php:364
+#: plugin-options/template/content-options.php:661
 msgid "Visible columns"
 msgstr "Colunas visíveis"
 
-#: plugin-options/template/content-options.php:257
-#: plugin-options/template/content-options.php:547
+#: plugin-options/template/content-options.php:370
+#: plugin-options/template/content-options.php:667
 msgid "Product picture"
 msgstr "Imagem do produto"
 
-#: plugin-options/template/content-options.php:261
-#: plugin-options/template/content-options.php:270
-#: plugin-options/template/content-options.php:279
-#: plugin-options/template/content-options.php:288
-#: plugin-options/template/content-options.php:297
-#: plugin-options/template/content-options.php:306
-#: plugin-options/template/content-options.php:315
-#: plugin-options/template/content-options.php:324
-#: plugin-options/template/content-options.php:333
-#: plugin-options/template/content-options.php:342
-#: plugin-options/template/content-options.php:351
-#: plugin-options/template/content-options.php:360
+#: plugin-options/template/content-options.php:374
+#: plugin-options/template/content-options.php:383
+#: plugin-options/template/content-options.php:392
+#: plugin-options/template/content-options.php:401
+#: plugin-options/template/content-options.php:410
+#: plugin-options/template/content-options.php:419
+#: plugin-options/template/content-options.php:428
+#: plugin-options/template/content-options.php:437
+#: plugin-options/template/content-options.php:446
+#: plugin-options/template/content-options.php:455
+#: plugin-options/template/content-options.php:464
+#: plugin-options/template/content-options.php:473
 msgid "Invoice visible columns"
 msgstr "Colunas visíveis da fatura"
 
-#: plugin-options/template/content-options.php:266
-#: plugin-options/template/content-options.php:438
-#: plugin-options/template/content-options.php:556
+#: plugin-options/template/content-options.php:379
+#: plugin-options/template/content-options.php:546
+#: plugin-options/template/content-options.php:676
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:145
 msgid "Product SKU"
 msgstr "SKU do produto"
 
-#: plugin-options/template/content-options.php:275
-#: plugin-options/template/content-options.php:574
+#: plugin-options/template/content-options.php:388
+#: plugin-options/template/content-options.php:694
 msgid "Short description"
 msgstr "Pequena descrição"
 
-#: plugin-options/template/content-options.php:284
-#: plugin-options/template/content-options.php:583
+#: plugin-options/template/content-options.php:397
+#: plugin-options/template/content-options.php:703
 msgid "Product variation"
 msgstr "Variação do produto"
 
-#: plugin-options/template/content-options.php:293
-#: plugin-options/template/content-options.php:592
+#: plugin-options/template/content-options.php:406
+#: plugin-options/template/content-options.php:712
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:179
 msgid "Quantity"
 msgstr "Quantidade"
 
-#: plugin-options/template/content-options.php:302
-#: plugin-options/template/content-options.php:601
-#: templates/yith-pdf-invoice/invoice-details.php:53
+#: plugin-options/template/content-options.php:415
+#: plugin-options/template/content-options.php:721
+#: templates/yith-pdf-invoice/invoice-details.php:54
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:185
 msgid "Regular price"
 msgstr "Preço normal"
 
-#: plugin-options/template/content-options.php:311
+#: plugin-options/template/content-options.php:424
 msgid "On sale price"
 msgstr "Preço campanha"
 
-#: plugin-options/template/content-options.php:320
-#: plugin-options/template/content-options.php:619
+#: plugin-options/template/content-options.php:433
+#: plugin-options/template/content-options.php:739
 #: templates/yith-pdf-invoice/receipt-details.php:36
 msgid "Product price"
 msgstr "Preço do produto"
 
-#: plugin-options/template/content-options.php:338
-#: plugin-options/template/content-options.php:646
+#: plugin-options/template/content-options.php:451
+#: plugin-options/template/content-options.php:766
 msgid "Tax percentage"
 msgstr "Percentagem de imposto"
 
-#: plugin-options/template/content-options.php:347
-#: plugin-options/template/content-options.php:628
+#: plugin-options/template/content-options.php:460
+#: plugin-options/template/content-options.php:748
 msgid "Line total"
 msgstr "Total"
 
-#: plugin-options/template/content-options.php:356
-#: plugin-options/template/content-options.php:655
-#: templates/yith-pdf-invoice/invoice-details.php:81
+#: plugin-options/template/content-options.php:469
+#: plugin-options/template/content-options.php:775
+#: templates/yith-pdf-invoice/invoice-details.php:82
 #: templates/yith-pdf-invoice/receipt-details.php:48
 msgid "Total (inc. tax)"
 msgstr "Total (incluindo impostos)"
 
-#: plugin-options/template/content-options.php:365
-#: plugin-options/template/content-options.php:664
+#: plugin-options/template/content-options.php:478
+#: plugin-options/template/content-options.php:784
 msgid "Show discount percentage"
 msgstr "Mostrar porcentagem de desconto"
 
-#: plugin-options/template/content-options.php:374
+#: plugin-options/template/content-options.php:486
+#: plugin-options/vendor-options.php:164
 msgid "Credit note template settings"
 msgstr "Configurações do modelo de nota de crédito"
 
-#: plugin-options/template/content-options.php:382
+#: plugin-options/template/content-options.php:494
 msgid "Show the notes in the credit note document."
 msgstr ""
 
-#: plugin-options/template/content-options.php:386
-msgid "Credit note notes"
-msgstr ""
+#: plugin-options/template/content-options.php:498
+#: plugin-options/vendor-options.php:169
+msgid "Notes on credit note"
+msgstr "Notas sobre nota de crédito"
 
-#: plugin-options/template/content-options.php:391
-#: plugin-options/vendor-options.php:146
-msgid "Type the text to show as notes on credit notes."
-msgstr "Digite o texto para mostrar como notas em notas de crédito."
-
-#: plugin-options/template/content-options.php:403
-msgid "Show the footer in the credit note document."
-msgstr ""
-
-#: plugin-options/template/content-options.php:407
-#: plugin-options/vendor-options.php:149
-msgid "Credit note footer"
-msgstr "Rodapé da nota de crédito"
-
-#: plugin-options/template/content-options.php:412
-msgid ""
-"Type the text to show in the footer of the credit notes. <br>\n"
-"\t\t\tYou also can use the postmeta metakeys as placeholders. For more "
-"information read the <a href=\"https://docs.yithemes.com/yith-woocommerce-"
-"pdf-invoice/premium-version-settings/insert-new-user-details-documents/"
-"\">documentation.</a>\n"
-"\t\t\t"
-msgstr ""
-
-#: plugin-options/template/content-options.php:425
-msgid "Info to show"
-msgstr ""
-
-#: plugin-options/template/content-options.php:430
-msgid "Product name"
-msgstr ""
-
-#: plugin-options/template/content-options.php:446
-msgid "Product image"
-msgstr ""
-
-#: plugin-options/template/content-options.php:450
-msgid "Show subtotal"
-msgstr "Mostrar subtotal"
-
-#: plugin-options/template/content-options.php:455
-msgid "Show subtotal amount in the credit note documents."
-msgstr ""
-
-#: plugin-options/template/content-options.php:459
-msgid "Show total tax"
-msgstr "Mostrar imposto total"
-
-#: plugin-options/template/content-options.php:464
-msgid "Show total tax amount in the credit notes documents."
-msgstr ""
-
-#: plugin-options/template/content-options.php:468
-msgid "Show positive amounts"
-msgstr ""
-
-#: plugin-options/template/content-options.php:472
-msgid ""
-"In some countries like Germany or Spain, it is necessary to show amounts on "
-"credit notes with positive values."
-msgstr ""
-
-#: plugin-options/template/content-options.php:480
-msgid "Packing slip template settings"
-msgstr "Configurações do modelo de guia de transporte"
-
-#: plugin-options/template/content-options.php:486
-msgid "Show the notes"
-msgstr ""
-
-#: plugin-options/template/content-options.php:490
-msgid "Show notes in the packing slip document."
-msgstr ""
-
-#: plugin-options/template/content-options.php:494
-#: plugin-options/vendor-options.php:170
-msgid "Packing slip notes"
-msgstr "Notas de guia de transporte"
-
-#: plugin-options/template/content-options.php:499
+#: plugin-options/template/content-options.php:503
 #: plugin-options/vendor-options.php:174
-msgid "Type the text to show as notes on packing slip."
-msgstr "Digite o texto para mostrar como notas na guia de transporte."
-
-#: plugin-options/template/content-options.php:511
-msgid "Show footer in the packing slip document."
+msgid "Type the text to show as notes in the credit notes."
 msgstr ""
 
 #: plugin-options/template/content-options.php:515
-msgid "Packing slip Footer"
+msgid "Show the footer in the credit note document."
 msgstr ""
 
-#: plugin-options/template/content-options.php:520
+#: plugin-options/template/content-options.php:519
+#: plugin-options/vendor-options.php:177
+msgid "Credit note footer"
+msgstr "Rodapé da nota de crédito"
+
+#. translators: all the placeholders are a set of HTML tags.
+#: plugin-options/template/content-options.php:525
 msgid ""
-"Type the text to show in the footer of the packing slip. <br>\n"
-"\t\t\tYou also can use the postmeta metakeys as placeholders. For more "
-"information read the <a href=\"https://docs.yithemes.com/yith-woocommerce-"
-"pdf-invoice/premium-version-settings/insert-new-user-details-documents/"
-"\">documentation.</a>\n"
-"\t\t\t"
+"Type the text to show in the footer of the credit notes.%1$sYou can also use "
+"the postmeta metakeys as placeholders. For more information read the "
+"%2$sdocumentation%3$s."
 msgstr ""
 
 #: plugin-options/template/content-options.php:533
+msgid "Info to show"
+msgstr ""
+
+#: plugin-options/template/content-options.php:538
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:138
+msgid "Product name"
+msgstr ""
+
+#: plugin-options/template/content-options.php:554
+msgid "Product image"
+msgstr ""
+
+#: plugin-options/template/content-options.php:558
+msgid "Show subtotal"
+msgstr "Mostrar subtotal"
+
+#: plugin-options/template/content-options.php:563
+msgid "Show subtotal amount in the credit note documents."
+msgstr ""
+
+#: plugin-options/template/content-options.php:567
+msgid "Show total tax"
+msgstr "Mostrar imposto total"
+
+#: plugin-options/template/content-options.php:572
+msgid "Show total tax amount in the credit note documents."
+msgstr ""
+
+#: plugin-options/template/content-options.php:576
+msgid "Show positive amounts"
+msgstr ""
+
+#: plugin-options/template/content-options.php:587
+#: plugin-options/vendor-options.php:189
+msgid "Packing slip template settings"
+msgstr "Configurações do modelo de guia de transporte"
+
+#: plugin-options/template/content-options.php:593
+msgid "Customer packing slip details"
+msgstr "Detalhes da guia de transporte do cliente"
+
+#. translators: all the placeholders are a set of HTML tags.
+#: plugin-options/template/content-options.php:599
+msgid ""
+"Set the customer details to use in the packing slip.%1$sUse the postmeta "
+"metakeys as placeholders within double curly brackets.%1$sExample: Use "
+"%2$s{{_shipping_first_name}}%3$s to show the order shipping first name."
+"%1$sYou can read the documentation %4$shere%5$s for more information."
+msgstr ""
+
+#: plugin-options/template/content-options.php:610
+msgid "Show the notes"
+msgstr ""
+
+#: plugin-options/template/content-options.php:614
+msgid "Show notes in the packing slip document."
+msgstr ""
+
+#: plugin-options/template/content-options.php:618
+#: plugin-options/vendor-options.php:194
+msgid "Packing slip notes"
+msgstr "Notas de guia de transporte"
+
+#: plugin-options/template/content-options.php:623
+#: plugin-options/vendor-options.php:199 plugin-options/vendor-options.php:207
+msgid "Type the text to show as notes in the packing slip."
+msgstr ""
+
+#: plugin-options/template/content-options.php:635
+msgid "Show footer in the packing slip document."
+msgstr ""
+
+#: plugin-options/template/content-options.php:639
+#: plugin-options/vendor-options.php:202
+msgid "Packing slip footer"
+msgstr "Rodapé da guia de transporte"
+
+#. translators: all the placeholders are a set of HTML tags.
+#: plugin-options/template/content-options.php:645
+msgid ""
+"Type the text to show in the footer of the packing slip.%1$s You can also "
+"use the postmeta metakeys as placeholders. For more information read the "
+"%2$sdocumentation%3$s."
+msgstr ""
+
+#: plugin-options/template/content-options.php:653
 msgid "Show order totals"
 msgstr ""
 
-#: plugin-options/template/content-options.php:537
+#: plugin-options/template/content-options.php:657
 msgid "Show order totals in the packing slip document."
 msgstr ""
 
-#: plugin-options/template/content-options.php:551
-#: plugin-options/template/content-options.php:560
-#: plugin-options/template/content-options.php:569
-#: plugin-options/template/content-options.php:578
-#: plugin-options/template/content-options.php:587
-#: plugin-options/template/content-options.php:596
-#: plugin-options/template/content-options.php:605
-#: plugin-options/template/content-options.php:614
-#: plugin-options/template/content-options.php:623
-#: plugin-options/template/content-options.php:632
-#: plugin-options/template/content-options.php:641
-#: plugin-options/template/content-options.php:650
-#: plugin-options/template/content-options.php:659
+#: plugin-options/template/content-options.php:671
+#: plugin-options/template/content-options.php:680
+#: plugin-options/template/content-options.php:689
+#: plugin-options/template/content-options.php:698
+#: plugin-options/template/content-options.php:707
+#: plugin-options/template/content-options.php:716
+#: plugin-options/template/content-options.php:725
+#: plugin-options/template/content-options.php:734
+#: plugin-options/template/content-options.php:743
+#: plugin-options/template/content-options.php:752
+#: plugin-options/template/content-options.php:761
+#: plugin-options/template/content-options.php:770
+#: plugin-options/template/content-options.php:779
 msgid "Visible columns in the packing slip"
 msgstr "Colunas visíveis na guia de transporte"
 
-#: plugin-options/template/content-options.php:565
+#: plugin-options/template/content-options.php:685
 msgid "Weight and dimension"
 msgstr "Peso e dimensão"
 
-#: plugin-options/template/content-options.php:610
-#: templates/yith-pdf-invoice/invoice-details.php:57
+#: plugin-options/template/content-options.php:730
+#: templates/yith-pdf-invoice/invoice-details.php:58
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:190
 msgid "Sale price"
 msgstr "Preço de venda"
 
-#: plugin-options/template/style-options.php:19
+#: plugin-options/template/style-options.php:17
 msgid "Document template"
 msgstr ""
 
-#: plugin-options/template/style-options.php:25
+#: plugin-options/template/style-options.php:23
 msgid "Choose documents template"
 msgstr ""
 
-#: plugin-options/template/style-options.php:26
+#: plugin-options/template/style-options.php:24
 msgid ""
 "Choose which template to use for your documents. You can customize the "
 "colors of each template."
 msgstr ""
 
-#: plugin-options/template/style-options.php:31
+#: plugin-options/template/style-options.php:29
 msgid "Default"
 msgstr ""
 
-#: plugin-options/template/style-options.php:35
+#: plugin-options/template/style-options.php:33
 msgid "Black & White"
 msgstr ""
 
-#: plugin-options/template/style-options.php:39
+#: plugin-options/template/style-options.php:37
 msgid "Modern Stripes"
 msgstr ""
 
-#: plugin-options/template/style-options.php:50
+#: plugin-options/template/style-options.php:48
 msgid "Document colors"
 msgstr ""
 
-#: plugin-options/template/style-options.php:55
-#: plugin-options/template/style-options.php:121
+#: plugin-options/template/style-options.php:53
+#: plugin-options/template/style-options.php:119
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-totals/edit.js:98
 msgid "Background color"
 msgstr ""
 
-#: plugin-options/template/style-options.php:60
-#: plugin-options/template/style-options.php:126
-#: plugin-options/template/style-options.php:217
+#: plugin-options/template/style-options.php:58
+#: plugin-options/template/style-options.php:124
+#: plugin-options/template/style-options.php:214
 msgid "Select the color of the template."
 msgstr ""
 
-#: plugin-options/template/style-options.php:68
-#: plugin-options/template/style-options.php:147
-#: plugin-options/template/style-options.php:251
+#: plugin-options/template/style-options.php:66
+#: plugin-options/template/style-options.php:145
+#: plugin-options/template/style-options.php:248
 msgid "Table header color"
 msgstr ""
 
-#: plugin-options/template/style-options.php:73
-#: plugin-options/template/style-options.php:152
-#: plugin-options/template/style-options.php:256
+#: plugin-options/template/style-options.php:71
+#: plugin-options/template/style-options.php:150
+#: plugin-options/template/style-options.php:253
 msgid "Select the color of the table header section."
 msgstr ""
 
-#: plugin-options/template/style-options.php:81
-#: plugin-options/template/style-options.php:160
-#: plugin-options/template/style-options.php:264
+#: plugin-options/template/style-options.php:79
+#: plugin-options/template/style-options.php:158
+#: plugin-options/template/style-options.php:261
 msgid "Table header font color"
 msgstr ""
 
-#: plugin-options/template/style-options.php:86
-#: plugin-options/template/style-options.php:165
-#: plugin-options/template/style-options.php:269
+#: plugin-options/template/style-options.php:84
+#: plugin-options/template/style-options.php:163
+#: plugin-options/template/style-options.php:266
 msgid "Select the color of the table header text."
 msgstr ""
 
-#: plugin-options/template/style-options.php:94
-#: plugin-options/template/style-options.php:173
-#: plugin-options/template/style-options.php:277
+#: plugin-options/template/style-options.php:92
+#: plugin-options/template/style-options.php:171
+#: plugin-options/template/style-options.php:274
 msgid "Data section color"
 msgstr ""
 
-#: plugin-options/template/style-options.php:99
-#: plugin-options/template/style-options.php:178
-#: plugin-options/template/style-options.php:282
+#: plugin-options/template/style-options.php:97
+#: plugin-options/template/style-options.php:176
+#: plugin-options/template/style-options.php:279
 msgid "Select the color of the data section."
 msgstr ""
 
-#: plugin-options/template/style-options.php:107
-#: plugin-options/template/style-options.php:186
-#: plugin-options/template/style-options.php:290
+#: plugin-options/template/style-options.php:105
+#: plugin-options/template/style-options.php:184
+#: plugin-options/template/style-options.php:287
 msgid "Total section color"
 msgstr ""
 
-#: plugin-options/template/style-options.php:112
-#: plugin-options/template/style-options.php:191
-#: plugin-options/template/style-options.php:295
+#: plugin-options/template/style-options.php:110
+#: plugin-options/template/style-options.php:189
+#: plugin-options/template/style-options.php:292
 msgid "Select the color of the total section."
 msgstr ""
 
-#: plugin-options/template/style-options.php:134
-#: plugin-options/template/style-options.php:225
+#: plugin-options/template/style-options.php:132
+#: plugin-options/template/style-options.php:222
 msgid "Borders color"
 msgstr ""
 
-#: plugin-options/template/style-options.php:139
+#: plugin-options/template/style-options.php:137
 msgid "Select the borders color of the document."
 msgstr ""
 
-#: plugin-options/template/style-options.php:202
+#: plugin-options/template/style-options.php:199
 msgid "Background colors"
 msgstr ""
 
-#: plugin-options/template/style-options.php:208
+#: plugin-options/template/style-options.php:205
 msgid "First color"
 msgstr ""
 
-#: plugin-options/template/style-options.php:213
+#: plugin-options/template/style-options.php:210
 msgid "Second color"
 msgstr ""
 
-#: plugin-options/template/style-options.php:230
+#: plugin-options/template/style-options.php:227
 msgid "Select the borders color of the template."
 msgstr ""
 
-#: plugin-options/template/style-options.php:238
+#: plugin-options/template/style-options.php:235
 msgid "Invoice number color"
 msgstr ""
 
-#: plugin-options/template/style-options.php:243
+#: plugin-options/template/style-options.php:240
 msgid "Select the color of the invoice number."
 msgstr ""
 
-#: plugin-options/template-options.php:36
-msgid "Content"
-msgstr ""
-
-#: plugin-options/template-options.php:39
-msgid "Style"
-msgstr ""
-
-#: plugin-options/vendor-options.php:24
+#: plugin-options/vendor-options.php:23
 msgid "Vendor invoice settings"
 msgstr "Configurações de fatura do fornecedor"
 
-#: plugin-options/vendor-options.php:28
+#: plugin-options/vendor-options.php:27
 msgid "Next invoice number"
 msgstr "Próximo número da fatura"
 
@@ -1858,87 +2398,66 @@ msgstr "Próximo número da fatura"
 msgid "Invoice number for the next invoice."
 msgstr "Número da próxima fatura."
 
-#: plugin-options/vendor-options.php:41
-msgid "billing year"
-msgstr "ano de faturamento"
-
-#: plugin-options/vendor-options.php:76
+#: plugin-options/vendor-options.php:69
 msgid ""
 "Set the format for the invoice number. Use [number], [prefix] and [suffix] "
-"as placeholders. <b>The [number] placeholder is required</b>. If not\n"
-"specified,\n"
-"it will be queued to the corresponding text.</b>"
+"as placeholders. <b>The [number] placeholder is required</b>. If not "
+"specified, it will be queued to the corresponding text."
 msgstr ""
 
-#: plugin-options/vendor-options.php:113
-msgid "Set a default logo to be shown"
-msgstr "Definir um logotipo padrão a ser mostrado"
+#: plugin-options/vendor-options.php:87
+msgid "Template settings"
+msgstr "Configurações de modelo"
 
-#: plugin-options/vendor-options.php:120
-msgid "Set company details to be used on the invoice"
-msgstr "Definir detalhes da empresa a serem usados ​​na fatura"
+#: plugin-options/vendor-options.php:112
+msgid "Set the company details to be used in the invoice."
+msgstr ""
 
-#: plugin-options/vendor-options.php:139
+#: plugin-options/vendor-options.php:141
 msgid "Type the text to show in the footer of the invoices."
 msgstr ""
 
-#: plugin-options/vendor-options.php:142
-msgid "Notes on credit note"
-msgstr "Notas sobre nota de crédito"
+#: plugin-options/vendor-options.php:144
+msgid "Pro-forma invoice notes"
+msgstr ""
 
-#: plugin-options/vendor-options.php:153
+#: plugin-options/vendor-options.php:157
+msgid "Type the text to show in the footer of the pro-forma invoices."
+msgstr ""
+
+#: plugin-options/vendor-options.php:182
 msgid "Type the text to show in the footer of the credit notes."
-msgstr ""
-
-#: plugin-options/vendor-options.php:156
-msgid "Proforma Invoice notes"
-msgstr ""
-
-#: plugin-options/vendor-options.php:160
-msgid "Type the text to show as notes on Proforma invoices."
-msgstr ""
-
-#: plugin-options/vendor-options.php:163
-msgid "Proforma invoice footer"
-msgstr ""
-
-#: plugin-options/vendor-options.php:167
-msgid "Type the text to show in the footer of the proforma invoices."
-msgstr ""
-
-#: plugin-options/vendor-options.php:177
-msgid "Packing slip footer"
-msgstr "Rodapé da guia de transporte"
-
-#: plugin-options/vendor-options.php:181
-msgid "Type the text to show in the footer of the packing slip."
 msgstr ""
 
 #: templates/yith-pdf-invoice/credit-note-details-with-products.php:32
 #: templates/yith-pdf-invoice/credit-note-details-with-products.php:37
-#: templates/yith-pdf-invoice/invoice-details.php:39
-#: templates/yith-pdf-invoice/invoice-details.php:44
+#: templates/yith-pdf-invoice/invoice-details.php:40
+#: templates/yith-pdf-invoice/invoice-details.php:45
 #: templates/yith-pdf-invoice/receipt-details.php:29
 msgid "Product"
 msgstr "Produtos"
 
-#: templates/yith-pdf-invoice/credit-note-details-with-products.php:43
+#: templates/yith-pdf-invoice/credit-note-details-with-products.php:42
 #: templates/yith-pdf-invoice/credit-note-details.php:26
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:151
 msgid "Description"
 msgstr "Descrição"
 
-#: templates/yith-pdf-invoice/credit-note-details-with-products.php:44
+#: templates/yith-pdf-invoice/credit-note-details-with-products.php:43
 #: templates/yith-pdf-invoice/credit-note-details.php:41
-#: templates/yith-pdf-invoice/invoice-details.php:77
-#: templates/yith-pdf-invoice/invoice-totals.php:76
-#: templates/yith-pdf-invoice/receipt-totals.php:55
+#: templates/yith-pdf-invoice/invoice-details.php:78
+#: templates/yith-pdf-invoice/invoice-totals.php:110
+#: templates/yith-pdf-invoice/receipt-totals.php:64
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:223
+#: includes/pdf-builder/editor/src/components/OrderTotals/index.js:111
 msgid "Total"
 msgstr "Total"
 
 #: templates/yith-pdf-invoice/credit-note-details.php:29
-#: templates/yith-pdf-invoice/credit-note-totals.php:42
+#: templates/yith-pdf-invoice/credit-note-totals.php:44
 #: templates/yith-pdf-invoice/invoice-totals.php:29
 #: templates/yith-pdf-invoice/receipt-totals.php:28
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-totals/edit.js:74
 msgid "Subtotal"
 msgstr "Subtotal"
 
@@ -1950,105 +2469,117 @@ msgstr "Taxa total"
 msgid "Total Shipping"
 msgstr ""
 
-#: templates/yith-pdf-invoice/credit-note-details.php:51
+#: templates/yith-pdf-invoice/credit-note-details.php:50
 msgid "Your refund"
 msgstr "Seu reembolso"
 
-#: templates/yith-pdf-invoice/credit-note-totals.php:50
-#: templates/yith-pdf-invoice/invoice-totals.php:61
+#: templates/yith-pdf-invoice/credit-note-totals.php:52
+#: templates/yith-pdf-invoice/invoice-totals.php:85
+#: templates/yith-pdf-invoice/pdf-builder/product-totals-credit-notes.php:38
+#: templates/yith-pdf-invoice/pdf-builder/product-totals.php:66
+#: includes/pdf-builder/editor/src/components/OrderTotals/index.js:107
+#: includes/pdf-builder/editor/src/components/OrderTotals/index.js:120
 msgid "Tax total"
 msgstr ""
 
-#: templates/yith-pdf-invoice/credit-note-totals.php:59
+#: templates/yith-pdf-invoice/credit-note-totals.php:60
+#: templates/yith-pdf-invoice/invoice-details.php:412
+#: templates/yith-pdf-invoice/pdf-builder/product-table.php:334
+#: templates/yith-pdf-invoice/pdf-builder/product-totals-credit-notes.php:44
+#: templates/yith-pdf-invoice/receipt-totals.php:41
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:250
+msgid "Shipping"
+msgstr "Envio"
+
+#: templates/yith-pdf-invoice/credit-note-totals.php:77
+#: templates/yith-pdf-invoice/pdf-builder/product-totals-credit-notes.php:59
+#: includes/pdf-builder/editor/src/components/OrderTotals/index.js:124
 msgid "Refunded amount"
 msgstr ""
 
-#: templates/yith-pdf-invoice/document-data-credit-note.php:34
+#: templates/yith-pdf-invoice/document-data-credit-note.php:45
 msgid "Credit Note No."
 msgstr ""
 
-#: templates/yith-pdf-invoice/document-data-credit-note.php:44
-#: templates/yith-pdf-invoice/document-data-invoice.php:31
-#: templates/yith-pdf-invoice/document-data-packing-slip.php:26
-#: templates/yith-pdf-invoice/document-data-proforma.php:23
-#: templates/yith-pdf-invoice/document-data-receipt.php:21
+#: templates/yith-pdf-invoice/document-data-credit-note.php:57
+#: templates/yith-pdf-invoice/document-data-invoice.php:45
+#: templates/yith-pdf-invoice/document-data-packing-slip.php:37
+#: templates/yith-pdf-invoice/document-data-proforma.php:24
+#: templates/yith-pdf-invoice/document-data-receipt.php:22
 msgid "Order No."
 msgstr "Nº de encomenda"
 
-#: templates/yith-pdf-invoice/document-data-credit-note.php:54
-#: templates/yith-pdf-invoice/document-data-invoice.php:41
+#: templates/yith-pdf-invoice/document-data-credit-note.php:78
+#: templates/yith-pdf-invoice/document-data-invoice.php:57
 msgid "Date:"
 msgstr ""
 
-#: templates/yith-pdf-invoice/document-data-credit-note.php:64
+#: templates/yith-pdf-invoice/document-data-credit-note.php:112
 msgid "Refunded amount:"
 msgstr ""
 
-#: templates/yith-pdf-invoice/document-data-invoice.php:21
+#: templates/yith-pdf-invoice/document-data-credit-note.php:136
+#: templates/yith-pdf-invoice/document-data-invoice.php:103
+#: templates/yith-pdf-invoice/document-data-packing-slip.php:115
+#: templates/yith-pdf-invoice/document-data-proforma.php:71
+#: templates/yith-pdf-invoice/document-data-receipt.php:70
+msgid "Payment method:"
+msgstr ""
+
+#: templates/yith-pdf-invoice/document-data-invoice.php:33
 msgid "Invoice No."
 msgstr ""
 
-#: templates/yith-pdf-invoice/document-data-invoice.php:51
+#: templates/yith-pdf-invoice/document-data-invoice.php:78
 msgid "Amount:"
 msgstr ""
 
-#: templates/yith-pdf-invoice/document-data-packing-slip.php:38
-#: templates/yith-pdf-invoice/document-data-proforma.php:33
-msgid "Order date"
-msgstr "Data do pedido"
-
-#: templates/yith-pdf-invoice/document-data-packing-slip.php:50
-#: templates/yith-pdf-invoice/document-data-proforma.php:41
-#: templates/yith-pdf-invoice/document-data-receipt.php:41
+#: templates/yith-pdf-invoice/document-data-packing-slip.php:82
+#: templates/yith-pdf-invoice/document-data-proforma.php:47
+#: templates/yith-pdf-invoice/document-data-receipt.php:45
 msgid "Amount"
 msgstr "Montante"
 
-#: templates/yith-pdf-invoice/document-data-receipt.php:31
+#: templates/yith-pdf-invoice/document-data-receipt.php:34
 msgid "Receipt date"
 msgstr ""
 
-#: templates/yith-pdf-invoice/document-data-receipt.php:52
-msgid "Payment method"
-msgstr ""
-
-#: templates/yith-pdf-invoice/document-notes.php:26
+#: templates/yith-pdf-invoice/document-notes.php:41
 msgid "Notes:"
 msgstr ""
 
-#: templates/yith-pdf-invoice/invoice-details.php:49
+#: templates/yith-pdf-invoice/invoice-details.php:50
 #: templates/yith-pdf-invoice/receipt-details.php:32
 msgid "Qty"
 msgstr "Qtd"
 
-#: templates/yith-pdf-invoice/invoice-details.php:61
+#: templates/yith-pdf-invoice/invoice-details.php:62
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:196
 msgid "Price"
 msgstr ""
 
-#: templates/yith-pdf-invoice/invoice-details.php:65
+#: templates/yith-pdf-invoice/invoice-details.php:66
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:202
 msgid "Discount percentage"
 msgstr "Porcentagem de desconto"
 
-#: templates/yith-pdf-invoice/invoice-details.php:73
+#: templates/yith-pdf-invoice/invoice-details.php:74
 #: templates/yith-pdf-invoice/receipt-details.php:44
 msgid "Percentage tax"
 msgstr "Taxa percentual"
 
-#: templates/yith-pdf-invoice/invoice-details.php:144
+#: templates/yith-pdf-invoice/invoice-details.php:173
 msgid "Weight: "
 msgstr "Peso:"
 
-#: templates/yith-pdf-invoice/invoice-details.php:150
+#: templates/yith-pdf-invoice/invoice-details.php:179
 msgid "Dimensions: "
 msgstr "Dimensões:"
 
-#: templates/yith-pdf-invoice/invoice-details.php:277
+#: templates/yith-pdf-invoice/invoice-details.php:327
+#: templates/yith-pdf-invoice/pdf-builder/product-table.php:257
 msgid "Fee"
 msgstr "Taxa"
-
-#: templates/yith-pdf-invoice/invoice-details.php:363
-#: templates/yith-pdf-invoice/receipt-totals.php:41
-msgid "Shipping"
-msgstr "Envio"
 
 #: templates/yith-pdf-invoice/invoice-totals.php:33
 msgid "Discount inc."
@@ -2058,13 +2589,19 @@ msgstr "Desconto inc."
 msgid "Discount exc."
 msgstr "Desconto exc."
 
-#: templates/yith-pdf-invoice/invoice-totals.php:46
+#: templates/yith-pdf-invoice/invoice-totals.php:45
 #: templates/yith-pdf-invoice/receipt-totals.php:35
+#: includes/pdf-builder/editor/src/components/OrderTotals/index.js:99
 msgid "Discount"
 msgstr "Desconto"
 
-#: templates/yith-pdf-invoice/invoice-totals.php:68
+#: templates/yith-pdf-invoice/invoice-totals.php:93
 msgid "Shipping method"
+msgstr ""
+
+#: templates/yith-pdf-invoice/pdf-builder/product-totals-credit-notes.php:32
+msgctxt "total label inside product totals"
+msgid "Subtotal"
 msgstr ""
 
 #: views/panel/credit-notes-list-tab.php:24
@@ -2072,91 +2609,29 @@ msgstr ""
 msgid "Download all"
 msgstr ""
 
-#: views/panel/credit-notes-list-tab.php:59
+#: views/panel/credit-notes-list-tab.php:54
 msgid "You have no credit notes generated yet!"
 msgstr ""
 
-#: views/panel/credit-notes-list-tab.php:59
-#: views/panel/invoices-list-tab.php:56
+#: views/panel/credit-notes-list-tab.php:54
+#: views/panel/invoices-list-tab.php:54
 msgid "Check it later!"
 msgstr ""
 
-#: views/panel/invoices-list-tab.php:56
+#: views/panel/invoices-list-tab.php:54
 msgid "You have no invoices generated yet!"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid ""
-"<code><strong>YITH WooCommerce PDF Invoices & Packing Slips</strong></code> "
-"generate PDF invoices, credit notes, pro-forma invoices and packing slips "
-"for WooCommerce orders. Set manual or automatic invoice generation, fully "
-"customizable document template and sync with your Dropbox and Google Drive "
-"accounts. <a href=\"https://yithemes.com/\" target=\"_blank\">Get more "
-"plugins for your e-commerce shop on <strong>YITH</strong></a>."
-msgstr ""
-
-#: includes/admin/class-yith-ywpi-credit-notes-list-table.php:48
-msgctxt "[admin] Invoices table column header"
-msgid "Credit Note No."
-msgstr ""
-
-#: includes/admin/class-yith-ywpi-documents-list-table.php:55
-#: includes/class.yith-ywpi-list-tables.php:186
-msgctxt "[admin] Invoices table column header"
-msgid "Date"
-msgstr ""
-
-#: includes/admin/class-yith-ywpi-documents-list-table.php:56
-#: includes/class.yith-ywpi-list-tables.php:187
-msgctxt "[admin] Invoices table column header"
-msgid "Invoice No."
-msgstr ""
-
-#: includes/admin/class-yith-ywpi-documents-list-table.php:57
-#: includes/class.yith-ywpi-list-tables.php:188
-msgctxt "[admin] Invoices table column header"
-msgid "Order"
-msgstr ""
-
-#: includes/admin/class-yith-ywpi-documents-list-table.php:58
-#: includes/class.yith-ywpi-list-tables.php:189
-msgctxt "[admin] Invoices table column header"
-msgid "Customer"
-msgstr ""
-
-#: includes/admin/class-yith-ywpi-documents-list-table.php:59
-#: includes/class.yith-ywpi-list-tables.php:190
-msgctxt "[admin] Invoices table column header"
-msgid "Subtotal"
-msgstr ""
-
-#: includes/admin/class-yith-ywpi-documents-list-table.php:60
-#: includes/class.yith-ywpi-list-tables.php:191
-msgctxt "[admin] Invoices table column header"
-msgid "Tax"
-msgstr ""
-
-#: includes/admin/class-yith-ywpi-documents-list-table.php:61
-#: includes/class.yith-ywpi-list-tables.php:192
-msgctxt "[admin] Invoices table column header"
-msgid "Total"
-msgstr ""
-
-#: includes/class.yith-woocommerce-pdf-invoice-privacy.php:29
-msgctxt "Privacy Policy Content"
-msgid "YITH WooCommerce PDF Invoices and Packing Slips Premium"
 msgstr ""
 
 #: views/privacy/html-policy-content-collect_and_store.php:10
 msgctxt "Privacy Policy Content"
 msgid ""
 "While you visit our site, we collect information about you during the "
-"checkout process on our store. We’ll track:"
+"checkout process on our store. We'll track:"
 msgstr ""
 
-#: views/privacy/html-policy-content-collect_and_store.php:14
+#: views/privacy/html-policy-content-collect_and_store.php:12
 msgctxt "Privacy Policy Content"
-msgid "SSN and VAT of an order: we’ll add this information to the pdf created"
+msgid "SSN and VAT of an order: we'll add this information to the PDF created"
 msgstr ""
 
 #: views/privacy/html-policy-content-has_access.php:10
@@ -2166,62 +2641,295 @@ msgid ""
 "example, both Administrators and Shop Managers can access:"
 msgstr ""
 
-#: views/privacy/html-policy-content-has_access.php:13
+#: views/privacy/html-policy-content-has_access.php:12
 msgctxt "Privacy Policy Content"
 msgid "SSN and VAT of an order"
 msgstr ""
 
-#: includes/class.yith-ywpi-backend.php:497
-msgctxt "Button text to display the credit note"
-msgid "PDF"
+#: includes/pdf-builder/editor/src/blocks/margin-padding/edit.js:49
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:164
+msgid "Dimensions"
 msgstr ""
 
-#: includes/class.yith-ywpi-backend.php:506
-msgctxt "Button text to delete a credit note"
-msgid "Remove"
-msgstr "Remover"
-
-#: includes/class.yith-ywpi-backend.php:512
-msgctxt "Button text to regenerate a credit note"
-msgid "Regenerate"
-msgstr "Regenerar"
-
-#: includes/class.yith-ywpi-backend.php:519
-msgctxt "Button text to create the credit note"
-msgid "Create"
-msgstr "Criar"
-
-#: includes/class.yith-ywpi-backend.php:595
-msgctxt "Button text to remove a document"
-msgid "Remove"
-msgstr "Remover"
-
-#: includes/class.yith-ywpi-backend.php:601
-#: includes/class.yith-ywpi-backend.php:659
-msgctxt "Button text to regenerate a document"
-msgid "Regenerate"
-msgstr "Regenerar"
-
-#: includes/class.yith-ywpi-list-tables.php:187
-msgctxt "[admin] Credit notes table column header"
-msgid "Credit Note No."
+#: includes/pdf-builder/editor/src/blocks/margin-padding/edit.js:54
+msgid "Margin"
 msgstr ""
 
-#: includes/class.yith-ywpi-multivendor-loader.php:740
-#: includes/class.yith-ywpi-plugin-fw-loader.php:170
-msgctxt "Plugin name in the YITH Menu"
-msgid "PDF Invoices & Packing Slips"
+#: includes/pdf-builder/editor/src/blocks/margin-padding/edit.js:63
+msgid "Padding"
 msgstr ""
 
-#: includes/class.yith-ywpi-multivendor-loader.php:741
-#: includes/class.yith-ywpi-plugin-fw-loader.php:171
-msgctxt "Plugin name in the YITH Menu"
-msgid "PDF Invoices"
+#: includes/pdf-builder/editor/src/blocks/separator/block-styles.js:4
+msgid "Dotted"
 msgstr ""
 
-#: includes/class.yith-ywpi-plugin-fw-loader.php:183
-msgctxt "[HELP TAB] Video title"
+#: includes/pdf-builder/editor/src/blocks/separator/block-styles.js:9
+msgid "Dashed"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/separator/edit.js:50
+msgid "Height"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-customer-info/index.js:10
+msgid "Customer info"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-customer-info/index.js:11
 msgid ""
-"Check this video to learn how to <b>easily manage PDF invoices and credit "
-"notes:</b>"
+"Add the information about the customer who requested the order. Placeholders "
+"available:"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-date/edit.js:46
+msgid "Order Date type"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-date/edit.js:52
+msgctxt "Builder pdf template: description option"
+msgid "Choose the date information to display."
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-date/edit.js:58
+msgctxt "Builder pdf template: option"
+msgid "Order creation date"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-date/edit.js:62
+msgctxt "Builder pdf template: option"
+msgid "Order completed date"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-date/edit.js:66
+msgctxt "Builder pdf template: option"
+msgid "Invoice creation date"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-date/edit.js:70
+msgctxt "Builder pdf template: option"
+msgid "Current date"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-date/index.js:10
+msgid "Date"
+msgstr "Data"
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-date/index.js:11
+msgid "Add the information about the date inside the document."
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-document-number/index.js:10
+msgid "Document number"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-document-number/index.js:11
+msgid ""
+"Add the number of the document. Use the placeholder {{document_number}} to "
+"show the number of the document."
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-order-amount/edit.js:30
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:109
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-totals/edit.js:36
+msgid "Product Table settings"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-order-amount/edit.js:34
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:115
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-totals/edit.js:41
+msgctxt ""
+"PDF template builder product table label for the option to select the "
+"document type"
+msgid "Document type"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-order-amount/index.js:10
+msgctxt "PDF template block title"
+msgid "Order amount"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-order-amount/index.js:11
+msgctxt "PDF template block order amount block description"
+msgid ""
+"Add the amount of the order. Use the placeholder {{order_amount}} to show "
+"the order amount or {{refunded_amount}} for credit notes."
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-order-number/index.js:11
+msgid ""
+"Add the number of the order. Use the placeholder {{order_number}} to show "
+"the order number."
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:127
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-totals/edit.js:52
+msgctxt ""
+"PDF template builder product table label for the option to show or hide "
+"columns"
+msgid "Show/Hide table columns"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:131
+msgid "Product thumbnail"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:158
+msgid "Weight"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:173
+msgid "Refund description"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:215
+msgid "Show percentage tax"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:229
+msgid "Total with taxes"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:236
+msgctxt ""
+"PDF template builder product table label for the option to show or hide "
+"additional items"
+msgid "Show/Hide additional items"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:241
+msgid "Fees"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:258
+msgid "Titles"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:262
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:298
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-totals/edit.js:90
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-totals/edit.js:122
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-totals/edit.js:144
+msgid "Color"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:268
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:304
+msgid "Border color"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/edit.js:294
+msgid "Items"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/index.js:9
+msgid "Product Table"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-table/index.js:10
+msgid "Add the product table inside the template."
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-totals/edit.js:57
+msgid "Order discount in the invoice summary amounts"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-totals/edit.js:63
+msgid "Order subtotal inclusive of order discount"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-totals/edit.js:69
+msgid "Broken down taxes in the invoice summary"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-totals/edit.js:86
+msgid "Table settings"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-totals/edit.js:118
+msgid "Subtotal labels"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-totals/edit.js:140
+msgid "Total settings"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-totals/index.js:9
+msgid "Total Table"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-products-totals/index.js:10
+msgid "Add the total table inside the template."
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-shipping-info/index.js:10
+msgid "Shipping info"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/blocks/ywpi-shipping-info/index.js:11
+msgid "Add the information about the shipping order. Placeholders available:"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/components/OrderItem/index.js:61
+msgid "SKU:"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/components/OrderItem/index.js:77
+msgid "Weight:"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/components/OrderItem/index.js:87
+msgid "Dimensions:"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/components/OrderTotals/index.js:70
+msgctxt "subtotal label"
+msgid "Subtotal"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/components/OrderTotals/index.js:76
+msgctxt "Label for subtotal which include the discount"
+msgid "Discount"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/components/OrderTotals/index.js:79
+msgctxt " subtotal with included discount"
+msgid "inc"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/components/OrderTotals/index.js:81
+msgctxt "subtotal with excluded discount"
+msgid "exc"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/meta/custom-postmeta.js:72
+msgctxt "Builder pdf template - Label background option"
+msgid "Background image"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/meta/custom-postmeta.js:97
+msgctxt "Label to upload a background image for the pdf document"
+msgid "Upload"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/meta/custom-postmeta.js:103
+msgctxt "Label to reset the background image for the pdf document"
+msgid "Reset"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/meta/custom-postmeta.js:111
+msgctxt "Builder pdf template - Label Footer option"
+msgid "Footer"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/meta/custom-postmeta.js:115
+msgctxt "Builder pdf template - Description Footer option"
+msgid "Use {PAGENO} to show the number of the page."
+msgstr ""
+
+#: includes/pdf-builder/editor/src/pdf-templates/template-list/index.js:207
+msgid "Enter your licence key"
+msgstr ""
+
+#: includes/pdf-builder/editor/src/pdf-templates/template-list/index.js:210
+msgid "to unlock 8 PDF templates with different designs and styles"
 msgstr ""

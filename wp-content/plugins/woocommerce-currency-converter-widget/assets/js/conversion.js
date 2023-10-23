@@ -1,4 +1,5 @@
-jQuery(document).ready(function($) {
+/* global wc_currency_converter_params  */
+jQuery(document).ready(function() {
 	var money             = fx.noConflict();
 	var current_currency  = wc_currency_converter_params.current_currency;
 	var currency_codes    = JSON.parse( wc_currency_converter_params.currencies );

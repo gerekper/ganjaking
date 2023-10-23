@@ -126,11 +126,9 @@ class UP_UserAdminAjax extends UP_Ajax{
      */
     public static function verifyUnverifyAllUsers(){
 
-        if( isset( $_POST['user_pro_nonce'] ) ) {
-            if ( ! wp_verify_nonce( $_POST['user_pro_nonce'], 'user_pro_nonce' ) ) {
-                wp_send_json_error( 'Invalid nonce.' );
-                return;
-            }
+        if( ! wp_verify_nonce( $_POST['user_pro_nonce'], 'user_pro_nonce' ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
+            return;
         }
 
         if (!current_user_can('manage_options')){

@@ -1,0 +1,184 @@
+#yith-plugin-fw__panel__your-store-tools-tab {
+    .yith-plugin-fw__panel__your-store-tools-tab__header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+        margin: 0 auto;
+        width: fit-content;
+        font-size: 1.2em;
+        font-weight: 800;
+        color: #015b7d;
+        padding: 20px 0 12px;
+    }
+
+    .yith-plugin-fw__panel__your-store-tools-tab__header__logo {
+        width: 80px;
+    }
+
+    .yith-plugin-fw__panel__your-store-tools-tab__header__title {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        line-height: 1.4em;
+
+        mark {
+            background: transparent;
+            color: #abc227;
+        }
+    }
+
+    .yith-plugin-fw__panel__content__page__description {
+        font-size: 1.4em;
+        text-align: center;
+        font-weight: 600;
+
+        mark {
+            background: transparent;
+            text-decoration: underline;
+            color: inherit;
+        }
+    }
+
+    .items {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+        grid-gap: 24px;
+
+        .item {
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            background: #fff;
+            position: relative;
+
+            .header {
+                display: flex;
+                align-items: center;
+                padding-bottom: 16px;
+                margin-bottom: 16px;
+                border-bottom: 1px solid #cbd5e1;
+                gap: 12px;
+                font-weight: 600;
+
+                .icon {
+                    width: 48px;
+                }
+
+                .name {
+                    flex: 1;
+                    font-size: 1.1em;
+                }
+
+                .recommended {
+                    align-self: flex-start;
+                    margin: -8px -8px 0 -4px;
+                    padding: 2px 10px;
+                    font-size: .75em;
+                    font-weight: 800;
+                    text-transform: uppercase;
+                    background: rgb(196, 145, 0);
+                    color: #fff;
+                    border-radius: 40px;
+                    white-space: nowrap;
+                }
+            }
+
+            .description {
+                padding-top: 8px;
+                flex: 1;
+            }
+
+            .footer {
+                padding-top: 8px;
+                margin-top: 8px;
+                text-align: right;
+
+                .active-status {
+                    background: #f2fbd9;
+                    padding: 12px 20px;
+                    border-radius: 50px;
+                    color: #333;
+                    display: inline-flex;
+                    align-items: center;
+
+                    &:before {
+                        content: '';
+                        width: 8px;
+                        height: 8px;
+                        border-radius: 50%;
+                        background: #92cf20;
+                        display: inline-block;
+                        animation: yith-plugin-fw-your-store-tools-pulse-active 2s infinite;
+                        margin-right: 12px;
+                    }
+                }
+
+                .get-it {
+                    padding: 12px 20px;
+                    border-radius: 50px;
+                    display: inline-block;
+                    text-decoration: none;
+                    background: var(--yith-primary);
+                    color: var(--yith-primary-text);
+                    font-weight: 800;
+                    transition: background-color .2s ease-in-out, padding .2s ease-in-out;
+
+                    .get-it__wrap {
+                        position: relative;
+                        display: inline-block;
+                        transition: all .2s ease-in-out;
+                    }
+
+                    svg {
+                        position: absolute;
+                        width: 1em;
+                        right: 0;
+                        opacity: 0;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        transition: all .2s ease-in-out;
+                    }
+
+                    &:hover {
+                        padding: 12px 32px;
+                        background: var(--yith-primary-hover);
+
+                        .get-it__wrap {
+                            transform: translateX(-.5em);
+                        }
+
+                        svg {
+                            right: -1.5em;
+                            opacity: 1;
+                            stroke-width: 3;
+                            stroke: currentColor;
+                            transition-delay: .07s;
+                        }
+                    }
+                }
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+@keyframes yith-plugin-fw-your-store-tools-pulse-active {
+    0% {
+        box-shadow: 0 0 0 0px rgba(148, 218, 37, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 8px rgba(148, 218, 37, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0px rgba(148, 218, 37, 0);
+    }
+}

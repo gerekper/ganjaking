@@ -1,0 +1,195 @@
+body {
+    padding: 100mm 100mm 0 100mm;
+    margin: 20px 20px 0 20px;
+    position: relative;
+}
+p {
+    line-height: 1.5em;
+}
+a {
+    text-decoration: none;
+}
+.content {
+    margin: 0;
+    padding: 40px;
+}
+.has-text-align-right {
+    text-align: right;
+}
+.has-text-align-center {
+    text-align: center;
+}
+figure {
+    display: block;
+    margin: -15px 0 0 0;
+}
+.aligncenter {
+    text-align: center;
+}
+.has-text-align-left {
+    text-align: left;
+}
+.has-small-font-size {
+    font-size: 13px;
+}
+.has-medium-font-size {
+    font-size: 20px;
+}
+.has-large-font-size {
+    font-size: 36px;
+}
+.has-extra-large-font-size {
+    font-size: 42px;
+}
+.has-white-color {
+    color: #fff;
+}
+.wp-block-columns, .wp-block-column {
+    background-color: transparent;
+}
+.wp-block-columns {
+    box-sizing: border-box;
+    display: block;
+    margin-bottom: 30px;
+    width: 100%;
+    min-height: 100px;
+}
+.wp-block-columns.columns-1 .wp-block-column {
+    width: 100%;
+}
+.wp-block-columns.columns-2 .wp-block-column {
+    width: 50%;
+}
+.wp-block-columns.columns-3 .wp-block-column {
+    width: 33%;
+}
+.wp-block-columns.columns-4 .wp-block-column {
+    width: 25%;
+}
+.wp-block-columns:after {
+    content: "";
+    width: 100%;
+    display: block;
+    clear: both;
+}
+.wp-block-column {
+    float: left;
+}
+.wp-block-column:last-child {
+    float: left;
+    clear: right;
+}
+table.wp-block-yith-ywpi-products-table {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid;
+    border-collapse: collapse;
+}
+td.thumbnail {
+    padding-right: 0;
+    width: 60px;
+}
+img.thumbnail-img {
+    width: 50px;
+    display: inline-block;
+}
+table.ywpi_template th {
+    border-bottom: 1px solid;
+    padding: 10px 15px;
+    text-align: left;
+}
+table.ywpi_template td {
+    border-bottom: 1px solid;
+    padding: 10px 15px;
+    text-align: left;
+    height: 50px;
+}
+table.ywpi_template tr.last td {
+    border: 0;
+}
+table th.number, table td.number {
+    text-align: right;
+}
+table.ywpi_template td {
+    max-height: 80px;
+}
+table .product-name {
+    line-height: 1.8em;
+}
+.wp-block-yith-ywpi-quote-date {
+    display: block;
+    margin-bottom: 10px;
+}
+/** SEPARATOR **/
+.wp-block-separator {
+    border: none;
+    width: 100%;
+    margin: 15px auto;
+    border-bottom: 1px solid;
+    clear: both;
+    position: relative;
+    box-sizing: border-box;
+    display: block;
+    background: transparent !important;
+}
+.wp-block-separator.is-style-dotted {
+    border-bottom: 1px dotted;
+}
+.wp-block-separator.is-style-dashed {
+    border-bottom: 1px dashed;
+}
+.wp-block-separator.has-width-1, .wp-block-separator.has-width-1.is-style-dotted, .wp-block-separator.has-width-1.is-style-default, .wp-block-separator.has-width-1.is-style-dashed {
+    border-bottom-width: 1px !important;
+}
+.wp-block-separator.has-width-2, .wp-block-separator.has-width-2.is-style-dotted, .wp-block-separator.has-width-2.is-style-default, .wp-block-separator.has-width-2.is-style-dashed {
+    border-bottom-width: 2px !important;
+}
+.wp-block-separator.has-width-3, .wp-block-separator.has-width-3.is-style-dotted, .wp-block-separator.has-width-3.is-style-default, .wp-block-separator.has-width-3.is-style-dashed {
+    border-bottom-width: 3px !important;
+}
+.wp-block-separator.has-width-4, .wp-block-separator.has-width-4.is-style-dotted, .wp-block-separator.has-width-4.is-style-default, .wp-block-separator.has-width-4.is-style-short-line, .wp-block-separator.has-width-4.is-style-dashed {
+    border-bottom-width: 4px !important;
+}
+.wp-block-separator.has-width-5, .wp-block-separator.has-width-5.is-style-dotted, .wp-block-separator.has-width-5.is-style-default, .wp-block-separator.has-width-5.is-style-dashed {
+    border-bottom-width: 5px !important;
+}
+.order-totals-wrapper {
+    margin: 0;
+    padding: 10px;
+}
+.subtotal-label {
+    font-weight: bold;
+}
+.total-label, .subtotal-label {
+    text-align: right;
+}
+table.order-totals {
+    width: 100%;
+    border-collapse: collapse;
+}
+table.order-totals td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: none;
+}
+td.subtotal.number {
+    text-align: right;
+}
+table.ywpi_template tfoot td.number, table.ywpi_template tfoot th.number {
+    border: 0;
+    padding: 10px;
+    background-color: #4f94d445;
+}
+.with-blue-border {
+    background: rgb(147, 199, 223);
+    background: linear-gradient(0deg, rgba(147, 199, 223, 1) 0%, #ffffff 1%, #ffffff 100%);
+}
+.additional-content {
+    font-size: 0.8em;
+}
+.old-price{
+    text-decoration: line-through;
+}
+.alignright{
+    text-align: right;
+}

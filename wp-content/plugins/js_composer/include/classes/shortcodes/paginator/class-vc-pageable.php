@@ -105,7 +105,6 @@ class WPBakeryShortCode_Vc_Pageable extends WPBakeryShortCode {
 	public function enqueueScripts() {
 		wp_enqueue_script( 'vc_pageable_owl-carousel' );
 		wp_enqueue_style( 'vc_pageable_owl-carousel-css' );
-		wp_enqueue_style( 'vc_animate-css' );
 	}
 
 	/**

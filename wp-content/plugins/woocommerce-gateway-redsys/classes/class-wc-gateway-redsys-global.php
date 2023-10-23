@@ -2953,8 +2953,9 @@ class WC_Gateway_Redsys_Global {
 			foreach ( $available_gateways as $gateway_id => $gateway ) {
 
 				$supports_preauth = $gateway->supports( 'redsys_preauth' );
+				$support_filter   = apply_filters( 'redsys_allow_preauth', $gateway_id, false );
 
-				if ( ! $supports_preauth ) {
+				if ( ! $supports_preauth && ! $support_filter ) {
 					unset( $available_gateways[ $gateway_id ] );
 				}
 			}
@@ -2973,9 +2974,10 @@ class WC_Gateway_Redsys_Global {
 		if ( $this->cart_has_token_r() ) {
 			foreach ( $available_gateways as $gateway_id => $gateway ) {
 
-				$supports_preauth = $gateway->supports( 'redsys_token_r' );
+				$supports_token_r = $gateway->supports( 'redsys_token_r' );
+				$support_filter   = apply_filters( 'redsys_allow_token_r', $gateway_id, false );
 
-				if ( ! $supports_preauth ) {
+				if ( ! $supports_token_r && ! $support_filter ) {
 					unset( $available_gateways[ $gateway_id ] );
 				}
 			}

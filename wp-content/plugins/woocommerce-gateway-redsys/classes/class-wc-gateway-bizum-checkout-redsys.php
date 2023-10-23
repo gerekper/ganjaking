@@ -385,6 +385,9 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 		} else {
 			$resturl = $this->checkbizum;
 		}
+		if ( strpos( $phone, '+' ) !== 0 ) {
+			$phone = '+34' . $phone;
+		}
 
 		$order_id       = WCRed()->prepare_order_number( $order->get_id() );
 		$fuc            = $this->customer;

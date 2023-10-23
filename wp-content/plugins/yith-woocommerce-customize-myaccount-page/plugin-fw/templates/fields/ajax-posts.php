@@ -38,7 +38,7 @@ if ( $no_value ) {
 
 $default_data  = array(
 	'action'      => 'yith_plugin_fw_json_search_posts',
-	'placeholder' => __( 'Search Posts', 'yith-plugin-fw' ),
+	'placeholder' => __( 'Search for a post...', 'yith-plugin-fw' ),
 	'allow_clear' => false,
 );
 $data          = wp_parse_args( $data, $default_data );

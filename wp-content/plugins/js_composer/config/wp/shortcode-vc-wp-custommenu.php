@@ -35,7 +35,7 @@ return array(
 			'heading' => esc_html__( 'Menu', 'js_composer' ),
 			'param_name' => 'nav_menu',
 			'value' => $custom_menus,
-			'description' => empty( $custom_menus ) ? sprintf( esc_html__( 'Custom menus not found. Please visit %sAppearance > Menus%s page to create new menu.', 'js_composer' ), '<b>', '</b>' ) : esc_html__( 'Select menu to display.', 'js_composer' ),
+			'description' => empty( $custom_menus ) ? sprintf( esc_html__( 'Custom menus not found. Please visit %1$sAppearance > Menus%2$s page to create new menu.', 'js_composer' ), '<b>', '</b>' ) : esc_html__( 'Select menu to display.', 'js_composer' ),
 			'admin_label' => true,
 			'save_always' => true,
 		),
@@ -43,7 +43,7 @@ return array(
 			'type' => 'el_id',
 			'heading' => esc_html__( 'Element ID', 'js_composer' ),
 			'param_name' => 'el_id',
-			'description' => sprintf( esc_html__( 'Enter element ID (Note: make sure it is unique and valid according to %sw3c specification%s).', 'js_composer' ), '<a href="https://www.w3schools.com/tags/att_global_id.asp" target="_blank">', '</a>' ),
+			'description' => sprintf( esc_html__( 'Enter element ID (Note: make sure it is unique and valid according to %1$sw3c specification%2$s).', 'js_composer' ), '<a href="https://www.w3schools.com/tags/att_global_id.asp" target="_blank">', '</a>' ),
 		),
 		array(
 			'type' => 'textfield',

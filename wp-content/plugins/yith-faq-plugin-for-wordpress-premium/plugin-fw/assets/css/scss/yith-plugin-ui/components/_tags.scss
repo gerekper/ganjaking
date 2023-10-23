@@ -1,0 +1,23 @@
+.yith-plugin-fw__tag {
+    --yith-fw-tag-border-color: #4f6ede;
+    --yith-fw-tag-color: #4361c4;
+
+    &.yith-plugin-fw__tag--premium-color {
+        --yith-fw-tag-border-color: #e76400;
+        --yith-fw-tag-color: #cd501f;
+    }
+
+    font-size: 10px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-weight: 600;
+    color: var(--yith-fw-tag-color);
+    border: 1px solid var(--yith-fw-tag-border-color);
+    line-height: 14px;
+    display: inline-block;
+
+    a {
+        color: inherit;
+        font-weight: 500;
+    }
+}

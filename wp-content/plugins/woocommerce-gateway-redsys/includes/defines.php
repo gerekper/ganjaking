@@ -61,8 +61,8 @@ if ( ! defined( 'REDSYS_TICKET' ) ) {
 	define( 'REDSYS_TICKET', 'https://woocommerce.com/my-account/create-a-ticket/' );
 }
 
-if ( ! defined( 'REDSYS_GPL' ) ) {
-	define( 'REDSYS_GPL', 'https://redsys.joseconti.com/2020/06/21/vivir-gpl-o-explotar-gpl/' );
+if ( ! defined( 'REDSYS_ADD_LICENSE' ) ) {
+	define( 'REDSYS_ADD_LICENSE', 'https://redsys.joseconti.com/product/plugin-woocommerce-redsys-gateway/' );
 }
 
 if ( ! defined( 'REDSYS_PRODUCT_ID_WOO' ) ) {

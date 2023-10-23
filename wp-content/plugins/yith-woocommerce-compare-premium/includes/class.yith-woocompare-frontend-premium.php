@@ -1,9 +1,9 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 /**
  * Frontend class premium
  *
- * @author YITH
- * @package YITH Woocommerce Compare Premium
+ * @author YITH <plugins@yithemes.com>
+ * @package YITH\Compare
  * @version 1.1.4
  */
 
@@ -196,11 +196,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 			}
 			add_action( 'wp_ajax_nopriv' . $this->action_filter, array( $this, $this->action_filter . '_ajax' ) );
 
-			// Filter remove response.
-			add_action( 'yith_woocompare_remove_product_action_ajax', array( $this, 'remove_product_ajax_premium' ) );
-			// Filter added response.
-			add_action( 'yith_woocompare_add_product_action_ajax', array( $this, 'added_related_to_compare' ) );
-
 			add_filter( 'yith_woocompare_get_different_fields_value', array( $this, 'add_different_class' ), 99, 1 );
 
 			add_action( 'yith_woocompare_popup_head', array( $this, 'add_styles_themes_and_custom' ) );
@@ -221,7 +216,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Init class variables
 		 *
 		 * @since 2.1.0
-		 * @author Francesco Licandro
 		 */
 		public function init_variables() {
 
@@ -249,7 +243,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Add a product in the products comparison table
 		 *
 		 * @since 1.0.0
-		 * @author Francesco Licandro
 		 * @param integer $product_id Product ID to add in the comparison table.
 		 * @return boolean
 		 */
@@ -262,10 +255,27 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 			}
 
 			$this->products_list[] = absint( $product_id );
-			$expiry                = apply_filters( 'yith_woocompare_cookie_expiration', 0 );
+
+			/**
+			 * APPLY_FILTERS: yith_woocompare_cookie_expiration
+			 *
+			 * Filters the cookie expiration.
+			 *
+			 * @param int $cookie_expiration Cookie expiration.
+			 *
+			 * @return int
+			 */
+			$expiry = apply_filters( 'yith_woocompare_cookie_expiration', 0 );
 
 			setcookie( $this->get_cookie_name(), wp_json_encode( $this->products_list ), $expiry, COOKIEPATH, COOKIE_DOMAIN, false, false );
 
+			/**
+			 * DO_ACTION: yith_woocompare_after_add_product
+			 *
+			 * Allows to trigger some action after the product has been added to the comparison table.
+			 *
+			 * @param int $product_id Product ID.
+			 */
 			do_action( 'yith_woocompare_after_add_product', $product_id );
 
 			return true;
@@ -275,7 +285,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Check if compared product limit is reached
 		 *
 		 * @since 2.3.2
-		 * @author Francesco Licandro
 		 * @return boolean
 		 */
 		public function limit_reached() {
@@ -293,7 +302,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Update current categories cookie
 		 *
 		 * @since 2.0.0
-		 * @author Francesco Licandro
 		 * @param mixed $categories An array of categories.
 		 */
 		public function update_cat_cookie( $categories = array() ) {
@@ -320,7 +328,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Set products_list and current_cat variables if $_REQUEST['yith_compare_prod'] is set
 		 *
 		 * @since 2.0.0
-		 * @author Francesco Licandro
 		 * @param array $products An array of products.
 		 */
 		public function set_variables_prod_cat( $products ) {
@@ -339,7 +346,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Update cookie after add to compare table
 		 *
 		 * @since 2.0.0
-		 * @author Francesco Licandro
 		 * @param integer $id The product ID.
 		 */
 		public function update_cat_cookie_after_add( $id ) {
@@ -354,7 +360,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Update cookie after remove product from compare table
 		 *
 		 * @since 2.0.0
-		 * @author Francesco Licandro
 		 * @param integer $id The product ID.
 		 */
 		public function update_cat_cookie_after_remove( $id ) {
@@ -385,7 +390,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Enqueue premium scripts and styles
 		 *
 		 * @since 2.0.0
-		 * @author Francesco Licandro <francesco.licandro@yithemes.com>
 		 */
 		public function enqueue_premium_scripts() {
 
@@ -414,8 +418,16 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 			wp_enqueue_style( 'yith_woocompare_page' );
 			wp_enqueue_style( 'jquery-fixedheadertable-style' );
 
+			/**
+			 * APPLY_FILTERS: yith_woocompare_enqueue_frontend_scripts_always
+			 *
+			 * Filters whether to enqueue always the frontend scripts.
+			 *
+			 * @param bool $enqueue_scripts Whether to enqueue always the frontend scripts or not.
+			 *
+			 * @return bool
+			 */
 			if ( apply_filters( 'yith_woocompare_enqueue_frontend_scripts_always', false ) || is_page( $this->page_id ) || ( ! is_null( $post ) && strpos( $post->post_content, '[yith_woocompare_table' ) !== false ) ) {
-
 				wp_enqueue_script( 'jquery-fixedheadertable' );
 				wp_enqueue_script( 'jquery-fixedcolumns' );
 				wp_enqueue_script( 'jquery-imagesloaded' );
@@ -431,7 +443,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Set custom style based on user options
 		 *
 		 * @since 2.0.0
-		 * @author Francesco Licandro
 		 * @return string
 		 */
 		public function custom_user_style() {
@@ -442,7 +453,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Add premium args to localize script
 		 *
 		 * @since 2.1.0
-		 * @author Francesco Licandro
 		 * @param array $args An array of script args.
 		 * @return array
 		 */
@@ -468,7 +478,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Add scripts for shortcodes
 		 *
 		 * @since 2.0.3
-		 * @author Francesco Licandro
 		 */
 		public function add_scripts() {
 			wp_enqueue_script( 'jquery-fixedheadertable' );
@@ -536,6 +545,14 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 				}
 			}
 
+			/**
+			 * APPLY_FILTERS: yith_woocompare_filter_table_fields
+			 *
+			 * Filters the fields to show in the comparison table.
+			 *
+			 * @param array $fields   Fields to show.
+			 * @param array $products Products to show.
+			 */
 			return apply_filters( 'yith_woocompare_filter_table_fields', $fields, $products );
 		}
 
@@ -551,6 +568,16 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 			if ( empty( $products ) ) {
 				$products = $this->products_list;
 			}
+
+			/**
+			 * APPLY_FILTERS: yith_woocompare_exclude_products_from_list
+			 *
+			 * Filters the products to exclude from the comparison table.
+			 *
+			 * @param array $products Products to exclude.
+			 *
+			 * @return array
+			 */
 			$products = apply_filters( 'yith_woocompare_exclude_products_from_list', $products );
 			$fields   = $this->fields( $products );
 
@@ -577,6 +604,15 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 								$description = apply_filters( 'woocommerce_short_description', $product->get_short_description() );
 							}
 
+							/**
+							 * APPLY_FILTERS: yith_woocompare_products_description
+							 *
+							 * Filters the product description in the comparison table.
+							 *
+							 * @param string $description Product description.
+							 *
+							 * @return string
+							 */
 							$product->fields[ $field ] = apply_filters( 'yith_woocompare_products_description', $description, $product );
 							break;
 						case 'stock':
@@ -601,7 +637,19 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 							$product->fields[ $field ] = sprintf( '<span>%s</span>', esc_html( $dimensions ) );
 							break;
 						default:
-							$sfield    = strtolower( rawurlencode( $field ) );
+							$sfield = strtolower( rawurlencode( $field ) );
+
+							/**
+							 * APPLY_FILTERS: yith_woocompare_field_separator
+							 *
+							 * Filters the field separator to show the products attributes in the comparison table.
+							 *
+							 * @param string     $separator Field separator.
+							 * @param string     $field     Field to show.
+							 * @param WC_Product $product   Product object.
+							 *
+							 * @return string
+							 */
 							$field_sep = apply_filters( 'yith_woocompare_field_separator', ', ', $field, $product );
 
 							if ( taxonomy_exists( $field ) ) {
@@ -640,12 +688,11 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 *  Add the link to compare
 		 *
 		 * @since 1.0.0
-		 * @author Francesco Licandro
 		 * @param integer $product_id The product ID.
 		 * @param array   $args An array of link arguments.
 		 * @return void
 		 */
-		public function add_compare_link( $product_id = false, $args = array() ) {
+		public function add_compare_link( $product_id = false, $args = array(), $return = false ) {
 			extract( $args ); // phpcs:ignore
 
 			if ( ! $product_id ) {
@@ -654,6 +701,16 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 			}
 
 			// Return if product doesn't exist.
+			/**
+			 * APPLY_FILTERS: yith_woocompare_remove_compare_link_by_cat
+			 *
+			 * Filters whether to remove the link to add to the comparison table.
+			 *
+			 * @param bool $remove_link Whether to remove the link or not.
+			 * @param int  $product_id  Product ID.
+			 *
+			 * @return bool
+			 */
 			if ( empty( $product_id ) || apply_filters( 'yith_woocompare_remove_compare_link_by_cat', false, $product_id ) ) {
 				return;
 			}
@@ -680,6 +737,15 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 				$class       = ' added';
 				$button_text = get_option( 'yith_woocompare_button_text_added', __( 'View Compare', 'yith-woocommerce-compare' ) );
 			} else {
+				/**
+				 * APPLY_FILTERS: yith_woocompare_skip_display_button
+				 *
+				 * Filters whether to skip display the button to add to the comparison table.
+				 *
+				 * @param bool $skip_display_button Whether to skip display the button or not.
+				 *
+				 * @return bool
+				 */
 				if ( apply_filters( 'yith_woocompare_skip_display_button', false ) ) {
 					return;
 				}
@@ -689,12 +755,42 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 			// Add button class.
 			$class = 'button' === $is_button ? $class . ' button' : $class;
 
+			/**
+			 * APPLY_FILTERS: yith_woocompare_compare_button_text
+			 *
+			 * Filters the text of the Compare button.
+			 *
+			 * @param string $button_text Button text.
+			 * @param int    $product_id  Product ID.
+			 *
+			 * @return string
+			 */
 			$button_text = apply_filters( 'yith_woocompare_compare_button_text', $button_text, $product_id );
+
 			// Use this method to prevent wp_targeted_link_rel_callback.
+			/**
+			 * APPLY_FILTERS: yith_woocompare_compare_button_target
+			 *
+			 * Filters the target of the Compare button.
+			 *
+			 * @param string $button_target Button target.
+			 *
+			 * @return string
+			 */
 			$button_target = apply_filters( 'yith_woocompare_compare_button_target', '' );
 			$button_target = $button_target ? 'target="' . esc_attr( $button_target ) . '"' : '';
 
-			printf( '<a href="%s" class="%s" data-product_id="%d" rel="nofollow" target="%s">%s</a>', esc_url( $link ), esc_attr( 'compare' . $class ), esc_attr( $product_id ), apply_filters( 'yith_woocompare_target_view_compare_button', '_self' ), esc_html( $button_text ) ); }
+			/**
+			 * APPLY_FILTERS: yith_woocompare_target_view_compare_button
+			 *
+			 * Filters the target of the button to view the comparison table.
+			 *
+			 * @param string $button_target Button target.
+			 *
+			 * @return string
+			 */
+			printf( '<a href="%s" class="%s" data-product_id="%d" rel="nofollow" target="%s">%s</a>', esc_url( $link ), esc_attr( 'compare' . $class ), esc_attr( $product_id ), wp_kses_post( apply_filters( 'yith_woocompare_target_view_compare_button', '_self' ) ), esc_html( $button_text ) );
+		}
 
 		/**
 		 * Generate template vars
@@ -704,7 +800,7 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * @param array $products An array of products to compare.
 		 * @return array
 		 */
-		protected function vars( $products = array() ) {
+		public function vars( $products = array() ) {
 
 			// Get product list.
 			$products = $this->get_products_list( $products );
@@ -738,7 +834,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Add logo/image to compare table
 		 *
 		 * @since 2.0.0
-		 * @author Francesco Licandro <francesco.licandro@yithemes.com>
 		 */
 		public function add_logo_to_compare() {
 
@@ -765,7 +860,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		/**
 		 * Get product categories
 		 *
-		 * @author Francesco Licandro <francesco.licandro@yithemes.com>
 		 * @param integer $product_id The product ID.
 		 * @return mixed
 		 */
@@ -802,6 +896,17 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 				$cat[ $category->term_id ] = $category->name;
 			}
 
+			/**
+			 * APPLY_FILTERS: yith_woocompare_get_product_categories
+			 *
+			 * Filters the product categories of the products in the comparison table.
+			 *
+			 * @param array $cat        Array with the category data formatted.
+			 * @param array $categories Product categories.
+			 * @param int   $product_id Product ID.
+			 *
+			 * @return array
+			 */
 			return apply_filters( 'yith_woocompare_get_product_categories', $cat, $categories, $product_id );
 		}
 
@@ -809,7 +914,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Filter vars for compare table
 		 *
 		 * @since 2.0.0
-		 * @author Francesco Licandro <francesco.licandro@yithemes.com>
 		 * @param mixed $products An array of products to compare.
 		 * @return mixed
 		 */
@@ -857,7 +961,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		/**
 		 * Filter view table link
 		 *
-		 * @author Francesco Licandro <francesco.licandro@yithemes.com>
 		 * @param string         $link The link url.
 		 * @param string|integer $product_id The product ID.
 		 * @return string
@@ -881,7 +984,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Get page url
 		 *
 		 * @since 2.0.6
-		 * @author Francesco Licandro
 		 * @return string
 		 */
 		public function get_compare_page_url() {
@@ -892,7 +994,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Filter compare link
 		 *
 		 * @since 2.0.0
-		 * @author Francesco Licandro <francesco.licandro@yithemes.com>
 		 * @param boolean $default The default filter value.
 		 * @param integer $product_id The product ID.
 		 * @return bool
@@ -919,7 +1020,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Shortcode to show the compare table
 		 *
 		 * @since 2.0.0
-		 * @author Francesco Licandro <francesco.licandro@yithemes.com>
 		 * @param array $atts Shortcode attributes.
 		 * @param mixed $content Shortcode content.
 		 * @return string
@@ -966,10 +1066,32 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		}
 
 		/**
+		 * Get compare widget and table html, useful for AJAX request response
+		 *
+		 * @since 2.13.0
+		 * @return array
+		 */
+		protected function get_compare_list_html() {
+
+			$lang = isset( $_REQUEST['lang'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['lang'] ) ) : false; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			if ( defined( 'ICL_LANGUAGE_CODE' ) && $lang && isset( $sitepress ) ) {
+				$sitepress->switch_lang( $lang, true );
+			}
+
+			ob_start();
+			echo do_shortcode( '[yith_woocompare_table]' );
+			$table_html = ob_get_clean();
+
+			return array(
+				'table_html'  => $table_html,
+				'widget_html' => $this->get_widget_template( false, true ),
+			);
+		}
+
+		/**
 		 * Share compare table
 		 *
 		 * @since 2.0.0
-		 * @author Francesco Licandro <francesco.licandro@yithemes.com>
 		 */
 		public function social_share() {
 
@@ -1010,7 +1132,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Add category filter for compare page
 		 *
 		 * @since 2.0.0
-		 * @author Francesco Licandro
 		 * @param array   $products The products on compare table.
 		 * @param boolean $fixed True it is a fixed table, false otherwise.
 		 */
@@ -1022,7 +1143,18 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 
 			// Get all categories.
 			$all_cat = $this->get_product_categories( $this->products_list );
+
 			// Let's third part filter categories.
+			/**
+			 * APPLY_FILTERS: yith_woocompare_product_categories_table_filter
+			 *
+			 * Filters the categories in the comparison table.
+			 *
+			 * @param array $all_cat       Product categories.
+			 * @param array $products_list Products list.
+			 *
+			 * @return array
+			 */
 			$all_cat = apply_filters( 'yith_woocompare_product_categories_table_filter', $all_cat, $this->products_list );
 
 			if ( empty( $all_cat ) ) {
@@ -1063,7 +1195,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Ajax compare table filter for category
 		 *
 		 * @since 2.0.0
-		 * @author Francesco Licandro
 		 */
 		public function yith_woocompare_filter_by_cat_ajax() {
 
@@ -1071,13 +1202,7 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 				die();
 			}
 
-			if ( 'yes' === $this->is_iframe ) {
-				header( 'Content-Type: text/html; charset=utf-8' );
-				$this->compare_table_html();
-			} else {
-				echo do_shortcode( '[yith_woocompare_table]' );
-			}
-
+			echo do_shortcode( '[yith_woocompare_table]' );
 			die();
 		}
 
@@ -1085,12 +1210,19 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Add related product in compare table
 		 *
 		 * @since 2.0.0
-		 * @author Francesco Licandro
 		 * @param array   $products The products on compare table.
 		 * @param boolean $fixed True it is a fixed table, false otherwise.
 		 */
 		public function related_product( $products, $fixed ) {
-
+			/**
+			 * APPLY_FILTERS: yith_woocompare_hide_related_products
+			 *
+			 * Filters whether to hide the related products section in the comparison table.
+			 *
+			 * @param bool $hide_related_products Whether to hide the related products section or not.
+			 *
+			 * @return bool
+			 */
 			if ( ! $this->related_enabled || empty( $this->products_list ) || $fixed || apply_filters( 'yith_woocompare_hide_related_products', false ) ) {
 				return;
 			}
@@ -1147,45 +1279,10 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		}
 
 		/**
-		 * Filter remove action for compare page
-		 *
-		 * @since 2.0.0
-		 * @author Francesco Licandro
-		 */
-		public function remove_product_ajax_premium() {
-			if ( 'yes' !== $this->is_iframe && ! ( isset( $_REQUEST['responseType'] ) && 'product_list' === sanitize_text_field( wp_unslash( $_REQUEST['responseType'] ) ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-				echo do_shortcode( '[yith_woocompare_table]' );
-				die();
-			}
-		}
-
-		/**
-		 * Added related product to compare
-		 *
-		 * @since 2.0.0
-		 * @author Francesco Licandro
-		 */
-		public function added_related_to_compare() {
-
-			if ( isset( $_REQUEST['is_related'] ) && 'false' !== sanitize_text_field( wp_unslash( $_REQUEST['is_related'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-
-				if ( 'yes' === $this->is_iframe ) {
-					header( 'Content-Type: text/html; charset=utf-8' );
-					$this->compare_table_html();
-				} else {
-					echo do_shortcode( '[yith_woocompare_table]' );
-				}
-
-				die();
-			}
-		}
-
-		/**
 		 * Add different class to let's compare products attributes
 		 *
 		 * @access public
 		 * @since 2.0.3
-		 * @author Francesco Licandro
 		 * @param array $products_list The products list in compare.
 		 * @return array
 		 */
@@ -1249,7 +1346,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Add style for YITH Themes Compatibility
 		 *
 		 * @since 2.0.4
-		 * @author Francesco Licandro
 		 */
 		public function add_styles_themes_and_custom() {
 
@@ -1262,7 +1358,17 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 			if ( ! is_array( $assets_wc ) ) {
 				$assets_wc = array();
 			}
-			$assets     = array_merge( $assets_yit, $assets_wc );
+			$assets = array_merge( $assets_yit, $assets_wc );
+
+			/**
+			 * APPLY_FILTERS: yith_woocompare_popup_assets
+			 *
+			 * Filters the assets to include in the plugin.
+			 *
+			 * @param array $assets Assets to include.
+			 *
+			 * @return array
+			 */
 			$to_include = apply_filters(
 				'yith_woocompare_popup_assets',
 				array(
@@ -1300,7 +1406,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * WooCommerce Product Bundle Compatibility
 		 *
 		 * @since 2.0.6
-		 * @author Francesco Licandro
 		 */
 		public function wc_bundle_compatibility() {
 			// Remove description from bundled items.
@@ -1313,7 +1418,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Print bundled single item price
 		 *
 		 * @since 2.0.6
-		 * @author Francesco Licandro
 		 * @param object $bundled_item The bundles items.
 		 * @param object $product The product object.
 		 */
@@ -1337,7 +1441,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Get excluded categories from plugin option
 		 *
 		 * @since 2.1.0
-		 * @author Francesco Licandro
 		 * @return array
 		 */
 		public function get_excluded_categories() {
@@ -1354,7 +1457,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Premium add product json args
 		 *
 		 * @since 2.1.0
-		 * @author Francesco Licandro
 		 * @param array $json Json arguments.
 		 * @return array
 		 */
@@ -1368,7 +1470,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Add clear all button on compare table
 		 *
 		 * @since 2.1.0
-		 * @author Francesco Licandro
 		 * @param array   $products The products on compare table.
 		 * @param boolean $fixed True it is a fixed table, false otherwise.
 		 */
@@ -1384,6 +1485,15 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 			$html .= '<a href="' . $this->remove_product_url( 'all' ) . '" data-product_id="all" class="button yith_woocompare_clear" rel="nofollow">' . esc_html( $label ) . '</a>';
 			$html .= '</div>';
 
+			/**
+			 * APPLY_FILTERS: yith_woocompare_table_clear_all
+			 *
+			 * Filters the HTML content for the button to cleal the comparison table.
+			 *
+			 * @param string $html HTML content.
+			 *
+			 * @return string
+			 */
 			echo apply_filters( 'yith_woocompare_table_clear_all', $html ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 		}
 
@@ -1391,7 +1501,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Dequeue footer scripts from compare popup
 		 *
 		 * @since 2.2.0
-		 * @author Francesco Licandro
 		 * @access public
 		 */
 		public function dequeue_footer_scripts() {
@@ -1407,7 +1516,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Counter compare items shortcode
 		 *
 		 * @since 2.3.2
-		 * @author Francesco Licandro
 		 * @param array $atts Array of shortcode attributes.
 		 * @return string
 		 */
@@ -1436,6 +1544,15 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 			$args['text_o'] = $args['text'];
 			$args['text']   = str_replace( '{{count}}', $c, $args['text'] );
 
+			/**
+			 * APPLY_FILTERS: yith_woocompare_shortcode_counter_args
+			 *
+			 * Filters the array with the arguments needed for the counter shortcode.
+			 *
+			 * @param array $args Array of arguments.
+			 *
+			 * @return array
+			 */
 			$args = apply_filters( 'yith_woocompare_shortcode_counter_args', $args );
 
 			ob_start();
@@ -1448,7 +1565,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 		 * Add limit error messages in compare table if any
 		 *
 		 * @since 2.3.2
-		 * @author Francesco Licandro
 		 */
 		public function add_error_limit_message() {
 
@@ -1456,6 +1572,15 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend_Premium' ) ) {
 				return;
 			}
 
+			/**
+			 * APPLY_FILTERS: yith_woocompare_limit_reached_message
+			 *
+			 * Filters the message shown when the limit of products added to the comparison table has been reached.
+			 *
+			 * @param string $message Message.
+			 *
+			 * @return string
+			 */
 			$message = apply_filters( 'yith_woocompare_limit_reached_message', __( 'You have reached the maximum number of products for compare table.', 'yith-woocommerce-compare' ) );
 			echo '<div class="yith-woocompare-error"><p>' . wp_kses_post( $message ) . '</p></div>';
 		}

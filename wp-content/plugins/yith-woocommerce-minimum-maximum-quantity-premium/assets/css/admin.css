@@ -1,0 +1,159 @@
+#woocommerce-product-data ul.wc-tabs li.yith_min_max_qty_tab a:before {
+	content: "\e601";
+	font-family: WooCommerce;
+}
+
+.ywmmq-rules .column-excluded,
+.ywmmq-rules .column-override_qty,
+.ywmmq-rules .column-override_val {
+	width: 20%;
+	text-align: center;
+}
+
+.ywmmq-rules .column-item_type {
+	width: 10%;
+	text-align: center;
+}
+
+.ywmmq-rules .form-table {
+	border: none !important;
+}
+
+.ywmmq-rules {
+	margin: 0 !important;
+}
+
+.yith-plugin-ui .yith-plugin-fw-wp-page-wrapper.ywmmq-rules > .wrap {
+	margin-top: 0;
+}
+
+.ywmmq-rules #custom-table .search-box input[name="s"] {
+	padding: 0 8px;
+	box-shadow: 0 0 0 transparent;
+	border-radius: 4px;
+	border: 1px solid #7e8993;
+	color: #32373c;
+	margin: 0 1px;
+	height: auto;
+}
+
+.ywmmq-rules #custom-table .button {
+	vertical-align: top;
+	line-height: 2.15384615;
+	padding: 0 10px;
+	margin: 0 1px;
+	height: auto;
+}
+
+.ywmmq-rules #custom-table .pagination-links .button {
+	line-height: 1.625;
+	vertical-align: baseline;
+}
+
+.ywmmq-rules #custom-table .pagination-links input[type=text] {
+	padding: 0 8px;
+	line-height: 2;
+	min-height: 30px;
+	height: auto;
+	box-shadow: 0 0 0 transparent;
+	border-radius: 4px;
+	border: 1px solid #7e8993;
+	background-color: #fff;
+	color: #32373c;
+	min-width: auto;
+}
+
+.ywmmq-rules #custom-table .pagination-links input[type=text]:focus {
+	border-color: #007cba !important;
+	box-shadow: 0 0 0 1px #007cba;
+	outline: 2px solid transparent;
+}
+
+.ywmmq-rules #custom-table select {
+	line-height: 2;
+	border-radius: 3px;
+	min-height: 30px;
+	max-width: 25rem;
+	-webkit-appearance: none;
+	background: #fff url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%206l5%205%205-5%202%201-7%207-7-7%202-1z%22%20fill%3D%22%23555%22%2F%3E%3C%2Fsvg%3E') no-repeat right 5px top 55%;
+	background-size: 16px 16px;
+}
+
+.ywmmq-rules #custom-table .bulkactions {
+	margin: 0;
+}
+
+
+.ywmmq-rules table.form-table span.description {
+	display: block;
+	margin-top: 10px;
+}
+
+.ywmmq-rules .wrap {
+	padding-bottom: 36px;
+}
+
+
+.ywmmq-rules .column-excluded mark,
+.ywmmq-rules .column-override_qty mark,
+.ywmmq-rules .column-override_val mark {
+	display: inline-block;
+	text-indent: -9999px;
+	position: relative;
+	height: 1em;
+	width: 1em;
+	background: 0 0;
+	font-size: 1.4em;
+	margin: 0 auto;
+}
+
+.ywmmq-rules .column-excluded mark.show:after,
+.ywmmq-rules .column-excluded mark.hide:after,
+.ywmmq-rules .column-override_qty mark.show:after,
+.ywmmq-rules .column-override_qty mark.hide:after,
+.ywmmq-rules .column-override_val mark.show:after,
+.ywmmq-rules .column-override_val mark.hide:after {
+	font-family: WooCommerce;
+	speak: none;
+	font-weight: 400;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	margin: 0;
+	text-indent: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+
+.ywmmq-rules .column-excluded mark.hide:after,
+.ywmmq-rules .column-override_qty mark.hide:after,
+.ywmmq-rules .column-override_val mark.hide:after {
+	content: "\e013";
+	color: #a00000;
+}
+
+.ywmmq-rules .column-excluded mark.show:after,
+.ywmmq-rules .column-override_qty mark.show:after,
+.ywmmq-rules .column-override_val mark.show:after {
+	content: "\e015";
+	color: #2ea2cc;
+}
+
+/* TAXONOMY PANEL */
+.ywmmq-taxonomy-panel.yith-plugin-ui {
+	background: #ffffff;
+}
+
+.ywmmq-taxonomy-panel h2 {
+	border: none !important;
+}
+
+.ywmmq-taxonomy-panel table.form-table {
+	border: none !important;
+	margin: 0 20px !important;
+}

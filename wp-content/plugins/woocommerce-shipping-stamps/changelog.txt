@@ -1,5 +1,8 @@
 *** WooCommerce Stamps.com shipping and API integration ***
 
+2023-10-03 - version 1.9.7
+* Fix - Add nosemgrep comment to ignore wp_safe_redirect recommendation.
+
 2023-09-18 - version 1.9.6
 * Update - Security update.
 

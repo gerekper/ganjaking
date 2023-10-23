@@ -1,5 +1,136 @@
 == Changelog ==
 
+= 2.31.0 = Released on 09 October 2023
+
+* New: support for WooCommerce 8.2
+* Update: YITH plugin framework
+
+= 2.30.0 = Released on 12 September 2023
+
+* New: support for WooCommerce 8.1
+* New: add custom button text on shortcode
+* Update: YITH plugin framework
+* Dev: allow change compare popup size
+
+= 2.29.1 = Released on 03 August 2023
+
+* Fix: prevent fatal error when function does not exists.
+
+= 2.29.0 = Released on 03 August 2023
+
+* New: support for WooCommerce 8.0
+* New: support for WooCommerce block templates
+* Update: YITH plugin framework
+
+= 2.28.0 = Released on 18 July 2023
+
+* New: support for WooCommerce 7.9
+* Update: YITH plugin framework
+
+= 2.27.0 = Released on 16 June 2023
+
+* New: support for WooCommerce 7.8
+* Update: YITH plugin framework
+
+= 2.26.0 = Released on 08 May 2023
+
+* New: support for WooCommerce 7.7
+* New: support for WooCommerce HPOS feature
+* Update: YITH plugin framework
+
+= 2.25.0 = Released on 11 April 2023
+
+* New: support for WooCommerce 7.6
+* Update: YITH plugin framework
+
+= 2.24.0 = Released on 20 March 2023
+
+* New: support for WooCommerce 7.5
+* New: support for WordPress 6.2
+* Update: YITH plugin framework
+
+= 2.23.0 = Released on 14 February 2023
+
+* New: support for WooCommerce 7.4
+* Update: YITH plugin framework
+
+= 2.22.0 = Released on 29 December 2022
+
+* New: support for WooCommerce 7.3
+* Update: YITH plugin framework
+* Fix: Invalid argument supplied for foreach()
+
+= 2.21.0 = Released on 15 December 2022
+
+* New: support for WooCommerce 7.2
+* Update: YITH plugin framework
+
+== 2.20.1 Released on 11 November 2022
+
+* Update: YITH plugin framework
+* Fix: patched security vulnerability
+
+= 2.20.0 = Released on 07 November 2022
+
+* New: support for WooCommerce 7.1
+* New: support for WordPress 6.1
+* Update: YITH plugin framework
+
+= 2.19.0 = Released on 06 October 2022
+
+* New: support for WooCommerce 7.0
+* Update: YITH plugin framework
+
+= 2.18.0 = Released on 31 August 2022
+
+* New: support for WooCommerce 6.9
+* Update: YITH plugin framework
+
+= 2.17.0 = Released on 04 August 2022
+
+* New: support for WooCommerce 6.8
+* Update: YITH plugin framework
+
+= 2.16.0 = Released on 12 July 2022
+
+* New: support for WooCommerce 6.7
+* Update: YITH plugin framework
+
+= 2.15.0 = Released on 15 June 2022
+
+* New: support for WooCommerce 6.6
+* Update: YITH plugin framework
+* Fix: error when removing product from the compare list using the widget
+
+= 2.14.0 = Released on 04 May 2022
+
+* New: support for WooCommerce 6.5
+* New: support for WordPress 6.0
+* Update: YITH plugin framework
+
+= 2.13.0 = Released on 06 April 2022
+
+* New: support for WooCommerce 6.4
+* Update: YITH plugin framework
+* Fix: window resize event listener
+* Tweak: refactoring AJAX request to improve compatibility with cache system
+
+= 2.12.0 = Released on 09 March 2022
+
+* New: support for WooCommerce 6.3
+* Update: YITH plugin framework
+
+= 2.11.0 = Released on 15 February 2022
+
+* New: support for WooCommerce 6.2
+* Update: YITH plugin framework
+
+= 2.10.0 = Released on 15 January 2022
+
+* New: support for WordPress 5.9
+* New: support for WooCommerce 6.1
+* Update: YITH plugin framework
+
 = 2.9.0 = Released on 20 December 2021
 
 * New: support for WooCommerce 6.0

@@ -1,0 +1,242 @@
+/* REPORTS */
+
+.clear {
+    clear: both;
+}
+
+#yith-wcmf-reports {
+    background-color: #fff;
+    padding: 0;
+    margin: 0;
+}
+
+#yith-wcmf-reports .buttons {
+    margin-bottom: 10px;
+}
+
+#yith-wcmf-reports table.widefat {
+    width: 100%;
+}
+
+#yith-wcmf-reports table.widefat tr td button {
+    display: none;
+}
+
+#yith-wcmf-reports .wrap.woocommerce {
+    padding: 0;
+    margin: 0;
+    font-size: 0.001px;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    clear: both;
+}
+
+#yith-wcmf-reports .wrap.woocommerce > * {
+    display: none;
+}
+
+#yith-wcmf-reports .wrap.woocommerce > #poststuff {
+    font-size: 13px;
+    text-indent: 0;
+    white-space: normal;
+    overflow: visible;
+    display: block;
+}
+
+#yith-wcmf-reports .wrap.woocommerce > #poststuff h3.screen-reader-text {
+    display: none;
+}
+
+#yith-wcmf-reports .wrap.woocommerce > #poststuff .stats_range {
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+#yith-wcmf-reports .wrap.woocommerce > #poststuff .stats_range a.export_csv {
+    background-color: #f5f5f5;
+    height: 45px;
+    line-height: 45px;
+    border: 0;
+    padding: 0px 10px;
+    margin: 0 0 1px 0;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: none;
+}
+
+#yith-wcmf-reports .wrap.woocommerce > #poststuff .stats_range a.export_csv:before {
+    display: none;
+}
+
+#yith-wcmf-reports .wrap.woocommerce > #poststuff .stats_range ul {
+    background: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+#yith-wcmf-reports .wrap.woocommerce > #poststuff .stats_range ul li {
+    border: 0;
+    padding: 0px 1px 1px 0px;
+    margin: 0;
+    box-shadow: none;
+    box-sizing: border-box;
+}
+
+#yith-wcmf-reports .wrap.woocommerce > #poststuff .stats_range ul li.active {
+    box-shadow: none;
+}
+
+#yith-wcmf-reports .wrap.woocommerce > #poststuff .stats_range ul li a {
+    background-color: #f5f5f5;
+    height: 45px;
+    line-height: 45px;
+    border: 0;
+    padding: 0px 15px;
+    display: inline-block;
+    box-shadow: none;
+}
+
+#yith-wcmf-reports .wrap.woocommerce > #poststuff .stats_range ul li.custom {
+    width: 241px;
+    height: 45px;
+    background-color: #f5f5f5;
+    padding: 0px 5px;
+    font-size: 0.001px;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+}
+
+#yith-wcmf-reports .wrap.woocommerce > #poststuff .stats_range ul li.custom form {
+    font-size: 13px;
+    text-indent: 0;
+    white-space: normal;
+    overflow: visible;
+    display: block;
+    top: 5px;
+    position: absolute;
+}
+
+#yith-wcmf-reports .wrap.woocommerce > #poststuff .stats_range ul li.custom form input.range_datepicker {
+    background-color: #fff;
+    width: 80px;
+    height: 35px;
+    line-height: 35px;
+    border: 1px solid #d5d5d5;
+    padding: 0px 5px;
+    margin: 0px 5px 0px 0px;
+    font-size: 12px;
+    float: left;
+    box-sizing: border-box;
+}
+
+#yith-wcmf-reports .wrap.woocommerce > #poststuff .stats_range ul li.custom form input.button {
+    width: 60px;
+    height: 33px;
+    line-height: 33px !important;
+    padding: 0 !important;
+    margin: 1px 0;
+    box-sizing: border-box;
+}
+
+#yith-wcmf-reports .wrap.woocommerce > #poststuff .chart-with-sidebar {
+    padding: 10px 0 0 220px;
+    clear: both;
+}
+
+#yith-wcmf-reports .wrap.woocommerce > #poststuff .chart-with-sidebar .main {
+}
+
+#yith-wcmf-reports .wrap.woocommerce > #poststuff .chart-with-sidebar .main .chart-container {
+    height: 526px;
+}
+
+#yith-wcmf-reports .wrap.woocommerce > #poststuff .chart-with-sidebar .main .chart-container .chart-placeholder {
+    height: 500px;
+}
+
+#yith-wcmf-reports .wrap.woocommerce > #poststuff .chart-with-sidebar .main .chart-container p {
+    height: 526px;
+    line-height: 526px;
+}
+
+#yith-wcmf-reports .wrap.woocommerce > #poststuff .chart-with-sidebar .chart-sidebar {
+    width: 200px;
+    margin-left: -220px;
+}
+
+#yith-wcmf-reports .wrap.woocommerce > #poststuff .chart-with-sidebar .chart-sidebar > ul.chart-legend > li {
+    padding: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+#yith-wcmf-reports .wrap.woocommerce > #poststuff .chart-with-sidebar .chart-sidebar > ul.chart-widgets > li {
+}
+
+#yith-wcmf-reports .wrap.woocommerce > #poststuff .chart-with-sidebar .chart-sidebar > ul.chart-widgets > li h4 {
+    font-size: 14px;
+}
+
+#yith-wcmf-reports .wrap.woocommerce > #poststuff .chart-with-sidebar .chart-sidebar > ul.chart-widgets > li select {
+    max-width: 100%;
+}
+
+/* Stock Report */
+#yith_wcfm-main-content .yith-wcfm-content table.stock td.wc_actions {
+    padding: 18px 0;
+}
+
+#yith_wcfm-main-content .yith-wcfm-content table.stock td.wc_actions a::after {
+    font-family: Dashicons;
+    content: '';
+    display: block;
+    speak: none;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    top: 2px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+}
+
+#yith_wcfm-main-content .yith-wcfm-content table.stock td.wc_actions a.edit::after {
+    content: '\f464';
+}
+
+#yith_wcfm-main-content .yith-wcfm-content table.stock td.wc_actions a.view::after {
+    content: '\f177';
+}
+
+/* YITH Proteo Theme */
+.theme-yith-proteo #yith_wcfm-main-content #yith-wcmf-reports .wrap.woocommerce > #poststuff .stats_range ul li.custom form input.range_datepicker{
+    min-width: 0;
+}
+
+.theme-yith-proteo.yith-frontend-manager-for-woocommerce #yith-wcmf-reports .select2-container .select2-selection--multiple{
+    min-width: 0;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    #yith-wcmf-reports .wrap.woocommerce > #poststuff .chart-with-sidebar {
+        width: 100%;
+        padding: 15px 0 0 0;
+        float: none;
+    }
+
+    #yith-wcmf-reports .wrap.woocommerce > #poststuff .chart-with-sidebar .chart-sidebar {
+        width: 100%;
+        margin: 0;
+        float: none;
+    }
+}

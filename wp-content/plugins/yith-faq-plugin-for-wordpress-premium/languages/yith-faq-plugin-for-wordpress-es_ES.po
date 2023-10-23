@@ -1,0 +1,798 @@
+# Translation of YITH FAQ for WordPress & WooCommerce in Spanish (Spain)
+# This file is distributed under the same license as the YITH FAQ for WordPress & WooCommerce package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH FAQ for WordPress & WooCommerce\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-faq-plugin-"
+"for-wordpress.premium\n"
+"POT-Creation-Date: 2023-09-14 08:47:45+00:00\n"
+"PO-Revision-Date: 2022-06-22 07:30:36+0000\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+
+#: class-yith-faq-plugin-for-wordpress.php:203
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:280
+msgid "FAQ Shortcodes"
+msgstr "Shortcodes de FAQ"
+
+#: class-yith-faq-plugin-for-wordpress.php:204
+msgid "Customization"
+msgstr "Personalización"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:75
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:77
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:282
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:295
+msgid "Create shortcode"
+msgstr "Crear shortcode"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:76
+msgid "Edit shortcode"
+msgstr "Editar shortcode"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:78
+msgid "Save shortcode"
+msgstr "Guardar shortcode"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:80
+#: includes/compatibilities/woocommerce/class-yith-faq-woocommerce.php:67
+msgid "This field is required."
+msgstr "Este campo es obligatorio."
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:81
+msgid "Please, select a least one category."
+msgstr "Por favor, selecciona al menos una categoría."
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:82
+msgid "Please, select a page."
+msgstr "Por favor, selecciona una página."
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:168
+msgid "Shortcode added successfully."
+msgstr "Shortcode añadido correctamente."
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:170
+msgid "Shortcode updated successfully."
+msgstr "Shortcode actualizado correctamente."
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:191
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:405
+msgid "Name"
+msgstr "Nombre"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:192
+msgid "Type"
+msgstr "Tipo"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:193
+msgid "Shortcode"
+msgstr "Shortcode"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:214
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:415
+msgid "FAQ List"
+msgstr "Lista de FAQ"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:216
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:416
+#: includes/shortcodes/class-yith-faq-shortcode-summary.php:120
+msgid "FAQ Summary"
+msgstr "Resumen de FAQ"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:226
+msgid "Delete"
+msgstr "Borrar"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:227
+msgid "Are you sure you want to delete this shortcode?"
+msgstr "¿Estás seguro que quieres borrar este shortcode?"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:232
+msgid "Clone"
+msgstr "Clonar"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:238
+msgid "Edit"
+msgstr "Editar"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:254
+msgid "Shortcode deleted successfully."
+msgstr "Shortcode borrado correctamente."
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:256
+msgid "Shortcode cloned successfully."
+msgstr "Shortcode clonado correctamente."
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:293
+msgid "You don't have any shortcode presets yet."
+msgstr "Todavía no tienes preajustes de shortcode."
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:294
+#: includes/class-yith-faq-post-type.php:430
+msgid "But don't worry, you can create the first one here!"
+msgstr "Pero no te preocupes, ¡puedes crear la primera aquí!"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:411
+msgid "Shortcode type"
+msgstr "Tipo de shortcode"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:422
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:495
+msgid "Show search box"
+msgstr "Mostrar cuadro de búsqueda"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:430
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:504
+msgid "Show category filters"
+msgstr "Mostrar filtros de categoría"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:438
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:513
+msgid "Choose the style"
+msgstr "Elige el estilo"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:442
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:515
+msgid "List"
+msgstr "Lista"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:443
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:516
+msgid "Accordion"
+msgstr "Acordeón"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:444
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:517
+msgid "Toggle"
+msgstr "Desplegable"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:451
+#: includes/shortcodes/class-yith-faq-shortcode-summary.php:131
+msgid "Block title"
+msgstr "Título del bloque"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:457
+#: includes/shortcodes/class-yith-faq-shortcode-summary.php:136
+msgid "Title type"
+msgstr "Tipo de título"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:473
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:522
+msgid "Show pagination"
+msgstr "Mostrar paginación"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:481
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:532
+msgid "FAQs per page"
+msgstr "FAQs por página"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:514
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:561
+#: includes/shortcodes/class-yith-faq-shortcode-summary.php:150
+msgid "FAQs to show"
+msgstr "FAQs a mostrar"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:518
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:564
+#: includes/shortcodes/class-yith-faq-shortcode-summary.php:153
+msgid "All"
+msgstr "Todo"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:519
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:565
+#: includes/shortcodes/class-yith-faq-shortcode-summary.php:154
+msgid "Specific FAQs categories"
+msgstr "Categorías específicas de FAQ"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:525
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:570
+#: includes/shortcodes/class-yith-faq-shortcode-summary.php:159
+msgid "Categories to display"
+msgstr "Categorías a mostrar"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:529
+msgid "Search FAQs categories"
+msgstr "Buscar categorías de FAQs"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:540
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:581
+msgid "Expand FAQs"
+msgstr "Expandir FAQs"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:544
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:584
+msgid "Show all FAQs closed"
+msgstr "Muestra todas las FAQs cerradas"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:545
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:585
+msgid "Show all FAQs expanded"
+msgstr "Muestra todas las FAQs ampliadas"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:546
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:586
+msgid "Show first FAQ expanded"
+msgstr "Muestra la primera FAQ ampliada"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:557
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:595
+msgid "Show icon"
+msgstr "Mostrar icono"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:561
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:597
+msgid "Off"
+msgstr "No mostrar"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:562
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:598
+msgid "Left"
+msgstr "Izquierda"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:563
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:599
+msgid "Right"
+msgstr "Derecha"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:574
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:609
+msgid "Icon size (px)"
+msgstr "Tamaño del icono (px)"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:589
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:620
+msgid "Choose the icon"
+msgstr "Elige el icono"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:601
+#: includes/shortcodes/class-yith-faq-shortcode-summary.php:170
+msgid "FAQ page"
+msgstr "Página de FAQ"
+
+#: includes/admin/list-tables/class-yith-faq-shortcodes-table.php:741
+msgid "(Copy)"
+msgstr "(Copia)"
+
+#: includes/class-yith-faq-post-type.php:92
+msgid "FAQs"
+msgstr "FAQs"
+
+#: includes/class-yith-faq-post-type.php:93
+#: includes/compatibilities/woocommerce/class-yith-faq-woocommerce.php:86
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:484
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:489
+#: includes/shortcodes/class-yith-faq-shortcode-preset.php:71
+#: includes/shortcodes/class-yith-faq-shortcode-summary.php:125
+#: plugin-options/customization-options.php:27
+msgid "FAQ"
+msgstr "FAQ"
+
+#: includes/class-yith-faq-post-type.php:94
+msgid "Add new FAQ"
+msgstr "Añadir nuevo FAQ"
+
+#: includes/class-yith-faq-post-type.php:95
+msgid "Add new"
+msgstr "Añadir nuevo"
+
+#: includes/class-yith-faq-post-type.php:96
+msgid "New FAQ"
+msgstr "Nuevo FAQ"
+
+#: includes/class-yith-faq-post-type.php:97
+msgid "Edit FAQ"
+msgstr "Editar FAQ"
+
+#: includes/class-yith-faq-post-type.php:98
+msgid "View FAQ"
+msgstr "Ver FAQ"
+
+#: includes/class-yith-faq-post-type.php:99
+msgid "Search FAQ"
+msgstr "Buscar FAQ"
+
+#: includes/class-yith-faq-post-type.php:100
+#: includes/class-yith-faq-taxonomy.php:59
+msgid "Not found"
+msgstr "No se encuentra"
+
+#: includes/class-yith-faq-post-type.php:101
+msgid "Not found in Trash"
+msgstr "No se encuentra en la papelera"
+
+#: includes/class-yith-faq-post-type.php:159
+msgid "Title"
+msgstr "Título"
+
+#: includes/class-yith-faq-post-type.php:160
+#: includes/class-yith-faq-taxonomy.php:43
+#: includes/class-yith-faq-taxonomy.php:45
+msgid "Categories"
+msgstr "Categorías"
+
+#: includes/class-yith-faq-post-type.php:161
+msgid "Active"
+msgstr "Activo"
+
+#: includes/class-yith-faq-post-type.php:429
+msgid "You don't have any FAQs created yet."
+msgstr "Todavía no tienes ningunas FAQs creadas."
+
+#: includes/class-yith-faq-post-type.php:431
+msgid "Create FAQ"
+msgstr "Crear FAQ"
+
+#: includes/class-yith-faq-taxonomy.php:44
+msgid "Category"
+msgstr "Categoría"
+
+#: includes/class-yith-faq-taxonomy.php:46
+msgid "All categories"
+msgstr "Todas las categorías"
+
+#: includes/class-yith-faq-taxonomy.php:47
+msgid "Parent category"
+msgstr "Categoría padre"
+
+#: includes/class-yith-faq-taxonomy.php:48
+msgid "Parent category:"
+msgstr "Categoría padre:"
+
+#: includes/class-yith-faq-taxonomy.php:49
+msgid "New category"
+msgstr "Nueva categoría"
+
+#: includes/class-yith-faq-taxonomy.php:50
+msgid "Add new category"
+msgstr "Añadir nueva categoría"
+
+#: includes/class-yith-faq-taxonomy.php:51
+msgid "Edit category"
+msgstr "Editar categoría"
+
+#: includes/class-yith-faq-taxonomy.php:52
+msgid "Update category"
+msgstr "Actualizar categoría"
+
+#: includes/class-yith-faq-taxonomy.php:53
+msgid "View category"
+msgstr "Ver categorías"
+
+#: includes/class-yith-faq-taxonomy.php:54
+msgid "Separate items with commas"
+msgstr "Separa los elementos con comas"
+
+#: includes/class-yith-faq-taxonomy.php:55
+msgid "Add or remove categories"
+msgstr "Añade o quita categorías"
+
+#: includes/class-yith-faq-taxonomy.php:56
+msgid "Choose from the most used categories"
+msgstr "Elige entre las categorías más utilizadas"
+
+#: includes/class-yith-faq-taxonomy.php:57
+msgid "Popular categories"
+msgstr "Categorías populares"
+
+#: includes/class-yith-faq-taxonomy.php:58
+msgid "Search categories"
+msgstr "Buscar categorías"
+
+#: includes/class-yith-faq-taxonomy.php:60
+msgid "No categories"
+msgstr "Sin categorías"
+
+#: includes/class-yith-faq-taxonomy.php:61
+msgid "Categories list"
+msgstr "Lista de categorías"
+
+#: includes/class-yith-faq-taxonomy.php:62
+msgid "Categories list navigation"
+msgstr "Navegación por la lista de categorías"
+
+#: includes/compatibilities/woocommerce/class-yith-faq-woocommerce.php:68
+msgid "Please select an FAQ preset."
+msgstr "Por favor, selecciona un preajuste de FAQ."
+
+#: includes/compatibilities/woocommerce/class-yith-faq-woocommerce.php:119
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:490
+#: includes/shortcodes/class-yith-faq-shortcode-preset.php:72
+#: includes/shortcodes/class-yith-faq-shortcode-summary.php:126
+msgid "Frequently Asked Questions"
+msgstr "Preguntas frecuentes"
+
+#: includes/compatibilities/woocommerce/class-yith-faq-woocommerce.php:123
+msgid "Show FAQ tab"
+msgstr "Mostrar pestaña de FAQ"
+
+#: includes/compatibilities/woocommerce/class-yith-faq-woocommerce.php:138
+msgid "Enable to show the FAQ tab in this product."
+msgstr "Activa para mostrar la pestaña de FAQ en este producto."
+
+#: includes/compatibilities/woocommerce/class-yith-faq-woocommerce.php:142
+msgid "Tab label"
+msgstr "Etiqueta de pestaña"
+
+#: includes/compatibilities/woocommerce/class-yith-faq-woocommerce.php:157
+msgid "Enter the label for the tab that contains the FAQs."
+msgstr "Introduce la etiqueta de la pestaña que contiene las FAQs."
+
+#: includes/compatibilities/woocommerce/class-yith-faq-woocommerce.php:161
+msgid "FAQ to show"
+msgstr "FAQ a mostrar"
+
+#: includes/compatibilities/woocommerce/class-yith-faq-woocommerce.php:178
+msgid "Choose the FAQ shortcode to show in this product."
+msgstr "Elige el shortcoce de FAQ para mostrar en este producto."
+
+#: includes/functions.yith-faq.php:228
+msgid "None"
+msgstr "Ninguno"
+
+#: includes/functions.yith-faq.php:326
+msgid "Select preset"
+msgstr "Seleccionar preajuste"
+
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:485
+msgid "Add the FAQ shortcode."
+msgstr "Añadir shortcode FAQ."
+
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:498
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:507
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:526
+msgid "Show"
+msgstr "Mostrar"
+
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:499
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:508
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:527
+msgid "Hide"
+msgstr "Ocultar"
+
+#: includes/shortcodes/class-yith-faq-shortcode-preset.php:66
+#: includes/shortcodes/class-yith-faq-shortcode-preset.php:77
+msgid "FAQ preset"
+msgstr "Preajuste de FAQ"
+
+#: includes/shortcodes/class-yith-faq-shortcode-preset.php:67
+msgid "Add the FAQ preset shortcode."
+msgstr "Añade el shortcode de preajuste de FAQ."
+
+#: includes/shortcodes/class-yith-faq-shortcode-summary.php:121
+msgid "Add the FAQ Summary shortcode."
+msgstr "Añade el shortcode resumen de FAQ."
+
+#: plugin-options/customization/faq-options.php:16
+msgid "FAQ style"
+msgstr "Estilo FAQ"
+
+#: plugin-options/customization/faq-options.php:25
+msgid "FAQ layout"
+msgstr "Diseño de FAQ"
+
+#: plugin-options/customization/faq-options.php:26
+msgid "Choose the FAQ design."
+msgstr "Elige el diseño de FAQ."
+
+#: plugin-options/customization/faq-options.php:30
+#: plugin-options/customization/filters-options.php:30
+#: plugin-options/customization/pagination-options.php:30
+msgid "Minimal"
+msgstr "Mínimo"
+
+#: plugin-options/customization/faq-options.php:31
+#: plugin-options/customization/filters-options.php:31
+msgid "Pill"
+msgstr "Pastilla"
+
+#: plugin-options/customization/faq-options.php:37
+msgid "FAQ colors"
+msgstr "Colores de FAQ"
+
+#: plugin-options/customization/faq-options.php:44
+#: plugin-options/customization/faq-options.php:131
+#: plugin-options/customization/filters-options.php:44
+#: plugin-options/customization/icon-options.php:32
+#: plugin-options/customization/pagination-options.php:44
+#: plugin-options/customization/search-options.php:32
+#: plugin-options/customization/search-options.php:70
+msgid "Background"
+msgstr "Fondo"
+
+#: plugin-options/customization/faq-options.php:49
+#: plugin-options/customization/faq-options.php:136
+#: plugin-options/customization/filters-options.php:49
+#: plugin-options/customization/icon-options.php:37
+#: plugin-options/customization/pagination-options.php:49
+#: plugin-options/customization/search-options.php:75
+msgid "Background hover"
+msgstr "Fondo al pasar el cursor"
+
+#: plugin-options/customization/faq-options.php:54
+#: plugin-options/customization/filters-options.php:54
+#: plugin-options/customization/icon-options.php:42
+#: plugin-options/customization/pagination-options.php:54
+#: plugin-options/customization/search-options.php:37
+msgid "Background active"
+msgstr "Fondo activo"
+
+#: plugin-options/customization/faq-options.php:59
+#: plugin-options/customization/faq-options.php:151
+#: plugin-options/customization/filters-options.php:59
+#: plugin-options/customization/pagination-options.php:59
+#: plugin-options/customization/search-options.php:42
+msgid "Border"
+msgstr "Borde"
+
+#: plugin-options/customization/faq-options.php:64
+#: plugin-options/customization/faq-options.php:156
+#: plugin-options/customization/filters-options.php:64
+#: plugin-options/customization/pagination-options.php:64
+msgid "Border hover"
+msgstr "Borde al pasar el cursor"
+
+#: plugin-options/customization/faq-options.php:69
+#: plugin-options/customization/filters-options.php:69
+#: plugin-options/customization/pagination-options.php:69
+#: plugin-options/customization/search-options.php:47
+msgid "Border active"
+msgstr "Borde activo"
+
+#: plugin-options/customization/faq-options.php:74
+#: plugin-options/customization/filters-options.php:74
+#: plugin-options/customization/pagination-options.php:74
+msgid "Text"
+msgstr "Texto"
+
+#: plugin-options/customization/faq-options.php:79
+#: plugin-options/customization/filters-options.php:79
+#: plugin-options/customization/pagination-options.php:79
+msgid "Text hover"
+msgstr "Texto al pasar el cursor"
+
+#: plugin-options/customization/faq-options.php:84
+#: plugin-options/customization/filters-options.php:84
+#: plugin-options/customization/pagination-options.php:84
+msgid "Text active"
+msgstr "Texto activo"
+
+#: plugin-options/customization/faq-options.php:89
+msgid "Content"
+msgstr "Contenido"
+
+#: plugin-options/customization/faq-options.php:94
+msgid "Content hover"
+msgstr "Contenido al pasar el cursor"
+
+#: plugin-options/customization/faq-options.php:99
+msgid "Content active"
+msgstr "Contenido al activar"
+
+#: plugin-options/customization/faq-options.php:106
+#: plugin-options/customization/faq-options.php:167
+#: plugin-options/customization/filters-options.php:91
+#: plugin-options/customization/icon-options.php:64
+#: plugin-options/customization/pagination-options.php:91
+msgid "Border radius"
+msgstr "Radio del borde"
+
+#: plugin-options/customization/faq-options.php:108
+msgid "Set the FAQ border radius."
+msgstr "Establece el radio del borde de las FAQ."
+
+#: plugin-options/customization/faq-options.php:117
+msgid "Show \"Copy FAQ\" link"
+msgstr "Muestra el enlace «copiar FAQ»"
+
+#: plugin-options/customization/faq-options.php:118
+msgid "Enable to show a button to copy the FAQ link in each FAQ."
+msgstr ""
+"Activa para mostrar un botón para copiar el enlace de la FAQ en cada FAQ."
+
+#: plugin-options/customization/faq-options.php:124
+msgid "\"Copy FAQ\" link colors"
+msgstr "Colores del enlace «copiar FAQ»"
+
+#: plugin-options/customization/faq-options.php:141
+msgid "Icon & Text"
+msgstr "Icono y texto"
+
+#: plugin-options/customization/faq-options.php:146
+msgid "Icon & Text hover"
+msgstr "Icono y texto al pasar el cursor"
+
+#: plugin-options/customization/faq-options.php:169
+msgid "Set the \"Copy FAQ\" button border radius."
+msgstr "Establece el radio del borde del botón «copiar FAQ»."
+
+#: plugin-options/customization/faq-options.php:178
+msgid "AJAX loader"
+msgstr "Cargador AJAX"
+
+#: plugin-options/customization/faq-options.php:179
+msgid "Choose the AJAX loader to use."
+msgstr "Elige el cargador AJAX a utilizar."
+
+#: plugin-options/customization/faq-options.php:183
+msgid "Use default loader"
+msgstr "Utiliza el cargador por defecto"
+
+#: plugin-options/customization/faq-options.php:184
+msgid "Upload custom loader"
+msgstr "Sube un cargador personalizado"
+
+#: plugin-options/customization/faq-options.php:189
+msgid "Loader color"
+msgstr "Color del cargador"
+
+#: plugin-options/customization/faq-options.php:190
+msgid "Choose the color for the AJAX loader."
+msgstr "Elige el color para el cargador AJAX."
+
+#: plugin-options/customization/faq-options.php:201
+msgid "Upload a custom loader"
+msgstr "Sube un cargador personalizado."
+
+#: plugin-options/customization/faq-options.php:202
+msgid "Upload a custom loader."
+msgstr "Sube un cargador personalizado."
+
+#: plugin-options/customization/filters-options.php:16
+msgid "Filters style"
+msgstr "Estilo de filtros"
+
+#: plugin-options/customization/filters-options.php:25
+msgid "Filters layout"
+msgstr "Diseño de los filtros"
+
+#: plugin-options/customization/filters-options.php:26
+msgid "Choose the filters design."
+msgstr "Elige el diseño de los filtros."
+
+#: plugin-options/customization/filters-options.php:37
+msgid "Colors for filters section"
+msgstr "Colores para la sección de filtros"
+
+#: plugin-options/customization/filters-options.php:93
+msgid "Set the filters border radius."
+msgstr "Establece el radio del borde de los filtros."
+
+#: plugin-options/customization/icon-options.php:16
+msgid "Icons style"
+msgstr "Estilo de los iconos"
+
+#: plugin-options/customization/icon-options.php:25
+msgid "Colors for FAQ icons"
+msgstr "Colores de los iconos de FAQ"
+
+#: plugin-options/customization/icon-options.php:47
+#: plugin-options/customization/search-options.php:80
+#: plugin-options/customization-options.php:24
+msgid "Icon"
+msgstr "Icono"
+
+#: plugin-options/customization/icon-options.php:52
+#: plugin-options/customization/search-options.php:85
+msgid "Icon hover"
+msgstr "Icono al pasar el cursor"
+
+#: plugin-options/customization/icon-options.php:57
+msgid "Icon active"
+msgstr "Icono activo"
+
+#: plugin-options/customization/icon-options.php:66
+msgid "Set the icon border radius."
+msgstr "Establece el radio del borde del icono."
+
+#: plugin-options/customization/pagination-options.php:16
+#: plugin-options/customization/pagination-options.php:25
+msgid "Pagination style"
+msgstr "Estilo de paginación"
+
+#: plugin-options/customization/pagination-options.php:26
+msgid "Choose the pagination design."
+msgstr "Elige el diseño de la paginación."
+
+#: plugin-options/customization/pagination-options.php:31
+msgid "Squared"
+msgstr "Cuadrado"
+
+#: plugin-options/customization/pagination-options.php:37
+msgid "Pagination colors"
+msgstr "Colores de paginación"
+
+#: plugin-options/customization/pagination-options.php:93
+msgid "Set the pagination border radius."
+msgstr "Establece el radio del borde de la paginación."
+
+#: plugin-options/customization/search-options.php:16
+msgid "Search style"
+msgstr "Estilo de búsqueda"
+
+#: plugin-options/customization/search-options.php:25
+msgid "Search field"
+msgstr "Campo de búsqueda"
+
+#: plugin-options/customization/search-options.php:52
+msgid "Placeholder text"
+msgstr "Texto del marcador de posición"
+
+#: plugin-options/customization/search-options.php:57
+msgid "Active text"
+msgstr "Texto activo"
+
+#: plugin-options/customization/search-options.php:63
+msgid "Search button"
+msgstr "Botón de búsqueda"
+
+#: plugin-options/customization-options.php:18
+msgid "Search"
+msgstr "Búsqueda"
+
+#: plugin-options/customization-options.php:21
+msgid "Filters"
+msgstr "Filtros"
+
+#: plugin-options/customization-options.php:30
+msgid "Pagination"
+msgstr "Paginación"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH FAQ for WordPress & WooCommerce</strong></code> allows "
+"you to introduce an efficient FAQ system on any page of your WordPress or "
+"WooCommerce-based website. You can also add custom FAQs for any page. <a "
+"href=\"https://yithemes.com/\" target=\"_blank\">Get more plugins for your e-"
+"commerce shop on <strong>YITH</strong></a>"
+msgstr ""
+"<code><strong>YITH FAQ Plugin for WordPress & WooCommerce</strong></code> te "
+"permite introducir un eficiente sistema de FAQ en cualquier página de tu web "
+"basado en WordPress y WooCommerce. También puedes añadir FAQs personalizadas "
+"en cualquier página. <a href=\"https://yithemes.com/\" "
+"target=\"_blank\">Obtén más plugins para tu comercio electrónico en "
+"<strong>YITH</strong></a>"
+
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:130
+msgctxt "[Frontend] Search field placeholder"
+msgid "Search FAQ"
+msgstr "Buscar FAQ"
+
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:143
+msgctxt "[Frontend] Search field reset button"
+msgid "Reset"
+msgstr "Restablecer"
+
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:180
+msgctxt "[Frontend] All categories filter button"
+msgid "All"
+msgstr "Todo"
+
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:194
+#: includes/shortcodes/class-yith-faq-shortcode-summary.php:80
+msgctxt "[Frontend] No results message"
+msgid "Sorry, there are no matching results for your search."
+msgstr "Lo siento, no hay resultados que coincidan con tu búsqueda."
+
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:255
+msgctxt "[Frontend] Copy FAQ link text"
+msgid "Copy link"
+msgstr "Copiar enlace"
+
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:256
+msgctxt "[Frontend] Copy faq link message"
+msgid "Copied!"
+msgstr "¡Copiado!"
+
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:279
+msgctxt "[Frontend] Previous page button label"
+msgid "Previous"
+msgstr "Anterior"
+
+#: includes/shortcodes/class-yith-faq-shortcode-base.php:297
+msgctxt "[Frontend] Next page button label"
+msgid "Next"
+msgstr "Siguiente"

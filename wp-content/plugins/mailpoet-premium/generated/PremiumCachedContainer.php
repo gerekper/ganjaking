@@ -799,7 +799,7 @@ class PremiumCachedContainer extends Container
      */
     protected function getSubscriberTagService()
     {
-        return $this->services['MailPoet\\Premium\\Segments\\DynamicSegments\\Filters\\SubscriberTag'] = new \MailPoet\Premium\Segments\DynamicSegments\Filters\SubscriberTag(($this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] ?? $this->getEntityManagerService()));
+        return $this->services['MailPoet\\Premium\\Segments\\DynamicSegments\\Filters\\SubscriberTag'] = new \MailPoet\Premium\Segments\DynamicSegments\Filters\SubscriberTag(($this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] ?? $this->getEntityManagerService()), ($this->services['MailPoet\\Tags\\TagRepository'] ?? $this->getTagRepositoryService()));
     }
 
     /**

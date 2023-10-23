@@ -59,6 +59,7 @@ class Vc_Vendor_Layerslider {
 	 *
 	 */
 	public function setId( $output ) {
+        // phpcs:ignore
 		return preg_replace( '/(layerslider_\d+)/', '$1_' . $_SERVER['REQUEST_TIME'], $output );
 	}
 
@@ -71,6 +72,7 @@ class Vc_Vendor_Layerslider {
 	 * @since 4.3
 	 */
 	public function setMarkupId( $markup, $slider, $id ) {
+        // phpcs:ignore
 		return str_replace( $id, $id . '_' . $_SERVER['REQUEST_TIME'], $markup );
 	}
 

@@ -676,7 +676,8 @@ if ( ! \WPML\Plugins::isTMActive() && ( ! wpml_is_setup_complete() || false !== 
 				new WPML_TM_Log(),
 				new WPML_TP_Xliff_Parser(
 					new \WPML_TM_Validate_HTML()
-				)
+				),
+				wpml_tm_get_tp_jobs_api()
 			);
 		}
 

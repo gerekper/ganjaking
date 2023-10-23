@@ -21,6 +21,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 function woocommerce_per_product_shipping_get_matching_rule( $product_id, $package, $standalone = true ) {
 	global $wpdb;
 
+	/**
+	 * Allow 3rd parties to filter the product ID rules are being fetched for.
+	 *
+	 * @since 2.0.2
+	 * @param int $product_id Product ID to filter.
+	 */
 	$product_id = apply_filters( 'woocommerce_per_product_shipping_get_matching_rule_product_id', $product_id );
 
 	if ( 'yes' !== get_post_meta( $product_id, '_per_product_shipping', true ) ) {
@@ -97,7 +103,7 @@ function woocommerce_per_product_state_code_alias( $state_code, $country_code ) 
 			'QLD' => 'QL',
 			'TAS' => 'TS',
 			'VIC' => 'VI',
-		)
+		),
 	);
 
 	return isset( $state_code_alias[ $country_code ][ $state_code ] ) ? $state_code_alias[ $country_code ][ $state_code ] : $state_code;

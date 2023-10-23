@@ -9029,6 +9029,6 @@ class RevSliderOutput extends RevSliderFunctions {
 	public function write_js_var($v, $pp = '"'){
 		if(is_bool($v)) $v = ($v) ? 'true' : 'false';
 
-		return (is_numeric($v) || substr($v, 0, 1) === '[' || in_array($v, array('true', 'false'))) ? $v : $pp.addslashes(wp_kses_post($v)).$pp;
+		return (is_numeric($v) || substr($v, 0, 1) === '[' || in_array($v, array('true', 'false'))) ? $v : $pp.$v.$pp;
 	}
 }

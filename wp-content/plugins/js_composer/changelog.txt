@@ -1,5 +1,24 @@
 *** WPBakery Page Builder changelog ***
 
+2023-09-26 - version 7.1
+  - New: Copy/Paste functionality introduced for rows and elements to copy page-wide, site-wide, and between different websites
+  - Update: Blank page selection updated for better user experience
+  - Update: External library loading is optimized for better performance
+  - Update: Editor has been updated for the branding color consistency
+  - Update: Window position after element adding has been improved
+  - Compatibility: Improved compatibility with WPML (Brazilian translation)
+  - Fix: Image filters work properly for uploaded images
+  - Fix: “Custom color” option for separators work properly
+  - Fix: Hidden fields are not displayed
+  - Fix: Background video works properly on different viewports
+  - Fix: The editor works properly with WooCommerce Shop Page
+  - Fix: “Unsaved changes” notification works properly
+  - Fix: Redirect from the Frontend editor to the Backend editor works properly
+  - Fix: Native WordPress “lazy load” functionality works properly for WPBakery layouts
+  - Fix: WPBakery page settings work properly
+  - Fix: Row stretching option works properly
+  - Fix: Editor acts properly if no content area has been defined in the layout
+
 2023-07-31 - version 7.0
   - New: Blank page layout for landing pages or empty canvas
   - New: Custom JavaScript option for the site and page scope

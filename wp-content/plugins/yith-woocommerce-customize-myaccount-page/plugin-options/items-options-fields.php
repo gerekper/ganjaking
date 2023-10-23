@@ -2,14 +2,22 @@
 /**
  * Items options array
  *
- * @author  YITH
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH WooCommerce Customize My Account Page
  * @version 3.0.0
  */
 
 defined( 'YITH_WCMAP' ) || exit;
 
-
+/**
+ * APPLY_FILTERS: yith_wcmap_items_options_fields
+ *
+ * Filters the fields for the new items in the plugin panel (endpoints, groups, links).
+ *
+ * @param array $fields Fields.
+ *
+ * @return array
+ */
 return apply_filters(
 	'yith_wcmap_items_options_fields',
 	array(
@@ -52,7 +60,7 @@ return apply_filters(
 				),
 			),
 			'custom_icon'      => array(
-				'type'  => 'upload',
+				'type'  => 'media',
 				'label' => __( 'Upload icon', 'yith-woocommerce-customize-myaccount-page' ),
 				'desc'  => __( 'Upload you custom icon to identify this endpoint', 'yith-woocommerce-customize-myaccount-page' ),
 				'deps'  => array(
@@ -140,7 +148,7 @@ return apply_filters(
 				),
 			),
 			'custom_icon' => array(
-				'type'  => 'upload',
+				'type'  => 'media',
 				'label' => __( 'Upload icon', 'yith-woocommerce-customize-myaccount-page' ),
 				'desc'  => __( 'Upload you custom icon to identify this endpoints group', 'yith-woocommerce-customize-myaccount-page' ),
 				'deps'  => array(
@@ -178,8 +186,8 @@ return apply_filters(
 		'link'     => array(
 			'url'          => array(
 				'type'  => 'text',
-				'label' => __( 'Link url', 'yith-woocommerce-customize-myaccount-page' ),
-				'desc'  => __( 'The url of the menu item', 'yith-woocommerce-customize-myaccount-page' ),
+				'label' => __( 'Link URL', 'yith-woocommerce-customize-myaccount-page' ),
+				'desc'  => __( 'The URL of the menu item', 'yith-woocommerce-customize-myaccount-page' ),
 			),
 			'label'        => array(
 				'type'  => 'text',
@@ -210,7 +218,7 @@ return apply_filters(
 				),
 			),
 			'custom_icon'  => array(
-				'type'  => 'upload',
+				'type'  => 'media',
 				'label' => __( 'Upload icon', 'yith-woocommerce-customize-myaccount-page' ),
 				'desc'  => __( 'Upload you custom icon to identify this link', 'yith-woocommerce-customize-myaccount-page' ),
 				'deps'  => array(

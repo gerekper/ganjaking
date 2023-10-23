@@ -2,8 +2,8 @@
 /**
  * SHARE OPTIONS ARRAY
  *
- * @author  Your Inspiration Themes
- * @package YITH Woocommerce Compare Premium
+ * @author  YITH <plugins@yithemes.com>
+ * @package YITH\Compare
  * @version 2.0.0
  */
 
@@ -13,14 +13,12 @@ if ( ! defined( 'YITH_WOOCOMPARE' ) ) {
 
 $options = array(
 	'share' => array(
-
 		array(
 			'title' => __( 'Share Options', 'yith-woocommerce-compare' ),
 			'type'  => 'title',
 			'desc'  => '',
 			'id'    => 'yith-woocompare-share-options',
 		),
-
 		array(
 			'id'        => 'yith-woocompare-enable-share',
 			'title'     => __( 'Enable Sharing', 'yith-woocommerce-compare' ),
@@ -29,7 +27,6 @@ $options = array(
 			'yith-type' => 'onoff',
 			'default'   => 'yes',
 		),
-
 		array(
 			'title'             => __( 'Show sharing in', 'yith-woocommerce-compare' ),
 			'desc'              => __( 'Popup', 'yith-woocommerce-compare' ),
@@ -41,7 +38,6 @@ $options = array(
 				'data-deps' => 'yith-woocompare-enable-share',
 			),
 		),
-
 		array(
 			'id'            => 'yith-woocompare-share-in-page',
 			'desc'          => __( 'Page', 'yith-woocommerce-compare' ),
@@ -49,7 +45,6 @@ $options = array(
 			'default'       => 'yes',
 			'checkboxgroup' => 'end',
 		),
-
 		array(
 			'id'        => 'yith-woocompare-share-socials',
 			'title'     => __( 'Select Social Network Sites', 'yith-woocommerce-compare' ),
@@ -70,7 +65,6 @@ $options = array(
 				'type'  => 'hide',
 			),
 		),
-
 		array(
 			'id'        => 'yith_woocompare_socials_title',
 			'title'     => __( 'Title for Social Network Sharing', 'yith-woocommerce-compare' ),
@@ -83,7 +77,6 @@ $options = array(
 				'type'  => 'hide',
 			),
 		),
-
 		array(
 			'id'        => 'yith_woocompare_socials_text',
 			'title'     => __( 'Text for Social Network Sharing', 'yith-woocommerce-compare' ),
@@ -98,7 +91,6 @@ $options = array(
 				'type'  => 'hide',
 			),
 		),
-
 		array(
 			'id'        => 'yith_woocompare_facebook_appid',
 			'title'     => __( 'Facebook App ID', 'yith-woocommerce-compare' ),
@@ -113,7 +105,6 @@ $options = array(
 				'type'  => 'hide',
 			),
 		),
-
 		array(
 			'title'     => __( 'Facebook image', 'yith-woocommerce-compare' ),
 			'desc'      => __( 'Select an image for Facebook sharing.', 'yith-woocommerce-compare' ),
@@ -127,7 +118,6 @@ $options = array(
 				'type'  => 'hide',
 			),
 		),
-
 		array(
 			'type' => 'sectionend',
 			'id'   => 'yith-woocompare-share-options-end',
@@ -135,4 +125,13 @@ $options = array(
 	),
 );
 
+/**
+ * APPLY_FILTERS: yith_woocompare_share_settings
+ *
+ * Filter the options available in the 'Social Network Sites Sharing' tab.
+ *
+ * @param array $options Array of options.
+ *
+ * @return array
+ */
 return apply_filters( 'yith_woocompare_share_settings', $options );

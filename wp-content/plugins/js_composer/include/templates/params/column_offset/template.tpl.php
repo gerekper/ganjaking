@@ -18,7 +18,7 @@ $custom_tag = 'script';
 	<?php if ( '1' === vc_settings()->get( 'not_responsive_css' ) ) : ?>
 		<div class="wpb_alert wpb_content_element vc_alert_rounded wpb_alert-warning">
 			<div class="messagebox_text">
-				<p><?php printf( esc_html__( 'Responsive design settings are currently disabled. You can enable them in WPBakery Page Builder %ssettings page%s by unchecking "Disable responsive content elements".', 'js_composer' ), '<a href="' . esc_url( admin_url( 'admin.php?page=vc-general' ) ) . '">', '</a>' ); ?></p>
+				<p><?php printf( esc_html__( 'Responsive design settings are currently disabled. You can enable them in WPBakery Page Builder %1$ssettings page%2$s by unchecking "Disable responsive content elements".', 'js_composer' ), '<a href="' . esc_url( admin_url( 'admin.php?page=vc-general' ) ) . '">', '</a>' ); ?></p>
 			</div>
 		</div>
 	<?php endif ?>

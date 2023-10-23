@@ -297,11 +297,9 @@ function userpro_process_form()
     /* Security do not use noonce to non-looged in users */
     $template = $_POST['template'];
 
-    if($template !== 'login' && $template !== 'register'){
-        if (!isset($_POST['_myuserpro_nonce']) ||
-            !wp_verify_nonce($_POST['_myuserpro_nonce'],
-                '_myuserpro_nonce_' . $_POST['template'] . '_' . $_POST['unique_id'])
-        ) {
+    if ( $template !== 'login' && $template !== 'register' ) {
+        if ( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
+            wp_send_json_error( 'Invalid nonce.' );
             die();
         }
     }
@@ -566,9 +564,19 @@ function userpro_process_form()
 
                 $users = get_users([
                     'meta_key' => 'userpro_secret_key',
-                    'meta_value' => $form['secretkey'],
-                    'meta_compare' => '=',
+                    'meta_compare' => 'EXISTS', // Check if the key exists in metadata.
                 ]);
+
+                $key_matched = false;
+                foreach ($users as $user) {
+                    $stored_hashed_key = get_user_meta($user->ID, 'userpro_secret_key', true);
+
+                    // Verify the input key directly without additional manipulation
+                    if (wp_check_password($form['secretkey'], $stored_hashed_key)) {
+                        $key_matched = true;
+                        break; // Exit the loop as we found a matching key
+                    }
+                }
 
                 if (!$users[0]) {
                     $output['error']['secretkey'] = __('The secret key is invalid or expired.', 'userpro');
@@ -617,16 +625,21 @@ function userpro_process_form()
             /* email user with secret key and update
                 his user meta */
             if (empty($output['error'])) {
-
                 $user = get_user_by('login', $username_or_email);
-                $uniquekey_pre_hash = wp_generate_password(20, $include_standard_special_chars = false);
-                $uniquekey = wp_hash_password($uniquekey_pre_hash);
 
-                update_user_meta($user->ID, 'userpro_secret_key', $uniquekey);
+                // Generate a random reset key
+                $reset_key = wp_generate_password(20, $include_standard_special_chars = false);
+
+                // Securely hash the reset key before storing it
+                $hashed_reset_key = wp_hash_password($reset_key);
+
+                // Store the hashed reset key in user's metadata
+                update_user_meta($user->ID, 'userpro_secret_key', $hashed_reset_key);
+
                 if (userpro_get_option('enable_reset_by_mail') == 'y') {
-                    userpro_mail($user->ID, 'reset_mail', $uniquekey);
+                    userpro_mail($user->ID, 'reset_mail', $reset_key);
                 } else {
-                    userpro_mail($user->ID, 'secretkey', $uniquekey);
+                    userpro_mail($user->ID, 'secretkey', $reset_key);
                 }
 
                 $shortcode = stripslashes($shortcode);
@@ -1147,17 +1160,26 @@ function userpro_side_validate()
             break;
 
         case 'validatesecretkey':
-
-            if( ! $input_value ) {
-                return;
+            if (! $input_value) {
+                $output['error'] = __('The secret key is required.', 'userpro');
             } else {
                 $users = get_users([
                     'meta_key' => 'userpro_secret_key',
-                    'meta_value' => $input_value,
-                    'meta_compare' => '=',
+                    'meta_compare' => 'EXISTS', // Check if the key exists in metadata.
                 ]);
 
-                if (!$users[0]) {
+                $key_matched = false;
+                foreach ($users as $user) {
+                    $stored_hashed_key = get_user_meta($user->ID, 'userpro_secret_key', true);
+
+                    // Verify the input key directly without additional manipulation
+                    if (wp_check_password($input_value, $stored_hashed_key)) {
+                        $key_matched = true;
+                        break; // Exit the loop as we found a matching key
+                    }
+                }
+
+                if (!$key_matched) {
                     $output['error'] = __('The secret key is invalid or expired.', 'userpro');
                 }
             }
@@ -1302,10 +1324,8 @@ add_action('wp_ajax_userpro_shortcode_template', 'userpro_shortcode_template');
 
 function userpro_shortcode_template() {
     $shortcode = isset( $_POST['shortcode'] ) ? wp_strip_all_tags( $_POST['shortcode'] ) : '';
-    $nonce = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
 
-    if( wp_verify_nonce($nonce, 'user_pro_nonce') ) {
-
+    if( isset( $_POST['user_pro_nonce'] ) &&  wp_verify_nonce( $_POST['user_pro_nonce'], 'user_pro_nonce' ) ) {
         ob_start();
 
         if ( isset( $_POST['up_username'] ) ) {
@@ -1328,18 +1348,64 @@ function userpro_shortcode_template() {
 
         die;
     } else {
-        die('Invalid nonce');
+        wp_send_json_error( 'Invalid nonce.' );
     }
 }
 
 /* Facebook Connect */
 add_action('wp_ajax_nopriv_userpro_fbconnect', 'userpro_fbconnect');
 add_action('wp_ajax_userpro_fbconnect', 'userpro_fbconnect');
-function userpro_fbconnect()
-{
+function userpro_fbconnect() {
     if( ! check_ajax_referer( 'user_pro_nonce', 'nonce', false ) ) {
         wp_send_json_error( 'Invalid nonce.' );
         die();
+    }
+
+    /* Verify token */
+
+    // Check if an access token is provided in the POST data
+    if (isset($_POST['access_token'])) {
+        $access_token = $_POST['access_token'];
+        $token_validation_url = 'https://graph.facebook.com/v12.0/me?fields=email&access_token=' . $access_token;
+
+
+        // Send a request to Facebook's API to validate the token
+        $response = wp_remote_get($token_validation_url);
+
+        if (is_wp_error($response)) {
+            // Handle the error as needed
+            $output['error_msg'] = 'Token validation failed.';
+            $output = json_encode($output);
+            echo $output;
+            die;
+        }
+
+        $body = wp_remote_retrieve_body($response);
+        $data = json_decode($body);
+
+        if (isset($data->id) && isset($data->email)) {
+            // Token is valid, continue with user registration or login
+
+            if ( $data->email !== $_POST['email']) {
+                $output['error_msg'] = 'Email validation failed';
+                $output = json_encode($output);
+                echo $output;
+                die;
+            }
+
+        } else {
+            // Token validation failed
+            $output['error_msg'] = 'Token validation failed';
+            $output = json_encode($output);
+            echo $output;
+            die;
+        }
+    } else {
+        // Access token not provided
+        $output['error_msg'] = 'Access token not provided';
+        $output = json_encode($output);
+        echo $output;
+        die;
     }
 
     global $userpro;

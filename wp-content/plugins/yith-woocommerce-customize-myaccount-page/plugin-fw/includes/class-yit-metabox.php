@@ -12,8 +12,7 @@ if ( ! class_exists( 'YIT_Metabox' ) ) {
 	/**
 	 * YIT_Metabox class.
 	 *
-	 * @author Emanuela Castorina <emanuela.castorina@yithemes.com>
-	 * @author Leanza Francesco <leanzafrancesco@gmail.com>
+	 * @author YITH <plugins@yithemes.com>
 	 */
 	class YIT_Metabox {
 
@@ -51,7 +50,6 @@ if ( ! class_exists( 'YIT_Metabox' ) ) {
 		 * @param string $id The ID of the instance.
 		 *
 		 * @return YIT_Metabox
-		 * @author Antonino Scarfi' <antonino.scarfi@yithemes.com>
 		 */
 		public static function instance( $id ) {
 			if ( ! isset( self::$instance[ $id ] ) ) {
@@ -479,7 +477,6 @@ if ( ! class_exists( 'YIT_Metabox' ) ) {
 		 * @param array $fields Fields.
 		 *
 		 * @since    2.0.0
-		 * @author   Andrea Grillo <andrea.grillo@yithemes.com>
 		 */
 		public function remove_fields( $fields ) {
 			foreach ( $fields as $k => $field ) {
@@ -491,7 +488,6 @@ if ( ! class_exists( 'YIT_Metabox' ) ) {
 		 * Save the element toggle via AJAX.
 		 *
 		 * @since  3.2.1
-		 * @author Emanuela Castorina
 		 */
 		public function save_toggle_element() {
 			if ( ! isset( $_REQUEST['post_ID'] ) ) {

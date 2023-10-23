@@ -58,6 +58,7 @@ class LocalFonts {
 			return false;
 		}
 		// finally check the nonce
+        // phpcs:ignore
 		if ( ! isset( $_POST['wpb_js_google_fonts_save_nonce'] ) || ! wp_verify_nonce( $_POST['wpb_js_google_fonts_save_nonce'], 'wpb_js_google_fonts_save' ) ) {
 			return false;
 		}

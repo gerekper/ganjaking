@@ -9,7 +9,9 @@ use MailPoet\Entities\DynamicSegmentFilterData;
 use MailPoet\Entities\DynamicSegmentFilterEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Entities\SubscriberTagEntity;
+use MailPoet\Entities\TagEntity;
 use MailPoet\Segments\DynamicSegments\Filters\Filter;
+use MailPoet\Tags\TagRepository;
 use MailPoet\Util\Security;
 use MailPoetVendor\Doctrine\DBAL\Connection;
 use MailPoetVendor\Doctrine\DBAL\Query\QueryBuilder;
@@ -19,10 +21,15 @@ class SubscriberTag implements Filter {
   /** @var EntityManager */
   private $entityManager;
 
+  /** @var TagRepository */
+  private $tagRepository;
+
   public function __construct(
-    EntityManager $entityManager
+    EntityManager $entityManager,
+    TagRepository $tagRepository
   ) {
     $this->entityManager = $entityManager;
+    $this->tagRepository = $tagRepository;
   }
 
   public function apply(QueryBuilder $queryBuilder, DynamicSegmentFilterEntity $filter): QueryBuilder {
@@ -57,5 +64,31 @@ class SubscriberTag implements Filter {
     }
 
     return $queryBuilder;
+  }
+
+  /**
+   * @param array{tags: array<string|int, string>} $defaultLookupData
+   *
+   * @return array{tags: array<string|int, string>}
+   */
+  public function getLookupDataFilterCallback(array $defaultLookupData, DynamicSegmentFilterData $filterData): array {
+    return $this->getLookupData($filterData);
+  }
+
+  /**
+   * @return array{tags: array<string|int, string>}
+   */
+  public function getLookupData(DynamicSegmentFilterData $filterData): array {
+    $lookupData = [
+      'tags' => [],
+    ];
+    $tagIds = $filterData->getArrayParam('tags');
+    foreach ($tagIds as $tagId) {
+      $tag = $this->tagRepository->findOneById($tagId);
+      if ($tag instanceof TagEntity) {
+        $lookupData['tags'][$tagId] = $tag->getName();
+      }
+    }
+    return $lookupData;
   }
 }

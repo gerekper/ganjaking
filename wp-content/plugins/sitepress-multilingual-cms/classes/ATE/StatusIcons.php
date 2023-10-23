@@ -34,6 +34,9 @@ class StatusIcons implements \IWPML_Backend_Action {
 	}
 
 	public function setSpinningIconOnPageList( $default, $postId, $languageCode, $trid, $status ) {
+		if ( ICL_TM_COMPLETE === $status ) {
+			return $default;
+		}
 		if ( $this->alreadyFound ) {
 			return $default;
 		} else {

@@ -14,14 +14,14 @@ $order_date = $order->get_date_created();
 $billing_first_name = $order->get_billing_first_name();
 $billing_last_name = $order->get_billing_last_name();
 
-echo "= " . $email_heading . " =\n\n";
+echo "= " . esc_html( wp_strip_all_tags( $email_heading ) ) . " =\n\n";
 
-echo sprintf( __( 'You have received an order from %s.', 'woocommerce-product-vendors' ), $billing_first_name . ' ' . $billing_last_name ) . "\n\n";
+echo sprintf( esc_html__( 'You have received an order from %s.', 'woocommerce-product-vendors' ), esc_html( $billing_first_name ) . ' ' . esc_html( $billing_last_name ) ) . "\n\n";
 
 echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 
-echo strtoupper( sprintf( __( 'Order number: %s', 'woocommerce-product-vendors' ), $order->get_order_number() ) ) . "\n";
-echo date_i18n( __( 'jS F Y', 'woocommerce-product-vendors' ), strtotime( $order_date ) ) . "\n";
+echo esc_html( strtoupper( sprintf( __( 'Order number: %s', 'woocommerce-product-vendors' ), esc_html( $order->get_order_number() ) ) ) )  . "\n";
+echo esc_html( date_i18n( __( 'jS F Y', 'woocommerce-product-vendors' ), strtotime( $order_date ) ) ) . "\n";
 
 echo "\n";
 
@@ -38,4 +38,4 @@ do_action( 'woocommerce_email_customer_details', $order, $sent_to_admin, $plain_
 
 echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 
-echo apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) );
+echo wp_kses_post( apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) ) );

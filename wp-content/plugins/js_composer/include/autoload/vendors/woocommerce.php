@@ -10,6 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function vc_woocommerce_add_to_cart_script() {
 	if ( 'yes' === get_option( 'woocommerce_enable_ajax_add_to_cart' ) ) {
+        // phpcs:ignore
 		wp_enqueue_script( 'vc_woocommerce-add-to-cart-js', vc_asset_url( 'js/vendors/woocommerce-add-to-cart.js' ), array( 'wc-add-to-cart' ), WPB_VC_VERSION );
 	}
 }

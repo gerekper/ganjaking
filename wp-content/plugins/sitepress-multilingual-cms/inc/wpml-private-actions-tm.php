@@ -49,7 +49,7 @@ add_action( 'wpml_save_translation_data', 'action_wpml_tm_save_data', 10, 1 );
 function wpml_tm_add_translation_job( $rid, $translator_id, $translation_package, $batch_options ) {
 
 	$helper = new WPML_TM_Action_Helper();
-	$helper->add_translation_job( $rid, $translator_id, $translation_package, $batch_options );
+	return $helper->add_translation_job( $rid, $translator_id, $translation_package, $batch_options );
 }
 
 add_action( 'wpml_add_translation_job', 'wpml_tm_add_translation_job', 10, 4 );

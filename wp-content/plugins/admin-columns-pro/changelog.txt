@@ -1,7 +1,15 @@
 == Changelog ==
 
+= 6.3.5 =
+Release Date: October 2nd, 2023
+
+* [Fixed] Resolved an issue where the Saved Filters list displayed duplicate records
+* [Fixed] Fixed a bug where filtering on an ACF Number field in combination with sorting could lead to empty search results
+* [Fixed] Corrected the incorrect URLs for Terms in Taxonomy columns, ensuring that links now point to the correct destinations
+* [Updated] Admin Columns Core to version 4.6.9
+
 = 6.3.4 =
-Release Date: September 19th, 2024
+Release Date: September 19th, 2023
 
 * [Fixed] Taxonomy helper class gave a PHP 8.2 warning.
 * [Fixed] Re-added all Pro features for the MS User list table.
@@ -13,7 +21,7 @@ Release Date: September 19th, 2024
 * [Updated] Admin Columns Core to version 4.6.8.
 
 = 6.3.3 =
-Release Date: 30th August, 2023
+Release Date: August 30th, 2023
 
 * [Improved] Gravatar option added for the Last Modified Author column
 * [Fixed] Deleting an HPOS order gave an error
@@ -21,7 +29,7 @@ Release Date: 30th August, 2023
 * [Fixed] Reset sorting for a table that has not yet saved settings was not possible
 
 = 6.3.2 =
-Release Date: 25th August, 2023
+Release Date: August 25th, 2023
 
 * [Improved] Changed the Conditional Formatting style hook from `acp/conditional_format/color_styles` to `acp/conditional_format/formats`
 * [Improved] New date operators for Conditional Formatting: Within Days, More than ... days ago, Less than ... days ago
@@ -32,7 +40,7 @@ Release Date: 25th August, 2023
 * [Updated] Admin Columns Core version 4.6.7
 
 = 6.3.1 =
-Release Date: 21st August, 2023
+Release Date: August 21st, 2023
 
 * [Fixed] Use the database prefix for custom WooCommerce HPOS queries
 * [Fixed] Update section in the Admin was not visible anymore
@@ -43,7 +51,7 @@ Release Date: 21st August, 2023
 * [Updated] Admin Columns Core version 4.6.6
 
 = 6.3 =
-Release Date: 15th August, 2023
+Release Date: August 15th, 2023
 
 * [Added] Global Saved Filters are now also stored in File Storage
 * [Added] Smart Filtering for the Author role column on Custom Post Type list tables

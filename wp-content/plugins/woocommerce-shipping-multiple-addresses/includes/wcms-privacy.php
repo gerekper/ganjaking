@@ -75,7 +75,7 @@ class WC_MS_Privacy extends WC_Abstract_Privacy {
 
 				foreach ( $packages as $idx => $package ) {
 					$products = $package['contents'];
-					$address  = ( isset($package['full_address'] ) && ! empty( $package['full_address'] ) ) ? WC()->countries->get_formatted_address( $package['full_address'] ) : '';
+					$address  = ( ! empty( $package['destination'] ) ) ? WC()->countries->get_formatted_address( $package['destination'], ', ' ) : '';
 
 					$data  = sprintf( __( 'Products listing for shipping address "%s": ', 'wc_shipping_multiple_address' ), $address );
 					$data .= implode( ', ', array_map( function( $product ) {
@@ -95,28 +95,24 @@ class WC_MS_Privacy extends WC_Abstract_Privacy {
 						'data'        => array(
 							array(
 								'name'  => sprintf( __( 'Multiple Shipping package "%s"', 'wc_shipping_multiple_address' ), $idx ),
-								'value' => $packages,
+								'value' => $data,
 							),
 						),
 					);
 				}
 
-				$query = array(
-					'post_type'  => 'order_shipment',
-					'meta_key'   => 'post_parent',
-					'meta_value' => $order->get_id(),
-				);
-				$shipment_data = get_posts( $query );
+				$shipment_data = WC_MS_Order_Shipment::get_shipment_objects_by_order( $order->get_id() );
 
-				foreach ( $shipment_data as $post ) {
+				foreach ( $shipment_data as $shipment ) {
 					$data_to_export[] = array(
 						'group_id'    => 'woocommerce_orders',
 						'group_label' => __( 'Orders', 'wc_shipping_multiple_address' ),
 						'item_id'     => 'order-' . $order->get_id(),
 						'data'        => array(
 							array(
-								'name'  => sprintf( __( 'Multiple Shipping Order Shipment "%s"', 'wc_shipping_multiple_address' ), $post->ID ),
-								'value' => $post->post_excerpt,
+								// translators: %s is for order shipment ID.
+								'name'  => sprintf( __( 'Multiple Shipping Order Shipment "%s"', 'wc_shipping_multiple_address' ), $shipment->get_id() ),
+								'value' => $shipment->get_customer_note(),
 							),
 						),
 					);
@@ -237,9 +233,7 @@ class WC_MS_Privacy extends WC_Abstract_Privacy {
 	 * @return array
 	 */
 	protected function maybe_handle_order( $order ) {
-		global $wpdb;
-
-		$order_id          = $order->get_id();
+		$order_id = $order->get_id();
 
 		$packages          = $order->get_meta( '_shipping_packages' );
 		$sess_item_address = $order->get_meta( '_shipping_addresses' );
@@ -251,16 +245,10 @@ class WC_MS_Privacy extends WC_Abstract_Privacy {
 			return array( false, false, array() );
 		}
 
-		$query = array(
-			'post_type'  => 'order_shipment',
-			'meta_key'   => 'post_parent',
-			'meta_value' => $order_id,
-		);
+		$shipment_data = WC_MS_Order_Shipment::get_shipment_objects_by_order( $order->get_id() );
 
-		$shipment_data = get_posts( $query );
-
-		foreach ( $shipment_data as $post ) {
-			$wpdb->delete_post( $post->ID, true );
+		foreach ( $shipment_data as $shipment ) {
+			$shipment->delete( true );
 		}
 
 		foreach ( $packages as $idx => $package ) {

@@ -31,7 +31,7 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  *
- * Modified by woocommerce on 18-September-2023 using Strauss.
+ * Modified by woocommerce on 09-October-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -920,7 +920,7 @@ abstract class SymmetricKey
      * @see Crypt/Hash.php
      * @param string $password
      * @param string $method
-     * @param string[] ...$func_args
+     * @param int|string ...$func_args
      * @throws \LengthException if pbkdf1 is being used and the derived key length exceeds the hash length
      * @throws \RuntimeException if bcrypt is being used and a salt isn't provided
      * @return bool

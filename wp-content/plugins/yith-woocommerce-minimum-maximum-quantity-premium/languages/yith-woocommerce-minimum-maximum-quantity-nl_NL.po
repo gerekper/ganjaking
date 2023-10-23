@@ -1,0 +1,1113 @@
+# Translation of YITH WooCommerce Minimum Maximum Quantity in Dutch
+# This file is distributed under the same license as the YITH WooCommerce Minimum Maximum Quantity package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Minimum Maximum Quantity\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"minimum-maximum-quantity.premium\n"
+"POT-Creation-Date: 2023-10-09 11:07:41+00:00\n"
+"PO-Revision-Date: 2021-05-20 14:58:00+0000\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+
+#: class-yith-wc-min-max-qty.php:276
+msgid "General Settings"
+msgstr "Algemene Instellingen"
+
+#: class-yith-wc-min-max-qty.php:277
+msgid "Message Settings"
+msgstr "Bericht instellingen"
+
+#: class-yith-wc-min-max-qty.php:278
+msgid "Bulk Actions"
+msgstr "Bulk acties"
+
+#: class-yith-wc-min-max-qty.php:378
+msgid "Exclude product"
+msgstr "Product uitsluiten"
+
+#: class-yith-wc-min-max-qty.php:379
+msgid "Do not apply any of the plugin restrictions to this product"
+msgstr "Plugin beperkingen niet toepassen op dit product"
+
+#: class-yith-wc-min-max-qty.php:388
+msgid "Override product restrictions"
+msgstr "Product beperkingen overschrijven"
+
+#: class-yith-wc-min-max-qty.php:389
+msgid ""
+"Global product restrictions will be overridden by these ones. Set zero for "
+"no restrictions."
+msgstr ""
+"Algemene product beperkingen worden overschreven door deze. Vul nul in voor "
+"geen beperkingen."
+
+#: class-yith-wc-min-max-qty.php:398
+msgid "Enable variation restrictions"
+msgstr "Variatie beperkingen inschakelen"
+
+#: class-yith-wc-min-max-qty.php:399
+msgid ""
+"Enable to set up a custom quantity value for every single variation (e.g. "
+"minimum quantity 7 for \"Blue\" variation, and 3 for \"Yellow\" variation)."
+msgstr ""
+"Inschakelen om een aangepaste hoeveelheidswaarde in te stellen voor iedere "
+"variatie (vb. minimale hoeveelheid 7 voor de variatie \"blauw\" en 3 voor de "
+"variatie \"geel\")."
+
+#: class-yith-wc-min-max-qty.php:412 class-yith-wc-min-max-qty.php:522
+#: includes/ywmmq-functions.php:64 plugin-options/general-options.php:83
+#: plugin-options/general-options.php:205
+#: plugin-options/general-options.php:279
+#: plugin-options/general-options.php:374
+msgid "Minimum quantity restriction"
+msgstr "Minimum hoeveelheid beperking"
+
+#: class-yith-wc-min-max-qty.php:426 class-yith-wc-min-max-qty.php:538
+#: includes/ywmmq-functions.php:73 plugin-options/general-options.php:97
+#: plugin-options/general-options.php:219
+#: plugin-options/general-options.php:293
+#: plugin-options/general-options.php:388
+msgid "Maximum quantity restriction"
+msgstr "Maximum hoeveelheid beperking"
+
+#: class-yith-wc-min-max-qty.php:647
+msgid "Minimum Maximum Quantity Options"
+msgstr "Minimum Maximum Quantity Opties"
+
+#: class-yith-wc-min-max-qty.php:834
+msgid "Cart updated."
+msgstr "Winkelwagen geupdate."
+
+#. translators: %s icon placeholder
+#: class-yith-wc-min-max-qty.php:1037
+msgid ""
+"Items marked with %s do not contribute to reaching the purchase objective set"
+msgstr ""
+"Items gemarkeerd met %s dragen niet bij aan het bereiken van het gestelde "
+"aankoop doel"
+
+#. translators: %s icon placeholder
+#: class-yith-wc-min-max-qty.php:1043
+msgid "Check items marked with %s"
+msgstr "Check items gemarkeerd met %s"
+
+#. translators: %d quantity
+#: class-yith-wc-min-max-qty.php:1489
+msgid "Maximum quantity allowed for this product: %d"
+msgstr "Maximum toegestane hoeveelheid voor dit product: %d"
+
+#. translators: %d quantity
+#: class-yith-wc-min-max-qty.php:1492
+msgid "Minimum quantity required for this product: %d"
+msgstr "Minimum toegestane hoeveelheid voor dit product: %d"
+
+#. translators: %1$d min quantity - %2%d max quantity
+#: class-yith-wc-min-max-qty.php:1495
+msgid "Quantities allowed for this product: minimum %1$d - maximum %2$d"
+msgstr "Hoeveelheden toegestaan voor dit product: minimum %1$d - maximum %2$d"
+
+#. translators: %d quantity
+#: class-yith-wc-min-max-qty.php:1503
+msgid "Cart can contain %d items at most."
+msgstr "Winkelwagen kan maximaal %d items bevatten."
+
+#. translators: %d quantity
+#: class-yith-wc-min-max-qty.php:1506
+msgid "Cart must contain %d items at least."
+msgstr "Winkelwagen kan minimaal %d items bevatten."
+
+#. translators: %1$d min quantity - %2%d max quantity
+#: class-yith-wc-min-max-qty.php:1509
+msgid "Cart must contain at least %1$d items but no more than %2$d"
+msgstr "Winkelwagen moet minimaal %1$d items bevatten, maar niet meer dan %2$d"
+
+#. translators: %s amount
+#: class-yith-wc-min-max-qty.php:1517
+msgid "Cart can contain no more than %s items."
+msgstr "Winkelwagen mag niet meer dan %s items bevatten."
+
+#. translators: %s amount
+#: class-yith-wc-min-max-qty.php:1520
+msgid "Cart must contain %s items at least"
+msgstr "Winkelwagen moet minimaal %s items bevatten"
+
+#. translators: %1$s min amount - %2%s max amount
+#: class-yith-wc-min-max-qty.php:1524
+msgid "Cart must contain at least %1$s items but no more than %2$s"
+msgstr "Winkelwagen moet minimaal %1$s items bevatten, maar niet meer dan %2$s"
+
+#. translators: %1$s category name - %2%d quantity
+#: class-yith-wc-min-max-qty.php:1540
+msgid "Maximum quantity allowed for category %1$s: %2$d"
+msgstr "Maximum toegestane hoeveelheid voor categorie %1$s: %2$d"
+
+#. translators: %1$s category name - %2%d quantity
+#: class-yith-wc-min-max-qty.php:1543
+msgid "Minimum quantity required for category %1$s: %2$d"
+msgstr "Minimum toegestane hoeveelheid voor categorie %1$s: %2$d"
+
+#. translators: %1$s category name - %2%d min quantity - %3%d max quantity
+#: class-yith-wc-min-max-qty.php:1546
+msgid "Quantities allowed for category %1$s: minimum %2$d - maximum %3$d"
+msgstr ""
+"Hoeveelheden toegestaan voor categorie %1$s: minimum %2$d - maximum %3$d"
+
+#. translators: %1$s category name - %2%s amount
+#: class-yith-wc-min-max-qty.php:1554
+msgid "Maximum spend allowed for category %1$s: %2$s"
+msgstr "Maximum toegestane uitgave voor categorie  %1$s: %2$s"
+
+#. translators: %1$s category name - %2%s amount
+#: class-yith-wc-min-max-qty.php:1557
+msgid "Minimum spend required for category %1$s: %2$s"
+msgstr "Minimum noodzakelijke uitgave voor categorie %1$s: %2$s"
+
+#. translators: %1$s category name - %2%d min amount - %3%d max amount
+#: class-yith-wc-min-max-qty.php:1560
+msgid "Spend allowed for category %1$s: minimum %2$s - maximum %3$s"
+msgstr "Uitgaven toegestaan voor categorie %1$s: minimum %2$s - maximum %3$s"
+
+#. translators: %1$s tag name - %2%d quantity
+#: class-yith-wc-min-max-qty.php:1577
+msgid "Maximum quantity allowed for tag %1$s: %2$d"
+msgstr "Maximum toegestane hoeveelheid voor tag %1$s: %2$d"
+
+#. translators: %1$s tag name - %2%d quantity
+#: class-yith-wc-min-max-qty.php:1580
+msgid "Minimum quantity required for tag %1$s: %2$d"
+msgstr "Minimum noodzakelijke hoeveelheid voor tag %1$s: %2$d"
+
+#. translators: %1$s tag name - %2%d min quantity - %3%d max quantity
+#: class-yith-wc-min-max-qty.php:1583
+msgid "Quantities allowed for tag %1$s: minimum %2$d - maximum %3$d"
+msgstr "Hoeveelheden toegestaan voor tag %1$s: minimum %2$d - maximum %3$d"
+
+#. translators: %1$s tag name - %2%s amount
+#: class-yith-wc-min-max-qty.php:1591
+msgid "Maximum spend allowed for tag %1$s: %2$s"
+msgstr "Maximum toegestane uitgaven voor tag %1$s: %2$s"
+
+#. translators: %1$s tag name - %2%s amount
+#: class-yith-wc-min-max-qty.php:1594
+msgid "Minimum spend required for tag %1$s: %2$s"
+msgstr "Minimum noodzakelijke uitgaven voor tag %1$s: %2$s"
+
+#. translators: %1$s tag name - %2%d min amount - %3%d max amount
+#: class-yith-wc-min-max-qty.php:1597
+msgid "Spend allowed for tag %1$s: minimum %2$s - maximum %3$s"
+msgstr "Uitgaven toegestaan voor tag %1$s: minimum %2$s - maximum %3$s"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:64
+msgid "item"
+msgstr "item"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:65
+msgid "items"
+msgstr "items"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:123
+msgid "1 rule added successfully"
+msgstr "1 regel succesvol toegevoegd"
+
+#. translators: %s: number of rules added
+#: includes/admin/tables/class-ywmmq-bulk-table.php:125
+msgid "%s rules added successfully"
+msgstr "%s regels succesvol toegevoegd"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:134
+msgid "Rule updated successfully"
+msgstr "Regel succesvol bijgewerkt"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:282
+msgid "Item Name"
+msgstr "Item naam"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:283
+msgid "Item Type"
+msgstr "Item type"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:284
+msgid "Excluded"
+msgstr "Uitgesloten"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:285
+msgid "Override Quantity Restrictions"
+msgstr "Hoeveelheid restricties overschrijven"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:286
+msgid "Override Spend Restrictions"
+msgstr "Uitgaven restricties overschrijven"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:312
+#: includes/admin/tables/class-ywmmq-bulk-table.php:707
+msgid "Remove from list"
+msgstr "Verwijder uit lijst"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:364
+msgid "1 rule removed successfully"
+msgstr "1 regel is succesvol verwijderd"
+
+#. translators: number of rules deleted
+#: includes/admin/tables/class-ywmmq-bulk-table.php:366
+msgid "%s rules removed successfully"
+msgstr "%s regels succesvol verwijderd"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:400
+msgid "Rules list"
+msgstr "Lijst met regels"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:406
+#: includes/admin/tables/class-ywmmq-bulk-table.php:441
+msgid "Add rule"
+msgstr "Regel toevoegen"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:441
+msgid "Update rule"
+msgstr "Regel bijwerken"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:447
+msgid "Search item"
+msgstr "Item zoeken"
+
+#. translators: %s item type
+#: includes/admin/tables/class-ywmmq-bulk-table.php:486
+msgid "%s to edit"
+msgstr "%s om te bewerken"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:511
+msgid "Products"
+msgstr "Producten"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:512
+msgid "Categories"
+msgstr "Categorieën"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:513
+msgid "Tags"
+msgstr "Tags"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:515
+msgid "Item type"
+msgstr "Item type"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:517
+msgid ""
+"Choose whether to add specific products, categories or tags to the rules "
+"list."
+msgstr ""
+"Bepaal of specifieke producten, categorieën of tags worden toegevoegd aan de "
+"lijst met regels."
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:525
+msgid "Search products"
+msgstr "Producten zoeken"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:527
+msgid "Select products"
+msgstr "Selecteer producten"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:528
+msgid "Select which products to add in the rules list."
+msgstr "Selecteer welke producten je wilt toevoegen aan de lijst met regels."
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:536
+msgid "Search categories"
+msgstr "Selecteer categorieën"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:539
+msgid "Select categories"
+msgstr "Selecteer categorieën"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:540
+msgid "Select which product categories to add in the rules list."
+msgstr ""
+"Selecteer welke productcategorieën je wilt toevoegen aan de lijst met regels."
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:548
+msgid "Search tags"
+msgstr "Selecteer tags"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:551
+msgid "Select tags"
+msgstr "Selecteer tags"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:552
+msgid "Select which product tags to add in the rules list."
+msgstr ""
+"Selecteer welke product tags je wilt toevoegen aan de lijst met regels."
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:605
+msgid "Rules"
+msgstr "Regels"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:659
+msgid "Edit product"
+msgstr "Bewerk product"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:672
+msgid "Edit category"
+msgstr "Categorie bewerken"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:687
+msgid "Edit tag"
+msgstr "Tag bewerken"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:705
+#: includes/admin/tables/class-ywmmq-bulk-table.php:711
+msgid "Edit rule"
+msgstr "Regel bewerken"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:708
+msgid "View"
+msgstr "Bekijk"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:726
+msgid "Product"
+msgstr "Product"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:727
+msgid "Category"
+msgstr "Categorie"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:728
+msgid "Tag"
+msgstr "Tag"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:747
+#: includes/admin/tables/class-ywmmq-bulk-table.php:768
+#: includes/admin/tables/class-ywmmq-bulk-table.php:812
+msgid "Yes"
+msgstr "Ja"
+
+#: includes/admin/tables/class-ywmmq-bulk-table.php:750
+#: includes/admin/tables/class-ywmmq-bulk-table.php:789
+#: includes/admin/tables/class-ywmmq-bulk-table.php:820
+msgid "No"
+msgstr "Nee"
+
+#. translators: %1$d minimum value - %2$d maximum value
+#: includes/admin/tables/class-ywmmq-bulk-table.php:782
+#: includes/admin/tables/class-ywmmq-bulk-table.php:817
+msgid "Min.: %1$d - Max.: %2$d"
+msgstr "Min.: %1$d - Max.: %2$d"
+
+#. translators: %d step quantity value
+#: includes/admin/tables/class-ywmmq-bulk-table.php:785
+msgid "Group of: %d"
+msgstr "Groep van: %d"
+
+#: includes/ywmmq-error-messages.php:40 includes/ywmmq-error-messages.php:157
+#: includes/ywmmq-error-messages.php:207 includes/ywmmq-error-messages.php:257
+msgid "cart"
+msgstr "Winkelwagen"
+
+#: includes/ywmmq-error-messages.php:40 includes/ywmmq-error-messages.php:157
+#: includes/ywmmq-error-messages.php:207 includes/ywmmq-error-messages.php:257
+msgid "quote"
+msgstr "Quote"
+
+#: includes/ywmmq-error-messages.php:46
+msgid "Shipping fees and related taxes excluded."
+msgstr "Verzendkosten en bijbehorende belasting uitgesloten."
+
+#: includes/ywmmq-functions.php:28 includes/ywmmq-functions.php:37
+msgid "Do not apply global restrictions to the products of this category."
+msgstr ""
+"De algemene beperkingen niet toepassen op producten uit deze categorie."
+
+#: includes/ywmmq-functions.php:31 includes/ywmmq-functions.php:38
+msgid "Do not apply global restrictions to the products of this tag."
+msgstr "De algemene beperkingen niet toepassen op producten met deze tag."
+
+#: includes/ywmmq-functions.php:34 includes/ywmmq-functions.php:39
+msgid "Do not apply global restrictions to this product."
+msgstr "Globale restricties niet toepassen op dit product."
+
+#: includes/ywmmq-functions.php:47
+msgid "Exclude"
+msgstr "Uitsluiten"
+
+#: includes/ywmmq-functions.php:55
+msgid "Override quantity restrictions"
+msgstr "Hoeveelheid beperkingen overschrijven"
+
+#: includes/ywmmq-functions.php:57
+msgid ""
+"Global restrictions will be overridden by current ones. Set zero for no "
+"restrictions."
+msgstr ""
+"Algemene restricties zullen worden overschreven door huidige restricties. "
+"Zet op nul voor geen restricties."
+
+#: includes/ywmmq-functions.php:82 plugin-options/general-options.php:111
+#: plugin-options/general-options.php:233
+msgid "Quantity groups of"
+msgstr "Hoeveelheidsgroepen van"
+
+#: includes/ywmmq-functions.php:90
+msgid "Override spend restrictions"
+msgstr "Uitgaven beperkingen overschrijven"
+
+#: includes/ywmmq-functions.php:92
+msgid ""
+"Global spend restrictions will be overridden by current ones. Set zero for "
+"no restrictions."
+msgstr ""
+"Algemene uitgave restricties worden overschreven door huidige restricties. "
+"Zet op nul voor geen restricties."
+
+#: includes/ywmmq-functions.php:99 plugin-options/general-options.php:133
+#: plugin-options/general-options.php:329
+#: plugin-options/general-options.php:424
+msgid "Minimum spend restriction"
+msgstr "Minimum uitgaven beperking"
+
+#: includes/ywmmq-functions.php:108 plugin-options/general-options.php:148
+#: plugin-options/general-options.php:344
+#: plugin-options/general-options.php:439
+msgid "Maximum spend restriction"
+msgstr "Maximum uitgaven beperking"
+
+#. translators: %s name of the plugin
+#: init.php:36
+msgid ""
+"%s is enabled but not effective. In order to work, it requires WooCommerce."
+msgstr ""
+"%s is ingeschakeld maar werkt niet. Het heeft WooCommerce nodig om te werken."
+
+#: plugin-options/general-options.php:17
+msgid "Plugin Integrations"
+msgstr "Plugin integraties"
+
+#: plugin-options/general-options.php:22
+msgid "Product Bundles"
+msgstr "Product bundels"
+
+#: plugin-options/general-options.php:26
+msgid "Cart, category and tag quantity restrictions for product bundles"
+msgstr ""
+"Winkelwagen, categorie en tag hoeveelheidsrestricties voor productbundels"
+
+#: plugin-options/general-options.php:28
+msgid "Apply only to the bundle"
+msgstr "Pas alleen toe op bundel"
+
+#: plugin-options/general-options.php:29
+msgid "Apply only to the bundle items"
+msgstr "Pas alleen toe op bundel items"
+
+#: plugin-options/general-options.php:37
+msgid "Apply rules also to quote requests"
+msgstr "Pas ook regels toe op citaatverzoeken"
+
+#: plugin-options/general-options.php:52
+msgid "Prevent Gift Cards calculation"
+msgstr "Voorkom cadeaubonnenberekening"
+
+#: plugin-options/general-options.php:55
+msgid ""
+"By enabling this option Gift Cards won't be calculated on the amount limits"
+msgstr ""
+"Door deze optie in te schakelen worden cadeaubonnen niet berekend op de "
+"limieten"
+
+#: plugin-options/general-options.php:71
+msgid "Cart restrictions"
+msgstr "Winkelwagen beperkingen"
+
+#: plugin-options/general-options.php:75
+msgid "Enable cart quantity restrictions"
+msgstr "Winkelwagen hoeveelheid restrictie inschakelen"
+
+#: plugin-options/general-options.php:86 plugin-options/general-options.php:282
+#: plugin-options/general-options.php:377
+msgid "Minimum number of items in cart. Set zero for no restrictions."
+msgstr "Minimum aantal items in winkelwagen. Vul nul in voor geen beperkingen."
+
+#: plugin-options/general-options.php:100
+#: plugin-options/general-options.php:296
+#: plugin-options/general-options.php:391
+msgid "Maximum number of items in cart. Set zero for no restrictions."
+msgstr "Maximum aantal items in winkelwagen. Vul nul in voor geen beperkingen."
+
+#: plugin-options/general-options.php:114
+msgid ""
+"Force users to purchase products only in groups of x items (Ex. groups of 6 "
+"units)"
+msgstr ""
+"Gebruikers forceren om alleen producten te kopen in groepen van x items (Vb. "
+"groepen van 6 eenheden)"
+
+#: plugin-options/general-options.php:125
+msgid "Enable cart spend restrictions"
+msgstr "Winkelwagen uitgaven restrictie inschakelen"
+
+#: plugin-options/general-options.php:136
+#: plugin-options/general-options.php:332
+#: plugin-options/general-options.php:427
+msgid "Minimum spend for items in cart. Set zero for no restrictions."
+msgstr ""
+"Minimum uitgaven voor items in winkelwagen. Zet op nul voor geen restricties."
+
+#: plugin-options/general-options.php:151
+#: plugin-options/general-options.php:347
+#: plugin-options/general-options.php:442
+msgid "Maximum spend for items in cart. Set zero for no restrictions."
+msgstr ""
+"Maximum uitgave voor items in winkelwagen. Zet op 0 voor geen restricties."
+
+#: plugin-options/general-options.php:163
+msgid "Include shipping rates and relative fees."
+msgstr "Verzendhosten en toebehorende kosten toevoegen."
+
+#: plugin-options/general-options.php:176
+msgid "Prevent coupons calculation"
+msgstr "Voorkom couponberekening"
+
+#: plugin-options/general-options.php:179
+msgid ""
+"By enabling this option coupons won't be calculated on the amount limits"
+msgstr ""
+"Door deze optie in te schakelen worden coupons niet berekend op de limieten"
+
+#: plugin-options/general-options.php:193
+msgid "Product restrictions"
+msgstr "Product restricties"
+
+#: plugin-options/general-options.php:197
+msgid "Enable product quantity restrictions"
+msgstr "Product hoeveelheid restricties inschakelen"
+
+#: plugin-options/general-options.php:208
+msgid ""
+"Minimum number of items required for each product. Set zero for no "
+"restrictions."
+msgstr ""
+"Minimum aantal items noodzakelijk voor ieder product. Zet op nul voor geen "
+"restricties."
+
+#: plugin-options/general-options.php:222
+msgid ""
+"Maximum quantity allowed for each single product. Set zero for no "
+"restrictions."
+msgstr ""
+"Maximum aantal toegestaan voor elk single product. Zet op nul voor geen "
+"restricties."
+
+#: plugin-options/general-options.php:236
+msgid ""
+"Allow your users to select products only in groups of x items (e.g. The "
+"product YITH Pen can be bought only in groups of 6)"
+msgstr ""
+"Sta toe dat gebruikers uitsluitend producten selecteren in groepen van x "
+"items (vb. het product YITH Pen kan uitsluitend gekocht worden in groepen "
+"van 6)"
+
+#: plugin-options/general-options.php:247
+msgid "Unlock variation quantities"
+msgstr "Unlock variatie hoeveelheden"
+
+#: plugin-options/general-options.php:250
+msgid ""
+"Enable to calculate the quantity of a variable product as the sum of all "
+"variations (e.g. minimum quantity 10 out of all variations). If disabled, "
+"the quantity restrictions will apply to each variation (e.g. minimum "
+"quantity 10 for every variation). \n"
+"This option can be overridden on a product level so you can set up a custom "
+"quantity value for every single single variation (e.g. minimum quantity 7 "
+"for \"Blue\" variation, and 3 for \"Yellow\" variation)."
+msgstr ""
+"Inschakelen om de hoeveelheid van een variabel product te berekenen als som "
+"van alle variaties (vb. minimale hoeveelheid moet 10 zijn voor alle "
+"variaties samen). Indien uitgeschakeld, worden de hoeveelheidsrestricties "
+"toegepast op iedere variatie (vb. minimale hoeveelheid 10 voor elke variatie "
+"apart).\n"
+"Deze optie kan worden overschreven op productniveau, waardoor je een "
+"aangepaste hoeveelheidswaarde kunt instellen voor iedere variatie (vb. "
+"minimale hoeveelheid 7 voor de variatie \"blauw\" en 3 voor de variatie "
+"\"geel\")."
+
+#: plugin-options/general-options.php:267
+msgid "Category restrictions"
+msgstr "Categorie beperkingen"
+
+#: plugin-options/general-options.php:271
+msgid "Enable category quantity restrictions"
+msgstr "Categorie hoeveelheid restricties inschakelen"
+
+#: plugin-options/general-options.php:307
+msgid "Category quantity groups of"
+msgstr "Categorie hoeveelheidsgroepen van"
+
+#: plugin-options/general-options.php:310
+msgid ""
+"Allow users to select products belonging to a specific category only in "
+"groups of x items (e.g. all pens can be purchased only in groups of 6)"
+msgstr ""
+"Sta toe dat gebruikers uitsluitend producten borende tot een specifieke "
+"categorie selecteren in groepen van x items (vb. alle pennen kunnen "
+"uitsluitend worden gekocht in groepen van 6)"
+
+#: plugin-options/general-options.php:321
+msgid "Enable category spend restrictions"
+msgstr "Categorie uitgave restricties inschakelen"
+
+#: plugin-options/general-options.php:362
+msgid "Tag restrictions"
+msgstr "Tag beperkingen"
+
+#: plugin-options/general-options.php:366
+msgid "Enable tag quantity restrictions"
+msgstr "Tag hoeveelheid restricties inschakelen"
+
+#: plugin-options/general-options.php:402
+msgid "Tag quantity groups of"
+msgstr "Tag hoeveelheidsgroepen van"
+
+#: plugin-options/general-options.php:405
+msgid ""
+"Allow users to select products with a specific tag only in groups of x items "
+"(e.g. Products tagged \"Small\" can be purchased only in groups of 12)"
+msgstr ""
+"Sta toe dat gebruikers uitsluitend producten met een specifieke tag "
+"selecteren in groepen van x items (vb. Producten met de tag \"Small\" kunnen "
+"uitsluitend gekocht worden in groepen van 12)"
+
+#: plugin-options/general-options.php:416
+msgid "Enable tag spend restrictions"
+msgstr "Tag uitgave restricties inschakelen"
+
+#: plugin-options/messages-options.php:12
+msgid "Allowed placeholders:"
+msgstr "Toegestane invulvelden:"
+
+#: plugin-options/messages-options.php:25
+msgid "Purchase rules"
+msgstr "Aankoop regels"
+
+#: plugin-options/messages-options.php:29
+msgid "Show rules on product page"
+msgstr "Toon regels op product pagina"
+
+#: plugin-options/messages-options.php:36
+msgid "Position in product page"
+msgstr "Positie in product pagina"
+
+#: plugin-options/messages-options.php:42
+msgid "Set the position in product detail page where showing rules."
+msgstr ""
+"Stel de positie in van de weer te geven regels in de product detail pagina."
+
+#: plugin-options/messages-options.php:44
+msgid "Before title"
+msgstr "Voor titel"
+
+#: plugin-options/messages-options.php:45
+msgid "After price"
+msgstr "Na prijs"
+
+#: plugin-options/messages-options.php:46
+msgid "Before \"Add to cart\""
+msgstr "Voor \"Toevoegen aan winkelwagen\""
+
+#: plugin-options/messages-options.php:47
+msgid "Before tabs"
+msgstr "Voor tabs"
+
+#: plugin-options/messages-options.php:48
+msgid "Use widget/block"
+msgstr ""
+
+#: plugin-options/messages-options.php:57
+msgid "Text before rules"
+msgstr "Tekst voor regels"
+
+#: plugin-options/messages-options.php:60
+msgid "Explanatory text shown before purchase rules."
+msgstr "Verklarende tekst weergeven voor aankoop regels."
+
+#: plugin-options/messages-options.php:62
+msgid "The following rules are working: {rules}"
+msgstr "De volgende regels zijn werkend: {regels}"
+
+#: plugin-options/messages-options.php:74
+msgid "Cart Page Error Messages"
+msgstr "Winkelwagenpagina foutmeldingen"
+
+#: plugin-options/messages-options.php:78
+#: plugin-options/messages-options.php:255
+msgid "Minimum cart quantity not reached"
+msgstr "Minimum hoeveelheid winkelwagen niet bereikt"
+
+#: plugin-options/messages-options.php:83
+msgid "Your cart must contain at least {limit} products."
+msgstr "Uw winkelwagen moet minimaal {limiet} producten bevatten."
+
+#: plugin-options/messages-options.php:87
+#: plugin-options/messages-options.php:269
+msgid "Maximum cart quantity exceeded"
+msgstr "Maximum hoeveelheid winkelwagen overschreden"
+
+#: plugin-options/messages-options.php:92
+msgid "Your cart cannot contain more than {limit} products."
+msgstr "Uw winkelwagen kan niet meer dan {limiet} producten bevatten."
+
+#: plugin-options/messages-options.php:96
+msgid "Cart quantity not allowed"
+msgstr "Winkelwagen hoeveelheid niet toegestaan"
+
+#: plugin-options/messages-options.php:101
+msgid "Your cart must contain products in group of {limit}."
+msgstr "Je winkelwagen moet producten bevatten in groepen van {limit}."
+
+#: plugin-options/messages-options.php:105
+#: plugin-options/messages-options.php:283
+msgid "Minimum cart spend not reached"
+msgstr "Minimum uitgaven winkelwagen niet bereikt"
+
+#: plugin-options/messages-options.php:110
+msgid "Your cart totals must be at least {limit}."
+msgstr "Uw winkelwagentotaal moet minimaal {limiet} zijn."
+
+#: plugin-options/messages-options.php:114
+#: plugin-options/messages-options.php:297
+msgid "Maximum cart spend exceeded"
+msgstr "Maximum uitgaven winkelwagen overschreden"
+
+#: plugin-options/messages-options.php:119
+msgid "Your cart totals cannot exceed {limit}."
+msgstr "Uw winkelwagentotaal kan niet meer zijn dan {limiet}."
+
+#: plugin-options/messages-options.php:123
+#: plugin-options/messages-options.php:311
+msgid "Minimum product quantity not reached"
+msgstr "Minimum hoeveelheid producten niet bereikt"
+
+#: plugin-options/messages-options.php:128
+msgid "You must purchase at least {limit} units of {product_name}."
+msgstr "U moet minstens {limiet} eenheden van {productnaam} aanschaffen."
+
+#: plugin-options/messages-options.php:132
+#: plugin-options/messages-options.php:325
+msgid "Maximum product quantity exceeded"
+msgstr "Maximum hoeveelheid producten overschreden"
+
+#: plugin-options/messages-options.php:137
+msgid "You cannot purchase more than {limit} units of {product_name}."
+msgstr "U kunt niet meer dan {limiet} eenheden van {productnaam} aanschaffen."
+
+#: plugin-options/messages-options.php:141
+msgid "Product quantity not allowed"
+msgstr "Product hoeveelheid niet toegestaan"
+
+#: plugin-options/messages-options.php:146
+msgid "The product {product_name} can be purchased only in groups of {limit}."
+msgstr ""
+"Het product {productnaam} kan uitsluitend worden aangeschaft in groepen van "
+"{limiet}."
+
+#: plugin-options/messages-options.php:150
+#: plugin-options/messages-options.php:339
+msgid "Minimum category quantity not reached"
+msgstr "Minimum hoeveelheid categorie niet bereikt"
+
+#: plugin-options/messages-options.php:155
+msgid ""
+"Your cart must contain at least {limit} products belonging to category "
+"{category_name}."
+msgstr ""
+"Uw winkelwagen moet minstens {limiet} producten behorende bij categorie "
+"{categorienaam} hebben."
+
+#: plugin-options/messages-options.php:159
+#: plugin-options/messages-options.php:353
+msgid "Maximum category quantity exceeded"
+msgstr "Maximum hoeveelheid categorie overschreden"
+
+#: plugin-options/messages-options.php:164
+msgid ""
+"Your cart cannot contain more than {limit} products belonging to category "
+"{category_name}."
+msgstr ""
+"Uw winkelwagen kan niet meer dan {limiet} producten behorende bij categorie "
+"{categorienaam} hebben."
+
+#: plugin-options/messages-options.php:168
+#: plugin-options/messages-options.php:367
+msgid "Product quantity not allowed for this category"
+msgstr "Producthoeveelheid niet toegestaan voor deze categorie"
+
+#: plugin-options/messages-options.php:173
+msgid ""
+"Products belonging to {category_name} category can only be purchased in "
+"groups of {limit}."
+msgstr ""
+"Producten behorende tot {categorienaam} categorie kunnen uitsluitend worden "
+"gekocht in groepen van {limiet}."
+
+#: plugin-options/messages-options.php:177
+#: plugin-options/messages-options.php:381
+msgid "Minimum category spend not reached"
+msgstr "Minimale uitgaven categorie niet bereikt"
+
+#: plugin-options/messages-options.php:182
+msgid ""
+"You must spend at least {limit} for products belonging to category "
+"{category_name}."
+msgstr ""
+"U moet minstens {limiet} uitgeven voor producten behorende tot categorie "
+"{categorienaam}."
+
+#: plugin-options/messages-options.php:186
+#: plugin-options/messages-options.php:395
+msgid "Maximum category spend exceeded"
+msgstr "Maximum uitgaven categorie overschreden"
+
+#: plugin-options/messages-options.php:191
+msgid ""
+"You cannot spend more than {limit} for products belonging to category "
+"{category_name}."
+msgstr ""
+"U kunt niet meer dan {limiet} uitgeven voor producten behorende tot "
+"categorie {categorienaam}."
+
+#: plugin-options/messages-options.php:195
+#: plugin-options/messages-options.php:409
+msgid "Minimum tag quantity not reached"
+msgstr "Minimum hoeveelheid tag niet bereikt"
+
+#: plugin-options/messages-options.php:200
+msgid "Your cart must contain {limit} products with tagged {tag_name}."
+msgstr "Uw winkelwagen moet {limit} producten bevatten met tagged {tag_naam}."
+
+#: plugin-options/messages-options.php:204
+#: plugin-options/messages-options.php:423
+msgid "Maximum tag quantity exceeded"
+msgstr "Maximum hoeveelheid tag overschreden"
+
+#: plugin-options/messages-options.php:209
+msgid "Your cart cannot contain more than {limit} products tagged {tag_name}."
+msgstr ""
+"Uw winkelwagen kan niet meer dan {limit} producten bevatten tagged "
+"{tag_naam}."
+
+#: plugin-options/messages-options.php:213
+#: plugin-options/messages-options.php:437
+msgid "Product quantity not allowed for this tag"
+msgstr "Producthoeveelheid niet toegestaan voor deze tag"
+
+#: plugin-options/messages-options.php:218
+msgid "Products tagged {tag_name} can only be purchased in groups of {limit}."
+msgstr ""
+"Producten tagged {tag_naam} kan uitsluitend worden gekocht in groepen van "
+"{limit}."
+
+#: plugin-options/messages-options.php:222
+#: plugin-options/messages-options.php:451
+msgid "Minimum tag spend not reached"
+msgstr "Minimum uitgaven tag niet bereikt"
+
+#: plugin-options/messages-options.php:227
+msgid "You must spend at least {limit} for products tagged {tag_name}."
+msgstr "U moet minstens {limit} uitgeven voor producten tagged {tag_naam}."
+
+#: plugin-options/messages-options.php:231
+#: plugin-options/messages-options.php:465
+msgid "Maximum tag spend exceeded"
+msgstr "Maximum uitgaven tag overschreden"
+
+#: plugin-options/messages-options.php:236
+msgid "You cannot spend more than {limit} for products tagged {tag_name}."
+msgstr ""
+"U kunt niet meer dan {limit} uitgeven voor producten tagged {tag_naam}."
+
+#: plugin-options/messages-options.php:243
+msgid "\"Add to Cart\" Error Messages"
+msgstr "\"Toevoegen aan winkelwagen\" Foutmelding"
+
+#: plugin-options/messages-options.php:247
+msgid "Enable messages on Add to Cart"
+msgstr "Toevoegen aan winkelwagen berichten inschakelen"
+
+#: plugin-options/messages-options.php:260
+msgid ""
+"The product has been added to the cart, but minimum number of items required "
+"in cart ({limit}) has not been reached yet."
+msgstr ""
+"Het product is toegevoegd aan de winkelwagen, maar het minimum aantal items "
+"in de winkelwagen ({limiet}) is nog niet bereikt."
+
+#: plugin-options/messages-options.php:274
+msgid ""
+"You cannot add this product because your cart cannot contain more than "
+"{limit} products."
+msgstr ""
+"U kunt dit product niet toevoegen omdat uw winkelwagen niet meer kan "
+"bevatten dan {limiet} producten."
+
+#: plugin-options/messages-options.php:288
+msgid ""
+"The product has been added to the cart but minimum spend required ({limit}) "
+"has not be reached yet."
+msgstr ""
+"Het product is toegevoegd aan de winkelwagen, maar de minimum noodzakelijke "
+"uitgaven ({limiet}) zijn nog niet bereikt."
+
+#: plugin-options/messages-options.php:302
+msgid ""
+"You cannot add this product, because maximum totals for your cart cannot "
+"exceed {limit}."
+msgstr ""
+"U kunt dit product niet toevoegen, omdat het maximale totaal van uw "
+"winkelwagen niet mag worden overschreden {limiet}."
+
+#: plugin-options/messages-options.php:316
+msgid ""
+"The product has been added to the cart, but minimum quantity required for "
+"this product ({limit}) has not been reached yet."
+msgstr ""
+"Het product is toegevoegd aan de winkelwagen, maar het minimum noodzakelijke "
+"aantal producten ({limiet}) is nog niet bereikt."
+
+#: plugin-options/messages-options.php:330
+msgid ""
+"You cannot add this product because maximum quantity for this product "
+"({limit}) has been reached."
+msgstr ""
+"U kunt dit product niet toevoegen, omdat het maximum aantal voor dit product "
+"({limiet}) is bereikt."
+
+#: plugin-options/messages-options.php:344
+msgid ""
+"The product has been added to the cart, but minimum quantity required for "
+"category {category_name} ({limit}) has not been reached yet."
+msgstr ""
+"Het product is toegevoegd aan de winkelwagen, maar het minimum noodzakelijke "
+"aantal categorieën {categorie_naam} ({limiet}) is nog niet bereikt."
+
+#: plugin-options/messages-options.php:358
+msgid ""
+"You cannot add this product because your cart cannot contain more than "
+"{limit} products belonging to category {category_name}."
+msgstr ""
+"U kunt dit product niet toevoegen aan uw winkelwagen, omdat uw winkelwagen "
+"niet meer dan {limit} producten kan bevatten behorende bij categorie "
+"{categorienaam}."
+
+#: plugin-options/messages-options.php:372
+msgid ""
+"The product has been added to the cart, but products belonging to the "
+"{category_name} can only be bought in groups of {limit}."
+msgstr ""
+"Het product is toegevoegd aan de winkelwagen, maar producten horende bij de "
+"{categorienaam} kunnen uitsluitend worden aangeschaft in groepen van "
+"{limiet}."
+
+#: plugin-options/messages-options.php:386
+msgid ""
+"The product has been added to the cart, but minimum spend required for "
+"category {category_name} ({limit}) has not been reached yet."
+msgstr ""
+"Het product is toegevoegd aan de winkelwagen, maar de minimum noodzakelijke "
+"uitgaven voor deze categorie {categorienaam} ({limiet} zijn nog niet bereikt."
+
+#: plugin-options/messages-options.php:400
+msgid ""
+"You cannot add this product because total spend for products belonging to "
+"category {category_name} cannot exceed {limit}."
+msgstr ""
+"U kunt dit product niet toevoegen, omdat het totaal uitgaven voor producten "
+"in deze categorie {categorienaam} niet overschreden mag worden {limiet}."
+
+#: plugin-options/messages-options.php:414
+msgid ""
+"The product has been added to the cart but minumum required quantity for "
+"products tagged {tag_name} ({limit}) has not been reached yet."
+msgstr ""
+"Het product is toegevoegd aan de winkelwagen, maar de minimum noodzakelijke "
+"hoeveelheid producten tagged {tag_naam} ({limiet}) is nog niet bereikt."
+
+#: plugin-options/messages-options.php:428
+msgid ""
+"You cannot add this product because your cart cannot contain more than "
+"{limit} products tagged {tag_name}"
+msgstr ""
+"U kunt dit product niet toevoegen, omdat uw winkelwagen niet meer kan "
+"bevattten dan {limiet} prodcuten tagged {tag_naam}"
+
+#: plugin-options/messages-options.php:442
+msgid ""
+"The product has been added to the cart, but products belonging to the "
+"{tag_name} can only be bought in groups of {limit}."
+msgstr ""
+"Het product is toegevoegd aan de winkelwagen, maar producten behorende tot "
+"{tag_naam} kunnen uitsluitend gekocht worden in groepen van {limiet}."
+
+#: plugin-options/messages-options.php:456
+msgid ""
+"The product has been added to the cart but minimum spend required for "
+"products tagged {tag_name} ({limit}) has not been reached yet."
+msgstr ""
+"Het product is toegevoegd aan de winkelwagen, maar de minimaal noodzakelijke "
+"uitgaven voor producten tagged {tag_naam} ({limiet}) is nog niet bereikt."
+
+#: plugin-options/messages-options.php:470
+msgid ""
+"You cannot add this product because total spend for products tagged "
+"{tag_name} cannot exceed {limit}."
+msgstr ""
+"U kunt dit product niet toevoegen, omdat het totaal uitgaven voor producten "
+"tagged {tag_naam} niet overschreden kan worden {limiet}."
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Minimum Maximum Quantity</strong></code> "
+"allows setting up a minimum or maximum amount or number of items in cart "
+"(for each product or order) as a necessary condition to make a purchase on "
+"your e-commerce store. <a href=\"https://yithemes.com/\" "
+"target=\"_blank\">Get more plugins for your e-commerce shop on <strong>YITH</"
+"strong></a>"
+msgstr ""
+"<code><strong>YITH WooCommerce Minimum Maximum Quantity</strong></code> Laat "
+"je een minimale en maximale hoeveelheid of aantal items in winkelwagen "
+"instellen (voor elke bestelling of product) als een noodzakelijke voorwaarde "
+"om te kopen van je e-commerce winkel. <a href=\"https://yithemes.com/\" "
+"target=\"_blank\">Verkrijg meer plugins voor je e-commerce winkel op "
+"<strong>YITH</strong></a>"
+
+#: class-yith-wc-min-max-qty.php:223
+#, fuzzy
+msgctxt "[gutenberg]: block name"
+msgid "Minimum Maximum Quantity"
+msgstr "Minimum Maximum Hoeveelheid"
+
+#: class-yith-wc-min-max-qty.php:224
+#, fuzzy
+msgctxt "[gutenberg]: block description"
+msgid "Add the block with Minimum Maximum Quantity rules"
+msgstr "Minimum Maximum Hoeveelheid"
+
+#: class-yith-wc-min-max-qty.php:228
+msgctxt "[gutenberg]: keywords"
+msgid "Quick Checkout"
+msgstr ""
+
+#: class-yith-wc-min-max-qty.php:345
+msgctxt "plugin name in product edit tab"
+msgid "Minimum Maximum Quantity"
+msgstr "Minimum Maximum Hoeveelheid"
+
+#: class-yith-wc-min-max-qty.php:440
+msgctxt "[single product page]"
+msgid "Allow users to select products only in groups of"
+msgstr "Laat gebruikers uitsluiten producten in groepen selecteren van"
+
+#: class-yith-wc-min-max-qty.php:554
+msgctxt "[single product page - variations]"
+msgid "Allow users to select product variations only in groups of"
+msgstr "Laat gebruikers uitsluiten producten in groepen selecteren van"

@@ -2,6 +2,7 @@
 /**
  * Functions.
  *
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH\PluginFramework
  */
 
@@ -296,7 +297,6 @@ if ( ! function_exists( 'yit_enqueue_script' ) ) {
 	 * @param string|bool|null $ver       Optional. String specifying script version number.
 	 * @param bool             $in_footer Optional. Whether to enqueue the script before </body> instead of in the <head>.
 	 *
-	 * @author     Simone D'Amico <simone.damico@yithemes.com>
 	 * @deprecated 3.5
 	 */
 	function yit_enqueue_script( $handle, $src, $deps = array(), $ver = false, $in_footer = true ) {
@@ -607,7 +607,6 @@ if ( ! function_exists( 'yit_add_extra_theme_headers' ) ) {
 	 *
 	 * @return array
 	 * @since  2.0.0
-	 * @author Andrea Grillo <andrea.grillo@yithemes.com>
 	 */
 	function yit_add_extra_theme_headers( $headers ) {
 		$headers[] = 'Core Framework Version';
@@ -622,7 +621,6 @@ if ( ! function_exists( 'yit_check_plugin_support' ) ) {
 	 *
 	 * @return bool
 	 * @since  2.0.0
-	 * @author Andrea Grillo <andrea.grillo@yithemes.com>
 	 */
 	function yit_check_plugin_support() {
 		$headers['core']   = wp_get_theme()->get( 'Core Framework Version' );
@@ -646,7 +644,6 @@ if ( ! function_exists( 'yit_ie_version' ) ) {
 	 *
 	 * @return int|float
 	 * @since  1.0.0
-	 * @author Andrea Grillo <andrea.grillo@yithemes.com>, Andrea Frascaspata<andrea.frascaspata@yithemes.com>
 	 */
 	function yit_ie_version() {
 		// phpcs:disable WordPress.Security.ValidatedSanitizedInput
@@ -680,7 +677,6 @@ if ( ! function_exists( 'yit_avoid_duplicate' ) ) {
 	 *
 	 * @return mixed
 	 * @since  2.0.0
-	 * @author Antonino Scarfì <antonino.scarfi@yithemes.com>
 	 */
 	function yit_avoid_duplicate( $value, $array, $check = 'value' ) {
 		$match = array();
@@ -796,7 +792,6 @@ if ( ! function_exists( 'is_shop_installed' ) ) {
 	 *
 	 * @return bool
 	 * @since  2.0.0
-	 * @author Francesco Grasso <francesco.grasso@yithemes.com
 	 */
 	function is_shop_installed() {
 		global $woocommerce;
@@ -816,7 +811,6 @@ if ( ! function_exists( 'yit_load_js_file' ) ) {
 	 *
 	 * @return string The file path
 	 * @since  2.0.0
-	 * @author Andrea Grillo <andrea.grillo@yithemes.com>
 	 */
 	function yit_load_js_file( $filename ) {
 
@@ -836,7 +830,6 @@ if ( ! function_exists( 'yit_load_css_file' ) ) {
 	 *
 	 * @return string The file path
 	 * @since  2.0.0
-	 * @author Alberto Ruggiero
 	 */
 	function yit_load_css_file( $filename ) {
 
@@ -857,7 +850,6 @@ if ( ! function_exists( 'yit_wpml_register_string' ) ) {
 	 * @param string $value   The value to translate.
 	 *
 	 * @since  2.0.0
-	 * @author Andrea Frascaspata <andrea.frascaspata@yithemes.com>
 	 */
 	function yit_wpml_register_string( $context, $name, $value ) {
 		do_action( 'wpml_register_single_string', $context, $name, $value );
@@ -874,7 +866,6 @@ if ( ! function_exists( 'yit_wpml_string_translate' ) ) {
 	 *
 	 * @return string the string translated
 	 * @since  2.0.0
-	 * @author Andrea Frascaspata <andrea.frascaspata@yithemes.com>
 	 */
 	function yit_wpml_string_translate( $context, $name, $default_value ) {
 		return apply_filters( 'wpml_translate_single_string', $default_value, $context, $name );
@@ -892,7 +883,6 @@ if ( ! function_exists( 'yit_wpml_object_id' ) ) {
 	 *
 	 * @return int the translation id
 	 * @since  2.0.0
-	 * @author Antonio La Rocca <antonio.larocca@yithemes.com>
 	 */
 	function yit_wpml_object_id( $element_id, $element_type = 'post', $return_original_if_missing = false, $language_code = null ) {
 		if ( function_exists( 'wpml_object_id_filter' ) ) {
@@ -914,7 +904,6 @@ if ( ! function_exists( 'yit_get_language_from_locale' ) ) {
 	 *
 	 * @return string Language name for passed locale; if can't find any, local itself is returned.
 	 * @since  3.7.1
-	 * @author Antonio La Rocca <antonio.larocca@yithemes.com>
 	 */
 	function yit_get_language_from_locale( $locale, $show_native = false ) {
 		require_once ABSPATH . 'wp-admin/includes/translation-install.php';
@@ -1349,7 +1338,6 @@ if ( ! function_exists( 'yith_plugin_fw_force_regenerate_plugin_update_transient
 	 * @return void
 	 * @since  1.0
 	 * @see    update_plugins transient and pre_set_site_transient_update_plugins hooks
-	 * @author Andrea Grillo <andrea.grillo@yithemes.com>
 	 */
 	function yith_plugin_fw_force_regenerate_plugin_update_transient() {
 		delete_site_transient( 'update_plugins' );
@@ -1374,18 +1362,12 @@ if ( ! function_exists( 'yith_plugin_fw_gutenberg_add_blocks' ) ) {
 	 * @param string|array $blocks Blocks to add.
 	 *
 	 * @return bool true if add a new blocks, false otherwise
-	 * @author Andrea Grillo <andrea.grillo@yithemes.com>
 	 */
 	function yith_plugin_fw_gutenberg_add_blocks( $blocks ) {
 		$added = false;
 		if ( yith_plugin_fw_is_gutenberg_enabled() ) {
 			// Add blocks.
 			$added = YITH_Gutenberg()->add_blocks( $blocks );
-
-			// Add blocks arguments.
-			if ( $added ) {
-				YITH_Gutenberg()->set_block_args( $blocks );
-			}
 		}
 
 		return $added;
@@ -1444,7 +1426,6 @@ if ( ! function_exists( 'yith_set_wrapper_class' ) ) {
 	 * @param array|string $class List of additional classes to add to the UI style class.
 	 *
 	 * @return string
-	 * @author Emanuela Castorina
 	 */
 	function yith_set_wrapper_class( $class = '' ) {
 		$new_class = yith_get_wrapper_class();
@@ -1461,7 +1442,6 @@ if ( ! function_exists( 'yith_get_date_formats' ) ) {
 	 * @param bool $js JS date format or not.
 	 *
 	 * @return array
-	 * @author     Salvatore Strano
 	 * @since      3.1
 	 * @deprecated 3.5 | use yith_get_date_formats() instead
 	 */
@@ -1505,7 +1485,6 @@ if ( ! function_exists( 'yith_get_time_formats' ) ) {
 	 * Get all available time format.
 	 *
 	 * @return array
-	 * @author Emanuela Castorina
 	 * @since  3.5
 	 */
 	function yith_get_time_formats() {
@@ -1530,7 +1509,6 @@ if ( ! function_exists( 'yith_format_toggle_title' ) ) {
 	 * @param array  $values The values.
 	 *
 	 * @return array
-	 * @author Salvatore Strano
 	 * @since  3.1
 	 */
 	function yith_format_toggle_title( $title, $values ) {
@@ -1550,8 +1528,6 @@ if ( ! function_exists( 'yith_format_toggle_title' ) ) {
 if ( ! function_exists( 'yith_plugin_fw_load_update_and_licence_files' ) ) {
 	/**
 	 * Load premium file for license and update system
-	 *
-	 * @author Andrea Grillo <andrea.grillo@yithemes.com>
 	 */
 	function yith_plugin_fw_load_update_and_licence_files() {
 		global $plugin_upgrade_fw_data;
@@ -1594,7 +1570,6 @@ if ( ! function_exists( 'yith_plugin_fw_remove_duplicate_classes' ) ) {
 	 *
 	 * @return string
 	 * @since  3.2.2
-	 * @author Emanuela Castorina <emanuela.castorina@yithemes.com>
 	 */
 	function yith_plugin_fw_remove_duplicate_classes( $classes ) {
 		$class_array  = explode( ' ', $classes );
@@ -1664,7 +1639,6 @@ if ( ! function_exists( 'yith_plugin_fw_get_dimensions_by_option' ) ) {
 if ( ! function_exists( 'yith_plugin_fw_extract' ) ) {
 	/**
 	 * Extract array variables
-	 *
 	 * Usage example:
 	 * ```
 	 * list ( $type, $class, $value ) = yith_plugin_fw_extract( $field, 'type', 'class', 'value' );
@@ -1751,13 +1725,20 @@ if ( ! function_exists( 'yith_plugin_fw_add_utm_data' ) ) {
 	 *
 	 * @param string $url      The url that want to track.
 	 * @param string $slug     Plugin slug.
-	 * @param string $campaign Campaign to track. Default: plugin-version-author-uri.
-	 * @param string $source   Where the link came from. Default: wp-dashboard.
+	 * @param string $campaign Campaign to track. Default: default.
+	 * @param string $source   Where the link came from. You can simply set it to the plugin version type(free, extended, premium) to get the correct source. Default: wp-dashboard.
 	 *
 	 * @since 3.6.10
 	 */
-	function yith_plugin_fw_add_utm_data( $url, $slug, $campaign = 'plugin-version-author-uri', $source = 'wp-dashboard' ) {
-		$url = trailingslashit( $url );
+	function yith_plugin_fw_add_utm_data( $url, $slug, $campaign = 'default', $source = 'wp-dashboard' ) {
+		$sources = array(
+			'free'     => 'wp-free-dashboard',
+			'extended' => 'wp-extended-dashboard',
+			'premium'  => 'wp-premium-dashboard',
+		);
+		$source  = $sources[ $source ] ?? $source;
+		$source  = ! ! $source ? $source : 'wp-dashboard';
+
 		if ( ! empty( $slug ) ) {
 			$utm_track_data = array(
 				'utm_source'   => $source,
@@ -1769,6 +1750,28 @@ if ( ! function_exists( 'yith_plugin_fw_add_utm_data' ) ) {
 		}
 
 		return $url;
+	}
+}
+
+if ( ! function_exists( 'yith_plugin_fw_panel_utm_source' ) ) {
+	/**
+	 * Generates default UTM source for the dashboard
+	 *
+	 * @param YIT_Plugin_Panel $panel Panel object.
+	 *
+	 * @since      3.6.10
+	 * @deprecated 4.1.0
+	 */
+	function yith_plugin_fw_panel_utm_source( $panel = false ) {
+		if ( $panel && $panel->is_free() ) {
+			return 'wp-free-dashboard';
+		}
+
+		if ( $panel && $panel->is_extended() ) {
+			return 'wp-extended-dashboard';
+		}
+
+		return 'wp-dashboard';
 	}
 }
 
@@ -1885,13 +1888,12 @@ if ( ! function_exists( 'yith_plugin_fw_get_default_post_actions' ) ) {
 	 * @param array       $args                   {
 	 *                                            Optional. Arguments to retrieve actions.
 	 *
-	 * @type array        $more-menu              Array of more-menu items.
-	 * @type array|bool   $more-menu-in-trash     false: the menu will be not shown in trash | true: the menu will be shown in trash | array: set specific menu for trash.
-	 * @type string|false $duplicate-url          The Duplicate URL. Default: false (the duplicate action will be not shown).
-	 * @type string|false $confirm-trash-message  The 'confirm trash' message. Set to false to not ask for trash confirmation.
-	 * @type string|false $confirm-delete-message The 'confirm delete' message. Set to false to not ask for delete confirmation.
-	 * }
-	 *
+	 * @type array        $more                   -menu              Array of more-menu items.
+	 * @type array|bool   $more                   -menu-in-trash     false: the menu will be not shown in trash | true: the menu will be shown in trash | array: set specific menu for trash.
+	 * @type string|false $duplicate              -url          The Duplicate URL. Default: false (the duplicate action will be not shown).
+	 * @type string|false $confirm                -trash-message  The 'confirm trash' message. Set to false to not ask for trash confirmation.
+	 * @type string|false $confirm                -delete-message The 'confirm delete' message. Set to false to not ask for delete confirmation.
+	 *                                            }
 	 * @return array
 	 * @since 3.7.0
 	 */
@@ -1906,6 +1908,7 @@ if ( ! function_exists( 'yith_plugin_fw_get_default_post_actions' ) ) {
 			$defaults = array(
 				'more-menu'              => array(),
 				'more-menu-in-trash'     => false,
+				'delete-directly'        => false,
 				'duplicate-url'          => false,
 				// translators: %s is the title of the post object.
 				'confirm-trash-message'  => sprintf( __( 'Are you sure you want to move "%s" to trash?', 'yith-plugin-fw' ), '<strong>' . $title . '</strong>' ),
@@ -1967,7 +1970,7 @@ if ( ! function_exists( 'yith_plugin_fw_get_default_post_actions' ) ) {
 						'icon'   => 'reply',
 						'url'    => wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=untrash', $post->ID ) ), 'untrash-post_' . $post->ID ),
 					);
-				} elseif ( EMPTY_TRASH_DAYS ) {
+				} elseif ( EMPTY_TRASH_DAYS && ! $args['delete-directly'] ) {
 					$actions['trash'] = array(
 						'type'   => 'action-button',
 						'title'  => _x( 'Trash', 'Post action', 'yith-plugin-fw' ),
@@ -1984,7 +1987,7 @@ if ( ! function_exists( 'yith_plugin_fw_get_default_post_actions' ) ) {
 						);
 					}
 				}
-				if ( 'trash' === $post->post_status || ! EMPTY_TRASH_DAYS ) {
+				if ( 'trash' === $post->post_status || ! EMPTY_TRASH_DAYS || $args['delete-directly'] ) {
 					$actions['delete'] = array(
 						'type'   => 'action-button',
 						'title'  => _x( 'Delete Permanently', 'Post action', 'yith-plugin-fw' ),
@@ -2038,12 +2041,11 @@ if ( ! function_exists( 'yith_plugin_fw_get_default_term_actions' ) ) {
 	 *                                            Optional. Arguments to retrieve actions.
 	 *
 	 * @type string       $taxonomy               The taxonomy. If not set, the taxonomy will be retrieved by $_REQUEST.
-	 * @type string       $object-type            The object type the term is assigned to (ex: the post-type).
-	 * @type array        $more-menu              Array of more-menu items.
-	 * @type string|false $duplicate-url          The Duplicate URL. Default: false (the duplicate action will be not shown).
-	 * @type string|false $confirm-delete-message The 'confirm delete' message. Set to false to not ask for delete confirmation.
-	 * }
-	 *
+	 * @type string       $object                 -type            The object type the term is assigned to (ex: the post-type).
+	 * @type array        $more                   -menu              Array of more-menu items.
+	 * @type string|false $duplicate              -url          The Duplicate URL. Default: false (the duplicate action will be not shown).
+	 * @type string|false $confirm                -delete-message The 'confirm delete' message. Set to false to not ask for delete confirmation.
+	 *                                            }
 	 * @return array
 	 * @since 3.7.0
 	 */
@@ -2172,8 +2174,8 @@ if ( ! function_exists( 'yith_plugin_fw_get_post_formatted_name' ) ) {
 	/**
 	 * Get the formatted name for posts/products
 	 *
-	 * @param int|WP_Post|WC_Product $post The post ID, the post object, or the product object.
-	 * @param array                  $args Arguments.
+	 * @param int|WP_Post|WC_Product|WC_Product_Variation|WC_Order $post The post ID, the post, the product, or the order.
+	 * @param array                                                $args Arguments.
 	 *
 	 * @return string
 	 * @since 3.7.2
@@ -2194,6 +2196,8 @@ if ( ! function_exists( 'yith_plugin_fw_get_post_formatted_name' ) ) {
 			if ( false === $post_type ) {
 				$post_type = is_a( $post, 'WC_Product_Variation' ) ? 'product_variation' : 'product';
 			}
+		} elseif ( class_exists( 'WC_Order' ) && is_a( $post, 'WC_Order' ) ) {
+			$post_id = $post->get_id();
 		} else {
 			$post_id = absint( $post );
 		}
@@ -2207,7 +2211,10 @@ if ( ! function_exists( 'yith_plugin_fw_get_post_formatted_name' ) ) {
 		switch ( $post_type ) {
 			case 'product':
 			case 'product_variation':
-				$product = wc_get_product( $post );
+				$product = class_exists( 'WC_Product' ) && is_a( $post, 'WC_Product' ) ? $post : false;
+				if ( ! $product && function_exists( 'wc_get_product' ) ) {
+					$product = wc_get_product( $post );
+				}
 				if ( $product ) {
 					$name = $product->get_formatted_name();
 
@@ -2223,6 +2230,33 @@ if ( ! function_exists( 'yith_plugin_fw_get_post_formatted_name' ) ) {
 						$name = str_replace( "({$identifier})", '', $name );
 					}
 				}
+				break;
+			case 'shop_order':
+				$date_format = sprintf( '%s %s', wc_date_format(), wc_time_format() );
+				$order       = class_exists( 'WC_Order' ) && is_a( $post, 'WC_Order' ) ? $post : false;
+				if ( ! $order && function_exists( 'wc_get_order' ) ) {
+					$order = wc_get_order( $post );
+				}
+				if ( $order ) {
+					$buyer = '';
+					if ( $order->get_billing_first_name() || $order->get_billing_last_name() ) {
+						$buyer = trim( sprintf( '%s %s', $order->get_billing_first_name(), $order->get_billing_last_name() ) );
+					} elseif ( $order->get_billing_company() ) {
+						$buyer = trim( $order->get_billing_company() );
+					} elseif ( $order->get_customer_id() ) {
+						$user  = get_user_by( 'id', $order->get_customer_id() );
+						$buyer = ucwords( $user->display_name );
+					}
+
+					$order_number = apply_filters( 'yith_plugin_fw_order_number', '#' . $order->get_id(), $order->get_id() );
+					$name         = sprintf(
+						'%s %s - %s',
+						$order_number,
+						esc_html( $buyer ),
+						esc_html( $order->get_date_created()->format( $date_format ) )
+					);
+				}
+				break;
 		}
 
 		if ( is_null( $name ) ) {
@@ -2244,7 +2278,6 @@ if ( ! function_exists( 'yith_plugin_fw_add_kses_global_attributes' ) ) {
 	 * @param array $attributes An array of attributes.
 	 *
 	 * @return array The array of attributes with global attributes added.
-	 *
 	 * @since  3.8.0
 	 */
 	function yith_plugin_fw_add_kses_global_attributes( $attributes ) {
@@ -2271,5 +2304,74 @@ if ( ! function_exists( 'yith_plugin_fw_add_kses_global_attributes' ) ) {
 		}
 
 		return $attributes;
+	}
+}
+
+if ( ! function_exists( 'yith_plugin_fw_kses_allowed_svg_tags' ) ) {
+
+	/**
+	 * Return the list of allowed HTML tag for SVGs.
+	 *
+	 * @return array
+	 * @since  4.0.0
+	 */
+	function yith_plugin_fw_kses_allowed_svg_tags() {
+		return array(
+			'svg'      => array(
+				'class'        => true,
+				'data-*'       => true,
+				'aria-*'       => true,
+				'role'         => true,
+				'xmlns'        => true,
+				'width'        => true,
+				'height'       => true,
+				'viewbox'      => true,
+				'version'      => true,
+				'x'            => true,
+				'y'            => true,
+				'style'        => true,
+				'fill'         => true,
+				'stroke'       => true,
+				'stroke-width' => true,
+			),
+			'circle'   => array(
+				'class' => true,
+				'cx'    => true,
+				'cy'    => true,
+				'r'     => true,
+			),
+			'g'        => array( 'fill' => true ),
+			'polyline' => array(
+				'class'  => true,
+				'points' => true,
+			),
+			'polygon'  => array(
+				'class'  => true,
+				'points' => true,
+			),
+			'line'     => array(
+				'class' => true,
+				'x1'    => true,
+				'x2'    => true,
+				'y1'    => true,
+				'y2'    => true,
+			),
+			'title'    => array( 'title' => true ),
+			'path'     => array(
+				'class'           => true,
+				'd'               => true,
+				'fill'            => true,
+				'stroke-linecap'  => true,
+				'stroke-linejoin' => true,
+			),
+			'rect'     => array(
+				'class'  => true,
+				'x'      => true,
+				'y'      => true,
+				'fill'   => true,
+				'width'  => true,
+				'height' => true,
+			),
+		);
 	}
 }

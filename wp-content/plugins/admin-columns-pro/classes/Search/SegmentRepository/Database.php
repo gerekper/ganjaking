@@ -88,7 +88,7 @@ final class Database implements SegmentRepository
             $sql .= $wpdb->prepare("\nAND `" . $this->table::LIST_SCREEN_ID . "` = %s", (string)$list_screen_id);
         }
 
-        if ($user_id) {
+        if ($user_id !== null) {
             $sql .= $wpdb->prepare("\nAND `" . $this->table::USER_ID . "` = %d", $user_id);
         }
 
@@ -126,7 +126,7 @@ final class Database implements SegmentRepository
     {
         return $this->fetch_results(
             $list_screen_id,
-            null,
+            0,
             $sort
         );
     }

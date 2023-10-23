@@ -5,7 +5,7 @@
  * @since 1.9.0
  */
 
-namespace Themesquad\WC_Currency_Converter\Utilities;
+namespace KoiLab\WC_Currency_Converter\Utilities;
 
 /**
  * Class L10n_Utils.

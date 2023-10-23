@@ -1,7 +1,7 @@
 {
     "require": {
         "mpdf/mpdf": "^8.0",
-        "google/apiclient": "^2.0",
-        "guzzlehttp/guzzle": "^6.0"
+        "google/apiclient": "^2.12.1",
+        "guzzlehttp/guzzle": "^7.5.0"
     }
 }

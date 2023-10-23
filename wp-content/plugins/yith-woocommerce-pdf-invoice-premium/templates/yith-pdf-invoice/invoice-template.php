@@ -2,9 +2,9 @@
 /**
  * Invoice template.
  *
- * Override this template by copying it to [your theme]/woocommerce/invoice/ywpi-invoice-details.php
+ * Override this template by copying it to [your theme]/woocommerce/yith-pdf-invoice/invoice-template.php
  *
- * @author  YITH
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH\PDFInvoice\Templates
  * @version 1.0.0
  */
@@ -20,50 +20,72 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 	<?php
 	/**
-	 * The yith_ywpi_template_head hook
+	 * DO_ACTION: yith_ywpi_invoice_template_products_list
 	 *
-	 * @hooked add_style_files - 10 (add css file based on type of current document
+	 * Add CSS file based on type of current document
+	 *
+	 * @param object $document the document object
 	 */
 	do_action( 'yith_ywpi_template_head', $document );
 	?>
 </head>
 
 <body>
-<div class="invoice-document <?php echo wp_kses_post( $main_class ); ?>">
-	<?php
-	/**
-	 * Show the header of the document
-	 */
-	do_action( 'yith_ywpi_template_document_header', $document );
-	?>
+	<div class="invoice-document <?php echo wp_kses_post( $main_class ); ?>">
+		<?php
+		/**
+		 * DO_ACTION: yith_ywpi_template_document_header
+		 *
+		 * Show the header of the document.
+		 *
+		 * @param object $document the document object
+		 */
+		do_action( 'yith_ywpi_template_document_header', $document );
+		?>
 
-	<?php
-	/**
-	 * Show the template that contains the company data
-	 */
-	do_action( 'yith_ywpi_template_company_data', $document );
-	?>
+		<?php
+		/**
+		 * DO_ACTION: yith_ywpi_template_company_data
+		 *
+		 * Show the template that contains the company data.
+		 *
+		 * @param object $document the document object
+		 */
+		do_action( 'yith_ywpi_template_company_data', $document );
+		?>
 
-	<?php
-	/**
-	 * Show the template for the customer and invoice data
-	 */
-	do_action( 'yith_ywpi_template_document_data', $document );
-	?>
+		<?php
+		/**
+		 * DO_ACTION: yith_ywpi_template_document_data
+		 *
+		 * Show the template for the customer and invoice data.
+		 *
+		 * @param object $document the document object
+		 */
+		do_action( 'yith_ywpi_template_document_data', $document );
+		?>
 
-	<?php
-	/**
-	 * Show the template for the product details
-	 */
-	do_action( 'yith_ywpi_template_order_content', $document );
-	?>
+		<?php
+		/**
+		 * DO_ACTION: yith_ywpi_template_order_content
+		 *
+		 * Show the template for the product details.
+		 *
+		 * @param object $document the document object
+		 */
+		do_action( 'yith_ywpi_template_order_content', $document );
+		?>
 
-	<?php
-	/**
-	 * Show the template for the order notes
-	 */
-	do_action( 'yith_ywpi_template_notes', $document );
-	?>
-</div>
+		<?php
+		/**
+		 * DO_ACTION: yith_ywpi_template_notes
+		 *
+		 * Show the template for the order notes.
+		 *
+		 * @param object $document the document object
+		 */
+		do_action( 'yith_ywpi_template_notes', $document );
+		?>
+	</div>
 </body>
 </html>

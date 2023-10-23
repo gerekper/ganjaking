@@ -18,13 +18,12 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  *
- * Modified by woocommerce on 18-September-2023 using Strauss.
+ * Modified by woocommerce on 09-October-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
 namespace Automattic\WooCommerce\Bookings\Vendor\phpseclib3\File;
 
-use DateTime;
 use Automattic\WooCommerce\Bookings\Vendor\phpseclib3\Common\Functions\Strings;
 use Automattic\WooCommerce\Bookings\Vendor\phpseclib3\File\ASN1\Element;
 use Automattic\WooCommerce\Bookings\Vendor\phpseclib3\Math\BigInteger;
@@ -208,7 +207,7 @@ abstract class ASN1
             return null;
         }
 
-        return [self::decode_ber($encoded)];
+        return [$decoded];
     }
 
     /**
@@ -1406,7 +1405,7 @@ abstract class ASN1
                         return false;
                     }
                     break;
-                case ($c & 0x80000000) != 0:
+                case ($c & (PHP_INT_SIZE == 8 ? 0x80000000 : (1 << 31))) != 0:
                     return false;
                 case $c >= 0x04000000:
                     $v .= chr(0x80 | ($c & 0x3F));

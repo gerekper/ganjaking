@@ -23,6 +23,8 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
+use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+
 if ( ! class_exists( 'WC_MS_Compatibility' ) ) :
 
     /**
@@ -57,47 +59,6 @@ if ( ! class_exists( 'WC_MS_Compatibility' ) ) :
 
 			return WC()->cart->get_item_data( $cart_item );
 		}
-
-        /**
-         * Get the WC Order instance for a given order ID or order post
-         *
-         * Introduced in WC 2.2 as part of the Order Factory so the 2.1 version is
-         * not an exact replacement.
-         *
-         * If no param is passed, it will use the global post. Otherwise pass an
-         * the order post ID or post object.
-         *
-         * @since 2.0.0
-         * @param bool|int|string|\WP_Post $the_order
-         * @return bool|\WC_Order
-         */
-        public static function wc_get_order( $the_order = false ) {
-
-            if ( self::is_wc_version_gte_2_2() ) {
-
-                return wc_get_order( $the_order );
-
-            } else {
-
-                global $post;
-
-                if ( false === $the_order ) {
-
-                    $order_id = $post->ID;
-
-                } elseif ( $the_order instanceof WP_Post ) {
-
-                    $order_id = $the_order->ID;
-
-                } elseif ( is_numeric( $the_order ) ) {
-
-                    $order_id = $the_order;
-                }
-
-                return new WC_Order( $order_id );
-            }
-        }
-
 
         /**
          * Transparently backport the `post_status` WP Query arg used by WC 2.2
@@ -411,8 +372,18 @@ if ( ! class_exists( 'WC_MS_Compatibility' ) ) :
 
             return is_callable( $getter ) ? $modifier( call_user_func( $getter ) ) : $order->{ $prop };
         }
+		
+		/**
+		 * Get screen type for order metabox.
+		 *
+		 * @return string
+		 */
+		public static function get_meta_box_screen() {
+			return wc_get_container()->get( CustomOrdersTableController::class )->custom_orders_table_usage_is_enabled()
+				? wc_get_page_screen_id( 'shop-order' )
+				: 'shop_order';
+		}
+	}
 
-    }
 
-
-endif; // Class exists check
+endif; // Class exists check.

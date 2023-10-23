@@ -1448,12 +1448,13 @@ function perfmatters_is_page_builder() {
 		'builder',
 		'bricks', //bricks
 		'vc_editable', //wp bakery
-		'op3editor' //optimizepress
+		'op3editor', //optimizepress
+		'cs_preview_state' //cornerstone
 	));
 
 	if(!empty($page_builders)) {
 		foreach($page_builders as $page_builder) {
-			if(isset($_GET[$page_builder])) {
+			if(isset($_REQUEST[$page_builder])) {
 				return true;
 			}
 		}
@@ -1591,11 +1592,6 @@ function perfmatters_check_license($network = false) {
 
 		//decode the license data
 		$license_data = json_decode(wp_remote_retrieve_body($response));
-
-		$license_data->success = true;
- $license_data->error = '';
- $license_data->expires = date('Y-m-d', strtotime('+50 years'));
- $license_data->license = 'valid';
 
 		//update license option
 		if(is_network_admin() || $network) {

@@ -27,11 +27,11 @@ do_action( 'woocommerce_email_header', $email_heading, $email );
 
 <h2>
 	<?php
-	printf( esc_html__( 'Order #%s', 'woocommerce-product-vendors' ), $order->get_order_number() ); ?> (<?php
+	printf( esc_html__( 'Order #%s', 'woocommerce-product-vendors' ), esc_html( $order->get_order_number() ) ); ?> (<?php
 	printf(
 		'<time datetime="%s">%s</time>',
-		date_i18n( 'c', strtotime( $order_date ) ),
-		date_i18n( wc_date_format(), strtotime( $order_date ) ) ); ?>)
+		esc_html( date_i18n( 'c', strtotime( $order_date ) ) ),
+		esc_html( date_i18n( wc_date_format(), strtotime( $order_date ) ) ) ); ?>)
 </h2>
 
 <?php $email->render_order_details_table( $order, $sent_to_admin, $plain_text, $email, $this_vendor ); ?>

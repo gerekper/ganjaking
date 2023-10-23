@@ -1,6 +1,10 @@
+### 2.7.15.2
+- Fixed a bug that prevents form block style settings from being applied.
+
 ### 2.7.15.1
 - Fixed jQuery deprecation notices in the form preview for the following fields: email, product, total, and stripe fields, as well as some conditional logic.
 - Fixed "undefined index" errors that sometimes appear when a form is embedded with a shortcode.  Credit: The GravityKit team.
+- Fixed a bug that caused values of checkbox fields to appear twice on the entry list page.
 - AF: Updated the background processor to include additional logging statements around batch processing.
 
 ### 2.7.15 | 2023-10-05

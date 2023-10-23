@@ -74,13 +74,11 @@ class WC_Conditional_Content_Admin_Controller {
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 			wp_enqueue_style( 'woocommerce_admin_styles', $woocommerce->plugin_url() . '/assets/css/admin.css' );
 			wp_enqueue_style( 'wccc-admin-app', WC_Conditional_Content::plugin_url() . '/assets/admin/css/wccc-admin-app.css' );
-			
-			//Chosen
-			if ( WC_Conditional_Content_Compatibility::is_wc_version_gte_2_6() ) {
-				wp_enqueue_style( 'chosen', WC_Conditional_Content::plugin_url() . '/assets/css/chosen.css' );
 
-				wp_register_script( 'chosen', WC_Conditional_Content::plugin_url() . '/assets/js/chosen/chosen.jquery' . $suffix . '.js', array('jquery'), WC_VERSION );
-			}
+			//Chosen
+			wp_enqueue_style( 'chosen', WC_Conditional_Content::plugin_url() . '/assets/css/chosen.css' );
+			wp_register_script( 'chosen', WC_Conditional_Content::plugin_url() . '/assets/js/chosen/chosen.jquery' . $suffix . '.js', array('jquery'), WC_VERSION );
+
 
 			// enhanced dropdowns
 			wp_register_script( 'selectWoo', WC()->plugin_url() . '/assets/js/selectWoo/selectWoo.full.min.js', array( 'jquery' ), '1.0.0' );
@@ -273,7 +271,7 @@ class WC_Conditional_Content_Admin_Controller {
 
 				$roles = get_editable_roles();
 				if ( $roles && $role ) {
-					
+
 				}
 
 				break;

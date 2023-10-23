@@ -53,11 +53,30 @@ if ( 'custom' === $height_mode ) {
 } elseif ( 'original' !== $height_mode ) {
 	$css_class .= ' vc-gitem-zone-height-mode-auto' . ( strlen( $height_mode ) > 0 ? ' vc-gitem-zone-height-mode-auto-' . $height_mode : '' );
 }
+
+
 if ( 'yes' === $featured_image ) {
 	$css_style .= '{{ post_image_background_image_css' . ':' . $img_size . ' }}';
-	$image = '<img src="{{ post_image_url' . ( false !== $background_image_css_editor ? ':' . rawurlencode( $background_image_css_editor ) . '' : ':' ) . ':' . $img_size . ' }}" class="vc_gitem-zone-img" alt="{{ post_image_alt }}">';
+
+	$attributes = array(
+		'class' => 'vc_gitem-zone-img',
+		'src' => '{{ post_image_url' . ( false !== $background_image_css_editor ? ':' . rawurlencode( $background_image_css_editor ) . '' : ':' ) . ':' . $img_size . ' }}',
+		'alt' => '{{ post_image_alt }}',
+	);
+	$attributes = vc_add_lazy_loading_attribute( $attributes );
+
+	$image = '<img ' . vc_stringify_attributes( $attributes ) . '>';
+
 } elseif ( false !== $background_image_css_editor ) {
-	$image = '<img src="' . esc_url( $background_image_css_editor ) . '" class="vc_gitem-zone-img" alt="{{ post_image_alt }}">';
+	$attributes = array(
+		'class' => 'vc_gitem-zone-img',
+		'src' => esc_url( $background_image_css_editor ),
+		'alt' => '{{ post_image_alt }}',
+	);
+
+	$attributes = vc_add_lazy_loading_attribute( $attributes );
+
+	$image = '<img ' . vc_stringify_attributes( $attributes ) . '>';
 }
 if ( strlen( $link ) > 0 && 'none' !== $link ) {
 	$css_class .= ' vc_gitem-is-link';

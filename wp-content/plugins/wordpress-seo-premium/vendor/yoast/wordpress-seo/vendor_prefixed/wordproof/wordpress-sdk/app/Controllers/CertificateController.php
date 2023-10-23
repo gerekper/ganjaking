@@ -5,6 +5,7 @@ namespace YoastSEO_Vendor\WordProof\SDK\Controllers;
 use YoastSEO_Vendor\WordProof\SDK\Helpers\AppConfigHelper;
 use YoastSEO_Vendor\WordProof\SDK\Helpers\CertificateHelper;
 use YoastSEO_Vendor\WordProof\SDK\Helpers\EnvironmentHelper;
+use YoastSEO_Vendor\WordProof\SDK\Helpers\OptionsHelper;
 use YoastSEO_Vendor\WordProof\SDK\Helpers\PostMetaHelper;
 use YoastSEO_Vendor\WordProof\SDK\Helpers\SettingsHelper;
 class CertificateController
@@ -55,7 +56,12 @@ class CertificateController
         $showRevisions = \YoastSEO_Vendor\WordProof\SDK\Helpers\SettingsHelper::showRevisions() ? 'true' : 'false';
         $debug = \YoastSEO_Vendor\WordProof\SDK\Helpers\EnvironmentHelper::development() ? 'true' : 'false';
         $lastModified = \get_the_modified_date('c', $post->ID);
-        $content .= "\n" . '<w-certificate debug="' . $debug . '" shared-identifier="' . $identifier . '" render-without-button="true" show-revisions="' . $showRevisions . '" last-modified="' . $lastModified . '"></w-certificate>';
+        $identity = \YoastSEO_Vendor\WordProof\SDK\Helpers\OptionsHelper::get('identity');
+        $identityProvider = isset($identity->provider) ? $identity->provider : '';
+        $identityName = (isset($identity->first_name) ? $identity->first_name : '') . ' ' . (isset($identity->last_name) ? $identity->last_name : '');
+        $identityProfilePicture = isset($identity->profile_picture) ? $identity->profile_picture : '';
+        $identityProofUrl = isset($identity->proof_url) ? $identity->proof_url : '';
+        $content .= "\n" . '<w-certificate identity-provider="' . $identityProvider . '" identity-name="' . $identityName . '" identity-profile-picture="' . $identityProfilePicture . '" identity-proof-url="' . $identityProofUrl . '" debug="' . $debug . '" shared-identifier="' . $identifier . '" render-without-button="true" show-revisions="' . $showRevisions . '" last-modified="' . $lastModified . '"></w-certificate>';
         $content .= "\n" . '<p><w-certificate-button shared-identifier="' . $identifier . '" icon="shield" shape="text" text="' . $text . '"></w-certificate-button></p>';
         $content .= "\n";
         return $content;

@@ -53,6 +53,7 @@ class Vc_Vendor_AdvancedCustomFields {
 	}
 
 	public function acfAjaxShortcodeCapability( $cap ) {
+        // phpcs:ignore
 		if ( isset( $_POST['_vcnonce'] ) && vc_verify_public_nonce() ) {
 			return 'exist';
 		}

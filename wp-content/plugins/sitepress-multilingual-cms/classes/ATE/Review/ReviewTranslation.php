@@ -31,6 +31,17 @@ class ReviewTranslation implements \IWPML_Frontend_Action, \IWPML_Backend_Action
 			Hooks::onFilter( 'the_preview' )
 			     ->then( Hooks::getArgs( [ 0 => 'post' ] ) )
 			     ->then( $this->handleTranslationReview() );
+
+			add_filter(
+				'init',
+				function () {
+					// This hook is only needed for the WP Autosaved revision preview.
+					// For Translation Review it can cause problems overwritting the post by an autosaved draft.
+					remove_filter( 'the_preview', '_set_preview' );
+					return true;
+				},
+				PHP_INT_MAX
+			);
 		}
 
 		Hooks::onFilter( 'user_has_cap', 10, 3 )

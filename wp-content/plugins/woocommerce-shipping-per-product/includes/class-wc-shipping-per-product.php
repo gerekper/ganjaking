@@ -66,14 +66,14 @@ class WC_Shipping_Per_Product extends WC_Shipping_Method {
 	 */
 	public function init_form_fields() {
 		$this->instance_form_fields = array(
-			'title'      => array(
+			'title'                => array(
 				'title'       => __( 'Method Title', 'woocommerce-shipping-per-product' ),
 				'type'        => 'text',
 				'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce-shipping-per-product' ),
 				'default'     => __( 'Product Shipping', 'woocommerce-shipping-per-product' ),
 				'desc_tip'    => true,
 			),
-			'tax_status' => array(
+			'tax_status'           => array(
 				'title'       => __( 'Tax Status', 'woocommerce-shipping-per-product' ),
 				'type'        => 'select',
 				'description' => '',
@@ -83,7 +83,7 @@ class WC_Shipping_Per_Product extends WC_Shipping_Method {
 					'none'    => __( 'None', 'woocommerce-shipping-per-product' ),
 				),
 			),
-			'cost'       => array(
+			'cost'                 => array(
 				'title'       => __( 'Default Product Cost', 'woocommerce-shipping-per-product' ),
 				'type'        => 'text',
 				'description' => __( 'Cost excluding tax (per product) for products without defined costs. Enter an amount, e.g. 2.50. Entering an amount here will apply a global shipping cost for all products, effectively disabling all other shipping methods', 'woocommerce-shipping-per-product' ),
@@ -91,7 +91,7 @@ class WC_Shipping_Per_Product extends WC_Shipping_Method {
 				'placeholder' => __( 'Disabled, Enter an amount, e.g. 2.50.', 'woocommerce-shipping-per-product' ),
 				'desc_tip'    => true,
 			),
-			'fee'        => array(
+			'fee'                  => array(
 				'title'       => __( 'Handling Fee (per product)', 'woocommerce-shipping-per-product' ),
 				'type'        => 'text',
 				'description' => __( 'Fee excluding tax. Enter an amount, e.g. 2.50, or a percentage, e.g. 5%. Leave blank to disable.', 'woocommerce-shipping-per-product' ),
@@ -99,7 +99,7 @@ class WC_Shipping_Per_Product extends WC_Shipping_Method {
 				'placeholder' => __( 'Disabled, Enter an amount, e.g. 2.50, or a percentage, e.g. 5%.', 'woocommerce-shipping-per-product' ),
 				'desc_tip'    => true,
 			),
-			'order_fee'  => array(
+			'order_fee'            => array(
 				'title'       => __( 'Handling Fee (per order)', 'woocommerce-shipping-per-product' ),
 				'type'        => 'text',
 				'description' => __( 'Fee excluding tax. Enter an amount, e.g. 2.50, or a percentage, e.g. 5%. Leave blank to disable.', 'woocommerce-shipping-per-product' ),
@@ -115,7 +115,7 @@ class WC_Shipping_Per_Product extends WC_Shipping_Method {
 				'label'       => __( 'Ignore', 'woocommerce-shipping-per-product' ),
 				'desc_tip'    => true,
 			),
-			'ignore_local_pickup' => array(
+			'ignore_local_pickup'  => array(
 				'title'       => __( 'Ignore Local Pickup', 'woocommerce-shipping-per-product' ),
 				'type'        => 'checkbox',
 				'description' => __( 'If "Local Pickup" shipping method is enabled in the same zone as this "Per Product" method, it will not be offered as shipping option in the same package if this option is checked.', 'woocommerce-shipping-per-product' ),

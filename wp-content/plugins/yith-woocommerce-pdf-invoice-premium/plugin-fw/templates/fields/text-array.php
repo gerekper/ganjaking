@@ -8,13 +8,18 @@
 
 defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 
-list ( $field_id, $name, $value, $fields, $size, $inline ) = yith_plugin_fw_extract( $field, 'id', 'name', 'value', 'fields', 'size', 'inline' );
+list ( $field_id, $name, $value, $fields, $size, $columns, $inline ) = yith_plugin_fw_extract( $field, 'id', 'name', 'value', 'fields', 'size', 'columns', 'inline' );
 
 if ( empty( $fields ) ) {
 	return;
 }
 
-$value = isset( $value ) && is_array( $value ) ? $value : array();
+$value        = isset( $value ) && is_array( $value ) ? $value : array();
+$gap          = 16;
+$columns      = max( 1, absint( $columns ?? 2 ) );
+$default_size = absint( ( 400 - ( $gap * ( $columns - 1 ) ) ) / $columns );
+$size         = max( 122, absint( $size ?? $default_size ) );
+$max_width    = $size * $columns + ( $gap * ( $columns - 1 ) );
 
 // Let's build the text array!
 $text_array = array();
@@ -27,7 +32,7 @@ foreach ( $fields as $field_name => $single_field ) {
 
 if ( empty( $inline ) ) : ?>
 
-	<table class="yith-plugin-fw-text-array-table">
+	<table id="<?php echo esc_attr( $field_id ); ?>" class="yith-plugin-fw-text-array-table">
 		<?php foreach ( $text_array as $key => $single ) : ?>
 			<tr>
 				<td><?php echo esc_html( $single['label'] ); ?></td>
@@ -45,14 +50,13 @@ if ( empty( $inline ) ) : ?>
 	</table>
 
 <?php else : ?>
-
-	<div class="yith-plugin-fw-text-array-inline">
+	<div
+			id="<?php echo esc_attr( $field_id ); ?>"
+			class="yith-plugin-fw-text-array-inline"
+			style="max-width: <?php echo absint( $max_width ); ?>px; grid-template-columns : repeat( auto-fit, <?php echo absint( $size ); ?>px ); gap: <?php echo absint( $gap ); ?>px"
+	>
 		<?php foreach ( $text_array as $key => $single ) : ?>
-			<div class="yith-single-text"
-				<?php if ( isset( $size ) ) : ?>
-					style="width: <?php echo absint( $size ); ?>px"
-				<?php endif; ?>
-			>
+			<div class="yith-single-text">
 				<label for="<?php echo esc_attr( $single['id'] ); ?>"><?php echo esc_html( $single['label'] ); ?></label>
 				<input type="text" id="<?php echo esc_attr( $single['id'] ); ?>"
 						name="<?php echo esc_attr( $single['name'] ); ?>"

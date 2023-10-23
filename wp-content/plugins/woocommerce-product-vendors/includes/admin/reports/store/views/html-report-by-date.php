@@ -36,8 +36,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 								}
 							?>
 							<input type="hidden" name="range" value="custom" />
-							<input type="text" size="9" placeholder="yyyy-mm-dd" value="<?php if ( ! empty( $_GET['start_date'] ) ) echo esc_attr( $_GET['start_date'] ); ?>" name="start_date" class="range_datepicker from" />
-							<input type="text" size="9" placeholder="yyyy-mm-dd" value="<?php if ( ! empty( $_GET['end_date'] ) ) echo esc_attr( $_GET['end_date'] ); ?>" name="end_date" class="range_datepicker to" />
+							<input type="text" size="9" placeholder="yyyy-mm-dd" value="<?php echo esc_attr( wc_clean( wp_unslash( $_GET['start_date'] ?? '' ) ) ); ?>" name="start_date" class="range_datepicker from" />
+							<input type="text" size="9" placeholder="yyyy-mm-dd" value="<?php echo esc_attr( wc_clean( wp_unslash( $_GET['end_date'] ?? '' ) ) ); ?>" name="end_date" class="range_datepicker to" />
 							<input type="submit" class="button" value="<?php esc_attr_e( 'Go', 'woocommerce-product-vendors' ); ?>" />
 						</div>
 					</form>

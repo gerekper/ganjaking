@@ -1,11 +1,10 @@
-<?php // phpcs:ignore WordPress.NamingConventions.
+<?php // phpcs:ignore WordPress.Files.FileName.NotHyphenatedLowercase, WordPress.Files.FileName.InvalidClassFileName
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
 if ( ! class_exists( 'YITH_PDF_Invoice_Google_Drive' ) ) {
-
 	/**
 	 * The Google Drive Class
 	 *
@@ -13,7 +12,7 @@ if ( ! class_exists( 'YITH_PDF_Invoice_Google_Drive' ) ) {
 	 *
 	 * @class   YITH_PDF_Invoice_Google_Drive
 	 * @package YITH\PDF_Invoice\Classes
-	 * @author  YITH
+	 * @author  YITH <plugins@yithemes.com>
 	 */
 	class YITH_PDF_Invoice_Google_Drive {
 
@@ -30,30 +29,35 @@ if ( ! class_exists( 'YITH_PDF_Invoice_Google_Drive' ) ) {
 		 * @var object
 		 */
 		public $client = '';
+
 		/**
 		 * The redirect uri link for oAuth method.
 		 *
 		 * @var string
 		 */
 		public $redirect_uri = '';
+
 		/**
 		 * The scope link for oAuth method.
 		 *
 		 * @var string
 		 */
 		public $scope = '';
+
 		/**
 		 * The client id for oAuth method.
 		 *
 		 * @var string
 		 */
 		public $client_id = '';
+
 		/**
 		 * The client password for oAuth method.
 		 *
 		 * @var string
 		 */
 		public $client_password = '';
+
 		/**
 		 * The authorization code for oAuth method.
 		 *
@@ -65,7 +69,6 @@ if ( ! class_exists( 'YITH_PDF_Invoice_Google_Drive' ) ) {
 		 * Returns single instance of the class
 		 */
 		public static function get_instance() {
-
 			if ( is_null( self::$instance ) ) {
 				self::$instance = new self();
 			}
@@ -79,7 +82,7 @@ if ( ! class_exists( 'YITH_PDF_Invoice_Google_Drive' ) ) {
 		private function __construct() {
 			require_once YITH_YWPI_DIR . 'lib/vendor/autoload.php';
 
-			$redirect_uri          = admin_url( 'admin.php' . yith_ywpi_get_panel_url( 'documents_storage' ) );
+			$redirect_uri          = admin_url( 'admin.php' . yith_ywpi_get_panel_url( 'settings', 'settings-documents_storage' ) );
 			$drive_client_id       = get_option( 'ywpi_google_drive_client_id', '' );
 			$drive_client_password = get_option( 'ywpi_google_drive_client_password', '' );
 			$auth_code             = get_option( 'ywpi_authorization_code', '' );
@@ -92,9 +95,7 @@ if ( ! class_exists( 'YITH_PDF_Invoice_Google_Drive' ) ) {
 			$this->client             = $this->get_client();
 
 			add_action( 'admin_init', array( $this, 'set_auth_code' ) );
-
 		}
-
 
 		/**
 		 * Returns an authorized API client.
@@ -102,7 +103,6 @@ if ( ! class_exists( 'YITH_PDF_Invoice_Google_Drive' ) ) {
 		 * @return Google_Client the authorized client object
 		 */
 		public function get_client() {
-
 			$client = new Google_Client();
 			$client->addScope( $this->scope );
 			$client->setClientId( $this->client_id );
@@ -121,17 +121,18 @@ if ( ! class_exists( 'YITH_PDF_Invoice_Google_Drive' ) ) {
 		 * @throws \Exception Exception in case the Client::setAccessToken fails.
 		 */
 		public function set_auth_code() {
-			if ( isset( $_GET['code'] ) ) { //phpcs:ignore
+			if ( isset( $_GET['code'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$client = $this->get_client();
 
-				$access_token = $client->fetchAccessTokenWithAuthCode( $_GET['code'] ); //phpcs:ignore
+				$access_token = $client->fetchAccessTokenWithAuthCode( $_GET['code'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+
 				if ( array_key_exists( 'error', $access_token ) ) {
 					// For invalid_grant error, remove permissions from Google. -> https://myaccount.google.com/permissions.
-					throw new Exception( join( ', ', $access_token ) );
+					throw new Exception( join( ', ', $access_token ) ); // phpcs:ignore WordPress.Security.EscapeOutput
 				}
-				update_option( 'ywpi_authorization_code', $_GET['code'] ); //phpcs:ignore
-				update_option( 'ywpi_access_token_info', $access_token );
 
+				update_option( 'ywpi_authorization_code', $_GET['code'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				update_option( 'ywpi_access_token_info', $access_token );
 			}
 		}
 
@@ -144,7 +145,6 @@ if ( ! class_exists( 'YITH_PDF_Invoice_Google_Drive' ) ) {
 		 * @throws \Exception Exception in case the Client::setAccessToken fails.
 		 */
 		public function set_token( $client ) {
-
 			$access_token      = array();
 			$ywpi_access_token = ywpi_get_option( 'ywpi_access_token_info' );
 
@@ -162,9 +162,10 @@ if ( ! class_exists( 'YITH_PDF_Invoice_Google_Drive' ) ) {
 					$access_token = $client->fetchAccessTokenWithAuthCode( trim( $this->authorization_code ) );
 					$client->setAccessToken( $access_token );
 				}
+
 				if ( array_key_exists( 'error', $access_token ) ) {
 					// For invalid_grant error, remove permissions from Google. -> https://myaccount.google.com/permissions.
-					throw new Exception( join( ', ', $access_token ) );
+					throw new Exception( join( ', ', $access_token ) ); // phpcs:ignore WordPress.Security.EscapeOutput
 				}
 
 				update_option( 'ywpi_access_token_info', $access_token );
@@ -183,7 +184,6 @@ if ( ! class_exists( 'YITH_PDF_Invoice_Google_Drive' ) ) {
 		 * @return void
 		 */
 		public function upload_file( $document, $document_type = '', $extension = '' ) {
-
 			$this->set_token( $this->client );
 
 			try {
@@ -214,8 +214,9 @@ if ( ! class_exists( 'YITH_PDF_Invoice_Google_Drive' ) ) {
 					print esc_html( $e->getMessage() );
 				}
 
-				$file_document = ywpi_get_order_document_by_type( yit_get_prop( $document->order, 'id' ), $document_type );
+				$file_document = ywpi_get_order_document_by_type( $document->order->get_id(), $document_type );
 				$file_name     = YITH_WooCommerce_Pdf_Invoice_Premium::get_instance()->get_document_filename( $file_document, $extension );
+
 				if ( $folder_exists && ( empty( $file_id ) || empty( $gd_current_file->id ) || $folder_is_trashed ) ) {
 					// Upload new file.
 					$gd_file->setName( ( ! empty( $file_name ) ) ? $file_name : $document_type . '-' . $document->order->get_id() );
@@ -225,7 +226,7 @@ if ( ! class_exists( 'YITH_PDF_Invoice_Google_Drive' ) ) {
 					$result = $service->files->create(
 						$gd_file,
 						array(
-							'data'     => file_get_contents( $document_path ), //phpcs:ignore
+							'data'     => file_get_contents( $document_path ), // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 							'mimeType' => $mymetype,
 						)
 					);
@@ -235,19 +236,18 @@ if ( ! class_exists( 'YITH_PDF_Invoice_Google_Drive' ) ) {
 					} else {
 						$document->order->add_meta_data( '_ywpi_gd_file_' . $document_type . '_' . $extension . '_id', $result['id'] );
 					}
-					$document->order->save();
 
+					$document->order->save();
 				} else {
 					// Upload existing file.
 					$service->files->update(
 						$file_id,
 						$gd_file,
 						array(
-							'data'     => file_get_contents( $document_path ), //phpcs:ignore
+							'data'     => file_get_contents( $document_path ), // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 							'mimeType' => $mymetype,
 						)
 					);
-
 				}
 			} catch ( Exception $e ) {
 				print esc_html( $e->getMessage() );
@@ -296,13 +296,13 @@ if ( ! class_exists( 'YITH_PDF_Invoice_Google_Drive' ) ) {
 					$folder      = $service->files->create(
 						$folder_file
 					);
+
 					update_option( 'ywpi_gd_folder_id', $folder->id );
 				}
 
 				$folder_arr['folder'] = $folder;
 
 				return $folder_arr;
-
 			} catch ( Exception $e ) {
 				print esc_html( $e->getMessage() );
 			}

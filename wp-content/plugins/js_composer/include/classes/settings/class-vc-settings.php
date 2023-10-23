@@ -589,8 +589,8 @@ class Vc_Settings {
 				?>
 				<label>
 					<input type="checkbox"<?php echo esc_attr( $checked ); ?> value="<?php echo esc_attr( $pt ); ?>"
-						   id="wpb_js_gf_subsets_<?php echo esc_attr( $pt ); ?>"
-						   name="<?php echo esc_attr( self::$field_prefix . 'google_fonts_subsets' ); ?>[]">
+						id="wpb_js_gf_subsets_<?php echo esc_attr( $pt ); ?>"
+						name="<?php echo esc_attr( self::$field_prefix . 'google_fonts_subsets' ); ?>[]">
 					<?php echo esc_html( $pt ); ?>
 				</label><br>
 				<?php
@@ -694,7 +694,7 @@ class Vc_Settings {
 		?>
 		<label>
 			<input type="checkbox"<?php echo( $checked ? ' checked' : '' ); ?> value="1"
-				   id="wpb_js_<?php echo esc_attr( $field ); ?>" name="<?php echo esc_attr( self::$field_prefix . $field ); ?>">
+				id="wpb_js_<?php echo esc_attr( $field ); ?>" name="<?php echo esc_attr( self::$field_prefix . $field ); ?>">
 			<?php esc_html_e( 'Enable', 'js_composer' ); ?>
 		</label><br/>
 		<p class="description indicator-hint"><?php esc_html_e( 'Enable the use of custom design options (Note: when checked - custom css file will be used).', 'js_composer' ); ?></p>
@@ -1105,7 +1105,7 @@ class Vc_Settings {
 		$js_composer_upload_dir = self::uploadDir();
 		if ( ! $wp_filesystem->is_dir( $js_composer_upload_dir ) ) {
 			if ( ! $wp_filesystem->mkdir( $js_composer_upload_dir, 0777 ) ) {
-				add_settings_error( self::$field_prefix . $option, $wp_filesystem->errors->get_error_code(), sprintf( esc_html__( '%s could not be created. Not available to create js_composer directory in uploads directory (%s).', 'js_composer' ), $filename, $js_composer_upload_dir ), 'error' );
+				add_settings_error( self::$field_prefix . $option, $wp_filesystem->errors->get_error_code(), sprintf( esc_html__( '%1$s could not be created. Not available to create js_composer directory in uploads directory (%2$s).', 'js_composer' ), $filename, $js_composer_upload_dir ), 'error' );
 
 				return false;
 			}

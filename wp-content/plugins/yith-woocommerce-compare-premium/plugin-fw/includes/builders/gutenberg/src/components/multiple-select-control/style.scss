@@ -1,0 +1,135 @@
+.yith-fw-components__multiple-select {
+    .yith-fw-components__multiple-select__input-container {
+        border-radius : 2px;
+        border        : 1px solid #757575;
+        padding       : 5px;
+
+        .yith-fw-components__multiple-select__input {
+            border     : 0;
+            min-height : 24px;
+            width      : 100%;
+            background : inherit;
+            color      : #1e1e1e;
+            box-shadow : none;
+
+            &::placeholder {
+                opacity : .6;
+                color   : inherit;
+            }
+        }
+    }
+
+    .yith-fw-components__multiple-select__item {
+        border-radius : 3px;
+        background    : #f1f1f1;
+        display       : inline-block;
+        padding       : 4px 25px 4px 10px;
+        margin        : 0 5px 5px 0;
+        max-width     : 100%;
+        align-items   : center;
+        position      : relative;
+
+        .yith-fw-components__multiple-select__item__label {
+
+        }
+
+        .yith-fw-components__multiple-select__item__remove {
+            font-size : 14px;
+            cursor    : pointer;
+            position  : absolute;
+            top       : 50%;
+            right     : 3px;
+            transform : translateY(-50%);
+            padding   : 5px;
+            width     : auto;
+            height    : auto;
+
+            &:hover {
+                color : #c50c0c;
+            }
+        }
+    }
+}
+
+.yith-fw-components__multiple-select__popover {
+    .components-popover__content {
+        border   : 0;
+        overflow : visible;
+    }
+
+    .yith-fw-components__multiple-select__suggestions {
+        display        : flex;
+        flex-direction : column;
+        overflow       : hidden;
+        overflow-y     : auto;
+        padding-top    : 5px;
+        max-height     : 200px;
+        border-radius  : 5px;
+        box-shadow     : rgb(0 0 0 / 20%) 0px 5px 5px -3px, rgb(0 0 0 / 14%) 0px 8px 10px 1px, rgb(0 0 0 / 12%) 0px 3px 14px 2px;
+
+        &.no-results {
+            padding-top : 0;
+        }
+
+        .yith-fw-components__multiple-select__suggestions__message {
+            padding       : 8px 15px;
+            line-height   : 1.5em;
+            overflow-wrap : break-word;
+        }
+
+        .yith-fw-components__multiple-select__suggestion {
+            padding         : 8px 15px;
+            min-height      : 40px;
+            cursor          : pointer;
+            line-height     : 1.5em;
+            display         : flex;
+            align-items     : center;
+            justify-content : space-between;
+
+            &.selected {
+                background : rgba(25, 118, 210, 0.08);
+            }
+
+            &:hover {
+                background : rgba(0, 0, 0, 0.04);
+            }
+
+            &.selected:hover {
+                background : rgba(25, 118, 210, 0.12);
+            }
+        }
+
+        .yith-fw-components__multiple-select__suggestion__remove {
+            font-size     : 13px;
+            font-weight   : 600;
+            padding       : 5px;
+            height        : 23px;
+            width         : 23px;
+            background    : rgba(0, 0, 0, 0);
+            box-shadow    : 0 0 0 10px rgba(0, 0, 0, 0);
+            border-radius : 50%;
+            transition    : all .3s ease-in-out;
+
+            &:hover {
+                color      : #c50c0c;
+                background : rgba(0, 0, 0, .06);
+                box-shadow : 0 0 0 3px rgba(0, 0, 0, .06);
+            }
+        }
+    }
+
+    ::-webkit-scrollbar-track {
+        -webkit-box-shadow : none;
+        background-color   : transparent;
+    }
+
+    ::-webkit-scrollbar {
+        width            : 10px;
+        background-color : rgba(94, 88, 154, 0.04);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color : #b1b4bf;
+        border-radius    : 10px;
+    }
+}

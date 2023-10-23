@@ -1,9 +1,9 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 /**
  * Frontend class
  *
- * @author YITH
- * @package YITH Woocommerce Compare
+ * @author YITH <plugins@yithemes.com>
+ * @package YITH\Compare
  * @version 1.1.4
  */
 
@@ -81,12 +81,12 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 		public $action_remove = 'yith-woocompare-remove-product';
 
 		/**
-		 * The action used to reload the compare list widget
+		 * The action used to reload the compare list
 		 *
 		 * @since 1.0.0
 		 * @var string
 		 */
-		public $action_reload = 'yith-woocompare-reload-product';
+		public $action_reload = 'yith-woocompare-reload-compare';
 
 		/**
 		 * The standard fields
@@ -115,16 +115,19 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 			add_action( 'init', array( $this, 'init_variables' ), 1 );
 			add_action( 'init', array( $this, 'populate_products_list' ), 10 );
 
+            /**
+			 * APPLY_FILTERS: yith_woocompare_use_wc_ajax
+			 *
+			 * Filters whether to use WooCommerce Ajax to handle requests.
+			 *
+			 * @param bool $use_wc_ajax Whether to use WooCommerce Ajax or not.
+			 *
+			 * @return bool
+			 */
 			$this->use_wc_ajax = apply_filters( 'yith_woocompare_use_wc_ajax', $this->use_wc_ajax );
 
-			// Add link or button in the products list.
-			if ( 'yes' === get_option( 'yith_woocompare_compare_button_in_product_page', 'yes' ) ) {
-				add_action( 'woocommerce_single_product_summary', array( $this, 'add_compare_link' ), 35 );
-			}
-			if ( 'yes' === get_option( 'yith_woocompare_compare_button_in_products_list', 'no' ) ) {
-				add_action( 'woocommerce_after_shop_loop_item', array( $this, 'add_compare_link' ), 20 );
-			}
-			add_action( 'init', array( $this, 'add_product_to_compare_action' ), 15 );
+            add_action( 'init', array( $this, 'display_compare_button' ) );
+            add_action( 'init', array( $this, 'add_product_to_compare_action' ), 15 );
 			add_action( 'init', array( $this, 'remove_product_from_compare_action' ), 15 );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 			add_action( 'template_redirect', array( $this, 'compare_table_html' ) );
@@ -135,16 +138,16 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 			if ( $this->use_wc_ajax ) {
 				add_action( 'wc_ajax_' . $this->action_add, array( $this, 'add_product_to_compare_ajax' ) );
 				add_action( 'wc_ajax_' . $this->action_remove, array( $this, 'remove_product_from_compare_ajax' ) );
-				add_action( 'wc_ajax_' . $this->action_reload, array( $this, 'reload_widget_list_ajax' ) );
+				add_action( 'wc_ajax_' . $this->action_reload, array( $this, 'reload_compare_list_ajax' ) );
 			} else {
 				add_action( 'wp_ajax_' . $this->action_add, array( $this, 'add_product_to_compare_ajax' ) );
 				add_action( 'wp_ajax_' . $this->action_remove, array( $this, 'remove_product_from_compare_ajax' ) );
-				add_action( 'wp_ajax_' . $this->action_reload, array( $this, 'reload_widget_list_ajax' ) );
+				add_action( 'wp_ajax_' . $this->action_reload, array( $this, 'reload_compare_list_ajax' ) );
 			}
 			// AJAX no priv.
 			add_action( 'wp_ajax_nopriv_' . $this->action_add, array( $this, 'add_product_to_compare_ajax' ) );
 			add_action( 'wp_ajax_nopriv_' . $this->action_remove, array( $this, 'remove_product_from_compare_ajax' ) );
-			add_action( 'wp_ajax_nopriv_' . $this->action_reload, array( $this, 'reload_widget_list_ajax' ) );
+			add_action( 'wp_ajax_nopriv_' . $this->action_reload, array( $this, 'reload_compare_list_ajax' ) );
 
 			return $this;
 		}
@@ -153,7 +156,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 		 * Init class variables
 		 *
 		 * @since 2.3.4
-		 * @author Francesco Licandro
 		 */
 		public function init_variables() {
 			global $sitepress;
@@ -172,7 +174,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 		 * Populate the compare product list
 		 *
 		 * @since 1.0.0
-		 * @author Francesco Licandro
 		 */
 		public function populate_products_list() {
 
@@ -187,28 +188,37 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 				$sitepress->switch_lang( $lang, true );
 			}
 
-			foreach ( $the_list as $product_id ) {
-				if ( function_exists( 'wpml_object_id_filter' ) ) {
-					$product_id_translated = wpml_object_id_filter( $product_id, 'product', false );
-					// Get all product of current lang.
-					if ( $product_id_translated !== $product_id ) {
-						$product_id = $product_id_translated;
+			if( is_array( $the_list ) ){
+				foreach ( $the_list as $product_id ) {
+					if ( function_exists( 'wpml_object_id_filter' ) ) {
+						$product_id_translated = wpml_object_id_filter( $product_id, 'product', false );
+						// Get all product of current lang.
+						if ( $product_id_translated !== $product_id ) {
+							$product_id = $product_id_translated;
+						}
 					}
-				}
 
-				if ( ! $product_id ) {
-					continue;
-				}
+					if ( ! $product_id ) {
+						continue;
+					}
 
-				// Check for deleted|private products.
-				$product = wc_get_product( $product_id );
-				if ( ! $product || 'publish' !== $product->get_status() ) {
-					continue;
-				}
+					// Check for deleted|private products.
+					$product = wc_get_product( $product_id );
+					if ( ! $product || 'publish' !== $product->get_status() ) {
+						continue;
+					}
 
-				$this->products_list[] = absint( $product_id );
+					$this->products_list[] = absint( $product_id );
+				}
 			}
 
+			/**
+			 * DO_ACTION: yith_woocompare_after_populate_product_list
+			 *
+			 * Allows to trigger some action after adding products to the compare list.
+			 *
+			 * @param array $products_list Products list.
+			 */
 			do_action( 'yith_woocompare_after_populate_product_list', $this->products_list );
 		}
 
@@ -216,7 +226,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 		 * Enqueue the scripts and styles in the page
 		 *
 		 * @since 1.0.0
-		 * @author Francesco Licandro
 		 */
 		public function enqueue_scripts() {
 
@@ -225,7 +234,15 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 
 			// Enqueue and add localize.
 			wp_enqueue_script( 'yith-woocompare-main' );
+
 			// Localize script args.
+			/**
+			 * APPLY_FILTERS: yith_woocompare_main_script_localize_array
+			 *
+			 * Filters the array with the variables to localize into the plugin script.
+			 *
+			 * @param array $localize Array with variables to localize.
+			 */
 			$args = apply_filters(
 				'yith_woocompare_main_script_localize_array',
 				array(
@@ -234,16 +251,76 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 					'actionremove'                    => $this->action_remove,
 					'actionview'                      => $this->action_view,
 					'actionreload'                    => $this->action_reload,
+					/**
+					 * APPLY_FILTERS: yith_woocompare_compare_added_label
+					 *
+					 * Filters the label to use when the product has been added to the comparison table.
+					 *
+					 * @param string $label Label.
+					 *
+					 * @return string
+					 */
 					'added_label'                     => apply_filters( 'yith_woocompare_compare_added_label', __( 'Added', 'yith-woocommerce-compare' ) ),
+					/**
+					 * APPLY_FILTERS: yith_woocompare_compare_table_title
+					 *
+					 * Filters the title of the comparison table.
+					 *
+					 * @param string $table_title Table title.
+					 *
+					 * @return string
+					 */
 					'table_title'                     => apply_filters( 'yith_woocompare_compare_table_title', __( 'Product Comparison', 'yith-woocommerce-compare' ) ),
 					'auto_open'                       => get_option( 'yith_woocompare_auto_open', 'yes' ),
 					'loader'                          => YITH_WOOCOMPARE_ASSETS_URL . '/images/loader.gif',
 					'button_text'                     => get_option( 'yith_woocompare_button_text', __( 'Compare', 'yith-woocommerce-compare' ) ),
 					'cookie_name'                     => $this->get_cookie_name(),
 					'close_label'                     => _x( 'Close', 'Label for popup close icon', 'yith-woocommerce-compare' ),
+					/**
+					 * APPLY_FILTERS: yith_woocompare_selector_for_custom_label_compare_button
+					 *
+					 * Filters the selector to use for the custom compare button.
+					 *
+					 * @param string $selector Selector.
+					 *
+					 * @return string
+					 */
 					'selector_for_custom_label_compare_button' => apply_filters( 'yith_woocompare_selector_for_custom_label_compare_button', '.product_title' ),
+					/**
+					 * APPLY_FILTERS: yith_woocompare_custom_label_for_compare_button
+					 *
+					 * Filters whether to use a custom label for the compare button.
+					 *
+					 * @param bool $use_custom_label Whether to use a custom label for the compare button or not.
+					 *
+					 * @return bool
+					 */
 					'custom_label_for_compare_button' => apply_filters( 'yith_woocompare_custom_label_for_compare_button', false ),
+					/**
+					 * APPLY_FILTERS: yith_woocompare_force_showing_popup
+					 *
+					 * Filters whether to force showing the compare popup.
+					 *
+					 * @param bool $force_popup Whether to force showing the compare popup.
+					 *
+					 * @return bool
+					 */
 					'force_showing_popup'             => apply_filters( 'yith_woocompare_force_showing_popup', false ),
+                    /**
+                     * APPLY_FILTERS: yith_woocompare_popup_settings
+                     *
+                     * Filters the settings of the compare initial popup.
+                     *
+                     * @param array $settings Array of settings for the popup.
+                     *
+                     * @return array
+                     */
+                    'settings' => apply_filters( 'yith_woocompare_popup_settings',
+                        array(
+                            'width'  => '80%',
+                            'height' => '80%'
+                        )
+                    )
 				)
 			);
 			wp_localize_script( 'yith-woocompare-main', 'yith_woocompare', $args );
@@ -280,14 +357,21 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 				}
 			}
 
+			/**
+			 * APPLY_FILTERS: yith_woocompare_filter_table_fields
+			 *
+			 * Filters the fields to show in the comparison table.
+			 *
+			 * @param array $fields   Fields to show.
+			 * @param array $products Products to show.
+			 */
 			return apply_filters( 'yith_woocompare_filter_table_fields', $fields, $products );
 		}
 
 		/**
-		 * Render the maintenance page
+		 * Render the compare page
 		 *
 		 * @since 1.0.0
-		 * @author Francesco Licandro
 		 */
 		public function compare_table_html() {
 
@@ -351,7 +435,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 		 * Return the array with all products and all attributes values
 		 *
 		 * @since 1.0.0
-		 * @author Francesco Licandro
 		 * @param array $products An array of products to compare.
 		 * @return array The complete list of products with all attributes value
 		 */
@@ -362,6 +445,15 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 				$products = $this->products_list;
 			}
 
+			/**
+			 * APPLY_FILTERS: yith_woocompare_exclude_products_from_list
+			 *
+			 * Filters the products to exclude from the comparison table.
+			 *
+			 * @param array $products Products to exclude.
+			 *
+			 * @return array
+			 */
 			$products = apply_filters( 'yith_woocompare_exclude_products_from_list', $products );
 			$fields   = $this->fields( $products );
 
@@ -388,7 +480,17 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 							$product->fields[ $field ] = absint( $product->get_image_id() );
 							break;
 						case 'description':
-							$description               = apply_filters( 'woocommerce_short_description', $product->get_short_description() );
+							$description = apply_filters( 'woocommerce_short_description', $product->get_short_description() );
+
+							/**
+							 * APPLY_FILTERS: yith_woocompare_products_description
+							 *
+							 * Filters the product description in the comparison table.
+							 *
+							 * @param string $description Product description.
+							 *
+							 * @return string
+							 */
 							$product->fields[ $field ] = apply_filters( 'yith_woocompare_products_description', $description );
 							break;
 						case 'stock':
@@ -441,7 +543,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 		 * The URL of product comparison table
 		 *
 		 * @since 1.0.0
-		 * @author Francesco Licandro
 		 * @param integer $product_id The product ID.
 		 * @return string The url to add the product in the comparison table
 		 */
@@ -456,6 +557,16 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 				$url_args['lang'] = $lang;
 			}
 
+			/**
+			 * APPLY_FILTERS: yith_woocompare_view_table_url
+			 *
+			 * Filters the URL to view the comparison table.
+			 *
+			 * @param string $url        URL to view the comparison table.
+			 * @param int    $product_id Product ID.
+			 *
+			 * @return string
+			 */
 			return apply_filters( 'yith_woocompare_view_table_url', esc_url_raw( add_query_arg( $url_args, site_url() ) ), $product_id );
 		}
 
@@ -463,7 +574,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 		 * The URL to add the product into the comparison table
 		 *
 		 * @since 1.0.0
-		 * @author Francesco Licandro
 		 * @param integer $product_id ID of the product to add.
 		 * @return string The url to add the product in the comparison table
 		 */
@@ -475,9 +585,20 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 
 			$lang = defined( 'ICL_LANGUAGE_CODE' ) ? ICL_LANGUAGE_CODE : false;
 			if ( $lang ) {
-				$url_args['lang'] = isset( $_GET['lang'] ) ? $_GET['lang'] : $lang;
+				$url_args['lang'] = isset( $_GET['lang'] ) ? sanitize_text_field( wp_unslash( $_GET['lang'] ) ) : $lang; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			}
 
+			/**
+			 * APPLY_FILTERS: yith_woocompare_add_product_url
+			 *
+			 * Filters the URL to add the product to the comparison table.
+			 *
+			 * @param string $url      URL to add the product to comparison table.
+			 * @param string $action   Action to add to the comparison table.
+			 * @param array  $url_args URL arguments.
+			 *
+			 * @return string
+			 */
 			return apply_filters( 'yith_woocompare_add_product_url', esc_url_raw( add_query_arg( $url_args, site_url() ) ), $this->action_add, $url_args );
 		}
 
@@ -485,7 +606,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 		 * The URL to remove the product into the comparison table
 		 *
 		 * @since 1.0.0
-		 * @author Francesco Licandro
 		 * @param integer $product_id The ID of the product to remove.
 		 * @return string The url to remove the product in the comparison table
 		 */
@@ -498,9 +618,19 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 			$lang = defined( 'ICL_LANGUAGE_CODE' ) ? ICL_LANGUAGE_CODE : false;
 			if ( $lang ) {
 
-				$url_args['lang'] = isset( $_GET['lang'] ) ? $_GET['lang'] : $lang;
+				$url_args['lang'] = isset( $_GET['lang'] ) ? sanitize_text_field( wp_unslash( $_GET['lang'] ) ) : $lang; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			}
 
+			/**
+			 * APPLY_FILTERS: yith_woocompare_remove_product_url
+			 *
+			 * Filters the URL to remove the product from the comparison table.
+			 *
+			 * @param string $url    URL to remove the product from comparison table.
+			 * @param string $action Action to remove from the comparison table.
+			 *
+			 * @return string
+			 */
 			return apply_filters( 'yith_woocompare_remove_product_url', esc_url_raw( add_query_arg( $url_args, site_url() ) ), $this->action_remove );
 		}
 
@@ -508,12 +638,11 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 		 *  Add the link to compare
 		 *
 		 * @since 1.0.0
-		 * @author Francesco Licandro
 		 * @param mixed $product_id The ID of the product to compare.
 		 * @param array $args An array of link arguments.
 		 */
-		public function add_compare_link( $product_id = false, $args = array() ) {
-			extract( $args ); // phpcs:ignore
+		public function add_compare_link( $product_id = false, $args = array(), $return = false ) {
+			extract( $args ); // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 
 			if ( ! $product_id ) {
 				global $product;
@@ -521,6 +650,16 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 			}
 
 			// Return if product doesn't exist.
+			/**
+			 * APPLY_FILTERS: yith_woocompare_remove_compare_link_by_cat
+			 *
+			 * Filters whether to remove the link to add to the comparison table.
+			 *
+			 * @param bool $remove_link Whether to remove the link or not.
+			 * @param int  $product_id  Product ID.
+			 *
+			 * @return bool
+			 */
 			if ( empty( $product_id ) || apply_filters( 'yith_woocompare_remove_compare_link_by_cat', false, $product_id ) ) {
 				return;
 			}
@@ -533,14 +672,24 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 				$button_text = apply_filters( 'wpml_translate_single_string', $button_text, 'Plugins', 'plugin_yit_compare_button_text' );
 			}
 
-			printf( '<a href="%s" class="%s" data-product_id="%d" rel="nofollow">%s</a>', $this->add_product_url( $product_id ), 'compare' . ( 'button' === $is_button ? ' button' : '' ), esc_attr( $product_id ), esc_html( $button_text ) );
+            if( $return ) {
+
+                ob_start();
+                printf( '<a href="%s" class="%s" data-product_id="%d" rel="nofollow">%s</a>', $this->add_product_url( $product_id ), 'compare' . ( 'button' === $is_button ? ' button' : '' ), esc_attr( $product_id ), esc_html( $button_text ) );
+                $button       = ob_get_clean();
+
+                return $button;
+
+            } else {
+                printf( '<a href="%s" class="%s" data-product_id="%d" rel="nofollow">%s</a>', $this->add_product_url( $product_id ), 'compare' . ( 'button' === $is_button ? ' button' : '' ), esc_attr( $product_id ), esc_html( $button_text ) );
+            }
+
 		}
 
 		/**
 		 * Return the url of stylesheet position
 		 *
 		 * @since 1.0.0
-		 * @author Francesco Licandro
 		 */
 		public function stylesheet_url() {
 			global $woocommerce;
@@ -584,11 +733,10 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 		 * Generate template vars
 		 *
 		 * @since 1.0.0
-		 * @author Francesco Licandro
 		 * @access protected
 		 * @return array
 		 */
-		protected function vars() {
+		public function vars() {
 			$vars = array(
 				'products'           => $this->get_products_list(),
 				'fields'             => $this->fields(),
@@ -603,7 +751,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 		 * The action called by the query string
 		 *
 		 * @since 1.0.0
-		 * @author Francesco Licandro
 		 */
 		public function add_product_to_compare_action() {
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX || ! isset( $_REQUEST['id'] ) || ! isset( $_REQUEST['action'] ) || sanitize_text_field( wp_unslash( $_REQUEST['action'] ) ) !== $this->action_add ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -626,7 +773,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 		 * The action called by AJAX
 		 *
 		 * @since 1.0.0
-		 * @author Francesco Licandro
 		 */
 		public function add_product_to_compare_ajax() {
 
@@ -643,20 +789,31 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 				$added = $this->add_product_to_compare( $product_id );
 			}
 
+			/**
+			 * DO_ACTION: yith_woocompare_add_product_action_ajax
+			 *
+			 * Allows to trigger some action after adding the product to the compare list through Ajax.
+			 */
 			do_action( 'yith_woocompare_add_product_action_ajax' );
 
-			$lang = isset( $_REQUEST['lang'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['lang'] ) ) : false; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-
-			$json = apply_filters(
-				'yith_woocompare_add_product_action_json',
+			$json = array_merge(
+				$this->get_compare_list_html(),
 				array(
-					'table_url'    => $this->view_table_url( $product_id ),
-					'widget_table' => $this->get_widget_template( $lang, true ),
-					'added'        => $added,
+					'table_url' => $this->view_table_url( $product_id ),
+					'added'     => $added,
 				)
 			);
 
-			echo wp_json_encode( $json );
+			/**
+			 * APPLY_FILTERS: yith_woocompare_add_product_action_json
+			 *
+			 * Filters the response for the Ajax call when adding products to the comparison table.
+			 *
+			 * @param array $json Response for the Ajax call.
+			 *
+			 * @return array
+			 */
+			echo wp_json_encode( apply_filters( 'yith_woocompare_add_product_action_json', $json ) );
 			die();
 		}
 
@@ -664,7 +821,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 		 * Add a product in the products comparison table
 		 *
 		 * @since 1.0.0
-		 * @author Francesco Licandro
 		 * @param int $product_id product ID to add in the comparison table.
 		 * @return boolean
 		 */
@@ -672,6 +828,13 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 			$this->products_list[] = absint( $product_id );
 			setcookie( $this->get_cookie_name(), wp_json_encode( $this->products_list ), 0, COOKIEPATH, COOKIE_DOMAIN, false, false );
 
+			/**
+			 * DO_ACTION: yith_woocompare_after_add_product
+			 *
+			 * Allows to trigger some action after the product has been added to the comparison table.
+			 *
+			 * @param int $product_id Product ID.
+			 */
 			do_action( 'yith_woocompare_after_add_product', $product_id );
 
 			return true;
@@ -681,7 +844,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 		 * Get cookie name
 		 *
 		 * @since 2.3.2
-		 * @author Francesco Licandro
 		 * @return string
 		 */
 		public function get_cookie_name() {
@@ -700,7 +862,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 		 * The action called by the query string
 		 *
 		 * @since 1.0.0
-		 * @author Francesco Licandro
 		 */
 		public function remove_product_from_compare_action() {
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX || ! isset( $_REQUEST['action'] ) || ! isset( $_REQUEST['id'] ) || sanitize_text_field( wp_unslash( $_REQUEST['action'] ) ) !== $this->action_remove ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -723,7 +884,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 		 * The action called by AJAX
 		 *
 		 * @since 1.0.0
-		 * @author Francesco Licandro
 		 */
 		public function remove_product_from_compare_ajax() {
 
@@ -733,25 +893,85 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 
 			$this->remove_product_from_compare( sanitize_text_field( wp_unslash( $_REQUEST['id'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
+			/**
+			 * DO_ACTION: yith_woocompare_remove_product_action_ajax
+			 *
+			 * Allows to trigger some action after removing the product from the compare list through Ajax.
+			 */
 			do_action( 'yith_woocompare_remove_product_action_ajax' );
 
-			header( 'Content-Type: text/html; charset=utf-8' );
-
-			if ( isset( $_REQUEST['responseType'] ) && 'product_list' === sanitize_text_field( wp_unslash( $_REQUEST['responseType'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-				$lang = isset( $_REQUEST['lang'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['lang'] ) ) : false; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-				$this->get_widget_template( $lang );
-			} else {
-				$this->compare_table_html();
-			}
-
+			/**
+			 * APPLY_FILTERS: yith_woocompare_remove_product_action_json
+			 *
+			 * Filters the response for the Ajax call when removing products from the comparison table.
+			 *
+			 * @param array $json Response for the Ajax call.
+			 *
+			 * @return array
+			 */
+			echo wp_json_encode( apply_filters( 'yith_woocompare_remove_product_action_json', $this->get_compare_list_html() ) );
 			die();
+
 		}
 
 		/**
 		 * Return the list of widget table, used in AJAX
 		 *
 		 * @since 1.0.0
-		 * @author Francesco Licandro
+		 */
+		public function reload_compare_list_ajax() {
+
+			if ( ! isset( $_REQUEST['action'] ) || sanitize_text_field( wp_unslash( $_REQUEST['action'] ) ) !== $this->action_reload ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				die();
+			}
+
+			/**
+			 * APPLY_FILTERS: yith_woocompare_reload_compare_action_json
+			 *
+			 * Filters the response for the Ajax call when reloading the comparison table.
+			 *
+			 * @param array $json Response for the Ajax call.
+			 *
+			 * @return array
+			 */
+			$json = apply_filters( 'yith_woocompare_reload_compare_action_json', $this->get_compare_list_html() );
+			echo wp_json_encode( $json );
+			die();
+		}
+
+		/**
+		 * Get compare widget and table html, useful for AJAX request response
+		 *
+		 * @since 2.13.0
+		 * @return array
+		 */
+		protected function get_compare_list_html() {
+			// phpcs:disable WordPress.Security.NonceVerification.Recommended
+			$lang = isset( $_REQUEST['lang'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['lang'] ) ) : false;
+			if ( defined( 'ICL_LANGUAGE_CODE' ) && $lang && isset( $sitepress ) ) {
+				$sitepress->switch_lang( $lang, true );
+			}
+
+			$args           = $this->vars();
+			$args['fixed']  = false;
+			$args['iframe'] = 'yes';
+
+			ob_start();
+			wc_get_template( 'yith-compare-table.php', $args, '', YITH_WOOCOMPARE_TEMPLATE_PATH . '/' );
+			$table_html = ob_get_clean();
+
+			return array(
+				'table_html'  => $table_html,
+				'widget_html' => $this->get_widget_template( false, true ),
+			);
+			// phpcs:enable WordPress.Security.NonceVerification.Recommended
+		}
+
+		/**
+		 * Return the list of widget table, used in AJAX
+		 *
+		 * @since 1.0.0
+		 * @deprecated
 		 */
 		public function reload_widget_list_ajax() {
 
@@ -769,7 +989,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 		 * Get the widget template
 		 *
 		 * @since 2.5.0
-		 * @author Francesco Licandro
 		 * @param mixed   $lang The lang code, false for default.
 		 * @param boolean $return True to return, false otherwise.
 		 * @param array   $args An additional arguments array.
@@ -792,6 +1011,15 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 				)
 			);
 			// Let's filter template arguments.
+			/**
+			 * APPLY_FILTERS: yith_woocompare_widget_template_args
+			 *
+			 * Filters the array with the arguments needed for the widget template.
+			 *
+			 * @param array $args Array of arguments.
+			 *
+			 * @return array
+			 */
 			$args = apply_filters( 'yith_woocompare_widget_template_args', $args );
 
 			ob_start();
@@ -809,7 +1037,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 		 * Remove a product from the comparison table
 		 *
 		 * @since 1.0.0
-		 * @author Francesco Licandro
 		 * @param integer $product_id The product ID to remove from the comparison table.
 		 */
 		public function remove_product_from_compare( $product_id ) {
@@ -825,6 +1052,14 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 			}
 
 			setcookie( $this->get_cookie_name(), wp_json_encode( array_values( $this->products_list ) ), 0, COOKIEPATH, COOKIE_DOMAIN, false, false );
+
+			/**
+			 * DO_ACTION: yith_woocompare_after_remove_product
+			 *
+			 * Allows to trigger some action after the product has been removed from the comparison table.
+			 *
+			 * @param int $product_id Product ID.
+			 */
 			do_action( 'yith_woocompare_after_remove_product', $product_id );
 		}
 
@@ -832,7 +1067,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 		 * Remove all styles from the compare template
 		 *
 		 * @since 1.0.0
-		 * @author Francesco Licandro
 		 */
 		public function remove_all_styles() {
 			global $wp_styles;
@@ -847,7 +1081,6 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 		 * Show the html for the shortcode
 		 *
 		 * @since 1.0.0
-		 * @author Francesco Licandro
 		 * @param array $atts Attributes shortcode.
 		 * @param mixed $content The shortcode content.
 		 * @return string
@@ -858,7 +1091,9 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 					'product'   => false,
 					'type'      => 'default',
 					'container' => 'yes',
-				),
+                    'button_text' => false,
+
+                ),
 				$atts
 			);
 
@@ -901,10 +1136,13 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 				return '';
 			}
 
-			ob_start();
+            $content = $atts['button_text'] ? : $content;
+            
+            ob_start();
 			if ( 'yes' === $atts['container'] ) {
 				echo '<div class="woocommerce product compare-button">';
 			}
+
 			$this->add_compare_link(
 				$product_id,
 				array(
@@ -932,12 +1170,10 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 			return $wc_get_product( $product_id );
 		}
 
-
 		/**
 		 * Do action before loads compare popup
 		 *
 		 * @since 2.1.1
-		 * @author Francesco Licandro
 		 */
 		public function actions_before_load_popup() {
 			// Removes WooCommerce Product Filter scripts.
@@ -947,5 +1183,56 @@ if ( ! class_exists( 'YITH_Woocompare_Frontend' ) ) {
 			wp_dequeue_script( 'prdctfltr-isotope-js' );
 			wp_dequeue_script( 'prdctfltr-scrollbar-js' );
 		}
+
+        /**
+         * Check if the plugin use WC Blocks for display the compare button.
+         *
+         * @return void
+         */
+        public function display_compare_button() {
+            // Add link or button in the products list.
+            if ( 'yes' === get_option( 'yith_woocompare_compare_button_in_product_page', 'yes' ) ) {
+
+                if(  yith_plugin_fw_wc_is_using_block_template_in_single_product() ) {
+
+                    add_filter( 'render_block_woocommerce/add-to-cart-form', array( $this, 'wc_block_add_button_after_add_to_cart' ), 10, 3 );
+
+                } else {
+
+                    add_action( 'woocommerce_single_product_summary', array( $this, 'add_compare_link' ), 35 );
+                }
+            }
+            if ( 'yes' === get_option( 'yith_woocompare_compare_button_in_products_list', 'no' ) ) {
+
+                if ( yith_plugin_fw_wc_is_using_block_template_in_product_catalogue() ) {
+
+                    add_filter( 'render_block_woocommerce/product-button', array( $this, 'wc_block_add_button_after_add_to_cart' ), 10, 3 );
+
+                } else {
+                    add_action( 'woocommerce_after_shop_loop_item', array( $this, 'add_compare_link' ), 20 );
+                }
+            }
+        }
+
+
+        /**
+         * Add compare button after add to cart button in case Woo Blocks are used.
+         *
+         * @param string     $html Block content.
+         * @param array      $pars_block The full block, including name and attributes.
+         * @param WP_Block   $block The block instance.
+         *
+         * @return string
+         */
+        public function wc_block_add_button_after_add_to_cart( $html, $pars_block, $block ) {
+
+            $product_id = $block->context['postId'];
+            ob_start();
+            echo '<div class="yith-wccp-compare">';
+            $this->add_compare_link( $product_id, array(), true );
+            echo '</div>';
+            $button = ob_get_clean();
+            return $html . $button;
+        }
 	}
 }

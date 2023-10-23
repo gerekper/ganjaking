@@ -1,159 +1,221 @@
 @mixin table-action-buttons {
 
-  thead th.column-actions, tfoot th.column-actions {
-    visibility: hidden;
-  }
+    thead th.column-actions, tfoot th.column-actions {
+        visibility: hidden;
+    }
 
-  th.column-actions, td.column-actions {
-    text-align: right;
-  }
+    th.column-actions, td.column-actions {
+        text-align: right;
+    }
 
-  .yith-plugin-fw__action-button:not(.yith-plugin-fw__action-button--visible) {
-    opacity: 0;
-    transition: .3s;
-  }
+    .yith-plugin-fw__action-button:not(.yith-plugin-fw__action-button--visible) {
+        opacity: 0;
+        transition: .3s;
+    }
 
-  tbody tr:hover .yith-plugin-fw__action-button:not(.yith-plugin-fw__action-button--visible) {
-    opacity: 1;
-  }
+    tbody tr:hover .yith-plugin-fw__action-button:not(.yith-plugin-fw__action-button--visible) {
+        opacity: 1;
+    }
 }
 
 @mixin wp-table-commons {
 
-  tfoot {
-    display: none;
-  }
-
-  .check-column {
-    width: 2em;
-  }
-
-  th.sortable a, th.sorted a {
-    padding: 0 8px 0 0;
-    color: inherit;
-
-    &:hover {
-      color: var(--yith-link);
+    tfoot {
+        display: none;
     }
-  }
 
-  .sorting-indicator {
-    visibility: visible;
-
-    &:before {
-      font-family: yith-icon;
-      content: "\f116";
-      color: inherit;
-      font-size: 10px;
-      top: 0;
-      left: 0;
+    .check-column {
+        width: 2em;
     }
-  }
 
-  th.sorted.asc .sorting-indicator:before,
-  th.desc:hover span.sorting-indicator:before,
-  th.desc a:focus span.sorting-indicator:before {
-    content: "\f113";
-    font-weight: 600;
-  }
+    th.sortable a, th.sorted a {
+        padding: 0 8px 0 0;
+        color: inherit;
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: wrap;
 
-  th.sorted.desc .sorting-indicator:before,
-  th.asc:hover span.sorting-indicator:before,
-  th.asc a:focus span.sorting-indicator:before {
-    content: "\f110";
-    font-weight: 600;
-  }
-  @include table-action-buttons;
+        &:hover {
+            color: var(--yith-link);
+        }
+    }
+
+    .sorting-indicator {
+        visibility: visible;
+        margin-top: 0;
+
+        &:before {
+            font-family: yith-icon;
+            content: "\f116";
+            color: inherit;
+            font-size: 10px;
+            top: 0;
+            left: 0;
+        }
+
+        &.asc {
+            display: none;
+        }
+    }
+
+    th.sorted.asc .sorting-indicator,
+    th.desc:hover span.sorting-indicator,
+    th.desc a:focus span.sorting-indicator {
+        &:before {
+            content: "\f113";
+            font-weight: 600;
+        }
+
+        &.asc {
+            display: block;
+        }
+
+        &.desc {
+            display: none;
+        }
+    }
+
+    th.sorted.desc .sorting-indicator,
+    th.asc:hover span.sorting-indicator,
+    th.asc a:focus span.sorting-indicator {
+        &:before {
+            content: "\f110";
+            font-weight: 600;
+        }
+
+        &.desc {
+            display: block;
+        }
+
+        &.asc {
+            display: none;
+        }
+    }
+
+    @include table-action-buttons;
 }
 
 @mixin classic-table {
-  border: 2px solid var(--yith-table-border-light);
-  background: var(--yith-content-bg);
-  box-shadow: none;
-  border-spacing: 0;
+    border: 2px solid var(--yith-table-border-light);
+    background: var(--yith-content-bg);
+    box-shadow: none;
+    border-spacing: 0;
 
-  th, thead td, tfoot td {
-    text-align: left;
-    line-height: 1.3em;
-    font-size: 14px;
-  }
+    th, thead td, tfoot td {
+        text-align: left;
+        line-height: 1.3em;
+        font-size: 14px;
+    }
 
-  thead th, thead td {
-    border-bottom: 0;
-  }
+    thead th, thead td {
+        border-bottom: 0;
+    }
 
-  tfoot th, tfoot td {
-    border-top: 0;
-  }
+    tfoot th, tfoot td {
+        border-top: 0;
+    }
 
-  tbody tr th, tbody tr td {
-    vertical-align: middle;
-    padding: 15px;
-  }
+    tbody tr th, tbody tr td {
+        vertical-align: middle;
+        padding: 15px;
+    }
 
-  tbody tr:hover {
-    background: var(--yith-table-row-highlight);
-  }
+    tbody tr:hover {
+        background: var(--yith-table-row-highlight);
+    }
 
-  thead td, thead th, tfoot td, tfoot th {
-    padding: 15px;
-    font-weight: 600;
-  }
+    thead td, thead th, tfoot td, tfoot th {
+        padding: 15px;
+        font-weight: 600;
+    }
 
-  tbody > :nth-child(odd) {
-    background-color: var(--yith-table-row-striped);
-  }
+    tbody > :nth-child(odd) {
+        background-color: var(--yith-table-row-striped);
+    }
 }
 
 
 @mixin boxed-table {
-  border: 0;
-  border-spacing: 0 20px;
-  box-shadow: none;
-  background: transparent;
-
-  th, thead td, tfoot td {
-    text-align: left;
-    line-height: 1.3em;
-    font-size: 14px;
-  }
-
-  thead th, thead td {
-    border-bottom: 0;
-    padding: 0 0 0 25px;
-    font-weight: 600;
-  }
-
-  tbody tr {
-    background: var(--yith-content-bg);
-    border-radius: 5px;
-    box-shadow: 0 0 0 1px var(--yith-light-border-color), 0 3px 11px 6px var(--yith-light-shadow);
-    transition: background-color .2s ease-in-out;
-  }
-
-  tbody tr th, tbody tr td {
+    border: 0;
+    border-spacing: 0 20px;
+    box-shadow: none;
     background: transparent;
-    vertical-align: middle;
-    padding: 25px 0 25px 25px;
-  }
 
-  tbody tr td:last-child {
-    padding-right: 25px;
-  }
+    th, thead td, tfoot td {
+        text-align: left;
+        line-height: 1.3em;
+        font-size: 14px;
+    }
 
-  tbody tr th:first-child,
-  tbody tr td:first-child {
-    border-radius: 5px 0 0 5px;
-  }
+    thead th, thead td {
+        border-bottom: 0;
+        padding: 0 0 0 25px;
+        font-weight: 600;
+    }
 
-  tbody tr th:last-child,
-  tbody tr td:last-child {
-    padding-right: 25px;
-    border-radius: 0 5px 5px 0;
-  }
+    tbody tr {
+        background: var(--yith-content-bg);
+        border-radius: 5px;
+        box-shadow: 0 0 0 1px var(--yith-light-border-color), 0 3px 11px 6px var(--yith-light-shadow);
+        transition: background-color .2s ease-in-out;
+    }
+
+    tbody tr th, tbody tr td {
+        background: transparent;
+        vertical-align: middle;
+        padding: 25px 0 25px 25px;
+    }
+
+    tbody tr td:last-child {
+        padding-right: 25px;
+    }
+
+    tbody tr th:first-child,
+    tbody tr td:first-child {
+        border-radius: 5px 0 0 5px;
+    }
+
+    tbody tr th:last-child,
+    tbody tr td:last-child {
+        padding-right: 25px;
+        border-radius: 0 5px 5px 0;
+    }
 
 
-  tbody tr:hover {
-    background: var(--yith-table-row-highlight);
-  }
+    tbody tr:hover {
+        background: var(--yith-table-row-highlight);
+    }
+}
+
+@mixin wp-list-table-views {
+    .subsubsub {
+        border-bottom: 1px solid var(--yith-table-border-light);
+        margin: 25px 0;
+        display: flex;
+
+        li {
+            color: transparent;
+            margin-right: 10px;
+            display: flex;
+
+            a {
+                text-transform: capitalize;
+                color: var(--yith-content-text);
+                font-size: 14px;
+                padding: 7px 5px;
+                line-height: 1em;
+                font-weight: 600;
+
+                &.current {
+                    border-bottom: 2px solid var(--yith-primary);
+                    color: var(--yith-primary);
+                }
+
+                .count {
+                    font-size: 0.9em;
+                    margin-left: 2px;
+                }
+            }
+        }
+    }
 }

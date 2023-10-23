@@ -1,45 +1,4 @@
-/**
- * This file belongs to the YIT Framework.
- *
- * This source file is subject to the GNU GENERAL PUBLIC LICENSE (GPL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://www.gnu.org/licenses/gpl-3.0.txt
- */
 ( function ( $ ) {
-
-	$( '.metaboxes-tab' ).each( function () {
-		var theMetaBox = $( this ),
-			panels     = theMetaBox.find( '.tabs-panel' )
-
-		panels.hide();
-
-		// TODO: check if someone is directly using it, otherwise it could be removed because: 1. it doesn't take into account the possibility to have more than one meta-box in the same page; 2. it's not set anywhere.
-		var activeTab = wpCookies.get( 'active_metabox_tab' );
-		if ( activeTab == null ) {
-			activeTab = theMetaBox.find( 'ul.metaboxes-tabs li:first-child a' ).attr( 'href' );
-		} else {
-			activeTab = '#' + activeTab;
-		}
-
-		theMetaBox.find( activeTab ).show();
-
-		theMetaBox.find( '.metaboxes-tabs a' ).on( 'click', function ( e ) {
-			e.preventDefault();
-
-			var wrapper  = $( this ).parent(),
-				isActive = wrapper.hasClass( 'tabs' );
-
-			if ( !isActive ) {
-				var tabID = $( this ).attr( 'href' );
-
-				wrapper.addClass( 'tabs' ).siblings( 'li' ).removeClass( 'tabs' );
-
-				panels.hide();
-				$( tabID ).show();
-			}
-		} );
-	} );
 
 	// TODO: check if someone is directly using it, otherwise it could be removed, since it's not used by the fw.
 	var actPageOptionContainer = $( '#_active_page_options-container' ),
@@ -98,7 +57,7 @@
 				depsOnType = depsOn.attr( 'type' ),
 				val        = depsOn.val();
 
-			switch ( depsOnType ){
+			switch ( depsOnType ) {
 				case 'checkbox':
 					val = depsOn.is( ':checked' ) ? 'yes' : 'no';
 					break;

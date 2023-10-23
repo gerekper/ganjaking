@@ -21,15 +21,15 @@ class PLLWC_Subscriptions {
 		add_filter( 'pllwc_copy_post_metas', array( $this, 'copy_post_metas' ) );
 
 		// Add languages to the subscriptions, similar to orders.
-		add_filter( 'pll_get_post_types', array( $this, 'translate_types' ), 10, 2 );
-		add_filter( 'pll_bulk_translate_post_types', array( $this, 'bulk_translate_post_types' ) );
+		add_filter( 'pllwc_get_order_types', array( $this, 'translate_types' ) );
 
 		// Renewal and Resubscribe.
 		add_filter( 'wcs_new_order_created', array( $this, 'new_order_created' ), 10, 2 );
 
 		if ( PLL() instanceof PLL_Admin ) {
-			add_action( 'wp_loaded', array( $this, 'custom_columns' ), 20 );
-			add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ), 20 ); // FIXME or add a filter in PLLWC not to restrict to orders.
+			if ( PLLWC()->admin_orders instanceof PLLWC_Admin_Orders_HPOS ) {
+				add_action( 'woocommerce_after_subscription_object_save', array( PLLWC()->admin_orders, 'save_order_language' ) );
+			}
 		}
 
 		add_action( 'change_locale', array( $this, 'change_locale' ) ); // Since WP 4.7.
@@ -147,30 +147,15 @@ class PLLWC_Subscriptions {
 
 	/**
 	 * Language and translation management for the subscriptions post type.
-	 * Hooked to the filter 'pll_get_post_types'.
+	 * Hooked to the filter 'pllwc_get_order_types'.
 	 *
 	 * @since 0.4
 	 *
 	 * @param array $types List of post type names for which Polylang manages language and translations.
-	 * @param bool  $hide  True when displaying the list in Polylang settings.
 	 * @return array List of post type names for which Polylang manages language and translations.
 	 */
-	public function translate_types( $types, $hide ) {
-		$wcs_types = array( 'shop_subscription' );
-		return $hide ? array_diff( $types, $wcs_types ) : array_merge( $types, $wcs_types );
-	}
-
-	/**
-	 * Removes the subscriptions post type from bulk translate.
-	 * Hooked to the filter 'pll_bulk_translate_post_types'.
-	 *
-	 * @since 1.2
-	 *
-	 * @param array $types List of post type names for which Polylang manages the bulk translation.
-	 * @return array
-	 */
-	public function bulk_translate_post_types( $types ) {
-		return array_diff( $types, array( 'shop_subscription' ) );
+	public function translate_types( $types ) {
+		return array_merge( $types, array( 'shop_subscription' ) );
 	}
 
 	/**
@@ -189,40 +174,6 @@ class PLLWC_Subscriptions {
 			$data_store->set_language( $new_order->get_id(), $lang );
 		}
 		return $new_order;
-	}
-
-	/**
-	 * Removes the standard languages columns for subscriptions
-	 * and replace them with one unique column as done for the orders.
-	 * Hooked to the action 'wp_loaded'.
-	 *
-	 * @since 0.4
-	 *
-	 * @return void
-	 */
-	public function custom_columns() {
-		remove_filter( 'manage_edit-shop_subscription_columns', array( PLL()->filters_columns, 'add_post_column' ), 100 );
-		remove_action( 'manage_shop_subscription_posts_custom_column', array( PLL()->filters_columns, 'post_column' ), 10, 2 );
-
-		add_filter( 'manage_edit-shop_subscription_columns', array( PLLWC()->admin_orders, 'add_order_column' ), 100 );
-		add_action( 'manage_shop_subscription_posts_custom_column', array( PLLWC()->admin_orders, 'order_column' ), 10, 2 );
-	}
-
-	/**
-	 * Removes the language metabox for the subscriptions
-	 * and replaces it by the metabox used for the orders.
-	 * Hooked to the action 'add_meta_boxes'.
-	 *
-	 * @since 0.4
-	 *
-	 * @param string $post_type Post type.
-	 * @return void
-	 */
-	public function add_meta_boxes( $post_type ) {
-		if ( 'shop_subscription' === $post_type ) {
-			remove_meta_box( 'ml_box', $post_type, 'side' ); // Removes the Polylang metabox.
-			add_meta_box( 'pllwc_box', __( 'Language', 'polylang-wc' ), array( PLLWC()->admin_orders, 'order_language' ), $post_type, 'side', 'high' );
-		}
 	}
 
 	/**

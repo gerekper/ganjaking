@@ -1,0 +1,91 @@
+<!-- wp:columns {"style":{"spacing":{"padding":{"top":"0px","right":"0px","bottom":"0px","left":"0px"}}}} -->
+<div class="wp-block-columns" style="padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;margin-top:0px;margin-bottom:30px;margin-left:0px;margin-right:0px"><!-- wp:column -->
+<div class="wp-block-column"><!-- wp:image {"id":439,"width":300,"height":98,"sizeSlug":"medium","linkDestination":"none"} -->
+<figure class="wp-block-image size-medium is-resized"><img src="https://plugins.yithemes.com/resources/yith-woocommerce-pdf-invoice/pdf-templates/images/default/logo.jpg" alt="logo" class="wp-image-439" width="300" height="98"/></figure>
+<!-- /wp:image --></div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column"><!-- wp:paragraph {"align":"right","fontSize":"small","margin":{"top":"20px","left":"0px","right":"0px","bottom":"30px"}} -->
+<p class="has-text-align-right has-small-font-size" style="margin-top:20px;margin-bottom:30px;margin-left:0px;margin-right:0px;padding-top:0px;padding-bottom:0px;padding-left:0px;padding-right:0px"><strong>Your company details</strong><br>Address<br>City, State</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns -->
+
+<!-- wp:columns {"margin":{"top":"0px","left":"0px","right":"0px","bottom":"10px"}} -->
+<div class="wp-block-columns" style="margin-top:0px;margin-bottom:10px;margin-left:0px;margin-right:0px;padding-top:0px;padding-bottom:0px;padding-left:0px;padding-right:0px"><!-- wp:column -->
+<div class="wp-block-column"><!-- wp:yith/ywpi-shipping-info {"title":"\u003cstrong\u003eShip to:\u003c/strong\u003e\u003cbr\u003e{{shipping_first_name}} {{shipping_last_name}}\u003cbr\u003e{{shipping_address_1}}\u003cbr\u003e{{shipping_postcode}}{{shipping_city}}\u003cbr\u003e{{shipping_country}}"} -->
+<p class="wp-block-yith-ywpi-shipping-info has-text-align-left has-small-font-size"><strong>Ship to:</strong><br>{{shipping_first_name}} {{shipping_last_name}}<br>{{shipping_address_1}}<br>{{shipping_postcode}}{{shipping_city}}<br>{{shipping_country}}</p>
+<!-- /wp:yith/ywpi-shipping-info --></div>
+<!-- /wp:column -->
+
+<!-- wp:column {"style":{"color":{"background":"#e5f3fa"}}} -->
+<div class="wp-block-column has-background" style="background-color:#e5f3fa"><!-- wp:yith/ywpi-document-number {"title":"\u003cstrong\u003ePacking slip\u003c/strong\u003e","textAlign":"center","margin":{"top":"20px","left":"0px","right":"0px","bottom":"30px"}} -->
+<p class="wp-block-yith-ywpi-document-number has-text-align-center" style="margin-top:20px;margin-bottom:30px;margin-left:0px;margin-right:0px;padding-top:0px;padding-bottom:0px;padding-left:0px;padding-right:0px"><strong>Packing slip</strong></p>
+<!-- /wp:yith/ywpi-document-number -->
+
+<!-- wp:columns {"margin":{"top":"0px","left":"0px","right":"0px","bottom":"10px"}} -->
+<div class="wp-block-columns" style="margin-top:0px;margin-bottom:10px;margin-left:0px;margin-right:0px;padding-top:0px;padding-bottom:0px;padding-left:0px;padding-right:0px"><!-- wp:column -->
+<div class="wp-block-column"><!-- wp:paragraph {"fontSize":"small","margin":{"top":"0px","left":"20px","right":"0px","bottom":"0px"}} -->
+<p class="has-small-font-size" style="margin-top:0px;margin-bottom:0px;margin-left:20px;margin-right:0px;padding-top:0px;padding-bottom:0px;padding-left:0px;padding-right:0px">Order n.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column"><!-- wp:yith/ywpi-order-number {"title":"{{order_number}}","textAlign":"right","fontSize":"small","margin":{"top":"0px","left":"0px","right":"0px","bottom":"0px"},"paddingBlock":{"top":"0px","left":"0px","right":"20px","bottom":"0px"}} -->
+<p class="wp-block-yith-ywpi-order-number has-text-align-right has-small-font-size" style="margin-top:0px;margin-bottom:0px;margin-left:0px;margin-right:0px;padding-top:0px;padding-bottom:0px;padding-left:0px;padding-right:20px">{{order_number}}</p>
+<!-- /wp:yith/ywpi-order-number --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns -->
+
+<!-- wp:columns {"margin":{"top":"0px","left":"0px","right":"0px","bottom":"10px"}} -->
+<div class="wp-block-columns" style="margin-top:0px;margin-bottom:10px;margin-left:0px;margin-right:0px;padding-top:0px;padding-bottom:0px;padding-left:0px;padding-right:0px"><!-- wp:column -->
+<div class="wp-block-column"><!-- wp:paragraph {"fontSize":"small","margin":{"top":"0px","left":"20px","right":"0px","bottom":"0px"}} -->
+<p class="has-small-font-size" style="margin-top:0px;margin-bottom:0px;margin-left:20px;margin-right:0px;padding-top:0px;padding-bottom:0px;padding-left:0px;padding-right:0px">Date</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column"><!-- wp:yith/ywpi-date {"labelCurrentDate":"","textAlign":"right","style":{"color":{"text":"#000"}},"margin":{"top":"0px","left":"0px","right":"20px","bottom":"0px"}} -->
+<div class="wp-block-yith-ywpi-date has-text-align-right has-text-color has-small-font-size" style="color:#000;margin-top:0px;margin-bottom:0px;margin-left:0px;margin-right:20px;padding-top:0px;padding-bottom:0px;padding-left:0px;padding-right:0px"><span class="pdf_order_date_item"></span> {{current_date}} </div>
+<!-- /wp:yith/ywpi-date --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns -->
+
+<!-- wp:columns {"margin":{"top":"0px","left":"0px","right":"0px","bottom":"20px"}} -->
+<div class="wp-block-columns" style="margin-top:0px;margin-bottom:20px;margin-left:0px;margin-right:0px;padding-top:0px;padding-bottom:0px;padding-left:0px;padding-right:0px"><!-- wp:column -->
+<div class="wp-block-column"><!-- wp:paragraph {"fontSize":"small","margin":{"top":"0px","left":"20px","right":"0px","bottom":"0px"}} -->
+<p class="has-small-font-size" style="margin-top:0px;margin-bottom:0px;margin-left:20px;margin-right:0px;padding-top:0px;padding-bottom:0px;padding-left:0px;padding-right:0px">Amount</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column"><!-- wp:yith/ywpi-order-amount {"titleInvoice":" {{order_amount}}","textAlign":"right","fontSize":"small","margin":{"top":"0px","left":"0px","right":"0px","bottom":"0px"},"paddingBlock":{"top":"0px","left":"0px","right":"20px","bottom":"0px"}} -->
+<p class="wp-block-yith-ywpi-order-amount has-text-align-right has-small-font-size" style="margin-top:0px;margin-bottom:0px;margin-left:0px;margin-right:0px;padding-top:0px;padding-bottom:0px;padding-left:0px;padding-right:20px"> {{order_amount}}</p>
+<!-- /wp:yith/ywpi-order-amount --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns -->
+
+<!-- wp:columns {"margin":{"top":"30px","left":"0px","right":"0px","bottom":"30px"}} -->
+<div class="wp-block-columns" style="margin-top:30px;margin-bottom:30px;margin-left:0px;margin-right:0px;padding-top:0px;padding-bottom:0px;padding-left:0px;padding-right:0px"><!-- wp:column -->
+<div class="wp-block-column"><!-- wp:yith/ywpi-products-table {"tax":false,"percentageTax":true,"titlesFontSize":12,"itemsFontSize":11} -->
+<div class="wp-block-yith-ywpi-products-table ywpi_template"><style>table.ywpi_template td{ color: #000000;border-bottom-color: #ffffff;font-size:11px;text-transform: none}</style><table class="wp-block-yith-ywpi-products-table ywpi_template has-text-align-left has-small-font-size" style="border-color:#cccccc"><thead><tr><th class="wp-block-yith-ywpi-products-table" colspan="2" style="color:#2e2e2e;border-color:#cccccc;font-size:12px;text-transform:none">Product</th><th class="wp-block-yith-ywpi-products-table" style="color:#2e2e2e;border-color:#cccccc;font-size:12px;text-transform:none;text-align:right">Qty</th><th class="wp-block-yith-ywpi-products-table" style="color:#2e2e2e;border-color:#cccccc;font-size:12px;text-transform:none;text-align:right">Sale price</th><th class="wp-block-yith-ywpi-products-table" style="color:#2e2e2e;border-color:#cccccc;font-size:12px;text-transform:none;text-align:right">Price</th><th class="wp-block-yith-ywpi-products-table" style="color:#2e2e2e;border-color:#cccccc;font-size:12px;text-transform:none;text-align:right">Percentage tax</th><th class="wp-block-yith-ywpi-products-table" style="color:#2e2e2e;border-color:#cccccc;font-size:12px;text-transform:none;text-align:right">Total</th><th class="wp-block-yith-ywpi-products-table" style="color:#2e2e2e;border-color:#cccccc;font-size:12px;text-transform:none;text-align:right">Total (inc.tax)</th></tr></thead><tbody>##table_content</tbody></table></div>
+<!-- /wp:yith/ywpi-products-table --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns -->
+
+<!-- wp:columns -->
+<div class="wp-block-columns" style="margin-top:0px;margin-bottom:30px;margin-left:0px;margin-right:0px;padding-top:0px;padding-bottom:0px;padding-left:0px;padding-right:0px"><!-- wp:column -->
+<div class="wp-block-column"><!-- wp:spacer -->
+<div style="height:100px" aria-hidden="true" class="wp-block-spacer"></div>
+<!-- /wp:spacer --></div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column"><!-- wp:yith/ywpi-products-totals {"fontSize":"11px","subtotalLabelFontSize":"12px","totalFontSize":"15px"} -->
+<style>.order-totals td{ font-size:11px } .order-totals td.subtotal-label{ color: #000000; font-size:12px;} .order-totals .total-row td{ color: #000000; font-size:15px; font-weight:bold }</style><div class="wp-block-yith-ywpi-products-totals order-totals-wrapper" style="background-color:transparent;color:#000000"><table class="order-totals" autosize="1" style="page-break-inside:avoid"><tbody>##table_totals</tbody></table></div>
+<!-- /wp:yith/ywpi-products-totals --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns -->

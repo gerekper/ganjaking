@@ -3,21 +3,21 @@
  * Plugin Name: YITH WooCommerce Compare Premium
  * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-compare/
  * Description: The <code><strong>YITH WooCommerce Compare</strong></code> plugin allow you to compare in a simple and efficient way products on sale in your shop and analyze their main features in a single table. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>.
- * Version: 2.9.0
+ * Version: 2.31.0
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-woocommerce-compare
  * Domain Path: /languages/
- * WC requires at least: 5.8
- * WC tested up to: 6.0
+ * WC requires at least: 8.0
+ * WC tested up to: 8.2
  *
- * @author YITH
- * @package YITH WooCommerce Compare Premium
- * @version 2.9.0
+ * @author YITH <plugins@yithemes.com>
+ * @package YITH\Compare
+ * @version 2.31.0
  */
 
 /*
-Copyright 2015-2021 Your Inspiration Solutions (email : plugins@yithemes.com)
+Copyright 2015-2023 Your Inspiration Solutions (email : plugins@yithemes.com)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as
@@ -43,7 +43,6 @@ if ( ! function_exists( 'is_plugin_active' ) ) {
  * Error message if WooCommerce is not installed
  *
  * @since 1.0.0
- * @author Francesco Licandro
  * @return void
  */
 function yith_woocompare_premium_install_woocommerce_admin_notice() {
@@ -57,7 +56,7 @@ function yith_woocompare_premium_install_woocommerce_admin_notice() {
 if ( ! function_exists( 'yit_deactive_free_version' ) ) {
 	require_once 'plugin-fw/yit-deactive-plugin.php';
 }
-yit_deactive_free_version( 'YITH_WOOCOMPARE_FREE_INIT', plugin_basename( __FILE__ ) );
+yith_deactivate_plugins( 'YITH_WOOCOMPARE_FREE_INIT', plugin_basename( __FILE__ ) );
 
 if ( ! function_exists( 'yith_plugin_registration_hook' ) ) {
 	require_once 'plugin-fw/yit-plugin-registration-hook.php';
@@ -70,7 +69,7 @@ if ( ! function_exists( 'yith_plugin_onboarding_registration_hook' ) ) {
 register_activation_hook( __FILE__, 'yith_plugin_onboarding_registration_hook' );
 
 if ( ! defined( 'YITH_WOOCOMPARE_VERSION' ) ) {
-	define( 'YITH_WOOCOMPARE_VERSION', '2.9.0' );
+	define( 'YITH_WOOCOMPARE_VERSION', '2.31.0' );
 }
 if ( ! defined( 'YITH_WOOCOMPARE_PREMIUM' ) ) {
 	define( 'YITH_WOOCOMPARE_PREMIUM', '1' );
@@ -100,7 +99,7 @@ if ( ! defined( 'YITH_WOOCOMPARE_SLUG' ) ) {
 	define( 'YITH_WOOCOMPARE_SLUG', 'yith-woocommerce-compare' );
 }
 if ( ! defined( 'YITH_WOOCOMPARE_SECRET_KEY' ) ) {
-	define( 'YITH_WOOCOMPARE_SECRET_KEY', '123456' );
+	define( 'YITH_WOOCOMPARE_SECRET_KEY', 'YB8zfXOv3JSzgPpwJxbr' );
 }
 
 /* Plugin Framework Version Check */
@@ -113,7 +112,6 @@ yit_maybe_plugin_fw_loader( YITH_WOOCOMPARE_DIR );
  * Init plugin
  *
  * @since 1.0.0
- * @author Francesco Licandro
  * @return void
  */
 function yith_woocompare_premium_constructor() {

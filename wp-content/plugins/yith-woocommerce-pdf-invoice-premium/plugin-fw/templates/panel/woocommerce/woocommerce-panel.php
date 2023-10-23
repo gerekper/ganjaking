@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 
 add_thickbox();
 ?>
-<div class="wrap <?php echo esc_attr( $wrap_class ); ?>">
+<div class="yith-plugin-fw__wrap wrap <?php echo esc_attr( $wrap_class ); ?>">
 	<div id="icon-users" class="icon32"><br/></div>
 	<?php
 

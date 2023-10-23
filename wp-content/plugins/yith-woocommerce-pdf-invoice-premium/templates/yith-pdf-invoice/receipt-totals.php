@@ -2,9 +2,9 @@
 /**
  * Receipt totals template.
  *
- * Override this template by copying it to [your theme]/woocommerce/invoice/ywpi-invoice-details.php
+ * Override this template by copying it to [your theme]/woocommerce/yith-pdf-invoice/receipt-totals.php
  *
- * @author  YITH
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH\PDFInvoice\Templates
  * @version 1.0.0
  */
@@ -49,12 +49,32 @@ $total_section_color = ( 'default' === $template_selected ) ? wp_kses_post( get_
 				</tr>
 			<?php endif; ?>
 
-			<?php do_action( 'yith_pdf_invoice_before_total', $current_order ); ?>
+			<?php
+			/**
+			 * DO_ACTION: yith_pdf_invoice_after_total
+			 *
+			 * Section after the document total.
+			 *
+			 * @param object $current_order the order object
+			 */
+			do_action( 'yith_pdf_invoice_before_total', $current_order );
+			?>
 
 			<tr class="invoice-details-total">
 				<td class="left-content column-product" style="background-color: <?php echo wp_kses_post( $total_section_color ); ?>"><?php esc_html_e( 'Total', 'yith-woocommerce-pdf-invoice' ); ?></td>
 				<td class="right-content column-total" style="background-color: <?php echo wp_kses_post( $total_section_color ); ?>"><?php echo wp_kses_post( $invoice_details->get_order_currency_new( $invoice_details->get_order_total() ) ); ?></td>
 			</tr>
+
+			<?php
+			/**
+			 * DO_ACTION: yith_pdf_invoice_after_total
+			 *
+			 * Section after the document total.
+			 *
+			 * @param object $current_order the order object
+			 */
+			do_action( 'yith_pdf_invoice_after_total', $current_order );
+			?>
 		</table>
 	</div>
 <?php endif; ?>

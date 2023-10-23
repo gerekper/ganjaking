@@ -1,32 +1,47 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) )
-	exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 
+/**
+ * WC_MS_Order class.
+ */
 class WC_MS_Order {
 
+	/**
+	 * WC_Ship_Multiple object.
+	 *
+	 * @var WC_Ship_Multiple
+	 */
 	private $wcms;
 
+	/**
+	 * Class constructor.
+	 *
+	 * @param WC_Ship_Multiple $wcms WC_Ship_Multiple object.
+	 */
 	public function __construct( WC_Ship_Multiple $wcms ) {
 		$this->wcms = $wcms;
 
-		// Update package status
+		// Update package status.
 		add_action( 'wp_ajax_wcms_update_package_status', array( $this, 'update_package_status' ) );
 		add_action( 'woocommerce_order_status_completed', array( $this, 'update_package_on_completed_order' ) );
 
-		// Order preview parameter override
+		// Order preview parameter override.
 		add_filter( 'woocommerce_admin_order_preview_get_order_details', array( $this, 'update_preview_order_details' ), 20, 2 );
 
-		// Order page shipping address override
+		// Order page shipping address override.
 		add_action( 'woocommerce_admin_order_data_after_shipping_address', array( $this, 'override_order_shipping_address' ) );
 
-		// Compatibility action for displaying order shipping packages
+		// Compatibility action for displaying order shipping packages.
 		add_action( 'wcms_order_shipping_packages_table', array( $this, 'display_order_shipping_addresses' ), 10, 3 );
 
-		add_action( 'manage_shop_order_posts_custom_column', array( $this, 'show_multiple_addresses_line' ), 1 );
+		add_action( 'manage_shop_order_posts_custom_column', array( $this, 'show_multiple_addresses_line' ), 1, 2 );
+		add_action( 'manage_woocommerce_page_wc-orders_custom_column', array( $this, 'show_multiple_addresses_line' ), 1, 2 );
 
-		// meta box
-		add_action( 'add_meta_boxes', array( $this, 'order_meta_box' ) );
+		// meta box.
+		add_action( 'add_meta_boxes', array( $this, 'order_meta_box' ), 10, 2 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_css' ) );
 		add_action( 'woocommerce_process_shop_order_meta', array( $this, 'update_order_addresses' ), 10, 2 );
 		add_action( 'woocommerce_saved_order_items', array( $this, 'update_order_taxes' ), 1, 2 );
@@ -36,7 +51,7 @@ class WC_MS_Order {
 		// Hide metadata in order line items.
 		add_filter( 'woocommerce_hidden_order_itemmeta', array( $this, 'hidden_order_item_meta' ) );
 
-		// WC PIP
+		// WC PIP.
 		add_filter( 'woocommerce_pip_template_body', array( $this, 'pip_template_body' ), 10, 3 );
 
 		add_filter( 'woocommerce_order_needs_shipping_address', array( $this, 'manipulate_needs_shipping' ), 10, 3 );
@@ -324,8 +339,8 @@ class WC_MS_Order {
 	 * Display shipping address in email.
 	 *
 	 * @param WC_Order $order Current order.
-	 * @param boolean  $email Flag to check whether the display is for email or not.
-	 * @param boolean  $plain_text Flag to check if the email is using plain text or not.
+	 * @param bool     $email Flag to check whether the display is for email or not.
+	 * @param bool     $plain_text Flag to check if the email is using plain text or not.
 	 *
 	 * @return void
 	 */
@@ -487,7 +502,7 @@ class WC_MS_Order {
 			// Address.
 			echo esc_html( $address ) . ' (' . esc_html( $method ) . ')' . "\n\n";
 
-			do_action( 'wc_ms_shop_table_row', $package, $order_id );
+			do_action( 'wc_ms_shop_table_row', $package, $order->get_id() );
 
 			// Notes.
 			if ( ! empty( $package['note'] ) ) {
@@ -505,44 +520,54 @@ class WC_MS_Order {
 		}
 	}
 
-	public function show_multiple_addresses_line( $column ) {
-		global $post, $the_order;
+	/**
+	 * Show custom column for multiple address.
+	 *
+	 * @param array        $column List of column in the admin table.
+	 * @param int|WC_Order $post_id_or_order Post ID or order object.
+	 */
+	public function show_multiple_addresses_line( $column, $post_id_or_order ) {
+		$order = ( $post_id_or_order instanceof WC_Order ) ? $post_id_or_order : wc_get_order( $post_id_or_order );
 
-		if ( empty( $the_order ) || WC_MS_Compatibility::get_order_prop( $the_order, 'id' ) !== $post->ID ) {
-			$the_order = wc_get_order( $post->ID );
-		}
-
-		if ( ! is_callable( array( $the_order, 'get_meta' ) ) ) {
+		if ( ! ( $order instanceof WC_Order ) ) {
 			return;
 		}
 
-		if ( $column == 'shipping_address' ) {
-			$packages = $the_order->get_meta( '_wcms_packages' );
+		if ( 'shipping_address' === $column ) {
+			$packages = $order->get_meta( '_wcms_packages' );
 
-			if ( ! $the_order->get_formatted_shipping_address() && is_array( $packages ) && count( $packages ) > 1 ) {
+			if ( ! $order->get_formatted_shipping_address() && is_array( $packages ) && count( $packages ) > 1 ) {
 				esc_html_e( 'Ships to multiple addresses ', 'wc_shipping_multiple_address' );
 			}
 		}
 	}
 
-	public function order_meta_box( $type ) {
-		global $post;
+	/**
+	 * Add meta box in the order admin page.
+	 *
+	 * @param string           $post_type Type of the post.
+	 * @param WP_Post|WC_Order $post_or_order_object Either WP_Post or WC_Order object.
+	 */
+	public function order_meta_box( $post_type, $post_or_order_object ) {
+		if ( ! ( $post_or_order_object instanceof WP_Post ) && ! ( $post_or_order_object instanceof WC_Order ) ) {
+			return;
+		}
 
-		$order = wc_get_order( $post->ID );
+		$order = $post_or_order_object instanceof WP_Post ? wc_get_order( $post_or_order_object->ID ) : $post_or_order_object;
 
-		if ( ! $order ) {
+		if ( ! $order instanceof WC_Order ) {
 			return;
 		}
 
 		$methods   = $order->get_meta( '_shipping_methods' );
 		$multiship = $order->get_meta( '_multiple_shipping' );
 
-		if ( $multiship == 'yes' || ( is_array( $methods ) && count( $methods ) > 1 ) ) {
+		if ( 'yes' === $multiship || ( is_array( $methods ) && count( $methods ) > 1 ) ) {
 			add_meta_box(
 				'wc_multiple_shipping',
 				esc_html__( 'Order Shipping Addresses', 'wc_shipping_multiple_address' ),
 				array( $this, 'packages_meta_box' ),
-				'shop_order',
+				WC_MS_Compatibility::get_meta_box_screen(),
 				'normal',
 				'core'
 			);
@@ -552,15 +577,17 @@ class WC_MS_Order {
 
 	public function admin_css() {
 		$screen = get_current_screen();
-		if ( 'shop_order' == $screen->id || 'woocommerce_page_wc-settings' == $screen->id ) {
-			wp_enqueue_style( 'wc-ms-admin-css', plugins_url( 'assets/css/admin.css', WC_Ship_Multiple::FILE ) );
+
+		$order_screen_id = WC_MS_Compatibility::get_meta_box_screen();
+		if ( in_array( $screen->id, array( $order_screen_id, 'woocommerce_page_wc-settings' ), true ) ) {
+			wp_enqueue_style( 'wc-ms-admin-css', plugins_url( 'assets/css/admin.css', WC_Ship_Multiple::FILE ), array(), WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION );
 		}
 	}
 
-	public function packages_meta_box( $post ) {
-		$order = wc_get_order( $post->ID );
+	public function packages_meta_box( $post_or_order_object ) {
+		$order = $post_or_order_object instanceof WP_Post ? wc_get_order( $post_or_order_object->ID ) : $post_or_order_object;
 
-		if ( ! $order ) {
+		if ( ! $order instanceof WC_Order ) {
 			return;
 		}
 
@@ -578,7 +605,7 @@ class WC_MS_Order {
 		$order_shipping_methods = $order->get_shipping_methods();
 
 		// Get all the order items (and match the cart keys)
-		$order_items = $order->get_items();
+		$order_items    = $order->get_items();
 		$cart_item_keys = array();
 		foreach ( $order_items as $item_id => $item ) {
 			if ( ! empty( $item['wcms_cart_key'] ) ) {
@@ -608,9 +635,9 @@ class WC_MS_Order {
 				}
 
 
-				// Get item name and meta
+				// Get item name and meta.
 				if ( empty( $item ) ) {
-					$id = empty( $product['variation_id'] ) ? $product['product_id'] : $product['variation_id'];
+					$id   = empty( $product['variation_id'] ) ? $product['product_id'] : $product['variation_id'];
 					$name = apply_filters( 'wcms_product_title', get_the_title( $id ), $product );
 					$meta = apply_filters( 'wcms_package_item_meta', self::get_item_meta( $product ), $product );
 				} else {
@@ -620,7 +647,7 @@ class WC_MS_Order {
 					$meta = apply_filters( 'wcms_package_item_meta', $meta, $product, $item );
 				}
 
-				// Display product info
+				// Display product info.
 				echo '<h4>' . esc_html( $name ) . ' &times; ' . esc_html( $product['quantity'] ) . '</h4>';
 				if ( ! empty( $meta ) ) {
 					echo wp_kses_post( $meta );
@@ -629,7 +656,7 @@ class WC_MS_Order {
 
 			self::display_shipping_package_address( $order, $package, $x, true );
 
-			// Get Shipping method for this package
+			// Get Shipping method for this package.
 			$method = isset( $methods[ $x ]['label'] ) ? $methods[ $x ]['label'] : '';
 
 			if ( isset( $methods[ $x ]['id'] ) && empty( $method ) ) {
@@ -653,11 +680,11 @@ class WC_MS_Order {
 			}
 			echo '<em>' . esc_html( $method ) . '</em>';
 
-			// If partial orders are enabled then show package status
+			// If partial orders are enabled then show package status.
 			if ( $partial_orders ) {
 				$current_status = isset( $package['status'] ) ? $package['status'] : 'Pending';
 
-				if ( $current_status == 'Completed' ) {
+				if ( 'Completed' === $current_status ) {
 					$select_css = 'display: none;';
 					$status_css = '';
 				} else {
@@ -670,7 +697,7 @@ class WC_MS_Order {
 								<option value="Pending" ' . selected( $current_status, 'Pending', false ) . '>' . esc_html__( 'Pending', 'wc_shipping_multiple_address' ) . '</option>
 								<option value="Completed" ' . selected( $current_status, 'Completed', false ) . '>' . esc_html__( 'Completed', 'wc_shipping_multiple_address' ) . '</option>
 							</select>
-							<a class="button save-package-status" data-order="' . esc_attr( $post->ID ) . '" data-package="' . esc_attr( $x ) . '" href="#" title="Apply">' . esc_html__( 'GO', 'wc_shipping_multiple_address' ) . '</a>
+							<a class="button save-package-status" data-order="' . esc_attr( $order->get_id() ) . '" data-package="' . esc_attr( $x ) . '" href="#" title="Apply">' . esc_html__( 'GO', 'wc_shipping_multiple_address' ) . '</a>
 						</p>';
 
 				echo '<p id="package_' . esc_attr( $x ) . '_status_p" style="' . esc_attr( $status_css ) . '"><strong>' . esc_html__( 'Completed', 'wc_shipping_multiple_address' ) . '</strong> (<a href="#" class="edit_package" data-package="' . esc_attr( $x ) . '">' . esc_html__( 'Change', 'wc_shipping_multiple_address' ) . '</a>)</p>';
@@ -922,7 +949,7 @@ class WC_MS_Order {
 						$item_tax_subtotal  += $package_item['line_subtotal_tax'];
 						$item_tax_total     += $package_item['line_tax'];
 
-						if ( is_a( $item, 'WC_Order_Item_Product' ) ) {
+						if ( $item instanceof WC_Order_Item_Product ) {
 							$item_rate_ids = array_keys( $package_item['line_tax_data']['total'] );
 							$tax_rate_ids = array_unique( array_merge( $tax_rate_ids, $item_rate_ids ) );
 						}
@@ -941,7 +968,7 @@ class WC_MS_Order {
 			}
 
 			if ( $modified && is_array( $tax_rate_ids ) ) {
-				if ( is_a( $item, 'WC_Order_Item_Product' ) ) {
+				if ( $item instanceof WC_Order_Item_Product ) {
 					$items[ $item_id ]->set_taxes( $item_tax_data );
 				} else {
 					$items[ $item_id ]['line_tax'] = $item_tax_total;
@@ -1194,11 +1221,11 @@ class WC_MS_Order {
 	/**
 	 * Hide shipping address if order has multiple address.
 	 *
-	 * @param Boolean  $needs_shipping Whether the order need shipping or not.
-	 * @param Array    $hide List of shipping method that will hide the shipping address.
+	 * @param bool     $needs_shipping Whether the order need shipping or not.
+	 * @param array    $hide List of shipping method that will hide the shipping address.
 	 * @param WC_Order $order Order object.
 	 *
-	 * @return Boolean.
+	 * @return bool
 	 */
 	public function manipulate_needs_shipping( $needs_shipping, $hide, $order ) {
 		if ( ! $order || ! is_view_order_page() ) {

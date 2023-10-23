@@ -330,7 +330,7 @@ class WC_Product_Vendors_Vendor_Order_Detail_List extends WP_List_Table {
 	 * @return bool
 	 */
 	public function process_bulk_action() {
-		if ( empty( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-orders' ) ) {
+		if ( ! wp_verify_nonce( wp_unslash( $_REQUEST['_wpnonce'] ?? '' ), 'bulk-orders' ) ) { //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			return;
 		}
 
@@ -398,14 +398,10 @@ class WC_Product_Vendors_Vendor_Order_Detail_List extends WP_List_Table {
 	public function print_column_headers( $with_id = true ) {
 		list( $columns, $hidden, $sortable ) = $this->get_column_info();
 
-		$current_url = set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+		$current_url = set_url_scheme( 'http://' . wp_unslash( $_SERVER['HTTP_HOST'] ) . wp_unslash( $_SERVER['REQUEST_URI'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$current_url = remove_query_arg( 'paged', $current_url );
 
-		if ( isset( $_REQUEST['orderby'] ) ) {
-			$current_orderby = $_REQUEST['orderby'];
-		} else {
-			$current_orderby = '';
-		}
+		$current_orderby = wc_clean( wp_unslash( $_REQUEST['orderby'] ?? '' ) );
 
 		if ( isset( $_REQUEST['order'] ) && 'desc' == $_REQUEST['order'] ) {
 			$current_order = 'desc';
@@ -433,7 +429,7 @@ class WC_Product_Vendors_Vendor_Order_Detail_List extends WP_List_Table {
 
 			$style = ' style="' . esc_attr( $style ) . '"';
 
-			if ( 'cb' == $column_key ) {
+			if ( 'cb' === $column_key ) {
 				$class[] = 'check-column';
 			} elseif ( in_array( $column_key, array( 'posts', 'comments', 'links' ) ) ) {
 				$class[] = 'num';
@@ -442,7 +438,7 @@ class WC_Product_Vendors_Vendor_Order_Detail_List extends WP_List_Table {
 			if ( isset( $sortable[ $column_key ] ) ) {
 				list( $orderby, $desc_first ) = $sortable[ $column_key ];
 
-				if ( $current_orderby == $orderby ) {
+				if ( $current_orderby === $orderby ) {
 					$order = 'asc' == $current_order ? 'desc' : 'asc';
 					$class[] = 'sorted';
 					$class[] = $current_order;
@@ -461,7 +457,7 @@ class WC_Product_Vendors_Vendor_Order_Detail_List extends WP_List_Table {
 				$class = "class='" . esc_attr( join( ' ', $class ) ) . "'";
 			}
 
-			echo "<th scope='col' $id $class $style>$column_display_name</th>";
+			echo "<th scope='col' $id $class $style>$column_display_name</th>"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 	}
 }

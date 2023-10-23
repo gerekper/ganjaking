@@ -67,6 +67,10 @@ class GenericProvider extends \YoastSEO_Vendor\League\OAuth2\Client\Provider\Abs
      */
     private $responseResourceOwnerId = 'id';
     /**
+     * @var string|null
+     */
+    private $pkceMethod = null;
+    /**
      * @param array $options
      * @param array $collaborators
      */
@@ -89,7 +93,7 @@ class GenericProvider extends \YoastSEO_Vendor\League\OAuth2\Client\Provider\Abs
      */
     protected function getConfigurableOptions()
     {
-        return \array_merge($this->getRequiredOptions(), ['accessTokenMethod', 'accessTokenResourceOwnerId', 'scopeSeparator', 'responseError', 'responseCode', 'responseResourceOwnerId', 'scopes']);
+        return \array_merge($this->getRequiredOptions(), ['accessTokenMethod', 'accessTokenResourceOwnerId', 'scopeSeparator', 'responseError', 'responseCode', 'responseResourceOwnerId', 'scopes', 'pkceMethod']);
     }
     /**
      * Returns all options that are required.
@@ -162,6 +166,13 @@ class GenericProvider extends \YoastSEO_Vendor\League\OAuth2\Client\Provider\Abs
     protected function getScopeSeparator()
     {
         return $this->scopeSeparator ?: parent::getScopeSeparator();
+    }
+    /**
+     * @inheritdoc
+     */
+    protected function getPkceMethod()
+    {
+        return $this->pkceMethod ?: parent::getPkceMethod();
     }
     /**
      * @inheritdoc

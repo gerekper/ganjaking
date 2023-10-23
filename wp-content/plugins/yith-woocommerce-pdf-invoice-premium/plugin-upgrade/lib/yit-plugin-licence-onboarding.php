@@ -64,7 +64,7 @@ if ( ! class_exists( 'YITH_Plugin_Licence_Onboarding' ) ) {
 		 */
 		public function create_page() {
 			add_submenu_page(
-				null,
+				'',
 				__( 'YITH License Activation', 'yith-plugin-upgrade-fw' ),
 				__( 'YITH License Activation', 'yith-plugin-upgrade-fw' ),
 				'activate_plugins',
@@ -83,7 +83,7 @@ if ( ! class_exists( 'YITH_Plugin_Licence_Onboarding' ) ) {
 			$queue = get_transient( 'yith_plugin_licence_onboarding_queue' );
 			delete_transient( 'yith_plugin_licence_onboarding_queue' );
 
-			if ( empty( $queue ) || ! is_array( $queue ) || is_ajax() || ( defined( 'WP_CLI' ) && WP_CLI ) || apply_filters( 'yith_plugin_licence_onboarding_deactivate', false ) ) {
+			if ( empty( $queue ) || ! is_array( $queue ) || wp_doing_ajax() || ( defined( 'WP_CLI' ) && WP_CLI ) || apply_filters( 'yith_plugin_licence_onboarding_deactivate', false ) ) {
 				$queue = array();
 			}
 

@@ -104,6 +104,7 @@ class Cornerstone_Taxonomy_Column_Integration implements Integration_Interface {
 				</span>
 			</span>',
 			\esc_attr__( 'Is this cornerstone content?', 'wordpress-seo-premium' ),
+			/* translators: Hidden accessibility text. */
 			\esc_html__( 'Cornerstone content', 'wordpress-seo-premium' )
 		);
 

@@ -12,7 +12,7 @@ if ( ! class_exists( 'YIT_Theme_Licence' ) ) {
 	/**
 	 * YIT_Theme_Licence class.
 	 *
-	 * @author Andrea Grillo <andrea.grillo@yithemes.com>
+	 * @author YITH <plugins@yithemes.com>
 	 */
 	class YIT_Theme_Licence {
 		/**
@@ -47,7 +47,6 @@ if ( ! class_exists( 'YIT_Theme_Licence' ) ) {
 		 *
 		 * @return void
 		 * @since    1.0
-		 * @author   Andrea Grillo <andrea.grillo@yithemes.com>
 		 */
 		public function register( $init, $secret_key, $product_id ) {
 			if ( ! function_exists( 'YITH_Theme_Licence' ) ) {

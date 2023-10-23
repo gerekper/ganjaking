@@ -51,7 +51,8 @@ function userpro_default_form_redirects($action, $redirect = null){
 								}
 							}
 //							/* hook the redirect URI */
-							$output['redirect_uri'] = apply_filters('userpro_login_redirect', $output['redirect_uri']);
+						//	$output['redirect_uri'] = apply_filters('userpro_login_redirect', $output['redirect_uri']);
+                        // Commented because it returns an extra strange value ("rtyhrtyhrtr"), so the redirect url is bad.
 						}
 						/* super redirection */
 						if (!empty($redirect['global_redirect'])) {

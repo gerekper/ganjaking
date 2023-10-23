@@ -1,0 +1,80 @@
+.yith-plugin-ui .yith-plugin-fw__action-button, .yith-plugin-fw__action-button {
+  height: 35px;
+  width: 35px;
+  background-color: var(--yith-content-bg);
+  display: inline-block;
+  border: 0;
+  border-radius: 50%;
+  transition: .3s;
+  cursor: pointer;
+  box-shadow: 0 2px 7px rgba(170, 198, 222, .5);
+  outline: none;
+  position: relative;
+  margin: 0 5px 5px 0;
+  vertical-align: middle;
+
+  .yith-plugin-fw__action-button__link {
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+  }
+
+  .yith-plugin-fw__action-button__icon {
+    position: absolute;
+    color: var(--yith-link);
+    font-size: 17px;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
+
+  &.yith-plugin-fw__action-button--trash-action .yith-plugin-fw__action-button__icon,
+  &.yith-plugin-fw__action-button--delete-action .yith-plugin-fw__action-button__icon {
+    color: #a10000;
+  }
+
+  .yith-plugin-fw__action-button__menu {
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    width: max-content;
+    right: 0;
+    margin: 5px 0 0 0;
+    padding: 8px 0;
+    background: var(--yith-content-bg);
+    border-radius: 5px;
+    box-shadow: 0 2px 7px rgba(170, 198, 222, .5);
+    z-index: 10;
+    animation: yith-plugin-fw-appear-from-top .3s forwards;
+  }
+
+  .yith-plugin-fw__action-button__menu__item {
+    margin: 0;
+    display: block;
+    padding: 7px 25px;
+    color: var(--yith-content-text);
+    cursor: pointer;
+    text-decoration: none;
+    text-align: right;
+
+    &:hover {
+      color: var(--yith-link);
+    }
+  }
+
+  &.yith-plugin-fw__action-button--has-menu {
+    .yith-plugin-fw__action-button__icon {
+      color: var(--yith-content-text);
+    }
+
+    &.yith-plugin-fw__action-button--opened {
+      .yith-plugin-fw__action-button__icon {
+        color: var(--yith-link);
+      }
+
+      .yith-plugin-fw__action-button__menu {
+        display: flex;
+      }
+    }
+  }
+}

@@ -34,9 +34,9 @@ class WC_Product_Vendors_Vendor_Order_Notes {
 	 * @return boolean TRUE if request is valid, FALSE otherwise.
 	 */
 	private function is_valid_request() {
-		$nonce   = $_POST['security'] ?? '';
-		$note    = $_POST['note'] ?? '';
-		$post_id = $_POST['post_id'] ?? '';
+		$nonce   = wp_unslash( $_POST['security'] ?? '' ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$note    = wp_unslash( $_POST['note'] ?? '' ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$post_id = absint( wp_unslash( $_POST['post_id'] ?? 0 ) );
 
 		if ( empty( $nonce ) || empty( $note ) || empty( $post_id ) ) {
 			return false;
@@ -61,12 +61,12 @@ class WC_Product_Vendors_Vendor_Order_Notes {
 	 */
 	public function add_order_note() {
 		if ( ! $this->is_valid_request() ) {
-			wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
+			wp_die( esc_html__( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
 		}
 
-		$post_id          = $_POST['post_id'];
-		$note             = $_POST['note'];
-		$note_type        = sanitize_text_field( $_POST['note_type'] );
+		$post_id          = absint( $_POST['post_id'] );
+		$note             = wp_kses_post( wp_unslash( $_POST['note'] ) );
+		$note_type        = sanitize_text_field( wp_unslash( $_POST['note_type'] ) );
 		$is_customer_note = 0;
 
 		// check which note type it is
@@ -80,7 +80,7 @@ class WC_Product_Vendors_Vendor_Order_Notes {
 
 		$comment_post_ID        = absint( $post_id );
 		$comment_author_url     = '';
-		$comment_content        = wpautop( wptexturize( wp_kses_post( $note ) ) );
+		$comment_content        = wpautop( wptexturize( $note ) );
 		$comment_agent          = 'WooCommerce';
 		$comment_type           = 'order_note';
 		$comment_parent         = 0;
@@ -117,12 +117,12 @@ class WC_Product_Vendors_Vendor_Order_Notes {
 		if ( $note->comment_author !== 'WooCommerce' ) {
 			$output .= esc_html( sprintf( ' ' . __( 'by %s (%s)', 'woocommerce-product-vendors' ), $note->comment_author, WC_Product_Vendors_Utils::get_logged_in_vendor( 'name' ) ) );
 		}
-		
+
 		$output .= '</p>';
 
 		$output .= '</li>';
 
-		echo $output;
+		echo $output; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		exit;
 	}
 
@@ -172,7 +172,7 @@ class WC_Product_Vendors_Vendor_Order_Notes {
 					?>
 					<li rel="<?php echo esc_attr( absint( $note->comment_ID ) ); ?>" class="<?php echo esc_attr( implode( ' ', $note_classes ) ); ?>">
 						<div class="note_content">
-							<?php echo wpautop( wptexturize( wp_kses_post( $note->comment_content ) ) ); ?>
+							<?php echo wpautop( wptexturize( wp_kses_post( $note->comment_content ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 						</div>
 						<p class="meta">
 							<abbr class="exact-date" title="<?php echo esc_attr( $note->comment_date ); ?>"><?php printf( esc_html__( 'added on %1$s at %2$s', 'woocommerce-product-vendors' ), esc_html( date_i18n( wc_date_format(), strtotime( $note->comment_date ) ) ), esc_html( date_i18n( wc_time_format(), strtotime( $note->comment_date ) ) ) ); ?></abbr>

@@ -27,6 +27,7 @@ abstract class WPBakeryShortCode {
 	protected $controls_list = array(
 		'edit',
 		'clone',
+		'copy',
 		'delete',
 	);
 
@@ -78,7 +79,6 @@ abstract class WPBakeryShortCode {
 	protected $controls_template_file = 'editors/partials/backend_controls.tpl.php';
 
 	public $nonDraggableClass = 'vc-non-draggable';
-	/** @noinspection PhpMissingParentConstructorInspection */
 
 	/**
 	 * @param $settings
@@ -901,7 +901,7 @@ abstract class WPBakeryShortCode {
 			$title = 'title="' . esc_attr( $params['title'] ) . '" ';
 		}
 
-		return '<i ' . $title . 'class="vc_general vc_element-icon' . ( ! empty( $params['icon'] ) ? ' ' . sanitize_text_field( $params['icon'] ) : '' ) . '"' . $data . '></i> ';
+		return '<i ' . $title . ' class="vc_general vc_element-icon' . ( ! empty( $params['icon'] ) ? ' ' . sanitize_text_field( $params['icon'] ) : '' ) . '"' . $data . '></i> ';
 	}
 
 	/**
@@ -967,7 +967,6 @@ abstract class WPBakeryShortCode {
 	}
 
 	/**
-	 * Since 4.5
 	 * Possible placeholders:
 	 *      {{ content }}
 	 *      {{ title }}

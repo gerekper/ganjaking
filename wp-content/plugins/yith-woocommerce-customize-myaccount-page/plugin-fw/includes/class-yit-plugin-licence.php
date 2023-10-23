@@ -13,7 +13,7 @@ if ( ! class_exists( 'YIT_Plugin_Licence' ) ) {
 	 * YIT_Plugin_Licence class.
 	 * Set page to manage products.
 	 *
-	 * @author Andrea Grillo <andrea.grillo@yithemes.com>
+	 * @author YITH <plugins@yithemes.com>
 	 */
 	class YIT_Plugin_Licence {
 		/**

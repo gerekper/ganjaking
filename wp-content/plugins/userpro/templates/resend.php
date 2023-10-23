@@ -15,11 +15,11 @@
 		<?php //do_action('userpro_pre_form_message'); ?>
 
 		<form action="" method="post" data-action="<?php echo $template; ?>">
-		
+            <input type="hidden" name="user_pro_nonce" value="<?php echo wp_create_nonce('user_pro_nonce'); ?>">
 			<?php // Hook into fields $args, $user_id
 			if (!isset($user_id)) $user_id = 0;
 			$hook_args = array_merge($args, array('user_id' => $user_id, 'unique_id' => $i));
-			do_action('userpro_before_fields', $hook_args);
+			//do_action('userpro_before_fields', $hook_args);
 			?>
 		
 			<!-- fields -->

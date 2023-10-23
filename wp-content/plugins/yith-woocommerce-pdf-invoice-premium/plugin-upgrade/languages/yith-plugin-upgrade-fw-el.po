@@ -4,18 +4,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YITH Licensing\n"
 "Report-Msgid-Bugs-To: YITH <plugins@yithemes.com>\n"
-"POT-Creation-Date: 2021-11-23 09:31:09+00:00\n"
-"PO-Revision-Date: 2021-05-17 09:17+0200\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"POT-Creation-Date: 2023-06-21 09:03:36+00:00\n"
+"PO-Revision-Date: 2021-02-23 14:06:39+0000\n"
 "Language: el_GR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 2.2\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 
-#: lib/yit-licence.php:112 lib/yit-plugin-licence-onboarding.php:68
+#: lib/yit-licence.php:110 lib/yit-plugin-licence-onboarding.php:68
 #: lib/yit-plugin-licence-onboarding.php:69
 #: templates/panel/activation/activation-panel.php:29
 #: templates/panel/activation/onboarding-activation.php:27
@@ -26,7 +24,7 @@ msgstr "Ενεργοποίηση Άδειας Χρήσης Προϊόντος YI
 #: lib/yit-licence.php:226
 #, fuzzy
 msgid "Please, insert a valid %1$s and a valid %2$s"
-msgstr "Παρακαλώ, εισάγετε ένα έγκυρο %s και ένα έγκυρο %s"
+msgstr "Παρακαλώ, εισάγετε ένα έγκυρο %s"
 
 #: lib/yit-licence.php:228 lib/yit-plugin-licence-onboarding.php:226
 msgid ""
@@ -67,69 +65,60 @@ msgstr ""
 msgid "Where to find the e-mail and license ?"
 msgstr ""
 
-#: lib/yit-licence.php:866
+#: lib/yit-licence.php:870
 msgid "Invalid Request"
 msgstr "Άκυρο Αίτημα"
 
-#: lib/yit-licence.php:867
+#: lib/yit-licence.php:871
 msgid ""
-"Matching licence key not found. Be sure to use the email used for the order "
+"Matching license key not found. Be sure to use the email used for the order "
 "in YITH and the correct license serial number."
 msgstr ""
 
-#: lib/yit-licence.php:868
+#: lib/yit-licence.php:872
 msgid "Software has been deactivated"
 msgstr "Το λογισμικό απενεργοποιήθηκε"
 
-#: lib/yit-licence.php:869
+#: lib/yit-licence.php:873
 msgid "Maximum number of license activations reached"
 msgstr "Έχετε υπερβεί τον μέγιστο αριθμό ενεργοποιήσεων άδειας"
 
-#: lib/yit-licence.php:870
+#: lib/yit-licence.php:874
 msgid "Invalid instance ID"
 msgstr "Άκυρο ID περιστατικού"
 
-#: lib/yit-licence.php:871
+#: lib/yit-licence.php:875
 msgid "Invalid security key"
 msgstr "Άκυρο κλειδί ασφαλείας"
 
-#: lib/yit-licence.php:872
+#: lib/yit-licence.php:876
 msgid "License key has expired"
 msgstr "Το κλειδί άδειας χρήσης προϊόντος έχει λήξει"
 
-#: lib/yit-licence.php:873
+#: lib/yit-licence.php:877
 msgid "License key has been revoked"
 msgstr "Το κλειδί άδειας χρήσης έχει ανακληθεί"
 
-#: lib/yit-licence.php:874
+#: lib/yit-licence.php:878
 msgid "This product is not included in your YITH Club Subscription Plan"
 msgstr ""
 "Αυτό το προϊόν δεν περιλαμβάνεται στο πρόγραμμα συνδρομής του YITH Club"
 
-#: lib/yit-licence.php:875
+#: lib/yit-licence.php:879
 msgid "Great"
 msgstr "Τέλεια"
 
-#: lib/yit-licence.php:875
+#: lib/yit-licence.php:879
 msgid "License successfully activated"
 msgstr "Η άδειας χρήσης προϊόντος ενεργοποιήθηκε επιτυχώς"
 
-#: lib/yit-licence.php:876
+#: lib/yit-licence.php:880
 msgid "License key deactivated for website"
 msgstr "Το κλειδί άδειας χρήσης προϊόντος απενεργοποιήθηκε για την ιστοσελίδα"
 
-#: lib/yit-licence.php:892
+#: lib/yit-licence.php:897
 msgid "Error"
 msgstr ""
-
-#: lib/yit-licence.php:1005
-msgid "Thank you for choosing YITH to improve your shop!"
-msgstr ""
-"Ευχαριστούμε που διαλέγετε την YITH για να βελτιώσετε το κατάστημά σας!"
-
-#: lib/yit-licence.php:1010
-msgid "set your license key"
-msgstr "ορίστε το κλειδί άδειάς σας"
 
 #: lib/yit-plugin-licence.php:92 lib/yit-plugin-licence.php:93
 #: lib/yit-theme-licence.php:80 lib/yit-theme-licence.php:81
@@ -143,21 +132,22 @@ msgstr ""
 "Προέκυψε ένα μη αναμενόμενο σφάλμα. Παρακαλώ, προσπαθήστε ξανά αργότερα. "
 "Ευχαριστούμε!"
 
-#: lib/yit-plugin-upgrade.php:384
+#: lib/yit-plugin-upgrade.php:386
 msgid "YITH Repository"
 msgstr "Αποθήκη YITH"
 
-#: lib/yit-plugin-upgrade.php:414
+#: lib/yit-plugin-upgrade.php:416
 msgid "Invalid URL Provided."
 msgstr "Παραχωρήθηκε ‘Ακυρο URL."
 
-#: lib/yit-plugin-upgrade.php:427
+#: lib/yit-plugin-upgrade.php:429
 msgid "Could not create Temporary file."
 msgstr "Δεν ήταν δυνατή η δημιουργία Προσωρινού αρχείου."
 
 #. translators: %1$s, %3$s are placeholders for the plugin name, %2$s the link
 #. to open changelog modal, %4$s is the new plugin version.
-#: lib/yit-plugin-upgrade.php:702
+#: lib/yit-plugin-upgrade.php:704
+#, fuzzy
 msgid ""
 "There is a new version of %1$s available. <a href=\"%2$s\" class=\"thickbox "
 "yit-changelog-button open-plugin-details-modal\" title=\"%3$s\">View version "
@@ -165,9 +155,10 @@ msgid ""
 msgstr ""
 "Υπάρχει διαθέσιμη νέα έκδοση του %1$s. <a href=\"%2$s\" class=\"thickbox yit-"
 "changelog-button open-plugin-details-modal\" title=\"%3$s\">Προβολή "
-"λεπτομερειών έκδοσης %4$s</a>."
+"λεπτομερειών έκδοσης %4$s</a> ή <a href=\"%5$s\" class=\"%6$s\" data-"
+"plugin=\"%7$s\" data-slug=\"%8$s\" data-name=\"%1$s\">αναβαθμίστε τώρα</a>."
 
-#: lib/yit-plugin-upgrade.php:705 lib/yit-plugin-upgrade.php:715
+#: lib/yit-plugin-upgrade.php:707 lib/yit-plugin-upgrade.php:717
 msgid ""
 "There is a new version of %1$s available. <a href=\"%2$s\" class=\"thickbox "
 "yit-changelog-button open-plugin-details-modal\" title=\"%3$s\">View version "
@@ -176,12 +167,12 @@ msgid ""
 msgstr ""
 "Υπάρχει διαθέσιμη νέα έκδοση του %1$s. <a href=\"%2$s\" class=\"thickbox yit-"
 "changelog-button open-plugin-details-modal\" title=\"%3$s\">Προβολή "
-"λεπτομερειών έκδοσης %4$s</a> ή <a href=\"%5$s\" class=\"%6$s\" data-plugin="
-"\"%7$s\" data-slug=\"%8$s\" data-name=\"%1$s\">αναβαθμίστε τώρα</a>."
+"λεπτομερειών έκδοσης %4$s</a> ή <a href=\"%5$s\" class=\"%6$s\" data-"
+"plugin=\"%7$s\" data-slug=\"%8$s\" data-name=\"%1$s\">αναβαθμίστε τώρα</a>."
 
 #. translators: %1$s, %3$s are placeholders for the plugin name, %2$s the link
 #. to open changelog modal, %4$s is the new plugin version.
-#: lib/yit-plugin-upgrade.php:708
+#: lib/yit-plugin-upgrade.php:710
 msgid ""
 "There is a new version of %1$s available. <a href=\"%2$s\" class=\"thickbox "
 "yit-changelog-button open-plugin-details-modal\" title=\"%3$s\">View version "
@@ -197,7 +188,7 @@ msgstr ""
 #. translators: %1$s, %3$s, %6$s are placeholders for the plugin name, %2$s the
 #. link to open changelog modal, %4$s is the new plugin version, %5$s is the
 #. link to activation page.
-#: lib/yit-plugin-upgrade.php:713
+#: lib/yit-plugin-upgrade.php:715
 msgid ""
 "There is a new version of %1$s available. <a href=\"%2$s\" class=\"thickbox "
 "yit-changelog-button open-plugin-details-modal\" title=\"%3$s\">View version "
@@ -211,34 +202,32 @@ msgstr ""
 "πρόσθετο, παρακαλώ <a href=\"%5$s\" title=\"License activation\">ενημερώστε</"
 "a> το αντίγραφό σας για το %1$s.</em>"
 
-#: lib/yit-plugin-upgrade.php:719
+#: lib/yit-plugin-upgrade.php:721
 msgid ""
 "<br/><b>Please note:</b> You are using a higher version than the latest "
 "available one. </em>Please, make sure you've downloaded the latest version "
-"of <em>%1$s</em> from the only <a href=\"https://yithemes.com\" target="
-"\"_blank\">YITH official website</a>, specifically, from your <a href="
-"\"https://yithemes.com/my-account/recent-downloads/\" target=\"_blank"
-"\">Downloads page</a>. This is the only way to be sure the version you are "
-"using is 100%% malware-free."
+"of <em>%1$s</em> from the only <a href=\"https://yithemes.com\" "
+"target=\"_blank\">YITH official website</a>, specifically, from your <a "
+"href=\"https://yithemes.com/my-account/recent-downloads/\" "
+"target=\"_blank\">Downloads page</a>. This is the only way to be sure the "
+"version you are using is 100%% malware-free."
 msgstr ""
 "<br/><b>Παρακαλώ σημειώστε:</b> Χρησιμοποιείτε μεγαλύτερη έκδοση από την "
 "τελευταία διαθέσιμη. </em>Παρακαλώ, βεβαιωθείτε ότι έχετε κατεβάσει την "
 "τελευταία έκδοση του <em>%1$s</em> από το μοναδικό <a href=\"https://"
 "yithemes.com\" target=\"_blank\">YITH official website</a>, συγκεκριμένα, "
-"από το <a href=\"https://yithemes.com/my-account/recent-downloads/\" target="
-"\"_blank\">Downloads page</a>. Αυτός είναι ο μοναδικός τρόπος για να "
+"από το <a href=\"https://yithemes.com/my-account/recent-downloads/\" "
+"target=\"_blank\">Downloads page</a>. Αυτός είναι ο μοναδικός τρόπος για να "
 "επιβεβαιώσετε ότι η έκδοση που χρησιμοποιείτε είναι 100%% απαλλαγμένη από "
 "κακόβουλο λογισμικό."
 
-#: lib/yit-theme-licence.php:175
+#: lib/yit-theme-licence.php:176
 msgid ""
 "I cannot find the license key for activating the theme I have bought some "
 "time ago. Where can I find it?"
 msgstr ""
-"Δεν μπορώ να βρω το κλειδί της άδειας για να ενεργοποιήσω το θέμα που "
-"αγόρασα λίγο καιρό πριν. Πού μπορώ να το βρω;"
 
-#: lib/yit-theme-licence.php:179
+#: lib/yit-theme-licence.php:180
 msgid ""
 "If you have purchased one of our products before 27 January 2015, you can "
 "benefit from support and updates (the services offered with the license)\n"
@@ -251,18 +240,34 @@ msgid ""
 "                    provided with and that you can find in your YITH "
 "account, in section \"My licenses\"."
 msgstr ""
-"Αν έχετε αγοράσει ένα από τα προϊόντα μας πριν τις 27 Ιανουαρίου 2015, "
-"μπορείτε να επωφεληθείτε από την υποστήριξη και τις αναβαθμίσεις (οι "
-"υπηρεσίες παρέχονται με την άδεια)\n"
-"                     έως τις 27 Ιανουαρίου 2016. Δεν χρειάζεται να αγοράσετε "
-"ξανά το πρόσθετο για να αποκτήσετε νέο κλειδί άδειας καθώς πριν την "
-"ημερομηνία αυτή, η άδειά σας θα ενεργοποιείται αυτόματα από το σύστημά "
-"μας. \n"
-"                    Μετά τις 27 Ιανουαρίου 2016 αντιθέτως, αν θέλετε να "
-"επωφεληθείτε από υποστήριξη και αναβαθμίσεις, θα πρέπει να αγοράσετε μια νέα "
-"άδεια και να την ενεργοποιήσετε μέσω του κλειδιού άδειας που θα σας \n"
-"                    παραχωρηθεί και που μπορείτε να βρείτε στον YITH "
-"λογαριασμό σας, στην ενότητα “Οι άδειές μου”."
+
+#: templates/license-banner.php:23
+#, fuzzy
+msgid "Please, enter a license key to use"
+msgstr "Ορίστε το κλειδί άδειας"
+
+#: templates/license-banner.php:24
+msgid "Please, enter a license key to use this plugin."
+msgstr ""
+
+#: templates/license-banner.php:30
+msgid ""
+"<mark>Remember:</mark> <strong>Plugins without a license can damage your "
+"shop</strong> and pose serious security risks, from installing backdoors to "
+"hijacking your shop for criminal purposes. Only with an active license for "
+"this plugin will you be able to keep your shop secure and get regular "
+"updates and support."
+msgstr ""
+
+#: templates/license-banner.php:34
+#, fuzzy
+msgid "Enter your license key"
+msgstr "Ορίστε το κλειδί άδειας"
+
+#: templates/license-banner.php:35
+#, fuzzy
+msgid "Buy a license"
+msgstr "Ή αποκτήστε μια νέα άδεια"
 
 #: templates/panel/activation/activation-panel.php:148
 msgid ""
@@ -273,22 +278,27 @@ msgstr ""
 "ανανεωθεί, κάντε κλικ για ανανέωση."
 
 #: templates/panel/activation/activation-panel.php:160
+#, fuzzy
 msgid "Licenses Activated"
 msgstr "Ενεργοποιημένες Άδειες"
 
 #: templates/panel/activation/activation-row.php:19
+#, fuzzy
 msgid "License:"
 msgstr "Άδεια:"
 
 #: templates/panel/activation/activation-row.php:23
+#, fuzzy
 msgid "Email:"
 msgstr "Email:"
 
 #: templates/panel/activation/activation-row.php:48
+#, fuzzy
 msgid "License Key:"
 msgstr "Κλειδί Άδειας:"
 
 #: templates/panel/activation/activation-row.php:52
+#, fuzzy
 msgid "Licenses used:"
 msgstr "Χρησιμοποιημένες άδειες:"
 
@@ -299,19 +309,17 @@ msgid "%1$1s out of %2$2s"
 msgstr "%1$1s από %2$2s"
 
 #: templates/panel/activation/activation-row.php:83
+#, fuzzy
 msgid "Expires on:"
 msgstr "Λήγει στις:"
 
 #: templates/panel/activation/onboarding-activation.php:37
-#, fuzzy
 msgid "Thank you for choosing to install"
 msgstr ""
-"Ευχαριστούμε που διαλέγετε την YITH για να βελτιώσετε το κατάστημά σας!"
 
 #: templates/panel/activation/onboarding-activation.php:43
-#, fuzzy
 msgid "Activate your license now to"
-msgstr "Ενεργοποίηση των αδειών χρήσης σας"
+msgstr ""
 
 #: templates/panel/activation/onboarding-activation.php:46
 msgid "Unblock <b>advanced features</b> available only with a valid license"
@@ -328,9 +336,8 @@ msgid "Get <b>dedicated expert help</b> in our support desk"
 msgstr ""
 
 #: templates/panel/activation/onboarding-activation.php:72
-#, fuzzy
 msgid "Activate license"
-msgstr "Ενεργοποίηση των αδειών χρήσης σας"
+msgstr ""
 
 #: templates/panel/activation/onboarding-activation.php:77
 msgid "Return to the dashboard and activate the license later"
@@ -341,7 +348,7 @@ msgid "All done!"
 msgstr ""
 
 #: templates/panel/activation/onboarding-activation.php:89
-msgid "Thank you for activating the plugin licence."
+msgid "Thank you for activating the plugin license."
 msgstr ""
 
 #: templates/panel/activation/onboarding-activation.php:90
@@ -385,42 +392,25 @@ msgctxt "Button text"
 msgid "Go to your Licenses page"
 msgstr ""
 
-#. translators: %s is a placeholder for a link "set your license key".
-#: lib/yit-licence.php:1008
-msgctxt "%s is a placeholder for a link \"set your license key\""
-msgid "Please %s to get premium features and support for:"
-msgstr ""
-"Παρακαλώ %s για να λαμβάνετε προηγμένα χαρακτηριστικά και υποστύριξη για:"
-
-#: lib/yit-licence.php:1015
-msgctxt "Button label"
-msgid "set your licenses"
-msgstr "ορίστε τις άδειές σας"
-
-#: templates/panel/activation/activation-row.php:116
-msgctxt "Button label"
-msgid "Remove"
-msgstr "Αφαίρεση"
-
 #. translators: %s: Plugin name and version
-#: lib/yit-plugin-upgrade.php:230
+#: lib/yit-plugin-upgrade.php:232
 msgctxt "plugin-fw"
 msgid "Updating %s..."
 msgstr "Γίνεται αναβάθμιση %s…"
 
 #. translators: %s: Plugin name and version
-#: lib/yit-plugin-upgrade.php:232
+#: lib/yit-plugin-upgrade.php:234
 msgctxt "plugin-fw"
 msgid "%s updated!"
 msgstr "Αναβαθμίστηκε %s!"
 
 #. translators: %s: Plugin name and version
-#: lib/yit-plugin-upgrade.php:234
+#: lib/yit-plugin-upgrade.php:236
 msgctxt "plugin-fw"
 msgid "%s update failed"
 msgstr "Αποτυχία αναβάθμισης %s"
 
-#: lib/yit-plugin-upgrade.php:364
+#: lib/yit-plugin-upgrade.php:366
 msgctxt "[Update Plugin Message: License not enabled]"
 msgid "You have to activate the plugin to benefit from automatic updates."
 msgstr ""
@@ -478,10 +468,9 @@ msgid "Email associated with order"
 msgstr ""
 
 #: templates/panel/activation/onboarding-activation.php:65
-#, fuzzy
 msgctxt "Link on activation license panel"
-msgid "Where to find your licence key?"
-msgstr "ορίστε το κλειδί άδειάς σας"
+msgid "Where to find your license key?"
+msgstr ""
 
 #: templates/panel/activation/activation-panel.php:99
 msgctxt "Placeholder"
@@ -553,5 +542,15 @@ msgctxt "this is a short text for a link"
 msgid "Or get a new license"
 msgstr "Ή αποκτήστε μια νέα άδεια"
 
-#~ msgid "Invalid license key"
-#~ msgstr "Άκυρο κλειδί άδειας χρήσης προϊόντος"
+#: templates/panel/activation/activation-row.php:116
+msgctxt "Button label"
+msgid "Remove"
+msgstr "Αφαίρεση"
+
+#~ msgctxt "Button label"
+#~ msgid "set your licenses"
+#~ msgstr "ορίστε τις άδειές σας"
+
+#~ msgid "Thank you for choosing YITH to improve your shop!"
+#~ msgstr ""
+#~ "Ευχαριστούμε που διαλέγετε την YITH για να βελτιώσετε το κατάστημά σας!"

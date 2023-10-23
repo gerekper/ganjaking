@@ -6,10 +6,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class userpro_admin {
 
-	var $options;
-
+	public $options;
+    public $slug;
+    public $tabs;
 	public $version;
-
+    public $default_tab;
 	public $plugin_data;
 
 	function __construct() {
@@ -481,14 +482,7 @@ class userpro_admin {
 	}
 
 	function import_settings(){
-        if( isset( $_POST['user_pro_nonce'] ) ) {
-            if ( ! wp_verify_nonce( $_POST['user_pro_nonce'], 'user_pro_nonce' ) ) {
-                wp_send_json_error( 'Invalid nonce.' );
-                return;
-            }
-        }
-
-		if (isset( $_POST['userpro_import'] ) && $_POST['userpro_import'] != ''){
+		if ( isset( $_POST['userpro_import'] ) && $_POST['userpro_import'] != '' && current_user_can('manage_options') ){
 			$import_code = $_POST['userpro_import'];
 			$import_code = base64_decode($import_code);
 //			$import_code = unserialize($import_code);
@@ -504,12 +498,6 @@ class userpro_admin {
     }
 
 	function export_users() {
-
-        if( isset($_POST['user_pro_nonce']) ) {
-            if( ! wp_verify_nonce($_POST['user_pro_nonce'], 'user_pro_nonce') ) {
-                return;
-            }
-        }
 
         global $userpro;
 
@@ -713,72 +701,59 @@ if(!empty($_POST['formdate']))
 	}
 
 	function admin_page() {
-        if( isset( $_POST['user_pro_nonce'] ) ) {
-            if ( ! wp_verify_nonce( $_POST['user_pro_nonce'], 'user_pro_nonce' ) ) {
-                wp_send_json_error( 'Invalid nonce.' );
-                return;
+        if ( current_user_can('manage_options') ) {
+            if ( isset( $_POST['export_users'] ) && wp_verify_nonce( $_POST['user_pro_nonce'], 'user_pro_nonce' ) ){
+                $this->export_users();
+            }
+
+            if ( isset( $_POST['import_users'] ) && wp_verify_nonce( $_POST['user_pro_nonce'], 'user_pro_nonce' ) ){
+                $this->import_users();
+            }
+
+            if ( isset( $_POST['import_settings'] ) && wp_verify_nonce( $_POST['user_pro_nonce'], 'user_pro_nonce' ) ){
+                $this->import_settings();
+            }
+
+            if ( isset( $_POST['import_fields'] ) && wp_verify_nonce( $_POST['user_pro_nonce'], 'user_pro_nonce' ) ){
+                $this->import_fields();
+            }
+
+            if ( isset( $_POST['import_groups'] ) && wp_verify_nonce( $_POST['user_pro_nonce'], 'user_pro_nonce' ) ){
+                $this->import_groups();
+            }
+
+            if ( isset( $_POST['verify-license'] ) && wp_verify_nonce( $_POST['user_pro_nonce'], 'user_pro_nonce' ) ){
+                $this->verify_license();
+            }
+
+            if ( isset( $_POST['userpro-reinstall'] ) && wp_verify_nonce( $_POST['user_pro_nonce'], 'user_pro_nonce' ) ){
+                $this->reinstall();
+            }
+
+            if ( isset( $_POST['up-group-new'] ) && wp_verify_nonce( $_POST['user_pro_nonce'], 'user_pro_nonce' ) ){
+                $this->new_group();
+            }
+
+            if ( isset( $_POST['submit'] ) && wp_verify_nonce( $_POST['user_pro_nonce'], 'user_pro_nonce' ) ) {
+                $this->save();
+            }
+
+            if ( isset( $_GET['userpro_act'] ) && wp_verify_nonce( $_POST['user_pro_nonce'], 'user_pro_nonce' ) ){
+                $this->do_action();
+            }
+
+            if ( isset( $_POST['rebuild-pages'] ) && wp_verify_nonce( $_POST['user_pro_nonce'], 'user_pro_nonce' ) ) {
+                $this->rebuild_pages();
+            }
+
+            if ( isset( $_POST['woosync'] ) && wp_verify_nonce( $_POST['user_pro_nonce'], 'user_pro_nonce' ) ) {
+                $this->woo_sync();
+            }
+
+            if ( isset( $_POST['woosync_del'] ) && wp_verify_nonce( $_POST['user_pro_nonce'], 'user_pro_nonce' ) ){
+                $this->woo_sync_del();
             }
         }
-
-        if( isset( $_GET['user_pro_nonce'] ) ) {
-            if ( ! wp_verify_nonce( $_GET['user_pro_nonce'], 'user_pro_nonce' ) ) {
-                wp_send_json_error( 'Invalid nonce.' );
-                return;
-            }
-        }
-
-		if (isset($_POST['export_users'])){
-			$this->export_users();
-		}
-
-		if(isset($_POST['import_users'])){
-			$this->import_users();
-		}
-
-		if (isset($_POST['import_settings'])){
-			$this->import_settings();
-		}
-
-		if (isset($_POST['import_fields'])){
-			$this->import_fields();
-		}
-
-		if (isset($_POST['import_groups'])){
-			$this->import_groups();
-		}
-
-		if (isset($_POST['verify-license'])){
-			$this->verify_license();
-		}
-
-		if (isset($_POST['userpro-reinstall'])){
-			$this->reinstall();
-		}
-
-		if (isset($_POST['up-group-new'])){
-			$this->new_group();
-		}
-
-		if (isset($_POST['submit'])) {
-			$this->save();
-		}
-
-		if (isset($_GET['userpro_act'])){
-			$this->do_action();
-		}
-
-		if (isset($_POST['rebuild-pages'])) {
-			$this->rebuild_pages();
-		}
-
-		if (isset($_POST['woosync'])) {
-			$this->woo_sync();
-		}
-
-		if (isset($_POST['woosync_del'])){
-			$this->woo_sync_del();
-		}
-
 	?>
 
 		<div class="wrap <?php echo $this->slug; ?>-admin">

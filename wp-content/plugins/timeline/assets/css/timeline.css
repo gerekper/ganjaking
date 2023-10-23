@@ -1,0 +1,205 @@
+.up-timeline-wrapper{
+  position: relative;
+  display: inline-block;
+}
+
+.up-timeline-preview {
+    position: relative;
+    float: left;
+    margin-left: 80px;
+	  margin-top:60px;
+}
+.up-timeline-icon, .up-timeline-icon-pp {
+    position: relative;
+    width: 46px;
+    height: 46px;
+    background: #c8cbd6;
+    -webkit-border-radius: 50%;
+    -khtml-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border-radius: 23px;
+    float: left;
+    z-index: 10;
+}
+
+.up-timeline-icon-pp a.up-icon-profile {
+    /*width: 46px;
+    height: 46px;
+    margin: 0;
+
+    background: url('http://static.tumblr.com/bygdzhm/CUKlynu56/icon-profile.png') no-repeat center center;
+    background-size: cover !important;
+    float: left;
+    */
+    box-shadow: none;
+
+}
+
+.up-icon-profile-pic{
+  width: 46px;
+  height: 46px;
+  margin: 0;
+  background-size: cover !important;
+  float: left;
+}
+/*.up-register-icon{
+  background: url('../icons/register.png') !important;
+}*/
+
+.up-timeline-updated01, .up-timeline-following, .up-timeline-new-post, .up-timeline-register, .up-timeline-stopped-following,
+.up-timeline-verified
+{ display: inline-block; background: url('../icons/up-timeline-icons.png') no-repeat; overflow: hidden; text-indent: -9999px; text-align: left; }
+
+.up-timeline-updated01 { background-position: -2px -0px; width: 46px; height: 46px; }
+.up-timeline-following { background-position: -50px -0px; width: 46px; height: 46px; }
+.up-timeline-new-post { background-position: -2px -48px; width: 46px; height: 46px; }
+.up-timeline-register { background-position: -50px -48px; width: 46px; height: 46px; }
+.up-timeline-stopped-following { background-position: -2px -96px; width: 46px; height: 46px; }
+.up-timeline-verified { background-position: -50px -96px; width: 46px; height: 46px; }
+
+
+.up-timeline-content {
+    position: relative;
+    overflow: hidden;
+    float: left;
+    min-height: 38px;
+    margin-left: 0px;
+    padding: 0px;
+    background: #ebedf0;
+    border: 1px solid #c8cbd6;
+    width:100%;
+    -webkit-border-radius: 5px 5px 0 0;
+    -khtml-border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px 0 0;
+    -webkit-box-shadow: inset 0px 0px 0px 1px #f5f6f7;
+    -moz-box-shadow: inset 0px 0px 0px 1px #f5f6f7;
+    box-shadow: inset 0px 0px 0px 1px #f5f6f7;
+}
+
+up-timeline-pointer, .up-timeline-pointer-pp {
+    position: absolute;
+    top: 20px;
+    left: -13px;
+    width: 17px;
+    height: 26px;
+    background: url('../img/left-arrow.png') no-repeat left top;
+    float: left;
+    z-index: 100;
+}
+
+up-timeline-icon, .up-timeline-icon-pp {
+    margin-top: 10px;
+    margin-left: -70px;
+}
+
+up-timeline-content {
+    width: 520px;
+    margin-top: 0px;
+}
+
+.userpro-timeline-description{
+  padding: 8px 0px 0 10px !important;
+  margin: auto !important;
+}
+
+.up-timeline-thumb {
+    padding: 4px 0 0 14px;
+}
+
+#up-time-line {
+    position: absolute;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: #c8cbd6;
+    float: left;
+    z-index: 0;
+	  left: 32px;
+}
+#up-picture-profile {
+    position: absolute;
+    top: -74px;
+    left: -40px;
+    width: 128px;
+    height: 128px;
+    background: #c8cbd6;
+    border: 10px solid #c8cbd6;
+    -webkit-border-radius: 50%;
+    -khtml-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border-radius: 74px;
+    float: left;
+    z-index: 10;
+}
+#up-picture-profile a, #up-picture-profile a img {
+    position: relative;
+    overflow: hidden;
+    width: 128px;
+    height: 128px;
+    -webkit-border-radius: 50%;
+    -khtml-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border-radius: 64px;
+    float: left;
+    border: none;
+}
+
+.up-timeline-bar {
+    position: relative;
+    overflow: hidden;
+    height: auto;
+	  width:100%;
+    margin-top: -2px;
+    padding: 5px 10px;
+    background: #dee2e9;
+    float: left;
+    border: 1px solid #c8cbd6;
+    -webkit-border-radius: 0 0 5px 5px;
+    -khtml-border-radius: 0 0 5px 5px;
+    -moz-border-radius: 0 0 5px 5px;
+    border-radius: 0 0 5px 5px;
+    -webkit-box-shadow: inset 0px 0px 0px 1px #f5f6f7;
+    -moz-box-shadow: inset 0px 0px 0px 1px #f5f6f7;
+    box-shadow: inset 0px 0px 0px 1px #f5f6f7;
+}
+
+@media only screen and (min-width: 768px){
+.up-timeline-icon, .up-timeline-icon-pp {
+    margin-top: 10px;
+    margin-left: -70px;
+  }
+}
+
+@media screen and (max-width: 480px){
+  .up-timeline-icon-pp {
+    float: left;
+    margin: 20px 12px;
+  }
+
+  .up-timeline-preview {
+    float: left;
+    width: 100%;
+    margin: 0;
+  }
+
+  .up-timeline-pointer, .up-timeline-pointer-pp{
+    background: url('../img/up-arrow.png') no-repeat left top;
+    top: 80px;
+    left: 27px;
+  }
+}
+.uptimeline-section{
+	 display: block !important;
+}
+
+.up-timeline-post-description {
+    padding: 2px 0 16px 16px;
+}
+
+.up-timeline-post-title {
+    padding: 4px 0 4px 12px;
+}

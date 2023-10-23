@@ -17,7 +17,7 @@ if ( ! class_exists( 'YITH_Elementor_Widget' ) ) {
 	/**
 	 * YITH_Elementor_Widget class.
 	 *
-	 * @author  Leanza Francesco <leanzafrancesco@gmail.com>
+	 * @author  YITH <plugins@yithemes.com>
 	 */
 	class YITH_Elementor_Widget extends Widget_Base {
 
@@ -99,7 +99,7 @@ if ( ! class_exists( 'YITH_Elementor_Widget' ) ) {
 		/**
 		 * Register the widget controls.
 		 */
-		public function _register_controls() { // phpcs:ignore
+		public function register_controls() {
 			$options     = $this->get_yith_prop( 'options' );
 			$description = $this->get_yith_prop( 'description' );
 

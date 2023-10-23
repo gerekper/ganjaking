@@ -12,7 +12,7 @@ if ( ! class_exists( 'YITH_Post_Type_Admin' ) ) {
 	/**
 	 * YITH_Post_Type_Admin class.
 	 *
-	 * @author  Leanza Francesco <leanzafrancesco@gmail.com>
+	 * @author  YITH <plugins@yithemes.com>
 	 */
 	abstract class YITH_Post_Type_Admin {
 
@@ -123,6 +123,7 @@ if ( ! class_exists( 'YITH_Post_Type_Admin' ) ) {
 
 				add_filter( 'list_table_primary_column', array( $this, 'list_table_primary_column' ), 10, 2 );
 				add_filter( 'post_row_actions', array( $this, 'row_actions' ), 100, 2 );
+				add_filter( 'page_row_actions', array( $this, 'row_actions' ), 100, 2 ); // Hierarchical post-types use `page_row_actions` instead of `post_row_actions`.
 
 				add_filter( 'default_hidden_columns', array( $this, 'default_hidden_columns' ), 10, 2 );
 				add_filter( 'manage_edit-' . $this->post_type . '_sortable_columns', array( $this, 'define_sortable_columns' ) );
@@ -140,7 +141,6 @@ if ( ! class_exists( 'YITH_Post_Type_Admin' ) ) {
 		 * --------------------------------------------------------------------------
 		 * Getters and definers methods
 		 * --------------------------------------------------------------------------
-		 *
 		 * Methods for getting data from the objects. Usually you need to override them in your class.
 		 */
 
@@ -157,18 +157,18 @@ if ( ! class_exists( 'YITH_Post_Type_Admin' ) ) {
 		 * Retrieve an array of parameters for blank state.
 		 *
 		 * @return array{
-		 * @type string $icon       The YITH icon. You can use this one (to use an YITH icon) or icon_class or icon_url.
-		 * @type string $icon_class The icon class. You can use this one (to use a custom class for your icon) or icon or icon_url.
-		 * @type string $icon_url   The icon URL. You can use this one (to specify an icon URL) or icon_icon or icon_class.
-		 * @type string $message    The message to be shown.
-		 * @type string $cta        {
-		 *            The call-to-action button params.
-		 * @type string $title      The call-to-action button title.
-		 * @type string $icon       The call-to-action button icon.
-		 * @type string $url        The call-to-action button URL.
-		 * @type string $class      The call-to-action button class.
+		 * @type string $icon         The YITH icon. You can use this one (to use an YITH icon) or icon_class or icon_url.
+		 * @type string $icon_class   The icon class. You can use this one (to use a custom class for your icon) or icon or icon_url.
+		 * @type string $icon_url     The icon URL. You can use this one (to specify an icon URL) or icon_icon or icon_class.
+		 * @type string $message      The message to be shown.
+		 * @type string $cta          {
+		 *                            The call-to-action button params.
+		 * @type string $title        The call-to-action button title.
+		 * @type string $icon         The call-to-action button icon.
+		 * @type string $url          The call-to-action button URL.
+		 * @type string $class        The call-to-action button class.
 		 *                            }
-		 *              }
+		 *                            }
 		 */
 		protected function get_blank_state_params() {
 			return array();
@@ -290,7 +290,6 @@ if ( ! class_exists( 'YITH_Post_Type_Admin' ) ) {
 		 * --------------------------------------------------------------------------
 		 * Utils hook handlers
 		 * --------------------------------------------------------------------------
-		 *
 		 * Methods for handling hooks.
 		 */
 
@@ -427,7 +426,7 @@ if ( ! class_exists( 'YITH_Post_Type_Admin' ) ) {
 		}
 
 		/**
-		 * Disable Months dropdown for Bookings
+		 * Disable Months dropdown
 		 *
 		 * @param bool   $disable   Set true to disable.
 		 * @param string $post_type The post type.

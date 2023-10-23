@@ -270,7 +270,7 @@ class WC_Product_Vendors_Vendor_Dashboard {
 						<?php
 						printf(
 								esc_html__( '%s net sales this month', 'woocommerce-product-vendors' ),
-								'<strong>' . wc_price( $total_product_amount ) . '</strong>'
+								'<strong>' . wc_price( $total_product_amount ) . '</strong>' // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						);
 						?>
 					</a>
@@ -292,9 +292,9 @@ class WC_Product_Vendors_Vendor_Dashboard {
 				<a href="<?php echo esc_url( admin_url( 'admin.php?page=wcpv-vendor-reports&tab=orders&report=sales_by_product&range=month&product_ids=' . $top_seller_id ) ); ?>">
 					<?php
 					printf(
-						__( '%s top seller this month (sold %d)', 'woocommerce-product-vendors' ),
-						"<strong>" . $top_seller_title . "</strong>",
-						$top_seller_qty
+						esc_html__( '%s top seller this month (sold %d)', 'woocommerce-product-vendors' ),
+						"<strong>" . wp_kses_post( $top_seller_title ) . "</strong>",
+						esc_html( $top_seller_qty )
 					);
 					?>
 				</a>
@@ -306,7 +306,7 @@ class WC_Product_Vendors_Vendor_Dashboard {
 						<?php
 						printf(
 								esc_html__( '%s commission this month', 'woocommerce-product-vendors' ),
-								'<strong>' . wc_price( $commission ) . '</strong>'
+								'<strong>' . wc_price( $commission ) . '</strong>' // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						);
 						?>
 					</a>
@@ -317,13 +317,18 @@ class WC_Product_Vendors_Vendor_Dashboard {
 				<a href="<?php echo esc_url( admin_url( 'admin.php?page=wcpv-vendor-orders' ) ); ?>">
 					<?php
 					printf(
-						_n(
-							'<strong>%s product</strong> awaiting fulfillment',
-							'<strong>%s products</strong> awaiting fulfillment',
-							$unfulfilled_products,
-							'woocommerce-product-vendors'
+						esc_html(
+							// translators: $1 and $2: opening and closing strong tags, $3: product count.
+							_n(
+								'%1$s%3$d product%2$s awaiting fulfillment',
+								'%1$s%3$d products%2$s awaiting fulfillment',
+								absint( $unfulfilled_products ),
+								'woocommerce-product-vendors'
+							)
 						),
-						$unfulfilled_products
+						'<strong>',
+						'</strong>',
+						absint( $unfulfilled_products )
 					);
 					?>
 				</a>
@@ -333,13 +338,18 @@ class WC_Product_Vendors_Vendor_Dashboard {
 				<a href="<?php echo esc_url( admin_url( 'admin.php?page=wcpv-vendor-reports&tab=stock&report=low_in_stock' ) ); ?>">
 					<?php
 					printf(
-						_n(
-							'<strong>%s product</strong> low in stock',
-							'<strong>%s products</strong> low in stock',
-							$lowinstock_count,
-							'woocommerce-product-vendors'
+						esc_html(
+							_n(
+								// translators: $1 and $2: opening and closing strong tags, $3: product count.
+								'%1$s%3$d product%2$s low in stock',
+								'%1$s%3$d products%2$s low in stock',
+								absint( $lowinstock_count ),
+								'woocommerce-product-vendors'
+							)
 						),
-						$lowinstock_count
+						'<strong>',
+						'</strong>',
+						absint( $lowinstock_count )
 					);
 					?>
 				</a>
@@ -349,13 +359,18 @@ class WC_Product_Vendors_Vendor_Dashboard {
 				<a href="<?php echo esc_url( admin_url( 'admin.php?page=wcpv-vendor-reports&tab=stock&report=out_of_stock' ) ); ?>">
 					<?php
 					printf(
-						_n(
-							'<strong>%s product</strong> out of stock',
-							'<strong>%s products</strong> out of stock',
-							$outofstock_count,
-							'woocommerce-product-vendors'
+						esc_html(
+							_n(
+								// translators: $1 and $2: opening and closing strong tags, $3: product count.
+								'%1$s%3$d product%2$s out of stock',
+								'%1$s%3$d products%2$s out of stock',
+								absint( $outofstock_count ),
+								'woocommerce-product-vendors'
+							)
 						),
-						$outofstock_count
+						'<strong>',
+						'</strong>',
+						absint( $outofstock_count )
 					);
 					?>
 				</a>

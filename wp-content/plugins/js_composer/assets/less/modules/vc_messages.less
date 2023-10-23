@@ -10,15 +10,20 @@
   background: #CCCCCC;
   color: #000000;
   &.success, &.type-success {
-    background: #d8edc7;
+    background: @vc_success_frontend_editor;
     border-bottom: 1px solid #cae1b7;
-    color: #8A987E;
+    color: #ffffff;
   }
   &.error, &.type-error {
     background: @state-danger-bg;
     border-bottom: 1px solid @state-danger-border;
     color: @state-danger-text;
   }
+}
+
+.vc_editor .vc_message.error {
+  padding: 10px;
+  margin: 0;
 }
 
 .vc_panel-message {
@@ -34,9 +39,9 @@
   background: #CCCCCC;
   color: #000000;
   &.type-success {
-    background: #d8edc7;
+    background: @vc_success_frontend_editor;
     border-bottom: 1px solid #cae1b7;
-    color: #8A987E;
+    color: #ffffff;
   }
   &.type-error {
     background: #EBE4C7;

@@ -7,11 +7,15 @@
 			'click > .vc_controls [data-vc-control="destroy"]': 'destroy',
 			'click > .vc_controls [data-vc-control="edit"]': 'edit',
 			'click > .vc_controls [data-vc-control="clone"]': 'clone',
+			'click > .vc_controls [data-vc-control="copy"]': 'copy',
+			'click > .vc_controls [data-vc-control="paste"]': 'paste',
 			'click > .vc_controls [data-vc-control="prepend"]': 'prependElement',
 			'click > .vc_controls [data-vc-control="append"]': 'appendElement',
 			'click > .vc_controls [data-vc-control="parent.destroy"]': 'destroyParent',
 			'click > .vc_controls [data-vc-control="parent.edit"]': 'editParent',
 			'click > .vc_controls [data-vc-control="parent.clone"]': 'cloneParent',
+			'click > .vc_controls [data-vc-control="parent.copy"]': 'copyParent',
+			'click > .vc_controls [data-vc-control="parent.paste"]': 'pasteParent',
 			'click > .vc_controls [data-vc-control="parent.append"]': 'addSibling',
 			'click .vc_tta-panel-body > [data-js-panel-body].vc_empty-element': 'appendElement',
 			'click > .vc_controls .vc_control-btn-switcher': 'switchControls',
@@ -44,6 +48,14 @@
 		clone: function ( e ) {
 			vc.ttaSectionActivateOnClone = true;
 			window.InlineShortcodeView_vc_tta_section.__super__.clone.call( this, e );
+		},
+		copy: function ( e ) {
+			vc.ttaSectionActivateOnClone = true;
+			window.InlineShortcodeView_vc_tta_section.__super__.copy.call( this, e );
+		},
+		paste: function ( e ) {
+			vc.ttaSectionActivateOnClone = true;
+			window.InlineShortcodeView_vc_tta_section.__super__.paste.call( this, e );
 		},
 		addSibling: function ( e ) {
 			window.InlineShortcodeView_vc_tta_section.__super__.addSibling.call( this, e );

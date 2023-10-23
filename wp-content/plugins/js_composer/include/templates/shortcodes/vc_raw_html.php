@@ -17,6 +17,7 @@ $el_class = $el_id = $css = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
 
+// phpcs:ignore
 $content = rawurldecode( base64_decode( wp_strip_all_tags( $content ) ) );
 $content = wpb_js_remove_wpautop( apply_filters( 'vc_raw_html_module_content', $content ) );
 

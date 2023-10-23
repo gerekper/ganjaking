@@ -35,30 +35,6 @@
     border     : 0;
 }
 
-.metaboxes-tab ul.metaboxes-tabs {
-    background : #f1f1f1;
-    margin     : 0;
-    padding    : 10px 0 0 5px;
-}
-
-.metaboxes-tab ul.metaboxes-tabs li {
-    float      : left;
-    background : #dedede;
-    margin     : 0 0 0 5px;
-}
-
-.metaboxes-tab ul.metaboxes-tabs li a {
-    color           : #555;
-    text-decoration : none;
-    padding         : 8px 15px;
-    display         : block;
-    box-shadow      : none !important;
-}
-
-.metaboxes-tab ul.metaboxes-tabs li.tabs {
-    background : #fff;
-}
-
 .metaboxes-tab p.field-row {
     margin : 20px 0;
 }
@@ -186,38 +162,6 @@
     padding : 15px 0;
 }
 
-.metaboxes-tab.yith-plugin-ui ul.metaboxes-tabs {
-    background    : transparent;
-    border-bottom : 1px solid #d8d8d8;
-    padding       : 10px 0 0 0;
-    margin        : 0 10px
-}
-
-
-.metaboxes-tab.yith-plugin-ui ul.metaboxes-tabs li {
-    background   : #fff;
-    border-top   : 1px solid #d8d8d8;
-    border-left  : 1px solid #d8d8d8;
-    border-right : 1px solid #d8d8d8;
-    margin       : 0 0 -1px -1px;
-}
-
-.metaboxes-tab.yith-plugin-ui ul.metaboxes-tabs li.tabs {
-    border-bottom : 1px solid #fff;
-}
-
-.metaboxes-tab.yith-plugin-ui ul.metaboxes-tabs li a {
-    color          : #336374;
-    padding        : 10px 18px;
-    text-transform : uppercase;
-    font-weight    : 600;
-    display        : inline-block;
-}
-
-.metaboxes-tab.yith-plugin-ui ul.metaboxes-tabs li.tabs a {
-    color : #2a8db0;
-}
-
 /* sortable table posts */
 
 #the-list.ui-sortable tr:hover {
@@ -234,6 +178,13 @@
 
 .metaboxes-tab .the-metabox.no-label.preview img {
     box-shadow : 0 1px 8px rgba(0, 0, 0, 0.2);
+}
+
+.yith-plugin-ui.metaboxes-tab .yith-plugin-fw__tabs{
+    margin: 10px 10px 0;
+}
+.yith-plugin-ui.metaboxes-tab .tabs-panel.yith-plugin-fw__tab-panel{
+    padding: 0 10px;
 }
 
 /**************************************

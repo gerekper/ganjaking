@@ -27,6 +27,14 @@ if ( ! defined( 'YITH_WCMAP' ) ) {
 			/**
 			 * Print single endpoint
 			 */
+			/**
+			 * DO_ACTION: yith_wcmap_print_single_endpoint
+			 *
+			 * Allows to render some content when printing the endpoints.
+			 *
+			 * @param string $endpoint Endpoint key.
+			 * @param array  $options  Endpoint options.
+			 */
 			do_action( 'yith_wcmap_print_single_endpoint', $child, $child_options );
 		}
 		?>

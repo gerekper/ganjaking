@@ -14,14 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Modified by woocommerce on 18-September-2023 using Strauss.
+ * Modified by woocommerce on 09-October-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
 namespace Automattic\WooCommerce\Bookings\Vendor\Google\Auth;
 
 use DateTime;
-use Exception;
 use Automattic\WooCommerce\Bookings\Vendor\Firebase\JWT\ExpiredException;
 use Automattic\WooCommerce\Bookings\Vendor\Firebase\JWT\JWT;
 use Automattic\WooCommerce\Bookings\Vendor\Firebase\JWT\Key;
@@ -412,7 +411,7 @@ class AccessToken
                 $exponent
             ]), 256),
         ]);
-        return $key->toString('PKCS1');
+        return $key->toString('PKCS8');
     }
 
     /**

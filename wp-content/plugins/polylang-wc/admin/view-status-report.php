@@ -19,9 +19,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php
 		foreach ( $this->get_woocommerce_pages_status()->pages as $verified_page ) {
 
-			if ( $verified_page->page_id ) {
+			if ( $verified_page->page_id && ! empty( $verified_page->edit_link ) ) {
 				/* translators: %s is a page name */
-				$_page_name = '<a href="' . esc_url( get_edit_post_link( $verified_page->page_id ) ) . '" title="' . esc_attr( sprintf( __( 'Edit %s page', 'polylang-wc' ), $verified_page->page_name ) ) . '">' . esc_html( $verified_page->page_name ) . '</a>';
+				$_page_name = '<a href="' . esc_url( $verified_page->edit_link ) . '" title="' . esc_attr( sprintf( __( 'Edit %s page', 'polylang-wc' ), $verified_page->page_name ) ) . '">' . esc_html( $verified_page->page_name ) . '</a>';
 			} else {
 				$_page_name = esc_html( $verified_page->page_name );
 			}

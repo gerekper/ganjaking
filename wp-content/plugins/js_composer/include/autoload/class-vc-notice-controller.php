@@ -61,7 +61,7 @@ class Vc_Notice_Controller {
 		$is_show_at_least_one_notice = false;
 		foreach ( $notice_list as $notice ) {
 			if ( ! $this->is_notice_valid( $notice ) ) {
-				  continue;
+				continue;
 			}
 
 			if ( ! $this->is_show_notice( $notice['id'] ) ) {

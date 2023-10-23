@@ -159,15 +159,16 @@ class Vc_Vendor_Woocommerce {
 				 * @description Used on the checkout page, the checkout shortcode displays the checkout process.
 				 * @no_params
 				 * @not_editable
-				 */ $settings = array(
-					 'name' => esc_html__( 'Checkout', 'js_composer' ),
-					 'base' => 'woocommerce_checkout',
-					 'icon' => 'icon-wpb-woocommerce',
-					 'category' => esc_html__( 'WooCommerce', 'js_composer' ),
-					 'description' => esc_html__( 'Displays the checkout', 'js_composer' ),
-					 'show_settings_on_create' => false,
-					 'php_class_name' => 'Vc_WooCommerce_NotEditable',
-				 );
+				 */
+				$settings = array(
+					'name' => esc_html__( 'Checkout', 'js_composer' ),
+					'base' => 'woocommerce_checkout',
+					'icon' => 'icon-wpb-woocommerce',
+					'category' => esc_html__( 'WooCommerce', 'js_composer' ),
+					'description' => esc_html__( 'Displays the checkout', 'js_composer' ),
+					'show_settings_on_create' => false,
+					'php_class_name' => 'Vc_WooCommerce_NotEditable',
+				);
 				break;
 			case 'woocommerce_order_tracking':
 				/**
@@ -175,15 +176,16 @@ class Vc_Vendor_Woocommerce {
 				 * @description Lets a user see the status of an order by entering their order details.
 				 * @no_params
 				 * @not_editable
-				 */ $settings = array(
-					 'name' => esc_html__( 'Order Tracking Form', 'js_composer' ),
-					 'base' => 'woocommerce_order_tracking',
-					 'icon' => 'icon-wpb-woocommerce',
-					 'category' => esc_html__( 'WooCommerce', 'js_composer' ),
-					 'description' => esc_html__( 'Lets a user see the status of an order', 'js_composer' ),
-					 'show_settings_on_create' => false,
-					 'php_class_name' => 'Vc_WooCommerce_NotEditable',
-				 );
+				 */
+				$settings = array(
+					'name' => esc_html__( 'Order Tracking Form', 'js_composer' ),
+					'base' => 'woocommerce_order_tracking',
+					'icon' => 'icon-wpb-woocommerce',
+					'category' => esc_html__( 'WooCommerce', 'js_composer' ),
+					'description' => esc_html__( 'Lets a user see the status of an order', 'js_composer' ),
+					'show_settings_on_create' => false,
+					'php_class_name' => 'Vc_WooCommerce_NotEditable',
+				);
 				break;
 			case 'woocommerce_my_account':
 				/**
@@ -193,23 +195,24 @@ class Vc_Vendor_Woocommerce {
 				 *
 				 * @param order_count integer
 				 * Current user argument is automatically set using get_user_by( ‘id’, get_current_user_id() ).
-				 */ $settings = array(
-					 'name' => esc_html__( 'My Account', 'js_composer' ),
-					 'base' => 'woocommerce_my_account',
-					 'icon' => 'icon-wpb-woocommerce',
-					 'category' => esc_html__( 'WooCommerce', 'js_composer' ),
-					 'description' => esc_html__( 'Shows the "my account" section', 'js_composer' ),
-					 'params' => array(
-						 array(
-							 'type' => 'textfield',
-							 'heading' => esc_html__( 'Order count', 'js_composer' ),
-							 'value' => 15,
-							 'save_always' => true,
-							 'param_name' => 'order_count',
-							 'description' => esc_html__( 'You can specify the number or order to show, it\'s set by default to 15 (use -1 to display all orders.)', 'js_composer' ),
-						 ),
-					 ),
-				 );
+				 */
+				$settings = array(
+					'name' => esc_html__( 'My Account', 'js_composer' ),
+					'base' => 'woocommerce_my_account',
+					'icon' => 'icon-wpb-woocommerce',
+					'category' => esc_html__( 'WooCommerce', 'js_composer' ),
+					'description' => esc_html__( 'Shows the "my account" section', 'js_composer' ),
+					'params' => array(
+						array(
+							'type' => 'textfield',
+							'heading' => esc_html__( 'Order count', 'js_composer' ),
+							'value' => 15,
+							'save_always' => true,
+							'param_name' => 'order_count',
+							'description' => esc_html__( 'You can specify the number or order to show, it\'s set by default to 15 (use -1 to display all orders.)', 'js_composer' ),
+						),
+					),
+				);
 				break;
 			case 'recent_products':
 				/**
@@ -222,51 +225,52 @@ class Vc_Vendor_Woocommerce {
 				 * @param columns integer
 				 * @param orderby array
 				 * @param order array
-				 */ $settings = array(
-					 'name' => esc_html__( 'Recent products', 'js_composer' ),
-					 'base' => 'recent_products',
-					 'icon' => 'icon-wpb-woocommerce',
-					 'category' => esc_html__( 'WooCommerce', 'js_composer' ),
-					 'description' => esc_html__( 'Lists recent products', 'js_composer' ),
-					 'params' => array(
-						 array(
-							 'type' => 'textfield',
-							 'heading' => esc_html__( 'Per page', 'js_composer' ),
-							 'value' => 12,
-							 'save_always' => true,
-							 'param_name' => 'per_page',
-							 'description' => esc_html__( 'The "per_page" shortcode determines how many products to show on the page', 'js_composer' ),
-						 ),
-						 array(
-							 'type' => 'textfield',
-							 'heading' => esc_html__( 'Columns', 'js_composer' ),
-							 'value' => 4,
-							 'param_name' => 'columns',
-							 'save_always' => true,
-							 'description' => esc_html__( 'The columns attribute controls how many columns wide the products should be before wrapping.', 'js_composer' ),
-						 ),
-						 array(
-							 'type' => 'dropdown',
-							 'heading' => esc_html__( 'Order by', 'js_composer' ),
-							 'param_name' => 'orderby',
-							 'value' => $order_by_values,
-							 'std' => 'date',
-							 // default WC value for recent_products
-							 'save_always' => true,
-							 'description' => sprintf( esc_html__( 'Select how to sort retrieved products. More at %s.', 'js_composer' ), '<a href="https://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
-						 ),
-						 array(
-							 'type' => 'dropdown',
-							 'heading' => esc_html__( 'Sort order', 'js_composer' ),
-							 'param_name' => 'order',
-							 'value' => $order_way_values,
-							 'std' => 'DESC',
-							 // default WC value
-							 'save_always' => true,
-							 'description' => sprintf( esc_html__( 'Designates the ascending or descending order. More at %s.', 'js_composer' ), '<a href="https://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
-						 ),
-					 ),
-				 );
+				 */
+				$settings = array(
+					'name' => esc_html__( 'Recent products', 'js_composer' ),
+					'base' => 'recent_products',
+					'icon' => 'icon-wpb-woocommerce',
+					'category' => esc_html__( 'WooCommerce', 'js_composer' ),
+					'description' => esc_html__( 'Lists recent products', 'js_composer' ),
+					'params' => array(
+						array(
+							'type' => 'textfield',
+							'heading' => esc_html__( 'Per page', 'js_composer' ),
+							'value' => 12,
+							'save_always' => true,
+							'param_name' => 'per_page',
+							'description' => esc_html__( 'The "per_page" shortcode determines how many products to show on the page', 'js_composer' ),
+						),
+						array(
+							'type' => 'textfield',
+							'heading' => esc_html__( 'Columns', 'js_composer' ),
+							'value' => 4,
+							'param_name' => 'columns',
+							'save_always' => true,
+							'description' => esc_html__( 'The columns attribute controls how many columns wide the products should be before wrapping.', 'js_composer' ),
+						),
+						array(
+							'type' => 'dropdown',
+							'heading' => esc_html__( 'Order by', 'js_composer' ),
+							'param_name' => 'orderby',
+							'value' => $order_by_values,
+							'std' => 'date',
+							// default WC value for recent_products
+							'save_always' => true,
+							'description' => sprintf( esc_html__( 'Select how to sort retrieved products. More at %s.', 'js_composer' ), '<a href="https://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
+						),
+						array(
+							'type' => 'dropdown',
+							'heading' => esc_html__( 'Sort order', 'js_composer' ),
+							'param_name' => 'order',
+							'value' => $order_way_values,
+							'std' => 'DESC',
+							// default WC value
+							'save_always' => true,
+							'description' => sprintf( esc_html__( 'Designates the ascending or descending order. More at %s.', 'js_composer' ), '<a href="https://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
+						),
+					),
+				);
 				break;
 			case 'featured_products':
 				/**
@@ -277,51 +281,52 @@ class Vc_Vendor_Woocommerce {
 				 * @param columns integer
 				 * @param orderby array
 				 * @param order array
-				 */ $settings = array(
-					 'name' => esc_html__( 'Featured products', 'js_composer' ),
-					 'base' => 'featured_products',
-					 'icon' => 'icon-wpb-woocommerce',
-					 'category' => esc_html__( 'WooCommerce', 'js_composer' ),
-					 'description' => esc_html__( 'Display products set as "featured"', 'js_composer' ),
-					 'params' => array(
-						 array(
-							 'type' => 'textfield',
-							 'heading' => esc_html__( 'Per page', 'js_composer' ),
-							 'value' => 12,
-							 'param_name' => 'per_page',
-							 'save_always' => true,
-							 'description' => esc_html__( 'The "per_page" shortcode determines how many products to show on the page', 'js_composer' ),
-						 ),
-						 array(
-							 'type' => 'textfield',
-							 'heading' => esc_html__( 'Columns', 'js_composer' ),
-							 'value' => 4,
-							 'param_name' => 'columns',
-							 'save_always' => true,
-							 'description' => esc_html__( 'The columns attribute controls how many columns wide the products should be before wrapping.', 'js_composer' ),
-						 ),
-						 array(
-							 'type' => 'dropdown',
-							 'heading' => esc_html__( 'Order by', 'js_composer' ),
-							 'param_name' => 'orderby',
-							 'value' => $order_by_values,
-							 'std' => 'date',
-							 // default WC value
-							 'save_always' => true,
-							 'description' => sprintf( esc_html__( 'Select how to sort retrieved products. More at %s.', 'js_composer' ), '<a href="https://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
-						 ),
-						 array(
-							 'type' => 'dropdown',
-							 'heading' => esc_html__( 'Sort order', 'js_composer' ),
-							 'param_name' => 'order',
-							 'value' => $order_way_values,
-							 'std' => 'DESC',
-							 // default WC value
-							 'save_always' => true,
-							 'description' => sprintf( esc_html__( 'Designates the ascending or descending order. More at %s.', 'js_composer' ), '<a href="s://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
-						 ),
-					 ),
-				 );
+				 */
+				$settings = array(
+					'name' => esc_html__( 'Featured products', 'js_composer' ),
+					'base' => 'featured_products',
+					'icon' => 'icon-wpb-woocommerce',
+					'category' => esc_html__( 'WooCommerce', 'js_composer' ),
+					'description' => esc_html__( 'Display products set as "featured"', 'js_composer' ),
+					'params' => array(
+						array(
+							'type' => 'textfield',
+							'heading' => esc_html__( 'Per page', 'js_composer' ),
+							'value' => 12,
+							'param_name' => 'per_page',
+							'save_always' => true,
+							'description' => esc_html__( 'The "per_page" shortcode determines how many products to show on the page', 'js_composer' ),
+						),
+						array(
+							'type' => 'textfield',
+							'heading' => esc_html__( 'Columns', 'js_composer' ),
+							'value' => 4,
+							'param_name' => 'columns',
+							'save_always' => true,
+							'description' => esc_html__( 'The columns attribute controls how many columns wide the products should be before wrapping.', 'js_composer' ),
+						),
+						array(
+							'type' => 'dropdown',
+							'heading' => esc_html__( 'Order by', 'js_composer' ),
+							'param_name' => 'orderby',
+							'value' => $order_by_values,
+							'std' => 'date',
+							// default WC value
+							'save_always' => true,
+							'description' => sprintf( esc_html__( 'Select how to sort retrieved products. More at %s.', 'js_composer' ), '<a href="https://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
+						),
+						array(
+							'type' => 'dropdown',
+							'heading' => esc_html__( 'Sort order', 'js_composer' ),
+							'param_name' => 'order',
+							'value' => $order_way_values,
+							'std' => 'DESC',
+							// default WC value
+							'save_always' => true,
+							'description' => sprintf( esc_html__( 'Designates the ascending or descending order. More at %s.', 'js_composer' ), '<a href="s://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
+						),
+					),
+				);
 				break;
 			case 'product':
 				/**
@@ -332,26 +337,27 @@ class Vc_Vendor_Woocommerce {
 				 * @param sku string
 				 * If the product isn’t showing, make sure it isn’t set to Hidden in the Catalog Visibility.
 				 * To find the Product ID, go to the Product > Edit screen and look in the URL for the postid= .
-				 */ $settings = array(
-					 'name' => esc_html__( 'Product', 'js_composer' ),
-					 'base' => 'product',
-					 'icon' => 'icon-wpb-woocommerce',
-					 'category' => esc_html__( 'WooCommerce', 'js_composer' ),
-					 'description' => esc_html__( 'Show a single product by ID or SKU', 'js_composer' ),
-					 'params' => array(
-						 array(
-							 'type' => 'autocomplete',
-							 'heading' => esc_html__( 'Select identificator', 'js_composer' ),
-							 'param_name' => 'id',
-							 'description' => esc_html__( 'Input product ID or product SKU or product title to see suggestions', 'js_composer' ),
-						 ),
-						 array(
-							 'type' => 'hidden',
-							 // This will not show on render, but will be used when defining value for autocomplete
-							 'param_name' => 'sku',
-						 ),
-					 ),
-				 );
+				 */
+				$settings = array(
+					'name' => esc_html__( 'Product', 'js_composer' ),
+					'base' => 'product',
+					'icon' => 'icon-wpb-woocommerce',
+					'category' => esc_html__( 'WooCommerce', 'js_composer' ),
+					'description' => esc_html__( 'Show a single product by ID or SKU', 'js_composer' ),
+					'params' => array(
+						array(
+							'type' => 'autocomplete',
+							'heading' => esc_html__( 'Select identificator', 'js_composer' ),
+							'param_name' => 'id',
+							'description' => esc_html__( 'Input product ID or product SKU or product title to see suggestions', 'js_composer' ),
+						),
+						array(
+							'type' => 'hidden',
+							// This will not show on render, but will be used when defining value for autocomplete
+							'param_name' => 'sku',
+						),
+					),
+				);
 				break;
 			case 'products':
 				$settings = array(
@@ -417,30 +423,31 @@ class Vc_Vendor_Woocommerce {
 				 * @param sku string
 				 * @param style string
 				 * If the product isn’t showing, make sure it isn’t set to Hidden in the Catalog Visibility.
-				 */ $settings = array(
-					 'name' => esc_html__( 'Add to cart', 'js_composer' ),
-					 'base' => 'add_to_cart',
-					 'icon' => 'icon-wpb-woocommerce',
-					 'category' => esc_html__( 'WooCommerce', 'js_composer' ),
-					 'description' => esc_html__( 'Show product by ID or SKU', 'js_composer' ),
-					 'params' => array(
-						 array(
-							 'type' => 'autocomplete',
-							 'heading' => esc_html__( 'Select identificator', 'js_composer' ),
-							 'param_name' => 'id',
-							 'description' => esc_html__( 'Input product ID or product SKU or product title to see suggestions', 'js_composer' ),
-						 ),
-						 array(
-							 'type' => 'hidden',
-							 'param_name' => 'sku',
-						 ),
-						 array(
-							 'type' => 'textfield',
-							 'heading' => esc_html__( 'Wrapper inline style', 'js_composer' ),
-							 'param_name' => 'style',
-						 ),
-					 ),
-				 );
+				 */
+				$settings = array(
+					'name' => esc_html__( 'Add to cart', 'js_composer' ),
+					'base' => 'add_to_cart',
+					'icon' => 'icon-wpb-woocommerce',
+					'category' => esc_html__( 'WooCommerce', 'js_composer' ),
+					'description' => esc_html__( 'Show product by ID or SKU', 'js_composer' ),
+					'params' => array(
+						array(
+							'type' => 'autocomplete',
+							'heading' => esc_html__( 'Select identificator', 'js_composer' ),
+							'param_name' => 'id',
+							'description' => esc_html__( 'Input product ID or product SKU or product title to see suggestions', 'js_composer' ),
+						),
+						array(
+							'type' => 'hidden',
+							'param_name' => 'sku',
+						),
+						array(
+							'type' => 'textfield',
+							'heading' => esc_html__( 'Wrapper inline style', 'js_composer' ),
+							'param_name' => 'style',
+						),
+					),
+				);
 				break;
 			case 'add_to_cart_url':
 				/**
@@ -449,25 +456,26 @@ class Vc_Vendor_Woocommerce {
 				 *
 				 * @param id integer
 				 * @param sku string
-				 */ $settings = array(
-					 'name' => esc_html__( 'Add to cart URL', 'js_composer' ),
-					 'base' => 'add_to_cart_url',
-					 'icon' => 'icon-wpb-woocommerce',
-					 'category' => esc_html__( 'WooCommerce', 'js_composer' ),
-					 'description' => esc_html__( 'Show URL on the add to cart button', 'js_composer' ),
-					 'params' => array(
-						 array(
-							 'type' => 'autocomplete',
-							 'heading' => esc_html__( 'Select identificator', 'js_composer' ),
-							 'param_name' => 'id',
-							 'description' => esc_html__( 'Input product ID or product SKU or product title to see suggestions', 'js_composer' ),
-						 ),
-						 array(
-							 'type' => 'hidden',
-							 'param_name' => 'sku',
-						 ),
-					 ),
-				 );
+				 */
+				$settings = array(
+					'name' => esc_html__( 'Add to cart URL', 'js_composer' ),
+					'base' => 'add_to_cart_url',
+					'icon' => 'icon-wpb-woocommerce',
+					'category' => esc_html__( 'WooCommerce', 'js_composer' ),
+					'description' => esc_html__( 'Show URL on the add to cart button', 'js_composer' ),
+					'params' => array(
+						array(
+							'type' => 'autocomplete',
+							'heading' => esc_html__( 'Select identificator', 'js_composer' ),
+							'param_name' => 'id',
+							'description' => esc_html__( 'Input product ID or product SKU or product title to see suggestions', 'js_composer' ),
+						),
+						array(
+							'type' => 'hidden',
+							'param_name' => 'sku',
+						),
+					),
+				);
 				break;
 			case 'product_page':
 				/**
@@ -476,25 +484,26 @@ class Vc_Vendor_Woocommerce {
 				 *
 				 * @param id integer
 				 * @param sku string
-				 */ $settings = array(
-					 'name' => esc_html__( 'Product page', 'js_composer' ),
-					 'base' => 'product_page',
-					 'icon' => 'icon-wpb-woocommerce',
-					 'category' => esc_html__( 'WooCommerce', 'js_composer' ),
-					 'description' => esc_html__( 'Show single product by ID or SKU', 'js_composer' ),
-					 'params' => array(
-						 array(
-							 'type' => 'autocomplete',
-							 'heading' => esc_html__( 'Select identificator', 'js_composer' ),
-							 'param_name' => 'id',
-							 'description' => esc_html__( 'Input product ID or product SKU or product title to see suggestions', 'js_composer' ),
-						 ),
-						 array(
-							 'type' => 'hidden',
-							 'param_name' => 'sku',
-						 ),
-					 ),
-				 );
+				 */
+				$settings = array(
+					'name' => esc_html__( 'Product page', 'js_composer' ),
+					'base' => 'product_page',
+					'icon' => 'icon-wpb-woocommerce',
+					'category' => esc_html__( 'WooCommerce', 'js_composer' ),
+					'description' => esc_html__( 'Show single product by ID or SKU', 'js_composer' ),
+					'params' => array(
+						array(
+							'type' => 'autocomplete',
+							'heading' => esc_html__( 'Select identificator', 'js_composer' ),
+							'param_name' => 'id',
+							'description' => esc_html__( 'Input product ID or product SKU or product title to see suggestions', 'js_composer' ),
+						),
+						array(
+							'type' => 'hidden',
+							'param_name' => 'sku',
+						),
+					),
+				);
 				break;
 			case 'product_category':
 				/**
@@ -637,51 +646,52 @@ class Vc_Vendor_Woocommerce {
 				 * @param columns integer
 				 * @param orderby array
 				 * @param order array
-				 */ $settings = array(
-					 'name' => esc_html__( 'Sale products', 'js_composer' ),
-					 'base' => 'sale_products',
-					 'icon' => 'icon-wpb-woocommerce',
-					 'category' => esc_html__( 'WooCommerce', 'js_composer' ),
-					 'description' => esc_html__( 'List all products on sale', 'js_composer' ),
-					 'params' => array(
-						 array(
-							 'type' => 'textfield',
-							 'heading' => esc_html__( 'Limit', 'js_composer' ),
-							 'value' => 12,
-							 'save_always' => true,
-							 'param_name' => 'per_page',
-							 'description' => esc_html__( 'How much items to show', 'js_composer' ),
-						 ),
-						 array(
-							 'type' => 'textfield',
-							 'heading' => esc_html__( 'Columns', 'js_composer' ),
-							 'value' => 4,
-							 'save_always' => true,
-							 'param_name' => 'columns',
-							 'description' => esc_html__( 'How much columns grid', 'js_composer' ),
-						 ),
-						 array(
-							 'type' => 'dropdown',
-							 'heading' => esc_html__( 'Order by', 'js_composer' ),
-							 'param_name' => 'orderby',
-							 'value' => $order_by_values,
-							 'std' => 'title',
-							 // default WC value
-							 'save_always' => true,
-							 'description' => sprintf( esc_html__( 'Select how to sort retrieved products. More at %s.', 'js_composer' ), '<a href="https://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
-						 ),
-						 array(
-							 'type' => 'dropdown',
-							 'heading' => esc_html__( 'Sort order', 'js_composer' ),
-							 'param_name' => 'order',
-							 'value' => $order_way_values,
-							 'std' => 'ASC',
-							 // default WC value
-							 'save_always' => true,
-							 'description' => sprintf( esc_html__( 'Designates the ascending or descending order. More at %s.', 'js_composer' ), '<a href="https://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
-						 ),
-					 ),
-				 );
+				 */
+				$settings = array(
+					'name' => esc_html__( 'Sale products', 'js_composer' ),
+					'base' => 'sale_products',
+					'icon' => 'icon-wpb-woocommerce',
+					'category' => esc_html__( 'WooCommerce', 'js_composer' ),
+					'description' => esc_html__( 'List all products on sale', 'js_composer' ),
+					'params' => array(
+						array(
+							'type' => 'textfield',
+							'heading' => esc_html__( 'Limit', 'js_composer' ),
+							'value' => 12,
+							'save_always' => true,
+							'param_name' => 'per_page',
+							'description' => esc_html__( 'How much items to show', 'js_composer' ),
+						),
+						array(
+							'type' => 'textfield',
+							'heading' => esc_html__( 'Columns', 'js_composer' ),
+							'value' => 4,
+							'save_always' => true,
+							'param_name' => 'columns',
+							'description' => esc_html__( 'How much columns grid', 'js_composer' ),
+						),
+						array(
+							'type' => 'dropdown',
+							'heading' => esc_html__( 'Order by', 'js_composer' ),
+							'param_name' => 'orderby',
+							'value' => $order_by_values,
+							'std' => 'title',
+							// default WC value
+							'save_always' => true,
+							'description' => sprintf( esc_html__( 'Select how to sort retrieved products. More at %s.', 'js_composer' ), '<a href="https://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
+						),
+						array(
+							'type' => 'dropdown',
+							'heading' => esc_html__( 'Sort order', 'js_composer' ),
+							'param_name' => 'order',
+							'value' => $order_way_values,
+							'std' => 'ASC',
+							// default WC value
+							'save_always' => true,
+							'description' => sprintf( esc_html__( 'Designates the ascending or descending order. More at %s.', 'js_composer' ), '<a href="https://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
+						),
+					),
+				);
 				break;
 			case 'best_selling_products':
 				/**
@@ -690,31 +700,32 @@ class Vc_Vendor_Woocommerce {
 				 *
 				 * @param per_page integer
 				 * @param columns integer
-				 */ $settings = array(
-					 'name' => esc_html__( 'Best Selling Products', 'js_composer' ),
-					 'base' => 'best_selling_products',
-					 'icon' => 'icon-wpb-woocommerce',
-					 'category' => esc_html__( 'WooCommerce', 'js_composer' ),
-					 'description' => esc_html__( 'List best selling products on sale', 'js_composer' ),
-					 'params' => array(
-						 array(
-							 'type' => 'textfield',
-							 'heading' => esc_html__( 'Limit', 'js_composer' ),
-							 'value' => 12,
-							 'param_name' => 'per_page',
-							 'save_always' => true,
-							 'description' => esc_html__( 'How much items to show', 'js_composer' ),
-						 ),
-						 array(
-							 'type' => 'textfield',
-							 'heading' => esc_html__( 'Columns', 'js_composer' ),
-							 'value' => 4,
-							 'param_name' => 'columns',
-							 'save_always' => true,
-							 'description' => esc_html__( 'How much columns grid', 'js_composer' ),
-						 ),
-					 ),
-				 );
+				 */
+				$settings = array(
+					'name' => esc_html__( 'Best Selling Products', 'js_composer' ),
+					'base' => 'best_selling_products',
+					'icon' => 'icon-wpb-woocommerce',
+					'category' => esc_html__( 'WooCommerce', 'js_composer' ),
+					'description' => esc_html__( 'List best selling products on sale', 'js_composer' ),
+					'params' => array(
+						array(
+							'type' => 'textfield',
+							'heading' => esc_html__( 'Limit', 'js_composer' ),
+							'value' => 12,
+							'param_name' => 'per_page',
+							'save_always' => true,
+							'description' => esc_html__( 'How much items to show', 'js_composer' ),
+						),
+						array(
+							'type' => 'textfield',
+							'heading' => esc_html__( 'Columns', 'js_composer' ),
+							'value' => 4,
+							'param_name' => 'columns',
+							'save_always' => true,
+							'description' => esc_html__( 'How much columns grid', 'js_composer' ),
+						),
+					),
+				);
 				break;
 			case 'top_rated_products':
 				/**
@@ -725,51 +736,52 @@ class Vc_Vendor_Woocommerce {
 				 * @param columns integer
 				 * @param orderby array
 				 * @param order array
-				 */ $settings = array(
-					 'name' => esc_html__( 'Top Rated Products', 'js_composer' ),
-					 'base' => 'top_rated_products',
-					 'icon' => 'icon-wpb-woocommerce',
-					 'category' => esc_html__( 'WooCommerce', 'js_composer' ),
-					 'description' => esc_html__( 'List all products on sale', 'js_composer' ),
-					 'params' => array(
-						 array(
-							 'type' => 'textfield',
-							 'heading' => esc_html__( 'Limit', 'js_composer' ),
-							 'value' => 12,
-							 'param_name' => 'per_page',
-							 'save_always' => true,
-							 'description' => esc_html__( 'How much items to show', 'js_composer' ),
-						 ),
-						 array(
-							 'type' => 'textfield',
-							 'heading' => esc_html__( 'Columns', 'js_composer' ),
-							 'value' => 4,
-							 'param_name' => 'columns',
-							 'save_always' => true,
-							 'description' => esc_html__( 'How much columns grid', 'js_composer' ),
-						 ),
-						 array(
-							 'type' => 'dropdown',
-							 'heading' => esc_html__( 'Order by', 'js_composer' ),
-							 'param_name' => 'orderby',
-							 'value' => $order_by_values,
-							 'std' => 'title',
-							 // default WC value
-							 'save_always' => true,
-							 'description' => sprintf( esc_html__( 'Select how to sort retrieved products. More at %s.', 'js_composer' ), '<a href="https://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
-						 ),
-						 array(
-							 'type' => 'dropdown',
-							 'heading' => esc_html__( 'Sort order', 'js_composer' ),
-							 'param_name' => 'order',
-							 'value' => $order_way_values,
-							 'std' => 'ASC',
-							 // Default WP Value
-							 'save_always' => true,
-							 'description' => sprintf( esc_html__( 'Designates the ascending or descending order. More at %s.', 'js_composer' ), '<a href="https://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
-						 ),
-					 ),
-				 );
+				 */
+				$settings = array(
+					'name' => esc_html__( 'Top Rated Products', 'js_composer' ),
+					'base' => 'top_rated_products',
+					'icon' => 'icon-wpb-woocommerce',
+					'category' => esc_html__( 'WooCommerce', 'js_composer' ),
+					'description' => esc_html__( 'List all products on sale', 'js_composer' ),
+					'params' => array(
+						array(
+							'type' => 'textfield',
+							'heading' => esc_html__( 'Limit', 'js_composer' ),
+							'value' => 12,
+							'param_name' => 'per_page',
+							'save_always' => true,
+							'description' => esc_html__( 'How much items to show', 'js_composer' ),
+						),
+						array(
+							'type' => 'textfield',
+							'heading' => esc_html__( 'Columns', 'js_composer' ),
+							'value' => 4,
+							'param_name' => 'columns',
+							'save_always' => true,
+							'description' => esc_html__( 'How much columns grid', 'js_composer' ),
+						),
+						array(
+							'type' => 'dropdown',
+							'heading' => esc_html__( 'Order by', 'js_composer' ),
+							'param_name' => 'orderby',
+							'value' => $order_by_values,
+							'std' => 'title',
+							// default WC value
+							'save_always' => true,
+							'description' => sprintf( esc_html__( 'Select how to sort retrieved products. More at %s.', 'js_composer' ), '<a href="https://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
+						),
+						array(
+							'type' => 'dropdown',
+							'heading' => esc_html__( 'Sort order', 'js_composer' ),
+							'param_name' => 'order',
+							'value' => $order_way_values,
+							'std' => 'ASC',
+							// Default WP Value
+							'save_always' => true,
+							'description' => sprintf( esc_html__( 'Designates the ascending or descending order. More at %s.', 'js_composer' ), '<a href="https://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
+						),
+					),
+				);
 				break;
 			case 'product_attribute':
 				/**
@@ -782,7 +794,8 @@ class Vc_Vendor_Woocommerce {
 				 * @param order array
 				 * @param attribute string
 				 * @param filter string
-				 */ $attributes_tax = wc_get_attribute_taxonomies();
+				 */
+				$attributes_tax = wc_get_attribute_taxonomies();
 				$attributes = array();
 				foreach ( $attributes_tax as $attribute ) {
 					$attributes[ $attribute->attribute_label ] = $attribute->attribute_name;
@@ -962,6 +975,7 @@ class Vc_Vendor_Woocommerce {
 			'product_attribute',
 			'related_products',
 		);
+		// phpcs:ignore
 		while ( $tag = current( $tags ) ) {
 			vc_lean_map( $tag, array(
 				$this,

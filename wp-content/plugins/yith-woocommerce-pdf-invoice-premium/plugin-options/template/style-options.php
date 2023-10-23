@@ -4,7 +4,7 @@
  *
  * @package YITH\PDFInvoice
  * @since   2.1.0
- * @author  YITH
+ * @author  YITH <plugins@yithemes.com>
  */
 
 if ( ! defined( 'ABSPATH' ) || ! defined( 'YITH_YWPI_PREMIUM' ) ) {
@@ -12,9 +12,7 @@ if ( ! defined( 'ABSPATH' ) || ! defined( 'YITH_YWPI_PREMIUM' ) ) {
 } // Exit if accessed directly.
 
 $style_template_options = array(
-
 	'template-style' => array(
-
 		'template_selection_start'            => array(
 			'name' => __( 'Document template', 'yith-woocommerce-pdf-invoice' ),
 			'type' => 'title',
@@ -195,7 +193,6 @@ $style_template_options = array(
 				'type'  => 'show',
 			),
 		),
-
 		// Modern Stripes template options.
 		'body_color_modern'                   => array(
 			'id'           => 'ywpi_body_color_modern',
@@ -306,4 +303,3 @@ $style_template_options = array(
 );
 
 return apply_filters( 'ywpi_template_style_options', $style_template_options );
-

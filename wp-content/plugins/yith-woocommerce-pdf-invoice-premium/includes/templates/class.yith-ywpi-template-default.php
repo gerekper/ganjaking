@@ -1,44 +1,32 @@
-<?php // phpcs:ignore WordPress.NamingConventions.
+<?php // phpcs:ignore WordPress.Files.FileName.NotHyphenatedLowercase, WordPress.Files.FileName.InvalidClassFileName
+/**
+ * Class that manage the default template.
+ *
+ * @package YITH\PDF_Invoice\Classes
+ * @since   2.1.0
+ * @author  YITH <plugins@yithemes.com>
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
 if ( ! class_exists( 'YITH_YWPI_Template' ) ) {
-
 	/**
-	 * Class that manage the default template.
-	 *
-	 * @class   YITH_YWPI_Template
-	 * @package Yithemes
-	 * @since   1.0.0
-	 * @author  Your Inspiration Themes
+	 * YITH_YWPI_Template_Default class
 	 */
 	abstract class YITH_YWPI_Template_Default {
-
-		/**
-		 * Constructor
-		 *
-		 * Initialize plugin and registers actions and filters to be used
-		 *
-		 * @since  1.0
-		 * @author Lorenzo giuffrida
-		 * @access public
-		 */
-		private function __construct() {
-		}
 
 		/**
 		 * Show the template with customer details
 		 *
 		 * @param YITH_Document $document The document object.
 		 *
-		 * @author YITH
 		 * @since  1.0.0
 		 */
 		public function show_customer_details( $document ) {
-
 			$content  = ywpi_get_customer_details_template( $document );
-			$order_id = yit_get_prop( $document->order, 'id' );
+			$order_id = $document->order->get_id();
 
 			wc_get_template(
 				'yith-pdf-invoice/customer-details.php',
@@ -72,7 +60,7 @@ if ( ! class_exists( 'YITH_YWPI_Template' ) ) {
 				return;
 			}
 
-			$is_receipt = get_post_meta( $document->order->get_id(), '_billing_invoice_type', true );
+			$is_receipt = $document->order->get_meta( '_billing_invoice_type' );
 
 			if ( $document instanceof YITH_Invoice && 'receipt' !== strval( $is_receipt ) ) {
 				wc_get_template(
@@ -149,12 +137,10 @@ if ( ! class_exists( 'YITH_YWPI_Template' ) ) {
 		 *
 		 * @param YITH_Document $document the document to be build.
 		 *
-		 * @author Lorenzo Giuffrida
 		 * @since  1.0.0
 		 */
 		public function show_invoice_products_list_template( $document ) {
-
-			$is_receipt = get_post_meta( $document->order->get_id(), '_billing_invoice_type', true );
+			$is_receipt = $document->order->get_meta( '_billing_invoice_type' );
 
 			if ( $document instanceof YITH_Credit_Note ) {
 				wc_get_template(
@@ -192,12 +178,21 @@ if ( ! class_exists( 'YITH_YWPI_Template' ) ) {
 		 * @param YITH_Document $document The document object.
 		 */
 		public function show_totals( $document ) {
+			$is_receipt = $document->order->get_meta( '_billing_invoice_type' );
 
-			$is_receipt  = get_post_meta( $document->order->get_id(), '_billing_invoice_type', true );
+			/**
+			 * APPLY_FILTERS: ywpi_show_totals_in_documents
+			 *
+			 * Filter the condition to show the totals in the documents.
+			 *
+			 * @param bool True to display the totals, false to not. Default: true.
+			 * @param object $document the document object.
+			 *
+			 * @return bool
+			 */
 			$show_totals = apply_filters( 'ywpi_show_totals_in_documents', true, $document );
 
 			if ( $document instanceof YITH_Invoice && 'receipt' === strval( $is_receipt ) ) {
-
 				if ( $show_totals ) {
 					wc_get_template(
 						'yith-pdf-invoice/receipt-totals.php',
@@ -209,7 +204,6 @@ if ( ! class_exists( 'YITH_YWPI_Template' ) ) {
 					);
 				}
 			} elseif ( $document instanceof YITH_Credit_Note ) {
-
 				if ( $show_totals ) {
 					wc_get_template(
 						'yith-pdf-invoice/credit-note-totals.php',
@@ -220,7 +214,7 @@ if ( ! class_exists( 'YITH_YWPI_Template' ) ) {
 						YITH_YWPI_TEMPLATE_DIR
 					);
 				}
-			} else {
+			} elseif ( $show_totals ) {
 				wc_get_template(
 					'yith-pdf-invoice/invoice-totals.php',
 					array(
@@ -230,7 +224,6 @@ if ( ! class_exists( 'YITH_YWPI_Template' ) ) {
 					YITH_YWPI_TEMPLATE_DIR
 				);
 			}
-
 		}
 
 		/**
@@ -259,8 +252,8 @@ if ( ! class_exists( 'YITH_YWPI_Template' ) ) {
 		 * @return mixed
 		 */
 		public function modify_customer_details_content( $content, $document ) {
-
 			$full_content = '';
+
 			if ( ! empty( $content ) ) {
 				if ( $document instanceof YITH_Shipping ) {
 					$full_content = '<div class="customer-details-title">' . esc_html__( 'Ship to:', 'yith-woocommerce-pdf-invoice' ) . '</div>' . $content;
@@ -269,6 +262,17 @@ if ( ! class_exists( 'YITH_YWPI_Template' ) ) {
 				}
 			}
 
+			/**
+			 * APPLY_FILTERS: ywpi_modify_customer_details_content
+			 *
+			 * Filter the customer details content.
+			 *
+			 * @param string $full_content The formatted content of the customer details.
+			 * @param string $content The content of the customer details.
+			 * @param object $document the document object.
+			 *
+			 * @return string
+			 */
 			return apply_filters( 'ywpi_modify_customer_details_content', $full_content, $content, $document );
 		}
 	}

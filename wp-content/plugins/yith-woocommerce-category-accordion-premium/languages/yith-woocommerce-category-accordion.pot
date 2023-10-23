@@ -1,0 +1,1048 @@
+# Copyright (C) 2023 YITH
+# This file is distributed under the same license as the YITH WooCommerce Category Accordion Premium package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Category Accordion Premium 2.1.0\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/yith-woocommerce-category-accordion."
+"premium\n"
+"POT-Creation-Date: 2023-09-18 13:19:39+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
+
+#: includes/admin/class.yith-category-accordion-table.php:48
+#: includes/class.yith-category-accordion-widget.php:711
+#: includes/class.yith-woocommerce-category-accordion-premium.php:631
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:323
+#: templates/admin/lightbox.php:295
+msgid "Name"
+msgstr ""
+
+#: includes/admin/class.yith-category-accordion-table.php:53
+msgid "Shortcode"
+msgstr ""
+
+#: includes/admin/class.yith-category-accordion-table.php:54
+msgid "Actions"
+msgstr ""
+
+#: includes/admin/class.yith-category-accordion-table.php:102
+msgid "Confirm delete"
+msgstr ""
+
+#: includes/admin/class.yith-category-accordion-table.php:104
+#. translators: %s is the post id
+msgid "Are you sure you want to delete \"%s\"?"
+msgstr ""
+
+#: includes/admin/class.yith-category-accordion-table.php:104
+msgid "This action cannot be undone and you will not be able to recover this data."
+msgstr ""
+
+#: includes/admin/class.yith-category-accordion-table.php:105
+#: includes/class.yith-woocommerce-category-accordion-premium.php:577
+#: includes/class.yith-woocommerce-category-accordion-premium.php:588
+#: includes/class.yith-woocommerce-category-accordion-premium.php:601
+#: includes/class.yith-woocommerce-category-accordion-premium.php:611
+msgid "No"
+msgstr ""
+
+#: includes/admin/class.yith-category-accordion-table.php:112
+msgid "Duplicate"
+msgstr ""
+
+#: includes/admin/class.yith-category-accordion-table.php:140
+msgid "Delete"
+msgstr ""
+
+#: includes/admin/class.yith-category-accordion-table.php:151
+msgid "Back to accordion styles list"
+msgstr ""
+
+#: includes/admin/class.yith-category-accordion-table.php:172
+msgid "Create the first one now"
+msgstr ""
+
+#: includes/admin/class.yith-category-accordion-table.php:182
+msgid "You have no accordions created yet"
+msgstr ""
+
+#: includes/admin/class.yith-category-accordion-table.php:184
+msgid "Add accordion"
+msgstr ""
+
+#: includes/class.yith-category-accordion-post-types.php:64
+#: includes/class.yith-woocommerce-category-accordion.php:273
+msgid "Accordion Styles"
+msgstr ""
+
+#: includes/class.yith-category-accordion-post-types.php:65
+#: includes/class.yith-category-accordion-post-types.php:66
+msgid "Accordion"
+msgstr ""
+
+#: includes/class.yith-category-accordion-post-types.php:67
+msgid "Add new accordion style"
+msgstr ""
+
+#: includes/class.yith-category-accordion-post-types.php:68
+msgid "+ Create accordion"
+msgstr ""
+
+#: includes/class.yith-category-accordion-post-types.php:69
+msgid "Edit accordion"
+msgstr ""
+
+#: includes/class.yith-category-accordion-post-types.php:70
+msgid "View accordion"
+msgstr ""
+
+#: includes/class.yith-category-accordion-post-types.php:71
+msgid "Update accordion"
+msgstr ""
+
+#: includes/class.yith-category-accordion-post-types.php:72
+msgid "Search accordion"
+msgstr ""
+
+#: includes/class.yith-category-accordion-post-types.php:73
+msgid "No accordions"
+msgstr ""
+
+#: includes/class.yith-category-accordion-post-types.php:78
+msgid "Accordions"
+msgstr ""
+
+#: includes/class.yith-category-accordion-shortcode.php:53
+#: includes/class.yith-category-accordion-widget.php:150
+#: includes/class.yith-category-accordion-widget.php:848
+msgid "WooCommerce TAGS"
+msgstr ""
+
+#: includes/class.yith-category-accordion-shortcode.php:54
+#: includes/class.yith-category-accordion-widget.php:151
+#: includes/class.yith-category-accordion-widget.php:849
+msgid "WordPress TAGS"
+msgstr ""
+
+#: includes/class.yith-category-accordion-shortcode.php:284
+msgid "No Tags"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:29
+msgid "YITH WooCommerce Category Accordion"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:30
+msgid "Show your categories in an accordion!"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:363
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:86
+#: templates/admin/lightbox.php:164
+msgid "Title"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:380
+#: includes/class.yith-woocommerce-category-accordion-premium.php:564
+#: templates/admin/lightbox.php:168
+msgid "Show in Accordion"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:384
+#: templates/admin/lightbox.php:170
+msgid "Select an option"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:385
+#: includes/class.yith-woocommerce-category-accordion-premium.php:568
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:98
+#: templates/admin/lightbox.php:171
+msgid "WooCommerce Category"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:386
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:99
+msgid "WordPress Category"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:387
+#: includes/class.yith-woocommerce-category-accordion-premium.php:566
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:100
+#: templates/admin/lightbox.php:173
+msgid "Tags"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:388
+#: includes/class.yith-woocommerce-category-accordion-premium.php:567
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:101
+#: templates/admin/lightbox.php:174
+msgid "Menu"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:409
+#: includes/class.yith-category-accordion-widget.php:537
+msgid "Exclude specific categories"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:412
+msgid "Exclude:"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:437
+#: includes/class.yith-category-accordion-widget.php:563
+#: templates/admin/lightbox.php:191 templates/admin/lightbox.php:223
+msgid "Select categories"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:461
+#: includes/class.yith-category-accordion-widget.php:498
+msgid "Show Subcategories"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:478
+msgid "Show category image"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:514
+#: templates/admin/lightbox.php:206
+msgid "Show Last Post"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:517
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:145
+#: templates/admin/lightbox.php:210
+msgid "Number Post (-1 for all post )"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:540
+msgid "Exclude Categories"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:581
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:207
+#: templates/admin/lightbox.php:237
+msgid "Add menu in accordion"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:614
+msgid "Show WooCommerce Tags"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:617
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:170
+#: templates/admin/lightbox.php:261
+msgid "WooCommerce Tag Label"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:637
+msgid "Show WordPress Tags"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:640
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:195
+#: templates/admin/lightbox.php:269
+msgid "WordPress Tag Label"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:662
+#: includes/class.yith-woocommerce-category-accordion-premium.php:599
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:245
+#: templates/admin/lightbox.php:274
+msgid "Highlight the current category"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:680
+#: includes/class.yith-woocommerce-category-accordion-premium.php:609
+#: templates/admin/lightbox.php:279
+msgid "Show Count"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:683
+msgid "Accordion style:"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:708
+#: includes/class.yith-woocommerce-category-accordion-premium.php:629
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:320
+#: templates/admin/lightbox.php:293
+msgid "Order By"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:712
+#: includes/class.yith-woocommerce-category-accordion-premium.php:632
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:324
+#: templates/admin/lightbox.php:296
+msgid "Count"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:713
+#: includes/class.yith-woocommerce-category-accordion-premium.php:633
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:325
+#: templates/admin/lightbox.php:297
+msgid "ID"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:718
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:326
+msgid "WooCommerce Order"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:723
+#: includes/class.yith-woocommerce-category-accordion-premium.php:641
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:342
+#: templates/admin/lightbox.php:300
+msgid "ASC"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:724
+#: includes/class.yith-woocommerce-category-accordion-premium.php:642
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:343
+#: templates/admin/lightbox.php:301
+msgid "DESC"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:743
+msgid "Hide in specific pages/posts"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:746
+msgid "Hide Accordion in  pages"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:768
+msgid "Select page"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:778
+msgid "Hide Accordion in  posts"
+msgstr ""
+
+#: includes/class.yith-category-accordion-widget.php:799
+msgid "Select post"
+msgstr ""
+
+#: includes/class.yith-woocommerce-category-accordion-premium.php:516
+msgid "Add YITH WooCommerce Category Accordion shortcode"
+msgstr ""
+
+#: includes/class.yith-woocommerce-category-accordion-premium.php:569
+msgid "WorPress Category"
+msgstr ""
+
+#: includes/class.yith-woocommerce-category-accordion-premium.php:575
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:109
+#: templates/admin/lightbox.php:179
+msgid "Show WooCommerce Subcategories"
+msgstr ""
+
+#: includes/class.yith-woocommerce-category-accordion-premium.php:578
+#: includes/class.yith-woocommerce-category-accordion-premium.php:589
+#: includes/class.yith-woocommerce-category-accordion-premium.php:602
+#: includes/class.yith-woocommerce-category-accordion-premium.php:612
+msgid "Yes"
+msgstr ""
+
+#: includes/class.yith-woocommerce-category-accordion-premium.php:586
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:121
+#: templates/admin/lightbox.php:202
+msgid "Show WordPress Subcategories"
+msgstr ""
+
+#: includes/class.yith-woocommerce-category-accordion-premium.php:618
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:290
+#: templates/admin/lightbox.php:284
+msgid "Style"
+msgstr ""
+
+#: includes/class.yith-woocommerce-category-accordion-premium.php:620
+#: templates/admin/lightbox.php:286
+msgid "Style 1"
+msgstr ""
+
+#: includes/class.yith-woocommerce-category-accordion-premium.php:621
+#: templates/admin/lightbox.php:287
+msgid "Style 2"
+msgstr ""
+
+#: includes/class.yith-woocommerce-category-accordion-premium.php:622
+#: templates/admin/lightbox.php:288
+msgid "Style 3"
+msgstr ""
+
+#: includes/class.yith-woocommerce-category-accordion-premium.php:623
+#: templates/admin/lightbox.php:289
+msgid "Style 4"
+msgstr ""
+
+#: includes/class.yith-woocommerce-category-accordion-premium.php:639
+msgid "Order"
+msgstr ""
+
+#: includes/class.yith-woocommerce-category-accordion.php:230
+msgid "Accordion updated."
+msgstr ""
+
+#: includes/class.yith-woocommerce-category-accordion.php:231
+msgid "Accordion published."
+msgstr ""
+
+#: includes/class.yith-woocommerce-category-accordion.php:232
+msgid "Accordion saved."
+msgstr ""
+
+#: includes/class.yith-woocommerce-category-accordion.php:246
+msgid "%s accordion permanently deleted."
+msgid_plural "%s accordions permanently deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class.yith-woocommerce-category-accordion.php:268
+msgid "General Options"
+msgstr ""
+
+#: includes/class.yith-woocommerce-category-accordion.php:270
+msgid "Set the general options for the accordion styles."
+msgstr ""
+
+#: includes/class.yith-woocommerce-category-accordion.php:277
+msgid ""
+"Customize the style of the accordion sections shown in your shop. Read the "
+"documentation to learn how to use the shortcodes > <a "
+"href=\"https://docs.yithemes.com/yith-woocommerce-category-accordion/"
+"premium-version-settings/shortcode/\" target=\"_blank\">Shortcode "
+"Settings</a>"
+msgstr ""
+
+#: includes/class.yith-woocommerce-category-accordion.php:376
+msgid "New accordion style name"
+msgstr ""
+
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:133
+msgid "Show Last post"
+msgstr ""
+
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:158
+msgid "WooCommerce tag"
+msgstr ""
+
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:183
+msgid "WordPress tag"
+msgstr ""
+
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:220
+#: templates/admin/lightbox.php:183
+msgid "Exclude WooCommerce Categories"
+msgstr ""
+
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:232
+#: templates/admin/lightbox.php:214
+msgid "Exclude WordPress Categories"
+msgstr ""
+
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:254
+msgid "Show count"
+msgstr ""
+
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:301
+msgid "Hide Accordion in pages"
+msgstr ""
+
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:310
+msgid "Hide Accordion in posts"
+msgstr ""
+
+#: includes/walkers/class.yith-category-accordion-walker.php:99
+#. translators: % is the category accordion name
+msgid "Feed for all posts filed under %s"
+msgstr ""
+
+#: includes/walkers/class.yith-category-accordion-walker.php:237
+msgid "Last Posts"
+msgstr ""
+
+#: init.php:35
+msgid ""
+"YITH WooCommerce Category Accordion Premium is enabled but not effective. "
+"It requires WooCommerce in order to work."
+msgstr ""
+
+#: plugin-options/metabox/child-options.php:15
+msgid "Child category options"
+msgstr ""
+
+#: plugin-options/metabox/child-options.php:18
+#: plugin-options/metabox/parent-options.php:17
+#: plugin-options/metabox/title-options.php:17
+msgid "Color"
+msgstr ""
+
+#: plugin-options/metabox/child-options.php:23
+#: plugin-options/metabox/child-options.php:97
+#: plugin-options/metabox/parent-options.php:22
+#: plugin-options/metabox/parent-options.php:96
+msgid "DEFAULT"
+msgstr ""
+
+#: plugin-options/metabox/child-options.php:28
+#: plugin-options/metabox/child-options.php:102
+#: plugin-options/metabox/parent-options.php:27
+#: plugin-options/metabox/parent-options.php:101
+msgid "HOVER"
+msgstr ""
+
+#: plugin-options/metabox/child-options.php:32
+#: plugin-options/metabox/parent-options.php:31
+msgid "Set the text colors"
+msgstr ""
+
+#: plugin-options/metabox/child-options.php:36
+#: plugin-options/metabox/parent-options.php:35
+#: plugin-options/metabox/title-options.php:24
+msgid "Font weight"
+msgstr ""
+
+#: plugin-options/metabox/child-options.php:39
+#: plugin-options/metabox/parent-options.php:38
+#: plugin-options/metabox/title-options.php:27
+#: templates/admin/typography.php:66
+msgid "Regular"
+msgstr ""
+
+#: plugin-options/metabox/child-options.php:40
+#: plugin-options/metabox/parent-options.php:39
+#: plugin-options/metabox/title-options.php:28
+#: templates/admin/typography.php:67
+msgid "Bold"
+msgstr ""
+
+#: plugin-options/metabox/child-options.php:41
+#: plugin-options/metabox/parent-options.php:40
+#: plugin-options/metabox/title-options.php:29
+#: templates/admin/typography.php:68
+msgid "Extra bold"
+msgstr ""
+
+#: plugin-options/metabox/child-options.php:42
+#: plugin-options/metabox/parent-options.php:41
+#: plugin-options/metabox/title-options.php:30
+#: templates/admin/typography.php:69
+msgid "Italic"
+msgstr ""
+
+#: plugin-options/metabox/child-options.php:43
+#: plugin-options/metabox/parent-options.php:42
+#: plugin-options/metabox/title-options.php:31
+#: templates/admin/typography.php:70
+msgid "Italic bold"
+msgstr ""
+
+#: plugin-options/metabox/child-options.php:46
+#: plugin-options/metabox/parent-options.php:45
+#: plugin-options/metabox/title-options.php:34
+msgid "Set the font weight"
+msgstr ""
+
+#: plugin-options/metabox/child-options.php:50
+#: plugin-options/metabox/parent-options.php:49
+msgid "Font size"
+msgstr ""
+
+#: plugin-options/metabox/child-options.php:68
+#: plugin-options/metabox/parent-options.php:67
+#: plugin-options/metabox/title-options.php:56
+msgid "Set the font size"
+msgstr ""
+
+#: plugin-options/metabox/child-options.php:72
+#: plugin-options/metabox/parent-options.php:71
+#: plugin-options/metabox/title-options.php:72
+msgid "Text transform"
+msgstr ""
+
+#: plugin-options/metabox/child-options.php:75
+#: plugin-options/metabox/parent-options.php:74
+#: plugin-options/metabox/title-options.php:75
+#: templates/admin/typography.php:78
+msgid "None"
+msgstr ""
+
+#: plugin-options/metabox/child-options.php:76
+#: plugin-options/metabox/parent-options.php:75
+#: plugin-options/metabox/title-options.php:76
+#: templates/admin/typography.php:79
+msgid "Lowercase"
+msgstr ""
+
+#: plugin-options/metabox/child-options.php:77
+#: plugin-options/metabox/parent-options.php:76
+#: plugin-options/metabox/title-options.php:77
+#: templates/admin/typography.php:80
+msgid "Uppercase"
+msgstr ""
+
+#: plugin-options/metabox/child-options.php:78
+#: plugin-options/metabox/parent-options.php:77
+#: plugin-options/metabox/title-options.php:78
+#: templates/admin/typography.php:81
+msgid "Capitalize"
+msgstr ""
+
+#: plugin-options/metabox/child-options.php:81
+#: plugin-options/metabox/parent-options.php:80
+#: plugin-options/metabox/title-options.php:81
+msgid "Set the text transform options"
+msgstr ""
+
+#: plugin-options/metabox/child-options.php:85
+#: plugin-options/metabox/parent-options.php:84
+#: plugin-options/metabox/title-options.php:98
+msgid "Border color"
+msgstr ""
+
+#: plugin-options/metabox/child-options.php:88
+#: plugin-options/metabox/parent-options.php:87
+#: plugin-options/metabox/title-options.php:101
+msgid "Set the border color"
+msgstr ""
+
+#: plugin-options/metabox/child-options.php:92
+#: plugin-options/metabox/parent-options.php:91
+msgid "Background color"
+msgstr ""
+
+#: plugin-options/metabox/child-options.php:106
+#: plugin-options/metabox/parent-options.php:105
+msgid "Set the background colors"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:15
+msgid "Container colors"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:20
+#: plugin-options/metabox/general-style.php:68
+#: plugin-options/metabox/general-style.php:116
+msgid "BACKGROUND"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:25
+#: plugin-options/metabox/general-style.php:63
+#: plugin-options/metabox/general-style.php:110
+msgid "BORDER"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:32
+msgid "Border radius"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:37
+msgid "Set the container border radius"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:41
+msgid "Count style"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:44
+#: plugin-options/metabox/general-style.php:78
+msgid "Simple"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:45
+#: plugin-options/metabox/general-style.php:79
+msgid "Circle"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:46
+#: plugin-options/metabox/general-style.php:80
+msgid "Square"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:49
+msgid "Set the count style"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:53
+msgid "Count colors"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:58
+msgid "TEXT"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:75
+msgid "Toggle icon style"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:83
+msgid "Set the toggle icon style"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:87
+msgid "Toggle icon"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:90
+msgid "Plus icon"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:91
+msgid "Arrow icon"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:94
+msgid "Set the toggle icon type"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:98
+msgid "Toggle icon colors"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:104
+msgid "ICON"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:121
+msgid "ICON HOVER"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:127
+msgid "BORDER HOVER"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:133
+msgid "BACKGROUND HOVER"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:139
+msgid "Toggle icon position"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:142
+#: plugin-options/metabox/title-options.php:64
+msgid "Left"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:143
+#: plugin-options/metabox/title-options.php:65
+msgid "Right"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:146
+msgid "Set the toggle icon position"
+msgstr ""
+
+#: plugin-options/metabox/general-style.php:164
+msgid "General style"
+msgstr ""
+
+#: plugin-options/metabox/parent-options.php:14
+msgid "Parent category options"
+msgstr ""
+
+#: plugin-options/metabox/title-options.php:14
+msgid "Title options"
+msgstr ""
+
+#: plugin-options/metabox/title-options.php:20
+msgid "Set the border color of the title"
+msgstr ""
+
+#: plugin-options/metabox/title-options.php:38
+msgid "Title font size"
+msgstr ""
+
+#: plugin-options/metabox/title-options.php:60
+msgid "Alignment"
+msgstr ""
+
+#: plugin-options/metabox/title-options.php:63
+msgid "Center"
+msgstr ""
+
+#: plugin-options/metabox/title-options.php:68
+msgid "Set the title alignment"
+msgstr ""
+
+#: plugin-options/metabox/title-options.php:85
+msgid "Separator style"
+msgstr ""
+
+#: plugin-options/metabox/title-options.php:88
+msgid "No border"
+msgstr ""
+
+#: plugin-options/metabox/title-options.php:89
+msgid "Single line"
+msgstr ""
+
+#: plugin-options/metabox/title-options.php:90
+msgid "Thick line"
+msgstr ""
+
+#: plugin-options/metabox/title-options.php:91
+msgid "Double lines"
+msgstr ""
+
+#: plugin-options/metabox/title-options.php:94
+msgid "Set the border style below the title"
+msgstr ""
+
+#: plugin-options/settings-options.php:20
+msgid "Plugin options"
+msgstr ""
+
+#: plugin-options/settings-options.php:28
+msgid "Hide empty categories"
+msgstr ""
+
+#: plugin-options/settings-options.php:32
+msgid "Enable to automatically hide empty categories in accordions"
+msgstr ""
+
+#: plugin-options/settings-options.php:37
+msgid "Open accordion"
+msgstr ""
+
+#: plugin-options/settings-options.php:38
+msgid "Select the event that will open the accordion menu"
+msgstr ""
+
+#: plugin-options/settings-options.php:43
+msgid "on click"
+msgstr ""
+
+#: plugin-options/settings-options.php:44
+msgid "on hover"
+msgstr ""
+
+#: plugin-options/settings-options.php:52
+msgid "Accordion speed"
+msgstr ""
+
+#: plugin-options/settings-options.php:53
+msgid "Set the accordion speed in milliseconds. <strong> Default: </strong>400"
+msgstr ""
+
+#: plugin-options/settings-options.php:75
+msgid "Show accordions closed"
+msgstr ""
+
+#: plugin-options/settings-options.php:76
+msgid "Enable to show accordions closed by default"
+msgstr ""
+
+#: plugin-options/settings-options.php:85
+msgid "Open subcategories"
+msgstr ""
+
+#: plugin-options/settings-options.php:86
+msgid "Enable to open subcategories when visiting the parent ones"
+msgstr ""
+
+#: plugin-options/settings-options.php:95
+msgid "Category levels"
+msgstr ""
+
+#: plugin-options/settings-options.php:96
+msgid ""
+"Choose if you want to show all category levels or if you want to set a max "
+"depth for subcategories"
+msgstr ""
+
+#: plugin-options/settings-options.php:100
+msgid "show all levels"
+msgstr ""
+
+#: plugin-options/settings-options.php:101
+msgid "set a max depth level for subcategories"
+msgstr ""
+
+#: plugin-options/settings-options.php:110
+msgid "Max depth level"
+msgstr ""
+
+#: plugin-options/settings-options.php:111
+msgid "Set the max depth to show"
+msgstr ""
+
+#: plugin-options/settings-options.php:128
+msgid "Categories to show"
+msgstr ""
+
+#: plugin-options/settings-options.php:129
+msgid "Choose if you want to show all categories or set a max number to show"
+msgstr ""
+
+#: plugin-options/settings-options.php:133
+msgid "show all categories"
+msgstr ""
+
+#: plugin-options/settings-options.php:134
+msgid "set a max number of categories to show"
+msgstr ""
+
+#: plugin-options/settings-options.php:143
+msgid "Show a max of"
+msgstr ""
+
+#: plugin-options/settings-options.php:144
+msgid "Set the maximum number of categories to show"
+msgstr ""
+
+#: plugin-options/settings-options.php:157
+msgid "categories"
+msgstr ""
+
+#: templates/admin/lightbox.php:40
+msgid "Add shortcode"
+msgstr ""
+
+#: templates/admin/lightbox.php:165
+msgid "Insert a title"
+msgstr ""
+
+#: templates/admin/lightbox.php:172
+msgid "Worpress Category"
+msgstr ""
+
+#: templates/admin/lightbox.php:250
+msgid "Menu Label"
+msgstr ""
+
+#: templates/admin/lightbox.php:257
+msgid "WooCommerce Tag"
+msgstr ""
+
+#: templates/admin/lightbox.php:265
+msgid "WordPress Tag"
+msgstr ""
+
+#: templates/admin/lightbox.php:309
+msgid "Insert"
+msgstr ""
+
+#: templates/admin/typography.php:56
+msgid "px"
+msgstr ""
+
+#: templates/admin/typography.php:57
+msgid "em"
+msgstr ""
+
+#: templates/admin/typography.php:58
+msgid "pt"
+msgstr ""
+
+#: templates/admin/typography.php:59
+msgid "rem"
+msgstr ""
+
+#: templates/fields/save-accordion.php:18
+msgid "Save Accordion"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"With <code><strong>YITH WooCommerce Category Accordion "
+"Premium</strong></code> you can add an accordion menu to your sidebars in a "
+"few clicks to view product or post categories! <a href "
+"=\"https://yithemes.com\">Get more plugins for your e-commerce shop on "
+"<strong>YITH</strong></a>"
+msgstr ""
+
+#: includes/admin/class.yith-category-accordion-table.php:96
+msgctxt "Post action"
+msgid "Delete Permanently"
+msgstr ""
+
+#: includes/admin/class.yith-category-accordion-table.php:106
+msgctxt "Delete confirmation action"
+msgid "Yes, delete"
+msgstr ""
+
+#: includes/admin/class.yith-category-accordion-table.php:206
+msgctxt "Name of duplicated rule"
+msgid " - Copy"
+msgstr ""
+
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:36
+msgctxt "Elementor widget name"
+msgid "YITH Category Accordion"
+msgstr ""
+
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:79
+msgctxt "Elementor section title"
+msgid "Dashboard details"
+msgstr ""
+
+#: includes/elementor/class-yith-wc-category-accordion-widget.php:95
+msgctxt "Elementor control label"
+msgid "Show in Accordion"
+msgstr ""
+
+#: templates/admin/lightbox.php:61 templates/admin/lightbox.php:84
+msgctxt "enhanced select"
+msgid "No matches found"
+msgstr ""
+
+#: templates/admin/lightbox.php:62 templates/admin/lightbox.php:85
+msgctxt "enhanced select"
+msgid "Loading failed"
+msgstr ""
+
+#: templates/admin/lightbox.php:63 templates/admin/lightbox.php:86
+msgctxt "enhanced select"
+msgid "Please enter 1 or more characters"
+msgstr ""
+
+#: templates/admin/lightbox.php:64 templates/admin/lightbox.php:87
+msgctxt "enhanced select"
+msgid "Please enter %qty% or more characters"
+msgstr ""
+
+#: templates/admin/lightbox.php:65 templates/admin/lightbox.php:88
+msgctxt "enhanced select"
+msgid "Please delete 1 character"
+msgstr ""
+
+#: templates/admin/lightbox.php:66 templates/admin/lightbox.php:89
+msgctxt "enhanced select"
+msgid "Please delete %qty% characters"
+msgstr ""
+
+#: templates/admin/lightbox.php:67 templates/admin/lightbox.php:90
+msgctxt "enhanced select"
+msgid "You can only select 1 item"
+msgstr ""
+
+#: templates/admin/lightbox.php:68 templates/admin/lightbox.php:91
+msgctxt "enhanced select"
+msgid "You can only select %qty% items"
+msgstr ""
+
+#: templates/admin/lightbox.php:69 templates/admin/lightbox.php:92
+msgctxt "enhanced select"
+msgid "Loading more results&hellip;"
+msgstr ""
+
+#: templates/admin/lightbox.php:70 templates/admin/lightbox.php:93
+msgctxt "enhanced select"
+msgid "Searching&hellip;"
+msgstr ""
+
+#: templates/admin/lightbox.php:82
+msgctxt "enhanced select"
+msgid "One result is available, press enter to select it."
+msgstr ""
+
+#: templates/admin/lightbox.php:83
+msgctxt "enhanced select"
+msgid "%qty% results are available, use up and down arrow keys to navigate."
+msgstr ""

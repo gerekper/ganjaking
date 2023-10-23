@@ -2,9 +2,22 @@
 
 namespace WPML\TM\ATE\API;
 
+use WPML\TM\ATE\ClonedSites\SecondaryDomains;
+
 class FingerprintGenerator {
 	const SITE_FINGERPRINT_HEADER     = 'SITE-FINGERPRINT';
 	const NEW_SITE_FINGERPRINT_HEADER = 'NEW-SITE-FINGERPRINT';
+
+	/** @var SecondaryDomains */
+	private $secondaryDomains;
+
+	/**
+	 * @param SecondaryDomains $secondaryDomains
+	 */
+	public function __construct( SecondaryDomains $secondaryDomains ) {
+		$this->secondaryDomains = $secondaryDomains;
+	}
+
 
 	public function getSiteFingerprint() {
 		$siteFingerprint = [
@@ -16,7 +29,9 @@ class FingerprintGenerator {
 
 	protected function getSiteUrl() {
 
-		$siteUrl = defined( 'ATE_CLONED_SITE_URL' ) ? ATE_CLONED_SITE_URL : site_url();
+		$siteUrl = defined( 'ATE_CLONED_SITE_URL' )
+			? ATE_CLONED_SITE_URL
+			: $this->secondaryDomains->maybeFallBackToTheOriginalURL( site_url() );
 
 		return $this->getDefaultSiteUrl( $siteUrl );
 	}

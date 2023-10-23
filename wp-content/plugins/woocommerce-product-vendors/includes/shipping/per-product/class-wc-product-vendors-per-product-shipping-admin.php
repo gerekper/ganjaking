@@ -240,16 +240,18 @@ class WC_Product_Vendors_Per_Product_Shipping_Admin {
 			return;
 		}
 
-		$countries  = ! empty( $_POST['per_product_country'][ $post_id ] ) ? $_POST['per_product_country'][ $post_id ] : '';
-		$states     = ! empty( $_POST['per_product_state'][ $post_id ] ) ? $_POST['per_product_state'][ $post_id ] : '';
-		$postcodes  = ! empty( $_POST['per_product_postcode'][ $post_id ] ) ? $_POST['per_product_postcode'][ $post_id ] : '';
-		$costs      = ! empty( $_POST['per_product_cost'][ $post_id ] ) ? $_POST['per_product_cost'][ $post_id ] : '';
-		$item_costs = ! empty( $_POST['per_product_item_cost'][ $post_id ] ) ? $_POST['per_product_item_cost'][ $post_id ] : '';
-		$i          = 0;
+		// phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$countries  = wp_unslash( $_POST['per_product_country'][ $post_id ] ?? array() );
+		$states     = wp_unslash( $_POST['per_product_state'][ $post_id ] ?? array() );
+		$postcodes  = wp_unslash( $_POST['per_product_postcode'][ $post_id ] ?? array() );
+		$costs      = wp_unslash( $_POST['per_product_cost'][ $post_id ] ?? array() );
+		$item_costs = wp_unslash( $_POST['per_product_item_cost'][ $post_id ] ?? array() );
+		// phpcs:enable
+		$i = 0;
 
 		if ( $countries ) {
 			foreach ( $countries as $key => $value ) {
-				if ( $key == 'new' ) {
+				if ( $key === 'new' ) {
 					foreach ( $value as $new_key => $new_value ) {
 						if ( ! empty( $countries[ $key ][ $new_key ] ) || ! empty( $states[ $key ][ $new_key ] ) || ! empty( $postcodes[ $key ][ $new_key ] ) || ! empty( $costs[ $key ][ $new_key ] ) || ! empty( $item_costs[ $key ][ $new_key ] ) ) {
 							$wpdb->insert(
@@ -308,16 +310,19 @@ class WC_Product_Vendors_Per_Product_Shipping_Admin {
 			return;
 		}
 
-		$countries  = ! empty( $_POST['per_product_country'][ $post_id ] ) ? $_POST['per_product_country'][ $post_id ] : '';
-		$states     = ! empty( $_POST['per_product_state'][ $post_id ] ) ? $_POST['per_product_state'][ $post_id ] : '';
-		$postcodes  = ! empty( $_POST['per_product_postcode'][ $post_id ] ) ? $_POST['per_product_postcode'][ $post_id ] : '';
-		$costs      = ! empty( $_POST['per_product_cost'][ $post_id ] ) ? $_POST['per_product_cost'][ $post_id ] : '';
-		$item_costs = ! empty( $_POST['per_product_item_cost'][ $post_id ] ) ? $_POST['per_product_item_cost'][ $post_id ] : '';
-		$i          = 0;
+		// phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$countries  = wp_unslash( $_POST['per_product_country'][ $post_id ] ?? array() );
+		$states     = wp_unslash( $_POST['per_product_state'][ $post_id ] ?? array() );
+		$postcodes  = wp_unslash( $_POST['per_product_postcode'][ $post_id ] ?? array() );
+		$costs      = wp_unslash( $_POST['per_product_cost'][ $post_id ] ?? array() );
+		$item_costs = wp_unslash( $_POST['per_product_item_cost'][ $post_id ] ?? array() );
+		// phpcs:enable
+
+		$i = 0;
 
 		if ( $countries ) {
 			foreach ( $countries as $key => $value ) {
-				if ( $key == 'new' ) {
+				if ( $key === 'new' ) {
 					foreach ( $value as $new_key => $new_value ) {
 						if ( ! empty( $countries[ $key ][ $new_key ] ) || ! empty( $states[ $key ][ $new_key ] ) || ! empty( $postcodes[ $key ][ $new_key ] ) || ! empty( $costs[ $key ][ $new_key ] ) || ! empty( $item_costs[ $key ][ $new_key ] ) ) {
 							$wpdb->insert(

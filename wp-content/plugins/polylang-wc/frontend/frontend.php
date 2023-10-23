@@ -39,12 +39,6 @@ class PLLWC_Frontend {
 	 * @return void
 	 */
 	public function init() {
-		// Translate pages ids.
-		foreach ( array( 'myaccount', 'shop', 'cart', 'checkout', 'terms' ) as $page ) {
-			// Don't use the filter 'woocommerce_get' . $page . '_page_id' as some themes (ex: Flatsome) are retrieving directly the option.
-			add_filter( 'option_woocommerce_' . $page . '_page_id', 'pll_get_post' );
-		}
-
 		// Filters the product search form.
 		if ( is_callable( array( PLL()->filters_search, 'get_search_form' ) ) ) {
 			add_filter( 'get_product_search_form', array( PLL()->filters_search, 'get_search_form' ), 99 );
@@ -95,6 +89,9 @@ class PLLWC_Frontend {
 		add_filter( 'woocommerce_ajax_get_endpoint', array( $this, 'ajax_get_endpoint' ), 10, 2 );
 
 		add_action( 'wp_footer', array( $this, 'filter_dynamic_blocks' ), 0 );
+
+		// Use `render_block_data` to translate only attribute ids rather than content (which contains content such as post titles and links).
+		add_filter( 'render_block_data', array( $this, 'filter_reviews_by_product_block_id' ) );
 	}
 
 	/**
@@ -327,25 +324,24 @@ class PLLWC_Frontend {
 	 * @return void
 	 */
 	public function filter_dynamic_blocks() {
-		// Backward compatibility with WC < 6.4.0.
+		// Backward compatibility with WC < 6.4.
 		$path = '/wc/store/products';
 
-		// since WC 6.4.0.
-		if ( version_compare( WC()->version, '6.4.0', '>=' ) ) {
+		// Since WC 6.4.
+		if ( version_compare( WC()->version, '6.4', '>=' ) ) {
 			$path = '/wc/store/v1';
 		}
 		$script = $this->get_filter_script( $path );
 
-		// Backward compatibility with WC < 5.6.
-		wp_add_inline_script( 'wc-reviews-frontend', $script, 'before' );
-		wp_add_inline_script( 'wc-all-products-frontend', $script, 'before' );
-		wp_add_inline_script( 'wc-attribute-filter-frontend', $script, 'before' );
-
 		// Since WC 5.6.
 		wp_add_inline_script( 'wc-reviews-block-frontend', $script, 'before' );
 		wp_add_inline_script( 'wc-all-products-block-frontend', $script, 'before' );
+
+		// Backward compatibility with WC < 7.1.
 		wp_add_inline_script( 'wc-attribute-filter-block-frontend', $script, 'before' );
 
+		// Since WC 7.1.
+		wp_add_inline_script( 'wc-filter-wrapper-block-frontend', $script, 'before' );
 	}
 
 	/**
@@ -369,5 +365,40 @@ class PLLWC_Frontend {
 				return next( options );
 			}
 		);";
+	}
+
+	/**
+	 * Translates the product ID for the widget block reviews by product.
+	 *
+	 * @since 1.9
+	 *
+	 * @param array $parsed_block The block being rendered.
+	 * @return array
+	 */
+	public function filter_reviews_by_product_block_id( $parsed_block ) {
+		if ( 'woocommerce/reviews-by-product' !== $parsed_block['blockName'] ) {
+			return $parsed_block;
+		}
+
+		if ( empty( PLL()->curlang ) || empty( $parsed_block['attrs']['productId'] ) ) {
+			return $parsed_block;
+		}
+
+		/** @var PLLWC_Product_Language_CPT */
+		$data_store = PLLWC_Data_Store::load( 'product_language' );
+
+		$product_language = $data_store->get_language( $parsed_block['attrs']['productId'] );
+		if ( PLL()->curlang->slug === $product_language ) {
+			return $parsed_block;
+		}
+
+		$translated_product_id = $data_store->get( $parsed_block['attrs']['productId'] );
+		if ( ! $translated_product_id ) {
+			return $parsed_block;
+		}
+
+		$parsed_block['attrs']['productId'] = $translated_product_id;
+
+		return $parsed_block;
 	}
 }

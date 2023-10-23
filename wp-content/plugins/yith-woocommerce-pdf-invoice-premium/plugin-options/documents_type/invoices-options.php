@@ -4,7 +4,7 @@
  *
  * @package YITH\PDFInvoice
  * @since   2.1.0
- * @author  YITH
+ * @author  YITH <plugins@yithemes.com>
  */
 
 // Exit if accessed directly.

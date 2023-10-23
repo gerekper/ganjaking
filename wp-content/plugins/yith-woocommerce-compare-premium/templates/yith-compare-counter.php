@@ -2,8 +2,8 @@
 /**
  * Woocommerce Compare counter shortcode template
  *
- * @author Your Inspiration Themes
- * @package YITH Woocommerce Compare
+ * @author YITH <plugins@yithemes.com>
+ * @package YITH\Compare
  * @version 2.3.2
  */
 

@@ -1,0 +1,5 @@
+build
+vendor
+
+# ignore GitHub template files.
+.github/*TEMPLATE*

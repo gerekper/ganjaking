@@ -2,7 +2,7 @@
 /**
  * Items array list
  *
- * @author  YITH
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH WooCommerce Customize My Account Page
  * @version 3.0.0
  */

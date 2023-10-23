@@ -1,0 +1,37 @@
+{
+  "projectPath": "https://translate.yithemes.com/gp/projects/yith-framework/",
+  "textDomain": "yith-plugin-fw",
+  "destFolder": "languages/",
+  "languages": [
+    {
+      "id": "es",
+      "name": "Spanish",
+      "slug": "es_ES"
+    },
+    {
+      "id": "it",
+      "name": "Italian",
+      "slug": "it_IT"
+    },
+    {
+      "id": "nl",
+      "name": "Dutch",
+      "slug": "nl_NL"
+    },
+    {
+      "id": "el",
+      "name": "Greek",
+      "slug": "el"
+    },
+    {
+      "id": "ru",
+      "name": "Russian",
+      "slug": "ru_RU"
+    },
+    {
+      "id": "zh",
+      "name": "Chinese (China)",
+      "slug": "zh_CN"
+    }
+  ]
+}

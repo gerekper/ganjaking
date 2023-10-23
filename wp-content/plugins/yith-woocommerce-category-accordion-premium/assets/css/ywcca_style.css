@@ -1,0 +1,163 @@
+/*GENERAL ACCORDION STYLES*/
+.elementor-widget-container ul {
+	list-style-type: none;
+}
+
+.ywcca_container ul {
+	list-style-type: none;
+}
+
+.widget_yith_wc_category_accordion .highlight_cat{
+	font-weight: bold !important;
+}
+
+.ywcca_category_accordion_widget, .ywcca_category_accordion_widget ul.ywcca-menu{
+	margin: 0 ;
+	padding: 0 ;
+}
+
+.ywcca_container{
+	padding: 15px 30px;
+	margin: 0px;
+}
+
+.ywcca_container a{
+	text-decoration: none; /*By default, without text-decoration*/
+}
+
+.category_accordion li.cat-item span {
+	margin-left: 5px;
+}
+
+.category_accordion li.cat-item:first-child {
+	border-top: none !important;
+}
+
+li.cat-item > i ~ a {
+	margin-left: 0px;
+}
+
+li.cat-item.cat-item-image > a {
+	margin-left: 3px;
+}
+
+li.cat-item {
+	list-style: none;
+}
+
+li.cat-item.cat-item-image {
+	padding-top: 10px;
+    margin-bottom: 15px !important;
+}
+
+li.cat-item.cat-item-image i{
+	margin-top: 0px !important;
+}
+
+li.cat-item.cat-item-image a{
+	vertical-align: bottom;
+}
+
+.ywcca_category_accordion_widget li ul.yith-children{
+	display: none;
+}
+span.default_count_bracket {
+	margin: 0px !important;
+}
+
+ul.ywcca_category_accordion_widget li span.default_count{
+	font-size: 13px;
+}
+ul.ywcca_category_accordion_widget li span.round_count {
+	border: 1px solid;
+	-webkit-border-radius: 101px;
+	-moz-border-radius: 101px;
+	border-radius: 101px;
+	/*margin-top: 5px;*/
+	padding-left: 5px;
+	padding-right: 5px;
+	line-height: 20px;
+	float: inherit;
+	font-size: 10px;
+}
+ul.ywcca_category_accordion_widget li span.rectangle_count{
+	border: 1px solid ;
+	/*margin-top: 5px;*/
+	padding-left: 4px;
+	padding-right: 4px;
+	line-height: 20px;
+	float: inherit;
+	font-size: 10px;
+}
+
+.ywcca_container .ywcca_widget_title {
+	width: 100%;
+	padding: 0;
+	margin-bottom: 10px;
+	font-family: inherit;
+	/*margin-left: 10px;*/
+}
+
+.ywcca_container ul li:hover{
+	cursor: pointer;
+}
+
+li.cat-item-none {
+	font-size: 15px;
+}
+
+li.cat-item-image > img{
+	vertical-align: middle;
+}
+
+li.cat-item.cat-item-image a {
+	vertical-align: middle;
+}
+
+.yith-children li.cat-item.cat-item-image {
+	margin-left: 50px !important;
+}
+
+li.cat-item.cat-item-image.left-position {
+	margin-left: 75px !important;
+}
+
+@font-face {
+	font-family: 'ywcca_font';
+	src:  url('../fonts/icomoon.eot?fequgg');
+	src:  url('../fonts/icomoon.eot?fequgg#iefix') format('embedded-opentype'),
+	url('../fonts/icomoon.ttf?fequgg') format('truetype'),
+	url('../fonts/icomoon.woff?fequgg') format('woff'),
+	url('../fonts/icomoon.svg?fequgg#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+	font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	/* use !important to prevent issues with browser extensions that change fonts */
+	font-family: 'ywcca_font', serif !important;
+	speak: never;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-arrow-top:before {
+	content: "\e900";
+}
+.icon-chevron-down:before {
+	content: "\e901";
+}
+.icon-minus:before {
+	content: "\e902";
+}
+.icon-plus:before {
+	content: "\e903";
+}

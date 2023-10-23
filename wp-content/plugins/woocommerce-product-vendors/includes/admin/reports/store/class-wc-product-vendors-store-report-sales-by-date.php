@@ -599,11 +599,11 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 					<select style="width: 50%;" class="wcpv-vendor-search-bar" name="vendor_id" data-placeholder="<?php esc_attr_e( 'Search for a vendor&hellip;', 'woocommerce-product-vendors' ); ?>">
 					</select>
 					<input type="submit" class="submit button" value="<?php esc_attr_e( 'Show', 'woocommerce-product-vendors' ); ?>" />
-					<input type="hidden" name="range" value="<?php if ( ! empty( $_GET['range'] ) ) echo esc_attr( $_GET['range'] ) ?>" />
-					<input type="hidden" name="start_date" value="<?php if ( ! empty( $_GET['start_date'] ) ) echo esc_attr( $_GET['start_date'] ) ?>" />
-					<input type="hidden" name="end_date" value="<?php if ( ! empty( $_GET['end_date'] ) ) echo esc_attr( $_GET['end_date'] ) ?>" />
-					<input type="hidden" name="page" value="<?php if ( ! empty( $_GET['page'] ) ) echo esc_attr( $_GET['page'] ) ?>" />
-					<input type="hidden" name="tab" value="<?php if ( ! empty( $_GET['tab'] ) ) echo esc_attr( $_GET['tab'] ) ?>" />
+					<input type="hidden" name="range" value="<?php echo esc_attr( wc_clean( wp_unslash( $_GET['range'] ?? '' ) ) ); ?>" />
+					<input type="hidden" name="start_date" value="<?php echo esc_attr( wc_clean( wp_unslash( $_GET['start_date'] ?? '' ) ) ); ?>" />
+					<input type="hidden" name="end_date" value="<?php echo esc_attr( wc_clean( wp_unslash( $_GET['end_date'] ?? '' ) ) ); ?>" />
+					<input type="hidden" name="page" value="<?php echo esc_attr( wc_clean( wp_unslash( $_GET['page'] ?? '' ) ) ); ?>" />
+					<input type="hidden" name="tab" value="<?php echo esc_attr( wc_clean( wp_unslash( $_GET['tab'] ?? '' ) ) ); ?>" />
 				</div>
 			</form>
 		</div>

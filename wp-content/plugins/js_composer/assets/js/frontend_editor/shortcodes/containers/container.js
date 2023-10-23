@@ -15,6 +15,8 @@
 			'click > .vc_controls .vc_element .vc_control-btn-delete': 'destroy',
 			'click > .vc_controls .vc_element .vc_control-btn-edit': 'edit',
 			'click > .vc_controls .vc_element .vc_control-btn-clone': 'clone',
+			'click > .vc_controls .vc_element .vc_control-btn-copy': 'copy',
+			'click > .vc_controls .vc_element .vc_control-btn-paste': 'paste',
 			'click > .vc_controls .vc_element .vc_control-btn-prepend': 'prependElement',
 			'click > .vc_controls .vc_control-btn-append': 'appendElement',
 			'click > .vc_empty-element': 'appendElement',

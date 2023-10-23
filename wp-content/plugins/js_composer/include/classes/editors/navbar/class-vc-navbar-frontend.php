@@ -40,6 +40,7 @@ class Vc_Navbar_Frontend extends Vc_Navbar {
 	public function getControlScreenSize() {
 		$disable_responsive = vc_settings()->get( 'not_responsive_css' );
 		if ( '1' !== $disable_responsive ) {
+            // phpcs:ignore
 			$screen_sizes = apply_filters( 'wpb_navbar_getControlScreenSize', array(
 				array(
 					'title' => esc_html__( 'Desktop', 'js_composer' ),
@@ -100,7 +101,7 @@ class Vc_Navbar_Frontend extends Vc_Navbar {
 				</a>
 				<ul class="vc_dropdown-list">
 					<li class="vc_dropdown-list-item">
-						<a href="<?php echo get_edit_post_link( $post ); ?>"><?php esc_html_e( 'Backend Editor', 'js_composer' ); ?></a>
+						<a href="<?php echo get_edit_post_link( $post ) . '&wpb-backend-editor'; ?>"><?php esc_html_e( 'Backend Editor', 'js_composer' ); ?></a>
 					</li>
 					<li class="vc_dropdown-list-item">
 						<a href="<?php echo get_permalink( $post ); ?>"><?php esc_html_e( 'View Page', 'js_composer' ); ?></a>

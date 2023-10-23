@@ -33,11 +33,12 @@ function vc_gutenberg_sanitize_disable_callback( $rules ) {
  * Not responsive checkbox callback function
  */
 function vc_gutenberg_disable_render_callback() {
+    // phpcs:ignore
 	$checked = ( $checked = get_option( 'wpb_js_gutenberg_disable' ) ) ? $checked : false;
 	?>
 	<label>
 		<input type="checkbox"<?php echo esc_attr( $checked ) ? ' checked' : ''; ?> value="1"
-			   name="<?php echo 'wpb_js_gutenberg_disable' ?>">
+			name="<?php echo 'wpb_js_gutenberg_disable' ?>">
 		<?php esc_html_e( 'Disable', 'js_composer' ) ?>
 	</label><br/>
 	<p

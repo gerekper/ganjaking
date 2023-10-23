@@ -49,7 +49,7 @@ class PLLWC_Products {
 
 		// Filters `get_terms()` in `LookupDataStore::get_term_ids_by_slug_cache()`.
 		add_action( 'woocommerce_before_product_object_save', array( $this, 'store_product_data' ) );
-		add_filter( 'get_terms_args', array( $this, 'get_terms_args' ) );
+		add_filter( 'get_terms_args', array( $this, 'get_terms_args' ), 20 ); // After Polylang and Polylang Pro.
 		add_action( 'woocommerce_after_product_object_save', array( $this, 'reset_product_data' ), 5 ); // Before copy_product(), not mandatory though.
 		add_action( 'woocommerce_run_product_attribute_lookup_update_callback', array( $this, 'store_product_data' ), 1 ); // To set the language before WC processes the product.
 
@@ -75,6 +75,8 @@ class PLLWC_Products {
 	 * @param int    $tr_parent Target variable product id.
 	 * @param string $lang      Target language.
 	 * @return void
+	 *
+	 * @phpstan-param non-empty-string $lang
 	 */
 	protected function copy_variation( $id, $tr_parent, $lang ) {
 		static $avoid_recursion = false;
@@ -160,6 +162,8 @@ class PLLWC_Products {
 	 * @param int    $to   Product id to which we paste informations.
 	 * @param string $lang Language code.
 	 * @return void
+	 *
+	 * @phpstan-param non-empty-string $lang
 	 */
 	public function copy_variations( $from, $to, $lang ) {
 		$product = wc_get_product( $from );
@@ -357,7 +361,7 @@ class PLLWC_Products {
 
 		switch ( $prop ) {
 			case 'image_id':
-				if ( ! PLL()->options['media_support'] ) {
+				if ( ! PLL()->options['media_support'] || empty( $value ) ) {
 					break;
 				}
 
@@ -376,6 +380,10 @@ class PLLWC_Products {
 				$tr_value = array();
 
 				foreach ( array_map( 'absint', explode( ',', $value ) ) as $post_id ) {
+					if ( empty( $post_id ) ) {
+						continue;
+					}
+
 					$tr_id = pll_get_post( $post_id, $lang );
 
 					if ( empty( $tr_id ) ) {
@@ -495,8 +503,6 @@ class PLLWC_Products {
 						break;
 					}
 
-					$v = clone $v; // Avoid original attribute to be modified.
-
 					$terms = $v->get_terms();
 
 					if ( empty( $terms ) ) {
@@ -586,7 +592,9 @@ class PLLWC_Products {
 	 * @return void
 	 */
 	public function store_product_data( $product ) {
-		$product = wc_get_product( $product );
+		if ( ! $product instanceof WC_Product ) {
+			$product = wc_get_product( $product );
+		}
 
 		if ( ! $product instanceof WC_Product ) {
 			return;

@@ -113,6 +113,7 @@ class Vc_Vendor_NinjaForms {
 			'(nf-form-errors-)(\d+)()',
 			'(form.id\s*=\s*\')(\d+)(\')',
 		);
+        // phpcs:ignore
 		$time = time() . self::$ninjaCount . rand( 100, 999 );
 		foreach ( $patterns as $pattern ) {
 			$output = preg_replace( '/' . $pattern . '/', '${1}' . $time . '${3}', $output );

@@ -32,5 +32,6 @@ function redsys_return_types() {
 		'bizumcheckout',
 		'googlepayredirecredsys',
 		'googlepayredsys',
+		'applepayredsys',
 	);
 }

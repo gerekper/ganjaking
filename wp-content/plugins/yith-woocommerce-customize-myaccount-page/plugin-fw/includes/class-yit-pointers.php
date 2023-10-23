@@ -3,6 +3,7 @@
  * YITH Pointers Class.
  *
  * @class   YIT_Pointers
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH\PluginFramework\Classes
  */
 
@@ -72,7 +73,6 @@ if ( ! class_exists( 'YIT_Pointers' ) ) {
 		/**
 		 * Construct
 		 *
-		 * @author Andrea Grillo <andrea.grillo@yithemes.com>
 		 * @since  1.0
 		 */
 		private function __construct() {

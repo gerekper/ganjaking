@@ -237,8 +237,7 @@ class WPML_WP_API extends WPML_PHP_Functions {
 	 * @return bool
 	 */
 	public function current_user_can( $capability ) {
-
-		return current_user_can( $capability );
+		return WPML\LIB\WP\User::currentUserCan( $capability );
 	}
 
 	/**
@@ -315,8 +314,7 @@ class WPML_WP_API extends WPML_PHP_Functions {
 	 * @return bool
 	 */
 	public function user_can( $user, $capability ) {
-
-		return user_can( $user, $capability );
+		return WPML\LIB\WP\User::userCan( $user, $capability );
 	}
 
 	/**

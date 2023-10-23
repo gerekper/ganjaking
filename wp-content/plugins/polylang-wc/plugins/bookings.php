@@ -51,9 +51,8 @@ class PLLWC_Bookings {
 		// Create booking.
 		add_action( 'woocommerce_new_booking', array( $this, 'new_booking' ), 1 );
 
-		// Booking language user has switched between "added to cart" and "completed checkout".
-		add_action( 'woocommerce_booking_in-cart_to_unpaid', array( $this, 'set_booking_language_at_checkout' ) );
-		add_action( 'woocommerce_booking_in-cart_to_pending-confirmation', array( $this, 'set_booking_language_at_checkout' ) );
+		// Hooked just before WC_Booking_Cart_Manager::order_item_meta.
+		add_action( 'woocommerce_new_order_item', array( $this, 'set_booking_language_at_checkout' ), 49, 2 );
 
 		// Products.
 		add_action( 'pllwc_copy_product', array( $this, 'copy_resources' ), 10, 3 );
@@ -239,21 +238,29 @@ class PLLWC_Bookings {
 	}
 
 	/**
-	 * Assigns the booking language in case a visitor adds the product to cart in a language
+	 * Assigns the right booking language.
+	 * In case a visitor adds the product to cart in a language
 	 * and then switches the language before he completes the checkout.
-	 * Hooked to the action 'woocommerce_booking_in-cart_to_unpaid'.
+	 * Hooked to the action 'woocommerce_new_order_item'.
 	 *
-	 * @since 0.7.3
+	 * @since 1.9
 	 *
-	 * @param int $booking_id Booking ID.
-	 * @return void
+	 * @param int                 $item_id     An order item ID.
+	 * @param WC_Order_Item|false $order_item  Order item object.
+	 * @return int
 	 */
-	public function set_booking_language_at_checkout( $booking_id ) {
-		$lang = pll_current_language();
+	public function set_booking_language_at_checkout( $item_id, $order_item ) {
+		if ( empty( $order_item->legacy_values ) || ! is_array( $order_item->legacy_values ) || empty( $order_item->legacy_values['booking'] ) ) {
+			return $item_id;
+		}
+		$booking_id = $order_item->legacy_values['booking']['_booking_id'];
 
-		if ( pll_get_post_language( $booking_id ) !== $lang ) {
+		$lang = pll_current_language();
+		if ( ! empty( $lang ) && pll_get_post_language( $booking_id ) !== $lang ) {
 			pll_set_post_language( $booking_id, $lang );
 		}
+
+		return $item_id;
 	}
 
 	/**

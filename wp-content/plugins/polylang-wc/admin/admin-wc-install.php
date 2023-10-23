@@ -107,7 +107,12 @@ class PLLWC_Admin_WC_Install {
 	 */
 	public function debug_tools( $tools ) {
 		$n = array_search( 'install_pages', array_keys( $tools ) );
-		$end = array_slice( $tools, $n + 1 );
+
+		if ( false === $n ) {
+			return $tools;
+		}
+
+		$end   = array_slice( $tools, $n + 1 );
 		$tools = array_slice( $tools, 0, $n );
 
 		$tools['pll_install_pages'] = array(
@@ -244,33 +249,39 @@ class PLLWC_Admin_WC_Install {
 		$translations = pll_get_post_translations( $post_id );
 
 		// Create the translation only if it doesn't exist yet.
-		if ( empty( $translations[ $lang ] ) ) {
-			$post = get_post( $post_id, ARRAY_A );
-			unset( $post['ID'] );
-			// FIXME post parent?
-			$post['post_title']  = $this->pages[ $lang ][ $page ]['title'];
-			$post['post_status'] = 'draft'; // Keep it draft before we set the language, to correctly handle auto added pages to menu.
-			$tr_id = wp_insert_post( wp_slash( $post ) );
-
-			if ( ! is_wp_error( $tr_id ) ) {
-				// Assign the language and translations.
-				pll_set_post_language( $tr_id, $lang );
-				$translations[ $lang ] = $tr_id;
-				pll_save_post_translations( $translations );
-
-				$tr_post = get_post( $tr_id );
-
-				/*
-				 * We can now publish the page which will also add it to menus if auto add pages to menu is checked
-				 * and attempt to share the slug if needed ( to do after the language has been set ).
-				 */
-				if ( ! empty( $tr_post ) ) {
-					$tr_post->post_name   = $this->pages[ $lang ][ $page ]['name'];
-					$tr_post->post_status = 'publish';
-					wp_update_post( $tr_post );
-				}
-			}
+		if ( ! empty( $translations[ $lang ] ) ) {
+			return;
 		}
+
+		$post = get_post( $post_id, ARRAY_A );
+		unset( $post['ID'] );
+		// FIXME post parent?
+		$post['post_title']  = $this->pages[ $lang ][ $page ]['title'];
+		$post['post_status'] = 'draft'; // Keep it draft before we set the language, to correctly handle auto added pages to menu.
+		$tr_id = wp_insert_post( wp_slash( $post ) );
+
+		if ( empty( $tr_id ) ) {
+			return;
+		}
+
+		// Assign the language and translations.
+		pll_set_post_language( $tr_id, $lang );
+		$translations[ $lang ] = $tr_id;
+		pll_save_post_translations( $translations );
+
+		$tr_post = get_post( $tr_id );
+
+		if ( empty( $tr_post ) ) {
+			return;
+		}
+
+		/*
+		 * We can now publish the page which will also add it to menus if auto add pages to menu is checked
+		 * and attempt to share the slug if needed ( to do after the language has been set ).
+		 */
+		$tr_post->post_name   = $this->pages[ $lang ][ $page ]['name'];
+		$tr_post->post_status = 'publish';
+		wp_update_post( $tr_post );
 	}
 
 	/**
@@ -284,26 +295,36 @@ class PLLWC_Admin_WC_Install {
 	protected static function create_default_product_cat( $lang ) {
 		$default = get_option( 'default_product_cat' );
 
-		if ( $default && ! pll_get_term( $default, $lang ) ) {
-			$name = _x( 'Uncategorized', 'Default category slug', 'polylang-wc' );
-			$slug = sanitize_title( $name . '-' . $lang );
-			$cat = wp_insert_term( $name, 'product_cat', array( 'slug' => $slug ) );
-
-			// Bail in case of database error, but continue if we got a term.
-			if ( is_wp_error( $cat ) && array_key_exists( 'term_exists', $cat->errors ) && isset( $cat->error_data['term_exists'] ) ) {
-				$cat_id = $cat->error_data['term_exists'];
-			} elseif ( is_array( $cat ) ) {
-				$cat_id = $cat['term_id'];
-			}
-
-			if ( ! empty( $cat_id ) ) {
-				// Assign the language and translations.
-				pll_set_term_language( (int) $cat_id, $lang );
-				$translations = pll_get_term_translations( $default );
-				$translations[ $lang ] = $cat_id;
-				pll_save_term_translations( $translations );
-			}
+		if ( empty( $default ) || ! is_numeric( $default ) ) {
+			return;
 		}
+
+		$default = (int) $default;
+
+		if ( pll_get_term( $default, $lang ) ) {
+			return;
+		}
+
+		$name = _x( 'Uncategorized', 'Default category slug', 'polylang-wc' );
+		$slug = sanitize_title( $name . '-' . $lang );
+		$cat  = wp_insert_term( $name, 'product_cat', array( 'slug' => $slug ) );
+
+		// Bail in case of database error, but continue if we got a term.
+		if ( is_wp_error( $cat ) && array_key_exists( 'term_exists', $cat->errors ) && isset( $cat->error_data['term_exists'] ) ) {
+			$cat_id = $cat->error_data['term_exists'];
+		} elseif ( is_array( $cat ) ) {
+			$cat_id = $cat['term_id'];
+		}
+
+		if ( empty( $cat_id ) ) {
+			return;
+		}
+
+		// Assign the language and translations.
+		pll_set_term_language( (int) $cat_id, $lang );
+		$translations = pll_get_term_translations( $default );
+		$translations[ $lang ] = $cat_id;
+		pll_save_term_translations( $translations );
 	}
 
 	/**
@@ -315,15 +336,21 @@ class PLLWC_Admin_WC_Install {
 	 * @return void
 	 */
 	public function add_language( $args ) {
-		if ( $default = get_option( 'default_product_cat' ) ) {
-			$default_cat_lang = pll_get_term_language( $default );
+		$default = get_option( 'default_product_cat' );
 
-			// Assign a default language to the default product category.
-			if ( ! $default_cat_lang ) {
-				pll_set_term_language( (int) $default, (string) pll_default_language() );
-			} else {
-				self::create_default_product_cat( $args['slug'] );
-			}
+		if ( empty( $default ) || ! is_numeric( $default ) ) {
+			return;
+		}
+
+		$default = (int) $default;
+
+		$default_cat_lang = pll_get_term_language( $default );
+
+		// Assign a default language to the default product category.
+		if ( empty( $default_cat_lang ) ) {
+			pll_set_term_language( $default, (string) pll_default_language() );
+		} else {
+			self::create_default_product_cat( $args['slug'] );
 		}
 	}
 
@@ -336,18 +363,24 @@ class PLLWC_Admin_WC_Install {
 	 * @return void
 	 */
 	public static function create_default_product_cats() {
-		if ( $default = get_option( 'default_product_cat' ) ) {
-			$default_cat_lang = pll_get_term_language( $default );
+		$default = get_option( 'default_product_cat' );
 
-			// Assign a default language to default product category.
-			if ( ! $default_cat_lang ) {
-				pll_set_term_language( (int) $default, (string) pll_default_language() );
-			}
+		if ( empty( $default ) || ! is_numeric( $default ) ) {
+			return;
+		}
 
-			foreach ( pll_languages_list() as $language ) {
-				if ( $language !== $default_cat_lang && ! pll_get_term( $default, $language ) ) {
-					self::create_default_product_cat( $language );
-				}
+		$default = (int) $default;
+
+		$default_cat_lang = pll_get_term_language( $default );
+
+		// Assign a default language to default product category.
+		if ( empty( $default_cat_lang ) ) {
+			pll_set_term_language( $default, (string) pll_default_language() );
+		}
+
+		foreach ( pll_languages_list() as $language ) {
+			if ( $language !== $default_cat_lang && ! pll_get_term( $default, $language ) ) {
+				self::create_default_product_cat( $language );
 			}
 		}
 	}
@@ -362,39 +395,52 @@ class PLLWC_Admin_WC_Install {
 	public static function replace_default_product_cats() {
 		global $wpdb;
 
-		if ( $default = get_option( 'default_product_cat' ) ) {
-			$default_category = get_term( $default, 'product_cat' );
+		$default = get_option( 'default_product_cat' );
 
-			if ( $default_category instanceof WP_Term ) {
-				foreach ( PLL()->model->get_languages_list() as $language ) {
-					if ( pll_default_language() !== $language->slug ) {
-						$tr_cat = pll_get_term( $default_category->term_id, $language->slug );
-						if ( $tr_cat ) {
-							$tr_cat = get_term( $tr_cat, 'product_cat' );
-
-							if ( $tr_cat instanceof WP_Term ) {
-								$wpdb->query(
-									$wpdb->prepare(
-										"UPDATE {$wpdb->term_relationships} as tr1
-										JOIN {$wpdb->term_relationships} as tr2 ON tr1.object_id = tr2.object_id
-										AND tr2.term_taxonomy_id = %d
-										SET tr1.term_taxonomy_id = %d
-										WHERE tr1.term_taxonomy_id = %d",
-										$language->get_tax_prop( 'language', 'term_taxonomy_id' ),
-										$tr_cat->term_taxonomy_id,
-										$default_category->term_taxonomy_id
-									)
-								);
-							}
-						}
-					}
-				}
-
-				wp_cache_flush();
-				delete_transient( 'wc_term_counts' );
-				wp_update_term_count_now( pll_get_term_translations( $default_category->term_id ), 'product_cat' );
-			}
+		if ( empty( $default ) || ! is_numeric( $default ) ) {
+			return;
 		}
+
+		$default_category = get_term( (int) $default, 'product_cat' );
+
+		if ( ! $default_category instanceof WP_Term ) {
+			return;
+		}
+
+		foreach ( PLL()->model->get_languages_list() as $language ) {
+			if ( pll_default_language() === $language->slug ) {
+				continue;
+			}
+
+			$tr_cat = pll_get_term( $default_category->term_id, $language->slug );
+
+			if ( empty( $tr_cat ) ) {
+				continue;
+			}
+
+			$tr_cat = get_term( $tr_cat, 'product_cat' );
+
+			if ( ! $tr_cat instanceof WP_Term ) {
+				continue;
+			}
+
+			$wpdb->query(
+				$wpdb->prepare(
+					"UPDATE {$wpdb->term_relationships} as tr1
+					JOIN {$wpdb->term_relationships} as tr2 ON tr1.object_id = tr2.object_id
+					AND tr2.term_taxonomy_id = %d
+					SET tr1.term_taxonomy_id = %d
+					WHERE tr1.term_taxonomy_id = %d",
+					$language->get_tax_prop( 'language', 'term_taxonomy_id' ),
+					$tr_cat->term_taxonomy_id,
+					$default_category->term_taxonomy_id
+				)
+			);
+		}
+
+		wp_cache_flush();
+		delete_transient( 'wc_term_counts' );
+		wp_update_term_count_now( pll_get_term_translations( $default_category->term_id ), 'product_cat' );
 	}
 
 	/**

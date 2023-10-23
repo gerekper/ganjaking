@@ -1,15 +1,21 @@
-.button-container {
+.button-container, .items-list-description {
     padding: 0 20px;
     background: #fff;
-    border-right: 1px solid #d8d8d8;
-    border-left: 1px solid #d8d8d8;
+}
+
+.items-list-description {
+    padding: 0 20px 30px;
+    margin-top: -15px;
+
+    p {
+        max-width: 70%;
+        margin: 0;
+    }
 }
 
 .items-container {
     padding: 30px 20px;
     background: #fff;
-    border: 1px solid #d8d8d8;
-    border-top: 0;
 
     > .items {
         max-width: 70%;
@@ -108,7 +114,7 @@
                 .yith-plugin-fw-onoff-container input {
                     & + span {
                         width: 45px;
-                        height: 20px;
+                        height: 24px;
                         line-height: 12px;
 
                         &:before {
@@ -181,12 +187,6 @@
                     max-width: 50px;
                 }
             }
-            .save-item {
-                margin-bottom: 20px;
-            }
-            .spinner {
-                vertical-align: 3px;
-            }
         }
 
         &.dd-nodrag {
@@ -205,6 +205,21 @@
                     -webkit-transition: all 0.5s ease;
                     -moz-transition: all 0.5s ease;
                 }
+            }
+        }
+
+        .yith-toggle-content-buttons {
+            margin-bottom: 20px;
+
+            button {
+                display: inline-block;
+                vertical-align: middle;
+                padding: 0 15px;
+                margin-left: 10px;
+            }
+
+            .spinner {
+                vertical-align: 3px;
             }
         }
     }

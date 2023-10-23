@@ -1,5 +1,21 @@
 *** Ship to Multiple Addresses Changelog ***
 
+2023-10-16 - version 4.0.0
+* Add    - High-Performance Order Storage (HPOS) compatibility.
+* Add    - `wc_ms_new_shipment_before_save` action to modify shipment object before it is saved.
+* Fix    - Default shipping address being overwritten when user using saved address.
+* Fix    - Pass order ID to `wc_ms_shop_table_row` hook everywhere.
+* Fix    - Persist shipment data in `WC_MS_Order_Shipment::create_from_package()`.
+* Fix    - Order data exporter on the "Export Personal Data" admin screen crashing.
+* Fix    - Ensure value is an array in `get_product_shipping_method()`.
+* Update - Drop support for WC < 3.0.
+
+2023-10-10 - version 3.9.0
+* Fix   - Default shipping address being overwritten when user using saved address.
+
+2023-10-06 - version 3.8.10
+* Update - Security update.
+
 2023-09-05 - version 3.8.9
 * Fix    - Package note does not automatically break.
 * Fix    - Save the package note using hash of address and items.

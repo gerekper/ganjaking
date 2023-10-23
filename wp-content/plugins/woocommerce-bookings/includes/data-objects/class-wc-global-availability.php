@@ -555,6 +555,7 @@ class WC_Global_Availability extends WC_Bookings_Data implements ArrayAccess {
 	 *
 	 * @return bool
 	 */
+	#[ReturnTypeWillChange]
 	public function offsetExists( $offset ) {
 		$offset = $this->update_bc_offset( $offset );
 
@@ -572,6 +573,7 @@ class WC_Global_Availability extends WC_Bookings_Data implements ArrayAccess {
 	 *
 	 * @return mixed
 	 */
+	#[ReturnTypeWillChange]
 	public function offsetGet( $offset ) {
 		$offset = $this->update_bc_offset( $offset );
 
@@ -588,6 +590,7 @@ class WC_Global_Availability extends WC_Bookings_Data implements ArrayAccess {
 	 * @param mixed $offset Offset.
 	 * @param mixed $value Value.
 	 */
+	#[ReturnTypeWillChange]
 	public function offsetSet( $offset, $value ) {
 		$offset = $this->update_bc_offset( $offset );
 
@@ -604,6 +607,7 @@ class WC_Global_Availability extends WC_Bookings_Data implements ArrayAccess {
 	 *
 	 * @param mixed $offset Offset.
 	 */
+	#[ReturnTypeWillChange]
 	public function offsetUnset( $offset ) {
 		$offset = $this->update_bc_offset( $offset );
 

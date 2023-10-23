@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 18-September-2023 using Strauss.
+ * Modified by woocommerce on 09-October-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -150,10 +150,10 @@ class ServerRequest extends Request implements ServerRequestInterface
         foreach (array_keys($files['tmp_name']) as $key) {
             $spec = [
                 'tmp_name' => $files['tmp_name'][$key],
-                'size'     => $files['size'][$key] ?? null,
-                'error'    => $files['error'][$key] ?? null,
-                'name'     => $files['name'][$key] ?? null,
-                'type'     => $files['type'][$key] ?? null,
+                'size' => $files['size'][$key] ?? null,
+                'error' => $files['error'][$key] ?? null,
+                'name' => $files['name'][$key] ?? null,
+                'type' => $files['type'][$key] ?? null,
             ];
             $normalizedFiles[$key] = self::createUploadedFileFromSpec($spec);
         }
@@ -188,7 +188,7 @@ class ServerRequest extends Request implements ServerRequestInterface
 
     private static function extractHostAndPortFromAuthority(string $authority): array
     {
-        $uri = 'http://' . $authority;
+        $uri = 'http://'.$authority;
         $parts = parse_url($uri);
         if (false === $parts) {
             return [null, null];
@@ -292,8 +292,6 @@ class ServerRequest extends Request implements ServerRequestInterface
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @return array|object|null
      */
     public function getParsedBody()
@@ -315,8 +313,6 @@ class ServerRequest extends Request implements ServerRequestInterface
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @return mixed
      */
     public function getAttribute($attribute, $default = null)

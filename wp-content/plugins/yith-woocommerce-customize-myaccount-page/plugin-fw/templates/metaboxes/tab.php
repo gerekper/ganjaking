@@ -5,7 +5,6 @@
  * @var array  $tabs        The tabs.
  * @var string $class       The CSS Class.
  * @var string $meta_box_id The ID of the meta-box.
- *
  * @package YITH\PluginFramework\Templates
  */
 
@@ -18,70 +17,20 @@ $ul_style = count( $tabs ) <= 1 ? 'display:none;' : '';
 $i        = 0;
 do_action( 'yit_before_metaboxes_tab' );
 
-// Allow SVGs.
+// Allow style for SVGs.
 $label_extra_allowed_tags = array(
-	'svg'      => array(
-		'class'           => true,
-		'aria-hidden'     => true,
-		'aria-labelledby' => true,
-		'role'            => true,
-		'xmlns'           => true,
-		'width'           => true,
-		'height'          => true,
-		'viewbox'         => true,
-		'version'         => true,
-		'x'               => true,
-		'y'               => true,
-		'style'           => true,
-	),
-	'circle'   => array(
-		'class' => true,
-		'cx'    => true,
-		'cy'    => true,
-		'r'     => true,
-	),
-	'g'        => array( 'fill' => true ),
-	'polyline' => array(
-		'class'  => true,
-		'points' => true,
-	),
-	'polygon'  => array(
-		'class'  => true,
-		'points' => true,
-	),
-	'line'     => array(
-		'class' => true,
-		'x1'    => true,
-		'x2'    => true,
-		'y1'    => true,
-		'y2'    => true,
-	),
-	'title'    => array( 'title' => true ),
-	'path'     => array(
-		'class' => true,
-		'd'     => true,
-		'fill'  => true,
-	),
-	'rect'     => array(
-		'class'  => true,
-		'x'      => true,
-		'y'      => true,
-		'fill'   => true,
-		'width'  => true,
-		'height' => true,
-	),
-	'style'    => array(
+	'style' => array(
 		'type' => true,
 	),
 );
 
-$label_allowed_tags = array_merge( wp_kses_allowed_html( 'post' ), $label_extra_allowed_tags );
+$label_allowed_tags = array_merge( wp_kses_allowed_html( 'post' ), yith_plugin_fw_kses_allowed_svg_tags(), $label_extra_allowed_tags );
 $label_allowed_tags = apply_filters( 'yith_plugin_fw_metabox_label_allowed_tags', $label_allowed_tags, $meta_box_id );
 
 ?>
 	<div class="yith-plugin-fw metaboxes-tab <?php echo esc_attr( $classes ); ?>">
 		<?php do_action( 'yit_before_metaboxes_labels' ); ?>
-		<ul class="metaboxes-tabs clearfix" style="<?php echo esc_attr( $ul_style ); ?>">
+		<ul class="metaboxes-tabs clearfix yith-plugin-fw__tabs" style="<?php echo esc_attr( $ul_style ); ?>" data-tab-additional-active-class="tabs">
 			<?php foreach ( $tabs as $key => $_tab ) : ?>
 
 				<?php
@@ -103,11 +52,14 @@ $label_allowed_tags = apply_filters( 'yith_plugin_fw_metabox_label_allowed_tags'
 					$_tab['deps']['type'] = 'hideme';
 				}
 
-				$class = ! $i ? 'tabs' : '';
+				$class = 'yith-plugin-fw__tab';
+				if ( ! $i ) {
+					$class .= ' tabs yith-plugin-fw__tab--active';
+				}
 				$i ++;
 				?>
 				<li id="<?php echo esc_attr( $anchor_id ); ?>" class="<?php echo esc_attr( $class ); ?>" <?php echo yith_field_deps_data( $_tab ); ?>>
-					<a href="#<?php echo esc_attr( urldecode( $key ) ); ?>">
+					<a href="#<?php echo esc_attr( urldecode( $key ) ); ?>" class="yith-plugin-fw__tab__handler">
 						<?php echo wp_kses( $_tab['label'], $label_allowed_tags ); ?>
 					</a>
 				</li>
@@ -125,7 +77,7 @@ $label_allowed_tags = apply_filters( 'yith_plugin_fw_metabox_label_allowed_tags'
 		<?php wp_nonce_field( 'metaboxes-fields-nonce', 'yit_metaboxes_nonce' ); ?>
 
 		<?php foreach ( $tabs as $key => $_tab ) : ?>
-			<div class="tabs-panel" id="<?php echo esc_attr( urldecode( $key ) ); ?>">
+			<div class="tabs-panel yith-plugin-fw__tab-panel" id="<?php echo esc_attr( urldecode( $key ) ); ?>">
 				<?php
 				if ( empty( $_tab['fields'] ) ) {
 					continue;

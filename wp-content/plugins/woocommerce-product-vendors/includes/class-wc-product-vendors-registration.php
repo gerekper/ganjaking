@@ -30,8 +30,6 @@ class WC_Product_Vendors_Registration {
 			if ( isset( $_POST['action'] ) && $_POST['action'] === 'add-tag'  ) {
 				add_action( 'created_' . WC_PRODUCT_VENDORS_TAXONOMY, array( $this, 'create_user_on_vendor_term_creation' ), 100 );
 			}
-		} else {
-			add_action( 'wp_enqueue_scripts', array( $this, 'add_scripts' ) );
 		}
 
 		return true;
@@ -46,6 +44,14 @@ class WC_Product_Vendors_Registration {
 	 * @return bool
 	 */
 	public function add_scripts() {
+		// Get the current global post object.
+		$post = get_post();
+
+		if ( ! is_admin() && ( ! $post || ! has_shortcode( $post->post_content, 'wcpv_registration' ) ) ) {
+			// Do nothing if not admin and there is no global post or the shortcode is not present.
+			return;
+		}
+
 		wp_enqueue_script( 'wcpv-frontend-scripts' );
 
 		$localized_vars = array(

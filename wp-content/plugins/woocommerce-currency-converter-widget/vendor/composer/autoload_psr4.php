@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Themesquad\\WC_Currency_Converter\\' => array($baseDir . '/src'),
+    'KoiLab\\WC_Currency_Converter\\' => array($baseDir . '/src'),
 );

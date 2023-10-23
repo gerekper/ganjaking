@@ -12,7 +12,7 @@ if ( ! class_exists( 'YIT_Ajax' ) ) {
 	/**
 	 * YIT_Ajax class.
 	 *
-	 * @author  Leanza Francesco <leanzafrancesco@gmail.com>
+	 * @author  YITH <plugins@yithemes.com>
 	 */
 	class YIT_Ajax {
 
@@ -167,31 +167,50 @@ if ( ! class_exists( 'YIT_Ajax' ) ) {
 
 			check_ajax_referer( 'search-posts', 'security' );
 
-			$term = isset( $_REQUEST['term'] ) ? intval( $_REQUEST['term'] ) : false;
+			$term = wc_clean( wp_unslash( $_GET['term'] ?? '' ) );
 
 			if ( empty( $term ) ) {
 				die();
 			}
 
-			$found_orders = array();
-			$term         = apply_filters( 'yith_plugin_fw_json_search_order_number', $term );
-			$search       = '%' . intval( $term ) . '%';
+			$json_orders = array();
+			$orders      = array();
+			$term        = apply_filters( 'yith_plugin_fw_json_search_order_number', $term ); // Filter kept for backward compatibility.
+			$term        = apply_filters( 'yith_plugin_fw_json_search_order_term', $term );
+			$limit       = absint( apply_filters( 'yith_plugin_fw_json_search_order_limit', 10 ) );
 
-			$query_orders = $wpdb->get_results(
-				$wpdb->prepare(
-					"SELECT ID, post_title FROM {$wpdb->posts} AS posts WHERE posts.post_type = 'shop_order' AND posts.ID LIKE %s",
-					$search
-				)
-			);
+			if ( yith_plugin_fw_is_wc_custom_orders_table_usage_enabled() ) {
+				$orders = wc_get_orders(
+					array(
+						's'     => $term,
+						'limit' => $limit,
+					)
+				);
+			} else {
+				$order_ids = $wpdb->get_col(
+					$wpdb->prepare(
+						"SELECT ID FROM {$wpdb->posts} AS posts WHERE posts.post_type = 'shop_order' AND posts.ID LIKE %s",
+						'%' . $wpdb->esc_like( $term ) . '%'
+					)
+				);
 
-			if ( $query_orders ) {
-				foreach ( $query_orders as $item ) {
-					$order_number              = apply_filters( 'yith_plugin_fw_order_number', '#' . $item->ID, $item->ID );
-					$found_orders[ $item->ID ] = esc_html( $order_number ) . ' &ndash; ' . esc_html( $item->post_title );
+				if ( $order_ids ) {
+					$orders = wc_get_orders(
+						array(
+							'post__in' => $order_ids,
+							'limit'    => $limit,
+						)
+					);
 				}
 			}
 
-			wp_send_json( $found_orders );
+			if ( $orders ) {
+				foreach ( $orders as $order ) {
+					$json_orders[ $order->get_id() ] = yith_plugin_fw_get_post_formatted_name( $order );
+				}
+			}
+
+			wp_send_json( $json_orders );
 		}
 
 		/**
@@ -241,7 +260,7 @@ if ( ! class_exists( 'YIT_Ajax' ) ) {
 				die();
 			}
 
-			$terms = yith_get_terms( $args );
+			$terms = get_terms( $args );
 
 			if ( 'id' !== $args['term_field'] ) {
 				$temp_terms = $terms;
@@ -252,6 +271,7 @@ if ( ! class_exists( 'YIT_Ajax' ) ) {
 				}
 			}
 
+			$terms = apply_filters( 'yith_plugin_fw_json_search_found_terms', $terms, $args );
 			wp_send_json( $terms );
 		}
 	}

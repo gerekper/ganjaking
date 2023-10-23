@@ -4,8 +4,8 @@ Donate link: https://perfmatters.io
 Tags: perfmatters
 Requires at least: 5.5
 Requires PHP: 7.0
-Tested up to: 6.3.1
-Stable tag: 2.1.6
+Tested up to: 6.3.2
+Stable tag: 2.1.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,24 @@ Perfmatters is a lightweight performance plugin developed to speed up your WordP
 Check out our [documentation](https://perfmatters.io/docs/) for more information on how to use Perfmatters.
 
 == Changelog ==
+
+= 2.1.8 - 10.13.2023 = 
+* Fixed a compatibility issue with local fonts and WordPress 6.3.2 that was causing an error when new font files were requested.
+
+= 2.1.7 - 09.29.2023 =
+* Added Delay JS quick exclusion for WP Forms.
+* Script Manager style updates to match some recent changes to the main settings UI.
+* Script Manager security updates to form submission handling.
+* Added logic to strip whitespace from input row text fields used for preloads, preconnects, and fetch priority options.
+* Adjusted CDN Regex slightly to account for certain subdirectory formats.
+* Added specification to lazyload exclusion to only skip the fetchpriority attribute when set to high.
+* Added Cornerstone request parameter to excluded page builders array.
+* Updated certain AJAX action names to be specific to Perfmatters to prevent conflicts.
+* Updated missing image dimension function to better handle images that have been prepped by lazy loaders outside of Perfmatters.
+* Added Novashare discount link to plugin settings UI for Perfmatters customers.
+* Fixed an issue where the database optimization process would not run correctly if selected toggles were not saved first.
+* Fixed an issue in MU Mode where core cookie constants were not set in a specific instance when checking for the current post ID.
+* Translation updates.
 
 = 2.1.6 - 08.31.2023 =
 * Fixed an issue that was preventing CodeMirror input fields from saving correctly.

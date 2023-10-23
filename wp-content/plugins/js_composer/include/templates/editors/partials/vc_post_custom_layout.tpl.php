@@ -9,29 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 $layout_manager = new Vc_PostCustomLayout();
 ?>
 <div id="vc_ui-panel-post-custom-layout" class="vc_post-custom-layout-wrapper vc_selected-post-custom-layout-visible-ne">
-	<a class="vc_post-custom-layout control-btn <?php echo $layout_manager->checkIfLayoutActive( 'blank', $location ) ? 'vc-active-post-custom-layout' : '' ?>"
-	   href="<?php echo $layout_manager->getLayoutHrefByLayoutName( 'blank' ); ?>"
-	   data-post-custom-layout="blank"
-	>
-		<svg xmlns="http://www.w3.org/2000/svg" width="88px" height="88px" viewBox="0 0 88 88">
-			<g id="WPB-Editor" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-				<g transform="translate(-510.000000, -587.000000)" fill="#BDCBD1" fill-rule="nonzero">
-					<g id="wpb-blank-page" transform="translate(107.000000, 353.000000)">
-						<g id="blank-page-ico" transform="translate(403.000000, 234.000000)">
-							<path d="M82.6375,0 L5.3625,0 C2.475,0 0,2.475 0,5.3625 L0,82.6375 C0,85.525 2.475,88 5.3625,88 L82.6375,88 C85.6625,88 88,85.525 88,82.6375 L88,5.3625 C88,2.475 85.525,0 82.6375,0 Z M5.3625,2.75 L82.6375,2.75 C84.0125,2.75 85.25,3.9875 85.25,5.3625 L85.25,15.95 L2.75,15.95 L2.75,5.3625 C2.75,3.9875 3.9875,2.75 5.3625,2.75 Z M82.6375,85.25 L5.3625,85.25 C3.9875,85.25 2.75,84.0125 2.75,82.6375 L2.75,18.7 L85.25,18.7 L85.25,82.6375 C85.25,84.0125 84.0125,85.25 82.6375,85.25 Z" id="XMLID_393_"/>
-							<path d="M10.175,11 L12.925,11 C13.75,11 14.3,10.56 14.3,9.9 C14.3,9.24 13.75,8.8 12.925,8.8 L10.175,8.8 C9.35,8.8 8.8,9.24 8.8,9.9 C8.8,10.56 9.35,11 10.175,11 Z" id="XMLID_454_"/>
-							<path d="M18.975,11 L21.725,11 C22.55,11 23.1,10.56 23.1,9.9 C23.1,9.24 22.55,8.8 21.725,8.8 L18.975,8.8 C18.15,8.8 17.6,9.24 17.6,9.9 C17.6,10.56 18.15,11 18.975,11 L18.975,11 Z" id="XMLID_455_"/>
-							<path d="M28.875,11 L31.625,11 C32.45,11 33,10.56 33,9.9 C33,9.24 32.45,8.8 31.625,8.8 L28.875,8.8 C28.05,8.8 27.5,9.24 27.5,9.9 C27.5,10.56 28.1875,11 28.875,11 Z" id="XMLID_456_"/>
-						</g>
-					</g>
-				</g>
-			</g>
-		</svg>
-		<strong class="vc_layout-label"><?php esc_html_e( 'Blank Page', 'js_composer' ); ?></strong>
-	</a>
 	<a class="vc_post-custom-layout control-btn <?php echo $layout_manager->checkIfLayoutActive( 'default', $location ) ? 'vc-active-post-custom-layout' : '' ?>"
-	   href="<?php echo $layout_manager->getLayoutHrefByLayoutName( 'default' ); ?>"
-	   data-post-custom-layout="default"
+		href="<?php echo $layout_manager->getLayoutHrefByLayoutName( 'default' ); ?>"
+		data-post-custom-layout="default"
 	>
 		<svg xmlns="http://www.w3.org/2000/svg" width="88px" height="88px" viewBox="0 0 88 88">
 			<g id="WPB-Editor" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -50,6 +30,29 @@ $layout_manager = new Vc_PostCustomLayout();
 				</g>
 			</g>
 		</svg>
-		<strong class="vc_layout-label"><?php esc_html_e( 'Theme Layout', 'js_composer' ); ?></strong>
+		<strong class="vc_layout-label"><?php esc_html_e( 'Default Layout', 'js_composer' ); ?></strong>
+		<p class="vc_layout-description"><?php esc_html_e( 'A blank page with your theme header and footer', 'js_composer' ); ?></p>
 	</a>
+	<a class="vc_post-custom-layout control-btn <?php echo $layout_manager->checkIfLayoutActive( 'blank', $location ) ? 'vc-active-post-custom-layout' : '' ?>"
+		href="<?php echo $layout_manager->getLayoutHrefByLayoutName( 'blank' ); ?>"
+		data-post-custom-layout="blank"
+	>
+		<svg xmlns="http://www.w3.org/2000/svg" width="88px" height="88px" viewBox="0 0 88 88">
+			<g id="WPB-Editor" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+				<g transform="translate(-510.000000, -587.000000)" fill="#BDCBD1" fill-rule="nonzero">
+					<g id="wpb-blank-page" transform="translate(107.000000, 353.000000)">
+						<g id="blank-page-ico" transform="translate(403.000000, 234.000000)">
+							<path d="M82.6375,0 L5.3625,0 C2.475,0 0,2.475 0,5.3625 L0,82.6375 C0,85.525 2.475,88 5.3625,88 L82.6375,88 C85.6625,88 88,85.525 88,82.6375 L88,5.3625 C88,2.475 85.525,0 82.6375,0 Z M5.3625,2.75 L82.6375,2.75 C84.0125,2.75 85.25,3.9875 85.25,5.3625 L85.25,15.95 L2.75,15.95 L2.75,5.3625 C2.75,3.9875 3.9875,2.75 5.3625,2.75 Z M82.6375,85.25 L5.3625,85.25 C3.9875,85.25 2.75,84.0125 2.75,82.6375 L2.75,18.7 L85.25,18.7 L85.25,82.6375 C85.25,84.0125 84.0125,85.25 82.6375,85.25 Z" id="XMLID_393_"/>
+							<path d="M10.175,11 L12.925,11 C13.75,11 14.3,10.56 14.3,9.9 C14.3,9.24 13.75,8.8 12.925,8.8 L10.175,8.8 C9.35,8.8 8.8,9.24 8.8,9.9 C8.8,10.56 9.35,11 10.175,11 Z" id="XMLID_454_"/>
+							<path d="M18.975,11 L21.725,11 C22.55,11 23.1,10.56 23.1,9.9 C23.1,9.24 22.55,8.8 21.725,8.8 L18.975,8.8 C18.15,8.8 17.6,9.24 17.6,9.9 C17.6,10.56 18.15,11 18.975,11 L18.975,11 Z" id="XMLID_455_"/>
+							<path d="M28.875,11 L31.625,11 C32.45,11 33,10.56 33,9.9 C33,9.24 32.45,8.8 31.625,8.8 L28.875,8.8 C28.05,8.8 27.5,9.24 27.5,9.9 C27.5,10.56 28.1875,11 28.875,11 Z" id="XMLID_456_"/>
+						</g>
+					</g>
+				</g>
+			</g>
+		</svg>
+		<strong class="vc_layout-label"><?php esc_html_e( 'Blank Layout', 'js_composer' ); ?></strong>
+		<p class="vc_layout-description"><?php esc_html_e( 'A completely blank page without a header and footer', 'js_composer' ); ?></p>
+	</a>
+
 </div>

@@ -19,10 +19,6 @@ window.yith = window.yith || {};
 			}
 			return filteredClasses.join( ' ' );
 		}
-	}
-
-	var stopEventPropagation = function ( e ) {
-		e.stopPropagation();
 	};
 
 	/**
@@ -30,13 +26,13 @@ window.yith = window.yith || {};
 	 */
 	yith.ui.confirm = function ( options ) {
 		var defaults = {
-				title                     : false,
-				message                   : false,
-				onCreate                  : false,
-				onConfirm                 : false,
-				onCancel                  : false,
-				onClose                   : false,
-				classes                   : {
+				title                           : false,
+				message                         : false,
+				onCreate                        : false,
+				onConfirm                       : false,
+				onCancel                        : false,
+				onClose                         : false,
+				classes                         : {
 					wrap   : '',
 					content: '',
 					title  : '',
@@ -45,15 +41,16 @@ window.yith = window.yith || {};
 					cancel : '',
 					confirm: ''
 				},
-				confirmButtonType         : 'confirm',
-				cancelButton              : yith_plugin_fw_ui.i18n.cancel,
-				confirmButton             : yith_plugin_fw_ui.i18n.confirm,
-				width                     : 350,
-				closeAfterConfirm         : true,
-				allowWpMenu               : false,
-				allowWpMenuInMobile       : false,
-				showClose                 : true,
-				closeWhenClickingOnOverlay: false
+				confirmButtonType               : 'confirm',
+				cancelButton                    : yith_plugin_fw_ui.i18n.cancel,
+				confirmButton                   : yith_plugin_fw_ui.i18n.confirm,
+				width                           : 350,
+				closeAfterConfirm               : true,
+				allowWpMenu                     : false,
+				allowWpMenuInMobile             : false,
+				showClose                       : true,
+				confirmButtonLoadingAfterConfirm: false,
+				closeWhenClickingOnOverlay      : false
 			},
 			self     = {};
 
@@ -91,7 +88,6 @@ window.yith = window.yith || {};
 				dom.cancel  = $( '<span class="' + classes.cancel + '">' + options.cancelButton + '</span>' );
 				dom.confirm = $( '<span class="' + classes.confirm + '">' + options.confirmButton + '</span>' );
 
-
 				if ( options.message ) {
 					dom.message.html( options.message );
 				}
@@ -126,8 +122,16 @@ window.yith = window.yith || {};
 				handleClose();
 			},
 			handleConfirm = function () {
+				if ( dom.confirm.hasClass( 'yith-plugin-fw__confirm__button--is-loading' ) ) {
+					return;
+				}
+
 				if ( typeof options.onConfirm === 'function' ) {
 					options.onConfirm();
+				}
+
+				if ( options.confirmButtonLoadingAfterConfirm ) {
+					dom.confirm.addClass( 'yith-plugin-fw__confirm__button--is-loading' );
 				}
 
 				if ( options.closeAfterConfirm ) {
@@ -181,8 +185,8 @@ window.yith = window.yith || {};
 		options         = $.extend( {}, defaults, options );
 		options.classes = $.extend( {}, defaults.classes, options.classes );
 
-		var container      = $( '#wpwrap' ),
-			classes        = {
+		var container            = $( '#wpwrap' ),
+			classes              = {
 				wrap   : ['yith-plugin-ui', 'yith-plugin-fw__modal__wrap', options.classes.wrap],
 				main   : ['yith-plugin-fw__modal__main', options.classes.main],
 				close  : ['yith-plugin-fw__modal__close', 'yith-icon', 'yith-icon-close', options.classes.close],
@@ -190,7 +194,7 @@ window.yith = window.yith || {};
 				content: ['yith-plugin-fw__modal__content', options.classes.content],
 				footer : ['yith-plugin-fw__modal__footer', options.classes.footer]
 			},
-			dom            = {
+			dom                  = {
 				wrap   : false,
 				main   : false,
 				close  : false,
@@ -198,23 +202,27 @@ window.yith = window.yith || {};
 				content: false,
 				footer : false
 			},
-			initialize     = function () {
-				handleClose();
+			initialize           = function () {
+				close();
 
 				create();
 				initEvents();
 			},
-			handleClose    = function () {
+			close                = function () {
 				$( '.yith-plugin-fw__modal__wrap' ).remove();
 				container.removeClass( 'yith-plugin-fw__modal--opened' );
 				container.removeClass( 'yith-plugin-fw__modal--allow-wp-menu' );
 				container.removeClass( 'yith-plugin-fw__modal--allow-wp-menu-in-mobile' );
+				removeEvents();
+			},
+			handleClose          = function () {
+				close();
 
 				if ( typeof options.onClose === 'function' ) {
 					options.onClose();
 				}
 			},
-			create         = function () {
+			create               = function () {
 				dom.wrap    = $( '<div class="' + cssClasses( classes.wrap ) + '">' );
 				dom.main    = $( '<div class="' + cssClasses( classes.main ) + '">' );
 				dom.close   = $( '<span class="' + cssClasses( classes.close ) + '">' );
@@ -223,7 +231,6 @@ window.yith = window.yith || {};
 				dom.footer  = $( '<div class="' + cssClasses( classes.footer ) + '">' );
 
 				dom.main.css( { width: options.width } );
-
 
 				if ( options.title ) {
 					if ( typeof options.title === 'string' ) {
@@ -280,20 +287,26 @@ window.yith = window.yith || {};
 					options.onCreate();
 				}
 			},
-			initEvents     = function () {
+			handleClickOnOverlay = function ( event ) {
+				var target = $( event.target );
+				if ( target.is( dom.wrap ) && options.closeWhenClickingOnOverlay ) {
+					handleClose();
+				}
+			},
+			initEvents           = function () {
 				dom.close.on( 'click', handleClose );
 				if ( options.closeSelector ) {
 					container.on( 'click', options.closeSelector, handleClose );
 				}
 
-				if ( options.closeWhenClickingOnOverlay ) {
-					dom.wrap.on( 'click', handleClose );
-					dom.main.on( 'click', stopEventPropagation );
-				}
+				dom.wrap.on( 'click', handleClickOnOverlay );
 
 				$( document ).on( 'keydown', handleKeyboard );
 			},
-			handleKeyboard = function ( event ) {
+			removeEvents         = function () {
+				$( document ).off( 'keydown', handleKeyboard );
+			},
+			handleKeyboard       = function ( event ) {
 				if ( options.allowClosingWithEsc && event.keyCode === 27 ) {
 					handleClose();
 				}

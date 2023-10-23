@@ -11,6 +11,8 @@ class Vc_PostCustomLayout {
 
 	/**
 	 * Meta key where we store layout name.
+	 * @since 7.0
+	 *
 	 * @var string
 	 */
 	public $layout_meta_name = '_wpb_post_custom_layout';
@@ -73,7 +75,8 @@ class Vc_PostCustomLayout {
 
 	/**
 	 * Check if user switched layout in frontend editor.
-	 * @note in such cases we should reload the page and should new layout
+	 * @note in such cases we should reload the page
+	 * @since 7.0
 	 *
 	 * @return bool
 	 */
@@ -100,6 +103,7 @@ class Vc_PostCustomLayout {
 	 * Retrieve get params.
 	 * @description  we should obtain params from $_SERVER['HTTP_REFERER']
 	 * if we try to get params inside iframe and from regular $_GET when outside
+	 * @since 7.0
 	 *
 	 * @return array|false
 	 */
@@ -126,6 +130,10 @@ class Vc_PostCustomLayout {
 	 * @return array|false
 	 */
 	public function getParamsFromServerReferer() {
+		if ( ! isset( $_SERVER['HTTP_REFERER'] ) ) {
+			return false;
+		}
+        // phpcs:ignore
 		$query = parse_url( $_SERVER['HTTP_REFERER'], PHP_URL_QUERY );
 		if ( ! $query ) {
 			return false;
@@ -139,6 +147,8 @@ class Vc_PostCustomLayout {
 
 	/**
 	 * Get previously saved layout from post meta.
+	 * @since 7.0
+	 *
 	 * @return mixed
 	 */
 	public function getLayoutFromMeta() {
@@ -164,6 +174,7 @@ class Vc_PostCustomLayout {
 
 	/**
 	 * Get href for the custom layout by layout name.
+	 * @since 7.0
 	 *
 	 * @param string $layout_name
 	 * @return string
@@ -183,7 +194,7 @@ class Vc_PostCustomLayout {
 	 * Check if layout active on current location.
 	 * @since 7.0
 	 *
-	 * @param string $layoutName
+	 * @param string $check_name
 	 * @param string $location settings or welcome
 	 * @return bool
 	 */

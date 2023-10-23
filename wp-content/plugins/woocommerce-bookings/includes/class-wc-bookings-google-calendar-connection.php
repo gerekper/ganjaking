@@ -1362,6 +1362,13 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 
 		// Logout.
 		if ( isset( $_GET['logout'] ) ) {
+			if (
+				! isset( $_POST[ self::NONCE_NAME ] ) ||
+				! wp_verify_nonce( wc_clean( wp_unslash( $_POST[ self::NONCE_NAME ] ) ), self::NONCE_ACTION )
+			) {
+				wp_die( esc_html( __( 'Invalid request!', 'woocommerce-bookings' ) ) );
+			}
+
 			$redirect_args['wc_gcalendar_logout'] = $this->oauth_logout_custom() ? 'success' : 'fail';
 			delete_option( 'wc_bookings_google_calendar_custom_connection' );
 			wp_redirect( add_query_arg( $redirect_args, admin_url( '/edit.php?' ) ), 301 ); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect

@@ -89,7 +89,7 @@ function vc_custom_heading_element_params() {
 				'type' => 'el_id',
 				'heading' => esc_html__( 'Element ID', 'js_composer' ),
 				'param_name' => 'el_id',
-				'description' => sprintf( esc_html__( 'Enter element ID (Note: make sure it is unique and valid according to %sw3c specification%s).', 'js_composer' ), '<a href="https://www.w3schools.com/tags/att_global_id.asp" target="_blank">', '</a>' ),
+				'description' => sprintf( esc_html__( 'Enter element ID (Note: make sure it is unique and valid according to %1$sw3c specification%2$s).', 'js_composer' ), '<a href="https://www.w3schools.com/tags/att_global_id.asp" target="_blank">', '</a>' ),
 			),
 			array(
 				'type' => 'textfield',

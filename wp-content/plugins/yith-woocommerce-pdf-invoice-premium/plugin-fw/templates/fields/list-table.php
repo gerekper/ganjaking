@@ -11,11 +11,11 @@ defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 list ( $field_id, $class, $the_title, $the_post_type, $args, $add_new_button, $add_new_url, $list_table_class, $list_table_class_dir, $search_form, $desc ) = yith_plugin_fw_extract( $field, 'id', 'class', 'title', 'post_type', 'args', 'add_new_button', 'add_new_url', 'list_table_class', 'list_table_class_dir', 'search_form', 'desc' );
 
 $show_button = false;
-if ( isset( $add_new_button ) && isset( $the_post_type ) ) {
+if ( isset( $add_new_button ) && ( isset( $the_post_type ) || ( isset( $add_new_url ) ) ) ) {
 	$show_button         = true;
 	$admin_url           = admin_url( 'post-new.php' );
 	$params['post_type'] = $the_post_type;
-	$add_new_url         = apply_filters( 'yith_plugin_fw_add_new_post_url', esc_url( add_query_arg( $params, $admin_url ) ), $params, isset( $args ) ? $args : false );
+	$add_new_url         = $add_new_url ? $add_new_url : apply_filters( 'yith_plugin_fw_add_new_post_url', esc_url( add_query_arg( $params, $admin_url ) ), $params, isset( $args ) ? $args : false );
 }
 
 if ( isset( $list_table_class, $list_table_class_dir ) && ! class_exists( $list_table_class ) && file_exists( $list_table_class_dir ) ) {

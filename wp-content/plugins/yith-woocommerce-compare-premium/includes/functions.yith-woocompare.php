@@ -2,8 +2,8 @@
 /**
  * Functions
  *
- * @author Your Inspiration Themes
- * @package YITH Woocommerce Compare
+ * @author YITH <plugins@yithemes.com>
+ * @package YITH\Compare
  * @version 1.1.4
  */
 
@@ -14,7 +14,6 @@ if ( ! function_exists( 'yith_woocompare_user_style' ) ) {
 	 * Return custom style based on user options
 	 *
 	 * @since 2.1.0
-	 * @author Francesco Licandro
 	 * @return string
 	 */
 	function yith_woocompare_user_style() {
@@ -64,6 +63,15 @@ if ( ! function_exists( 'yith_woocompare_user_style' ) ) {
                 	background-color: ' . get_option( 'yith-woocompare-highlights-color', '#e4e4e4' ) . ' !important;
                 }';
 
+		/**
+		 * APPLY_FILTERS: yith_woocompare_user_style_value
+		 *
+		 * Filters the custom CSS rules based on the options configured in the plugin settings.
+		 *
+		 * @param string $custom_css Custom CSS rules.
+		 *
+		 * @return string
+		 */
 		return apply_filters( 'yith_woocompare_user_style_value', $custom_css );
 	}
 }
@@ -73,7 +81,6 @@ if ( ! function_exists( 'yith_woocompare_get_vendor_name' ) ) {
 	 * Print vendor name under product name in Compare Table. Needs YITH WooCommerce Multi Vendor active
 	 *
 	 * @since 2.2.0
-	 * @author Francesco Licandro
 	 * @param string $product The product object.
 	 * @return string
 	 */
@@ -97,9 +104,18 @@ if ( ! function_exists( 'yith_woocompare_get_vendor_name' ) ) {
 				'section' => 'woocommerce/loop',
 			);
 
+			/**
+			 * APPLY_FILTERS: yith_woocommerce_vendor_name_template_info
+			 *
+			 * Filters the array with the vendor data to be sent to the template for the comparison table.
+			 *
+			 * @param array $template_info Template info.
+			 *
+			 * @return array
+			 */
 			$template_info = apply_filters( 'yith_woocommerce_vendor_name_template_info', $template_info );
 
-			extract( $template_info ); // phpcs:ignore
+			extract( $template_info ); // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 
 			ob_start();
 			yith_wcpv_get_template( $name, $args, $section );
@@ -116,7 +132,6 @@ if ( ! function_exists( 'yith_woocompare_get_proteo_default' ) ) {
 	 * Filter option default value if Proteo theme is active
 	 *
 	 * @since  1.5.1
-	 * @author Francesco Licandro
 	 * @param string  $key The option key.
 	 * @param mixed   $default The option default value.
 	 * @param boolean $force_default Tru to force default, false otherwise.
@@ -171,7 +186,6 @@ if ( ! function_exists( 'yith_woocompare_get_page_id' ) ) {
 	 * Get the standard compare page id
 	 *
 	 * @since 2.4.0
-	 * @author Francesco Licandro
 	 * @return string
 	 */
 	function yith_woocompare_get_page_id() {

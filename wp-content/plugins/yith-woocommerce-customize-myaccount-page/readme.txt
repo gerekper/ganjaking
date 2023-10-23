@@ -1,5 +1,145 @@
 === CHANGELOG ===
 
+== Version 4.2.0 === Released on 04 October 2023
+
+* New: support for WooCommerce 8.2
+* Update: YITH plugin framework
+
+== Version 4.1.0 === Released on 31 August 2023
+
+* New: support for WooCommerce 8.1
+* Update: YITH plugin framework
+
+== Version 4.0.0 === Released on 10 August 2023
+
+* New: support for WooCommerce 8.0
+* New: support for WordPress 6.3
+* New: plugin panel UI
+* Update: YITH plugin framework
+* Dev: minor changes
+
+== Version 3.25.0 === Released on 17 July 2023
+
+* New: support for WooCommerce 7.9
+* Update: YITH plugin framework
+
+== Version 3.24.1 === Released on 21 June 2023
+
+* Update: YITH plugin framework
+
+== Version 3.24.0 === Released on 06 June 2023
+
+* New: support for WooCommerce 7.8
+* Update: YITH plugin framework
+
+== Version 3.23.0 === Released on 15 May 2023
+
+* New: support for WooCommerce 7.7
+* Update: YITH plugin framework
+
+== Version 3.22.0 === Released on 12 April 2023
+
+* New: support for WooCommerce 7.6
+* Update: YITH plugin framework
+* Fix: avoid sending created account email before the account is verified
+
+== Version 3.21.0 === Released on 17 March 2023
+
+* New: support for WordPress 6.2
+* New: support for WooCommerce 7.5
+* Update: YITH plugin framework
+* New: French Translation
+
+== Version 3.20.0 === Released on 13 February 2023
+
+* New: support for WooCommerce 7.4
+* Update: YITH plugin framework
+
+== Version 3.19.0 === Released on 28 December 2022
+
+* New: support for WooCommerce 7.3
+* Update: YITH plugin framework
+
+== Version 3.18.0 === Released on 14 December 2022
+
+* New: support for WooCommerce 7.2
+* Update: YITH plugin framework
+
+== Version 3.17.1 === Released on 23 November 2022
+
+* Update: YITH plugin framework
+* Fix: patched security vulnerability
+
+== Version 3.17.0 === Released on 28 October 2022
+
+* New: support for WordPress 6.1
+* New: support for WooCommerce 7.1
+* Update: YITH plugin framework
+* Dev: new filter 'yith_wcmap_upload_avatar_modal_title'
+* Dev: new filter 'yith_wcmap_upload_avatar_label'
+* Dev: new filter 'yith_wcmap_reset_default_avatar_label'
+* Dev: new filter 'yith_wcmap_cancel_custom_avatar_label'
+* Dev: new filter 'yith_wcmap_confirm_custom_avatar_label'
+
+== Version 3.16.0 === Released on 05 October 2022
+
+* New: support for WooCommerce 7.0
+* Update: YITH plugin framework
+
+== Version 3.15.0 === Released on 29 August 2022
+
+* New: support for WooCommerce 6.9
+* Update: YITH plugin framework
+
+== Version 3.14.1 === Released on 09 August 2022
+
+* Update: YITH plugin framework
+* Fix: error in the integration with WooCommerce Membership
+* Dev: added needed params to the yith_wcmap_print_single_endpoint_args filter
+
+== Version 3.14.0 === Released on 04 August 2022
+
+* New: support for WooCommerce 6.8
+* Update: YITH plugin framework
+
+== Version 3.13.0 === Released on 05 July 2022
+
+* New: support for WooCommerce 6.7
+* Update: YITH plugin framework
+* Fix: banner points counter
+* Fix: undefined index label for admin endpoint list
+
+== Version 3.12.0 === Released on 13 June 2022
+
+* New: support for WooCommerce 6.6
+* Update: German translation
+* Update: YITH plugin framework
+* Fix: banner points counter
+
+== Version 3.11.0 === Released on 02 May 2022
+
+* New: support for WordPress 6.0
+* New: support for WooCommerce 6.5
+* Update: YITH plugin framework
+* Dev: new filter 'yith_wcmap_banners_key'
+
+== Version 3.10.0 === Released on 03 April 2022
+
+* New: support for WooCommerce 6.4
+* Update: YITH plugin framework
+
+== Version 3.9.0 === Released on 28 February 2022
+
+* New: support for WooCommerce 6.3
+* Update: YITH plugin framework
+* Fix: compatibility issue with Notes for LearnDash plugin
+
+== Version 3.8.0 === Released on 10 February 2022
+
+* New: support for WooCommerce 6.2
+* Update: YITH plugin framework
+* Fix: compatibility with WooCommerce Subscription 4.0.0
+
 == Version 3.7.0 === Released on 01 February 2022
 
 * New: support for WordPress 5.9

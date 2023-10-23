@@ -5,7 +5,7 @@
  * @since 1.8.0
  */
 
-namespace Themesquad\WC_Currency_Converter\Internal\Traits;
+namespace KoiLab\WC_Currency_Converter\Internal\Traits;
 
 defined( 'ABSPATH' ) || exit;
 

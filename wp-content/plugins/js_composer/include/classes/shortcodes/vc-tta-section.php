@@ -14,6 +14,8 @@ class WPBakeryShortCode_Vc_Tta_Section extends WPBakeryShortCode_Vc_Tta_Accordio
 		'add',
 		'edit',
 		'clone',
+		'copy',
+		'paste',
 		'delete',
 	);
 	protected $backened_editor_prepend_controls = false;

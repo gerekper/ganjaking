@@ -5832,10 +5832,10 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			$redsys_insite->log->add( 'insite', 'Save:' . sanitize_text_field( wp_unslash( $_POST['saved'] ) ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		}
 
-		$currency_codes = WCRed()->get_currencies();
-		$customer       = $redsys_insite->customer;
-		$terminal       = $redsys_insite->terminal;
-		$currency       = $currency_codes[ get_woocommerce_currency() ];
+		$currency_codes   = WCRed()->get_currencies();
+		$customer         = $redsys_insite->customer;
+		$terminal         = $redsys_insite->terminal;
+		$currency         = $currency_codes[ get_woocommerce_currency() ];
 		$final_notify_url = $redsys_insite->notify_url;
 		$redsys_token     = sanitize_text_field( wp_unslash( $_POST['token'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		$order_id         = sanitize_text_field( wp_unslash( $_POST['order_id'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated

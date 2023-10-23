@@ -1,21 +1,22 @@
-# Copyright (C) 2023 Themesquad
+# Copyright (C) 2023 KoiLab
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Currency Converter 2.0.2\n"
+"Project-Id-Version: WooCommerce Currency Converter 2.1.0\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-05-31T10:50:19+00:00\n"
+"POT-Creation-Date: 2023-10-04T14:19:17+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: woocommerce-currency-converter-widget\n"
 
 #. Plugin Name of the plugin
-#: includes/woocommerce-currency-converter-privacy.php:12
+#: includes/woocommerce-currency-converter-privacy.php:17
+#: src/Privacy.php:25
 #: src/Widget.php:24
 msgid "WooCommerce Currency Converter"
 msgstr ""
@@ -29,28 +30,28 @@ msgid "Provides a currency selection widget for displaying product prices and to
 msgstr ""
 
 #. Author of the plugin
-msgid "Themesquad"
+msgid "KoiLab"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "https://themesquad.com/"
+msgid "https://koilab.com/"
 msgstr ""
 
-#: includes/class-wc-currency-converter.php:185
+#: includes/class-wc-currency-converter.php:187
 msgid "Choose a Currency"
 msgstr ""
 
-#: includes/class-wc-currency-converter.php:196
-#: includes/class-wc-currency-converter.php:210
+#: includes/class-wc-currency-converter.php:198
+#: includes/class-wc-currency-converter.php:212
 msgid "Reset"
 msgstr ""
 
-#: includes/class-wc-currency-converter.php:350
+#: includes/class-wc-currency-converter.php:357
 msgid "Original price:"
 msgstr ""
 
 #. translators: %s: WooCommerce Marketplace Privacy link
-#: includes/woocommerce-currency-converter-privacy.php:23
+#: includes/woocommerce-currency-converter-privacy.php:28
 msgid "By using this extension, you may be storing personal data or sharing data with an external service. <a href=\"%s\" target=\"_blank\">Learn more about how this works, including what you may want to include in your privacy policy.</a>"
 msgstr ""
 
@@ -120,6 +121,47 @@ msgstr ""
 #: src/Internal/Admin/Settings/Abstracts/Settings_API.php:367
 msgctxt "settings error"
 msgid "The field \"%s\" is required."
+msgstr ""
+
+#: src/Privacy.php:40
+msgid "By using this extension, you may be storing personal data or sharing data with an external service. Depending on what settings are enabled the specific information shared by your store will vary. "
+msgstr ""
+
+#: src/Privacy.php:43
+msgid "What we collect and store"
+msgstr ""
+
+#: src/Privacy.php:44
+msgid "This extension does not collect any information about the customers."
+msgstr ""
+
+#: src/Privacy.php:45
+msgid "When the customer clicks on any currency symbol of the widget included with this extension, we set the cookie \"woocommerce_current_currency\" to store the customer preferences about the currency to use when displaying prices in your store."
+msgstr ""
+
+#: src/Privacy.php:46
+msgid "What we share with others"
+msgstr ""
+
+#: src/Privacy.php:47
+msgid "When using the exchange provider API to fetch the currency rates, this one may collect data from your store like:"
+msgstr ""
+
+#: src/Privacy.php:49
+msgid "The Internet protocol (IP) address."
+msgstr ""
+
+#: src/Privacy.php:50
+msgid "The location of the device or computer."
+msgstr ""
+
+#: src/Privacy.php:51
+msgid "The computer and device information."
+msgstr ""
+
+#. translators: 1: Exchange provider name, 2: Exchange provider privacy policy URL
+#: src/Privacy.php:58
+msgid "Please, visit the <strong>%1$s</strong> <a target=\"_blank\" href=\"%2$s\">Privacy Policy</a> page for more details."
 msgstr ""
 
 #. translators: 1: Minimum PHP version 2: Current PHP version

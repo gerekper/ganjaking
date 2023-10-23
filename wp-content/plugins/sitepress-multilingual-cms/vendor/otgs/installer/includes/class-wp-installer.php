@@ -1648,6 +1648,8 @@ class WP_Installer {
 	public function remove_site_key( $repository_id, $refresh_repositories_data = true ) {
 		if ( isset( $this->settings['repositories'][ $repository_id ] ) ) {
 			unset( $this->settings['repositories'][ $repository_id ]['subscription'] );
+			unset( $this->settings['repositories'][ $repository_id ]['last_successful_subscription_fetch'] );
+
 			$this->save_settings();
 			$this->clean_plugins_update_cache();
 			if( $refresh_repositories_data ){

@@ -13,7 +13,7 @@ if ( ! class_exists( 'YITH_Elementor' ) ) {
 	/**
 	 * YITH_Elementor class.
 	 *
-	 * @author  Leanza Francesco <leanzafrancesco@gmail.com>
+	 * @author  YITH <plugins@yithemes.com>
 	 */
 	class YITH_Elementor {
 
@@ -45,7 +45,8 @@ if ( ! class_exists( 'YITH_Elementor' ) ) {
 		 */
 		private function __construct() {
 			if ( defined( 'ELEMENTOR_VERSION' ) && version_compare( ELEMENTOR_VERSION, '3.0.0', '>=' ) ) {
-				add_action( 'elementor/widgets/widgets_registered', array( $this, 'register_widgets' ) );
+				$register_widget_hook = version_compare( ELEMENTOR_VERSION, '3.5.0', '<' ) ? 'elementor/widgets/widgets_registered' : 'elementor/widgets/register';
+				add_action( $register_widget_hook, array( $this, 'register_widgets' ) );
 				add_action( 'elementor/elements/categories_registered', array( $this, 'add_yith_category' ) );
 
 				add_action( 'elementor/editor/after_enqueue_styles', array( $this, 'enqueue_styles' ) );
@@ -89,8 +90,14 @@ if ( ! class_exists( 'YITH_Elementor' ) ) {
 				$this->load_files();
 			}
 
+			$widgets_manager = \Elementor\Plugin::instance()->widgets_manager;
+
 			foreach ( $this->widgets as $widget ) {
-				\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new YITH_Elementor_Widget( array(), array( 'yith_data' => $widget ) ) );
+				if ( is_callable( array( $widgets_manager, 'register' ) ) ) {
+					\Elementor\Plugin::instance()->widgets_manager->register( new YITH_Elementor_Widget( array(), array( 'yith_data' => $widget ) ) );
+				} else {
+					\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new YITH_Elementor_Widget( array(), array( 'yith_data' => $widget ) ) );
+				}
 			}
 		}
 

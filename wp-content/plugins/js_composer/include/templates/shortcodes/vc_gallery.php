@@ -118,14 +118,24 @@ foreach ( $images as $i => $image ) {
 				$large_img_src = $img['p_img_large'][0];
 			} else {
 				$large_img_src = $default_src;
-				$thumbnail = '<img src="' . esc_url( $default_src ) . '" />';
+				$attributes = array(
+					'src' => esc_url( $large_img_src ),
+				);
+				$attributes = vc_add_lazy_loading_attribute( $attributes );
+				$thumbnail = '<img ' . vc_stringify_attributes( $attributes ) . ' />';
 			}
 			break;
 
 		case 'external_link':
 			$dimensions = vc_extract_dimensions( $external_img_size );
 			$hwstring = $dimensions ? image_hwstring( $dimensions[0], $dimensions[1] ) : '';
-			$thumbnail = '<img ' . $hwstring . ' src="' . esc_url( $image ) . '" />';
+
+			$attributes = array(
+				'src' => esc_url( $image ),
+			);
+			$attributes = vc_add_lazy_loading_attribute( $attributes );
+
+			$thumbnail = '<img ' . $hwstring . ' ' . vc_stringify_attributes( $attributes ) . ' />';
 			$large_img_src = $image;
 			break;
 	}

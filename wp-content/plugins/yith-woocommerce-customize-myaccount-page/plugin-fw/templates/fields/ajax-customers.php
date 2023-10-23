@@ -38,7 +38,7 @@ if ( $no_value ) {
 
 $default_data = array(
 	'action'      => 'woocommerce_json_search_customers',
-	'placeholder' => __( 'Search Customers', 'yith-plugin-fw' ),
+	'placeholder' => __( 'Search for a customer...', 'yith-plugin-fw' ),
 	'allow_clear' => false,
 );
 $data         = wp_parse_args( $data, $default_data );

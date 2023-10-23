@@ -75,8 +75,9 @@ jQuery( document ).ready( function( $ ) {
 			// Handle actions
 			this.itemsList.on( 'click', '.toggle-options', this.toggleOptions );
 			this.itemsList.on( 'change', '.item-actions .on_off', this.onOffItem );
-			this.itemsList.on( 'click', '.remove-item', this.removeItem );
+			this.itemsList.on( 'click', '.remove-item:not(.disabled)', this.removeItem );
 			this.itemsList.on( 'click', '.save-item', this.saveItem );
+			this.itemsList.on( 'click', '.reset-item', this.resetItem );
 			// Handle drag stop
 			this.itemsList.on( 'change', this._reInitItem );
 			// Handle add new item
@@ -320,6 +321,28 @@ jQuery( document ).ready( function( $ ) {
 			}
 		},
 
+		// Reset
+		resetItem: function( event ) {
+			event.preventDefault();
+
+			let item = $( this ).closest( '.item' ),
+				data = [
+					{name: "request", value: "reset"},
+					{name: "item", value: item.data( 'id' )},
+					{name: "type", value: item.data( 'type' )}
+				];
+
+			ywcmap_items_list._ajaxRequest( data, item )
+				.done( ( response ) => {
+					if ( response?.success ) {
+						ywcmap_items_list._addItemToList( response.data.id, response.data.html );
+					}
+				} )
+				.fail( ( response ) => {
+					console.log( response );
+				} );
+		},
+
 		// Save
 		saveItem: function( event ) {
 			event.preventDefault();
@@ -408,6 +431,9 @@ jQuery( document ).ready( function( $ ) {
 			event.preventDefault();
 
 			let data;
+
+			// before serialize the data, switch all editor to text to be sure to get all changes
+			$( '.wp-editor-tabs' ).find( 'button.switch-html' ).click();
 
 			data = ywcmap_items_list.addItemForm.serializeArray();
 			if ( ! ywcmap_items_list._validateRequired( data, $( this ) ) ) {

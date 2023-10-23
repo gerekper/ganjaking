@@ -1,5 +1,8 @@
 *** WooCommerce Deposits Changelog ***
 
+2023-10-04 - version 2.2.0
+* Dev - Bump PHP minimum supported version to 7.3.
+
 2023-09-13 - version 2.1.9
 * Dev - Bump WooCommerce "tested up to" version 8.0.
 * Dev - Bump WooCommerce minimum supported version from 7.2 to 7.8.

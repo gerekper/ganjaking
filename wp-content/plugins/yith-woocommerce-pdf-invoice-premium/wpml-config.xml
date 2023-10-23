@@ -12,5 +12,14 @@
         <key name="ywpi_credit_note_footer"/>
         <key name="ywpi_dropbox_folder"/>
         <key name="ywpi_google_drive_folder"/>
+        <key name="ywpi_electronic_invoice_receiver_type"/>
+        <key name="ywpi_electronic_invoice_receiver_id_label"/>
+        <key name="ywpi_electronic_invoice_receiver_pec_label"/>
+        <key name="ywpi_electronic_invoice_receiver_mandatory_id_pec_message"/>
+        <key name="ywpi_electronic_invoice_receiver_mandatory_company_message"/>
+        <key name="ywpi_electronic_invoice_receiver_mandatory_vat_message"/>
+        <key name="ywpi_electronic_invoice_receiver_mandatory_ssn_message"/>
+        <key name="ywpi_electronic_invoice_receiver_wrong_id_message"/>
+        <key name="ywpi_electronic_invoice_receiver_wrong_ssn_message"/>
     </admin-texts>
 </wpml-config>

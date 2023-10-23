@@ -7,13 +7,13 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-09-18T14:45:50+00:00\n"
+"POT-Creation-Date: 2023-10-09T17:54:22+00:00\n"
 "PO-Revision-Date: 2023-08-07 14:43:20+0000\n"
 "Language: ja_JP\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: GlotPress/2.4.0-alpha\n"
 
-#: includes/booking-form/class-wc-booking-form.php:764
+#: includes/booking-form/class-wc-booking-form.php:765
 msgid "left"
 msgstr "残り"
 
@@ -90,7 +90,7 @@ msgstr "予約を作成"
 msgid "Templates"
 msgstr "テンプレート"
 
-#: includes/class-wc-booking-order-manager.php:835
+#: includes/class-wc-booking-order-manager.php:847
 msgid "View Booking Calendar &rarr;"
 msgstr "予約カレンダーを表示 →"
 
@@ -134,7 +134,7 @@ msgstr "来月"
 msgid "Previous Month"
 msgstr "前の月"
 
-#: includes/booking-form/class-wc-booking-form.php:120
+#: includes/booking-form/class-wc-booking-form.php:121
 msgid "Please wait, the latest available slots are being processed in the background."
 msgstr "最新の利用可能な時間枠をバックグラウンドで処理しています。しばらくお待ちください。"
 
@@ -205,11 +205,11 @@ msgstr "不正なリクエストです。もう一度お試しください。"
 msgid "Export"
 msgstr "エクスポート"
 
-#: includes/admin/class-wc-bookings-admin.php:677
+#: includes/admin/class-wc-bookings-admin.php:680
 msgid "The booking duration has been set to 24 as a duration greater than 24 hours is not allowed when Availability is \"not-available by default\"."
 msgstr "予約可能枠が「デフォルトで利用不可」の場合、24時間を超える期間は許可されないため、予約期間は24に設定されています。"
 
-#: includes/admin/class-wc-bookings-admin.php:676
+#: includes/admin/class-wc-bookings-admin.php:679
 msgid "A duration greater than 24 hours is not allowed when Availability is \"not-available by default\"."
 msgstr "予約可能枠が「デフォルトで利用不可」の場合、24時間を超える期間は許可されません。"
 
@@ -225,7 +225,7 @@ msgstr "上書きを有効化"
 msgid "Overwrite Description"
 msgstr "説明を上書き"
 
-#: includes/class-wc-booking-order-manager.php:833
+#: includes/class-wc-booking-order-manager.php:845
 msgid "View order &rarr;"
 msgstr "注文を表示 →"
 
@@ -237,11 +237,11 @@ msgstr "このセクションには WooCommerce Bookings のデフォルトテ�
 msgid "WooCommerce Bookings template overrides"
 msgstr "WooCommerce Bookings テンプレートの上書き"
 
-#: includes/admin/class-wc-bookings-admin.php:705
+#: includes/admin/class-wc-bookings-admin.php:708
 msgid "Maximum duration needs to be greater than or equal to the minimum duration."
 msgstr "最長期間は最短期間以上である必要があります。"
 
-#: includes/admin/class-wc-bookings-admin.php:704
+#: includes/admin/class-wc-bookings-admin.php:707
 msgid "Minimum duration needs to be less than or equal to maximum duration."
 msgstr "最短期間は最長期間以下である必要があります。"
 
@@ -249,19 +249,15 @@ msgstr "最短期間は最長期間以下である必要があります。"
 msgid "Customer Information"
 msgstr "顧客情報"
 
-#: includes/admin/class-wc-bookings-admin.php:675
+#: includes/admin/class-wc-bookings-admin.php:678
 msgid "This setting is being overridden at the resource level."
 msgstr "この設定は、リソースレベルで上書きされています。"
 
-#: includes/gateways/class-wc-bookings-gateway.php:15
-msgid "Subject to confirmation"
-msgstr "ご確認ください"
-
-#: includes/class-wc-booking-order-manager.php:217
+#: includes/class-wc-booking-order-manager.php:218
 msgid "Are you sure you want to cancel your booking?"
 msgstr "ご予約をキャンセルしてもよろしいですか ? "
 
-#: includes/booking-form/class-wc-booking-form.php:123
+#: includes/booking-form/class-wc-booking-form.php:124
 msgid "We weren't able to get that information. Please contact the store owner for help."
 msgstr "該当する情報を取得できませんでした。 お手数ですがストア所有者にお問合せください。"
 
@@ -300,12 +296,12 @@ msgstr "削除設定"
 msgid "Date should be of the format yyyy-mm-dd and cannot be empty."
 msgstr "日付は yyyy-mm-dd 形式にする必要があり、空欄にはできません。"
 
-#: includes/admin/class-wc-bookings-admin.php:698
+#: includes/admin/class-wc-bookings-admin.php:701
 #: includes/admin/class-wc-bookings-details-meta-box.php:563
 msgid "Start date cannot be greater than end date."
 msgstr "開始日を終了日より後にすることはできません。"
 
-#: includes/admin/class-wc-bookings-admin.php:697
+#: includes/admin/class-wc-bookings-admin.php:700
 msgid "\"Start and end date\" should be of the format yyyy-mm-dd and cannot be empty."
 msgstr "「開始日と終了日」は yyyy-mm-dd 形式にする必要があり、空欄にはできません。"
 
@@ -416,7 +412,7 @@ msgstr "%1$s: %2$s"
 msgid "in timezone: %s"
 msgstr "タイムゾーン : %s"
 
-#: includes/class-wc-booking-order-manager.php:842
+#: includes/class-wc-booking-order-manager.php:854
 msgid "View my bookings &rarr;"
 msgstr "予約を表示 &rarr;"
 
@@ -706,7 +702,7 @@ msgid "night"
 msgid_plural "nights"
 msgstr[0] "泊"
 
-#: includes/booking-form/class-wc-booking-form.php:345
+#: includes/booking-form/class-wc-booking-form.php:346
 #: includes/data-objects/class-wc-product-booking.php:2490
 #: includes/data-objects/class-wc-product-booking.php:2517
 #: includes/wc-bookings-functions.php:1280
@@ -714,7 +710,7 @@ msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "分"
 
-#: includes/booking-form/class-wc-booking-form.php:347
+#: includes/booking-form/class-wc-booking-form.php:348
 #: includes/data-objects/class-wc-product-booking.php:2492
 #: includes/data-objects/class-wc-product-booking.php:2519
 #: includes/wc-bookings-functions.php:1277
@@ -727,7 +723,7 @@ msgid "week"
 msgid_plural "weeks"
 msgstr[0] "週"
 
-#: includes/booking-form/class-wc-booking-form.php:351
+#: includes/booking-form/class-wc-booking-form.php:352
 #: includes/data-objects/class-wc-product-booking.php:2496
 #: includes/data-objects/class-wc-product-booking.php:2523
 #: includes/wc-bookings-functions.php:1266
@@ -1635,19 +1631,19 @@ msgstr "この拡張機能を使用すると、個人データを保存したり
 msgid "WooCommerce Bookings Data"
 msgstr "WooCommerce Bookings のデータ"
 
-#: includes/class-wc-booking-order-manager.php:290
+#: includes/class-wc-booking-order-manager.php:291
 msgid "Past Bookings"
 msgstr "終了した予約"
 
-#: includes/class-wc-booking-order-manager.php:284
+#: includes/class-wc-booking-order-manager.php:285
 msgid "Upcoming Bookings"
 msgstr "今後の予約"
 
-#: includes/class-wc-booking-order-manager.php:278
+#: includes/class-wc-booking-order-manager.php:279
 msgid "Today's Bookings"
 msgstr "本日の予約"
 
-#: includes/class-wc-booking-order-manager.php:216
+#: includes/class-wc-booking-order-manager.php:217
 msgid "All bookings start and end times except where stated differently are displayed in the following timezone: "
 msgstr "すべての予約の開始および終了時間 (指定が異なる場合を除く) は、以下のタイムゾーンで表示されています。"
 
@@ -1698,46 +1694,46 @@ msgstr "%s の予約は、操作がなかったためお買い物カゴから削
 msgid "A booking for %s has been removed from your cart due to inactivity."
 msgstr "%s の予約は、操作がなかったためお買い物カゴから削除されました。"
 
-#: includes/booking-form/class-wc-booking-form.php:737
+#: includes/booking-form/class-wc-booking-form.php:738
 msgid "End time"
 msgstr "終了時刻"
 
-#: includes/booking-form/class-wc-booking-form.php:735
+#: includes/booking-form/class-wc-booking-form.php:736
 msgid "Ends"
 msgstr "終了"
 
 #. translators: %d: booking duration in hours
-#: includes/booking-form/class-wc-booking-form.php:707
+#: includes/booking-form/class-wc-booking-form.php:708
 msgid "%d Hour"
 msgid_plural "%d Hours"
 msgstr[0] "%d時間"
 
 #. translators: %d: booking duration in minutes
-#: includes/booking-form/class-wc-booking-form.php:703
+#: includes/booking-form/class-wc-booking-form.php:704
 msgid "%d Minute"
 msgid_plural "%d Minutes"
 msgstr[0] "%d分"
 
 #. translators: 1: quantity available
-#: includes/booking-form/class-wc-booking-form.php:816
+#: includes/booking-form/class-wc-booking-form.php:817
 msgid "%d left"
 msgid_plural "%d left"
 msgstr[0] "残り%d件"
 
-#: includes/booking-form/class-wc-booking-form.php:579
+#: includes/booking-form/class-wc-booking-form.php:580
 msgid "Start time"
 msgstr "開始時刻:"
 
-#: includes/booking-form/class-wc-booking-form.php:577
+#: includes/booking-form/class-wc-booking-form.php:578
 msgid "Starts"
 msgstr "開始"
 
 #. translators: 1: block cost 2: duration unit
-#: includes/booking-form/class-wc-booking-form.php:377
+#: includes/booking-form/class-wc-booking-form.php:378
 msgid "+%1$1s per %2$2s"
 msgstr "%2$2s あたり +%1$1s "
 
-#: includes/booking-form/class-wc-booking-form.php:349
+#: includes/booking-form/class-wc-booking-form.php:350
 #: includes/data-objects/class-wc-product-booking.php:2494
 #: includes/data-objects/class-wc-product-booking.php:2521
 #: includes/wc-bookings-functions.php:1270
@@ -1745,7 +1741,7 @@ msgid "day"
 msgid_plural "days"
 msgstr[0] "日"
 
-#: includes/booking-form/class-wc-booking-form.php:353
+#: includes/booking-form/class-wc-booking-form.php:354
 #: includes/data-objects/class-wc-product-booking.php:2498
 #: includes/data-objects/class-wc-product-booking.php:2525
 msgid "block"
@@ -1753,77 +1749,77 @@ msgid_plural "blocks"
 msgstr[0] "ブロック"
 
 #. translators: %s: product duration in minutes
-#: includes/booking-form/class-wc-booking-form.php:250
+#: includes/booking-form/class-wc-booking-form.php:251
 msgid "&times; %s minutes"
 msgstr "&times; %s分"
 
 #. translators: %s: product duration in hours
-#: includes/booking-form/class-wc-booking-form.php:242
+#: includes/booking-form/class-wc-booking-form.php:243
 msgid "&times; %s hours"
 msgstr "&times; %s時間"
 
-#: includes/booking-form/class-wc-booking-form.php:236
+#: includes/booking-form/class-wc-booking-form.php:237
 msgid "Night(s)"
 msgstr "泊"
 
 #. translators: %s: product duration in nights
-#: includes/booking-form/class-wc-booking-form.php:234
+#: includes/booking-form/class-wc-booking-form.php:235
 msgid "&times; %s nights"
 msgstr "&times; %s泊"
 
 #. translators: %s product duration in days
-#: includes/booking-form/class-wc-booking-form.php:218
+#: includes/booking-form/class-wc-booking-form.php:219
 msgid "&times; %s days"
 msgstr "&times; %s日"
 
 #. translators: %s: product duration in weeks
-#: includes/booking-form/class-wc-booking-form.php:209
-#: includes/booking-form/class-wc-booking-form.php:227
+#: includes/booking-form/class-wc-booking-form.php:210
+#: includes/booking-form/class-wc-booking-form.php:228
 msgid "&times; %s weeks"
 msgstr "&times; %s週間"
 
 #. translators: %s: product duration in months
-#: includes/booking-form/class-wc-booking-form.php:201
+#: includes/booking-form/class-wc-booking-form.php:202
 msgid "&times; %s Months"
 msgstr "&times; %sヶ月"
 
-#: includes/booking-form/class-wc-booking-form.php:130
+#: includes/booking-form/class-wc-booking-form.php:131
 msgid "Store server time: "
 msgstr "ストアのサーバー時刻 :"
 
-#: includes/booking-form/class-wc-booking-form.php:122
+#: includes/booking-form/class-wc-booking-form.php:123
 msgid "To clear selection, pick a new start date"
 msgstr "選択を消去するには、新しい開始日を選択します"
 
-#: includes/booking-form/class-wc-booking-form.php:121
+#: includes/booking-form/class-wc-booking-form.php:122
 msgid "Please select the options for your booking and make sure duration rules apply."
 msgstr "予約のオプションを選択し、期間ルールが適用されるようにしてください。"
 
-#: includes/booking-form/class-wc-booking-form.php:119
+#: includes/booking-form/class-wc-booking-form.php:120
 msgid "Dates"
 msgstr "日付"
 
-#: includes/booking-form/class-wc-booking-form.php:118
+#: includes/booking-form/class-wc-booking-form.php:119
 msgid "Choose an End Date"
 msgstr "終了日を選択"
 
-#: includes/booking-form/class-wc-booking-form.php:117
+#: includes/booking-form/class-wc-booking-form.php:118
 msgid "Choose a Start Date"
 msgstr "開始日を選択"
 
-#: includes/booking-form/class-wc-booking-form.php:116
+#: includes/booking-form/class-wc-booking-form.php:117
 msgid "This date is available"
 msgstr "この日は予約可能です"
 
-#: includes/booking-form/class-wc-booking-form.php:115
+#: includes/booking-form/class-wc-booking-form.php:116
 msgid "This date is partially booked - but bookings still remain"
 msgstr "この日は一部予約済みですがまだ予約可能です"
 
-#: includes/booking-form/class-wc-booking-form.php:114
+#: includes/booking-form/class-wc-booking-form.php:115
 msgid "This date is fully booked and unavailable"
 msgstr "この日は満員で予約不可です"
 
-#: includes/booking-form/class-wc-booking-form.php:113
+#: includes/booking-form/class-wc-booking-form.php:114
 msgid "This date is unavailable"
 msgstr "この日は無効です"
 
@@ -2331,7 +2327,7 @@ msgid "Label"
 msgstr "ラベル"
 
 #: includes/admin/views/html-booking-resources.php:8
-#: includes/booking-form/class-wc-booking-form.php:399
+#: includes/booking-form/class-wc-booking-form.php:400
 #: includes/wc-bookings-functions.php:981
 #: templates/emails/plain/admin-booking-display.php:55
 #: templates/emails/plain/customer-booking-display.php:54
@@ -2560,7 +2556,7 @@ msgstr "最短期間"
 
 #: includes/admin/views/html-booking-data.php:24
 #: includes/admin/views/html-booking-data.php:107
-#: includes/booking-form/class-wc-booking-form.php:252
+#: includes/booking-form/class-wc-booking-form.php:253
 msgid "Minute(s)"
 msgstr "分"
 
@@ -2653,7 +2649,7 @@ msgstr "未来の日付まで"
 #: includes/admin/views/html-booking-availability.php:45
 #: includes/admin/views/html-booking-data.php:23
 #: includes/admin/views/html-booking-data.php:106
-#: includes/booking-form/class-wc-booking-form.php:244
+#: includes/booking-form/class-wc-booking-form.php:245
 msgid "Hour(s)"
 msgstr "時間"
 
@@ -2661,14 +2657,14 @@ msgstr "時間"
 #: includes/admin/views/html-booking-availability.php:44
 #: includes/admin/views/html-booking-data.php:22
 #: includes/admin/views/html-booking-data.php:105
-#: includes/booking-form/class-wc-booking-form.php:220
+#: includes/booking-form/class-wc-booking-form.php:221
 msgid "Day(s)"
 msgstr "日"
 
 #: includes/admin/views/html-booking-availability.php:33
 #: includes/admin/views/html-booking-availability.php:43
-#: includes/booking-form/class-wc-booking-form.php:211
-#: includes/booking-form/class-wc-booking-form.php:224
+#: includes/booking-form/class-wc-booking-form.php:212
+#: includes/booking-form/class-wc-booking-form.php:225
 msgid "Week(s)"
 msgstr "週"
 
@@ -2676,7 +2672,7 @@ msgstr "週"
 #: includes/admin/views/html-booking-availability.php:42
 #: includes/admin/views/html-booking-data.php:21
 #: includes/admin/views/html-booking-data.php:104
-#: includes/booking-form/class-wc-booking-form.php:203
+#: includes/booking-form/class-wc-booking-form.php:204
 msgid "Month(s)"
 msgstr "月"
 
@@ -3054,7 +3050,7 @@ msgstr "Enable_range_picker"
 
 #: includes/admin/class-wc-bookings-products-export.php:44
 #: includes/admin/class-wc-bookings-products-import.php:45
-#: includes/booking-form/class-wc-booking-form.php:261
+#: includes/booking-form/class-wc-booking-form.php:262
 #: includes/wc-bookings-functions.php:71
 msgid "Duration"
 msgstr "期間"
@@ -3584,56 +3580,56 @@ msgstr "リソースを追加できません"
 msgid "The resource has already been linked to this product"
 msgstr "リソースはすでにこの商品と紐付けられています。"
 
-#: includes/admin/class-wc-bookings-admin.php:732
+#: includes/admin/class-wc-bookings-admin.php:735
 msgid "Enable this if this bookable product has multiple bookable resources, for example room types or instructors."
 msgstr "部屋の種類・講師など、この予約商品が複数の予約リソースを有する場合、チェックします。"
 
-#: includes/admin/class-wc-bookings-admin.php:731
+#: includes/admin/class-wc-bookings-admin.php:734
 msgid "Has resources"
 msgstr "リソースが必要"
 
-#: includes/admin/class-wc-bookings-admin.php:725
+#: includes/admin/class-wc-bookings-admin.php:728
 msgid "Enable this if this bookable product can be booked by a customer defined number of persons."
 msgstr "顧客がこの予約商品に対して人数を指定することができる場合、チェックします。"
 
-#: includes/admin/class-wc-bookings-admin.php:724
+#: includes/admin/class-wc-bookings-admin.php:727
 msgid "Has persons"
 msgstr "予約に人数が必要"
 
-#: includes/admin/class-wc-bookings-admin.php:673
+#: includes/admin/class-wc-bookings-admin.php:676
 msgid "Resource"
 msgstr "リソース "
 
-#: includes/admin/class-wc-bookings-admin.php:672
+#: includes/admin/class-wc-bookings-admin.php:675
 #: includes/admin/views/html-create-booking-page.php:18
 msgid "Customer"
 msgstr "お客様"
 
-#: includes/admin/class-wc-bookings-admin.php:671
+#: includes/admin/class-wc-bookings-admin.php:674
 msgid "View details"
 msgstr "詳細を表示"
 
-#: includes/admin/class-wc-bookings-admin.php:663
+#: includes/admin/class-wc-bookings-admin.php:666
 msgid "Enter a name for the new resource"
 msgstr "新規リソースの名称を入力してください"
 
-#: includes/admin/class-wc-bookings-admin.php:662
+#: includes/admin/class-wc-bookings-admin.php:665
 msgid "days"
 msgstr "日"
 
-#: includes/admin/class-wc-bookings-admin.php:661
+#: includes/admin/class-wc-bookings-admin.php:664
 msgid "hours"
 msgstr "時間"
 
-#: includes/admin/class-wc-bookings-admin.php:660
+#: includes/admin/class-wc-bookings-admin.php:663
 msgid "minutes"
 msgstr "分"
 
-#: includes/admin/class-wc-bookings-admin.php:657
+#: includes/admin/class-wc-bookings-admin.php:660
 msgid "Are you sure you want to remove this resource?"
 msgstr "本当にこのリソースを削除しますか？"
 
-#: includes/admin/class-wc-bookings-admin.php:654
+#: includes/admin/class-wc-bookings-admin.php:657
 msgid "Are you sure you want to remove this person type?"
 msgstr "本当にこのお客様の種類を削除しますか？"
 
@@ -3666,9 +3662,9 @@ msgid "Booking updated."
 msgstr "予約を更新しました。"
 
 #: includes/admin/class-wc-bookings-admin.php:371
-#: includes/admin/class-wc-bookings-admin.php:674
+#: includes/admin/class-wc-bookings-admin.php:677
 #: includes/admin/views/html-booking-tab.php:4
-#: includes/booking-form/class-wc-booking-form.php:308
+#: includes/booking-form/class-wc-booking-form.php:309
 #: includes/class-wc-bookings-google-calendar-connection.php:1461
 #: includes/wc-bookings-functions.php:1243
 msgid "Persons"
@@ -3821,5 +3817,6 @@ msgstr "予約可能なリソースの名前"
 
 #. Plugin Name of the plugin
 #: includes/admin/class-wc-bookings-menus.php:132
+#: includes/gateways/class-wc-bookings-gateway.php:15
 msgid "WooCommerce Bookings"
 msgstr "WooCommerce Bookings"

@@ -806,7 +806,7 @@ $generated_i18n_strings = array(
 	__( 'Search templates...', 'seedprod-pro' ),
 
 	// Reference: src/admin/ThemeChooser.vue:808
-	// Reference: src/views/SetupBlockOptions-Pro.vue:1849
+	// Reference: src/views/SetupBlockOptions-Pro.vue:1855
 	__( 'WooCommerce', 'seedprod-pro' ),
 
 	// Reference: src/admin/ThemeChooser.vue:809
@@ -921,6 +921,7 @@ $generated_i18n_strings = array(
 	// Reference: src/components/TwitterFollowButtonOptions.vue:291
 	// Reference: src/components/TwitterTweetButtonOptions.vue:286
 	// Reference: src/components/VideoOptions.vue:237
+	// Reference: src/components/VideoPopUpOptions.vue:889
 	__( 'Custom', 'seedprod-pro' ),
 
 	// Reference: src/admin/ThemeTemplates-Pro.vue:1394
@@ -1278,6 +1279,7 @@ $generated_i18n_strings = array(
 	// Reference: src/components/TwitterTweetButtonOptions.vue:291
 	// Reference: src/components/UpsellsOptions.vue:614
 	// Reference: src/components/VideoOptions.vue:231
+	// Reference: src/components/VideoPopUpOptions.vue:883
 	// Reference: src/components/WCAddToCartOptions.vue:687
 	// Reference: src/components/WCCustomProductsGridOptions.vue:1125
 	// Reference: src/components/WpWidgetBlockOptions.vue:188
@@ -1362,12 +1364,13 @@ $generated_i18n_strings = array(
 	// Reference: src/components/TwitterTweetButtonOptions.vue:292
 	// Reference: src/components/UpsellsOptions.vue:607
 	// Reference: src/components/VideoOptions.vue:232
+	// Reference: src/components/VideoPopUpOptions.vue:884
 	// Reference: src/components/WCAddToCartOptions.vue:688
 	// Reference: src/components/WCCartOptions.vue:497
 	// Reference: src/components/WCCheckoutOptions.vue:765
 	// Reference: src/components/WCCustomProductsGridOptions.vue:1078
 	// Reference: src/components/WpWidgetBlockOptions.vue:189
-	// Reference: src/views/SetupBlockOptions-Pro.vue:1845
+	// Reference: src/views/SetupBlockOptions-Pro.vue:1851
 	__( 'Advanced', 'seedprod-pro' ),
 
 	// Reference: src/components/AccordionOptions.vue:603
@@ -1469,6 +1472,7 @@ $generated_i18n_strings = array(
 	// Reference: src/components/TwitterTweetButtonOptions.vue:294
 	// Reference: src/components/UpsellsOptions.vue:605
 	// Reference: src/components/VideoOptions.vue:234
+	// Reference: src/components/VideoPopUpOptions.vue:886
 	// Reference: src/components/WCAddToCartOptions.vue:692
 	// Reference: src/components/WCCartOptions.vue:495
 	// Reference: src/components/WCCheckoutOptions.vue:763
@@ -1929,6 +1933,7 @@ $generated_i18n_strings = array(
 	// Reference: src/components/TwitterTweetButtonOptions.vue:319
 	// Reference: src/components/UpsellsOptions.vue:632
 	// Reference: src/components/VideoOptions.vue:241
+	// Reference: src/components/VideoPopUpOptions.vue:893
 	// Reference: src/components/WCAddToCartOptions.vue:723
 	// Reference: src/components/WCCustomProductsGridOptions.vue:1170
 	__( 'Shadow', 'seedprod-pro' ),
@@ -1984,6 +1989,7 @@ $generated_i18n_strings = array(
 	// Reference: src/components/TextOptions.vue:385
 	// Reference: src/components/UpsellsOptions.vue:637
 	// Reference: src/components/VideoOptions.vue:242
+	// Reference: src/components/VideoPopUpOptions.vue:894
 	// Reference: src/components/WCAddToCartOptions.vue:725
 	// Reference: src/components/WCCustomProductsGridOptions.vue:1175
 	__( 'None', 'seedprod-pro' ),
@@ -2039,6 +2045,7 @@ $generated_i18n_strings = array(
 	// Reference: src/components/TwitterTweetButtonOptions.vue:313
 	// Reference: src/components/UpsellsOptions.vue:638
 	// Reference: src/components/VideoOptions.vue:243
+	// Reference: src/components/VideoPopUpOptions.vue:895
 	// Reference: src/components/WCAddToCartOptions.vue:726
 	// Reference: src/components/WCCustomProductsGridOptions.vue:1176
 	__( 'Hairline', 'seedprod-pro' ),
@@ -2097,6 +2104,7 @@ $generated_i18n_strings = array(
 	// Reference: src/components/TwitterTweetButtonOptions.vue:314
 	// Reference: src/components/UpsellsOptions.vue:639
 	// Reference: src/components/VideoOptions.vue:244
+	// Reference: src/components/VideoPopUpOptions.vue:896
 	// Reference: src/components/WCAddToCartOptions.vue:727
 	// Reference: src/components/WCCustomProductsGridOptions.vue:1177
 	__( 'Small', 'seedprod-pro' ),
@@ -2155,6 +2163,7 @@ $generated_i18n_strings = array(
 	// Reference: src/components/TwitterTweetButtonOptions.vue:315
 	// Reference: src/components/UpsellsOptions.vue:640
 	// Reference: src/components/VideoOptions.vue:245
+	// Reference: src/components/VideoPopUpOptions.vue:897
 	// Reference: src/components/WCAddToCartOptions.vue:728
 	// Reference: src/components/WCCustomProductsGridOptions.vue:1178
 	__( 'Medium', 'seedprod-pro' ),
@@ -2213,6 +2222,7 @@ $generated_i18n_strings = array(
 	// Reference: src/components/TwitterTweetButtonOptions.vue:316
 	// Reference: src/components/UpsellsOptions.vue:641
 	// Reference: src/components/VideoOptions.vue:246
+	// Reference: src/components/VideoPopUpOptions.vue:898
 	// Reference: src/components/WCAddToCartOptions.vue:729
 	// Reference: src/components/WCCustomProductsGridOptions.vue:1179
 	__( 'Large', 'seedprod-pro' ),
@@ -2269,6 +2279,7 @@ $generated_i18n_strings = array(
 	// Reference: src/components/TwitterTweetButtonOptions.vue:317
 	// Reference: src/components/UpsellsOptions.vue:642
 	// Reference: src/components/VideoOptions.vue:247
+	// Reference: src/components/VideoPopUpOptions.vue:899
 	// Reference: src/components/WCAddToCartOptions.vue:730
 	// Reference: src/components/WCCustomProductsGridOptions.vue:1180
 	__( 'X Large', 'seedprod-pro' ),
@@ -2324,6 +2335,7 @@ $generated_i18n_strings = array(
 	// Reference: src/components/TwitterTweetButtonOptions.vue:318
 	// Reference: src/components/UpsellsOptions.vue:643
 	// Reference: src/components/VideoOptions.vue:248
+	// Reference: src/components/VideoPopUpOptions.vue:900
 	// Reference: src/components/WCAddToCartOptions.vue:731
 	// Reference: src/components/WCCustomProductsGridOptions.vue:1181
 	__( '2X Large', 'seedprod-pro' ),
@@ -3582,6 +3594,7 @@ $generated_i18n_strings = array(
 
 	// Reference: src/components/BackgroundControl.vue:482
 	// Reference: src/components/DisplaySectionControl.vue:203
+	// Reference: src/components/VideoPopUpOptions.vue:918
 	__( 'Auto', 'seedprod-pro' ),
 
 	// Reference: src/components/BackgroundControl.vue:483
@@ -3613,6 +3626,7 @@ $generated_i18n_strings = array(
 	// Reference: src/components/TwitterFollowButtonOptions.vue:315
 	// Reference: src/components/TwitterTweetButtonOptions.vue:310
 	// Reference: src/components/VideoOptions.vue:240
+	// Reference: src/components/VideoPopUpOptions.vue:892
 	__( 'Width', 'seedprod-pro' ),
 
 	// Reference: src/components/BackgroundControl.vue:487
@@ -3686,6 +3700,7 @@ $generated_i18n_strings = array(
 	// Reference: src/components/SeedProdGalleryOptions.vue:1089
 	// Reference: src/components/SiteLogoOptions.vue:297
 	// Reference: src/components/TeamMemberOptions.vue:1037
+	// Reference: src/components/VideoPopUpOptions.vue:924
 	__( 'Image Size', 'seedprod-pro' ),
 
 	// Reference: src/components/BeforeAfterToggleOptions.vue:502
@@ -3872,6 +3887,7 @@ $generated_i18n_strings = array(
 	// Reference: src/components/SocialProfilesOptions.vue:702
 	// Reference: src/components/TabbedLayoutOptions.vue:923
 	// Reference: src/components/TeamMemberOptions.vue:1080
+	// Reference: src/components/VideoPopUpOptions.vue:946
 	__( 'Icon Color', 'seedprod-pro' ),
 
 	// Reference: src/components/BusinessHoursOptions.vue:716
@@ -4595,6 +4611,7 @@ $generated_i18n_strings = array(
 	__( 'End Date', 'seedprod-pro' ),
 
 	// Reference: src/components/CountdownOptions.vue:856
+	// Reference: src/components/VideoPopUpOptions.vue:905
 	__( 'End Time', 'seedprod-pro' ),
 
 	// Reference: src/components/CountdownOptions.vue:857
@@ -4756,6 +4773,7 @@ $generated_i18n_strings = array(
 	// Reference: src/components/TwitterEmbedTimelineOptions.vue:455
 	// Reference: src/components/TwitterFollowButtonOptions.vue:316
 	// Reference: src/components/TwitterTweetButtonOptions.vue:311
+	// Reference: src/components/VideoPopUpOptions.vue:925
 	__( 'Height', 'seedprod-pro' ),
 
 	// Reference: src/components/DividerOptions.vue:379
@@ -4805,7 +4823,7 @@ $generated_i18n_strings = array(
 	__( 'Insert', 'seedprod-pro' ),
 
 	// Reference: src/components/DynamicTextControl.vue:137
-	// Reference: src/components/Row.vue:1101
+	// Reference: src/components/Row.vue:1103
 	// Reference: src/components/Section.vue:686
 	// Reference: src/views/Layoutnav.vue:1489
 	// Reference: src/views/Setup.vue:1034
@@ -5747,6 +5765,7 @@ $generated_i18n_strings = array(
 	__( 'Allow Full Screen', 'seedprod-pro' ),
 
 	// Reference: src/components/FacebookEmbedOptions.vue:336
+	// Reference: src/components/VideoPopUpOptions.vue:911
 	__( 'Autoplay', 'seedprod-pro' ),
 
 	// Reference: src/components/FacebookEmbedOptions.vue:337
@@ -5770,6 +5789,7 @@ $generated_i18n_strings = array(
 
 	// Reference: src/components/FacebookEmbedOptions.vue:353
 	// Reference: src/components/VideoOptions.vue:233
+	// Reference: src/components/VideoPopUpOptions.vue:885
 	__( 'Video', 'seedprod-pro' ),
 
 	// Reference: src/components/FacebookEmbedOptions.vue:354
@@ -5781,7 +5801,7 @@ $generated_i18n_strings = array(
 	// Reference: src/components/FacebookLikeOptions.vue:351
 	// Reference: src/components/TwitterEmbedTimelineOptions.vue:444
 	// Reference: src/components/TwitterEmbedTweetOptions.vue:342
-	// Reference: src/views/SetupBlockOptions-Pro.vue:1844
+	// Reference: src/views/SetupBlockOptions-Pro.vue:1850
 	__( 'Standard', 'seedprod-pro' ),
 
 	// Reference: src/components/FacebookLikeOptions.vue:353
@@ -6021,7 +6041,7 @@ $generated_i18n_strings = array(
 
 	// Reference: src/components/ImageControl.vue:260
 	// Reference: src/components/ImageMultipleControl.vue:346
-	// Reference: src/components/Row.vue:1097
+	// Reference: src/components/Row.vue:1099
 	// Reference: src/components/Section.vue:683
 	// Reference: src/views/BuilderView.vue:1052
 	__( 'or', 'seedprod-pro' ),
@@ -7082,21 +7102,21 @@ page plugin.', 'seedprod-pro' ),
 	// Reference: src/components/ProgressBarOptions.vue:328
 	__( 'My Text', 'seedprod-pro' ),
 
-	// Reference: src/components/Row.vue:1098
+	// Reference: src/components/Row.vue:1100
 	// Reference: src/components/Section.vue:684
 	// Reference: src/views/BuilderView.vue:1053
 	__( 'Drag a new block here', 'seedprod-pro' ),
 
-	// Reference: src/components/Row.vue:1099
+	// Reference: src/components/Row.vue:1101
 	// Reference: src/components/Section.vue:688
 	// Reference: src/views/BuilderView.vue:1054
 	// Reference: src/views/Layoutnav.vue:1491
 	__( 'Choose your layout:', 'seedprod-pro' ),
 
-	// Reference: src/components/Row.vue:1100
+	// Reference: src/components/Row.vue:1102
 	__( 'Enter a new block template name:', 'seedprod-pro' ),
 
-	// Reference: src/components/Row.vue:1102
+	// Reference: src/components/Row.vue:1104
 	// Reference: src/components/Section.vue:687
 	// Reference: src/views/Layoutnav.vue:1490
 	// Reference: src/views/Setup.vue:1042
@@ -7163,6 +7183,7 @@ page plugin.', 'seedprod-pro' ),
 
 	// Reference: src/components/SeedProdBasicGalleryOptions.vue:778
 	// Reference: src/components/SeedProdGalleryOptions.vue:1033
+	// Reference: src/components/VideoPopUpOptions.vue:935
 	__( 'Lazy Load', 'seedprod-pro' ),
 
 	// Reference: src/components/SeedProdBasicGalleryOptions.vue:784
@@ -7199,30 +7220,37 @@ page plugin.', 'seedprod-pro' ),
 
 	// Reference: src/components/SeedProdBasicGalleryOptions.vue:827
 	// Reference: src/components/SeedProdGalleryOptions.vue:1082
+	// Reference: src/components/VideoPopUpOptions.vue:948
 	__( 'Aspect Ratio', 'seedprod-pro' ),
 
 	// Reference: src/components/SeedProdBasicGalleryOptions.vue:828
 	// Reference: src/components/SeedProdGalleryOptions.vue:1083
+	// Reference: src/components/VideoPopUpOptions.vue:949
 	__( '1:1', 'seedprod-pro' ),
 
 	// Reference: src/components/SeedProdBasicGalleryOptions.vue:829
 	// Reference: src/components/SeedProdGalleryOptions.vue:1084
+	// Reference: src/components/VideoPopUpOptions.vue:950
 	__( '3:2', 'seedprod-pro' ),
 
 	// Reference: src/components/SeedProdBasicGalleryOptions.vue:830
 	// Reference: src/components/SeedProdGalleryOptions.vue:1085
+	// Reference: src/components/VideoPopUpOptions.vue:951
 	__( '4:3', 'seedprod-pro' ),
 
 	// Reference: src/components/SeedProdBasicGalleryOptions.vue:831
 	// Reference: src/components/SeedProdGalleryOptions.vue:1086
+	// Reference: src/components/VideoPopUpOptions.vue:952
 	__( '9:16', 'seedprod-pro' ),
 
 	// Reference: src/components/SeedProdBasicGalleryOptions.vue:832
 	// Reference: src/components/SeedProdGalleryOptions.vue:1087
+	// Reference: src/components/VideoPopUpOptions.vue:953
 	__( '16:9', 'seedprod-pro' ),
 
 	// Reference: src/components/SeedProdBasicGalleryOptions.vue:833
 	// Reference: src/components/SeedProdGalleryOptions.vue:1088
+	// Reference: src/components/VideoPopUpOptions.vue:954
 	__( '21:9', 'seedprod-pro' ),
 
 	// Reference: src/components/SeedProdBasicGalleryOptions.vue:835
@@ -7354,6 +7382,7 @@ page plugin.', 'seedprod-pro' ),
 
 	// Reference: src/components/SocialProfilesOptions.vue:678
 	// Reference: src/components/VideoOptions.vue:236
+	// Reference: src/components/VideoPopUpOptions.vue:888
 	__( 'YouTube', 'seedprod-pro' ),
 
 	// Reference: src/components/SocialProfilesOptions.vue:679
@@ -7397,6 +7426,7 @@ page plugin.', 'seedprod-pro' ),
 	__( 'Slack', 'seedprod-pro' ),
 
 	// Reference: src/components/SocialProfilesOptions.vue:711
+	// Reference: src/components/VideoPopUpOptions.vue:902
 	__( 'Vimeo', 'seedprod-pro' ),
 
 	// Reference: src/components/SocialProfilesOptions.vue:712
@@ -7484,6 +7514,7 @@ page plugin.', 'seedprod-pro' ),
 	__( 'Show Description', 'seedprod-pro' ),
 
 	// Reference: src/components/TeamMemberOptions.vue:1038
+	// Reference: src/components/VideoPopUpOptions.vue:926
 	__( 'PX', 'seedprod-pro' ),
 
 	// Reference: src/components/TeamMemberOptions.vue:1039
@@ -7860,13 +7891,141 @@ page plugin.', 'seedprod-pro' ),
 	// Reference: src/components/TypographyControl.vue:283
 	__( 'Letter Case', 'seedprod-pro' ),
 
+	// Reference: src/components/VideoControl.vue:107
+	__( 'Choose New Video', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoControl.vue:108
+	__( 'Select Video', 'seedprod-pro' ),
+
 	// Reference: src/components/VideoOptions.vue:238
+	// Reference: src/components/VideoPopUpOptions.vue:890
 	// Reference: src/views/GlobalCSS.vue:1899
 	// Reference: src/views/SetupDesign-Pro.vue:802
 	__( 'YouTube URL', 'seedprod-pro' ),
 
 	// Reference: src/components/VideoOptions.vue:239
+	// Reference: src/components/VideoPopUpOptions.vue:891
 	__( 'Custom Video Code', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUp-Pro.vue:102
+	__( 'Select a Video or Add Video URL', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:887
+	__( 'Source', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:901
+	__( 'Vimeo URL', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:903
+	__( 'Start Time', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:904
+	__( 'Specify a start time (in seconds)', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:906
+	__( 'Specify an end time (in seconds)', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:907
+	__( 'External URL', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:908
+	__( 'Custom Video URL', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:909
+	__( 'Select Custom Video', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:910
+	__( 'Video Options', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:912
+	__( 'Mute', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:913
+	__( 'Loop', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:914
+	__( 'Show Player Controls', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:915
+	__( 'Show Download Button', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:916
+	__( 'Preload', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:917
+	__( 'Metadata', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:919
+	__( 'Preload attribute lets you specify how the video should be loaded when the page loads.', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:920
+	__( 'Learn more here.', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:921
+	__( 'Poster', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:922
+	__( 'Image Overlay', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:923
+	__( 'Choose Image', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:927
+	__( 'Show Play Icon', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:928
+	__( 'Enable Lightbox', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:929
+	__( 'Enable Sticky Video', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:930
+	__( 'Enable Image Overlay', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:931
+	__( 'Play on Mobile', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:932
+	__( 'Modest Branding', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:933
+	__( 'Privacy Mode', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:934
+	__( 'When you turn on privacy mode, YouTube/Vimeo won\'t store information about visitors on your website unless they play the video.', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:936
+	__( 'Suggested Videos', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:937
+	__( 'Current Video Channel', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:938
+	__( 'Any Video', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:939
+	__( 'Intro Title', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:940
+	__( 'Intro Portrait', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:941
+	__( 'Intro Byline', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:942
+	__( 'Controls Color', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:943
+	__( 'Play video inline on mobile devices instead of automatically going into fullscreen mode.', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:944
+	__( 'Icon Font Size', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:945
+	__( 'Icon Opacity', 'seedprod-pro' ),
+
+	// Reference: src/components/VideoPopUpOptions.vue:947
+	__( 'Click on Preview and scroll past the video on the page to see this in action.', 'seedprod-pro' ),
 
 	// Reference: src/components/WCCustomProductsGrid-Pro.vue:111
 	__( 'Products Preview Not Available', 'seedprod-pro' ),
@@ -7993,7 +8152,7 @@ page plugin.', 'seedprod-pro' ),
 	__( 'Block Uploaded successfully.', 'seedprod-pro' ),
 
 	// Reference: src/views/GlobalCSS.vue:1893
-	// Reference: src/views/SetupBlockOptions-Pro.vue:1847
+	// Reference: src/views/SetupBlockOptions-Pro.vue:1853
 	// Reference: src/views/SetupDesign-Pro.vue:796
 	__( 'Editing:', 'seedprod-pro' ),
 
@@ -8304,11 +8463,11 @@ page plugin.', 'seedprod-pro' ),
 	__( 'Categories:', 'seedprod-pro' ),
 
 	// Reference: src/views/SectionTemplates-Pro.vue:98
-	// Reference: src/views/SetupBlockOptions-Pro.vue:1842
+	// Reference: src/views/SetupBlockOptions-Pro.vue:1848
 	__( 'Blocks', 'seedprod-pro' ),
 
 	// Reference: src/views/SectionTemplates-Pro.vue:99
-	// Reference: src/views/SetupBlockOptions-Pro.vue:1843
+	// Reference: src/views/SetupBlockOptions-Pro.vue:1849
 	__( 'Sections', 'seedprod-pro' ),
 
 	// Reference: src/views/SettingsAccess-Pro.vue:293
@@ -8634,25 +8793,25 @@ page plugin.', 'seedprod-pro' ),
 	// Reference: src/views/Setup.vue:1591
 	__( 'Something has prevented the page from being saved.', 'seedprod-pro' ),
 
-	// Reference: src/views/SetupBlockOptions-Pro.vue:1846
+	// Reference: src/views/SetupBlockOptions-Pro.vue:1852
 	__( 'Saved Blocks', 'seedprod-pro' ),
 
-	// Reference: src/views/SetupBlockOptions-Pro.vue:1848
+	// Reference: src/views/SetupBlockOptions-Pro.vue:1854
 	__( 'Search blocks...', 'seedprod-pro' ),
 
-	// Reference: src/views/SetupBlockOptions-Pro.vue:1850
+	// Reference: src/views/SetupBlockOptions-Pro.vue:1856
 	__( 'Widgets', 'seedprod-pro' ),
 
-	// Reference: src/views/SetupBlockOptions-Pro.vue:1851
+	// Reference: src/views/SetupBlockOptions-Pro.vue:1857
 	__( 'Template Tags', 'seedprod-pro' ),
 
-	// Reference: src/views/SetupBlockOptions-Pro.vue:1852
+	// Reference: src/views/SetupBlockOptions-Pro.vue:1858
 	__( 'WooCommerce Template Tags', 'seedprod-pro' ),
 
-	// Reference: src/views/SetupBlockOptions-Pro.vue:1853
+	// Reference: src/views/SetupBlockOptions-Pro.vue:1859
 	__( 'Easy Digital Downloads', 'seedprod-pro' ),
 
-	// Reference: src/views/SetupBlockOptions-Pro.vue:1854
+	// Reference: src/views/SetupBlockOptions-Pro.vue:1860
 	__( 'EDD Template Tags', 'seedprod-pro' ),
 
 	// Reference: src/views/TemplateChooser-Pro.vue:1250

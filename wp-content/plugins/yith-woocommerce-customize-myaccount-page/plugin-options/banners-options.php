@@ -2,7 +2,7 @@
 /**
  * Banner array options
  *
- * @author  YITH
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH WooCommerce Customize My Account Page
  * @version 3.0.0
  */
@@ -12,16 +12,7 @@ defined( 'YITH_WCMAP' ) || exit;
 $banner_options_default = YITH_WCMAP_Banners::get_default_banner_options();
 
 $banners = array(
-
 	'banners' => array(
-
-		array(
-			'title' => __( 'Banners', 'yith-woocommerce-customize-myaccount-page' ),
-			'type'  => 'title',
-			'desc'  => '',
-			'id'    => 'yith-wcmap-banners-options',
-		),
-
 		array(
 			'id'                => 'yith_wcmap_banners',
 			'name'              => __( 'Banners', 'yith-woocommerce-customize-myaccount-page' ),
@@ -29,7 +20,6 @@ $banners = array(
 			'yith-type'         => 'toggle-element',
 			'add_button'        => __( 'Add banner', 'yith-woocommerce-customize-myaccount-page' ),
 			'add_button_closed' => __( 'Close new element', 'yith-woocommerce-customize-myaccount-page' ),
-
 			'yith-display-row'  => false,
 			'title'             => '%%name%%',
 			'elements'          => array(
@@ -67,7 +57,7 @@ $banners = array(
 				array(
 					'id'        => 'custom_icon',
 					'type'      => 'yith-field',
-					'yith-type' => 'upload',
+					'yith-type' => 'media',
 					'name'      => _x( 'Upload icon', '[admin]Plugin option label', 'yith-woocommerce-customize-myaccount-page' ),
 					'deps'      => array(
 						'id'     => 'icon_type',
@@ -116,24 +106,24 @@ $banners = array(
 							'default' => $banner_options_default['colors']['text'],
 						),
 						array(
-							'name'    => _x( 'Background', '[admin]Plugin option color label', 'yith-woocommerce-customize-myaccount-page' ),
-							'id'      => 'background',
-							'default' => $banner_options_default['colors']['background'],
-						),
-						array(
-							'name'    => _x( 'Borders', '[admin]Plugin option color label', 'yith-woocommerce-customize-myaccount-page' ),
-							'id'      => 'border',
-							'default' => $banner_options_default['colors']['border'],
-						),
-						array(
 							'name'    => _x( 'Text hover', '[admin]Plugin option color label', 'yith-woocommerce-customize-myaccount-page' ),
 							'id'      => 'text_hover',
 							'default' => $banner_options_default['colors']['text_hover'],
 						),
 						array(
+							'name'    => _x( 'Background', '[admin]Plugin option color label', 'yith-woocommerce-customize-myaccount-page' ),
+							'id'      => 'background',
+							'default' => $banner_options_default['colors']['background'],
+						),
+						array(
 							'name'    => _x( 'Background hover', '[admin]Plugin option color label', 'yith-woocommerce-customize-myaccount-page' ),
 							'id'      => 'background_hover',
 							'default' => $banner_options_default['colors']['background_hover'],
+						),
+						array(
+							'name'    => _x( 'Borders', '[admin]Plugin option color label', 'yith-woocommerce-customize-myaccount-page' ),
+							'id'      => 'border',
+							'default' => $banner_options_default['colors']['border'],
 						),
 						array(
 							'name'    => _x( 'Borders hover', '[admin]Plugin option color label', 'yith-woocommerce-customize-myaccount-page' ),
@@ -151,9 +141,18 @@ $banners = array(
 				),
 				array(
 					'id'        => 'counter_type',
-					'name'      => _x( 'Show badge with dynamic count of items', '[admin]Plugin option label', 'yith-woocommerce-customize-myaccount-page' ),
+					'name'      => _x( 'Show count of', '[admin]Plugin option label', 'yith-woocommerce-customize-myaccount-page' ),
 					'type'      => 'yith-field',
 					'yith-type' => 'select',
+					/**
+					 * APPLY_FILTERS: yith_wcmap_banner_counter_type_options
+					 *
+					 * Filters the counter types for the banner.
+					 *
+					 * @param array $counter_types Counter types options.
+					 *
+					 * @return array
+					 */
 					'options'   => apply_filters(
 						'yith_wcmap_banner_counter_type_options',
 						array(
@@ -260,13 +259,16 @@ $banners = array(
 			),
 			'default'           => YITH_WCMAP_Banners::get_default_banners(),
 		),
-
-
-		array(
-			'type' => 'sectionend',
-			'id'   => 'yith-wcmap-end-banners-options',
-		),
 	),
 );
 
+/**
+ * APPLY_FILTERS: yith_wcmap_panel_banners_options
+ *
+ * Filters the options available in the Banners tab.
+ *
+ * @param array $banners_options Array with options.
+ *
+ * @return array
+ */
 return apply_filters( 'yith_wcmap_panel_banners_options', $banners );

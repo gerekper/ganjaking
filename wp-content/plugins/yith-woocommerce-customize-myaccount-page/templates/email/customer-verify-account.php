@@ -4,7 +4,7 @@
  *
  * This template can be overridden by copying it to yourtheme/woocommerce/emails/customer-verify-account.php.
  *
- * @author  YITH
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH WooCommerce Customize My Account Page
  * @version 2.5.0
  */
@@ -22,7 +22,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php /* translators: %1$s: Site title */ ?>
 	<p><?php printf( __( 'Thanks for creating an account on %1$s.', 'yith-woocommerce-customize-myaccount-page' ), esc_html( $blogname ) ); ?></p>
 <?php /* translators: %1$s: My Account link */ ?>
-	<p><?php printf( __( 'To complete registration process you need to verify your account email by clicking this link: <br>%1$s', 'yith-woocommerce-customize-myaccount-page' ), make_clickable( esc_url( $verify_url ) ) ); ?></p><?php // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped ?>
+	<p><?php echo esc_html__( 'To complete registration process you need to verify your account email by clicking this link:', 'yith-woocommerce-customize-myaccount-page' ); ?></p>
+	<p><a href="<?php echo esc_attr( $verify_url ); ?>"><?php printf( esc_html__( 'Verify your account >', 'yith-woocommerce-customize-myaccount-page' ) ); ?></a></p>
 	<p><?php esc_html_e( 'We look forward to seeing you soon.', 'yith-woocommerce-customize-myaccount-page' ); ?></p>
 <?php /* translators: %1$s: Site title */ ?>
 	<p><?php printf( __( 'Regards, <br>%1$s staff', 'yith-woocommerce-customize-myaccount-page' ), esc_html( $blogname ) ); ?></p>

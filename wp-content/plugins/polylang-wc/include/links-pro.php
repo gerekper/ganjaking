@@ -95,11 +95,12 @@ class PLLWC_Links_Pro extends PLLWC_Links {
 	 * Prepares the rewrite rules filters to translate endpoints slugs.
 	 *
 	 * @since 0.1
+	 * @since 1.9 Hooked to `pll_prepare_rewrite_rules` and set default value to `$pre` parameter.
 	 *
 	 * @param string[] $pre Not used.
 	 * @return string[] Unmodified $pre.
 	 */
-	public function prepare_rewrite_rules( $pre ) {
+	public function prepare_rewrite_rules( $pre = array() ) {
 		parent::prepare_rewrite_rules( $pre );
 
 		if ( ! has_filter( 'page_rewrite_rules', array( $this, 'rewrite_translated_slug' ) ) ) {

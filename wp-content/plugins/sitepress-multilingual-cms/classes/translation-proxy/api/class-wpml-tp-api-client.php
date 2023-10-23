@@ -1,5 +1,7 @@
 <?php
 
+use WPML\FP\Str;
+
 class WPML_TP_API_Client {
 	/** @var string */
 	private $proxy_url;
@@ -75,8 +77,13 @@ class WPML_TP_API_Client {
 	 */
 	private function call_remote_api( WPML_TP_API_Request $request ) {
 		$context = $this->filter_request_params( $request->get_params(), $request->get_method() );
+		$url     = $request->get_url();
 
-		return $this->http->request( $this->proxy_url . $request->get_url(), $context );
+		if ( ! Str::startsWith( 'http://', $url ) && ! Str::startsWith( 'https://', $url ) ) {
+			$url = $this->proxy_url . $url;
+		}
+
+		return $this->http->request( $url, $context );
 	}
 
 	/**

@@ -5,12 +5,12 @@
  * @since 1.8.0
  */
 
-namespace Themesquad\WC_Currency_Converter\Admin\Settings;
+namespace KoiLab\WC_Currency_Converter\Admin\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
 use Exception;
-use Themesquad\WC_Currency_Converter\Internal\Admin\Settings\Abstracts\Settings_API;
+use KoiLab\WC_Currency_Converter\Internal\Admin\Settings\Abstracts\Settings_API;
 
 /**
  * General settings class.
@@ -92,9 +92,9 @@ class General extends Settings_API {
 		$value = sanitize_text_field( $value );
 
 		if ( $value ) {
-			$api = new \Themesquad\WC_Currency_Converter\Open_Exchange\API( $value );
+			$provider = new \KoiLab\WC_Currency_Converter\Exchange\Providers\Open_Exchange_Provider( $value );
 
-			if ( ! $api->validate_credentials() ) {
+			if ( ! $provider->validate_credentials() ) {
 				throw new Exception( __( 'Invalid App ID.', 'woocommerce-currency-converter-widget' ) );
 			}
 		}
@@ -102,3 +102,5 @@ class General extends Settings_API {
 		return $value;
 	}
 }
+
+class_alias( General::class, 'Themesquad\WC_Currency_Converter\Admin\Settings\General' );

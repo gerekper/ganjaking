@@ -1,0 +1,550 @@
+a.review-inappropriate {
+    background: url("../images/caution-disabled.png") no-repeat center center;
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    padding: 10px;
+}
+
+a.review-inappropriate:hover {
+    background: url("../images/caution.png") no-repeat center center;
+}
+
+.hide-rating {
+    display: none;
+}
+
+a.comment-reply-link.button,
+a.comment-edit-link.button,
+a.stop-reply.button {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+a.review-inappropriate {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 5px 0;
+}
+
+#reviews div.review-inappropriate {
+    padding: 10px 0;
+    float: right;
+}
+
+/* Report as inappropriate content */
+#reviews div.review-inappropriate {
+    font-size: small;
+}
+
+#reviews div.review-inappropriate a.review-inappropriate {
+    color: red;
+    border: none;
+}
+
+#reviews div.review-inappropriate span.review-inappropriate.reported {
+    color: green;
+}
+
+div.reply {
+    font-size: 14px;
+}
+
+img.ywar_thumbnail {
+    float: left !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    overflow: hidden;
+    margin-left: 5px;
+}
+
+div.horizontalRule {
+    min-height: 1px;
+    clear: both;
+    width: 100%;
+    border-bottom: 1px solid #EFEFEF;
+    display: inline-block;
+    border-top: 1px solid #EFEFEF;
+}
+
+.review_title {
+    display: block;
+    padding-bottom: 10px;
+    font-weight: bold;
+}
+
+.ywar_votereview {
+    border: 1px solid #CCC;
+    display: inline-block;
+    height: 28px;
+    text-indent: 100%;
+    white-space: nowrap;
+    width: 36px;
+}
+
+.ywar_votereview {
+    background: url("../images/sprites.png") no-repeat !important;
+}
+
+/*  upvote section */
+.ywar_votereview.yes {
+    background-position: -44px -46px !important;
+}
+
+.ywar_votereview.yes:hover {
+    background-position: -44px 5px !important;
+    border-color: #0B6631;
+}
+
+.ywar_votereview.yes.vote_selected {
+    background-position: 8px -46px !important;
+    border-color: #028439;
+}
+
+.ywar_votereview.yes.vote_selected:hover {
+    background-position: 8px -46px !important;
+    border-color: #0B6631;
+}
+
+/*  downvote section */
+.ywar_votereview.not {
+    background-position: -93px -47px !important;
+
+}
+
+.ywar_votereview.not:hover {
+    background-position: -95px 5px !important;
+    border-color: #bd0000;
+}
+
+#reviews .ywar_votereview.not.vote_selected {
+    background-position: 10px 7px !important;
+    border-color: #bd0000;
+}
+
+.ywar_votereview.not.vote_selected:hover {
+    background-position: 10px 7px !important;
+    border-color: #8E0505;
+}
+
+.ywar_votereview {
+    border: 1px solid #bdbdbd;
+    margin-left: 5px;
+}
+
+.ywar_votereview:hover {
+    text-decoration: none;
+    border-color: #6f6f6f;
+}
+
+span.review-rating-value {
+    display: block;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+#reviews .review_vote a {
+    text-decoration: none !important;
+}
+
+#reviews_header {
+    padding-top: 20px;
+}
+
+div.review_vote {
+    text-align: right;
+    padding-top: 10px;
+    overflow: hidden;
+}
+
+#ywar_reviews a.ywar_filter_reviews {
+    text-decoration: none;
+}
+
+.ywar_review_row span {
+    height: 21px;
+    line-height: 21px;
+    display: block;
+}
+
+.ywar_perc_value {
+    position: absolute;
+    right: 0px;
+    left: 0px;
+    text-align: center;
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+.ywar_review_row {
+    /*width: 300px;*/
+    padding-bottom: 10px;
+    position: relative;
+}
+
+.ywar_rating_bar {
+    float: none;
+    overflow: hidden;
+}
+
+.ywar_stars_value {
+    float: left;
+    line-height: 15px;
+    min-width: 80px;
+}
+
+.ywar_num_reviews {
+    float: right;
+    line-height: 15px;
+    /*width: 50px;*/
+    min-width: 50px;
+    padding-left: 10px;
+}
+
+#ywar_reviews span.ywar_stars_value a {
+    text-decoration: none;
+}
+
+span.ywar_scala_rating {
+    clear: both;
+    position: relative
+}
+
+span.ywar_perc_rating {
+    float: left;
+    color: #000000;
+}
+
+ul#uploadFileList {
+    padding: 0;
+}
+
+ul#uploadFileList li {
+    display: inline;
+    padding: 10px;
+}
+
+span.ywar_review_helpful {
+    font-style: italic;
+    font-size: smaller;
+    display: block;
+    padding-bottom: 5px;
+    margin-top: 12px;
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+#reviews_order {
+    margin-bottom: 20px;
+    border-bottom: 2px solid;
+    border-bottom: 2px solid rgba(234, 231, 231, 0.94);
+}
+
+#ywar_reviews a.ywar_filter_order {
+    text-decoration: none;
+    margin-right: 15px;
+    padding: 10px 30px;
+    display: inline-block;
+    opacity: 0.5;
+    position: relative;
+    top: 2px;
+    border: none;
+}
+
+#ywar_reviews a.ywar_filter_order.active,
+#ywar_reviews a.ywar_filter_order:hover {
+    border-bottom: 2px solid rgba(169, 112, 157, 1);
+    position: relative;
+    opacity: 1;
+}
+
+#ywar_reviews a#ywar_filter_no_vote{
+    border-bottom: none;
+    display: none;
+}
+
+.reviews_order_no_vote {
+    display: none;
+}
+
+div.ywar_show_more {
+    text-align: center;
+}
+
+nav.woocommerce-pagination {
+    text-align: center;
+}
+
+#reviews div.comment-text a.comment-reply-link:before {
+    content: '';
+}
+
+#reviews_dialog {
+    display: none;
+}
+
+div.reply {
+    float: right;
+}
+
+a.ywar_show_more {
+    border: none;
+}
+
+#review_form_wrapper {
+    margin-top: 35px;
+}
+
+#ywar-uploadFile {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+#do_uploadFile {
+    background: #f7f6f7;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f7f6f7), to(#e0dadf));
+    background: -webkit-linear-gradient(#f7f6f7, #e0dadf);
+    background: -moz-linear-gradient(center top, #f7f6f7 0, #e0dadf 100%);
+    background: -moz-gradient(center top, #f7f6f7 0, #e0dadf 100%);
+    -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .075), inset 0 1px 0 rgba(255, 255, 255, .3), 0 1px 2px rgba(0, 0, 0, .1);
+    -moz-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .075), inset 0 1px 0 rgba(255, 255, 255, .3), 0 1px 2px rgba(0, 0, 0, .1);
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .075), inset 0 1px 0 rgba(255, 255, 255, .3), 0 1px 2px rgba(0, 0, 0, .1);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, .8);
+    border: 1px solid #c8bfc6;
+    -webkit-border-radius: 1px;
+    border-radius: 1px;
+    color: #5e5e5e !important;
+    width: 100%;
+}
+
+#submit, #do_uploadFile {
+    font-size: 12px !important;
+}
+
+/*  Prettyphoto modal window showing reviews */
+#comments div.pp_woocommerce .pp_content_container {
+    border-radius: 0;
+}
+
+#comments div.pp_woocommerce .pp_close {
+    color: #6d6c6c !important;
+    background: none !important;
+    width: 20px;
+    height: 20px;
+    opacity: 0.5;
+    cursor: pointer;
+    font-weight: 400;
+    line-height: normal;
+    font-size: 13px;
+    font-family: 'Open Sans', sans-serif;
+    transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    text-decoration: none;
+
+    /*reset prettyphoto style*/
+    border-radius: 0;
+    border: none;
+
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    display: block;
+    z-index: 9999;
+}
+
+#comments div.pp_woocommerce .pp_close:before {
+    top: 0;
+    left: 0;
+    text-align: center;
+    text-indent: 0;
+    content: "x";
+    border: 1px solid;
+    width: 20px !important;
+    height: 20px !important;
+    line-height: normal;
+    font-weight: normal;
+    display: block;
+    font-size: 14px;
+    font-family: 'Open Sans', sans-serif !important;
+
+    text-align: center;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    text-shadow: none;
+}
+
+#comments div.pp_pic_holder.pp_woocommerce {
+    position: fixed;
+    left: 15% !important;
+    right: 15% !important;
+    top: 10% !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: auto !important;
+    max-width: 900px;
+    border: 0;
+    margin: 0 auto;
+    max-height: 80%;
+}
+
+#comments div.pp_content_container {
+    padding: 40px 0;
+}
+
+#comments div.pp_content {
+    height: 100% !important;
+    width: auto !important;
+    margin-top: 20px;
+}
+
+#ywar_reviews a,
+#reviews a {
+    text-decoration: none;
+    box-shadow: none;
+}
+
+#temp_review_form_wrapper {
+    visibility: hidden;
+}
+
+#commentsdiv a.comment-reply-link {
+    display: none;
+}
+
+#commentsdiv .review_vote * {
+    display: none;
+}
+
+#commentsdiv .review_vote span.ywar_review_helpful {
+    display: inline-block;
+}
+
+#reviews .comment_container {
+    padding:10px;
+    padding-top: 30px;
+    position: relative;
+}
+
+/*  Featured reviews */
+#reviews li.review-featured {
+  box-shadow: 0 0 35px #75bcc38c !important;
+}
+
+.ywar-featured-badge-container{
+  background-color: #1fc8be;
+  padding: 6px 12px 6px 12px;
+  float: right;
+  color: white;
+  font-size: 14px;
+}
+
+.ywar-featured-badge-container .featured-badge{
+  filter: invert(1);
+  margin-bottom: -6px;
+}
+
+
+
+span.error.empty-review {
+    font-size: 12px;
+    color: red;
+}
+
+span.empty-review {
+    display: block;
+}
+
+.ywar-attachment-notice {
+    font-style: italic;
+    color: red;
+    font-size: small;
+}
+
+.ywar-review-thumbnails a img {
+    margin-right: 15px;
+}
+
+.ywar-upload-limitation {
+    font-size: 10px;
+}
+
+#reviews .commentlist,
+#reviews .commentlist .children {
+    list-style: none;
+}
+
+.ywar-description {
+    overflow: overlay;
+}
+
+.ywar-review-content .comment_container {
+    display: contents;
+}
+
+#review_form .comment-form-title input#title{
+  display: block;
+  margin-top: 1em;
+}
+
+#review_form .comment-form-comment textarea#comment{
+  margin-top: 1em;
+}
+
+#reviews_summary .woocommerce-product-rating{
+  display: inline-block;
+}
+
+#reviews_summary .woocommerce-product-rating .star-rating{
+  display: inline-block;
+  margin-right: 1em;
+}
+
+#reviews_summary .woocommerce-product-rating .ywar_review_count{
+  float: right;
+}
+
+
+#review_form .upload_section input#do_uploadFile{
+  display: block;
+  margin-top: 1em;
+  width: 10%;
+}
+
+#review_form #commentform .form-submit{
+  float: left;
+  margin-top: 0em;
+}
+
+#comments .commentlist li{
+  border-radius: 5px;
+  transition: all .25s ease-in-out;
+  box-shadow: 0 0 35px lightgray;
+  margin: 2rem 1.5rem;
+  padding: 3em;
+}
+
+
+#comments .commentlist li .star-rating{
+  display: inline-block;
+  position: absolute;
+}
+
+#comments .commentlist li .meta{
+  display: inline-block;
+}
+
+#comments .commentlist li img.avatar{
+  margin-right: 1em;
+}
+
+#comments .commentlist li .comment-text{
+  padding: 1em;
+}
+
+.reviews_bar{
+  margin-top: 1em;
+}

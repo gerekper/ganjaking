@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Shipping Per Product v2 2.5.3\n"
+"Project-Id-Version: WooCommerce Shipping Per Product v2 2.5.5\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-shipping-per-product\n"
-"POT-Creation-Date: 2023-09-18 16:39:42+00:00\n"
+"POT-Creation-Date: 2023-10-06 16:36:32+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -114,191 +114,232 @@ msgstr ""
 msgid "Specific Countries"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:57
+#: includes/class-wc-shipping-per-product-admin.php:62
 msgid "No row selected"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:58
+#: includes/class-wc-shipping-per-product-admin.php:63
 msgid "Product ID"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:59
-#: includes/class-wc-shipping-per-product-admin.php:154
+#: includes/class-wc-shipping-per-product-admin.php:64
+#: includes/class-wc-shipping-per-product-admin.php:166
 msgid "Country Code"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:60
-#: includes/class-wc-shipping-per-product-admin.php:155
+#: includes/class-wc-shipping-per-product-admin.php:65
+#: includes/class-wc-shipping-per-product-admin.php:167
 msgid "State/County Code"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:61
-#: includes/class-wc-shipping-per-product-admin.php:156
+#: includes/class-wc-shipping-per-product-admin.php:66
+#: includes/class-wc-shipping-per-product-admin.php:168
 msgid "Zip/Postal Code"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:62
+#: includes/class-wc-shipping-per-product-admin.php:67
 msgid "Cost"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:63
+#: includes/class-wc-shipping-per-product-admin.php:68
 msgid "Item Cost"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:67
+#: includes/class-wc-shipping-per-product-admin.php:76
 msgid "The country code does not exist."
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:85
+#: includes/class-wc-shipping-per-product-admin.php:96
 msgid "Per-product shipping"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:86
+#: includes/class-wc-shipping-per-product-admin.php:97
 msgid "Enable per-product shipping cost"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:102
+#: includes/class-wc-shipping-per-product-admin.php:114
 msgid "Per-variation shipping"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:140
+#: includes/class-wc-shipping-per-product-admin.php:152
 msgid "Adjust Shipping Costs"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:141
+#: includes/class-wc-shipping-per-product-admin.php:153
 msgid "Add per-product shipping cost to all shipping method rates?"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:154
+#: includes/class-wc-shipping-per-product-admin.php:166
 msgid "A 2 digit country code, e.g. US. Leave blank to apply to all."
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:155
+#: includes/class-wc-shipping-per-product-admin.php:167
 msgid "A state code, e.g. AL. Leave blank to apply to all."
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:156
+#: includes/class-wc-shipping-per-product-admin.php:168
 msgid ""
 "Postcode for this rule. Wildcards (*) can be used. Leave blank to apply to "
 "all areas."
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:157
+#: includes/class-wc-shipping-per-product-admin.php:169
 msgid "Line Cost (Excl. Tax)"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:157
+#: includes/class-wc-shipping-per-product-admin.php:169
 msgid "Decimal cost for the line as a whole."
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:158
+#: includes/class-wc-shipping-per-product-admin.php:170
 msgid "Item Cost (Excl. Tax)"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:158
+#: includes/class-wc-shipping-per-product-admin.php:170
 msgid "Decimal cost for the item (multiplied by qty)."
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:165
+#: includes/class-wc-shipping-per-product-admin.php:177
 msgid "Insert row"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:169
+#: includes/class-wc-shipping-per-product-admin.php:181
 msgid "Remove row"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:172
+#: includes/class-wc-shipping-per-product-admin.php:184
 msgid "Export CSV"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:173
+#: includes/class-wc-shipping-per-product-admin.php:185
 msgid "Import CSV"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:174
+#: includes/class-wc-shipping-per-product-admin.php:186
 msgid "Import CSV (override)"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-admin.php:201
+#: includes/class-wc-shipping-per-product-admin.php:214
+#. translators: %1$s and %2$s is html tags.
 msgid ""
 "%1$sNOTICE:%2$s Only tables with %3$d rules or fewer can be edited within "
 "the product editor. %4$sPlease export your rules, modify as needed, and use "
 "the \"Import CSV (override)\" button to update this product's rules."
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-importer.php:149
-#: includes/class-wc-shipping-per-product-importer.php:206
-#: includes/class-wc-shipping-per-product-importer.php:258
+#: includes/class-wc-shipping-per-product-admin.php:518
+msgid "Insufficient privileges to export product shipping rules."
+msgstr ""
+
+#: includes/class-wc-shipping-per-product-admin.php:528
+msgid "Invalid product ID."
+msgstr ""
+
+#: includes/class-wc-shipping-per-product-importer.php:151
+#: includes/class-wc-shipping-per-product-importer.php:211
+#: includes/class-wc-shipping-per-product-importer.php:268
 msgid "Sorry, there has been an error."
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-importer.php:150
+#: includes/class-wc-shipping-per-product-importer.php:152
 msgid "The file does not exist, please try again."
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-importer.php:207
+#: includes/class-wc-shipping-per-product-importer.php:212
 msgid "The CSV is invalid."
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-importer.php:220
+#: includes/class-wc-shipping-per-product-importer.php:225
 #. translators: 1) Total imported 2) Total skipped.
 msgid "Import complete - imported %1$s shipping rates and skipped %2$s."
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-importer.php:231
+#: includes/class-wc-shipping-per-product-importer.php:236
 #. translators: 1) Total skipped.
 msgid "%1$s rows were missing a valid product ID"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-importer.php:244
+#: includes/class-wc-shipping-per-product-importer.php:249
 msgid "All done!"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-importer.php:277
+#: includes/class-wc-shipping-per-product-importer.php:286
 msgid "Import Per-product Shipping Rates"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-importer.php:298
+#: includes/class-wc-shipping-per-product-importer.php:305
 msgid ""
 "Hi there! Upload a CSV file containing per-product shipping rates to import "
 "the contents into your shop. Choose a .csv file to upload, then click "
 "\"Upload file and import\"."
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-importer.php:300
+#: includes/class-wc-shipping-per-product-importer.php:307
 msgid ""
 "Rates need to be defined with columns in a specific order (6 columns). "
 "Product ID, Country Code, State Code, Postcode, Cost, Item Cost"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-importer.php:313
+#: includes/class-wc-shipping-per-product-importer.php:332
 msgid ""
 "Before you can upload your import file, you will need to fix the following "
 "error:"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-importer.php:322
+#: includes/class-wc-shipping-per-product-importer.php:340
 msgid "Choose a file from your computer:"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-importer.php:331
+#: includes/class-wc-shipping-per-product-importer.php:349
 #. translators: Maximum size of file
 msgid "Maximum size: %s"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-importer.php:337
+#: includes/class-wc-shipping-per-product-importer.php:355
 msgid "Delimiter"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-importer.php:343
+#: includes/class-wc-shipping-per-product-importer.php:361
 msgid "Upload file and import"
 msgstr ""
 
-#: includes/class-wc-shipping-per-product-privacy.php:12
-msgid "Shipping Per Product"
+#: includes/class-wc-shipping-per-product-init.php:112
+msgid "Support"
+msgstr ""
+
+#: includes/class-wc-shipping-per-product-init.php:113
+#: includes/class-wc-shipping-per-product-init.php:136
+msgid "Docs"
+msgstr ""
+
+#: includes/class-wc-shipping-per-product-init.php:136
+msgid "View Documentation"
+msgstr ""
+
+#: includes/class-wc-shipping-per-product-init.php:143
+msgid "Visit Premium Customer Support Forum"
+msgstr ""
+
+#: includes/class-wc-shipping-per-product-init.php:143
+msgid "Premium Support"
+msgstr ""
+
+#: includes/class-wc-shipping-per-product-init.php:155
+msgid "WooCommerce Per-product shipping rates (CSV)"
+msgstr ""
+
+#: includes/class-wc-shipping-per-product-init.php:155
+msgid ""
+"Import <strong>per-product shipping rates</strong> to your store via a csv "
+"file."
 msgstr ""
 
 #: includes/class-wc-shipping-per-product-privacy.php:20
+msgid "Shipping Per Product"
+msgstr ""
+
+#: includes/class-wc-shipping-per-product-privacy.php:28
+#. translators: %s is plugin privacy page link.
 msgid ""
 "By using this extension, you may be storing personal data or sharing data "
 "with an external service. <a href=\"%s\" target=\"_blank\">Learn more about "
@@ -360,42 +401,11 @@ msgid ""
 "same package if this option is checked."
 msgstr ""
 
-#: woocommerce-shipping-per-product.php:44
+#: woocommerce-shipping-per-product.php:54
 #. translators: %s WC download URL link.
 msgid ""
 "Per Product Shipping requires WooCommerce to be installed and active. You "
 "can download %s here."
-msgstr ""
-
-#: woocommerce-shipping-per-product.php:149
-msgid "Support"
-msgstr ""
-
-#: woocommerce-shipping-per-product.php:150
-#: woocommerce-shipping-per-product.php:167
-msgid "Docs"
-msgstr ""
-
-#: woocommerce-shipping-per-product.php:167
-msgid "View Documentation"
-msgstr ""
-
-#: woocommerce-shipping-per-product.php:168
-msgid "Visit Premium Customer Support Forum"
-msgstr ""
-
-#: woocommerce-shipping-per-product.php:168
-msgid "Premium Support"
-msgstr ""
-
-#: woocommerce-shipping-per-product.php:180
-msgid "WooCommerce Per-product shipping rates (CSV)"
-msgstr ""
-
-#: woocommerce-shipping-per-product.php:180
-msgid ""
-"Import <strong>per-product shipping rates</strong> to your store via a csv "
-"file."
 msgstr ""
 
 #. Plugin Name of the plugin/theme

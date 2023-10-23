@@ -1,10 +1,10 @@
 === Polylang for WooCommerce ===
 Contributors: Chouby, manooweb, sebastienserre, greglone, hugod, marianne38
 Tags: multilingual, woocommerce
-Requires at least: 5.8
-Tested up to: 6.1
+Requires at least: 5.9
+Tested up to: 6.3
 Requires PHP: 7.0
-Stable tag: 1.8
+Stable tag: 1.9
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -17,6 +17,21 @@ Some popular extensions such as WooCommerce Subscriptions, Dynamic Pricing, Tabl
 This extension can be used either with the free version of Polylang or in combination with Polylang Pro.
 
 == Changelog ==
+
+= 1.9 (2023-10-09) =
+
+* Requires WordPress 5.9 or higher, WC 6.2 or higher
+* Add compatibility with High Performance Order Storage (requires Polylang 3.4.5 and WooCommerce 8.0)
+* Add compatibility with the "Reviews by Product" block
+* Fix rewrite rules in WP 6.4 (requires Polylang 3.5)
+* Fix the front page when using the "Filter Products by Attribute" block
+* Fix terms of the "Filter by attributes" block not filtered by the current language
+* Fix checkout block redirecting to the checkout page in the wrong language.
+* Fix PHP notice on checkout page when using the checkout block
+* Fix attribute lookup table not correctly populated when creating a variation with the REST API
+* Fix attribute terms not translated in translation of a product duplicate
+* Fix variations title and excerpt uselessly exported in XLIFF files (requires Polylang 3.5)
+* Fix booking not confirmed if the language is changed during checkout
 
 = 1.8 (2023-05-23) =
 

@@ -1204,6 +1204,54 @@ function seedprod_particlessectionjs(blockId, particlesconfig) {
   var particlesJSON = particlesconfig;
   particlesJS("tsparticles-preview-sp-" + blockId, particlesJSON);
 }
+
+function seedprod_pro_video_pop_up_trigger_video(blockId, videoHtml, blockOptions) {
+  var options = JSON.parse(blockOptions);
+  var responsiveClass = options.source === 'custom' ? 'sp-video-responsive-video' : 'sp-video-responsive'; // Only enable if image overlay is enabled.
+
+  if (options.enable_image_overlay) {
+    if (options.enable_lightbox) {
+      // Open lightbox modal onclick
+      jQuery("#sp-".concat(blockId, " .sp-video-pop-up-image-overlay")).click(function () {
+        // Set modal content html
+        jQuery("#sp-".concat(blockId, " #video-pop-up-lightbox-modal-").concat(blockId, " .modal-content")).html("<div id=\"sp-video-responsive-".concat(blockId, "\" class=\"").concat(responsiveClass, " sp-video-pop-up-video\">").concat(videoHtml, "</div>"));
+        jQuery("#sp-".concat(blockId, " #video-pop-up-lightbox-modal-").concat(blockId)).css('display', 'block');
+      }); // Close lightbox
+
+      jQuery("#sp-".concat(blockId, " #video-pop-up-lightbox-modal-").concat(blockId, " span.close")).click(function () {
+        jQuery("#sp-".concat(blockId, " #video-pop-up-lightbox-modal-").concat(blockId)).css('display', 'none');
+      });
+    } else {
+      // When image overlay is clicked, display video.
+      jQuery("#sp-".concat(blockId, " .sp-video-pop-up-image-overlay")).click(function () {
+        jQuery("#sp-".concat(blockId, " .sp-video-pop-up-image-overlay")).remove(); // Check if lightbox is enabled.
+        // Create video element.
+
+        jQuery("#sp-".concat(blockId, " .sp-video-wrapper")).append("<div id=\"sp-video-responsive-".concat(blockId, "\" class=\"").concat(responsiveClass, " sp-video-pop-up-video\">").concat(videoHtml, "</div>"));
+        jQuery("#sp-".concat(blockId, " #sp-video-responsive-").concat(blockId)).css('aspect-ratio', options.aspect_ratio);
+      });
+    }
+  }
+
+  if (options.enable_sticky_video && !options.enable_lightbox) {
+    // On scroll/resize
+    jQuery(window).on('resize scroll', function () {
+      // Disable for mobile.
+      if (window.matchMedia('only screen and (min-width: 960px)').matches) {
+        // Check if video is in viewport
+        if (jQuery("#sp-".concat(blockId, " #sp-video-wrapper-").concat(blockId)).isInViewport()) {
+          // Return original class
+          jQuery("#sp-".concat(blockId, " #sp-video-wrapper-").concat(blockId)).removeClass('sp-video-wrapper-sticky').addClass('sp-video-wrapper');
+          jQuery("#sp-".concat(blockId, " #sp-video-responsive-").concat(blockId)).removeClass('sp-video-responsive-sticky').addClass(responsiveClass);
+        } else {
+          // Add sticky class
+          jQuery("#sp-".concat(blockId, " #sp-video-wrapper-").concat(blockId)).removeClass('sp-video-wrapper').addClass('sp-video-wrapper-sticky');
+          jQuery("#sp-".concat(blockId, " #sp-video-responsive-").concat(blockId)).removeClass(responsiveClass).addClass('sp-video-responsive-sticky');
+        }
+      }
+    });
+  }
+}
 /**
  * post carousel javascript
  */

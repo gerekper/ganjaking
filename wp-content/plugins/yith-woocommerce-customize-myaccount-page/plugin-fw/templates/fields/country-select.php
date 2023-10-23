@@ -14,7 +14,6 @@ if ( ! function_exists( 'WC' ) ) {
 
 list ( $field_id, $name, $class, $placeholder, $std, $value, $data, $custom_attributes ) = yith_plugin_fw_extract( $field, 'id', 'name', 'class', 'placeholder', 'std', 'value', 'data', 'custom_attributes' );
 
-$placeholder     = isset( $placeholder ) ? ' data-placeholder = "' . $placeholder . '" ' : '';
 $country_setting = (string) $value;
 
 if ( strstr( $country_setting, ':' ) ) {

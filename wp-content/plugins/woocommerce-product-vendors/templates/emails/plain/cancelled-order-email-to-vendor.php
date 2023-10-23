@@ -12,9 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $order_id = $order->get_id();
 
-echo "= " . $email_heading . " =\n\n";
+echo "= " . esc_html( wp_strip_all_tags( $email_heading ) ) . " =\n\n";
 
-echo sprintf( __( 'The order #%s from %s has been cancelled. The order was as follows:', 'woocommerce-product-vendors' ), $order->get_order_number(), $order->get_formatted_billing_full_name() ) . "\n\n";
+echo sprintf( esc_html__( 'The order #%s from %s has been cancelled. The order was as follows:', 'woocommerce-product-vendors' ), esc_html( $order->get_order_number() ), esc_html( $order->get_formatted_billing_full_name() ) ) . "\n\n";
 
 echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 
@@ -39,4 +39,4 @@ do_action( 'woocommerce_email_customer_details', $order, $sent_to_admin, $plain_
 
 echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 
-echo apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) );
+echo wp_kses_post( apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) ) );

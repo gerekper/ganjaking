@@ -136,6 +136,8 @@ class PLLWC_Admin_Status_Reports {
 						);
 						$page_properties['is_error'] = true;
 					}
+
+					$page_properties['edit_link'] = get_edit_post_link( $page_id );
 				}
 			}
 

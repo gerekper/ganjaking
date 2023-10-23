@@ -24,9 +24,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="vc_col-xs-6">
 			<h3><?php esc_html_e( 'Official Support', 'js_composer' ); ?></h3>
 
-			<p><?php printf( esc_html__( 'To get your support related question answered in the fastest timing, please head over to our %ssupport page%s and open Support ticket. To open a support ticket you should have a valid support subscription in case if your support has expired you can %spurchase support extension%s on support.wpbakery.com.', 'js_composer' ), '<a href="https://support.wpbakery.com" target="_blank">', '</a>', '<a href="https://support.wpbakery.com" target="_blank">', '</a>' ); ?></p>
+			<p><?php printf( esc_html__( 'To get your support related question answered in the fastest timing, please head over to our %1$ssupport page%2$s and open Support ticket. To open a support ticket you should have a valid support subscription in case if your support has expired you can %3$spurchase support extension%4$s on support.wpbakery.com.', 'js_composer' ), '<a href="https://support.wpbakery.com" target="_blank">', '</a>', '<a href="https://support.wpbakery.com" target="_blank">', '</a>' ); ?></p>
 
-			<p><?php printf( esc_html__( 'Before applying for support please make sure you understand the rules of support and go through all steps described and listed in %sSupport Policy%s in order to get your issues solved as soon as possible.', 'js_composer' ), '<a href="https://go.wpbakery.com/support-policy" target="_blank">', '</a>' ); ?></p>
+			<p><?php printf( esc_html__( 'Before applying for support please make sure you understand the rules of support and go through all steps described and listed in %1$sSupport Policy%2$s in order to get your issues solved as soon as possible.', 'js_composer' ), '<a href="https://go.wpbakery.com/support-policy" target="_blank">', '</a>' ); ?></p>
 		</div>
 	</div>
 </div>

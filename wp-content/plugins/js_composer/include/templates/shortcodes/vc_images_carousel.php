@@ -95,7 +95,12 @@ foreach ( $images as $attach_id ) {
 		) );
 	} else {
 		$post_thumbnail = array();
-		$post_thumbnail['thumbnail'] = '<img src="' . esc_url( vc_asset_url( 'vc/no_image.png' ) ) . '" />';
+		$attributes = array(
+			'src' => esc_url( vc_asset_url( 'vc/no_image.png' ) ),
+			'alt' => __( 'No image', 'js_composer' ),
+		);
+		$attributes = vc_add_lazy_loading_attribute( $attributes );
+		$post_thumbnail['thumbnail'] = '<img ' . vc_stringify_attributes( $attributes ) . ' />';
 		$post_thumbnail['p_img_large'][0] = vc_asset_url( 'vc/no_image.png' );
 	}
 	$thumbnail = $post_thumbnail['thumbnail'];

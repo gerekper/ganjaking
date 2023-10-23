@@ -4,13 +4,16 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitde64d8e252ffa1012de456aa02eeccce
+class ComposerStaticInitec585ce15135e1d365a7efee4ca37621
 {
     public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'PLLWC_Admin' => __DIR__ . '/../..' . '/admin/admin.php',
         'PLLWC_Admin_Coupons' => __DIR__ . '/../..' . '/admin/admin-coupons.php',
         'PLLWC_Admin_Menus' => __DIR__ . '/../..' . '/admin/admin-menus.php',
         'PLLWC_Admin_Orders' => __DIR__ . '/../..' . '/admin/admin-orders.php',
+        'PLLWC_Admin_Orders_HPOS' => __DIR__ . '/../..' . '/admin/admin-orders-hpos.php',
+        'PLLWC_Admin_Orders_Legacy' => __DIR__ . '/../..' . '/admin/admin-orders-legacy.php',
         'PLLWC_Admin_Product_Duplicate' => __DIR__ . '/../..' . '/admin/admin-product-duplicate.php',
         'PLLWC_Admin_Products' => __DIR__ . '/../..' . '/admin/admin-products.php',
         'PLLWC_Admin_Reports' => __DIR__ . '/../..' . '/admin/admin-reports.php',
@@ -25,6 +28,7 @@ class ComposerStaticInitde64d8e252ffa1012de456aa02eeccce
         'PLLWC_Data_Store' => __DIR__ . '/../..' . '/include/data-store.php',
         'PLLWC_Dynamic_Pricing' => __DIR__ . '/../..' . '/plugins/dynamic-pricing.php',
         'PLLWC_Emails' => __DIR__ . '/../..' . '/include/emails.php',
+        'PLLWC_Filter_WC_Pages' => __DIR__ . '/../..' . '/include/filter-wc-pages.php',
         'PLLWC_Follow_Up_Emails' => __DIR__ . '/../..' . '/plugins/follow-up-emails.php',
         'PLLWC_Free_Gift_Coupons' => __DIR__ . '/../..' . '/plugins/free-gift-coupons.php',
         'PLLWC_Frontend' => __DIR__ . '/../..' . '/frontend/frontend.php',
@@ -32,12 +36,14 @@ class ComposerStaticInitde64d8e252ffa1012de456aa02eeccce
         'PLLWC_Frontend_Cart' => __DIR__ . '/../..' . '/frontend/frontend-cart.php',
         'PLLWC_Frontend_WC_Pages' => __DIR__ . '/../..' . '/frontend/frontend-wc-pages.php',
         'PLLWC_Germanized' => __DIR__ . '/../..' . '/plugins/germanized.php',
+        'PLLWC_HPOS_Feature' => __DIR__ . '/../..' . '/include/hpos-feature.php',
+        'PLLWC_HPOS_Orders_Query' => __DIR__ . '/../..' . '/include/hpos-orders-query.php',
         'PLLWC_Install' => __DIR__ . '/../..' . '/include/install.php',
         'PLLWC_Links' => __DIR__ . '/../..' . '/include/links.php',
         'PLLWC_Links_Pro' => __DIR__ . '/../..' . '/include/links-pro.php',
         'PLLWC_Min_Max_Quantities' => __DIR__ . '/../..' . '/plugins/min-max-quantities.php',
         'PLLWC_Mix_Match' => __DIR__ . '/../..' . '/plugins/mix-match.php',
-        'PLLWC_Object_Language_CPT' => __DIR__ . '/../..' . '/include/object-language-cpt.php',
+        'PLLWC_Object_Language' => __DIR__ . '/../..' . '/include/object-language.php',
         'PLLWC_Order_Language_CPT' => __DIR__ . '/../..' . '/include/order-language-cpt.php',
         'PLLWC_Plugins_Compat' => __DIR__ . '/../..' . '/plugins/plugins-compat.php',
         'PLLWC_Post_Types' => __DIR__ . '/../..' . '/include/post-types.php',
@@ -59,7 +65,7 @@ class ComposerStaticInitde64d8e252ffa1012de456aa02eeccce
         'PLLWC_Swatches' => __DIR__ . '/../..' . '/plugins/swatches.php',
         'PLLWC_Sync_Content' => __DIR__ . '/../..' . '/include/sync-content.php',
         'PLLWC_Table_Rate_Shipping' => __DIR__ . '/../..' . '/plugins/table-rate-shipping.php',
-        'PLLWC_Translated_Object_Language_CPT' => __DIR__ . '/../..' . '/include/translated-object-language-cpt.php',
+        'PLLWC_Translated_Object_Language' => __DIR__ . '/../..' . '/include/translated-object-language.php',
         'PLLWC_Translation_Export' => __DIR__ . '/../..' . '/modules/translation-import-export/export.php',
         'PLLWC_Translation_Import' => __DIR__ . '/../..' . '/modules/translation-import-export/import.php',
         'PLLWC_Variation_Data_Store_CPT' => __DIR__ . '/../..' . '/include/variation-data-store-cpt.php',
@@ -73,7 +79,7 @@ class ComposerStaticInitde64d8e252ffa1012de456aa02eeccce
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticInitde64d8e252ffa1012de456aa02eeccce::$classMap;
+            $loader->classMap = ComposerStaticInitec585ce15135e1d365a7efee4ca37621::$classMap;
 
         }, null, ClassLoader::class);
     }

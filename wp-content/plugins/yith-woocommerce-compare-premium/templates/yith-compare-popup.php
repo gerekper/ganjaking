@@ -2,8 +2,8 @@
 /**
  * Woocommerce Compare page
  *
- * @author Your Inspiration Themes
- * @package YITH Woocommerce Compare
+ * @author YITH <plugins@yithemes.com>
+ * @package YITH\Compare
  * @version 1.1.4
  */
 
@@ -57,7 +57,14 @@ $table_text = get_option( 'yith_woocompare_table_text', __( 'Compare products', 
 
 	<?php wp_head(); ?>
 
-	<?php do_action( 'yith_woocompare_popup_head' ); ?>
+	<?php
+	/**
+	 * DO_ACTION: yith_woocompare_popup_footer
+	 *
+	 * Allows to render some content in the footer of the comparison popup.
+	 */
+	do_action( 'yith_woocompare_popup_head' );
+	?>
 
 	<link rel="stylesheet" href="<?php echo esc_url( YITH_WOOCOMPARE_ASSETS_URL ); ?>/css/colorbox.css"/>
 	<link rel="stylesheet" href="<?php echo esc_url( YITH_WOOCOMPARE_ASSETS_URL ); ?>/css/jquery.dataTables.css"/>
@@ -83,7 +90,14 @@ $table_text = get_option( 'yith_woocompare_table_text', __( 'Compare products', 
 
 <?php wc_get_template( 'yith-compare-table.php', $args, '', YITH_WOOCOMPARE_TEMPLATE_PATH . '/' ); ?>
 
-<?php do_action( 'yith_woocompare_popup_footer' ); ?>
+<?php
+/**
+ * DO_ACTION: yith_woocompare_popup_footer
+ *
+ * Allows to render some content in the footer of the comparison popup.
+ */
+do_action( 'yith_woocompare_popup_footer' );
+?>
 
 <?php do_action( 'wp_print_footer_scripts' ); ?>
 

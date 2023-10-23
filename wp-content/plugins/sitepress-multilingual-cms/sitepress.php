@@ -2,10 +2,10 @@
 /**
  * Plugin Name: WPML Multilingual CMS
  * Plugin URI: https://wpml.org/
- * Description: WPML Multilingual CMS | <a href="https://wpml.org">Documentation</a> | <a href="https://wpml.org/version/wpml-4-6-6/">WPML 4.6.6 release notes</a>
+ * Description: WPML Multilingual CMS | <a href="https://wpml.org">Documentation</a> | <a href="https://wpml.org/version/wpml-4-6-7/">WPML 4.6.7 release notes</a>
  * Author: OnTheGoSystems
  * Author URI: http://www.onthegosystems.com/
- * Version: 4.6.6
+ * Version: 4.6.7
  * Plugin Slug: sitepress-multilingual-cms
  *
  * @package WPML\Core
@@ -15,17 +15,6 @@ use WPML\Container\Config;
 use function WPML\Container\share;
 use function WPML\FP\partial;
 
-$wpml_setup = get_option( 'WPML(setup)', [] );
-if ( isset( $wpml_setup['current-step'] ) ) {
-	if ( $wpml_setup['current-step'] == 'license' ) {
-		$wpml_setup['current-step'] = 'translation';
-		update_option( 'WPML(setup)', $wpml_setup );
-	}
-	if ( $wpml_setup['current-step'] == 'support' ) {
-		$wpml_setup['current-step'] = 'plugins';
-		update_option( 'WPML(setup)', $wpml_setup );
-	}
-}
 if ( preg_match( '#' . basename( __FILE__ ) . '#', $_SERVER['PHP_SELF'] ) ) {
 	die( 'You are not allowed to call this page directly.' );
 }
@@ -40,7 +29,7 @@ if ( ! \WPML\Requirements\WordPress::checkMinimumRequiredVersion() ) {
 	return;
 }
 
-define( 'ICL_SITEPRESS_VERSION', '4.6.6' );
+define( 'ICL_SITEPRESS_VERSION', '4.6.7' );
 
 // Do not uncomment the following line!
 // If you need to use this constant, use it in the wp-config.php file
@@ -209,7 +198,6 @@ if ( $sitepress->is_setup_complete() ) {
 		'WPML_Post_Edit_Terms_Hooks_Factory',
 		'WPML_Attachments_Urls_With_Identical_Slugs_Factory',
 		'WPML_API_Hooks_Factory',
-		'WPML_Cache_Terms_Per_Lang_Factory',
 		'WPML_Display_As_Translated_Message_For_New_Post_Factory',
 		'WPML_Custom_Fields_Post_Meta_Info_Factory',
 		'WPML_Display_As_Translated_Default_Lang_Messages_Factory',
@@ -272,6 +260,14 @@ if ( $sitepress->is_setup_complete() ) {
 	];
 
 	$action_filter_loader->load( $rest_factories );
+
+	// On posts listing page.
+	add_action(
+		'load-edit.php',
+		function() {
+			new WPML_Posts_Listing_Page();
+		}
+	);
 } else {
 	$action_filter_loader->load( [
 		\WPML\Setup\DisableNotices::class,
@@ -470,4 +466,5 @@ if ( defined( 'WCML_VERSION') ) {
 add_action( 'plugins_loaded', function() {
 	require_once WPML_PLUGIN_PATH . '/addons/wpml-page-builders/loader.php';
 }, PHP_INT_MAX );
+
 

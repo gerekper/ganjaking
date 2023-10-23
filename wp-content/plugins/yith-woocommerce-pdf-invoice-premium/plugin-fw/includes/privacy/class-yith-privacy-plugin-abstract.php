@@ -4,7 +4,7 @@
  * abstract class to handle privacy in plugins
  *
  * @class   YITH_Privacy_Plugin_Abstract
- * @author  Leanza Francesco <leanzafrancesco@gmail.com>
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH\PluginFramework\Classes
  */
 

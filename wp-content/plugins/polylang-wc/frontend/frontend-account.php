@@ -17,9 +17,51 @@ class PLLWC_Frontend_Account {
 	 * @since 1.0
 	 */
 	public function __construct() {
+		add_action( 'woocommerce_account_content', array( $this, 'add_language_filter_before_account_orders' ), -100000 );
+		add_action( 'woocommerce_account_content', array( $this, 'remove_language_filter_after_account_orders' ), 100000 );
 		add_action( 'parse_query', array( $this, 'parse_query' ), 3 ); // Before Polylang (for orders).
 		add_filter( 'woocommerce_order_item_name', array( $this, 'order_item_name' ), 10, 3 );
 		add_filter( 'woocommerce_get_order_item_totals', array( $this, 'translate_payment_method' ), 10, 2 );
+	}
+
+	/**
+	 * In frontend, forces the queries in the "My account => Orders" tab to fetch orders in all languages by adding
+	 * a filter (refunds, etc). This is used when HPOS is enabled because `WP_Query` is not used in this context (so
+	 * {@see PLLWC_Frontend_Account::parse_query()} has no effects).
+	 * Hooked to `woocommerce_account_content` at very low priority.
+	 *
+	 * @since 1.9
+	 *
+	 * @return void
+	 */
+	public function add_language_filter_before_account_orders() {
+		add_filter( 'woocommerce_order_query_args', array( $this, 'add_language_query_arg_in_account_orders' ) );
+	}
+
+	/**
+	 * Removes the filter added by {@see PLLWC_Frontend_Account::add_language_filter_before_account_orders()}.
+	 * Hooked to woocommerce_account_content` at very high priority.
+	 *
+	 * @since 1.9
+	 *
+	 * @return void
+	 */
+	public function remove_language_filter_after_account_orders() {
+		remove_filter( 'woocommerce_order_query_args', array( $this, 'add_language_query_arg_in_account_orders' ) );
+	}
+
+	/**
+	 * In frontend, forces the "My account => Orders" tab to display orders in all languages.
+	 * Hooked to `woocommerce_order_query_args` in {@see PLLWC_Frontend_Account::add_language_filter_before_account_orders()}.
+	 *
+	 * @since 1.9
+	 *
+	 * @param array $query The query array.
+	 * @return array
+	 */
+	public function add_language_query_arg_in_account_orders( $query ) {
+		$query['lang'] = '';
+		return $query;
 	}
 
 	/**
@@ -36,7 +78,7 @@ class PLLWC_Frontend_Account {
 
 		// Customers should see all their orders whatever the language.
 		if ( ! isset( $qvars['lang'] ) && ( isset( $qvars['post_type'] ) && ( 'shop_order' === $qvars['post_type'] || ( is_array( $qvars['post_type'] ) && in_array( 'shop_order', $qvars['post_type'] ) ) ) ) ) {
-			$query->set( 'lang', 0 );
+			$query->set( 'lang', '' );
 		}
 	}
 
@@ -87,7 +129,8 @@ class PLLWC_Frontend_Account {
 		if ( method_exists( $order, 'get_payment_method' ) ) {
 			$payment_method = $order->get_payment_method();
 			$gateways       = WC_Payment_Gateways::instance()->payment_gateways();
-			if ( isset( $gateways[ $payment_method ] ) ) {
+			if ( isset( $gateways[ $payment_method ] ) && ! empty( $rows['payment_method'] ) ) {
+				// Check $rows['payment_method'] for an issue (where the payment method was not set) introduced in WC 7.7.0 and fixed in 7.8 {@see https://github.com/polylang/polylang-wc/issues/629}.
 				$rows['payment_method']['value'] = $gateways[ $payment_method ]->get_title();
 			}
 		}

@@ -38,7 +38,7 @@ if ( $no_value ) {
 
 $default_data = array(
 	'action'      => 'yith_plugin_fw_json_search_terms',
-	'placeholder' => __( 'Search Categories', 'yith-plugin-fw' ),
+	'placeholder' => __( 'Search for a category...', 'yith-plugin-fw' ),
 	'allow_clear' => false,
 	'taxonomy'    => 'category',
 	'term_field'  => 'id',

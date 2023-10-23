@@ -32,8 +32,11 @@ for ( const [blockName, blockArgs] of Object.entries( yithGutenbergBlocks ) ) {
 		icon       : typeof blockArgs.icon !== 'undefined' ? blockArgs.icon : yith_icon,
 		keywords   : blockArgs.keywords,
 		edit       : createEditFunction( blockName, blockArgs ),
+		usesContext: [
+			'postId'
+		],
 		save       : ( { attributes } ) => {
-			return generateShortcode( blockArgs, attributes );
+			return blockArgs?.shortcode_name && !blockArgs.render_callback ? generateShortcode( blockArgs, attributes ) : null;
 		},
 		deprecated : [
 			{

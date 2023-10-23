@@ -64,7 +64,7 @@ if ( ! class_exists( 'YITH_Plugin_Licence_Onboarding' ) ) {
 		 */
 		public function create_page() {
 			add_submenu_page(
-				null,
+				'',
 				__( 'YITH License Activation', 'yith-plugin-upgrade-fw' ),
 				__( 'YITH License Activation', 'yith-plugin-upgrade-fw' ),
 				'activate_plugins',

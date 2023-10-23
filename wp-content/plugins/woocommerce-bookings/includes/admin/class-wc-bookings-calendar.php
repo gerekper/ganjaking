@@ -55,9 +55,9 @@ class WC_Bookings_Calendar {
 		$day   = isset( $_REQUEST['calendar_day'] ) ? wc_clean( $_REQUEST['calendar_day'] ) : current_time( 'Y-m-d' );
 
 		if ( 'day' === $view ) {
-			$day_start    = strtotime( 'midnight', strtotime( $day ) );
-			$day_end      = strtotime( 'midnight +1 day', strtotime( $day ) ) - 1;
-			$this->events = WC_Global_Availability_Data_Store::get_events_in_date_range(
+			$day_start                         = strtotime( 'midnight', strtotime( $day ) );
+			$day_end                           = strtotime( 'midnight +1 day', strtotime( $day ) ) - 1;
+			$this->events                      = WC_Global_Availability_Data_Store::get_events_in_date_range(
 				$day_start,
 				$day_end,
 				$booking_filter,
@@ -86,8 +86,8 @@ class WC_Bookings_Calendar {
 				* We are changing it to 'N' because we want ISO-8601.
 				* Monday is our reference first day of the week.
 				*/
-				$start_of_week           = absint( get_option( 'start_of_week', 1 ) );
-				$start_of_week           = $start_of_week === 0 ? 7 : $start_of_week;
+				$start_of_week = absint( get_option( 'start_of_week', 1 ) );
+				$start_of_week = $start_of_week === 0 ? 7 : $start_of_week;
 
 				// On which day of the week the month starts
 				$month_start_day_of_week = absint( date( 'N', strtotime( "$year-$month-01" ) ) );
@@ -96,25 +96,25 @@ class WC_Bookings_Calendar {
 				* Calculate column where the month start will be placed.
 				* This calculates true modulo ( never negative ).
 				*/
-				$start_column            = ( 7 + ( $month_start_day_of_week - $start_of_week ) % 7 ) % 7;
+				$start_column = ( 7 + ( $month_start_day_of_week - $start_of_week ) % 7 ) % 7;
 
 				/*
 				* Calcu start date: how many days from the previous month we need to include,
 				* in order to have calendar without empty days in the first row.
 				*/
-				$start_time              = strtotime( "-{$start_column} day", strtotime( "$year-$month-01" ) );
+				$start_time = strtotime( "-{$start_column} day", strtotime( "$year-$month-01" ) );
 
 				// How many days the month has.
-				$month_number_of_days    = date( 't', strtotime( "$year-$month-01" ) );
+				$month_number_of_days = date( 't', strtotime( "$year-$month-01" ) );
 
 				// On which day of the week the month ends.
-				$month_end_day_of_week   = absint( date( 'N', strtotime( "$year-$month-$month_number_of_days" ) ) );
+				$month_end_day_of_week = absint( date( 'N', strtotime( "$year-$month-$month_number_of_days" ) ) );
 
 				/*
 				* Calculate column where the last day of month will be placed.
 				* This calculates true modulo ( never negative ).
 				*/
-				$end_column             = ( 7 + ( $month_end_day_of_week - $start_of_week ) % 7 ) % 7;
+				$end_column = ( 7 + ( $month_end_day_of_week - $start_of_week ) % 7 ) % 7;
 
 				/*
 				* Calculate end date: how many days from the next month we need to include.
@@ -124,7 +124,7 @@ class WC_Bookings_Calendar {
 				$end_padding = 7 - $end_column;
 				$end_time    = strtotime( "+{$end_padding} day midnight", strtotime( "$year-$month-$month_number_of_days" ) ) - 1;
 
-				$this->events           = WC_Global_Availability_Data_Store::get_events_in_date_range(
+				$this->events = WC_Global_Availability_Data_Store::get_events_in_date_range(
 					$start_time,
 					$end_time,
 					$booking_filter,
@@ -141,12 +141,12 @@ class WC_Bookings_Calendar {
 					false
 				);
 
-				$this->days = new DatePeriod(
+				$this->days        = new DatePeriod(
 					new DateTime( '@' . $start_time ),
-					new DateInterval('P1D'),
+					new DateInterval( 'P1D' ),
 					new DateTime( '@' . $end_time )
 				);
-				$this->day  = strtotime( $day );
+				$this->day         = strtotime( $day );
 				$this->events_data = $this->get_events_data_for_days( $this->days, $this->events );
 			}
 		}
@@ -202,19 +202,19 @@ class WC_Bookings_Calendar {
 
 				// Check for applicable occurences of the availability rules for each day in range.
 				foreach ( $days as $day ) {
-					$range        = $availability->get_time_range_for_date( $day->getTimestamp() );
+					$range = $availability->get_time_range_for_date( $day->getTimestamp() );
 					if ( is_null( $range ) ) {
 						// Rule not applicable to this day, so skip it.
 						continue;
 					}
 					$start            = $range['start'];
-					$end   		      = $range['end'];
+					$end              = $range['end'];
 					$short_start_time = $this->get_short_time( $range['start'] );
 					$short_end_time   = $this->get_short_time( $range['end'] );
 					$time             = $availability->is_all_day() ? __( 'All Day', 'woocommerce-bookings' ) : sprintf( __( '%1$s — %2$s', 'woocommerce-bookings' ), $short_start_time, $short_end_time );
 					$title            = ! empty( $availability->get_title() ) ? $availability->get_title() : __( 'Unavailable', 'woocommerce_bookings' );
 					$title           .= ' ' . __( '(From Google Calendar)', 'woocommerce-bookings' );
-					$detail_href     = admin_url( 'edit.php?post_type=wc_booking&page=wc_bookings_settings' );
+					$detail_href      = admin_url( 'edit.php?post_type=wc_booking&page=wc_bookings_settings' );
 					if ( $availability->date_starts_today( $start ) ) {
 						$start_date = $availability->get_formatted_date( $start, '', wc_bookings_time_format() );
 					} else {
@@ -234,9 +234,12 @@ class WC_Bookings_Calendar {
 				}
 			}
 		}
-		usort( $events_data, function( $a, $b ) {
-			return $a['start'] <=> $b['start'];
-		} );
+		usort(
+			$events_data,
+			function( $a, $b ) {
+				return $a['start'] <=> $b['start'];
+			}
+		);
 		return $events_data;
 	}
 
@@ -254,6 +257,7 @@ class WC_Bookings_Calendar {
 			$id            = '';
 			$style         = '';
 			$status        = isset( $event->data['status'] ) ? self::get_booking_status_label( $event->data['status'] ) : '';
+			$meta_attrs    = array();
 
 			if ( 'WC_Booking' === get_class( $event ) ) {
 				$booking = $event;
@@ -277,46 +281,8 @@ class WC_Bookings_Calendar {
 					$title = $product->get_title();
 				}
 
-				$id    = $booking->get_id();
+				$id     = $booking->get_id();
 				$style .= $multi_day ? 'color:' . $this->colours[ $id ]['color'] . ';background-color:' . $this->colours[ $id ]['background'] . ';' : '';
-			} else { // Extract global availability data.
-				$availability = $event;
-				$range        = $availability->get_time_range_for_date( $date_start );
-				if ( is_null( $range ) ) {
-					continue;
-				}
-				$start           = $range['start'];
-				$is_all_day      = $availability->is_all_day();
-				$title           = ! empty( $availability->get_title() ) ? $availability->get_title() : __( 'Unavailable', 'woocommerce_bookings' );
-				$title          .= ' ' . __( '(From Google Calendar)', 'woocommerce-bookings' );
-				$detail_href     = admin_url( 'edit.php?post_type=wc_booking&page=wc_bookings_settings' );
-				$event_classes[] = 'no_availability';
-				$id              = $event->get_gcal_event_id();
-				if ( $availability->date_starts_today( $start ) ) {
-					$start_date = $availability->get_formatted_date( $start, '', wc_bookings_time_format() );
-				} else {
-					$start_date = '';
-				}
-			}
-
-			$booking_count++;
-			if ( $start < current_time( 'timestamp' ) ) {
-				$event_classes[] = 'past_booking';
-			}
-			if ( self::MAX_BOOKINGS_PER_DAY >= $booking_count ) {
-				$booking_data = $this->get_booking_data( $event, $date_start );
-				$data_attr = '';
-
-				if ( is_null( $booking_data ) ) {
-					continue;
-				}
-
-				foreach ( $booking_data as $attr => $value ) {
-					$esc_val = esc_attr( $value );
-					$data_attr .= "data-booking-{$attr}=\"{$esc_val}\" ";
-				}
-
-				$meta_attrs = array();
 
 				/**
 				 * Hook to filter data for the meta data attribute for the popup calendar.
@@ -351,6 +317,42 @@ class WC_Bookings_Calendar {
 
 						$meta_attrs[ $index ]['attrs'] = $sanitized_meta_attrs;
 					}
+				}
+			} else { // Extract global availability data.
+				$availability = $event;
+				$range        = $availability->get_time_range_for_date( $date_start );
+				if ( is_null( $range ) ) {
+					continue;
+				}
+				$start           = $range['start'];
+				$is_all_day      = $availability->is_all_day();
+				$title           = ! empty( $availability->get_title() ) ? $availability->get_title() : __( 'Unavailable', 'woocommerce_bookings' );
+				$title          .= ' ' . __( '(From Google Calendar)', 'woocommerce-bookings' );
+				$detail_href     = admin_url( 'edit.php?post_type=wc_booking&page=wc_bookings_settings' );
+				$event_classes[] = 'no_availability';
+				$id              = $event->get_gcal_event_id();
+				if ( $availability->date_starts_today( $start ) ) {
+					$start_date = $availability->get_formatted_date( $start, '', wc_bookings_time_format() );
+				} else {
+					$start_date = '';
+				}
+			}
+
+			$booking_count++;
+			if ( $start < current_time( 'timestamp' ) ) {
+				$event_classes[] = 'past_booking';
+			}
+			if ( self::MAX_BOOKINGS_PER_DAY >= $booking_count ) {
+				$booking_data = $this->get_booking_data( $event, $date_start );
+				$data_attr    = '';
+
+				if ( is_null( $booking_data ) ) {
+					continue;
+				}
+
+				foreach ( $booking_data as $attr => $value ) {
+					$esc_val    = esc_attr( $value );
+					$data_attr .= "data-booking-{$attr}=\"{$esc_val}\" ";
 				}
 
 				$data_attr .= ' data-classes="' . esc_attr( implode( ' ', $event_classes ) ) . '"';
@@ -400,7 +402,7 @@ class WC_Bookings_Calendar {
 	 * @return string Font color as a hex code.
 	 */
 	protected function get_font_color( $bg_color ) {
-		$bg_color = hexdec( str_replace('#', '', $bg_color ) );
+		$bg_color = hexdec( str_replace( '#', '', $bg_color ) );
 		$red      = 0xFF & ( $bg_color >> 0x10 );
 		$green    = 0xFF & ( $bg_color >> 0x8 );
 		$blue     = 0xFF & $bg_color;
@@ -526,10 +528,10 @@ class WC_Bookings_Calendar {
 		sort( $this->global_availability_minutes );
 		$minutes_not_available = array_diff( $minutes, $this->global_availability_minutes );
 		$not_available_ranges  = $this->split_minutes_array_into_ranges( $minutes_not_available );
-		$color_style = array(
+		$color_style           = array(
 			'background' => '#bdbdbd2b',
 		);
-		$classes = array( 'daily_view_global_availabiltiy' );
+		$classes               = array( 'daily_view_global_availabiltiy' );
 		foreach ( $not_available_ranges as $range ) {
 			echo wp_kses_post( $this->render_li_element( $range, $color_style, $classes ) );
 		}
@@ -545,7 +547,7 @@ class WC_Bookings_Calendar {
 	 */
 	protected function render_li_element( $data, $color_style, $classes = array() ) {
 		$li_attrs = array(
-			'style'          => $color_style,
+			'style' => $color_style,
 		);
 
 		$li_attrs = array_merge( $data, $li_attrs );
@@ -584,15 +586,15 @@ class WC_Bookings_Calendar {
 		$times_ranges = array();
 		sort( $minutes );
 		$size = count( $minutes );
-		$id = 1;
+		$id   = 1;
 		for ( $i = 0; $i < $size; $i++ ) {
 			$range_start = $minutes[ $i ];
 			$range_end   = $range_start;
-			$j = $i + 1;
+			$j           = $i + 1;
 			if ( $j < $size ) {
 				for ( ; $j < $size; $j++ ) {
 					if ( $minutes[ $j - 1 ] === $minutes[ $j ] - 1 ) {
-						$range_end = $minutes[$j];
+						$range_end = $minutes[ $j ];
 					} else {
 						break;
 					}
@@ -661,8 +663,8 @@ class WC_Bookings_Calendar {
 				/* translators: 1: start time 2: end time */
 				$short_start_time = $this->get_short_time( $booking->get_start() );
 				$short_end_time   = $this->get_short_time( $booking->get_end() );
-				$event_time = $booking->is_all_day() ? __( 'All Day', 'woocommerce-bookings' ) : sprintf( __( '%1$s — %2$s', 'woocommerce-bookings' ), $short_start_time, $short_end_time );
-				$event_date = $booking->get_start_date( 'l, M j, Y', '' );
+				$event_time       = $booking->is_all_day() ? __( 'All Day', 'woocommerce-bookings' ) : sprintf( __( '%1$s — %2$s', 'woocommerce-bookings' ), $short_start_time, $short_end_time );
+				$event_date       = $booking->get_start_date( 'l, M j, Y', '' );
 			} else {
 				$event_time = $booking->get_end_date( 'l, M j, Y' );
 				$event_date = $booking->get_start_date( 'l, M j, Y' );
@@ -678,20 +680,20 @@ class WC_Bookings_Calendar {
 			if ( is_null( $range ) ) {
 				return null;
 			}
-			$event_start = $range['start'];
-			$event_end   = $range['end'];
+			$event_start      = $range['start'];
+			$event_end        = $range['end'];
 			$short_start_time = $this->get_short_time( $event_start );
 			$short_end_time   = $this->get_short_time( $event_end );
 			/* translators: 1: start time 2: end time */
 			$event_time = sprintf( __( '%1$s — %2$s', 'woocommerce-bookings' ), $short_start_time, $short_end_time );
-			$event_date  = $availability->get_formatted_date( $event_start, 'l, M j, Y' );
+			$event_date = $availability->get_formatted_date( $event_start, 'l, M j, Y' );
 			// If the start date is same as the end date, then this is all day for that particular date
 			if ( ( $event_start === $event_end ) || $availability->is_all_day() ) {
 				$event_time = __( 'All Day', 'woocommerce-bookings' );
 			}
 
-			$event_title      = ! empty( $availability->get_title() ) ? $availability->get_title() : __( 'Unavailable', 'woocommerce_bookings' );
-			$event_title     .= ' ' . __( '(From Google Calendar)', 'woocommerce-bookings' );
+			$event_title  = ! empty( $availability->get_title() ) ? $availability->get_title() : __( 'Unavailable', 'woocommerce_bookings' );
+			$event_title .= ' ' . __( '(From Google Calendar)', 'woocommerce-bookings' );
 		}
 
 		$booking_persons = ! empty( $booking_persons ) ? implode( ', ', $booking_persons ) : '';
@@ -783,7 +785,7 @@ class WC_Bookings_Calendar {
 			$return .= '<br/>' . __( 'Resource #', 'woocommerce-bookings' ) . $resource->ID . ' - ' . $resource->post_title;
 		}
 
-		$persons  = $booking->get_persons();
+		$persons = $booking->get_persons();
 
 		foreach ( $persons as $person_id => $person_count ) {
 			$return .= '<br/>';

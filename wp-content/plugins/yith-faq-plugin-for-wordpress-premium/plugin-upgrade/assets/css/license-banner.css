@@ -1,0 +1,114 @@
+.yith-plugin-upgrade-license-banner {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  align-items: center;
+}
+.yith-plugin-upgrade-license-banner .yith-plugin-upgrade-license-banner__icon {
+  color: #D02323;
+}
+.yith-plugin-upgrade-license-banner .yith-plugin-upgrade-license-banner__icon svg {
+  width: 100%;
+}
+.yith-plugin-upgrade-license-banner .yith-plugin-upgrade-license-banner__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.yith-plugin-upgrade-license-banner .yith-plugin-upgrade-license-banner__content__head {
+  color: #982A21;
+  font-size: 1.5em;
+  line-height: 1.5;
+  font-weight: 600;
+}
+.yith-plugin-upgrade-license-banner .yith-plugin-upgrade-license-banner__content__message mark {
+  background: transparent;
+  color: #D02323;
+  font-weight: 600;
+}
+.yith-plugin-upgrade-license-banner .yith-plugin-upgrade-license-banner__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-left: auto;
+}
+.yith-plugin-upgrade-license-banner .yith-plugin-upgrade-license-banner__actions > a.yith-plugin-fw__button {
+  padding: 4px 56px;
+  text-align: center;
+}
+.yith-plugin-upgrade-license-banner.yith-plugin-upgrade-license-banner--inline {
+  margin: 40px 24px 16px 0;
+  box-shadow: 1px 2px 8px 0 rgba(199, 0, 0, 0.1);
+  background: #fff;
+  padding: 24px;
+}
+.yith-plugin-upgrade-license-banner.yith-plugin-upgrade-license-banner--inline .yith-plugin-upgrade-license-banner__icon {
+  flex: 50px 0;
+}
+.yith-plugin-upgrade-license-banner.yith-plugin-upgrade-license-banner--inline .yith-plugin-upgrade-license-banner--hide-inline {
+  display: none;
+}
+@media screen and (max-width: 782px) {
+  .yith-plugin-upgrade-license-banner.yith-plugin-upgrade-license-banner--inline {
+    flex-direction: column;
+    text-align: center;
+    margin-right: 8px;
+  }
+  .yith-plugin-upgrade-license-banner.yith-plugin-upgrade-license-banner--inline .yith-plugin-upgrade-license-banner__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .yith-plugin-upgrade-license-banner.yith-plugin-upgrade-license-banner--inline .yith-plugin-upgrade-license-banner__icon svg {
+    max-width: 50px;
+  }
+  .yith-plugin-upgrade-license-banner.yith-plugin-upgrade-license-banner--inline .yith-plugin-upgrade-license-banner__actions {
+    width: 100%;
+  }
+  .yith-plugin-upgrade-license-banner.yith-plugin-upgrade-license-banner--inline .yith-plugin-upgrade-license-banner__actions > a.yith-plugin-fw__button {
+    padding: 12px;
+    text-align: center;
+  }
+}
+.yith-plugin-upgrade-license-banner.yith-plugin-upgrade-license-banner--modal {
+  display: none;
+  flex-direction: column;
+  text-align: center;
+}
+.yith-plugin-upgrade-license-banner.yith-plugin-upgrade-license-banner--modal .yith-plugin-upgrade-license-banner__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.yith-plugin-upgrade-license-banner.yith-plugin-upgrade-license-banner--modal .yith-plugin-upgrade-license-banner__icon svg {
+  max-width: 50px;
+}
+.yith-plugin-upgrade-license-banner.yith-plugin-upgrade-license-banner--modal .yith-plugin-upgrade-license-banner__content {
+  gap: 24px;
+}
+.yith-plugin-upgrade-license-banner.yith-plugin-upgrade-license-banner--modal .yith-plugin-upgrade-license-banner__content__head {
+  color: #2C669B;
+}
+.yith-plugin-upgrade-license-banner.yith-plugin-upgrade-license-banner--modal .yith-plugin-upgrade-license-banner__actions {
+  width: 100%;
+}
+.yith-plugin-upgrade-license-banner.yith-plugin-upgrade-license-banner--modal .yith-plugin-upgrade-license-banner__actions > a.yith-plugin-fw__button {
+  padding: 12px;
+  text-align: center;
+}
+.yith-plugin-upgrade-license-banner.yith-plugin-upgrade-license-banner--modal .yith-plugin-upgrade-license-banner--hide-modal {
+  display: none;
+}
+
+.yith-plugin-upgrade-license-modal .yith-plugin-upgrade-license-banner.yith-plugin-upgrade-license-banner--modal {
+  display: flex;
+}
+
+.yith-plugin-fw-panel--version-1 .yith-plugin-upgrade-license-banner.yith-plugin-upgrade-license-banner--inline {
+  margin-right: 35px;
+  box-sizing: border-box;
+  width: calc(100% - 35px);
+}
+
+/*# sourceMappingURL=license-banner.css.map */

@@ -1,7 +1,7 @@
 <?php
 namespace Perfmatters;
 
-use WpOrg\Requests\Requests; //wp 6.2+
+//use WpOrg\Requests\Requests; //wp 6.2+
 
 if(!defined('REQUESTS_SILENCE_PSR0_DEPRECATIONS')) {
     define('REQUESTS_SILENCE_PSR0_DEPRECATIONS', true);
@@ -17,7 +17,7 @@ class Fonts
         if(empty(Config::$options['fonts']['disable_google_fonts'])) {
             add_action('wp', array('Perfmatters\Fonts', 'queue'));
         }
-        add_action('wp_ajax_clear_local_fonts', array('Perfmatters\Fonts', 'clear_local_fonts_ajax'));
+        add_action('wp_ajax_perfmatters_clear_local_fonts', array('Perfmatters\Fonts', 'clear_local_fonts_ajax'));
     }
 
     //queue functions
@@ -152,8 +152,8 @@ class Fonts
         }
 
         //download new font files to cache directory
-        if(method_exists(WpOrg\Requests\Requests::class, 'request_multiple')) { //wp 6.2+
-            $font_responses = WpOrg\Requests\Requests::request_multiple($font_requests);
+        if(method_exists('WpOrg\Requests\Requests', 'request_multiple')) { //wp 6.2+
+            $font_responses = \WpOrg\Requests\Requests::request_multiple($font_requests);
         }
         elseif(method_exists(RequestsOld::class, 'request_multiple')) { //deprecated
             $font_responses = RequestsOld::request_multiple($font_requests);

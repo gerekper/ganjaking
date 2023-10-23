@@ -7,11 +7,15 @@
 			'click > .vc_controls .vc_element .vc_control-btn-delete': 'destroy',
 			'click > .vc_controls .vc_element .vc_control-btn-edit': 'edit',
 			'click > .vc_controls .vc_element .vc_control-btn-clone': 'clone',
+			'click > .vc_controls .vc_element .vc_control-btn-copy': 'copy',
+			'click > .vc_controls .vc_element .vc_control-btn-paste': 'paste',
 			'click > .vc_controls .vc_element .vc_control-btn-prepend': 'prependElement',
 			'click > .vc_controls .vc_control-btn-append': 'appendElement',
 			'click > .vc_controls .vc_parent .vc_control-btn-delete': 'destroyParent',
 			'click > .vc_controls .vc_parent .vc_control-btn-edit': 'editParent',
 			'click > .vc_controls .vc_parent .vc_control-btn-clone': 'cloneParent',
+			'click > .vc_controls .vc_parent .vc_control-btn-copy': 'copyParent',
+			'click > .vc_controls .vc_parent .vc_control-btn-paste': 'pasteParent',
 			'click > .vc_controls .vc_parent .vc_control-btn-prepend': 'addSibling',
 			'click > .vc_controls .vc_parent .vc_control-btn-layout': 'changeLayout',
 			'click > .vc_empty-element': 'appendElement',
@@ -30,6 +34,18 @@
 				e.preventDefault();
 			}
 			this.parent_view.clone( e );
+		},
+		copyParent: function ( e ) {
+			if ( e && e.preventDefault ) {
+				e.preventDefault();
+			}
+			this.parent_view.copy( e );
+		},
+		pasteParent: function ( e ) {
+			if ( e && e.preventDefault ) {
+				e.preventDefault();
+			}
+			this.parent_view.paste( e );
 		},
 		editParent: function ( e ) {
 			if ( e && e.preventDefault ) {

@@ -15,6 +15,7 @@ class WPBakeryShortCode_Vc_Tab extends WPBakeryShortCode_Vc_Column {
 		'add',
 		'edit',
 		'clone',
+		'copy',
 		'delete',
 	);
 	protected $controls_template_file = 'editors/partials/backend_controls_tab.tpl.php';

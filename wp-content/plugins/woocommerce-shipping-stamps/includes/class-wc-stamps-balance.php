@@ -165,7 +165,9 @@ class WC_Stamps_Balance {
 
 			if ( $url ) {
 				// Redirect to Stamps.com.
-				wp_redirect( $url ); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
+				// phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
+				// nosemgrep:audit.php.wp.security.unsafe-wp-redirect
+				wp_redirect( $url );
 				exit;
 			}
 		}

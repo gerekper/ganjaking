@@ -2,8 +2,8 @@
 /**
  * Main admin class
  *
- * @author  Your Inspiration Themes
- * @package YITH Woocommerce Compare
+ * @author  YITH <plugins@yithemes.com>
+ * @package YITH\Compare
  * @version 1.1.1
  */
 
@@ -19,7 +19,6 @@ $options = array(
 			'desc' => '',
 			'id'   => 'yith_woocompare_general',
 		),
-
 		array(
 			'title'     => __( 'Link or Button', 'yith-woocommerce-compare' ),
 			'desc'      => __( 'Choose if you want to use a link or a button for the compare actions.', 'yith-woocommerce-compare' ),
@@ -33,7 +32,6 @@ $options = array(
 				'button' => __( 'Button', 'yith-woocommerce-compare' ),
 			),
 		),
-
 		array(
 			'title'     => __( 'Page or Popup', 'yith-woocommerce-compare' ),
 			'desc'      => __( 'Choose if you want to use a page or a popup for the standard comparison table.', 'yith-woocommerce-compare' ),
@@ -47,7 +45,6 @@ $options = array(
 				'popup' => __( 'Popup', 'yith-woocommerce-compare' ),
 			),
 		),
-
 		array(
 			'title'   => __( 'Choose Compare Page', 'yith-woocommerce-compare' ),
 			'desc'    => __( 'Choose the page you want to use as default Compare Page. Make sure that page content is: <i>[yith_woocompare_table]</i>', 'yith-woocommerce-compare' ),
@@ -56,7 +53,6 @@ $options = array(
 			'default' => get_option( 'yith-woocompare-page-id', '' ),
 			'type'    => 'single_select_page',
 		),
-
 		array(
 			'title'     => __( 'Link/Button text', 'yith-woocommerce-compare' ),
 			'desc'      => __( 'Type the text you want to use for the compare button/link.', 'yith-woocommerce-compare' ),
@@ -65,7 +61,6 @@ $options = array(
 			'type'      => 'yith-field',
 			'yith-type' => 'text',
 		),
-
 		array(
 			'title'     => __( 'Link/Button text for products already in compare', 'yith-woocommerce-compare' ),
 			'desc'      => __( 'Type the text you want to use for the compare button/link for products that already are in compare table.', 'yith-woocommerce-compare' ),
@@ -74,7 +69,6 @@ $options = array(
 			'type'      => 'yith-field',
 			'yith-type' => 'text',
 		),
-
 		array(
 			'title'     => __( 'Show button in single product page', 'yith-woocommerce-compare' ),
 			'desc'      => __( 'Set this option to show the button in the single product page.', 'yith-woocommerce-compare' ),
@@ -83,7 +77,6 @@ $options = array(
 			'type'      => 'yith-field',
 			'yith-type' => 'onoff',
 		),
-
 		array(
 			'title'     => __( 'Show button in products list', 'yith-woocommerce-compare' ),
 			'desc'      => __( 'Set this option to show the button in the products list.', 'yith-woocommerce-compare' ),
@@ -92,7 +85,6 @@ $options = array(
 			'type'      => 'yith-field',
 			'yith-type' => 'onoff',
 		),
-
 		array(
 			'title'     => __( 'Open lightbox automatically', 'yith-woocommerce-compare' ),
 			'desc'      => __( 'Open the link after clicking on the "Compare" button.', 'yith-woocommerce-compare' ),
@@ -101,7 +93,6 @@ $options = array(
 			'type'      => 'yith-field',
 			'yith-type' => 'onoff',
 		),
-
 		array(
 			'title'     => __( 'Open lightbox when adding a second item', 'yith-woocommerce-compare' ),
 			'desc'      => __( 'Open the comparison lightbox after adding a second item to compare.', 'yith-woocommerce-compare' ),
@@ -110,7 +101,6 @@ $options = array(
 			'type'      => 'yith-field',
 			'yith-type' => 'onoff',
 		),
-
 		array(
 			'title'     => __( 'Compare by category', 'yith-woocommerce-compare' ),
 			'desc'      => __( 'Compare products by category.', 'yith-woocommerce-compare' ),
@@ -119,7 +109,6 @@ $options = array(
 			'type'      => 'yith-field',
 			'yith-type' => 'onoff',
 		),
-
 		array(
 			'id'        => 'yith_woocompare_excluded_category',
 			'type'      => 'yith-field',
@@ -134,8 +123,6 @@ $options = array(
 				'taxonomy'    => 'product_cat',
 			),
 		),
-
-
 		array(
 			'title'     => __( 'Reverse exclusion list', 'yith-woocommerce-compare' ),
 			'desc'      => __( 'Only categories in the exclusion list will have the compare feature', 'yith-woocommerce-compare' ),
@@ -144,7 +131,6 @@ $options = array(
 			'yith-type' => 'onoff',
 			'default'   => 'no',
 		),
-
 		array(
 			'type' => 'sectionend',
 			'id'   => 'yith_woocompare_general_end',
@@ -152,4 +138,13 @@ $options = array(
 	),
 );
 
+/**
+ * APPLY_FILTERS: yith_woocompare_general_settings
+ *
+ * Filter the options available in the 'Settings' tab.
+ *
+ * @param array $options Array of options.
+ *
+ * @return array
+ */
 return apply_filters( 'yith_woocompare_general_settings', $options );

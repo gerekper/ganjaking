@@ -42,7 +42,7 @@ class PLLWC_Admin_Taxonomies {
 		add_action( 'create_term', array( $this, 'create_attribute_term' ), 10, 3 );
 
 		/*
-		 * Workaround WooComerce not providing access its WC_Admin_Taxonomies object.
+		 * Workaround WooCommerce not providing access its WC_Admin_Taxonomies object.
 		 * This is possible since WC 3.6 with WC_Admin_Taxonomies::get_instance().
 		 * It would be better if filters could allow to pre-populate term meta the same way 'taxonomy_parent_dropdown_args' does.
 		 */
@@ -85,7 +85,7 @@ class PLLWC_Admin_Taxonomies {
 		if ( $term instanceof WP_Term && ! $sync && 0 === strpos( $term->taxonomy, 'pa_' ) ) {
 			$metas = get_term_meta( $from );
 
-			if ( ! empty( $metas ) ) {
+			if ( is_array( $metas ) ) {
 				foreach ( array_keys( $metas ) as $key ) {
 					if ( 0 === strpos( (string) $key, 'order_' ) ) {
 						$to_copy[] = $key;

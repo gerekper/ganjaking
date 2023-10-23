@@ -63,10 +63,10 @@ if ( class_exists( 'WP_Importer' ) ) {
 		/**
 		 * __construct function.
 		 *
-		 * @access public
 		 * @return void
 		 */
 		public function __construct() {
+			parent::__construct();
 			$this->import_page = 'woocommerce_per_product_shipping_csv';
 		}
 
@@ -75,12 +75,12 @@ if ( class_exists( 'WP_Importer' ) ) {
 		 *
 		 * Manages the three separate stages of the CSV import process.
 		 */
-		function dispatch() {
+		public function dispatch() {
 			$this->header();
 
-            if ( ! empty( $_POST['import-upload-form'] ) || ! empty( $_GET['step'] ) ) {
-	            check_admin_referer( 'import-upload' );
-            }
+			if ( ! empty( $_POST['import-upload-form'] ) || ! empty( $_GET['step'] ) ) {
+				check_admin_referer( 'import-upload' );
+			}
 
 			if ( ! empty( $_POST['delimiter'] ) ) {
 				$this->delimiter = sanitize_text_field( wp_unslash( $_POST['delimiter'] ) );
@@ -105,9 +105,11 @@ if ( class_exists( 'WP_Importer' ) ) {
 							gc_enable();
 						}
 
-						@set_time_limit( 0 );
+						wc_set_time_limit( 0 );
+						// phpcs:disable
 						@ob_flush();
 						@flush();
+						// phpcs:enable
 
 						$this->import( $file );
 					}
@@ -123,7 +125,7 @@ if ( class_exists( 'WP_Importer' ) ) {
 		 * @param string $enc  Encoding.
 		 * @return mixed
 		 */
-		function format_data_from_csv( $data, $enc ) {
+		public function format_data_from_csv( $data, $enc ) {
 			return ( 'UTF-8' === $enc ) ? $data : utf8_encode( $data );
 		}
 
@@ -133,17 +135,17 @@ if ( class_exists( 'WP_Importer' ) ) {
 		 * @param mixed $file File to upload.
 		 * @return void
 		 */
-		function import( $file ) {
+		public function import( $file ) {
 			global $wpdb;
 
 			$this->imported      = 0;
 			$this->skipped       = 0;
 			$override_product_id = ! empty( $_GET['override_product_id'] ) ? absint( $_GET['override_product_id'] ) : false;
 
-            // Check if product ID doesn't change.
-            if ( $override_product_id ) {
-	            check_admin_referer( 'override-product-id-' . absint( $_GET['override_product_id'] ), '_wpnonce_override-product-id' );
-            }
+			// Check if product ID doesn't change.
+			if ( $override_product_id ) {
+				check_admin_referer( 'override-product-id-' . absint( $_GET['override_product_id'] ), '_wpnonce_override-product-id' );
+			}
 
 			if ( ! is_file( $file ) ) {
 				echo '<p><strong>' . esc_html__( 'Sorry, there has been an error.', 'woocommerce-shipping-per-product' ) . '</strong><br />';
@@ -152,11 +154,11 @@ if ( class_exists( 'WP_Importer' ) ) {
 				die();
 			}
 
-			$handle = fopen( $file, 'r' );
+			$handle = fopen( $file, 'r' ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_read_fopen
 			if ( false !== $handle ) {
 				$header = fgetcsv( $handle, 0, $this->delimiter );
 
-				if ( sizeof( $header ) == 6 ) {
+				if ( count( $header ) === 6 ) {
 
 					$loop = 0;
 
@@ -164,10 +166,12 @@ if ( class_exists( 'WP_Importer' ) ) {
 						$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}woocommerce_per_product_shipping_rules WHERE product_id = %d;", $override_product_id ) );
 					}
 
-					while ( ( $row = fgetcsv( $handle, 0, $this->delimiter ) ) !== false ) {
+					$row = fgetcsv( $handle, 0, $this->delimiter );
+
+					while ( false !== $row ) {
 						list( $post_id, $country, $state, $postcode, $cost, $item_cost ) = $row;
 
-						// If $post_id is empty, skip the row
+						// If $post_id is empty, skip the row.
 						if ( empty( $post_id ) ) {
 							$this->skipped++;
 							continue;
@@ -201,6 +205,7 @@ if ( class_exists( 'WP_Importer' ) ) {
 
 						$loop++;
 						$this->imported++;
+						$row = fgetcsv( $handle, 0, $this->delimiter );
 					}
 				} else {
 					echo '<p><strong>' . esc_html__( 'Sorry, there has been an error.', 'woocommerce-shipping-per-product' ) . '</strong><br />';
@@ -210,7 +215,7 @@ if ( class_exists( 'WP_Importer' ) ) {
 
 				}
 
-				fclose( $handle );
+				fclose( $handle ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fclose
 			}
 
 			// Show Result.
@@ -242,6 +247,11 @@ if ( class_exists( 'WP_Importer' ) ) {
 		 */
 		public function import_end() {
 			echo '<p>' . esc_html__( 'All done!', 'woocommerce-shipping-per-product' ) . '</p>';
+			/**
+			 * Fires at the end of import process.
+			 *
+			 * @since 2.0.0
+			 */
 			do_action( 'import_end' );
 		}
 
@@ -269,7 +279,6 @@ if ( class_exists( 'WP_Importer' ) ) {
 		/**
 		 * Header HTML.
 		 *
-		 * @access public
 		 * @return void
 		 */
 		public function header() {
@@ -280,7 +289,6 @@ if ( class_exists( 'WP_Importer' ) ) {
 		/**
 		 * Footer HTML.
 		 *
-		 * @access public
 		 * @return void
 		 */
 		public function footer() {
@@ -290,30 +298,40 @@ if ( class_exists( 'WP_Importer' ) ) {
 		/**
 		 * Greet handler.
 		 *
-		 * @access public
 		 * @return void
 		 */
-		function greet() {
+		public function greet() {
 			echo '<div class="narrow">';
 			echo '<p>' . esc_html__( 'Hi there! Upload a CSV file containing per-product shipping rates to import the contents into your shop. Choose a .csv file to upload, then click "Upload file and import".', 'woocommerce-shipping-per-product' ) . '</p>';
 
 			echo '<p>' . esc_html__( 'Rates need to be defined with columns in a specific order (6 columns). Product ID, Country Code, State Code, Postcode, Cost, Item Cost', 'woocommerce-shipping-per-product' ) . '</p>';
 
-			$action = 'admin.php?import=woocommerce_per_product_shipping_csv&step=1';
+			$action = admin_url( 'admin.php?import=woocommerce_per_product_shipping_csv&step=1' );
 
-			if ( ! empty( $_GET['override_product_id'] ) && check_admin_referer( 'override-product-id-' . absint( $_GET['override_product_id'] ), '_wpnonce_override-product-id' )) {
-                // Pass the nonce to check if product ID changed.
-				$action .= '&override_product_id=' . absint( $_GET['override_product_id'] ) . '&_wpnonce_override-product-id=' . sanitize_text_field( $_GET['_wpnonce_override-product-id'] );
+			if ( ! empty( $_GET['override_product_id'] ) && ! empty( $_GET['_wpnonce_override-product-id'] ) && check_admin_referer( 'override-product-id-' . absint( $_GET['override_product_id'] ), '_wpnonce_override-product-id' ) ) {
+				// Pass the nonce to check if product ID changed.
+				$action = add_query_arg(
+					array(
+						'override_product_id'          => absint( wp_unslash( $_GET['override_product_id'] ) ),
+						'_wpnonce_override-product-id' => sanitize_text_field( wp_unslash( $_GET['_wpnonce_override-product-id'] ) ),
+					),
+					$action
+				);
 			}
 
-			$bytes = apply_filters( 'import_upload_size_limit', wp_max_upload_size() );
-			$size = size_format( $bytes );
+			/**
+			 * Filter upload max size, used in the Maximum size notice.
+			 *
+			 * @since 2.0.0
+			 * @param int $wp_max_upload_size max upload size.
+			 */
+			$bytes      = apply_filters( 'import_upload_size_limit', wp_max_upload_size() );
+			$size       = size_format( $bytes );
 			$upload_dir = wp_upload_dir();
 			if ( ! empty( $upload_dir['error'] ) ) :
 				?><div class="error"><p><?php esc_html_e( 'Before you can upload your import file, you will need to fix the following error:', 'woocommerce-shipping-per-product' ); ?></p>
-				<p><strong><?php esc_html_e( $upload_dir['error'] ); ?></strong></p></div><?php
-			else :
-				?>
+				<p><strong><?php echo esc_html( $upload_dir['error'] ); ?></strong></p></div>
+			<?php else : ?>
 				<form enctype="multipart/form-data" id="import-upload-form" method="post" action="<?php echo esc_attr( wp_nonce_url( $action, 'import-upload' ) ); ?>">
 					<table class="form-table">
 						<tbody>
@@ -353,6 +371,7 @@ if ( class_exists( 'WP_Importer' ) ) {
 		 * Added to http_request_timeout filter to force timeout at 60 seconds
 		 * during import.
 		 *
+		 * @param  int $val Value.
 		 * @return int 60s
 		 */
 		public function bump_request_timeout( $val ) {

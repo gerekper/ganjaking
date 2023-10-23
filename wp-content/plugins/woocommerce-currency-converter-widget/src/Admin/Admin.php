@@ -5,7 +5,7 @@
  * @since 1.8.0
  */
 
-namespace Themesquad\WC_Currency_Converter\Admin;
+namespace KoiLab\WC_Currency_Converter\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -76,3 +76,5 @@ class Admin {
 		return $links;
 	}
 }
+
+class_alias( Admin::class, 'Themesquad\WC_Currency_Converter\Admin\Admin' );

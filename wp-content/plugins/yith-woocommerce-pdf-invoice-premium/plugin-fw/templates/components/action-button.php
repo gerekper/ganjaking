@@ -46,7 +46,7 @@ $link_class = implode( ' ', array_filter( $link_classes ) );
 	<?php echo yith_plugin_fw_html_data_to_string( $data ); ?>
 	>
 <a class="<?php echo esc_attr( $link_class ); ?>"
-
+		aria-label="<?php echo esc_attr( $the_title ); ?>"
 		href="<?php echo esc_url( $url ); ?>"
 	<?php if ( $the_title ) : ?>
 		data-tip="<?php echo esc_attr( $the_title ); ?>"

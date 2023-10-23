@@ -17,7 +17,11 @@ class PLLWC_Links {
 	 */
 	public function __construct() {
 		// Rewrite rules.
-		add_filter( 'pre_option_rewrite_rules', array( $this, 'prepare_rewrite_rules' ), 5 ); // Before Polylang.
+		if ( method_exists( PLL()->links_model, 'do_prepare_rewrite_rules' ) ) { // Backward compatibility with Polylang < 3.5.
+			add_action( 'pll_prepare_rewrite_rules', array( $this, 'prepare_rewrite_rules' ), 5 ); // Before Polylang.
+		} else {
+			add_filter( 'pre_option_rewrite_rules', array( $this, 'prepare_rewrite_rules' ), 5 ); // Before Polylang.
+		}
 		add_filter( 'pll_modify_rewrite_rule', array( $this, 'fix_rewrite_rules' ), 10, 4 );
 
 		// Translation of the current url.
@@ -35,18 +39,19 @@ class PLLWC_Links {
 
 	/**
 	 * Prepares rewrite rules filters for the shop.
-	 * Hooked to the filter 'pre_option_rewrite_rules'.
 	 *
 	 * @since 0.1
+	 * @since 1.9 Hooked to `pll_prepare_rewrite_rules` and set default value to `$pre` parameter.
 	 *
 	 * @param string[] $pre Not used.
 	 * @return string[] Unmodified $pre.
 	 */
-	public function prepare_rewrite_rules( $pre ) {
+	public function prepare_rewrite_rules( $pre = array() ) {
 		if ( ! has_filter( 'rewrite_rules_array', array( $this, 'rewrite_shop_rules' ) ) ) {
 			add_filter( 'rewrite_rules_array', array( $this, 'rewrite_shop_rules' ), 5 ); // Before Polylang.
 			add_filter( 'rewrite_rules_array', array( $this, 'rewrite_shop_subpages_rules' ), 20 ); // After wc_fix_rewrite_rules().
 		}
+
 		return $pre;
 	}
 

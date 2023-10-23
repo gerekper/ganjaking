@@ -76,6 +76,12 @@ class TranslationManagement {
 	 */
 	private $wpml_cookie;
 
+	/**
+	 * @var array
+	 */
+	private static $send_jobs_added_for_types = [];
+
+
 	function __construct( WPML_Cookie $wpml_cookie = null ) {
 
 		global $sitepress, $wpml_cache_factory;
@@ -108,7 +114,11 @@ class TranslationManagement {
 		add_action( 'display_basket_notification', array( $this, 'display_basket_notification' ), 10, 1 );
 		Fns::each(
 			function( $type ) {
-				add_action( "wpml_tm_send_{$type}_jobs", [ $this, 'action_send_jobs' ], 10, 3 ); },
+				if ( ! in_array( $type, self::$send_jobs_added_for_types, true ) ) {
+					add_action( "wpml_tm_send_{$type}_jobs", [ $this, 'action_send_jobs' ], 10, 3 );
+					self::$send_jobs_added_for_types[] = $type;
+				}
+			},
 			[ 'post', 'package', 'st-batch' ]
 		);
 		$this->init_comments_synchronization();
@@ -1429,7 +1439,7 @@ class TranslationManagement {
 					list( $rid ) = $this->update_translation_status( $data, $rid );
 
 					if ( $translation_package ) {
-						$job_id      = $this->add_translation_job( $rid, $translator_id, $translation_package, $batch->get_batch_options() );
+						$job_id      = wpml_tm_add_translation_job( $rid, $translator_id, $translation_package, $batch->get_batch_options() );
 						wpml_tm_load_job_factory()->update_job_data( $job_id, array( 'editor' => WPML_TM_Editors::NONE ) );
 
 						$job_ids[] = $job_id;
@@ -1561,25 +1571,24 @@ class TranslationManagement {
 		$wpdb->update( $wpdb->prefix . 'icl_translate_job', array( 'translated' => 1 ), array( 'job_id' => $job_id ) );
 	}
 
+	function get_translation_jobs( $args = array() ) {
+
+		return apply_filters( 'wpml_translation_jobs', array(), $args );
+	}
+
 	/**
 	 * Adds a translation job record in icl_translate_job
 	 *
+	 * @depreacted 4.6.7 Use "wpml_tm_add_translation_job" function instead of this one.
 	 * @param mixed                                     $rid
 	 * @param mixed                                     $translator_id
 	 * @param array<string,string|array<string,string>> $translation_package
 	 * @param array                                     $batch_options
 	 *
-	 * @return bool|int
+	 * @return bool|int false on failure, job_id on success
 	 */
 	function add_translation_job( $rid, $translator_id, $translation_package, $batch_options = array() ) {
-		do_action( 'wpml_add_translation_job', $rid, $translator_id, $translation_package, $batch_options );
-
-		return apply_filters( 'wpml_rid_to_untranslated_job_id', false, $rid );
-	}
-
-	function get_translation_jobs( $args = array() ) {
-
-		return apply_filters( 'wpml_translation_jobs', array(), $args );
+		return wpml_tm_add_translation_job( $rid, $translator_id, $translation_package, $batch_options );
 	}
 
 	/**

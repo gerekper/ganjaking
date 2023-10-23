@@ -4,27 +4,21 @@
  *
  * Dettagliolinee XML.
  *
- * @author  YITH
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH\PDFInvoice\Templates
  */
 
 $i = 1;
 
 foreach ( $invoice_details['order_items'] as $item_id => $item ) :
-
 	if ( $item instanceof WC_Order_Item_Product ) {
-
 		$tax_rate_amount = $item->get_subtotal_tax();
-
 	} else {
-
 		$tax_rate_amount = $item->get_total_tax();
-
 	}
 
 	if ( abs( $tax_rate_amount ) > 0 ) {
-
-		$order = isset( $invoice_details['main_order'] ) ? $invoice_details['main_order'] : $document->order; //phpcs:ignore
+		$order = isset( $invoice_details['main_order'] ) ? $invoice_details['main_order'] : $document->order; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 
 		$tax_class = $item->get_tax_class() === 'inherit' ? '' : $item->get_tax_class();
 
@@ -38,16 +32,11 @@ foreach ( $invoice_details['order_items'] as $item_id => $item ) :
 			)
 		);
 
-
 		foreach ( $tax_rates as $tax_rate ) {
-
 			$tax_percentage = number_format( $tax_rate['rate'], 2, '.', '' );
-
 		}
 	} else {
-
 		$tax_percentage = '0.00';
-
 	}
 
 	?>
@@ -73,9 +62,9 @@ foreach ( $invoice_details['order_items'] as $item_id => $item ) :
 
 		<PrezzoTotale><?php echo wp_kses_post( apply_filters( 'ywpi_electronic_invoice_field_value', $total_price, 'PrezzoTotale', $document ) ); ?></PrezzoTotale>
 		<AliquotaIVA><?php echo wp_kses_post( apply_filters( 'ywpi_electronic_invoice_field_value', $tax_percentage, 'AliquotaIVA', $document ) ); ?></AliquotaIVA>
-		<?php if ( '0.00' == $tax_percentage ) :  //phpcs:ignore ?>
+		<?php if ( '0.00' === $tax_percentage ) : ?>
 			<Natura><?php echo wp_kses_post( $invoice_details['natura'] ); ?></Natura>
 		<?php endif; ?>
 	</DettaglioLinee>
-	<?php $i++; ?>
+	<?php ++$i; ?>
 <?php endforeach; ?>

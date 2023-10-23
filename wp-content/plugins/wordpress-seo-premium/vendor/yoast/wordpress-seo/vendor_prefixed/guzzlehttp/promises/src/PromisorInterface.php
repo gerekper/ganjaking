@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace YoastSEO_Vendor\GuzzleHttp\Promise;
 
 /**
@@ -9,8 +10,6 @@ interface PromisorInterface
 {
     /**
      * Returns a promise.
-     *
-     * @return PromiseInterface
      */
-    public function promise();
+    public function promise() : \YoastSEO_Vendor\GuzzleHttp\Promise\PromiseInterface;
 }

@@ -2,6 +2,7 @@
 
 #tiptip_holder {
   display: none;
+  pointer-events: none; /* Fix tip flashing when hover the edge */
   z-index: 8675309;
   position: absolute;
   top: 0;

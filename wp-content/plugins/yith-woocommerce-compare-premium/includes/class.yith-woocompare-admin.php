@@ -1,9 +1,9 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 /**
  * Admin class
  *
- * @author YITH
- * @package YITH WooCommerce Compare
+ * @author YITH <plugins@yithemes.com>
+ * @package YITH\Compare
  * @version 2.0.0
  */
 
@@ -97,6 +97,11 @@ if ( ! class_exists( 'YITH_Woocompare_Admin' ) ) {
 			add_filter( 'woocommerce_admin_settings_sanitize_option_yith_woocompare_fields_attrs', array( $this, 'admin_update_custom_option' ), 10, 3 );
 
 			// YITH WCWL Loaded.
+			/**
+			 * DO_ACTION: yith_woocompare_loaded
+			 *
+			 * Allows to trigger some action when the plugin is loaded.
+			 */
 			do_action( 'yith_woocompare_loaded' );
 		}
 
@@ -104,7 +109,6 @@ if ( ! class_exists( 'YITH_Woocompare_Admin' ) ) {
 		 * Action Links: add the action links to plugin admin page
 		 *
 		 * @since    1.0
-		 * @author   Andrea Grillo <andrea.grillo@yithemes.com>
 		 * @param array $links Links plugin array.
 		 * @return mixed
 		 * @use plugin_action_links_{$plugin_file_name}
@@ -118,7 +122,6 @@ if ( ! class_exists( 'YITH_Woocompare_Admin' ) ) {
 		 * Add a panel under YITH Plugins tab
 		 *
 		 * @since    1.0
-		 * @author   Andrea Grillo <andrea.grillo@yithemes.com>
 		 * @use     /Yit_Plugin_Panel class
 		 * @return   void
 		 * @see      plugin-fw/lib/yit-plugin-panel.php
@@ -140,16 +143,26 @@ if ( ! class_exists( 'YITH_Woocompare_Admin' ) ) {
 			$args = array(
 				'create_menu_page' => true,
 				'parent_slug'      => '',
-				'page_title'       => _x( 'YITH WooCommerce Compare', 'Admin Plugin Name', 'yith-woocommerce-compare' ),
-				'menu_title'       => _x( 'Compare', 'Admin Plugin Name', 'yith-woocommerce-compare' ),
+				'page_title'       => 'YITH WooCommerce Compare',
+				'menu_title'       => 'Compare',
 				'capability'       => 'manage_options',
 				'parent'           => '',
 				'parent_page'      => 'yith_plugin_panel',
 				'page'             => $this->panel_page,
+				/**
+				 * APPLY_FILTERS: yith_woocompare_admin_tabs
+				 *
+				 * Filter the available tabs in the plugin panel.
+				 *
+				 * @param array $admin_tabs Admin tabs.
+				 */
 				'admin-tabs'       => apply_filters( 'yith_woocompare_admin_tabs', $admin_tabs ),
 				'options-path'     => YITH_WOOCOMPARE_DIR . '/plugin-options',
 				'class'            => yith_set_wrapper_class(),
-			);
+                'plugin_slug'      => YITH_WOOCOMPARE_SLUG,
+                'is_premium'       => defined( YITH_WOOCOMPARE_PREMIUM ),
+
+            );
 
 			if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 				require_once YITH_WOOCOMPARE_DIR . 'plugin-fw/lib/yit-plugin-panel-wc.php';
@@ -163,7 +176,6 @@ if ( ! class_exists( 'YITH_Woocompare_Admin' ) ) {
 		 * Set default custom options
 		 *
 		 * @since 1.0.0
-		 * @author Francesco Licandro
 		 */
 		public function default_options() {
 
@@ -210,7 +222,6 @@ if ( ! class_exists( 'YITH_Woocompare_Admin' ) ) {
 		 * Load the premium tab template on admin page
 		 *
 		 * @since    1.0
-		 * @author   Andrea Grillo <andrea.grillo@yithemes.com>
 		 * @return void
 		 */
 		public function premium_tab() {
@@ -225,7 +236,6 @@ if ( ! class_exists( 'YITH_Woocompare_Admin' ) ) {
 		 * Add the action links to plugin admin page
 		 *
 		 * @since    1.0
-		 * @author   Andrea Grillo <andrea.grillo@yithemes.com>
 		 * @param array    $new_row_meta_args An array of plugin row meta.
 		 * @param string[] $plugin_meta An array of the plugin's metadata, including the version, author, author URI, and plugin URI.
 		 * @param string   $plugin_file Path to the plugin file relative to the plugins directory.
@@ -252,7 +262,6 @@ if ( ! class_exists( 'YITH_Woocompare_Admin' ) ) {
 		 * Register Pointer
 		 *
 		 * @since 1.0.0
-		 * @author Francesco Licandro
 		 * @deprecated
 		 */
 		public function register_pointer() {
@@ -263,7 +272,6 @@ if ( ! class_exists( 'YITH_Woocompare_Admin' ) ) {
 		 * Get the premium landing uri
 		 *
 		 * @since   1.0.0
-		 * @author  Andrea Grillo <andrea.grillo@yithemes.com>
 		 * @return  string The premium landing link
 		 */
 		public function get_premium_landing_uri() {
@@ -290,6 +298,18 @@ if ( ! class_exists( 'YITH_Woocompare_Admin' ) ) {
 			foreach ( $checked as $k => $v ) {
 				unset( $all[ $k ] );
 			}
+
+			/**
+			 * APPLY_FILTERS: yith_woocompare_admin_fields_attributes
+			 *
+			 * Filters the fields attributes to show in the comparison table.
+			 *
+			 * @param array $attributes Field attributes.
+			 * @param array $fields     Fields to show.
+			 * @param array $checked    Checked attributes to show.
+			 *
+			 * @return array
+			 */
 			$checkboxes = apply_filters( 'yith_woocompare_admin_fields_attributes', array_merge( $checked, $all ), $fields, $checked );
 
 			?>
@@ -403,6 +423,11 @@ if ( ! class_exists( 'YITH_Woocompare_Admin' ) ) {
 				wp_enqueue_script( 'yith_woocompare', YITH_WOOCOMPARE_URL . 'assets/js/woocompare-admin' . $min . '.js', array( 'jquery', 'jquery-ui-sortable' ), YITH_WOOCOMPARE_VERSION, true );
 			}
 
+			/**
+			 * DO_ACTION: yith_woocompare_enqueue_styles_scripts
+			 *
+			 * Allows to trigger some action when the styles and scripts are enqueued.
+			 */
 			do_action( 'yith_woocompare_enqueue_styles_scripts' );
 		}
 	}

@@ -1,0 +1,1119 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Perfmatters\n"
+"POT-Creation-Date: 2020-05-21 12:24-0700\n"
+"PO-Revision-Date: 2020-05-21 12:33-0700\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: perfmatters.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: inc/EDD_SL_Plugin_Updater.php:207
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s."
+msgstr "有一个新版本的 %1$s 可用。%2$s查看版本 %3$s 细节%4$s."
+
+#: inc/EDD_SL_Plugin_Updater.php:215
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s "
+"or %5$supdate now%6$s."
+msgstr ""
+"有一个新版本的 %1$s 可用。 %2$s查看版本 %3$s 细节%4$s 或者 %5$s现在更新%6$s."
+
+#: inc/EDD_SL_Plugin_Updater.php:405
+msgid "You do not have permission to install plugin updates"
+msgstr "您没有安装插件更新的权限"
+
+#: inc/EDD_SL_Plugin_Updater.php:405
+msgid "Error"
+msgstr "错误"
+
+#: inc/admin.php:13 inc/settings.php:9
+msgid "Options"
+msgstr "设置"
+
+#: inc/admin.php:14
+msgid "CDN"
+msgstr "CDN"
+
+#: inc/admin.php:15 inc/settings.php:541
+msgid "Google Analytics"
+msgstr "谷歌分析"
+
+#: inc/admin.php:16
+msgid "Extras"
+msgstr "附加功能"
+
+#: inc/admin.php:18 inc/network.php:187
+msgid "License"
+msgstr "许可"
+
+#: inc/admin.php:54 inc/settings.php:670
+msgid "General"
+msgstr "常规"
+
+#: inc/admin.php:55 inc/settings.php:777
+msgid "Tools"
+msgstr "工具"
+
+#: inc/admin.php:85 inc/network.php:326
+msgid "Click on tooltip icons to view full documentation."
+msgstr "单击工具提示图标以查看完整文档。"
+
+#: inc/functions.php:82
+#, php-format
+msgid "No feed available, please visit the <a href='%s'>homepage</a>!"
+msgstr "没有订阅的源, 请访问 <a href='%s'> 主页 </a>!"
+
+#: inc/functions.php:138
+msgid "Sorry, you do not have permission to make REST API requests."
+msgstr "很抱歉，您没有发出 REST API 请求的权限。"
+
+#: inc/functions.php:246 inc/functions.php:339 inc/functions.php:344
+msgid "Comments are disabled."
+msgstr "评论已禁用。"
+
+#: inc/functions.php:823 inc/functions.php:841
+#: inc/functions_script_manager.php:1034
+msgid "Perfmatters Warning"
+msgstr "Perfmatters警告"
+
+#: inc/functions.php:824
+msgid ""
+"WP_POST_REVISIONS is already enabled somewhere else on your site. We suggest "
+"only enabling this feature in one place."
+msgstr ""
+"WP_POST_REVISIONS已在您网站上的其他地方启用。我们建议仅在一个位置启用此功能。"
+
+#: inc/functions.php:842
+msgid ""
+"AUTOSAVE_INTERVAL is already enabled somewhere else on your site. We suggest "
+"only enabling this feature in one place."
+msgstr ""
+"AUTOSAVE_INTERVAL已在您网站上的其他地方启用。我们建议仅在一个位置启用此功能。"
+
+#: inc/functions.php:1128 inc/functions.php:1141 inc/functions.php:1168
+msgid "This has been disabled."
+msgstr "此功能已停用。"
+
+#: inc/functions.php:1524
+msgid "No import file given."
+msgstr "未提供导入文件。"
+
+#: inc/functions.php:1532
+msgid "Please upload a valid .json file."
+msgstr "请上传一个有效的.json文件。"
+
+#: inc/functions.php:1556
+msgid "Successfully imported Perfmatters settings."
+msgstr "已成功导入 Perfmatters 设置。"
+
+#: inc/functions_script_manager.php:40 inc/functions_script_manager.php:61
+#: inc/functions_script_manager.php:102 inc/script_manager.php:89
+#: inc/script_manager.php:115 inc/settings.php:675
+msgid "Script Manager"
+msgstr "脚本管理器"
+
+#: inc/functions_script_manager.php:64
+msgid "Close Script Manager"
+msgstr "关闭脚本管理器"
+
+#: inc/functions_script_manager.php:244
+msgid "Status"
+msgstr "状态"
+
+#: inc/functions_script_manager.php:245 inc/script_manager.php:210
+msgid "Script"
+msgstr "脚本"
+
+#: inc/functions_script_manager.php:246 inc/script_manager.php:209
+msgid "Type"
+msgstr "类别"
+
+#: inc/functions_script_manager.php:247
+msgid "Size"
+msgstr "文件大小"
+
+#: inc/functions_script_manager.php:273
+msgid ""
+"MU Mode is currently enabled, the above settings will apply to the entire "
+"plugin."
+msgstr ""
+
+#: inc/functions_script_manager.php:276
+msgid "The above settings will apply to all assets in this group."
+msgstr ""
+
+#: inc/functions_script_manager.php:384
+msgid "MU Mode"
+msgstr ""
+
+#: inc/functions_script_manager.php:390 inc/script_manager_css.php:469
+msgid "ON"
+msgstr "开启"
+
+#: inc/functions_script_manager.php:391 inc/script_manager_css.php:483
+msgid "OFF"
+msgstr "关闭"
+
+#: inc/functions_script_manager.php:413
+msgid "Disabled"
+msgstr "停用"
+
+#: inc/functions_script_manager.php:418
+msgid "Everywhere"
+msgstr "任何地方"
+
+#: inc/functions_script_manager.php:426 inc/functions_script_manager.php:469
+msgid "Current URL"
+msgstr "当前URL"
+
+#: inc/functions_script_manager.php:434 inc/functions_script_manager.php:439
+#: inc/functions_script_manager.php:555
+msgid "Regex"
+msgstr "正则表达式"
+
+#: inc/functions_script_manager.php:456
+msgid "Exceptions"
+msgstr "例外"
+
+#: inc/functions_script_manager.php:838 inc/script_manager_js.php:137
+#, fuzzy
+#| msgid "Settings Saved!"
+msgid "Settings saved successfully!"
+msgstr "设置已保存！"
+
+#: inc/functions_script_manager.php:1035 inc/script_manager.php:345
+msgid "MU plugin version mismatch."
+msgstr ""
+
+#: inc/functions_script_manager.php:1035 inc/script_manager.php:334
+#: inc/settings.php:1247
+msgid "View Documentation"
+msgstr "查看文档"
+
+#: inc/license.php:13 inc/network.php:246
+msgid "License Key"
+msgstr "许可证"
+
+#: inc/license.php:17 inc/network.php:249
+msgid "Enter your license key"
+msgstr "请输入你的许可证"
+
+#: inc/license.php:25 inc/license.php:34 inc/network.php:257
+#: inc/network.php:265 perfmatters.php:132
+msgid "Activate License"
+msgstr "激活许可"
+
+#: inc/license.php:30 inc/network.php:261
+msgid "Deactivate License"
+msgstr "取消激活许可证"
+
+#: inc/license.php:31 inc/network.php:262
+msgid "License is activated."
+msgstr "许可证已激活。"
+
+#: inc/license.php:35 inc/network.php:266
+msgid "License is not activated."
+msgstr "许可证未激活。"
+
+#: inc/license.php:44 inc/network.php:280
+msgid "Customer Email"
+msgstr "客户电子邮件"
+
+#: inc/license.php:52 inc/network.php:288
+msgid "License Status"
+msgstr "许可证状态"
+
+#: inc/license.php:56 inc/network.php:292
+msgid "Renew Your License for Updates + Support!"
+msgstr "续订你的许可证以获得更新和支持！"
+
+#: inc/license.php:65 inc/network.php:301
+msgid "Licenses Used"
+msgstr "已使用的许可证"
+
+#: inc/license.php:77 inc/network.php:311
+msgid "Save License"
+msgstr "保存许可证"
+
+#: inc/network.php:21
+msgid "Network Access"
+msgstr "网络接入"
+
+#: inc/network.php:29
+msgid "Network Default"
+msgstr "网络默认"
+
+#: inc/network.php:38 inc/settings.php:784
+msgid "Clean Uninstall"
+msgstr "完全卸载"
+
+#: inc/network.php:45 inc/settings.php:791
+msgid ""
+"When enabled, this will cause all Perfmatters options data to be removed "
+"from your database when the plugin is uninstalled."
+msgstr "开启后，当插件卸载时，会将所有Perfmatters的选项数据从数据库中删除。"
+
+#: inc/network.php:56
+msgid "Manage network access control and setup a network default site."
+msgstr "管理网络访问控制，设置网络默认站点"
+
+#: inc/network.php:65
+msgid "Site Admins (Default)"
+msgstr "网站管理员 (默认)"
+
+#: inc/network.php:66
+msgid "Super Admins Only"
+msgstr "仅限超级管理员"
+
+#: inc/network.php:73
+msgid "Choose who has access to manage Perfmatters plugin settings."
+msgstr "选择谁有权限管理Perfmatters插件设置。"
+
+#: inc/network.php:89
+msgid "None"
+msgstr "没有"
+
+#: inc/network.php:100
+msgid "Choose a subsite that you want to pull default settings from."
+msgstr "选择一个你想从中提取默认设置的子网站。"
+
+#: inc/network.php:149
+msgid "Default settings applied!"
+msgstr "默认设置已应用！"
+
+#: inc/network.php:153
+msgid "Select a site that is not already the Network Default."
+msgstr "选择一个已经不是网络默认的站点。"
+
+#: inc/network.php:158
+msgid "Network Default not set."
+msgstr "网络默认未设置。"
+
+#: inc/network.php:164
+msgid "Error: Blog Not Found."
+msgstr "错误：未发现 Blog。"
+
+#: inc/network.php:171
+msgid "Options saved."
+msgstr "选项已保存。"
+
+#: inc/network.php:182
+msgid "Perfmatters Network Settings"
+msgstr "Perfmatters 网络设置"
+
+#: inc/network.php:186
+msgid "Network"
+msgstr "网络"
+
+#: inc/network.php:188 inc/network.php:318 perfmatters.php:120
+#: perfmatters.php:158
+msgid "Support"
+msgstr "支持"
+
+#: inc/network.php:202 inc/network.php:218
+msgid "Apply Default Settings"
+msgstr "应用默认设置"
+
+#: inc/network.php:203
+msgid "Choose a site to apply the settings from your network default site."
+msgstr "从你的网络默认站点中选择一个站点来应用设置。"
+
+#: inc/network.php:206
+msgid ""
+"Select a site from the dropdown and click to apply the settings from your "
+"network default (above)."
+msgstr "从下拉菜单中选择一个站点，然后点击应用你的网络默认设置（以上）。"
+
+#: inc/network.php:211
+msgid "Select a Site"
+msgstr "选择一个站点"
+
+#: inc/network.php:269
+msgid ""
+"Unlimited License needed for use in a multisite environment. Please contact "
+"support to upgrade."
+msgstr "在多站点环境下使用需要无限授权。请联系支持部门进行升级。"
+
+#: inc/network.php:319
+msgid ""
+"For plugin support and documentation, please visit <a href='https://"
+"perfmatters.io/' title='perfmatters' target='_blank'>perfmatters.io</a>."
+msgstr ""
+"有关插件支持和文档, 请访问 <a href='https://perfmatters.io/' "
+"title='perfmatters' target='_blank'>perfmatters.io</a>。"
+
+#: inc/script_manager.php:90 inc/script_manager.php:198
+msgid "Global View"
+msgstr "全局视角"
+
+#: inc/script_manager.php:91 inc/script_manager.php:291 perfmatters.php:183
+msgid "Settings"
+msgstr "设置"
+
+#: inc/script_manager.php:101
+msgid ""
+"Below you can disable/enable CSS and JS files on a per page/post basis, as "
+"well as by custom post types. We recommend testing this locally or on a "
+"staging site first, as you could break the appearance of your live site. If "
+"you aren't sure about a certain script, you can try clicking on it, as a lot "
+"of authors will mention their plugin or theme in the header of the source "
+"code."
+msgstr ""
+"在下面，你可以根据每个页面/帖子，以及自定义帖子类型来禁用/启用 CSS 和 JS 文"
+"件。我们建议先在本地或在镜像网站上测试，因为这有可能会破坏你的实时网站的外"
+"观。如果你不确定某个脚本，你可以点击它试试看，因为很多作者会在源代码的标题中"
+"提到他们的插件或主题。"
+
+#: inc/script_manager.php:104
+msgid ""
+"If for some reason you run into trouble, you can always enable everything "
+"again to reset the settings. Make sure to check out the <a href='https://"
+"perfmatters.io/docs/' target='_blank' title='Perfmatters Knowledge "
+"Base'>Perfmatters knowledge base</a> for more information."
+msgstr ""
+"如果由于某些原因您遇到了麻烦，您可以随时重新启用所有功能以重置设置。请务必查"
+"看<a href=‘https://perfmatters.io/docs/' target=‘_blank’ title=‘Perfmatters知"
+"识库’>Perfmatters知识库</a>了解更多信息。"
+
+#: inc/script_manager.php:116
+msgid "Manage scripts loading on the current page."
+msgstr "管理当前页面上的脚本加载。"
+
+#: inc/script_manager.php:168 inc/script_manager.php:388
+#: inc/script_manager_js.php:163
+msgid "Save"
+msgstr "保存"
+
+#: inc/script_manager.php:187
+msgid "Loading Scripts"
+msgstr "加载脚本"
+
+#: inc/script_manager.php:199
+msgid ""
+"This is a visual representation of the Script Manager configuration across "
+"your entire site."
+msgstr "这是对整个站点的脚本管理器配置的可视化表现。"
+
+#: inc/script_manager.php:211
+msgid "Setting"
+msgstr "设置"
+
+#: inc/script_manager.php:265
+msgid "You don't have any scripts disabled yet."
+msgstr "你还没有禁用任何脚本。"
+
+#: inc/script_manager.php:292
+msgid "View and manage all of your Script Manager settings."
+msgstr "查看和管理您的脚本管理器的所有设置。"
+
+#: inc/script_manager.php:305
+msgid "Hide Disclaimer"
+msgstr "隐藏免责声明"
+
+#: inc/script_manager.php:311
+msgid "Hide the disclaimer message box across all Script Manager views."
+msgstr "在所有脚本管理器视图中隐藏免责声明信息框。"
+
+#: inc/script_manager.php:317
+msgid "Display Archives"
+msgstr "显示档案"
+
+#: inc/script_manager.php:322
+msgid ""
+"Add WordPress archives to your Script Manager selection options. Archive "
+"posts will no longer be grouped with their post type."
+msgstr ""
+"将WordPress存档添加到您的脚本管理器选择选项中。归档的帖子将不再按照帖子类型进"
+"行分组。"
+
+#: inc/script_manager.php:328
+msgid "Enable MU Mode"
+msgstr ""
+
+#: inc/script_manager.php:334
+msgid ""
+"Must-use (MU) mode requires elevated permissions and a file to be copied "
+"into the mu-plugins directory. This gives you more control and the ability "
+"to disable plugin queries, inline CSS, etc."
+msgstr ""
+
+#: inc/script_manager.php:349
+msgid "MU plugin installed."
+msgstr ""
+
+#: inc/script_manager.php:354
+msgid "MU plugin file not found."
+msgstr ""
+
+#: inc/script_manager.php:364 inc/script_manager.php:368
+msgid "Reset Script Manager"
+msgstr "重置脚本管理器"
+
+#: inc/script_manager.php:371
+msgid "Remove and reset all of your existing Script Manager settings."
+msgstr "删除并重置所有现有的脚本管理器设置。"
+
+#: inc/script_manager.php:407
+msgid ""
+"Are you sure? This will remove and reset all of your existing Script Manager "
+"settings and cannot be undone!"
+msgstr "你确定吗？这将删除并重置你现有的脚本管理器的所有设置，并且无法撤销!"
+
+#: inc/script_manager_js.php:117
+msgid "Saving"
+msgstr ""
+
+#: inc/script_manager_js.php:150
+msgid "Settings failed to update."
+msgstr ""
+
+#: inc/script_manager_js.php:153
+msgid "No options were changed."
+msgstr ""
+
+#: inc/settings.php:14
+msgid "Disable Emojis"
+msgstr "禁用表情符号"
+
+#: inc/settings.php:20
+msgid "Removes WordPress Emojis JavaScript file (wp-emoji-release.min.js)."
+msgstr "删除WordPress Emojis JavaScript文件（wp-emoji-release.min.js）。"
+
+#: inc/settings.php:27
+msgid "Disable Embeds"
+msgstr "禁用嵌入"
+
+#: inc/settings.php:33
+msgid "Removes WordPress Embed JavaScript file (wp-embed.min.js)."
+msgstr "删除WordPress嵌入的JavaScript文件（wp-embed.min.js）。"
+
+#: inc/settings.php:40
+msgid "Remove Query Strings"
+msgstr "移除查询字符串"
+
+#: inc/settings.php:46
+msgid "Remove query strings from static resources (CSS, JS)."
+msgstr "移除静态资源中的查询字符串（CSS、JS）。"
+
+#: inc/settings.php:53
+msgid "Disable XML-RPC"
+msgstr "禁用XML-RPC"
+
+#: inc/settings.php:59
+msgid "Disables WordPress XML-RPC functionality."
+msgstr "禁用WordPress的XML-RPC功能。"
+
+#: inc/settings.php:66
+msgid "Remove jQuery Migrate"
+msgstr "移除jQuery迁移"
+
+#: inc/settings.php:72
+msgid "Removes jQuery Migrate JavaScript file (jquery-migrate.min.js)."
+msgstr "删除jQuery Migrate JavaScript文件（jquery-migrate.min.js）。"
+
+#: inc/settings.php:79
+msgid "Hide WP Version"
+msgstr "隐藏WP版本"
+
+#: inc/settings.php:85
+msgid "Removes WordPress version meta tag."
+msgstr "删除WordPress版本元标签。"
+
+#: inc/settings.php:92
+msgid "Remove wlwmanifest Link"
+msgstr "删除wlwmanifest链接"
+
+#: inc/settings.php:98
+msgid "Remove wlwmanifest (Windows Live Writer) link tag."
+msgstr "删除wlwmanifest（Windows Live Writer）链接标签。"
+
+#: inc/settings.php:105
+msgid "Remove RSD Link"
+msgstr "删除RSD链接。"
+
+#: inc/settings.php:111
+msgid "Remove RSD (Real Simple Discovery) link tag."
+msgstr "删除RSD（Real Simple Discovery）链接标签。"
+
+#: inc/settings.php:118
+msgid "Remove Shortlink"
+msgstr "移除短链接"
+
+#: inc/settings.php:124
+msgid "Remove Shortlink link tag."
+msgstr "移除短链接标签。"
+
+#: inc/settings.php:131
+msgid "Disable RSS Feeds"
+msgstr "禁用 RSS 源"
+
+#: inc/settings.php:137
+msgid "Disable WordPress generated RSS feeds and 301 redirect URL to parent."
+msgstr "禁用WordPress生成的RSS源和301重定向URL到父网站。"
+
+#: inc/settings.php:144
+msgid "Remove RSS Feed Links"
+msgstr "移除RSS源链接"
+
+#: inc/settings.php:150
+msgid "Disable WordPress generated RSS feed link tags."
+msgstr "禁用WordPress生成的RSS 源的链接标签。"
+
+#: inc/settings.php:157
+msgid "Disable Self Pingbacks"
+msgstr "禁用 Self Pingbacks"
+
+#: inc/settings.php:163
+msgid ""
+"Disable Self Pingbacks (generated when linking to an article on your own "
+"blog)."
+msgstr "禁用 Self Pingbacks（链接到自己博客上的文章时产生）。"
+
+#: inc/settings.php:170
+msgid "Disable REST API"
+msgstr "禁用 REST API"
+
+#: inc/settings.php:178
+msgid "Default (Enabled)"
+msgstr "默认(开启)"
+
+#: inc/settings.php:179
+msgid "Disable for Non-Admins"
+msgstr "对非管理角色禁用"
+
+#: inc/settings.php:180
+msgid "Disable When Logged Out"
+msgstr "登出时禁用"
+
+#: inc/settings.php:182
+msgid ""
+"Disables REST API requests and displays an error message if the requester "
+"doesn't have permission."
+msgstr "禁用REST API 请求，如果请求者没有权限，则会显示一条错误消息。"
+
+#: inc/settings.php:189
+msgid "Remove REST API Links"
+msgstr "移除  REST API 链接"
+
+#: inc/settings.php:195
+msgid ""
+"Removes REST API link tag from the front end and the REST API header link "
+"from page requests."
+msgstr "从前端删除REST API链接标签，从页面请求中删除REST API头部链接。"
+
+#: inc/settings.php:202
+msgid "Disable Dashicons"
+msgstr "禁用面板图标"
+
+#: inc/settings.php:208
+msgid "Disables dashicons on the front end when not logged in."
+msgstr "未登录时，禁用前端的仪表盘。"
+
+#: inc/settings.php:215
+msgid "Disable Google Maps"
+msgstr "禁用谷歌地图"
+
+#: inc/settings.php:221
+msgid ""
+"Removes any instances of Google Maps being loaded across your entire site."
+msgstr "移除整个网站中加载的任何谷歌地图的实例。"
+
+#: inc/settings.php:228
+msgid "Disable Google Fonts"
+msgstr "禁用谷歌字体"
+
+#: inc/settings.php:234
+msgid ""
+"Removes any instances of Google Fonts being loaded across your entire site."
+msgstr "移除任何Google字体在整个网站中加载的实例。"
+
+#: inc/settings.php:241
+msgid "Disable Password Strength Meter"
+msgstr "禁用密码强度尺"
+
+#: inc/settings.php:247
+msgid ""
+"Removes WordPress and WooCommerce Password Strength Meter scripts from non "
+"essential pages."
+msgstr "从非必要的页面中移除 wordpress 和 WooCommerce 密码强度计脚本。"
+
+#: inc/settings.php:254
+msgid "Disable Comments"
+msgstr "禁用评论"
+
+#: inc/settings.php:260
+msgid "Disables WordPress comments across your entire site."
+msgstr "在整个网站中禁用WordPress的评论。"
+
+#: inc/settings.php:267
+msgid "Remove Comment URLs"
+msgstr "移除评论的URL"
+
+#: inc/settings.php:273
+msgid ""
+"Removes the WordPress comment author link and website field from blog posts."
+msgstr "移除博客文章中的WordPress评论作者链接和网站字段。"
+
+#: inc/settings.php:280
+msgid "Lazy Loading"
+msgstr "延缓加载"
+
+#: inc/settings.php:286
+msgid "Enable lazy loading on images."
+msgstr "启用图像上的延缓加载。"
+
+#: inc/settings.php:293
+msgid "Use Native"
+msgstr "使用原生"
+
+#: inc/settings.php:299
+msgid "Use browser-level native lazy loading when available."
+msgstr "在可用时，使用浏览器级别原生的延迟加载。"
+
+#: inc/settings.php:306
+msgid "Disable Heartbeat"
+msgstr "禁用 Heartbeat"
+
+#: inc/settings.php:314 inc/settings.php:333 inc/settings.php:353
+#: inc/settings.php:381 inc/settings.php:584
+msgid "Default"
+msgstr "默认"
+
+#: inc/settings.php:315
+msgid "Disable Everywhere"
+msgstr "全局禁用"
+
+#: inc/settings.php:316
+msgid "Only Allow When Editing Posts/Pages"
+msgstr "只允许在编辑帖子/页面时使用"
+
+#: inc/settings.php:318
+msgid ""
+"Disable WordPress Heartbeat everywhere or in certain areas (used for auto "
+"saving and revision tracking)."
+msgstr "在全局或特定区域禁用WordPress的Heartbeat（用于自动保存和修改跟踪）。"
+
+#: inc/settings.php:325
+msgid "Heartbeat Frequency"
+msgstr "Heartbeat 频率"
+
+#: inc/settings.php:333 inc/settings.php:334 inc/settings.php:335
+#: inc/settings.php:336
+#, php-format
+msgid "%s Seconds"
+msgstr "%s 秒"
+
+#: inc/settings.php:338
+msgid "Controls how often the WordPress Heartbeat API is allowed to run."
+msgstr "控制WordPress Heartbeat API被允许运行的频率。"
+
+#: inc/settings.php:345
+msgid "Limit Post Revisions"
+msgstr "限制帖子修订"
+
+#: inc/settings.php:354
+msgid "Disable Post Revisions"
+msgstr "禁用帖子修订"
+
+#: inc/settings.php:366
+msgid ""
+"Limits the maximum amount of revisions that are allowed for posts and pages."
+msgstr "限制帖子和页面允许的最大修订量。"
+
+#: inc/settings.php:373
+msgid "Autosave Interval"
+msgstr "自动保存时间间隔"
+
+#: inc/settings.php:381
+msgid "1 Minute"
+msgstr "1 分钟"
+
+#: inc/settings.php:382 inc/settings.php:383 inc/settings.php:384
+#: inc/settings.php:385
+#, php-format
+msgid "%s Minutes"
+msgstr "%s 分钟"
+
+#: inc/settings.php:387
+msgid ""
+"Controls how often WordPress will auto save posts and pages while editing."
+msgstr "控制WordPress在编辑时自动保存帖子和页面的频率。"
+
+#: inc/settings.php:394
+msgid "Change Login URL"
+msgstr "更改登录网址"
+
+#: inc/settings.php:402
+msgid ""
+"When set, this will change your WordPress login URL (slug) to the provided "
+"string and will block wp-admin and wp-login endpoints from being directly "
+"accessed."
+msgstr ""
+"设置好后，会把你的WordPress的登录网址（slug）更改为提供的字符串，并阻止直接访"
+"问wp-admin和wp-login端点。"
+
+#: inc/settings.php:412
+msgid "Disable Scripts"
+msgstr "禁用脚本"
+
+#: inc/settings.php:418
+msgid ""
+"Disables WooCommerce scripts and styles except on product, cart, and "
+"checkout pages."
+msgstr "禁用WooCommerce脚本和样式，但产品、购物车和结账页面除外。"
+
+#: inc/settings.php:425
+msgid "Disable Cart Fragmentation"
+msgstr "禁用购物车碎片化"
+
+#: inc/settings.php:431
+msgid "Completely disables WooCommerce cart fragmentation script."
+msgstr "完全禁用WooCommerce购物车碎片化脚本。"
+
+#: inc/settings.php:438
+msgid "Disable Status Meta Box"
+msgstr "禁用状态元"
+
+#: inc/settings.php:444
+msgid "Disables WooCommerce status meta box from the WP Admin Dashboard."
+msgstr "禁用WP 管理面板中的WooCommerce状态元框。"
+
+#: inc/settings.php:451
+msgid "Disable Widgets"
+msgstr "禁用小工具"
+
+#: inc/settings.php:457
+msgid "Disables all WooCommerce widgets."
+msgstr "禁用所有WooCommerce小部件。"
+
+#: inc/settings.php:474
+msgid "Enable CDN Rewrite"
+msgstr "启用CDN重写"
+
+#: inc/settings.php:481
+msgid ""
+"Enables rewriting of your site URLs with your CDN URLs which can be "
+"configured below."
+msgstr "允许用你的CDN URL重写你的网站URL，可以在下面配置。"
+
+#: inc/settings.php:488
+msgid "CDN URL"
+msgstr "CDN URL"
+
+#: inc/settings.php:497
+msgid ""
+"Enter your CDN URL without the trailing backslash. Example: https://cdn."
+"example.com"
+msgstr "输入你的CDN URL，不要用反斜线。例如：https://cdn.example.com"
+
+#: inc/settings.php:504
+msgid "Included Directories"
+msgstr "包含的目录"
+
+#: inc/settings.php:513
+msgid ""
+"Enter any directories you would like to be included in CDN rewriting, "
+"separated by commas (,). Default: wp-content,wp-includes"
+msgstr ""
+"输入你希望在CDN重写中包含的目录，用逗号(,)隔开。默认值：wp-content,wp-"
+"includes"
+
+#: inc/settings.php:520
+msgid "CDN Exclusions"
+msgstr "CDN排除在外的情况"
+
+#: inc/settings.php:529
+msgid ""
+"Enter any directories or file extensions you would like to be excluded from "
+"CDN rewriting, separated by commas (,). Default: .php"
+msgstr ""
+"输入任何您希望被排除在CDN重写之外的目录或文件扩展名，用逗号(,)分隔。默认值：."
+"php"
+
+#: inc/settings.php:546
+msgid "Enable Local Analytics"
+msgstr "启用本地分析"
+
+#: inc/settings.php:553
+msgid "Enable syncing of the Google Analytics script to your own server."
+msgstr "启用Google Analytics脚本与自己的服务器间同步。"
+
+#: inc/settings.php:560
+msgid "Tracking ID"
+msgstr "追踪ID"
+
+#: inc/settings.php:568
+msgid "Input your Google Analytics tracking ID."
+msgstr "输入你的Google Analytics追踪ID。"
+
+#: inc/settings.php:575
+msgid "Tracking Code Position"
+msgstr "追踪代码位置"
+
+#: inc/settings.php:584
+msgid "Header"
+msgstr "头部"
+
+#: inc/settings.php:585
+msgid "Footer"
+msgstr "底部"
+
+#: inc/settings.php:587
+msgid ""
+"Load your analytics script in the header (default) or footer of your site. "
+"Default: Header"
+msgstr "在网站的头部（默认）或底部中加载您的分析脚本。默认情况下：头部"
+
+#: inc/settings.php:594
+msgid "Disable Display Features"
+msgstr "禁用显示功能"
+
+#: inc/settings.php:601
+msgid "Disable remarketing and advertising which generates a 2nd HTTP request."
+msgstr "禁用会产生第二次HTTP请求的再营销和广告。"
+
+#: inc/settings.php:608
+msgid "Anonymize IP"
+msgstr "IP匿名化"
+
+#: inc/settings.php:615
+msgid ""
+"Shorten visitor IP to comply with privacy restrictions in some countries."
+msgstr "缩短访问者的IP，以遵守一些国家的隐私限制。"
+
+#: inc/settings.php:622
+msgid "Track Logged In Admins"
+msgstr "追踪已登录的管理员"
+
+#: inc/settings.php:629
+msgid "Include logged-in WordPress admins in your Google Analytics reports."
+msgstr "在您的Google Analytics报告中包含已登录的WordPress管理员。"
+
+#: inc/settings.php:636
+msgid "Adjusted Bounce Rate"
+msgstr "调整后的跳出率"
+
+#: inc/settings.php:644
+msgid ""
+"Set a timeout limit in seconds to better evaluate the quality of your "
+"traffic. (1-100)"
+msgstr "设置一个超时限制，单位为秒，以便更好地评估您的流量质量。(1-100)"
+
+#: inc/settings.php:651
+msgid "Use MonsterInsights"
+msgstr "使用MonsterInsights"
+
+#: inc/settings.php:658
+msgid ""
+"Allows MonsterInsights to manage your Google Analaytics while still using "
+"the locally hosted analytics.js file generated by Perfmatters."
+msgstr ""
+"允许 MonsterInsights 管理您的 Google Analaytics，同时仍然使用 Perfmatters 生"
+"成的本地托管的 analytics.js 文件。"
+
+#: inc/settings.php:682
+msgid ""
+"Enables the Perfmatters Script Manager, which gives you the ability to "
+"disable CSS and JS files on a page by page basis."
+msgstr "启用Perfmatters脚本管理器，让你可以逐页禁用CSS和JS文件。"
+
+#: inc/settings.php:689
+msgid "DNS Prefetch"
+msgstr "DNS预取"
+
+#: inc/settings.php:696
+msgid ""
+"Resolve domain names before a user clicks. Format: //domain.tld (one per "
+"line)"
+msgstr "在用户点击之前处理域名。格式。//domain.tld (每行一个)"
+
+#: inc/settings.php:703
+msgid "Preconnect"
+msgstr "预连接"
+
+#: inc/settings.php:710
+msgid ""
+"Preconnect allows the browser to set up early connections before an HTTP "
+"request, eliminating roundtrip latency and saving time for users. Format: "
+"scheme://domain.tld"
+msgstr ""
+"预连接允许浏览器在HTTP请求之前提前设置连接，消除了往返延迟，为用户节省了时"
+"间。格式： scheme://domain.tld"
+
+#: inc/settings.php:717
+msgid "Add Blank Favicon"
+msgstr "添加空白的Favicon"
+
+#: inc/settings.php:724
+msgid ""
+"Adds a blank favicon to your WordPress header which will prevent a Missing "
+"Favicon or 404 error from showing up on certain website speed testing tools."
+msgstr ""
+"在您的WordPress头像中添加一个空白的favicon，可以防止在某些网站速度测试工具上"
+"出现Favicon缺失或404错误。"
+
+#: inc/settings.php:731
+msgid "Add Header Code"
+msgstr "加入头部代码"
+
+#: inc/settings.php:739
+msgid ""
+"Code added here will be printed in the head section on every page of your "
+"website."
+msgstr "在这里添加的标题代码（HeaderCode）将被输出在您网站的每一页的头部模块。"
+
+#: inc/settings.php:748
+msgid "Add Body Code"
+msgstr "添加主体代码"
+
+#: inc/settings.php:756
+msgid ""
+"Code added here will be printed below the opening body tag on every page of "
+"your website."
+msgstr "在这里添加的代码将被输出在您的网站的每一页的开篇主体标签下面。"
+
+#: inc/settings.php:764
+msgid "Add Footer Code"
+msgstr "添加页脚代码"
+
+#: inc/settings.php:772
+msgid ""
+"Code added here will be printed above the closing body tag on every page of "
+"your website."
+msgstr "在这里添加的代码将被输出在您网站的每一页的结尾标签上方。"
+
+#: inc/settings.php:800
+msgid "Accessibility Mode"
+msgstr "无障碍模式"
+
+#: inc/settings.php:808
+msgid ""
+"Disable the use of visual UI elements in the plugin settings such as "
+"checkbox toggles and hovering tooltips."
+msgstr "禁止在插件设置中使用可视化的UI元素，如复选框切换和悬停工具提示。"
+
+#: inc/settings.php:815
+msgid "Export Settings"
+msgstr "导出设定"
+
+#: inc/settings.php:822
+msgid "Export Plugin Settings"
+msgstr "导出插件设定"
+
+#: inc/settings.php:824
+msgid ""
+"Export your Perfmatters settings for this site as a .json file. This lets "
+"you easily import the configuration into another site."
+msgstr ""
+"将您的Perfmatters设置导出为.json文件。这让您可以轻松地将配置导入到另一个网站"
+"中。"
+
+#: inc/settings.php:831
+msgid "Import Settings"
+msgstr "导入设定"
+
+#: inc/settings.php:836
+msgid "Import Perfmatters settings from an exported .json file."
+msgstr "从导出的.json文件中导入Perfmatters设置。"
+
+#: inc/settings.php:947
+msgid "Select which performance options you would like to enable."
+msgstr "选择您希望启用的性能选项。"
+
+#: inc/settings.php:952
+msgid "Disable specific elements of WooCommerce."
+msgstr "禁用WooCommerce的特定元素。"
+
+#: inc/settings.php:957
+msgid ""
+"CDN options that allow you to rewrite your site URLs with your CDN URLs."
+msgstr "CDN选项，允许你用你的CDN 链接重写你的源站链接。"
+
+#: inc/settings.php:962
+msgid "Optimization options for Google Analytics."
+msgstr "Google Analytics的优化选项。"
+
+#: inc/settings.php:967
+msgid "Extra options that pertain to Perfmatters plugin functionality."
+msgstr "与Perfmatters插件功能相关的额外选项。"
+
+#: inc/settings.php:971
+#, fuzzy
+#| msgid "Perfmatters plugin managment tools."
+msgid "Perfmatters plugin management tools."
+msgstr "Perfmatters 插件管理工具"
+
+#: inc/settings.php:1149 inc/settings.php:1162
+msgid "Remove"
+msgstr "删除"
+
+#: inc/settings.php:1168
+msgid "Add New"
+msgstr "添加"
+
+#: inc/settings.php:1194
+msgid "Import Plugin Settings"
+msgstr "导入插件设置"
+
+#: perfmatters.php:126
+msgid "License is Activated"
+msgstr "许可证已激活"
+
+#: perfmatters.php:129
+msgid "Renew License"
+msgstr "续订你的许可证"
+
+#: perfmatters.php:159
+msgid "Documentation"
+msgstr "文档"
+
+#: perfmatters.php:164
+msgid ""
+"Looking to speed up WordPress? Check out our <a href='https://woorkup.com/"
+"speed-up-wordpress/?"
+"utm_source=perfmatters&utm_medium=banner&utm_campaign=header-cta' "
+"title='WordPress Optimization Guide' target='_blank'>complete optimization "
+"guide</a>."
+msgstr ""
+"想了解如何加速 WordPress? 查看我们的 <a href=‘https://woorkup.com/speed-up-"
+"wordpress/?utm_source=perfmatters&utm_medium=banner&utm_campaign=header-cta' "
+"title=‘WordPress Optimization Guide’ target=‘_blank’>完全优化指南</a>."
+
+#. Plugin Name of the plugin/theme
+msgid "Perfmatters"
+msgstr "Perfmatters"
+
+#. Plugin URI of the plugin/theme
+msgid "https://perfmatters.io/"
+msgstr "https://perfmatters.io/"
+
+#. Description of the plugin/theme
+msgid ""
+"Perfmatters is a lightweight performance plugin developed to speed up your "
+"WordPress site."
+msgstr "Perfmatters 是一个用来优化并加速你的 WordPress 网站的超轻量型插件。"
+
+#. Author of the plugin/theme
+msgid "forgemedia"
+msgstr "forgemedia"
+
+#. Author URI of the plugin/theme
+msgid "https://forgemedia.io/"
+msgstr "https://forgemedia.io/"

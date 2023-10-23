@@ -176,7 +176,7 @@ function icl_upgrade_2_0_0_steps( $step, $stepper ) {
 								)
 							);
 
-							$job_id = $TranslationManagement->add_translation_job( $newrid, $translator_id, $translation_package );
+							$job_id = wpml_tm_add_translation_job( $newrid, $translator_id, $translation_package, [] );
 							if ( $job_id && $status == 10 ) {
 								do_action( 'wpml_save_job_fields_from_post', $job_id );
 							}

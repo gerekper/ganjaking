@@ -3,12 +3,15 @@
  * @package Polylang-WC
  */
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Setups the product languages and translations model when products are managed with a custom post type.
  *
  * @since 1.0
  */
-class PLLWC_Product_Language_CPT extends PLLWC_Translated_Object_Language_CPT {
+class PLLWC_Product_Language_CPT extends PLLWC_Translated_Object_Language {
+
 	/**
 	 * WooCommerce permalinks option.
 	 *
@@ -36,15 +39,18 @@ class PLLWC_Product_Language_CPT extends PLLWC_Translated_Object_Language_CPT {
 	 * @since 1.5
 	 */
 	public function __construct() {
+		$this->object     = PLL()->model->post;
 		$this->data_store = new PLLWC_Product_Data_Store_CPT();
 	}
 
 	/**
-	 * Add filters, should be called only once.
+	 * Adds hooks.
 	 *
 	 * @since 1.0
+	 * @since 1.9 Returns an instance of this object.
+	 * @since 1.9 Type-hinted.
 	 *
-	 * @return void
+	 * @return self
 	 */
 	public function init() {
 		$this->permalinks = get_option( 'woocommerce_permalinks' );
@@ -65,6 +71,7 @@ class PLLWC_Product_Language_CPT extends PLLWC_Translated_Object_Language_CPT {
 		remove_action( 'edited_term', array( 'WC_Post_Data', 'edited_term' ) );
 		add_action( 'edit_term', array( $this, 'edit_term' ), 10, 3 );
 		add_action( 'edited_term', array( $this, 'edited_term' ), 10, 3 );
+		return $this;
 	}
 
 	/**
@@ -130,11 +137,12 @@ class PLLWC_Product_Language_CPT extends PLLWC_Translated_Object_Language_CPT {
 	 * Returns legacy product metas mapped to product properties.
 	 *
 	 * @since 1.0
+	 * @since 1.9 Type-hinted.
 	 *
 	 * @param bool $sync True if it is synchronization, false if it is a copy.
 	 * @return string[]
 	 */
-	protected function get_legacy_metas( $sync ) {
+	protected function get_legacy_metas( $sync ): array {
 		$metas_to_sync = array(
 			'_backorders'            => 'backorders',
 			'_children'              => 'children',
@@ -410,7 +418,7 @@ class PLLWC_Product_Language_CPT extends PLLWC_Translated_Object_Language_CPT {
 	 * @return string
 	 */
 	public function get_translation_group_name( $id ) {
-		$term = PLL()->model->post->get_object_term( $id, 'post_translations' );
+		$term = $this->object->get_object_term( $id, 'post_translations' );
 		return empty( $term ) ? '' : $term->name;
 	}
 

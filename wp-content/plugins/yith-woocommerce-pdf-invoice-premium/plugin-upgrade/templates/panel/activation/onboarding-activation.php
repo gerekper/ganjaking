@@ -62,7 +62,7 @@ defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 			<p class="form-row">
 				<label for="licence_key">
 					<?php echo esc_html_x( 'License key', 'Link on activation license panel', 'yith-plugin-upgrade-fw' ); ?>:
-					<a href="#" id="yith-license-where-find-these" class="small-link" tabindex="-1"><?php echo esc_html_x( 'Where to find your licence key?', 'Link on activation license panel', 'yith-plugin-upgrade-fw' ); ?></a>
+					<a href="#" id="yith-license-where-find-these" class="small-link" tabindex="-1"><?php echo esc_html_x( 'Where to find your license key?', 'Link on activation license panel', 'yith-plugin-upgrade-fw' ); ?></a>
 				</label>
 				<span>
 				<input type="text" id="licence_key" name="licence_key" value="">
@@ -86,7 +86,7 @@ defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 	<div id="activation-success">
 		<img src="<?php echo esc_url( $assets_url . '/images/alldone.svg' ); ?>" width="60" height="60" alt="">
 		<p><?php esc_html_e( 'All done!', 'yith-plugin-upgrade-fw' ); ?></p>
-		<p><?php esc_html_e( 'Thank you for activating the plugin licence.', 'yith-plugin-upgrade-fw' ); ?></p>
+		<p><?php esc_html_e( 'Thank you for activating the plugin license.', 'yith-plugin-upgrade-fw' ); ?></p>
 		<a href="<?php echo esc_url( $return_url ); ?>" class="button"><?php esc_html_e( 'Go to plugin dashboard', 'yith-plugin-upgrade-fw' ); ?></a>
 	</div>
 </script>

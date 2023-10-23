@@ -5,12 +5,12 @@
  * @since 1.8.0
  */
 
-namespace Themesquad\WC_Currency_Converter;
+namespace KoiLab\WC_Currency_Converter;
 
 defined( 'ABSPATH' ) || exit;
 
-use Themesquad\WC_Currency_Converter\Admin\Admin;
-use Themesquad\WC_Currency_Converter\Internal\Traits\Singleton;
+use KoiLab\WC_Currency_Converter\Admin\Admin;
+use KoiLab\WC_Currency_Converter\Internal\Traits\Singleton;
 
 /**
  * Plugin class.
@@ -35,7 +35,7 @@ class Plugin {
 	 * @since 1.8.0
 	 */
 	private function define_constants() {
-		$this->define( 'WC_CURRENCY_CONVERTER_VERSION', '2.0.2' );
+		$this->define( 'WC_CURRENCY_CONVERTER_VERSION', '2.1.0' );
 		$this->define( 'WC_CURRENCY_CONVERTER_PATH', plugin_dir_path( WC_CURRENCY_CONVERTER_FILE ) );
 		$this->define( 'WC_CURRENCY_CONVERTER_URL', plugin_dir_url( WC_CURRENCY_CONVERTER_FILE ) );
 		$this->define( 'WC_CURRENCY_CONVERTER_BASENAME', plugin_basename( WC_CURRENCY_CONVERTER_FILE ) );
@@ -63,8 +63,9 @@ class Plugin {
 	private function init() {
 		add_action( 'before_woocommerce_init', array( $this, 'declare_compatibility' ) );
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
+		add_action( 'woocommerce_loaded', array( $this, 'wc_loaded' ) );
 		add_filter( 'woocommerce_integrations', array( $this, 'register_integration' ) );
-		add_action( 'woocommerce_checkout_init', array( '\Themesquad\WC_Currency_Converter\Checkout', 'init' ) );
+		add_action( 'woocommerce_checkout_init', array( '\KoiLab\WC_Currency_Converter\Checkout', 'init' ) );
 
 		if ( is_admin() ) {
 			Admin::init();
@@ -93,6 +94,17 @@ class Plugin {
 	}
 
 	/**
+	 * Load more functionality after WC has been initialized.
+	 *
+	 * @since 2.1.0
+	 */
+	public function wc_loaded() {
+		if ( class_exists( 'WC_Abstract_Privacy' ) ) {
+			new Privacy();
+		}
+	}
+
+	/**
 	 * Registers the integration.
 	 *
 	 * @since 1.8.0
@@ -101,8 +113,10 @@ class Plugin {
 	 * @return array
 	 */
 	public function register_integration( $integrations ) {
-		$integrations[] = '\Themesquad\WC_Currency_Converter\Admin\Settings\Integration';
+		$integrations[] = '\KoiLab\WC_Currency_Converter\Admin\Settings\Integration';
 
 		return $integrations;
 	}
 }
+
+class_alias( Plugin::class, 'Themesquad\WC_Currency_Converter\Plugin' );

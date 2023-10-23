@@ -1,0 +1,1185 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Perfmatters\n"
+"POT-Creation-Date: 2020-05-21 12:24-0700\n"
+"PO-Revision-Date: 2020-05-21 12:32-0700\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: id_ID\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: perfmatters.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: inc/EDD_SL_Plugin_Updater.php:207
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s."
+msgstr ""
+"Ada versi baru dari %1$s yang tersedia. %2$sView versi %3$s rincian %4$s."
+
+#: inc/EDD_SL_Plugin_Updater.php:215
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s "
+"or %5$supdate now%6$s."
+msgstr ""
+"Ada versi baru dari %1$s yang tersedia. %2$sView versi %3$s rincian %4$s "
+"atau %5$supdate sekarang %6$s."
+
+#: inc/EDD_SL_Plugin_Updater.php:405
+msgid "You do not have permission to install plugin updates"
+msgstr "Anda tidak memiliki izin untuk menginstal plugin update"
+
+#: inc/EDD_SL_Plugin_Updater.php:405
+msgid "Error"
+msgstr "Kesalahan"
+
+#: inc/admin.php:13 inc/settings.php:9
+msgid "Options"
+msgstr "Opsi"
+
+#: inc/admin.php:14
+msgid "CDN"
+msgstr "CDN"
+
+#: inc/admin.php:15 inc/settings.php:541
+msgid "Google Analytics"
+msgstr "Google Analytics"
+
+#: inc/admin.php:16
+msgid "Extras"
+msgstr "Ekstra"
+
+#: inc/admin.php:18 inc/network.php:187
+msgid "License"
+msgstr "Lisensi"
+
+#: inc/admin.php:54 inc/settings.php:670
+msgid "General"
+msgstr ""
+
+#: inc/admin.php:55 inc/settings.php:777
+msgid "Tools"
+msgstr ""
+
+#: inc/admin.php:85 inc/network.php:326
+msgid "Click on tooltip icons to view full documentation."
+msgstr "Klik pada ikon tooltip untuk melihat dokumentasi lengkap."
+
+#: inc/functions.php:82
+#, php-format
+msgid "No feed available, please visit the <a href='%s'>homepage</a>!"
+msgstr "Tidak ada feed yang tersedia, kunjungi <a href='%s'> beranda</a>!"
+
+#: inc/functions.php:138
+msgid "Sorry, you do not have permission to make REST API requests."
+msgstr ""
+
+#: inc/functions.php:246 inc/functions.php:339 inc/functions.php:344
+msgid "Comments are disabled."
+msgstr ""
+
+#: inc/functions.php:823 inc/functions.php:841
+#: inc/functions_script_manager.php:1034
+msgid "Perfmatters Warning"
+msgstr ""
+
+#: inc/functions.php:824
+msgid ""
+"WP_POST_REVISIONS is already enabled somewhere else on your site. We suggest "
+"only enabling this feature in one place."
+msgstr ""
+
+#: inc/functions.php:842
+msgid ""
+"AUTOSAVE_INTERVAL is already enabled somewhere else on your site. We suggest "
+"only enabling this feature in one place."
+msgstr ""
+
+#: inc/functions.php:1128 inc/functions.php:1141 inc/functions.php:1168
+msgid "This has been disabled."
+msgstr "Ini telah dinonaktifkan."
+
+#: inc/functions.php:1524
+msgid "No import file given."
+msgstr ""
+
+#: inc/functions.php:1532
+msgid "Please upload a valid .json file."
+msgstr ""
+
+#: inc/functions.php:1556
+msgid "Successfully imported Perfmatters settings."
+msgstr ""
+
+#: inc/functions_script_manager.php:40 inc/functions_script_manager.php:61
+#: inc/functions_script_manager.php:102 inc/script_manager.php:89
+#: inc/script_manager.php:115 inc/settings.php:675
+msgid "Script Manager"
+msgstr "Pengelola Skrip"
+
+#: inc/functions_script_manager.php:64
+msgid "Close Script Manager"
+msgstr "Tutup Pengelola Skrip"
+
+#: inc/functions_script_manager.php:244
+msgid "Status"
+msgstr ""
+
+#: inc/functions_script_manager.php:245 inc/script_manager.php:210
+msgid "Script"
+msgstr "Skrip"
+
+#: inc/functions_script_manager.php:246 inc/script_manager.php:209
+msgid "Type"
+msgstr "Tipe"
+
+#: inc/functions_script_manager.php:247
+msgid "Size"
+msgstr "Ukuran"
+
+#: inc/functions_script_manager.php:273
+msgid ""
+"MU Mode is currently enabled, the above settings will apply to the entire "
+"plugin."
+msgstr ""
+
+#: inc/functions_script_manager.php:276
+msgid "The above settings will apply to all assets in this group."
+msgstr ""
+
+#: inc/functions_script_manager.php:384
+msgid "MU Mode"
+msgstr ""
+
+#: inc/functions_script_manager.php:390 inc/script_manager_css.php:469
+msgid "ON"
+msgstr ""
+
+#: inc/functions_script_manager.php:391 inc/script_manager_css.php:483
+msgid "OFF"
+msgstr ""
+
+#: inc/functions_script_manager.php:413
+msgid "Disabled"
+msgstr ""
+
+#: inc/functions_script_manager.php:418
+msgid "Everywhere"
+msgstr "Dimana saja"
+
+#: inc/functions_script_manager.php:426 inc/functions_script_manager.php:469
+msgid "Current URL"
+msgstr "URL saat ini"
+
+#: inc/functions_script_manager.php:434 inc/functions_script_manager.php:439
+#: inc/functions_script_manager.php:555
+msgid "Regex"
+msgstr ""
+
+#: inc/functions_script_manager.php:456
+msgid "Exceptions"
+msgstr ""
+
+#: inc/functions_script_manager.php:838 inc/script_manager_js.php:137
+msgid "Settings saved successfully!"
+msgstr ""
+
+#: inc/functions_script_manager.php:1035 inc/script_manager.php:345
+msgid "MU plugin version mismatch."
+msgstr ""
+
+#: inc/functions_script_manager.php:1035 inc/script_manager.php:334
+#: inc/settings.php:1247
+msgid "View Documentation"
+msgstr "Lihat Dokumentasi"
+
+#: inc/license.php:13 inc/network.php:246
+msgid "License Key"
+msgstr "Kunci Lisensi"
+
+#: inc/license.php:17 inc/network.php:249
+msgid "Enter your license key"
+msgstr "Masukan kunci lisensi Anda"
+
+#: inc/license.php:25 inc/license.php:34 inc/network.php:257
+#: inc/network.php:265 perfmatters.php:132
+msgid "Activate License"
+msgstr "Aktifasi Lisensi"
+
+#: inc/license.php:30 inc/network.php:261
+msgid "Deactivate License"
+msgstr "Nonaktifakan Lisensi"
+
+#: inc/license.php:31 inc/network.php:262
+msgid "License is activated."
+msgstr "Lisensi telah aktif."
+
+#: inc/license.php:35 inc/network.php:266
+msgid "License is not activated."
+msgstr "Lisensi tidak aktif."
+
+#: inc/license.php:44 inc/network.php:280
+msgid "Customer Email"
+msgstr "Surel Pelanggan"
+
+#: inc/license.php:52 inc/network.php:288
+msgid "License Status"
+msgstr "Status Lisensi"
+
+#: inc/license.php:56 inc/network.php:292
+msgid "Renew Your License for Updates + Support!"
+msgstr "Perbaharui Lisensi Anda untuk mendapatkan Update dan Dukungan !"
+
+#: inc/license.php:65 inc/network.php:301
+msgid "Licenses Used"
+msgstr "Lisensi ini telah digunakan"
+
+#: inc/license.php:77 inc/network.php:311
+msgid "Save License"
+msgstr "Simpan Lisensi"
+
+#: inc/network.php:21
+msgid "Network Access"
+msgstr "Akses Jaringan"
+
+#: inc/network.php:29
+msgid "Network Default"
+msgstr "Jaringan Semula"
+
+#: inc/network.php:38 inc/settings.php:784
+msgid "Clean Uninstall"
+msgstr "Penghapusan Bersih"
+
+#: inc/network.php:45 inc/settings.php:791
+msgid ""
+"When enabled, this will cause all Perfmatters options data to be removed "
+"from your database when the plugin is uninstalled."
+msgstr ""
+"Ketika ini diaktifkan, akan mengakibatkan semua pengaturan data Permatters "
+"terhapus dari basi data ketika plugin dihapus."
+
+#: inc/network.php:56
+msgid "Manage network access control and setup a network default site."
+msgstr "Mengatur kontrol akses jaringan dan mempersiapkan ke jaringan semula."
+
+#: inc/network.php:65
+msgid "Site Admins (Default)"
+msgstr "Situs Admin (Semula)"
+
+#: inc/network.php:66
+msgid "Super Admins Only"
+msgstr "Hanya Super Admin"
+
+#: inc/network.php:73
+msgid "Choose who has access to manage Perfmatters plugin settings."
+msgstr "Pilih siapa yang bisa mengakses pengaturan plugin Permatters."
+
+#: inc/network.php:89
+msgid "None"
+msgstr "Tidak Ada"
+
+#: inc/network.php:100
+msgid "Choose a subsite that you want to pull default settings from."
+msgstr "Pilih sub situs yang Anda akan tarik dari pengaturan semula."
+
+#: inc/network.php:149
+msgid "Default settings applied!"
+msgstr "Pengaturan semua sudah diterapkan!"
+
+#: inc/network.php:153
+msgid "Select a site that is not already the Network Default."
+msgstr "Pilih situs yang belum menjadi Jaringan Semula."
+
+#: inc/network.php:158
+msgid "Network Default not set."
+msgstr "Jaringan Semua belum di set."
+
+#: inc/network.php:164
+msgid "Error: Blog Not Found."
+msgstr "Kesalahan: Situs tidak Ditemukan."
+
+#: inc/network.php:171
+msgid "Options saved."
+msgstr "Pilihan sudah tersimpan."
+
+#: inc/network.php:182
+msgid "Perfmatters Network Settings"
+msgstr "Pengaturan Jaringan Permatters"
+
+#: inc/network.php:186
+msgid "Network"
+msgstr "Jaringan"
+
+#: inc/network.php:188 inc/network.php:318 perfmatters.php:120
+#: perfmatters.php:158
+msgid "Support"
+msgstr "Dukungan"
+
+#: inc/network.php:202 inc/network.php:218
+msgid "Apply Default Settings"
+msgstr "Menerakan Pengaturan Semula"
+
+#: inc/network.php:203
+msgid "Choose a site to apply the settings from your network default site."
+msgstr "Pilih situs untuk menerapkan pengaturan dari jaringan situs semua."
+
+#: inc/network.php:206
+msgid ""
+"Select a site from the dropdown and click to apply the settings from your "
+"network default (above)."
+msgstr ""
+"Pilih situs dari pilihan ini dan klik untuk menerapkan pengaturan dari "
+"jaringan semula Anda (diatas)."
+
+#: inc/network.php:211
+msgid "Select a Site"
+msgstr "Pilih situs"
+
+#: inc/network.php:269
+msgid ""
+"Unlimited License needed for use in a multisite environment. Please contact "
+"support to upgrade."
+msgstr ""
+"Lisensi tak terbatas diperlukan untuk multi situs. Silahkan hubungi dukungan "
+"untuk peningkatan."
+
+#: inc/network.php:319
+msgid ""
+"For plugin support and documentation, please visit <a href='https://"
+"perfmatters.io/' title='perfmatters' target='_blank'>perfmatters.io</a>."
+msgstr ""
+"Untuk dukungan plugin dan dokumentasi, silakan kunjungi <a href='https://"
+"perfmatters.io/' title='perfmatters' target='_blank'> perfmatters.io</a>."
+
+#: inc/script_manager.php:90 inc/script_manager.php:198
+msgid "Global View"
+msgstr ""
+
+#: inc/script_manager.php:91 inc/script_manager.php:291 perfmatters.php:183
+msgid "Settings"
+msgstr "Pengaturan - pengaturan"
+
+#: inc/script_manager.php:101
+msgid ""
+"Below you can disable/enable CSS and JS files on a per page/post basis, as "
+"well as by custom post types. We recommend testing this locally or on a "
+"staging site first, as you could break the appearance of your live site. If "
+"you aren't sure about a certain script, you can try clicking on it, as a lot "
+"of authors will mention their plugin or theme in the header of the source "
+"code."
+msgstr ""
+"Di bawah ini Anda dapat menonaktifkan / mengaktifkan file CSS dan JS pada "
+"basis per halaman / pos, menurut jenis posting khusus. Kami menyarankan "
+"untuk menguji ini secara lokal atau di situs percobaan, karena Anda dapat "
+"merusak tampilan situs final Anda. Jika Anda tidak yakin tentang beberapa "
+"skrip tertentu, Anda dapat mencoba mengkliknya, karena banyak penulis akan "
+"menyebutkan plugin atau tema mereka di header kode sumber."
+
+#: inc/script_manager.php:104
+msgid ""
+"If for some reason you run into trouble, you can always enable everything "
+"again to reset the settings. Make sure to check out the <a href='https://"
+"perfmatters.io/docs/' target='_blank' title='Perfmatters Knowledge "
+"Base'>Perfmatters knowledge base</a> for more information."
+msgstr ""
+"Jika karena alasan tertentu Anda menjalankan dalam masalah, Anda selalu "
+"dapat mengaktifkan semuanya lagi untuk mengatur ulang pengaturan. Pastikan "
+"untuk memeriksa <a href='https://perfmatters.io/docs/' target='_blank' "
+"title='Perfmatters Knowledge Base'> basis pengetahuan Perfmatters </a> untuk "
+"informasi lebih lanjut."
+
+#: inc/script_manager.php:116
+msgid "Manage scripts loading on the current page."
+msgstr "Pengelola skrip sedang memuat pada halaman ini."
+
+#: inc/script_manager.php:168 inc/script_manager.php:388
+#: inc/script_manager_js.php:163
+msgid "Save"
+msgstr "Simpan"
+
+#: inc/script_manager.php:187
+msgid "Loading Scripts"
+msgstr ""
+
+#: inc/script_manager.php:199
+msgid ""
+"This is a visual representation of the Script Manager configuration across "
+"your entire site."
+msgstr ""
+"Ini adalah representasi visual dari Pengelola Skrip konfigurasi di seluruh "
+"situs Anda."
+
+#: inc/script_manager.php:211
+msgid "Setting"
+msgstr "Pengaturan"
+
+#: inc/script_manager.php:265
+msgid "You don't have any scripts disabled yet."
+msgstr ""
+
+#: inc/script_manager.php:292
+msgid "View and manage all of your Script Manager settings."
+msgstr "Lihat dan mengatur semua Pengelola Skrip Anda."
+
+#: inc/script_manager.php:305
+msgid "Hide Disclaimer"
+msgstr ""
+
+#: inc/script_manager.php:311
+msgid "Hide the disclaimer message box across all Script Manager views."
+msgstr ""
+
+#: inc/script_manager.php:317
+msgid "Display Archives"
+msgstr ""
+
+#: inc/script_manager.php:322
+msgid ""
+"Add WordPress archives to your Script Manager selection options. Archive "
+"posts will no longer be grouped with their post type."
+msgstr ""
+
+#: inc/script_manager.php:328
+#, fuzzy
+#| msgid "Enabled"
+msgid "Enable MU Mode"
+msgstr "Telah diaktifkan"
+
+#: inc/script_manager.php:334
+msgid ""
+"Must-use (MU) mode requires elevated permissions and a file to be copied "
+"into the mu-plugins directory. This gives you more control and the ability "
+"to disable plugin queries, inline CSS, etc."
+msgstr ""
+
+#: inc/script_manager.php:349
+msgid "MU plugin installed."
+msgstr ""
+
+#: inc/script_manager.php:354
+msgid "MU plugin file not found."
+msgstr ""
+
+#: inc/script_manager.php:364 inc/script_manager.php:368
+msgid "Reset Script Manager"
+msgstr ""
+
+#: inc/script_manager.php:371
+msgid "Remove and reset all of your existing Script Manager settings."
+msgstr ""
+
+#: inc/script_manager.php:407
+msgid ""
+"Are you sure? This will remove and reset all of your existing Script Manager "
+"settings and cannot be undone!"
+msgstr ""
+
+#: inc/script_manager_js.php:117
+msgid "Saving"
+msgstr ""
+
+#: inc/script_manager_js.php:150
+msgid "Settings failed to update."
+msgstr ""
+
+#: inc/script_manager_js.php:153
+msgid "No options were changed."
+msgstr ""
+
+#: inc/settings.php:14
+msgid "Disable Emojis"
+msgstr "Nonaktifkan Emoji"
+
+#: inc/settings.php:20
+msgid "Removes WordPress Emojis JavaScript file (wp-emoji-release.min.js)."
+msgstr ""
+"Akan menghapus berkas WordPress Emojis JavaScript (wp-emoji-release.min.js)"
+
+#: inc/settings.php:27
+msgid "Disable Embeds"
+msgstr "Nonaktifkan Sematan"
+
+#: inc/settings.php:33
+msgid "Removes WordPress Embed JavaScript file (wp-embed.min.js)."
+msgstr "Akan menghapus berkas WordPress Embed JavaScript (wp-embed.min.js)"
+
+#: inc/settings.php:40
+msgid "Remove Query Strings"
+msgstr "Hapus String Kueri"
+
+#: inc/settings.php:46
+msgid "Remove query strings from static resources (CSS, JS)."
+msgstr "Hapus string kueri dari sumber statik (CSS, JS)"
+
+#: inc/settings.php:53
+msgid "Disable XML-RPC"
+msgstr "Nonaktifkan XML-RPC"
+
+#: inc/settings.php:59
+msgid "Disables WordPress XML-RPC functionality."
+msgstr "Menonaktifkan fungsi WordPress XML-RPC."
+
+#: inc/settings.php:66
+msgid "Remove jQuery Migrate"
+msgstr "Hapus jQuery Migrate"
+
+#: inc/settings.php:72
+msgid "Removes jQuery Migrate JavaScript file (jquery-migrate.min.js)."
+msgstr ""
+"Menghapus berkas jQuery Migrate JavaScript file (jquery-migrate.min.js)."
+
+#: inc/settings.php:79
+msgid "Hide WP Version"
+msgstr "Sembunyikan versi WP"
+
+#: inc/settings.php:85
+msgid "Removes WordPress version meta tag."
+msgstr "Menghapus meta versi Wordpress."
+
+#: inc/settings.php:92
+msgid "Remove wlwmanifest Link"
+msgstr "Hapus Tautan wlwmanifest"
+
+#: inc/settings.php:98
+msgid "Remove wlwmanifest (Windows Live Writer) link tag."
+msgstr "Menghapus wlwmanifest (Windows Live Writer) tautan."
+
+#: inc/settings.php:105
+msgid "Remove RSD Link"
+msgstr "Hapus tautan RSD"
+
+#: inc/settings.php:111
+msgid "Remove RSD (Real Simple Discovery) link tag."
+msgstr "Hapus tautan tag RSD (Real Simple Discovery)."
+
+#: inc/settings.php:118
+msgid "Remove Shortlink"
+msgstr "Hapus Tautan Pendek"
+
+#: inc/settings.php:124
+msgid "Remove Shortlink link tag."
+msgstr "Hapus tag Tautan Pendek."
+
+#: inc/settings.php:131
+msgid "Disable RSS Feeds"
+msgstr "Nonaktifkan RSS"
+
+#: inc/settings.php:137
+msgid "Disable WordPress generated RSS feeds and 301 redirect URL to parent."
+msgstr ""
+"Nonaktifkan RSS Wordpress yang telah dibuat dan 301 akan dialihkan ke induk "
+"URL."
+
+#: inc/settings.php:144
+msgid "Remove RSS Feed Links"
+msgstr "Hapus Tautan RSS Feed"
+
+#: inc/settings.php:150
+msgid "Disable WordPress generated RSS feed link tags."
+msgstr "Nonaktifkan tautan hasil dari RSS Feed Wordpress."
+
+#: inc/settings.php:157
+msgid "Disable Self Pingbacks"
+msgstr "Nonaktifkan umpan balik sendiri"
+
+#: inc/settings.php:163
+msgid ""
+"Disable Self Pingbacks (generated when linking to an article on your own "
+"blog)."
+msgstr ""
+"Nonaktifkan umpan balik sendiri (akan dihasilkan ketika bertautan ke pos "
+"situs kamu)."
+
+#: inc/settings.php:170
+msgid "Disable REST API"
+msgstr ""
+
+#: inc/settings.php:178
+msgid "Default (Enabled)"
+msgstr ""
+
+#: inc/settings.php:179
+msgid "Disable for Non-Admins"
+msgstr ""
+
+#: inc/settings.php:180
+msgid "Disable When Logged Out"
+msgstr ""
+
+#: inc/settings.php:182
+msgid ""
+"Disables REST API requests and displays an error message if the requester "
+"doesn't have permission."
+msgstr ""
+
+#: inc/settings.php:189
+msgid "Remove REST API Links"
+msgstr "Hapus Tautan REST API"
+
+#: inc/settings.php:195
+msgid ""
+"Removes REST API link tag from the front end and the REST API header link "
+"from page requests."
+msgstr ""
+"Menghapus tautan REST API dari depan dan tautan REST API dari permintaan "
+"halaman."
+
+#: inc/settings.php:202
+msgid "Disable Dashicons"
+msgstr "Nonaktifkan Dashicons"
+
+#: inc/settings.php:208
+msgid "Disables dashicons on the front end when not logged in."
+msgstr "Menonaktifkan Dashicons di depan ketika tidak masuk."
+
+#: inc/settings.php:215
+msgid "Disable Google Maps"
+msgstr "Nonaktifkan Google Maps"
+
+#: inc/settings.php:221
+msgid ""
+"Removes any instances of Google Maps being loaded across your entire site."
+msgstr "Menghapus semua hal mengenai Google Maps di setiap situs."
+
+#: inc/settings.php:228
+msgid "Disable Google Fonts"
+msgstr ""
+
+#: inc/settings.php:234
+msgid ""
+"Removes any instances of Google Fonts being loaded across your entire site."
+msgstr ""
+
+#: inc/settings.php:241
+msgid "Disable Password Strength Meter"
+msgstr ""
+
+#: inc/settings.php:247
+msgid ""
+"Removes WordPress and WooCommerce Password Strength Meter scripts from non "
+"essential pages."
+msgstr ""
+
+#: inc/settings.php:254
+msgid "Disable Comments"
+msgstr ""
+
+#: inc/settings.php:260
+msgid "Disables WordPress comments across your entire site."
+msgstr ""
+
+#: inc/settings.php:267
+msgid "Remove Comment URLs"
+msgstr ""
+
+#: inc/settings.php:273
+msgid ""
+"Removes the WordPress comment author link and website field from blog posts."
+msgstr ""
+
+#: inc/settings.php:280
+msgid "Lazy Loading"
+msgstr ""
+
+#: inc/settings.php:286
+msgid "Enable lazy loading on images."
+msgstr ""
+
+#: inc/settings.php:293
+msgid "Use Native"
+msgstr ""
+
+#: inc/settings.php:299
+msgid "Use browser-level native lazy loading when available."
+msgstr ""
+
+#: inc/settings.php:306
+msgid "Disable Heartbeat"
+msgstr "Nonaktifkan Heartbeat"
+
+#: inc/settings.php:314 inc/settings.php:333 inc/settings.php:353
+#: inc/settings.php:381 inc/settings.php:584
+msgid "Default"
+msgstr "Semula"
+
+#: inc/settings.php:315
+msgid "Disable Everywhere"
+msgstr "Nonaktifkan Di Mana-Mana"
+
+#: inc/settings.php:316
+msgid "Only Allow When Editing Posts/Pages"
+msgstr "Hanya di izinkan menyunting Pos/Laman"
+
+#: inc/settings.php:318
+msgid ""
+"Disable WordPress Heartbeat everywhere or in certain areas (used for auto "
+"saving and revision tracking)."
+msgstr ""
+"Nonaktifkan Heartbeat WordPress di mana saja atau di area tertentu "
+"(digunakan untuk pelacakan penyimpanan dan revisi otomatis)."
+
+#: inc/settings.php:325
+msgid "Heartbeat Frequency"
+msgstr "Frekuensi Heartbeat"
+
+#: inc/settings.php:333 inc/settings.php:334 inc/settings.php:335
+#: inc/settings.php:336
+#, php-format
+msgid "%s Seconds"
+msgstr "%s Detik"
+
+#: inc/settings.php:338
+msgid "Controls how often the WordPress Heartbeat API is allowed to run."
+msgstr "Mengontrol seberapa sering WordPress Heartbeat API dibiarkan berjalan."
+
+#: inc/settings.php:345
+msgid "Limit Post Revisions"
+msgstr "Batasi Revisi Pos"
+
+#: inc/settings.php:354
+msgid "Disable Post Revisions"
+msgstr "Nonaktifkan Revisi Pos"
+
+#: inc/settings.php:366
+msgid ""
+"Limits the maximum amount of revisions that are allowed for posts and pages."
+msgstr "Batasan jumlah maksimum revisi pos dan halaman."
+
+#: inc/settings.php:373
+msgid "Autosave Interval"
+msgstr "Selang waktu Simpan Otomatis"
+
+#: inc/settings.php:381
+msgid "1 Minute"
+msgstr "1 Menit"
+
+#: inc/settings.php:382 inc/settings.php:383 inc/settings.php:384
+#: inc/settings.php:385
+#, php-format
+msgid "%s Minutes"
+msgstr "%s Menit"
+
+#: inc/settings.php:387
+msgid ""
+"Controls how often WordPress will auto save posts and pages while editing."
+msgstr ""
+"Mengontrol seberapa sering WordPress akan otomatis menyimpan posting dan "
+"halaman saat mengedit."
+
+#: inc/settings.php:394
+msgid "Change Login URL"
+msgstr "Ubah halaman login"
+
+#: inc/settings.php:402
+msgid ""
+"When set, this will change your WordPress login URL (slug) to the provided "
+"string and will block wp-admin and wp-login endpoints from being directly "
+"accessed."
+msgstr ""
+"Ketika diatur, ini akan mengubah URL masuk WordPress Anda (slug) string yang "
+"disediakan dan akan memblokir titik akhir wp-admin dan wp-login agar tidak "
+"langsung diakses."
+
+#: inc/settings.php:412
+msgid "Disable Scripts"
+msgstr "Nonaktifkan Skrip"
+
+#: inc/settings.php:418
+msgid ""
+"Disables WooCommerce scripts and styles except on product, cart, and "
+"checkout pages."
+msgstr ""
+"Nonaktifkan skrip WooCommerce dan gaya kecuali pada halaman produk, "
+"keranjang, dan pembayaran."
+
+#: inc/settings.php:425
+msgid "Disable Cart Fragmentation"
+msgstr "Nonaktifkan Fragmentasi Keranjang"
+
+#: inc/settings.php:431
+msgid "Completely disables WooCommerce cart fragmentation script."
+msgstr "Sepenuhnya menonaktifkan skrip fragmentasi keranjang WooCommerce."
+
+#: inc/settings.php:438
+msgid "Disable Status Meta Box"
+msgstr "Nonaktifan Status Meta Box"
+
+#: inc/settings.php:444
+msgid "Disables WooCommerce status meta box from the WP Admin Dashboard."
+msgstr "Menonaktifkan kotak meta status WooCommerce dari Dasbor Admin WP."
+
+#: inc/settings.php:451
+msgid "Disable Widgets"
+msgstr "Nonaktifkan Widgets"
+
+#: inc/settings.php:457
+msgid "Disables all WooCommerce widgets."
+msgstr "Menonaktifkan semua widget WooCommerce."
+
+#: inc/settings.php:474
+msgid "Enable CDN Rewrite"
+msgstr "Aktifkan Rewrite CDN"
+
+#: inc/settings.php:481
+msgid ""
+"Enables rewriting of your site URLs with your CDN URLs which can be "
+"configured below."
+msgstr ""
+"Mengaktifkan penulisan ulang URL situs Anda dengan URL CDN Anda yang dapat "
+"dikonfigurasi di bawah ini."
+
+#: inc/settings.php:488
+msgid "CDN URL"
+msgstr "URL CDN"
+
+#: inc/settings.php:497
+msgid ""
+"Enter your CDN URL without the trailing backslash. Example: https://cdn."
+"example.com"
+msgstr "Masukan URL CDN tanpa garis miring. Contoh : https://cdn.example.com"
+
+#: inc/settings.php:504
+msgid "Included Directories"
+msgstr "Direktori Termasuk"
+
+#: inc/settings.php:513
+msgid ""
+"Enter any directories you would like to be included in CDN rewriting, "
+"separated by commas (,). Default: wp-content,wp-includes"
+msgstr ""
+"Masukkan direktori apa pun yang Anda inginkan untuk dimasukkan ke dalam "
+"penulisan ulang CDN, dipisahkan oleh koma (,). Default: wp-content, wp-"
+"includes"
+
+#: inc/settings.php:520
+msgid "CDN Exclusions"
+msgstr "Pengecualian CDN"
+
+#: inc/settings.php:529
+msgid ""
+"Enter any directories or file extensions you would like to be excluded from "
+"CDN rewriting, separated by commas (,). Default: .php"
+msgstr ""
+"Masukkan direktori atau ekstensi file apa pun yang ingin dikecualikan dari "
+"penulisan ulang CDN, dipisahkan oleh koma (,). Default: .php"
+
+#: inc/settings.php:546
+msgid "Enable Local Analytics"
+msgstr "Aktifkan Anality Local"
+
+#: inc/settings.php:553
+msgid "Enable syncing of the Google Analytics script to your own server."
+msgstr "Aktifkan sinkronisasi skrip Google Analytics ke server Anda sendiri."
+
+#: inc/settings.php:560
+msgid "Tracking ID"
+msgstr "ID Layar"
+
+#: inc/settings.php:568
+msgid "Input your Google Analytics tracking ID."
+msgstr "Masukan id Google Analytics Anda."
+
+#: inc/settings.php:575
+msgid "Tracking Code Position"
+msgstr "Posisi Kode Pelacakan"
+
+#: inc/settings.php:584
+msgid "Header"
+msgstr "Header"
+
+#: inc/settings.php:585
+msgid "Footer"
+msgstr "Footer"
+
+#: inc/settings.php:587
+msgid ""
+"Load your analytics script in the header (default) or footer of your site. "
+"Default: Header"
+msgstr ""
+"Muat skrip analytics Anda di header (default) atau footer dari situs Anda. "
+"Semulanya: Header"
+
+#: inc/settings.php:594
+msgid "Disable Display Features"
+msgstr "Nonaktifkan Fitur Tampilan"
+
+#: inc/settings.php:601
+msgid "Disable remarketing and advertising which generates a 2nd HTTP request."
+msgstr ""
+"Nonaktifkan pemasaran ulang dan iklan yang menghasilkan permintaan HTTP ke-2."
+
+#: inc/settings.php:608
+msgid "Anonymize IP"
+msgstr "Anonimkan IP"
+
+#: inc/settings.php:615
+#, fuzzy
+#| msgid "Hide your IP to comply with privacy restrictions in some countries."
+msgid ""
+"Shorten visitor IP to comply with privacy restrictions in some countries."
+msgstr ""
+"Sembunyikan IP Anda untuk mematuhi pembatasan privasi di beberapa negara."
+
+#: inc/settings.php:622
+msgid "Track Logged In Admins"
+msgstr "Lacak catatan Di Admin"
+
+#: inc/settings.php:629
+msgid "Include logged-in WordPress admins in your Google Analytics reports."
+msgstr "Sertakan login admin WordPress di dalam laporan Google Analytics Anda."
+
+#: inc/settings.php:636
+msgid "Adjusted Bounce Rate"
+msgstr "Tingkat Rasio Pentalan"
+
+#: inc/settings.php:644
+msgid ""
+"Set a timeout limit in seconds to better evaluate the quality of your "
+"traffic. (1-100)"
+msgstr ""
+"Tetapkan batas waktu dalam detik untuk mengevaluasi kualitas lalu lintas "
+"Anda dengan lebih baik. (1-100)"
+
+#: inc/settings.php:651
+msgid "Use MonsterInsights"
+msgstr ""
+
+#: inc/settings.php:658
+msgid ""
+"Allows MonsterInsights to manage your Google Analaytics while still using "
+"the locally hosted analytics.js file generated by Perfmatters."
+msgstr ""
+
+#: inc/settings.php:682
+msgid ""
+"Enables the Perfmatters Script Manager, which gives you the ability to "
+"disable CSS and JS files on a page by page basis."
+msgstr ""
+"Mengaktifkan Pengelola Skrip  Perfmatters, yang memberi Anda kemampuan untuk "
+"menonaktifkan file CSS dan JS pada halaman demi halaman."
+
+#: inc/settings.php:689
+msgid "DNS Prefetch"
+msgstr "Prefetch DNS"
+
+#: inc/settings.php:696
+msgid ""
+"Resolve domain names before a user clicks. Format: //domain.tld (one per "
+"line)"
+msgstr ""
+"Selesaikan nama domain sebelum pengguna mengklik. Format: //domain.tld (satu "
+"per baris)"
+
+#: inc/settings.php:703
+msgid "Preconnect"
+msgstr "Preconnect"
+
+#: inc/settings.php:710
+#, fuzzy
+#| msgid ""
+#| "Preconnect allows the browser to set up early connections before an HTTP "
+#| "request, eliminating roundtrip latency and saving time for users. Format: "
+#| "scheme://domain.tld (one per line)"
+msgid ""
+"Preconnect allows the browser to set up early connections before an HTTP "
+"request, eliminating roundtrip latency and saving time for users. Format: "
+"scheme://domain.tld"
+msgstr ""
+"Preconnect memungkinkan browser untuk mengatur koneksi awal sebelum "
+"permintaan HTTP, menghilangkan latensi dan menghemat waktu bagi pengguna. "
+"Format: skema: //domain.tld (satu per baris)"
+
+#: inc/settings.php:717
+msgid "Add Blank Favicon"
+msgstr ""
+
+#: inc/settings.php:724
+msgid ""
+"Adds a blank favicon to your WordPress header which will prevent a Missing "
+"Favicon or 404 error from showing up on certain website speed testing tools."
+msgstr ""
+
+#: inc/settings.php:731
+msgid "Add Header Code"
+msgstr ""
+
+#: inc/settings.php:739
+msgid ""
+"Code added here will be printed in the head section on every page of your "
+"website."
+msgstr ""
+
+#: inc/settings.php:748
+msgid "Add Body Code"
+msgstr ""
+
+#: inc/settings.php:756
+msgid ""
+"Code added here will be printed below the opening body tag on every page of "
+"your website."
+msgstr ""
+
+#: inc/settings.php:764
+msgid "Add Footer Code"
+msgstr ""
+
+#: inc/settings.php:772
+msgid ""
+"Code added here will be printed above the closing body tag on every page of "
+"your website."
+msgstr ""
+
+#: inc/settings.php:800
+msgid "Accessibility Mode"
+msgstr "Mode Aksesibilitas"
+
+#: inc/settings.php:808
+msgid ""
+"Disable the use of visual UI elements in the plugin settings such as "
+"checkbox toggles and hovering tooltips."
+msgstr ""
+"Nonaktifkan penggunaan elemen UI visual dalam pengaturan plugin seperti "
+"matikan kotak centang dan keterangan melayang."
+
+#: inc/settings.php:815
+msgid "Export Settings"
+msgstr ""
+
+#: inc/settings.php:822
+msgid "Export Plugin Settings"
+msgstr ""
+
+#: inc/settings.php:824
+msgid ""
+"Export your Perfmatters settings for this site as a .json file. This lets "
+"you easily import the configuration into another site."
+msgstr ""
+
+#: inc/settings.php:831
+msgid "Import Settings"
+msgstr ""
+
+#: inc/settings.php:836
+msgid "Import Perfmatters settings from an exported .json file."
+msgstr ""
+
+#: inc/settings.php:947
+msgid "Select which performance options you would like to enable."
+msgstr "Pilih opsi kinerja mana yang ingin Anda aktifkan."
+
+#: inc/settings.php:952
+msgid "Disable specific elements of WooCommerce."
+msgstr "Nonaktifkan elemen khusus WooCommerce."
+
+#: inc/settings.php:957
+msgid ""
+"CDN options that allow you to rewrite your site URLs with your CDN URLs."
+msgstr ""
+"Opsi CDN yang memungkinkan Anda untuk menulis ulang URL situs Anda dengan "
+"URL CDN Anda."
+
+#: inc/settings.php:962
+msgid "Optimization options for Google Analytics."
+msgstr "Opsi pengoptimalan untuk Google Analytics."
+
+#: inc/settings.php:967
+msgid "Extra options that pertain to Perfmatters plugin functionality."
+msgstr "Opsi tambahan yang berhubungan dengan fungsi plugin Perfmatters."
+
+#: inc/settings.php:971
+msgid "Perfmatters plugin management tools."
+msgstr ""
+
+#: inc/settings.php:1149 inc/settings.php:1162
+msgid "Remove"
+msgstr ""
+
+#: inc/settings.php:1168
+msgid "Add New"
+msgstr ""
+
+#: inc/settings.php:1194
+msgid "Import Plugin Settings"
+msgstr ""
+
+#: perfmatters.php:126
+msgid "License is Activated"
+msgstr "Lisensi sudah aktif"
+
+#: perfmatters.php:129
+msgid "Renew License"
+msgstr "Perbaharui Lisensi"
+
+#: perfmatters.php:159
+msgid "Documentation"
+msgstr "Dokumentasi"
+
+#: perfmatters.php:164
+#, fuzzy
+#| msgid ""
+#| "Check out our <a href='https://woorkup.com/speed-up-wordpress/' "
+#| "title='WordPress Optimization Guide' target='_blank'>complete "
+#| "optimization guide</a> for more ways to speed up WordPress."
+msgid ""
+"Looking to speed up WordPress? Check out our <a href='https://woorkup.com/"
+"speed-up-wordpress/?"
+"utm_source=perfmatters&utm_medium=banner&utm_campaign=header-cta' "
+"title='WordPress Optimization Guide' target='_blank'>complete optimization "
+"guide</a>."
+msgstr ""
+"Silahkan lihat <a href='https://woorkup.com/speed-up-wordpress/' "
+"title='WordPress Optimization Guide' target='_blank'> panduan lengkap "
+"optimasi</a> untuk lebih banyak cara untuk mempercepat WordPress."
+
+#. Plugin Name of the plugin/theme
+msgid "Perfmatters"
+msgstr "Perfmatters"
+
+#. Plugin URI of the plugin/theme
+msgid "https://perfmatters.io/"
+msgstr "https://perfmatters.io/"
+
+#. Description of the plugin/theme
+msgid ""
+"Perfmatters is a lightweight performance plugin developed to speed up your "
+"WordPress site."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "forgemedia"
+msgstr "forgemedia"
+
+#. Author URI of the plugin/theme
+msgid "https://forgemedia.io/"
+msgstr "https://forgemedia.io/"
+
+#~ msgid ""
+#~ "This plugin adds an assortment of performance and speed improvements to "
+#~ "your WordPress installation."
+#~ msgstr ""
+#~ "Plugin ini menambahkan berbagai peningkatan performa dan kecepatan pada "
+#~ "instalasi WordPress Anda."
+
+#~ msgid "Enable"
+#~ msgstr "Diaktifkan"
+
+#~ msgid "Disable everwhere to view enable settings."
+#~ msgstr "Nonaktifkan manasaja untuk melihat pengaturan aktif."
+
+#~ msgid "Script Manager Options"
+#~ msgstr "Pilihan Pengelola Skrip"
+
+#~ msgid "BETA"
+#~ msgstr "BETA"

@@ -3,6 +3,7 @@
  * YITH Plugin Gradients Class.
  *
  * @class   YIT_Gradients
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH\PluginFramework\Classes
  */
 
@@ -446,7 +447,6 @@ if ( ! class_exists( 'YIT_Gradients' ) ) {
 		 *
 		 * @return  string
 		 * @since   1.0
-		 * @author  Andrea Grillo <andrea.grillo@yithemes.com>
 		 */
 		public function light_or_dark( $color, $dark = '#000000', $light = '#FFFFFF' ) {
 			$hex = str_replace( '#', '', $color );

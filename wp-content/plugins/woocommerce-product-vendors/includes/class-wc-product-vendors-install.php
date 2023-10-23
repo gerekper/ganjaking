@@ -82,14 +82,22 @@ class WC_Product_Vendors_Install {
 		// Needs to run every time since we do not know when bookings could be updated.
 		self::$roles->remove_deprecated_caps();
 
-		if ( ! empty( $_GET['dismiss_wcpv'] ) ) {
-			delete_option( 'wcpv_show_update_notice' );			
+		if ( ! empty( $_GET['dismiss_wcpv'] ) &&
+			isset( $_GET['_wcpv_v2_notice_dismiss_nonce'] ) &&
+			wp_verify_nonce( wc_clean( wp_unslash( $_GET['_wcpv_v2_notice_dismiss_nonce'] ) ), 'wcpv_v2_notice_dismiss_nonce' ) &&
+			current_user_can( 'manage_options' )
+		) {
+			delete_option( 'wcpv_show_update_notice' );
 			add_option( 'wcpv_show_update_notice', false );
 		}
 
-		if ( ! empty( $_GET['do_update_wcpv'] ) ) {
+		if ( ! empty( $_GET['do_update_wcpv'] ) &&
+			isset( $_GET['_wcpv_v2_notice_update_nonce'] ) &&
+			wp_verify_nonce( wc_clean( wp_unslash( $_GET['_wcpv_v2_notice_update_nonce'] ) ), 'wcpv_v2_notice_update_nonce' ) &&
+			current_user_can( 'manage_options' )
+		) {
 			self::update();
-			
+
 			wp_redirect( add_query_arg( 'wcpv-updated', 'true', admin_url( 'admin.php?page=wc-settings&tab=products&section=wcpv_vendor_settings' ) ) );
 			exit;
 		}

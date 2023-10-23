@@ -1,5 +1,18 @@
 *** Currency Converter Changelog ***
 
+2023-10-04 - version 2.1.0
+* Feature - Added own exchange provider as a fallback to Open Exchange Rates.
+* Tweak - Dropped the default Open Exchange Rates App ID.
+* Tweak - Updated the recommended privacy policy texts.
+* Tweak - Updated plugin author.
+* Tweak - Tested compatibility up to WC 8.2.
+* Tweak - Tested compatibility up to WP 6.3.
+* Dev - Changed the plugin namespace to `KoiLab\WC_Currency_Converter`.
+* Dev - Updated the minimum requirements to WC 4.0, WP 5.0, and PHP 7.0.
+
+2023-10-02 - version 2.0.3
+* Fix - Fixed localization of the JS scripts in block themes.
+
 2023-05-31 - version 2.0.2
 * Tweak - Enqueue the frontend scripts only on pages with registered widgets.
 * Tweak - Tested compatibility with WC 7.7.
@@ -72,14 +85,14 @@
 * Tweak - WP tested up to 5.8.
 
 2021-01-28 - version 1.6.25
-* Fix minification of conversion.js. PR#87
+* Fix minification of conversion.js. PR#87.
 
 2021-01-28 - version 1.6.24
-* Fix - Compatibility with WC core blocks. PR#78
-* Fix - Compatibility with Jetpack infinite scroll. PR#79
-* Fix - Retain the chosen currency across page loads. PR#82
-* Fix - Display prices in the correct format based on currency. PR#84
-* Tweak - Display both currency symbols & currency codes. PR#83
+* Fix - Compatibility with WC core blocks. PR#78.
+* Fix - Compatibility with Jetpack infinite scroll. PR#79.
+* Fix - Retain the chosen currency across page loads. PR#82.
+* Fix - Display prices in the correct format based on currency. PR#84.
+* Tweak - Display both currency symbols & currency codes. PR#83.
 
 2020-08-14 - version 1.6.23
 * Fix - Replace deprecated jQuery methods.
@@ -114,7 +127,7 @@
 * Tweak - WC tested up to 3.7.
 
 2019-04-16 - version 1.6.13
-* Tweak  - WC 3.6 compatibility.
+* Tweak - WC 3.6 compatibility.
 
 2018-09-25 - version 1.6.12
 * Update - WC 3.5 compatibility.
@@ -130,7 +143,7 @@
 * Update - WC 3.4 compatibility.
 
 2018-01-26 - version 1.6.8
-* Fix   - Currency not persistent across different pages.
+* Fix - Currency not persistent across different pages.
 
 2018-01-11 - version 1.6.7
 * Tweak - Avoid using inline JS and separate it to a file.
@@ -173,40 +186,40 @@
 * Fix widget notices.
 
 2015-06-02 - version 1.4.0
-* Added Shortcode to output the widget - woocommerce_currency_converter
+* Added Shortcode to output the widget - woocommerce_currency_converter.
 * Code cleanup and review.
 * Always prepend store currency.
 * Add option to show dropdown instead of buttons.
 
 2015-04-13 - version 1.3.2
-* Tweak - account for rates returning errors
+* Tweak - account for rates returning errors.
 
 2014-09-15 - version 1.3.1
-* Fix for INR
+* Fix for INR.
 
 2013-10-29 - version 1.3.0
-* Option to show symbols instead of codes in the widget
+* Option to show symbols instead of codes in the widget.
 
 2013-10-16 - version 1.2.12
-* Added current currency to currency_converter_switch trigger
+* Added current currency to currency_converter_switch trigger.
 
 2013-08-05 - version 1.2.11
-* Refresh after fragments are loaded
+* Refresh after fragments are loaded.
 
 2013-08-05 - version 1.2.10
-* Fix RMB -> CNY
+* Fix RMB -> CNY.
 
 2013-07-22 - version 1.2.9
-* Fix price slider errors
+* Fix price slider errors.
 
 2013-06-06 - version 1.2.8
-* removed stray var dump
+* removed stray var dump.
 
 2013-06-06 - version 1.2.7
-* Compat with addons
+* Compat with addons.
 
 2013-06-06 - version 1.2.6
-* Backwards compat fix for get_woocommerce_currencies
+* Backwards compat fix for get_woocommerce_currencies.
 
 2013-05-07 - version 1.2.5
 * Respect thousands separator.
@@ -215,43 +228,43 @@
 * Changed incorrect admin labels.
 
 2013-04-29 - version 1.2.3
-* Moved JS to file
+* Moved JS to file.
 
 2013-04-25 - version 1.2.2
-* Check options are set on save
+* Check options are set on save.
 
 2013-04-22 - version 1.2.1
-* Trailing zeros options
+* Trailing zeros options.
 
 2013-04-19 - version 1.2.0
-* Support for currency symbols and formatting
+* Support for currency symbols and formatting.
 
 2013-03-12 - version 1.1.6
-* Base country marked active when in use
+* Base country marked active when in use.
 
 2013-02-08 - version 1.1.5
-* Support different decimal/thousand separators
+* Support different decimal/thousand separators.
 
 2012-12-04 - version 1.1.4
-* new updater
+* new updater.
 
 2012-10-17 - version 1.1.3
-* Price slider fix
+* Price slider fix.
 
 2012-10-02 - version 1.1.2
-* Updated to work with shipping select boxes
+* Updated to work with shipping select boxes.
 
 2012-07-21 - version 1.1.1
-* Updated to latest openexchangerates API (fix)
+* Updated to latest openexchangerates API (fix).
 
 2012-07-20 - version 1.1
-* Updated to latest openexchangerates API
+* Updated to latest openexchangerates API.
 
 2012-03-11 - version 1.0.2
-* Option to disable reset
+* Option to disable reset.
 
 2012-02-16 - version 1.0.1
-* Price slider convert
+* Price slider convert.
 
 2012-02-14 - version 1.0
-* First release
+* First release.

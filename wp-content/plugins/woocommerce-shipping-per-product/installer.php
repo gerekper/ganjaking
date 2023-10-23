@@ -24,7 +24,7 @@ if ( $wpdb->has_cap( 'collation' ) ) {
 	}
 }
 
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 // Table for storing rules for products.
 $sql = "
@@ -47,16 +47,16 @@ $old_data = $wpdb->get_results( "SELECT post_id, meta_value FROM $wpdb->postmeta
 
 foreach ( $old_data as $data ) {
 	if ( $data->meta_value ) {
-	    $wpdb->insert(
+		$wpdb->insert(
 			"{$wpdb->prefix}woocommerce_per_product_shipping_rules",
 			array(
-				'rule_country' 		=> '',
-				'rule_state' 		=> '',
-				'rule_postcode' 	=> '',
-				'rule_cost' 		=> '',
-				'rule_item_cost' 	=> esc_attr( number_format( $data->meta_value, 2, '.', ',' ) ),
-				'rule_order'		=> 0,
-				'product_id'		=> $data->post_id,
+				'rule_country'   => '',
+				'rule_state'     => '',
+				'rule_postcode'  => '',
+				'rule_cost'      => '',
+				'rule_item_cost' => esc_attr( number_format( $data->meta_value, 2, '.', ',' ) ),
+				'rule_order'     => 0,
+				'product_id'     => $data->post_id,
 			)
 		);
 		add_post_meta( $data->post_id, '_per_product_shipping', 'yes' );

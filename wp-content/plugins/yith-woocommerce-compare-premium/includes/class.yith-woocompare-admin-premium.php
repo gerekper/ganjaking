@@ -1,9 +1,9 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 /**
  * Admin Premium class
  *
- * @author YITH
- * @package YITH WooCommerce Compare
+ * @author YITH <plugins@yithemes.com>
+ * @package YITH\Compare
  * @version 2.0.0
  */
 
@@ -41,7 +41,6 @@ if ( ! class_exists( 'YITH_Woocompare_Admin_Premium' ) ) {
 		 * Register plugins for activation tab
 		 *
 		 * @since    2.0.0
-		 * @author   Andrea Grillo <andrea.grillo@yithemes.com>
 		 * @return void
 		 */
 		public function register_plugin_for_activation() {
@@ -56,7 +55,6 @@ if ( ! class_exists( 'YITH_Woocompare_Admin_Premium' ) ) {
 		 * Register plugins for update tab
 		 *
 		 * @since    2.0.0
-		 * @author   Andrea Grillo <andrea.grillo@yithemes.com>
 		 * @return void
 		 */
 		public function register_plugin_for_updates() {
@@ -71,7 +69,6 @@ if ( ! class_exists( 'YITH_Woocompare_Admin_Premium' ) ) {
 		 *
 		 * @since 2.0.0
 		 * @access public
-		 * @author Francesco Licandro
 		 * @param array $tabs An array of admin settings tabs.
 		 * @return mixed
 		 */
@@ -91,7 +88,6 @@ if ( ! class_exists( 'YITH_Woocompare_Admin_Premium' ) ) {
 		 *
 		 * @access public
 		 * @since 2.0.3
-		 * @author Francesco Licandro
 		 */
 		public function shortcode_tab() {
 			$shortcode_tab_template = YITH_WOOCOMPARE_TEMPLATE_PATH . '/admin/yith-woocompare-shortcode-tab.php';

@@ -44,6 +44,15 @@ class Lock {
 		];
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getUrlRegisteredInAMS() {
+		$lockData = $this->getLockData();
+
+		return $lockData['urlCurrentlyRegisteredInAMS'];
+	}
+
 	private function isLockDataPresent( $lockData ) {
 		return isset( $lockData['stored_fingerprint'] )
 		       && isset( $lockData['received_fingerprint'] )

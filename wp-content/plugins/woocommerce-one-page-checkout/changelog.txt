@@ -1,5 +1,8 @@
 *** WooCommerce One Page Checkout Changelog ***
 
+2023-10-03 - version 2.8.1
+* Fix - Declare incompatibility with Cart/Checkout blocks.
+
 2023-09-19 - version 2.8.0
 * Fix - Prevent warnings if the post object becomes null during pageload.
 

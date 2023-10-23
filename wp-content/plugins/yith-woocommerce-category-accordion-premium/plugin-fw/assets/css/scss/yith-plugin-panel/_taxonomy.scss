@@ -1,0 +1,149 @@
+/**
+ * Taxonomy Style
+ */
+
+.yith-plugin-ui.yith-plugin-ui--taxonomy-type, .yith-plugin-ui--taxonomy-type {
+
+    #col-container {
+        display: flex;
+    }
+
+    #col-left {
+        padding: 20px;
+        background: rgba(241, 245, 249, .5);
+        border-radius: 8px;
+        box-sizing: border-box;
+        margin-right: 15px;
+    }
+
+    #col-right {
+        flex: 1;
+    }
+
+    h2 {
+        border: none;
+        padding: 0;
+        font-size: 14px;
+        background: transparent;
+    }
+
+    // Edit Tax
+    .wrap h1 {
+        color: #2a8db0;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+
+    .notice {
+        --yith-fw-notice-bg: #f2f7ff;
+        --yith-fw-notice-icon: '\e90e';
+        --yith-fw-notice-border-color: #d2dbea;
+        --yith-fw-notice-color: #4361c4;
+        padding: 15px 40px 15px 45px;
+        margin: 15px 0 20px;
+        border-radius: 6px;
+        background: var(--yith-fw-notice-bg);
+        font-weight: 400;
+        font-size: 14px;
+        text-align: left;
+        color: var(--yith-fw-notice-color);
+        border: 1px solid var(--yith-fw-notice-border-color);
+        position: relative;
+
+        &.notice-success {
+            --yith-fw-notice-bg: #f7fbe9;
+            --yith-fw-notice-icon: '\e921';
+            --yith-fw-notice-border-color: #d7e0b0;
+            --yith-fw-notice-color: #6e861d;
+        }
+
+        &.notice-error {
+            --yith-fw-notice-bg: #fff3f1;
+            --yith-fw-notice-icon: '\e923';
+            --yith-fw-notice-border-color: #dbbcb7;
+            --yith-fw-notice-color: #a91803;
+        }
+
+        a {
+            color: inherit;
+            font-weight: 500;
+        }
+
+        &:before {
+            font-family: yith-icon;
+            content: var(--yith-fw-notice-icon);
+            position: absolute;
+            top: 50%;
+            left: 13px;
+            font-size: 20px;
+            font-weight: 400;
+            transform: translateY(-50%);
+        }
+
+        p {
+            padding: 0;
+            margin: 0;
+        }
+
+        .notice-dismiss {
+            cursor: pointer;
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: inherit;
+
+            &:before {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                border-radius: 50%;
+                opacity: 0;
+                box-shadow: 0 0 0 5px;
+                color: inherit;
+                background: currentColor;
+                transition: all .3s ease-in-out;
+            }
+
+            &:after {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                font-family: 'yith-icon';
+                content: '\f117';
+                font-size: 12px;
+                transform: translateY(-50%) translateX(-50%);
+            }
+
+            &:hover:before {
+                box-shadow: 0 0 0 0;
+                opacity: .1;
+            }
+
+            &:hover:after, &:active:after, &:focus:after {
+                color: inherit;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 782px) {
+    .yith-plugin-ui.yith-plugin-ui--taxonomy-type {
+        #col-container {
+            display: block;
+        }
+
+        #col-left, #col-right {
+            float: none;
+            width: 100%;
+        }
+    }
+}
+

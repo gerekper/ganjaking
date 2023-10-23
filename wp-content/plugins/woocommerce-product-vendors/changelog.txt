@@ -1,5 +1,14 @@
 *** Product Vendors Changelog ***
 
+2023-10-19 - version 2.2.3
+* Dev - Added Playwright end-to-end tests.
+* Dev - Resolve PHP Coding Standards issues.
+* Fix - Only load the registration script if the registration shortcode is present.
+* Tweak - Correct e-mail plain template layouts.
+
+2023-10-09 - version 2.2.2
+* Fix - Prevent unauthenticated broken access control related to installation routine.
+
 2023-09-05 - version 2.2.1
 * Fix - Display up-to-date vendor names in CSV Export.
 * Fix - Division by zero error in refunded commission logic.

@@ -193,6 +193,7 @@ function wpml_tm_load( $sitepress = null ) {
 			\WPML\TM\ATE\StatusIcons::class,
 			\WPML\TM\Editor\ManualJobCreationErrorNotice::class,
 			\WPML\ICLToATEMigration\Loader::class,
+			\WPML\Support\ATE\Hooks::class,
 		];
 		$action_filter_loader->load( $ams_ate_actions );
 

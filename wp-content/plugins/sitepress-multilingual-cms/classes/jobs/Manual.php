@@ -20,12 +20,16 @@ class Manual {
 	 * @return \WPML_Translation_Job|null
 	 */
 	public function createOrReuse( array $params ) {
-		$jobId = (int) filter_var( Obj::propOr( 0, 'job_id', $params ), FILTER_SANITIZE_NUMBER_INT );
+		$jobId    = (int) filter_var( Obj::propOr( 0, 'job_id', $params ), FILTER_SANITIZE_NUMBER_INT );
+		$isReview = (bool) filter_var( Obj::propOr( 0, 'preview', $params ), FILTER_SANITIZE_NUMBER_INT );
 
 		list( $jobId, $trid, $updateNeeded, $targetLanguageCode, $elementType ) = $this->get_job_data_for_restore( $jobId, $params );
 		$sourceLangCode = filter_var( Obj::prop( 'source_language_code', $params ), FILTER_SANITIZE_FULL_SPECIAL_CHARS );
 
-		if ( $trid && $targetLanguageCode && ( $updateNeeded || ! $jobId ) ) {
+		// When the post needs update, but the user is reviewing a specific job, we shall not create a new job neither, it leads to wrong state.
+		$needsUpdateAndIsNotReviewMode = $updateNeeded && ! $isReview;
+
+		if ( $trid && $targetLanguageCode && ( $needsUpdateAndIsNotReviewMode || ! $jobId ) ) {
 			$postId = $this->getOriginalPostId( $trid );
 
 			// if $jobId is not a truthy value this means that a new translation is going to be created in $targetLanguageCode (the + icon is clicked in posts list page)

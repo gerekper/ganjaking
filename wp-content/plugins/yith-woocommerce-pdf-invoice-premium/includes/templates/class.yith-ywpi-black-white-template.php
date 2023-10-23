@@ -1,17 +1,19 @@
-<?php // phpcs:ignore WordPress.NamingConventions.
+<?php // phpcs:ignore WordPress.Files.FileName.NotHyphenatedLowercase, WordPress.Files.FileName.InvalidClassFileName
+/**
+ * Class that manage the black-white template.
+ *
+ * @package YITH\PDF_Invoice\Classes
+ * @since   2.1.0
+ * @author  YITH <plugins@yithemes.com>
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
 if ( ! class_exists( 'YITH_YWPI_Template' ) ) {
-
 	/**
-	 * Class that manage the default template.
-	 *
-	 * @class   YITH_YWPI_Black_White_Template
-	 * @package Yithemes
-	 * @since   2.1.0
-	 * @author  Your Inspiration Themes
+	 * YITH_YWPI_Black_White_Template class
 	 */
 	class YITH_YWPI_Black_White_Template extends YITH_YWPI_Template_Default {
 
@@ -22,6 +24,7 @@ if ( ! class_exists( 'YITH_YWPI_Template' ) ) {
 		 * @since 2.1.0
 		 */
 		protected static $instance;
+
 		/**
 		 * The template path where to find the templates.
 		 *
@@ -48,106 +51,50 @@ if ( ! class_exists( 'YITH_YWPI_Template' ) ) {
 		 * Initialize plugin and registers actions and filters to be used
 		 *
 		 * @since  1.0
-		 * @author Lorenzo giuffrida
 		 * @access public
 		 */
 		private function __construct() {
-
 			/**
 			 * Show the document title template
 			 */
-			add_action(
-				'yith_ywpi_template_document_header',
-				array(
-					$this,
-					'show_document_logo',
-				)
-			);
+			add_action( 'yith_ywpi_template_document_header', array( $this, 'show_document_logo' ) );
 
 			/**
 			 * Show the document data
 			 */
-			add_action(
-				'yith_ywpi_template_document_data',
-				array(
-					$this,
-					'show_document_data',
-				)
-			);
+			add_action( 'yith_ywpi_template_document_data', array( $this, 'show_document_data' ) );
 
 			/**
 			 * Show the customer details
 			 */
-			add_action(
-				'yith_ywpi_template_customer_details',
-				array(
-					$this,
-					'show_customer_details',
-				)
-			);
+			add_action( 'yith_ywpi_template_customer_details', array( $this, 'show_customer_details' ) );
 
-			add_filter(
-				'yith_ywpi_customer_details_content',
-				array(
-					$this,
-					'modify_customer_details_content',
-				),
-				10,
-				2
-			);
+			add_filter( 'yith_ywpi_customer_details_content', array( $this, 'modify_customer_details_content' ), 10, 2 );
 
 			/**
 			 * Show the document details
 			 */
-			add_action(
-				'yith_ywpi_template_document_details',
-				array(
-					$this,
-					'show_document_details',
-				)
-			);
+			add_action( 'yith_ywpi_template_document_details', array( $this, 'show_document_details' ) );
 
 			/**
 			 * Show the order content
 			 */
-			add_action(
-				'yith_ywpi_template_order_content',
-				array(
-					$this,
-					'show_order_content',
-				)
-			);
+			add_action( 'yith_ywpi_template_order_content', array( $this, 'show_order_content' ) );
+
 			/**
 			 * Show product list (table)
 			 */
-			add_action(
-				'yith_ywpi_invoice_template_products_list',
-				array(
-					$this,
-					'show_invoice_products_list_template',
-				)
-			);
+			add_action( 'yith_ywpi_invoice_template_products_list', array( $this, 'show_invoice_products_list_template' ) );
+
 			/**
 			 * Show totals
 			 */
-			add_action(
-				'yith_ywpi_invoice_template_totals',
-				array(
-					$this,
-					'show_totals',
-				)
-			);
+			add_action( 'yith_ywpi_invoice_template_totals', array( $this, 'show_totals' ) );
 
 			/**
 			 * Show notes
 			 */
-			add_action(
-				'yith_ywpi_template_notes',
-				array(
-					$this,
-					'show_notes',
-				)
-			);
+			add_action( 'yith_ywpi_template_notes', array( $this, 'show_notes' ) );
 		}
 
 		/**
@@ -155,12 +102,21 @@ if ( ! class_exists( 'YITH_YWPI_Template' ) ) {
 		 *
 		 * @param YITH_Document $document The document object.
 		 *
-		 * @author YITH
 		 * @since  1.0.0
 		 */
 		public function show_document_logo( $document ) {
 			$company_logo_path = 'yes' === ywpi_get_option( 'ywpi_show_company_logo', $document ) ? ywpi_get_option( 'ywpi_company_logo', $document ) : null;
 
+			/**
+			 * APPLY_FILTERS: yith_ywpi_template_company_logo_path
+			 *
+			 * Filter the company logo path displayed in the documents.
+			 *
+			 * @param string $company_logo_path the logo path.
+			 * @param object $document the document object.
+			 *
+			 * @return string
+			 */
 			wc_get_template(
 				$this->template_path . 'document-logo.php',
 				array(
@@ -177,11 +133,9 @@ if ( ! class_exists( 'YITH_YWPI_Template' ) ) {
 		 *
 		 * @param YITH_Document $document The document object.
 		 *
-		 * @author YITH
 		 * @since  1.0.0
 		 */
 		public function show_document_data( $document ) {
-
 			wc_get_template(
 				$this->template_path . 'document-data.php',
 				array(

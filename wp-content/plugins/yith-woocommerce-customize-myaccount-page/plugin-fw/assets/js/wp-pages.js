@@ -1,26 +1,35 @@
-/* global yith_plugin_fw_wp_pages */
+/* global yith_plugin_fw_wp_pages, yith */
 jQuery( function ( $ ) {
-	var wrap    = $( '.yith-plugin-fw-wp-page-wrapper' ),
-		notices = $( 'div.updated, div.error, div.notice' ).not( '#message' ),
-		message = $( 'div#message.updated' );
-
 	// prevents the WC message for changes when leaving the panel page
 	$( '.yith-plugin-fw-wp-page-wrapper .woo-nav-tab-wrapper' ).removeClass( 'woo-nav-tab-wrapper' ).addClass( 'yith-nav-tab-wrapper' );
 
-	// prevent moving notices withing the tab in WP Pages and move them into the wrapper
-	notices.addClass( 'inline' );
-	if ( wrap.length ) {
-		wrap.prepend( notices );
-	}
+	var isTaxEdit = 'term-php' === window.adminpage;
 
 	// Update message animation.
-	if ( message.length ) {
-		message.addClass( 'yith-plugin-fw-animate__appear-from-top' ).show();
-		message.on( 'click', '.notice-dismiss', function ( e ) {
-			e.stopPropagation();
-			message.removeClass( 'yith-plugin-fw-animate__appear-from-top' ).slideUp( 200 );
-		} )
-	}
+	( function () {
+		var message;
+		if ( isTaxEdit ) {
+			message                 = $( 'div#message' );
+			var ajaxResponseElement = $( '#ajax-response' );
+			if ( message.length ) {
+				if ( ajaxResponseElement.length ) {
+					message.insertAfter( ajaxResponseElement );
+					message.addClass( 'inline' );
+					message.addClass( 'yith-plugin-fw-animate__appear-from-top' ).show();
+				}
+			}
+		} else {
+			message = $( 'div#message.updated' );
+			if ( message.length ) {
+				message.addClass( 'inline' );
+				message.addClass( 'yith-plugin-fw-animate__appear-from-top' ).show();
+				message.on( 'click', '.notice-dismiss', function ( e ) {
+					e.stopPropagation();
+					message.removeClass( 'yith-plugin-fw-animate__appear-from-top' ).slideUp( 200 );
+				} );
+			}
+		}
+	} )();
 
 	// Confirmation window when deleting custom post types and custom terms through Bulk Actions.
 	if ( yith_plugin_fw_wp_pages.bulk_delete_confirmation_enabled ) {
@@ -73,4 +82,13 @@ jQuery( function ( $ ) {
 		} );
 	}
 
+	// Fix the WP footer
+	( function () {
+		var wrongWpFooter = $( '#wpbody #wpfooter' ),
+			wpContent     = $( '#wpcontent' );
+
+		if ( wrongWpFooter.length && wpContent.length ) {
+			wpContent.append( wrongWpFooter );
+		}
+	} )();
 } );

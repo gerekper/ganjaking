@@ -201,7 +201,7 @@ class Vc_Updating_Manager {
 		if ( ! $is_activated ) {
 			$url = vc_updater()->getUpdaterUrl();
 
-			echo sprintf( ' ' . esc_html__( 'To receive automatic updates license activation is required. Please visit %ssettings%s to activate your WPBakery Page Builder.', 'js_composer' ), '<a href="' . esc_url( $url ) . '" target="_blank">', '</a>' ) . sprintf( ' <a href="https://go.wpbakery.com/faq-update-in-theme" target="_blank">%s</a>', esc_html__( 'Got WPBakery Page Builder in theme?', 'js_composer' ) );
+			echo sprintf( ' ' . esc_html__( 'To receive automatic updates license activation is required. Please visit %1$ssettings%2$s to activate your WPBakery Page Builder.', 'js_composer' ), '<a href="' . esc_url( $url ) . '" target="_blank">', '</a>' ) . sprintf( ' <a href="https://go.wpbakery.com/faq-update-in-theme" target="_blank">%s</a>', esc_html__( 'Got WPBakery Page Builder in theme?', 'js_composer' ) );
 		}
 	}
 }

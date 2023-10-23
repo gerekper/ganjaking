@@ -368,7 +368,7 @@ class Vc_Manager {
 		 * 3. admin_frontend_editor_ajax - set by request param
 		 * 4. admin_backend_editor_ajax - set by request param
 		 * 5. admin_updater - by vc_action
-		 * 6. page_editable - by vc_action
+		 * 6. page_editable - by vc_action or transient with vc_action param
 		 */
 		if ( is_admin() ) {
 			if ( 'vc_inline' === vc_action() ) {
@@ -387,10 +387,16 @@ class Vc_Manager {
 			}
 		} else {
 			if ( 'true' === vc_get_param( 'vc_editable' ) ) {
-				vc_user_access()->checkAdminNonce()->validateDie()->wpAny( array(
+				vc_user_access()->checkAdminNonce()->validateDie()->wpAny(array(
 					'edit_post',
 					(int) vc_request_param( 'vc_post_id' ),
-				) )->validateDie()->part( 'frontend_editor' )->can()->validateDie();
+				))->validateDie()->part( 'frontend_editor' )->can()->validateDie();
+
+
+
+
+
+
 				$this->mode = 'page_editable';
 			} else {
 				$this->mode = 'page';

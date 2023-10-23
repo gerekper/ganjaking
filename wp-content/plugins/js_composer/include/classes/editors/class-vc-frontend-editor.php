@@ -421,11 +421,9 @@ class Vc_Frontend_Editor {
 	/**
 	 * Used for wp filter 'wp_insert_post_empty_content' to allow empty post insertion.
 	 *
-	 * @param $allow_empty
-	 *
 	 * @return bool
 	 */
-	public function allowInsertEmptyPost( $allow_empty ) {
+	public function allowInsertEmptyPost() {
 		return false;
 	}
 
@@ -1030,10 +1028,20 @@ class Vc_Frontend_Editor {
 		$is_container = $shortcode_obj->settings( 'is_container' ) || ( null !== $shortcode_obj->settings( 'as_parent' ) && false !== $shortcode_obj->settings( 'as_parent' ) );
 		$shortcode = apply_filters( 'vc_frontend_editor_to_string', $shortcode, $shortcode_obj );
 
-		$output = sprintf( '<div class="vc_element" data-tag="%s" data-shortcode-controls="%s" data-model-id="%s">%s[%s %s]%s[/%s]%s</div>', esc_attr( $shortcode['tag'] ), esc_attr( wp_json_encode( $shortcode_obj->shortcodeClass()
+		return sprintf( '<div class="vc_element" data-tag="%s" data-shortcode-controls="%s" data-model-id="%s">%s[%s %s]%s[/%s]%s</div>', esc_attr( $shortcode['tag'] ), esc_attr( wp_json_encode( $shortcode_obj->shortcodeClass()
 			->getControlsList() ) ), esc_attr( $shortcode['id'] ), $this->wrapperStart(), $shortcode['tag'], $shortcode['attrs_query'], $is_container ? '[vc_container_anchor]' . $this->parseShortcodesString( $content, $is_container, $shortcode['id'] ) : do_shortcode( $content ), $shortcode['tag'], $this->wrapperEnd() );
+	}
 
-		return $output;
+	/**
+	 * Set transients that we use to determine
+	 * if frontend editor is active between php loading iteration inside the same post.
+	 *
+	 * @note mostly we use it to fix issue with iframe redirection.
+	 *
+	 * @since 7.1
+	 */
+	public function setFrontendEditorTransient() {
+		set_transient( 'vc_action', 'vc_editable', 10 );
 	}
 }
 

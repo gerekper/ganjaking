@@ -10,7 +10,7 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://pear.php.net/package/Math_BigInteger
  *
- * Modified by woocommerce on 18-September-2023 using Strauss.
+ * Modified by woocommerce on 09-October-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -645,6 +645,11 @@ abstract class Engine implements \JsonSerializable
             }
 
             return $this->normalize($temp->powModInner($e, $n));
+        }
+
+        if ($this->compare($n) > 0) {
+            list(, $temp) = $this->divide($n);
+            return $temp->powModInner($e, $n);
         }
 
         return $this->powModInner($e, $n);

@@ -31,30 +31,30 @@ foreach ( $order->get_items() as $item_id => $item ) :
 	if ( apply_filters( 'woocommerce_order_item_visible', true, $item ) ) {
 
 		// Title
-		echo apply_filters( 'woocommerce_order_item_name', $item['name'], $item, false );
+		echo esc_html( wp_strip_all_tags( apply_filters( 'woocommerce_order_item_name', $item['name'], $item, false ) ) );
 
 		// SKU
 		if ( $_product->get_sku() ) {
-			echo ' (#' . $_product->get_sku() . ')';
+			echo ' (#' . esc_html( wp_strip_all_tags( $_product->get_sku() ) ) . ')';
 		}
 
 		// allow other plugins to add additional product information here
 		do_action( 'woocommerce_order_item_meta_start', $item_id, $item, $order );
 
 		// Variation
-		echo strip_tags( wc_display_item_meta( $item, array(
+		echo wp_kses_post( strip_tags( wc_display_item_meta( $item, array(
 			'before'    => "\n- ",
 			'separator' => "\n- ",
 			'after'     => "",
 			'echo'      => false,
 			'autop'     => false,
-		) ) );
+		) ) ) );
 
 		// Quantity
-		echo "\n" . sprintf( __( 'Quantity: %s', 'woocommerce-product-vendors' ), apply_filters( 'woocommerce_email_order_item_quantity', $item['qty'], $item ) );
+		echo "\n" . sprintf( esc_html__( 'Quantity: %s', 'woocommerce-product-vendors' ), esc_html( apply_filters( 'woocommerce_email_order_item_quantity', $item['qty'], $item ) ) );
 
 		// Cost
-		echo "\n" . sprintf( __( 'Cost: %s', 'woocommerce-product-vendors' ), $order->get_formatted_line_subtotal( $item ) );
+		echo "\n" . sprintf( esc_html__( 'Cost: %s', 'woocommerce-product-vendors' ), esc_html( wp_strip_all_tags( $order->get_formatted_line_subtotal( $item ) ) ) );
 
 		// allow other plugins to add additional product information here
 		do_action( 'woocommerce_order_item_meta_end', $item_id, $item, $order );
@@ -70,7 +70,7 @@ $shipping_method = $order->get_shipping_method();
 $customer_note   = $order->get_customer_note();
 
 if ( $pass_shipping && ! empty( $shipping_method ) ) {
-	echo esc_html( 'Shipping method', 'woocommerce-product-vendors' ) . "\t " . esc_html( $shipping_method ) . "\n";
+	echo esc_html__( 'Shipping method:', 'woocommerce-product-vendors' ) . "\t " . esc_html( $shipping_method ) . "\n";
 }
 
 /**

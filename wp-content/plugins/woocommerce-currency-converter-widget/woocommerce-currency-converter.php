@@ -3,17 +3,17 @@
  * Plugin Name: WooCommerce Currency Converter
  * Plugin URI: https://woocommerce.com/products/currency-converter-widget/
  * Description: Provides a currency selection widget for displaying product prices and totals in different currencies. Conversions are estimated based on data from the Open Exchange Rates API with no guarantee whatsoever of accuracy.
- * Version: 2.0.2
- * Author: Themesquad
- * Author URI: https://themesquad.com/
+ * Version: 2.1.0
+ * Author: KoiLab
+ * Author URI: https://koilab.com/
  * Text Domain: woocommerce-currency-converter-widget
  * Domain Path: /languages
- * Requires PHP: 5.6
- * Requires at least: 4.9
- * Tested up to: 6.2
+ * Requires PHP: 7.0
+ * Requires at least: 5.0
+ * Tested up to: 6.3
  *
- * WC requires at least: 3.7
- * WC tested up to: 7.7
+ * WC requires at least: 4.0
+ * WC tested up to: 8.2
  * Woo: 18651:0b2ec7cb103c9c102d37f8183924b271
  *
  * License: GNU General Public License v3.0
@@ -27,14 +27,14 @@ defined( 'ABSPATH' ) || exit;
 // Load the class autoloader.
 require __DIR__ . '/src/Autoloader.php';
 
-if ( ! \Themesquad\WC_Currency_Converter\Autoloader::init() ) {
+if ( ! \KoiLab\WC_Currency_Converter\Autoloader::init() ) {
 	return;
 }
 
 // Plugin requirements.
-\Themesquad\WC_Currency_Converter\Requirements::init();
+\KoiLab\WC_Currency_Converter\Requirements::init();
 
-if ( ! \Themesquad\WC_Currency_Converter\Requirements::are_satisfied() ) {
+if ( ! \KoiLab\WC_Currency_Converter\Requirements::are_satisfied() ) {
 	return;
 }
 

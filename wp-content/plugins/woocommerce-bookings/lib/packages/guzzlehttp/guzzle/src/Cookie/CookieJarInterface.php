@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by woocommerce on 18-September-2023 using Strauss.
+ * Modified by woocommerce on 09-October-2023 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -20,6 +20,7 @@ use Automattic\WooCommerce\Bookings\Vendor\Psr\Http\Message\ResponseInterface;
  * cookies from a file, database, etc.
  *
  * @see https://docs.python.org/2/library/cookielib.html Inspiration
+ *
  * @extends \IteratorAggregate<SetCookie>
  */
 interface CookieJarInterface extends \Countable, \IteratorAggregate
@@ -67,7 +68,7 @@ interface CookieJarInterface extends \Countable, \IteratorAggregate
      * @param string|null $path   Clears cookies matching a domain and path
      * @param string|null $name   Clears cookies matching a domain, path, and name
      */
-    public function clear(?string $domain = null, ?string $path = null, ?string $name = null): void;
+    public function clear(string $domain = null, string $path = null, string $name = null): void;
 
     /**
      * Discard all sessions cookies.

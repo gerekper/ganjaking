@@ -5,7 +5,7 @@
 	 *
 	 * Body XML.
 	 *
-	 * @author  YITH
+	 * @author  YITH <plugins@yithemes.com>
 	 * @package YITH\PDFInvoice\Templates
 	 */
 

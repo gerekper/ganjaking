@@ -63,20 +63,20 @@ class WC_Shipping_Legacy_Per_Product extends WC_Shipping_Method {
 	 */
 	public function init_form_fields() {
 		$this->form_fields = array(
-			'enabled' => array(
+			'enabled'      => array(
 				'title'   => __( 'Standalone Method', 'woocommerce-shipping-per-product' ),
 				'type'    => 'checkbox',
 				'label'   => __( 'Enable per-product shipping as a standalone shipping method', 'woocommerce-shipping-per-product' ),
 				'default' => 'yes',
 			),
-			'title' => array(
+			'title'        => array(
 				'title'       => __( 'Method Title', 'woocommerce-shipping-per-product' ),
 				'type'        => 'text',
 				'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce-shipping-per-product' ),
 				'default'     => __( 'Product Shipping', 'woocommerce-shipping-per-product' ),
 				'desc_tip'    => true,
 			),
-			'tax_status' => array(
+			'tax_status'   => array(
 				'title'       => __( 'Tax Status', 'woocommerce-shipping-per-product' ),
 				'type'        => 'select',
 				'description' => '',
@@ -86,7 +86,7 @@ class WC_Shipping_Legacy_Per_Product extends WC_Shipping_Method {
 					'none'    => __( 'None', 'woocommerce-shipping-per-product' ),
 				),
 			),
-			'cost' => array(
+			'cost'         => array(
 				'title'       => __( 'Default Product Cost', 'woocommerce-shipping-per-product' ),
 				'type'        => 'text',
 				'description' => __( 'Cost excluding tax (per product) for products without defined costs. Enter an amount, e.g. 2.50.', 'woocommerce-shipping-per-product' ),
@@ -94,7 +94,7 @@ class WC_Shipping_Legacy_Per_Product extends WC_Shipping_Method {
 				'placeholder' => '0',
 				'desc_tip'    => true,
 			),
-			'fee' => array(
+			'fee'          => array(
 				'title'       => __( 'Handling Fee (per product)', 'woocommerce-shipping-per-product' ),
 				'type'        => 'text',
 				'description' => __( 'Fee excluding tax. Enter an amount, e.g. 2.50, or a percentage, e.g. 5%. Leave blank to disable.', 'woocommerce-shipping-per-product' ),
@@ -102,7 +102,7 @@ class WC_Shipping_Legacy_Per_Product extends WC_Shipping_Method {
 				'placeholder' => '0',
 				'desc_tip'    => true,
 			),
-			'order_fee' => array(
+			'order_fee'    => array(
 				'title'       => __( 'Handling Fee (per order)', 'woocommerce-shipping-per-product' ),
 				'type'        => 'text',
 				'description' => __( 'Fee excluding tax. Enter an amount, e.g. 2.50, or a percentage, e.g. 5%. Leave blank to disable.', 'woocommerce-shipping-per-product' ),
@@ -111,16 +111,16 @@ class WC_Shipping_Legacy_Per_Product extends WC_Shipping_Method {
 				'desc_tip'    => true,
 			),
 			'availability' => array(
-				'title'        => __( 'Method availability', 'woocommerce-shipping-per-product' ),
-				'type'         => 'select',
-				'default'      => 'all',
-				'class'        => 'availability',
-				'options'      => array(
+				'title'   => __( 'Method availability', 'woocommerce-shipping-per-product' ),
+				'type'    => 'select',
+				'default' => 'all',
+				'class'   => 'availability',
+				'options' => array(
 					'all'      => __( 'All allowed countries', 'woocommerce-shipping-per-product' ),
 					'specific' => __( 'Specific Countries', 'woocommerce-shipping-per-product' ),
 				),
 			),
-			'countries' => array(
+			'countries'    => array(
 				'title'   => __( 'Specific Countries', 'woocommerce-shipping-per-product' ),
 				'type'    => 'multiselect',
 				'class'   => 'chosen_select',
@@ -137,9 +137,9 @@ class WC_Shipping_Legacy_Per_Product extends WC_Shipping_Method {
 	 * @param array $package information.
 	 */
 	public function calculate_shipping( $package = array() ) {
-		$_tax           = new WC_Tax();
-		$taxes          = array();
-		$shipping_cost  = 0;
+		$_tax          = new WC_Tax();
+		$taxes         = array();
+		$shipping_cost = 0;
 
 		if ( 'yes' !== $this->enabled ) {
 			return;
@@ -151,7 +151,7 @@ class WC_Shipping_Legacy_Per_Product extends WC_Shipping_Method {
 				if ( $values['quantity'] > 0 ) {
 					if ( $values['data']->needs_shipping() ) {
 
-						$rule = false;
+						$rule               = false;
 						$item_shipping_cost = 0;
 
 						if ( $values['variation_id'] ) {
@@ -184,7 +184,7 @@ class WC_Shipping_Legacy_Per_Product extends WC_Shipping_Method {
 
 							// Sum the item taxes.
 							foreach ( array_keys( $taxes + $item_taxes ) as $key ) {
-								$taxes[ $key ] = ( isset( $item_taxes[ $key ] ) ? $item_taxes[ $key ] : 0 ) + ( isset( $taxes[ $key ] ) ? $taxes[ $key ] : 0);
+								$taxes[ $key ] = ( isset( $item_taxes[ $key ] ) ? $item_taxes[ $key ] : 0 ) + ( isset( $taxes[ $key ] ) ? $taxes[ $key ] : 0 );
 							}
 						}
 					}
@@ -203,17 +203,19 @@ class WC_Shipping_Legacy_Per_Product extends WC_Shipping_Method {
 
 				// Sum the item taxes.
 				foreach ( array_keys( $taxes + $item_taxes ) as $key ) {
-					$taxes[ $key ] = ( isset( $item_taxes[ $key ] ) ? $item_taxes[ $key ] : 0 ) + ( isset( $taxes[ $key ] ) ? $taxes[ $key ] : 0);
+					$taxes[ $key ] = ( isset( $item_taxes[ $key ] ) ? $item_taxes[ $key ] : 0 ) + ( isset( $taxes[ $key ] ) ? $taxes[ $key ] : 0 );
 				}
 			}
 		}
 
 		// Add rate.
-		$this->add_rate( array(
-			'id'    => $this->id,
-			'label' => $this->title,
-			'cost'  => $shipping_cost,
-			'taxes' => $taxes, // We calc tax in the method.
-		) );
+		$this->add_rate(
+			array(
+				'id'    => $this->id,
+				'label' => $this->title,
+				'cost'  => $shipping_cost,
+				'taxes' => $taxes, // We calc tax in the method.
+			)
+		);
 	}
 }

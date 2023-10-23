@@ -12,7 +12,7 @@ if ( ! class_exists( 'YIT_Plugin_SubPanel' ) ) {
 	/**
 	 * YIT_Plugin_SubPanel class.
 	 *
-	 * @author Emanuela Castorina <emanuela.castorina@yithemes.it>
+	 * @author YITH <plugins@yithemes.com>
 	 */
 	class YIT_Plugin_SubPanel extends YIT_Plugin_Panel {
 
@@ -52,8 +52,6 @@ if ( ! class_exists( 'YIT_Plugin_SubPanel' ) ) {
 		/**
 		 * Register Settings
 		 * Generate wp-admin settings pages by registering your settings and using a few callbacks to control the output
-		 *
-		 * @author   Emanuela Castorina <emanuela.castorina@yithemes.it>
 		 */
 		public function register_settings() {
 			register_setting( 'yit_' . $this->settings['page'] . '_options', 'yit_' . $this->settings['page'] . '_options', array( &$this, 'options_validate' ) );
@@ -63,8 +61,6 @@ if ( ! class_exists( 'YIT_Plugin_SubPanel' ) ) {
 		/**
 		 * Add Setting SubPage
 		 * add Setting SubPage to WordPress administrator
-		 *
-		 * @author   Emanuela Castorina <emanuela.castorina@yithemes.it>
 		 */
 		public function add_setting_page() {
 			global $admin_page_hooks;
@@ -90,8 +86,6 @@ if ( ! class_exists( 'YIT_Plugin_SubPanel' ) ) {
 		/**
 		 * Show a tabbed panel to setting page
 		 * a callback function called by add_setting_page => add_submenu_page
-		 *
-		 * @author   Emanuela Castorina <emanuela.castorina@yithemes.it>
 		 */
 		public function yit_panel() {
 			$tabs        = '';
@@ -117,19 +111,23 @@ if ( ! class_exists( 'YIT_Plugin_SubPanel' ) ) {
 				return;
 			}
 
-			$panel_content_class = apply_filters( 'yit_admin_panel_content_class', 'yit-admin-panel-content-wrap' );
+			$form_method         = apply_filters( 'yit_admin_panel_form_method', 'POST', $current_tab );
+			$panel_content_class = apply_filters( 'yit_admin_panel_content_class', 'yit-admin-panel-content-wrap', $current_tab );
 			?>
 			<div id="wrap" class="yith-plugin-fw plugin-option yit-admin-panel-container">
 				<?php $this->message(); ?>
 				<div class="<?php echo esc_attr( $panel_content_class ); ?>">
 					<h2><?php echo wp_kses_post( $this->get_tab_title() ); ?></h2>
 					<?php if ( $this->is_show_form() ) : ?>
-						<form id="yith-plugin-fw-panel" method="post" action="options.php">
+						<form id="yith-plugin-fw-panel" method="<?php echo esc_attr( $form_method ); ?>" action="options.php">
 							<?php do_settings_sections( 'yit' ); ?>
 							<p>&nbsp;</p>
 							<?php settings_fields( 'yit_' . $this->settings['parent'] . '_options' ); ?>
 							<input type="hidden" name="<?php echo esc_attr( $this->get_name_field( 'current_tab' ) ); ?>" value="<?php echo esc_attr( $current_tab ); ?>"/>
 							<input type="submit" class="button-primary" value="<?php esc_attr_e( 'Save Changes', 'yith-plugin-fw' ); ?>" style="float:left;margin-right:10px;"/>
+							<input type="hidden" name="page" value="<?php echo esc_attr( $this->settings['page'] ); ?>"/>
+							<input type="hidden" name="tab" value="<?php echo esc_attr( $this->get_current_tab() ); ?>"/>
+							<input type="hidden" name="sub_tab" value="<?php echo esc_attr( $this->get_current_sub_tab() ); ?>"/>
 						</form>
 						<form method="post">
 							<?php

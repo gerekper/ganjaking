@@ -1,14 +1,14 @@
-# Copyright (C) 2021
+# Copyright (C) 2023 
 # This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: YITH <plugins@yithemes.com>\n"
-"POT-Creation-Date: 2021-11-24 14:21:42+00:00\n"
+"POT-Creation-Date: 2023-06-21 09:03:36+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: YITH <info@yithemes.com>\n"
 "Language: en\n"
@@ -24,7 +24,7 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
-#: lib/yit-licence.php:112 lib/yit-plugin-licence-onboarding.php:68
+#: lib/yit-licence.php:110 lib/yit-plugin-licence-onboarding.php:68
 #: lib/yit-plugin-licence-onboarding.php:69
 #: templates/panel/activation/activation-panel.php:29
 #: templates/panel/activation/onboarding-activation.php:27
@@ -68,66 +68,58 @@ msgstr ""
 msgid "Where to find the e-mail and license ?"
 msgstr ""
 
-#: lib/yit-licence.php:866
+#: lib/yit-licence.php:870
 msgid "Invalid Request"
 msgstr ""
 
-#: lib/yit-licence.php:867
+#: lib/yit-licence.php:871
 msgid ""
-"Matching licence key not found. Be sure to use the email used for the order "
+"Matching license key not found. Be sure to use the email used for the order "
 "in YITH and the correct license serial number."
 msgstr ""
 
-#: lib/yit-licence.php:868
+#: lib/yit-licence.php:872
 msgid "Software has been deactivated"
 msgstr ""
 
-#: lib/yit-licence.php:869
+#: lib/yit-licence.php:873
 msgid "Maximum number of license activations reached"
 msgstr ""
 
-#: lib/yit-licence.php:870
+#: lib/yit-licence.php:874
 msgid "Invalid instance ID"
 msgstr ""
 
-#: lib/yit-licence.php:871
+#: lib/yit-licence.php:875
 msgid "Invalid security key"
 msgstr ""
 
-#: lib/yit-licence.php:872
+#: lib/yit-licence.php:876
 msgid "License key has expired"
 msgstr ""
 
-#: lib/yit-licence.php:873
+#: lib/yit-licence.php:877
 msgid "License key has been revoked"
 msgstr ""
 
-#: lib/yit-licence.php:874
+#: lib/yit-licence.php:878
 msgid "This product is not included in your YITH Club Subscription Plan"
 msgstr ""
 
-#: lib/yit-licence.php:875
+#: lib/yit-licence.php:879
 msgid "Great"
 msgstr ""
 
-#: lib/yit-licence.php:875
+#: lib/yit-licence.php:879
 msgid "License successfully activated"
 msgstr ""
 
-#: lib/yit-licence.php:876
+#: lib/yit-licence.php:880
 msgid "License key deactivated for website"
 msgstr ""
 
-#: lib/yit-licence.php:892
+#: lib/yit-licence.php:897
 msgid "Error"
-msgstr ""
-
-#: lib/yit-licence.php:1005
-msgid "Thank you for choosing YITH to improve your shop!"
-msgstr ""
-
-#: lib/yit-licence.php:1010
-msgid "set your license key"
 msgstr ""
 
 #: lib/yit-plugin-licence.php:92 lib/yit-plugin-licence.php:93
@@ -140,19 +132,19 @@ msgstr ""
 msgid "An unexpected error occurred, please try again later. Thanks!"
 msgstr ""
 
-#: lib/yit-plugin-upgrade.php:384
+#: lib/yit-plugin-upgrade.php:386
 msgid "YITH Repository"
 msgstr ""
 
-#: lib/yit-plugin-upgrade.php:414
+#: lib/yit-plugin-upgrade.php:416
 msgid "Invalid URL Provided."
 msgstr ""
 
-#: lib/yit-plugin-upgrade.php:427
+#: lib/yit-plugin-upgrade.php:429
 msgid "Could not create Temporary file."
 msgstr ""
 
-#: lib/yit-plugin-upgrade.php:702
+#: lib/yit-plugin-upgrade.php:704
 #. translators: %1$s, %3$s are placeholders for the plugin name, %2$s the link
 #. to open changelog modal, %4$s is the new plugin version.
 msgid ""
@@ -161,7 +153,7 @@ msgid ""
 "version %4$s details</a>."
 msgstr ""
 
-#: lib/yit-plugin-upgrade.php:705 lib/yit-plugin-upgrade.php:715
+#: lib/yit-plugin-upgrade.php:707 lib/yit-plugin-upgrade.php:717
 msgid ""
 "There is a new version of %1$s available. <a href=\"%2$s\" class=\"thickbox "
 "yit-changelog-button open-plugin-details-modal\" title=\"%3$s\">View "
@@ -169,7 +161,7 @@ msgid ""
 "data-plugin=\"%7$s\" data-slug=\"%8$s\" data-name=\"%1$s\">update now</a>."
 msgstr ""
 
-#: lib/yit-plugin-upgrade.php:708
+#: lib/yit-plugin-upgrade.php:710
 #. translators: %1$s, %3$s are placeholders for the plugin name, %2$s the link
 #. to open changelog modal, %4$s is the new plugin version.
 msgid ""
@@ -180,7 +172,7 @@ msgid ""
 "updates.</em>"
 msgstr ""
 
-#: lib/yit-plugin-upgrade.php:713
+#: lib/yit-plugin-upgrade.php:715
 #. translators: %1$s, %3$s, %6$s are placeholders for the plugin name, %2$s the
 #. link to open changelog modal, %4$s is the new plugin version, %5$s is the
 #. link to activation page.
@@ -192,7 +184,7 @@ msgid ""
 "your copy of %1$s.</em>"
 msgstr ""
 
-#: lib/yit-plugin-upgrade.php:719
+#: lib/yit-plugin-upgrade.php:721
 msgid ""
 "<br/><b>Please note:</b> You are using a higher version than the latest "
 "available one. </em>Please, make sure you've downloaded the latest version "
@@ -203,13 +195,13 @@ msgid ""
 "version you are using is 100%% malware-free."
 msgstr ""
 
-#: lib/yit-theme-licence.php:175
+#: lib/yit-theme-licence.php:176
 msgid ""
 "I cannot find the license key for activating the theme I have bought some "
 "time ago. Where can I find it?"
 msgstr ""
 
-#: lib/yit-theme-licence.php:179
+#: lib/yit-theme-licence.php:180
 msgid ""
 "If you have purchased one of our products before 27 January 2015, you can "
 "benefit from support and updates (the services offered with the license)\n"
@@ -221,6 +213,31 @@ msgid ""
 "through the license key you will be\n"
 "                    provided with and that you can find in your YITH "
 "account, in section \"My licenses\"."
+msgstr ""
+
+#: templates/license-banner.php:23
+msgid "Please, enter a license key to use"
+msgstr ""
+
+#: templates/license-banner.php:24
+msgid "Please, enter a license key to use this plugin."
+msgstr ""
+
+#: templates/license-banner.php:30
+msgid ""
+"<mark>Remember:</mark> <strong>Plugins without a license can damage your "
+"shop</strong> and pose serious security risks, from installing backdoors to "
+"hijacking your shop for criminal purposes. Only with an active license for "
+"this plugin will you be able to keep your shop secure and get regular "
+"updates and support."
+msgstr ""
+
+#: templates/license-banner.php:34
+msgid "Enter your license key"
+msgstr ""
+
+#: templates/license-banner.php:35
+msgid "Buy a license"
 msgstr ""
 
 #: templates/panel/activation/activation-panel.php:148
@@ -294,7 +311,7 @@ msgid "All done!"
 msgstr ""
 
 #: templates/panel/activation/onboarding-activation.php:89
-msgid "Thank you for activating the plugin licence."
+msgid "Thank you for activating the plugin license."
 msgstr ""
 
 #: templates/panel/activation/onboarding-activation.php:90
@@ -338,41 +355,25 @@ msgctxt "Button text"
 msgid "Go to your Licenses page"
 msgstr ""
 
-#: lib/yit-licence.php:1008
-#. translators: %s is a placeholder for a link "set your license key".
-msgctxt "%s is a placeholder for a link \"set your license key\""
-msgid "Please %s to get premium features and support for:"
-msgstr ""
-
-#: lib/yit-licence.php:1015
-msgctxt "Button label"
-msgid "set your licenses"
-msgstr ""
-
-#: templates/panel/activation/activation-row.php:116
-msgctxt "Button label"
-msgid "Remove"
-msgstr ""
-
-#: lib/yit-plugin-upgrade.php:230
+#: lib/yit-plugin-upgrade.php:232
 #. translators: %s: Plugin name and version
 msgctxt "plugin-fw"
 msgid "Updating %s..."
 msgstr ""
 
-#: lib/yit-plugin-upgrade.php:232
+#: lib/yit-plugin-upgrade.php:234
 #. translators: %s: Plugin name and version
 msgctxt "plugin-fw"
 msgid "%s updated!"
 msgstr ""
 
-#: lib/yit-plugin-upgrade.php:234
+#: lib/yit-plugin-upgrade.php:236
 #. translators: %s: Plugin name and version
 msgctxt "plugin-fw"
 msgid "%s update failed"
 msgstr ""
 
-#: lib/yit-plugin-upgrade.php:364
+#: lib/yit-plugin-upgrade.php:366
 msgctxt "[Update Plugin Message: License not enabled]"
 msgid "You have to activate the plugin to benefit from automatic updates."
 msgstr ""
@@ -429,7 +430,7 @@ msgstr ""
 
 #: templates/panel/activation/onboarding-activation.php:65
 msgctxt "Link on activation license panel"
-msgid "Where to find your licence key?"
+msgid "Where to find your license key?"
 msgstr ""
 
 #: templates/panel/activation/activation-panel.php:99
@@ -500,4 +501,9 @@ msgstr ""
 #: templates/panel/activation/activation-row.php:101
 msgctxt "this is a short text for a link"
 msgid "Or get a new license"
+msgstr ""
+
+#: templates/panel/activation/activation-row.php:116
+msgctxt "Button label"
+msgid "Remove"
 msgstr ""

@@ -5,9 +5,10 @@
  * @package woocommerce-currency-converter-widget
  */
 
-use Themesquad\WC_Currency_Converter\Plugin;
-use Themesquad\WC_Currency_Converter\Utilities\Currency_Utils;
-use Themesquad\WC_Currency_Converter\Utilities\L10n_Utils;
+use KoiLab\WC_Currency_Converter\Plugin;
+use KoiLab\WC_Currency_Converter\Exchange\Rates;
+use KoiLab\WC_Currency_Converter\Utilities\Currency_Utils;
+use KoiLab\WC_Currency_Converter\Utilities\L10n_Utils;
 
 /**
  * Currency Converter Main Class
@@ -24,7 +25,7 @@ class WC_Currency_Converter extends Plugin {
 	/**
 	 * Widget object
 	 *
-	 * @var \Themesquad\WC_Currency_Converter\Widget
+	 * @var \KoiLab\WC_Currency_Converter\Widget
 	 */
 	private $widget;
 
@@ -41,7 +42,6 @@ class WC_Currency_Converter extends Plugin {
 	protected function __construct() {
 		parent::__construct();
 
-		add_action( 'init', array( $this, 'includes' ) );
 		add_action( 'widgets_init', array( $this, 'widgets' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 		add_action( 'woocommerce_currency_converter', array( $this, 'get_converter_form' ), 10, 2 );
@@ -63,15 +63,17 @@ class WC_Currency_Converter extends Plugin {
 				return 'USD';
 			case 'rates':
 				_doing_it_wrong( 'WC_Currency_Converter->rates', 'This property is deprecated and will be removed in future versions.', '2.0.0' );
-				return ( new \Themesquad\WC_Currency_Converter\Open_Exchange\Rates() )->get_all();
+				return ( new Rates() )->get_all();
 		}
 	}
 
 	/**
 	 * Files to be included.
+	 *
+	 * @deprecated 2.1.0
 	 */
 	public function includes() {
-		include_once __DIR__ . '/woocommerce-currency-converter-privacy.php';
+		wc_deprecated_function( __FUNCTION__, '2.1.0' );
 	}
 
 	/**
@@ -244,6 +246,11 @@ class WC_Currency_Converter extends Plugin {
 			'symbol_positions' => $symbol_positions,
 		);
 
+		// Scripts are registered later in block themes.
+		if ( ! wp_script_is( 'wc_currency_converter_inline' ) ) {
+			$this->enqueue_assets();
+		}
+
 		wp_localize_script(
 			'wc_currency_converter_inline',
 			'wc_currency_converter_inline_params',
@@ -278,7 +285,7 @@ class WC_Currency_Converter extends Plugin {
 	 * Init Widgets
 	 */
 	public function widgets() {
-		$this->widget = new \Themesquad\WC_Currency_Converter\Widget();
+		$this->widget = new \KoiLab\WC_Currency_Converter\Widget();
 
 		register_widget( $this->widget );
 	}
@@ -333,7 +340,7 @@ class WC_Currency_Converter extends Plugin {
 			)
 		);
 
-		$rates = new \Themesquad\WC_Currency_Converter\Open_Exchange\Rates();
+		$rates = new Rates();
 
 		$wc_currency_converter_params = array(
 			'current_currency'       => isset( $_COOKIE['woocommerce_current_currency'] ) ? $_COOKIE['woocommerce_current_currency'] : '',
@@ -400,9 +407,7 @@ class WC_Currency_Converter extends Plugin {
 	private function get_currencies_rates( $currencies ) {
 		wc_deprecated_function( __FUNCTION__, '2.0.0' );
 
-		$rates = ( new \Themesquad\WC_Currency_Converter\Open_Exchange\Rates() )->get_all();
-
-		return $rates->get_rates( $currencies );
+		return ( new Rates() )->get_rates( $currencies );
 	}
 
 	/**

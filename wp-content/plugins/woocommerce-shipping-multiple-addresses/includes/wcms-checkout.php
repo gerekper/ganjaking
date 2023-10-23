@@ -48,7 +48,109 @@ class WC_MS_Checkout {
 
 		// Reset multiple address.
 		add_action( 'init', array( $this, 'reset_multiple_shipping_address' ), 10 );
-    }
+
+		add_filter( 'woocommerce_checkout_update_customer_data', array( $this, 'maybe_prevent_update_customer_data' ), 100, 2 );
+		add_action( 'woocommerce_checkout_update_user_meta', array( $this, 'maybe_save_customer_data' ), 10, 2 );
+	}
+
+	/**
+	 * Prevent updating customer data if it's using saved address.
+	 *
+	 * @param Boolean      $need_update Whether need to update customer data or not.
+	 * @param \WC_Checkout $wc_checkout Customer ID or User ID.
+	 *
+	 * return Int.
+	 */
+	public function maybe_prevent_update_customer_data( $need_update, $wc_checkout ) {
+		if ( $this->wcms->cart->cart_has_multi_shipping() ) {
+			return $need_update;
+		}
+
+		// The nonce has been implemented on WooCommerce plugin part.
+		// It has been verified on `WC_Checkout::process_checkout()`.
+		$use_saved_address    = isset( $_POST['ms_addresses'] ) && '' !== $_POST['ms_addresses'];  // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$to_different_address = ! empty( $_POST['ship_to_different_address'] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+
+		if ( $to_different_address && $use_saved_address ) {
+			return false;
+		}
+
+		return $need_update;
+	}
+
+	/**
+	 * Save the other customer data if it's using saved address.
+	 *
+	 * @param Int   $customer_id Customer ID or User ID.
+	 * @param Array $data        Post data.
+	 */
+	public function maybe_save_customer_data( $customer_id, $data ) {
+		// The nonce has been implemented on WooCommerce plugin part.
+		// It has been verified on `WC_Checkout::process_checkout()`.
+		$use_saved_address    = isset( $_POST['ms_addresses'] ) && '' !== $_POST['ms_addresses'];  // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$to_different_address = ! empty( $data['ship_to_different_address'] );
+
+		if ( ! $to_different_address || ! $use_saved_address ) {
+			return;
+		}
+
+		if ( $this->wcms->cart->cart_has_multi_shipping() ) {
+			return;
+		}
+
+		if ( ! is_array( $data ) ) {
+			return;
+		}
+
+		$customer = new WC_Customer( $customer_id );
+
+		if ( ! empty( $data['billing_first_name'] ) && '' === $customer->get_first_name() ) {
+			$customer->set_first_name( $data['billing_first_name'] );
+		}
+
+		if ( ! empty( $data['billing_last_name'] ) && '' === $customer->get_last_name() ) {
+			$customer->set_last_name( $data['billing_last_name'] );
+		}
+
+		// If the display name is an email, update to the user's full name.
+		if ( is_email( $customer->get_display_name() ) ) {
+			$customer->set_display_name( $customer->get_first_name() . ' ' . $customer->get_last_name() );
+		}
+
+		// To make sure it only skips these keys.
+		$shipping_address_keys = array(
+			'shipping_first_name',
+			'shipping_last_name',
+			'shipping_company',
+			'shipping_country',
+			'shipping_address_1',
+			'shipping_address_2',
+			'shipping_city',
+			'shipping_state',
+			'shipping_postcode',
+		);
+
+		$filtered_data = array_filter(
+			$data,
+			function( $key ) use ( $shipping_address_keys ) {
+				return ! in_array( $key, $shipping_address_keys );
+			},
+			ARRAY_FILTER_USE_KEY
+		);
+
+		foreach ( $filtered_data as $key => $value ) {
+			// Use setters where available.
+			if ( is_callable( array( $customer, "set_{$key}" ) ) ) {
+				$customer->{"set_{$key}"}( $value );
+
+				// Store custom fields prefixed with wither billing_.
+			} elseif ( 0 === stripos( $key, 'billing_' ) ) {
+				$customer->update_meta_data( $key, $value );
+			}
+		}
+
+		$customer->save();
+	}
 
     /**
      * Determine which hook to use, depending on core version.
@@ -206,7 +308,7 @@ class WC_MS_Checkout {
 	?>
 		<p id="ms_shipping_addresses_field" class="form-row form-row-wide ms-addresses-field">
 			<label><?php esc_html_e( 'Stored Addresses', 'wc_shipping_multiple_address' ); ?></label>
-			<select id="ms_addresses">
+			<select id="ms_addresses" name="ms_addresses">
 				<option value=""><?php esc_html_e( 'Select an address to use&hellip;', 'wc_shipping_multiple_address' ); ?></option>
 				<?php
 					foreach ( $addresses as $key => $address ) {

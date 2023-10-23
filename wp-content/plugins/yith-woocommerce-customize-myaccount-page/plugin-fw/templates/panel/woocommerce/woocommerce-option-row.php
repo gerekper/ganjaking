@@ -2,8 +2,7 @@
 /**
  * The Template for displaying the WooCommerce option row.
  *
- * @var array  $field       The field.
- * @var string $description The description.
+ * @var array $field The field.
  * @package    YITH\PluginFramework\Templates
  */
 
@@ -28,11 +27,13 @@ $row_classes = array( 'yith-plugin-fw-panel-wc-row', $field['type'] );
 $row_classes = array_merge( $row_classes, $extra_row_classes, array( $extra_row_class ) );
 $row_classes = implode( ' ', $row_classes );
 
+$label_id = ! ! $field['id'] ? ( $field['id'] . '__label' ) : '';
+
 ?>
 <tr valign="top" class="<?php echo esc_attr( $row_classes ); ?>" <?php echo yith_field_deps_data( $field ); ?>>
 	<?php if ( $display_row ) : ?>
 		<th scope="row" class="titledesc">
-			<label for="<?php echo esc_attr( $field['id'] ); ?>"><?php echo wp_kses_post( $field['title'] ); ?></label>
+			<label id="<?php echo esc_attr( $label_id ); ?>" for="<?php echo esc_attr( $field['id'] ); ?>"><?php echo wp_kses_post( $field['title'] ); ?></label>
 		</th>
 		<td class="forminp forminp-<?php echo esc_attr( $field['type'] ); ?>">
 			<?php yith_plugin_fw_get_field( $field, true ); ?>

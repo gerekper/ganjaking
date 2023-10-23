@@ -1,0 +1,72 @@
+#ywcacc_metabox_ {
+	border: none !important;
+}
+
+#ywcacc_metabox_ .postbox-header {
+	display: none !important;
+}
+.yith-plugin-ui--yith_cacc-post_type:not(.yith-plugin-ui--boxed-wp-list-style) a.page-title-action{
+	display:none !important;
+}
+.column-shortcode .yith-plugin-fw-copy-to-clipboard {
+	max-width: 800px;
+	width: 500px;
+}
+
+.yith-plugin-ui--yith_cacc-post_type form {
+	width: 90%;
+}
+
+.yith-plugin-ui--yith_cacc-post_type .tablenav {
+	clear: none;
+}
+.displaying-num {
+	display: none !important;
+}
+
+
+div#_save-button-container > label {
+	display: none;
+}
+
+div#_ywcacc_toggle_colors-container {
+	width: 700px;
+}
+
+#_ywcacc_font_size .yith-plugin-fw-select-field-wrapper {
+	width: 320px !important;
+}
+
+#_ywcacc_parent_font_size-container .yith-plugin-fw-select-field-wrapper {
+	width: 320px !important;
+}
+
+select#_ywcacc_child_font_size_type_font_size {
+	width: 320px;
+}
+
+.yith_cacc_div_new_accordion > img {
+	width: 70px !important;
+	height: 70px;
+}
+
+#titlediv {
+	margin-top: 30px;
+	margin-left: 6px;
+}
+
+.yith-plugin-fw-wp-page-wrapper .wrap h1.wp-heading-inline {
+	margin-top: 20px;
+}
+
+input#title {
+	border-radius: 8px;
+	padding: 8px 10px !important;
+	height: 38px !important;
+	width: 450px !important;
+	border: 1px solid #d9d9d9;
+}
+
+label#title-prompt-text {
+	color: #d8d8d8 !important;
+}

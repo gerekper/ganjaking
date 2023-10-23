@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 2481 3508" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(2.85751,0,0,3.19314,0,0.804687)">
+        <g id="Stripes-2">
+            <g id="Group">
+                <path id="Path" d="M0,0L868,1098.19L0,1098.19L0,0Z" style="fill:rgb(248,25,104);"/>
+                <g id="Path1" serif:id="Path" transform="matrix(-1,0,0,-1,868,1098.2)">
+                    <path d="M868,1098.19L0,1098L0,0L868,1098.19Z"/>
+                </g>
+            </g>
+        </g>
+    </g>
+    <g transform="matrix(1.0146,0,0,1.02153,-1.12155,-15.214)">
+        <rect x="82.592" y="130.514" width="2281.64" height="3202.7" style="fill:white;"/>
+    </g>
+</svg>

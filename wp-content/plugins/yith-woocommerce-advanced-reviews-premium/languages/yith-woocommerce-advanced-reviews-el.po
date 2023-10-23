@@ -1,0 +1,1280 @@
+# Translation of YITH WooCommerce Advanced Reviews in Greek
+# This file is distributed under the same license as the YITH WooCommerce Advanced Reviews package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Advanced Reviews\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"advanced-reviews.premium\n"
+"POT-Creation-Date: 2023-10-04 12:03:51+00:00\n"
+"PO-Revision-Date: 2021-02-11 19:04:17+0000\n"
+"Language: el_GR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+
+#: functions.php:99
+msgid ""
+"YITH WooCommerce Advanced Reviews is enabled but not effective. It requires "
+"WooCommerce in order to work."
+msgstr ""
+"Το YITH WooCommerce Advanced Reviews είναι ενεργοποιημένο αλλά "
+"αναποτελεσματικό. Για σωστή λειτουργία, απαιτείται WooCommerce."
+
+#: includes/class.yith-advanced-reviews-list-table.php:56
+#: includes/class.yith-woocommerce-advanced-reviews.php:2151
+msgid "Author"
+msgstr "Συντάκτης"
+
+#: includes/class.yith-advanced-reviews-list-table.php:57
+#: templates/shortcodes/ywar-user-reviews-shortcode.php:42
+msgid "Review"
+msgstr "Κριτική"
+
+#: includes/class.yith-advanced-reviews-list-table.php:58
+#: templates/shortcodes/ywar-user-reviews-shortcode.php:43
+msgid "Date"
+msgstr "Ημερομηνία"
+
+#: includes/class.yith-advanced-reviews-list-table.php:59
+#: templates/shortcodes/ywar-user-reviews-shortcode.php:44
+msgid "Rate"
+msgstr "Ποσοστό"
+
+#: includes/class.yith-advanced-reviews-list-table.php:60
+#: templates/reports/class.ywar-review-report.php:140
+#: templates/shortcodes/ywar-user-reviews-shortcode.php:45
+msgid "Product"
+msgstr "Προϊόν"
+
+#: includes/class.yith-advanced-reviews-list-table.php:421
+#: includes/class.yith-advanced-reviews-list-table.php:549
+msgid "Restore"
+msgstr "Επαναφορά"
+
+#: includes/class.yith-advanced-reviews-list-table.php:422
+msgid "Move to bin"
+msgstr "Μετακίνηση σε Κάδο Ανακύκλωσης"
+
+#: includes/class.yith-advanced-reviews-list-table.php:424
+#: includes/class.yith-advanced-reviews-list-table.php:554
+msgid "Delete permanently"
+msgstr "Οριστική διαγραφή"
+
+#: includes/class.yith-advanced-reviews-list-table.php:425
+msgid "Approve reviews"
+msgstr "Έγκριση κριτικών"
+
+#: includes/class.yith-advanced-reviews-list-table.php:426
+msgid "Unapprove reviews"
+msgstr "Απόρριψη κρητικών"
+
+#: includes/class.yith-advanced-reviews-list-table.php:447
+msgid "All"
+msgstr "Όλα"
+
+#: includes/class.yith-advanced-reviews-list-table.php:448
+#: includes/class.yith-advanced-reviews-list-table.php:551
+msgid "Bin"
+msgstr "Κάδος"
+
+#: includes/class.yith-advanced-reviews-list-table.php:449
+msgid "Not approved"
+msgstr "Δεν εγκρίθηκε"
+
+#: includes/class.yith-advanced-reviews-list-table.php:514
+msgid "[No Title]"
+msgstr "[Χωρίς Τίτλο]"
+
+#: includes/class.yith-advanced-reviews-list-table.php:549
+msgid "Restore this item from the bin"
+msgstr "Επαναφορά αντικειμένου από κάδο ανακύκλωσης"
+
+#: includes/class.yith-advanced-reviews-list-table.php:551
+msgid "Move this item to the bin"
+msgstr "Μετακίνηση αντικειμένου σε κάδο ανακύκλωσης"
+
+#: includes/class.yith-advanced-reviews-list-table.php:554
+msgid "Delete this item permanently"
+msgstr "Μόνιμη διαγραφή αντικειμένου"
+
+#. translators: %d: rating of the user over 5 points
+#. translators: %d: rating of the user over 5 points
+#. translators: d: $rating
+#. translators: d: rating
+#: includes/class.yith-advanced-reviews-list-table.php:583
+#: templates/shortcodes/ywar-user-reviews-shortcode.php:117
+#: templates/ywar-review-shortcode.php:96 templates/ywar-review.php:82
+msgid "Rated %d out of 5"
+msgstr "Βαθμολογημένα %d από 5"
+
+#: includes/class.yith-advanced-reviews-list-table.php:586
+#: templates/shortcodes/ywar-user-reviews-shortcode.php:120
+msgid " out of 5"
+msgstr ""
+
+#: includes/class.yith-advanced-reviews-list-table.php:605
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1616
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+#: includes/class.yith-advanced-reviews-list-table.php:608
+msgid "View"
+msgstr "Προβολή"
+
+#: includes/class.yith-advanced-reviews-list-table.php:640
+#: templates/ywar-review-shortcode.php:47 templates/ywar-review.php:46
+msgid "Anonymous"
+msgstr "Ανώνυμο"
+
+#: includes/class.yith-advanced-reviews-list-table.php:649
+#: templates/shortcodes/ywar-user-reviews-shortcode.php:88
+msgid "Y/m/d g:i:s a"
+msgstr "Χ/μ/η g:i:s a"
+
+#. translators: %s: days ago
+#: includes/class.yith-advanced-reviews-list-table.php:657
+#: templates/shortcodes/ywar-user-reviews-shortcode.php:96
+msgid "%s ago"
+msgstr "Πριν %s"
+
+#: includes/class.yith-advanced-reviews-list-table.php:659
+#: templates/shortcodes/ywar-user-reviews-shortcode.php:98
+msgid "Y/m/d"
+msgstr "Χ/μ/μ"
+
+#: includes/class.yith-advanced-reviews-list-table.php:703
+msgid "No reviews found."
+msgstr "Δεν βρέθηκαν κριτικές."
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:628
+msgid "Add to featured"
+msgstr "Προσθήκη σε επιλεγμένα"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:629
+msgid "Remove from featured"
+msgstr "Αφαίρεση απο επιλεγμένα"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:630
+msgid "Block replies"
+msgstr "Μπλοκάρισμα απαντήσεων"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:631
+msgid "Unblock replies"
+msgstr "Ξεμπλοκάρισμα απαντήσεων"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:693
+msgid "Inappropriate content"
+msgstr "Ακατάλληλο περιεχόμενο"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:694
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1102
+msgid "Reply blocked"
+msgstr "Μπλοκαρισμένη απάντηση"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:695
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1101
+msgid "Featured"
+msgstr "Επιλεγμένες"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:708
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:3363
+#: includes/class.yith-woocommerce-advanced-reviews.php:418
+#: includes/class.yith-woocommerce-advanced-reviews.php:419
+#: includes/class.yith-woocommerce-advanced-reviews.php:451
+#: includes/class.yith-woocommerce-advanced-reviews.php:1216
+#: templates/reports/class.ywar-review-report.php:141
+#: templates/shortcodes/ywar-product-reviews-shortcode.php:67
+#: templates/ywar-product-reviews.php:62
+msgid "Reviews"
+msgstr "Κριτικές"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:711
+msgid "By most commented"
+msgstr "Κατά περισσότερο σχολιασμένες"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:717
+msgid "By average rate"
+msgstr "Κατά μέσο όρο ποσοστού"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:723
+msgid "By min rate"
+msgstr "Κατά ελάχιστο ποσοστό"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:729
+msgid "By max rate"
+msgstr "Κατά μέγιστο ποσοστό"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:955
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2495
+msgid "Impossible to filter by rate"
+msgstr "Αδύνατη η ταξινόμηση κατά ποσοστό"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1100
+msgid "Inappropriate"
+msgstr "Ακατάλληλο"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1140
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1147
+msgid "Report for inappropriate content"
+msgstr "Αναφορά για ακατάλληλο περιεχόμενο"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1165
+msgid "Select/Deselect this as a featured review"
+msgstr "Επιλογή/Απόρριψη από επιλεγμένη κριτική"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1184
+msgid "Select/Deselect to block any reply of this review"
+msgstr "Επιλογή/Απόρριψη του να μπλοκάρουν οι απαντήσεις για αυτή την κριτική"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1419
+msgid "Flag as inappropriate content"
+msgstr "Σημαία για ακατάλληλο περιεχόμενο"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1527
+msgid "Reply to a previous review"
+msgstr "Απάντηση σε προηγούμενη κριτική"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1528
+msgid "Reply"
+msgstr "Απάντηση"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1593
+msgid "This review cannot receive replies"
+msgstr "Η κριτική δεν μπορεί να λαμβάνει απαντήσεις"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1593
+msgid "Block reply"
+msgstr "Μπλοκάρισμα απάντησης"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1596
+msgid "This review cannot receive comments."
+msgstr "Η κριτική δεν μπορεί να λαμβάνει σχόλια."
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1599
+msgid "Allow replies"
+msgstr "Επιτρέψτε απαντήσεις"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1599
+msgid "Allow reply"
+msgstr "Επιτρέψτε απάντηση"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1612
+msgid "Edit to a previous review"
+msgstr "Επεξεργασία προηγούμενης κριτικής"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1744
+msgid "Was this review helpful to you?"
+msgstr "Η κριτική σας ήταν χρήσιμη;"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1748
+msgid "This reviews is helpful"
+msgstr "Η κριτική είναι χρήσιμη"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1749
+msgid "This reviews is not helpful"
+msgstr "Η κριτική δεν είναι χρήσιμη"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1788
+msgid "Most recent reviews"
+msgstr "Περισσότερες πρόσφατες κριτικές"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1789
+msgid "Most helpful reviews"
+msgstr "Περισσότερες χρήσιμες κριτικές"
+
+#. translators: %s: number of stars
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1861
+msgid "Reviews with %s star"
+msgid_plural "Reviews with %s stars"
+msgstr[0] "Κριτικές με %s αστέρι"
+msgstr[1] "Κριτικές με %s αστέρια"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1901
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2560
+msgid "star"
+msgid_plural "stars"
+msgstr[0] "αστέρι"
+msgstr[1] "αστέρια"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1905
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2583
+msgid "(Show unfiltered results)"
+msgstr "(Εμφάνιση αφιλτράριστων αποτελεσμάτων)"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2005
+msgid "Please, write a review"
+msgstr "Παρακαλώ, αφήστε μια κριτική"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2006
+msgid "Please, select a rating before submitting your review"
+msgstr "Παρακαλώ, επιλέξτε αξιολόγηση πριν υποβάλλεται την κριτική σας"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2007
+msgid "Please, enter valid name"
+msgstr ""
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2008
+msgid "Please, enter valid email"
+msgstr ""
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2009
+msgid "Edit review"
+msgstr "Επεξεργασία κριτικής"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2010
+#: plugin-options/voting-options.php:125
+msgid "Reply to review"
+msgstr "Απαντήστε σε κριτική"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2017
+#: templates/shortcodes/ywar-product-reviews-shortcode.php:116
+#: templates/ywar-product-reviews.php:111
+msgid "Add a review"
+msgstr "Προσθέστε μια κριτική"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2355
+msgid "Thanks for your message, we will check the content of the review."
+msgstr ""
+"Ευχαριστούμε για το μήνυμά σας, θα ελέγξουμε το περιεχόμενο της κριτικής."
+
+#. translators: %1: number of people yes  %2:total number of people
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2418
+msgid "%1$s of %2$s people found this review helpful"
+msgstr ""
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2467
+msgid "Product ID is not valid"
+msgstr "ID προϊόντος δεν είναι έγκυρο"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2476
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2617
+msgid "Product ID is in an invalid format"
+msgstr "ID προϊόντος βρίσκεται σε μη έγκυρη μορφή"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2952
+#: plugin-options/voting-options.php:77
+msgid ""
+"Only allow one review for a product. Require \"Only allow reviews from "
+"verified owners\" to be set to work properly"
+msgstr ""
+"Επιτρέψτε μόνο μια κριτική ανά προϊόν. Για σωστή λειτουργία, απαιτείται να "
+"ορίσετε “Επιτρέπονται κριτικές μόνο από επικυρωμένους ιδιοκτήτες”"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2990
+msgid ""
+"You can't add more than one review for this product. Would you like to edit "
+"the review you have already written?"
+msgstr ""
+"Δεν μπορείτε να προσθέσετε πάνω από μια κριτική για αυτό το προϊόν. Θέλετε "
+"να κάνετε επεξεργασία της κριτικής που έχετε ήδη γράψει;"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2992
+msgid "You can't add more than one review for this product."
+msgstr "Δεν μπορείτε να προσθέσετε πάνω από μια κριτική για αυτό το προϊόν."
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:3042
+msgid ""
+"Bots are not allowed to submit comments. If you are not a bot then please "
+"enable JavaScript in browser."
+msgstr ""
+"Τα μποτ δεν επιτρέπεται να υποβάλλουν σχόλια. Αν δεν είστε μποτ τότε "
+"παρακαλώ ενεργοποιήστε το JavaScript στον πλοηγό."
+
+#. translators: %d: Comment ID
+#: includes/class.yith-woocommerce-advanced-reviews-privacy.php:259
+msgid "Review %d contains personal data but could not be anonymized."
+msgstr ""
+"Η κριτική %d περιέχει προσωπικά δεδομένα αλλά δεν μπορεί να καταστεί ανώνυμη."
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:383
+msgid "Review title"
+msgstr "Τίτλος κριτικής"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:758
+msgid "Approve review"
+msgstr "Αποδοχή κριτικής"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:758
+msgid "Approve"
+msgstr "Αποδοχή"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:760
+msgid "Unapprove review"
+msgstr "Απόρριψη κριτικής"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:760
+msgid "Unapprove"
+msgstr "Απόρριψη"
+
+#. translators: s: average
+#: includes/class.yith-woocommerce-advanced-reviews.php:908
+msgid "Rated %s out of 5 stars"
+msgstr "Βαθμολογημένα %s από 5 αστέρια"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:928
+msgid " review"
+msgid_plural " reviews"
+msgstr[0] " κριτική"
+msgstr[1] " κριτικές"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:967
+msgid ""
+"YITH WooCommerce Advanced Reviews is available in an outstanding PREMIUM "
+"version with many new options, discover it now."
+msgstr ""
+"Το YITH WooCommerce Advanced Reviews είναι διαθέσιμο σε μια εξαιρετική "
+"PREMIUM έκδοση με πολλές νέες επιλογές, ανακαλύψτε το τώρα."
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:968
+msgid "Premium version"
+msgstr "Premium έκδοση"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:976
+msgid ""
+"In YITH tab you can find YITH WooCommerce Advanced Reviews options. From "
+"this menu you can access all settings of YITH plugins activated."
+msgstr ""
+"Στην καρτέλα YITH μπορείτε να βρείτε τις επιλογές YITH WooCommerce Advanced "
+"Reviews. Από αυτό το μενού μπορείτε να έχετε πρόσβαση σε όλες τις ρυθμίσεις "
+"των ενεργοποιημένων προσθέτων YITH."
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:991
+msgid ""
+"From now on, you can find all YITH WooCommerce Advanced Reviews options in "
+"YITH -> Advanced Reviews instead of WooCommerce -> Settings -> Advanced "
+"Reviews, as in the previous version. Any time one of our plugins is updated, "
+"a new entry will be added to this menu."
+msgstr ""
+"Πλέον θα μπορείτε να βρίσκετε όλες τις επιλογές του YITH WooCommerce "
+"Advanced Reviews στο YITH -> Advanced Reviews αντί για το WooCommerce -> "
+"Settings -> Advanced Reviews, όπως στην προηγούμενη έκδοση. Κάθε φορά που "
+"ενημερώνεται κάποιο πρόσθετό μας, μια νέα εγγραφή θα προστίθεται στο μενού."
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1028
+msgid "General"
+msgstr "Γενικά"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1029
+msgid "Layout"
+msgstr "Διάταξη"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1030
+msgid "Voting/Review settings"
+msgstr "Ρυθμίσεις ψηφοφορίας/κριτικής"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1104
+msgid "Too many files selected!"
+msgstr "Έχουν επιλεχθεί πολλά αρχεία!"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1105
+msgid "No Files Selected"
+msgstr "Δεν Επιλέχθηκαν Αρχεία"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1217
+msgid "Parent Review"
+msgstr "Γονική Κατηγορία"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1218
+msgid "All reviews"
+msgstr "Όλες οι κριτικές"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1219
+msgid "View review"
+msgstr "Προβολή κριτικής"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1220
+msgid "Add New Review"
+msgstr "Προσθήκη Νέας Κριτικής"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1221
+msgid "Add New"
+msgstr "Προσθήκη Νέας"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1222
+msgid "Edit Review"
+msgstr "Επεξεργασία Κριτικής"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1223
+msgid "Update Review"
+msgstr "Ενημέρωση Κριτικής"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1224
+msgid "Search Review"
+msgstr "Αναζήτηση Κριτικής"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1225
+msgid "Not Found"
+msgstr "Δεν Βρέθηκε"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1226
+msgid "Not found in bin"
+msgstr "Δεν βρέθηκε στον κάδο ανακύκλωσης"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1232
+msgid "YIT Product reviews"
+msgstr "Κριτικές Προϊόντος YIT"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1233
+msgid "Advanced WooCommerce product reviews"
+msgstr "Προηγμένες κριτικές προϊόντος WooCommerce"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1590
+msgid "Your review has been submitted correctly"
+msgstr "Έγινε επιτυχής υποβολή της κριτικής σας"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1600
+msgid "Your review has been submitted and is awaiting approval"
+msgstr "Η κριτική σας έχει υποβληθεί και αναμένεται η έγκρισή της"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1837
+msgid "Your Rating"
+msgstr "Η Βαθμολογία σας"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1839
+msgid "Rate&hellip;"
+msgstr "Βαθμολογία&hellip;"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1840
+msgid "Perfect"
+msgstr "Τέλειο"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1841
+msgid "Good"
+msgstr "Καλό"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1842
+msgid "Average"
+msgstr "Μέτριο"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1843
+msgid "Not that bad"
+msgstr "Όχι τόσο κακό"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1844
+msgid "Very Poor"
+msgstr "Αρκετά Ανεπαρκές"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1853
+msgid "Attachments"
+msgstr "Επισυνάψεις"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1854
+msgid "Choose file(s)"
+msgstr "Επιλέξτε αρχείο(α)"
+
+#. translators: %s is the allowed types.
+#: includes/class.yith-woocommerce-advanced-reviews.php:1860
+msgid "Use one of the allowed file type: %s. "
+msgstr "Επιλέξτε έναν από τους επιτρεπόμενους τύπους αρχείου: %s. "
+
+#. translators: %s is the max file size allowed.
+#: includes/class.yith-woocommerce-advanced-reviews.php:1865
+msgid "The max size allowed is : %s MB."
+msgstr "Το μέγιστο επιτρεπόμενο μέγεθος είναι : %s MB."
+
+#. translators: %d is the number of reviews.
+#: includes/class.yith-woocommerce-advanced-reviews.php:1979
+msgid "Reviews (%d)"
+msgstr "Κριτικές (%d)"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2020
+msgid "Review information"
+msgstr "Πληροφορίες κριτικής"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2103
+msgid "Rating"
+msgstr "Βαθμολογία"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2132
+msgid "Block review edit"
+msgstr "Μπλοκάρισμα επεξεργασίας κριτικής"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2138
+msgid "The review author is a registered user."
+msgstr "Ο συντάκτης της κριτικής είναι εγγεγραμμένος χρήστης."
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2139
+msgid "User profile"
+msgstr "Προφίλ χρήστη"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2142
+msgid "Use user data"
+msgstr "Χρησιμοποιήστε δεδομένα χρήστη"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2159
+msgid "Author email"
+msgstr "Email συντάκτη"
+
+#. translators: %s is the average rating.
+#. translators: s: average
+#: includes/class.yith-woocommerce-advanced-reviews.php:2409
+#: templates/ywar-rating.php:37
+msgid "Rated %s out of 5"
+msgstr "Βαθμολογημένα %s από 5"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2412
+#: templates/ywar-review-shortcode.php:98 templates/ywar-review.php:83
+msgid "out of 5"
+msgstr "από 5"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2440
+#: includes/class.yith-woocommerce-advanced-reviews.php:2446
+msgid "Convert reviews"
+msgstr "Μετατροπή κριτικών"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2449
+msgid ""
+"If this is the first time you install the YITH Advanced Reviews plugin, or "
+"if you are using an older version prior to the 1.1.0, first you have to "
+"convert the older reviews if you want to use them."
+msgstr ""
+"Αν αυτή είναι η πρώτη φορά που εγκαθιστάτε το πρόσθετο YITH Advanced "
+"Reviews, ή αν χρησιμοποιείτε μια παλιότερη έκδοση πριν την 1.1.0, θα πρέπει "
+"πρώτα να κάνετε μετατροπή των παλιών κριτικών εάν θέλετε να τις "
+"χρησιμοποιήσετε."
+
+#. translators: d: review_converted
+#: includes/class.yith-woocommerce-advanced-reviews.php:2497
+msgid "Task completed. %d reviews have been processed and converted."
+msgstr "Η εργασία ολοκληρώθηκε. %d κριτικές επεξεργάστηκαν και μετατράπηκαν."
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2499
+msgid "Task completed. No review to convert has been found."
+msgstr "Η εργασία ολοκληρώθηκε. Δεν βρέθηκε κριτική για μετατροπή."
+
+#: includes/third-party/elementor/class-ywar-reviews-list-widget.php:30
+msgid "YITH Advanced Reviews List"
+msgstr "Λίστα YITH Advanced Reviews"
+
+#: includes/third-party/elementor/class-ywar-reviews-list-widget.php:54
+msgid "Content"
+msgstr "Περιεχόμενο"
+
+#: includes/third-party/elementor/class-ywar-reviews-list-widget.php:62
+msgid "Reviews to display"
+msgstr "Κριτικές προς εμφάνιση"
+
+#: includes/third-party/elementor/class-ywar-reviews-list-widget.php:71
+msgid "Allow pagination"
+msgstr "Επιτρέψτε τη σελιδοποίηση"
+
+#: includes/third-party/elementor/class-ywar-reviews-list-widget.php:80
+msgid "Product ID"
+msgstr "ID Προϊόντος"
+
+#: plugin-options/general-options.php:20
+msgid "General settings"
+msgstr "Γενικές ρυθμίσεις"
+
+#: plugin-options/general-options.php:25
+msgid "Show title"
+msgstr "Εμφάνιση τίτλου"
+
+#: plugin-options/general-options.php:28
+msgid "Add a title field in the reviews."
+msgstr "Προσθέστε ένα πεδίο τίτλου στις κριτικές."
+
+#: plugin-options/general-options.php:33
+msgid "Show attachments"
+msgstr "Εμφάνιση συνημμένων"
+
+#: plugin-options/general-options.php:36
+msgid "Add an attachment section in the reviews."
+msgstr "Προσθέστε ενότητα συνημμένων στις κριτικές."
+
+#: plugin-options/general-options.php:41
+msgid "Attachment type"
+msgstr "Τύπος συνημμένου"
+
+#: plugin-options/general-options.php:44
+msgid "Set the file type allowed as the review attachment"
+msgstr "Ορίστε επιτρεπόμενο τύπο αρχείου ως συνημμένο κριτικής"
+
+#: plugin-options/general-options.php:49
+msgid "Multiple attachment limit"
+msgstr "Όριο πολλαπλών συνημμένων"
+
+#: plugin-options/general-options.php:52
+msgid ""
+"Set the maximum number of attachments that can be selected (0 = no limit)."
+msgstr ""
+"Ορίστε το μέγιστο αριθμό συνημμένων που μπορεί να επιλεχθεί (0 = χωρίς όριο)."
+
+#: plugin-options/general-options.php:59
+msgid "Attachment max size"
+msgstr "Μέγιστο μέγεθος συνημμένου"
+
+#: plugin-options/general-options.php:62
+msgid "Set the file max size allowed in MB. Set to 0 for no size limit."
+msgstr ""
+"Ορίστε το μέγιστο επιτρεπόμενο μέγεθος αρχείου σε MB. Ορίστε 0 για κανένα "
+"όριο μεγέθους."
+
+#: plugin-options/general-options.php:69
+msgid "Review content selector"
+msgstr "Επιλογέας περιεχομένου κριτικής"
+
+#: plugin-options/general-options.php:72
+msgid ""
+"Set the id or CSS class that matches the review tab content (default: #tab-"
+"reviews)."
+msgstr ""
+"Ορίστε id ή κλάση CSS που ταιριάζει με το περιεχόμενο καρτέλας κριτικής "
+"(προεπιλεγμένο: #tab-reviews)."
+
+#: plugin-options/general-options.php:77
+msgid "reCaptcha"
+msgstr "reCaptcha"
+
+#: plugin-options/general-options.php:80
+msgid "Enable reCaptcha on review submitting"
+msgstr "Ενεργοποιήστε reCaptcha κατα την υποβολή κριτικής"
+
+#: plugin-options/general-options.php:85
+msgid "reCaptcha site key"
+msgstr "κλειδί ιστοσελίδας reCaptcha"
+
+#: plugin-options/general-options.php:88
+msgid "Insert your reCaptcha site key"
+msgstr "Εισάγετε το κλειδί ιστοσελίδας reCaptcha"
+
+#: plugin-options/general-options.php:96
+msgid "reCaptcha secret key"
+msgstr "μυστικό κλειδί reCaptcha"
+
+#: plugin-options/general-options.php:99
+msgid "Insert your reCaptcha secret key"
+msgstr "Εισάγετε το μυστικό κλειδί reCaptcha"
+
+#: plugin-options/general-options.php:107
+msgid "reCaptcha message error"
+msgstr "σφάλμα μηνύματος reCaptcha"
+
+#: plugin-options/general-options.php:110
+msgid ""
+"Insert your message error when the review is submitted without recaptcha"
+msgstr ""
+"Εισάγετε το μήνυμα σφάλματος όταν έχει γίνει υποβολή κριτικής χωρίς recaptcha"
+
+#: plugin-options/general-options.php:112
+msgid ""
+"You have entered an incorrect reCAPTCHA value. Click the BACK button on your "
+"browser and try again."
+msgstr ""
+"Έχετε εισάγει λάθος αξία reCAPTCHA. Κάντε κλικ στο κουμπί ΠΙΣΩ του πλοηγού "
+"σας και προσπαθήστε ξανά."
+
+#: plugin-options/general-options.php:119
+msgid "Previous reviews"
+msgstr "Προηγούμενες κριτικές"
+
+#: plugin-options/layout-options.php:21
+msgid "Layout options"
+msgstr "Επιλογές διάταξης"
+
+#: plugin-options/layout-options.php:27
+msgid "Fixed background bar color"
+msgstr "Σταθερό χρώμα φόντου μπάρας"
+
+#: plugin-options/layout-options.php:35
+msgid "Percentage bar color"
+msgstr "Χρώμα μπάρας ποσοστού"
+
+#: plugin-options/layout-options.php:43
+msgid "Show percentage value"
+msgstr "Εμφάνιση αξίας ποσοστού"
+
+#: plugin-options/layout-options.php:46
+msgid "Show % value on percentage bars."
+msgstr "Εμφάνιση % αξίας σε μπάρες ποσοστού."
+
+#: plugin-options/layout-options.php:51
+msgid "Rating label color"
+msgstr "Χρώμα επιγραφής βαθμολογίας"
+
+#: plugin-options/layout-options.php:59
+msgid "Percentage value color"
+msgstr "Χρώμα αξίας ποσοστού"
+
+#: plugin-options/layout-options.php:67
+msgid "Rating count color"
+msgstr "Χρώμα μέτρησης βαθμολογίας"
+
+#: plugin-options/layout-options.php:75
+msgid "Tabs bottom border color"
+msgstr "Χρώμα κάτω πλαισίου καρτελών"
+
+#: plugin-options/voting-options.php:20
+msgid "Voting system"
+msgstr "Σύστημα ψηφοφορίας"
+
+#: plugin-options/voting-options.php:25
+msgid "Show vote section"
+msgstr "Εμφάνιση ενότητας ψήφων"
+
+#: plugin-options/voting-options.php:28
+msgid "Allow user to upvote or downvote a review."
+msgstr "Επιτρέψτε στον χρήστη να ψηφίσει θετικά ή αρνητικά μια κριτική."
+
+#: plugin-options/voting-options.php:33
+msgid "Show review votes"
+msgstr "Εμφάνιση ψήφων κριτικής"
+
+#: plugin-options/voting-options.php:36
+msgid "Add a string stating how many people found the review useful."
+msgstr ""
+"Προσθέστε μια συμβολοσειρά που δηλώνει πόσοι άνθρωποι βρήκαν την κριτική "
+"χρήσιμη."
+
+#: plugin-options/voting-options.php:46
+msgid "Enable vote for all"
+msgstr "Ενεργοποίηση ψήφου για όλους"
+
+#: plugin-options/voting-options.php:49
+msgid "Allow unregistered users to vote the reviews."
+msgstr "Επιτρέψτε στους μη εγγεγραμμένους χρήστες να ψηφίσουν τις κριτικές."
+
+#: plugin-options/voting-options.php:63
+msgid "Review settings"
+msgstr "Ρυθμίσεις κριτικής"
+
+#: plugin-options/voting-options.php:68
+msgid "Manual review approval"
+msgstr "Χειροκίνητη έγκριση κριτικής"
+
+#: plugin-options/voting-options.php:71
+msgid ""
+"When a user submits a review, it should be manually approved to be showed"
+msgstr ""
+"Όταν ένας χρήστης υποβάλλει μια κριτική, θα πρέπει να εγκριθεί χειροκίνητα "
+"για να εμφανιστεί"
+
+#: plugin-options/voting-options.php:76
+msgid "Limit multiple reviews"
+msgstr "Περιορισμός πολλαπλών κριτικών"
+
+#: plugin-options/voting-options.php:84
+msgid "Edit reviews"
+msgstr "Επεξεργασία κριτικών"
+
+#: plugin-options/voting-options.php:85
+msgid "Allow the users to edit their review"
+msgstr "Επιτρέψτε στους χρήστες να επεξεργάζονται την κριτική τους"
+
+#: plugin-options/voting-options.php:92
+msgid "Number of reviews to display"
+msgstr "Αριθμός κριτικών προς εμφάνιση"
+
+#: plugin-options/voting-options.php:95
+msgid "Limit the maximum number of reviews to display, 0 for unlimited"
+msgstr ""
+"Περιορισμός του μέγιστου αριθμού κριτικών προς εμφάνιση, 0 για απεριόριστο"
+
+#: plugin-options/voting-options.php:103
+msgid "\"Load more\""
+msgstr "“Φόρτωση περισσότερων”"
+
+#: plugin-options/voting-options.php:106
+msgid ""
+"Choose if reviews should be shown grouped and which link style should be "
+"applied."
+msgstr ""
+"Επιλέξτε αν οι κριτικές πρέπει να φαίνονται ομαδοποιημένες και ποιο στυλ "
+"λινκ πρέπει να εφαρμόζεται."
+
+#: plugin-options/voting-options.php:109
+msgid "Don't group reviews"
+msgstr "Να μην γίνεται ομαδοποίηση κριτικών"
+
+#: plugin-options/voting-options.php:110
+msgid "Group reviews and show a textual link on bottom"
+msgstr "Ομαδοποίηση κριτικών και εμφάνιση κειμενικού λινκ στο κάτω μέρος"
+
+#: plugin-options/voting-options.php:111
+msgid "Group reviews and show a button link on bottom"
+msgstr "Ομαδοποίηση κριτικών και εμφάνιση κουμπιού λινκ στο κάτω μέρος"
+
+#: plugin-options/voting-options.php:117
+msgid "Modal window"
+msgstr "Βοηθητικό παράθυρο"
+
+#: plugin-options/voting-options.php:120
+msgid "Display reviews filtered by rate in a modal window."
+msgstr "Εμφάνιση κριτικών ταξινομημένων κατα ποσοστό σε βοηθητικό παράθυρο."
+
+#: plugin-options/voting-options.php:128
+msgid "Choose who can reply to a review."
+msgstr "Επιλέξτε ποιος μπορεί να απαντήσει σε μια κριτική."
+
+#: plugin-options/voting-options.php:131
+msgid "No one can reply"
+msgstr "Δεν μπορεί να απαντήσει κανένας"
+
+#: plugin-options/voting-options.php:132
+msgid "Only administrators can reply"
+msgstr "Μπορούν να απαντήσουν μόνο διαχειριστές"
+
+#: plugin-options/voting-options.php:133
+msgid "Everyone can reply"
+msgstr "Μπορούν να απαντήσουν όλοι"
+
+#: plugin-options/voting-options.php:139
+msgid "Inappropriate reviews"
+msgstr "Ακατάλληλες κριτικές"
+
+#: plugin-options/voting-options.php:142
+msgid "Let users report a review as inappropriate content."
+msgstr ""
+"Επιτρέψτε στους χρήστες να αναφέρουν μια κριτική ως ακατάλληλο περιεχόμενο."
+
+#: plugin-options/voting-options.php:145
+msgid "Not enabled"
+msgstr "Μη ενεργοποιημένο"
+
+#: plugin-options/voting-options.php:146
+msgid "Only registered users can report an inappropriate content"
+msgstr ""
+"Μόνο οι εγγεγραμμένοι χρήστες μπορούν να αναφέρουν ακατάλληλο περιεχόμενο"
+
+#: plugin-options/voting-options.php:147
+msgid "Everyone can report an inappropriate content"
+msgstr "Όλοι μπορούν να αναφέρουν ακατάλληλο περιεχόμενο"
+
+#: plugin-options/voting-options.php:153
+msgid "Hiding threshold"
+msgstr "Απόκρυψη κατώτατου ορίου"
+
+#: plugin-options/voting-options.php:156
+msgid ""
+"Hide temporarily a review when a specific number of users has flagged it as "
+"inappropriate. Set this value to 0 to never hide automatically the reviews."
+msgstr ""
+"Προσωρινή απόκρυψη κριτικής όταν ένας συγκεκριμένος αριθμός χρηστών έχει "
+"τοποθετήσει σημαία ως ακατάλληλη. Ορίστε την αξία σε 0 για να μην γίνεται "
+"ποτέ αυτόματη απόκρυψη κριτικών."
+
+#: plugin-options/voting-options.php:164
+msgid "Featured reviews"
+msgstr "Επιλεγμένες κριτικές"
+
+#: plugin-options/voting-options.php:166
+msgid ""
+"Number of reviews to show as featured items. Set this value to 0 to never "
+"show featured reviews."
+msgstr ""
+"Αριθμός κριτικών προς εμφάνιση ως επιλεγμένα αντικείμενα. Ορίστε την αξία σε "
+"0 για να μην εμφανίζετε ποτέ επιλεγμένες κριτικές."
+
+#: plugin-options/voting-options.php:174
+msgid "Enable Most Helpful Reviews tab by default"
+msgstr "Ενεργοποίηση καρτέλας Πιο Χρήσιμων Κριτικών ως προεπιλεγμένο"
+
+#: plugin-options/voting-options.php:177
+msgid "Show Most Helpful Reviews tab selected by default."
+msgstr "Εμφάνιση καρτέλας Πιο Χρήσιμων Κριτικών ως προεπιλεγμένο."
+
+#: plugin-options/voting-options.php:182
+msgid "\"Load more\" text"
+msgstr "Κείμενο “Φόρτωση περισσότερων”"
+
+#: plugin-options/voting-options.php:185
+msgid "Text to show in the textual link or button."
+msgstr "Κείμενο που θα εμφανίζεται στο κειμενικό λινκ ή κουμπί."
+
+#: plugin-options/voting-options.php:187
+msgid "Load more"
+msgstr "Φόρτωση περισσότερων"
+
+#: templates/reports/class.ywar-review-report.php:51
+msgid "Export CSV"
+msgstr "Εξαγωγή CSV"
+
+#: templates/reports/class.ywar-review-report.php:63
+msgid "Year"
+msgstr "Έτος"
+
+#: templates/reports/class.ywar-review-report.php:64
+msgid "Last Month"
+msgstr "Προηγούμενος μήνας"
+
+#: templates/reports/class.ywar-review-report.php:65
+msgid "This Month"
+msgstr "Τρέχον μήνας"
+
+#: templates/reports/class.ywar-review-report.php:142
+msgid "Best rate"
+msgstr "Καλύτερη αξιολόγηση"
+
+#: templates/reports/class.ywar-review-report.php:143
+msgid "Worst rate"
+msgstr "Χειρότερη αξιολόγηση"
+
+#: templates/reports/class.ywar-review-report.php:144
+msgid "Average rate"
+msgstr "Μέτρια αξιολόγηση"
+
+#: templates/reports/class.ywar-review-report.php:166
+msgid "No reviews found in this period"
+msgstr "Δεν βρέθηκαν κριτικές στην συγκεκριμένη περίοδο"
+
+#: templates/reports/ywar-html-review-report.php:25
+msgid "Custom:"
+msgstr "Προσαρμογή:"
+
+#: templates/reports/ywar-html-review-report.php:43
+msgid "Go"
+msgstr "Έναρξη"
+
+#. translators: 1: reviews_count 2: get_the_title()
+#: templates/shortcodes/ywar-product-reviews-shortcode.php:65
+#: templates/ywar-product-reviews.php:60
+msgid "%1$s review for %2$s"
+msgid_plural "%1$s reviews for %2$s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/shortcodes/ywar-product-reviews-shortcode.php:100
+#: templates/ywar-product-reviews.php:95
+msgid "There are no reviews yet."
+msgstr "Δεν υπάρχουν κριτικές ακόμη."
+
+#: templates/shortcodes/ywar-product-reviews-shortcode.php:116
+#: templates/ywar-product-reviews.php:111
+msgid "Be the first to review"
+msgstr "Αφήστε πρώτος μια κριτική"
+
+#: templates/shortcodes/ywar-product-reviews-shortcode.php:117
+#: templates/ywar-product-reviews.php:112
+msgid "Write a reply"
+msgstr "Πληκτρολογήστε μια απάντηση"
+
+#: templates/shortcodes/ywar-product-reviews-shortcode.php:125
+#: templates/ywar-product-reviews.php:120
+msgid "Name"
+msgstr "Όνομα"
+
+#: templates/shortcodes/ywar-product-reviews-shortcode.php:135
+#: templates/ywar-product-reviews.php:130
+msgid "Email"
+msgstr "Email"
+
+#: templates/shortcodes/ywar-product-reviews-shortcode.php:138
+#: templates/ywar-product-reviews.php:133
+msgid "Submit"
+msgstr "Υποβολή"
+
+#: templates/shortcodes/ywar-product-reviews-shortcode.php:143
+#: templates/ywar-product-reviews.php:138
+msgid "Your Review"
+msgstr "Η Κριτική Σας"
+
+#: templates/shortcodes/ywar-product-reviews-shortcode.php:170
+#: templates/ywar-product-reviews.php:163
+msgid ""
+"Only logged in customers who have purchased this product may write a review."
+msgstr ""
+"Μόνο συνδεδεμένοι πελάτες που έχουν αγοράσει το προϊόν μπορούν να αφήσουν "
+"κριτική."
+
+#: templates/shortcodes/ywar-product-reviews-shortcode.php:174
+#: templates/ywar-product-reviews.php:167
+msgid "Edit my reviews"
+msgstr "Επεξεργασία των κριτικών μου"
+
+#: templates/shortcodes/ywar-user-reviews-shortcode.php:30
+msgid "My Reviews"
+msgstr ""
+
+#: templates/shortcodes/ywar-user-reviews-shortcode.php:37
+msgid ""
+"You have not written any reviews yet, leave a review on the products you "
+"have purchased and they will appear in this section. "
+msgstr ""
+
+#: templates/ywar-product-reviews-table.php:21
+msgid "Product reviews"
+msgstr "Κριτικές προϊόντος"
+
+#: templates/ywar-product-reviews-table.php:27
+msgid "Search reviews"
+msgstr "Αναζήτηση κριτικών"
+
+#. translators: 1: span 2: span
+#: templates/ywar-rating.php:40
+msgid "out of %1$s5%2$s"
+msgstr ""
+
+#. translators: s: rating_count
+#: templates/ywar-rating.php:42
+msgid "based on %s customer rating"
+msgid_plural "based on %s customer ratings"
+msgstr[0] "βάσει %s βαθμολογίας πελάτη"
+msgstr[1] "βάσει %s βαθμολογιών πελάτη"
+
+#. translators: s: review_count
+#: templates/ywar-rating.php:57
+msgid "%s customer review"
+msgid_plural "%s customer reviews"
+msgstr[0] "%s κριτική πελάτη"
+msgstr[1] "%s κριτικές πελάτη"
+
+#. translators: s: $i
+#: templates/ywar-review-bars.php:50
+msgid "%s star"
+msgid_plural "%s stars"
+msgstr[0] "%s αστέρι"
+msgstr[1] "%s αστέρια"
+
+#: templates/ywar-review-shortcode.php:107 templates/ywar-review.php:91
+msgid "Your comment is waiting for approval"
+msgstr "Το σχόλιο σας αναμένεται να εγκριθεί"
+
+#: templates/ywar-review-shortcode.php:136 templates/ywar-review.php:119
+msgid "verified owner"
+msgstr "επιβεβαιωμένος ιδιοκτήτης"
+
+#: templates/ywar-review.php:133
+msgid "FEATURED"
+msgstr "ΕΠΙΛΕΓΜΕΝΑ"
+
+#: templates/ywar-single-product-reviews.php:26
+msgid "Customer reviews"
+msgstr "Κριτικές πελάτη"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Advanced Reviews</strong></code> extends the "
+"basic functionality of WooCommerce reviews and add a histogram table to the "
+"reviews of your products, such as you see in most trendy e-commerce sites. "
+"<a href=\"https://yithemes.com/\" target=\"_blank\">Get more plugins for "
+"your e-commerce on <strong>YITH</strong></a>."
+msgstr ""
+"<code><strong>Το YITH WooCommerce Advanced Reviews</strong></code> "
+"επεκτείνει την βασική λειτουργικότητα των κριτικών του WooCommerce και "
+"προσθέτει ένα πίνακα ιστογράμματος στις κριτικές των προϊόντων σας, όπως "
+"έχουν οι περισσότερες μοντέρνες ιστοσελίδες e-commerce. <a href=\"https://"
+"yithemes.com/\" target=\"_blank\">Βρείτε περισσότερα πρόσθετα για το "
+"ηλεκτρονικό σας κατάστημα στο <strong>YITH</strong></a>."
+
+#. translators: %s: a link from a reply that points to the parent review
+#: includes/class.yith-advanced-reviews-list-table.php:524
+msgctxt "a link from a reply that points to the parent review"
+msgid "In reply to %s"
+msgstr "Ως απάντηση σε %s"
+
+#. translators: %1$d: count of reviews
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1903
+msgctxt "Number of reviews with rating"
+msgid "%1$d reviews with rating of %2$s %3$s (%4$s of %5$s)"
+msgstr ""
+
+#. translators: %1$d: number of reviews
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:2574
+msgctxt "Number of reviews with rating"
+msgid "%1$d reviews with rate of %2$d %3$s (%4$d of %5$d)"
+msgstr ""
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1960
+msgctxt "The user tried to upload more files than allowed."
+msgid "Too many files selected!"
+msgstr "Έχουν επιλεχθεί πολλά αρχεία!"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1961
+msgctxt "The user tried to upload files with extension or size not allowed."
+msgid ""
+"One or more file was not accepted because do not match the expected "
+"requirements"
+msgstr ""
+"Ένα ή περισσότερα αρχεία δεν έγιναν αποδεκτά γιατί δεν τηρούν τις "
+"απαραίτητες προϋποθέσεις"
+
+#: includes/class.yith-woocommerce-advanced-reviews-premium.php:1962
+msgctxt "No attachment is selected"
+msgid "No Files Selected"
+msgstr "Δεν Επιλέχθηκαν Αρχεία"
+
+#: includes/class.yith-woocommerce-advanced-reviews-privacy.php:29
+msgctxt "Privacy Policy Content"
+msgid "YITH Advanced Reviews for WooCommerce premium"
+msgstr "YITH Advanced Reviews for WooCommerce premium"
+
+#: views/privacy/html-policy-content-collect_and_store.php:9
+msgctxt "Privacy Policy Content"
+msgid ""
+"While you visit our site, we collect information about you during the "
+"process of creating comments or reviews of products. We’ll track:"
+msgstr ""
+"Κατα την επίσκεψή σας στην ιστοσελίδα μας, συγκεντρώνουμε πληροφορίες για "
+"εσάς κατα την διαδικασία δημιουργίας σχολίων και κριτικών προϊόντων. Θα "
+"παρακολουθήσουμε:"
+
+#: views/privacy/html-policy-content-collect_and_store.php:12
+msgctxt "Privacy Policy Content"
+msgid ""
+"Author name, author email, author IP, date, title, content and review url:  "
+"we’ll use this to create reviews of products"
+msgstr ""
+"Όνομα συντάκτη, email συντάκτη, IP συντάκτη, ημερομηνία, τίτλος, περιεχόμενο "
+"και url κριτικής:  θα χρησιμοποιήσουμε τα παραπάνω για την δημιουργία "
+"κριτικών προϊόντων"
+
+#: views/privacy/html-policy-content-has_access.php:9
+msgctxt "Privacy Policy Content"
+msgid ""
+"Members of our team have access to the information you provide us. For "
+"example, both Administrators and Shop Managers can access:"
+msgstr ""
+"Μέλη της ομάδας μας έχουν πρόσβαση στις πληροφορίες που μας παραχωρείτε. Για "
+"παράδειγμα, “Διαχειριστές” και “Διαχειριστές καταστήματος” έχουν πρόσβαση σε:"
+
+#: views/privacy/html-policy-content-has_access.php:12
+msgctxt "Privacy Policy Content"
+msgid ""
+"Author name, author email, author IP, date, title and content of the reviews "
+"you have made"
+msgstr ""
+"Όνομα συντάκτη, email συντάκτη, IP συντάκτη, ημερομηνία, τίτλος και "
+"περιεχόμενο των κριτικών που έχετε δημιουργήσει"
+
+#: includes/class.yith-woocommerce-advanced-reviews-privacy.php:79
+#: includes/class.yith-woocommerce-advanced-reviews-privacy.php:191
+msgctxt "GDPR privacy"
+msgid "YITH Advanced Reviews"
+msgstr ""
+
+#: includes/class.yith-woocommerce-advanced-reviews-privacy.php:165
+msgctxt "GDPR privacy"
+msgid "Reviews"
+msgstr "Κριτικές"
+
+#: includes/class.yith-woocommerce-advanced-reviews-privacy.php:236
+msgctxt "GDPR privacy"
+msgid "Anonymous"
+msgstr "Ανώνυμο"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1214
+msgctxt "Post Type General Name"
+msgid "Reviews"
+msgstr "Κριτικές"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:1215
+msgctxt "Post Type Singular Name"
+msgid "Review"
+msgstr "Κριτική"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2456
+msgctxt "convert into reviews"
+msgid "CONVERTING COMMENTS INTO REVIEWS"
+msgstr "ΜΕΤΑΤΡΟΠΗ ΣΧΟΛΙΩΝ ΣΕ ΚΡΙΤΙΚΕΣ"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2459
+msgctxt "convert into reviews"
+msgid "comments checked"
+msgstr "σχόλια που ελέγχθηκαν"
+
+#: includes/class.yith-woocommerce-advanced-reviews.php:2462
+msgctxt "convert into reviews"
+msgid "comments converted"
+msgstr "σχόλια που μετατράπηκαν"

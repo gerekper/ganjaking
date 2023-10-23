@@ -1,0 +1,40 @@
+
+/* COMMISSIONS */
+
+#yith-wcfm-commisssions {}
+
+#yith-wcfm-commisssions .subsubsub { padding: 0; margin-left: 0; float: left; }
+#yith-wcfm-commisssions .subsubsub li { list-style: none; display: inline-block; }
+
+#yith-wcfm-commisssions .search-box { float: right; }
+
+#yith-wcfm-commisssions .tablenav.top { clear: both; }
+
+#yith-wcfm-commisssions table tr td.commission_id button { display: none; }
+#yith-wcfm-commisssions table tr td.order_id small.meta.email { display: block; }
+
+
+#yith-wcfm-commisssions .woocommerce_order_items .thumb img { max-width: none; }
+
+/* Flatsome Theme  */
+
+.flatsome div#yith-wcfm-commisssions form#commissions-filter table.fixed {
+    position: relative !important;
+}
+
+/* YITH Proteo Theme */
+.theme-yith-proteo #yith_wcfm-main-content #current-page-selector{
+    vertical-align: top;
+}
+
+.theme-yith-proteo.yith-frontend-manager-for-woocommerce .widefat td.user_actions {
+    width: auto;
+}
+
+.theme-yith-proteo #yith_wcfm-main-content .yith-wcfm-content table td.user_actions a {
+    text-indent: -999px;
+    max-height: 45px;
+}
+.theme-yith-proteo #yith_wcfm-main-content .yith-wcfm-content table td.user_actions a::after{
+    top: 9px;
+}

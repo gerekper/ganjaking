@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit87cad7ab93b9710820288f9ff1e95f70
+class ComposerStaticInit7962ced4684423dd4a24478d958818d5
 {
     public static $files = array (
         'b45b351e6b6f7487d819961fef2fda77' => __DIR__ . '/..' . '/jakeasmith/http_build_url/src/http_build_url.php',
@@ -721,6 +721,9 @@ class ComposerStaticInit87cad7ab93b9710820288f9ff1e95f70
         'WPML\\Setup\\Initializer' => __DIR__ . '/../..' . '/classes/setup/Initializer.php',
         'WPML\\Setup\\Option' => __DIR__ . '/..' . '/wpml/core-api/core/setup/Option.php',
         'WPML\\SuperGlobals\\Server' => __DIR__ . '/../..' . '/classes/super-globals/Server.php',
+        'WPML\\Support\\ATE\\Hooks' => __DIR__ . '/../..' . '/classes/support/ATE/Hooks.php',
+        'WPML\\Support\\ATE\\View' => __DIR__ . '/../..' . '/classes/support/ATE/View.php',
+        'WPML\\Support\\ATE\\ViewFactory' => __DIR__ . '/../..' . '/classes/support/ATE/ViewFactory.php',
         'WPML\\TM\\API\\ATE' => __DIR__ . '/../..' . '/API/ATE.php',
         'WPML\\TM\\API\\ATE\\Account' => __DIR__ . '/../..' . '/API/ATE/Account.php',
         'WPML\\TM\\API\\ATE\\CachedLanguageMappings' => __DIR__ . '/../..' . '/API/ATE/CachedLanguageMappings.php',
@@ -761,6 +764,7 @@ class ComposerStaticInit87cad7ab93b9710820288f9ff1e95f70
         'WPML\\TM\\ATE\\ClonedSites\\Loader' => __DIR__ . '/../..' . '/classes/ATE/API/ClonedSites/Loader.php',
         'WPML\\TM\\ATE\\ClonedSites\\Lock' => __DIR__ . '/../..' . '/classes/ATE/API/ClonedSites/Lock.php',
         'WPML\\TM\\ATE\\ClonedSites\\Report' => __DIR__ . '/../..' . '/classes/ATE/API/ClonedSites/Report.php',
+        'WPML\\TM\\ATE\\ClonedSites\\SecondaryDomains' => __DIR__ . '/../..' . '/classes/ATE/API/ClonedSites/SecondaryDomains.php',
         'WPML\\TM\\ATE\\Download\\Consumer' => __DIR__ . '/../..' . '/classes/ATE/Download/Consumer.php',
         'WPML\\TM\\ATE\\Download\\Job' => __DIR__ . '/../..' . '/classes/ATE/Download/Job.php',
         'WPML\\TM\\ATE\\Download\\Process' => __DIR__ . '/../..' . '/classes/ATE/Download/Process.php',
@@ -910,6 +914,7 @@ class ComposerStaticInit87cad7ab93b9710820288f9ff1e95f70
         'WPML\\TM\\TranslationProxy\\Services\\Project\\SiteDetails' => __DIR__ . '/../..' . '/classes/translation-proxy/services/Project/SiteDetails.php',
         'WPML\\TM\\TranslationProxy\\Services\\Project\\Storage' => __DIR__ . '/../..' . '/classes/translation-proxy/services/Project/Storage.php',
         'WPML\\TM\\TranslationProxy\\Services\\Storage' => __DIR__ . '/../..' . '/classes/translation-proxy/services/Storage.php',
+        'WPML\\TM\\Troubleshooting\\Endpoints\\ATESecondaryDomains\\EnableSecondaryDomain' => __DIR__ . '/../..' . '/classes/troubleshoot/Endpoints/ATESecondaryDomains/EnableSecondaryDomain.php',
         'WPML\\TM\\Troubleshooting\\Loader' => __DIR__ . '/../..' . '/classes/troubleshoot/Loader.php',
         'WPML\\TM\\Troubleshooting\\ResetPreferredTranslationService' => __DIR__ . '/../..' . '/classes/troubleshooting/ResetPreferredTranslationService.php',
         'WPML\\TM\\Troubleshooting\\SynchronizeSourceIdOfATEJobs\\TriggerSynchronization' => __DIR__ . '/../..' . '/classes/troubleshooting/SynchronizeSourceIdOfATEJobs/TriggerSynchronization.php',
@@ -1029,8 +1034,6 @@ class ComposerStaticInit87cad7ab93b9710820288f9ff1e95f70
         'WPML_Browser_Redirect' => __DIR__ . '/../..' . '/classes/class-wpml-browser-redirect.php',
         'WPML_Cache_Directory' => __DIR__ . '/..' . '/wpml-shared/wpml-lib-cache/src/cache/class-wpml-cache-directory.php',
         'WPML_Cache_Factory' => __DIR__ . '/../..' . '/classes/utilities/class-wpml-cache-factory.php',
-        'WPML_Cache_Terms_Per_Lang' => __DIR__ . '/../..' . '/classes/display-as-translated/class-wpml-cache-terms-per-lang.php',
-        'WPML_Cache_Terms_Per_Lang_Factory' => __DIR__ . '/../..' . '/classes/display-as-translated/class-wpml-cache-terms-per-lang-factory.php',
         'WPML_Canonicals' => __DIR__ . '/../..' . '/classes/canonicals/class-wpml-canonicals.php',
         'WPML_Canonicals_Hooks' => __DIR__ . '/../..' . '/classes/canonicals/class-wpml-canonicals-hooks.php',
         'WPML_Color_Picker' => __DIR__ . '/../..' . '/inc/utilities/wpml-color-picker.class.php',
@@ -1259,6 +1262,7 @@ class ComposerStaticInit87cad7ab93b9710820288f9ff1e95f70
         'WPML_Post_Translation' => __DIR__ . '/../..' . '/inc/post-translation/wpml-post-translation.class.php',
         'WPML_Post_Translation_Job' => __DIR__ . '/../..' . '/inc/translation-jobs/jobs/wpml-post-translation-job.class.php',
         'WPML_Post_Types' => __DIR__ . '/../..' . '/classes/post-types/class-wpml-post-types.php',
+        'WPML_Posts_Listing_Page' => __DIR__ . '/../..' . '/menu/post-menus/wpml-posts-listing-page.class.php',
         'WPML_Pre_Option_Page' => __DIR__ . '/../..' . '/classes/post-translation/class-wpml-pre-option-page.php',
         'WPML_Privacy_Content' => __DIR__ . '/../..' . '/classes/privacy/class-wpml-privacy-content.php',
         'WPML_Privacy_Content_Factory' => __DIR__ . '/../..' . '/classes/privacy/class-wpml-privacy-content-factory.php',
@@ -2008,9 +2012,9 @@ class ComposerStaticInit87cad7ab93b9710820288f9ff1e95f70
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit87cad7ab93b9710820288f9ff1e95f70::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit87cad7ab93b9710820288f9ff1e95f70::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit87cad7ab93b9710820288f9ff1e95f70::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit7962ced4684423dd4a24478d958818d5::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit7962ced4684423dd4a24478d958818d5::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit7962ced4684423dd4a24478d958818d5::$classMap;
 
         }, null, ClassLoader::class);
     }

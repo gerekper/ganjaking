@@ -13,7 +13,7 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 	/**
 	 * YITH_System_Status class.
 	 *
-	 * @author     Alberto Ruggiero
+	 * @author     YITH <plugins@yithemes.com>
 	 */
 	class YITH_System_Status {
 		/**
@@ -57,7 +57,6 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 		 *
 		 * @return YITH_System_Status
 		 * @since  1.0.0
-		 * @author Alberto Ruggiero
 		 */
 		public static function instance() {
 			if ( is_null( self::$instance ) ) {
@@ -72,7 +71,6 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 		 *
 		 * @return void
 		 * @since  1.0.0
-		 * @author Alberto Ruggiero
 		 */
 		public function __construct() {
 
@@ -102,7 +100,6 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 		 *
 		 * @return void
 		 * @since  1.0.0
-		 * @author Alberto Ruggiero
 		 */
 		public function set_requirements_labels() {
 
@@ -129,7 +126,6 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 		 *
 		 * @return void
 		 * @since  1.0.0
-		 * @author Alberto Ruggiero
 		 */
 		public function add_submenu_page() {
 
@@ -158,7 +154,6 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 		 *
 		 * @return void
 		 * @since  1.0.0
-		 * @author Alberto Ruggiero
 		 */
 		public function show_information_panel() {
 
@@ -173,7 +168,6 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 		 *
 		 * @return void
 		 * @since  1.0.0
-		 * @author Alberto Ruggiero
 		 */
 		public function check_system_status() {
 
@@ -182,9 +176,9 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 				$this->add_requirements(
 					esc_html__( 'YITH Plugins', 'yith-plugin-fw' ),
 					array(
-						'min_wp_version'  => '5.6',
-						'min_wc_version'  => '5.3',
-						'min_php_version' => '7.0',
+						'min_wp_version'  => '5.9',
+						'min_wc_version'  => '7.2',
+						'min_php_version' => '7.2',
 					)
 				);
 				$this->add_requirements(
@@ -274,7 +268,6 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 		 *
 		 * @return void
 		 * @since  1.0.0
-		 * @author Alberto Ruggiero
 		 */
 		public function add_requirements( $plugin_name, $requirements ) {
 
@@ -294,14 +287,12 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 		 *
 		 * @return  void
 		 * @since   1.0.0
-		 * @author  Alberto Ruggiero
 		 */
 		public function enqueue_scripts() {
 			$script_path = defined( 'YIT_CORE_PLUGIN_URL' ) ? YIT_CORE_PLUGIN_URL : get_template_directory_uri() . '/core/plugin-fw';
 			wp_register_script( 'yith-system-info', yit_load_js_file( $script_path . '/assets/js/yith-system-info.js' ), array( 'jquery' ), '1.0.0', true );
 
 			if ( isset( $_GET['page'] ) && 'yith_system_info' === $_GET['page'] ) { //phpcs:ignore
-				wp_enqueue_style( 'yit-plugin-style' );
 				wp_enqueue_style( 'yith-plugin-fw-fields' );
 				wp_enqueue_script( 'yith-system-info' );
 
@@ -320,7 +311,6 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 		 *
 		 * @return  void
 		 * @since   1.0.0
-		 * @author  Alberto Ruggiero
 		 */
 		public function activate_system_notice() {
 
@@ -337,10 +327,10 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 				?>
 				<div id="yith-system-alert" class="notice notice-error is-dismissible" style="position: relative;">
 					<p>
-						<span class="yith-logo"><img src="<?php echo esc_attr( yith_plugin_fw_get_default_logo() ); ?>" /></span>
+						<span class="yith-logo"><img src="<?php echo esc_attr( yith_plugin_fw_get_default_logo() ); ?>"/></span>
 						<b>
 							<?php esc_html_e( 'Warning!', 'yith-plugin-fw' ); ?>
-						</b><br />
+						</b><br/>
 						<?php
 						/* translators: %1$s open link tag, %2$s open link tag*/
 						echo sprintf( esc_html__( 'The system check has detected some compatibility issues on your installation.%1$sClick here%2$s to know more', 'yith-plugin-fw' ), '<a href="' . esc_url( add_query_arg( array( 'page' => $this->page ), admin_url( 'admin.php' ) ) ) . '">', '</a>' );
@@ -358,7 +348,6 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 		 *
 		 * @return  array
 		 * @since   1.0.0
-		 * @author  Alberto Ruggiero
 		 */
 		public function get_system_info() {
 			$tls             = $this->get_tls_version();
@@ -405,9 +394,13 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 		 *
 		 * @return  void
 		 * @since   1.0.0
-		 * @author  Alberto Ruggiero
 		 */
 		public function create_log_file() {
+			if ( ! current_user_can( 'manage_options' ) || ! isset( $_POST['nonce'], $_POST['file'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'yith-export-log' ) ) {
+				wp_send_json( array( 'file' => false ) );
+				exit;
+			}
+
 			try {
 
 				global $wp_filesystem;
@@ -419,7 +412,7 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 
 				$download_file  = false;
 				$file_content   = '';
-				$requested_file = $_POST['file']; //phpcs:ignore
+				$requested_file = sanitize_text_field( wp_unslash( $_POST['file'] ) );
 
 				switch ( $requested_file ) {
 					case 'error_log':
@@ -431,9 +424,12 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 				}
 
 				if ( '' !== $file_content ) {
-					$file          = wp_upload_dir()['basedir'] . '/' . $requested_file . '.txt';
-					$download_file = wp_upload_dir()['baseurl'] . '/' . $requested_file . '.txt';
-					$wp_filesystem->put_contents( $file, $file_content );
+					$domain        = str_replace( array( 'http://', 'https://' ), '', network_site_url() );
+					$hash          = substr( wp_hash( $domain ), 0, 16 );
+					$file          = wp_upload_dir()['basedir'] . '/log-' . $hash . '.txt';
+					$download_file = wp_upload_dir()['baseurl'] . '/log-' . $hash . '.txt';
+
+					$r = $wp_filesystem->put_contents( $file, $file_content );
 				}
 
 				wp_send_json( array( 'file' => $download_file ) );
@@ -449,7 +445,6 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 		 *
 		 * @return  integer
 		 * @since   1.0.0
-		 * @author  Alberto Ruggiero
 		 */
 		public function memory_size_to_num( $memory_size ) {
 			$unit = strtoupper( substr( $memory_size, - 1 ) );
@@ -480,7 +475,6 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 		 *
 		 * @return  void
 		 * @since   1.0.0
-		 * @author  Alberto Ruggiero
 		 */
 		public function format_requirement_value( $key, $value ) {
 
@@ -507,7 +501,6 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 		 *
 		 * @return  void
 		 * @since   1.0.0
-		 * @author  Alberto Ruggiero
 		 */
 		public function print_error_messages( $key, $item, $label ) {
 			?>
@@ -541,7 +534,6 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 		 *
 		 * @return  void
 		 * @since   1.0.0
-		 * @author  Alberto Ruggiero
 		 */
 		public function print_solution_suggestion( $key, $item, $label ) {
 			switch ( $key ) {
@@ -588,7 +580,6 @@ if ( ! class_exists( 'YITH_System_Status' ) ) {
 		 *
 		 * @return  void
 		 * @since   1.0.0
-		 * @author  Alberto Ruggiero
 		 */
 		public function print_warning_messages( $key ) {
 			switch ( $key ) {
@@ -803,7 +794,6 @@ if ( ! function_exists( 'YITH_System_Status' ) ) {
 	 *
 	 * @return YITH_System_Status
 	 * @since  1.0
-	 * @author Alberto Ruggiero
 	 */
 	function YITH_System_Status() { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid
 		return YITH_System_Status::instance();

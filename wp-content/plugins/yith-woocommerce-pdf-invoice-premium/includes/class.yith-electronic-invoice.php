@@ -1,10 +1,10 @@
-<?php // phpcs:ignore WordPress.NamingConventions.
+<?php // phpcs:ignore WordPress.Files.FileName.NotHyphenatedLowercase, WordPress.Files.FileName.InvalidClassFileName
 /**
  * YITH Electronic Invoice class.
  *
  * Handles the electronic invoice document.
  *
- * @author  YITH
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH\PDFInvoice\Classes
  */
 
@@ -20,7 +20,6 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 	 * @class   YITH_Electronic_Invoice
 	 * @package YITH\PDFInvoice\Classes
 	 * @since   1.9.0
-	 * @author  YITH
 	 */
 	class YITH_Electronic_Invoice {
 
@@ -61,6 +60,20 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		public $next_progressive_filename;
 
 		/**
+		 * Label for the billing receiver ID field.
+		 *
+		 * @var string
+		 */
+		public $receiver_id_label;
+
+		/**
+		 * Label for the billing receiver PEC field.
+		 *
+		 * @var string
+		 */
+		public $receiver_pec_label;
+
+		/**
 		 * Returns single instance of the class
 		 *
 		 * @since 1.9.0
@@ -69,6 +82,7 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 			if ( is_null( self::$instance ) ) {
 				self::$instance = new self();
 			}
+
 			return self::$instance;
 		}
 
@@ -76,19 +90,15 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * YITH_Electronic_Invoice constructor.
 		 */
 		public function __construct() {
-
 			if ( 'yes' === strval( $this->enable ) ) {
 				$this->initialize();
 			}
-
 		}
-
 
 		/**
 		 * Initialize all functions of the module
 		 */
 		private function initialize() {
-
 			/**
 			 * Enqueue scripts for checkout process
 			 */
@@ -115,13 +125,13 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 			add_action( 'ywpi_create_document', array( $this, 'create_document' ), 10, 4 );
 
 			/* Increase Progressive File ID */
-			add_action( 'yith_ywpi_document_created', array( $this, 'increase_next_progressive_file_id' ) );
+			add_action( 'yith_ywpi_document_created', array( $this, 'increase_next_progressive_file_id' ), 10, 3 );
 
 			/* Regenerate XML documents */
 			add_action( 'ywpi_regenerate_document', array( $this, 'regenerate_document' ), 10, 3 );
 
 			/* Check if Electronic Document has been generated */
-			add_filter( 'ywpi_skip_document_generation', array( $this, 'check_if_electronic_document_is_generated' ), 10, 4 );
+			add_filter( 'ywpi_skip_document_generation', array( $this, 'check_if_electronic_document_is_generated' ), 10, 2 );
 
 			/* Set different content type for XML documents */
 			add_filter( 'ywpi_file_content_type', array( $this, 'set_content_type_to_open_file' ), 10, 3 );
@@ -130,7 +140,7 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 			add_filter( 'ywpi_document_save_path', array( $this, 'filter_document_save_path' ), 10, 4 );
 
 			/* Save Invoice Document Props */
-			add_filter( 'ywpi_document_props', array( $this, 'save_document_props' ), 10, 4 );
+			add_action( 'ywpi_document_save_props', array( $this, 'save_document_props' ), 10, 3 );
 
 			/* Filter date format */
 			add_filter( 'ywpi_invoice_date_format', array( $this, 'filter_date_format' ), 10, 2 );
@@ -157,8 +167,11 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 			/* WooCommerce Product Bundle Compatibility */
 			add_filter( 'ywpi_invoce_taxes', array( $this, 'customize_invoce_taxes' ), 10, 2 );
 
+			/* Use EU VAT field when YITH WooCommerce EU VAT is active */
+			if ( defined( 'YITH_YWEV_PREMIUM' ) ) {
+				add_filter( 'yith_wcpdi_billing_vat_field_id', array( $this, 'replace_billing_vat_field' ) );
+			}
 		}
-
 
 		/**
 		 * Magic method to recover module options
@@ -167,9 +180,7 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @return mixed
 		 */
 		public function __get( $key ) {
-
 			return get_option( 'ywpi_electronic_invoice_' . $key );
-
 		}
 
 		/**
@@ -179,6 +190,7 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 			if ( ! is_checkout() && ! is_account_page() ) {
 				return;
 			}
+
 			wp_enqueue_script(
 				'ywpi_checkout',
 				YITH_YWPI_ASSETS_URL . '/js/yith-wc-pdf-invoice-checkout.js',
@@ -189,86 +201,137 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 				true
 			);
 
+			// APPLY_FILTERS: ywpi_checkout_optional_label | Filter the checkout "(optional)" label. | @param string the label. | @return string.
+
+			// APPLY_FILTERS: ywpi_checkout_receipt_ssn_mandatory | Filter the condition to set the receipt SSN as mandatory. | @param bool True to set it as mandatory, false to not. | @return bool.
+
+			// APPLY_FILTERS: ywpi_validate_ssn_msg_error | Filter the SSN error message. | @param string the message. | @return string.
+
+			// APPLY_FILTERS: ywpi_codice_fiscale_length_error | Filter the "Codice fiscale" lenght error message. | @param string the message. | @return string.
+
+			// APPLY_FILTERS: ywpi_codice_fiscale_char1_error | Filter the "Codice fiscale" invalid characters error message. | @param string the message. | @return string.
+
+			// APPLY_FILTERS: ywpi_codice_fiscale_char2_error | Filter the "Codice fiscale" digits and letters error message. | @param string the message. | @return string.
+
+			// APPLY_FILTERS: ywpi_codice_fiscale_errato | Filter the wrong "Codice fiscale" error message. | @param string the message. | @return string.
+
 			$options = array(
+				'billing_vat_field_id'        => $this->get_billing_vat_field_id(),
 				'is_ssn_mandatory'            => get_option( 'ask_ssn_number_required', 'no' ),
 				'is_vat_mandatory'            => get_option( 'ask_vat_number_required', 'no' ),
 				'optional_label'              => apply_filters( 'ywpi_checkout_optional_label', __( '(optional)' ) ),
 				'receipt_ssn_mandatory'       => apply_filters( 'ywpi_checkout_receipt_ssn_mandatory', 'false' ),
-				'validate_ssn_msg_error'      => apply_filters( 'ywpi_validate_ssn_msg_error', esc_html__( 'Il codice fiscale inserito non è corretto', 'yith-woocommerce-pdf-invoice' ) ),
+				'validate_ssn_msg_error'      => apply_filters( 'ywpi_validate_ssn_msg_error', esc_html__( 'The fiscal code entered is incorrect.', 'yith-woocommerce-pdf-invoice' ) ),
 				'codice_fiscale_length_error' => apply_filters(
 					'ywpi_codice_fiscale_length_error',
-					esc_html__( 'La lunghezza del codice fiscale non è corretta: il codice fiscale dovrebbe essere lungo esattamente 16 caratteri.', 'yith-woocommerce-pdf-invoice' )
+					esc_html__( 'The fiscal code length is incorrect: the fiscal code should be exactly 16 characters long.', 'yith-woocommerce-pdf-invoice' )
 				),
 				'codice_fiscale_char1_error'  => apply_filters(
 					'ywpi_codice_fiscale_char1_error',
-					esc_html__( 'Il codice fiscale contiene caratteri non validi.', 'yith-woocommerce-pdf-invoice' )
+					esc_html__( 'The fiscal code includes invalid characters.', 'yith-woocommerce-pdf-invoice' )
 				),
 				'codice_fiscale_char2_error'  => apply_filters(
 					'ywpi_codice_fiscale_char2_error',
-					esc_html__( 'I caratteri peril codice fiscale sono lettere e cifre.', 'yith-woocommerce-pdf-invoice' )
+					esc_html__( 'Only digits and letters are allowed in the fiscal code.', 'yith-woocommerce-pdf-invoice' )
 				),
 				'codice_fiscale_errato'       => apply_filters(
 					'ywpi_codice_fiscale_errato',
-					esc_html__( 'Il codice fiscale è errato.', 'yith-woocommerce-pdf-invoice' )
+					esc_html__( 'The fiscal code is incorrect.', 'yith-woocommerce-pdf-invoice' )
 				),
+				'validate_ssn'                => apply_filters( 'ywpi_checkout_ssn_validation', 'yes' ),
 			);
 
 			wp_localize_script( 'ywpi_checkout', 'ywpi_checkout', $options );
+		}
 
+		/**
+		 * Get id for checkout field billing vat
+		 *
+		 * @return mixed|void
+		 */
+		public function get_billing_vat_field_id() {
+			/**
+			 * APPLY_FILTERS: yith_wcpdi_billing_vat_field_id
+			 *
+			 * Filter the ID of the billing VAT field.
+			 *
+			 * @param string $field_id Field ID
+			 *
+			 * @return string
+			 */
+			return apply_filters( 'yith_wcpdi_billing_vat_field_id', 'billing_vat_number' );
 		}
 
 		/**
 		 * Init the electronic invoice attributes.
 		 */
 		public function init_attributes() {
-
 			$this->file_id_progressive_number = ywpi_get_option( 'ywpi_electronic_invoice_progressive_file_id_number', 0 );
 
 			$this->file_id_progressive_letter = ywpi_get_option( 'ywpi_electronic_invoice_progressive_file_id_letter', 0 );
 
+			$this->receiver_id_label  = get_option( 'ywpi_electronic_invoice_receiver_id_label', 'Receiver ID' );
+			$this->receiver_pec_label = get_option( 'ywpi_electronic_invoice_receiver_pec_label', 'PEC Destinatario' );
 		}
-
 
 		/**
 		 * Init counters to use to increase Progressive Filename ID
 		 */
 		public function save_counters_for_progressive_file_id() {
-
 			if ( ! $this->file_id_progressive_number ) {
 				ywpi_update_option( 'ywpi_electronic_invoice_progressive_file_id_number', 0, 0 );
 			}
+
 			if ( ! $this->file_id_progressive_letter ) {
 				ywpi_update_option( 'ywpi_electronic_invoice_progressive_file_id_letter', 'AA', 0 );
 			}
-
 		}
 
 		/**
 		 * Increase next progressive File ID to use for the XML filename
 		 *
 		 * @param object $document The document.
+		 * @param int    $order_id Order ID.
+		 * @param string $extension Document extension.
 		 */
-		public function increase_next_progressive_file_id( $document ) {
+		public function increase_next_progressive_file_id( $document, $order_id, $extension ) {
+			$is_create = $document->generated();
 
-			if ( $document ) {
-				$order   = $document->order;
-				$has_xml = yit_get_prop( $order, '_ywpi_has_xml', true );
-			}
-			if ( $has_xml != 1 ) { //phpcs:ignore
+			$is_xml = 'xml' === $extension;
+
+			if ( ! $is_create || ! $is_xml ) {
 				return;
 			}
 
 			if ( 999 === intval( $this->file_id_progressive_number ) ) { // Once the number reaches 9999, increase the letter by one and reset number to 0.
-
 				$this->file_id_progressive_number = 0;
-				$this->file_id_progressive_letter++;
-
-			} elseif ( $has_xml ) {
-				$this->file_id_progressive_number++;
+				++$this->file_id_progressive_letter;
+			} elseif ( $is_create && $is_xml ) {
+				++$this->file_id_progressive_number;
 			}
 
-			$next_progressive_file_id = apply_filters( 'ywpi_next_progressive_file_id', $this->get_next_progressive_file_id(), $this->file_id_progressive_number, $this->file_id_progressive_number );
+			/**
+			 * APPLY_FILTERS: ywpi_next_progressive_file_id
+			 *
+			 * Filter the next progessive file ID.
+			 *
+			 * @param int the next progressive file ID.
+			 * @param int the actual file ID.
+			 *
+			 * @return int
+			 */
+			$next_progressive_file_id = apply_filters( 'ywpi_next_progressive_file_id', $this->get_next_progressive_file_id(), $this->file_id_progressive_number );
 
+			/**
+			 * APPLY_FILTERS: ywpi_electronic_invoice_filename
+			 *
+			 * Filter the electronic invoice filename.
+			 *
+			 * @param string the file name.
+			 * @param int $next_progressive_file_id the next actual file ID.
+			 *
+			 * @return int
+			 */
 			$filename = apply_filters( 'ywpi_electronic_invoice_filename', 'IT' . ywpi_get_option( 'ywpi_electronic_invoice_transmitter_id', 0 ) . '_' . $next_progressive_file_id, $next_progressive_file_id );
 
 			if ( $this->filename_exists( $filename ) ) {
@@ -277,7 +340,6 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 
 			ywpi_update_option( 'ywpi_electronic_invoice_progressive_file_id_number', $this->file_id_progressive_number, 0 );
 			ywpi_update_option( 'ywpi_electronic_invoice_progressive_file_id_letter', $this->file_id_progressive_letter, 0 );
-
 		}
 
 		/**
@@ -286,11 +348,8 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @return string
 		 */
 		public function get_next_progressive_file_id() {
-
 			return $this->file_id_progressive_letter . sprintf( '%03d', $this->file_id_progressive_number );
-
 		}
-
 
 		/**
 		 * Get new progressive filename
@@ -298,39 +357,31 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @return string
 		 */
 		public function get_next_progressive_filename() {
-
 			$filename = apply_filters( 'ywpi_electronic_invoice_filename', 'IT' . ywpi_get_option( 'ywpi_electronic_invoice_transmitter_id', 0 ) . '_' . $this->get_next_progressive_file_id(), $this->get_next_progressive_file_id() );
 
 			return $filename;
-
 		}
-
 
 		/**
 		 * Save an option which contains all olderst filename already generated, before to switch to alphanumer progressive unique id
 		 */
 		public function save_xml_generated_filename() {
-
 			global $wpdb;
 
 			/* Check if XML Invoices has been generated and if the procedure of update has been already processed */
 			$this->generated_filenames = get_option( 'ywpi_electronic_invoice_generated_filename' );
-			$documents                 = $wpdb->get_results( "SELECT meta_value FROM {$wpdb->prefix}postmeta WHERE meta_key = '_ywpi_xml_path'", ARRAY_A ); //phpcs:ignore
+			$documents                 = $wpdb->get_results( "SELECT meta_value FROM {$wpdb->prefix}postmeta WHERE meta_key = '_ywpi_xml_path'", ARRAY_A ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 			if ( ( count( $documents ) > 0 ) & ! $this->generated_filenames ) {
-
 				$documents_filename = array();
 
 				foreach ( $documents as $document ) {
 					$documents_filename[] = basename( $document['meta_value'], '.xml' );
 				}
 
-				update_option( 'ywpi_electronic_invoice_generated_filename', serialize( $documents_filename ) ); //phpcs:ignore
-
+				update_option( 'ywpi_electronic_invoice_generated_filename', serialize( $documents_filename ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
 			}
-
 		}
-
 
 		/**
 		 * Check if a document has already generated with provided filename
@@ -339,19 +390,16 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @return bool
 		 */
 		public function filename_exists( $filename ) {
-
 			$exists = false;
 
-			$generated_filenames = unserialize( $this->generated_filenames ); //phpcs:ignore
+			$generated_filenames = unserialize( $this->generated_filenames ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize
 
-			if ( is_array( $generated_filenames ) && in_array( $filename, $generated_filenames ) ) { //phpcs:ignore
+			if ( is_array( $generated_filenames ) && in_array( $filename, $generated_filenames, true ) ) {
 				$exists = true;
 			}
 
 			return $exists;
-
 		}
-
 
 		/**
 		 * Add Receiver ID and PEC fields to WooCommerce default fields
@@ -360,12 +408,20 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @return mixed
 		 */
 		public function customize_billing_fields( $fields ) {
-
 			$current_action    = current_action();
 			$key_receiver_id   = 'woocommerce_billing_fields' === strval( $current_action ) ? 'billing_receiver_id' : 'receiver_id';
 			$key_receiver_pec  = 'woocommerce_billing_fields' === strval( $current_action ) ? 'billing_receiver_pec' : 'receiver_pec';
 			$key_receiver_type = 'woocommerce_billing_fields' === strval( $current_action ) ? 'billing_receiver_type' : 'receiver_type';
 
+			/**
+			 * APPLY_FILTERS: ywpi_show_receiver_id_field
+			 *
+			 * Filter the condition to show the "Receiver ID" field at checkout for the electronic invoices.
+			 *
+			 * @param bool true to show it, false to not.
+			 *
+			 * @return bool
+			 */
 			if ( apply_filters( 'ywpi_show_receiver_id_field', true ) ) {
 				$fields[ $key_receiver_id ] = array(
 					'label'        => YITH_Electronic_Invoice()->receiver_id_label,
@@ -376,6 +432,15 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 				);
 			}
 
+			/**
+			 * APPLY_FILTERS: ywpi_show_receiver_pec_field
+			 *
+			 * Filter the condition to show the "PEC" field at checkout for the electronic invoices.
+			 *
+			 * @param bool true to show it, false to not.
+			 *
+			 * @return bool
+			 */
 			if ( apply_filters( 'ywpi_show_receiver_pec_field', true ) ) {
 				$fields[ $key_receiver_pec ] = array(
 					'label'        => YITH_Electronic_Invoice()->receiver_pec_label,
@@ -388,24 +453,31 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 				);
 			}
 
+			// APPLY_FILTERS: ywpi_receiver_type_field_label | Filter the "Customer type" label at checkout for italian customers. | @param string the label. | @return string.
+
+			// APPLY_FILTERS: ywpi_receiver_type_field_private_label | Filter the "private" option label in the "Customer type" option for italian customers. | @param string the label. | @return string.
+
+			// APPLY_FILTERS: ywpi_receiver_type_field_freelance_label | Filter the "freelance" option label in the "Customer type" option for italian customers. | @param string the label. | @return string.
+
+			// APPLY_FILTERS: ywpi_receiver_type_field_company_label | Filter the "company" option label in the "Customer type" option for italian customers. | @param string the label. | @return string.
+
 			$fields[ $key_receiver_type ] = array(
-				'label'        => apply_filters( 'ywpi_receiver_type_field_label', esc_html__( 'Tipologia utente', 'yith-woocommerce-pdf-invoice' ) ),
+				'label'        => apply_filters( 'ywpi_receiver_type_field_label', get_option( 'ywpi_electronic_invoice_receiver_type', 'Tipologia utente' ) ),
 				'class'        => 'woocommerce_admin_billing_fields' === strval( $current_action ) ? '' : array( 'form-row-wide' ),
 				'autocomplete' => 'given-name',
 				'priority'     => 21,
 				'required'     => true,
 				'type'         => 'woocommerce_admin_billing_fields' === strval( $current_action ) ? 'select' : 'radio',
 				'options'      => array(
-					'private'   => apply_filters( 'ywpi_receiver_type_field_private_label', esc_html__( 'Privato', 'yith-woocommerce-pdf-invoice' ) ),
-					'freelance' => apply_filters( 'ywpi_receiver_type_field_freelance_label', esc_html__( 'Libero professionista', 'yith-woocommerce-pdf-invoice' ) ),
-					'company'   => apply_filters( 'ywpi_receiver_type_field_company_label', esc_html__( 'Azienda', 'yith-woocommerce-pdf-invoice' ) ),
+					'private'   => apply_filters( 'ywpi_receiver_type_field_private_label', esc_html__( 'Private', 'yith-woocommerce-pdf-invoice' ) ),
+					'freelance' => apply_filters( 'ywpi_receiver_type_field_freelance_label', esc_html__( 'Freelance', 'yith-woocommerce-pdf-invoice' ) ),
+					'company'   => apply_filters( 'ywpi_receiver_type_field_company_label', esc_html__( 'Company', 'yith-woocommerce-pdf-invoice' ) ),
 				),
 				'default'      => 'private',
 			);
 
 			return $fields;
 		}
-
 
 		/**
 		 * Retrieve the invoice document number
@@ -417,37 +489,45 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 */
 		public function set_invoice_number_for_xml_documents( $current_invoice_number, $order, $document ) {
 			if ( $document instanceof YITH_XML ) {
-				$invoice = ywpi_get_invoice( yit_get_prop( $order, 'id' ) );
-				if ( $invoice->number != null ) { //phpcs:ignore
+				$invoice = ywpi_get_invoice( $order->get_id() );
+
+				if ( null !== $invoice->number ) {
 					$current_invoice_number = $invoice->number;
 				}
 			} elseif ( $document instanceof YITH_Invoice ) {
-				$invoice_number = get_post_meta( $document->order->get_id(), 'ywpi_invoice_number', true );
+				$invoice_number = $document->order->get_meta( 'ywpi_invoice_number' );
+
 				if ( $invoice_number ) {
 					$current_invoice_number = $invoice_number;
 				}
 			}
+
 			return $current_invoice_number;
 		}
-
 
 		/**
 		 * Print metabox for electronic invoices
 		 *
-		 * @param object $post The post object.
+		 * @param object $order The order object.
 		 */
-		public function print_view_electronic_invoice_button( $post ) {
-
-			$is_receipt = get_post_meta( $post->ID, '_billing_invoice_type', true );
+		public function print_view_electronic_invoice_button( $order ) {
+			$is_receipt = $order->get_meta( '_billing_invoice_type' );
 
 			if ( 'receipt' === strval( $is_receipt ) ) {
 				return;
 			}
 
-			$order = wc_get_order( $post );
+			$is_generated = $order->get_meta( '_ywpi_has_xml' );
 
-			$is_generated = yit_get_prop( $post, '_ywpi_has_xml', true );
-
+			/**
+			 * APPLY_FILTERS: yith_ywpi_hide_electronic_invoice_button
+			 *
+			 * Filter the condition to hide the option to create the electronic invoice in the order edit page.
+			 *
+			 * @param bool true to hide it, false to not.
+			 *
+			 * @return bool
+			 */
 			if ( apply_filters( 'yith_ywpi_hide_electronic_invoice_button', false, $order ) ) {
 				return;
 			}
@@ -461,22 +541,17 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 			}
 
 			?>
-
-			<a 
-			<?php
-			if ( 'open' == ywpi_get_option( 'ywpi_pdf_invoice_behaviour' ) ) { //phpcs:ignore
-				echo 'target="_blank"';
-			}
-			?>
-			class="button tips ywpi_view_xml"
-				data-tip="<?php esc_html_e( 'XML', 'yith-woocommerce-pdf-invoice' ); ?>"
-				href=" <?php echo wp_kses_post( YITH_PDF_Invoice()->get_action_url( $action, 'invoice', yit_get_prop( $order, 'id' ), 'xml' ) ); ?>">
+			<a
+				<?php
+				if ( 'open_tab' === ywpi_get_option( 'ywpi_pdf_invoice_behaviour' ) ) {
+					echo 'target="_blank"';
+				}
+				?>
+				class="button tips ywpi_view_xml" data-tip="<?php esc_html_e( 'XML', 'yith-woocommerce-pdf-invoice' ); ?>" href=" <?php echo esc_url( YITH_PDF_Invoice()->get_action_url( $action, 'invoice', $order->get_id(), 'xml' ) ); ?>">
 				<?php echo esc_html( $label ); ?>
 			</a>
-
 			<?php
 		}
-
 
 		/**
 		 * Show Create/View credit note for Electronic Documents
@@ -484,14 +559,13 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @param object $post The post object.
 		 */
 		public function print_view_electronic_credit_note_button( $post ) {
-
-			$is_receipt = get_post_meta( $post->get_id(), '_billing_invoice_type', true );
+			$is_receipt = $post->get_meta( '_billing_invoice_type' );
 
 			if ( 'receipt' === strval( $is_receipt ) ) {
 				return;
 			}
 
-			$is_generated = yit_get_prop( $post, '_ywpi_xml_credit_note', true );
+			$is_generated = $post->get_meta( '_ywpi_xml_credit_note' );
 
 			if ( apply_filters( 'yith_ywpi_hide_electronic_invoice_button', false, $post ) ) {
 				return;
@@ -506,23 +580,17 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 			}
 
 			?>
-
-			<a 
-			<?php
-			if ( 'open' == ywpi_get_option( 'ywpi_pdf_invoice_behaviour' ) ) { //phpcs:ignore
-				echo 'target="_blank"';
-			}
-			?>
-			class="button tips ywpi_view_xml"
-				data-tip="<?php esc_html_e( 'XML', 'yith-woocommerce-pdf-invoice' ); ?>"
-				href=" <?php echo wp_kses_post( YITH_PDF_Invoice()->get_action_url( $action, 'credit-note', $post->get_id(), 'xml' ) ); ?>">
+			<a
+				<?php
+				if ( 'open_tab' === ywpi_get_option( 'ywpi_pdf_invoice_behaviour' ) ) {
+					echo 'target="_blank"';
+				}
+				?>
+				class="button tips ywpi_view_xml" data-tip="<?php esc_html_e( 'XML', 'yith-woocommerce-pdf-invoice' ); ?>" href=" <?php echo esc_url( YITH_PDF_Invoice()->get_action_url( $action, 'credit-note', $post->get_id(), 'xml' ) ); ?>">
 				<?php echo esc_html( $label ); ?>
 			</a>
-
 			<?php
-
 		}
-
 
 		/**
 		 * Show Invoice information link in orders page.
@@ -531,42 +599,35 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @param object $order The order object.
 		 */
 		public function show_invoice_information_link( $invoice, $order ) {
+			$url = YITH_PDF_Invoice()->get_action_url( 'view', 'invoice', $order->get_id(), 'xml' );
 
-			$url = YITH_PDF_Invoice()->get_action_url( 'view', 'invoice', yit_get_prop( $order, 'id' ), 'xml' );
-
-			if ( yit_get_prop( $order, '_ywpi_has_xml', true ) ) {
+			if ( $order->get_meta( '_ywpi_has_xml' ) ) {
 				?>
-
-				<a class="meta ywpi-invoice-information"
-					target="_blank" href="<?php echo esc_url( $url ); ?>"
-					title="<?php esc_html_e( 'View Invoice', 'yith-woocommerce-pdf-invoice' ); ?>">
-					<?php // translators: The invoice number. ?>
-					<?php echo sprintf( esc_html__( 'View Invoice No. %s (XML)', 'yith-woocommerce-pdf-invoice' ), wp_kses_post( $invoice->get_formatted_document_number() ) ); ?>
+				<a class="meta ywpi-invoice-information" target="_blank" href="<?php echo esc_url( $url ); ?>" title="<?php esc_html_e( 'View Invoice', 'yith-woocommerce-pdf-invoice' ); ?>">
+					<?php
+					// translators: %s is the invoice number.
+					printf( esc_html__( 'View Invoice No. %s (XML)', 'yith-woocommerce-pdf-invoice' ), wp_kses_post( $invoice->get_formatted_document_number() ) );
+					?>
 				</a>
-
 				<?php
-
 			}
-
 		}
-
 
 		/**
 		 * Set content type to open correctly xml file
 		 *
 		 * @param string $content_type The context type of the document (text/xml).
-		 * @param string $resource The resource.
+		 * @param string $document The resource.
 		 * @param string $extension The extension of the file.
 		 * @return string
 		 */
-		public function set_content_type_to_open_file( $content_type, $resource, $extension ) {
-
+		public function set_content_type_to_open_file( $content_type, $document, $extension ) {
 			if ( 'xml' === strval( $extension ) ) {
 				$content_type = 'Content-type: text/xml';
 			}
+
 			return $content_type;
 		}
-
 
 		/**
 		 * Filter Document Save Path for Electronic Invoices
@@ -578,119 +639,91 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @return mixed
 		 */
 		public function filter_document_save_path( $save_path, $extension, $order_id, $document ) {
-
-			$order = get_post( $order_id );
+			$order = wc_get_order( $order_id );
 
 			if ( 'xml' === strval( $extension ) ) {
-
 				if ( $document instanceof YITH_Invoice ) {
-
-					$save_path = yit_get_prop( $order, '_ywpi_xml_path', true );
-
+					$save_path = $order->get_meta( '_ywpi_xml_path' );
 				} elseif ( $document instanceof YITH_Credit_Note ) {
-
-					$save_path = yit_get_prop( $order, '_ywpi_xml_credit_note_path', true );
-
+					$save_path = $order->get_meta( '_ywpi_xml_credit_note_path' );
 				}
 			}
 
 			return $save_path;
-
 		}
-
 
 		/**
 		 * Create document action for Electronic Documents
 		 *
-		 * @param object $object The document object.
+		 * @param object $document The document object.
 		 * @param int    $order_id The order id.
 		 * @param string $type The document type.
 		 */
-		public function create_document( $object, $order_id, $type ) {
-
-			if ( $type == 'invoice' || $type == 'credit-note' ) { //phpcs:ignore
-
-				$object->create_document( $order_id, $type, 'xml' );
-
+		public function create_document( $document, $order_id, $type ) {
+			if ( 'invoice' === $type || 'credit-note' === $type ) {
+				$document->create_document( $order_id, $type, 'xml' );
 			}
-
 		}
-
 
 		/**
 		 * Regenerate document for Electronic Invoice
 		 *
-		 * @param object $object The document object.
+		 * @param object $document The document object.
 		 * @param int    $order_id The order id.
 		 * @param string $type The document type.
 		 */
-		public function regenerate_document( $object, $order_id, $type ) {
-
-			if ( $type == 'invoice' || $type == 'credit-note' ) { //phpcs:ignore
-
-				$object->regenerate_document( $order_id, $type, 'xml' );
-
+		public function regenerate_document( $document, $order_id, $type ) {
+			if ( 'invoice' === $type || 'credit-note' === $type ) {
+				$document->regenerate_document( $order_id, $type, 'xml' );
 			}
-
 		}
-
 
 		/**
 		 * Check if Electronic Invoice has been generated
 		 *
 		 * @param boolean $skip True or False if it has been generated.
 		 * @param int     $order_id The order id.
-		 * @param string  $document_type The document type.
-		 * @param string  $extension The extension type.
 		 * @return bool
 		 */
-		public function check_if_electronic_document_is_generated( $skip, $order_id, $document_type, $extension ) {
+		public function check_if_electronic_document_is_generated( $skip, $order_id ) {
+			$order = wc_get_order( $order_id );
 
-			$order = get_post( $order_id );
-
-			$skip = yit_get_prop( $order, '_ywpi_has_xml', true ) ? true : false;
+			$skip = $order->get_meta( '_ywpi_has_xml' ) ? true : false;
 
 			return $skip;
-
 		}
-
 
 		/**
 		 * Save document props whene elctronic invoice is generated
 		 *
-		 * @param array  $props The array of properties.
 		 * @param object $document The document object.
 		 * @param object $order The order object.
 		 * @param string $extension The document extension.
-		 * @return array
+		 * @return void
 		 */
-		public function save_document_props( $props, $document, $order, $extension ) {
-
+		public function save_document_props( $document, $order, $extension ) {
 			if ( 'xml' === strval( $extension ) ) {
-
 				if ( $document instanceof YITH_Invoice ) {
+					$order->update_meta_data( '_ywpi_has_xml', true );
+					$order->update_meta_data( '_ywpi_xml_path', sprintf( '%s.%s', YITH_PDF_Invoice()->get_document_filename( $document, $extension ), $extension ) );
 
-					$props =
-						array(
-							'_ywpi_has_xml'  => true,
-							'_ywpi_xml_path' => sprintf( '%s.%s', YITH_PDF_Invoice()->get_document_filename( $document, $extension ), $extension ),
-						);
+					// TODO remove it in the future when the HPOS sync works correctly.
+					update_post_meta( $order->get_id(), '_ywpi_has_xml', true );
+					update_post_meta( $order->get_id(), '_ywpi_xml_path', sprintf( '%s.%s', YITH_PDF_Invoice()->get_document_filename( $document, $extension ), $extension ) );
 
+					$order->save();
 				} elseif ( $document instanceof YITH_Credit_Note ) {
+					$order->update_meta_data( '_ywpi_xml_credit_note', true );
+					$order->update_meta_data( '_ywpi_xml_credit_note_path', sprintf( '%s.%s', YITH_PDF_Invoice()->get_document_filename( $document, $extension ), $extension ) );
 
-					$props =
-						array(
-							'_ywpi_xml_credit_note'      => true,
-							'_ywpi_xml_credit_note_path' => sprintf( '%s.%s', YITH_PDF_Invoice()->get_document_filename( $document, $extension ), $extension ),
-						);
+					// TODO remove it in the future when the HPOS sync works correctly.
+					update_post_meta( $order->get_id(), '_ywpi_xml_credit_note', true );
+					update_post_meta( $order->get_id(), '_ywpi_xml_credit_note_path', sprintf( '%s.%s', YITH_PDF_Invoice()->get_document_filename( $document, $extension ), $extension ) );
 
+					$order->save();
 				}
 			}
-
-			return $props;
-
 		}
-
 
 		/**
 		 * Filter date format as Y-m-d
@@ -700,16 +733,12 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @return string
 		 */
 		public function filter_date_format( $date_format, $extension = 'pdf' ) {
-
 			if ( 'xml' === strval( $extension ) ) {
 				$date_format = 'Y-m-d';
 			}
 
 			return $date_format;
-
 		}
-
-
 
 		/**
 		 * Create automatically document
@@ -717,17 +746,16 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @param int $order_id The order id.
 		 */
 		public function create_automatically_document( $order_id ) {
+			$order = wc_get_order( $order_id );
 
-			$is_receipt = get_post_meta( $order_id, '_billing_invoice_type', true );
+			$is_receipt = $order->get_meta( '_billing_invoice_type' );
 
 			if ( 'receipt' === strval( $is_receipt ) ) {
 				return;
 			}
 
 			YITH_PDF_Invoice()->create_document( $order_id, 'invoice', 'xml' );
-
 		}
-
 
 		/**
 		 * Validate checkout fields ( Billing Receiver ID and Billing Receiver PEC )
@@ -736,51 +764,54 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @param  WP_Error $errors Validation errors.
 		 */
 		public function validate_checkout_fields( $data, $errors ) {
-
 			$is_receipt_enabled = ywpi_get_option( 'ywpi_enable_receipts', null, 'no' );
 
-			$is_ssn_mandatory = apply_filters( 'yith_ywpi_ssn_is_required_option', 'yes' ) == get_option( 'ask_ssn_number_required', 'no' ); //phpcs:ignore
+			$is_ssn_mandatory = apply_filters( 'yith_ywpi_ssn_is_required_option', 'yes' ) === get_option( 'ask_ssn_number_required', 'no' );
 
+			/**
+			 * APPLY_FILTERS: yith_ywpi_validate_checkout_fields_conditions
+			 *
+			 * Filter the condition to validate the checkout fields.
+			 *
+			 * @param bool true to validate, false to not.
+			 *
+			 * @return bool
+			 */
 			if ( apply_filters( 'yith_ywpi_validate_checkout_fields_conditions', true, $data ) ) {
-
-				if ( in_array( $data['billing_receiver_type'], array( 'freelance', 'company' ) ) ) { //phpcs:ignore
-
+				if ( in_array( $data['billing_receiver_type'], array( 'freelance', 'company' ), true ) ) {
 					if ( 'IT' === strval( $data['billing_country'] ) ) {
-						if ( '' == $data['billing_receiver_id'] && isset( $data['billing_receiver_pec'] ) && '' == $data['billing_receiver_pec'] ) { //phpcs:ignore
+						if ( '' === $data['billing_receiver_id'] && isset( $data['billing_receiver_pec'] ) && '' === $data['billing_receiver_pec'] ) {
 							$message = $this->receiver_mandatory_id_pec_message;
 							$errors->add( 'validation', $message );
 						}
-						if ( $data['billing_receiver_id'] != '' & strlen( (string) $data['billing_receiver_id'] ) != 7 ) { //phpcs:ignore
 
+						if ( '' !== $data['billing_receiver_id'] & strlen( (string) $data['billing_receiver_id'] ) !== 7 ) {
 							$message = $this->receiver_wrong_id_message;
 							$errors->add( 'validation', $message );
-
 						}
-						if ( '' == $data['billing_vat_number'] ) { //phpcs:ignore
+
+						if ( '' === $data[ $this->get_billing_vat_field_id() ] ) {
 							$message = $this->receiver_mandatory_vat_message;
 							$errors->add( 'validation', $message );
 						}
-						if ( '' == $data['billing_company'] ) { //phpcs:ignore
+
+						if ( '' === $data['billing_company'] ) {
 							$message = $this->receiver_mandatory_company_message;
 							$errors->add( 'validation', $message );
 						}
 					}
-				} elseif ( $data['billing_country'] == 'IT' && isset( $data['billing_vat_ssn'] ) && ( ( ( $is_receipt_enabled === 'yes' && $data['billing_invoice_type'] === 'invoice' ) ) || $is_receipt_enabled === 'no' ) ) { //phpcs:ignore
-
+				} elseif ( 'IT' === $data['billing_country'] && isset( $data['billing_vat_ssn'] ) && ( ( ( 'yes' === $is_receipt_enabled && 'invoice' === $data['billing_invoice_type'] ) ) || 'no' === $is_receipt_enabled ) ) {
 					// Check if SSN is valid.
-					if ( ! $data['billing_vat_ssn'] == '' && $data['billing_receiver_type'] != 'organization' && ! preg_match( '/^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/i', $data['billing_vat_ssn'] ) ) { //phpcs:ignore
-
+					if ( ! '' === $data['billing_vat_ssn'] && 'organization' !== $data['billing_receiver_type'] && ! preg_match( '/^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/i', $data['billing_vat_ssn'] ) ) {
 						$message = $this->receiver_wrong_ssn_message;
 						$errors->add( 'validation', $message );
-
-					} elseif ( '' == $data['billing_vat_ssn'] ) {  //phpcs:ignore
+					} elseif ( '' === $data['billing_vat_ssn'] ) {
 						$message = $this->receiver_mandatory_ssn_message;
 						$errors->add( 'validation', $message );
 					}
 				}
 			}
 		}
-
 
 		/**
 		 * Allow editing of Receiver ID and Receiver PEC editing user profile by backend
@@ -789,7 +820,6 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @return mixed
 		 */
 		public function customize_admin_user_fields( $meta_fields ) {
-
 			$meta_fields['billing']['fields']['billing_receiver_id']   = array(
 				'label'       => 'Codice Univoco (fatturazione elettronica)',
 				'description' => '',
@@ -802,9 +832,9 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 				'label'       => 'Tipologia utente (fatturazione elettronica)',
 				'description' => '',
 			);
+
 			return $meta_fields;
 		}
-
 
 		/** Loading in ajax of Receiver ID and Receiver PEC on user profile when an order is created manually by backend
 		 *
@@ -814,15 +844,12 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @return mixed array
 		 */
 		public function load_customer_billing_details( $data, $customer, $user_id ) {
-
 			$data['billing']['receiver_id']   = get_user_meta( $user_id, 'billing_receiver_id', true );
 			$data['billing']['receiver_pec']  = get_user_meta( $user_id, 'billing_receiver_pec', true );
 			$data['billing']['receiver_type'] = get_user_meta( $user_id, 'billing_receiver_type', true );
 
 			return $data;
-
 		}
-
 
 		/**
 		 * Get billing receiver ID (if the country is IT, the value can be filled or set as 0000000 if customer filled
@@ -832,7 +859,6 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @return string
 		 */
 		public function get_billing_receiver_id( $document ) {
-
 			if ( $document->order instanceof WC_Order_Refund ) {
 				$order = wc_get_order( $document->order->get_parent_id() );
 			} else {
@@ -842,8 +868,8 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 			/* private */
 			$billing_country = $order->get_billing_country();
 
-			if ( $order->get_meta( '_billing_receiver_id' ) == '' || $this->is_private( $order ) ) { //phpcs:ignore
-				$billing_receiver_id = $billing_country != 'IT' ? 'XXXXXXX' : '0000000'; //phpcs:ignore
+			if ( $order->get_meta( '_billing_receiver_id' ) === '' || $this->is_private( $order ) ) {
+				$billing_receiver_id = 'IT' !== $billing_country ? 'XXXXXXX' : '0000000';
 			} else {
 				$billing_receiver_id = strtoupper( $order->get_meta( '_billing_receiver_id' ) );
 			}
@@ -853,7 +879,6 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 			return $billing_receiver_id;
 		}
 
-
 		/**
 		 * Get billing VAT/SSN value
 		 *
@@ -861,7 +886,6 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @return string
 		 */
 		public function get_billing_vat_ssn( $document ) {
-
 			if ( $document->order instanceof WC_Order_Refund ) {
 				$order = wc_get_order( $document->order->get_parent_id() );
 			} else {
@@ -878,18 +902,14 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 				} else {
 					$billing_vat_ssn = '0000000';
 				}
+			} elseif ( $this->is_eur_country( $billing_country ) ) {
+				$billing_vat_ssn = $order->get_meta( '_billing_vat_ssn' );
 			} else {
-				if ( $this->is_eur_country( $billing_country ) ) {
-					$billing_vat_ssn = $order->get_meta( '_billing_vat_ssn' );
-				} else {
-					$billing_vat_ssn = 'OO99999999999';
-				}
+				$billing_vat_ssn = 'OO99999999999';
 			}
 
 			return $billing_vat_ssn;
-
 		}
-
 
 		/**
 		 *  Get billing vat number
@@ -898,23 +918,20 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @return string
 		 */
 		public function get_billing_vat_number( $document ) {
-
 			if ( $document->order instanceof WC_Order_Refund ) {
 				$order = wc_get_order( $document->order->get_parent_id() );
 			} else {
 				$order = $document->order;
 			}
 
-			if ( '' == $order->get_meta( '_billing_vat_number' ) ) { //phpcs:ignore
+			if ( '' === $order->get_meta( '_' . $this->get_billing_vat_field_id() ) ) {
 				$billing_vat_number = '99999999999';
 			} else {
-				$billing_vat_number = $order->get_meta( '_billing_vat_number' );
+				$billing_vat_number = $order->get_meta( '_' . $this->get_billing_vat_field_id() );
 			}
 
 			return $billing_vat_number;
-
 		}
-
 
 		/**
 		 *  Recover dinamically the payment method
@@ -923,17 +940,13 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @return string
 		 */
 		public function get_payment_method( $document ) {
-
 			if ( $document->order instanceof WC_Order_Refund ) {
-
 				$order = wc_get_order( $document->order->get_parent_id() );
-
 			} else {
 				$order = $document->order;
 			}
 
 			switch ( $order->get_payment_method() ) {
-
 				case 'bacs':
 					$payment_method = 'MP05';
 					break;
@@ -948,14 +961,10 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 
 				default:
 					$payment_method = 'MP08';
-					break;
-
 			}
 
 			return $payment_method;
-
 		}
-
 
 		/**
 		 * Get discount applied for each item
@@ -966,13 +975,10 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @return string
 		 */
 		public function get_discount_increment( $item, $number_format = false, $quantity = 1 ) {
-
 			$discount = ( $item->get_subtotal() - $item->get_total() ) / $quantity;
 
 			return $number_format ? number_format( $discount, 8, '.', '' ) : $discount;
-
 		}
-
 
 		/**
 		 *  Get item price
@@ -983,15 +989,22 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 */
 		public function get_order_item_price( $item, $number_format = false ) {
 			$price = 0;
+			$qty   = $item->get_quantity();
 
-			if ( $item->get_quantity() > 0 ) {
+			if ( $qty > 0 ) {
 				$price = ( $item instanceof WC_Order_Item_Fee || $item instanceof WC_Order_Item_Shipping ) ? $item['total'] : $item['subtotal'] / $item->get_quantity();
+
+				if ( '' === $price ) {
+					$price = 0;
+				}
+			} else {
+				$subtotal = abs( $item->get_subtotal() );
+				$qty      = 0 === abs( $qty ) ? 1 : abs( $qty );
+				$price    = $subtotal / $qty;
 			}
 
-			return $number_format ? number_format( $price, 5, '.', '' ) : $price;
-
+			return $number_format ? number_format( $price, 2, '.', '' ) : $price;
 		}
-
 
 		/**
 		 * Get the order item name.
@@ -1000,9 +1013,17 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @return string
 		 */
 		public function get_order_item_name( $item ) {
-
+			/**
+			 * APPLY_FILTERS: yith_ywpi_item_name_xml
+			 *
+			 * Filter the order item name for the XML file.
+			 *
+			 * @param string the item name.
+			 * @param array the item.
+			 *
+			 * @return string
+			 */
 			return apply_filters( 'yith_ywpi_item_name_xml', $this->encode_text( $item['name'] ), $item );
-
 		}
 
 		/**
@@ -1012,9 +1033,8 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @return boolean
 		 */
 		public function is_private( $order ) {
-			return $order->get_meta( '_billing_receiver_type' ) == 'private' || ( $order->get_meta( '_billing_receiver_type' ) == '' && $order->get_meta( '_billing_company' ) != '' ) ? true : false; //phpcs:ignore
+			return $order->get_meta( '_billing_receiver_type' ) === 'private' || ( $order->get_meta( '_billing_receiver_type' ) === '' && $order->get_meta( '_billing_company' ) !== '' ) ? true : false;
 		}
-
 
 		/**
 		 * Encode special characters
@@ -1023,14 +1043,23 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @return string
 		 */
 		public function encode_text( $text ) {
+			$replace_to    = array( '€', '&', 'à', 'À', '’' );
+			$replace_      = array( 'euro', 'e', 'a', 'A', ' ' );
+			$replaced_text = str_replace( $replace_to, $replace_, $text );
+			$final_text    = html_entity_decode( $replaced_text );
 
-			$replace_to = array( '€', '&', 'à', 'À', '’' );
-			$replace_   = array( 'euro', 'e', 'a', 'A', ' ' );
-			$text       = str_replace( $replace_to, $replace_, $text );
-			return html_entity_decode( $text );
-
+			/**
+			 * APPLY_FILTERS: yith_ywpi_encode_text
+			 *
+			 * Filter the encode text return for the electronic invoice.
+			 *
+			 * @param string $final_textthe the encoded text.
+			 * @param string $text the original text.
+			 *
+			 * @return string
+			 */
+			return apply_filters( 'yith_ywpi_encode_text', $final_text, $text );
 		}
-
 
 		/**
 		 * Get item quantity
@@ -1041,21 +1070,14 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @return float|int|string
 		 */
 		public function get_item_quantity( $item, $document, $number_format = false ) {
-
 			if ( $document instanceof YITH_Invoice ) {
-
 				$quantity = $item->get_quantity();
-
 			} else {
-
-				$quantity = $item->get_quantity() == 0 ? 1 : abs( $item->get_quantity() ); //phpcs:ignore
-
+				$quantity = $item->get_quantity() === 0 ? 1 : abs( $item->get_quantity() );
 			}
 
 			return $number_format ? number_format( $quantity, 2, '.', '' ) : $quantity;
-
 		}
-
 
 		/**
 		 * Customize Invoice Taxes
@@ -1065,21 +1087,16 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @return mixed
 		 */
 		public function customize_invoce_taxes( $taxes, $bundle_exists ) {
-
 			if ( $bundle_exists ) {
-
 				if ( ! array_key_exists( '0.00', $taxes ) ) {
-
 					$taxes['0.00'] = array(
 						'total'     => '0.00',
 						'total_tax' => '0.00',
 					);
-
 				}
 			}
 
 			return $taxes;
-
 		}
 
 		/**
@@ -1089,7 +1106,8 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @return mixed
 		 */
 		public function get_progressive_id_saved_for_document( $order ) {
-			$save_path = yit_get_prop( $order, '_ywpi_xml_path', true );
+			$save_path = $order->get_meta( '_ywpi_xml_path' );
+
 			return str_replace( '.xml', '', $save_path );
 		}
 
@@ -1100,6 +1118,7 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 */
 		public function get_id_codice() {
 			$id = empty( ywpi_get_option( 'ywpi_electronic_invoice_third_intermediary_ssn' ) ) ? ywpi_get_option( 'ywpi_electronic_invoice_transmitter_id' ) : ywpi_get_option( 'ywpi_electronic_invoice_third_intermediary_ssn' );
+
 			return $id;
 		}
 
@@ -1110,19 +1129,27 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @return mixed
 		 */
 		public function get_natura( $order ) {
-			$natura  = ywpi_get_option( 'ywpi_electronic_invoice_natura', 'N4' );
-			$country = $order->get_billing_country();
-			if ( $this->is_eur_country( $country ) ) {
-				if ( strtolower( $order->get_billing_city() ) === 'livigno' ) {
-					$natura = 'N2.1';
-				} elseif ( 'SM' === strval( $country ) ) {
-					$natura = 'N3.3';
-				} elseif ( 'IT' !== strval( $country ) ) {
-					$natura = 'N3.2';
-				}
+			$order_natura_custom = $order->get_meta( 'yith_wcpdi_natura' );
+
+			if ( $order_natura_custom && '' !== $order->get_meta( 'yith_wcpdi_natura' ) ) {
+				$natura = $order->get_meta( 'yith_wcpdi_natura' );
 			} else {
-				$natura = 'N2.1';
+				$natura  = ywpi_get_option( 'ywpi_electronic_invoice_natura', 'N4' );
+				$country = $order->get_billing_country();
+
+				if ( $this->is_eur_country( $country ) ) {
+					if ( strtolower( $order->get_billing_city() ) === 'livigno' ) {
+						$natura = 'N2.1';
+					} elseif ( 'SM' === strval( $country ) ) {
+						$natura = 'N3.3';
+					} elseif ( 'IT' !== strval( $country ) ) {
+						$natura = 'N3.2';
+					}
+				} else {
+					$natura = 'N2.1';
+				}
 			}
+
 			return $natura;
 		}
 
@@ -1154,9 +1181,8 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 				'SI', // Slovenia.
 				'ES', // Spagna.
 			);
-			return in_array( $country, $eur_countries ) ? true : false; //phpcs:ignore
+			return in_array( $country, $eur_countries, true ) ? true : false;
 		}
-
 
 		/**
 		 * Get the invoice detals.
@@ -1165,7 +1191,6 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 		 * @return array
 		 */
 		public function get_invoice_details( $document ) {
-
 			$is_refund = $document->order instanceof WC_Order_Refund ? true : false;
 
 			$main_order = $is_refund ? wc_get_order( $document->order->get_parent_id() ) : null;
@@ -1174,16 +1199,57 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 
 			$parent_invoice = $is_refund ? new YITH_Invoice( $document->order->get_parent_id() ) : null;
 
+			/**
+			 * APPLY_FILTERS: yith_ywpi_get_order_items_for_invoice
+			 *
+			 * Filter the order items to show in the invoice.
+			 *
+			 * @param array the order items.
+			 * @param object the order object.
+			 *
+			 * @return array
+			 */
 			$order_items = apply_filters( 'yith_ywpi_get_order_items_for_invoice', $document->order->get_items(), $document->order );
 
+			/**
+			 * APPLY_FILTERS: yith_ywpi_get_order_fee_for_invoice
+			 *
+			 * Filter the order fee to show in the invoice.
+			 *
+			 * @param array the order fee.
+			 * @param object the order object.
+			 *
+			 * @return array
+			 */
 			$fee = apply_filters( 'yith_ywpi_get_order_fee_for_invoice', $document->order->get_items( 'fee' ), $document->order );
 
+			/**
+			 * APPLY_FILTERS: yith_ywpi_get_order_shipping_for_invoice
+			 *
+			 * Filter the order shipping to show in the invoice.
+			 *
+			 * @param array the order shipping.
+			 * @param object the order object.
+			 *
+			 * @return array
+			 */
 			$shipping = apply_filters( 'yith_ywpi_get_order_shipping_for_invoice', $document->order->get_items( 'shipping' ), $document->order );
 
 			$order_items = array_merge( $order_items, $fee, $shipping );
 
-			return array(
+			/**
+			 * APPLY_FILTERS: yith_ywpi_formatted_number
+			 *
+			 * Filter the invoice formatted number.
+			 *
+			 * @param string the formatted number.
+			 * @param object $document the document object.
+			 *
+			 * @return string
+			 */
+			$formatted_number = apply_filters( 'yith_ywpi_formatted_number', $document->formatted_number, $document );
 
+			return array(
 				'is_refund'            => $is_refund,
 				'main_order'           => $main_order,
 				'customer'             => array(
@@ -1227,18 +1293,19 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 					'lastname'        => ywpi_get_option( 'ywpi_electronic_invoice_third_intermediary_lastname', $document ),
 					'qualification'   => ywpi_get_option( 'ywpi_electronic_invoice_third_intermediary_qualification', $document ),
 					'codeori'         => ywpi_get_option( 'ywpi_electronic_invoice_third_intermediary_codeori', $document ),
-
 				),
 				'idcodice'             => $this->get_id_codice(),
 				'transmission_format'  => 'FPR12',
-				'formatted_number'     => $document->formatted_number,
-				'reason'               => $is_refund ? $document->order->get_reason() : '',
+				'formatted_number'     => $formatted_number,
+				'reason'               => $is_refund ? $document->order->get_reason() : $document->order->get_meta( 'reason' ),
 				'document_type'        => $is_refund ? 'TD04' : 'TD01',
 				'order_currency'       => $document->order->get_currency(),
+				'order_number'         => $is_refund ? $main_order->get_order_number() : $document->order->get_order_number(),
 				'document_date'        => $document->get_formatted_document_date( 'xml' ),
-				'document_number'      => $document->formatted_number,
+				'order_date'           => $is_refund ? $main_order->get_date_created()->date_i18n() : $document->order->get_date_created()->date_i18n(),
+				'document_number'      => $formatted_number,
 				'document_order_total' => $is_refund ? $document->order->get_amount() : $document->order->get_total(),
-				'document_id'          => get_post_meta( $document->order->get_id(), '_ywpi_invoice_number', true ),
+				'document_id'          => $document->order->get_meta( '_ywpi_invoice_number' ),
 				'refund_document_id'   => $parent_invoice ? $parent_invoice->get_formatted_document_number() : null,
 				'refund_document_date' => $parent_invoice ? $parent_invoice->get_formatted_document_date( 'xml' ) : null,
 				'order_items'          => $order_items,
@@ -1250,17 +1317,26 @@ if ( ! class_exists( 'YITH_Electronic_Invoice' ) ) {
 					'mode'         => $this->get_payment_method( $document ),
 					'total_amount' => isset( $main_order ) ? $document->order->get_amount() : $document->order->get_total(),
 				),
-
 			);
-
 		}
 
+		/**
+		 * Replace vat field ID with the one provided by YITH WooCommerce EU VAT
+		 *
+		 * @param string $field_id Field ID.
+		 *
+		 * @return string
+		 */
+		public function replace_billing_vat_field( $field_id ) {
+			$field_id = 'billing_yweu_vat';
 
+			return $field_id;
+		}
 	}
 }
 /**
  * Get instance of YITH_Electronic_Invoice class.
  */
-function YITH_Electronic_Invoice() { //phpcs:ignore
+function YITH_Electronic_Invoice() { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid, Universal.Files.SeparateFunctionsFromOO
 	return YITH_Electronic_Invoice::get_instance();
 }

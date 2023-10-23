@@ -4,7 +4,7 @@
  *
  * Dati Generali XML.
  *
- * @author  YITH
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH\PDFInvoice\Templates
  */
 
@@ -21,7 +21,8 @@
 		<?php endif; ?>
 	</DatiGeneraliDocumento>
 	<DatiOrdineAcquisto>
-		<IdDocumento><?php echo wp_kses_post( $invoice_details['document_id'] ); ?></IdDocumento>
+		<IdDocumento><?php echo wp_kses_post( $invoice_details['order_number'] ); ?></IdDocumento>
+		<Data><?php echo wp_kses_post( $invoice_details['order_date'] ); ?></Data>
 	</DatiOrdineAcquisto>
 
 	<?php if ( $invoice_details['is_refund'] ) : ?>

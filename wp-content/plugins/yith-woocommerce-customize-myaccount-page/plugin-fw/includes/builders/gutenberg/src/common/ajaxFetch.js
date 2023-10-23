@@ -37,6 +37,7 @@ function parseResponse( response ) {
  * @returns {Promise<Response>}
  */
 export const ajaxFetch = ( data, url = yithGutenberg.ajaxurl ) => {
+	data.security = data.security ?? yithGutenberg.ajaxNonce;
 	url = addQueryArgs( url, data );
 	return fetch( url ).then( ajaxCheckStatus ).then( parseResponse );
 };

@@ -2,8 +2,8 @@
 /**
  * STYLE OPTIONS ARRAY
  *
- * @author Your Inspiration Themes
- * @package YITH Woocommerce Compare Premium
+ * @author YITH <plugins@yithemes.com>
+ * @package YITH\Compare
  * @version 2.0.0
  */
 
@@ -15,14 +15,12 @@ $request_quote_url = 'https://yithemes.com/themes/plugins/yith-woocommerce-reque
 
 $options = array(
 	'table' => array(
-
 		array(
 			'name' => __( 'Comparison Table Settings', 'yith-woocommerce-compare' ),
 			'type' => 'title',
 			'desc' => '',
 			'id'   => 'yith_woocompare_table',
 		),
-
 		array(
 			'title'     => __( 'Table title', 'yith-woocommerce-compare' ),
 			'desc'      => __( 'Type the text for the table title.', 'yith-woocommerce-compare' ),
@@ -31,7 +29,6 @@ $options = array(
 			'type'      => 'yith-field',
 			'yith-type' => 'text',
 		),
-
 		array(
 			'title'     => __( 'Table image', 'yith-woocommerce-compare' ),
 			'desc'      => __( 'Choose an image/logo for the comparison table', 'yith-woocommerce-compare' ),
@@ -40,7 +37,6 @@ $options = array(
 			'type'      => 'yith-field',
 			'yith-type' => 'upload',
 		),
-
 		array(
 			'name'          => __( 'Show table image in', 'yith-woocommerce-compare' ),
 			'desc'          => __( 'Popup', 'yith-woocommerce-compare' ),
@@ -49,7 +45,6 @@ $options = array(
 			'type'          => 'checkbox',
 			'checkboxgroup' => 'start',
 		),
-
 		array(
 			'id'            => 'yith-woocompare-table-image-in-page',
 			'desc'          => __( 'Page', 'yith-woocommerce-compare' ),
@@ -57,7 +52,6 @@ $options = array(
 			'default'       => 'yes',
 			'checkboxgroup' => 'end',
 		),
-
 		array(
 			'name'      => __( 'Dynamic Attribute fields', 'yith-woocommerce-compare' ),
 			'desc'      => __( 'Choose to get dynamic attribute fields based on products', 'yith-woocommerce-compare' ),
@@ -66,7 +60,6 @@ $options = array(
 			'type'      => 'yith-field',
 			'yith-type' => 'onoff',
 		),
-
 		array(
 			'name'      => __( 'Add product custom attributes', 'yith-woocommerce-compare' ),
 			'desc'      => __( 'Choose to add custom product attributes to compare table', 'yith-woocommerce-compare' ),
@@ -75,7 +68,6 @@ $options = array(
 			'type'      => 'yith-field',
 			'yith-type' => 'onoff',
 		),
-
 		array(
 			'name'    => __( 'Fields to show', 'yith-woocommerce-compare' ),
 			'desc'    => __( 'Select the fields to show in the comparison table and order them by drag&drop (WooCommerce attributes are also included)', 'yith-woocommerce-compare' ),
@@ -84,7 +76,6 @@ $options = array(
 			'default' => 'all',
 			'type'    => 'woocompare_attributes',
 		),
-
 		array(
 			'name'              => __( 'Product Info Fields', 'yith-woocommerce-compare' ),
 			'desc'              => __( 'Title', 'yith-woocommerce-compare' ),
@@ -96,7 +87,6 @@ $options = array(
 				'data-deps' => 'yith_woocompare_fields_attrs_product_info',
 			),
 		),
-
 		array(
 			'id'            => 'yith_woocompare_fields_product_info_image',
 			'desc'          => __( 'Image', 'yith-woocommerce-compare' ),
@@ -104,7 +94,6 @@ $options = array(
 			'default'       => 'yes',
 			'checkboxgroup' => '',
 		),
-
 		array(
 			'id'            => 'yith_woocompare_fields_product_info_add_cart',
 			'desc'          => __( 'Add to Cart', 'yith-woocommerce-compare' ),
@@ -112,7 +101,6 @@ $options = array(
 			'default'       => 'yes',
 			'checkboxgroup' => 'end',
 		),
-
 		array(
 			'id'        => 'yith_woocompare_fields_product_info_request_quote',
 			'name'      => __( 'Show "Request a Quote" button in product info', 'yith-woocommerce-compare' ),
@@ -122,7 +110,6 @@ $options = array(
 			'yith-type' => 'onoff',
 			'default'   => 'no',
 		),
-
 		array(
 			'id'        => 'yith_woocompare_use_full_description',
 			'name'      => __( 'Use full description', 'yith-woocommerce-compare' ),
@@ -131,7 +118,6 @@ $options = array(
 			'yith-type' => 'onoff',
 			'default'   => 'no',
 		),
-
 		array(
 			'name'      => __( 'Repeat "Price" field', 'yith-woocommerce-compare' ),
 			'desc'      => __( 'Repeat the "Price" field at the end of the table', 'yith-woocommerce-compare' ),
@@ -140,7 +126,6 @@ $options = array(
 			'type'      => 'yith-field',
 			'yith-type' => 'onoff',
 		),
-
 		array(
 			'name'      => __( 'Repeat "Add to cart" field', 'yith-woocommerce-compare' ),
 			'desc'      => __( 'Repeat the "Add to cart" field at the end of the table', 'yith-woocommerce-compare' ),
@@ -149,7 +134,6 @@ $options = array(
 			'type'      => 'yith-field',
 			'yith-type' => 'onoff',
 		),
-
 		array(
 			'name'    => __( 'Image size', 'yith-woocommerce-compare' ),
 			// translators: %s stand for the link to a suggest plugin to install.
@@ -162,7 +146,6 @@ $options = array(
 				'crop'   => 1,
 			),
 		),
-
 		array(
 			'name'      => __( 'Highlight different values', 'yith-woocommerce-compare' ),
 			'desc'      => __( 'Choose to highlight row with different values.', 'yith-woocommerce-compare' ),
@@ -171,7 +154,6 @@ $options = array(
 			'type'      => 'yith-field',
 			'yith-type' => 'onoff',
 		),
-
 		array(
 			'name'      => __( 'Number of fixed columns', 'yith-woocommerce-compare' ),
 			'desc'      => __( 'Choose the number of fixed columns in compare table.', 'yith-woocommerce-compare' ),
@@ -181,7 +163,6 @@ $options = array(
 			'yith-type' => 'number',
 			'min'       => '0',
 		),
-
 		array(
 			'name'      => __( 'Limit compared products', 'yith-woocommerce-compare' ),
 			'desc'      => __( 'Add a limit to the number of products that can be compared ( 0 to no limit).', 'yith-woocommerce-compare' ),
@@ -191,7 +172,6 @@ $options = array(
 			'yith-type' => 'number',
 			'min'       => '0',
 		),
-
 		array(
 			'name'      => __( 'Show "Clear All" button', 'yith-woocommerce-compare' ),
 			'desc'      => __( 'Choose to show a button "Clear All" on compare table to remove all products added.', 'yith-woocommerce-compare' ),
@@ -200,7 +180,6 @@ $options = array(
 			'type'      => 'yith-field',
 			'yith-type' => 'onoff',
 		),
-
 		array(
 			'name'      => __( '"Clear All" button label', 'yith-woocommerce-compare' ),
 			'desc'      => __( 'Type the text for button "Clear All".', 'yith-woocommerce-compare' ),
@@ -214,13 +193,20 @@ $options = array(
 				'type'  => 'hide',
 			),
 		),
-
 		array(
 			'type' => 'sectionend',
 			'id'   => 'yith_woocompare_table_end',
 		),
-
 	),
 );
 
+/**
+ * APPLY_FILTERS: yith_woocompare_table_settings
+ *
+ * Filter the options available in the 'Comparison Table' tab.
+ *
+ * @param array $options Array of options.
+ *
+ * @return array
+ */
 return apply_filters( 'yith_woocompare_table_settings', $options );

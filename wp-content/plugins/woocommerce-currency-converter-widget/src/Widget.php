@@ -5,7 +5,7 @@
  * @since 1.9.0
  */
 
-namespace Themesquad\WC_Currency_Converter;
+namespace KoiLab\WC_Currency_Converter;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -155,3 +155,5 @@ class Widget extends \WC_Widget {
 		return $current_currency;
 	}
 }
+
+class_alias( Widget::class, 'Themesquad\WC_Currency_Converter\Widget' );

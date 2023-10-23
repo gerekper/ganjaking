@@ -1,26 +1,20 @@
-<?php // phpcs:ignore WordPress.NamingConventions
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 /**
- * This file belongs to the YIT Framework.
- *
- * This source file is subject to the GNU GENERAL PUBLIC LICENSE (GPL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://www.gnu.org/licenses/gpl-3.0.txt
+ * Class to manage the invoices table
  *
  * @package YITH\PDF_Invoice\Classes
+ * @author  YITH <plugins@yithemes.com>
  **/
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-if ( ! class_exists( 'YITH_WCPI_Invoices_List_Table' ) ) {
 
+if ( ! class_exists( 'YITH_WCPI_Invoices_List_Table' ) ) {
 	/**
 	 * YITH_WCPI_Invoices_List_Table Class
 	 *
 	 * @class YITH_WCPI_Invoices_List_Table
-	 * @author  YITH
-	 * @package YITH\PDF_Invoice\Classes
 	 */
 	class YITH_WCPI_Invoices_List_Table extends YITH_WCPI_Documents_List_Table {
 
@@ -28,7 +22,6 @@ if ( ! class_exists( 'YITH_WCPI_Invoices_List_Table' ) ) {
 		 * Construct
 		 *
 		 * @param  array $args The array of arguments.
-		 * @author YITH
 		 * @since  2.1
 		 */
 		public function __construct( $args = array() ) {
@@ -42,26 +35,28 @@ if ( ! class_exists( 'YITH_WCPI_Invoices_List_Table' ) ) {
 		 * @param string $column_name The column name.
 		 */
 		public function column_default( $order, $column_name ) {
-
 			$output = parent::column_default( $order, $column_name );
+
 			if ( is_numeric( $order ) ) {
 				$order = wc_get_order( $order );
 			}
+
 			if ( ! empty( $order ) ) {
 				switch ( $column_name ) {
-
 					case 'date':
-						$invoice      = ywpi_get_invoice( yit_get_prop( $order, 'id' ) );
+						$invoice      = ywpi_get_invoice( $order->get_id() );
 						$invoice_date = $invoice->get_formatted_document_date( 'pdf', 'invoice_creation' );
 
 						$output = $invoice_date;
 						break;
+
 					case 'document_number':
-						$invoice        = ywpi_get_invoice( yit_get_prop( $order, 'id' ) );
+						$invoice        = ywpi_get_invoice( $order->get_id() );
 						$invoice_number = $invoice->get_formatted_document_number();
 
 						$output = $invoice_number;
 						break;
+
 					case 'subtotal':
 						$output = wc_price( $order->get_subtotal() );
 						break;
@@ -73,6 +68,7 @@ if ( ! class_exists( 'YITH_WCPI_Invoices_List_Table' ) ) {
 					case 'total':
 						$output = wc_price( $order->get_total() );
 						break;
+
 					case 'actions':
 						$available_actions = array(
 							'preview'   => array(
@@ -90,71 +86,72 @@ if ( ! class_exists( 'YITH_WCPI_Invoices_List_Table' ) ) {
 							<?php
 							foreach ( $available_actions as $action_id => $action ) {
 								if ( 'more-menu' === $action_id ) {
-
-									$is_xml_generated = yit_get_prop( $order, '_ywpi_has_xml', true );
+									$is_xml_generated = $order->get_meta( '_ywpi_has_xml' );
 									$xml_action       = $is_xml_generated ? 'download' : 'create';
 
-									$url_download   = YITH_PDF_Invoice()->get_action_url( 'download', 'invoice', yit_get_prop( $order, 'id' ) );
-									$url_xml        = YITH_PDF_Invoice()->get_action_url( $xml_action, 'invoice', yit_get_prop( $order, 'id' ), 'xml' );
-									$url_delete     = YITH_PDF_Invoice()->get_action_url( 'reset', 'invoice', yit_get_prop( $order, 'id' ) );
-									$url_regenerate = YITH_PDF_Invoice()->get_action_url( 'regenerate', 'invoice', yit_get_prop( $order, 'id' ) );
-									$url_send       = YITH_PDF_Invoice()->get_action_url( 'send_customer', 'invoice', yit_get_prop( $order, 'id' ) );
+									$url_download   = YITH_PDF_Invoice()->get_action_url( 'download', 'invoice', $order->get_id(), 'pdf', false, 'table' );
+									$url_xml        = YITH_PDF_Invoice()->get_action_url( $xml_action, 'invoice', $order->get_id(), 'xml', false, 'table' );
+									$url_delete     = YITH_PDF_Invoice()->get_action_url( 'reset', 'invoice', $order->get_id(), 'pdf', false, 'table' );
+									$url_regenerate = YITH_PDF_Invoice()->get_action_url( 'regenerate', 'invoice', $order->get_id(), 'pdf', false, 'table' );
+									$url_send       = YITH_PDF_Invoice()->get_action_url( 'send_customer', 'invoice', $order->get_id(), 'pdf', false, 'table' );
 
-									$actions = array(
-										'type'   => 'action-button',
-										'title'  => $action['title'],
-										'action' => $action_id,
-										'icon'   => $action['icon'],
-										'menu'   => array(
-											'download_pdf' => array(
-												'name' => __( 'Download PDF', 'yith-woocommerce-pdf-invoice' ),
-												'url'  => $url_download,
-											),
-											'download_xml' => array(
-												'name' => $is_xml_generated ? __( 'Download XML', 'yith-woocommerce-pdf-invoice' ) : __( 'Create XML', 'yith-woocommerce-pdf-invoice' ),
-												'url'  => $url_xml,
-											),
-											'regenerate'   => array(
-												'name' => __( 'Regenerate', 'yith-woocommerce-pdf-invoice' ),
-												'url'  => $url_regenerate,
-												'confirm_data' => array(
-													'title'   => __( 'Confirm regenerate', 'yith-woocommerce-pdf-invoice' ),
-													'message' => __( 'Do you want to regenerate this invoice?', 'yith-woocommerce-pdf-invoice' ),
+									$actions = apply_filters(
+										'yith_ywpi_invoice_list_table_actions',
+										array(
+											'type'   => 'action-button',
+											'title'  => $action['title'],
+											'action' => $action_id,
+											'icon'   => $action['icon'],
+											'menu'   => array(
+												'download_pdf' => array(
+													'name' => __( 'Download PDF', 'yith-woocommerce-pdf-invoice' ),
+													'url'  => $url_download,
+												),
+												'download_xml' => array(
+													'name' => $is_xml_generated ? __( 'Download XML', 'yith-woocommerce-pdf-invoice' ) : __( 'Create XML', 'yith-woocommerce-pdf-invoice' ),
+													'url'  => $url_xml,
+												),
+												'regenerate' => array(
+													'name' => __( 'Regenerate', 'yith-woocommerce-pdf-invoice' ),
+													'url'  => $url_regenerate,
+													'confirm_data' => array(
+														'title'   => __( 'Confirm regenerate', 'yith-woocommerce-pdf-invoice' ),
+														'message' => __( 'Do you want to regenerate this invoice?', 'yith-woocommerce-pdf-invoice' ),
+													),
+												),
+												'send_customer' => array(
+													'name' => __( 'Send to customer', 'yith-woocommerce-pdf-invoice' ),
+													'url'  => $url_send,
+													'confirm_data' => array(
+														'title'          => __( 'Send to customer', 'yith-woocommerce-pdf-invoice' ),
+														'message'        => __( 'Do you want to send this invoice to the customer?', 'yith-woocommerce-pdf-invoice' ),
+														'cancel-button'  => __( 'No', 'yith-woocommerce-pdf-invoice' ),
+														'confirm-button' => __( 'Yes, send it', 'yith-woocommerce-pdf-invoice' ),
+													),
+												),
+												'delete' => array(
+													'name' => __( 'Delete', 'yith-woocommerce-pdf-invoice' ),
+													'url'  => $url_delete,
+													'confirm_data' => array(
+														'title'               => __( 'Confirm delete', 'yith-woocommerce-pdf-invoice' ),
+														'message'             => __( 'Are you sure you want to delete this invoice?', 'yith-woocommerce-pdf-invoice' ),
+														'cancel-button'       => __( 'No', 'yith-woocommerce-pdf-invoice' ),
+														'confirm-button'      => __( 'Yes, delete', 'yith-woocommerce-pdf-invoice' ),
+														'confirm-button-type' => 'delete',
+													),
 												),
 											),
-											'send_customer' => array(
-												'name' => __( 'Send to customer', 'yith-woocommerce-pdf-invoice' ),
-												'url'  => $url_send,
-												'confirm_data' => array(
-													'title'          => __( 'Send to customer', 'yith-woocommerce-pdf-invoice' ),
-													'message'        => __( 'Do you want to send this invoice to the customer?', 'yith-woocommerce-pdf-invoice' ),
-													'cancel-button'  => __( 'No', 'yith-woocommerce-pdf-invoice' ),
-													'confirm-button' => __( 'Yes, send it', 'yith-woocommerce-pdf-invoice' ),
-												),
-											),
-											'delete'       => array(
-												'name' => __( 'Delete', 'yith-woocommerce-pdf-invoice' ),
-												'url'  => $url_delete,
-												'confirm_data' => array(
-													'title'               => __( 'Confirm delete', 'yith-woocommerce-pdf-invoice' ),
-													'message'             => __( 'Are you sure to delete this invoice?', 'yith-woocommerce-pdf-invoice' ),
-													'cancel-button'       => __( 'No', 'yith-woocommerce-pdf-invoice' ),
-													'confirm-button'      => __( 'Yes, delete', 'yith-woocommerce-pdf-invoice' ),
-													'confirm-button-type' => 'delete',
-												),
-											),
-										),
+										)
 									);
 
 									if ( 'yes' !== ywpi_get_option( 'ywpi_electronic_invoice_enable' ) ) {
 										unset( $actions['menu']['download_xml'] );
 									}
 
-									yith_plugin_fw_get_component(
-										$actions
-									);
+									yith_plugin_fw_get_component( $actions );
 								} else {
-									$url = YITH_PDF_Invoice()->get_action_url( $action_id, 'invoice', yit_get_prop( $order, 'id' ), '', true );
+									$url = YITH_PDF_Invoice()->get_action_url( $action_id, 'invoice', $order->get_id(), '', true );
+
 									yith_plugin_fw_get_component(
 										array(
 											'type'   => 'action-button',
@@ -171,11 +168,10 @@ if ( ! class_exists( 'YITH_WCPI_Invoices_List_Table' ) ) {
 						</div>
 						<?php
 				}
-				echo wp_kses_post( apply_filters( 'yith_ywpi_list_output_column_default', $output, $column_name, $order ) );
+
+				echo wp_kses_post( $output );
 			}
-
 		}
-
 
 		/**
 		 * Prepare items for table
@@ -184,8 +180,6 @@ if ( ! class_exists( 'YITH_WCPI_Invoices_List_Table' ) ) {
 		 * @since 2.1.0
 		 */
 		public function prepare_items() {
-			//phpcs:disable WordPress.Security.NonceVerification.Recommended
-
 			global $wpdb;
 
 			$per_page              = apply_filters( 'yith_ywpi_documents_list_per_page', 15 );
@@ -196,29 +190,26 @@ if ( ! class_exists( 'YITH_WCPI_Invoices_List_Table' ) ) {
 			$columns               = $this->get_columns();
 			$hidden                = array();
 			$sortable              = $this->get_sortable_columns();
-			$this->_column_headers = array( $columns, $hidden, $sortable );
 			$this->_column_headers = array( $columns, $hidden );
 
 			$current_page = $this->get_pagenum();
-			$search_input = isset( $_REQUEST['s'] ) ? wp_unslash( $_REQUEST['s'] ) : ''; //phpcs:ignore
+			$search_input = isset( $_REQUEST['s'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['s'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 			$offset = ( $current_page - 1 ) * $per_page;
 
-			/*
-			 * Datepickers filter.
-			 */
-
-			$from      = isset( $_REQUEST['_from'] ) ? $_REQUEST['_from'] : false; //phpcs:ignore
-			$to        = isset( $_REQUEST['_to'] ) ? $_REQUEST['_to'] : false; //phpcs:ignore
+			// Datepickers filter.
+			$from      = isset( $_REQUEST['_from'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['_from'] ) ) : false; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$to        = isset( $_REQUEST['_to'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['_to'] ) ) : false; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$from_date = '';
 			$to_date   = '';
 
-			$date_format = apply_filters( 'ywpi_date_format_for_datepickers', 'd M, y' );
+			$date_format = apply_filters( 'ywpi_date_format_for_datepickers_converted', 'yy-m-d' );
 
 			if ( ! empty( $from ) ) {
 				$from_date = DateTime::createFromFormat( $date_format, $from );
 				$from_date = $from_date->format( 'Y-m-d' );
 			}
+
 			if ( ! empty( $to ) ) {
 				$to_date = DateTime::createFromFormat( $date_format, $to );
 				$to_date = $to_date->format( 'Y-m-d' );
@@ -232,39 +223,64 @@ if ( ! class_exists( 'YITH_WCPI_Invoices_List_Table' ) ) {
 				$query_args['metas'] = "AND om2.meta_key = '_ywpi_invoice_date' AND om2.meta_value < '{$to_date}'";
 			}
 
+			$order_by = apply_filters( 'yith_ywpi_invoices_table_order', 'ASC' );
+
 			/*
 			 * Order by
 			 */
-			$query_args['order_by'] = "AND om3.meta_key = '_ywpi_invoice_number' ORDER BY om3.meta_value ASC";
+			$query_args['order_by'] = "AND om3.meta_key = '_ywpi_invoice_number' ORDER BY om3.meta_value {$order_by}";
 
 			if ( -1 !== $per_page ) {
 				$query_args['limit'] = "LIMIT {$per_page} OFFSET {$offset}";
 			}
 
-			// phpcs:disable
-			$this->items = $wpdb->get_col(
-				"
-			    SELECT DISTINCT ID
-			    FROM {$wpdb->prefix}posts AS o
-			    LEFT JOIN {$wpdb->prefix}postmeta AS om
-			    ON o.ID = om.post_id
-			    LEFT JOIN {$wpdb->prefix}postmeta AS om2
-			    ON o.ID = om2.post_id
-			    LEFT JOIN {$wpdb->prefix}postmeta AS om3
-			    ON o.ID = om3.post_id
-			    WHERE o.post_type = 'shop_order'
-			    AND om.meta_key = '_ywpi_invoiced'
-			    AND ( om3.meta_key = '_ywpi_invoice_formatted_number' AND om3.meta_value LIKE '%{$search_input}%' OR o.ID LIKE '%{$search_input}%' )
-			    {$query_args['metas']}
-			    {$query_args['order_by']}
-			    {$query_args['limit']}
-			"
-			);
+			// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			if ( function_exists( 'yith_plugin_fw_is_wc_custom_orders_table_usage_enabled' ) && yith_plugin_fw_is_wc_custom_orders_table_usage_enabled() ) {
+				$this->items = $wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+					"SELECT DISTINCT o.id
+				    FROM {$wpdb->prefix}wc_orders AS o
+				    LEFT JOIN {$wpdb->prefix}wc_orders_meta AS om on o.id = om.order_id
+				    LEFT JOIN {$wpdb->prefix}wc_orders_meta AS om2 on o.id = om2.order_id
+				    LEFT JOIN {$wpdb->prefix}wc_orders_meta AS om3 on o.id = om3.order_id
+				    WHERE o.type = 'shop_order'
+					AND om.meta_key = '_ywpi_invoiced'
+				    AND ( om3.meta_key = '_ywpi_invoice_formatted_number' AND om3.meta_value LIKE '%{$search_input}%' OR o.id LIKE '%{$search_input}%' )
+				    {$query_args['metas']}
+				    {$query_args['order_by']}
+				    {$query_args['limit']}"
+				);
 
-			$total_items =
-				$wpdb->get_col(
-					"
-				    SELECT COUNT( DISTINCT ID )
+				$total_items = $wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+					"SELECT COUNT( DISTINCT o.id )
+				    FROM {$wpdb->prefix}wc_orders AS o
+			    	LEFT JOIN {$wpdb->prefix}wc_orders_meta AS om on o.id = om.order_id
+			    	LEFT JOIN {$wpdb->prefix}wc_orders_meta AS om2 on o.id = om2.order_id
+			    	LEFT JOIN {$wpdb->prefix}wc_orders_meta AS om3 on o.id = om3.order_id
+			    	WHERE o.type = 'shop_order'
+				    AND om.meta_key = '_ywpi_invoiced'
+				    AND om3.meta_key = '_ywpi_invoice_formatted_number' AND ( om3.meta_value LIKE '%{$search_input}%' OR o.ID LIKE '%{$search_input}%' )
+				    {$query_args['metas']}"
+				);
+			} else {
+				$this->items = $wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+					"SELECT DISTINCT ID
+				    FROM {$wpdb->prefix}posts AS o
+				    LEFT JOIN {$wpdb->prefix}postmeta AS om
+				    ON o.ID = om.post_id
+				    LEFT JOIN {$wpdb->prefix}postmeta AS om2
+				    ON o.ID = om2.post_id
+				    LEFT JOIN {$wpdb->prefix}postmeta AS om3
+				    ON o.ID = om3.post_id
+				    WHERE o.post_type = 'shop_order'
+				    AND om.meta_key = '_ywpi_invoiced'
+				    AND ( om3.meta_key = '_ywpi_invoice_formatted_number' AND om3.meta_value LIKE '%{$search_input}%' OR o.ID LIKE '%{$search_input}%' )
+				    {$query_args['metas']}
+				    {$query_args['order_by']}
+				    {$query_args['limit']}"
+				);
+
+				$total_items = $wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+					"SELECT COUNT( DISTINCT ID )
 				    FROM {$wpdb->prefix}posts AS o
 				    LEFT JOIN {$wpdb->prefix}postmeta AS om
 				    ON o.ID = om.post_id
@@ -275,10 +291,10 @@ if ( ! class_exists( 'YITH_WCPI_Invoices_List_Table' ) ) {
 				    WHERE o.post_type = 'shop_order'
 				    AND om.meta_key = '_ywpi_invoiced'
 				    AND om3.meta_key = '_ywpi_invoice_formatted_number' AND ( om3.meta_value LIKE '%{$search_input}%' OR o.ID LIKE '%{$search_input}%' )
-				    {$query_args['metas']}
-				"
-			);
-			// phpcs:enable
+				    {$query_args['metas']}"
+				);
+			}
+			// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
 			$this->set_pagination_args(
 				array(

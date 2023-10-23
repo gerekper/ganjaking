@@ -61,6 +61,14 @@ class WC_Conditional_Content_Display {
 				$loop    = false;
 
 				$settings = get_post_meta( $content->ID, '_wccc_settings', true );
+				$settings = maybe_unserialize( $settings );
+
+				if ( ! is_array( $settings ) ) {
+					$settings = [
+						'location' => '',
+						'hook'     => ''
+					];
+				}
 
 				$custom_hook     = false;
 				$custom_priority = false;
@@ -72,14 +80,14 @@ class WC_Conditional_Content_Display {
 				}
 
 				if ( $settings['location'] == 'single-product' && ! is_product() ) {
-					//We can skip checking if the rule matches. 
+					//We can skip checking if the rule matches.
 					continue;
 				}
 
 				if ( isset( $settings['type'] ) && $settings['type'] == 'loop' ) {
 					$display = true;
 					$loop    = true;
-					//We need to run the content block check each time the action or filter is fired. 
+					//We need to run the content block check each time the action or filter is fired.
 				} else {
 					$display = true;
 				}
@@ -159,7 +167,7 @@ class WC_Conditional_Content_Display {
 				$settings = get_post_meta( $content->ID, '_wccc_settings', true );
 
 				if ( $settings['location'] == 'single-product' && ! is_product() ) {
-					//We can skip checking if the rule matches. 
+					//We can skip checking if the rule matches.
 					continue;
 				}
 
@@ -198,7 +206,7 @@ class WC_Conditional_Content_Display {
 	}
 
 	/*
-	 * Helper function to render the content which is bound to each hook. 
+	 * Helper function to render the content which is bound to each hook.
 	 */
 
 	public function __call( $name, $arguments ) {

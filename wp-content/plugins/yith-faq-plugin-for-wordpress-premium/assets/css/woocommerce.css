@@ -1,0 +1,39 @@
+#yith_faq h4 {
+	padding: 0 20px;
+}
+
+#yith_faq .wrap-field {
+	padding: 15px 20px;
+	display: grid;
+	grid-template-columns: 180px auto;
+}
+
+#yith_faq .wrap-field .field-label {
+	grid-column: 1;
+	grid-row: 1 / 3;
+}
+
+#yith_faq .wrap-field .description {
+	font-size: 11px;
+}
+
+#yith_faq .wrap-field .select2-container,
+#yith_faq .wrap-field .yith-plugin-fw-text-input {
+	width: 300px !important;
+}
+
+#woocommerce-product-data ul.wc-tabs li.yith-faq_options a::before {
+	font-family: WooCommerce;
+	content: "\e018";
+}
+
+#yith_faq .wrap-field small.field-error {
+	color: #ff0000;
+	display: block;
+	clear: both;
+}
+
+#yith_faq .wrap-field .has-error input[type="text"],
+#yith_faq .wrap-field .has-error .select2-container {
+	border-color: #ff0000 !important;
+}

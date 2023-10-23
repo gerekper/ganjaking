@@ -1,9 +1,9 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 /**
  * Main class
  *
- * @author Your Inspiration Themes
- * @package YITH WooCommerce Compare
+ * @author YITH <plugins@yithemes.com>
+ * @package YITH\Compare
  * @version 1.1.4
  */
 
@@ -58,6 +58,15 @@ if ( ! class_exists( 'YITH_Woocompare_Helper' ) ) {
 				$fields = array_merge( $fields, self::attribute_taxonomies() );
 			}
 
+			/**
+			 * APPLY_FILTERS: yith_woocompare_standard_fields_array
+			 *
+			 * Filters the list of standard fields to use in the comparison table.
+			 *
+			 * @param array $fields Array of fields.
+			 *
+			 * @return array
+			 */
 			return apply_filters( 'yith_woocompare_standard_fields_array', $fields );
 		}
 
@@ -93,7 +102,6 @@ if ( ! class_exists( 'YITH_Woocompare_Helper' ) ) {
 		 * Check if current screen is elementor editor
 		 *
 		 * @since 2.5.0
-		 * @author Francesco Licandro
 		 * @return boolean
 		 */
 		public static function is_elementor_editor() {

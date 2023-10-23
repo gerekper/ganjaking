@@ -5,9 +5,9 @@
  * @since 1.8.0
  */
 
-namespace Themesquad\WC_Currency_Converter\Admin\Settings;
+namespace KoiLab\WC_Currency_Converter\Admin\Settings;
 
-use Themesquad\WC_Currency_Converter\Internal\Admin\Settings\Abstracts\Integration as Integration_Base;
+use KoiLab\WC_Currency_Converter\Internal\Admin\Settings\Abstracts\Integration as Integration_Base;
 
 /**
  * Integration class.
@@ -41,3 +41,5 @@ class Integration extends Integration_Base {
 		$this->settings_api = new General();
 	}
 }
+
+class_alias( Integration::class, 'Themesquad\WC_Currency_Converter\Admin\Settings\Integration' );

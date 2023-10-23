@@ -35,6 +35,7 @@ jQuery(
 				var data      = {
 					action: 'yith_create_log_file',
 					file  : $( this ).data( 'file' ),
+					nonce : $( this ).data( 'nonce' ),
 				};
 
 				container.addClass( 'progress' );
@@ -74,7 +75,7 @@ jQuery(
 				if ( ! $this.find( '.copied-tooltip' ).length ) {
 					$this
 						.append(
-							$( '<span/>', {class: 'copied-tooltip'} )
+							$( '<span/>', { class: 'copied-tooltip' } )
 								.html( $this.data( "tooltip" ) ).fadeIn( 300 )
 						);
 					setTimeout(

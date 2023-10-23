@@ -116,7 +116,7 @@ $custom_tag = 'script';
 				</p>
 
 				<p class="description">
-					<?php printf( esc_html__( 'Don\'t have direct license yet? %sPurchase WPBakery Page Builder license%s.', 'js_composer' ), '<a href="' . esc_url( 'https://go.wpbakery.com/wpb-buy' ) . '" target="_blank">', '</a>' ); ?>
+					<?php printf( esc_html__( 'Don\'t have direct license yet? %1$sPurchase WPBakery Page Builder license%2$s.', 'js_composer' ), '<a href="' . esc_url( 'https://go.wpbakery.com/wpb-buy' ) . '" target="_blank">', '</a>' ); ?>
 				</p>
 
 			<?php endif ?>

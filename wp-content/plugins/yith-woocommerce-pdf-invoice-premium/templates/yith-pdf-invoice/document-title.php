@@ -2,9 +2,9 @@
 /**
  * Document title template.
  *
- * Override this template by copying it to [your theme]/woocommerce/invoice/ywpi-invoice-details.php
+ * Override this template by copying it to [your theme]/woocommerce/yith-pdf-invoice/document-title.php
  *
- * @author  YITH
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH\PDFInvoice\Templates
  * @version 1.0.0
  */

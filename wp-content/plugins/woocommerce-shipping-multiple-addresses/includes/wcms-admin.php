@@ -14,9 +14,6 @@ class WC_MS_Admin {
         add_action( 'admin_enqueue_scripts', array( $this, 'settings_scripts' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'edit_user_scripts' ) );
 
-        // save settings handler
-        add_action( 'admin_post_wcms_update', array( $this, 'save_settings' ) );
-
         add_filter( 'woocommerce_shipping_settings', array( $this, 'shipping_settings' ) );
         add_filter( 'woocommerce_account_settings', array( $this, 'account_settings' ) );
 
@@ -67,44 +64,6 @@ class WC_MS_Admin {
 			)
 		);
 	}
-
-    /**
-     * unused
-     */
-    public function save_settings() {
-        $settings       = array();
-        // phpcs:ignore WordPress.Security.NonceVerification.Missing --- already authenticated in admin_post_{$action} hook
-        $methods        = (isset($_POST['shipping_methods'])) ? wc_clean( $_POST['shipping_methods'] ) : array(); //phpcs:ignore
-        $products       = (isset($_POST['products'])) ? wc_clean( $_POST['products'] ) : array(); //phpcs:ignore
-        $categories     = (isset($_POST['categories'])) ? wc_clean( $_POST['categories'] ) : array(); //phpcs:ignore
-        $duplication    = (isset($_POST['cart_duplication']) && 1 === intval( $_POST['cart_duplication'] ) ) ? true : false; //phpcs:ignore
-
-        if ( isset($_POST['lang']) && is_array($_POST['lang']) ) { // phpcs:ignore
-            update_option( 'wcms_lang', wc_clean( $_POST['lang'] ) ); // phpcs:ignore
-        }
-
-        foreach ( $methods as $id => $method ) {
-            $row_products   = (isset($products[$id])) ? $products[$id] : array();
-            $row_categories = (isset($categories[$id])) ? $categories[$id] : array();
-
-            // there needs to be at least 1 product or category per row
-            if ( empty($row_categories) && empty($row_products) ) {
-                continue;
-            }
-
-            $settings[] = array(
-                'products'  => $row_products,
-                'categories'=> $row_categories,
-                'method'    => $method
-            );
-        }
-
-        update_option( $this->wcms->meta_key_settings, $settings );
-        update_option( '_wcms_cart_duplication', $duplication );
-
-        wp_safe_redirect( add_query_arg( 'saved', 1, admin_url( 'admin.php?page=wc-ship-multiple-products' ) ) );
-        exit;
-    }
 
     public function shipping_settings($settings) {
         $section_end = array_pop($settings);

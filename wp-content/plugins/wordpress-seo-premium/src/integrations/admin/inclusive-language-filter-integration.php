@@ -48,6 +48,7 @@ class Inclusive_Language_Filter_Integration implements Integration_Interface {
 		$ranks = WPSEO_Rank::get_all_inclusive_language_ranks();
 
 		echo '<label class="screen-reader-text" for="wpseo-inclusive-language-filter">'
+			/* translators: Hidden accessibility text. */
 			. \esc_html__( 'Filter by Inclusive Language Score', 'wordpress-seo-premium' )
 			. '</label>';
 		echo '<select name="inclusive_language_filter" id="wpseo-inclusive-language-filter">';

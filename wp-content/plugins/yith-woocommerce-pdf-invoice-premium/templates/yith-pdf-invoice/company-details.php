@@ -2,7 +2,7 @@
 /**
  * Company details template.
  *
- * @author  YITH
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH\PDFInvoice\Templates
  * @version 1.0.0
  */
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! $document instanceof YITH_Credit_Note ) {
 	if ( 'yith_wcmv_vendor_suborder' === $document->order->get_created_via() ) {
-		$order     = wc_get_order( $document->order->get_id() ); // phpcs:ignore
+		$order     = wc_get_order( $document->order->get_id() ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$vendor_id = $order->get_meta( 'vendor_id' );
 
 		$company_name_option      = 'ywpi_company_name_' . $vendor_id;
@@ -49,9 +49,7 @@ if ( ! $document instanceof YITH_Credit_Note ) {
 		<div class="company-logo-section">
 			<img class="ywpi-company-logo" src="<?php echo wp_kses_post( apply_filters( 'yith_ywpi_company_image_path', $company_logo_path ) ); ?>">
 		</div>
-
 	<?php endif; ?>
-
 </div>
 
 <div style="clear: both"></div>

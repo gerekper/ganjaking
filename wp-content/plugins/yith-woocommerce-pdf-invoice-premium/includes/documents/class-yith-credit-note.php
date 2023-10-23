@@ -5,7 +5,7 @@
  * Handles the credit note document.
  *
  * @class   YITH_Credit_Note
- * @author  YITH
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH\PDFInvoice\Classes
  */
 
@@ -14,14 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'YITH_Credit_Note' ) ) {
-
 	/**
 	 * Implements features related to a PDF document
 	 *
-	 * @class   YITH_Credit_Note
-	 * @package Yithemes
-	 * @since   1.0.0
-	 * @author  Your Inspiration Themes
+	 * @class YITH_Credit_Note
+	 * @since 1.0.0
 	 */
 	class YITH_Credit_Note extends YITH_Document {
 
@@ -66,11 +63,9 @@ if ( ! class_exists( 'YITH_Credit_Note' ) ) {
 		 * @param int $order_id The order id for which an invoice is creating.
 		 *
 		 * @since  1.0
-		 * @author YITH
 		 * @access public
 		 */
 		public function __construct( $order_id = 0 ) {
-
 			/**
 			 * Call base class constructor
 			 */
@@ -86,11 +81,9 @@ if ( ! class_exists( 'YITH_Credit_Note' ) ) {
 		 * Check if the document is associated to a valid order
 		 *
 		 * @return bool
-		 * @author YITH
 		 * @since  1.0.0
 		 */
 		public function is_valid() {
-
 			return $this->order && $this->order instanceof WC_Order_Refund;
 		}
 
@@ -98,32 +91,33 @@ if ( ! class_exists( 'YITH_Credit_Note' ) ) {
 		 * Check if this document has been generated
 		 *
 		 * @return bool
-		 * @author YITH
 		 * @since  1.0.0
 		 */
 		public function generated() {
-			return $this->is_valid() && yit_get_prop( $this->order, '_ywpi_credit_note', true );
+			if ( function_exists( 'yith_plugin_fw_is_wc_custom_orders_table_usage_enabled' ) && yith_plugin_fw_is_wc_custom_orders_table_usage_enabled() ) {
+				return $this->is_valid() && $this->order->get_meta( '_ywpi_credit_note' );
+			} else {
+				return $this->is_valid() && get_post_meta( $this->order->get_id(), '_ywpi_credit_note', true );
+			}
 		}
 
 		/**
 		 * Check if an invoice exist for current order and load related data
 		 */
 		private function init_document() {
-
 			if ( ! $this->is_valid() ) {
 				return;
 			}
 
 			if ( $this->generated() ) {
-
-				$this->number           = yit_get_prop( $this->order, '_ywpi_credit_note_number', true );
+				$this->number           = $this->order->get_meta( '_ywpi_credit_note_number' );
 				$this->prefix           = ywpi_get_option( 'ywpi_credit_note_prefix' );
 				$this->suffix           = ywpi_get_option( 'ywpi_credit_note_suffix' );
-				$this->formatted_number = yit_get_prop( $this->order, '_ywpi_credit_note_formatted_number', true );
+				$this->formatted_number = $this->order->get_meta( '_ywpi_credit_note_formatted_number' );
 
-				$this->date        = yit_get_prop( $this->order, '_ywpi_credit_note_date', true );
-				$this->save_path   = yit_get_prop( $this->order, '_ywpi_credit_note_path', true );
-				$this->save_folder = yit_get_prop( $this->order, '_ywpi_credit_note_folder', true );
+				$this->date        = $this->order->get_meta( '_ywpi_credit_note_date' );
+				$this->save_path   = $this->order->get_meta( '_ywpi_credit_note_path' );
+				$this->save_folder = $this->order->get_meta( '_ywpi_credit_note_folder' );
 			}
 		}
 
@@ -131,19 +125,18 @@ if ( ! class_exists( 'YITH_Credit_Note' ) ) {
 		 * Cancel current document
 		 */
 		public function reset() {
+			$this->order->delete_meta_data( '_ywpi_credit_note' );
+			$this->order->delete_meta_data( '_ywpi_credit_note_number' );
+			$this->order->delete_meta_data( '_ywpi_credit_note_prefix' );
+			$this->order->delete_meta_data( '_ywpi_credit_note_suffix' );
+			$this->order->delete_meta_data( '_ywpi_credit_note_formatted_number' );
+			$this->order->delete_meta_data( '_ywpi_credit_note_path' );
+			$this->order->delete_meta_data( '_ywpi_credit_note_folder' );
+			$this->order->delete_meta_data( '_ywpi_credit_note_date' );
+			$this->order->delete_meta_data( '_ywpi_xml_credit_note' );
+			$this->order->delete_meta_data( '_ywpi_xml_credit_note_path' );
 
-			yit_delete_prop( $this->order, '_ywpi_credit_note' );
-			yit_delete_prop( $this->order, '_ywpi_credit_note_number' );
-			yit_delete_prop( $this->order, '_ywpi_credit_note_prefix' );
-			yit_delete_prop( $this->order, '_ywpi_credit_note_suffix' );
-			yit_delete_prop( $this->order, '_ywpi_credit_note_formatted_number' );
-
-			yit_delete_prop( $this->order, '_ywpi_credit_note_path' );
-			yit_delete_prop( $this->order, '_ywpi_credit_note_folder' );
-			yit_delete_prop( $this->order, '_ywpi_credit_note_date' );
-
-			yit_delete_prop( $this->order, '_ywpi_xml_credit_note' );
-			yit_delete_prop( $this->order, '_ywpi_xml_credit_note_path' );
+			$this->order->save();
 		}
 
 		/**
@@ -155,7 +148,17 @@ if ( ! class_exists( 'YITH_Credit_Note' ) ) {
 		 */
 		public function get_formatted_document_date( $extension = 'pdf' ) {
 			$date = '';
+
 			if ( $this->order ) {
+				/**
+				 * APPLY_FILTERS: ywpi_invoice_date_format
+				 *
+				 * Filter the invoice date format.
+				 *
+				 * @param string the date format.
+				 *
+				 * @return string
+				 */
 				$format = apply_filters( 'ywpi_invoice_date_format', ywpi_get_option( 'ywpi_invoice_date_format' ), $extension );
 				$date   = date( $format, strtotime( $this->date ) ); //phpcs:ignore
 			}
@@ -167,7 +170,6 @@ if ( ! class_exists( 'YITH_Credit_Note' ) ) {
 		 * Retrieve the formatted document number
 		 *
 		 * @return mixed|string
-		 * @author YITH
 		 * @since  1.0.0
 		 */
 		public function get_formatted_document_number() {
@@ -180,27 +182,28 @@ if ( ! class_exists( 'YITH_Credit_Note' ) ) {
 		 * @param string $extension The extension of the document.
 		 */
 		public function save( $extension = 'pdf' ) {
+			$this->order->update_meta_data( '_ywpi_credit_note', true );
+			$this->order->update_meta_data( '_ywpi_credit_note_prefix', $this->prefix );
+			$this->order->update_meta_data( '_ywpi_credit_note_suffix', $this->suffix );
+			$this->order->update_meta_data( '_ywpi_credit_note_number', $this->number );
+			$this->order->update_meta_data( '_ywpi_credit_note_formatted_number', $this->formatted_number );
+			$this->order->update_meta_data( '_ywpi_credit_note_date', $this->date );
+			$this->order->update_meta_data( '_ywpi_credit_note_path', $this->save_path );
+			$this->order->update_meta_data( '_ywpi_credit_note_folder', $this->save_folder );
 
-			yit_save_prop(
-				$this->order,
-				apply_filters(
-					'ywpi_document_props',
-					array(
-						'_ywpi_credit_note'        => true,
-						'_ywpi_credit_note_prefix' => $this->prefix,
-						'_ywpi_credit_note_suffix' => $this->suffix,
-						'_ywpi_credit_note_number' => $this->number,
-						'_ywpi_credit_note_formatted_number' => $this->formatted_number,
-						'_ywpi_credit_note_date'   => $this->date,
-						'_ywpi_credit_note_path'   => $this->save_path,
-						'_ywpi_credit_note_folder' => $this->save_folder,
-					),
-					$this,
-					$this->order,
-					$extension
-				)
-			);
+			// TODO remove it in the future when the HPOS sync works correctly.
+			update_post_meta( $this->order->get_id(), '_ywpi_credit_note', true );
+			update_post_meta( $this->order->get_id(), '_ywpi_credit_note_prefix', $this->prefix );
+			update_post_meta( $this->order->get_id(), '_ywpi_credit_note_suffix', $this->suffix );
+			update_post_meta( $this->order->get_id(), '_ywpi_credit_note_number', $this->number );
+			update_post_meta( $this->order->get_id(), '_ywpi_credit_note_formatted_number', $this->formatted_number );
+			update_post_meta( $this->order->get_id(), '_ywpi_credit_note_date', $this->date );
+			update_post_meta( $this->order->get_id(), '_ywpi_credit_note_path', $this->save_path );
+			update_post_meta( $this->order->get_id(), '_ywpi_credit_note_folder', $this->save_folder );
 
+			do_action( 'ywpi_document_save_props', $this, $this->order, $extension );
+
+			$this->order->save();
 		}
 	}
 }

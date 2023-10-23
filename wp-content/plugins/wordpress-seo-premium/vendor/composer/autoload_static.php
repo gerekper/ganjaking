@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit37392202acb245cceaaaf387707d9392
+class ComposerStaticInit8d01c2391117e90e2feea37fe5ad83eb
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -148,7 +148,6 @@ class ComposerStaticInit37392202acb245cceaaaf387707d9392
         'Yoast\\WP\\SEO\\Premium\\Config\\Badge_Group_Names' => __DIR__ . '/../..' . '/src/config/badge-group-names.php',
         'Yoast\\WP\\SEO\\Premium\\Config\\Migrations\\AddIndexOnIndexableIdAndStem' => __DIR__ . '/../..' . '/src/config/migrations/20210827093024_AddIndexOnIndexableIdAndStem.php',
         'Yoast\\WP\\SEO\\Premium\\Database\\Migration_Runner_Premium' => __DIR__ . '/../..' . '/src/database/migration-runner-premium.php',
-        'Yoast\\WP\\SEO\\Premium\\Deprecated\\Integrations\\Admin\\Inclusive_Language_Notification_Integration' => __DIR__ . '/../..' . '/src/deprecated/integrations/admin/inclusive-language-notification-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Exceptions\\Forbidden_Property_Mutation_Exception' => __DIR__ . '/../..' . '/src/exceptions/forbidden-property-mutation-exception.php',
         'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Bad_Request_Exception' => __DIR__ . '/../..' . '/src/exceptions/remote-request/bad-request-exception.php',
         'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Forbidden_Exception' => __DIR__ . '/../..' . '/src/exceptions/remote-request/forbidden-exception.php',
@@ -251,9 +250,9 @@ class ComposerStaticInit37392202acb245cceaaaf387707d9392
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit37392202acb245cceaaaf387707d9392::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit37392202acb245cceaaaf387707d9392::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit37392202acb245cceaaaf387707d9392::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit8d01c2391117e90e2feea37fe5ad83eb::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit8d01c2391117e90e2feea37fe5ad83eb::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit8d01c2391117e90e2feea37fe5ad83eb::$classMap;
 
         }, null, ClassLoader::class);
     }

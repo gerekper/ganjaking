@@ -5,7 +5,7 @@
  * @since 1.8.0
  */
 
-namespace Themesquad\WC_Currency_Converter\Internal\Admin\Settings\Abstracts;
+namespace KoiLab\WC_Currency_Converter\Internal\Admin\Settings\Abstracts;
 
 use Exception;
 use WC_Admin_Settings;

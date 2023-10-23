@@ -5,7 +5,7 @@
  * Handles the pro forma document.
  *
  * @class   YITH_Pro_Forma
- * @author  YITH
+ * @author  YITH <plugins@yithemes.com>
  * @package YITH\PDFInvoice\Classes
  */
 
@@ -14,14 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'YITH_Pro_Forma' ) ) {
-
 	/**
 	 * Implements features related to a PDF document
 	 *
-	 * @class   YITH_Invoice
-	 * @package Yithemes
-	 * @since   1.0.0
-	 * @author  Your Inspiration Themes
+	 * @class YITH_Invoice
+	 * @since 1.0.0
 	 */
 	class YITH_Pro_Forma extends YITH_Document {
 
@@ -31,11 +28,9 @@ if ( ! class_exists( 'YITH_Pro_Forma' ) ) {
 		 * @param int $order_id the order for which the document is generated.
 		 *
 		 * @since  1.0
-		 * @author Lorenzo giuffrida
 		 * @access public
 		 */
 		public function __construct( $order_id = 0 ) {
-
 			/**
 			 * Call base class constructor
 			 */
@@ -51,11 +46,9 @@ if ( ! class_exists( 'YITH_Pro_Forma' ) ) {
 		 * Check if the document is associated to a valid order
 		 *
 		 * @return bool
-		 * @author Lorenzo Giuffrida
 		 * @since  1.0.0
 		 */
 		public function is_valid() {
-
 			return $this->order && $this->order instanceof WC_Order;
 		}
 
@@ -63,11 +56,14 @@ if ( ! class_exists( 'YITH_Pro_Forma' ) ) {
 		 * Check if this document has been generated
 		 *
 		 * @return bool
-		 * @author Lorenzo Giuffrida
 		 * @since  1.0.0
 		 */
 		public function generated() {
-			return $this->is_valid() && yit_get_prop( $this->order, '_ywpi_has_pro_forma', true );
+			if ( function_exists( 'yith_plugin_fw_is_wc_custom_orders_table_usage_enabled' ) && yith_plugin_fw_is_wc_custom_orders_table_usage_enabled() ) {
+				return $this->is_valid() && $this->order->get_meta( '_ywpi_has_pro_forma' );
+			} else {
+				return $this->is_valid() && get_post_meta( $this->order->get_id(), '_ywpi_has_pro_forma', true );
+			}
 		}
 
 		/**
@@ -79,35 +75,35 @@ if ( ! class_exists( 'YITH_Pro_Forma' ) ) {
 			}
 
 			if ( $this->generated() ) {
-
-				$this->save_path   = yit_get_prop( $this->order, '_ywpi_pro_forma_path', true );
-				$this->save_folder = yit_get_prop( $this->order, '_ywpi_pro_forma_folder', true );
+				$this->save_path   = $this->order->get_meta( '_ywpi_pro_forma_path' );
+				$this->save_folder = $this->order->get_meta( '_ywpi_pro_forma_folder' );
 			}
 		}
-
 
 		/**
 		 *  Cancel reference to pro-forma options for the current order
 		 */
 		public function reset() {
-			yit_delete_prop( $this->order, '_ywpi_has_pro_forma' );
-			yit_delete_prop( $this->order, '_ywpi_pro_forma_path' );
+			$this->order->delete_meta_data( '_ywpi_has_pro_forma' );
+			$this->order->delete_meta_data( '_ywpi_pro_forma_path' );
+
+			$this->order->save();
 		}
 
 		/**
 		 * Set invoice data for current order, picking the invoice number from the related general option
 		 */
 		public function save() {
+			$this->order->update_meta_data( '_ywpi_has_pro_forma', true );
+			$this->order->update_meta_data( '_ywpi_pro_forma_path', $this->save_path );
+			$this->order->update_meta_data( '_ywpi_pro_forma_folder', $this->save_folder );
 
-			yit_save_prop(
-				$this->order,
-				array(
-					'_ywpi_has_pro_forma'    => true,
-					'_ywpi_pro_forma_path'   => $this->save_path,
-					'_ywpi_pro_forma_folder' => $this->save_folder,
-				)
-			);
+			// TODO remove it in the future when the HPOS sync works correctly.
+			update_post_meta( $this->order->get_id(), '_ywpi_has_pro_forma', true );
+			update_post_meta( $this->order->get_id(), '_ywpi_pro_forma_path', $this->save_path );
+			update_post_meta( $this->order->get_id(), '_ywpi_pro_forma_folder', $this->save_folder );
+
+			$this->order->save();
 		}
-
 	}
 }

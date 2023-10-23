@@ -15,6 +15,25 @@ class Option {
 
 	const SETUP_FINISHED = 'starting_help';
 
+	/**
+	 * This makes sure that the option '_wpml_media' is written to the database.
+	 * This is required because after the WPML setup there are parallel ajax calls,
+	 * which can lead having the '_wpml_media' in the WP "notoptions" cache key, while
+	 * the set options call ran in a parallel and writes when "notoptions" isn't set,
+	 * so it never gets cleared. In that case the "Calculation..." of automatic
+	 * translation will never start as the media setup does not finish.
+	 *
+	 * Note: This only happens when persistent object caching (Redis) is active.
+	 *
+	 * @return void
+	 */
+	public static function prepareSetup() {
+		$option = WPOption::getOr( self::OPTION_KEY, false );
+		if ( $option === false ) {
+			WPOption::updateWithoutAutoLoad( self::OPTION_KEY, [] );
+		}
+	}
+
 	public static function isSetupFinished() {
 		return self::get( self::SETUP_FINISHED );
 	}
