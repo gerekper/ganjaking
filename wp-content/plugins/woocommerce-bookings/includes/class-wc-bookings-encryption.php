@@ -82,11 +82,56 @@ class WC_Bookings_Encryption {
 	}
 
 	/**
+	 * Returns true if `BOOKINGS_ENCRYPTION_KEY` constant is set.
+	 *
+	 * @since 2.0.5
+	 *
+	 * @return boolean
+	 */
+	public function is_custom_bookings_enc_key_set() {
+		return defined( 'BOOKINGS_ENCRYPTION_KEY' ) && '' !== BOOKINGS_ENCRYPTION_KEY;
+	}
+
+	/**
+	 * Returns true if `BOOKINGS_ENCRYPTION_SALT` constant is set.
+	 *
+	 * @since 2.0.5
+	 *
+	 * @return boolean
+	 */
+	public function is_custom_bookings_salt_key_set() {
+		return defined( 'BOOKINGS_ENCRYPTION_SALT' ) && '' !== BOOKINGS_ENCRYPTION_SALT;
+	}
+
+	/**
+	 * Returns true if both `BOOKINGS_ENCRYPTION_KEY` and `BOOKINGS_ENCRYPTION_SALT` constants are set.
+	 *
+	 * @since 2.0.5
+	 *
+	 * @return boolean
+	 */
+	public function are_custom_bookings_auth_keys_set() {
+		return $this->is_custom_bookings_enc_key_set() && $this->is_custom_bookings_salt_key_set();
+	}
+
+	/**
 	 * Get the Logged-in key for encryption.
 	 *
 	 * @since 1.15.79
 	 */
 	private function get_default_key(): string {
+		if ( $this->is_custom_bookings_enc_key_set() ) {
+			$keys_updated           = get_option( 'wc_bookings_auth_key_updated', false );
+			$bookings_saved_enc_key = get_option( 'BOOKINGS_ENCRYPTION_KEY', true );
+
+			// Delete the option key to show notice if the custom key is changed.
+			if ( $keys_updated && BOOKINGS_ENCRYPTION_KEY !== $bookings_saved_enc_key ) {
+				delete_option( 'wc_bookings_auth_key_updated' );
+			}
+
+			return BOOKINGS_ENCRYPTION_KEY;
+		}
+
 		if ( '' !== wp_salt( 'logged_in' ) ) {
 			return wp_salt( 'logged_in' );
 		}
@@ -101,6 +146,18 @@ class WC_Bookings_Encryption {
 	 * @since 1.15.79
 	 */
 	private function get_default_salt(): string {
+		if ( $this->is_custom_bookings_salt_key_set() ) {
+			$keys_updated            = get_option( 'wc_bookings_auth_key_updated', false );
+			$bookings_saved_auth_key = get_option( 'BOOKINGS_ENCRYPTION_SALT', true );
+
+			// Delete the option key to show notice if the custom key is changed.
+			if ( $keys_updated && BOOKINGS_ENCRYPTION_SALT !== $bookings_saved_auth_key ) {
+				delete_option( 'wc_bookings_auth_key_updated' );
+			}
+
+			return BOOKINGS_ENCRYPTION_SALT;
+		}
+
 		if ( defined( 'LOGGED_IN_SALT' ) && '' !== LOGGED_IN_SALT ) {
 			return LOGGED_IN_SALT;
 		}

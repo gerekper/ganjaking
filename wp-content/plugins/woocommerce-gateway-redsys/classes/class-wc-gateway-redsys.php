@@ -37,7 +37,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$this->has_fields           = true;
 		$this->liveurl              = 'https://sis.redsys.es/sis/realizarPago';
 		$this->testurl              = 'https://sis-t.redsys.es:25443/sis/realizarPago';
-		$this->liveurlws            = 'https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl';
+		$this->liveurlws            = 'https://sis.redsys.es:443/sis/services/SerClsWSEntradaV2?wsdl';
 		$this->testurlws            = 'https://sis-t.redsys.es:25443/sis/services/SerClsWSEntradaV2?wsdl';
 		$this->testsha256           = 'sq7HjrUOBfKmC576ILgskD5srU870gJ7';
 		$this->testmode             = WCRed()->get_redsys_option( 'testmode', 'redsys' );

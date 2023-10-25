@@ -4,13 +4,13 @@
  * Plugin Name: WooCommerce Anti Fraud
  * Plugin URI: https://woocommerce.com/products/woocommerce-anti-fraud/
  * Description: Score each of your transactions, checking for possible fraud, using a set of advanced scoring rules.
- * Version: 5.5.2
+ * Version: 5.6.0
  * Author: OPMC Australia Pty Ltd
  * Author URI: https://opmc.biz/
  * Text Domain: woocommerce-anti-fraud
  * Domain Path: /languages
  * License: GPL v3
- * WC tested up to: 8.0
+ * WC tested up to: 8.2
  * WC requires at least: 2.6
  * Woo: 500217:955da0ce83ea5a44fc268eb185e46c41
  *
@@ -128,6 +128,7 @@ define( 'WOOCOMMERCE_ANTI_FRAUD_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
  * @return bool True if the file is successfully included, false otherwise.
  */
 include_once 'includes/opmc-hpos-compatibility-helper.php';
+require_once dirname( __FILE__ ) . '/anti-fraud-core/class-wc-af-trust-swiftly.php';
 
 class WooCommerce_Anti_Fraud {
 
@@ -187,6 +188,7 @@ class WooCommerce_Anti_Fraud {
 		register_activation_hook( __FILE__, array( $this, 'deactivate_events_on_active_plugin' ) );
 
 		register_deactivation_hook( __FILE__, array( $this, 'deactivate_events' ) );
+		$connector = new WC_AF_TRUST_SWIFTLY();
 		add_action( 'plugins_loaded', array( $this, 'plugin_load_td' ) );
 		add_action( 'admin_init', array( $this, 'admin_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'switch_onoff' ) );
@@ -766,7 +768,7 @@ class WooCommerce_Anti_Fraud {
 			$limit_time_start = get_option( 'wc_af_limit_time_start' );
 			$limit_time_end = get_option( 'wc_af_limit_time_end' );
 			// $is_update_status_active = get_option('wc_af_fraud_update_state');
-			if ( 0 >= $orders_allowed_limit && ! empty( $limit_time_start ) && ! empty( $limit_time_end ) ) {
+			if ( 0 <= $orders_allowed_limit && ! empty( $limit_time_start ) && ! empty( $limit_time_end ) ) {
 
 				$start_time = new DateTime( $limit_time_start, wp_timezone() );
 				$end_time = new DateTime( $limit_time_end, wp_timezone() );
@@ -1600,14 +1602,14 @@ class WooCommerce_Anti_Fraud {
 						$g_city = strtolower( $output['city'] );
 						update_option( 'html_geo_loc_city', $g_city );
 					} else {
-						if (! empty( $output['countryCode'] ) ) {
-						$g_countryCode = strtolower( $output['countryCode'] );
-						update_option( 'html_geo_loc_cntry', $g_countryCode );
+						if ( ! empty( $output['countryCode'] ) ) {
+							$g_countryCode = strtolower( $output['countryCode'] );
+							update_option( 'html_geo_loc_cntry', $g_countryCode );
 						}
 					}
-					if (! empty( $output['principalSubdivision'] ) ) {
-					$g_state = strtolower( $output['principalSubdivision'] );
-					update_option( 'html_geo_loc_state', $g_state );
+					if ( ! empty( $output['principalSubdivision'] ) ) {
+						$g_state = strtolower( $output['principalSubdivision'] );
+						update_option( 'html_geo_loc_state', $g_state );
 					}
 					echo 'success';
 					die();
@@ -2162,67 +2164,86 @@ class WooCommerce_Anti_Fraud {
 		wp_enqueue_script( 'opmc_af_admin_js', plugins_url( '/assets/js/app.js', __FILE__ ), array(), WOOCOMMERCE_ANTI_FRAUD_VERSION );
 	}
 
+	/**
+	 * Save the default settings.
+	 *
+	 * This function is responsible for saving the default settings of the application.
+	 * Default settings are typically used as a fallback when no user-specific settings exist.
+	 * The saved default settings will be used as a reference for all users until they
+	 * customize their preferences.
+	 *
+	 * @return bool True if the default settings were successfully saved, false otherwise.
+	 */
 	public function save_default_settings() {
-		// For Minfraud
-		update_option( 'wc_settings_anti_fraud_auto_check_days', 7 );
-		update_option( 'wc_af_fraud_check_before_payment', 'no' );
-		update_option( 'wc_af_fraud_update_state', 'yes' );
+		// check if settings were already saved before.
+		if ( get_option( 'wc_af_is_settings_saved' ) == true ) {
 
-		update_option( 'wc_af_enable_whitelist_payment_method', 'no' );
-		update_option( 'wc_settings_anti_fraud_minfraud_order_weight', 30 );
-		update_option( 'wc_settings_anti_fraud_minfraud_risk_score', 30 );
+			// Settings were already saved, so do nothing.
+			// This is intentional behavior.
+			return;
+		} else {
 
-		update_option( 'wc_af_email_notification', 'no' );
-		update_option( 'wc_settings_anti_fraud_cancel_score', 90 );
-		update_option( 'wc_settings_anti_fraud_hold_score', 70 );
-		update_option( 'wc_settings_anti_fraud_email_score', 50 );
-		update_option( 'wc_settings_anti_fraud_email_score1', 51 );
-		update_option( 'wc_settings_anti_fraud_low_risk_threshold', 25 );
-		update_option( 'wc_settings_anti_fraud_higher_risk_threshold', 75 );
-		update_option( 'wc_af_first_order', 'yes' );
-		update_option( 'wc_settings_anti_fraud_first_order_weight', 5 );
-		update_option( 'wc_af_international_order', 'yes' );
-		update_option( 'wc_settings_anti_fraud_international_order_weight', 10 );
-		update_option( 'wc_af_ip_geolocation_order', 'yes' );
-		update_option( 'wc_af_billing_phone_number_order', 'no' );
-		update_option( 'wc_settings_anti_fraud_billing_phone_number_order_weight', 15 );
-		update_option( 'wc_settings_anti_fraud_ip_geolocation_order_weight', 50 );
-		update_option( 'wc_af_bca_order', 'yes' );
-		update_option( 'wc_settings_anti_fraud_bca_order_weight', 20 );
-		update_option( 'wc_af_proxy_order', 'yes' );
-		update_option( 'wc_settings_anti_fraud_proxy_order_weight', 50 );
-		update_option( 'wc_af_suspecius_email', 'yes' );
-		update_option( 'wc_settings_anti_fraud_suspecious_email_weight', 5 );
-		update_option( 'wc_settings_anti_fraud_suspecious_email_domains', $this->suspicious_domains() );
-		update_option( 'wc_af_unsafe_countries', 'yes' );
-		update_option( 'wc_settings_anti_fraud_unsafe_countries_weight', 25 );
-		update_option( 'wc_af_order_avg_amount_check', 'yes' );
-		update_option( 'wc_settings_anti_fraud_order_avg_amount_weight', 15 );
-		update_option( 'wc_settings_anti_fraud_avg_amount_multiplier', 2 );
-		update_option( 'wc_af_order_amount_check', 'yes' );
-		update_option( 'wc_settings_anti_fraud_order_amount_weight', 5 );
-		update_option( 'wc_settings_anti_fraud_amount_limit', 10000 );
-		update_option( 'wc_af_attempt_count_check', 'yes' );
-		update_option( 'wc_settings_anti_fraud_order_attempt_weight', 25 );
-		update_option( 'wc_settings_anti_fraud_attempt_time_span', 24 );
-		update_option( 'wc_settings_anti_fraud_max_order_attempt_time_span', 5 );
+			// For Minfraud.
+			update_option( 'wc_settings_anti_fraud_auto_check_days', 7 );
+			update_option( 'wc_af_fraud_check_before_payment', 'no' );
+			update_option( 'wc_af_fraud_update_state', 'yes' );
 
-		update_option( 'wc_af_limit_order_count', 'yes' );
-		update_option( 'wc_af_limit_time_start', 24 );
-		update_option( 'wc_af_limit_time_end', 24 );
-		update_option( 'wc_af_allowed_order_limit', 2 );
-		update_option( 'wc_af_ip_multiple_check', 'yes' );
+			update_option( 'wc_af_enable_whitelist_payment_method', 'no' );
+			update_option( 'wc_settings_anti_fraud_minfraud_order_weight', 30 );
+			update_option( 'wc_settings_anti_fraud_minfraud_risk_score', 30 );
 
-		update_option( 'wc_settings_anti_fraud_ip_multiple_weight', 25 );
-		update_option( 'wc_settings_anti_fraud_ip_multiple_time_span', 30 );
-		update_option( 'wc_settings_anti_fraudenable_automatic_email_blacklist', 'yes' );
-		update_option( 'wc_settings_anti_fraudenable_automatic_blacklist', 'yes' );
-		update_option( 'wc_af_paypal_verification', 'yes' );
-		update_option( 'wc_af_paypal_prevent_downloads', 'yes' );
-		update_option( 'wc_settings_anti_fraud_time_paypal_attempts', 2 );
-		update_option( 'wc_settings_anti_fraud_paypal_email_format', 'html' );
-		update_option( 'wc_settings_anti_fraud_paypal_email_subject', $this->paypal_email_subject() );
-		update_option( 'wc_settings_anti_fraud_email_body', $this->paypal_email_body() );
+			update_option( 'wc_af_email_notification', 'no' );
+			update_option( 'wc_settings_anti_fraud_cancel_score', 90 );
+			update_option( 'wc_settings_anti_fraud_hold_score', 70 );
+			update_option( 'wc_settings_anti_fraud_email_score', 50 );
+			update_option( 'wc_settings_anti_fraud_email_score1', 51 );
+			update_option( 'wc_settings_anti_fraud_low_risk_threshold', 25 );
+			update_option( 'wc_settings_anti_fraud_higher_risk_threshold', 75 );
+			update_option( 'wc_af_first_order', 'yes' );
+			update_option( 'wc_settings_anti_fraud_first_order_weight', 5 );
+			update_option( 'wc_af_international_order', 'yes' );
+			update_option( 'wc_settings_anti_fraud_international_order_weight', 10 );
+			update_option( 'wc_af_ip_geolocation_order', 'yes' );
+			update_option( 'wc_af_billing_phone_number_order', 'no' );
+			update_option( 'wc_settings_anti_fraud_billing_phone_number_order_weight', 15 );
+			update_option( 'wc_settings_anti_fraud_ip_geolocation_order_weight', 50 );
+			update_option( 'wc_af_bca_order', 'yes' );
+			update_option( 'wc_settings_anti_fraud_bca_order_weight', 20 );
+			update_option( 'wc_af_proxy_order', 'yes' );
+			update_option( 'wc_settings_anti_fraud_proxy_order_weight', 50 );
+			update_option( 'wc_af_suspecius_email', 'yes' );
+			update_option( 'wc_settings_anti_fraud_suspecious_email_weight', 5 );
+			update_option( 'wc_settings_anti_fraud_suspecious_email_domains', $this->suspicious_domains() );
+			update_option( 'wc_af_unsafe_countries', 'yes' );
+			update_option( 'wc_settings_anti_fraud_unsafe_countries_weight', 25 );
+			update_option( 'wc_af_order_avg_amount_check', 'yes' );
+			update_option( 'wc_settings_anti_fraud_order_avg_amount_weight', 15 );
+			update_option( 'wc_settings_anti_fraud_avg_amount_multiplier', 2 );
+			update_option( 'wc_af_order_amount_check', 'yes' );
+			update_option( 'wc_settings_anti_fraud_order_amount_weight', 5 );
+			update_option( 'wc_settings_anti_fraud_amount_limit', 10000 );
+			update_option( 'wc_af_attempt_count_check', 'yes' );
+			update_option( 'wc_settings_anti_fraud_order_attempt_weight', 25 );
+			update_option( 'wc_settings_anti_fraud_attempt_time_span', 24 );
+			update_option( 'wc_settings_anti_fraud_max_order_attempt_time_span', 5 );
+
+			update_option( 'wc_af_limit_order_count', 'no' );
+			delete_option( 'wc_af_limit_time_start', 24 );
+			delete_option( 'wc_af_limit_time_end', 24 );
+			update_option( 'wc_af_allowed_order_limit', 2 );
+			update_option( 'wc_af_ip_multiple_check', 'yes' );
+
+			update_option( 'wc_settings_anti_fraud_ip_multiple_weight', 25 );
+			update_option( 'wc_settings_anti_fraud_ip_multiple_time_span', 30 );
+			update_option( 'wc_settings_anti_fraudenable_automatic_email_blacklist', 'yes' );
+			update_option( 'wc_settings_anti_fraudenable_automatic_blacklist', 'yes' );
+			update_option( 'wc_af_paypal_verification', 'yes' );
+			update_option( 'wc_af_paypal_prevent_downloads', 'yes' );
+			update_option( 'wc_settings_anti_fraud_time_paypal_attempts', 2 );
+			update_option( 'wc_settings_anti_fraud_paypal_email_format', 'html' );
+			update_option( 'wc_settings_anti_fraud_paypal_email_subject', $this->paypal_email_subject() );
+			update_option( 'wc_settings_anti_fraud_email_body', $this->paypal_email_body() );
+		}
 	}
 
 	public function suspicious_domains() {

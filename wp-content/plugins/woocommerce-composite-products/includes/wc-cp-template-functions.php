@@ -234,8 +234,12 @@ function wc_cp_summary_widget_price( $components, $composite ) {
  */
 function wc_cp_summary_widget_message( $components, $composite ) {
 
+	$is_block_editor_request = WC_CP_Core_Compatibility::is_block_editor_api_request();
+
 	?><div class="widget_composite_summary_error">
-		<div class="composite_message" style="display:none;"><ul class="msg woocommerce-info"></ul></div>
+		<div class="composite_message" style="display:none;">
+			<?php if ( ! is_admin() && ! $is_block_editor_request ) { wc_print_notice('<ul class="msg"></ul>', 'notice' ); } ?>
+		</div>
 	</div><?php
 }
 
@@ -802,6 +806,7 @@ function wc_cp_add_to_cart_section( $components, $product ) {
 		'availability_html'          => wc_get_stock_html( $product ),
 		'navigation_style'           => $product->get_composite_layout_style(),
 		'navigation_style_variation' => $product->get_composite_layout_style_variation(),
+		'is_block_editor_request'    => WC_CP_Core_Compatibility::is_block_editor_api_request(),
 	), '', WC_CP()->plugin_path() . '/templates/' );
 
 }
@@ -1106,7 +1111,8 @@ function wc_cp_composited_product_variable( $component_option ) {
 	if ( empty( $variations_data ) ) {
 
 		wc_get_template( 'composited-product/invalid-product.php', array(
-			'is_static' => $component->is_static()
+			'is_static'               => $component->is_static(),
+			'is_block_editor_request' => WC_CP_Core_Compatibility::is_block_editor_api_request()
 		), '', WC_CP()->plugin_path() . '/templates/' );
 
 		return;

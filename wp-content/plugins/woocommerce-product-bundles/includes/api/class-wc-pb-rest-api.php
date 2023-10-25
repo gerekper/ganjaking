@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add custom REST API fields.
  *
  * @class    WC_PB_REST_API
- * @version  6.18.5
+ * @version  6.22.4
  */
 class WC_PB_REST_API {
 
@@ -1346,6 +1346,10 @@ class WC_PB_REST_API {
 
 			if ( $object instanceof WP_Post ) {
 				$object = wc_get_order( $object );
+			}
+
+			if ( ! ( is_a( $object, 'WC_Order' ) || is_a( $object, 'WC_Order_Refund' ) ) ) {
+				return $response;
 			}
 
 			$order_data = $response->get_data();

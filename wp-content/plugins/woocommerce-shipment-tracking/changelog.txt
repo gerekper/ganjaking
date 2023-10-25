@@ -1,5 +1,8 @@
 *** Shipment Tracking Changelog ***
 
+2023-10-16 - version 2.4.1
+* Add - DHL eCommerce (US) tracking URL.
+
 2023-09-05 - version 2.4.0
 * Add   - Alias function and filter for user to add alias.
 

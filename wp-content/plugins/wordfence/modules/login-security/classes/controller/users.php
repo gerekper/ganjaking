@@ -188,40 +188,9 @@ class Controller_Users {
 	 */
 	public function can_activate_2fa($user) {
 		if (is_multisite() && !is_super_admin($user->ID)) {
-			$blogs = get_blogs_of_user($user->ID);
-			foreach ($blogs as $id => $info) {
-				if ($this->_user_can_for_blog($user, $id, Controller_Permissions::CAP_ACTIVATE_2FA_SELF)) {
-					return true;
-				}
-			}
-			return false;
+			return Controller_Permissions::shared()->does_user_have_multisite_capability($user, Controller_Permissions::CAP_ACTIVATE_2FA_SELF);
 		}
 		return user_can($user, Controller_Permissions::CAP_ACTIVATE_2FA_SELF);
-	}
-	
-	/**
-	 * Implementation of current_user_can_for_blog that works for an arbitrary user.
-	 * 
-	 * @param int $user_id
-	 * @param int $blog_id
-	 * @param string $capability
-	 * @return bool
-	 */
-	private function _user_can_for_blog($user_id, $blog_id, $capability) {
-		$switched = is_multisite() ? switch_to_blog($blog_id) : false;
-		
-		$user = new \WP_User($user_id);
-	
-		$args = array_slice(func_get_args(), 2);
-		$args = array_merge(array($capability), $args);
-		
-		$can = call_user_func_array(array($user, 'has_cap'), $args);
-		
-		if ($switched) {
-			restore_current_blog();
-		}
-		
-		return $can;
 	}
 	
 	/**

@@ -332,5 +332,52 @@ if ( ! class_exists( 'NS_MCF_Utils' ) ) {
 			return false;
 		}
 
+
+		/**
+		 * Get the parent SKU or variation SKU depending on the product and settings.
+		 *
+		 * @param WC_Product $item_product The product to check.
+		 */
+		public function get_sku_to_send( WC_Product $item_product ) {
+			// check if this is a variable product or not so that we can conditionally set the right sku.
+			if ( $this->ns_fba->wc->is_woo_version( '3.0' ) ) {
+				$parent_id = $item_product->get_parent_id();
+				if ( $parent_id ) {
+					$parent_product = wc_get_product( $parent_id );
+					if ( $parent_product && get_post_meta( $parent_product->get_id(), 'ns_fba_send_parent_sku', true ) === 'yes' ) {
+						return $parent_product->get_sku();
+					}
+				}
+			} else {
+				if ( is_object( $item_product->parent ) && $item_product->parent->is_type( 'variable' ) ) {
+					if ( get_post_meta( $item_product->parent->get_id(), 'ns_fba_send_parent_sku', true ) === 'yes' ) {
+						return $item_product->parent->get_sku();
+					}
+				}
+			}
+			return $item_product->get_sku();
+		}
+
+		/**
+		 * GEnerate the fulfilment SKU
+		 *
+		 * @param [type] $order_number
+		 * @param [type] $fulfill_item_count
+		 * @param [type] $current_sku
+		 * @return void
+		 */
+		public static function get_fulfilment_sku( $order_number, $fulfill_item_count, $current_sku ) {
+			$fulfilment_sku = $order_number . '-item-' . $fulfill_item_count . '-' . $current_sku;
+
+			if ( ! self::is_valid_length( $fulfilment_sku, 50 ) ) {
+				$fulfilment_sku = 'item-' . $fulfill_item_count . '-' . $current_sku;
+				if ( ! self::is_valid_length( $fulfilment_sku, 50 ) ) {
+					$fulfilment_sku = $fulfill_item_count . '-' . $current_sku;
+				}
+			}
+
+			return $fulfilment_sku;
+		}
+
 	} // class.
 }

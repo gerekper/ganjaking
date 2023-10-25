@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Displays configuration summary of the currently displayed composite product.
  * By default applicable to Multi-page Composites only.
  *
- * @version  8.8.0
+ * @version  8.10.4
  * @extends  WC_Widget
  */
 class WC_Widget_Composite extends WC_Widget {
@@ -53,18 +53,16 @@ class WC_Widget_Composite extends WC_Widget {
 	}
 
 	/**
-	 * Widget function.
+	 * Render function.
 	 *
-	 * @see WP_Widget
+	 * @see self::widget()
 	 *
+	 * @param  WC_Product  $product
 	 * @param  array  $args
-	 * @param  array  $instance
 	 *
 	 * @return void
 	 */
-	public function widget( $args, $instance ) {
-
-		global $product;
+	public static function render( $product, $args ) {
 
 		// Normally, this should never happen since 'sidebars_widgets' are filtered by 'wc_cp_remove_composite_summary_widget' to remove non-visible composite summary widgets.
 		if ( ! self::is_visible() ) {
@@ -72,14 +70,15 @@ class WC_Widget_Composite extends WC_Widget {
 		}
 
 		$components = $product->get_components();
-
 		if ( empty( $components ) ) {
 			return;
 		}
 
-		$product_id      = $product->get_id();
-		$display_options = self::get_display_options();
-		$display         = isset( $instance[ 'display' ] ) && in_array( $instance[ 'display' ], array_keys( $display_options ) ) ? $instance[ 'display' ] : 'default';
+		$product_id        = $product->get_id();
+		$display_options   = self::get_display_options();
+		$display           = isset( $args[ 'display' ] ) && in_array( $args[ 'display' ], array_keys( $display_options ) ) ? $args[ 'display' ] : 'default';
+		$max_columns_value = isset( $args[ 'max_columns' ] ) ? (int) $args[ 'max_columns' ] : 3;
+
 
 		/**
 		 * Filter the display mode.
@@ -93,13 +92,11 @@ class WC_Widget_Composite extends WC_Widget {
 			'display' => $display
 		);
 
-		echo wp_kses_post( str_replace( 'widget_composite_summary ', 'widget_composite_summary widget_position_' . $display . ' ', $args[ 'before_widget' ] ) );
+		echo wp_kses_post( str_replace( 'widget_composite_summary', 'widget_composite_summary widget_position_' . $display, $args[ 'before_widget' ] ) );
 
-		$default = isset( $this->settings[ 'title' ][ 'std' ] ) ? $this->settings[ 'title' ][ 'std' ] : '';
-
-		if ( ! empty( $instance[ 'title' ] ) ) {
+		if ( ! empty( $args[ 'title' ] ) ) {
 			/** Documented in wp-includes/widgets/class-wp-widget-pages.php */
-			$title = apply_filters( 'widget_title', $instance[ 'title' ], $instance, $this->id_base );
+			$title = apply_filters( 'widget_title', $args[ 'title' ], $args, self::BASE_ID );
 			echo wp_kses_post( $args[ 'before_title' ] . $title . $args[ 'after_title' ] );
 		}
 
@@ -116,7 +113,7 @@ class WC_Widget_Composite extends WC_Widget {
 			 * @param  int                   $max_columns
 			 * @param  WC_Product_Composite  $product
 			 */
-			$max_columns = apply_filters( 'woocommerce_composite_component_summary_widget_max_columns', 3, $product );
+			$max_columns = apply_filters( 'woocommerce_composite_component_summary_widget_max_columns', $max_columns_value, $product );
 			$columns     = min( $max_columns, $columns, 8 );
 
 			if ( $columns > 1 ) {
@@ -147,6 +144,25 @@ class WC_Widget_Composite extends WC_Widget {
 		echo ob_get_clean();
 
 		echo wp_kses_post( $args[ 'after_widget' ] );
+	}
+
+	/**
+	 * Widget function.
+	 *
+	 * @see WP_Widget
+	 *
+	 * @param  array  $args
+	 * @param  array  $instance
+	 *
+	 * @return void
+	 */
+	public function widget( $args, $instance ) {
+		global $product;
+		if ( ! is_a( $product, 'WC_Product') ) {
+			return;
+		}
+		
+ 		self::render( $product, array_merge( $args, $instance ) );
 	}
 
 	/**

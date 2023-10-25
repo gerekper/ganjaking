@@ -160,6 +160,31 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		if ( isset( $_POST['wc_bookings_google_calendar_redirect'] ) && $_POST['wc_bookings_google_calendar_redirect'] && empty( $_POST['save'] ) ) { // phpcs:ignore
 			$this->process_calendar_redirect();
 		}
+
+		add_action( 'admin_notices', array( $this, 'show_auth_keys_changed_notice' ) );
+	}
+
+	/**
+	 * Show warning to reconnect if the `BOOKINGS_ENCRYPTION_KEY` and `BOOKINGS_ENCRYPTION_SALT` constants
+	 * are newly added.
+	 *
+	 * @since 2.0.5
+	 */
+	public function show_auth_keys_changed_notice() {
+		$keys_updated  = get_option( 'wc_bookings_auth_key_updated', false );
+		$auth_keys_set = WC_Bookings_Encryption::instance()->are_custom_bookings_auth_keys_set();
+		$show_message  = ( $auth_keys_set && ! $keys_updated ) || ( ! $auth_keys_set && $keys_updated );
+
+		if ( $show_message ) {
+			WC_Admin_Notices::add_custom_notice(
+				'bookings_auth_keys_changed_notice',
+				'<strong>' . esc_html__( 'Google Calendar was disconnected because authentication keys were changed. Please connect again.', 'woocommerce-bookings' ) . '</strong> '
+			);
+		}
+
+		if ( ! $auth_keys_set && $keys_updated ) {
+			delete_option( 'wc_bookings_auth_key_updated' );
+		}
 	}
 
 	/**
@@ -545,7 +570,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		$client = new GoogleClient();
 		$client->setApplicationName( 'WooCommerce Bookings Google Calendar Integration' );
 		$client->setScopes( GoogleServiceCalendar::CALENDAR );
-		$access_token  = get_transient( 'wc_bookings_gcalendar_access_token' );
+		$access_token = get_transient( 'wc_bookings_gcalendar_access_token' );
 		if ( isset( $access_token['access_token'] ) ) {
 			$access_token['access_token'] = WC_Bookings_Encryption::instance()->decrypt( $access_token['access_token'] );
 		}
@@ -668,7 +693,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	 */
 	protected function get_sync_token() {
 		$sync_token = get_transient( 'wc_bookings_gcalendar_sync_token' );
-		if ( ! empty( $sync_token )) {
+		if ( ! empty( $sync_token ) ) {
 			$sync_token = WC_Bookings_Encryption::instance()->decrypt( $sync_token );
 		}
 		return $sync_token;
@@ -1264,6 +1289,9 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 				)
 			);
 			update_option( 'wc_bookings_google_calendar_wooconnect_method_connection', true );
+
+			// Update keys before redirect.
+			$this->maybe_update_keys_on_auth_redirect();
 		} else {
 			$this->log(
 				sprintf(
@@ -1281,6 +1309,24 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		}
 		wp_safe_redirect( add_query_arg( $redirect_args, admin_url( '/edit.php?' ) ) );
 		exit;
+	}
+
+	/**
+	 * Update option keys on auth redirect.
+	 *
+	 * @since 2.0.5
+	 */
+	private function maybe_update_keys_on_auth_redirect() {
+		if ( WC_Bookings_Encryption::instance()->are_custom_bookings_auth_keys_set() ) {
+			update_option( 'wc_bookings_auth_key_updated', true );
+
+			// Update the saved custom key to know when changed.
+			update_option( 'BOOKINGS_ENCRYPTION_KEY', BOOKINGS_ENCRYPTION_KEY );
+			update_option( 'BOOKINGS_ENCRYPTION_SALT', BOOKINGS_ENCRYPTION_SALT );
+
+			// Hide the disconnection notice.
+			WC_Admin_Notices::remove_notice( 'bookings_auth_keys_changed_notice' );
+		}
 	}
 
 	/**
@@ -1349,6 +1395,9 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 			set_transient( 'wc_bookings_gcalendar_access_token', $access_token, self::TOKEN_TRANSIENT_TIME );
 			update_option( 'wc_bookings_gcalendar_refresh_token', WC_Bookings_Encryption::instance()->encrypt( $client->getRefreshToken() ) );
 			$redirect_args['wc_gcalendar_oauth'] = 'success';
+
+			// Update keys before redirect.
+			$this->maybe_update_keys_on_auth_redirect();
 
 			wp_safe_redirect( add_query_arg( $redirect_args, admin_url( '/edit.php?' ) ), 301 );
 			exit;
@@ -2038,10 +2087,10 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 			array(
 				'redirect' => urlencode(
 					add_query_arg(
-						[ 'nonce' => wp_create_nonce( 'wc_bookings_google_calendar_wooconnect' ) ],
+						array( 'nonce' => wp_create_nonce( 'wc_bookings_google_calendar_wooconnect' ) ),
 						WC()->api_request_url( 'wc_bookings_google_calendar_wooconnect' )
 					)
-				)
+				),
 			),
 			self::CONNECT_WOOCOMMERCE_URL . '/login/google'
 		);

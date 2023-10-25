@@ -328,6 +328,11 @@ auEa+7b+FGTKs7dUo2BNGR7OVifK4GZ8w/ajS0TelhrSRi3BBQCGXLzUO/UURUAh
 	public function loadRules() {
 		$storageEngine = $this->getStorageEngine();
 		if ($storageEngine instanceof wfWAFStorageFile) {
+			$logLevel = error_reporting();
+			if (wfWAFUtils::isCli()) { //Done to suppress errors from WP-CLI when the WAF is run on environments that have a server level constant to use the MySQLi storage engine that is not in place when running from the CLI
+				error_reporting(0); 
+			}
+			
 			// Acquire lock on this file so we're not including it while it's being written in another process.
 			$handle = fopen($storageEngine->getRulesFile(), 'r');
 			$locked = $handle !== false && flock($handle, LOCK_SH);
@@ -337,6 +342,10 @@ auEa+7b+FGTKs7dUo2BNGR7OVifK4GZ8w/ajS0TelhrSRi3BBQCGXLzUO/UURUAh
 				flock($handle, LOCK_UN);
 			if ($handle !== false)
 				fclose($handle);
+			
+			if (wfWAFUtils::isCli()) {
+				error_reporting($logLevel);
+			}
 		} else {
 			$wafRules = $storageEngine->getRules();
 			if (is_array($wafRules)) {

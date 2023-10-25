@@ -220,6 +220,16 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 				return;
 			}
 
+			$usr_verify_frm_ts = get_option( 'user_verified_from_ts' );
+			if ( isset( $usr_verify_frm_ts ) && 'yes' == $usr_verify_frm_ts ) {
+
+				Af_Logger::debug( 'Fraud Check exited.' );
+				opmc_hpos_update_post_meta( $order_id, 'wc_af_score', 100 );
+				opmc_hpos_update_post_meta( $order_id, 'whitelist_action', 'user_email_whitelisted' );
+				$order->add_order_note( __( 'Order fraud checks skipped due to user verified from Trust Swiftly.', 'woocommerce-anti-fraud' ) );
+				return;
+			}
+
 			// Create a Score object
 			$score = new WC_AF_Score( $order_id );
 
@@ -542,17 +552,16 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 				$limit_time_end = get_option( 'wc_af_limit_time_end' );
 				// $is_update_status_active = get_option('wc_af_fraud_update_state');
 
-				//$start_time = new DateTime( $limit_time_start, new DateTimeZone(wp_timezone_string()) );
-				//$end_time = new DateTime( $limit_time_end, new DateTimeZone(wp_timezone_string()) );
-				//$now = new DateTime( 'NOW', new DateTimeZone(wp_timezone_string()) );
+				// $start_time = new DateTime( $limit_time_start, new DateTimeZone(wp_timezone_string()) );
+				// $end_time = new DateTime( $limit_time_end, new DateTimeZone(wp_timezone_string()) );
+				// $now = new DateTime( 'NOW', new DateTimeZone(wp_timezone_string()) );
 
-				$time_zone = new \DateTimeZone(wp_timezone_string());
-				
+				$time_zone = new \DateTimeZone( wp_timezone_string() );
+
 				$start_time = new \DateTime( $limit_time_start, $time_zone );
 				$end_time = new \DateTime( $limit_time_end, $time_zone );
 				$now = new \DateTime( 'NOW', $time_zone );
-					
-				
+
 				if ( ( $now >= $start_time ) && ( $now <= $end_time ) ) {
 
 					$orders_between = wc_get_orders(

@@ -38,7 +38,7 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 			$this->icon = apply_filters( 'woocommerce_redsys_icon', REDSYS_PLUGIN_URL_P . 'assets/images/paygold.png' );
 		}
 		$this->has_fields           = false;
-		$this->liveurlws            = 'https://sis.redsys.es/sis/services/SerClsWSEntrada?wsdl';
+		$this->liveurlws            = 'https://sis.redsys.es:443/sis/services/SerClsWSEntrada?wsdl';
 		$this->method_title         = __( 'PayGold (by José Conti)', 'woocommerce-redsys' );
 		$this->method_description   = __( 'PayGold works sending an email or SMS with a payment link.', 'woocommerce-redsys' );
 		$this->not_use_https        = WCRed()->get_redsys_option( 'not_use_https', 'paygold' );

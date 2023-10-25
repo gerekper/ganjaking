@@ -341,19 +341,6 @@ function rocket_analytics_data() {
  * @return bool True if we should send them, false otherwise
  */
 function rocket_send_analytics_data() {
-	if ( ! get_rocket_option( 'analytics_enabled' ) ) {
-		return false;
-	}
-
-	if ( ! current_user_can( 'rocket_manage_options' ) ) {
-		return false;
-	}
-
-	if ( false === get_transient( 'rocket_send_analytics_data' ) ) {
-		set_transient( 'rocket_send_analytics_data', 1, 7 * DAY_IN_SECONDS );
-		return true;
-	}
-
 	return false;
 }
 

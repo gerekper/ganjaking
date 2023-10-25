@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 8.8.0
+ * @version 8.10.4
  */
 
 // Exit if accessed directly.
@@ -16,7 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-?><div class="component_data woocommerce-error"><?php
+?><div class="component_data"><?php
+
+	ob_start();
 
 	if ( $is_static ) {
 		$html = __( 'This item cannot be purchased at the moment.', 'woocommerce-composite-products' );
@@ -29,6 +31,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	if ( ! empty( $note ) ) {
 		echo '<span class="invalid_product_note">' . wp_kses_post( $note ) . '</span>';
+	}
+
+	if ( ! is_admin() && ! $is_block_editor_request ) {
+		$notice = ob_get_clean();
+
+		wc_print_notice( $notice, 'error' );
 	}
 
 ?></div>

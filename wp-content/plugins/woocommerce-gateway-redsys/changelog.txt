@@ -1,5 +1,16 @@
 *** Redsys Gateway Change Log ***
 
+2023.10.20 - version 23.0.2
+
+* FIX: Something happened between October 18-19 that caused some SOAP servers to stop functioning correctly, regardless of the plugin version. I have applied a fix provided by the Redsys developer department (which I greatly appreciate) and it worked, so this version incorporates it. It's a mandatory update if you are experiencing problems with SOAP.
+
+2023.10.14 - version 23.0.1
+
+* UPDATE: Added more text sanitization.
+* UPDATE: Enhance jQuery checkout reload.
+* UPDATE: GET price from checkout refactoring.
+* FIX: Removed debug log that allways is saved.
+
 2023.10.13 - version 23.0.0
 
 * NEW: Added Apple Pay

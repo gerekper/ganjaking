@@ -80,6 +80,14 @@ function redsys_create_block_bloques_redsys_block_init() {
 					'type'    => 'number',
 					'default' => 50,
 				),
+				'showApple'      => array(
+					'type'    => 'boolean',
+					'default' => 1,
+				),
+				'appleSize'      => array(
+					'type'    => 'number',
+					'default' => 50,
+				),
 			),
 		)
 	);
@@ -92,7 +100,7 @@ add_action( 'init', 'redsys_create_block_bloques_redsys_block_init' );
 function redsys_imagen_visa_mastercard_enqueue() {
 	wp_enqueue_script(
 		'imagen-visa-mastercard-script',
-		REDSYS_BLOCKS_PATH . 'build/index.js',
+		REDSYS_PLUGIN_URL_P . 'bloques-redsys/build/index.js',
 		array( 'wp-blocks', 'wp-element', 'wp-editor' ),
 		filemtime( REDSYS_BLOCKS_PATH . 'build/index.js' ),
 		true

@@ -1,5 +1,8 @@
 *** Brands Changelog ***
 
+2023-10-24 - version 1.6.61
+* Add - Declare plugin as compatible with new product editor.
+
 2023-10-19 - version 1.6.60
 * Dev - Add phpcs on changed files only.
 

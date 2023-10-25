@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce Composite Products
 * Plugin URI: https://woocommerce.com/products/composite-products/
 * Description: Create personalized product kits and configurable products.
-* Version: 8.10.3
+* Version: 8.10.4
 * Author: WooCommerce
 * Author URI: https://somewherewarm.com/
 *
@@ -18,7 +18,7 @@
 * Tested up to: 6.0
 *
 * WC requires at least: 3.9
-* WC tested up to: 7.8
+* WC tested up to: 8.0
 *
 * License: GNU General Public License v3.0
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -33,11 +33,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Main plugin class.
  *
  * @class    WC_Composite_Products
- * @version  8.10.3
+ * @version  8.10.4
  */
 class WC_Composite_Products {
 
-	public $version  = '8.10.3';
+	public $version  = '8.10.4';
 	public $required = '3.9.0';
 
 	/**
@@ -351,6 +351,9 @@ class WC_Composite_Products {
 
 		// Tracker.
 		require_once( WC_CP_ABSPATH . 'includes/class-wc-cp-tracker.php' );
+
+		// Blocks.
+		require_once( WC_CP_ABSPATH . 'includes/blocks/class-wc-cp-summary-block.php' );
 
 		// Admin functions and meta-boxes.
 		if ( is_admin() ) {

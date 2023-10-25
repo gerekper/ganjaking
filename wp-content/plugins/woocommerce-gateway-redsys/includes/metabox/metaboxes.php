@@ -259,7 +259,9 @@ add_action( 'woocommerce_process_product_meta', 'save_redsys_product' );
  */
 function paygold_metabox( $post_or_order_object ) {
 
-	$debug  = new WC_Logger();
+	if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+		$debug = new WC_Logger();
+	}
 	$screen = wc_get_container()->get( CustomOrdersTableController::class )->custom_orders_table_usage_is_enabled()
 		? wc_get_page_screen_id( 'shop-order' )
 		: 'shop_order';
@@ -273,13 +275,19 @@ function paygold_metabox( $post_or_order_object ) {
 	} else {
 		$order_id = sanitize_text_field( wp_unslash( $_GET['post'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 	}
-	$debug->add( 'metabox', '$order_id: ' . $order_id );
+	if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+		$debug->add( 'metabox', '$order_id: ' . $order_id );
+	}
 	if ( WCRed()->order_exist( $order_id ) ) {
-		$debug->add( 'metabox', 'Is shop_order' );
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			$debug->add( 'metabox', 'Is shop_order' );
+		}
 		$order   = WCRed()->get_order( $order_id );
 		$gateway = $order->get_payment_method();
 
-		$debug->add( 'metabox', '$gateway: ' . $gateway );
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			$debug->add( 'metabox', '$gateway: ' . $gateway );
+		}
 
 		if ( WCRed()->is_gateway_enabled( 'paygold' ) && ! WCRed()->is_paid( $order_id ) && 'paygold' === $gateway ) {
 			add_meta_box(
@@ -292,7 +300,9 @@ function paygold_metabox( $post_or_order_object ) {
 			);
 		}
 	} else {
-		$debug->add( 'metabox', 'Is NOT shop_order' );
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			$debug->add( 'metabox', 'Is NOT shop_order' );
+		}
 	}
 }
 add_action( 'add_meta_boxes', 'paygold_metabox' );
@@ -341,7 +351,7 @@ function paygold_meta_box_content( $post ) {
 	} else {
 		?>
 		<p class="woocommerce-order-data__meta order_number">
-			<?php esc_html_e( 'Please contact with your hosting provider and ask for SOAP and SimpleSML. WooCommerce Redsys Gateway cannot contact via SOAP with https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl or read the response with SimpleXML so is not possible to use PayGold', 'woocommerce-redsys' ); ?>
+			<?php esc_html_e( 'Please contact with your hosting provider and ask for SOAP and SimpleSML. WooCommerce Redsys Gateway cannot contact via SOAP with https://sis.redsys.es:443/sis/services/SerClsWSEntradaV2?wsdl or read the response with SimpleXML so is not possible to use PayGold', 'woocommerce-redsys' ); ?>
 		</p>
 		<?php
 	}

@@ -28,20 +28,6 @@ class WC_Instagram_Google_Product_Categories {
 	protected static function load_categories() {
 		$categories = include WC_INSTAGRAM_PATH . '/data/google-product-categories.php';
 
-		if ( has_filter( 'woocommerce_instagram_google_product_categories' ) ) {
-			wc_deprecated_hook( 'woocommerce_instagram_google_product_categories', '3.7.0', 'wc_instagram_google_product_categories' );
-
-			/**
-			 * Filters the Google product categories.
-			 *
-			 * @since      3.3.0
-			 * @deprecated 3.7.0
-			 *
-			 * @param array $categories The Google product categories.
-			 */
-			$categories = apply_filters( 'woocommerce_instagram_google_product_categories', $categories );
-		}
-
 		/**
 		 * Filters the Google product categories.
 		 *

@@ -6,6 +6,9 @@ class wfUpdateCheck {
 	const VULN_SEVERITY_MEDIUM = 40;
 	const VULN_SEVERITY_LOW = 1;
 	const VULN_SEVERITY_NONE = 0;
+	
+	const LAST_UPDATE_CHECK_ERROR_KEY = 'lastUpdateCheckError';
+	const LAST_UPDATE_CHECK_ERROR_SLUG_KEY = 'lastUpdateCheckErrorSlug';
 
 	private $needs_core_update = false;
 	private $core_update_version = 0;
@@ -169,6 +172,11 @@ class wfUpdateCheck {
 	 * @return $this
 	 */
 	public function checkAllUpdates($useCachedValued = true) {
+		if (!$useCachedValued) {
+			wfConfig::remove(self::LAST_UPDATE_CHECK_ERROR_KEY);
+			wfConfig::remove(self::LAST_UPDATE_CHECK_ERROR_SLUG_KEY);
+		}
+		
 		return $this->checkCoreUpdates($useCachedValued)
 			->checkPluginUpdates($useCachedValued)
 			->checkThemeUpdates($useCachedValued);
@@ -189,7 +197,7 @@ class wfUpdateCheck {
 			require_once(ABSPATH . 'wp-admin/includes/update.php');
 		}
 		
-		include(ABSPATH . WPINC . '/version.php'); //defines $wp_version
+		include(ABSPATH . WPINC . '/version.php'); /** @var $wp_version */
 		
 		$update_core = get_preferred_from_update_core();
 		if ($useCachedValued && isset($update_core->last_checked) && isset($update_core->version_checked) && 12 * HOUR_IN_SECONDS > (time() - $update_core->last_checked) && $update_core->version_checked == $wp_version) { //Duplicate of _maybe_update_core, which is a private call
@@ -276,7 +284,19 @@ class wfUpdateCheck {
 			return $update_plugins;
 		if (!function_exists('wp_update_plugins'))
 			require_once(ABSPATH . WPINC . '/update.php');
-		wp_update_plugins();
+		try {
+			wp_update_plugins();
+		}
+		catch (Exception $e) {
+			wfConfig::set(self::LAST_UPDATE_CHECK_ERROR_KEY, $e->getMessage(), false);
+			wfConfig::remove(self::LAST_UPDATE_CHECK_ERROR_SLUG_KEY);
+			error_log('Caught exception while attempting to refresh plugin update status: ' . $e->getMessage());
+		}
+		catch (Throwable $t) {
+			wfConfig::set(self::LAST_UPDATE_CHECK_ERROR_KEY, $t->getMessage(), false);
+			wfConfig::remove(self::LAST_UPDATE_CHECK_ERROR_SLUG_KEY);
+			error_log('Caught error while attempting to refresh plugin update status: ' . $t->getMessage());
+		}
 		return get_site_transient('update_plugins');
 	}
 
@@ -293,7 +313,7 @@ class wfUpdateCheck {
 
 		self::requirePluginsApi();
 
-		$update_plugins = $this->fetchPluginUpdates();
+		$update_plugins = $this->fetchPluginUpdates($useCachedValued);
 		
 		//Get the full plugin list
 		if (!function_exists('get_plugins')) {
@@ -357,7 +377,18 @@ class wfUpdateCheck {
 			//Do nothing, use cached value
 		}
 		else {
-			wp_update_themes();
+			try {
+				wp_update_themes();
+			}
+			catch (Exception $e) {
+				wfConfig::set(self::LAST_UPDATE_CHECK_ERROR_KEY, $e->getMessage(), false);
+				error_log('Caught exception while attempting to refresh theme update status: ' . $e->getMessage());
+			}
+			catch (Throwable $t) {
+				wfConfig::set(self::LAST_UPDATE_CHECK_ERROR_KEY, $t->getMessage(), false);
+				error_log('Caught error while attempting to refresh theme update status: ' . $t->getMessage());
+			}
+			
 			$update_themes = get_site_transient('update_themes');
 		}
 

@@ -44,59 +44,64 @@ if ( 'heading' === $addon_type ) {
 	$show_heading_col = 'hide';
 }
 ?>
-<div class="wc-pao-addon closed">
-	<div class="wc-pao-addon-header">
+<div class="wc-pao-addon wc-metabox closed">
+	<h3 class="wc-pao-addon-header">
 		<div class="wc-pao-col1">
-			<span class="wc-pao-addon-sort-handle dashicons dashicons-menu"></span>
 			<h2 class="wc-pao-addon-name"><?php echo esc_html( $addon_title ); ?></h2>
-			<small class="wc-pao-addon-type"><?php echo esc_html( $addon_type_formatted ); ?></small><?php
-				if ( isset( $id ) && ! empty( $id ) ) {
-					?><small class="wc-pao-addon-id"><?php echo 'ID: ' . esc_html( $id ); ?></small><?php
-				}
-		?></div>
-
-		<div class="wc-pao-col2">
-			<button type="button" class="wc-pao-remove-addon button"><?php esc_html_e( 'Remove', 'woocommerce-product-addons' ); ?></button>
-			<span class="wc-pao-addon-toggle" title="<?php esc_attr_e( 'Click to toggle', 'woocommerce-product-addons' ); ?>" aria-hidden="true"></span>
-			<input type="hidden" name="product_addon_position[<?php echo esc_attr( $loop ); ?>]" class="wc-pao-addon-position" value="<?php echo esc_attr( $loop ); ?>" />
-			<input type="hidden" name="product_addon_id_[<?php echo esc_attr( $loop ); ?>]" class="product_addon_id" value="<?php echo esc_attr( $id ); ?>" />
+			<small class="wc-pao-addon-type"><?php echo esc_html( $addon_type_formatted ); ?></small>
 		</div>
-	</div>
+		<div class="wc-pao-col2"><?php
+			if ( isset( $id ) && ! empty( $id ) ) {
+				?><small class="wc-pao-addon-id"><?php echo 'ID: ' . esc_html( $id ); ?></small><?php
+			}
+			?><span class="wc-pao-addon-toggle handle-item" title="<?php esc_attr_e( 'Click to toggle', 'woocommerce-product-addons' ); ?>" aria-hidden="true"></span>
+			<span class="wc-pao-addon-sort-handle handle-item"></span>
+			<a href="#" class="remove_row delete wc-pao-remove-addon"><?php esc_html_e( 'Remove', 'woocommerce' ); ?></a>
+			<input type="hidden" name="product_addon_position[<?php echo esc_attr( $loop ); ?>]" class="wc-pao-addon-position" value="<?php echo esc_attr( $loop ); ?>" />
+			<input type="hidden" name="product_addon_id[<?php echo esc_attr( $loop ); ?>]" class="product_addon_id" value="<?php echo esc_attr( $id ); ?>" />
+			<input type="hidden" name="product_addon_type[<?php echo esc_attr( $loop ); ?>]" class="product_addon_type" value="<?php echo esc_attr( $addon_type ); ?>" />
+		</div>
+	</h3>
 
-	<div class="wc-pao-addon-content">
+	<div class="wc-pao-addon-content wc-metabox-content">
 		<div class="wc-pao-addon-main-settings-1">
 			<div class="wc-pao-col1">
-				<label for="wc-pao-addon-content-type-<?php echo esc_attr( $loop ); ?>">
-					<?php
-						esc_html_e( 'Type', 'woocommerce-product-addons' );
-					?>
-				</label>
-				<select id="wc-pao-addon-content-type-<?php echo esc_attr( $loop ); ?>" name="product_addon_type[<?php echo esc_attr( $loop ); ?>]" class="wc-pao-addon-type-select">
-					<option <?php selected( 'multiple_choice', $addon_type ); ?> value="multiple_choice"><?php esc_html_e( 'Multiple Choice', 'woocommerce-product-addons' ); ?></option>
-					<option <?php selected( 'checkbox', $addon_type ); ?> value="checkbox"><?php esc_html_e( 'Checkboxes', 'woocommerce-product-addons' ); ?></option>
-					<option <?php selected( 'custom_text', $addon_type ); ?> value="custom_text"><?php esc_html_e( 'Short Text', 'woocommerce-product-addons' ); ?></option>
-					<option <?php selected( 'custom_textarea', $addon_type ); ?> value="custom_textarea"><?php esc_html_e( 'Long Text', 'woocommerce-product-addons' ); ?></option>
-					<option <?php selected( 'file_upload', $addon_type ); ?> value="file_upload"><?php esc_html_e( 'File Upload', 'woocommerce-product-addons' ); ?></option>
-					<option <?php selected( 'custom_price', $addon_type ); ?> value="custom_price"><?php esc_html_e( 'Customer Defined Price', 'woocommerce-product-addons' ); ?></option>
-					<option <?php selected( 'input_multiplier', $addon_type ); ?> value="input_multiplier"><?php esc_html_e( 'Quantity', 'woocommerce-product-addons' ); ?></option>
-					<option <?php selected( 'heading', $addon_type ); ?> value="heading"><?php esc_html_e( 'Heading', 'woocommerce-product-addons' ); ?></option>
-				</select>
+				<div class="wc-pao-addon-title">
+					<label for="wc-pao-addon-content-name-<?php echo esc_attr( $loop ); ?>">
+						<?php esc_html_e( 'Title', 'woocommerce-product-addons' ); ?>
+					</label>
+					<input type="text" class="wc-pao-addon-content-name" id="wc-pao-addon-content-name-<?php echo esc_attr( $loop ); ?>" name="product_addon_name[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $addon_title ); ?>" />
+				</div>
 			</div>
 
-			<div class="wc-pao-col2-1  <?php echo esc_attr( $display_display_col ); ?>">
+			<div class="wc-pao-col2 <?php echo esc_attr( $show_heading_col ); ?>">
+				<label for="wc-pao-addon-content-title-format-<?php echo esc_attr( $loop ); ?>">
+					<?php
+					esc_html_e( 'Title format', 'woocommerce-product-addons' );
+					?>
+				</label>
+				<select id="wc-pao-addon-content-title-format" name="product_addon_title_format[<?php echo esc_attr( $loop ); ?>]">
+					<option <?php selected( 'label', $title_format ); ?> value="label"><?php esc_html_e( 'Label', 'woocommerce-product-addons' ); ?></option>
+					<option <?php selected( 'heading', $title_format ); ?> value="heading"><?php esc_html_e( 'Heading', 'woocommerce-product-addons' ); ?></option>
+					<option <?php selected( 'hide', $title_format ); ?> value="hide"><?php esc_html_e( 'Hide', 'woocommerce-product-addons' ); ?></option>
+				</select>
+			</div>
+		</div>
+		<div class="wc-pao-addon-main-settings-2">
+			<div class="wc-pao-col1-1  <?php echo esc_attr( $display_display_col ); ?>">
 				<label for="wc-pao-addon-content-display-<?php echo esc_attr( $loop ); ?>">
 					<?php
 						esc_html_e( 'Display as', 'woocommerce-product-addons' );
 					?>
 				</label>
 				<select id="wc-pao-addon-content-display-<?php echo esc_attr( $loop ); ?>" name="product_addon_display[<?php echo esc_attr( $loop ); ?>]" class="wc-pao-addon-display-select">
-					<option <?php selected( 'select', $display ); ?> value="select"><?php esc_html_e( 'Dropdowns', 'woocommerce-product-addons' ); ?></option>
+					<option <?php selected( 'select', $display ); ?> value="select"><?php esc_html_e( 'Dropdown', 'woocommerce-product-addons' ); ?></option>
 					<option <?php selected( 'radiobutton', $display ); ?> value="radiobutton"><?php esc_html_e( 'Radio Buttons', 'woocommerce-product-addons' ); ?></option>
 					<option <?php selected( 'images', $display ); ?> value="images"><?php esc_html_e( 'Images', 'woocommerce-product-addons' ); ?></option>
 				</select>
 			</div>
 
-			<div class="wc-pao-col2-2  <?php echo esc_attr( $display_restrictions_select_col ); ?>">
+			<div class="wc-pao-col1-2  <?php echo esc_attr( $display_restrictions_select_col ); ?>">
 				<label for="wc-pao-addon-content-restriction-<?php echo esc_attr( $loop ); ?>">
 					<?php
 						esc_html_e( 'Restriction', 'woocommerce-product-addons' );
@@ -111,32 +116,20 @@ if ( 'heading' === $addon_type ) {
 				</select>
 			</div>
 		</div>
-
-		<div class="wc-pao-addon-main-settings-2">
-			<div class="wc-pao-col1">
-				<div class="wc-pao-addon-title">
-					<label for="wc-pao-addon-content-name-<?php echo esc_attr( $loop ); ?>">
-						<?php esc_html_e( 'Title', 'woocommerce-product-addons' ); ?>
-					</label>
-					<input type="text" class="wc-pao-addon-content-name" id="wc-pao-addon-content-name-<?php echo esc_attr( $loop ); ?>" name="product_addon_name[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $addon_title ); ?>" />
-				</div>
-			</div>
-
-			<div class="wc-pao-col2 <?php echo esc_attr( $show_heading_col ); ?>">
-				<label for="wc-pao-addon-content-title-format-<?php echo esc_attr( $loop ); ?>">
-					<?php
-						esc_html_e( 'Format title', 'woocommerce-product-addons' );
-					?>
-				</label>
-				<select id="wc-pao-addon-content-title-format" name="product_addon_title_format[<?php echo esc_attr( $loop ); ?>]">
-					<option <?php selected( 'label', $title_format ); ?> value="label"><?php esc_html_e( 'Label', 'woocommerce-product-addons' ); ?></option>
-					<option <?php selected( 'heading', $title_format ); ?> value="heading"><?php esc_html_e( 'Heading', 'woocommerce-product-addons' ); ?></option>
-					<option <?php selected( 'hide', $title_format ); ?> value="hide"><?php esc_html_e( 'Hide', 'woocommerce-product-addons' ); ?></option>
-				</select>
-			</div>
-		</div>
-
 		<div class="wc-pao-addons-secondary-settings">
+			<div class="wc-pao-row wc-pao-addon-required-setting <?php echo esc_attr( $display_required_setting_class ); ?>">
+				<label for="wc-pao-addon-required-<?php echo esc_attr( $loop ); ?>">
+					<input type="checkbox" id="wc-pao-addon-required-<?php echo esc_attr( $loop ); ?>" name="product_addon_required[<?php echo esc_attr( $loop ); ?>]" <?php checked( $required, 1 ); ?> />
+					<?php
+					if ( in_array( $addon_type, array( 'multiple_choice', 'checkbox' ) ) ) {
+						esc_html_e( 'Require selection', 'woocommerce-product-addons' );
+					} elseif ( 'file_upload' === $addon_type ) {
+						esc_html_e( 'Require upload', 'woocommerce-product-addons' );
+					} else {
+						esc_html_e( 'Require input', 'woocommerce-product-addons' );
+					}
+					?></label>
+			</div>
 			<div class="wc-pao-row wc-pao-addon-description-setting">
 				<label for="wc-pao-addon-description-enable-<?php echo esc_attr( $loop ); ?>">
 					<input type="checkbox" id="wc-pao-addon-description-enable-<?php echo esc_attr( $loop ); ?>" class="wc-pao-addon-description-enable" name="product_addon_description_enable[<?php echo esc_attr( $loop ); ?>]" <?php checked( $description_enable, 1 ); ?> />
@@ -147,13 +140,6 @@ if ( 'heading' === $addon_type ) {
 				</label>
 				<textarea cols="20" id="wc-pao-addon-description-<?php echo esc_attr( $loop ); ?>" class="wc-pao-addon-description <?php echo esc_attr( $display_description_box ); ?>" rows="3" name="product_addon_description[<?php echo esc_attr( $loop ); ?>]"><?php echo esc_textarea( $description ); ?></textarea>
 			</div>
-
-			<div class="wc-pao-row wc-pao-addon-required-setting <?php echo esc_attr( $display_required_setting_class ); ?>">
-				<label for="wc-pao-addon-required-<?php echo esc_attr( $loop ); ?>">
-					<input type="checkbox" id="wc-pao-addon-required-<?php echo esc_attr( $loop ); ?>" name="product_addon_required[<?php echo esc_attr( $loop ); ?>]" <?php checked( $required, 1 ); ?> />
-					<?php esc_html_e( 'Required field', 'woocommerce-product-addons' ); ?>
-				</label>
-			</div>
 		</div>
 
 		<?php do_action( 'woocommerce_product_addons_panel_before_options', $post, $addon, $loop ); ?>
@@ -162,14 +148,18 @@ if ( 'heading' === $addon_type ) {
 			<div class="wc-pao-addon-content-option-inner">
 				<div class="wc-pao-addon-content-headers">
 					<div class="wc-pao-addon-content-option-header">
-						<?php esc_html_e( 'Option', 'woocommerce-product-addons' ); ?>
+						<?php esc_html_e( 'Option title', 'woocommerce-product-addons' ); ?>
+					</div>
+
+					<div class="wc-pao-addon-content-price-type-header">
+						<div class="wc-pao-addon-content-price-wrap">
+							<?php esc_html_e( 'Type', 'woocommerce-product-addons' ); ?>
+							<?php echo wc_help_tip( __( 'Choose how to calculate the price of this add-on: Apply a flat fee regardless of quantity, charge per quantity ordered, or charge a percentage of the total.', 'woocommerce-product-addons' ) ); ?>
+						</div>
 					</div>
 
 					<div class="wc-pao-addon-content-price-header">
-						<div class="wc-pao-addon-content-price-wrap">
-							<?php esc_html_e( 'Price', 'woocommerce-product-addons' ); ?>
-							<?php echo wc_help_tip( __( 'Choose how to calculate price: apply a flat fee regardless of quantity, charge per quantity ordered, or charge a percentage of the total', 'woocommerce-product-addons' ) ); ?>
-						</div>
+						<?php esc_html_e( 'Price', 'woocommerce-product-addons' ); ?>
 					</div>
 
 					<?php do_action( 'woocommerce_product_addons_panel_option_heading', isset( $post ) ? $post : null, $addon, $loop ); ?>
@@ -201,11 +191,11 @@ if ( 'heading' === $addon_type ) {
 				$display_adjust_price = 'hide';
 				break;
 			case 'custom_price':
-				$restriction_name = __( 'Limit price range', 'woocommerce-product-addons' );
+				$restriction_name = __( 'Limit price', 'woocommerce-product-addons' );
 				$display_adjust_price = 'hide';
 				break;
 			case 'input_multiplier':
-				$restriction_name = __( 'Limit quantity range', 'woocommerce-product-addons' );
+				$restriction_name = __( 'Limit quantity', 'woocommerce-product-addons' );
 				break;
 			case 'custom_text':
 				$restriction_name = __( 'Limit character length', 'woocommerce-product-addons' );
@@ -231,9 +221,9 @@ if ( 'heading' === $addon_type ) {
 				</label>
 				<div class="wc-pao-addon-restrictions-settings <?php echo esc_attr( $display_restrictions_settings ); ?>">
 					<div class="wc-pao-addon-min-max <?php echo esc_attr( $display_min_max ); ?>">
-						<input type="number" name="product_addon_min[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $min ); ?>" placeholder="0" min="0" />&nbsp;<span>&mdash;</span>&nbsp;
+						<input type="number" name="product_addon_min[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $min ); ?>" placeholder="0" min="0" />
+						<span><?php esc_html_e( 'to', 'woocommerce-product-addons' ); ?></span>
 						<input type="number" name="product_addon_max[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $max ); ?>" placeholder="<?php esc_attr_e( 'unlimited', 'woocommerce-product-addons' ) ?>" min="0" />
-						&nbsp;<em><?php esc_html_e( 'Enter a minimum and maximum value for the limit range.', 'woocommerce-product-addons' ); ?></em>
 					</div>
 				</div>
 			</div>
@@ -246,7 +236,7 @@ if ( 'heading' === $addon_type ) {
 					<input type="checkbox" id="wc-pao-addon-adjust-price-<?php echo esc_attr( $loop ); ?>" class="wc-pao-addon-adjust-price" name="product_addon_adjust_price[<?php echo esc_attr( $loop ); ?>]" <?php checked( $adjust_price, 1 ); ?> />
 					<?php
 					esc_html_e( 'Adjust price', 'woocommerce-product-addons' );
-					echo wc_help_tip( __( 'Choose how to calculate price: apply a flat fee regardless of quantity, charge per quantity ordered, or charge a percentage of the total', 'woocommerce-product-addons' ) );
+					echo wc_help_tip( __( 'Choose how to calculate the price of this add-on: Apply a flat fee regardless of quantity, charge per quantity ordered, or charge a percentage of the total.', 'woocommerce-product-addons' ) );
 					?>
 				</label>
 				<div class="wc-pao-addon-adjust-price-settings <?php echo esc_attr( $display_adjust_price_settings ); ?>">

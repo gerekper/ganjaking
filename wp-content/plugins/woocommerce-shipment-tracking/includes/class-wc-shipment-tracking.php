@@ -141,6 +141,7 @@ class WC_Shipment_Tracking_Actions {
 				),
 				'United States'  => array(
 					'DHL US'        => 'https://www.logistics.dhl/us-en/home/tracking/tracking-ecommerce.html?tracking-id=%1$s',
+					'DHL eCommerce' => 'https://webtrack.dhlecs.com/orders?trackingNumber=%1$s',
 					'Fedex'         => 'https://www.fedex.com/apps/fedextrack/?action=track&action=track&tracknumbers=%1$s',
 					'FedEx Sameday' => 'https://www.fedexsameday.com/fdx_dotracking_ua.aspx?tracknum=%1$s',
 					'GlobalPost'    => 'https://www.goglobalpost.com/track-detail/?t=%1$s',

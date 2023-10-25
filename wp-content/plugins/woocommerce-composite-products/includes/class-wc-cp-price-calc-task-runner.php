@@ -25,7 +25,7 @@ if ( ! class_exists( 'WP_Background_Process', false ) ) {
  * Uses https://github.com/A5hleyRich/wp-background-processing to handle tasks in the background.
  *
  * @class    WC_CP_Price_Calc_Task_Runner
- * @version  x.x.x
+ * @version  8.10.4
  */
 class WC_CP_Price_Calc_Task_Runner extends WP_Background_Process {
 
@@ -259,7 +259,7 @@ class WC_CP_Price_Calc_Task_Runner extends WP_Background_Process {
 	 * Handle
 	 *
 	 * @override 
-	 * @since x.x.x
+	 * @since 8.10.4
 	 * 
 	 * Pass each queue item to the task handler, while remaining
 	 * within server memory and time limit constraints.

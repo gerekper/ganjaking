@@ -163,34 +163,4 @@ class WC_Instagram_Product_Catalog_Format_XML extends WC_Instagram_Product_Catal
 
 		return $values;
 	}
-
-	/**
-	 * Gets the formatted 'channel' XML node.
-	 *
-	 * @since 3.0.0
-	 * @deprecated 4.0.0
-	 *
-	 * @return string
-	 */
-	protected function get_output_channel() {
-		wc_deprecated_function( __FUNCTION__, '4.0.0' );
-
-		$title       = '[' . get_option( 'blogname' ) . '] ' . $this->get_product_catalog()->get_title();
-		$description = $this->get_product_catalog()->get_title() . ' RSS feed';
-
-		$channel  = "\t<channel>\n";
-		$channel .= "\t\t<title>" . esc_html( $title ) . "</title>\n";
-		$channel .= "\t\t<link>" . esc_url( home_url( '/' ) ) . "</link>\n";
-		$channel .= "\t\t<description>" . esc_html( $description ) . "</description>\n";
-
-		$product_items = $this->get_product_items();
-
-		foreach ( $product_items as $product_item ) {
-			$channel .= $this->get_output_item( $product_item );
-		}
-
-		$channel .= "\t</channel>\n";
-
-		return $channel;
-	}
 }

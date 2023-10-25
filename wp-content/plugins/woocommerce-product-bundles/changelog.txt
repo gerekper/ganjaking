@@ -1,5 +1,11 @@
 *** WooCommerce Product Bundles ***
 
+2023.10.17 - version 6.22.4
+* Tweak - Re-designed Product Data > Shipping notice about Unassembled Bundles.
+* Tweak - Declared compatibility with the cart/checkout Blocks.
+* Fix - Resolved a compatibility issue with Zapier related to the existence of the order object in REST API context.
+* Fix - Important: Security improvements.
+
 2023.08.28 - version 6.22.3
 * Fix - Important: Updated the 'bundle-add-to-cart-wrap.php' template to resolve an issue that prevented Bundle notices from showing up when the mini-cart block was used.
 * Tweak - Use admin theme colors in admin.

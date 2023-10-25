@@ -82,6 +82,8 @@ class Controller_WordfenceLS {
 		add_action('init', array($this, '_wordpress_init'));
 		if ($this->is_shortcode_enabled())
 			add_action('wp_enqueue_scripts', array($this, '_handle_shortcode_prerequisites'));
+		
+		Controller_Permissions::_init_actions();
 	}
 
 	public function _wordpress_init() {
@@ -214,6 +216,7 @@ END
 	
 	public function _uninstall_plugin() {
 		Controller_Time::shared()->uninstall();
+		Controller_Permissions::shared()->uninstall();
 		
 		foreach (array(self::VERSION_KEY) as $opt) {
 			if (is_multisite() && function_exists('delete_network_option')) {
@@ -348,7 +351,7 @@ END
 				->enqueue();
 			wp_enqueue_style('wordfence-ls-login', Model_Asset::css('login.css'), array(), WORDFENCE_LS_VERSION);
 			wp_localize_script('wordfence-ls-login', 'WFLSVars', array(
-				'ajaxurl' => admin_url('admin-ajax.php'),
+				'ajaxurl' => Utility_URL::relative_admin_url('admin-ajax.php'),
 				'nonce' => wp_create_nonce('wp-ajax'),
 				'recaptchasitekey' => Controller_Settings::shared()->get(Controller_Settings::OPTION_RECAPTCHA_SITE_KEY),
 				'useCAPTCHA' => $useCAPTCHA,
@@ -361,7 +364,7 @@ END
 	private function get_2fa_management_script_data() {
 		return array(
 			'WFLSVars' => array(
-				'ajaxurl' => admin_url('admin-ajax.php'),
+				'ajaxurl' => Utility_URL::relative_admin_url('admin-ajax.php'),
 				'nonce' => wp_create_nonce('wp-ajax'),
 				'modalTemplate' => Model_View::create('common/modal-prompt', array('title' => '${title}', 'message' => '${message}', 'primaryButton' => array('id' => 'wfls-generic-modal-close', 'label' => __('Close', 'wordfence'), 'link' => '#')))->render(),
 				'modalNoButtonsTemplate' => Model_View::create('common/modal-prompt', array('title' => '${title}', 'message' => '${message}'))->render(),

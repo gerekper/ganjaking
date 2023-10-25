@@ -4,13 +4,35 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $has_addons = ( ! empty( $product_addons ) && 0 < count( $product_addons ) ) ? 'wc-pao-has-addons' : '';
+
 ?>
-<div id="product_addons_data" class="panel woocommerce_options_panel">
+<div id="product_addons_data" class="panel woocommerce_options_panel wc-metaboxes-wrapper <?php echo ! $has_addons ? 'onboarding' : '' ?>">
 	<?php do_action( 'woocommerce_product_addons_panel_start' ); ?>
+	<?php if ( $exists ) : ?>
+
+		<div class="options_group global_addon_options"><?php
+
+			// Default Status.
+			woocommerce_wp_checkbox( array(
+				'id'            => '_product_addons_exclude_global',
+				'name'          => '_product_addons_exclude_global',
+				'value'         => ! $exclude_global ? 'yes' : 'no',
+				'label'         => __( 'Use Global Add-Ons?', 'woocommerce-product-addons' ),
+				/* translators: %s link to global add-ons tab */
+				'description'   => sprintf( __( 'Uncheck this option to exclude any <a href="%s">global add-ons</a> assigned to this product.', 'woocommerce-product-addons' ), esc_url( admin_url() . 'edit.php?post_type=product&page=addons' ) )
+			) );
+
+			?>
+		</div>
+	<?php endif; ?>
+	<div class="hr-section hr-section-addons"><?php echo esc_html__( 'Product Add-Ons', 'woocommerce-product-addons' ); ?></div>
 	<div class="wc-pao-field-header">
-		<p><strong><?php esc_html_e( 'Add-on fields', 'woocommerce-product-addons' ); ?><?php echo wc_help_tip( __( 'Add fields to get additional information from customers', 'woocommerce-product-addons' ) ); ?></strong></p>
-		<p class="wc-pao-toolbar <?php echo esc_attr( $has_addons ); ?>">
-			<a href="#" class="wc-pao-expand-all"><?php esc_html_e( 'Expand all', 'woocommerce-product-addons' ); ?></a>&nbsp;/&nbsp;<a href="#" class="wc-pao-close-all"><?php esc_html_e( 'Close all', 'woocommerce-product-addons' ); ?></a>
+		<p class="toolbar wc-pao-toolbar <?php echo esc_attr( $has_addons ); ?>">
+			<a href="#" class="wc-pao-import-addons"><?php esc_html_e( 'Import', 'woocommerce-product-addons' ); ?></a>
+			<a href="#" class="wc-pao-export-addons"><?php esc_html_e( 'Export', 'woocommerce-product-addons' ); ?></a>
+			<a href="#" class="wc-pao-close-all"><?php esc_html_e( 'Close all', 'woocommerce-product-addons' ); ?></a>
+			<a href="#" class="wc-pao-expand-all"><?php esc_html_e( 'Expand all', 'woocommerce-product-addons' ); ?></a>&nbsp;
+			<input type="hidden" name="product_addons_export_string" class="product_addons_export_string" value="<?php echo esc_textarea( serialize( $product_addons ) ); ?>" />
 		</p>
 	</div>
 
@@ -28,34 +50,39 @@ $has_addons = ( ! empty( $product_addons ) && 0 < count( $product_addons ) ) ? '
 
 	</div>
 
-	<div class="wc-pao-actions">
-		<button type="button" class="button wc-pao-add-field"><?php esc_html_e( 'Add Field', 'woocommerce-product-addons' ); ?></button>
-
-		<div class="wc-pao-toolbar__import-export">
-			<button type="button" class="button wc-pao-import-addons"><?php esc_html_e( 'Import', 'woocommerce-product-addons' ); ?></button>
-			<button type="button" class="button wc-pao-export-addons"><?php esc_html_e( 'Export', 'woocommerce-product-addons' ); ?></button>
-		</div>
-	</div>
-	<div class="wc-pao-import-export-container">
-		<textarea name="export_product_addon" class="wc-pao-export-field" cols="20" rows="5" readonly="readonly"><?php echo esc_textarea( serialize( $product_addons ) ); ?></textarea>
-
-		<textarea name="import_product_addon" class="wc-pao-import-field" cols="20" rows="5" placeholder="<?php esc_attr_e( 'Paste exported form data here and then save to import fields. The imported fields will be appended.', 'woocommerce-product-addons' ); ?>"></textarea>
-	</div>
-	<?php if ( $exists ) : ?>
-		<div class="wc-pao-product-global-addon">
-			<strong><?php esc_html_e( 'Additional add-ons', 'woocommerce-product-addons' ); ?></strong>
+	<div class="pao_boarding__addons addon_fields_container widefat">
+		<div class="pao_boarding__addons__message">
 			<p>
-				<?php
-				/* translators: %s URL to addons page */
-				echo wp_kses_post( sprintf( __( 'You can create additional <a href="%s">add-ons</a> that apply to all products or to certain categories.', 'woocommerce-product-addons' ), esc_url( admin_url() . 'edit.php?post_type=product&page=addons' ) ) );
-				?>
-			</p>
-
-			<p>
-			<label for="_product_addons_exclude_global"><?php esc_html_e( 'Exclude add-ons', 'woocommerce-product-addons' ); ?>&nbsp;&nbsp;<input id="_product_addons_exclude_global" name="_product_addons_exclude_global" class="checkbox" type="checkbox" value="1" <?php checked( $exclude_global, 1 ); ?>/></label>&nbsp;&nbsp;
-			<em><?php esc_html_e( 'Hide additional add-ons that may apply to this product.', 'woocommerce-product-addons' ); ?></em>
+			<?php
+				if ( isset( $_GET[ 'page' ] ) && 'addons' === $_GET[ 'page' ] ) {
+					esc_html_e( 'Choose an add-on field to add to this group,', 'woocommerce-product-addons' );
+				?><br><?php
+					echo wp_kses_post( __( 'or <a href="#" class="wc-pao-import-addons">click here</a> to import data.', 'woocommerce-product-addons' ) );
+				} else {
+					esc_html_e( 'Use add-ons to add free or paid options to this product.', 'woocommerce-product-addons' );
+				?><br><?php
+					echo wp_kses_post( __( 'Choose a field type to add below, or <a href="#" class="wc-pao-import-addons">click here</a> to import data.', 'woocommerce-product-addons' ) );
+				}
+			?>
 			</p>
 		</div>
-	<?php endif; ?>
+		<div class="addon_fields_add addon_fields_row">
+			<div class="addon_fields_select">
+				<p class="sw-enhanced-select">
+					<select class="addon_field_type">
+						<option value="add" selected="selected"><?php esc_html_e( 'Add field&hellip;', 'woocommerce-product-addons' ); ?></option>
+						<option value="multiple_choice"><?php esc_html_e( 'Multiple Choice', 'woocommerce-product-addons' ); ?></option>
+						<option value="checkbox"><?php esc_html_e( 'Checkboxes', 'woocommerce-product-addons' ); ?></option>
+						<option value="custom_text"><?php esc_html_e( 'Short Text', 'woocommerce-product-addons' ); ?></option>
+						<option value="custom_textarea"><?php esc_html_e( 'Long Text', 'woocommerce-product-addons' ); ?></option>
+						<option value="file_upload"><?php esc_html_e( 'File Upload', 'woocommerce-product-addons' ); ?></option>
+						<option value="custom_price"><?php esc_html_e( 'Customer Defined Price', 'woocommerce-product-addons' ); ?></option>
+						<option value="input_multiplier"><?php esc_html_e( 'Quantity', 'woocommerce-product-addons' ); ?></option>
+						<option  value="heading"><?php esc_html_e( 'Heading', 'woocommerce-product-addons' ); ?></option>
+					</select>
+				</p>
+			</div>
+		</div>
+	</div>
 	<?php do_action( 'woocommerce_product_addons_panel_end' ); ?>
 </div>

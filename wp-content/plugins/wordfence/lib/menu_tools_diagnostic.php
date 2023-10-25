@@ -113,14 +113,14 @@ if (!isset($sendingDiagnosticEmail)) {
 								))) ?></td>
 							<td>
 								<?php if ($infoOnly): ?>
-									<div class="wf-result-info"><?php echo nl2br(esc_html($result['message'])); ?></div>
+									<div class="wf-result-info"><?php echo (is_array($result['message']) && isset($result['message']['escaped']) ? $result['message']['escaped'] : nl2br(esc_html($result['message']))); ?></div>
 								<?php elseif ($result['test']): ?>
-									<div class="wf-result-success"><?php echo nl2br(esc_html($result['message'])); ?></div>
+									<div class="wf-result-success"><?php echo (is_array($result['message']) && isset($result['message']['escaped']) ? $result['message']['escaped'] : nl2br(esc_html($result['message']))); ?></div>
 								<?php else: ?>
-									<div class="wf-result-error"><?php echo nl2br(esc_html($result['message'])); ?></div>
+									<div class="wf-result-error"><?php echo (is_array($result['message']) && isset($result['message']['escaped']) ? $result['message']['escaped'] : nl2br(esc_html($result['message']))); ?></div>
 								<?php endif ?>
 								<?php if (isset($result['detail']) && !empty($result['detail'])): ?>
-									<p><strong><?php esc_html_e('Additional Detail', 'wordfence'); ?></strong><br><?php echo nl2br(esc_html($result['detail'])); ?></p>
+									<p><strong><?php esc_html_e('Additional Detail', 'wordfence'); ?></strong><br><?php echo (is_array($result['detail']) && isset($result['detail']['escaped']) ? $result['detail']['escaped'] : nl2br(esc_html($result['detail']))); ?></p>
 								<?php endif; ?>
 							</td>
 						</tr>
@@ -156,15 +156,15 @@ if (!isset($sendingDiagnosticEmail)) {
 										))) ?></div>
 									<div class="wf-right">
 									<?php if ($infoOnly): ?>
-										<div class="wf-result-info"><?php echo nl2br(esc_html($result['message'])); ?></div>
+										<div class="wf-result-info"><?php echo (is_array($result['message']) && isset($result['message']['escaped']) ? $result['message']['escaped'] : nl2br(esc_html($result['message']))); ?></div>
 									<?php elseif ($result['test']): ?>
-										<div class="wf-result-success"><?php echo nl2br(esc_html($result['message'])); ?></div>
+										<div class="wf-result-success"><?php echo (is_array($result['message']) && isset($result['message']['escaped']) ? $result['message']['escaped'] : nl2br(esc_html($result['message']))); ?></div>
 									<?php else: ?>
-										<div class="wf-result-error"><?php echo nl2br(esc_html($result['message'])); ?></div>
+										<div class="wf-result-error"><?php echo (is_array($result['message']) && isset($result['message']['escaped']) ? $result['message']['escaped'] : nl2br(esc_html($result['message']))); ?></div>
 									<?php endif ?>
 									<?php if (isset($result['detail']) && !empty($result['detail'])): ?>
 											<p><a href="#" onclick="jQuery('#wf-diagnostics-detail-<?php echo esc_attr($key); ?>').show(); jQuery(this).hide(); return false;" role="button"><?php esc_html_e('View Additional Detail', 'wordfence'); ?></a></p>
-											<pre class="wf-pre wf-split-word" id="wf-diagnostics-detail-<?php echo esc_attr($key); ?>" style="max-width: 600px; display: none;"><?php echo esc_html($result['detail']); ?></pre>
+											<pre class="wf-pre wf-split-word" id="wf-diagnostics-detail-<?php echo esc_attr($key); ?>" style="max-width: 600px; display: none;"><?php echo (is_array($result['detail']) && isset($result['detail']['escaped']) ? $result['detail']['escaped'] : nl2br(esc_html($result['detail']))); ?></pre>
 									<?php endif; ?>
 										</div>
 								</li>

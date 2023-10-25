@@ -64,7 +64,7 @@ final class WC_Gateway_Paygold_Support extends AbstractPaymentMethodType {
 		);
 
 		if ( function_exists( 'wp_set_script_translations' ) ) {
-			wp_set_script_translations( 'wc-paygold-payments-blocks', 'woo-redsys-gateway-light', REDSYS_PLUGIN_PATH_P . 'languages/' );
+			wp_set_script_translations( 'wc-paygold-payments-blocks', 'woocommerce-redsys', REDSYS_PLUGIN_PATH_P . 'languages/' );
 		}
 
 		return array( 'wc-paygold-payments-blocks' );

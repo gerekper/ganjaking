@@ -1,5 +1,17 @@
 *** WooCommerce Instagram Changelog ***
 
+2023-10-18 - version 4.5.0
+* Feature - Added compatibility with 'WooCommerce Additional Variation Images'.
+* Tweak - Updated plugin author.
+* Tweak - Tested compatibility up to WC 8.2.
+* Tweak - Tested compatibility up to WP 6.4.
+* Dev - Updated Instagram Graph API version to v15.0.
+* Dev - Added hook to filter the additional images of a product.
+* Dev - Dropped deprecated filter hook `wc_instagram_product_catalog_download_formats`.
+* Dev - Dropped deprecated filter hook `woocommerce_instagram_google_product_categories`.
+* Dev - Dropped deprecated plugin code up to version 4.2.
+* Dev - Updated the minimum requirements to WC 3.7, WP 4.9, and PHP 5.6.
+
 2023-08-21 - version 4.4.1
 * Tweak - Uniquely register the scheduled actions.
 * Tweak - Tested compatibility with WC 8.0.
@@ -125,8 +137,8 @@
 * Dev - Deprecated filter hook `woocommerce_instagram_google_product_categories` in favor of `wc_instagram_google_product_categories`.
 
 2021-09-28 - version 3.6.2
-* Dev - Updated Instagram Graph API version to v12.0.
 * Tweak - Tested compatibility with WC 5.8.
+* Dev - Updated Instagram Graph API version to v12.0.
 
 2021-09-01 - version 3.6.1
 * Tweak - Added plugin info to the WooCommerce System Status Report.

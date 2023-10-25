@@ -362,6 +362,7 @@ class WC_PAO_Tracker {
 		);
 
 		if ( ! in_array( $key, $valid_keys ) ) {
+			/* translators: %1$s key */
 			$notice = sprintf( __( 'Invalid key &quot;%1$s&quot; passed to get_reusable_data.', 'woocommerce-product-addons' ), $key );
 			throw new Exception( $notice );
 		}

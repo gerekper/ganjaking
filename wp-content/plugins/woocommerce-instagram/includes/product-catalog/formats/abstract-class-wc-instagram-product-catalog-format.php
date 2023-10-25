@@ -249,10 +249,9 @@ abstract class WC_Instagram_Product_Catalog_Format {
 	 *
 	 * @since 3.0.0
 	 * @since 4.0.0 Deprecated argument `$products`.
-	 *
-	 * @param array $deprecated Deprecated argument.
+	 * @since 4.5.0 Removed argument `$products`.
 	 */
-	protected function load_product_items( $deprecated = array() ) {
+	protected function load_product_items() {
 		$this->product_items = new WC_Instagram_Product_Catalog_Items( $this->product_catalog );
 	}
 
@@ -261,11 +260,11 @@ abstract class WC_Instagram_Product_Catalog_Format {
 	 *
 	 * @since 3.0.0
 	 * @since 4.0.0 Deprecated argument `$product_item`.
+	 * @since 4.5.0 Removed argument `$product_item`.
 	 *
-	 * @param null $deprecated Deprecated argument.
 	 * @return array
 	 */
-	protected function get_item_props( $deprecated = null ) {
+	protected function get_item_props() {
 		return $this->item_props;
 	}
 

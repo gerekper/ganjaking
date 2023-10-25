@@ -320,6 +320,10 @@ if ( ! class_exists( 'NS_MCF_WooCommerce' ) ) {
 				if ( NS_MCF_Utils::is_hpos() ) {
 					// Handle HPOS checks.
 					$order = wc_get_order( $id );
+					if ( ! $order ) {
+						return;
+					}
+
 					if ( 'fail-to-fba' === $order->get_status() ) {
 						?>
 							<div class="error"><p>

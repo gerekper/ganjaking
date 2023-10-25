@@ -48,14 +48,6 @@ class WC_Instagram_Settings_Product_Catalog extends WC_Instagram_Settings_API {
 		$this->form_title       = _x( 'Instagram > Product Catalog', 'settings page title', 'woocommerce-instagram' );
 		$this->form_description = _x( 'A catalog to import the products to a Facebook Catalog.', 'settings page description', 'woocommerce-instagram' );
 
-		// Backward compatibility.
-		if ( ! $product_catalog instanceof WC_Instagram_Product_Catalog ) {
-			wc_doing_it_wrong( __FUNCTION__, 'The first parameter must be an instance of WC_Instagram_Product_Catalog.', '4.0.0' );
-
-			$catalog_id      = ( 'new' === $product_catalog ? 0 : $product_catalog );
-			$product_catalog = WC_Instagram_Product_Catalog_Factory::get_catalog( $catalog_id );
-		}
-
 		$this->product_catalog = $product_catalog;
 		$this->catalog_id      = ( $product_catalog && $product_catalog->get_id() ? $product_catalog->get_id() : 'new' );
 	}

@@ -1,5 +1,15 @@
 *** WooCommerce Amazon Fulfillment Changelog ***
 
+2023-10-22 - version 4.1.9.2
+* Fix issues with fulfilment.
+* Code improvements.
+
+2023-10-16 - version 4.1.9.1
+* Add plugin compatibility with WooCommerce Subscriptions recurring orders.
+* Introduce `ns_fba_fulfilment_order_fulfilment_items` hook to manually add items that should be fulfiled but are skipped.
+* Update code to have more reusable functions.
+* Speed improvements. 
+
 2023-05-29 - version 4.1.9
 * Added WooCommerce HPOS Support
 

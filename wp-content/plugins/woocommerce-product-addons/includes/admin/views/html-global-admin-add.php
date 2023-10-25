@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$page_title   = __( 'Create add-ons', 'woocommerce-product-addons' );
+$page_title   = __( 'Create add-ons group', 'woocommerce-product-addons' );
 $button_title = __( 'Publish', 'woocommerce-product-addons' );
 
 if ( isset( $_POST ) && ! empty( $_POST['save_addon'] ) || ! empty( $_GET['edit'] ) ) {
@@ -14,7 +14,10 @@ if ( isset( $_POST ) && ! empty( $_POST['save_addon'] ) || ! empty( $_GET['edit'
 <div class="wrap woocommerce">
 	<h1 class="wp-heading-inline"><?php echo esc_html( $page_title ); ?></h1>
 
-	<div><?php esc_html_e( 'Set up add-ons that apply to all products or specific product categories.', 'woocommerce-product-addons' ); ?></div><br />
+	<div>
+		<p><?php echo esc_html_e( 'Create a group of global add-ons to add free or paid options to your products in bulk. You may optionally limit these add-ons to specific product categories.', 'woocommerce-product-addons' ); ?></p>
+		<p><?php echo wp_kses_post( sprintf( __( 'To <a href="%s" target="_blank">create add-ons for individual products</a>, navigate to the <strong>Product Data > Add-ons</strong> tab in the product editor.', 'woocommerce-product-addons' ), WC_PAO()->get_resource_url( 'per-product-addons' ) ) ); ?></p>
+	</div>
 
 	<form method="POST" action="">
 
@@ -27,16 +30,7 @@ if ( isset( $_POST ) && ! empty( $_POST['save_addon'] ) || ! empty( $_GET['edit'
 				</th>
 				<td>
 					<input type="text" name="addon-reference" id="addon-reference" style="width:50%;" value="<?php echo esc_attr( $reference ); ?>" />
-					<p class="description"><?php esc_html_e( 'This name is for your reference only and will not be visible to customers.', 'woocommerce-product-addons' ); ?></p>
-				</td>
-			</tr>
-			<tr>
-				<th>
-					<label for="addon-priority"><?php esc_html_e( 'Priority', 'woocommerce-product-addons' ); ?></label>
-				</th>
-				<td>
-					<input type="text" name="addon-priority" id="addon-priority" style="width:50%;" value="<?php echo esc_attr( $priority ); ?>" />
-					<p class="description"><?php esc_html_e( 'This determines the order when there are multiple add-ons. Add-ons for individual products are set to order 10.', 'woocommerce-product-addons' ); ?></p>
+					<p class="description"><?php esc_html_e( 'Type a unique name to identify this global add-ons group. This will not be visible to customers.', 'woocommerce-product-addons' ); ?></p>
 				</td>
 			</tr>
 			<tr>
@@ -57,16 +51,22 @@ if ( isset( $_POST ) && ! empty( $_POST['save_addon'] ) || ! empty( $_GET['edit'
 						</optgroup>
 						<?php do_action( 'woocommerce_product_addons_global_edit_objects', $objects ); ?>
 					</select>
-					<p class="description"><?php esc_html_e( 'Select which categories this add-on should apply to. Create add-ons for a single product when editing that product.', 'woocommerce-product-addons' ); ?></p>
+					<p class="description"><?php esc_html_e( 'Use this option to assign this global add-ons group to specific product categories.', 'woocommerce-product-addons' ); ?></p>
 				</td>
 			</tr>
-
+			<tr>
+				<th>
+					<label for="addon-priority"><?php esc_html_e( 'Display Order', 'woocommerce-product-addons' ); ?></label>
+				</th>
+				<td>
+					<input type="text" name="addon-priority" id="addon-priority" style="width:50%;" value="<?php echo esc_attr( $priority ); ?>" />
+					<p class="description"><?php echo wp_kses_post( sprintf( __( 'This number determines the position of this add-ons group relative to other groups in product pages. Groups with a lower <strong>Display Order</strong> are displayed higher in the product page. Add-ons <a href="%s" target="_blank">created for individual products</a> are displayed at order 10.', 'woocommerce-product-addons' ), WC_PAO()->get_resource_url( 'per-product-addons' ) ) ); ?></p>
+				</td>
+			</tr>
 			<tr>
 				<td colspan="2">
-					<hr />
 				</td>
 			</tr>
-
 			<tr>
 				<td id="poststuff" class="postbox" colspan="2">
 					<?php

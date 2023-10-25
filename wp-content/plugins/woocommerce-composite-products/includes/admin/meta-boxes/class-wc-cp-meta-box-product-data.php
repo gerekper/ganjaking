@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Data tabs/panels for the Composite type.
  *
  * @class    WC_CP_Meta_Box_Product_Data
- * @version  8.10.0
+ * @version  8.10.4
  */
 class WC_CP_Meta_Box_Product_Data {
 
@@ -547,7 +547,6 @@ class WC_CP_Meta_Box_Product_Data {
 				'checked'     => ! $is_new_composite && ! $composite_product_object->is_virtual() ? ' checked="checked"' : ''
 			)
 		);
-
 		?>
 		</div>
 		<div class="options_group composite_type show_if_composite">
@@ -571,8 +570,11 @@ class WC_CP_Meta_Box_Product_Data {
 				</ul>
 			</div>
 			<div class="wp-clearfix"></div>
-			<div id="message" class="inline notice woocommerce-message">
-				<p>
+			<div id="message" class="inline notice woocommerce-message"><?php
+				if ( WC_CP_Core_Compatibility::is_wc_version_gte( '8.2' ) ) {
+					$info_img_url = WC_ADMIN_IMAGES_FOLDER_URL . '/icons/info.svg';
+					?><img class="info-icon" src="<?php echo esc_url( $info_img_url ); ?>" /><?php
+				} ?><p>
 					<?php
 						/* translators: Documentation link. */
 						echo wp_kses_post( sprintf( __( '<a href="%s" target="_blank">Unassembled</a> composite products do not have any shipping options to configure. The contents of this composite product preserve their dimensions, weight and shipping classes.', 'woocommerce-composite-products' ), esc_attr( WC_CP()->get_resource_url( 'shipping-options' ) ) ) ); ?>

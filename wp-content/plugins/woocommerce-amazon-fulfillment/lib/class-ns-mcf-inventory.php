@@ -170,6 +170,13 @@ if ( ! class_exists( 'NS_MCF_Inventory' ) ) {
 				);
 				return;
 			}
+
+			// Handle SKUS with different cases but not the same product.
+			// The SKU must match the case in situations users have case sensitive SKUS which Amazon allows.
+			if ( $current_product->get_sku() !== $sku ) {
+				return;
+			}
+
 			// check if the FBA stock level for the product is at or below our threshold.
 			$threshold = $this->ns_fba->options['ns_fba_low_stock_threshold'];
 			if ( $stock > $threshold ) {

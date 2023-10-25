@@ -29,7 +29,7 @@ final class WC_Instagram {
 	 *
 	 * @var string
 	 */
-	public $version = '4.4.1';
+	public $version = '4.5.0';
 
 	/**
 	 * Constructor.
@@ -83,6 +83,11 @@ final class WC_Instagram {
 		include_once WC_INSTAGRAM_PATH . 'includes/class-wc-instagram-autoloader.php';
 
 		/**
+		 * Interfaces.
+		 */
+		include_once WC_INSTAGRAM_PATH . 'includes/interfaces/interface-wc-instagram-plugin-integration.php';
+
+		/**
 		 * Core classes.
 		 */
 		include_once WC_INSTAGRAM_PATH . 'includes/wc-instagram-functions.php';
@@ -93,6 +98,7 @@ final class WC_Instagram {
 		include_once WC_INSTAGRAM_PATH . 'includes/class-wc-instagram-ajax.php';
 		include_once WC_INSTAGRAM_PATH . 'includes/class-wc-instagram-router.php';
 		include_once WC_INSTAGRAM_PATH . 'includes/class-wc-instagram-install.php';
+		include_once WC_INSTAGRAM_PATH . 'includes/class-wc-instagram-integrations.php';
 
 		if ( wc_instagram_is_request( 'admin' ) ) {
 			include_once WC_INSTAGRAM_PATH . 'includes/admin/class-wc-instagram-admin.php';

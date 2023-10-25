@@ -142,7 +142,7 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 					continue;
 				}
 
-				$current_sku = $this->get_sku_to_send( $product );
+				$current_sku = $this->ns_fba->utils->get_sku_to_send( $product );
 
 				$body['items'][] = array(
 					'quantity'                     => $item['quantity'],
@@ -230,19 +230,28 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 					$is_order_item_fba = $this->ns_fba->utils->is_order_item_amazon_fulfill( $order, $item, $product, $product_id, $is_manual_send );
 
 					if ( ! $is_order_item_fba ) {
+						/**
+						 * Add filter to manually add extra items to the fulfilment order items.
+						 * This can be used for bundled or grouped products that have inner products that should be fulfiled and are skipped.
+						 *
+						 * @param array         $items The current items to be sent.
+						 * @param WC_Order_Item $item  The Order item.
+						 * @param WC_Product    $product The WooCommerce Product.
+						 * @param int           $product_id The product id.
+						 * @param WC_Order      $order The order.
+						 * @param string        $order_number The order number.
+						 *
+						 * @return array $items
+						 */
+						$items = apply_filters( 'ns_fba_fulfilment_order_fulfilment_items', $items, $item, $product, $product_id, $order, $order_number );
 						continue;
 					}
 
-					$current_sku = $this->get_sku_to_send( $product );
+					$current_sku = $this->ns_fba->utils->get_sku_to_send( $product );
 
-					$fulfilment_sku = $order_number . '-item-' . $fulfill_item_count . '-' . $current_sku;
+					$fulfill_item_count++;
 
-					if ( ! NS_MCF_Utils::is_valid_length( $fulfilment_sku, 50 ) ) {
-						$fulfilment_sku = 'item-' . $fulfill_item_count . '-' . $current_sku;
-						if ( ! NS_MCF_Utils::is_valid_length( $fulfilment_sku, 50 ) ) {
-							$fulfilment_sku = $fulfill_item_count . '-' . $current_sku;
-						}
-					}
+					$fulfilment_sku = NS_MCF_Utils::get_fulfilment_sku( $order_number, $fulfill_item_count, $current_sku );
 
 					// phpcs:ignore
 					// error_log( "post_fulfillment_order SENDING to Amazon the SKU: " . $current_sku );
@@ -259,12 +268,12 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 							'value '        => floatval( $product->get_price() ),
 						),
 					);
+					
 					if ( '' === $fba_skus ) {
 						$fba_skus = $current_sku;
 					} else {
 						$fba_skus .= ',' . $current_sku;
 					}
-					$fulfill_item_count++;
 				}
 
 				if ( $this->ns_fba->is_debug ) {
@@ -471,31 +480,6 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 				$this->write_debug_log( $log_tag, $ex->getMessage() );
 				return new WP_Error( 'failed', $ex->getMessage() );
 			}
-		}
-
-		/**
-		 * Get the parent SKU or variation SKU depending on the product and settings.
-		 *
-		 * @param WC_Product $item_product The product to check.
-		 */
-		public function get_sku_to_send( WC_Product $item_product ) {
-			// check if this is a variable product or not so that we can conditionally set the right sku.
-			if ( $this->ns_fba->wc->is_woo_version( '3.0' ) ) {
-				$parent_id = $item_product->get_parent_id();
-				if ( $parent_id ) {
-					$parent_product = wc_get_product( $parent_id );
-					if ( $parent_product && get_post_meta( $parent_product->get_id(), 'ns_fba_send_parent_sku', true ) === 'yes' ) {
-						return $parent_product->get_sku();
-					}
-				}
-			} else {
-				if ( is_object( $item_product->parent ) && $item_product->parent->is_type( 'variable' ) ) {
-					if ( get_post_meta( $item_product->parent->get_id(), 'ns_fba_send_parent_sku', true ) === 'yes' ) {
-						return $item_product->parent->get_sku();
-					}
-				}
-			}
-			return $item_product->get_sku();
 		}
 
 		/**

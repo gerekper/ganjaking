@@ -1341,39 +1341,12 @@ class wfUtils {
 		$string = str_replace(",", "\n", $string); // fix old format
 		return implode("\n", array_unique(array_filter(array_map('trim', explode("\n", $string)))));
 	}
-	public static function getScanFileError() {
-		$fileTime = wfConfig::get('scanFileProcessing');
-		if (!$fileTime) {
-			return;
-		}
-		list($file, $time) =  unserialize($fileTime);
-		if ($time+10 < time()) {
-			$add = true;
-			$excludePatterns = wordfenceScanner::getExcludeFilePattern(wordfenceScanner::EXCLUSION_PATTERNS_USER);
-			if ($excludePatterns) {
-				foreach ($excludePatterns as $pattern) {
-					if (preg_match($pattern, $file)) {
-						$add = false;
-						break;
-					}
-				}
-			}
-			
-			if ($add) {
-				$files = wfConfig::get('scan_exclude') . "\n" . $file;
-				wfConfig::set('scan_exclude', self::cleanupOneEntryPerLine($files));
-			}
-			
-			self::endProcessingFile();
-		}
-	}
 
 	public static function beginProcessingFile($file) {
-		wfConfig::set('scanFileProcessing', serialize(array($file, time())));
+		//Do nothing
 	}
 
 	public static function endProcessingFile() {
-		wfConfig::set('scanFileProcessing', null);
 		if (wfScanner::shared()->useLowResourceScanning()) {
 			usleep(10000); //10 ms
 		}
@@ -3148,7 +3121,20 @@ class wfUtils {
 		}
 		return $encoded;
 	}
-
+	
+	/**
+	 * Returns whether or not MySQLi should be used directly when needed. Returns true if there's a valid DB handle,
+	 * our database test succeeded, our constant is not set to prevent it, and then either $wpdb indicates it's using
+	 * mysqli (older WordPress versions) or we're on PHP 7+ (only mysqli is ever used).
+	 * 
+	 * @return bool
+	 */
+	public static function useMySQLi() {
+		global $wpdb;
+		$dbh = $wpdb->dbh;
+		$useMySQLi = (is_object($dbh) && (PHP_MAJOR_VERSION >= 7 || $wpdb->use_mysqli) && wfConfig::get('allowMySQLi', true) && WORDFENCE_ALLOW_DIRECT_MYSQLI);
+		return $useMySQLi;
+	}
 }
 
 // GeoIP lib uses these as well

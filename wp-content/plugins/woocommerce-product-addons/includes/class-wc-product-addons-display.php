@@ -107,11 +107,16 @@ class WC_Product_Addons_Display {
 			'i18n_validation_numbers_only'             => __( 'Please enter numbers only.', 'woocommerce-product-addons' ),
 			'i18n_validation_letters_and_numbers_only' => __( 'Please enter letters and numbers only.', 'woocommerce-product-addons' ),
 			'i18n_validation_email_only'               => __( 'Please enter a valid email address.', 'woocommerce-product-addons' ),
+			/* translators: %1$s min number of characters */
 			'i18n_validation_min_characters'           => sprintf( __( 'Please enter at least %1$s characters.', 'woocommerce-product-addons' ), '%c' ),
+			/* translators: %1$s max number of characters */
 			'i18n_validation_max_characters'           => sprintf( __( 'Please enter up to %1$s characters.', 'woocommerce-product-addons' ), '%c' ),
+			/* translators: %1$s min number */
 			'i18n_validation_min_number'               => sprintf( __( 'Please enter %1$s or more.', 'woocommerce-product-addons' ), '%c' ),
+			/* translators: %1$s max number */
 			'i18n_validation_max_number'               => sprintf( __( 'Please enter %1$s or less.', 'woocommerce-product-addons' ), '%c' ),
 			'i18n_sub_total'                           => esc_attr__( 'Subtotal', 'woocommerce-product-addons' ),
+			/* translators: %s remaining characters */
 			'i18n_remaining'                           => esc_attr( sprintf( __( '%s characters remaining', 'woocommerce-product-addons' ), '<span></span>' ) ),
 			'currency_format_num_decimals'             => absint( get_option( 'woocommerce_price_num_decimals' ) ),
 			'currency_format_symbol'                   => get_woocommerce_currency_symbol(),
@@ -261,7 +266,15 @@ class WC_Product_Addons_Display {
 			$raw_price = wc_get_price_including_tax( $the_product );
 		}
 
-		$show_incomplete_subtotal = isset(get_option('product_addons_options')['show-incomplete-subtotal']) ? get_option('product_addons_options')['show-incomplete-subtotal'] : '';
+		$product_addons_options   = get_option( 'product_addons_options', array() );
+		$show_incomplete_subtotal = '';
+
+		// Backwards compatibility.
+		if ( isset( $product_addons_options[ 'show-incomplete-subtotal' ] ) ) {
+			if ( 'yes' === $product_addons_options[ 'show-incomplete-subtotal' ] || 1 === absint( $product_addons_options[ 'show-incomplete-subtotal' ] ) ) {
+				$show_incomplete_subtotal = 1;
+			}
+		}
 
 		echo '<div id="product-addons-total" data-show-incomplete-sub-total="' . esc_attr( $show_incomplete_subtotal ) . '" data-show-sub-total="' . ( apply_filters( 'woocommerce_product_addons_show_grand_total', true, $the_product ) ? 1 : 0 ) . '" data-type="' . esc_attr( $the_product->get_type() ) . '" data-tax-mode="' . esc_attr( $tax_mode ) . '" data-tax-display-mode="' . esc_attr( $tax_display_mode ) . '" data-price="' . esc_attr( $display_price ) . '" data-raw-price="' . esc_attr( $raw_price ) . '" data-product-id="' . esc_attr( $post_id ) . '"></div>';
 	}

@@ -2469,7 +2469,7 @@ class WC_Gateway_Redsys_Global {
 	 * @return boolean
 	 */
 	public function check_soap( $terminal_state = 'real' ) {
-		$link = ( 'real' === $terminal_state ) ? 'https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl' : 'https://sis-t.redsys.es:25443/sis/services/SerClsWSEntradaV2?wsdl';
+		$link = ( 'real' === $terminal_state ) ? 'https://sis.redsys.es:443/sis/services/SerClsWSEntradaV2?wsdl' : 'https://sis-t.redsys.es:25443/sis/services/SerClsWSEntradaV2?wsdl';
 
 		try {
 			$soap_client = new SoapClient( $link );
@@ -2560,7 +2560,7 @@ class WC_Gateway_Redsys_Global {
 		$url_ok               = esc_attr( add_query_arg( 'utm_nooverride', '1', $paygold->get_return_url( $order ) ) );
 		$transaction_type     = 'F';
 		$mi_obj               = new WooRedsysAPIWS();
-		$liveurlws            = 'https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl';
+		$liveurlws            = 'https://sis.redsys.es:443/sis/services/SerClsWSEntradaV2?wsdl';
 		$customer             = $this->get_redsys_option( 'customer', 'paygold' );
 		$commercename         = $this->get_redsys_option( 'commercename', 'paygold' );
 		$ds_merchant_terminal = $this->get_redsys_option( 'terminal', 'paygold' );

@@ -74,6 +74,8 @@ function redsys_chekout_button_text( $order_button_text ) {
 		} else {
 			$order_button_text = $order_button_text;
 		}
+	} else {
+		$order_button_text = $order_button_text;
 	}
 	return $order_button_text;
 }
@@ -242,7 +244,9 @@ function redsys_color_button_text( $html ) {
 		$html = str_replace( '<button type="submit"', '<button type="submit" style="display:none; visibility:hidden;"', $html );
 	} elseif ( 'applepayredsys' === $chosen_payment_method ) {
 		$html = str_replace( '<button type="submit"', '<button type="submit" style="display:none; visibility:hidden;"', $html );
+	} else {
+		$html = $html;
 	}
 	return $html;
 }
-add_filter( 'woocommerce_order_button_html', 'redsys_color_button_text' );
+add_filter( 'woocommerce_order_button_html', 'redsys_color_button_text', 0 );

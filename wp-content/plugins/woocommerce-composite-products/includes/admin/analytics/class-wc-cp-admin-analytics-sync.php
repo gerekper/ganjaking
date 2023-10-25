@@ -18,7 +18,7 @@ use Automattic\WooCommerce\Admin\API\Reports\Products\DataStore as ProductsDataS
  * Admin Reports Class for syncing the lookup table.
  *
  * @class    WC_CP_Admin_Analytics_Sync
- * @version  8.3.0
+ * @version  8.10.4
  */
 class WC_CP_Admin_Analytics_Sync {
 
@@ -78,7 +78,7 @@ class WC_CP_Admin_Analytics_Sync {
 
 		if ( ! empty( $_GET[ 'trigger_wc_cp_order_item_stats_db_update' ] ) && isset( $_GET[ '_wc_cp_admin_nonce' ] ) && wp_verify_nonce( wc_clean( $_GET[ '_wc_cp_admin_nonce' ] ), 'wc_cp_trigger_order_item_stats_db_update_nonce' ) && ! self::is_order_item_stats_update_queued() ) {
 			self::queue_order_item_stats_update();
-			wp_redirect( remove_query_arg( array( 'trigger_wc_cp_order_item_stats_db_update', '_wc_cp_admin_nonce' ) ) );
+			wp_safe_redirect( remove_query_arg( array( 'trigger_wc_cp_order_item_stats_db_update', '_wc_cp_admin_nonce' ) ) );
 			exit;
 		}
 	}

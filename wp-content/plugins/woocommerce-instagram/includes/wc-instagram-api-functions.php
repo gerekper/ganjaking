@@ -19,32 +19,30 @@ defined( 'ABSPATH' ) || exit;
  * @param string $version  Optional. The API version.
  * @return mixed The request response. WP_Error on failure.
  */
-function wc_instagram_api_request( $endpoint = '', $args = array(), $method = 'get', $version = 'v12.0' ) {
+function wc_instagram_api_request( $endpoint = '', $args = array(), $method = 'GET', $version = 'v15.0' ) {
 	// The Instagram Graph API uses the Facebook Graph API.
 	$url = 'https://graph.facebook.com/' . wp_unslash( $version ) . '/' . wp_unslash( $endpoint );
 
-	// Clean arguments with a falsy value.
+	// Uppercase the HTTP method.
+	$method = strtoupper( $method );
+
+	// Clean falsy value.
 	$args = array_filter( $args );
 
-	$request_method = 'wp_remote_' . strtolower( $method );
-
-	// Invalid HTTP method.
-	if ( ! function_exists( $request_method ) ) {
-		return wc_instagram_log_api_error( sprintf( 'Invalid HTTP method: %s.', esc_attr( $method ) ) );
-	}
-
-	// Backward compatibility with WP 4.5 and lower.
-	if ( 'get' === $method ) {
+	// Add the params to the URL.
+	if ( 'GET' === $method && ! empty( $args ) ) {
 		$url  = add_query_arg( $args, $url );
-		$args = null;
+		$args = array();
 	}
 
-	$response = call_user_func(
-		$request_method,
-		$url,
+	$body = ( ! empty( $args ) ? wp_json_encode( $args ) : null );
+
+	$response = wp_remote_request(
+		esc_url_raw( $url ),
 		array(
+			'method'  => $method,
+			'body'    => $body,
 			'timeout' => 30,
-			'body'    => $args,
 		)
 	);
 

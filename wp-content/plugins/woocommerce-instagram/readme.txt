@@ -1,14 +1,14 @@
 === WooCommerce Instagram ===
-Contributors: woocommerce, themesquad
+Contributors: koilab
 Tags: woocommerce, instagram, hashtag, product, showcase
-Requires PHP: 5.4
-Requires at least: 4.7
-Tested up to: 6.3
-Stable tag: 4.4.1
+Requires PHP: 5.6
+Requires at least: 4.9
+Tested up to: 6.4
+Stable tag: 4.5.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-WC requires at least: 3.5
-WC tested up to: 8.0
+WC requires at least: 3.7
+WC tested up to: 8.2
 Woo: 260061:ecaa2080668997daf396b8f8a50d891a
 
 == Description ==
@@ -18,7 +18,7 @@ Visit our [product page](https://woocommerce.com/products/woocommerce-instagram/
 
 == Minimum Requirements ==
 
-* PHP version 5.4 (PHP 7.4 or greater is recommended)
+* PHP version 5.6 (PHP 7.4 or greater is recommended)
 * MySQL version 5.0 (MySQL 5.7 or greater is recommended)
 
 == Installation ==
@@ -37,5 +37,5 @@ Visit our [Changelog](https://woocommerce.com/changelogs/woocommerce-instagram/c
 
 == Upgrade Notice ==
 
-= 4.0 =
-4.0 is a major update. It is important that you make a full site backup and ensure you have installed WC 3.5+ before upgrading.
+= 4.5 =
+4.5 is a major update. It is important that you make a full site backup and ensure you have installed WC 3.7+ before upgrading.

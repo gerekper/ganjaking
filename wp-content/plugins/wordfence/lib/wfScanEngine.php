@@ -1625,7 +1625,7 @@ class wfScanEngine {
 		$counter = 0;
 		$query = "select ID from " . $wpdb->users;
 		$dbh = $wpdb->dbh;
-		$useMySQLi = (is_object($dbh) && $wpdb->use_mysqli && wfConfig::get('allowMySQLi', true) && WORDFENCE_ALLOW_DIRECT_MYSQLI);
+		$useMySQLi = wfUtils::useMySQLi();
 		if ($useMySQLi) { //If direct-access MySQLi is available, we use it to minimize the memory footprint instead of letting it fetch everything into an array first
 			$result = $dbh->query($query);
 			if (!is_object($result)) {
@@ -1889,36 +1889,50 @@ class wfScanEngine {
 
 		foreach ($this->pluginRepoStatus as $slug => $status) {
 			if ($status === false) {
-				$result = plugins_api('plugin_information', array(
-					'slug'   => $slug,
-					'fields' => array(
-						'short_description' => false,
-						'description'       => false,
-						'sections'          => false,
-						'tested'            => true,
-						'requires'          => true,
-						'rating'            => false,
-						'ratings'           => false,
-						'downloaded'        => false,
-						'downloadlink'      => false,
-						'last_updated'      => true,
-						'added'             => false,
-						'tags'              => false,
-						'compatibility'     => true,
-						'homepage'          => true,
-						'versions'          => false,
-						'donate_link'       => false,
-						'reviews'           => false,
-						'banners'           => false,
-						'icons'             => false,
-						'active_installs'   => false,
-						'group'             => false,
-						'contributors'      => false,
-					),
-				));
-				unset($result->versions);
-				unset($result->screenshots);
-				$this->pluginRepoStatus[$slug] = $result;
+				try {
+					$result = plugins_api('plugin_information', array(
+						'slug'   => $slug,
+						'fields' => array(
+							'short_description' => false,
+							'description'       => false,
+							'sections'          => false,
+							'tested'            => true,
+							'requires'          => true,
+							'rating'            => false,
+							'ratings'           => false,
+							'downloaded'        => false,
+							'downloadlink'      => false,
+							'last_updated'      => true,
+							'added'             => false,
+							'tags'              => false,
+							'compatibility'     => true,
+							'homepage'          => true,
+							'versions'          => false,
+							'donate_link'       => false,
+							'reviews'           => false,
+							'banners'           => false,
+							'icons'             => false,
+							'active_installs'   => false,
+							'group'             => false,
+							'contributors'      => false,
+						),
+					));
+					unset($result->versions);
+					unset($result->screenshots);
+					$this->pluginRepoStatus[$slug] = $result;
+				}
+				catch (Exception $e) {
+					error_log(sprintf('Caught exception while attempting to refresh update status for slug %s: %s', $slug, $e->getMessage()));
+					$this->pluginRepoStatus[$slug] = false;
+					wfConfig::set(wfUpdateCheck::LAST_UPDATE_CHECK_ERROR_KEY, sprintf('%s [%s]', $e->getMessage(), $slug), false);
+					wfConfig::set(wfUpdateCheck::LAST_UPDATE_CHECK_ERROR_SLUG_KEY, $slug, false);
+				}
+				catch (Throwable $t) {
+					error_log(sprintf('Caught error while attempting to refresh update status for slug %s: %s', $slug, $t->getMessage()));
+					$this->pluginRepoStatus[$slug] = false;
+					wfConfig::set(wfUpdateCheck::LAST_UPDATE_CHECK_ERROR_KEY, sprintf('%s [%s]', $t->getMessage(), $slug), false);
+					wfConfig::set(wfUpdateCheck::LAST_UPDATE_CHECK_ERROR_SLUG_KEY, $slug, false);
+				}
 
 				$this->forkIfNeeded();
 			}
@@ -1929,7 +1943,39 @@ class wfScanEngine {
 		$haveIssues = wfIssues::STATUS_SECURE;
 
 		if (!$this->isFullScan()) {
-			$this->deleteNewIssues(array('wfUpgrade', 'wfPluginUpgrade', 'wfThemeUpgrade'));
+			$this->deleteNewIssues(array('wfUpgradeError', 'wfUpgrade', 'wfPluginUpgrade', 'wfThemeUpgrade'));
+		}
+		
+		if ($lastError = wfConfig::get(wfUpdateCheck::LAST_UPDATE_CHECK_ERROR_KEY)) {
+			$lastSlug = wfConfig::get(wfUpdateCheck::LAST_UPDATE_CHECK_ERROR_SLUG_KEY);
+			$longMsg = sprintf(/* translators: error message. */ __("The update check performed during the scan encountered an error: %s", 'wordfence'), esc_html($lastError));
+			if ($lastSlug === false) {
+				$longMsg .= ' ' . __('Wordfence cannot detect if the installed plugins and themes are up to date. This might be caused by a PHP compatibility issue in one or more plugins/themes.', 'wordfence');
+			}
+			else {
+				$longMsg .= ' ' . __('Wordfence cannot detect if this plugin/theme is up to date. This might be caused by a PHP compatibility issue in the plugin.', 'wordfence');
+			}
+			$longMsg .= ' ' . sprintf(
+				/* translators: Support URL. */
+					__('<a href="%s" target="_blank" rel="noopener noreferrer">Get more information.<span class="screen-reader-text"> (' . esc_html__('opens in new tab', 'wordfence') . ')</span></a>', 'wordfence'), wfSupportController::esc_supportURL(wfSupportController::ITEM_SCAN_RESULT_UPDATE_CHECK_FAILED));
+			
+			$ignoreKey = ($lastSlug === false ? 'wfUpgradeErrorGeneral' : sprintf('wfUpgradeError-%s', $lastSlug));
+			
+			$added = $this->addIssue(
+				'wfUpgradeError',
+				wfIssues::SEVERITY_MEDIUM,
+				$ignoreKey,
+				$ignoreKey,
+				($lastSlug === false ? __("Update Check Encountered Error", 'wordfence') : sprintf(/* translators: plugin/theme slug. */ __("Update Check Encountered Error on '%s'", 'wordfence'), esc_html($lastSlug))),
+				$longMsg,
+				array()
+			);
+			if ($added == wfIssues::ISSUE_ADDED || $added == wfIssues::ISSUE_UPDATED) {
+				$haveIssues = wfIssues::STATUS_PROBLEM;
+			}
+			else if ($haveIssues != wfIssues::STATUS_PROBLEM && ($added == wfIssues::ISSUE_IGNOREP || $added == wfIssues::ISSUE_IGNOREC)) {
+				$haveIssues = wfIssues::STATUS_IGNORED;
+			}
 		}
 
 		// WordPress core updates needed
@@ -2029,8 +2075,12 @@ class wfScanEngine {
 						$statusArray['version'] = null;
 						wordfence::status(3, 'error', "Unable to determine version for plugin $slug");
 					}
-					$lastUpdateTimestamp = strtotime($statusArray['last_updated']);
-					if ($lastUpdateTimestamp > 0 && (time() - $lastUpdateTimestamp) > 63072000 /* ~2 years */) {
+					
+					if (array_key_exists('last_updated', $statusArray) && 
+						is_string($statusArray['last_updated']) && 
+						($lastUpdateTimestamp = strtotime($statusArray['last_updated'])) && 
+						(time() - $lastUpdateTimestamp) > 63072000 /* ~2 years */) {
+						
 						$statusArray['dateUpdated'] = wfUtils::formatLocalTime(get_option('date_format'), $lastUpdateTimestamp);
 						$severity = wfIssues::SEVERITY_MEDIUM;
 						$statusArray['abandoned'] = true;
@@ -2433,7 +2483,6 @@ class wfScanEngine {
 			wfConfig::set('wfKillRequested', 0, wfConfig::DONT_AUTOLOAD);
 			wordfence::status(4, 'info', __("Entering start scan routine", 'wordfence'));
 			if (wfScanner::shared()->isRunning()) {
-				wfUtils::getScanFileError();
 				return __("A scan is already running. Use the stop scan button if you would like to terminate the current scan.", 'wordfence');
 			}
 			wfConfig::set('currentCronKey', ''); //Ensure the cron key is cleared

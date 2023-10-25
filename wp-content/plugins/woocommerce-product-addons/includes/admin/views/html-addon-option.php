@@ -22,7 +22,6 @@ if ( 'show' === $opt_show_image_swatch ) {
 }
 ?>
 <div class="wc-pao-addon-option-row">
-	<span class="wc-pao-addon-sort-handle dashicons dashicons-menu"></span>
 	<div class="wc-pao-addon-content-image <?php echo esc_attr( $opt_display_image ); ?>">
 		<span class="dashicons dashicons-format-image wc-pao-addon-add-image <?php echo esc_attr( $opt_show_add_image ); ?>">
 			<input type="hidden" name="product_addon_option_image[<?php echo esc_attr( $loop ); ?>][]" value="<?php echo esc_attr( $opt_image ); ?>" class="wc-pao-addon-option-image-id" />
@@ -32,7 +31,7 @@ if ( 'show' === $opt_show_image_swatch ) {
 	</div>
 
 	<div class="wc-pao-addon-content-label <?php echo esc_attr( $opt_label_column ); ?>">
-		<input type="text" name="product_addon_option_label[<?php echo esc_attr( $loop ); ?>][]" value="<?php echo esc_attr( $opt_label ); ?>" placeholder="<?php esc_html_e( 'Enter an option', 'woocommerce-product-addons' ); ?>" />
+		<input type="text" name="product_addon_option_label[<?php echo esc_attr( $loop ); ?>][]" value="<?php echo esc_attr( $opt_label ); ?>" />
 	</div>
 
 	<div class="wc-pao-addon-content-price-type">
@@ -49,7 +48,8 @@ if ( 'show' === $opt_show_image_swatch ) {
 
 	<?php do_action( 'woocommerce_product_addons_panel_option_row', isset( $post ) ? $post : null, $product_addons, $loop, $option ); ?>
 
+	<span class="wc-pao-addon-sort-handle"></span>
 	<div class="wc-pao-addon-content-remove">
-		<button type="button" class="wc-pao-remove-option button">x</button>
+		<a href="#" class="wc-pao-remove-option button wc-action-button delete" aria-label="<?php esc_attr_e( 'Delete option', 'woocommerce-product-addons' ); ?>"></a>
 	</div>
 </div>

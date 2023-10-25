@@ -37,6 +37,17 @@ class wfCentralAPIRequest {
 		$this->body = $body;
 		$this->args = $args;
 	}
+	
+	/**
+	 * Handles an internal error when making a Central API request (e.g., a second sodium_compat library with an
+	 * incompatible interface loading instead or in addition to ours).
+	 * 
+	 * @param Exception|Throwable $e
+	 */
+	public static function handleInternalCentralAPIError($e) {
+		error_log('Wordfence encountered an internal Central API error: ' . $e->getMessage());
+		error_log('Wordfence stack trace: ' . $e->getTraceAsString());
+	}
 
 	public function execute() {
 		$args = array(
@@ -259,7 +270,7 @@ class wfCentralAuthenticatedAPIRequest extends wfCentralAPIRequest {
 				continue;
 			}
 		}
-		if (empty($token)) {
+		if (empty($token)) {  
 			if (isset($e)) {
 				throw $e;
 			} else {
@@ -406,8 +417,15 @@ class wfCentral {
 		try {
 			$response = $request->execute();
 			return $response;
-		} catch (wfCentralAPIException $e) {
+		}
+		catch (wfCentralAPIException $e) {
 			error_log($e);
+		}
+		catch (Exception $e) {
+			wfCentralAPIRequest::handleInternalCentralAPIError($e);
+		}
+		catch (Throwable $t) {
+			wfCentralAPIRequest::handleInternalCentralAPIError($t);
 		}
 		return false;
 	}
@@ -437,8 +455,15 @@ class wfCentral {
 		try {
 			$response = $request->execute();
 			return $response;
-		} catch (wfCentralAPIException $e) {
+		}
+		catch (wfCentralAPIException $e) {
 			error_log($e);
+		}
+		catch (Exception $e) {
+			wfCentralAPIRequest::handleInternalCentralAPIError($e);
+		}
+		catch (Throwable $t) {
+			wfCentralAPIRequest::handleInternalCentralAPIError($t);
 		}
 		return false;
 	}
@@ -459,8 +484,15 @@ class wfCentral {
 		try {
 			$response = $request->execute();
 			return $response;
-		} catch (wfCentralAPIException $e) {
+		}
+		catch (wfCentralAPIException $e) {
 			error_log($e);
+		}
+		catch (Exception $e) {
+			wfCentralAPIRequest::handleInternalCentralAPIError($e);
+		}
+		catch (Throwable $t) {
+			wfCentralAPIRequest::handleInternalCentralAPIError($t);
 		}
 		return false;
 	}
@@ -484,8 +516,15 @@ class wfCentral {
 		try {
 			$response = $request->execute();
 			return $response;
-		} catch (wfCentralAPIException $e) {
+		}
+		catch (wfCentralAPIException $e) {
 			error_log($e);
+		}
+		catch (Exception $e) {
+			wfCentralAPIRequest::handleInternalCentralAPIError($e);
+		}
+		catch (Throwable $t) {
+			wfCentralAPIRequest::handleInternalCentralAPIError($t);
 		}
 		return false;
 	}
@@ -501,8 +540,12 @@ class wfCentral {
 
 		try {
 			$request->execute();
-		} catch (Exception $e) {
+		}
+		catch (Exception $e) {
 			// We can safely ignore an error here for now.
+		}
+		catch (Throwable $t) {
+			wfCentralAPIRequest::handleInternalCentralAPIError($t);
 		}
 	}
 
@@ -540,8 +583,15 @@ class wfCentral {
 		try {
 			$response = $request->execute();
 			return $response;
-		} catch (wfCentralAPIException $e) {
+		}
+		catch (wfCentralAPIException $e) {
 			error_log($e);
+		}
+		catch (Exception $e) {
+			wfCentralAPIRequest::handleInternalCentralAPIError($e);
+		}
+		catch (Throwable $t) {
+			wfCentralAPIRequest::handleInternalCentralAPIError($t);
 		}
 		return false;
 	}
@@ -596,6 +646,14 @@ class wfCentral {
 				if (!$alerted && is_callable($alertCallback)) {
 					call_user_func($alertCallback);
 				}
+				return false;
+			}
+			catch (Exception $e) {
+				wfCentralAPIRequest::handleInternalCentralAPIError($e);
+				return false;
+			}
+			catch (Throwable $t) {
+				wfCentralAPIRequest::handleInternalCentralAPIError($t);
 				return false;
 			}
 		}

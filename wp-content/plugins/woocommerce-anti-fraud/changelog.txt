@@ -1,5 +1,11 @@
 *** WooCommerce Anti Fraud ***
 
+2023-10-19 - version 5.6.0
+* New: PLUGINS-2289 - Trust Swiftly Integration.
+
+2023-09-26 - version 5.5.3
+* Fix: PLUGINS-2193 - Saved settings are being reset after plugin deactivation and update.
+
 2023-08-22 - version 5.5.2
 * Fix: PLUGINS-2241 - Fatal error when doing a checkout.
 * Fix: PLUGINS-1978 - Inaccurate result for the rule Billing and Shipping not matched.

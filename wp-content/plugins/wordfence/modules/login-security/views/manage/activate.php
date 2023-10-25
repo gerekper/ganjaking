@@ -85,7 +85,8 @@ $recovery = $initializationData->get_recovery_codes();
 					payload,
 					function(response) {
 						if (response.error) {
-							WFLS.panelModal((WFLS.screenSize(500) ? '300px' : '400px'), '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('Error Activating 2FA', 'wordfence')); ?>', response.error);
+							WFLS.userIsActivating = false;
+							WFLS.panelModal((WFLS.screenSize(500) ? '300px' : '400px'), '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('Error Activating 2FA', 'wordfence')); ?>', response.error, {includeDefaultButtons: true});
 						}
 						else {
 							$('#wfls-activation-controls').crossfade($('#wfls-deactivation-controls'));
@@ -116,7 +117,7 @@ $recovery = $initializationData->get_recovery_codes();
 						}
 					},
 					function(error) {
-						WFLS.panelModal((WFLS.screenSize(500) ? '300px' : '400px'), '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('Error Activating 2FA', 'wordfence')); ?>', '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('An error was encountered while trying to activate two-factor authentication. Please try again.', 'wordfence')); ?>');
+						WFLS.panelModal((WFLS.screenSize(500) ? '300px' : '400px'), '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('Error Activating 2FA', 'wordfence')); ?>', '<?php echo \WordfenceLS\Text\Model_JavaScript::esc_js(__('An error was encountered while trying to activate two-factor authentication. Please try again.', 'wordfence')); ?>', {includeDefaultButtons: true});
 						WFLS.userIsActivating = false;
 					}
 				);

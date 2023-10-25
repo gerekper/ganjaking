@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product meta-box data for the 'Bundle' type.
  *
  * @class    WC_PB_Meta_Box_Product_Data
- * @version  6.22.0
+ * @version  6.22.4
  */
 class WC_PB_Meta_Box_Product_Data {
 
@@ -309,8 +309,12 @@ class WC_PB_Meta_Box_Product_Data {
 				</ul>
 			</div>
 			<div class="wp-clearfix"></div>
-			<div id="message" class="inline notice woocommerce-message">
-				<p>
+		<div id="message" class="inline notice woocommerce-message"><?php
+			if ( WC_PB_Core_Compatibility::is_wc_version_gte( '8.2' ) ) {
+				$info_img_url = WC_ADMIN_IMAGES_FOLDER_URL . '/icons/info.svg';
+				?><img class="info-icon" src="<?php echo esc_url( $info_img_url ); ?>" /><?php
+			}
+				?><p>
 					<?php
 						/* translators: Unassambled bundle documentation link */
 						echo wp_kses_post( sprintf( __( '<a href="%s" target="_blank">Unassembled</a> bundles do not have any shipping options to configure. The contents of this bundle preserve their dimensions, weight and shipping classes.', 'woocommerce-product-bundles' ), esc_url( WC_PB()->get_resource_url( 'shipping-options' ) ) ) );

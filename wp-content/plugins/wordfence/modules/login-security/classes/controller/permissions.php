@@ -6,10 +6,12 @@ class Controller_Permissions {
 	const CAP_ACTIVATE_2FA_SELF = 'wf2fa_activate_2fa_self'; //Activate 2FA on its own user account
 	const CAP_ACTIVATE_2FA_OTHERS = 'wf2fa_activate_2fa_others'; //Activate 2FA on user accounts other than its own
 	const CAP_MANAGE_SETTINGS = 'wf2fa_manage_settings'; //Edit settings for the plugin
-
-	const SITE_BATCH_SIZE = 50; //The maximum number of sites to process during a single request
+	
+	const SETTING_LAST_ROLE_CHANGE = 'wfls_last_role_change';
+	const SETTING_LAST_ROLE_SYNC = 'wfls_last_role_sync';
 
 	private $network_roles = array();
+	private $multisite_roles = null;
 	
 	/**
 	 * Returns the singleton Controller_Permissions.
@@ -23,15 +25,9 @@ class Controller_Permissions {
 		}
 		return $_shared;
 	}
-
-	private function on_role_change() {
-		update_site_option('wfls_last_role_change', time());
-		if(is_multisite())
-			update_site_option('wfls_role_batch_position', 0);
-	}
 	
 	public function install() {
-		$this->on_role_change();
+		$this->_on_role_change();
 		if (is_multisite()) {
 			//Super Admin automatically gets all capabilities, so we don't need to explicitly add them
 			$this->_add_cap_multisite('administrator', self::CAP_ACTIVATE_2FA_SELF, $this->get_primary_sites());
@@ -42,57 +38,102 @@ class Controller_Permissions {
 			$this->_add_cap('administrator', self::CAP_MANAGE_SETTINGS);
 		}
 	}
+	
+	public function uninstall() {
+		if (Controller_Settings::shared()->get_bool(Controller_Settings::OPTION_DELETE_ON_DEACTIVATION)) {
+			if (is_multisite()) {
+				$sites = $this->get_sites();
+				foreach ($sites as $id) {
+					switch_to_blog($id);
+					wp_clear_scheduled_hook('wordfence_ls_role_sync_cron');
+					restore_current_blog();
+				}
+			}
+		}
+	}
+	
+	public static function _init_actions() {
+		add_action('wordfence_ls_role_sync_cron', array(Controller_Permissions::shared(), '_role_sync_cron'));
+	}
 
 	public function init() {
 		global $wp_version;
-		if(is_multisite()){
-			if(version_compare($wp_version, '5.1.0', '>=')){
+		if (is_multisite()) {
+			if (version_compare($wp_version, '5.1.0', '>=')) {
 				add_action('wp_initialize_site', array($this, '_wp_initialize_site'), 99);
 			}
-			else{
+			else {
 				add_action('wpmu_new_blog', array($this, '_wpmu_new_blog'), 10, 5);
 			}
-			add_action('init', array($this, 'check_role_sync'), 1);
+			
+			add_action('init', array($this, '_validate_role_sync_cron'), 1);
 		}
 	}
-
+	
+	/**
+	 * Syncs roles to the new multisite blog.
+	 * 
+	 * @param $site_id
+	 * @param $user_id
+	 * @param $domain
+	 * @param $path
+	 * @param $network_id
+	 */
 	public function _wpmu_new_blog($site_id, $user_id, $domain, $path, $network_id) {
 		$this->sync_roles($network_id, $site_id);
 	}
-
+	
+	/**
+	 * Syncs roles to the new multisite blog. 
+	 * 
+	 * @param $new_site
+	 */
 	public function _wp_initialize_site($new_site) {
 		$this->sync_roles($new_site->site_id, $new_site->blog_id);
 	}
-
-	public function check_role_sync() {
-		//Trigger an initial update for existing installations
-		$last_role_change=(int)get_site_option('wfls_last_role_change', 0);
-		if($last_role_change===0)
-			$this->on_role_change();
-		//Process the current batch if necessary
-		$position=(int)get_site_option('wfls_role_batch_position', 0);
-		if($position===-1)
-			return;
-		$sites=$this->get_sites($position, self::SITE_BATCH_SIZE);
-		if(empty($sites)){
-			$position=-1;
-			return;
+	
+	/**
+	 * Creates the hourly cron (if needed) that handles syncing the roles/permissions for the current blog. Because crons
+	 * are specific to individual blogs on multisite rather than to the network itself, this will end up creating a cron
+	 * for every member blog of the multisite.
+	 * 
+	 * If there is a new role change since the last sync, a one-off cron will be fired to sync it sooner than the normal
+	 * recurrence period.
+	 * 
+	 * Multisite only.
+	 * 
+	 */
+	public function _validate_role_sync_cron() {
+		if (!wp_next_scheduled('wordfence_ls_role_sync_cron')) {
+			wp_schedule_event(time(), 'hourly', 'wordfence_ls_role_sync_cron');
 		}
-		else{
-			$network_id=get_current_site()->id;
-			foreach($sites as $site){
-				$site=(int)$site;
-				$this->sync_roles($network_id, $site);
+		else {
+			$last_role_change = (int) get_site_option(self::SETTING_LAST_ROLE_CHANGE, 0);
+			if ($last_role_change >= get_option(self::SETTING_LAST_ROLE_SYNC, 0)) {
+				wp_schedule_single_event(time(), 'wordfence_ls_role_sync_cron'); //Force queue an update in case the normal cron is still a while out
 			}
-			$position=$site;
 		}
-		update_site_option('wfls_role_batch_position', $position);
-		//Update the current site if not already up to date
-		$site_id=get_current_blog_id();
-		if($last_role_change>=get_option('wfls_last_role_sync', 0)&&$site_id>=$position){
-			$this->sync_roles(get_current_site()->id, $site_id);
-			update_option('wfls_last_role_sync', time());
+	}
+	
+	/**
+	 * Handles syncing the roles/permissions for the current blog when the cron fires.
+	 */
+	public function _role_sync_cron() {
+		$last_role_change = (int) get_site_option(self::SETTING_LAST_ROLE_CHANGE, 0);
+		if ($last_role_change === 0) {
+			$this->_on_role_change();
 		}
+		
+		if ($last_role_change >= get_option(self::SETTING_LAST_ROLE_SYNC, 0)) {
+			$network_id = get_current_site()->id;
+			$blog_id = get_current_blog_id();
+			$this->sync_roles($network_id, $blog_id);
+			update_option(self::SETTING_LAST_ROLE_SYNC, time());
+		}
+	}
+	
+	private function _on_role_change() {
+		update_site_option(self::SETTING_LAST_ROLE_CHANGE, time());
 	}
 
 	/**
@@ -121,9 +162,20 @@ class Controller_Permissions {
 			return $wpdb->get_col("SELECT blogs.blog_id FROM {$wpdb->site} sites JOIN {$wpdb->blogs} blogs ON blogs.site_id=sites.id AND blogs.path=sites.path");
 		}
 	}
-
-	private function get_sites($from, $count) {
+	
+	/**
+	 * Returns an array of all multisite `blog_id` values, optionally limiting the result to the subset between 
+	 * ($from, $from + $count].
+	 * 
+	 * @param int $from
+	 * @param int $count
+	 * @return array
+	 */
+	private function get_sites($from = 0, $count = 0) {
 		global $wpdb;
+		if ($from === 0 && $count === 0) {
+			return $wpdb->get_col("SELECT `blog_id` FROM `{$wpdb->blogs}` WHERE `deleted` = 0 ORDER BY blog_id ");
+		}
 		return $wpdb->get_col($wpdb->prepare("SELECT `blog_id` FROM `{$wpdb->blogs}` WHERE `deleted` = 0 AND blog_id > %d ORDER BY blog_id LIMIT %d", $from, $count));
 	}
 
@@ -162,7 +214,7 @@ class Controller_Permissions {
 	}
 	
 	public function allow_2fa_self($role_name) {
-		$this->on_role_change();
+		$this->_on_role_change();
 		if (is_multisite()) {
 			return $this->_add_cap_multisite($role_name, self::CAP_ACTIVATE_2FA_SELF, $this->get_primary_sites());
 		}
@@ -172,7 +224,7 @@ class Controller_Permissions {
 	}
 	
 	public function disallow_2fa_self($role_name) {
-		$this->on_role_change();
+		$this->_on_role_change();
 		if (is_multisite()) {
 			return $this->_remove_cap_multisite($role_name, self::CAP_ACTIVATE_2FA_SELF, $this->get_primary_sites());
 		}
@@ -272,22 +324,125 @@ class Controller_Permissions {
 		$wp_roles->remove_cap($role_name, $cap);
 		return true;
 	}
+	
+	/**
+	 * Loads the role capability info for the multisite blog IDs in `$includedSites` and appends it to 
+	 * `$this->multisite_roles`. Role capability data that is already loaded will be skipped.
+	 * 
+	 * @param array $includeSites An array of multisite blog IDs to load.
+	 */
+	private function _load_multisite_roles($includeSites) {
+		global $wpdb;
+		
+		$needed = array_diff($includeSites, array_keys($this->multisite_roles));
+		if (empty($needed)) {
+			return;
+		}
+		
+		$suffix = "user_roles";
+		$queries = array();
+		foreach ($needed as $b) {
+			$tables = $wpdb->tables('blog', true, $b);
+			$queries[] = "SELECT option_name, option_value FROM {$tables['options']} WHERE option_name LIKE '%{$suffix}'";
+		}
+		
+		$chunks = array_chunk($queries, 50);
+		$options = array();
+		foreach ($chunks as $c) {
+			$rows = $wpdb->get_results(implode(' UNION ', $c), OBJECT_K);
+			foreach ($rows as $row) {
+				$options[$row->option_name] = $row->option_value;
+			}
+		}
+		
+		$extractor = new Utility_MultisiteConfigurationExtractor($wpdb->base_prefix, $suffix);
+		foreach ($extractor->extract($options) as $site => $option) {
+			$this->multisite_roles[$site] = maybe_unserialize($option);
+		}
+	}
+	
+	/**
+	 * Returns an array of multisite roles. This is guaranteed to include the multisite blogs in `$includeSites` but may 
+	 * include others from earlier calls that are cached.
+	 * 
+	 * @param array $includeSites An array for multisite blog IDs.
+	 * @return array
+	 */
+	public function get_multisite_roles($includeSites) {
+		if ($this->multisite_roles === null) {
+			$this->multisite_roles = array();
+		}
+		
+		$this->_load_multisite_roles($includeSites);
+		return $this->multisite_roles;
+	}
+	
+	/**
+	 * Returns the sites + roles that a user has on multisite. The structure of the returned array has the keys as the 
+	 * individual site IDs and the associated value as an array of the user's capabilities on that site.
+	 * 
+	 * @param WP_User $user
+	 * @return array
+	 */
+	public function get_multisite_roles_for_user($user) {
+		global $wpdb;
+		$roles = array();
+		$meta = get_user_meta($user->ID);
+		if (is_array($meta)) {
+			$extractor = new Utility_MultisiteConfigurationExtractor($wpdb->base_prefix, 'capabilities');
+			foreach ($extractor->extract($meta) as $site => $capabilities) {
+				if (!is_array($capabilities)) { continue; }
+				$capabilities = array_map('maybe_unserialize', $capabilities);
+				$localRoles = array();
+				foreach ($capabilities as $entry) {
+					foreach ($entry as $role => $state) {
+						if ($state)
+							$localRoles[$role] = true;
+					}
+				}
+				$roles[$site] = array_keys($localRoles);
+			}
+		}
+		return $roles;
+	}
 
 	public function get_all_roles($user) {
+		global $wpdb;
 		if (is_multisite()) {
 			$roles = array();
-			if (is_super_admin($user->ID))
-				$roles[] = 'super-admin';
-			foreach (get_blogs_of_user($user->ID) as $id => $blog) {
-				switch_to_blog($id);
-				$blogUser = new \WP_User($user->ID);
-				$roles = array_merge($roles, $blogUser->roles);
-				restore_current_blog();
+			if (is_super_admin($user->ID)) {
+				$roles['super-admin'] = true;
 			}
-			return array_unique($roles);
+			foreach ($this->get_multisite_roles_for_user($user) as $site => $siteRoles) {
+				foreach ($siteRoles as $role) {
+					$roles[$role] = true;
+				}
+			}
+			return array_keys($roles);
 		}
 		else {
 			return $user->roles;
 		}
+	}
+
+	public function does_user_have_multisite_capability($user, $capability) {
+		$userRoles = $this->get_multisite_roles_for_user($user);
+		if (in_array('super-admin', $userRoles)) {
+			return true;
+		}
+		
+		$blogRoles = $this->get_multisite_roles(array_keys($userRoles));
+		$blogs = get_blogs_of_user($user->ID);
+		foreach ($blogs as $blogId => $blog) {
+			$blogId = (int) $blogId;
+			if (!array_key_exists($blogId, $userRoles) || !array_key_exists($blogId, $blogRoles)) { continue; } //Blog with ID `$blogId` should be ignored
+			foreach ($userRoles[$blogId] as $userRole) {
+				if (!array_key_exists($userRole, $blogRoles[$blogId]) || !array_key_exists('capabilities', $blogRoles[$blogId][$userRole])) { continue; } //Sanity check for needed keys, should not happen
+				
+				$capabilities = $blogRoles[$blogId][$userRole]['capabilities'];
+				if (array_key_exists($capability, $capabilities) && $capabilities[$capability]) { return true; }
+			}
+		}
+		return false;
 	}
 }

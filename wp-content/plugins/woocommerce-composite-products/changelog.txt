@@ -1,5 +1,12 @@
 *** WooCommerce Composite Products ***
 
+2023.10.23 - version 8.10.4
+* New - Introduced the 'Composite Configuration Summary' block. 
+* Tweak - Switched to the block-style single product notices when the cart/checkout Block is used.
+* Tweak - Re-designed Product Data > Shipping notice about Unassembled Composites.
+* Tweak - Declared compatibility with the cart/checkout Blocks.
+* Fix - Important: Security improvements.
+
 2023.09.19 - version 8.10.3
 * Fix - Resolved fatal error that was triggered when Attributes are sorted by 'Name (numeric)' and 'Options filtering' is enabled in a Composite Product.
 * Fix - Fixed Composite totals in the block-based cart when the number of displayed decimals was 0.

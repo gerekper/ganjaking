@@ -179,16 +179,6 @@ abstract class WC_Instagram_Settings_API extends WC_Settings_API {
 	public function enqueue_scripts() {}
 
 	/**
-	 * Outputs the settings notices.
-	 *
-	 * @since 3.0.0
-	 * @deprecated 4.1.2
-	 */
-	public function output_notices() {
-		wc_deprecated_function( __FUNCTION__, '4.1.2' );
-	}
-
-	/**
 	 * Outputs the settings screen heading.
 	 *
 	 * @since 3.0.0

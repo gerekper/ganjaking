@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 3rd-party Extensions Compatibility.
  *
  * @class    WC_CP_Compatibility
- * @version  8.9.0
+ * @version  8.10.4
  */
 class WC_CP_Compatibility {
 
@@ -109,6 +109,9 @@ class WC_CP_Compatibility {
 		// Declare HPOS compatibility.
 		add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
 
+		// Declare Blocks compatibility.
+		add_action( 'before_woocommerce_init', array( $this, 'declare_blocks_compatibility' ) );
+
 		// Initialize.
 		add_action( 'plugins_loaded', array( $this, 'module_includes' ), 100 );
 
@@ -158,6 +161,20 @@ class WC_CP_Compatibility {
 		}
 
 		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WC_CP()->plugin_basename(), true );
+	}
+
+	/**
+	 * Declare cart/checkout Blocks compatibility.
+	 *
+	 * @since 8.10.4
+	 */
+	public function declare_blocks_compatibility() {
+
+		if ( ! class_exists( 'Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			return;
+		}
+
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', WC_CP()->plugin_basename(), true );
 	}
 
 	/**

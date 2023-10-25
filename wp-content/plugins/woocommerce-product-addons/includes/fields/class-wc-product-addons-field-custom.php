@@ -20,7 +20,7 @@ class WC_Product_Addons_Field_Custom extends WC_Product_Addons_Field {
 
 		// Required addon checks.
 		if ( ! empty( $this->addon['required'] ) && '' === $posted ) {
-			/* translators: %s Name of the addon */
+			/* translators: %s Addon name */
 			return new WP_Error( 'error', esc_html( sprintf( __( '"%s" is a required field.', 'woocommerce-product-addons' ), $this->addon['name'] ) ) );
 		}
 

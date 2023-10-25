@@ -1098,13 +1098,12 @@ class wfWAFUtils {
 			$offset = wfWAF::getInstance()->getStorageEngine()->getConfig('timeoffset_ntp', false, 'synced');
 			if ($offset === false) {
 				$offset = wfWAF::getInstance()->getStorageEngine()->getConfig('timeoffset_wf', false, 'synced');
-				if ($offset === false) { $offset = 0; }
 			}
 		}
 		catch (Exception $e) {
 			//Ignore
 		}
-		return time() + $offset;
+		return time() + ((int) $offset);
 	}
 
 	/**
@@ -1164,17 +1163,30 @@ class wfWAFUtils {
 			'pass'      => 'DB_PASSWORD',
 			'database'  => 'DB_NAME',
 			'host'      => 'DB_HOST',
-			'charset'   => 'DB_CHARSET',
-			'collation' => 'DB_COLLATE'
+			'charset'   => array('constant' => 'DB_CHARSET', 'default' => ''),
+			'collation' => array('constant' => 'DB_COLLATE', 'default' => ''),
 		);
 		$constants += $optionalConstants;
 		foreach ($constants as $key => $constant) {
+			unset($defaultValue);
+			if (is_array($constant)) {
+				$defaultValue = $constant['default'];
+				$constant = $constant['constant'];
+			}
+			
 			if (array_key_exists($key, $return)) {
 				continue;
-			} else if (array_key_exists($constant, $parsedConstants)) {
+			}
+			else if (array_key_exists($constant, $parsedConstants)) {
 				$return[$key] = $parsedConstants[$constant];
-			} else if (!array_key_exists($key, $optionalConstants)){
-				return ($return = false);
+			}
+			else if (!array_key_exists($key, $optionalConstants)){
+				if (isset($defaultValue)) {
+					$return[$key] = $defaultValue;
+				}
+				else {
+					return ($return = false);
+				}
 			}
 		}
 
@@ -1229,6 +1241,9 @@ class wfWAFUtils {
 	public static function isVersionBelow($target, $compared) {
 		return $compared === null || version_compare($compared, $target, '<');
 	}
-
+	
+	public static function isCli() {
+		return (@php_sapi_name()==='cli') || !array_key_exists('REQUEST_METHOD', $_SERVER);
+	}
 }
 }

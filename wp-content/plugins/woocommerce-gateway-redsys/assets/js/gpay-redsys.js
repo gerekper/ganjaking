@@ -202,8 +202,9 @@ function addGooglePayButton() {
 function getGoogleTransactionInfo() {
 	// Llamada AJAX para obtener el precio total actualizado
     jQuery.ajax({
-        url: url_site + '/wp-json/redsysgpay/get-cart-total',
+        url: url_site + '/?wc-api=WC_Gateway_googlepayredsys&checkout-price=true',
         method: 'GET',
+		dataType: 'json',
         async: false,  // Asegúrate de que la solicitud se complete antes de continuar
         success: function(response) {
             if (response && response.total) {

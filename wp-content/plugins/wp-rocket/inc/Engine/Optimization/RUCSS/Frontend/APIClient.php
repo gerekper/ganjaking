@@ -48,14 +48,13 @@ class APIClient extends AbstractAPIClient {
 
 		$default = [
 			'code'     => 400,
-			'message'  => 'Bad json',
+			'message'  => 'No message. Defaulted in add_to_queue',
 			'contents' => [
-				'jobId'     => 0,
+				'jobId'     => '0',
 				'queueName' => '',
 			],
 		];
 		$result  = json_decode( $this->response_body, true );
-
 
 
 		return wp_parse_args( (array) $result, $default );
@@ -90,7 +89,7 @@ class APIClient extends AbstractAPIClient {
 		$default = [
 			'code'     => 400,
 			'status'   => 'failed',
-			'message'  => 'Bad json',
+			'message'  => 'No message. Defaulted in get_queue_job_status',
 			'contents' => [
 				'success'   => false,
 				'shakedCSS' => '',

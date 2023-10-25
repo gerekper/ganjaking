@@ -157,34 +157,4 @@ abstract class WC_Instagram_Data extends WC_Data {
 		$this->data    = array_replace( $this->data, $this->changes ); // @codingStandardsIgnoreLine
 		$this->changes = array();
 	}
-
-	/**
-	 * Call the getter method associated to the property key.
-	 *
-	 * @since 3.0.0
-	 * @deprecated 4.0.0
-	 *
-	 * @param string $prop Property key.
-	 * @return mixed
-	 */
-	protected function data_get( $prop ) {
-		wc_deprecated_function( __FUNCTION__, '4.0.0', "get_{$prop}" );
-
-		return $this->get_prop( $prop );
-	}
-
-	/**
-	 * Call the setter method associated to the property key.
-	 *
-	 * @since 3.0.0
-	 * @deprecated 4.0.0
-	 *
-	 * @param string $prop  Property key.
-	 * @param mixed  $value Property value.
-	 */
-	protected function data_set( $prop, $value ) {
-		wc_deprecated_function( __FUNCTION__, '4.0.0', "set_{$prop}" );
-
-		$this->set_prop( $prop, $value );
-	}
 }

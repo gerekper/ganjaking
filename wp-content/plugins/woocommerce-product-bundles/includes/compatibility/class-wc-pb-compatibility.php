@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles compatibility with other WC extensions.
  *
  * @class    WC_PB_Compatibility
- * @version  6.21.0
+ * @version  6.22.4
  */
 class WC_PB_Compatibility {
 
@@ -121,6 +121,9 @@ class WC_PB_Compatibility {
 		// Declare HPOS compatibility.
 		add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
 
+		// Declare Blocks compatibility.
+		add_action( 'before_woocommerce_init', array( $this, 'declare_blocks_compatibility' ) );
+
 		// Load modules.
 		add_action( 'plugins_loaded', array( $this, 'module_includes' ), 100 );
 
@@ -149,6 +152,20 @@ class WC_PB_Compatibility {
 		}
 
 		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WC_PB()->plugin_basename(), true );
+	}
+
+	/**
+	 * Declare cart/checkout Blocks compatibility.
+	 *
+	 * @since 6.22.4
+	 */
+	public function declare_blocks_compatibility() {
+
+		if ( ! class_exists( 'Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			return;
+		}
+
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', WC_PB()->plugin_basename(), true );
 	}
 
 	/**

@@ -6,5 +6,5 @@ $wfPHPMinimumVersion = '5.5.0'; //The currently supported minimum
 $wfOpenSSLDeprecatingVersion = '1.0.1';
 $wfOpenSSLMinimumVersion = '1.0.1';
 
-$wfWordPressDeprecatingVersion = '4.4.0';
+$wfWordPressDeprecatingVersion = '4.7.0';
 $wfWordPressMinimumVersion = '3.9.0';

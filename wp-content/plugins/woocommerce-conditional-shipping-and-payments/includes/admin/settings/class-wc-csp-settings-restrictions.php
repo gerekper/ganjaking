@@ -16,7 +16,7 @@ if ( ! class_exists( 'WC_Settings_Restrictions' ) ) :
 /**
  * WooCommerce Global Restriction Settings.
  *
- * @version  1.15.0
+ * @version  x.x.x
  */
 class WC_Settings_Restrictions extends WC_Settings_Page {
 
@@ -177,7 +177,7 @@ class WC_Settings_Restrictions extends WC_Settings_Page {
 			WC_CSP_Admin_Notices::add_notice( __( 'Your settings have been saved.', 'woocommerce' ), 'success', true );
 		}
 
-		wp_redirect( remove_query_arg( array( 'add_rule', 'view_rule' ) ) );
+		wp_safe_redirect( remove_query_arg( array( 'add_rule', 'view_rule' ) ) );
 		exit;
 	}
 
@@ -245,7 +245,7 @@ class WC_Settings_Restrictions extends WC_Settings_Page {
 	 * @return void
 	 */
 	protected function reload_overview() {
-		wp_redirect( admin_url( 'admin.php?page=wc-settings&tab=restrictions' ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=wc-settings&tab=restrictions' ) );
 		exit;
 	}
 

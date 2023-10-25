@@ -48,6 +48,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 				add_action( 'woocommerce_admin_field_section', array( $this, 'opmc_add_admin_field_section' ) );
 				add_action( 'woocommerce_admin_field_button', array( $this, 'opmc_add_admin_field_button' ) );
 				add_action( 'woocommerce_admin_field_timepicker', array( $this, 'opmc_add_admin_field_timepicker' ) );
+				add_action( 'woocommerce_settings_save_' . $this->id, array( $this, 'AuthorizedTrustSwiftly' ) );
 
 				/* initiation of logging instance */
 				$this->log = new WC_Logger();
@@ -91,6 +92,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 					'minfraud_settings' => __( 'MinFraud Settings', 'woocommerce-anti-fraud' ),
 					'minfraud_insights_settings' => __( 'MinFraud Insights Settings', 'woocommerce-anti-fraud' ),
 					'minfraud_factors_settings' => __( 'MinFraud Factors Settings', 'woocommerce-anti-fraud' ),
+					'trust_swiftly_settings' => __( 'TrustSwiftly Settings', 'woocommerce-anti-fraud' ),
 					'minfraud_recaptcha_settings' => __( 'reCAPTCHA', 'woocommerce-anti-fraud' ),
 					'need_support' => __( 'Need Support?', 'woocommerce-anti-fraud' ),
 				);
@@ -163,7 +165,149 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 					$availableMethods[ $methods ] = $arr->method_title;
 				}
 
-				if ( 'minfraud_settings' == $current_section ) {
+				/* Trust Swiftly get verification template */
+				$apiKey = get_option( 'wc_af_trust_swiftly_api_key' );
+				$baseUrl = get_option( 'wc_af_trust_swiftly_base_url' );
+				$vTemplate = array();
+				if (isset($apiKey) && !empty($apiKey) && isset($baseUrl) && !empty($baseUrl)) {
+
+					$headers = array(
+						'Authorization' => 'Bearer ' . $apiKey,
+						'Content-Type' => 'application/json',
+						'User-Agent' => 'TrustSwiftly/1.0'
+					);
+					$response = wp_remote_get( $baseUrl . '/api/settings/templates/verifications', array(
+						'headers' => $headers,
+					));
+					$retrieve_body = wp_remote_retrieve_body( $response );
+
+					$body_data = json_decode( $retrieve_body );
+					$response_code = wp_remote_retrieve_response_code($response);
+
+					if ( json_last_error() === JSON_ERROR_NONE ) {
+
+						if ( '200' == $response_code ) {
+
+							if( ! empty( $body_data ) ) {
+
+								foreach( $body_data as $product ) {
+
+									$vTemplate[$product->name] = $product->template_name;
+									
+								}
+							}
+						}
+					}
+				}
+
+				$whenToVerify = array(
+					'before_checkout' => 'Before Checkout',
+					'after_checkout' => 'After Checkout',
+				);
+
+				$linkMethod = array(
+					'link_method' => 'Link'
+				 );
+
+				/* End */
+
+				if ( 'trust_swiftly_settings' == $current_section ) {
+
+					/**
+					* WCAF Filter Plugin Trust Swiftly Settings
+					*
+					* @since 1.0.0
+					* @param array $settings Array of the plugin settings
+					*/
+					$settings = apply_filters(
+						'myplugin_trust_swiftly_settings',
+						array(
+							array(
+								'name'     => __( 'Trust Swiftly Settings', 'woocommerce-anti-fraud' ),
+								'type'     => 'title',
+								'desc'     => __( '<hr/>', 'woocommerce-anti-fraud' ),
+								'id'       => 'wc_af_trust_swiftly_settings',
+							),
+
+							array(
+								'title'    => __( 'Trust Swiftly Enable/Disable', 'woocommerce-anti-fraud' ),
+								'type'     => 'checkbox',
+								'label'    => '',
+								'desc'     => __( 'Enable Trust Swiftly', 'woocommerce-anti-fraud' ),
+								'default'  => 'no',
+								'id'       => 'wc_af_trust_swiftly_type',
+							),
+							array(
+								'title'    => __( 'API Key', 'woocommerce-anti-fraud' ),
+								'type'     => 'password',
+								'label'    => 'API Key',
+								'desc'     => '',
+								//'css'      => 'width: 10em;',
+								'id'       => 'wc_af_trust_swiftly_api_key',
+							),
+							
+							array(
+								'title'    => __( 'Base URL', 'woocommerce-anti-fraud' ),
+								'type'     => 'text',
+								'label'    => 'Base URL',
+								'desc'     => __( 'Enter in your Trust Swiftly site URL i.e https://example.trustswiftly.com', 'woocommerce-anti-fraud' ),
+								//'css'      => 'width: 10em;',
+								'id'       => 'wc_af_trust_swiftly_base_url',
+							),
+							
+							array(
+								'title'    => __( 'Verification Method', 'woocommerce-anti-fraud' ),
+								'type'     => 'select',
+								'options'  => $linkMethod,
+								'option'   => '',
+								'label'    => 'Verification Method',
+								'desc'     => '',
+								'css'      => 'width: 10em;',
+								'id'       => 'wc_af_trust_swiftly_veri_method',
+							),
+
+							array(
+								'title'    => __( 'Verification Template', 'woocommerce-anti-fraud' ),
+								'type'     => 'select',
+								'options'  => $vTemplate,
+								'option'   => '',
+								'label'    => 'Verification Template',
+								'desc'     => __( 'Select a verification method defined such as ID and Selfie. A Verification Template should be set on Trust Swiftly.', 'woocommerce-anti-fraud' ),
+								'css'      => 'width: 15em;',
+								'id'       => 'wc_af_trust_swiftly_veri_template',
+							),
+
+							array(
+								'title'    => __( 'When To Verify', 'woocommerce-anti-fraud' ),
+								'type'     => 'select',
+								'options'  => $whenToVerify,
+								'option'   => '',
+								'label'    => 'When To Verify',
+								'desc'     => __( 'Select when customers should verify their identity.', 'woocommerce-anti-fraud' ),
+								'css'      => 'width: 10em;',
+								'id'       => 'wc_af_trust_when_to_verify',
+							),
+
+							array(
+							'name'     => __( 'Select Threshold Weight', 'woocommerce-anti-fraud' ),
+							'type'     => 'select',
+							'options'  => $score_options,
+							'option'   => '',
+							'desc'     => '',
+							'desc_tip'     => __( 'If the risk score exceed threshold value which is set here, then the customer needs to be verified with Trust Swiftly.', 'woocommerce-anti-fraud' ),
+							'id'       => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_strust_swiftly_score',
+							'css'         => 'display: block; width: 5em;',
+							'default' => '75',
+						),
+
+							array(
+								'type' => 'sectionend',
+								'id'   => 'wc_af_trust_swiftly_settings',
+							),
+						)
+					);
+
+				} else if ( 'minfraud_settings' == $current_section ) {
 
 					/**
 					* WCAF Filter Plugin  MinFraud Settings
@@ -2184,6 +2328,109 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 
 			}
 
+			/**
+			 * AuthorizedTrustSwiftly
+			 *
+			 * @since 5.6.0
+			 */
+			public function AuthorizedTrustSwiftly() {
+
+				global $current_section;
+				$get_settings = $this->get_settings( $current_section );
+
+				if ( isset( $get_settings ) ) {
+
+					$curr_settings = $get_settings['0']['id'];
+
+					$setting_type = get_option( 'wc_af_trust_swiftly_type' );
+
+					if ( 'yes' == $setting_type && 'wc_af_trust_swiftly_settings' == $curr_settings ) {
+
+						$apiKey = get_option( 'wc_af_trust_swiftly_api_key' );
+						$baseUrl = get_option( 'wc_af_trust_swiftly_base_url' );
+						$vTemplate = array();
+
+						if (isset($apiKey) && !empty($apiKey) && isset($baseUrl) ) {
+
+							$headers = array(
+								'Authorization' => 'Bearer ' . $apiKey,
+								'Content-Type' => 'application/json',
+								'User-Agent' => 'TrustSwiftly/1.0'
+							);
+							$request = wp_remote_get( $baseUrl . '/api/users', array(
+								'headers' => $headers,
+							));
+
+							$response_code = wp_remote_retrieve_response_code($request);
+
+							if ( !is_wp_error( $request ) ) {
+
+								if ( '200' == $response_code ) {
+
+									update_option('trust_api_keys_validated', 'true');
+									add_action( 'admin_notices', array( $this, 'AuthTrustSwiftlySuccessAdminNotice' ) );
+								} else {
+									
+									delete_option('trust_api_keys_validated');
+
+									add_action( 'admin_notices', array( $this, 'AuthTrustSwiftlyErrorAdminNotice' ) );
+								}
+							} else {
+									
+								delete_option('trust_api_keys_validated');
+
+								add_action( 'admin_notices', array( $this, 'AuthTsBaseurlErrAdminNtc' ) );
+							}
+						}
+					}
+				}
+			}
+
+			/**
+			 * Auth_error_admin_notice
+			 *
+			 * @since 1.0
+			 */
+			public function AuthTrustSwiftlyErrorAdminNotice() {
+
+				?>
+			<div class="error is-dismissible">
+				<p><strong><?php echo esc_html_e( 'Your Trust Swiftly API Key could not be authenticated!!', 'woocommerce-anti-fraud' ); ?></strong></p>
+			</div>
+
+				<?php
+			}
+
+			/**
+			 * Auth_error_admin_notice
+			 *
+			 * @since 1.0
+			 */
+			public function AuthTsBaseurlErrAdminNtc() {
+
+				?>
+			<div class="error is-dismissible">
+				<p><strong><?php echo esc_html_e( 'Your Trust Swiftly Base URL could not be validated!!', 'woocommerce-anti-fraud' ); ?></strong></p>
+			</div>
+
+				<?php
+			}
+
+			/**
+			 * Auth_success_admin_notice
+			 *
+			 * @since 1.0
+			 */
+			public function AuthTrustSwiftlySuccessAdminNotice() {
+
+				?>
+			<div class="notice notice-success">
+				<p><strong><?php echo esc_html_e( 'Great, Trust Swiftly authenticated successfully!!', 'woocommerce-anti-fraud' ); ?></strong></p>
+			</div>
+
+				<?php
+			}
+			
 		}
 		$settings[] = new WC_AF_Settings();
 		 return $settings;

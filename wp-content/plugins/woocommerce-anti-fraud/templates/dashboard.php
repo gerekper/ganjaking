@@ -141,7 +141,7 @@ foreach ( $afp_orders as $order_id ) {
 		foreach ( $last7_days as $day ) {
 			if ( $day == $order_date ) {
 				$wc_af_score = intval( opmc_hpos_get_post_meta( $found_order->ID, 'wc_af_score', true ) );
-				$meta = WC_AF_Score_Helper::get_score_meta( $wc_af_score , $found_order->ID);
+				$meta = WC_AF_Score_Helper::get_score_meta( $wc_af_score, $found_order->ID );
 				if ( 'Low Risk' == $meta['label'] ) {
 					$low_score_arr[] = $order_date;
 				}

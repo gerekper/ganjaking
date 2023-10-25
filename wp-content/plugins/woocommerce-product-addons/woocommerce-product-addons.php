@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Product Add-ons
  * Plugin URI: https://woocommerce.com/products/product-add-ons/
  * Description: Add extra options to products which your customers can select from, when adding to the cart, with an optional fee for each extra option. Add-ons can be checkboxes, a select box, or custom text input.
- * Version: 6.4.7
+ * Version: 6.5.0
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  *
@@ -13,7 +13,7 @@
  * Tested up to: 6.2
  *
  * WC requires at least: 3.9
- * WC tested up to: 7.8
+ * WC tested up to: 8.2
  *
  * Text Domain: woocommerce-product-addons
  * Domain Path: /languages/
@@ -103,7 +103,7 @@ function woocommerce_product_addons_init() {
 
 	if ( ! class_exists( 'WC_Product_Addons' ) ) :
 
-		define( 'WC_PRODUCT_ADDONS_VERSION', '6.4.7' ); // WRCS: DEFINED_VERSION.
+		define( 'WC_PRODUCT_ADDONS_VERSION', '6.5.0' ); // WRCS: DEFINED_VERSION.
 		define( 'WC_PRODUCT_ADDONS_MAIN_FILE', __FILE__ );
 		define( 'WC_PRODUCT_ADDONS_PLUGIN_URL', untrailingslashit( plugins_url( '/', __FILE__ ) ) );
 		define( 'WC_PRODUCT_ADDONS_PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
@@ -147,11 +147,14 @@ function woocommerce_product_addons_init() {
 				add_action( 'init', array( $this, 'init_post_types' ), 20 );
 				add_action( 'init', array( 'WC_Product_Addons_install', 'init' ) );
 				add_action( 'rest_api_init', array( $this, 'rest_api_init' ) );
-				add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'action_links' ) );
+				add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
 				add_action( 'admin_notices', array( $this, 'notices' ) );
 
 				// Declare HPOS compatibility.
 				add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
+
+				// Declare Blocks compatibility.
+				add_action( 'before_woocommerce_init', array( $this, 'declare_blocks_compatibility' ) );
 			}
 
 			/**
@@ -176,6 +179,7 @@ function woocommerce_product_addons_init() {
 				if ( is_admin() ) {
 					require_once dirname( __FILE__ ) . '/includes/admin/class-wc-product-addons-privacy.php';
 					require_once dirname( __FILE__ ) . '/includes/admin/class-wc-product-addons-admin.php';
+					require_once dirname( __FILE__ ) . '/includes/admin/class-wc-product-addons-admin-list-table.php';
 					$GLOBALS['Product_Addon_Admin'] = new WC_Product_Addons_Admin();
 				}
 
@@ -238,12 +242,16 @@ function woocommerce_product_addons_init() {
 			 * @param array $links Array of links.
 			 * @return array
 			 */
-			public function action_links( $links ) {
-				$plugin_links = array(
-					'<a href="https://woocommerce.com/my-account/tickets/">' . esc_html__( 'Support', 'woocommerce-product-addons' ) . '</a>',
-					'<a href="https://docs.woocommerce.com/document/product-add-ons/">' . esc_html__( 'Documentation', 'woocommerce-product-addons' ) . '</a>',
-				);
-				return array_merge( $plugin_links, $links );
+			public function plugin_row_meta( $links, $file ) {
+
+				if ( $file === plugin_basename( __FILE__ ) ) {
+					$plugin_links = array(
+						'<a href="https://docs.woocommerce.com/document/product-add-ons/">' . esc_html__( 'Documentation', 'woocommerce-product-addons' ) . '</a>',
+						'<a href="https://woocommerce.com/my-account/tickets/">' . esc_html__( 'Support', 'woocommerce-product-addons' ) . '</a>',
+					);
+					return array_merge( $links, $plugin_links );
+				}
+				return $links;
 			}
 
 			/**
@@ -254,7 +262,26 @@ function woocommerce_product_addons_init() {
 				$show_activate_notice = get_transient( 'wc_pao_activation_notice' );
 
 				if ( $show_activate_notice ) {
-					echo '<div class="notice is-dismissible updated"><p><strong>' . esc_html__( 'WooCommerce Product Add-ons is ready to go!', 'woocommerce-product-addons' ) . '</strong></p><p>' . esc_html__( 'Create an add-on that applies to every product, or apply it to specific categories. Create an add-on for an individual product by editing the product.', 'woocommerce-product-addons' ) . '</p><p><a href="' . esc_url( admin_url() ) . 'edit.php?post_type=product&page=addons" class="button button-primary">' . esc_html__( 'Create add-ons', 'woocommerce-product-addons' ) . '</a>&nbsp;&nbsp;<a href="' . esc_url( admin_url() ) . 'edit.php?post_type=product" class="button">' . esc_html__( 'Find products', 'woocommerce-product-addons' ) . '</a></p></div>';
+					$thank_you_message            = __( 'Thank you for installing WooCommerce Product Add-ons.', 'woocommerce-product-addons' );
+					$onboarding_message           = sprintf(
+						__( 'Ready to make your products unique? Use <a href="%1$s" target="_blank">global add-ons</a> to add free or paid options to multiple products, or create custom <a href="%2$s" target="_blank">add-ons for individual products</a>.', 'woocommerce-product-addons' ),
+						$this->get_resource_url( 'global-addons' ), $this->get_resource_url( 'per-product-addons' )
+					);
+					$create_global_addons_prompt  = __( 'Create a global add-on', 'woocommerce-product-addons' );
+					$conjunction_string           = __( 'or', 'woocommerce-product-addons' );
+					$create_product_addons_prompt = __( 'add options to an existing product', 'woocommerce-product-addons' );
+
+					echo '<div class="notice is-dismissible updated"><p><strong>' .
+					     esc_html( $thank_you_message ) .
+					     '</strong></p><p>' .
+					     wp_kses_post( $onboarding_message ) .
+					     '</p><p><a href="' . esc_url( admin_url() ) . 'edit.php?post_type=product&page=addons" class="button button-primary">' .
+					     esc_html( $create_global_addons_prompt ) .
+					     '</a>&nbsp;&nbsp;' .
+					     esc_html( $conjunction_string ) .
+					     '&nbsp;<a href="' . esc_url( admin_url() ) . 'edit.php?post_type=product">' .
+					     esc_html( $create_product_addons_prompt ) .
+					     '</a></p></div>';
 
 					delete_transient( 'wc_pao_activation_notice' );
 				}
@@ -273,6 +300,20 @@ function woocommerce_product_addons_init() {
 
 				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
 
+			}
+
+			/**
+			 * Declare cart/checkout Blocks compatibility.
+			 *
+			 * @since 6.5.0
+			 */
+			public function declare_blocks_compatibility() {
+
+				if ( ! class_exists( 'Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+					return;
+				}
+
+				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', __FILE__, true );
 			}
 
 			/**
@@ -333,6 +374,27 @@ function woocommerce_product_addons_init() {
 				}
 
 				return $screen_id;
+			}
+
+			/**
+			 * Returns URL to a doc or support resource.
+			 *
+			 * @since  6.5.0
+			 *
+			 * @param  string  $handle
+			 * @return string
+			 */
+			public function get_resource_url( $handle ) {
+
+				$resource = false;
+
+				if ( 'per-product-addons' === $handle ) {
+					$resource = 'https://woocommerce.com/document/product-add-ons/#per-product-add-ons';
+				} elseif ( 'global-addons' === $handle ) {
+					$resource = 'https://woocommerce.com/document/product-add-ons/#global-addons';
+				}
+
+				return $resource;
 			}
 		}
 

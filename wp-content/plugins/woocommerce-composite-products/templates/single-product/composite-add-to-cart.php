@@ -9,7 +9,7 @@
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
  * @since    1.0.0
- * @version  8.8.0
+ * @version  8.10.4
  */
 
 // Exit if accessed directly.
@@ -36,7 +36,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			*/
 			do_action( 'woocommerce_composite_after_composite_price' );
 		?>
-		<div class="composite_message" style="display:none;"><ul class="msg woocommerce-info"></ul></div>
+		<div class="composite_message" style="display:none;">
+			<?php if ( ! is_admin() && ! $is_block_editor_request ) { wc_print_notice('<ul class="msg"></ul>', 'notice' ); } ?>
+		</div>
 		<div class="composite_availability"><?php
 			// Availability html.
 			echo wp_kses_post( $availability_html );

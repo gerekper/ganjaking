@@ -66,6 +66,7 @@ if ( ! class_exists( 'WC_Instagram_Autoloader' ) ) {
 			$autoload = apply_filters(
 				'wc_instagram_autoload',
 				array(
+					'wc_instagram_integration_'            => $this->include_path . 'integrations/',
 					'wc_instagram_admin_field_'            => $this->include_path . 'admin/fields/',
 					'wc_instagram_admin_'                  => $this->include_path . 'admin/',
 					'wc_instagram_settings_'               => $this->include_path . 'admin/settings/',

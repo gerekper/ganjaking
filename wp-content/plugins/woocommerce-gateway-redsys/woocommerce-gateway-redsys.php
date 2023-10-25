@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Servired/RedSys Spain Gateway
  * Plugin URI: https://woocommerce.com/products/redsys-gateway/
  * Description: Extends WooCommerce with RedSys gateway.
- * Version: 23.0.0
+ * Version: 23.0.2
  * Author: José Conti
  * Author URI: https://www.joseconti.com/
  * Tested up to: 6.3
@@ -24,7 +24,7 @@
 use Automattic\WooCommerce\Utilities\OrderUtil;
 
 if ( ! defined( 'REDSYS_VERSION' ) ) {
-	define( 'REDSYS_VERSION', '23.0.0' );
+	define( 'REDSYS_VERSION', '23.0.2' );
 }
 if ( ! defined( 'REDSYS_LICENSE_SITE_ID' ) ) {
 	define( 'REDSYS_LICENSE_SITE_ID', 1 );
@@ -633,15 +633,14 @@ function woocommerce_gateway_redsys_premium_init() {
 	 * Add dns-prefetch to head.
 	 */
 	function redsys_woo_add_head_text() {
+		echo '<!-- Added by WooCommerce Redsys Gateway v.' . esc_html( REDSYS_VERSION ) . ' - https://woocommerce.com/products/redsys-gateway/ -->';
 		if ( WCRed()->is_gateway_enabled( 'insite' ) ) {
-			echo '<!-- Added by WooCommerce Redsys Gateway v.' . esc_html( REDSYS_VERSION ) . ' - https://woocommerce.com/products/redsys-gateway/ -->';
-			echo '<link rel="dns-prefetch" href="https://sis.redsys.es/">';
-			echo '<link rel="dns-prefetch" href="https://sis-t.redsys.es:25443/">';
-			echo '<link rel="dns-prefetch" href="https://sis-i.redsys.es:25443/">';
+			echo '<link rel="dns-prefetch" href="https://sis.redsys.es">';
+			echo '<link rel="dns-prefetch" href="https://sis-t.redsys.es:25443">';
+			echo '<link rel="dns-prefetch" href="https://sis-i.redsys.es:25443">';
 		}
 		if ( WCRed()->is_gateway_enabled( 'googlepayredsys' ) ) {
-			echo '<!-- Added by WooCommerce Redsys Gateway v.' . esc_html( REDSYS_VERSION ) . ' - https://woocommerce.com/products/redsys-gateway/ -->';
-			echo '<link rel="dns-prefetch" href="https://pay.google.com/">';
+			echo '<link rel="dns-prefetch" href="https://pay.google.com">';
 		}
 		if ( WCRed()->is_gateway_enabled( 'applepayredsys' ) ) {
 			echo '<link rel="dns-prefetch" href="https://applepay.cdn-apple.com">';
@@ -659,29 +658,29 @@ function woocommerce_gateway_redsys_premium_init() {
 	 */
 	function redsys_refresh_checkout_on_payment_methods_change() {
 
+		?>
+		<script type="text/javascript">
+			// Added by WooCommerce Redsys Gateway https://woocommerce.com/products/redsys-gateway/
+			(function($){
+				$('form.checkout').on( 'change', 'input[name^="payment_method"]', function() {
+					var t = { updateTimer: !1,  dirtyInput: !1,
+						reset_update_checkout_timer: function() {
+							clearTimeout(t.updateTimer)
+						},
+						trigger_update_checkout: function() {
+							t.reset_update_checkout_timer(), t.dirtyInput = !1,
+							$(document.body).trigger("update_checkout")
+						}
+					};
+					t.trigger_update_checkout();
+				});
+			} )(jQuery);
+		</script>
+		<?php
+
 		if ( WCRed()->is_gateway_enabled( 'insite' ) ) {
 			?>
 			<script type="text/javascript">
-				// Added by WooCommerce Redsys Gateway https://woocommerce.com/products/redsys-gateway/
-				(function($){
-					$('form.checkout').on( 'change', 'input[name^="payment_method"]', function() {
-						var t = { updateTimer: !1,  dirtyInput: !1,
-							reset_update_checkout_timer: function() {
-								clearTimeout(t.updateTimer)
-							},
-							trigger_update_checkout: function() {
-								t.reset_update_checkout_timer(), t.dirtyInput = !1,
-								$(document.body).trigger("update_checkout")
-							}
-						};
-						t.trigger_update_checkout();
-					});
-				} )(jQuery);
-				jQuery( document.body ).one( 'checkout_error', function() {
-					if (jQuery('#payment_method_insite').is(':checked')) {
-						setTimeout(location.reload.bind(location), 4000);
-					}
-				} );
 				( function( $ ) {
 					var orderReviewSection = $('#order_review');
 					function toggleInsiteFields( display ) {
@@ -717,22 +716,7 @@ function woocommerce_gateway_redsys_premium_init() {
 		}
 		if ( WCRed()->is_gateway_enabled( 'redsys' ) ) {
 			?>
-			<script type="text/javascript">
-				// Added by WooCommerce Redsys Gateway https://woocommerce.com/products/redsys-gateway/
-				(function($){
-					$('form.checkout').on( 'change', 'input[name^="payment_method"]', function() {
-						var t = { updateTimer: !1,  dirtyInput: !1,
-							reset_update_checkout_timer: function() {
-								clearTimeout(t.updateTimer)
-							},
-							trigger_update_checkout: function() {
-								t.reset_update_checkout_timer(), t.dirtyInput = !1,
-								$(document.body).trigger("update_checkout")
-							}
-						};
-						t.trigger_update_checkout();
-					});
-				} )(jQuery);				
+			<script type="text/javascript">				
 				( function( $ ) {
 					var orderReviewSection = $('#order_review');
 					function toggleRedsysFields( display ) {
@@ -753,6 +737,7 @@ function woocommerce_gateway_redsys_premium_init() {
 			</script>
 			<?php
 		}
+		/*
 		if ( WCRed()->is_gateway_enabled( 'googlepayredsys' ) ) {
 			?>
 			<script type="text/javascript">
@@ -782,6 +767,7 @@ function woocommerce_gateway_redsys_premium_init() {
 			</script>
 			<?php
 		}
+		*/
 	}
 	add_action( 'wp_footer', 'redsys_refresh_checkout_on_payment_methods_change' );
 
@@ -790,16 +776,18 @@ function woocommerce_gateway_redsys_premium_init() {
 	 */
 	function redsys_register_gpay_route_final_price() {
 
-		if ( ! WC()->is_rest_api_request() ) {
+		if ( ! WC()->is_rest_api_request() || is_admin() ) {
 			return;
 		}
+
+		WC()->frontend_includes();
 
 		if ( null === WC()->cart && function_exists( 'wc_load_cart' ) ) {
 			wc_load_cart();
 		}
 		register_rest_route(
 			'redsysgpay',
-			'/get-cart-total',
+			'/get-cart-total/(?P<id>\d+)',
 			array(
 				'methods'             => 'GET',
 				'callback'            => 'redsys_gpay_get_cart_total',
@@ -808,7 +796,7 @@ function woocommerce_gateway_redsys_premium_init() {
 			)
 		);
 	}
-	add_action( 'woocommerce_init', 'redsys_register_gpay_route_final_price', 9999 );
+	// add_action( 'woocommerce_init', 'redsys_register_gpay_route_final_price' );
 	/**
 	 * Get Checkout Price to custom rest.
 	 *
@@ -817,8 +805,6 @@ function woocommerce_gateway_redsys_premium_init() {
 	 */
 	function redsys_gpay_get_cart_total( WP_REST_Request $request ) {
 
-		$log = new WC_Logger();
-
 		WC()->frontend_includes();
 
 		if ( null === WC()->cart && function_exists( 'wc_load_cart' ) ) {
@@ -826,8 +812,6 @@ function woocommerce_gateway_redsys_premium_init() {
 		}
 
 		$total = WC()->cart->total;
-
-		$log->add( 'applepayredsys', 'Total del carrito: ' . $total );  // Agregar registro de depuración
 
 		return new WP_REST_Response(
 			array(

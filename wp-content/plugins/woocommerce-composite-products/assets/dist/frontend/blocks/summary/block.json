@@ -1,0 +1,26 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"version": "x.x.x",
+	"apiVersion": 3,
+	"name": "woocommerce-composite-products/configuration-summary",
+	"title": "Composite Product Summary",
+	"description": "The Composite Product Summary block is provided to enhance the experience of building and shopping personalized Composite Products. It provides an overview of all selections, including subtotals, and quick access individual Components and the add-to-cart button.",
+	"textdomain": "woocommerce-composite-products",
+	"category": "woocommerce",
+	"attributes": {
+		"display": {
+			"type": "string",
+			"default": "default"
+		},
+		"title": {
+			"type": "string",
+			"default": "Your Selections"
+		},
+		"maxColumns": {
+			"type": "integer",
+			"default": 3
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css"
+}

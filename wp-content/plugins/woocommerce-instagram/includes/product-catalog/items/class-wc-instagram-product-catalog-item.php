@@ -308,7 +308,18 @@ class WC_Instagram_Product_Catalog_Item {
 	 * @return array
 	 */
 	public function get_additional_image_links( $limit = 10 ) {
-		$image_ids = $this->get_product()->get_gallery_image_ids();
+		$product   = $this->get_product();
+		$image_ids = $product->get_gallery_image_ids();
+
+		/**
+		 * Filters the additional product images.
+		 *
+		 * @since 4.5.0
+		 *
+		 * @param array      $image_ids The image ids.
+		 * @param WC_Product $product   Product object.
+		 */
+		$image_ids = apply_filters( 'wc_instagram_product_additional_image_ids', $image_ids, $product );
 
 		if ( count( $image_ids ) > $limit ) {
 			$image_ids = array_slice( $image_ids, 0, $limit );

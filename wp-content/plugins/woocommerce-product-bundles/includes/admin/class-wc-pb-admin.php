@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Loads admin scripts, includes admin classes and adds admin hooks.
  *
  * @class    WC_PB_Admin
- * @version  x.x.x
+ * @version  6.22.4
  */
 class WC_PB_Admin {
 
@@ -26,7 +26,7 @@ class WC_PB_Admin {
 	 *
 	 * @var string
 	 */
-	private static $bundled_selectsw_version = '1.2.1';
+	private static $bundled_selectsw_version = '1.2.2';
 
 	/**
 	 * Setup Admin class.
@@ -199,18 +199,22 @@ class WC_PB_Admin {
 	 */
 	public static function include_admin_body_class( $classes ) {
 
-		if ( strpos( $classes, 'sw-wp-version-gte-53' ) !== false
-		     || strpos( $classes, 'sw-wp-version-gte-55' ) !== false
+		if ( strpos( $classes, 'sw-wp-version-gte-53' ) === false
+		     && strpos( $classes, 'sw-wp-version-gte-55' ) === false
 		) {
-			return $classes;
+			if ( WC_PB_Core_Compatibility::is_wp_version_gte( '5.3' ) ) {
+				$classes .= ' sw-wp-version-gte-53';
+			}
+
+			if ( WC_PB_Core_Compatibility::is_wp_version_gte( '5.5' ) ) {
+				$classes .= ' sw-wp-version-gte-55';
+			}
 		}
 
-		if ( WC_PB_Core_Compatibility::is_wp_version_gte( '5.3' ) ) {
-			$classes .= ' sw-wp-version-gte-53';
-		}
-
-		if ( WC_PB_Core_Compatibility::is_wp_version_gte( '5.5' ) ) {
-			$classes .= ' sw-wp-version-gte-55';
+		if ( strpos( $classes, 'sw-wc-version-gte-82' ) === false ) {
+			if ( WC_PB_Core_Compatibility::is_wc_version_gte( '8.2' ) ) {
+				$classes .= ' sw-wc-version-gte-82';
+			}
 		}
 
 		return $classes;

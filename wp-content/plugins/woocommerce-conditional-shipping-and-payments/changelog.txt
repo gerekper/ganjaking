@@ -1,5 +1,9 @@
 *** WooCommerce Conditional Shipping and Payments ***
 
+2023.10.17 - version 1.15.4
+* Fix - Important: Security improvements.
+* Tweak - Declared compatibility with the cart/checkout Blocks.
+
 2023.09.19 - version 1.15.3
 * Fix - Resolved an issue that prevented plugin styles from applying in RTL sites using WooCommerce 7.9+.
 * Tweak - Used admin theme colors in settings.

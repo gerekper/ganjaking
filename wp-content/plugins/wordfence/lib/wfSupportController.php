@@ -149,6 +149,7 @@ class wfSupportController {
 	const ITEM_SCAN_RESULT_PUBLIC_CONFIG = 'scan-result-public-config';
 	const ITEM_SCAN_RESULT_PLUGIN_ABANDONED = 'scan-result-plugin-abandoned';
 	const ITEM_SCAN_RESULT_PLUGIN_REMOVED = 'scan-result-plugin-removed';
+	const ITEM_SCAN_RESULT_UPDATE_CHECK_FAILED = 'scan-result-update-check-failed';
 	const ITEM_SCAN_RESULT_OPTION_MALWARE_URL = 'scan-result-option-malware-url';
 	const ITEM_SCAN_RESULT_GEOIP_UPDATE = 'scan-result-geoip-update';
 	const ITEM_SCAN_RESULT_WAF_DISABLED = 'scan-result-waf-disabled';
@@ -178,6 +179,7 @@ class wfSupportController {
 	const ITEM_DIAGNOSTICS_OPTION_BETA_TDF = 'diagnostics-option-beta-tdf';
 	const ITEM_DIAGNOSTICS_OPTION_WORDFENCE_TRANSLATIONS = 'diagnostics-option-wordfence-translations';
 	const ITEM_DIAGNOSTICS_IPV6 = 'diagnostics-ipv6';
+	const ITEM_DIAGNOSTICS_CLOUDFLARE_BLOCK = 'compatibility-cloudflare';
 
 	const ITEM_MODULE_LOGIN_SECURITY = 'module-login-security';
 	const ITEM_MODULE_LOGIN_SECURITY_2FA = 'module-login-security-2fa';
@@ -341,6 +343,7 @@ class wfSupportController {
 			case self::ITEM_SCAN_RESULT_PUBLIC_CONFIG:
 			case self::ITEM_SCAN_RESULT_PLUGIN_ABANDONED:
 			case self::ITEM_SCAN_RESULT_PLUGIN_REMOVED:
+			case self::ITEM_SCAN_RESULT_UPDATE_CHECK_FAILED:
 			case self::ITEM_SCAN_RESULT_OPTION_MALWARE_URL:
 			case self::ITEM_SCAN_RESULT_GEOIP_UPDATE:
 			case self::ITEM_SCAN_RESULT_WAF_DISABLED:
@@ -370,6 +373,7 @@ class wfSupportController {
 			case self::ITEM_DIAGNOSTICS_OPTION_BETA_TDF:
 			case self::ITEM_DIAGNOSTICS_OPTION_WORDFENCE_TRANSLATIONS:
 			case self::ITEM_DIAGNOSTICS_IPV6:
+			case self::ITEM_DIAGNOSTICS_CLOUDFLARE_BLOCK:
 
 			case self::ITEM_MODULE_LOGIN_SECURITY:
 			case self::ITEM_MODULE_LOGIN_SECURITY_2FA:

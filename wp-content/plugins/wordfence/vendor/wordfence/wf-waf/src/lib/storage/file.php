@@ -17,8 +17,7 @@ class wfWAFStorageFile implements wfWAFStorageInterface {
 			return true;
 		}
 		
-		$sapi = @php_sapi_name();
-		if ($sapi == "cli") {
+		if (wfWAFUtils::isCli()) {
 			return false;
 		}
 		return true;

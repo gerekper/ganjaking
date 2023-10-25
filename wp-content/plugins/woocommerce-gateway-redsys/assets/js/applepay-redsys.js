@@ -43,8 +43,9 @@ function check_payment_status(appleRefereciaRedsys, session) {
 function getAppleTransactionInfo() {
     return new Promise((resolve, reject) => {
         jQuery.ajax({
-            url: url_site + '/wp-json/redsysgpay/get-cart-total',
+            url: url_site + '/?wc-api=WC_Gateway_applepayredsys&checkout-price=true',
             method: 'GET',
+            dataType: 'json',
             success: function(response) {
                 if (response && response.total) {
                     resolve(response.total);  // resuelve la promesa con el valor total

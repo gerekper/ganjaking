@@ -451,7 +451,7 @@ msgid "WARNING: The plugin cannot connect with Redsys Real Terminal URL via SOAP
 msgstr ""
 
 #: classes/class-redsys-site-health.php:265
-msgid "Normally this happens because your hosting is blocking outgoing SOAP calls, Please talk to your hosting and tell them to open SOAP. If they ask you the URL to which the plugin is trying to connect, it's https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl. If the hosting does not open the port, the plugin will not work correctly. ."
+msgid "Normally this happens because your hosting is blocking outgoing SOAP calls, Please talk to your hosting and tell them to open SOAP. If they ask you the URL to which the plugin is trying to connect, it's https://sis.redsys.es:443/sis/services/SerClsWSEntradaV2?wsdl. If the hosting does not open the port, the plugin will not work correctly. ."
 msgstr ""
 
 #: classes/class-redsys-site-health.php:282
@@ -4082,7 +4082,7 @@ msgid "Type the Email or the Mobile Number:"
 msgstr ""
 
 #: includes/metabox/metaboxes.php:344
-msgid "Please contact with your hosting provider and ask for SOAP and SimpleSML. WooCommerce Redsys Gateway cannot contact via SOAP with https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl or read the response with SimpleXML so is not possible to use PayGold"
+msgid "Please contact with your hosting provider and ask for SOAP and SimpleSML. WooCommerce Redsys Gateway cannot contact via SOAP with https://sis.redsys.es:443/sis/services/SerClsWSEntradaV2?wsdl or read the response with SimpleXML so is not possible to use PayGold"
 msgstr ""
 
 #: includes/notices/notices.php:17

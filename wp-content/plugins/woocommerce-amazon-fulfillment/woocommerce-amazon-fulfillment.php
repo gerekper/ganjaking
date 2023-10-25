@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Amazon Fulfillment
  * Plugin URI: https://neversettle.it
  * Description: Integrates Amazon MCF (Multi-channel Fulfillment) and FBA with WooCommerce.
- * Version: 4.1.9
+ * Version: 4.1.9.2
  * Author: Never Settle
  * Author URI: https://neversettle.it
  * Requires at least: 5.0
  * Tested up to: 6.2
  * WC requires at least: 6.0.0
- * WC tested up to: 7.7.0
+ * WC tested up to: 8.2.0
  * Woo: 669839:b73d2c19a6ff0f06485e0f11eb4bf922
  *
  * Text Domain: ns-fba-for-woocommerce
@@ -35,6 +35,10 @@ if ( function_exists( 'woothemes_queue_update' ) ) {
 // see: http://raveren.github.io/kint/ for more details.
 if ( ! class_exists( 'Kint', false ) ) {
 	require_once 'vendor/autoload.php';
+}
+
+if ( ! defined( 'NS_FBA_ABSPATH' ) ) {
+	define( 'NS_FBA_ABSPATH', dirname( __FILE__ ) . '/' );
 }
 
 // phpmailer for mail handling - primarily for notifications if shipment fails.
@@ -71,7 +75,7 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 			 *
 			 * @var string $version
 			 */
-			public $version = '4.1.9';
+			public $version = '4.1.9.2';
 
 			/**
 			 * The App name, primarily used for Amazon's record keeping as passed in the user_agent for example.
@@ -298,7 +302,8 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 				$this->init_paths();
 
 				// Load our helper class includes and the Amazon PHP libraries.
-				$this->require_all( $this->plugin_path . 'lib', 3 );
+				//$this->require_all( $this->plugin_path . 'lib', 3 );
+				$this->load_files();
 
 				add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
 				add_action( 'init', array( $this, 'init_test_upgrade' ) );
@@ -402,6 +407,8 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 					// Add 'Send to Amazon FBA' order meta box order action.
 					add_action( 'woocommerce_order_actions', array( $this->wc, 'add_order_meta_box_actions' ) );
 				}
+
+				$this->init_compatibility();
 
 				add_filter( 'woocommerce_shipping_methods', array( $this, 'ns_fba_shipping_methods' ) );
 			}
@@ -512,6 +519,29 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 						$this->require_all( $path, $depth + 1 );
 					}
 				}
+			}
+
+			/**
+			 * Load all required plugin files
+			 *
+			 * @return void
+			 */
+			private function load_files() {
+				require_once NS_FBA_ABSPATH . 'lib/abstract-ns-mcf-integration.php';
+				require_once NS_FBA_ABSPATH . 'lib/abstract-ns-mcf-compatibility.php';
+
+				require_once NS_FBA_ABSPATH . 'lib/class-ns-mcf-file.php';
+				require_once NS_FBA_ABSPATH . 'lib/class-ns-mcf-utils.php';
+				require_once NS_FBA_ABSPATH . 'lib/class-sp-api.php';
+				require_once NS_FBA_ABSPATH . 'lib/class-ns-mcf-logs.php';
+				require_once NS_FBA_ABSPATH . 'lib/class-ns-mcf-fulfillment.php';
+				require_once NS_FBA_ABSPATH . 'lib/class-ns-mcf-inventory.php';
+				require_once NS_FBA_ABSPATH . 'lib/class-ns-mcf-maintenance.php';
+				require_once NS_FBA_ABSPATH . 'lib/class-ns-mcf-tests.php';
+				require_once NS_FBA_ABSPATH . 'lib/class-ns-mcf-woocommerce.php';
+				require_once NS_FBA_ABSPATH . 'lib/class-wc-shipping-amazon.php';
+				
+				require_once NS_FBA_ABSPATH . 'lib/compatibility/class-ns-mcf-woo-subs.php';
 			}
 
 			/**
@@ -957,6 +987,17 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 				return $methods;
 
 			} // End function add_amazon_shipping_method
+
+			/**
+			 * Initialize compatibility classes
+			 *
+			 * @return void
+			 */
+			public function init_compatibility() {
+				NS_MCF_Woo_Subs::get_instance( $this );
+
+				do_action( 'ns_fba_init_compatibility' );
+			}
 
 		} // End class NS_FBA.
 

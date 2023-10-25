@@ -285,3 +285,19 @@ function wc_instagram_get_images_number( $context = '' ) {
 function wc_instagram_bool_to_string( $value ) {
 	return ( wc_string_to_bool( $value ) ? __( 'Yes', 'woocommerce-instagram' ) : __( 'No', 'woocommerce-instagram' ) );
 }
+
+/**
+ * Gets if the specified plugin is active.
+ *
+ * @since 4.5.0
+ *
+ * @param string $plugin Base plugin path from plugins directory.
+ * @return boolean True if the plugin is active. False otherwise.
+ */
+function wc_instagram_is_plugin_active( $plugin ) {
+	if ( ! function_exists( 'is_plugin_active' ) ) {
+		include_once ABSPATH . 'wp-admin/includes/plugin.php';
+	}
+
+	return is_plugin_active( $plugin );
+}

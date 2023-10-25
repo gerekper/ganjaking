@@ -1,17 +1,17 @@
 # Copyright (C) 2023 Wordfence
-# This file is distributed under the same license as the Wordfence Security plugin.
+# This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Wordfence Security 7.10.3\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordfence-zip-DRQa4hG9o\n"
+"Project-Id-Version: Wordfence Security 7.10.5\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordfence-zip-IZxdOOnOb\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-07-31T09:38:31-04:00\n"
+"POT-Creation-Date: 2023-10-23T15:37:50+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.4.0\n"
+"X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: wordfence\n"
 
 #. Plugin Name of the plugin
@@ -92,7 +92,7 @@ msgstr ""
 
 #: lib/dashboard/widget_countries.php:25
 #: lib/dashboard/widget_networkattacks.php:8
-#: lib/wfDiagnostic.php:872
+#: lib/wfDiagnostic.php:908
 msgid "Wordfence Network"
 msgstr ""
 
@@ -249,10 +249,11 @@ msgstr ""
 #: lib/wfScanEngine.php:1334
 #: lib/wfScanEngine.php:1477
 #: lib/wfScanEngine.php:1841
-#: lib/wfScanEngine.php:2087
-#: lib/wfScanEngine.php:2126
-#: lib/wfScanEngine.php:2327
-#: lib/wfScanEngine.php:2369
+#: lib/wfScanEngine.php:1960
+#: lib/wfScanEngine.php:2137
+#: lib/wfScanEngine.php:2176
+#: lib/wfScanEngine.php:2377
+#: lib/wfScanEngine.php:2419
 #: lib/wfVersionCheckController.php:69
 #: lib/wfVersionCheckController.php:92
 #: lib/wfVersionCheckController.php:168
@@ -491,11 +492,11 @@ msgstr ""
 #: lib/menu_tools_diagnostic.php:905
 #: lib/menu_tools_twoFactor.php:235
 #: lib/menu_tools_twoFactor.php:273
-#: lib/wordfenceClass.php:8269
-#: lib/wordfenceClass.php:8313
-#: lib/wordfenceClass.php:8377
-#: lib/wordfenceClass.php:8437
-#: lib/wordfenceClass.php:8483
+#: lib/wordfenceClass.php:8298
+#: lib/wordfenceClass.php:8342
+#: lib/wordfenceClass.php:8406
+#: lib/wordfenceClass.php:8466
+#: lib/wordfenceClass.php:8512
 #: modules/login-security/views/manage/deactivate.php:31
 #: modules/login-security/views/manage/regenerate.php:26
 #: views/blocking/block-list.php:501
@@ -727,8 +728,8 @@ msgstr ""
 #: lib/wfVersionCheckController.php:168
 #: lib/wfVersionCheckController.php:187
 #: lib/wordfenceClass.php:6576
-#: modules/login-security/classes/controller/wordfencels.php:487
-#: modules/login-security/classes/controller/wordfencels.php:499
+#: modules/login-security/classes/controller/wordfencels.php:490
+#: modules/login-security/classes/controller/wordfencels.php:502
 #: modules/login-security/views/options/option-roles.php:62
 #: views/blocking/blocking-create.php:528
 #: views/blocking/blocking-status.php:27
@@ -979,7 +980,7 @@ msgstr ""
 #: lib/menu_dashboard.php:67
 #: lib/menu_dashboard_options.php:111
 #: lib/menu_scanner.php:27
-#: lib/menu_scanner.php:295
+#: lib/menu_scanner.php:296
 #: lib/wordfenceClass.php:6834
 #: models/page/wfPage.php:113
 msgid "Scan"
@@ -1205,9 +1206,9 @@ msgstr ""
 #: lib/menu_firewall_waf.php:255
 #: lib/menu_firewall_waf.php:272
 #: lib/menu_firewall_waf.php:289
-#: lib/menu_scanner.php:303
-#: lib/menu_scanner.php:320
-#: lib/menu_scanner.php:372
+#: lib/menu_scanner.php:304
+#: lib/menu_scanner.php:321
+#: lib/menu_scanner.php:373
 #: views/tours/login-security.php:37
 #: views/tours/login-security.php:53
 msgid "Next"
@@ -1232,9 +1233,9 @@ msgstr ""
 #: lib/menu_firewall_waf.php:271
 #: lib/menu_firewall_waf.php:288
 #: lib/menu_firewall_waf.php:306
-#: lib/menu_scanner.php:319
-#: lib/menu_scanner.php:335
-#: lib/menu_scanner.php:386
+#: lib/menu_scanner.php:320
+#: lib/menu_scanner.php:336
+#: lib/menu_scanner.php:387
 #: views/tours/login-security.php:52
 #: views/tours/login-security.php:69
 msgid "Previous"
@@ -1255,8 +1256,8 @@ msgstr ""
 #: lib/menu_firewall_blocking.php:226
 #: lib/menu_firewall_waf.php:307
 #: lib/menu_firewall_waf.php:354
-#: lib/menu_scanner.php:336
-#: lib/menu_scanner.php:387
+#: lib/menu_scanner.php:337
+#: lib/menu_scanner.php:388
 #: lib/menu_tools_livetraffic.php:577
 #: lib/menu_tools_livetraffic.php:608
 msgid "Got it"
@@ -1551,10 +1552,10 @@ msgstr ""
 
 #: lib/menu_firewall_waf.php:69
 #: lib/menu_firewall_waf_options.php:176
-#: lib/wfDiagnostic.php:845
-#: lib/wfDiagnostic.php:939
-#: lib/wfDiagnostic.php:944
-#: lib/wfDiagnostic.php:948
+#: lib/wfDiagnostic.php:881
+#: lib/wfDiagnostic.php:975
+#: lib/wfDiagnostic.php:980
+#: lib/wfDiagnostic.php:984
 #: models/firewall/wfFirewall.php:35
 #: views/scanner/scan-scheduling.php:15
 #: views/waf/options-group-basic-firewall.php:481
@@ -1565,12 +1566,12 @@ msgstr ""
 
 #: lib/menu_firewall_waf.php:69
 #: lib/menu_firewall_waf_options.php:176
-#: lib/wfDiagnostic.php:939
-#: lib/wfDiagnostic.php:944
-#: lib/wfDiagnostic.php:948
+#: lib/wfDiagnostic.php:975
+#: lib/wfDiagnostic.php:980
+#: lib/wfDiagnostic.php:984
 #: lib/wordfenceClass.php:6286
 #: models/firewall/wfFirewall.php:41
-#: modules/login-security/classes/controller/wordfencels.php:499
+#: modules/login-security/classes/controller/wordfencels.php:502
 #: modules/login-security/views/options/option-roles.php:8
 #: views/scanner/scan-scheduling.php:14
 #: views/user/disabled-application-passwords.php:12
@@ -2454,12 +2455,12 @@ msgstr ""
 #: lib/wordfenceClass.php:6228
 #: lib/wordfenceClass.php:6230
 #: lib/wordfenceClass.php:6281
-#: lib/wordfenceClass.php:8294
-#: lib/wordfenceClass.php:8301
-#: lib/wordfenceClass.php:8408
-#: lib/wordfenceClass.php:8472
-#: modules/login-security/classes/controller/wordfencels.php:366
+#: lib/wordfenceClass.php:8323
+#: lib/wordfenceClass.php:8330
+#: lib/wordfenceClass.php:8437
+#: lib/wordfenceClass.php:8501
 #: modules/login-security/classes/controller/wordfencels.php:369
+#: modules/login-security/classes/controller/wordfencels.php:372
 #: views/dashboard/options-group-import.php:147
 #: views/dashboard/options-group-import.php:157
 #: views/dashboard/options-group-import.php:177
@@ -2468,39 +2469,39 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: lib/menu_scanner.php:296
+#: lib/menu_scanner.php:297
 msgid "A Wordfence scan looks for malware, malicious URLs, and patterns of infections by examining all of the files, posts, and comments on your WordPress website. It also checks your server and monitors your site's online reputation."
 msgstr ""
 
-#: lib/menu_scanner.php:310
+#: lib/menu_scanner.php:311
 msgid "Manage Scan Settings"
 msgstr ""
 
-#: lib/menu_scanner.php:312
+#: lib/menu_scanner.php:313
 msgid "Set up the way you want the scan to monitor your site security including custom scan configurations and scheduling."
 msgstr ""
 
-#: lib/menu_scanner.php:327
+#: lib/menu_scanner.php:328
 msgid "Start Your First Scan"
 msgstr ""
 
-#: lib/menu_scanner.php:328
+#: lib/menu_scanner.php:329
 msgid "By default, Wordfence will scan your site daily. Start your first scan now to see if your site has any security issues that need to be addressed. From here you can run manual scans any time you like."
 msgstr ""
 
-#: lib/menu_scanner.php:364
+#: lib/menu_scanner.php:365
 msgid "Scan Options &amp; Settings"
 msgstr ""
 
-#: lib/menu_scanner.php:366
+#: lib/menu_scanner.php:367
 msgid "All of your scan options, including scheduling, are now located here."
 msgstr ""
 
-#: lib/menu_scanner.php:379
+#: lib/menu_scanner.php:380
 msgid "Scan Progress and Activity"
 msgstr ""
 
-#: lib/menu_scanner.php:380
+#: lib/menu_scanner.php:381
 msgid "Track each scan stage as Wordfence scans your entire site. Along the way you can see the activity log one line at a time or expand the activity log for a more detailed view. Clicking on scan results will reveal detailed scan findings."
 msgstr ""
 
@@ -2647,8 +2648,8 @@ msgstr ""
 #: lib/menu_tools_twoFactor.php:14
 #: lib/menu_tools_twoFactor.php:23
 #: models/page/wfPage.php:117
-#: modules/login-security/classes/controller/wordfencels.php:878
-#: modules/login-security/classes/controller/wordfencels.php:879
+#: modules/login-security/classes/controller/wordfencels.php:881
+#: modules/login-security/classes/controller/wordfencels.php:882
 msgid "Two-Factor Authentication"
 msgstr ""
 
@@ -2738,21 +2739,21 @@ msgstr ""
 #: lib/menu_tools_diagnostic.php:218
 #: lib/menu_tools_diagnostic.php:265
 #: lib/wfDiagnostic.php:383
-#: lib/wfDiagnostic.php:912
-#: lib/wfDiagnostic.php:913
-#: lib/wfDiagnostic.php:926
-#: lib/wfDiagnostic.php:927
-#: lib/wfDiagnostic.php:940
-#: lib/wfDiagnostic.php:941
-#: lib/wfDiagnostic.php:942
-#: lib/wfDiagnostic.php:943
-#: lib/wfDiagnostic.php:957
-#: lib/wfDiagnostic.php:958
-#: lib/wfDiagnostic.php:959
-#: lib/wfDiagnostic.php:961
+#: lib/wfDiagnostic.php:948
+#: lib/wfDiagnostic.php:949
 #: lib/wfDiagnostic.php:962
 #: lib/wfDiagnostic.php:963
-#: lib/wfDiagnostic.php:968
+#: lib/wfDiagnostic.php:976
+#: lib/wfDiagnostic.php:977
+#: lib/wfDiagnostic.php:978
+#: lib/wfDiagnostic.php:979
+#: lib/wfDiagnostic.php:993
+#: lib/wfDiagnostic.php:994
+#: lib/wfDiagnostic.php:995
+#: lib/wfDiagnostic.php:997
+#: lib/wfDiagnostic.php:998
+#: lib/wfDiagnostic.php:999
+#: lib/wfDiagnostic.php:1004
 #: views/diagnostics/text.php:86
 #: views/diagnostics/text.php:131
 msgid "(not set)"
@@ -2808,8 +2809,8 @@ msgstr ""
 #: lib/menu_tools_diagnostic.php:367
 #: lib/menu_tools_diagnostic.php:423
 #: lib/menu_tools_diagnostic.php:466
-#: modules/login-security/classes/controller/users.php:570
-#: modules/login-security/classes/controller/wordfencels.php:483
+#: modules/login-security/classes/controller/users.php:539
+#: modules/login-security/classes/controller/wordfencels.php:486
 #: views/diagnostics/text.php:179
 #: views/diagnostics/text.php:217
 #: views/diagnostics/text.php:259
@@ -2820,8 +2821,8 @@ msgstr ""
 #: lib/menu_tools_diagnostic.php:326
 #: lib/menu_tools_diagnostic.php:425
 #: lib/menu_tools_diagnostic.php:468
-#: modules/login-security/classes/controller/users.php:579
-#: modules/login-security/classes/controller/wordfencels.php:483
+#: modules/login-security/classes/controller/users.php:548
+#: modules/login-security/classes/controller/wordfencels.php:486
 #: views/diagnostics/text.php:181
 #: views/diagnostics/text.php:259
 #: views/diagnostics/text.php:292
@@ -3016,7 +3017,7 @@ msgstr ""
 #: lib/menu_tools_diagnostic.php:706
 #: lib/wordfenceClass.php:6289
 #: modules/login-security/views/manage/activate.php:32
-#: modules/login-security/views/manage/activate.php:132
+#: modules/login-security/views/manage/activate.php:133
 #: modules/login-security/views/manage/regenerate.php:77
 msgid "Download"
 msgstr ""
@@ -3219,7 +3220,7 @@ msgid "Warning"
 msgstr ""
 
 #: lib/menu_tools_livetraffic.php:103
-#: lib/wfDiagnostic.php:809
+#: lib/wfDiagnostic.php:845
 #: lib/wordfenceClass.php:6266
 msgid "Blocked"
 msgstr ""
@@ -3237,23 +3238,23 @@ msgstr ""
 #: lib/wfDiagnostic.php:363
 #: lib/wfDiagnostic.php:395
 #: lib/wfDiagnostic.php:453
-#: lib/wfDiagnostic.php:909
-#: lib/wfDiagnostic.php:920
-#: lib/wfDiagnostic.php:922
-#: lib/wfDiagnostic.php:923
-#: lib/wfDiagnostic.php:936
-#: lib/wfDiagnostic.php:949
-#: lib/wfDiagnostic.php:950
-#: lib/wfDiagnostic.php:951
-#: lib/wfDiagnostic.php:952
-#: lib/wfDiagnostic.php:953
-#: lib/wfDiagnostic.php:954
+#: lib/wfDiagnostic.php:945
+#: lib/wfDiagnostic.php:956
+#: lib/wfDiagnostic.php:958
 #: lib/wfDiagnostic.php:959
-#: lib/wfDiagnostic.php:960
-#: lib/wfDiagnostic.php:961
-#: lib/wfDiagnostic.php:962
-#: lib/wfDiagnostic.php:963
-#: lib/wfDiagnostic.php:967
+#: lib/wfDiagnostic.php:972
+#: lib/wfDiagnostic.php:985
+#: lib/wfDiagnostic.php:986
+#: lib/wfDiagnostic.php:987
+#: lib/wfDiagnostic.php:988
+#: lib/wfDiagnostic.php:989
+#: lib/wfDiagnostic.php:990
+#: lib/wfDiagnostic.php:995
+#: lib/wfDiagnostic.php:996
+#: lib/wfDiagnostic.php:997
+#: lib/wfDiagnostic.php:998
+#: lib/wfDiagnostic.php:999
+#: lib/wfDiagnostic.php:1003
 #: views/onboarding/registration-prompt.php:51
 #: views/reports/activity-report-email-inline.php:270
 #: views/reports/activity-report.php:117
@@ -3264,19 +3265,19 @@ msgstr ""
 #: lib/wfDiagnostic.php:363
 #: lib/wfDiagnostic.php:395
 #: lib/wfDiagnostic.php:453
-#: lib/wfDiagnostic.php:909
-#: lib/wfDiagnostic.php:936
-#: lib/wfDiagnostic.php:949
-#: lib/wfDiagnostic.php:950
-#: lib/wfDiagnostic.php:951
-#: lib/wfDiagnostic.php:952
-#: lib/wfDiagnostic.php:953
-#: lib/wfDiagnostic.php:954
-#: lib/wfDiagnostic.php:959
-#: lib/wfDiagnostic.php:960
-#: lib/wfDiagnostic.php:962
-#: lib/wfDiagnostic.php:963
-#: lib/wfDiagnostic.php:967
+#: lib/wfDiagnostic.php:945
+#: lib/wfDiagnostic.php:972
+#: lib/wfDiagnostic.php:985
+#: lib/wfDiagnostic.php:986
+#: lib/wfDiagnostic.php:987
+#: lib/wfDiagnostic.php:988
+#: lib/wfDiagnostic.php:989
+#: lib/wfDiagnostic.php:990
+#: lib/wfDiagnostic.php:995
+#: lib/wfDiagnostic.php:996
+#: lib/wfDiagnostic.php:998
+#: lib/wfDiagnostic.php:999
+#: lib/wfDiagnostic.php:1003
 #: views/onboarding/registration-prompt.php:52
 #: views/reports/activity-report-email-inline.php:270
 #: views/reports/activity-report.php:117
@@ -3999,7 +4000,7 @@ msgstr ""
 
 #. translators: URL to the WordPress admin panel.
 #: lib/wfActivityReport.php:507
-#: lib/wfIssues.php:487
+#: lib/wfIssues.php:488
 msgid "No longer an administrator for this site? <a href=\"%s\" target=\"_blank\">Click here</a> to stop receiving security alerts."
 msgstr ""
 
@@ -4009,37 +4010,37 @@ msgid "Wordfence activity for %1$s on %2$s"
 msgstr ""
 
 #: lib/wfActivityReport.php:584
-#: lib/wordfenceClass.php:8705
+#: lib/wordfenceClass.php:8734
 msgid "Blocked because the IP is blocklisted"
 msgstr ""
 
 #. translators: Reason for firewall action.
 #: lib/wfActivityReport.php:587
-#: lib/wordfenceClass.php:8708
+#: lib/wordfenceClass.php:8737
 msgid "Blocked for %s"
 msgstr ""
 
 #. translators: 1. Reason for firewall action. 2. Input parameter. 2. Input parameter value.
 #: lib/wfActivityReport.php:599
-#: lib/wordfenceClass.php:8722
+#: lib/wordfenceClass.php:8751
 msgid "Blocked for %1$s in query string: %2$s = %3$s"
 msgstr ""
 
 #. translators: 1. Reason for firewall action. 2. Input parameter. 2. Input parameter value.
 #: lib/wfActivityReport.php:602
-#: lib/wordfenceClass.php:8727
+#: lib/wordfenceClass.php:8756
 msgid "Blocked for %1$s in POST body: %2$s = %3$s"
 msgstr ""
 
 #. translators: 1. Reason for firewall action. 2. Input parameter. 2. Input parameter value.
 #: lib/wfActivityReport.php:605
-#: lib/wordfenceClass.php:8732
+#: lib/wordfenceClass.php:8761
 msgid "Blocked for %1$s in cookie: %2$s = %3$s"
 msgstr ""
 
 #. translators: 1. Reason for firewall action. 2. Input parameter. 2. Input parameter value.
 #: lib/wfActivityReport.php:608
-#: lib/wordfenceClass.php:8737
+#: lib/wordfenceClass.php:8766
 msgid "Blocked for %1$s in file: %2$s = %3$s"
 msgstr ""
 
@@ -4053,7 +4054,7 @@ msgstr ""
 #: lib/wordfenceClass.php:6287
 #: lib/wordfenceClass.php:6542
 #: lib/wordfenceClass.php:6577
-#: lib/wordfenceClass.php:9285
+#: lib/wordfenceClass.php:9314
 msgid "Dismiss"
 msgstr ""
 
@@ -5197,32 +5198,32 @@ msgid "Zimbabwe"
 msgstr ""
 
 #. translators: 1. HTTP status code. 2. Error message.
-#: lib/wfCentralAPI.php:201
+#: lib/wfCentralAPI.php:212
 msgid "HTTP %1$d received from Wordfence Central: %2$s"
 msgstr ""
 
-#: lib/wfCentralAPI.php:257
+#: lib/wfCentralAPI.php:268
 msgid "Fetching token for Wordfence Central authentication due to configuration issue."
 msgstr ""
 
-#: lib/wfCentralAPI.php:266
-#: lib/wfCentralAPI.php:328
+#: lib/wfCentralAPI.php:277
+#: lib/wfCentralAPI.php:339
 msgid "Unable to authenticate with Wordfence Central."
 msgstr ""
 
-#: lib/wfCentralAPI.php:286
+#: lib/wfCentralAPI.php:297
 msgid "Wordfence Central site ID has not been created yet."
 msgstr ""
 
-#: lib/wfCentralAPI.php:290
+#: lib/wfCentralAPI.php:301
 msgid "Wordfence Central secret key has not been created yet."
 msgstr ""
 
-#: lib/wfCentralAPI.php:302
+#: lib/wfCentralAPI.php:313
 msgid "Invalid response received from Wordfence Central when fetching nonce."
 msgstr ""
 
-#: lib/wfCentralAPI.php:325
+#: lib/wfCentralAPI.php:336
 msgid "Invalid response received from Wordfence Central when fetching token."
 msgstr ""
 
@@ -5289,7 +5290,7 @@ msgid "Unable to remove code execution protections applied to the .htaccess file
 msgstr ""
 
 #: lib/wfConfig.php:1193
-#: lib/wordfenceClass.php:7757
+#: lib/wordfenceClass.php:7786
 #: modules/login-security/classes/controller/settings.php:214
 msgid "The grace period end time must be in the future."
 msgstr ""
@@ -5592,7 +5593,7 @@ msgid "Wordfence Network Time"
 msgstr ""
 
 #: lib/wfDiagnostic.php:141
-#: lib/wfDiagnostic.php:879
+#: lib/wfDiagnostic.php:915
 msgid "Server Time"
 msgstr ""
 
@@ -5631,9 +5632,9 @@ msgstr ""
 #: lib/wfDiagnostic.php:208
 #: lib/wfDiagnostic.php:370
 #: lib/wfDiagnostic.php:431
-#: lib/wfDiagnostic.php:929
-#: lib/wfDiagnostic.php:956
-#: lib/wfUpdateCheck.php:114
+#: lib/wfDiagnostic.php:965
+#: lib/wfDiagnostic.php:992
+#: lib/wfUpdateCheck.php:117
 #: views/scanner/issue-base.php:118
 msgid "None"
 msgstr ""
@@ -5699,18 +5700,18 @@ msgid "Unavailable"
 msgstr ""
 
 #: lib/wfDiagnostic.php:605
-#: lib/wfDiagnostic.php:911
-#: lib/wfDiagnostic.php:914
-#: lib/wfDiagnostic.php:915
+#: lib/wfDiagnostic.php:947
+#: lib/wfDiagnostic.php:950
+#: lib/wfDiagnostic.php:951
 #: views/waf/options-group-brute-force.php:42
 #: views/waf/options-group-rate-limiting.php:42
 msgid "On"
 msgstr ""
 
 #: lib/wfDiagnostic.php:605
-#: lib/wfDiagnostic.php:911
-#: lib/wfDiagnostic.php:914
-#: lib/wfDiagnostic.php:915
+#: lib/wfDiagnostic.php:947
+#: lib/wfDiagnostic.php:950
+#: lib/wfDiagnostic.php:951
 #: views/waf/options-group-brute-force.php:41
 #: views/waf/options-group-rate-limiting.php:41
 msgid "Off"
@@ -5730,362 +5731,370 @@ msgstr ""
 msgid "wp_remote_post() test back to this server failed! Response was: "
 msgstr ""
 
-#: lib/wfDiagnostic.php:675
+#: lib/wfDiagnostic.php:676
+msgid "Cloudflare appears to be blocking your site from connecting to itself."
+msgstr ""
+
+#: lib/wfDiagnostic.php:676
+msgid "Get help with Cloudflare compatibility"
+msgstr ""
+
+#: lib/wfDiagnostic.php:678
 msgid "This additional info may help you diagnose the issue. The response headers we received were:"
 msgstr ""
 
-#: lib/wfDiagnostic.php:704
-msgid "IPv6 DNS resolution failed"
-msgstr ""
-
 #. translators: error message from failed request
-#: lib/wfDiagnostic.php:705
+#: lib/wfDiagnostic.php:706
 msgid "This likely indicates that the server either does not support IPv6 or does not have an IPv6 address assigned or associated with the domain. Original error message: %s"
 msgstr ""
 
-#: lib/wfDiagnostic.php:714
+#: lib/wfDiagnostic.php:712
+msgid "IPv6 DNS resolution failed"
+msgstr ""
+
+#: lib/wfDiagnostic.php:722
 msgid "This diagnostic is unavailable as cURL appears to be supported, but was not used by WordPress for this request"
 msgstr ""
 
-#: lib/wfDiagnostic.php:720
+#: lib/wfDiagnostic.php:728
 msgid "This diagnostic requires cURL"
 msgstr ""
 
 #. translators: PHP super global key.
-#: lib/wfDiagnostic.php:740
+#: lib/wfDiagnostic.php:776
 msgid "We cannot read $_SERVER[%s]"
 msgstr ""
 
-#: lib/wfDiagnostic.php:752
+#: lib/wfDiagnostic.php:788
 msgid "Should be: "
 msgstr ""
 
-#: lib/wfDiagnostic.php:833
+#: lib/wfDiagnostic.php:869
 msgid "Disabled "
 msgstr ""
 
-#: lib/wfDiagnostic.php:835
+#: lib/wfDiagnostic.php:871
 msgid "(WORDFENCE_LS_DISABLE_NTP)"
 msgstr ""
 
-#: lib/wfDiagnostic.php:838
+#: lib/wfDiagnostic.php:874
 msgid "(failures exceeded limit)"
 msgstr ""
 
-#: lib/wfDiagnostic.php:841
+#: lib/wfDiagnostic.php:877
 msgid "(settings)"
 msgstr ""
 
-#: lib/wfDiagnostic.php:848
+#: lib/wfDiagnostic.php:884
 msgid " (%d of %d attempts remaining)"
 msgstr ""
 
-#: lib/wfDiagnostic.php:865
+#: lib/wfDiagnostic.php:901
 #: modules/login-security/views/options/option-ntp.php:8
 msgid "NTP"
 msgstr ""
 
-#: lib/wfDiagnostic.php:909
+#: lib/wfDiagnostic.php:945
 msgid "Return value of is_multisite()"
 msgstr ""
 
-#: lib/wfDiagnostic.php:910
+#: lib/wfDiagnostic.php:946
 msgid "WordPress base path"
 msgstr ""
 
-#: lib/wfDiagnostic.php:911
+#: lib/wfDiagnostic.php:947
 msgid "WordPress debug mode"
 msgstr ""
 
-#: lib/wfDiagnostic.php:912
+#: lib/wfDiagnostic.php:948
 msgid "WordPress error logging override"
 msgstr ""
 
-#: lib/wfDiagnostic.php:913
+#: lib/wfDiagnostic.php:949
 msgid "WordPress error display override"
 msgstr ""
 
-#: lib/wfDiagnostic.php:914
+#: lib/wfDiagnostic.php:950
 msgid "WordPress script debug mode"
 msgstr ""
 
-#: lib/wfDiagnostic.php:915
+#: lib/wfDiagnostic.php:951
 msgid "WordPress query debug mode"
 msgstr ""
 
-#: lib/wfDiagnostic.php:916
+#: lib/wfDiagnostic.php:952
 msgid "Database character set"
 msgstr ""
 
-#: lib/wfDiagnostic.php:917
+#: lib/wfDiagnostic.php:953
 msgid "Database collation"
 msgstr ""
 
-#: lib/wfDiagnostic.php:918
+#: lib/wfDiagnostic.php:954
 msgid "Explicitly set site URL"
 msgstr ""
 
-#: lib/wfDiagnostic.php:919
+#: lib/wfDiagnostic.php:955
 msgid "Explicitly set blog URL"
 msgstr ""
 
-#: lib/wfDiagnostic.php:920
+#: lib/wfDiagnostic.php:956
 msgid "\"wp-content\" folder is in default location"
 msgstr ""
 
 #. translators: WordPress content directory.
 #. translators: WordPress plugins directory.
 #. translators: WordPress languages directory.
-#: lib/wfDiagnostic.php:920
-#: lib/wfDiagnostic.php:922
-#: lib/wfDiagnostic.php:923
+#: lib/wfDiagnostic.php:956
+#: lib/wfDiagnostic.php:958
+#: lib/wfDiagnostic.php:959
 msgid "No: %s"
 msgstr ""
 
 #. translators: WordPress content directory.
-#: lib/wfDiagnostic.php:921
+#: lib/wfDiagnostic.php:957
 msgid "URL to the \"wp-content\" folder"
 msgstr ""
 
-#: lib/wfDiagnostic.php:922
+#: lib/wfDiagnostic.php:958
 msgid "\"plugins\" folder is in default location"
 msgstr ""
 
 #. translators: WordPress plugins directory.
-#: lib/wfDiagnostic.php:923
+#: lib/wfDiagnostic.php:959
 msgid "\"languages\" folder is in default location"
 msgstr ""
 
 #. translators: WordPress languages directory.
-#: lib/wfDiagnostic.php:924
+#: lib/wfDiagnostic.php:960
 msgid "Language choice"
 msgstr ""
 
-#: lib/wfDiagnostic.php:925
+#: lib/wfDiagnostic.php:961
 msgid "Custom upload folder location"
 msgstr ""
 
-#: lib/wfDiagnostic.php:926
+#: lib/wfDiagnostic.php:962
 msgid "Theme template folder override"
 msgstr ""
 
 #. translators: WordPress theme template directory.
 #. translators: WordPress theme stylesheet directory.
-#: lib/wfDiagnostic.php:926
-#: lib/wfDiagnostic.php:927
+#: lib/wfDiagnostic.php:962
+#: lib/wfDiagnostic.php:963
 msgid "Overridden: %s"
 msgstr ""
 
 #. translators: WordPress theme template directory.
-#: lib/wfDiagnostic.php:927
+#: lib/wfDiagnostic.php:963
 msgid "Theme stylesheet folder override"
 msgstr ""
 
 #. translators: WordPress theme stylesheet directory.
-#: lib/wfDiagnostic.php:928
+#: lib/wfDiagnostic.php:964
 msgid "Post editing automatic saving interval"
 msgstr ""
 
-#: lib/wfDiagnostic.php:929
+#: lib/wfDiagnostic.php:965
 msgid "Post revisions saved by WordPress"
 msgstr ""
 
-#: lib/wfDiagnostic.php:929
+#: lib/wfDiagnostic.php:965
 #: views/waf/options-group-rate-limiting.php:67
 msgid "Unlimited"
 msgstr ""
 
-#: lib/wfDiagnostic.php:930
+#: lib/wfDiagnostic.php:966
 msgid "WordPress cookie domain"
 msgstr ""
 
-#: lib/wfDiagnostic.php:931
+#: lib/wfDiagnostic.php:967
 msgid "WordPress cookie path"
 msgstr ""
 
-#: lib/wfDiagnostic.php:932
+#: lib/wfDiagnostic.php:968
 msgid "WordPress site cookie path"
 msgstr ""
 
-#: lib/wfDiagnostic.php:933
+#: lib/wfDiagnostic.php:969
 msgid "WordPress admin cookie path"
 msgstr ""
 
-#: lib/wfDiagnostic.php:934
+#: lib/wfDiagnostic.php:970
 msgid "WordPress plugins cookie path"
 msgstr ""
 
-#: lib/wfDiagnostic.php:935
+#: lib/wfDiagnostic.php:971
 msgid "URL redirected to if the visitor tries to access a nonexistent blog"
 msgstr ""
 
-#: lib/wfDiagnostic.php:936
+#: lib/wfDiagnostic.php:972
 msgid "Concatenate JavaScript files"
 msgstr ""
 
-#: lib/wfDiagnostic.php:937
+#: lib/wfDiagnostic.php:973
 msgid "WordPress memory limit"
 msgstr ""
 
-#: lib/wfDiagnostic.php:938
+#: lib/wfDiagnostic.php:974
 msgid "Administrative memory limit"
 msgstr ""
 
-#: lib/wfDiagnostic.php:939
+#: lib/wfDiagnostic.php:975
 msgid "Built-in caching"
 msgstr ""
 
-#: lib/wfDiagnostic.php:940
+#: lib/wfDiagnostic.php:976
 msgid "Custom \"users\" table"
 msgstr ""
 
 #. translators: WordPress custom user table.
 #. translators: WordPress custom user meta table.
-#: lib/wfDiagnostic.php:940
-#: lib/wfDiagnostic.php:941
+#: lib/wfDiagnostic.php:976
+#: lib/wfDiagnostic.php:977
 msgid "Set: %s"
 msgstr ""
 
 #. translators: WordPress custom user table.
-#: lib/wfDiagnostic.php:941
+#: lib/wfDiagnostic.php:977
 msgid "Custom \"usermeta\" table"
 msgstr ""
 
 #. translators: WordPress custom user meta table.
-#: lib/wfDiagnostic.php:942
+#: lib/wfDiagnostic.php:978
 msgid "Overridden permissions for a new folder"
 msgstr ""
 
-#: lib/wfDiagnostic.php:943
+#: lib/wfDiagnostic.php:979
 msgid "Overridden permissions for a new file"
 msgstr ""
 
-#: lib/wfDiagnostic.php:944
+#: lib/wfDiagnostic.php:980
 msgid "Alternate WP cron"
 msgstr ""
 
-#: lib/wfDiagnostic.php:945
+#: lib/wfDiagnostic.php:981
 msgid "WP cron status"
 msgstr ""
 
-#: lib/wfDiagnostic.php:945
+#: lib/wfDiagnostic.php:981
 msgid "Cron is disabled"
 msgstr ""
 
-#: lib/wfDiagnostic.php:945
+#: lib/wfDiagnostic.php:981
 msgid "Cron is enabled"
 msgstr ""
 
-#: lib/wfDiagnostic.php:946
+#: lib/wfDiagnostic.php:982
 msgid "Cron running frequency lock"
 msgstr ""
 
-#: lib/wfDiagnostic.php:947
+#: lib/wfDiagnostic.php:983
 msgid "Interval the trash is automatically emptied at in days"
 msgstr ""
 
-#: lib/wfDiagnostic.php:947
+#: lib/wfDiagnostic.php:983
 #: lib/wordfenceClass.php:4294
 msgid "Never"
 msgstr ""
 
-#: lib/wfDiagnostic.php:948
+#: lib/wfDiagnostic.php:984
 msgid "Automatic database repair"
 msgstr ""
 
-#: lib/wfDiagnostic.php:949
+#: lib/wfDiagnostic.php:985
 msgid "Do not upgrade global tables"
 msgstr ""
 
-#: lib/wfDiagnostic.php:950
+#: lib/wfDiagnostic.php:986
 msgid "Disallow plugin/theme editing"
 msgstr ""
 
-#: lib/wfDiagnostic.php:951
+#: lib/wfDiagnostic.php:987
 msgid "Disallow plugin/theme update and installation"
 msgstr ""
 
-#: lib/wfDiagnostic.php:952
+#: lib/wfDiagnostic.php:988
 msgid "Overwrite image edits when restoring the original"
 msgstr ""
 
-#: lib/wfDiagnostic.php:953
+#: lib/wfDiagnostic.php:989
 msgid "Force SSL for administrative logins"
 msgstr ""
 
-#: lib/wfDiagnostic.php:954
+#: lib/wfDiagnostic.php:990
 msgid "Block external URL requests"
 msgstr ""
 
-#: lib/wfDiagnostic.php:955
+#: lib/wfDiagnostic.php:991
 msgid "Allowlisted hosts"
 msgstr ""
 
-#: lib/wfDiagnostic.php:956
+#: lib/wfDiagnostic.php:992
 msgid "Automatic WP Core updates"
 msgstr ""
 
-#: lib/wfDiagnostic.php:956
+#: lib/wfDiagnostic.php:992
 msgid "Everything"
 msgstr ""
 
-#: lib/wfDiagnostic.php:956
+#: lib/wfDiagnostic.php:992
 msgid "Default"
 msgstr ""
 
-#: lib/wfDiagnostic.php:957
+#: lib/wfDiagnostic.php:993
 msgid "Hostname for a proxy server"
 msgstr ""
 
-#: lib/wfDiagnostic.php:958
+#: lib/wfDiagnostic.php:994
 msgid "Port for a proxy server"
 msgstr ""
 
-#: lib/wfDiagnostic.php:959
+#: lib/wfDiagnostic.php:995
 msgid "Multisite enabled"
 msgstr ""
 
-#: lib/wfDiagnostic.php:960
+#: lib/wfDiagnostic.php:996
 msgid "Multisite/network ability enabled"
 msgstr ""
 
-#: lib/wfDiagnostic.php:961
+#: lib/wfDiagnostic.php:997
 msgid "Multisite enabled, WordPress will load the /wp-content/sunrise.php file"
 msgstr ""
 
-#: lib/wfDiagnostic.php:962
+#: lib/wfDiagnostic.php:998
 msgid "Multisite enabled, subdomain installation constant"
 msgstr ""
 
-#: lib/wfDiagnostic.php:963
+#: lib/wfDiagnostic.php:999
 msgid "Multisite enabled, Older subdomain installation constant"
 msgstr ""
 
-#: lib/wfDiagnostic.php:964
+#: lib/wfDiagnostic.php:1000
 msgid "Defines the multisite domain for the current site"
 msgstr ""
 
-#: lib/wfDiagnostic.php:965
+#: lib/wfDiagnostic.php:1001
 msgid "Defines the multisite path for the current site"
 msgstr ""
 
-#: lib/wfDiagnostic.php:966
+#: lib/wfDiagnostic.php:1002
 msgid "Defines the multisite database ID for the current site"
 msgstr ""
 
-#: lib/wfDiagnostic.php:967
+#: lib/wfDiagnostic.php:1003
 msgid "Disable the fatal error handler"
 msgstr ""
 
-#: lib/wfDiagnostic.php:968
+#: lib/wfDiagnostic.php:1004
 msgid "Disables automatic updates"
 msgstr ""
 
-#: lib/wfDiagnostic.php:968
+#: lib/wfDiagnostic.php:1004
 msgid "Automatic updates disabled"
 msgstr ""
 
-#: lib/wfDiagnostic.php:968
+#: lib/wfDiagnostic.php:1004
 msgid "Automatic updates enabled"
 msgstr ""
 
@@ -6735,8 +6744,8 @@ msgstr ""
 
 #. translators: Scan result description.
 #: lib/wfScanEngine.php:1147
-#: lib/wfScanEngine.php:2329
-#: lib/wfScanEngine.php:2371
+#: lib/wfScanEngine.php:2379
+#: lib/wfScanEngine.php:2421
 msgid "Adding issue: %s"
 msgstr ""
 
@@ -6781,7 +6790,7 @@ msgid "Examining URLs found in posts we scanned for dangerous websites"
 msgstr ""
 
 #: lib/wfScanEngine.php:1292
-#: lib/wfScanEngine.php:2292
+#: lib/wfScanEngine.php:2342
 msgid "Done examining URLs"
 msgstr ""
 
@@ -6988,240 +6997,263 @@ msgstr ""
 msgid "Scanning for old themes, plugins and core files"
 msgstr ""
 
-#: lib/wfScanEngine.php:1942
+#. translators: error message.
+#: lib/wfScanEngine.php:1951
+msgid "The update check performed during the scan encountered an error: %s"
+msgstr ""
+
+#: lib/wfScanEngine.php:1953
+msgid "Wordfence cannot detect if the installed plugins and themes are up to date. This might be caused by a PHP compatibility issue in one or more plugins/themes."
+msgstr ""
+
+#: lib/wfScanEngine.php:1956
+msgid "Wordfence cannot detect if this plugin/theme is up to date. This might be caused by a PHP compatibility issue in the plugin."
+msgstr ""
+
+#. translators: Support URL.
+#: lib/wfScanEngine.php:1960
+#: lib/wfScanEngine.php:2137
+#: lib/wfScanEngine.php:2176
+#: lib/wfScanEngine.php:2377
+#: lib/wfScanEngine.php:2419
+msgid "<a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">Get more information.<span class=\"screen-reader-text\"> ("
+msgstr ""
+
+#: lib/wfScanEngine.php:1969
+msgid "Update Check Encountered Error"
+msgstr ""
+
+#. translators: plugin/theme slug.
+#: lib/wfScanEngine.php:1969
+msgid "Update Check Encountered Error on '%s'"
+msgstr ""
+
+#: lib/wfScanEngine.php:1988
 msgid "Your WordPress version is out of date"
 msgstr ""
 
 #. translators: Software version.
-#: lib/wfScanEngine.php:1943
+#: lib/wfScanEngine.php:1989
 msgid "WordPress version %s is now available. Please upgrade immediately to get the latest security updates from WordPress."
 msgstr ""
 
 #. translators: 1. Plugin name. 2. Software version. 3. Software version.
-#: lib/wfScanEngine.php:1970
+#: lib/wfScanEngine.php:2016
 msgid "The Plugin \"%1$s\" needs an upgrade (%2$s -> %3$s)."
 msgstr ""
 
 #. translators: Theme name.
-#: lib/wfScanEngine.php:1977
-#: lib/wfScanEngine.php:2011
+#: lib/wfScanEngine.php:2023
+#: lib/wfScanEngine.php:2057
 msgid "You need to upgrade \"%s\" to the newest version to ensure you have any security fixes the developer has released."
 msgstr ""
 
 #. translators: 1. Theme name. 2. Software version. 3. Software version.
-#: lib/wfScanEngine.php:2004
+#: lib/wfScanEngine.php:2050
 msgid "The Theme \"%1$s\" needs an upgrade (%2$s -> %3$s)."
 msgstr ""
 
 #. translators: 1. Plugin name. 2. Software version. 3. Software version.
-#: lib/wfScanEngine.php:2055
+#: lib/wfScanEngine.php:2105
 msgid "The Plugin \"%1$s\" appears to be abandoned (updated %2$s, tested to WP %3$s)."
 msgstr ""
 
 #. translators: 1. Plugin name. 2. Software version.
-#: lib/wfScanEngine.php:2062
+#: lib/wfScanEngine.php:2112
 msgid "It was last updated %1$s ago and tested up to WordPress %2$s."
 msgstr ""
 
 #. translators: 1. Plugin name. 2. Software version.
-#: lib/wfScanEngine.php:2069
+#: lib/wfScanEngine.php:2119
 msgid "The Plugin \"%1$s\" appears to be abandoned (updated %2$s)."
 msgstr ""
 
 #. translators: Time duration.
-#: lib/wfScanEngine.php:2075
+#: lib/wfScanEngine.php:2125
 msgid "It was last updated %s ago."
 msgstr ""
 
-#: lib/wfScanEngine.php:2081
-#: lib/wfScanEngine.php:2120
+#: lib/wfScanEngine.php:2131
+#: lib/wfScanEngine.php:2170
 msgid "It has unpatched security issues and may have compatibility problems with the current version of WordPress."
 msgstr ""
 
-#: lib/wfScanEngine.php:2083
-#: lib/wfScanEngine.php:2122
+#: lib/wfScanEngine.php:2133
+#: lib/wfScanEngine.php:2172
 msgid "Your site is still using this plugin, but it is not currently available on wordpress.org. Plugins can be removed from wordpress.org for various reasons. This can include benign issues like a plugin author discontinuing development or moving the plugin distribution to their own site, but some might also be due to security issues. In any case, future updates may or may not be available, so it is worth investigating the cause and deciding whether to temporarily or permanently replace or remove the plugin."
 msgstr ""
 
-#. translators: Support URL.
-#: lib/wfScanEngine.php:2087
-#: lib/wfScanEngine.php:2126
-#: lib/wfScanEngine.php:2327
-#: lib/wfScanEngine.php:2369
-msgid "<a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">Get more information.<span class=\"screen-reader-text\"> ("
-msgstr ""
-
 #. translators: Plugin name.
-#: lib/wfScanEngine.php:2118
+#: lib/wfScanEngine.php:2168
 msgid "The Plugin \"%s\" has been removed from wordpress.org but is still installed on your site."
 msgstr ""
 
-#: lib/wfScanEngine.php:2145
+#: lib/wfScanEngine.php:2195
 msgid "The Plugin \"%s\" has a security vulnerability."
 msgstr ""
 
-#: lib/wfScanEngine.php:2148
+#: lib/wfScanEngine.php:2198
 msgid "To protect your site from this vulnerability, the safest option is to deactivate and completely remove \"%s\" until a patched version is available. <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">Get more information.<span class=\"screen-reader-text\"> (opens in new tab)</span></a>"
 msgstr ""
 
-#: lib/wfScanEngine.php:2184
+#: lib/wfScanEngine.php:2234
 msgid "Scanning for admin users not created through WordPress"
 msgstr ""
 
 #. translators: WordPress username.
-#: lib/wfScanEngine.php:2206
+#: lib/wfScanEngine.php:2256
 msgid "An admin user with the username %s was created outside of WordPress."
 msgstr ""
 
 #. translators: WordPress username.
-#: lib/wfScanEngine.php:2207
+#: lib/wfScanEngine.php:2257
 msgid "An admin user with the username %s was created outside of WordPress. It's possible a plugin could have created the account, but if you do not recognize the user, we suggest you remove it."
 msgstr ""
 
 #. translators: WordPress username.
-#: lib/wfScanEngine.php:2233
+#: lib/wfScanEngine.php:2283
 msgid "An admin user with a suspicious username %s was found."
 msgstr ""
 
 #. translators: WordPress username.
-#: lib/wfScanEngine.php:2234
+#: lib/wfScanEngine.php:2284
 msgid "An admin user with a suspicious username %s was found. Administrators accounts with usernames similar to this are commonly seen created by hackers. It's possible a plugin could have created the account, but if you do not recognize the user, we suggest you remove it."
 msgstr ""
 
-#: lib/wfScanEngine.php:2255
+#: lib/wfScanEngine.php:2305
 msgid "Scanning for suspicious site options"
 msgstr ""
 
-#: lib/wfScanEngine.php:2290
+#: lib/wfScanEngine.php:2340
 msgid "Examining URLs found in the options we scanned for dangerous websites"
 msgstr ""
 
 #. translators: URL.
-#: lib/wfScanEngine.php:2314
-#: lib/wfScanEngine.php:2320
+#: lib/wfScanEngine.php:2364
+#: lib/wfScanEngine.php:2370
 msgid "Option contains a suspected malware URL: %s"
 msgstr ""
 
 #. translators: URL.
-#: lib/wfScanEngine.php:2315
+#: lib/wfScanEngine.php:2365
 msgid "This option contains a suspected malware URL listed on Google's list of malware sites. It may indicate your site is infected with malware. The URL is: %s"
 msgstr ""
 
 #. translators: URL.
-#: lib/wfScanEngine.php:2317
+#: lib/wfScanEngine.php:2367
 msgid "Option contains a suspected phishing site URL: %s"
 msgstr ""
 
 #. translators: URL.
-#: lib/wfScanEngine.php:2318
+#: lib/wfScanEngine.php:2368
 msgid "This option contains a URL that is a suspected phishing site that is currently listed on Google's list of known phishing sites. It may indicate your site is infected with malware. The URL is: %s"
 msgstr ""
 
 #. translators: URL.
-#: lib/wfScanEngine.php:2321
+#: lib/wfScanEngine.php:2371
 msgid "This option contains a URL that is currently listed on Wordfence's domain blocklist. It may indicate your site is infected with malware. The URL is: %s"
 msgstr ""
 
-#: lib/wfScanEngine.php:2361
+#: lib/wfScanEngine.php:2411
 msgid "Checking for future GeoIP support"
 msgstr ""
 
-#: lib/wfScanEngine.php:2366
+#: lib/wfScanEngine.php:2416
 msgid "PHP Update Needed for Country Blocking"
 msgstr ""
 
 #. translators: Software version.
-#: lib/wfScanEngine.php:2367
+#: lib/wfScanEngine.php:2417
 msgid "The GeoIP database that is required for country blocking has been updated to a new format. This new format requires sites to run PHP 5.4 or newer, and this site is on PHP %s. To ensure country blocking continues functioning, please update PHP."
 msgstr ""
 
-#: lib/wfScanEngine.php:2417
+#: lib/wfScanEngine.php:2467
 msgid "Previous scan was stopped successfully."
 msgstr ""
 
-#: lib/wfScanEngine.php:2418
+#: lib/wfScanEngine.php:2468
 msgid "Scan was stopped on administrator request."
 msgstr ""
 
-#: lib/wfScanEngine.php:2434
+#: lib/wfScanEngine.php:2484
 msgid "Entering start scan routine"
 msgstr ""
 
-#: lib/wfScanEngine.php:2437
+#: lib/wfScanEngine.php:2486
 msgid "A scan is already running. Use the stop scan button if you would like to terminate the current scan."
 msgstr ""
 
-#: lib/wfScanEngine.php:2453
+#: lib/wfScanEngine.php:2502
 msgid "Cached result for scan start test: %s"
 msgstr ""
 
 #. translators: Scan start test result data.
-#: lib/wfScanEngine.php:2469
+#: lib/wfScanEngine.php:2518
 msgid "Test result of scan start URL fetch: %s"
 msgstr ""
 
 #. translators: WordPress admin panel URL.
-#: lib/wfScanEngine.php:2482
+#: lib/wfScanEngine.php:2531
 msgid "Starting cron with normal ajax at URL %s"
 msgstr ""
 
 #. translators: Error message.
 #. translators: WordPress admin panel URL.
-#: lib/wfScanEngine.php:2506
-#: lib/wfScanEngine.php:2541
+#: lib/wfScanEngine.php:2555
+#: lib/wfScanEngine.php:2590
 msgid "There was an error starting the scan: %s."
 msgstr ""
 
-#: lib/wfScanEngine.php:2508
-#: lib/wfScanEngine.php:2543
+#: lib/wfScanEngine.php:2557
+#: lib/wfScanEngine.php:2592
 msgid "There was an unknown error starting the scan."
 msgstr ""
 
-#: lib/wfScanEngine.php:2515
-#: lib/wfScanEngine.php:2549
+#: lib/wfScanEngine.php:2564
+#: lib/wfScanEngine.php:2598
 msgid "Scan process ended after forking."
 msgstr ""
 
 #. translators: WordPress admin panel URL.
-#: lib/wfScanEngine.php:2519
+#: lib/wfScanEngine.php:2568
 msgid "Starting cron via proxy at URL %s"
 msgstr ""
 
 #. translators: Time in seconds.
-#: lib/wfScanEngine.php:2595
+#: lib/wfScanEngine.php:2644
 msgid "Got value from wf config maxExecutionTime: %s"
 msgstr ""
 
 #. translators: Time in seconds.
-#: lib/wfScanEngine.php:2599
+#: lib/wfScanEngine.php:2648
 msgid "getMaxExecutionTime() returning config value: %s"
 msgstr ""
 
 #. translators: PHP ini value.
-#: lib/wfScanEngine.php:2606
+#: lib/wfScanEngine.php:2655
 msgid "Got max_execution_time value from ini: %s"
 msgstr ""
 
 #. translators: 1. PHP ini setting. 2. Time in seconds.
-#: lib/wfScanEngine.php:2613
+#: lib/wfScanEngine.php:2662
 msgid "ini value of %1$d is higher than value for WORDFENCE_SCAN_MAX_INI_EXECUTION_TIME (%2$d), reducing"
 msgstr ""
 
 #. translators: PHP ini setting.
-#: lib/wfScanEngine.php:2623
+#: lib/wfScanEngine.php:2672
 msgid "getMaxExecutionTime() returning half ini value: %d"
 msgstr ""
 
-#: lib/wfScanEngine.php:2629
+#: lib/wfScanEngine.php:2678
 msgid "getMaxExecutionTime() returning default of: 15"
 msgstr ""
 
 #. translators: 1. HTTP status code.
-#: lib/wfScanEngine.php:2831
+#: lib/wfScanEngine.php:2880
 msgid "Got error response from Wordfence servers: %s"
 msgstr ""
 
-#: lib/wfScanEngine.php:2835
+#: lib/wfScanEngine.php:2884
 msgid "Invalid response from Wordfence servers."
 msgstr ""
 
@@ -7238,11 +7270,11 @@ msgid "Send Unlock Email"
 msgstr ""
 
 #. translators: 1. Plugin slug.
-#: lib/wfUpdateCheck.php:44
+#: lib/wfUpdateCheck.php:47
 msgid "Outdated plugin scan adjusted invalid return value in plugins_api filter for %s"
 msgstr ""
 
-#: lib/wfUpdateCheck.php:106
+#: lib/wfUpdateCheck.php:109
 #: views/dashboard/options-group-alert.php:73
 #: views/scanner/issue-base.php:32
 #: views/scanner/issue-base.php:41
@@ -7250,7 +7282,7 @@ msgstr ""
 msgid "Critical"
 msgstr ""
 
-#: lib/wfUpdateCheck.php:108
+#: lib/wfUpdateCheck.php:111
 #: views/dashboard/options-group-alert.php:74
 #: views/scanner/issue-base.php:33
 #: views/scanner/issue-base.php:42
@@ -7258,7 +7290,7 @@ msgstr ""
 msgid "High"
 msgstr ""
 
-#: lib/wfUpdateCheck.php:110
+#: lib/wfUpdateCheck.php:113
 #: views/dashboard/options-group-alert.php:75
 #: views/scanner/issue-base.php:34
 #: views/scanner/issue-base.php:43
@@ -7266,7 +7298,7 @@ msgstr ""
 msgid "Medium"
 msgstr ""
 
-#: lib/wfUpdateCheck.php:112
+#: lib/wfUpdateCheck.php:115
 #: views/dashboard/options-group-alert.php:76
 #: views/scanner/issue-base.php:35
 #: views/scanner/issue-base.php:44
@@ -7341,7 +7373,7 @@ msgid "Wordfence error: No encryption key found!"
 msgstr ""
 
 #. translators: Error message.
-#: lib/wfUtils.php:1453
+#: lib/wfUtils.php:1426
 msgid "Call to Wordfence API to resolve IPs failed: %s"
 msgstr ""
 
@@ -8028,7 +8060,7 @@ msgstr ""
 #: lib/wordfenceClass.php:5351
 #: lib/wordfenceClass.php:7555
 #: lib/wordfenceClass.php:7590
-#: lib/wordfenceClass.php:7622
+#: lib/wordfenceClass.php:7651
 msgid "We could not find that issue in our database."
 msgstr ""
 
@@ -8400,7 +8432,7 @@ msgid "File does not exist."
 msgstr ""
 
 #: lib/wordfenceClass.php:6229
-#: modules/login-security/classes/controller/wordfencels.php:368
+#: modules/login-security/classes/controller/wordfencels.php:371
 #: views/dashboard/options-group-import.php:167
 msgid "Reload"
 msgstr ""
@@ -8662,8 +8694,8 @@ msgid "Learn more about repairing modified files."
 msgstr ""
 
 #: lib/wordfenceClass.php:6319
-#: modules/login-security/classes/controller/wordfencels.php:483
-#: modules/login-security/classes/controller/wordfencels.php:845
+#: modules/login-security/classes/controller/wordfencels.php:486
+#: modules/login-security/classes/controller/wordfencels.php:848
 #: modules/login-security/views/manage/grace-period.php:22
 msgid "Locked Out"
 msgstr ""
@@ -8801,7 +8833,7 @@ msgid "Security Event"
 msgstr ""
 
 #: lib/wordfenceClass.php:6357
-#: modules/login-security/classes/controller/wordfencels.php:338
+#: modules/login-security/classes/controller/wordfencels.php:341
 msgid "Send"
 msgstr ""
 
@@ -8992,7 +9024,7 @@ msgid "You forgot to include a reason you're blocking this IP range. We ask you 
 msgstr ""
 
 #: lib/wordfenceClass.php:6400
-#: modules/login-security/classes/controller/wordfencels.php:393
+#: modules/login-security/classes/controller/wordfencels.php:396
 msgid "You have unsaved changes to your options. If you leave this page, those changes will be lost."
 msgstr ""
 
@@ -9298,6 +9330,8 @@ msgstr ""
 #: lib/wordfenceClass.php:7559
 #: lib/wordfenceClass.php:7563
 #: lib/wordfenceClass.php:7594
+#: lib/wordfenceClass.php:7621
+#: lib/wordfenceClass.php:7625
 msgid "We could not find that user in the database."
 msgstr ""
 
@@ -9305,232 +9339,241 @@ msgstr ""
 msgid "This user's email is the network admin email. It will need to be changed before deleting this user."
 msgstr ""
 
-#: lib/wordfenceClass.php:7631
+#: lib/wordfenceClass.php:7617
+msgid "We could not find that issue in the database."
+msgstr ""
+
+#: lib/wordfenceClass.php:7660
 msgid "Wordfence could not find your .htaccess file."
 msgstr ""
 
-#: lib/wordfenceClass.php:7647
+#: lib/wordfenceClass.php:7676
 msgid "Updating the .htaccess did not fix the issue. You may need to add <code>Options -Indexes</code> to your httpd.conf if using Apache, or find documentation on how to disable directory listing for your web server."
 msgstr ""
 
-#: lib/wordfenceClass.php:7653
+#: lib/wordfenceClass.php:7682
 msgid "There was an error writing to your .htaccess file."
 msgstr ""
 
-#: lib/wordfenceClass.php:7732
+#: lib/wordfenceClass.php:7761
 msgid "Required parameters not sent."
 msgstr ""
 
-#: lib/wordfenceClass.php:7742
+#: lib/wordfenceClass.php:7771
 msgid "The WAF is currently in read-only mode and will not save any configuration changes."
 msgstr ""
 
-#: lib/wordfenceClass.php:7780
+#: lib/wordfenceClass.php:7809
 #: views/waf/option-whitelist.php:60
 msgid "Allowlisted via Firewall Options page"
 msgstr ""
 
-#: lib/wordfenceClass.php:8067
+#: lib/wordfenceClass.php:8096
 msgid "Allowlisted via Live Traffic"
 msgstr ""
 
-#: lib/wordfenceClass.php:8231
-#: lib/wordfenceClass.php:8328
+#: lib/wordfenceClass.php:8260
+#: lib/wordfenceClass.php:8357
 msgid "A valid server configuration was not provided."
 msgstr ""
 
-#: lib/wordfenceClass.php:8242
-#: lib/wordfenceClass.php:8349
+#: lib/wordfenceClass.php:8271
+#: lib/wordfenceClass.php:8378
 msgid "Filesystem Credentials Required"
 msgstr ""
 
 #. translators: Support URL.
-#: lib/wordfenceClass.php:8244
-#: lib/wordfenceClass.php:8268
-#: lib/wordfenceClass.php:8312
+#: lib/wordfenceClass.php:8273
+#: lib/wordfenceClass.php:8297
+#: lib/wordfenceClass.php:8341
 msgid "If you cannot complete the setup process, <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"%s\">click here for help<span class=\"screen-reader-text\"> (opens in new tab)</span></a>"
 msgstr ""
 
 #. translators: Support URL.
-#: lib/wordfenceClass.php:8245
+#: lib/wordfenceClass.php:8274
 msgid "Once you have entered credentials, click Continue to complete the setup."
 msgstr ""
 
-#: lib/wordfenceClass.php:8266
-#: lib/wordfenceClass.php:8374
+#: lib/wordfenceClass.php:8295
+#: lib/wordfenceClass.php:8403
 msgid "Filesystem Permission Error"
 msgstr ""
 
-#: lib/wordfenceClass.php:8292
+#: lib/wordfenceClass.php:8321
 msgid "Manual Installation Instructions"
 msgstr ""
 
-#: lib/wordfenceClass.php:8299
+#: lib/wordfenceClass.php:8328
 msgid "Installation Successful"
 msgstr ""
 
-#: lib/wordfenceClass.php:8310
+#: lib/wordfenceClass.php:8339
 msgid "Installation Failed"
 msgstr ""
 
 #. translators: Support URL.
-#: lib/wordfenceClass.php:8351
-#: lib/wordfenceClass.php:8376
-#: lib/wordfenceClass.php:8407
+#: lib/wordfenceClass.php:8380
+#: lib/wordfenceClass.php:8405
 #: lib/wordfenceClass.php:8436
-#: lib/wordfenceClass.php:8482
+#: lib/wordfenceClass.php:8465
+#: lib/wordfenceClass.php:8511
 #: views/waf/waf-uninstall.php:13
 msgid "If you cannot complete the uninstall process, <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"%s\">click here for help<span class=\"screen-reader-text\"> (opens in new tab)</span></a>"
 msgstr ""
 
 #. translators: Support URL.
-#: lib/wordfenceClass.php:8352
+#: lib/wordfenceClass.php:8381
 msgid "Once you have entered credentials, click Continue to complete uninstallation."
 msgstr ""
 
-#: lib/wordfenceClass.php:8396
+#: lib/wordfenceClass.php:8425
 msgid "The <code>auto_prepend_file</code> setting has been successfully removed from <code>.htaccess</code> and <code>.user.ini</code>. Once this change takes effect, Extended Protection Mode will be disabled."
 msgstr ""
 
-#: lib/wordfenceClass.php:8398
+#: lib/wordfenceClass.php:8427
 msgid "Any previous value for <code>auto_prepend_file</code> will need to be re-enabled manually if still needed."
 msgstr ""
 
 #. translators: Time until.
-#: lib/wordfenceClass.php:8402
+#: lib/wordfenceClass.php:8431
 msgid "Waiting for it to take effect. This may take up to %s."
 msgstr ""
 
-#: lib/wordfenceClass.php:8405
+#: lib/wordfenceClass.php:8434
 msgid "Waiting for Changes"
 msgstr ""
 
-#: lib/wordfenceClass.php:8427
+#: lib/wordfenceClass.php:8456
 msgid "Extended Protection Mode has not been disabled. This may be because <code>auto_prepend_file</code> is configured somewhere else or the value is still cached by PHP."
 msgstr ""
 
-#: lib/wordfenceClass.php:8429
+#: lib/wordfenceClass.php:8458
 msgid "Retrying Failed."
 msgstr ""
 
-#: lib/wordfenceClass.php:8431
+#: lib/wordfenceClass.php:8460
 #: modules/login-security/views/settings/user-stats.php:75
 msgid "Try Again"
 msgstr ""
 
-#: lib/wordfenceClass.php:8434
+#: lib/wordfenceClass.php:8463
 msgid "Unable to Uninstall"
 msgstr ""
 
-#: lib/wordfenceClass.php:8470
+#: lib/wordfenceClass.php:8499
 msgid "Uninstallation Complete"
 msgstr ""
 
-#: lib/wordfenceClass.php:8480
+#: lib/wordfenceClass.php:8509
 msgid "Uninstallation Failed"
 msgstr ""
 
 #. translators: 1. Number of attacks/blocks. 2. Time since.
-#: lib/wordfenceClass.php:8688
+#: lib/wordfenceClass.php:8717
 msgid "The Wordfence Web Application Firewall has blocked %1$d attacks over the last %2$s."
 msgstr ""
 
-#: lib/wordfenceClass.php:8693
+#: lib/wordfenceClass.php:8722
 msgid "Wordfence is blocking these attacks, and we're sending this notice to make you aware that there is a higher volume of the attacks than usual. Additionally, the Wordfence Real-Time IP Blocklist can block known attackers' IP addresses automatically for Premium users, including any probing requests that may not be malicious on their own. All Wordfence users can also opt to block the attacking IPs manually if desired. As always, be sure to watch your scan results and keep your plugins, themes and WordPress core version updated."
 msgstr ""
 
-#: lib/wordfenceClass.php:8695
+#: lib/wordfenceClass.php:8724
 msgid "Below is a sample of these recent attacks:"
 msgstr ""
 
-#: lib/wordfenceClass.php:9277
+#: lib/wordfenceClass.php:9306
 msgid "An error was detected with this site's configuration that is preventing a successful connection to Wordfence Central. Disconnecting from Central <a href=\"%s\">on the Wordfence Dashboard</a> and reconnecting may resolve it. If the issue persists, please contact Wordfence support."
 msgstr ""
 
-#: lib/wordfenceClass.php:9284
+#: lib/wordfenceClass.php:9313
 msgid "To make your site as secure as possible, take a moment to optimize the Wordfence Web Application Firewall:"
 msgstr ""
 
-#: lib/wordfenceClass.php:9284
+#: lib/wordfenceClass.php:9313
 msgid "Click here to configure"
 msgstr ""
 
 #. translators: Support URL.
-#: lib/wordfenceClass.php:9287
+#: lib/wordfenceClass.php:9316
 msgid "If you cannot complete the setup process, <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"%s\">click here for help<span class=\"screen-reader-text\"> (opens in new tab)</span></a>."
 msgstr ""
 
-#: lib/wordfenceClass.php:9293
+#: lib/wordfenceClass.php:9322
 #: views/waf/waf-install-success.php:14
 msgid "Nice work! The firewall is now optimized."
 msgstr ""
 
-#: lib/wordfenceClass.php:9295
-#: lib/wordfenceClass.php:9307
+#: lib/wordfenceClass.php:9324
+#: lib/wordfenceClass.php:9336
 #: views/waf/waf-install-success.php:16
 #: views/waf/waf-uninstall-success.php:19
 msgid "The changes have not yet taken effect. If you are using LiteSpeed or IIS as your web server or CGI/FastCGI interface, you may need to wait a few minutes for the changes to take effect since the configuration files are sometimes cached. You also may need to select a different server configuration in order to complete this step, but wait for a few minutes before trying. You can try refreshing this page."
 msgstr ""
 
-#: lib/wordfenceClass.php:9301
+#: lib/wordfenceClass.php:9330
 #: views/waf/waf-uninstall-success.php:15
 msgid "Uninstallation was successful!"
 msgstr ""
 
-#: lib/wordfenceClass.php:9304
+#: lib/wordfenceClass.php:9333
 #: views/waf/waf-uninstall-success.php:17
 msgid "Uninstallation from this site was successful! The Wordfence Firewall is still active because it is installed in another WordPress installation."
 msgstr ""
 
-#: lib/wordfenceClass.php:9312
+#: lib/wordfenceClass.php:9341
 msgid "The update was successful!"
 msgstr ""
 
-#: lib/wordfenceClass.php:9462
+#: lib/wordfenceClass.php:9491
 msgid "Auth grant is invalid."
 msgstr ""
 
+#: lib/wordfenceClass.php:9509
+#: lib/wordfenceClass.php:9598
+msgid "Internal error when connecting to Wordfence Central (see server error log)"
+msgstr ""
+
 #. translators: Error message.
-#: lib/wordfenceClass.php:9477
+#: lib/wordfenceClass.php:9520
 msgid "Invalid response from Wordfence Central: %s"
 msgstr ""
 
 #. translators: JSON property.
-#: lib/wordfenceClass.php:9483
-#: lib/wordfenceClass.php:9496
+#: lib/wordfenceClass.php:9526
+#: lib/wordfenceClass.php:9539
 msgid "Invalid response from Wordfence Central. Parameter %s not found in response."
 msgstr ""
 
-#: lib/wordfenceClass.php:9525
-#: lib/wordfenceClass.php:9662
+#: lib/wordfenceClass.php:9568
+#: lib/wordfenceClass.php:9749
 msgid "Access token not found."
 msgstr ""
 
-#: lib/wordfenceClass.php:9570
-#: lib/wordfenceClass.php:9637
+#: lib/wordfenceClass.php:9627
+#: lib/wordfenceClass.php:9709
 msgid "Invalid response from Wordfence Central."
 msgstr ""
 
-#: lib/wordfenceClass.php:9613
+#: lib/wordfenceClass.php:9685
 msgid "Auth grant not found."
 msgstr ""
 
-#: lib/wordfenceClass.php:9883
+#: lib/wordfenceClass.php:9977
 msgid "We were unable to create the <code>wordfence-waf.php</code> file in the root of the WordPress installation. It's possible WordPress cannot write to the <code>wordfence-waf.php</code> file because of file permissions. Please verify the permissions are correct and retry the installation."
 msgstr ""
 
-#: lib/wordfenceClass.php:9975
-#: lib/wordfenceClass.php:10046
+#: lib/wordfenceClass.php:10069
+#: lib/wordfenceClass.php:10140
 msgid "We were unable to make changes to the .htaccess file. It's possible WordPress cannot write to the .htaccess file because of file permissions, which may have been set by another security plugin, or you may have set them manually. Please verify the permissions allow the web server to write to the file, and retry the installation."
 msgstr ""
 
 #. translators: File path.
-#: lib/wordfenceClass.php:10016
-#: lib/wordfenceClass.php:10064
+#: lib/wordfenceClass.php:10110
+#: lib/wordfenceClass.php:10158
 msgid "We were unable to make changes to the %1$s file. It's possible WordPress cannot write to the %1$s file because of file permissions. Please verify the permissions are correct and retry the installation."
 msgstr ""
 
-#: lib/wordfenceClass.php:10080
+#: lib/wordfenceClass.php:10174
 msgid "We were unable to remove the <code>wordfence-waf.php</code> file in the root of the WordPress installation. It's possible WordPress cannot remove the <code>wordfence-waf.php</code> file because of file permissions. Please verify the permissions are correct and retry the removal."
 msgstr ""
 
@@ -10380,275 +10423,275 @@ msgstr ""
 msgid "An error was encountered while validating the reCAPTCHA site key: %s"
 msgstr ""
 
-#: modules/login-security/classes/controller/users.php:549
-#: modules/login-security/classes/controller/wordfencels.php:479
+#: modules/login-security/classes/controller/users.php:518
+#: modules/login-security/classes/controller/wordfencels.php:482
 msgid "2FA Status"
 msgstr ""
 
-#: modules/login-security/classes/controller/users.php:553
+#: modules/login-security/classes/controller/users.php:522
 msgid "Last Login"
 msgstr ""
 
-#: modules/login-security/classes/controller/users.php:555
+#: modules/login-security/classes/controller/users.php:524
 msgid "Last CAPTCHA"
 msgstr ""
 
-#: modules/login-security/classes/controller/users.php:565
+#: modules/login-security/classes/controller/users.php:534
 msgid "Not Allowed"
 msgstr ""
 
-#: modules/login-security/classes/controller/users.php:573
+#: modules/login-security/classes/controller/users.php:542
 msgid "Inactive<small class=\"wfls-sub-status\">(Grace Period)</small>"
 msgstr ""
 
-#: modules/login-security/classes/controller/users.php:576
+#: modules/login-security/classes/controller/users.php:545
 msgid "Locked Out<small class=\"wfls-sub-status\">(Grace Period Disabled)</small>"
 msgstr ""
 
-#: modules/login-security/classes/controller/users.php:576
+#: modules/login-security/classes/controller/users.php:545
 msgid "Locked Out<small class=\"wfls-sub-status\">(Grace Period Exceeded)</small>"
 msgstr ""
 
-#: modules/login-security/classes/controller/users.php:592
+#: modules/login-security/classes/controller/users.php:561
 msgid "(not required)"
 msgstr ""
 
-#: modules/login-security/classes/controller/users.php:686
+#: modules/login-security/classes/controller/users.php:655
 msgid "Edit two-factor authentication for %s"
 msgstr ""
 
-#: modules/login-security/classes/controller/users.php:686
+#: modules/login-security/classes/controller/users.php:655
 #: modules/login-security/views/settings/options.php:9
 msgid "2FA"
 msgstr ""
 
-#: modules/login-security/classes/controller/users.php:697
+#: modules/login-security/classes/controller/users.php:666
 #: modules/login-security/views/settings/user-stats.php:25
 msgid "2FA Active"
 msgstr ""
 
-#: modules/login-security/classes/controller/users.php:698
+#: modules/login-security/classes/controller/users.php:667
 #: modules/login-security/views/settings/user-stats.php:26
 msgid "2FA Inactive"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:109
+#: modules/login-security/classes/controller/wordfencels.php:111
 msgid "Login Security: Enable 2FA for these roles"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:110
+#: modules/login-security/classes/controller/wordfencels.php:112
 msgid "Login Security: Allow remembering device for 30 days"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:111
+#: modules/login-security/classes/controller/wordfencels.php:113
 msgid "Login Security: Require 2FA for XML-RPC call authentication"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:112
+#: modules/login-security/classes/controller/wordfencels.php:114
 msgid "Login Security: Disable XML-RPC authentication"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:113
+#: modules/login-security/classes/controller/wordfencels.php:115
 msgid "Login Security: Allowlisted IP addresses that bypass 2FA and reCAPTCHA"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:114
+#: modules/login-security/classes/controller/wordfencels.php:116
 msgid "Login Security: Enable reCAPTCHA on the login and user registration pages"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:116
-#: modules/login-security/classes/controller/wordfencels.php:119
+#: modules/login-security/classes/controller/wordfencels.php:118
+#: modules/login-security/classes/controller/wordfencels.php:121
 msgid "Login Security Options"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:117
+#: modules/login-security/classes/controller/wordfencels.php:119
 msgid "Login Security options are available on the Login Security options page"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:189
+#: modules/login-security/classes/controller/wordfencels.php:191
 msgid "XML-RPC authentication is disabled. Jetpack is currently active and requires XML-RPC authentication to work correctly. <a href=\"%s\">Manage Settings</a>"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:193
+#: modules/login-security/classes/controller/wordfencels.php:195
 msgid "reCAPTCHA test mode is enabled. While enabled, login and registration requests will be checked for their score but will not be blocked if the score is below the minimum score. <a href=\"%s\">Manage Settings</a>"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:200
+#: modules/login-security/classes/controller/wordfencels.php:202
 msgid "WooCommerce appears to be installed, but the Wordfence Login Security WooCommerce integration is not currently enabled. Without this feature, WooCommerce forms will not support all functionality provided by Wordfence Login Security, including CAPTCHA for the login page and user registration."
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:201
+#: modules/login-security/classes/controller/wordfencels.php:203
 msgid "Manage Settings"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:337
+#: modules/login-security/classes/controller/wordfencels.php:340
 msgid "Message to Support"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:339
+#: modules/login-security/classes/controller/wordfencels.php:342
 msgid "An error was encountered while trying to send the message. Please try again."
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:340
+#: modules/login-security/classes/controller/wordfencels.php:343
 msgid "<strong>ERROR</strong>: An error was encountered while trying to send the message. Please try again."
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:341
+#: modules/login-security/classes/controller/wordfencels.php:344
 msgid "Wordfence 2FA Code"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:342
+#: modules/login-security/classes/controller/wordfencels.php:345
 msgid "Remember for 30 days"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:343
+#: modules/login-security/classes/controller/wordfencels.php:346
 msgid "Log In"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:344
+#: modules/login-security/classes/controller/wordfencels.php:347
 msgid "<strong>ERROR</strong>: An error was encountered while trying to authenticate. Please try again."
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:345
+#: modules/login-security/classes/controller/wordfencels.php:348
 msgid "The Wordfence 2FA Code can be found within the authenticator app you used when first activating two-factor authentication. You may also use one of your recovery codes."
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:476
+#: modules/login-security/classes/controller/wordfencels.php:479
 msgid "Wordfence Login Security"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:485
+#: modules/login-security/classes/controller/wordfencels.php:488
 #: modules/login-security/views/manage/grace-period.php:44
 msgid "Two-factor authentication is required for your account, but has not been configured."
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:485
+#: modules/login-security/classes/controller/wordfencels.php:488
 #: modules/login-security/views/manage/grace-period.php:45
 msgid "Two-factor authentication is required for this account, but has not been configured."
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:486
+#: modules/login-security/classes/controller/wordfencels.php:489
 msgid "Wordfence 2FA is active."
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:486
+#: modules/login-security/classes/controller/wordfencels.php:489
 msgid "Wordfence 2FA is inactive."
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:491
+#: modules/login-security/classes/controller/wordfencels.php:494
 msgid "Two-factor authentication must be activated for your account prior to %s to avoid losing access."
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:492
+#: modules/login-security/classes/controller/wordfencels.php:495
 msgid "Two-factor authentication must be activated for this account prior to %s."
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:495
+#: modules/login-security/classes/controller/wordfencels.php:498
 msgid "Manage 2FA"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:495
+#: modules/login-security/classes/controller/wordfencels.php:498
 msgid "Activate 2FA"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:499
+#: modules/login-security/classes/controller/wordfencels.php:502
 msgid "Two-factor authentication is not currently enabled for this account type. To enable it, visit the Wordfence 2FA Settings page."
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:516
+#: modules/login-security/classes/controller/wordfencels.php:519
 msgid "Manage 2FA Settings"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:662
+#: modules/login-security/classes/controller/wordfencels.php:665
 msgid "Login Verification Required"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:664
+#: modules/login-security/classes/controller/wordfencels.php:667
 msgid "<strong>VERIFICATION REQUIRED</strong>: Additional verification is required for login. Please check the email address associated with the account for a verification link."
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:682
+#: modules/login-security/classes/controller/wordfencels.php:685
 msgid "<strong>CODE INVALID</strong>: The 2FA code provided is either expired or invalid. Please try again."
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:691
+#: modules/login-security/classes/controller/wordfencels.php:694
 msgid "<strong>CODE REQUIRED</strong>: Please enter your 2FA code immediately after your password in the same field."
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:693
+#: modules/login-security/classes/controller/wordfencels.php:696
 msgid "<strong>CODE REQUIRED</strong>: Please provide your 2FA code when prompted."
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:696
+#: modules/login-security/classes/controller/wordfencels.php:699
 msgid "<strong>LOGIN BLOCKED</strong>: 2FA is required to be active on your account. Please contact the site administrator."
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:699
+#: modules/login-security/classes/controller/wordfencels.php:702
 msgid "You do not currently have two-factor authentication active on your account, which will be required beginning %s. <a href=\"%s\">Configure 2FA</a>"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:749
+#: modules/login-security/classes/controller/wordfencels.php:752
 msgid "Email verification succeeded. Please continue logging in."
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:752
+#: modules/login-security/classes/controller/wordfencels.php:755
 msgid "Email verification invalid or expired. Please try again."
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:806
 #: modules/login-security/classes/controller/wordfencels.php:809
+#: modules/login-security/classes/controller/wordfencels.php:812
 msgid "Login Security"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:837
+#: modules/login-security/classes/controller/wordfencels.php:840
 #: modules/login-security/views/settings/options.php:23
 #: modules/login-security/views/settings/user-stats.php:33
 msgid "Super Administrator"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:841
+#: modules/login-security/classes/controller/wordfencels.php:844
 #: modules/login-security/views/manage/grace-period.php:22
 #: modules/login-security/views/options/option-roles.php:57
 msgid "Grace Period"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:860
+#: modules/login-security/classes/controller/wordfencels.php:863
 msgid "Users without 2FA active (%s)"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:879
+#: modules/login-security/classes/controller/wordfencels.php:882
 msgid "Learn more<span class=\"wfls-hidden-xs\"> about Two-Factor Authentication</span>"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:888
+#: modules/login-security/classes/controller/wordfencels.php:891
 msgid "Settings"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:889
+#: modules/login-security/classes/controller/wordfencels.php:892
 msgid "Login Security Settings"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:889
+#: modules/login-security/classes/controller/wordfencels.php:892
 msgid "Learn more<span class=\"wfls-hidden-xs\"> about Login Security</span>"
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:915
+#: modules/login-security/classes/controller/wordfencels.php:918
 msgid "<strong>REGISTRATION ATTEMPT BLOCKED</strong>: This site requires a security token created when the page loads for all registration attempts. Please ensure JavaScript is enabled and try again."
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:922
+#: modules/login-security/classes/controller/wordfencels.php:925
 msgid "<strong>REGISTRATION ATTEMPT BLOCKED</strong>: The security token for the login attempt was invalid or expired. Please reload the page and try again."
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:935
+#: modules/login-security/classes/controller/wordfencels.php:938
 msgid "<strong>REGISTRATION BLOCKED</strong>: The registration request was blocked because it was flagged as spam. Please try again or <a href=\"#\" class=\"wfls-registration-captcha-contact\" data-token=\"%s\">contact the site owner</a> for help."
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:938
+#: modules/login-security/classes/controller/wordfencels.php:941
 msgid "<strong>REGISTRATION BLOCKED</strong>: The registration request was blocked because it was flagged as spam. Please try again or contact the site owner for help."
 msgstr ""
 
-#: modules/login-security/classes/controller/wordfencels.php:1008
+#: modules/login-security/classes/controller/wordfencels.php:1011
 msgid "Wordfence 2FA"
 msgstr ""
 
@@ -10726,7 +10769,7 @@ msgid "2. Enter Code from Authenticator App"
 msgstr ""
 
 #: modules/login-security/views/manage/activate.php:18
-#: modules/login-security/views/manage/activate.php:130
+#: modules/login-security/views/manage/activate.php:131
 msgid "Download Recovery Codes"
 msgstr ""
 
@@ -10758,20 +10801,20 @@ msgstr ""
 msgid "For help on setting up an app, visit our help article."
 msgstr ""
 
-#: modules/login-security/views/manage/activate.php:88
-#: modules/login-security/views/manage/activate.php:119
+#: modules/login-security/views/manage/activate.php:89
+#: modules/login-security/views/manage/activate.php:120
 msgid "Error Activating 2FA"
 msgstr ""
 
-#: modules/login-security/views/manage/activate.php:119
+#: modules/login-security/views/manage/activate.php:120
 msgid "An error was encountered while trying to activate two-factor authentication. Please try again."
 msgstr ""
 
-#: modules/login-security/views/manage/activate.php:131
+#: modules/login-security/views/manage/activate.php:132
 msgid "Reminder: If you lose access to your authenticator device, you can use recovery codes to log in. If you have not saved a copy of your recovery codes, we recommend downloading them now."
 msgstr ""
 
-#: modules/login-security/views/manage/activate.php:133
+#: modules/login-security/views/manage/activate.php:134
 msgid "Skip"
 msgstr ""
 
@@ -12531,7 +12574,7 @@ msgstr ""
 #: views/scanner/issue-spamvertizeCheck.php:12
 #: views/scanner/issue-spamvertizeCheck.php:19
 #: views/scanner/issue-suspiciousAdminUsers.php:12
-#: views/scanner/issue-suspiciousAdminUsers.php:21
+#: views/scanner/issue-suspiciousAdminUsers.php:22
 #: views/scanner/issue-timelimit.php:12
 #: views/scanner/issue-timelimit.php:19
 #: views/scanner/issue-wafStatus.php:14
@@ -12548,6 +12591,8 @@ msgstr ""
 #: views/scanner/issue-wfThemeUpgrade.php:32
 #: views/scanner/issue-wfUpgrade.php:15
 #: views/scanner/issue-wfUpgrade.php:29
+#: views/scanner/issue-wfUpgradeError.php:12
+#: views/scanner/issue-wfUpgradeError.php:20
 #: views/scanner/issue-wpscan_directoryList.php:14
 #: views/scanner/issue-wpscan_directoryList.php:25
 #: views/scanner/issue-wpscan_fullPathDiscl.php:14
@@ -12573,7 +12618,7 @@ msgstr ""
 #: views/scanner/issue-publiclyAccessible.php:19
 #: views/scanner/issue-skippedPaths.php:20
 #: views/scanner/issue-spamvertizeCheck.php:15
-#: views/scanner/issue-suspiciousAdminUsers.php:17
+#: views/scanner/issue-suspiciousAdminUsers.php:18
 #: views/scanner/issue-timelimit.php:15
 #: views/scanner/issue-wafStatus.php:17
 #: views/scanner/issue-wfPluginAbandoned.php:24
@@ -12582,6 +12627,7 @@ msgstr ""
 #: views/scanner/issue-wfPluginVulnerable.php:22
 #: views/scanner/issue-wfThemeUpgrade.php:23
 #: views/scanner/issue-wfUpgrade.php:21
+#: views/scanner/issue-wfUpgradeError.php:15
 #: views/scanner/issue-wpscan_directoryList.php:19
 #: views/scanner/issue-wpscan_fullPathDiscl.php:19
 msgid "Mark as Fixed"
@@ -12859,6 +12905,10 @@ msgstr ""
 msgid "Revoke Capabilities"
 msgstr ""
 
+#: views/scanner/issue-suspiciousAdminUsers.php:17
+msgid "Acknowledge User"
+msgstr ""
+
 #: views/scanner/issue-timelimit.php:8
 msgid "Time Limit"
 msgstr ""
@@ -12941,6 +12991,7 @@ msgid "Plugin Upgrade"
 msgstr ""
 
 #: views/scanner/issue-wfPluginUpgrade.php:10
+#: views/scanner/issue-wfUpgradeError.php:10
 msgid "Ignore Update"
 msgstr ""
 
@@ -12962,6 +13013,7 @@ msgstr ""
 #: views/scanner/issue-wfPluginUpgrade.php:25
 #: views/scanner/issue-wfThemeUpgrade.php:24
 #: views/scanner/issue-wfUpgrade.php:22
+#: views/scanner/issue-wfUpgradeError.php:16
 msgid "View Updates"
 msgstr ""
 
@@ -13009,6 +13061,10 @@ msgstr ""
 #: views/scanner/issue-wfUpgrade.php:13
 #: views/scanner/issue-wfUpgrade.php:27
 msgid "New WordPress Version"
+msgstr ""
+
+#: views/scanner/issue-wfUpgradeError.php:8
+msgid "Update Check Error"
 msgstr ""
 
 #: views/scanner/issue-wpscan_directoryList.php:8

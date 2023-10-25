@@ -56,13 +56,13 @@ class WC_AF_Rule_High_Value extends WC_AF_Rule {
 		Af_Logger::debug( 'high value status ' . print_r( $statuses, true ) );
 		$avg_order_total = 0;
 		$avg_order_val = $wpdb->get_var(
-				"SELECT AVG(PM.`meta_value`)
+			"SELECT AVG(PM.`meta_value`)
  			FROM $wpdb->postmeta PM
  			INNER JOIN $wpdb->posts P ON P.`ID` = PM.`post_id`
  			WHERE PM.`meta_key` = '_order_total' AND PM.`meta_value` > 0 AND P.`post_type` = 'shop_order'
 		AND P.`post_status` IN  ( 'wc-completed', 'wc-processing', 'wc-on-hold' ) ",
-				$statuses
-			);
+			$statuses
+		);
 		// Get the average order total
 		if ( ! empty( $avg_order_val ) ) {
 			$avg_order_total = round( $avg_order_total );

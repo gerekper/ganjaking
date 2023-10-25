@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Products display functions and filters.
  *
  * @class    WC_CP_Display
- * @version  8.10.2
+ * @version  8.10.4
  */
 class WC_CP_Display {
 
@@ -167,7 +167,7 @@ class WC_CP_Display {
 			wc_get_template( 'single-product/js/composite-navigation.php', array(), '', WC_CP()->plugin_path() . '/templates/' );
 			wc_get_template( 'single-product/js/composite-pagination.php', array(), '', WC_CP()->plugin_path() . '/templates/' );
 			wc_get_template( 'single-product/js/composite-status.php', array(), '', WC_CP()->plugin_path() . '/templates/' );
-			wc_get_template( 'single-product/js/validation-message.php', array(), '', WC_CP()->plugin_path() . '/templates/' );
+			wc_get_template( 'single-product/js/validation-message.php', array( 'is_block_editor_request' => WC_CP_Core_Compatibility::is_block_editor_api_request() ), '', WC_CP()->plugin_path() . '/templates/' );
 			wc_get_template( 'single-product/js/summary-element-content.php', array(), '', WC_CP()->plugin_path() . '/templates/' );
 			wc_get_template( 'single-product/js/options-dropdown.php', array(), '', WC_CP()->plugin_path() . '/templates/' );
 			wc_get_template( 'single-product/js/options-thumbnails.php', array(), '', WC_CP()->plugin_path() . '/templates/' );

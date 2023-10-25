@@ -237,6 +237,7 @@ echo wfView::create('scanner/site-cleaning-high-sense')->render();
 echo wfView::create('scanner/site-cleaning-beta-sigs')->render();
 echo wfView::create('scanner/no-issues')->render();
 echo wfView::create('scanner/issue-wfUpgrade')->render();
+echo wfView::create('scanner/issue-wfUpgradeError')->render();
 echo wfView::create('scanner/issue-wfPluginUpgrade')->render();
 echo wfView::create('scanner/issue-wfThemeUpgrade')->render();
 echo wfView::create('scanner/issue-wfPluginRemoved')->render();

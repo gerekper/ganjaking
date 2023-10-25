@@ -1024,7 +1024,18 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 	 * Check for GPay HTTP Notification
 	 */
 	public function check_ipn_response() {
+
 		@ob_clean(); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+		if ( isset( $_GET['checkout-price'] ) ) {
+			WC()->frontend_includes();
+			if ( null === WC()->cart && function_exists( 'wc_load_cart' ) ) {
+				wc_load_cart();
+			}
+			$total = WC()->cart->total;
+			echo wp_json_encode( array( 'total' => $total ) );
+			exit;
+		}
+
 		$_POST = stripslashes_deep( $_POST ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		if ( $this->check_ipn_request_is_valid() ) {
 			header( 'HTTP/1.1 200 OK' );

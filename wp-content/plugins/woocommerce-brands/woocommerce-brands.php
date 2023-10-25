@@ -9,7 +9,7 @@
  * Developer URI: http://woocommerce.com/
  * Requires at least: 5.4
  * Tested up to: 6.3
- * Version: 1.6.60
+ * Version: 1.6.61
  * Text Domain: woocommerce-brands
  * Domain Path: /languages/
  * WC tested up to: 8.2
@@ -51,12 +51,13 @@ add_action( 'plugins_loaded', 'wc_brands_init', 1 );
 // Automatic translations.
 add_filter( 'woocommerce_translations_updates_for_woocommerce-brands', '__return_true' );
 
-// HPOS compatibility declaration.
+// HPOS and new product editor compatibility declaration.
 add_action(
 	'before_woocommerce_init',
 	function() {
 		if ( class_exists( FeaturesUtil::class ) ) {
-			FeaturesUtil::declare_compatibility( 'custom_order_tables', plugin_basename( __FILE__ ), true );
+			FeaturesUtil::declare_compatibility( 'custom_order_tables', plugin_basename( __FILE__ ) );
+			FeaturesUtil::declare_compatibility( 'product_block_editor', plugin_basename( __FILE__ ) );
 		}
 	}
 );
@@ -70,7 +71,7 @@ function wc_brands_init() {
 		return;
 	}
 
-	define( 'WC_BRANDS_VERSION', '1.6.60' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_BRANDS_VERSION', '1.6.61' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Localisation

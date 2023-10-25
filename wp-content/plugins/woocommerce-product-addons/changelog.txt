@@ -1,5 +1,13 @@
 *** Product Addons Changelog ***
 
+2023-10-24 - version 6.5.0
+* New - Added onboarding.
+* Tweak - Important: Re-designed Product Data > Add-ons and Products > Add-ons tabs. 
+* Tweak - Important: Updated the process of importing/exporting add-ons to require fewer clicks.
+* Tweak - Important: Moved the 'Show incomplete subtotals' setting to WooCommerce > Settings > Products > Add-ons.
+* Fix - Resolved an issue that made add-ons show up twice when paying for failed subscription orders.
+* Tweak - Declared compatibility with the cart/checkout Blocks.
+
 2023-09-19 - version 6.4.7
 * Tweak - Used admin theme colors in admin.
 * Tweak - Displayed WC Admin bar on Global Product add-ons pages.

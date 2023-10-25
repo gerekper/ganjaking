@@ -230,7 +230,7 @@ function redsys_test_url_soap_test() {
 function redsys_real_url_soap_test() {
 
 	$exception_message = false;
-	$soap_client       = new SoapClient( 'https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl' );
+	$soap_client       = new SoapClient( 'https://sis.redsys.es:443/sis/services/SerClsWSEntradaV2?wsdl' );
 	try {
 		$result = $soap_client->__soapCall( 'trataPeticion', array() );
 	} catch ( SoapFault $fault ) {
@@ -262,7 +262,7 @@ function redsys_real_url_soap_test() {
 			),
 			'description' => sprintf(
 				'<p>%s</p>',
-				__( 'Normally this happens because your hosting is blocking outgoing SOAP calls, Please talk to your hosting and tell them to open SOAP. If they ask you the URL to which the plugin is trying to connect, it\'s https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl. If the hosting does not open the port, the plugin will not work correctly. .', 'woocommerce-redsys' )
+				__( 'Normally this happens because your hosting is blocking outgoing SOAP calls, Please talk to your hosting and tell them to open SOAP. If they ask you the URL to which the plugin is trying to connect, it\'s https://sis.redsys.es:443/sis/services/SerClsWSEntradaV2?wsdl. If the hosting does not open the port, the plugin will not work correctly. .', 'woocommerce-redsys' )
 			),
 			'actions'     => '',
 			'test'        => '',

@@ -19,4 +19,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $product;
 
 ?>
-<button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button composite_add_to_cart_button button alt"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
+<button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button composite_add_to_cart_button wp-element-button button alt"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>

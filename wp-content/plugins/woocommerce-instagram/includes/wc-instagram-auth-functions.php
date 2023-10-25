@@ -19,7 +19,7 @@ function wc_instagram_get_auth_url() {
 			'nonce'    => wp_create_nonce( 'wc_instagram_auth' ),
 			'redirect' => rawurlencode( wc_instagram_get_settings_url() ),
 		),
-		'https://connect.themesquad.com/facebook/login/'
+		'https://connect.koilab.com/facebook/login/'
 	);
 }
 
@@ -155,7 +155,7 @@ function wc_instagram_renew_access() {
 	}
 
 	$response = wp_remote_post(
-		'https://connect.themesquad.com/facebook/renew-access/',
+		'https://connect.koilab.com/facebook/renew-access/',
 		array(
 			'timeout' => 30,
 			'body'    => array(

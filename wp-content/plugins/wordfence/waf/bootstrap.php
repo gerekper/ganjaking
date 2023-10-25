@@ -837,8 +837,10 @@ if (!is_dir(WFWAF_LOG_PATH)) {
 
 
 try {
-
-	if (!defined('WFWAF_STORAGE_ENGINE') && (WF_IS_WP_ENGINE || WF_IS_FLYWHEEL)) {
+	if (!defined('WFWAF_STORAGE_ENGINE') && isset($_SERVER['WFWAF_STORAGE_ENGINE'])) {
+		define('WFWAF_STORAGE_ENGINE', $_SERVER['WFWAF_STORAGE_ENGINE']);
+	}
+	else if (!defined('WFWAF_STORAGE_ENGINE') && (WF_IS_WP_ENGINE || WF_IS_FLYWHEEL)) {
 		define('WFWAF_STORAGE_ENGINE', 'mysqli');
 	}
 
@@ -1019,10 +1021,15 @@ catch (Exception $e) { // In PHP 5, Throwable does not exist
 	);
 }
 catch (Throwable $t) {
-	error_log("An unexpected error occurred during WAF execution: {$t}");
-	$wf_waf_failure = array(
-		'throwable' => $t
-	);
+	error_log("An unexpected exception occurred during WAF execution: {$t}");
+	if (class_exists('ParseError') && $t instanceof ParseError) {
+		//Do nothing
+	}
+	else {
+		$wf_waf_failure = array(
+			'throwable' => $t
+		);
+	}
 }
 if (wfWAF::getInstance() === null) {
 	require_once __DIR__ . '/dummy.php';

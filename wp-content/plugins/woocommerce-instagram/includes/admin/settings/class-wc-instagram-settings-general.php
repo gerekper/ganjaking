@@ -406,21 +406,6 @@ class WC_Instagram_Settings_General extends WC_Instagram_Settings_API {
 	}
 
 	/**
-	 * Sanitizes the 'products_catalogs' field.
-	 *
-	 * @since 3.0.0
-	 * @deprecated 4.0.0
-	 *
-	 * @param mixed $value The field value.
-	 * @return array
-	 */
-	public function sanitize_product_catalogs( $value ) {
-		wc_deprecated_function( __FUNCTION__, '4.0.0' );
-
-		return $value;
-	}
-
-	/**
 	 * Sanitize the settings before save the option.
 	 *
 	 * @since 3.0.0
