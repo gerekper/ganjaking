@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     6.4.0
+ * @version     6.5.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -121,6 +121,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 			// Actions used to schedule sending of coupons.
 			add_action( 'wc_sc_send_scheduled_coupon_email', array( $this, 'send_scheduled_coupon_email' ), 10, 7 );
+			add_action( 'wc_sc_import_send_scheduled_coupon_email', array( $this, 'import_send_scheduled_coupon_email' ), 10, 5 );
 			add_action( 'publish_future_post', array( $this, 'process_published_scheduled_coupon' ) );
 			add_action( 'before_delete_post', array( $this, 'delete_scheduled_coupon_actions' ) );
 			add_action( 'admin_footer', array( $this, 'enqueue_admin_footer_scripts' ) );
@@ -609,7 +610,11 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			}
 
 			if ( ! empty( $coupon_id ) && ! empty( $ref_key ) && function_exists( 'as_schedule_single_action' ) ) {
-				$actions_id = as_schedule_single_action( $sending_timestamp, 'wc_sc_send_scheduled_coupon_email', $action_args );
+				if ( ! empty( $action_args['order_id'] ) ) {
+					$actions_id = as_schedule_single_action( $sending_timestamp, 'wc_sc_send_scheduled_coupon_email', $action_args );
+				} else {
+					$actions_id = as_schedule_single_action( $sending_timestamp, 'wc_sc_import_send_scheduled_coupon_email', $action_args );
+				}
 				if ( $actions_id ) {
 					$scheduled_actions_ids = $this->get_post_meta( $coupon_id, 'wc_sc_scheduled_actions_ids', true );
 					if ( empty( $scheduled_actions_ids ) || ! is_array( $scheduled_actions_ids ) ) {
@@ -726,6 +731,74 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 						}
 					}
 					if ( $this->is_callable( $coupon, 'save' ) ) {
+						$coupon->save();
+					}
+				}
+			}
+		}
+
+		/**
+		 * Function to send scheduled coupon's e-mail containing coupon code to receiver. It is triggered through Action Scheduler
+		 *
+		 * @param string $auto_generate is auto generated coupon.
+		 * @param int    $coupon_id Associated coupon id.
+		 * @param int    $parent_id Associated parent coupon id.
+		 * @param string $receiver_email receiver email.
+		 * @param string $ref_key timestamp based reference key.
+		 */
+		public function import_send_scheduled_coupon_email( $auto_generate = '', $coupon_id = 0, $parent_id = 0, $receiver_email = '', $ref_key = '' ) {
+
+			if ( ! empty( $coupon_id ) && ! empty( $receiver_email ) ) {
+
+				$coupon = new WC_Coupon( $coupon_id );
+
+				$coupon_status = ( $this->is_wc_greater_than( '6.1.2' ) && $this->is_callable( $coupon, 'get_status' ) ) ? $coupon->get_status() : get_post_status( $coupon_id );
+				if ( ! in_array( $coupon_status, array( 'publish', 'future' ), true ) ) {
+					return;
+				}
+
+				if ( is_a( $coupon, 'WC_Coupon' ) ) {
+					$is_update_coupon                    = false;
+					$is_callable_coupon_get_meta         = $this->is_callable( $coupon, 'get_meta' );
+					$is_callable_coupon_update_meta_data = $this->is_callable( $coupon, 'update_meta_data' );
+					if ( $this->is_wc_gte_30() ) {
+						$discount_type = $this->is_callable( $coupon, 'get_discount_type' ) ? $coupon->get_discount_type() : '';
+						$coupon_code   = $this->is_callable( $coupon, 'get_code' ) ? $coupon->get_code() : '';
+					} else {
+						$discount_type = ( ! empty( $coupon->discount_type ) ) ? $coupon->discount_type : '';
+						$coupon_code   = ( ! empty( $coupon->code ) ) ? $coupon->code : '';
+					}
+
+					$coupon_amount = $this->get_amount( $coupon, true );
+
+					$coupon_details = array(
+						$receiver_email => array(
+							'parent' => $parent_id,
+							'code'   => $coupon_code,
+							'amount' => $coupon_amount,
+						),
+					);
+
+					$this->sa_email_coupon( $coupon_details, $discount_type, 0 );
+
+					if ( ! empty( $ref_key ) ) {
+						$scheduled_actions_ids = ( true === $is_callable_coupon_get_meta ) ? $coupon->get_meta( 'wc_sc_scheduled_actions_ids' ) : $this->get_post_meta( $coupon_id, 'wc_sc_scheduled_actions_ids', true );
+						if ( isset( $scheduled_actions_ids[ $ref_key ] ) ) {
+							unset( $scheduled_actions_ids[ $ref_key ] );
+						}
+						if ( ! empty( $scheduled_actions_ids ) ) {
+							if ( true === $is_callable_coupon_update_meta_data ) {
+								$coupon->update_meta_data( 'wc_sc_scheduled_actions_ids', $scheduled_actions_ids );
+								$is_update_coupon = true;
+							} else {
+								$this->update_post_meta( $coupon_id, 'wc_sc_scheduled_actions_ids', $scheduled_actions_ids );
+							}
+						} else {
+							// Delete scheduled action ids meta since it is empty now.
+							$this->delete_post_meta( $coupon_id, 'wc_sc_scheduled_actions_ids', null, $coupon );
+						}
+					}
+					if ( true === $is_update_coupon && $this->is_callable( $coupon, 'save' ) ) {
 						$coupon->save();
 					}
 				}
@@ -6758,7 +6831,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		public function upgrader_process_complete( $upgrader = null, $hook_extra = array() ) {
 			if ( ! empty( $hook_extra['type'] ) && 'plugin' === $hook_extra['type']
 				&& ! empty( $upgrader->result['destination_name'] ) && 'woocommerce-smart-coupons' === $upgrader->result['destination_name']
-				&& ! empty( $upgrader->new_plugin_data['Woo'] && '18729:05c45f2aa466106a466de4402fff9dde' === $upgrader->new_plugin_data['Woo'] )
+				&& isset( $upgrader->new_plugin_data['Woo'] ) && ! empty( $upgrader->new_plugin_data['Woo'] && '18729:05c45f2aa466106a466de4402fff9dde' === $upgrader->new_plugin_data['Woo'] )
 			) {
 				if ( $this->is_sc_gte( '8.0.0' ) ) {
 					$this->maybe_sync_orders_prior_to_800();
@@ -6875,13 +6948,45 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		}
 
 		/**
+		 * Get current version of the plugin.
+		 *
+		 * @return string
+		 */
+		public function get_version() {
+			if ( empty( $this->plugin_data ) ) {
+				$this->plugin_data = self::get_smart_coupons_plugin_data();
+			}
+			return $this->plugin_data['Version'];
+		}
+
+		/**
 		 * Function to compare with current version of Smart Coupons
 		 *
 		 * @param string $version Version number to compare.
 		 * @return bool
 		 */
 		public function is_sc_gte( $version ) {
-			return version_compare( $this->plugin_data['Version'], $version, '>=' );
+			return version_compare( $this->get_version(), $version, '>=' );
+		}
+
+		/**
+		 * Get the url of path with respect to plugin.
+		 *
+		 * @param string $path The path.
+		 * @return string
+		 */
+		public function get_plugin_directory_url( $path = '' ) {
+			return plugins_url( $path, WC_SC_PLUGIN_FILE );
+		}
+
+		/**
+		 * Get the path with respect to plugin.
+		 *
+		 * @param string $path The path.
+		 * @return string
+		 */
+		public function get_plugin_directory( $path = '' ) {
+			return plugin_dir_path( WC_SC_PLUGIN_FILE ) . trim( $path, '/' );
 		}
 
 		/**

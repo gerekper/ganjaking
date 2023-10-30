@@ -4,6 +4,7 @@ if (!defined('ABSPATH')) exit;
 $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 return array(
+ '1f155afceeab454b94183cdd8d5248a6' => $vendorDir . '/mixpanel/mixpanel-php/lib/Mixpanel.php',
  'e65c52a9094ad098d9369d5cad5421fa' => $baseDir . '/lib/exceptions.php',
  '4407d0da6f795e11445a92772e35fd6a' => $baseDir . '/vendor-prefixed/symfony/polyfill-ctype/bootstrap.php',
  '766fdd1f275feb3306ba0045c4fcf600' => $baseDir . '/vendor-prefixed/symfony/polyfill-iconv/bootstrap.php',

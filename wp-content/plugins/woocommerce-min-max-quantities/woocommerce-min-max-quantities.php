@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Min/Max Quantities
  * Plugin URI: https://woocommerce.com/products/minmax-quantities/
  * Description: Define minimum/maximum allowed quantities for products, variations and orders.
- * Version: 4.1.1
+ * Version: 4.1.2
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Requires at least: 4.4
@@ -24,7 +24,7 @@
 
 if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 
-	define( 'WC_MIN_MAX_QUANTITIES', '4.1.1' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_MIN_MAX_QUANTITIES', '4.1.2' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Min Max Quantities class.
@@ -169,6 +169,9 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 
 			// Declare HPOS compatibility.
 			add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
+
+			// Declare Blocks compatibility.
+			add_action( 'before_woocommerce_init', array( $this, 'declare_blocks_compatibility' ) );
 		}
 
 		/**
@@ -246,6 +249,19 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 			}
 
 			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
+
+		/**
+		 * Declare cart/checkout Blocks compatibility.
+		 *
+		 * @since 4.1.2
+		 */
+		public function declare_blocks_compatibility () {
+			if ( ! class_exists( 'Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+				return;
+			}
+
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', __FILE__, true );
 		}
 
 		/**

@@ -348,7 +348,7 @@ class Hooks {
 
     $this->wp->addAction('before_woocommerce_init', [
       $this->hooksWooCommerce,
-      'declareHposCompatibility',
+      'declareWooCompatibility',
     ]);
 
     $this->wp->addAction('init', [

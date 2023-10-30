@@ -2,6 +2,9 @@
 if (!defined('ABSPATH')) exit;
 class ActionScheduler_ActionFactory {
  public function get_stored_action( $status, $hook, array $args = array(), ActionScheduler_Schedule $schedule = null, $group = '' ) {
+ // The 6th parameter ($priority) is not formally declared in the method signature to maintain compatibility with
+ // third-party subclasses created before this param was added.
+ $priority = func_num_args() >= 6 ? (int) func_get_arg( 5 ) : 10;
  switch ( $status ) {
  case ActionScheduler_Store::STATUS_PENDING:
  $action_class = 'ActionScheduler_Action';
@@ -18,7 +21,8 @@ class ActionScheduler_ActionFactory {
  }
  $action_class = apply_filters( 'action_scheduler_stored_action_class', $action_class, $status, $hook, $args, $schedule, $group );
  $action = new $action_class( $hook, $args, $schedule, $group );
- return apply_filters( 'action_scheduler_stored_action_instance', $action, $hook, $args, $schedule, $group );
+ $action->set_priority( $priority );
+ return apply_filters( 'action_scheduler_stored_action_instance', $action, $hook, $args, $schedule, $group, $priority );
  }
  public function async( $hook, $args = array(), $group = '' ) {
  return $this->async_unique( $hook, $args, $group, false );
@@ -71,7 +75,49 @@ class ActionScheduler_ActionFactory {
  $schedule_class = get_class( $schedule );
  $new_schedule = new $schedule( $next, $schedule->get_recurrence(), $schedule->get_first_date() );
  $new_action = new ActionScheduler_Action( $action->get_hook(), $action->get_args(), $new_schedule, $action->get_group() );
+ $new_action->set_priority( $action->get_priority() );
  return $this->store( $new_action );
+ }
+ public function create( array $options = array() ) {
+ $defaults = array(
+ 'type' => 'single',
+ 'hook' => '',
+ 'arguments' => array(),
+ 'group' => '',
+ 'unique' => false,
+ 'when' => time(),
+ 'pattern' => null,
+ 'priority' => 10,
+ );
+ $options = array_merge( $defaults, $options );
+ // Cron/recurring actions without a pattern are treated as single actions (this gives calling code the ability
+ // to use functions like as_schedule_recurring_action() to schedule recurring as well as single actions).
+ if ( ( 'cron' === $options['type'] || 'recurring' === $options['type'] ) && empty( $options['pattern'] ) ) {
+ $options['type'] = 'single';
+ }
+ switch ( $options['type'] ) {
+ case 'async':
+ $schedule = new ActionScheduler_NullSchedule();
+ break;
+ case 'cron':
+ $date = as_get_datetime_object( $options['when'] );
+ $cron = CronExpression::factory( $options['pattern'] );
+ $schedule = new ActionScheduler_CronSchedule( $date, $cron );
+ break;
+ case 'recurring':
+ $date = as_get_datetime_object( $options['when'] );
+ $schedule = new ActionScheduler_IntervalSchedule( $date, $options['pattern'] );
+ break;
+ case 'single':
+ $date = as_get_datetime_object( $options['when'] );
+ $schedule = new ActionScheduler_SimpleSchedule( $date );
+ break;
+ default:
+ throw new Exception( "Unknown action type '{$options['type']}' specified when trying to create an action for '{$options['hook']}'." );
+ }
+ $action = new ActionScheduler_Action( $options['hook'], $options['arguments'], $schedule, $options['group'] );
+ $action->set_priority( $options['priority'] );
+ return $options['unique'] ? $this->store_unique_action( $action ) : $this->store( $action );
  }
  protected function store( ActionScheduler_Action $action ) {
  $store = ActionScheduler_Store::instance();

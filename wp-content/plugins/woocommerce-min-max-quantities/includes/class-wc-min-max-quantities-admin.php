@@ -6,6 +6,11 @@
 class WC_Min_Max_Quantities_Admin {
 
 	/**
+	 * Plugin settings.
+	 */
+	public $settings = array();
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
@@ -190,13 +195,13 @@ class WC_Min_Max_Quantities_Admin {
 
 		// WooCommerce core debt.
 		// phpcs:disable WordPress.Security.NonceVerification.Missing
-		$min_max_rules                    = isset( $_POST[ 'min_max_rules' ] ) ? array_map( 'sanitize_text_field', $_POST[ 'min_max_rules' ] ) : null;
-		$minimum_allowed_quantity         = isset( $_POST[ 'variation_minimum_allowed_quantity' ] ) ? array_map( 'sanitize_text_field', $_POST[ 'variation_minimum_allowed_quantity' ] ) : '';
-		$maximum_allowed_quantity         = isset( $_POST[ 'variation_maximum_allowed_quantity' ] ) ? array_map( 'sanitize_text_field', $_POST[ 'variation_maximum_allowed_quantity' ] ) : '';
-		$group_of_quantity                = isset( $_POST[ 'variation_group_of_quantity' ] ) ? array_map( 'sanitize_text_field', $_POST[ 'variation_group_of_quantity' ] ) : '';
-		$minmax_do_not_count              = isset( $_POST[ 'variation_minmax_do_not_count' ] ) ? array_map( 'sanitize_text_field', $_POST[ 'variation_minmax_do_not_count' ] ) : null;
-		$minmax_cart_exclude              = isset( $_POST[ 'variation_minmax_cart_exclude' ] ) ? array_map( 'sanitize_text_field', $_POST[ 'variation_minmax_cart_exclude' ] ) : null;
-		$minmax_category_group_of_exclude = isset( $_POST[ 'variation_minmax_category_group_of_exclude' ] ) ? array_map( 'sanitize_text_field', $_POST[ 'variation_minmax_category_group_of_exclude' ] ) : null;
+		$min_max_rules                    = isset( $_POST[ 'min_max_rules' ] ) ? array_map( 'sanitize_text_field', $_POST[ 'min_max_rules' ] ) : array();
+		$minimum_allowed_quantity         = isset( $_POST[ 'variation_minimum_allowed_quantity' ] ) ? array_map( 'sanitize_text_field', $_POST[ 'variation_minimum_allowed_quantity' ] ) : array();
+		$maximum_allowed_quantity         = isset( $_POST[ 'variation_maximum_allowed_quantity' ] ) ? array_map( 'sanitize_text_field', $_POST[ 'variation_maximum_allowed_quantity' ] ) : array();
+		$group_of_quantity                = isset( $_POST[ 'variation_group_of_quantity' ] ) ? array_map( 'sanitize_text_field', $_POST[ 'variation_group_of_quantity' ] ) : array();
+		$minmax_do_not_count              = isset( $_POST[ 'variation_minmax_do_not_count' ] ) ? array_map( 'sanitize_text_field', $_POST[ 'variation_minmax_do_not_count' ] ) : array();
+		$minmax_cart_exclude              = isset( $_POST[ 'variation_minmax_cart_exclude' ] ) ? array_map( 'sanitize_text_field', $_POST[ 'variation_minmax_cart_exclude' ] ) : array();
+		$minmax_category_group_of_exclude = isset( $_POST[ 'variation_minmax_category_group_of_exclude' ] ) ? array_map( 'sanitize_text_field', $_POST[ 'variation_minmax_category_group_of_exclude' ] ) : array();
 
 		if ( isset( $min_max_rules[ $i ] ) ) {
 			update_post_meta( $variation_id, 'min_max_rules', 'yes' );

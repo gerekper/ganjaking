@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     4.1.0
+ * @version     4.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1065,6 +1065,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 						if ( ( 'no' === $sc_disable_email_restriction || empty( $sc_disable_email_restriction ) ) && true === $is_update_email_restrictions ) {
 							if ( $this->is_callable( $coupon, 'set_defaults' ) && $this->is_callable( $coupon, 'set_email_restrictions' ) && $this->is_callable( $coupon, 'save' ) ) {
 								$coupon->set_defaults(); // This is to make sure that no other changes done to $coupon will be saved. Because this functionality is only to update 'email_restrictions'.
+								$coupon->set_object_read( true );
 								$coupon->set_email_restrictions( $old_customers_email_ids );
 								$coupon->save();
 							} else {

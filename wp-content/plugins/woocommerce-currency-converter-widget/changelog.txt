@@ -1,5 +1,9 @@
 *** Currency Converter Changelog ***
 
+2023-10-26 - version 2.1.1
+* Tweak - Sanitize the cookie value before using it.
+* Tweak - Tested compatibility up to WP 6.4.
+
 2023-10-04 - version 2.1.0
 * Feature - Added own exchange provider as a fallback to Open Exchange Rates.
 * Tweak - Dropped the default Open Exchange Rates App ID.

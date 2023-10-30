@@ -42,9 +42,12 @@ class ActionScheduler_QueueRunner extends ActionScheduler_Abstract_QueueRunner {
  remove_action( 'shutdown', array( $this, 'maybe_dispatch_async_request' ) );
  }
  public function maybe_dispatch_async_request() {
- if ( is_admin() && ! ActionScheduler::lock()->is_locked( 'async-request-runner' ) ) {
- // Only start an async queue at most once every 60 seconds
- ActionScheduler::lock()->set( 'async-request-runner' );
+ // Only start an async queue at most once every 60 seconds.
+ if (
+ is_admin()
+ && ! ActionScheduler::lock()->is_locked( 'async-request-runner' )
+ && ActionScheduler::lock()->set( 'async-request-runner' )
+ ) {
  $this->async_request->maybe_dispatch();
  }
  }
@@ -85,7 +88,9 @@ class ActionScheduler_QueueRunner extends ActionScheduler_Abstract_QueueRunner {
  return $processed_actions;
  }
  protected function clear_caches() {
- if ( function_exists( 'wp_cache_flush_runtime' ) ) {
+ $flushing_runtime_cache_explicitly_supported = function_exists( 'wp_cache_supports' ) && wp_cache_supports( 'flush_runtime' );
+ $flushing_runtime_cache_implicitly_supported = ! function_exists( 'wp_cache_supports' ) && function_exists( 'wp_cache_flush_runtime' );
+ if ( $flushing_runtime_cache_explicitly_supported || $flushing_runtime_cache_implicitly_supported ) {
  wp_cache_flush_runtime();
  } elseif (
  ! wp_using_ext_object_cache()

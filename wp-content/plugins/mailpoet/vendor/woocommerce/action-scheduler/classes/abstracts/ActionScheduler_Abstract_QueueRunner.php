@@ -12,6 +12,14 @@ abstract class ActionScheduler_Abstract_QueueRunner extends ActionScheduler_Abst
  $this->cleaner = $cleaner ? $cleaner : new ActionScheduler_QueueCleaner( $this->store );
  }
  public function process_action( $action_id, $context = '' ) {
+ // Temporarily override the error handler while we process the current action.
+ set_error_handler(
+ function ( $type, $message ) {
+ throw new Exception( $message );
+ },
+ E_USER_ERROR | E_RECOVERABLE_ERROR
+ );
+ try {
  try {
  $valid_action = false;
  do_action( 'action_scheduler_before_execute', $action_id, $context );
@@ -26,16 +34,27 @@ abstract class ActionScheduler_Abstract_QueueRunner extends ActionScheduler_Abst
  $action->execute();
  do_action( 'action_scheduler_after_execute', $action_id, $action, $context );
  $this->store->mark_complete( $action_id );
+ } catch ( Throwable $e ) {
+ // Throwable is defined when executing under PHP 7.0 and up. We convert it to an exception, for
+ // compatibility with ActionScheduler_Logger.
+ throw new Exception( $e->getMessage(), $e->getCode(), $e->getPrevious() );
+ }
  } catch ( Exception $e ) {
+ // This catch block exists for compatibility with PHP 5.6.
+ $this->handle_action_error( $action_id, $e, $context, $valid_action );
+ } finally {
+ restore_error_handler();
+ }
+ if ( isset( $action ) && is_a( $action, 'ActionScheduler_Action' ) && $action->get_schedule()->is_recurring() ) {
+ $this->schedule_next_instance( $action, $action_id );
+ }
+ }
+ private function handle_action_error( $action_id, $e, $context, $valid_action ) {
  if ( $valid_action ) {
  $this->store->mark_failure( $action_id );
  do_action( 'action_scheduler_failed_execution', $action_id, $e, $context );
  } else {
  do_action( 'action_scheduler_failed_validation', $action_id, $e, $context );
- }
- }
- if ( isset( $action ) && is_a( $action, 'ActionScheduler_Action' ) && $action->get_schedule()->is_recurring() ) {
- $this->schedule_next_instance( $action, $action_id );
  }
  }
  protected function schedule_next_instance( ActionScheduler_Action $action, $action_id ) {
@@ -72,11 +91,14 @@ abstract class ActionScheduler_Abstract_QueueRunner extends ActionScheduler_Abst
  if ( empty( $first_failing_action_id ) ) {
  return false;
  }
- // Now let's fetch the first action (having the same hook) of *any status*ithin the same window.
+ // Now let's fetch the first action (having the same hook) of *any status* within the same window.
  unset( $query_args['status'] );
  $first_action_id_with_the_same_hook = $this->store->query_actions( $query_args );
- // If the IDs match, then actions for this hook must be consistently failing.
- return $first_action_id_with_the_same_hook === $first_failing_action_id;
+ return (bool) apply_filters(
+ 'action_scheduler_recurring_action_is_consistently_failing',
+ $first_action_id_with_the_same_hook === $first_failing_action_id,
+ $action
+ );
  }
  protected function run_cleanup() {
  $this->cleaner->clean( 10 * $this->get_time_limit() );

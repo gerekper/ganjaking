@@ -34,7 +34,7 @@ class Runner {
  return 0;
  }
  if ( $this->progress_bar ) {
- $this->progress_bar->set_message( sprintf( _n( 'Migrating %d action', 'Migrating %d actions', $batch_size, 'action-scheduler' ), number_format_i18n( $batch_size ) ) );
+ $this->progress_bar->set_message( sprintf( _n( 'Migrating %d action', 'Migrating %d actions', $batch_size, 'action-scheduler' ), $batch_size ) );
  $this->progress_bar->set_count( $batch_size );
  }
  $this->migrate_actions( $batch );

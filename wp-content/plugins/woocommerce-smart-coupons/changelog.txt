@@ -1,5 +1,19 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2023.10.27 - version 8.7.0
+* New: WordPress 6.3.2 compatible
+* New: WooCommerce 8.2.1 compatible
+* Fix: PHP Warning: foreach() argument must be of type array|object, string given for $customer_emails
+* Fix: Parent Coupons are not updating the Allowed emails
+* Fix: When scheduling coupons via import, a blank email is sent with no coupons
+* Fix: Actions tab product does not respect the discount on declined payments
+* Fix: Linked Coupons label is breaking in product admin dashboard
+* Fix: Active for x payments field shows for all discount types in 'Bulk generate' tab
+* Tweak: Optimized a few queries
+* Update: Updated translation file for French language, as it was causing 'Fatal error: Uncaught Error: 3 arguments are required, 2 given'
+* Update: Correct a few file paths for inclusion
+* Update: POT file
+
 2023.09.22 - version 8.6.0
 * New: Tested up to WooCommerce 8.1.1
 * Fix: PHP Warning:  mysqli_free_result(): Couldn't fetch mysqli_result

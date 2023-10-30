@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     3.2.0
+ * @version     3.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -634,7 +634,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 
 			$is_email_imported_coupons = get_option( 'woo_sc_is_email_imported_coupons' );
 
-			if ( 'yes' === $is_email_imported_coupons && ! empty( $customer_emails ) && ( ! empty( $coupon_amount ) || 'yes' === $allowed_free_shipping ) && ! empty( $coupon_code ) && ! empty( $discount_type ) ) {
+			if ( 'yes' === $is_email_imported_coupons && ! empty( $customer_emails ) && ! is_scalar( $customer_emails ) && ( ! empty( $coupon_amount ) || 'yes' === $allowed_free_shipping ) && ! empty( $coupon_code ) && ! empty( $discount_type ) ) {
 				$coupon       = array(
 					'amount' => $coupon_amount,
 					'code'   => $coupon_code,
@@ -649,7 +649,29 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 					$message = ( ! empty( $posted_data['smart_coupon_message'] ) ) ? $posted_data['smart_coupon_message'] : '';
 				}
 
-				$woocommerce_smart_coupon->sa_email_coupon( $coupon_title, $discount_type, 0, '', $message );
+				$sending_timestamp = strtotime( $post['post_date'] );
+				$current_timestamp = time();
+				if ( $woocommerce_smart_coupon->is_valid_timestamp( $sending_timestamp ) && $sending_timestamp > $current_timestamp ) {
+
+					foreach ( $coupon_title as $coupon_receiver_email => $coupon_data ) {
+						$action_args = array(
+							'auto_generate'  => 'no',
+							'coupon_id'      => $post_id,
+							'parent_id'      => ( ! empty( $post['post_parent'] ) ) ? $post['post_parent'] : 0,                  // Parent coupon id.
+							'receiver_email' => $coupon_receiver_email,
+							'ref_key'        => uniqid(),                    // A unique timestamp key to relate action schedulers with their coupons.
+						);
+
+						$is_scheduled = $woocommerce_smart_coupon->schedule_coupon_email( $action_args, $sending_timestamp );
+
+						if ( ! $is_scheduled ) {
+							/* translators: 1. Receiver email 2. Coupon code */
+							$woocommerce_smart_coupon->log( 'error', sprintf( __( 'Failed to schedule email to "%1$s" for coupon "%2$s".', 'woocommerce-smart-coupons' ), $coupon_receiver_email, $coupon_data['code'] ) );
+						}
+					}
+				} else {
+					$woocommerce_smart_coupon->sa_email_coupon( $coupon_title, $discount_type, 0, '', $message );
+				}
 			}
 
 			$this->imported++;

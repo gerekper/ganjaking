@@ -231,7 +231,7 @@ class WC_Currency_Converter extends Plugin {
 
 		if ( ! empty( $_COOKIE['woocommerce_current_currency'] ) ) {
 			// If a cookie is set then use that.
-			$current_currency = $_COOKIE['woocommerce_current_currency'];
+			$current_currency = sanitize_text_field( wp_unslash( $_COOKIE['woocommerce_current_currency'] ) );
 		} elseif ( ! $disable_location_based_currency ) {
 			// If location detection is enabled, get the users local currency based on their location.
 			$users_default_currency = self::get_users_default_currency();
@@ -258,7 +258,8 @@ class WC_Currency_Converter extends Plugin {
 		);
 
 		if ( $echo ) {
-			echo $html;
+			echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
 		}
 
 		return $html;
@@ -343,7 +344,7 @@ class WC_Currency_Converter extends Plugin {
 		$rates = new Rates();
 
 		$wc_currency_converter_params = array(
-			'current_currency'       => isset( $_COOKIE['woocommerce_current_currency'] ) ? $_COOKIE['woocommerce_current_currency'] : '',
+			'current_currency'       => isset( $_COOKIE['woocommerce_current_currency'] ) ? sanitize_text_field( wp_unslash( $_COOKIE['woocommerce_current_currency'] ) ) : '',
 			'currencies'             => wp_json_encode( $this->get_symbols( $currencies ) ),
 			'rates'                  => $rates->get_rates( $currencies ),
 			'base'                   => $rates->get_base(),

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.9.1
+ * @version     2.0.0
  * @package     WooCommerce Smart Coupons
  */
 
@@ -48,6 +48,8 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 				add_filter( 'wc_sc_coupon_design_thumbnail_src_set', array( $this, 'coupon_design_thumbnail_src_set' ), 10, 2 );
 				add_filter( 'wc_sc_percent_discount_types', array( $this, 'percent_discount_types' ), 10, 2 );
 				add_filter( 'wc_sc_is_auto_apply', array( $this, 'is_auto_apply' ), 10, 2 );
+				add_action( 'wcs_before_parent_order_setup_cart', array( $this, 'maybe_revalidate_coupon_actions' ), 999, 2 );
+				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles_scripts' ), 20 );
 			}
 
 		}
@@ -954,7 +956,7 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 			}
 
 			if ( ! class_exists( 'WC_SC_Coupon_Actions' ) ) {
-				include_once 'class-wc-sc-coupon-actions.php';
+				include_once '../class-wc-sc-coupon-actions.php';
 			}
 
 			$wc_sc_coupon_actions = WC_SC_Coupon_Actions::get_instance();
@@ -986,7 +988,7 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 			if ( ! empty( $recurring_carts ) ) {
 
 				if ( ! class_exists( 'WC_SC_Coupon_Actions' ) ) {
-					include_once 'class-wc-sc-coupon-actions.php';
+					include_once '../class-wc-sc-coupon-actions.php';
 				}
 
 				$wc_sc_coupon_actions = WC_SC_Coupon_Actions::get_instance();
@@ -1235,6 +1237,88 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 				return false;
 			}
 			return version_compare( WC_Subscriptions::$version, $version, '>=' );
+		}
+
+		/**
+		 * Function to modify cart for actions tab product of coupon
+		 *
+		 * @param WC_Subscription $subscription The subscription object. This param is unused. It is the first parameter of the hook.
+		 * @param WC_Order        $order               The renewal order object.
+		 */
+		public function maybe_revalidate_coupon_actions( $subscription = null, $order = null ) {
+			if ( is_null( $order ) ) {
+				return;
+			}
+			if ( ! class_exists( 'WC_SC_Coupon_Actions' ) ) {
+				include_once '../class-wc-sc-coupon-actions.php';
+			}
+			$wc_sc_coupon_actions = WC_SC_Coupon_Actions::get_instance();
+			$order_coupons        = ( $this->is_callable( $order, 'get_used_coupons' ) ) ? $order->get_used_coupons() : array();
+			if ( empty( $order_coupons ) ) {
+				return;
+			}
+
+			$product_ids_added_by_coupon = array();
+			$is_order_updated            = false;
+
+			foreach ( $order_coupons as $coupon_code ) {
+				$coupon_actions = ( $this->is_callable( $wc_sc_coupon_actions, 'get_coupon_actions' ) ) ? $wc_sc_coupon_actions->get_coupon_actions( $coupon_code ) : array();
+				if ( ! empty( $coupon_actions ) && is_array( $coupon_actions ) ) {
+					$product_ids_added_by_coupon = wp_list_pluck( $coupon_actions, 'product_id' );
+				} else {
+					$product_ids_added_by_coupon = array();
+				}
+				if ( empty( $product_ids_added_by_coupon ) ) {
+					continue;
+				}
+				$order_items = ( $this->is_callable( $order, 'get_items' ) ) ? $order->get_items() : array();
+				if ( ! empty( $order_items ) && ! is_scalar( $order_items ) ) {
+					foreach ( $order_items as $item_id => $item ) {
+						$wc_sc_product_coupon = $this->is_callable( $item, 'get_meta' ) ? $item->get_meta( '_wc_sc_product_source' ) : '';
+						if ( empty( $wc_sc_product_coupon ) ) {
+							continue;
+						}
+						$item_product_id = ( $this->is_callable( $item, 'get_product_id' ) ) ? $item->get_product_id() : 0;
+						if ( empty( $item_product_id ) ) {
+							continue;
+						}
+						$product_ids_added_by_coupon = array_map( 'absint', $product_ids_added_by_coupon );
+						if ( $coupon_code === $wc_sc_product_coupon && in_array( absint( $item_product_id ), $product_ids_added_by_coupon, true ) ) {
+							$order->remove_item( $item_id );
+							$is_order_updated = true;
+						}
+					}
+				}
+			}
+
+			if ( true === $is_order_updated ) {
+				$order->save();
+			}
+		}
+
+		/**
+		 * Enqueue styles & scripts
+		 */
+		public function enqueue_styles_scripts() {
+			if ( ! class_exists( 'WC_Subscriptions_Core_Plugin' ) ) {
+				return;
+			}
+			// Get the script version.
+			$ver = WC_Subscriptions_Core_Plugin::instance()->get_library_version();
+			// Get admin screen ID.
+			$screen    = get_current_screen();
+			$screen_id = isset( $screen->id ) ? $screen->id : '';
+
+			if ( is_admin() && in_array( $screen_id, array( 'marketing_page_wc-smart-coupons' ), true ) ) {
+				wp_enqueue_script(
+					'wcs-admin-coupon-meta-boxes',
+					WC_Subscriptions_Core_Plugin::instance()->get_subscriptions_core_directory_url( 'assets/js/admin/meta-boxes-coupon.js' ),
+					array( 'jquery', 'wc-admin-meta-boxes' ),
+					$ver,
+					false
+				);
+
+			}
 		}
 
 	}

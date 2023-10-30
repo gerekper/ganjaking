@@ -108,23 +108,33 @@ abstract class ActionScheduler {
  add_action( 'init', array( $store, 'init' ), 1, 0 );
  add_action( 'init', array( $logger, 'init' ), 1, 0 );
  add_action( 'init', array( $runner, 'init' ), 1, 0 );
+ add_action(
+ 'init',
+ function () {
+ self::$data_store_initialized = true;
+ do_action( 'action_scheduler_init' );
+ },
+ 1
+ );
  } else {
  $admin_view->init();
  $store->init();
  $logger->init();
  $runner->init();
+ self::$data_store_initialized = true;
+ do_action( 'action_scheduler_init' );
  }
  if ( apply_filters( 'action_scheduler_load_deprecated_functions', true ) ) {
  require_once( self::plugin_path( 'deprecated/functions.php' ) );
  }
  if ( defined( 'WP_CLI' ) && WP_CLI ) {
  WP_CLI::add_command( 'action-scheduler', 'ActionScheduler_WPCLI_Scheduler_command' );
+ WP_CLI::add_command( 'action-scheduler', 'ActionScheduler_WPCLI_Clean_Command' );
  if ( ! ActionScheduler_DataController::is_migration_complete() && Controller::instance()->allow_migration() ) {
  $command = new Migration_Command();
  $command->register();
  }
  }
- self::$data_store_initialized = true;
  if ( is_a( $logger, 'ActionScheduler_DBLogger' ) && ActionScheduler_DataController::is_migration_complete() && ActionScheduler_WPCommentCleaner::has_logs() ) {
  ActionScheduler_WPCommentCleaner::init();
  }
@@ -132,8 +142,11 @@ abstract class ActionScheduler {
  }
  public static function is_initialized( $function_name = null ) {
  if ( ! self::$data_store_initialized && ! empty( $function_name ) ) {
- $message = sprintf( __( '%s() was called before the Action Scheduler data store was initialized', 'action-scheduler' ), esc_attr( $function_name ) );
- error_log( $message, E_WARNING );
+ $message = sprintf(
+ __( '%s() was called before the Action Scheduler data store was initialized', 'action-scheduler' ),
+ esc_attr( $function_name )
+ );
+ _doing_it_wrong( $function_name, $message, '3.1.6' );
  }
  return self::$data_store_initialized;
  }

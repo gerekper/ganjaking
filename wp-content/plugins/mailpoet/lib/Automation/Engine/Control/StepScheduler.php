@@ -7,6 +7,7 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Automation\Engine\Data\AutomationRun;
 use MailPoet\Automation\Engine\Data\StepRunArgs;
+use MailPoet\Automation\Engine\Exceptions;
 use MailPoet\Automation\Engine\Hooks;
 use MailPoet\Automation\Engine\Storage\AutomationRunStorage;
 
@@ -32,16 +33,36 @@ class StepScheduler {
   }
 
   public function scheduleNextStep(StepRunArgs $args, int $timestamp = null): int {
-    $runId = $args->getAutomationRun()->getId();
+    $step = $args->getStep();
+    $nextSteps = $step->getNextSteps();
 
     // complete the automation run if there are no more steps
-    if (count($args->getStep()->getNextSteps()) === 0) {
-      $this->automationRunStorage->updateNextStep($runId, null);
-      $this->automationRunStorage->updateStatus($runId, AutomationRun::STATUS_COMPLETE);
+    if (count($nextSteps) === 0) {
+      $this->completeAutomationRun($args);
       return 0;
     }
 
-    $nextStepId = $args->getStep()->getNextSteps()[0]->getId();
+    if (count($nextSteps) > 1) {
+      throw Exceptions::nextStepNotScheduled($step->getId());
+    }
+
+    return $this->scheduleNextStepByIndex($args, 0, $timestamp);
+  }
+
+  public function scheduleNextStepByIndex(StepRunArgs $args, int $nextStepIndex, int $timestamp = null): int {
+    $step = $args->getStep();
+    $nextStep = $step->getNextSteps()[$nextStepIndex] ?? null;
+    if (!$nextStep) {
+      throw Exceptions::nextStepNotFound($step->getId(), $nextStepIndex);
+    }
+
+    $runId = $args->getAutomationRun()->getId();
+    $nextStepId = $nextStep->getId();
+    if (!$nextStepId) {
+      $this->completeAutomationRun($args);
+      return 0;
+    }
+
     $data = $this->getActionData($runId, $nextStepId);
     $id = $this->scheduleStepAction($data, $timestamp);
     $this->automationRunStorage->updateNextStep($runId, $nextStepId);
@@ -50,8 +71,8 @@ class StepScheduler {
 
   public function hasScheduledNextStep(StepRunArgs $args): bool {
     $runId = $args->getAutomationRun()->getId();
-    foreach ($args->getStep()->getNextSteps() as $nextStep) {
-      $data = $this->getActionData($runId, $nextStep->getId());
+    foreach ($args->getStep()->getNextStepIds() as $nextStepId) {
+      $data = $this->getActionData($runId, $nextStepId);
       $hasStep = $this->actionScheduler->hasScheduledAction(Hooks::AUTOMATION_STEP, $data);
       if ($hasStep) {
         return true;
@@ -81,6 +102,12 @@ class StepScheduler {
     return $timestamp === null
       ? $this->actionScheduler->enqueue(Hooks::AUTOMATION_STEP, $data)
       : $this->actionScheduler->schedule($timestamp, Hooks::AUTOMATION_STEP, $data);
+  }
+
+  private function completeAutomationRun(StepRunArgs $args): void {
+    $runId = $args->getAutomationRun()->getId();
+    $this->automationRunStorage->updateNextStep($runId, null);
+    $this->automationRunStorage->updateStatus($runId, AutomationRun::STATUS_COMPLETE);
   }
 
   private function getActionData(int $runId, string $stepId, int $runNumber = 1): array {

@@ -1,5 +1,11 @@
 *** WooCommerce Min/Max Quantities Changelog ***
 
+2023.10.26 - version 4.1.2
+* New - Added compatibility with PHP 8.2.
+* Tweak - Declared compatibility with the cart/checkout Blocks.
+* Fix - Resolved fatal error that was triggered when saving variations without quantity rules.
+* Fix - Resolved a warning that was occasionally triggered when viewing the Cart block.
+
 2023.08.28 - version 4.1.1
 * Fix - Updated 'Exclude From > Order rules' tooltip.
 

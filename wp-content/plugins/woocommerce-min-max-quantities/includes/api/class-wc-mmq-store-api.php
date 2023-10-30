@@ -16,7 +16,7 @@ use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
 /**
  * Filters the store public API.
  *
- * @version 4.0.2
+ * @version 4.1.2
  */
 class WC_MMQ_Store_API {
 
@@ -64,7 +64,7 @@ class WC_MMQ_Store_API {
 	public static function filter_min_cart_item_qty( $value, $product, $cart_item ) {
 
 		if ( $product->is_type( 'variation' ) ) {
-			$min_max_rules = get_post_meta( $cart_item[ 'variation_id' ], 'min_max_rules', true );
+			$min_max_rules = get_post_meta( $product->get_id(), 'min_max_rules', true );
 			if ( 'yes' === $min_max_rules ) {
 				$value = absint( get_post_meta( $product->get_id(), 'variation_minimum_allowed_quantity', true ) );
 

@@ -3,14 +3,14 @@
  * Plugin Name: WooCommerce Currency Converter
  * Plugin URI: https://woocommerce.com/products/currency-converter-widget/
  * Description: Provides a currency selection widget for displaying product prices and totals in different currencies. Conversions are estimated based on data from the Open Exchange Rates API with no guarantee whatsoever of accuracy.
- * Version: 2.1.0
+ * Version: 2.1.1
  * Author: KoiLab
  * Author URI: https://koilab.com/
  * Text Domain: woocommerce-currency-converter-widget
  * Domain Path: /languages
  * Requires PHP: 7.0
  * Requires at least: 5.0
- * Tested up to: 6.3
+ * Tested up to: 6.4
  *
  * WC requires at least: 4.0
  * WC tested up to: 8.2

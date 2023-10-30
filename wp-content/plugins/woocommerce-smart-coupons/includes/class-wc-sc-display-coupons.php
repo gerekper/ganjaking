@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     3.6.0
+ * @version     3.7.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1457,9 +1457,13 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 								"SELECT *
 									FROM {$wpdb->prefix}posts
 									WHERE FIND_IN_SET (ID, (SELECT option_value FROM {$wpdb->prefix}options WHERE option_name = %s)) > 0
+										AND post_status = %s
+										AND post_type = %s
 									GROUP BY ID
 									ORDER BY post_date DESC",
-								$option_nm
+								$option_nm,
+								'publish',
+								'shop_coupon'
 							)
 						);
 						wp_cache_set( 'wc_sc_all_coupon_id_for_user_' . $current_user->ID, $coupons, 'woocommerce_smart_coupons' );
@@ -1892,10 +1896,10 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 					);
 				} else {
 					$user_order_ids_query = $wpdb->prepare(
-						"SELECT DISTINCT postmeta.post_id FROM {$wpdb->prefix}postmeta AS postmeta
-							WHERE postmeta.meta_key = %s
-							AND postmeta.meta_value",
-						'_customer_user'
+						"SELECT DISTINCT post_id FROM {$wpdb->prefix}postmeta
+							WHERE %d
+								AND meta_value",
+						1
 					);
 				}
 
@@ -1905,6 +1909,10 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 					$how_many              = count( $user_ids );
 					$placeholders          = array_fill( 0, $how_many, '%d' );
 					$user_order_ids_query .= $wpdb->prepare( ' IN ( ' . implode( ',', $placeholders ) . ' )', $user_ids ); // phpcs:ignore
+				}
+
+				if ( ! $this->is_hpos() ) {
+					$user_order_ids_query .= $wpdb->prepare( ' AND meta_key = %s', '_customer_user' );
 				}
 
 				$unique_user_ids = array_unique( $user_ids );

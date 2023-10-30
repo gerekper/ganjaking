@@ -40,3 +40,6 @@ div.sc-manage-category a {
 div.smart_coupons_product_options_variable {
 	display: flow-root;
 }
+table.wp-list-table .column-wc_sc_linked_coupons {
+    width: 10% !important;
+}

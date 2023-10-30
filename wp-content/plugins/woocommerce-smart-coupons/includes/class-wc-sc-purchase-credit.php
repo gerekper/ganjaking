@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.8.0
+ * @version     2.9.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -897,6 +897,9 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 						}
 					} else {
 						$_coupon_amount = $product_price;
+					}
+					if ( empty( $_coupon_amount ) && ! empty( $product['credit_amount'] ) ) {
+						$_coupon_amount = (float) $product['credit_amount'];
 					}
 				} else {
 					$_coupon_amount = $coupon_amount;

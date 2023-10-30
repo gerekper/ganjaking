@@ -5,6 +5,7 @@ class ActionScheduler_Action {
  protected $args = array();
  protected $schedule = NULL;
  protected $group = '';
+ protected $priority = 10;
  public function __construct( $hook, array $args = array(), ActionScheduler_Schedule $schedule = NULL, $group = '' ) {
  $schedule = empty( $schedule ) ? new ActionScheduler_NullSchedule() : $schedule;
  $this->set_hook($hook);
@@ -50,5 +51,16 @@ class ActionScheduler_Action {
  }
  public function is_finished() {
  return FALSE;
+ }
+ public function set_priority( $priority ) {
+ if ( $priority < 0 ) {
+ $priority = 0;
+ } elseif ( $priority > 255 ) {
+ $priority = 255;
+ }
+ $this->priority = (int) $priority;
+ }
+ public function get_priority() {
+ return $this->priority;
  }
 }
