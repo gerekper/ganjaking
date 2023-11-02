@@ -31,6 +31,7 @@ class PremiumCachedContainer extends Container
             'MailPoetVendor\\Doctrine\\ORM\\EntityManager' => 'getEntityManagerService',
             'MailPoet\\Automation\\Engine\\Builder\\UpdateAutomationController' => 'getUpdateAutomationControllerService',
             'MailPoet\\Automation\\Engine\\Builder\\UpdateStepsController' => 'getUpdateStepsControllerService',
+            'MailPoet\\Automation\\Engine\\Control\\FilterHandler' => 'getFilterHandlerService',
             'MailPoet\\Automation\\Engine\\Hooks' => 'getHooksService',
             'MailPoet\\Automation\\Engine\\Mappers\\AutomationMapper' => 'getAutomationMapperService',
             'MailPoet\\Automation\\Engine\\Registry' => 'getRegistryService',
@@ -88,6 +89,11 @@ class PremiumCachedContainer extends Container
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\CustomTrigger' => 'getCustomTriggerService',
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\TagAddedTrigger' => 'getTagAddedTriggerService',
             'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\TagRemovedTrigger' => 'getTagRemovedTriggerService',
+            'MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\Subjects\\ReviewSubject' => 'getReviewSubjectService',
+            'MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\Triggers\\MadeAReviewTrigger' => 'getMadeAReviewTriggerService',
+            'MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\WooCommerceIntegration' => 'getWooCommerceIntegrationService',
+            'MailPoet\\Premium\\Automation\\Integrations\\WordPress\\Triggers\\MadeACommentTrigger' => 'getMadeACommentTriggerService',
+            'MailPoet\\Premium\\Automation\\Integrations\\WordPress\\WordPressIntegration' => 'getWordPressIntegrationService',
             'MailPoet\\Premium\\Config\\Initializer' => 'getInitializerService',
             'MailPoet\\Premium\\Config\\Renderer' => 'getRenderer2Service',
             'MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository' => 'getStatisticsClicksRepositoryService',
@@ -166,6 +172,16 @@ class PremiumCachedContainer extends Container
     protected function getUpdateStepsControllerService()
     {
         return $this->services['MailPoet\\Automation\\Engine\\Builder\\UpdateStepsController'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\Automation\\Engine\\Builder\\UpdateStepsController');
+    }
+
+    /**
+     * Gets the public 'MailPoet\Automation\Engine\Control\FilterHandler' shared service.
+     *
+     * @return \MailPoet\Automation\Engine\Control\FilterHandler
+     */
+    protected function getFilterHandlerService()
+    {
+        return $this->services['MailPoet\\Automation\\Engine\\Control\\FilterHandler'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\Automation\\Engine\\Control\\FilterHandler');
     }
 
     /**
@@ -507,7 +523,7 @@ class PremiumCachedContainer extends Container
      */
     protected function getEngineService()
     {
-        return $this->services['MailPoet\\Premium\\Automation\\Engine\\Engine'] = new \MailPoet\Premium\Automation\Engine\Engine(($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration'] ?? $this->getMailPoetPremiumIntegrationService()), ($this->services['MailPoet\\WP\\Functions'] ?? $this->getFunctionsService()));
+        return $this->services['MailPoet\\Premium\\Automation\\Engine\\Engine'] = new \MailPoet\Premium\Automation\Engine\Engine(($this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration'] ?? $this->getMailPoetPremiumIntegrationService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\WordPress\\WordPressIntegration'] ?? $this->getWordPressIntegrationService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\WooCommerceIntegration'] ?? $this->getWooCommerceIntegrationService()), ($this->services['MailPoet\\WP\\Functions'] ?? $this->getFunctionsService()));
     }
 
     /**
@@ -738,6 +754,56 @@ class PremiumCachedContainer extends Container
     protected function getTagRemovedTriggerService()
     {
         return $this->services['MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\TagRemovedTrigger'] = new \MailPoet\Premium\Automation\Integrations\MailPoetPremium\Triggers\TagRemovedTrigger(($this->services['MailPoet\\Automation\\Engine\\WordPress'] ?? $this->getWordPressService()), ($this->services['MailPoet\\Tags\\TagRepository'] ?? $this->getTagRepositoryService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\WooCommerce\Subjects\ReviewSubject' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\WooCommerce\Subjects\ReviewSubject
+     */
+    protected function getReviewSubjectService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\Subjects\\ReviewSubject'] = new \MailPoet\Premium\Automation\Integrations\WooCommerce\Subjects\ReviewSubject(($this->services['MailPoet\\Automation\\Engine\\WordPress'] ?? $this->getWordPressService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\WooCommerce\Triggers\MadeAReviewTrigger' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\WooCommerce\Triggers\MadeAReviewTrigger
+     */
+    protected function getMadeAReviewTriggerService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\Triggers\\MadeAReviewTrigger'] = new \MailPoet\Premium\Automation\Integrations\WooCommerce\Triggers\MadeAReviewTrigger(($this->services['MailPoet\\Automation\\Engine\\WordPress'] ?? $this->getWordPressService()), ($this->services['MailPoet\\Automation\\Engine\\Storage\\AutomationRunStorage'] ?? $this->getAutomationRunStorageService()), ($this->services['MailPoet\\Automation\\Engine\\Control\\FilterHandler'] ?? $this->getFilterHandlerService()), ($this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\WooCommerce'] ?? $this->getWooCommerceService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\WooCommerce\WooCommerceIntegration' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\WooCommerce\WooCommerceIntegration
+     */
+    protected function getWooCommerceIntegrationService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\WooCommerceIntegration'] = new \MailPoet\Premium\Automation\Integrations\WooCommerce\WooCommerceIntegration(($this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\Triggers\\MadeAReviewTrigger'] ?? $this->getMadeAReviewTriggerService()), ($this->services['MailPoet\\Premium\\Automation\\Integrations\\WooCommerce\\Subjects\\ReviewSubject'] ?? $this->getReviewSubjectService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\WordPress\Triggers\MadeACommentTrigger' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\WordPress\Triggers\MadeACommentTrigger
+     */
+    protected function getMadeACommentTriggerService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\WordPress\\Triggers\\MadeACommentTrigger'] = new \MailPoet\Premium\Automation\Integrations\WordPress\Triggers\MadeACommentTrigger(($this->services['MailPoet\\Automation\\Engine\\WordPress'] ?? $this->getWordPressService()), ($this->services['MailPoet\\Automation\\Engine\\Storage\\AutomationRunStorage'] ?? $this->getAutomationRunStorageService()), ($this->services['MailPoet\\Automation\\Engine\\Control\\FilterHandler'] ?? $this->getFilterHandlerService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Automation\Integrations\WordPress\WordPressIntegration' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Automation\Integrations\WordPress\WordPressIntegration
+     */
+    protected function getWordPressIntegrationService()
+    {
+        return $this->services['MailPoet\\Premium\\Automation\\Integrations\\WordPress\\WordPressIntegration'] = new \MailPoet\Premium\Automation\Integrations\WordPress\WordPressIntegration(($this->services['MailPoet\\Premium\\Automation\\Integrations\\WordPress\\Triggers\\MadeACommentTrigger'] ?? $this->getMadeACommentTriggerService()));
     }
 
     /**

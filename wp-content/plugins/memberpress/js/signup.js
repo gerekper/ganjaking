@@ -144,6 +144,14 @@
       updateCheckoutState($(this));
     });
 
+    $('.mepr-signup-form').each(function () {
+      var $form = $(this);
+
+      if($form.find('input[name="mpgft-signup-gift-checkbox"]').is(':checked')) {
+        updateCheckoutState($form);
+      }
+    });
+
     var meprValidateInput = function (obj, submitting) {
       $(obj).removeClass('invalid');
 
@@ -182,6 +190,7 @@
             action: 'mepr_validate_coupon',
             code: $(obj).val(),
             prd_id: $(obj).data("prdid"),
+            user_email: form.find("input[name='user_email']").val(),
             coupon_nonce: MeprSignup.coupon_nonce
           };
 

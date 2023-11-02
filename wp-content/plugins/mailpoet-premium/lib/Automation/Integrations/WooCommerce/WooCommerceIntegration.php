@@ -7,20 +7,27 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Automation\Engine\Integration;
 use MailPoet\Automation\Engine\Registry;
-use MailPoet\Premium\Automation\Integrations\WooCommerce\Triggers\AbandonedCart\AbandonedCartTrigger;
+use MailPoet\Premium\Automation\Integrations\WooCommerce\Subjects\ReviewSubject;
+use MailPoet\Premium\Automation\Integrations\WooCommerce\Triggers\MadeAReviewTrigger;
 
 class WooCommerceIntegration implements Integration {
 
-  /** @var AbandonedCartTrigger */
-  private $abandonedCartTrigger;
+  /** @var MadeAReviewTrigger */
+  private $madeAReview;
+
+  /** @var ReviewSubject */
+  private $reviewSubject;
 
   public function __construct(
-    AbandonedCartTrigger $abandonedCartTrigger
+    MadeAReviewTrigger $madeAReview,
+    ReviewSubject $reviewSubject
   ) {
-    $this->abandonedCartTrigger = $abandonedCartTrigger;
+    $this->madeAReview = $madeAReview;
+    $this->reviewSubject = $reviewSubject;
   }
 
   public function register(Registry $registry): void {
-    $registry->addTrigger($this->abandonedCartTrigger);
+    $registry->addTrigger($this->madeAReview);
+    $registry->addSubject($this->reviewSubject);
   }
 }

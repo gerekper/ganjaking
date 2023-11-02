@@ -158,7 +158,7 @@ class MeprAccountCtrl extends MeprBaseCtrl {
 
     $delim = MeprAppCtrl::get_param_delimiter_char($account_url);
 
-    if(MeprReadyLaunchCtrl::template_enabled( 'account' ) || has_block('memberpress/pro-account-tabs' )){
+    if(MeprReadyLaunchCtrl::template_enabled( 'account' ) || MeprAppHelper::has_block('memberpress/pro-account-tabs' )){
       MeprView::render('/readylaunch/account/nav', get_defined_vars());
     } else {
       MeprView::render('/account/nav', get_defined_vars());
@@ -255,7 +255,7 @@ class MeprAccountCtrl extends MeprBaseCtrl {
     //Load user last in case we saved above, we want the saved info to show up
     $mepr_current_user = new MeprUser($mepr_current_user->ID);
 
-    if ( ( MeprReadyLaunchCtrl::template_enabled( 'account' ) || has_block('memberpress/pro-account-tabs' ) )) {
+    if ( ( MeprReadyLaunchCtrl::template_enabled( 'account' ) || MeprAppHelper::has_block('memberpress/pro-account-tabs' ) )) {
       if( is_array($atts) ){
         extract( $atts, EXTR_SKIP );
       }
@@ -354,7 +354,7 @@ class MeprAccountCtrl extends MeprBaseCtrl {
     $start = ($curr_page - 1) * $perpage;
     $end = $start + $perpage;
 
-    if(isset($args['mode']) && 'pro-templates' == $args['mode']){
+    if(isset($args['mode']) && 'readylaunch' == $args['mode']){
       $perpage = isset($args['count']) ? $args['count'] + $perpage : $perpage;
     }
 
@@ -372,7 +372,7 @@ class MeprAccountCtrl extends MeprBaseCtrl {
     $next_page = (($curr_page * $perpage) >= $all)?false:$curr_page+1;
     $prev_page = ($curr_page > 1)?$curr_page - 1:false;
 
-    if(MeprReadyLaunchCtrl::template_enabled( 'account' ) || has_block('memberpress/pro-account-tabs' )){
+    if($mepr_options->design_enable_account_template){
       MeprView::render('/readylaunch/account/payments', get_defined_vars());
     } else {
       MeprView::render('/account/payments', get_defined_vars());
@@ -393,7 +393,7 @@ class MeprAccountCtrl extends MeprBaseCtrl {
     // This is necessary to optimize the queries ... only query what we need
     $sub_cols = array('id','user_id','product_id','subscr_id','status','created_at','expires_at','active');
 
-    if(isset($args['mode']) && 'pro-templates' == $args['mode']){
+    if(isset($args['mode']) && 'readylaunch' == $args['mode']){
       $perpage = isset($args['count']) ? $args['count'] + $perpage : $perpage;
     }
 
@@ -416,7 +416,7 @@ class MeprAccountCtrl extends MeprBaseCtrl {
     $next_page = (($curr_page * $perpage) >= $all)?false:$curr_page + 1;
     $prev_page = ($curr_page > 1)?$curr_page - 1:false;
 
-    if(MeprReadyLaunchCtrl::template_enabled( 'account' ) || has_block('memberpress/pro-account-tabs' )){
+    if($mepr_options->design_enable_account_template){
       MeprView::render('/readylaunch/shared/errors', get_defined_vars());
       MeprView::render('/readylaunch/account/subscriptions', get_defined_vars());
     } else {
@@ -730,9 +730,15 @@ class MeprAccountCtrl extends MeprBaseCtrl {
 
   //Shortcode is meant to be placed on the thank you page or per-membership thank you page messages
   public function offline_gateway_instructions($atts = array(), $content = '') {
-    if(!isset($_GET['trans_num']) || empty($_GET['trans_num']) || !isset($atts['gateway_id']) || empty($atts['gateway_id'])) { return ''; }
+    if(!isset($atts['gateway_id']) || empty($atts['gateway_id'])) { return ''; }
 
-    $txn = MeprTransaction::get_one_by_trans_num($_GET['trans_num']);
+    if(isset($_GET['trans_num']) && !empty($_GET['trans_num'])) {
+      $txn = MeprTransaction::get_one_by_trans_num($_GET['trans_num']);
+    } elseif(isset($_GET['transaction_id']) && !empty($_GET['transaction_id'])) {
+      $txn = MeprTransaction::get_one($_GET['transaction_id']);
+    } else {
+      return '';
+    }
 
     if(!isset($txn->gateway) || $txn->gateway != $atts['gateway_id']) { return ''; }
 

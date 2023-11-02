@@ -44,7 +44,11 @@ class ScheduledTaskSubscriber extends Model {
     ]);
   }
 
+  /**
+   * @deprecated This method can be removed after 2024-01-04.
+   */
   public static function setSubscribers($taskId, array $subscriberIds) {
+    self::deprecationError(__METHOD__);
     static::clearSubscribers($taskId);
     return static::addSubscribers($taskId, $subscriberIds);
   }
@@ -79,5 +83,12 @@ class ScheduledTaskSubscriber extends Model {
       $orm->where('processed', $processed);
     }
     return $orm->count();
+  }
+
+  private static function deprecationError($methodName) {
+    trigger_error(
+      'Calling ' . esc_html($methodName) . ' is deprecated and will be removed. Use \MailPoet\Newsletter\Sending\ScheduledTaskSubscribersRepository and \MailPoet\Entities\ScheduledTaskSubscriberEntity instead.',
+      E_USER_DEPRECATED
+    );
   }
 }

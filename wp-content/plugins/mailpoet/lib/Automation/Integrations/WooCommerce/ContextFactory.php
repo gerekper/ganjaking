@@ -25,6 +25,7 @@ class ContextFactory {
 
     $context = [
       'order_statuses' => $this->woocommerce->wcGetOrderStatuses(),
+      'review_ratings_enabled' => $this->woocommerce->wcReviewRatingsEnabled(),
     ];
     return $context;
   }

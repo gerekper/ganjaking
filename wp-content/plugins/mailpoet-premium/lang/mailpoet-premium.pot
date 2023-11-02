@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MailPoet Premium plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet Premium 4.34.0\n"
+"Project-Id-Version: MailPoet Premium 4.35.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-10-25T07:42:11+00:00\n"
+"POT-Creation-Date: 2023-10-31T10:25:42+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -375,6 +375,42 @@ msgstr ""
 
 #: lib/Automation/Integrations/MailPoetPremium/Triggers/TagRemovedTrigger.php:42
 msgid "Tag removed"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Subjects/ReviewSubject.php:35
+msgid "Review"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Subjects/ReviewSubject.php:49
+msgid "Review rating"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Triggers/MadeAReviewTrigger.php:47
+msgid "Made a review"
+msgstr ""
+
+#: lib/Automation/Integrations/WooCommerce/Triggers/MadeAReviewTrigger.php:72
+msgid "The WooCommerce rating system is not enabled."
+msgstr ""
+
+#: lib/Automation/Integrations/WordPress/Triggers/MadeACommentTrigger.php:51
+#: assets/dist/js/premium.js:2
+msgid "User makes a comment"
+msgstr ""
+
+#. translators: %s is the name of the post type.
+#: lib/Automation/Integrations/WordPress/Triggers/MadeACommentTrigger.php:90
+msgid "Post Type “%s” is not registered."
+msgstr ""
+
+#. translators: %d is the ID of the post not found.
+#: lib/Automation/Integrations/WordPress/Triggers/MadeACommentTrigger.php:113
+msgid "Post with ID %d not found."
+msgstr ""
+
+#. translators: %s is the name of the taxonomy
+#: lib/Automation/Integrations/WordPress/Triggers/MadeACommentTrigger.php:136
+msgid "The taxonomy “%s” is not registered."
 msgstr ""
 
 #: lib/Config/Hooks.php:45
@@ -848,6 +884,102 @@ msgstr ""
 
 #: assets/dist/js/premium.js:2
 msgid "Start the automation when a tag is removed from a subscriber."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Post Types:"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Any"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Posts:"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Comment Status"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Select Comment Status:"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Posts"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "The automation will be triggered for these:"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Start the automation when a user makes a comment."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "comment"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "to"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Ratings"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Enable"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Review Status"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Select Review Status:"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Products"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Products:"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Customer makes a review"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Start the automation when a customer makes a review."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "review"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "buy"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "ecommerce"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "woocommerce"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "product"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "order"
 msgstr ""
 
 #: assets/dist/js/premium.js:2

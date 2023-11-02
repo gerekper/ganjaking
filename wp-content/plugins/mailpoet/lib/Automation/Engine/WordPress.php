@@ -60,6 +60,13 @@ class WordPress {
     return $wp_locale;
   }
 
+  /**
+   * @return array|WP_Post|null
+   */
+  public function getPost(int $id, string $object = OBJECT) {
+    return get_post($id, $object);
+  }
+
   /** @return WP_Post[]|int[] */
   public function getPosts(array $args = null): array {
     return get_posts($args);
@@ -71,6 +78,21 @@ class WordPress {
    */
   public function getComments($args = '') {
     return get_comments($args);
+  }
+
+  /**
+   * @param string $email
+   * @return false|string
+   */
+  public function isEmail(string $email) {
+    return is_email($email);
+  }
+
+  /**
+   * @return WP_Comment|array|null
+   */
+  public function getComment(int $id, string $output = OBJECT) {
+    return get_comment($id, $output);
   }
 
   /**
@@ -98,5 +120,72 @@ class WordPress {
    */
   public function getOption(string $optionName, $default = false) {
     return get_option($optionName, $default);
+  }
+
+  /**
+   * @return string[]
+   */
+  public function getCommentStatuses(): array {
+    return get_comment_statuses();
+  }
+
+  public function getPostStatuses(): array {
+    return get_post_statuses();
+  }
+
+  /**
+   * @return array<int,int|string|WP_Term>|string|WP_Error
+   */
+  public function wpGetPostTerms(int $postId, string $taxonomy, array $args = []) {
+    return wp_get_post_terms($postId, $taxonomy, $args);
+  }
+
+  /**
+   * @param int|\WP_Comment $comment
+   * @return false|string
+   */
+  public function wpGetCommentStatus($comment) {
+    return wp_get_comment_status($comment);
+  }
+
+  /**
+   * @return string[]|\WP_Post_Type[]
+   */
+  public function getPostTypes(array $args = [], string $output = 'names', string $operator = 'and'): array {
+    return get_post_types($args, $output, $operator);
+  }
+
+  public function postTypeSupports(string $type, string $feature): bool {
+    return post_type_supports($type, $feature);
+  }
+
+  /**
+   * @return string[]|\WP_Taxonomy[]
+   */
+  public function getTaxonomies(array $args = [], string $output = 'names', string $operator = 'AND'): array {
+    return get_taxonomies($args, $output, $operator);
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getCommentMeta(int $commentId, string $key = '', bool $isSingle = false) {
+    return get_comment_meta($commentId, $key, $isSingle);
+  }
+
+  /**
+   * @param int|WP_Term|object $term
+   * @param string $taxonomy
+   * @param string $output
+   * @param string $filter
+   * @return WP_Term|array|WP_Error|null
+   */
+  public function getTerm($term, string $taxonomy = '', string $output = OBJECT, string $filter = 'raw') {
+    return get_term($term, $taxonomy, $output, $filter);
+  }
+
+  /** @return \WP_Taxonomy|false */
+  public function getTaxonomy(string $name) {
+    return get_taxonomy($name);
   }
 }

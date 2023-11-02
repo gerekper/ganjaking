@@ -404,7 +404,7 @@ class MeprUsersCtrl extends MeprBaseCtrl {
       }
 
       if( $line->required && 'email' == $line->field_type && !empty($_POST[$line->field_key]) ){
-        if( !is_email($_POST[$line->field_key]) ){
+        if( !is_email(stripcslashes($_POST[$line->field_key])) ){
           $errs[$line->field_key] = sprintf(__('%s is not a valid email address.', 'memberpress'), stripslashes($line->field_name));
         }
       }
@@ -692,6 +692,8 @@ class MeprUsersCtrl extends MeprBaseCtrl {
     $key = (isset($atts['slug'])) ? $atts['slug'] : '';
     $userid = (isset($atts['userid'])) ? $atts['userid'] : get_current_user_id();
     $download = get_user_meta($userid, $key, true);
+
+    if(empty($download)) { return; }
 
     $file_headers = @get_headers($download);
     if(strpos($file_headers[0], '200 OK')){

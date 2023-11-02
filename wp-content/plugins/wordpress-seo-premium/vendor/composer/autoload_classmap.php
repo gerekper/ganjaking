@@ -188,7 +188,7 @@ return array(
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Front_End\\Crawl_Cleanup_Basic' => $baseDir . '/src/deprecated/integrations/front-end/crawl-cleanup-basic.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Front_End\\Crawl_Cleanup_Rss' => $baseDir . '/src/deprecated/integrations/front-end/crawl-cleanup-rss.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Front_End\\Crawl_Cleanup_Searches' => $baseDir . '/src/deprecated/integrations/front-end/crawl-cleanup-searches.php',
-    'Yoast\\WP\\SEO\\Premium\\Integrations\\Front_End\\Robots_Txt_Integration' => $baseDir . '/src/deprecated/integrations/front-end/robots-txt-integration.php',
+    'Yoast\\WP\\SEO\\Premium\\Integrations\\Front_End\\Robots_Txt_Integration' => $baseDir . '/src/integrations/front-end/robots-txt-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Frontend_Inspector' => $baseDir . '/src/integrations/frontend-inspector.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Index_Now_Ping' => $baseDir . '/src/integrations/index-now-ping.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Missing_Indexables_Count_Integration' => $baseDir . '/src/integrations/missing-indexables-count-integration.php',

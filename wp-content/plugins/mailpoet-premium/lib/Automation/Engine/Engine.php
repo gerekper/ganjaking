@@ -10,20 +10,32 @@ use MailPoet\Automation\Engine\Hooks as AutomationHooks;
 use MailPoet\Premium\Automation\Engine\Endpoints\Automations\AutomationsPostEndpoint;
 use MailPoet\Premium\Automation\Engine\Endpoints\Automations\AutomationsPutEndpoint;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\MailPoetPremiumIntegration;
+use MailPoet\Premium\Automation\Integrations\WooCommerce\WooCommerceIntegration;
+use MailPoet\Premium\Automation\Integrations\WordPress\WordPressIntegration;
 use MailPoet\WP\Functions as WPFunctions;
 
 class Engine {
   /** @var MailPoetPremiumIntegration */
   private $mailpoetPremiumIntegration;
 
+  /** @var WordPressIntegration */
+  private $wordPressIntegration;
+
+  /** @var WooCommerceIntegration */
+  private $wooCommerceIntegration;
+
   /** @var WPFunctions */
   private $wp;
 
   public function __construct(
     MailPoetPremiumIntegration $mailpoetPremiumIntegration,
+    WordPressIntegration $wordPressIntegration,
+    WooCommerceIntegration $wooCommerceIntegration,
     WPFunctions $wp
   ) {
     $this->mailpoetPremiumIntegration = $mailpoetPremiumIntegration;
+    $this->wordPressIntegration = $wordPressIntegration;
+    $this->wooCommerceIntegration = $wooCommerceIntegration;
     $this->wp = $wp;
   }
 
@@ -34,10 +46,11 @@ class Engine {
       5 // register premium routes before the free ones to replace the same ones
     );
 
-    $this->wp->addAction(AutomationHooks::INITIALIZE, [
-      $this->mailpoetPremiumIntegration,
-      'register',
-    ]);
+    $this->wp->addAction(AutomationHooks::INITIALIZE, function($registry) {
+      $this->mailpoetPremiumIntegration->register($registry);
+      $this->wordPressIntegration->register($registry);
+      $this->wooCommerceIntegration->register($registry);
+    });
   }
 
   public function registerPremiumAutomationAPIRoutes(API $api): void {

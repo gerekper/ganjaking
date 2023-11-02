@@ -28,6 +28,8 @@ class ConflictResolver {
       'automatewoo/',
       'full-site-editing',
       'wpcomsh',
+      // Gutenberg
+      'gutenberg/',
     ],
     'scripts' => [
       'mailpoet',

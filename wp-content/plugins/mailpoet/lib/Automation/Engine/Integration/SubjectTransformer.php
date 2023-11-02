@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) exit;
 use MailPoet\Automation\Engine\Data\Subject;
 
 interface SubjectTransformer {
-  public function transform(Subject $data): Subject;
+  public function transform(Subject $data): ?Subject;
 
   public function returns(): string;
 

@@ -32,6 +32,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $this->registerFreeService($container, \MailPoet\Tags\TagRepository::class);
     $this->registerFreeService($container, \MailPoet\Automation\Engine\Builder\UpdateStepsController::class);
     $this->registerFreeService($container, \MailPoet\Automation\Engine\Builder\UpdateAutomationController::class);
+    $this->registerFreeService($container, \MailPoet\Automation\Engine\Control\FilterHandler::class);
     $this->registerFreeService($container, \MailPoet\Automation\Engine\Mappers\AutomationMapper::class);
     $this->registerFreeService($container, \MailPoet\Automation\Engine\Storage\AutomationStorage::class);
     $this->registerFreeService($container, \MailPoet\Automation\Engine\Storage\AutomationStatisticsStorage::class);
@@ -111,6 +112,14 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Analytics\Storage\SubscriberStatistics::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Analytics\Controller\SubscriberController::class)->setPublic(true);
 
+    // Automation - WordPress integration
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\WordPress\WordPressIntegration::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\WordPress\Triggers\MadeACommentTrigger::class)->setPublic(true);
+
+    // Automation - WooCommerce integration
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerce\WooCommerceIntegration::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerce\Subjects\ReviewSubject::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\WooCommerce\Triggers\MadeAReviewTrigger::class)->setPublic(true);
     // Config
     $container->autowire(\MailPoet\Premium\Config\Hooks::class);
     $container->autowire(\MailPoet\Premium\Config\Initializer::class)->setPublic(true);

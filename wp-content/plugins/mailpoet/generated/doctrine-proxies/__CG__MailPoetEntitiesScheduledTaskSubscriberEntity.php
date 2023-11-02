@@ -282,6 +282,17 @@ class ScheduledTaskSubscriberEntity extends \MailPoet\Entities\ScheduledTaskSubs
     /**
      * {@inheritDoc}
      */
+    public function getSubscriberId()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSubscriberId', []);
+
+        return parent::getSubscriberId();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setSubscriber(\MailPoet\Entities\SubscriberEntity $subscriber)
     {
 

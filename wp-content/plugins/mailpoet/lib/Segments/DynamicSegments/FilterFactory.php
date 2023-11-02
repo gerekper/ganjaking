@@ -12,8 +12,10 @@ use MailPoet\Segments\DynamicSegments\Filters\AutomationsEvents;
 use MailPoet\Segments\DynamicSegments\Filters\EmailAction;
 use MailPoet\Segments\DynamicSegments\Filters\EmailActionClickAny;
 use MailPoet\Segments\DynamicSegments\Filters\EmailOpensAbsoluteCountAction;
+use MailPoet\Segments\DynamicSegments\Filters\EmailsReceived;
 use MailPoet\Segments\DynamicSegments\Filters\Filter;
 use MailPoet\Segments\DynamicSegments\Filters\MailPoetCustomFields;
+use MailPoet\Segments\DynamicSegments\Filters\NumberOfClicks;
 use MailPoet\Segments\DynamicSegments\Filters\SubscriberDateField;
 use MailPoet\Segments\DynamicSegments\Filters\SubscriberScore;
 use MailPoet\Segments\DynamicSegments\Filters\SubscriberSegment;
@@ -25,6 +27,7 @@ use MailPoet\Segments\DynamicSegments\Filters\WooCommerceAverageSpent;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceCategory;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceCountry;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceCustomerTextField;
+use MailPoet\Segments\DynamicSegments\Filters\WooCommerceFirstOrder;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceMembership;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceNumberOfOrders;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceNumberOfReviews;
@@ -119,6 +122,15 @@ class FilterFactory {
   /** @var WooCommerceUsedCouponCode  */
   private $wooCommerceUsedCouponCode;
 
+  /** @var WooCommerceFirstOrder */
+  private $wooCommerceFirstOrder;
+
+  /** @var EmailsReceived */
+  private $emailsReceived;
+
+  /** @var NumberOfClicks */
+  private $numberOfClicks;
+
   public function __construct(
     EmailAction $emailAction,
     EmailActionClickAny $emailActionClickAny,
@@ -133,6 +145,7 @@ class FilterFactory {
     WooCommerceNumberOfReviews $wooCommerceNumberOfReviews,
     WooCommerceTotalSpent $wooCommerceTotalSpent,
     WooCommerceMembership $wooCommerceMembership,
+    WooCommerceFirstOrder $wooCommerceFirstOrder,
     WooCommercePurchaseDate $wooCommercePurchaseDate,
     WooCommerceSubscription $wooCommerceSubscription,
     SubscriberScore $subscriberScore,
@@ -146,7 +159,9 @@ class FilterFactory {
     WooCommerceUsedShippingMethod $wooCommerceUsedShippingMethod,
     SubscriberTextField $subscriberTextField,
     SubscriberDateField $subscriberDateField,
-    AutomationsEvents $automationsEvents
+    AutomationsEvents $automationsEvents,
+    EmailsReceived $emailsReceived,
+    NumberOfClicks $numberOfClicks
   ) {
     $this->emailAction = $emailAction;
     $this->userRole = $userRole;
@@ -175,6 +190,9 @@ class FilterFactory {
     $this->automationsEvents = $automationsEvents;
     $this->subscriberDateField = $subscriberDateField;
     $this->wooCommerceUsedCouponCode = $wooCommerceUsedCouponCode;
+    $this->wooCommerceFirstOrder = $wooCommerceFirstOrder;
+    $this->emailsReceived = $emailsReceived;
+    $this->numberOfClicks = $numberOfClicks;
   }
 
   public function getFilterForFilterEntity(DynamicSegmentFilterEntity $filter): Filter {
@@ -225,7 +243,7 @@ class FilterFactory {
 
   /**
    * @param ?string $action
-   * @return EmailAction|EmailActionClickAny|EmailOpensAbsoluteCountAction
+   * @return EmailAction|EmailActionClickAny|EmailOpensAbsoluteCountAction|EmailsReceived|NumberOfClicks
    */
   private function email(?string $action) {
     $countActions = [EmailOpensAbsoluteCountAction::TYPE, EmailOpensAbsoluteCountAction::MACHINE_TYPE];
@@ -233,6 +251,10 @@ class FilterFactory {
       return $this->emailOpensAbsoluteCount;
     } elseif ($action === EmailActionClickAny::TYPE) {
       return $this->emailActionClickAny;
+    } elseif ($action === EmailsReceived::ACTION) {
+      return $this->emailsReceived;
+    } elseif ($action === NumberOfClicks::ACTION) {
+      return $this->numberOfClicks;
     }
     return $this->emailAction;
   }
@@ -274,6 +296,8 @@ class FilterFactory {
       return $this->wooCommerceCustomerTextField;
     } elseif ($action === WooCommerceUsedCouponCode::ACTION) {
       return $this->wooCommerceUsedCouponCode;
+    } elseif ($action === WooCommerceFirstOrder::ACTION) {
+      return $this->wooCommerceFirstOrder;
     }
     return $this->wooCommerceCategory;
   }

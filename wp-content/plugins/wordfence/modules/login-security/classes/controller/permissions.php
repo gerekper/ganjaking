@@ -343,7 +343,7 @@ class Controller_Permissions {
 		$queries = array();
 		foreach ($needed as $b) {
 			$tables = $wpdb->tables('blog', true, $b);
-			$queries[] = "SELECT option_name, option_value FROM {$tables['options']} WHERE option_name LIKE '%{$suffix}'";
+			$queries[] = "SELECT CAST(option_name AS CHAR UNICODE) AS option_name, CAST(option_value AS CHAR UNICODE) AS option_value FROM {$tables['options']} WHERE option_name LIKE '%{$suffix}'";
 		}
 		
 		$chunks = array_chunk($queries, 50);

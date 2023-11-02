@@ -132,6 +132,19 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 		$content_analysis = new WPSEO_Metabox_Analysis_Readability();
 		$assets_manager   = new WPSEO_Admin_Asset_Manager();
 
+		/**
+		 * Filters the parameter to disable Table of Content block.
+		 *
+		 * Note: Used to prevent auto-generation of HTML anchors for headings when TOC block is registered.
+		 *
+		 * @since 21.5
+		 *
+		 * @param bool $disable_table_of_content The value of the `autoload` parameter. Default: false.
+		 *
+		 * @return bool The filtered value of the `disable_table_of_content` parameter.
+		 */
+		$disable_table_of_content = apply_filters( 'Yoast\WP\SEO\disable_table_of_content_block', false );
+
 		$data = [
 			'restApi'                     => $this->get_rest_api_config(),
 			'seoAnalysisEnabled'          => $analysis_seo->is_enabled(),
@@ -177,7 +190,8 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 			'wpseoTOCData',
 			[
 				'data' => [
-					'TOCTitle' => \__( 'Table of contents', 'wordpress-seo-premium' ),
+					'TOCTitle'               => \__( 'Table of contents', 'wordpress-seo-premium' ),
+					'disableTableOfContents' => $disable_table_of_content,
 				],
 			]
 		);
