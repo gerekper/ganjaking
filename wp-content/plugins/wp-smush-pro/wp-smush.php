@@ -13,7 +13,7 @@
  * Plugin Name:       Smush Pro
  * Plugin URI:        http://wpmudev.com/project/wp-smush-pro/
  * Description:       Reduce image file sizes, improve performance and boost your SEO using the <a href="https://wpmudev.com/">WPMU DEV</a> WordPress Smush API.
- * Version:           3.14.2
+ * Version:           3.15.0
  * Author:            WPMU DEV
  * Author URI:        https://wpmudev.com/
  * License:           GPLv2
@@ -48,7 +48,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! defined( 'WP_SMUSH_VERSION' ) ) {
-	define( 'WP_SMUSH_VERSION', '3.14.2' );
+	define( 'WP_SMUSH_VERSION', '3.15.0' );
 }
 // Used to define body class.
 if ( ! defined( 'WP_SHARED_UI_VERSION' ) ) {
@@ -70,13 +70,13 @@ if ( ! defined( 'WP_SMUSH_URL' ) ) {
 	define( 'WP_SMUSH_URL', plugin_dir_url( __FILE__ ) );
 }
 if ( ! defined( 'WP_SMUSH_MAX_BYTES' ) ) {
-	define( 'WP_SMUSH_MAX_BYTES', 5242880 );
+	define( 'WP_SMUSH_MAX_BYTES', 5242880 ); // 5MB
 }
 if ( ! defined( 'WP_SMUSH_PREMIUM_MAX_BYTES' ) ) {
-	define( 'WP_SMUSH_PREMIUM_MAX_BYTES', 33554432 );
+	define( 'WP_SMUSH_PREMIUM_MAX_BYTES', 268435456 );
 }
 if ( ! defined( 'WP_SMUSH_TIMEOUT' ) ) {
-	define( 'WP_SMUSH_TIMEOUT', 150 );
+	define( 'WP_SMUSH_TIMEOUT', 420 ); // 7 minutes
 }
 if ( ! defined( 'WP_SMUSH_RETRY_ATTEMPTS' ) ) {
 	define( 'WP_SMUSH_RETRY_ATTEMPTS', 3 );
@@ -143,7 +143,7 @@ register_activation_hook( __FILE__, array( 'Smush\\Core\\Installer', 'smush_acti
 register_deactivation_hook( __FILE__, array( 'Smush\\Core\\Installer', 'smush_deactivated' ) );
 
 register_activation_hook( __FILE__, function () {
-	set_transient( 'wp-smush-plugin-activated', true, 30 );
+	update_option( 'wp-smush-plugin-activated', true );
 } );
 
 // Init the plugin and load the plugin instance for the first time.
@@ -241,13 +241,22 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 
 		public function do_plugin_activated_action() {
 			$transient_key = 'wp-smush-plugin-activated';
+			if ( ! get_option( $transient_key ) ) {
+				return;
+			}
 
-			( new \Smush\Core\Modules\Background\Mutex( $transient_key ) )->execute( function () use ( $transient_key ) {
-				if ( get_transient( $transient_key ) ) {
-					do_action( 'wp_smush_plugin_activated' );
-					delete_transient( $transient_key );
-				}
-			} );
+			( new \Smush\Core\Modules\Background\Mutex( $transient_key ) )
+				->set_break_on_timeout( true )
+				->execute( function () use ( $transient_key ) {
+					// The get_option call we made above has added the "true" value to the cache,
+					// get_option is always going to return true even if the option was deleted in another thread,
+					// now we need use a thread safe method instead
+					$background_utils = new \Smush\Core\Modules\Background\Background_Utils();
+					if ( $background_utils->get_option( $transient_key, false ) ) {
+						do_action( 'wp_smush_plugin_activated' );
+						delete_option( $transient_key );
+					}
+				} );
 		}
 
 		/**

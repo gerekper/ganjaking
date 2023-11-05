@@ -141,8 +141,8 @@ class Media_Item extends Smush_File {
 			? WP_SMUSH_PREMIUM_MAX_BYTES
 			: WP_SMUSH_MAX_BYTES;
 		$this->set_size_limit( $size_limit );
-		$this->array_utils  = new Array_Utils();
-		$this->fs           = new File_System();
+		$this->array_utils = new Array_Utils();
+		$this->fs          = new File_System();
 	}
 
 	public function size_limit_exceeded() {
@@ -1132,5 +1132,12 @@ class Media_Item extends Smush_File {
 		}
 		$backup_size = $this->get_default_backup_size();
 		return $backup_size && $backup_size->file_exists();
+	}
+
+	public function is_large() {
+		$file_size = $this->get_full_or_scaled_size()->get_filesize();
+		$cut_off   = $this->plugin_settings->get_large_file_cutoff();
+
+		return $file_size > $cut_off;
 	}
 }

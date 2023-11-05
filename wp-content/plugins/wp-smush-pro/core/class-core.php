@@ -280,7 +280,7 @@ class Core extends Stats {
 			'all_smushed'             => esc_html__( 'All attachments have been smushed. Awesome!', 'wp-smushit' ),
 			'error_size_limit'        => WP_Smush::is_pro() ? '' : sprintf(
 				/* translators: %1$s - opening a link <a>, %2$s - Close the link </a> */
-				esc_html__( 'Are you hitting the 5MB "size limit exceeded" warning? %1$sUpgrade to Smush Pro%2$s to optimize unlimited image files up to 32Mb each.', 'wp-smushit' ),
+				esc_html__( 'Are you hitting the 5MB "size limit exceeded" warning? %1$sUpgrade to Smush Pro%2$s to optimize unlimited image files up to 256Mb each.', 'wp-smushit' ),
 				'<a href="' . esc_url( $upgrade_url ) . '" target="_blank">',
 				'</a>'
 			),

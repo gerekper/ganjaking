@@ -171,7 +171,7 @@ class Common {
 		}
 
 		// Do not smush if auto smush is turned off.
-		if ( ! $smush->is_auto_smush_enabled() ) {
+		if ( ! $smush->should_auto_smush( $id ) ) {
 			return;
 		}
 

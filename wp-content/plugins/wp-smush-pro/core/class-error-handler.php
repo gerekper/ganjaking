@@ -264,7 +264,7 @@ class Error_Handler {
 				/* translators: %s: image size */
 				'size_limit'     => __( 'Skipped (%s), file size limit of 5mb exceeded', 'wp-smushit' ),
 				/* translators: %s: image size */
-				'size_pro_limit' => __( 'Skipped (%s), file size limit of 32mb exceeded', 'wp-smushit' ),
+				'size_pro_limit' => __( 'Skipped (%s), file size limit of 256mb exceeded', 'wp-smushit' ),
 				/* translators: %s: Directory path */
 				'not_writable'   => __( '%s is not writable', 'wp-smushit' ),
 				/* translators: %s: File path */

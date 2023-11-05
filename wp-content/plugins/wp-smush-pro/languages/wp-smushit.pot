@@ -2,16 +2,16 @@
 # This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Smush Pro 3.14.2\n"
+"Project-Id-Version: Smush Pro 3.15.0\n"
 "Report-Msgid-Bugs-To: https://wpmudev.com\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-08-23T13:57:37+00:00\n"
+"POT-Creation-Date: 2023-11-02T08:17:53+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.8.1\n"
+"X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: wp-smushit\n"
 
 #. Plugin Name of the plugin
@@ -107,7 +107,7 @@ msgstr ""
 #: app/class-abstract-page.php:922
 #: app/class-admin.php:318
 #: app/views/settings/permissions-meta-box.php:92
-#: core/class-settings.php:1168
+#: core/class-settings.php:1172
 msgid "Tutorials"
 msgstr ""
 
@@ -138,7 +138,7 @@ msgstr ""
 #: app/views/dashboard/summary-meta-box.php:61
 #: app/views/settings/permissions-meta-box.php:85
 #: core/class-configs.php:614
-#: core/class-settings.php:1167
+#: core/class-settings.php:1171
 #: _src/react/modules/configs.jsx:148
 msgid "CDN"
 msgstr ""
@@ -275,7 +275,7 @@ msgstr ""
 #: core/integrations/nextgen/class-admin.php:275
 #: core/media-library/class-media-library-row.php:511
 #: core/modules/bulk/class-mail.php:65
-#: wp-smush.php:457
+#: wp-smush.php:466
 msgid "Smush"
 msgstr ""
 
@@ -290,7 +290,7 @@ msgstr ""
 #: app/pages/class-nextgen.php:111
 #: app/views/dashboard/bulk/exists-uncompressed.php:53
 #: app/views/settings/permissions-meta-box.php:70
-#: core/class-settings.php:1164
+#: core/class-settings.php:1168
 #: core/modules/bulk/class-mail.php:96
 #: _src/react/modules/configs.jsx:145
 msgid "Bulk Smush"
@@ -311,7 +311,7 @@ msgstr ""
 #: app/views/dashboard/summary-meta-box.php:126
 #: app/views/settings/permissions-meta-box.php:80
 #: core/class-configs.php:613
-#: core/class-settings.php:1166
+#: core/class-settings.php:1170
 #: _src/react/modules/configs.jsx:147
 msgid "Lazy Load"
 msgstr ""
@@ -332,7 +332,7 @@ msgstr ""
 #: app/pages/class-dashboard.php:85
 #: app/pages/class-integrations.php:38
 #: app/views/settings/permissions-meta-box.php:75
-#: core/class-settings.php:1165
+#: core/class-settings.php:1169
 #: _src/react/modules/configs.jsx:146
 msgid "Integrations"
 msgstr ""
@@ -2898,7 +2898,7 @@ msgstr ""
 
 #. translators: %1$s - opening a link <a>, %2$s - Close the link </a>
 #: core/class-core.php:283
-msgid "Are you hitting the 5MB \"size limit exceeded\" warning? %1$sUpgrade to Smush Pro%2$s to optimize unlimited image files up to 32Mb each."
+msgid "Are you hitting the 5MB \"size limit exceeded\" warning? %1$sUpgrade to Smush Pro%2$s to optimize unlimited image files up to 256Mb each."
 msgstr ""
 
 #: core/class-core.php:287
@@ -3047,7 +3047,7 @@ msgstr ""
 
 #. translators: %s: image size
 #: core/class-error-handler.php:267
-msgid "Skipped (%s), file size limit of 32mb exceeded"
+msgid "Skipped (%s), file size limit of 256mb exceeded"
 msgstr ""
 
 #. translators: %s: Directory path
@@ -3724,41 +3724,41 @@ msgstr ""
 msgid "Note: It’s not always easy to make this happen, fix up what you can."
 msgstr ""
 
-#: core/modules/class-smush.php:528
+#: core/modules/class-smush.php:534
 #: core/smush/class-smusher.php:343
 msgid "Skipped due to a timeout error. You can increase the request timeout to make sure Smush has enough time to process larger files. define('WP_SMUSH_TIMEOUT', 150);"
 msgstr ""
 
 #. translators: %s: Error message.
-#: core/modules/class-smush.php:534
+#: core/modules/class-smush.php:540
 #: core/smush/class-smusher.php:352
 msgid "Error posting to API: %s"
 msgstr ""
 
 #. translators: 1: Error code, 2: Error message
 #. translators: 1: Error code, 2: Error message.
-#: core/modules/class-smush.php:542
+#: core/modules/class-smush.php:548
 #: core/smush/class-smusher.php:362
 msgid "Error posting to API: %1$s %2$s"
 msgstr ""
 
-#: core/modules/class-smush.php:554
+#: core/modules/class-smush.php:560
 #: core/smush/class-smusher.php:376
 msgid "Image couldn't be smushed"
 msgstr ""
 
-#: core/modules/class-smush.php:560
+#: core/modules/class-smush.php:566
 #: core/smush/class-smusher.php:388
 msgid "Unknown API error"
 msgstr ""
 
-#: core/modules/class-smush.php:571
+#: core/modules/class-smush.php:577
 #: core/smush/class-smusher.php:412
 msgid "Smush data corrupted, try again."
 msgstr ""
 
 #. translators: %d - attachment ID
-#: core/modules/class-smush.php:958
+#: core/modules/class-smush.php:964
 msgid "attachment ID: %d"
 msgstr ""
 
@@ -3857,7 +3857,7 @@ msgstr ""
 msgid "Smush was successful but we were unable to save the file due to a file system error: [%s]."
 msgstr ""
 
-#: wp-smush.php:436
+#: wp-smush.php:445
 msgid "Get Fast!"
 msgstr ""
 

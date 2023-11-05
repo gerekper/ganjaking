@@ -1119,6 +1119,10 @@ class Settings {
 		return $smush_modes[ $lossy_level ];
 	}
 
+	public function get_large_file_cutoff() {
+		return apply_filters( 'wp_smush_large_file_cut_off', 32 * 1024 * 1024 );
+	}
+
 	public function has_bulk_smush_page() {
 		return $this->is_page_active( 'bulk' );
 	}

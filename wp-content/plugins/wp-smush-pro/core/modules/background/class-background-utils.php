@@ -26,6 +26,23 @@ class Background_Utils {
 			$value_column = 'meta_value';
 		}
 
+		return $this->get_value_from_db( $table, $column, $key_column, $option_id, $value_column, $default );
+	}
+
+	public function get_option( $option_id, $default = false ) {
+		global $wpdb;
+
+		$table        = $wpdb->options;
+		$column       = 'option_name';
+		$key_column   = 'option_id';
+		$value_column = 'option_value';
+
+		return $this->get_value_from_db( $table, $column, $key_column, $option_id, $value_column, $default );
+	}
+
+	private function get_value_from_db( $table, $column, $key_column, $option_id, $value_column, $default ) {
+		global $wpdb;
+
 		$row = $wpdb->get_row( $wpdb->prepare( "
 			SELECT *
 			FROM {$table}

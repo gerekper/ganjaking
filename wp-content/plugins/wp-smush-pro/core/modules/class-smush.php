@@ -285,14 +285,20 @@ class Smush extends Abstract_Module {
 		$file_size = file_exists( $file_path ) ? filesize( $file_path ) : '';
 
 		// Check if premium user.
-		$max_size = WP_Smush::is_pro() ? WP_SMUSH_PREMIUM_MAX_BYTES : WP_SMUSH_MAX_BYTES;
+		if ( WP_Smush::is_pro() ) {
+			$max_size        = WP_SMUSH_PREMIUM_MAX_BYTES;
+			$size_limit_code = 'size_pro_limit';
+		} else {
+			$size_limit_code = 'size_limit';
+			$max_size        = WP_SMUSH_MAX_BYTES;
+		}
 
 		// Check if file exists.
 		if ( 0 === (int) $file_size ) {
 			$errors->add( 'file_not_found', sprintf( Error_Handler::get_error_message( 'file_not_found' ), basename( $file_path ) ) );
 		} elseif ( $file_size > $max_size ) {
 			// Check size limit.
-			$errors->add( 'size_limit', sprintf( Error_Handler::get_error_message( 'size_limit' ), size_format( $file_size, 1 ) ), array(
+			$errors->add( $size_limit_code, sprintf( Error_Handler::get_error_message( $size_limit_code ), size_format( $file_size, 1 ) ), array(
 				'file_name' => basename( $file_path )
 			) );
 		}
@@ -1054,7 +1060,7 @@ $stats['stats']['lossy'] = 1;
 			$generating_metadata = doing_filter( 'wp_generate_attachment_metadata' );
 
 			// Nothing to smush if that is generating metadata while disabling auto-smush.
-			if ( $generating_metadata && ! $this->is_auto_smush_enabled() ) {
+			if ( $generating_metadata && ! $this->should_auto_smush( $attachment_id ) ) {
 				// Remove stats and update cache.
 				WP_Smush::get_instance()->core()->remove_stats( $attachment_id );
 			} else {
@@ -1152,7 +1158,7 @@ $stats['stats']['lossy'] = 1;
 
 		// Is doing wp_generate_attachment_metadata.
 		$generating_metadata = doing_filter( 'wp_generate_attachment_metadata' );
-		if ( $generating_metadata && ! $this->is_auto_smush_enabled() ) {
+		if ( $generating_metadata && ! $this->should_auto_smush( $id ) ) {
 			// TODO: the following commented out line is here for historic reference only in case we need it again but hopefully we won't. Remove it once the version 3.13 has been out for a while. The reason why we are removing it is that it causes the test test__global_stats_updated_on_restore to fail.
 			// Remove stats and update cache.
 			//WP_Smush::get_instance()->core()->remove_stats( $id );
@@ -1349,7 +1355,7 @@ $stats['stats']['lossy'] = 1;
 	 */
 	public function wp_smush_handle_async( $id ) {
 		// If we don't have image id or auto Smush is disabled, return.
-		if ( empty( $id ) || ! $this->is_auto_smush_enabled() ) {
+		if ( empty( $id ) || ! $this->should_auto_smush( $id ) ) {
 			return;
 		}
 
@@ -1370,7 +1376,7 @@ $stats['stats']['lossy'] = 1;
 		}
 
 		// If auto Smush is disabled.
-		if ( ! $this->is_auto_smush_enabled() ) {
+		if ( ! $this->should_auto_smush( $id ) ) {
 			return;
 		}
 
@@ -1635,5 +1641,19 @@ $stats['stats']['lossy'] = 1;
 			}
 			return $optimizer->get_errors();
 		}
+	}
+
+	public function should_auto_smush( $id ) {
+		$media_item = Media_Item_Cache::get_instance()->get( $id );
+		if ( ! $media_item->is_valid() ) {
+			return false;
+		}
+
+		if ( $media_item->is_large() ) {
+			// We don't want very large files to be auto smushed
+			return false;
+		}
+
+		return $this->is_auto_smush_enabled();
 	}
 }

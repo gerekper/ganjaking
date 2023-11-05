@@ -16,8 +16,8 @@ class Webp_Converter extends Smusher {
 		$this->webp_helper = new Webp_Helper();
 	}
 
-	protected function get_api_request_headers() {
-		$headers         = parent::get_api_request_headers();
+	protected function get_api_request_headers( $file_path ) {
+		$headers         = parent::get_api_request_headers( $file_path );
 		$headers['webp'] = 'true';
 
 		return $headers;

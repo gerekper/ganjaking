@@ -184,7 +184,7 @@ class Smusher {
 
 	private function get_api_request_args( $file_path ) {
 		return array(
-			'headers'    => $this->get_api_request_headers(),
+			'headers'    => $this->get_api_request_headers( $file_path ),
 			'body'       => $this->fs->file_get_contents( $file_path ),
 			'timeout'    => $this->timeout,
 			'user-agent' => $this->user_agent,
@@ -358,7 +358,7 @@ class Smusher {
 
 		if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
 			$error = sprintf(
-				/* translators: 1: Error code, 2: Error message. */
+			/* translators: 1: Error code, 2: Error message. */
 				__( 'Error posting to API: %1$s %2$s', 'wp-smushit' ),
 				wp_remote_retrieve_response_code( $response ),
 				wp_remote_retrieve_response_message( $response )
@@ -433,7 +433,7 @@ class Smusher {
 	private function get_parallel_request_args( $file_path ) {
 		return array(
 			'url'     => $this->get_api_url(),
-			'headers' => $this->get_api_request_headers(),
+			'headers' => $this->get_api_request_headers( $file_path ),
 			'data'    => $this->fs->file_get_contents( $file_path ),
 			'type'    => 'POST',
 		);
@@ -449,7 +449,7 @@ class Smusher {
 	/**
 	 * @return string[]
 	 */
-	protected function get_api_request_headers() {
+	protected function get_api_request_headers( $file_path ) {
 		$headers = array(
 			'accept'       => 'application/json',   // The API returns JSON.
 			'content-type' => 'application/binary', // Set content type to binary.
@@ -462,9 +462,21 @@ class Smusher {
 		$api_key = Helper::get_wpmudev_apikey();
 		if ( ! empty( $api_key ) && WP_Smush::is_pro() ) {
 			$headers['apikey'] = $api_key;
+
+			$is_large_file = $this->is_large_file( $file_path );
+			if ( $is_large_file ) {
+				$headers['islarge'] = 1;
+			}
 		}
 
 		return $headers;
+	}
+
+	private function is_large_file( $file_path ) {
+		$file_size = file_exists( $file_path ) ? filesize( $file_path ) : 0;
+		$cut_off   = $this->settings->get_large_file_cutoff();
+
+		return $file_size > $cut_off;
 	}
 
 	/**
