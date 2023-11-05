@@ -187,7 +187,7 @@ The manual installation method involves downloading our Coupon Referral Program 
 
 == Changelog ==
 
-**2023-08-18 - Version 1.7.0**
+**2023-08-17 - Version 1.7.0**
 
 * New: Compatibility with WordPress (6.3.0) and WooCommerce (8.0.2 ) 
 * New: Referrals management by the user roles

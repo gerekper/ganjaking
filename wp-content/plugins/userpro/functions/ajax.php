@@ -333,7 +333,7 @@ function userpro_process_form()
         /* publish */
         case 'publish':
             if (isset($_POST['user_action'])) {
-                $user_action = $_POST['user_action'];
+                $user_action = esc_attr( $_POST['user_action'] );
             }
             $output['error'] = [];
             if (get_current_user_id() != $user_id) {
@@ -342,20 +342,20 @@ function userpro_process_form()
             /* no server-side errors */
             if (empty($output['error'])) {
                 if (isset($form['postid'])) {
-                    $array = ['ID' => $form['postid']];
+                    $array = ['ID' => intval( esc_attr( $form['postid'] ) )];
                 }
 
                 $array = ['post_author' => $user_id];
                 if (isset($form['post_title']) && !empty($form['post_title'])) {
-                    $array['post_title'] = $form['post_title'];
+                    $array['post_title'] = sanitize_text_field( esc_attr( $form['post_title'] ) );
                 }
 
                 if (isset($form['userpro_editor']) && !empty($form['userpro_editor'])) {
-                    $array['post_content'] = @wp_kses($form['userpro_editor'], '');
+                    $array['post_content'] = wp_kses( $form['userpro_editor'], '' );
                 }
 
                 if (isset($form['post_type']) && !empty($form['post_type'])) {
-                    $array['post_type'] = $form['post_type'];
+                    $array['post_type'] = sanitize_text_field( esc_attr( $form['post_type'] ) );
                 }
                 if (isset($form['postid'])) {
 
@@ -494,6 +494,8 @@ function userpro_process_form()
                         'userpro_editor',
                         'user_id'
                     ])) {
+                        $key = sanitize_text_field( $key );
+                        $val = sanitize_text_field( $val );
                         update_post_meta($post_id, $key, $val);
                     }
                 }
@@ -568,12 +570,15 @@ function userpro_process_form()
                 ]);
 
                 $key_matched = false;
+                $user_id = null;
+
                 foreach ($users as $user) {
                     $stored_hashed_key = get_user_meta($user->ID, 'userpro_secret_key', true);
 
                     // Verify the input key directly without additional manipulation
                     if (wp_check_password($form['secretkey'], $stored_hashed_key)) {
                         $key_matched = true;
+                        $user_id = $user->ID;
                         break; // Exit the loop as we found a matching key
                     }
                 }
@@ -601,7 +606,8 @@ function userpro_process_form()
         /* send secret key */
         case 'reset':
             $output['error'] = [];
-            $username_or_email = $form['username_or_email'];
+            $username_or_email = isset( $form['username_or_email'] ) ? sanitize_text_field( $form['username_or_email'] ) : '';
+
             if (!$username_or_email) {
                 $output['error']['username_or_email'] = __('You should provide your email or username.', 'userpro');
             } else {
@@ -657,9 +663,10 @@ function userpro_process_form()
         case 'resend':
             $output['error'] = [];
             $userdataval = '';
-            $username_or_email = $form['username_or_email'];
+            $username_or_email = isset( $form['username_or_email'] ) ? sanitize_text_field( $form['username_or_email'] ) : '';
+
             if (!$username_or_email) {
-                $output['error']['username_or_email'] = __('You should provide your email or username.', 'userpro');
+                $output['error']['username_or_email'] = __('You should provide your email or username.xxx', 'userpro');
             } else {
 
                 if (is_email($username_or_email)) {
@@ -694,7 +701,7 @@ function userpro_process_form()
         case 'login':
             global $wp_filter;
 
-            $username_or_email = isset($form['username_or_email']) ? $form['username_or_email'] : $form['user_login'];
+            $username_or_email = isset( $form['username_or_email'] ) ? sanitize_user( $form['username_or_email'] ) : sanitize_user( $form['user_login'] );
 
             $output['error'] = [];
 
@@ -752,13 +759,11 @@ function userpro_process_form()
                         $output['custom_message'] = $user->pendingActivation();
 
                     } else {
-                        /* a good login */
-                        $redirects['force_redirect_uri'] = isset($form['force_redirect_uri']) ? $form['force_redirect_uri'] : '';
-                        $redirects['redirect_uri'] = isset($form['redirect_uri']) ? $form['redirect_uri'] : '';
-                        $redirects['global_redirect'] = isset($form['global_redirect']) ? $form['global_redirect'] : '';
-
-                        $output['redirect_uri'] = userpro_auto_login($user->user_login, $rememberme, $redirects,
-                            'login');
+                        /* A successful login */
+                        $redirects['force_redirect_uri'] = isset( $form['force_redirect_uri'] ) ? esc_url( $form['force_redirect_uri'] ) : '';
+                        $redirects['redirect_uri'] = isset( $form['redirect_uri'] ) ? esc_url( $form['redirect_uri'] ) : '';
+                        $redirects['global_redirect'] = isset( $form['global_redirect'] ) ? esc_url( $form['global_redirect'] ) : '';
+                        $output['redirect_uri'] = userpro_auto_login( $user->user_login, $rememberme, $redirects, 'login' );
                     } // active/pending
 
                 }
@@ -770,6 +775,8 @@ function userpro_process_form()
         case 'edit':
 
             $output['error'] = [];
+
+            $user_id = isset( $form['user_id']) ? absint( $form['user_id'] ) : 0;
 
             if ($user_id != get_current_user_id() && !current_user_can('manage_options') && !userpro_get_edit_userrole()) {
 
@@ -788,8 +795,9 @@ function userpro_process_form()
                     userpro_mail($user_id, 'profileupdate', null, $form);
                 }
 
-                if ($_POST['up_username']) {
-                    set_query_var('up_username', stripslashes($_POST['up_username']));
+                if ( isset( $_POST['up_username'] ) ) {
+                    $up_username = stripslashes( $_POST['up_username'] );
+                    set_query_var( 'up_username', $up_username );
                 }
 
                 $shortcode = stripslashes($shortcode);
@@ -811,13 +819,9 @@ function userpro_process_form()
 
         /* registering */
         case 'register':
-
             $allowed_roles = userpro_get_option('allowed_roles');
-
             $default_role = userpro_get_option('default_role');
-
             $form['role'] = (empty($form['role'])) ? $default_role : strtolower($form['role']);
-
             $form['form_role'] = (empty($form['form_role'])) ? $form['role'] : strtolower($form['form_role']);
 
             if (in_array($form['role'], $allowed_roles) || in_array($form['form_role'], $allowed_roles)) {
@@ -832,185 +836,145 @@ function userpro_process_form()
                 }
             }
 
-            $output['error'] = [];
+            $output['error'] = array();
             $user_invited = "";
+
             /* Form validation */
             /* Here you can process custom "errors" before proceeding */
             $output['error'] = apply_filters('userpro_register_validation', $output['error'], $form);
 
             if (!in_array($form['role'], $allowed_roles) || !in_array($form['form_role'], $allowed_roles)) {
-
-                $output['error'] = 'You are trying register with non-valid role.';
-                header('HTTP/1.1 500 ' . $output['error']);
-                die(json_encode(['error' => $output['error']]));
+                $output['error'] = esc_html__( 'You are trying to register with a non-valid role.', 'userpro' );
+                header( 'HTTP/1.1 500 ' . esc_html( $output['error'] ) );
+                die( json_encode( array( 'error' => $output['error'] ) ) );
             }
 
             if ($user_invited == 'not_invited_user') {
-
-                $output['error']['user_email'] = 'You are using non invited email';
+                $output['error']['user_email'] = esc_html( 'You are using a non-invited email', 'userpro' );
             }
-            if (empty($output['error']) && (
 
+            if (empty($output['error']) && (
                     (isset($form['user_login']) && isset($form['user_email']) && isset($form['user_pass'])) ||
                     (isset($form['user_login']) && isset($form['user_email'])) ||
                     (isset($form['user_email']))
-
-                )
-            ) {
-
+                )) {
                 if (isset($form['user_login']) || isset($form['user_email'])) {
-
                     $user_login = isset($form['user_login']) ? $form['user_login'] : $form['user_email'];
-
-                    // Remove spaces from user login
-                    $user_login = str_replace(' ', '', $user_login);
-
+                    $user_login = sanitize_text_field(str_replace( ' ', '', $user_login ) );
                     $user_exists = username_exists($user_login);
-
                 }
 
-                if (empty($user_exists) and email_exists($form['user_email']) == false) {
-
+                if ( empty( $user_exists ) && email_exists( $form['user_email'] ) == false ) {
                     if (!isset($form['user_pass'])) {
-                        $user_pass = wp_generate_password($length = 12, $include_standard_special_chars = false);
+                        $user_pass = wp_generate_password( 12, false );
                     } else {
                         $user_pass = $form['user_pass'];
                     }
-                    /* not auto approved? */
 
+                    /* not auto approved? */
                     $result = get_option('userpro_payment');
-                    if ($form['redirect_uri']) {
-                        $output['redirect_uri'] = wp_validate_redirect($form['redirect_uri']);
+
+                    if ( $form['redirect_uri'] ) {
+                        $output['redirect_uri'] = esc_url( wp_validate_redirect($form['redirect_uri'] ) );
                     } else {
                         if (userpro_get_option('after_register') == 'no_redirect') {
                             $output['redirect_uri'] = 'refresh';
                         }
                         if (userpro_get_option('after_register') == 'profile') {
-                            $output['redirect_uri'] = $userpro->permalink();
+                            $output['redirect_uri'] = esc_url($userpro->permalink());
                         }
                     }
+
                     if ($result['userpro_payment_option'] == 'y') {
-
                         if (userpro_get_option('users_approve') === '2') {
-
-                            $user_id = $userpro->new_user($user_login, $user_pass, $form['user_email'], $form,
-                                $type = 'standard', $approved = 0);
+                            $user_id = $userpro->new_user( $user_login, $user_pass, $form['user_email'], $form, 'standard', 0 );
                             complete_invited_user_registration($user_invited);
                             $userpro->pending_email_approve($user_id, $user_pass, $form);
                             $userpro->pending_admin_approve($user_id, $user_pass, $form);
                             add_action('userpro_pre_form_message', 'userpro_msg_activate_pending');
                             $shortcode = stripslashes($shortcode);
                             $modded = str_replace('template="register"', 'template="login"', $shortcode);
-                            $output['template'] = do_shortcode($modded);
-
-                            (!empty($output['paypal_form'])) ? $out = $output['paypal_form'] : $out = '';
+                            $output['template'] = do_shortcode( esc_html( $modded ) );
+                            $out = (!empty($output['paypal_form'])) ? $output['paypal_form'] : '';
                             $output['paypal_form'] = apply_filters('paymentredirect', $out, $user_id);
                             if (userpro_get_option('after_register') == 'profile') {
                                 $output['redirect_uri'] = '';
                             }
-                            $output['redirect_uri'] = apply_filters('userpro_register_redirect',
-                                $output['redirect_uri']);
+                            $output['redirect_uri'] = apply_filters( 'userpro_register_redirect', $output['redirect_uri'] );
                         } else {
-
-                            $user_id = $userpro->new_user($user_login, $user_pass, $form['user_email'], $form,
-                                $type = 'standard', $approved = 0);
+                            $user_id = $userpro->new_user( $user_login, $user_pass, $form['user_email'], $form, 'standard', 0 );
                             complete_invited_user_registration($user_invited);
                             $userpro->pending_admin_approve($user_id, $user_pass, $form);
-
                             add_action('userpro_pre_form_message', 'userpro_msg_activate_pending_admin');
                             $shortcode = stripslashes($shortcode);
                             $modded = str_replace('template="register"', 'template="login"', $shortcode);
-                            $output['template'] = do_shortcode($modded);
-                            (!empty($output['paypal_form'])) ? $out = $output['paypal_form'] : $out = '';
+                            $output['template'] = do_shortcode( esc_html( $modded ) );
+                            $out = ( ! empty( $output['paypal_form'] ) ) ? $output['paypal_form'] : '';
                             $output['paypal_form'] = apply_filters('paymentredirect', $out, $user_id);
                             if (userpro_get_option('after_register') == 'profile') {
                                 $output['redirect_uri'] = '';
                             }
-                            $output['redirect_uri'] = apply_filters('userpro_register_redirect',
-                                $output['redirect_uri']);
+                            $output['redirect_uri'] = apply_filters( 'userpro_register_redirect', $output['redirect_uri'] );
                         }
                     } else {
                         if (userpro_get_option('users_approve') !== '1') {
-
                             /* require email validation */
                             if (userpro_get_option('users_approve') === '2') {
-
-                                $user_id = $userpro->new_user($user_login, $user_pass, $form['user_email'], $form,
-                                    $type = 'standard', $approved = 0);
+                                $user_id = $userpro->new_user( $user_login, $user_pass, $form['user_email'], $form, 'standard', 0 );
                                 complete_invited_user_registration($user_invited);
                                 $userpro->pending_email_approve($user_id, $user_pass, $form);
-
                                 add_action('userpro_pre_form_message', 'userpro_msg_activate_pending');
                                 $shortcode = stripslashes($shortcode);
                                 $modded = str_replace('template="register"', 'template="login"', $shortcode);
-                                $output['template'] = do_shortcode($modded);
+                                $output['template'] = do_shortcode( esc_html( $modded ) );
                                 if (userpro_get_option('after_register') == 'profile') {
                                     $output['redirect_uri'] = '';
                                 }
-                                $output['redirect_uri'] = apply_filters('userpro_register_redirect',
-                                    $output['redirect_uri']);
+                                $output['redirect_uri'] = apply_filters( 'userpro_register_redirect', $output['redirect_uri'] );
                             }
-
                             /* require admin validation */
                             if (userpro_get_option('users_approve') === '3') {
-
-                                $user_id = $userpro->new_user($user_login, $user_pass, $form['user_email'], $form,
-                                    $type = 'standard', $approved = 0);
+                                $user_id = $userpro->new_user( $user_login, $user_pass, $form['user_email'], $form, 'standard', 0 );
                                 complete_invited_user_registration($user_invited);
                                 $userpro->pending_admin_approve($user_id, $user_pass, $form);
 
-//								registration shortcode redirection
-
                                 if (!empty($form['redirect_uri'])) {
-
-                                    $output['redirect_uri'] = apply_filters('userpro_register_redirect',
-                                        $form['redirect_uri']);
+                                    $output['redirect_uri'] = apply_filters( 'userpro_register_redirect', $form['redirect_uri'] );
                                 } else {
-
                                     add_action('userpro_pre_form_message', 'userpro_msg_activate_pending_admin');
                                     $shortcode = stripslashes($shortcode);
                                     $modded = str_replace('template="register"', 'template="login"', $shortcode);
-                                    $output['template'] = do_shortcode($modded);
+                                    $output['template'] = do_shortcode( esc_html( $modded ) );
                                     if (userpro_get_option('after_register') == 'profile') {
                                         $output['redirect_uri'] = '';
                                     }
-                                    $output['redirect_uri'] = apply_filters('userpro_register_redirect',
-                                        $output['redirect_uri']);
+                                    $output['redirect_uri'] = apply_filters( 'userpro_register_redirect', $output['redirect_uri'] );
                                 }
                             }
                         } else {
-
-                            $user_id = $userpro->new_user($user_login, $user_pass, $form['user_email'], $form,
-                                $type = 'standard');
+                            $user_id = $userpro->new_user( $user_login, $user_pass, $form['user_email'], $form, 'standard' );
                             complete_invited_user_registration($user_invited);
+
                             /* auto login */
                             if (userpro_get_option('after_register_autologin')) {
-
                                 if (isset($user_login)) {
-
                                     userpro_auto_login($user_login, true);
                                 }
-
                                 /* hook the redirect URI */
-                                $output['redirect_uri'] = apply_filters('userpro_register_redirect',
-                                    $output['redirect_uri']);
-                                /* manual login form */
+                                $output['redirect_uri'] = apply_filters( 'userpro_register_redirect', $output['redirect_uri'] );
                             } else {
-
                                 add_action('userpro_pre_form_message', 'userpro_msg_login_after_reg');
                                 $shortcode = stripslashes($shortcode);
                                 $modded = str_replace('template="register"', 'template="login"', $shortcode);
-                                $output['template'] = do_shortcode($modded);
+                                $output['template'] = do_shortcode( esc_html( $modded ) );
                             }
-                            //$output['user_id']=$user_id;
-
                         }
                     }
                 }
             }
 
             /**
-             * If invitation code come from form update user status to registered.
+             * If invitation code comes from the form, update the user status to registered.
              */
             if (isset($form['invitation_code']) && $form['invitation_code']) {
                 $updateStatus = new UP_UserInvitation();
@@ -1041,9 +1005,8 @@ function userpro_side_validate()
         die();
     }
 
-    $input_value = $_POST['input_value'];
-
-    $ajaxcheck = $_POST['ajaxcheck'];
+    $input_value = sanitize_text_field( $_POST['input_value'] );
+    $ajaxcheck = sanitize_text_field( $_POST['ajaxcheck'] );
     $output['error'] = '';
 
     switch ($ajaxcheck) {
@@ -1202,6 +1165,9 @@ function userpro_side_validate()
  */
 
 function validateMinLength($val, $key){
+
+    $val = sanitize_text_field( $val );
+
     if(in_array($key, explode(',',userpro_get_option('min_field_length_include') ) ) && strlen($val) < userpro_get_option('min_field_length')){
             return __('Too short');
     }
@@ -1210,6 +1176,8 @@ function validateMinLength($val, $key){
 
 function checkIfEmailWhitelisted($input_value)
 {
+    $input_value = sanitize_email( $input_value );
+
     /* Check if email is whitelisted */
     if (userpro_get_option('userpro_allow_email_domains') && $input_value) {
 
@@ -1240,10 +1208,12 @@ function userpro_crop_picupload()
         die();
     }
     require_once(userpro_path . 'lib/BFI_Thumb.php');
-    $width = $_POST['width'];
-    $height = $_POST['height'];
-    $src = $_POST['src'];
-    $filetype = $_POST['filetype'];
+
+    $width = intval( $_POST['width'] );
+    $height = intval( $_POST['height'] );
+    $src = sanitize_text_field( $_POST['src'] );
+    $filetype = sanitize_text_field( $_POST['filetype'] );
+
     if ($filetype == 'picture') {
         //commented by yogesh for post feature image.
         /*if ( strstr($src, 'wp-content')) {
@@ -1291,9 +1261,9 @@ function userpro_save_userdata(){
 
     global $userpro;
 
-    $user_id = $_POST['user_id'];
-    $field = $_POST['field'];
-    $value = $_POST['value'];
+    $user_id = intval( $_POST['user_id'] );
+    $field = sanitize_text_field( $_POST['field'] );
+    $value = wp_unslash( $_POST['value'] );
 
     if (!isset($_POST) || $_POST['action'] != 'userpro_save_userdata' || ($user_id != get_current_user_id() && !current_user_can('manage_options') && !userpro_get_edit_userrole())) {
         die();
@@ -1323,30 +1293,44 @@ add_action('wp_ajax_nopriv_userpro_shortcode_template', 'userpro_shortcode_templ
 add_action('wp_ajax_userpro_shortcode_template', 'userpro_shortcode_template');
 
 function userpro_shortcode_template() {
+    $output = array();
     $shortcode = isset( $_POST['shortcode'] ) ? wp_strip_all_tags( $_POST['shortcode'] ) : '';
 
-    if( isset( $_POST['user_pro_nonce'] ) &&  wp_verify_nonce( $_POST['user_pro_nonce'], 'user_pro_nonce' ) ) {
-        ob_start();
+    if ( isset( $_POST['user_pro_nonce'] ) &&  wp_verify_nonce( $_POST['user_pro_nonce'], 'user_pro_nonce' ) ) {
+        // Check for the existence of only one authorized shortcode
+        if ( preg_match_all( '/' . get_shortcode_regex() . '/', $shortcode, $matches ) === 1 ) {
+            // Check if it is the 'userpro' shortcode
+            if ( $matches[2][0] === 'userpro' ) {
 
-        if ( isset( $_POST['up_username'] ) ) {
-            $username = wp_strip_all_tags( $_POST['up_username'] );
-            set_query_var( 'up_username', stripslashes( $username ) );
+                ob_start();
+
+                if ( isset( $_POST['up_username'] ) ) {
+                    $username = wp_strip_all_tags( $_POST['up_username'] );
+                    set_query_var('up_username', sanitize_text_field( stripslashes( $username ) ) );
+                }
+
+                echo do_shortcode( stripslashes( $shortcode ) );
+
+                $output['response'] = ob_get_contents();
+                ob_end_clean();
+
+                $output = array( 'response' => $output['response'] );
+                $json_response = json_encode( $output );
+
+                if ( $json_response === false ) {
+                    die( 'JSON encoding error: ' . json_last_error_msg() );
+                }
+
+                echo $json_response;
+
+                die;
+
+            } else {
+                wp_send_json_error( 'Unauthorized shortcode.' );
+            }
+        } else {
+            wp_send_json_error( 'Multiple shortcode.' );
         }
-
-        echo do_shortcode( stripslashes( $shortcode ) );
-        $output['response'] = ob_get_contents();
-        ob_end_clean();
-
-        $output = array( 'response' => $output['response'] );
-        $json_response = json_encode( $output );
-
-        if ( $json_response === false ) {
-            die( 'JSON encoding error: ' . json_last_error_msg() );
-        }
-
-        echo $json_response;
-
-        die;
     } else {
         wp_send_json_error( 'Invalid nonce.' );
     }
@@ -1365,12 +1349,12 @@ function userpro_fbconnect() {
 
     // Check if an access token is provided in the POST data
     if (isset($_POST['access_token'])) {
-        $access_token = $_POST['access_token'];
+        $access_token = sanitize_text_field( wp_unslash( $_POST['access_token'] ) );
         $token_validation_url = 'https://graph.facebook.com/v12.0/me?fields=email&access_token=' . $access_token;
 
 
         // Send a request to Facebook's API to validate the token
-        $response = wp_remote_get($token_validation_url);
+        $response = wp_safe_remote_get( $token_validation_url );
 
         if (is_wp_error($response)) {
             // Handle the error as needed
@@ -1386,7 +1370,7 @@ function userpro_fbconnect() {
         if (isset($data->id) && isset($data->email)) {
             // Token is valid, continue with user registration or login
 
-            if ( $data->email !== $_POST['email']) {
+            if ($data->email !== sanitize_email( wp_unslash( $_POST['email'] ) ) ) {
                 $output['error_msg'] = 'Email validation failed';
                 $output = json_encode($output);
                 echo $output;
@@ -1422,32 +1406,32 @@ function userpro_fbconnect() {
     }
 
     if (!isset($_POST['name']) || $_POST['name'] == '' || $_POST['name'] == 'undefined') {
-        $username = $_POST['email'];
+        $username = sanitize_email( wp_unslash( $_POST['email'] ) );
     } else {
         if (preg_match("/^\p{Han}+$/u", $_POST['name'])) {
-            $username = $_POST['email'];
+            $username = sanitize_email( wp_unslash( $_POST['email'] ) );
         } else {
-            $username = $_POST['first_name'] . '_' . $_POST['last_name'];
+            $username = sanitize_user( $_POST['first_name'] . '_' . $_POST['last_name'] );
         }
     }
     $string = '';
     for ($i = 0; $i < strlen($_POST['id']) - 1; $i += 2) {
         $string .= chr(hexdec($_POST['id'][$i] . $_POST['id'][$i + 1]));
     }
-    $client_id = substr(userpro_get_option('facebook_app_id'), 0, 8);
+    $client_id = substr( sanitize_text_field( userpro_get_option( 'facebook_app_id' ) ), 0, 8 );
 
-    $_POST['id'] = openssl_encrypt($client_id, 'AES-128-ECB', $string);
+    $_POST['id'] = sanitize_text_field( openssl_encrypt( $client_id, 'AES-128-ECB', $string ) );
     /* Check if facebook uid exists */
 
     if (isset($_POST['id']) && $_POST['id'] != '' && $_POST['id'] != 'undefined') {
         $users = get_users([
             'meta_key' => 'userpro_facebook_id',
-            'meta_value' => $_POST['id'],
+            'meta_value' => sanitize_text_field( wp_unslash( $_POST['id'] ) ),
             'meta_compare' => '=',
         ]);
         if (isset($users[0]->ID) && is_numeric($users[0]->ID)) {
 
-            social_profile_check($_POST['email'], $_POST['id'], 'facebook');
+            social_profile_check( sanitize_email( wp_unslash( $_POST['email'] ) ), sanitize_text_field( wp_unslash( $_POST['id'] ) ), 'facebook' );
 
             $returning = $users[0]->ID;
             $returning_user_login = $users[0]->user_login;
@@ -1464,7 +1448,7 @@ function userpro_fbconnect() {
 
     if (userpro_is_logged_in()) {
 
-        $userpro->update_fb_id(get_current_user_id(), $_POST['id']);
+        $userpro->update_fb_id( get_current_user_id(), sanitize_text_field( $_POST['id'] ) );
 
         if ($_POST['redirect'] == '') {
             $output['redirect_uri'] = 'refresh';
@@ -1522,7 +1506,7 @@ function userpro_fbconnect() {
         } else {
             if ($_POST['email'] != '' && email_exists($_POST['email'])) {
 
-                $user_id = email_exists($_POST['email']);
+                $user_id = email_exists( sanitize_email( $_POST['email'] ) );
                 $user = get_userdata($user_id);
                 $result = get_user_meta($user_id, "userpayment");
                 $paymentoption = get_option('userpro_payment');
@@ -1612,7 +1596,7 @@ function userpro_fbconnect() {
                             if (username_exists($username)) {
                                 $username = $username . time();
                             }
-                            $user_id = $userpro->new_user($username, $user_pass, $_POST['email'], $_POST,
+                            $user_id = $userpro->new_user($username, $user_pass, sanitize_email( $_POST['email'] ), $_POST,
                                 $type = 'facebook');
                             update_user_meta($user_id, "userpayment", "notrecive");
                             $userpro->pending_admin_approve($user_id, $user_pass, $form = "");
@@ -1675,7 +1659,7 @@ function userpro_userpro_performance(){
     global $post;
     $ajax_url = parse_url(admin_url('admin-ajax.php'));
     $current_url = parse_url(get_permalink($post->ID));
-    $parameters = stripslashes($_POST['params']);
+    $parameters = sanitize_text_field( $_POST['params'] );
     ob_start();
 
     echo do_shortcode("[userpro " . $parameters . "]");

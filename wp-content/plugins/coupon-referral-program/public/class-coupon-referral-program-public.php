@@ -8,6 +8,7 @@
  * @package    coupon-referral-program
  * @subpackage coupon-referral-program/public
  */
+use Automattic\WooCommerce\Utilities\OrderUtil;
 
 /**
  * The public-facing functionality of the plugin.
@@ -1100,7 +1101,7 @@ class Coupon_Referral_Program_Public {
 				/* Start Save utilization of the coupon */
 				$this->save_utilize_coupon_aomunt( $order, $order_id );
 				$bloginfo                 = get_bloginfo();
-				$is_referral_has_rewarded = get_post_meta( $order_id, 'referral_has_rewarded', true );
+				$is_referral_has_rewarded = $order->get_meta( 'referral_has_rewarded' );
 
 				if ( isset( $is_referral_has_rewarded ) && ! empty( $is_referral_has_rewarded ) ) {
 					return;
@@ -1198,7 +1199,7 @@ class Coupon_Referral_Program_Public {
 	 */
 	public function save_utilize_coupon_aomunt( $order, $order_id ) {
 
-		$utilize_coupon_amount_updated = get_post_meta( $order_id, 'utilize_coupon_amount_updated', true );
+		$utilize_coupon_amount_updated = $order->get_meta( 'utilize_coupon_amount_updated' );
 		if ( isset( $utilize_coupon_amount_updated ) && 'set' === $utilize_coupon_amount_updated ) {
 			return;
 		}
@@ -1808,7 +1809,9 @@ class Coupon_Referral_Program_Public {
 		} elseif ( ! $this->mwb_crp_is_enable_multiple_apply_coupons() && $this->mwb_crp_is_enable_subscription() ) {
 
 			$subscription_id = $subscription->get_id();
-			$assinged_coupon = get_post_meta( $subscription_id, 'assinged_coupons', true );
+
+			$assinged_coupon = $subscription->get_meta( 'assinged_coupons' );
+
 			if ( ! empty( $assinged_coupon ) && is_array( $assinged_coupon ) ) {
 				foreach ( $assinged_coupon as $key => $coupon_code ) {
 					$coupon = new WC_Coupon( $coupon_code );
@@ -1862,11 +1865,12 @@ class Coupon_Referral_Program_Public {
 		check_ajax_referer( 'mwb-crp-verify-nonce', 'mwb_nonce' );
 
 		$mwb_crp_html = '';
-		if ( isset( $_POST['subscription_id'] ) ) {
+		if ( isset( $_POST['subscription_id'] ) && function_exists( 'wcs_get_subscription' ) ) {
 			$subscription_id = sanitize_text_field( wp_unslash( $_POST['subscription_id'] ) );
-			$assinged_coupon = get_post_meta( $subscription_id, 'assinged_coupons', true );
 
-			$subscription = wc_get_order( $subscription_id );
+			$subscription    = wcs_get_subscription( $subscription_id );
+			$assinged_coupon = $subscription->get_meta( 'assinged_coupons' );
+
 			$user_id      = $subscription->get_user_id();
 
 			$referral_purchase_coupons = $this->get_referral_purchase_coupons( $user_id );
@@ -1948,17 +1952,20 @@ class Coupon_Referral_Program_Public {
 	 */
 	public function mwb_crp_coupon_apply() {
 		check_ajax_referer( 'mwb-crp-verify-nonce', 'mwb_nonce' );
-		if ( isset( $_POST['subscription_id'] ) && isset( $_POST['coupon_id'] ) ) {
+		if ( isset( $_POST['subscription_id'] ) && isset( $_POST['coupon_id'] ) && function_exists( 'wcs_get_subscription' ) ) {
 			$subscription_id = sanitize_text_field( wp_unslash( $_POST['subscription_id'] ) );
 			$coupon_id       = sanitize_text_field( wp_unslash( $_POST['coupon_id'] ) );
 			$mwb_array       = array();
-			$assinged_coupon = get_post_meta( $subscription_id, 'assinged_coupons', true );
+			$subscription    = wcs_get_subscription( $subscription_id );
+			$assinged_coupon = $subscription->get_meta( 'assinged_coupons' );
 			if ( empty( $assinged_coupon ) ) {
 				$mwb_array[] = $coupon_id;
-				update_post_meta( $subscription_id, 'assinged_coupons', $mwb_array );
+				$subscription->update_meta_data( 'assinged_coupons', $mwb_array );
+				$subscription->save();
 			} elseif ( ! empty( $assinged_coupon ) && is_array( $assinged_coupon ) && ! in_array( $coupon_id, $assinged_coupon ) ) {
 				$assinged_coupon[] = $coupon_id;
-				update_post_meta( $subscription_id, 'assinged_coupons', $assinged_coupon );
+				$subscription->update_meta_data( 'assinged_coupons', $assinged_coupon );
+				$subscription->save();
 			}
 			$response = true;
 		}
@@ -1974,17 +1981,21 @@ class Coupon_Referral_Program_Public {
 	 */
 	public function mwb_crp_coupon_remove() {
 		check_ajax_referer( 'mwb-crp-verify-nonce', 'mwb_nonce' );
-		if ( isset( $_POST['subscription_id'] ) && isset( $_POST['coupon_id'] ) ) {
+		if ( isset( $_POST['subscription_id'] ) && isset( $_POST['coupon_id'] ) && function_exists( 'wcs_get_subscription' ) ) {
 			$subscription_id = sanitize_text_field( wp_unslash( $_POST['subscription_id'] ) );
 			$coupon_id       = sanitize_text_field( wp_unslash( $_POST['coupon_id'] ) );
-			$assinged_coupon = get_post_meta( $subscription_id, 'assinged_coupons', true );
+			
+			$subscription    = wcs_get_subscription( $subscription_id );
+			
+			$assinged_coupon = $subscription->get_meta( 'assinged_coupons' );
 			if ( ! empty( $assinged_coupon ) && is_array( $assinged_coupon ) ) {
 				foreach ( $assinged_coupon as $key => $value ) {
 					if ( $coupon_id == $value ) {
 						unset( $assinged_coupon[ $key ] );
 					}
 				}
-				update_post_meta( $subscription_id, 'assinged_coupons', $assinged_coupon );
+				$subscription->update_meta_data( 'assinged_coupons', $assinged_coupon );
+				$subscription->save();
 			}
 			$response = true;
 		}
@@ -2405,7 +2416,6 @@ class Coupon_Referral_Program_Public {
 											$customer_email = WC()->mailer()->emails['crp_order_email'];
 											if ( empty( $expirydate ) ) {
 												$expirydate = __( 'No Expiry', 'coupon-referral-program' );
-	
 											}
 											$email_status  = $customer_email->trigger( $refree_id, $mwb_cpr_code, $coupon_amount_with_css, $expirydate );
 											$billing_email = $order->get_billing_email();
@@ -2550,7 +2560,7 @@ class Coupon_Referral_Program_Public {
 		}
 		$coupon_user_id = get_post_meta( $coupon_id, 'mwb_crp_coupon_user_id', true );
 		if ( isset( $coupon_id ) && $user_id == $coupon_user_id ) {
-			throw new Exception( __( 'Referral code cannot be used by self', 'coupon-referral-program' ), 100 );
+			throw new Exception( esc_html__( 'Referral code cannot be used by self', 'coupon-referral-program' ), 100 );
 		}
 		return $valid;
 	}

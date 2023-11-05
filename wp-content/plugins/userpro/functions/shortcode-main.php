@@ -203,10 +203,10 @@ if(isset($argument['hide_content']) && $argument['hide_content'] && empty($_GET)
 				foreach($argument as $key=>$value){
 					if($key=='hide_content')
 						continue;
-					$parameters.=" ".$key."="."$value"; 
+                    $parameters .= " " . esc_attr( $key ) . '="' . esc_attr( $value ) . '"';
 				}
 			}
-			$output = '<div class=userpro_show_content data-parameters="'.$parameters.'" ><a href="#">Click here to view the content</a></div>';
+			$output = '<div class=userpro_show_content data-parameters="'. esc_attr( $parameters ) .'" ><a href="#">Click here to view the content</a></div>';
 			return $output;
 		}
 		else if(isset($argument['hide_content']) && $argument['hide_content']){

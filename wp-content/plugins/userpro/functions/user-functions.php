@@ -509,199 +509,147 @@ function userpro_update_profile_via_facebook($user_id, $array)
 }
 
 /* Update user profile data */
-function userpro_update_user_profile($user_id, $form, $action=null) {
-	global $userpro;
-	$template = (isset($form['template'])) ? $form['template'] : 0;
-	$group = (isset($form['group'])) ? $form['group'] : 0;
+function userpro_update_user_profile( $user_id, $form, $action = null ) {
+    global $userpro;
+    $template = ( isset( $form['template'] ) ) ? $form['template'] : 0;
+    $group = ( isset( $form['group'] ) ) ? $form['group'] : 0;
 
-	if ($action == 'new_user' && !$userpro->user_exists($user_id) )
-		die();
+    if ( $action == 'new_user' && ! $userpro->user_exists( $user_id ) )
+        die();
 
-	if (!$userpro->user_exists($user_id))
-		die();
+    if ( ! $userpro->user_exists( $user_id ) )
+        die();
 
-	if ( $action == 'ajax_save' && $user_id != get_current_user_id() && !current_user_can('manage_options') &&  !userpro_get_edit_userrole() )
-		die();
+    if ( $action == 'ajax_save' && $user_id != get_current_user_id() && !current_user_can( 'manage_options' ) && ! userpro_get_edit_userrole() )
+        die();
 
+    if ( ! $template ) die();
 
-	if (!$template) die();
+    /* hooks before saving profile fields */
+    do_action( 'userpro_pre_profile_update', $form, $user_id );
+    $form = apply_filters( 'userpro_pre_profile_update_filters', $form, $user_id );
+    $email_change = false;
 
-	/* hooks before saving profile fields */
-	do_action('userpro_pre_profile_update', $form, $user_id);
-	$form = apply_filters('userpro_pre_profile_update_filters', $form, $user_id);
-	$email_change = false;
-	//validate email change
-	if( !userpro_is_admin($user_id) && !current_user_can('manage_options') ){
-		global $userpro;
-		if (isset($form['user_email'])){
-			$old_email = userpro_profile_data('user_email', $user_id);
-			$new_email = $form['user_email'];
+    foreach ( $form as $key => $form_value ) {
+        if ( strpos( strtolower( remove_accents( $key ) ), 'capabilities' ) !== false || strpos( strtolower( remove_accents( $key ) ), 'user_level' ) !== false ) {
+            unset( $form[$key] );
+            continue;
+        }
 
-			//code added by Samir Patil for reverification of email address after changing the email address of the user
-			if( $new_email != $old_email ){
-				$new_account_salt = wp_generate_password( $length=20, $include_standard_special_chars=false );
-				update_user_meta($user_id, '_account_verify', $new_account_salt);
-				update_user_meta($user_id, '_account_status', 'pending');
-				userpro_mail($user_id, 'verifyemail_change', null, $form );
-				$email_change = true;
-			}
-		}
-	}
-
-	$fields = userpro_fields_group_by_template( $template, $group );
-	$allfields=get_option('userpro_fields_groups');
-	$editfields=$allfields['edit']['default'];
-
-	foreach($form as $key => $form_value) {
-	    if($action !== 'new_user'){
-            if( isset($editfields[$key]['locked']) && $editfields[$key]['locked'] == 1 && !current_user_can('manage_options') ){
+        if ( $action !== 'new_user' ) {
+            if ( isset( $editfields[$key]['locked'] ) && $editfields[$key]['locked'] == 1 && ! current_user_can( 'manage_options' ) ) {
                 continue;
             }
         }
 
+        /* hidden from public */
+        if ( ! isset( $form["hide_$key"] ) ) {
+            update_user_meta( $user_id, 'hide_' . $key, 0 );
+        } elseif ( isset( $form["hide_$key"] ) ) {
+            update_user_meta( $user_id, 'hide_' . $key, 1 );
+        }
 
-		//$form_value = esc_attr($form_value);  // Commented to solve Array issue
-		/* hidden from public */
-		if (!isset($form["hide_$key"])) {
-			update_user_meta( $user_id, 'hide_'.$key, 0 );
-		} elseif (isset($form["hide_$key"])){
-			update_user_meta( $user_id, 'hide_'.$key, 1 );
-		}
+        /* UPDATE PRIMARY META */
+        if ( isset( $key ) && in_array( $key, array( 'user_url', 'display_name', 'role', 'user_login', 'user_pass', 'user_pass_confirm', 'user_email' ) ) ) {
+            /* Save passwords */
+            if ( $key == 'user_pass' ) {
+                if ( ! empty( $form_value ) ) {
+                    wp_update_user( array( 'ID' => $user_id, $key => $form_value ) );
+                    if ( $action != 'new_user' )
+                        userpro_mail( $user_id, 'passwordchange', $form_value );
+                }
+            } else {
+                if ( $key == 'role' && $form[$key] == 'administrator' && ! is_admin() ) {
+                    continue;
+                } else {
+                    wp_update_user( array( 'ID' => $user_id, $key => $form_value ) );
+                }
+            }
+        }
 
-		/* UPDATE PRIMARY META */
-		if ( isset($key) && in_array($key, array('user_url', 'display_name', 'role', 'user_login', 'user_pass', 'user_pass_confirm', 'user_email')) ) {
+        /* delete unused uploads */
+        if ( ( isset( $fields[$key]['type'] ) && $fields[$key]['type'] == 'picture' || isset( $fields[$key]['type'] ) && $fields[$key]['type'] == 'file' ) && isset( $form_value ) && ! empty( $form_value ) && basename( $form_value ) != basename( userpro_profile_data( $key, $user_id ) ) ) {
+            $userpro->delete_file( $user_id, $key );
+        }
 
-			/* Save passwords */
-			if ($key == 'user_pass') {
-				if (!empty($form_value)) {
-					wp_update_user( array ( 'ID' => $user_id, $key => $form_value ) ) ;
-					if($action != 'new_user')
-						userpro_mail($user_id, 'passwordchange', $form_value);
-				}
-			} else {
-				if($key=='role' && $form[$key]=='administrator' && !is_admin()){
-					continue;
-				}
-				else{
-					wp_update_user( array ( 'ID' => $user_id, $key => $form_value ) ) ;
-				}
-			}
+        if ( isset( $key ) && ! strstr( $key, 'pass' ) ) {
+            $countrylist = get_option( 'userpro_fields' );
+            if ( isset( $countrylist['billing_country']['options'] ) )
+                $country = $countrylist['billing_country']['options'];
 
-		}
+            if ( $key == 'billing_country' ) {
+                foreach ( $country as $country_code => $country_name ) {
+                    if ( $country_name == $form_value ) {
+                        $form_value = $country_code;
+                        update_user_meta( $user_id, $key, $form_value );
+                    }
+                }
+            }
 
-		/* delete unused uploads */
-		if ( ( isset($fields[$key]['type']) && $fields[$key]['type'] == 'picture' || isset($fields[$key]['type']) && $fields[$key]['type'] == 'file'  ) && isset($form_value) && !empty($form_value) && basename($form_value) != basename( userpro_profile_data( $key, $user_id ) ) ) {
-			$userpro->delete_file($user_id, $key);
-		}
+            if ( $key == 'shipping_country' ) {
+                foreach ( $country as $country_code => $country_name ) {
 
+                    if ( $country_name == $form_value ) {
+                        $form_value = $country_code;
 
-		if (isset($key) && !strstr($key, 'pass')){
+                        update_user_meta( $user_id, $key, $form_value );
+                    }
+                }
+            } else {
+                update_user_meta( $user_id, $key, $form_value );
+            }
+        } else {
+            delete_user_meta( $user_id, $key );
+        }
 
-			$countrylist=get_option('userpro_fields');
-			if(isset($countrylist['billing_country']['options']))
-				$country=$countrylist['billing_country']['options'];
-			if($key=='billing_country' )
-			{
+        /* move user pics to his folder */
+        if ( ( isset( $fields[$key]['type'] ) && $fields[$key]['type'] == 'picture' || isset( $fields[$key]['type'] ) && $fields[$key]['type'] == 'file') && isset( $form_value ) && ! empty( $form_value ) ) {
+            $userpro->do_uploads_dir( $user_id );
+            if ( file_exists( $userpro->get_uploads_dir() . basename( userpro_profile_data( $key, $user_id ) ) ) ) {
+                rename( $userpro->get_uploads_dir() . basename( userpro_profile_data( $key, $user_id ) ), $userpro->get_uploads_dir( $user_id ) . basename( userpro_profile_data( $key, $user_id ) ) );
+                update_user_meta( $user_id, $key, $userpro->get_uploads_url( $user_id ) . basename( userpro_profile_data( $key, $user_id ) ) );
+                if ( $key == 'profilepicture' ) {
+                    $meta_value = get_user_meta( $user_id, 'up-timeline-actions', true );
+                    $timeline_actions = empty( $meta_value ) ? array() : $meta_value;
+                    $timestamp = time();
+                    $timeline_actions[] = array( 'action' => 'profilepic_update', 'timestamp' => $timestamp );
+                    update_user_meta( $user_id, 'up-timeline-actions', $timeline_actions );
+                }
+            }
+        }
 
-				foreach($country as $country_code => $country_name)
-				{
+        /* MailChimp Integration */
+        if ( ( isset( $fields[$key]['type']) && $fields[$key]['type'] == 'mailchimp' ) ) {
+            if ( $form[$key] == 'unsubscribed' ) {
+                if ( userpro_get_option( 'aweber_api' ) != '' && userpro_get_option( 'aweber_listname' ) != '')
+                    $userpro->makeAweberSubscribeEntry( $user_id );
+                if ( userpro_get_option( 'Campaignmonitor_listname' ) != '' && userpro_get_option( 'Campaignmonitor_api' ) != '')
+                    $userpro->makeCampaignmonitorEntry( $user_id );
+                $userpro->mailchimp_subscribe( $user_id, $fields[$key]['list_id'] );
+            } elseif ( $form[$key] == 'subscribed' ) {
 
-					if($country_name==$form_value)
-					{
-						$form_value = $country_code;
+                $userpro->mailchimp_unsubscribe( $user_id, $fields[$key]['list_id'] );
+            }
+        }
+    }
 
-						update_user_meta( $user_id, $key, $form_value );
-					}
-				}
+    foreach ( $editfields as $editfieldkey => $editfieldvalue ) {
+        if ( isset( $editfieldvalue['type'] ) )
+            if ( $editfieldvalue['type'] == 'checkbox-full' || $editfieldvalue['type'] == 'multiselect'  || $editfieldvalue['type'] == 'checkbox' ) {
+                if ( ! array_key_exists( $editfieldkey, $form ) ) {
+                    delete_user_meta( $user_id, $editfieldkey );
+                }
+            }
+    }
 
-			}
+    /* do action while updating profile (use $form) */
+    do_action( 'userpro_profile_update', $form, $user_id) ;
 
+    /* after profile update no args */
+    do_action( 'userpro_after_profile_updated' );
 
-			if($key=='shipping_country' )
-			{
-				foreach($country as $country_code => $country_name)
-				{
-
-					if($country_name==$form_value)
-					{
-						$form_value = $country_code;
-
-						update_user_meta( $user_id, $key, $form_value );
-					}
-				}
-			}
-			else
-			{
-				update_user_meta( $user_id, $key, $form_value );
-			}
-
-
-
-		} else {
-			delete_user_meta( $user_id, $key );
-		}
-
-		/* move user pics to his folder */
-		if ( ( isset($fields[$key]['type']) && $fields[$key]['type'] == 'picture' || isset($fields[$key]['type']) && $fields[$key]['type'] == 'file'  ) && isset($form_value) && !empty($form_value) ) {
-
-			$userpro->do_uploads_dir( $user_id );
-
-			if ( file_exists( $userpro->get_uploads_dir() . basename( userpro_profile_data( $key, $user_id ) ) ) ) {
-				rename( $userpro->get_uploads_dir() . basename( userpro_profile_data( $key, $user_id ) ),  $userpro->get_uploads_dir($user_id) . basename( userpro_profile_data( $key, $user_id ) ) );
-
-				update_user_meta($user_id, $key, $userpro->get_uploads_url($user_id) . basename( userpro_profile_data( $key, $user_id ) ) );
-				if( $key == 'profilepicture' ){
-					$meta_value = get_user_meta( $user_id, 'up-timeline-actions', true );
-					$timeline_actions = empty($meta_value)?array():$meta_value;
-					$timestamp = time();
-					$timeline_actions[] = array( 'action'=>'profilepic_update', 'timestamp'=>$timestamp );
-					update_user_meta( $user_id, 'up-timeline-actions', $timeline_actions );
-				}
-			}
-
-		}
-		/* MailChimp Integration */
-		if ( ( isset($fields[$key]['type']) && $fields[$key]['type'] == 'mailchimp') ) {
-			if ($form[$key] == 'unsubscribed'){
-				if(userpro_get_option('aweber_api')!='' && userpro_get_option('aweber_listname')!='')
-					$userpro->makeAweberSubscribeEntry($user_id);
-				if(userpro_get_option('Campaignmonitor_listname')!='' && userpro_get_option('Campaignmonitor_api')!='')
-					$userpro->makeCampaignmonitorEntry($user_id);
-				$userpro->mailchimp_subscribe( $user_id, $fields[$key]['list_id'] );
-			} elseif ($form[$key] == 'subscribed') {
-
-				$userpro->mailchimp_unsubscribe( $user_id, $fields[$key]['list_id'] );
-			}
-		}
-
-	}
-
-	foreach($editfields as $editfieldkey=>$editfieldvalue)
-	{
-		if(isset($editfieldvalue['type']))
-			if($editfieldvalue['type']=='checkbox-full' || $editfieldvalue['type']=='multiselect'  || $editfieldvalue['type']=='checkbox')
-			{
-				if (!array_key_exists($editfieldkey,$form))
-				{
-					delete_user_meta($user_id,$editfieldkey);
-
-				}
-
-			}
-
-	}
-
-	/* do action while updating profile (use $form) */
-	do_action('userpro_profile_update', $form, $user_id);
-
-	/* after profile update no args */
-	do_action('userpro_after_profile_updated');
-
-	return $email_change;
-
+    return $email_change;
 }
-
-
 
 /******************************************
  * Check if profile exist if yes add to existing profile @Kiro.Tech

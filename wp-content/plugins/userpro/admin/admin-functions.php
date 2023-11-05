@@ -19,11 +19,12 @@
         return $output;
     }
 
-	update_option('userpro_trial', 0);
-	update_option('userpro_activated',true);
+
     function userpro_admin_bar(){
+        update_option('userpro_trial', 0);
+        update_option('userpro_activated',true);
         ?>
-<div class="userpro-admin-head">
+        <div class="userpro-admin-head">
 <div class="userpro-admin-left">
 <a href="<?php echo admin_url('admin.php'); ?>?page=userpro">User<span>Pro</span> <span class="userpro-admin-left--version"><?php echo UserPro::$version ?></span></a>
     <span class="userpro-admin-left--desc"><?php _e('administration backend', 'userpro') ?></span>
@@ -570,7 +571,7 @@
                                     </select>";
                                 }
 
-                                if (in_array($opt, array('condition_value'))){
+                                if (in_array($opt, array('condition_value'))){            
                                     $output .= '<input type="text" name="'.$k.'-'.$opt.'" id="'.$k.'-'.$opt.'" value="'.stripslashes($val).'" />';
 
                                 }

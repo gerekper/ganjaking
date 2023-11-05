@@ -1151,7 +1151,6 @@ class Coupon_Referral_Program_Admin {
 	public function mwb_save_settings( $parm ) {
 		check_admin_referer( 'woocommerce-settings' );
 		$mwb_crp_blank_check_field = array(
-			'referral_discount_upto'     => 1,
 			'referral_discount_on_order' => 1,
 			'restrict_no_of_order'       => 1,
 			'mwb_cpr_ref_link_expiry'    => 1,

@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2023-08-16 18:53+0530\n"
-"PO-Revision-Date: 2023-08-16 18:54+0530\n"
+"POT-Creation-Date: 2023-10-25 16:30+0530\n"
+"PO-Revision-Date: 2023-10-25 16:30+0530\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4\n"
 "X-Poedit-Basepath: .\n"
 
 #: admin/class-coupon-referral-program-admin.php:105
@@ -53,7 +53,7 @@ msgid "Next"
 msgstr ""
 
 #: admin/class-coupon-referral-program-admin.php:130
-#: admin/class-coupon-referral-program-admin.php:1183
+#: admin/class-coupon-referral-program-admin.php:1182
 #: public/class-coupon-referral-program-public.php:1562
 msgid "Referrals"
 msgstr ""
@@ -172,7 +172,7 @@ msgid "Twitter"
 msgstr ""
 
 #: admin/class-coupon-referral-program-admin.php:273
-#: admin/class-coupon-referral-program-admin.php:1361
+#: admin/class-coupon-referral-program-admin.php:1360
 msgid "Email"
 msgstr ""
 
@@ -850,7 +850,7 @@ msgid "Connect with us and explore more about coupon referral program"
 msgstr ""
 
 #: admin/class-coupon-referral-program-admin.php:895
-#: coupon-referral-program.php:256
+#: coupon-referral-program.php:264
 msgid "Documentation"
 msgstr ""
 
@@ -953,24 +953,24 @@ msgstr ""
 msgid "Help and support"
 msgstr ""
 
-#: admin/class-coupon-referral-program-admin.php:1186
+#: admin/class-coupon-referral-program-admin.php:1185
 msgid "Users"
 msgstr ""
 
-#: admin/class-coupon-referral-program-admin.php:1217
+#: admin/class-coupon-referral-program-admin.php:1216
 msgid "CRP Reports"
 msgstr ""
 
-#: admin/class-coupon-referral-program-admin.php:1359
+#: admin/class-coupon-referral-program-admin.php:1358
 msgid "User ID"
 msgstr ""
 
-#: admin/class-coupon-referral-program-admin.php:1360
+#: admin/class-coupon-referral-program-admin.php:1359
 #: admin/partials/class-coupon-referral-program-admin-display-report.php:52
 msgid "User Name"
 msgstr ""
 
-#: admin/class-coupon-referral-program-admin.php:1362
+#: admin/class-coupon-referral-program-admin.php:1361
 #: admin/partials/class-coupon-referral-program-admin-display-report.php:54
 #: admin/partials/class-coupon-referral-program-admin-display-report.php:245
 #: admin/partials/class-coupon-referral-program-admin-display-report.php:281
@@ -993,18 +993,18 @@ msgstr ""
 msgid "Referred Users"
 msgstr ""
 
-#: admin/class-coupon-referral-program-admin.php:1363
+#: admin/class-coupon-referral-program-admin.php:1362
 #: admin/partials/class-coupon-referral-program-admin-display-report.php:55
 #: public/partials/coupon-referral-program-public-display-shortcode.php:112
 #: public/partials/coupon-referral-program-public-display.php:33
 msgid "Total Utilization"
 msgstr ""
 
-#: admin/class-coupon-referral-program-admin.php:1364
+#: admin/class-coupon-referral-program-admin.php:1363
 msgid "Total no of Coupon"
 msgstr ""
 
-#: admin/class-coupon-referral-program-admin.php:1365
+#: admin/class-coupon-referral-program-admin.php:1364
 msgid "Coupons Data"
 msgstr ""
 
@@ -1146,8 +1146,8 @@ msgstr ""
 #: admin/partials/class-coupon-referral-program-admin-display-report.php:381
 #: admin/partials/class-coupon-referral-program-admin-display-report.php:415
 #: modal/referral-program-notify.php:72
-#: public/class-coupon-referral-program-public.php:2334
-#: public/class-coupon-referral-program-public.php:2508
+#: public/class-coupon-referral-program-public.php:2344
+#: public/class-coupon-referral-program-public.php:2517
 #: public/partials/coupon-referral-program-public-display-shortcode.php:51
 #: public/partials/coupon-referral-program-public-display-shortcode.php:73
 #: public/partials/coupon-referral-program-public-display-shortcode.php:165
@@ -1170,8 +1170,8 @@ msgstr ""
 #: admin/partials/class-coupon-referral-program-admin-display-report.php:382
 #: admin/partials/class-coupon-referral-program-admin-display-report.php:416
 #: modal/referral-program-notify.php:73
-#: public/class-coupon-referral-program-public.php:2335
-#: public/class-coupon-referral-program-public.php:2509
+#: public/class-coupon-referral-program-public.php:2345
+#: public/class-coupon-referral-program-public.php:2518
 #: public/partials/coupon-referral-program-public-display-shortcode.php:52
 #: public/partials/coupon-referral-program-public-display-shortcode.php:74
 #: public/partials/coupon-referral-program-public-display-shortcode.php:166
@@ -1252,19 +1252,19 @@ msgstr ""
 msgid "Search Users"
 msgstr ""
 
-#: coupon-referral-program.php:102
+#: coupon-referral-program.php:103
 msgid "Welcome to Coupon Referral Program –"
 msgstr ""
 
-#: coupon-referral-program.php:102
+#: coupon-referral-program.php:103
 msgid " To get started, enable the plugin on the"
 msgstr ""
 
-#: coupon-referral-program.php:102
+#: coupon-referral-program.php:103
 msgid "settings page"
 msgstr ""
 
-#: coupon-referral-program.php:103
+#: coupon-referral-program.php:104
 msgid "Go to Settings"
 msgstr ""
 
@@ -1276,11 +1276,11 @@ msgstr ""
 msgid "Signup Yourself and Get Discount Coupon of "
 msgstr ""
 
-#: coupon-referral-program.php:257
+#: coupon-referral-program.php:265
 msgid "Support"
 msgstr ""
 
-#: coupon-referral-program.php:300
+#: coupon-referral-program.php:308
 msgid ""
 "WooCommerce is not activated, Please activate WooCommerce first to activate "
 "Coupon Referral Program."
@@ -1606,13 +1606,13 @@ msgstr ""
 
 #: public/class-coupon-referral-program-public.php:176
 #: public/class-coupon-referral-program-public.php:178
-#: public/class-coupon-referral-program-public.php:1930
-#: public/class-coupon-referral-program-public.php:1938
+#: public/class-coupon-referral-program-public.php:1933
+#: public/class-coupon-referral-program-public.php:1941
 msgid "Apply"
 msgstr ""
 
 #: public/class-coupon-referral-program-public.php:177
-#: public/class-coupon-referral-program-public.php:1934
+#: public/class-coupon-referral-program-public.php:1937
 msgid "Remove"
 msgstr ""
 
@@ -1631,7 +1631,7 @@ msgstr ""
 #: public/class-coupon-referral-program-public.php:482
 #: public/class-coupon-referral-program-public.php:591
 #: public/class-coupon-referral-program-public.php:1164
-#: public/class-coupon-referral-program-public.php:2408
+#: public/class-coupon-referral-program-public.php:2418
 msgid "No Expiry"
 msgstr ""
 
@@ -1668,54 +1668,54 @@ msgid "%s earned for referral signup points for referee"
 msgstr ""
 
 #: public/class-coupon-referral-program-public.php:1724
-#: public/class-coupon-referral-program-public.php:2009
+#: public/class-coupon-referral-program-public.php:2019
 msgid "Apply Coupon"
 msgstr ""
 
-#: public/class-coupon-referral-program-public.php:1898
+#: public/class-coupon-referral-program-public.php:1901
 msgid "No available Coupons"
 msgstr ""
 
-#: public/class-coupon-referral-program-public.php:1919
+#: public/class-coupon-referral-program-public.php:1922
 msgid "No-Expiry"
 msgstr ""
 
-#: public/class-coupon-referral-program-public.php:2157
+#: public/class-coupon-referral-program-public.php:2167
 msgid "Mail not sent, due to some error!"
 msgstr ""
 
-#: public/class-coupon-referral-program-public.php:2177
+#: public/class-coupon-referral-program-public.php:2187
 msgid "Mail send successfully"
 msgstr ""
 
-#: public/class-coupon-referral-program-public.php:2182
+#: public/class-coupon-referral-program-public.php:2192
 msgid "Invalid Emails"
 msgstr ""
 
-#: public/class-coupon-referral-program-public.php:2328
-#: public/class-coupon-referral-program-public.php:2500
+#: public/class-coupon-referral-program-public.php:2338
+#: public/class-coupon-referral-program-public.php:2509
 #: public/partials/coupon-referral-program-public-display-shortcode.php:45
 msgid "Referral Code: "
 msgstr ""
 
-#: public/class-coupon-referral-program-public.php:2343
+#: public/class-coupon-referral-program-public.php:2353
 #: public/partials/coupon-referral-program-public-display-shortcode.php:60
 msgid "Your friend can use this referral code as discount coupon"
 msgstr ""
 
-#: public/class-coupon-referral-program-public.php:2554
+#: public/class-coupon-referral-program-public.php:2563
 msgid "Referral code cannot be used by self"
 msgstr ""
 
-#: public/class-coupon-referral-program-public.php:2572
+#: public/class-coupon-referral-program-public.php:2581
 msgid "Never"
 msgstr ""
 
-#: public/class-coupon-referral-program-public.php:2592
+#: public/class-coupon-referral-program-public.php:2601
 msgid "---"
 msgstr ""
 
-#: public/class-coupon-referral-program-public.php:2705
+#: public/class-coupon-referral-program-public.php:2714
 msgid "Refer A Friend"
 msgstr ""
 
