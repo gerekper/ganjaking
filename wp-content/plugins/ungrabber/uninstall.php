@@ -5,8 +5,8 @@
  * Exclusively on https://1.envato.market/ungrabber
  *
  * @encoding        UTF-8
- * @version         3.0.3
- * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
+ * @version         3.0.4
+ * @copyright       (C) 2018 - 2023 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
  * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
  * @support         help@merkulov.design
@@ -58,7 +58,7 @@ final class Uninstall {
         $uninstall_mode = $this->get_uninstall_mode();
 
         /** Send uninstall Action to our host. */
-        // Helper::get_instance()->send_action( 'uninstall', Plugin::get_slug(), Plugin::get_version() );
+        // Helper::get_instance()->send_action( 'migration', Plugin::get_slug(), Plugin::get_version() );
 
         /** Remove Plugin and Settings. */
         if ( 'plugin+settings' === $uninstall_mode ) {
@@ -216,15 +216,15 @@ final class Uninstall {
      **/
     public function get_uninstall_mode() {
 
-        $uninstall_settings = get_option( 'mdp_ungrabber_uninstall_settings' );
+        $uninstall_settings = get_option( 'mdp_ungrabber_migration_settings' );
 
-        if ( isset( $uninstall_settings[ 'mdp_ungrabber_uninstall_settings' ] ) && $uninstall_settings[ 'mdp_ungrabber_uninstall_settings' ] ) { // Default value.
+        if ( isset( $uninstall_settings[ 'mdp_ungrabber_migration_settings' ] ) && $uninstall_settings[ 'mdp_ungrabber_migration_settings' ] ) { // Default value.
             $uninstall_settings = [
                 'delete_plugin' => 'plugin'
             ];
         }
 
-        return $uninstall_settings[ 'delete_plugin' ];
+        return $uninstall_settings[ 'delete_plugin' ] ?? 'plugin';
 
     }
 

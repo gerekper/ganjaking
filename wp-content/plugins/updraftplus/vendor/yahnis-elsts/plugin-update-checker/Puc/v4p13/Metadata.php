@@ -9,7 +9,13 @@ if ( !class_exists('Puc_v4p13_Metadata', false) ):
 	 * @access public
 	 */
 	abstract class Puc_v4p13_Metadata {
-
+		/**
+		 * Additional dynamic properties, usually copied from the API response.
+		 *
+		 * @var array<string,mixed>
+		 */
+		protected $extraProperties = array();
+		
 		/**
 		 * Create an instance of this class from a JSON document.
 		 *
@@ -126,6 +132,22 @@ if ( !class_exists('Puc_v4p13_Metadata', false) ):
 		 */
 		protected function getPrefixedFilter($tag) {
 			return 'puc_' . $tag;
+		}
+
+		public function __set($name, $value) {
+			$this->extraProperties[$name] = $value;
+		}
+		
+		public function __get($name) {
+			return isset($this->extraProperties[$name]) ? $this->extraProperties[$name] : null;
+		}
+		
+		public function __isset($name) {
+			return isset($this->extraProperties[$name]);
+		}
+		
+		public function __unset($name) {
+			unset($this->extraProperties[$name]);
 		}
 	}
 

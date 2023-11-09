@@ -5,8 +5,8 @@
  * Exclusively on https://1.envato.market/ungrabber
  *
  * @encoding        UTF-8
- * @version         3.0.3
- * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
+ * @version         3.0.4
+ * @copyright       (C) 2018 - 2023 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
  * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
  * @support         help@merkulov.design
@@ -99,7 +99,7 @@ final class PluginHelper {
 		if ( null === $screen ) { return; }
 
 		/** Add styles only on WP Plugins page. */
-        if ( 'plugins' !== $screen->base ) { return; }
+        if ( ! in_array( $screen->base, [ 'plugins', 'plugins-network' ] ) ) { return; }
 
         wp_enqueue_style( 'mdp-plugins', Plugin::get_url() . 'src/Merkulove/Unity/assets/css/plugins' . Plugin::get_suffix() . '.css', [], Plugin::get_version() );
 
@@ -119,7 +119,7 @@ final class PluginHelper {
 		if ( null === $screen ) { return; }
 
 		/** Add scripts only on WP Plugins page. */
-        if ( 'plugins' !== $screen->base ) { return; }
+        if ( ! in_array( $screen->base, [ 'plugins', 'plugins-network' ] ) ) { return; }
 
         wp_enqueue_script( 'mdp-plugins', Plugin::get_url() . 'src/Merkulove/Unity/assets/js/plugins' . Plugin::get_suffix() . '.js', ['jquery'], Plugin::get_version(), true );
 

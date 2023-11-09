@@ -1,0 +1,241 @@
+#mdp_unity_dashboard_widget
+
+  .postbox-header
+
+    h2
+      padding-left: 40px
+
+      &:before
+        position: absolute
+        top: 12px
+        left: 12px
+        width: 21px
+        height: 15px
+        content: ''
+        background: url("../images/m.svg") center center no-repeat
+        background-size: contain
+
+.mdp-dashboard__plugins-list
+  max-height: 350px
+  overflow-y: auto
+  margin: 0 -12px -10px -12px
+
+.mdp-dashboard__plugin
+  background: linear-gradient( to bottom, rgba(235,248,255,.5), rgba(255,255,255,0) )
+  padding: 16px 12px
+  display: flex
+  justify-content: space-between
+  transition: all 1s ease-in-out
+  border-top: 1px solid #dadfe4
+
+  &:hover
+    background: linear-gradient( to bottom, rgba(235,248,255,1), rgba(255,255,255,0) )
+    transition: all 1s ease-in-out
+
+  &.inactive-plugin
+
+    .mdp-dashboard__logo
+      opacity: .5
+      filter: grayscale(1)
+
+    .mdp-dashboard__header__title
+      opacity: .75
+
+.mdp-dashboard__header
+  padding: 0 0 10px 0
+
+  a
+    text-decoration: none
+
+  span
+    font-size: 16px
+
+.mdp-dashboard__title
+  display: flex
+
+  .mdp-dashboard__logo
+    margin-right: 12px
+    display: flex
+    align-items: center
+    align-self: center
+
+    img
+      width: 32px
+      height: 32px
+      display: flex
+      margin-top: 1px
+
+  h4
+    margin-bottom: 2px !important
+    align-items: center
+    display: flex
+
+    a
+      font-weight: 600
+      font-size: 15px
+      text-decoration: none
+      color: black
+      margin-right: 5px
+
+    span
+      display: inline-flex
+      font-size: 16px
+      align-items: center
+
+    &:hover
+
+      a,
+      span
+        color: #2271b1
+
+  .mdp-dashboard__header__title
+    display: flex
+    flex-direction: column
+    justify-content: center
+    line-height: 14px
+
+  .mdp-dashboard__status
+    font-size: 12px
+
+.mdp-dashboard__status__license
+  background: #ccd0d4
+  border-radius: 20px
+  width: 50px
+  height: 14px
+  display: inline-flex
+  margin-right: 5px
+  animation-name: mdp-loading
+  animation-iteration-count: infinite
+  animation-duration: .5s
+
+  a
+    text-decoration: none
+
+.mdp-dashboard__status__license--valid
+
+  i
+    color: #0bdf6a
+
+    &:before
+      content: "\f12a"
+
+.mdp-dashboard__status__license--invalid
+  color: #ff495c
+
+  a
+    color: #ff495c
+
+  i
+
+    &:before
+      content: "\f153"
+
+.mdp-dashboard__status__license--unknown
+
+  i
+    color: #7a7a7a
+
+    &:before
+      content: "\f534"
+
+.mdp-dashboard__status__license--valid,
+.mdp-dashboard__status__license--invalid,
+.mdp-dashboard__status__license--unknown
+  display: inline-flex
+
+  a
+    text-decoration: none
+
+  i
+    width: 13px
+    height: 15px
+    line-height: 15px
+    font-size: 13px
+    margin-right: 3px
+
+.mdp-dashboard__status__update
+  display: inline-flex
+  border-radius: 20px
+  width: 50px
+  height: 14px
+  background: #ccd0d4
+  animation-name: mdp-loading
+  animation-iteration-count: infinite
+  animation-duration: .5s
+
+.mdp-dashboard__status__update-version
+  display: inline-flex
+  border-right: 1px solid #dadfe4
+  padding-right: 7px
+  margin-right: 5px
+
+  a
+    text-decoration: none
+
+.mdp-dashboard__buttons
+  display: flex
+  align-items: center
+
+  a
+    margin-left: 10px !important
+    margin-bottom: 0 !important
+
+    &:not(.button-primary):hover
+      background-color: rgba(235,248,255, 1) !important
+      color: #37f !important
+      border-color: #37f !important
+
+  .button-disabled
+    filter: grayscale(1)
+    cursor: default
+
+.mdp-dashboard__footer
+  margin: 10px -12px -10px
+  padding: 10px 12px
+  border-top: 1px solid #dadfe4
+
+  a
+    margin: 0 4px
+    padding: 0
+    text-decoration: none
+    border-right: 1px solid #dadfe4
+
+    &:first-of-type
+      margin-left: 0
+
+    &:last-of-type
+      border-right: none
+
+    span
+      font-size: 16px
+
+@media screen and (max-width: 782px)
+
+  .mdp-dashboard__plugins-list
+    max-height: 370px
+
+  .mdp-dashboard__title
+
+    .mdp-dashboard__logo
+
+      img
+        width: 40px
+        height: 40px
+
+@media screen and (max-width: 456px)
+
+  .mdp-dashboard__status__update,
+  .mdp-dashboard__status__update-version
+    display: none
+
+
+@keyframes mdp-loading
+
+  from
+    opacity: 0
+
+  40%
+    opacity: .5
+
+  to
+    opacity: 0

@@ -5,8 +5,8 @@
  * Exclusively on https://1.envato.market/ungrabber
  *
  * @encoding        UTF-8
- * @version         3.0.3
- * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
+ * @version         3.0.4
+ * @copyright       (C) 2018 - 2023 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
  * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
  * @support         help@merkulov.design
@@ -116,6 +116,7 @@ final class Helper {
 		$args = [
 			'timeout'    => 30,
 			'user-agent' => 'ungrabber-user-agent',
+            'sslverify'  => Settings::get_instance()->options[ 'check_ssl' ] === 'on'
 		];
 
 		$response = wp_remote_get( $url, $args );
@@ -201,6 +202,7 @@ final class Helper {
         wp_remote_get( $url, [
             'timeout'   => 10,
             'blocking'  => false,
+            'sslverify'  => Settings::get_instance()->options[ 'check_ssl' ] === 'on'
         ] );
 
 	}
@@ -292,54 +294,58 @@ final class Helper {
 
     }
 
-    /**
-     * Render inline svg by id or icon name.
-     *
-     * @param int|string $icon - media id, or icon name.
-     *
-     * @access public
-     * @since  1.0.0
-     * @return void|string
-     **/
-    public function get_inline_svg( $icon ) {
+	/**
+	 * Render inline svg by id or icon name.
+	 *
+	 * @param $icon_id
+	 *
+	 * @return string
+	 * @access public
+	 * @since  1.0.0
+	 */
+	public function get_inline_svg( $icon_id ): string {
 
-        /** If this users custom svg. */
-        if ( is_numeric( $icon ) ) {
-            $icon = get_attached_file( $icon );
+		/** Construct a path to library icon or media library file. */
+		$icon = is_numeric( $icon_id ) ? get_attached_file( $icon_id ) : Plugin::get_path() . 'images/mdc-icons/' . $icon_id;
+		if ( ! is_file( $icon ) ) { return ''; }
 
-        /** If icon from library. */
-        } else {
-            $icon = Plugin::get_path() . 'images/mdc-icons/' . $icon;
-        }
+		/** Return SVG markup or IMG tag */
+		return pathinfo( $icon, PATHINFO_EXTENSION ) === 'svg' ?
+			wp_kses( file_get_contents( $icon ), self::svg_allowed_tags() ) : wp_get_attachment_image( $icon_id, 'full' );
 
-        if ( ! is_file( $icon ) ) { return ''; }
+	}
 
-        $svg_icon = file_get_contents( $icon );
+	/**
+	 * Return tags allowed for SVG
+	 * @return array|array[]
+	 */
+	private static function svg_allowed_tags(): array {
 
-        /** Escaping SVG with KSES. */
-        $kses_defaults = wp_kses_allowed_html( 'post' );
+		/** Escaping SVG with KSES. */
+		$kses_defaults = wp_kses_allowed_html( 'post' );
 
-        $svg_args = [
-            'svg'   => [
-                'class' => true,
-                'aria-hidden' => true,
-                'aria-labelledby' => true,
-                'role' => true,
-                'xmlns' => true,
-                'width' => true,
-                'height' => true,
-                'viewbox' => true, // <= Must be lower case!
-            ],
-            'g'     => [ 'fill' => true ],
-            'title' => [ 'title' => true ],
-            'path'  => [ 'd' => true, 'fill' => true, ],
-        ];
+		$svg_args = [
+			'svg'   => [
+				'class' => true,
+				'aria-hidden' => true,
+				'aria-labelledby' => true,
+				'role' => true,
+				'xmlns' => true,
+				'width' => true,
+				'height' => true,
+				'viewbox' => true
+			],
+			'g'     => [ 'fill' => true ],
+			'title' => [ 'title' => true ],
+			'path'  => [
+				'd' => true,
+				'fill' => true
+			],
+		];
 
-        $allowed_tags = array_merge( $kses_defaults, $svg_args );
+		return array_merge( $kses_defaults, $svg_args );
 
-        return wp_kses( $svg_icon, $allowed_tags );
-
-    }
+	}
 
 	/**
 	 * Return list of Custom Post Types.
@@ -364,7 +370,7 @@ final class Helper {
 		);
 
 		/**
-		 * Filters the list of post type objects used by Liker.
+		 * Filters the list of post type objects
 		 * @param array $post_types_objects List of post type objects.
 		 **/
 		$post_types_objects = apply_filters( 'ungrabber/post_type_objects', $post_types_objects );

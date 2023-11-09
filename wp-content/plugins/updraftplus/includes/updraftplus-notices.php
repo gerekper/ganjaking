@@ -219,9 +219,8 @@ class UpdraftPlus_Notices extends Updraft_Notices_1_2 {
 			'blackfriday' => array(
 				'prefix' => '',
 				'title' => __('Black Friday Sale', 'updraftplus'),
-				'text' => $sale_description.'<br><b>'.__('Get 20% off for a limited time.', 'updraftplus').' '.sprintf(__('Use code %s at %s.', 'updraftplus'), 'blackfridaysale2023', $checkout_html).' '.sprintf(__('Offer ends %s', 'updraftplus'), __('28 November', 'updraftplus')).'</b>',
+				'text' => __('Backup automatically before updates.', 'updraftplus').' '.__('Backup incremental changes, instead of full backups (saving server resources), migrate your site with ease, get more remote storage locations, premium support and more.', 'updraftplus').' <b><a href="https://updraftplus.com/blackfriday?utm_source=plugin&utm_medium=banner&utm_campaign=black_friday"> '.sprintf(__('Get 20%% off now with code %s.', 'updraftplus'), 'blackfridaysale2023').'</a></b> '.sprintf(__('Hurry, offer ends %s.', 'updraftplus'), __('28 November', 'updraftplus')),
 				'image' => 'notices/black_friday.png',
-				'button_link' => 'https://updraftplus.com/landing/updraftplus-premium',
 				'campaign' => 'blackfriday',
 				'button_meta' => 'updraftplus',
 				'dismiss_time' => 'dismiss_season',

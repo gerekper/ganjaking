@@ -2,6 +2,7 @@
 
 namespace WPMailSMTP\Pro\Emails\Logs\Webhooks\Events;
 
+use WPMailSMTP\Pro\Alerts\Alerts;
 use WPMailSMTP\Pro\Emails\Logs\Email;
 
 /**
@@ -23,9 +24,14 @@ class Failed implements EventInterface {
 	 */
 	public function handle( $email, $data ) {
 
+		$error_text = $this->get_error_message( $data );
+
 		$email->set_status( Email::STATUS_UNSENT );
-		$email->set_error_text( $this->get_error_message( $data ) );
+		$email->set_error_text( $error_text );
 		$email->save();
+
+		// Trigger alerts.
+		( new Alerts() )->handle_hard_bounced_email( $error_text, $email );
 
 		return true;
 	}

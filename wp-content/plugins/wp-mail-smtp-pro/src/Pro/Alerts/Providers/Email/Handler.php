@@ -51,6 +51,7 @@ class Handler implements HandlerInterface {
 				Alerts::FAILED_EMAIL,
 				Alerts::FAILED_PRIMARY_EMAIL,
 				Alerts::FAILED_BACKUP_EMAIL,
+				Alerts::HARD_BOUNCED_EMAIL,
 			],
 			true
 		);

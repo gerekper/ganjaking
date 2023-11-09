@@ -107,10 +107,12 @@ class Admin extends ExportTab {
 			<input type="hidden" name="action" value="wp_mail_smtp_tools_export_email_logs">
 			<?php wp_nonce_field( 'wp-mail-smtp-tools-export-email-logs-nonce', 'nonce' ); ?>
 
+			<div class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-content section-heading no-desc wp-mail-smtp-section-heading--has-divider">
+				<div class="wp-mail-smtp-setting-field">
+					<h2><?php esc_html_e( 'Export Email Logs', 'wp-mail-smtp-pro' ); ?></h2>
+				</div>
+			</div>
 			<div class="wp-mail-smtp-setting-row">
-
-				<h2><?php esc_html_e( 'Export Email Logs', 'wp-mail-smtp-pro' ); ?></h2>
-
 				<section class="wp-clearfix" id="wp-mail-smtp-tools-export-email-logs-export-type">
 					<h5><?php esc_html_e( 'Export Type', 'wp-mail-smtp-pro' ); ?></h5>
 					<?php $this->display_export_type_block(); ?>

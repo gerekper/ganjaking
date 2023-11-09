@@ -3,6 +3,7 @@
 namespace WPMailSMTP\Pro\SmartRouting\Admin;
 
 use WPMailSMTP\Admin\Pages\SmartRoutingTab;
+use WPMailSMTP\Helpers\UI;
 use WPMailSMTP\Options;
 use WPMailSMTP\Pro\AdditionalConnections\AdditionalConnections;
 use WPMailSMTP\Pro\ConditionalLogic\ConditionalLogicSettings;
@@ -247,17 +248,17 @@ class SettingsTab extends SmartRoutingTab {
 			<?php endif; ?>
 
 			<div class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-no-border">
-				<div class="wp-mail-smtp-smart-routing-enable-toggle">
-					<label for="wp-mail-smtp-smart-routing-enabled" class="wp-mail-smtp-setting-toggle">
-						<input type="checkbox" id="wp-mail-smtp-smart-routing-enabled" class="wp-mail-smtp-smart-routing-enabled"
-									 name="wp-mail-smtp[smart_routing][enabled]" value="yes" <?php checked( $is_enabled ); ?>
-						/>
-						<span class="wp-mail-smtp-setting-toggle__switch"></span>
-					</label>
-					<label for="wp-mail-smtp-smart-routing-enabled" class="wp-mail-smtp-smart-routing-enable-toggle__label">
-						<?php esc_html_e( 'Enable Smart Routing', 'wp-mail-smtp-pro' ); ?>
-					</label>
-				</div>
+				<?php
+				UI::toggle(
+					[
+						'label'   => esc_html__( 'Enable Smart Routing', 'wp-mail-smtp-pro' ),
+						'name'    => 'wp-mail-smtp[smart_routing][enabled]',
+						'id'      => 'wp-mail-smtp-smart-routing-enabled',
+						'class'   => 'wp-mail-smtp-smart-routing-toggle',
+						'checked' => $is_enabled,
+					]
+				);
+				?>
 			</div>
 
 			<div class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-no-border wp-mail-smtp-setting-row-no-padding">

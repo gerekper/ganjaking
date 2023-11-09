@@ -6,13 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'System' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
     'OpenCloud' => array($vendorDir . '/rackspace/php-opencloud/lib'),
-    'Net' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
-    'Math' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
     'Guzzle\\Tests' => array($vendorDir . '/guzzle/guzzle/tests'),
     'Guzzle' => array($vendorDir . '/guzzle/guzzle/src'),
-    'File' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
     'Eher\\OAuth' => array($vendorDir . '/eher/oauth/src'),
-    'Crypt' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
 );

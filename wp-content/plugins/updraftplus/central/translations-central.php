@@ -88,4 +88,7 @@ return array(
 	'updraftcentral_wizard_empty_url' => __('Please enter the URL where your UpdraftCentral dashboard is hosted.', 'updraftplus'),
 	'updraftcentral_wizard_invalid_url' => __('Please enter a valid URL e.g http://example.com', 'updraftplus'),
 	'insufficient_privilege' => __('Sorry, you do not have enough privilege to execute the requested action.', 'updraftplus'),
+	'copy_to_clipboard' => __('Copy to clipboard', 'updraftplus'),
+	'key_copied' => __('The key was copied to the clipboard.', 'updraftplus'),
+	'unable_to_copy' => __('The attempt to copy to the clipboard failed.', 'updraftplus'),
 );

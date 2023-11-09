@@ -5,8 +5,8 @@
  * Exclusively on https://1.envato.market/ungrabber
  *
  * @encoding        UTF-8
- * @version         3.0.3
- * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
+ * @version         3.0.4
+ * @copyright       (C) 2018 - 2023 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
  * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
  * @support         help@merkulov.design
@@ -57,17 +57,23 @@ final class Unity {
     /**
      * Do critical compatibility checks and stop work if fails.
      *
-     * @param array $checks - List of critical initial checks to run. List of available checks: 'php56', 'curl'
+     * @param array $checks - List of critical initial checks to run. List of available checks: 'php', 'curl'
      *
      * @since  1.0.0
      * @access public
      *
      * @return bool
      **/
-    public function initial_checks( $checks ) {
+    public function initial_checks( $checks ): bool {
 
-        /** Do critical initial checks. */
-		if ( ! CheckCompatibility::get_instance()->do_initial_checks( $checks, true ) ) { return  false; }
+        if ( ! CheckCompatibility::get_instance()->do_initial_checks( $checks, true ) ) {
+            return false;
+        }
+
+        if ( ! CheckCompatibility::do_site_check() ) {
+            deactivate_plugins( array( Plugin::get_basename() ) );
+            return false;
+        }
 
         return true;
 
@@ -89,7 +95,7 @@ final class Unity {
 		/** Send install Action to our host. */
 		 self::send_install_action();
 
-        /** Define hooks that runs on both the front-end as well as the dashboard. */
+        /** Define hooks that runs on both the front-end and the dashboard. */
         $this->both_hooks();
 
 		/** Define admin hooks. */
@@ -100,7 +106,10 @@ final class Unity {
             Elementor::get_instance()->setup();
         }
 
-        // TODO: Add Extra setup for WPBakery plugins.
+        /** Extra setup for WPBakery plugins. */
+        if ( 'wpbakery' === Plugin::get_type() ) {
+            WPBakery::get_instance()->setup();
+        }
 
 	}
 
@@ -116,6 +125,9 @@ final class Unity {
 
     	/** Load the plugin text domain for translation. */
         PluginHelper::load_textdomain();
+
+        /** Register rest calls */
+        Rest::get_instance();
 
     }
 
@@ -145,6 +157,12 @@ final class Unity {
 
 		/** Plugin update mechanism enable only if plugin have Envato ID. */
 		PluginUpdater::get_instance();
+
+        /** Messages for plugin settings page */
+        Messages::get_instance();
+
+        /** Dashboard widget */
+        // Dashboard::get_instance(); TODO: unity issue #5
 
     }
 
@@ -198,14 +216,20 @@ final class Unity {
 		/** We need to know plugin to activate it. */
 		if ( ! isset( $_REQUEST[ 'plugin' ] ) ) { return; }
 
-		/** Get plugin. */
-		$plugin = filter_var( $_REQUEST[ 'plugin' ], FILTER_SANITIZE_STRING );
+        /** Get plugin and page. */
+        $plugin = filter_var( $_REQUEST[ 'plugin' ], FILTER_SANITIZE_STRING );
+        $page = $_REQUEST[ 'page' ] ?? '';
 
-		/** Checks that a user was referred from admin page with the correct security nonce. */
-		check_admin_referer( "activate-plugin_{$plugin}" );
+        /** TGMPA activation */
+        if ( strpos( $page, '-tgmpa-install-plugins' ) === false ) {
 
-		/** Do critical initial checks. */
-		if ( ! CheckCompatibility::get_instance()->do_initial_checks( ['php56', 'curl'], false ) ) { return; }
+            /** Checks that a user was referred from admin page with the correct security nonce. */
+            check_admin_referer( "activate-plugin_{$plugin}" );
+
+        }
+
+        /** Do critical initial checks. */
+		if ( ! CheckCompatibility::get_instance()->do_initial_checks( ['php', 'curl'], false ) ) { return; }
 
 		/** Restore settings */
 		self::restore_settings();

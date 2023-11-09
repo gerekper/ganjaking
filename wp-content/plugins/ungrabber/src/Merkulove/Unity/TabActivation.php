@@ -5,8 +5,8 @@
  * Exclusively on https://1.envato.market/ungrabber
  *
  * @encoding        UTF-8
- * @version         3.0.3
- * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
+ * @version         3.0.4
+ * @copyright       (C) 2018 - 2023 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
  * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
  * @support         help@merkulov.design
@@ -171,11 +171,23 @@ final class TabActivation extends Tab {
 			'timeout' => 15,
 			'headers' => [
 				'Accept' => 'application/json'
-			]
+			],
+            'sslverify'  => Settings::get_instance()->options[ 'check_ssl' ] === 'on'
 		] );
 
 		/** We’ll check whether the answer is correct. */
-		if ( is_wp_error( $json ) ) { return false; }
+		if ( is_wp_error( $json ) ) {
+
+            delete_transient( 'mdp_ungrabber_activation_error' );
+            set_transient(
+                'mdp_ungrabber_activation_error',
+                $json->errors ?? array(),
+                60
+            );
+
+            return false;
+
+        }
 
 		/** Have answer with wrong code. */
 		if ( wp_remote_retrieve_response_code( $json ) !== 200 ) { return false; }
@@ -284,7 +296,7 @@ final class TabActivation extends Tab {
         ?>
         <div class="mdp-subscribe-form">
 
-            <h3><?php esc_html_e( 'Subscribe to updates', 'ungrabber' ); ?></h3>
+            <h3><?php esc_html_e( 'Subscribe to newsletter', 'ungrabber' ); ?></h3>
             <p><?php esc_html_e( 'Sign up for the newsletter to be the first to know about news and discounts.', 'ungrabber' ); ?></p>
             <p class="mdp-subscribe-form-message"
                data-success="<?php esc_html_e( 'Hurray! We received your Subscription request. Check your inbox for an email from us.', 'ungrabber' ); ?>"
@@ -346,9 +358,7 @@ final class TabActivation extends Tab {
 
         ?>
         <div class="mdp-activation-form">
-            <h3><?php esc_html_e( 'Plugin Activation', 'ungrabber' ); ?></h3>
             <?php
-
             /** Render input. */
             UI::get_instance()->render_input(
                 $purchase_code,
@@ -383,10 +393,8 @@ final class TabActivation extends Tab {
                 </div>
                 <div class="mdc-accordion-content">
                     <p><?php esc_html_e( 'The purchase code is a unique combination of characters that confirms that you bought the plugin. You can find your purchase code in ', 'ungrabber' ); ?>
-                        <a href="https://1.envato.market/cc-downloads" target="_blank"><?php esc_html_e( 'your account', 'ungrabber' );?></a>
-                        <?php esc_html_e( ' on the CodeCanyon. Learn more about ', 'ungrabber' ); ?>
-                        <a href="https://help.market.envato.com/hc/en-us/articles/202822600-Where-Is-My-Purchase-Code-" target="_blank"><?php esc_html_e( 'How to find your purchase code', 'ungrabber' );?></a>
-                        <?php esc_html_e( ' .', 'ungrabber');?>
+                        <a href="https://1.envato.market/cc-downloads" target="_blank"><?php esc_html_e( 'your account', 'ungrabber' );?></a><?php esc_html_e( 'on the CodeCanyon. Learn more about ', 'ungrabber' ); ?>
+                        <a href="https://help.market.envato.com/hc/en-us/articles/202822600-Where-Is-My-Purchase-Code-" target="_blank"><?php esc_html_e( 'How to find your purchase code', 'ungrabber' );?></a>.
                     </p>
                 </div>
 
@@ -397,8 +405,7 @@ final class TabActivation extends Tab {
                 <div class="mdc-accordion-content">
                     <p>
                         <?php esc_html_e( 'No, this is prohibited by license terms. You can use the purchase code on only one website at a time. Learn more about ', 'ungrabber' ); ?>
-                        <a href="https://1.envato.market/KYbje" target="_blank"><?php esc_html_e( 'Envato License', 'ungrabber' );?></a>
-                        <?php esc_html_e( ' terms. ', 'ungrabber' ); ?>
+                        <a href="https://1.envato.market/KYbje" target="_blank"><?php esc_html_e( 'Envato License', 'ungrabber' );?></a> <?php esc_html_e( 'terms. ', 'ungrabber' ); ?>
                     </p>
                 </div>
 
@@ -419,8 +426,7 @@ final class TabActivation extends Tab {
                 <div class="mdc-accordion-content">
                     <p>
                         <?php esc_html_e( 'There are several reasons why the purchase code may not work on your site. Learn more why your ', 'ungrabber' ); ?>
-                        <a href="https://merkulove.zendesk.com/hc/en-us/articles/360006100998-Troubleshooting-of-the-plugin-activation" target="_blank"><?php esc_html_e( 'Purchase Code is Not Working', 'ungrabber' );?></a>
-                        <?php esc_html_e( ' .', 'ungrabber');?>
+                        <a href="https://merkulove.zendesk.com/hc/en-us/articles/360006100998-Troubleshooting-of-the-plugin-activation" target="_blank"><?php esc_html_e( 'Purchase Code is Not Working', 'ungrabber' );?></a>.
                     </p>
                 </div>
 

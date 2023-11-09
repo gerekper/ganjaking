@@ -3,6 +3,7 @@
 namespace WPMailSMTP\Pro\Emails\Control\Admin;
 
 use WPMailSMTP\Admin\Pages\ControlTab;
+use WPMailSMTP\Helpers\UI;
 use WPMailSMTP\Options;
 use WPMailSMTP\WP;
 
@@ -27,9 +28,14 @@ class SettingsTab extends ControlTab {
 		<form method="POST" action="">
 			<?php $this->wp_nonce_field(); ?>
 
-			<p class="description">
-				<?php esc_html_e( 'WordPress, by default, will send out emails for many events on your site. Using the toggles below, you can decide exactly which emails you\'d like enabled.', 'wp-mail-smtp-pro' ); ?>
-			</p>
+			<div class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-content section-heading wp-mail-smtp-section-heading--has-divider">
+				<div class="wp-mail-smtp-setting-field">
+					<h2><?php esc_html_e( 'Email Controls', 'wp-mail-smtp-pro' ); ?></h2>
+					<p class="desc">
+						<?php esc_html_e( 'WordPress, by default, will send out emails for many events on your site. Using the toggles below, you can decide exactly which emails you\'d like enabled.', 'wp-mail-smtp-pro' ); ?>
+					</p>
+				</div>
+			</div>
 
 			<?php
 			foreach ( $controls as $section_id => $section ) :
@@ -46,41 +52,44 @@ class SettingsTab extends ControlTab {
 						<h2><?php echo esc_html( $section['title'] ); ?></h2>
 					</div>
 				</div>
+				<div class="wp-mail-smtp-setting-group">
+					<?php
+					foreach ( $section['emails'] as $email_id => $email ) :
+						$email_id = sanitize_key( $email_id );
 
-				<?php
-				foreach ( $section['emails'] as $email_id => $email ) :
-					$email_id = sanitize_key( $email_id );
+						if ( empty( $email_id ) || empty( $email['label'] ) ) {
+							continue;
+						}
 
-					if ( empty( $email_id ) || empty( $email['label'] ) ) {
-						continue;
-					}
-
-					if ( $this->is_it_for_multisite( sanitize_key( $email_id ) ) && ! WP::use_global_plugin_settings() ) {
-						continue;
-					}
-					?>
-					<div id="wp-mail-smtp-setting-row-control_<?php echo esc_attr( $email_id ); ?>" class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-checkbox-toggle wp-mail-smtp-clear">
-						<div class="wp-mail-smtp-setting-label">
-							<label for="wp-mail-smtp-setting-<?php echo esc_attr( $email_id ); ?>">
-								<?php echo esc_html( $email['label'] ); ?>
-							</label>
+						if ( $this->is_it_for_multisite( sanitize_key( $email_id ) ) && ! WP::use_global_plugin_settings() ) {
+							continue;
+						}
+						?>
+						<div id="wp-mail-smtp-setting-row-control_<?php echo esc_attr( $email_id ); ?>" class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-checkbox-toggle wp-mail-smtp-clear">
+							<div class="wp-mail-smtp-setting-label">
+								<label for="wp-mail-smtp-setting-<?php echo esc_attr( $email_id ); ?>">
+									<?php echo esc_html( $email['label'] ); ?>
+								</label>
+							</div>
+							<div class="wp-mail-smtp-setting-field">
+								<?php
+								UI::toggle(
+									[
+										'name'    => 'wp-mail-smtp[control][' . $email_id . ']',
+										'id'      => 'wp-mail-smtp-setting-' . $email_id,
+										'checked' => ! $options->get( 'control', $email_id ),
+									]
+								);
+								?>
+								<?php if ( ! empty( $email['desc'] ) ) : ?>
+									<p class="desc">
+										<?php echo $email['desc']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+									</p>
+								<?php endif; ?>
+							</div>
 						</div>
-						<div class="wp-mail-smtp-setting-field">
-							<label for="wp-mail-smtp-setting-<?php echo esc_attr( $email_id ); ?>">
-								<input type="checkbox" id="wp-mail-smtp-setting-<?php echo esc_attr( $email_id ); ?>" name="wp-mail-smtp[control][<?php echo esc_attr( $email_id ); ?>]" value="yes"
-									<?php checked( false, $options->get( 'control', $email_id ) ); ?>/>
-								<span class="wp-mail-smtp-setting-toggle-switch"></span>
-								<span class="wp-mail-smtp-setting-toggle-checked-label"><?php esc_html_e( 'On', 'wp-mail-smtp-pro' ); ?></span>
-								<span class="wp-mail-smtp-setting-toggle-unchecked-label"><?php esc_html_e( 'Off', 'wp-mail-smtp-pro' ); ?></span>
-							</label>
-							<?php if ( ! empty( $email['desc'] ) ) : ?>
-								<p class="desc">
-									<?php echo $email['desc']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-								</p>
-							<?php endif; ?>
-						</div>
-					</div>
-				<?php endforeach; ?>
+					<?php endforeach; ?>
+				</div>
 			<?php endforeach; ?>
 
 			<?php $this->display_save_btn(); ?>

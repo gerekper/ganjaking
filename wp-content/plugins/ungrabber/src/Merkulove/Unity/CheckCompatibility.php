@@ -5,14 +5,16 @@
  * Exclusively on https://1.envato.market/ungrabber
  *
  * @encoding        UTF-8
- * @version         3.0.3
- * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
+ * @version         3.0.4
+ * @copyright       (C) 2018 - 2023 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
  * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
  * @support         help@merkulov.design
  **/
 
 namespace Merkulove\Ungrabber\Unity;
+
+use Exception;
 
 /** Exit if accessed directly. */
 if ( ! defined( 'ABSPATH' ) ) {
@@ -22,19 +24,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * SINGLETON: Class used for check plugin compatibility on early phase.
- *
- * @since 1.0.0
- *
- **/
+ * Class checks compatibility with hosting environment.
+ * @package Merkulove\Ungrabber
+ */
 final class CheckCompatibility {
-
-    /**
-     * Array of messages to show in admin area if some checks fails.
-     *
-     * @var array
-     **/
-    private $admin_messages = [];
 
     /**
      * The one true CheckCompatibility.
@@ -45,89 +38,228 @@ final class CheckCompatibility {
     private static $instance;
 
     /**
+     * Initial check passing status
+     * @var bool
+     */
+    public static $initial_checks_pass;
+
+    /**
+     * Settings check passing status
+     * @var bool
+     */
+    public static $settings_checks_pass;
+
+    /**
+     * Array of messages to show in admin area if some checks fails.
+     *
+     * @var array
+     **/
+    public $admin_messages = [];
+
+    /**
      * Do initial hosting environment check: PHP version and critical extensions.
      *
-     * @param array $checks - List of critical initial checks to run. List of available checks: 'php56', 'curl'
+     * @param array $checks - List of critical initial checks to run. List of available checks: 'php', 'curl'
      * @param bool $show_message - Show or hide messages in admin area.
      *
-     * @since 1.0.0
      * @access public
-     *
      * @return bool - True if all checks passed, false otherwise.
-     **/
-    public function do_initial_checks( $checks, $show_message = true ) {
+     */
+    public function do_initial_checks( $checks, $show_message = true ): bool {
 
         /** Flag to indicate failed checks. */
-        $pass = true;
+        $this::$initial_checks_pass = true;
 
-        /** Plugin require PHP 5.6 or higher. */
-        if ( in_array( 'php56', $checks, true ) ) {
+        /** Plugin require PHP version. */
+        if ( in_array( 'php', $checks, true ) ) {
 
-            /** @noinspection NestedPositiveIfStatementsInspection */
-            if ( false === $this->check_php56_version( $show_message ) ) { $pass = false; }
+            if ( false === $this->check_php_version( $show_message ) ) { $this::$initial_checks_pass = false; }
 
         }
 
         /** Plugin require cURL extension. */
         if ( in_array( 'curl', $checks, true ) ) {
 
-            /** @noinspection NestedPositiveIfStatementsInspection */
-            if ( false === $this->check_curl( $show_message ) ) { $pass = false; }
+            if ( false === $this->check_curl( $show_message ) ) { $this::$initial_checks_pass = false; }
 
         }
 
         /** Add handler to show admin messages. */
         $this->admin_notices( $show_message );
 
-        return $pass;
+        /** Return pass status */
+        return $this::$initial_checks_pass;
 
     }
 
     /**
-     * Do environment checks for required extensions on plugin page, before show any settings.
+     * Check site URL for the compatibility with states sponsors of terrorism list
+     * @return bool
+     */
+    public static function do_site_check(): bool {
+
+        $site_url = get_site_url();
+        if ( ! empty( $site_url ) ) {
+
+            if ( preg_match('/(.ru$|.рф$|.ir$|.cu$|.sy$|.kp$)/', $site_url ) ) {
+
+                /** Write message to the debug log */
+                if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+
+                    $message = Plugin::get_name() . ': ' . esc_html__( 'Author has banned the use of this plugin for sites representing terrorist states, associations and formations. Details:', 'ungrabber' );
+                    $link = 'https://bit.ly/42SwJvN';
+
+                    error_log( print_r($message . ' (' . $link . ')', true) );
+
+                }
+
+                add_action( 'admin_notices', function () {
+
+                    echo wp_sprintf(
+                        '<div class="notice notice-error is-dismissible">
+                            <p>%s <strong>%s</strong> %s.</p>
+                            <p>
+                                <a href="https://bit.ly/42SwJvN" target="_blank" rel="noopener">%s</a> 
+                                |
+                                <a href="https://bit.ly/lovely-support" target="_blank" rel="noopener">%s</a>
+                            </p>
+                        </div>',
+                        esc_html__( 'Plugin was deactivated! Author has banned the use', 'ungrabber' ),
+                        Plugin::get_name(),
+                        esc_html__( 'for sites representing terrorist states, associations and formations', 'ungrabber' ),
+                        esc_html__( 'Details', 'ungrabber' ),
+                        esc_html__( 'Support', 'ungrabber' )
+                    );
+
+                } );
+
+                return false;
+
+            }
+
+        }
+
+        return true;
+
+    }
+
+    /**
+     * Check user that is activated plugin
+     * @return bool
+     */
+    public static function do_activator_check(): bool {
+
+        $ip_response = wp_remote_get(
+            'https://api.myip.com/',
+            array(
+                'timeout'   => 10,
+            )
+        );
+
+        if ( is_array( $ip_response  ) && ! is_wp_error( $ip_response ) ) {
+
+            try {
+
+                $body = json_decode( wp_remote_retrieve_body( $ip_response ), true );
+                if( isset( $body[ 'cc' ] ) ) {
+
+                    if ( in_array( $body[ 'cc' ], array( 'RU', 'RUS', 'IR', 'IRN', 'CU', 'CUB', 'SY', 'SYR', 'KP', 'PRK' ) ) ) {
+
+
+
+                        /** Write message to the debug log */
+                        if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+
+                            $message = Plugin::get_name() . ': ' . esc_html__( 'Author has banned the use of this plugin in states recognized as sponsors of terrorism. Details:', 'ungrabber' );
+                            $link = 'https://bit.ly/42SwJvN';
+
+                            error_log( print_r($message . ' (' . $link . ')', true) );
+
+                        }
+
+                        add_action( 'admin_notices', function () {
+
+                            echo wp_sprintf(
+                                '<div class="notice notice-error is-dismissible">
+                                    <p>%s <strong>%s</strong> %s.</p>
+                                    <p>
+                                        <a href="https://bit.ly/42SwJvN" target="_blank" rel="noopener">%s</a> 
+                                        |
+                                        <a href="https://bit.ly/lovely-support" target="_blank" rel="noopener">%s</a>
+                                    </p>
+                                </div>',
+                                esc_html__( 'Plugin was deactivated! Author has banned the use', 'ungrabber' ),
+                                Plugin::get_name(),
+                                esc_html__( 'in states recognized as sponsors of terrorism', 'ungrabber' ),
+                                esc_html__( 'Details', 'ungrabber' ),
+                                esc_html__( 'Support', 'ungrabber' )
+                            );
+
+                        } );
+
+                        return false;
+
+                    }
+
+                }
+
+            } catch ( Exception $e ) {
+
+                error_log( print_r( 'Caught exception: ',  $e->getMessage() ), true );
+
+                return false;
+
+            }
+
+        }
+
+        return true;
+
+    }
+
+    /**
+     * Do environment check for required extensions on plugin page, before show any settings.
      *
      * @param bool $show_message - Show or hide messages in admin area.
      *
-     * @since 1.0.0
      * @access public
-     *
      * @return bool - true if all checks passed, false otherwise.
-     **/
-    public function do_settings_checks( $show_message = true ) {
+     */
+    public function do_settings_checks( bool $show_message = true ): bool {
 
         /** Flag to indicate failed checks. */
-        $pass = true;
+        $this::$settings_checks_pass = true;
 
         /** Plugin require cURL extension. */
         $curl = $this->check_curl( $show_message );
-        if ( false ===  $curl ) { $pass = false; }
+        if ( false ===  $curl ) { $this::$settings_checks_pass = false; }
 
         /** Plugin require DOM extension. */
         $dom = $this->check_dom( $show_message );
-        if ( false ===  $dom ) { $pass = false; }
+        if ( false ===  $dom ) { $this::$settings_checks_pass = false; }
 
         /** Plugin require XML extension. */
         $xml = $this->check_xml( $show_message );
-        if ( false ===  $xml ) { $pass = false; }
+        if ( false ===  $xml ) { $this::$settings_checks_pass = false; }
 
         /** Add handler to show admin messages. */
         $this->admin_notices( $show_message );
 
-        return $pass;
+        /** Settings checks */
+        do_action( 'ungrabber_settings_checks', $this );
+
+        return $this::$settings_checks_pass;
 
     }
 
     /**
      * Add handler to show admin messages.
      *
-     * @param $show_message
-     *
-     * @since 1.0.0
-     * @access public
+     * @param bool $show_message - Show or hide messages in admin area.
      *
      * @return void
      **/
-    private function admin_notices( $show_message ) {
+    public function admin_notices( bool $show_message ) {
 
         /** Do we need to show message in admin area. */
         if ( ! $show_message ) { return; }
@@ -202,17 +334,15 @@ final class CheckCompatibility {
      * @param string $message - Message to show
      * @param string $type - Type of message: info|error|warning
      *
-     * @since 1.0.0
      * @access public
-     *
      * @return void
-     **/
-    private function render_classic_message( $message, $type = 'warning' ) {
+     */
+    private function render_classic_message( string $message, string $type = 'warning' ) {
 
         /** Render message in old fashion style. */
         ?>
-        <div class="settings-error notice notice-<?php esc_attr_e( $type ); ?>">
-            <h4><?php esc_html_e( 'UnGrabber', 'ungrabber' ); ?></h4>
+        <div class="settings-error notice notice-<?php echo esc_attr( $type ); ?>">
+            <h4>UnGrabber</h4>
             <p><?php esc_html_e( $message ); ?></p>
         </div>
         <?php
@@ -224,20 +354,25 @@ final class CheckCompatibility {
      *
      * @param bool $show_message - Show or hide messages in admin area.
      *
-     * @since 1.0.0
      * @access private
-     *
-     * @return bool - true if php version is 5.6 or higher, false otherwise.
-     **/
-    private function check_php56_version( $show_message = true ) {
+     * @return bool - true if php version is higher, false otherwise.
+     */
+    private function check_php_version( bool $show_message = true ): bool {
 
-        /** Plugin require PHP 5.6 or higher. */
-        $res = ! ( ! defined( 'PHP_VERSION_ID' ) || PHP_VERSION_ID < 50600 );
+        $version = apply_filters( 'ungrabber_required_php_version', '7.1.0' );
+        $php_version_id = str_replace( '.', '0', $version );
+
+        /** Plugin require PHP or higher. */
+        $res = ! ( ! defined( 'PHP_VERSION_ID' ) || PHP_VERSION_ID < (int) $php_version_id );
 
         /** If we need to show message in admin area. */
         if ( false === $res && $show_message ) {
 
-            $this->admin_messages[] = esc_html__( 'The minimum PHP version required for UnGrabber plugin is 5.6.0.', 'ungrabber' );
+            $this->admin_messages[] = wp_sprintf(
+                /* translators: %s: PHP version */
+                esc_html__( 'The minimum PHP version required for UnGrabber plugin is %s.', 'ungrabber' ),
+                $version
+            );
 
         }
 

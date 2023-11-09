@@ -346,13 +346,12 @@ class Permalink_Manager_URI_Functions_Tax {
 		// Reset variables
 		$updated_slugs_count = 0;
 		$updated_array       = array();
-		$errors              = '';
 
 		// Get the rows before they are altered
 		$terms_to_update = ( $chunk ) ? $chunk : self::get_items();
 
 		// Now if the array is not empty use IDs from each subarray as a key
-		if ( $terms_to_update && empty( $errors ) ) {
+		if ( $terms_to_update ) {
 			foreach ( $terms_to_update as $row ) {
 				// Prepare variables
 				$this_term         = get_term( $row['term_id'] );
@@ -418,13 +417,12 @@ class Permalink_Manager_URI_Functions_Tax {
 		// Reset variables
 		$updated_slugs_count = 0;
 		$updated_array       = array();
-		$errors              = '';
 
 		// Get the rows before they are altered
 		$terms_to_update = ( $chunk ) ? $chunk : self::get_items();
 
 		// Now if the array is not empty use IDs from each subarray as a key
-		if ( $terms_to_update && empty( $errors ) ) {
+		if ( $terms_to_update ) {
 			foreach ( $terms_to_update as $row ) {
 				// Prepare variables
 				$this_term         = get_term( $row['term_id'] );

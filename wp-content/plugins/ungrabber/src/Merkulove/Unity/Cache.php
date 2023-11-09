@@ -5,8 +5,8 @@
  * Exclusively on https://1.envato.market/ungrabber
  *
  * @encoding        UTF-8
- * @version         3.0.3
- * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
+ * @version         3.0.4
+ * @copyright       (C) 2018 - 2023 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
  * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
  * @support         help@merkulov.design
@@ -21,12 +21,6 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-/**
- * Cache class used to implement cache mechanisms in MySQL table.
- *
- * @since 1.0.0
- *
- **/
 class Cache {
 
     /**
@@ -44,6 +38,13 @@ class Cache {
      * @since 1.0.0
      **/
     private $table_name;
+
+	/**
+	 * Table making status
+	 *
+	 * @var bool
+	 */
+	private static $tableMaking = false;
 
     /**
      * Initialize a new cache instance.
@@ -134,10 +135,17 @@ class Cache {
 
         global $wpdb;
 
-        return (bool)$wpdb->get_var( $wpdb->prepare(
-            "SHOW TABLES LIKE %s",
-            $table_name
-        ) );
+        if ( ! defined( 'MDP_Ungrabber_CACHE_TABLE_EXISTS' ) ) {
+
+            $table_exists = $wpdb->get_var( $wpdb->prepare(
+                "SHOW TABLES LIKE %s",
+                $table_name
+            ) );
+            define( 'MDP_Ungrabber_CACHE_TABLE_EXISTS', $table_exists );
+
+        }
+
+        return MDP_Ungrabber_CACHE_TABLE_EXISTS;
 
     }
 
@@ -153,6 +161,10 @@ class Cache {
      * @return bool - Boolean true on success, false on error.
      **/
     private function create_cache_table( $table_name, $columns ) {
+
+	    // Run only once
+	    if ( self::$tableMaking ) return true;
+	    self::$tableMaking = true;
 
         global $wpdb;
 
@@ -212,11 +224,28 @@ class Cache {
      *
      * @return string|null - Cached value or null on error.
      **/
-    public function get( $key, $check_expire = true ) {
+    public function get( $key, $check_expire = true, $custom_cache_time = 0 ) {
 
+        return $this->get_get_cache_row( $key, $check_expire, $custom_cache_time );
+
+    }
+
+    /**
+     * Get cached value.
+     * @param $key
+     * @param $check_expire
+     * @param $custom_cache_time
+     * @return mixed|null
+     */
+    private function get_get_cache_row( $key, $check_expire = true, $custom_cache_time = 0 ) {
+
+        // Cached data
         $cache = $this->row_get( $this->table_name, ['key' => $key] );
 
-        if ( ! $cache || ( $check_expire && time() > $cache['updated_at'] + $this->cache_time ) ) { return null; }
+        // Custom cache time
+        $cache_time = $custom_cache_time !== 0 ? $custom_cache_time : $this->cache_time;
+
+        if ( ! $cache || ( $check_expire && time() > $cache['updated_at'] + $cache_time ) ) { return null; }
 
         return $cache['data'];
 

@@ -56,9 +56,10 @@ class ResendTask extends Task {
 	 *
 	 * @since 2.9.0
 	 *
-	 * @param int[] $email_ids Email ids.
+	 * @param int[]  $email_ids     Email ids.
+	 * @param string $connection_id Connection ID.
 	 */
-	public function schedule( $email_ids ) {
+	public function schedule( $email_ids, $connection_id = 'primary' ) {
 
 		// Exit if AS function does not exist.
 		if ( ! function_exists( 'as_has_scheduled_action' ) ) {
@@ -67,7 +68,7 @@ class ResendTask extends Task {
 
 		// Schedule the task.
 		$this->async()
-			->params( $email_ids )
+			->params( $email_ids, $connection_id )
 			->register();
 	}
 
@@ -84,7 +85,7 @@ class ResendTask extends Task {
 		$meta      = $task_meta->get( (int) $meta_id );
 
 		// We should actually receive the passed parameter.
-		if ( empty( $meta ) || empty( $meta->data ) || count( $meta->data ) !== 1 ) {
+		if ( empty( $meta ) || empty( $meta->data ) || count( $meta->data ) < 1 ) {
 			return;
 		}
 
@@ -94,6 +95,9 @@ class ResendTask extends Task {
 			return;
 		}
 
+		$connection_id = ! empty( $meta->data[1] ) ? $meta->data[1] : 'primary';
+		$connection    = wp_mail_smtp()->get_connections_manager()->get_connection( $connection_id );
+
 		$collection = new EmailsCollection(
 			[
 				'ids'      => $email_ids,
@@ -102,7 +106,7 @@ class ResendTask extends Task {
 		);
 
 		foreach ( $collection->get() as $email ) {
-			$this->send_email( $email );
+			$this->send_email( $email, null, $connection );
 		}
 	}
 }

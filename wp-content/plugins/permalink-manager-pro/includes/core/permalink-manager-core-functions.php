@@ -549,7 +549,7 @@ class Permalink_Manager_Core_Functions {
 			return $permalink;
 		}
 
-		// Always remove trailing slashes from URLs/URIs that end with file extension (eg. .html)
+		// Always remove trailing slashes from URLs/URIs that end with file extension (e.g. html)
 		if ( preg_match( '/(http(?:s)\:\/\/[^\/]+\/)?.*\.([a-zA-Z]{3,4})[\/]*(\?[^\/]+|$)/', $permalink ) ) {
 			$trailing_slash_mode = 2;
 		}
@@ -792,7 +792,7 @@ class Permalink_Manager_Core_Functions {
 			/**
 			 * 2. Prevent redirect loop
 			 */
-			if ( ! empty( $correct_permalink ) && is_string( $correct_permalink ) && ! empty( $wp->request ) && ! empty( $redirect_type ) && $redirect_type != 'slash_redirect' ) {
+			if ( ! empty( $correct_permalink ) && is_string( $correct_permalink ) && ! empty( $wp->request ) && $redirect_type != 'slash_redirect' ) {
 				$current_uri  = trim( $wp->request, "/" );
 				$redirect_uri = trim( parse_url( $correct_permalink, PHP_URL_PATH ), "/" );
 

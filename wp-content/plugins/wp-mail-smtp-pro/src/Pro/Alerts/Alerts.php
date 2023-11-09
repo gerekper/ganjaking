@@ -7,6 +7,7 @@ use WPMailSMTP\ConnectionInterface;
 use WPMailSMTP\MailCatcherInterface;
 use WPMailSMTP\Options;
 use WPMailSMTP\Pro\Alerts\Admin\SettingsTab;
+use WPMailSMTP\Pro\Emails\Logs\Email;
 use WPMailSMTP\Pro\Tasks\NotifierTask;
 use WPMailSMTP\WP;
 
@@ -47,6 +48,15 @@ class Alerts {
 	 * @var string
 	 */
 	const FAILED_BACKUP_EMAIL = 'failed_backup_email';
+
+	/**
+	 * Hard-bounced email alert type slug.
+	 *
+	 * @since 3.10.0
+	 *
+	 * @var string
+	 */
+	const HARD_BOUNCED_EMAIL = 'hard_bounced_email';
 
 	/**
 	 * Register hooks.
@@ -183,6 +193,58 @@ class Alerts {
 		( new NotifierTask() )
 			->async()
 			->params( $failure_type, $data )
+			->register();
+	}
+
+	/**
+	 * Handle hard-bounced email.
+	 *
+	 * @since 3.10.0
+	 *
+	 * @param string $error_message Error message.
+	 * @param Email  $email         The Email object.
+	 */
+	public function handle_hard_bounced_email( $error_message, $email ) {
+
+		// Bail if any of alerts channels is not enabled,
+		// or hard-bounce alerts are not enabled,
+		// or it's a test email.
+		if (
+			! $this->is_enabled() ||
+			! Options::init()->get( 'alert_events', 'email_hard_bounced' ) ||
+			$email->is_test()
+		) {
+			return;
+		}
+
+		$to_email_address = $email->get_people( 'to' );
+
+		$data = [
+			'to_email_addresses' => implode( ',', $to_email_address ),
+			'subject'            => $email->get_subject(),
+			'error_message'      => $error_message,
+			'mailers'            => [
+				'primary' => $email->get_mailer(),
+				'backup'  => null,
+			],
+		];
+
+		$current_email_id = $email->get_id();
+
+		if ( ! empty( $current_email_id ) ) {
+			$data['log_id']   = $current_email_id;
+			$data['log_link'] = add_query_arg(
+				[
+					'email_id' => $current_email_id,
+					'mode'     => 'view',
+				],
+				wp_mail_smtp()->get_admin()->get_admin_page_url( Area::SLUG . '-logs' )
+			);
+		}
+
+		( new NotifierTask() )
+			->async()
+			->params( self::HARD_BOUNCED_EMAIL, $data )
 			->register();
 	}
 

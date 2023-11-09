@@ -76,6 +76,7 @@ class Options extends OptionsAbstract {
 	 * Output the mailer provider options.
 	 *
 	 * @since 1.5.0
+	 * @since 3.10.0 Added WPMS_AMAZONSES_DISPLAY_IDENTITIES constant check to control display of identity list.
 	 */
 	public function display_options() {
 
@@ -178,6 +179,7 @@ class Options extends OptionsAbstract {
 			</div>
 		</div>
 
+		<?php if ( ! defined( 'WPMS_AMAZONSES_DISPLAY_IDENTITIES' ) || WPMS_AMAZONSES_DISPLAY_IDENTITIES === true ) : ?>
 		<!-- SES Identities (registered domains and emails) -->
 		<div id="wp-mail-smtp-setting-row-<?php echo esc_attr( $this->get_slug() ); ?>-senders"
 		     class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-text wp-mail-smtp-clear">
@@ -203,6 +205,7 @@ class Options extends OptionsAbstract {
 				<?php wp_nonce_field( 'wp_mail_smtp_pro_amazonses_load_ses_identities', 'wp_mail_smtp_pro_amazonses_load_ses_identities' ); ?>
 			</div>
 		</div>
+		<?php endif; ?>
 
 		<?php
 	}

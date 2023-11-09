@@ -453,7 +453,7 @@ function updraft_restore_setoptions(entities) {
 	var howmany = 0;
 	jQuery('input[name="updraft_restore[]"]').each(function(x,y) {
 		var entity = jQuery(y).val();
-		var epat = entity+'=([0-9,]+)';
+		var epat = '\/'+entity+'=([0-9,]+)';
 		var eregex = new RegExp(epat);
 		var ematch = entities.match(eregex);
 		if (ematch) {
@@ -544,9 +544,14 @@ function update_file_entities_checkboxes(incremental, entities) {
 			var name = jQuery(this).attr('name');
 			if (name.substring(0, 16) != 'updraft_include_') { return; }
 			var entity = name.substring(16);
-			jQuery('#backupnow_files_updraft_include_' + entity).prop('disabled', false);
-			if (jQuery('#updraft_include_' + entity).is(':checked')) {
-				jQuery('#backupnow_files_updraft_include_' + entity).prop('checked', true);
+			if (typeof jQuery('#backupnow_files_updraft_include_' + entity).data('force_disabled') == 'undefined') {
+				jQuery('#backupnow_files_updraft_include_' + entity).prop('disabled', false);
+				if (jQuery('#updraft_include_' + entity).is(':checked')) {
+					jQuery('#backupnow_files_updraft_include_' + entity).prop('checked', true);
+				}
+			} else {
+				jQuery('#backupnow_files_updraft_include_' + entity).prop('disabled', true);
+				jQuery('#backupnow_files_updraft_include_' + entity).prop('checked', false);
 			}
 		});
 	}
@@ -1847,7 +1852,7 @@ function updraft_downloader_status_update(download_status, response_raw) {
 				} else if (dstatus.p < 100 || dstatus.base != 'uddlstatus_') {
 					jQuery(stid_selector + ' .raw').html(dstatus.m);
 				} else {
-					var file_ready_actions = updraftlion.fileready + ' ' + updraftlion.actions + ': \
+					var file_ready_actions = updraftlion.fileready + ' ' + '(size: ' + convert_numeric_size_to_text(dstatus.s) + '). ' + updraftlion.actions + ':\
 				<button class="button" type="button" onclick="updraftplus_downloadstage2(\''+ dstatus.timestamp + '\', \'' + dstatus.what + '\', \'' + dstatus.findex + '\')\">' + updraftlion.downloadtocomputer + '</button> \
 				<button class="button" id="uddownloaddelete_'+ dstatus.timestamp + '_' + dstatus.what + '" type="button" onclick="updraftplus_deletefromserver(\'' + dstatus.timestamp + '\', \'' + dstatus.what + '\', \'' + dstatus.findex + '\')\">' + updraftlion.deletefromserver + '</button>';
 
@@ -1868,6 +1873,24 @@ function updraft_downloader_status_update(download_status, response_raw) {
 	});
 
 	return cancel_repeat;
+}
+
+/**
+ * Converts a number of bytes into a suitable textual unit value
+ *
+ * @param {long} bytes
+ * @returns string
+ */
+function convert_numeric_size_to_text(bytes) {
+	if (1024 > bytes) {
+		return bytes + " b";
+	} else if (1024 * 1024 >bytes) {
+		return (bytes / 1024).toFixed(2) + " KB";
+	} else if (1024 * 1024 * 1024 > bytes ) {
+		return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+	} else {
+		return (bytes / (1024 * 1024 * 1024)).toFixed(2) + " GB";
+	}
 }
 
 /**
@@ -1993,55 +2016,52 @@ jQuery(function($) {
 	
 	// Update WebDAV URL as user edits
 	$('#updraft-navtab-settings-content #remote-storage-holder').on('change keyup paste', '.updraft_webdav_settings', function() {
-		var updraft_webdav_settings = [];
-		$('.updraft_webdav_settings').each(function(index, item) {
-			
-			var id = $(item).attr('id');
-			
-			if (id && 'updraft_webdav_' == id.substring(0, 15)) {
-				var which_one = id.substring(15);
-				id_split = which_one.split('_');
-				which_one = id_split[0];
-				var instance_id = id_split[1];
-				if ('undefined' == typeof updraft_webdav_settings[instance_id]) updraft_webdav_settings[instance_id] = [];
-				updraft_webdav_settings[instance_id][which_one] = this.value;
-			}
-		});
-
-		var updraft_webdav_url = "";
-		var host = "@";
-		var slash = "/";
-		var colon = ":";
-		var colon_port = ":";
-
-		for (var instance_id in updraft_webdav_settings) {
-			
-			if (updraft_webdav_settings[instance_id]['host'].indexOf("@") >= 0 || "" === updraft_webdav_settings[instance_id]['host']) {
-				host = "";
-			}
-			if (updraft_webdav_settings[instance_id]['host'].indexOf("/") >= 0) {
+		var attr_id = $(this).attr('id');
+		if ('string' !== typeof attr_id) return;
+		var parsed_attr_id = attr_id.match(/updraft_webdav_(.+)_(s-[^_]+)$/i);
+		if (!parsed_attr_id || !parsed_attr_id[1] || !parsed_attr_id[2]) return;
+		var instance_id = parsed_attr_id[2],
+			webdav_input = parsed_attr_id[1].toLowerCase(),
+			masked_password = '';
+		
+		if ('host' === webdav_input) {
+			$('.webdav-'+instance_id+' .updraft_webdav_host_error').hide();
+			if ($(this).val().indexOf("@") >= 0) {
+				$(this).val($(this).val().replaceAll('@', encodeURIComponent('@')));
+			} else if ($(this).val().indexOf("/") >= 0) {
+				$(this).val($(this).val().replaceAll('/', ''));
 				$('.webdav-'+instance_id+' .updraft_webdav_host_error').show();
-			} else {
-				$('.webdav-'+instance_id+' .updraft_webdav_host_error').hide();
 			}
-			
-			if (0 == updraft_webdav_settings[instance_id]['path'].indexOf("/") || "" === updraft_webdav_settings[instance_id]['path']) {
-				slash = "";
-			}
-			
-			if ("" === updraft_webdav_settings[instance_id]['user'] || "" === updraft_webdav_settings[instance_id]['pass']) {
-				colon = "";
-			}
-			
-			if ("" === updraft_webdav_settings[instance_id]['host'] || "" === updraft_webdav_settings[instance_id]['port']) {
-				colon_port = "";
-			}
-			
-			updraft_webdav_url = updraft_webdav_settings[instance_id]['webdav'] + updraft_webdav_settings[instance_id]['user'] + colon + updraft_webdav_settings[instance_id]['pass'] + host +encodeURIComponent(updraft_webdav_settings[instance_id]['host']) + colon_port + updraft_webdav_settings[instance_id]['port'] + slash + updraft_webdav_settings[instance_id]['path'];
-			masked_webdav_url = updraft_webdav_settings[instance_id]['webdav'] + updraft_webdav_settings[instance_id]['user'] + colon + updraft_webdav_settings[instance_id]['pass'].replace(/./gi,'*') + host +encodeURIComponent(updraft_webdav_settings[instance_id]['host']) + colon_port + updraft_webdav_settings[instance_id]['port'] + slash + updraft_webdav_settings[instance_id]['path'];
-			$('#updraft_webdav_url_' + instance_id).val(updraft_webdav_url);
-			$('#updraft_webdav_masked_url_' + instance_id).val(masked_webdav_url);
+		} else if ('path' === webdav_input && 0 == $(this).val().indexOf('/')) {
+			$(this).val($(this).val().replace(/^[\/]+/, ''));
 		}
+
+		var	webdav = $('#updraft_webdav_webdav_' + instance_id).val(),
+			host = $('#updraft_webdav_host_' + instance_id).val() || '',
+			user = $('#updraft_webdav_user_' + instance_id).val() || '',
+			password = $('#updraft_webdav_pass_' + instance_id).val() || '',
+			port = $('#updraft_webdav_port_' + instance_id).val() || '',
+			path = $('#updraft_webdav_path_' + instance_id).val() || '';
+
+		if (password) {
+			masked_password = password.replace(/./gi,'*');
+		}
+		if (user && password) {
+			user += ':';
+		}
+		if ((user || password) && host) {
+			masked_password += '@';
+			password += '@';
+		}
+		if (host && port) {
+			host += ':';
+		}
+		if (path) {
+			path = '/' + path;
+		}
+
+		$('#updraft_webdav_url_' + instance_id).val(webdav + user + password + host + port + path);
+		$('#updraft_webdav_masked_url_' + instance_id).val(webdav + user + masked_password + host + port + path);
 	});
 	
 	$('div.ud-phpseclib-notice').on('click', 'button.notice-dismiss', function (event) {
@@ -3168,11 +3188,17 @@ jQuery(function($) {
 		}, { json_parse: false });
 	});
 	
-	jQuery("#updraft-navtab-settings-content form input:not('.udignorechange'), #updraft-navtab-settings-content form select").on('change', function(e) {
+	jQuery("#updraft-navtab-settings-content").on('input', "form input:not('.udignorechange'), form textarea:not('.udignorechange')", function(e) {
 		updraft_settings_form_changed = true;
 		load_save_button();
 	});
-	jQuery("#updraft-navtab-settings-content form input[type='submit']").on('click', function (e) {
+
+	jQuery("#updraft-navtab-settings-content").on('change', "form select", function(e) {
+		updraft_settings_form_changed = true;
+		load_save_button();
+	});
+
+	jQuery("#updraft-navtab-settings-content").on('click', "form input[type='submit']", function (e) {
 		updraft_settings_form_changed = false;
 	});
 	
@@ -6111,4 +6137,133 @@ function updraft_process_status_check(resp, response_raw, original_parameters) {
 		console.log(updraftlion.unexpectedresponse+' '+response_raw);
 		console.log(err);
 	}
+}
+
+/**
+ * Creates an instance of the updraft_js_tree class.
+ *
+ * @constructor
+ * @param {string} remote_storage - The remote storage identifier.
+ */
+function updraft_js_tree(remote_storage) {
+
+	var self = this; // Store a reference to the object
+	self.remote_storage = remote_storage;
+
+	/**
+	 * Hides the jstree and related elements.
+	 *
+	 * @param {jQuery} parent - The parent element containing the jstree.
+	 */
+	this.hide_jstree = function(parent) {
+		parent.find('[id^="updraft_' + self.remote_storage + '_folder"]').removeAttr('readonly');
+			
+		parent.find('.updraft_' + self.remote_storage + '_select_folder').show();
+		parent.find('.updraft_' + self.remote_storage + '_container').hide();
+
+		// hide action buttons
+		parent.find('.updraft_jstree_cancel').hide();
+		parent.find('.updraft_jstree_confirm').hide();
+	};
+
+	/**
+	 * Gets the structured folder path based on the selected node in the jstree.
+	 *
+	 * @param {Object} selected_node - The selected node in the jstree.
+	 * @returns {string} The structured folder path.
+	 */
+	this.get_structured_folder = function(selected_node) {
+		var level = selected_node.node.parents.length;
+		var selected_id = selected_node.node.id;
+		var parent = jQuery("#" + selected_id);
+		var parents =  selected_node.node.text + '/';
+
+		for (var ln = 0; ln <= level -1; ln++) {
+			var parent = parent.parent().parent();
+			if (parent.children()[1] != undefined) {
+				parents = parent.children()[1].text + '/' + parents;
+			}
+		}
+		if (parents.length > 0) {
+			parents = parents.substring(0, parents.length - 1);
+		}
+
+		return parents;
+	};
+
+	/**
+	 * Lists folders from the remote storage and initializes the jstree.
+	 *
+	 * @param {string} entity - The entity type.
+	 * @param {jQuery} parent - The parent element where the jstree will be displayed.
+	 * @param {string} instance_id - The instance identifier.
+	 */
+	this.list_folders = function(entity, parent, instance_id) {
+		parent.find('[id^="updraft_' + self.remote_storage + '_folder"]').prop('readOnly', true);
+		parent.find('[id^="updraft_' + self.remote_storage + '_folder"]').attr('previous-value', parent.find('[id^="updraft_' + self.remote_storage + '_folder"]').val());
+
+		parent.find('.updraft_' + self.remote_storage + '_select_folder').hide();
+		parent.find('.updraft_' + self.remote_storage + '_container').show();
+
+		// show action buttons
+		parent.find('.updraft_jstree_cancel').show();
+		parent.find('.updraft_jstree_confirm').show();
+
+		// init jstree
+		parent.find('.updraft_' + self.remote_storage + '_jstree_container').jstree({
+			"core": {
+				"multiple": false,
+				"data": function (nodeid, callback) {
+					updraft_send_command('get_jstree_directory_nodes', {entity:entity, node:nodeid, instance_id:instance_id}, function(response) {
+						if (response.hasOwnProperty('error')) {
+							jQuery('.updraft_include_' + self.remote_storage + '_paths_error').text(response.error);
+						} else {
+							jQuery('.updraft_include_' + self.remote_storage + '_paths_error').text('');
+							callback.call(this, response.nodes);
+						}
+					});
+				}
+			},
+			'plugins' : ['sort','types'],
+			'sort' : function(a, b) {
+				a1 = this.get_node(a);
+				b1 = this.get_node(b);
+				if (a1.icon == b1.icon) {
+					return (a1.text > b1.text) ? 1 : -1;
+				} else {
+					return (a1.icon < b1.icon) ? 1 : -1;
+				}
+			},
+		});
+
+		// Detect change on the tree and update the input that has been marked as editing
+		parent.find('.updraft_' + self.remote_storage + '_jstree_container').on("changed.jstree", function (e, data) {
+			parent.find('[id^="updraft_' + self.remote_storage + '_folder"]').val(self.get_structured_folder(data));
+		});
+
+		parent.find('.updraft_' + self.remote_storage + '_jstree_confirm, .updraft_' + self.remote_storage + '_jstree_cancel').on('click', function(e) {
+			e.preventDefault();
+
+			if (jQuery(this).hasClass('updraft_' + self.remote_storage + '_jstree_cancel')) {
+				parent.find('[id^="updraft_' + self.remote_storage + '_folder"]').val(parent.find('[id^="updraft_' + self.remote_storage + '_folder"]').attr('previous-value'));
+			}
+			
+			self.hide_jstree(parent);
+		});
+	};
+
+	/**
+	 * Initializes the updraft_js_tree instance by setting up event handlers.
+	 */
+	this.init = function() {
+	  jQuery(function() {
+		jQuery('.updraft_' + self.remote_storage + '_select_folder').on('click', function(e) {
+		  e.preventDefault();
+		  var $parent = jQuery(this).closest('tr');
+		  var instance_id = $parent.find('[id^="updraft_' + self.remote_storage + '_folder_"]').attr('id').replace('updraft_' + self.remote_storage + '_folder_', '');
+		  self.list_folders(self.remote_storage, $parent, instance_id);
+		});
+	  });
+	};
+
 }

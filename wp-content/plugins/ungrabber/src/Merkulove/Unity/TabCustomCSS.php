@@ -5,8 +5,8 @@
  * Exclusively on https://1.envato.market/ungrabber
  *
  * @encoding        UTF-8
- * @version         3.0.3
- * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
+ * @version         3.0.4
+ * @copyright       (C) 2018 - 2023 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
  * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
  * @support         help@merkulov.design
@@ -128,13 +128,13 @@ final class TabCustomCSS extends Tab {
         ?>
         <div>
             <label>
-                <textarea id="mdp_custom_css_fld" name="mdp_ungrabber_<?php esc_attr_e( self::TAB_SLUG ); ?>_settings[custom_css]" class="mdp_custom_css_fld"><?php
+                <textarea id="mdp_custom_css_fld" name="mdp_ungrabber_<?php echo esc_attr( self::TAB_SLUG ); ?>_settings[custom_css]" class="mdp_custom_css_fld"><?php
                     echo esc_textarea( Settings::get_instance()->options['custom_css'] );
                 ?></textarea>
             </label>
 
             <?php if ( Plugin::get_tabs()[ 'custom_css' ][ 'fields' ][ 'custom_css' ][ 'show_description' ] ) : ?>
-                <p class="description"><?php esc_html_e( Plugin::get_tabs()[ 'custom_css' ][ 'fields' ][ 'custom_css' ][ 'description' ] ); ?></p>
+                <p class="description"><?php echo apply_filters( 'ungrabber_custom_css_description', Plugin::get_tabs()[ 'custom_css' ][ 'fields' ][ 'custom_css' ][ 'description' ] ); ?></p>
             <?php endif; ?>
         </div>
         <?php

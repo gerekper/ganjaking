@@ -109,6 +109,13 @@ class PluginsList {
 			.plugins tr[data-slug="wp-mail-smtp-pro"] .row-actions {
 				padding-bottom: 0;
 			}
+
+			@media screen and (max-width: 782px) {
+				.plugins tr[data-slug="wp-mail-smtp-pro"].plugin-update-tr.active:before {
+					background-color: #f0f6fc;
+					border-left: 4px solid #72aee6;
+				}
+			}
 		</style>
 		<?php
 	}
@@ -221,12 +228,17 @@ class PluginsList {
 
 		global $wp_list_table;
 
+		$columns_count = 4;
+
+		if ( ! empty( $wp_list_table ) ) {
+			$columns_count = $wp_list_table->get_column_count();
+		}
 		?>
 		<tr id="<?php echo esc_attr( Pro::SLUG ); ?>-update" class='plugin-update-tr active'
 			data-slug="<?php echo esc_attr( Pro::SLUG ); ?>"
 			data-plugin='<?php echo esc_attr( $plugin_file ); ?>'
 		>
-			<td colspan='<?php echo esc_attr( $wp_list_table->get_column_count() ); ?>' class='plugin-update'>
+			<td colspan='<?php echo esc_attr( $columns_count ); ?>' class='plugin-update'>
 				<div class='update-message notice inline notice-warning notice-alt'>
 					<?php
 						echo '<p>' . wp_kses(

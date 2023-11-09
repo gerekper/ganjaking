@@ -119,7 +119,8 @@ class ConnectionOptions extends Options {
 		$options = $this->process_generic_options( $options );
 		$options = $this->process_mailer_specific_options( $options );
 
-		$all_options = array_merge( $this->all_options, [ $this->connection_id => $options ] );
+		$all_options                         = $this->all_options;
+		$all_options[ $this->connection_id ] = $options;
 
 		$this->save_options( $all_options, $once );
 	}

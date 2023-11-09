@@ -596,7 +596,7 @@ class Permalink_Manager_Actions {
 		}
 
 		// Check if both strings are set for "Find and replace" tool
-		if ( ! empty( $function_name ) && ! empty( $content_type ) && empty( $error ) ) {
+		if ( ! empty( $function_name ) && empty( $error ) ) {
 
 			// Hotfix for WPML (start)
 			if ( $sitepress ) {

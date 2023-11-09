@@ -514,6 +514,8 @@ class UpdraftPlus_WPAdmin_Commands extends UpdraftPlus_Commands {
 			$node_array = $this->_updraft_jstree_directory($params);
 		} elseif ('zipbrowser' == $params['entity']) {
 			$node_array = $this->_updraft_jstree_zip($params);
+		} else {
+			$node_array = apply_filters('updraftplus_jstree_'.$params['entity'], array(), $params);
 		}
 		return empty($node_array['error']) ? array('nodes' => $node_array) : $node_array;
 	}

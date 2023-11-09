@@ -366,9 +366,9 @@ class Permalink_Manager_Admin_Functions {
 
 		foreach ( $permalink_manager_uris as $id => $uri ) {
 			if ( preg_match( "/\b$search_query\b/i", $uri ) ) {
-				if ( $content_type && $content_type == 'taxonomies' && ( strpos( $id, 'tax-' ) !== false ) ) {
+				if ( $content_type == 'taxonomies' && ( strpos( $id, 'tax-' ) !== false ) ) {
 					$found[] = (int) abs( filter_var( $id, FILTER_SANITIZE_NUMBER_INT ) );
-				} else if ( $content_type && $content_type == 'posts' && is_numeric( $id ) ) {
+				} else if ( $content_type == 'posts' && is_numeric( $id ) ) {
 					$found[] = (int) filter_var( $id, FILTER_SANITIZE_NUMBER_INT );
 				} else {
 					$found[] = $id;

@@ -1,15 +1,15 @@
 /**
- * UnGrabber
- * A most effective way to protect your online content from being copied or grabbed
- * Exclusively on https://1.envato.market/ungrabber
- *
- * @encoding        UTF-8
- * @version         3.0.3
- * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
- * @license         Commercial Software
- * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
- * @support         help@merkulov.design
- **/
+ * * UnGrabber
+ * * A most effective way to protect your online content from being copied or grabbed
+ * * Exclusively on https://1.envato.market/ungrabber
+ * *
+ * * @encoding        UTF-8
+ * * @version         3.0.4
+ * * @copyright       (C) 2018 - 2023 Merkulove ( https://merkulov.design/ ). All rights reserved.
+ * * @license         Commercial Software
+ * * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
+ * * @support         help@merkulov.design
+ * **/
 .plugins .plugin-title .cc-merkulove img {
   height: 13px;
   width: 15px;
@@ -18,29 +18,38 @@
   top: -1px;
   float: none;
   padding: 0;
-  margin-right: 2px; }
+  margin-right: 2px;
+}
 
 .plugins .second {
-  padding-bottom: 0; }
+  padding-bottom: 0;
+}
 
 .mdp-rating-stars {
   white-space: nowrap;
   line-height: 1.1;
-  display: inline-flex; }
-  .mdp-rating-stars a {
-    outline: none;
-    display: inline-block;
-    width: 14px; }
-    .mdp-rating-stars a:hover {
-      text-decoration: none !important; }
-    .mdp-rating-stars a:focus {
-      box-shadow: none; }
-  .mdp-rating-stars .dashicons {
-    color: #ffb900;
-    font-size: 14px; }
+  display: inline-flex;
+  margin-right: 8px;
+}
+.mdp-rating-stars a {
+  outline: none;
+  display: inline-block;
+  width: 14px;
+}
+.mdp-rating-stars a:hover {
+  text-decoration: none !important;
+}
+.mdp-rating-stars a:focus {
+  box-shadow: none;
+}
+.mdp-rating-stars .dashicons {
+  color: #ffb900;
+  font-size: 14px;
+}
 
 .update-message .mdp-line {
   display: block;
   line-height: 5px;
   border-bottom: 1px solid rgba(255, 185, 0, 0.4);
-  margin: 5px 0; }
+  margin: 5px 0;
+}

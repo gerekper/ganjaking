@@ -5,8 +5,8 @@
  * Exclusively on https://1.envato.market/ungrabber
  *
  * @encoding        UTF-8
- * @version         3.0.3
- * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
+ * @version         3.0.4
+ * @copyright       (C) 2018 - 2023 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
  * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
  * @support         help@merkulov.design
@@ -194,8 +194,9 @@ final class Plugin {
 
 		/** Plugin settings page menu base. There may be several. */
         /** For Elementor plugins. */
-        if ( 'elementor' === self::$type ) {
+        if ( in_array( self::$type, [ 'elementor', 'wpbakery' ] ) ) {
 
+            self::$menu_bases[] = 'appearance_page_mdp_ungrabber_settings';
             self::$menu_bases[] = 'elementor_page_mdp_ungrabber_settings';
             self::$menu_bases[] = 'settings_page_mdp_ungrabber_settings';
 
@@ -209,7 +210,7 @@ final class Plugin {
 
 		/** Fill $tabs field with default settings. */
 		$this->default_settings();
-		
+
     }
 
     /**
@@ -222,26 +223,13 @@ final class Plugin {
      **/
     private function default_settings() {
 
-        /** Add General Tab. */
         $this->add_general_tab();
-
-        /** Add Custom CSS Tab. */
         $this->add_custom_css_tab();
-
-        /** Add Assignments Tab. */
         $this->add_assignments_tab();
-
-        /** Add Activation Tab. */
         $this->add_activation_tab();
-
-        /** Add Status Tab. */
+        $this->add_migration_tab();
         $this->add_status_tab();
-
-        /** Add Updates Tab. */
         $this->add_updates_tab();
-
-        /** Add Uninstall Tab. */
-        $this->add_uninstall_tab();
 
     }
 
@@ -266,8 +254,8 @@ final class Plugin {
             'fields'        => []
         ];
 
-        /** Special config for Elementor plugins. */
-        if ( 'elementor' === self::extract_plugin_type() ) {
+        /** Special config for Elementor & WPBakery plugins. */
+        if ( in_array( self::extract_plugin_type(), [ 'elementor', 'wpbakery' ] ) ) {
             unset( self::$tabs['general'] );
         }
 
@@ -300,8 +288,8 @@ final class Plugin {
             ]
         ];
 
-        /** Special config for Elementor plugins. */
-        if ( 'elementor' === self::extract_plugin_type() ) {
+        /** Special config for Elementor & WPBakery plugins. */
+        if ( in_array( self::extract_plugin_type(), [ 'elementor', 'wpbakery' ] ) ) {
             unset( self::$tabs['custom_css'] );
         }
 
@@ -347,8 +335,8 @@ final class Plugin {
             ]
         ];
 
-        /** Special config for Elementor plugins. */
-        if ( 'elementor' === self::extract_plugin_type() ) {
+        /** Special config for Elementor & WPBakery plugins. */
+        if ( in_array( self::extract_plugin_type(), [ 'elementor', 'wpbakery' ] ) ) {
             unset( self::$tabs['assignments'] );
         }
 
@@ -400,7 +388,7 @@ final class Plugin {
             'label'         => esc_html__( 'Status', 'ungrabber' ),
             'title'         => esc_html__( 'System Status', 'ungrabber' ),
             'show_title'    => true,
-            'icon'          => 'info',
+            'icon'          => 'insert_chart_outlined',
             'reports'       => [
                 'server'    => [
                     'enabled'               => true,
@@ -412,6 +400,7 @@ final class Plugin {
                     'zip_installed'         => true,
                     'curl_installed'        => true,
                     'elementor_installed'   => false,
+                    'wpbakery_installed'    => false,
                     'allow_url_fopen'       => true,
                     'dom_installed'         => true,
                     'xml_installed'         => true,
@@ -438,6 +427,15 @@ final class Plugin {
             self::$tabs['status']['reports']['server']['bcmath_installed'] = false;
         }
 
+        /** Special config for WPBakery plugins. */
+        if ( 'wpbakery' === self::extract_plugin_type() ) {
+            self::$tabs['status']['reports']['server']['wpbakery_installed'] = true;
+            self::$tabs['status']['reports']['server']['allow_url_fopen'] = false;
+            self::$tabs['status']['reports']['server']['dom_installed'] = false;
+            self::$tabs['status']['reports']['server']['xml_installed'] = false;
+            self::$tabs['status']['reports']['server']['bcmath_installed'] = false;
+        }
+
     }
 
     /**
@@ -457,6 +455,12 @@ final class Plugin {
             'title'         => esc_html__( 'Updates', 'ungrabber' ),
             'show_title'    => true,
             'icon'          => 'update',
+            'fields'        => [
+                'check_ssl' => [
+                    'type'              => 'switcher',
+                    'default'           => 'off',
+                ]
+            ]
         ];
 
     }
@@ -469,15 +473,15 @@ final class Plugin {
      *
      * @return void
      **/
-    private function add_uninstall_tab() {
+    private function add_migration_tab() {
 
-        self::$tabs['uninstall'] = [
+        self::$tabs['migration'] = [
             'enabled'       => true,
-            'class'         => TabUninstall::class,
-            'label'         => esc_html__( 'Uninstall', 'ungrabber' ),
-            'title'         => esc_html__( 'Uninstall Settings', 'ungrabber' ),
+            'class'         => TabMigration::class,
+            'label'         => esc_html__( 'Migration', 'ungrabber' ),
+            'title'         => esc_html__( 'Migration Settings', 'ungrabber' ),
             'show_title'    => true,
-            'icon'          => 'delete_sweep',
+            'icon'          => 'multiple_stop',
             'fields'        => [
                 'delete_plugin' => [
                     'type'              => 'select',
@@ -491,9 +495,9 @@ final class Plugin {
             ]
         ];
 
-        /** Special config for Elementor plugins. */
-        if ( 'elementor' === self::extract_plugin_type() ) {
-            unset( self::$tabs['uninstall']['fields']['delete_plugin']['options']['plugin+settings+data'] );
+        /** Special config for Elementor & WPBakery plugins. */
+        if ( in_array( self::extract_plugin_type(), [ 'elementor', 'wpbakery' ] ) ) {
+            unset( self::$tabs['migration']['fields']['delete_plugin']['options']['plugin+settings+data'] );
         }
 
     }

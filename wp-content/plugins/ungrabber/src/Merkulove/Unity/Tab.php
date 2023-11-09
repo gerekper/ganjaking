@@ -5,8 +5,8 @@
  * Exclusively on https://1.envato.market/ungrabber
  *
  * @encoding        UTF-8
- * @version         3.0.3
- * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
+ * @version         3.0.4
+ * @copyright       (C) 2018 - 2023 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
  * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
  * @support         help@merkulov.design
@@ -79,11 +79,17 @@ abstract class Tab {
         /** Get selected to process tab. */
         $tab = $tabs[ $tab_slug ];
 
-        /** If title enabled. */
-        if ( true ===  $tab[ 'show_title' ] ) {
+        /** If title exists */
+        if ( isset( $tab[ 'title' ] ) ) {
 
-            /** Render Title. */
-            echo '<h3>' . esc_html__( $tab[ 'title' ] ) . '</h3>';
+            echo '<h3 class="mdp-tab-title">' . esc_html__( $tab[ 'title' ] ) . '</h3>';
+
+        }
+
+        /** If description exists */
+        if ( isset( $tab[ 'description' ] ) ) {
+
+            echo '<p class="mdp-tab-description">' . wp_kses_post( $tab[ 'description' ] ) . '</p>';
 
         }
 
@@ -148,6 +154,55 @@ abstract class Tab {
         $tabs = Plugin::get_tabs();
 
         return isset( $tabs[ $tab_slug ][ 'enabled' ] ) && $tabs[ $tab_slug ][ 'enabled' ];
+
+    }
+
+    /**
+     * Add new tab to plugin settings.
+     *
+     * @param string $slug - Tab slug.
+     * @param int $offset - Position of tab in settings. 0 - first, 1 - second, etc.
+     * @param string|bool $icon - Icon of tab.
+     * @param string|bool $label - Label of tab in sidebar.
+     * @param string|bool $title - Title of tab on the tab page.
+     * @param string|bool $description - Description of tab on the tab page.
+     *
+     * @return void
+     */
+    public static function add_settings_tab(
+        string $slug,
+        int $offset = 0,
+        $icon = false,
+        $label = false,
+        $title = false,
+        $description = false,
+        $class = TabGeneral::class
+    ) {
+
+        $tabs = Plugin::get_tabs();
+
+        // Check if tab already exist
+        if ( isset( $tabs[ $slug ] ) ) {
+            return;
+        }
+
+        // Create new tab
+        $new_tab = array(
+            'enabled'       => true,
+            'class'         => $class,
+            'label'         => $label ?? esc_html__( 'Tab', 'ungrabber' ),
+            'title'         => $title ?? esc_html__( 'Tab', 'ungrabber' ),
+            'description'   => $description ?? false,
+            'show_title'    => isset( $title ),
+            'icon'          => $icon ?? 'position_bottom_left',
+        );
+
+        // Insert new tab after $offset
+        Plugin::set_tabs(
+            array_slice( $tabs, 0, $offset, true ) +
+            [ $slug => $new_tab ] +
+            array_slice( $tabs, $offset, NULL, true )
+        );
 
     }
 

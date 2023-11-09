@@ -4635,6 +4635,6 @@ class UpdraftPlus_WPDB extends wpdb {
 	 * @return Boolean
 	 */
 	public function updraftplus_use_mysqli() {
-		return !empty($this->use_mysqli);
+		return $this->dbh instanceof mysqli;
 	}
 }

@@ -2,6 +2,7 @@
 
 namespace WPMailSMTP\Pro\Tasks\Logs;
 
+use WPMailSMTP\Pro\Alerts\Alerts;
 use WPMailSMTP\Pro\Emails\Logs\DeliveryVerification\DeliveryVerification;
 use WPMailSMTP\Tasks\Meta;
 use WPMailSMTP\Pro\Emails\Logs\Email;
@@ -79,10 +80,12 @@ abstract class VerifySentStatusTaskAbstract extends Task {
 			return;
 		}
 
-		$verifier->verify();
+		$delivery_status = $verifier->verify();
 
-		if ( ! $verifier->is_verified() ) {
+		if ( is_wp_error( $delivery_status ) || ! $delivery_status->is_verified() ) {
 			$this->maybe_retry( $email_log_id, $try, new Email( $email_log_id ) );
+		} elseif ( $delivery_status->is_failed() ) {
+			$this->handle_failed_delivery_alert( $delivery_status->get_fail_reason(), $verifier->get_email() );
 		}
 	}
 
@@ -151,5 +154,26 @@ abstract class VerifySentStatusTaskAbstract extends Task {
 			$email_log_id,
 			! empty( $meta->data[1] ) ? (int) $meta->data[1] + 1 : 1,
 		];
+	}
+
+	/**
+	 * Trigger alerts on failed email delivery.
+	 *
+	 * @since 3.10.0
+	 *
+	 * @param string $fail_reason Fail reason.
+	 * @param Email  $email       Failed email.
+	 *
+	 * @return void
+	 */
+	private function handle_failed_delivery_alert( $fail_reason, $email ) {
+
+		$error_text = (
+			empty( $fail_reason ) ?
+			esc_html__( 'The email failed to be delivered. No specific reason was provided by the API.', 'wp-mail-smtp-pro' ) :
+			$fail_reason
+		);
+
+		( new Alerts() )->handle_hard_bounced_email( $error_text, $email );
 	}
 }

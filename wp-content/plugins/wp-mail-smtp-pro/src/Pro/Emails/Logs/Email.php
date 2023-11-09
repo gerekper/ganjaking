@@ -1111,4 +1111,25 @@ class Email {
 
 		return ! empty( $this->get_error_text() );
 	}
+
+	/**
+	 * If the email is a test.
+	 *
+	 * @since 3.10.0
+	 *
+	 * @return bool
+	 */
+	public function is_test() {
+
+		$mailer_type = $this->get_header( 'X-Mailer-Type' );
+
+		return in_array(
+			$mailer_type,
+			[
+				'WPMailSMTP/Admin/Test',
+				'WPMailSMTP/Admin/SetupWizard/Test',
+			],
+			true
+		);
+	}
 }

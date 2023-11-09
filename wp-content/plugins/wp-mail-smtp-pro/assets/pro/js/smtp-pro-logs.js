@@ -183,7 +183,8 @@ WPMailSMTP.Admin.Logs = WPMailSMTP.Admin.Logs || ( function( document, window, $
 				app.displayConfirmModal( wp_mail_smtp_logs.resend_email_confirmation_text, function() {
 
 					var emailId = wp_mail_smtp_logs.email_id,
-						emailRecipients = this.$content.find( 'input[name="email"]' ).val();
+						emailRecipients = this.$content.find( 'input[name="email"]' ).val(),
+						connectionId = this.$content.find( 'select[name="connection_id"]' ).val();
 
 					if ( ! __private.areEmailsValid( emailRecipients ) ) {
 						app.displayModal(
@@ -195,7 +196,7 @@ WPMailSMTP.Admin.Logs = WPMailSMTP.Admin.Logs || ( function( document, window, $
 					}
 
 					app.displayModal( function() {
-						return app.single.resendEmail( emailId, emailRecipients, this );
+						return app.single.resendEmail( emailId, emailRecipients, this, connectionId );
 					} );
 				} );
 			},
@@ -208,16 +209,18 @@ WPMailSMTP.Admin.Logs = WPMailSMTP.Admin.Logs || ( function( document, window, $
 			 * @param {int} emailId Email id.
 			 * @param {string} recipients Email recipients.
 			 * @param {object} modal jquery-confirm object.
+			 * @param {string} connectionId Connection ID that will be user to send an email.
 			 *
 			 * @returns {jqXHR} xhr object.
 			 */
-			resendEmail: function( emailId, recipients, modal ) {
+			resendEmail: function( emailId, recipients, modal, connectionId ) {
 
 				var data = {
 					'action': 'wp_mail_smtp_resend_email',
 					'nonce': wp_mail_smtp.nonce,
 					'email_id': emailId,
-					'recipients': recipients
+					'recipients': recipients,
+					'connection_id': connectionId || ''
 				};
 
 				modal.setTitle( wp_mail_smtp_logs.resend_email_processing_text );
@@ -491,8 +494,10 @@ WPMailSMTP.Admin.Logs = WPMailSMTP.Admin.Logs || ( function( document, window, $
 			processResendEmails: function( ids ) {
 
 				app.displayConfirmModal( wp_mail_smtp_logs.bulk_resend_email_confirmation_text, function() {
+					var connectionId = this.$content.find( 'select[name="connection_id"]' ).val();
+
 					app.displayModal( function() {
-						return app.archive.resendEmails( ids, this );
+						return app.archive.resendEmails( ids, this, connectionId );
 					} );
 				} );
 			},
@@ -504,15 +509,17 @@ WPMailSMTP.Admin.Logs = WPMailSMTP.Admin.Logs || ( function( document, window, $
 			 *
 			 * @param {Array<int>} ids Email ids.
 			 * @param {object} modal jquery-confirm object.
+			 * @param {string} connectionId Connection ID that will be user to send an email.
 			 *
 			 * @returns {jqXHR} xhr object for this request.
 			 */
-			resendEmails: function( ids, modal ) {
+			resendEmails: function( ids, modal, connectionId ) {
 
 				var data = {
 					'action': 'wp_mail_smtp_bulk_resend_emails',
 					'nonce': wp_mail_smtp.nonce,
-					'email_ids': ids
+					'email_ids': ids,
+					'connection_id': connectionId || ''
 				};
 
 				modal.setTitle( wp_mail_smtp_logs.bulk_resend_email_processing_text );

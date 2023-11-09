@@ -190,7 +190,7 @@ class UpdraftPlus_Filesystem_Functions {
 		$files_deleted = 0;
 		if ($handle = opendir($updraft_dir)) {
 			while (false !== ($entry = readdir($handle))) {
-				$manifest_match = preg_match("/updraftplus-manifest.json/", $entry);
+				$manifest_match = preg_match("/updraftplus-manifest\.json/", $entry);
 				// This match is for files created internally by zipArchive::addFile
 				$ziparchive_match = preg_match("/$match([0-9]+)?\.zip\.tmp\.([A-Za-z0-9]){6}?$/i", $entry);
 				// zi followed by 6 characters is the pattern used by /usr/bin/zip on Linux systems. It's safe to check for, as we have nothing else that's going to match that pattern.

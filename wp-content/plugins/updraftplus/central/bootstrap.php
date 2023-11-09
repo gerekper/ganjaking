@@ -750,6 +750,11 @@ class UpdraftCentral_Main {
 					</tr>
 				</tbody>
 			</table>
+			<div id="updraft-copy-modal" title="<?php _e('Copy to clipboard', 'updraftplus');?>">
+				<p>
+					<?php echo __('Your web browser prevented the copy operation.', 'updraftplus').' '.'<a href="https://updraftplus.com/faqs/how-do-i-set-clipboard-permissions-for-different-browsers/" target="__blank">'.' '.__('Follow this link to read about how to set browser permission', 'updraftplus').'</a>'; ?>
+				</p>
+			</div>
 		</div>
 		<?php
 		return ob_get_clean();

@@ -3,8 +3,8 @@
  * UnGrabber
  *
  * @encoding        UTF-8
- * @version         3.0.3
- * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
+ * @version         3.0.4
+ * @copyright       (C) 2018 - 2023 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
  * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
  * @support         help@merkulov.design
@@ -14,18 +14,18 @@
  * Plugin Name: UnGrabber
  * Plugin URI: https://1.envato.market/ungrabber
  * Description: A most effective way to protect your online content from being copied or grabbed
- * Version: 3.0.3
- * Requires at least: 3.0
- * Requires PHP: 5.6
+ * Version: 3.0.4
+ * Requires at least: 5.0
+ * Requires PHP: 7.2
  * Author: Merkulove
  * Author URI: https://1.envato.market/cc-merkulove
  * License: Commercial Software
  * License URI: https://1.envato.market/KYbje
  * Text Domain: ungrabber
  * Domain Path: /languages
- * Tested up to: 5.7
- * Elementor tested up to: 3.3
- * Elementor Pro tested up to: 3.2
+ * Tested up to: 6.3
+ * Elementor tested up to: 3.99
+ * Elementor Pro tested up to: 3.99
  **/
 
 namespace Merkulove;
@@ -42,6 +42,8 @@ require __DIR__ . '/src/autoload.php';
 
 use Merkulove\Ungrabber\Caster;
 use Merkulove\Ungrabber\Config;
+use Merkulove\Ungrabber\Unity\CheckCompatibility;
+use Merkulove\Ungrabber\Unity\Plugin;
 use Merkulove\Ungrabber\Unity\Unity;
 
 /**
@@ -89,7 +91,7 @@ final class Ungrabber {
 	public function setup() {
 
         /** Do critical compatibility checks and stop work if fails. */
-		if ( ! Unity::get_instance()->initial_checks( ['php56', 'curl'] ) ) { return; }
+		if ( ! Unity::get_instance()->initial_checks( ['php', 'curl'] ) ) { return; }
 
         /** Prepare custom plugin settings. */
         Config::get_instance()->prepare_settings();
@@ -112,6 +114,11 @@ final class Ungrabber {
      * @return void
      **/
 	public static function on_activation() {
+
+        if ( ! CheckCompatibility::do_activator_check() ) {
+            deactivate_plugins( array( Plugin::get_basename() ) );
+            return;
+        }
 
         /** Call Unity on plugin activation.  */
         Unity::on_activation();

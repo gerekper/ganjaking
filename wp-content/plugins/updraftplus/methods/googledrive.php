@@ -26,6 +26,10 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 	public function __construct() {
 		$this->client_id = defined('UPDRAFTPLUS_GOOGLEDRIVE_CLIENT_ID') ? UPDRAFTPLUS_GOOGLEDRIVE_CLIENT_ID : '916618189494-u3ehb1fl7u3meb63nb2b4fqi0r9pcfe2.apps.googleusercontent.com';
 		$this->callback_url = defined('UPDRAFTPLUS_GOOGLEDRIVE_CALLBACK_URL') ? UPDRAFTPLUS_GOOGLEDRIVE_CALLBACK_URL : 'https://auth.updraftplus.com/auth/googledrive';
+
+		if (class_exists('UpdraftPlus_Addon_Google_Enhanced')) {
+			add_action('updraftplus_admin_enqueue_scripts', array($this, 'admin_footer_jstree'));
+		}
 	}
 
 	public function action_auth() {
@@ -289,7 +293,21 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 		return empty($parent) ? $this->root_id() : $parent;
 	}
 
-	public function listfiles($match = 'backup_') {
+	/**
+	 * List files or folders on Google Drive.
+	 *
+	 * @param string $match      The file or folder name to search for (default: 'backup_').
+	 * @param bool   $list_files Whether to search for files (true) or folders (false) (default: true).
+	 *
+	 * @return array|WP_Error  An array of results containing information about matching files or folders,
+	 *                        or a WP_Error object if there are missing settings,
+	 *                        or an error occurs while accessing Google Drive.
+	 *                        Each result is represented as an associative array with the following keys:
+	 *                        - 'name' (string): The name of the file or folder.
+	 *                        - 'size' (int, optional): The size of the file in bytes (only for files).
+	 *                        - 'id' (string, optional): The unique identifier of the folder (only for folders).
+	 */
+	public function list_files_or_folders($match = 'backup_', $list_files = true) {
 
 		$opts = $this->get_options();
 
@@ -305,8 +323,13 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 		if (is_wp_error($storage) || false == $storage) return $storage;
 
 		try {
-			$parent_id = $this->get_parent_id($opts);
-			$sub_items = $this->get_subitems($parent_id, 'file');
+			if ($list_files) {
+				$parent_id = $this->get_parent_id($opts);
+				$sub_items = $this->get_subitems($parent_id, 'file');
+			} else {
+				$sub_items = $this->get_subitems($match, 'dir', '');
+			}
+
 		} catch (Exception $e) {
 			return new WP_Error(__('Google Drive list files: failed to access parent folder', 'updraftplus').":  ".$e->getMessage().' (line: '.$e->getLine().', file: '.$e->getFile().')');
 		}
@@ -317,8 +340,12 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 			$title = "(unknown)";
 			try {
 				$title = $item->getTitle();
-				if (0 === strpos($title, $match)) {
-					$results[] = array('name' => $title, 'size' => $item->getFileSize());
+				if ($list_files) {
+					if (0 === strpos($title, $match)) {
+						$results[] = array('name' => $title, 'size' => $item->getFileSize());
+					}
+				} else {
+					$results[] = array('name' => $title, 'id' => $item->getId());
 				}
 			} catch (Exception $e) {
 				$this->log("list: exception: ".$e->getMessage().' (line: '.$e->getLine().', file: '.$e->getFile().')');
@@ -327,6 +354,26 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 		}
 
 		return $results;
+	}
+
+	/**
+	 * List folders in Google Drive.
+	 *
+	 * @param string $search - The folder to search for (default: 'root').
+	 * @return array $results - An array of folder information.
+	 */
+	public function list_folders($search = 'root') {
+		return $this->list_files_or_folders($search, false);
+	}
+
+	/**
+	 * List files in Google Drive.
+	 *
+	 * @param string $search - The files to search for (default: 'backup_').
+	 * @return array $results - An array of file information.
+	 */
+	public function listfiles($search = 'backup_') {
+		return $this->list_files_or_folders($search);
 	}
 
 	/**
@@ -1030,6 +1077,7 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 		$storage = $this->get_storage();
 
 		$q = '"'.$parent_id.'" in parents and trashed = false';
+
 		if ('dir' == $type) {
 			$q .= ' and mimeType = "application/vnd.google-apps.folder"';
 		} elseif ('file' == $type) {

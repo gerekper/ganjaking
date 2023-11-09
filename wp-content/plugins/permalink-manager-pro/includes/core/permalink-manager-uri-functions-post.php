@@ -113,8 +113,6 @@ class Permalink_Manager_URI_Functions_Post {
 			}
 		} else if ( $post->post_type == 'attachment' && $post->post_parent > 0 && $post->post_parent != $post->ID && ! empty( $permalink_manager_uris[ $post->post_parent ] ) ) {
 			$permalink = "{$home_url}/{$permalink_manager_uris[$post->post_parent]}/attachment/{$post->post_name}";
-		} else if ( ! empty( $permalink_manager_options['general']['decode_uris'] ) ) {
-			$permalink = "{$home_url}/" . rawurldecode( "/{$permalink}" );
 		}
 
 		// 5. Allow to filter (do not filter in Customizer)
@@ -498,13 +496,12 @@ class Permalink_Manager_URI_Functions_Post {
 		// Reset variables
 		$updated_slugs_count = 0;
 		$updated_array       = array();
-		$errors              = '';
 
 		// Get the rows before they are altered
 		$posts_to_update = ( $chunk ) ? $chunk : self::get_items();
 
 		// Now if the array is not empty use IDs from each subarray as a key
-		if ( $posts_to_update && empty( $errors ) ) {
+		if ( $posts_to_update ) {
 			foreach ( $posts_to_update as $row ) {
 				// Get default & native URL
 				$native_uri  = self::get_default_post_uri( $row['ID'], true );
@@ -569,13 +566,12 @@ class Permalink_Manager_URI_Functions_Post {
 		// Reset variables
 		$updated_slugs_count = 0;
 		$updated_array       = array();
-		$errors              = '';
 
 		// Get the rows before they are altered
 		$posts_to_update = ( $chunk ) ? $chunk : self::get_items();
 
 		// Now if the array is not empty use IDs from each subarray as a key
-		if ( $posts_to_update && empty( $errors ) ) {
+		if ( $posts_to_update ) {
 			foreach ( $posts_to_update as $row ) {
 				// Get default & native URL
 				$native_uri    = self::get_default_post_uri( $row['ID'], true );

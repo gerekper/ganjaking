@@ -5,8 +5,8 @@
  * Exclusively on https://1.envato.market/ungrabber
  *
  * @encoding        UTF-8
- * @version         3.0.3
- * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
+ * @version         3.0.4
+ * @copyright       (C) 2018 - 2023 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
  * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
  * @support         help@merkulov.design
@@ -147,7 +147,7 @@ final class Elementor {
 		if ( ! did_action( 'elementor/loaded' ) ) { return; }
 
 		/** Register custom widgets. */
-		add_action( 'elementor/widgets/widgets_registered', [$this, 'register_widgets'] );
+        add_action( 'elementor/widgets/register', [ $this, 'register_widgets' ], 16 );
 
 	}
 
@@ -168,7 +168,6 @@ final class Elementor {
 
 			if ( substr( $filename, -4 ) === '.php' ) {
 
-				/** @noinspection PhpIncludeInspection */
 				require_once $filename;
 
 				/** Prepare class name from file. */
@@ -178,15 +177,19 @@ final class Elementor {
 				/** Add Namespace. */
                 $widget_class = 'Merkulove\Ungrabber\\' . $widget_class;
 
-                /** Instantiate widget and register it in Elementor. */
-                \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new $widget_class() );
+                if( strpos( $widget_class, '_elementor' ) !== false ) {
+
+                    /** Instantiate widget and register it in Elementor. */
+                    \Elementor\Plugin::instance()->widgets_manager->register( new $widget_class() );
+
+                }
 
 			}
 
 		}
 
         /** Sort our widgets inside Category. */
-        $this->sort_widgets();
+        //$this->sort_widgets();
 
 	}
 
@@ -218,14 +221,13 @@ final class Elementor {
             if ( 'Elementor\Widget_WordPress' === $widget_class ) { continue; }
 
             /** Get widget order. */
-            /** @noinspection PhpPossiblePolymorphicInvocationInspection */
             $order = property_exists( $widget_type, 'mdp_order' ) ? $widget_type->mdp_order : 0;
 
             /** Remember class and order. */
             $new_order[$widget_class] = $order;
 
             /** Unregister all widgets. */
-            $widgets_manager->unregister_widget_type( $key );
+            $widgets_manager->unregister( $key );
 
         }
 
@@ -234,7 +236,7 @@ final class Elementor {
 
         /** Instantiate widgets in correct order. */
         foreach ( $new_order as $class => $o ) {
-            $widgets_manager->register_widget_type( new $class );
+            $widgets_manager->register( new $class );
         }
 
     }

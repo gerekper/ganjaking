@@ -1,12 +1,13 @@
-<?php
+<?php /** @noinspection PhpUnused */
+
 /**
  * UnGrabber
  * A most effective way to protect your online content from being copied or grabbed
  * Exclusively on https://1.envato.market/ungrabber
  *
  * @encoding        UTF-8
- * @version         3.0.3
- * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
+ * @version         3.0.4
+ * @copyright       (C) 2018 - 2023 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
  * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
  * @support         help@merkulov.design
@@ -23,12 +24,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * SINGLETON: Used to implement System report handler class responsible for generating a report for the server environment.
- *
- * @since 1.0.0
- *
- **/
 final class ReporterServer {
 
 	/**
@@ -36,18 +31,16 @@ final class ReporterServer {
 	 *
      * @since 1.0.0
 	 * @var ReporterServer
-	 **/
+	 */
 	private static $instance;
 
 	/**
 	 * Get server environment reporter title.
 	 *
-     * @since 1.0.0
 	 * @access public
-     *
 	 * @return string - Report title.
-	 **/
-	public function get_title() {
+	 */
+	public function get_title(): string {
 
 		return esc_html__( 'Server Environment', 'ungrabber' );
 
@@ -56,12 +49,10 @@ final class ReporterServer {
 	/**
 	 * Retrieve the required fields for the server environment report.
 	 *
-     * @since 1.0.0
 	 * @access public
-     *
 	 * @return array - Required report fields with field ID and field label.
-	 **/
-	public function get_fields() {
+	 */
+	public function get_fields(): array {
 
 	    $tabs = Plugin::get_tabs();
         $status_tab = $tabs['status'];
@@ -70,20 +61,21 @@ final class ReporterServer {
         $checks = [];
         $checks = $this->add_check( $checks, $server_checks, 'os', esc_html__( 'Operating System', 'ungrabber' ) );
         $checks = $this->add_check( $checks, $server_checks, 'software', esc_html__( 'Software', 'ungrabber' ) );
-        $checks = $this->add_check( $checks, $server_checks, 'mysql_version', esc_html__( 'MySQL version', 'ungrabber' ) );
-        $checks = $this->add_check( $checks, $server_checks, 'php_version', esc_html__( 'PHP Version', 'ungrabber' ) );
+        $checks = $this->add_check( $checks, $server_checks, 'mysql_version', esc_attr( 'MySQL' ) . ' ' . esc_html__( 'Installed', 'ungrabber' ) );
+        $checks = $this->add_check( $checks, $server_checks, 'php_version', esc_attr( 'PHP' ) . ' ' . esc_html__( 'Installed', 'ungrabber' ) );
         $checks = $this->add_check( $checks, $server_checks, 'write_permissions', esc_html__( 'Write Permissions', 'ungrabber' ) );
-        $checks = $this->add_check( $checks, $server_checks, 'zip_installed', esc_html__( 'ZIP Installed', 'ungrabber' ) );
-        $checks = $this->add_check( $checks, $server_checks, 'curl_installed', esc_html__( 'cURL Installed', 'ungrabber' ) );
-        $checks = $this->add_check( $checks, $server_checks, 'elementor_installed', esc_html__( 'Elementor Installed', 'ungrabber' ) );
-        $checks = $this->add_check( $checks, $server_checks, 'allow_url_fopen', esc_html__( 'allow_url_fopen', 'ungrabber' ) );
-        $checks = $this->add_check( $checks, $server_checks, 'dom_installed', esc_html__( 'DOM Installed', 'ungrabber' ) );
-        $checks = $this->add_check( $checks, $server_checks, 'xml_installed', esc_html__( 'XML Installed', 'ungrabber' ) );
-        $checks = $this->add_check( $checks, $server_checks, 'bcmath_installed', esc_html__( 'BCMath Installed', 'ungrabber' ) );
-        $checks = $this->add_check( $checks, $server_checks, 'mbstring_installed', esc_html__( 'mbstring Installed', 'ungrabber' ) );
-        $checks = $this->add_check( $checks, $server_checks, 'server_time', esc_html__( 'Server Time Sync', 'ungrabber' ) );
+        $checks = $this->add_check( $checks, $server_checks, 'zip_installed', esc_attr( 'ZIP' ) . ' ' . esc_html__( 'Installed', 'ungrabber' ) );
+        $checks = $this->add_check( $checks, $server_checks, 'curl_installed', esc_attr( 'cURL' ) . ' ' . esc_html__( 'Installed', 'ungrabber' ) );
+        $checks = $this->add_check( $checks, $server_checks, 'elementor_installed', esc_attr( 'Elementor' ) . ' ' . esc_html__( 'Installed', 'ungrabber' ) );
+        $checks = $this->add_check( $checks, $server_checks, 'wpbakery_installed', esc_attr( 'WPBakery' ) . ' ' . esc_html__( 'Installed', 'ungrabber' ) );
+        $checks = $this->add_check( $checks, $server_checks, 'allow_url_fopen', esc_attr( 'allow_url_fopen' ) );
+        $checks = $this->add_check( $checks, $server_checks, 'dom_installed', esc_attr( 'DOM' ) . ' ' . esc_html__( 'Installed', 'ungrabber' ) );
+        $checks = $this->add_check( $checks, $server_checks, 'xml_installed', esc_attr( 'XML' ) . ' ' . esc_html__( 'Installed', 'ungrabber' ) );
+        $checks = $this->add_check( $checks, $server_checks, 'bcmath_installed', esc_attr( 'BCMath' ) . ' ' . esc_html__( 'Installed', 'ungrabber' ) );
+        $checks = $this->add_check( $checks, $server_checks, 'mbstring_installed', esc_attr( 'mbstring' ) . ' ' . esc_html__( 'Installed', 'ungrabber' ) );
+        $checks = $this->add_check( $checks, $server_checks, 'server_time', esc_html__( 'Server Time Sync' ) );
 
-		return $checks;
+		return apply_filters( 'mdp_ungrabber_status_reports', $checks );
 
 	}
 
@@ -95,12 +87,10 @@ final class ReporterServer {
      * @param string $key - name of check.
      * @param string $label - Label for result.
      *
-     * @since  1.0.0
      * @access public
-     *
      * @return array - Required report fields with field ID and field label.
      */
-	private function add_check( $checks, $server_checks, $key, $label ) {
+	private function add_check( array $checks, array $server_checks, string $key, string $label ): array {
 
         if ( isset( $server_checks[ $key ] ) && $server_checks[ $key ] ) {
             $checks[ $key ] = $label;
@@ -113,17 +103,15 @@ final class ReporterServer {
 	/**
 	 * Get allow_url_fopen enabled.
 	 *
-     * @since 1.0.0
 	 * @access public
-     *
 	 * @return array {
 	 *    Report data.
 	 *
 	 *    @type string $value   YES if the allow_url_fopen is enabled, NO otherwise.
 	 *    @type bool   $warning Whether to display a warning. True if the allow_url_fopen is enabled, False otherwise.
 	 * }
-	 **/
-	public function get_allow_url_fopen() {
+	 */
+	public function get_allow_url_fopen(): array {
 
 		$allow_url_fopen = ini_get( 'allow_url_fopen' );
 
@@ -139,16 +127,14 @@ final class ReporterServer {
 	 * Get server operating system.
 	 * Retrieve the server operating system.
 	 *
-     * @since 1.0.0
 	 * @access public
-	 *
 	 * @return array {
 	 *    Report data.
 	 *
 	 *    @type string $value Server operating system.
 	 * }
-	 **/
-	public function get_os() {
+	 */
+	public function get_os(): array {
 		return [
 			'value' => PHP_OS,
 		];
@@ -158,16 +144,14 @@ final class ReporterServer {
 	 * Get server software.
 	 * Retrieve the server software.
 	 *
-     * @since 1.0.0
 	 * @access public
-	 *
 	 * @return array {
 	 *    Report data.
 	 *
 	 *    @type string $value Server software.
 	 * }
-	 **/
-	public function get_software() {
+	 */
+	public function get_software(): array {
 		return [
 			'value' => $_SERVER['SERVER_SOFTWARE'],
 		];
@@ -177,9 +161,7 @@ final class ReporterServer {
 	 * Get PHP version.
 	 * Retrieve the PHP version.
 	 *
-     * @since 1.0.0
 	 * @access public
-	 *
 	 * @return array {
 	 *    Report data.
 	 *
@@ -187,14 +169,22 @@ final class ReporterServer {
 	 *    @type string $recommendation Minimum PHP version recommendation.
 	 *    @type bool   $warning        Whether to display a warning.
 	 * }
-	 **/
-	public function get_php_version() {
+	 */
+	public function get_php_version(): array {
+
 		$result = [
 			'value' => PHP_VERSION,
 		];
+		$version = apply_filters( 'ungrabber_required_php_version', '7.1.0' );
 
-		if ( version_compare( $result['value'], '5.6', '<' ) ) {
-			$result['recommendation'] = esc_html__( 'We recommend to use php 5.6 or higher', 'ungrabber' );
+		if ( version_compare( $result['value'], $version, '<' ) ) {
+
+			$result['recommendation'] = wp_sprintf(
+				/* translators: %1$s: PHP version, %2$s: Required PHP version. */
+				esc_html__( 'We recommend to use PHP %1$s or higher. Your version is %2$s', 'ungrabber' ),
+				$version,
+				$result['value']
+			);
 
 			$result['warning'] = true;
 		}
@@ -206,17 +196,15 @@ final class ReporterServer {
 	 * Get ZIP installed.
 	 * Whether the ZIP extension is installed.
 	 *
-     * @since 1.0.0
 	 * @access public
-	 *
 	 * @return array {
 	 *    Report data.
 	 *
 	 *    @type string $value   Yes if the ZIP extension is installed, NO otherwise.
 	 *    @type bool   $warning Whether to display a warning. True if the ZIP extension is installed, False otherwise.
 	 * }
-	 **/
-	public function get_zip_installed() {
+	 */
+	public function get_zip_installed(): array {
 		$zip_installed = extension_loaded( 'zip' );
 
 		return [
@@ -229,17 +217,15 @@ final class ReporterServer {
 	 * Get cURL installed.
 	 * Whether the cURL extension is installed.
 	 *
-     * @since 1.0.0
 	 * @access public
-	 *
 	 * @return array {
 	 *    Report data.
 	 *
 	 *    @type string $value   YES if the cURL extension is installed, NO otherwise.
 	 *    @type bool   $warning Whether to display a warning. True if the cURL extension is installed, False otherwise.
 	 * }
-	 **/
-	public function get_curl_installed() {
+	 */
+	public function get_curl_installed(): array {
 
 		$curl_installed = extension_loaded( 'curl' );
 
@@ -255,14 +241,12 @@ final class ReporterServer {
 	 * Get Elementor installed.
 	 * Whether the Elementor builder is installed.
 	 *
-     * @since 1.0.0
 	 * @access public
-     *
 	 * @return array Report data.
 	 *          @type string $value   YES if the Elementor builder is installed, NO otherwise.
 	 *          @type bool   $warning Whether to display a warning.
-	 **/
-	public function get_elementor_installed() {
+	 */
+	public function get_elementor_installed(): array {
 
 		/** Check if Elementor installed and activated. */
 		$elementor_installed = did_action( 'elementor/loaded' );
@@ -275,21 +259,42 @@ final class ReporterServer {
 
 	}
 
+    /**
+     * Get WPBakery installed.
+     * Whether the Wpbakery builder is installed.
+     *
+     * @access public
+     * @return array Report data.
+     *          @type string $value   YES if the WPBakery builder is installed, NO otherwise.
+     *          @type bool   $warning Whether to display a warning.
+     */
+    public function get_wpbakery_installed(): array {
+
+        /** Check if WPBakery installed and activated. */
+        include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+        $wpbakery_installed = is_plugin_active( 'js_composer/js_composer.php' );
+
+        return [
+            'value' => $wpbakery_installed ? '<i class="material-icons mdc-system-yes">check_circle</i>' . esc_html__('YES', 'ungrabber') : '<i class="material-icons mdc-system-no">error</i>' . esc_html__('NO', 'ungrabber' ),
+            'warning' => ! $wpbakery_installed,
+            'recommendation' => esc_html__('You need install and activate WPBakery builder. Go to WPBakery site (wpbakery.com) for details.', 'ungrabber' )
+        ];
+
+    }
+
 	/**
 	 * Get DOM installed.
 	 * Whether the DOM extension is installed.
 	 *
-     * @since 1.0.0
 	 * @access public
-     *
 	 * @return array {
 	 *    Report data.
 	 *
 	 *    @type string $value   YES if the DOM extension is installed, NO otherwise.
 	 *    @type bool   $warning Whether to display a warning. True if the DOM extension is installed, False otherwise.
 	 * }
-	 **/
-	public function get_dom_installed() {
+	 */
+	public function get_dom_installed(): array {
 
 		$dom_installed = extension_loaded( 'dom' );
 
@@ -305,17 +310,15 @@ final class ReporterServer {
 	 * Get XML installed.
 	 * Whether the XML extension is installed.
 	 *
-     * @since 1.0.0
 	 * @access public
-     *
 	 * @return array {
 	 *    Report data.
 	 *
 	 *    @type string $value   YES if the XML extension is installed, NO otherwise.
 	 *    @type bool   $warning Whether to display a warning. True if the XML extension is installed, False otherwise.
 	 * }
-	 **/
-	public function get_xml_installed() {
+	 */
+	public function get_xml_installed(): array {
 
 		$xml_installed = extension_loaded( 'xml' );
 
@@ -331,17 +334,15 @@ final class ReporterServer {
 	 * Get BCMath installed.
 	 * Whether the BCMath extension is installed.
 	 *
-     * @since 1.0.0
 	 * @access public
-     *
 	 * @return array {
 	 *    Report data.
 	 *
 	 *    @type string $value   YES if the BCMath extension is installed, NO otherwise.
 	 *    @type bool   $warning Whether to display a warning. True if the BCMath extension is installed, False otherwise.
 	 * }
-	 **/
-	public function get_bcmath_installed() {
+	 */
+	public function get_bcmath_installed(): array {
 
 		$bcmath_installed = extension_loaded( 'bcmath' );
 
@@ -357,17 +358,15 @@ final class ReporterServer {
      * Get mbstring installed.
      * Whether the mbstring extension is installed.
      *
-     * @since 1.0.0
      * @access public
-     *
      * @return array {
      *    Report data.
      *
      *    @type string $value   YES if the mbstring extension is installed, NO otherwise.
      *    @type bool   $warning Whether to display a warning. True if the mbstring extension is installed, False otherwise.
      * }
-     **/
-    public function get_mbstring_installed() {
+     */
+    public function get_mbstring_installed(): array {
 
         $mbstring_installed = extension_loaded( 'mbstring' );
 
@@ -385,10 +384,10 @@ final class ReporterServer {
      * @access public
      *
      * @return array
-     **/
-    public function get_server_time() {
+     */
+    public function get_server_time(): array {
 
-        /** Get current time from google. */
+        /** Get current time from Google. */
         $url = 'https://www.google.com/';
         $curl = curl_init();
         curl_setopt( $curl, CURLOPT_URL, $url );
@@ -396,11 +395,8 @@ final class ReporterServer {
         curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
         curl_setopt( $curl, CURLOPT_HEADER, true );
 
-        /** @noinspection PhpElementIsNotAvailableInCurrentPhpVersionInspection */
         if ( defined( CURLOPT_SSL_VERIFYPEER ) ) {
 
-            /** @noinspection CurlSslServerSpoofingInspection */
-            /** @noinspection PhpElementIsNotAvailableInCurrentPhpVersionInspection */
             curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, false );
 
         }
@@ -413,10 +409,9 @@ final class ReporterServer {
 
         /** On cURL Error. */
         if ( $curl_errno ) {
-            $time_ok = false;
             return [
-                'value' => $time_ok ? '<i class="material-icons mdc-system-yes">check_circle</i>' . esc_html__('YES', 'ungrabber') : '<i class="material-icons mdc-system-no">error</i>' . esc_html__('NO', 'ungrabber' ),
-                'warning' => ! $time_ok,
+                'value' => '<i class="material-icons mdc-system-no">error</i>' . esc_html__('NO', 'ungrabber' ),
+                'warning' => true,
                 'recommendation' => esc_html__('Failed to check time synchronization on your server. Your server\'s clock must be in sync with network time protocol - NTP.', 'ungrabber' )
             ];
         }
@@ -432,10 +427,9 @@ final class ReporterServer {
         $date = DateTime::createFromFormat( 'D, d M Y H:i:s e', $date );
 
         if ( ! $date ) {
-            $time_ok = false;
             return [
-                'value' => $time_ok ? '<i class="material-icons mdc-system-yes">check_circle</i>' . esc_html__('YES', 'ungrabber') : '<i class="material-icons mdc-system-no">error</i>' . esc_html__('NO', 'ungrabber' ),
-                'warning' => ! $time_ok,
+                'value' => '<i class="material-icons mdc-system-no">error</i>' . esc_html__('NO', 'ungrabber' ),
+                'warning' => true,
                 'recommendation' => esc_html__('Failed to check time synchronization on your server. Your server\'s clock must be in sync with network time protocol - NTP.', 'ungrabber' )
             ];
         }
@@ -475,11 +469,10 @@ final class ReporterServer {
      *
      * @param $header_text string - Header from cURL request.
      *
-     * @return array
-     * @since 1.0.0
      * @access private
-     **/
-    private function get_headers_from_curl_response( $header_text ) {
+     * @return array
+     */
+    private function get_headers_from_curl_response( string $header_text ): array {
 
         /** Everybody out of the dusk. */
         $header_text = json_encode( $header_text );
@@ -505,16 +498,14 @@ final class ReporterServer {
 	 * Get MySQL version.
 	 * Retrieve the MySQL version.
 	 *
-     * @since 1.0.0
 	 * @access public
-     *
 	 * @return array {
 	 *    Report data.
 	 *
 	 *    @type string $value MySQL version.
 	 * }
-	 **/
-	public function get_mysql_version() {
+	 */
+	public function get_mysql_version(): array {
 
 		global $wpdb;
 
@@ -528,11 +519,9 @@ final class ReporterServer {
 
 	/**
 	 * Get write permissions.
-	 * Check whether the required folders has writing permissions.
+	 * Check whether the required folders have writing permissions.
 	 *
-     * @since 1.0.0
 	 * @access public
-     *
 	 * @return array {
 	 *    Report data.
 	 *
@@ -540,8 +529,8 @@ final class ReporterServer {
 	 *    @type bool   $warning Whether to display a warning. True if some required
 	 *                          folders don't have writing permissions, False otherwise.
 	 * }
-	 **/
-	public function get_write_permissions() {
+	 */
+	public function get_write_permissions(): array {
 
 		$paths_to_check = [
 			ABSPATH => esc_html__( 'WordPress root directory', 'ungrabber' )
@@ -590,17 +579,15 @@ final class ReporterServer {
 	 * Get report.
 	 * Retrieve the report with all it's containing fields.
 	 *
-     * @since 1.0.0
 	 * @access public
-     *
 	 * @return array {
 	 *    Report fields.
 	 *
 	 *    @type string $name Field name.
 	 *    @type string $label Field label.
 	 * }
-	 **/
-	public function get_report() {
+	 */
+	public function get_report(): array {
 
 		$result = [];
 
@@ -629,10 +616,9 @@ final class ReporterServer {
 	 * Insures that only one instance of ReporterServer exists in memory at any one time.
 	 *
 	 * @static
-     * @since 1.0.0
 	 * @return ReporterServer
-	 **/
-	public static function get_instance() {
+	 */
+	public static function get_instance(): ReporterServer {
 
 		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof self ) ) {
 
@@ -644,4 +630,4 @@ final class ReporterServer {
 
 	}
 
-} // End Class ReporterServer.
+}

@@ -5,8 +5,8 @@
  * Exclusively on https://1.envato.market/ungrabber
  *
  * @encoding        UTF-8
- * @version         3.0.3
- * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
+ * @version         3.0.4
+ * @copyright       (C) 2018 - 2023 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
  * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
  * @support         help@merkulov.design
@@ -38,7 +38,7 @@ final class PluginUpdater {
      * @access private
      * @var string
 	 **/
-	private $opt_plugin_info = 'mdp_ungrabber_plugin_info';
+	public $opt_plugin_info = 'mdp_ungrabber_plugin_info';
 
 	/**
 	 * URL from where download plugin information.
@@ -175,6 +175,7 @@ final class PluginUpdater {
 
 			$update_plugins->response['ungrabber/ungrabber.php'] = (object)[
 				'slug' => 'ungrabber',
+                'plugin' => 'ungrabber/ungrabber.php',
 				'new_version' => $latest_version, // The newest version
 				'package' => $this->get_package( $plugin_info ),
 				'tested' => $wp_version,
@@ -330,9 +331,17 @@ final class PluginUpdater {
 	 **/
 	private function get_plugin_information() {
 
+        /** Get fresh update links only on the Plugins List page and Updates Page */
+        $screen = get_current_screen();
+        if ( isset( $screen->base ) ) {
+            $custom_cache_time = in_array( $screen->base, [ 'plugins', 'update-core' ] ) ? 900 : 0;
+        } else {
+            $custom_cache_time = 0;
+        }
+
         /** Trying to get from cache first. */
         $cache = new Cache();
-        $cached_plugin_info = $cache->get( $this->opt_plugin_info, true );
+        $cached_plugin_info = $cache->get( $this->opt_plugin_info, true, $custom_cache_time );
         $plugin_info = $cached_plugin_info;
 
         /** If cache not exist, do remote request. */
@@ -346,7 +355,8 @@ final class PluginUpdater {
                 'timeout' => 15,
                 'headers' => [
                     'Accept' => 'application/json'
-                ]
+                ],
+                'sslverify'  => Settings::get_instance()->options[ 'check_ssl' ] === 'on'
             ] );
 
             /** We’ll check whether the answer is correct. */
@@ -426,11 +436,16 @@ final class PluginUpdater {
 		/** Message for non activated users. */
 		if ( ! TabActivation::get_instance()->is_activated() ) {
 			echo '<br /><span class="mdp-line">&nbsp;</span>';
-			esc_attr_e( 'Please visit the plugin page on the Envato market to ', 'ungrabber' );
+            esc_html_e( 'Your plugin license is ', 'ungrabber' );
+            echo '<strong style="color: #ff495c">';
+            esc_html_e( 'not activated', 'ungrabber' );
+            echo '.</strong> ';
+            esc_html_e( 'Please activate the license to receive automatic updates in one click, or visit the plugin page on the Envato market to ', 'ungrabber' );
+            echo ' <a href="https://1.envato.market/reviewer-elementor" target="_blank">';
 			echo ' <a href="https://1.envato.market/ungrabber" target="_blank">';
-			esc_attr_e( 'download ', 'ungrabber' );
+			esc_html_e( 'download ', 'ungrabber' );
 			echo '</a> ';
-			esc_attr_e( 'the latest version.', 'ungrabber' );
+			esc_html_e( 'the latest version.', 'ungrabber' );
 		}
 
 	}

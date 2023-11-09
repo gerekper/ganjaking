@@ -78,9 +78,13 @@ class ClickLinkEvent extends AbstractInjectableEvent {
 			// Convert non-ascii code into html-readable stuff.
 			$encoded_html = mb_convert_encoding( $html, 'HTML-ENTITIES', 'auto' );
 
-			if ( $encoded_html !== false ) {
+			if ( ! empty( $encoded_html ) ) {
 				$html = $encoded_html;
 			}
+		}
+
+		if ( empty( $html ) ) {
+			return $email_content;
 		}
 
 		$html_dom->loadHTML( $html );

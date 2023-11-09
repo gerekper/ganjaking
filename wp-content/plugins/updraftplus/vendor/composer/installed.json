@@ -2,20 +2,20 @@
     "packages": [
         {
             "name": "components/jquery",
-            "version": "3.6.0",
-            "version_normalized": "3.6.0.0",
+            "version": "v3.7.1",
+            "version_normalized": "3.7.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/components/jquery.git",
-                "reference": "6cf38ee1fd04b6adf8e7dda161283aa35be818c3"
+                "reference": "8edc7785239bb8c2ad2b83302b856a1d61de60e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/components/jquery/zipball/6cf38ee1fd04b6adf8e7dda161283aa35be818c3",
-                "reference": "6cf38ee1fd04b6adf8e7dda161283aa35be818c3",
+                "url": "https://api.github.com/repos/components/jquery/zipball/8edc7785239bb8c2ad2b83302b856a1d61de60e7",
+                "reference": "8edc7785239bb8c2ad2b83302b856a1d61de60e7",
                 "shasum": ""
             },
-            "time": "2021-03-20T19:13:42+00:00",
+            "time": "2023-09-22T01:43:46+00:00",
             "type": "component",
             "extra": {
                 "component": {
@@ -31,7 +31,7 @@
                     ]
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
@@ -75,7 +75,7 @@
             },
             "time": "2012-12-13T23:48:10+00:00",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-0": {
                     "Eher\\OAuth": "src"
@@ -98,7 +98,7 @@
             "version_normalized": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git@github.com:DavidAnderson684/guzzle3.git",
+                "url": "https://github.com/DavidAnderson684/guzzle3.git",
                 "reference": "33e727db47ca87262814f3ced23642261452c2f0"
             },
             "dist": {
@@ -156,7 +156,7 @@
                     "dev-master": "3.9-dev"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-0": {
                     "Guzzle": "src/",
@@ -193,6 +193,9 @@
                 "rest",
                 "web service"
             ],
+            "support": {
+                "source": "https://github.com/DavidAnderson684/guzzle3/tree/master"
+            },
             "install-path": "../guzzle/guzzle"
         },
         {
@@ -232,7 +235,7 @@
                     "dev-master": "6.5-dev"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "src/functions_include.php"
@@ -336,7 +339,7 @@
             },
             "time": "2023-05-21T12:31:43+00:00",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "src/functions_include.php"
@@ -427,7 +430,7 @@
             },
             "time": "2023-04-17T16:00:37+00:00",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "src/functions_include.php"
@@ -520,7 +523,7 @@
             },
             "time": "2015-01-05T21:19:54+00:00",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "mikemccabe\\JsonPatch\\": "src"
@@ -563,7 +566,7 @@
             },
             "time": "2022-02-16T17:07:03+00:00",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "lib/random.php"
@@ -596,21 +599,21 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "1.0.21",
-            "version_normalized": "1.0.21.0",
+            "version": "2.0.45",
+            "version_normalized": "2.0.45.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "de7ec75b54d6a1f3d549d03a2bf3e3e392c3bc36"
+                "reference": "28d8f438a0064c9de80857e3270d071495544640"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/de7ec75b54d6a1f3d549d03a2bf3e3e392c3bc36",
-                "reference": "de7ec75b54d6a1f3d549d03a2bf3e3e392c3bc36",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/28d8f438a0064c9de80857e3270d071495544640",
+                "reference": "28d8f438a0064c9de80857e3270d071495544640",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.0.0"
+                "php": ">=5.3.3"
             },
             "require-dev": {
                 "phing/phing": "~2.7",
@@ -619,31 +622,23 @@
             },
             "suggest": {
                 "ext-gmp": "Install the GMP (GNU Multiple Precision) extension in order to speed up arbitrary precision integer arithmetic operations.",
-                "ext-mcrypt": "Install the Mcrypt extension in order to speed up a wide variety of cryptographic operations.",
+                "ext-libsodium": "SSH2/SFTP can make use of some algorithms provided by the libsodium-php extension.",
+                "ext-mcrypt": "Install the Mcrypt extension in order to speed up a few other cryptographic operations.",
                 "ext-openssl": "Install the OpenSSL extension in order to speed up a wide variety of cryptographic operations.",
-                "ext-xml": "Install the XML extension to load XML formatted public keys.",
-                "pear-pear/PHP_Compat": "Install PHP_Compat to get phpseclib working on PHP < 5.0.0."
+                "ext-xml": "Install the XML extension to load XML formatted public keys."
             },
-            "time": "2023-07-09T15:16:21+00:00",
+            "time": "2023-09-15T20:55:47+00:00",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
-                    "phpseclib/bootstrap.php",
-                    "phpseclib/Crypt/Random.php"
+                    "phpseclib/bootstrap.php"
                 ],
-                "psr-0": {
-                    "Net": "phpseclib/",
-                    "File": "phpseclib/",
-                    "Math": "phpseclib/",
-                    "Crypt": "phpseclib/",
-                    "System": "phpseclib/"
+                "psr-4": {
+                    "phpseclib\\": "phpseclib/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "include-path": [
-                "phpseclib/"
-            ],
             "license": [
                 "MIT"
             ],
@@ -697,7 +692,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpseclib/phpseclib/issues",
-                "source": "https://github.com/phpseclib/phpseclib/tree/1.0.21"
+                "source": "https://github.com/phpseclib/phpseclib/tree/2.0.45"
             },
             "funding": [
                 {
@@ -740,7 +735,7 @@
                     "dev-master": "1.1.x-dev"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Psr\\Http\\Message\\": "src/"
@@ -796,7 +791,7 @@
                     "dev-master": "1.1.x-dev"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Psr\\Log\\": "Psr/Log/"
@@ -830,7 +825,7 @@
             "version_normalized": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git@github.com:DavidAnderson684/php-opencloud.git",
+                "url": "https://github.com/DavidAnderson684/php-opencloud.git",
                 "reference": "062bf8bb3432c6e0f68e21a2f6dd5f02f2fc19d7"
             },
             "dist": {
@@ -855,7 +850,7 @@
             },
             "time": "2016-01-29T14:18:21+00:00",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-0": {
                     "OpenCloud": [
@@ -888,6 +883,9 @@
                 "rackspace",
                 "swift"
             ],
+            "support": {
+                "source": "https://github.com/DavidAnderson684/php-opencloud/tree/master"
+            },
             "install-path": "../rackspace/php-opencloud"
         },
         {
@@ -914,7 +912,7 @@
             },
             "time": "2016-02-11T07:05:27+00:00",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "src/getallheaders.php"
@@ -973,7 +971,7 @@
                     "dev-master": "2.8-dev"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\EventDispatcher\\": ""
@@ -1038,7 +1036,7 @@
                     "url": "https://github.com/symfony/polyfill"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "bootstrap.php"
@@ -1126,7 +1124,7 @@
                     "url": "https://github.com/symfony/polyfill"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "bootstrap.php"
@@ -1213,7 +1211,7 @@
                     "url": "https://github.com/symfony/polyfill"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "bootstrap.php"
@@ -1294,7 +1292,7 @@
                     "url": "https://github.com/symfony/polyfill"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "bootstrap.php"
@@ -1376,7 +1374,7 @@
                     "url": "https://github.com/symfony/polyfill"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "bootstrap.php"
@@ -1432,7 +1430,7 @@
             "version_normalized": "3.0.3.0",
             "source": {
                 "type": "git",
-                "url": "https://source.updraftplus.com/team-updraft/common-libs.git",
+                "url": "git@source.updraftplus.com:team-updraft/common-libs.git",
                 "reference": "cd30bf3b65e2cadcea1cca01deb32f5cd21a0b63"
             },
             "dist": {
@@ -1464,17 +1462,17 @@
         },
         {
             "name": "vakata/jstree",
-            "version": "3.3.15",
-            "version_normalized": "3.3.15.0",
+            "version": "3.3.16",
+            "version_normalized": "3.3.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vakata/jstree.git",
-                "reference": "8c1bcc87771f5be0b70cd49d6a7888707ebcc64e"
+                "reference": "b3135cfc65eba90d4c670e6959273ef92cd1b447"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vakata/jstree/zipball/8c1bcc87771f5be0b70cd49d6a7888707ebcc64e",
-                "reference": "8c1bcc87771f5be0b70cd49d6a7888707ebcc64e",
+                "url": "https://api.github.com/repos/vakata/jstree/zipball/b3135cfc65eba90d4c670e6959273ef92cd1b447",
+                "reference": "b3135cfc65eba90d4c670e6959273ef92cd1b447",
                 "shasum": ""
             },
             "require": {
@@ -1483,7 +1481,7 @@
             "suggest": {
                 "robloach/component-installer": "Allows installation of Components via Composer"
             },
-            "time": "2023-02-19T23:38:56+00:00",
+            "time": "2023-09-19T10:32:25+00:00",
             "type": "component",
             "extra": {
                 "component": {
@@ -1507,7 +1505,7 @@
                     ]
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
@@ -1539,23 +1537,23 @@
             "version_normalized": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git@github.com:DavidAnderson684/plugin-update-checker.git",
-                "reference": "06e3a4e96a92e43cb05da6a84898a1678d9a52e3"
+                "url": "https://github.com/DavidAnderson684/plugin-update-checker.git",
+                "reference": "6290e88eebcc367f56180e06d14da5f0a2eb2a1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DavidAnderson684/plugin-update-checker/zipball/06e3a4e96a92e43cb05da6a84898a1678d9a52e3",
-                "reference": "06e3a4e96a92e43cb05da6a84898a1678d9a52e3",
+                "url": "https://api.github.com/repos/DavidAnderson684/plugin-update-checker/zipball/6290e88eebcc367f56180e06d14da5f0a2eb2a1b",
+                "reference": "6290e88eebcc367f56180e06d14da5f0a2eb2a1b",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "php": ">=5.2.0"
             },
-            "time": "2023-08-10T12:30:07+00:00",
+            "time": "2023-09-15T15:39:07+00:00",
             "default-branch": true,
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "load-v4p13.php"
@@ -1580,6 +1578,9 @@
                 "theme updates",
                 "wordpress"
             ],
+            "support": {
+                "source": "https://github.com/DavidAnderson684/plugin-update-checker/tree/v4.13.2"
+            },
             "install-path": "../yahnis-elsts/plugin-update-checker"
         }
     ],

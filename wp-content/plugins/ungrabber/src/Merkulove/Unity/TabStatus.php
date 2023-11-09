@@ -5,8 +5,8 @@
  * Exclusively on https://1.envato.market/ungrabber
  *
  * @encoding        UTF-8
- * @version         3.0.3
- * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
+ * @version         3.0.4
+ * @copyright       (C) 2018 - 2023 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
  * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
  * @support         help@merkulov.design
@@ -122,7 +122,7 @@ final class TabStatus extends Tab {
 		<div class="mdc-system-requirements">
 
 			<?php foreach ( $reports as $key => $report ) : ?>
-                <div class="mdp-status-<?php esc_attr_e( $key ); ?>">
+                <div class="mdp-status-<?php echo esc_attr( $key ); ?>">
                     <table class="mdc-system-requirements-table">
                         <thead>
                             <tr>
@@ -196,12 +196,12 @@ final class TabStatus extends Tab {
                 <td>
                     <?php
                     if ( $plugin_info['PluginURI'] ) {
-                        echo "<a href='" . esc_url( $plugin_info['PluginURI'] ) . "'>" . esc_html__( $plugin_info['Name'] ) . "</a>";
+                        echo "<a href='" . esc_url( $plugin_info['PluginURI'] ) . "'>" . esc_html( $plugin_info['Name'] ) . "</a>";
                     } else {
                         esc_html_e( $plugin_info['Name'] );
                     }
 
-                    if ( $plugin_info['Version'] ) { echo ' - ' . esc_html__( $plugin_info['Version'] ); }
+                    if ( $plugin_info['Version'] ) { echo ' - ' . esc_html( $plugin_info['Version'] ); }
                     ?>
                 </td>
                 <td>
@@ -211,7 +211,7 @@ final class TabStatus extends Tab {
                         echo "By ";
 
                         if ( $plugin_info['AuthorURI'] ) {
-                            echo "<a href='" . esc_url( $plugin_info['AuthorURI'] ) . "'>" . esc_html__( $plugin_info['Author'] ) . "</a>";
+                            echo "<a href='" . esc_url( $plugin_info['AuthorURI'] ) . "'>" . esc_html( $plugin_info['Author'] ) . "</a>";
                         } else {
                             esc_html_e( $plugin_info['Author'] );
                         }

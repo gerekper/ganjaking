@@ -5,8 +5,8 @@
  * Exclusively on https://1.envato.market/ungrabber
  *
  * @encoding        UTF-8
- * @version         3.0.3
- * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
+ * @version         3.0.4
+ * @copyright       (C) 2018 - 2023 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
  * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
  * @support         help@merkulov.design
@@ -215,6 +215,35 @@ final class TabAssignments extends Tab  {
 			}
 		}
 
+        // all posts in categories
+        foreach ( array_keys( get_taxonomies() ) as $tax ) {
+
+            if ( in_array( $tax, [ "post_tag", "nav_menu" ] ) ) {
+                continue;
+            }
+
+            if ( $categories = get_categories( [ 'taxonomy' => $tax ] ) ) {
+                $options[] = '<optgroup label="Posts in category (' . ucfirst( str_replace( [
+                        "_",
+                        "-"
+                    ], " ", $tax ) ) . ')">';
+
+                foreach ( $categories as $category ) {
+                    $val        = 'in-cat-' . $category->cat_ID;
+                    $attributes = in_array( $val, $selected, true ) ? [
+                        'value'    => $val,
+                        'selected' => 'selected'
+                    ] : [ 'value' => $val ];
+                    $options[]  = sprintf( '<option value="%s">%s</option>',
+                        $attributes["value"],
+                        esc_html__( 'In', 'ungrabber' ) . ' ' . $category->cat_name
+                    );
+                }
+
+                $options[] = '</optgroup>';
+            }
+        }
+
 		// set categories
 		foreach ( array_keys( get_taxonomies() ) as $tax ) {
 
@@ -223,7 +252,7 @@ final class TabAssignments extends Tab  {
 			}
 
 			if ( $categories = get_categories( [ 'taxonomy' => $tax ] ) ) {
-				$options[] = '<optgroup label="Categories (' . ucfirst( str_replace( [
+				$options[] = '<optgroup label="Archive by category (' . ucfirst( str_replace( [
 						"_",
 						"-"
                     ], " ", $tax ) ) . ')">';
@@ -245,7 +274,7 @@ final class TabAssignments extends Tab  {
 
         <input type='hidden'
                id="mdp-assignInput"
-               name='<?php esc_attr_e( 'mdp_ungrabber_' . self::TAB_SLUG . '_settings' ); ?>[assignments]'
+               name='<?php echo esc_attr( 'mdp_ungrabber_' . self::TAB_SLUG . '_settings' ); ?>[assignments]'
                value='<?php echo esc_attr( Settings::get_instance()->options['assignments'] ); ?>'>
 
         <div id="mdp-assign-box">
@@ -315,7 +344,7 @@ final class TabAssignments extends Tab  {
 		                    /** Get all menus */
 		                    $menus = get_terms( 'nav_menu', ['hide_empty' => true] );
 		                    foreach ( $menus as $menu ) {
-			                    ?><optgroup label="<?php esc_attr_e( $menu->name ); ?>"><?php
+			                    ?><optgroup label="<?php echo esc_attr( $menu->name ); ?>"><?php
 			                    $menuTree = $this->wpse_nav_menu_2_tree( $menu->slug );
 			                    $this->printMenuTree( $menuTree, $menu->slug, 0 );
 			                    ?></optgroup><?php
@@ -376,7 +405,7 @@ final class TabAssignments extends Tab  {
                             $translations = wp_get_available_translations();
 
                             foreach ( $translations as $key => $language ) :
-                                ?><option value="<?php esc_attr_e( $key ); ?>"><?php esc_html_e( $language['native_name'] ); ?></option><?php
+                                ?><option value="<?php echo esc_attr( $key ); ?>"><?php esc_html_e( $language['native_name'] ); ?></option><?php
                             endforeach; ?>
                         </select>
                     </div>
@@ -402,7 +431,7 @@ final class TabAssignments extends Tab  {
 							$roles = get_editable_roles();
 							foreach ( $roles as $k => $role ) {
 								?>
-                                <option value="<?php esc_attr_e( $k ); ?>"><?php esc_html_e( $role['name'] ); ?></option><?php
+                                <option value="<?php echo esc_attr( $k ); ?>"><?php echo esc_attr( $role['name'] ); ?></option><?php
 							} ?>
                         </select>
                         </label>
@@ -473,41 +502,41 @@ final class TabAssignments extends Tab  {
                         <!--suppress HtmlFormInputWithoutLabel -->
                         <select class="os chosen-select" multiple="">
                             <option value=""></option>
-                            <option value="Windows"><?php esc_html_e( 'Windows (All)', 'ungrabber' ); ?></option>
-                            <option value="Windows nt 10.0"><?php esc_html_e( 'Windows 10', 'ungrabber' ); ?></option>
-                            <option value="Windows nt 6.2"><?php esc_html_e( 'Windows 8', 'ungrabber' ); ?></option>
-                            <option value="Windows nt 6.1"><?php esc_html_e( 'Windows 7', 'ungrabber' ); ?></option>
-                            <option value="Windows nt 6.0"><?php esc_html_e( 'Windows Vista', 'ungrabber' ); ?></option>
-                            <option value="Windows nt 5.2"><?php esc_html_e( 'Windows Server 2003', 'ungrabber' ); ?></option>
-                            <option value="Windows nt 5.1"><?php esc_html_e( 'Windows XP', 'ungrabber' ); ?></option>
-                            <option value="Windows nt 5.01"><?php esc_html_e( 'Windows 2000 sp1', 'ungrabber' ); ?></option>
-                            <option value="Windows nt 5.0"><?php esc_html_e( 'Windows 2000', 'ungrabber' ); ?></option>
-                            <option value="Windows nt 4.0"><?php esc_html_e( 'Windows NT 4.0', 'ungrabber' ); ?></option>
-                            <option value="Win 9x 4.9"><?php esc_html_e( 'Windows Me', 'ungrabber' ); ?></option>
-                            <option value="Windows 98"><?php esc_html_e( 'Windows 98', 'ungrabber' ); ?></option>
-                            <option value="Windows 95"><?php esc_html_e( 'Windows 95', 'ungrabber' ); ?></option>
-                            <option value="Windows ce"><?php esc_html_e( 'Windows CE', 'ungrabber' ); ?></option>
-                            <option value="#(Mac OS|Mac_PowerPC|Macintosh)#"><?php esc_html_e( 'Mac OS (All)', 'ungrabber' ); ?></option>
-                            <option value="Mac OS X"><?php esc_html_e( 'Mac OSX (All)', 'ungrabber' ); ?></option>
-                            <option value="Mac OS X 10.11"><?php esc_html_e( 'Mac OSX El Capitan', 'ungrabber' ); ?></option>
-                            <option value="Mac OS X 10.10"><?php esc_html_e( 'Mac OSX Yosemite', 'ungrabber' ); ?></option>
-                            <option value="Mac OS X 10.9"><?php esc_html_e( 'Mac OSX Mavericks', 'ungrabber' ); ?></option>
-                            <option value="Mac OS X 10.8"><?php esc_html_e( 'Mac OSX Mountain Lion', 'ungrabber' ); ?></option>
-                            <option value="Mac OS X 10.7"><?php esc_html_e( 'Mac OSX Lion', 'ungrabber' ); ?></option>
-                            <option value="Mac OS X 10.6"><?php esc_html_e( 'Mac OSX Snow Leopard', 'ungrabber' ); ?></option>
-                            <option value="Mac OS X 10.5"><?php esc_html_e( 'Mac OSX Leopard', 'ungrabber' ); ?></option>
-                            <option value="Mac OS X 10.4"><?php esc_html_e( 'Mac OSX Tiger', 'ungrabber' ); ?></option>
-                            <option value="Mac OS X 10.3"><?php esc_html_e( 'Mac OSX Panther', 'ungrabber' ); ?></option>
-                            <option value="Mac OS X 10.2"><?php esc_html_e( 'Mac OSX Jaguar', 'ungrabber' ); ?></option>
-                            <option value="Mac OS X 10.1"><?php esc_html_e( 'Mac OSX Puma', 'ungrabber' ); ?></option>
-                            <option value="Mac OS X 10.0"><?php esc_html_e( 'Mac OSX Cheetah', 'ungrabber' ); ?></option>
-                            <option value="#(Mac_PowerPC|Macintosh)#"><?php esc_html_e( 'Mac OS (classic)', 'ungrabber' ); ?></option>
-                            <option value="#(Linux|X11)#"><?php esc_html_e( 'Linux', 'ungrabber' ); ?></option>
-                            <option value="OpenBSD"><?php esc_html_e( 'Open BSD', 'ungrabber' ); ?></option>
-                            <option value="SunOS"><?php esc_html_e( 'Sun OS', 'ungrabber' ); ?></option>
-                            <option value="QNX"><?php esc_html_e( 'QNX', 'ungrabber' ); ?></option>
-                            <option value="BeOS"><?php esc_html_e( 'BeOS', 'ungrabber' ); ?></option>
-                            <option value="OS/2"><?php esc_html_e( 'OS/2', 'ungrabber' ); ?></option>
+                            <option value="Windows"><?php esc_attr( 'Windows (All)' ) ?></option>
+                            <option value="Windows nt 10.0"><?php esc_attr( 'Windows 10' ) ?></option>
+                            <option value="Windows nt 6.2"><?php esc_attr( 'Windows 8' ) ?></option>
+                            <option value="Windows nt 6.1"><?php esc_attr( 'Windows 7' ) ?></option>
+                            <option value="Windows nt 6.0"><?php esc_attr( 'Windows Vista' ) ?></option>
+                            <option value="Windows nt 5.2"><?php esc_attr( 'Windows Server 2003' ) ?></option>
+                            <option value="Windows nt 5.1"><?php esc_attr( 'Windows XP' ) ?></option>
+                            <option value="Windows nt 5.01"><?php esc_attr( 'Windows 2000 sp1' ) ?></option>
+                            <option value="Windows nt 5.0"><?php esc_attr( 'Windows 2000' ) ?></option>
+                            <option value="Windows nt 4.0"><?php esc_attr( 'Windows NT 4.0' ) ?></option>
+                            <option value="Win 9x 4.9"><?php esc_attr( 'Windows Me' ) ?></option>
+                            <option value="Windows 98"><?php esc_attr( 'Windows 98' ) ?></option>
+                            <option value="Windows 95"><?php esc_attr( 'Windows 95' ) ?></option>
+                            <option value="Windows ce"><?php esc_attr( 'Windows CE' ) ?></option>
+                            <option value="#(Mac OS|Mac_PowerPC|Macintosh)#"><?php esc_attr( 'Mac OS (All)' ) ?></option>
+                            <option value="Mac OS X"><?php esc_attr( 'Mac OSX (All)' ) ?></option>
+                            <option value="Mac OS X 10.11"><?php esc_attr( 'Mac OSX El Capitan' ) ?></option>
+                            <option value="Mac OS X 10.10"><?php esc_attr( 'Mac OSX Yosemite' ) ?></option>
+                            <option value="Mac OS X 10.9"><?php esc_attr( 'Mac OSX Mavericks' ) ?></option>
+                            <option value="Mac OS X 10.8"><?php esc_attr( 'Mac OSX Mountain Lion' ) ?></option>
+                            <option value="Mac OS X 10.7"><?php esc_attr( 'Mac OSX Lion' ) ?></option>
+                            <option value="Mac OS X 10.6"><?php esc_attr( 'Mac OSX Snow Leopard' ) ?></option>
+                            <option value="Mac OS X 10.5"><?php esc_attr( 'Mac OSX Leopard' ) ?></option>
+                            <option value="Mac OS X 10.4"><?php esc_attr( 'Mac OSX Tiger' ) ?></option>
+                            <option value="Mac OS X 10.3"><?php esc_attr( 'Mac OSX Panther' ) ?></option>
+                            <option value="Mac OS X 10.2"><?php esc_attr( 'Mac OSX Jaguar' ) ?></option>
+                            <option value="Mac OS X 10.1"><?php esc_attr( 'Mac OSX Puma' ) ?></option>
+                            <option value="Mac OS X 10.0"><?php esc_attr( 'Mac OSX Cheetah' ) ?></option>
+                            <option value="#(Mac_PowerPC|Macintosh)#"><?php esc_attr( 'Mac OS (classic)' ) ?></option>
+                            <option value="#(Linux|X11)#"><?php esc_attr( 'Linux' ) ?></option>
+                            <option value="OpenBSD"><?php esc_attr( 'Open BSD' ) ?></option>
+                            <option value="SunOS"><?php esc_attr( 'Sun OS' ) ?></option>
+                            <option value="QNX"><?php esc_attr( 'QNX' ) ?></option>
+                            <option value="BeOS"><?php esc_attr( 'BeOS' ) ?></option>
+                            <option value="OS/2"><?php esc_attr( 'OS/2' ) ?></option>
                         </select>
                     </div>
 
@@ -527,58 +556,58 @@ final class TabAssignments extends Tab  {
                         <p class="mdp-margin-remove-bottom mdp-margin-top"><?php esc_html_e( 'Select the browsers to assign to. Keep in mind that browser detection is not always 100% accurate. Users can setup their browser to mimic other browsers.', 'ungrabber' ); ?></p>
 
                         <div class="mdp-widget-manager-control-box">
-                            <p><?php esc_html_e( 'Browsers:', 'ungrabber' ); ?></p>
+                            <p><?php esc_html_e( 'Browsers', 'ungrabber' ); ?>:</p>
                             <div>
                                 <!--suppress HtmlFormInputWithoutLabel -->
                                 <select class="browsers chosen-select" multiple="">
                                     <option value=""></option>
-                                    <option value="Chrome"><?php esc_html_e( 'Chrome (All)', 'ungrabber' ); ?></option>
-                                    <option value="#Chrome/(6[1-9]|70)\.#"><?php esc_html_e( 'Chrome 61-70', 'ungrabber' ); ?></option>
-                                    <option value="#Chrome/(5[1-9]|60)\.#"><?php esc_html_e( 'Chrome 51-60', 'ungrabber' ); ?></option>
-                                    <option value="#Chrome/(4[1-9]|50)\.#"><?php esc_html_e( 'Chrome 41-50', 'ungrabber' ); ?></option>
-                                    <option value="#Chrome/(3[1-9]|40)\.#"><?php esc_html_e( 'Chrome 31-40', 'ungrabber' ); ?></option>
-                                    <option value="#Chrome/(2[1-9]|30)\.#"><?php esc_html_e( 'Chrome 21-30', 'ungrabber' ); ?></option>
-                                    <option value="#Chrome/(1[1-9]|20)\.#"><?php esc_html_e( 'Chrome 11-20', 'ungrabber' ); ?></option>
-                                    <option value="#Chrome/([1-9]|10)\.#"><?php esc_html_e( 'Chrome 1-10', 'ungrabber' ); ?></option>
-                                    <option value="Firefox"><?php esc_html_e( 'Firefox (All)', 'ungrabber' ); ?></option>
-                                    <option value="#Firefox/(6[1-9]|70)\.#"><?php esc_html_e( 'Firefox 61-70', 'ungrabber' ); ?></option>
-                                    <option value="#Firefox/(5[1-9]|60)\.#"><?php esc_html_e( 'Firefox 51-60', 'ungrabber' ); ?></option>
-                                    <option value="#Firefox/(4[1-9]|50)\.#"><?php esc_html_e( 'Firefox 41-50', 'ungrabber' ); ?></option>
-                                    <option value="#Firefox/(3[1-9]|40)\.#"><?php esc_html_e( 'Firefox 31-40', 'ungrabber' ); ?></option>
-                                    <option value="#Firefox/(2[1-9]|30)\.#"><?php esc_html_e( 'Firefox 21-30', 'ungrabber' ); ?></option>
-                                    <option value="#Firefox/(1[1-9]|20)\.#"><?php esc_html_e( 'Firefox 11-20', 'ungrabber' ); ?></option>
-                                    <option value="#Firefox/([1-9]|10)\.#"><?php esc_html_e( 'Firefox 1-10', 'ungrabber' ); ?></option>
-                                    <option value="MSIE"><?php esc_html_e( 'Internet Explorer (All)', 'ungrabber' ); ?></option>
-                                    <option value="MSIE Edge"><?php esc_html_e( 'Internet Explorer Edge', 'ungrabber' ); ?></option>
-                                    <option value="Edge/15"><?php esc_html_e( 'Edge 15', 'ungrabber' ); ?></option>
-                                    <option value="Edge/14"><?php esc_html_e( 'Edge 14', 'ungrabber' ); ?></option>
-                                    <option value="Edge/13"><?php esc_html_e( 'Edge 13', 'ungrabber' ); ?></option>
-                                    <option value="Edge/12"><?php esc_html_e( 'Edge 12', 'ungrabber' ); ?></option>
-                                    <option value="MSIE 11"><?php esc_html_e( 'Internet Explorer 11', 'ungrabber' ); ?></option>
-                                    <option value="MSIE 10.6"><?php esc_html_e( 'Internet Explorer 10.6', 'ungrabber' ); ?></option>
-                                    <option value="MSIE 10.0"><?php esc_html_e( 'Internet Explorer 10.0', 'ungrabber' ); ?></option>
-                                    <option value="MSIE 10."><?php esc_html_e( 'Internet Explorer 10', 'ungrabber' ); ?></option>
-                                    <option value="MSIE 9."><?php esc_html_e( 'Internet Explorer 9', 'ungrabber' ); ?></option>
-                                    <option value="MSIE 8."><?php esc_html_e( 'Internet Explorer 8', 'ungrabber' ); ?></option>
-                                    <option value="MSIE 7."><?php esc_html_e( 'Internet Explorer 7', 'ungrabber' ); ?></option>
-                                    <option value="#MSIE [1-6]\.#"><?php esc_html_e( 'Internet Explorer 1-6', 'ungrabber' ); ?></option>
-                                    <option value="Opera"><?php esc_html_e( 'Opera (All)', 'ungrabber' ); ?></option>
-                                    <option value="#Opera/(5[1-9]|60)\.#"><?php esc_html_e( 'Opera 51-60', 'ungrabber' ); ?></option>
-                                    <option value="#Opera/(4[1-9]|50)\.#"><?php esc_html_e( 'Opera 41-50', 'ungrabber' ); ?></option>
-                                    <option value="#Opera/(3[1-9]|40)\.#"><?php esc_html_e( 'Opera 31-40', 'ungrabber' ); ?></option>
-                                    <option value="#Opera/(2[1-9]|30)\.#"><?php esc_html_e( 'Opera 21-30', 'ungrabber' ); ?></option>
-                                    <option value="#Opera/(1[1-9]|20)\.#"><?php esc_html_e( 'Opera 11-20', 'ungrabber' ); ?></option>
-                                    <option value="#Opera/([1-9]|10)\.#"><?php esc_html_e( 'Opera 1-10', 'ungrabber' ); ?></option>
-                                    <option value="Safari"><?php esc_html_e( 'Safari (All)', 'ungrabber' ); ?></option>
-                                    <option value="#Version/11\..*Safari/#"><?php esc_html_e( 'Safari 11', 'ungrabber' ); ?></option>
-                                    <option value="#Version/10\..*Safari/#"><?php esc_html_e( 'Safari 10', 'ungrabber' ); ?></option>
-                                    <option value="#Version/9\..*Safari/#"><?php esc_html_e( 'Safari 9', 'ungrabber' ); ?></option>
-                                    <option value="#Version/8\..*Safari/#"><?php esc_html_e( 'Safari 8', 'ungrabber' ); ?></option>
-                                    <option value="#Version/7\..*Safari/#"><?php esc_html_e( 'Safari 7', 'ungrabber' ); ?></option>
-                                    <option value="#Version/6\..*Safari/#"><?php esc_html_e( 'Safari 6', 'ungrabber' ); ?></option>
-                                    <option value="#Version/5\..*Safari/#"><?php esc_html_e( 'Safari 5', 'ungrabber' ); ?></option>
-                                    <option value="#Version/4\..*Safari/#"><?php esc_html_e( 'Safari 4', 'ungrabber' ); ?></option>
-                                    <option value="#Version/[1-3]\..*Safari/#"><?php esc_html_e( 'Safari 1-3', 'ungrabber' ); ?></option>
+                                    <option value="Chrome"><?php echo esc_attr( 'Chrome' ); ?> (<?php esc_html_e( 'All' ); ?>)</option>
+                                    <option value="#Chrome/(6[1-9]|70)\.#"><?php echo esc_attr( 'Chrome 61-70' ); ?></option>
+                                    <option value="#Chrome/(5[1-9]|60)\.#"><?php echo esc_attr( 'Chrome 51-60' ); ?></option>
+                                    <option value="#Chrome/(4[1-9]|50)\.#"><?php echo esc_attr( 'Chrome 41-50' ); ?></option>
+                                    <option value="#Chrome/(3[1-9]|40)\.#"><?php echo esc_attr( 'Chrome 31-40' ); ?></option>
+                                    <option value="#Chrome/(2[1-9]|30)\.#"><?php echo esc_attr( 'Chrome 21-30' ); ?></option>
+                                    <option value="#Chrome/(1[1-9]|20)\.#"><?php echo esc_attr( 'Chrome 11-20' ); ?></option>
+                                    <option value="#Chrome/([1-9]|10)\.#"><?php echo esc_attr( 'Chrome 1-10' ); ?></option>
+                                    <option value="Firefox"><?php echo esc_attr( 'Firefox' ); ?> (<?php esc_html_e( 'All' ); ?>)</option>
+                                    <option value="#Firefox/(6[1-9]|70)\.#"><?php echo esc_attr( 'Firefox 61-70' ); ?></option>
+                                    <option value="#Firefox/(5[1-9]|60)\.#"><?php echo esc_attr( 'Firefox 51-60' ); ?></option>
+                                    <option value="#Firefox/(4[1-9]|50)\.#"><?php echo esc_attr( 'Firefox 41-50' ); ?></option>
+                                    <option value="#Firefox/(3[1-9]|40)\.#"><?php echo esc_attr( 'Firefox 31-40' ); ?></option>
+                                    <option value="#Firefox/(2[1-9]|30)\.#"><?php echo esc_attr( 'Firefox 21-30' ); ?></option>
+                                    <option value="#Firefox/(1[1-9]|20)\.#"><?php echo esc_attr( 'Firefox 11-20' ); ?></option>
+                                    <option value="#Firefox/([1-9]|10)\.#"><?php echo esc_attr( 'Firefox 1-10' ); ?></option>
+                                    <option value="MSIE"><?php echo esc_attr( 'Internet Explorer' ); ?> (<?php esc_html_e( 'All' ); ?>)</option>
+                                    <option value="MSIE Edge"><?php echo esc_attr( 'Internet Explorer Edge' ); ?></option>
+                                    <option value="Edge/15"><?php echo esc_attr( 'Edge 15' ); ?></option>
+                                    <option value="Edge/14"><?php echo esc_attr( 'Edge 14' ); ?></option>
+                                    <option value="Edge/13"><?php echo esc_attr( 'Edge 13' ); ?></option>
+                                    <option value="Edge/12"><?php echo esc_attr( 'Edge 12' ); ?></option>
+                                    <option value="MSIE 11"><?php echo esc_attr( 'Internet Explorer 11' ); ?></option>
+                                    <option value="MSIE 10.6"><?php echo esc_attr( 'Internet Explorer 10.6' ); ?></option>
+                                    <option value="MSIE 10.0"><?php echo esc_attr( 'Internet Explorer 10.0' ); ?></option>
+                                    <option value="MSIE 10."><?php echo esc_attr( 'Internet Explorer 10' ); ?></option>
+                                    <option value="MSIE 9."><?php echo esc_attr( 'Internet Explorer 9' ); ?></option>
+                                    <option value="MSIE 8."><?php echo esc_attr( 'Internet Explorer 8' ); ?></option>
+                                    <option value="MSIE 7."><?php echo esc_attr( 'Internet Explorer 7' ); ?></option>
+                                    <option value="#MSIE [1-6]\.#"><?php echo esc_attr( 'Internet Explorer 1-6' ); ?></option>
+                                    <option value="Opera"><?php echo esc_attr( 'Opera' ); ?> (<?php esc_html_e( 'All' ); ?>)</option>
+                                    <option value="#Opera/(5[1-9]|60)\.#"><?php echo esc_attr( 'Opera 51-60' ); ?></option>
+                                    <option value="#Opera/(4[1-9]|50)\.#"><?php echo esc_attr( 'Opera 41-50' ); ?></option>
+                                    <option value="#Opera/(3[1-9]|40)\.#"><?php echo esc_attr( 'Opera 31-40' ); ?></option>
+                                    <option value="#Opera/(2[1-9]|30)\.#"><?php echo esc_attr( 'Opera 21-30' ); ?></option>
+                                    <option value="#Opera/(1[1-9]|20)\.#"><?php echo esc_attr( 'Opera 11-20' ); ?></option>
+                                    <option value="#Opera/([1-9]|10)\.#"><?php echo esc_attr( 'Opera 1-10' ); ?></option>
+                                    <option value="Safari"><?php echo esc_attr( 'Safari' ); ?> (<?php esc_html_e( 'All' ); ?>)</option>
+                                    <option value="#Version/11\..*Safari/#"><?php echo esc_attr( 'Safari 11' ); ?></option>
+                                    <option value="#Version/10\..*Safari/#"><?php echo esc_attr( 'Safari 10' ); ?></option>
+                                    <option value="#Version/9\..*Safari/#"><?php echo esc_attr( 'Safari 9' ); ?></option>
+                                    <option value="#Version/8\..*Safari/#"><?php echo esc_attr( 'Safari 8' ); ?></option>
+                                    <option value="#Version/7\..*Safari/#"><?php echo esc_attr( 'Safari 7' ); ?></option>
+                                    <option value="#Version/6\..*Safari/#"><?php echo esc_attr( 'Safari 6' ); ?></option>
+                                    <option value="#Version/5\..*Safari/#"><?php echo esc_attr( 'Safari 5' ); ?></option>
+                                    <option value="#Version/4\..*Safari/#"><?php echo esc_attr( 'Safari 4' ); ?></option>
+                                    <option value="#Version/[1-3]\..*Safari/#"><?php echo esc_attr( 'Safari 1-3' ); ?></option>
                                 </select>
                             </div>
                         </div>
@@ -589,19 +618,19 @@ final class TabAssignments extends Tab  {
                                 <!--suppress HtmlFormInputWithoutLabel -->
                                 <select class="mobile-browsers chosen-select" multiple="">
                                     <option value=""></option>
-                                    <option value="mobile"><?php esc_html_e( 'All', 'ungrabber' ); ?></option>
-                                    <option value="Android"><?php esc_html_e( 'Android', 'ungrabber' ); ?></option>
-                                    <option value="#Android.*Chrome#"><?php esc_html_e( 'Android Chrome', 'ungrabber' ); ?></option>
-                                    <option value="Blackberry"><?php esc_html_e( 'Blackberry', 'ungrabber' ); ?></option>
-                                    <option value="IEMobile"><?php esc_html_e( 'IE Mobile', 'ungrabber' ); ?></option>
-                                    <option value="iPad"><?php esc_html_e( 'iPad', 'ungrabber' ); ?></option>
-                                    <option value="iPhone"><?php esc_html_e( 'iPhone', 'ungrabber' ); ?></option>
-                                    <option value="iPod"><?php esc_html_e( 'iPod Touch', 'ungrabber' ); ?></option>
-                                    <option value="NetFront"><?php esc_html_e( 'NetFront', 'ungrabber' ); ?></option>
-                                    <option value="NokiaBrowser"><?php esc_html_e( 'Nokia', 'ungrabber' ); ?></option>
-                                    <option value="Opera Mini"><?php esc_html_e( 'Opera Mini', 'ungrabber' ); ?></option>
-                                    <option value="Opera Mobi"><?php esc_html_e( 'Opera Mobile', 'ungrabber' ); ?></option>
-                                    <option value="UC Browser"><?php esc_html_e( 'UC Browser', 'ungrabber' ); ?></option>
+                                    <option value="mobile"><?php esc_html_e( 'All' ); ?></option>
+                                    <option value="Android"><?php echo esc_html( 'Android' ); ?></option>
+                                    <option value="#Android.*Chrome#"><?php echo esc_html( 'Android Chrome' ); ?></option>
+                                    <option value="Blackberry"><?php echo esc_html( 'Blackberry' ); ?></option>
+                                    <option value="IEMobile"><?php echo esc_html( 'IE Mobile' ); ?></option>
+                                    <option value="iPad"><?php echo esc_html( 'iPad' ); ?></option>
+                                    <option value="iPhone"><?php echo esc_html( 'iPhone' ); ?></option>
+                                    <option value="iPod"><?php echo esc_html( 'iPod Touch' ); ?></option>
+                                    <option value="NetFront"><?php echo esc_html( 'NetFront' ); ?></option>
+                                    <option value="NokiaBrowser"><?php echo esc_html( 'Nokia' ); ?></option>
+                                    <option value="Opera Mini"><?php echo esc_html( 'Opera Mini' ); ?></option>
+                                    <option value="Opera Mobi"><?php echo esc_html( 'Opera Mobile' ); ?></option>
+                                    <option value="UC Browser"><?php echo esc_html( 'UC Browser' ); ?></option>
                                 </select>
                             </div>
                         </div>
@@ -629,9 +658,9 @@ final class TabAssignments extends Tab  {
                         <textarea class="mdp-ips-field"></textarea>
                         <p>
                             <?php esc_html_e( 'List of IP addresses or IP ranges. Example: ', 'ungrabber' ); ?><br>
-                            <?php esc_html_e( '46.33.233.31', 'ungrabber' ); ?><br>
-                            <?php esc_html_e( '46.0-46.1', 'ungrabber' ); ?><br>
-                            <?php esc_html_e( '46', 'ungrabber' ); ?>
+                            <?php echo '46.33.233.31'; ?><br>
+                            <?php echo '46.0-46.1'; ?><br>
+                            <?php echo '46'; ?>
                         </p>
                     </div>
 
@@ -668,7 +697,7 @@ return $result;</pre>
 
                 </div>
 
-                <p><?php esc_html_e( 'By selecting the specific assignments you can limit where plugin should or shouldn\'t be published. To have it published on all pages, simply do not specify any assignments.' ); ?></p>
+                <p><?php esc_html_e( 'By selecting the specific assignments you can limit where plugin should or shouldn\'t be published. To have it published on all pages, simply do not specify any assignments.', 'ungrabber' ); ?></p>
 
             </div>
 
@@ -695,7 +724,7 @@ return $result;</pre>
             $hidden = '';
         }
 
-        return esc_attr_e( $hidden );
+        return esc_attr( $hidden );
 
     }
 
@@ -882,17 +911,13 @@ return $result;</pre>
 
         $result = $flag;
         if ( ! $assignment->WPContentVal ) {
-            $result = - 1;
-
-            return $result;
+            return - 1;
         } // If no menu items - ignore
 
         $query = $this->getQuery();
         foreach ( $query as $q ) {
             if ( in_array( $q, $assignment->WPContentVal, true ) ) {
-                $result = !$flag;
-
-                return $result;
+                return ! $flag;
             }
         }
 
@@ -1530,6 +1555,8 @@ return $result;</pre>
 	 */
 	protected function URL( $assignment ) {
 
+        if ( ! isset( $_SERVER["SERVER_NAME"] ) ) { return false; }
+
 		/** Current URL. */
 		if ( ! isset( $_SERVER["HTTPS"] ) || ( $_SERVER["HTTPS"] !== 'on' ) ) {
 			$curUrl = 'http://' . $_SERVER["SERVER_NAME"];
@@ -1755,10 +1782,9 @@ return $result;</pre>
 
 		$branch = [];
 
-        /** @noinspection PhpParameterByRefIsNotUsedAsReferenceInspection */
         foreach ( $elements as &$element ) {
 
-			if ( $element->menu_item_parent === $parentId ) {
+            if ( intval( $element->menu_item_parent ) === intval( $parentId ) ) {
 				$children = $this->buildTree( $elements, $element->ID );
 				if ( $children ) {
                     $element->wpse_children = $children;
@@ -1801,11 +1827,15 @@ return $result;</pre>
 			}
 
 			if ( $type === 'post' ) {
-
-				if ( is_single() ) {
-					$query[] = 'single';
-				}
-
+                if ( is_single() ) {
+                    $query[] = 'single';
+                    $post_cats = get_the_category();
+                    if ( $post_cats ) {
+                        foreach ( $post_cats as $category ) {
+                            $query[] = 'in-cat-' . $category->term_id;
+                        }
+                    }
+                }
 				if ( is_archive() ) {
 					$query[] = 'archive';
 				}

@@ -487,17 +487,20 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 		
 		$this->mkdir($url);
 		
+		$msg = '';
 		$testfile = $url.'/'.md5(time().rand());
-		$this->_parse_url($testfile);
-		$msg = __("Success", 'updraftplus');
-		$res = true;
-		try {
-			$res = $this->write(self::CREDENTIALS_TEST_DATA, $posted_settings['enable_chunk']);
-		} catch (Exception $e) {
-			$msg = $e->getMessage();
+		$res = $this->_parse_url($testfile);
+		if ($res) {
+			try {
+				$res = $this->write(self::CREDENTIALS_TEST_DATA, $posted_settings['enable_chunk']);
+				$msg = __("We successfully accessed the directory, and were able to create files within it", 'updraftplus');
+			} catch (Exception $e) {
+				$res = false;
+				$msg = $e->getMessage();
+			}
+			if ($res) $this->unlink($testfile);
 		}
 		if (!$res) $msg = __("Failed: We were not able to place a file in that directory - please check your credentials.", 'updraftplus');
-		$this->unlink($testfile);
 		echo $msg;
 	}
 

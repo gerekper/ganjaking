@@ -66,7 +66,6 @@ WPMailSMTP.Admin.Alerts = WPMailSMTP.Admin.Alerts || ( function( document, windo
 		 * @since 3.5.0
 		 */
 		toggleAlertSettings: function() {
-
 			var $options = $( this ).closest( '.wp-mail-smtp-setting-row-alert' ).find( '.wp-mail-smtp-setting-row-alert-options' ),
 				$inputs = $options.find( '.wp-mail-smtp-setting-field input' );
 

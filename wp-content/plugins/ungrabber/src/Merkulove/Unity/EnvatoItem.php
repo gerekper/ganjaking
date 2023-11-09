@@ -5,8 +5,8 @@
  * Exclusively on https://1.envato.market/ungrabber
  *
  * @encoding        UTF-8
- * @version         3.0.3
- * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
+ * @version         3.0.4
+ * @copyright       (C) 2018 - 2023 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
  * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
  * @support         help@merkulov.design
@@ -45,6 +45,8 @@ final class EnvatoItem {
 	 * @return int
 	 **/
 	public function get_id() {
+
+	    return 24136249;
 
 		/** Do we have Envato item id in cache? */
 		$cache = new Cache();
@@ -101,7 +103,9 @@ final class EnvatoItem {
 		$url = $this->prepare_url();
 
 		/** Get Envato item ID. */
-		$item_id = wp_remote_get( $url );
+		$item_id = wp_remote_get( $url, [
+            'sslverify'  => false
+        ] );
 
 		/** Check for errors. */
 		if ( is_wp_error( $item_id ) || empty( $item_id['body'] ) ) { return 0; }
@@ -123,9 +127,8 @@ final class EnvatoItem {
 	 **/
 	private function prepare_url() {
 
-		/** Build URL. */
-		$url = 'https://merkulove.host/wp-content/plugins/mdp-purchase-validator/src/Merkulove/PurchaseValidator/GetMyId.php';
-		$url .= '?plugin_name=' . urlencode( Plugin::get_name() );
+        $url = 'https://merkulove.host/wp-json/mdp/v2/get_id';
+		$url .= '?name=' . urlencode( Plugin::get_name() );
 
 		return $url;
 

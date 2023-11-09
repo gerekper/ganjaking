@@ -1,4 +1,4 @@
-# Copyright (C) 2021 UnGrabber
+# Copyright (C) 2023 UnGrabber
 # This file is distributed under the same license as the UnGrabber package.
 msgid ""
 msgstr ""
@@ -6,6 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-11-06 10:16+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -213,83 +214,176 @@ msgstr ""
 msgid "Manages the plugin for users logged in as an administrator"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/CheckCompatibility.php:215, wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:286, wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:503
-msgid "UnGrabber"
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/AdminScripts.php:89
+msgid "Wrong format! It looks like you are using the Envato Elements license code instead of CodeCanyon purchase ID."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/CheckCompatibility.php:240
-msgid "The minimum PHP version required for UnGrabber plugin is 5.6.0."
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/AdminScripts.php:90
+msgid "Wrong format! It looks like you are using the Invoice Number instead of CodeCanyon purchase ID."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:262
-msgid "General"
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/AdminScripts.php:91
+msgid "Wrong format! It looks like you are using the Order ID instead of CodeCanyon purchase ID."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:263
-msgid "General Settings"
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/AdminScripts.php:92
+msgid "Wrong format! The purchase code must be 36 characters long"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:289, wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:290
-msgid "Custom CSS"
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/CheckCompatibility.php:109
+msgid "Author has banned the use of this plugin for sites representing terrorist states, associations and formations. Details:"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:296
-msgid "Add custom CSS here."
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/CheckCompatibility.php:127, wp-content/plugins/ungrabber/src/Merkulove/Unity/CheckCompatibility.php:191
+msgid "Plugin was deactivated! Author has banned the use"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:323
-msgid "Assignments"
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/CheckCompatibility.php:129
+msgid "for sites representing terrorist states, associations and formations"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:324
-msgid "Assignments Settings"
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/CheckCompatibility.php:130, wp-content/plugins/ungrabber/src/Merkulove/Unity/CheckCompatibility.php:194
+msgid "Details"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:373
-msgid "Activation"
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/CheckCompatibility.php:131, wp-content/plugins/ungrabber/src/Merkulove/Unity/CheckCompatibility.php:195
+msgid "Support"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:374, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:349
-msgid "Plugin Activation"
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/CheckCompatibility.php:173
+msgid "Author has banned the use of this plugin in states recognized as sponsors of terrorism. Details:"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:400
-msgid "Status"
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/CheckCompatibility.php:193
+msgid "in states recognized as sponsors of terrorism"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:401
-msgid "System Status"
+#. translators: %s: PHP version
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/CheckCompatibility.php:373
+msgid "The minimum PHP version required for UnGrabber plugin is %s."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:456, wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:457
-msgid "Updates"
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Dashboard.php:100
+msgid "Licensed"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:477
-msgid "Uninstall"
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Dashboard.php:101
+msgid "No license"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:478
-msgid "Uninstall Settings"
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Dashboard.php:102
+msgid "No licence data"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:485
-msgid "Delete plugin only"
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Dashboard.php:103
+msgid "Wait"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:486
-msgid "Delete plugin and settings"
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Dashboard.php:123
+msgid "Plugins Manager"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:487
-msgid "Delete plugin, settings and data"
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Dashboard.php:164
+msgid "Explore more plugins"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/PluginHelper.php:140, wp-content/plugins/ungrabber/src/Merkulove/Unity/PluginHelper.php:140
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Dashboard.php:165, wp-content/plugins/ungrabber/src/Merkulove/Unity/Dashboard.php:266, wp-content/plugins/ungrabber/src/Merkulove/Unity/Dashboard.php:385
+msgid "opens in a new window"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Dashboard.php:292
+msgid "Plugin licence status"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Dashboard.php:305
+msgid "Update to"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Dashboard.php:306
+msgid "Latest"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Dashboard.php:339
+msgid "Activate"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Dashboard.php:349, wp-content/plugins/ungrabber/src/Merkulove/Unity/PluginHelper.php:140, wp-content/plugins/ungrabber/src/Merkulove/Unity/PluginHelper.php:140, wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:329, wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:353, wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:373
 msgid "Settings"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/PluginHelper.php:141, wp-content/plugins/ungrabber/src/Merkulove/Unity/PluginHelper.php:141, wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:161
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Messages.php:76
+msgid "ERROR"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Messages.php:82
+msgid "Troubleshooting"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:250
+msgid "General"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:251
+msgid "General Settings"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:277, wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:278
+msgid "Custom CSS"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:284
+msgid "Add custom CSS here."
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:311
+msgid "Assignments"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:312
+msgid "Assignments Settings"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:361
+msgid "Activation"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:362
+msgid "Plugin Activation"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:388
+msgid "Status"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:389
+msgid "System Status"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:454, wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:455
+msgid "Updates"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:481
+msgid "Migration"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:482
+msgid "Migration Settings"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:489
+msgid "Delete plugin only"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:490
+msgid "Delete plugin and settings"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Plugin.php:491
+msgid "Delete plugin, settings and data"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/PluginHelper.php:141, wp-content/plugins/ungrabber/src/Merkulove/Unity/PluginHelper.php:141, wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:189
 msgid "Documentation"
 msgstr ""
 
@@ -301,15 +395,23 @@ msgstr ""
 msgid "Rate this plugin:"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/PluginUpdater.php:429
-msgid "Please visit the plugin page on the Envato market to "
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/PluginUpdater.php:439
+msgid "Your plugin license is "
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/PluginUpdater.php:431
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/PluginUpdater.php:441
+msgid "not activated"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/PluginUpdater.php:443
+msgid "Please activate the license to receive automatic updates in one click, or visit the plugin page on the Envato market to "
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/PluginUpdater.php:446
 msgid "download "
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/PluginUpdater.php:433
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/PluginUpdater.php:448
 msgid "the latest version."
 msgstr ""
 
@@ -317,131 +419,96 @@ msgstr ""
 msgid "Active Plugins"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:52
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:45
 msgid "Server Environment"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:71
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:62
 msgid "Operating System"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:72
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:63
 msgid "Software"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:73
-msgid "MySQL version"
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:64, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:65, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:67, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:68, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:69, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:70, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:72, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:73, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:74, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:75
+msgid "Installed"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:74
-msgid "PHP Version"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:75
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:66
 msgid "Write Permissions"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:76
-msgid "ZIP Installed"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:77
-msgid "cURL Installed"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:78
-msgid "Elementor Installed"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:79
-msgid "allow_url_fopen"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:80
-msgid "DOM Installed"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:81
-msgid "XML Installed"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:82
-msgid "BCMath Installed"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:83
-msgid "mbstring Installed"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:84
-msgid "Server Time Sync"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:131, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:223, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:247, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:271, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:297, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:323, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:349, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:375, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:418, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:437, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:465
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:119, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:211, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:233, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:255, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:278, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:302, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:326, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:350, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:374, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:459
 msgid "YES"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:131, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:223, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:247, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:271, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:297, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:323, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:349, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:375, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:418, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:437, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:465
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:119, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:211, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:233, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:255, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:278, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:302, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:326, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:350, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:374, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:413, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:431, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:459
 msgid "NO"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:133
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:121
 msgid "You must enable allow_url_fopen option in PHP. Contact the support service of your hosting provider. They know what to do."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:197
-msgid "We recommend to use php 5.6 or higher"
+#. translators: %1$s: PHP version, %2$s: Required PHP version.
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:184
+msgid "We recommend to use PHP %1$s or higher. Your version is %2$s"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:249
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:235
 msgid "You must enable CURL (Client URL Library) in PHP. Contact the support service of your hosting provider. They know what to do."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:273
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:257
 msgid "You need install and activate Elementor builder. Go to Elementor site (elementor.com) for details."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:299
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:280
+msgid "You need install and activate WPBakery builder. Go to WPBakery site (wpbakery.com) for details."
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:304
 msgid " You must enable DOM extension (Document Object Model) in PHP. It's used for HTML processing. Contact the support service of your hosting provider. They know what to do."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:325
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:328
 msgid "You must enable XML extension in PHP. It's used for XML processing. Contact the support service of your hosting provider. They know what to do."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:351
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:352
 msgid "You must enable BCMath extension (Arbitrary Precision Mathematics) in PHP. Contact the support service of your hosting provider. They know what to do."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:377
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:376
 msgid "You must enable mbstring extension (Multibyte String) in PHP. Contact the support service of your hosting provider. They know what to do."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:420, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:439
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:415, wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:433
 msgid "Failed to check time synchronization on your server. Your server's clock must be in sync with network time protocol - NTP."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:467
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:461
 msgid " Your server's clock is not in sync with network time protocol - NTP. Contact the support service of your hosting provider. They know what to do."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:547
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:536
 msgid "WordPress root directory"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:555
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:544
 msgid "WordPress root uploads directory"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:561
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:550
 msgid ".htaccess file"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:578
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:567
 msgid "All right"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:573
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/ReporterServer.php:562
 msgid "There are some writing permissions issues with the following directories/files:"
 msgstr ""
 
@@ -523,56 +590,52 @@ msgstr ""
 msgid "Inactive"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:99
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:124
 msgid "Plugin settings"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:157
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:185
 msgid "Helpful links"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:167
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:195
 msgid "Get help"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:171
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:199
 msgid "Rate this plugin"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:177
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:205
 msgid "More plugins"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:265, wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:285
-msgid "Ungrabber Settings"
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:330, wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:354
+msgid "for "
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:266
-msgid "Ungrabber for "
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:451
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:533
 msgid "Settings saved!"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:475
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:557
 msgid "Plugin activated successfully."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:481
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:563
 msgid "Invalid purchase code."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:499, wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:505, wp-content/plugins/ungrabber/src/Merkulove/Ungrabber/Elementor/widgets/Ungrabber/ungrabber..php:82
-msgid "Ungrabber"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:510
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:592
 msgid "v."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:516
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Settings.php:598
 msgid "Save changes"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/Tab.php:193, wp-content/plugins/ungrabber/src/Merkulove/Unity/Tab.php:194, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabMigration.php:171
+msgid "Tab"
 msgstr ""
 
 #: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:102
@@ -587,692 +650,440 @@ msgstr ""
 msgid "Activated"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:287
-msgid "Subscribe to updates"
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:299
+msgid "Subscribe to newsletter"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:288
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:300
 msgid "Sign up for the newsletter to be the first to know about news and discounts."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:290
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:302
 msgid "Hurray! We received your Subscription request. Check your inbox for an email from us."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:291
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:303
 msgid "Oh! Sorry, but we cannot send messages to this email."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:292
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:304
 msgid "Oops! Something went wrong. Please try later."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:299
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:311
 msgid "Your Name"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:310
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:322
 msgid "Your E-Mail"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:321
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:333
 msgid "Subscribe"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:355
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:365
 msgid "Purchase code"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:356
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:366
 msgid "Enter your CodeCanyon purchase code. Allowed only one Purchase Code per website."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:378
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:388
 msgid "Activation FAQ'S"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:382
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:392
 msgid "Where is my Purchase Code?"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:385
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:395
 msgid "The purchase code is a unique combination of characters that confirms that you bought the plugin. You can find your purchase code in "
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:386
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:396
 msgid "your account"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:387
-msgid " on the CodeCanyon. Learn more about "
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:396
+msgid "on the CodeCanyon. Learn more about "
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:388
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:397
 msgid "How to find your purchase code"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:389, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:423
-msgid " ."
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:395
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:403
 msgid "Can I use one Purchase Code on multiple sites?"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:399
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:407
 msgid "No, this is prohibited by license terms. You can use the purchase code on only one website at a time. Learn more about "
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:400
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:408
 msgid "Envato License"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:401
-msgid " terms. "
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:408
+msgid "terms. "
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:407
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:414
 msgid "What are the benefits of plugin activation?"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:411
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:418
 msgid "Activation of the plugin allows you to use all the functionality of the plugin on your site. In addition, in some cases, activating the plugin allows you to access additional features and capabilities of the plugin. Also, using an authored version of the plugin, you can be sure that you will not violate the license."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:417
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:424
 msgid "What should I do if my Purchase Code does not work?"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:421
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:428
 msgid "There are several reasons why the purchase code may not work on your site. Learn more why your "
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:422
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabActivation.php:429
 msgid "Purchase Code is Not Working"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:256
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:239
+msgid "In"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:285
 msgid "Matching Method"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:257
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:286
 msgid "Should all or any assignments be matched?"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:259
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:288
 msgid "ALL"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:260
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:289
 msgid "ANY"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:262
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:291
 msgid "The plugin is enabled on the page if ALL the selected rules matched, or if ANY of the selected rules matched"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:267
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:296
 msgid "WordPress Content"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:270, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:294, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:304, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:335, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:361, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:391, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:418, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:442, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:466, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:521, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:618, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:645
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:299, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:323, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:333, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:364, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:390, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:420, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:447, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:471, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:495, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:550, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:647, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:674
 msgid "Ignore"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:271, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:295, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:305, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:336, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:362, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:392, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:419, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:443, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:467, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:522, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:619, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:646
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:300, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:324, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:334, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:365, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:391, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:421, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:448, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:472, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:496, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:551, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:648, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:675
 msgid "Include"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:272, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:296, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:306, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:337, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:363, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:393, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:420, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:444, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:468, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:523, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:620, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:647
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:301, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:325, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:335, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:366, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:392, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:422, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:449, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:473, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:497, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:552, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:649, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:676
 msgid "Exclude"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:277
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:306
 msgid "Select on what page types or categories the assignment should be active."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:291
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:320
 msgid "Home Page"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:302
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:331
 msgid "Menu Items"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:310
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:339
 msgid "Select the menu items to assign to."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:332
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:361
 msgid "Date & Time"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:347
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:376
 msgid "The date and time assignments use the date/time of your servers, not that of the visitors system."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:349
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:378
 msgid "Current date/time:"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:358
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:387
 msgid "Languages"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:367
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:396
 msgid "Select the languages to assign to."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:388
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:417
 msgid "User Roles"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:397
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:426
 msgid "Select the user roles to assign to."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:415
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:444
 msgid "URL"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:425
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:454
 msgid "Enter (part of) the URLs to match."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:426
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:455
 msgid "Use a new line for each different match."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:439
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:468
 msgid "Devices"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:448
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:477
 msgid "Select the devices to assign to. Keep in mind that device detection is not always 100% accurate. Users can setup their device to mimic other devices."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:452
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:481
 msgid "Desktop"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:453
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:482
 msgid "Tablet"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:454
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:483
 msgid "Mobile"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:463
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:492
 msgid "Operating Systems"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:472
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:501
 msgid "Select the operating systems to assign to. Keep in mind that operating system detection is not always 100% accurate. Users can setup their browser to mimic other operating systems."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:476
-msgid "Windows (All)"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:477
-msgid "Windows 10"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:478
-msgid "Windows 8"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:479
-msgid "Windows 7"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:480
-msgid "Windows Vista"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:481
-msgid "Windows Server 2003"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:482
-msgid "Windows XP"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:483
-msgid "Windows 2000 sp1"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:484
-msgid "Windows 2000"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:485
-msgid "Windows NT 4.0"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:486
-msgid "Windows Me"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:487
-msgid "Windows 98"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:488
-msgid "Windows 95"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:489
-msgid "Windows CE"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:490
-msgid "Mac OS (All)"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:491
-msgid "Mac OSX (All)"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:492
-msgid "Mac OSX El Capitan"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:493
-msgid "Mac OSX Yosemite"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:494
-msgid "Mac OSX Mavericks"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:495
-msgid "Mac OSX Mountain Lion"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:496
-msgid "Mac OSX Lion"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:497
-msgid "Mac OSX Snow Leopard"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:498
-msgid "Mac OSX Leopard"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:499
-msgid "Mac OSX Tiger"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:500
-msgid "Mac OSX Panther"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:501
-msgid "Mac OSX Jaguar"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:502
-msgid "Mac OSX Puma"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:503
-msgid "Mac OSX Cheetah"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:504
-msgid "Mac OS (classic)"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:505
-msgid "Linux"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:506
-msgid "Open BSD"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:507
-msgid "Sun OS"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:508
-msgid "QNX"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:509
-msgid "BeOS"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:510
-msgid "OS/2"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:518
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:547, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:559
 msgid "Browsers"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:527
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:556
 msgid "Select the browsers to assign to. Keep in mind that browser detection is not always 100% accurate. Users can setup their browser to mimic other browsers."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:530
-msgid "Browsers:"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:535
-msgid "Chrome (All)"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:536
-msgid "Chrome 61-70"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:537
-msgid "Chrome 51-60"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:538
-msgid "Chrome 41-50"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:539
-msgid "Chrome 31-40"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:540
-msgid "Chrome 21-30"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:541
-msgid "Chrome 11-20"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:542
-msgid "Chrome 1-10"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:543
-msgid "Firefox (All)"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:544
-msgid "Firefox 61-70"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:545
-msgid "Firefox 51-60"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:546
-msgid "Firefox 41-50"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:547
-msgid "Firefox 31-40"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:548
-msgid "Firefox 21-30"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:549
-msgid "Firefox 11-20"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:550
-msgid "Firefox 1-10"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:551
-msgid "Internet Explorer (All)"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:552
-msgid "Internet Explorer Edge"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:553
-msgid "Edge 15"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:554
-msgid "Edge 14"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:555
-msgid "Edge 13"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:556
-msgid "Edge 12"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:557
-msgid "Internet Explorer 11"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:558
-msgid "Internet Explorer 10.6"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:559
-msgid "Internet Explorer 10.0"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:560
-msgid "Internet Explorer 10"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:561
-msgid "Internet Explorer 9"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:562
-msgid "Internet Explorer 8"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:563
-msgid "Internet Explorer 7"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:564
-msgid "Internet Explorer 1-6"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:565
-msgid "Opera (All)"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:566
-msgid "Opera 51-60"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:567
-msgid "Opera 41-50"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:568
-msgid "Opera 31-40"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:569
-msgid "Opera 21-30"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:570
-msgid "Opera 11-20"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:571
-msgid "Opera 1-10"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:572
-msgid "Safari (All)"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:573
-msgid "Safari 11"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:574
-msgid "Safari 10"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:575
-msgid "Safari 9"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:576
-msgid "Safari 8"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:577
-msgid "Safari 7"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:578
-msgid "Safari 6"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:579
-msgid "Safari 5"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:580
-msgid "Safari 4"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:581
-msgid "Safari 1-3"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:587
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:616
 msgid "Mobile Browsers:"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:592
-msgid "All"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:593
-msgid "Android"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:594
-msgid "Android Chrome"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:595
-msgid "Blackberry"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:596
-msgid "IE Mobile"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:597
-msgid "iPad"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:598
-msgid "iPhone"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:599
-msgid "iPod Touch"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:600
-msgid "NetFront"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:601
-msgid "Nokia"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:602
-msgid "Opera Mini"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:603
-msgid "Opera Mobile"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:604
-msgid "UC Browser"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:615
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:644
 msgid "IP Addresses"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:625
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:654
 msgid "IP Addresses / Ranges"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:631
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:660
 msgid "List of IP addresses or IP ranges. Example: "
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:632
-msgid "46.33.233.31"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:633
-msgid "46.0-46.1"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:634
-msgid "46"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:642
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:671
 msgid "Custom PHP"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:652
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:681
 msgid "Enter a piece of PHP code to evaluate. The code must return the value true or false."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:654
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:683
 msgid "For instance:"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabAssignments.php:700
+msgid "By selecting the specific assignments you can limit where plugin should or shouldn't be published. To have it published on all pages, simply do not specify any assignments."
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabMigration.php:92
+msgid "Import settings:"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabMigration.php:93
+msgid "Export settings:"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabMigration.php:95
+msgid "Removal settings:"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabMigration.php:122
+msgid "Choose which data to delete upon using the \"Delete\" action in the \"Plugins\" admin page."
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabMigration.php:128
+msgid "Delete plugin"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabMigration.php:145
+msgid "Import settings"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabMigration.php:146
+msgid "Drag & Drop file here"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabMigration.php:172
+msgid "Export all settings from"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabMigration.php:172
+msgid "tab"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabMigration.php:186
+msgid "Export settings"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabMigration.php:341
+msgid "No settings for import"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabMigration.php:347
+msgid "Wrong settings format"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabMigration.php:353
+msgid "You are importing settings for"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabMigration.php:353
+msgid ", but this is"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabMigration.php:359
+msgid "You are importing settings for version"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabMigration.php:365
+msgid "Settings imported"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabMigration.php:371
+msgid "Unknown error"
 msgstr ""
 
 #: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabStatus.php:238
 msgid "Some data will be sent to our server to verify purchase and to ensure that a plugin is compatible with your install. We will never collect any confidential data. All data is stored anonymously."
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabUninstall.php:84
-msgid "Removal settings:"
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabUninstall.php:111
-msgid "Choose which data to delete upon using the \"Delete\" action in the \"Plugins\" admin page."
-msgstr ""
-
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabUninstall.php:117
-msgid "Delete plugin"
-msgstr ""
-
 #: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabUpdates.php:80
-msgid "Check for updates:"
+msgid "Invalidate caches"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabUpdates.php:95
-msgid "Check Updates"
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabUpdates.php:83, wp-content/plugins/ungrabber/src/Merkulove/Unity/TabUpdates.php:119
+msgid "SSL verification"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/UI.php:609
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabUpdates.php:98
+msgid "Clear cache"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabUpdates.php:99
+msgid "Press to clear all nonsensitive caches and check for updates."
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabUpdates.php:120
+msgid "Enable to activate the SSL check when receiving updates"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/TabUpdates.php:269
+msgid "Wrong Parameter Value."
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/UI.php:617
 msgid "Icon Library"
 msgstr ""
 
-#: wp-content/plugins/ungrabber/src/Merkulove/Unity/UI.php:610
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/UI.php:618
 msgid "Upload SVG"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/UI.php:664
+msgid "Preview image"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/UI.php:687
+msgid "Remove"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/UI.php:689
+msgid "Media library"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/UI.php:946, wp-content/plugins/ungrabber/src/Merkulove/Unity/UI.php:1015
+msgid "Drop file here or click to upload."
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/UI.php:943, wp-content/plugins/ungrabber/src/Merkulove/Unity/UI.php:1007
+msgid "File exist"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/UI.php:944, wp-content/plugins/ungrabber/src/Merkulove/Unity/UI.php:1008
+msgid "Drop file here or click to upload"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/UI.php:956
+msgid "Drag and drop or click on the form to add file"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/UI.php:951
+msgid "Drag and drop or click on the form to replace file. |"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/UI.php:952, wp-content/plugins/ungrabber/src/Merkulove/Unity/UI.php:1029
+msgid "Reset"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/UI.php:993
+msgid "File"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/UI.php:1038
+msgid "Drag and drop or click on the form to add file."
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/UI.php:1041
+msgid "Allowed file types:"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/UI.php:1028
+msgid "Drag and drop or click on the form to replace file."
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/UI.php:1077
+msgid "Linked"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/UI.php:1100
+msgid "Units"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Unity/UI.php:1257
+msgid "Unit"
+msgstr ""
+
+#: wp-content/plugins/ungrabber/src/Merkulove/Ungrabber/Elementor/widgets/Ungrabber/ungrabber..php:82
+msgid "Ungrabber"
 msgstr ""
 
 #: wp-content/plugins/ungrabber/src/Merkulove/Ungrabber/Elementor/widgets/Ungrabber/ungrabber..php:206

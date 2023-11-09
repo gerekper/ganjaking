@@ -343,7 +343,7 @@ jQuery(function($) {
 
 					if (resp.hasOwnProperty('bundle') && resp.hasOwnProperty('keys_guide')) {
 						jQuery('#updraftcentral_keys_content').html(resp.keys_guide);
-						jQuery('#updraftcentral_keys_content').append('<div class="updraftcentral_wizard_success">'+resp.r+'<br><textarea onclick="this.select();" style="width:620px; height:165px; word-wrap:break-word; border: 1px solid #aaa; border-radius: 3px; padding:4px;">'+resp.bundle+'</textarea></div>');
+						jQuery('#updraftcentral_keys_content').append('<div class="updraftcentral_wizard_success">'+resp.r+'<br><textarea id="updraftcentral-key" onclick="this.select();" style="width:620px; height:165px; word-wrap:break-word; border: 1px solid #aaa; border-radius: 3px; padding:4px;">'+resp.bundle+'</textarea><button id="updraftplus-copy" class="button button-secondary" style="display: block;">'+uclion.copy_to_clipboard+'</button></div>');
 					} else {
 						console.log(resp);
 					}
@@ -374,6 +374,33 @@ jQuery(function($) {
 		} catch (err) {
 			jQuery('#updraft_central_key').html();
 			console.log(err);
+		}
+	});
+
+
+	var updraft_copy_modal_buttons = {};
+	updraft_copy_modal_buttons[updraftlion.close] = function() {
+		jQuery(this).dialog("close");
+	};
+
+	jQuery("#updraft-copy-modal").dialog({
+		autoOpen: false,
+		resizeOnWindowResize: true,
+		scrollWithViewport: true,
+		resizeAccordingToViewport: true,
+		modal: true,
+		buttons: updraft_copy_modal_buttons,
+	});
+
+	jQuery('#updraftcentral_keys_content').on('click', '#updraftplus-copy', function(e) {
+		e.preventDefault();
+		var ele = jQuery('#updraftcentral-key');
+		if (ele[0].value) {
+			navigator.clipboard.writeText(ele[0].value).then(function() {
+				alert(uclion.key_copied);
+					}, function(err) {
+					jQuery('#updraft-copy-modal').dialog('open');
+			});
 		}
 	});
 	

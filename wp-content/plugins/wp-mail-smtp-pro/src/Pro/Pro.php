@@ -16,6 +16,7 @@ use WPMailSMTP\Pro\Emails\Logs\Importers\Importers;
 use WPMailSMTP\Pro\Emails\Logs\Logs;
 use WPMailSMTP\Pro\Emails\Logs\Reports\Reports;
 use WPMailSMTP\Pro\Emails\Logs\Tracking\Tracking;
+use WPMailSMTP\Pro\Emails\TestEmail;
 use WPMailSMTP\Pro\Providers\AmazonSES\Options as SESOptions;
 use WPMailSMTP\Pro\SmartRouting\SmartRouting;
 use WPMailSMTP\WP;
@@ -120,6 +121,9 @@ class Pro {
 
 		// Initialize Plugins List.
 		( new PluginsList() )->hooks();
+
+		// Initialize test email.
+		( new TestEmail() )->hooks();
 
 		// Usage tracking hooks.
 		add_filter( 'wp_mail_smtp_usage_tracking_get_data', [ $this, 'usage_tracking_get_data' ] );

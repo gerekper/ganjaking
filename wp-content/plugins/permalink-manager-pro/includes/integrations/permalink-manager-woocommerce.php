@@ -64,7 +64,7 @@ class Permalink_Manager_WooCommerce {
 	public function init_early_hooks() {
 		if ( class_exists( 'WooCommerce' ) ) {
 			add_filter( 'woocommerce_get_endpoint_url', array( 'Permalink_Manager_Core_Functions', 'control_trailing_slashes' ), 9 );
-			add_action( 'before_woocommerce_init', array( $this, 'woocommerce_cot_compatibility' ) );
+			add_action( 'before_woocommerce_init', array( $this, 'woocommerce_declare_compatibility' ) );
 		}
 	}
 
@@ -136,11 +136,12 @@ class Permalink_Manager_WooCommerce {
 			$product_id = $new_product->get_id();
 
 			// Ignore variations
-			if ( $new_product->get_type() !== 'variation' ) {
-				$custom_uri = Permalink_Manager_URI_Functions_Post::get_default_post_uri( $product_id, false, true );
-
-				Permalink_Manager_URI_Functions::save_single_uri( $product_id, $custom_uri, false, true );
+			if ( $new_product->get_type() === 'variation' || Permalink_Manager_Helper_Functions::is_post_excluded( $product_id, true ) ) {
+				return;
 			}
+
+			$custom_uri = Permalink_Manager_URI_Functions_Post::get_default_post_uri( $product_id, false, true );
+			Permalink_Manager_URI_Functions::save_single_uri( $product_id, $custom_uri, false, true );
 		}
 	}
 
@@ -291,12 +292,18 @@ class Permalink_Manager_WooCommerce {
 	}
 
 	/**
-	 * Declare support for 'High-Performance order storage (COT)' in WooCommerce
+	 * Declare support for 'High-Performance order storage (COT)' and other features in WooCommerce
 	 */
-	function woocommerce_cot_compatibility() {
-		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) && method_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil', 'declare_compatibility' ) ) {
+	function woocommerce_declare_compatibility() {
+		$features_util_class = '\Automattic\WooCommerce\Utilities\FeaturesUtil';
+
+		if ( class_exists( $features_util_class ) && method_exists( $features_util_class, 'declare_compatibility' ) ) {
 			$plugin_name = strtok( PERMALINK_MANAGER_BASENAME, '/' );
-			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', $plugin_name );
+			$features    = method_exists( $features_util_class, 'get_features' ) ? $features_util_class::get_features( true ) : array();
+
+			foreach ( array_keys( $features ) as $feature ) {
+				$features_util_class::declare_compatibility( $feature, $plugin_name );
+			}
 		}
 	}
 

@@ -5,9 +5,9 @@ jQuery(document).ready(function() {
 	 */
 	var checkbox_actions = ['select_all', 'unselect_all'];
  	checkbox_actions.forEach(function(element) {
-		jQuery('#permalink-manager .' + element).on('click', function() {
+		jQuery(document).on('click', '#permalink-manager .' + element, function() {
 			jQuery(this).parents('.field-container').find('.checkboxes input[type="checkbox"]').each(function() {
-				var action = (element == 'select_all') ? true : false;
+				var action = (element === 'select_all');
 				jQuery(this).prop('checked', action);
 			});
 
@@ -669,7 +669,11 @@ jQuery(document).ready(function() {
 			let auto_update = item_row.find(".permalink-manager-col-uri").attr('data-disabled');
 
 			if(typeof auto_update !== "undefined" && (auto_update == 1 || auto_update == 2)) {
-				custom_uri_field.attr('disabled', 'disabled');
+				if(auto_update == 1) {
+					custom_uri_field.attr('readonly', 'readonly');
+				} else if(auto_update == 2) {
+					custom_uri_field.attr('disabled', 'disabled');
+				}
 			}
 
 			// Set the element ID

@@ -5,8 +5,8 @@
  * Exclusively on https://1.envato.market/ungrabber
  *
  * @encoding        UTF-8
- * @version         3.0.3
- * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
+ * @version         3.0.4
+ * @copyright       (C) 2018 - 2023 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
  * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
  * @support         help@merkulov.design
@@ -88,7 +88,7 @@ final class TabGeneral extends Tab {
         foreach ( $fields as $key => $field ) {
 
             /** Prepare field label. */
-            $label = $field['show_label'] ? $field['label'] : '';
+            $label = isset( $field[ 'label' ] ) && ! empty( $field[ 'label' ] ) ? $field[ 'label' ] : '';
 
             /** Hide label for header fields. */
             if ( 'header' === $field['type'] ) { $label = ''; }
@@ -191,7 +191,15 @@ final class TabGeneral extends Tab {
         list( $field, $label, $description, $attr ) = $this->prepare_general_params( $tab_slug, $key );
 
         /** Render WP Editor. */
-        wp_editor( Settings::get_instance()->options[$key], $attr['id'], [ 'textarea_rows' => $attr['textarea_rows'], 'textarea_name' => $attr['name'] ] );
+        wp_editor(
+            Settings::get_instance()->options[$key],
+            $attr['id'],
+            [
+                'textarea_rows' => $attr['textarea_rows'],
+                'textarea_name' => $attr['name'],
+                'wpautop' => false
+            ]
+        );
 
         if ( $description ) {
             ?>
@@ -230,6 +238,28 @@ final class TabGeneral extends Tab {
             $description,
             $attr,
             $field['meta']
+        );
+
+    }
+
+    /**
+     * Render media library
+     *
+     * @param $key
+     * @param $tab_slug
+     *
+     * @return void
+     */
+    public function render_media_library( $key, $tab_slug ) {
+
+        /** Prepare general field params. */
+        list( $field, $label, $description, $attr ) = $this->prepare_general_params( $tab_slug, $key );
+
+        /** Render Icon. */
+        UI::get_instance()->render_media_library(
+            Settings::get_instance()->options[$key],
+            $description,
+            $attr
         );
 
     }
@@ -361,7 +391,7 @@ final class TabGeneral extends Tab {
             $label,
             $description,
             $attr,
-            $field['discrete']
+            $field['discrete'] ?? true
         );
 
     }
@@ -486,11 +516,12 @@ final class TabGeneral extends Tab {
         $field = Plugin::get_tabs()[ $tab_slug ][ 'fields' ][ $key ];
 
         /** Prepare label, description and attributes. */
-        $label = $field[ 'show_label' ] ? $field[ 'label' ] : '';
-        if ( ! empty( $field[ 'placeholder' ] ) ) {
+        if ( isset( $field[ 'placeholder' ] ) && ! empty( $field[ 'placeholder' ] ) ) {
             $label = $field[ 'placeholder' ];
+        } else {
+            $label = isset( $field[ 'label' ] ) && ! empty( $field[ 'label' ] ) ? $field[ 'label' ] : '';
         }
-        $description = ! empty( $field[ 'show_description' ] ) ? $field[ 'description' ] : '';
+        $description = ! empty( $field[ 'description' ] ) ? $field[ 'description' ] : '';
 
         $attr = $this->prepare_attr( $key, $tab_slug, $field );
 
@@ -509,7 +540,7 @@ final class TabGeneral extends Tab {
      *
      * @return array
      **/
-    private function prepare_attr( $key, $tab_slug, $field ) {
+    public function prepare_attr( $key, $tab_slug, $field ) {
 
         $name = 'mdp_ungrabber_' . $tab_slug . '_settings';
 
@@ -542,10 +573,14 @@ final class TabGeneral extends Tab {
         /** Prepare general field params. */
         list( $field, $label, $description, $attr ) = $this->prepare_general_params( $tab_slug, $key );
 
+        $options = Settings::get_instance()->options;
+        $default = $field[ 'default' ] ?? array();
+        $selected = isset( $options[ $key ] ) && $options[ $key ] ? $options[ $key ] : $default;
+
         /** Render select. */
         UI::get_instance()->render_chosen(
             $field['options'],
-            Settings::get_instance()->options[$key], // Selected options.
+            $selected,
             $description,
             $attr
         );
@@ -571,7 +606,7 @@ final class TabGeneral extends Tab {
 		/** Render select. */
 		UI::get_instance()->render_chosen(
 			$this->get_cpt_list(),
-			Settings::get_instance()->options[$key], // Selected options.
+			Settings::get_instance()->options[$key] ?? $field['default'] ?? array(),
 			$description,
 			$attr
 		);
@@ -604,6 +639,62 @@ final class TabGeneral extends Tab {
 		);
 
 	}
+
+    /**
+     * Render sides dimensions controls for CSS properties contains 4 sides(padding, margin, border).
+     */
+    public function render_sides( $key, $tab_slug ) {
+
+        /** Prepare general field params. */
+        list( $field ) = $this->prepare_general_params( $tab_slug, $key );
+
+        UI::get_instance()->render_sides(
+            $key,
+            $tab_slug,
+            $field
+        );
+
+    }
+
+    /**
+     * Render drag-and-drop file.
+     *
+     * @param string $key - Field key.
+     * @param string $tab_slug - Tab slug to which the field belongs.
+     *
+     * @return void
+     */
+    public function render_file_dnd( $key, $tab_slug ) {
+
+        list( $field ) = $this->prepare_general_params( $tab_slug, $key );
+
+        UI::get_instance()->render_file_dnd(
+            $key,
+            $tab_slug,
+            $field
+        );
+
+    }
+
+    /**
+     * Render unit slider.
+     *
+     * @param $key
+     * @param $tab_slug
+     *
+     * @return void
+     */
+    public function render_unit_slider( $key, $tab_slug ) {
+
+        list( $field ) = $this->prepare_general_params( $tab_slug, $key );
+
+        UI::get_instance()->render_unit_slider(
+            $key,
+            $tab_slug,
+            $field
+        );
+
+    }
 
 	/**
 	 * Return list of Custom Post Types.

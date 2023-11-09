@@ -119,8 +119,10 @@ abstract class AbstractDeliveryVerifier {
 	 * Verify the email delivery status.
 	 *
 	 * @since 3.9.0
+	 * @since 3.10.0 Updated to return the delivery status, or error in case of failure.
 	 *
-	 * @return void
+	 * @return DeliveryStatus|WP_Error Returns `WP_Error` if unable to fetch a valid response from the API.
+	 *                                 Otherwise, returns an instance of DeliveryStatus.
 	 */
 	public function verify() {
 
@@ -129,7 +131,7 @@ abstract class AbstractDeliveryVerifier {
 		if ( is_wp_error( $events ) ) {
 			$this->unable_to_verify( $events );
 
-			return;
+			return $events;
 		}
 
 		$this->events          = $events;
@@ -147,6 +149,8 @@ abstract class AbstractDeliveryVerifier {
 				)
 			);
 		}
+
+		return $this->delivery_status;
 	}
 
 	/**

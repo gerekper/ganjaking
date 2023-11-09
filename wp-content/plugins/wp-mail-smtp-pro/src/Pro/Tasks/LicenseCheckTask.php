@@ -41,7 +41,7 @@ class LicenseCheckTask extends Task {
 		// Register the action handler.
 		add_action( self::ACTION, [ $this, 'process' ] );
 
-		if ( Tasks::is_scheduled( self::ACTION ) ) {
+		if ( Tasks::is_scheduled( self::ACTION ) !== false ) {
 			return;
 		}
 

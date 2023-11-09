@@ -6,6 +6,7 @@ use WPMailSMTP\Pro\Emails\Logs\Webhooks\Webhooks;
 use WPMailSMTP\WP;
 use WPMailSMTP\Options;
 use WPMailSMTP\Admin\PageAbstract;
+use WPMailSMTP\Helpers\UI;
 
 /**
  * Class SettingsTab.
@@ -80,26 +81,34 @@ class SettingsTab extends PageAbstract {
 			<?php $this->wp_nonce_field(); ?>
 
 			<!-- Section Title -->
-			<div class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-content wp-mail-smtp-clear section-heading no-desc" id="wp-mail-smtp-setting-row-email-heading">
+			<div class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-content wp-mail-smtp-clear section-heading wp-mail-smtp-section-heading--has-divider no-desc wp-mail-smtp-tab-header">
 				<div class="wp-mail-smtp-setting-field">
 					<h2><?php echo $this->get_title(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h2>
 				</div>
 			</div>
 
 			<!-- Enable Log -->
-			<div id="wp-mail-smtp-setting-row-logs_enabled" class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-checkbox wp-mail-smtp-clear">
+			<div id="wp-mail-smtp-setting-row-logs_enabled" class="wp-mail-smtp-setting-row wp-mail-smtp-clear">
 				<div class="wp-mail-smtp-setting-label">
 					<label for="wp-mail-smtp-setting-logs_enabled">
 						<?php esc_html_e( 'Enable Log', 'wp-mail-smtp-pro' ); ?>
 					</label>
 				</div>
 				<div class="wp-mail-smtp-setting-field">
-					<input name="wp-mail-smtp[logs][enabled]" type="checkbox" id="wp-mail-smtp-setting-logs_enabled"
-						value="true" <?php checked( true, $this->options->get( 'logs', 'enabled' ) ); ?>
-						<?php disabled( $this->options->is_const_defined( 'logs', 'enabled' ) ); ?>>
-					<label for="wp-mail-smtp-setting-logs_enabled">
+					<?php
+					UI::toggle(
+						[
+							'name'     => 'wp-mail-smtp[logs][enabled]',
+							'id'       => 'wp-mail-smtp-setting-logs_enabled',
+							'value'    => 'true',
+							'checked'  => (bool) $this->options->get( 'logs', 'enabled' ),
+							'disabled' => $this->options->is_const_defined( 'logs', 'enabled' ),
+						]
+					);
+					?>
+					<p class="desc">
 						<?php esc_html_e( 'Keep a record of basic details for all emails sent from your site.', 'wp-mail-smtp-pro' ); ?>
-					</label>
+					</p>
 					<p class="desc">
 						<?php
 						esc_html_e( 'This will allow you to view both general information (date sent, subject, email status) and technical information (all the headers, including TO, CC, BCC) for all sent emails.', 'wp-mail-smtp-pro' );
@@ -113,19 +122,27 @@ class SettingsTab extends PageAbstract {
 			</div>
 
 			<!-- Log Email Content -->
-			<div id="wp-mail-smtp-setting-row-logs_log_email_content" class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-checkbox wp-mail-smtp-clear hidden">
+			<div id="wp-mail-smtp-setting-row-logs_log_email_content" class="wp-mail-smtp-setting-row wp-mail-smtp-clear hidden">
 				<div class="wp-mail-smtp-setting-label">
 					<label for="wp-mail-smtp-setting-logs_log_email_content">
 						<?php esc_html_e( 'Log Email Content', 'wp-mail-smtp-pro' ); ?>
 					</label>
 				</div>
 				<div class="wp-mail-smtp-setting-field">
-					<input name="wp-mail-smtp[logs][log_email_content]" type="checkbox" id="wp-mail-smtp-setting-logs_log_email_content"
-						value="true" <?php checked( true, $this->options->get( 'logs', 'log_email_content' ) ); ?>
-						<?php disabled( $this->options->is_const_defined( 'logs', 'log_email_content' ) ); ?>>
-					<label for="wp-mail-smtp-setting-logs_log_email_content">
+					<?php
+					UI::toggle(
+						[
+							'name'     => 'wp-mail-smtp[logs][log_email_content]',
+							'id'       => 'wp-mail-smtp-setting-logs_log_email_content',
+							'value'    => 'true',
+							'checked'  => (bool) $this->options->get( 'logs', 'log_email_content' ),
+							'disabled' => $this->options->is_const_defined( 'logs', 'log_email_content' ),
+						]
+					);
+					?>
+					<p class="desc">
 						<?php esc_html_e( 'Keep a record of all content for all emails sent from your site.', 'wp-mail-smtp-pro' ); ?>
-					</label>
+					</p>
 					<p class="desc">
 						<?php
 						esc_html_e( 'Email content may contain personal information, such as plain text passwords. Please carefully consider before enabling this option, as it will store all sent email content to your site’s database.', 'wp-mail-smtp-pro' );
@@ -141,19 +158,27 @@ class SettingsTab extends PageAbstract {
 			</div>
 
 			<!-- Log Email Save Attachments -->
-			<div id="wp-mail-smtp-setting-row-logs_save_attachments" class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-checkbox wp-mail-smtp-clear hidden">
+			<div id="wp-mail-smtp-setting-row-logs_save_attachments" class="wp-mail-smtp-setting-row wp-mail-smtp-clear hidden">
 				<div class="wp-mail-smtp-setting-label">
 					<label for="wp-mail-smtp-setting-logs_save_attachments">
 						<?php esc_html_e( 'Save Attachments', 'wp-mail-smtp-pro' ); ?>
 					</label>
 				</div>
 				<div class="wp-mail-smtp-setting-field">
-					<input name="wp-mail-smtp[logs][save_attachments]" type="checkbox" id="wp-mail-smtp-setting-logs_save_attachments"
-						   value="true" <?php checked( true, $this->options->get( 'logs', 'save_attachments' ) ); ?>
-						<?php disabled( $this->options->is_const_defined( 'logs', 'save_attachments' ) ); ?>>
-					<label for="wp-mail-smtp-setting-logs_save_attachments">
+					<?php
+					UI::toggle(
+						[
+							'name'     => 'wp-mail-smtp[logs][save_attachments]',
+							'id'       => 'wp-mail-smtp-setting-logs_save_attachments',
+							'value'    => 'true',
+							'checked'  => (bool) $this->options->get( 'logs', 'save_attachments' ),
+							'disabled' => $this->options->is_const_defined( 'logs', 'save_attachments' ),
+						]
+					);
+					?>
+					<p class="desc">
 						<?php esc_html_e( 'Save the sent attachments to the Email Log.', 'wp-mail-smtp-pro' ); ?>
-					</label>
+					</p>
 					<p class="desc">
 						<?php
 						esc_html_e( 'All sent attachments will be saved to your WordPress uploads folder. If your site sends a lot of big unique attachments, this could potentially cause some disk space issue.', 'wp-mail-smtp-pro' );
@@ -167,19 +192,27 @@ class SettingsTab extends PageAbstract {
 			</div>
 
 			<!-- Open email tracking -->
-			<div id="wp-mail-smtp-setting-row-logs_open_email_tracking" class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-checkbox wp-mail-smtp-clear hidden">
+			<div id="wp-mail-smtp-setting-row-logs_open_email_tracking" class="wp-mail-smtp-setting-row wp-mail-smtp-clear hidden">
 				<div class="wp-mail-smtp-setting-label">
 					<label for="wp-mail-smtp-setting-logs_open_email_tracking">
 						<?php esc_html_e( 'Open Email Tracking', 'wp-mail-smtp-pro' ); ?>
 					</label>
 				</div>
 				<div class="wp-mail-smtp-setting-field">
-					<input name="wp-mail-smtp[logs][open_email_tracking]" type="checkbox" id="wp-mail-smtp-setting-logs_open_email_tracking"
-						   value="true" <?php checked( true, $this->options->get( 'logs', 'open_email_tracking' ) ); ?>
-						<?php disabled( $this->options->is_const_defined( 'logs', 'open_email_tracking' ) ); ?>>
-					<label for="wp-mail-smtp-setting-logs_open_email_tracking">
+					<?php
+					UI::toggle(
+						[
+							'name'     => 'wp-mail-smtp[logs][open_email_tracking]',
+							'id'       => 'wp-mail-smtp-setting-logs_open_email_tracking',
+							'value'    => 'true',
+							'checked'  => (bool) $this->options->get( 'logs', 'open_email_tracking' ),
+							'disabled' => $this->options->is_const_defined( 'logs', 'open_email_tracking' ),
+						]
+					);
+					?>
+					<p class="desc">
 						<?php esc_html_e( 'Track when an email is opened.', 'wp-mail-smtp-pro' ); ?>
-					</label>
+					</p>
 					<p class="desc">
 						<?php
 						esc_html_e( 'This will allow you to see which emails were opened by the recipients.', 'wp-mail-smtp-pro' );
@@ -193,19 +226,27 @@ class SettingsTab extends PageAbstract {
 			</div>
 
 			<!-- Click link tracking -->
-			<div id="wp-mail-smtp-setting-row-logs_click_link_tracking" class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-checkbox wp-mail-smtp-clear hidden">
+			<div id="wp-mail-smtp-setting-row-logs_click_link_tracking" class="wp-mail-smtp-setting-row wp-mail-smtp-clear hidden">
 				<div class="wp-mail-smtp-setting-label">
 					<label for="wp-mail-smtp-setting-logs_click_link_tracking">
 						<?php esc_html_e( 'Click Link Tracking', 'wp-mail-smtp-pro' ); ?>
 					</label>
 				</div>
 				<div class="wp-mail-smtp-setting-field">
-					<input name="wp-mail-smtp[logs][click_link_tracking]" type="checkbox" id="wp-mail-smtp-setting-logs_click_link_tracking"
-						   value="true" <?php checked( true, $this->options->get( 'logs', 'click_link_tracking' ) ); ?>
-						<?php disabled( $this->options->is_const_defined( 'logs', 'click_link_tracking' ) ); ?>>
-					<label for="wp-mail-smtp-setting-logs_click_link_tracking">
+					<?php
+					UI::toggle(
+						[
+							'name'     => 'wp-mail-smtp[logs][click_link_tracking]',
+							'id'       => 'wp-mail-smtp-setting-logs_click_link_tracking',
+							'value'    => 'true',
+							'checked'  => (bool) $this->options->get( 'logs', 'click_link_tracking' ),
+							'disabled' => $this->options->is_const_defined( 'logs', 'click_link_tracking' ),
+						]
+					);
+					?>
+					<p class="desc">
 						<?php esc_html_e( 'Track clicked links in emails.', 'wp-mail-smtp-pro' ); ?>
-					</label>
+					</p>
 					<p class="desc">
 						<?php
 						esc_html_e( 'This will allow you to see which links were clicked in the sent emails.', 'wp-mail-smtp-pro' );

@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'updraftplus/updraftplus',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => 'b6f494365e883adad411c28a7d0f5f517a95769b',
+        'pretty_version' => 'v1.23.12',
+        'version' => '1.23.12.0',
+        'reference' => '3a5f74bcb89b071c6493ae71ba3de3647fd74ca4',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'components/jquery' => array(
-            'pretty_version' => '3.6.0',
-            'version' => '3.6.0.0',
-            'reference' => '6cf38ee1fd04b6adf8e7dda161283aa35be818c3',
+            'pretty_version' => 'v3.7.1',
+            'version' => '3.7.1.0',
+            'reference' => '8edc7785239bb8c2ad2b83302b856a1d61de60e7',
             'type' => 'component',
             'install_path' => __DIR__ . '/../components/jquery',
             'aliases' => array(),
@@ -31,22 +31,22 @@
         'guzzle/batch' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'dev-master',
-                1 => '3.9.x-dev',
+                0 => '3.9.x-dev',
+                1 => 'dev-master',
             ),
         ),
         'guzzle/cache' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'dev-master',
-                1 => '3.9.x-dev',
+                0 => '3.9.x-dev',
+                1 => 'dev-master',
             ),
         ),
         'guzzle/common' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'dev-master',
-                1 => '3.9.x-dev',
+                0 => '3.9.x-dev',
+                1 => 'dev-master',
             ),
         ),
         'guzzle/guzzle' => array(
@@ -63,134 +63,134 @@
         'guzzle/http' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'dev-master',
-                1 => '3.9.x-dev',
+                0 => '3.9.x-dev',
+                1 => 'dev-master',
             ),
         ),
         'guzzle/inflection' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'dev-master',
-                1 => '3.9.x-dev',
+                0 => '3.9.x-dev',
+                1 => 'dev-master',
             ),
         ),
         'guzzle/iterator' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'dev-master',
-                1 => '3.9.x-dev',
+                0 => '3.9.x-dev',
+                1 => 'dev-master',
             ),
         ),
         'guzzle/log' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'dev-master',
-                1 => '3.9.x-dev',
+                0 => '3.9.x-dev',
+                1 => 'dev-master',
             ),
         ),
         'guzzle/parser' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'dev-master',
-                1 => '3.9.x-dev',
+                0 => '3.9.x-dev',
+                1 => 'dev-master',
             ),
         ),
         'guzzle/plugin' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'dev-master',
-                1 => '3.9.x-dev',
+                0 => '3.9.x-dev',
+                1 => 'dev-master',
             ),
         ),
         'guzzle/plugin-async' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'dev-master',
-                1 => '3.9.x-dev',
+                0 => '3.9.x-dev',
+                1 => 'dev-master',
             ),
         ),
         'guzzle/plugin-backoff' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'dev-master',
-                1 => '3.9.x-dev',
+                0 => '3.9.x-dev',
+                1 => 'dev-master',
             ),
         ),
         'guzzle/plugin-cache' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'dev-master',
-                1 => '3.9.x-dev',
+                0 => '3.9.x-dev',
+                1 => 'dev-master',
             ),
         ),
         'guzzle/plugin-cookie' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'dev-master',
-                1 => '3.9.x-dev',
+                0 => '3.9.x-dev',
+                1 => 'dev-master',
             ),
         ),
         'guzzle/plugin-curlauth' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'dev-master',
-                1 => '3.9.x-dev',
+                0 => '3.9.x-dev',
+                1 => 'dev-master',
             ),
         ),
         'guzzle/plugin-error-response' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'dev-master',
-                1 => '3.9.x-dev',
+                0 => '3.9.x-dev',
+                1 => 'dev-master',
             ),
         ),
         'guzzle/plugin-history' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'dev-master',
-                1 => '3.9.x-dev',
+                0 => '3.9.x-dev',
+                1 => 'dev-master',
             ),
         ),
         'guzzle/plugin-log' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'dev-master',
-                1 => '3.9.x-dev',
+                0 => '3.9.x-dev',
+                1 => 'dev-master',
             ),
         ),
         'guzzle/plugin-md5' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'dev-master',
-                1 => '3.9.x-dev',
+                0 => '3.9.x-dev',
+                1 => 'dev-master',
             ),
         ),
         'guzzle/plugin-mock' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'dev-master',
-                1 => '3.9.x-dev',
+                0 => '3.9.x-dev',
+                1 => 'dev-master',
             ),
         ),
         'guzzle/plugin-oauth' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'dev-master',
-                1 => '3.9.x-dev',
+                0 => '3.9.x-dev',
+                1 => 'dev-master',
             ),
         ),
         'guzzle/service' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'dev-master',
-                1 => '3.9.x-dev',
+                0 => '3.9.x-dev',
+                1 => 'dev-master',
             ),
         ),
         'guzzle/stream' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'dev-master',
-                1 => '3.9.x-dev',
+                0 => '3.9.x-dev',
+                1 => 'dev-master',
             ),
         ),
         'guzzlehttp/guzzle' => array(
@@ -239,9 +239,9 @@
             'dev_requirement' => false,
         ),
         'phpseclib/phpseclib' => array(
-            'pretty_version' => '1.0.21',
-            'version' => '1.0.21.0',
-            'reference' => 'de7ec75b54d6a1f3d549d03a2bf3e3e392c3bc36',
+            'pretty_version' => '2.0.45',
+            'version' => '2.0.45.0',
+            'reference' => '28d8f438a0064c9de80857e3270d071495544640',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpseclib/phpseclib',
             'aliases' => array(),
@@ -353,18 +353,18 @@
             'dev_requirement' => false,
         ),
         'updraftplus/updraftplus' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => 'b6f494365e883adad411c28a7d0f5f517a95769b',
+            'pretty_version' => 'v1.23.12',
+            'version' => '1.23.12.0',
+            'reference' => '3a5f74bcb89b071c6493ae71ba3de3647fd74ca4',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
         'vakata/jstree' => array(
-            'pretty_version' => '3.3.15',
-            'version' => '3.3.15.0',
-            'reference' => '8c1bcc87771f5be0b70cd49d6a7888707ebcc64e',
+            'pretty_version' => '3.3.16',
+            'version' => '3.3.16.0',
+            'reference' => 'b3135cfc65eba90d4c670e6959273ef92cd1b447',
             'type' => 'component',
             'install_path' => __DIR__ . '/../vakata/jstree',
             'aliases' => array(),
@@ -373,7 +373,7 @@
         'yahnis-elsts/plugin-update-checker' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '06e3a4e96a92e43cb05da6a84898a1678d9a52e3',
+            'reference' => '6290e88eebcc367f56180e06d14da5f0a2eb2a1b',
             'type' => 'library',
             'install_path' => __DIR__ . '/../yahnis-elsts/plugin-update-checker',
             'aliases' => array(

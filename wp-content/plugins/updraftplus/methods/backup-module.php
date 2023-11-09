@@ -85,7 +85,10 @@ abstract class UpdraftPlus_BackupModule {
 			'_instance_id' => $this->_instance_id,
 			'method_display_name' => $updraftplus->backup_methods[$this->get_id()],
 			'admin_page_url' => UpdraftPlus_Options::admin_page_url(),
-			'storage_auth_nonce' =>wp_create_nonce('storage_auth_nonce')
+			'storage_auth_nonce' =>wp_create_nonce('storage_auth_nonce'),
+			'input_select_folder_label' => __('Select existing folder', 'updraftplus'),
+			'input_confirm_label' => __('Confirm', 'updraftplus'),
+			'input_cancel_label' => __('Cancel', 'updraftplus'),
 		);
 	}
 
@@ -841,5 +844,24 @@ abstract class UpdraftPlus_BackupModule {
 		}
 
 		return $prefix;
+	}
+
+	/**
+	 * This method will output any needed js for the JSTree.
+	 *
+	 * @return void
+	 */
+	public function admin_footer_jstree() {
+		static $script_output = array(); // Static array to store script output status.
+
+		$id = $this->get_id();
+	
+		// Check if the script has already been output for this ID.
+		if (!isset($script_output[$id])) {
+			wp_add_inline_script('updraft-admin-common', "var js_tree_".esc_js($id)." = new updraft_js_tree('".esc_js($id)."'); js_tree_".esc_js($id).".init();", 'after');
+	
+			// Mark the script as output for this ID.
+			$script_output[$id] = true;
+		}
 	}
 }

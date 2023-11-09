@@ -1,0 +1,75 @@
+﻿.wpr-modal {
+	display: none;
+}
+
+.wpr-modal.is-open {
+	display: block;
+}
+
+.wpr-modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0,0,0,0.6);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 100;
+}
+
+.wpr-modal-container {
+	background-color: #fff;
+	padding: 30px;
+	max-width: 645px;
+	max-height: 100vh;
+	overflow-y: auto;
+	box-sizing: border-box;
+}
+
+.wpr-modal-header,
+.wpr-modal-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.wpr-modal-title {
+	font-size: 26px;
+	font-weight: 600;
+	line-height: 1.2;
+	margin: 0;
+}
+
+.wpr-modal-footer {
+	margin-top: 40px;
+}
+
+.wpr-modal-button {
+	border-radius: 4px;
+	cursor: pointer;
+	padding: 8px 20px;
+	text-transform: uppercase;
+}
+
+.wpr-modal-cancel {
+	background: transparent;
+	border: 1px solid #000;
+}
+
+.wpr-modal-confirm {
+	background: #F56F46;
+	border: none;
+	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+	color: #fff;
+	transition: box-shadow 500ms ease-in;
+}
+
+.wpr-modal-confirm:hover {
+	box-shadow: none;
+}
+
+.wpr-modal .wpr-sub-list {
+	padding-left: 25px;
+}

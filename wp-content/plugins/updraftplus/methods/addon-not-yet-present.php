@@ -10,6 +10,14 @@ class UpdraftPlus_BackupModule_AddonNotYetPresent extends UpdraftPlus_BackupModu
 
 	private $description;
 
+	private $required_php;
+
+	private $image;
+
+	private $error_msg;
+
+	private $error_msg_trans;
+
 	public function __construct($method, $description, $required_php = false, $image = null) {
 		$this->method = $method;
 		$this->description = $description;

@@ -166,7 +166,7 @@ if (is_multisite()) {
 				'updraft_include_wpcore_exclude' => '',
 				'updraft_include_more' => 0,
 				'updraft_include_more_path' => '',
-				'updraft_include_muplugins' => 1,
+				'updraft_include_mu-plugins' => 1,
 				'updraft_include_blogs' => 1,
 				'updraft_include_others_exclude' => UPDRAFT_DEFAULT_OTHERS_EXCLUDE,
 				'updraft_include_uploads_exclude' => UPDRAFT_DEFAULT_UPLOADS_EXCLUDE,
@@ -754,15 +754,23 @@ if (is_multisite()) {
 			return $site_results;
 		}
 		
+		/**
+		 * Adds backupable file entities to an array based on specified conditions.
+		 *
+		 * This function is used to add information about backupable file entities to an array.
+		 * It considers whether the WordPress installation is using multisite and the value of the 'ms_files_rewriting' option.
+		 * If multisite is detected and 'ms_files_rewriting' is not enabled, it includes information about the blog uploads directory in the array.
+		 *
+		 * @param array $arr       The array to which backupable file entities information will be added.
+		 * @param bool  $full_info Whether to include detailed information about the backupable file entities or just their paths.
+		 *
+		 * @return array The modified array with backupable file entities information added.
+		 */
 		public function add_backupable_file_entities($arr, $full_info) {
 			// Post-3.5, WordPress multisite puts uploads from blogs by default into the uploads directory (i.e. no separate location). This is indicated not by the WP version number, but by the option ms_files_rewriting (which won't exist pre-3.5). See wp_upload_dir()
 			// This is a compatible way of getting the current blog's upload directory. Because of our access setup, that always resolves to the site owner's upload directory
 			global $updraftplus;
 			if ($full_info) {
-				$arr['mu-plugins'] = array(
-					'path' => WPMU_PLUGIN_DIR,
-					'description' => __('Must-use plugins', 'updraftplus')
-				);
 				if (!get_option('ms_files_rewriting') && defined('UPLOADBLOGSDIR')) {
 					$ud = $updraftplus->wp_upload_dir();
 					if (strpos(UPLOADBLOGSDIR, false === $ud['basedir'])) {
@@ -773,7 +781,6 @@ if (is_multisite()) {
 					}
 				}
 			} else {
-				$arr['mu-plugins'] = WPMU_PLUGIN_DIR;
 				if (!get_option('ms_files_rewriting') && defined('UPLOADBLOGSDIR')) {
 					$ud = $updraftplus->wp_upload_dir();
 					if (strpos(UPLOADBLOGSDIR,  false === $ud['basedir'])) {

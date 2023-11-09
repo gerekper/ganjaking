@@ -18,6 +18,7 @@ class UpdraftPlus_Addon_Google_Enhanced {
 		add_filter('updraftplus_options_googledrive_options', array($this, 'transform_options_googledrive_options'));
 		add_filter('updraftplus_googledrive_parent_id', array($this, 'googledrive_parent_id'), 10, 5);
 		add_filter('updraftplus_options_googledrive_foldername', array($this, 'options_googledrive_foldername'), 10, 2);
+		add_filter('updraftplus_jstree_googledrive', array($this, 'jstree_googledrive'), 10, 2);
 		add_filter('updraft_googledrive_partial_templates', array($this, 'get_partial_templates'), 10);
 		add_filter('updraft_googledrive_template_properties', array($this, 'partial_template_properties'));
 	}
@@ -77,8 +78,22 @@ class UpdraftPlus_Addon_Google_Enhanced {
 				<th>{{input_folder_label}}:</th>
 				<td>
 					<input title="{{input_enhanced_folder_title}}" type="text" id="{{get_template_input_attribute_value "id" "folder"}}" name="{{get_template_input_attribute_value "name" "folder"}}" value="{{folder}}" class="updraft_input--wide">
+					{{#if is_authenticate_with_google}}
+					<a href="#" class="updraft_googledrive_select_folder">{{input_select_folder_label}}</a>
+					{{/if}}
 					<br>
 					<em>{{input_enhanced_folder_label}}</em>
+					{{#if is_authenticate_with_google}}
+					<div class="updraft_googledrive_container hidden-in-updraftcentral" style="clear:left;">
+						<div class="updraft_googledrive_jstree_container">
+							<div class="updraft_googledrive_jstree"></div>
+						</div>
+						<div id="updraft_jstree_buttons_googledrive">
+							<button class="button updraft_googledrive_jstree_cancel">{{input_cancel_label}}</button> 
+							<button class="button button-primary updraft_googledrive_jstree_confirm">{{input_confirm_label}}</button>
+						</div>
+					</div>
+					{{/if}}
 				</td>
 			</tr>
 		<?php
@@ -112,8 +127,23 @@ class UpdraftPlus_Addon_Google_Enhanced {
 					<td>
 						<input title="'.esc_attr(sprintf(__('Enter the path of the %s folder you wish to use here.', 'updraftplus'), 'Google Drive').' '.__('If the folder does not already exist, then it will be created.').' '.sprintf(__('e.g. %s', 'updraftplus'), 'MyBackups/WorkWebsite.').' '.sprintf(__('If you leave it blank, then the backup will be placed in the root of your %s', 'updraftplus'), 'Google Drive')).' '.sprintf(__('In %s, path names are case sensitive.', 'updraftplus'), 'Google Drive').
 						'" type="text" '.$backup_module_object->output_settings_field_name_and_id('folder', true).' value="{{folder}}" class="updraft_input--wide">
+						{{#if is_authenticate_with_google}}
+						<a href="#" class="updraft_googledrive_select_folder">{{input_select_folder_label}}</a>
+						{{/if}}
 						<br>
 						<em>'.htmlspecialchars(sprintf(__('In %s, path names are case sensitive.', 'updraftplus'), 'Google Drive')).'</em>
+						
+						{{#if is_authenticate_with_google}}
+						<div class="updraft_googledrive_container hidden-in-updraftcentral" style="clear:left;">
+							<div class="updraft_googledrive_jstree_container">
+								<div class="updraft_googledrive_jstree"></div>
+							</div>
+							<div id="updraft_jstree_buttons_googledrive">
+								<button class="button updraft_googledrive_jstree_cancel">{{input_cancel_label}}</button> 
+								<button class="button button-primary updraft_googledrive_jstree_confirm">{{input_confirm_label}}</button>
+							</div>
+						</div>
+						{{/if}}
 					</td>
 				</tr>';
 	}
@@ -141,5 +171,46 @@ class UpdraftPlus_Addon_Google_Enhanced {
 			}
 		}
 		return $opts;
+	}
+
+	/**
+	 * This function will return all user directories in Google Drive.
+	 *
+	 * @param Array $node_array - The default value
+	 * @param Array $params     - The search parameters
+	 * @return Array $node_array - Array results for JSTree
+	 */
+	public function jstree_googledrive($node_array, $params) {
+		if (!isset($params['node']['id']) || !isset($params['instance_id'])) return $node_array;
+
+		$options = UpdraftPlus_Options::get_updraft_option('updraft_googledrive');
+		$instance_id = $params['instance_id'];
+
+		if (!isset($options['settings'][$instance_id])) return $node_array;
+
+		if ('#' == $params['node']['id']) {
+			$search = 'root';
+		} else {
+			$search = $params['node']['id'];
+		}
+		
+		$googledrive = UpdraftPlus_Storage_Methods_Interface::get_storage_object('googledrive');
+		$googledrive->set_options($options['settings'][$instance_id], false, $instance_id);
+		$folders = $googledrive->list_folders($search);
+
+		if ($folders) {
+			foreach ($folders as $folder) {
+				$node_array[] = array(
+					'text' => $folder['name'],
+					'parent' => $params['node']['id'],
+					'children' => true,
+					'id' => $folder['id'],
+					'icon' => 'jstree-folder',
+					'data' => $folder
+				);
+			}
+		}
+		
+		return $node_array;
 	}
 }

@@ -2,7 +2,10 @@
 
 namespace WPMailSMTP\Pro\Alerts\Admin;
 
+use WPMailSMTP\Admin\Area;
 use WPMailSMTP\Admin\Pages\AlertsTab;
+use WPMailSMTP\Helpers\Helpers;
+use WPMailSMTP\Helpers\UI;
 use WPMailSMTP\Options;
 use WPMailSMTP\Pro\Alerts\AbstractOptions;
 use WPMailSMTP\Pro\Alerts\Loader;
@@ -37,6 +40,15 @@ class SettingsTab extends AlertsTab {
 	const NOTICE_USER_META = 'wp_mail_smtp_test_alerts_notice';
 
 	/**
+	 * Plugin options.
+	 *
+	 * @since 3.10.0
+	 *
+	 * @var Options
+	 */
+	private $options;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 3.5.0
@@ -51,7 +63,8 @@ class SettingsTab extends AlertsTab {
 			$this->hooks();
 		}
 
-		$this->loader = new Loader();
+		$this->loader  = new Loader();
+		$this->options = Options::init();
 	}
 
 	/**
@@ -162,11 +175,62 @@ class SettingsTab extends AlertsTab {
 		<form method="POST" action="">
 			<?php $this->wp_nonce_field(); ?>
 
-			<div class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-content section-heading">
+			<div class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-content section-heading wp-mail-smtp-section-heading--has-divider">
 				<div class="wp-mail-smtp-setting-field">
 					<h2><?php esc_html_e( 'Alerts', 'wp-mail-smtp-pro' ); ?></h2>
 					<p class="desc">
 						<?php esc_html_e( 'Configure at least one of these integrations to receive notifications when email fails to send from your site. Alert notifications will contain the following important data: email subject, email Send To address, the error message, and helpful links to help you fix the issue.', 'wp-mail-smtp-pro' ); ?>
+					</p>
+				</div>
+			</div>
+
+			<!-- Alert Events -->
+			<div id="wp-mail-smtp-setting-row-alert_event_types" class="wp-mail-smtp-setting-row wp-mail-smtp-clear">
+				<div class="wp-mail-smtp-setting-label">
+					<label for="wp-mail-smtp-setting-debug_event_types">
+						<?php esc_html_e( 'Notify when', 'wp-mail-smtp-pro' ); ?>
+					</label>
+				</div>
+				<div class="wp-mail-smtp-setting-field">
+					<?php
+					UI::toggle(
+						[
+							'name'     => '',
+							'id'       => 'wp-mail-smtp-setting-alert_events_email_failed',
+							'value'    => '',
+							'label'    => esc_html__( 'The initial email sending request fails', 'wp-mail-smtp-pro' ),
+							'checked'  => true,
+							'disabled' => true,
+						]
+					);
+					?>
+
+					<p class="desc">
+						<?php esc_html_e( 'This option is always enabled and will notify you about instant email sending failures.', 'wp-mail-smtp-pro' ); ?>
+					</p>
+					<hr class="wp-mail-smtp-setting-mid-row-sep">
+
+					<?php
+					// Whether logs are enabled.
+					$logs_enabled = wp_mail_smtp()->get_pro()->get_logs()->is_enabled();
+					// Whether current mailer supports delivery verification.
+					$mailer_supports = ! Helpers::mailer_without_send_confirmation();
+
+					$this->display_unavailable_hard_bounce_alerts_notice( $logs_enabled, $mailer_supports );
+
+					UI::toggle(
+						[
+							'name'     => 'wp-mail-smtp[alert_events][email_hard_bounced]',
+							'id'       => 'wp-mail-smtp-setting-alert_events_email_bounced',
+							'value'    => 'true',
+							'label'    => __( 'The deliverability verification process detects a hard bounce', 'wp-mail-smtp-pro' ),
+							'checked'  => (bool) $this->options->get( 'alert_events', 'email_hard_bounced' ) && $logs_enabled && $mailer_supports,
+							'disabled' => ! $logs_enabled || ! $mailer_supports,
+						]
+					);
+					?>
+					<p class="desc">
+						<?php esc_html_e( 'Get notified about emails that were successfully sent, but have hard bounced on delivery attempt. A hard bounce is an email that has failed to deliver for permanent reasons, such as the recipient\'s email address being invalid.', 'wp-mail-smtp-pro' ); ?>
 					</p>
 				</div>
 			</div>
@@ -191,7 +255,7 @@ class SettingsTab extends AlertsTab {
 						</div>
 					</div>
 
-					<div class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-checkbox-toggle">
+                    <div class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-checkbox-toggle">
 						<div class="wp-mail-smtp-setting-label">
 							<label for="wp-mail-smtp-setting-alert-<?php echo esc_attr( $option->get_slug() ); ?>-enabled">
 								<?php
@@ -201,12 +265,16 @@ class SettingsTab extends AlertsTab {
 							</label>
 						</div>
 						<div class="wp-mail-smtp-setting-field">
-							<label for="wp-mail-smtp-setting-alert-<?php echo esc_attr( $option->get_slug() ); ?>-enabled">
-								<input type="checkbox" id="wp-mail-smtp-setting-alert-<?php echo esc_attr( $option->get_slug() ); ?>-enabled" class="js-wp-mail-smtp-setting-alert-enabled" name="wp-mail-smtp[alert_<?php echo esc_attr( $option->get_slug() ); ?>][enabled]" value="yes" <?php checked( $is_enabled ); ?>/>
-								<span class="wp-mail-smtp-setting-toggle-switch"></span>
-								<span class="wp-mail-smtp-setting-toggle-checked-label"><?php esc_html_e( 'On', 'wp-mail-smtp-pro' ); ?></span>
-								<span class="wp-mail-smtp-setting-toggle-unchecked-label"><?php esc_html_e( 'Off', 'wp-mail-smtp-pro' ); ?></span>
-							</label>
+							<?php
+							UI::toggle(
+								[
+									'class'   => 'js-wp-mail-smtp-setting-alert-enabled',
+									'name'    => 'wp-mail-smtp[alert_' . $option->get_slug() . '][enabled]',
+									'id'      => 'wp-mail-smtp-setting-alert-' . $option->get_slug() . '-enabled',
+									'checked' => $is_enabled,
+								]
+							);
+							?>
 						</div>
 					</div>
 
@@ -300,6 +368,48 @@ class SettingsTab extends AlertsTab {
 	}
 
 	/**
+	 * Display a notice with the reasons hard-bounce alerts
+	 * aren't available.
+	 *
+	 * @since 3.10.0
+	 *
+	 * @param bool $logs_enabled    Whether email logs are enabled.
+	 * @param bool $mailer_supports Whether current mailer supports delivery verification.
+	 */
+	private function display_unavailable_hard_bounce_alerts_notice( $logs_enabled, $mailer_supports ) {
+
+		if ( $logs_enabled && $mailer_supports ) {
+			return;
+		}
+
+		$message = '';
+
+		if ( ! $logs_enabled ) {
+			$message = sprintf(
+				'%1$s <a href="%2$s">%3$s</a>.',
+				esc_html__( 'Email Log has to be enabled for hard bounce detection to work.', 'wp-mail-smtp-pro' ),
+				esc_url(
+					add_query_arg(
+						'tab',
+						'logs',
+						wp_mail_smtp()->get_admin()->get_admin_page_url( Area::SLUG )
+					)
+				),
+				esc_html__( 'Please enable Email Log', 'wp-mail-smtp-pro' )
+			);
+		} else {
+			$message = esc_html__( 'Your Primary Connection mailer doesn\'t support delivery verification. If you want to enable this option, please switch to a transactional mailer like SendLayer.', 'wp-mail-smtp-pro' );
+		}
+		?>
+		<div class="notice inline notice-inline wp-mail-smtp-notice notice-warning">
+			<p>
+				<?php echo wp_kses( $message, [ 'a' => [ 'href' => [] ] ] ); ?>
+			</p>
+		</div>
+		<?php
+	}
+
+	/**
 	 * Display save and test buttons.
 	 *
 	 * @since 3.9.0
@@ -340,6 +450,8 @@ class SettingsTab extends AlertsTab {
 				$data[ $group ]['connections'] = array_values( array_unique( $data[ $group ]['connections'], SORT_REGULAR ) );
 			}
 		}
+
+		$data['alert_events']['email_hard_bounced'] = ! empty( $data['alert_events']['email_hard_bounced'] );
 
 		$all = $options->get_all();
 

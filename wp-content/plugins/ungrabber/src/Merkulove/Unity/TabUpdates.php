@@ -5,8 +5,8 @@
  * Exclusively on https://1.envato.market/ungrabber
  *
  * @encoding        UTF-8
- * @version         3.0.3
- * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
+ * @version         3.0.4
+ * @copyright       (C) 2018 - 2023 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
  * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
  * @support         help@merkulov.design
@@ -56,7 +56,7 @@ final class TabUpdates extends Tab {
     private function __construct() {
 
         /** Reset Settings. */
-        add_action( 'wp_ajax_check_updates', [ __CLASS__, 'ajax_check_updates' ] );
+        add_action( 'wp_ajax_check_updates_ungrabber', [ __CLASS__, 'ajax_check_updates' ] );
 
     }
 
@@ -77,7 +77,10 @@ final class TabUpdates extends Tab {
 		$section = 'mdp_ungrabber_' . self::TAB_SLUG . '_page_status_section';
 
         /** Check for Updates button. */
-        add_settings_field( 'check_updates', esc_html__( 'Check for updates:', 'ungrabber' ), [$this, 'check_updates'], $group, $section );
+        add_settings_field( 'check_updates', esc_html__( 'Invalidate caches', 'ungrabber' ), [ $this, 'check_updates' ], $group, $section );
+
+        /** Check SSL */
+        add_settings_field( 'check_ssl', esc_html__( 'SSL verification', 'ungrabber' ), [ $this, 'check_ssl' ], $group, $section );
 
 	}
 
@@ -92,14 +95,33 @@ final class TabUpdates extends Tab {
     public function check_updates() {
 
         UI::get_instance()->render_button(
-            esc_html__( 'Check Updates', 'ungrabber' ),
-            '',
+            esc_html__( 'Clear cache', 'ungrabber' ),
+	        esc_html__( 'Press to clear all nonsensitive caches and check for updates.', 'ungrabber' ),
             'autorenew',
             [
                 "name" => 'mdp_ungrabber_' . self::TAB_SLUG . '_settings' . "[check_updates]",
                 "id" => "mdp-updates-btn",
                 "class" => "mdc-button--outlined"
             ]
+        );
+
+    }
+
+    /**
+     * Render Check SSL switcher.
+     */
+    public function check_ssl() {
+
+        $options = Settings::get_instance()->options;
+
+        UI::get_instance()->render_switcher(
+            $options['check_ssl'] ?? 'off',
+            esc_html__( 'SSL verification', 'ungrabber' ),
+            esc_html__( 'Enable to activate the SSL check when receiving updates', 'ungrabber' ),
+            [
+                "name" => 'mdp_ungrabber_' . self::TAB_SLUG . '_settings' . "[check_ssl]",
+            ]
+
         );
 
     }
@@ -155,13 +177,14 @@ final class TabUpdates extends Tab {
 
         /** Get changelog from remote host. */
         $remote_changelog = $this->get_changelog_remote();
-        if ( false === $remote_changelog ) { return; }
+        $changelog = ! $remote_changelog ? $this->get_changelog_local() : $remote_changelog;
+        if ( false === $changelog ) { return; }
 
         /** Store changelog in cache. */
-        $cache->set( $key, [$key => $remote_changelog], false );
+        $cache->set( $key, [$key => $changelog], false );
 
 		/** Print HTML changelog. */
-        $this->print_changelog( $remote_changelog );
+        $this->print_changelog( $changelog );
 
     }
 
@@ -179,7 +202,9 @@ final class TabUpdates extends Tab {
         $changelog_url = 'https://merkulove.host/changelog/' . Plugin::get_slug() . '.html';
 
         /** Get fresh changelog file. */
-        $changelog = wp_remote_get( $changelog_url );
+        $changelog = wp_remote_get( $changelog_url, array(
+            'sslverify'  => Settings::get_instance()->options[ 'check_ssl' ] === 'on'
+        ) );
 
         /** Check for errors. */
         if ( is_wp_error( $changelog ) || empty( $changelog['body'] ) ) { return false; }
@@ -191,6 +216,25 @@ final class TabUpdates extends Tab {
         if ( false === strpos( $changelog, '<h3>Changelog</h3>' ) ) { return false; }
 
         return $changelog;
+
+    }
+
+    /**
+     * Get local changelog
+     *
+     * @return false|mixed
+     */
+    private function get_changelog_local() {
+
+        /** Get fresh changelog file. */
+        $changelog = wp_remote_get( Plugin::get_url() . 'changelog.html', array(
+            'sslverify'  => Settings::get_instance()->options[ 'check_ssl' ] === 'on'
+        ) );
+
+        /** Check for errors. */
+        if ( is_wp_error( $changelog ) || empty( $changelog['body'] ) ) { return false; }
+
+        return $changelog['body'];
 
     }
 
@@ -218,10 +262,12 @@ final class TabUpdates extends Tab {
     public static function ajax_check_updates() {
 
         /** Check nonce for security. */
-        check_ajax_referer( 'ungrabber', 'nonce' );
+        check_ajax_referer( 'ungrabber-unity', 'nonce' );
 
         /** Do we need to do a full reset? */
-        if ( empty( $_POST['checkUpdates'] ) ) {  wp_send_json( 'Wrong Parameter Value.' ); }
+        if ( empty( $_POST['checkUpdates'] ) ) {
+	        wp_send_json( esc_html__( 'Wrong Parameter Value.', 'ungrabber' ) );
+        }
 
         /** Clear cache table. */
         $cache = new Cache();

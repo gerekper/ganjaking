@@ -168,17 +168,9 @@ class DashboardWidget {
 		);
 
 		wp_enqueue_script(
-			'wp-mail-smtp-moment',
-			wp_mail_smtp()->assets_url . '/js/vendor/moment.min.js',
-			[],
-			'2.29.4',
-			true
-		);
-
-		wp_enqueue_script(
 			'wp-mail-smtp-chart',
 			wp_mail_smtp()->assets_url . '/js/vendor/chart.min.js',
-			[ 'wp-mail-smtp-moment' ],
+			[ 'moment' ],
 			'2.9.4.1',
 			true
 		);
@@ -317,22 +309,19 @@ class DashboardWidget {
 			</div>
 			<div class="wp-mail-smtp-dash-widget-email-alerts-education-content">
 				<?php
-				if ( $error_count === 1 ) {
-					$error_title = sprintf(
-						/* translators: %d - Timespan. */
-						__( 'We detected a failed email in the last %d days.', 'wp-mail-smtp-pro' ),
-						$this->widget_meta( 'get', 'timespan' )
-					);
-				} else {
-					$error_title = sprintf(
-						/* translators: 1: Number of failed emails, 2: Timespan. */
-						__( 'We detected %1$d failed emails in the last %2$d days.', 'wp-mail-smtp-pro' ),
+				$error_title = sprintf(
+					/* translators: 1: Number of failed emails, 2: Timespan. */
+					_n(
+						'We detected %1$d failed email in the last %2$d days.',
+						'We detected %1$d failed emails in the last %2$d days.',
 						$error_count,
-						$this->widget_meta( 'get', 'timespan' )
-					);
-				}
+						'wp-mail-smtp-pro'
+					),
+					$error_count,
+					$this->widget_meta( 'get', 'timespan' )
+				);
 
-				$content = sprintf(
+				$error_content = sprintf(
 					/* translators: %s - URL to WP Mail SMTP -> Settings -> Alerts Admin page.. */
 					__( '<a href="%s">Enable Email Alerts</a> and get instant notifications when they fail.', 'wp-mail-smtp-pro' ),
 					esc_url( add_query_arg( 'tab', 'alerts', wp_mail_smtp()->get_admin()->get_admin_page_url( Area::SLUG ) ) )
@@ -342,7 +331,7 @@ class DashboardWidget {
 					<strong><?php echo esc_html( $error_title ); ?></strong><br />
 					<?php
 					echo wp_kses(
-						$content,
+						$error_content,
 						[
 							'a' => [
 								'href'   => [],

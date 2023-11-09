@@ -272,14 +272,23 @@ class UpdraftPlus_Addons_MoreFiles {
 		if (0 == ($this->wpcore_foundyet & 2)) $warn[] = sprintf(__('This does not look like a valid WordPress core backup - the file %s was missing.', 'updraftplus'), 'xmlrpc.php').' '.__('If you are not sure then you should stop; otherwise you may destroy this WordPress installation.', 'updraftplus');
 	}
 
+	/**
+	 * This function returns a list of file entities that can be backed up other than potential entities  (subject to user's settings), and optionally further meta-data about them
+	 *
+	 * @param  array   $arr       -  List of entities
+	 * @param  boolean $full_info -  boolean to indicate if we need full details regarding the entity
+	 * @return array              -  array of final entity list
+	 */
 	public function backupable_file_entities_final($arr, $full_info) {
 		$path = UpdraftPlus_Options::get_updraft_option('updraft_include_more_path');
-		if (is_array($path)) {
-			$path = array_map('untrailingslashit', $path);
-			if (1 == count($path)) $path = array_shift($path);
-		} else {
-			$path = untrailingslashit($path);
-		}
+		
+		if (!is_string($path) && !is_array($path)) return $arr;
+		$path = (array) $path;
+		$path = UpdraftPlus_Manipulation_Functions::remove_empties($path);
+		if (empty($path)) return $arr;
+		$path = array_map('untrailingslashit', $path);
+		if (1 == count($path)) $path = array_shift($path);
+
 		if ($full_info) {
 			$arr['more'] = array(
 				'path' => $path,

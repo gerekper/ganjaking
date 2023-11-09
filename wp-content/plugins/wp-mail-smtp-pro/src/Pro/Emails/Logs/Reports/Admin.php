@@ -143,17 +143,9 @@ class Admin extends EmailReportsTab {
 		$min = WP::asset_min();
 
 		wp_enqueue_script(
-			'wp-mail-smtp-moment',
-			wp_mail_smtp()->assets_url . '/js/vendor/moment.min.js',
-			[],
-			'2.29.4',
-			true
-		);
-
-		wp_enqueue_script(
 			'wp-mail-smtp-chart',
 			wp_mail_smtp()->assets_url . '/js/vendor/chart.min.js',
-			[ 'wp-mail-smtp-moment' ],
+			[ 'moment' ],
 			'2.9.4.1',
 			true
 		);

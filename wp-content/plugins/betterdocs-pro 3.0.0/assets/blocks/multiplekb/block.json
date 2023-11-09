@@ -1,0 +1,8 @@
+{
+    "apiVersion": 2,
+    "title": "BetterDocs Multiple KB",
+    "name": "betterdocs/multiplekb",
+    "category": "betterdocs",
+    "description": "Display your Knowledgebase in an amazing Box layout and style it any way you want.",
+    "textdomain": "betterdocs-pro"
+}

@@ -78,10 +78,17 @@ class SettingsTab extends AdditionalConnectionsTab {
 	 */
 	public function process_actions() {
 
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		if ( isset( $_REQUEST['mode'] ) && isset( $_REQUEST['connection_id'] ) && $_REQUEST['mode'] === 'delete' ) {
-			$this->process_connection_delete();
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		if ( isset( $_REQUEST['mode'] ) && isset( $_REQUEST['connection_id'] ) ) {
+			$mode = sanitize_key( $_REQUEST['mode'] );
+
+			if ( $mode === 'delete' ) {
+				$this->process_connection_delete();
+			} elseif ( $mode === 'switch_with_primary' ) {
+				$this->process_connection_switch_with_primary();
+			}
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 		$this->display_notices();
 	}
@@ -119,6 +126,66 @@ class SettingsTab extends AdditionalConnectionsTab {
 		} else {
 			$url = add_query_arg( 'message', 'delete_failed', $this->get_connections_list_url() );
 		}
+
+		wp_safe_redirect( $url );
+		exit;
+	}
+
+	/**
+	 * Switch additional connection to primary and vice versa.
+	 *
+	 * @since 3.10.0
+	 */
+	private function process_connection_switch_with_primary() {
+
+		// Nonce verification.
+		if (
+			! isset( $_REQUEST['_wpnonce'] ) ||
+			! wp_verify_nonce( sanitize_key( $_REQUEST['_wpnonce'] ), 'wp_mail_smtp_pro_additional_connection_switch_with_primary' )
+		) {
+			wp_die( esc_html__( 'Access rejected.', 'wp-mail-smtp-pro' ) );
+		}
+
+		if ( ! current_user_can( $this->additional_connections->get_manage_capability() ) ) {
+			wp_die( esc_html__( 'You don\'t have the capability to perform this action.', 'wp-mail-smtp-pro' ) );
+		}
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( ! isset( $_REQUEST['connection_id'] ) ) {
+			wp_die( esc_html__( 'Required parameters are missing.', 'wp-mail-smtp-pro' ) );
+		}
+
+		$connection_id         = sanitize_key( $_REQUEST['connection_id'] );
+		$additional_connection = $this->additional_connections->get_connection( $connection_id );
+
+		if ( $additional_connection === false ) {
+			wp_die( esc_html__( 'Connection not found.', 'wp-mail-smtp-pro' ) );
+		}
+
+		$primary_connection           = wp_mail_smtp()->get_connections_manager()->get_primary_connection();
+		$primary_connection_mailer    = $primary_connection->get_mailer_slug();
+		$additional_connection_mailer = $additional_connection->get_mailer_slug();
+
+		$primary_connection_options_data = array_merge(
+			$primary_connection->get_options()->get_all_raw(),
+			[
+				'mail'                        => $additional_connection->get_options()->get_group( 'mail' ),
+				$additional_connection_mailer => $additional_connection->get_options()->get_group( $additional_connection_mailer ),
+			]
+		);
+
+		$additional_connection_options_data = array_merge(
+			$additional_connection->get_options()->get_all_raw(),
+			[
+				'mail'                     => $primary_connection->get_options()->get_group( 'mail' ),
+				$primary_connection_mailer => $primary_connection->get_options()->get_group( $primary_connection_mailer ),
+			]
+		);
+
+		$primary_connection->get_options()->set( $primary_connection_options_data );
+		$additional_connection->get_options()->set( $additional_connection_options_data );
+
+		$url = add_query_arg( 'message', 'additional_connection_switched_with_primary', wp_mail_smtp()->get_admin()->get_admin_page_url() );
 
 		wp_safe_redirect( $url );
 		exit;
@@ -316,27 +383,31 @@ class SettingsTab extends AdditionalConnectionsTab {
 	 */
 	private function display_single_connection( $connection_id ) {
 
-		$is_new = empty( $connection_id );
+		$is_new = $connection_id === false;
 
 		if ( ! $is_new ) {
 			$connection = wp_mail_smtp()->get_connections_manager()->get_connection( $connection_id, false );
+
+			if ( $connection === false ) {
+				$this->display_header( true );
+				$this->display_connection_not_found();
+
+				return;
+			}
 		} else {
 			$connection = new Connection( uniqid() );
 		}
 
-		if ( $connection === false ) {
-			$this->display_header( true );
-			$this->display_connection_not_found();
-
-			return;
-		}
-
 		$connection_relation = $this->get_connection_relation( $connection_id );
 		$connection_settings = new ConnectionSettings( $connection );
+		$mailer              = $connection->get_mailer();
 		?>
 
 		<form method="POST" action="" autocomplete="off" class="wp-mail-smtp-connection-settings-form">
 			<?php $this->wp_nonce_field(); ?>
+
+			<input type="hidden" name="is_new" value="<?php echo intval( $is_new ); ?>">
+			<input type="hidden" name="connection_id" value="<?php echo esc_attr( $connection->get_id() ); ?>">
 
 			<?php $this->display_header( true ); ?>
 
@@ -366,6 +437,12 @@ class SettingsTab extends AdditionalConnectionsTab {
 								 id="wp-mail-smtp-setting-from_email" spellcheck="false"
 								 required
 					/>
+
+					<?php if ( ! $is_new && $mailer->is_mailer_complete() ) : ?>
+						<a href="<?php echo esc_url( $this->get_connection_url( 'switch_with_primary', $connection_id ) ); ?>" class="js-wp-mail-smtp-switch-additional-connection-with-primary wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-blueish">
+							<?php esc_html_e( 'Use as Primary Connection', 'wp-mail-smtp-pro' ); ?>
+						</a>
+					<?php endif; ?>
 				</div>
 			</div>
 
@@ -413,11 +490,16 @@ class SettingsTab extends AdditionalConnectionsTab {
 
 		$this->check_admin_referer();
 
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$is_new = ! isset( $_GET['connection_id'] );
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
+		if ( ! isset( $_POST['connection_id'] ) ) {
+			wp_die( esc_html__( 'Something goes wrong. Missed connection ID parameter.', 'wp-mail-smtp-pro' ) );
+		}
 
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$connection_id = isset( $_GET['connection_id'] ) ? sanitize_key( $_GET['connection_id'] ) : uniqid();
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$is_new = ! empty( $_POST['is_new'] );
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$connection_id = sanitize_key( $_POST['connection_id'] );
 
 		$connection          = new Connection( $connection_id );
 		$connection_settings = new ConnectionSettings( $connection );
@@ -472,7 +554,8 @@ class SettingsTab extends AdditionalConnectionsTab {
 	 *
 	 * @since 3.7.0
 	 *
-	 * @param string $mode          URL type that should be returned. Acceptable values "new", "edit" and "delete".
+	 * @param string $mode          URL type that should be returned. Acceptable values "new", "edit", "delete"
+	 *                              and "switch_with_primary".
 	 * @param string $connection_id Connection ID.
 	 *
 	 * @return string
@@ -514,6 +597,20 @@ class SettingsTab extends AdditionalConnectionsTab {
 						wp_mail_smtp()->get_admin()->get_admin_page_url()
 					),
 					'wp_mail_smtp_pro_additional_connection_delete'
+				);
+				break;
+
+			case 'switch_with_primary':
+				$url = wp_nonce_url(
+					add_query_arg(
+						[
+							'tab'           => 'connections',
+							'mode'          => 'switch_with_primary',
+							'connection_id' => $connection_id,
+						],
+						wp_mail_smtp()->get_admin()->get_admin_page_url()
+					),
+					'wp_mail_smtp_pro_additional_connection_switch_with_primary'
 				);
 				break;
 		}

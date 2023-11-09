@@ -1240,7 +1240,8 @@ Check your permissions and credentials.','updraftplus'), 'error');
 					return array($storage, $config, false, false);
 				}
 				
-				// TODO: If this is a credentials test, then $config/$new_config may get wrongly populated with saved instead of test values here
+				// The base Amazon S3 module and child S3-Generic remote storage don't use session token to make a connection to the targeted storage server: we only use session token for Vault storage.
+				// Since we don't provide credentials testing for Vault storage, this means handling session token expiry exception won't happen during credentials testing. So the fact that saved values are used here is fine, since there are no other relevant values in the absence of credentials testing.
 				if (false !== strpos($e->getMessage(), 'The provided token has expired')) {
 				
 					$this->log($e->getMessage().": Requesting new credentials");

@@ -1163,7 +1163,7 @@ class Permalink_Manager_Third_Parties {
 			global $pm_query;
 
 			$old_url   = trim( esc_url_raw( $_GET['permaLink'] ), '/' );
-			$new_query = Permalink_Manager_Core_Functions::detect_post( null, $old_url );
+			$new_query = Permalink_Manager_Core_Functions::detect_post( array(), $old_url );
 
 			if ( ! empty( $new_query ) && ! empty( $pm_query['id'] ) ) {
 				$request = $new_query;

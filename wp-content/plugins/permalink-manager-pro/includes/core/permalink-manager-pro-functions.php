@@ -27,7 +27,7 @@ class Permalink_Manager_Pro_Functions {
 		add_action( 'permalink_manager_updated_term_uri', array( $this, 'save_redirects' ), 9, 5 );
 
 		// Check for updates
-	//	add_action( 'plugins_loaded', array( $this, 'check_for_updates' ), 10 );
+		
 		add_action( 'admin_init', array( $this, 'reload_license_key' ), 10 );
 		add_action( 'wp_ajax_pm_get_exp_date', array( $this, 'get_expiration_date' ), 9 );
 
@@ -491,7 +491,7 @@ class Permalink_Manager_Pro_Functions {
 
 				// Make sure that custom field is a string
 				if ( ! empty( $custom_field_value ) && is_string( $custom_field_value ) ) {
-					// Do not sanitize the custom field if 'no-sanitize' argument is added (eg. %__custom-field-name.no-sanitize%)
+					// Do not sanitize the custom field if 'no-sanitize' argument is added (e.g. %__custom-field-name.no-sanitize%)
 					if ( empty( $custom_field_arg ) || strpos( $custom_field_arg, 'no-sanitize' ) === false ) {
 						$custom_field_value = Permalink_Manager_Helper_Functions::sanitize_title( $custom_field_value );
 					}
@@ -652,7 +652,7 @@ class Permalink_Manager_Pro_Functions {
 		woocommerce_wp_text_input( array(
 			'id'                => 'custom_uri',
 			'label'             => __( 'Coupon URI', 'permalink-manager' ),
-			'description'       => '<span class="duplicated_uri_alert"></span>' . __( 'The URIs are case-insensitive, eg. <strong>BLACKFRIDAY</strong> and <strong>blackfriday</strong> are equivalent.', 'permalink-manager' ),
+			'description'       => '<span class="duplicated_uri_alert"></span>' . __( 'The URIs are case-insensitive, e.g. <strong>BLACKFRIDAY</strong> and <strong>blackfriday</strong> are equivalent.', 'permalink-manager' ),
 			'value'             => $custom_uri,
 			'custom_attributes' => array( 'data-element-id' => $post->ID ),
 			//'desc_tip' => true

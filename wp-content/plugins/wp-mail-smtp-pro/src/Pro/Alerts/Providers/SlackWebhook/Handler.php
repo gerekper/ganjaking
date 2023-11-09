@@ -33,6 +33,7 @@ class Handler implements HandlerInterface {
 				Alerts::FAILED_EMAIL,
 				Alerts::FAILED_PRIMARY_EMAIL,
 				Alerts::FAILED_BACKUP_EMAIL,
+				Alerts::HARD_BOUNCED_EMAIL,
 			],
 			true
 		);
@@ -143,6 +144,10 @@ class Handler implements HandlerInterface {
 
 			case Alerts::FAILED_BACKUP_EMAIL:
 				$alert_message = esc_html__( 'Your Site failed to send an email via Primary and Backup connection', 'wp-mail-smtp-pro' );
+				break;
+
+			case Alerts::HARD_BOUNCED_EMAIL:
+				$alert_message = esc_html__( 'An email failed to be delivered', 'wp-mail-smtp-pro' );
 				break;
 		}
 

@@ -905,6 +905,7 @@ class UpdraftPlus_Admin {
 			'errornocolon' => __('Error', 'updraftplus'),
 			'existing_backups' => __('Existing backups', 'updraftplus'),
 			'fileready' => __('File ready.', 'updraftplus'),
+			'filesize' => __('File size', 'updraftplus'),
 			'actions' => __('Actions', 'updraftplus'),
 			'deletefromserver' => __('Delete from your web server', 'updraftplus'),
 			'downloadtocomputer' => __('Download to your computer', 'updraftplus'),
@@ -1127,6 +1128,7 @@ class UpdraftPlus_Admin {
 			'expired_tokens' => __('This is usually caused by your dashboard page having been open a long time, and the included security tokens having since expired.', 'updraftplus'),
 			'reload_page'  => __('Therefore, please reload the page.', 'updraftplus'),
 			'save_changes'  => __('Save Changes', 'updraftplus'),
+			'close' => __('Close', 'updraftplus'),
 		));
 	}
 	
@@ -2852,9 +2854,11 @@ class UpdraftPlus_Admin {
 	 */
 	public function display_footer_review_message() {
 		$message = sprintf(
-			__('Enjoyed %s? Please leave us a %s rating.', 'updraftplus').' '.__('We really appreciate your support!', 'updraftplus'),
+			__('Enjoyed %s? Please leave us a %s rating on %s or %s', 'updraftplus').' '.__('We really appreciate your support!', 'updraftplus'),
 			'<b>UpdraftPlus</b>',
-			'<a href="https://www.g2.com/products/updraftplus/reviews" target="_blank">&starf;&starf;&starf;&starf;&starf;</a>'
+			'<span style="color:#2271b1">&starf;&starf;&starf;&starf;&starf;</span>',
+			'<a href="https://trustpilot.com/review/updraftplus.com" target="_blank">Trustpilot</a>',
+			'<a href="https://www.g2.com/products/updraftplus/reviews" target="_blank">G2.com</a>'
 		);
 		return $message;
 	}
@@ -4251,6 +4255,10 @@ class UpdraftPlus_Admin {
 		global $updraftplus;
 		$for_updraftcentral = defined('UPDRAFTCENTRAL_COMMAND') && UPDRAFTCENTRAL_COMMAND;
 		$backupable_entities = $updraftplus->get_backupable_file_entities(true, true);
+
+		if (!function_exists('get_mu_plugins')) include_once(ABSPATH.'wp-admin/includes/plugin.php');
+		$mu_plugins = get_mu_plugins();
+
 		// The true (default value if non-existent) here has the effect of forcing a default of on.
 		$include_more_paths = UpdraftPlus_Options::get_updraft_option('updraft_include_more_path');
 		foreach ($backupable_entities as $key => $info) {
@@ -4300,8 +4308,14 @@ class UpdraftPlus_Admin {
 				if ('more' != $key || true === $include_more || ('sometimes' === $include_more && !empty($include_more_paths))) {
 				
 					$data_toggle_exclude_field = $show_exclusion_options ? 'data-toggle_exclude_field="'.$key.'"' : '';
+					
+					$force_disabled = '';
+					if ('mu-plugins' == $key && !$mu_plugins) {
+						$force_disabled = 'data-force_disabled="1"';
+						$info['description'] .= ' ('.__('none present', 'updraftplus').')';
+					}
 				
-					$ret .= "<label for=\"".$prefix."updraft_include_$key\"".((isset($info['htmltitle'])) ? ' title="'.htmlspecialchars($info['htmltitle']).'"' : '')." class=\"updraft_checkbox\"><input class=\"updraft_include_entity\" $data_toggle_exclude_field id=\"".$prefix."updraft_include_$key\" type=\"checkbox\" name=\"updraft_include_$key\" value=\"1\" $included /> ".htmlspecialchars($info['description']);
+					$ret .= "<label for=\"".$prefix."updraft_include_$key\"".((isset($info['htmltitle'])) ? ' title="'.htmlspecialchars($info['htmltitle']).'"' : '')." class=\"updraft_checkbox\"><input class=\"updraft_include_entity\" $data_toggle_exclude_field id=\"".$prefix."updraft_include_$key\" type=\"checkbox\" name=\"updraft_include_$key\" value=\"1\" $included $force_disabled/> ".htmlspecialchars($info['description']);
 
 					$ret .= "</label>";
 					$ret .= apply_filters("updraftplus_config_option_include_$key", '', $prefix, $for_updraftcentral);

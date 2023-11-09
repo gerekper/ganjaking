@@ -43,6 +43,13 @@ class UpdraftPlus_Addons_RemoteStorage_onedrive extends UpdraftPlus_RemoteStorag
 	private $onedrive_file_size;
 
 	/**
+	 * Onedrive uploaded size
+	 *
+	 * @var Integer
+	 */
+	private $onedrive_uploaded_size;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
