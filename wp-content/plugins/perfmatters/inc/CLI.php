@@ -81,4 +81,29 @@ class CLI {
 			WP_CLI::warning(__('License could not be removed.', 'perfmatters'));
 		}
 	}
+
+	/**
+	 * Clears used CSS.
+	 * 
+	 * ## OPTIONS
+     *
+     * [--network]
+     * : Clear used CSS for all sites in the network.
+     * 
+	 * @subcommand clear-used-css
+	 * 
+	 */
+	public function clear_used_css($args, $assoc_args) {
+
+		if(!empty($assoc_args['network']) && is_multisite()) {
+			foreach(get_sites(array('number' => 500)) as $blog) {
+			   	CSS::clear_used_css($blog);
+			}
+			WP_CLI::success(__('Used CSS cleared for all network sites.', 'perfmatters'));
+		}
+		else {
+			CSS::clear_used_css();
+			WP_CLI::success(__('Used CSS cleared.', 'perfmatters'));
+		}
+	}
 }

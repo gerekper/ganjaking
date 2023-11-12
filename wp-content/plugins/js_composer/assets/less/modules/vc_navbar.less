@@ -67,7 +67,7 @@
     transition: background-color @vcui-navbar-transition-duration @vcui-navbar-transition-function;
     position: relative;
     font-size: 24px;
-    &[disabled] {
+    &[disabled], &[disabled]#vc_navbar-redo {
       .opacity(0.2);
     }
     &:not([disabled]):hover {
@@ -285,7 +285,7 @@
   }
 }
 
-@media screen and (max-width: 835px) {
+@media screen and (max-width: 782px) {
   .vc_navbar li, .navbar-header {
     display: none;
   }

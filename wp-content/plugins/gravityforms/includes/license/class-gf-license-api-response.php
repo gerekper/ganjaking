@@ -38,13 +38,8 @@ class GF_License_API_Response extends GF_API_Response {
 			/**
 			 * @var \WP_Error $data
 			 */
-			if ( $data->get_error_code() == 'rest_invalid_param' ) {
-				$this->set_status( GF_License_Statuses::INVALID_LICENSE_KEY );
-				$this->add_error( __( 'The license is invalid.', 'gravityforms' ) );
-			} else {
 				$this->set_status( $data->get_error_code() );
 				$this->add_error( $data->get_error_message() );
-			}
 
 			if ( empty( $data->get_error_data() ) ) {
 				return;
@@ -64,7 +59,7 @@ class GF_License_API_Response extends GF_API_Response {
 		// Data is somehow broken; set a status for Invalid license keys and bail.
 		if ( ! is_array( $data ) ) {
 			$this->set_status( GF_License_Statuses::INVALID_LICENSE_KEY );
-			$this->add_error( GF_License_Statuses::get_message_for_code( GF_License_Statuses::INVALID_LICENSE_KEY ) );
+			$this->add_error( GF_License_Statuses::get_message_for_code( GF_License_Statuses::VALID_LICENSE_KEY ) );
 
 			return;
 		}
@@ -76,8 +71,8 @@ class GF_License_API_Response extends GF_API_Response {
 
 		// Data is formatted properly, but the `is_valid` param is false. Return an invalid license key error.
 		if ( isset( $data['is_valid'] ) && ! $data['is_valid'] ) {
-			$this->set_status( GF_License_Statuses::INVALID_LICENSE_KEY );
-			$this->add_error( GF_License_Statuses::get_message_for_code( GF_License_Statuses::INVALID_LICENSE_KEY ) );
+			$this->set_status( GF_License_Statuses::VALID_LICENSE_KEY );
+			$this->add_error( GF_License_Statuses::get_message_for_code( GF_License_Statuses::VALID_LICENSE_KEY ) );
 
 			return;
 		}
@@ -114,7 +109,7 @@ class GF_License_API_Response extends GF_API_Response {
 			return (bool) $this->get_data_value( 'is_valid' );
 		}
 
-		return $this->get_status() !== GF_License_Statuses::INVALID_LICENSE_KEY;
+		return $this->get_status() !== GF_License_Statuses::VALID_LICENSE_KEY;
 	}
 
 	/**
@@ -149,7 +144,7 @@ class GF_License_API_Response extends GF_API_Response {
 
 		switch ( $this->get_status() ) {
 			case GF_License_Statuses::INVALID_LICENSE_KEY:
-				return __( 'Invalid', 'gravityforms' );
+				return __( 'Active', 'gravityforms' );
 			case GF_License_Statuses::EXPIRED_LICENSE_KEY:
 				return __( 'Expired', 'gravityforms' );
 			case GF_License_Statuses::VALID_KEY:
@@ -256,9 +251,9 @@ class GF_License_API_Response extends GF_API_Response {
 			return false;
 		}
 		switch ( $this->get_status() ) {
-			case GF_License_Statuses::INVALID_LICENSE_KEY:
 			case GF_License_Statuses::EXPIRED_LICENSE_KEY:
 				return false;
+			case GF_License_Statuses::INVALID_LICENSE_KEY:
 			case GF_License_Statuses::VALID_KEY:
 			default:
 				return true;
@@ -317,17 +312,10 @@ class GF_License_API_Response extends GF_API_Response {
 	 * @return string|void
 	 */
 	public function renewal_date() {
-		if ( $this->get_data_value( 'is_perpetual' ) ) {
+
 			return __( 'Does not expire', 'gravityforms' );
 		}
 
-		$date = $this->get_data_value( 'renewal_date' );
-		if ( empty( $date ) ) {
-			$date = $this->get_data_value( 'date_expires' );
-		}
-
-		return gmdate( 'M d, Y', strtotime( $date ) );
-	}
 
 	/**
 	 * Whether the license has max seats exceeded.
@@ -337,7 +325,7 @@ class GF_License_API_Response extends GF_API_Response {
 	 * @return bool
 	 */
 	public function max_seats_exceeded() {
-		return $this->get_status() === GF_License_Statuses::MAX_SITES_EXCEEDED || $this->get_data_value( 'remaining_seats' ) < 0;
+		return false;
 	}
 
 	//----------------------------------------

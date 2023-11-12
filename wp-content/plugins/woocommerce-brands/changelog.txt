@@ -1,5 +1,12 @@
 *** Brands Changelog ***
 
+2023-11-07 - version 1.6.62
+* Dev - Run unit tests using Pest instead of PHPUnit.
+* Fix - Doc - Use new Woo.com domain.
+* Fix - Notice/warning for array of IDs in API requests.
+* Tweak - WC 8.3 compatibility.
+* Tweak - WP 6.4 compatibility.
+
 2023-10-24 - version 1.6.61
 * Add - Declare plugin as compatible with new product editor.
 

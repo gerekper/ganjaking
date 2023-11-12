@@ -4,7 +4,7 @@
  * Plugin Name: WooCommerce Anti Fraud
  * Plugin URI: https://woocommerce.com/products/woocommerce-anti-fraud/
  * Description: Score each of your transactions, checking for possible fraud, using a set of advanced scoring rules.
- * Version: 5.6.0
+ * Version: 5.7.0
  * Author: OPMC Australia Pty Ltd
  * Author URI: https://opmc.biz/
  * Text Domain: woocommerce-anti-fraud
@@ -130,6 +130,10 @@ define( 'WOOCOMMERCE_ANTI_FRAUD_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 include_once 'includes/opmc-hpos-compatibility-helper.php';
 require_once dirname( __FILE__ ) . '/anti-fraud-core/class-wc-af-trust-swiftly.php';
 
+/**
+ * Initialized main class WooCommerce_Anti_Fraud
+ */
+
 class WooCommerce_Anti_Fraud {
 
 
@@ -248,6 +252,7 @@ class WooCommerce_Anti_Fraud {
 		add_action( 'woocommerce_after_checkout_validation', array( $this, 'too_many_order_attempt_validation' ), 10, 2 );
 		add_action( 'woocommerce_checkout_order_processed', array( $this, 'wh_pre_paymentcall' ), 10, 2 );
 		add_action( 'woocommerce_after_checkout_validation', array( $this, 'max_order_attempt_between_timespan' ), 10, 2 );
+		add_action('init', array($this, 'update_blacklist_ips_option'), 999);
 	}
 
 	/* Related to Wildcard email */
@@ -339,6 +344,23 @@ class WooCommerce_Anti_Fraud {
 			}
 		}
 
+		// check whitelist ips
+		$userIp = WC_Geolocation::get_ip_address();
+
+		$get_all_whitelist_ips = get_option('wc_settings_anti_fraud_ips_whitelist');
+
+		$whitelist_ips = 'false';
+		if ( '' != $get_all_whitelist_ips) {
+
+			$s_whitelist_ips = explode(',', $get_all_whitelist_ips);
+			
+			if (in_array($userIp, $s_whitelist_ips)) {
+
+				$whitelist_ips = 'true';
+			}
+		}
+		//$ip = '195.181.161.229';
+
 		// check whitelist user role
 		$user = wp_get_current_user();
 		$user_roles = $user->roles;
@@ -387,6 +409,7 @@ class WooCommerce_Anti_Fraud {
 		update_option( 'not_whitelisted_email', $selected_whitelisted_role );
 		update_option( 'white_payment_methods', $selected_whitelist_payment_method );
 		update_option( 'is_whitelisted_roles', $selected_whitelisted_email );
+		update_option('is_whitelisted_ips', $whitelist_ips);
 
 		$is_enable_blacklist = get_option( 'wc_settings_anti_fraudenable_automatic_email_blacklist' );
 		$get_blacklist_email = get_option( 'wc_settings_anti_fraudblacklist_emails' );
@@ -404,7 +427,7 @@ class WooCommerce_Anti_Fraud {
 
 					$valid_customer = $this->create_email_pattern( $setting_email, $customer_billing_email );
 
-					if ( isset( $valid_customer ) && 'true' == $valid_customer && ! $selected_whitelisted_email && 'true' != $selected_whitelisted_role && 'true' != $selected_whitelist_payment_method ) {
+					if ( isset( $valid_customer ) && 'true' == $valid_customer && ! $selected_whitelisted_email && 'true' != $selected_whitelisted_role && 'true' != $selected_whitelist_payment_method && 'true' != $whitelist_ips ) {
 
 						global $check_block;
 						$check_block = 1;
@@ -460,6 +483,23 @@ class WooCommerce_Anti_Fraud {
 			}
 		}
 
+		// check whitelist ips
+		$userIp = WC_Geolocation::get_ip_address();
+
+		$get_all_whitelist_ips = get_option('wc_settings_anti_fraud_ips_whitelist');
+
+		$whitelist_ips = 'false';
+		if ( '' != $get_all_whitelist_ips) {
+
+			$s_whitelist_ips = explode(',', $get_all_whitelist_ips);
+			
+			if (in_array($userIp, $s_whitelist_ips)) {
+
+				$whitelist_ips = 'true';
+			}
+		}
+		//$ip = '195.181.161.229';
+
 		// check whitelist user role
 		$user = wp_get_current_user();
 		$user_roles = $user->roles;
@@ -510,6 +550,7 @@ class WooCommerce_Anti_Fraud {
 		update_option( 'not_whitelisted_email', $selected_whitelisted_email );
 		update_option( 'white_payment_methods', $selected_whitelist_payment_method );
 		update_option( 'is_whitelisted_roles', $selected_whitelisted_role );
+		update_option('is_whitelisted_ips', $whitelist_ips);
 
 		$is_enable_blacklist = get_option( 'wc_settings_anti_fraudenable_automatic_email_blacklist' );
 		$get_blacklist_email = get_option( 'wc_settings_anti_fraudblacklist_emails' );
@@ -527,7 +568,7 @@ class WooCommerce_Anti_Fraud {
 
 					$valid_customer = $this->create_email_pattern( $setting_email, $customer_email );
 
-					if ( isset( $valid_customer ) && 'true' == $valid_customer && ! $selected_whitelisted_email && 'true' != $selected_whitelisted_role && 'true' != $selected_whitelist_payment_method ) {
+					if ( isset( $valid_customer ) && 'true' == $valid_customer && ! $selected_whitelisted_email && 'true' != $selected_whitelisted_role && 'true' != $selected_whitelist_payment_method && 'true' != $whitelist_ips) {
 
 						$whitelist_email = 'false';
 						// wc_add_notice( __( 'This email id is blocked.' ), 'error' );
@@ -566,17 +607,26 @@ class WooCommerce_Anti_Fraud {
 		if ( wp_verify_nonce( 'test', 'wc_none' ) ) {
 			return true;
 		}
-
-		/*
-		$user = get_user_by('email', isset($_POST['billing_email']) ? sanitize_text_field( $_POST['billing_email'] ) : '');
-		if (isset($user->ID)) {
-		$userRole = $user->roles[0];
-		}*/
-		// Af_Logger::debug('users '. print_r($user->roles[0], true));
-		// $userRole = wp_get_current_user()->roles[0];
-
+		
 		$email_whitelist = get_option( 'wc_settings_anti_fraud_whitelist' );
 		$is_whitelisted = '';
+
+		// check whitelist ips
+		$userIp = WC_Geolocation::get_ip_address();
+
+		$get_all_whitelist_ips = get_option('wc_settings_anti_fraud_ips_whitelist');
+
+		$whitelist_ips = 'false';
+		if ( '' != $get_all_whitelist_ips) {
+
+			$s_whitelist_ips = explode(',', $get_all_whitelist_ips);
+			
+			if (in_array($userIp, $s_whitelist_ips)) {
+
+				$whitelist_ips = 'true';
+			}
+		}
+		//$ip = '195.181.161.229';
 
 		// check whitelist user role
 		$user = wp_get_current_user();
@@ -640,6 +690,7 @@ class WooCommerce_Anti_Fraud {
 		update_option( 'not_whitelisted_email', $selected_whitelisted_email );
 		update_option( 'white_payment_methods', $selected_whitelist_payment_method );
 		update_option( 'is_whitelisted_roles', $selected_whitelisted_role );
+		update_option('is_whitelisted_ips', $whitelist_ips);
 		// Callback function for check whildcard email
 		$selected_wildcard_whitelisted_email = $this->call_wildcard_email_validation();
 
@@ -647,16 +698,18 @@ class WooCommerce_Anti_Fraud {
 			if ( empty( $is_whitelisted ) ) {
 				if ( ! $selected_whitelisted_email ) {
 					if ( 'true' != $selected_whitelisted_role ) {
-						if ( 'true' != $selected_whitelist_payment_method ) {
-							if ( 'true' != $selected_wildcard_whitelisted_email ) {
-								foreach ( $array_mail as $single ) {
-									if ( $_POST['billing_email'] == $single ) {
-										// echo esc_html_e('This email id is blocked.', 'woocommerce-anti-fraud');.
-										// $errors->add( 'validation', __( 'This email id is blocked.', 'woocommerce-anti-fraud' ) );
-										global $check_block;
-										if ( 1 != $check_block ) {
-											// echo ( $wc_af_is_email_blocked );
-											wc_add_notice( __( 'This email id is blocked.' ), 'error' );
+						if ( 'true' != $whitelist_ips ) {
+							if ( 'true' != $selected_whitelist_payment_method ) {
+								if ( 'true' != $selected_wildcard_whitelisted_email ) {
+									foreach ( $array_mail as $single ) {
+										if ( trim($single) == $_POST['billing_email'] ) {
+											// echo esc_html_e('This email id is blocked.', 'woocommerce-anti-fraud');.
+											// $errors->add( 'validation', __( 'This email id is blocked.', 'woocommerce-anti-fraud' ) );
+											global $check_block;
+											if ( 1 != $check_block ) {
+												// echo ( $wc_af_is_email_blocked );
+												wc_add_notice( __( 'This email id is blocked.' ), 'error' );
+											}
 										}
 									}
 								}
@@ -667,12 +720,14 @@ class WooCommerce_Anti_Fraud {
 			} else {
 				if ( ! $selected_whitelisted_email ) {
 					if ( 'true' != $selected_whitelisted_role ) {
-						if ( 'true' != $selected_whitelist_payment_method ) {
-							if ( 'true' != $selected_wildcard_whitelisted_email ) {
-								foreach ( $array_mail as $single ) {
-									if ( $_POST['billing_email'] == $single ) {
-										// echo esc_html_e('This email id is blocked.', 'woocommerce-anti-fraud');.
-										$errors->add( 'validation', __( 'This email id is blocked.', 'woocommerce-anti-fraud' ) );
+						if ( 'true' != $whitelist_ips ) {
+							if ( 'true' != $selected_whitelist_payment_method ) {
+								if ( 'true' != $selected_wildcard_whitelisted_email ) {
+									foreach ( $array_mail as $single ) {
+										if ( trim($single ) == $_POST['billing_email'] ) {
+											// echo esc_html_e('This email id is blocked.', 'woocommerce-anti-fraud');.
+											$errors->add( 'validation', __( 'This email id is blocked.', 'woocommerce-anti-fraud' ) );
+										}
 									}
 								}
 							}
@@ -682,12 +737,12 @@ class WooCommerce_Anti_Fraud {
 			}
 		}
 
-		if ( '' != $blocked_ipaddress && ! $selected_whitelisted_email && 'true' != $selected_whitelisted_role && 'true' != $selected_whitelist_payment_method && 'true' != $selected_wildcard_whitelisted_email ) {
+		if ( '' != $blocked_ipaddress && ! $selected_whitelisted_email && 'true' != $selected_whitelisted_role && 'true' != $selected_whitelist_payment_method && 'true' != $selected_wildcard_whitelisted_email && 'true' != $whitelist_ips ) {
 
 			$userip = WC_Geolocation::get_ip_address();
 			$array_ipaddress = explode( ',', $blocked_ipaddress );
 			foreach ( $array_ipaddress as $singles ) {
-				if ( $userip == $singles ) {
+				if ( trim($singles) == $userip) {
 					$errors->add( 'validation', __( 'This IP Address is blocked.', 'woocommerce-anti-fraud' ) );
 				}
 			}
@@ -700,6 +755,23 @@ class WooCommerce_Anti_Fraud {
 	Note: Risk Score is evaluated and generated in the callback function (written within a separate helper file) after payment is processed and order is generated.
 	 */
 	public function max_order_attempt_between_timespan( $fields, $errors ) {
+
+		// check whitelist ips
+		$userIp = WC_Geolocation::get_ip_address();
+
+		$get_all_whitelist_ips = get_option('wc_settings_anti_fraud_ips_whitelist');
+
+		$whitelist_ips = 'false';
+		if ( '' != $get_all_whitelist_ips) {
+
+			$s_whitelist_ips = explode(',', $get_all_whitelist_ips);
+			
+			if (in_array($userIp, $s_whitelist_ips)) {
+
+				$whitelist_ips = 'true';
+			}
+		}
+		//$ip = '195.181.161.229';
 
 		// check whitelist user role
 		$user = wp_get_current_user();
@@ -755,6 +827,7 @@ class WooCommerce_Anti_Fraud {
 		update_option( 'not_whitelisted_email', $selected_whitelisted_email );
 		update_option( 'white_payment_methods', $selected_whitelist_payment_method );
 		update_option( 'is_whitelisted_roles', $selected_whitelisted_role );
+		update_option('is_whitelisted_ips', $whitelist_ips);
 
 		// Callback function for check whildcard email
 		$selected_wildcard_whitelisted_email = $this->call_wildcard_email_validation();
@@ -762,7 +835,7 @@ class WooCommerce_Anti_Fraud {
 		$order_limit_enabled = get_option( 'wc_af_limit_order_count' );
 		$is_update_status_active = get_option( 'wc_af_fraud_update_state' );
 
-		if ( 'yes' === $order_limit_enabled && 'true' != $selected_whitelisted_email && 'true' != $selected_whitelisted_role && 'true' != $selected_whitelist_payment_method && 'true' != $selected_wildcard_whitelisted_email ) {
+		if ( 'yes' === $order_limit_enabled && 'true' != $selected_whitelisted_email && 'true' != $selected_whitelisted_role && 'true' != $selected_whitelist_payment_method && 'true' != $selected_wildcard_whitelisted_email && 'true' != $whitelist_ips ) {
 
 			$orders_allowed_limit = get_option( 'wc_af_allowed_order_limit' );
 			$limit_time_start = get_option( 'wc_af_limit_time_start' );
@@ -812,6 +885,23 @@ class WooCommerce_Anti_Fraud {
 			$wc_af_whitelist_user_roles = array();
 		}
 
+		// check whitelist ips
+		$userIp = WC_Geolocation::get_ip_address();
+
+		$get_all_whitelist_ips = get_option('wc_settings_anti_fraud_ips_whitelist');
+		$whitelist_ips = 'false';
+
+		if ('' != $get_all_whitelist_ips) {
+
+			$s_whitelist_ips = explode(',', $get_all_whitelist_ips);
+			
+			if (in_array($userIp, $s_whitelist_ips)) {
+
+				$whitelist_ips = 'true';
+			}
+		}
+		//$ip = '195.181.161.229';
+
 		$selected_whitelisted_role = 'false';
 		$is_enable_whitelist_user_roles = get_option( 'wc_af_enable_whitelist_user_roles' );
 		if ( 'yes' == $is_enable_whitelist_user_roles ) {
@@ -853,11 +943,12 @@ class WooCommerce_Anti_Fraud {
 		update_option( 'not_whitelisted_email', $selected_whitelisted_email );
 		update_option( 'white_payment_methods', $selected_whitelist_payment_method );
 		update_option( 'is_whitelisted_roles', $selected_whitelisted_role );
+		update_option('is_whitelisted_ips', $whitelist_ips);
 
 		// Callback function for check whildcard email
 		$selected_wildcard_whitelisted_email = $this->call_wildcard_email_validation();
 
-		if ( 'yes' == $too_many_order_switch && 'true' != $selected_whitelisted_email && 'true' != $selected_whitelisted_role && 'true' != $selected_whitelist_payment_method && 'true' != $selected_wildcard_whitelisted_email ) {
+		if ( 'yes' == $too_many_order_switch && 'true' != $selected_whitelisted_email && 'true' != $selected_whitelisted_role && 'true' != $selected_whitelist_payment_method && 'true' != $selected_wildcard_whitelisted_email && 'true' != $whitelist_ips ) {
 
 			// Calculate the new datetime
 			$dt = new DateTime( 'NOW', wp_timezone() );
@@ -980,6 +1071,28 @@ class WooCommerce_Anti_Fraud {
 			return;
 		}
 
+		// check whitelist ips
+		$userIp = WC_Geolocation::get_ip_address();
+
+		$get_all_whitelist_ips = get_option('wc_settings_anti_fraud_ips_whitelist');
+
+		$whitelist_ips = 'false';
+
+		if ( '' != $get_all_whitelist_ips) {
+
+			$s_whitelist_ips = explode(',', $get_all_whitelist_ips);
+			
+			if (in_array($userIp, $s_whitelist_ips)) {
+
+				$whitelist_ips = 'true';
+				opmc_hpos_update_post_meta( $order_id, 'wc_af_score', 100 );
+				opmc_hpos_update_post_meta( $order_id, 'whitelist_action', 'user_email_whitelisted' );
+				$order->add_order_note( __( 'Order fraud checks skipped due to whitelisted customer IPs.', 'woocommerce-anti-fraud' ) );
+				return;
+			}
+		}
+		//$ip = '195.181.161.229';
+
 		// check whitelist user role
 		$user = wp_get_current_user();
 		$user_roles = $user->roles;
@@ -995,7 +1108,7 @@ class WooCommerce_Anti_Fraud {
 
 			foreach ( $user_roles as $role ) {
 				if ( in_array( $role, $wc_af_whitelist_user_roles ) ) {
-					$selected_whitelisted_role = 'true';
+
 					$selected_whitelisted_role = 'true';
 					opmc_hpos_update_post_meta( $order_id, 'wc_af_score', 100 );
 					opmc_hpos_update_post_meta( $order_id, 'whitelist_action', 'user_email_whitelisted' );
@@ -1031,7 +1144,7 @@ class WooCommerce_Anti_Fraud {
 		// echo $check_before_payment;
 		$selected_wildcard_whitelisted_email = $this->call_wildcard_email_validation();
 
-		if ( 'yes' == $check_before_payment_switch && ! $selected_whitelisted_email && 'true' != $selected_whitelisted_role && 'true' != $selected_whitelist_payment_method && 'true' != $selected_wildcard_whitelisted_email ) {
+		if ( 'yes' == $check_before_payment_switch && ! $selected_whitelisted_email && 'true' != $selected_whitelisted_role && 'true' != $selected_whitelist_payment_method && 'true' != $selected_wildcard_whitelisted_email && 'true' != $whitelist_ips ) {
 
 			if ( null !== get_option( 'wc_af_pre_payment_message' ) ) {
 				$pre_payment_block_message = get_option( 'wc_af_pre_payment_message' );
@@ -2183,6 +2296,7 @@ class WooCommerce_Anti_Fraud {
 			return;
 		} else {
 
+			update_option('user_verified_from_ts', 'no');
 			// For Minfraud.
 			update_option( 'wc_settings_anti_fraud_auto_check_days', 7 );
 			update_option( 'wc_af_fraud_check_before_payment', 'no' );
@@ -2455,6 +2569,32 @@ class WooCommerce_Anti_Fraud {
 		}
 
 		return $validation_errors;
+	}
+
+	public function update_blacklist_ips_option() {
+		
+		$whitelist_ipaddress = get_option('wc_settings_anti_fraud_ips_whitelist');
+		$blocked_ipaddress = get_option('wc_settings_anti_fraudblacklist_ipaddress');
+		if ('' != $blocked_ipaddress && '' != $whitelist_ipaddress) {
+
+			$array_ipaddress = explode(',', $blocked_ipaddress);
+			$array_whitelist_ipaddress = explode(',', $whitelist_ipaddress);
+			// Remove duplicate IP addresses from the blacklist
+			$unique_blocked_ipaddress = array_unique($array_ipaddress);
+
+			// Check for common IP addresses and remove them from both whitelist and blacklist
+			$common_ip_addresses = array_intersect($unique_blocked_ipaddress, $array_whitelist_ipaddress);
+
+			if (!empty($common_ip_addresses)) {
+				// Remove common IP addresses from the blacklist
+				$unique_blocked_ipaddress = array_diff($unique_blocked_ipaddress, $common_ip_addresses);
+
+				// Update the blacklist in the database
+				$blocked_ipaddress = implode(',', $unique_blocked_ipaddress);
+
+				update_option('wc_settings_anti_fraudblacklist_ipaddress', $blocked_ipaddress);
+			}
+		}
 	}
 
 }

@@ -46,33 +46,33 @@ if ( ! class_exists( 'NS_MCF_Woo_Subs' ) ) {
 		 * @return void
 		 */
 		public function maybe_apply_compatibility() {
-			add_action( 'ns_fba_before_post_fulfillment_order', array( $this, 'check_if_order_contains_switch' ), 10, 2 );
+			add_filter( 'ns_fba_skip_post_fulfillment_order', array( $this, 'check_if_order_contains_switch' ), 10, 2 );
 		}
 
 		/**
 		 * Check if current order contains a subscription switch.
 		 * We do not want to fulfil the order twice if its just a switch.
 		 *
+		 * @param bool     $send Boolean response to send order.
 		 * @param WC_Order $order The order to be sent to Seller Partner.
-	     * @param string   $order_number The fulfillment order number.
 		 *
 		 * @return void|bool
 		 */
-		public function check_if_order_contains_switch( $order, $order_number ) {
+		public function check_if_order_contains_switch( $send, $order ) {
 			if ( ! function_exists( 'wcs_order_contains_switch' ) ) {
-				return;
+				return false;
 			}
 
 			$switch_processed = wcs_get_objects_property( $order, 'completed_subscription_switch' );
 
 			if ( ! wcs_order_contains_switch( $order ) || 'true' === $switch_processed ) {
-				return;
+				return false;
 			}
 
 			$order->update_meta_data( '_sent_to_fba', gmdate( 'm-d-Y H:i:s', time() ) );
 			$order->add_order_note( __( 'Subscription switch. Skipping fulfilment', $this->ns_fba->text_domain ) );
 			$order->save();
-			return false;
+			return true;
 		}
 	}
 }

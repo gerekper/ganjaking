@@ -22,6 +22,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<div class="vc_col-sm-12 vc_column" id="vc_settings-title-container">
 						<div class="wpb_element_label"><?php esc_html_e( 'Page title', 'js_composer' ); ?></div>
 						<div class="edit_form_line">
+							<?php
+							if ( vc_user_access()->part( 'text_ai' )->can()->get() ) {
+								vc_include_template(
+										'editors/partials/icon-ai.tpl.php',
+										[
+											'type' => 'textfield',
+											'field_id' => 'vc_page-title-field',
+										]
+								);
+							}
+							?>
 							<input name="page_title" class="wpb-textinput vc_title_name" type="text" value="" id="vc_page-title-field" placeholder="<?php esc_attr_e( 'Please enter page title', 'js_composer' ); ?>">
 							<span class="vc_description"><?php printf( esc_html__( 'Change title of the current %s (Note: changes may not be displayed in a preview, but will take effect after saving page).', 'js_composer' ), esc_html( get_post_type() ) ); ?></span>
 						</div>
@@ -38,7 +49,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<div class="vc_col-sm-12 vc_column">
 						<div class="wpb_element_label"><?php esc_html_e( 'Custom CSS settings', 'js_composer' ); ?></div>
 						<div class="edit_form_line">
-							<p><?php esc_html_e( '<style>' ) ?></p>
+							<div class="vc_ui-settings-text-wrapper">
+								<p><?php esc_html_e( '<style>' ) ?></p>
+								<?php
+								if ( vc_user_access()->part( 'code_ai' )->can()->get() ) {
+									vc_include_template(
+										'editors/partials/icon-ai.tpl.php',
+										[
+											'type' => 'custom_css',
+											'field_id' => 'wpb_css_editor',
+										]
+									);
+								}
+								?>
+							</div>
 							<pre id="wpb_css_editor" class="wpb_content_element custom_code wpb_frontend"></pre>
 							<p><?php esc_html_e( '</style>' ) ?></p>
 							<span class="vc_description vc_clearfix"><?php esc_html_e( 'Enter custom CSS (Note: it will be outputted only on this particular page).', 'js_composer' ); ?></span>
@@ -47,7 +71,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<div class="vc_col-sm-12 vc_column">
 						<div class="wpb_element_label"><?php esc_html_e( 'Custom JavaScript in <head>', 'js_composer' ); ?></div>
 						<div class="edit_form_line">
-							<p><?php esc_html_e( '<script>' ) ?></p>
+							<div class="vc_ui-settings-text-wrapper">
+								<p><?php esc_html_e( '<script>' ) ?></p>
+								<?php
+								if ( vc_user_access()->part( 'code_ai' )->can()->get() ) {
+									vc_include_template(
+											'editors/partials/icon-ai.tpl.php',
+											[
+												'type' => 'custom_js',
+												'field_id' => 'wpb_js_header_editor',
+											]
+									);
+								}
+								?>
+							</div>
 							<pre id="wpb_js_header_editor" class="wpb_content_element custom_code wpb_frontend <?php echo $can_unfiltered_html_cap ?: 'wpb_missing_unfiltered_html'; ?>"><?php echo $can_unfiltered_html_cap ? '' : wpbakery()->getEditorsLocale()['unfiltered_html_access']; ?></pre>
 							<p><?php esc_html_e( '</script>' ) ?></p>
 							<span class="vc_description vc_clearfix">
@@ -60,7 +97,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<?php esc_html_e( 'Custom JavaScript before </body>', 'js_composer' ); ?>
 						</div>
 						<div class="edit_form_line">
-							<p><?php esc_html_e( '<script>' ) ?></p>
+							<div class="vc_ui-settings-text-wrapper">
+								<p><?php esc_html_e( '<script>' ) ?></p>
+								<?php
+								if ( vc_user_access()->part( 'code_ai' )->can()->get() ) {
+									vc_include_template(
+										'editors/partials/icon-ai.tpl.php',
+										[
+											'type' => 'custom_js',
+											'field_id' => 'wpb_js_footer_editor',
+										]
+									);
+								}
+								?>
+							</div>
 							<pre id="wpb_js_footer_editor" class="wpb_content_element custom_code wpb_frontend <?php echo $can_unfiltered_html_cap ?: 'wpb_missing_unfiltered_html'; ?>"><?php echo $can_unfiltered_html_cap ? '' : wpbakery()->getEditorsLocale()['unfiltered_html_access']; ?></pre>
 							<p><?php esc_html_e( '</script>' ) ?></p>
 							<span class="vc_description vc_clearfix">

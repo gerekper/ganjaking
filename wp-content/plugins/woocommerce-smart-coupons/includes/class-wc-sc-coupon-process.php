@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     4.2.0
+ * @version     4.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -68,8 +68,12 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 			add_action( 'admin_init', array( $this, 'delete_smart_coupons_contribution' ), 11 );
 
 			add_filter( 'woocommerce_order_item_needs_processing', array( $this, 'virtual_downloadable_item_needs_update_smart_coupon_balance' ), 10, 3 );
-
 			add_filter( 'woocommerce_order_item_needs_processing', array( $this, 'coupon_product_dont_need_processing' ), 10, 3 );
+
+			add_filter( 'woocommerce_order_actions', array( $this, 'order_actions' ), 20, 2 );
+			add_action( 'woocommerce_order_action_wc_sc_resend_coupons', array( $this, 'order_coupon_actions' ) );
+			add_action( 'woocommerce_order_action_wc_sc_regenerate_coupons', array( $this, 'order_coupon_actions' ) );
+			add_action( 'woocommerce_order_action_wc_sc_regenerate_resend_coupons', array( $this, 'order_coupon_actions' ) );
 		}
 
 		/**
@@ -1404,37 +1408,41 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 			}
 
 			if ( 'yes' === $is_send_email && ( count( $receivers_detail ) + $receiver_count ) > 0 ) {
-				WC()->mailer();
+				$current_filter                    = current_filter();
+				$order_actions_to_ignore_for_email = $this->order_actions_to_ignore_for_email();
+				if ( ! in_array( $current_filter, $order_actions_to_ignore_for_email, true ) ) {
+					WC()->mailer();
 
-				$contains_core_coupons = false;
-				if ( ! empty( $receivers_emails_list ) ) {
-					$coupon_ids_to_be_sent = array_keys( $receivers_emails_list );
-					if ( ! empty( $coupon_ids_to_be_sent ) ) {
-						foreach ( $coupon_ids_to_be_sent as $coupon_id ) {
-							$discount_type = ( ! empty( $coupon_id ) ) ? $this->get_post_meta( $coupon_id, 'discount_type', true ) : 'fixed_cart';
-							if ( ! empty( $discount_type ) && 'smart_coupon' !== $discount_type ) {
-								$contains_core_coupons = true;
-								break;
+					$contains_core_coupons = false;
+					if ( ! empty( $receivers_emails_list ) ) {
+						$coupon_ids_to_be_sent = array_keys( $receivers_emails_list );
+						if ( ! empty( $coupon_ids_to_be_sent ) ) {
+							foreach ( $coupon_ids_to_be_sent as $coupon_id ) {
+								$discount_type = ( ! empty( $coupon_id ) ) ? $this->get_post_meta( $coupon_id, 'discount_type', true ) : 'fixed_cart';
+								if ( ! empty( $discount_type ) && 'smart_coupon' !== $discount_type ) {
+									$contains_core_coupons = true;
+									break;
+								}
 							}
 						}
 					}
+
+					$action_args = apply_filters(
+						'wc_sc_acknowledgement_email_notification_args',
+						array(
+							'email'                 => $gift_certificate_sender_email,
+							'order_id'              => $order_id,
+							'receivers_detail'      => $receivers_detail,
+							'receiver_name'         => $gift_certificate_receiver_name,
+							'receiver_count'        => count( $receivers_detail ),
+							'scheduled_email'       => array_filter( $email_scheduled_details ),
+							'contains_core_coupons' => ( true === $contains_core_coupons ) ? 'yes' : 'no',
+						)
+					);
+
+					// Trigger email notification.
+					do_action( 'wc_sc_acknowledgement_email_notification', $action_args );
 				}
-
-				$action_args = apply_filters(
-					'wc_sc_acknowledgement_email_notification_args',
-					array(
-						'email'                 => $gift_certificate_sender_email,
-						'order_id'              => $order_id,
-						'receivers_detail'      => $receivers_detail,
-						'receiver_name'         => $gift_certificate_receiver_name,
-						'receiver_count'        => count( $receivers_detail ),
-						'scheduled_email'       => array_filter( $email_scheduled_details ),
-						'contains_core_coupons' => ( true === $contains_core_coupons ) ? 'yes' : 'no',
-					)
-				);
-
-				// Trigger email notification.
-				do_action( 'wc_sc_acknowledgement_email_notification', $action_args );
 			}
 
 			if ( 'add' === $operation ) {
@@ -1744,6 +1752,70 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 				return wc_string_to_bool( $needs_processing );
 			}
 			return $needs_processing;
+		}
+
+		/**
+		 * Additional order actions
+		 *
+		 * @param array    $actions Existing order actions.
+		 * @param WC_Order $order The order object.
+		 * @return array
+		 */
+		public function order_actions( $actions = array(), $order = null ) {
+			if ( is_null( $order ) || ! $this->is_wc_gte_30() ) {
+				return $actions;
+			}
+			if ( false === $this->would_order_generate_coupons( $order ) ) {
+				return $actions;
+			}
+			$sc_actions              = array();
+			$coupon_receiver_details = ( is_object( $order ) && $this->is_callable( $order, 'get_meta' ) ) ? $order->get_meta( 'sc_coupon_receiver_details' ) : array();
+			if ( ! empty( $coupon_receiver_details ) ) {
+				$sc_actions['wc_sc_resend_coupons'] = _x( 'Resend coupon emails', 'Order edit admin page', 'woocommerce-smart-coupons' );
+			} else {
+				$sc_actions['wc_sc_regenerate_coupons']        = _x( 'Regenerate coupons', 'Order edit admin page', 'woocommerce-smart-coupons' );
+				$sc_actions['wc_sc_regenerate_resend_coupons'] = _x( 'Regenerate & resend coupon emails', 'Order edit admin page', 'woocommerce-smart-coupons' );
+			}
+			$actions = array_merge( $actions, $sc_actions );
+			return $actions;
+		}
+
+		/**
+		 * Handle order coupon actions
+		 *
+		 * @param WC_Order $order The order object.
+		 */
+		public function order_coupon_actions( $order = null ) {
+			if ( $this->is_wc_gte_30() ) {
+				$order_id = $this->is_callable( $order, 'get_id' ) ? $order->get_id() : 0;
+				if ( ! empty( $order_id ) ) {
+					$note           = '';
+					$current_filter = current_filter();
+					switch ( $current_filter ) {
+						case 'woocommerce_order_action_wc_sc_regenerate_coupons':
+						case 'woocommerce_order_action_wc_sc_regenerate_resend_coupons':
+							if ( $this->is_callable( $order, 'update_meta_data' ) && $this->is_callable( $order, 'save' ) ) {
+								$order = wc_get_order( $order );
+								$order->update_meta_data( 'coupon_sent', 'no' );
+								$order->save();
+							}
+							$this->sa_add_coupons( $order_id );
+							if ( 'woocommerce_order_action_wc_sc_regenerate_coupons' === $current_filter ) {
+								$note = _x( 'Coupons manually regenerated.', 'Order edit admin page', 'woocommerce-smart-coupons' );
+							} else {
+								$note = _x( 'Coupons manually regenerated & sent.', 'Order edit admin page', 'woocommerce-smart-coupons' );
+							}
+							break;
+						case 'woocommerce_order_action_wc_sc_resend_coupons':
+							$this->resend_coupons( $order_id );
+							$note = _x( 'Coupon details manually sent.', 'Order edit admin page', 'woocommerce-smart-coupons' );
+							break;
+					}
+					if ( ! empty( $note ) && $this->is_callable( $order, 'add_order_note' ) ) {
+						$order->add_order_note( $note );
+					}
+				}
+			}
 		}
 
 	}

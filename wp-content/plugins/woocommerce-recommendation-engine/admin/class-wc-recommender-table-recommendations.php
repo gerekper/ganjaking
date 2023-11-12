@@ -110,7 +110,10 @@ class WC_Recommender_Table_Recommendations extends WP_List_Table {
 							$actions = array();
 							echo '<td ' . $attributes . '><strong><a href="' . admin_url( 'admin.php' ) . '?page=wc_recommender_admin&product-id=' . (int) $rec->ID . '&wc_recommender_admin_view=view-recommendations">' . stripslashes( $rec->post_title ) . '</a></strong>';
 							echo '<div class="row-actions">';
+							// The edit action.
 							$actions[] = '<span class="edit"><a href="' . get_edit_post_link( $rec->ID ) . '">Edit</a></span>';
+							// The view action.
+							$actions[] = '<span class="view"><a href="' . get_permalink( $rec->ID ) . '">View</a></span>';
 							echo implode( ' | ', $actions );
 							echo '</div>';
 							echo '</td>';
@@ -148,12 +151,8 @@ class WC_Recommender_Table_Recommendations extends WP_List_Table {
 	}
 
 	public function prepare_items() {
-		global $wpdb, $_wp_column_headers, $woocommerce_recommender;
-		$screen = get_current_screen();
-
-		$viewed_sql  = "SELECT product_id, COUNT(DISTINCT session_id) AS activity_count FROM $woocommerce_recommender->db_tbl_session_activity WHERE activity_type = 'viewed' GROUP BY product_id ORDER BY product_id";
-		$ordered_sql = "SELECT product_id, COUNT(DISTINCT session_id) AS activity_count FROM $woocommerce_recommender->db_tbl_session_activity WHERE activity_type = 'completed' GROUP BY product_id ORDER BY product_id";
-
+		global $wpdb, $woocommerce_recommender;
+		get_current_screen();
 
 		$items_table_name = $wpdb->posts;
 		$items_sql        = "SELECT ID, post_title, cviewed.activity_count as views, cordered.activity_count as orders FROM $items_table_name p ";

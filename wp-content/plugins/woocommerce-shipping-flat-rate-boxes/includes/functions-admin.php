@@ -1,4 +1,10 @@
 <?php
+/**
+ * Admin functions collection.
+ *
+ * @package woocommerce-shipping-flat-rate-boxes
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -29,7 +35,7 @@ function wc_box_shipping_admin_rows( $method ) {
 				<th colspan="10"><a href="#" class="add-box button button-primary"><?php esc_html_e( 'Add box', 'woocommerce-shipping-flat-rate-boxes' ); ?></a> <a href="#" class="remove button"><?php esc_html_e( 'Delete selected', 'woocommerce-shipping-flat-rate-boxes' ); ?></a></th>
 			</tr>
 		</tfoot>
-		<tbody class="flat_rate_boxes" data-boxes="<?php echo _wp_specialchars( wp_json_encode( $method->get_boxes() ),  ENT_QUOTES, 'UTF-8', true ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped --- Same as wc_esc_json but it's only in WC 3.5.5 ?>"></tbody>
+		<tbody class="flat_rate_boxes" data-boxes="<?php echo _wp_specialchars( wp_json_encode( $method->get_boxes() ), ENT_QUOTES, 'UTF-8', true ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped --- Same as wc_esc_json but it's only in WC 3.5.5 ?>"></tbody>
 	</table>
 	<script type="text/template" id="tmpl-flat-rate-box-row-template">
 		<tr class="flat_rate_box">
@@ -41,9 +47,9 @@ function wc_box_shipping_admin_rows( $method ) {
 			<td><input type="text" class="text" name="box_width[{{{ data.index }}}]" placeholder="0" size="4" value="{{{ data.box.box_width }}}" /></td>
 			<td><input type="text" class="text" name="box_height[{{{ data.index }}}]" placeholder="0" size="4" value="{{{ data.box.box_height }}}" /></td>
 			<td><input type="text" class="text" name="box_max_weight[{{{ data.index }}}]" placeholder="0" size="4" value="{{{ data.box.box_max_weight }}}" /></td>
-			  <td><input type="text" class="text" name="box_cost[{{{ data.index }}}]" placeholder="0" size="4" value="{{{ data.box.box_cost }}}" /></td>
-			  <td><input type="text" class="text" name="box_cost_per_weight_unit[{{{ data.index }}}]" placeholder="0" size="4" value="{{{ data.box.box_cost_per_weight_unit }}}" /></td>
-			  <td><input type="text" class="text" name="box_cost_percent[{{{ data.index }}}]" placeholder="0" size="4" value="{{{ data.box.box_cost_percent }}}" /></td>
+				<td><input type="text" class="text" name="box_cost[{{{ data.index }}}]" placeholder="0" size="4" value="{{{ data.box.box_cost }}}" /></td>
+				<td><input type="text" class="text" name="box_cost_per_weight_unit[{{{ data.index }}}]" placeholder="0" size="4" value="{{{ data.box.box_cost_per_weight_unit }}}" /></td>
+				<td><input type="text" class="text" name="box_cost_percent[{{{ data.index }}}]" placeholder="0" size="4" value="{{{ data.box.box_cost_percent }}}" /></td>
 		</tr>
 	</script>
 	<?php
@@ -51,9 +57,10 @@ function wc_box_shipping_admin_rows( $method ) {
 
 
 /**
- * wc_box_shipping_admin_rows_process function.
+ * Shipping method boxes rows process.
  *
- * @access public
+ * @param int $shipping_method_id Shipping method ID.
+ *
  * @return void
  */
 function wc_box_shipping_admin_rows_process( $shipping_method_id ) {
@@ -64,14 +71,14 @@ function wc_box_shipping_admin_rows_process( $shipping_method_id ) {
 
 	// Save rates.
 	// phpcs:disable WordPress.Security.NonceVerification.Missing --- It's already being verified on WC_Admin_Settings::save().
-	$box_ids                   = isset( $_POST['box_id'] ) ? array_map( 'intval', $_POST['box_id'] ) : array();
-	$box_lengths               = isset( $_POST['box_length'] ) ? wc_clean( $_POST['box_length'] ) : array();
-	$box_widths                = isset( $_POST['box_width'] ) ? wc_clean( $_POST['box_width'] ) : array();
-	$box_heights               = isset( $_POST['box_height'] ) ? wc_clean( $_POST['box_height'] ) : array();
-	$box_max_weights           = isset( $_POST['box_max_weight'] ) ? wc_clean( $_POST['box_max_weight'] ) : array();
-	$box_costs                 = isset( $_POST['box_cost'] ) ? wc_clean( $_POST['box_cost'] ) : array();
-	$box_cost_per_weight_units = isset( $_POST['box_cost_per_weight_unit'] ) ? wc_clean( $_POST['box_cost_per_weight_unit'] ) : array();
-	$box_cost_percents         = isset( $_POST['box_cost_percent'] ) ? wc_clean( $_POST['box_cost_percent'] ) : array();
+	$box_ids                   = isset( $_POST['box_id'] ) ? array_map( 'intval', wp_unslash( $_POST['box_id'] ) ) : array();
+	$box_lengths               = isset( $_POST['box_length'] ) ? wc_clean( wp_unslash( $_POST['box_length'] ) ) : array();
+	$box_widths                = isset( $_POST['box_width'] ) ? wc_clean( wp_unslash( $_POST['box_width'] ) ) : array();
+	$box_heights               = isset( $_POST['box_height'] ) ? wc_clean( wp_unslash( $_POST['box_height'] ) ) : array();
+	$box_max_weights           = isset( $_POST['box_max_weight'] ) ? wc_clean( wp_unslash( $_POST['box_max_weight'] ) ) : array();
+	$box_costs                 = isset( $_POST['box_cost'] ) ? wc_clean( wp_unslash( $_POST['box_cost'] ) ) : array();
+	$box_cost_per_weight_units = isset( $_POST['box_cost_per_weight_unit'] ) ? wc_clean( wp_unslash( $_POST['box_cost_per_weight_unit'] ) ) : array();
+	$box_cost_percents         = isset( $_POST['box_cost_percent'] ) ? wc_clean( wp_unslash( $_POST['box_cost_percent'] ) ) : array();
 	// phpcs:enable WordPress.Security.NonceVerification.Missing
 
 	// Get max key.
@@ -88,13 +95,13 @@ function wc_box_shipping_admin_rows_process( $shipping_method_id ) {
 		$box_width                = floatval( $box_widths[ $i ] );
 		$box_height               = floatval( $box_heights[ $i ] );
 		$box_max_weight           = floatval( $box_max_weights[ $i ] );
-		$box_cost                 = rtrim( rtrim( number_format( (double) $box_costs[ $i ], 4, '.', '' ), '0' ), '.' );
-		$box_cost_per_weight_unit = rtrim( rtrim( number_format( (double) $box_cost_per_weight_units[ $i ], 4, '.', '' ), '0' ), '.' );
-		$box_cost_percent         = rtrim( rtrim( number_format( (double) $box_cost_percents[ $i ], 4, '.', '' ), '0' ), '.' );
+		$box_cost                 = rtrim( rtrim( number_format( (float) $box_costs[ $i ], 4, '.', '' ), '0' ), '.' );
+		$box_cost_per_weight_unit = rtrim( rtrim( number_format( (float) $box_cost_per_weight_units[ $i ], 4, '.', '' ), '0' ), '.' );
+		$box_cost_percent         = rtrim( rtrim( number_format( (float) $box_cost_percents[ $i ], 4, '.', '' ), '0' ), '.' );
 
 		if ( $box_id > 0 ) {
 
-			// Update row
+			// Update row.
 			$wpdb->update(
 				$wpdb->prefix . 'woocommerce_shipping_flat_rate_boxes',
 				array(
@@ -108,7 +115,7 @@ function wc_box_shipping_admin_rows_process( $shipping_method_id ) {
 					'shipping_method_id'       => $shipping_method_id,
 				),
 				array(
-					'box_id' => $box_id
+					'box_id' => $box_id,
 				),
 				array(
 					'%s',
@@ -121,13 +128,13 @@ function wc_box_shipping_admin_rows_process( $shipping_method_id ) {
 					'%d',
 				),
 				array(
-					'%d'
+					'%d',
 				)
 			);
 
 		} else {
 
-			// Insert row
+			// Insert row.
 			$result = $wpdb->insert(
 				$wpdb->prefix . 'woocommerce_shipping_flat_rate_boxes',
 				array(
@@ -138,7 +145,7 @@ function wc_box_shipping_admin_rows_process( $shipping_method_id ) {
 					'box_cost'                 => $box_cost,
 					'box_cost_per_weight_unit' => $box_cost_per_weight_unit,
 					'box_cost_percent'         => $box_cost_percent,
-					'shipping_method_id'       => $shipping_method_id
+					'shipping_method_id'       => $shipping_method_id,
 				),
 				array(
 					'%s',

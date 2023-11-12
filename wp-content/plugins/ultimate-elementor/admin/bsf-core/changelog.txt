@@ -1,0 +1,18 @@
+### Version - 1.21
+# Support for beta updates of the products.
+
+### Version - 1.19
+
+- License Manager v2.0 - Allow plugins to individually set the license form.
+- Update themes and plugins with WordPress's transients. so support for WP-CLI and any other website management tools.
+- New License manager API.
+- Improvement: Force check product update now works when WordPress updates are force checked.
+- Slight redesign of help and debug settings screens.
+- Support for white label with filters.
+- Option to move Brainstorm registration menu in settings.
+- Hide purchase key when it is validated.
+- Remove use of deprecated 'mysql_' functions.
+- Allow users to skip brainstorm account registration.
+- Allow plugins/themes to completely hide the screen for Brainstorm Registration.
+- Allow using staging API server for development.
+- Fix: Occasional PHP fatal errors when using the child theme.

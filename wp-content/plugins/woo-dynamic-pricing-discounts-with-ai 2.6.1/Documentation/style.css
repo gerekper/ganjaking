@@ -1,0 +1,25 @@
+.rtw-feature-image{
+	text-align: center;
+}
+.rtw-button-wrapper {
+	text-align: center;
+	margin: 20px 0;
+}
+.rtw-button-wrapper .rtw-button {
+	padding: 18px 20px;
+	display: inline-block;
+	background-color: #4A47CA;
+	color: #ffffff;
+	text-decoration: none;
+	text-align: center;
+	margin: 10px;
+	min-width: 200px;
+	font-size: 16px;
+	line-height: 1.44;
+}
+.rtw-main-content {
+	max-width: 600px;
+	margin: 0 auto;
+	text-align: center;
+	width: 100%;
+}

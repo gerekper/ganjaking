@@ -1,15 +1,15 @@
 <?php
 /**
  * Plugin Name: WooCommerce Points and Rewards
- * Plugin URI: https://woocommerce.com/products/woocommerce-points-and-rewards/
+ * Plugin URI: https://woo.com/products/woocommerce-points-and-rewards/
  * Description: Reward customers for purchases and other actions with points which can be redeemed for discounts
  * Author: WooCommerce
- * Author URI: https://woocommerce.com
- * Version: 1.7.44
+ * Author URI: https://woo.com
+ * Version: 1.7.45
  * Text Domain: woocommerce-points-and-rewards
  * Domain Path: /languages/
- * Tested up to: 6.3
- * WC tested up to: 8.2
+ * Tested up to: 6.4
+ * WC tested up to: 8.3
  * WC requires at least: 5.0
  *
  * Copyright: © 2023 WooCommerce
@@ -155,7 +155,7 @@ register_activation_hook( __FILE__, 'wc_points_rewards_activate' );
  */
 
 if ( ! class_exists( 'WC_Points_Rewards' ) ) :
-	define( 'WC_POINTS_REWARDS_VERSION', '1.7.44' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_POINTS_REWARDS_VERSION', '1.7.45' ); // WRCS: DEFINED_VERSION.
 	define( 'WC_POINTS_REWARDS_ENDPOINT', 'points-and-rewards' );
 
 	class WC_Points_Rewards {

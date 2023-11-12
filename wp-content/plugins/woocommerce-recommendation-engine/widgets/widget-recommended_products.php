@@ -110,8 +110,12 @@ class WooCommerce_Widget_Recommended_Products extends WP_Widget {
 
 
 		if ( $posts && count( $posts ) ) :
+			if ( $activity_type == 'viewed') {
+				woocommerce_recommender_sort_also_viewed( $posts, $this->similar_products );
+			} else {
+				woocommerce_recommender_sort_posts( $posts, $this->similar_products );
+			}
 
-			woocommerce_recommender_sort_posts( $posts, $this->similar_products );
 			$products = array_chunk( $posts, $number );
 			?>
 

@@ -3,12 +3,12 @@
  * Plugin Name: Storefront Powerpack
  * Plugin URI: https://woocommerce.com/products/storefront-powerpack/
  * Description: Up your game with Storefront Powerpack and get access to host of neat gadgets that enable effortless customisation of your Storefront.
- * Version: 1.6.2
+ * Version: 1.6.3
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * Requires at least: 4.4
- * Tested up to: 6.0
- * WC tested up to: 6.7
+ * Tested up to: 6.4
+ * WC tested up to: 8.2
  * Woo: 1865835:e38ad13a5aaec7860df698cbad82c175
  *
  * Text Domain: storefront-powerpack
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-define( 'STOREFRONT_POWERPACK_VERSION', '1.6.2' ); // WRCS: DEFINED_VERSION.
+define( 'STOREFRONT_POWERPACK_VERSION', '1.6.3' ); // WRCS: DEFINED_VERSION.
 
 /**
  * Main Storefront_Powerpack Class
@@ -182,6 +182,7 @@ final class Storefront_Powerpack {
 	public function init_hooks() {
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 		add_action( 'init', array( $this, 'includes' ), 0 );
+		add_action( 'before_woocommerce_init', array( $this, 'declare_feature_compatibility' ) );
 		register_activation_hook( __FILE__, array( $this, 'install' ) );
 	}
 
@@ -195,6 +196,17 @@ final class Storefront_Powerpack {
 	public function load_plugin_textdomain() {
 		load_plugin_textdomain( 'storefront-powerpack', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	} // End load_plugin_textdomain()
+
+	/**
+	 * Declare compatibility for WooCommerce features.
+	 *
+	 * @since   1.6.3
+	 */
+	public function declare_feature_compatibility() {
+		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
+	} // End declare_feature_compatibility()
 
 	/**
 	 * Installation. Runs on activation.

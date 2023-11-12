@@ -1,5 +1,10 @@
 *** WooCommerce Anti Fraud ***
 
+2023-11-10 - version 5.7.0
+* New: PLUGINS-2242 - Support bulk blacklisting of emails.
+* New: PLUGINS-2267 - Add whitelisting of IP addresses.
+* Fix: PLUGINS-2266 - Limit Number of Orders between Time fatal error.
+
 2023-10-19 - version 5.6.0
 * New: PLUGINS-2289 - Trust Swiftly Integration.
 

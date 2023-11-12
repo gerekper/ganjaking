@@ -3,12 +3,12 @@
 /*
   Plugin Name: WooCommerce Recommendation Engine
  * Plugin URI: http://woothemes.com/woocommerce
- * Description: WooCommerce Recommendation Engine is a smart recommendation engine for your store, providing automatic cross sells based on users viewing and purcahsing history.
- * Version: 3.3.0
+ * Description: WooCommerce Recommendation Engine is a smart recommendation engine for your store, providing automatic cross-sells based on users viewing and purchasing history.
+ * Version: 3.3.1
  * Author: Element Stark
  * Author URI: http://www.elementstark.com
  * Requires at least: 6.0
- * Tested up to: 6.2
+ * Tested up to: 6.3
  *
  * Text Domain: wc_recommender
  * Copyright: © 2009-2023 Element Stark LLC.
@@ -17,7 +17,7 @@
 
  * Woo: 216821:a3d370f38edc35cdc5bc41a4041ed308
  * WC requires at least: 7.0
- * WC tested up to: 7.7
+ * WC tested up to: 8.2
  */
 
 /**
@@ -27,14 +27,16 @@ if ( ! function_exists( 'woothemes_queue_update' ) ) {
 	require_once( 'woo-includes/woo-functions.php' );
 }
 
-/**
- * Plugin updates
- */
-woothemes_queue_update( plugin_basename( __FILE__ ), 'a3d370f38edc35cdc5bc41a4041ed308', '216821' );
+add_action(
+	'before_woocommerce_init',
+	function() {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
+	}
+);
 
 if ( is_woocommerce_active() ) {
-
-
 	/**
 	 * woocommerce_product_addons class
 	 * */
@@ -54,7 +56,7 @@ if ( is_woocommerce_active() ) {
 
 			public static $message_controller;
 			public $template_url;
-			public $similar_products = array();
+			public $similar_products = [];
 			public $version = '3.0.0';
 			public $db_tbl_session_activity;
 			public $db_tbl_recommendations;
@@ -82,16 +84,15 @@ if ( is_woocommerce_active() ) {
 				require 'woocommerce-recommender-shortcodes.php';
 
 				require 'widgets/widget-init.php';
+				require 'classes/class-wc-recommender-recorder.php';
 				require 'classes/class-wc-recommender-sorting-helper.php';
 				require 'classes/class-wc-recommender-compatibility.php';
 
-
-				add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
-				add_action( 'plugins_loaded', array( $this, 'register_cli_command' ) );
+				add_action( 'plugins_loaded', [ $this, 'load_plugin_text_domain' ] );
+				add_action( 'plugins_loaded', [ $this, 'register_cli_command' ] );
 
 				if ( is_admin() ) {
-					add_action( 'admin_notices', array( self::$message_controller, 'show_messages' ) );
-
+					add_action( 'admin_notices', [ self::$message_controller, 'show_messages' ] );
 
 					require 'admin/class-wc-recommender-admin.php';
 					require 'admin/class-wc-recommender-table-recommendations.php';
@@ -109,38 +110,42 @@ if ( is_woocommerce_active() ) {
 						$this->install();
 					}
 				} else {
-					add_action( 'woocommerce_init', array( $this, 'on_woocommerce_init' ) );
+					add_action( 'woocommerce_init', [ $this, 'on_woocommerce_init' ] );
 				}
 
 
 				//Record product view
-				add_action( 'template_redirect', array( &$this, 'on_template_redirect' ) );
+				add_action( 'template_redirect', [ $this, 'on_template_redirect' ] );
 
 				//Record that someone added the item to the cart.
-				add_action( 'woocommerce_add_to_cart', array( &$this, 'on_add_to_cart' ), 10, 6 );
+				add_action( 'woocommerce_add_to_cart', [ $this, 'on_add_to_cart' ], 10, 2 );
 
 
 				// Record data when a new order is placed
-				add_action( 'woocommerce_checkout_order_processed', array( &$this, 'record_items_ordered' ), 100 );
+				add_action( 'woocommerce_checkout_order_processed', [ $this, 'record_items_ordered' ], 100 );
 
 				// Record data when a new order is completed
-				add_action( 'woocommerce_order_status_completed', array( &$this, 'record_update_order' ) );
+				add_action( 'woocommerce_order_status_completed', [ $this, 'record_update_order' ] );
 
 				//Record the cancellation and product removal actions.
-				add_action( 'woocommerce_order_status_refunded', array( &$this, 'record_update_order' ) );
-				add_action( 'woocommerce_order_status_cancelled', array( &$this, 'record_update_order' ) );
-				add_action( 'woocommerce_order_status_processing', array( &$this, 'record_update_order' ) );
-				add_action( 'woocommerce_order_status_on-hold', array( &$this, 'record_update_order' ) );
-				add_action( 'woocommerce_order_status_failed', array( &$this, 'record_update_order' ) );
-				add_action( 'woocommerce_order_status_pending', array( &$this, 'record_update_order' ) );
+				add_action( 'woocommerce_order_status_refunded', [ $this, 'record_update_order' ] );
+				add_action( 'woocommerce_order_status_cancelled', [ $this, 'record_update_order' ] );
+				add_action( 'woocommerce_order_status_processing', [ $this, 'record_update_order' ] );
+				add_action( 'woocommerce_order_status_on-hold', [ $this, 'record_update_order' ] );
+				add_action( 'woocommerce_order_status_failed', [ $this, 'record_update_order' ] );
+				add_action( 'woocommerce_order_status_pending', [ $this, 'record_update_order' ] );
 
-				add_action( 'delete_posts', array( &$this, 'on_delete_post' ) );
+				// Clean up the session history when an order is deleted.
+				add_action( 'woocommerce_delete_order', [ $this, 'on_woocommerce_delete_order' ] );
+
+				// Clean up the session history when a product is deleted.  Use delete post instead of delete product to catch variations.
+				add_action( 'delete_post', [ $this, 'on_delete_post' ] );
 			}
 
 			/**
 			 * Localisation
 			 */
-			public function load_plugin_textdomain() {
+			public function load_plugin_text_domain() {
 				$locale = apply_filters( 'plugin_locale', get_locale(), 'wc_recommender' );
 				load_textdomain( 'wc_recommender', WP_LANG_DIR . '/woocommerce/wc_recommender-' . $locale . '.mo' );
 				load_plugin_textdomain( 'wc_recommender', false, plugin_basename( dirname( __FILE__ ) ) . '/i18n/languages' );
@@ -150,8 +155,8 @@ if ( is_woocommerce_active() ) {
 			 * Installs the database tables and initial recommendations based on previous orders.
 			 */
 			public function install() {
-				register_activation_hook( __FILE__, array( $this, 'activate' ) );
-				register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
+				register_activation_hook( __FILE__, [ $this, 'activate' ] );
+				register_deactivation_hook( __FILE__, [ $this, 'deactivate' ] );
 
 				if ( get_option( 'woocommerce_recommender_db_version' ) != $this->version ) {
 					add_action( 'init', 'install_woocommerce_recommender', 99 );
@@ -217,43 +222,33 @@ if ( is_woocommerce_active() ) {
 			 *
 			 * @param string $cart_item_key
 			 * @param int $product_id
-			 * @param int $quantity
-			 * @param int|null $variation_id
-			 * @param array|null $variation
-			 * @param array|null $cart_item_data
 			 */
-			public function on_add_to_cart( $cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data ) {
+			public function on_add_to_cart( string $cart_item_key, int $product_id ) {
 				woocommerce_recommender_record_product_in_cart( $product_id );
 			}
 
 			/**
 			 * Hooks into the new order item action, records the ordered item.
 			 *
-			 * @param int $order_id
+			 * @param int|string $order_id
 			 */
 			public function record_items_ordered( $order_id ) {
 				$order       = new WC_Order( $order_id );
 				$order_items = $order->get_items();
-				foreach ( $order_items as $item ) {
-					if ( WC_Recommender_Compatibility::is_wc_version_gte_2_7() ) {
-						$product = $item->get_product();
-						if ( $product && is_object( $product ) ) {
-							if ( $product->is_type( 'variation' ) ) {
-								woocommerce_recommender_record_product_ordered( $order_id, $product->get_id(), $order->get_status() );
-								woocommerce_recommender_record_product_ordered( $order_id, $product->get_parent_id(), $order->get_status() );
-							} else {
-								woocommerce_recommender_record_product_ordered( $order_id, $product->get_id(), $order->get_status() );
-							}
-						}
-					} else {
-						$product = $order->get_product_from_item( $item );
-						if ( $product && is_object( $product ) ) {
-							if ( $product->is_type( 'variation' ) ) {
-								woocommerce_recommender_record_product_ordered( $order_id, $product->get_id(), $order->status );
-								woocommerce_recommender_record_product_ordered( $order_id, $product->get_parent_id(), $order->status );
-							} else {
-								woocommerce_recommender_record_product_ordered( $order_id, $product->get_id(), $order->status );
-							}
+				foreach ( $order_items as $order_item ) {
+
+					// Skip if not a WC_Order_Item_Product or not a line item.
+					if ( ! is_a( $order_item, 'WC_Order_Item_Product' ) || ! $order_item->is_type( 'line_item' ) ) {
+						continue;
+					}
+
+					$product = $order_item->get_product();
+					if ( $product && is_object( $product ) ) {
+						if ( $product->is_type( 'variation' ) ) {
+							woocommerce_recommender_record_product_ordered( $order_id, $product->get_id(), $order->get_status() );
+							woocommerce_recommender_record_product_ordered( $order_id, $product->get_parent_id(), $order->get_status() );
+						} else {
+							woocommerce_recommender_record_product_ordered( $order_id, $product->get_id(), $order->get_status() );
 						}
 					}
 				}
@@ -264,33 +259,37 @@ if ( is_woocommerce_active() ) {
 			 *
 			 * @param int $order_id
 			 */
-			public function record_update_order( $order_id ) {
+			public function record_update_order( int $order_id ) {
 				$order       = new WC_Order( $order_id );
 				$order_items = $order->get_items();
-				foreach ( $order_items as $item ) {
+				foreach ( $order_items as $order_item ) {
 
-					if ( WC_Recommender_Compatibility::is_wc_version_gte_2_7() ) {
-						$product = $item->get_product();
-						if ( $product && is_object( $product ) ) {
-							if ( $product->is_type( 'variation' ) ) {
-								woocommerce_recommender_update_recorded_product( $order_id, $product->get_id(), $order->get_status() );
-								woocommerce_recommender_update_recorded_product( $order_id, $product->get_parent_id(), $order->get_status() );
-							} else {
-								woocommerce_recommender_update_recorded_product( $order_id, $product->get_id(), $order->get_status() );
-							}
-						}
-					} else {
-						$product = $order->get_product_from_item( $item );
-						if ( $product && is_object( $product ) ) {
-							if ( $product->is_type( 'variable' ) ) {
-								woocommerce_recommender_update_recorded_product( $order_id, $product->get_id(), $order->status );
-								woocommerce_recommender_update_recorded_product( $order_id, $product->variation_id, $order->status );
-							} else {
-								woocommerce_recommender_update_recorded_product( $order_id, $product->get_id(), $order->status );
-							}
+					// Skip if not a WC_Order_Item_Product or not a line item.
+					if ( ! is_a( $order_item, 'WC_Order_Item_Product' ) || ! $order_item->is_type( 'line_item' ) ) {
+						continue;
+					}
+
+					$product = $order_item->get_product();
+					if ( $product && is_object( $product ) ) {
+						if ( $product->is_type( 'variation' ) ) {
+							woocommerce_recommender_update_recorded_product( $order_id, $product->get_id(), $order->get_status() );
+							woocommerce_recommender_update_recorded_product( $order_id, $product->get_parent_id(), $order->get_status() );
+						} else {
+							woocommerce_recommender_update_recorded_product( $order_id, $product->get_id(), $order->get_status() );
 						}
 					}
+
 				}
+			}
+
+			/**
+			 * Hooks into the on_woocommerce_delete_order action to remove the orders items from the session history.
+			 *
+			 * @param int $order_id
+			 */
+			public function on_woocommerce_delete_order( int $order_id ) {
+				global $wpdb, $woocommerce_recommender;
+				$wpdb->query( $wpdb->prepare( "DELETE FROM $woocommerce_recommender->db_tbl_session_activity WHERE order_id = %d", $order_id ) );
 			}
 
 			/**
@@ -301,29 +300,10 @@ if ( is_woocommerce_active() ) {
 			 * @global wpdb $wpdb
 			 *
 			 */
-			public function on_delete_post( $post_id ) {
+			public function on_delete_post( int $post_id ) {
 				global $wpdb;
-
 				$type = $wpdb->get_var( $wpdb->prepare( 'SELECT post_type FROM $wpdb->posts WHERE post_id = %d', $post_id ) );
-
-				if ( $type && $type == 'shop_order' ) {
-					$order       = new WC_Order( $post_id );
-					$order_items = $order->get_items();
-
-					$product_ids = array();
-					foreach ( $order_items as $item ) {
-
-						if ( WC_Recommender_Compatibility::is_wc_version_gte_2_7() ) {
-							$product = $item->get_product();
-						} else {
-							$product = $order->get_product_from_item( $item );
-						}
-						$product_ids[] = $product->get_id();
-					}
-
-					$query = $wpdb->prepare( "DELETE FROM $this->db_tbl_session_activity WHERE product_id IN (%s) AND order_id > 0)", implode( ',', $product_ids ) );
-					$wpdb->query( $query );
-				} elseif ( $type && ( $type == 'product' || $type == 'product_variation' ) ) {
+				if ( $type && ( $type == 'product' || $type == 'product_variation' ) ) {
 					$query = $wpdb->prepare( "DELETE FROM $this->db_tbl_session_activity WHERE product_id = %d", $post_id );
 					$wpdb->query( $query );
 				}

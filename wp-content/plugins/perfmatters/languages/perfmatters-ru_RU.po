@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Perfmatters\n"
-"POT-Creation-Date: 2023-08-30 15:12-0700\n"
-"PO-Revision-Date: 2023-09-03 20:42+0300\n"
+"POT-Creation-Date: 2023-09-29 13:10-0700\n"
+"PO-Revision-Date: 2023-10-01 21:24+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -125,7 +125,7 @@ msgstr "База данных"
 msgid "Network"
 msgstr "Сеть"
 
-#: inc/admin.php:60 inc/license.php:64
+#: inc/admin.php:60 inc/license.php:66
 msgid "License"
 msgstr "Лицензия"
 
@@ -133,43 +133,48 @@ msgstr "Лицензия"
 msgid "Support"
 msgstr "Поддержка"
 
-#: inc/admin.php:74
+#: inc/admin.php:73
+#, no-php-format
+msgid "Get 25% off our social sharing plugin."
+msgstr "Получите скидку 25 % на наш плагин для обмена в соцсетях."
+
+#: inc/admin.php:84
 msgid "Version"
 msgstr "Версия"
 
-#: inc/admin.php:133
+#: inc/admin.php:143 inc/script_manager.php:419
 msgid "Save Changes"
 msgstr "Сохранить изменения"
 
-#: inc/classes/Ajax.php:31
+#: inc/classes/Ajax.php:32
 msgid "Settings saved."
 msgstr "Настройки сохранены."
 
-#: inc/classes/Ajax.php:47
+#: inc/classes/Ajax.php:48
 msgid "Successfully restored default options."
 msgstr "Параметры по умолчанию успешно восстановлены."
 
-#: inc/classes/Ajax.php:63
+#: inc/classes/Ajax.php:64
 msgid "Settings exported."
 msgstr "Настройки экспортированы."
 
-#: inc/classes/Ajax.php:80
+#: inc/classes/Ajax.php:81
 msgid "No import file given."
 msgstr "Файл импорта не указан."
 
-#: inc/classes/Ajax.php:89
+#: inc/classes/Ajax.php:90
 msgid "Please upload a valid .json file."
 msgstr "Загрузите действительный .json файл."
 
-#: inc/classes/Ajax.php:105
+#: inc/classes/Ajax.php:106
 msgid "Successfully imported Perfmatters settings."
 msgstr "Настройки Perfmatters успешно импортированы."
 
-#: inc/classes/Ajax.php:117
+#: inc/classes/Ajax.php:126
 msgid "Permission denied."
 msgstr "Доступ запрещен."
 
-#: inc/classes/Ajax.php:124
+#: inc/classes/Ajax.php:133
 msgid "Nonce is invalid."
 msgstr "Nonce недействителен."
 
@@ -247,42 +252,46 @@ msgid "There is already an existing database optimization process running."
 msgstr "Уже запущен процесс оптимизации БД."
 
 #: inc/classes/DatabaseOptimizer.php:219
+msgid "No items selected for optimization."
+msgstr "Для оптимизации не выбрано ни одного элемента."
+
+#: inc/classes/DatabaseOptimizer.php:224
 msgid "Database optimization process started."
 msgstr "Начался процесс оптимизации БД."
 
-#: inc/classes/DatabaseOptimizer.php:234
+#: inc/classes/DatabaseOptimizer.php:239
 msgid "Revisions Found"
 msgstr "редакций найдены"
 
-#: inc/classes/DatabaseOptimizer.php:237
+#: inc/classes/DatabaseOptimizer.php:242
 msgid "Auto-Drafts Found"
 msgstr "авто черновики найдены"
 
-#: inc/classes/DatabaseOptimizer.php:240
+#: inc/classes/DatabaseOptimizer.php:245
 msgid "Trashed Posts Found"
 msgstr "удаленные записи найдены"
 
-#: inc/classes/DatabaseOptimizer.php:243
+#: inc/classes/DatabaseOptimizer.php:248
 msgid "Spam Comments Found"
 msgstr "спам комментарии найдены"
 
-#: inc/classes/DatabaseOptimizer.php:246
+#: inc/classes/DatabaseOptimizer.php:251
 msgid "Trashed Comments Found"
 msgstr "удаленные комментарии найдены"
 
-#: inc/classes/DatabaseOptimizer.php:250
+#: inc/classes/DatabaseOptimizer.php:255
 msgid "Expired Transients Found"
 msgstr "просроченные транзиенты найдены"
 
-#: inc/classes/DatabaseOptimizer.php:253
+#: inc/classes/DatabaseOptimizer.php:258
 msgid "Transients Found"
 msgstr "транзиенты найдены"
 
-#: inc/classes/DatabaseOptimizer.php:256
+#: inc/classes/DatabaseOptimizer.php:261
 msgid "Unoptimized Tables Found"
 msgstr "неоптимизированные таблицы найдены"
 
-#: inc/classes/DatabaseOptimizer.php:259
+#: inc/classes/DatabaseOptimizer.php:264
 msgid "Database scan completed."
 msgstr "Сканирование БД завершено."
 
@@ -337,7 +346,7 @@ msgid "Comments are disabled."
 msgstr "Комментарии отключены."
 
 #: inc/functions.php:611 inc/functions.php:631 inc/functions.php:1299
-#: inc/functions_script_manager.php:1535 inc/functions_script_manager.php:1543
+#: inc/functions_script_manager.php:1538 inc/functions_script_manager.php:1546
 msgid "Perfmatters Warning"
 msgstr "Предупреждение Perfmatters"
 
@@ -417,47 +426,47 @@ msgstr "Менеджер скриптов"
 msgid "Close Script Manager"
 msgstr "Закрыть Менеджер скриптов"
 
-#: inc/functions_script_manager.php:133 inc/script_manager.php:416
+#: inc/functions_script_manager.php:134
 msgid "Save"
 msgstr "Сохранить"
 
-#: inc/functions_script_manager.php:134
+#: inc/functions_script_manager.php:135
 msgid "Saving"
 msgstr "Сохранение"
 
-#: inc/functions_script_manager.php:135 inc/functions_script_manager.php:1251
+#: inc/functions_script_manager.php:136 inc/functions_script_manager.php:1254
 msgid "Settings saved successfully!"
 msgstr "Настройки успешно сохранены!"
 
-#: inc/functions_script_manager.php:136
+#: inc/functions_script_manager.php:137
 msgid "Settings failed to update."
 msgstr "Не удалось обновить настройки."
 
-#: inc/functions_script_manager.php:137
+#: inc/functions_script_manager.php:138
 msgid "No disabled location selected."
 msgstr "Не выбрано место для отключения."
 
-#: inc/functions_script_manager.php:138
+#: inc/functions_script_manager.php:139
 msgid "No options were changed."
 msgstr "Параметры не были изменены."
 
-#: inc/functions_script_manager.php:327
+#: inc/functions_script_manager.php:328
 msgid "Status"
 msgstr "Состояние"
 
-#: inc/functions_script_manager.php:328
+#: inc/functions_script_manager.php:329
 msgid "Script"
 msgstr "Скрипт"
 
-#: inc/functions_script_manager.php:329
+#: inc/functions_script_manager.php:330
 msgid "Type"
 msgstr "Тип"
 
-#: inc/functions_script_manager.php:330
+#: inc/functions_script_manager.php:331
 msgid "Size"
 msgstr "Размер"
 
-#: inc/functions_script_manager.php:356
+#: inc/functions_script_manager.php:357
 msgid ""
 "MU Mode is currently enabled, the above settings will apply to the entire "
 "plugin."
@@ -465,54 +474,54 @@ msgstr ""
 "Режим MU в настоящее время включен, вышеуказанные настройки будут "
 "применяться ко всему плагину."
 
-#: inc/functions_script_manager.php:359
+#: inc/functions_script_manager.php:360
 msgid "The above settings will apply to all assets in this group."
 msgstr ""
 "Вышеуказанные настройки будут применяться ко всем активам в этой группе."
 
-#: inc/functions_script_manager.php:436
+#: inc/functions_script_manager.php:437
 msgid "Depends on"
 msgstr "Зависит от"
 
-#: inc/functions_script_manager.php:449
+#: inc/functions_script_manager.php:450
 msgid "Required by"
 msgstr "Требуется для"
 
-#: inc/functions_script_manager.php:522 inc/script_manager.php:332
+#: inc/functions_script_manager.php:523 inc/script_manager.php:332
 msgid "MU Mode"
 msgstr "Режим MU"
 
-#: inc/functions_script_manager.php:528 inc/script_manager_css.php:622
+#: inc/functions_script_manager.php:529 inc/script_manager_css.php:619
 msgid "ON"
 msgstr "ВКЛ"
 
-#: inc/functions_script_manager.php:529 inc/script_manager_css.php:637
+#: inc/functions_script_manager.php:530 inc/script_manager_css.php:634
 msgid "OFF"
 msgstr "ОТКЛ"
 
-#: inc/functions_script_manager.php:553 inc/settings.php:1889
+#: inc/functions_script_manager.php:554 inc/settings.php:1889
 msgid "Disabled"
 msgstr "Отключено"
 
-#: inc/functions_script_manager.php:567
+#: inc/functions_script_manager.php:568
 msgid "Everywhere"
 msgstr "Везде"
 
-#: inc/functions_script_manager.php:585 inc/functions_script_manager.php:751
+#: inc/functions_script_manager.php:586 inc/functions_script_manager.php:752
 #: inc/settings.php:424
 msgid "404 Template"
 msgstr "Шаблон ошибки 404"
 
-#: inc/functions_script_manager.php:600 inc/functions_script_manager.php:765
+#: inc/functions_script_manager.php:601 inc/functions_script_manager.php:766
 msgid "Current URL"
 msgstr "Текущий URL"
 
-#: inc/functions_script_manager.php:688 inc/functions_script_manager.php:853
+#: inc/functions_script_manager.php:689 inc/functions_script_manager.php:854
 msgid "Users"
 msgstr "Пользователи"
 
-#: inc/functions_script_manager.php:690 inc/functions_script_manager.php:702
-#: inc/functions_script_manager.php:855 inc/functions_script_manager.php:867
+#: inc/functions_script_manager.php:691 inc/functions_script_manager.php:703
+#: inc/functions_script_manager.php:856 inc/functions_script_manager.php:868
 #: inc/settings.php:310 inc/settings.php:329 inc/settings.php:349
 #: inc/settings.php:377 inc/settings.php:423 inc/settings.php:620
 #: inc/settings.php:754 inc/settings.php:774 inc/settings.php:936
@@ -520,83 +529,83 @@ msgstr "Пользователи"
 msgid "Default"
 msgstr "по умолчанию"
 
-#: inc/functions_script_manager.php:691 inc/functions_script_manager.php:856
+#: inc/functions_script_manager.php:692 inc/functions_script_manager.php:857
 msgid "Logged In"
 msgstr "Авторизирован"
 
-#: inc/functions_script_manager.php:692 inc/functions_script_manager.php:857
+#: inc/functions_script_manager.php:693 inc/functions_script_manager.php:858
 msgid "Logged Out"
 msgstr "Выход выполнен"
 
-#: inc/functions_script_manager.php:700 inc/functions_script_manager.php:865
+#: inc/functions_script_manager.php:701 inc/functions_script_manager.php:866
 msgid "Devices"
 msgstr "Устройства"
 
-#: inc/functions_script_manager.php:703 inc/functions_script_manager.php:868
+#: inc/functions_script_manager.php:704 inc/functions_script_manager.php:869
 #: inc/settings.php:2257 inc/settings.php:2303
 msgid "Desktop"
 msgstr "Настольный ПК"
 
-#: inc/functions_script_manager.php:704 inc/functions_script_manager.php:869
+#: inc/functions_script_manager.php:705 inc/functions_script_manager.php:870
 #: inc/settings.php:2258 inc/settings.php:2304
 msgid "Mobile"
 msgstr "Мобильный"
 
-#: inc/functions_script_manager.php:712 inc/functions_script_manager.php:877
+#: inc/functions_script_manager.php:713 inc/functions_script_manager.php:878
 msgid "Regex"
 msgstr "Regex (регулярные выражения)"
 
-#: inc/functions_script_manager.php:730
+#: inc/functions_script_manager.php:731
 msgid "Exceptions"
 msgstr "Исключения"
 
-#: inc/functions_script_manager.php:1536 inc/script_manager.php:357
+#: inc/functions_script_manager.php:1539 inc/script_manager.php:357
 msgid "MU plugin version mismatch."
 msgstr "Несоответствие версии плагина MU."
 
-#: inc/functions_script_manager.php:1536 inc/functions_script_manager.php:1544
+#: inc/functions_script_manager.php:1539 inc/functions_script_manager.php:1547
 #: inc/script_manager.php:194 inc/script_manager.php:328
 #: inc/script_manager.php:340 inc/settings.php:2485
 msgid "View Documentation"
 msgstr "Посмотреть документацию"
 
-#: inc/functions_script_manager.php:1544 inc/script_manager.php:366
+#: inc/functions_script_manager.php:1547 inc/script_manager.php:366
 msgid "MU plugin file not found."
 msgstr "Файл плагина MU не найден."
 
-#: inc/license.php:71
+#: inc/license.php:73
 msgid "License Key"
 msgstr "Лицензионный ключ"
 
-#: inc/license.php:78
+#: inc/license.php:80
 msgid "Save License"
 msgstr "Сохранить лицензию"
 
-#: inc/license.php:82
+#: inc/license.php:84
 msgid "Remove License"
 msgstr "Удалить лицензию"
 
-#: inc/license.php:85
+#: inc/license.php:87
 msgid "Save or remove your license key."
 msgstr "Сохранить или удалить лицензионный ключ."
 
-#: inc/license.php:111 inc/license.php:118
+#: inc/license.php:113 inc/license.php:120
 msgid "Activate License"
 msgstr "Активировать лицензию"
 
-#: inc/license.php:114
+#: inc/license.php:116
 msgid "Deactivate License"
 msgstr "Деактивировать лицензию"
 
-#: inc/license.php:115
+#: inc/license.php:117
 msgid "License is activated."
 msgstr "Лицензия активирована."
 
-#: inc/license.php:119
+#: inc/license.php:121
 msgid "License is not activated."
 msgstr "Лицензия не активирована."
 
-#: inc/license.php:122
+#: inc/license.php:124
 msgid ""
 "Unlimited License needed for use in a multisite environment. Please contact "
 "support to upgrade."
@@ -604,23 +613,23 @@ msgstr ""
 "Неограниченная лицензия, необходима для использования в мультисайтовой "
 "среде. Пожалуйста, обратитесь в службу поддержки для обновления."
 
-#: inc/license.php:131
+#: inc/license.php:133
 msgid "License Status"
 msgstr "Статус лицензии"
 
-#: inc/license.php:136
+#: inc/license.php:138
 msgid "Renew Your License for Updates + Support!"
 msgstr "Продлить лицензию на обновления + поддержку!"
 
-#: inc/license.php:145
+#: inc/license.php:147
 msgid "Licenses Used"
 msgstr "Используемые лицензии"
 
-#: inc/license.php:153
+#: inc/license.php:155
 msgid "Expiration Date"
 msgstr "Действительна до"
 
-#: inc/license.php:154
+#: inc/license.php:156
 msgid "Lifetime"
 msgstr "Время существования"
 
@@ -684,7 +693,7 @@ msgstr ""
 "Вы уверены? Это навсегда перезапишет все параметры Perfmatters для всех "
 "дочерних сайтов."
 
-#: inc/script_manager.php:170 inc/script_manager_global.php:6
+#: inc/script_manager.php:170 inc/script_manager_global.php:7
 msgid "Global View"
 msgstr "Глобальное представление"
 
@@ -804,7 +813,7 @@ msgstr "Сбросить Менеджер скриптов"
 msgid "Remove and reset all of your existing Script Manager settings."
 msgstr "Удалить и сбросить все существующие настройки Менеджера скриптов."
 
-#: inc/script_manager.php:436
+#: inc/script_manager.php:441
 msgid ""
 "Are you sure? This will remove and reset all of your existing Script Manager "
 "settings and cannot be undone!"
@@ -812,22 +821,22 @@ msgstr ""
 "Вы уверены? Это удалить и сбросить все существующие настройки Менеджера "
 "скриптов и не может быть отменено!"
 
-#: inc/script_manager_global.php:7
+#: inc/script_manager_global.php:8
 msgid ""
 "This is a visual representation of the Script Manager configuration across "
 "your entire site."
 msgstr ""
 "Визуальное представление конфигурации Менеджера скриптов на всем сайте."
 
-#: inc/script_manager_global.php:40
+#: inc/script_manager_global.php:41
 msgid "Handle"
 msgstr "Дескриптор"
 
-#: inc/script_manager_global.php:41
+#: inc/script_manager_global.php:42
 msgid "Setting"
 msgstr "Настройка"
 
-#: inc/script_manager_global.php:129
+#: inc/script_manager_global.php:130
 msgid "You don't have any scripts disabled yet."
 msgstr "У вас еще нет отключенных скриптов."
 

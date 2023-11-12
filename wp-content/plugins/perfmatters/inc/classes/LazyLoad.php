@@ -223,6 +223,12 @@ class LazyLoad
 				$video_atts['data-src'] = $video_atts['src'];
 				unset($video_atts['src']);
 
+				//migrate poster
+				if(!empty($video_atts['poster'])) {
+					$video_atts['data-poster'] = $video_atts['poster'];
+					unset($video_atts['poster']);
+				}
+
 				//replace video attributes string
 				$video_lazyload  = str_replace($video[1], ' ' . Utilities::get_atts_string($video_atts), $video[0]);
 
@@ -331,7 +337,7 @@ class LazyLoad
 
 		//youtube thumbnails
 		if(!empty(Config::$options['lazyload']['lazy_loading_iframes']) && !empty(Config::$options['lazyload']['youtube_preview_thumbnails'])) {
-			$styles.= '.perfmatters-lazy-youtube{position:relative;width:100%;max-width:100%;height:0;padding-bottom:56.23%;overflow:hidden}.perfmatters-lazy-youtube img{position:absolute;top:0;right:0;bottom:0;left:0;display:block;width:100%;max-width:100%;height:auto;margin:auto;border:none;cursor:pointer;transition:.5s all;-webkit-transition:.5s all;-moz-transition:.5s all}.perfmatters-lazy-youtube img:hover{-webkit-filter:brightness(75%)}.perfmatters-lazy-youtube .play{position:absolute;top:50%;left:50%;right:auto;width:68px;height:48px;margin-left:-34px;margin-top:-24px;background:url('.plugins_url('perfmatters/img/youtube.svg').') no-repeat;background-position:center;background-size:cover;pointer-events:none}.perfmatters-lazy-youtube iframe{position:absolute;top:0;left:0;width:100%;height:100%;z-index:99}';
+			$styles.= '.perfmatters-lazy-youtube{position:relative;width:100%;max-width:100%;height:0;padding-bottom:56.23%;overflow:hidden}.perfmatters-lazy-youtube img{position:absolute;top:0;right:0;bottom:0;left:0;display:block;width:100%;max-width:100%;height:auto;margin:auto;border:none;cursor:pointer;transition:.5s all;-webkit-transition:.5s all;-moz-transition:.5s all}.perfmatters-lazy-youtube img:hover{-webkit-filter:brightness(75%)}.perfmatters-lazy-youtube .play{position:absolute;top:50%;left:50%;right:auto;width:68px;height:48px;margin-left:-34px;margin-top:-24px;background:url('.plugins_url('perfmatters/img/youtube.svg').') no-repeat;background-position:center;background-size:cover;pointer-events:none;filter:grayscale(1)}.perfmatters-lazy-youtube:hover .play{filter:grayscale(0)}.perfmatters-lazy-youtube iframe{position:absolute;top:0;left:0;width:100%;height:100%;z-index:99}';
 			if(current_theme_supports('responsive-embeds')) {
 				$styles.= '.wp-has-aspect-ratio .wp-block-embed__wrapper{position:relative;}.wp-has-aspect-ratio .perfmatters-lazy-youtube{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;padding-bottom:0}';
 			}
@@ -621,6 +627,11 @@ class LazyLoad
 				foreach($selectors as $selector) {
 
 					$selector_atts = Utilities::get_atts_array($selector[1]);
+
+					//skip if no-lazy class is found
+					if(!empty($selector_atts['class']) && strpos($selector_atts['class'], 'no-lazy') !== false) {
+						continue;
+					}
 
 					$selector_atts['class'] = !empty($selector_atts['class']) ? $selector_atts['class'] . ' ' . 'perfmatters-lazy-css-bg' : 'perfmatters-lazy-css-bg';
 

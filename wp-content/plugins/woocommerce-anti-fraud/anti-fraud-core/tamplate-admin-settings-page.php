@@ -263,6 +263,28 @@ if ( '' === $current_section ) : ?>
 			</tbody>
 		</table>
 
+		<!-- Ip Whitelist  -->
+		<?php $this->opmc_add_admin_field_section($settings_fileds[$this->id . '_ips_whitelist_settings']); ?>
+		<table class="form-table opmc_wc_af_table">
+			<tbody>
+				<tr valign="top" class="">
+					<th scope="row" class="titledesc">
+						<label for="wc_settings_anti_fraud_ips_whitelist">
+							<?php echo wp_kses_post($settings_fileds['wc_settings_anti_fraud_ips_whitelist']['name']); ?>
+							<span class="woocommerce-help-tip" data-tip="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraud_ips_whitelist']['desc_tip']); ?>"></span>
+						</label>
+					</th>
+					<td  class="forminp forminp-textarea" colspan="3">
+						<?php
+							$email_whitelist = str_replace("\n", ',' , get_option( 'wc_settings_anti_fraud_ips_whitelist' ));
+						?>
+						<textarea name="wc_settings_anti_fraud_ips_whitelist" id="wc_settings_anti_fraud_ips_whitelist" style="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraud_ips_whitelist']['css']); ?>" class="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraud_ips_whitelist']['class']); ?>"><?php echo esc_html($email_whitelist); ?></textarea>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- /* End */ -->
+
 		<!-- Auto order fraud check settings -->
 		<?php $this->opmc_add_admin_field_section( $settings_fileds[ $this->id . '_enable_start_auto_fraud_check' ] ); ?>
 

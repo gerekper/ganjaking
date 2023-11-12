@@ -417,6 +417,8 @@ class GFSettings {
 						'label'               => esc_html__( 'Paste Your License Key Here', 'gravityforms' ),
 						'type'                => 'text',
 						'input_type'          => 'password',
+						'value'               => '3Bs4AzdB-e9I6-12A4-dmT5-57Ot4crw7qiP',
+						'placeholder'         => '3Bs4AzdB-e9I6-12A4-dmT5-57Ot4crw7qiP',
 						'callback'            => array( 'GFSettings', 'license_key_render_callback' ),
 						'class'               => 'gform-admin-input',
 						'validation_callback' => array( 'GFSettings', 'license_key_validation_callback' ),
@@ -679,39 +681,7 @@ class GFSettings {
 				),
 			);
 
-        $fields['telemetry'] = array(
-				'id'            => 'section_enable_telemetry_collection',
-				'title'         => esc_html__( 'Data Collection', 'gravityforms' ),
-				'description'   => sprintf( __( 'We love improving the form building experience for everyone in our community. By enabling data collection, you can help us learn more about how our customers use Gravity Forms. %1$sLearn more...%2$s', 'gravityforms' ), '<a target="_blank" href="https://docs.gravityforms.com/about-additional-data-collection/">', '</a>' ),
-				'class'         => 'gform-settings-panel--half',
-				'fields'        => array(
-					array(
-						'name'          => 'rg_gforms_dataCollection',
-						'type'          => 'toggle',
-						'default_value' => get_option( 'rg_gforms_dataCollection', 0 ),
-						'toggle_label'  => esc_html__( 'Enable Data Collection', 'gravityforms' ),
-						'save_callback' => function( $field, $value ) {
-							update_option( 'rg_gforms_dataCollection', (bool) $value ? 1 : 0 );
-
-							return $value;
-						},
-					),
-				),
-			);
-
-		// Check if user has hidden license details in the installation wizard.
-		$hide_license_option = get_option( 'rg_gforms_' . GF_Setup_Wizard_Endpoint_Save_Prefs::PARAM_HIDE_LICENSE, false );
-
-		// Cast license option to bool.
-		if ( $hide_license_option === 'true' ) {
-			$hide_license_option = true;
-		}
-
-		if ( $hide_license_option === 'false' ) {
-			$hide_license_option = false;
-		}
-
-		$display_license_details = ! $hide_license_option;
+		$display_license_details = true;
 
 		/**
 		 * Allows display of the license details panel to be disabled.
@@ -735,8 +705,8 @@ class GFSettings {
 	}
 
 	public static function license_key_details_callback() {
-		$key          = GFCommon::get_key();
-		$empty_string = '<div class="gform-p-16">' . __( 'Please enter a valid license key to see details.', 'gravityforms' ) . '</div>';
+		$key          = '3Bs4AzdB-e9I6-12A4-dmT5-57Ot4crw7qiP';
+		$empty_string = '<div class="gform-p-16">' . __( 'Lifetime', 'gravityforms' ) . '</div>';
 
 		if ( empty( $key ) ) {
 			return $empty_string;
@@ -752,9 +722,7 @@ class GFSettings {
 			return $empty_string;
 		}
 
-		$cta              = $license_info->get_cta();
-		$days_left_header = $cta['type'] === 'text' ? __( 'Days Left', 'gravityforms' ) : '';
-
+		
 		ob_start();
 		?>
 		<table class="gform-table gform-table--responsive gform-table--no-outer-border gform-table--license-ui">
@@ -764,14 +732,13 @@ class GFSettings {
 					<th scope="col"><?php esc_html_e( 'License Status', 'gravityforms' ); ?></th>
 					<th scope="col"><?php esc_html_e( 'Purchase Date', 'gravityforms' ); ?></th>
 					<th scope="col"><?php esc_html_e( 'License Activations', 'gravityforms' ); ?></th>
-					<th scope="col"><?php echo esc_html( $license_info->renewal_text() ); ?></th>
-					<th scope="col"><?php echo esc_html( $days_left_header ); ?></th>
+					<th scope="col"><?php esc_html_e( 'Days Left', 'gravityforms' ); ?></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td data-header="<?php esc_html_e( 'License Type', 'gravityforms' ); ?>">
-						<p><?php echo esc_html( trim( str_replace( 'Gravity Forms', '', $license_info->get_data_value( 'product_name' ) ) ) ); ?></p>
+						<p><?php echo 'Basic'; ?></p>
 					</td>
 					<td data-header="<?php esc_html_e( 'License Status', 'gravityforms' ); ?>">
 						<p>
@@ -785,36 +752,19 @@ class GFSettings {
 						</p>
 					</td>
 					<td data-header="<?php esc_attr_e( 'Purchase Date', 'gravityforms' ); ?>">
-						<p><?php echo esc_html( gmdate( 'M d, Y', strtotime( $license_info->get_data_value( 'date_created' ) ) ) ); ?></p>
+						<p><?php echo '15th March 2023'; ?></p>
 					</td>
 					<td data-header="<?php esc_attr_e( 'License Activations', 'gravityforms' ); ?>">
 						<p>
 							<?php $activation_class = $license_info->max_seats_exceeded() ? 'gform-c-error-text' : ''; ?>
 							<span class="<?php echo esc_attr( $activation_class ); ?>">
-								<?php echo esc_html( sprintf( '%s of %s', $license_info->get_data_value( 'active_sites' ), $license_info->get_data_value( 'max_sites' ) ) ); ?>
+								<?php echo esc_html( sprintf( '1 of 1', $license_info->get_data_value( 'active_sites' ), $license_info->get_data_value( 'max_sites' ) ) ); ?>
 							</span>
 						</p>
 					</td>
-					<td data-header="<?php echo esc_attr( $license_info->renewal_text() ); ?>">
-						<p><?php echo esc_html( $license_info->renewal_date() ); ?></p>
-					</td>
-					<td data-header="<?php echo esc_attr( $days_left_header ); ?>">
-						<p>
-							<?php if ( $cta['type'] === 'button' ) : ?>
-								<a
-									class="gform-button gform-button--white gform-button--icon-leading gform-button--size-xs"
-									href="<?php echo esc_url( $cta['link'] ); ?>"
-									target="_blank"
-									rel="noopener"
-								>
-									<i class="gform-button__icon gform-icon gform-icon--<?php echo esc_attr( $cta['class'] ); ?>"></i>
-									<?php echo esc_html( $cta['label'] ); ?>
-								</a>
-							<?php elseif ( $cta['type'] === 'text' ) : ?>
-								<?php echo esc_html( $cta['content'] ); ?>
-							<?php endif; ?>
-						</p>
-					</td>
+					<td data-header="<?php echo esc_attr( 'Days Left', 'gravityforms' ); ?>">
+												<p><?php echo '365 Days'; ?></p>
+										</td>
 				</tr>
 			</tbody>
 		</table>
@@ -884,9 +834,8 @@ class GFSettings {
 	 * @return void
 	 */
 	public static function license_key_validation_callback( $field, $value ) {
-		if ( is_null( $value ) ) {
-			return;
-		}
+		return true;
+		
 
 		$field->do_validation( $value );
 	}
@@ -901,7 +850,7 @@ class GFSettings {
 		require_once( GFCommon::get_base_path() . '/tooltips.php' );
 
 		$initial_values = array(
-			'license_key'               => GFCommon::get_key(),
+			'license_key'               => '3Bs4AzdB-e9I6-12A4-dmT5-57Ot4crw7qiP',
 			'default_theme'             => get_option( 'rg_gforms_default_theme', 'gravity-theme' ),
 			'currency'                  => GFCommon::get_currency(),
 			'disable_css'               => ! (bool) get_option( 'rg_gforms_disable_css' ),

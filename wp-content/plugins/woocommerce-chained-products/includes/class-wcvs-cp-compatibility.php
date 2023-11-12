@@ -38,7 +38,6 @@ if ( ! class_exists( 'WCVS_CP_Compatibility' ) ) {
 				add_filter( 'woocommerce_hide_invisible_variations', array( $this, 'hide_chained_variations' ), 10, 3 );
 				add_filter( 'woocommerce_variation_is_visible', array( $this, 'is_variation_visible' ), 10, 4 );
 			}
-
 		}
 
 		/**
@@ -95,7 +94,6 @@ if ( ! class_exists( 'WCVS_CP_Compatibility' ) ) {
 			}
 
 			return $hide;
-
 		}
 
 		/**
@@ -118,9 +116,7 @@ if ( ! class_exists( 'WCVS_CP_Compatibility' ) ) {
 			}
 
 			return $visible;
-
 		}
-
 	}
 
 }

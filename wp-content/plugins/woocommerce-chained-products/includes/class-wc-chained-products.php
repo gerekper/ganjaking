@@ -3,7 +3,7 @@
  * Main class to handle mainly frontend related chained products actions
  *
  * @since       2.5.0
- * @version     1.3.1
+ * @version     1.3.2
  * @package     woocommerce-chained-products/includes/
  */
 
@@ -100,16 +100,16 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 			// Register Chained Products Shortcode.
 			add_action( 'init', array( $this, 'register_chained_products_shortcodes' ) );
 
-			add_filter( 'woocommerce_cart_item_subtotal', array( $this, 'sa_cart_chained_item_subtotal' ), 11, 3 );
-			add_filter( 'woocommerce_cart_item_price', array( $this, 'sa_cart_chained_item_subtotal' ), 11, 3 );
+			add_filter( 'woocommerce_cart_item_subtotal', array( $this, 'sa_cart_chained_item_subtotal' ), 11, 2 );
+			add_filter( 'woocommerce_cart_item_price', array( $this, 'sa_cart_chained_item_subtotal' ), 11, 2 );
 
-			add_filter( 'woocommerce_cart_item_class', array( $this, 'sa_cart_chained_item_class' ), 10, 3 );
-			add_filter( 'woocommerce_cart_item_name', array( $this, 'sa_cart_chained_item_name' ), 10, 3 );
+			add_filter( 'woocommerce_cart_item_class', array( $this, 'sa_cart_chained_item_class' ), 10, 2 );
+			add_filter( 'woocommerce_cart_item_name', array( $this, 'sa_cart_chained_item_name' ), 10, 2 );
 			add_filter( 'woocommerce_admin_html_order_item_class', array( $this, 'sa_admin_html_chained_item_class' ), 10, 2 );
 
 			add_filter( 'woocommerce_order_formatted_line_subtotal', array( $this, 'sa_order_chained_item_subtotal' ), 10, 3 );
 
-			add_filter( 'woocommerce_order_item_class', array( $this, 'sa_order_chained_item_class' ), 10, 3 );
+			add_filter( 'woocommerce_order_item_class', array( $this, 'sa_order_chained_item_class' ), 10, 2 );
 			add_filter( 'woocommerce_order_item_name', array( $this, 'sa_order_chained_item_name' ), 10, 2 );
 
 			// Show Chained Products on Cart.
@@ -137,21 +137,21 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 				add_action( 'woocommerce_before_delete_product', array( $this, 'sa_chained_on_trash_post' ) );
 			}
 
-			add_filter( 'woocommerce_order_get_items', array( $this, 'sa_cp_ignore_chained_child_items_on_manual_pay' ), 99, 2 );
+			add_filter( 'woocommerce_order_get_items', array( $this, 'sa_cp_ignore_chained_child_items_on_manual_pay' ), 99 );
 
-			add_filter( 'woocommerce_coupon_get_items_to_validate', array( $this, 'sa_exclude_chained_items_from_being_validated' ), 15, 2 );
+			add_filter( 'woocommerce_coupon_get_items_to_validate', array( $this, 'sa_exclude_chained_items_from_being_validated' ), 15 );
 
-			add_filter( 'woocommerce_cart_item_price', array( $this, 'sa_cp_set_cart_item_price' ), 10, 3 );
-			add_filter( 'woocommerce_cart_item_subtotal', array( $this, 'sa_cp_set_cart_item_subtotal' ), 10, 3 );
+			add_filter( 'woocommerce_cart_item_price', array( $this, 'sa_cp_set_cart_item_price' ), 10, 2 );
+			add_filter( 'woocommerce_cart_item_subtotal', array( $this, 'sa_cp_set_cart_item_subtotal' ), 10, 2 );
 
-			add_filter( 'woocommerce_show_variation_price', array( $this, 'sa_cp_show_variation_price' ), 10, 3 );
+			add_filter( 'woocommerce_show_variation_price', array( $this, 'sa_cp_show_variation_price' ), 10, 2 );
 
 			// Display price for all products excepts variable product.
 			add_filter( 'woocommerce_get_price_html', array( $this, 'sa_cp_set_price_html' ), 7, 2 );
 			// Display price for variable product.
 			add_filter( 'woocommerce_variable_price_html', array( $this, 'sa_cp_set_variable_price_html' ), 7, 2 );
 
-			add_filter( 'woocommerce_bundled_item_raw_price', array( $this, 'sa_cp_set_bundled_item_raw_price' ), 20, 4 );
+			add_filter( 'woocommerce_bundled_item_raw_price', array( $this, 'sa_cp_set_bundled_item_raw_price' ), 20 );
 
 			add_filter( 'get_product_addons', array( $this, 'sa_cp_ignore_addons_for_chained_items' ), 10, 1 );
 
@@ -186,7 +186,6 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 			if ( ! defined( 'WC_CP_LIST_LINKED_PRODUCTS_PER_PAGE' ) ) {
 				define( 'WC_CP_LIST_LINKED_PRODUCTS_PER_PAGE', 5 );
 			}
-
 		}
 
 		/**
@@ -235,13 +234,10 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 		/**
 		 * Function to set bundle price. This price will then be used to calculate bundle total including chained item prices ( Compatibility with WooCommerce Product Bundles )
 		 *
-		 * @param mixed           $bundled_item_price Bundle price html.
-		 * @param WC_Product      $product Product object.
-		 * @param mixed           $discount Discount amount.
-		 * @param WC_Bundled_Item $bundled_item Bundle item object.
+		 * @param string $bundled_item_price Bundle price html.
 		 * @return mixed $bundled_item_price
 		 */
-		public function sa_cp_set_bundled_item_raw_price( $bundled_item_price, $product, $discount, $bundled_item ) {
+		public function sa_cp_set_bundled_item_raw_price( $bundled_item_price = '' ) {
 			$this->cp_bundle_item_raw_price = $bundled_item_price;
 
 			return $bundled_item_price;
@@ -486,10 +482,8 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 				if ( is_callable( array( $product, 'get_children' ) ) ) {
 					$product_ids = $product->get_children();
 				}
-			} else {
-				if ( is_callable( array( $product, 'get_id' ) ) ) {
+			} elseif ( is_callable( array( $product, 'get_id' ) ) ) {
 					$product_ids[] = $product->get_id();
-				}
 			}
 
 			if ( empty( $product_ids ) || ! is_array( $product_ids ) ) {
@@ -581,12 +575,12 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 		 * Function to show variation price. WooCommerce by default doesn't show the price of a variation if it's set to zero. We need to override this in case any of the variation
 		 * has chained items linked to it with priced indivudally option enabled.
 		 *
-		 * @param bool                 $show_price Show price or not.
-		 * @param WC_Product           $product Product object.
-		 * @param WC_Product_Variation $variation Variation object.
-		 * @return bool $price
+		 * @param bool       $show_price Show price or not.
+		 * @param WC_Product $product Product object.
+		 *
+		 * @return bool $show_price
 		 */
-		public function sa_cp_show_variation_price( $show_price, $product, $variation ) {
+		public function sa_cp_show_variation_price( $show_price = false, $product = null ) {
 			if ( $product instanceof WC_Product_Variable && isset( $product->cp_show_variation_price ) && true === $product->cp_show_variation_price ) {
 				$show_price = true;
 			}
@@ -600,15 +594,15 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 		 * @param string $type Calculation type 'price'|'subtotal'.
 		 * @param string $amount_html Cart item amount html.
 		 * @param array  $cart_item Cart item data.
-		 * @param array  $cart_item_key Cart item key.
+		 *
 		 * @return string $amount_html
 		 */
-		public function get_cp_cart_item_amount( $type = '', $amount_html = '', $cart_item = array(), $cart_item_key = array() ) {
+		public function get_cp_cart_item_amount( $type = '', $amount_html = '', $cart_item = array() ) {
 
 			if ( ! empty( $cart_item ) ) {
 				$product         = $cart_item['data'];
 				$product_id      = $product->get_id();
-				$unit            = ( 'subtotal' === $type ) ? $cart_item['quantity'] : 1;
+				$unit            = ( 'subtotal' === $type && ! empty( $cart_item['quantity'] ) ) ? intval( $cart_item['quantity'] ) : 1;
 				$bundle_price    = 0;
 				$override_amount = false;
 
@@ -626,12 +620,13 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 
 						if ( isset( $chained_item_data['priced_individually'] ) && 'yes' === $chained_item_data['priced_individually'] ) {
 
-							$chained_product = wc_get_product( $chained_item_id );
+							$chained_product = wc_get_product( intval( $chained_item_id ) );
 
 							if ( $chained_product instanceof WC_Product ) {
-								$chained_product_price = $chained_product->get_price();
+								$chained_product_price = is_callable( array( $chained_product, 'get_price' ) ) ? floatval( $chained_product->get_price() ) : 0;
 								if ( ! empty( $chained_product_price ) ) {
-									$value += $chained_product_price * $chained_item_data['unit'];
+									$cp_unit = ! empty( $chained_item_data['unit'] ) ? intval( $chained_item_data['unit'] ) : 1;
+									$value  += ( $chained_product_price * $cp_unit );
 								}
 								$override_amount = true;
 							}
@@ -640,13 +635,12 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 
 					if ( $override_amount ) {
 						$product_price = ( WC()->cart->display_prices_including_tax() ) ? wc_get_price_including_tax( $product ) : wc_get_price_excluding_tax( $product );
-						$amount_html   = wc_price( ( $product_price + $value + $bundle_price ) * $unit );
+						$amount_html   = wc_price( ( floatval( $product_price ) + floatval( $value ) + floatval( $bundle_price ) ) * $unit );
 					}
 				}
 			}
 
 			return $amount_html;
-
 		}
 
 		/**
@@ -654,12 +648,12 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 		 *
 		 * @param string $cart_item_subtotal Cart item subtotal html.
 		 * @param array  $cart_item Cart item data.
-		 * @param array  $cart_item_key Cart item key.
+		 *
 		 * @return string $cart_item_subtotal
 		 */
-		public function sa_cp_set_cart_item_subtotal( $cart_item_subtotal, $cart_item, $cart_item_key ) {
+		public function sa_cp_set_cart_item_subtotal( $cart_item_subtotal = '', $cart_item = array() ) {
 			if ( Chained_Products_WC_Compatibility::is_wc_gte_30() ) {
-				$cart_item_subtotal = $this->get_cp_cart_item_amount( 'subtotal', $cart_item_subtotal, $cart_item, $cart_item_key );
+				$cart_item_subtotal = $this->get_cp_cart_item_amount( 'subtotal', $cart_item_subtotal, $cart_item );
 			}
 
 			return $cart_item_subtotal;
@@ -670,12 +664,12 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 		 *
 		 * @param string $cart_item_price Cart item price html.
 		 * @param array  $cart_item Cart item data.
-		 * @param array  $cart_item_key Cart item key.
+		 *
 		 * @return string $cart_item_price
 		 */
-		public function sa_cp_set_cart_item_price( $cart_item_price, $cart_item, $cart_item_key ) {
+		public function sa_cp_set_cart_item_price( $cart_item_price = '', $cart_item = array() ) {
 			if ( Chained_Products_WC_Compatibility::is_wc_gte_30() ) {
-				$cart_item_price = $this->get_cp_cart_item_amount( 'price', $cart_item_price, $cart_item, $cart_item_key );
+				$cart_item_price = $this->get_cp_cart_item_amount( 'price', $cart_item_price, $cart_item );
 			}
 
 			return $cart_item_price;
@@ -684,11 +678,16 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 		/**
 		 * Function to exclude chained items from being validated while applying coupon
 		 *
-		 * @param array        $items Items to validate.
-		 * @param WC_Discounts $discounts Discounts object.
+		 * @param array $items Items to validate.
+		 *
 		 * @return array $items
 		 */
-		public function sa_exclude_chained_items_from_being_validated( $items, $discounts ) {
+		public function sa_exclude_chained_items_from_being_validated( $items = array() ) {
+
+			if ( empty( $items ) || ! is_array( $items ) ) {
+				return $items;
+			}
+
 			foreach ( $items as $cart_item_key => $item ) {
 				$cart_item           = $item->object;
 				$priced_individually = ( ! empty( $cart_item['priced_individually'] ) ) ? $cart_item['priced_individually'] : 'no';
@@ -823,7 +822,7 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 					}
 
 					// For variable product - update all variation according to parent product.
-					$variable_product = $wpdb->get_results( $wpdb->prepare( "SELECT ID FROM {$wpdb->prefix}posts WHERE post_parent = %d", $result['post_id'] ), 'ARRAY_A' ); // db call ok; no-cache ok.
+					$variable_product = $wpdb->get_results( $wpdb->prepare( "SELECT ID FROM {$wpdb->prefix}posts WHERE post_parent = %d", intval( $result['post_id'] ) ), 'ARRAY_A' ); // phpcs:ignore
 
 					if ( empty( $variable_product ) ) {
 						$product_obj = wc_get_product( intval( $result['post_id'] ) );
@@ -843,7 +842,6 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 			}
 
 			update_option( '_current_chained_product_db_version', '1.3', 'no' );
-
 		}
 
 		/**
@@ -871,11 +869,7 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 				$shortcode .= __( 'When you order this product, you get all the following products for free!!', 'woocommerce-chained-products' );
 				$shortcode .= '[chained_products]';
 
-				$wpdb->query( // phpcs:ignore
-					"UPDATE {$wpdb->prefix}posts
-							SET post_content = concat( post_content , '$shortcode')
-							WHERE ID IN( $post_ids )"
-				); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching WordPress.DB.PreparedSQL.NotPrepared WPCS: unprepared SQL ok.
+				$wpdb->query( "UPDATE {$wpdb->prefix}posts SET post_content = concat( post_content , '$shortcode')  WHERE ID IN( $post_ids )" ); // phpcs:ignore
 			}
 
 			update_option( '_current_chained_product_db_version', '1.3.8', 'no' );
@@ -1041,15 +1035,12 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 			}
 
 			update_option( '_current_chained_product_db_version', '1.4', 'no' );
-
 		}
 
 		/**
 		 * Function to modify cart count in themes header
-		 *
-		 * @param string|null $name Name of the specific header file to use. null for the default header.
 		 */
-		public function sa_chained_theme_header( $name ) {
+		public function sa_chained_theme_header() {
 			global $wc_chained_products;
 
 			$chained_item_visible = $wc_chained_products->is_show_chained_items();
@@ -1166,19 +1157,23 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 				return;
 			}
 
-			$untrashed_post = wc_get_product( $untrashed_post_id );
+			$untrashed_post = wc_get_product( intval( $untrashed_post_id ) );
 
-			$data_to_restore = $untrashed_post->get_meta( '_parent_id_restore', true );
+			if ( ! $untrashed_post instanceof WC_Product ) {
+				return;
+			}
 
-			if ( ! empty( $data_to_restore ) ) {
+			$data_to_restore = is_callable( array( $untrashed_post, 'get_meta' ) ) ? $untrashed_post->get_meta( '_parent_id_restore', true ) : array();
+
+			if ( ! empty( $data_to_restore ) && is_array( $data_to_restore ) ) {
 
 				foreach ( $data_to_restore as $parent_id => $chained_array_data ) {
 
 					if ( empty( $chained_array_data ) || ! is_array( $chained_array_data ) ) {
-						return;
+						continue;
 					}
 
-					$parent_post          = wc_get_product( $parent_id );
+					$parent_post          = wc_get_product( intval( $parent_id ) );
 					$present_chained_data = self::chained_product_details( $parent_post );
 					$present_chained_data = ! empty( $present_chained_data ) && is_array( $present_chained_data ) ? ( $present_chained_data + $chained_array_data ) : $chained_array_data;
 
@@ -1195,11 +1190,11 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 		 * To ignore chained child items when Pay button is clicked
 		 * This will prevent adding chained child item twice
 		 *
-		 * @param  array    $items Cart items.
-		 * @param  WC_Order $order Order object.
+		 * @param  array $items Cart items.
+		 *
 		 * @return array $items Updated cart items.
 		 */
-		public function sa_cp_ignore_chained_child_items_on_manual_pay( $items, $order ) {
+		public function sa_cp_ignore_chained_child_items_on_manual_pay( $items = array() ) {
 			if ( isset( $_GET['pay_for_order'] ) && isset( $_GET['key'] ) && ! empty( $items ) ) { // phpcs:ignore
 				foreach ( $items as $item_id => $item ) {
 					if ( ! empty( $item['chained_product_of'] ) ) {
@@ -1653,10 +1648,10 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 		 *
 		 * @param string $subtotal Cart item price.
 		 * @param array  $cart_item Cart item data.
-		 * @param string $cart_item_key Cart item key.
+		 *
 		 * @return string $subtotal
 		 */
-		public function sa_cart_chained_item_subtotal( $subtotal = '', $cart_item = null, $cart_item_key = null ) {
+		public function sa_cart_chained_item_subtotal( $subtotal = '', $cart_item = array() ) {
 			if ( empty( $subtotal ) || empty( $cart_item ) || empty( $cart_item_key ) || empty( $cart_item['chained_item_of'] ) ) {
 				return $subtotal;
 			}
@@ -1667,15 +1662,11 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 				$priced_individually = ( ! empty( $cart_item['priced_individually'] ) ) ? $cart_item['priced_individually'] : 'no';
 
 				if ( 'no' === $priced_individually ) {
-					$called_by  = current_filter();
 					$product_id = ( ! empty( $cart_item['variation_id'] ) ) ? $cart_item['variation_id'] : $cart_item['product_id'];
 					$product    = wc_get_product( $product_id );
-					$price      = '';
-					if ( $product instanceof WC_Product ) {
-						$price = $product->get_price();
-					}
-					if ( 'woocommerce_cart_item_subtotal' === $called_by ) {
-						$price = $price * $cart_item['quantity'];
+					$price      = $product instanceof WC_Product && is_callable( array( $product, 'get_price' ) ) ? floatval( $product->get_price() ) : 0;
+					if ( 'woocommerce_cart_item_subtotal' === current_filter() ) {
+						$price = $price * ( ! empty( $cart_item['quantity'] ) ? intval( $cart_item['quantity'] ) : 0 );
 					}
 					return '<del>' . wc_price( $price ) . '</del>';
 				}
@@ -1689,17 +1680,17 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 		/**
 		 * Function to add css class for chained items in cart
 		 *
-		 * @param string $class Default class name for cart item.
+		 * @param string $css_class Default class name for cart item.
 		 * @param array  $cart_item Cart item data.
-		 * @param string $cart_item_key Cart item key.
-		 * @return string $class
+		 *
+		 * @return string $css_class
 		 */
-		public function sa_cart_chained_item_class( $class = '', $cart_item = null, $cart_item_key = null ) {
+		public function sa_cart_chained_item_class( $css_class = '', $cart_item = array() ) {
 			if ( empty( $cart_item ) || empty( $cart_item['chained_item_of'] ) ) {
-				return $class;
+				return $css_class;
 			}
 
-			return $class . ' chained_item';
+			return $css_class . ' chained_item';
 		}
 
 		/**
@@ -1707,10 +1698,10 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 		 *
 		 * @param string $item_name Product name.
 		 * @param array  $cart_item Cart item data.
-		 * @param string $cart_item_key Cart item key.
+		 *
 		 * @return string $item_name
 		 */
-		public function sa_cart_chained_item_name( $item_name = '', $cart_item = null, $cart_item_key = null ) {
+		public function sa_cart_chained_item_name( $item_name = '', $cart_item = array() ) {
 			if ( empty( $cart_item ) || empty( $cart_item['chained_item_of'] ) ) {
 				return $item_name;
 			}
@@ -1721,22 +1712,22 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 		/**
 		 * Function to add css class in chained items of order admin page
 		 *
-		 * @param string                $class Default order item class name.
+		 * @param string                $css_class Default order item class name.
 		 * @param WC_Order_Item_Product $item Order item object.
-		 * @return string $class
+		 * @return string $css_class
 		 */
-		public function sa_admin_html_chained_item_class( $class = '', $item = null ) {
+		public function sa_admin_html_chained_item_class( $css_class = '', $item = null ) {
 			if ( empty( $item ) || empty( $item['chained_product_of'] ) ) {
-				return $class;
+				return $css_class;
 			}
 
 			$priced_individually = ( ! empty( $item['cp_priced_individually'] ) ) ? $item['cp_priced_individually'] : 'no';
 
 			if ( 'no' === $priced_individually ) {
-				$class = $class . ' cp_hide_line_item_meta';
+				$css_class = $css_class . ' cp_hide_line_item_meta';
 			}
 
-			return $class . ' chained_item';
+			return $css_class . ' chained_item';
 		}
 
 		/**
@@ -1762,7 +1753,7 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 					$override_total = false;
 
 					if ( is_array( $chained_items ) && 0 < count( $chained_items ) ) {
-						$quantity = $order_item['quantity'];
+						$quantity = ! empty( $order_item['quantity'] ) ? intval( $order_item['quantity'] ) : 0;
 						$value    = 0;
 
 						foreach ( $chained_items as $chained_item_id => $chained_item_data ) {
@@ -1771,9 +1762,10 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 							if ( 'yes' === $priced_individually ) {
 								$chained_product = wc_get_product( $chained_item_id );
 								if ( $chained_product instanceof WC_Product ) {
-									$chained_product_price = $chained_product->get_price();
+									$chained_product_price = is_callable( array( $chained_product, 'get_price' ) ) ? floatval( $chained_product->get_price() ) : 0;
 									if ( ! empty( $chained_product_price ) ) {
-										$value += $chained_product_price * $chained_item_data['unit'];
+										$cp_unit = ! empty( $chained_item_data['unit'] ) ? intval( $chained_item_data['unit'] ) : 1;
+										$value  += ( $chained_product_price * $cp_unit );
 									}
 									$override_total = true;
 								}
@@ -1782,7 +1774,8 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 					}
 
 					if ( true === $override_total ) {
-						return wc_price( ( $product->get_price() + $value ) * $quantity );
+						$product_price = is_callable( array( $product, 'get_price' ) ) ? floatval( $product->get_price() ) : 0;
+						return wc_price( ( $product_price + floatval( $value ) ) * $quantity );
 					} else {
 						return $subtotal;
 					}
@@ -1794,9 +1787,9 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 			if ( $wc_chained_products->is_show_chained_item_price() ) {
 
 				if ( 'no' === $order_item['cp_priced_individually'] ) {
-					$product = ( is_object( $order_item ) && is_callable( array( $order_item, 'get_product' ) ) ) ? $order_item->get_product() : $order->get_product_from_item( $order_item );
-					$price   = $product->get_price();
-					$price   = $price * $order_item['qty'];
+					$product   = ( is_object( $order_item ) && is_callable( array( $order_item, 'get_product' ) ) ) ? $order_item->get_product() : $order->get_product_from_item( $order_item );
+					$order_qty = ! empty( $order_item['qty'] ) ? intval( $order_item['qty'] ) : 0;
+					$price     = $product instanceof WC_Product && is_callable( array( $product, 'get_price' ) ) ? $order_qty * floatval( $product->get_price() ) : 0;
 
 					return '<del>' . wc_price( $price ) . '</del>';
 				}
@@ -1810,17 +1803,18 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 		/**
 		 * Function to add css class for chained items in order
 		 *
-		 * @param string                $class Default class name for order item.
+		 * @param string                $css_class Default class name for order item.
 		 * @param WC_Order_Item_Product $order_item Order item object.
-		 * @param WC_Order              $order Order object.
-		 * @return string $class
+		 *
+		 * @return string $css_class
 		 */
-		public function sa_order_chained_item_class( $class = '', $order_item = null, $order = null ) {
+		public function sa_order_chained_item_class( $css_class = '', $order_item = null ) {
+
 			if ( empty( $order_item ) || empty( $order_item['chained_product_of'] ) ) {
-				return $class;
+				return $css_class;
 			}
 
-			return $class . ' chained_item';
+			return $css_class . ' chained_item';
 		}
 
 		/**
@@ -1972,7 +1966,6 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 
 				}
 			}
-
 		}
 
 
@@ -2849,7 +2842,7 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 				// Add the page for next pagination.
 				if ( ! empty( $chained_attributes['form_value']['variable_id'] ) && ! empty( $post_per_page ) ) {
 					if ( count( $chained_product_ids ) >= $post_per_page ) {
-						$page++;
+						++$page;
 						$cp_ppg_component         = '<div class="wccp-page-no" data-page-number="' . esc_attr( $page ) . '" hidden></div>';
 						$chained_product_content .= $cp_ppg_component;
 					}

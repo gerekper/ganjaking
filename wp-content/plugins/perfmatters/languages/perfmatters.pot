@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Perfmatters\n"
-"POT-Creation-Date: 2023-09-29 13:10-0700\n"
-"PO-Revision-Date: 2023-09-29 13:09-0700\n"
+"POT-Creation-Date: 2023-11-09 15:22-0800\n"
+"PO-Revision-Date: 2023-11-09 15:22-0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -81,6 +81,14 @@ msgstr ""
 
 #: inc/CLI.php:81
 msgid "License could not be removed."
+msgstr ""
+
+#: inc/CLI.php:102
+msgid "Used CSS cleared for all network sites."
+msgstr ""
+
+#: inc/CLI.php:106 inc/classes/CSS.php:643 inc/classes/CSS.php:683
+msgid "Used CSS cleared."
 msgstr ""
 
 #: inc/admin.php:37 inc/settings.php:14
@@ -176,21 +184,17 @@ msgstr ""
 msgid "Nonce is invalid."
 msgstr ""
 
-#: inc/classes/CSS.php:615 inc/classes/Meta.php:85 inc/settings.php:837
+#: inc/classes/CSS.php:622 inc/classes/Meta.php:85 inc/settings.php:837
 #: inc/settings.php:846
 msgid "Clear Used CSS"
 msgstr ""
 
-#: inc/classes/CSS.php:615
+#: inc/classes/CSS.php:622
 msgid "Current"
 msgstr ""
 
-#: inc/classes/CSS.php:615
+#: inc/classes/CSS.php:622
 msgid "All"
-msgstr ""
-
-#: inc/classes/CSS.php:636 inc/classes/CSS.php:676
-msgid "Used CSS cleared."
 msgstr ""
 
 #: inc/classes/DatabaseOptimizer.php:70

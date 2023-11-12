@@ -188,6 +188,16 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 				return;
 			}
 
+			$whitelisted_ips = get_option('is_whitelisted_ips');
+
+			if (isset($whitelisted_ips) && 'true' == $whitelisted_ips) {
+				Af_Logger::debug('Fraud Check exited.');
+				update_post_meta($order_id, 'wc_af_score', 100);
+				update_post_meta($order_id, 'whitelist_action', 'user_email_whitelisted');
+				$order->add_order_note(__('Order fraud checks skipped due to whitelisted customer IPs.', 'woocommerce-anti-fraud'));
+				return;
+			}
+
 			$is_whitelisted_roles = get_option( 'is_whitelisted_roles' );
 			$payment_methods_whitelist = get_option( 'white_payment_methods' );
 			$not_whitelisted_email = get_option( 'not_whitelisted_email' );
@@ -573,7 +583,10 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 					);
 
 					if ( $orders_allowed_limit <= count( $orders_between ) ) {
-						wc_add_notice( __( 'Max Order Limit between time reached.' ), 'error' );
+						
+						$new_status = 'cancelled';
+						$order->add_order_note( __( 'Max Order Limit between time reached.', 'woocommerce-anti-fraud' ) );
+						Af_Logger::debug( 'Max Order Limit between time reached: ' . $new_status );
 					}
 				}
 			}

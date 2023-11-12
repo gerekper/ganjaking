@@ -102,7 +102,6 @@ if ( ! class_exists( 'WC_CP_Admin_Notices' ) ) {
 				</div>
 				<?php
 			}
-
 		}
 
 		/**

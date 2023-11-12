@@ -1,18 +1,18 @@
 <?php
 /**
  * Plugin Name: WooCommerce Brands
- * Plugin URI: https://woocommerce.com/products/brands/
+ * Plugin URI: https://woo.com/products/brands/
  * Description: Add brands to your products, as well as widgets and shortcodes for displaying your brands.
  * Author: WooCommerce
- * Author URI: https://woocommerce.com/
+ * Author URI: https://woo.com/
  * Developer: WooCommerce
- * Developer URI: http://woocommerce.com/
+ * Developer URI: http://woo.com/
  * Requires at least: 5.4
- * Tested up to: 6.3
- * Version: 1.6.61
+ * Tested up to: 6.4
+ * Version: 1.6.62
  * Text Domain: woocommerce-brands
  * Domain Path: /languages/
- * WC tested up to: 8.2
+ * WC tested up to: 8.3
  * WC requires at least: 4.6
  *
  * Copyright (c) 2020 WooCommerce
@@ -71,7 +71,7 @@ function wc_brands_init() {
 		return;
 	}
 
-	define( 'WC_BRANDS_VERSION', '1.6.61' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_BRANDS_VERSION', '1.6.62' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Localisation
@@ -101,13 +101,13 @@ function wc_brands_plugin_action_links( $actions ) {
 	$custom_actions = array();
 
 	// Documentation URL.
-	$custom_actions['docs'] = sprintf( '<a href="%s">%s</a>', 'https://docs.woocommerce.com/document/woocommerce-brands/', __( 'Docs', 'woocommerce-brands' ) );
+	$custom_actions['docs'] = sprintf( '<a href="%s">%s</a>', 'https://woo.com/document/woocommerce-brands/', __( 'Docs', 'woocommerce-brands' ) );
 
 	// Support URL.
-	$custom_actions['support'] = sprintf( '<a href="%s">%s</a>', 'https://support.woocommerce.com/', __( 'Support', 'woocommerce-brands' ) );
+	$custom_actions['support'] = sprintf( '<a href="%s">%s</a>', 'https://woo.com/contact-us/', __( 'Support', 'woocommerce-brands' ) );
 
 	// Changelog link.
-	$custom_actions['changelog'] = sprintf( '<a href="%s" target="_blank">%s</a>', 'https://woocommerce.com/changelogs/woocommerce-brands/changelog.txt', __( 'Changelog', 'woocommerce-brands' ) );
+	$custom_actions['changelog'] = sprintf( '<a href="%s" target="_blank">%s</a>', 'https://woo.com/changelogs/woocommerce-brands/changelog.txt', __( 'Changelog', 'woocommerce-brands' ) );
 
 	// Add the links to the front of the actions list.
 	return array_merge( $custom_actions, $actions );
@@ -118,7 +118,7 @@ function wc_brands_plugin_action_links( $actions ) {
  */
 function wc_brands_woocommerce_deactivated() {
 	/* translators: %s: WooCommerce link */
-	echo '<div class="error"><p>' . sprintf( esc_html__( 'WooCommerce Brands requires %s to be installed and active.', 'woocommerce-brands' ), '<a href="https://woocommerce.com/" target="_blank">WooCommerce</a>' ) . '</p></div>';
+	echo '<div class="error"><p>' . sprintf( esc_html__( 'WooCommerce Brands requires %s to be installed and active.', 'woocommerce-brands' ), '<a href="https://woo.com/" target="_blank">WooCommerce</a>' ) . '</p></div>';
 }
 
 /**

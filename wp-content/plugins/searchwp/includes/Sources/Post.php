@@ -271,6 +271,18 @@ class Post extends Source {
 				},
 				'phrases' => 'post_excerpt',
 			],
+			[	// Post Author.
+				'name'    => 'author',
+				'label'   => __( 'Author', 'searchwp' ),
+				'default' => $this->is_excluded_from_search() ? false : Utils::get_max_engine_weight(),
+				'data'    => function( $post_id ) {
+					return apply_filters(
+						'searchwp\source\post\attributes\author',
+						get_the_author_meta( 'display_name', get_post_field( 'post_author', $post_id ) ),
+						[ 'post_id' => $post_id ]
+					);
+				},
+			],
 			[	// Custom Fields.
 				'name'    => 'meta',
 				'label'   => __( 'Custom Fields', 'searchwp' ),
@@ -395,18 +407,6 @@ class Post extends Source {
 					}
 
 					return $terms;
-				},
-			],
-			[	// Post Author.
-				'name'    => 'author',
-				'label'   => __( 'Author', 'searchwp' ),
-				'default' => $this->is_excluded_from_search() ? false : Utils::get_max_engine_weight(),
-				'data'    => function( $post_id ) {
-					return apply_filters(
-						'searchwp\source\post\attributes\author',
-						get_the_author_meta( 'display_name', get_post_field( 'post_author', $post_id ) ),
-						[ 'post_id' => $post_id ]
-					);
 				},
 			],
 		];

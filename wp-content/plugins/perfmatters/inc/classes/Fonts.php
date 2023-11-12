@@ -83,7 +83,7 @@ class Fonts
         }
 
         //find google fonts
-        preg_match_all('#<link[^>]+?href=(["\'])([^>]*?fonts\.googleapis\.com\/css.*?)\1.*?>#i', $html, $google_fonts, PREG_SET_ORDER);
+        preg_match_all('#<link[^>]+?href=(["\'])([^>]*?fonts\.googleapis\.com\/(css|icon).*?)\1.*?>#i', $html, $google_fonts, PREG_SET_ORDER);
         if(!empty($google_fonts)) {
             foreach($google_fonts as $google_font) {
      

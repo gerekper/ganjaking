@@ -155,7 +155,15 @@ class PhraseLimiter {
 									$meta_keys = array_key_exists( '*', $source_attribute['value'] ) ? [] : array_keys( $source_attribute['value'] );
 
 									if ( ! empty( $meta_keys ) ) {
-										return "{$column} LIKE %s AND meta_key IN ('" . implode( "','", $meta_keys ) . "')";
+
+										$meta_key_clause = implode( ' OR ', array_map( function( $meta_key ) {
+											// Replace wildcard with SQL wildcard.
+											$meta_key = str_replace( '*', '%', $meta_key );
+
+											return "meta_key LIKE '{$meta_key}'";
+										}, $meta_keys ) );
+
+										return "{$column} LIKE %s AND ({$meta_key_clause})";
 									}
 								}
 							}

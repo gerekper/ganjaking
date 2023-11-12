@@ -218,7 +218,7 @@ if ( ! function_exists( 'vc_request_param' ) ) {
 	 * @param $default
 	 *
 	 * @param bool $check
-	 * @return null|string - null for undefined param.
+	 * @return mixed - null for undefined param.
 	 * @since 4.4
 	 */
 	function vc_request_param( $param, $default = null, $check = false ) {

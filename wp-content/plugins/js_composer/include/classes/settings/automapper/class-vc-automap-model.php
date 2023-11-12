@@ -10,6 +10,7 @@ if ( ! class_exists( 'Vc_Automap_Model' ) ) {
 	 * @see Vc_Automapper
 	 * @since 4.1
 	 */
+	#[\AllowDynamicProperties]
 	class Vc_Automap_Model {
 		/**
 		 * @var string

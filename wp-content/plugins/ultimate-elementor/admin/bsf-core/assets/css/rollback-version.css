@@ -1,0 +1,84 @@
+.bsf-core-rollback-overlay {
+    background: #000;
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100050;
+}
+.bsf-confirm-rollback-popup-content {
+    background: #fcfcfc;
+    position: fixed;
+    /* background-color: #fff; */
+    z-index: 999999999;
+    padding: 2px 20px 0px;
+    text-align: left;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    -webkit-box-shadow: 0 3px 6px rgba( 0, 0, 0, 0.3 );
+    box-shadow: 0 3px 6px rgba( 0, 0, 0, 0.3 );
+    border-radius: 2px;
+}
+.bsf-confirm-rollback-popup-buttons-wrapper .bsf-confirm-cancel{
+    padding: 0px 16px;
+    margin-right: 149px;
+}
+.bsf-confirm-text{
+    margin-bottom: 25px;
+}
+.bsf-confirm-rollback-popup-buttons-wrapper .bsf-confirm-ok{
+    margin-right: 0px;
+    padding: 0px 16px;
+    float: right;
+}
+.bsf-rollback-heading{
+    text-align: center;
+}
+
+.bsf-confirm-rollback-popup-header {
+	font-size: 15px;
+    color: #495157;
+    padding: 30px 0 10px;
+    font-weight: 500;
+	text-align: center;
+}
+.bsf-confirm-rollback-popup-message {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    min-height: 50px;
+	text-align: center;
+}
+.bsf-confirm-rollback-popup-buttons-wrapper {
+	border-top: 1px solid #e4e4e4;
+    width: 100%;
+    padding: 9px 0px 9px 0px
+}
+.bsf-confirm-rollback-popup-button {
+	font-family: Roboto, Arial, Helvetica, Verdana, sans-serif;
+    width: 50%;
+    border: none;
+    background: none;
+    color: #6d7882;
+    font-size: 15px;
+    cursor: pointer;
+    padding: 13px 0;
+    outline: 0;
+}
+.bsf-confirm-rollback-popup-button:hover {
+	background:#e6e9ec6b
+}
+.bsf-confirm-rollback-popup-button.confirm-cancel {
+	border-right: 1px solid #e6e9ec;
+}
+.bsf-confirm-rollback-popup-button.confirm-ok {
+	color: rgb(74, 0, 224);
+}
+.bsf-confirm-rollback-popup.show {
+	display: block;
+}

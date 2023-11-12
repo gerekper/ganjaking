@@ -1,0 +1,2706 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Piotnet Addons For Elementor Pro\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-11-09 10:26+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.5.5; wp-5.8.1\n"
+"X-Domain: pafe"
+
+#: piotnet-addons-for-elementor-pro.php:1041
+#, php-format
+msgid "\"%1$s\" requires \"%2$s\" to be installed and activated."
+msgstr ""
+
+#. 1: Plugin name 2: Elementor 3: Required Elementor version
+#. 1: Plugin name 2: PHP 3: Required PHP version
+#: piotnet-addons-for-elementor-pro.php:1056
+#: piotnet-addons-for-elementor-pro.php:1072
+#, php-format
+msgid "\"%1$s\" requires \"%2$s\" version %3$s or greater."
+msgstr ""
+
+#: controls/pafe-display-inline-block.php:69
+msgid "-webkit-baseline-middle"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:457
+msgid "/page-slug/"
+msgstr ""
+
+#: controls/pafe-toggle-content.php:62
+msgid "0px"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1551
+msgid "1.414:1 Silver Ratio"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1552
+msgid "1.618:1 Golden Ratio"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1553
+msgid "1.91 : 1 OGP Image Ratio"
+msgstr ""
+
+#: controls/pafe-crossfade-multiple-background-images.php:42
+#: controls/pafe-crossfade-multiple-background-images.php:55
+msgid "1000 ms = 1 second"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1554
+msgid "16 : 9 HDTV"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1550
+msgid "3:2"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1549
+msgid "4:3"
+msgstr ""
+
+#: controls/pafe-conditional-logic-form.php:129
+#: controls/pafe-conditional-visibility.php:443
+#: controls/pafe-form-builder-conditional-logic.php:159
+msgid "50"
+msgstr ""
+
+#: controls/pafe-conditional-logic-form.php:98
+#: controls/pafe-conditional-visibility.php:407
+#: controls/pafe-form-builder-conditional-logic.php:127
+msgid "<"
+msgstr ""
+
+#: controls/pafe-conditional-logic-form.php:99
+#: controls/pafe-conditional-visibility.php:408
+#: controls/pafe-form-builder-conditional-logic.php:128
+msgid "<="
+msgstr ""
+
+#: controls/pafe-conditional-logic-form.php:96
+#: controls/pafe-conditional-visibility.php:405
+#: controls/pafe-form-builder-conditional-logic.php:125
+msgid ">"
+msgstr ""
+
+#: controls/pafe-toggle-content.php:61
+msgid "> 0px"
+msgstr ""
+
+#: controls/pafe-conditional-logic-form.php:97
+#: controls/pafe-conditional-visibility.php:406
+#: controls/pafe-form-builder-conditional-logic.php:126
+msgid ">="
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:197
+msgid "[field id=\"booking\"]"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:141
+msgid "[field id=\"date\"]"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:178
+msgid "[field id=\"quantity\"]"
+msgstr ""
+
+#: inc/admin-page.php:975
+msgid "Account SID"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:362
+#: widgets/pafe-lightbox-gallery.php:291 widgets/pafe-lightbox-gallery.php:322
+#: widgets/pafe-lightbox-image.php:196 widgets/pafe-lightbox-image.php:229
+msgid "ACF Field"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:219
+#: controls/pafe-conditional-visibility.php:323
+#: controls/pafe-form-builder-repeater-trigger.php:63
+msgid "Action"
+msgstr ""
+
+#: piotnet-addons-for-elementor-pro.php:566
+#: piotnet-addons-for-elementor-pro.php:1085
+msgid "Activate License"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1198
+msgid "Active Background Color"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1214
+msgid "Active Number Color"
+msgstr ""
+
+#: inc/admin-page.php:859
+msgid "ActiveCampaign Integration"
+msgstr ""
+
+#: controls/pafe-form-builder-repeater-trigger.php:66
+msgid "Add"
+msgstr ""
+
+#: controls/pafe-image-select-field.php:51
+msgid "Add Images"
+msgstr ""
+
+#: controls/pafe-toggle-content.php:131
+msgid "Add Post ID to Slug"
+msgstr ""
+
+#: widgets/pafe-add-to-cart-checkbox.php:10
+#: widgets/pafe-add-to-cart-checkbox.php:32
+msgid "Add To Cart Checkbox"
+msgstr ""
+
+#: controls/pafe-calculated-fields-form.php:81
+msgid "After Content"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:197
+msgid "After Number Of Slot"
+msgstr ""
+
+#: widgets/pafe-acf-repeater-sub-field.php:57
+msgid "Align"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1136 widgets/pafe-advanced-search.php:1825
+#: widgets/pafe-display-form-submissions.php:243
+msgid "Alignment"
+msgstr ""
+
+#: piotnet-addons-for-elementor-pro.php:309
+msgid "All Form ID"
+msgstr ""
+
+#: controls/pafe-conditional-logic-form.php:144
+#: controls/pafe-conditional-visibility.php:206
+#: controls/pafe-conditional-visibility.php:472
+#: controls/pafe-form-builder-conditional-logic.php:174
+#: controls/pafe-meta-query.php:44
+msgid "AND"
+msgstr ""
+
+#: inc/admin-page.php:600 inc/admin-page.php:741 inc/admin-page.php:769
+#: inc/admin-page.php:796 inc/admin-page.php:821 inc/admin-page.php:846
+#: inc/admin-page.php:872 inc/admin-page.php:901 inc/admin-page.php:1028
+msgid "API Key"
+msgstr ""
+
+#: inc/admin-page.php:876
+msgid "API URL"
+msgstr ""
+
+#: controls/pafe-column-aspect-ratio.php:39
+msgid "Aspect Ratio"
+msgstr ""
+
+#: widgets/pafe-lightbox-gallery.php:320 widgets/pafe-lightbox-image.php:227
+msgid "Attachment Description"
+msgstr ""
+
+#: widgets/pafe-lightbox-gallery.php:289 widgets/pafe-lightbox-image.php:194
+msgid "Attachment Title"
+msgstr ""
+
+#: inc/admin-page.php:979
+msgid "Author Token"
+msgstr ""
+
+#: inc/admin-page.php:484
+msgid "Authorizaion"
+msgstr ""
+
+#: inc/admin-page.php:1085
+msgid "Authorization Redirect URI"
+msgstr ""
+
+#: inc/admin-page.php:608
+msgid "Authorize"
+msgstr ""
+
+#: inc/admin-page.php:480 inc/admin-page.php:604
+msgid "Authorized redirect URI"
+msgstr ""
+
+#: widgets/pafe-add-to-cart-checkbox.php:100
+msgid "Auto get all product variations"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:530 widgets/pafe-form-booking.php:580
+#: widgets/pafe-form-booking.php:630
+msgid "Background"
+msgstr ""
+
+#: controls/pafe-advanced-dots-styling.php:175
+#: controls/pafe-ajax-live-search.php:194
+#: controls/pafe-ajax-live-search.php:256
+#: controls/pafe-image-select-field.php:252
+#: controls/pafe-image-select-field.php:333
+#: widgets/pafe-advanced-search.php:380 widgets/pafe-advanced-search.php:839
+#: widgets/pafe-advanced-search.php:1039 widgets/pafe-advanced-search.php:1166
+#: widgets/pafe-advanced-search.php:1335 widgets/pafe-advanced-search.php:1432
+#: widgets/pafe-lightbox-gallery.php:207 widgets/pafe-lightbox-image.php:112
+msgid "Background Color"
+msgstr ""
+
+#: controls/pafe-advanced-dots-styling.php:191
+msgid "Background Color Active"
+msgstr ""
+
+#: controls/pafe-crossfade-multiple-background-images.php:66
+#: controls/pafe-multiple-background-images.php:47
+msgid "Background Image"
+msgstr ""
+
+#: widgets/pafe-lightbox-gallery.php:216 widgets/pafe-lightbox-image.php:121
+msgid "Background Opacity"
+msgstr ""
+
+#: controls/pafe-sticky-header.php:81
+msgid "Background When Sticky"
+msgstr ""
+
+#: controls/pafe-display-inline-block.php:70
+msgid "baseline"
+msgstr ""
+
+#: controls/pafe-calculated-fields-form.php:71
+msgid "Before Content"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:188
+msgid "Before Number Of Slot"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:78
+msgid "Billing Address 1"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:79
+msgid "Billing Address 2"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:80
+msgid "Billing City"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:77
+msgid "Billing Company"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:82
+msgid "Billing Country"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:85
+msgid "Billing Email"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:75
+msgid "Billing First Name"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:76
+msgid "Billing Last Name"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:84
+msgid "Billing Phone"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:81
+msgid "Billing Post Code"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:83
+msgid "Billing State"
+msgstr ""
+
+#: controls/pafe-convert-image-to-black-or-white.php:27
+msgid "Black"
+msgstr ""
+
+#: widgets/pafe-form-builder-lost-password.php:52
+msgid "Blank"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:9 widgets/pafe-woocommerce-checkout.php:183
+msgid "Booking"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:60
+msgid "Booking ID* (Required)"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:705
+msgid "Booking Label"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:195
+msgid "Booking Shortcode"
+msgstr ""
+
+#: widgets/pafe-display-form-submissions.php:342
+#: widgets/pafe-form-booking.php:563 widgets/pafe-form-booking.php:613
+#: widgets/pafe-form-booking.php:663
+msgid "Border"
+msgstr ""
+
+#: controls/pafe-advanced-dots-styling.php:300
+#: controls/pafe-ajax-live-search.php:122 widgets/pafe-advanced-search.php:421
+#: widgets/pafe-advanced-search.php:504 widgets/pafe-advanced-search.php:599
+#: widgets/pafe-advanced-search.php:696 widgets/pafe-advanced-search.php:933
+#: widgets/pafe-advanced-search.php:1055 widgets/pafe-advanced-search.php:1351
+#: widgets/pafe-advanced-search.php:1447
+msgid "Border Color"
+msgstr ""
+
+#: controls/pafe-advanced-dots-styling.php:317
+msgid "Border Color Active"
+msgstr ""
+
+#: controls/pafe-advanced-dots-styling.php:245
+#: controls/pafe-ajax-live-search.php:70 widgets/pafe-advanced-search.php:482
+#: widgets/pafe-advanced-search.php:564 widgets/pafe-advanced-search.php:659
+#: widgets/pafe-advanced-search.php:756 widgets/pafe-advanced-search.php:997
+#: widgets/pafe-advanced-search.php:1116 widgets/pafe-advanced-search.php:1300
+#: widgets/pafe-advanced-search.php:1412 widgets/pafe-advanced-search.php:1507
+#: widgets/pafe-advanced-search.php:1588 widgets/pafe-form-booking.php:477
+msgid "Border Radius"
+msgstr ""
+
+#: controls/pafe-scroll-box-with-custom-scrollbar.php:167
+msgid "Border Radius (px)"
+msgstr ""
+
+#: controls/pafe-advanced-dots-styling.php:261
+#: controls/pafe-ajax-live-search.php:85
+msgid "Border Type"
+msgstr ""
+
+#: controls/pafe-advanced-dots-styling.php:284
+#: controls/pafe-ajax-live-search.php:107 widgets/pafe-advanced-search.php:470
+#: widgets/pafe-advanced-search.php:552 widgets/pafe-advanced-search.php:647
+#: widgets/pafe-advanced-search.php:744 widgets/pafe-advanced-search.php:985
+#: widgets/pafe-advanced-search.php:1104 widgets/pafe-advanced-search.php:1400
+#: widgets/pafe-advanced-search.php:1495
+msgid "Border Width"
+msgstr ""
+
+#: controls/pafe-display-inline-block.php:71
+msgid "bottom"
+msgstr ""
+
+#: controls/pafe-advanced-dots-styling.php:159
+msgid "Bottom Position"
+msgstr ""
+
+#: controls/pafe-ajax-live-search.php:59 widgets/pafe-advanced-search.php:438
+#: widgets/pafe-advanced-search.php:520 widgets/pafe-advanced-search.php:615
+#: widgets/pafe-advanced-search.php:712 widgets/pafe-advanced-search.php:953
+#: widgets/pafe-advanced-search.php:1072 widgets/pafe-advanced-search.php:1368
+#: widgets/pafe-advanced-search.php:1463
+msgid "Box Shadow"
+msgstr ""
+
+#: controls/pafe-sticky-header.php:92
+msgid "Box Shadow When Sticky"
+msgstr ""
+
+#: controls/pafe-advanced-form-styling.php:101
+msgid "Button Box Shadow"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:784
+msgid "Button Icon"
+msgstr ""
+
+#: controls/pafe-advanced-form-styling.php:85
+msgid "Button Margin"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:139
+msgid "Button Text"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:826
+msgid "Button Typography"
+msgstr ""
+
+#: controls/pafe-calculated-fields-form.php:52
+msgid "Calculated Field Custom ID"
+msgstr ""
+
+#: controls/pafe-calculated-fields-form.php:61
+msgid "Calculation"
+msgstr ""
+
+#: widgets/pafe-lightbox-gallery.php:331
+msgid "Caption Key"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1145 widgets/pafe-advanced-search.php:1834
+#: widgets/pafe-display-form-submissions.php:172
+#: widgets/pafe-display-form-submissions.php:251
+msgid "Center"
+msgstr ""
+
+#: controls/pafe-max-width.php:68
+msgid "Center Align Element"
+msgstr ""
+
+#: piotnet-addons-for-elementor-pro.php:1095
+msgid "Change Log"
+msgstr ""
+
+#: controls/pafe-conditional-logic-form.php:100
+#: controls/pafe-form-builder-conditional-logic.php:129
+msgid "checked"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:239
+msgid "Choose Day"
+msgstr ""
+
+#: inc/admin-page.php:711
+msgid "Click here to Create app and get the Client ID"
+msgstr ""
+
+#: inc/admin-page.php:644
+msgid "Click here to get Google Maps API Key"
+msgstr ""
+
+#: inc/admin-page.php:765
+msgid "Click here to get the API key"
+msgstr ""
+
+#: controls/pafe-form-builder-repeater.php:86
+msgid "Click here to get the Shortcode"
+msgstr ""
+
+#: inc/admin-page.php:468
+msgid ""
+"Click here to Sign into your Gmail account and access Google Sheets’s "
+"application registration"
+msgstr ""
+
+#: inc/admin-page.php:928
+msgid "Click here to view tutorial"
+msgstr ""
+
+#: piotnet-addons-for-elementor-pro.php:372
+msgid "Click on Filter and then click here to export as csv"
+msgstr ""
+
+#: inc/admin-page.php:472 inc/admin-page.php:592 inc/admin-page.php:714
+#: inc/admin-page.php:1074
+msgid "Client ID"
+msgstr ""
+
+#: inc/admin-page.php:476 inc/admin-page.php:596 inc/admin-page.php:1081
+msgid "Client Secret"
+msgstr ""
+
+#: piotnet-addons-for-elementor-pro.php:759
+msgid "Close"
+msgstr ""
+
+#: inc/lightbox.php:18
+msgid "Close (Esc)"
+msgstr ""
+
+#: controls/pafe-advanced-nav-menu-styling.php:101
+msgid "Close Image"
+msgstr ""
+
+#: controls/pafe-advanced-nav-menu-styling.php:116
+msgid "Close Image Size"
+msgstr ""
+
+#: controls/pafe-ajax-live-search.php:180
+#: controls/pafe-ajax-live-search.php:242
+#: controls/pafe-navigation-arrows-icon.php:121
+#: widgets/pafe-acf-repeater-sub-field.php:95
+#: widgets/pafe-advanced-search.php:1631 widgets/pafe-advanced-search.php:1677
+#: widgets/pafe-advanced-search.php:1738 widgets/pafe-advanced-search.php:1784
+#: widgets/pafe-advanced-search.php:1865
+msgid "Color"
+msgstr ""
+
+#: controls/pafe-form-google-sheets-connector.php:86
+msgid "Column in Google Sheets"
+msgstr ""
+
+#: widgets/pafe-acf-repeater-render.php:68
+msgid "Column Spacing"
+msgstr ""
+
+#: widgets/pafe-display-form-submissions.php:318
+msgid "Column Width"
+msgstr ""
+
+#: controls/pafe-responsive-gallery-column-width.php:39
+#: widgets/pafe-acf-repeater-render.php:51
+msgid "Column Width (%)"
+msgstr ""
+
+#: controls/pafe-meta-query.php:67
+msgid "compare"
+msgstr ""
+
+#: controls/pafe-conditional-logic-form.php:88
+#: controls/pafe-conditional-visibility.php:397
+#: controls/pafe-form-builder-conditional-logic.php:117
+msgid "Comparison Operators"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:307
+msgid ""
+"Conditional Visibility By Custom Fields and URL Parameters, URL Contains"
+msgstr ""
+
+#: controls/pafe-form-google-sheets-connector.php:63
+msgid "Connect Field ID to Google Sheets Column"
+msgstr ""
+
+#: controls/pafe-form-builder-conditional-logic.php:131
+msgid "contains"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:411
+msgid "contains (ACF Checkbox)"
+msgstr ""
+
+#: controls/pafe-toggle-content.php:44
+msgid "Content"
+msgstr ""
+
+#: controls/pafe-advanced-tabs-styling.php:303
+msgid "Content Background"
+msgstr ""
+
+#: controls/pafe-advanced-tabs-styling.php:354
+msgid "Content Border Color"
+msgstr ""
+
+#: controls/pafe-advanced-tabs-styling.php:370
+msgid "Content Border Radius"
+msgstr ""
+
+#: controls/pafe-advanced-tabs-styling.php:317
+msgid "Content Border Type"
+msgstr ""
+
+#: controls/pafe-advanced-tabs-styling.php:339
+msgid "Content Border Width"
+msgstr ""
+
+#: controls/pafe-toggle-content.php:74
+msgid "Content Height"
+msgstr ""
+
+#: controls/pafe-toggle-content.php:58
+msgid "Content Height Type"
+msgstr ""
+
+#: controls/pafe-advanced-tabs-styling.php:273
+msgid "Content Margin"
+msgstr ""
+
+#: controls/pafe-advanced-tabs-styling.php:288
+msgid "Content Padding"
+msgstr ""
+
+#: controls/pafe-sticky-header-image.php:70
+#: controls/pafe-sticky-header-image.php:150
+msgid "Convert Image To Black"
+msgstr ""
+
+#: controls/pafe-sticky-header-image.php:132
+msgid "Convert Image To Color"
+msgstr ""
+
+#: controls/pafe-sticky-header-image.php:88
+#: controls/pafe-sticky-header-image.php:168
+msgid "Convert Image To White"
+msgstr ""
+
+#: inc/admin-page.php:1016
+msgid "Convertkit Integration"
+msgstr ""
+
+#: controls/pafe-css-filters.php:37 controls/pafe-css-filters.php:63
+msgid "Css Filters For All"
+msgstr ""
+
+#: controls/pafe-css-filters.php:46 controls/pafe-css-filters.php:72
+msgid "Css Filters For Image"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:347
+#: widgets/pafe-lightbox-gallery.php:290 widgets/pafe-lightbox-gallery.php:321
+#: widgets/pafe-lightbox-image.php:195 widgets/pafe-lightbox-image.php:228
+msgid "Custom Field"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:386
+msgid "Custom Field Key"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:358
+msgid "Custom Fields"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:343
+msgid "Custom Fields or URL Parameters, URL Contains"
+msgstr ""
+
+#: widgets/pafe-form-builder-preview-submission.php:71
+msgid "Custom List Fields"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:135
+msgid "Custom Order Item Meta"
+msgstr ""
+
+#: widgets/pafe-lightbox-image.php:206
+msgid "Custom Title"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:151
+msgid "Date"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:139
+msgid "Date Field Shortcode"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:130
+msgid "Date Picker"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:126
+msgid "Date Type"
+msgstr ""
+
+#: inc/shortcode-pafe-delete-post.php:6
+msgid "Delete Post"
+msgstr ""
+
+#: controls/pafe-equal-height-for-cta.php:43 controls/pafe-equal-height.php:58
+msgid "Desktop"
+msgstr ""
+
+#: widgets/pafe-slider-builder.php:85
+msgid "Desktop Items"
+msgstr ""
+
+#: inc/admin-page.php:1059
+msgid "Domain"
+msgstr ""
+
+#: widgets/pafe-lightbox-gallery.php:273 widgets/pafe-lightbox-image.php:178
+msgid "Download Image"
+msgstr ""
+
+#: inc/lightbox.php:61
+msgid "Download image"
+msgstr ""
+
+#: controls/pafe-calculated-fields-form.php:74
+#: controls/pafe-calculated-fields-form.php:84
+msgid "E.g $"
+msgstr ""
+
+#: controls/pafe-range-slider.php:45
+msgid "E.g price"
+msgstr ""
+
+#: controls/pafe-calculated-fields-form.php:64
+msgid "E.g quantity*price+10"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:376
+msgid "E.g ref, yourparam"
+msgstr ""
+
+#: controls/pafe-conditional-logic-form.php:53
+#: controls/pafe-form-builder-conditional-logic.php:65
+#: controls/pafe-toggle-content.php:105
+msgid "Easing"
+msgstr ""
+
+#: inc/shortcode-pafe-edit-post.php:6
+msgid "Edit Post"
+msgstr ""
+
+#: piotnet-addons-for-elementor-pro.php:1043
+#: piotnet-addons-for-elementor-pro.php:1058
+msgid "Elementor"
+msgstr ""
+
+#: controls/pafe-conditional-logic-form.php:93
+#: controls/pafe-conditional-visibility.php:402
+#: controls/pafe-form-builder-conditional-logic.php:122
+msgid "empty"
+msgstr ""
+
+#: controls/pafe-advanced-dots-styling.php:27
+#: controls/pafe-advanced-form-styling.php:27
+#: controls/pafe-advanced-tabs-styling.php:27
+#: controls/pafe-ajax-live-search.php:27
+#: controls/pafe-calculated-fields-form.php:27
+#: controls/pafe-close-first-accordion.php:27
+#: controls/pafe-column-aspect-ratio.php:27
+#: controls/pafe-conditional-logic-form.php:27
+#: controls/pafe-conditional-visibility.php:28
+#: controls/pafe-crossfade-multiple-background-images.php:26
+#: controls/pafe-custom-media-query-breakpoints.php:28
+#: controls/pafe-equal-height-for-woocommerce-products.php:28
+#: controls/pafe-form-abandonment.php:27
+#: controls/pafe-form-builder-conditional-logic.php:28
+#: controls/pafe-form-builder-repeater-trigger.php:27
+#: controls/pafe-form-builder-repeater.php:27
+#: controls/pafe-form-google-sheets-connector.php:27
+#: controls/pafe-image-select-field.php:27
+#: controls/pafe-media-carousel-ratio.php:27 controls/pafe-meta-query.php:27
+#: controls/pafe-range-slider.php:27
+#: controls/pafe-responsive-gallery-column-width.php:27
+#: controls/pafe-responsive-gallery-images-spacing.php:27
+#: controls/pafe-scroll-box-with-custom-scrollbar.php:28
+#: controls/pafe-slider-builder-animation.php:27
+#: controls/pafe-sticky-header-image.php:26
+#: controls/pafe-sticky-header-text.php:28
+#: controls/pafe-sticky-header-visibility.php:28
+#: controls/pafe-sticky-header.php:28 controls/pafe-toggle-content.php:28
+#: controls/pafe-woocommerce-sales-funnels-add-to-cart.php:27
+msgid "Enable"
+msgstr ""
+
+#: controls/pafe-absolute-positioning.php:26
+msgid "Enable Absolute"
+msgstr ""
+
+#: controls/pafe-advanced-nav-menu-styling.php:42
+msgid "Enable Custom Toggle Image"
+msgstr ""
+
+#: controls/pafe-display-inline-block.php:29
+msgid "Enable Display Inline Block"
+msgstr ""
+
+#: controls/pafe-equal-height.php:30
+msgid "Enable Equal Height"
+msgstr ""
+
+#: controls/pafe-equal-height-for-cta.php:30
+msgid "Enable Equal Height For CTA"
+msgstr ""
+
+#: controls/pafe-equal-height.php:43
+msgid "Enable Equal Height Widget Container"
+msgstr ""
+
+#: controls/pafe-font-awesome-5.php:29
+msgid "Enable Font Awesome 5"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:152
+msgid "Enable Icon"
+msgstr ""
+
+#: widgets/pafe-lightbox-gallery.php:183 widgets/pafe-lightbox-image.php:100
+msgid "Enable Light Skin"
+msgstr ""
+
+#: widgets/pafe-lightbox-gallery.php:195
+msgid "Enable Masonry"
+msgstr ""
+
+#: controls/pafe-max-width.php:31
+msgid "Enable Max Width"
+msgstr ""
+
+#: controls/pafe-advanced-nav-menu-styling.php:27
+msgid "Enable Mobile Dropdown Absolute"
+msgstr ""
+
+#: controls/pafe-navigation-arrows-icon.php:27
+msgid "Enable Navigation Arrows Icon"
+msgstr ""
+
+#: controls/pafe-parallax.php:36
+msgid "Enable PAFE Parallax"
+msgstr ""
+
+#: controls/pafe-parallax.php:49
+msgid "Enable PAFE Parallax New Version"
+msgstr ""
+
+#: controls/pafe-responsive-background.php:37
+msgid "Enable Responsive Background"
+msgstr ""
+
+#: controls/pafe-responsive-background.php:234
+msgid "Enable Responsive Background Custom Size"
+msgstr ""
+
+#: controls/pafe-responsive-background.php:192
+msgid "Enable Responsive Background Position (xpos, ypos)"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:202
+msgid "Enable Results Footer"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:108
+msgid "Enable Search Button"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:83
+msgid "Enable Taxonomy Filter"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:187
+msgid "Enable Thumbnail"
+msgstr ""
+
+#: controls/pafe-form-abandonment.php:39
+msgid "Enable Webhook"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:261
+msgid "End Date"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:363
+msgid "Enter Keywords"
+msgstr ""
+
+#: controls/pafe-form-builder-repeater.php:53
+msgid ""
+"Enter Repeater ID with latin character and no space, no comma. E.g "
+"products_repeater"
+msgstr ""
+
+#: controls/pafe-form-builder-repeater-trigger.php:53
+msgid ""
+"Enter Repeater ID with latin character and no space. E.g products_repeater"
+msgstr ""
+
+#: controls/pafe-form-builder-repeater-trigger.php:41
+#: controls/pafe-form-builder-repeater.php:41 widgets/pafe-form-booking.php:50
+#: widgets/pafe-form-builder-preview-submission.php:51
+#: widgets/pafe-woocommerce-checkout.php:50
+msgid ""
+"Enter the same form id for all fields in a form, with latin character and no "
+"space. E.g order_form"
+msgstr ""
+
+#: inc/admin-page.php:196
+msgid "Enter Your Account at "
+msgstr ""
+
+#: widgets/pafe-lightbox-image.php:209
+msgid "Enter your image title"
+msgstr ""
+
+#: controls/pafe-conditional-logic-form.php:94
+#: controls/pafe-conditional-visibility.php:403
+#: controls/pafe-form-builder-conditional-logic.php:123
+msgid "equals"
+msgstr ""
+
+#: widgets/pafe-lightbox-gallery.php:237 widgets/pafe-lightbox-image.php:142
+msgid "Facebook"
+msgstr ""
+
+#: controls/pafe-crossfade-multiple-background-images.php:52
+msgid "Fade Out Speed (Milliseconds)"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:410
+msgid "false"
+msgstr ""
+
+#: controls/pafe-conditional-logic-form.php:71
+#: controls/pafe-conditional-logic-form.php:81
+msgid "Field Custom ID"
+msgstr ""
+
+#: controls/pafe-form-builder-conditional-logic.php:110
+msgid "Field ID"
+msgstr ""
+
+#: controls/pafe-form-google-sheets-connector.php:77
+msgid ""
+"Field ID if you use Elementor Pro Form, Field Shortcode if you use PAFE Form "
+"Builder"
+msgstr ""
+
+#: widgets/pafe-display-form-submissions.php:105
+msgid "Field Label"
+msgstr ""
+
+#: widgets/pafe-display-form-submissions.php:124
+msgid "Field Name"
+msgstr ""
+
+#: widgets/pafe-form-builder-preview-submission.php:86
+#: widgets/pafe-woocommerce-checkout.php:150
+msgid "Field Shortcode, Repeater Shortcode"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:127
+msgid "Field Shortcode. E.g [field id=\"total\"]"
+msgstr ""
+
+#: widgets/pafe-display-form-submissions.php:203
+msgid "Field Value"
+msgstr ""
+
+#: controls/pafe-display-inline-block.php:46
+msgid "Fix for Elementor 2.5.x"
+msgstr ""
+
+#: controls/pafe-font-awesome-5.php:42
+msgid "Font Awesome 5 Icon Class"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:217
+msgid "Footer Text"
+msgstr ""
+
+#: controls/pafe-form-builder-conditional-logic.php:41
+msgid "Form ID"
+msgstr ""
+
+#: controls/pafe-form-builder-repeater-trigger.php:39
+#: controls/pafe-form-builder-repeater.php:39
+#: widgets/pafe-display-form-submissions.php:96
+#: widgets/pafe-form-booking.php:48
+#: widgets/pafe-form-builder-preview-submission.php:49
+#: widgets/pafe-woocommerce-checkout.php:48
+msgid "Form ID* (Required)"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:251
+msgid "Form Width"
+msgstr ""
+
+#: inc/admin-page.php:889
+msgid "GetResponse Integration"
+msgstr ""
+
+#: inc/admin-page.php:167
+msgid "GO PRO NOW"
+msgstr ""
+
+#: inc/admin-page.php:167
+msgid "GO TO PAFE"
+msgstr ""
+
+#: inc/admin-page.php:506
+msgid "Google Calendar Integration"
+msgstr ""
+
+#: inc/admin-page.php:648
+msgid "Google Maps API Key"
+msgstr ""
+
+#: inc/admin-page.php:632
+msgid "Google Maps Integration"
+msgstr ""
+
+#: controls/pafe-form-google-sheets-connector.php:40
+msgid "Google Sheet ID"
+msgstr ""
+
+#: inc/admin-page.php:419
+msgid "Google Sheets Integration"
+msgstr ""
+
+#: controls/pafe-sticky-header.php:103
+msgid "Header Height When Sticky"
+msgstr ""
+
+#: controls/pafe-advanced-dots-styling.php:90
+msgid "Height"
+msgstr ""
+
+#: controls/pafe-advanced-dots-styling.php:113
+msgid "Height Active"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:275
+#: controls/pafe-conditional-visibility.php:286
+msgid "HH:mm"
+msgstr ""
+
+#: controls/pafe-sticky-header-image.php:52
+#: controls/pafe-sticky-header-image.php:114
+#: controls/pafe-sticky-header-visibility.php:54
+#: controls/pafe-sticky-header-visibility.php:80
+msgid "Hidden"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:224
+#: controls/pafe-conditional-visibility.php:328
+#: controls/pafe-custom-media-query-breakpoints.php:67
+#: controls/pafe-lightbox.php:32 widgets/pafe-advanced-search.php:86
+#: widgets/pafe-advanced-search.php:111 widgets/pafe-advanced-search.php:155
+#: widgets/pafe-advanced-search.php:190 widgets/pafe-advanced-search.php:205
+msgid "Hide"
+msgstr ""
+
+#: controls/pafe-sticky-header.php:125
+msgid "Hide Header on scroll down, show on scroll up"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1425 widgets/pafe-advanced-search.php:1660
+#: widgets/pafe-advanced-search.php:1767
+msgid "Hover"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:896
+msgid "Hover Background Color"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:680 widgets/pafe-advanced-search.php:1881
+msgid "Hover Color"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:912
+msgid "Hover Text Color"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://pafe.piotnet.com/"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://piotnet.com/"
+msgstr ""
+
+#: inc/admin-page.php:755
+msgid "Hubspot Integration"
+msgstr ""
+
+#: controls/pafe-navigation-arrows-icon.php:109
+#: widgets/pafe-advanced-search.php:128
+msgid "Icon"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:875
+msgid "Icon Color"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:800
+msgid "Icon Size"
+msgstr ""
+
+#: controls/pafe-form-google-sheets-connector.php:42
+msgid ""
+"ID is the value between the \"/d/\" and the \"/edit\" in the URL of your "
+"spreadsheet. For example: /spreadsheets/d/****/edit#gid=0"
+msgstr ""
+
+#: controls/pafe-conditional-logic-form.php:78
+#: controls/pafe-form-builder-conditional-logic.php:107
+msgid "If"
+msgstr ""
+
+#: controls/pafe-sticky-header.php:30
+msgid ""
+"If you have Elementor Pro please Go to Motion Effects > Sticky > None. This "
+"feature only works on the frontend."
+msgstr ""
+
+#: widgets/pafe-form-builder-preview-submission.php:73
+#: widgets/pafe-woocommerce-checkout.php:137
+msgid ""
+"If your form has Repeater Fields, you have to enable it and enter Repeater "
+"Shortcode"
+msgstr ""
+
+#: controls/pafe-navigation-arrows-icon.php:110
+#: widgets/pafe-acf-repeater-sub-field.php:49
+msgid "Image"
+msgstr ""
+
+#: controls/pafe-image-select-field.php:159
+msgid "Image Border Radius"
+msgstr ""
+
+#: controls/pafe-image-select-field.php:42
+msgid "Image Select Field Custom ID"
+msgstr ""
+
+#: controls/pafe-lightbox.php:27 controls/pafe-lightbox.php:31
+msgid "Image Title"
+msgstr ""
+
+#: controls/pafe-sticky-header-image.php:186
+msgid "Image Width (px)"
+msgstr ""
+
+#: controls/pafe-display-inline-block.php:72
+msgid "inherit"
+msgstr ""
+
+#: controls/pafe-display-inline-block.php:73
+msgid "initial"
+msgstr ""
+
+#: controls/pafe-advanced-form-styling.php:74
+msgid "Input Box Shadow"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:243
+msgid "Input Form"
+msgstr ""
+
+#: controls/pafe-advanced-form-styling.php:39
+#: controls/pafe-image-select-field.php:171
+#: controls/pafe-image-select-field.php:183
+msgid "Input Padding"
+msgstr ""
+
+#: controls/pafe-advanced-form-styling.php:54
+msgid "Input Placeholder Color"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:53
+msgid "Input Setting"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:276
+#: controls/pafe-conditional-visibility.php:287
+msgid "It was setted in HH:mm format"
+msgstr ""
+
+#: widgets/pafe-slider-builder.php:68
+msgid "Item"
+msgstr ""
+
+#: widgets/pafe-acf-repeater-render.php:110
+msgid "Item Background"
+msgstr ""
+
+#: widgets/pafe-acf-repeater-render.php:120
+msgid "Item Border"
+msgstr ""
+
+#: controls/pafe-image-select-field.php:237
+#: controls/pafe-image-select-field.php:318
+msgid "Item Border Color"
+msgstr ""
+
+#: controls/pafe-image-select-field.php:147
+#: widgets/pafe-acf-repeater-render.php:128
+msgid "Item Border Radius"
+msgstr ""
+
+#: controls/pafe-image-select-field.php:204
+#: controls/pafe-image-select-field.php:285
+msgid "Item Border Type"
+msgstr ""
+
+#: controls/pafe-image-select-field.php:223
+#: controls/pafe-image-select-field.php:304
+msgid "Item Border Width"
+msgstr ""
+
+#: widgets/pafe-acf-repeater-render.php:141
+msgid "Item Box Shadow"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1275
+msgid "Item Padding"
+msgstr ""
+
+#: controls/pafe-image-select-field.php:120
+msgid "Item Spacing"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:390
+msgid "Item Style"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:398
+msgid "Item Width"
+msgstr ""
+
+#: controls/pafe-image-select-field.php:103
+msgid "Item Width (%)"
+msgstr ""
+
+#: controls/pafe-meta-query.php:58
+msgid "key"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:497
+msgid "Keyword Field"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:370
+msgid "Keywords Typography"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:279
+msgid "Keywords Width"
+msgstr ""
+
+#: widgets/pafe-add-to-cart-checkbox.php:126 widgets/pafe-form-booking.php:81
+#: widgets/pafe-form-booking.php:307
+#: widgets/pafe-form-builder-preview-submission.php:109
+msgid "Label"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1140 widgets/pafe-advanced-search.php:1829
+#: widgets/pafe-display-form-submissions.php:168
+#: widgets/pafe-display-form-submissions.php:247
+msgid "Left"
+msgstr ""
+
+#: inc/admin-page.php:183
+msgid "License"
+msgstr ""
+
+#: controls/pafe-form-builder-repeater.php:74
+msgid "Limit number of elements"
+msgstr ""
+
+#: controls/pafe-column-link.php:28 controls/pafe-section-link.php:27
+msgid "Link"
+msgstr ""
+
+#: widgets/pafe-form-builder-lost-password.php:47
+msgid "Link Target"
+msgstr ""
+
+#: widgets/pafe-form-builder-lost-password.php:10
+#: widgets/pafe-form-builder-lost-password.php:30
+msgid "Lost Password"
+msgstr ""
+
+#: widgets/pafe-form-builder-lost-password.php:182
+msgid "Lost Password Text"
+msgstr ""
+
+#: widgets/pafe-form-builder-lost-password.php:40
+msgid "Lost your password?"
+msgstr ""
+
+#. Author of the plugin
+msgid "Luong Huu Phuoc (Louis Hufer)"
+msgstr ""
+
+#: inc/admin-page.php:784
+msgid "MailChimp Integration"
+msgstr ""
+
+#: inc/admin-page.php:809
+msgid "MailerLite Integration"
+msgstr ""
+
+#: controls/pafe-custom-media-query-breakpoints.php:90
+#: widgets/pafe-advanced-search.php:458 widgets/pafe-advanced-search.php:540
+#: widgets/pafe-advanced-search.php:635 widgets/pafe-advanced-search.php:732
+#: widgets/pafe-advanced-search.php:973 widgets/pafe-advanced-search.php:1092
+#: widgets/pafe-advanced-search.php:1252 widgets/pafe-advanced-search.php:1388
+#: widgets/pafe-advanced-search.php:1483 widgets/pafe-advanced-search.php:1647
+#: widgets/pafe-advanced-search.php:1693 widgets/pafe-advanced-search.php:1754
+#: widgets/pafe-advanced-search.php:1799 widgets/pafe-advanced-search.php:1909
+#: widgets/pafe-form-booking.php:464
+msgid "Margin"
+msgstr ""
+
+#: controls/pafe-scroll-box-with-custom-scrollbar.php:44
+msgid "Max Height"
+msgstr ""
+
+#: controls/pafe-max-width.php:43
+msgid "Max Width"
+msgstr ""
+
+#: controls/pafe-custom-media-query-breakpoints.php:55
+msgid "Max Width (px)"
+msgstr ""
+
+#: controls/pafe-woocommerce-sales-funnels-add-to-cart.php:231
+msgid "Message Margin"
+msgstr ""
+
+#: controls/pafe-woocommerce-sales-funnels-add-to-cart.php:219
+msgid "Message Padding"
+msgstr ""
+
+#: controls/pafe-woocommerce-sales-funnels-add-to-cart.php:210
+msgid "Message Typography"
+msgstr ""
+
+#: controls/pafe-display-inline-block.php:74
+msgid "middle"
+msgstr ""
+
+#: controls/pafe-custom-media-query-breakpoints.php:43
+msgid "Min Width (px)"
+msgstr ""
+
+#: controls/pafe-equal-height-for-cta.php:73 controls/pafe-equal-height.php:88
+msgid "Mobile"
+msgstr ""
+
+#: widgets/pafe-slider-builder.php:103
+msgid "Mobile Items"
+msgstr ""
+
+#: inc/admin-page.php:729
+msgid "Mollie Payment"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:166
+msgid "Multiple Selection"
+msgstr ""
+
+#: widgets/pafe-acf-repeater-sub-field.php:37
+msgid "Name"
+msgstr ""
+
+#: controls/pafe-navigation-arrows-icon.php:153
+#: controls/pafe-navigation-arrows-icon.php:179
+msgid "Next"
+msgstr ""
+
+#: controls/pafe-display-inline-block.php:33
+msgid "No"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:231
+msgid "No result found"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:229
+msgid "No Result Message"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1522
+msgid "No Result Typography"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1328 widgets/pafe-advanced-search.php:1614
+#: widgets/pafe-advanced-search.php:1721 widgets/pafe-form-booking.php:523
+msgid "Normal"
+msgstr ""
+
+#: controls/pafe-conditional-logic-form.php:92
+#: controls/pafe-conditional-visibility.php:401
+#: controls/pafe-form-builder-conditional-logic.php:121
+msgid "not empty"
+msgstr ""
+
+#: controls/pafe-conditional-logic-form.php:95
+#: controls/pafe-conditional-visibility.php:404
+#: controls/pafe-form-builder-conditional-logic.php:124
+msgid "not equals"
+msgstr ""
+
+#: controls/pafe-multiple-background-images.php:39
+msgid ""
+"Note that currently effect are not visible in edit/preview mode & can only "
+"be viewed on the frontend."
+msgstr ""
+
+#: controls/pafe-parallax.php:31
+msgid ""
+"Note that currently parallax are not visible in edit/preview mode & can only "
+"be viewed on the frontend."
+msgstr ""
+
+#: controls/pafe-column-link.php:33 controls/pafe-section-link.php:32
+msgid ""
+"Note that it is not visible in edit/preview mode & can only be viewed on the "
+"frontend."
+msgstr ""
+
+#: controls/pafe-toggle-content.php:76
+msgid "Note: Value > 0px. E.g 10px, 100px"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:41
+msgid ""
+"Note: You have to enter Regular price of Woocommerce Product. If your form "
+"has Repeater Fields, you have to enable Custom Order Item Meta."
+msgstr ""
+
+#: controls/pafe-conditional-logic-form.php:114
+#: controls/pafe-conditional-visibility.php:428
+#: controls/pafe-form-builder-conditional-logic.php:144
+msgid "Number"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1182
+msgid "Number Color"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:252
+msgid "Number of Slot"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1288
+msgid "Number Padding"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1230
+msgid "Number Typography"
+msgstr ""
+
+#: controls/pafe-parallax.php:81
+msgid "Offset"
+msgstr ""
+
+#: controls/pafe-advanced-dots-styling.php:207
+#: controls/pafe-navigation-arrows-icon.php:70
+msgid "Opacity"
+msgstr ""
+
+#: controls/pafe-advanced-dots-styling.php:226
+msgid "Opacity Active"
+msgstr ""
+
+#: piotnet-addons-for-elementor-pro.php:758
+msgid "Open"
+msgstr ""
+
+#: controls/pafe-conditional-logic-form.php:143
+#: controls/pafe-conditional-visibility.php:205
+#: controls/pafe-conditional-visibility.php:471
+#: controls/pafe-form-builder-conditional-logic.php:173
+#: controls/pafe-meta-query.php:43
+msgid "OR"
+msgstr ""
+
+#: controls/pafe-conditional-logic-form.php:139
+#: controls/pafe-conditional-visibility.php:201
+#: controls/pafe-conditional-visibility.php:467
+#: controls/pafe-form-builder-conditional-logic.php:169
+msgid "OR, AND Operators"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:86
+msgid "Order Comments"
+msgstr ""
+
+#: controls/pafe-woocommerce-sales-funnels-add-to-cart.php:178
+msgid "Out of stock Message"
+msgstr ""
+
+#: controls/pafe-woocommerce-sales-funnels-add-to-cart.php:191
+msgid "Out of stock Message Color"
+msgstr ""
+
+#: controls/pafe-ajax-live-search.php:165
+#: controls/pafe-ajax-live-search.php:227
+#: controls/pafe-custom-media-query-breakpoints.php:99
+#: widgets/pafe-advanced-search.php:446 widgets/pafe-advanced-search.php:528
+#: widgets/pafe-advanced-search.php:623 widgets/pafe-advanced-search.php:720
+#: widgets/pafe-advanced-search.php:961 widgets/pafe-advanced-search.php:1080
+#: widgets/pafe-advanced-search.php:1240 widgets/pafe-advanced-search.php:1376
+#: widgets/pafe-advanced-search.php:1471 widgets/pafe-advanced-search.php:1897
+#: widgets/pafe-display-form-submissions.php:152
+#: widgets/pafe-display-form-submissions.php:231
+#: widgets/pafe-display-form-submissions.php:362
+#: widgets/pafe-form-booking.php:452
+msgid "Padding"
+msgstr ""
+
+#: piotnet-addons-for-elementor-pro.php:385
+#: piotnet-addons-for-elementor-pro.php:387
+#: piotnet-addons-for-elementor-pro.php:1219 controls/controls-manager.php:28
+#: controls/controls-manager.php:30
+msgid "PAFE"
+msgstr ""
+
+#: controls/pafe-absolute-positioning.php:18
+msgid "PAFE Absolute Positioning"
+msgstr ""
+
+#: widgets/pafe-acf-repeater-render.php:10
+#: widgets/pafe-acf-repeater-render.php:36
+msgid "PAFE ACF Repeater Render"
+msgstr ""
+
+#: widgets/pafe-acf-repeater-sub-field.php:10
+msgid "PAFE ACF Repeater Sub Field"
+msgstr ""
+
+#: controls/pafe-advanced-dots-styling.php:19
+msgid "PAFE Advanced Dots Styling"
+msgstr ""
+
+#: controls/pafe-advanced-form-styling.php:19
+msgid "PAFE Advanced Form Styling"
+msgstr ""
+
+#: controls/pafe-advanced-nav-menu-styling.php:19
+msgid "PAFE Advanced Nav Menu Styling"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:10
+msgid "PAFE Advanced Search"
+msgstr ""
+
+#: controls/pafe-advanced-tabs-styling.php:19
+msgid "PAFE Advanced Tabs Styling"
+msgstr ""
+
+#: controls/pafe-ajax-live-search.php:19
+msgid "PAFE Ajax Live Search"
+msgstr ""
+
+#: controls/pafe-calculated-fields-form.php:19
+msgid "PAFE Calculated Fields Form"
+msgstr ""
+
+#: controls/pafe-close-first-accordion.php:19
+msgid "PAFE Close First Accordion"
+msgstr ""
+
+#: controls/pafe-column-aspect-ratio.php:19
+msgid "PAFE Column Aspect Ratio"
+msgstr ""
+
+#: controls/pafe-column-link.php:20
+msgid "PAFE Column Link"
+msgstr ""
+
+#: controls/pafe-column-width.php:28
+msgid "PAFE Column Width"
+msgstr ""
+
+#: controls/pafe-conditional-logic-form.php:19
+msgid "PAFE Conditional Logic Form"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:20
+msgid "PAFE Conditional Visibility"
+msgstr ""
+
+#: controls/pafe-convert-image-to-black-or-white.php:19
+msgid "PAFE Convert Image To Black Or White"
+msgstr ""
+
+#: controls/pafe-crossfade-multiple-background-images.php:18
+msgid "PAFE Crossfade Multiple Background Images"
+msgstr ""
+
+#: controls/pafe-css-filters.php:19
+msgid "PAFE Css Filters"
+msgstr ""
+
+#: controls/pafe-custom-media-query-breakpoints.php:20
+msgid "PAFE Custom Media Query Breakpoints"
+msgstr ""
+
+#: controls/pafe-display-inline-block.php:21
+msgid "PAFE Display Inline Block"
+msgstr ""
+
+#: controls/pafe-equal-height.php:22
+msgid "PAFE Equal Height"
+msgstr ""
+
+#: controls/pafe-equal-height-for-cta.php:22
+msgid "PAFE Equal Height For CTA"
+msgstr ""
+
+#: controls/pafe-equal-height-for-woocommerce-products.php:20
+msgid "PAFE Equal Height For Woocommerce Products"
+msgstr ""
+
+#: controls/pafe-font-awesome-5.php:21
+msgid "PAFE Font Awesome 5"
+msgstr ""
+
+#: controls/pafe-form-abandonment.php:19
+msgid "PAFE Form Abandonment"
+msgstr ""
+
+#: piotnet-addons-for-elementor-pro.php:1227
+msgid "PAFE Form Builder"
+msgstr ""
+
+#: controls/pafe-form-builder-conditional-logic.php:20
+msgid "PAFE Form Builder Conditional Logic"
+msgstr ""
+
+#: widgets/pafe-display-form-submissions.php:9
+msgid "PAFE Form Builder Data"
+msgstr ""
+
+#: controls/pafe-form-builder-repeater.php:19
+msgid "PAFE Form Builder Repeater"
+msgstr ""
+
+#: controls/pafe-form-builder-repeater-trigger.php:19
+msgid "PAFE Form Builder Repeater Trigger"
+msgstr ""
+
+#: controls/pafe-form-google-sheets-connector.php:19
+msgid "PAFE Form Google Sheets Connector"
+msgstr ""
+
+#: controls/pafe-image-select-field.php:19
+msgid "PAFE Image Select Field"
+msgstr ""
+
+#: controls/pafe-lightbox.php:19
+msgid "PAFE Lightbox"
+msgstr ""
+
+#: widgets/pafe-lightbox-gallery.php:10
+msgid "PAFE Lightbox Gallery"
+msgstr ""
+
+#: widgets/pafe-lightbox-image.php:10
+msgid "PAFE Lightbox Image"
+msgstr ""
+
+#: controls/pafe-max-width.php:23
+msgid "PAFE Max Width"
+msgstr ""
+
+#: controls/pafe-media-carousel-ratio.php:19
+msgid "PAFE Media Carousel Aspect Ratio"
+msgstr ""
+
+#: controls/pafe-meta-query.php:19
+msgid "PAFE Meta Query"
+msgstr ""
+
+#: controls/pafe-multiple-background-images.php:20
+#: controls/pafe-multiple-background-images.php:28
+msgid "PAFE Multiple Background Images"
+msgstr ""
+
+#: controls/pafe-navigation-arrows-icon.php:19
+msgid "PAFE Navigation Arrows Icon"
+msgstr ""
+
+#: controls/pafe-range-slider.php:19
+msgid "PAFE Range Slider"
+msgstr ""
+
+#: controls/pafe-responsive-background.php:19
+#: controls/pafe-responsive-background.php:27
+msgid "PAFE Responsive Background"
+msgstr ""
+
+#: controls/pafe-responsive-border-width.php:21
+#: controls/pafe-responsive-border-width.php:33
+#: controls/pafe-responsive-border-width.php:45
+msgid "PAFE Responsive Border Width"
+msgstr ""
+
+#: controls/pafe-responsive-column-order.php:18
+msgid "PAFE Responsive Column Order"
+msgstr ""
+
+#: controls/pafe-responsive-custom-positioning.php:18
+msgid "PAFE Responsive Custom Positioning"
+msgstr ""
+
+#: controls/pafe-responsive-gallery-column-width.php:19
+msgid "PAFE Responsive Gallery Column Width"
+msgstr ""
+
+#: controls/pafe-responsive-gallery-images-spacing.php:19
+msgid "PAFE Responsive Gallery Images Spacing"
+msgstr ""
+
+#: controls/pafe-responsive-hide-column.php:18
+msgid "PAFE Responsive Hide Column"
+msgstr ""
+
+#: controls/pafe-responsive-section-column-text-align.php:19
+msgid "PAFE Responsive Section Column Text Align"
+msgstr ""
+
+#: controls/pafe-scroll-box-with-custom-scrollbar.php:20
+msgid "PAFE Scroll Box With Custom Scrollbar"
+msgstr ""
+
+#: controls/pafe-section-link.php:19
+msgid "PAFE Section Link"
+msgstr ""
+
+#: widgets/pafe-slider-builder.php:10
+msgid "PAFE Slider Builder"
+msgstr ""
+
+#: controls/pafe-slider-builder-animation.php:19
+msgid "PAFE Slider Builder Animation"
+msgstr ""
+
+#: controls/pafe-sticky-header.php:20
+msgid "PAFE Sticky Header"
+msgstr ""
+
+#: controls/pafe-sticky-header-image.php:18
+msgid "PAFE Sticky Header For Image"
+msgstr ""
+
+#: controls/pafe-sticky-header-text.php:20
+msgid "PAFE Sticky Header For Text "
+msgstr ""
+
+#: controls/pafe-sticky-header-visibility.php:20
+msgid "PAFE Sticky Header Visibility"
+msgstr ""
+
+#: controls/pafe-support.php:20
+msgid "PAFE Support"
+msgstr ""
+
+#: controls/pafe-text-color-change-on-column-hover.php:19
+msgid "PAFE Text Color Change On Column Hover"
+msgstr ""
+
+#: controls/pafe-toggle-content.php:20
+msgid "PAFE Toggle Content"
+msgstr ""
+
+#: piotnet-addons-for-elementor-pro.php:1235
+msgid "PAFE WooCommerce Sales Funnels"
+msgstr ""
+
+#: controls/pafe-woocommerce-sales-funnels-add-to-cart.php:19
+msgid "PAFE Woocommerce Sales Funnels Add To Cart"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1268
+msgid "Page Item"
+msgstr ""
+
+#: controls/pafe-parallax.php:51
+msgid "Parallax effect will work on iPhone / iPad but it does not look good"
+msgstr ""
+
+#: inc/admin-page.php:204
+msgid "Password"
+msgstr ""
+
+#: inc/admin-page.php:699
+msgid "Paypal Integration"
+msgstr ""
+
+#: piotnet-addons-for-elementor-pro.php:1074
+msgid "PHP"
+msgstr ""
+
+#: inc/lightbox.php:61
+msgid "Pin it"
+msgstr ""
+
+#: widgets/pafe-lightbox-gallery.php:261 widgets/pafe-lightbox-image.php:166
+msgid "Pinterest"
+msgstr ""
+
+#: piotnet-addons-for-elementor-pro.php:1042
+#: piotnet-addons-for-elementor-pro.php:1057
+#: piotnet-addons-for-elementor-pro.php:1073
+msgid "Piotnet Addons For Elementor"
+msgstr ""
+
+#. Name of the plugin
+msgid "Piotnet Addons For Elementor Pro"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Piotnet Addons For Elementor Pro (PAFE Pro) adds many new features for "
+"Elementor"
+msgstr ""
+
+#: inc/admin-page.php:164
+msgid "Piotnet Addons For Elementor Settings (PAFE PRO)"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:361
+msgid "Place Holder"
+msgstr ""
+
+#: widgets/pafe-slider-builder.php:65
+msgid "Please don't use Stretch Section for Section Slide Item"
+msgstr ""
+
+#: inc/admin-page.php:289
+msgid ""
+"Please Install or Active Free Version on Wordpress Repository to Enable Free "
+"Features"
+msgstr ""
+
+#: controls/pafe-slider-builder-animation.php:29
+msgid "Please remove Default Entrance Animation in Advanced Tab"
+msgstr ""
+
+#: controls/pafe-navigation-arrows-icon.php:88
+msgid "Position"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:361
+msgid "Post Custom Field"
+msgstr ""
+
+#: controls/pafe-ajax-live-search.php:46
+msgid "Post Type"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:175
+msgid "Posts per Page"
+msgstr ""
+
+#: inc/meta-box-acf-repeater.php:17
+msgid "Preview Post ID:"
+msgstr ""
+
+#: widgets/pafe-form-builder-preview-submission.php:10
+msgid "Preview Submission"
+msgstr ""
+
+#: controls/pafe-navigation-arrows-icon.php:141
+#: controls/pafe-navigation-arrows-icon.php:164
+msgid "Previous"
+msgstr ""
+
+#: widgets/pafe-add-to-cart-checkbox.php:168 widgets/pafe-form-booking.php:274
+msgid "Price"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:125
+msgid "Price Field Shortcode"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:285
+msgid "Price Text"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:510
+msgid "Price Typography"
+msgstr ""
+
+#: widgets/pafe-add-to-cart-checkbox.php:163
+msgid "Product"
+msgstr ""
+
+#: controls/pafe-woocommerce-sales-funnels-add-to-cart.php:39
+#: widgets/pafe-add-to-cart-checkbox.php:77
+#: widgets/pafe-woocommerce-checkout.php:103
+msgid "Product ID* (Required)"
+msgstr ""
+
+#: inc/admin-page.php:678
+msgid "Publishable Key"
+msgstr ""
+
+#: widgets/pafe-add-to-cart-checkbox.php:165
+msgid "Quantity"
+msgstr ""
+
+#: controls/pafe-woocommerce-sales-funnels-add-to-cart.php:67
+#: widgets/pafe-add-to-cart-checkbox.php:88
+msgid "Quantity* (Required)"
+msgstr ""
+
+#: controls/pafe-range-slider.php:52
+msgid "Range Slider Options"
+msgstr ""
+
+#: controls/pafe-media-carousel-ratio.php:39
+#: widgets/pafe-advanced-search.php:1545
+msgid "Ratio"
+msgstr ""
+
+#: inc/admin-page.php:916
+msgid "reCAPTCHA (v3) Integration"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:114
+msgid "Redirect"
+msgstr ""
+
+#: controls/pafe-meta-query.php:39
+msgid "relation"
+msgstr ""
+
+#: controls/pafe-form-builder-repeater-trigger.php:67
+msgid "Remove"
+msgstr ""
+
+#: widgets/pafe-form-builder-preview-submission.php:59
+#: widgets/pafe-woocommerce-checkout.php:58
+msgid "Remove Empty Form Input Fields"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:70
+msgid "Remove fields from WooCommerce Checkout Form"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:159
+msgid "Remove If Field Empty"
+msgstr ""
+
+#: controls/pafe-form-builder-repeater-trigger.php:51
+#: controls/pafe-form-builder-repeater.php:51
+msgid "Repeater ID* (Required)"
+msgstr ""
+
+#: controls/pafe-form-builder-repeater.php:63
+msgid "Repeater Label* (Required)"
+msgstr ""
+
+#: inc/meta-box-acf-repeater.php:13
+msgid "Repeater Name:"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:102
+msgid "Required"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1011
+msgid "Result Area"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1709
+msgid "Result Content"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1815
+msgid "Result Footer"
+msgstr ""
+
+#: controls/pafe-ajax-live-search.php:138 widgets/pafe-advanced-search.php:1317
+msgid "Result Item"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1128
+msgid "Result Pagination"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:168
+msgid "Result Setting"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1534
+msgid "Result Thumbnail"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1602
+msgid "Result Title"
+msgstr ""
+
+#: inc/admin-page.php:178
+msgid "Reviews"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:1150 widgets/pafe-advanced-search.php:1839
+#: widgets/pafe-display-form-submissions.php:176
+#: widgets/pafe-display-form-submissions.php:255
+msgid "Right"
+msgstr ""
+
+#: widgets/pafe-acf-repeater-render.php:91
+msgid "Row Spacing"
+msgstr ""
+
+#: inc/admin-page.php:282 inc/admin-page.php:409 inc/admin-page.php:494
+#: inc/admin-page.php:618 inc/admin-page.php:652 inc/admin-page.php:686
+#: inc/admin-page.php:718 inc/admin-page.php:745 inc/admin-page.php:773
+#: inc/admin-page.php:800 inc/admin-page.php:825 inc/admin-page.php:850
+#: inc/admin-page.php:880 inc/admin-page.php:905 inc/admin-page.php:953
+#: inc/admin-page.php:983 inc/admin-page.php:1008 inc/admin-page.php:1032
+#: inc/admin-page.php:1090
+msgid "Save Settings"
+msgstr ""
+
+#: controls/pafe-scroll-box-with-custom-scrollbar.php:84
+msgid "Scrollbar Thumb Background"
+msgstr ""
+
+#: controls/pafe-scroll-box-with-custom-scrollbar.php:99
+msgid "Scrollbar Track Background"
+msgstr ""
+
+#: controls/pafe-scroll-box-with-custom-scrollbar.php:151
+msgid "Scrollbar Track Border Color"
+msgstr ""
+
+#: controls/pafe-scroll-box-with-custom-scrollbar.php:114
+msgid "Scrollbar Track Border Type"
+msgstr ""
+
+#: controls/pafe-scroll-box-with-custom-scrollbar.php:136
+msgid "Scrollbar Track Border Width"
+msgstr ""
+
+#: controls/pafe-scroll-box-with-custom-scrollbar.php:58
+msgid "Scrollbar Width (px)"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:141
+msgid "Search"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:123
+msgid "Search Button Type"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:345
+msgid "Search icon"
+msgstr ""
+
+#: inc/admin-page.php:682 inc/admin-page.php:949
+msgid "Secret Key"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:219
+msgid "See all results"
+msgstr ""
+
+#: piotnet-addons-for-elementor-pro.php:374
+msgid "Select Form ID and click on Filter to export as csv"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:573
+msgid "Seleted"
+msgstr ""
+
+#: widgets/pafe-form-builder-lost-password.php:51
+msgid "Self"
+msgstr ""
+
+#: inc/admin-page.php:992
+msgid "Sendfox Integration"
+msgstr ""
+
+#: inc/admin-page.php:1004
+msgid "SendFox Personal Aceess Token"
+msgstr ""
+
+#: inc/admin-page.php:834
+msgid "Sendinblue Integration"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:65
+msgid "Set Roles"
+msgstr ""
+
+#: controls/pafe-toggle-content.php:121
+msgid "Set the same slug for the content and trigger. E.g 1,2,3 or widget-1"
+msgstr ""
+
+#: piotnet-addons-for-elementor-pro.php:1083
+#: widgets/pafe-advanced-search.php:41
+#: widgets/pafe-display-form-submissions.php:90
+#: widgets/pafe-form-booking.php:41
+msgid "Settings"
+msgstr ""
+
+#: inc/lightbox.php:20
+msgid "Share"
+msgstr ""
+
+#: widgets/pafe-lightbox-gallery.php:229 widgets/pafe-lightbox-image.php:134
+msgid "Share Buttons"
+msgstr ""
+
+#: inc/lightbox.php:61
+msgid "Share on Facebook"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:90
+msgid "Shipping Address 1"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:91
+msgid "Shipping Address 2"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:92
+msgid "Shipping City"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:89
+msgid "Shipping Company"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:94
+msgid "Shipping Country"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:87
+msgid "Shipping First Name"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:88
+msgid "Shipping Last Name"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:93
+msgid "Shipping Post Code"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:95
+msgid "Shipping State"
+msgstr ""
+
+#: piotnet-addons-for-elementor-pro.php:711 widgets/pafe-form-booking.php:71
+msgid "Shortcode"
+msgstr ""
+
+#: controls/pafe-conditional-logic-form.php:68
+#: controls/pafe-conditional-visibility.php:223
+#: controls/pafe-conditional-visibility.php:327
+#: widgets/pafe-advanced-search.php:85 widgets/pafe-advanced-search.php:110
+#: widgets/pafe-advanced-search.php:154 widgets/pafe-advanced-search.php:189
+#: widgets/pafe-advanced-search.php:204
+msgid "Show"
+msgstr ""
+
+#: widgets/pafe-add-to-cart-checkbox.php:63
+msgid "Show Header"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:90
+msgid "Show Label"
+msgstr ""
+
+#: widgets/pafe-lightbox-gallery.php:145
+msgid "Show only the first thumbnail"
+msgstr ""
+
+#: widgets/pafe-add-to-cart-checkbox.php:51 widgets/pafe-form-booking.php:227
+msgid "Show Price"
+msgstr ""
+
+#: widgets/pafe-add-to-cart-checkbox.php:39
+msgid "Show Quantity"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:215
+msgid "Show Slot"
+msgstr ""
+
+#: inc/admin-page.php:945
+msgid "Site Key"
+msgstr ""
+
+#: controls/pafe-navigation-arrows-icon.php:40
+#: controls/pafe-responsive-background.php:246
+msgid "Size"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:241
+msgid "Slot ID* (Required)"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:176
+msgid "Slot Quantity Field Shortcode"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:500
+msgid "Slot Typography"
+msgstr ""
+
+#: controls/pafe-equal-height-for-cta.php:88 controls/pafe-equal-height.php:103
+#: controls/pafe-toggle-content.php:119
+msgid "Slug"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:623
+msgid "Sold Out"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:206 widgets/pafe-form-booking.php:710
+msgid "Sold Out Text"
+msgstr ""
+
+#: controls/pafe-advanced-dots-styling.php:136
+#: controls/pafe-responsive-gallery-images-spacing.php:42
+msgid "Spacing"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:131
+msgid "Specify Date"
+msgstr ""
+
+#: controls/pafe-conditional-logic-form.php:40
+#: controls/pafe-form-builder-conditional-logic.php:52
+#: controls/pafe-parallax.php:65 controls/pafe-toggle-content.php:91
+msgid "Speed"
+msgstr ""
+
+#: controls/pafe-crossfade-multiple-background-images.php:39
+msgid "Speed (Milliseconds)"
+msgstr ""
+
+#: controls/pafe-parallax.php:67
+msgid ""
+"Speed of the parallax. You can use any floating point number. But "
+"practically, give any fractional number between 0 and 1. Example: 0.2 or 0.5"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:250
+msgid "Start Date"
+msgstr ""
+
+#: controls/pafe-sticky-header-image.php:107
+#: controls/pafe-sticky-header-visibility.php:73
+msgid "Sticky"
+msgstr ""
+
+#: controls/pafe-sticky-header.php:62
+msgid "Sticky Offset (px)"
+msgstr ""
+
+#: controls/pafe-sticky-header.php:41
+msgid "Sticky On"
+msgstr ""
+
+#: controls/pafe-conditional-logic-form.php:113
+#: controls/pafe-conditional-visibility.php:427
+#: controls/pafe-form-builder-conditional-logic.php:143
+msgid "String"
+msgstr ""
+
+#: inc/admin-page.php:665
+msgid "Stripe Integration"
+msgstr ""
+
+#: controls/pafe-display-inline-block.php:75
+msgid "sub"
+msgstr ""
+
+#: widgets/pafe-acf-repeater-sub-field.php:30
+msgid "Sub Field"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:774
+msgid "Submit Button"
+msgstr ""
+
+#: controls/pafe-woocommerce-sales-funnels-add-to-cart.php:147
+msgid "Success Message"
+msgstr ""
+
+#: controls/pafe-woocommerce-sales-funnels-add-to-cart.php:160
+msgid "Success Message Color"
+msgstr ""
+
+#: controls/pafe-display-inline-block.php:76
+msgid "super"
+msgstr ""
+
+#: controls/pafe-support.php:28 inc/admin-page.php:176
+msgid "Support"
+msgstr ""
+
+#: controls/pafe-form-google-sheets-connector.php:52
+msgid "Tab Name"
+msgstr ""
+
+#: widgets/pafe-display-form-submissions.php:281
+msgid "Table"
+msgstr ""
+
+#: widgets/pafe-display-form-submissions.php:289
+msgid "Table Width"
+msgstr ""
+
+#: controls/pafe-equal-height-for-cta.php:58 controls/pafe-equal-height.php:73
+msgid "Tablet"
+msgstr ""
+
+#: widgets/pafe-slider-builder.php:94
+msgid "Tablet Items"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:95
+msgid "Taxonomy Select"
+msgstr ""
+
+#: widgets/pafe-acf-repeater-render.php:43
+msgid "Template Shortcode"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:673
+msgid "Term Options"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:592
+msgid "Term Selected"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:578
+msgid "Term Selection"
+msgstr ""
+
+#: widgets/pafe-advanced-search.php:311
+msgid "Terms Width"
+msgstr ""
+
+#: widgets/pafe-acf-repeater-sub-field.php:48
+#: widgets/pafe-advanced-search.php:127
+#: widgets/pafe-form-builder-lost-password.php:63
+msgid "Text"
+msgstr ""
+
+#: controls/pafe-image-select-field.php:78
+msgid "Text Align"
+msgstr ""
+
+#: controls/pafe-image-select-field.php:264
+#: controls/pafe-image-select-field.php:345
+#: widgets/pafe-advanced-search.php:399 widgets/pafe-advanced-search.php:854
+#: widgets/pafe-form-booking.php:546 widgets/pafe-form-booking.php:596
+#: widgets/pafe-form-booking.php:646
+msgid "Text Color"
+msgstr ""
+
+#: controls/pafe-sticky-header-text.php:40
+msgid "Text Color When Header Sticky"
+msgstr ""
+
+#: controls/pafe-range-slider.php:42
+msgid "Text Field Custom ID"
+msgstr ""
+
+#: controls/pafe-display-inline-block.php:77
+msgid "text-bottom"
+msgstr ""
+
+#: controls/pafe-display-inline-block.php:78
+msgid "text-top"
+msgstr ""
+
+#: controls/pafe-parallax.php:83
+msgid "The parallax offset. Possible values: Any integer."
+msgstr ""
+
+#: controls/pafe-advanced-nav-menu-styling.php:45
+#: controls/pafe-ajax-live-search.php:30
+#: controls/pafe-calculated-fields-form.php:30
+#: controls/pafe-close-first-accordion.php:29
+#: controls/pafe-conditional-logic-form.php:30
+#: controls/pafe-crossfade-multiple-background-images.php:29
+#: controls/pafe-font-awesome-5.php:31 controls/pafe-form-abandonment.php:30
+#: controls/pafe-form-builder-conditional-logic.php:31
+#: controls/pafe-form-google-sheets-connector.php:30
+#: controls/pafe-image-select-field.php:30
+#: controls/pafe-navigation-arrows-icon.php:29
+#: controls/pafe-range-slider.php:30
+#: controls/pafe-scroll-box-with-custom-scrollbar.php:30
+#: controls/pafe-toggle-content.php:30 widgets/pafe-lightbox-gallery.php:49
+#: widgets/pafe-lightbox-image.php:45
+msgid "This feature only works on the frontend."
+msgstr ""
+
+#: controls/pafe-woocommerce-sales-funnels-add-to-cart.php:149
+msgid "This item has been added to your cart."
+msgstr ""
+
+#: controls/pafe-woocommerce-sales-funnels-add-to-cart.php:180
+msgid "This item is out of stock."
+msgstr ""
+
+#: widgets/pafe-lightbox-gallery.php:129
+msgid "Thumbnail Aspect Ratio"
+msgstr ""
+
+#: widgets/pafe-lightbox-gallery.php:117
+msgid "Thumbnail Custom Size"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:283
+msgid "Time End"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:272
+msgid "Time Start"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:263
+msgid "Title"
+msgstr ""
+
+#: controls/pafe-advanced-tabs-styling.php:169
+msgid "Title Active Background"
+msgstr ""
+
+#: controls/pafe-advanced-tabs-styling.php:98
+msgid "Title Align"
+msgstr ""
+
+#: controls/pafe-advanced-tabs-styling.php:154
+msgid "Title Background"
+msgstr ""
+
+#: controls/pafe-advanced-tabs-styling.php:223
+msgid "Title Border Color"
+msgstr ""
+
+#: controls/pafe-advanced-tabs-styling.php:240
+msgid "Title Border Color Active"
+msgstr ""
+
+#: controls/pafe-advanced-tabs-styling.php:257
+msgid "Title Border Radius"
+msgstr ""
+
+#: controls/pafe-advanced-tabs-styling.php:184
+msgid "Title Border Type"
+msgstr ""
+
+#: controls/pafe-advanced-tabs-styling.php:207
+msgid "Title Border Width"
+msgstr ""
+
+#: widgets/pafe-lightbox-gallery.php:301
+msgid "Title Key"
+msgstr ""
+
+#: controls/pafe-advanced-tabs-styling.php:61
+msgid "Title Margin"
+msgstr ""
+
+#: controls/pafe-advanced-tabs-styling.php:80
+msgid "Title Padding"
+msgstr ""
+
+#: controls/pafe-advanced-tabs-styling.php:43
+msgid "Title Same Width"
+msgstr ""
+
+#: controls/pafe-advanced-tabs-styling.php:126
+msgid "Title Text Align"
+msgstr ""
+
+#: widgets/pafe-form-booking.php:490
+msgid "Title Typography"
+msgstr ""
+
+#: inc/admin-page.php:196
+msgid "to enable all features and receive new updates."
+msgstr ""
+
+#: piotnet-addons-for-elementor-pro.php:1104
+#, php-format
+msgid ""
+"To enable updates, please login your account on the <a href=\"%s\">Plugin "
+"Settings</a> page. If you have not purchased yet, please visit <a "
+"href=\"%s\">https://pafe.piotnet.com</a>. If you can not update, please "
+"download new version on <a href=\"https://pafe.piotnet.com/my-account/\">"
+"https://pafe.piotnet.com/my-account/</a>."
+msgstr ""
+
+#: inc/admin-page.php:489 inc/admin-page.php:613
+msgid ""
+"To setup Gmail integration properly you should save Client ID and Client "
+"Secret."
+msgstr ""
+
+#: piotnet-addons-for-elementor-pro.php:760
+msgid "Toggle"
+msgstr ""
+
+#: inc/lightbox.php:22
+msgid "Toggle fullscreen"
+msgstr ""
+
+#: controls/pafe-advanced-nav-menu-styling.php:58
+msgid "Toggle Image"
+msgstr ""
+
+#: controls/pafe-advanced-nav-menu-styling.php:73
+msgid "Toggle Image Size"
+msgstr ""
+
+#: controls/pafe-display-inline-block.php:79
+msgid "top"
+msgstr ""
+
+#: controls/pafe-toggle-content.php:46
+msgid "Trigger Close"
+msgstr ""
+
+#: controls/pafe-toggle-content.php:45
+msgid "Trigger Open"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:409
+msgid "true"
+msgstr ""
+
+#: inc/admin-page.php:174
+msgid "Tutorials"
+msgstr ""
+
+#: widgets/pafe-lightbox-gallery.php:249 widgets/pafe-lightbox-image.php:154
+msgid "Tweeter"
+msgstr ""
+
+#: inc/admin-page.php:962
+msgid "Twilio Integration"
+msgstr ""
+
+#: controls/pafe-navigation-arrows-icon.php:105
+#: controls/pafe-toggle-content.php:41
+#: widgets/pafe-acf-repeater-sub-field.php:45
+msgid "Type"
+msgstr ""
+
+#: controls/pafe-conditional-logic-form.php:109
+#: controls/pafe-conditional-visibility.php:423
+#: controls/pafe-form-builder-conditional-logic.php:139
+msgid "Type Value"
+msgstr ""
+
+#: controls/pafe-form-abandonment.php:56
+msgid "Type your url here"
+msgstr ""
+
+#: controls/pafe-ajax-live-search.php:209
+#: controls/pafe-ajax-live-search.php:271
+#: controls/pafe-calculated-fields-form.php:41
+#: controls/pafe-image-select-field.php:69
+#: widgets/pafe-acf-repeater-sub-field.php:83
+#: widgets/pafe-advanced-search.php:1621 widgets/pafe-advanced-search.php:1667
+#: widgets/pafe-advanced-search.php:1728 widgets/pafe-advanced-search.php:1774
+#: widgets/pafe-advanced-search.php:1855
+msgid "Typography"
+msgstr ""
+
+#: controls/pafe-conditional-logic-form.php:101
+#: controls/pafe-form-builder-conditional-logic.php:130
+msgid "unchecked"
+msgstr ""
+
+#: controls/pafe-display-inline-block.php:80
+msgid "unset"
+msgstr ""
+
+#: piotnet-addons-for-elementor-pro.php:726
+msgid "URL"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:349
+msgid "URL Contains"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:348
+#: controls/pafe-conditional-visibility.php:374
+msgid "URL Parameter"
+msgstr ""
+
+#: inc/admin-page.php:200
+msgid "Username"
+msgstr ""
+
+#: controls/pafe-conditional-logic-form.php:126
+#: controls/pafe-conditional-visibility.php:440
+#: controls/pafe-conditional-visibility.php:454
+#: controls/pafe-form-builder-conditional-logic.php:156
+#: widgets/pafe-form-builder-preview-submission.php:143
+msgid "Value"
+msgstr ""
+
+#: controls/pafe-woocommerce-sales-funnels-add-to-cart.php:53
+#: widgets/pafe-add-to-cart-checkbox.php:112
+msgid "Variation ID"
+msgstr ""
+
+#: controls/pafe-display-inline-block.php:64
+msgid "Vertical Align"
+msgstr ""
+
+#: piotnet-addons-for-elementor-pro.php:1094
+msgid "Video Tutorials"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:186
+msgid "Visibility By Date And Time"
+msgstr ""
+
+#: controls/pafe-conditional-visibility.php:50
+msgid "Visibility By User"
+msgstr ""
+
+#: controls/pafe-form-abandonment.php:53
+msgid "Webhook URL"
+msgstr ""
+
+#: controls/pafe-convert-image-to-black-or-white.php:42
+msgid "White"
+msgstr ""
+
+#: controls/pafe-advanced-dots-styling.php:44
+#: widgets/pafe-advanced-search.php:1019 widgets/pafe-advanced-search.php:1565
+msgid "Width"
+msgstr ""
+
+#: controls/pafe-custom-media-query-breakpoints.php:79
+msgid "Width (%)"
+msgstr ""
+
+#: controls/pafe-advanced-dots-styling.php:67
+msgid "Width Active"
+msgstr ""
+
+#: widgets/pafe-woocommerce-checkout.php:10
+#: widgets/pafe-woocommerce-checkout.php:32
+msgid "Woocommerce Checkout"
+msgstr ""
+
+#: controls/pafe-responsive-background.php:204
+msgid "xpos"
+msgstr ""
+
+#: controls/pafe-display-inline-block.php:34
+msgid "Yes"
+msgstr ""
+
+#: piotnet-addons-for-elementor-pro.php:566
+msgid "You have to Activate License to enable all features."
+msgstr ""
+
+#: controls/pafe-toggle-content.php:137
+msgid "You should enable this if you want Toggle Content feature in a loop"
+msgstr ""
+
+#: controls/pafe-responsive-background.php:219
+msgid "ypos"
+msgstr ""
+
+#: inc/admin-page.php:1041
+msgid "Zoho Integration"
+msgstr ""
+
+#: inc/lightbox.php:24
+msgid "Zoom in/out"
+msgstr ""

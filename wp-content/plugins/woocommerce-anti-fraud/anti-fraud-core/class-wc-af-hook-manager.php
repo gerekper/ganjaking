@@ -176,29 +176,29 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 			if ( opmc_hpos_get_post_meta( $order_id, '_payment_method', true ) == 'cod' ) {
 				$new_status = 'on-hold';
 				opmc_hpos_update_post_meta( $order_id, '_wc_af_post_payment_status', $new_status );
-			} else {
+			} elseif ( ! WC_AF_Score_Helper::is_fraud_check_complete( $order_id ) ) {
 				// If the fraud check hasn't finished yet, don't advance to completed
-				if ( ! WC_AF_Score_Helper::is_fraud_check_complete( $order_id ) ) {
+				
 
-					if ( in_array( $new_status, array( 'completed', 'processing' ) ) ) {
-						// $new_status = "on-hold";
-										$new_status = $new_status;  // Commented by Nisheet
-					}
+				if ( in_array( $new_status, array( 'completed', 'processing' ) ) ) {
+					// $new_status = "on-hold";
+					$new_status = $new_status;  // Commented by Nisheet
+				}
 
-					// Save the payment recommended state so we can apply it when fraud check completes
-					opmc_hpos_update_post_meta( $order_id, '_wc_af_post_payment_status', $new_status );
+				// Save the payment recommended state so we can apply it when fraud check completes
+				opmc_hpos_update_post_meta( $order_id, '_wc_af_post_payment_status', $new_status );
 
-				} else {
-					// if anti fraud has already recommended this order to be cancelled or held
-					// don't allow the payment to override that state
+			} else {
+				// if anti fraud has already recommended this order to be cancelled or held
+				// don't allow the payment to override that state
 
-					$af_recommended_status = opmc_hpos_get_post_meta( $order_id, '_wc_af_recommended_status', true );
+				$af_recommended_status = opmc_hpos_get_post_meta( $order_id, '_wc_af_recommended_status', true );
 
-					if ( ! empty( $af_recommended_status ) ) {
-						$new_status = $af_recommended_status;
-					}
+				if ( ! empty( $af_recommended_status ) ) {
+					$new_status = $af_recommended_status;
 				}
 			}
+			
 			return $new_status;
 
 		}

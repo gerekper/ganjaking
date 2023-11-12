@@ -1,0 +1,496 @@
+<wpml-config>
+    <elementor-widgets>
+    	<widget name="uael-table">
+    		<fields>
+        		<field type="Table : Search Label" editor_type="LINE">search_text</field>
+    		</fields>
+    		<fields-in-item items_of="table_headings">
+       			<field type="Heading text" editor_type="LINE">heading_text</field>
+    		</fields-in-item>
+    		<fields-in-item items_of="table_content">
+        		<field type="Cell text" editor_type="LINE">cell_text</field>
+				<field type="Link" editor_type="LINE">url</field>
+			</fields-in-item>
+		</widget>
+		<widget name="uael-advanced-heading">
+			<conditions>
+				<condition key="widgetType">uael-advanced-heading</condition>
+			</conditions>
+			<fields>
+				<field type="Advanced Heading : Heading" editor_type="LINE">heading_title</field>
+				<field type="Advanced Heading : Sub Heading" editor_type="LINE">sub_heading</field>
+				<field type="Advanced Heading : Description" editor_type="AREA">heading_description</field>
+				<field type="Advanced Heading : Separator Text" editor_type="LINE">heading_line_text</field>
+				<field type="Advanced Heading : Text Link" editor_type="LINK" key_of="heading_link">url</field>
+				<field type="Advanced Heading : Photo URL" editor_type="LINK" key_of="heading_image_link">url</field>
+				<field type="Advanced Heading : Background Text" editor_type="LINE">bg_text</field>
+			</fields>
+		</widget>
+		<widget name="uael-marketing-button">
+			<conditions>
+				<condition key="widgetType">uael-marketing-button</condition>
+			</conditions>
+			<fields>
+				<field type="Marketing Button : Title" editor_type="LINE">text</field>
+				<field type="Marketing Button : Description" editor_type="AREA">desc_text</field>
+				<field type="Marketing Button : Link" editor_type="LINK" key_of="link">url</field>
+			</fields>
+		</widget>
+		<widget name="uael-dual-color-heading">
+			<conditions>
+				<condition key="widgetType">uael-dual-color-heading</condition>
+			</conditions>
+			<fields>
+				<field type="Dual Color Heading : Before Text" editor_type="LINE">before_heading_text</field>
+				<field type="Dual Color Heading : Highlighted Text" editor_type="LINE">second_heading_text</field>
+				<field type="Dual Color Heading : After Text" editor_type="LINE">after_heading_text</field>
+				<field type="Dual Color Heading : Link" editor_type="LINK" key_of="heading_link">url</field>
+				<field type="Dual Color Heading : Background Text" editor_type="LINE">bg_text</field>
+			</fields>
+		</widget>
+		<widget name="uael-fancy-heading">
+			<conditions>
+				<condition key="widgetType">uael-fancy-heading</condition>
+			</conditions>
+			<fields>
+				<field type="Fancy Heading : Before Text" editor_type="LINE">fancytext_prefix</field>
+				<field type="Fancy Heading : Fancy Text" editor_type="AREA">fancytext</field>
+				<field type="Fancy Heading : After Text" editor_type="LINE">fancytext_suffix</field>
+			</fields>
+		</widget>
+		<widget name="uael-ba-slider">
+			<conditions>
+				<condition key="widgetType">uael-ba-slider</condition>
+			</conditions>
+			<fields>
+				<field type="Before After Slider : Before Label" editor_type="LINE">before_text</field>
+				<field type="Before After Slider : After Label" editor_type="LINE">after_text</field>
+			</fields>
+		</widget>
+		<widget name="uael-content-toggle">
+			<conditions>
+				<condition key="widgetType">uael-content-toggle</condition>
+			</conditions>
+			<fields>
+				<field type="Content Toggle : Heading 1" editor_type="LINE">rbs_section_heading_1</field>
+				<field type="Content Toggle : Description 1" editor_type="VISUAL">section_content_1</field>
+				<field type="Content Toggle : Heading 2" editor_type="LINE">rbs_section_heading_2</field>
+				<field type="Content Toggle : Description 2" editor_type="VISUAL">section_content_2</field>
+			</fields>
+		</widget>
+		<widget name="uael-modal-popup">
+			<conditions>
+				<condition key="widgetType">uael-modal-popup</condition>
+			</conditions>
+			<fields>
+				<field type="Modal Popup : Modal Title" editor_type="LINE">title</field>
+				<field type="Modal Popup : Modal Description" editor_type="VISUAL">ct_content</field>
+				<field type="Modal Popup : Display on Text - Text" editor_type="LINE">modal_text</field>
+				<field type="Modal Popup : Display on Button - Button" editor_type="LINE">btn_text</field>
+			</fields>
+		</widget>
+		<widget name="uael-infobox">
+			<conditions>
+				<condition key="widgetType">uael-infobox</condition>
+			</conditions>
+			<fields>
+				<field type="Info Box : Title Prefix" editor_type="LINE">infobox_title_prefix</field>
+				<field type="Info Box : Title" editor_type="LINE">infobox_title</field>
+				<field type="Info Box : Description" editor_type="AREA">infobox_description</field>
+				<field type="Info Box : CTA Link Text" editor_type="LINE">infobox_link_text</field>
+				<field type="Info Box : CTA Button Text" editor_type="LINE">infobox_button_text</field>
+				<field type="Info Box : CTA Link" editor_type="LINK" key_of="infobox_text_link">url</field>
+				<field type="Info Box : Photo URL" editor_type="LINK" key_of="infobox_image_link">url</field>
+			</fields>
+		</widget>
+		<widget name="uael-buttons">
+			<conditions>
+				<condition key="widgetType">uael-buttons</condition>
+			</conditions>
+			<fields-in-item items_of="buttons">
+				<field type="Buttons: Text" editor_type="LINE">text</field>
+				<field type="Buttons: Link" editor_type="LINK" key_of="link">url</field>
+			</fields-in-item>
+		</widget>
+		<widget name="uael-google-map">
+			<conditions>
+				<condition key="widgetType">uael-google-map</condition>
+			</conditions>
+			<fields-in-item items_of="addresses">
+				<field type="Google Map: Map Marker Title" editor_type="LINE">map_title</field>
+				<field type="Google Map: Map Marker Description" editor_type="AREA">map_description</field>
+			</fields-in-item>
+		</widget>
+		<widget name="uael-price-list">
+			<conditions>
+				<condition key="widgetType">uael-price-list</condition>
+			</conditions>
+			<fields-in-item items_of="price_list">
+				<field type="Price List: Title" editor_type="LINE">title</field>
+				<field type="Price List: Description" editor_type="AREA">item_description</field>
+				<field type="Price List: Price" editor_type="LINE">price</field>
+				<field type="Price List: Original Price" editor_type="LINE">original_price</field>
+				<field type="Price List: Item Link" editor_type="LINK" key_of="link">url</field>
+			</fields-in-item>
+		</widget>
+		<widget name="uael-video-gallery">
+			<conditions>
+				<condition key="widgetType">uael-video-gallery</condition>
+			</conditions>
+			<fields>
+				<field type="Video Gallery : Title Text" editor_type="LINE">filters_heading_text</field>
+				<field type="Video Gallery : 'All' Tab Label" editor_type="LINE">filters_all_text</field>
+			</fields>
+			<fields-in-item items_of="gallery_items">
+				<field type="Video Gallery: Caption" editor_type="LINE">title</field>
+				<field type="Video Gallery: Categories" editor_type="LINE">tags</field>
+				<field type="Video Gallery: Video URL" editor_type="LINK" key_of="external_url">url</field>
+			</fields-in-item>
+		</widget>
+		<widget name="uael-video">
+			<conditions>
+				<condition key="widgetType">uael-video</condition>
+			</conditions>
+			<fields>
+				<field type="Video : Text" editor_type="LINE">sticky_info_bar_text</field>
+			</fields>
+		</widget>
+		<widget name="uael-price-table">
+			<conditions>
+				<condition key="widgetType">uael-price-table</condition>
+			</conditions>
+			<fields>
+				<field type="Price Table : Title" editor_type="LINE">heading</field>
+				<field type="Price Table : Description" editor_type="LINE">sub_heading</field>
+				<field type="Price Table : Price" editor_type="LINE">price</field>
+				<field type="Price Table : Original Price" editor_type="LINE">original_price</field>
+				<field type="Price Table : Duration" editor_type="LINE">duration</field>
+				<field type="Price Table : Description" editor_type="LINE">sub_heading_style2</field>
+				<field type="Price Table : CTA Text" editor_type="LINE">cta_text</field>
+				<field type="Price Table : CTA Link" editor_type="LINK" key_of="link">url</field>
+				<field type="Price Table : Disclaimer Text" editor_type="LINE">footer_additional_info</field>
+				<field type="Price Table : Ribbon Title" editor_type="LINE">ribbon_title</field>
+			</fields>
+			<fields-in-item items_of="features_list">
+				<field type="Price Table: Feature Title" editor_type="LINE">item_text</field>
+				<field type="Price Table: Tooltip Content" editor_type="VISUAL">tooltip_content</field>
+			</fields-in-item>
+		</widget>
+		<widget name="uael-timeline">
+			<conditions>
+				<condition key="widgetType">uael-timeline</condition>
+			</conditions>
+			<fields-in-item items_of="timelines">
+				<field type="Timeline: Date" editor_type="LINE">timeline_single_date</field>
+				<field type="Timeline: Heading" editor_type="LINE">timeline_single_heading</field>
+				<field type="Timeline: Description" editor_type="LINE">timeline_single_content</field>
+				<field type="Timeline: Link" editor_type="LINK" key_of="timeline_single_link">url</field>
+			</fields-in-item>
+		</widget>
+		<widget name="uael-faq">
+			<conditions>
+				<condition key="widgetType">uael-faq</condition>
+			</conditions>
+			<fields-in-item items_of="tabs">
+				<field type="FAQ Schema: Question/Title" editor_type="LINE">question</field>
+				<field type="FAQ Schema: Answer/Content" editor_type="LINE">answer</field>
+			</fields-in-item>
+		</widget>
+		<widget name="uael-business-hours">
+			<conditions>
+				<condition key="widgetType">uael-business-hours</condition>
+			</conditions>
+			<fields-in-item items_of="business_days_timings">
+				<field type="Business Hours: Enter Day" editor_type="LINE">enter_day</field>
+				<field type="Business Hours: Enter Time" editor_type="LINE">enter_time</field>
+			</fields-in-item>
+		</widget>
+		<widget name="uael-image-gallery">
+			<conditions>
+				<condition key="widgetType">uael-image-gallery</condition>
+			</conditions>
+			<fields>
+				<field type="Image Galley : 'All' Tab Label" editor_type="LINE">filters_all_text</field>
+			</fields>
+		</widget>
+		<widget name="uael-woo-add-to-cart">
+			<conditions>
+				<condition key="widgetType">uael-woo-add-to-cart</condition>
+			</conditions>
+			<fields>
+				<field type="Woo - Add To Cart : Text" editor_type="LINE">btn_text</field>
+			</fields>
+		</widget>
+		<widget name="uael-posts">
+			<conditions>
+				<condition key="widgetType">uael-posts</condition>
+			</conditions>
+			<fields>
+				<field type="Display Message : Text" editor_type="LINE">no_results_text</field>
+				<field type="CTA Text - Classic : Text" editor_type="LINE">classic_cta_text</field>
+				<field type="CTA Text - Card : Text" editor_type="LINE">card_cta_text</field>
+				<field type="CTA Text - Event : Text" editor_type="LINE">event_cta_text</field>
+				<field type="CTA Text - Creative Feeds : Text" editor_type="LINE">feed_cta_text</field>
+				<field type="CTA Text - News : Text" editor_type="LINE">news_cta_text</field>
+				<field type="CTA Text - Business Card : Text" editor_type="LINE">business_cta_text</field>
+				<field type="'Load More' Label - Classic : Text" editor_type="LINE">classic_load_more_text</field>
+				<field type="'Load More' Label - Card : Text" editor_type="LINE">card_load_more_text</field>
+				<field type="'Load More' Label - Event : Text" editor_type="LINE">event_load_more_text</field>
+				<field type="'Load More' Label - Creative Feeds : Text" editor_type="LINE">feed_load_more_text</field>
+				<field type="'Load More' Label - Business Card : Text" editor_type="LINE">business_load_more_text</field>
+				<field type="Author Info Text - Business Card : Text" editor_type="LINE">business_writtenby_text</field>
+				<field type="Filterable Tabs - All Label - Classic : Text" editor_type="LINE">classic_filters_all_text</field>
+				<field type="Filterable Tabs - All Label - Card : Text" editor_type="LINE">card_filters_all_text</field>
+				<field type="Filterable Tabs - All Label - Event : Text" editor_type="LINE">event_filters_all_text</field>
+				<field type="Filterable Tabs - All Label - Creative Feeds : Text" editor_type="LINE">feed_filters_all_text</field>
+				<field type="Filterable Tabs - All Label - News : Text" editor_type="LINE">news_filters_all_text</field>
+				<field type="Filterable Tabs - All Label - Business Card : Text" editor_type="LINE">business_filters_all_text</field>
+			</fields>
+		</widget>
+		<widget name="uael-hotspot">
+			<conditions>
+				<condition key="widgetType">uael-hotspot</condition>
+			</conditions>
+			<fields>
+				<field type="Hotspot : Overlay Button Text" editor_type="LINE">overlay_button_text</field>
+			</fields>
+			<fields-in-item items_of="hotspots_list">
+				<field type="Hotspot: Marker Text" editor_type="LINE">text</field>
+				<field type="Hotspot: Tooltip Content" editor_type="VISUAL">content</field>
+				<field type="Hotspot: Marker Link" editor_type="LINK" key_of="marker_link">url</field>
+			</fields-in-item>
+		</widget>
+		<widget name="uael-how-to">
+			<conditions>
+				<condition key="widgetType">uael-how-to</condition>
+			</conditions>
+			<fields>
+				<field type="How-to Schema: Heading" editor_type="LINE">title</field>
+				<field type="How-to Schema: Description" editor_type="VISUAL">description</field>
+				<field type="How-to Schema: Time Text" editor_type="LINE">time_text</field>
+				<field type="How-to Schema: Cost Text" editor_type="LINE">cost_text</field>
+				<field type="How-to Schema: Tools Text" editor_type="LINE">tools_text</field>
+				<field type="How-to Schema: Supply Text" editor_type="LINE">supply_text</field>
+				<field type="How-to Schema: Step Text" editor_type="LINE">steps_text</field>
+			</fields>
+			<fields-in-item items_of="tool">
+				<field type="How-to Schema: Tool Item Text" editor_type="LINE">tool_item_text</field>
+			</fields-in-item>
+			<fields-in-item items_of="supply">
+				<field type="How-to Schema: Supply Item Text" editor_type="LINE">supply_item_text</field>
+			</fields-in-item>
+			<fields-in-item items_of="steps">
+				<field type="How-to Schema: Title" editor_type="LINE">steps_item_title</field>
+				<field type="How-to Schema: Description" editor_type="LINE">steps_item_desc</field>
+				<field type="How-to Schema: Link" editor_type="LINK" key_of="steps_item_url">url</field>
+			</fields-in-item>
+		</widget>
+		<widget name="uael-offcanvas">
+			<conditions>
+				<condition key="widgetType">uael-offcanvas</condition>
+			</conditions>
+			<fields>
+				<field type="Off-Canvas : Content" editor_type="LINE">ct_content</field>
+				<field type="Off-Canvas : Button Text" editor_type="LINE">btn_text</field>
+			</fields>
+		</widget>
+		<widget name="uael-business-reviews">
+			<conditions>
+				<condition key="widgetType">uael-business-reviews</condition>
+			</conditions>
+			<fields>
+				<field type="Business Reviews - Default : Read More Text" editor_type="LINE">default_read_more</field>
+				<field type="Business Reviews - Card : Read More Text" editor_type="LINE">card_read_more</field>
+				<field type="Business Reviews - Bubble : Read More Text" editor_type="LINE">bubble_read_more</field>
+			</fields>
+		</widget>
+		<widget name="uael-countdown">
+			<conditions>
+				<condition key="widgetType">uael-countdown</condition>
+			</conditions>
+			<fields>
+				<field type="Countdown : Message" editor_type="AREA">message_after_expire</field>
+				<field type="Countdown : Label for Days" editor_type="LINE">custom_days</field>
+				<field type="Countdown : Label for Hours" editor_type="LINE">custom_hours</field>
+				<field type="Countdown : Label for Minutes" editor_type="LINE">custom_minutes</field>
+				<field type="Countdown : Label for Seconds" editor_type="LINE">custom_seconds</field>
+				<field type="Countdown : Redirect URL" editor_type="LINK" key_of="expire_redirect_url">url</field>
+			</fields>
+		</widget>
+		<widget name="uael-wpf-styler">
+			<conditions>
+				<condition key="widgetType">uael-wpf-styler</condition>
+			</conditions>
+			<fields>
+				<field type="WPForms Styler : Form Title" editor_type="LINE">form_title</field>
+				<field type="WPForms Styler : Form Description" editor_type="AREA">form_desc</field>
+			</fields>
+		</widget>
+		<widget name="uael-team-member">
+			<conditions>
+				<condition key="widgetType">uael-team-member</condition>
+			</conditions>
+			<fields>
+				<field type="Team Member : Name" editor_type="LINE">team_member_name</field>
+				<field type="Team Member : Designation" editor_type="LINE">team_member_desig</field>
+				<field type="Team Member : Description" editor_type="AREA">team_member_desc</field>
+			</fields>
+		</widget>
+		<widget name="uael-login-form">
+			<conditions>
+				<condition key="widgetType">uael-login-form</condition>
+			</conditions>
+			<fields>
+				<field type="Login Form : Username Label" editor_type="LINE">user_label</field>
+				<field type="Login Form : Username Placeholder" editor_type="LINE">user_placeholder</field>
+				<field type="Login Form : Password Label" editor_type="LINE">password_label</field>
+				<field type="Login Form : Password Placeholder" editor_type="LINE">password_placeholder</field>
+				<field type="Login Form : Separator Line Text" editor_type="LINE">separator_line_text</field>
+				<field type="Login Form : Button Text" editor_type="LINE">button_text</field>
+				<field type="Login Form : Register Text" editor_type="LINE">show_register_text</field>
+				<field type="Login Form : Lost your password Text" editor_type="LINE">show_lost_password_text</field>
+			</fields>
+		</widget>
+		<widget name="uael-registration-form">
+			<conditions>
+				<condition key="widgetType">uael-registration-form</condition>
+			</conditions>
+			<fields>
+				<field type="Registration Form : Redirect URL" editor_type="LINK" key_of="redirect_url">url</field>
+				<field type="Registration Form : Login Text" editor_type="LINE">login_text</field>
+				<field type="Registration Form : Login URL" editor_type="LINK" key_of="login_url">url</field>
+				<field type="Registration Form : Lost Password Text" editor_type="LINE">lost_password_text</field>
+				<field type="Registration Form : Lost Password URL" editor_type="LINK" key_of="lost_password_url">url</field>
+				<field type="Registration Form : Message For Logged In Users" editor_type="LINE">logged_in_text</field>
+				<field type="Registration Form : Button Text" editor_type="LINE">button_text</field>
+				<field type="Registration Form : Email Subject" editor_type="LINE">email_subject</field>
+				<field type="Registration Form : Email Content" editor_type="LINE">email_content</field>
+				<field type="Registration Form :Success Message" editor_type="LINE">validation_success_message</field>
+				<field type="Registration Form : Error Message" editor_type="LINE">validation_error_message</field>
+			</fields>
+			<fields-in-item items_of="fields_list">
+				<field type="Registration Form: Field Label" editor_type="LINE">field_label</field>
+				<field type="Registration Form: Placeholder" editor_type="LINE">placeholder</field>
+			</fields-in-item>
+		</widget>
+		<widget name="uael-social-share">
+			<conditions>
+				<condition key="widgetType">uael-social-share</condition>
+			</conditions>
+			<fields>
+				<field type="Social Share : Link" editor_type="LINK" key_of="share_url">url</field>
+				<field type="Social Share : Custom Text" editor_type="LINE">custom_share_text</field>
+			</fields>
+			<fields-in-item items_of="social_icon_list">
+				<field type="Social Share: Custom Label" editor_type="LINE">Custom_text</field>
+			</fields-in-item>
+		</widget>
+		<widget name="uael-gf-styler">
+			<conditions>
+				<condition key="widgetType">uael-gf-styler</condition>
+			</conditions>
+			<fields>
+				<field type="Gravity Form Styler : Form Title" editor_type="LINE">form_title</field>
+				<field type="Gravity Form Styler : Form Description" editor_type="AREA">form_desc</field>
+			</fields>
+		</widget>
+		<widget name="uael-nav-menu">
+            <conditions>
+                <condition key="widgetType">uael-nav-menu</condition>
+            </conditions>
+            <fields>
+                <field type="Navigation Menu: Label Text" editor_type="LINE">toggle_label_text</field>
+            </fields>
+            <fields-in-item items_of="menu_items">
+                <field type="Navigation Menu: Text" editor_type="LINE">text</field>
+                <field type="Navigation Menu: Link" editor_type="LINK" key_of="link">url</field>
+            </fields-in-item>
+        </widget>
+		<widget name="uael-ff-styler">
+			<conditions>
+				<condition key="widgetType">uael-ff-styler</condition>
+			</conditions>
+			<fields>
+				<field type="WP Fluent Forms Styler : Form Title" editor_type="LINE">form_title</field>
+				<field type="WP Fluent Forms Styler : Form Description" editor_type="LINE">form_desc</field>
+			</fields>
+		</widget>
+		<widget name="uael-mini-cart">
+			<conditions>
+				<condition key="widgetType">uael-mini-cart</condition>
+			</conditions>
+			<fields>
+				<field type="Mini Cart : Cart Title" editor_type="LINE">cart_title</field>
+				<field type="Mini Cart : Cart Message" editor_type="AREA">cart_message</field>
+				<field type="Mini Cart : Text" editor_type="LINE">cart_button_text</field>
+			</fields>
+		</widget>
+		<widget name="uael-woo-checkout">
+			<conditions>
+				<condition key="widgetType">uael-woo-checkout</condition>
+			</conditions>
+			<fields>
+				<field type="Woo - Checkout: Enter Billing Text" editor_type="LINE">labels_billing_section</field>
+				<field type="Woo - Checkout: Enter Shipping Text" editor_type="AREA">labels_shipping_section</field>
+				<field type="Woo - Checkout: Enter Order Text" editor_type="LINE">labels_order_section</field>
+				<field type="Woo - Checkout: Enter Payment Text" editor_type="LINE">labels_payment_section</field>
+				<field type="Woo - Checkout: Enter Cart Button Text" editor_type="LINE">labels_back_to_cart</field>
+				<field type="Woo - Checkout: Enter Previous Button Text" editor_type="LINE">labels_previous_btn</field>
+				<field type="Woo - Checkout: Enter Next Button Text" editor_type="LINE">labels_next_btn</field>
+				<field type="Woo - Checkout: Enter Login Title" editor_type="LINE">login_title</field>
+				<field type="Woo - Checkout: Enter Login Link Text" editor_type="LINE">login_toggle_text</field>
+				<field type="Woo - Checkout: Enter Login Form Text" editor_type="AREA">login_form_text</field>
+				<field type="Woo - Checkout: Enter Coupon Title" editor_type="LINE">coupon_title</field>
+				<field type="Woo - Checkout: Enter Coupon Link Text" editor_type="LINE">coupon_toggle_text</field>
+				<field type="Woo - Checkout: Enter Coupon Form Text" editor_type="AREA">coupon_form_text</field>
+				<field type="Woo - Checkout: Enter Coupon Form Placeholder" editor_type="LINE">coupon_field_placeholder</field>
+				<field type="Woo - Checkout: Enter Coupon Button Text" editor_type="LINE">coupon_button_text</field>
+			</fields>
+		</widget>
+		<widget name="uael-table-of-contents">
+			<conditions>
+				<condition key="widgetType">uael-table-of-contents</condition>
+			</conditions>
+			<fields>
+				<field type="TOC - Enter Title Text" editor_type="LINE">heading_title</field>
+			</fields>
+		</widget>
+		<widget name="uael-woo-products">
+			<conditions>
+				<condition key="widgetType">uael-woo-products</condition>
+			</conditions>
+			<fields>
+				<field type="Woo - Products: Sale Flash String" editor_type="LINE">sale_flash_custom_string</field>
+				<field type="Woo - Products: Sale Flash Content" editor_type="LINE">sale_flash_content</field>
+				<field type="Woo - Products: Featured Flash Content" editor_type="LINE">featured_flash_string</field>
+				<field type="Woo - Products: Display Message" editor_type="LINE">no_results_text</field>
+				<field type="Woo - Products: Previous Label" editor_type="LINE">pagination_prev_label</field>
+				<field type="Woo - Products: Next Label" editor_type="LINE">pagination_next_label</field>
+			</fields>
+		</widget>
+		<widget name="uael-welcome-music">
+			<conditions>
+				<condition key="widgetType">uael-welcome-music</condition>
+			</conditions>
+			<fields>
+				<field type="Welcome Music: Music Link" editor_type="LINK" key_of="music_link">url</field>
+			</fields>
+		</widget>
+		<widget name="uael-twitter">
+			<conditions>
+				<condition key="widgetType">uael-twitter</condition>
+			</conditions>
+			<fields>
+				<field type="Twitter Feed : Read More Text" editor_type="LINE">uael_twitter_feed_read_more_text</field>
+			</fields>
+		</widget>
+		<widget name="uael-instagram-feed">
+			<conditions>
+				<condition key="widgetType">uael-instagram-feed</condition>
+			</conditions>
+			<fields>
+				<field type="Instagram Feed: Profile Link Title" editor_type="LINE">uae_insta_profile_link_title</field>
+			</fields>
+		</widget>
+	</elementor-widgets>
+</wpml-config>

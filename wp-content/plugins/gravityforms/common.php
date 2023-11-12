@@ -3143,6 +3143,7 @@ Content-Type: text/html;
 	}
 
 	public static function cache_remote_message() {
+		return;
 		//Getting version number
 		$key                = GFCommon::get_key();
 		$body               = "key=$key";

@@ -33,7 +33,7 @@ $video_h = $video_w / 1.61; // 1.61 golden ratio
 global $wp_embed;
 $embed = '';
 if ( is_object( $wp_embed ) ) {
-	$embed = $wp_embed->run_shortcode( '[embed width="' . $video_w . '"' . $video_h . ']' . $link . '[/embed]' );
+	$embed = $wp_embed->run_shortcode( '[embed width="' . $video_w . '" height="' . $video_h . '"]' . $link . '[/embed]' );
 }
 $el_classes = array(
 	'wpb_video_widget',

@@ -827,6 +827,9 @@ class Vc_Base {
 			'gutenbergDoesntWorkProperly' => esc_html__( 'Gutenberg plugin doesn\'t work properly. Please check Gutenberg plugin.', 'js_composer' ),
 			'unfiltered_html_access' => esc_html__( 'Custom HTML is disabled for your user role. Please contact your site Administrator to change your capabilities.', 'js_composer' ),
 			'not_editable_post' => sprintf( '%s %s %s', esc_html__( 'This', 'js_composer' ), get_post_type() ? get_post_type() : 'post', esc_html__( 'can not be edited with WPBakery since it is missing a WordPress default content area.', 'js_composer' ) ),
+			'ai_response_error' => esc_html__( 'An error occurred when requesting a response from WPBakery AI (Code: 623)', 'js_composer' ),
+			'generate' => esc_html__( 'Generate', 'js_composer' ),
+			'regenerate' => esc_html__( 'Regenerate', 'js_composer' ),
 		);
 	}
 

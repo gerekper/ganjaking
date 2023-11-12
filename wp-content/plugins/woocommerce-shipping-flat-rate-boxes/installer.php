@@ -1,4 +1,10 @@
 <?php
+/**
+ * Installer.
+ *
+ * @package woocommerce-shipping-flat-rate-boxes
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -13,7 +19,7 @@ if ( $wpdb->has_cap( 'collation' ) ) {
 	$collate = $wpdb->get_charset_collate();
 }
 
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 $sql = "
 CREATE TABLE {$wpdb->prefix}woocommerce_shipping_flat_rate_boxes (
@@ -30,10 +36,10 @@ CREATE TABLE {$wpdb->prefix}woocommerce_shipping_flat_rate_boxes (
 ) $collate;
 ";
 
-dbDelta($sql);
+dbDelta( $sql );
 
 if ( version_compare( WC_VERSION, '2.6.0', '<' ) ) {
-	// Table for storing shipping zones
+	// Table for storing shipping zones.
 	$sql = "
 CREATE TABLE {$wpdb->prefix}woocommerce_shipping_zones (
   zone_id bigint(20) NOT NULL auto_increment,
@@ -45,7 +51,7 @@ CREATE TABLE {$wpdb->prefix}woocommerce_shipping_zones (
 ) $collate;
 ";
 
-    dbDelta($sql);
+	dbDelta( $sql );
 
 	// Table for storing a shipping zones locations which it applies to. Type can be postcode, state, or country.
 	$sql = "
@@ -57,9 +63,9 @@ CREATE TABLE {$wpdb->prefix}woocommerce_shipping_zone_locations (
   PRIMARY KEY  (location_id)
 ) $collate;
 ";
-	dbDelta($sql);
+	dbDelta( $sql );
 
-	// Table for storing shipping zones individial shipping methods and their options
+	// Table for storing shipping zones individial shipping methods and their options.
 	$sql = "
 CREATE TABLE {$wpdb->prefix}woocommerce_shipping_zone_shipping_methods (
   shipping_method_id bigint(20) NOT NULL auto_increment,

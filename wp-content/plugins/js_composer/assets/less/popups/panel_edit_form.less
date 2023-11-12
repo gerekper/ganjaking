@@ -73,6 +73,37 @@
   }
 }
 
+.edit_form_line {
+  position: relative;
+}
+
+.wpb-edit-form-ai-icon {
+  position: absolute;
+  top: -25px;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #5E5E5E;
+  font-size: 19px;
+  cursor: pointer;
+  transition: 0.2s color ease-in-out;
+
+  &:hover {
+    color: #0772CE;
+  }
+
+  span {
+    margin-left: 4px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  &.wpb-edit-form-ai-icon--settings {
+    top: 0;
+  }
+}
+
 /* Select Image / Select Images (multiple)
 ---------------------------------------------------------- */
 .wpb_el_type_attach_images .gallery_widget_attached_images_list {

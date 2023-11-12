@@ -5,6 +5,10 @@
  * @package woocommerce-shipping-flat-rate-boxes
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 /**
  * Main Flat Rate Box Shipping Class.
  */
@@ -68,8 +72,22 @@ class WC_Flat_Rate_Box_Shipping {
 	public function plugin_row_meta( $links, $file ) {
 		if ( plugin_basename( __DIR__ ) === $file ) {
 			$row_meta = array(
-				'docs'    => '<a href="' . esc_url( apply_filters( 'woocommerce_flat_rate_boxes_shipping_docs_url', 'https://woocommerce.com/document/flat-rate-box-shipping/' ) ) . '" title="' . esc_attr( __( 'View Documentation', 'woocommerce-shipping-flat-rate-boxes' ) ) . '">' . __( 'Docs', 'woocommerce-shipping-flat-rate-boxes' ) . '</a>',
-				'support' => '<a href="' . esc_url( apply_filters( 'woocommerce_flat_rate_boxes_support_url', 'https://support.woocommerce.com/' ) ) . '" title="' . esc_attr( __( 'Visit Premium Customer Support Forum', 'woocommerce-shipping-flat-rate-boxes' ) ) . '">' . __( 'Premium Support', 'woocommerce-shipping-flat-rate-boxes' ) . '</a>',
+				/**
+				 * Allow modifying plugin documentation link.
+				 *
+				 * @param string $link Documentation link.
+				 *
+				 * @since 2.0.0
+				 */
+				'docs'    => '<a href="' . esc_url( apply_filters( 'woocommerce_flat_rate_boxes_shipping_docs_url', 'https://woocommerce.com/document/flat-rate-box-shipping/' ) ) . '" title="' . esc_attr__( 'View Documentation', 'woocommerce-shipping-flat-rate-boxes' ) . '">' . esc_html__( 'Docs', 'woocommerce-shipping-flat-rate-boxes' ) . '</a>',
+				/**
+				 * Allow modifying plugin support link.
+				 *
+				 * @param string $link Support link.
+				 *
+				 * @since 2.0.0
+				 */
+				'support' => '<a href="' . esc_url( apply_filters( 'woocommerce_flat_rate_boxes_support_url', 'https://support.woocommerce.com/' ) ) . '" title="' . esc_attr__( 'Visit Premium Customer Support Forum', 'woocommerce-shipping-flat-rate-boxes' ) . '">' . esc_html__( 'Premium Support', 'woocommerce-shipping-flat-rate-boxes' ) . '</a>',
 			);
 			return array_merge( $links, $row_meta );
 		}

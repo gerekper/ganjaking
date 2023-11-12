@@ -33,7 +33,7 @@ if ( ! class_exists( 'WC_AF_TRUST_SWIFTLY' ) ) {
 			
 		}
 
-		public function createUserFirst(){
+		public function createUserFirst() {
 
 			$ts_setting_enable = get_option( 'wc_af_trust_swiftly_type' );
 			$verify_method = get_option( 'wc_af_trust_when_to_verify' );
@@ -123,7 +123,7 @@ if ( ! class_exists( 'WC_AF_TRUST_SWIFTLY' ) ) {
 						jQuery(document).ready(function () { 
 
 							var btn_clicked = '';
-						    btn_clicked = sessionStorage.getItem('verify_btn_click');
+							btn_clicked = sessionStorage.getItem('verify_btn_click');
 								console.log(btn_clicked);
 
 							if('yes' === btn_clicked) {
@@ -131,31 +131,32 @@ if ( ! class_exists( 'WC_AF_TRUST_SWIFTLY' ) ) {
 								console.log('btn_clicked');
 
 								setTimeout(function () {
-						        location.reload();
-						      }, 10000); 
+								location.reload();
+							  }, 10000); 
 							}
 
-						    jQuery('.ts_verify_btn').click(function(){
-						    
-						      setTimeout(function () {
+							jQuery('.ts_verify_btn').click(function(){
+							
+							  setTimeout(function () {
 
-						        sessionStorage.setItem('verify_btn_click', 'yes');
-						        console.log('sessionStorage.setItem');
+								sessionStorage.setItem('verify_btn_click', 'yes');
+								console.log('sessionStorage.setItem');
 
-						        location.reload();
-						      }, 10000); 
-						    }); 
+								location.reload();
+							  }, 10000); 
+							}); 
 
-						    jQuery('form').on('submit', function(event){
-						       clearTimeout();
-						    	console.log('sessionStorage.removeItem');
-						       sessionStorage.removeItem('verify_btn_click');
-						       
-						    }); 
+							jQuery('form').on('submit', function(event){
+							   clearTimeout();
+								console.log('sessionStorage.removeItem');
+							   sessionStorage.removeItem('verify_btn_click');
+							   
+							}); 
 
 						}); 
 					</script>
-				<?php }
+				<?php 
+				}
 			}
 		}
 
@@ -450,44 +451,46 @@ if ( ! class_exists( 'WC_AF_TRUST_SWIFTLY' ) ) {
 
 
 		public function displayCustomOrderData( $order) {
-			/** @var \WC_Order $order */
+
 			$user = $order->get_user();
-			$tsUserId = get_user_meta($user->ID, 'trust_swiftly_user_id', true);
-			$user_email = $user->user_email;
-			
-			if (! $tsUserId) {
-				return;
-			}
-
-			$url = '';
-
-			$url = $this->getTSUserShowUrl($tsUserId);
-			if (! $url) {
-				return;
-			}
-			$isVerified = $this->remoteGetFilterJson($user_email);
-
-			if (is_array($isVerified)) {
+			if (!empty( $user ) ) {
+				$tsUserId = get_user_meta($user->ID, 'trust_swiftly_user_id', true);
+				$user_email = $user->user_email;
 				
-				if (2 === $isVerified['value']) {
-
-					$isVerified = 'yes';
-
-				} else {
-
-					$isVerified = '';
+				if (! $tsUserId) {
+					return;
 				}
+
+				$url = '';
+
+				$url = $this->getTSUserShowUrl($tsUserId);
+				if (! $url) {
+					return;
+				}
+				$isVerified = $this->remoteGetFilterJson($user_email);
+
+				if (is_array($isVerified)) {
+					
+					if (2 === $isVerified['value']) {
+
+						$isVerified = 'yes';
+
+					} else {
+
+						$isVerified = '';
+					}
+				}
+
+				$msg = __('View User', 'trustswiftly-verifications');
+
+				printf(
+					'<h3>%s</h3><a href="%s" target="_blank">%s</a> - %s', 
+					'Trust Swiftly', 
+					esc_url($url), 
+					esc_attr($msg),
+					esc_attr($isVerified) ? esc_attr('Complete', 'trustswiftly-verification') : esc_attr('Pending', 'trustswiftly-verification')
+				);
 			}
-
-			$msg = __('View User', 'trustswiftly-verifications');
-
-			printf(
-				'<h3>%s</h3><a href="%s" target="_blank">%s</a> - %s', 
-				'Trust Swiftly', 
-				esc_url($url), 
-				esc_attr($msg),
-				esc_attr($isVerified) ? esc_attr('Complete', 'trustswiftly-verification') : esc_attr('Pending', 'trustswiftly-verification')
-			);
 		}
 
 		public function getTSUserShowUrl( $tsUserId) {

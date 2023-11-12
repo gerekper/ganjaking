@@ -524,9 +524,13 @@ class Vc_Settings {
 			$value = '';
 		}
 
-		echo '<textarea name="' . esc_attr( self::$field_prefix ) . 'custom_css' . '" class="wpb_code_editor custom_code" style="display:none">' . esc_textarea( $value ) . '</textarea>';
-		echo '<pre id="wpb_css_editor" class="wpb_content_element custom_code" >' . esc_textarea( $value ) . '</pre>';
-		echo '<p class="description indicator-hint">' . esc_html__( 'Add custom CSS code to the plugin without modifying files.', 'js_composer' ) . '</p>';
+		vc_include_template(
+			'editors/vc-settings/custom-css.tpl.php',
+			[
+				'value' => $value,
+				'field_prefix' => self::$field_prefix,
+			]
+		);
 	}
 
 	/**
@@ -538,10 +542,14 @@ class Vc_Settings {
 			$value = '';
 		}
 
-		echo '<p>' . esc_html( '<script>' ) . '</p>';
-		echo '<textarea name="' . esc_attr( self::$field_prefix ) . 'custom_js_header' . '" class="wpb_code_editor custom_code" data-code-type="html" style="display:none">' . esc_textarea( $value ) . '</textarea>';
-		echo '<pre id="wpb_js_header_editor" class="wpb_content_element custom_code">' . esc_textarea( $value ) . '</pre>';
-		echo '<p>' . esc_html( '</script>' ) . '</p>';
+		vc_include_template(
+			'editors/vc-settings/custom-js.tpl.php',
+			[
+				'value' => $value,
+				'field_prefix' => self::$field_prefix,
+				'area' => 'header',
+			]
+		);
 	}
 
 	/**
@@ -553,10 +561,14 @@ class Vc_Settings {
 			$value = '';
 		}
 
-		echo '<p>' . esc_html( '<script>' ) . '</p>';
-		echo '<textarea name="' . esc_attr( self::$field_prefix ) . 'custom_js_footer' . '" class="wpb_code_editor custom_code" data-code-type="html" style="display:none">' . esc_textarea( $value ) . '</textarea>';
-		echo '<pre id="wpb_js_footer_editor" class="wpb_content_element custom_code">' . esc_textarea( $value ) . '</pre>';
-		echo '<p>' . esc_html( '</script>' ) . '</p>';
+		vc_include_template(
+			'editors/vc-settings/custom-js.tpl.php',
+			[
+				'value' => $value,
+				'field_prefix' => self::$field_prefix,
+				'area' => 'footer',
+			]
+		);
 	}
 
 	/**

@@ -1,4 +1,9 @@
 *** WooCommerce Recommendation Engine Changelog ***
+2023.09.08 - version 3.3.1
+    * Update: WC and WP Updates.
+    * Update: HPOS compatibility.
+    * Fix: Correctly sort the Recommended Widget by the correct direction when using the "Also Viewed" type.
+
 2023.05.12 - version 3.3.0
     * Update: WC and WP Updates.
     * Update: Remove hidden and products which are not available to the current user.

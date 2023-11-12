@@ -43,3 +43,7 @@ div.smart_coupons_product_options_variable {
 table.wp-list-table .column-wc_sc_linked_coupons {
     width: 10% !important;
 }
+#sc-generated-coupon-data,
+#woocommerce-order-actions select[name="wc_order_action"] option[value^="wc_sc_"] {
+	background-color: #f0fff0;
+}

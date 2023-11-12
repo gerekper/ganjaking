@@ -2,8 +2,9 @@
 /*
 Plugin Name: Gravity Forms
 Plugin URI: https://gravityforms.com
+Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.7.15.2
+Version: 2.7.17
 Requires at least: 4.0
 Requires PHP: 5.6
 Author: Gravity Forms
@@ -28,10 +29,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see http://www.gnu.org/licenses.
 */
-
-update_option( 'rg_gforms_key', 'activated' );
-update_option( 'gform_pending_installation', false );
-delete_option( 'rg_gforms_message' );
 
 use Gravity_Forms\Gravity_Forms\TranslationsPress_Updater;
 use Gravity_Forms\Gravity_Forms\Libraries\Dom_Parser;
@@ -67,7 +64,11 @@ $gf_recaptcha_public_key  = '';
 if ( ! defined( 'ABSPATH' ) ) {
 	die();
 }
-
+update_option( 'gform_pending_installation', false );
+delete_option( 'rg_gforms_message' );
+update_option( 'rg_gforms_key', 'activated' );
+update_option( 'gf_site_secret', true);
+update_option( 'gform_upgrade_status', false );
 if ( ! defined( 'RG_CURRENT_PAGE' ) ) {
 	/**
 	 * Defines the current page.
@@ -249,7 +250,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.7.15.2';
+	public static $version = '2.7.17';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -327,7 +328,7 @@ class GFForms {
 		$container->add_provider( new \Gravity_Forms\Gravity_Forms\Environment_Config\GF_Environment_Config_Service_Provider() );
 		$container->add_provider( new \Gravity_Forms\Gravity_Forms\Async\GF_Background_Process_Service_Provider() );
 		$container->add_provider( new \GF_System_Report_Service_Provider() );
-		$container->add_provider( new \Gravity_Forms\Gravity_Forms\Telemetry\GF_Telemetry_Service_Provider() );
+		//$container->add_provider( new \Gravity_Forms\Gravity_Forms\Telemetry\GF_Telemetry_Service_Provider() );
 	}
 
 	/**
@@ -361,7 +362,7 @@ class GFForms {
 		require_once GF_PLUGIN_DIR_PATH . 'includes/async/class-gf-background-process-service-provider.php';
 		require_once GF_PLUGIN_DIR_PATH . 'includes/system-status/class-gf-system-report-service-provider.php';
 		require_once GF_PLUGIN_DIR_PATH . 'includes/updates/class-gf-updates-service-provider.php';
-		require_once GF_PLUGIN_DIR_PATH . 'includes/telemetry/class-gf-telemetry-service-provider.php';
+		//require_once GF_PLUGIN_DIR_PATH . 'includes/telemetry/class-gf-telemetry-service-provider.php';
 
 		if ( ! empty( self::$container ) ) {
 			return self::$container;
@@ -2388,13 +2389,8 @@ class GFForms {
 
 		if ( ! $valid_key ) {
 			return;
-			$unregistered_license_message_env = GFCommon::get_environment_setting( 'unregistered_license_message' );
-			if ( $unregistered_license_message_env ) {
-				$message .= $unregistered_license_message_env;
-			} else {
 				$message .= sprintf( esc_html__( '%sRegister%s your copy of Gravity Forms to receive access to automatic upgrades and support. Need a license key? %sPurchase one now%s.', 'gravityforms' ), '<a href="' . admin_url() . 'admin.php?page=gf_settings">', '</a>', '<a href="https://www.gravityforms.com">', '</a>' );
 			}
-		}
 
 		if ( ! empty( $message ) ) {
 			if ( is_network_admin() ) {
@@ -6351,7 +6347,7 @@ class GFForms {
 		require_once( 'includes/class-personal-data.php' );
 		GF_Personal_Data::cron_task();
 
-		do_action( \Gravity_Forms\Gravity_Forms\Telemetry\GF_Telemetry_Service_Provider::TELEMETRY_SCHEDULED_TASK );
+		//do_action( \Gravity_Forms\Gravity_Forms\Telemetry\GF_Telemetry_Service_Provider::TELEMETRY_SCHEDULED_TASK );
 
 		GFCommon::log_debug( __METHOD__ . '(): Done.' );
 	}

@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the WooCommerce Coupon Campaigns & Tracking package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Coupon Campaigns & Tracking 1.2.10\n"
+"Project-Id-Version: WooCommerce Coupon Campaigns & Tracking 1.2.11\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-coupon-campaigns\n"
-"POT-Creation-Date: 2023-10-19 17:43:48+00:00\n"
+"POT-Creation-Date: 2023-11-07 11:06:05+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -260,7 +260,7 @@ msgid "WooCommerce Coupon Campaigns & Tracking"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-msgid "https://woocommerce.com/products/woocommerce-coupon-campaigns/."
+msgid "https://woo.com/products/woocommerce-coupon-campaigns/."
 msgstr ""
 
 #. Description of the plugin/theme
@@ -274,5 +274,5 @@ msgid "WooCommerce"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "https://woocommerce.com/"
+msgid "https://woo.com/"
 msgstr ""

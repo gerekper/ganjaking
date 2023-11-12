@@ -5,17 +5,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div class="vc_welcome-tab changelog">
 	<div class="vc_feature-section-teaser">
-		<img class="vc-featured-img" src="<?php echo esc_url( vc_asset_url( 'vc/vc-welcome/vc_7-0/wpb-welcome.png' ) ); ?>"/>
+		<img class="vc-featured-img" src="<?php echo esc_url( vc_asset_url( 'vc/wpb_introduce_ai.png' ) ); ?>"/>
 
 		<div class="vc-feature-text">
-			<h3><?php esc_html_e( 'A Hassle-Free WordPress Page Builder', 'js_composer' ); ?></h3>
+			<h3><?php esc_html_e( 'Introducing WPBakery AI', 'js_composer' ); ?></h3>
 
-			<p><?php esc_html_e( 'The new WPBakery Page Builder allows you to build sites even faster. No coding skills are required. WPBakery is the choice of WordPress experts and beginners.', 'js_composer' ); ?></p>
-			<p><?php esc_html_e( 'What’s new in the version 7.0?', 'js_composer' ); ?></p>
+			<p><?php esc_html_e( 'Discover endless copywriting and code extension possibilities with WPBakery AI. Save time and resources - WPBakery AI will instantly generate original texts or enhance the existing ones. Our AI code assistant will help you extend or fine-tune your WordPress site:', 'js_composer' ); ?></p>
 			<ul>
-				<li><?php esc_html_e( 'An updated user interface for better experience and usability', 'js_composer' ); ?></li>
-				<li><?php esc_html_e( 'Blank page wizard for creating landing pages', 'js_composer' ); ?></li>
-				<li><?php esc_html_e( 'Option to add custom JavaScript for low-code solutions', 'js_composer' ); ?></li>
+				<li><?php esc_html_e( 'Generate titles, articles, and other texts in seconds', 'js_composer' ); ?></li>
+				<li><?php esc_html_e( 'Improve existing texts for better readability and higher SEO score', 'js_composer' ); ?></li>
+				<li><?php esc_html_e( 'Generate CSS and JS code to fine-tune your layout', 'js_composer' ); ?></li>
 			</ul>
 		</div>
 	</div>

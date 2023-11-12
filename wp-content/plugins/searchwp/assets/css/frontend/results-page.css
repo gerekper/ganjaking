@@ -74,6 +74,7 @@ main.wp-block-group.swp-rp-main {
 .swp-result-item--img svg {
     width: 100%;
     display: block;
+    height: auto;
 }
 
 .swp-result-item--info-container .entry-title a {

@@ -18,11 +18,6 @@ use Automattic\WooCommerce\Utilities\OrderUtil;
 /**
  * Gateway class
  */
-/**
- * Package: WooCommerce Redsys Gateway
- * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
- * Copyright: (C) 2013 - 2023 José Conti
- */
 class WC_Gateway_Redsys_Global {
 
 	/**
@@ -45,9 +40,7 @@ class WC_Gateway_Redsys_Global {
 	}
 
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Get Redsys Ownsetting
 	 *
 	 * @param string $gateway is the WooCommerce gateway name.
 	 */
@@ -72,35 +65,45 @@ class WC_Gateway_Redsys_Global {
 			return false;
 		}
 	}
-
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Send customer email
 	 *
-	 * @param string $gateway is the WooCommerce gateway name.
+	 * @param int    $order_id Order ID.
+	 * @param string $subject Email subject.
+	 * @param string $message Email message.
+	 * @param string $heading Email heading.
 	 */
-	public function get_redsys_multisitesttings( $gateway ) {
-
-		if ( is_multisite() ) {
-			switch_to_blog( 1 );
-			$options = get_option( 'woocommerce_' . $gateway . '_settings' );
-
-			if ( ! empty( $options ) ) {
-				$redsys_options = maybe_unserialize( $options );
-				if ( array_key_exists( 'multisitesttings', $redsys_options ) ) {
-					$option_value = $redsys_options['multisitesttings'];
-					restore_current_blog();
-					return $option_value;
-				}
-				restore_current_blog();
-				return false;
-			}
-			restore_current_blog();
-			return false;
+	public function send_customer_email( $order_id, $subject, $message, $heading ) {
+		$order      = wc_get_order( $order_id );
+		$email_name = get_option( 'woocommerce_email_from_name' );
+		$email_from = get_option( 'woocommerce_email_from_address' );
+		$headers[]  = 'Content-Type: text/html; charset=UTF-8';
+		$headers[]  = 'From: ' . $email_name . ' <' . $email_from . '>';
+		if ( $order ) {
+			$mailer          = WC()->mailer();
+			$wrapped_message = $mailer->wrap_message( $heading, $message );
+			$mailer->send( $order->get_billing_email(), $subject, $wrapped_message );
 		}
-		restore_current_blog();
-		return false;
+	}
+	/**
+	 * Send admin email
+	 *
+	 * @param int    $order_id Order ID.
+	 * @param string $subject Email subject.
+	 * @param string $message Email message.
+	 * @param string $heading Email heading.
+	 */
+	public function send_admin_email( $order_id, $subject, $message, $heading ) {
+		$order      = wc_get_order( $order_id );
+		$email_name = get_option( 'woocommerce_email_from_name' );
+		$email_from = get_option( 'woocommerce_email_from_address' );
+		$headers[]  = 'Content-Type: text/html; charset=UTF-8';
+		$headers[]  = 'From: ' . $email_name . ' <' . $email_from . '>';
+		if ( $order ) {
+			$mailer          = WC()->mailer();
+			$wrapped_message = $mailer->wrap_message( $heading, $message );
+			$mailer->send( $email_from, $subject, $wrapped_message );
+		}
 	}
 	/**
 	 * Get option from WordPress
@@ -110,68 +113,112 @@ class WC_Gateway_Redsys_Global {
 	public function get_wp_option( $option ) {
 		return get_option( $option, false );
 	}
-
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Get option from main site
 	 *
-	 * @param string $option is the setting option name.
-	 * @param string $gateway is the WooCommerce gateway name.
+	 * @param string $gateway Gateway.
+	 */
+	public function get_option_from_main_site( $gateway ) {
+		$this->debug( 'get_option_from_main_site( $gateway )' );
+		$this->debug( 'get_site_option( "redsys_cached" ): ' . get_site_option( 'redsys_cached' ) );
+		if ( 'yes' !== get_site_option( 'redsys_cached' ) ) {
+			delete_site_option( 'redsys_option_' . $gateway );
+			switch_to_blog( 1 );
+			$options = get_option( 'woocommerce_' . $gateway . '_settings' );
+			restore_current_blog();
+			return $options;
+		}
+
+		$cached_option = get_site_option( 'redsys_option_' . $gateway );
+
+		if ( false !== $cached_option ) {
+			return $cached_option;
+		}
+
+		switch_to_blog( 1 );
+		$options = get_option( 'woocommerce_' . $gateway . '_settings' );
+		restore_current_blog();
+
+		// Considera cambiar esto por un set_transient si el objetivo es cachear.
+		update_site_option( 'redsys_option_' . $gateway, $options );
+
+		return $options;
+	}
+	/**
+	 * Get option from main site
+	 *
+	 * @param string $option Option.
+	 * @param string $gateway Gateway.
 	 */
 	public function get_redsys_option( $option, $gateway ) {
 
+		$options = get_option( 'woocommerce_' . $gateway . '_settings' );
+		if ( ! empty( $options ) ) {
+			if ( 'all' === $option ) {
+				return maybe_unserialize( $options );
+			}
+			$redsys_options = maybe_unserialize( $options );
+			if ( array_key_exists( $option, $redsys_options ) ) {
+				$option_value = $redsys_options[ $option ];
+				return $option_value;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+
 		if ( is_multisite() && ! is_main_site() ) {
+			$this->debug( 'is_multisite() && ! is_main_site()' );
+			$this->debug( '$gateway: ' . $gateway );
+			$this->debug( '$option: ' . $option );
+			$options        = $this->get_option_from_main_site( $gateway );
+			$redsys_options = maybe_unserialize( $options );
 			if ( 'ownsetting' !== $option ) {
 				if ( 'hideownsetting' === $option || 'multisitesttings' === $option ) {
-
-					switch_to_blog( 1 );
-
-					$options = get_option( 'woocommerce_' . $gateway . '_settings' );
-
-					if ( ! empty( $options ) ) {
-						$redsys_options = maybe_unserialize( $options );
+					if ( ! empty( $redsys_options ) ) {
 						if ( array_key_exists( $option, $redsys_options ) ) {
 							$option_value = $redsys_options[ $option ];
-							restore_current_blog();
 							return $option_value;
 						} else {
-							restore_current_blog();
 							return false;
 						}
 					} else {
-						restore_current_blog();
 						return false;
 					}
 				}
 			}
 
-			$multisitesttings = $this->get_redsys_multisitesttings( $gateway );
-			$ownsetting       = $this->get_redsys_ownsetting( $gateway );
+			$multisitesttings = $redsys_options['multisitesttings'];
+			$ownsetting       = $redsys_options['hideownsetting'];
 
 			if ( 'yes' !== $ownsetting && 'yes' === $multisitesttings ) {
-				switch_to_blog( 1 );
-
-				$options = get_option( 'woocommerce_' . $gateway . '_settings' );
-
-				if ( ! empty( $options ) ) {
-					$redsys_options = maybe_unserialize( $options );
+				$this->debug( 'yes !== $ownsetting && yes === $multisitesttings' );
+				if ( ! empty( $redsys_options ) ) {
+					if ( 'all' === $option ) {
+						return $redsys_options;
+					}
 					if ( array_key_exists( $option, $redsys_options ) ) {
 						$option_value = $redsys_options[ $option ];
-						restore_current_blog();
 						return $option_value;
 					} else {
-						restore_current_blog();
 						return false;
 					}
 				} else {
-					restore_current_blog();
 					return false;
 				}
 			} else {
+				$this->debug( 'NOT: yes !== $ownsetting && yes === $multisitesttings' );
 				$options = get_option( 'woocommerce_' . $gateway . '_settings' );
-
 				if ( ! empty( $options ) ) {
+					$this->debug( '$options: ' . print_r( $options, true ) );
+					$this->debug( '$gateway: ' . $gateway );
+					$this->debug( '$option: ' . $option );
+					if ( 'all' === $option ) {
+						$this->debug( '$gateway: ' . $gateway );
+						$this->debug( '$option: ' . $option );
+						return $options;
+					}
 					$redsys_options = maybe_unserialize( $options );
 					if ( array_key_exists( $option, $redsys_options ) ) {
 						$option_value = $redsys_options[ $option ];
@@ -187,6 +234,10 @@ class WC_Gateway_Redsys_Global {
 
 		$options = get_option( 'woocommerce_' . $gateway . '_settings' );
 
+		if ( 'all' === $option ) {
+			return $options;
+		}
+
 		if ( ! empty( $options ) ) {
 			$redsys_options = maybe_unserialize( $options );
 			if ( array_key_exists( $option, $redsys_options ) ) {
@@ -199,11 +250,8 @@ class WC_Gateway_Redsys_Global {
 			return false;
 		}
 	}
-
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Return help notice
 	 */
 	public function return_help_notice() {
 		$guias  = 'https://redsys.joseconti.com/guias/';
@@ -760,9 +808,7 @@ class WC_Gateway_Redsys_Global {
 			']' => ' ',
 		);
 
-		$out = strtr( $out, $replacements );
-
-		return $out;
+		return strtr( $out, $replacements );
 	}
 	/**
 	 * Get Order
@@ -889,11 +935,16 @@ class WC_Gateway_Redsys_Global {
 			// Hay que eliminar el token.
 			$token = WC_Payment_Tokens::get( $token_id );
 			if ( $token ) {
+				$order_id = $order->get_id();
+				$subject  = esc_html__( 'Your Credit Card has been Deleted', 'woocommerce-redsys' );
+				$message  = esc_html__( 'Your Credit Card has been Deleted', 'woocommerce-redsys' );
+				$heading  = esc_html__( 'Credit Card Deleted', 'woocommerce-redsys' );
+				$this->send_customer_email( $order_id, $subject, $message, $heading );
 				WC_Payment_Tokens::delete( $token_id );
-			} else {
-				return 'no_token';
+				return 'delete_token';
 			}
-			return 'delete_token';
+			return 'no_token';
+
 		}
 		if (
 			'0174' === $error_code ||
@@ -2316,8 +2367,34 @@ class WC_Gateway_Redsys_Global {
 	 */
 	public function check_simple_product_subscription( $product_id ) {
 
-		// Checking get token subscription.
 		$this->debug( 'Function check_simple_product_subscription()' );
+
+		$product = wc_get_product( $product_id );
+
+		$is_variable = $product instanceof WC_Product_Variable;
+
+		if ( $is_variable ) {
+			$variations = $product->get_available_variations();
+			foreach ( $variations as $variation ) {
+				$variation_product  = wc_get_product( $variation['variation_id'] );
+				$variation_id       = $variation_product->get_id();
+				$subscription_check = $this->check_subscription( $variation_id );
+				if ( 'R' === $subscription_check ) {
+					return 'R';
+				}
+			}
+			return 'C';
+		} else {
+			return $this->check_subscription( $product_id );
+		}
+	}
+	/**
+	 * Check if product is subscription.
+	 *
+	 * @param int $product_id Product ID.
+	 */
+	private function check_subscription( $product_id ) {
+		$this->debug( 'Function check_subscription()' );
 		if ( $this->check_redsys_subscription_checkout( $product_id ) ) {
 			$this->debug( 'check_redsys_subscription_checkout: TRUE' );
 			return 'R';
@@ -2343,6 +2420,7 @@ class WC_Gateway_Redsys_Global {
 			$this->debug( 'check_simple_product_subscription() return C )' );
 			return 'C';
 		}
+
 	}
 	/**
 	 * Check if product needs preauth.
@@ -2436,6 +2514,20 @@ class WC_Gateway_Redsys_Global {
 	public function check_product_for_subscription( $product_id ) {
 		$product = wc_get_product( $product_id );
 
+		// Verifica si el producto es una instancia de WC_Product_Variable.
+		$is_variable = $product instanceof WC_Product_Variable;
+
+		if ( $is_variable ) {
+			// Si es un producto variable, verifica cada variación.
+			$variations = $product->get_available_variations();
+			foreach ( $variations as $variation ) {
+				$variation_product = wc_get_product( $variation['variation_id'] );
+				$subscription_check = $this->check_simple_product_subscription( $variation_product->get_id() );
+				if ( 'R' === $subscription_check ) {
+					return 'R';
+				}
+			}
+		}
 		if ( class_exists( 'WCS_ATT' ) ) {
 			$schemes = $product->get_meta( '_wcsatt_schemes', true );
 			if ( ! empty( $schemes ) ) {
@@ -2462,6 +2554,7 @@ class WC_Gateway_Redsys_Global {
 
 		return 'C';
 	}
+
 	/**
 	 * Get token by id.
 	 *

@@ -1,5 +1,10 @@
 *** Storefront Powerpack Changelog ***
 
+2023-11-09 - version 1.6.3
+* Tweak - Declare compatibility for HPOS.
+* Tweak - WC 8.2 compatibility.
+* Tweak - WP 6.4 compatibility.
+
 2022-07-11 - version 1.6.2
 * Fix - Fatal error caused by the uncropped WC image cropping setting.
 * Fix - Fix build for Storefront 4.

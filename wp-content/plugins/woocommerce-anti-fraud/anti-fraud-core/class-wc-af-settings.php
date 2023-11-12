@@ -44,6 +44,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 				add_action( 'woocommerce_sections_' . $this->id, array( $this, 'output_sections' ) );
 				add_action( 'woocommerce_settings_save_' . $this->id, array( $this, 'Authorized_Minfraud' ) );
 				add_action( 'woocommerce_settings_save_' . $this->id, array( $this, 'Authorized_Quickemailverification' ) );
+				add_action( 'woocommerce_settings_save_' . $this->id, array( $this, 'updateBulkTextariaTagData' ) );
 
 				add_action( 'woocommerce_admin_field_section', array( $this, 'opmc_add_admin_field_section' ) );
 				add_action( 'woocommerce_admin_field_button', array( $this, 'opmc_add_admin_field_button' ) );
@@ -188,9 +189,9 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 
 						if ( '200' == $response_code ) {
 
-							if( ! empty( $body_data ) ) {
+							if ( ! empty( $body_data ) ) {
 
-								foreach( $body_data as $product ) {
+								foreach ( $body_data as $product ) {
 
 									$vTemplate[$product->name] = $product->template_name;
 									
@@ -806,7 +807,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 								'name'        => __( 'Blocked Email Addresses', 'woocommerce-anti-fraud' ),
 								'type'        => 'textarea',
 								'desc'        => '',
-								'desc_tip'   => __( 'The email addresses listed in the text area will be considered unsafe. You can also add or remove emails manually here. Type “,” or press TAB/ENTER button for the next entry.', 'woocommerce-anti-fraud' ),
+								'desc_tip'   => __( 'The email addresses listed in the text area will be considered unsafe. You can also add or remove emails manually here. Type “,” or press TAB/ENTER button for the next entry. Please add emails in bulk separating them by either comma or space.', 'woocommerce-anti-fraud' ),
 								'id'          => 'wc_settings_' . self::SETTINGS_NAMESPACE . 'blacklist_emails',
 								'css'         => 'width:100%; height: 100px;',
 								'default'     => '',
@@ -837,7 +838,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 								'name'        => __( 'Blocked IP Addresses', 'woocommerce-anti-fraud' ),
 								'type'        => 'textarea',
 								'desc'        => '',
-								'desc_tip'    => __( 'The IP addresses listed in the text area will be considered unsafe.  You can also add or remove IP addresses manually here. Type “,” or press TAB/ENTER button for the next entry.', 'woocommerce-anti-fraud' ),
+								'desc_tip'    => __( 'The IP addresses listed in the text area will be considered unsafe.  You can also add or remove IP addresses manually here. Type “,” or press TAB/ENTER button for the next entry. Please add IPs in bulk separating them by either comma or space.', 'woocommerce-anti-fraud' ),
 								'id'          => 'wc_settings_' . self::SETTINGS_NAMESPACE . 'blacklist_ipaddress',
 								'css'         => 'width:100%; height: 100px;',
 								'default'     => '',
@@ -1187,7 +1188,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 							'name'        => __( 'Email Whitelist', 'woocommerce-anti-fraud' ),
 							'type'        => 'textarea',
 							'desc'        => '',
-							'desc_tip'        => __( 'Enter any email you want to be whitelisted. Press “Tab” or “Comma” after entering any new domain.', 'woocommerce-anti-fraud ' ),
+							'desc_tip'        => __( 'Enter any email you want to be whitelisted. Press “Tab” or “Comma” after entering any new email. Please add emails in bulk separating them by either comma or space.', 'woocommerce-anti-fraud ' ),
 							'id'          => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_whitelist',
 							'css'         => 'width:100%; height: 100px;',
 							'class'       => 'wc_af_tags_input',
@@ -1198,6 +1199,33 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 							'type' => 'sectionend',
 							'id' => 'wc_af_email_whitelist_settings',
 						),
+
+						/* Ip Whitelist  */
+						array(
+							'name' => __( 'Whitelisted IPs', 'woocommerce-anti-fraud' ),
+							'type' => 'section',
+							'desc'  => '',
+							'desc_tip' => __( 'List of IPs whitelitsted. Add IPs manullay to make whitlist. Unblocked IPs also added to this list.' ),
+							'id'   => 'wc_af_ips_whitelist_settings',
+							'class' => 'wc_af_sub-section',
+							'css'   => 'display: block;'
+						),
+						array(
+							'name'        => __( 'IPs Whitelist', 'woocommerce-anti-fraud' ),
+							'type'        => 'textarea',
+							'desc'        => '',
+							'desc_tip'        => __( 'Enter any IPs you want to be whitelisted. Press “Tab” or “Comma” after entering any new IPs. Please add emails in bulk separating them by either comma or space.', 'woocommerce-anti-fraud '),
+							'id'          => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_ips_whitelist',
+							'css'         => 'width:100%; height: 100px;',
+							'class'       => 'wc_af_tags_input',
+							'default'     => '',
+						),
+						
+						array(
+							'type' => 'sectionend',
+							'id' => 'wc_af_ips_whitelist_settings'
+						),
+						/* Ip Whitelist  End */
 
 						/* Auto order fraud check */
 						array(
@@ -1801,7 +1829,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 								'name'     => __( 'Start Time ', 'woocommerce-anti-fraud' ),
 								'type'     => 'time',
 								'desc'     => '',
-								'desc_tip'     => __( 'Enter the start time for the rule to limit orders ', 'woocommerce-anti-fraud' ),
+								'desc_tip'     => __( 'Needs to be as per server time. Check in woo general settings. Accordingly specify start time.', 'woocommerce-anti-fraud' ),
 								'id'       => 'wc_af_limit_time_start',
 								'css'         => 'display: block; width: 8.5em;',
 								'default' => '',
@@ -1810,7 +1838,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 								'name'     => __( 'End Time ', 'woocommerce-anti-fraud' ),
 								'type'     => 'time',
 								'desc'     => '',
-								'desc_tip' => __( 'Enter the end time for the rule to limit orders', 'woocommerce-anti-fraud' ),
+								'desc_tip' => __( 'Needs to be as per server time. Check in woo general settings. Accordingly specify end time.', 'woocommerce-anti-fraud' ),
 								'id'       => 'wc_af_limit_time_end',
 								'css'         => 'display: block; width: 8.5em;',
 								'default' => '',
@@ -2430,7 +2458,60 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 
 				<?php
 			}
+
+			public function updateBulkTextariaTagData() {	
+				$blocked_email = get_option( 'wc_settings_anti_fraudblacklist_emails' );
 			
+				if ( '' != $blocked_email) {
+					
+					$email_parts1 = preg_split('/[\s,]+/', $blocked_email);
+
+					$cleanedEmails1 = array_filter($email_parts1, 'strlen');
+
+					$cleanedEmailsString1 = implode(', ', $cleanedEmails1);
+
+					update_option('wc_settings_anti_fraudblacklist_emails', $cleanedEmailsString1);
+				}
+
+				$blocked_ips = get_option( 'wc_settings_anti_fraudblacklist_ipaddress' );
+				
+				if ( '' != $blocked_ips ) {
+
+					$ips_parts2 = preg_split('/[\s,]+/', $blocked_ips);
+
+					$cleanedIps2 = array_filter($ips_parts2, 'strlen');
+
+					$cleanedIpsString2 = implode(', ', $cleanedIps2);
+
+					update_option('wc_settings_anti_fraudblacklist_ipaddress', $cleanedIpsString2);
+				}
+
+				$ips_whitelist = get_option( 'wc_settings_anti_fraudwhitelist_ipaddress' );
+				
+				if ( '' != $ips_whitelist) {
+
+					$ips_parts3 = preg_split('/[\s,]+/', $ips_whitelist);
+
+					$cleanedIps3 = array_filter($ips_parts3, 'strlen');
+
+					$cleanedIpsString3 = implode(', ', $cleanedIps3);
+
+					update_option('wc_settings_anti_fraudwhitelist_ipaddress', $cleanedIpsString3);
+				}
+
+				$whitelist_email = get_option( 'wc_settings_anti_fraud_whitelist' );
+				
+				if ( '' != $whitelist_email) {
+
+					$email_parts4 = preg_split('/[\s,]+/', $whitelist_email);
+
+					$cleanedEmails4 = array_filter($email_parts4, 'strlen');
+
+					$cleanedEmailsString4 = implode(', ', $cleanedEmails4);
+
+					update_option('wc_settings_anti_fraud_whitelist', $cleanedEmailsString4);
+				}
+			}	
 		}
 		$settings[] = new WC_AF_Settings();
 		 return $settings;

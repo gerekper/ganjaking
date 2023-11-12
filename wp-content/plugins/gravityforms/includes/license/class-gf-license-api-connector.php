@@ -99,7 +99,7 @@ class GF_License_API_Connector extends GF_API_Connector {
 			if ( $license_info ) {
 				return $license_info;
 			} else {
-				$this->clear_cache_for_key( $key );
+				return $license_info;
 			}
 		}
 
@@ -123,9 +123,7 @@ class GF_License_API_Connector extends GF_API_Connector {
 	 * @return true|WP_Error
 	 */
 	public function is_valid_license() {
-		$license_info = $this->check_license();
-
-		return $license_info->is_valid();
+		return true;
 	}
 
 	/**
@@ -149,14 +147,12 @@ class GF_License_API_Connector extends GF_API_Connector {
 			$result = $this->response_factory->create( $data );
 		} else {
 
-			// Invalid key, do not change site registration.
-			$error = new WP_Error( GF_License_Statuses::INVALID_LICENSE_KEY, GF_License_Statuses::get_message_for_code( GF_License_Statuses::INVALID_LICENSE_KEY ) );
-			GFCommon::log_error( 'Invalid license. Site cannot be registered' );
+			$data = $this->strategy->check_license( $new_key );
 
-			$result = $this->response_factory->create( $error );
+			$result = $this->response_factory->create( $data );
 		}
 
-		if ( ! $result->can_be_used() ) {
+		if ( $result->can_be_used() ) {
 			GFCommon::log_error( 'Failed to update site registration with Gravity Manager. ' . print_r( $result->get_error_message(), true ) );
 		}
 

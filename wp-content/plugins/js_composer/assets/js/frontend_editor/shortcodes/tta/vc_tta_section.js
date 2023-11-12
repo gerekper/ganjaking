@@ -107,8 +107,13 @@
 					if ( !_.isUndefined( parentParams.c_position ) && 0 < parentParams.c_position.length ) {
 						$controlsIconsPositionEl = this.$el.find( '[data-vc-tta-controls-icon-position]' );
 						if ( $controlsIconsPositionEl.length ) {
-							$controlsIconsPositionEl.attr( 'data-vc-tta-controls-icon-position',
-								parentParams.c_position );
+							if('default' === parentParams.c_position) {
+								$controlsIconsPositionEl.attr( 'data-vc-tta-controls-icon-position',
+									'rtl' === $('html').attr('dir') ? 'right' : 'left');
+							} else {
+								$controlsIconsPositionEl.attr( 'data-vc-tta-controls-icon-position',
+									parentParams.c_position );
+							}
 						}
 					}
 				} else {

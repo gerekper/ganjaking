@@ -1,0 +1,319 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+
+
+/*front end offer*/
+.hide-larger-price .price > span:nth-child(2) {
+    display: none !important;
+}
+.rtwwdpd_show_offer span {
+    padding: 10px 25px;
+    display: inline-block;
+    font-size: 16px;
+    margin-bottom: 20px;
+    background-color: #f65353;
+    color: #ffffff;
+    position: relative;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.rtwwdpd_show_offer span::after {
+    content: "";
+    border: 2px dashed #fff;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 6px;
+}
+
+/*end front end offer*/
+
+
+/*offer banner page css*/
+
+.rtwwdpd-carousel-main-container {
+    box-sizing: border-box;
+    margin-bottom: 80px;
+}
+
+.rtwwdpd-carousel-buy-btn {
+    background-color: #f91a48;
+    color: #ffffff;
+    display: inline-block;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-top: 20px;
+    padding: 15px 30px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: 0.2s linear all;
+    line-height: 1;
+}
+
+.rtwwdpd-carousel-buy-btn:hover,
+.rtwwdpd-carousel-buy-btn:focus {
+    background-color: #000000;
+    color: #ffffff;
+    outline: 0;
+    text-decoration: none;
+    transition: 0.2s linear all;
+}
+
+.rtwwdpd-carousel-header-bg img {
+    max-width: 100%;
+    width: auto;
+}
+
+.rtwwdpd-carousel-header-bg {
+    position: relative;
+    background-color: #fed700;
+    margin: 10px 10px 15px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: center;
+}
+
+.rtwwdpd-carousel-header-image,
+.rtwwdpd-carousel-header-content {
+    flex: 0 0 50%;
+}
+
+.rtwwdpd-carousel-header-content {
+    text-align: center;
+}
+
+.rtwwdpd-carousel-header-content .rtwwdpd-carousel-buy-btn {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.rtwwdpd-carousel-header-content h3 {
+    font-size: 24px;
+    border: none;
+}
+
+.rtwwdpd-carousel-header-title {
+    color: #000000;
+    font-size: 50px;
+    font-weight: bold;
+    margin: 0;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.rtwwdpd-carousel-offer {
+    background-color: #000;
+    color: #fff;
+    left: -23px;
+    letter-spacing: 1.3px;
+    padding: 1px 3px;
+    position: absolute;
+    text-transform: uppercase;
+    top: 7px;
+    transform: rotate(-40deg);
+    width: 100px;
+}
+
+.rtwwdpd-carousel-slider-item {
+    border-radius: 4px;
+    border: 1px solid #dddddd;
+    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2);
+    margin: 10px;
+    overflow: hidden;
+    padding: 15px;
+    position: relative;
+    text-align: center;
+}
+
+.rtwwdpd-carousel-slider-image {
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+.rtwwdpd-carousel-slider-image img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    width: auto !important;
+}
+
+.rtwwdpd-carousel-slider-content h2 {
+    color: #f91a48;
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin: 12px 0;
+}
+
+.rtwwdpd-carousel-slider-content h3 {
+    color: #000000;
+    font-size: 17px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.rtwwdpd-carousel-slider-content p {
+    color: #777777;
+    font-size: 16px;
+    margin: 10px 0 0 0;
+}
+
+.rtwwdpd-carousel-coupon-code {
+    background-color: #eee;
+    font-size: 20px;
+    font-weight: 400;
+    margin: 15px -15px -15px;
+    padding: 10px;
+}
+
+.rtwwdpd-carousel-coupon-code span {
+    background-color: #fed700;
+    border-radius: 4px;
+    color: #000000;
+    display: inline-block;
+    font-weight: bold;
+    padding: 6px 12px;
+    text-transform: uppercase;
+}
+
+.rtwwdpd-carosuel-price ins {
+    color: #000000;
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.rtwwdpd-carosuel-pric del {
+    text-decoration: linen;
+}
+
+.rtwwdpd-carousel-main-container .owl-dots {
+    text-align: center;
+}
+
+.rtwwdpd-carousel-main-container .owl-dots .owl-dot {
+    background-color: #dddddd;
+    border-radius: 50%;
+    height: 16px;
+    margin: 4px;
+    width: 16px;
+}
+
+.rtwwdpd-carousel-main-container .owl-dots .owl-dot.active {
+    background-color: #f91a48;
+}
+
+ #tier_offer_table {
+    width: 100%;
+}
+
+/* #tier_offer_table th {
+    background-color: #888a11b8;
+    text-align: center;
+}
+
+#tier_offer_table td {
+    background-color: #dcdd84b8;
+
+    text-align: center; 
+} */
+
+.rtwwdpd_simple_product {
+    font-weight: bolder;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.woocommerce-Price-amount{
+    display: inline !important;
+}
+
+/* .rtwwdpd_tbl_pro_name{
+    background-image: linear-gradient( #a4a806b8, #d0d277b8);
+} */
+
+/* .tier_offer_table{
+    display: none;
+    width: 60%;
+    /* opacity: 0; */
+ 
+/* } */ 
+/* .tier_offer_table.active{
+    width: 60%;
+    display: table;
+    /* opacity: 1; */
+/*} */
+        
+
+@media screen and (max-width: 767px) {
+    .rtwwdpd-carousel-header-title {
+        font-size: 26px;
+    }
+    .rtwwdpd-carousel-header-content h3,
+    .rtwwdpd-carousel-header-content p {
+        font-size: 16px;
+        margin: 0;
+    }
+    .rtwwdpd-carousel-header-content .rtwwdpd-carousel-buy-btn {
+        padding: 10px;
+        margin-top: 10px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .rtwwdpd-carousel-header-image,
+    .rtwwdpd-carousel-header-content {
+        flex: 0 0 100%;
+    }
+}
+.rtweo_sale_message
+{
+    display: none;
+    margin:0px auto;
+}
+.rtweo_msg_sec
+{
+    margin: 0px auto;
+    font-weight: bold;
+    text-align: center;
+   
+}
+.rtwwdpd_timer_sec
+{
+    display: flex;
+    
+    border-radius: 0px 58px 0px 58px;
+    justify-content: center; 
+}
+.rtwwdpd_time_msg
+{
+    display: flex;
+    padding-left: 69px;
+    
+}
+.rtwmsg
+{
+    font-size: small;
+    text-align: center;
+    text-transform: capitalize;
+    font-weight: bold;
+    color: white;
+}
+
+.rtwwdpd-timing-box
+{    background-color: black;
+    margin: 5px;
+    width: 80px;
+    text-align: center;
+    border-radius: 5px;
+    padding: 8px 0;
+}
+/*offer banner page css*/

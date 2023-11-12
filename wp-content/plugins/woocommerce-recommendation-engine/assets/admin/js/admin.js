@@ -216,7 +216,7 @@ jQuery(function ($) {
             $('#wc-recommender-complete').hide();
             $('#wc-recommender-start').hide();
 
-            var data = {
+            const data = {
                 action: 'wc_recommender_install_stats',
                 security: wc_recommender_params.build_recommendations_security
             };

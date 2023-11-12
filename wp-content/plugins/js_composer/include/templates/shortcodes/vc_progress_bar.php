@@ -40,9 +40,9 @@ if ( in_array( 'striped', $options, true ) ) {
 }
 
 if ( 'custom' === $bgcolor && '' !== $custombgcolor ) {
-	$custombgcolor = ' style="' . vc_get_css_color( 'background-color', $custombgcolor ) . '"';
+	$custombgcolor = ' style="' . esc_attr( vc_get_css_color( 'background-color', $custombgcolor ) ) . '"';
 	if ( '' !== $customtxtcolor ) {
-		$customtxtcolor = ' style="' . vc_get_css_color( 'color', $customtxtcolor ) . '"';
+		$customtxtcolor = ' style="' . esc_attr( vc_get_css_color( 'color', $customtxtcolor ) ) . '"';
 	}
 	$bgcolor = '';
 } else {
@@ -93,7 +93,7 @@ foreach ( $graph_lines_data as $line ) {
 	$output .= '<div class="vc_general vc_single_bar' . ( ( isset( $line['color'] ) && 'custom' !== $line['color'] ) ?
 			' vc_progress-bar-color-' . esc_attr( $line['color'] ) : '' )
 		. '">';
-	$output .= '<small class="vc_label"' . esc_attr( $line['txtcolor'] ) . '>' . wp_kses_post( $line['label'] )  . $unit . '</small>';
+	$output .= '<small class="vc_label"' . $line['txtcolor'] . '>' . wp_kses_post( $line['label'] )  . $unit . '</small>';
 	if ( $max_value > 100.00 ) {
 		$percentage_value = (float) $line['value'] > 0 && $max_value > 100.00 ? round( (float) $line['value'] / $max_value * 100, 4 ) : 0;
 	} else {

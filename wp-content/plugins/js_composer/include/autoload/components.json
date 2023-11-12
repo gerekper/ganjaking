@@ -45,5 +45,6 @@
   "vc-undoredo.php": "Undo Redo logic",
   "local-fonts/class-local-fonts.php": "Local Google fonts",
   "class-vc-notice-controller.php": "Plugin Notice System",
-  "class-vc-post-custom-layout.php": "Plugin Post Custom Layout Manager"
+  "class-vc-post-custom-layout.php": "Plugin Post Custom Layout Manager",
+  "ai/vc-ai-ajax.php": "Ajax Hooks for Ai system"
 }

@@ -44,6 +44,19 @@ function vc_backend_editor_register_pointer( $pointers ) {
 					),
 				),
 				array(
+					'target' => '#vc_ui-panel-post-custom-layout',
+					'options' => array(
+						'content' => sprintf( '<h3> %s </h3> <p> %s </p>', esc_html__( 'Layout selection', 'js_composer' ), esc_html__( 'Select the layout to be used for this post/page.', 'js_composer' ) ),
+						'position' => array(
+							'edge' => 'bottom',
+							'align' => 'center',
+						),
+						'buttonsEvent' => 'vcPointersEditorsTourEvents',
+					),
+					'showEvent' => 'backendEditor.show',
+					'closeEvent' => 'click .vc_post-custom-layout.control-btn',
+				),
+				array(
 					'target' => '#vc_templates-editor-button, #vc-templatera-editor-button',
 					'options' => array(
 						'content' => sprintf( '<h3> %s </h3> <p> %s </p>', esc_html__( 'Add Elements', 'js_composer' ), esc_html__( 'Add new element or start with a template.', 'js_composer' ) ),
@@ -54,7 +67,6 @@ function vc_backend_editor_register_pointer( $pointers ) {
 						'buttonsEvent' => 'vcPointersEditorsTourEvents',
 					),
 					'closeEvent' => 'shortcodes:vc_row:add',
-					'showEvent' => 'backendEditor.show',
 				),
 				array(
 					'target' => '[data-vc-control="add"]:first',

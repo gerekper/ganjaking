@@ -1,5 +1,12 @@
 *** WooCommerce Chained Products Changelog ***
 
+2023.11.03 - version 3.2.0
+* New: WooCommerce 8.2.1 Compatible
+* Fix: Unsupported operand types: string * int
+* Fix: PHP fatal error that occurred when attempting to restore a trashed subscription containing chained items
+* Update: Code improvements for the latest WordPress Coding Standards
+* Update: POT file
+
 2023.08.16 - version 3.1.0
 * New: WordPress 6.3 compatible
 * New: WooCommerce 8.0.2 compatible

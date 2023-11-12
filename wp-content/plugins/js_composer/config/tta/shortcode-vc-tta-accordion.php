@@ -135,6 +135,7 @@ return array(
 			'type' => 'dropdown',
 			'param_name' => 'c_align',
 			'value' => array(
+				esc_html__( 'Default', 'js_composer' ) => 'default',
 				esc_html__( 'Left', 'js_composer' ) => 'left',
 				esc_html__( 'Right', 'js_composer' ) => 'right',
 				esc_html__( 'Center', 'js_composer' ) => 'center',
@@ -187,6 +188,7 @@ return array(
 			'type' => 'dropdown',
 			'param_name' => 'c_position',
 			'value' => array(
+				esc_html__( 'Default', 'js_composer' ) => 'default',
 				esc_html__( 'Left', 'js_composer' ) => 'left',
 				esc_html__( 'Right', 'js_composer' ) => 'right',
 			),

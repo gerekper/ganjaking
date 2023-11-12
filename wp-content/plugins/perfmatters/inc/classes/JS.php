@@ -347,6 +347,13 @@ class JS
 						'moove_gdpr'
 	        		)
 	        	),
+	        	'grow-social' => array(
+	        		'id' => 'social-pug/index.php',
+	        		'title' => 'Grow Social',
+	        		'exclusions' => array(
+	        			'dpsp-frontend-js-pro-js'
+	        		)
+	        	),
 	        	'jet-menu' => array(
 	        		'id' => 'jet-menu/jet-menu.php',
 	        		'title' => 'JetMenu',
@@ -394,6 +401,22 @@ class JS
 						'nf-'
 	        		)
 	        	),
+	        	'presto-player' => array(
+	        		'id' => 'presto-player/presto-player.php',
+	        		'title' => 'Presto Player',
+	        		'exclusions' => array(
+	        			'presto'
+	        		)
+	        	),
+	        	'raptive-ads' => array(
+	        		'id' => 'adthrive-ads/adthrive-ads.php',
+	        		'title' => 'Raptive Ads',
+	        		'exclusions' => array(
+	        			'adthrive',
+	        			'raptive',
+	        			'adManagementConfig'
+	        		)
+	        	),
 	        	'real-bookie-banner-pro' => array(
 	        		'id' => 'real-cookie-banner-pro/index.php',
 	        		'title' => 'Real Cookie Banner Pro',
@@ -421,6 +444,13 @@ class JS
 	        		'title' => 'ShortPixel Adaptive Images',
 	        		'exclusions' => array(
 	        			'shortpixel.ai/assets/js/bundles/spai-lib'
+	        		)
+	        	),
+	        	'slick-engagement' => array(
+	        		'id' => 'slick-engagement/slick-engagement.php',
+	        		'title' => 'Slickstream',
+	        		'exclusions' => array(
+	        			'slickstream'
 	        		)
 	        	),
 	        	'smart-slider-3' => array(
@@ -507,6 +537,16 @@ class JS
 	        		'exclusions' => array(
 	        			'jquery.min.js',
 						'wpforms'
+	        		)
+	        	),
+	        	'wp-recipe-maker' => array(
+	        		'id' => 'wp-recipe-maker/wp-recipe-maker.php',
+	        		'title' => 'WP Recipe Maker',
+	        		'exclusions' => array(
+	        			'wprm-public-js',
+	        			'wprm-public-js-extra',
+	        			'wprmp-public-js',
+	        			'wprmp-public-js-extra'
 	        		)
 	        	)
 	        ),

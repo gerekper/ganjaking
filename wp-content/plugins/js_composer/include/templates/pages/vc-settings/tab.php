@@ -124,3 +124,9 @@ $custom_tag = 'script';
 
 	<?php endif ?>
 </form>
+
+
+<?php
+// [modal ai render]
+vc_include_template( 'editors/popups/ai/modal.tpl.php' );
+?>

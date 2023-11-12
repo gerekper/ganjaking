@@ -492,7 +492,6 @@ class CP_Admin_Welcome {
 
 		wp_safe_redirect( admin_url( 'admin.php?page=cp-about' ) );
 		exit;
-
 	}
 }
 

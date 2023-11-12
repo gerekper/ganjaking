@@ -4,8 +4,8 @@ Donate link: https://perfmatters.io
 Tags: perfmatters
 Requires at least: 5.5
 Requires PHP: 7.0
-Tested up to: 6.3.2
-Stable tag: 2.1.8
+Tested up to: 6.4.1
+Stable tag: 2.1.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,18 @@ Perfmatters is a lightweight performance plugin developed to speed up your WordP
 Check out our [documentation](https://perfmatters.io/docs/) for more information on how to use Perfmatters.
 
 == Changelog ==
+
+= 2.1.9 - 11.09.2023 =
+* Added Delay JS quick exclusions for Presto Player, Raptive Ads, Slickstream, and WP Recipe Maker.
+* Added new WP-CLI command to clear used CSS with multisite support.
+* Added support for Google Material Symbols and Icons to local font feature.
+* Added support for excluding by no-lazy class to CSS Background Images.
+* Added support for lazy loading the poster attribute when set for a video tag.
+* Made adjustments to CSS class to allow for stylesheet's to be excluded by any portion of their attribute string.
+* Made some styling improvements to the YouTube preview thumbnail play button on hover.
+* Fixed an issue where delayed stylesheets would be loaded in twice if individual JS delay was also being used.
+* Updated Google Analytics 4 minimal script to version 1.10.
+* Translation updates.
 
 = 2.1.8 - 10.13.2023 = 
 * Fixed a compatibility issue with local fonts and WordPress 6.3.2 that was causing an error when new font files were requested.

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     6.5.0
+ * @version     6.6.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -92,8 +92,6 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 			add_action( 'personal_options_update', array( $this, 'my_profile_update' ) );
 			add_action( 'edit_user_profile_update', array( $this, 'my_profile_update' ) );
-
-			add_filter( 'generate_smart_coupon_action', array( $this, 'generate_smart_coupon_action' ), 1, 10 );
 
 			add_action( 'wc_sc_new_coupon_generated', array( $this, 'smart_coupons_plugin_used' ) );
 
@@ -501,8 +499,12 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				}
 
 				if ( 'yes' === $is_send_email && ( 'no' === $combine_emails || 'yes' === $is_schedule_gift_sending ) ) {
-					// Trigger email notification.
-					do_action( 'wc_sc_email_coupon_notification', $action_args );
+					$current_filter                    = current_filter();
+					$order_actions_to_ignore_for_email = $this->order_actions_to_ignore_for_email();
+					if ( ! in_array( $current_filter, $order_actions_to_ignore_for_email, true ) ) {
+						// Trigger email notification.
+						do_action( 'wc_sc_email_coupon_notification', $action_args );
+					}
 					if ( 'yes' === $is_schedule_gift_sending ) {
 						// Delete receiver detail post meta as it is no longer necessary.
 						$this->delete_post_meta( $coupon_id, 'wc_sc_coupon_receiver_details' );
@@ -527,62 +529,66 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			$combine_emails = $this->is_email_template_enabled( 'combine' );
 
 			if ( 'yes' === $is_send_email && 'yes' === $combine_emails ) {
-				WC()->mailer();
+				$current_filter                    = current_filter();
+				$order_actions_to_ignore_for_email = $this->order_actions_to_ignore_for_email();
+				if ( ! in_array( $current_filter, $order_actions_to_ignore_for_email, true ) ) {
+					WC()->mailer();
 
-				$order = ( ! empty( $order_id ) ) ? wc_get_order( $order_id ) : null;
+					$order = ( ! empty( $order_id ) ) ? wc_get_order( $order_id ) : null;
 
-				$is_gift = '';
-				if ( ! empty( $order_id ) ) {
-					$is_gift = $this->get_post_meta( $order_id, 'is_gift', true );
-				}
+					$is_gift = '';
+					if ( ! empty( $order_id ) ) {
+						$is_gift = $this->get_post_meta( $order_id, 'is_gift', true );
+					}
 
-				if ( count( $receiver_details ) === 1 ) {
-					$coupon_code         = ( ! empty( $receiver_details[0]['code'] ) ) ? $receiver_details[0]['code'] : '';
-					$message_from_sender = ( ! empty( $receiver_details[0]['message'] ) ) ? $receiver_details[0]['message'] : '';
+					if ( count( $receiver_details ) === 1 ) {
+						$coupon_code         = ( ! empty( $receiver_details[0]['code'] ) ) ? $receiver_details[0]['code'] : '';
+						$message_from_sender = ( ! empty( $receiver_details[0]['message'] ) ) ? $receiver_details[0]['message'] : '';
 
-					$coupon        = new WC_Coupon( $coupon_code );
-					$coupon_amount = $this->get_amount( $coupon, true, $order );
-					$discount_type = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_discount_type' ) ) ) ? $coupon->get_discount_type() : '';
-					$coupon_data   = $this->get_coupon_meta_data( $coupon );
+						$coupon        = new WC_Coupon( $coupon_code );
+						$coupon_amount = $this->get_amount( $coupon, true, $order );
+						$discount_type = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_discount_type' ) ) ) ? $coupon->get_discount_type() : '';
+						$coupon_data   = $this->get_coupon_meta_data( $coupon );
 
-					$coupon_detail = array(
-						'amount' => $coupon_amount,
-						'code'   => $coupon_code,
-					);
+						$coupon_detail = array(
+							'amount' => $coupon_amount,
+							'code'   => $coupon_code,
+						);
+
+						$action_args = apply_filters(
+							'wc_sc_email_coupon_notification_args',
+							array(
+								'order_id'            => $order_id,
+								'email'               => $receiver_email,
+								'coupon'              => $coupon_detail,
+								'discount_type'       => $discount_type,
+								'receiver_name'       => '',
+								'message_from_sender' => $message_from_sender,
+								'gift_certificate_sender_name' => $gift_certificate_sender_name,
+								'gift_certificate_sender_email' => $gift_certificate_sender_email,
+								'is_gift'             => $is_gift,
+							)
+						);
+						// Trigger single email notification.
+						do_action( 'wc_sc_email_coupon_notification', $action_args );
+						return;
+					}
 
 					$action_args = apply_filters(
 						'wc_sc_email_coupon_notification_args',
 						array(
 							'order_id'                     => $order_id,
 							'email'                        => $receiver_email,
-							'coupon'                       => $coupon_detail,
-							'discount_type'                => $discount_type,
-							'receiver_name'                => '',
-							'message_from_sender'          => $message_from_sender,
+							'receiver_details'             => $receiver_details,
 							'gift_certificate_sender_name' => $gift_certificate_sender_name,
 							'gift_certificate_sender_email' => $gift_certificate_sender_email,
 							'is_gift'                      => $is_gift,
 						)
 					);
-					// Trigger single email notification.
-					do_action( 'wc_sc_email_coupon_notification', $action_args );
-					return;
+
+					// Trigger combined email notification.
+					do_action( 'wc_sc_combined_email_coupon_notification', $action_args );
 				}
-
-				$action_args = apply_filters(
-					'wc_sc_email_coupon_notification_args',
-					array(
-						'order_id'                      => $order_id,
-						'email'                         => $receiver_email,
-						'receiver_details'              => $receiver_details,
-						'gift_certificate_sender_name'  => $gift_certificate_sender_name,
-						'gift_certificate_sender_email' => $gift_certificate_sender_email,
-						'is_gift'                       => $is_gift,
-					)
-				);
-
-				// Trigger combined email notification.
-				do_action( 'wc_sc_combined_email_coupon_notification', $action_args );
 			}
 		}
 
@@ -3393,7 +3399,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		 * @return array of generated coupon details
 		 */
 		public function generate_smart_coupon( $email, $amount, $order_id = '', $coupon = '', $discount_type = 'smart_coupon', $gift_certificate_receiver_name = '', $message_from_sender = '', $gift_certificate_sender_name = '', $gift_certificate_sender_email = '', $sending_timestamp = '' ) {
-			return apply_filters( 'generate_smart_coupon_action', $email, $amount, $order_id, $coupon, $discount_type, $gift_certificate_receiver_name, $message_from_sender, $gift_certificate_sender_name, $gift_certificate_sender_email, $sending_timestamp );
+			return $this->generate_smart_coupon_action( $email, $amount, $order_id, $coupon, $discount_type, $gift_certificate_receiver_name, $message_from_sender, $gift_certificate_sender_name, $gift_certificate_sender_email, $sending_timestamp );
 		}
 
 		/**
@@ -4700,7 +4706,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				if ( ( 'edit.php' === $pagenow || 'post.php' === $pagenow || 'post-new.php' === $pagenow ) && in_array( $get_post_type, array( 'shop_coupon', 'product', 'product-variation' ), true ) ) {
 					$show_css_for_smart_coupon_tab = true;
 				}
-				if ( 'admin.php' === $pagenow && 'wc-smart-coupons' === $get_page ) {
+				if ( 'admin.php' === $pagenow && in_array( $get_page, array( 'wc-smart-coupons', 'wc-orders' ), true ) ) {
 					$show_css_for_smart_coupon_tab = true;
 				}
 				if ( $show_css_for_smart_coupon_tab ) {
@@ -6945,6 +6951,194 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				$metas = array_filter( array_unique( $metas ) );
 			}
 			return $metas;
+		}
+
+		/**
+		 * Check if the order has at least one product that can generate coupon
+		 *
+		 * @param WC_Order $order The order object.
+		 * @return boolean
+		 */
+		public function would_order_generate_coupons( $order = null ) {
+			if ( empty( $order ) ) {
+				return false;
+			}
+			if ( ! is_a( $order, 'WC_Order' ) && is_numeric( $order ) ) {
+				$order = wc_get_order( absint( $order ) );
+			}
+			$order_items = $this->is_callable( $order, 'get_items' ) ? $order->get_items() : array();
+			if ( empty( $order_items ) || is_scalar( $order_items ) ) {
+				return false;
+			}
+			foreach ( $order_items as $item ) {
+				if ( $item->is_type( 'line_item' ) ) {
+					$product = $this->is_callable( $item, 'get_product' ) ? $item->get_product() : ( $this->is_callable( $order, 'get_product_from_item' ) ? $order->get_product_from_item( $item ) : null );
+					if ( ! is_a( $product, 'WC_Product' ) ) {
+						continue;
+					}
+					$linked_coupons = $this->is_callable( $product, 'get_meta' ) ? $product->get_meta( '_coupon_title' ) : array();
+					if ( empty( $linked_coupons ) && $this->is_callable( $product, 'is_type' ) && true === $product->is_type( 'variation' ) ) {
+						$parent_id = $this->is_callable( $product, 'get_parent_id' ) ? $product->get_parent_id() : 0;
+						if ( ! empty( $parent_id ) ) {
+							$product        = wc_get_product( $parent_id );
+							$linked_coupons = $this->is_callable( $product, 'get_meta' ) ? $product->get_meta( '_coupon_title' ) : array();
+						}
+					}
+					if ( ! empty( $linked_coupons ) ) {
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
+		/**
+		 * Resend coupons for an order
+		 *
+		 * @param integer $order_id The order id.
+		 */
+		public function resend_coupons( $order_id = 0 ) {
+
+			if ( empty( $order_id ) ) {
+				return; // TODO: Show admin notice that no coupons are generated hence can't send email.
+			}
+
+			$order = wc_get_order( $order_id );
+
+			$is_callable_order_get_meta = is_object( $order ) && $this->is_callable( $order, 'get_meta' );
+			$sc_coupon_receiver_details = ( true === $is_callable_order_get_meta ) ? $order->get_meta( 'sc_coupon_receiver_details' ) : array();
+
+			if ( empty( $sc_coupon_receiver_details ) ) {
+				return; // TODO: Show admin notice that no coupons are generated hence can't send email.
+			}
+
+			$order_billing_email      = ( is_object( $order ) && $this->is_callable( $order, 'get_billing_email' ) ) ? $order->get_billing_email() : '';
+			$order_billing_first_name = ( is_object( $order ) && $this->is_callable( $order, 'get_billing_first_name' ) ) ? $order->get_billing_first_name() : '';
+			$order_billing_last_name  = ( is_object( $order ) && $this->is_callable( $order, 'get_billing_last_name' ) ) ? $order->get_billing_last_name() : '';
+
+			$is_gift = ( true === $is_callable_order_get_meta ) ? $order->get_meta( 'is_gift' ) : '';
+
+			$gift_certificate_sender_email = $order_billing_email;
+			$gift_certificate_sender_name  = $order_billing_first_name . ' ' . $order_billing_last_name;
+
+			$coupon_receiver_details = array();
+			foreach ( $sc_coupon_receiver_details as $detail ) {
+				if ( empty( $detail['email'] ) || empty( $detail['code'] ) ) {
+					continue;
+				}
+				$email = $detail['email'];
+				if ( empty( $coupon_receiver_details[ $email ] ) || ! is_array( $coupon_receiver_details[ $email ] ) ) {
+					$coupon_receiver_details[ $email ] = array();
+				}
+				$coupon_receiver_details[ $email ][] = $detail;
+			}
+
+			if ( empty( $coupon_receiver_details ) ) {
+				return; // TODO: Show admin notice that no coupons are generated hence can't send email.
+			}
+
+			$is_send_email  = $this->is_email_template_enabled();
+			$combine_emails = $this->is_email_template_enabled( 'combine' );
+
+			if ( 'yes' === $is_send_email ) {
+				WC()->mailer();
+				foreach ( $coupon_receiver_details as $receiver_email => $receiver_details ) {
+					if ( 'yes' === $combine_emails ) {
+						if ( count( $receiver_details ) === 1 ) {
+							$coupon_code         = ( ! empty( $receiver_details[0]['code'] ) ) ? $receiver_details[0]['code'] : '';
+							$message_from_sender = ( ! empty( $receiver_details[0]['message'] ) ) ? $receiver_details[0]['message'] : '';
+
+							$coupon        = new WC_Coupon( $coupon_code );
+							$coupon_amount = $this->get_amount( $coupon, true, $order );
+							$discount_type = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_discount_type' ) ) ) ? $coupon->get_discount_type() : '';
+
+							$coupon_detail = array(
+								'amount' => $coupon_amount,
+								'code'   => $coupon_code,
+							);
+
+							$action_args = apply_filters(
+								'wc_sc_email_coupon_notification_args',
+								array(
+									'order_id'            => $order_id,
+									'email'               => $receiver_email,
+									'coupon'              => $coupon_detail,
+									'discount_type'       => $discount_type,
+									'receiver_name'       => '',
+									'message_from_sender' => $message_from_sender,
+									'gift_certificate_sender_name' => $gift_certificate_sender_name,
+									'gift_certificate_sender_email' => $gift_certificate_sender_email,
+									'is_gift'             => $is_gift,
+								)
+							);
+							// Trigger single email notification.
+							do_action( 'wc_sc_email_coupon_notification', $action_args );
+							return;
+						}
+
+						$action_args = apply_filters(
+							'wc_sc_email_coupon_notification_args',
+							array(
+								'order_id'         => $order_id,
+								'email'            => $receiver_email,
+								'receiver_details' => $receiver_details,
+								'gift_certificate_sender_name' => $gift_certificate_sender_name,
+								'gift_certificate_sender_email' => $gift_certificate_sender_email,
+								'is_gift'          => $is_gift,
+							)
+						);
+
+						// Trigger combined email notification.
+						do_action( 'wc_sc_combined_email_coupon_notification', $action_args );
+					} else {
+						foreach ( $receiver_details as $receiver_detail ) {
+							$coupon_code         = ( ! empty( $receiver_detail['code'] ) ) ? $receiver_detail['code'] : '';
+							$message_from_sender = ( ! empty( $receiver_detail['message'] ) ) ? $receiver_detail['message'] : '';
+
+							$coupon        = new WC_Coupon( $coupon_code );
+							$coupon_amount = $this->get_amount( $coupon, true, $order );
+							$discount_type = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_discount_type' ) ) ) ? $coupon->get_discount_type() : '';
+
+							$coupon_detail = array(
+								'amount' => $coupon_amount,
+								'code'   => $coupon_code,
+							);
+
+							$action_args = apply_filters(
+								'wc_sc_email_coupon_notification_args',
+								array(
+									'order_id'            => $order_id,
+									'email'               => $receiver_email,
+									'coupon'              => $coupon_detail,
+									'discount_type'       => $discount_type,
+									'receiver_name'       => '',
+									'message_from_sender' => $message_from_sender,
+									'gift_certificate_sender_name' => $gift_certificate_sender_name,
+									'gift_certificate_sender_email' => $gift_certificate_sender_email,
+									'is_gift'             => $is_gift,
+								)
+							);
+							// Trigger single email notification.
+							do_action( 'wc_sc_email_coupon_notification', $action_args );
+						}
+					}
+				}
+			}
+		}
+
+		/**
+		 * Order action to ignore for email
+		 *
+		 * @return array
+		 */
+		public function order_actions_to_ignore_for_email() {
+			return apply_filters(
+				'wc_sc_order_actions_to_ignore_for_email',
+				array(
+					'woocommerce_order_action_wc_sc_regenerate_coupons',
+				),
+				array( 'source' => $this )
+			);
 		}
 
 		/**

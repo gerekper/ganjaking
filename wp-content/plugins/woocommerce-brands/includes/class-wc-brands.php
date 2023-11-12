@@ -144,7 +144,7 @@ class WC_Brands {
 	 */
 	public function minimum_version_blocks() {
 		/* translators: %s: WooCommerce link */
-		echo '<div class="error"><p>' . sprintf( esc_html__( 'Full Site Editor themes require %s >= 6.1 for full compatibility with WooCommerce Brands.', 'woocommerce-brands' ), '<a href="https://woocommerce.com/" target="_blank">WooCommerce</a>' ) . '</p></div>';
+		echo '<div class="error"><p>' . sprintf( esc_html__( 'Full Site Editor themes require %s >= 6.1 for full compatibility with WooCommerce Brands.', 'woocommerce-brands' ), '<a href="https://woo.com/" target="_blank">WooCommerce</a>' ) . '</p></div>';
 	}
 
 	/**
@@ -882,7 +882,7 @@ class WC_Brands {
 		$brands     = isset( $params['brands'] ) ? $params['brands'] : array();
 
 		if ( ! empty( $brands ) ) {
-			if ( $brands[0]['id'] ) {
+			if ( is_array( $brands[0] ) && array_key_exists( 'id', $brands[0] ) ) {
 				$brands = array_map(
 					function ( $brand ) {
 						return absint( $brand['id'] );

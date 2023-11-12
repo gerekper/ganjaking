@@ -391,7 +391,7 @@ class OptionsView {
 			    'position'   => 30,
 		    ],
 		    'extensions' => [
-			    'menu_title' => '<span style="color:#ff6b6b">' . esc_html__( 'Extensions', 'searchwp' ) . '</span>',
+			    'menu_title' => '<span style="color:#1da867">' . esc_html__( 'Extensions', 'searchwp' ) . '</span>',
 			    'menu_slug'  => 'searchwp-extensions',
 			    'position'   => 40,
 		    ],

@@ -811,7 +811,7 @@ class SearchFormsView {
 
 				<div class="swp-row">
 
-					<div class="swp-flex--row sm:swp-flex--col sm:swp-flex--gap30 swp-margin-b30">
+					<div class="swp-flex--row sm:swp-flex--col sm:swp-flex--gap30">
 
 						<div class="swp-col swp-col--title-width--sm">
 

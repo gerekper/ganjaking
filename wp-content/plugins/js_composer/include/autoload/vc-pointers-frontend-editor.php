@@ -23,6 +23,18 @@ function vc_frontend_editor_register_pointer( $pointers ) {
 			'name' => 'vcPointerController',
 			'messages' => array(
 				array(
+					'target' => '#vc_ui-panel-post-custom-layout',
+					'options' => array(
+						'content' => sprintf( '<h3> %s </h3> <p> %s </p>', esc_html__( 'Layout selection', 'js_composer' ), esc_html__( 'Select the layout to be used for this post/page.', 'js_composer' ) ),
+						'position' => array(
+							'edge' => 'bottom',
+							'align' => 'center',
+						),
+						'buttonsEvent' => 'vcPointersEditorsTourEvents',
+					),
+					'closeEvent' => 'click .vc_post-custom-layout.control-btn',
+				),
+				array(
 					'target' => '#vc_add-new-element',
 					'options' => array(
 						'content' => sprintf( '<h3> %s </h3> <p> %s </p>', esc_html__( 'Add Elements', 'js_composer' ), esc_html__( 'Add new element or start with a template.', 'js_composer' ) ),
@@ -63,7 +75,6 @@ function vc_frontend_editor_register_pointer( $pointers ) {
 			),
 		);
 	}
-
 	return $pointers;
 }
 

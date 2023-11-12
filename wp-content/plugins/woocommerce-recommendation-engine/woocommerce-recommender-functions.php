@@ -28,7 +28,7 @@ function woocommerce_recommender_record_product_view( $product_id, $user_id = 0 
  *
  * @param int $product_id
  */
-function woocommerce_recommender_record_product_in_cart( $product_id ) {
+function woocommerce_recommender_record_product_in_cart( int $product_id ) {
 	$session_id = WC_Recommender_Compatibility::WC()->session->get_customer_id();
 
 	$activity_date = date( 'Y-m-d H:i:s' );
@@ -71,16 +71,16 @@ function woocommerce_recommender_record_product( $product_id, $session_id, $user
 
 	if ( apply_filters( 'wc_recommender_record_product', true, $product_id, $session_id, $user_id, $order_id, $activity_type ) ) {
 
-		$data = array(
+		$data = [
 			'session_id'    => $session_id,
 			'activity_type' => $activity_type,
 			'product_id'    => $product_id,
 			'user_id'       => $user_id,
 			'order_id'      => $order_id,
 			'activity_date' => $activity_date
-		);
+		];
 
-		$format = array( '%s', '%s', '%d', '%d', '%d', '%s' );
+		$format = [ '%s', '%s', '%d', '%d', '%d', '%s' ];
 		$result = $wpdb->insert( $woocommerce_recommender->db_tbl_session_activity, $data, $format );
 
 		return $result;
@@ -90,42 +90,42 @@ function woocommerce_recommender_record_product( $product_id, $session_id, $user
 }
 
 /**
- * Updates the activity type of a previously recorded session history item.
+ * Updates the activity type of previously recorded session history item.
  *
- * @param type $order_id
- * @param type $product_id
- * @param type $activity_type
+ * @param int $order_id
+ * @param int $product_id
+ * @param string $activity_type
  *
  * @global WC_Recommendation_Engine $woocommerce_recommender
  *
  * @global wpdb $wpdb
  */
-function woocommerce_recommender_update_recorded_product( $order_id, $product_id, $activity_type ) {
+function woocommerce_recommender_update_recorded_product( int $order_id, int $product_id, string $activity_type ) {
 	global $wpdb, $woocommerce_recommender;
 	$activity_date = date( 'Y-m-d H:i:s' );
 
-	$data = array(
+	$data = [
 		'activity_type' => $activity_type,
 		'activity_date' => $activity_date
-	);
+	];
 
-	$format = array( '%s', '%s' );
+	$format = [ '%s', '%s' ];
 
-	$where_data = array(
+	$where_data = [
 		'product_id' => $product_id,
 		'order_id'   => $order_id,
-	);
+	];
 
-	$where_format = array( '%d', '%d' );
+	$where_format = [ '%d', '%d' ];
 	$wpdb->update( $woocommerce_recommender->db_tbl_session_activity, $data, $where_data, $format, $where_format );
 }
 
 function woocommerce_recommender_get_simularity(
-	$current_product_id, $activity_types = array(
+	$current_product_id, $activity_types = [
 	'completed',
 	'in-cart',
 	'viewed'
-)
+]
 ) {
 	global $wpdb, $woocommerce_recommender;
 
@@ -141,7 +141,7 @@ function woocommerce_recommender_get_simularity(
 
 	$db_scores = $wpdb->get_results( $recommendations_sql );
 
-	$scores = array();
+	$scores = [];
 	if ( is_array( $db_scores ) && ! is_wp_error( $db_scores ) ) {
 
 		foreach ( $db_scores as $db_score ) {
@@ -158,7 +158,7 @@ function woocommerce_recommender_get_simularity(
 	return $scores;
 }
 
-function woocommerce_recommender_get_purchased_together( $current_product_id, $activity_types = array( 'completed' ) ) {
+function woocommerce_recommender_get_purchased_together( $current_product_id, $activity_types = [ 'completed' ] ) {
 	global $wpdb, $woocommerce_recommender;
 
 	if ( ! is_array( $activity_types ) ) {
@@ -173,7 +173,7 @@ function woocommerce_recommender_get_purchased_together( $current_product_id, $a
 
 	$db_scores = $wpdb->get_results( $recommendations_sql );
 
-	$scores = array();
+	$scores = [];
 	if ( is_array( $db_scores ) && ! is_wp_error( $db_scores ) ) {
 
 		foreach ( $db_scores as $db_score ) {
@@ -192,12 +192,12 @@ function woocommerce_recommender_get_purchased_together( $current_product_id, $a
 
 function woocommerce_recommender_sort_posts( &$posts, $simularity_scores ) {
 	$sorter = new WC_Recommender_Sorting_Helper( $simularity_scores );
-	usort( $posts, array( &$sorter, 'sort' ) );
+	usort( $posts, [ &$sorter, 'sort' ] );
 }
 
 function woocommerce_recommender_sort_also_viewed( &$posts, $simularity_scores ) {
 	$sorter = new WC_Recommender_Sorting_Helper( $simularity_scores );
-	usort( $posts, array( &$sorter, 'sort_also_viewed' ) );
+	usort( $posts, [ &$sorter, 'sort_also_viewed' ] );
 }
 
 function woocommerce_recommender_get_posts_and_columns() {
@@ -224,254 +224,6 @@ function woocommerce_recommender_disable_related( $template, $template_name, $te
 	return $template;
 }
 
-class WC_Recommender_Recorder {
-
-	public $posts_batch_size = 10;
-	private $tbl_storage;
-
-	public function __construct() {
-		global $wpdb, $woocommerce_recommender;
-		$this->tbl_storage = $woocommerce_recommender->db_tbl_recommendations;
-	}
-
-	function woocommerce_recommender_begin_build_simularity( $start = false, $count = 10, $skip_delete = false, $type = 'all' ) {
-		global $wpdb, $woocommerce_recommender;
-		$products_to_process = array();
-
-		$sql = '';
-		if ( $start !== false ) {
-			$sql = $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = 'product' and post_status='publish' LIMIT %d,%d", $start, $count );
-		} else {
-			$sql = "SELECT ID FROM $wpdb->posts WHERE post_type = 'product' and post_status='publish'";
-		}
-
-		$products_to_process = $wpdb->get_col( $sql );
-
-		if ( ! $skip_delete && ( $start === false || $start === 0 ) ) {
-			if ( $type == 'viewed' ) {
-				$wpdb->query( "DELETE FROM $woocommerce_recommender->db_tbl_recommendations WHERE rkey LIKE '%recommender_viewed%'" );
-			}
-
-			if ( $type == 'purchased' ) {
-				$wpdb->query( "DELETE FROM $woocommerce_recommender->db_tbl_recommendations WHERE rkey LIKE '%recommender_completed%'" );
-			}
-
-			if ( $type == 'purchased-together' ) {
-				$wpdb->query( "DELETE FROM $woocommerce_recommender->db_tbl_recommendations WHERE rkey LIKE '%fpt_completed%'" );
-			}
-
-			if ( $type == 'all' ) {
-				$wpdb->query( "DELETE FROM $woocommerce_recommender->db_tbl_recommendations" );
-			}
-		}
-
-		foreach ( $products_to_process as $product_id ) {
-			if ( $type == 'viewed' ) {
-				$this->woocommerce_recommender_build_simularity( $product_id, array( 'viewed' ) );
-			}
-
-
-			if ( $type == 'purchased' ) {
-				$status = apply_filters( 'woocommerce_recommender_also_purchased_status', 'completed' );
-				$this->woocommerce_recommender_build_simularity( $product_id, array( $status ) );
-			}
-
-
-			if ( $type == 'purchased-together' ) {
-				$status = apply_filters( 'woocommerce_recommender_purchased_together_status', 'completed' );
-				$this->woocommerce_build_purchased_together( $product_id, array( $status ) );
-			}
-
-			if ( $type == 'all' ) {
-				$this->woocommerce_recommender_build_simularity( $product_id, array( 'viewed' ) );
-				$status = apply_filters( 'woocommerce_recommender_also_purchased_status', 'completed' );
-				$this->woocommerce_recommender_build_simularity( $product_id, array( $status ) );
-				$status = apply_filters( 'woocommerce_recommender_purchased_together_status', 'completed' );
-				$this->woocommerce_build_purchased_together( $product_id, array( $status ) );
-			}
-
-		}
-	}
-
-	function woocommerce_recommender_build_simularity(
-		$current_product_id, $activity_types = array(
-		'completed',
-		'in-cart',
-		'viewed'
-	)
-	) {
-		global $wpdb, $woocommerce_recommender;
-
-		if ( ! is_array( $activity_types ) ) {
-			$activity_types = (array) $activity_types;
-		}
-
-		$key = 'wc_recommender_' . implode( '_', $activity_types ) . '_' . $current_product_id;
-
-		$sql   = $wpdb->prepare( "SELECT DISTINCT session_id FROM $woocommerce_recommender->db_tbl_session_activity WHERE product_id = %d AND activity_type IN ('" . implode( "','", $activity_types ) . "')", $current_product_id );
-		$item1 = $wpdb->get_col( $sql );
-
-		$scores = array();
-
-		$sql =
-			"SELECT p.ID FROM $wpdb->posts p INNER JOIN (SELECT DISTINCT tbl1.product_id FROM $woocommerce_recommender->db_tbl_session_activity tbl1 INNER JOIN (
-	              SELECT DISTINCT session_id FROM $woocommerce_recommender->db_tbl_session_activity WHERE product_id = %d
-                ) tbl2 ON tbl1.session_id = tbl2.session_id) p_inner on p.ID = p_inner.product_id WHERE post_type = 'product' and post_status='publish'";
-
-
-		$sql         = $wpdb->prepare( $sql, $current_product_id );
-		$product_ids = $wpdb->get_col( $sql );
-		foreach ( $product_ids as $product_id ) {
-			if ( $product_id != $current_product_id ) {
-
-				$item2 = $wpdb->get_col( $wpdb->prepare( "SELECT session_id FROM $woocommerce_recommender->db_tbl_session_activity WHERE product_id = %d AND activity_type IN ('" . implode( "','", $activity_types ) . "')", $product_id ) );
-
-				$arr_intersection = array_intersect( $item1, $item2 );
-				$arr_union        = array_merge( $item1, $item2 );
-
-				if ( count( $arr_union ) ) {
-					$coefficient = count( $arr_intersection ) / count( $arr_union );
-					if ( $coefficient ) {
-						$scores[ $product_id ] = (float) $coefficient;
-					}
-				}
-			}
-		}
-
-		asort( $scores, SORT_NUMERIC );
-
-		foreach ( $scores as $related_product_id => $score ) {
-
-			$wpdb->insert( $this->tbl_storage, array(
-				'rkey'               => $key,
-				'product_id'         => (int) $current_product_id,
-				'related_product_id' => (int) $related_product_id,
-				'score'              => (float) $score
-			) );
-		}
-	}
-
-	function woocommerce_recommender_build_simularity_against_product(
-		$current_product_id, $related_product_id, $activity_types = array(
-		'completed',
-		'in-cart',
-		'viewed'
-	)
-	) {
-		global $wpdb, $woocommerce_recommender;
-
-		if ( ! is_array( $activity_types ) ) {
-			$activity_types = (array) $activity_types;
-		}
-
-		$key = 'wc_recommender_' . implode( '_', $activity_types ) . '_' . $current_product_id;
-
-		$sql   = $wpdb->prepare( "SELECT DISTINCT session_id FROM $woocommerce_recommender->db_tbl_session_activity WHERE product_id = %d AND activity_type = %s", $current_product_id, $activity_types[0] );
-		$item1 = $wpdb->get_col( $sql );
-
-		$score = null;
-
-		if ( $related_product_id != $current_product_id ) {
-			$item2            = $wpdb->get_col( $wpdb->prepare( "SELECT session_id FROM $woocommerce_recommender->db_tbl_session_activity WHERE product_id = %d AND activity_type = %s", $related_product_id, $activity_types[0] ) );
-			$arr_intersection = array_intersect( $item1, $item2 );
-			$arr_union        = array_merge( $item1, $item2 );
-
-			if ( count( $arr_union ) ) {
-				$coefficient = count( $arr_intersection ) / count( $arr_union );
-				if ( $coefficient ) {
-					$score = (float) $coefficient;
-				}
-			}
-		}
-
-		if ( $score ) {
-			$wpdb->insert( $this->tbl_storage, array(
-				'rkey'               => $key,
-				'product_id'         => (int) $current_product_id,
-				'related_product_id' => (int) $related_product_id,
-				'score'              => (float) $score
-			) );
-		}
-
-	}
-
-
-	function woocommerce_build_purchased_together( $current_product_id, $activity_types = array( 'completed' ) ) {
-		global $wpdb, $woocommerce_recommender;
-
-		$key   = 'wc_recommender_fpt_' . implode( '_', $activity_types ) . '_' . $current_product_id;
-		$sql   = $wpdb->prepare( "SELECT DISTINCT order_id FROM $woocommerce_recommender->db_tbl_session_activity WHERE order_id > 0 AND product_id = %d AND activity_type = %s", $current_product_id, $activity_types[0] );
-		$item1 = $wpdb->get_col( $sql );
-
-		$scores      = array();
-		$product_ids = $wpdb->get_col( "SELECT ID FROM $wpdb->posts WHERE post_type = 'product' and post_status='publish'" );
-		foreach ( $product_ids as $product_id ) {
-			if ( $product_id != $current_product_id ) {
-
-				$item2 = $wpdb->get_col( $wpdb->prepare( "SELECT order_id FROM $woocommerce_recommender->db_tbl_session_activity WHERE order_id > 0 AND product_id = %d AND activity_type = %s", $product_id, $activity_types[0] ) );
-
-				$arr_intersection = array_intersect( $item1, $item2 );
-				$arr_union        = array_merge( $item1, $item2 );
-
-				if ( count( $arr_union ) ) {
-					$coefficient = count( $arr_intersection ) / count( $arr_union );
-					if ( $coefficient ) {
-						$scores[ $product_id ] = (float) $coefficient;
-					}
-				}
-			}
-		}
-
-		asort( $scores );
-
-		foreach ( $scores as $related_product_id => $score ) {
-
-			$wpdb->insert( $this->tbl_storage, array(
-				'rkey'               => $key,
-				'product_id'         => (int) $current_product_id,
-				'related_product_id' => (int) $related_product_id,
-				'score'              => (float) $score
-			) );
-		}
-	}
-
-
-	function woocommerce_build_purchased_together_against_product( $current_product_id, $related_product_id, $activity_types = array( 'completed' ) ) {
-		global $wpdb, $woocommerce_recommender;
-
-		$key   = 'wc_recommender_fpt_' . implode( '_', $activity_types ) . '_' . $current_product_id;
-		$sql   = $wpdb->prepare( "SELECT DISTINCT order_id FROM $woocommerce_recommender->db_tbl_session_activity WHERE order_id > 0 AND product_id = %d AND activity_type = %s", $current_product_id, $activity_types[0] );
-		$item1 = $wpdb->get_col( $sql );
-
-		$score = null;
-		if ( $related_product_id != $current_product_id ) {
-
-			$item2 = $wpdb->get_col( $wpdb->prepare( "SELECT order_id FROM $woocommerce_recommender->db_tbl_session_activity WHERE order_id > 0 AND product_id = %d AND activity_type = %s", $related_product_id, $activity_types[0] ) );
-
-			$arr_intersection = array_intersect( $item1, $item2 );
-			$arr_union        = array_merge( $item1, $item2 );
-
-			if ( count( $arr_union ) ) {
-				$coefficient = count( $arr_intersection ) / count( $arr_union );
-				if ( $coefficient ) {
-					$score = (float) $coefficient;
-				}
-			}
-		}
-
-		if ( $score ) {
-			$wpdb->insert( $this->tbl_storage, array(
-				'rkey'               => $key,
-				'product_id'         => (int) $current_product_id,
-				'related_product_id' => (int) $related_product_id,
-				'score'              => (float) $score
-			) );
-		}
-	}
-
-
-}
-
 add_action( 'init', 'woocommerce_recommender_manually_build_scores' );
 
 
@@ -479,6 +231,14 @@ add_action( 'init', 'woocommerce_recommender_manually_build_scores' );
 add_action( 'wc_recommender_build', 'woocommerce_recommender_build_scores' );
 
 function woocommerce_recommender_build_scores() {
+	$enable_cron = get_option( 'wc_recommender_enable_cron', 'enabled' );
+	if ( $enable_cron == 'disabled' ) {
+		update_option( 'woocommerce_recommender_cron_result', 'WP Cron Disabled');
+		update_option( 'woocommerce_recommender_cron_end', time() );
+		update_option( 'woocommerce_recommender_build_running', false );
+		return;
+	}
+
 	$running = get_option( 'woocommerce_recommender_build_running', false );
 	if ( empty( $running ) ) {
 		update_option( 'woocommerce_recommender_build_running', true );
@@ -487,7 +247,7 @@ function woocommerce_recommender_build_scores() {
 
 		try {
 			$builder = new WC_Recommender_Recorder();
-			$builder->woocommerce_recommender_begin_build_simularity( false, 0 );
+			$builder->woocommerce_recommender_begin_build_similarity( false, 0 );
 			update_option( 'woocommerce_recommender_cron_result', 'OK' );
 		} catch ( Exception $exc ) {
 			update_option( 'woocommerce_recommender_cron_result', $exc->getTraceAsString() );
@@ -501,15 +261,6 @@ function woocommerce_recommender_build_scores() {
 function woocommerce_recommender_manually_build_scores() {
 	global $wpdb, $woocommerce_recommender;
 
-	if ( isset( $_REQUEST['woocommerce_recommender_dump'] ) ) {
-		$results = $wpdb->get_results( "SELECT * FROM $woocommerce_recommender->db_tbl_recommendations ORDER BY product_id" );
-		foreach ( $results as $result ) {
-			echo '<br />' . $result->product_id . ' ' . $result->related_product_id;
-		}
-
-		die();
-	}
-
 	if ( isset( $_REQUEST['woocommerce_recommender_build'] ) && ! empty( $_REQUEST['woocommerce_recommender_build'] ) ) {
 
 		$total = $wpdb->get_var( "SELECT COUNT(ID) FROM $wpdb->posts WHERE post_type = 'product' and post_status='publish'" );
@@ -519,7 +270,7 @@ function woocommerce_recommender_manually_build_scores() {
 		$time_pre = microtime( true );
 
 		$builder = new WC_Recommender_Recorder();
-		$builder->woocommerce_recommender_begin_build_simularity( $start, $count );
+		$builder->woocommerce_recommender_begin_build_similarity( $start, $count );
 
 		$time_post = microtime( true );
 		$exec_time = floatval( ( $time_post - $time_pre ) * ( ( $total - $start ) / $count ) );
@@ -539,15 +290,11 @@ function woocommerce_recommender_manually_build_scores() {
 			echo '</body></html>';
 			die();
 		} else {
-			wp_redirect( esc_url_raw( add_query_arg( array(
+			wp_redirect( esc_url_raw( add_query_arg( [
 				'woocommerce_recommender_build' => false,
 				'built'                         => $total
-			) ) ) );
+			] ) ) );
 			die();
 		}
 	}
-}
-
-function woocommerce_recommender_async_request_callback( $response, $info ) {
-	echo $response;
 }

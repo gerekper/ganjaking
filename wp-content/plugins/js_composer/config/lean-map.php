@@ -267,4 +267,3 @@ if ( 'vc_get_autocomplete_suggestion' === vc_request_param( 'action' ) || 'vc_ed
 	add_filter( 'vc_autocomplete_vc_masonry_grid_exclude_callback', 'vc_exclude_field_search', 10, 1 ); // Get suggestion(find). Must return an array
 	add_filter( 'vc_autocomplete_vc_masonry_grid_exclude_render', 'vc_exclude_field_render', 10, 1 ); // Render exact product. Must return an array (label,value);
 }
-

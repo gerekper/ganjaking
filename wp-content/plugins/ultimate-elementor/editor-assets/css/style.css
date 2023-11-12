@@ -1,0 +1,232 @@
+@font-face {
+	font-family: 'uael';
+	src:  url('../fonts/uael.eot?aa491i');
+	src:  url('../fonts/uael.eot?aa491i#iefix') format('embedded-opentype'),
+	url('../fonts/uael.ttf?aa491i') format('truetype'),
+	url('../fonts/uael.woff?aa491i') format('woff'),
+	url('../fonts/uael.svg?aa491i#uael') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="uael-icon-"], [class*=" uael-icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'uael' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.elementor-control-type-uael-presets-select .elementor-control-content select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    font-size: 12px;
+    font-family: inherit;
+    font-weight: inherit;
+    font-style: inherit;
+    text-transform: inherit;
+    letter-spacing: inherit;
+    line-height: inherit;
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%;
+    padding-left: 5px;
+    padding-right: 20px;
+    cursor: pointer;
+}
+
+/* Style to custom select control */
+
+.elementor-control-type-uael-presets-select .elementor-control-input-wrapper:after {
+    font-family: eicons;
+    content: '\e8ad';
+    font-size: 12px;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    right: 5px;
+    pointer-events: none;
+}
+
+/* Style CSS ends */
+
+.elementor-control-type-uael-presets-select .elementor-control-input-wrapper,
+.elementor-element {
+    position: relative;
+}
+
+.elementor-element [class*="uael-icon-"]:after {
+  content: "UAE";
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  color: #a4afb7;
+  background: transparent;
+  font-size: 10px;
+  font-family: Roboto,Arial,Helvetica,Verdana,sans-serif;
+  padding: 0.2em 0.5em;
+  border-width: 0 0 1px 1px;
+  border-color: #e0e0e0;
+  border-style: solid;
+}
+
+.uael-icon-woo-checkout-1:before {
+  content: "\e93c";
+}
+.uael-icon-woo-mini-cart:before {
+  content: "\e912";
+}
+.uael-icon-registration-form:before {
+  content: "\e913";
+}
+.uael-icon-retina-image:before {
+  content: "\e914";
+}
+.uael-icon-table-of-content:before {
+  content: "\e915";
+}
+.uael-icon-login-form:before {
+  content: "\e916";
+}
+.uael-icon-navigation-menu:before {
+  content: "\e917";
+}
+.uael-icon-social-share:before {
+	content: "\e902";
+}
+.uael-icon-gravity-form-styler:before {
+  content: "\e919";
+}
+.uael-icon-woo-category:before {
+  content: "\e91a";
+}
+.uael-icon-fancy-heading:before {
+  content: "\e91b";
+}
+.uael-icon-info-box:before {
+  content: "\e91c";
+}
+.uael-icon-caldera-form-styler:before {
+  content: "\e91d";
+}
+.uael-icon-contact-form-7:before {
+  content: "\e91e";
+}
+.uael-icon-before-after-slider:before {
+  content: "\e91f";
+}
+.uael-icon-wp-form-styler:before {
+  content: "\e920";
+}
+.uael-icon-woo-add-to-cart:before {
+  content: "\e921";
+}
+.uael-icon-woo-product:before {
+  content: "\e922";
+}
+.uael-icon-advanced-heading:before {
+  content: "\e923";
+}
+.uael-icon-image-gallery:before {
+  content: "\e924";
+}
+.uael-icon-posts:before {
+  content: "\e925";
+}
+.uael-icon-price-box:before {
+  content: "\e926";
+}
+.uael-icon-price-list:before {
+  content: "\e927";
+}
+.uael-icon-table:before {
+  content: "\e928";
+}
+.uael-icon-hotspot:before {
+  content: "\e929";
+}
+.uael-icon-timeline:before {
+  content: "\e92a";
+}
+.uael-icon-multi-button:before {
+  content: "\e92b";
+}
+.uael-icon-business-hour:before {
+  content: "\e92c";
+}
+.uael-icon-content-toggle:before {
+  content: "\e92d";
+}
+.uael-icon-video-gallery:before {
+  content: "\e92e";
+}
+.uael-icon-video:before {
+  content: "\e92f";
+}
+.uael-icon-team-member:before {
+  content: "\e930";
+}
+.uael-icon-off-canvas:before {
+  content: "\e931";
+}
+.uael-icon-marketing-button:before {
+  content: "\e932";
+}
+.uael-icon-business-review:before {
+  content: "\e933";
+}
+.uael-icon-countdown-timer:before {
+  content: "\e934";
+}
+.uael-icon-modal-popup:before {
+  content: "\e935";
+}
+.uael-icon-google-map:before {
+  content: "\e936";
+}
+.uael-icon-dual-color-heading:before {
+  content: "\e937";
+}
+.uael-icon-faq-schema:before {
+  content: "\e938";
+}
+.uael-icon-uae:before {
+  content: "\e939";
+}
+.uael-icon-how-to-schema:before {
+  content: "\e93a";
+}
+.uael-icon-fluent-form-styler:before {
+  content: "\e93b";
+}
+.uael-icon-welcome-music:before {
+	content: "\e903";
+}
+.uael-icon-instagram-feed:before {
+	content: "\e900";
+}
+.uael-icon-twitter-feed-icon:before {
+	content: "\e901";
+}
+
+.uael-editor-doc {
+  font-size: 11px;
+  font-style: italic;
+  line-height: 1.4;
+  color: #a4afb7;
+}
+
+/* Video Document style */
+.elementor-control-raw-html.uael-editor-doc {
+  word-break: break-word;
+}

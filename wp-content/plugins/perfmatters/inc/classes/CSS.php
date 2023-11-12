@@ -73,7 +73,7 @@ class CSS
         $used_css_exists = file_exists($used_css_path);
 
         //match all stylesheets
-        preg_match_all('#<link\s[^>]*?href=[\'"]([^\'"]+?\.css.*?)[\'"][^>]*?\/?>#i', $html, $stylesheets, PREG_SET_ORDER);
+        preg_match_all('#<link(\s[^>]*?href=[\'"]([^\'"]+?\.css.*?)[\'"][^>]*?)\/?>#i', $html, $stylesheets, PREG_SET_ORDER);
 
         if(!empty($stylesheets)) {
 
@@ -97,7 +97,7 @@ class CSS
                 }
 
                 //ignore google fonts
-                if(stripos($stylesheet[1], '//fonts.googleapis.com/css') !== false || stripos($stylesheet[1], '.google-fonts.css') !== false) {
+                if(stripos($stylesheet[2], '//fonts.googleapis.com/css') !== false || stripos($stylesheet[2], '.google-fonts.css') !== false) {
                     continue;
                 }
 
@@ -130,7 +130,7 @@ class CSS
                 if(!$used_css_exists) {
 
                     //get local stylesheet path
-                    $url = str_replace(trailingslashit(apply_filters('perfmatters_local_stylesheet_url', (!empty(Config::$options['assets']['rucss_cdn_url']) ? Config::$options['assets']['rucss_cdn_url'] : site_url()))), '', explode('?', $stylesheet[1])[0]);
+                    $url = str_replace(trailingslashit(apply_filters('perfmatters_local_stylesheet_url', (!empty(Config::$options['assets']['rucss_cdn_url']) ? Config::$options['assets']['rucss_cdn_url'] : site_url()))), '', explode('?', $stylesheet[2])[0]);
 
                     $file = str_replace('/wp-content', '/', WP_CONTENT_DIR) . $url;
 
@@ -140,7 +140,7 @@ class CSS
                     }
                    
                     //get used css from stylesheet
-                    $used_css = self::clean_stylesheet($stylesheet[1], @file_get_contents($file));
+                    $used_css = self::clean_stylesheet($stylesheet[2], @file_get_contents($file));
 
                     //add used stylesheet css to total used
                     $used_css_string.= $used_css;
@@ -148,7 +148,7 @@ class CSS
             
                 //delay stylesheets
                 if(empty(Config::$options['assets']['rucss_stylesheet_behavior'])) {
-                    $new_link = preg_replace('#href=([\'"]).+?\1#', 'data-pmdelayedstyle="' . $stylesheet[1] . '"',$stylesheet[0]);
+                    $new_link = preg_replace('#href=([\'"]).+?\1#', 'data-pmdelayedstyle="' . $stylesheet[2] . '"', $stylesheet[0]);
                     $html = str_replace($stylesheet[0], $new_link, $html);
                 }
                 //async stylesheets
@@ -562,9 +562,16 @@ class CSS
     }
 
     //delete all files in the css cache directory
-    public static function clear_used_css()
+    public static function clear_used_css($site = null)
     {      
-        $files = glob(PERFMATTERS_CACHE_DIR . 'css/*');
+        $path = '';
+
+        //add site path if specified
+        if(is_object($site) && !empty($site->path)) {
+           $path = ltrim($site->path, '/');
+        }
+
+        $files = glob(PERFMATTERS_CACHE_DIR . $path . 'css/*');
         foreach($files as $file) {
             if(is_file($file)) {
                 unlink($file);

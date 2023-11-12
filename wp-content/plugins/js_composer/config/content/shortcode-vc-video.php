@@ -20,7 +20,7 @@ return array(
 			'type' => 'textfield',
 			'heading' => esc_html__( 'Video link', 'js_composer' ),
 			'param_name' => 'link',
-			'value' => 'https://vimeo.com/51589652',
+			'value' => 'https://vimeo.com/channels/staffpicks/181907337',
 			'admin_label' => true,
 			'description' => sprintf( esc_html__( 'Enter link to video (Note: read more about available formats at WordPress %1$scodex page%2$s).', 'js_composer' ), '<a href="https://codex.wordpress.org/Embeds#Okay.2C_So_What_Sites_Can_I_Embed_From.3F" target="_blank">', '</a>' ),
 		),

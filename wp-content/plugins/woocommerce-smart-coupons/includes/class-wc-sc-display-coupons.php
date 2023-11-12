@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     3.7.0
+ * @version     3.8.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1936,7 +1936,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 				if ( empty( $data ) ) {
 					continue;
 				}
-				$from = ( true === $is_callable_order_get_meta ) ? $order->get_billing_email() : get_post_meta( $id, '_billing_email', true );
+				$from = $this->is_callable( $order, 'get_billing_email' ) ? $order->get_billing_email() : get_post_meta( $id, '_billing_email', true );
 				if ( empty( $generated_coupon_data[ $from ] ) ) {
 					$generated_coupon_data[ $from ] = array();
 				}
@@ -2420,9 +2420,13 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 		 * Metabox on Order Edit Admin page to show generated coupons during the order
 		 */
 		public function add_generated_coupon_details() {
-			global $post;
+			global $post, $theorder;
 
-			$post_type = ( ! empty( $post->ID ) ) ? $this->get_post_type( $post->ID ) : $this->get_post_type();
+			if ( is_a( $theorder, 'WC_Order' ) ) {
+				$post_type = 'shop_order';
+			} elseif ( ! empty( $post->ID ) ) {
+				$post_type = ( ! empty( $post->ID ) ) ? $this->get_post_type( $post->ID ) : $this->get_post_type();
+			}
 
 			if ( empty( $post_type ) || 'shop_order' !== $post_type ) {
 				return;
@@ -2437,9 +2441,10 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 		 * Metabox content (Generated coupon's details)
 		 */
 		public function sc_generated_coupon_data_metabox() {
-			global $post;
-			if ( ! empty( $post->ID ) ) {
-				$this->get_generated_coupon_data( $post->ID, '', true, false );
+			global $post, $theorder;
+			$order_id = ( is_object( $theorder ) && is_a( $theorder, 'WC_Order' ) && $this->is_callable( $theorder, 'get_id' ) ) ? $theorder->get_id() : ( ! empty( $post->ID ) ? $post->ID : 0 );
+			if ( ! empty( $order_id ) ) {
+				$this->get_generated_coupon_data( $order_id, '', true, false );
 			}
 		}
 

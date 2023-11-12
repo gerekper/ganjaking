@@ -3,7 +3,7 @@
  * Plugin Name: WPBakery Page Builder
  * Plugin URI: https://wpbakery.com
  * Description: Drag and drop page builder for WordPress. Take full control over your WordPress site, build any layout you can imagine – no programming knowledge required.
- * Version: 7.1
+ * Version: 7.2
  * Author: Michael M - WPBakery.com
  * Author URI: https://wpbakery.com
  * Text Domain: js_composer
@@ -24,7 +24,7 @@ if ( ! defined( 'WPB_VC_VERSION' ) ) {
 	/**
 	 *
 	 */
-	define( 'WPB_VC_VERSION', '7.1' );
+	define( 'WPB_VC_VERSION', '7.2' );
 }
 
 $dir = dirname( __FILE__ );

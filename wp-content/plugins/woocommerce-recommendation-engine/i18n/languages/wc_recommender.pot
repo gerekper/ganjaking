@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Recommendation Engine 3.3.0\n"
+"Project-Id-Version: WooCommerce Recommendation Engine 3.3.1\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-recommendation-engine\n"
-"POT-Creation-Date: 2023-05-13 10:23:05+00:00\n"
+"POT-Creation-Date: 2023-10-30 12:28:13+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -190,19 +190,19 @@ msgstr ""
 msgid "A list of all recorded session history"
 msgstr ""
 
-#: admin/class-wc-recommender-admin.php:454
+#: admin/class-wc-recommender-admin.php:446
 #: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:454
 msgid "Recommendations rebuilt for %d products"
 msgstr ""
 
-#: admin/class-wc-recommender-admin.php:458
+#: admin/class-wc-recommender-admin.php:450
 #: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:458
 msgid "Please choose at least one product"
 msgstr ""
 
-#: admin/class-wc-recommender-admin.php:466
+#: admin/class-wc-recommender-admin.php:458
+#: admin/class-wc-recommender-admin.php:467
 #: admin/class-wc-recommender-admin.php:475
-#: admin/class-wc-recommender-admin.php:483
 #: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:466
 #: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:475
 #: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:483
@@ -232,7 +232,7 @@ msgid "Orders"
 msgstr ""
 
 #: admin/class-wc-recommender-table-recommendations.php:48
-#: admin/class-wc-recommender-table-recommendations.php:139
+#: admin/class-wc-recommender-table-recommendations.php:142
 #: admin/views/admin/maintenance-rebuild-tab.php:17
 #: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-recommendations.php:48
 #: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-recommendations.php:139
@@ -240,22 +240,22 @@ msgstr ""
 msgid "Rebuild"
 msgstr ""
 
-#: admin/class-wc-recommender-table-recommendations.php:130
+#: admin/class-wc-recommender-table-recommendations.php:133
 #: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-recommendations.php:130
 msgid "Viewed:"
 msgstr ""
 
-#: admin/class-wc-recommender-table-recommendations.php:131
+#: admin/class-wc-recommender-table-recommendations.php:134
 #: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-recommendations.php:131
 msgid "Also Purchased:"
 msgstr ""
 
-#: admin/class-wc-recommender-table-recommendations.php:132
+#: admin/class-wc-recommender-table-recommendations.php:135
 #: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-recommendations.php:132
 msgid "Purchased Together:"
 msgstr ""
 
-#: admin/class-wc-recommender-table-recommendations.php:244
+#: admin/class-wc-recommender-table-recommendations.php:243
 #: admin/class-wc-recommender-table-session-history.php:217
 #: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-recommendations.php:244
 #: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-session-history.php:217
@@ -452,67 +452,67 @@ msgstr ""
 msgid "Recommendations Rebuilding"
 msgstr ""
 
-#: classes/class-wc-recommender-cli-rebuild.php:47
+#: classes/class-wc-recommender-cli-rebuild.php:46
 #: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:47
 msgid "Removing previous recommendations."
 msgstr ""
 
-#: classes/class-wc-recommender-cli-rebuild.php:49
+#: classes/class-wc-recommender-cli-rebuild.php:48
 #: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:49
 msgid "Processing %d products."
 msgstr ""
 
-#: classes/class-wc-recommender-cli-rebuild.php:51
+#: classes/class-wc-recommender-cli-rebuild.php:50
 #: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:51
 msgid "Adding Also Viewed for ProductID: %d"
 msgstr ""
 
-#: classes/class-wc-recommender-cli-rebuild.php:53
+#: classes/class-wc-recommender-cli-rebuild.php:52
 #: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:53
 msgid "Adding Also Purchased for ProductID: %d"
 msgstr ""
 
-#: classes/class-wc-recommender-cli-rebuild.php:56
+#: classes/class-wc-recommender-cli-rebuild.php:55
 #: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:56
 msgid "Adding Purchased Together for ProductID: %d"
 msgstr ""
 
-#: classes/class-wc-recommender-cli-rebuild.php:71
+#: classes/class-wc-recommender-cli-rebuild.php:70
 #: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:71
 msgid "Recommendations Rebuilt."
 msgstr ""
 
-#: classes/class-wc-recommender-cli-rebuild.php:78
+#: classes/class-wc-recommender-cli-rebuild.php:76
 #: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:78
 msgid "Recommendations Engine Is Installing Stats"
 msgstr ""
 
-#: classes/class-wc-recommender-cli-rebuild.php:90
+#: classes/class-wc-recommender-cli-rebuild.php:83
 #: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:90
 msgid "Processing %d orders"
 msgstr ""
 
-#: classes/class-wc-recommender-cli-rebuild.php:94
+#: classes/class-wc-recommender-cli-rebuild.php:87
 #: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:94
 msgid "Installing Stats for OrderID: %s"
 msgstr ""
 
-#: classes/class-wc-recommender-cli-rebuild.php:123
+#: classes/class-wc-recommender-cli-rebuild.php:114
 #: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:123
 msgid "Recording Activity for ProductID: %s"
 msgstr ""
 
-#: classes/class-wc-recommender-cli-rebuild.php:141
+#: classes/class-wc-recommender-cli-rebuild.php:132
 #: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:141
 msgid "Updating Activity for ProductID: %s"
 msgstr ""
 
-#: classes/class-wc-recommender-cli-rebuild.php:165
+#: classes/class-wc-recommender-cli-rebuild.php:156
 #: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:165
 msgid "Recording View for ProductID: %s"
 msgstr ""
 
-#: classes/class-wc-recommender-cli-rebuild.php:180
+#: classes/class-wc-recommender-cli-rebuild.php:171
 #: dist/woocommerce-recommendation-engine/classes/class-wc-recommender-cli-rebuild.php:180
 msgid "No orders found to process"
 msgstr ""
@@ -535,16 +535,16 @@ msgid "WooCommerce Purchased Products"
 msgstr ""
 
 #: dist/woocommerce-recommendation-engine/widgets/widget-purchased_products.php:188
-#: dist/woocommerce-recommendation-engine/widgets/widget-recommended_products.php:211
+#: dist/woocommerce-recommendation-engine/widgets/widget-recommended_products.php:215
 #: widgets/widget-purchased_products.php:188
-#: widgets/widget-recommended_products.php:211
+#: widgets/widget-recommended_products.php:215
 msgid "Title:"
 msgstr ""
 
 #: dist/woocommerce-recommendation-engine/widgets/widget-purchased_products.php:191
-#: dist/woocommerce-recommendation-engine/widgets/widget-recommended_products.php:217
+#: dist/woocommerce-recommendation-engine/widgets/widget-recommended_products.php:221
 #: widgets/widget-purchased_products.php:191
-#: widgets/widget-recommended_products.php:217
+#: widgets/widget-recommended_products.php:221
 msgid "Number of products to show:"
 msgstr ""
 
@@ -563,8 +563,8 @@ msgstr ""
 msgid "Recommended Products"
 msgstr ""
 
-#: dist/woocommerce-recommendation-engine/widgets/widget-recommended_products.php:224
-#: widgets/widget-recommended_products.php:224
+#: dist/woocommerce-recommendation-engine/widgets/widget-recommended_products.php:228
+#: widgets/widget-recommended_products.php:228
 msgid "Show recommendations based on:"
 msgstr ""
 
@@ -579,8 +579,8 @@ msgstr ""
 #. Description of the plugin/theme
 msgid ""
 "WooCommerce Recommendation Engine is a smart recommendation engine for your "
-"store, providing automatic cross sells based on users viewing and "
-"purcahsing history."
+"store, providing automatic cross-sells based on users viewing and "
+"purchasing history."
 msgstr ""
 
 #. Author of the plugin/theme

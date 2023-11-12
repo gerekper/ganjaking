@@ -1,0 +1,629 @@
+.notice:not(.uael-notice) {
+	display: none;
+}
+.uael-flex {
+	-js-display: flex;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-webkit-align-content: center;
+	-ms-flex-line-pack: center;
+	align-content: center;
+}
+
+.form-field p.uael-p {
+	margin: 1em 0;
+}
+
+.uael-container {
+	max-width: 1400px;
+	margin: 0 auto;
+	padding: 0 20px;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.form-wrap .uael-response-warning {
+	display: block;
+	color: #d02222;
+}
+.form-wrap .uael-google-error-response {
+	margin-top: 5px;
+	display: block;
+}
+.form-wrap .uael-google-error-response .uael-response-warning {
+	display: inline-block;
+}
+.form-wrap .uael-response-success {
+	display: block;
+	color: #2dbe15;
+}
+.postbox .inside .form-wrap .uael-integration-heading {
+	font-size: 15px;
+	font-weight: 600;
+}
+#uael-menu-page .uael-integration-wrapper .uael-notice {
+	max-width: 860px;
+	margin: 0 auto;
+}
+.uael-menu-page-wrapper a {
+	text-decoration: none;
+}
+
+.uael-general-form-wrap {
+	width: 680px;
+}
+
+.uael-bulk-actions-wrap {
+	-webkit-box-flex: 1;
+	-ms-flex: auto;
+	flex: auto;
+	text-align: right;
+}
+
+.uael-general-list .inside {
+	padding: 0;
+	margin: 0;
+}
+
+.uael-list-section .uael-widget-list li {
+	-js-display: flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-box;
+	display: flex;
+	-moz-box-align: center;
+	-ms-flex-align: center;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-ms-flex-line-pack: center;
+	padding: 20px;
+	-webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1) inset;
+	box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1) inset;
+	margin-bottom: 0;
+	min-height: 50px;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	-webkit-box-align: start;
+	-ms-flex-align: start;
+	align-items: flex-start;
+	position: relative;
+}
+
+.uael-list-section .uael-widget-list li {
+	background-color: #ffffff;
+}
+
+.uael-widget-list a {
+	text-decoration: none;
+}
+
+.uael-widget-list li a:before {
+	display: inline-block;
+	margin-right: 2px;
+	font: normal 20px/1 "dashicons";
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	vertical-align: top;
+}
+
+.uael-container .postbox .hndle {
+	background: #f7f7f7;
+}
+.uael-container .postbox ul.uael-widget-list {
+	margin: 0;
+	display: -ms-grid;
+	display: grid;
+	-ms-grid-columns: 1fr 10px 1fr 10px 1fr;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 20px;
+}
+@media screen and (max-width: 1025px){
+	.uael-container .postbox ul {
+		-ms-grid-columns: 1fr 1fr;
+		grid-template-columns: 1fr 1fr;
+	}
+}
+@media screen and (max-width: 481px){
+	.uael-container .postbox ul {
+		-ms-grid-columns: 1fr;
+		grid-template-columns: 1fr;
+	}
+}
+
+.uael-widget-list a:focus {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.uael-branding-list {
+	margin: 0;
+}
+.uael-menu-page-wrapper .uael-container .clear {
+	overflow: auto;
+	visibility: visible;
+	width: auto;
+	height: auto;
+}
+
+.settings_page_uael #wpcontent {
+	padding: 0;
+}
+
+/* Header */
+.uael-menu-page-header.integration .uael-container {
+	max-width: 930px;
+}
+.uael-title {
+	-webkit-box-flex: 1;
+	-ms-flex: auto;
+	flex: auto;
+	-ms-flex-line-pack: start;
+	align-content: flex-start;
+	text-align: left;
+	margin: 15px 0;
+}
+.uael-title a,
+.uael-title span {
+	display: block;
+	outline: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	font-size: 1.5rem;
+	color: #333333;
+	font-weight: 500;
+}
+
+.uael-header-icon {
+	width: 200px;
+	vertical-align: bottom;
+}
+.uael-top-links {
+	-webkit-box-flex: 1;
+	-ms-flex: auto;
+	flex: auto;
+	text-align: right;
+	font-weight: bold;
+}
+.uael-menu-page-header {
+	background-color: #fff;
+	text-align: center;
+	padding: 10px 0;
+	margin-bottom: 20px;
+	-webkit-box-shadow: 0 2px 0 #efefef, 0 2px 2px #ececec;
+	box-shadow: 0 2px 0 #efefef, 0 2px 2px #ececec;
+}
+
+/* White Label link*/
+.uael-widget-list .uael-white-label {
+	padding-left: 12px;
+}
+
+.uael-hide-branding #poststuff #post-body.columns-2 {
+	margin: 0 auto;
+	max-width: 590px;
+}
+
+/* Integration */
+.uael-integration-wrapper #poststuff {
+	width: 640px;
+	margin: 0 auto;
+	min-width: 640px;
+}
+
+.uael-integration-form-wrap .form-field select {
+	border-style: solid;
+	border-width: 1px;
+	width: 95%;
+}
+
+/* Spinner */
+.uael-button-spinner:before {
+	font: normal 20px/0.5 dashicons;
+	speak: none;
+	display: inline-block;
+	padding: 0;
+	top: 8px;
+	left: -4px;
+	position: relative;
+	vertical-align: top;
+	content: "\f463";
+}
+
+.uael-button-spinner.loading:before {
+	-webkit-animation: rotation 1s infinite linear;
+	animation: rotation 1s infinite linear;
+}
+
+.uael-title > a {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+.uael-title .uael-plugin-version {
+	background-color: #e5e5e5;
+	border-radius: 3px;
+	font-size: 0.5em;
+	font-weight: 400;
+	margin-left: 10px;
+	padding: 2px 7px;
+	color: #333;
+}
+
+/* New extensions badge */
+#Particles .uael-widget-title:after,
+#Cross_Domain .uael-widget-title:after,
+#DisplayConditions .uael-widget-title:after,
+#Presets .uael-widget-title:after,
+#SectionDivider .uael-widget-title:after,
+#PartyPropzExtension .uael-widget-title:after,
+#White_Label .uael-widget-title:after {
+	color: #fff;
+	background: #2ecc71;
+	font-size: 0.7em;
+	font-weight: 600;
+	position: absolute;
+	padding: 0.2em 0.2em 0.1em 0.2em;
+	top: 5px;
+	right: 5px;
+	letter-spacing: 0.5px;
+	line-height: 1em;
+	text-transform: uppercase;
+	border-radius: 2px;
+}
+
+#Particles .uael-widget-title:after,
+#DisplayConditions .uael-widget-title:after,
+#SectionDivider .uael-widget-title:after,
+#PartyPropzExtension .uael-widget-title:after {
+	content: "extension";
+}
+
+/* New extensions badge */
+#Cross_Domain .uael-widget-title:after,
+#White_Label .uael-widget-title:after,
+#Presets .uael-widget-title:after {
+	content: "feature";
+}
+
+ul.uael-widget-list.uael-option-type-skin {
+	font-size: 15px;
+	font-weight: 500;
+}
+.uael-post-skin-image img {
+	width: 100%;
+}
+.uael-list-section .uael-option-type-skin li {
+	padding: 20px;
+	-webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25) inset;
+	box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25) inset;
+}
+
+.uael-option-type-skin a.uael-widget-title {
+	padding-left: 6px;
+}
+.uael-option-type-skin .uael-widget-link-wrapper a {
+	padding-right: 6px;
+}
+
+.uael-post #poststuff h2 {
+	font-size: 17px;
+	font-weight: 500;
+	padding: 14px 20px;
+}
+.settings_page_uae #wpcontent {
+	padding: 0;
+}
+
+/* Google API Billing Notice */
+p.uael-billing-acc-warning {
+	background-color: #d9edf7;
+	color: #31708f;
+	width: auto;
+	margin: 10px 0;
+	padding: 10px;
+	border-radius: 3px 3px 3px 3px;
+	vertical-align: middle;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+p.uael-billing-acc-warning a {
+	font-weight: 500;
+}
+
+.uael-billing-acc-warning span.dashicons-warning {
+	font-size: 18px;
+	vertical-align: middle;
+}
+
+/* Start - CSS for widgets grid */
+
+.uael-container.uael-general .uael-widget-filters {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	font-weight: normal;
+}
+
+.uael-widget-filters [type="radio"],
+.uael-container.uael-general .uael-list-section .uael-widget-list li.filter-item-disable,
+.uael-container.uael-general .uael-list-section .uael-widget-list li#White_Label .uael-widget-doc-link {
+	display: none;
+}
+
+.uael-widget-filters li {
+	padding-left: 10px;
+	margin: 0;
+}
+
+.uael-widget-filters li:nth-last-child(n+2):after {
+	content: "|";
+}
+
+.uael-widget-filters li label {
+	padding-right: 10px;
+}
+
+.uael-widget-filters li label:hover {
+	color: #2271b1;
+}
+.uael-widget-filters li.filter-active label {
+	color: #2271b1;
+}
+
+.uael-container.uael-general .uael-list-section .uael-widget-list li {
+	display: -ms-grid;
+	display: grid;
+	-ms-grid-columns: 3fr 1fr;
+	grid-template-columns: 3fr 1fr;
+	-ms-grid-rows: 1fr 0.5fr;
+	grid-template-rows: 1fr 0.5fr;
+}
+
+.uael-container.uael-general .uael-list-section .uael-widget-list li > *:nth-child(1) {
+	-ms-grid-row: 1;
+	-ms-grid-column: 1;
+}
+
+.uael-container.uael-general .uael-list-section .uael-widget-list li > *:nth-child(2) {
+	-ms-grid-row: 1;
+	-ms-grid-column: 2;
+}
+
+.uael-container.uael-general .uael-list-section .uael-widget-list li > *:nth-child(3) {
+	-ms-grid-row: 2;
+	-ms-grid-column: 1;
+}
+
+.uael-container.uael-general .uael-list-section .uael-widget-list li > *:nth-child(4) {
+	-ms-grid-row: 2;
+	-ms-grid-column: 2;
+}
+
+.uael-container.uael-general .uael-list-section .uael-widget-list li .uael-widget-title {
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 1.2;
+}
+
+.uael-container.uael-general .uael-widget-list li .uael-widget-doc-link {
+	padding-right: 10px;
+}
+.uael-container.uael-general .uael-widget-list li .uael-advanced-settings {
+	padding-left: 10px;
+}
+
+.uael-container.uael-general .uael-list-section .uael-widget-list li#White_Label .uael-advanced-settings {
+	padding-left: unset;
+}
+
+.uael-container .postbox,
+.uael-container .bulk-action.button,
+.uael-container #poststuff .postbox-container.uael-sidebar #uael-gen-enable-beta-update {
+	border: none;
+	background-color: unset;
+}
+
+.uael-container .postbox {
+	box-shadow: unset;
+}
+
+.uael-container .post-body-content .postbox h2.hndle,
+.uael-container #poststuff .widgets.postbox h2.hndle {
+	background-color: #ffffff;
+	margin-bottom: 20px;
+	-webkit-box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+	box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.uael-container .bulk-action.button {
+	font-size: 14px;
+}
+
+.uael-container.uael-general .uael-list-section .uael-widget-list li#White_Label .uael-widget-link-wrapper {
+	grid-area: 2 / col1-start / last-line / 1;
+}
+
+.uael-container #poststuff .postbox-container.uael-sidebar .postbox,
+.uael-container.uael-integration-wrapper #poststuff .postbox,
+.uael-container #poststuff .postbox-container.uael-sidebar  h2.hndle,
+.uael-container.uael-branding-wrapper #poststuff li,
+.uael-container.uael-branding-wrapper #poststuff .postbox,
+.uael-container.uael-branding-wrapper #poststuff .postbox .hndle {
+	background-color: #ffffff;
+}
+#poststuff h2.hndle.uael-flex.uael-settings-widgets-heading {
+    padding-left: 20px;
+}
+.uael-container #poststuff .postbox-container.uael-sidebar .postbox,
+.uael-container.uael-branding-wrapper #poststuff .postbox {
+	padding: 10px;
+}
+.uael-hide-activation-options .uael-bulk-actions-wrap {
+	display: none;
+}
+.uael-container.uael-integration-wrapper #poststuff .postbox {
+	padding: 20px
+}
+
+.uael-container.uael-integration-wrapper #poststuff .postbox .inside {
+	padding: unset;
+}
+
+.uael-container.uael-integration-wrapper #poststuff .postbox .form-field input[type="text"],
+.uael-container.uael-integration-wrapper #poststuff .postbox .form-field select,
+.uael-container.uael-integration-wrapper #poststuff .postbox .form-field p {
+	max-width: unset;
+	width: 100%;
+}
+
+.uael-container.uael-branding-wrapper,
+.uael-menu-page-header.branding .uael-container {
+	max-width: 1200px;
+}
+
+.uael-container.uael-branding-wrapper #poststuff .form-field input[type="text"],
+.uael-container.uael-branding-wrapper #poststuff .form-field input[type="url"],
+.uael-container.uael-branding-wrapper #poststuff .form-field textarea,
+.uael-container.uael-branding-wrapper #poststuff .form-field select,
+.uael-container.uael-integration-wrapper #poststuff .postbox .form-field input[type="text"],
+.uael-container.uael-integration-wrapper #poststuff .postbox .form-field select{
+	border: 1px solid #dddddd;
+}
+
+.uael-container.uael-branding-wrapper .form-wrap label {
+	font-weight: 500;
+}
+
+.uael-container.uael-general.uael-post .uael-list-section .uael-widget-list li {
+	display: -ms-grid;
+	display: grid;
+	-ms-grid-columns: 3fr 1fr;
+	grid-template-columns: 3fr 1fr;
+	-ms-grid-rows: 1fr 3fr;
+	grid-template-rows: 1fr 3fr;
+}
+
+.uael-container.uael-post .uael-option-type-skin .uael-post-skin-image {
+	grid-area: 2 / col1-start / last-line / 1;
+}
+
+.uael-container.uael-post .uael-widget-link-wrapper {
+	text-align: end;
+}
+
+/* Start - switcher css */
+
+.uael-container.uael-general .uael-switch {
+	position: relative;
+	display: inline-block;
+	width: 36px;
+	height: 18px;
+	grid-area: 1 / col2-start / last-line / 2;
+	-ms-grid-row-align: flex-end;
+	-ms-grid-column-align: flex-end;
+	place-self: flex-end;
+}
+
+.uael-switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.uael-slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: .4s;
+	-o-transition: .4s;
+	transition: .4s;
+}
+
+.uael-slider:before {
+	position: absolute;
+	content: "";
+	height: 10px;
+	width: 10px;
+	left: 4px;
+	bottom: 4px;
+	background-color: white;
+	-webkit-transition: .4s;
+	-o-transition: .4s;
+	transition: .4s;
+}
+
+input:checked + .uael-slider {
+	background-color: #2271b1;
+}
+
+input:focus + .uael-slider {
+	-webkit-box-shadow: 0 0 1px #2196F3;
+	box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .uael-slider:before {
+	-webkit-transform: translateX(18px);
+	-ms-transform: translateX(18px);
+	transform: translateX(18px);
+}
+
+/* Rounded uael-sliders */
+.uael-slider.uael-round {
+	border-radius: 34px;
+}
+
+.uael-slider.uael-round:before {
+	border-radius: 50%;
+}
+
+/* End - switcher css */
+
+.uael-container.uael-general .uael-widget-filter-list-hide,
+.uael-container.uael-general .uael-widget-filters-dropdown-hide {
+	display: none;
+}
+
+.uael-container.uael-general select.uael-widget-filters-dropdown {
+	font-size: 14px;
+	margin-left: 10px;
+}
+
+@media only screen and (max-width: 1025px) {
+	.uael-container .postbox ul.uael-widget-list {
+		-ms-grid-columns: 1fr 1fr;
+		grid-template-columns: 1fr 1fr;
+	}
+}
+@media only screen and (max-width: 480px) {
+	.uael-container .postbox ul.uael-widget-list {
+		-ms-grid-columns: 1fr;
+		grid-template-columns: 1fr;
+	}
+}
+
+/* End - CSS for widgets grid */
+
+/* Instagram feed css */
+
+.uael-response-success.uael-insta-hide-response-msg,
+.uael-response-warning.uael-insta-hide-response-msg {
+	display: none;
+}

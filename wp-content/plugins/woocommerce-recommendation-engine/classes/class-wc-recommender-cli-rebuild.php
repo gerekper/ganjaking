@@ -16,8 +16,8 @@ class WC_Recommender_CLI_Rebuild {
 	 * Registers the update command.
 	 */
 	public static function register_command() {
-		WP_CLI::add_command( 'wc_recommender_rebuild', array( 'WC_Recommender_CLI_Rebuild', 'rebuild' ) );
-		WP_CLI::add_command( 'wc_recommender_install', array( 'WC_Recommender_CLI_Rebuild', 'install_stats' ) );
+		\WP_CLI::add_command( 'wc_recommender_rebuild', [ 'WC_Recommender_CLI_Rebuild', 'rebuild' ] );
+		\WP_CLI::add_command( 'wc_recommender_install', [ 'WC_Recommender_CLI_Rebuild', 'install_stats' ] );
 
 	}
 
@@ -34,14 +34,13 @@ class WC_Recommender_CLI_Rebuild {
 		try {
 			$builder = new WC_Recommender_Recorder();
 
-
-			$products_to_process = array();
-			$sql                 = '';
-			$sql                 = "SELECT ID FROM $wpdb->posts WHERE post_type = 'product' and post_status='publish'";
-
-			$products_to_process = $wpdb->get_col( $sql );
-
-
+			$products_to_process = wc_get_products( [
+				'limit'   => - 1,
+				'status'  => 'publish',
+				'orderby' => 'ID',
+				'order'   => 'ASC',
+				'return'  => 'ids',
+			] );
 
 			if ( $products_to_process ) {
 				WP_CLI::success( __( 'Removing previous recommendations.', 'wc_recommender' ) );
@@ -49,13 +48,13 @@ class WC_Recommender_CLI_Rebuild {
 				WP_CLI::success( sprintf( __( 'Processing %d products.', 'wc_recommender' ), count( $products_to_process ) ) );
 				foreach ( $products_to_process as $product_id ) {
 					WP_CLI::success( sprintf( __( 'Adding Also Viewed for ProductID: %d', 'wc_recommender' ), $product_id ) );
-					$builder->woocommerce_recommender_build_simularity( $product_id, array( 'viewed' ) );
+					$builder->woocommerce_recommender_build_similarity( $product_id, [ 'viewed' ] );
 					WP_CLI::success( sprintf( __( 'Adding Also Purchased for ProductID: %d', 'wc_recommender' ), $product_id ) );
-					$status = apply_filters('woocommerce_recommender_also_purchased_status', 'completed');
-					$builder->woocommerce_recommender_build_simularity( $product_id, array( $status ) );
+					$status = apply_filters( 'woocommerce_recommender_also_purchased_status', 'completed' );
+					$builder->woocommerce_recommender_build_similarity( $product_id, [ $status ] );
 					WP_CLI::success( sprintf( __( 'Adding Purchased Together for ProductID: %d', 'wc_recommender' ), $product_id ) );
-					$status = apply_filters('woocommerce_recommender_purchased_together_status', 'completed');
-					$builder->woocommerce_build_purchased_together( $product_id, array( $status ) );
+					$status = apply_filters( 'woocommerce_recommender_purchased_together_status', 'completed' );
+					$builder->woocommerce_build_purchased_together( $product_id, [ $status ] );
 				}
 			}
 
@@ -71,40 +70,32 @@ class WC_Recommender_CLI_Rebuild {
 		WP_CLI::success( __( 'Recommendations Rebuilt.', 'wc_recommender' ) );
 	}
 
-
 	public static function install_stats() {
 		global $wpdb, $woocommerce_recommender;
 
-		WP_CLI::success( __( 'Recommendations Engine Is Installing Stats', 'wc_recommender' ) );
+		\WP_CLI::success( __( 'Recommendations Engine Is Installing Stats', 'wc_recommender' ) );
 
+		$orders = wc_get_orders( [
+			'limit' => - 1,
+		] );
 
-		$post_status = wc_get_order_statuses();
-		$posts       = get_posts( array(
-			'post_status' => array_keys( $post_status ),
-			'post_type'   => 'shop_order',
-			'nopaging'    => true
-		) );
+		if ( $orders && count( $orders ) ) {
+			\WP_CLI::success( sprintf( __( 'Processing %d orders', 'wc_recommender' ), count( $orders ) ) );
 
-
-		if ( $posts && count( $posts ) ) {
-			WP_CLI::success( sprintf( __( 'Processing %d orders', 'wc_recommender' ), count( $posts ) ) );
-
-			foreach ( $posts as $post ) {
+			foreach ( $orders as $post ) {
 				$order_id = $post->ID;
-				WP_CLI::success( sprintf( __( 'Installing Stats for OrderID: %s', 'wc_recommender' ), $order_id ) );
+				\WP_CLI::success( sprintf( __( 'Installing Stats for OrderID: %s', 'wc_recommender' ), $order_id ) );
 
 				$wc_order       = new WC_Order( $order_id );
 				$wc_order_items = $wc_order->get_items();
 				if ( $wc_order_items && count( $wc_order_items ) ) {
 					foreach ( $wc_order_items as $wc_order_item ) {
-
-						if ( WC_Recommender_Compatibility::is_wc_version_gte_2_7() ) {
-							$wc_ordered_product = $wc_order_item->get_product();
-						} else {
-							$wc_ordered_product = @$wc_order->get_product_from_item( $wc_order_item );
+						// Skip if not a WC_Order_Item_Product or not a line item.
+						if ( ! is_a( $wc_order_item, 'WC_Order_Item_Product' ) || ! $wc_order_item->is_type( 'line_item' ) ) {
+							continue;
 						}
 
-
+						$wc_ordered_product = $wc_order_item->get_product();
 						if ( $wc_ordered_product && is_object( $wc_ordered_product ) && $wc_ordered_product->exists() ) {
 							$sql                   = $wpdb->prepare( "SELECT COUNT(*) FROM $woocommerce_recommender->db_tbl_session_activity WHERE order_id = %d AND product_id = %d", $order_id, $wc_ordered_product->get_id() );
 							$order_tracking_exists = $wpdb->get_var( $sql );
@@ -120,7 +111,7 @@ class WC_Recommender_CLI_Rebuild {
 									$user_id = empty( $wc_order->get_customer_id() ) ? 0 : $wc_order->get_customer_id();
 
 									woocommerce_recommender_record_product( $wc_ordered_product->get_id(), $session_id, $user_id, $wc_order->get_id(), $wc_order->get_status(), $activity_date );
-									WP_CLI::success( sprintf( __( 'Recording Activity for ProductID: %s', 'wc_recommender' ), $wc_ordered_product->get_id() ) );
+									\WP_CLI::success( sprintf( __( 'Recording Activity for ProductID: %s', 'wc_recommender' ), $wc_ordered_product->get_id() ) );
 
 									if ( $wc_ordered_product->is_type( 'variable' ) ) {
 										woocommerce_recommender_record_product( $wc_ordered_product->get_parent_id(), $session_id, $user_id, $order_id, $wc_order->get_status(), $activity_date );
@@ -138,7 +129,7 @@ class WC_Recommender_CLI_Rebuild {
 							} else {
 
 								if ( WC_Recommender_Compatibility::is_wc_version_gte_2_7() ) {
-									WP_CLI::success( sprintf( __( 'Updating Activity for ProductID: %s', 'wc_recommender' ), $wc_ordered_product->get_id() ) );
+									\WP_CLI::success( sprintf( __( 'Updating Activity for ProductID: %s', 'wc_recommender' ), $wc_ordered_product->get_id() ) );
 									woocommerce_recommender_update_recorded_product( $wc_order->get_id(), $wc_ordered_product->get_id(), $wc_order->get_status() );
 									if ( $wc_ordered_product->is_type( 'variable' ) ) {
 										woocommerce_recommender_update_recorded_product( $wc_order->get_id(), $wc_ordered_product->get_parent_id(), $wc_order->get_status() );
@@ -162,7 +153,7 @@ class WC_Recommender_CLI_Rebuild {
 									$session_id    = md5( $session_id );
 									$activity_date = date( 'Y-m-d H:i:s', strtotime( $wc_order->get_date_created() ) );
 									$user_id       = empty( $wc_order->get_customer_id() ) ? 0 : $wc_order->get_customer_id();
-									WP_CLI::success( sprintf( __( 'Recording View for ProductID: %s', 'wc_recommender' ), $product_id ) );
+									\WP_CLI::success( sprintf( __( 'Recording View for ProductID: %s', 'wc_recommender' ), $product_id ) );
 									woocommerce_recommender_record_product( $product_id, $session_id, $user_id, 0, $activity_type, $activity_date );
 								} else {
 									$session_id    = isset( $wc_order->customer_user ) ? $wc_order->customer_user : ( isset( $wc_order->user_id ) ? $wc_order->user_id : $wc_order->billing_email );

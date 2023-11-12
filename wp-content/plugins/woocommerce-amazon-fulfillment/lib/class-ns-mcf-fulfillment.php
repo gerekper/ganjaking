@@ -130,7 +130,7 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 
 			foreach ( $package['contents'] as $item ) {
 
-				if ( isset( $item['variation_id'] ) ) {
+				if ( isset( $item['variation_id'] ) && $item['variation_id'] > 0 ) {
 					$product_id = $item['variation_id'];
 				} else {
 					$product_id = $item['product_id'];
@@ -149,6 +149,11 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 					'sellerSku'                    => $current_sku,
 					'sellerFulfillmentOrderItemId' => uniqid( 'id_' . $product_id . '_' ),
 				);
+			}
+
+			if ( empty( $body['items'] ) ) {
+				// Dont send for shipping calculations if no items.
+				return new WP_Error( 'failed', __( 'No items found to send to calculate shipping.', $this->ns_fba->text_domain ) );
 			}
 
 			$body['marketplaceId'] = $this->ns_fba->wc_integration->get_option( 'ns_fba_marketplace_id' );

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.7.0
+ * @version     2.8.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -311,7 +311,7 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 									$new_generated_coupon_code = $coupon_code;
 								}
 							} elseif ( true === $is_generate && 'yes' === $is_email ) {
-								$generated_coupon_details  = apply_filters( 'generate_smart_coupon_action', $customer_email, $coupon_amount, '', $coupon );
+								$generated_coupon_details  = $this->generate_smart_coupon_action( $customer_email, $coupon_amount, '', $coupon );
 								$last_element              = end( $generated_coupon_details[ $customer_email ] );
 								$new_generated_coupon_code = $last_element['code'];
 							} else {
@@ -319,7 +319,7 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 								$shortcode_generated_coupon = $this->get_shortcode_generated_coupon( $current_user, $coupon );
 
 								if ( empty( $shortcode_generated_coupon ) || ( true === $is_generate && 'yes' === $is_email ) ) {
-									$generated_coupon_details  = apply_filters( 'generate_smart_coupon_action', $customer_email, $coupon_amount, '', $coupon );
+									$generated_coupon_details  = $this->generate_smart_coupon_action( $customer_email, $coupon_amount, '', $coupon );
 									$last_element              = end( $generated_coupon_details[ $customer_email ] );
 									$new_generated_coupon_code = $last_element['code'];
 									$this->save_shortcode_generated_coupon( $new_generated_coupon_code, $current_user, $coupon );

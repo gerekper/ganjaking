@@ -51,9 +51,20 @@ if ( ! class_exists( 'Redsys_Advanced_Settings' ) ) :
 			if ( $current_section == '' ) {
 				$current_section = $first_section;
 			}
+			if ( isset ( $_POST['redsys_cached'] ) ) {
+				if ( '1' === (string) $_POST['redsys_cached'] ) {
+					update_site_option( 'redsys_cached', 'yes' );
+				} else {
+					update_site_option( 'redsys_cached', 'no' );
+				}
+			} else {
+				update_site_option( 'redsys_cached', 'no' );
+			}
 			woocommerce_update_options( self::get_settings( $current_section ) );
 		}
-
+		/**
+		 * Output the sections
+		 */
 		public static function output_sections() {
 			global $current_section;
 			$sections = self::get_sections();
@@ -638,6 +649,14 @@ if ( ! class_exists( 'Redsys_Advanced_Settings' ) ) :
 							'default' => 'no',
 							'desc'    => esc_html__( 'Enable Pay with One Click from Product page adding a button. The one click payment must be active in the method (redirection or InSite).', 'woocommerce-redsys' ),
 							'id'      => 'redsys_enable_one_click_button',
+						),
+						array(
+							'title'   => esc_html__( 'Redsys Cache', 'woocommerce-redsys' ),
+							'type'    => 'checkbox',
+							'label'   => esc_html__( 'Enable Redsys Cache', 'woocommerce-redsys' ),
+							'default' => 'no',
+							'desc'    => esc_html__( 'Enable this option once you are sure that everything works correctly and everything is set up as you want. Never do it before.', 'woocommerce-redsys' ),
+							'id'      => 'redsys_cached',
 						),
 						array(
 							'type' => 'sectionend',

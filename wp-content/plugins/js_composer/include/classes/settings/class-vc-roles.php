@@ -24,6 +24,9 @@ class Vc_Roles {
 		'grid_builder',
 		'presets',
 		'dragndrop',
+		'dragndrop',
+		'code_ai',
+		'text_ai',
 	);
 
 	protected static $parts_cache = null;

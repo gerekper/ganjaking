@@ -117,7 +117,8 @@ class WC_Shipping_Amazon extends WC_Shipping_Method {
 	 * @param array $package The package.
 	 */
 	public function calculate_shipping( $package = array() ) {
-		$mcf_fulfillment = new NS_MCF_Fulfillment( NS_FBA::get_instance() );
+		$ns_fba          = NS_FBA::get_instance();
+		$mcf_fulfillment = new NS_MCF_Fulfillment( $ns_fba );
 
 		$shipping_speed_categories = array();
 
@@ -177,6 +178,8 @@ class WC_Shipping_Amazon extends WC_Shipping_Method {
 
 				}
 			}
+		} else {
+			$ns_fba->logger->add_entry( $response, 'wc', '_shipping_details' );
 		}
 	} // End function calculate_shipping.
 

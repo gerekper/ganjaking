@@ -1,5 +1,13 @@
 *** WPBakery Page Builder changelog ***
 
+2023-11-09 - version 7.2
+  - New: WPBakery AI assistant for text and code generation available in Beta
+  - New: WPBakery AI assistant support for 3rd party add-ons available in Beta
+  - Update: RTL controls added to Accordion elements
+  - Fix: "Load more" buttons work properly in the grid elements
+  - Fix: Initial tips and helpers are displayed properly
+  - Fix: Undo/Redot button states are displayed properly
+
 2023-09-26 - version 7.1
   - New: Copy/Paste functionality introduced for rows and elements to copy page-wide, site-wide, and between different websites
   - Update: Blank page selection updated for better user experience

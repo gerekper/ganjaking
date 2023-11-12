@@ -1346,10 +1346,10 @@ class Utils {
 	public static function get_db_details() {
 		global $wpdb;
 
-		if ( $wpdb->use_mysqli ) {
-			$mysql_server_type = mysqli_get_server_info( $wpdb->dbh );
-		} else {
+		if ( empty( $wpdb->use_mysqli ) && function_exists( 'mysql_get_server_info' ) ) {
 			$mysql_server_type = mysql_get_server_info( $wpdb->dbh );
+		} else {
+			$mysql_server_type = mysqli_get_server_info( $wpdb->dbh );
 		}
 
 		return [
@@ -1768,7 +1768,7 @@ class Utils {
 			$pattern = sprintf( self::$word_match_pattern, implode( '|', $needles ) );
 
 			if ( 1 === preg_match( $pattern, Str::lower( $string ), $matches ) ) {
-				$flag = self::clean_string( $matches[0] );
+				$flag = $matches[0];
 				break;
 			}
 		}
@@ -1800,7 +1800,7 @@ class Utils {
 
 		// There was a flag found, so we can work from that.
 		$flag_index = ! Settings::get( 'partial_matches' )
-			? array_search( self::clean_string( $flag ), $flags )
+			? array_search( $flag, $flags )
 			: array_filter( $flags, function( $word ) use( $flag ) {
 				return false !== mb_stripos( $word, $flag );
 			} );

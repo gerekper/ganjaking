@@ -1,0 +1,101 @@
+.uael-fpcp-wait {
+	position: relative;
+	opacity: .7;
+}
+
+.uael-fpcp-wait__icon:before{
+	position: fixed;
+	top: 40%;
+	left: 50%;
+	z-index: 1000000;
+	display: inline-block;
+	content: url("../fonts/uae-logo.svg");
+	height: 64px;
+	width: 64px;
+	-webkit-transform: translate(-50%, -45%);
+	-ms-transform: translate(-50%, -45%);
+	transform: translate(-50%, -45%);
+	-webkit-animation: uae-logo 0.8s linear infinite alternate both;
+	animation: uae-logo 0.8s linear infinite alternate both;
+}
+
+@-webkit-keyframes uae-logo {
+	0%{
+		opacity: 1;
+	}
+	50%{
+		opacity: 0.7;
+	}
+	100%{
+		opacity: 0.4;
+	}
+}
+
+@keyframes uae-logo {
+	0%{
+		opacity: 1;
+	}
+	50%{
+		opacity: 0.7;
+	}
+	100%{
+		opacity: 0.4;
+	}
+}
+
+.uael-fpcp-wait:before {
+	position: fixed;
+	font-family: Roboto, Arial, Helvetica, Verdana, sans-serif;
+	top: 50%;
+	left: 50%;
+	z-index: 1000000;
+	display: inline-block;
+	color: #000;
+	content: attr(data-uael-fpcp-text);
+	font-size: 1em;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+.uael-fpcp-wait:after {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 999999;
+	display: block;
+	background: #f6f7f8;
+	background-size: 1000px 640px;
+	content: "";
+	cursor: wait;
+	-webkit-animation-name: fpcpAnimation;
+	animation-name: fpcpAnimation;
+	-webkit-animation-duration: 1.8s;
+	animation-duration: 1.8s;
+	-webkit-animation-timing-function: linear;
+	animation-timing-function: linear;
+	-webkit-animation-iteration-count: infinite;
+	animation-iteration-count: infinite;
+
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes fpcpAnimation {
+	0% {
+		background-position: -468px 0;
+	}
+	100% {
+		background-position: 468px 0;
+	}
+}
+
+@keyframes fpcpAnimation {
+	0% {
+		background-position: -468px 0;
+	}
+	100% {
+		background-position: 468px 0;
+	}
+}
